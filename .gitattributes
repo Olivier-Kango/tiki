@@ -1998,6 +1998,7 @@ installer/schema/20180405_remove_unused_user_id_tiki.sql -text
 installer/schema/20180411_schedulers_change_column_to_text_tiki.sql -text
 installer/schema/20180419_scheduler_run_stalled_column_tiki.sql -text
 installer/schema/20180503_fix_throttled_newsletters_tiki.sql -text
+installer/schema/20180625_user_reports_null_last_reports_tiki.sql -text
 installer/schema/20180705_fix_calendaritem_tracker_attributes_tiki.sql -text
 installer/schema/20190121_h5p_add_new_library_fields_tiki.sql -text
 installer/schema/20190121_h5p_allow_null_in_filtered_tiki.sql -text
