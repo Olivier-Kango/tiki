@@ -1175,6 +1175,16 @@ function wikiplugin_tracker($data, $params)
 						$_REQUEST["$fields_prefix$f"] = str_replace($matches[0], $_SESSION[$transactionName][$traStep]['request'][$traStepInsField], $autosavevalues[$i]);
 					} elseif ($ff['type'] == 'e') {
 						$_REQUEST["$fields_prefix$f"][] = $autosavevalues[$i];
+					} elseif ($ff['type'] == 't' && substr($autosavevalues[$i],0,7) == 'GENPASS') {
+						$passlength = substr($autosavevalues[$i],7);
+						if (!empty($passlength)) {
+							$tmppref = $prefs['min_pass_length'];
+							$prefs['min_pass_length'] = (int)$passlength;
+							$_REQUEST["$fields_prefix$f"] = $userlib->genPass();
+							$prefs['min_pass_length'] = $tmppref;
+						} else { // use default length
+							$_REQUEST["$fields_prefix$f"] = $userlib->genPass();
+						}
 					} else {
 						if (isset($params['levelupfields']) && in_array($f, $params['levelupfields'])) {
 							$current_levelup_val = $trklib->get_item_value($trackerId, $itemId, $f);
