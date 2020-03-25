@@ -1,0 +1,25 @@
+.inline-cypht .folder_list {
+  margin-right: 0px;
+  border-right: solid 1px #efefef;
+}
+.inline-cypht .add_server, .inline-cypht html, .inline-cypht body, .inline-cypht main, .inline-cypht main div, .inline-cypht nav, .inline-cypht nav div, .inline-cypht span, .inline-cypht .list_meta {
+  border-color: #efefef !important;
+  border-radius: 0px 0px 0px 0px !important;
+  background-color: #d8e2f0 !important;
+  color: #555 !important;
+}
+.inline-cypht select, .inline-cypht option, .inline-cypht input, .inline-cypht textarea, .inline-cypht .ke-container * {
+  background-color: #e6ebf2 !important;
+}
+.inline-cypht .msg_controls, .inline-cypht .src_name, .inline-cypht .content_title {
+  background: linear-gradient(180deg, #dbe5f3, #dbe5f3, #dbe5f3, #dde9f3) !important;
+}
+.inline-cypht .message_table td {
+  border-bottom: none;
+}
+.inline-cypht .checkbox_cell input[type=checkbox]:checked + label {
+  background-color: #666 !important;
+}
+.inline-cypht .list_controls {
+  background: none !important;
+}

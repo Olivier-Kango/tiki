@@ -188,6 +188,9 @@ class Tiki_Hm_Site_Config_file extends Hm_Site_Config_File {
 				unset($output_modules[$page]['header_css']);
 				$headerlib->add_cssfile('lib/cypht/site.css');
 				$headerlib->add_cssfile('lib/cypht/modules/tiki/site.css');
+				if (!empty($_SESSION['cypht']['user_data']['theme_setting']) && $_SESSION['cypht']['user_data']['theme_setting'] != 'default') {
+					$headerlib->add_cssfile('lib/cypht/modules/tiki/themes/'.$_SESSION['cypht']['user_data']['theme_setting'].'.css');
+				}
 			}
 			if( isset($output_modules[$page]['page_js']) ) {
 				unset($output_modules[$page]['page_js']);

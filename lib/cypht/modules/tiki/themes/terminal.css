@@ -1,0 +1,129 @@
+.inline-cypht * {
+  font-family: Monospace;
+  font-variant: small-caps;
+  text-transform: uppercase;
+  letter-spacing: 0.2px;
+  font-size: 101%;
+  color: green !important;
+  border-color: #000 !important;
+  background-color: transparent !important;
+}
+.inline-cypht body, .inline-cypht .folder_cell {
+  background: none !important;
+  background-color: transparent !important;
+}
+.inline-cypht {
+  background: linear-gradient(0deg, #050505, #050505) !important;
+}
+.inline-cypht a {
+  color: green !important;
+}
+.inline-cypht .nlink:hover, .inline-cypht .plink:hover, .inline-cypht a:hover {
+  color: #82c885 !important;
+}
+.inline-cypht .confirm_logout, .inline-cypht textarea, .inline-cypht select, .inline-cypht input, .inline-cypht .toggle_link {
+  border-radius: 0px;
+  border-style: solid;
+  border-color: #222 !important;
+  color: green;
+  background-color: #000 !important;
+}
+.inline-cypht .toggle_link img {
+  display: inline-block;
+}
+.inline-cypht .msg_text_inner img, .inline-cypht .apod_image img {
+  opacity: 1 !important;
+}
+.inline-cypht .prevnext {
+  display: none;
+}
+.inline-cypht ::-webkit-input-placeholder {
+  color: #174214;
+}
+.inline-cypht .checkbox_cell label {
+  border: solid 1px green !important;
+}
+.inline-cypht .checkbox_cell input[type=checkbox]:checked + label {
+  background-color: green !important;
+}
+.inline-cypht .loading_icon, .inline-cypht .server_section {
+  border-radius: 0px 0px 0px 0px !important;
+}
+.inline-cypht .folder_list, .inline-cypht .content_cell, .inline-cypht .message_list, .inline-cypht .configured_server, .inline-cypht .add_server, .inline-cypht .server_content, .inline-cypht .server_section {
+  background-color: #050505 !important;
+}
+.inline-cypht .msg_controls, .inline-cypht .src_name, .inline-cypht .content_title {
+  color: green !important;
+  background: linear-gradient(0deg, #050505, #050505) !important;
+}
+.inline-cypht .debug, .inline-cypht .subtitle, .inline-cypht .settings_subtitle {
+  color: green !important;
+}
+.inline-cypht .settings_subtitle {
+  padding-left: 0px !important;
+}
+.inline-cypht .empty_list, .inline-cypht .subject a {
+  font-style: normal;
+  color: green !important;
+}
+.inline-cypht .unseen a {
+  font-weight: bold;
+  font-size: 102%;
+}
+.inline-cypht .selected_menu, .inline-cypht .selected_menu a {
+  color: #82c885 !important;
+}
+.inline-cypht .icon {
+  color: green !important;
+}
+.inline-cypht .online {
+  color: green !important;
+}
+.inline-cypht .down {
+  color: red !important;
+}
+.inline-cypht .list_meta b {
+  color: #ddd !important;
+}
+.inline-cypht .src_name, .inline-cypht .content_title, .inline-cypht .server_section, .inline-cypht .settings_subtitle, .inline-cypht .msg_parts {
+  border-bottom: solid 1px #000 !important;
+}
+.inline-cypht .message_list tr td {
+  border: none !important;
+}
+.inline-cypht .msg_parts {
+  border-top: solid 1px #000 !important;
+}
+.inline-cypht .msg_text_inner, .inline-cypht .msg_text_inner * {
+  text-transform: none !important;
+  font-variant: normal !important;
+}
+.inline-cypht .src_name {
+  padding-left: 15px;
+  padding-bottom: 0px;
+}
+.inline-cypht .sys_messages {
+  background-color: #006400 !important;
+  color: #000 !important;
+}
+.inline-cypht .sys_messages .err {
+  color: #530202 !important;
+}
+.inline-cypht .list_controls {
+  background: none !important;
+}
+.inline-cypht .subject div img {
+  display: none;
+}
+.inline-cypht .loading_icon {
+  background: transparent url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAHCAIAAABx4H/3AAAACXBIWXMAAA4mAAAN/wHwU+XzAAAAB3RJTUUH4AMPFRwFSaMT7QAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAEBSURBVEjHpVQxAoMwCDywX+jWuf//oFwHKlITI7FMJMAFDoi83k8RgUJckqKqAFwHoKpuhQiA5bFbVVVEAOxRgbPI120D33EAXQSb2EqSAGgwM5I0ADAzAFzpely6QtJ1uhg2kB9PN+ZXXCGJiE3hXdHQPPt8zGGtFQUJt9a/m9MYtg05Ley84G5gsRz9N63N2nWIy2wdQPGqyClyA9A349D+HF58V7vvOW42xUr6Ds52JjuICK3azCn6ipgt+PRktfX356ucfc7gCK7TQ/QPlfG7ndFanayBX/zZh9viAzfomB2NbkdvsFzcR52udvg31Vno8nLZucv5HSOcgRT38QP/MeNRBRCW8gAAAABJRU5ErkJggg==") repeat-x top left;
+  background-size: cover;
+  background-position: 0px, 0px;
+}
+.inline-cypht .editor-toolbar a {
+  color: green !important;
+}
+.inline-cypht .nofrom {
+  color: green !important;
+  opacity: 0.7;
+}

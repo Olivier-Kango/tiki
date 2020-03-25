@@ -1,74 +1,12 @@
-.tiki-webmail, .tiki-cypht, .mobile.tiki-cypht, .inline-cypht {
+.tiki-webmail, .tiki-cypht, .mobile.tiki-cypht, .tiki .inline-cypht {
 	background: $body-bg !important;
 	font-family: $font-family-base;
-	color: $body-color !important;
-
-
-	// override colors when not using cypht default theme
+	color: $body-color;
 	img { opacity: 1 !important; }
-	ul, li { background-color: transparent !important; }
-	main, div { border-radius: 0; }
-	.ui-widget-content { background-color: $ui-default-bg !important; }
-	.ui-menu-item-wrapper { color: $body-color !important; }
-	.ui-state-active { color: $ui-default-link-active-color !important; }
-	.popover-header { color: $popover-header-color !important; }
-	.popover-body { color: $popover-body-color !important; }
-	.btn-primary {
-		color: color-yiq($primary) !important;
-		background-color: $primary !important;
-		border-color: darken($primary, 7.5%) !important;
-		&:hover, &:focus { background-color: darken($primary, 7.5%) !important; }
-	}
-	.btn-info {
-		color: color-yiq($info) !important;
-		background-color: $info !important;
-		border-color: darken($info, 7.5%) !important;
-		&:hover, &:focus { background-color: darken($info, 7.5%) !important; }
-	}
-	.card { border-color: $card-border-color !important; }
-	.card-header { border-color: $card-border-color !important; }
-	.card-body {
-		.nav-link {
-			&, small { color: $link-color !important; }
-		}
-	}
-	.dropdown-menu {
-		background-color: $dropdown-bg !important;
-		border-color: $dropdown-border-color !important;
-	}
-	.dropdown-divider { border-color: $dropdown-divider-bg !important; }
-	.dropdown-header { color: $dropdown-header-color !important; }
-	.moduletitle { color: $body-color !important; }
-	a:not(.dropdown-item) .icon, .btn-link {
-		border-color: transparent !important;
-		color: $link-color !important;
-		&:hover { color: $link-hover-color !important; }
-	}
-	.form-control {
-		background-color: $input-bg !important;
-		border-color: $input-border-color !important;
-		color: $input-color !important;
-	}
-	.chosen-container .chosen-results li.active-result {
-		&.text-muted.bg-info { background-color: $info !important; }
-		&.result-selected, &.highlighted { background-color: $link-color !important; }
-	}
-	.nav-tabs {
-		border: none !important;
-		border-bottom: 1px solid $nav-tabs-border-color !important;
-		.nav-link { color: $link-color !important; }
-		.nav-link.active, .nav-item.show .nav-link { color: $link-hover-color !important; }
-		.nav-link:not(.active) { border: none !important; }
-	}
-	// override colors when not using cypht default theme
-
 
 	a:not(.btn), a.btn-link {
-		color: $link-color !important;
-		&:hover {
-			color: $link-hover-color !important;
-			text-decoration: inherit;
-		}
+		color: $link-color;
+		&:hover { color: $link-hover-color; text-decoration: inherit; }
 	}
 
 	.flipmodtitle.close, .close {
@@ -77,32 +15,34 @@
 	}
 
 	.navbar-light .navbar-nav .nav-link {
-		color: $navbar-light-color !important;
+		color: $navbar-light-color;
 		&:hover, &:focus { color: $navbar-light-hover-color !important; }
 	}
+
 	.navbar-dark .navbar-nav .nav-link {
-		color: $navbar-dark-color !important;
+		color: $navbar-dark-color;
 		&:hover, &:focus { color: $navbar-dark-hover-color !important; }
 	}
+
 	.dropdown-menu .dropdown-item {
-		border-radius: 0;
-		&, .icon { color: $dropdown-link-color !important; }
-		&:hover, &:focus {
-			&, .icon { color: $dropdown-link-hover-color !important; }
-		}
+		color: $dropdown-link-color; border-radius: 0;
+		&:hover, &:focus { color: $dropdown-link-hover-color !important; }
+	}
+
+	.nav-tabs .nav-link {
+		&:not(.active):hover { color: $link-hover-color !important; }
+		&.active:hover { color: $nav-tabs-link-active-color !important; }
 	}
 }
 
-.inline-cypht {
+.tiki .inline-cypht {
 	background: transparent;
-	a:not(.btn):hover {
-		text-decoration: $link-hover-decoration !important;
-	}
+	a:not(.btn):hover { text-decoration: $link-hover-decoration !important; }
 
 	.folders a, .subject a, .selected_menu a,
 	.unread_link, .selected_menu, .manage_folder_link {
 		&:not(.btn) {
-			color: $link-color !important;
+			color: $link-color;
 			&:hover {
 				color: $link-hover-color !important;
 				text-decoration: $link-hover-decoration;

@@ -1,0 +1,70 @@
+.inline-cypht div {
+  background-color: transparent !important;
+}
+.inline-cypht * {
+  color: #404a5d !important;
+  border-color: #cfdeff !important;
+}
+.inline-cypht body, .inline-cypht .folder_cell {
+  background: none !important;
+  background-color: transparent !important;
+}
+.inline-cypht {
+  background: linear-gradient(0deg, #e8f0ff, #ecf2ff) !important;
+}
+.inline-cypht img {
+  opacity: 0.3 !important;
+}
+.inline-cypht .msg_text_inner img, .inline-cypht .apod_image img {
+  opacity: 1 !important;
+}
+.inline-cypht a {
+  color: #404a5d !important;
+}
+.inline-cypht a:hover {
+  color: #39528c !important;
+}
+.inline-cypht textarea, .inline-cypht select, .inline-cypht input, .inline-cypht .toggle_link {
+  border-color: #ccc !important;
+  color: #666;
+  background-color: #e8f0ff;
+}
+.inline-cypht .loading_icon {
+  background: transparent url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAAAHCAIAAABx4H/3AAAACXBIWXMAAA4mAAAN/wHwU+XzAAAAB3RJTUUH4AMPFQ81DpVi0wAAABl0RVh0Q29tbWVudABDcmVhdGVkIHdpdGggR0lNUFeBDhcAAAGjSURBVEjHjVVJot0gDLPkvN7/Gr1Gj9Jj9AWpCxICZPqsgvEgy0Pw+8/f72rbRV6LZRdZDsmlWPZaqsRFm1opUeRVm6RafYsjYl1VzYssVXNFxL/v5kSOKlFZw1b5WiUiwGR+AgATwJIkIgkCS4KMJRkRTZ7Esgw6AJIg4pOMiF8f7PpYsj4hEyR6qyRwfFR53B3a1w9ARIS8fdydO/P+SIfDzj9tja4EEPfxOD5ZnpSJTQesIY5XPeKsisRLIuyh9KHPLLgTya7XPQyS8AlRszgzUKnpU6rXh6pod7czAo8otesQIR+A7RciqqLeCn9US/aZoD4GAHnzSGCsmyv6EbqbyuTZduusKep0bR7Qugao4a5q45bPxE6RL2t2V8uXznq1sU0cIDw2l23flIZ88YyfgdXE48iH7cbj1CZ1GZ1rNs11vs0he7j2xc7qRgk9iNzn9nJttfXRdtaF2sY1fL/5+hcCxLQNjiiTnynxcx2Bmf0iP9PFvvmfd1YPAvtS8NVUnpvM448CgC0wz3P33Fny0IYcEwbAmyblD3q3brqH8x9z/ECOMpTSWwAAAABJRU5ErkJggg==") repeat-x top left;
+  background-size: cover;
+  background-position: 0px, 0px;
+}
+.inline-cypht .confirm_logout, .inline-cypht .folder_list, .inline-cypht .content_cell, .inline-cypht .message_list, .inline-cypht .configured_server, .inline-cypht .add_server, .inline-cypht .server_content, .inline-cypht .server_section {
+  background-color: #e8f0ff !important;
+}
+.inline-cypht .list_controls {
+  background: none !important;
+}
+.inline-cypht .msg_controls, .inline-cypht .src_name, .inline-cypht .content_title {
+  color: #8391b0 !important;
+  background: linear-gradient(0deg, #c6d7ff, #e8f0ff) !important;
+}
+.inline-cypht .debug, .inline-cypht .subtitle {
+  color: #3a5aa4 !important;
+}
+.inline-cypht .subject a {
+  color: #33539d !important;
+}
+.inline-cypht .selected_menu a {
+  color: #1d2a46 !important;
+}
+.inline-cypht .icon {
+  color: #aaa !important;
+}
+.inline-cypht .online {
+  color: green;
+}
+.inline-cypht .sys_messages {
+  background-color: #e8f0ff !important;
+}
+.inline-cypht .empty_list {
+  color: #bbb !important;
+}
+.inline-cypht .checkbox_cell input[type=checkbox]:checked + label {
+  background-color: #c6d7ff !important;
+}

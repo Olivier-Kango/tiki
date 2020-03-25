@@ -1126,28 +1126,16 @@ a.bg-dark:hover, a.bg-dark:focus, button.bg-dark:hover, button.bg-dark:focus {
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125), 0 0 0 0.2rem rgba(239, 239, 239, 0.5);
 }
 .tiki.tiki-webmail a:not(.btn), .tiki.tiki-webmail a:not(.dropdown-item) .icon, .tiki.tiki-webmail .btn-link, .tiki.tiki-cypht a:not(.btn), .tiki.tiki-cypht a:not(.dropdown-item) .icon, .tiki.tiki-cypht .btn-link, .tiki.mobile.tiki-cypht a:not(.btn), .tiki.mobile.tiki-cypht a:not(.dropdown-item) .icon, .tiki.mobile.tiki-cypht .btn-link, .tiki .inline-cypht a:not(.btn), .tiki .inline-cypht a:not(.dropdown-item) .icon, .tiki .inline-cypht .btn-link {
-  color: #b51360 !important;
+  color: #b51360;
 }
 .tiki.tiki-webmail a:not(.btn):hover, .tiki.tiki-webmail a:not(.dropdown-item) .icon:hover, .tiki.tiki-webmail .btn-link:hover, .tiki.tiki-cypht a:not(.btn):hover, .tiki.tiki-cypht a:not(.dropdown-item) .icon:hover, .tiki.tiki-cypht .btn-link:hover, .tiki.mobile.tiki-cypht a:not(.btn):hover, .tiki.mobile.tiki-cypht a:not(.dropdown-item) .icon:hover, .tiki.mobile.tiki-cypht .btn-link:hover, .tiki .inline-cypht a:not(.btn):hover, .tiki .inline-cypht a:not(.dropdown-item) .icon:hover, .tiki .inline-cypht .btn-link:hover {
   color: #e10c7c !important;
 }
-.tiki.tiki-webmail .card-body .nav-link, .tiki.tiki-webmail .card-body .nav-link small, .tiki.tiki-cypht .card-body .nav-link, .tiki.tiki-cypht .card-body .nav-link small, .tiki.mobile.tiki-cypht .card-body .nav-link, .tiki.mobile.tiki-cypht .card-body .nav-link small, .tiki .inline-cypht .card-body .nav-link, .tiki .inline-cypht .card-body .nav-link small {
-  color: #b51360 !important;
+.tiki.tiki-webmail .dropdown-menu .dropdown-item, .tiki.tiki-cypht .dropdown-menu .dropdown-item, .tiki.mobile.tiki-cypht .dropdown-menu .dropdown-item, .tiki .inline-cypht .dropdown-menu .dropdown-item {
+  color: #ffffff;
 }
-.tiki.tiki-webmail .dropdown-menu, .tiki.tiki-cypht .dropdown-menu, .tiki.mobile.tiki-cypht .dropdown-menu, .tiki .inline-cypht .dropdown-menu {
-  background-color: #771437 !important;
-  border-color: rgba(0, 0, 0, 0.15) !important;
-}
-.tiki.tiki-webmail .dropdown-menu .dropdown-item, .tiki.tiki-webmail .dropdown-menu .dropdown-item .icon, .tiki.tiki-cypht .dropdown-menu .dropdown-item, .tiki.tiki-cypht .dropdown-menu .dropdown-item .icon, .tiki.mobile.tiki-cypht .dropdown-menu .dropdown-item, .tiki.mobile.tiki-cypht .dropdown-menu .dropdown-item .icon, .tiki .inline-cypht .dropdown-menu .dropdown-item, .tiki .inline-cypht .dropdown-menu .dropdown-item .icon {
-  color: #ffffff !important;
-}
-.tiki.tiki-webmail .dropdown-menu .dropdown-item:hover, .tiki.tiki-webmail .dropdown-menu .dropdown-item:hover .icon, .tiki.tiki-webmail .dropdown-menu .dropdown-item:focus, .tiki.tiki-webmail .dropdown-menu .dropdown-item:focus .icon, .tiki.tiki-cypht .dropdown-menu .dropdown-item:hover, .tiki.tiki-cypht .dropdown-menu .dropdown-item:hover .icon, .tiki.tiki-cypht .dropdown-menu .dropdown-item:focus, .tiki.tiki-cypht .dropdown-menu .dropdown-item:focus .icon, .tiki.mobile.tiki-cypht .dropdown-menu .dropdown-item:hover, .tiki.mobile.tiki-cypht .dropdown-menu .dropdown-item:hover .icon, .tiki.mobile.tiki-cypht .dropdown-menu .dropdown-item:focus, .tiki.mobile.tiki-cypht .dropdown-menu .dropdown-item:focus .icon, .tiki .inline-cypht .dropdown-menu .dropdown-item:hover, .tiki .inline-cypht .dropdown-menu .dropdown-item:hover .icon, .tiki .inline-cypht .dropdown-menu .dropdown-item:focus, .tiki .inline-cypht .dropdown-menu .dropdown-item:focus .icon {
+.tiki.tiki-webmail .dropdown-menu .dropdown-item:hover, .tiki.tiki-webmail .dropdown-menu .dropdown-item:focus, .tiki.tiki-cypht .dropdown-menu .dropdown-item:hover, .tiki.tiki-cypht .dropdown-menu .dropdown-item:focus, .tiki.mobile.tiki-cypht .dropdown-menu .dropdown-item:hover, .tiki.mobile.tiki-cypht .dropdown-menu .dropdown-item:focus, .tiki .inline-cypht .dropdown-menu .dropdown-item:hover, .tiki .inline-cypht .dropdown-menu .dropdown-item:focus {
   color: #f2f2f2 !important;
-}
-.tiki.tiki-webmail .form-control, .tiki.tiki-cypht .form-control, .tiki.mobile.tiki-cypht .form-control, .tiki .inline-cypht .form-control {
-  background-color: #f9dcec !important;
-  border-color: #fa9ccd !important;
-  color: #555555 !important;
 }
 .tiki.tiki-webmail .nav-tabs .nav-link, .tiki.tiki-webmail .nav-tabs .nav-link .icon, .tiki.tiki-webmail .nav-tabs .nav-link .icon:hover, .tiki.tiki-cypht .nav-tabs .nav-link, .tiki.tiki-cypht .nav-tabs .nav-link .icon, .tiki.tiki-cypht .nav-tabs .nav-link .icon:hover, .tiki.mobile.tiki-cypht .nav-tabs .nav-link, .tiki.mobile.tiki-cypht .nav-tabs .nav-link .icon, .tiki.mobile.tiki-cypht .nav-tabs .nav-link .icon:hover, .tiki .inline-cypht .nav-tabs .nav-link, .tiki .inline-cypht .nav-tabs .nav-link .icon, .tiki .inline-cypht .nav-tabs .nav-link .icon:hover {
   color: #000 !important;
@@ -1155,9 +1143,18 @@ a.bg-dark:hover, a.bg-dark:focus, button.bg-dark:hover, button.bg-dark:focus {
 .tiki.tiki-webmail .nav-tabs .nav-link.active, .tiki.tiki-webmail .nav-tabs .nav-link.active .icon, .tiki.tiki-webmail .nav-tabs .nav-item.show .nav-link, .tiki.tiki-webmail .nav-tabs .nav-item.show .nav-link .icon, .tiki.tiki-cypht .nav-tabs .nav-link.active, .tiki.tiki-cypht .nav-tabs .nav-link.active .icon, .tiki.tiki-cypht .nav-tabs .nav-item.show .nav-link, .tiki.tiki-cypht .nav-tabs .nav-item.show .nav-link .icon, .tiki.mobile.tiki-cypht .nav-tabs .nav-link.active, .tiki.mobile.tiki-cypht .nav-tabs .nav-link.active .icon, .tiki.mobile.tiki-cypht .nav-tabs .nav-item.show .nav-link, .tiki.mobile.tiki-cypht .nav-tabs .nav-item.show .nav-link .icon, .tiki .inline-cypht .nav-tabs .nav-link.active, .tiki .inline-cypht .nav-tabs .nav-link.active .icon, .tiki .inline-cypht .nav-tabs .nav-item.show .nav-link, .tiki .inline-cypht .nav-tabs .nav-item.show .nav-link .icon {
   color: #fff !important;
 }
+.tiki.tiki-webmail .form-control, .tiki.tiki-cypht .form-control, .tiki.mobile.tiki-cypht .form-control, .tiki .inline-cypht .form-control {
+  border-color: #fa9ccd;
+}
 .tiki.tiki-webmail .btn-primary, .tiki.tiki-cypht .btn-primary, .tiki.mobile.tiki-cypht .btn-primary, .tiki .inline-cypht .btn-primary {
   border-color: #c6086e !important;
 }
 .tiki.tiki-webmail .btn-info, .tiki.tiki-cypht .btn-info, .tiki.mobile.tiki-cypht .btn-info, .tiki .inline-cypht .btn-info {
   border-color: #6c1336 !important;
+}
+.tiki.tiki-webmail .folders a:not(.btn), .tiki.tiki-webmail .subject a:not(.btn), .tiki.tiki-webmail .selected_menu a:not(.btn), .tiki.tiki-webmail .unread_link:not(.btn), .tiki.tiki-webmail .selected_menu:not(.btn), .tiki.tiki-webmail .manage_folder_link:not(.btn), .tiki.tiki-cypht .folders a:not(.btn), .tiki.tiki-cypht .subject a:not(.btn), .tiki.tiki-cypht .selected_menu a:not(.btn), .tiki.tiki-cypht .unread_link:not(.btn), .tiki.tiki-cypht .selected_menu:not(.btn), .tiki.tiki-cypht .manage_folder_link:not(.btn), .tiki.mobile.tiki-cypht .folders a:not(.btn), .tiki.mobile.tiki-cypht .subject a:not(.btn), .tiki.mobile.tiki-cypht .selected_menu a:not(.btn), .tiki.mobile.tiki-cypht .unread_link:not(.btn), .tiki.mobile.tiki-cypht .selected_menu:not(.btn), .tiki.mobile.tiki-cypht .manage_folder_link:not(.btn), .tiki .inline-cypht .folders a:not(.btn), .tiki .inline-cypht .subject a:not(.btn), .tiki .inline-cypht .selected_menu a:not(.btn), .tiki .inline-cypht .unread_link:not(.btn), .tiki .inline-cypht .selected_menu:not(.btn), .tiki .inline-cypht .manage_folder_link:not(.btn) {
+  color: #b51360;
+}
+.tiki.tiki-webmail .folders a:not(.btn):hover, .tiki.tiki-webmail .subject a:not(.btn):hover, .tiki.tiki-webmail .selected_menu a:not(.btn):hover, .tiki.tiki-webmail .unread_link:not(.btn):hover, .tiki.tiki-webmail .selected_menu:not(.btn):hover, .tiki.tiki-webmail .manage_folder_link:not(.btn):hover, .tiki.tiki-cypht .folders a:not(.btn):hover, .tiki.tiki-cypht .subject a:not(.btn):hover, .tiki.tiki-cypht .selected_menu a:not(.btn):hover, .tiki.tiki-cypht .unread_link:not(.btn):hover, .tiki.tiki-cypht .selected_menu:not(.btn):hover, .tiki.tiki-cypht .manage_folder_link:not(.btn):hover, .tiki.mobile.tiki-cypht .folders a:not(.btn):hover, .tiki.mobile.tiki-cypht .subject a:not(.btn):hover, .tiki.mobile.tiki-cypht .selected_menu a:not(.btn):hover, .tiki.mobile.tiki-cypht .unread_link:not(.btn):hover, .tiki.mobile.tiki-cypht .selected_menu:not(.btn):hover, .tiki.mobile.tiki-cypht .manage_folder_link:not(.btn):hover, .tiki .inline-cypht .folders a:not(.btn):hover, .tiki .inline-cypht .subject a:not(.btn):hover, .tiki .inline-cypht .selected_menu a:not(.btn):hover, .tiki .inline-cypht .unread_link:not(.btn):hover, .tiki .inline-cypht .selected_menu:not(.btn):hover, .tiki .inline-cypht .manage_folder_link:not(.btn):hover {
+  color: #e10c7c !important;
 }

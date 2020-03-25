@@ -63,5 +63,31 @@ class PatchCypht
 		$js = str_replace("var ajax = new Hm_Ajax_Request", "var ajax = new tiki_Hm_Ajax_Request", $js);
 		$js = preg_replace("#^.*/\* swipe event handler \*/#s", "", $js);
 		file_put_contents($cypht.'site.js', $js);
+
+		// css custom patches
+		$themes_css = ['blue', 'dark', 'gray', 'green', 'hn', 'lightblue', 'so_alone', 'tan', 'tdark', 'terminal'];
+		foreach ($themes_css as $themes) {
+			if (file_exists($vendors.'jason-munro/cypht/modules/themes/assets/' . $themes . '.css')) {
+				$css = '.inline-cypht {' . PHP_EOL;
+				$mobile = array();
+				$file = file($vendors.'jason-munro/cypht/modules/themes/assets/' . $themes . '.css');
+				foreach ($file as $key => $value) {
+					if (preg_match('/(.mobile)/im', $value)) {
+						$mobile[] = $value;
+					} else {
+						$value = str_replace("html * {", "* {", $value);
+						$value = str_replace("html {", "& {", $value);
+						$css .= $value;
+					}
+				}
+				$css .= PHP_EOL . '}' . PHP_EOL;
+				$css .= implode('', $mobile);
+				file_put_contents($cypht.'modules/tiki/themes/' . $themes . '.scss', $css);
+			}
+		}
+
+		// copy stock assets
+		`cp -rp {$vendors}jason-munro/cypht/modules/smtp/assets {$cypht}modules/smtp/`;
+		`cp -rp {$vendors}jason-munro/cypht/modules/themes/assets {$cypht}modules/themes/`;
 	}
 }

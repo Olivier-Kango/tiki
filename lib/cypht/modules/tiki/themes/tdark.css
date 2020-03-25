@@ -1,0 +1,118 @@
+.inline-cypht {
+  /*main, div { border-radius: 0px 0px 8px 8px }*/
+}
+.inline-cypht * {
+  font-family: Arial;
+  color: #999 !important;
+  border-color: #000 !important;
+  background-color: transparent;
+}
+.inline-cypht body, .inline-cypht .folder_cell {
+  background: none !important;
+  background-color: transparent !important;
+}
+.inline-cypht {
+  background: linear-gradient(0deg, #000, #000, #111) !important;
+}
+.inline-cypht img {
+  opacity: 0.4 !important;
+}
+.inline-cypht .msg_text_inner img, .inline-cypht .apod_image img {
+  opacity: 1 !important;
+}
+.inline-cypht a {
+  color: #aaa !important;
+}
+.inline-cypht a:hover {
+  color: #fff !important;
+}
+.inline-cypht #password, .inline-cypht option, .inline-cypht .selected_part, .inline-cypht .toggle_recipients, .inline-cypht textarea, .inline-cypht select, .inline-cypht input, .inline-cypht .toggle_link {
+  color: #aaa !important;
+  background-color: #222 !important;
+}
+.inline-cypht textarea {
+  font-size: 100%;
+}
+.inline-cypht .loading_icon, .inline-cypht .server_section {
+  border-radius: 0px 0px 0px 0px !important;
+}
+.inline-cypht .move_to_location, .inline-cypht .move_to_title, .inline-cypht li, .inline-cypht ul, .inline-cypht #to_contacts, .inline-cypht #cc_contacts, .inline-cypht #bcc_contacts, .inline-cypht .msg_parts, .inline-cypht .info_content, .inline-cypht .profile_content, .inline-cypht .user_settings, .inline-cypht .settings_table, .inline-cypht .server_content, .inline-cypht div, .inline-cypht .list_controls, .inline-cypht .msg_controls a, .inline-cypht .checkbox_label, .inline-cypht .search_content, .inline-cypht .msg_text, .inline-cypht .compose_page, .inline-cypht .list_sources, .inline-cypht .confirm_logout, .inline-cypht .confirm_logout, .inline-cypht .folder_list, .inline-cypht .content_cell, .inline-cypht .message_list, .inline-cypht .configured_server, .inline-cypht .add_server, .inline-cypht .server_content, .inline-cypht .server_section {
+  background: none !important;
+  background-color: #121212 !important;
+}
+.inline-cypht .today {
+  background-color: #222 !important;
+}
+.inline-cypht .ke-content body * {
+  background-color: #000 !important;
+}
+.inline-cypht .src_name, .inline-cypht .content_title {
+  color: #aaa !important;
+  background: linear-gradient(0deg, #121212, #000) !important;
+}
+.inline-cypht .debug, .inline-cypht .subtitle {
+  color: #999 !important;
+}
+.inline-cypht .subject, .inline-cypht .subject a {
+  font-weight: normal !important;
+  color: #999 !important;
+}
+.inline-cypht .empty_list {
+  color: #666 !important;
+}
+.inline-cypht .selected_part a, .inline-cypht .selected_menu, .inline-cypht .selected_menu a {
+  color: #eee !important;
+}
+.inline-cypht .icon {
+  color: #aaa !important;
+}
+.inline-cypht .online {
+  color: green !important;
+}
+.inline-cypht .down {
+  color: red !important;
+}
+.inline-cypht .save_reminder {
+  margin-top: 10px;
+}
+.inline-cypht .sys_messages {
+  background-color: #000 !important;
+}
+.inline-cypht .unseen a {
+  font-weight: normal;
+  color: #eee !important;
+}
+.inline-cypht .next_img {
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3wITFigf3y7T1gAAANFJREFUOMud00tOwzAUheHrDiAsBkVsCraRrqFF7YC1IMQiWpWVkEm+TgwyiZugHMkDyz7/PdePiJHwhCO+0OdxwQFt3BIe8GZeQ4Y3NfNnubNSoNTHH0it8gIADmXPVgAGtJuIeIl1ShHxHPm01ySAc0IfEXcTfEppDKik6DfFZJsK1YDF2rYkX4pI3VLj6Ir9p8gvzH8gIzPsAm2+kllIxTzg8WfxWDnhbsYM+5Le5Oc5gdwwv+N+HLHJSYaFz7SfmEegFq844zuPE3a/PRe6Aq8gHZ0qhA9iAAAAAElFTkSuQmCC");
+}
+.inline-cypht .prev_img {
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH3wITFisqorBENgAAAMFJREFUOMulk00OgkAMhd+wUDyMId6QOwiBhVeRGA8h0YXxGLDhc1MNjMNP8CVdte+b6bQjeQIOQAk8gNbiDhRAojEBO+DEtDqDxyHzNWBILXxdBpCRk9NePgQp+j2PmicgHZDIepo0T0By2WvPmkcgtWxMi8wBSOOAVtLGL3LOOc9EgNVGkl5ar2ckqfoDcBaQ2EgGCvQd2sr9J1muAGT9ZGzruRRQAVu/ILabdDOfKfsxe6AEyIEaaCxuwPHbc09vYOgGTQzSYewAAAAASUVORK5CYII=");
+}
+.inline-cypht .checkbox_cell input[type=checkbox]:checked + label {
+  background-color: #666 !important;
+}
+.inline-cypht .checkbox_label {
+  border: solid 1px #555 !important;
+}
+.inline-cypht .total_unread_count, .inline-cypht .unread_count {
+  background-color: #2e2e2e;
+}
+.inline-cypht .hl {
+  background-color: #222;
+}
+.inline-cypht .draft_list {
+  background-color: #222;
+}
+.inline-cypht .list_controls {
+  background: none !important;
+}
+.inline-cypht .editor-toolbar a {
+  color: #fff !important;
+}
+.inline-cypht .sys_messages {
+  filter: drop-shadow(4px 4px 4px #121212);
+}
+
+.mobile .msg_controls {
+  background: #121212 !important;
+}

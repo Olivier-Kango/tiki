@@ -1,0 +1,153 @@
+.inline-cypht * {
+  font-family: Verdana, Geneva, sans-serif;
+  font-size: 12pt;
+  color: #828282 !important;
+  border-color: #f6f6ef !important;
+  background-color: transparent !important;
+}
+.inline-cypht main, .inline-cypht div {
+  border-radius: 0px 0px 0px 0px;
+}
+.inline-cypht body, .inline-cypht .folder_cell {
+  padding-top: 10px;
+  background: none !important;
+  background-color: transparent !important;
+}
+.inline-cypht {
+  background-color: #fff;
+}
+.inline-cypht img {
+  opacity: 0.5 !important;
+}
+.inline-cypht .msg_text_inner img, .inline-cypht .apod_image img {
+  opacity: 1 !important;
+}
+.inline-cypht a {
+  color: #222 !important;
+}
+.inline-cypht .list_meta, .inline-cypht a:hover {
+  color: #000 !important;
+}
+.inline-cypht msg_controls a, .inline-cypht textarea, .inline-cypht select, .inline-cypht input, .inline-cypht .toggle_link {
+  color: #aaa;
+}
+.inline-cypht .loading_icon, .inline-cypht .server_section {
+  border-radius: 0px 0px 0px 0px !important;
+}
+.inline-cypht .folder_list {
+  background-color: #f6f6ef !important;
+}
+.inline-cypht .mailbox_list_title {
+  color: #000;
+}
+.inline-cypht .confirm_logout, .inline-cypht .content_cell, .inline-cypht .message_list, .inline-cypht .configured_server, .inline-cypht .add_server, .inline-cypht .server_content, .inline-cypht .server_section {
+  background-color: #f6f6ef !important;
+}
+.inline-cypht .src_name {
+  color: #666 !important;
+  background: none !important;
+  background-color: #f6f6ef !important;
+}
+.inline-cypht .content_title {
+  color: #333;
+  background: none !important;
+  background-color: #ff6600 !important;
+  font-size: 140%;
+  font-weight: bold;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+.inline-cypht .content_title span {
+  color: #333;
+}
+.inline-cypht .main_menu {
+  padding-top: 5px;
+}
+.inline-cypht .debug, .inline-cypht .subtitle {
+  color: #999 !important;
+}
+.inline-cypht .settings_subtitle {
+  color: #333 !important;
+}
+.inline-cypht .empty_list, .inline-cypht .subject a {
+  color: #333 !important;
+}
+.inline-cypht .selected_menu, .inline-cypht .selected_menu a {
+  color: #ff6600 !important;
+}
+.inline-cypht .icon {
+  color: #aaa !important;
+}
+.inline-cypht .online {
+  color: green !important;
+}
+.inline-cypht .down {
+  color: red !important;
+}
+.inline-cypht .sys_messages {
+  background-color: #fff !important;
+  color: #222 !important;
+}
+.inline-cypht .unsaved_reminder {
+  top: 10px;
+  opacity: 0.2 !important;
+}
+.inline-cypht .total_unread_count, .inline-cypht .unread_count {
+  color: #828282;
+}
+.inline-cypht .message_list tr td {
+  border: none;
+}
+.inline-cypht ::-webkit-input-placeholder {
+  color: #999;
+}
+.inline-cypht .subject a {
+  font-size: 120% !important;
+}
+.inline-cypht .msg_date {
+  float: left !important;
+  clear: none !important;
+  padding-top: 0px !important;
+  padding-left: 10px;
+  margin: 0px;
+}
+.inline-cypht .source {
+  font-style: normal;
+  padding: 0px;
+  margin: 0px;
+}
+.inline-cypht .source, .inline-cypht .msg_date, .inline-cypht .from {
+  font-size: 85% !important;
+  color: #999 !important;
+}
+.inline-cypht .message_table td {
+  padding-bottom: 15px !important;
+  padding-top: 0px !important;
+}
+.inline-cypht .unseen a {
+  font-weight: normal !important;
+}
+.inline-cypht nav {
+  padding-top: 0px !important;
+}
+.inline-cypht .checkbox_cell label {
+  border: solid 1px #ff6600 !important;
+}
+.inline-cypht .news_cell input[type=checkbox]:checked + label {
+  background-color: #ff6600 !important;
+}
+.inline-cypht .list_controls {
+  background: none !important;
+}
+.inline-cypht .folder_toggle {
+  top: 15px;
+}
+@media screen and (max-device-width: 480px) and (orientation: portrait) {
+  .inline-cypht .content_title {
+    color: #333;
+    background: none !important;
+    background-color: #ff6600 !important;
+    font-size: 140%;
+    font-weight: bold;
+  }
+}
