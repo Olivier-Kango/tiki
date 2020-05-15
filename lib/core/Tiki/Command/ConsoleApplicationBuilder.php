@@ -155,6 +155,7 @@ class ConsoleApplicationBuilder
 					new TikiInfoCommand,
 					new TrackerClearCommand,
 					new AdminIndexRebuildCommand,
+					new UserCreateCommand,
 					new UsersListCommand,
 					new UsersPasswordCommand,
 					new StatsCommand,
