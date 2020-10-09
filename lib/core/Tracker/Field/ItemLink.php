@@ -1003,9 +1003,11 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
 		$trackerId = (int) $this->getOption('trackerId');
 		$definition = Tracker_Definition::get($trackerId);
 		if ($definition) {
-			foreach ($option as $fieldId) {
+			foreach (array_filter($option) as $fieldId) {
 				$field = $definition->getField($fieldId);
-				if ($field && $field['isPublic'] == 'y' && ($field['isHidden'] == 'n' || $field['isHidden'] == 'c' || $field['isHidden'] == 'p' || $field['isHidden'] == 'a' || $tiki_p_admin_trackers == 'y')
+				if (!$field) {
+					Feedback::error(tr('ItemLink field "%0": displayFieldsList field ID #%1 not found', $this->getConfiguration('permName'), $fieldId));
+				} else if ($field['isPublic'] == 'y' && ($field['isHidden'] == 'n' || $field['isHidden'] == 'c' || $field['isHidden'] == 'p' || $field['isHidden'] == 'a' || $tiki_p_admin_trackers == 'y')
 					&& $field['type'] != 'x' && $field['type'] != 'h' && ($field['type'] != 'p' || $field['options_array'][0] != 'password')
 					&& (empty($field['visibleBy']) or array_intersect(TikiLib::lib('tiki')->get_user_groups($user), $field['visibleBy']) || $tiki_p_admin_trackers == 'y')) {
 					$fields[] = $fieldId;
