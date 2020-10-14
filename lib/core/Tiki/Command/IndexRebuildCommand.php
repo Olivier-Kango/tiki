@@ -57,13 +57,24 @@ class IndexRebuildCommand extends Command
 		$cron = $input->getOption('cron');
 
 		$unifiedsearchlib = \TikiLib::lib('unifiedsearch');
+		$currentEngine = $unifiedsearchlib->getCurrentEngineDetails();
+		$fallbackEngine = $unifiedsearchlib->getFallbackEngineDetails();
 
 		if (! $cron) {
 			$message = '[' . \TikiLib::lib('tiki')->get_short_datetime(0) . '] Started rebuilding index...';
-			if ($log) {
-				$message .= ' logging to file: ' . $unifiedsearchlib->getLogFilename($log);
-			}
 			$output->writeln($message);
+
+			if ($log) {
+				$output->writeln('Logging to file(s):');
+				$logFiles[] = $unifiedsearchlib->getLogFilename($log);
+
+				if ($fallbackEngine) {
+					list($engine, $engineName, $version, $index) = $fallbackEngine;
+					$logFiles[] = $unifiedsearchlib->getLogFilename($log, $engine);
+				}
+
+				$io->listing($logFiles);
+			}
 
 			$io->section('Unified search');
 

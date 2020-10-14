@@ -91,7 +91,9 @@ class Services_Search_Controller
 			'memory_peak_usage_after' => FormatterHelper::formatMemory(memory_get_peak_usage()),
 			'num_queries' => ($num_queries_after - $num_queries_before),
 			'log_file_browser' => $unifiedsearchlib->getLogFilename(1),
+			'fallback_log_file_browser' => $unifiedsearchlib->getLogFilename(1, $fallbackEngine),
 			'log_file_console' => $unifiedsearchlib->getLogFilename(2),
+			'fallback_log_file_console' => $unifiedsearchlib->getLogFilename(2, $fallbackEngine),
 			'lastLogItemWeb' => $lastLogItem['web'] ?: tr('Unable to get info from log file.'),
 			'lastLogItemConsole' => $lastLogItem['console'] ?: tr('Unable to get info from log file.'),
 		];
