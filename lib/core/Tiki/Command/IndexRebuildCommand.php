@@ -13,6 +13,7 @@ use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 class IndexRebuildCommand extends Command
 {
@@ -52,6 +53,8 @@ class IndexRebuildCommand extends Command
 		global $num_queries;
 		global $prefs;
 
+		$io = new SymfonyStyle($input, $output);
+
 		$force = $input->getOption('force');
 		if ($input->getOption('log')) {
 			$log = 2;
@@ -61,6 +64,8 @@ class IndexRebuildCommand extends Command
 		$cron = $input->getOption('cron');
 
 		$unifiedsearchlib = \TikiLib::lib('unifiedsearch');
+		$currentEngine = $unifiedsearchlib->getCurrentEngineDetails();
+		$fallbackEngine = $unifiedsearchlib->getFallbackEngineDetails();
 
 		if ($force && $unifiedsearchlib->rebuildInProgress()) {
 			if (! $cron) {
@@ -71,13 +76,21 @@ class IndexRebuildCommand extends Command
 
 		if (! $cron) {
 			$message = '[' . \TikiLib::lib('tiki')->get_short_datetime(0) . '] Started rebuilding index...';
-			if ($log) {
-				$message .= ' logging to file: ' . $unifiedsearchlib->getLogFilename($log);
-			}
 			$output->writeln($message);
-		}
 
-		if (! $cron) {
+			if ($log) {
+				$output->writeln('Logging to file(s):');
+				$logFiles[] = $unifiedsearchlib->getLogFilename($log);
+
+				if ($fallbackEngine) {
+					list($engine, $engineName, $version, $index) = $fallbackEngine;
+					$logFiles[] = $unifiedsearchlib->getLogFilename($log, $engine);
+				}
+
+				$io->listing($logFiles);
+			}
+
+	
 			list($engine, $version) = $unifiedsearchlib->getCurrentEngineDetails();
 			if (! empty($engine)) {
 				$engineMessage = 'Unified search engine: ' . $engine;

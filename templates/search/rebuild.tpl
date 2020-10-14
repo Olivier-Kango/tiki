@@ -57,6 +57,9 @@
 						{tr}Enable logging{/tr}
 					</label>
 					<div class="form-text">{tr _0=$log_file_browser}Log file is saved as %0{/tr}</div>
+					{if $fallback_search_set}
+						<div class="form-text">{tr _0=$fallback_log_file_browser}Fallback engine log file is saved as %0{/tr}</div>
+					{/if}
 				</div>
 			</div>
 			<div class="form-group submit">
@@ -86,6 +89,9 @@
 			<kbd>php console.php{if not empty($tikidomain)} --site={$tikidomain|replace:'/':''}{/if} index:rebuild</kbd><br>
 			<kbd>php console.php{if not empty($tikidomain)} --site={$tikidomain|replace:'/':''}{/if} index:rebuild --log</kbd><br>
 			<p>{tr _0=$log_file_console}Log file is saved as %0{/tr}</p>
+			{if $fallback_search_set}
+				<p>{tr _0=$fallback_log_file_console}Fallback engine log file is saved as %0{/tr}</p>
+			{/if}
 		{/remarksbox}
 	{/if}
 {/block}

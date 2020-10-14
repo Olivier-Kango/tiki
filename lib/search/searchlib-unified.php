@@ -4,6 +4,8 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
+use Laminas\Log\Logger;
+use Laminas\Log\Writer\Stream;
 
 /**
  *
@@ -346,12 +348,21 @@ class UnifiedSearchLib
 		}
 
 		// Rebuild mysql as fallback for elasticsearch engine
-		list($fallbackEngine) = TikiLib::lib('unifiedsearch')->getFallbackEngineDetails();
+		list($fallbackEngine, $fallbackEngineName, $fallbackVersion) = TikiLib::lib('unifiedsearch')->getFallbackEngineDetails();
 		if (! $fallback && $fallbackEngine) {
 			$defaultEngine = $prefs['unified_engine'];
 			$prefs['unified_engine'] = $fallbackEngine;
 			$stats['fallback'] = $this->rebuild($loggit, true);
 			$prefs['unified_engine'] = $defaultEngine;
+
+			$log = new Laminas\Log\Writer\Stream($this->getLogFilename($loggit, $defaultEngine), 'a');
+			$loggerInstance = new Laminas\Log\Logger();
+			$loggerInstance->addWriter($log);
+
+			$loggerInstance->info('Fallback:');
+			$loggerInstance->info("  Engine $fallbackEngineName" . (empty($fallbackVersion) ? '' : ", version $fallbackVersion"));
+			$loggerInstance->info("  Index $indexName");
+			$loggerInstance->info('  Detailed information at ' . $this->getLogFilename($loggit, $fallbackEngine));
 		}
 
 		// Requeue messages that were added and processed in old index,
@@ -1391,13 +1402,17 @@ class UnifiedSearchLib
 	 * @param int $rebuildType    0: no log, 1: browser rebuild, 2: console rebuild
 	 * @return string
 	 */
-	public function getLogFilename($rebuildType = 0): string
+	public function getLogFilename($rebuildType = 0, $engine = ''): string
 	{
 		global $prefs;
 
 		$logName = 'Search_Indexer';
 
-		switch ($prefs['unified_engine']) {
+		if(empty($engine)) {
+			$engine = $prefs['unified_engine'];
+		}
+
+		switch ($engine) {
 			case 'elastic':
 				$logName .= '_elastic_' . rtrim($prefs['unified_elastic_index_prefix'], '_');
 				break;
