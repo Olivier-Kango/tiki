@@ -2352,7 +2352,7 @@ if (isset($_REQUEST['benchmark'])) {
 }
 
 /**
- * TRIM (Tiki Remote Instance Manager) Section
+ * Tiki Manager Section
  **/
 if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
 	$trimCapable = false;
@@ -2574,12 +2574,12 @@ if ($standalone && ! $nagios) {
 		renderTable($benchmark);
 	}
 
-	$render .= '<h2>TRIM</h2>';
-	$render .= '<em>For more detailed information about Tiki Remote Instance Manager please check <a href="https://doc.tiki.org/TRIM">doc.tiki.org</a></em>.';
+	$render .= '<h2>Tiki Manager</h2>';
+	$render .= '<em>For more detailed information about Tiki Manager please check <a href="https://doc.tiki.org/Manager">doc.tiki.org/Manager</a></em>.';
 	if ($trimCapable) {
-		$render .= '<h3>Server Instance</h3>';
+		$render .= '<h3>Where Tiki Manager is installed</h3>';
 		renderTable($trimServerRequirements);
-		$render .= '<h3>Client Instance</h3>';
+		$render .= '<h3>Where Tiki instances are installed</h3>';
 		renderTable($trimClientRequirements);
 	} else {
 		$render .= '<p>Apparently Tiki is running on a Windows based server. This feature is not supported natively.</p>';
