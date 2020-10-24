@@ -1212,7 +1212,8 @@ WHERE hll.`library_id` = ?',
 					hc.license_extras AS licenseExtras,
 					hc.author_comments AS authorComments,
 					hc.changes AS changes,
-       				hc.default_language AS defaultLanguage
+       				hc.default_language AS defaultLanguage,
+        			hc.a11y_title AS a11yTitle
 			FROM `tiki_h5p_contents` hc
 			JOIN `tiki_h5p_libraries` hl ON hl.id = hc.library_id
 			WHERE hc.id =?',
@@ -1225,7 +1226,7 @@ WHERE hll.`library_id` = ?',
 		$metadata_structure = [
 			'title', 'authors', 'source', 'yearFrom', 'yearTo',
 			'license', 'licenseVersion', 'licenseExtras',
-			'authorComments', 'changes', 'defaultLanguage',
+			'authorComments', 'changes', 'defaultLanguage', 'a11yTitle',
 		];
 		foreach ($metadata_structure as $property) {
 			if (! empty($row[$property])) {
