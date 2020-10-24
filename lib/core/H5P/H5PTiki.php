@@ -1382,7 +1382,7 @@ hcl.`drop_css` AS dropCss, hcl.`dependency_type` AS dependencyType
 	 *
 	 * @return int
 	 */
-	public function getNumContent($libraryId)
+	public function getNumContent($libraryId, $skip = null)
 	{
 		return $this->tiki_h5p_contents->fetchCount(['library_id' => $libraryId]);
 	}
@@ -1707,5 +1707,10 @@ GROUP BY l.`name`, l.`major_version`, l.`minor_version`');
 	public function getLibraryConfig($libraries = null)
 	{
 		return defined('H5P_LIBRARY_CONFIG') ? H5P_LIBRARY_CONFIG : NULL;
+	}
+
+	public function libraryHasUpgrade($library)
+	{
+		// TODO: Implement libraryHasUpgrade() method.
 	}
 }
