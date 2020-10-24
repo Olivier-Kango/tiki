@@ -174,15 +174,31 @@ ORDER BY `title`'
 	 * Saves a file or moves it temporarily. This is often necessary in order to
 	 * validate and store uploaded or fetched H5Ps.
 	 *
-	 * @param string $data Uri of data that should be saved as a temporary file
+	 * @param string  $data      Uri of data or actual data that should be saved as a temporary file
 	 * @param boolean $move_file Can be set to TRUE to move the data instead of saving it
 	 *
-	 * @return bool|object Returns false if saving failed or the path to the file
-	 *  if saving succeeded
+	 * @return bool|object Returns false if saving failed or an object with the dir
+	 * and the fileName of the saved file
 	 */
 	public static function saveFileTemporarily($data, $move_file)
 	{
-		// TODO: Implement saveFileTemporarily() method.
+		// Get temporary path
+		$interface = \H5P_H5PTiki::get_h5p_instance('interface');
+
+		$path = $interface->getUploadedH5pPath();
+
+		if ($move_file) {
+			// Move so core can validate the file extension.
+			rename($data, $path);
+		} else {
+			// Create file from data
+			file_put_contents($path, $data);
+		}
+
+		return (object) [
+			'dir'      => dirname($path),
+			'fileName' => basename($path),
+		];
 	}
 
 	/**
@@ -192,9 +208,29 @@ ORDER BY `title`'
 	 * @param H5peditorFile
 	 * @param $content_id
 	 */
-	public static function markFileForCleanup($file, $content_id)
+	public static function markFileForCleanup($file, $content_id = null)
 	{
-		// TODO: Implement markFileForCleanup() method.
+
+		$path = \H5P_H5PTiki::$h5p_path;
+
+		if (empty($content_id)) {
+			// Should be in editor tmp folder
+			$path .= '/editor';
+		} else {
+			// Should be in content folder
+			$path .= '/content/' . $content_id;
+		}
+
+		// Add file type to path
+		$path .= '/' . $file->getType() . 's';
+
+		// Add filename to path
+		$path .= '/' . $file->getName();
+
+		// Keep track of temporary files so they can be cleaned up later.
+		TikiDb::get()->table('tiki_h5p_tmpfiles')->insert(
+			['path' => $path, 'created_at' => time()]
+		);
 	}
 
 	/**
@@ -204,7 +240,11 @@ ORDER BY `title`'
 	 */
 	public static function removeTemporarilySavedFiles($filePath)
 	{
-		// TODO: Implement removeTemporarilySavedFiles() method.
+		if (is_dir($filePath)) {
+			H5PCore::deleteFileTree($filePath);
+		} else {
+			unlink($filePath);
+		}
 	}
 
 	/**

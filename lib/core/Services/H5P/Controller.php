@@ -370,13 +370,9 @@ class Services_H5P_Controller
 			$core = \H5P_H5PTiki::get_h5p_instance('core');
 
 			// Save the valid file
-			$file_id = $core->fs->saveFile($file, $contentId);
+			$file = $core->fs->saveFile($file, $contentId);
+			\H5P_EditorTikiStorage::markFileForCleanup($file, $contentId);
 
-			// Keep track of temporary files so they can be cleaned up later.
-			TikiDb::get()->table('tiki_h5p_tmpfiles')->insert([
-				'path' => $file_id,
-				'created_at' => time(),
-			]);
 		}
 
 		header('Cache-Control: no-cache');
