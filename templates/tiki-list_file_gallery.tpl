@@ -178,7 +178,7 @@
 	{/if}
 	{if $edit_mode neq 'y' and $prefs.h5p_enabled eq 'y' and $tiki_p_upload_files eq 'y' and $tiki_p_h5p_edit eq 'y'}
 		<a href="{service controller='h5p' action='edit' modal=1}" class="btn btn-link create-h5p">{icon name='plus'} {tr}Create H5P{/tr}</a>
-		{jq}$(".create-h5p").clickModal({title: "{tr}Create H5P{/tr}"});{/jq}
+		{jq}$(".create-h5p").clickModal({title: "{tr}Create H5P{/tr}", size: "modal-lg"});{/jq}
 	{/if}
 </div>
 
