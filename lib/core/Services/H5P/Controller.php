@@ -261,7 +261,11 @@ class Services_H5P_Controller
 		header('Content-type: application/json');
 
 		if ($name) {
-			$out = $editor->getLibraryData($name, $major_version, $minor_version, substr($prefs['language'], 0, 2), '');
+			$out = $editor->getLibraryData(
+				$name, $major_version, $minor_version,
+				substr($prefs['language'], 0, 2),
+				'', '', 'en'
+			);
 
 			// Log library load
 			new H5P_Event(
