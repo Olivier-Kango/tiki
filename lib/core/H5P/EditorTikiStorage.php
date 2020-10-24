@@ -206,4 +206,34 @@ ORDER BY `title`'
 	{
 		// TODO: Implement removeTemporarilySavedFiles() method.
 	}
+
+	/**
+	 * Load a list of available language codes from the database.
+	 *
+	 * @param string $machineName  The machine readable name of the library(content type)
+	 * @param int    $majorVersion Major part of version number
+	 * @param int    $minorVersion Minor part of version number
+	 *
+	 * @return array List of possible language codes
+	 */
+	public function getAvailableLanguages($machineName, $majorVersion, $minorVersion) {
+
+		$results = TikiDb::get()->query(
+			'SELECT hll.language_code
+       FROM `tiki_h5p_libraries_languages` hll
+       JOIN `tiki_h5p_libraries` hl
+         ON hll.library_id = hl.id
+      WHERE hl.name = ?
+        AND hl.major_version = ?
+        AND hl.minor_version = ?',
+			[$machineName, $majorVersion, $minorVersion]
+		);
+
+		$codes = ['en']; // Semantics is 'en' by default.
+		foreach ($results as $result) {
+			$codes[] = $result->language_code;
+		}
+
+		return $codes;
+	}
 }

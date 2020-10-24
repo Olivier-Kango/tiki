@@ -279,6 +279,11 @@ class Services_H5P_Controller
 		return json_decode(json_encode($out), true);
 	}
 
+	/**
+	 * @param $input JitFilter
+	 *
+	 * @return array
+	 */
 	function action_list_libraries($input)
 	{
 		global $prefs;
@@ -295,9 +300,14 @@ class Services_H5P_Controller
 		$name = $input->machineName->text();
 		$majorVersion = $input->majorVersion->int();
 		$minorVersion = $input->minorVersion->int();
+		$defaultLanguage = $input->offsetGet('default-language');
 
 		if ($name) {
-			$results = $editor->getLibraryData($name, $majorVersion, $minorVersion, substr($prefs['language'], 0, 2), '');
+			$results = $editor->getLibraryData(
+				$name, $majorVersion, $minorVersion,
+				substr($prefs['language'], 0, 2),
+				'', 'en', $defaultLanguage
+			);
 			$results = json_decode($results, true);
 
 			$results['name'] = $name;

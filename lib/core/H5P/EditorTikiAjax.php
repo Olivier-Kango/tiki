@@ -130,4 +130,34 @@ class H5P_EditorTikiAjax implements H5PEditorAjaxInterface
 
 		return true;
 	}
+
+	/**
+	 * Get translations for a language for a list of libraries
+	 *
+	 * @param array  $libraries An array of libraries, in the form "<machineName> <majorVersion>.<minorVersion>
+	 * @param string $language_code
+	 *
+	 * @return array
+	 */
+	public function getTranslations($libraries, $language_code)
+	{
+		$querylibs = implode(',', $libraries);
+
+		array_unshift($libraries, $language_code);
+
+		$result = TikiDb::get()->query(
+			"SELECT hll.translation, CONCAT(hl.name, ' ', hl.major_version, '.', hl.minor_version) AS lib
+FROM `tiki_h5p_libraries` hl
+JOIN `tiki_h5p_libraries_languages` hll ON hll.library_id = hl.id
+WHERE hll.language_code = ?
+AND CONCAT(hl.name, ' ', hl.major_version, '.', hl.minor_version) IN ({$querylibs})",
+			[$libraries]
+		);
+
+		$translations = [];
+		foreach ($result as $row) {
+			$translations[$row->lib] = $row->translation;
+		}
+		return $translations;
+	}
 }
