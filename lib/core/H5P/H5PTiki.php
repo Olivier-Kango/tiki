@@ -1355,13 +1355,13 @@ hcl.`drop_css` AS dropCss, hcl.`dependency_type` AS dependencyType
 	 * library. This means that the content dependencies will have to be rebuilt,
 	 * and the parameters re-filtered.
 	 *
-	 * @param int $library_id
+	 * @param array $library_ids
 	 */
-	public function clearFilteredParameters($library_id)
+	public function clearFilteredParameters($library_ids)
 	{
 		$this->tiki_h5p_contents->update(
 			['filtered' => null],
-			['library_id' => $library_id]
+			['library_id' => $this->tiki_h5p_contents->in($library_ids)]
 		);
 	}
 
