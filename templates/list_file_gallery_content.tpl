@@ -339,6 +339,8 @@
 									or (!isset($files[changes].p_download_files) and $files[changes].perms.tiki_p_download_files eq 'y')}
 										{if $gal_info.type eq 'podcast' or $gal_info.type eq 'vidcast'}
 											href="{$prefs.fgal_podcast_dir}{$files[changes].path}" title="{tr}Download{/tr}"
+										{elseif $prefs.h5p_enabled eq 'y' and $files[changes].type eq 'application/zip' and preg_match('/\.h5p$/i', $files[changes].filename)}
+											href="{service controller='h5p' action='embed' fileId=$files[changes].id}" title="{tr}View{/tr}"
 										{else}
 											href="{$files[changes].id|sefurl:file}" title="{tr}Download{/tr}"
 										{/if}
