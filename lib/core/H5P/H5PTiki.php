@@ -1711,8 +1711,26 @@ GROUP BY l.`name`, l.`major_version`, l.`minor_version`');
 		return defined('H5P_LIBRARY_CONFIG') ? H5P_LIBRARY_CONFIG : NULL;
 	}
 
+	/**
+	 * Checks if the given library has a higher version.
+	 *
+	 * @param array $library
+	 *
+	 * @return boolean
+	 */
 	public function libraryHasUpgrade($library)
 	{
-		// TODO: Implement libraryHasUpgrade() method.
+		return ! empty(
+		TikiDb::get()->query(
+			'SELECT `id` FROM `tiki_h5p_libraries` WHERE `name` = ?
+AND (`major_version` > ? OR (`major_version` = ? AND `minor_version` > ?)) LIMIT 1',
+			[
+				$library['machineName'],
+				$library['majorVersion'],
+				$library['majorVersion'],
+				$library['minorVersion'],
+			]
+		)
+		);
 	}
 }
