@@ -7,7 +7,7 @@
 
 class AuthTokens
 {
-	const SCHEME = 'MD5( CONCAT(tokenId, creation, timeout, entry, parameters, groups) )';
+	const SCHEME = 'MD5( CONCAT(tokenId, creation, timeout, entry, parameters, `groups`) )';
 	private $db;
 	private $table;
 	private $dt;
@@ -79,7 +79,7 @@ class AuthTokens
 		);
 
 		$data = $this->db->query(
-			'SELECT tokenId, entry, parameters, groups, email, createUser, userPrefix FROM tiki_auth_tokens WHERE token = ? AND token = ' . self::SCHEME,
+			'SELECT tokenId, entry, parameters, `groups`, email, createUser, userPrefix FROM tiki_auth_tokens WHERE token = ? AND token = ' . self::SCHEME,
 			[ $token ]
 		)->fetchRow();
 
@@ -232,7 +232,7 @@ class AuthTokens
 		}
 
 		$this->db->query(
-			'INSERT INTO tiki_auth_tokens ( timeout, maxhits, hits, entry, parameters, groups, email, createUser, userPrefix ) VALUES( ?, ?, ?, ?, ?, ?, ?, ?, ? )',
+			'INSERT INTO tiki_auth_tokens ( timeout, maxhits, hits, entry, parameters, `groups`, email, createUser, userPrefix ) VALUES( ?, ?, ?, ?, ?, ?, ?, ?, ? )',
 			[
 				(int) $timeout,
 				(int) $hits,

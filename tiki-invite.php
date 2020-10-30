@@ -123,7 +123,7 @@ if (isset($_REQUEST['send'])) {
 
 	if (! empty($_REQUEST['confirm'])) {
 		$tikilib->query(
-			"INSERT INTO `tiki_invite` (inviter, groups, ts, emailsubject,emailcontent,wikicontent,wikipageafter) VALUES (?,?,?,?,?,?,?)",
+			"INSERT INTO `tiki_invite` (inviter, `groups`, ts, emailsubject,emailcontent,wikicontent,wikipageafter) VALUES (?,?,?,?,?,?,?)",
 			[
 				$user,
 				count($igroups) ? implode(',', $igroups) : null,
