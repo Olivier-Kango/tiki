@@ -1754,6 +1754,18 @@ class ParserLib extends TikiDb_Bridge
 								$value = '';
 								break;
 							}
+						case 'page_no_namespace':
+							$page = $this->option['page'];
+							$lastNamespaceSeparatorIndex = strrpos($page, $prefs['namespace_separator']);
+							if ($lastNamespaceSeparatorIndex == false) {
+								// There are no namespaces
+								$value = $page;
+								break;
+							} else {
+								// The namespace is cutted out
+								$value = substr($page, ($lastNamespaceSeparatorIndex + strlen($prefs['namespace_separator']))); 
+								break;
+							}							
 						case 'domain':
 							if ($smarty->getTemplateVars('url_host') != null) {
 								$value = $smarty->getTemplateVars('url_host');
