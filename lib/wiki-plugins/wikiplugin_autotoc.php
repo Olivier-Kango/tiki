@@ -82,7 +82,7 @@ function wikiplugin_autotoc($data, $params)
 	$defaults = [
 		'align' => 'right',
 		'levels' => '',
-		'offset' => 15,
+		'offset' => 10,
 		'mode' => 'off',
 		'title' => ''
 	];
@@ -100,6 +100,7 @@ function wikiplugin_autotoc($data, $params)
 			return ("<b>Missing activity parameter for plugin</b><br/>");
 		}
 		if ($params['activity'] == 'yes') {
+			$jqueryAutoToc['plugin_autoToc_activity'] = true;
 			$jqueryAutoToc['plugin_autoToc_mode'] = isset($params['mode']) ? $params['mode'] === 'inline' : 'off';
 			$autotocPos = ! empty($params['align']) ? $params['align'] : 'right';
 			$jqueryAutoToc['plugin_autoToc_pos'] = $autotocPos;
@@ -111,84 +112,74 @@ function wikiplugin_autotoc($data, $params)
 			} else {
 				$autoTocLevels = null;
 			}
+			$jqueryAutoToc['plugin_autoToc_levels'] = $autoTocLevels;
 
 			$js = '
 					var jqueryAutoToc = ' . json_encode($jqueryAutoToc, JSON_UNESCAPED_SLASHES) . "\n";
-			$js .= '
-					var autoTocLevels = ' . json_encode($autoTocLevels, JSON_UNESCAPED_SLASHES) . "\n";
-			$headerlib->add_js($js);
 
+			$headerlib->add_js($js);
+			if ($prefs['wiki_auto_toc'] !== 'y'
+			|| $prefs['wiki_toc_default'] !== 'on') {
+				$headerlib->add_jsfile('lib/jquery_tiki/autoToc.js');
+			}
 			if ($autotocPos == 'page') {
-				$headerlib->add_jsfile('lib/jquery_tiki/pluginautotoc_page.js');
 				$headerlib->add_css('
-					#autotoc_inpage ul li {
+					#autotoc ul li {
 						list-style: none;
-						color: #767676;
 						position: relative;
 					}
 
-					#autotoc_inpage ul > li > a {
+					#autotoc ul > li > a {
 						display: block;
 						font-size: 15px;
-						color: #767676;
 					}
 
-					#autotoc_inpage ul > li > a:hover,
-					#autotoc_inpage ul > li > a:focus {
-						color: #563d7c;
+					#autotoc ul > li > a:hover,
+					#autotoc ul > li > a:focus {
 						font-weight: bold;
 						padding-left: 6px;
 						text-decoration: none;
 						background-color: transparent;
-						border-left: 1px solid #563d7c;
-					}
-				');
+						border-left: 1px solid #0075ff;
+					}');
 
-				return "<div id='autotoc_inpage'></div>";
+				return "<div id='autotoc'></div>";
 			} else {
-				$headerlib->add_jsfile('lib/jquery_tiki/plugin_autotoc.js');
 				$headerlib->add_css('
 					body {
 						position: relative;
 					}
 
-					#auto-toc .nav > li {
-						max-width: 350px;
-					}
-
-					#auto-toc .nav > li > a {
+					#autotoc .nav > li > a {
 						display: block;
 						padding: 4px 20px;
 						font-size: 13px;
 						font-weight: 500;
-						color: #767676;
 					}
 
-					#auto-toc .nav > li > a:hover,
-					#auto-toc .nav > li > a:focus {
+					#autotoc .nav > li > a:hover,
+					#autotoc .nav > li > a:focus {
 						padding-left: 19px;
-						color: #563d7c;
 						text-decoration: none;
 						background-color: transparent;
-						border-left: 1px solid #563d7c;
+						border-left: 1px solid #0075ff;
 					}
 
-					#auto-toc .nav-link.active,
-					#auto-toc .nav-link.active:hover,
-					#auto-toc .nav-link.active:focus {
+					#autotoc .nav-link.active,
+					#autotoc .nav-link.active:hover,
+					#autotoc .nav-link.active:focus {
 						padding-left: 30px;
 						font-weight: bold;
-						color: #563d7c;
 						background-color: transparent;
-						border-left: 2px solid #563d7c;
+						border-left: 2px solid #0075ff;
 					}
 
-					#auto-toc .nav-link + ul {
-						display: none; 
+					#autotoc .nav-link + ul {
+						display: none;
 						padding-bottom: 10px;
 					}
 
-					#auto-toc .nav .nav > li > a {
+					#autotoc .nav .nav > li > a {
 						padding-top: 1px;
 						padding-bottom: 1px;
 						padding-left: 30px;
@@ -196,19 +187,19 @@ function wikiplugin_autotoc($data, $params)
 						font-weight: normal;
 					}
 
-					#auto-toc .nav .nav > li > a:hover,
-					#auto-toc .nav .nav > li > a:focus {
+					#autotoc .nav .nav > li > a:hover,
+					#autotoc .nav .nav > li > a:focus {
 						padding-left: 29px;
 					}
 
-					#auto-toc .nav .nav > li > .active,
-					#auto-toc .nav .nav > li > .active:hover,
-					#auto-toc .nav .nav > li > .active:focus {
+					#autotoc .nav .nav > li > .active,
+					#autotoc .nav .nav > li > .active:hover,
+					#autotoc .nav .nav > li > .active:focus {
 						padding-left: 28px;
 						font-weight: 500;
 					}
 
-					#auto-toc .nav-link.active + ul {
+					#autotoc .nav-link.active + ul {
 						display: block;
 					}
 
@@ -216,8 +207,7 @@ function wikiplugin_autotoc($data, $params)
 						.hidden {
 							display: none!important;
 						}
-					}
-				');
+					}');
 			}
 		}
 	}
