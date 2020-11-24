@@ -180,3 +180,30 @@ class Hm_Output_allow_external_images_setting extends Hm_Output_Module {
         return '<tr class="general_setting"><td>'.tr('Allow remote image sources').'</td><td><input type="checkbox" name="allow_external_images" value="1" '.($allow_external_images ? 'checked' : '').'></td></tr>';
     }
 }
+
+/**
+ * Save gmail_contacts  module setting
+ * @subpackage tiki/handler
+ */
+class Hm_Handler_process_allow_gmail_contacts_module extends Hm_Handler_Module {
+    public function process() {
+        function allow_gmail_contacts_module_callback($val) { return $val; }
+        // here the code for allowing gmail_contacts module
+    }
+}
+
+
+/**
+ * Expose gmail_contacts module setting
+ * @subpackage tiki/output
+ */
+class Hm_Output_allow_gmail_contacts_module_setting extends Hm_Output_Module {
+    protected function output() {
+        $allow_gmail_contacts_module= false;
+        $settings = $this->get('user_settings', array());
+        if (array_key_exists('allow_gmail_contacts_module', $settings)) {
+            $allow_gmail_contacts_module = $settings['allow_gmail_contacts_module'];
+        }
+        return '<tr class="general_setting"><td>'.tr('Allow Gmail Contacts Module').'</td><td><input type="checkbox" name="allow_external_images" value="1" '.($allow_gmail_contacts_module ? 'checked' : '').'></td></tr>';
+    }
+}

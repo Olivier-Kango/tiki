@@ -205,6 +205,9 @@ class Tiki_Hm_Site_Config_file extends Hm_Site_Config_File {
 		if (isset($_SESSION[$session_prefix]['user_data']['allow_external_images_setting'])) {
 			$this->set('allow_external_image_sources', $_SESSION[$session_prefix]['user_data']['allow_external_images_setting']);
 		}
+		if (isset($_SESSION[$session_prefix]['user_data']['allow_gmail_contacts_module_setting'])) {
+			$this->set('allow_gmail_contacts_module', $_SESSION[$session_prefix]['user_data']['allow_gmail_contacts_module_setting']);
+		}
 	}
 }
 
