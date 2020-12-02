@@ -136,12 +136,13 @@ function tra_impl($content, $lg = '', $args = [])
 	}
 
 	global ${"lang_$lg"};
+	$lang = ${"lang_$lg"};
 
-	if ($lg and isset(${"lang_$lg"}[$content])) {
-		return [$content, tr_replace(${"lang_$lg"}[$content], $args), true];
+	if ($lg and isset($lang[$content])) {
+		return [$content, tr_replace($lang[$content], $args), true];
 	}
 
-	if ($lg and $key = array_search($content, ${"lang_$lg"})) {
+	if (! is_null($lang) and $lg and $key = array_search($content, $lang)) {
 		return [$key, tr_replace($content, $args), true];
 	}
 
@@ -153,12 +154,12 @@ function tra_impl($content, $lg = '', $args = [])
 	$lastCharacter = $content[strlen($content) - 1];
 	if (in_array($lastCharacter, Language::punctuations)) { // Should stay synchronized with Language_WriteFile::writeStringsToFile()
 		$new_content = substr($content, 0, -1);
-		if (isset(${"lang_$lg"}[$new_content])) {
+		if (isset($lang[$new_content])) {
 			return [
 				$content,
 				tr_replace(
-					${"lang_$lg"}[$new_content] . ( isset(${"lang_$lg"}[$lastCharacter])
-						? ${"lang_$lg"}[$lastCharacter]
+					$lang[$new_content] . ( isset($lang[$lastCharacter])
+						? $lang[$lastCharacter]
 						: $lastCharacter ),
 					$args
 				),
