@@ -30,6 +30,6 @@ class Articles extends AbstractType
 			return ($article['disp_article'] === 'y');
 		});
 
-		$this->addEntriesToSitemap($listPages, '/tiki-read_article.php?articleId=%s', 'articleId', 'article');
+		$this->addEntriesToSitemap($listPages, '/tiki-read_article.php?articleId=%s', 'articleId', 'article', 'articles.xml');
 	}
 }

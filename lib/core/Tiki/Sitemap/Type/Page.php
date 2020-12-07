@@ -27,6 +27,6 @@ class Page extends AbstractType
 
 		/** @var \TikiLib $tikilib */
 		$listPages = $tikilib->list_pages();
-		$this->addEntriesToSitemap($listPages, '/tiki-index.php?page=%s', 'pageSlug', null, '', 'lastModif');
+		$this->addEntriesToSitemap($listPages, '/tiki-index.php?page=%s', 'pageSlug', null, 'sitemap.xml', '', 'lastModif');
 	}
 }

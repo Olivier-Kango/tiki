@@ -8,7 +8,7 @@
 namespace Tiki\Sitemap;
 
 use Perms;
-use SitemapPHP\Sitemap;
+use Melbahja\Seo\Factory;
 
 /**
  * Generate XML files following the XML Protocol that can be submitted to search engines
@@ -63,13 +63,11 @@ class Generator
 		$user = null;
 
 		$baseUrl = rtrim($baseUrl, '/');
-		$sitemap = new Sitemap($baseUrl);
 		$relativePath = $this->getRelativePath();
-		$sitemap->setPath($this->basePath . $relativePath);
-		$sitemap->setFilename(self::BASE_FILE_NAME);
 
-		// Add the website root
-		$sitemap->addItem('/', '1.0', 'daily', date('Y-m-d'));
+		$sitemap = Factory::sitemap($baseUrl);
+		$sitemap->setSavePath($this->basePath . $relativePath);
+		$sitemap->setIndexName($this->getSitemapFilename());
 
 		// Execute all other handlers, for the different type of content
 		$directoryFiles = new \GlobIterator(__DIR__ . '/Type/*.php');
@@ -93,7 +91,8 @@ class Generator
 			}
 		}
 
-		$sitemap->createSitemapIndex($baseUrl . '/' . $relativePath, date('Y-m-d'));
+		// Save sitemap files.
+		$sitemap->save();
 
 		$user = $loggedUser; // restore the configuration for permissions
 		$perms->setGroups($oldGroups);
@@ -107,7 +106,7 @@ class Generator
 	 */
 	public function getSitemapPath($relative = true)
 	{
-		$path = $this->getRelativePath() . self::BASE_FILE_NAME . '-index.xml';
+		$path = $this->getRelativePath() . $this->getSitemapFilename();
 
 		if (! $relative) {
 			$path = $this->basePath . $path;
