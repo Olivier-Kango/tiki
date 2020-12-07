@@ -1,6 +1,6 @@
 <?php
 
-header('content-type: text/palin');
+header('content-type: text/plain');
 
 require_once 'tiki-setup.php';
 
