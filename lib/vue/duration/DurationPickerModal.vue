@@ -11,6 +11,10 @@
 						Start/Stop
 						<i class="fas fa-stopwatch"></i>
 					</span>
+					<span v-if="saveButton" class="dp-amount--input__header--btn unselectable inline-edit-save-fields">
+						Save
+						<i class="far fa-save"></i>
+					</span>
 					<div class="dp-amount--input__close" v-on:click="handleCloseModal" title="close">
 						<i class="fas fa-times"></i>
 					</div>
@@ -35,9 +39,15 @@
 			durationpickereditor: DurationPickerEditor,
 			durationpickerhistory: DurationPickerHistory
 		},
+		mounted: function () {
+			if ($(this.$el).closest('.modal').length > 0) {
+				this.saveButton = false;
+			}
+		},
 		data: function () {
 			return {
 				store: this.$parent.store,
+				saveButton: true
 			}
 		},
 		props: {

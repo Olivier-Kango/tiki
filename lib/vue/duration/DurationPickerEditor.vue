@@ -8,7 +8,7 @@
 			<div class="dp-amount--input__left-section">
 				<input
 					ref="input"
-					class="numeric"
+					class="numeric duration-field"
 					type="number"
 					placeholder="__"
 					min="-1"
