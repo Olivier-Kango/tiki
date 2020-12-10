@@ -1,5 +1,5 @@
 <template>
-	<div class="duration-picker">
+	<div class="duration-picker" data-field-type="DUR">
 		<div v-on:click="showModal">
 			<DurationPickerAmounts :duration="store.state.duration" :amounts="getTotalAmounts"></DurationPickerAmounts>
 		</div>

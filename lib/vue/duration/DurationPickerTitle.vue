@@ -3,6 +3,7 @@
 		<div class="dp-editor--task-title__input">
 			<span>{{store.state.activeTimestamp + 1}}. </span>
 			<input
+				class="duration-field"
 				type="text"
 				placeholder="Title"
 				v-on:input="handleInputTitle"
@@ -11,6 +12,7 @@
 		</div>
 		<div class="dp-editor--task-title__textarea">
 			<textarea
+				class="duration-field"
 				style="width: 100%"
 				type="text"
 				placeholder="Description"
