@@ -1737,7 +1737,7 @@ CREATE TABLE `tiki_modules` (
   KEY `namePosOrdParam` (`name`(100), `position`, `ord`, `params`(120))
 ) ENGINE=MyISAM;
 
-INSERT INTO `tiki_modules` (name,position,ord,cache_time,params,groups) VALUES
+INSERT INTO `tiki_modules` (name,position,ord,cache_time,params,`groups`) VALUES
     ('menu','left',1,7200,'id=42&flip=y','a:1:{i:0;s:10:"Registered";}'),
     ('logo','top',1,7200,'nobox=y','a:0:{}'),
     ('login_box','top',2,0,'mode=popup&nobox=y','a:0:{}'),

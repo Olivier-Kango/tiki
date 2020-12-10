@@ -63,7 +63,7 @@ function upgrade_20110115_create_bottom_modules_tiki($installer)
 		$params .= $prefs['feature_site_send_link'] !== 'y'	? '&email=n' : '';
 
 		$installer->query(
-			"INSERT INTO `tiki_modules` (name,position,ord,cache_time,params,groups) VALUES " .
+			"INSERT INTO `tiki_modules` (name,position,ord,cache_time,params,`groups`) VALUES " .
 			"('share','b',1,7200,'nobox=y$params','a:0:{}');"
 		);
 	}
@@ -76,7 +76,7 @@ function upgrade_20110115_create_bottom_modules_tiki($installer)
 		$params .= $prefs['feature_topbar_version'] !== 'y' ? '&version=n' : '';
 
 		$installer->query(
-			"INSERT INTO `tiki_modules` (name,position,ord,cache_time,params,groups) VALUES " .
+			"INSERT INTO `tiki_modules` (name,position,ord,cache_time,params,`groups`) VALUES " .
 			"('poweredby','b',2,7200,'nobox=y$params','a:0:{}');"
 		);
 	}
@@ -84,7 +84,7 @@ function upgrade_20110115_create_bottom_modules_tiki($installer)
 	// add rsslist
 	if ($prefs['feature_bot_bar_rss'] !== 'n') {
 		$installer->query(
-			"INSERT INTO `tiki_modules` (name,position,ord,cache_time,params,groups) VALUES " .
+			"INSERT INTO `tiki_modules` (name,position,ord,cache_time,params,`groups`) VALUES " .
 			"('rsslist','b',3,7200,'nobox=y','a:0:{}');"
 		);
 	}
@@ -92,7 +92,7 @@ function upgrade_20110115_create_bottom_modules_tiki($installer)
 	// add babelfish list
 	if ($prefs['feature_babelfish'] === 'y') {
 		$installer->query(
-			"INSERT INTO `tiki_modules` (name,position,ord,cache_time,params,groups) VALUES " .
+			"INSERT INTO `tiki_modules` (name,position,ord,cache_time,params,`groups`) VALUES " .
 			"('babelfish_links','b',5,7200,'nobox=y&style=text-align%3Aleft%3B','a:0:{}');"
 		);
 	}
@@ -100,7 +100,7 @@ function upgrade_20110115_create_bottom_modules_tiki($installer)
 	// add babelfish logo
 	if ($prefs['feature_babelfish_logo'] === 'y') {
 		$installer->query(
-			"INSERT INTO `tiki_modules` (name,position,ord,cache_time,params,groups) VALUES " .
+			"INSERT INTO `tiki_modules` (name,position,ord,cache_time,params,`groups`) VALUES " .
 			"('babelfish_logo','b',4,7200,'nobox=y&style=float%3Aright%3B','a:0:{}');"
 		);
 	}
@@ -108,7 +108,7 @@ function upgrade_20110115_create_bottom_modules_tiki($installer)
 	// add loadstats
 	if ($prefs['feature_bot_bar_debug'] === 'y') {
 		$installer->query(
-			"INSERT INTO `tiki_modules` (name,position,ord,cache_time,params,groups) VALUES " .
+			"INSERT INTO `tiki_modules` (name,position,ord,cache_time,params,`groups`) VALUES " .
 			"('loadstats','b',6,0,'nobox=y','a:1:{i:0;s:6:\"Admins\";}');"
 		);
 	}
@@ -116,7 +116,7 @@ function upgrade_20110115_create_bottom_modules_tiki($installer)
 	// add svnup
 	if (is_dir('.svn')) {
 		$installer->query(
-			"INSERT INTO `tiki_modules` (name,position,ord,cache_time,params,groups) VALUES " .
+			"INSERT INTO `tiki_modules` (name,position,ord,cache_time,params,`groups`) VALUES " .
 			"('svnup','b',7,0,'nobox=y','a:1:{i:0;s:6:\"Admins\";}');"
 		);
 	}
