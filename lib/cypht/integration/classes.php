@@ -205,8 +205,20 @@ class Tiki_Hm_Site_Config_file extends Hm_Site_Config_File {
 		if (isset($_SESSION[$session_prefix]['user_data']['allow_external_images_setting'])) {
 			$this->set('allow_external_image_sources', $_SESSION[$session_prefix]['user_data']['allow_external_images_setting']);
 		}
-		if (isset($_SESSION[$session_prefix]['user_data']['allow_gmail_contacts_module_setting'])) {
-			$this->set('allow_gmail_contacts_module', $_SESSION[$session_prefix]['user_data']['allow_gmail_contacts_module_setting']);
+		if (isset($_SESSION[$session_prefix]['user_data']['tiki_enable_oauth2_over_imap'])) {
+			$this->set('tiki_enable_oauth2_over_imap', $_SESSION[$session_prefix]['user_data']['tiki_enable_oauth2_over_imap']);
+		}
+
+		if (isset($_SESSION[$session_prefix]['user_data']['tiki_enable_gmail_contacts_module'])) {
+			$this->set('tiki_enable_gmail_contacts_module', $_SESSION[$session_prefix]['user_data']['tiki_enable_gmail_contacts_module']);
+		}
+
+		if (isset($_SESSION[$session_prefix]['user_data']['gmail_client_id'])) {
+			$this->set('gmail_client_id', $_SESSION[$session_prefix]['user_data']['gmail_client_id']);
+		}
+
+		if (isset($_SESSION[$session_prefix]['user_data']['gmail_client_secret'])) {
+			$this->set('gmail_client_secret', $_SESSION[$session_prefix]['user_data']['gmail_client_secret']);
 		}
 	}
 }

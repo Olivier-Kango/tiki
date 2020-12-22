@@ -98,11 +98,13 @@ add_handler('settings', 'process_debug_mode', true, 'tiki', 'save_user_settings'
 add_handler('settings', 'process_allow_external_images', true, 'tiki', 'save_user_settings', 'before');
 add_handler('settings', 'before_save_user_settings', true, 'tiki', 'save_user_settings', 'before');
 add_handler('settings', 'after_save_user_settings', true, 'tiki', 'save_user_settings', 'after');
-add_handler('settings', 'process_allow_gmail_contacts_module', true, 'tiki', 'save_user_settings', 'before');
+add_handler('settings', 'process_enable_oauth2_over_imap', true, 'tiki', 'save_user_settings', 'before');
+add_handler('settings', 'process_enable_gmail_contacts_module', true, 'tiki', 'save_user_settings', 'before');
 add_output('settings', 'debug_mode_setting', true, 'tiki', 'start_unread_settings', 'before');
 add_output('settings', 'start_advanced_settings', true, 'core', 'end_settings_form', 'before');
 add_output('settings', 'allow_external_images_setting', true, 'tiki', 'start_advanced_settings', 'after');
-add_output('settings', 'allow_gmail_contacts_module_setting', true, 'tiki', 'allow_external_images_setting', 'after');
+add_output('settings', 'enable_oauth2_over_imap_setting', true, 'tiki', 'allow_external_images_setting', 'after');
+add_output('settings', 'enable_gmail_contacts_module_setting', true, 'tiki', 'enable_oauth2_over_imap_setting', 'after');
 
 return array(
 	'allowed_pages' => array(
@@ -130,6 +132,19 @@ return array(
     'calendar_id' => FILTER_VALIDATE_INT,
     'debug_mode' => FILTER_VALIDATE_INT,
 	'allow_external_images' => FILTER_VALIDATE_INT,
-	'allow_gmail_contacts_module' => FILTER_VALIDATE_INT,
+	'tiki_enable_oauth2_over_imap' => FILTER_VALIDATE_INT,
+	'tiki_enable_gmail_contacts_module' => FILTER_VALIDATE_INT,
+	'gmail_client_id' => FILTER_SANITIZE_STRING,
+	'gmail_client_secret' => FILTER_SANITIZE_STRING,
+	'gmail_client_uri' => FILTER_SANITIZE_STRING,
+	'gmail_auth_uri' => FILTER_SANITIZE_STRING,
+	'gmail_token_uri' => FILTER_SANITIZE_STRING,
+	'gmail_refresh_uri' => FILTER_SANITIZE_STRING,
+	'outlook_client_id' => FILTER_SANITIZE_STRING,
+	'outlook_client_secret' => FILTER_SANITIZE_STRING,
+	'outlook_client_uri' => FILTER_SANITIZE_STRING,
+	'outlook_auth_uri' => FILTER_SANITIZE_STRING,
+	'outlook_token_uri' => FILTER_SANITIZE_STRING,
+	'outlook_refresh_uri' => FILTER_SANITIZE_STRING,
 	)
 );
