@@ -205,20 +205,99 @@ class Tiki_Hm_Site_Config_file extends Hm_Site_Config_File {
 		if (isset($_SESSION[$session_prefix]['user_data']['allow_external_images_setting'])) {
 			$this->set('allow_external_image_sources', $_SESSION[$session_prefix]['user_data']['allow_external_images_setting']);
 		}
-		if (isset($_SESSION[$session_prefix]['user_data']['tiki_enable_oauth2_over_imap'])) {
-			$this->set('tiki_enable_oauth2_over_imap', $_SESSION[$session_prefix]['user_data']['tiki_enable_oauth2_over_imap']);
+		// handle oauth2 config
+		$oauth2 = array(
+			'gmail' => array(
+				'client_id' => '',
+				'client_secret' => '',
+				'client_uri' => '',
+				'auth_uri' => '',
+				'token_uri' => '',
+				'refresh_uri' => '',
+			),
+			'outlook' => array(
+				'client_id' => '',
+				'client_secret' => '',
+				'client_uri' => '',
+				'auth_uri' => '',
+				'token_uri' => '',
+				'refresh_uri' => '',
+			),);
+		if (isset($_SESSION[$session_prefix]['user_data']['tiki_enable_oauth2_over_imap_setting'])) {
+			$this->set('tiki_enable_oauth2_over_imap', $_SESSION[$session_prefix]['user_data']['tiki_enable_oauth2_over_imap_setting']);
 		}
 
-		if (isset($_SESSION[$session_prefix]['user_data']['tiki_enable_gmail_contacts_module'])) {
-			$this->set('tiki_enable_gmail_contacts_module', $_SESSION[$session_prefix]['user_data']['tiki_enable_gmail_contacts_module']);
+		if (isset($_SESSION[$session_prefix]['user_data']['tiki_enable_gmail_contacts_module_setting'])) {
+			$this->set('tiki_enable_gmail_contacts_module', $_SESSION[$session_prefix]['user_data']['tiki_enable_gmail_contacts_module_setting']);
 		}
 
-		if (isset($_SESSION[$session_prefix]['user_data']['gmail_client_id'])) {
-			$this->set('gmail_client_id', $_SESSION[$session_prefix]['user_data']['gmail_client_id']);
+		if (isset($_SESSION[$session_prefix]['user_data']['gmail_client_id_setting'])) {
+			$oauth2['gmail']['client_id'] =  $_SESSION[$session_prefix]['user_data']['gmail_client_id_setting'];
 		}
 
-		if (isset($_SESSION[$session_prefix]['user_data']['gmail_client_secret'])) {
-			$this->set('gmail_client_secret', $_SESSION[$session_prefix]['user_data']['gmail_client_secret']);
+		if (isset($_SESSION[$session_prefix]['user_data']['gmail_client_secret_setting'])) {
+			$oauth2['gmail']['client_secret'] = $_SESSION[$session_prefix]['user_data']['gmail_client_secret_setting'];
+		}
+
+		if (isset($_SESSION[$session_prefix]['user_data']['gmail_client_uri_setting'])) {
+			$oauth2['gmail']['client_uri'] = $_SESSION[$session_prefix]['user_data']['gmail_client_uri_setting'];
+		}
+
+		if (isset($_SESSION[$session_prefix]['user_data']['gmail_auth_uri_setting'])) {
+			$oauth2['gmail']['auth_uri'] = $_SESSION[$session_prefix]['user_data']['gmail_auth_uri_setting'];
+		}
+
+		if (isset($_SESSION[$session_prefix]['user_data']['gmail_token_uri_setting'])) {
+			$oauth2['gmail']['token_uri'] = $_SESSION[$session_prefix]['user_data']['gmail_token_uri_setting'];
+		}
+
+		if (isset($_SESSION[$session_prefix]['user_data']['gmail_refresh_uri_setting'])) {
+			$oauth2['gmail']['refresh_uri'] = $_SESSION[$session_prefix]['user_data']['gmail_refresh_uri_setting'];
+		}
+
+		if (isset($_SESSION[$session_prefix]['user_data']['outlook_client_id_setting'])) {
+			$oauth2['outlook']['client_id'] = $_SESSION[$session_prefix]['user_data']['outlook_client_id_setting'];
+		}
+
+		if (isset($_SESSION[$session_prefix]['user_data']['outlook_client_secret_setting'])) {
+			$oauth2['outlook']['client_secret'] = $_SESSION[$session_prefix]['user_data']['outlook_client_secret_setting'];
+		}
+
+		if (isset($_SESSION[$session_prefix]['user_data']['outlook_client_uri_setting'])) {
+			$oauth2['outlook']['client_uri'] = $_SESSION[$session_prefix]['user_data']['outlook_client_uri_setting'];
+		}
+
+		if (isset($_SESSION[$session_prefix]['user_data']['outlook_auth_uri_setting'])) {
+			$oauth2['outlook']['auth_uri'] = $_SESSION[$session_prefix]['user_data']['outlook_auth_uri_setting'];
+		}
+
+		if (isset($_SESSION[$session_prefix]['user_data']['outlook_token_uri_setting'])) {
+			$oauth2['outlook']['token_uri'] = $_SESSION[$session_prefix]['user_data']['outlook_token_uri_setting'];
+		}
+
+		if (isset($_SESSION[$session_prefix]['user_data']['outlook_refresh_uri_setting'])) {
+			$oauth2['outlook']['refresh_uri'] = $_SESSION[$session_prefix]['user_data']['outlook_refresh_uri_setting'];
+		}
+
+		if (isset($_SESSION[$session_prefix]['user_data']['tiki_enable_oauth2_over_imap_setting']) && $_SESSION[$session_prefix]['user_data']['tiki_enable_oauth2_over_imap_setting'] == 1) {
+			$this->set('oauth2.ini',$oauth2);
+			if(isset($_SESSION[$session_prefix]['user_data']['tiki_enable_gmail_contacts_module_setting']) && $_SESSION[$session_prefix]['user_data']['tiki_enable_gmail_contacts_module_setting'] == 1){
+				array_push($this->config['modules'],'gmail_contacts');
+				$gmail_contact = array(
+					'load_gmail_contacts' => array(
+						'0' => 'gmail_contacts',
+						'1' => 1
+					)
+				);
+				array_push($this->config['handler_modules']['contacts'],$gmail_contact);
+			}else{
+				unset($this->config['modules']['gmail_contacts']);
+				unset($this->config['handler_modules']['contacts']['load_gmail_contacts']);	
+			}
+		}else{
+			if(isset($this->config['oauth2.ini'])){
+				$this->del('oauth2.ini');
+			}
 		}
 	}
 }
