@@ -186,13 +186,14 @@ if (isset($_REQUEST['comments_postComment'])) {
 // is used for the 'discuss' tab. This is done down here because the thread
 // might have to be created, which happens above.
 if (isset($_REQUEST['comments_postComment'])) {
-	// Check if the thread/topic already existis
-	$threadId = $commentslib->check_for_topic($_REQUEST['comments_title'], $_REQUEST['comments_data']);
+	// Check if the thread/topic already exists
+	$threadId = $commentslib->check_for_topic($_REQUEST['comments_title'], $_REQUEST['forumId']);
 	// If it does, send the user there with no delay.
 	if ($threadId && count($errors) === 0) {
 		// If the samely titled comment already
 		// exists, go straight to it.
-		$url = 'tiki-view_forum_thread.php?comments_parentId=' . urlencode($threadId);
+		$smarty->loadPlugin('smarty_modifier_sefurl');
+		$url = smarty_modifier_sefurl($threadId, 'forumthread');
 		header('location: ' . $url);
 		exit;
 	}

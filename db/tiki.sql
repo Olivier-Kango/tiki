@@ -665,7 +665,6 @@ CREATE TABLE `tiki_comments` (
   `average` decimal(8,4) default NULL,
   `title` varchar(255) default NULL,
   `data` text,
-  `hash` varchar(32) default NULL,
   `email` varchar(200) default NULL,
   `website` varchar(200) default NULL,
   `user_ip` varchar(39) default NULL,

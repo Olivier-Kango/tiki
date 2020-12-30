@@ -707,13 +707,8 @@ class Comments extends TikiLib
 			$timestamp = (int) $this->now;
 		}
 
-		$hash2 = md5($title . $data);
-
 		$queue = $this->table('tiki_forums_queue');
 
-		if ($qId == 0 && $queue->fetchCount(['hash' => $hash2])) {
-			return false;
-		}
 		if (! $user && $anonymous_name) {
 			$user = $anonymous_name;
 		}
@@ -726,7 +721,6 @@ class Comments extends TikiLib
 			'data' => $data,
 			'forumId' => $forumId,
 			'type' => $type,
-			'hash' => $hash2,
 			'topic_title' => $topic_title,
 			'topic_smiley' => $topic_smiley,
 			'summary' => $summary,
@@ -916,7 +910,7 @@ class Comments extends TikiLib
 
 		$query = "select a.`threadId`,a.`object`,a.`objectType`,a.`parentId`,
 			a.`userName`,a.`commentDate`,a.`hits`,a.`type`,a.`points`,
-			a.`votes`,a.`average`,a.`title`,a.`data`,a.`hash`,a.`user_ip`,
+			a.`votes`,a.`average`,a.`title`,a.`data`,a.`user_ip`,
 			a.`summary`,a.`smiley`,a.`message_id`,a.`in_reply_to`,a.`comment_rating`,a.`locked`, ";
 		$query .= $info['query'];
 
@@ -1047,7 +1041,7 @@ class Comments extends TikiLib
 				. (($include_archived) ? '' : ' and (a.`archived` is null or a.`archived`=?)')
 				. " and a.`objectType` = 'forum'
 				and a.`parentId` = ? $time_cond
-				group by a.`threadId`, a.`object`, a.`objectType`, a.`parentId`, a.`userName`, a.`commentDate`, a.`hits`, a.`type`, a.`points`, a.`votes`, a.`average`, a.`title`, a.`data`, a.`hash`, a.`user_ip`, a.`summary`, a.`smiley`, a.`message_id`, a.`in_reply_to`, a.`comment_rating`, a.`locked`, a.archived ";
+				group by a.`threadId`, a.`object`, a.`objectType`, a.`parentId`, a.`userName`, a.`commentDate`, a.`hits`, a.`type`, a.`points`, a.`votes`, a.`average`, a.`title`, a.`data`, a.`user_ip`, a.`summary`, a.`smiley`, a.`message_id`, a.`in_reply_to`, a.`comment_rating`, a.`locked`, a.archived ";
 
 		if ($reply_state == 'none') {
 			$query .= ' HAVING `replies` = 0 ';
@@ -2457,7 +2451,7 @@ class Comments extends TikiLib
 			if ($tiki_p_admin_comments == 'y') {
 				$adminFields = ', tc1.`user_ip`';
 			}
-			$query = "select tc1.`threadId`, tc1.`object`, tc1.`objectType`, tc1.`parentId`, tc1.`userName`, tc1.`commentDate`, tc1.`hits`, tc1.`type`, tc1.`points`, tc1.`votes`, tc1.`average`, tc1.`title`, tc1.`data`, tc1.`hash`, tc1.`summary`, tc1.`smiley`, tc1.`message_id`, tc1.`in_reply_to`, tc1.`comment_rating`, tc1.`approved`, tc1.`locked`$adminFields  from `tiki_comments` as tc1
+			$query = "select tc1.`threadId`, tc1.`object`, tc1.`objectType`, tc1.`parentId`, tc1.`userName`, tc1.`commentDate`, tc1.`hits`, tc1.`type`, tc1.`points`, tc1.`votes`, tc1.`average`, tc1.`title`, tc1.`data`, tc1.`summary`, tc1.`smiley`, tc1.`message_id`, tc1.`in_reply_to`, tc1.`comment_rating`, tc1.`approved`, tc1.`locked`$adminFields  from `tiki_comments` as tc1
 				left outer join `tiki_comments` as tc2 on tc1.`in_reply_to` = tc2.`message_id`
 				and tc1.`parentId` = ?
 				and tc2.`parentId` = ?
@@ -3007,74 +3001,68 @@ class Comments extends TikiLib
 		$comments = $this->table('tiki_comments');
 		$comment = $this->get_comment($threadId);
 		$data = $this->process_save_plugins($data, $comment['objectType'], $threadId);
-		$hash = md5($title . $data);
-		$existingThread = $comments->fetchColumn('threadId', ['hash' => $hash]);
 
-		// if exactly same title and data comment does not already exist, and is not the current thread
-		if (empty($existingThread) || in_array($threadId, $existingThread)) {
-			if ($prefs['feature_actionlog'] == 'y') {
-				include_once('lib/diff/difflib.php');
-				$bytes = diff2($comment['data'], $data, 'bytes');
-				$logslib = TikiLib::lib('logs');
-				if ($comment['objectType'] == 'forum') {
-					$logslib->add_action('Updated', $comment['object'], $comment['objectType'], "comments_parentId=$threadId&amp;$bytes#threadId$threadId", '', '', '', '', $contributions);
-				} else {
-					$logslib->add_action('Updated', $comment['object'], 'comment', "type=" . $comment['objectType'] . "&amp;$bytes#threadId$threadId", '', '', '', '', $contributions);
-				}
-			}
-			$comments->update(
-				[
-					'title' => $title,
-					'comment_rating' => (int) $comment_rating,
-					'data' => $data,
-					'type' => $type,
-					'summary' => $summary,
-					'smiley' => $smiley,
-					'hash' => $hash,
-				],
-				['threadId' => (int) $threadId]
-			);
-			if ($prefs['feature_contribution'] == 'y') {
-				$contributionlib = TikiLib::lib('contribution');
-				$contributionlib->assign_contributions($contributions, $threadId, 'comment', $title, '', '');
-			}
-
-			$this->update_comment_links($data, $comment['objectType'], $threadId);
-			$type = $this->update_index($comment['objectType'], $threadId);
-			if ($type == 'forum post') {
-				TikiLib::events()->trigger(
-					'tiki.forumpost.update',
-					[
-						'type' => $type,
-						'object' => $threadId,
-						'parent_id' => $comment['parentId'],
-						'forum_id' => $comment['object'],
-						'user' => $GLOBALS['user'],
-						'title' => $title,
-						'content' => $data,
-						'index_handled' => true,
-					]
-				);
+		if ($prefs['feature_actionlog'] == 'y') {
+			include_once('lib/diff/difflib.php');
+			$bytes = diff2($comment['data'], $data, 'bytes');
+			$logslib = TikiLib::lib('logs');
+			if ($comment['objectType'] == 'forum') {
+				$logslib->add_action('Updated', $comment['object'], $comment['objectType'], "comments_parentId=$threadId&amp;$bytes#threadId$threadId", '', '', '', '', $contributions);
 			} else {
-				if ($comment['objectType'] == 'trackeritem') {
-					$parentobject = TikiLib::lib('trk')->get_tracker_for_item($comment['object']);
-				} else {
-					$parentobject = 'not implemented';
-				}
-				TikiLib::events()->trigger(
-					'tiki.comment.update',
-					[
-						'type' => $comment['objectType'],
-						'object' => $comment['object'],
-						'parentobject' => $parentobject,
-						'title' => $title,
-						'comment' => $threadId,
-						'user' => $GLOBALS['user'],
-						'content' => $data,
-					]
-				);
+				$logslib->add_action('Updated', $comment['object'], 'comment', "type=" . $comment['objectType'] . "&amp;$bytes#threadId$threadId", '', '', '', '', $contributions);
 			}
-		} // end hash check
+		}
+		$comments->update(
+			[
+				'title' => $title,
+				'comment_rating' => (int) $comment_rating,
+				'data' => $data,
+				'type' => $type,
+				'summary' => $summary,
+				'smiley' => $smiley
+			],
+			['threadId' => (int) $threadId]
+		);
+		if ($prefs['feature_contribution'] == 'y') {
+			$contributionlib = TikiLib::lib('contribution');
+			$contributionlib->assign_contributions($contributions, $threadId, 'comment', $title, '', '');
+		}
+
+		$this->update_comment_links($data, $comment['objectType'], $threadId);
+		$type = $this->update_index($comment['objectType'], $threadId);
+		if ($type == 'forum post') {
+			TikiLib::events()->trigger(
+				'tiki.forumpost.update',
+				[
+					'type' => $type,
+					'object' => $threadId,
+					'parent_id' => $comment['parentId'],
+					'forum_id' => $comment['object'],
+					'user' => $GLOBALS['user'],
+					'title' => $title,
+					'content' => $data,
+					'index_handled' => true,
+				]
+			);
+		} else {
+			if ($comment['objectType'] == 'trackeritem') {
+				$parentobject = TikiLib::lib('trk')->get_tracker_for_item($comment['object']);
+			} else {
+				$parentobject = 'not implemented';
+			}
+			TikiLib::events()->trigger(
+				'tiki.comment.update',
+				[
+					'type' => $comment['objectType'],
+					'object' => $comment['object'],
+					'parentobject' => $parentobject,
+					'title' => $title,
+					'comment' => $threadId,
+					'user' => $GLOBALS['user'],
+					'content' => $data,
+				]
+			);
+		}
 	}
 
 	/**
@@ -3120,7 +3108,7 @@ class Comments extends TikiLib
 		$version = 0
 	) {
 
-		global $user;
+		global $user, $prefs;
 
 		if ($postDate == '') {
 			$postDate = $this->now;
@@ -3189,15 +3177,13 @@ class Comments extends TikiLib
 
 		$data = $this->process_save_plugins($data, $object[0]);
 
-		$hash = md5($title . $data);
-
 		// Check if we were passed a message-id.
 		if (! $message_id) {
 			// Construct a message id via proctological
 			// extraction. -rlpowell
 			$message_id = $userName . "-" .
 				$parentId . "-" .
-				substr($hash, 0, 10) .
+				substr(md5($title . $data), 0, 10) .
 				"@" . $_SERVER["SERVER_NAME"];
 		}
 
@@ -3218,9 +3204,8 @@ class Comments extends TikiLib
 		}
 
 		$comments = $this->table('tiki_comments');
-		$threadId = $comments->fetchOne('threadId', ['hash' => $hash]);
+		$threadId = $this->check_for_topic($title, $_REQUEST['forumId'] ?? 0);
 
-		// If this post was not already found.
 		if (! $threadId) {
 			$threadId = $comments->insert(
 				[
@@ -3232,7 +3217,6 @@ class Comments extends TikiLib
 					'data' => $data,
 					'votes' => 0,
 					'points' => 0,
-					'hash' => $hash,
 					'email' => $anonymous_email,
 					'website' => $anonymous_website,
 					'parentId' => (int) $parentId,
@@ -3350,7 +3334,6 @@ class Comments extends TikiLib
 		$tx->commit();
 
 		return $threadId;
-		//return $return_result;
 	}
 
 	/**
@@ -3422,14 +3405,18 @@ class Comments extends TikiLib
 	// Check if a particular topic exists.
 	/**
 	 * @param $title
-	 * @param $data
+	 * @param $forumId
 	 * @return mixed
 	 */
-	function check_for_topic($title, $data)
+	function check_for_topic($title, $forumId)
 	{
-		$hash = md5($title . $data);
 		$comments = $this->table('tiki_comments');
-		return $comments->fetchOne($comments->min('threadId'), ['hash' => $hash]);
+		return $comments->fetchOne('threadId', [
+			'objectType' => 'forum',
+			'object' => $forumId,
+			'parentId' => 0,
+			'title' => $title
+		]);
 	}
 
 	/**
@@ -3797,6 +3784,13 @@ class Comments extends TikiLib
 		if (empty($params['comments_reply_threadId'])) {
 			if (empty($params['comments_title']) || (empty($params['comments_data']) && $prefs['feature_forums_allow_thread_titles'] != 'y')) {
 				$errors[] = tra('Please enter a Title and Message for your new forum topic.');
+			}
+
+			if ($threadId = $this->check_for_topic($params['comments_title'], $forum_info['forumId'])) {
+				$smarty->loadPlugin('smarty_modifier_sefurl');
+				$url = smarty_modifier_sefurl($threadId, 'forumthread');
+				$link = sprintf('<a href="%s">%s</a>', $url, $params['comments_title']);
+				$errors[] = tr('This topic already exists in this forum. Visit: %0', $link);
 			}
 		} else {
 			//if comments require title and no title is given, or if message is empty

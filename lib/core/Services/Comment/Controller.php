@@ -174,10 +174,6 @@ return false;";
 				$title = 'Untitled ' . TikiLib::lib('tiki')->get_long_datetime(TikiLib::lib('tikidate')->getTime());
 			}
 
-			if (count($errors) === 0 &&  $commentslib->check_for_topic($title, $data)) {
-				$errors[] = tr('Duplicated comment, there is already another comment with the same text');
-			}
-
 			$diffInfo = [];	// for saveAndComment
 
 			if (count($errors) === 0) {
