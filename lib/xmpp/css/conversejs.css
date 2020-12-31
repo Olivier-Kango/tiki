@@ -37,3 +37,7 @@
     src: url(../../../vendor_bundled/vendor/npm-asset/converse.js/dist/webfonts/fa-solid-900.eot);
     src:url(../../../vendor_bundled/vendor/npm-asset/converse.js/dist/webfonts/fa-solid-900.eot?#iefix) format("embedded-opentype"), url("function(o) {\nvar __t, __p = '';\n__p += '<!-- sass/webfonts/fa-solid-900.svg -->\nmodule.exports = __webpack_public_path__ + \"webfonts/fa-solid-900.svg\";';\nreturn __p\n}#fontawesome") format("svg"), url(../../../vendor_bundled/vendor/npm-asset/converse.js/dist/webfonts/fa-solid-900.woff2) format("woff2"), url(../../../vendor_bundled/vendor/npm-asset/converse.js/dist/webfonts/fa-solid-900.woff) format("woff"), url(../../../vendor_bundled/vendor/npm-asset/converse.js/dist/webfonts/fa-solid-900.ttf) format("truetype")
 }
+
+converse-chat-message[message_type=info] {
+    display: none;
+}
