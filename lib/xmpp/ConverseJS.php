@@ -180,9 +180,10 @@ class ConverseJS
 
 		$output .= PHP_EOL . ';(function(){';
 		$output .= PHP_EOL . "  if (localStorage['chat-session-init'] !== '{$chat_session_init}') {";
+		$output .= PHP_EOL . '      console.warn("Cleaning environment for ' . $chat_session_init . '");';
 		$output .= PHP_EOL . "      localStorage['chat-session-init'] = '{$chat_session_init}';";
-		$output .= PHP_EOL . '      for (var key in localStorage) { key.match(/converse/) && localStorage.removeItem(key); }';
-		$output .= PHP_EOL . '      for (var key in sessionStorage) { key.match(/converse/) && localStorage.removeItem(key); }';
+		$output .= PHP_EOL . '      for (var key in localStorage) { key.match(/(converse|strophe)/) && localStorage.removeItem(key); }';
+		$output .= PHP_EOL . '      for (var key in sessionStorage) { key.match(/(converse|strophe)/) && sessionStorage.removeItem(key); }';
 		$output .= PHP_EOL . "  }";
 		$output .= PHP_EOL . '})();';
 		$output .= PHP_EOL;
