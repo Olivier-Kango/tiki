@@ -165,12 +165,11 @@ class ConverseJS
 
 		array_map(
 			function ($file) {
-				printf('<link rel="stylesheet" href="%s">', $file);
+				TikiLib::lib('header')->add_link('stylesheet', $file);
 			},
 			$this->get_css_dependencies()
 		);
-
-		array_map([TikiLib::lib('header'), 'add_jsfile'], $this->get_js_dependencies());
+		array_map([TikiLib::lib('header'), 'add_jsfile'],  $this->get_js_dependencies());
 
 		$output = '';
 
