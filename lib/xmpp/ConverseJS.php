@@ -3,6 +3,7 @@
 class ConverseJS
 {
 	private $options;
+	private $tiki_root;
 
 	public function __construct($options = [])
 	{
@@ -20,7 +21,7 @@ class ConverseJS
 			],
 			$options
 		));
-
+		$this->tiki_root = dirname(dirname(__DIR__));
 		$this->load_prefs();
 	}
 
@@ -138,23 +139,35 @@ class ConverseJS
 		$this->options['auto_join_rooms'] = [ $room ];
 	}
 
+	public function append_mtime ($file, $argname = '_')
+	{
+		$mtime = '';
+		$file_path = $this->tiki_root . '/' . $file;
+
+		if (! file_exists($file_path)) {
+			return $file;
+		}
+		$mtime = stat($file_path)['mtime'];
+		return "{$file}?{$argname}={$mtime}";
+	}
+
 	public function get_css_dependencies()
 	{
 		$deps = [
 			'vendor_bundled/vendor/npm-asset/converse.js/dist/converse.min.css',
 			'lib/xmpp/css/conversejs.css',
 		];
-
-		return $deps;
+		return array_map([$this, 'append_mtime'], $deps);
 	}
 
 	public function get_js_dependencies()
 	{
-		return [
+		$deps = [
 			'vendor_bundled/vendor/npm-asset/converse.js/dist/converse.js',
 			'lib/xmpp/js/conversejs-tiki.js',
 			'lib/xmpp/js/conversejs-tiki-oauth.js',
 		];
+		return array_map([$this, 'append_mtime'], $deps);
 	}
 
 	public function render()
