@@ -11,7 +11,6 @@ class ConverseJS
 			[
 				'auto_reconnect' => true,
 				'debug' => false,
-				'discover_connection_methods' => false, // TODO report and fix
 				'show_controlbox_by_default' => true,
 				'show_occupants_by_default' => true,
 				'use_emojione' => false,
