@@ -700,12 +700,15 @@ $("#add_object_type").change(function () {
 					<label class="col-form-label col-sm-3">{tr}CSV File{/tr}</label>
 					<div class="col-sm-9">
 						<input type="file" class="form-control" name="csvlist">
-						<div class="form-text">
-							{tr}Sample file content{/tr}
-<pre>{* can't indent <pre> tag contents *}
+						<div class="card mt-2">
+							<div class="card-header">
+								{tr}Sample file content{/tr}
+							</div>
+<pre class="card-body">{* can't indent <pre> tag contents *}
 category,description,parent
-vegetable,vegetable
-potato,,vegetable
+vegetable,Plants used as food,
+potato,Root vegetable native to the Americas,vegetable
+spinach,Spinach is a leafy green flowering plant,vegetable
 </pre>
 						</div>
 					</div>

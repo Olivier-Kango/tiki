@@ -21,7 +21,8 @@
 		</a>
 		<fieldset class="mb-3 w-100 clearfix featurelist">
 			<legend>{tr}New Features{/tr}</legend>
-			{preference name='trackerfield_duration'}
+			{preference name='feature_system_suggestions'}
+			{preference name='zend_mail_redirect'}
 			<div class="adminoption form-group row">
 				<label class="col-sm-3 col-form-label"><b>{tr}Security{/tr}</b>:</label>
 				<div class="offset-sm-1 col-sm-11">
@@ -35,6 +36,12 @@
 			</fieldset>
 		</fieldset>
 		<fieldset class="mb-3 w-100 clearfix featurelist">
+			<legend>{tr}Improved Plugins{/tr}</legend>
+			{preference name=wikiplugin_list}
+			{preference name=wikiplugin_listexecute}
+			{preference name=wikiplugin_pivottable}
+		</fieldset>
+		<fieldset class="mb-3 w-100 clearfix featurelist">
 			<legend>{tr}Other Extended Features{/tr}</legend>
 			<div class="adminoption form-group row">
 				<label class="col-sm-3 col-form-label"><b>{tr}MailIn{/tr}</b>:</label>
@@ -42,6 +49,31 @@
 					{tr}MailIn to Files.{/tr}
 					<a href="https://doc.tiki.org/Tiki22#Mail-in_to_files">{tr}More Information{/tr}...</a><br/><br/>
 				</div>
+				<div class="offset-sm-1 col-sm-11">
+					{tr}MailIn to Trackers.{/tr}
+					<a href="https://doc.tiki.org/Tiki22#Mail-in_to_trackers">{tr}More Information{/tr}...</a><br/><br/>
+				</div>
+				<label class="col-sm-3 col-form-label"><b>{tr}Webmail{/tr}</b>:</label>
+				<div class="offset-sm-1 col-sm-11">
+					{tr}Webmail contacts can be read from or stored to the user Contacts list.{/tr}
+					<a href="http://doc.tiki.org/Tiki22#Webmail_contacts">{tr}More Information{/tr}...</a><br/><br/>
+				</div>
+			</div>
+			{preference name=feature_trackers}
+			<div class="adminoptionboxchild" id="feature_trackers_childcontainer">
+				<legend>{tr}General{/tr}</legend>
+				<div class="col-sm-12">
+					{tr}Orphaned field names can be found more easily and non-searchable tracker fields can be excluded from the indexing{/tr}
+					<a href="http://doc.tiki.org/Tiki22#Search_orphaned_field_names">{tr}More Information{/tr}...</a><br/><br/>
+				</div>
+				<div class="col-sm-12">
+					{tr}Group of users can see their own items{/tr}
+					<a href="http://doc.tiki.org/Tiki22#Group_can_see_their_own_items">{tr}More Information{/tr}...</a><br/><br/>
+				</div>
+				<legend>{tr}New Fields{/tr}</legend>
+				{preference name=trackerfield_duration}<br/>
+				<legend>{tr}Other options{/tr}</legend>
+				{preference name=unified_numeric_field_scroll}
 			</div>
 		</fieldset>
 		<i>{tr}And many more improvements{/tr}.

@@ -314,7 +314,8 @@ if (isset($_REQUEST['import']) && isset($_FILES['csvlist']['tmp_name']) && $acce
 		if (! $fields[0]) {
 			Feedback::error(tr("The file has incorrect syntax or is not a CSV file"));
 		} else {
-			if ($fields[0] != 'category' || $fields[1] != 'description' || $fields[2] != 'parent') {
+			$bom = "\xef\xbb\xbf";
+			if (($fields[0] !== 'category' && $fields[0] !== $bom . 'category') || $fields[1] !== 'description' || $fields[2] !== 'parent') {
 				Feedback::error(tr('The file does not have the required header:') . ' category, description, parent');
 			} else {
 				while (! feof($fhandle)) {
