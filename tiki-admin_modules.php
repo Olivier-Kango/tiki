@@ -516,6 +516,35 @@ $headerlib->add_css(
 $headerlib->add_cssfile('themes/base_files/feature_css/admin.css');
 $headerlib->add_jsfile('lib/modules/tiki-admin_modules.js');
 
+if ($prefs['feature_jquery_validation'] === 'y') {
+	// set up validation for custom module smarty syntax
+	$rules = [
+		'rules' => [
+			'um_name' => [
+				'required' => true,
+			],
+			'um_data' => [
+				'required' => true,
+				'remote' => [
+					'url' => 'validate-ajax.php',
+					'type' =>  'post',
+					'data' => [
+						'validator' => 'smarty',
+						'input' => 'inputFunction',
+						'parameter' => 'parameterFunction',
+					],
+				],
+			],
+			'submitHandler' => 'submitHandlerFunction',
+		],
+	];
+	$validationjs = '$("form[name=editusr]").validate(' . json_encode($rules) . ')';
+	$validationjs = str_replace('"inputFunction"', 'function() { return $("#um_data").val(); }', $validationjs);
+	$validationjs = str_replace('"parameterFunction"', 'function() { return $("#um_parse").val(); }', $validationjs);
+	$validationjs = str_replace('"submitHandlerFunction"', 'function(form, event){return process_submit(form, event);}', $validationjs);
+	TikiLib::lib('header')->add_jq_onready($validationjs);
+}
+
 $sameurl_elements = ['offset', 'sort_mode', 'where', 'find'];
 
 // disallow robots to index page:
