@@ -137,17 +137,6 @@ class Hm_Handler_after_save_user_settings extends Hm_Handler_Module {
 }
 
 /**
- * Save external image sources setting
- * @subpackage tiki/handler
- */
-class Hm_Handler_process_allow_external_images extends Hm_Handler_Module {
-    public function process() {
-        function allow_external_images_callback($val) { return $val; }
-        process_site_setting('allow_external_images', $this, 'allow_external_images_callback', false, true);
-    }
-}
-
-/**
  * Expose debug setting
  * @subpackage tiki/output
  */
