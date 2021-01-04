@@ -112,7 +112,7 @@
 					{preference name=tracker_force_tracker_id}
 					{preference name=tracker_force_mandatory_field}
 					{preference name=tracker_force_tracker_fields}
-				</div>	
+				</div>
 				{preference name=groupTracker}
 				<legend>{tr}Other login settings{/tr}</legend>
 				{preference name=email_due}
@@ -558,6 +558,28 @@
 		{tab name="{tr}OAuth Server Settings{/tr}"}
 			<fieldset>
 				{preference name=oauthserver_encryption_key}
+			</fieldset>
+		{/tab}
+		{tab name="{tr}OpenId Connect{/tr}"}
+			{if $prefs.auth_method ne 'openid_connect'}
+				{remarksbox type="warning" title="{tr}Warning{/tr}" close="n"}
+				{tr}You must change the Authentication Method to OpenId Connect for these changes to take effect{/tr}
+				{/remarksbox}
+			{/if}
+			<fieldset>
+				{preference name=openidconnect_name}
+				{preference name=openidconnect_client_id}
+				{preference name=openidconnect_client_secret}
+				{preference name=openidconnect_issuer}
+				{preference name=openidconnect_auth_url}
+				{preference name=openidconnect_access_token_url}
+				{preference name=openidconnect_verify_method}
+				{if $prefs.openidconnect_verify_method eq 'jwks'}
+					{preference name=openidconnect_jwks_url}
+				{elseif $prefs.openidconnect_verify_method eq 'cert'}
+					{preference name=openidconnect_cert}
+				{/if}
+				{preference name=openidconnect_create_user_tiki}
 			</fieldset>
 		{/tab}
 	{/tabset}

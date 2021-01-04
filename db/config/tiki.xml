@@ -220,6 +220,9 @@
 		<service id="tiki.lib.object" class="ObjectLib">
 			<file>%kernel.root_dir%/lib/objectlib.php</file>
 		</service>
+		<service id="tiki.lib.openidconnect" class="Tiki\Lib\OpenIdConnect\OpenIdConnectLib">
+			<file>%kernel.root_dir%/lib/OpenIdConnect/OpenIdConnectLib.php</file>
+		</service>
 		<service id="tiki.lib.objectselector" class="Tiki\ObjectSelector\Selector">
 			<argument type="service" id="tiki.lib.object"/>
 		</service>

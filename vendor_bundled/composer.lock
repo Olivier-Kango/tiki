@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fbb53940e6135ed8c6d1d01e43588f04",
+    "content-hash": "22b4a4590d920acdf28fc6f254b5d983",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -651,7 +651,7 @@
             "version": "5.15.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/FortAwesome/Font-Awesome.git",
+                "url": "git@github.com:FortAwesome/Font-Awesome.git",
                 "reference": "57005cea6da7d1c67f3466974aecd25485f60452"
             },
             "dist": {
@@ -893,6 +893,46 @@
                 "shasum": "c4ce1ef9589a19a46459703661a556f2ca5b9b85"
             },
             "type": "library"
+        },
+        {
+            "name": "codercat/jwk-to-pem",
+            "version": "1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/acodercat/php-jwk-to-pem.git",
+                "reference": "e428b7abba5b37676e30e968930f718cf26724ac"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/codercat/jwk-to-pem/codercat-jwk-to-pem-e428b7abba5b37676e30e968930f718cf26724ac-zip-661f91.zip",
+                "reference": "e428b7abba5b37676e30e968930f718cf26724ac",
+                "shasum": "5adaad040a61500db0e6caa661a455d090adb41b"
+            },
+            "require": {
+                "php": ">=7.0.0",
+                "phpseclib/phpseclib": "~2.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CoderCat\\JWKToPEM\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "codercat",
+                    "email": "1067302838@qq.com"
+                }
+            ],
+            "description": "Convert JWK to PEM format.",
+            "time": "2020-11-12T05:40:03+00:00"
         },
         {
             "name": "components/bootstrap",
@@ -4700,6 +4740,72 @@
             "time": "2020-10-18T11:50:25+00:00"
         },
         {
+            "name": "league/oauth2-client",
+            "version": "2.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/oauth2-client.git",
+                "reference": "badb01e62383430706433191b82506b6df24ad98"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/league/oauth2-client/league-oauth2-client-badb01e62383430706433191b82506b6df24ad98-zip-ecca44.zip",
+                "reference": "badb01e62383430706433191b82506b6df24ad98",
+                "shasum": "151141acdab15db2d7d38abc6e1f98c9eb78bc02"
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.0 || ^7.0",
+                "paragonie/random_compat": "^1 || ^2 || ^9.99",
+                "php": "^5.6 || ^7.0 || ^8.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.3",
+                "php-parallel-lint/php-parallel-lint": "^1.2",
+                "phpunit/phpunit": "^5.7 || ^6.0 || ^9.3",
+                "squizlabs/php_codesniffer": "^2.3 || ^3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-2.x": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "League\\OAuth2\\Client\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alex Bilbie",
+                    "email": "hello@alexbilbie.com",
+                    "homepage": "http://www.alexbilbie.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Woody Gilk",
+                    "homepage": "https://github.com/shadowhand",
+                    "role": "Contributor"
+                }
+            ],
+            "description": "OAuth 2.0 Client Library",
+            "keywords": [
+                "Authentication",
+                "SSO",
+                "authorization",
+                "identity",
+                "idp",
+                "oauth",
+                "oauth2",
+                "single sign on"
+            ],
+            "time": "2020-10-28T02:03:40+00:00"
+        },
+        {
             "name": "league/oauth2-server",
             "version": "7.4.0",
             "source": {
@@ -7707,6 +7813,49 @@
                 "tour"
             ],
             "time": "2018-11-29T16:30:52+00:00"
+        },
+        {
+            "name": "steverhoades/oauth2-openid-connect-client",
+            "version": "v0.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/steverhoades/oauth2-openid-connect-client.git",
+                "reference": "0159471487540a4620b8d0b693f5f215503a8d75"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/steverhoades/oauth2-openid-connect-client/steverhoades-oauth2-openid-connect-client-0159471487540a4620b8d0b693f5f215503a8d75-zip-12c165.zip",
+                "reference": "0159471487540a4620b8d0b693f5f215503a8d75",
+                "shasum": "4c440f4aecf631c2262a647fd6729cbebc1faad5"
+            },
+            "require": {
+                "lcobucci/jwt": "^3.2",
+                "league/oauth2-client": "^2.0"
+            },
+            "require-dev": {
+                "phpmd/phpmd": "~2.2",
+                "phpunit/php-invoker": "~1.1",
+                "phpunit/phpunit": "~4.5",
+                "squizlabs/php_codesniffer": "~2.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "OpenIDConnectClient\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Steve Rhoades",
+                    "email": "sedonami@gmail.com"
+                }
+            ],
+            "description": "OAuth2 OpenID Connect Client that utilizes the PHP Leagues OAuth2 Client",
+            "time": "2020-05-19T23:06:36+00:00"
         },
         {
             "name": "studio-42/elfinder",

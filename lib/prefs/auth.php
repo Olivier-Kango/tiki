@@ -17,6 +17,7 @@ function prefs_auth_list()
 			'options' => [
 				'tiki' => tra('Tiki'),
 				'openid' => tra('Tiki and OpenID'),
+				'openid_connect' => tra('Tiki and OpenID Connect'),
 				'pam' => tra('Tiki and PAM'),
 				'ldap' => tra('Tiki and LDAP'),
 				'cas' => tra('CAS (Central Authentication Service)'),

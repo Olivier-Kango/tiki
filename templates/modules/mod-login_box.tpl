@@ -332,6 +332,13 @@ $(".collapse-toggle", ".siteloginbar_popup .dropdown-menu").click(function () {
 				{/foreach}
 			</select>
 		{/if}
+		{if $prefs.auth_method eq 'openid_connect' && isset($openidconnect_redirect_url) && $showloginboxes neq 'y'}
+			<div class="form-group text-center" style="margin-top: 1rem">
+				<a href="{$openidconnect_redirect_url}" class="btn btn-primary">
+					{tr _0=$prefs.openidconnect_name}Log in via %0{/tr}
+				</a>
+			</div>
+		{/if}
 		<div class="social-buttons">
 			{if $prefs.socialnetworks_facebook_login eq 'y' and $mode neq "header" and empty($user)}
 				{button _icon_name='facebook' _text="{tr}Log in via Facebook{/tr}" _class='btn btn-social btn-facebook' _script='tiki-socialnetworks.php' _auto_args=request_facebook request_facebook=true _title="{tr}Log in via Facebook{/tr}"}
