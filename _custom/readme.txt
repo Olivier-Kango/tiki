@@ -2,12 +2,28 @@ Tiki Custom Files
 -----------------
 Part of the planned file and directory revamp, this directory will eventually contain all custom files specific to your Tiki install.
 
-I.E. Custom themes, JavaScript, plugins and configuration files.
+i.e. Custom themes, JavaScript, plugins and configuration files.
 
-Currently any custom PHP code required for your site can now be added to _custom/lib/setup/custom.php.
+custom.php
+----------
+Currently any custom PHP code required for your site can now be added to _custom/lib/setup/custom.php
+
+For instance, you can add new bindings to events here, e.g. a custom function to run when a tracker item is saved
+
+	function itemWasSaved($args) {
+		// perform post item save actions here such as:
+		if ($args['trackerId'] === '42') {	// only for tracker #42
+			$status = $args['values']['status'];
+			$oldStatus = $args['old_values']['status'];
+			$itemId = $args['object'];
+			// ... etc
+		}
+	}
+
+	// bind your custom function to an event (find more in lib/setup/events.php)
+	TikiLib::lib('events')->bind('tiki.trackeritem.save', 'itemWasSaved');
 
 N.B. this directory and all files within it should NOT be web writable.
 
-Work in progress for Tiki 18, more fundemental changes planned for Tiki 19 in 2018.
 See (and contribute to) https://dev.tiki.org/File-and-directory-structure-revamp for more information.
 
