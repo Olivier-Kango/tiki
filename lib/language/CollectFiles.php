@@ -119,7 +119,7 @@ class Language_CollectFiles
 	 * Recursively scan directory and return all its
 	 * files (excluding $this->excludeDirs)
 	 *
-	 * @param $dir base dir
+	 * @param $dir string base dir
 	 * @return array collected files
 	 */
 	public function scanDir($dir)
@@ -129,6 +129,10 @@ class Language_CollectFiles
 		}
 
 		$files = [];
+
+		if (is_link($dir)) {
+			return $files;
+		}
 		$pattern = $this->buildExtensionsPattern();
 		$contents = scandir($dir);
 
