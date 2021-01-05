@@ -408,6 +408,15 @@ if (isset($_REQUEST['switchlang'])
 			&& $prefs['language'] != $info['lang']
 ) {
 	$prefs['language'] = $info['lang'];
+	// slight duplication from lib/setup/user_prefs.php:86 but seems safest
+	$translatablePreferences = TikiLib::lib('prefs')->getTranslatablePreferences();
+
+	foreach ($translatablePreferences as $preference) {
+		if (! empty($prefs[$preference . '_' . $prefs['language']])) {
+			$prefs[$preference . '_translated'] = $prefs[$preference . '_' . $prefs['language']];
+		}
+	}
+
 	TikiLib::lib('multilingual')->setupBiDi();
 }
 
