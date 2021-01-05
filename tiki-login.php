@@ -22,10 +22,16 @@ if (empty($_POST['user'])) {
 	unset($_POST['user']);	// $_POST['user'] is not allowed to be empty if set in tiki-setup.php
 }
 require_once('tiki-setup.php');
+global $prefs;
 
 $login_url_params = '';
+$isOpenIdValid = false;
 
-if (isset($_REQUEST['cas']) && $_REQUEST['cas'] == 'y' && $prefs['auth_method'] == 'cas') {
+/** @var \Tiki\Lib\OpenIdConnect\OpenIdConnectLib $oicLib */
+$oicLib = TikiLib::lib('openidconnect');
+if (! empty($_REQUEST['code']) && $prefs['auth_method'] == 'openid_connect' && $oicLib->isAvailable()) {
+	$_REQUEST['user'] = '';
+} elseif (isset($_REQUEST['cas']) && $_REQUEST['cas'] == 'y' && $prefs['auth_method'] == 'cas') {
 	$login_url_params = '?cas=y';
 	$_REQUEST['user'] = '';
 } elseif (! (isset($_REQUEST['user']) or isset($_REQUEST['username']))) {
@@ -216,6 +222,48 @@ if (isset($_REQUEST['intertiki']) and in_array($_REQUEST['intertiki'], array_key
 			}
 		}
 	}
+} elseif ($prefs['auth_method'] == 'openid_connect' && isset($_GET['code'])) {
+	try {
+		$token = $oicLib->getAccessToken($_GET['code']);
+		$idToken = $token->getIdToken();
+		$name = $idToken->getClaim('preferred_username', false) ?: $idToken->getClaim('name', false);
+		$email = $idToken->getClaim('email', false);
+
+		$username = $userlib->get_user_by_email($email);
+
+		if (! $username && $email && $oicLib->canCreateUserTiki()) {
+			// Remove invalid characters, based on username_pattern pref
+			$username = preg_replace('/[^ \'\-_a-zA-Z0-9@\.]/', '_', $name);
+			$user = $userlib->add_user($username, '', $email);
+
+			if (! $user) {
+				$logslib->add_log(
+					'login',
+					'openid_connect : login creation failed'
+				);
+				$smarty->assign('msg', tra('Unable to create login'));
+				$smarty->display('error.tpl');
+				exit;
+			}
+
+			$userlib->disable_tiki_auth($username); //disable that user's password in tiki - since we use OpenIdConnect
+		}
+
+		if ($username) {
+			$userlib->update_lastlogin($username);
+			$isvalid = true;
+			$isOpenIdValid = true;
+			$user = $username;
+		} else {
+			$error = USER_NOT_FOUND;
+			$isvalid = false;
+		}
+	} catch (Exception $e) {
+		$logslib->add_log('login', 'openid_connect : ' . $e->getMessage());
+		$smarty->assign('msg', tra('An error occurred trying to login. Please contact the administrator.'));
+		$smarty->display('error.tpl');
+		exit;
+	}
 } else {
 	// Verify user is valid
 	$ret = $userlib->validate_user($requestedUser, $pass);
@@ -253,7 +301,7 @@ if (isset($_REQUEST['intertiki']) and in_array($_REQUEST['intertiki'], array_key
 	}
 }
 
-if ($isvalid && $access->checkCsrf(null, null, null, null, null, 'page')) {
+if ($isvalid && ($isOpenIdValid || $access->checkCsrf(null, null, null, null, null, 'page'))) {
 	$userlib->set_unsuccessful_logins($requestedUser, 0);
 	if ($prefs['feature_invite'] == 'y') {
 		// tiki-invite, this part is just here to add groups to users which just registered after received an
@@ -411,7 +459,7 @@ if ($isvalid && $access->checkCsrf(null, null, null, null, null, 'page')) {
 	// check if site is closed
 	if ($prefs['site_closed'] === 'y') {
 		unset($bypass_siteclose_check);
-		if(isset($_REQUEST['ticket'])){
+		if (isset($_REQUEST['ticket'])) {
 			unset($_SESSION['tickets'][$_REQUEST['ticket']]);
 		}
 		switch ($error) {
@@ -554,7 +602,7 @@ if ($isvalid && $access->checkCsrf(null, null, null, null, null, 'page')) {
 	$smarty->display('tiki.tpl');
 	exit;
 }
-if (isset($user) && $access->checkCsrf(null, null, null, null, null, 'page')) {
+if (isset($user) && ($isOpenIdValid || $access->checkCsrf(null, null, null, null, null, 'page'))) {
 	TikiLib::events()->trigger(
 		'tiki.user.login',
 		[
@@ -589,7 +637,7 @@ if (defined('SID') && SID != '') {
 // Check if a wizard should be run.
 // If a wizard is run, it will return to the $url location when it has completed. Thus no code after $wizardlib->onLogin will be executed
 // The user must be actually logged in before onLogin is called. If $isdue is set, then: "Note that the user is not logged in he's just validated to change his password"
-if (! $isdue && $access->checkCsrf(null, null, null, null, null, 'page')) {
+if (! $isdue && ($isOpenIdValid || $access->checkCsrf(null, null, null, null, null, 'page'))) {
 	if ($prefs['feature_user_encryption'] === 'y') {
 		// Notify CryptLib about the login
 		$cryptlib = TikiLib::lib('crypt');
