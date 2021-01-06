@@ -64,6 +64,7 @@
 		}
 		if( {{$pivottable.aggregateDetails|json_encode}} ) {
 			opts.aggregateDetails = {{$pivottable.aggregateDetails|json_encode}};
+			opts.aggregateDetailsFormat = {{$pivottable.aggregateDetailsFormat|json_encode}};
 			opts.rendererOptions.table = {
 				clickCallback: function(e, value, filters, pivotData){
 					var details = [];
