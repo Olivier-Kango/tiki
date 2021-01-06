@@ -210,6 +210,16 @@ function wikiplugin_pivottable_info()
 				'profile_reference' => 'tracker_field',
 				'separator' => ':',
 			],
+			'aggregateDetailsFormat' => [
+				'name' => tr('Aggregate details format'),
+				'description' => tr('Uses the translate function to replace %0 etc with the aggregate field values. E.g. "%0 any text %1"'),
+				'since' => '22.1',
+				'required' => false,
+				'filter' => 'text',
+				'depends' => [
+					'field' => 'aggregateDetails'
+				],
+			],
 			'highlightMine' => [
 				'name' => tra('Highlight my items'),
 				'description' => tra('Highlight owned items\' values in Charts.'),
@@ -797,9 +807,14 @@ function wikiplugin_pivottable($data, $params)
 			}
 		}
 		foreach ($pivotData as &$row) {
-			$title = implode(' ', array_map(function ($field) use ($row) {
+			$arr = array_map(function ($field) use ($row) {
 				return $row[$field];
-			}, $aggregateDetails));
+			}, $aggregateDetails);
+			if (! empty($params['aggregateDetailsFormat'])) {
+				$title = tra($params['aggregateDetailsFormat'], '', false, $arr);
+			} else {
+				$title = implode(' ', $arr);
+			}
 			$pivotLinkParams = [
 				'type' => $row['object_type'],
 				'id' => $row['object_id'],
@@ -920,6 +935,7 @@ function wikiplugin_pivottable($data, $params)
 		'rowOrder' => $params['rowOrder'] ?? 'key_a_to_z',
 		'menuLimit' => empty($params['menuLimit']) ? null : $params['menuLimit'],
 		'aggregateDetails' => implode(':', $params['aggregateDetails']),
+		'aggregateDetailsFormat' => $params['aggregateDetailsFormat'] ?? null,
 		'highlight' => $highlight,
 		'highlightMine' => empty($params['highlightMine']) ? null : $params['highlightMine'],
 		'highlightGroup' => empty($params['highlightGroup']) ? null : $params['highlightGroup'],
