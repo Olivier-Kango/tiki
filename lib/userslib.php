@@ -2836,8 +2836,6 @@ class UsersLib extends TikiLib
 			$result = $this->query("select `fieldId`, `itemChoices` from `tiki_tracker_fields` where `type`='u'");
 
 			while ($res = $result->fetchRow()) {
-				$this->query('update `tiki_tracker_item_fields` set `value`=? where `value`=? and `fieldId`=?', [$to, $from, $res['fieldId']]);
-
 				$u = ($res['itemChoices'] != '' ) ? unserialize($res['itemChoices']) : [];
 
 				if ($value = array_search($from, $u)) {
@@ -2846,6 +2844,25 @@ class UsersLib extends TikiLib
 					$this->query('update `tiki_tracker_fields` set `itemChoices`=? where `fieldId`=?', [$u, $res['fieldId']]);
 				}
 			}
+
+			$result = $this->query(
+				'select ttif.itemId, ttif.fieldId, ttif.value from `tiki_tracker_item_fields` ttif' .
+				' left join `tiki_tracker_fields` ttf on ttif.fieldId = ttf.fieldId' .
+				' where ttif.value LIKE ? and ttf.type = ? and ttf.options NOT LIKE ?',
+				['%'.$from.'%', 'u', '"multiple":0']
+			);
+			while ($res = $result->fetchRow()) {
+				$values = TikiLib::lib('trk')->parse_user_field($res['value']);
+				$key = array_search($from, $values);
+				if ($key !== false) {
+					$values[$key] = $to;
+					$this->query(
+						'update `tiki_tracker_item_fields` set value = ? where itemId = ? and fieldId = ?',
+						[TikiLib::lib('tiki')->str_putcsv($values), $res['itemId'], $res['fieldId']]
+					);
+				}
+			}
+
 			$cachelib->invalidate('userslist');
 			TikiLib::events()->trigger('tiki.user.update', ['type' => 'user', 'object' => $from]);
 			TikiLib::events()->trigger('tiki.user.update', ['type' => 'user', 'object' => $to]);
