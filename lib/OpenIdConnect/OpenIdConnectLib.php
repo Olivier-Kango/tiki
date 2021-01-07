@@ -13,31 +13,31 @@ use OpenIDConnectClient\OpenIDConnectProvider;
 
 class OpenIdConnectLib
 {
-	private $clientSecret;
+	protected $clientSecret;
 
-	private $clientId;
+	protected $clientId;
 
-	private $issuer;
+	protected $issuer;
 
-	private string $redirectUri;
+	protected string $redirectUri;
 
-	private $authUrl;
+	protected $authUrl;
 
-	private $accessTokenUrl;
+	protected $accessTokenUrl;
 
-	private $detailsUrl;
+	protected $detailsUrl;
 
-	private $pbKeyFiles;
+	protected $pbKeyFiles;
 
-	private $verifyMethod;
+	protected $verifyMethod;
 
-	private $connectCert;
+	protected $connectCert;
 
-	private $isAvailable;
+	protected $isAvailable;
 
-	private OpenIDConnectProvider $provider;
+	protected OpenIDConnectProvider $provider;
 
-	private $createUserTiki;
+	protected $createUserTiki;
 
 	public function __construct()
 	{
@@ -62,7 +62,7 @@ class OpenIdConnectLib
 		$this->provider = $this->getProviderInstance();
 	}
 
-	private function getProviderInstance()
+	protected function getProviderInstance()
 	{
 		$signer = new RSA256Signer();
 		return new OpenIDConnectProvider(
@@ -100,7 +100,7 @@ class OpenIdConnectLib
 
 	public function isAvailable(): bool
 	{
-		return $this->isAvailable;
+		return $this->isAvailable ?: false;
 	}
 
 	public function validatePreferences(): bool
@@ -128,7 +128,7 @@ class OpenIdConnectLib
 		return $valid;
 	}
 
-	private function getPublicKeyFiles()
+	protected function getPublicKeyFiles()
 	{
 		if ($this->verifyMethod === 'jwks') {
 			$pbKeys = $this->getPublicKeyFromJWKS();
@@ -139,7 +139,7 @@ class OpenIdConnectLib
 		return $pbKeys;
 	}
 
-	private function getPublicKeyFromJWKS()
+	protected function getPublicKeyFromJWKS()
 	{
 		try {
 			$cachelib = \TikiLib::lib('cache');
