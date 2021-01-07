@@ -3002,6 +3002,9 @@ class FileGalLib extends TikiLib
 			if (! empty($params['description'][0])) {
 				$fileInfo['description'] = $params['description'][0];
 			}
+			if (! empty($params['galleryId'][0])) {
+				$fileInfo['galleryId'] = $params['galleryId'][0];
+			}
 			if (! empty($params['user'][0])) {
 				$fileInfo['user'] = $params['user'][0];
 			}
@@ -3275,6 +3278,7 @@ class FileGalLib extends TikiLib
 			$file = TikiFile::id($editFileId);
 			$file->init([
 				'description' => $fileInfo['description'],
+				'galleryId' => $fileInfo['galleryId'],
 				'user' => $fileInfo['user'],
 				'author' => $fileInfo['author'],
 				'comment' => $fileInfo['comment'],

@@ -150,6 +150,23 @@
 								{/if}
 							</div>
 						</div>
+						<div class="form-group row">
+							<label for="parentGalleryId" class="col-sm-4">
+								{tr}Parent Gallery:{/tr}
+							</label>
+							<div class="col-sm-8">
+								<select name="parentGalleryId" id="parentGalleryId" class="form-control">
+									{foreach $all_galleries as $gallery}
+										{if $gallery.perms.tiki_p_upload_files eq 'y' and
+												($gallery.public eq 'y' or $gallery.user eq $user or $gallery.perms.tiki_p_admin_file_galleries eq 'y')}
+											<option value="{$gallery.id}"{if $fileInfo.galleryId eq $gallery.id} selected="selected"{/if}>
+												{$gallery.label|escape}
+											</option>
+										{/if}
+									{/foreach}
+								</select>
+							</div>
+						</div>
 					{/if}
 					{if $prefs.javascript_enabled !== 'y' || $prefs.file_galleries_use_jquery_upload neq 'y' || $editFileId}
 						<div class="form-group row">
