@@ -91,6 +91,20 @@ if (! empty($_REQUEST['fileId'])) {
 			$smarty->assign('ocr_state', true);
 		}
 	}
+	$subGalleries = $filegallib->getSubGalleries();
+
+	$gals = [];
+	foreach ($subGalleries['data'] as $gal) {
+		$gals[] = [
+			'label' => $gal['parentName'] . ' > ' . $gal['name'],
+			'id' => $gal['id'],
+			'perms' => $gal['perms'],
+			'public' => $gal['public'],
+			'user' => $gal['user'],
+		];
+	}
+	sort($gals);
+	$smarty->assign_by_ref('all_galleries', $gals);
 }
 
 if (isset($_REQUEST['galleryId'][0])) {
@@ -197,6 +211,7 @@ if ($isUpload) {
 		}
 		$optionalRequestParams = [
 			'fileId',
+			'parentGalleryId',
 			'name',
 			'user',
 			'description',
@@ -224,7 +239,11 @@ if ($isUpload) {
 
 		foreach ($optionalRequestParams as $p) {
 			if (isset($_REQUEST[ $p ])) {
-				$uploadParams[ $p ] = $_REQUEST[ $p ];
+				if ($p === 'parentGalleryId') {
+					$uploadParams[ 'galleryId' ] = [$_REQUEST[ $p ]];	// new parent gallery for file from edit properties form
+				} else {
+					$uploadParams[ $p ] = $_REQUEST[ $p ];
+				}
 			}
 		}
 
