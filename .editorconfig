@@ -141,7 +141,7 @@ ij_shell_redirect_followed_by_space = false
 ij_shell_switch_cases_indented = false
 
 [{*.cjs,*.js}]
-max_line_length = 80
+max_line_length = 150
 ij_continuation_indent_size = 4
 ij_javascript_align_imports = false
 ij_javascript_align_multiline_array_initializer_expression = true
@@ -304,7 +304,7 @@ ij_javascript_while_on_new_line = false
 ij_javascript_wrap_comments = true
 
 [{*.cjsx,*.coffee}]
-max_line_length = 80
+max_line_length = 150
 ij_continuation_indent_size = 4
 ij_coffeescript_align_function_body = false
 ij_coffeescript_align_imports = false
@@ -397,7 +397,7 @@ ij_coffeescript_use_semicolon_after_statement = false
 ij_coffeescript_var_declaration_wrap = normal
 
 [{*.ng,*.sht,*.html,*.shtm,*.shtml,*.htm}]
-max_line_length = 80
+max_line_length = 150
 ij_continuation_indent_size = 4
 ij_html_add_new_line_before_tags = body,div,p,form,h1,h2,h3,a
 ij_html_align_attributes = true
@@ -598,7 +598,7 @@ ij_yaml_keep_indents_on_empty_lines = false
 ij_yaml_keep_line_breaks = true
 
 [{composer.lock,.babelrc,.stylelintrc,.eslintrc,jest.config,bowerrc,*.json,*.jsb3,*.jsb2}]
-max_line_length = 80
+max_line_length = 150
 ij_continuation_indent_size = 4
 ij_json_keep_blank_lines_in_code = 2
 ij_json_keep_indents_on_empty_lines = false
@@ -612,7 +612,7 @@ ij_json_spaces_within_brackets = false
 ij_json_wrap_long_lines = false
 
 [{ocrCommand,ocrIndexCommand,*.ctp,*.hphp,*.phtml,*.module,*.php,*.php5,*.php4,*.inc}]
-max_line_length = 80
+max_line_length = 150
 ij_continuation_indent_size = 4
 ij_php_align_assignments = false
 ij_php_align_class_constants = false
@@ -817,7 +817,7 @@ ij_php_while_brace_force = always
 ij_php_while_on_new_line = false
 
 [{phpunit.xml.dist,*.xslt,*.xul,*.rng,*.xsl,*.xsd,*.ant,*.jhm,*.tld,*.fxml,*.jrxml,*.xml,*.jnlp,*.wsdl}]
-max_line_length = 80
+max_line_length = 150
 ij_continuation_indent_size = 4
 ij_xml_block_comment_at_first_column = true
 ij_xml_keep_indents_on_empty_lines = false

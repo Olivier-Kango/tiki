@@ -794,7 +794,7 @@ class EditLib
 				'ck_editor' => true,
 				'is_html' => ($isHtml && ! $fromWiki),
 				'process_wiki_paragraphs' => (! $isHtml || $fromWiki),
-				'process_double_brackets' => 'n'
+				'process_double_brackets' => 'y'
 			], $options)
 		);
 
