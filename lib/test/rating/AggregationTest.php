@@ -13,6 +13,8 @@ class Rating_AggregationTest extends TikiTestCase
 	{
 		global $user, $testhelpers, $prefs;
 
+		require_once('lib/rating/ratinglib.php');
+
 		$user = null;
 
 		$tikilib = $this->createMock('TikiLib');
