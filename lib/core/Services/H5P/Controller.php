@@ -363,11 +363,6 @@ class Services_H5P_Controller
 
 	function action_files($input)
 	{
-		$files_directory = \H5P_H5PTiki::$h5p_path;
-
-		// Get Content ID for upload
-		$contentId = $input->contentId->int();
-
 		$file = new \H5peditorFile(\H5P_H5PTiki::get_h5p_instance('interface'));
 		if (! $file->isLoaded()) {
 			H5PCore::ajaxError(tr('File not found on server. Check file upload settings.'));
@@ -378,9 +373,9 @@ class Services_H5P_Controller
 		if ($file->validate()) {
 			$core = \H5P_H5PTiki::get_h5p_instance('core');
 
-			// Save the valid file
-			$file = $core->fs->saveFile($file, $contentId);
-			\H5P_EditorTikiStorage::markFileForCleanup($file, $contentId);
+			// Save the valid file (as contentId = 0 as we're still in the editor at this point
+			$file = $core->fs->saveFile($file, 0);
+			\H5P_EditorTikiStorage::markFileForCleanup($file, 0);
 
 		}
 

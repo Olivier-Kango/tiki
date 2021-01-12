@@ -5,6 +5,8 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
+use Tiki\FileGallery\File as TikiFile;
+
 if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
 	header("location: index.php");
 	exit;
@@ -188,7 +190,7 @@ class H5PLib
 			Feedback::error(tra('PHP Class "ZipArchive" not found'));
 		}
 
-		$file = Tiki\FileGallery\File::id($fileId);
+		$file = TikiFile::id($fileId);
 
 		// make a copy of the h5p file for the validator to unpack (and eventually delete)
 		$dest = $tikipath . 'temp/' . $file->filename;
@@ -589,14 +591,14 @@ class H5PLib
 		}
 
 		// Decode parameters input
-		$params = json_decode($content['params'], true);
+		$params = json_decode($content['params']);
 		if ($params === null) {
 			$core->h5pF->setErrorMessage(tr('Invalid content parameters.'));
 			return false;
 		}
 
-		$content['params'] = json_encode($params['params']);
-		$content['metadata'] = $params['metadata'];
+		$content['params'] = json_encode($params->params);
+		$content['metadata'] = json_encode($params->metadata);
 
 		// Trim title and check length
 		$content['title'] = $input->title->text();
@@ -637,7 +639,7 @@ class H5PLib
 		if (! $fileId) {
 			// Prevent extracting and inserting the file we're creating
 			$this->H5PTiki->isSaving = true;
-			$file = new Tiki\FileGallery\File([
+			$file = new TikiFile([
 				'galleryId' => $prefs['h5p_filegal_id'],
 				'description' => tr('Created by H5P'),
 				'user' => $user,
@@ -651,11 +653,26 @@ class H5PLib
 
 		// Move images to parmanent storage and find all required content dependencies
 		$editor = \H5P_EditorTikiStorage::get_h5peditor_instance();
-		$editor->processParameters($content['id'], $content['library'], $params['params'], $oldLibrary, $oldParams);
+		$editor->processParameters($content['id'], $content['library'], $params->params, $oldLibrary, $oldParams);
 
 		// export the project into the new file gallery file
 		$content['file_id'] = $fileId;
 		$core->filterParameters($content); // rebuild content
+
+		// trigger the update event if not creating a new file
+		if (empty($file)) {
+			$file = TikiFile::id($fileId);
+			TikiLib::events()->trigger(
+				'tiki.file.update',
+				[
+					'type'      => 'file',
+					'object'    => $fileId,
+					'user'      => $user,
+					'galleryId' => $file->galleryId,
+					'filetype'  => $file->filetype,
+				]
+			);
+		}
 
 		return $fileId;
 	}
