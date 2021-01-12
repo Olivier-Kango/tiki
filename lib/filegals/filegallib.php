@@ -1046,6 +1046,8 @@ class FileGalLib extends TikiLib
 		$wrapper = $file->getWrapper();
 		try {
 			$content = $parseApp($wrapper);
+			// clean out any chars not suitable for storing in tiki_file.search_data which is a LONGTEXT column
+			$content = filter_var($content, FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_HIGH|FILTER_FLAG_STRIP_LOW);
 		} catch (Exception $e) {
 			Feedback::error(tr('Processing search text from a "%0" file in gallery #%1', $file->filetype, $file->galleryId) . '<br>'
 				. $e->getMessage());
