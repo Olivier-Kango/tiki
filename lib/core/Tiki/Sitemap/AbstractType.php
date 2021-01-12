@@ -17,13 +17,13 @@ use Perms;
 abstract class AbstractType
 {
 	/**
-	 * @var \SitemapPHP\Sitemap
+	 * @var \Melbahja\Seo\Sitemap
 	 */
 	protected $sitemap;
 
 	/**
 	 * AbstractType constructor.
-	 * @param \SitemapPHP\Sitemap $sitemap
+	 * @param \Melbahja\Seo\Sitemap $sitemap
 	 */
 	public function __construct($sitemap)
 	{
@@ -83,6 +83,7 @@ abstract class AbstractType
 		$urlTemplate,
 		$idField,
 		$entryType,
+		$sitemapName,
 		$titleField = 'title',
 		$updateField = 'created',
 		$priority = '0.6',
@@ -92,18 +93,27 @@ abstract class AbstractType
 			return;
 		}
 
-		foreach ($entries['data'] as $entry) {
-			$url = sprintf($urlTemplate, urlencode($entry[$idField]));
-			if (function_exists('filter_out_sefurl')) {
-				$url = filter_out_sefurl($url, $entryType, (empty($titleField) || empty($entryType[$titleField])) ? '' : $entry[$titleField]);
-			}
 
-			$this->sitemap->addItem(
-				$url,
-				$priority,
-				$changeFrequency,
-				isset($entry[$updateField]) ? $entry[$updateField] : null
-			);
-		}
+		$this->sitemap->links(['name' => $sitemapName], function($map) use (
+			$entries,
+			$urlTemplate,
+			$idField,
+			$entryType,
+			$titleField,
+			$updateField,
+			$priority,
+			$changeFrequency
+		) {
+
+			foreach ($entries['data'] as $entry) {
+
+				$url = sprintf($urlTemplate, urlencode($entry[$idField]));
+				if (function_exists('filter_out_sefurl')) {
+					$url = filter_out_sefurl($url, $entryType, ($entryType[$titleField] ?? ''));
+				}
+
+				$map->loc($url)->priority($priority)->freq($changeFrequency)->lastMod($entry[$updateField] ?? time());
+			}
+		});
 	}
 }

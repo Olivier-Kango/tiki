@@ -30,6 +30,6 @@ class Forums extends AbstractType
 
 		$channels['data'] = Perms::filter(['type' => 'forum'], 'object', $channels['data'], ['object' => 'forumId'], 'forum_read');
 
-		$this->addEntriesToSitemap($channels, '/tiki-view_forum.php?forumId=%s', 'forumId', null, '', 'lastPost', '0.6', 'daily');
+		$this->addEntriesToSitemap($channels, '/tiki-view_forum.php?forumId=%s', 'forumId', null, 'forum.xml', '', 'lastPost', '0.6', 'daily');
 	}
 }

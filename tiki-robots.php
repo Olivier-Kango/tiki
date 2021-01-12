@@ -1,19 +1,31 @@
+<?php
+
+header('content-type: text/plain');
+
+require_once 'tiki-setup.php';
+
+global $base_url;
+$dynamicOptions = "";
+if ($prefs['sitemap_enable'] == 'y') {
+	$dynamicOptions .= "# Be sure to re-generate sitemaps with scheduler (https://doc.tiki.org/Sitemap)" . PHP_EOL;
+	$dynamicOptions .= "{$base_url}storage/public/sitemap-index.xml";
+}
+
+echo <<<EOF
 # This is a robot.txt file for Tiki to tell all search bots that we don't want them to crawl in the paths beginning with the strings below.
 # For an installation in a subdirectory, you have to copy this file in root of your domain and add /yoursubdirname on each line.
 #
 # (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
-# 
+#
 # All Rights Reserved. See copyright.txt for details and a complete list of authors.
 # Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
-# $Id$
+# \$Id$
 
 User-agent: *
 # Uncomment the following line to indicate to robots __not__ to crawl your site.
 # Disallow: /
 
-# Uncomment and update the domain name of your website to point search engines to your sitemap
-# Be sure to enable the feature and periodically re-generate with scheduler (https://doc.tiki.org/Sitemap)
-# Sitemap: http://example.org/storage/public/sitemap-index.xml
+{$dynamicOptions}
 
 #  == Begin SEF URL Section ==
 #remove pages in favour of the SEF counterpart (Enable only after SEF URL’s are enabled in tiki will otherwise prevent indexing.)
@@ -31,7 +43,7 @@ User-agent: *
 #only enable if "Open page as structure" is enabled under Admin-Wiki, so the structure is not passed via the url.
 #If existing links in your pages use the structure= in our pages, it may cause problem with Google Crawling the website.
 
-#Disallow: /*structure=* 
+#Disallow: /*structure=*
 
 
 # This is to slow down any crawling so as not to put pressure on your server
@@ -78,9 +90,10 @@ Disallow: /*PHPSESSID=
 Disallow: /*display=print*
 Disallow: /*show_comzone=*
 Disallow: /*page_ref_id=*
-Disallow: /*topics_offset=-1* # to fix a display error, can be removed when bug5204 is fixed 
+Disallow: /*topics_offset=-1* # to fix a display error, can be removed when bug5204 is fixed
 Disallow: /*show_details=*
 Disallow: /*offset=0*
 Disallow: /*print=y*
 Disallow: /*fullscreen=y*
 Disallow: /*mode=mobile*
+EOF;
