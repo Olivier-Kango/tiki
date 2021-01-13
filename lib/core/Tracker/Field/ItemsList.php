@@ -13,6 +13,8 @@
  */
 class Tracker_Field_ItemsList extends Tracker_Field_Abstract implements Tracker_Field_Exportable, Tracker_Field_Filterable
 {
+	private static $itemValuesLocalCache = [];
+
 	public static function getTypes()
 	{
 		return [
@@ -797,6 +799,11 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
 	 */
 	public function getItemValues()
 	{
+		$cache_key = $this->getItemId().'-'.$this->getFieldId();
+		if (isset(self::$itemValuesLocalCache[$cache_key])) {
+			return self::$itemValuesLocalCache[$cache_key];
+		}
+
 		$displayFields = $this->getOption('displayFieldIdThere');
 		$trackerId = (int) $this->getOption('trackerId');
 
@@ -829,6 +836,11 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
 			}
 			$itemsValues[] = $itemValues;
 		}
+
+		if (TikiLib::lib('tiki')->get_memory_avail() < 1048576 * 10) {
+			self::$itemValuesLocalCache = [];
+		}
+		self::$itemValuesLocalCache[$cache_key] = $itemsValues;
 
 		return $itemsValues;
 	}
