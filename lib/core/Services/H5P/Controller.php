@@ -31,6 +31,12 @@ class Services_H5P_Controller
 		return 'file_galleries';
 	}
 
+	/**
+	 * @param JitFilter $input
+	 *
+	 * @return array|string|null
+	 * @throws Services_Exception_NotAvailable
+	 */
 	function action_embed($input)
 	{
 		$smarty = TikiLib::lib('smarty');
@@ -61,7 +67,7 @@ class Services_H5P_Controller
 					], $smarty->getEmptyInternalTemplate()),
 				];
 			} else {
-				throw new Services_Exception_NotAvailable(tr('H5P Embed:') . ' ' . tr('No fileID provided.'));
+				throw new Services_Exception_Denied(tr('H5P Embed:') . ' ' . tr('No fileID provided.'));
 			}
 		}
 
@@ -75,6 +81,22 @@ class Services_H5P_Controller
 		if (is_string($content)) {
 			// Return error message if the user has the correct cap
 			return Perms::get()->h5p_edit ? $content : null;
+		}
+
+		if ($input->offsetExists('extra')) {
+			$extra = $input->asArray('extra');
+
+			$filtered = json_decode($content['filtered'], true);
+			foreach($filtered as $key => $value) {
+				if (isset($extra[$key])) {
+					foreach($extra[$key] as $ekey => $evalue) {
+						if (isset($filtered[$key][$ekey])) {
+							$filtered[$key][$ekey] = $evalue;
+						}
+					}
+				}
+			}
+			$content['filtered'] = json_encode($filtered);
 		}
 
 		// Log view
