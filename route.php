@@ -114,6 +114,7 @@ function tiki_route($path)
 	tiki_route_attempt_prefix('quiz', 'tiki-take_quiz.php', 'quizId');
 	tiki_route_attempt_prefix('survey', 'tiki-take_survey.php', 'surveyId');
 	tiki_route_attempt_prefix('tracker', 'tiki-view_tracker.php', 'trackerId');
+	tiki_route_attempt_prefix('trackerfields', 'tiki-admin_tracker_fields.php', 'trackerId');
 	tiki_route_attempt_prefix('sheet', 'tiki-view_sheets.php', 'sheetId');
 	tiki_route_attempt_prefix('user', 'tiki-user_information.php', 'userId');
 	tiki_route_attempt('|^userinfo$|', 'tiki-view_tracker_item.php', function () {
