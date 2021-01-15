@@ -27,7 +27,7 @@ class Blog extends AbstractType
 		$blogLib = TikiLib::lib('blog');
 
 		$listPages = $blogLib->list_blogs();
-		$this->addEntriesToSitemap($listPages, '/tiki-view_blog.php?blogId=%s', 'blogId', 'blog', 'title', 'lastModif', '0.8');
+		$this->addEntriesToSitemap($listPages, '/tiki-view_blog.php?blogId=%s', 'blogId', 'blog', 'blogs.xml', 'title', 'lastModif', '0.8');
 
 		$posts = $blogLib->list_posts();
 		$this->addEntriesToSitemap($posts, '/tiki-view_blog_post.php?postId=%s', 'postId', 'blogpost', 'blogposts.xml');

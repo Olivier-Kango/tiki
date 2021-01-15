@@ -67,6 +67,7 @@ class Generator
 
 		$sitemap = Factory::sitemap($baseUrl);
 		$sitemap->setSavePath($this->basePath . $relativePath);
+		$sitemap->setSitemapsUrl($baseUrl . '/' . $relativePath);
 		$sitemap->setIndexName($this->getSitemapFilename());
 
 		// Execute all other handlers, for the different type of content

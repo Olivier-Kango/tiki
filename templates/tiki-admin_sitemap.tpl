@@ -1,6 +1,6 @@
 {* $Id$ *}
 
-{title help="Sitemap" admpage="General#contentadmin_general-3"}{tr}Sitemap{/tr}{/title}
+{title help="Sitemap" admpage="general&cookietab=3&highlight=sitemap_enable"}{tr}Sitemap{/tr}{/title}
 
 {button href="tiki-admin_sitemap.php?rebuild=1" _icon_name="sitemap" class="btn btn-primary" _text="{tr}Rebuild sitemap{/tr}"}
 

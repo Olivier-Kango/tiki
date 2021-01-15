@@ -8,7 +8,7 @@ global $base_url, $prefs;
 $dynamicOptions = "";
 if ($prefs['sitemap_enable'] == 'y') {
 	$dynamicOptions .= "# Be sure to re-generate sitemaps with scheduler (https://doc.tiki.org/Sitemap)" . PHP_EOL;
-	$dynamicOptions .= "{$base_url}storage/public/sitemap-index.xml";
+	$dynamicOptions .= "Sitemap: {$base_url}storage/public/sitemap-index.xml";
 }
 
 echo <<<EOF
