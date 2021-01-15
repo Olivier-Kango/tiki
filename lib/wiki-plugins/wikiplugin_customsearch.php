@@ -952,6 +952,8 @@ function cs_design_daterange($id, $fieldname, $fieldid, $arguments, $default, &$
 		}
 	}
 
+	$startEmpty = (empty($_from) && empty($_to) && empty($_gap));
+
 	if (! empty($_from)) {
 		if ($_from == 'now') {
 			$params_from['date'] = TikiLib::lib('tiki')->now;
@@ -965,7 +967,7 @@ function cs_design_daterange($id, $fieldname, $fieldid, $arguments, $default, &$
 			$params_to['date'] = $params_from['date'] + $_gap;
 		}
 	} else {
-		$params_from['date'] = TikiLib::lib('tiki')->now;
+		$params_from['date'] = $startEmpty ? '' : TikiLib::lib('tiki')->now;
 	}
 	if (! empty($_to)) {
 		if ($_to == 'now') {
@@ -980,7 +982,7 @@ function cs_design_daterange($id, $fieldname, $fieldid, $arguments, $default, &$
 			$params_from['date'] = $params_to['date'] - $_gap;
 		}
 	} elseif (empty($params_to['date'])) {
-		$params_to['date'] = TikiLib::lib('tiki')->now + 365 * 24 * 3600;
+		$params_to['date'] = $startEmpty ? '' : TikiLib::lib('tiki')->now + 365 * 24 * 3600;
 	}
 
 	$picker = '';
@@ -988,17 +990,17 @@ function cs_design_daterange($id, $fieldname, $fieldid, $arguments, $default, &$
 	$picker .= smarty_function_jscalendar($params_to, $smarty->getEmptyInternalTemplate());
 
 	$script .= "
-$('#{$fieldid_from}_dptxt,#{$fieldid_to}_dptxt').change(function() {
+$('#{$fieldid_from},#{$fieldid_to}').change(function() {
 	updateDateRange_$fieldid();
 });
 function updateDateRange_$fieldid() {
 	var from = $('#$fieldid_from').val();
 	var to = $('#$fieldid_to').val();
-	from = from.substr(0,10);to = to.substr(0,10); // prevent trailing 000 from date picker
+	var val = (from && to) ? from + ',' + to : '';
 	customsearch$id.add('$fieldid', {
 		config: " . json_encode($arguments) . ",
 		name: 'daterange',
-		value: from + ',' + to
+		value: val
 	});
 }
 updateDateRange_$fieldid();
