@@ -4,7 +4,7 @@ header('content-type: text/plain');
 
 require_once 'tiki-setup.php';
 
-global $base_url;
+global $base_url, $prefs;
 $dynamicOptions = "";
 if ($prefs['sitemap_enable'] == 'y') {
 	$dynamicOptions .= "# Be sure to re-generate sitemaps with scheduler (https://doc.tiki.org/Sitemap)" . PHP_EOL;

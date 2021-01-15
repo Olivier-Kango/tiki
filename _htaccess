@@ -176,6 +176,9 @@ FileETag none
     # -- Disallow access to hidden files (apart from well-known ones) -- #
     RewriteRule "(^|/)\.(?!well-known/)" - [F,L]
 
+    # Redirect robots.txt to dynamic tiki-robots.php file.
+    RewriteRule ^robots\.txt$ route.php [L]
+
     # -- If the URL Points to a File Then do Nothing -- #
     RewriteCond %{REQUEST_FILENAME} -s [OR]
     RewriteCond %{REQUEST_FILENAME} -l [OR]
