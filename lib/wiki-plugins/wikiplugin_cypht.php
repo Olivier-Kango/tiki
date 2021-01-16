@@ -237,6 +237,16 @@ function wikiplugin_cypht($data, $params)
 {
 	global $tikipath, $tikiroot, $user, $page, $logslib;
 	$headerlib = TikiLib::lib('header');
+	$tikilib = TikiLib::lib('tiki');
+
+	$foo = parse_url($_SERVER["REQUEST_URI"]);
+	$url = $tikilib->httpPrefix(true) . $foo["path"];
+	$path = parse_url($url, PHP_URL_PATH);
+	$basename = basename($path);
+	if ($basename != $page) {
+		header('Location: ' . $page);
+		exit;
+	}
 
 	if (defined('APP_PATH')) {
 		return tr("Cypht already started.");
