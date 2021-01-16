@@ -320,7 +320,7 @@
 							</div>
 						{/if}
 						{if isset($grouptrackerid)}
-							{button href="tiki-admin_tracker_fields.php?trackerId=$grouptrackerid" _text="{tr}Admin{/tr} $ggr"}
+							{button href=$grouptrackerid|sefurl:'trackerfields' _text="{tr}Admin{/tr} $ggr"}
 						{else}
 							{button href="tiki-list_trackers.php" _text="{tr}Go to trackers list{/tr}"}
 						{/if}
@@ -394,7 +394,7 @@
 {/jq}
 						{/if}
 						{if isset($userstrackerid)}
-							{button href="tiki-admin_tracker_fields.php?trackerId=$userstrackerid" _text="{tr}Admin{/tr} $ugr"}
+							{button href=$userstrackerid|sefurl:'trackerfields' _text="{tr}Admin{/tr} $ugr"}
 						{else}
 							{button href="tiki-list_trackers.php" _text="{tr}Go to tracker list{/tr}"}
 						{/if}

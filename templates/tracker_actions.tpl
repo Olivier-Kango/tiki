@@ -6,7 +6,7 @@
 	<a class="btn btn-info" href="{bootstrap_modal controller=tracker action=replace trackerId=$trackerId}">
 		{icon name="settings"} {tr}Properties{/tr}
 	</a>
-	<a class="btn btn-info" href="tiki-admin_tracker_fields.php?trackerId={$trackerId|escape}">
+	<a class="btn btn-info" href="{$trackerId|sefurl:'trackerfields'}">
 		{icon name="th-list"} {tr}Fields{/tr}
 	</a>
 {/if}

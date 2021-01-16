@@ -6,7 +6,7 @@
 
 {block name="content"}
 	{if $trackerId}
-		<a href="tiki-admin_tracker_fields.php?trackerId={$trackerId|escape:'url'}">{tr}Admin Fields{/tr}</a>
+		<a href="{$trackerId|sefurl:'trackerfields'}">{tr}Admin Fields{/tr}</a>
 	{else}
 		<form method="post" action="{service controller=tracker_sync action=clone_remote}" class="simple" role="form">
 			{if $list}

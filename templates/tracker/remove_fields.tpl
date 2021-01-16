@@ -20,5 +20,5 @@
 		</div>
 	</form>
 {/if}
-<a href="tiki-admin_tracker_fields.php?trackerId={$trackerId|escape}">{tr}Return to field administration{/tr}</a>
+<a href="{$trackerId|sefurl:'trackerfields'}">{tr}Return to field administration{/tr}</a>
 {/block}

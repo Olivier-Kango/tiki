@@ -39,7 +39,7 @@
 					<a href="{$row.page|sefurl}">Page: {$row.page}</a>
 				{else}
 					<a href="{service controller='tracker' action='edit_field' trackerId=$row.trackerId fieldId=$row.fieldId}" class="click-modal">Field: {$row.fieldId} {$row.fieldName}</a><br>
-					<a href="tiki-admin_tracker_fields.php?trackerId={$row.trackerId}">Tracker: {$row.trackerName}</a>
+					<a href="{$row.trackerId|sefurl:'trackerfields'}">Tracker: {$row.trackerName}</a>
 				{/if}
 			</td>
 			<td>
