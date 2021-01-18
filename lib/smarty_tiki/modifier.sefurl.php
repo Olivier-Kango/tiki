@@ -105,13 +105,11 @@ function smarty_modifier_sefurl($source, $type = 'wiki', $with_next = '', $all_l
 			break;
 
 		case 'trackeritemfield':
-			$type = 'trackeritem';
-			$source = (int)explode(':', $source)[0];
-
+			$source = (int) explode(':', $source)[0];
+			// fall through to trackeritem handling intentionally
 		case 'tracker item':
-			$type = 'trackeritem';
-
 		case 'trackeritem':
+			$type = 'trackeritem';
 			$replacementpage = '';
 			if ($prefs["feature_sefurl_tracker_prefixalias"] == 'y' && $prefs['tracker_prefixalias_on_links'] == 'y') {
 				$trklib = TikiLib::lib('trk');
