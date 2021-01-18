@@ -3498,6 +3498,7 @@ INSERT INTO `tiki_sefurl_regex_out` (`left`, `right`, `type`, `feature`, `order`
 INSERT INTO `tiki_sefurl_regex_out` (`left`, `right`, `type`, `feature`, `order`) VALUES('tiki-list_file_gallery.php\\?galleryId=(\\d+)', 'file$1', 'file gallery', 'feature_file_galleries', 200);
 INSERT INTO `tiki_sefurl_regex_out` (`left`, `right`, `type`, `feature`, `order`) VALUES('tiki-user_information.php\\?userId=(\\d+)','user$1', '', '', 200);
 INSERT INTO `tiki_sefurl_regex_out` (`left`, `right`, `type`, `feature`, `order`) VALUES('tiki-view_forum_thread.php\\?comments_parentId=(\\d+)', 'forumthread$1', 'forumthread', 'feature_forums', 0);
+INSERT INTO `tiki_sefurl_regex_out` (`left`, `right`, `type`, `feature`, `order`) VALUES('tiki-admin_tracker_fields.php\\?trackerId=(\\d+)','trackerfields$1', 'trackerfields', 'feature_trackers', 200);
 
 UPDATE tiki_menu_options SET icon = 'icon-configuration48x48' WHERE name = 'Settings';
 UPDATE tiki_menu_options SET icon = 'xfce4-appfinder48x48' WHERE name = 'Search';
