@@ -32,7 +32,7 @@
 		{remarksbox type="confirm" close="n" title="{tr}Success{/tr}"}{tr}Tracker import completed.{/tr}{/remarksbox}
 		<div class="submit text-center">
 			<a href="tiki-list_trackers.php?find={$name|escape:'url'}" class="btn btn-primary">{tr}Return to Trackers{/tr}</a>
-			<a href="tiki-admin_tracker_fields.php?trackerId={$trackerId|escape:'url'}" class="btn btn-primary">{tr}Import fields for this tracker{/tr}</a>
+			<a href="{$trackerId|sefurl:'trackerfields'}" class="btn btn-primary">{tr}Import fields for this tracker{/tr}</a>
 		</div>
 	{/if}
 {/block}

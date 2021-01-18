@@ -113,7 +113,7 @@
 							{strip}
 								{if $tracker.permissions->admin_trackers}
 									<action>
-										<a href="tiki-admin_tracker_fields.php?trackerId={$tracker.trackerId}">
+										<a href="{$tracker.trackerId|sefurl:'trackerfields'}">
 											{icon name='th-list' _menu_text='y' _menu_icon='y' alt="{tr}Fields{/tr}"}
 										</a>
 									</action>

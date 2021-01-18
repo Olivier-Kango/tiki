@@ -142,9 +142,11 @@ function smarty_modifier_sefurl($source, $type = 'wiki', $with_next = '', $all_l
 			break;
 
 		case 'trackerfield':
-			$trklib = TikiLib::lib('trk');
 			$trackerId = TikiLib::lib('trk')->get_field_info((int)$source)['trackerId'];
 			$href = 'tiki-admin_tracker_fields.php?trackerId=' . $trackerId;
+			break;
+		case 'trackerfields':
+			$href = 'tiki-admin_tracker_fields.php?trackerId=' . $source;
 			break;
 		case 'filegallery':
 		case 'file gallery':

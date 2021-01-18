@@ -339,7 +339,7 @@
 										</td>
 										<td>
 											{foreach $encrypted_fields[$key.keyId] as $field}
-												<a href="tiki-admin_tracker_fields.php?trackerId={$field.trackerId|escape}">{$field.name|escape}</a><br/>
+												<a href="{$field.trackerId|sefurl:'trackerfields'}">{$field.name|escape}</a><br/>
 											{foreachelse}
 												None
 											{/foreach}

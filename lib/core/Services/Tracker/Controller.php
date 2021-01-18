@@ -197,9 +197,10 @@ class Services_Tracker_Controller
 					]
 				);
 				if ($dupeFields) {
+					TikiLib::lib('smarty')->loadPlugin('smarty_modifier_sefurl');
 					foreach ($dupeFields as & $df) {
 						$df['message'] = tr('Warning: There is a conflict in permanent names, which can cause indexing errors.') .
-							'<br><a href="tiki-admin_tracker_fields.php?trackerId=' . $df['trackerId'] . '">' .
+							'<br><a href="' . smarty_modifier_sefurl($df['trackerId'], 'trackerfields') . '">' .
 							tr(
 								'Field #%0 "%1" of type "%2" also found in tracker #%3 with perm name %4',
 								$df['fieldId'],
