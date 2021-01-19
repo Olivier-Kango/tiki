@@ -75,14 +75,22 @@ class MachineLearningLib extends TikiDb_Bridge
 		$ref = new ReflectionClass('Rubix\ML\\'.$class);
 		$instance_args = [];
 		if ($args) {
-			foreach ($args as $arg)
-				if ($arg->input_type == 'rubix' && ! empty($arg->value)) {
+			foreach ($args as $arg) {
+				if ($arg->input_type == 'layers' && ! empty($arg->value)) {
+					$layers = [];
+					foreach ($arg->value as $argv) {
+						$instance = $this->hydrate_single($argv->class, $argv->args);
+						$layers[] = $instance['instance'];
+					}
+					$instance_args[] = $layers;
+				} elseif ($arg->input_type == 'rubix' && ! empty($arg->value)) {
 					$iargs = $arg->value;
 					$instance = $this->hydrate_single($iargs->class, $iargs->args);
 					$instance_args[] = $instance['instance'];
 				} else {
 					$instance_args[] = $arg->value;
 				}
+			}
 		}
 		try {
 			$instance = $ref->newInstanceArgs($instance_args);

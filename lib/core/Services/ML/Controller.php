@@ -179,7 +179,75 @@ class Services_ML_Controller
 			'Jaccard',
 			'Manhattan',
 			'Minkowski',
-			'SafeEuclidean'
+			'SafeEuclidean',
+		]
+	];
+
+	const NEURALNET_OPTIMIZERS = [
+		'path' => 'NeuralNet\Optimizers',
+		'classes' => [
+			'AdaGrad',
+			'AdaMax',
+			'Adam',
+			'Adaptive',
+			'Cyclical',
+			'Momentum',
+			'RMSProp',
+			'StepDecay',
+			'Stochastic',
+		]
+	];
+
+	const NEURALNET_COST_FUNCTIONS = [
+		'path' => 'NeuralNet\CostFunctions',
+		'classes' => [
+			'ClassificationLoss',
+			'CrossEntropy',
+			'HuberLoss',
+			'LeastSquares',
+			'RegressionLoss',
+			'RelativeEntropy',
+		]
+	];
+
+	const NEURALNET_ACTIVATION_FUNCTIONS = [
+		'path' => 'NeuralNet\ActivationFunctions',
+		'classes' => [
+			'ELU',
+			'HyperbolicTangent',
+			'LeakyReLU',
+			'ReLU',
+			'SELU',
+			'Sigmoid',
+			'SoftPlus',
+			'Softmax',
+			'Softsign',
+			'ThresholdedReLU',
+		]
+	];
+
+	const NEURALNET_INITIALIZERS = [
+		'path' => 'NeuralNet\Initializers',
+		'classes' => [
+			'Constant',
+			'He',
+			'LeCun',
+			'Normal',
+			'Uniform',
+			'Xavier1',
+			'Xavier2',
+		]
+	];
+
+	const NEURALNET_LAYERS = [
+		'path' => 'NeuralNet\Layers',
+		'classes' => [
+			'Activation',
+			'BatchNorm',
+			'Dense',
+			'Dropout',
+			'Noise',
+			'PReLU',
 		]
 	];
 
@@ -300,7 +368,9 @@ class Services_ML_Controller
 			if ($constructor) {
 				foreach ($constructor->getParameters() as $key => $param) {
 					$type = $param->getType();
-					if ($type->isBuiltin()) {
+					if ($class === 'Classifiers\\MultilayerPerceptron' && $type->getName() == 'array' && $key == 0) {
+						$input_type = 'layers';
+					} elseif ($type->isBuiltin()) {
 						$input_type = 'text';
 					} elseif (strstr($type->getName(), 'Rubix\\ML')) {
 						$input_type = 'rubix';
@@ -309,12 +379,15 @@ class Services_ML_Controller
 					}
 					try {
 						$default = $param->getDefaultValue();
+						$required = false;
 					} catch (ReflectionException $e) {
 						$default = null;
+						$required = true;
 					}
 					$args[] = [
 						'name' => $param->getName(),
 						'default' => $default,
+						'required' => $required,
 						'arg_type' => $type->getName(),
 						'input_type' => $input_type,
 					];
@@ -328,11 +401,25 @@ class Services_ML_Controller
 			$arg_values = $input->args->array();
 			foreach ($args as $key => $arg) {
 				if (isset($arg_values[$arg['name']]) && !empty($arg_values[$arg['name']])) {
-					if ($arg['arg_type'] == 'array') {
+					if (isset($arg_values[$arg['name']]['classes'])) {
+						$args[$key]['value'] = [];
+						foreach ($arg_values[$arg['name']]['classes'] as $layer_key => $layer_class) {
+							if (! empty($layer_class)) {
+								$hydrated = $this->mllib->hydrate_single($layer_class, json_decode($arg_values[$arg['name']]['args'][$layer_key]));
+								$args[$key]['value'][] = json_decode($hydrated['serialized_args'], true);
+							}
+						}
+					} elseif ($arg['arg_type'] == 'array') {
 						$args[$key]['value'] =  explode(',', $arg_values[$arg['name']]);
 					} elseif ($arg['input_type'] == 'rubix') {
 						$hydrated = $this->mllib->hydrate_single($arg_values[$arg['name']]['class'], json_decode($arg_values[$arg['name']]['args']));
 						$args[$key]['value'] = json_decode($hydrated['serialized_args'], true);
+					} elseif ($arg['arg_type'] == 'bool') {
+						if ($arg_values[$arg['name']] === 'false') {
+							$args[$key]['value'] = false;
+						} else {
+							$args[$key]['value'] = (boolean)$arg_values[$arg['name']];
+						}
 					} else {
 						$args[$key]['value'] = $arg_values[$arg['name']];
 					}
@@ -347,7 +434,7 @@ class Services_ML_Controller
 			$instances = $this->mllib->hydrate(json_encode($payload));
 			return [
 				'learner' => preg_replace('/^[^\\\\]*\\\\/', '', $instances[0]['class']),
-				'arguments' => (string)$instances[0]['instance'],
+				'arguments' => method_exists($instances[0]['instance'], '__toString') ? (string)$instances[0]['instance'] : get_class($instances[0]['instance']),
 				'payload' => $payload[0],
 			];
 		}
@@ -359,6 +446,11 @@ class Services_ML_Controller
 			'tokenizers' => self::TOKENIZERS,
 			'trees' => self::TREES,
 			'kernels' => self::KERNELS,
+			'neuralnet_optimizers' => self::NEURALNET_OPTIMIZERS,
+			'neuralnet_cost_functions' => self::NEURALNET_COST_FUNCTIONS,
+			'neuralnet_activation_functions' => self::NEURALNET_ACTIVATION_FUNCTIONS,
+			'neuralnet_initializers' => self::NEURALNET_INITIALIZERS,
+			'neuralnet_layers' => self::NEURALNET_LAYERS,
 		];
 	}
 
