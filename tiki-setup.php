@@ -408,6 +408,7 @@ if (isset($prefs['fgal_elfinder_feature']) && $prefs['fgal_elfinder_feature'] ==
 	// see http://stackoverflow.com/questions/11174170/js-invalid-left-hand-side-expression-in-postfix-operation for more general details
 	$headerlib->add_jsfile('vendor_bundled/vendor/studio-42/elfinder/js/elfinder.' . $str . '.js', true)
 			->add_cssfile('vendor_bundled/vendor/studio-42/elfinder/css/elfinder.' . $str . '.css')
+			->add_cssfile('vendor_bundled/vendor/studio-42/elfinder/css/theme.css')
 			->add_jsfile('lib/jquery_tiki/elfinder/tiki-elfinder.js');
 
 	$elFinderLang = str_replace(['cn', 'pt-br'], ['zh_CN', 'pt_BR'], $language);
