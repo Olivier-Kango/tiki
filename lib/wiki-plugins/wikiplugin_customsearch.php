@@ -554,7 +554,7 @@ $(document).trigger('formSearchReady');
 		TikiLib::lib('header')->add_jsfile('lib/jquery_tiki/customsearch.js');
 	}
 
-	$out = '<div id="customsearch_' . $id . '_form"><form id="customsearch_' . $id . '">' . $matches->getText() . '</form></div>';
+	$out = '<div id="customsearch_' . $id . '_form"><form id="customsearch_' . $id . '" class="customsearch_form">' . $matches->getText() . '</form></div>';
 
 	if (empty($params['destdiv'])) {
 		$out .= '<div id="customsearch_' . $id . '_results" class="customsearch_results"></div>';
@@ -766,8 +766,10 @@ $('#$fieldid').change(function() {
 ";
 
 		foreach ($cats as $c) {
-			$option = $document->createElement('option', $_categpath ? $c['relativePathString'] : str_replace("&", "&amp;", $c['name']));
+			/** @var DOMElement $option */
+			$option = $document->createElement('option');
 			$option->setAttribute('value', $c['categId']);
+			$option->appendChild($document->createTextNode($_categpath ? $c['relativePathString'] : $c['name']));
 			$element->appendChild($option);
 			if ($default && in_array($c['categId'], (array) $default)) {
 				$option->setAttribute('selected', 'selected');
