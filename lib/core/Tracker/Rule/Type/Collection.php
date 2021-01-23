@@ -14,6 +14,7 @@ class Collection extends Type
 			new Operator\CollectionContains(),
 			new Operator\CollectionEmpty(),
 			new Operator\CollectionNotContains(),
+			new Operator\CollectionContainsUsername(),
 		]);
 	}
 }
