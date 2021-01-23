@@ -441,6 +441,7 @@ isHidden = {$field['isHidden']}
 isMandatory = {$field['isMandatory']}
 description = {$field['description']}
 descriptionIsParsed = {$field['descriptionIsParsed']}
+rules = {$field['rules']}
 
 EXPORT;
 	}
