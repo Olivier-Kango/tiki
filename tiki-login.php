@@ -234,7 +234,7 @@ if (isset($_REQUEST['intertiki']) and in_array($_REQUEST['intertiki'], array_key
 				$user = '';
 				$smarty->assign('user', '');
 				$msg = $smarty->fetch('tiki-login_confirm_email.tpl');
-				$smarty->assign_by_ref('msg', explode("\n", $msg));
+				$smarty->assign('msg', explode("\n", $msg));
 				$smarty->assign('mid', 'tiki-information.tpl');
 				$smarty->display("tiki.tpl");
 				die;
