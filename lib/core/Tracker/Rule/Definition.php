@@ -25,6 +25,7 @@ class Definition
 				new Operator\CollectionContains(),
 				new Operator\CollectionEmpty(),
 				new Operator\CollectionNotContains(),
+				new Operator\CollectionContainsUsername(),
 				new Operator\DateTimeAfter(),
 				new Operator\DateTimeBefore(),
 				new Operator\DateTimeOn(),
@@ -36,6 +37,7 @@ class Definition
 				new Operator\TextEquals(),
 				new Operator\TextIsEmpty(),
 				new Operator\TextIsNotEmpty(),
+				new Operator\TextIsUsername(),
 				new Operator\TextNotContains(),
 			],
 			'types' => [

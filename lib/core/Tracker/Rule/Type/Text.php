@@ -17,6 +17,7 @@ class Text extends Type
 			new Operator\TextNotContains(),
 			new Operator\TextIsEmpty(),
 			new Operator\TextIsNotEmpty(),
+			new Operator\TextIsUsername(),
 			new Action\Required(),
 		]);
 	}
