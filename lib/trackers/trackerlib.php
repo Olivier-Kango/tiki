@@ -721,7 +721,7 @@ class TrackerLib extends TikiLib
 		$query .= " where tti.`itemId`=ttif.`itemId` and ttif.`fieldId`=?";
 		$bindvars[] = (int)$fieldId;
 		if ($multiple) {
-			$query .= " and ttif.`value` REGEXP CONCAT('[[:<:]]', ?, '[[:>:]]')";
+			$query .= " and  FIND_IN_SET(?, ttif.`value`)";
 		} else {
 			$query .= " and ttif.`value`=?";
 		}
