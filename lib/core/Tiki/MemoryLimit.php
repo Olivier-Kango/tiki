@@ -23,7 +23,8 @@ class Tiki_MemoryLimit
 
 	private function applyMinimalLimit($target)
 	{
-		if (self::toBytes($this->initialLimit) < self::toBytes($target)) {
+		$initial = self::toBytes($this->initialLimit);
+		if ($initial > -1 && $initial < self::toBytes($target)) {
 			ini_set('memory_limit', $target);
 		};
 	}
