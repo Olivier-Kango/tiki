@@ -2645,16 +2645,20 @@ if ($trimCapable) {
 	);
 
 	$serverCommands = array(
-		'make' => 'make',
-		'php-cli' => 'php',
-		'rsync' => 'rsync',
-		'nice' => 'nice',
-		'tar' => 'tar',
-		'bzip2' => 'bzip2',
-		'ssh' => 'ssh',
-		'ssh-copy-id' => 'ssh-copy-id',
-		'scp' => 'scp',
-		'sqlite' => 'sqlite3'
+		'php-cli'     => array('command' => 'php'),
+		'rsync'       => array('command' => 'rsync'),
+		'nice'        => array('command' => 'nice'),
+		'tar'         => array('command' => 'tar'),
+		'bzip2'       => array('command' => 'bzip2'),
+		'ssh'         => array('command' => 'ssh'),
+		'ssh-copy-id' => array('command' => 'ssh-copy-id'),
+		'scp'         => array('command' => 'scp'),
+		'sqlite'      => array(
+			'command' => 'sqlite3',
+			'message' => 'Command not found, check if it is installed and available in one of the paths above.'
+				. ' While this does not impact normal operations, will prevent you to be able to see/debug the'
+				. ' internal db using "database:view"',
+		),
 	);
 
 	$serverPHPExtensions = array(
@@ -2668,16 +2672,19 @@ if ($trimCapable) {
 		'gzip' => 'gzip',
 	);
 
-	foreach ($serverCommands as $key => $command) {
-		if (commandIsAvailable($command)) {
+	foreach ($serverCommands as $key => $commandData) {
+		if (commandIsAvailable($commandData['command'])) {
 			$trimServerRequirements[$key] = array(
 				'fitness' => tra('good'),
 				'message' => tra('Command found')
 			);
 		} else {
+			$message = isset($commandData['message'])
+				? $commandData['message']
+				: tra('Command not found, check if it is installed and available in one of the paths above.');
 			$trimServerRequirements[$key] = array(
 				'fitness' => tra('unsure'),
-				'message' => tra('Command not found, check if it is installed and available in one of the paths above')
+				'message' => $message
 			);
 		}
 	}
