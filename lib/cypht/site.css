@@ -568,9 +568,9 @@ body {
 }
 .inline-cypht .content_title {
   overflow: visible;
-  min-height: 25px;
-  max-height: 100px;
-  padding: 20px 100px 10px 25px;
+  min-height: 50px;
+  max-height: 400px;
+  padding: 25px;
 }
 .inline-cypht .folders a, .inline-cypht .unread_link {
   font-weight: normal;

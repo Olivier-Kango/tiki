@@ -120,10 +120,36 @@
 
 	.folder_list, .content_cell { border: 1px solid $input-border-color; }
 	.content_title {
+		overflow: visible;
+		min-height: 50px;
+		max-height: 400px;
+		padding: 25px;
+		padding-bottom: 5px;
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: left;
+		align-items: center;
 		.list_meta { color: $popover-header-color !important; }
 		.list_controls {
-			border-top: 1px solid $input-border-color;
-			border-right: 1px solid $input-border-color;
+			border-top: none;
+			border-right:none;
+			position: unset;
+			right: unset;
+			padding-right: 10px;
+			top: 0px;
+			padding-top: 10px;
+			flex-grow: 1;
+			margin-bottom: 20px;
+		}
+		.mailbox_list_title {
+			display: inherit;
+			flex-grow: 1;
+		}
+		.combined_sort {
+			font-size: 80%;
+			margin-top: -2px;
+			float: none;
+			margin-right: 10px;
 		}
 	}
 
