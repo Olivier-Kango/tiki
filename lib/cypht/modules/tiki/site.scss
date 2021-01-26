@@ -18,8 +18,9 @@ body { min-width: 100%; }
 	.src_name { max-height: 100px; }
 	.sys_messages { padding: 15px; }
 	.content_title {
-		overflow: visible; min-height: 25px; max-height: 100px;
-		padding: 20px 100px 10px 25px;
+		overflow: visible; min-height: 50px; max-height: 400px;
+		padding: 25px;
+		padding-bottom: 5px;
 	}
 
 // main menu
