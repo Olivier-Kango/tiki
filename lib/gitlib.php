@@ -5,6 +5,8 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
+use Tiki\Process\Process;
+
 //this script may only be included - so its better to die if called directly.
 if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
 	header("location: index.php");
@@ -41,46 +43,29 @@ class GitLib extends TikiLib
 
 		if ($php_os === 'LINUX') {
 			ob_start();
-			$bin = system('which git', $ret);
+			$process = new Process('which git');
+			$process->run();
+			$git = trim($process->getOutput());
 			ob_end_clean();
-
-			if ($bin && $ret == 0) {
-				$this->bin = $bin;
-				return $bin;
+			if (! $process->getErrorOutput() && $git) {
+				$this->bin = $git;
+				return $git;
 			}
 		}
 	}
 
 	function run_git($args = [])
 	{
-		$cmd = $this->bin;
-		foreach ($args as $key => $arg) {
-			if ($arg[ 0 ] !== '-') {
-				$arg = escapeshellarg($arg);
-			}
-			$cmd .= " {$arg}";
-		}
+		array_unshift($args, $this->bin);
 
-		$descriptors = [
-			0 => [ 'pipe', 'r' ],
-			1 => [ 'pipe', 'w' ],
-			2 => [ 'pipe', 'w' ],
-		];
+		$process = new Process($args);
+		$process->run();
+		$return = $process->getExitCode();
 
-		$pipes = [];
-		$process = proc_open($cmd, $descriptors, $pipes);
-
-		$stdout = stream_get_contents($pipes[1]);
-		fclose($pipes[1]);
-
-		$stderr = stream_get_contents($pipes[2]);
-		fclose($pipes[2]);
-
-		$return = proc_close($process);
 		if ($return !== 0) {
-			throw new Exception($stderr, $return);
+			throw new Exception($process->getErrorOutput(), $return);
 		}
-		return $stdout;
+		return $process->getOutput();
 	}
 
 	/**
