@@ -22,10 +22,10 @@ class Collection
 		$this->definition = $definition;
 	}
 
-	public static function getFilter($fieldName, $mode)
+	public static function getFilter($fieldName, $mode, $isTrackerField)
 	{
 		$field = TikiLib::lib('trk')->get_field_by_perm_name($fieldName);
-		if ($field) {
+		if ($isTrackerField && $field) {
 			if (! isset($collection)) {
 				$definition = \Tracker_Definition::get($field['trackerId']);
 				$collection = new self($definition);

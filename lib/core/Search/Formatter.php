@@ -128,7 +128,7 @@ class Search_Formatter
 			foreach ($fields as $key => $field) {
 				$fieldName = str_replace('tracker_field_', '', trim($field));
 				$mode = $custom_filter['mode'];
-				$filter = Tracker\Filter\Collection::getFilter($fieldName, $mode);
+				$filter = Tracker\Filter\Collection::getFilter($fieldName, $mode, strstr($field, 'tracker_field_'));
 				if ($key == 0) {
 					$filters[] = $filter;
 				} else {
