@@ -52,10 +52,12 @@
 	{$metatag_description = $prefs.metatag_description|escape}
 {/if}
 {if not empty($metatag_description) and not empty($metatag_description|trim)}
-	<meta name="description" content="{$metatag_description}" property="og:description">
+	<meta name="description" content="{$metatag_description}">
+	<meta content="{$metatag_description}" property="og:description">
 	<meta name="twitter:description" content="{$metatag_description}">
 {else}
-	<meta name="description" content="{if not empty($prefs.browsertitle_translated)}{$prefs.browsertitle_translated|tr_if|escape}{else}{$prefs.browsertitle|tr_if|escape}{/if}{if isset($title)} {$prefs.site_nav_seper} {$title}{/if}" property="og:description">
+	<meta name="description" content="{if not empty($prefs.browsertitle_translated)}{$prefs.browsertitle_translated|tr_if|escape}{else}{$prefs.browsertitle|tr_if|escape}{/if}{if isset($title)} {$prefs.site_nav_seper} {$title}{/if}">
+	<meta content="{if not empty($prefs.browsertitle_translated)}{$prefs.browsertitle_translated|tr_if|escape}{else}{$prefs.browsertitle|tr_if|escape}{/if}{if isset($title)} {$prefs.site_nav_seper} {$title}{/if}" property="og:description">
 	<meta name="twitter:description" content="{if not empty($prefs.browsertitle_translated)}{$prefs.browsertitle_translated|tr_if|escape}{else}{$prefs.browsertitle|tr_if|escape}{/if}{if isset($title)} {$prefs.site_nav_seper} {$title}{/if}">
 {/if}
 {if $prefs.metatag_geoposition neq ''}
