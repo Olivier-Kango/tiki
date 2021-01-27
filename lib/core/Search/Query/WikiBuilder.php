@@ -92,6 +92,7 @@ class Search_Query_WikiBuilder
 		$masterField = null;
 		$subquery = new Search_Query(null, 'or');
 		foreach ($fields as $fieldNum => $fieldName) {
+			$isTrackerField = strstr($fieldName, 'tracker_field_');
 			$fieldName = str_replace('tracker_field_', '', $fieldName);
 			if ($fieldNum == 0) {
 				$input = $this->input;
@@ -104,7 +105,7 @@ class Search_Query_WikiBuilder
 				}
 				$input = new JitFilter($input);
 			}
-			$filter = Tracker\Filter\Collection::getFilter($fieldName, $editableType);
+			$filter = Tracker\Filter\Collection::getFilter($fieldName, $editableType, $isTrackerField);
 			$filter->applyInput($input);
 			$filter->applyCondition($subquery);
 		}
