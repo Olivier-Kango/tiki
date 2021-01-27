@@ -1,7 +1,7 @@
 {if $prefs.feature_freetags eq 'y' && $tiki_p_freetags_tag eq 'y'}
 	<div class="form-group row">
-		<label class="col-md-4 col-form-label" for="tagBox">{tr}Tags{/tr}</label>
-		<div class="col-md-8">
+		<label class="{if empty($labelColClass)}col-md-4{else}{$labelColClass}{/if} col-form-label" for="tagBox">{tr}Tags{/tr}</label>
+		<div class="{if empty($inputColClass)}col-md-8{else}{$inputColClass}{/if}">
 {jq notonready=true}
 	function addTag(tag) {
 		document.getElementById('tagBox').value = document.getElementById('tagBox').value + ' ' + tag;
@@ -23,8 +23,8 @@
 	</div>
 	{if $prefs.feature_multilingual eq 'y' && $prefs.freetags_multilingual eq 'y' && $blog eq 'y'}
 		<div class="form-group row">
-			<label for="" class="col-md-4 col-form-label">{tr}Language{/tr}</label>
-			<div class="col-md-8">
+			<label for="" class="{if empty($labelColClass)}col-md-4{else}{$labelColClass}{/if} col-form-label">{tr}Language{/tr}</label>
+			<div class="{if empty($inputColClass)}col-md-8{else}{$inputColClass}{/if}">
 				<select name="lang" class="form-control">
 					<option value="">{tr}All{/tr}</option>
 						{section name=ix loop=$languages}
