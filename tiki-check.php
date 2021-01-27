@@ -671,7 +671,7 @@ if ($php_properties['session.save_handler']['setting'] == 'files') {
 		$php_properties['session.save_path'] = array(
 			'fitness' => tra('bad'),
 			'setting' => $s,
-			'message' => tra('The session.save_path must writable.') . ' <a href="#php_conf_info">' . tra('How to change this value') . '</a>'
+			'message' => tra('The session.save_path must be writable.') . ' <a href="#php_conf_info">' . tra('How to change this value') . '</a>'
 		);
 	} else {
 		$php_properties['session.save_path'] = array(
