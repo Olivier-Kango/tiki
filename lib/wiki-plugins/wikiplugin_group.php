@@ -19,15 +19,6 @@ function wikiplugin_group_info()
 		'introduced' => 1,
 		'tags' => [ 'basic' ],
 		'params' => [
-			'friends' => [
-				'required' => false,
-				'name' => tra('Allowed User Friends'),
-				'description' => tra('Pipe separated list of users whose friends are allowed to view the block.
-					Example:') . ' <code>admin|johndoe|foo</code>',
-				'since' => '4.0',
-				'filter' => 'username',
-				'default' => ''
-			],
 			'groups' => [
 				'required' => false,
 				'name' => tra('Allowed Groups'),
@@ -43,6 +34,15 @@ function wikiplugin_group_info()
 				'description' => tra('Pipe-separated list of groups not allowed to view the block.'),
 				'since' => '1',
 				'filter' => 'groupname',
+				'default' => ''
+			],
+			'friends' => [
+				'required' => false,
+				'name' => tra('Allowed User Friends'),
+				'description' => tra('Pipe separated list of users whose friends are allowed to view the block.
+					Example:') . ' <code>admin|johndoe|foo</code>',
+				'since' => '4.0',
+				'filter' => 'username',
 				'default' => ''
 			],
 			'pending' => [
