@@ -172,7 +172,7 @@
 					{if $tiki_p_admin_forum eq 'y' or $forum_info.topic_smileys eq 'y'}
 					<div class="form-group row">
 						<label class="col-sm-2 col-form-label" for="comments_topictype">{tr}Type{/tr}</label>
-						<div class="col-sm-2">
+						<div class="col-sm-10">
 							{if $tiki_p_admin_forum eq 'y'}
 									<select name="comment_topictype" id="comment_topictype" class="form-control comment_topictype">
 										<option value="n" {if $comment_topictype eq 'n'}selected="selected"{/if}>{tr}Normal{/tr}</option>
@@ -325,7 +325,7 @@
 					{/if}
 
 					{if $prefs.feature_freetags eq 'y' and $tiki_p_freetags_tag eq 'y'}
-						{include file='freetag.tpl'}
+						{include file='freetag.tpl' labelColClass='col-sm-2' inputColClass='col-sm-10'}
 					{/if}
 
 					{if $user and $prefs.feature_user_watches eq 'y' and (!isset($comments_threadId) or $comments_threadId eq 0)}
