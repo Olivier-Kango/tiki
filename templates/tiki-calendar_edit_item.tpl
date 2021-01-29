@@ -810,8 +810,8 @@
 			<div class="col-sm-9 offset-sm-3">
 				<input type="submit" class="btn btn-secondary" name="preview" value="{tr}Preview{/tr}" onclick="needToConfirm=false;">
 				<input type="submit" class="btn btn-primary" name="act" value="{tr}Save{/tr}" onclick="needToConfirm=false;">
-				{if $tiki_p_add_events eq 'y' && empty($saveas)}
-					{button href='tiki-calendar_edit_item.php?new=1&calitemId='|cat:$id _text="{tr}Copy to a new event{/tr}"}
+				{if $tiki_p_add_events eq 'y' and empty($saveas) and not empty($id)}
+					{button href='tiki-calendar_edit_item.php?saveas=1&calitemId='|cat:$id _text="{tr}Copy to a new event{/tr}"}
 				{/if}
 				{if $id}
 					<input type="submit" class="btn btn-danger" onclick="needToConfirm=false;document.location='tiki-calendar_edit_item.php?calitemId={$id}&amp;delete=y';return false;" value="{tr}Delete event{/tr}">

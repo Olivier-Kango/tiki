@@ -82,7 +82,7 @@ foreach ($rawcals["data"] as $cal_data) {
 	}
 }
 $smarty->assign('listcals', $caladd);
-if (isset($_REQUEST['new'])) {
+if (isset($_REQUEST['saveas'])) {
 	$smarty->assign('saveas', true);
 }
 if (! isset($_REQUEST["calendarId"])) {
