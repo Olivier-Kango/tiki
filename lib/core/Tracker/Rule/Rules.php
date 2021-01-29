@@ -53,7 +53,7 @@ class Rules
 		}
 
 		foreach ($this->conditions->predicates as $predicate) {
-			$conditions[] = '$("[name=\'' . $predicate->target_id . '\']:last")' . $this->getPredicateSyntax($predicate, 'Operator');
+			$conditions[] = '$("[name=\'' . $predicate->target_id . '\']:last", $(this).form())' . $this->getPredicateSyntax($predicate, 'Operator');
 		}
 
 		$js = "\n  if (" . implode($operator, $conditions) . ')';
@@ -62,7 +62,7 @@ class Rules
 
 		foreach($this->actions->predicates as $predicate) {
 			if ($predicate->operator_id !== 'NoOp') {
-				$targetSelector = "\$(\"[name='{$predicate->target_id}']\")";
+				$targetSelector = "\$(\"[name='{$predicate->target_id}']\", $(this).form())";
 				$actions[] = "    if ($targetSelector.length === 0) { console.error('Tracker Rules: element $predicate->target_id not found'); return; }";
 				if (strpos($predicate->operator_id, 'Required') === false) {
 					// show/hide etc needs the parent object
@@ -82,7 +82,7 @@ class Rules
 		if ($this->else->predicates) {
 			foreach ($this->else->predicates as $predicate) {
 				if ($predicate->operator_id !== 'NoOp') {
-					$targetSelector = "\$(\"[name='{$predicate->target_id}']\")";
+					$targetSelector = "\$(\"[name='{$predicate->target_id}']\", $(this).form())";
 					$else[] = "    if ($targetSelector.length === 0) { console.error('Tracker Rules: element $predicate->target_id not found'); return; }";
 					if (strpos($predicate->operator_id, 'Required') === false) {
 						$else[] = "    $targetSelector.parents('$parentSelector')" .
