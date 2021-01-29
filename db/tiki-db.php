@@ -220,6 +220,11 @@ if (! $db && ! defined('TIKI_IN_INSTALLER')) {
 	exit;
 } elseif ($db) {
 	TikiDb::set($db);
+	$sql_mode = $db->getOne("SELECT @@sql_mode");
+	if (! empty($sql_mode)) {
+		$sql_mode = str_replace(',,', ',', preg_replace('/ONLY_FULL_GROUP_BY/', '', $sql_mode));
+		$db->query("SET @@sql_mode = " . $db->qstr($sql_mode));
+	}
 }
 
 if ($credentials['shadow']) {
