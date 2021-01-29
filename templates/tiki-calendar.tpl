@@ -282,10 +282,11 @@
 						dataType: 'html',
 						url: event.url + '&fullcalendar=y&isModal=1',
 						success: function(data){
-							var $dialog = $('#calendar_dialog').remove()
+							var $dialog = $('#calendar_dialog').remove();
 							$('#calendar_dialog_content', $dialog).html(data);
 							$('#calendar_dialog h1, #calendar_dialog .navbar', $dialog ).remove();
 							$('#calendar_dialog .modal-title', $dialog ).html();
+							$dialog.find(".modal-dialog").addClass("modal-lg");
 							$dialog.appendTo('body').modal({backdrop: "static"});
 							$this.tikiModal();
 						}
@@ -301,6 +302,7 @@
 						$('#calendar_dialog_content', $dialog ).html(data);
 						$('#calendar_dialog h1, #calendar_dialog .navbar', $dialog ).remove();
 						$('#calendar_dialog .modal-title', $dialog ).html();
+						$dialog.find(".modal-dialog").addClass("modal-lg");
 						$dialog.appendTo('body').modal({backdrop: "static"});
 					}
 				});
