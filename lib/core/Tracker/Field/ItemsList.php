@@ -821,6 +821,9 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
 			if ($displayFields) {
 				foreach ($displayFields as $fieldId) {
 					$field = $definition->getField($fieldId);
+					if (empty($field)) {
+						continue;
+					}
 					if (isset($item[$fieldId])) {
 						if ($field['type'] == 'l') {
 							$factory = $definition->getFieldFactory();
