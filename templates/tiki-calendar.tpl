@@ -249,10 +249,13 @@
 				if (dayGrid > 0) {
 					var backgroundColor = event._def.ui.backgroundColor;
 					var textColor = event._def.ui.textColor;
-					var eventDotElement = element.children('.fc-daygrid-event-dot');
+					var eventDotElement = element.find('.fc-daygrid-event-dot'), defaultBackgroundColor;
+					if (eventDotElement.length === 0) {
+						eventDotElement = element;
+					}
 					var styleDot = getComputedStyle(eventDotElement[0]);
 					var defaultBackgroundColor = String(styleDot.border).match(/(rgb.{14})/)[0];
-					var titleElement = element.children('.fc-event-title');
+					var titleElement = element.find('.fc-event-title');
 
 					var styleElement = getComputedStyle(titleElement[0]);
 					var defaultTextColor = styleElement.color;
@@ -265,7 +268,6 @@
 					$(element).parent('.fc-daygrid-event-harness').attr('style', 'background-color: ' + backgroundColor + '; border: 1px solid ' + textColor);
 					$(element).children('.fc-event-time').attr('style', 'color: ' + textColor);
 					$(element).children('.fc-event-title').attr('style', 'color: ' + textColor);
-					eventDotElement.attr('style', 'display:none');
 				}
 				element.attr('title', event.title);
 				element.data('content', event.extendedProps.description);
