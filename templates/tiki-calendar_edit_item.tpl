@@ -819,7 +819,7 @@
 				{if $recurrence.id}
 					<input type="submit" class="btn btn-danger" onclick="needToConfirm=false;document.location='tiki-calendar_edit_item.php?recurrenceId={$recurrence.id}&amp;delete=y';return false;" value="{tr}Delete recurrent events{/tr}">
 				{/if}
-				{if $prefs.calendar_export_item == 'y'}
+				{if $prefs.calendar_export_item == 'y' and not empty($id)}
 					{button href='tiki-calendar_export_ical.php? export=y&calendarItem='|cat:$id _text="{tr}Export Event as iCal{/tr}"}
 				{/if}
 				<input type="submit" class="btn btn-link" onclick="needToConfirm=false;document.location='{$referer|escape:'html'}';return false;" value="{tr}Cancel{/tr}">
