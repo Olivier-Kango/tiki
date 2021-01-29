@@ -557,7 +557,7 @@ function build_packages($releaseVersion)
 		die();
 	}
 
-	$shellout = shell_exec('php ' . escapeshellarg($composerInstaller) . ' --quiet --install-dir=' . $workDir . ' 2>&1');
+	$shellout = shell_exec('php ' . escapeshellarg($composerInstaller) . ' --quiet --1 --install-dir=' . $workDir . ' 2>&1');
 
 	if ($shellout) {
 		echo "Composer installer failed. Aborting." . "\n";
