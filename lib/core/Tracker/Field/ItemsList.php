@@ -791,7 +791,7 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
 			$itemsValues[] = $itemValues;
 		}
 
-		if (TikiLib::lib('tiki')->get_memory_avail() < 1048576 * 10) {
+		if (count(self::$itemValuesLocalCache) > 500) {
 			self::$itemValuesLocalCache = [];
 		}
 		self::$itemValuesLocalCache[$cache_key] = $itemsValues;
