@@ -131,6 +131,18 @@ class Tiki_Hm_Custom_Session extends Hm_Session {
 		$this->active = false;
 	}
 
+	/**
+	 * Dump current session contents
+	 * @return array
+	 */
+	public function dump() {
+		if (array_key_exists($this->session_prefix(), $_SESSION)) {
+			return $_SESSION[$this->session_prefix()];
+		} else {
+			return [];
+		}
+	}
+
 	public function close_early() {
 		// noop;
 	}
