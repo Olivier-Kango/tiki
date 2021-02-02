@@ -915,7 +915,7 @@ class Comments extends TikiLib
 		$query .= $info['query'];
 
 		$ret = $this->fetchAll($query, $info['bindvars'], $max, $offset);
-		$ret = $this->filter_topic_perms($ret);
+		$ret = $this->filter_topic_perms($ret, $forumId);
 
 		foreach ($ret as &$res) {
 			$tid = $res['threadId'];
@@ -954,17 +954,17 @@ class Comments extends TikiLib
 		return $this->getOne($query, $info['bindvars']);
 	}
 
-	private function filter_topic_perms($topics) {
+	private function filter_topic_perms($topics, $forumId = null) {
 		$topic_ids = array_map(function($row){
 			return $row['parentId'] > 0 ? $row['parentId'] : $row['threadId'];
 		}, $topics);
 		$topic_ids = array_unique($topic_ids);
 
-		Perms::bulk(['type' => 'thread'], 'object', $topic_ids);
+		Perms::bulk(['type' => 'thread', 'parentId' => $forumId], 'object', $topic_ids);
 		$ret = [];
 		foreach ($topics as $row) {
 			$topic_id = $row['parentId'] > 0 ? $row['parentId'] : $row['threadId'];
-			$perms = Perms::get(['type' => 'thread', 'object' => $topic_id]);
+			$perms = Perms::get(['type' => 'thread', 'object' => $topic_id, 'parentId' => $forumId]);
 			if ($perms->forum_read) {
 				$ret[] = $row;
 			}

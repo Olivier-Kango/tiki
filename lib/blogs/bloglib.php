@@ -581,7 +581,7 @@ class BlogLib extends TikiDb_Bridge
 		$approved = 'y'
 	) {
 
-		global $tiki_p_admin, $tiki_p_blog_admin, $tiki_p_blog_post, $user, $prefs;
+		global $tiki_p_blog_admin, $tiki_p_blog_post, $user, $prefs;
 
 		$parserlib = TikiLib::lib('parser');
 		$categlib = TikiLib::lib('categ');
@@ -687,7 +687,7 @@ class BlogLib extends TikiDb_Bridge
 			$ret[] = $res;
 		}
 
-		$ret = Perms::filter([ 'type' => 'blog post' ], 'object', $ret, [ 'object' => 'postId' ], ['read_blog', 'blog_post_view_ref']);
+		$ret = Perms::filter([ 'type' => 'blog post', 'parentId' => $blogId ], 'object', $ret, [ 'object' => 'postId' ], ['read_blog', 'blog_post_view_ref']);
 
 		$retval = [];
 		$retval['data'] = $ret;

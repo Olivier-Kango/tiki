@@ -392,6 +392,7 @@ class Perms
 				return 'blog';
 			case 'thread':
 				return 'forum';
+			case 'calendaritem':
 			case 'event':
 				return 'calendar';
 			default:

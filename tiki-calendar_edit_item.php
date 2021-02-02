@@ -109,12 +109,12 @@ if ($prefs['feature_groupalert'] == 'y' && ! empty($calID)) {
 	$smarty->assign_by_ref('showeachuser', $showeachuser);
 }
 
-$tikilib->get_perm_object($calID, 'calendar');
-$access->check_permission('tiki_p_view_calendar');
 
 $calitemId = ! empty($_REQUEST['save']['calitemId']) ? $_REQUEST['save']['calitemId'] : (! empty($_REQUEST['calitemId']) ? $_REQUEST['calitemId'] : (! empty($_REQUEST['viewcalitemId']) ? $_REQUEST['viewcalitemId'] : 0));
-if (! empty($calitemId) && ! empty($user)) {
+if (! empty($calitemId)) {
 	$calitem = $calendarlib->get_item($calitemId);
+	// reset perms depending on the calendaritem (which inherits perms from its parent calendar)
+	$tikilib->get_perm_object($calitemId, 'calendaritem', $calitem, true, $calID);
 	if ($calitem['user'] == $user) {
 		$smarty->assign('tiki_p_change_events', 'y');
 		$tiki_p_change_events = 'y';
@@ -123,6 +123,12 @@ if (! empty($calitemId) && ! empty($user)) {
 		}
 		$caladd[$calitem['calendarId']]['tiki_p_change_events'] = 'y';
 	}
+
+	if ($tiki_p_change_events !== 'y') {
+		$_REQUEST['viewcalitemId'] = $calitemId;
+		unset($_REQUEST['calitemId']);
+	}
+
 }
 
 if (isset($_REQUEST['save']) && ! isset($_REQUEST['preview']) && ! isset($_REQUEST['act'])) {

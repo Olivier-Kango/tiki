@@ -145,7 +145,7 @@ if (isset($_REQUEST['lock'])) {
 $commentslib->comment_add_hit($_REQUEST["comments_parentId"]);
 $commentslib->mark_comment($user, $forumId, $_REQUEST["comments_parentId"]);
 
-$tikilib->get_perm_object($_REQUEST['comments_parentId'], 'thread');
+$tikilib->get_perm_object($_REQUEST['comments_parentId'], 'thread', '', true, $forumId);
 
 if ($user) {
 	if ($forum_info["moderator"] == $user) {

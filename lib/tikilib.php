@@ -4054,13 +4054,13 @@ class TikiLib extends TikiDb_Bridge
 	 * @param bool $global
 	 * @return array|bool
 	 */
-	function get_perm_object($objectId, $objectType, $info = '', $global = true)
+	function get_perm_object($objectId, $objectType, $info = '', $global = true, $parentId = null)
 	{
 		global $user;
 		$smarty = TikiLib::lib('smarty');
 		$userlib = TikiLib::lib('user');
 
-		$perms = Perms::get([ 'type' => $objectType, 'object' => $objectId ]);
+		$perms = Perms::get([ 'type' => $objectType, 'object' => $objectId, 'parentId' => $parentId ]);
 		if (empty($perms->getGroups())) {
 			$perms->setGroups($this->get_user_groups($user));
 		}
@@ -4123,6 +4123,8 @@ class TikiLib extends TikiDb_Bridge
 				return 'surveys';
 			case 'newsletter':
 				return 'newsletters';
+			case 'calendaritem':
+				return 'calendar';
 				/* TODO */
 			default:
 				return $objectType;
