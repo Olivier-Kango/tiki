@@ -88,7 +88,7 @@ class Perms_ResolverFactory_CategoryFactory implements Perms_ResolverFactory
 		}
 
 		// only trackeritem parents supported for now
-		if ($this->parent && $baseContext['type'] !== 'trackeritem') {
+		if ($this->parent && ! in_array($baseContext['type'], ['trackeritem', 'thread', 'file', 'blog post', 'calendaritem'])) {
 			return $values;
 		}
 
@@ -150,10 +150,46 @@ class Perms_ResolverFactory_CategoryFactory implements Perms_ResolverFactory
 		if ($baseContext['type'] === 'trackeritem' && $this->parent) {
 			$bindvars = [];
 			$result = $db->fetchAll(
-				"SELECT co.`categId`, ti.`itemId` FROM `tiki_tracker_items` ti
-				INNER JOIN `tiki_objects` o ON ti.`trackerId` = o.`itemId` AND o.`type` = 'tracker'
+				"SELECT co.`categId`, items.`itemId` FROM `tiki_tracker_items` items
+				INNER JOIN `tiki_objects` o ON items.`trackerId` = o.`itemId` AND o.`type` = 'tracker'
 				INNER JOIN `tiki_category_objects` co ON co.`catObjectId` = o.`objectId` WHERE " .
-				$db->in('ti.itemId', array_keys($objects), $bindvars) . " ORDER BY co.`catObjectId`, co.`categId`",
+				$db->in('items.itemId', array_keys($objects), $bindvars) . " ORDER BY co.`catObjectId`, co.`categId`",
+				$bindvars
+			);
+		} else if ($baseContext['type'] === 'thread' && $this->parent) {
+			$bindvars = [];
+			$result = $db->fetchAll(
+				"SELECT co.`categId`, items.`threadId` AS itemId FROM `tiki_comments` items
+				INNER JOIN `tiki_objects` o ON items.`object` = o.`itemId` AND o.`type` = 'forum'
+				INNER JOIN `tiki_category_objects` co ON co.`catObjectId` = o.`objectId` WHERE " .
+				$db->in('items.threadId', array_keys($objects), $bindvars) . " ORDER BY co.`catObjectId`, co.`categId`",
+				$bindvars
+			);
+		} else if ($baseContext['type'] === 'file' && $this->parent) {
+			$bindvars = [];
+			$result = $db->fetchAll(
+				"SELECT co.`categId`, items.`fileId` AS itemId FROM `tiki_files` items
+				INNER JOIN `tiki_objects` o ON items.`galleryId` = o.`itemId` AND o.`type` = 'file gallery'
+				INNER JOIN `tiki_category_objects` co ON co.`catObjectId` = o.`objectId` WHERE " .
+				$db->in('items.fileId', array_keys($objects), $bindvars) . " ORDER BY co.`catObjectId`, co.`categId`",
+				$bindvars
+			);
+		} else if ($baseContext['type'] === 'calendaritem' && $this->parent) {
+			$bindvars = [];
+			$result = $db->fetchAll(
+				"SELECT co.`categId`, items.`calitemId` AS itemId FROM `tiki_calendar_items` items
+				INNER JOIN `tiki_objects` o ON items.`calendarId` = o.`itemId` AND o.`type` = 'calendar'
+				INNER JOIN `tiki_category_objects` co ON co.`catObjectId` = o.`objectId` WHERE " .
+				$db->in('items.calitemId', array_keys($objects), $bindvars) . " ORDER BY co.`catObjectId`, co.`categId`",
+				$bindvars
+			);
+		} else if ($baseContext['type'] === 'blog post' && $this->parent) {
+			$bindvars = [];
+			$result = $db->fetchAll(
+				"SELECT co.`categId`, items.`postId` AS itemId FROM `tiki_blog_posts` items
+				INNER JOIN `tiki_objects` o ON items.`blogId` = o.`itemId` AND o.`type` = 'blog'
+				INNER JOIN `tiki_category_objects` co ON co.`catObjectId` = o.`objectId` WHERE " .
+				$db->in('items.postId', array_keys($objects), $bindvars) . " ORDER BY co.`catObjectId`, co.`categId`",
 				$bindvars
 			);
 		} else {
