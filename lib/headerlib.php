@@ -719,6 +719,11 @@ class HeaderLib
 				if (! preg_match('/\bmin\./', $f) && $this->skip_minify[$f] !== true) {
 					set_time_limit(600);
 					try {
+						// remove cache-buster parameters from the end of the filename
+						$pos = strpos($f, '?');
+						if ($pos !== false) {
+							$f = substr($f, 0, $pos);
+						}
 						// to optimize processing time for changed js requirements, cache the minified version of each file
 						$hash = md5($f);
 						// filename without extension - makes it easier to identify the compressed files if needed.
