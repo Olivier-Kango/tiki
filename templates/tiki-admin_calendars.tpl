@@ -173,11 +173,7 @@
 			<fieldset>
 			<input type="hidden" name="calendarId" value="{$calendarId|escape}">
 			{if $tiki_p_modify_object_categories eq 'y'}
-				<div class="form-group row">
-					<div class="col-sm-12">
-						{include file='categorize.tpl'}
-					</div>
-				</div>
+				{include file='categorize.tpl'}
 			{/if}
 			<div class="form-group row">
 				<label class="col-sm-4 col-form-label" for="calendarName">
