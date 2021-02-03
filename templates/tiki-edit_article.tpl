@@ -138,9 +138,7 @@
 					{/remarksbox}
 				</div>
 			</div>
-			<div class="form-group row clearfix">
-				{include file='categorize.tpl'}
-			</div>
+			{include file='categorize.tpl'}
 			<div class="form-group row clearfix">
 				{include file='freetag.tpl'}
 			</div>

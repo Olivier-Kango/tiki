@@ -4,25 +4,32 @@
 		{$labelcol = '4'}
 	{/if}
 	{if !isset($inputcol)}
-		{$inputcol = '8'}
+		{if !isset($notable) || $notable neq 'y'}
+			{$inputcol = '8'}
+		{else}
+			{$inputcol = '12'}
+		{/if}
 	{/if}
 	{if !isset($notable) || $notable neq 'y'}
-		<!-- div class="form-horizontal" -->
-			<div class="form-group row mx-3">
-				<label class="col-sm-{$labelcol} text-nowrap col-form-label{if !empty($labelclass)} {$labelclass}{/if}">
-					{tr}Categorize{/tr}
-				</label>
-				<div class="col-sm-{$inputcol}">
-					{if isset($colsCategorize)} colspan="{$colsCategorize}"{/if}
-				</div>
-
-		<!--/div-->
+		<div class="form-group row">
+			<label class="col-sm-{$labelcol} text-nowrap col-form-label pb-3{if !empty($labelclass)} {$labelclass}{/if}">
+				{tr}Categorize{/tr}
+			</label>
+			<div class="col-sm-{$inputcol} pt-1">
+				{button href="#" _flip_id='categorizator' _class='btn btn-primary btn-sm tips' _text="{tr}Select Categories{/tr}" _flip_default_open='n'}
+			</div>
+		</div>
+	{/if}
+	{if !isset($notable) || $notable neq 'y'}
+		<div class="form-group row">
 	{/if}
 	{if $mandatory_category >= 0 or $prefs.javascript_enabled neq 'y' or (isset($auto) and $auto eq 'y')}
-		<div id="categorizator"><div>
+		<div id="categorizator">&nbsp;<div>
 	{else}
-		{if !isset($notable) || $notable neq 'y'} <div class="col-sm-{$inputcol}{if isset($inputgroup) && $inputgroup === 'y'} input-group{/if}">{button href="#" _flip_id='categorizator' _class='btn btn-primary btn-sm tips' _text="{tr}Select Categories{/tr}" _flip_default_open='n'}</div>{/if}
-		<div class="clearfix"><div id="categorizator" class="col-sm-{$inputcol} offset-sm-{$labelcol}" style="display:{if isset($smarty.session.tiki_cookie_jar.show_categorizator) and $smarty.session.tiki_cookie_jar.show_categorizator eq 'y' or (isset($notable) && $notable eq 'y')}block{else}none{/if};">
+		{if !isset($notable) || $notable neq 'y'}
+			<div class="col-sm-{$labelcol}{if isset($inputgroup) && $inputgroup === 'y'} input-group{/if}">&nbsp;</div>
+		{/if}
+		<div id="categorizator" class="col-sm-{$inputcol}" style="display:{if isset($smarty.session.tiki_cookie_jar.show_categorizator) and $smarty.session.tiki_cookie_jar.show_categorizator eq 'y' or (isset($notable) && $notable eq 'y')}block{else}none{/if};">
 	{/if}
 	<div class="multiselect">
 		{if count($categories) gt 0}
@@ -51,7 +58,6 @@
 			{tr}No categories defined{/tr}
 		{/if}
 	</div> {* end #multiselect *}
-		</div>
 	</div>{* end #categorizator *}
 	{if !isset($notable) || $notable neq 'y'}
 		</div> {* end .form-group *}
