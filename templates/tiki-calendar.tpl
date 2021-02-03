@@ -67,7 +67,30 @@
 		{/if}
 
 		{if count($listcals) >= 1}
-			{button href="#" _onclick="toggle('filtercal');return false;" _text="{tr}Visible Calendars{/tr}" _icon_name="eye"}
+			{button href="#" _onclick="toggle('filtercal');return false;" _text="{tr}Calendars{/tr}" _icon_name="eye"}
+			<div class="d-inline-block">
+				<form class="card" id="filtercal" method="get" action="{$myurl}" name="f" style="display:none;">
+					<div class="card-header caltitle py-1 px-2">
+						<strong>{tr}Calendars{/tr}</strong>
+						<button type="button" class="close"  onclick="toggle('filtercal')" aria-hidden="true">×</button>
+					</div>
+					<ul class="list-group list-group-flush list-unstyled mt-2">
+						<li class="caltoggle">
+							{select_all checkbox_names='calIds[]' label="{tr}Check / Uncheck All{/tr}"}
+						</li>
+						{foreach item=k from=$listcals}
+							<li class="calcheckbox">
+								<input type="checkbox" name="calIds[]" value="{$k|escape}" id="groupcal_{$k}" {if $thiscal.$k}checked="checked"{/if}>
+								<label for="groupcal_{$k}" class="calId{$k}">{$infocals.$k.name|escape} (id #{$k})</label>
+							</li>
+						{/foreach}
+						<li class="calinput">
+							<input type="hidden" name="todate" value="{$focusdate}">
+							<input type="submit" class="btn btn-primary btn-sm" name="refresh" value="{tr}Refresh{/tr}">
+						</li>
+					</ul>
+				</form>
+			</div>
 
 			{if count($thiscal)}
 				<div id="configlinks" class="form-group row text-right">
@@ -92,17 +115,14 @@
 			{/if}
 		{/if}
 	</div>
-{* show jscalendar if set *}
-		{if $prefs.feature_jscalendar eq 'y'}
-			<div class="jscalrow" style="display: inline-block">
-				<form action="{$myurl}" method="post" name="f">
-					{jscalendar date="$focusdate" id="trig" goto="$jscal_url" align="Bc"}
-				</form>
-			</div>
-		{/if}
-
-
-
+	{* show jscalendar if set *}
+	{if $prefs.feature_jscalendar eq 'y'}
+		<div class="jscalrow" style="display: inline-block">
+			<form action="{$myurl}" method="post" name="f">
+				{jscalendar date="$focusdate" id="trig" goto="$jscal_url" align="Bc"}
+			</form>
+		</div>
+	{/if}
 
 	{if $user and $prefs.feature_user_watches eq 'y' and isset($category_watched) and $category_watched eq 'y'}
 	<div class="categbar">
@@ -113,27 +133,6 @@
 			&nbsp;
 		{/section}
 	</div>
-	{/if}
-
-	{if count($listcals) >= 1}
-		<form class="modal-content" id="filtercal" method="get" action="{$myurl}" name="f" style="display:none;">
-			<div class="modal-header caltitle">{tr}Group Calendars{/tr}</div>
-			<div class="modal-body">
-				<div class="caltoggle">
-					{select_all checkbox_names='calIds[]' label="{tr}Check / Uncheck All{/tr}"}
-				</div>
-				{foreach item=k from=$listcals}
-					<div class="calcheckbox">
-						<input type="checkbox" name="calIds[]" value="{$k|escape}" id="groupcal_{$k}" {if $thiscal.$k}checked="checked"{/if}>
-						<label for="groupcal_{$k}" class="calId{$k}">{$infocals.$k.name|escape} (id #{$k})</label>
-					</div>
-				{/foreach}
-				<div class="calinput">
-					<input type="hidden" name="todate" value="{$focusdate}">
-					<input type="submit" class="btn btn-primary btn-sm" name="refresh" value="{tr}Refresh{/tr}">
-				</div>
-			</div>
-		</form>
 	{/if}
 
 	{if $tiki_p_view_events eq 'y'}
