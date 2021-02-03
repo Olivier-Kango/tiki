@@ -88,7 +88,7 @@
 					</div>
 				</div>
 			</div>
-			{include file='categorize.tpl'}
+			{include file='categorize.tpl' labelcol='3' inputcol='9'}
 		{/tab}
 		{tab name="{tr}Display Options{/tr}"}
 			<h2>{tr}Display Options{/tr}</h2>
