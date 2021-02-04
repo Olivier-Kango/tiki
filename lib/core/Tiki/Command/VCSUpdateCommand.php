@@ -21,6 +21,7 @@ use Psr\Log\LogLevel;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Command\HelpCommand;
 use Exception;
+use Tiki\Package\ComposerCli;
 
 /**
  * Add a singleton command using the Symfony console component for this script
@@ -480,8 +481,16 @@ class VCSUpdateCommand extends Command
 			$setupParams .= ' -g ' . $input->getOption('group');
 		}
 
-		$raw = $this->execCommand("sh setup.sh $setupParams -n fix 2>&1");
-		$this->OutputErrors($logger, $raw, 'Problem running setup.sh', $errors, ! $noDb);   // 2>&1 suppresses all terminal output, but allows full capturing for logs & verbiage
+		$composerHome = '';
+		if (! getenv('COMPOSER_HOME')) {
+			global $tikipath;
+			$composerHome = sprintf('COMPOSER_HOME="%s"', $tikipath . ComposerCli::COMPOSER_HOME);
+		}
+
+		$shellCom = sprintf("%s sh setup.sh %s -n fix", $composerHome, $setupParams);
+		$this->execCommand($shellCom);
+		$raw = $this->execCommand($shellCom . ' 2>&1');
+		$this->OutputErrors($logger, $raw, 'Problem running setup.sh', $errors, ! $input->getOption('no-db'));
 
 		if (! $noDb) {
 			// generate a secdb database so when database:update is run, it also gets updated.
