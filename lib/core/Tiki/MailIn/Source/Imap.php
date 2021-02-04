@@ -26,7 +26,7 @@ class Imap extends Pop3
 
 			return $imap;
 		} catch (ZendMailException $e) {
-			throw new TransportException(tr("Login failed for IMAP account on %0:%1 for user %2", $this->host, $this->password, $this->username));
+			throw new TransportException(tr("Login failed for IMAP account on %0:%1 for user %2", $this->host, '******', $this->username));
 		}
 	}
 }

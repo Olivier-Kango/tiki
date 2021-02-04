@@ -102,7 +102,7 @@ class Pop3 implements SourceInterface
 
 			return $pop;
 		} catch (ZendMailException $e) {
-			throw new TransportException(tr("Login failed for POP3 account on %0:%1 for user %2", $this->host, $this->password, $this->username));
+			throw new TransportException(tr("Login failed for POP3 account on %0:%1 for user %2", $this->host, '******', $this->username));
 		}
 	}
 
