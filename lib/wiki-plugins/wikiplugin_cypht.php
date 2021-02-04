@@ -235,21 +235,16 @@ function wikiplugin_cypht_info()
 
 function wikiplugin_cypht($data, $params)
 {
-	global $tikipath, $tikiroot, $user, $page, $logslib;
+	global $tikipath, $tikiroot, $user, $page, $logslib, $prefs;
 	$headerlib = TikiLib::lib('header');
 	$tikilib = TikiLib::lib('tiki');
 
-	$foo = parse_url($_SERVER["REQUEST_URI"]);
-	$url = $tikilib->httpPrefix(true) . $foo["path"];
-	$path = parse_url($url, PHP_URL_PATH);
-	$basename = basename($path);
-	if ($basename != $page) {
-		header('Location: ' . $page);
-		exit;
-	}
-
 	if (defined('APP_PATH')) {
 		return tr("Cypht already started.");
+	}
+
+	if ($_GET['page'] == $page && $prefs['feature_sefurl'] !== 'y') {
+		TikiLib::lib('access')->redirect('tiki-index.php?page_id='.$tikilib->get_page_id_from_name($page));
 	}
 
 	static $called = false;
@@ -335,6 +330,8 @@ function wikiplugin_cypht($data, $params)
 			$_SESSION[$session_prefix]['user_data'] = json_decode($data, true);
 		}
 	}
+
+	$_SESSION[$session_prefix]['page_id'] = $tikilib->get_page_id_from_name($page);
 
 	define('VENDOR_PATH', $tikipath.'/vendor_bundled/vendor/');
 	define('APP_PATH', VENDOR_PATH.'jason-munro/cypht/');
@@ -430,6 +427,6 @@ function wikiplugin_cypht($data, $params)
 	return '<div class="inline-cypht">'
 		. '<input type="hidden" id="hm_page_key" value="'.Hm_Request_Key::generate().'" />'
 		. '<input type="hidden" id="hm_session_prefix" value="'.htmlentities($session_prefix).'" />'
-		. $dispatcher->output
+		. $dispatcher->session->dedup_page_links($dispatcher->output)
 		. "</div>";
 }

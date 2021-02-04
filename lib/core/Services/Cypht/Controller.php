@@ -39,7 +39,7 @@ class Services_Cypht_Controller
 		}
 
 		// either html or already json encoded, so skip broker/accesslib output and do it here
-		echo $dispatcher->output;
+		echo $dispatcher->session->dedup_page_links($dispatcher->output);
 		exit;
 	}
 }
