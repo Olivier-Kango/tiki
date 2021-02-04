@@ -334,7 +334,7 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
 
 		return [
 			$baseKey => $typeFactory->multivalue($items),
-			"{$baseKey}_text" => $typeFactory->sortable($listtext),
+			"{$baseKey}_text" => $typeFactory->plainmediumtext($listtext),
 		];
 	}
 
