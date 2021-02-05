@@ -191,6 +191,7 @@ class ConsoleApplicationBuilder
 				new TrackerClearCommand,
 				new AdminIndexRebuildCommand,
 				new UserCreateCommand,
+				new UserUnlockCommand,
 				new UsersListCommand,
 				new UsersPasswordCommand,
 				new StatsCommand,
