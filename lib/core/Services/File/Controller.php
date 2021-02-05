@@ -72,6 +72,8 @@ class Services_File_Controller
 
 	function action_upload($input)
 	{
+		$filegallib = TikiLib::lib('filegal');
+
 		if ($input->files->asArray()) {
 			return [];
 		}
@@ -129,7 +131,6 @@ class Services_File_Controller
 			$data = base64_decode($data);
 		}
 
-
 		/* The above if/else sets $type using finfo_file(). The following uses finfo_buffer(), which gives a type different from that obtained from finfo_file() in the case of Outlook .msg files on PHP 5.6. In this case, finfo_file()'s result is better. It is not impossible that the technique below would give better results in other cases.
 		See https://stackoverflow.com/questions/45243973/fileinfo-finfo-buffer-results-differ-from-finfo-file
 		Chealer 2017-07-21
@@ -160,6 +161,19 @@ class Services_File_Controller
 			throw new Services_Exception(tr('File could not be uploaded. Restrictions apply.'), 406);
 		}
 
+		$checksum = md5($data);
+		$fileInfo = $filegallib->get_file_info($fileId);
+
+		$uploadIsOk = is_array($fileInfo)
+			&& ! empty($fileInfo['hash'])
+			&& ! empty($fileInfo['filesize'])
+			&& $size === (int) $fileInfo['filesize']
+			&& $checksum === $fileInfo['hash'];
+
+		if (! $uploadIsOk) {
+			throw new Services_Exception(tr('File was corrupted during the upload. Check available disk space.'), 406);
+		}
+
 		$cat_type = 'file';
 		$cat_objid = $fileId;
 		$cat_desc = null;
@@ -173,7 +187,7 @@ class Services_File_Controller
 			'type' => $type,
 			'fileId' => $fileId,
 			'galleryId' => $gal_info['galleryId'],
-			'md5sum' => md5($data),
+			'md5sum' => $checksum,
 		];
 	}
 

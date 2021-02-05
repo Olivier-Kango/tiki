@@ -4178,7 +4178,11 @@ class FileGalLib extends TikiLib
 
 		if ($savedir) {
 			$fhash = $this->find_unique_name($savedir, $gal_info['name']);
-			file_put_contents($savedir . $fhash, $data);
+			$size = file_put_contents($savedir . $fhash, $data);
+
+			if ($size === false) {
+				throw new FileIsNotSafeException("There was a problem saving the file to the disk");
+			}
 
 			return true;
 		}
