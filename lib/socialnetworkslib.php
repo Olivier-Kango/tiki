@@ -27,7 +27,7 @@ class SocialNetworksLib extends LogsLib
 	 *
 	 * @var string
 	 */
-	private $graphVersion = 'v3.2';
+	private $graphVersion = 'v9.0';
 
 	/**
 	 * @var	array	options for Twitter Zend functions
