@@ -204,6 +204,6 @@ class Hm_Output_allow_gmail_contacts_module_setting extends Hm_Output_Module {
         if (array_key_exists('allow_gmail_contacts_module', $settings)) {
             $allow_gmail_contacts_module = $settings['allow_gmail_contacts_module'];
         }
-        return '<tr class="general_setting"><td>'.tr('Allow Gmail Contacts Module').'</td><td><input type="checkbox" name="allow_external_images" value="1" '.($allow_gmail_contacts_module ? 'checked' : '').'></td></tr>';
+        return '<tr class="general_setting"><td>'.tr('Allow Gmail Contacts Module').'</td><td><input type="checkbox" name="allow_gmail_contacts_module" value="1" '.($allow_gmail_contacts_module ? 'checked' : '').'></td></tr>';
     }
 }
