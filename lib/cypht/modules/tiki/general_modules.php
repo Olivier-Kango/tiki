@@ -274,6 +274,23 @@ class Hm_Output_enable_oauth2_over_imap_setting extends Hm_Output_Module {
         ';
     }
 }
+/**
+ *  Format the message headers about mpdf generation of the message view
+ * Format the message headers about mpdf generation of the message view
+ * @subpackage tiki/output
+ */
+class Hm_Output_filter_message_headers_mpdf extends Hm_Output_Module {
+    protected function output() {
+        $headers = $this->get('msg_headers');
+        if (is_string($headers) && TikiLib::lib('tiki')->get_preference('print_pdf_from_url') == "mpdf") {
+            $headersplited = explode('|', $headers);
+            $headersplited[array_key_last ($headersplited)-1] = $headersplited[array_key_last ($headersplited)-1].'
+            | <a class="hlink" id="print_pdf" href="#">'.$this->trans('PDF').'</a>';
+            $headers = implode("|",$headersplited );
+            $this->out('msg_headers', $headers);
+        }
+    }
+}
 
 /**
  * Save gmail_contacts  module setting
@@ -301,3 +318,4 @@ class Hm_Output_enable_gmail_contacts_module_setting extends Hm_Output_Module {
         return '<tr class="general_setting"><td>'.tr('Enable Gmail Contacts Module').'</td><td><input type="checkbox" name="tiki_enable_gmail_contacts_module" value="1" '.($enable_gmail_contacts_module ? 'checked' : '').'></td></tr>';
     }
 }
+

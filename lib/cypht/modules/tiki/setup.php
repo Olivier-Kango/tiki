@@ -61,6 +61,7 @@ add_handler('compose', 'add_file_attachment', true, 'smtp', 'load_smtp_servers_f
 /* message page calendar invitation hooks */
 add_handler('ajax_imap_message_content', 'check_calendar_invitations_imap', true, 'imap', 'imap_message_content', 'after');
 add_output('ajax_imap_message_content', 'add_rsvp_actions', true, 'imap', 'filter_message_headers', 'after');
+add_output('ajax_imap_message_content','filter_message_headers_mpdf',true,'imap','filter_message_headers', 'after');
 
 /* message page rsvp actions to an event */
 setup_base_ajax_page('ajax_rsvp_action', 'core');
@@ -112,7 +113,7 @@ return array(
     'ajax_tiki_groupmail',
     'ajax_take_groupmail',
     'ajax_put_back_groupmail',
-    'ajax_rsvp_action',
+	'ajax_rsvp_action',
     'ajax_add_to_calendar',
     'ajax_update_participant_status',
     'ajax_remove_from_calendar'
@@ -121,7 +122,7 @@ return array(
 	),
 	'allowed_output' => array(
 		'operator' => array(FILTER_SANITIZE_STRING, false),
-		'item_removed' => array(FILTER_VALIDATE_BOOLEAN, false)
+		'item_removed' => array(FILTER_VALIDATE_BOOLEAN, false),
 	),
 	'allowed_post' => array(
 		'imap_server_id' => FILTER_VALIDATE_INT,
