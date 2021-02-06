@@ -105,7 +105,8 @@ $progress-border-radius:        0 !default;
 
 // Close
 
-$close-font-size:             34px !default;
+//$close-font-size:             34px !default;
+// triggers a compile error, conflicts with rem unit in _alert.scss
 $close-font-weight:           300 !default;
 
 // - - - - - - - - - -  - - - - - - Other variables, if any - - - - - - - - - - - - - - - - - //
