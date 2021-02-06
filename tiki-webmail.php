@@ -82,5 +82,150 @@ $smarty->assign('output_data', '<div class="inline-cypht"><input type="hidden" i
 	. $dispatcher->output
 	. "</div>");
 $smarty->assign('mid', 'tiki-webmail.tpl');
+
+//handle message priting
+if (isset($_POST['display']) && $_POST['display'] == 'pdf') {
+	require_once 'lib/pdflib.php';
+	$generator = new PdfGenerator();
+	if (! empty($generator->error)) {
+		Feedback::error($generator->error);
+	} else {
+    if (isset($_POST['uid'])) {
+			$uid = $_POST['uid'];
+    }
+    if (isset($_POST['list_path'])) {
+			$list_path = $_POST['list_path'];
+    } 
+    if (isset($_POST['header_subject'])) {
+      $header_subject = $_POST['header_subject'];
+    }
+    if (isset($_POST['header_date'])) {
+			$header_date = $_POST['header_date'];
+    }
+    if (isset($_POST['header_from'])) {
+			$header_from = $_POST['header_from'];
+    }
+    if (isset($_POST['header_to'])) {
+			$header_to = $_POST['header_to'];
+    }
+    if (isset($_POST['msg_text'])) {
+			$msg_text = $_POST['msg_text'];
+    } 
+    $contentpage = createPage($header_subject,$header_date,$header_from,$header_to,$msg_text,$origin);
+    $filename = $header_from.'_'.$header_subject;
+    $params = [ 
+      'page' => $contentpage ,
+      'uid'=>$uid,
+      'list_path'=> $list_path
+    ];
+		$pdf = $generator->getPdf('tiki-webmail.php',$params);
+		$length = strlen($pdf);
+		header('Cache-Control: private, must-revalidate');
+		header('Pragma: private');
+		header("Content-Description: File Transfer");
+		$filename  = preg_replace('/\W+/u', '_', $filename ); // Replace non words with underscores for valid file names
+		$filename = \TikiLib::lib('tiki')->remove_non_word_characters_and_accents($filename );
+		header('Content-disposition: attachment; filename="' . $filename . '.pdf"');
+		header("Content-Type: application/pdf");
+		header("Content-Transfer-Encoding: binary");
+		header('Content-Length: ' . $length);
+		echo $pdf;
+	}
+}
+
 $smarty->display('tiki.tpl');
 
+/**
+ * creates the HTML page to be print.
+ */
+function createPage($header_subject,$header_date,$header_from,$header_to,$msg_text)
+{
+	return <<<END
+    <<!DOCTYPE html>
+<html>
+<head>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link type="text/css" rel="stylesheet" href="lib/cypht/site.css" />
+  <link type="text/css" rel="stylesheet" href="lib/cypht/modules/tiki/site.css" />
+  <title></title>
+  <style type="text/css">
+    body, td {font-size:13px}
+    body{background: #fff !important;}
+    a:link, a:active {color:#1155CC; text-decoration:none}
+    a:hover {text-decoration:underline; cursor: pointer} 
+    a:visited{color:##6611CC} img{border:0px} 
+    pre { white-space: pre; white-space: -moz-pre-wrap; white-space: -o-pre-wrap; white-space: pre-wrap; word-wrap: break-word; max-width: 800px; overflow: auto;} 
+    .logo { left: -7px; position: relative; }
+  </style>
+</head>
+<body class="tiki tiki-webmail tiki-cypht" >
+  <main class="content_cell" style="display: table-cell; padding: 35px;">
+    <div class="msg_text">
+      <table>
+        <colgroup>
+          <col class="header_name_col">
+          <col class="header_val_col">
+        </colgroup>
+        <tbody>
+          <tr height="14px">
+            <td width="143" style="padding-left: 35px;">
+              <h1 color="#777">WEBMAIL</h1>
+            </td>
+            <td align="right" style="padding-top: 35px; padding-right: 35px;">
+              <font size="-1" color="#777"><b>$header_to</b></font>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <hr>
+      <table>
+        <colgroup>
+          <col class="header_name_col">
+          <col class="header_val_col">
+        </colgroup>
+        <tbody>
+          <tr >
+            <td style="padding-left: 35px;">
+              <font size="+1"><b>$header_subject</b></font><br>
+              <font size="-1" color="#777"></font>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <hr>
+      <table class="msg_headers">
+        <colgroup>
+          <col class="header_name_col">
+          <col class="header_val_col">
+        </colgroup>
+        <tbody>
+          <tr class="header_date">
+            <th>Date</th>
+            <td>$header_date</td>
+          </tr>
+          <tr class="header_from">
+            <th>From</th>
+            <td>$header_from</td>
+          </tr>
+          <tr class="header_to">
+            <th>To</th>
+            <td>$header_to</td>
+          </tr>
+          <tr>
+            <td class="header_space" colspan="2"></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="msg_text_inner">
+        <font size="-1">
+          $msg_text
+        </font>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
+END;
+}
