@@ -101,6 +101,42 @@ class Hm_Handler_process_debug_mode extends Hm_Handler_Module {
 }
 
 /**
+ * Save external image sources setting
+ * @subpackage tiki/handler
+ */
+class Hm_Handler_process_allow_external_images extends Hm_Handler_Module {
+    public function process() {
+        function allow_external_images_callback($val) { return $val; }
+        process_site_setting('allow_external_images', $this, 'allow_external_images_callback', false, true);
+    }
+}
+
+/**
+ * Set special variable to prevent saving settings on each config update
+ * @subpackage tiki/handler
+ */
+class Hm_Handler_before_save_user_settings extends Hm_Handler_Module {
+    public function process() {
+        if (array_key_exists('save_settings', $this->request->post)) {
+            $this->user_config->set('skip_saving_on_set', true);
+        }
+    }
+}
+
+/**
+ * Remove special variable skipping settings save and save the settings
+ * @subpackage tiki/handler
+ */
+class Hm_Handler_after_save_user_settings extends Hm_Handler_Module {
+    public function process() {
+        if (array_key_exists('save_settings', $this->request->post)) {
+            $this->user_config->del('skip_saving_on_set');
+            $this->user_config->save();
+        }
+    }
+}
+
+/**
  * Expose debug setting
  * @subpackage tiki/output
  */
@@ -112,5 +148,62 @@ class Hm_Output_debug_mode_setting extends Hm_Output_Module {
             $debug_mode = $settings['debug_mode'];
         }
         return '<tr class="general_setting"><td>'.tr('Debug mode messages to Tiki Log (caution: this may flood the logs if used extensively)').'</td><td><input type="checkbox" name="debug_mode" value="1" '.($debug_mode ? 'checked' : '').'></td></tr>';
+    }
+}
+
+/**
+ * Start the Advanced section on the settings page
+ * @subpackage tiki/output
+ */
+class Hm_Output_start_advanced_settings extends Hm_Output_Module {
+    /**
+     * Settings in this section control the advanced integration settings betwene Cypht and Tiki (hm3.ini ones)
+     */
+    protected function output() {
+        return '<tr><td data-target=".advanced_setting" colspan="2" class="settings_subtitle">'.
+            '<img alt="" src="'.Hm_Image_Sources::$code.'" width="16" height="16" />'.
+            $this->trans('Advanced').'</td></tr>';
+    }
+}
+
+/**
+ * Expose image sources setting
+ * @subpackage tiki/output
+ */
+class Hm_Output_allow_external_images_setting extends Hm_Output_Module {
+    protected function output() {
+        $allow_external_images = false;
+        $settings = $this->get('user_settings', array());
+        if (array_key_exists('allow_external_images', $settings)) {
+            $allow_external_images = $settings['allow_external_images'];
+        }
+        return '<tr class="general_setting"><td>'.tr('Allow remote image sources').'</td><td><input type="checkbox" name="allow_external_images" value="1" '.($allow_external_images ? 'checked' : '').'></td></tr>';
+    }
+}
+
+/**
+ * Save gmail_contacts  module setting
+ * @subpackage tiki/handler
+ */
+class Hm_Handler_process_allow_gmail_contacts_module extends Hm_Handler_Module {
+    public function process() {
+        function allow_gmail_contacts_module_callback($val) { return $val; }
+        // here the code for allowing gmail_contacts module
+    }
+}
+
+
+/**
+ * Expose gmail_contacts module setting
+ * @subpackage tiki/output
+ */
+class Hm_Output_allow_gmail_contacts_module_setting extends Hm_Output_Module {
+    protected function output() {
+        $allow_gmail_contacts_module= false;
+        $settings = $this->get('user_settings', array());
+        if (array_key_exists('allow_gmail_contacts_module', $settings)) {
+            $allow_gmail_contacts_module = $settings['allow_gmail_contacts_module'];
+        }
+        return '<tr class="general_setting"><td>'.tr('Allow Gmail Contacts Module').'</td><td><input type="checkbox" name="allow_external_images" value="1" '.($allow_gmail_contacts_module ? 'checked' : '').'></td></tr>';
     }
 }

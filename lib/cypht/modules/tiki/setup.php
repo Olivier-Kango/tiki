@@ -93,9 +93,16 @@ add_handler('ajax_remove_from_calendar', 'load_imap_servers_from_config',  true,
 add_handler('ajax_remove_from_calendar', 'imap_message_content',  true, 'imap', 'load_imap_servers_from_config', 'after');
 add_handler('ajax_remove_from_calendar', 'remove_from_calendar', true, 'tiki', 'imap_message_content', 'after');
 
-/* debug mode */
+/* debug mode and other settings updates */
 add_handler('settings', 'process_debug_mode', true, 'tiki', 'save_user_settings', 'before');
+add_handler('settings', 'process_allow_external_images', true, 'tiki', 'save_user_settings', 'before');
+add_handler('settings', 'before_save_user_settings', true, 'tiki', 'save_user_settings', 'before');
+add_handler('settings', 'after_save_user_settings', true, 'tiki', 'save_user_settings', 'after');
+add_handler('settings', 'process_allow_gmail_contacts_module', true, 'tiki', 'save_user_settings', 'before');
 add_output('settings', 'debug_mode_setting', true, 'tiki', 'start_unread_settings', 'before');
+add_output('settings', 'start_advanced_settings', true, 'core', 'end_settings_form', 'before');
+add_output('settings', 'allow_external_images_setting', true, 'tiki', 'start_advanced_settings', 'after');
+add_output('settings', 'allow_gmail_contacts_module_setting', true, 'tiki', 'allow_external_images_setting', 'after');
 
 return array(
 	'allowed_pages' => array(
@@ -122,5 +129,7 @@ return array(
     'rsvp_action' => FILTER_SANITIZE_STRING,
     'calendar_id' => FILTER_VALIDATE_INT,
     'debug_mode' => FILTER_VALIDATE_INT,
+	'allow_external_images' => FILTER_VALIDATE_INT,
+	'allow_gmail_contacts_module' => FILTER_VALIDATE_INT,
 	)
 );
