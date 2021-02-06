@@ -189,8 +189,21 @@ class Hm_Handler_process_enable_oauth2_over_imap extends Hm_Handler_Module {
     public function process() {
         function tiki_enable_oauth2_over_imap_callback($val) {return $val;}
         process_site_setting('tiki_enable_oauth2_over_imap', $this, 'tiki_enable_oauth2_over_imap_callback', false, true);
+        process_site_setting('tiki_enable_gmail_contacts_module', $this, 'tiki_enable_oauth2_over_imap_callback', false, true);
+        
         process_site_setting('gmail_client_id', $this, 'tiki_enable_oauth2_over_imap_callback');
         process_site_setting('gmail_client_secret', $this, 'tiki_enable_oauth2_over_imap_callback');
+        process_site_setting('gmail_client_uri', $this, 'tiki_enable_oauth2_over_imap_callback');
+        process_site_setting('gmail_auth_uri', $this, 'tiki_enable_oauth2_over_imap_callback');
+        process_site_setting('gmail_token_uri', $this, 'tiki_enable_oauth2_over_imap_callback');
+        process_site_setting('gmail_refresh_uri', $this, 'tiki_enable_oauth2_over_imap_callback');
+
+        process_site_setting('outlook_client_id', $this, 'tiki_enable_oauth2_over_imap_callback');
+        process_site_setting('outlook_client_secret', $this, 'tiki_enable_oauth2_over_imap_callback');
+        process_site_setting('outlook_client_uri', $this, 'tiki_enable_oauth2_over_imap_callback');
+        process_site_setting('outlook_auth_uri', $this, 'tiki_enable_oauth2_over_imap_callback');
+        process_site_setting('outlook_token_uri', $this, 'tiki_enable_oauth2_over_imap_callback');
+        process_site_setting('outlook_refresh_uri', $this, 'tiki_enable_oauth2_over_imap_callback');
     }
 }
 
@@ -203,22 +216,21 @@ class Hm_Output_enable_oauth2_over_imap_setting extends Hm_Output_Module {
     protected function output() {
         $enable_oauth2_over_imap= false;
 
-        $gmail_client_id="";
-        $gmail_client_secret="";
-        $gmail_client_uri="";
+        $gmail_client_id=" ";
+        $gmail_client_secret=" ";
+        $gmail_client_uri=" ";
         $gmail_auth_uri="https://accounts.google.com/o/oauth2/auth";
         $gmail_token_uri="https://www.googleapis.com/oauth2/v3/token";
         $gmail_refresh_uri="https://www.googleapis.com/oauth2/v3/token";
 
-        $outlook_client_id="";
-        $outlook_client_secret="";
-        $outlook_client_uri="";
+        $outlook_client_id=" ";
+        $outlook_client_secret=" ";
+        $outlook_client_uri=" ";
         $outlook_auth_uri="https://login.live.com/oauth20_authorize.srf";
         $outlook_token_uri="https://login.live.com/oauth20_token.srf";
         $outlook_refresh_uri="https://login.live.com/oauth20_token.srf";
 
         $settings = $this->get('user_settings', array());
-        print_r($this->get('user_settings', array()));
         if (array_key_exists('tiki_enable_oauth2_over_imap', $settings)) {
             $enable_oauth2_over_imap = $settings['tiki_enable_oauth2_over_imap'];
         }
@@ -232,15 +244,7 @@ class Hm_Output_enable_oauth2_over_imap_setting extends Hm_Output_Module {
         if (array_key_exists('gmail_client_uri', $settings)) {
             $gmail_client_uri = $settings['gmail_client_uri'];
         }
-        if (array_key_exists('gmail_auth_uri', $settings)) {
-            $gmail_auth_uri = $settings['gmail_auth_uri'];
-        }
-        if (array_key_exists('gmail_token_uri', $settings)) {
-            $gmail_token_uri = $settings['gmail_token_uri'];
-        }
-        if (array_key_exists('gmail_refresh_uri', $settings)) {
-            $gmail_refresh_uri = $settings['gmail_refresh_uri'];
-        }
+
         //outlook settings
         if (array_key_exists('outlook_client_id', $settings)) {
             $outlook_client_id = $settings['outlook_client_id'];
@@ -251,31 +255,22 @@ class Hm_Output_enable_oauth2_over_imap_setting extends Hm_Output_Module {
         if (array_key_exists('outlook_client_uri', $settings)) {
             $outlook_client_uri = $settings['outlook_client_uri'];
         }
-        if (array_key_exists('outlook_auth_uri', $settings)) {
-            $outlook_auth_uri = $settings['outlook_auth_uri'];
-        }
-        if (array_key_exists('outlook_token_uri', $settings)) {
-            $outlook_token_uri = $settings['outlook_token_uri'];
-        }
-        if (array_key_exists('outlook_refresh_uri', $settings)) {
-            $outlook_refresh_uri = $settings['outlook_refresh_uri'];
-        }
-
+    
         return '
-        <tr class="general_setting"><td>'.tr('Enable OAUTH2 over IMAP').'</td><td><input type="checkbox" name="tiki_enable_oauth2_over_imap" value="1" class="tiki_enable_oauth2_over_imap" '.($enable_oauth2_over_imap ? 'checked' : '').'></td></tr>
+        <tr class="general_setting"><td>'.tr('Enable Oauth2 over IMAP').'</td><td><input type="checkbox" name="tiki_enable_oauth2_over_imap" value="1" class="tiki_enable_oauth2_over_imap" '.($enable_oauth2_over_imap ? 'checked' : '').'></td></tr>
         <tr class="oauth reveal-if-unchecked"><td>'.tr('Gmail Client ID').'</td><td><textarea name="gmail_client_id">'.$gmail_client_id.'</textarea></td></tr>
         <tr class="oauth reveal-if-unchecked"><td>'.tr('Gmail Client secret').'</td><td><textarea name="gmail_client_secret">'.$gmail_client_secret.'</textarea></td></tr>
         <tr class="oauth reveal-if-unchecked"><td>'.tr('Gmail Client Uri').'</td><td><textarea name="gmail_client_uri">'.$gmail_client_uri.'</textarea></td></tr>
-        <tr class="oauth reveal-if-unchecked"><td>'.tr('Gmail Auth Uri').'</td><td><textarea name="gmail_auth_uri">'.$gmail_auth_uri.'</textarea></td></tr>
-        <tr class="oauth reveal-if-unchecked"><td>'.tr('Gmail Token Uri').'</td><td><textarea name="gmail_token_uri">'.$gmail_token_uri.'</textarea></td></tr>
-        <tr class="oauth reveal-if-unchecked"><td>'.tr('Gmail Refresh Uri').'</td><td><textarea name="gmail_refresh_uri">'.$gmail_refresh_uri.'</textarea></td></tr>
+        <tr class="reveal-if-unchecked"><td>'.tr('Gmail Auth Uri').'</td><td><textarea name="gmail_auth_uri">'.$gmail_auth_uri.'</textarea></td></tr>
+        <tr class="reveal-if-unchecked"><td>'.tr('Gmail Token Uri').'</td><td><textarea name="gmail_token_uri">'.$gmail_token_uri.'</textarea></td></tr>
+        <tr class="reveal-if-unchecked"><td>'.tr('Gmail Refresh Uri').'</td><td><textarea name="gmail_refresh_uri">'.$gmail_refresh_uri.'</textarea></td></tr>
         <tr class="oauth reveal-if-unchecked"></tr>
         <tr class="oauth reveal-if-unchecked"><td>'.tr('Outlook Client ID').'</td><td><textarea name="outlook_client_id">'.$outlook_client_id.'</textarea></td></tr>
         <tr class="oauth reveal-if-unchecked"><td>'.tr('Outlook Client secret').'</td><td><textarea name="outlook_client_secret">'.$outlook_client_secret.'</textarea></td></tr>
         <tr class="oauth reveal-if-unchecked"><td>'.tr('Outlook Client Uri').'</td><td><textarea name="outlook_client_uri">'.$outlook_client_uri.'</textarea></td></tr>
-        <tr class="oauth reveal-if-unchecked"><td>'.tr('Outlook Auth Uri').'</td><td><textarea name="outlook_auth_uri">'.$outlook_auth_uri.'</textarea></td></tr>
-        <tr class="oauth reveal-if-unchecked"><td>'.tr('Outlook Token Uri').'</td><td><textarea name="outlook_token_uri">'.$outlook_token_uri.'</textarea></td></tr>
-        <tr class="oauth reveal-if-unchecked"><td>'.tr('Outlook Refresh Uri').'</td><td><textarea name="outlook_refresh_uri">'.$outlook_refresh_uri.'</textarea></td></tr>
+        <tr class="reveal-if-unchecked"><td>'.tr('Outlook Auth Uri').'</td><td><textarea name="outlook_auth_uri">'.$outlook_auth_uri.'</textarea></td></tr>
+        <tr class="reveal-if-unchecked"><td>'.tr('Outlook Token Uri').'</td><td><textarea name="outlook_token_uri">'.$outlook_token_uri.'</textarea></td></tr>
+        <tr class="reveal-if-unchecked"><td>'.tr('Outlook Refresh Uri').'</td><td><textarea name="outlook_refresh_uri">'.$outlook_refresh_uri.'</textarea></td></tr>
         ';
     }
 }
