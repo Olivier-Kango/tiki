@@ -93,7 +93,7 @@
 				{jq}// handle calendar switcher form submit
 $("#filtercal").submit(function () {
 	if ($("input[type=checkbox]:not(#clickall):not(:checked)", this).length === 0) {
-		location.href = jqueryTiki.sefurl ? "calendar" : "tiki-calendar.php";
+		location.href = (jqueryTiki.sefurl ? "calendar" : "tiki-calendar.php") + "?allCals=y";
 		return false;
 	} else {
 		return true;
