@@ -163,166 +163,170 @@
 	{else}
 		{assign var="timeFormat" value=false}
 	{/if}
-	{jq}
-		var year = {{$viewyear}};
-		var calendarEl = document.getElementById('calendar');
-		var calendar = new FullCalendar.Calendar(calendarEl, {
-			themeSystem: 'bootstrap',
-			eventTimeFormat: {
-			  hour: 'numeric',
-			  minute: '2-digit',
-			  meridiem: '{{$timeFormat}}',
-			  hour12: '{{$timeFormat}}'
-			},
-			timeZone: '{{$prefs.display_timezone}}',
-			locale: '{{$prefs.language}}',
-			headerToolbar: {
-				left: 'prev,next today',
-				center: 'title',
-				right: 'year,semester,quarter,dayGridMonth,timeGridWeek,timeGridDay'
-			},
-			editable: true,
-			events: 'tiki-calendar_json.php',
-			slotMinTime: '{{$minHourOfDay}}',
-			slotMaxTime: '{{$maxHourOfDay}}',
-			buttonText: {
-				today: "{tr}today{/tr}",
-				year: "{tr}year{/tr}",
-				semester: "{tr}semester{/tr}",
-				quarter: "{tr}quarter{/tr}",
-				month: "{tr}month{/tr}",
-				week: "{tr}week{/tr}",
-				day: "{tr}day{/tr}"
-			},
-			allDayText: '{tr}all-day{/tr}',
-			firstDay: {{$firstDayofWeek}},
-			slotDuration: '00:{{if $prefs.calendar_timespan|count_characters == 1}}0{{/if}}{{$prefs.calendar_timespan}}',
-			initialView: {{if $prefs.calendar_view_mode === 'week'}}'timeGridWeek'{{elseif $prefs.calendar_view_mode === 'day'}}'timeGridDay'{{elseif $prefs.calendar_view_mode === 'month'}}'dayGridMonth'{{else}}'{{$prefs.calendar_view_mode}}'{{/if}},
-			views: {
-				quarter: {
-					type: 'dayGrid',
-					duration: { months: 3 },
-					buttonText: 'quarter',
-					dayCellContent: function(dayCell) {
-						return moment(dayCell.date).format('M/D');
+	{if $viewlist eq 'list'}
+		{include file='tiki-calendar_listmode.tpl'}
+	{else}
+		{jq}
+			var year = {{$viewyear}};
+			var calendarEl = document.getElementById('calendar');
+			var calendar = new FullCalendar.Calendar(calendarEl, {
+				themeSystem: 'bootstrap',
+				eventTimeFormat: {
+				  hour: 'numeric',
+				  minute: '2-digit',
+				  meridiem: '{{$timeFormat}}',
+				  hour12: '{{$timeFormat}}'
+				},
+				timeZone: '{{$prefs.display_timezone}}',
+				locale: '{{$prefs.language}}',
+				headerToolbar: {
+					left: 'prev,next today',
+					center: 'title',
+					right: 'year,semester,quarter,dayGridMonth,timeGridWeek,timeGridDay'
+				},
+				editable: true,
+				events: 'tiki-calendar_json.php',
+				slotMinTime: '{{$minHourOfDay}}',
+				slotMaxTime: '{{$maxHourOfDay}}',
+				buttonText: {
+					today: "{tr}today{/tr}",
+					year: "{tr}year{/tr}",
+					semester: "{tr}semester{/tr}",
+					quarter: "{tr}quarter{/tr}",
+					month: "{tr}month{/tr}",
+					week: "{tr}week{/tr}",
+					day: "{tr}day{/tr}"
+				},
+				allDayText: '{tr}all-day{/tr}',
+				firstDay: {{$firstDayofWeek}},
+				slotDuration: '00:{{if $prefs.calendar_timespan|count_characters == 1}}0{{/if}}{{$prefs.calendar_timespan}}',
+				initialView: {{if $prefs.calendar_view_mode === 'week'}}'timeGridWeek'{{elseif $prefs.calendar_view_mode === 'day'}}'timeGridDay'{{elseif $prefs.calendar_view_mode === 'month'}}'dayGridMonth'{{else}}'{{$prefs.calendar_view_mode}}'{{/if}},
+				views: {
+					quarter: {
+						type: 'dayGrid',
+						duration: { months: 3 },
+						buttonText: 'quarter',
+						dayCellContent: function(dayCell) {
+							return moment(dayCell.date).format('M/D');
+						},
+						visibleRange: function(currentDate) {
+							return {
+								start: moment(currentDate).startOf('month').toDate(),
+								end: moment(currentDate).add('2', 'months').endOf('month').toDate()
+							};
+						}
 					},
-					visibleRange: function(currentDate) {
-						return {
-							start: moment(currentDate).startOf('month').toDate(),
-							end: moment(currentDate).add('2', 'months').endOf('month').toDate()
-						};
+					semester: {
+						type: 'dayGrid',
+						duration: { months: 6 },
+						buttonText: 'semester',
+						dayCellContent: function(dayCell) {
+							return moment(dayCell.date).format('M/D');
+						},
+						visibleRange: function(currentDate) {
+							return {
+								start: moment(currentDate).startOf('month').toDate(),
+								end: moment(currentDate).add('5', 'months').endOf('month').toDate()
+							};
+						}
+					},
+					year: {
+						type: 'dayGrid',
+						buttonText: '{tr}year{/tr}',
+						dayCellContent: function($x) {
+							return moment($x.date).format('M/D');
+						},
+						visibleRange: function(currentDate) {
+							return {
+								start: moment(currentDate).startOf('year').toDate(),
+								end: moment(currentDate).startOf('year').add('11', 'months').endOf('month').toDate()
+							};
+						}
 					}
 				},
-				semester: {
-					type: 'dayGrid',
-					duration: { months: 6 },
-					buttonText: 'semester',
-					dayCellContent: function(dayCell) {
-						return moment(dayCell.date).format('M/D');
-					},
-					visibleRange: function(currentDate) {
-						return {
-							start: moment(currentDate).startOf('month').toDate(),
-							end: moment(currentDate).add('5', 'months').endOf('month').toDate()
-						};
-					}
-				},
-				year: {
-					type: 'dayGrid',
-					buttonText: '{tr}year{/tr}',
-					dayCellContent: function($x) {
-						return moment($x.date).format('M/D');
-					},
-					visibleRange: function(currentDate) {
-						return {
-							start: moment(currentDate).startOf('year').toDate(),
-							end: moment(currentDate).startOf('year').add('11', 'months').endOf('month').toDate()
-						};
-					}
-				}
-			},
-			eventDidMount: function(arg) {
-				var event = arg.event;
-				var element = $(arg.el);
-				var dayGrid = $('.fc-daygrid-event').length;
-				if (dayGrid > 0) {
-					var backgroundColor = event._def.ui.backgroundColor;
-					var textColor = event._def.ui.textColor;
-					var eventDotElement = element.find('.fc-daygrid-event-dot'), defaultBackgroundColor;
-					if (eventDotElement.length === 0) {
-						eventDotElement = element;
-					}
-					var styleDot = getComputedStyle(eventDotElement[0]);
-					var defaultBackgroundColor = String(styleDot.border).match(/(rgb.{14})/)[0];
-					var titleElement = element.find('.fc-event-title');
+				eventDidMount: function(arg) {
+					var event = arg.event;
+					var element = $(arg.el);
+					var dayGrid = $('.fc-daygrid-event').length;
+					if (dayGrid > 0) {
+						var backgroundColor = event._def.ui.backgroundColor;
+						var textColor = event._def.ui.textColor;
+						var eventDotElement = element.find('.fc-daygrid-event-dot'), defaultBackgroundColor;
+						if (eventDotElement.length === 0) {
+							eventDotElement = element;
+						}
+						var styleDot = getComputedStyle(eventDotElement[0]);
+						var defaultBackgroundColor = String(styleDot.border).match(/(rgb.{14})/)[0];
+						var titleElement = element.find('.fc-event-title');
 
-					var styleElement = getComputedStyle(titleElement[0]);
-					var defaultTextColor = styleElement.color;
-					if (backgroundColor == '#') {
-						backgroundColor = defaultBackgroundColor
+						var styleElement = getComputedStyle(titleElement[0]);
+						var defaultTextColor = styleElement.color;
+						if (backgroundColor == '#') {
+							backgroundColor = defaultBackgroundColor
+						}
+						if (textColor == '#') {
+							textColor = defaultTextColor;
+						}
+						$(element).parent('.fc-daygrid-event-harness').attr('style', 'background-color: ' + backgroundColor + '; border: 1px solid ' + textColor);
+						$(element).children('.fc-event-time').attr('style', 'color: ' + textColor);
+						$(element).children('.fc-event-title').attr('style', 'color: ' + textColor);
 					}
-					if (textColor == '#') {
-						textColor = defaultTextColor;
+					element.attr('title', event.title);
+					element.data('content', event.extendedProps.description);
+					element.popover({ trigger: 'hover', html: true, 'container': 'body', placement: 'bottom'});
+				},
+				eventClick: function(info) {
+					info.jsEvent.preventDefault();
+					var $this = $(info.el).tikiModal(" ");
+					var event = info.event;
+					if (event.url) {
+						$.ajax({
+							dataType: 'html',
+							url: event.url + '&fullcalendar=y&isModal=1',
+							success: function(data){
+								var $dialog = $('#calendar_dialog').remove();
+								$('#calendar_dialog_content', $dialog).html(data);
+								$('#calendar_dialog h1, #calendar_dialog .navbar', $dialog ).remove();
+								$('#calendar_dialog .modal-title', $dialog ).html();
+								$dialog.find(".modal-dialog").addClass("modal-lg");
+								$dialog.appendTo('body').modal({backdrop: "static"});
+								$this.tikiModal();
+							}
+						});
 					}
-					$(element).parent('.fc-daygrid-event-harness').attr('style', 'background-color: ' + backgroundColor + '; border: 1px solid ' + textColor);
-					$(element).children('.fc-event-time').attr('style', 'color: ' + textColor);
-					$(element).children('.fc-event-title').attr('style', 'color: ' + textColor);
-				}
-				element.attr('title', event.title);
-				element.data('content', event.extendedProps.description);
-				element.popover({ trigger: 'hover', html: true, 'container': 'body', placement: 'bottom'});
-			},
-			eventClick: function(info) {
-				info.jsEvent.preventDefault();
-				var $this = $(info.el).tikiModal(" ");
-				var event = info.event;
-				if (event.url) {
+				},
+				dateClick: function(info) {
 					$.ajax({
 						dataType: 'html',
-						url: event.url + '&fullcalendar=y&isModal=1',
-						success: function(data){
+						url: 'tiki-calendar_edit_item.php?fullcalendar=y&todate=' + info.date.toUnix() + '&tzoffset=' + (new Date()).getTimezoneOffset() + '&isModal=1',
+						success: function(data) {
 							var $dialog = $('#calendar_dialog').remove();
-							$('#calendar_dialog_content', $dialog).html(data);
+							$('#calendar_dialog_content', $dialog ).html(data);
 							$('#calendar_dialog h1, #calendar_dialog .navbar', $dialog ).remove();
 							$('#calendar_dialog .modal-title', $dialog ).html();
 							$dialog.find(".modal-dialog").addClass("modal-lg");
 							$dialog.appendTo('body').modal({backdrop: "static"});
-							$this.tikiModal();
 						}
 					});
-				}
-			},
-			dateClick: function(info) {
-				$.ajax({
-					dataType: 'html',
-					url: 'tiki-calendar_edit_item.php?fullcalendar=y&todate=' + info.date.toUnix() + '&tzoffset=' + (new Date()).getTimezoneOffset() + '&isModal=1',
-					success: function(data) {
-						var $dialog = $('#calendar_dialog').remove();
-						$('#calendar_dialog_content', $dialog ).html(data);
-						$('#calendar_dialog h1, #calendar_dialog .navbar', $dialog ).remove();
-						$('#calendar_dialog .modal-title', $dialog ).html();
-						$dialog.find(".modal-dialog").addClass("modal-lg");
-						$dialog.appendTo('body').modal({backdrop: "static"});
-					}
-				});
-			},
-			eventResize: function(info) {
-				$.post($.service('calendar', 'resize'), {
-					calitemId: info.event.id,
-					delta: info.delta
-				});
-			},
-			eventDrop: function(info) {
-				$.post($.service('calendar', 'move'), {
-					calitemId: info.event.id,
-					delta: info.delta
-				});
-			},
-			height: 'auto'
-		});
-		calendar.render();
-		addFullCalendarPrint('#calendar', '#calendar-pdf-btn', calendar);
-	{/jq}
+				},
+				eventResize: function(info) {
+					$.post($.service('calendar', 'resize'), {
+						calitemId: info.event.id,
+						delta: info.delta
+					});
+				},
+				eventDrop: function(info) {
+					$.post($.service('calendar', 'move'), {
+						calitemId: info.event.id,
+						delta: info.delta
+					});
+				},
+				height: 'auto'
+			});
+			calendar.render();
+			addFullCalendarPrint('#calendar', '#calendar-pdf-btn', calendar);
+		{/jq}
+	{/if}
 	{if $pdf_export eq 'y' and $pdf_warning eq 'n'}
 		<a id="calendar-pdf-btn"  href="#" style="text-align: right; display: none">{icon name='pdf'} {tr}Export as PDF{/tr}</a>
 	{/if}
