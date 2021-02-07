@@ -33,7 +33,7 @@ $auto_query_args = [
 
 $maxSimultaneousWeekViewEvents = 3;
 
-$myurl = 'tiki-calendar.php';
+$myurl = $prefs['feature_sefurl'] === 'y' ? 'calendar' : 'tiki-calendar.php';
 $exportUrl = 'tiki-calendar_export_ical.php';
 $iCalAdvParamsUrl = 'tiki-calendar_params_ical.php';
 $bufid = [];
