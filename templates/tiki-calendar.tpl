@@ -90,6 +90,16 @@
 						</li>
 					</ul>
 				</form>
+				{jq}// handle calendar switcher form submit
+$("#filtercal").submit(function () {
+	if ($("input[type=checkbox]:not(#clickall):not(:checked)", this).length === 0) {
+		location.href = jqueryTiki.sefurl ? "calendar" : "tiki-calendar.php";
+		return false;
+	} else {
+		return true;
+	}
+});
+{/jq}
 			</div>
 
 			{if count($thiscal)}
@@ -104,7 +114,7 @@
 							{if count($checkedCals) > $maxCalsForButton}
 								<option style="background:#{$thiscustombgcolor};color:#{$thiscustomfgcolor};" onclick="toggle('filtercal')">{$thisinfocalsname}</option>
 							{else}
-								{button href="#" _style="background:#$thiscustombgcolor;color:#$thiscustomfgcolor;border:1px solid #$thiscustomfgcolor;" _onclick="toggle('filtercal');return false;" _text="$thisinfocalsname"}
+								{button href="{$k|sefurl:'calendar'}" _style="background:#$thiscustombgcolor;color:#$thiscustomfgcolor;border:1px solid #$thiscustomfgcolor;" _text="$thisinfocalsname"}
 							{/if}
 						{/if}
 					{/foreach}
