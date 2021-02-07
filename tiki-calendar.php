@@ -125,6 +125,9 @@ if (isset($_REQUEST["calIds"])and is_array($_REQUEST["calIds"])and count($_REQUE
 	}
 } elseif (! empty($_REQUEST['allCals'])) {
 	$_SESSION['CalendarViewGroups'] = $listcals;
+	if (! empty($user)) {
+		$tikilib->set_user_preference($user, 'default_calendars', serialize($_SESSION['CalendarViewGroups']));
+	}
 } elseif (! isset($_SESSION['CalendarViewGroups']) || ! empty($_REQUEST['allCals'])) {
 	$use_default_calendars = true;
 } elseif (isset($_REQUEST["refresh"])and ! isset($_REQUEST["calIds"])) {

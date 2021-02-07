@@ -100,42 +100,6 @@ if ($viewOneCal != 'y') {
 $listcals = $bufid;
 $infocals["data"] = $bufdata;
 
-// set up list of groups
-$use_default_calendars = false;
-if (isset($_REQUEST["calIds"])and is_array($_REQUEST["calIds"])and count($_REQUEST["calIds"])) {
-	$_SESSION['CalendarViewGroups'] = array_intersect($_REQUEST["calIds"], $listcals);
-	if (! empty($user)) {
-		$tikilib->set_user_preference($user, 'default_calendars', serialize($_SESSION['CalendarViewGroups']));
-	}
-} elseif (isset($_REQUEST["calIds"])and ! is_array($_REQUEST["calIds"])) {
-	$_SESSION['CalendarViewGroups'] = array_intersect([$_REQUEST["calIds"]], $listcals);
-	if (! empty($user)) {
-		$tikilib->set_user_preference($user, 'default_calendars', serialize($_SESSION['CalendarViewGroups']));
-	}
-} elseif (! empty($_REQUEST['allCals'])) {
-	$_SESSION['CalendarViewGroups'] = $listcals;
-} elseif (! isset($_SESSION['CalendarViewGroups']) || ! empty($_REQUEST['allCals'])) {
-	$use_default_calendars = true;
-} elseif (isset($_REQUEST["refresh"])and ! isset($_REQUEST["calIds"])) {
-	$_SESSION['CalendarViewGroups'] = [];
-} elseif (! empty($user) || ! isset($_SESSION['CalendarViewGroups'])) {
-	$use_default_calendars = true;
-}
-
-if ($use_default_calendars) {
-	if ($prefs['feature_default_calendars'] == 'y') {
-		$_SESSION['CalendarViewGroups'] = array_intersect(is_array($prefs['default_calendars']) ? $prefs['default_calendars'] : unserialize($prefs['default_calendars']), $listcals);
-	} elseif (! empty($user)) {
-		$user_default_calendars = $tikilib->get_user_preference($user, 'default_calendars', $listcals);
-		if (is_string($user_default_calendars)) {
-			$user_default_calendars = unserialize($user_default_calendars);
-		}
-		$_SESSION['CalendarViewGroups'] = $user_default_calendars;
-	} else {
-		$_SESSION['CalendarViewGroups'] = $listcals;
-	}
-}
-
 $thiscal = [];
 $checkedCals = [];
 
@@ -147,24 +111,6 @@ foreach ($listcals as $thatid) {
 		$thiscal["$thatid"] = 0;
 	}
 }
-
-//include_once("tiki-calendar_setup.php");
-
-// Calculate all the displayed days for the selected calendars
-/*
-$viewdays = array();
-foreach ($_SESSION['CalendarViewGroups'] as $calendar) {
-	$info = $calendarlib->get_calendar($calendar);
-	if (is_array($info['viewdays']))
-		$viewdays = array_merge($info['viewdays'],$viewdays);
-}
-if (empty($viewdays)) {
-		$viewdays = array(0,1,2,3,4,5,6);
-}
-sort($viewdays, SORT_NUMERIC);
-$viewdays = array_map("correct_start_day", array_unique($viewdays));
-$viewdays2 = array_values($viewdays);
-*/
 
 if (isset($_REQUEST['sort_mode'])) {
 	$sort_mode = $_REQUEST['sort_mode'];
