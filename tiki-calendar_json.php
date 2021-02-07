@@ -195,23 +195,33 @@ if ($prefs['feature_theme_control'] == 'y'	and isset($_REQUEST['calIds'])) {
 	$cat_objid = $_REQUEST['calIds'][0];
 }
 
+$parserLib = TikiLib::lib('parser');
 $events = [];
 foreach ($listevents as $event) {
-	if ($event['editable'] === 'y' and $cal_data["tiki_p_change_events"] == 'y') {
+	$eventPerms = Perms::get([
+		'type' => 'calendaritem',
+		'object' => $event['calitemId'],
+		'parentId' => $event['calendarId'],
+	]);
+	if ($eventPerms->change_events) {
 		$url = 'tiki-calendar_edit_item.php?fullcalendar=y&calitemId=' . $event['calitemId'];
 	} else {
-		$url = 'tiki-calendar_edit_item.php?viewcalitemId=' . $event['calitemId']; // removed fullcalendar=y param to prevent display without tpl for anons in some setups
+		$url = 'tiki-calendar_edit_item.php?fullcalendar=y&viewcalitemId=' . $event['calitemId'];
 	}
-	$events[] = [ 'id' => $event['calitemId'],
-											'title' => $event['name'],
-											'description' => ! empty($event["description"]) ? TikiLib::lib('parser')->parse_data($event["description"], ['is_html' => $prefs['calendar_description_is_html'] === 'y']) : "",
-											'url' => $url,
-											'allDay' => $event['allday'] != 0 ,
-											'start' => TikiLib::date_format("c", $event['date_start'], false, 5, false),
-											'end' => TikiLib::date_format("c", $event['date_end'], false, 5, false),
-											'editable' => $event['editable'] === 'y',
-											'color' => '#' . $cals_info['data'][$event['calendarId']]['custombgcolor'],
-											'textColor' => '#' . $cals_info['data'][$event['calendarId']]['customfgcolor']];
+	$events[] = [
+		'id'          => $event['calitemId'],
+		'title'       => $event['name'],
+		'description' => ! empty($event["description"]) ? $parserLib->parse_data(
+			$event["description"], ['is_html' => $prefs['calendar_description_is_html'] === 'y']
+		) : "",
+		'url'         => $url,
+		'allDay'      => $event['allday'] != 0,
+		'start'       => TikiLib::date_format("c", $event['date_start'], false, 5, false),
+		'end'         => TikiLib::date_format("c", $event['date_end'], false, 5, false),
+		'editable'    => $event['editable'] === 'y',
+		'color'       => '#' . $cals_info['data'][$event['calendarId']]['custombgcolor'],
+		'textColor'   => '#' . $cals_info['data'][$event['calendarId']]['customfgcolor'],
+	];
 }
 
 echo json_encode($events);
