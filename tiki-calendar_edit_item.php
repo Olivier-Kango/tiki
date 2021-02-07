@@ -514,7 +514,14 @@ if (isset($_REQUEST["delete"]) and ($_REQUEST["delete"]) and isset($_REQUEST["ca
 			TikiLib::date_format('%Y', $now)
 		);
 	} else {
-		$start = $day_start;
+		$hour = TikiLib::date_format('%H');
+		$adjusted = $day_start + ($hour * 3600);
+		if (isset($_REQUEST['todate']) && $adjusted < $day_end) {
+			// with fullcalendar todate gets set when you click on a day
+			$start = $adjusted;
+		} else {
+			$start = $day_start;
+		}
 	}
 	if ($prefs['users_prefs_display_timezone'] === 'Site') {
 		$server_offset = TikiDate::tzServerOffset($displayTimezone);
