@@ -78,7 +78,7 @@
 							{$calendar.name|escape}<br>{tr}or{/tr}&nbsp;
 							<input type="submit" class="btn btn-secondary btn-sm" name="changeCal" value="{tr}Go to{/tr}">
 						{/if}
-						<select name="save[calendarId]" id="calid" onchange="needToConfirm=false;document.getElementById('editcalitem').submit();" class="form-control">
+						<select name="save[calendarId]" id="calid" onchange="needToConfirm=false;$('#editcalitem').data('submitter', 'save[calendarId]').submit();" class="form-control">
 							{foreach item=it key=itid from=$listcals}
 								{if $it.tiki_p_add_events eq 'y'}
 									{$calstyle = ''}
@@ -808,10 +808,10 @@
 	{if $edit}
 		<div class="modal-footer">
 			<div class="submit">
-				<input type="submit" class="btn btn-secondary" name="preview" value="{tr}Preview{/tr}" onclick="needToConfirm=false;">
-				<input type="submit" class="btn btn-primary" name="act" value="{tr}Save{/tr}" onclick="needToConfirm=false;">
+				<input type="submit" class="btn btn-secondary" name="preview" value="{tr}Preview{/tr}" onclick="needToConfirm=false;$('#editcalitem').data('submitter', 'preview');">
+				<input type="submit" class="btn btn-primary" name="act" value="{tr}Save{/tr}" onclick="needToConfirm=false;$('#editcalitem').data('submitter', 'act');">
 				{if $tiki_p_add_events eq 'y' and empty($saveas) and not empty($id)}
-					{button href='tiki-calendar_edit_item.php?saveas=1&calitemId='|cat:$id _text="{tr}Copy to a new event{/tr}"}
+					{button href='tiki-calendar_edit_item.php?saveas=1&calitemId='|cat:$id _text="{tr}Copy to a new event{/tr}" class='saveas'}
 				{/if}
 				{if $id}
 					<input type="submit" class="btn btn-danger" onclick="needToConfirm=false;document.location='tiki-calendar_edit_item.php?calitemId={$id}&amp;delete=y';return false;" value="{tr}Delete event{/tr}">
