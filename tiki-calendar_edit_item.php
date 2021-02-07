@@ -46,6 +46,7 @@ $recurrence = [
 $smarty->assign('recurrence', $recurrence);
 
 $caladd = [];
+$addable = [];	// calendars this user can add to
 $rawcals = $calendarlib->list_calendars();
 if ($rawcals['cant'] == 0 && $tiki_p_admin_calendar == 'y') {
 	$smarty->assign('msg', tra('You need to <a href="tiki-admin_calendars.php?cookietab=2">create a calendar</a>'));
@@ -79,6 +80,7 @@ foreach ($rawcals["data"] as $cal_data) {
 	$caladd["$cal_id"] = $cal_data;
 	if ($cal_data['tiki_p_add_events'] == 'y' && empty($calID)) {
 		$calID = $cal_id;
+		$addable[] = $calID;
 	}
 }
 $smarty->assign('listcals', $caladd);
@@ -467,7 +469,7 @@ if (isset($_REQUEST["delete"]) and ($_REQUEST["delete"]) and isset($_REQUEST["ca
 	$smarty->assign('edit', true);
 	$hour_minmax = ceil(($calendar['startday']) / (60 * 60)) . '-' . ceil(($calendar['endday']) / (60 * 60));
 //Add event buttons - either button on top of page or one of the buttons on a specific day
-} elseif (isset($calID) and $tiki_p_add_events == 'y') {
+} elseif (! empty($calID) && in_array($calID, $addable)) {
 	$calendar = $calendarlib->get_calendar($calID);
 	if (isset($_REQUEST['todate'])) {
 		$now = $_REQUEST['todate'];
