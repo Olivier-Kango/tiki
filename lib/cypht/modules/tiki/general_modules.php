@@ -303,6 +303,22 @@ class Hm_Handler_process_enable_gmail_contacts_module extends Hm_Handler_Module 
     }
 }
 
+/**
+ * Overrides Cypht headers with Tiki-based ones
+ * @subpackage core/handler
+ */
+class Hm_Handler_http_headers_tiki extends Hm_Handler_Module {
+    public function process() {
+        global $prefs;
+        $headers = $this->get('http_headers');
+        if ($prefs['http_header_content_security_policy'] == 'y') {
+            $headers['Content-Security-Policy'] = $prefs['http_header_content_security_policy_value'];
+        } else {
+            unset($headers['Content-Security-Policy']);
+        }
+        $this->out('http_headers', $headers);
+    }
+}
 
 /**
  * Expose gmail_contacts module setting
