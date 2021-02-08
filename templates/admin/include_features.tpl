@@ -23,7 +23,7 @@
 			<br>
 
 			<fieldset>
-				<legend>{tr}Main features{/tr}</legend>
+				<legend><h4 class="showhide_heading" id="Main_features">  {tr}Main features{/tr}<a href="#Main_features" class="heading-link"><span class="icon icon-link fas fa-link "></span></a></h4> </legend>
 				<div class="admin clearfix form-group featurelist">
 					{preference name=feature_wiki}
 					{preference name=feature_file_galleries}
@@ -37,8 +37,7 @@
 			</fieldset>
 
 			<fieldset>
-				<legend>{tr}Secondary features{/tr}</legend>
-
+				<legend><h4 class="showhide_heading" id="Secondary_features">{tr}Secondary features{/tr} <a href="#Secondary_features" class="heading-link"><span class="icon icon-link fas fa-link "></span></a></h4></legend>
 				<div class="admin clearfix form-group featurelist">
 					{preference name=feature_categories}
 					{preference name=feature_freetags}
@@ -54,7 +53,7 @@
 			</fieldset>
 
 			<fieldset>
-				<legend>{tr}Administrative features{/tr}</legend>
+				<legend><h4 class="showhide_heading" id="Administrative_features">{tr}Administrative features{/tr} <a href="#Administrative_features" class="heading-link"><span class="icon icon-link fas fa-link "></span></a></h4></legend>
 				<div class="admin clearfix form-group featurelist">
 					{preference name=feature_stats}
 					{preference name=feature_actionlog}
@@ -71,7 +70,7 @@
 					{preference name=feature_areas}
 					{preference name=feature_system_suggestions}
 					{preference name=feature_templated_groups}
-					<legend>{tr}Watches{/tr}</legend>
+					<legend><h4 class="showhide_heading" id="Watches">{tr}Watches{/tr} <a href="#Watches" class="heading-link"><span class="icon icon-link fas fa-link "></span></a></h4></legend>
 					<div class="adminoptionboxchild">
 						<fieldset>
 							{preference name=feature_user_watches}
@@ -85,7 +84,7 @@
 							{preference name=feature_groupalert}
 						</fieldset>
 					</div>
-					<legend>{tr}Object Maintainers and Freshness{/tr}</legend>
+					<legend><h4 class="showhide_heading" id="Object_Maintainers_and_Freshness">{tr}Object Maintainers and Freshness{/tr} <a href="#Object_Maintainers_and_Freshness" class="heading-link"><span class="icon icon-link fas fa-link "></span></a></h4></legend>
 					<div class="adminoptionboxchild">
 						<fieldset>
 							{preference name=object_maintainers_enable}
@@ -98,7 +97,7 @@
 			</fieldset>
 
 			<fieldset>
-				<legend>{tr}Additional features{/tr}</legend>
+				<legend><h4 class="showhide_heading" id="Additional_features">{tr}Additional features{/tr} <a href="#Additional_features" class="heading-link"><span class="icon icon-link fas fa-link "></span></a></h4></legend>
 				<div class="admin clearfix form-group featurelist">
 					{preference name=feature_sheet}
 					{preference name=feature_directory}
@@ -112,7 +111,7 @@
 					</div>
 					<div class="adminoptionboxchild">
 						<fieldset>
-							<legend>{tr}Payment and Accounting{/tr}</legend>
+							<legend><h4 class="showhide_heading" id="Payment_and_Accounting">{tr}Payment and Accounting{/tr} <a href="#Payment_and_Accounting" class="heading-link"><span class="icon icon-link fas fa-link "></span></a></h4></legend>
 							{preference name=feature_credits}
 							{preference name=feature_accounting}
 							{preference name=payment_feature}
@@ -120,7 +119,7 @@
 					</div>
 					<div class="adminoptionboxchild">
 						<fieldset>
-							<legend>{tr}Mail and Sharing{/tr}</legend>
+							<legend><h4 class="showhide_heading" id="Mail_and_Sharing">{tr}Mail and Sharing{/tr} <a href="#Mail_and_Sharing" class="heading-link"><span class="icon icon-link fas fa-link "></span></a></h4></legend>
 							{preference name=feature_socialnetworks}
 							{preference name=feature_share}
 							{preference name=feature_webmail}
@@ -134,7 +133,7 @@
 					{preference name=feature_galleries}
 				</div>
 				<fieldset class="mb-3 w-100 clearfix featurelist">
-					<legend> {tr}Progressive Web App{/tr} </legend>
+					<legend><h4 class="showhide_heading" id="Progressive_Web_App"> {tr}Progressive Web App{/tr}  <a href="#Progressive_Web_App" class="heading-link"><span class="icon icon-link fas fa-link "></span></a></h4></legend>
 					{preference name=pwa_feature}
 					{preference name=pwa_cache_links}
 					<div class="adminoptionboxchild" id="pwa_feature_childcontainer">
@@ -149,7 +148,7 @@
 			</fieldset>
 
 			<fieldset>
-				<legend>{tr}Interaction with online services or other software{/tr}</legend>
+				<legend><h4 class="showhide_heading" id="Interaction_with_online_services_or_other_software">{tr}Interaction with online services or other software{/tr} <a href="#Interaction_with_online_services_or_other_software" class="heading-link"><span class="icon icon-link fas fa-link "></span></a></h4></legend>
 				<div class="admin clearfix featurelist">
 					{preference name=connect_feature}
 					{preference name=feature_kaltura}
@@ -170,14 +169,14 @@
 		{tab name="{tr}Interface{/tr}" key=interface}
 			<br>
 			<fieldset class="mb-3 w-100 clearfix featurelist">
-				<legend> {tr}Ajax{/tr} </legend>
+				<legend><h4 class="showhide_heading" id="Ajax"> {tr}Ajax{/tr}  <a href="#Ajax" class="heading-link"><span class="icon icon-link fas fa-link "></span></a></h4></legend>
 				{preference name=feature_ajax}
 				<div class="adminoptionboxchild" id="feature_ajax_childcontainer">
 					{preference name=ajax_autosave}
 				</div>
 			</fieldset>
 			<fieldset class="mb-3 w-100 clearfix featurelist">
-				<legend> {tr}jQuery plugins and add-ons{/tr} </legend>
+				<legend><h4 class="showhide_heading" id="jQuery_plugins_and_add-ons"> {tr}jQuery plugins and add-ons{/tr}  <a href="#jQuery_plugins_and_add" class="heading-link"><span class="icon icon-link fas fa-link "></span></a></h4></legend>
 				{preference name=feature_jquery_autocomplete}
 				{preference name=feature_jquery_media}
 				{preference name=feature_jquery_reflection}
@@ -205,7 +204,7 @@
 				{preference name=tiki_prefix_css}
 				<div class="adminoptionboxchild">
 					<fieldset>
-						<legend>{tr}Experimental{/tr}</legend>
+						<legend><h4 class="showhide_heading" id="Experimental">{tr}Experimental{/tr} <a href="#Experimental" class="heading-link"><span class="icon icon-link fas fa-link "></span></a></h4></legend>
 						{preference name=feature_jquery_carousel}
 						{preference name=feature_jquery_tablesorter}
 						{preference name=vuejs_enable}
@@ -219,8 +218,8 @@
 			</fieldset>
 
 			<fieldset class="mb-3 w-100 clearfix featurelist">
-				<legend> {tr}Mobile{/tr} </legend>
-					{preference name=mobile_feature}
+				<legend><h4 class="showhide_heading" id="Mobile"> {tr}Mobile{/tr}  <a href="#Mobile" class="heading-link"><span class="icon icon-link fas fa-link "></span></a></h4></legend>
+				{preference name=mobile_feature}
 
 					<div class="adminoptionboxchild" id="mobile_feature_childcontainer">
 						{preference name=mobile_perspectives}
@@ -245,7 +244,7 @@
 
 			<div class="admin clearfix featurelist">
 				<fieldset>
-					<legend>{tr}Logging and Reporting{/tr}</legend>
+					<legend><h4 class="showhide_heading" id="Logging_and_Reporting">{tr}Logging and Reporting{/tr} <a href="#Logging_and_Reporting" class="heading-link"><span class="icon icon-link fas fa-link "></span></a></h4></legend>
 					<div class="adminoptionbox">
 						{preference name=error_reporting_level}
 						<div class="adminoptionboxchild">
@@ -265,7 +264,7 @@
 
 			<div class="table">
 				<fieldset>
-					<legend>{tr}Custom Code{/tr}</legend>
+					<legend><h4 class="showhide_heading" id="Custom_Code">{tr}Custom Code{/tr} <a href="#Custom_Code" class="heading-link"><span class="icon icon-link fas fa-link "></span></a></h4></legend>
 					{preference name="header_custom_js"}
 					{preference name=smarty_security}
 				</fieldset>
