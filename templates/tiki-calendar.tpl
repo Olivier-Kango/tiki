@@ -266,7 +266,10 @@ $("#filtercal").submit(function () {
 							eventDotElement = element;
 						}
 						var styleDot = getComputedStyle(eventDotElement[0]);
-						var defaultBackgroundColor = String(styleDot.border).match(/(rgb.{14})/)[0];
+						var defaultBackgroundColor = String(styleDot.border).match(/(rgb\(\d+,\s*\d+,\s*\d+\))/i)[0];
+						if (eventDotElement !== element) {
+							$(eventDotElement[0]).remove();
+						}
 						var titleElement = element.find('.fc-event-title');
 
 						var styleElement = getComputedStyle(titleElement[0]);
