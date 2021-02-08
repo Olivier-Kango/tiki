@@ -226,6 +226,13 @@ class Tiki_Hm_Site_Config_File extends Hm_Site_Config_File {
 			unset($output_modules['home']['welcome_dialog']);
 			unset($handler_modules['ajax_imap_folder_expand']['add_folder_manage_link']);
 		}
+		foreach ($handler_modules as $page => $modules) {
+			foreach ($modules as $module => $opts) {
+				if ($module == 'http_headers') {
+					$handler_modules[$page]['http_headers_tiki'] = ['tiki', true];
+				}
+			}
+		}
 		$this->set('output_modules', $output_modules);
 		$this->set('handler_modules', $handler_modules);
 		if (empty($_SESSION[$session_prefix]['user_data']['timezone_setting'])) {

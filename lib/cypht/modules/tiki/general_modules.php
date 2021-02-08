@@ -139,3 +139,20 @@ class Hm_Output_debug_mode_setting extends Hm_Output_Module {
         return '<tr class="general_setting"><td>'.tr('Debug mode messages to Tiki Log (caution: this may flood the logs if used extensively)').'</td><td><input type="checkbox" name="debug_mode" value="1" '.($debug_mode ? 'checked' : '').'></td></tr>';
     }
 }
+
+/**
+ * Overrides Cypht headers with Tiki-based ones
+ * @subpackage core/handler
+ */
+class Hm_Handler_http_headers_tiki extends Hm_Handler_Module {
+    public function process() {
+        global $prefs;
+        $headers = $this->get('http_headers');
+        if ($prefs['http_header_content_security_policy'] == 'y') {
+            $headers['Content-Security-Policy'] = $prefs['http_header_content_security_policy_value'];
+        } else {
+            unset($headers['Content-Security-Policy']);
+        }
+        $this->out('http_headers', $headers);
+    }
+}
