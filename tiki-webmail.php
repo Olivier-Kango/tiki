@@ -86,7 +86,7 @@ $smarty->assign('mid', 'tiki-webmail.tpl');
 //handle message priting
 if (isset($_POST['display']) && $_POST['display'] == 'pdf') {
 	require_once 'lib/pdflib.php';
-	$generator = new PdfGenerator();
+	$generator = new PdfGenerator(PdfGenerator::MPDF);
 	if (! empty($generator->error)) {
 		Feedback::error($generator->error);
 	} else {
@@ -114,11 +114,12 @@ if (isset($_POST['display']) && $_POST['display'] == 'pdf') {
     $contentpage = createPage($header_subject,$header_date,$header_from,$header_to,$msg_text,$origin);
     $filename = $header_from.'_'.$header_subject;
     $params = [ 
-      'page' => $contentpage ,
+      'page' => 'messsage',
       'uid'=>$uid,
       'list_path'=> $list_path
     ];
-		$pdf = $generator->getPdf('tiki-webmail.php',$params);
+    $pdata = '<pdfsettings pagetitle="n" printfriendly="n"></pdfsettings>' . $contentpage;
+		$pdf = $generator->getPdf('tiki-webmail.php',$params,preg_replace('/%u([a-fA-F0-9]{4})/', '&#x\\1;', $pdata));
 		$length = strlen($pdf);
 		header('Cache-Control: private, must-revalidate');
 		header('Pragma: private');
