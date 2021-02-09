@@ -266,7 +266,9 @@ $("#filtercal").submit(function () {
 							eventDotElement = element;
 						}
 						var styleDot = getComputedStyle(eventDotElement[0]);
-						var defaultBackgroundColor = String(styleDot.border).match(/(rgb\(\d+,\s*\d+,\s*\d+\))/i)[0];
+						var borderCol = styleDot.border || styleDot.borderColor || styleDot.borderTopColor || styleDot.borderTopColor;
+						var matches = String(borderCol).match(/(rgb\(\d+,\s*\d+,\s*\d+\))/i) || ["rgb(55, 136, 216)"];
+						var defaultBackgroundColor = matches[0];
 						if (eventDotElement !== element) {
 							$(eventDotElement[0]).remove();
 						}
