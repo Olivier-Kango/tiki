@@ -13,8 +13,6 @@ class Search_MySql_Index implements Search_Index_Interface
 	private $tfTranslator;
 	private $index_name;
 
-	private $providedMappings = [];
-
 	function __construct(TikiDb $db, $index)
 	{
 		$this->db = $db;
@@ -48,7 +46,6 @@ class Search_MySql_Index implements Search_Index_Interface
 			$data
 		);
 
-		$this->providedMappings[] = $data;
 		$this->table->insert($data);
 	}
 
@@ -151,15 +148,6 @@ class Search_MySql_Index implements Search_Index_Interface
 			$resultSet = new Search_ResultSet([], 0, $resultStart, $resultCount);
 			return $resultSet;
 		}
-	}
-
-	/**
-	 * Get field mappings of Elastic
-	 * @return array
-	 */
-	public function getFieldMappings()
-	{
-		return $this->providedMappings;
 	}
 
 	function scroll(Search_Query_Interface $query)
