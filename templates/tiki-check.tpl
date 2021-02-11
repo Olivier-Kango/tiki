@@ -526,8 +526,8 @@
 	{/if}
 {/if}
 
-<h2>{tr}TRIM{/tr}</h2>
-{tr}For more detailed information about Tiki Remote Instance Manager please check <a href="https://doc.tiki.org/TRIM">doc.tiki.org</a>{/tr}.
+<h2>{tr}Tiki Manager{/tr}</h2>
+{tr}For more detailed information about Tiki Manager please check <a href="https://doc.tiki.org/Manager">doc.tiki.org</a>{/tr}.
 
 {if trim_capable}
 	<h3>Server Instance</h3>
