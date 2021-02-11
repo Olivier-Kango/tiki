@@ -523,8 +523,8 @@
 	{/if}
 {/if}
 
-<h2 class="showhide_heading" id="TRIM">{tr}TRIM{/tr}<a href="#TRIM" class="heading-link"><span class="icon icon-link fas fa-link "></span></a></h2>
-{tr}For more detailed information about Tiki Remote Instance Manager please check <a href="https://doc.tiki.org/TRIM">doc.tiki.org</a>{/tr}.
+<h2 class="showhide_heading" id="Tiki_Manager">{tr}Tiki Manager{/tr}<a href="#Tiki_Manager" class="heading-link"><span class="icon icon-link fas fa-link "></span></a></h2>
+{tr}For more detailed information about Tiki Manager please check <a href="https://doc.tiki.org/Manager">doc.tiki.org</a>{/tr}.
 
 {if trim_capable}
 	<h3>Server Instance</h3>
