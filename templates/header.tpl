@@ -164,22 +164,24 @@
 {* May be usefull too : profile *}
 <meta name="twitter:card" content="summary">
 {* --- SocialNetwork:image --- *}
+{* first we check if there is a featured image to use it *}
 {if not empty($header_featured_images)}
 	{foreach $header_featured_images as $header_featured_image}
-		<meta property="og:image" content="{$header_featured_image|escape}">
-		<meta name="twitter:image" content="{$header_featured_image|escape}">
+		<meta content="{$header_featured_image|escape}" property="og:image">
+		<meta content="{$header_featured_image|escape}" property="twitter:image">
 	{/foreach}
-{/if}
-{if $prefs.feature_canonical_url eq 'y' and isset($mid)}
-	{if $mid eq 'tiki-view_blog.tpl'}
+{elseif $prefs.feature_canonical_url eq 'y' and isset($mid)}
+    {if $mid eq 'tiki-view_blog.tpl'}
 	{elseif $mid eq 'tiki-view_blog_post.tpl'}
-{* --- Article --- *}
-	{elseif $mid eq 'tiki-read_article.tpl'}
-		<meta content="{$base_url_canonical}{if $hasImage eq 'y'}article_image.php?image_type=article&id={$articleId}{else}article_image.php?image_type=topic&id={$topicId}{/if}" property="og:image">
-		<meta content="{$base_url_canonical}{if $hasImage eq 'y'}article_image.php?image_type=article&id={$articleId}{else}article_image.php?image_type=topic&id={$topicId}{/if}" name="twitter:image">
-	{else}
-		{if $prefs.socialnetworks_facebook_site_image}<meta property="og:image" content="{$prefs.socialnetworks_facebook_site_image}">{/if}
-		{if $prefs.socialnetworks_twitter_site_image}<meta name="twitter:image" content="{$prefs.socialnetworks_twitter_site_image}">{/if}
+	{* --- Article --- *}
+    {* If there is no featured image we check if an article image or a topic image exist to use it *}
+	{elseif ($mid eq 'tiki-read_article.tpl') and ($hasImage eq 'y') or (not empty ($topics.image_name))}
+		<meta content="{$base_url_canonical}{if $hasImage eq 'y'}article_image.php?image_type=article&id={$articleId}{elseif not empty ($topics.image_name)}article_image.php?image_type=topic&id={$topicId}{/if}" property="og:image">
+		<meta content="{$base_url_canonical}{if $hasImage eq 'y'}article_image.php?image_type=article&id={$articleId}{elseif not empty ($topics.image_name)}article_image.php?image_type=topic&id={$topicId}{/if}" property="twitter:image">
+	{* We use the social network image as failsafe - control panel social network *}
+    {else}
+		{if $prefs.socialnetworks_facebook_site_image}<meta content="{$prefs.socialnetworks_facebook_site_image}" property="og:image">{/if}
+		{if $prefs.socialnetworks_twitter_site_image}<meta content="{$prefs.socialnetworks_twitter_site_image}" property="twitter:image">{/if}
 	{/if}
 {/if}
 {* --- universaleditbutton.org --- *}
