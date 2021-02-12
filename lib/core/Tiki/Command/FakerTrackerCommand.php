@@ -175,10 +175,10 @@ class FakerTrackerCommand extends Command
 					if (is_object($value) && get_class($value) === 'DateTime') {
 						$value = $value->format('U');
 					}
-					$fieldData[] = [
-						'fieldId' => $fieldFaker['fieldId'],
-						'value' => $value,
-					];
+					$fieldData[] = array_merge(
+						$trackerLib->get_field_info($fieldFaker['fieldId']), [
+							'value' => $value,
+					]);
 				}
 			}
 

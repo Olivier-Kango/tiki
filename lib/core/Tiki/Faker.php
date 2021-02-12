@@ -368,16 +368,26 @@ class Faker extends FakerProviderBase
 	public function tikiRelations($field)
 	{
 		if (! empty($field['fieldId'])) {
-			$tikilib = TikiLib::lib('tiki');
-			$table = $tikilib->table('tiki_tracker_item_fields');
-			$itemList = $table->fetchAll(
-				['itemId'],
-				['value' => $table->not(''), 'fieldId' => $table->not($field['fieldId'])]
-			);
-			if (! empty($itemList)) {
-				$item = $itemList[array_rand($itemList)];
-				return 'trackeritem:' . $item['itemId'];
+			$value = [];
+
+			parse_str($field['options_map']['filter'], $query);
+			$lib = TikiLib::lib('unifiedsearch');
+			$query = $lib->buildQuery($query);
+			$result = $query->search($lib->getIndex())->jsonSerialize();
+
+			$count = $result['count'];
+			$entries = $result['result'];
+
+			$num = rand(0, min(5, $count));
+			for ($i = 0; $i < $num; $i++) {
+				$index = rand(0, $count-1);
+				$res = $entries[$index];
+				$value[] = $res['object_type'].":".$res['object_id'];
+				unset($entries[$index]);
+				$entries = array_values($entries);
+				$count--;
 			}
+			return implode("\n", $value);
 		}
 		return '';
 	}
