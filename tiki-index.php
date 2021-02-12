@@ -105,7 +105,7 @@ if ((! empty($activeWS)) and $isHomePage) {
 
 // If a page have been requested, then show the page.
 if (isset($_REQUEST['page_id'])) {
-	$_REQUEST['page'] = $tikilib->get_page_name_from_id($_REQUEST['page_id']);
+	$page = $_REQUEST['page'] = $tikilib->get_page_name_from_id($_REQUEST['page_id']);
 	//TODO: introduce a get_info_from_id to save a sql request
 }
 

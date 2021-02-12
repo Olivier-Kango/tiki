@@ -243,7 +243,7 @@ function wikiplugin_cypht($data, $params)
 		return tr("Cypht already started.");
 	}
 
-	if ($_GET['page'] == $page && $prefs['feature_sefurl'] !== 'y') {
+	if (TikiLib::lib('wiki')->get_page_by_slug($_GET['page']) == $page && $prefs['feature_sefurl'] !== 'y') {
 		TikiLib::lib('access')->redirect('tiki-index.php?page_id='.$tikilib->get_page_id_from_name($page));
 	}
 
