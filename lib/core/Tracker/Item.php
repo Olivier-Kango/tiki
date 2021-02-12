@@ -597,9 +597,15 @@ class Tracker_Item
 			}
 		}
 
+		$newStatus = 'o';
+		if ($this->isNew() && isset($this->definition)) {
+			// set status based on tracker setting if status not explicitly requested
+			$newStatus = $this->definition->getConfiguration('newItemStatus', 'o');
+		}
+
 		return [
 			'itemId' => $this->isNew() ? null : $this->info['itemId'],
-			'status' => $this->isNew() ? 'o' : $this->info['status'],
+			'status' => $this->isNew() ? $newStatus : $this->info['status'],
 			'creation_date' => $this->info['created'],
 			'trackerId' => $this->isNew() ? null : $this->info['trackerId'],
 			'fields' => $out,
