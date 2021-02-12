@@ -346,7 +346,7 @@
 				</div>
 				<div class="clearfix">
 					<span class="form-text col-sm-8 offset-sm-4 mt-4">
-						{tr}Sample:{/tr} {$now|tiki_short_date}
+						{tr}Sample:{/tr} {$now|tiki_short_date:'n'}
 					</span>
 					{preference name=short_date_format}
 				</div>
