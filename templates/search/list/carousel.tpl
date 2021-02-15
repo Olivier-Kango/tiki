@@ -1,4 +1,6 @@
 {* $Id$ *}
+{* changes 24.01.2021 by bob_romoxi *}
+{* if for controls and pagination *}
 {if $carousel and $carousel.id}{$containerId = $carousel.id}{else}{$containerId = 'wp_list_carousel'}{/if}
 {if $carousel and $carousel.mode}{$mode = $carousel.mode}{else}{$mode = ''}{/if}
 <div id="{$containerId}" class="carousel slide {$mode}" data-ride="carousel"
@@ -41,13 +43,18 @@
 	</div>
 
 	{* Controls *}
-	<a class="carousel-control-prev" href="#{$containerId}" role="button" data-slide="prev">
-		{icon name='chevron-left'}
-		<span class="sr-only">Previous</span>
-	</a>
-	<a class="carousel-control-next" href="#{$containerId}" role="button" data-slide="next">
-		{icon name='chevron-right'}
-		<span class="sr-only">Next</span>
-	</a>
+	{if $carousel and $carousel.controls neq 'n'}
+		<a class="carousel-control-prev" href="#{$containerId}" role="button" data-slide="prev">
+			{icon name='chevron-left'}
+			<span class="sr-only">Previous</span>
+		</a>
+		<a class="carousel-control-next" href="#{$containerId}" role="button" data-slide="next">
+			{icon name='chevron-right'}
+			<span class="sr-only">Next</span>
+		</a>
+	{/if}
+	
 </div>
-{pagination_links resultset=$results}{/pagination_links}
+{if $carousel.pagination neq 'n'}
+	{pagination_links resultset=$results}{/pagination_links}
+{/if}
