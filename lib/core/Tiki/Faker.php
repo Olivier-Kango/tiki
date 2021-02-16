@@ -365,27 +365,34 @@ class Faker extends FakerProviderBase
 	 * @param $field
 	 * @return string
 	 */
-	public function tikiRelations($field)
+	public function tikiRelations($field, $rand = true, $num = 5)
 	{
 		if (! empty($field['fieldId'])) {
 			$value = [];
+			static $result = [];
 
-			parse_str($field['options_map']['filter'], $query);
-			$lib = TikiLib::lib('unifiedsearch');
-			$query = $lib->buildQuery($query);
-			$result = $query->search($lib->getIndex())->jsonSerialize();
+			if (empty($result)) {
+				parse_str($field['options_map']['filter'], $query);
+				$lib = TikiLib::lib('unifiedsearch');
+				$query = $lib->buildQuery($query);
+				$query->setOrder('creation_date_desc');
+				$query->setCount(10000);
+				$result = $query->search($lib->getIndex())->jsonSerialize();
+			}
 
-			$count = $result['count'];
-			$entries = $result['result'];
+			$count = min(10000, $result['count']);
+			$passed = [];
 
-			$num = rand(0, min(5, $count));
+			if ($rand) {
+				$num = rand(0, min($num, $count));
+			}
 			for ($i = 0; $i < $num; $i++) {
-				$index = rand(0, $count-1);
-				$res = $entries[$index];
+				do {
+					$index = rand(0, $count-1);
+				} while(in_array($index, $passed));
+				$res = $result['result'][$index];
 				$value[] = $res['object_type'].":".$res['object_id'];
-				unset($entries[$index]);
-				$entries = array_values($entries);
-				$count--;
+				$passed[] = $index;
 			}
 			return implode("\n", $value);
 		}

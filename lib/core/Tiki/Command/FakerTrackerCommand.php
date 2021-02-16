@@ -156,6 +156,7 @@ class FakerTrackerCommand extends Command
 
 			foreach ($fieldFakerMap as $fieldFaker) {
 				$value = '';
+
 				if (is_array($fieldFaker['faker'])) {
 					$fakerAction = $fieldFaker['faker'][0];
 					$fakerArguments = $fieldFaker['faker'][1];
@@ -164,6 +165,10 @@ class FakerTrackerCommand extends Command
 							$fakerArguments = $trackerDefinition->getField($fieldFaker['fieldId']);
 						}
 						$fakerArguments = [$fakerArguments];
+					} elseif ($fakerArguments[0] === 'fieldId') {
+						$fakerArguments[0] = $trackerDefinition->getField($fieldFaker['fieldId']);
+					} elseif (substr($fakerAction, 0, 4) === 'tiki') {
+						array_unshift($fakerArguments, $trackerDefinition->getField($fieldFaker['fieldId']));
 					}
 					$value = call_user_func_array([$faker, $fakerAction], $fakerArguments);
 				} elseif (! empty($fieldFaker['faker'])) {
@@ -241,7 +246,7 @@ class FakerTrackerCommand extends Command
 			'STARS' => ['tikiRating', 'fieldId'], // Rating - lookup for valid values
 			//'*' => '', // Stars (deprecated)
 			//'s' => '', // Stars (system - deprecated)
-			'REL' => ['tikiRelations', 'fieldId'], // Relations
+			'REL' => ['tikiRelations', ['fieldId', true, 5]], // Relations, rand (true/false), max/number of relations
 			//'STO' => '', // show.tiki.org - Not supported
 			'usergroups' => '', // Display list of user groups - empty
 			//'p' => '', // User Preference - Not Supported
