@@ -550,8 +550,8 @@ class Tracker_Field_Relation extends Tracker_Field_Abstract
 		return [
 			$baseKey => $typeFactory->sortable($value),
 			"{$baseKey}_multi" => $typeFactory->multivalue(explode("\n", $value)),
-			"{$baseKey}_plain" => $typeFactory->plaintext($plain),
-			"{$baseKey}_text" => $typeFactory->plaintext($text),
+			"{$baseKey}_plain" => $typeFactory->plainmediumtext($plain),
+			"{$baseKey}_text" => $typeFactory->plainmediumtext($text),
 		];
 	}
 
