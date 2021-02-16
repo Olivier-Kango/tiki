@@ -2375,7 +2375,7 @@ class Comments extends TikiLib
 		if ($this->time_control) {
 			$limit = $this->now - $this->time_control;
 
-			$time_cond = " and `commentDate` > ? ";
+			$time_cond = " and tc1.`commentDate` > ? ";
 			$bind_time = [$limit];
 		} else {
 			$time_cond = '';
