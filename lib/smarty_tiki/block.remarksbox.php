@@ -129,6 +129,10 @@ function smarty_block_remarksbox($params, $content, $smarty, &$repeat)
 		$hidden = false;
 	}
 
+	if ($cookie_hash) {
+		$params['id'] = 'rbox_' . $cookie_hash;
+	}
+
 	$smarty->assign('remarksbox_cookiehash', $cookie_hash);
 	$smarty->assign('remarksbox_cookie', $params['store_cookie']);
 	$smarty->assign('remarksbox_hidden', $hidden);
