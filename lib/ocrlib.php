@@ -308,10 +308,16 @@ class ocrLib extends TikiLib
 				$langs = json_decode($db->fetchOne('ocr_lang', ['galleryId' => 1]));
 			}
 		}
+
+		if (empty($langs) && ! empty($prefs['ocr_limit_languages'])) {
+			$langs = $prefs['ocr_limit_languages'];
+		}
+
 		// we fall back on Auto Detect if there are no preferences set
 		if (empty($langs)) {
 			$langs[] = 'osd';
 		}
+
 		return $langs;
 	}
 
