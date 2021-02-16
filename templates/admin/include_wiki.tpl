@@ -436,20 +436,6 @@
 					</div>
 				</fieldset>
 			</div>
-			<div class="adminoptionbox clearfix">
-				<fieldset class="mb-3 w-100">
-					<legend>{tr}Redirect and Similar{/tr}</legend>
-					{preference name=feature_wiki_1like_redirection}
-					{preference name=wiki_prefixalias_tokens}
-					{preference name=feature_semantic}
-					{preference name=feature_likePages}
-					<div class="adminoptionboxchild" id="wiki_likepages_samelang_only">
-						{preference name=wiki_likepages_samelang_only}
-					</div>
-					{preference name=feature_wiki_pagealias}
-					{preference name=wiki_pagealias_tokens}
-				</fieldset>
-			</div>
 		{/tab}
 	{/tabset}
 	{include file='admin/include_apply_bottom.tpl'}
