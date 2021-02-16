@@ -531,6 +531,10 @@ class Tracker_Field_Relation extends Tracker_Field_Abstract
 			}
 		}
 
+		if (count($cache) > 1000) {
+			$cache = [];
+		}
+
 		$plain = implode(', ', $labels);
 
 		$text = '';
