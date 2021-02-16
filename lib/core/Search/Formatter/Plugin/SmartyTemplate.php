@@ -86,6 +86,8 @@ class Search_Formatter_Plugin_SmartyTemplate implements Search_Formatter_Plugin_
 			$smarty->assign('tstotals', $tsettings['math']['totals']);
 			$smarty->assign('tscols', $tsettings['columns']);
 		}
+		global $jitRequest;
+		$smarty->assign('adddata', json_decode($jitRequest->adddata->text(), true));
 
 		return $smarty->fetch($this->templateFile);
 	}
