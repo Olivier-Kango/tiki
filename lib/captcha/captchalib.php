@@ -231,7 +231,15 @@ Recaptcha.create("' . $this->captcha->getPubKey() . '",
 			ini_set('arg_separator.output', $oldVal);
 			return $result;
 		} else {
-			return $this->captcha->isValid($input['captcha']);
+
+			if (isset($input['captcha'])) {
+				$captchaInput = $input['captcha'];
+			} else {
+				global $jitPost;
+				$captchaInput = $jitPost->captcha->asArray();
+			}
+
+			return $this->captcha->isValid($captchaInput);
 		}
 	}
 
