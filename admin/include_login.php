@@ -81,7 +81,7 @@ if (isset($_POST['uploadIndex']) && $access->checkCsrf()) {
 	if ($_FILES['passwordlist']['error'] === 4) {
 		Feedback::error(tr('You need to select a file to upload.'));
 	} elseif ($_FILES['passwordlist']['error']) {
-		Feedback::error(tr('File Upload Error: ' . $_FILES['passwordlist']['error']));
+		Feedback::error(tr('File Upload Error: %0', $_FILES['passwordlist']['error']));
 	} else {  // if file has been uploaded, and there are no errors, then index the file in the database.
 		$blackL->deletePassIndex();
 		$blackL->createPassIndex();
