@@ -165,7 +165,7 @@ class Services_Tracker_SyncController
 			set_time_limit(30 + 10 * count($items)); // 10 sec per item plus some initial overhead
 			$itemIds = array_intersect($itemIds, $items);
 			$table = TikiDb::get()->table('tiki_tracker_items');
-			$items = $this->utilities->getItems(['trackerId' => $trackerId, 'itemId' => $table->in($itemIds)]);
+			$items = $this->utilities->getItems(['trackerId' => $trackerId, 'itemId' => $itemIds]);
 
 			$remoteDefinition = $this->getRemoteDefinition($definition);
 			foreach ($items as $item) {
@@ -174,6 +174,8 @@ class Services_Tracker_SyncController
 				if ($remoteItemId) {
 					$item['fields']['syncSource'] = $remoteItemId;
 					$this->utilities->updateItem($definition, $item);
+				} else {
+					Feedback::error(tr('Remote item not created, itemId = %0', $item['itemId']));
 				}
 			}
 			TikiLib::lib('unifiedsearch')->processUpdateQueue();
@@ -451,7 +453,7 @@ class Services_Tracker_SyncController
 		$list = array_diff($list, $values);
 
 		$table = TikiDb::get()->table('tiki_tracker_items');
-		$itemList = $this->utilities->getItems(['trackerId' => $definition->getConfiguration('trackerId'), 'itemId' => $table->in($toProcess)]);
+		$itemList = $this->utilities->getItems(['trackerId' => $definition->getConfiguration('trackerId'), 'itemId' => $toProcess]);
 		foreach ($itemList as $item) {
 			$this->updateRemoteItem($remoteDefinition, $definition, $item);
 			$this->utilities->removeItem($item['itemId']);
