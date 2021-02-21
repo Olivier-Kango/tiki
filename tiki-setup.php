@@ -680,6 +680,13 @@ if ($prefs['geo_always_load_openlayers'] == 'y') {
 	$headerlib->add_map();
 }
 
+if ($prefs['xmpp_conversejs_always_load'] === 'y') {
+	require_once 'lib/xmpp/ConverseJS.php';
+	$xmppclient = new ConverseJS();
+	array_map([$headerlib, 'add_jsfile'],  $xmppclient->get_js_dependencies());
+	array_map([$headerlib, 'add_cssfile'],  $xmppclient->get_css_dependencies());
+}
+
 if ($prefs['workspace_ui'] == 'y') {
 	$headerlib->add_jsfile('lib/jquery_tiki/tiki-workspace-ui.js');
 }
