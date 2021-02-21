@@ -837,17 +837,17 @@
         },
         {
             "name": "codeitnowin/barcode",
-            "version": "3.0.3",
+            "version": "3.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/codeitnowin/barcode-generator.git",
-                "reference": "6325a15ae904ec401b947e1a3e868de1c2cc80b0"
+                "reference": "bd140d279fc813e00f72eaa4f033186bf78b8786"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/codeitnowin/barcode/codeitnowin-barcode-6325a15ae904ec401b947e1a3e868de1c2cc80b0-zip-e0db04.zip",
-                "reference": "6325a15ae904ec401b947e1a3e868de1c2cc80b0",
-                "shasum": "16a1122e60a2f296c6cdb66113fa1ba9e1953095"
+                "url": "https://composer.tiki.org/dist/codeitnowin/barcode/codeitnowin-barcode-bd140d279fc813e00f72eaa4f033186bf78b8786-zip-a203cf.zip",
+                "reference": "bd140d279fc813e00f72eaa4f033186bf78b8786",
+                "shasum": "cedb7cba49739472cf97f45b1c364b25e769ca27"
             },
             "require": {
                 "ext-gd": "*",
@@ -882,7 +882,7 @@
                 "qrcode",
                 "symfony"
             ],
-            "time": "2018-10-25T18:32:10+00:00"
+            "time": "2021-02-19T15:33:44+00:00"
         },
         {
             "name": "codemirror/codemirror",
@@ -3180,17 +3180,17 @@
         },
         {
             "name": "laminas/laminas-http",
-            "version": "2.14.2",
+            "version": "2.14.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-http.git",
-                "reference": "298f732e1acb031db70ea4fd2133a283b2a4a65e"
+                "reference": "bfaab8093e382274efed7fdc3ceb15f09ba352bb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-http/laminas-laminas-http-298f732e1acb031db70ea4fd2133a283b2a4a65e-zip-718526.zip",
-                "reference": "298f732e1acb031db70ea4fd2133a283b2a4a65e",
-                "shasum": "1174a8ab210fc46438a503df38a8b0ae5a5c80ff"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-http/laminas-laminas-http-bfaab8093e382274efed7fdc3ceb15f09ba352bb-zip-f5c3e7.zip",
+                "reference": "bfaab8093e382274efed7fdc3ceb15f09ba352bb",
+                "shasum": "e87f8ffed1ece8eff144cafe02c3dfccc5fab034"
             },
             "require": {
                 "laminas/laminas-loader": "^2.5.1",
@@ -3228,7 +3228,7 @@
                 "http client",
                 "laminas"
             ],
-            "time": "2021-01-05T16:10:52+00:00"
+            "time": "2021-02-18T21:58:11+00:00"
         },
         {
             "name": "laminas/laminas-i18n",
@@ -3987,45 +3987,42 @@
         },
         {
             "name": "laminas/laminas-soap",
-            "version": "2.8.0",
+            "version": "2.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-soap.git",
-                "reference": "34f91d5c4c0a78bc5689cca2d1eaf829b27edd72"
+                "reference": "11672a79e9074fd8e4e7aedd75849902e7b45e23"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-soap/laminas-laminas-soap-34f91d5c4c0a78bc5689cca2d1eaf829b27edd72-zip-cb0a35.zip",
-                "reference": "34f91d5c4c0a78bc5689cca2d1eaf829b27edd72",
-                "shasum": "1c3d958fd7ed054a17a9c5a0d8074f6ece8da6bc"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-soap/laminas-laminas-soap-11672a79e9074fd8e4e7aedd75849902e7b45e23-zip-3b4fda.zip",
+                "reference": "11672a79e9074fd8e4e7aedd75849902e7b45e23",
+                "shasum": "3fed101902c39198a21a00938e323ebfbbf825d0"
             },
             "require": {
+                "ext-dom": "*",
                 "ext-soap": "*",
-                "laminas/laminas-server": "^2.6.1",
-                "laminas/laminas-stdlib": "^2.7 || ^3.0",
-                "laminas/laminas-uri": "^2.5.2",
-                "laminas/laminas-zendframework-bridge": "^1.0",
-                "php": "^5.6 || ^7.0"
+                "laminas/laminas-server": "^2.9",
+                "laminas/laminas-stdlib": "^3.3",
+                "laminas/laminas-uri": "^2.8",
+                "laminas/laminas-zendframework-bridge": "^1.1.0",
+                "php": "^7.3 || ~8.0.0"
             },
             "replace": {
-                "zendframework/zend-soap": "self.version"
+                "zendframework/zend-soap": "^2.8.0"
             },
             "require-dev": {
                 "laminas/laminas-coding-standard": "~1.0.0",
-                "laminas/laminas-config": "^2.6",
-                "laminas/laminas-http": "^2.5.4",
-                "phpunit/phpunit": "^5.7.21 || ^6.3"
+                "laminas/laminas-config": "^3.4",
+                "laminas/laminas-http": "^2.14",
+                "phpspec/prophecy-phpunit": "^2.0.1",
+                "phpunit/phpunit": "^9.4.3"
             },
             "suggest": {
+                "ext-curl": "Curl is required when .NET compatibility is required",
                 "laminas/laminas-http": "Laminas\\Http component"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.7.x-dev",
-                    "dev-develop": "2.8.x-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "Laminas\\Soap\\": "src/"
@@ -4040,7 +4037,7 @@
                 "laminas",
                 "soap"
             ],
-            "time": "2019-12-31T17:48:49+00:00"
+            "time": "2021-02-17T18:59:03+00:00"
         },
         {
             "name": "laminas/laminas-stdlib",
@@ -4088,42 +4085,36 @@
         },
         {
             "name": "laminas/laminas-tag",
-            "version": "2.7.1",
+            "version": "2.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-tag.git",
-                "reference": "6af061af4d7a54f3ee6ba94846c0f21ad284dc10"
+                "reference": "f8d754c800196375869b7a4fae870ca89ab91bfb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-tag/laminas-laminas-tag-6af061af4d7a54f3ee6ba94846c0f21ad284dc10-zip-a37acc.zip",
-                "reference": "6af061af4d7a54f3ee6ba94846c0f21ad284dc10",
-                "shasum": "3b64d5826787d2b105695ed632f1b7861e652711"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-tag/laminas-laminas-tag-f8d754c800196375869b7a4fae870ca89ab91bfb-zip-b20461.zip",
+                "reference": "f8d754c800196375869b7a4fae870ca89ab91bfb",
+                "shasum": "eda7321fc0174c12d71919589385a7c844717da6"
             },
             "require": {
-                "laminas/laminas-escaper": "^2.5",
-                "laminas/laminas-stdlib": "^2.7 || ^3.0",
+                "laminas/laminas-escaper": "^2.7",
+                "laminas/laminas-stdlib": "^3.3",
                 "laminas/laminas-zendframework-bridge": "^1.0",
-                "php": "^5.6 || ^7.0"
+                "php": "^7.3 || ~8.0.0"
             },
             "replace": {
-                "zendframework/zend-tag": "self.version"
+                "zendframework/zend-tag": "^2.7.1"
             },
             "require-dev": {
                 "laminas/laminas-coding-standard": "~1.0.0",
-                "laminas/laminas-servicemanager": "^2.7.5 || ^3.0.3",
-                "phpunit/phpunit": "^5.7.27 || ^6.5.8 || ^7.1.4"
+                "laminas/laminas-servicemanager": "^3.4.1",
+                "phpunit/phpunit": "^9.3"
             },
             "suggest": {
                 "laminas/laminas-servicemanager": "Laminas\\ServiceManager component"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.7.x-dev",
-                    "dev-develop": "2.8.x-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "Laminas\\Tag\\": "src/"
@@ -4139,7 +4130,7 @@
                 "laminas",
                 "tag"
             ],
-            "time": "2019-12-31T17:52:40+00:00"
+            "time": "2021-02-17T19:56:51+00:00"
         },
         {
             "name": "laminas/laminas-twitter",
@@ -4197,17 +4188,17 @@
         },
         {
             "name": "laminas/laminas-uri",
-            "version": "2.8.0",
+            "version": "2.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-uri.git",
-                "reference": "8651611b6285529f25a4cb9a466c686d9b31468e"
+                "reference": "79bd4c614c8cf9a6ba715a49fca8061e84933d87"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-uri/laminas-laminas-uri-8651611b6285529f25a4cb9a466c686d9b31468e-zip-de79ae.zip",
-                "reference": "8651611b6285529f25a4cb9a466c686d9b31468e",
-                "shasum": "c1a7723d798af0737d3c1ec18eb7cdc307ec3538"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-uri/laminas-laminas-uri-79bd4c614c8cf9a6ba715a49fca8061e84933d87-zip-f0f9db.zip",
+                "reference": "79bd4c614c8cf9a6ba715a49fca8061e84933d87",
+                "shasum": "266272599db730ad09bc9b053db5c41a4b2b0a62"
             },
             "require": {
                 "laminas/laminas-escaper": "^2.5",
@@ -4238,7 +4229,7 @@
                 "laminas",
                 "uri"
             ],
-            "time": "2020-10-31T20:20:07+00:00"
+            "time": "2021-02-17T21:53:05+00:00"
         },
         {
             "name": "laminas/laminas-validator",
@@ -7152,17 +7143,17 @@
         },
         {
             "name": "rubix/tensor",
-            "version": "2.1.3",
+            "version": "2.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/RubixML/Tensor.git",
-                "reference": "76212d79e36f6ba1266747d7065676122d51cf10"
+                "reference": "f51797af5631d117263cb394d94c81a8e5e35604"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/rubix/tensor/rubix-tensor-76212d79e36f6ba1266747d7065676122d51cf10-zip-bb09bd.zip",
-                "reference": "76212d79e36f6ba1266747d7065676122d51cf10",
-                "shasum": "554d52040d2b782b8ba1f91d2677876e39226b59"
+                "url": "https://composer.tiki.org/dist/rubix/tensor/rubix-tensor-f51797af5631d117263cb394d94c81a8e5e35604-zip-fe0788.zip",
+                "reference": "f51797af5631d117263cb394d94c81a8e5e35604",
+                "shasum": "8a0eed392f0736c86b0f988a7ff7adc952fb575e"
             },
             "require": {
                 "php": ">=7.2"
@@ -7226,7 +7217,7 @@
                 "trigonometry",
                 "vector"
             ],
-            "time": "2021-02-14T06:10:44+00:00"
+            "time": "2021-02-20T08:19:57+00:00"
         },
         {
             "name": "sabre/dav",
@@ -7718,17 +7709,17 @@
         },
         {
             "name": "smarty/smarty",
-            "version": "v3.1.38",
+            "version": "v3.1.39",
             "source": {
                 "type": "git",
                 "url": "https://github.com/smarty-php/smarty.git",
-                "reference": "63b3c0aed0f614880cda21a5c08c606e97b489bb"
+                "reference": "e27da524f7bcd7361e3ea5cdfa99c4378a7b5419"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/smarty/smarty/smarty-smarty-63b3c0aed0f614880cda21a5c08c606e97b489bb-zip-93c326.zip",
-                "reference": "63b3c0aed0f614880cda21a5c08c606e97b489bb",
-                "shasum": "2266f9870f4348ae72801885575799daac8c28a6"
+                "url": "https://composer.tiki.org/dist/smarty/smarty/smarty-smarty-e27da524f7bcd7361e3ea5cdfa99c4378a7b5419-zip-431176.zip",
+                "reference": "e27da524f7bcd7361e3ea5cdfa99c4378a7b5419",
+                "shasum": "c600bc5776b2ee74371c14e47258840258253315"
             },
             "require": {
                 "php": ">=5.2"
@@ -7771,7 +7762,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2021-01-08T14:05:42+00:00"
+            "time": "2021-02-17T21:57:51+00:00"
         },
         {
             "name": "sorich87/bootstrap-tour",
