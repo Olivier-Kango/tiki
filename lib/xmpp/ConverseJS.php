@@ -172,21 +172,24 @@ class ConverseJS
 
 	public function render()
 	{
-		global $user;
+		global $user, $prefs;
 		$options = $this->get_options();
 
-		array_map([TikiLib::lib('header'), 'add_jsfile'],  $this->get_js_dependencies());
-
 		$output = '';
-		$output .= PHP_EOL . ';(function() {';
-		$output .= PHP_EOL . '    var link;';
-		foreach ($this->get_css_dependencies() as $file) {
-			$output .= PHP_EOL . '    link = document.createElement("link");';
-			$output .= PHP_EOL . '    link.rel = "stylesheet";';
-			$output .= PHP_EOL . '    link.href = "' . $file . '";';
-			$output .= PHP_EOL . '    document.body.appendChild(link);';
+
+		if ($prefs['xmpp_conversejs_always_load'] !== 'y') {
+			array_map([TikiLib::lib('header'), 'add_jsfile'],  $this->get_js_dependencies());
+
+			$output .= PHP_EOL . ';(function() {';
+			$output .= PHP_EOL . '    var link;';
+			foreach ($this->get_css_dependencies() as $file) {
+				$output .= PHP_EOL . '    link = document.createElement("link");';
+				$output .= PHP_EOL . '    link.rel = "stylesheet";';
+				$output .= PHP_EOL . '    link.href = "' . $file . '";';
+				$output .= PHP_EOL . '    document.body.appendChild(link);';
+			}
+			$output .= PHP_EOL . '})();';
 		}
-		$output .= PHP_EOL . '})();';
 
 		if (empty($_SESSION['chat-session-init'])) {
 			$_SESSION['chat-session-init'] = time();

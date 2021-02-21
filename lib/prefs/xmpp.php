@@ -121,5 +121,13 @@ function prefs_xmpp_list()
 			'size' => 10,
 			'default' => '',
 		],
+		'xmpp_conversejs_always_load' => [
+			'name' => tra('Always Load ConverseJS'),
+			'default' => 'n',
+			'description' => tra('Adds the ConverseJS Javascript and CSS files to every page.'),
+			'keywords' => 'xmpp jabber openfire chat',
+			'type' => 'flag',
+			'dependencies' => ['xmpp_feature'],
+		],
 	];
 }
