@@ -123,7 +123,9 @@ class Services_Wiki_Controller
 		//first pass - show confirm modal popup
 		if ($util->notConfirmPost()) {
 			$util->setVars($input, $this->filters, 'checked');
-			$util->items = Perms::simpleFilter('wiki page', 'pageName', 'remove', $util->items);
+			$pages = array_map(function ($pageName) { return ['pageName' => $pageName]; }, $util->items);
+			$pages = Perms::simpleFilter('wiki page', 'pageName', 'remove', $pages);
+			$util->items = array_map(function ($pageName) { return array_pop($pageName); }, $pages);
 			if (count($util->items) > 0) {
 				$v = $input['version'];
 				if (count($util->items) == 1) {
@@ -170,7 +172,9 @@ class Services_Wiki_Controller
 			//after confirm submit - perform action and return success feedback
 		} elseif ($util->checkCsrf()) {
 			$util->setVars($input, $this->filters, 'items');
-			$util->items = Perms::simpleFilter('wiki page', 'pageName', 'remove', $util->items);
+			$pages = array_map(function ($pageName) { return ['pageName' => $pageName]; }, $util->items);
+			$pages = Perms::simpleFilter('wiki page', 'pageName', 'remove', $pages);
+			$util->items = array_map(function ($pageName) { return array_pop($pageName); }, $pages);
 			//delete page
 			//checkbox in popup where user can change from all to last and vice versa
 			$all = ! empty($input['all']) && $input['all'] === 'on';
@@ -380,7 +384,9 @@ class Services_Wiki_Controller
 		//first pass - show confirm modal popup
 		if ($util->notConfirmPost()) {
 			$util->setVars($input, $this->filters,'checked');
-			$util->items = Perms::simpleFilter('wiki page', 'pageName', 'view', $util->items);
+			$pages = array_map(function ($pageName) { return ['pageName' => $pageName]; }, $util->items);
+			$pages = Perms::simpleFilter('wiki page', 'pageName', 'view', $pages);
+			$util->items = array_map(function ($pageName) { return array_pop($pageName); }, $pages);
 			if (count($util->items) > 0) {
 				if (count($util->items) === 1) {
 					$msg = tr('Print the following page?');
@@ -394,7 +400,9 @@ class Services_Wiki_Controller
 		//after confirm submit - perform action and return success feedback
 		} elseif ($util->checkCsrf()) {
 			$util->setVars($input, $this->filters, 'items');
-			$util->items = Perms::simpleFilter('wiki page', 'pageName', 'view', $util->items);
+			$pages = array_map(function ($pageName) { return ['pageName' => $pageName]; }, $util->items);
+			$pages = Perms::simpleFilter('wiki page', 'pageName', 'view', $pages);
+			$util->items = array_map(function ($pageName) { return array_pop($pageName); }, $pages);
 			if (! empty($util->items)) {
 				return ['url' => 'tiki-print_multi_pages.php?print=y&printpages=' . urlencode(json_encode($util->items))];
 			} else {
@@ -411,7 +419,9 @@ class Services_Wiki_Controller
 		//first pass - show confirm modal popup
 		if ($util->notConfirmPost()) {
 			$util->setVars($input, $this->filters,'checked');
-			$util->items = Perms::simpleFilter('wiki page', 'pageName', 'view', $util->items);
+			$pages = array_map(function ($pageName) { return ['pageName' => $pageName]; }, $util->items);
+			$pages = Perms::simpleFilter('wiki page', 'pageName', 'view', $pages);
+			$util->items = array_map(function ($pageName) { return array_pop($pageName); }, $pages);
 			if (count($util->items) > 0) {
 				include_once 'lib/pdflib.php';
 				$pdf = new PdfGenerator();
@@ -431,7 +441,9 @@ class Services_Wiki_Controller
 		//after confirm submit - perform action
 		} elseif ($util->checkCsrf()) {
 			$util->setVars($input, $this->filters, 'items');
-			$util->items = Perms::simpleFilter('wiki page', 'pageName', 'view', $util->items);
+			$pages = array_map(function ($pageName) { return ['pageName' => $pageName]; }, $util->items);
+			$pages = Perms::simpleFilter('wiki page', 'pageName', 'view', $pages);
+			$util->items = array_map(function ($pageName) { return array_pop($pageName); }, $pages);
 			if (! empty($util->items)) {
 				include_once 'lib/pdflib.php';
 				$pdf = new PdfGenerator();
@@ -465,7 +477,9 @@ class Services_Wiki_Controller
 		if ($util->notConfirmPost()) {
 			$util->setVars($input, $this->filters,'checked');
 			$countUnfiltered = count($util->items);
-			$util->items = Perms::simpleFilter('wiki page', 'pageName', 'view', $util->items);
+			$pages = array_map(function ($pageName) { return ['pageName' => $pageName]; }, $util->items);
+			$pages = Perms::simpleFilter('wiki page', 'pageName', 'view', $pages);
+			$util->items = array_map(function ($pageName) { return array_pop($pageName); }, $pages);
 			foreach ($util->items as $key => $page) {
 				if (TikiLib::lib('wiki')->is_locked($page)) {
 					unset($util->items[$key]);
@@ -492,7 +506,9 @@ class Services_Wiki_Controller
 		//after confirm submit - perform action
 		} elseif ($util->checkCsrf()) {
 			$util->setVars($input, $this->filters, 'items');
-			$util->items = Perms::simpleFilter('wiki page', 'pageName', 'view', $util->items);
+			$pages = array_map(function ($pageName) { return ['pageName' => $pageName]; }, $util->items);
+			$pages = Perms::simpleFilter('wiki page', 'pageName', 'view', $pages);
+			$util->items = array_map(function ($pageName) { return array_pop($pageName); }, $pages);
 			$errorpages = [];
 			foreach ($util->items as $page) {
 				$res = TikiLib::lib('wiki')->lock_page($page);
