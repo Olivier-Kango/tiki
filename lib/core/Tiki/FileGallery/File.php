@@ -128,7 +128,7 @@ class File
 		}
 	}
 
-	function setParam($param = "", $value)
+	function setParam($param, $value)
 	{
 		$this->param[$param] = $value;
 		return $this;
