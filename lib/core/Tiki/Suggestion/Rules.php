@@ -28,7 +28,8 @@ class Rules
 		$suggestionMessages = [];
 		$rules = $this->getRules();
 		foreach ($rules as $rule) {
-			$suggestionParser = call_user_func_array([$rule, 'parser'], []);
+			$object = new $rule;
+			$suggestionParser = call_user_func_array([$object, 'parser'], []);
 
 			if (! empty($suggestionParser)) {
 				$suggestionMessage = is_array($suggestionParser) ? $suggestionParser : [$suggestionParser];
