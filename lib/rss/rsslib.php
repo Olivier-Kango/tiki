@@ -111,7 +111,7 @@ class RSSLib extends TikiDb_Bridge
 	}
 
 	/* put to cache */
-	function put_to_cache($uniqueid, $rss_version = "9", $output)
+	function put_to_cache($uniqueid, $rss_version, $output)
 	{
 		global $user, $tikilib;
 		// caching rss data for anonymous users only
@@ -122,7 +122,7 @@ class RSSLib extends TikiDb_Bridge
 			return;
 		}
 
-		$rss_version = $this->get_current_feed_format();
+		$rss_version = $rss_version ?? $this->get_current_feed_format();
 
 		// update cache with new generated data if data not empty
 
