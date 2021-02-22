@@ -527,7 +527,7 @@ class FileGalLib extends TikiLib
 			'name' => '',
 			'description' => '',
 			'visible' => 'y',
-			'public' => 'n',
+			'public' => 'y',
 			'type' => 'default',
 			'parentId' => $prefs['fgal_root_id'],
 			'lockable' => 'n',
