@@ -1231,8 +1231,11 @@ function checkCommands($input)
 	return $found;
 }
 
-function displayRrErrorBox($type = 'errors', $title, $body)
+function displayRrErrorBox($type, $title, $body)
 {
+	if (empty($type)) {
+		$type = 'errors';
+	}
 	$error_text = '~/np~{REMARKSBOX(type="' . $type . '" title="Plugin R/RR: ' . $title . '")}' . $body . '{REMARKSBOX}~np~';
 	return $error_text;
 }
