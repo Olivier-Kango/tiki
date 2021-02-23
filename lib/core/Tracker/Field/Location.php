@@ -48,6 +48,12 @@ class Tracker_Field_Location extends Tracker_Field_Abstract implements Tracker_F
 						'default' => 200,
 						'legacy_index' => 2,
 					],
+					'map_options_view_list' => [
+						'name' => tr('Map Options in View List Mode'),
+						'description' => tr('Control available on the map when viewing in a list. Default "controls,navigation,layers" (use "none" for none)'),
+						'filter' => 'text',
+						'default' => 'controls,navigation,layers',
+					],
 					'item_width' => [
 						'name' => tr('Item View Width'),
 						'description' => tr('Width of map in pixels when a single tracker item is shown'),
@@ -61,6 +67,18 @@ class Tracker_Field_Location extends Tracker_Field_Abstract implements Tracker_F
 						'filter' => 'int',
 						'default' => 400,
 						'legacy_index' => 4,
+					],
+					'map_options_view_item' => [
+						'name' => tr('Map Options in View Item Mode'),
+						'description' => tr('Control available on the map when viewing item. Default "controls,navigation,layers" (use "none" for none)'),
+						'filter' => 'text',
+						'default' => 'controls,navigation,layers',
+					],
+					'map_options_edit' => [
+						'name' => tr('Map Options in Edit Mode'),
+						'description' => tr('Control available on the map when editing. Default "controls,search_location,current_location,navigation,layers" (use "none" for none)'),
+						'filter' => 'text',
+						'default' => 'controls,search_location,current_location,navigation,layers',
 					],
 					'sourceFieldsList' => [
 						'name' => tr('Fields To Search'),
