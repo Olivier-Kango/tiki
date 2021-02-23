@@ -1316,7 +1316,7 @@ class TikiSheetCSVExcelHandler extends TikiSheetDataHandler
 		return "1.0";
 	}
 
-	private function fputcsvexcel($row, $fd = ';', $quot = '"', $limit)
+	private function fputcsvexcel($row, $fd = ';', $quot = '"', $limit = null)
 	{
 		$str = '';
 		$i = 0;
