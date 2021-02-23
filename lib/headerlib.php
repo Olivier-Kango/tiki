@@ -1104,6 +1104,11 @@ class HeaderLib
 			$minifier = new MatthiasMullie\Minify\CSS();
 
 			foreach ($files as $originalFile) {
+				// remove cache-buster parameters from the end of the filename
+				$pos = strpos($originalFile, '?');
+				if ($pos !== false) {
+					$originalFile = substr($originalFile, 0, $pos);
+				}
 				$minifier->add($originalFile);
 			}
 
