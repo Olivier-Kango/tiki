@@ -8,54 +8,38 @@
 namespace Tracker\Rule;
 
 use Tiki\Lib\core\Tracker\Rule\Column;
-use Tiki\Lib\core\Tracker\Rule\Operator;
-use Tiki\Lib\core\Tracker\Rule\Type;
-use Tiki\Lib\core\Tracker\Rule\Action;
 
 class Definition
 {
 
-	public static function get() {
+	/**
+	 * Scans lib/core/Tracker/Rule for Action, Operator or Type objects
+	 * and gets ui-predicate arrays for each by type
+	 *
+	 * @return array
+	 */
+	public static function get(): array
+	{
 		$out = [];
+		$definition = [];
+		$dirs = array_filter(glob(__DIR__ . '/*'), 'is_dir');
 
-		// TODO these lists should be generated automatically somehow one day
-		$definition = [
-			'operators' => [
-				new Operator\BooleanTrueFalse(),
-				new Operator\CollectionContains(),
-				new Operator\CollectionEmpty(),
-				new Operator\CollectionNotContains(),
-				new Operator\CollectionContainsUsername(),
-				new Operator\DateTimeAfter(),
-				new Operator\DateTimeBefore(),
-				new Operator\DateTimeOn(),
-				new Operator\NumberEquals(),
-				new Operator\NumberGreaterThan(),
-				new Operator\NumberLessThan(),
-				new Operator\NumberNotEquals(),
-				new Operator\TextContains(),
-				new Operator\TextEquals(),
-				new Operator\TextIsEmpty(),
-				new Operator\TextIsNotEmpty(),
-				new Operator\TextIsUsername(),
-				new Operator\TextNotContains(),
-			],
-			'types' => [
-				new Type\Boolean(),
-				new Type\Collection(),
-				new Type\DateTime(),
-				new Type\Field(),
-				new Type\Nothing(),
-				new Type\Number(),
-				new Type\Text(),
-			],
-			'actions' => [
-				new Action\Hide(),
-				new Action\NotRequired(),
-				new Action\Required(),
-				new Action\Show(),
-				new Action\NoOp(),
-			]];
+		foreach ($dirs as $dir) {
+			$group = basename($dir);
+
+			if (in_array($group, ['Target', 'LogicalType'])) {
+				continue;
+			}
+			$files = array_diff(scandir($dir), ['.', '..', 'index.php']);
+			foreach ($files as $file) {
+				$class = substr(basename($file), 0, -4);
+				if ($class !== $group) {
+					$className = '\\Tiki\\Lib\\core\\Tracker\\Rule\\' . $group . '\\' . $class;
+					$object = new $className;
+					$definition[strtolower($group) . 's'][] = $object;
+				}
+			}
+		}
 
 		foreach ($definition as $name => $objects) {
 			$out[$name] = array_map(
