@@ -44,6 +44,8 @@ class Rules
 	 * @return string
 	 */
 	public function getJavaScript($fieldId, $parentSelector = '.form-group:first') {
+		global $prefs;
+
 		$js = '';
 		$operator = ' && ';
 		$conditions = [];
@@ -96,6 +98,10 @@ class Rules
 			$js .= " else {\n" . implode("\n", $else) . "\n  }\n";
 		} else {
 			$js .= "\n";
+		}
+
+		if ($prefs['jquery_ui_chosen'] === 'y') {
+			$js .= "  \$(document).trigger('chosen:update');\n";
 		}
 
 		if ($actions || $else) {
