@@ -9,10 +9,6 @@ class DateTime extends Type
 {
 	public function __construct()
 	{
-		parent::__construct('datetime', [
-			new Operator\DateTimeOn(),
-			new Operator\DateTimeAfter(),
-			new Operator\DateTimeBefore(),
-		]);
+		parent::__construct('DateTime');
 	}
 }

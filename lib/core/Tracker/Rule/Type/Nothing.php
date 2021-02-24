@@ -10,8 +10,6 @@ class Nothing extends Type
 {
 	public function __construct()
 	{
-		parent::__construct('Nothing', [
-			new Action\NoOp(),
-		]);
+		parent::__construct('Nothing');
 	}
 }

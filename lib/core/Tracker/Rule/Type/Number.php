@@ -10,11 +10,6 @@ class Number extends Type
 {
 	public function __construct()
 	{
-		parent::__construct('number', [
-			new Operator\NumberEquals(),
-			new Operator\NumberNotEquals(),
-			new Operator\NumberGreaterThan(),
-			new Operator\NumberLessThan(),
-		]);
+		parent::__construct('number');
 	}
 }

@@ -7,7 +7,10 @@
 
 namespace Tracker\Rule;
 
+use Tiki\Lib\core\Tracker\Rule\Action;
 use Tiki\Lib\core\Tracker\Rule\Column;
+use Tiki\Lib\core\Tracker\Rule\Operator;
+use Tiki\Lib\core\Tracker\Rule\Type;
 
 class Definition
 {
@@ -37,6 +40,22 @@ class Definition
 					$className = '\\Tiki\\Lib\\core\\Tracker\\Rule\\' . $group . '\\' . $class;
 					$object = new $className;
 					$definition[strtolower($group) . 's'][] = $object;
+				}
+			}
+		}
+
+		/** @var Type\Type $typeObject */
+		foreach ($definition['types'] as $typeObject) {
+			/** @var Operator\Operator $operator */
+			foreach ($definition['operators'] as $operator) {
+				if (in_array(get_class($typeObject), $operator->getTypes())) {
+					$typeObject->addOperator($operator);
+				}
+			}
+			/** @var Action\Action $action */
+			foreach ($definition['actions'] as $action) {
+				if (in_array(get_class($typeObject), $action->getTypes())) {
+					$typeObject->addOperator($action);
 				}
 			}
 		}

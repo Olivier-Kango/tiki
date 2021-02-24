@@ -10,11 +10,6 @@ class Field extends Type
 {
 	public function __construct()
 	{
-		parent::__construct('Nothing', [
-			new Action\Hide(),
-			new Action\NotRequired(),
-			new Action\Required(),
-			new Action\Show(),
-		]);
+		parent::__construct('Nothing');
 	}
 }

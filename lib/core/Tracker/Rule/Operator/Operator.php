@@ -10,13 +10,13 @@ use Tiki\Lib\core\Tracker\Rule\Type\Type;
 abstract class Operator extends Column
 {
 	/** @var string syntax in javascript */
-	private $syntax;
+	private string $syntax;
 
-	public function __construct($label, $type, $syntax)
+	public function __construct(string $label, string $argType, string $syntax, array $types)
 	{
 		$this->syntax = $syntax;
 
-		parent::__construct($label, $type);
+		parent::__construct($label, $argType, $types);
 	}
 
 	/**
@@ -34,7 +34,7 @@ abstract class Operator extends Column
 
 	public function get() {
 		/** @var Type $argumentType */
-		$argumentType = new $this->type;
+		$argumentType = new $this->argType;
 
 		return [
 			'operator_id' => $this->getId(),

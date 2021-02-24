@@ -10,6 +10,6 @@ class NoOp extends Action
 {
 	function __construct()
 	{
-		parent::__construct('', Nothing::class, '');
+		parent::__construct('', Nothing::class, '', [Nothing::class]);
 	}
 }

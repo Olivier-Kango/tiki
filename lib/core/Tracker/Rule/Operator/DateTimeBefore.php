@@ -10,6 +10,11 @@ class DateTimeBefore extends Operator
 {
 	function __construct()
 	{
-		parent::__construct(tr('before'), DateTime::class, '.val() * 1 - $("[name=tzoffset]").val() * 60 < (new Date("%argument%")).getTime() / 1000');
+		parent::__construct(
+			tr('before'),
+			DateTime::class,
+			'.val() * 1 - $("[name=tzoffset]").val() * 60 < (new Date("%argument%")).getTime() / 1000',
+			[DateTime::class]
+		);
 	}
 }
