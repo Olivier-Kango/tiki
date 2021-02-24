@@ -200,7 +200,7 @@ function wikiplugin_customsearch($data, $params)
 	static $instance_id = null;
 
 	if (empty($params['wiki']) && empty($params['tpl'])) {
-		return tra('Template is not specified');
+		$params['tpl'] = 'templates/search_customsearch/default_form.tpl';
 	} elseif (! empty($params['wiki']) && ! TikiLib::lib('tiki')->page_exists($params['wiki'])) {
 		$link = new WikiParser_OutputLink;
 		$link->setIdentifier($params['wiki']);
