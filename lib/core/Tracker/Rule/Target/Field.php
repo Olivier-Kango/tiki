@@ -20,7 +20,7 @@ class Field extends Target
 		parent::__construct(tr('Field %0', $this->field['name']), $this->getType());
 	}
 
-	public function getType() {
+	public function getType(): string {
 		if (in_array($this->field['type'], ['f', 'j', 'CAL'])) {
 			return Type\DateTime::class;
 		} else if (in_array($this->field['type'], ['n', 'q', 'b'])) {
@@ -30,7 +30,7 @@ class Field extends Target
 		}
 	}
 
-	public function getId() {
+	public function getId(): string {
 		return $this->field['permName'];
 	}
 

@@ -10,6 +10,6 @@ class NumberLessThan extends Operator
 {
 	function __construct()
 	{
-		parent::__construct('<', Number::class, '.val()<%argument%');
+		parent::__construct('<', Number::class, '.val()<%argument%', [Number::class]);
 	}
 }

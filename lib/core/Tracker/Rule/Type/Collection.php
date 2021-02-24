@@ -10,11 +10,6 @@ class Collection extends Type
 {
 	public function __construct()
 	{
-		parent::__construct('Collection', [
-			new Operator\CollectionContains(),
-			new Operator\CollectionEmpty(),
-			new Operator\CollectionNotContains(),
-			new Operator\CollectionContainsUsername(),
-		]);
+		parent::__construct('Collection');
 	}
 }

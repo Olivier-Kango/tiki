@@ -10,8 +10,6 @@ class Boolean extends Type
 {
 	public function __construct()
 	{
-		parent::__construct('Boolean', [
-			new Operator\BooleanTrueFalse(),
-		]);
+		parent::__construct('Boolean');
 	}
 }

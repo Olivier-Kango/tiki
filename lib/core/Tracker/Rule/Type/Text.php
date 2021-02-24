@@ -11,14 +11,6 @@ class Text extends Type
 {
 	public function __construct()
 	{
-		parent::__construct('text', [
-			new Operator\TextEquals(),
-			new Operator\TextContains(),
-			new Operator\TextNotContains(),
-			new Operator\TextIsEmpty(),
-			new Operator\TextIsNotEmpty(),
-			new Operator\TextIsUsername(),
-			new Action\Required(),
-		]);
+		parent::__construct('text');
 	}
 }

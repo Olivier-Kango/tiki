@@ -6,28 +6,33 @@ namespace Tiki\Lib\core\Tracker\Rule;
 abstract class Column
 {
 	/** @var string */
-	protected $label;
+	protected string $label;
 	/** @var string */
-	protected $type;
+	protected string $argType;
+	/** @var array */
+	protected array $types;
 
 	/**
 	 * Column constructor.
 	 *
 	 * @param string $label
-	 * @param string $type
+	 * @param string $argType argument type
+	 * @param array  $types
 	 */
-	public function __construct($label, $type)
+	public function __construct(string $label, string $argType, array $types)
 	{
-		$this->label = $label;
-		$this->type  = $type;
+		$this->label   = $label;
+		$this->argType = $argType;
+		$this->types   = $types;
 	}
 
 	/**
 	 * Returns the class name as the id
 	 *
-	 * @return false|string
+	 * @return string
 	 */
-	public function getId() {
+	public function getId(): string
+	{
 		try {
 			$reflection = new \ReflectionClass($this);
 			$name = $reflection->getName();
@@ -38,5 +43,20 @@ abstract class Column
 		return substr($name, strrpos($name, '\\') + 1);
 	}
 
+	/**
+	 * @return string
+	 */
+	public function getType(): string
+	{
+		return self::class;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getTypes(): array
+	{
+		return $this->types;
+	}
 	abstract public function get();
 }

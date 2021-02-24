@@ -10,6 +10,6 @@ class CollectionContains extends Operator
 {
 	function __construct()
 	{
-		parent::__construct(tr('contains'), Collection::class, '.val().indexOf("%argument%")>-1');
+		parent::__construct(tr('contains'), Collection::class, '.val().indexOf("%argument%")>-1', [Collection::class]);
 	}
 }
