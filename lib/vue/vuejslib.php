@@ -166,8 +166,6 @@ var vm = new Vue({
 
 	public function generateTrackerRulesJS($fields, $parentSelector = '.form-group:first', $insPrefix = 'ins_') {
 
-		global $prefs;
-
 		$js = '';
 
 		foreach ($fields as $field) {
@@ -183,10 +181,6 @@ var vm = new Vue({
 				$rules = Tiki\Lib\core\Tracker\Rule\Rules::fromData($field['fieldId'], $field['rules']);
 				$js .= $rules->getJavaScript($field['fieldId'] . $append, $parentSelector);
 			}
-		}
-
-		if ($prefs['jquery_ui_chosen'] === 'y') {
-			$js .= "\$(document).trigger('chosen:update');\n";
 		}
 
 		return $js;
