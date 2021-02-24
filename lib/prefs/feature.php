@@ -1781,19 +1781,11 @@ function prefs_feature_list($partial = false)
 			'default' => 'y',
 		],
 		'feature_forum_local_tiki_search' => [
-			'name' => tra('Tiki-indexed search'),
+			'name' => tra('Unified search for forums and file galleries'),
 			'type' => 'flag',
-			'default' => 'n',
+			'default' => 'y',
 			'dependencies' => [
 				'feature_search',
-			],
-		],
-		'feature_forum_local_search' => [
-			'name' => tra('Use database (full-text) search'),
-			'type' => 'flag',
-			'default' => 'n',
-			'dependencies' => [
-				'feature_search_fulltext',
 			],
 		],
 		'feature_forum_post_index' => [

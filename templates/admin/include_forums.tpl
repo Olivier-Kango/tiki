@@ -75,7 +75,6 @@
 				{preference name=feature_forum_content_search}
 				<div class="adminoptionboxchild" id="feature_forum_content_search_childcontainer">
 					{preference name=feature_forum_local_tiki_search}
-					{preference name=feature_forum_local_search}
 				</div>
 				{preference name=feature_forum_post_index}
 			</fieldset>
