@@ -39,27 +39,35 @@ if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
 	header("location: index.php");
 	exit;
 }
+/**
+ * @param array                    $params
+ * @param string|null              $content
+ * @param Smarty_Internal_Template $smarty
+ * @param bool                     $repeat
+ *
+ * @return string
+ * @throws Exception
+ */
 
-function smarty_block_jq($params, $content, $smarty, &$repeat)
+function smarty_block_jq(array $params, ?string $content, Smarty_Internal_Template $smarty, bool &$repeat): string
 {
+	if ($repeat || empty($content)) {
+		return '';
+	}
+
 	global $prefs;
+	if ($prefs['feature_jquery'] !== 'y') {
+		return $params['nojquery'] ?? tr('<!-- jq smarty plugin inactive: feature_jquery off -->');
+	}
+	/** @var \headerlib $headerlib */
 	$headerlib = TikiLib::lib('header');
 
-	if ($repeat || empty($content)) {
-		return;
-	}
+	$params['rank'] = $params['rank'] ?? 0;
 
-	extract($params);
-	if ($prefs['feature_jquery'] != 'y') {
-		return isset($nojquery) ? $nojquery : tr('<!-- jq smarty plugin inactive: feature_jquery off -->');
-	}
-	$notonready = isset($notonready) ? $notonready : false;
-	$rank = isset($rank) ? $rank : 0;
-
-	if (! $notonready) {
-		$headerlib->add_jq_onready($content, $rank);
+	if (empty($params['notonready'])) {
+		$headerlib->add_jq_onready($content, $params['rank']);
 	} else {
-		$headerlib->add_js($content, $rank);
+		$headerlib->add_js($content, $params['rank']);
 	}
-	return;
+	return '';
 }
