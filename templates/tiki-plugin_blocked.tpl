@@ -1,4 +1,4 @@
-<div class="card border-danger" id="{$plugin_fingerprint|escape}">
+<div class="card border-danger plugin-approval-form" id="{$plugin_fingerprint|escape}">
 	<div class="card-header bg-danger">
 		<h4 class="card-title">
 		{icon name='error' style="vertical-align:middle"}
@@ -66,3 +66,5 @@
 		{/if}
 	</div>
 </div>
+{* add a little js to scroll the first approval form into view *}
+{if $plugin_approve}{jq}$(".plugin-approval-form:first")[0].scrollIntoView({behavior: "smooth", block: "end"});{/jq}{/if}
