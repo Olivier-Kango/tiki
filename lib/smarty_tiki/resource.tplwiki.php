@@ -29,6 +29,29 @@ function smarty_resource_tplwiki_source($page, &$tpl_source, $smarty)
 		return true;
 	}
 
+	// check perms for non-admin editors but only show to admins
+	if ($perms->admin_wiki) {
+		$loaded = $perms->getResolver()->dump();
+		$nonAdminEditorGroups = [];
+		foreach ($loaded['perms']['edit'] as $editorGroup) {
+			if ($editorGroup !== 'Admins' && ! in_array($editorGroup, $loaded['perms']['admin_wiki'])) {
+				$nonAdminEditorGroups[] = $editorGroup;
+			}
+		}
+		if ($nonAdminEditorGroups) {
+			$groupString = implode(', ', $nonAdminEditorGroups);
+			$smarty->loadPlugin('smarty_modifier_sefurl');
+			$pageLink = '<a href="' . smarty_modifier_sefurl($page) . '" class="alert-link">' . $page . '</a>';
+			if (count($nonAdminEditorGroups) > 1) {
+				$message = 'The %0 groups can edit this template page %1 but are not wiki administrators';
+				$groupString = 	substr_replace($groupString, tr(' and'), strrpos($groupString, ','), 1);
+			} else {
+				$message = 'The %0 group can edit this template page %1 but is not a wiki administrator';
+			}
+			Feedback::warning(tr($message, $groupString, $pageLink));
+		}
+	}
+
 	$info = $tikilib->get_page_info($page);
 	if (empty($info)) {
 		return false;
