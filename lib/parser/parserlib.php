@@ -2821,14 +2821,15 @@ class ParserLib extends TikiDb_Bridge
 
 					// Set maketoc default values
 					$maketoc_args = [
-							'type' => '',
-							'maxdepth' => 0, // No limit
-							'title' => tra('Table of contents', $this->option['language'], true),
-							'showhide' => '',
-							'nolinks' => '',
-							'nums' => '',
-							'levels' => ''
-							];
+						'type'              => '',
+						'maxdepth'          => 0, // No limit
+						'title'             => tra('Table of contents', $this->option['language'], true),
+						'showhide'          => '',
+						'nolinks'           => '',
+						'nums'              => '',
+						'levels'            => '',
+						'removenestedlinks' => 'y',
+					];
 
 					// Build maketoc arguments list (and remove " chars if they are around the value)
 					if (isset($maketoc_regs[1])) {
@@ -2884,7 +2885,11 @@ class ParserLib extends TikiDb_Bridge
 						} else {
 							$tocentry_title = $tocentry['title_displayed_num'];
 						}
-						$tocentry_title .= $tocentry['title'];
+						if ($maketoc_args['removenestedlinks'] === 'y') {
+							$tocentry_title .= strip_tags($tocentry['title']);
+						} else {
+							$tocentry_title .= $tocentry['title'];
+						}
 
 						// Generate the toc entry link
 						$tocentry_link = '#' . $tocentry['id'];
