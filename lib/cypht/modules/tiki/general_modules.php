@@ -286,7 +286,7 @@ class Hm_Output_filter_message_headers_mpdf extends Hm_Output_Module {
             $headersplited = explode('|', $headers);
             $last = array_pop($headersplited);
             $last .= '
-            | <a class="hlink" id="print_pdf" href="#">'.$this->trans('PDF').'</a>';
+            <a class="hlink" id="print_pdf" href="#"> | '.$this->trans('PDF').'</a>';
             $headersplited[] = $last;
             $headers = implode("|",$headersplited );
             $this->out('msg_headers', $headers);
