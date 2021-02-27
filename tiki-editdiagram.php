@@ -38,7 +38,7 @@ if ($newDiagram) {
 	$backLocation = smarty_modifier_sefurl($page ?: $galleryId, $page ? 'wikipage' : 'filegallery');
 }
 
-$fileId = isset($_POST['fileId']) ? $_POST['fileId'] : 0;
+$fileId = (int) filter_input(INPUT_POST | INPUT_GET, 'fileId', FILTER_SANITIZE_NUMBER_INT);
 $fileName = 0;
 
 if (! empty($fileId)) {
