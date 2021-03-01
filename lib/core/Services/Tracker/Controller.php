@@ -1111,7 +1111,10 @@ class Services_Tracker_Controller
 			if (! empty($userInput)) {
 				foreach ($userInput as $key => $value) {
 					if ($itemObject->canModifyField($key)) {
-						$fields[$key] = $value;
+						// process input using the field's getFieldData function
+						$field = $definition->getFieldFromPermName($key);
+						$field = $itemObject->prepareFieldInput($field, $input->none());
+						$fields[$key] = $field['value'];
 					}
 				}
 			}
