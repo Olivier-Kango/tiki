@@ -1887,13 +1887,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jasonmunro/cypht.git",
-                "reference": "1abd5b1224ffe7cdf60b5c9765ae67dd4d86de2f"
+                "reference": "f58c192045e1396fca6f4f7c215a242b24af0a65"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-1abd5b1224ffe7cdf60b5c9765ae67dd4d86de2f-zip-fe7440.zip",
-                "reference": "1abd5b1224ffe7cdf60b5c9765ae67dd4d86de2f",
-                "shasum": "da95c2d513dd01d72e8e86a16603f11e150fa68b"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-f58c192045e1396fca6f4f7c215a242b24af0a65-zip-0e12b1.zip",
+                "reference": "f58c192045e1396fca6f4f7c215a242b24af0a65",
+                "shasum": "db7506a6044fabf4ac901380389666644e6eff21"
             },
             "require": {
                 "christian-riesen/base32": "^1.3.2",
