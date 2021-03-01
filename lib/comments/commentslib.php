@@ -3209,7 +3209,7 @@ class Comments extends TikiLib
 		}
 
 		$comments = $this->table('tiki_comments');
-		$threadId = $this->check_for_topic($title, $_REQUEST['forumId']);
+		$threadId = $this->check_for_topic($title, $_REQUEST['forumId'] ?? 0);
 
 		if (! $threadId) {
 			$threadId = $comments->insert(
