@@ -168,6 +168,8 @@ var vm = new Vue({
 
 		$js = '';
 
+		TikiLib::lib('header')->add_jsfile('lib/jquery_tiki/tiki-tracker-rules.js');
+
 		foreach ($fields as $field) {
 			if (! empty( $field['rules']) && $field['rules'] !== '{"conditions":null,"actions":null,"else":null}') {
 
