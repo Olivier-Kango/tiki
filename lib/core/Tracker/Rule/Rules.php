@@ -101,7 +101,7 @@ class Rules
 		}
 
 		if ($prefs['jquery_ui_chosen'] === 'y') {
-			$js .= "  \$(document).trigger('chosen:update');\n";
+			$js .= "  \$(document).trigger('chosen:updated');\n";
 		}
 
 		if ($actions || $else) {
