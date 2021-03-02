@@ -11,7 +11,7 @@
 $inputConfiguration =	[[
 	'staticKeyFilters'	=> [
 		'userId'		=> 'digits',
-		'view_user'		=> 'word',
+		'view_user'		=> 'text',
 		'send'			=> 'bool',
 		'subject'		=> 'text',
 		'body'			=> 'html',
@@ -19,7 +19,6 @@ $inputConfiguration =	[[
 		'bccme'			=> 'bcc',
 		'priority'		=> 'digits',
 		'replytome'		=> 'bool',
-
 	],
 	'catchAllUnset'		=> null
 ]];
