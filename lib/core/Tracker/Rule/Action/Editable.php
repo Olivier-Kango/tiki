@@ -11,6 +11,6 @@ class Editable extends Action
 {
 	public function __construct()
 	{
-		parent::__construct(tr('Editable'), Nothing::class, '.find("input,textarea,select").prop("disabled", false)', [Field::class]);
+		parent::__construct(tr('Editable'), Nothing::class, '.actionEditable(true)', [Field::class]);
 	}
 }
