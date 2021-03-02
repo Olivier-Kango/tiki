@@ -4,6 +4,7 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
+use Tracker\Tabular\Schema;
 
 /**
  * Handler class for DynamicList
@@ -12,7 +13,7 @@
  *
  */
 // TODO: validate parameters (several required)
-class Tracker_Field_DynamicList extends Tracker_Field_Abstract
+class Tracker_Field_DynamicList extends Tracker_Field_Abstract implements Tracker_Field_Exportable
 {
 	public static function getTypes()
 	{
@@ -396,7 +397,8 @@ $("input[name=ins_' . $filterFieldIdHere . '], select[name=ins_' . $filterFieldI
 		return $out;
 	}
 
-	function getProvidedFields() {
+	function getProvidedFields()
+	{
 		$baseKey = $this->getBaseKey();
 		return [$baseKey, "{$baseKey}_text"];
 	}
@@ -408,5 +410,82 @@ $("input[name=ins_' . $filterFieldIdHere . '], select[name=ins_' . $filterFieldI
 			$this->getOption('listFieldIdThere'),
 			$this->getOption('statusThere', 'opc')
 		);
+	}
+
+	/**
+	 * Get tabular schema
+	 * @return Schema
+	 */
+	function getTabularSchema()
+	{
+		$schema = new Tracker\Tabular\Schema($this->getTrackerDefinition());
+		$permName = $this->getConfiguration('permName');
+		$name = $this->getConfiguration('name');
+
+		$schema->addNew($permName, 'multi-id')
+			->setLabel($name)
+			->setReadOnly(true)
+			->setRenderTransform(function ($value) {
+				if (is_array($value)) {
+					$value = implode(';', $value);
+				}
+
+				return $value;
+			})
+			->setParseIntoTransform(function (&$info, $value) use ($permName) {
+				$info['fields'][$permName] = $value;
+			});
+
+		$schema->addNew($permName, 'multi-name')
+			->setLabel($name)
+			->addQuerySource('itemId', 'object_id')
+			->setReadOnly(true)
+			->setRenderTransform(function ($value, $extra) {
+				if (is_string($value) && empty($value)) {
+					$field = $this->getTrackerDefinition()->getFieldFromPermName($this->getConfiguration('permName'));
+					$factory = $this->getTrackerDefinition()->getFieldFactory();
+					$handler = $factory->getHandler($field, ['itemId' => $extra['itemId']]);
+					$value = $handler->getItemIds();
+				}
+
+				$labels = $this->getItemLabels($value, ['list_mode' => 'csv']);
+				return implode(';', $labels);
+			})
+			->setParseIntoTransform(function (&$info, $value) use ($permName) {
+				$info['fields'][$permName] = $value;
+			});
+
+		return $schema;
+	}
+
+	/**
+	 * Get value of displayfields from given array of itemIds
+	 * @param array $items
+	 * @param array $context
+	 * @return array array of values by itemId
+	 * @throws Exception
+	 */
+	private function getItemLabels($items, $context = ['list_mode' => ''])
+	{
+		$trackerId = (int) $this->getOption('trackerId');
+
+		$definition = Tracker_Definition::get($trackerId);
+		if (! $definition) {
+			return [];
+		}
+
+		$list = [];
+		$trklib = TikiLib::lib('trk');
+
+		if (! is_array($items)) {
+			$items = [$items];
+		}
+
+		foreach ($items as $itemId) {
+			$item = $trklib->get_tracker_item($itemId);
+			$list[$itemId] = $item[$this->getOption('listFieldIdThere')];
+		}
+
+		return $list;
 	}
 }
