@@ -164,24 +164,16 @@ var vm = new Vue({
 		return $appHtml;
 	}
 
-	public function generateTrackerRulesJS($fields, $parentSelector = '.form-group:first', $insPrefix = 'ins_') {
+	public function generateTrackerRulesJS($fields, $parentSelector = '.form-group:first') {
 
 		$js = '';
 
 		TikiLib::lib('header')->add_jsfile('lib/jquery_tiki/tiki-tracker-rules.js');
 
-		foreach ($fields as $field) {
+		foreach (array_filter($fields) as $field) {
 			if (! empty( $field['rules']) && $field['rules'] !== '{"conditions":null,"actions":null,"else":null}') {
-
-				$this->setFieldType($field);
-				if ($field['argumentType'] === 'Collection') {
-					$append = '[]';
-				} else {
-					$append = '';
-				}
-
 				$rules = Tiki\Lib\core\Tracker\Rule\Rules::fromData($field['fieldId'], $field['rules']);
-				$js .= $rules->getJavaScript($field['fieldId'] . $append, $parentSelector);
+				$js .= $rules->getJavaScript($parentSelector);
 			}
 		}
 

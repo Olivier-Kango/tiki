@@ -38,24 +38,26 @@ class Rules
 	}
 
 	/**
-	 * @param int    $fieldId
 	 * @param string $parentSelector
 	 *
 	 * @return string
 	 */
-	public function getJavaScript($fieldId, $parentSelector = '.form-group:first') {
+	public function getJavaScript(string $parentSelector = '.form-group:first'): string
+	{
 		global $prefs;
 
-		$js = '';
-		$operator = ' && ';
+		$operator   = ' && ';
 		$conditions = [];
+		$selectors  = [];
 
 		if ($this->conditions->logicalType_id === 'any') {	// TODO deal with 'none'
 			$operator = ' || ';
 		}
 
 		foreach ($this->conditions->predicates as $predicate) {
-			$conditions[] = '$("[name=\'' . $predicate->target_id . '\']:last", $(this).form())' . $this->getPredicateSyntax($predicate, 'Operator');
+			$selector = '[name=\'' . $predicate->target_id . '\']:last';
+			$selectors[] = $selector;
+			$conditions[] = '$("' . $selector . '", $(this).form())' . $this->getPredicateSyntax($predicate, 'Operator');
 		}
 
 		$js = "\n  if (" . implode($operator, $conditions) . ')';
@@ -105,7 +107,7 @@ class Rules
 		}
 
 		if ($actions || $else) {
-			$js = '$("[name=\'ins_' . $fieldId . '\']:last").change(function () {' . $js . "}).change();\n";
+			$js = '$("' . implode(',', $selectors) . '").change(function () {' . $js . "}).change();\n";
 		} else {
 			$js = '';
 		}
