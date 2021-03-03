@@ -280,9 +280,10 @@ var vm = new Vue({
 	}
 
 	/**
-	 * @param $field
+	 * @param array  $field (by reference)
+	 * @param string $insPrefix
 	 */
-	private function setFieldType(&$field): void
+	private function setFieldType(array &$field, string $insPrefix = 'ins_'): void
 	{
 		switch ($field['type']) {
 			case 'f':    // datetime
@@ -308,11 +309,14 @@ var vm = new Vue({
 				$field['argumentType'] = 'Text';
 				break;
 		}
+		$field['ins_id'] = $insPrefix . $field['fieldId'];
+
 		if ($field['type'] === 'r' && $field['options_map']['selectMultipleValues'] ||		// ItemLink
 			$field['type'] === 'w' && $field['options_map']['selectMultipleValues'] ||	// DynamicItemsList
 			$field['type'] === 'u' && $field['options_map']['multiple']) {				// UserSelector
 
 			$field['argumentType'] = 'Collection';
+			$field['ins_id'] = $field['ins_id'] . '[]';
 		}
 	}
 
