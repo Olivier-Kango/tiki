@@ -4,6 +4,7 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
+use Tracker\Tabular\Schema;
 
 /**
  * Handler class for DynamicList
@@ -12,7 +13,7 @@
  *
  */
 // TODO: validate parameters (several required)
-class Tracker_Field_DynamicList extends Tracker_Field_Abstract
+class Tracker_Field_DynamicList extends Tracker_Field_Abstract implements Tracker_Field_Exportable
 {
 	public static function getTypes()
 	{
@@ -396,7 +397,8 @@ $("input[name=ins_' . $filterFieldIdHere . '], select[name=ins_' . $filterFieldI
 		return $out;
 	}
 
-	function getProvidedFields() {
+	function getProvidedFields()
+	{
 		$baseKey = $this->getBaseKey();
 		return [$baseKey, "{$baseKey}_text"];
 	}
@@ -408,5 +410,198 @@ $("input[name=ins_' . $filterFieldIdHere . '], select[name=ins_' . $filterFieldI
 			$this->getOption('listFieldIdThere'),
 			$this->getOption('statusThere', 'opc')
 		);
+	}
+
+	/**
+	 * Get tabular schema
+	 * @return Schema
+	 */
+	function getTabularSchema()
+	{
+		$schema = new Tracker\Tabular\Schema($this->getTrackerDefinition());
+		$permName = $this->getConfiguration('permName');
+		$name = $this->getConfiguration('name');
+
+		$schema->addNew($permName, 'multi-id')
+			->setLabel($name)
+			->setReadOnly(true)
+			->setRenderTransform(function ($value) {
+				if (is_array($value)) {
+					$value = implode(';', $value);
+				}
+
+				return $value;
+			})
+			->setParseIntoTransform(function (&$info, $value) use ($permName) {
+				$info['fields'][$permName] = $value;
+			});
+
+		$schema->addNew($permName, 'multi-name')
+			->setLabel($name)
+			->addQuerySource('itemId', 'object_id')
+			->setReadOnly(true)
+			->setRenderTransform(function ($value, $extra) {
+				if (is_string($value) && empty($value)) {
+					$field = $this->getTrackerDefinition()->getFieldFromPermName($this->getConfiguration('permName'));
+					$factory = $this->getTrackerDefinition()->getFieldFactory();
+					$handler = $factory->getHandler($field, ['itemId' => $extra['itemId']]);
+					$value = $handler->getItemIds();
+				}
+
+				$labels = $this->getItemLabels($value, ['list_mode' => 'csv']);
+				return implode(';', $labels);
+			})
+			->setParseIntoTransform(function (&$info, $value) use ($permName) {
+				$info['fields'][$permName] = $value;
+			});
+
+		return $schema;
+	}
+
+	private function getItemIds()
+	{
+		$trklib = TikiLib::lib('trk');
+		$trackerId = (int) $this->getOption('trackerId');
+
+		$filterFieldIdHere = (int) $this->getOption('fieldIdHere');
+		$filterFieldIdThere = (int) $this->getOption('fieldIdThere');
+
+		$filterFieldHere = $this->getTrackerDefinition()->getField($filterFieldIdHere);
+		$filterFieldThere = $trklib->get_tracker_field($filterFieldIdThere);
+
+		$sortFieldIds = $this->getOption('sortField');
+		if (is_array($sortFieldIds)) {
+			$sortFieldIds = array_filter($sortFieldIds);
+		} else {
+			$sortFieldIds = [];
+		}
+		$status = $this->getOption('status', 'opc');
+		$tracker = Tracker_Definition::get($trackerId);
+
+
+
+		// note: if itemlink or dynamic item list is used, than the final value to compare with must be calculated based on the current itemid
+
+		$technique = 'value';
+
+		// not sure this is working
+		// r = item link
+		if ($tracker && $filterFieldThere && (! $filterFieldIdHere || $filterFieldThere['type'] === 'r' || $filterFieldThere['type'] === 'w')) {
+			if ($filterFieldThere['type'] === 'r' || $filterFieldThere['type'] === 'w') {
+				$technique = 'id';
+			}
+		}
+
+		// not sure this is working
+		// q = Autoincrement
+		if ($filterFieldHere['type'] == 'q' && isset($filterFieldHere['options_array'][3]) && $filterFieldHere['options_array'][3] == 'itemId') {
+			$technique = 'id';
+		}
+
+		if ($technique == 'id') {
+			$itemId = $this->getItemId();
+			if (! $itemId) {
+				$items = [];
+			} else {
+				$items = $trklib->get_items_list($trackerId, $filterFieldIdThere, $itemId, $status, false, $sortFieldIds);
+			}
+		} else {
+			// when this is an item link or dynamic item list field, localvalue contains the target itemId
+			$localValue = $this->getData($filterFieldIdHere);
+			if (! $localValue) {
+				// in some cases e.g. pretty tracker $this->getData($filterFieldIdHere) is not reliable as the info is not there
+				// Note: this fix only works if the itemId is passed via the template
+				$itemId = $this->getItemId();
+				$localValue = $trklib->get_item_value($trackerId, $itemId, $filterFieldIdHere);
+			}
+			if (! $filterFieldThere && $filterFieldHere && ( $filterFieldHere['type'] === 'r' || $filterFieldHere['type'] === 'w' ) && $localValue) {
+				// itemlink/dynamic item list field in this tracker pointing directly to an item in the other tracker
+				return [$localValue];
+			}
+			// r = item link - not sure this is working
+			if ($filterFieldHere['type'] == 'r' && isset($filterFieldHere['options_array'][0]) && isset($filterFieldHere['options_array'][1])) {
+				$localValue = $trklib->get_item_value($filterFieldHere['options_array'][0], $localValue, $filterFieldHere['options_array'][1]);
+			}
+
+			// w = dynamic item list - localvalue is the itemid of the target item. so rewrite.
+			if ($filterFieldHere['type'] == 'w') {
+				$localValue = $trklib->get_item_value($trackerId, $localValue, $filterFieldIdThere);
+			}
+			// u = user selector, might be mulitple users so need to find multiple values
+			if ($filterFieldHere['type'] == 'u' && ! empty($filterFieldHere['options_map']['multiple'])
+				&& $localValue
+			) {
+				if (! is_array($localValue)) {
+					$theUsers = explode(',', $localValue);
+				} else {
+					$theUsers = $localValue;
+				}
+				$items = [];
+				foreach ($theUsers as $theUser) {
+					$items = array_merge(
+						$items,
+						$trklib->get_items_list($trackerId, $filterFieldIdThere, $theUser, $status, false, $sortFieldIds)
+					);
+				}
+
+				return $items;
+			}
+			// e = category, might be mulitple categories so need to find multiple values
+			if ($filterFieldHere['type'] == 'e' && $localValue) {
+				if (! is_array($localValue)) {
+					$categories = explode(',', $localValue);
+				} else {
+					$categories = $localValue;
+				}
+				$items = [];
+				foreach ($categories as $category) {
+					$items = array_merge(
+						$items,
+						$trklib->get_items_list($trackerId, $filterFieldIdThere, $category, $status, true, $sortFieldIds)
+					);
+				}
+
+				return $items;
+			}
+			// Skip nulls
+			if ($localValue) {
+				$items = $trklib->get_items_list($trackerId, $filterFieldIdThere, $localValue, $status, false, $sortFieldIds);
+			} else {
+				$items = [];
+			}
+		}
+
+		return $items;
+	}
+
+	/**
+	 * Get value of displayfields from given array of itemIds
+	 * @param array $items
+	 * @param array $context
+	 * @return array array of values by itemId
+	 * @throws Exception
+	 */
+	private function getItemLabels($items, $context = ['list_mode' => ''])
+	{
+		$trackerId = (int) $this->getOption('trackerId');
+
+		$definition = Tracker_Definition::get($trackerId);
+		if (! $definition) {
+			return [];
+		}
+
+		$list = [];
+		$trklib = TikiLib::lib('trk');
+
+		if (! is_array($items)) {
+			$items = [$items];
+		}
+
+		foreach ($items as $itemId) {
+			$item = $trklib->get_tracker_item($itemId);
+			$list[$itemId] = $item[$this->getOption('listFieldIdThere')];
+		}
+
+		return $list;
 	}
 }
