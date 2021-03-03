@@ -904,6 +904,7 @@ function prefs_feature_list($partial = false)
 			'description' => tr('Allows you to schedule daily reports of watches to be sent (batched) at specific times.'),
 			'type' => 'flag',
 			'default' => 'n',
+			'dependencies' => ['fallbackBaseUrl'],
 		],
 		'feature_user_watches_translations' => [
 			'name' => tra('User watches translations'),
