@@ -13,7 +13,7 @@
 			trackerrules: TrackerRules
 		},
 		data: function () { return {
-			fileId: this.$parent.fieldId,
+			fieldId: this.$parent.fieldId,
 			fieldType: this.$parent.fieldType,
 			rules: this.$parent.rules,
 			targetFields: this.$parent.targetFields,
