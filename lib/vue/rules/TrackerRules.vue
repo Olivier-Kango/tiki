@@ -209,16 +209,13 @@
 			if (fields !== undefined) {
 
 				fields.forEach(function (value) {
-					if (value.argumentType === "Collection") {
-						value.fieldId += "[]";
-					}
 					conditionsTargets.push({
-						target_id: "ins_" + value.fieldId,
+						target_id: value.ins_id,
 						label: value.name,
 						type_id: value.argumentType,
 					});
 					actionsTargets.push({
-						target_id: "ins_" + value.fieldId,
+						target_id: value.ins_id,
 						label: value.name,
 						type_id: "Field",
 					});
