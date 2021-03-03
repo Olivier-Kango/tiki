@@ -220,8 +220,8 @@
 						type_id: "Field",
 					});
 
-					if (value.fieldId === thisvue.$parent.fileId ||
-						value.argumentType === "Collection" && value.fieldId === (thisvue.$parent.fileId + "[]")) {
+					if (value.fieldId === thisvue.$parent.fieldId ||
+						value.argumentType === "Collection" && value.fieldId === (thisvue.$parent.fieldId + "[]")) {
 						field = value;
 					}
 				});
