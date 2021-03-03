@@ -85,7 +85,20 @@
                             {/if}
                         {/if}
                     </td>
-                    <td>{$entry.installed|default:'&nbsp;'}</td>
+                    <td>
+                        {$entry.installed|default:'&nbsp;'}
+                        <a class="tips"
+                           href="#"
+                           style="text-decoration: none;"
+                           data-toggle="popover"
+                           data-container="body"
+                           data-trigger="hover"
+                           data-content="<strong>{tr}Licence{/tr}</strong>: <a href='{$entry.licenceUrl}'>{$entry.licence}</a><br/><strong>{tr}Required by{/tr}</strong>:<br/>{'<br/>'|implode:$entry.requiredBy}"
+                           data-original-title="{tr}Info{/tr}"
+                        >
+                            {icon name='info-circle'}
+                        </a>
+                    </td>
                     <td>
                         {if $entry.extension}
                             <form action="tiki-admin.php?page=packages&cookietab=1" method="post">

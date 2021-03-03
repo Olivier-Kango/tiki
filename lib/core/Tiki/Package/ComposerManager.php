@@ -153,6 +153,9 @@ class ComposerManager
 					$package['key'] = $packageListLookup[$packageName]['key'];
 					$package['requiredVersion'] = $packageListLookup[$packageName]['requiredVersion'];
 					$package['upgradeVersion'] = $package['required'] != $package['requiredVersion'];
+					$package['licence'] = $packageListLookup[$packageName]['licence'];
+					$package['licenceUrl'] = $packageListLookup[$packageName]['licenceUrl'];
+					$package['requiredBy'] = $packageListLookup[$packageName]['requiredBy'];
 				} else {
 					$package['key'] = '';
 				}
