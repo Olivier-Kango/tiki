@@ -5,6 +5,8 @@
  * to language.php files.
  */
 
+echo "\nThis file is now deprecated, use php console.php translation:export instead\n\n";
+
 die("REMOVE THIS LINE TO USE THE SCRIPT.\n");
 
 if (! isset($argv[1])) {

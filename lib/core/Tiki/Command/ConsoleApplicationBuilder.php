@@ -196,6 +196,8 @@ class ConsoleApplicationBuilder
 				new UsersPasswordCommand,
 				new StatsCommand,
 				new MLTrainCommand,
+				new TranslationExportCommand,
+				new TranslationPercentageCommand,
 				],
 			],[
 			'condition'	=> 'checkIsOCRAvailable',

@@ -15,6 +15,7 @@
  * it will be updated.
  */
 
+echo "\nThis file is now deprecated, use php console.php translation:percentage instead\n\n";
 
 if (! isset($argv[1])) {
 	echo "\nUsage: php get_translation_percentage.php pathToTikiRootDir wikiPageName\n";
