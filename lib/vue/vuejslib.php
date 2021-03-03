@@ -285,6 +285,8 @@ var vm = new Vue({
 	 */
 	private function setFieldType(array &$field, string $insPrefix = 'ins_'): void
 	{
+		global $prefs;
+
 		switch ($field['type']) {
 			case 'f':    // datetime
 			case 'j':    // datepicker
@@ -311,12 +313,22 @@ var vm = new Vue({
 		}
 		$field['ins_id'] = $insPrefix . $field['fieldId'];
 
-		if ($field['type'] === 'r' && $field['options_map']['selectMultipleValues'] ||		// ItemLink
-			$field['type'] === 'w' && $field['options_map']['selectMultipleValues'] ||	// DynamicItemsList
-			$field['type'] === 'u' && $field['options_map']['multiple']) {				// UserSelector
+		if ($field['type'] === 'r' && $field['options_map']['selectMultipleValues'] ||	// ItemLink
+			$field['type'] === 'w' && $field['options_map']['selectMultipleValues']) {	// DynamicItemsList
 
 			$field['argumentType'] = 'Collection';
 			$field['ins_id'] = $field['ins_id'] . '[]';
+		}
+
+		if ($field['type'] === 'u' && $field['options_map']['multiple']) {  // UserSelector
+			// check if it will be using an autocomplete input
+			$groups = array_filter($field['options_map']['groupIds']);
+			$count = TikiLib::lib('user')->count_users_by_groupIds($groups);
+
+			if ($prefs['user_selector_threshold'] > $count) {
+				$field['argumentType'] = 'Collection';
+				$field['ins_id'] = $field['ins_id'] . '[]';
+			}
 		}
 	}
 

@@ -7748,6 +7748,25 @@ class UsersLib extends TikiLib
 		return count($resultcons);
 	}
 
+	/**
+	 * Lightweight count of users in an array of groups by id
+	 *
+	 * @param array $groupIds
+	 *
+	 * @return int
+	 */
+	public function count_users_by_groupIds (array $groupIds):int
+	{
+		if (array_filter($groupIds)) {
+			$groupstr = implode(',', $groupIds);
+			$query = "SELECT COUNT(DISTINCT `users_usergroups`.`userId`) FROM `users_usergroups`, `users_groups`
+				WHERE `users_usergroups`.`groupName` = `users_groups`.`groupName` AND `users_groups`.`id` IN ($groupstr)";
+		} else {
+			$query = "SELECT COUNT(*) FROM `users_users`";
+		}
+		return (int) $this->getOne($query);
+	}
+
 	function related_users($user, $max = 10, $type = 'wiki')
 	{
 		if (! isset($user) || empty($user)) {
