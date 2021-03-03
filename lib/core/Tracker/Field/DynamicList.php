@@ -458,6 +458,122 @@ $("input[name=ins_' . $filterFieldIdHere . '], select[name=ins_' . $filterFieldI
 		return $schema;
 	}
 
+	private function getItemIds()
+	{
+		$trklib = TikiLib::lib('trk');
+		$trackerId = (int) $this->getOption('trackerId');
+
+		$filterFieldIdHere = (int) $this->getOption('fieldIdHere');
+		$filterFieldIdThere = (int) $this->getOption('fieldIdThere');
+
+		$filterFieldHere = $this->getTrackerDefinition()->getField($filterFieldIdHere);
+		$filterFieldThere = $trklib->get_tracker_field($filterFieldIdThere);
+
+		$sortFieldIds = $this->getOption('sortField');
+		if (is_array($sortFieldIds)) {
+			$sortFieldIds = array_filter($sortFieldIds);
+		} else {
+			$sortFieldIds = [];
+		}
+		$status = $this->getOption('status', 'opc');
+		$tracker = Tracker_Definition::get($trackerId);
+
+
+
+		// note: if itemlink or dynamic item list is used, than the final value to compare with must be calculated based on the current itemid
+
+		$technique = 'value';
+
+		// not sure this is working
+		// r = item link
+		if ($tracker && $filterFieldThere && (! $filterFieldIdHere || $filterFieldThere['type'] === 'r' || $filterFieldThere['type'] === 'w')) {
+			if ($filterFieldThere['type'] === 'r' || $filterFieldThere['type'] === 'w') {
+				$technique = 'id';
+			}
+		}
+
+		// not sure this is working
+		// q = Autoincrement
+		if ($filterFieldHere['type'] == 'q' && isset($filterFieldHere['options_array'][3]) && $filterFieldHere['options_array'][3] == 'itemId') {
+			$technique = 'id';
+		}
+
+		if ($technique == 'id') {
+			$itemId = $this->getItemId();
+			if (! $itemId) {
+				$items = [];
+			} else {
+				$items = $trklib->get_items_list($trackerId, $filterFieldIdThere, $itemId, $status, false, $sortFieldIds);
+			}
+		} else {
+			// when this is an item link or dynamic item list field, localvalue contains the target itemId
+			$localValue = $this->getData($filterFieldIdHere);
+			if (! $localValue) {
+				// in some cases e.g. pretty tracker $this->getData($filterFieldIdHere) is not reliable as the info is not there
+				// Note: this fix only works if the itemId is passed via the template
+				$itemId = $this->getItemId();
+				$localValue = $trklib->get_item_value($trackerId, $itemId, $filterFieldIdHere);
+			}
+			if (! $filterFieldThere && $filterFieldHere && ( $filterFieldHere['type'] === 'r' || $filterFieldHere['type'] === 'w' ) && $localValue) {
+				// itemlink/dynamic item list field in this tracker pointing directly to an item in the other tracker
+				return [$localValue];
+			}
+			// r = item link - not sure this is working
+			if ($filterFieldHere['type'] == 'r' && isset($filterFieldHere['options_array'][0]) && isset($filterFieldHere['options_array'][1])) {
+				$localValue = $trklib->get_item_value($filterFieldHere['options_array'][0], $localValue, $filterFieldHere['options_array'][1]);
+			}
+
+			// w = dynamic item list - localvalue is the itemid of the target item. so rewrite.
+			if ($filterFieldHere['type'] == 'w') {
+				$localValue = $trklib->get_item_value($trackerId, $localValue, $filterFieldIdThere);
+			}
+			// u = user selector, might be mulitple users so need to find multiple values
+			if ($filterFieldHere['type'] == 'u' && ! empty($filterFieldHere['options_map']['multiple'])
+				&& $localValue
+			) {
+				if (! is_array($localValue)) {
+					$theUsers = explode(',', $localValue);
+				} else {
+					$theUsers = $localValue;
+				}
+				$items = [];
+				foreach ($theUsers as $theUser) {
+					$items = array_merge(
+						$items,
+						$trklib->get_items_list($trackerId, $filterFieldIdThere, $theUser, $status, false, $sortFieldIds)
+					);
+				}
+
+				return $items;
+			}
+			// e = category, might be mulitple categories so need to find multiple values
+			if ($filterFieldHere['type'] == 'e' && $localValue) {
+				if (! is_array($localValue)) {
+					$categories = explode(',', $localValue);
+				} else {
+					$categories = $localValue;
+				}
+				$items = [];
+				foreach ($categories as $category) {
+					$items = array_merge(
+						$items,
+						$trklib->get_items_list($trackerId, $filterFieldIdThere, $category, $status, true, $sortFieldIds)
+					);
+				}
+
+				return $items;
+			}
+			// Skip nulls
+			if ($localValue) {
+				$items = $trklib->get_items_list($trackerId, $filterFieldIdThere, $localValue, $status, false, $sortFieldIds);
+			} else {
+				$items = [];
+			}
+		}
+
+		return $items;
+	}
+
 	/**
 	 * Get value of displayfields from given array of itemIds
 	 * @param array $items
