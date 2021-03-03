@@ -392,7 +392,7 @@ class Tiki_Hm_User_Config extends Hm_Config {
 	 * @param string $key encryption key (not used)
 	 * @return void
 	 */
-	public function save($username, $key = null) {
+	public function save($username = null, $key = null) {
 		$this->shuffle();
 		$removed = $this->filter_servers();
 		$data = json_encode($this->config);
