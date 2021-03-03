@@ -27,15 +27,28 @@ class Reports_Send_EmailBuilder
 	public function emailBody($user_data, $report_preferences, $report_cache)
 	{
 		global $prefs;
-		include_once(__DIR__ . '/../../../smarty_tiki/modifier.username.php');
 
 		if (isset($report_cache[0])) {
 			$base_url = $report_cache[0]['data']['base_url'];
 		} else {
-			$base_url = "http://" . $prefs['cookie_domain'] . "/"; // TODO: better handling for https and such
+			if (! empty($prefs['fallbackBaseUrl'])) {
+				global $base_url;
+			} else {
+				if (! empty($prefs['cookie_domain']))  {
+					$base_url = "http://" . $prefs['cookie_domain'] . "/"; // TODO: better handling for https and such
+				} else if (! empty($prefs['sefurl_short_url_base_url']))  {
+					$base_url = $prefs['sefurl_short_url_base_url'];
+				} else if (! empty($prefs['connect_site_url']))  {
+					$base_url = $prefs['connect_site_url'];
+				} else {
+					$base_url = '';
+				}
+			}
 		}
 
+		/** @var \Smarty_Tiki $smarty */
 		$smarty = TikiLib::lib('smarty');
+		$smarty->loadPlugin('smarty_modifier_username');
 
 		$smarty->assign('report_preferences', $report_preferences);
 		$smarty->assign('report_user', ucfirst(smarty_modifier_username($user_data['login'])));
