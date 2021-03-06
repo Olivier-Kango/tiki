@@ -103,6 +103,10 @@
 			<a href="{service controller='h5p' action='embed' fileId=$file.id}">
 				{icon name='view' _menu_text=$menu_text _menu_icon=$menu_icon alt="{tr}Display{/tr}"}
 			</a>
+		{elseif $file.type eq 'application/mxgraph'}
+			<a href="tiki-editdiagram.php?fileId={$file.id}">
+				{icon name='edit' _menu_text=$menu_text _menu_icon=$menu_icon alt="{tr}Edit{/tr}"}
+			</a>
 		{/if}
 		{if $prefs.fgal_pdfjs_feature eq 'y' and $prefs.fgal_convert_documents_pdf eq 'y' and ($file.type|file_can_convert_to_pdf)}
 			<a href="tiki-display.php?fileId={$file.id}">
