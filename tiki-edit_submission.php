@@ -113,7 +113,7 @@ if (isset($_REQUEST['templateId']) && $_REQUEST['templateId'] > 0) {
 
 // If the submissionId is passed then get the submission data
 $parserlib = TikiLib::lib('parser');
-if (isset($_REQUEST['subId'])) {
+if (! empty($_REQUEST['subId'])) {
 	$article_data = $artlib->get_submission($_REQUEST['subId']);
 
 	$publishDate = $article_data['publishDate'];
@@ -161,14 +161,12 @@ if (! empty($_REQUEST['translationOf'])) {
 	$smarty->assign('translationOf', $translationOf);
 }
 
-if (isset($_REQUEST['subId'])) {
-	if ($_REQUEST['subId'] > 0) {
-		if (($tiki_p_edit_submission != 'y' and $article_data['author'] != $user) or $user == '') {
-			$smarty->assign('errortype', 401);
-			$smarty->assign('msg', tra('You do not have permission to edit submissions'));
-			$smarty->display('error.tpl');
-			die;
-		}
+if (! empty($_REQUEST['subId'])) {
+	if (($tiki_p_edit_submission != 'y' and $article_data['author'] != $user) or $user == '') {
+		$smarty->assign('errortype', 401);
+		$smarty->assign('msg', tra('You do not have permission to edit submissions'));
+		$smarty->display('error.tpl');
+		die;
 	}
 }
 
