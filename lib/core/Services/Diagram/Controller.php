@@ -52,7 +52,7 @@ class Services_Diagram_Controller
 				return false;
 			}
 
-			$rawXml = $file->data();
+			$rawXml = $file->getContents();
 		}
 
 		$diagramRoot = simplexml_load_string($rawXml);

@@ -70,7 +70,7 @@ class DiagramHelper
 				return false;
 			}
 
-			$rawXmlContent = $file->data();
+			$rawXmlContent = $file->getContents();
 		}
 
 		$diagramRoot = simplexml_load_string($rawXmlContent);
