@@ -190,5 +190,11 @@ function prefs_forum_list()
 			'default' => 'n',
 			'dependencies' => ['forum_moderator_notification'],
 		],
+		'forum_notifications_use_new_threads' => [
+			'name' => tr('New email thread for each topic'),
+			'description' => tr("If enabled each topic a forum will use it's own email thread, instead of all forum posts sharing the same one."),
+			'type' => 'flag',
+			'default' => 'y',
+		],
 	];
 }

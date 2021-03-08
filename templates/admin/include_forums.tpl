@@ -67,6 +67,7 @@
 				{preference name=forum_thread_style}
 				{preference name=forum_thread_sort_mode}
 				{preference name=feature_sefurl_title_forumthread}
+				{preference name=forum_notifications_use_new_threads}
 			</fieldset>
 			<fieldset>
 				<legend>{tr}Searches{/tr}</legend>
