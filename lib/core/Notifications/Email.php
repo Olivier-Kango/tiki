@@ -26,6 +26,7 @@ class Email
 	 */
 	public static function getEmailThreadHeaders($type, $commentId, $messageId = null)
 	{
+		global $prefs;
 
 		if ($type == 'blog') {
 			$type = 'blog post';
@@ -50,8 +51,12 @@ class Email
 
 		$hash = md5($comment['objectType'] . '.' . $comment['object']) . '@' . $_SERVER["SERVER_NAME"];
 
-		$headers['In-Reply-To'] = ! empty($parentInfo['Message-Id']) ? $parentInfo['Message-Id'] : null;
-		$headers['References'] = ! empty($parentInfo['References']) ? $parentInfo['References'] . ' ' . $headers['In-Reply-To'] : $hash;
+		if ($prefs['forum_notifications_use_new_threads'] === 'n') {
+			$headers['In-Reply-To'] = ! empty($parentInfo['Message-Id']) ? $parentInfo['Message-Id'] : null;
+			$headers['References'] = ! empty($parentInfo['References']) ? $parentInfo['References'] . ' ' . $headers['In-Reply-To'] : $hash;
+		} else {
+			$headers['In-Reply-To'] = $comment['in_reply_to'];
+		}
 
 		if (empty($headers['In-Reply-To'])) {
 			unset($headers['In-Reply-To']);
