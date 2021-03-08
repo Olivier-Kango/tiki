@@ -3150,76 +3150,76 @@ class TrackerLib extends TikiLib
 			);
 		}
 
-				$data = [
+		$data = [
 			'name' => $name,
 			'description' => $description,
 			'descriptionIsParsed' => $descriptionIsParsed,
 			'lastModif' => $this->now,
-				];
+		];
 
-				$logOption = 'Updated';
-				if ($trackerId) {
-					$finalEvent = 'tiki.tracker.update';
-					$conditions = ['trackerId' => (int) $trackerId];
-					if ($trackers->fetchCount($conditions)) {
-						$trackers->update($data, $conditions);
-					} else {
-						$data['trackerId'] = (int) $trackerId;
-						$data['items'] = 0;
-						$data['created'] = $this->now;
-						$trackers->insert($data);
-						$logOption = 'Created';
-					}
-				} else {
-					$finalEvent = 'tiki.tracker.create';
-					$data['created'] = $this->now;
-					$trackerId = $trackers->insert($data);
-				}
+		$logOption = 'Updated';
+		if ($trackerId) {
+			$finalEvent = 'tiki.tracker.update';
+			$conditions = ['trackerId' => (int) $trackerId];
+			if ($trackers->fetchCount($conditions)) {
+				$trackers->update($data, $conditions);
+			} else {
+				$data['trackerId'] = (int) $trackerId;
+				$data['items'] = 0;
+				$data['created'] = $this->now;
+				$trackers->insert($data);
+				$logOption = 'Created';
+			}
+		} else {
+			$finalEvent = 'tiki.tracker.create';
+			$data['created'] = $this->now;
+			$trackerId = $trackers->insert($data);
+		}
 
-				$wikiParsed = $descriptionIsParsed == 'y';
-				$wikilib = TikiLib::lib('wiki');
-				$wikilib->update_wikicontent_relations($description, 'tracker', (int)$trackerId, $wikiParsed);
-				$wikilib->update_wikicontent_links($description, 'tracker', (int)$trackerId, $wikiParsed);
+		$wikiParsed = $descriptionIsParsed == 'y';
+		$wikilib = TikiLib::lib('wiki');
+		$wikilib->update_wikicontent_relations($description, 'tracker', (int)$trackerId, $wikiParsed);
+		$wikilib->update_wikicontent_links($description, 'tracker', (int)$trackerId, $wikiParsed);
 
-				$optionTable = $this->options();
-				$optionTable->deleteMultiple(['trackerId' => (int) $trackerId]);
+		$optionTable = $this->options();
+		$optionTable->deleteMultiple(['trackerId' => (int) $trackerId]);
 
-				foreach ($options as $kopt => $opt) {
-					$this->replace_tracker_option((int) $trackerId, $kopt, $opt);
-				}
+		foreach ($options as $kopt => $opt) {
+			$this->replace_tracker_option((int) $trackerId, $kopt, $opt);
+		}
 
-				$definition = Tracker_Definition::get($trackerId);
-				$ratingId = $definition->getRateField();
+		$definition = Tracker_Definition::get($trackerId);
+		$ratingId = $definition->getRateField();
 
-				if (isset($options['useRatings']) && $options['useRatings'] == 'y') {
-					if (! $ratingId) {
-						$ratingId = 0;
-					}
+		if (isset($options['useRatings']) && $options['useRatings'] == 'y') {
+			if (! $ratingId) {
+				$ratingId = 0;
+			}
 
-					$ratingoptions = isset($options['ratingOptions']) ? $options['ratingOptions'] : '';
-					$showratings = isset($options['showRatings']) ? $options['showRatings'] : 'n';
-					$this->replace_tracker_field($trackerId, $ratingId, 'Rating', 's', '-', '-', $showratings, 'y', 'n', '-', 0, $ratingoptions);
-				}
-				$this->clear_tracker_cache($trackerId);
-				$this->update_tracker_summary(['trackerId' => $trackerId]);
+			$ratingoptions = isset($options['ratingOptions']) ? $options['ratingOptions'] : '';
+			$showratings = isset($options['showRatings']) ? $options['showRatings'] : 'n';
+			$this->replace_tracker_field($trackerId, $ratingId, 'Rating', 's', '-', '-', $showratings, 'y', 'n', '-', 0, $ratingoptions);
+		}
+		$this->clear_tracker_cache($trackerId);
+		$this->update_tracker_summary(['trackerId' => $trackerId]);
 
-				if ($logOption) {
-					$logslib = TikiLib::lib('logs');
-					$logslib->add_action(
-						$logOption,
-						$trackerId,
-						'tracker',
-						[
-						'name' => $data['name'],
-						]
-					);
-				}
+		if ($logOption) {
+			$logslib = TikiLib::lib('logs');
+			$logslib->add_action(
+				$logOption,
+				$trackerId,
+				'tracker',
+				[
+					'name' => $data['name'],
+				]
+			);
+		}
 
-				TikiLib::events()->trigger($finalEvent, [
-				'type' => 'tracker',
-				'object' => $trackerId,
-				'user' => $GLOBALS['user'],
-				]);
+		TikiLib::events()->trigger($finalEvent, [
+			'type' => 'tracker',
+			'object' => $trackerId,
+			'user' => $GLOBALS['user'],
+		]);
 
 		return $trackerId;
 	}
