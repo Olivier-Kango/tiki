@@ -46,28 +46,28 @@ class Tracker_Field_Wiki extends Tracker_Field_Text implements Tracker_Field_Exp
 					'customnamespace' => [
 						'name' => tr('Custom Namespace'),
 						'description' => tr('The custom namespace to use if the custom option is selected.'),
-						'filter' => 'alpha',
+						'filter' => 'text',
 					],
 					'syncwikipagename' => [
 						'name' => tr('Rename Wiki Page when changed in tracker'),
 						'description' => tr('Rename associated wiki page when the field that is used for Wiki Page Name is changed.'),
 						'default' => $tracker_wikirelation_synctitle,
 						'filter' => 'alpha',
-												'options' => [
-														'n' => tr('No'),
-														'y' => tr('Yes'),
-												],
-										],
+						'options' => [
+							'n' => tr('No'),
+							'y' => tr('Yes'),
+						],
+					],
 					'syncwikipagedelete' => [
-												'name' => tr('Delete Wiki Page when tracker item is deleted'),
-												'description' => tr('Delete associated wiki page when the tracker item is deleted.'),
-												'default' => 'n',
-												'filter' => 'alpha',
-												'options' => [
-														'n' => tr('No'),
-														'y' => tr('Yes'),
-												],
-										],
+						'name' => tr('Delete Wiki Page when tracker item is deleted'),
+						'description' => tr('Delete associated wiki page when the tracker item is deleted.'),
+						'default' => 'n',
+						'filter' => 'alpha',
+						'options' => [
+							'n' => tr('No'),
+							'y' => tr('Yes'),
+						],
+					],
 					'toolbars' => [
 						'name' => tr('Toolbars'),
 						'description' => tr('Enable the toolbars as syntax helpers.'),
