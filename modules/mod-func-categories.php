@@ -151,7 +151,7 @@ function module_categories($mod_reference, &$module_params)
 			$url = filter_out_sefurl('tiki-index.php?page=' . urlencode($cat['name']));
 		} elseif (isset($module_params['customURL'])) {
 			$url = str_replace("%catId%", $cat['categId'], $module_params['customURL']);
-			$url = str_replace("%name%", $cat['name'], $module_params['customURL']);
+			$url = str_replace("%name%", $cat['name'], $url);
 		} else {
 			$url = filter_out_sefurl('tiki-browse_categories.php?parentId=' . $cat['categId'], 'category', $cat['name'], ! empty($urlEnd)) . $urlEnd;
 		}
