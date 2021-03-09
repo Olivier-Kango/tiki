@@ -186,6 +186,18 @@ composer-lock:
     when: always
   allow_failure: false
 
+db-upgrade-22-mysql8:
+  <<: *template-tiki-schema-upgrade
+  variables:
+    DBFILE: ci_22.sql
+    DBVER: 22
+    IMAGE: mysql:8.0.4
+    ENGINE: InnoDB
+  services:
+    - name: $IMAGE
+      command: [ "--default-authentication-plugin=mysql_native_password", "--explicit-defaults-for-timestamp=off" ]
+      alias: mysql
+
 db-upgrade-22:
   <<: *template-tiki-schema-upgrade
   variables:
@@ -194,6 +206,18 @@ db-upgrade-22:
     IMAGE: mysql:5.6
     ENGINE: InnoDB
 
+db-upgrade-21-mysql8:
+  <<: *template-tiki-schema-upgrade
+  variables:
+    DBFILE: ci_21.sql
+    DBVER: 21
+    IMAGE: mysql:8.0.4
+    ENGINE: InnoDB
+  services:
+    - name: $IMAGE
+      command: [ "--default-authentication-plugin=mysql_native_password", "--explicit-defaults-for-timestamp=off" ]
+      alias: mysql
+
 db-upgrade-21:
   <<: *template-tiki-schema-upgrade
   variables:
@@ -201,6 +225,18 @@ db-upgrade-21:
     DBVER: 21
     IMAGE: mysql:5.6
     ENGINE: InnoDB
+
+db-upgrade-20-mysql8:
+  <<: *template-tiki-schema-upgrade
+  variables:
+    DBFILE: ci_20.sql
+    DBVER: 20
+    IMAGE: mysql:8.0.4
+    ENGINE: InnoDB
+  services:
+    - name: $IMAGE
+      command: [ "--default-authentication-plugin=mysql_native_password", "--explicit-defaults-for-timestamp=off" ]
+      alias: mysql
 
 db-upgrade-20:
   <<: *template-tiki-schema-upgrade
