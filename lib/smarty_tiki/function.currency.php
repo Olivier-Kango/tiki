@@ -24,7 +24,6 @@ function smarty_function_currency($params, $smarty)
 	}
 
 	$trk = TikiLib::lib('trk');
-	$smarty = TikiLib::lib('smarty');
 
 	if (is_numeric($params['date'])) {
 		$date = date('Y-m-d', $params['date']);
@@ -60,14 +59,65 @@ function smarty_function_currency($params, $smarty)
 		}
 	}
 
-	foreach ($params as $key => $val) {
-		$smarty->assign($key, $val);
+	// NOTE: php 7.4+ (including 8.0) has a serious memory leak issue (https://bugs.php.net/bug.php?id=79519 and https://bugs.php.net/bug.php?id=76982)
+	// which makes $smarty->fetch here leak a lot - e.g. indexing 50K tracker items requiring 5GB+ of RAM
+	// build the output inline here for now instead of fetching currency_output.tpl and switch to the tpl once the issue is resolved
+
+	$smarty->loadPlugin('smarty_modifier_money_format');
+	$id = uniqid();
+
+	$out = '<div style="display:inline" id="currency_output_'.$id.'" class="currency_output">';
+	if ($prepend) {
+		$out .= '<span class="formunit">'.smarty_modifier_escape($prepend).'</span>';
+	}
+	if (empty($locale)) {
+		$locale = 'en_US';
+	}
+	if ($sourceCurrency) {
+		$currency = $sourceCurrency;
+	} elseif (empty($defaultCurrency)) {
+		$currency = 'USD';
+	} else {
+		$currency = $defaultCurrency;
+	}
+	if (empty($symbol)) {
+		$part1a = '%(!#10n';
+		$part1b = '%(#10n';
+	} else {
+		$part1a = '%(!#10';
+		$part1b = '%(#10';
+	}
+	if ((isset($reloff) and $reloff > 0) and ($allSymbol != 1)) {
+		$format = $part1a.$symbol;
+		$out .= smarty_modifier_money_format($amount, $locale, $currency, $format, 0);
+	} else {
+		$format = $part1b.$symbol;
+		$out .= smarty_modifier_money_format($amount, $locale, $currency, $format, 1);
+	}
+	if ($append) {
+		$out .= '<span class="formunit">'.smarty_modifier_escape($append).'</span>';
+	}
+	$out .= '</div>';
+	if ($conversions) {
+		$out .= '
+		<div class="d-none currency_output_'.$id.'" style="position:absolute; z-index: 1000;">
+			<div class="modal-content">
+				<div class="modal-body">';
+		foreach ($conversions as $currency => $amount) {
+			if ((isset($reloff) and $reloff > 0) and ($allSymbol != 1)) {
+				$format = $part1a.$symbol;
+				$out .= smarty_modifier_money_format($amount, $locale, $currency, $format, 0);
+			} else {
+				$format = $part1b.$symbol;
+				$out .= smarty_modifier_money_format($amount, $locale, $currency, $format, 1);
+			}
+			$out .= '<br>';
+		}
+		$out .= '
+				</div>
+			</div>
+		</div>';
 	}
 
-	$smarty->assign('amount', $amount);
-	$smarty->assign('currency', $sourceCurrency);
-	$smarty->assign('conversions', $conversions);
-	$smarty->assign('id', uniqid());
-
-	return $smarty->fetch('currency_output.tpl');
+	return $out;
 }
