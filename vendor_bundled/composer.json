@@ -277,7 +277,7 @@
 			"Tiki\\Composer\\CleanVendorAfterVendorBundledMigration::clean",
 			"Tiki\\Composer\\PatchCypht::setup"
 		],
-		"test": "php ../lib/test/phpunit.php -c ../phpunit.xml.dist --colors=always"
+		"test": "php ../lib/test/phpunit.php -c phpunit.xml.dist --colors=always"
 	},
 	"repositories": [
 		{
