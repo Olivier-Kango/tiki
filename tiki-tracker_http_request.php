@@ -107,8 +107,17 @@ switch ($filterFieldHere['type']) {
 		break;
 }
 
+// Figure out if the remote list takes multiple values
+$filterFieldThereMultipleValues = false;
+if ($filterFieldThere['type'] == 'r') {
+	$filterFieldThereOptions = json_decode($filterFieldThere['options'], true);
+	if ($filterFieldThereOptions['selectMultipleValues'] == 1) {
+		$filterFieldThereMultipleValues = true;
+	}
+}
+
 // start main processing - $trackerIdThere is not used at all in get_items_list()
-$remoteItemIds = $trklib->get_items_list($trackerIdThere, $finalFilterFieldIdThere, $finalFilterValueHere, $statusThere);
+$remoteItemIds = $trklib->get_items_list($trackerIdThere, $finalFilterFieldIdThere, $finalFilterValueHere, $statusThere, $filterFieldThereMultipleValues);
 $listFieldThere = $trklib->get_tracker_field($listFieldIdThere);
 // special handling for itemList field. We would get always the same values on each iteration so we do it only one time.
 $itemListFirstRun = true;
