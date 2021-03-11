@@ -263,6 +263,10 @@ the section loop so that the vars are not replaced by nested pretty tracker exec
 			</form>
 			{/if}
 		{/if}
+	{else} {* There is a tpl file and it will only be processed for each record. If there is no record, we need to deal with the alternate message *}
+		{if $items|@count eq 0 && !$tsOn}
+			<div class="tracker_error">{tr}No records found{/tr}</div>
+		{/if}
 	{/if}
 
 
