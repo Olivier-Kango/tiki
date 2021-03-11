@@ -16,7 +16,7 @@ $inputConfiguration = [
 require_once('tiki-setup.php');
 $access->check_feature(['validateUsers','validateRegistration'], '', 'login', true);
 $isvalid = false;
-if (isset($_REQUEST["user"])) {
+if (isset($_REQUEST["user"]) && getenv('REQUEST_METHOD') != 'HEAD') {	// It seems outlook sends a HEAD request before the GET request. This getenv test ensures people are not told incorrectly the account has been already activated
 	if (isset($_REQUEST["pass"])) {
 		if (empty($_REQUEST['pass']) && $tiki_p_admin_users === 'y') {// case: user invalidated his account with wrong password- no email was sent - admin must reactivate
 			$userlib->change_user_waiting($_REQUEST['user'], null);
