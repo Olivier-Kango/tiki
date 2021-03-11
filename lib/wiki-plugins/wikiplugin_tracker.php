@@ -2038,7 +2038,7 @@ function wikiplugin_tracker($data, $params)
 		if (empty($tpl) && empty($wiki)) {
 			$back .= '<div class="wikiplugin_tracker">';
 			if (! empty($showstatus) && $showstatus == 'y') {
-				$back .= '<div class="alert alert-info">' . tra('Status') . $status_input . '</div>'; // <tr><td>'.tra('Status').'</td><td>'.$status_input.'</td></tr>
+				$back .= '<div class="form-group row tracker_input_status"><label class="col-md-3 col-form-label" for="ins_status">' . tra('Status') . '</label><div class="col-md-9 tracker_input_status">' . $status_input . '</div></div>'; // <tr><td>'.tra('Status').'</td><td>'.$status_input.'</td></tr>
 			}
 			if ($registration == 'y' && $prefs["user_register_prettytracker"] != 'y') {
 				$back .= $smarty->fetch('register-form.tpl');
