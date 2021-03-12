@@ -280,67 +280,71 @@ class UnifiedSearchLib
 
 			$tikilib->set_preference('unified_field_count', $index->getFieldCount());
 			$tikilib->set_preference('unified_identifier_fields', $index->getIdentifierFields());
-		} catch (Exception $e) {
-			Feedback::error(tr('The search index could not be rebuilt.') . '<br />' . $e->getMessage());
-		}
 
-		$stats = [];
-		$stats['default'] = $stat;
+			$stats = [];
+			$stats['default'] = $stat;
 
-		// Force destruction to clear locks
-		if ($indexer) {
-			$indexer->clearSources();
-			$indexer->log->info("Indexed");
-			foreach ($stats['default']['counts'] as $key => $val) {
-				$indexer->log->info("  $key: $val");
-			}
-			$indexer->log->info("  total tiki fields indexed: {$stats['default']['total tiki fields indexed']}");
+			// Force destruction to clear locks
+			if ($indexer) {
+				$indexer->clearSources();
+				$indexer->log->info("Indexed");
+				foreach ($stats['default']['counts'] as $key => $val) {
+					$indexer->log->info("  $key: $val");
+				}
+				$indexer->log->info("  total tiki fields indexed: {$stats['default']['total tiki fields indexed']}");
 			$indexer->log->info("  total fields used in the mysql search index: : {$stats['default']['total fields used in the mysql search index: ']}");
 
-			unset($indexer);
-		}
+				unset($indexer);
+			}
 
 		unset($index);
 
-		$oldIndex = null;
-		switch ($prefs['unified_engine']) {
-			case 'lucene':
-				// Current to -old
-				if (file_exists($index_location)) {
-					if (! rename($index_location, $swapName)) {
-						Feedback::error(tr('The active index could not be removed, probably due to a file permission issue.'));
+			$oldIndex = null;
+			switch ($prefs['unified_engine']) {
+				case 'lucene':
+					// Current to -old
+					if (file_exists($index_location)) {
+						if (! rename($index_location, $swapName)) {
+							Feedback::error(tr('The active index could not be removed, probably due to a file permission issue.'));
+						}
 					}
-				}
-				// -new to current
-				if (! rename($tempName, $index_location)) {
-					Feedback::error(tr('The new index could not be made active, probably due to a file permission issue.'));
-				}
+					// -new to current
+					if (! rename($tempName, $index_location)) {
+						Feedback::error(tr('The new index could not be made active, probably due to a file permission issue.'));
+					}
 
-				// Destroy old
-				$oldIndex = new Search_Lucene_Index($swapName);
-				break;
-			case 'elastic':
-				$oldIndex = null; // assignAlias will handle the clean-up
-				$tikilib->set_preference('unified_elastic_index_current', $indexName);
+					// Destroy old
+					$oldIndex = new Search_Lucene_Index($swapName);
+					break;
+				case 'elastic':
+					$oldIndex = null; // assignAlias will handle the clean-up
+					$tikilib->set_preference('unified_elastic_index_current', $indexName);
 
-				$connection->assignAlias($aliasName, $indexName);
+					$connection->assignAlias($aliasName, $indexName);
 
-				break;
-			case 'mysql':
-				// Obtain the old index and destroy it after permanently replacing it.
-				$oldIndex = $this->getIndex('data', false);
+					break;
+				case 'mysql':
+					// Obtain the old index and destroy it after permanently replacing it.
+					$oldIndex = $this->getIndex('data', false);
 
-				$tikilib->set_preference('unified_mysql_index_current', $indexName);
-				TikiDb::get()->releaseLock($indexName);
+					$tikilib->set_preference('unified_mysql_index_current', $indexName);
+					TikiDb::get()->releaseLock($indexName);
 
-				break;
-		}
-
-		if ($oldIndex) {
-			if (! $oldIndex->destroy()) {
-				Feedback::error(tr('Failed to delete the old index.'));
+					break;
 			}
+
+			if ($oldIndex) {
+				if (! $oldIndex->destroy()) {
+					Feedback::error(tr('Failed to delete the old index.'));
+				}
+			}
+		} catch (Exception $e) {
+			$stats['default']['error'] = true;
+			$stats['default']['error_message'] = tr('The search index could not be rebuilt.') . ' ' . $e->getMessage();
+			Feedback::error(tr('The search index could not be rebuilt.') . '<br />' . $e->getMessage());
 		}
+
+
 
 		if ($fallback) {
 			// Fallback index was rebuilt. Proceed with default index operations
@@ -1408,7 +1412,7 @@ class UnifiedSearchLib
 
 		$logName = 'Search_Indexer';
 
-		if(empty($engine)) {
+		if (empty($engine)) {
 			$engine = $prefs['unified_engine'];
 		}
 
