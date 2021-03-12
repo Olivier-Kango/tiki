@@ -129,7 +129,7 @@ class Search_Elastic_Connection
 			if (! empty($this->dirty[$index])) {
 				$this->refresh($index);
 			}
-			if (!$multisearch) {
+			if (! $multisearch) {
 				// The purpose of Multisearch is to reduce connections to ES and so skip unless ES have Multivalidate
 				$this->validate($index, $query);
 			}
@@ -308,9 +308,10 @@ class Search_Elastic_Connection
 		return false;
 	}
 
-	public function resolveAlias($aliasOrIndexName) {
+	public function resolveAlias($aliasOrIndexName)
+	{
 		try {
-			$current = $this->rawApi('/'.$aliasOrIndexName);
+			$current = $this->rawApi('/' . $aliasOrIndexName);
 		} catch (Search_Elastic_Exception $e) {
 			$current = [];
 		}
@@ -364,6 +365,8 @@ class Search_Elastic_Connection
 
 				Feedback::error($message);	// for browser and console output
 				trigger_error($message);	// gets logged while indexing
+
+				throw $e;
 			}
 		}
 	}
@@ -401,7 +404,7 @@ class Search_Elastic_Connection
 			$this->indices[$index] = true;
 		}
 
-		$result = $this->put("/$index/_mapping/".($this->getVersion() >= 7.0 ? '' : $this->mapping_type), json_encode($data));
+		$result = $this->put("/$index/_mapping/" . ($this->getVersion() >= 7.0 ? '' : $this->mapping_type), json_encode($data));
 
 		return $result;
 	}
@@ -447,7 +450,7 @@ class Search_Elastic_Connection
 		}
 
 		if ($this->getVersion() >= 5) {
-			$this->put("/$index/_mapping/".($this->getVersion() >= 7.0 ? '' : $this->mapping_type), json_encode([
+			$this->put("/$index/_mapping/" . ($this->getVersion() >= 7.0 ? '' : $this->mapping_type), json_encode([
 				'properties' => [
 					'query' => [
 						'type' => 'percolator'
@@ -526,8 +529,8 @@ class Search_Elastic_Connection
 
 		if ($response->isSuccess()) {
 			if (isset($content->items)) {
-				foreach($content->items as $item) {
-					foreach($item as $res) {
+				foreach ($content->items as $item) {
+					foreach ($item as $res) {
 						if (isset($res->error)) {
 							$message = $res->error;
 							if (is_object($message) && ! empty($message->reason)) {

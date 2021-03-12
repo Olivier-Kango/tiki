@@ -41,7 +41,6 @@ if (function_exists('pcntl_signal')) {
 
 // we autoload if autoloading is available, otherwise we continue so Tiki can throw its regular errors.
 if (include('vendor_bundled/vendor/autoload.php')) {
-
 	// Set MultiTiki status before Tiki is initialized
 	$input = new ArgvInput();
 	$_SERVER['TIKI_VIRTUAL'] = $input->getParameterOption(['--site']) ?: null;
@@ -86,13 +85,13 @@ if (DB_TIKI_SETUP) {
 		$permissionContext = new Perms_Context($asUser);
 	}
 }
-
+$exitCode = 0;
 $output = new ConsoleOutput();
 $console = new ConsoleApplicationBuilder();
 $console = $console->create();
 $console->setAutoExit(false);
 try {
-	$console->run(null, $output);
+	$exitCode = $console->run(null, $output);
 } catch (Throwable $e) {
 	$output->writeln('<comment>A error was encountered while running a command</comment>');
 	if ($e instanceof Exception) {
@@ -150,3 +149,5 @@ function custom_error_handler($number, $message, $file, $line) : void
 		error_log($message . ' on line ' . $line . ' of ' . $file, 0);
 	}
 }
+
+exit($exitCode);

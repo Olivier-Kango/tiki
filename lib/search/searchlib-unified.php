@@ -250,52 +250,56 @@ class UnifiedSearchLib
 
 			$tikilib->set_preference('unified_field_count', $indexDecorator->getFieldCount());
 			$tikilib->set_preference('unified_identifier_fields', $indexDecorator->getIdentifierFields());
+
+			$stats = [];
+			$stats['default'] = $stat;
+
+			// Force destruction to clear locks
+			if ($indexer) {
+				$indexer->clearSources();
+				$indexer->log->info("Indexed");
+				foreach ($stats['default']['counts'] as $key => $val) {
+					$indexer->log->info("  $key: $val");
+				}
+				$indexer->log->info("  total tiki fields indexed: {$stats['default']['total tiki fields indexed']}");
+				$indexer->log->info("  total fields used in the mysql search index: : {$stats['default'][$totalFieldsUsedIn]}");
+
+				unset($indexer);
+			}
+
+			unset($indexDecorator, $index);
+
+			$oldIndex = null;
+			switch ($prefs['unified_engine']) {
+				case 'elastic':
+					$oldIndex = null; // assignAlias will handle the clean-up
+					$tikilib->set_preference('unified_elastic_index_current', $indexName);
+
+					$connection->assignAlias($aliasName, $indexName);
+
+					break;
+				case 'mysql':
+					// Obtain the old index and destroy it after permanently replacing it.
+					$oldIndex = $this->getIndex('data', false);
+
+					$tikilib->set_preference('unified_mysql_index_current', $indexName);
+					TikiDb::get()->releaseLock($indexName);
+
+					break;
+			}
+
+			if ($oldIndex) {
+				if (! $oldIndex->destroy()) {
+					Feedback::error(tr('Failed to delete the old index.'));
+				}
+			}
 		} catch (Exception $e) {
+			$stats['default']['error'] = true;
+			$stats['default']['error_message'] = tr('The search index could not be rebuilt.') . ' ' . $e->getMessage();
 			Feedback::error(tr('The search index could not be rebuilt.') . '<br />' . $e->getMessage());
 		}
 
-		$stats = [];
-		$stats['default'] = $stat;
 
-		// Force destruction to clear locks
-		if ($indexer) {
-			$indexer->clearSources();
-			$indexer->log->info("Indexed");
-			foreach ($stats['default']['counts'] as $key => $val) {
-				$indexer->log->info("  $key: $val");
-			}
-			$indexer->log->info("  total tiki fields indexed: {$stats['default']['total tiki fields indexed']}");
-			$indexer->log->info("  total fields used in the mysql search index: : {$stats['default'][$totalFieldsUsedIn]}");
-
-			unset($indexer);
-		}
-
-		unset($indexDecorator, $index);
-
-		$oldIndex = null;
-		switch ($prefs['unified_engine']) {
-			case 'elastic':
-				$oldIndex = null; // assignAlias will handle the clean-up
-				$tikilib->set_preference('unified_elastic_index_current', $indexName);
-
-				$connection->assignAlias($aliasName, $indexName);
-
-				break;
-			case 'mysql':
-				// Obtain the old index and destroy it after permanently replacing it.
-				$oldIndex = $this->getIndex('data', false);
-
-				$tikilib->set_preference('unified_mysql_index_current', $indexName);
-				TikiDb::get()->releaseLock($indexName);
-
-				break;
-		}
-
-		if ($oldIndex) {
-			if (! $oldIndex->destroy()) {
-				Feedback::error(tr('Failed to delete the old index.'));
-			}
-		}
 
 		if ($fallback) {
 			// Fallback index was rebuilt. Proceed with default index operations
@@ -1408,7 +1412,7 @@ class UnifiedSearchLib
 
 		$logName = 'Search_Indexer';
 
-		if(empty($engine)) {
+		if (empty($engine)) {
 			$engine = $prefs['unified_engine'];
 		}
 
