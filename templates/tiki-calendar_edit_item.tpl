@@ -74,7 +74,7 @@
 							{$calendar.name|escape}<br>{tr}or{/tr}&nbsp;
 							<input type="submit" class="btn btn-default btn-sm" name="changeCal" value="{tr}Go to{/tr}">
 						{/if}
-						<select name="save[calendarId]" id="calid" onchange="needToConfirm=false;document.getElementById('editcalitem').submit();" class="form-control">
+						<select name="save[calendarId]" id="calid" class="form-control">
 							{foreach item=it key=itid from=$listcals}
 								{if $it.tiki_p_add_events eq 'y'}
 									{$calstyle = ''}
