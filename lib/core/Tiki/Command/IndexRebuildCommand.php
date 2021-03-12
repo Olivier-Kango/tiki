@@ -102,7 +102,6 @@ class IndexRebuildCommand extends Command
 		}
 
 		if ($input->getOption('progress') && ! $cron) {
-
 			$lastStats = \TikiLib::lib('tiki')->get_preference('unified_last_rebuild_stats', [], true);
 			if (isset($lastStats['default']['counts'])) {
 				if (isset($lastStats['default']['times']['total'])) {
@@ -155,18 +154,25 @@ class IndexRebuildCommand extends Command
 		$queries_after = $num_queries;
 
 		if ($result) {
+			$error = isset($result['default']['error']);
+			if ($error) {
+				$output->writeln("\n<error>" . $result['default']['error_message'] . "</error>");
+				\TikiLib::lib('logs')->add_action('rebuild indexes', 'Search index rebuild failed.', 'system');
+			}
 			if (! $cron) {
 				if ($progress) {
 					$output->writeln('');
 				}
-				$output->writeln("Indexed");
-				foreach ($result['default']['counts'] as $key => $val) {
-					$output->writeln("  $key: $val");
-				}
-				$output->writeln('Rebuilding index done');
+				if (! $error) {
+					$output->writeln("Indexed");
+					foreach ($result['default']['counts'] as $key => $val) {
+						$output->writeln("  $key: $val");
+					}
+					$output->writeln('Rebuilding index done');
 
-				list($engine, $version, $index) = $unifiedsearchlib->getCurrentEngineDetails();
-				$output->writeln('Index: ' . $index);
+					list($engine, $version, $index) = $unifiedsearchlib->getCurrentEngineDetails();
+					$output->writeln('Index: ' . $index);
+				}
 
 				if ($fallbackEngineDetails = \TikiLib::lib('unifiedsearch')->getFallbackEngineDetails()) {
 					list($engine, $engineName, $version, $index) = $fallbackEngineDetails;
@@ -191,11 +197,11 @@ class IndexRebuildCommand extends Command
 				$output->writeln('Memory peak usage after indexing: ' . FormatterHelper::formatMemory(memory_get_peak_usage()));
 				$output->writeln('Number of queries: ' . ($queries_after - $num_queries_before));
 			}
-			return(0);
+			return $error ? 1 : 0;
 		} else {
 			$output->writeln("\n<error>Search index rebuild failed. Last messages shown above.</error>");
 			\TikiLib::lib('logs')->add_action('rebuild indexes', 'Search index rebuild failed.', 'system');
-			return(1);
+			return (1);
 		}
 	}
 }
