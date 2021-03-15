@@ -112,9 +112,26 @@ if ($prefs['javascript_enabled'] == 'y') {	// we have JavaScript
 	}
 
 
-	/** Use custom.js in themes or options dir if there **/
+	/** Use custom.js in themes and options dir if there **/
 	$themelib = TikiLib::lib('theme');
-	//consider Admin Theme
+
+	// custom.js in the root of /themes/js
+	$custom_js = $themelib->get_theme_path('', '', 'custom.js');
+	if (! empty($custom_js)) {
+		$headerlib->add_jsfile($custom_js);
+	}
+
+	// custom.js in the current theme?
+	if (! empty($prefs['theme_admin']) && ($section === 'admin' || empty($section))) {		// use admin theme if set
+		$custom_js = $themelib->get_theme_path($prefs['theme_admin'], '', 'custom.js');
+	} else {
+		$custom_js = $themelib->get_theme_path($prefs['theme'], '', 'custom.js');
+	}
+	if (! empty($custom_js)) {
+		$headerlib->add_jsfile($custom_js);
+	}
+
+	// custom.js in the theme's current option?
 	if (! empty($prefs['theme_admin']) && ($section === 'admin' || empty($section))) {		// use admin theme if set
 		$custom_js = $themelib->get_theme_path($prefs['theme_admin'], $prefs['theme_option_admin'], 'custom.js');
 	} else {
@@ -122,12 +139,8 @@ if ($prefs['javascript_enabled'] == 'y') {	// we have JavaScript
 	}
 	if (! empty($custom_js)) {
 		$headerlib->add_jsfile($custom_js);
-	} else {															// there's no custom.js in the current theme or option
-		$custom_js = $themelib->get_theme_path('', '', 'custom.js');		// so use one in the root of /themes if there
-		if (! empty($custom_js)) {
-			$headerlib->add_jsfile($custom_js);
-		}
 	}
+
 
 
 
