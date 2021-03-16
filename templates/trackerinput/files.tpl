@@ -19,6 +19,10 @@
 					{elseif $field.options_map.displayMode eq 'img'}
 						<img src="tiki-download_file.php?fileId={$info.fileId|escape}&display&y=24" height="24">
 						{$info.name|escape}
+					{elseif $field.options_map.displayMode eq 'barelink'}
+						<a href="{$info.fileId|sefurl:'file'}">
+							{$info.name|escape}
+						</a>
 					{else}
 						{$info.fileId|sefurl:'file'|iconify:$info.filetype:$info.fileId:2}
 						<a href="{$info.fileId|sefurl:'file'}" data-box="box">
