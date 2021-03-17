@@ -654,7 +654,7 @@ class Tracker_Field_UserSelector extends Tracker_Field_Abstract implements Track
 							if ($v === '-Blank (no data)-') {
 								$sub->filterIdentifier('', $baseKey . '_text');
 							} elseif ($v) {
-								$sub->filterMultivalue((string) $v, $baseKey);
+								$sub->filterMultivalue('"'.((string) $v).'"', $baseKey);
 							}
 						}
 					}
