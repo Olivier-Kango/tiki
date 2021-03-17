@@ -165,7 +165,7 @@ class Tracker_Field_UserGroups extends Tracker_Field_Abstract implements Tracker
 				if ($value === '-Blank (no data)-') {
 					$query->filterIdentifier('', $baseKey . '_text');
 				} elseif ($value) {
-					$query->filterMultivalue((string) $value, $baseKey);
+					$query->filterMultivalue('"'.((string) $value).'"', $baseKey);
 				}
 			});
 
@@ -182,7 +182,7 @@ class Tracker_Field_UserGroups extends Tracker_Field_Abstract implements Tracker
 						if ($v === '-Blank (no data)-') {
 							$sub->filterIdentifier('', $baseKey . '_text');
 						} elseif ($v) {
-							$sub->filterMultivalue((string) $v, $baseKey);
+							$sub->filterMultivalue('"'.((string) $v).'"', $baseKey);
 						}
 					}
 				}
