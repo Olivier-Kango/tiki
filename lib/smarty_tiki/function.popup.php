@@ -114,8 +114,8 @@ function smarty_function_popup($params, $smarty)
 		}
 		$retval .= ' data-delay=\'' . $delay . '\'';
 	} else {
-		// add a short default close delay so you can hover over the popover
-		$retval .= ' data-delay=\'{"show":"0","hide":"100"}\'';
+		// add a short default open and close delay so they don't appear by accident and you can hover over the popover
+		$retval .= ' data-delay=\'{"show":"500","hide":"250"}\'';
 	}
 
 	return $retval;
