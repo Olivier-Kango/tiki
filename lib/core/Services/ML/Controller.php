@@ -81,6 +81,7 @@ class Services_ML_Controller
 				'LinearDiscriminantAnalysis',
 				'PrincipalComponentAnalysis',
 				'SparseRandomProjector',
+				'TruncatedSVD',
 			]
 		],
 		'Transformers: Feature Conversion' => [
@@ -89,6 +90,7 @@ class Services_ML_Controller
 				'IntervalDiscretizer',
 				'OneHotEncoder',
 				'NumericStringConverter',
+				'BooleanConverter',
 			]
 		],
 		'Transformers: Feature Selection' => [
@@ -96,6 +98,7 @@ class Services_ML_Controller
 			'classes' => [
 				'RecursiveFeatureEliminator',
 				'VarianceThresholdFilter',
+				'KBestFeatureSelector',
 			]
 		],
 		'Transformers: Image Transformers' => [
@@ -150,6 +153,7 @@ class Services_ML_Controller
 	const TOKENIZERS = [
 		'path' => 'Other\Tokenizers',
 		'classes' => [
+			'KSkipNGram',
 			'NGram',
 			'SkipGram',
 			'Whitespace',
@@ -164,6 +168,7 @@ class Services_ML_Controller
 			'BallTree',
 			'ITree',
 			'KDTree',
+			'VPTree',
 		]
 	];
 
@@ -180,6 +185,7 @@ class Services_ML_Controller
 			'Manhattan',
 			'Minkowski',
 			'SafeEuclidean',
+			'Levenshtein',
 		]
 	];
 
