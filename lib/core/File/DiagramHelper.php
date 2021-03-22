@@ -16,7 +16,7 @@ use WikiParser_PluginArgumentParser;
 
 class DiagramHelper
 {
-	const DRAW_IO_IMAGE_EXPORT_SERVICE_URL = 'https://exp.draw.io/ImageExport4/export';
+	const DRAW_IO_IMAGE_EXPORT_SERVICE_URL = 'https://convert.diagrams.net/node/export';
 	const DRAW_IO_IMAGE_FORMAT = 'png';
 	const FETCH_IMAGE_CONTENTS_TIMEOUT = 5;
 
