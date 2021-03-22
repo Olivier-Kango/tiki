@@ -76,7 +76,7 @@ function wikiplugin_diagram_info()
  */
 function wikiplugin_diagram($data, $params)
 {
-	global $tikilib, $cachelib, $user, $page, $wikiplugin_included_page, $tiki_p_upload_files;
+	global $tikilib, $cachelib, $user, $page, $wikiplugin_included_page, $prefs, $tiki_p_upload_files;
 
 	$compressXml = ($prefs['fgal_use_diagram_compression_by_default'] !== 'y') ? false : true;
 	$compressXmlParam = false;
