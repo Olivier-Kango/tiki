@@ -38,8 +38,9 @@ function highlight_group_values($partial)
 	$dropdown_listgroups = [];
 	$dropdown_listgroups['0'] = tra('None');
 
+	$funcSubstr = function_exists('mb_substr') ? 'mb_substr' : 'substr';
 	foreach ($listgroups['data'] as $onegroup) {
-		$dropdown_listgroups[$onegroup['groupName']] = substr($onegroup['groupName'], 0, 50);
+		$dropdown_listgroups[$onegroup['groupName']] = $funcSubstr($onegroup['groupName'], 0, 50);
 	}
 
 	return $dropdown_listgroups;
