@@ -217,7 +217,11 @@ function batchImportUsers()
 		}
 
 		if (!empty($u['default_group'])) {
-			$userlib->set_default_group($u['login'], $u['default_group']);
+			if ($userlib->group_exists($u['default_group'])) {
+				$userlib->set_default_group($u['login'], $u['default_group']);
+			} else {
+				$errors[] = tr('Unknown default group: "%0" for user "%1"', $u['default_group'], $u['login']);
+			}
 		}
 
 		if (!empty($u['realName'])) {
@@ -235,7 +239,7 @@ function batchImportUsers()
 	}
 
 	if (count($errors)) {
-		array_unique($errors);
+		$errors = array_unique($errors);
 		Feedback::error(['mes' => $errors]);
 	}
 }
