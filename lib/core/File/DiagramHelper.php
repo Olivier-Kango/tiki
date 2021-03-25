@@ -16,7 +16,6 @@ use WikiParser_PluginArgumentParser;
 
 class DiagramHelper
 {
-	const DRAW_IO_IMAGE_EXPORT_SERVICE_URL = 'https://convert.diagrams.net/node/export';
 	const DRAW_IO_IMAGE_FORMAT = 'png';
 	const FETCH_IMAGE_CONTENTS_TIMEOUT = 5;
 
@@ -39,7 +38,7 @@ class DiagramHelper
 			&& $prefs['fgal_use_casperjs_to_export_images'] === 'y'
 			&& class_exists('CasperJsInstaller\Installer')
 		) {
-			$content = self::getDigramAsImageUsingCasperJs('<mxfile>' . $diagramContent . '</mxfile>', $fileIdentifier);
+			$content = self::getDiagramAsImageUsingCasperJs('<mxfile>' . $diagramContent . '</mxfile>', $fileIdentifier);
 		}
 
 		if (! $content && $prefs['fgal_use_drawio_services_to_export_images'] === 'y') {
@@ -263,7 +262,7 @@ class DiagramHelper
 	 * @param $fileIdentifier
 	 * @return bool|string
 	 */
-	private static function getDigramAsImageUsingCasperJs($rawXml, $fileIdentifier)
+	private static function getDiagramAsImageUsingCasperJs($rawXml, $fileIdentifier)
 	{
 		$vendorPath = VendorHelper::getAvailableVendorPath('diagram', 'tikiwiki/diagram', false);
 		$casperBin = TIKI_PATH . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR . 'casperjs';
@@ -327,6 +326,15 @@ EOF;
 	 */
 	private static function getDiagramAsImageFromExternalService($rawXml)
 	{
+		global $prefs;
+		$logsLib = TikiLib::lib('logs');
+		$serviceEndpoint = $prefs['fgal_drawio_service_endpoint'];
+
+		if (empty($serviceEndpoint) || filter_var($serviceEndpoint, FILTER_VALIDATE_URL) === FALSE) {
+			$logsLib->add_log('diagram export', tr('Invalid value for fgal_drawio_service_endpoint preference. Not a valid URL.'));
+			return null;
+		}
+
 		$jsonPayload = json_encode([
 			'format'    => self::DRAW_IO_IMAGE_FORMAT,
 			'embedXml'  => '0',
@@ -336,7 +344,7 @@ EOF;
 
 		$curl = curl_init();
 		curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
-		curl_setopt($curl, CURLOPT_URL, self::DRAW_IO_IMAGE_EXPORT_SERVICE_URL);
+		curl_setopt($curl, CURLOPT_URL, $serviceEndpoint);
 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, self::FETCH_IMAGE_CONTENTS_TIMEOUT);
 		curl_setopt($curl, CURLOPT_POSTFIELDS, $jsonPayload);
@@ -345,6 +353,18 @@ EOF;
 			'Content-Length: ' . strlen($jsonPayload)
 		]);
 
-		return curl_exec($curl);
+		$contents = curl_exec($curl);
+		$statusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
+		// In case of bad requests or server issues (HTTP 4xx and 5xx)
+		if (empty($statusCode) || $statusCode >= 400) {
+			$logsLib->add_log(
+				'diagram export',
+				tr('Something went wrong when using the third party service to export the diagram. Status %0 received.', $statusCode)
+			);
+			return null;
+		}
+
+		return $contents;
 	}
 }

@@ -716,5 +716,11 @@ When the limit is reached, no more files can be uploaded. The user will see an e
 			'type' => 'flag',
 			'default' => 'n'
 		],
+		'fgal_drawio_service_endpoint' => [
+			'name' => tra('Draw.io service endpoint'),
+			'description' => tra('Configure the draw.io service endpoint to export the diagram images.'),
+			'type' => 'text',
+			'default' => 'https://convert.diagrams.net/node/export'
+		],
 	];
 }

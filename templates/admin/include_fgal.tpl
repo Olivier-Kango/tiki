@@ -141,6 +141,9 @@
 				{preference name='fgal_export_diagram_on_image_save'}
 				{preference name='fgal_use_casperjs_to_export_images'}
 				{preference name='fgal_use_drawio_services_to_export_images'}
+				<div class="adminoptionboxchild" id="fgal_use_drawio_services_to_export_images_childcontainer">
+					{preference name='fgal_drawio_service_endpoint'}
+				</div>
 			</fieldset>
 		{/tab}
 
