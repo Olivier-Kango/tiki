@@ -605,7 +605,8 @@ array_unshift(
 			'PHPSESSID' => 'alnum',
 			'PHPSESSIDCV' => 'striptags',
 			'tabs' => 'striptags',
-			'XDEBUG_SESSION' => 'digits'
+			'XDEBUG_SESSION' => 'digits',
+			'daconfirm' => 'alpha'
 		],
 		'staticKeyFiltersForArrays' => [
 			'cat_managed' => 'digits',
