@@ -709,6 +709,12 @@ When the limit is reached, no more files can be uploaded. The user will see an e
 			'type' => 'flag',
 			'default' => 'n'
 		],
+		'fgal_drawio_service_endpoint' => [
+			'name' => tra('Draw.io service endpoint'),
+			'description' => tra('Configure the draw.io service endpoint to export the diagram images.'),
+			'type' => 'text',
+			'default' => 'https://convert.diagrams.net/node/export'
+		],
 		'fgal_use_diagram_compression_by_default' => [
 			'name' => tra('Use diagram compression by default'),
 			'description' => tra('if this setting is enabled, diagram will use compression by default.'),
