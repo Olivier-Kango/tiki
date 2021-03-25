@@ -53,6 +53,7 @@
 		{preference name=categories_used_in_tpl}
 		{preference name=categories_add_class_to_body_tag}
 		{preference name=categories_cache_refresh_on_object_cat}
+		{preference name=category_custom_facets}
 
 		<div class="adminoptionboxchild" id="categories_used_in_tpl_childcontainer">
 			{preference name=feature_areas}
@@ -80,6 +81,8 @@
 		<div class="adminoptionboxchild category_i18n_sync_childcontainer blacklist whitelist required">
 			{preference name=category_i18n_synced}
 		</div>
+
+
 
 		{preference name=feature_wiki_mandatory_category}
 		{preference name=feature_blog_mandatory_category}
