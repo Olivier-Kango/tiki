@@ -22,6 +22,18 @@
 	</select>
 	<input type="text" name="list_input" value="" class="form-control" style="display:none">
 	<input type="submit" class="btn btn-primary btn-sm" title="{tr}Apply Changes{/tr}" value="{tr}Apply{/tr}">
+	{if isset($smarty.get.page) && isset($schedulers_amount)}
+		<div class="ml-3">
+			{if $schedulers_amount eq 0}
+				{assign var="console_command" value="list:execute {$smarty.get.page} <action>"|urlencode}
+				<a href="tiki-admin_schedulers.php?task=ConsoleCommandTask&console_command={$console_command}&add=1">{tr}Create scheduler{/tr}</a>
+			{elseif $schedulers_amount eq 1}
+				<a href="tiki-admin_schedulers.php?scheduler={$scheduler_id}">{tr}View scheduler{/tr}</a>
+			{else}
+				<a href="tiki-admin_schedulers.php">{tr}Multiple schedulers{/tr}</a>
+			{/if}
+		</div>
+	{/if}
 </form>
 {jq}
 $('.listexecute-select-all').removeClass('listexecute-select-all').on('click', function (e) {

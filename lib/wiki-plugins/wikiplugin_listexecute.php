@@ -5,6 +5,8 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
+use Tiki\Command\ListExecuteCommand;
+
 require_once 'lib/wiki/pluginslib.php';
 
 function wikiplugin_listexecute_info()
@@ -138,12 +140,45 @@ function wikiplugin_listexecute($data, $params)
 	if (! $customOutput) {
 		$plugin = new Search_Formatter_Plugin_SmartyTemplate('templates/wiki-plugins/wikiplugin_listexecute.tpl');
 		$plugin->setFields(['report_status' => null]);
-		$plugin->setData(
-			[
-				'actions' => $actions,
-				'iListExecute' => $iListExecute
-			]
-		);
+
+		$pluginData = [
+			'actions' => $actions,
+			'iListExecute' => $iListExecute
+		];
+
+		$page = $_GET['page'] ?? null;
+
+		if (! is_null($page)) {
+			$perms = Perms::get();
+
+			if ($perms->tiki_p_admin_schedulers) {
+				$schedulersAmount = 0;
+				$schedulerLib = TikiLib::lib('scheduler');
+				$schedulersTable = TikiDb::get()->table('tiki_scheduler');
+
+				$schedulers = $schedulerLib->get_scheduler(null, null, [
+					'params'    => $schedulersTable->contains(ListExecuteCommand::getDefaultName()),
+					'task'      => $schedulersTable->exactly('ConsoleCommandTask')
+				]);
+
+				foreach ($schedulers as $scheduler) {
+					$schedulerParameters = json_decode($scheduler['params']);
+					$arguments = explode(' ', $schedulerParameters->console_command);
+
+					// Page is always the first argument (after the command name)
+					$schedulerPage = $arguments[1] ?? null;
+
+					if ($schedulerPage == $page) {
+						$pluginData['scheduler_id'] = $scheduler['id'];
+						$schedulersAmount++;
+					}
+				}
+
+				$pluginData['schedulers_amount'] = $schedulersAmount;
+			}
+		}
+
+		$plugin->setData($pluginData);
 		$builder->setFormatterPlugin($plugin);
 		$formatter = $builder->getFormatter();
 		$formatter->setCounter($iListExecute);

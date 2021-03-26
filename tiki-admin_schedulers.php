@@ -123,6 +123,7 @@ $auto_query_args = [
 ];
 
 $schedLib = TikiLib::lib('scheduler');
+$schedulerTasks = Scheduler_Item::getAvailableTasks();
 
 if ((isset($_POST['new_scheduler']) || (isset($_POST['editscheduler']) && isset($_POST['scheduler']))) && $access->checkCsrf()) {
 	// If scheduler saved, it redirects to the schedulers page, cleaning the add/edit scheduler form.
@@ -185,12 +186,23 @@ if ((isset($_POST['new_scheduler']) || (isset($_POST['editscheduler']) && isset(
 		$cookietab = '2';
 	}
 } else {
-	$schedulerinfo['name'] = '';
-	$schedulerinfo['description'] = '';
-	$schedulerinfo['task'] = '';
-	$schedulerinfo['run_time'] = '';
-	$schedulerinfo['status'] = '';
-	$schedulerinfo['re_run'] = '';
+	$schedulerinfo['name'] = $_GET['name'] ?? '';
+	$schedulerinfo['description'] = $_GET['description'] ?? '';
+	$schedulerinfo['task'] = $_GET['task'] ?? '';
+	$schedulerinfo['run_time'] = $_GET['run_time'] ?? '';
+	$schedulerinfo['status'] = $_GET['status'] ?? '';
+	$schedulerinfo['re_run'] = $_GET['re_run'] ?? '';
+
+	$logger = new Tiki_Log('Schedulers', \Psr\Log\LogLevel::ERROR);
+
+	foreach ($schedulerTasks as $name => $schedulerTask) {
+		$className = 'Scheduler_Task_' . $name;
+		$class = new $className($logger);
+
+		foreach ($class->getParams() as $paramName => $param) {
+			$schedulerinfo['params'][$paramName] = $_GET[$paramName] ?? '';
+		}
+	}
 
 	$_REQUEST['scheduler'] = 0;
 }
@@ -217,7 +229,7 @@ $headerlib->add_jsfile('lib/jquery_tiki/tiki-schedulers.js');
 $smarty->assign('schedulerinfo', $schedulerinfo);
 $smarty->assign('schedulerruns', isset($schedulerRuns) ? $schedulerRuns : []);
 $smarty->assign('schedulerId', $_REQUEST['scheduler']);
-$smarty->assign('schedulerTasks', Scheduler_Item::getAvailableTasks());
+$smarty->assign('schedulerTasks', $schedulerTasks);
 $smarty->assign('selectedTask', '');
 $smarty->assign('schedulerStatus', [
 	Scheduler_Item::STATUS_ACTIVE => tra('Active'),
