@@ -365,12 +365,52 @@ class PdfGenerator
 			}
 
 			if (strip_tags(trim($pdfPage['pageContent']),"img,pdfinclude") != '') { //including external pdf
-				if(strpos($pdfPage['pageContent'],"<pdfinclude")){
+				if(strpos($pdfPage['pageContent'],"<pdfinclude")) {
 					//getting src
 					$breakPageContent=str_replace(array("<pdfpage>.","</pdfpage>","<pdfinclude src=","/>","\""),"",$pdfPage['pageContent']);
-					
+					$breakPageContent = trim($breakPageContent);
+
+					if ($prefs['auth_token_access'] === 'y') {
+						global $tikiroot;
+
+						if (preg_match('/dl(\d+)/', $breakPageContent, $parts)) {
+							$fileId = isset($parts[1]) ? $parts[1] : 0;
+							$params = ['fileId' => $fileId];
+							$tokenParam = '?TOKEN';
+						}
+						if (preg_match('/display(\d+)/', $breakPageContent, $parts)) {
+							$fileId = isset($parts[1]) ? $parts[1] : 0;
+							$params = ['fileId' => $fileId, 'display' => ''];
+							$tokenParam = '?TOKEN';
+						}
+						if (preg_match('/fileId=(\d+)/', $breakPageContent, $parts)) {
+							$fileId = isset($parts[1]) ? $parts[1] : 0;
+							$params = ['fileId' => $fileId];
+							$tokenParam = '&TOKEN';
+						}
+						if (preg_match('/fileId=(\d+)(.*)display/', $breakPageContent, $parts)) {
+							$fileId = isset($parts[1]) ? $parts[1] : 0;
+							$params = ['fileId' => $fileId, 'display' => ''];
+							$tokenParam = '&TOKEN';
+						}
+
+						if ($fileId > 0) {
+							$perms = Perms::get();
+							require_once 'lib/auth/tokens.php';
+							$tokenlib = AuthTokens::build($prefs);
+							$token = $tokenlib->createToken(
+								$tikiroot . 'tiki-download_file.php',
+								$params,
+								$perms->getGroups(),
+								['timeout' => 72000, 'hits' => 1]
+							);
+
+							$breakPageContent = htmlspecialchars_decode($breakPageContent) . $tokenParam . '=' . $token;
+						}
+					}
+
 					$tmpExtPDF="temp/tmp_".rand(0,999999999).".pdf";
-					file_put_contents($tmpExtPDF, fopen(trim($breakPageContent), 'r'));
+					file_put_contents($tmpExtPDF, fopen($breakPageContent, 'r'));
 					chmod($tmpExtPDF, 0755);
 					$finfo = finfo_open(FILEINFO_MIME_TYPE); //recheck if its valid pdf file
 					if(finfo_file($finfo, $tmpExtPDF) === 'application/pdf') {
@@ -379,10 +419,13 @@ class PdfGenerator
 								$tmpExtPDF
 							); //temp file name
 							for ($i = 1; $i <= $pagecount; $i++) {
-								$mpdf->SetHTMLHeader();
-								$mpdf->AddPage();
-								$mpdf->SetHTMLFooter();
 								$tplId = $mpdf->importPage($i);
+								$size = $mpdf->getTemplateSize($tplId);
+								$orientation = isset($size['orientation']) ? $size['orientation'] : '';
+
+								$mpdf->SetHTMLHeader();
+								$mpdf->AddPage($orientation);
+								$mpdf->SetHTMLFooter();
 								$mpdf->UseTemplate($tplId);
 							}
 						}
