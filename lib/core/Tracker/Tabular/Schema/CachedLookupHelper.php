@@ -46,6 +46,12 @@ class CachedLookupHelper
 			// loaded after attempting to load a fixed amount.
 			$this->cache = call_user_func($this->init, $this->baseCount);
 			$this->enableLookup = $this->enableLookup && count($this->cache) >= $this->baseCount;
+			if (! $this->enableLookup) {
+				// if there are duplicates on the field being looked fetchMap removes them, so double check to see it there might be more
+				if (count(call_user_func($this->init, $this->baseCount * 2))) {
+					$this->enableLookup = true;
+				}
+			}
 			$this->init = null;
 		}
 
