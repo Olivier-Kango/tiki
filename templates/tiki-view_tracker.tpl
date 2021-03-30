@@ -331,6 +331,7 @@
 									{/if}
 								</select>
 								<span class="input-group-append">
+									{ticket}
 									<input type="hidden" name="trackerId" value="{$trackerId}">
 									<input type="submit" class="btn btn-secondary" name="act" value="{tr}OK{/tr}">
 								</span>
