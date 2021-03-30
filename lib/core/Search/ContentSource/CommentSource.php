@@ -75,6 +75,23 @@ class Search_ContentSource_CommentSource implements Search_ContentSource_Interfa
 			'url' => $typeFactory->identifier($url),
 		];
 
+		if ($comment['objectType'] == 'trackeritem') {
+			$item = TikiLib::lib('trk')->get_tracker_item($comment['object']);
+			if (! empty($item)) {
+				$itemObject = Tracker_Item::fromInfo($item);
+				if (! empty($itemObject) && $itemObject->getDefinition()) {
+					$specialUsers = $itemObject->getSpecialPermissionUsers($comment['object'], 'View');
+					$ownerGroup = $itemObject->getOwnerGroup();
+					$data = array_merge($data, [
+						'_extra_users' => $specialUsers,
+						'_permission_accessor' => $itemObject->getPerms(),
+						'_extra_groups' => $ownerGroup ? [$ownerGroup] : null,
+					]);
+				}
+				$data['tracker_id'] = $typeFactory->identifier($item['tracker_id']);
+			}
+		}
+
 		return $data;
 	}
 
