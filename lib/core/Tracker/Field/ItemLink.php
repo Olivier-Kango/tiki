@@ -519,7 +519,7 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
 		$item = $this->getValue();
 		$label = $this->renderInnerOutput($context);
 
-		if ($item && ! is_array($item) && $context['list_mode'] !== 'csv' && $this->getOption('fieldId')) {
+		if ($item && ! is_array($item) && ( ! isset($context['list_mode']) || $context['list_mode'] !== 'csv') && $this->getOption('fieldId')) {
 			$smarty->loadPlugin('smarty_function_object_link');
 
 			if ($this->getOption('linkPage')) {
@@ -741,7 +741,7 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
 						$parts,
 						$status,
 						' ',
-						$context['list_mode'],
+						$context['list_mode']??'',
 						! $this->getOption('linkToItem'),
 						$this->getOption('displayFieldsListFormat'),
 						$item
