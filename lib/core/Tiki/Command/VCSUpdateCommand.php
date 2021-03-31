@@ -96,6 +96,12 @@ class VCSUpdateCommand extends Command
 				'g',
 				InputOption::VALUE_REQUIRED,
 				'User group to run setup.sh with (for file permissions setting).'
+			)
+			->addOption(
+				'no-https',
+				null,
+				InputOption::VALUE_NONE,
+				'Run composer without https.'
 			);
 	}
 
@@ -244,6 +250,34 @@ class VCSUpdateCommand extends Command
 		return $this->execCommand($command);
 	}
 
+	/**
+	 * Execute revert composer http mode
+	 *
+	 * @return null
+	 */
+	protected function revertComposerHttp()
+	{
+		global $tikipath;
+		$httpModeFile = $tikipath . 'doc/devtools/composer_http_mode.php';
+		if (file_exists($httpModeFile)) {
+			$this->execCommand("php $httpModeFile revert 2>&1");
+		}
+	}
+
+	/**
+	 * Execute composer http mode
+	 *
+	 * @return null
+	 */
+	protected function executeComposerHttp()
+	{
+		global $tikipath;
+		$httpModeFile = $tikipath . 'doc/devtools/composer_http_mode.php';
+		if (file_exists($httpModeFile)) {
+			$this->execCommand("php $httpModeFile execute 2>&1");
+		}
+	}
+
 	protected function execute(InputInterface $input, OutputInterface $output)
 	{
 		$logger = $this->logger;
@@ -255,6 +289,7 @@ class VCSUpdateCommand extends Command
 		$conflict = $input->getOption('conflict');
 		$noDb = $input->getOption('no-db');
 		$lag = $input->getOption('lag');
+		$noHttps = $input->getOption('no-https');
 
 		if (is_dir('.git')) {
 			$isGit = true;
@@ -345,6 +380,13 @@ class VCSUpdateCommand extends Command
 			}
 		}
 
+		global $tikipath;
+		$httpModeFile = $tikipath . 'doc/devtools/composer_http_mode.php';
+		if ($noHttps && ! file_exists($httpModeFile)) {
+			$logger->error('composer_http_mode.php file not found.');
+			return 1;
+		}
+
 		$progress = new ProgressBar($output, $max);
 		if ($output->getVerbosity() >= OutputInterface::VERBOSITY_VERBOSE) {
 			$progress->setOverwrite(false);
@@ -362,6 +404,10 @@ class VCSUpdateCommand extends Command
 			$startRev = $this->getSvnRevision($output);
 		}
 
+		if ($noHttps) {
+			$this->revertComposerHttp();
+		}
+
 		// Set this before, so if 'abort' is used, it can be changed to a valid option later
 		// start svn conflict checks
 		if ($isSvn && $conflict === 'abort') {
@@ -375,6 +421,11 @@ class VCSUpdateCommand extends Command
 				if (! $noDb) {
 					$logslib->add_action($action, "Working copy currency conflicted. Update Aborted. r$startRev", 'system');
 				}
+				if ($noHttps) {
+					// Revert composer https changes
+					$this->executeComposerHttp();
+				}
+
 				$progress->advance();
 				die("\n");
 			}
@@ -397,6 +448,10 @@ class VCSUpdateCommand extends Command
 					if (! $noDb) {
 						$logslib->add_action($action, "Preexisting local conflicts exist. Update Aborted. r$startRev", 'system');
 					}
+					if ($noHttps) {
+						// Revert composer https changes
+						$this->executeComposerHttp();
+					}
 					$progress->advance();
 					die("\n"); // If custom mixed revision merges were made with local changes, this could happen.... (very unlikely)
 				}
@@ -410,6 +465,10 @@ class VCSUpdateCommand extends Command
 				}
 				if (! $noDb) {
 					$logslib->add_action($action, "Conflicts exist between working copy and repository. Update Aborted. r$startRev", 'system');
+				}
+				if ($noHttps) {
+					// Revert composer https changes
+					$this->executeComposerHttp();
 				}
 				$progress->advance();
 				die("\n");
@@ -434,6 +493,10 @@ class VCSUpdateCommand extends Command
 				}
 				if (! $noDb) {
 					$logslib->add_action($action, "Working copy currency conflicted. Update Aborted. $startRev", 'system');
+				}
+				if ($noHttps) {
+					// Revert composer https changes
+					$this->executeComposerHttp();
 				}
 				$progress->advance();
 				die("\n");
@@ -483,8 +546,11 @@ class VCSUpdateCommand extends Command
 
 		$composerHome = '';
 		if (! getenv('COMPOSER_HOME')) {
-			global $tikipath;
 			$composerHome = sprintf('COMPOSER_HOME="%s"', $tikipath . ComposerCli::COMPOSER_HOME);
+		}
+
+		if ($noHttps) {
+			$this->executeComposerHttp();
 		}
 
 		$shellCom = sprintf("%s sh setup.sh %s -n fix", $composerHome, $setupParams);
