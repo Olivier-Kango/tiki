@@ -3827,13 +3827,21 @@ class TrackerLib extends TikiLib
 		$query = "select tif.`value` from `tiki_tracker_item_fields` tif, `tiki_tracker_items` i, `tiki_tracker_fields` tf where i.`itemId`=? and i.`itemId`=tif.`itemId` and tf.`fieldId`=tif.`fieldId` and tf.`isMain`=? ORDER BY tf.`position`";
 		$result = $this->getOne($query, [ (int) $itemId, "y"]);
 
+		if (! $trackerId) {
+			$trackerId = (int) $this->table('tiki_tracker_items')->fetchOne('trackerId', ['itemId' => $itemId]);
+		}
 		$main_field_type = $this->get_main_field_type($trackerId);
 
-		if (in_array($main_field_type, ['r','q', 'p'])) {	// for ItemLink, AutoIncrement and UserPref fields use the proper output method
+		// for ItemLink, AutoIncrement, UserPref and Category fields use the proper output method
+		if (in_array($main_field_type, ['r','q', 'p', 'e'])) {
 			$definition = Tracker_Definition::get($trackerId);
 			$field = $definition->getField($this->get_main_field($trackerId));
 			$item = $this->get_tracker_item($itemId);
 			$handler = $this->get_field_handler($field, $item);
+			// when called from \ObjectLib::get_title Category fields need to have getFieldData run before the category name can be rendered
+			$field = array_merge($field, $handler->getFieldData());
+			$handler = $this->get_field_handler($field, $item);
+
 			$result = $handler->renderOutput(['list_mode' => 'csv']);
 		}
 
