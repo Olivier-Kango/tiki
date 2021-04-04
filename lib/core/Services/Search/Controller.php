@@ -165,7 +165,14 @@ class Services_Search_Controller
 							if ($item['object_type'] == 'trackerfield') {
 								return $item[$key] . ' (Tracker-' . $item['tracker_id'] . ', Field-' . $item['object_id'] . ')';
 							} else {
-								return $item[$key];
+								$value = $item[$key];
+								if (is_array($value)) {
+									$value = $item[$key . "_paths"] ??
+										$item[$key . "_names"] ??
+										$item[$key . "_text"] ??
+										implode(',', $item[$key]);
+								}
+								return $value;
 							}
 						} elseif ($format == '{title}') {
 							return tr('empty');
