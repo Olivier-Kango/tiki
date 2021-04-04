@@ -218,6 +218,7 @@
 			<fieldset id="Menus">
 				<legend>{tr}Menus{/tr}</legend>
 				<div class="adminoptionbox">
+					{preference name=jquery_smartmenus_enable}
 					{preference name=feature_cssmenus}
 					{preference name=feature_jquery_superfish}
 					{preference name=feature_userlevels}

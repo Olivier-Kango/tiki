@@ -611,6 +611,8 @@ function prefs_feature_list($partial = false)
 			'help' => 'Menus',
 			'type' => 'flag',
 			'default' => 'y',
+			'tags' => ['deprecated'],
+			'warning' => tra('This feature will be removed after Tiki23, use Smart Menus instead'),
 		],
 
 		'feature_shadowbox' => [
@@ -1982,13 +1984,14 @@ function prefs_feature_list($partial = false)
 			'default' => 'y',	// autocomplete on pages in QuickEdit (more coming soon)
 		],
 
-		// Why would this be disabled? See feature_cssmenus. Chealer 2017-06-04
 		'feature_jquery_superfish' => [
 			'name' => tra('Superfish'),
 			'description' => tra('Adds animation effects to CSS "Suckerfish" menus.'),
 			'type' => 'flag',
 			'help' => 'JQuery#Superfish',
 			'default' => 'n',		// Effects on CSS (Suckerfish) menus
+			'tags' => ['deprecated'],
+			'warning' => tra('This feature will be removed after Tiki23, use Smart Menus instead'),
 		],
 
 		'feature_jquery_reflection' => [
