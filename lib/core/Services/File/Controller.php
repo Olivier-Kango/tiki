@@ -68,19 +68,24 @@ class Services_File_Controller
 			}
 		}
 
-		return [
-			'title' => tr('File Upload'),
-			'galleryId' => $gal_info['galleryId'],
-			'limit' => abs($input->limit->int()),
-			'typeFilter' => $input->type->text(),
-			'uploadInModal' => $input->uploadInModal->int(),
-			'files' => $this->getFilesInfo((array) $input->file->int()),
-			'image_max_size_x' => $input->image_max_size_x->text(),
-			'image_max_size_y' => $input->image_max_size_y->text(),
+		$return = [
+			'galleryId'             => $gal_info['galleryId'],
+			'limit'                 => abs($input->limit->int()),
+			'typeFilter'            => $input->type->text(),
+			'uploadInModal'         => $input->uploadInModal->int(),
+			'files'                 => $this->getFilesInfo((array)$input->file->int()),
+			'image_max_size_x'      => $input->image_max_size_x->text(),
+			'image_max_size_y'      => $input->image_max_size_y->text(),
 			'addDecriptionOnUpload' => $input->addDecriptionOnUpload->int(),
-			'admin_trackers' => $perms->admin_trackers,
-			'requireTitle' => $input->requireTitle->text(),
+			'admin_trackers'        => $perms->admin_trackers,
+			'requireTitle'          => $input->requireTitle->text(),
 		];
+
+		if ($input->uploadInModal->int()) {
+			$return['title'] = tr('File Upload');
+		}
+
+		return $return;
 	}
 
 	function action_upload($input)
