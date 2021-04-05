@@ -13,7 +13,7 @@
 			<input type="text" name="theme" value="{$theme}" class="form-control" readonly>
 			<small class="form-text">CSS {tr}file{/tr}: {$file}</small>
 			<div class="input-group">
-				<input type="submit" class="btn btn-secondary btn-sm" name="save" value="{tr}Save{/tr}">
+				<input type="submit" class="btn btn-primary btn-sm" name="save" value="{tr}Save{/tr}">
 				<input type="submit" class="btn btn-secondary btn-sm" name="save_and_view" value="{tr}Save{/tr} &amp; {tr}View{/tr}">
 				{button href="tiki-edit_css.php?theme=$theme" _class="btn-sm" _text="{tr}Cancel{/tr}"}
 			</div>
@@ -32,7 +32,7 @@
 	{else}
 		{if $try_active}
 			{remarksbox type="tip" title="{tr}Currently trying{/tr}: {$try_theme}{if $try_theme_option}/{$try_theme_option}{/if}" close="n"}
-				<input type="submit" class="btn btn-secondary btn-sm" name="cancel_try" value="{tr}Cancel{/tr}">
+				<input type="submit" class="btn btn-link btn-sm" name="cancel_try" value="{tr}Cancel{/tr}">
 			{/remarksbox}
 		{/if}
 		<div class="form-group row clearfix">

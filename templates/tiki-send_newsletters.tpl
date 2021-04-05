@@ -351,7 +351,7 @@
 							type="submit"
 							name="save"
 							value="{tr}Send Newsletter{/tr}"
-							class="wikiaction tips btn btn-secondary"
+							class="wikiaction tips btn btn-primary"
 							title="{tr}Send Newsletters{/tr}|{tr}Save any changes and send to all subscribers.{/tr}"
 							onclick="needToConfirm=false"
 						>

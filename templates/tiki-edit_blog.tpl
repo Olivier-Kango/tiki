@@ -187,6 +187,6 @@
 		<input type="submit" class="wikiaction btn btn-primary" name="preview" value="{tr}Heading preview{/tr}">
 	{/if}
 	<div class="form-group text-center">
-		<input type="submit" class="wikiaction btn btn-secondary" name="save" value="{tr}Save{/tr}">
+		<input type="submit" class="wikiaction btn btn-primary" name="save" value="{tr}Save{/tr}">
 	</div>
 </form>

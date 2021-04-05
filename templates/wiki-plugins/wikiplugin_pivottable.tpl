@@ -114,7 +114,7 @@
 	</div>
 	{if $pivottable.showControls}
 		<div id="pivotControls_{$pivottable.id}" style="display:none;position:relative;">
-			<input type="button" id="pivotEditBtn_{$pivottable.id}" value="{tr}Edit Pivot Table{/tr}" class="btn btn-secondary ui-button ui-corner-all ui-widget" />
+			<input type="button" id="pivotEditBtn_{$pivottable.id}" value="{tr}Edit Pivot Table{/tr}" class="btn btn-primary ui-button ui-corner-all ui-widget" />
 		</div>
 	{/if}
 	<img id="png_container_{$pivottable.id}" style="display:none">

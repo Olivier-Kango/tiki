@@ -136,7 +136,7 @@ var account='';
 			{/if}
 			<input
 				type="submit"
-				class="btn btn-secondary"
+				class="btn btn-primary"
 				name="bookstack"
 				id="bookstack"
 				value="{tr}Book{/tr}"

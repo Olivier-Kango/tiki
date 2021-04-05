@@ -1,7 +1,7 @@
 {* $Id$ *}
 <div class="actions">
 	<input type="hidden" name="no_bl" value="y">
-	<input type="submit" class="wikiaction btn btn-info previewBtn" title="{tr}Preview your changes.{/tr}" name="preview" value="{tr}Preview{/tr}" onclick="needToConfirm=false;">
+	<input type="submit" class="wikiaction btn btn-secondary previewBtn" title="{tr}Preview your changes.{/tr}" name="preview" value="{tr}Preview{/tr}" onclick="needToConfirm=false;">
 	{if $page|lower neq 'sandbox' or $tiki_p_admin eq 'y'}
 		{if ! isset($page_badchars_display) or $prefs.wiki_badchar_prevent neq 'y'}
 			{if $translation_mode eq 'y'}
@@ -17,7 +17,7 @@
 			{/if}
 		{/if}
 		{if $page|lower ne 'sandbox'}
-			<input type="submit" class="wikiaction btn btn-secondary" title="{tr}Cancel the edit (changes will be lost).{/tr}" name="cancel_edit" value="{tr}Cancel Edit{/tr}" onclick="needToConfirm=false;">
+			<input type="submit" class="wikiaction btn btn-link" title="{tr}Cancel the edit (changes will be lost).{/tr}" name="cancel_edit" value="{tr}Cancel Edit{/tr}" onclick="needToConfirm=false;">
 		{/if}
 	{/if}
 </div>

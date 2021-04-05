@@ -169,7 +169,7 @@
 			{/if}
 			<div class="form-group row">
 				<div class="col-sm-9 offset-sm-3">
-					<input type="submit" class="btn btn-secondary" name="save" value="{tr}Save{/tr}">
+					<input type="submit" class="btn btn-primary" name="save" value="{tr}Save{/tr}">
 				</div>
 			</div>
 		</form>

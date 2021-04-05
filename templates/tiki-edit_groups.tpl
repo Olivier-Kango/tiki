@@ -127,7 +127,7 @@
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 					<button
 							type="submit"
-							class="btn btn-secondary"
+							class="btn btn-primary"
 					>
 						{tr}Save{/tr}
 					</button>

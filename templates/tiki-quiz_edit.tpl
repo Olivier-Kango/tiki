@@ -253,7 +253,7 @@
 				</td>
 				<td>
 					<input type="submit" class="wikiaction btn btn-primary" name="save" value="{tr}Save{/tr}">
-					<a class="btn btn-secondary" href="tiki-index.php?page={$page|escape:"url"}">{tr}Cancel Edit{/tr}</a>
+					<a class="btn btn-link" href="tiki-index.php?page={$page|escape:"url"}">{tr}Cancel Edit{/tr}</a>
 				</td>
 			</tr>
 		</table>

@@ -85,7 +85,7 @@
 						{/if}
 						<div class="submit">
 							<input type="hidden" name="version" value="{$version|escape}"/>
-							<input type="submit" class="comment-post btn btn-secondary" value="{tr}Post{/tr}"/>
+							<input type="submit" class="comment-post btn btn-primary" value="{tr}Post{/tr}"/>
 						</div>
 					{/if}
 				</div>

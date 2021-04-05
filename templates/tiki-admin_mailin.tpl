@@ -95,7 +95,7 @@
 			</div>
 		</div>
 		<div class="submit offset-md-3 col-md-9">
-			<input type="submit" name="set_auto" value="{tr}Set{/tr}" class="btn btn-secondary">
+			<input type="submit" name="set_auto" value="{tr}Set{/tr}" class="btn btn-primary">
 			<a class="btn btn-link" href="tiki-mailin.php">{tr}Check Manually Now{/tr}</a>
 		</div>
 	</form>

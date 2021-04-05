@@ -139,7 +139,7 @@
 				{if isset($ruleinfo.id) && $ruleinfo.id && !$ruleinfo.error}
 					<input type="hidden" name="rule" value="{$ruleinfo.id|escape}">
 					<input type="hidden" name="editrule" value="1">
-					<input type="submit" class="btn btn-secondary" name="save" value="{tr}Save{/tr}">
+					<input type="submit" class="btn btn-primary" name="save" value="{tr}Save{/tr}">
 				{else}
 					<input type="submit" class="btn btn-secondary" name="new_rule" value="{tr}Add{/tr}">
 				{/if}

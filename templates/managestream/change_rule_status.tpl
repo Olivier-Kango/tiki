@@ -15,7 +15,7 @@
 		<div class="submit">
 			{ticket mode='confirm'}
 			<input type="hidden" name="ruleId" value="{$rule.ruleId|escape}"/>
-			<input type="submit" class="btn btn-secondary" value="{tr}Confirm{/tr}"/>
+			<input type="submit" class="btn btn-primary" value="{tr}Confirm{/tr}"/>
 		</div>
 	</form>
 {/block}

@@ -166,7 +166,7 @@
 			<div class="input-group-append">
 				<input type="hidden" name="id" value="{$id}">
 				<input type="hidden" name="type" value="{$type|escape}">
-				<input type="submit" class="btn btn-secondary" value="{tr}Set Page Language{/tr}">
+				<input type="submit" class="btn btn-primary" value="{tr}Set Page Language{/tr}">
 			</div>
 		</div>
 	</form>

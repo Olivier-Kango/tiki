@@ -148,7 +148,7 @@ var account='';
 		</fieldset>
 		<input
 			type="submit"
-			class="btn btn-secondary"
+			class="btn btn-primary"
 			name="book"
 			id="book"
 			value="{tr}Book{/tr}"

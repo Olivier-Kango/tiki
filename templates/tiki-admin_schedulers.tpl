@@ -222,7 +222,7 @@
 				{if isset($schedulerinfo.id) && $schedulerinfo.id}
 					<input type="hidden" name="scheduler" value="{$schedulerinfo.id|escape}">
 					<input type="hidden" name="editscheduler" value="1">
-					<input type="submit" class="btn btn-secondary" name="save" value="{tr}Save{/tr}">
+					<input type="submit" class="btn btn-primary" name="save" value="{tr}Save{/tr}">
 				{else}
 					<input type="submit" class="btn btn-secondary" name="new_scheduler" value="{tr}Add{/tr}">
 				{/if}

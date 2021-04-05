@@ -172,7 +172,7 @@
 								type="submit"
 								form='admin_forums'
 								formaction="{bootstrap_modal controller=forum}"
-								class="btn btn-secondary"
+								class="btn btn-primary"
 								onclick="confirmPopup()"
 							>
 								{tr}OK{/tr}
@@ -621,7 +621,7 @@
 					</fieldset>
 
 					<div class="text-center">
-						<input type="submit" class="btn btn-secondary" name="save" value="{tr}Save{/tr}">
+						<input type="submit" class="btn btn-primary" name="save" value="{tr}Save{/tr}">
 					</div>
 				</form>
 

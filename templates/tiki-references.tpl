@@ -203,9 +203,9 @@
 				{if isset($referenceinfo.ref_id) && $referenceinfo.ref_id}
 					<input type="hidden" name="referenceId" value="{$referenceinfo.ref_id|escape}">
 					<input type="hidden" name="editreference" value="1">
-					<input type="submit" class="btn btn-secondary" name="save" value="{tr}Save{/tr}">
+					<input type="submit" class="btn btn-primary" name="save" value="{tr}Save{/tr}">
 				{else}
-					<input type="submit" class="btn btn-secondary" name="addreference" value="{tr}Add{/tr}">
+					<input type="submit" class="btn btn-primary" name="addreference" value="{tr}Add{/tr}">
 				{/if}
 			</div>
 		</div>

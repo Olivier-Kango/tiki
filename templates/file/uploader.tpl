@@ -49,7 +49,7 @@
 
 			<div class="submit">
 				{ticket}
-				<input type="submit" class="btn btn-secondary" value="{tr}Select{/tr}">
+				<input type="submit" class="btn btn-primary" value="{tr}Select{/tr}">
 			</div>
 		</form>
 

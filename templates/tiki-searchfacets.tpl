@@ -16,7 +16,7 @@
 				<input type="hidden" name="filter~{$facet|escape}" value="{$postfilter[$facet]|default:$filter[$facet]|escape}"/>
 			{/foreach}
 		</div>
-		<input type="submit" class="btn btn-secondary" value="{tr}Search{/tr}"/>
+		<input type="submit" class="btn btn-primary" value="{tr}Search{/tr}"/>
 
 		{if $prefs.tracker_tabular_enabled eq 'y' && ! empty($smarty.get.tabularId)}
 			<input type="hidden" name="tabularId" value="{$smarty.get.tabularId|escape}">

@@ -84,7 +84,7 @@
 	</div>
 	<div class="form-group row">
 		<div class="col-sm-10 offset-sm-2">
-			<input type="submit" class="btn btn-secondary" name="preview" value="{tr}Send{/tr}">
+			<input type="submit" class="btn btn-primary" name="preview" value="{tr}Send{/tr}">
 		</div>
 	</div>
 </form>

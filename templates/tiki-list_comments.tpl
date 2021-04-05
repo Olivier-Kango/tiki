@@ -206,7 +206,7 @@
 			{/if}
 		</select>
 		<span class="input-group-append">
-			<button type="submit" class="btn btn-secondary" onclick="confirmPopup()">
+			<button type="submit" class="btn btn-primary" onclick="confirmPopup()">
 				{tr}OK{/tr}
 			</button>
 		</span>

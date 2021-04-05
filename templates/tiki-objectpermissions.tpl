@@ -85,7 +85,7 @@
 				<div class="input_submit_container" style="text-align: center">
 					<input
 						type="submit"
-						class="btn btn-secondary btn-sm"
+						class="btn btn-primary btn-sm"
 						name="assign"
 						value="{tr}Assign{/tr}"
 						onclick="confirmPopup('{tr}Modify permissions?{/tr}')"
@@ -108,7 +108,7 @@
 							class="tips"
 							title="{tr}Reset Perms{/tr}:{$title}"
 					{/if}
-					<input type="submit" class="btn btn-primary btn-sm" name="copy" value="{tr}Copy{/tr}" class="tips" title="{tr}Permissions Clipboard{/tr}|{tr}Copy the permissions set here{/tr}">
+					<input type="submit" class="btn btn-secondary btn-sm" name="copy" value="{tr}Copy{/tr}" class="tips" title="{tr}Permissions Clipboard{/tr}|{tr}Copy the permissions set here{/tr}">
 					{if !empty($perms_clipboard_source)}<input type="submit" class="btn btn-primary btn-sm" name="paste" value="{tr}Paste{/tr}" class="tips" title="{tr}Permissions Clipboard{/tr}|{tr}Paste copied permissions from {/tr}<em>{$perms_clipboard_source}</em>" />{/if}
 				</div>
 
@@ -154,7 +154,7 @@
 			<div class="input_submit_container" style="text-align: center">
 				<input
 					type="submit"
-					class="btn btn-secondary btn-sm"
+					class="btn btn-primary btn-sm"
 					name="assign"
 					value="{tr}Assign{/tr}"
 					onclick="confirmPopup('{tr}Modify permissions?{/tr}')"
@@ -297,7 +297,7 @@
 		<label for="show_disabled_features3">{tr}Set permissions for disabled features{/tr}</label>
 		<input type="checkbox" name="show_disabled_features" id="show_disabled_features3" {if isset($show_disabled_features) and $show_disabled_features eq 'y'}checked="checked"{/if}>
 		<div class="input_submit_container" style="text-align: center">
-			<input type="submit" class="btn btn-secondary btn-sm" name="assign" value="{tr}Assign{/tr}">
+			<input type="submit" class="btn btn-primary btn-sm" name="assign" value="{tr}Assign{/tr}">
 		</div>
 
 		{if empty($filegals_manager)}

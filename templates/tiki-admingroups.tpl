@@ -140,7 +140,7 @@
 							type="submit"
 							form="checkform1"
 							formaction="{bootstrap_modal controller=group}"
-							class="btn btn-secondary"
+							class="btn btn-primary"
 							value="{tr}OK{/tr}"
 							onclick="confirmPopup()"
 						>
@@ -513,7 +513,7 @@
 						<input type="hidden" name="olgroup" value="{$group|escape}">
 						<button
 							type="submit"
-							class="btn btn-secondary"
+							class="btn btn-primary"
 							form="groupEdit"
 							formaction="{bootstrap_modal controller=group action=modify_group}"
 							onclick="confirmPopup()"

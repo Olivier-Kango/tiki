@@ -353,7 +353,7 @@
 						<span class="input-group-append">
 							<button
 								type="submit"
-								class="btn btn-secondary"
+								class="btn btn-primary"
 								onclick="confirmPopup()"
 							>
 								{tr}OK{/tr}

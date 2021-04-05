@@ -34,7 +34,7 @@
 		</div>
 		<div class="form-group row">
 			<div class="offset-md-3 col-md-9">
-				<input type="submit" class="btn btn-secondary" value="{tr}Save{/tr}">
+				<input type="submit" class="btn btn-primary" value="{tr}Save{/tr}">
 				<a href="{service controller=goal action=show goalId=$goal.goalId}" class="btn btn-link">{tr}Cancel{/tr}</a>
 			</div>
 		</div>

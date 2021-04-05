@@ -40,9 +40,9 @@
 				</div>
 				<div class="submit">
 					{if $canUpload}
-						<a class="btn btn-primary upload-files custom-handling" href="{service controller=file action=uploader galleryId=$galleryId limit=$limit type=$typeFilter}">{tr}Upload Files{/tr}</a>
+						<a class="btn btn-secondary upload-files custom-handling" href="{service controller=file action=uploader galleryId=$galleryId limit=$limit type=$typeFilter}">{tr}Upload Files{/tr}</a>
 					{/if}
-					<input type="submit" class="btn btn-secondary" value="{tr}Select{/tr}">
+					<input type="submit" class="btn btn-primary" value="{tr}Select{/tr}">
 				</div>
 			</form>
 		</div>
