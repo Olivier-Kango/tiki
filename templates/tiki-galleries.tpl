@@ -276,7 +276,7 @@
 		<div class="form-group row">
 			<form action="tiki-galleries.php" method="get">
 				<div class="input-group col-sm-4">
-					<select name="filter" class="form-control">
+					<select name="filter" class="form-control" data-placeholder="{tr}Choose a filter{/tr}">
 						<option value="">{tr}Choose a filter{/tr}</option>
 						<option value="topgal"{if $filter eq 'topgal'} selected="selected"{/if}>{tr}Top{/tr}</option>
 						<option value="parentgal"{if $filter eq 'parentgal'} selected="selected"{/if}>{tr}Parent gallery{/tr}</option>

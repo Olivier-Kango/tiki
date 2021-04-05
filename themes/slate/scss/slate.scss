@@ -31,9 +31,3 @@ body {
 //}
 
 body.fullscreen { background: $body-bg; }
-
-.chosen-container .chosen-results li.active-result {
-	&.result-selected, &.highlighted {
-		background-color: $primary;
-	}
-}

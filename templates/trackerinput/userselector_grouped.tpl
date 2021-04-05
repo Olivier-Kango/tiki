@@ -48,6 +48,6 @@
 				.text(opt.label)
 				.appendTo($('#user_selector_{{$field.fieldId}}'));
 		});
-		$selector.val(selected).trigger('chosen:updated');
+		$selector.val(selected).trigger("change.select2");
 	}).trigger('change');
 {/jq}

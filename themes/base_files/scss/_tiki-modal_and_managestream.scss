@@ -75,3 +75,10 @@ body > .ui-front {
 	/* bs .modal has z-index: 1050, need body specified so as to override jquery-ui.css */
 	z-index: 2000;
 }
+
+/* Full width .object-selector-multi when in modal  */
+.tiki-modal {
+	.object-selector-multi {
+		width: 100%;
+	}
+}

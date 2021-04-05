@@ -121,26 +121,7 @@ body { min-width: 100%; }
 	.msg_part_icon { padding: 0; margin-left: 5px; }
 	.imap_keyword { margin-top: 4px; }
 	.msg_headers td { padding-right: 35px; }
-
-// jquery-ui-chosen overrides
-	.chosen-container {
-		width: auto !important;
-		.chosen-results li { padding-left: 0.75rem; padding-right: 0.75rem; }
-	}
-	.message_list {
-		&:not([class*="imap"]) {
-			.chosen-container { float: right; margin: -8px 120px 0 0; }
-		}
-		&[class*="imap"] {
-			.combined_sort + .chosen-container { display: none; }
-			#imap_filter_form .chosen-container { float: left; margin-right: 10px; }
-		}
-	}
-	.chosen-container-single .chosen-single { padding-right: 2rem; }
-	#service_select_chosen {
-		margin-bottom: 10px;
-	}
-	.unchosen { display: none !important; }
+	.noselect2 { display: none !important; }
 }
 
 

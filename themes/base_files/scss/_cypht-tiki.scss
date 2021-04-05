@@ -6,7 +6,7 @@
 
 	// override colors when not using cypht default theme
 	img { opacity: 1 !important; }
-	ul, li { background-color: transparent !important; }
+	ul, li:not(.select2-results__option) { background-color: transparent !important; }
 	main, div { border-radius: 0; }
 	.ui-widget-content { background-color: $ui-default-bg !important; }
 	.ui-menu-item-wrapper { color: $body-color !important; }
@@ -48,10 +48,6 @@
 		background-color: $input-bg !important;
 		border-color: $input-border-color !important;
 		color: $input-color !important;
-	}
-	.chosen-container .chosen-results li.active-result {
-		&.text-muted.bg-info { background-color: $info !important; }
-		&.result-selected, &.highlighted { background-color: $link-color !important; }
 	}
 	.nav-tabs {
 		border: none !important;

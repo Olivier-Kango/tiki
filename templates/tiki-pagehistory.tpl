@@ -239,9 +239,9 @@
 	$("a#toggle_diffs").click(function(e){
 		if ($(this).text() == "{tr}Advanced{/tr}") {
 			$(this).text("{tr}Simple{/tr}");
-			if (jqueryTiki.chosen) {
-				$("#diff_style_all").next(".chosen-container").show();
-				$("#diff_style_simple").next(".chosen-container").hide();
+			if (jqueryTiki.select2) {
+				$("#diff_style_all").next(".select2-container").show();
+				$("#diff_style_simple").next(".select2-container").hide();
 				$("#diff_style_all").attr("name", "diff_style");
 				$("#diff_style_simple").attr("name", "");
 			} else {
@@ -250,9 +250,9 @@
 			}
 		} else {
 			$(this).text("{tr}Advanced{/tr}");
-			if (jqueryTiki.chosen) {
-				$("#diff_style_all").next(".chosen-container").hide();
-				$("#diff_style_simple").next(".chosen-container").show();
+			if (jqueryTiki.select2) {
+				$("#diff_style_all").next(".select2-container").hide();
+				$("#diff_style_simple").next(".select2-container").show();
 				$("#diff_style_all").attr("name", "");
 				$("#diff_style_simple").attr("name", "diff_style");
 			} else {
@@ -262,11 +262,11 @@
 		}
 		return false;
 	});
-	if (jqueryTiki.chosen) {
+	if (jqueryTiki.select2) {
 		if ($("#diff_style_simple").html().indexOf("{{$diff_style}}") > -1) {
-			$("#diff_style_all").next(".chosen-container").hide().attr("name", "");
+			$("#diff_style_all").next(".select2-container").hide().attr("name", "");
 		} else {
-			$("#diff_style_simple").next(".chosen-container").hide();
+			$("#diff_style_simple").next(".select2-container").hide();
 		}
 	}
 	{{if $diff_style neq "htmldiff" and $diff_style neq "sidediff"}$("#toggle_diffs a").click();{/if}}

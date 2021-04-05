@@ -2142,91 +2142,6 @@
             "time": "2021-03-12T15:42:33+00:00"
         },
         {
-            "name": "harvesthq/chosen",
-            "version": "v1.8.7",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/harvesthq/chosen-package.git",
-                "reference": "ad86732b668627c131e61ee8f0e6e9ed52e4db8d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/harvesthq/chosen-package/zipball/ad86732b668627c131e61ee8f0e6e9ed52e4db8d",
-                "reference": "ad86732b668627c131e61ee8f0e6e9ed52e4db8d",
-                "shasum": ""
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Koen Punt",
-                    "homepage": "https://github.com/koenpunt"
-                },
-                {
-                    "name": "Patrick Filler",
-                    "homepage": "https://github.com/pfiller"
-                },
-                {
-                    "name": "Christophe Coevoet",
-                    "homepage": "https://github.com/stof"
-                },
-                {
-                    "name": "Ken Earley",
-                    "homepage": "https://github.com/kenearley"
-                }
-            ],
-            "description": "Chosen is a JavaScript plugin that makes select boxes user-friendly. It is currently available in both jQuery and Prototype flavors.",
-            "homepage": "https://harvesthq.github.io/chosen/",
-            "keywords": [
-                "dropdown",
-                "form",
-                "input",
-                "multiselect",
-                "select",
-                "ui"
-            ],
-            "time": "2018-06-28T20:32:51+00:00"
-        },
-        {
-            "name": "haubek/bootstrap4c-chosen",
-            "version": "1.1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/haubek/bootstrap4c-chosen.git",
-                "reference": "6f3165a4bdd1f2783189414e4df00f6f6c9c4804"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/haubek/bootstrap4c-chosen/haubek-bootstrap4c-chosen-6f3165a4bdd1f2783189414e4df00f6f6c9c4804-zip-9c0581.zip",
-                "reference": "6f3165a4bdd1f2783189414e4df00f6f6c9c4804",
-                "shasum": "07a6fd069393debe3fbb176362411963c674451e"
-            },
-            "require": {
-                "harvesthq/chosen": "^1.8.3",
-                "twbs/bootstrap": "^4.1.1"
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "Bootstrap 4 Component - Chosen",
-            "homepage": "https://haubek.github.io",
-            "keywords": [
-                "bootstrap",
-                "chosen",
-                "component",
-                "css",
-                "custom",
-                "sass",
-                "scss"
-            ],
-            "time": "2019-04-15T03:01:11+00:00"
-        },
-        {
             "name": "hesammousavi/bootstrap-v4-rtl",
             "version": "dev-master",
             "source": {
@@ -5639,6 +5554,18 @@
             ]
         },
         {
+            "name": "npm-asset/select2",
+            "version": "4.0.13",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/select2/-/select2-4.0.13.tgz"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
             "name": "npm-asset/signature_pad",
             "version": "2.3.2",
             "dist": {
@@ -5658,6 +5585,18 @@
                 "type": "zip",
                 "url": "https://composer.tiki.org/dist/npm-asset/ts-custom-error/npm-asset-ts-custom-error-3.2.0.zip",
                 "shasum": "d77afb497238ca3909e216d0c221b2f264b14ed8"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/ttskch--select2-bootstrap4-theme",
+            "version": "1.5.2",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/@ttskch/select2-bootstrap4-theme/-/select2-bootstrap4-theme-1.5.2.tgz"
             },
             "type": "npm-asset",
             "license": [
@@ -11693,5 +11632,5 @@
         "ext-soap": "0",
         "php": "7.4"
     },
-    "plugin-api-version": "1.1.0"
+    "plugin-api-version": "2.0.0"
 }

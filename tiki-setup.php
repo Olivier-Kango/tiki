@@ -524,11 +524,13 @@ if (typeof $.fn.button.noConflict === "function") {
 			'.ui-autocomplete-loading { background: white url("img/spinner.gif") right center no-repeat; }'
 		);
 	}
-	if ($prefs['jquery_ui_chosen'] == 'y') {
-		$headerlib->add_jsfile('vendor_bundled/vendor/harvesthq/chosen/chosen.jquery.min.js', true);
-	}
 	$headerlib->add_jsfile('vendor_bundled/vendor/jquery/jquery-timepicker-addon/dist/jquery-ui-timepicker-addon.js');
 	$headerlib->add_cssfile('vendor_bundled/vendor/jquery/jquery-timepicker-addon/dist/jquery-ui-timepicker-addon.css');
+}
+if ($prefs['jquery_select2'] == 'y') {
+	$headerlib->add_jsfile('vendor_bundled/vendor/npm-asset/select2/dist/js/select2.full.min.js');
+	$headerlib->add_cssfile('vendor_bundled/vendor/npm-asset/select2/dist/css/select2.min.css');
+	$headerlib->add_cssfile('vendor_bundled/vendor/npm-asset/ttskch--select2-bootstrap4-theme/dist/select2-bootstrap4.min.css');
 }
 if ($prefs['jquery_fitvidjs'] == 'y') {
 	$customSelectors = \Tiki\Lib\FitVidJs\FitVidJs::getCustomSelector();

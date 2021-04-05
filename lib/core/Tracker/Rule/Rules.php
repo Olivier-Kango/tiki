@@ -102,8 +102,8 @@ class Rules
 			$js .= "\n";
 		}
 
-		if ($prefs['jquery_ui_chosen'] === 'y') {
-			$js .= "  \$(document).trigger('chosen:updated');\n";
+		if ($prefs['jquery_select2'] === 'y') {
+			$js .= "  \$(document).trigger('change.select2');\n";
 		}
 
 		if ($actions || $else) {

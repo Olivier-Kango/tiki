@@ -424,7 +424,7 @@
 					</div>
 					{if $prefs.feature_jscalendar eq 'n' or $prefs.javascript_enabled eq 'n'}
 						<div class="col-sm-3 start time">
-							{html_select_time prefix="start_" display_seconds=false time=$calitem.start minute_interval=$prefs.calendar_minute_interval use_24_hours=$use_24hr_clock class='form-control date nochosen'}
+							{html_select_time prefix="start_" display_seconds=false time=$calitem.start minute_interval=$prefs.calendar_minute_interval use_24_hours=$use_24hr_clock class='form-control date noselect2'}
 						</div>
 					{/if}
 					<div class="col-sm-2">
@@ -464,11 +464,11 @@
 					</div>
 					{if $prefs.feature_jscalendar eq 'n' or $prefs.javascript_enabled eq 'n'}
 						<div class="col-sm-3 end time">
-							{html_select_time prefix="end_" display_seconds=false time=$calitem.end minute_interval=$prefs.calendar_minute_interval use_24_hours=$use_24hr_clock class='form-control date nochosen'}
+							{html_select_time prefix="end_" display_seconds=false time=$calitem.end minute_interval=$prefs.calendar_minute_interval use_24_hours=$use_24hr_clock class='form-control date noselect2'}
 						</div>
 					{/if}
 					<div class="col-sm-{if $prefs.feature_jscalendar eq 'y' and $prefs.javascript_enabled eq 'y'}5{else}4{/if} duration time" style="display:none;">
-						{html_select_time prefix="duration_" display_seconds=false time=$calitem.duration|default:'01:00' minute_interval=$prefs.calendar_minute_interval class='form-control date nochosen'}
+						{html_select_time prefix="duration_" display_seconds=false time=$calitem.duration|default:'01:00' minute_interval=$prefs.calendar_minute_interval class='form-control date noselect2'}
 					</div>
 					<div class="col-sm-2 time">
 						<a href="#" id="durationBtn" class="btn btn-sm btn-secondary">

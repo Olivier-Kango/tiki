@@ -191,9 +191,11 @@
 				{preference name=feature_jquery_ui}
 				{preference name=feature_jquery_validation}
 				{preference name=feature_jquery_zoom}
-				{preference name=jquery_ui_chosen}
-				<div class="adminoptionboxchild" id="jquery_ui_chosen_childcontainer">
-					{preference name=jquery_ui_chosen_sortable}
+				<div class="adminoptionbox">
+					{preference name=jquery_select2}
+					<div class="adminoptionboxchild">
+						{preference name=jquery_select2_sortable label="{tr}Select2 Sortable Multiselect{/tr}"}
+					</div>
 				</div>
 				{preference name=jquery_fitvidjs}
 				<div class="adminoptionboxchild" id="jquery_fitvidjs_childcontainer">

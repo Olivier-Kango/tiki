@@ -50,7 +50,7 @@
 			{preference name=feature_jquery_zoom}
 			{preference name=feature_jquery_carousel} <img src="img/icons/bug_error.png" alt="{tr}Experimental{/tr}" title="{tr}Experimental{/tr}">
 			{preference name=feature_jquery_tablesorter} <img src="img/icons/bug_error.png" alt="{tr}Experimental{/tr}" title="{tr}Experimental{/tr}">
-			{preference name=jquery_ui_chosen}
+			{preference name=jquery_select2}
 			{preference name=jquery_fitvidjs}
 		</fieldset>
 	</div>

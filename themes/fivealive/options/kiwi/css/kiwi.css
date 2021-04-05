@@ -258,40 +258,6 @@ footer#footer .footer_liner {
 footer#footer .footer_liner .card-header {
   border-bottom: 1px dotted #ebdc14;
 }
-.tiki .chosen-container-multi .chosen-choices {
-  background-color: #f8f9d4 !important;
-  color: #343a40 !important;
-  border: 1px solid #f8f9d4 !important;
-}
-.tiki .chosen-container-single .chosen-single, .tiki .chosen-container-active.chosen-with-drop .chosen-single, .tiki .chosen-container .chosen-drop, .tiki .chosen-container-multi .chosen-choices .search-choice, .tiki .chosen-container-single a:not([href]):not([tabindex]).chosen-single:not(.chosen-default), .tiki .chosen-container-single a:not([href]):not([tabindex]) {
-  background-color: #f8f9d4 !important;
-  color: #343a40 !important;
-  border: 1px solid #f8f9d4 !important;
-}
-.tiki .chosen-container-single .chosen-search input[type="text"] {
-  background-color: #f8f9d4 !important;
-  border: 1px solid #f8f9d4 !important;
-}
-.tiki .chosen-container .chosen-results li.highlighted {
-  background-color: #003c4a;
-  color: #f2f2f2;
-}
-.tiki .chosen-container-single .chosen-single div {
-  padding-left: 1rem;
-}
-.tiki .chosen-container-single .chosen-single div::after {
-  display: inline-block;
-  position: relative;
-  top: 0.25rem;
-  left: -1rem;
-  width: 2rem;
-  height: 2rem;
-  content: "";
-  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23adb5bd' d='M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z'/%3E%3C/svg%3E");
-  background-size: 2rem 2rem;
-  background-position: center center;
-  background-repeat: no-repeat;
-}
 .bg-light {
   background-color: #ffffff !important;
 }

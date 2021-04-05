@@ -222,7 +222,7 @@
 						{/foreach}
 					</select>
 					<div class="form-text">
-						<p>{tr}Permissions will be inherited from these groups.{/tr} {if $prefs.jquery_ui_chosen neq 'y'}{tr}Use Ctrl+Click to select multiple options{/tr}</p>{/if}
+						<p>{tr}Permissions will be inherited from these groups.{/tr} {if $prefs.jquery_select2 neq 'y'}{tr}Use Ctrl+Click to select multiple options{/tr}</p>{/if}
 					</div>
 					{if $indirectly_inherited_groups|@count > 0}
 						<p>{tr}Indirectly included groups:{/tr}</p>
@@ -305,7 +305,7 @@
 							{tr}Choose a group tracker which can be used to add user registration fields or allow group permissions on a tracker. The tracker must have one user selector field that is set to auto-assign.{/tr}
 						</div>
 						{if isset($grouptrackerid) || $prefs.javascript_enabled eq 'y'}
-							<div id="groupfielddiv"{if empty($grouptrackerid) and $prefs.javascript_enabled eq 'y' and $prefs.jquery_ui_chosen neq 'y'} style="display: none;"{/if}>
+							<div id="groupfielddiv"{if empty($grouptrackerid) and $prefs.javascript_enabled eq 'y' and $prefs.jquery_select2 neq 'y'} style="display: none;"{/if}>
 								<select name="groupfield" class="form-control">
 									<option value="0">{tr}choose a field ...{/tr}</option>
 									{if isset($groupFields)}
@@ -341,7 +341,7 @@
 							{tr}Choose a user tracker to provide fields for a new user to complete upon registration. The tracker must have one user selector field that is set to auto-assign.{/tr}
 						</div>
 						{if (isset($userstrackerid) or $prefs.javascript_enabled eq 'y')}
-							<div id="usersfielddiv"{if empty($userstrackerid) and $prefs.javascript_enabled eq 'y' and $prefs.jquery_ui_chosen neq 'y'} style="display: none;"{/if}>
+							<div id="usersfielddiv"{if empty($userstrackerid) and $prefs.javascript_enabled eq 'y' and $prefs.jquery_select2 neq 'y'} style="display: none;"{/if}>
 								<label>{tr}Select user field{/tr}</label> <select name="usersfield" class="form-control">
 									{if !empty($usersFields)}
 										<option value="0">{tr}Choose a field ...{/tr}</option>
@@ -381,8 +381,8 @@
 					}
 					$($showid).show();
 					$('#registerfields').show();
-					if (jqueryTiki.chosen) {
-						$fields.trigger("chosen:updated");
+					if (jqueryTiki.select2) {
+						$fields.trigger("change.select2");
 					}
 				}
 			});
@@ -413,7 +413,7 @@
 				{/if}
 			{/if}
 			{if $prefs.userTracker == 'y' || $prefs.useGroupTheme == 'y'}
-				<div id="registerfields" class="form-group row"{if empty($userstrackerid) && empty($grouptrackerid) && $prefs.javascript_enabled == 'y' && $prefs.jquery_ui_chosen != 'y'} style="display: none;"{/if}>
+				<div id="registerfields" class="form-group row"{if empty($userstrackerid) && empty($grouptrackerid) && $prefs.javascript_enabled == 'y' && $prefs.jquery_select2 != 'y'} style="display: none;"{/if}>
 					<label for="registrationUserFieldIds" class="col-form-label col-md-3">{tr}Group or User Tracker Registration Fields{/tr}</label>
 					<div class="col-md-9">
 						<input type="text" class="form-control" name="registrationUsersFieldIds" value="{$registrationUsersFieldIds|escape}">

@@ -251,7 +251,7 @@
 			tofind = tofind.replace(/(:?asc|desc)$/, "");
 			if (opts[o].value.search(tofind) === 0) {
 				opts[o].value = "{{$sort_mode}}";
-				$sort_mode.prop("selectedIndex", o).trigger("chosen:updated");
+				$sort_mode.prop("selectedIndex", o).trigger("change.select2");
 				break;
 			}
 		}

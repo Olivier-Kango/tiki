@@ -226,8 +226,9 @@ if (! timezone) {
 	$jqueryTiki['sefurl'] = $prefs['feature_sefurl'] === 'y' ? true : false;
 	$jqueryTiki['ajax'] = $prefs['feature_ajax'] === 'y' ? true : false;
 	$jqueryTiki['syntaxHighlighter'] = $prefs['feature_syntax_highlighter'] === 'y' ? true : false;
-	$jqueryTiki['chosen'] = $prefs['jquery_ui_chosen'] === 'y' ? true : false;
-	$jqueryTiki['chosen_sortable'] = $prefs['jquery_ui_chosen_sortable'] === 'y' ? true : false;
+	$jqueryTiki['select2'] = $prefs['jquery_select2'] === 'y' ? true : false;
+	$jqueryTiki['select2-bootstrap4-theme'] = $prefs['jquery_select2-bootstrap4-theme'] === 'y' ? true : false;
+	$jqueryTiki['select2_sortable'] = $prefs['jquery_select2_sortable'] === 'y' ? true : false;
 	$jqueryTiki['mapTileSets'] = $tikilib->get_preference('geo_tilesets', ['openstreetmap'], true);
 	$jqueryTiki['infoboxTypes'] = Services_Object_Controller::supported();
 	$jqueryTiki['googleStreetView'] = $prefs['geo_google_streetview'] === 'y' ? true : false;

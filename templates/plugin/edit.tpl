@@ -159,8 +159,8 @@ $("#picker_{{$name|escape}}").parent().click(function () {
 							}),
 							function () {
 								$(this).tikiModal().parents(".modal").trigger("tiki.modal.redraw");
-								if (jqueryTiki.chosen) {
-									$(this).applyChosen();
+								if (jqueryTiki.select2) {
+									$(this).applySelect2();
 								}
 								popupPluginForm("{{$area_id}}","{{$type}}",{{$index}},"{{$pageName|escape:javascript}}",{{$pluginArgsJSON}},"{{$bodyContent|escape:javascript}}",{{$edit_icon}}, selectedMod);
 							}

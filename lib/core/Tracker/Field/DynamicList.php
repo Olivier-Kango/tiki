@@ -232,8 +232,8 @@ $("body").on("change", "input[name=ins_' . $filterFieldIdHere . '], select[name=
 				}
 			}
 
-			if (jqueryTiki.chosen) {
-				$ddl.trigger("chosen:updated");
+			if (jqueryTiki.select2) {
+				$ddl.trigger("change.select2");
 			}
 			$ddl.trigger("change");
 			$ddl.parent().tikiModal();

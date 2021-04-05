@@ -460,15 +460,6 @@ class CleanVendors
 			]
 		);
 		self::remove(
-			$vendors . 'haubek/bootstrap4c-chosen',
-			[
-				'dist',
-				'src/scss/build.scss',
-				'gulpfile.js',
-				'yarn.lock',
-			]
-		);
-		self::remove(
 			$vendors . 'ezyang/htmlpurifier',
 			[
 				'INSTALL.fr.utf8',

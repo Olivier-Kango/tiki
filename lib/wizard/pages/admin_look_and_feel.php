@@ -132,8 +132,8 @@ class AdminWizardLookAndFeel extends Wizard
 				optionDropDown.attr('disabled',true);
 			}
 			optionDropDown.change();
-			if (jqueryTiki.chosen) {
-				optionDropDown.trigger("chosen:updated");
+			if (jqueryTiki.select2) {
+				optionDropDown.trigger("change.select2");
 			}
 		}).change();
 		optionDropDown.change( function() {
@@ -310,8 +310,8 @@ $js
 				optionDropDown.attr('disabled',true);
 			}
 			optionDropDown.change();
-			if (jqueryTiki.chosen) {
-				optionDropDown.trigger("chosen:updated");
+			if (jqueryTiki.select2) {
+				optionDropDown.trigger("change.select2");
 			}
 		}).change();
 		optionDropDown.change( function() {

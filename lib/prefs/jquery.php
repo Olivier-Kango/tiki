@@ -89,22 +89,23 @@ function prefs_jquery_list($partial = false)
 			],
 			'default' => 'vertical',
 		],
-		'jquery_ui_chosen' => [
-			'name' => tra('jQuery-UI Chosen Select Boxes'),
+		'jquery_select2' => [
+			'name' => tra('jQuery Select2 Select Boxes'),
 			'description' => tra('Styled replacement for dropdown select lists and multiple-select inputs.'),
 			'type' => 'flag',
 			'default' => 'n',
 			'dependencies' => [
-				'feature_jquery_ui',
+				'jquery',
 			],
 		],
-		'jquery_ui_chosen_sortable' => [
-			'name' => tra('Sortable Chosen Multi-selects'),
-			'description' => tra('Enable drag and drop re-ordering of Chosen multi-select options.'),
+		'jquery_select2_sortable' => [
+			'name' => tra('Sortable Select2 Multi-selects'),
+			'description' => tra('Enable drag and drop re-ordering of Select2 multi-select options.'),
 			'type' => 'flag',
 			'default' => 'n',
 			'dependencies' => [
-				'jquery_ui_chosen',
+				'feature_jquery_ui',
+				'jquery_select2'
 			],
 		],
 		'jquery_colorbox_theme' => [

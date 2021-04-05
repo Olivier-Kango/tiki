@@ -1077,48 +1077,6 @@ div.drillshow {
 	border: 1px solid $gray-300;
 }
 
-.tiki .chosen-container-single .chosen-single {
-	height: $chosen-single-height; // "Make inputs at least the height of their button counterpart (base line-height + padding + border)"
-	padding: $chosen-padding-base-vertical $chosen-padding-base-vertical;
-	font-size: $chosen-font-size-base;
-	line-height: $chosen-line-height;
-}
-
-.chosen-container-multi .chosen-choices {
-	background-color: lighten($input-bg, 10%);
-	color: $input-color;
-	border: 1px solid $input-border-color;
-}
-
-.chosen-container-single .chosen-single,
-.chosen-container-active.chosen-with-drop .chosen-single,
-.chosen-container .chosen-drop,
-.chosen-container-multi .chosen-choices .search-choice {
-	background-color: $input-bg;
-	color: $input-color;
-	border: 1px solid $input-border-color;
-
-	div{
-		background-color: $input-bg;
-	}
-}
-
-.chosen-container-single .chosen-search input[type="text"] {
-	background-color: $input-bg;
-	border: 1px solid $input-border-color;
-	//	box-shadow: inset 0px 1px 1px rgba(0, 0, 0, 0.071);
-}
-
-.chosen-container .chosen-results li.active-result {
-	color: $chosen-active-result;
-	background-color: $input-bg;
-
-	&.result-selected, &.highlighted {
-		background-color: $link-color;
-		color: white;
-	}
-}
-
 // Breadcrumb
 .breadcrumb {
 	font-style: $breadcrumb-font-style; // italic;
@@ -1178,10 +1136,6 @@ span.plugin-mouseover {
 			border: none;
 		}
 	}
-}
-
-.tiki-edit_banner #col1 .short .chosen-container {
-	width: 32% !important;
 }
 
 // Example: tracker field type "icon". Bootstrap modal with jquery-ui contents
@@ -1291,59 +1245,6 @@ input[type="checkbox"].preffilter-toggle-round:checked + label:before {
 // Hack to give .btn-secondary color to the "Files" button in tiki-page_bar.tpl.
 .btn-primary.btn-files {
 	@include button-variant($secondary, $secondary, $secondary);
-}
-
-.chosen-container-single .chosen-single div {
-	padding-left: 1rem;
-}
-// The following three rules copied from example at https://www.jqueryscript.net/demo/Bootstrap-4-Chosen-Plugin/
-// down arrow
-.chosen-container-single .chosen-single div::after {
-	display: inline-block;
-	position: relative;
-	top: .25rem;
-	left: -1rem;
-	width: 2rem;
-	height: 2rem;
-	content: "";
-	background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23adb5bd' d='M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z'/%3E%3C/svg%3E");
-	background-size: 2rem 2rem;
-	background-position: center center;
-	background-repeat: no-repeat;
-}
-
-// up arrow
-.chosen-container-active.chosen-with-drop .chosen-single div::after {
-	display: inline-block;
-	position: relative;
-	top: .25rem;
-	left: -1rem;
-	width: 2rem;
-	height: 2rem;
-	content: "";
-	background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23adb5bd' d='M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z'/%3E%3C/svg%3E");
-	background-size: 2rem 2rem;
-	background-position: center center;
-	background-repeat: no-repeat;
-}
-
-.chosen-container-multi .chosen-choices .search-choice .search-choice-close {
-	display: inline-block;
-	position: absolute;
-	top: .2rem;
-	right: .125rem;
-	width: 1rem;
-	height: 1rem;
-	cursor: pointer;
-	background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23dc3545' d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/%3E%3C/svg%3E");
-	background-size: 1rem 1rem;
-	background-position: center center;
-	background-repeat: no-repeat;
-}
-
-// close "x"
-.chosen-container-multi .chosen-choices .search-choice .search-choice-close:hover {
-	background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23921925' d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/%3E%3C/svg%3E");
 }
 
 // code for the design of the checkbox for interactive translation

@@ -31,8 +31,6 @@
 		"erusev/parsedown": ">=1.8.0-beta-5",
 		"ezyang/htmlpurifier": "^4.8.0",
 		"bower-asset/fontawesome": "^5.12.0",
-		"haubek/bootstrap4c-chosen": "^1.0",
-		"harvesthq/chosen": "^1.8",
 		"hesammousavi/bootstrap-v4-rtl": "dev-master",
 		"h5p/h5p-core": "dev-master",
 		"h5p/h5p-editor": "dev-master",
@@ -159,7 +157,9 @@
 		"ext-curl": "*",
 		"ext-openssl": "*",
 		"ext-iconv": "*",
-		"ext-zip": "*"
+		"ext-zip": "*",
+		"npm-asset/select2": "^4.0",
+		"npm-asset/ttskch--select2-bootstrap4-theme": "^1.5"
 	},
 	"require-dev": {
 		"bafs/testify": "dev-master",

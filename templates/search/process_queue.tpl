@@ -37,7 +37,7 @@ $("option", "select[name=batch]").each(function () {
 	if (val < {{$queue_count|escape}}) {
 		last = val;
 	} else {
-		$(this).parent().val(val).trigger("chosen:updated");
+		$(this).parent().val(val).trigger("change.select2");
 		return false;
 	}
 });{/jq}

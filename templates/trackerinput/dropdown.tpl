@@ -19,7 +19,7 @@
 				</div>
 				{/foreach}
 		{elseif $field.options_map.inputtype eq 'm'}
-			{if $prefs.jquery_ui_chosen neq 'y'}<small>{tr}Hold "Ctrl" in order to select multiple values{/tr}</small><br>{/if}
+			{if $prefs.jquery_select2 neq 'y'}<small>{tr}Hold "Ctrl" in order to select multiple values{/tr}</small><br>{/if}
 			<select name="{$field.ins_id}[]" multiple="multiple" class="form-control">
 				{foreach key=ku from=$field.possibilities key=value item=label}
 					<option value="{$value|escape}" {if in_array("$value", $field.selected)}selected="selected"{/if}>{$label|escape}</option>
@@ -65,7 +65,7 @@
 					$other = $('input[name="other_{{$field.ins_id|escape}}"]');
 				{{if !isset($field.possibilities[$field.value]) && $field.value}}
 				if (!$('> [selected]', $select).length) {
-					$select.val('other').trigger('chosen:updated');
+					$select.val('other').trigger("change.select2");
 				}
 				{{/if}}
 				$select.change(function() {
@@ -80,7 +80,7 @@
 				$other.change(function(){
 					$other.data('tiki_never_visited', '');
 					if ($(this).val()) {
-						$select.val(tr('other')).trigger('chosen:updated');
+						$select.val(tr('other')).trigger("change.select2");
 					}
 				});
 				$other.focusout(function(){

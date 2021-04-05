@@ -179,7 +179,7 @@ $('#source-form').each(function () {
 					$(form.existing).append($('<option class="added"/>').text(v));
 				});
 
-				$(form.existing).trigger('chosen:updated');
+				$(form.existing).trigger("change.select2");
 			});
 		},
 		addPostRow = function (name, value) {
@@ -201,7 +201,7 @@ $('#source-form').each(function () {
 				var id = data.identifier;
 				$(form.existing).val(id);
 				$(form.identifier).val(id);
-				$(form.method).val(data.method).change().trigger("chosen:updated");
+				$(form.method).val(data.method).change().trigger("change.select2");
 				$(form.url).val(data.url);
 
 				switch (data.method) {
@@ -286,7 +286,7 @@ $('#source-form').each(function () {
 			}
 
 			$(form.existing).val(data.identifier).change();
-			$(form.existing).trigger('chosen:updated');
+			$(form.existing).trigger("change.select2");
 		}, 'json')
 		.done(function (data) {
 			location.href = location.href.replace(/\?.*$/, "") + '?identifier=' + encodeURIComponent(data.identifier);

@@ -960,6 +960,28 @@
 		{
 			"type": "package",
 			"package": {
+				"name": "npm-asset/select2",
+				"version": "4.0.13",
+				"dist": {
+					"url": "https://github.com/select2/select2/archive/4.0.13.zip",
+					"type": "zip"
+				}
+			}
+		},
+		{
+			"type": "package",
+			"package": {
+				"name": "npm-asset/ttskch--select2-bootstrap4-theme",
+				"version": "1.5.2",
+				"dist": {
+					"url": "https://github.com/ttskch/select2-bootstrap4-theme/archive/1.5.2.zip",
+					"type": "zip"
+				}
+			}
+		},
+		{
+			"type": "package",
+			"package": {
 				"name": "jquery/plugins/cluetip",
 				"version": "1.2.10",
 				"dist": {
@@ -1872,8 +1894,6 @@
 		"fullcalendar/fullcalendar-scheduler": "^1.9",
 		"gidkom/php-openfire-restapi": ">=1.0.0",
 		"google/apiclient": "1.1.6||^2.2.2",
-		"haubek/bootstrap4c-chosen": "^1.0",
-		"harvesthq/chosen": "^1.8",
 		"hesammousavi/bootstrap-v4-rtl": "dev-master",
 		"h5p/h5p-core": ">=1.13.2",
 		"h5p/h5p-editor": ">=1.12.1",
@@ -2008,6 +2028,10 @@
 		"npm-asset/signature_pad": "^2.3.2",
 		"npm-asset/vue": ">=2.6.10",
 		"npm-asset/zxing--library": ">=0.17.0",
+		"haubek/bootstrap4c-chosen": "^1.0",
+		"harvesthq/chosen": "^1.8",
+		"npm-asset/select2": "^4.0",
+		"npm-asset/ttskch--select2-bootstrap4-theme": "^1.5",
 		"onelogin/php-saml": ">=2.10.0",
 		"openannotation/annotator": ">=1.2.10",
 		"openid/php-openid": "2.2.2",

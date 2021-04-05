@@ -110,7 +110,7 @@
 							.attr('value', data.itemId)
 							.text(data.{{if not empty($data.otherFieldPermName)}fields.{$data.otherFieldPermName}{else}itemTitle{/if}})
 							.appendTo($select);
-						$select.val(data.itemId).trigger("chosen:updated").trigger("change");
+						$select.val(data.itemId).trigger("change.select2").trigger("change");
 						$.closeModal();
 					}
 				});

@@ -16,7 +16,7 @@
 			{/foreach}
 		{/if}
 
-		<div style="display:inline-block;padding: 4px 10px;">
+		<div style="display:inline-block;padding: 4px 10px;vertical-align:middle">
 			{if $show_filters eq 'y'}
 				{jq}
 					fields = [];
@@ -29,7 +29,7 @@
 					{/foreach}}
 				{/jq}
 				{*FIX flip from tikijs.js this only a paleative<select name="filterfield" onchange="multitoggle(fields,this.options[selectedIndex].value);flip('filterbutton');">*}
-				<select name="filterfield" class="form-control" onchange="multitoggle(fields,this.options[selectedIndex].value); {literal}showit = 'show_filterbutton'; if(this.selectedIndex == 0){document.getElementById('filterbutton').style.display = 'none';setSessionVar(showit,'n');}else{ document.getElementById('filterbutton').style.display = 'block'; setSessionVar(showit,'y');}{/literal}">
+				<select name="filterfield" class="form-control" data-placeholder="{tr}Choose a filter{/tr}" onchange="multitoggle(fields,this.options[selectedIndex].value); {literal}showit = 'show_filterbutton'; if(this.selectedIndex == 0){document.getElementById('filterbutton').style.display = 'none';setSessionVar(showit,'n');}else{ document.getElementById('filterbutton').style.display = 'block'; setSessionVar(showit,'y');}{/literal}">
 					{*FIX flip from tikijs.js this only a paleative<select name="filterfield" onchange="multitoggle(fields,this.options[selectedIndex].value);flip('filterbutton');">*}
 					<option value="">{tr}Choose a filter{/tr}</option>
 					{foreach key=fid item=field from=$listfields}
@@ -82,7 +82,7 @@
 									</label>
 								{/foreach}
 							{elseif $field.options_map.inputtype eq 'm'}
-								{if $prefs.jquery_ui_chosen neq 'y'}<small>{tr}Hold "Ctrl" in order to select multiple values{/tr}</small><br>{/if}
+								{if $prefs.jquery_select2 neq 'y'}<small>{tr}Hold "Ctrl" in order to select multiple values{/tr}</small><br>{/if}
 								<select name="filtervalue[{$fid}][]" multiple="multiple" class="form-control">
 									{foreach key=ku from=$field.possibilities key=value item=label}
 										<option value="{$value|escape}" {if is_array($filtervalue) and in_array($value, $filtervalue)}selected="selected"{/if}>{$label|escape}</option>

@@ -216,8 +216,8 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
 		function(data, status) {
 			$ddl = $("div[name=' . $this->getInsertId() . ']");
 			$ddl.html(data);
-			if (jqueryTiki.chosen) {
-				$ddl.trigger("chosen:updated");
+			if (jqueryTiki.select2) {
+				$ddl.trigger("change.select2");
 			}
 			$ddl.trigger("change");
 		}

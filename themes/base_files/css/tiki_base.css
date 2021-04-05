@@ -641,37 +641,6 @@ body.wikitext {
 div.drillshow {
   border: 1px solid #dee2e6;
 }
-.tiki .chosen-container-single .chosen-single {
-  height: calc(1.5em + 0.75rem);
-  padding: 0.5rem 0.5rem;
-  font-size: 1rem;
-  line-height: 1.5;
-}
-.chosen-container-multi .chosen-choices {
-  background-color: white;
-  color: #495057;
-  border: 1px solid #ced4da;
-}
-.chosen-container-single .chosen-single, .chosen-container-active.chosen-with-drop .chosen-single, .chosen-container .chosen-drop, .chosen-container-multi .chosen-choices .search-choice {
-  background-color: #fff;
-  color: #495057;
-  border: 1px solid #ced4da;
-}
-.chosen-container-single .chosen-single div, .chosen-container-active.chosen-with-drop .chosen-single div, .chosen-container .chosen-drop div, .chosen-container-multi .chosen-choices .search-choice div {
-  background-color: #fff;
-}
-.chosen-container-single .chosen-search input[type="text"] {
-  background-color: #fff;
-  border: 1px solid #ced4da;
-}
-.chosen-container .chosen-results li.active-result {
-  color: #495057;
-  background-color: #fff;
-}
-.chosen-container .chosen-results li.active-result.result-selected, .chosen-container .chosen-results li.active-result.highlighted {
-  background-color: #007bff;
-  color: white;
-}
 .breadcrumb {
   font-style: normal;
   font-size: 90%;
@@ -715,9 +684,6 @@ div.drillshow {
   background: #007bff;
   color: white;
   border: none;
-}
-.tiki-edit_banner #col1 .short .chosen-container {
-  width: 32% !important;
 }
 .tiki .modal-content .ui-state-default {
   color: #007bff;
@@ -819,51 +785,6 @@ input[type="checkbox"].preffilter-toggle-round:checked + label:before {
 }
 .btn-primary.btn-files:not(:disabled):not(.disabled):active:focus, .btn-primary.btn-files:not(:disabled):not(.disabled).active:focus, .show > .btn-primary.btn-files.dropdown-toggle:focus {
   box-shadow: 0 0 0 0.2rem rgba(137, 38, 204, 0.5);
-}
-.chosen-container-single .chosen-single div {
-  padding-left: 1rem;
-}
-.chosen-container-single .chosen-single div::after {
-  display: inline-block;
-  position: relative;
-  top: 0.25rem;
-  left: -1rem;
-  width: 2rem;
-  height: 2rem;
-  content: "";
-  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23adb5bd' d='M7.41 7.84L12 12.42l4.59-4.58L18 9.25l-6 6-6-6z'/%3E%3C/svg%3E");
-  background-size: 2rem 2rem;
-  background-position: center center;
-  background-repeat: no-repeat;
-}
-.chosen-container-active.chosen-with-drop .chosen-single div::after {
-  display: inline-block;
-  position: relative;
-  top: 0.25rem;
-  left: -1rem;
-  width: 2rem;
-  height: 2rem;
-  content: "";
-  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23adb5bd' d='M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z'/%3E%3C/svg%3E");
-  background-size: 2rem 2rem;
-  background-position: center center;
-  background-repeat: no-repeat;
-}
-.chosen-container-multi .chosen-choices .search-choice .search-choice-close {
-  display: inline-block;
-  position: absolute;
-  top: 0.2rem;
-  right: 0.125rem;
-  width: 1rem;
-  height: 1rem;
-  cursor: pointer;
-  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23dc3545' d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/%3E%3C/svg%3E");
-  background-size: 1rem 1rem;
-  background-position: center center;
-  background-repeat: no-repeat;
-}
-.chosen-container-multi .chosen-choices .search-choice .search-choice-close:hover {
-  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23921925' d='M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z'/%3E%3C/svg%3E");
 }
 .intertrans .switch {
   display: inline-block;
@@ -1898,9 +1819,6 @@ td.url {
 #score-table .advanced-row td {
   border-top: none;
 }
-#score-table .chosen-container {
-  width: 50% !important;
-}
 @media (min-width: 992px) {
   .table-responsive > #score-table {
     table-layout: auto;
@@ -2599,28 +2517,19 @@ table.treetable tr.expanded span.indenter a {
 [class*="tracker-status"].highlighted:before {
   color: inherit !important;
 }
-.tiki .chosen-container .chosen-results li.result-selected[class*="tracker-status-"]:before {
-  top: 0;
-  width: auto;
-  height: auto;
-  margin-left: 0;
-}
-.tiki .chosen-container .chosen-results li.highlighted[class*="tracker-status"]:before {
-  background-image: none;
-}
-.chosen-container .chosen-results li.result-selected.tracker-status-open:before, .chosen-container .chosen-results li.result-selected.tracker-status-o:before, .tracker-status-open:before, .tracker-status-o:before {
+.tracker-status-open:before, .tracker-status-o:before {
   content: "";
   color: green;
   font-weight: 900;
   background-image: none;
 }
-.chosen-container .chosen-results li.result-selected.tracker-status-pending:before, .chosen-container .chosen-results li.result-selected.tracker-status-p:before, .tracker-status-pending:before, .tracker-status-p:before {
+.tracker-status-pending:before, .tracker-status-p:before {
   content: "";
   color: orange;
   font-weight: 900;
   background-image: none;
 }
-.chosen-container .chosen-results li.result-selected.tracker-status-closed:before, .chosen-container .chosen-results li.result-selected.tracker-status-c:before, .tracker-status-closed:before, .tracker-status-c:before {
+.tracker-status-closed:before, .tracker-status-c:before {
   content: "";
   color: grey;
   font-weight: 400;
@@ -2636,9 +2545,6 @@ table.treetable tr.expanded span.indenter a {
 .tiki .html-select-date .col, .tiki .html-select-time .col {
   padding: 0 5px 0 0;
   flex-grow: 0;
-}
-.tiki .html-select-date .chosen-container-single, .tiki .html-select-time .chosen-container-single {
-  min-width: 8em;
 }
 .currency_number, .currency_code {
   border: 1px solid #ced4da !important;
@@ -3510,6 +3416,10 @@ body > .ui-front {
   /* bs .modal has z-index: 1050, need body specified so as to override jquery-ui.css */
   z-index: 2000;
 }
+/* Full width .object-selector-multi when in modal  */
+.tiki-modal .object-selector-multi {
+  width: 100%;
+}
 .olControlNavToolbar {
   top: 345px !important;
 }
@@ -3703,48 +3613,38 @@ h4.ui-accordion-header {
 div.form-group label.error {
   font-weight: normal !important;
 }
-.tiki .chosen-container .active-result {
-  width: auto !important;
+.select2.select2-container {
+  display: inline-block;
 }
-.tiki .input-group .chosen-container {
-  width: 110% !important;
+/* Fixes hidden placeholder on select2 multiple when first initialization */
+.select2-container .select2-selection__rendered > *:first-child.select2-search--inline {
+  width: 100% !important;
 }
-[class*="tiki-admin"] .input-group .chosen-container, [class*="tiki-list"] .input-group .chosen-container, .tiki-view_tracker .input-group .chosen-container, .adminoptionbox .input-group .chosen-container, .manage .input-group .chosen-container {
-  width: auto !important;
+.select2-container .select2-selection__rendered > *:first-child.select2-search--inline .select2-search__field {
+  width: 100% !important;
 }
-@media (max-width: 767.98px) {
-  [class*="tiki-admin"] .input-group .chosen-container, [class*="tiki-list"] .input-group .chosen-container, .tiki-view_tracker .input-group .chosen-container, .adminoptionbox .input-group .chosen-container, .manage .input-group .chosen-container {
-    width: 1% !important;
-  }
-}
-.tiki .chosen-container-single, .tiki #assign_order_chosen.chosen-container {
-  min-width: 6em;
-  word-wrap: normal;
-}
-.tiki .chosen-container .chosen-container-single {
+/* Fixes select2 multiple selection choices overflow */
+.select2-container .select2-selection--multiple .select2-selection__choice {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   max-width: 100%;
 }
-.chosen-container-multi .chosen-choices .search-field .default {
-  min-width: 20em;
+/* Fixes select2 multiple search when select2 continer opened/closed */
+.select2-container .select2-selection--multiple .select2-selection__choice + .select2-search {
+  width: 0;
 }
-.chosen-container + .alert {
-  margin-top: 20px;
+.select2-container.select2-container--open .select2-selection--multiple .select2-selection__choice + .select2-search {
+  width: auto;
 }
-.chosen-container .chosen-results li.active-result.text-muted.bg-info {
-  background: #17a2b8;
+/* Fixes 'clear' button overlap though must load after select2 bootstrap4 theme to take precedence */
+.select2-container--bootstrap4 .select2-selection--multiple .select2-selection__clear {
+  position: relative !important;
+  float: right;
 }
-.chosen-container .chosen-results li.active-result.text-muted.bg-info {
-  color: white !important;
-}
-.tiki .chosen-container .chosen-choices .search-choice + .search-field input[type="text"] {
-  display: none;
-}
-.tiki .chosen-container.chosen-container-active .chosen-choices .search-choice + .search-field input[type="text"] {
-  display: inherit;
-}
-.tiki .chosen-container .chosen-single abbr {
-  background-color: transparent;
-  box-shadow: none;
+.inline-cypht .select2-container {
+  margin-bottom: 10px;
 }
 .tiki .anythingSlider, .tiki .anythingWindow, .tiki .anythingBase, .tiki .anythingBase > .card {
   -webkit-box-sizing: content-box;

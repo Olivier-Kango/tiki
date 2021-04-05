@@ -92,23 +92,6 @@
 	}
 }
 
-.tiki .chosen-container .chosen-results li.result-selected[class*="tracker-status-"] {
-	&:before {
-		top: 0;
-		width: auto;
-		height: auto;
-		margin-left: 0;
-	}
-}
-
-.tiki .chosen-container .chosen-results li.highlighted {
-	&[class*="tracker-status"]:before {
-		background-image: none;
-	}
-}
-
-.chosen-container .chosen-results li.result-selected.tracker-status-open,
-.chosen-container .chosen-results li.result-selected.tracker-status-o,
 .tracker-status-open, .tracker-status-o {
 	&:before {
 		content: "\f111";
@@ -118,8 +101,6 @@
 	}
 }
 
-.chosen-container .chosen-results li.result-selected.tracker-status-pending,
-.chosen-container .chosen-results li.result-selected.tracker-status-p,
 .tracker-status-pending, .tracker-status-p {
 	&:before {
 		content: "\f042";
@@ -129,8 +110,6 @@
 	}
 }
 
-.chosen-container .chosen-results li.result-selected.tracker-status-closed,
-.chosen-container .chosen-results li.result-selected.tracker-status-c,
 .tracker-status-closed, .tracker-status-c {
 	&:before {
 		content: "\f057";
@@ -152,7 +131,6 @@
 		padding: 0 5px 0 0;
 		flex-grow: 0;
 	}
-	.chosen-container-single { min-width: 8em; }
 }
 
 .currency_number, .currency_code{

@@ -189,7 +189,7 @@
 				$("#list_input_container_{{$id}}").load(
 					$.service('tracker', 'fetch_item_field', params),
 					function () {
-						$(this).tiki_popover().applyChosen();
+						$(this).tiki_popover().applySelect2();
 					}
 				).show();
 			} else if( params ) {
