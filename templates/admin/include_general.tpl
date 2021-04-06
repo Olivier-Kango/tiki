@@ -5,7 +5,7 @@
 		{button _class="btn btn-link tips" _type="text" href="tiki-install.php" _icon_name="database" _text="{tr}Tiki Installer{/tr}" _title="{tr}Reset or upgrade your database{/tr}"}
 		{button _class="btn btn-link tips" _type="text" href="tiki-admin_menus.php" _icon_name="menu" _text="{tr}Menus{/tr}" _title="{tr}Create and edit menus{/tr}"}
 		{button _class="btn btn-link tips" _type="text" href="tiki-check.php" _icon_name="heartbeat" _text="{tr}Server Fitness{/tr}" _title="{tr}Check if your server meets the requirements for running Tiki{/tr}"}
-        {button _class="btn btn-info tips" _type="info" href="tiki-admin.php?page=general&amp;forcecheck=1" _icon_name="search" _text="{tr}Check for Updates Now{/tr}" _title="{tr}Check if a new Tiki version is available{/tr}"}
+        {button _class="btn-sm tips" _type="secondary" href="tiki-admin.php?page=general&amp;forcecheck=1" _icon_name="search" _text="{tr}Check for Updates Now{/tr}" _title="|{tr}Check if a new Tiki version is available{/tr}"}
 		{include file='admin/include_apply_top.tpl'}
 	</div>
 	{tabset name="admin_general"}
