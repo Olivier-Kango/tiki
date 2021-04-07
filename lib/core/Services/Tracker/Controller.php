@@ -407,7 +407,7 @@ class Services_Tracker_Controller
 				$actions = json_decode($input->actions->text());
 				$else = json_decode($input->else->text());
 				// filter out empty defaults - TODO work out how to remove rules in Vue
-				if ($actions->predicates[0]->target_id !== 'NoTarget' && $else->predicates[0]->target_id !== 'NoTarget') {
+				if ($actions->predicates[0]->target_id !== 'NoTarget' || $else->predicates[0]->target_id !== 'NoTarget') {
 					$conditions = json_decode($input->conditions->text());
 					$rules = json_encode([
 						'conditions' => $conditions,
