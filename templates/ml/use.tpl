@@ -15,9 +15,20 @@
 
 {block name="content"}
 	<p>{$model.description|escape|nl2br}</p>
-	<p>{tr}Use this model by entering a sample information in the form below and execute a query against the trained model. This will produce results based on the chosen estimator and show you the most relevant matches.{/tr}</p>
+	<p>{tr}Use this model by entering a sample information in the form below and execute a query against the trained model. This will produce results based on the chosen estimator and show you the most relevant matches or predict the result.{/tr}</p>
 	<form class="use-ml" method="post" action="{service controller=ml action=use mlmId=$model.mlmId}">
 		{trackerfields trackerId=$trackerId fields=$fields}
+		<div class="form-group row">
+			<label class="col-form-label col-sm-2">{tr}Type{/tr}</label>
+			<div class="col-sm-10">
+				<input type="radio" name="type" value="proba" {if $type neq 'predict'}checked{/if}>
+				{tr}Probability (closest matches){/tr}
+				<a href="https://docs.rubixml.com/latest/probabilistic.html" target="_blank" class="tikihelp text-info">{icon name=help}</a>
+				<br/>
+				<input type="radio" name="type" value="predict" {if $type eq 'predict'}checked{/if}> {tr}Prediction{/tr}
+				<a href="https://docs.rubixml.com/latest/estimator.html" target="_blank" class="tikihelp text-info">{icon name=help}</a>
+			</div>
+		</div>
 		<div class="submit">
 			<input
 				type="submit"
@@ -30,11 +41,19 @@
 		<br/>
 		{foreach from=$results key=$itemId item=row}
 			<p>
-				{object_link type=trackeritem id=$itemId}:
-				{foreach $row.fields as $field}
-					{trackeroutput field=$field}
-				{/foreach}
+				{if $row.proba}
+					{$row.proba}%:
+				{/if}
+				<a href="{$itemId|sefurl:'trackeritem'}">
+					{foreach $row.fields as $field}
+						{trackeroutput field=$field}
+					{/foreach}
+				</a>
 			</p>
 		{/foreach}
+	{/if}
+	{if $result}
+		<br/>
+		<p>{if $label}{$label}{else}{tr}Result{/tr}{/if}: {$result}</p>
 	{/if}
 {/block}

@@ -257,6 +257,26 @@ class Services_ML_Controller
 		]
 	];
 
+	const METRICS = [
+		'path' => 'CrossValidation\Metrics',
+		'classes' => [
+			'Accuracy',
+			'Completeness',
+			'FBeta',
+			'Homogeneity',
+			'Informedness',
+			'MCC',
+			'MeanAbsoluteError',
+			'MeanSquaredError',
+			'MedianAbsoluteError',
+			'RandIndex',
+			'RMSE',
+			'RSquared',
+			'SMAPE',
+			'VMeasure',
+		]
+	];
+
 	public function setUp()
 	{
 		$this->mllib = TikiLib::lib('ml');
@@ -457,6 +477,8 @@ class Services_ML_Controller
 			'neuralnet_activation_functions' => self::NEURALNET_ACTIVATION_FUNCTIONS,
 			'neuralnet_initializers' => self::NEURALNET_INITIALIZERS,
 			'neuralnet_layers' => self::NEURALNET_LAYERS,
+			'learners' => self::LEARNERS,
+			'metrics' => self::METRICS,
 		];
 	}
 
@@ -541,13 +563,33 @@ class Services_ML_Controller
 			}
 		}
 
+		if ($this->mllib->isRegressor($model)) {
+			$label = array_pop($processedFields);
+			$label = $label['name'];
+		} else {
+			$label = null;
+		}
+
 		$results = [];
+		$result = null;
 
 		if (! empty($processedFields) && $_SERVER['REQUEST_METHOD'] == 'POST') {
 			try {
-				$results = $this->mllib->probaSample($model, $processedFields);
-				foreach ($results as $itemId => $proba) {
-					$results[$itemId] = ['proba' => $proba, 'fields' => []];
+				$type = $input->type->text();
+				if ($type == 'predict') {
+					$itemId = $this->mllib->predictSample($model, $processedFields);
+					if ($this->mllib->isRegressor($model)) {
+						$result = $itemId;
+					} else {
+						$results[$itemId] = ['fields' => []];
+					}
+				} else {
+					$results = $this->mllib->probaSample($model, $processedFields);
+					foreach ($results as $itemId => $proba) {
+						$results[$itemId] = ['proba' => number_format($proba*100, 2), 'fields' => []];
+					}
+				}
+				foreach ($results as $itemId => $_) {
 					$item = Tracker_Item::fromId($itemId);
 					$outputFields = $item->prepareOutput();
 					foreach ($processedFields as $field) {
@@ -574,6 +616,9 @@ class Services_ML_Controller
 			'trackerId' => $model['sourceTrackerId'],
 			'fields' => $processedFields,
 			'results' => $results,
+			'result' => $result,
+			'label' => $label,
+			'type' => $input->type->text(),
 		];
 	}
 

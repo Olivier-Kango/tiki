@@ -28,14 +28,29 @@
 						{assign var="classes" value=$neuralnet_activation_functions}
 					{elseif strstr($arg.arg_type, 'NeuralNet\Initializers')}
 						{assign var="classes" value=$neuralnet_initializers}
+					{elseif strstr($arg.arg_type, 'Learner')}
+						{assign var="classes" value=$learners}
+					{elseif strstr($arg.arg_type, 'Metrics')}
+						{assign var="classes" value=$metrics}
 					{else}
 						{assign var="classes" value=[]}
 					{/if}
-					{if $classes}
+					{if $classes.path}
 						<select class="form-control ml-class" name="args[{$arg.name|escape}][class]" data-path="{$arg.name|escape}" data-href="{service controller=ml action=model_args}" {if $arg.required}required{/if}>
 							<option value=''>Default</option>
 							{foreach $classes.classes as $tokenizer}
 								<option value="{$classes.path}\{$tokenizer|escape}">{$tokenizer|escape}</option>
+							{/foreach}
+						</select>
+					{elseif $classes}
+						<select class="form-control ml-class" name="args[{$arg.name|escape}][class]" data-path="{$arg.name|escape}" data-href="{service controller=ml action=model_args}" {if $arg.required}required{/if}>
+							<option value=''>Default</option>
+							{foreach $classes as $label => $group}
+								<optgroup label="{$label|escape}">
+								{foreach $group.classes as $learner}
+									<option value="{$group.path|escape}\{$learner|escape}">{$learner|escape}</option>
+								{/foreach}
+								</optgroup>
 							{/foreach}
 						</select>
 					{else}

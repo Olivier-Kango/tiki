@@ -108,6 +108,26 @@ class MachineLearningLib extends TikiDb_Bridge
 
 	function train($model, $test = false)
 	{
+		$learner = null;
+		$transformers = [];
+		foreach ($model['instances'] as $row) {
+			$instance = $row['instance'];
+			if ($instance instanceof Rubix\ML\Transformers\Transformer) {
+				$transformers[] = $instance;
+			} elseif ($instance instanceof Rubix\ML\Learner) {
+				$learner = $instance;
+			} else {
+				throw new Exception(tr('Not implemented: %0', get_class($instance)));
+			}
+		}
+		$estimator = new Rubix\ML\Pipeline($transformers, $learner);
+
+		if ($learner && $learner->type() == Rubix\ML\EstimatorType::regressor()) {
+			$is_regressor = true;
+		} else {
+			$is_regressor = false;
+		}
+
 		$samples = [];
 		$labels = [];
 
@@ -116,6 +136,7 @@ class MachineLearningLib extends TikiDb_Bridge
 		$definition = Tracker_Definition::get($model['sourceTrackerId']);
 		foreach ($items['data'] as $item) {
 			$item = Tracker_Item::fromId($item['itemId']);
+			$label = $item->getId();
 			$sample = [];
 			foreach ($model['trackerFields'] as $fieldId) {
 				$field = $definition->getField($fieldId);
@@ -127,16 +148,22 @@ class MachineLearningLib extends TikiDb_Bridge
 					'field' => $field,
 					'itemId' => $item->getId(),
 				]);
-				if (empty($value)) {
+				if (empty($value) && ! $is_regressor) {
 					continue 2;
 				}
 				$sample[] = $value;
+			}
+			if ($is_regressor && ! empty($sample)) {
+				$label = array_pop($sample);
+				if (is_numeric($label)) {
+					$label = intval($label);
+				}
 			}
 			if (empty($sample)) {
 				continue;
 			}
 			$samples[] = $sample;
-			$labels[] = $item->getId();
+			$labels[] = $label;
 		}
 
 		if (empty($samples) || empty($labels)) {
@@ -144,21 +171,6 @@ class MachineLearningLib extends TikiDb_Bridge
 		}
 
 		$dataset = Rubix\ML\Datasets\Labeled::build($samples, $labels);
-		$learner = null;
-		$transformers = [];
-
-		foreach ($model['instances'] as $row) {
-			$instance = $row['instance'];
-			if ($instance instanceof Rubix\ML\Transformers\Transformer) {
-				$transformers[] = $instance;
-			} elseif ($instance instanceof Rubix\ML\Learner) {
-				$learner = $instance;
-			} else {
-				throw new Exception(tr('Not implemented: %0', get_class($instance)));
-			}
-		}
-
-		$estimator = new Rubix\ML\Pipeline($transformers, $learner);
 		$estimator->train($dataset);
 
 		if (! $test) {
@@ -187,6 +199,27 @@ class MachineLearningLib extends TikiDb_Bridge
 		arsort($result);
 
 		return $result;
+	}
+
+	function predictSample($model, $processedFields)
+	{
+		$sample = [];
+		foreach ($processedFields as $field) {
+			$value = TikiLib::lib('trk')->field_render_value([
+				'field' => $field,
+			]);
+			$sample[] = $value;
+		}
+
+		$estimator = $this->getTrainedModel($model);
+
+		$result = $estimator->predictSample($sample);
+		return $result;
+	}
+
+	function isRegressor($model) {
+		$estimator = $this->getTrainedModel($model);
+		return $estimator->type() == Rubix\ML\EstimatorType::regressor();
 	}
 
 	function ensureModelTrained($model)
