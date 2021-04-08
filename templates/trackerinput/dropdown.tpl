@@ -29,11 +29,11 @@
 		<input type="hidden" name="{$field.ins_id}_old" value="{$field.value|escape}">
 	{else}
 		<select name="{$field.ins_id|escape}" class="form-control{if $field.type eq 'D'} group_{$field.ins_id|escape}{/if}">
-			{if $field.isMandatory ne 'y' || empty($field.value)}
+			{if $field.isMandatory ne 'y' || $field.value eq ''}
 				<option value=""></option>
 			{/if}
-			{foreach from=$field.possibilities key=value item=label}
-				{if $value eq 'other' or $value eq "{tr}other{/tr}"}
+			{foreach $field.possibilities as $value => $label}
+				{if $value !== 0  and ($value eq 'other' or $value eq "{tr}other{/tr}")}
 					{assign var=otherLabel value={$label|escape}}
 					{continue}{* FIXME: Ignores options which would have "other" as key, which is not documented. Avoids displaying 2 "other" options, since the option needed to be specified manually prior to Tiki 18. *}
 				{/if}
