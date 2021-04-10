@@ -1,0 +1,1 @@
+ALTER TABLE `tiki_activity_stream` MODIFY COLUMN `arguments` MEDIUMBLOB NULL;

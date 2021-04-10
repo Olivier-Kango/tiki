@@ -105,19 +105,18 @@ class ActivityLib
 
 		$encoded = json_encode($arguments);
 
-		// observe 64KB BLOB limit
-		// TODO: research why don't we use MEDIUMBLOB instead of truncating here
-		if (strlen($encoded) >= 65535) {
+		// observe 16MB MEDIUMBLOB limit
+		if (strlen($encoded) >= 16777215) {
 			unset($arguments['values'], $arguments['old_values']);
 			$encoded = json_encode($arguments);
 		}
 
-		if (strlen($encoded) >= 65535) {
+		if (strlen($encoded) >= 16777215) {
 			unset($arguments['old_values_by_permname']);
 			$encoded = json_encode($arguments);
 		}
 
-		if (strlen($encoded) >= 65535) {
+		if (strlen($encoded) >= 16777215) {
 			unset($arguments['values_by_permname']);
 			$encoded = json_encode($arguments);
 		}

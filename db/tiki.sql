@@ -108,7 +108,7 @@ CREATE TABLE `tiki_activity_stream` (
   `activityId` int(8) NOT NULL auto_increment,
   `eventType` varchar(100) NOT NULL,
   `eventDate` int NOT NULL,
-  `arguments` BLOB,
+  `arguments` MEDIUMBLOB,
   PRIMARY KEY(`activityId`)
 ) ENGINE=MyISAM;
 
