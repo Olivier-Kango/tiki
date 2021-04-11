@@ -179,7 +179,7 @@ var vm = new Vue({
 		foreach (array_filter($fields) as $field) {
 			if (! empty( $field['rules']) && $field['rules'] !== '{"conditions":null,"actions":null,"else":null}') {
 				$rules = Tiki\Lib\core\Tracker\Rule\Rules::fromData($field['fieldId'], $field['rules']);
-				$js .= $rules->getJavaScript($parentSelector);
+				$js .= $rules->getJavaScript($parentSelector, $field);
 			}
 		}
 

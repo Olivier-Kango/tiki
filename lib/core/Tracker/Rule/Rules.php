@@ -42,7 +42,7 @@ class Rules
 	 *
 	 * @return string
 	 */
-	public function getJavaScript(string $parentSelector = '.form-group:first'): string
+	public function getJavaScript(string $parentSelector = '.form-group:first', array $field): string
 	{
 		global $prefs;
 
@@ -50,14 +50,29 @@ class Rules
 		$conditions = [];
 		$selectors  = [];
 
+		// radio buttons need to trigger from all in the group (by name)
+		if (in_array($field['type'], ['R'])) {
+			$conditionQualifier = '';
+			$selectorQualifier = ':checked';
+		} else {
+			$conditionQualifier = ':last';
+			$selectorQualifier = '';
+		}
+
 		if ($this->conditions->logicalType_id === 'any') {	// TODO deal with 'none'
 			$operator = ' || ';
 		}
 
 		foreach ($this->conditions->predicates as $predicate) {
-			$selector = '[name=\'' . $predicate->target_id . '\']:last';
+			$selector = '[name=\'' . $predicate->target_id . '\']' . $conditionQualifier;
 			$selectors[] = $selector;
-			$conditions[] = '$("' . $selector . '", $(this).form())' . $this->getPredicateSyntax($predicate, 'Operator');
+			if (in_array($field['type'], ['R'])) {
+				// radio button value is only relevant for the :checked one
+				$conditionPrefix = '$("' . $selector . $selectorQualifier . '", $(this).form()).length && ';
+			} else {
+				$conditionPrefix = '';
+			}
+			$conditions[] = $conditionPrefix . '$("' . $selector . $selectorQualifier . '", $(this).form())' . $this->getPredicateSyntax($predicate, 'Operator');
 		}
 
 		$js = "\n  if (" . implode($operator, $conditions) . ')';
@@ -133,6 +148,8 @@ class Rules
 		} else if (strpos($syntax, '%argument%') !== false) {
 			$syntax = str_replace('%argument%', tr('No argument for \"%0\" rule', $predicate->operator_id), $syntax);
 		}
+
+		$syntax = str_replace('%value%', '"+$(this).val()+"', $syntax);
 
 		return $syntax;
 	}
