@@ -1,19 +1,19 @@
 {strip}
 	{if $field.type eq 'R'}
-		{foreach from=$field.possibilities key=value item=label}
+		{foreach $field.possibilities as $value => $label}
 			<div class="form-check form-check-inline">
-				<input class="form-check-input" type="radio" name="{$field.ins_id|escape}" value="{$value|escape}" {if $field.value eq "$value"}checked="checked"{/if}>
-				<label class="form-check-label" for="{$field.ins_id|escape}">
+				<input class="form-check-input" type="radio" name="{$field.ins_id|escape}" id="{$field.ins_id|escape}-{$label@iteration}" value="{$value|escape}" {if $field.value eq "$value"}checked="checked"{/if}>
+				<label class="form-check-label" for="{$field.ins_id|escape}-{$label@iteration}">
 					{$label|tr_if|escape}
 				</label>
 			</div>
 		{/foreach}
 	{elseif $field.type eq 'M'}
 		{if empty($field.options_map.inputtype)}
-			{foreach from=$field.possibilities key=value item=label}
+			{foreach $field.possibilities as $value => $label}
 				<div class="form-check form-check-inline">
-					<input class="form-check-input" type="checkbox" name="{$field.ins_id|escape}[]" value="{$value|escape}" {if in_array("$value", $field.selected)}checked="checked"{/if}>
-					<label class="form-check-label" for="{$field.ins_id|escape}[]">
+					<input class="form-check-input" type="checkbox" name="{$field.ins_id|escape}[]" id="{$field.ins_id|escape}-{$label@iteration}" value="{$value|escape}" {if in_array("$value", $field.selected)}checked="checked"{/if}>
+					<label class="form-check-label" for="{$field.ins_id|escape}-{$label@iteration}">
 						{$label|tr_if|escape}
 					</label>
 				</div>
@@ -21,7 +21,7 @@
 		{elseif $field.options_map.inputtype eq 'm'}
 			{if $prefs.jquery_select2 neq 'y'}<small>{tr}Hold "Ctrl" in order to select multiple values{/tr}</small><br>{/if}
 			<select name="{$field.ins_id}[]" multiple="multiple" class="form-control">
-				{foreach key=ku from=$field.possibilities key=value item=label}
+				{foreach $field.possibilities as $value => $label}
 					<option value="{$value|escape}" {if in_array("$value", $field.selected)}selected="selected"{/if}>{$label|escape}</option>
 				{/foreach}
 			</select>
