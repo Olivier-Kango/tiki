@@ -31,7 +31,7 @@ if (version_compare(PHP_VERSION, '7.4.0', '<')) {
 		exit;
 	}
 	// This is command-line. No 'location' command make sense here. Let admins access what works and deal with the rest.
-	echo "Warning: Tiki21 and above expects PHP 7.2.0 and above. You are running " . phpversion() . " at your own risk\n";
+	echo 'Warning: Tiki expects PHP 7.4.0 and above. You are running ' . PHP_VERSION . ". Use at your own risk\n";
 }
 
 // Ensure that we clean PROXY headers
