@@ -326,7 +326,6 @@ var vm = new Vue({
 			||
 			$field['type'] === 'w' && $field['options_map']['selectMultipleValues']   // DynamicItemsList
 		) {
-
 			$field['argumentType'] = 'Collection';
 			$field['ins_id'] = $field['ins_id'] . '[]';
 		}
