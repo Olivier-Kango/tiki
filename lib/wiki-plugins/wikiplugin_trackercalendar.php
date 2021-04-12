@@ -439,47 +439,34 @@ function wikiplugin_trackercalendar($data, $params)
 		return WikiParser_PluginOutput::userError(tr('Fields not found.'));
 	}
 
+	//set defaults
+	$plugininfo = wikiplugin_trackercalendar_info();
+	$defaults = [];
+	foreach ($plugininfo['params'] as $key => $param) {
+		$defaults[$key] = $param['default'];
+	}
+	$params = array_merge($defaults, $params);
+
 	$views = [];
-	if (! empty($params['amonth']) and $params['amonth'] != 'y') {
-		$amonth = 'n';
-	} else {
-		$amonth = 'y';
+	if ($params['amonth'] === 'y') {
 		$views[] = 'dayGridMonth';
 	}
-	if (! empty($params['aweek']) and $params['aweek'] != 'y') {
-		$aweek = 'n';
-	} else {
-		$aweek = 'y';
+	if ($params['aweek'] === 'y') {
 		$views[] = 'resourceTimeGridWeek';
 	}
-	if (! empty($params['aday']) and $params['aday'] != 'y') {
-		$aday = 'n';
-	} else {
-		$aday = 'y';
+	if ($params['aday'] === 'y') {
 		$views[] = 'resourceTimeGridDay';
 	}
-	if (! empty($params['lyear']) and $params['lyear'] != 'y') {
-		$lyear = 'n';
-	} else {
-		$lyear = 'y';
+	if ($params['lyear'] === 'y') {
 		$views[] = 'listYear';
 	}
-	if (! empty($params['lmonth']) and $params['lmonth'] != 'y') {
-		$lmonth = 'n';
-	} else {
-		$lmonth = 'y';
+	if ($params['lmonth'] === 'y') {
 		$views[] = 'listMonth';
 	}
-	if (! empty($params['lweek']) and $params['lweek'] != 'y') {
-		$lweek = 'n';
-	} else {
-		$lweek = 'y';
+	if ($params['lweek'] === 'y') {
 		$views[] = 'listWeek';
 	}
-	if (! empty($params['lday']) and $params['lday'] != 'y') {
-		$lday = 'n';
-	} else {
-		$lday = 'y';
+	if ($params['lday'] === 'y') {
 		$views[] = 'listDay';
 	}
 
@@ -488,28 +475,16 @@ function wikiplugin_trackercalendar($data, $params)
 		$field = $definition->getFieldFromPermName($resourceField);
 		$resources = wikiplugin_trackercalendar_get_resources($field);
 
-		if (! empty($params['ryear']) and $params['ryear'] != 'y') {
-			$ryear = 'n';
-		} else {
-			$ryear = 'y';
+		if ($params['ryear'] === 'y') {
 			$views[] = 'resourceTimelineYear';
 		}
-		if (! empty($params['rmonth']) and $params['rmonth'] != 'y') {
-			$rmonth = 'n';
-		} else {
-			$rmonth = 'y';
+		if ($params['rmonth'] === 'y') {
 			$views[] = 'resourceTimelineMonth';
 		}
-		if (! empty($params['rweek']) and $params['rweek'] != 'y') {
-			$rweek = 'n';
-		} else {
-			$rweek = 'y';
+		if ($params['rweek'] === 'y') {
 			$views[] = 'resourceTimelineWeek';
 		}
-		if (! empty($params['rday']) and $params['rday'] != 'y') {
-			$rday = 'n';
-		} else {
-			$rday = 'y';
+		if ($params['rday'] === 'y') {
 			$views[] = 'resourceTimelineDay';
 		}
 	}
@@ -523,14 +498,13 @@ function wikiplugin_trackercalendar($data, $params)
 		'listWeek' => 'listWeek',
 		'listDay' => 'listDay',
 		'timelineYear' => 'resourceTimelineYear',
-		'timelineYear' => 'resourceTimelineYear',
 		'timelineMonth' => 'resourceTimelineMonth',
 		'timelineWeek' => 'resourceTimelineWeek',
 		'resourceWeek' => 'resourceTimelineWeek', // Old value on fullcalendar resources
 		'timelineDay' => 'resourceTimelineDay'
 	];
 
-	$dView = $dViewMap[$params['dView']] ?? 'dayGridMonth';
+	$dView = $dViewMap[$params['dView']];
 
 	// Define the default date (dYear, dMonth, dDay)
 	if (! empty($params['dYear'])) {
@@ -538,55 +512,35 @@ function wikiplugin_trackercalendar($data, $params)
 	} else {
 		$dYear = (int) date('Y');
 	}
-	if (! empty($params['dMonth']) and $params['dMonth'] > 0 and $params['dMonth'] < 13) {
+	if ($params['dMonth'] > 0 and $params['dMonth'] < 13) {
 		$dMonth = $params['dMonth'];
 	} else {
 		$dMonth = (int) date('n');
 	}
-	if (! empty($params['dDay']) and $params['dDay'] > 0 and $params['dDay'] < 32) {
+	if ($params['dDay'] > 0 and $params['dDay'] < 32) {
 		$dDay = $params['dDay'];
 	} else {
 		$dDay = (int) date('j');
 	}
 	// day duration
-	if (! empty($params['minHourOfDay'])) {
-		$minHourOfDay = $params['minHourOfDay'];
-	} else {
-		$minHourOfDay = '07:00:00';
-	}
-	if (! empty($params['maxHourOfDay'])) {
-		$maxHourOfDay = $params['maxHourOfDay'];
-	} else {
-		$maxHourOfDay = '24:00:00';
-	}
-	if (! empty($params['slotDuration'])) {
-		$slotDuration = $params['slotDuration'];
-	} else {
-		$slotDuration = "00:{$prefs['calendar_timespan']}:00";
-	}
-	if (! empty($params['eventOverlap']) and $params['eventOverlap'] != 'y') {
-		$eventOverlap = false;
-	} else {
-		$eventOverlap = true;
-	}
+	$minHourOfDay = $params['minHourOfDay'];
+	$maxHourOfDay = $params['maxHourOfDay'];
+	$slotDuration = $params['slotDuration'];
 
-	$maxEvents = $params['maxEvents'] ?: 200;
+	$eventOverlap = $params['eventOverlap'] === 'y';
+
+	$maxEvents = $params['maxEvents'];
 
 	// Format the default date as Y-m-d instead of Y-n-d, required by MomentJs
 	$dDate = (new DateTime($dYear . '-' . $dMonth . '-' . $dDay))->format('Y-m-d');
 
-	if (! empty($params['fDayofWeek']) and $params['fDayofWeek'] > -1 and $params['fDayofWeek'] < 7) {
+	if ($params['fDayofWeek'] > -1 and $params['fDayofWeek'] < 7) {
 		$firstDayofWeek = $params['fDayofWeek'];
 	} elseif ($prefs['calendar_firstDayofWeek'] !== 'user') {
 		$firstDayofWeek = $prefs['calendar_firstDayofWeek'];
 	} else {
 		$firstDayofWeek = 0;
 	}
-
-	$params['addAllFields'] = empty($params['addAllFields']) ? 'y' : $params['addAllFields'];
-	$params['useSessionStorage'] = empty($params['useSessionStorage']) ? 'y' : $params['useSessionStorage'];
-	$params['weekends'] = empty($params['weekends']) ? 'y' : $params['weekends'];
-	$params['external'] = $params['external'] ?? 'n';
 
 	$matches = WikiParser_PluginMatcher::match($data);
 	$builder = new Search_Formatter_Builder;
