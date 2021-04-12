@@ -74,9 +74,8 @@ class Rules
 			} else {
 				$conditionPrefix = '';
 			}
-			$conditions[] = $conditionPrefix . '$("' . $selector . $selectorQualifier . '", $(this).form())' . $this->getPredicateSyntax(
-					$predicate, 'Operator'
-				);
+			$conditions[] = $conditionPrefix . '$("' . $selector . $selectorQualifier . '", $(this).form())' .
+				$this->getPredicateSyntax($predicate, 'Operator');
 		}
 
 		$js = "\n  if (" . implode($operator, $conditions) . ')';
