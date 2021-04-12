@@ -7,7 +7,6 @@
 
 namespace Tiki\Lib\core\Tracker\Rule;
 
-
 use Tiki\Lib\core\Tracker\Rule\Operator;
 
 class Rules
@@ -29,7 +28,6 @@ class Rules
 		$this->conditions = $data->conditions;
 		$this->actions    = $data->actions;
 		$this->else       = $data->else;
-
 	}
 
 	public static function fromData($fieldId, $data)
@@ -42,13 +40,17 @@ class Rules
 	 *
 	 * @return string
 	 */
-	public function getJavaScript(string $parentSelector = '.form-group:first', array $field): string
+	public function getJavaScript(string $parentSelector, array $field): string
 	{
 		global $prefs;
 
-		$operator   = ' && ';
+		$operator = ' && ';
 		$conditions = [];
-		$selectors  = [];
+		$selectors = [];
+
+		if (empty($parentSelector)) {
+			$parentSelector = '.form-group:first';
+		}
 
 		// radio buttons need to trigger from all in the group (by name)
 		if (in_array($field['type'], ['R'])) {
@@ -59,7 +61,7 @@ class Rules
 			$selectorQualifier = '';
 		}
 
-		if ($this->conditions->logicalType_id === 'any') {	// TODO deal with 'none'
+		if ($this->conditions->logicalType_id === 'any') {    // TODO deal with 'none'
 			$operator = ' || ';
 		}
 
@@ -72,17 +74,20 @@ class Rules
 			} else {
 				$conditionPrefix = '';
 			}
-			$conditions[] = $conditionPrefix . '$("' . $selector . $selectorQualifier . '", $(this).form())' . $this->getPredicateSyntax($predicate, 'Operator');
+			$conditions[] = $conditionPrefix . '$("' . $selector . $selectorQualifier . '", $(this).form())' . $this->getPredicateSyntax(
+					$predicate, 'Operator'
+				);
 		}
 
 		$js = "\n  if (" . implode($operator, $conditions) . ')';
 
 		$actions = [];
 
-		foreach($this->actions->predicates as $predicate) {
+		foreach ($this->actions->predicates as $predicate) {
 			if ($predicate->operator_id !== 'NoOp') {
 				$targetSelector = "\$(\"[name='{$predicate->target_id}']\", $(this).form())";
-				$actions[] = "    if ($targetSelector.length === 0) { console.error('Tracker Rules: element $predicate->target_id not found'); return; }";
+				$actions[]
+					= "    if ($targetSelector.length === 0) { console.error('Tracker Rules: element $predicate->target_id not found'); return; }";
 				if (strpos($predicate->operator_id, 'Required') === false) {
 					// show/hide etc needs the parent object
 					$actions[] = "    $targetSelector.parents('$parentSelector')" .
@@ -102,7 +107,8 @@ class Rules
 			foreach ($this->else->predicates as $predicate) {
 				if ($predicate->operator_id !== 'NoOp') {
 					$targetSelector = "\$(\"[name='{$predicate->target_id}']\", $(this).form())";
-					$else[] = "    if ($targetSelector.length === 0) { console.error('Tracker Rules: element $predicate->target_id not found'); return; }";
+					$else[]
+						= "    if ($targetSelector.length === 0) { console.error('Tracker Rules: element $predicate->target_id not found'); return; }";
 					if (strpos($predicate->operator_id, 'Required') === false) {
 						$else[] = "    $targetSelector.parents('$parentSelector')" .
 							$this->getPredicateSyntax($predicate, 'Action') . ';';
@@ -145,8 +151,10 @@ class Rules
 		if ($predicate->argument !== null) {
 			$syntax = str_replace('%argument%', $predicate->argument, $syntax);
 			$syntax = str_replace('%field%', $predicate->target_id, $syntax);
-		} else if (strpos($syntax, '%argument%') !== false) {
-			$syntax = str_replace('%argument%', tr('No argument for \"%0\" rule', $predicate->operator_id), $syntax);
+		} else {
+			if (strpos($syntax, '%argument%') !== false) {
+				$syntax = str_replace('%argument%', tr('No argument for \"%0\" rule', $predicate->operator_id), $syntax);
+			}
 		}
 
 		$syntax = str_replace('%value%', '"+$(this).val()+"', $syntax);

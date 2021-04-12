@@ -34,17 +34,19 @@ class VueJsLib
 		libxml_use_internal_errors(true);
 		$dom->loadHTML("<html lang=\"en\"><body>$str</body></html>");
 		$errors = libxml_get_errors();
-		foreach ($errors as $error)
-		{
+		foreach ($errors as $error) {
 			// template and ui-predicate tags are expected, so ignore them...
 			/* @var $error LibXMLError */
-			if (! in_array($error->message, [
+			if (! in_array(
+				$error->message, [
 				"Tag template invalid\n",
 				"Tag ui-predicate invalid\n",
 				"Tag trackerrules invalid\n",
 				"Tag durationpickeramount invalid\n",
-				"Tag durationpickermodal invalid\n"
-			])) {
+				"Tag durationpickermodal invalid\n",
+			]
+			)
+			) {
 				trigger_error($error->message);
 			}
 		}
@@ -71,7 +73,6 @@ class VueJsLib
 				}
 				//$headerlib->add_js_module($javascript);
 				// embedded modules cannot export apparently, also can't be found by import fns
-
 			}
 			global $tikidomainslash;
 			$tempDir = './temp/public/' . $tikidomainslash;
@@ -107,7 +108,7 @@ var vm = new Vue({
 	}
 
 	// thanks dpetroff https://www.php.net/manual/en/class.domelement.php#101243
-	function getInnerHtml($node)
+	private function getInnerHtml($node)
 	{
 		$innerHTML = '';
 		$children = $node->childNodes;
@@ -149,8 +150,8 @@ var vm = new Vue({
 		if (! is_object($params['rules']) || empty($params['rules'])) {
 			$params['rules'] = [
 				'conditions' => null,
-				'actions' => null,
-				'else' => null,
+				'actions'    => null,
+				'else'       => null,
 			];
 		}
 
@@ -170,14 +171,15 @@ var vm = new Vue({
 		return $appHtml;
 	}
 
-	public function generateTrackerRulesJS($fields, $parentSelector = '.form-group:first') {
+	public function generateTrackerRulesJS($fields, $parentSelector = '.form-group:first')
+	{
 
 		$js = '';
 
 		TikiLib::lib('header')->add_jsfile('lib/jquery_tiki/tiki-tracker-rules.js');
 
 		foreach (array_filter($fields) as $field) {
-			if (! empty( $field['rules']) && $field['rules'] !== '{"conditions":null,"actions":null,"else":null}') {
+			if (! empty($field['rules']) && $field['rules'] !== '{"conditions":null,"actions":null,"else":null}') {
 				$rules = Tiki\Lib\core\Tracker\Rule\Rules::fromData($field['fieldId'], $field['rules']);
 				$js .= $rules->getJavaScript($parentSelector, $field);
 			}
@@ -319,8 +321,10 @@ var vm = new Vue({
 		}
 		$field['ins_id'] = $insPrefix . $field['fieldId'];
 
-		if ($field['type'] === 'r' && $field['options_map']['selectMultipleValues'] ||	// ItemLink
-			$field['type'] === 'w' && $field['options_map']['selectMultipleValues']) {	// DynamicItemsList
+		if ($field['type'] === 'r' && $field['options_map']['selectMultipleValues']    // ItemLink
+			||
+			$field['type'] === 'w' && $field['options_map']['selectMultipleValues']   // DynamicItemsList
+		) {
 
 			$field['argumentType'] = 'Collection';
 			$field['ins_id'] = $field['ins_id'] . '[]';
@@ -337,5 +341,4 @@ var vm = new Vue({
 			}
 		}
 	}
-
 }
