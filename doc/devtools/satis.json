@@ -2014,6 +2014,7 @@
 		"npm-asset/dexie": "2.0.4",
 		"npm-asset/fullcalendar": "3.10.2||^5.3.0",
 		"npm-asset/fullcalendar-scheduler": "1.10.1||^5.3.0",
+		"npm-asset/fullcalendar--moment": "^5.5",
 		"npm-asset/html2canvas": "^1.0.0-RC.5",
 		"npm-asset/lozad": ">=1.6.0",
 		"npm-asset/moment": ">=2.24.0",
