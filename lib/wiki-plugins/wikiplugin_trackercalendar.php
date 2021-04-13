@@ -170,7 +170,7 @@ function wikiplugin_trackercalendar_info()
 				'description' => tra('Display the option to change the view to list by years'),
 				'since' => '20.1',
 				'filter' => 'alpha',
-				'default' => 'y',
+				'default' => 'n',
 				'options' => [
 					['text' => '', 'value' => ''],
 					['text' => tra('Yes'), 'value' => 'y'],
@@ -183,7 +183,7 @@ function wikiplugin_trackercalendar_info()
 				'description' => tra('Display the option to change the view to list by months'),
 				'since' => '20.1',
 				'filter' => 'alpha',
-				'default' => 'y',
+				'default' => 'n',
 				'options' => [
 					['text' => '', 'value' => ''],
 					['text' => tra('Yes'), 'value' => 'y'],
@@ -196,7 +196,7 @@ function wikiplugin_trackercalendar_info()
 				'description' => tra('Display the option to change the view to list by weeks'),
 				'since' => '20.1',
 				'filter' => 'alpha',
-				'default' => 'y',
+				'default' => 'n',
 				'options' => [
 					['text' => '', 'value' => ''],
 					['text' => tra('Yes'), 'value' => 'y'],
@@ -209,7 +209,7 @@ function wikiplugin_trackercalendar_info()
 				'description' => tra('Display the option to change the view to list by days'),
 				'since' => '20.1',
 				'filter' => 'alpha',
-				'default' => 'y',
+				'default' => 'n',
 				'options' => [
 					['text' => '', 'value' => ''],
 					['text' => tra('Yes'), 'value' => 'y'],
@@ -222,7 +222,7 @@ function wikiplugin_trackercalendar_info()
 				'description' => tra('Display the option to change the view to resources by years'),
 				'since' => '20.1',
 				'filter' => 'alpha',
-				'default' => 'y',
+				'default' => 'n',
 				'options' => [
 					['text' => '', 'value' => ''],
 					['text' => tra('Yes'), 'value' => 'y'],
