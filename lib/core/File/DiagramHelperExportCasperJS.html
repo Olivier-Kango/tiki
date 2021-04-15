@@ -561,7 +561,18 @@ Original file downloaded from: https://gitlab.com/tikiwiki/diagram
 							pageId = diagrams[i].getAttribute('id')
 						}
 
-						xmlDoc = mxUtils.parseXml(Graph.decompress(mxUtils.getTextContent(diagrams[i])));
+						// textContent will be empty if diagrams[i] is a XML node, mxUtils.getTextContent does not return the XML element as a string
+						var textContent = mxUtils.getTextContent(diagrams[i]);
+
+						if (!textContent) {
+							serializer = new XMLSerializer();
+							textContent = serializer.serializeToString(diagrams[i].firstChild);
+						} else {
+							textContent = Graph.decompress(textContent);
+						}
+
+						xmlDoc = mxUtils.parseXml(textContent);
+
 						graph.getModel().clear();
 						from = i;
 						renderPage();
