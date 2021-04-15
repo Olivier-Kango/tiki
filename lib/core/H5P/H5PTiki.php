@@ -160,7 +160,7 @@ class H5P_H5PTiki implements H5PFrameworkInterface
 	 *
 	 * @return string The content (response body). null if something went wrong
 	 */
-	public function fetchExternalData($url, $data = null, $blocking = true, $stream = null)
+	public function fetchExternalData($url, $data = null, $blocking = true, $stream = null, $fullData = FALSE, $headers = array(), $files = array(), $method = 'POST')
 	{
 		$handle = curl_init($url);
 
@@ -1732,5 +1732,25 @@ AND (`major_version` > ? OR (`major_version` = ? AND `minor_version` > ?)) LIMIT
 			]
 		)
 		);
+	}
+
+	public function replaceContentHubMetadataCache($metadata, $lang)
+	{
+		// TODO: Implement replaceContentHubMetadataCache() method.
+	}
+
+	public function getContentHubMetadataCache($lang = 'en')
+	{
+		// TODO: Implement getContentHubMetadataCache() method.
+	}
+
+	public function getContentHubMetadataChecked($lang = 'en')
+	{
+		// TODO: Implement getContentHubMetadataChecked() method.
+	}
+
+	public function setContentHubMetadataChecked($time, $lang = 'en')
+	{
+		// TODO: Implement setContentHubMetadataChecked() method.
 	}
 }
