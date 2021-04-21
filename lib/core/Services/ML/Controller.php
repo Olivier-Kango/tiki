@@ -507,7 +507,7 @@ class Services_ML_Controller
 		try {
 			$this->mllib->train($model, true);
 			Feedback::success(tr('Successfully trained a sample of the data using the model.'));
-		} catch (Exception $e) {
+		} catch (Exception | TypeError $e) {
 			Feedback::error(tr('Error while trying to train the model: %0', $e->getMessage()));
 		}
 
@@ -527,7 +527,7 @@ class Services_ML_Controller
 		try {
 			$this->mllib->train($model, false);
 			Feedback::success(tr('Successfully trained the model.'));
-		} catch (Exception $e) {
+		} catch (Exception | TypeError $e) {
 			Feedback::error(tr('Error while trying to train the model: %0', $e->getMessage()));
 		}
 
@@ -563,11 +563,13 @@ class Services_ML_Controller
 			}
 		}
 
-		if ($this->mllib->isRegressor($model)) {
-			$label = array_pop($processedFields);
-			$label = $label['name'];
-		} else {
-			$label = null;
+		$label = null;
+		if (is_int($model['labelField'])) {
+			foreach ($processedFields as $field) {
+				if ($field['fieldId'] == $model['labelField']) {
+					$label = $field['name'];
+				}
+			}
 		}
 
 		$results = [];
@@ -577,11 +579,11 @@ class Services_ML_Controller
 			try {
 				$type = $input->type->text();
 				if ($type == 'predict') {
-					$itemId = $this->mllib->predictSample($model, $processedFields);
-					if ($this->mllib->isRegressor($model)) {
-						$result = $itemId;
+					$prediction = $this->mllib->predictSample($model, $processedFields);
+					if ($model['labelField'] == 'itemId') {
+						$results[$prediction] = ['fields' => []];
 					} else {
-						$results[$itemId] = ['fields' => []];
+						$result = $prediction;
 					}
 				} else {
 					$results = $this->mllib->probaSample($model, $processedFields);
@@ -636,6 +638,8 @@ class Services_ML_Controller
 			'description' => $input->description->text(),
 			'sourceTrackerId' => $trackerId,
 			'trackerFields' => $input->fields->array(),
+			'labelField' => $input->labelField->text(),
+			'ignoreEmpty' => $input->ignoreEmpty->int(),
 			'payload' => $input->payload->text(),
 		];
 	}

@@ -122,12 +122,6 @@ class MachineLearningLib extends TikiDb_Bridge
 		}
 		$estimator = new Rubix\ML\Pipeline($transformers, $learner);
 
-		if ($learner && $learner->type() == Rubix\ML\EstimatorType::regressor()) {
-			$is_regressor = true;
-		} else {
-			$is_regressor = false;
-		}
-
 		$samples = [];
 		$labels = [];
 
@@ -136,7 +130,16 @@ class MachineLearningLib extends TikiDb_Bridge
 		$definition = Tracker_Definition::get($model['sourceTrackerId']);
 		foreach ($items['data'] as $item) {
 			$item = Tracker_Item::fromId($item['itemId']);
-			$label = $item->getId();
+			switch ($model['labelField']) {
+				case "itemId":
+					$label = $item->getId();
+					break;
+				case "itemTitle":
+					$label = $trklib->get_isMain_value($model['sourceTrackerId'], $item->getId());
+					break;
+				default:
+					$label = "";
+			}
 			$sample = [];
 			foreach ($model['trackerFields'] as $fieldId) {
 				$field = $definition->getField($fieldId);
@@ -148,15 +151,12 @@ class MachineLearningLib extends TikiDb_Bridge
 					'field' => $field,
 					'itemId' => $item->getId(),
 				]);
-				if (empty($value) && ! $is_regressor) {
+				if (empty($value) && $model['ignoreEmpty']) {
 					continue 2;
 				}
 				$sample[] = $value;
-			}
-			if ($is_regressor && ! empty($sample)) {
-				$label = array_pop($sample);
-				if (is_numeric($label)) {
-					$label = intval($label);
+				if ($model['labelField'] == $fieldId) {
+					$label = is_numeric($value) ? floatval($value) : $value;
 				}
 			}
 			if (empty($sample)) {
@@ -170,7 +170,11 @@ class MachineLearningLib extends TikiDb_Bridge
 			throw new Exception(tr("No data found in data source. Check your model settings."));
 		}
 
-		$dataset = Rubix\ML\Datasets\Labeled::build($samples, $labels);
+		if ($model['labelField']) {
+			$dataset = Rubix\ML\Datasets\Labeled::build($samples, $labels);
+		} else {
+			$dataset = Rubix\ML\Datasets\Unlabeled::build($samples);
+		}
 		$estimator->train($dataset);
 
 		if (! $test) {

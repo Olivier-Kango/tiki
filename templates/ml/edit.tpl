@@ -37,11 +37,30 @@
 				<label class="col-form-label col-sm-2">{tr}Dimension fields{/tr}</label>
 				<div class="col-sm-10">
 					<select class="form-control" name="fields[]" multiple size="10">
-						<option value="">Item title</option>
+						<option value="">{tr}Item title{/tr}</option>
 						{foreach $fields as $field}
 							<option value="{$field.fieldId|escape}" {if in_array($field.fieldId, $model.trackerFields)}selected{/if}>{$field.name|escape}</option>
 						{/foreach}
 					</select>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-form-label col-sm-2">{tr}Label field{/tr}</label>
+				<div class="col-sm-10">
+					<select class="form-control" name="labelField">
+						<option value="">No label</option>
+						<option value="itemId">{tr}Item ID{/tr}</option>
+						<option value="itemTitle">{tr}Item title{/tr}</option>
+						{foreach $fields as $field}
+							<option value="{$field.fieldId|escape}" {if $field.fieldId eq $model.labelField}selected{/if}>{$field.name|escape}</option>
+						{/foreach}
+					</select>
+				</div>
+			</div>
+			<div class="form-group row">
+				<label class="col-form-label col-sm-2">{tr}Ignore items with empty values{/tr}</label>
+				<div class="col-sm-10">
+					<input type="checkbox" name="ignoreEmpty" value="1" {if $model.ignoreEmpty} checked {/if}>
 				</div>
 			</div>
 			<div class="form-group row">
