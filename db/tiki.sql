@@ -1550,6 +1550,8 @@ CREATE TABLE `tiki_machine_learning_models` (
   `description` text NULL,
   `sourceTrackerId` int(11) NOT NULL,
   `trackerFields` text NULL,
+  `labelField` varchar(191) NULL,
+  `ignoreEmpty` tinyint(1) NULL,
   `payload` text NULL,
   PRIMARY KEY  (`mlmId`)
 ) ENGINE=MyISAM;
