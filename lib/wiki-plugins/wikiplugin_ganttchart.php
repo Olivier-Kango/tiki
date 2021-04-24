@@ -383,7 +383,6 @@ function wikiplugin_ganttchart($data, $params)
 	$headerlib->add_jsfile('vendor_bundled/vendor/robicch/jquery-gantt/libs/jquery/dateField/jquery.dateField.js');
 	$headerlib->add_jsfile('vendor_bundled/vendor/robicch/jquery-gantt/libs/jquery/JST/jquery.JST.js');
 	$headerlib->add_jsfile('vendor_bundled/vendor/robicch/jquery-gantt/libs/jquery/svg/jquery.svg.min.js');
-	$headerlib->add_jsfile('vendor_bundled/vendor/robicch/jquery-gantt/libs/jquery/svg/jquery.svgdom.1.8.js');
 	$headerlib->add_jsfile('vendor_bundled/vendor/robicch/jquery-gantt/ganttUtilities.js');
 	$headerlib->add_jsfile('vendor_bundled/vendor/robicch/jquery-gantt/ganttTask.js');
 	$headerlib->add_jsfile('vendor_bundled/vendor/robicch/jquery-gantt/ganttDrawerSVG.js');
