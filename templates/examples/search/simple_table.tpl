@@ -15,13 +15,6 @@
 			{if $header}
 				{$fieldcount = 0}
 				<tr>
-					{if $actions}
-						{$fieldcount = 1}
-						<th>
-							<input type="checkbox" class="form-check-input listexecute-select-all" name="selectall" value="">
-							<input type="hidden" name="objects{$iListExecute}[]" value="" class="listexecute-all">
-						</th>
-					{/if}
 					{foreach from=$column item=col}
 						{$fieldcount = $fieldcount + 1}
 						<th{if not empty($col.class)} class="{$col.class}"{/if}>
