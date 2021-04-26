@@ -32,13 +32,38 @@ class ImageTransformer extends Manipulator
 
 		$gal_info = $this->file->galleryDefinition()->getInfo();
 
-		// If it's an image format we can handle and gallery has limits on image sizes
-		if (! ($gal_info["image_max_size_x"] && ! $gal_info["image_max_size_y"]) && ($image_size_x == null && $image_size_y == null)) {
-			return;
-		}
-
 		$work_file = tempnam($prefs['tmpDir'], "imgresize");
 		file_put_contents($work_file, $this->file->getContents());
+		$image = null;
+
+		if (extension_loaded('exif') && extension_loaded('gd')) {
+			$exif = exif_read_data($work_file);
+		}
+
+		if (! empty($exif['Orientation'])) {
+			// Rotate the image if the exif 'Orientation' shows it is needed
+			$imageResource = $imageReader($work_file);
+			switch ($exif['Orientation']) {
+				case 3:
+					$image = imagerotate($imageResource, 180, 0);
+					break;
+				case 6:
+					$image = imagerotate($imageResource, -90, 0);
+					break;
+				case 8:
+					$image = imagerotate($imageResource, 90, 0);
+					break;
+				default:
+					$image = $imageResource;
+			}
+			$imageWriter($image, $work_file);
+		}
+
+		// If it's an image format we can handle and gallery has limits on image sizes
+		if (! ($gal_info["image_max_size_x"] && ! $gal_info["image_max_size_y"]) && ($image_size_x == null && $image_size_y == null)) {
+			unlink($work_file);
+			return;
+		}
 
 		if (is_null($image_size_x)) {
 			$image_size_x = $gal_info["image_max_size_x"];
@@ -65,10 +90,13 @@ class ImageTransformer extends Manipulator
 		if ($ratio > 1) { // Resizing will occur
 			$image_new_x = $image_x / $ratio;
 			$image_new_y = $image_y / $ratio;
-			$resized_file = $work_file;
 			$image_resized_p = imagecreatetruecolor($image_new_x, $image_new_y);
 
-			$image_p = $imageReader($work_file);
+			if ($image) {
+				$image_p = $image;
+			} else {
+				$image_p = $imageReader($work_file);
+			}
 
 			if (! imagecopyresampled($image_resized_p, $image_p, 0, 0, 0, 0, $image_new_x, $image_new_y, $image_x, $image_y)) {
 				Feedback::error(tra('Cannot resize the file:') . ' ' . $work_file);
