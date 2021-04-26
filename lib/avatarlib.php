@@ -26,17 +26,25 @@ class AvatarLib extends TikiLib
 	/**
 	 * sets the avatar from a given image file's URL
 	 *
-	 * @return string	URL for the current page
+	 * @param string $url        location of the file
+	 * @param string $userwatch  user the avatar is for
+	 * @param string $name       original name of the file
+	 *
+	 * @throws Exception
 	 */
-	function set_avatar_from_url($url, $userwatch = "", $name = "")
+
+	final public function set_avatar_from_url(string $url, string $userwatch = '', string $name = ''): void
 	{
 		global $user, $prefs;
 
+		/** @var TikiAccessLib $access */
 		$access = TikiLib::lib('access');
 		$access->check_feature('feature_userPreferences');
 		$access->check_user($user);
 
+		/** @var UserPrefsLib $userprefslib */
 		$userprefslib = TikiLib::lib('userprefs');
+		/** @var ImageGalsLib $imagegallib */
 		$imagegallib = TikiLib::lib('imagegal');
 
 		if (empty($userwatch)) {
@@ -51,12 +59,16 @@ class AvatarLib extends TikiLib
 		$imgdata = get_headers($url, true);
 		if (isset($imgdata['Content-Length'])) {
 			# Return file size
-			$size = (int) $imgdata['Content-Length'];
+			$size = (int)$imgdata['Content-Length'];
+		} else {
+			$size = strlen($data);
 		}
 
 		// Store full-size file gallery image if that is required
 		if ($prefs["user_store_file_gallery_picture"] == 'y') {
 			$fgImageId = $userprefslib->set_file_gallery_image($userwatch, $name, $size, $itype, $data);
+			$file = \Tiki\FileGallery\File::id($fgImageId);
+			$data = $file->getContents();
 		}
 
 		// Store small avatar
@@ -69,7 +81,7 @@ class AvatarLib extends TikiLib
 		if (($iwidth == $avsize and $iheight <= $avsize) || ($iwidth <= $avsize and $iheight == $avsize)) {
 			$userprefslib->set_user_avatar($userwatch, 'u', '', $name, $size, $itype, $data);
 		} else {
-			if (function_exists("ImageCreateFromString") && (! strstr($type, "gif"))) {
+			if (function_exists('imagecreatefromstring') && (! strstr($itype, 'gif'))) {
 				$img = imagecreatefromstring($data);
 				$size_x = imagesx($img);
 				$size_y = imagesy($img);
@@ -117,15 +129,15 @@ class AvatarLib extends TikiLib
 				$t_type = 'image/png';
 				$userprefslib->set_user_avatar($userwatch, 'u', '', $name, $size, $t_type, $t_data);
 			} else {
-				$userprefslib->set_user_avatar($userwatch, 'u', '', $name, $size, $type, $data);
+				$userprefslib->set_user_avatar($userwatch, 'u', '', $name, $size, $itype, $data);
 			}
 		}
 		TikiLib::events()->trigger(
 			'tiki.user.avatar',
 			[
-				'type' => 'user',
+				'type'   => 'user',
 				'object' => $userwatch,
-				'user' => $userwatch,
+				'user'   => $userwatch,
 			]
 		);
 	}
