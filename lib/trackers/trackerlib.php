@@ -2961,6 +2961,8 @@ class TrackerLib extends TikiLib
 
 		$tx->commit();
 
+		TikiLib::lib('logs')->add_action('Removed', $itemId, 'trackeritem');
+
 		TikiLib::events()->trigger(
 			'tiki.trackeritem.delete',
 			[
