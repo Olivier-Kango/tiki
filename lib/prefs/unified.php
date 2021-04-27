@@ -175,6 +175,17 @@ function prefs_unified_list()
 			'type' => 'flag',
 			'default' => 'n',
 		],
+		'unified_exclude_nonsearchable_fields_from_facets' => [
+			'name' => tra('Exclude non searchable fields from facets'),
+			'description' => tra('Only tracker fields checked as "search" to generate facets on the default search page.'),
+			'type' => 'flag',
+			'filter' => 'alpha',
+			'default' => 'n',
+			'dependencies' => [
+				'search_use_facets',
+				'feature_trackers',
+			],
+		],
 		'unified_elastic_url' => [
 			'name' => tra('Elasticsearch URL'),
 			'description' => tra('URL of any node in the cluster'),

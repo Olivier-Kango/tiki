@@ -192,6 +192,9 @@ class Search_ContentSource_TrackerItemSource implements Search_ContentSource_Int
 			if ($prefs['unified_exclude_nonsearchable_fields'] === 'y' && $field['isSearchable'] !== 'y') {
 				continue;
 			}
+			if ($prefs['unified_exclude_nonsearchable_fields_from_facets'] === 'y' && $field['isSearchable'] !== 'y') {
+				continue;
+			}
 			$handler = $factory->getHandler($field, $item);
 
 			if ($handler instanceof $interface) {
