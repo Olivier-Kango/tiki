@@ -2570,17 +2570,11 @@ a.categpath {
 .categories li {
   list-style: none;
   margin: 0;
-  padding: 0; }
-
-.filter .category-picker {
-  display: none; }
-.filter .fancyfilter {
-  min-height: 1.5em;
-  min-width: 20em;
-  float: left;
-  margin-right: 5px;
-  padding: 0.1em;
-  cursor: text; }
+  padding: 0;
+}
+.filter .category-picker, .filter .tag-picker {
+  display: none;
+}
   .filter .fancyfilter .token {
     display: inline-block;
     cursor: default; }
