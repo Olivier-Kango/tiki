@@ -7,6 +7,7 @@
 
 use Tiki\File\DiagramHelper;
 use Tiki\Package\VendorHelper;
+use Tiki\FileGallery\File as TikiFile;
 
 function wikiplugin_diagram_info()
 {
@@ -62,6 +63,28 @@ function wikiplugin_diagram_info()
 				'description' => tr('Parameter that will allow inline diagram data be saved compressed.'),
 				'since' => '21.0',
 			],
+			'template' => [
+				'required' => false,
+				'name' => tr('template'),
+				'description' => tr('Diagram\'s file id to use as a template to new the diagram. This parameter will be skipped if if the fileId parameter is present.'),
+				'since' => '23.0',
+				'filter' => 'int',
+			],
+			'galleryId' => [
+				'required' => false,
+				'name' => tr('Gallery Id'),
+				'description' => tr('File Gallery id where the new diagram file will be stored. If this parameter is not present the content of 
+				the file will be placed in the body of the plugin.'),
+				'since' => '23.0',
+				'filter' => 'int',
+			],
+			'fileName' => [
+				'required' => false,
+				'name' => tr('File Name'),
+				'description' => tr('The name used for the diagram file. Acceptable replacements are \'%page%\' and \'%date%\'. The default pattern is “Diagram %page% %date%.drawio”.'),
+				'since' => '23.0',
+				'filter' => 'text',
+			]
 		],
 	];
 
@@ -76,10 +99,20 @@ function wikiplugin_diagram_info()
  */
 function wikiplugin_diagram($data, $params)
 {
-	global $tikilib, $cachelib, $user, $page, $wikiplugin_included_page, $prefs, $tiki_p_upload_files;
+	global $tikilib, $user, $page, $wikiplugin_included_page, $prefs, $tiki_p_upload_files;
+
+	$template = $params['template'];
+	$galleryId = $params['galleryId'] ?? ($params['fileName'] ? 1 : '');
+	$fileName = $params['fileName'] ?? 'Diagram %page% %date%.drawio' ;
+	$fileName = preg_replace('/\%page\%/', $page, $fileName);
+	$fileName = preg_replace('/\%date\%/', date('Y-m-d'), $fileName);
 
 	$compressXml = ($prefs['fgal_use_diagram_compression_by_default'] !== 'y') ? false : true;
 	$compressXmlParam = false;
+
+	if (empty($params['fileId']) && empty(trim($data)) && ! empty($params['template'])) {
+		$params['fileId'] = $template;
+	}
 
 	if (empty($params['fileId'])
 		&& isset($params['compressXml'])
@@ -166,21 +199,25 @@ function wikiplugin_diagram($data, $params)
 			$in = tr(" in ");
 
 			$gals = $filegallib->list_file_galleries(0, -1, 'name_desc', $user);
-
-			$galHtml = "<option value='0'>" . tr('Page (inline)') . "</option>";
+			$galHtml = "";
+			if (! isset($params['fileName']) && ! isset($params['galleryId'])) {
+				$galHtml = "<option value='0'>" . tr('Page (inline)') . "</option>";
+			}
 			usort($gals['data'], function ($a, $b) {
 				return strcmp(strtolower($a['name']), strtolower($b['name']));
 			});
 
-			foreach ($gals['data'] as $gal){
-				if ($gal['name'] != "Wiki Attachments" && $gal['name'] != "Users File Galleries") {
-					if($gal['parentId'] == -1){
-						// If the current user has permission to access the gallery, then add gallery to the hierarchy.
-						if($gal['perms']['tiki_p_view_file_gallery']=='y'){
-							$galHtml .= "<option value='" . $gal['id'] . "'>" . htmlentities($gal['name']);
+			if (! isset($params['galleryId'])) {
+				foreach ($gals['data'] as $gal) {
+					if ($gal['name'] != "Wiki Attachments" && $gal['name'] != "Users File Galleries") {
+						if ($gal['parentId'] == -1) {
+							// If the current user has permission to access the gallery, then add gallery to the hierarchy.
+							if ($gal['perms']['tiki_p_view_file_gallery'] == 'y') {
+								$galHtml .= "<option value='" . $gal['id'] . "'>" . htmlentities($gal['name']);
+							}
+							$galHtml .= $filegallib->getNodes($gals['data'], $gal['id'], "");
+							$galHtml .= "</option>";
 						}
-						$galHtml .= $filegallib->getNodes($gals['data'],$gal['id'],"");
-						$galHtml .= "</option>";
 					}
 				}
 			}
@@ -201,16 +238,29 @@ XML;
 				$data = base64_encode($data);
 			}
 
+			if (! empty($galHtml)) {
+				$galHtml = <<<EOF
+					$in				
+					<select name="galleryId" class="form-control-sm">
+						$galHtml
+					</select>
+				EOF;
+			} else {
+				$galHtml = <<<EOF
+					<input type="hidden" name="galleryId" value="$galleryId"/>
+				EOF;
+			}
+
 			return <<<EOF
 		~np~
 		<form id="newDiagram$diagramIndex" method="post" action="tiki-editdiagram.php">
 			<p>
-				<input type="submit" class="btn btn-primary btn-sm" name="label" value="$label" class="newSvgButton" />$in
-				<select name="galleryId" class="form-control-sm">
-					$galHtml
-				</select>
+				<input type="submit" class="btn btn-primary btn-sm" name="label" value="$label" class="newSvgButton" />
+				$galHtml
 				<input type="hidden" name="newDiagram" value="1"/>
 				<input type="hidden" name="page" value="$page"/>
+				<input type="hidden" name="template" value="$template"/>
+				<input type="hidden" name="fileName" value="$fileName"/>
 				<input type="hidden" name="xml" value="$data"/>
 				<input type="hidden" name="index" value="$diagramIndex"/>
 			</p>
@@ -247,7 +297,7 @@ EOF;
 		$XMLDiagrams = simplexml_load_string($data);
 
 		if ($XMLDiagrams->getName() == 'mxGraphModel') {
-			$parsedDiagrams = ['<diagram id="' . uniqid() .'">' . DiagramHelper::parseDiagramWikiSyntax($XMLDiagrams) . '</diagram>'];
+			$parsedDiagrams = ['<diagram id="' . uniqid() . '">' . DiagramHelper::parseDiagramWikiSyntax($XMLDiagrams) . '</diagram>'];
 		} else {
 			if (! empty($XMLDiagrams)) {
 				foreach ($XMLDiagrams as $diagram) {
@@ -270,7 +320,9 @@ EOF;
 	$smarty->assign('sourcepage', $sourcepage);
 	$smarty->assign('allow_edit', $allowEdit);
 	$smarty->assign('file_id', $fileId);
-	$smarty->assign('file_name', $file->name);
+	$smarty->assign('template', $template);
+	$smarty->assign('gallery_id', $galleryId);
+	$smarty->assign('file_name', ($fileId == $template) ? $fileName : $file->name);
 	$smarty->assign('alignment', $alignment);
 	$smarty->assign('mxgraph_prefix', $vendorPath);
 	$smarty->assign('page_name', $pageName);

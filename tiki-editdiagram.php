@@ -37,14 +37,23 @@ if ($newDiagram) {
 	$smarty->loadPlugin('smarty_modifier_sefurl');
 	$backLocation = smarty_modifier_sefurl($page ?: $galleryId, $page ? 'wikipage' : 'filegallery');
 }
-
 $fileId = null;
+$template = null;
+$fileName = $_REQUEST['fileName'] ?? 0;
+
 if (isset($_REQUEST['fileId']) && is_numeric($_REQUEST['fileId'])) {
 	$fileId = (int) $_REQUEST['fileId'];
 }
-$fileName = 0;
 
-if (! empty($fileId)) {
+if (isset($_REQUEST['template']) && is_numeric($_REQUEST['template'])) {
+	$template = (int)$_REQUEST['template'];
+	if ($fileId == null) {
+		$fileId = $template;
+		$newDiagram = true;
+	}
+}
+
+if (! empty($fileId) && ! $template) {
 	$userLib = TikiLib::lib('user');
 	$file = \Tiki\FileGallery\File::id($fileId);
 	if (! $file->exists() || ! $userLib->user_has_perm_on_object($user, $file->fileId, 'file', 'tiki_p_download_files')) {
@@ -106,18 +115,18 @@ $headerlib->add_jsfile($vendorPath . '/tikiwiki/diagram/js/app.min.js', true);
 
 $js = sprintf(
 	';initializeEditorUI(%s);',
-	json_encode([
+	json_encode(
+		[
 			'tickets'          => $tickets,
-			'fileId'           => $fileId,
+			'fileId'           => $template == $fileId ? null : $fileId,
+			'template'         => $template,
 			'backLocation'     => $backLocation,
 			'newDiagram'       => $newDiagram,
 			'compressXml'      => $compressXml,
 			'galleryId'        => $galleryId,
 			'saveModal'        => $saveModal,
-			'page'             => $page,
 			'index'            => $index,
 			'fileName'         => $fileName,
-			'galleryId'        => $galleryId,
 			'page'             => $page,
 			'exportImageCache' => $exportImageCache,
 			'xmlDiagram'       => $xmlDiagram,
