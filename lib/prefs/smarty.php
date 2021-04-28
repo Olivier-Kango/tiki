@@ -79,6 +79,7 @@ function prefs_smarty_list()
 				0664 => tra('User & group writable (0664)'),
 			],
 			'default' => 0644,
+			'keywords' => 'file perms templates',
 		],
 	];
 }
