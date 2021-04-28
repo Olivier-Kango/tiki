@@ -1,0 +1,1 @@
+ALTER TABLE `tiki_mailin_accounts` ADD `preferences` TEXT NULL DEFAULT NULL AFTER `trackerId`;
