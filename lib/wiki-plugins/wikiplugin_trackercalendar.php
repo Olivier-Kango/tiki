@@ -423,6 +423,7 @@ function wikiplugin_trackercalendar($data, $params)
 	$headerlib->add_jsfile('vendor_bundled/vendor/moment/moment/min/moment.min.js', true);
 	$headerlib->add_jsfile('vendor_bundled/vendor/npm-asset/fullcalendar/main.js', true);
 	$headerlib->add_jsfile($vendorPath . '/npm-asset/fullcalendar-scheduler/main.min.js', true);
+	$headerlib->add_jsfile('lib/jquery_tiki/wikiplugin-trackercalendar.js');
 
 	$jit = new JitFilter($params);
 	$definition = Tracker_Definition::get($jit->trackerId->int());
@@ -550,7 +551,7 @@ function wikiplugin_trackercalendar($data, $params)
 
 	$smarty = TikiLib::lib('smarty');
 	$smarty->assign(
-		'trackercalendar',
+		'trackercalendarData',
 		[
 			'id' => 'trackercalendar' . ++$id,
 			'trackerId' => $jit->trackerId->int(),
@@ -584,7 +585,20 @@ function wikiplugin_trackercalendar($data, $params)
 			'timeFormat' => $prefs['display_12hr_clock'] === 'y',
 			'weekends' => $params['weekends'] === 'y' ? 1 : 0,
 			'utcOffset' => TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone()) / 60, // In minutes
-			'maxEvents' => $maxEvents
+			'maxEvents' => $maxEvents,
+			'display_timezone' => $prefs['display_timezone'],
+			'labelResDay' => tr('resource day'),
+			'labelResWeek' => tr('resource week'),
+			'labelResMonth' => tr('resource month'),
+			'labelResYear' => tr('resource year'),
+			'labelListDay' => tr('list day'),
+			'labelListWeek' => tr('list week'),
+			'labelListMonth' => tr('list month'),
+			'labelListYear' => tr('list year'),
+			'labelAgendaWeek' => tr('agenda week'),
+			'labelAgendaDay' => tr('agenda day'),
+			'labelToday' => tr('today'),
+			'labelAllDay' => tr('all-day'),
 		]
 	);
 	$smarty->assign('filters', $filters);
