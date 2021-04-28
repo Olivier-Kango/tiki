@@ -592,8 +592,8 @@ function wikiplugin_trackercalendar($data, $params)
 			'labelListWeek' => tr('list week'),
 			'labelListMonth' => tr('list month'),
 			'labelListYear' => tr('list year'),
-			'labelAgendaWeek' => tr('agenda week'),
-			'labelAgendaDay' => tr('agenda day'),
+			'labelAgendaWeek' => tr('week'),
+			'labelAgendaDay' => tr('day'),
 			'labelToday' => tr('today'),
 			'labelAllDay' => tr('all-day'),
 		]
