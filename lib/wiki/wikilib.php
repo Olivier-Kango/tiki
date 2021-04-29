@@ -216,7 +216,7 @@ class WikiLib extends TikiLib
 	 * @param string $copyName
 	 * @return bool
 	 */
-	public function wiki_duplicate_page($name, $copyName = null, $dupCateg = true, $dupTags = true)
+	public function wiki_duplicate_page($name, $copyName = null, $dupCateg = true, $dupTags = true, $copyData = null)
 	{
 		global $user;
 		global $prefs;
@@ -241,7 +241,7 @@ class WikiLib extends TikiLib
 		$copyPage = $tikilib->create_page(
 			$copyName,
 			0,
-			$info['data'],
+			$copyData ?? $info['data'],
 			$tikilib->now,
 			$comment,
 			$user,
@@ -932,7 +932,7 @@ class WikiLib extends TikiLib
 			$bindvars = [];
 		}
 		$query = 'select `user`,`attId`,`page`,`filename`,`filesize`,`filetype`,`hits`,`created`,`comment`,`path` ';
-		$query .= ' from `tiki_wiki_attachments` '. $mid .' order by ' . $this->convertSortMode($sort_mode);
+		$query .= ' from `tiki_wiki_attachments` ' . $mid . ' order by ' . $this->convertSortMode($sort_mode);
 		$query_cant = "select count(*) from `tiki_wiki_attachments` $mid";
 		$result = $this->query($query, $bindvars, $maxRecords, $offset);
 		$cant = $this->getOne($query_cant, $bindvars);
@@ -1222,7 +1222,8 @@ class WikiLib extends TikiLib
 		return ($info['flag'] == 'L') ? $info['user'] : null;
 	}
 
-	public function get_locked() {
+	public function get_locked()
+	{
 		$locked = [];
 		$query = "select `pageName`, 'lockedby', 'lastModif' from `tiki_pages` where `flag`='L'";
 		return $this->fetchAll($query);
@@ -1433,7 +1434,7 @@ class WikiLib extends TikiLib
 			}
 			array_walk_recursive(
 				$plugins,
-				function (& $item) use ($commonKey, $area_id) {
+				function (&$item) use ($commonKey, $area_id) {
 					$item = str_replace($commonKey, $area_id, $item);
 				}
 			);
@@ -1761,7 +1762,7 @@ class WikiLib extends TikiLib
 				// Use page specific setting?
 				if ($isAutoTocActive > 0) {
 					$isAutoTocActive = true;
-				} else if ($isAutoTocActive < 0) {
+				} elseif ($isAutoTocActive < 0) {
 					$isAutoTocActive = false;
 				} else {
 					$isAutoTocActive = $prefs['wiki_toc_default'] === 'on';
