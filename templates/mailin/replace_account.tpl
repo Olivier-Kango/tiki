@@ -5,9 +5,12 @@
 {/block}
 
 {block name="content"}
-	<form action="{service controller=mailin action=replace_account}" method="post">
+	<form action="{service controller=mailin action=replace_account}" id="replace_account" method="post">
 		{ticket mode=confirm}
 		<input type="hidden" name="accountId" value="{$accountId|escape}">
+		<input type="hidden" name="preferences" value="{$info.preferences|escape}">
+		<input type="hidden" id="checkPackage" value="{$checkPackage|escape}">
+		<input type="hidden" name="trackerAcc" id="trackerAcc" value="{$info.trackerId|escape}">
 		<div class="form-group row">
 			<div class="offset-md-3 col-md-9">
 				<div class="form-check">
@@ -104,11 +107,35 @@
 			<div class="form-group row">
 				<label for="galleryId" class="col-form-label col-md-3">{tr}Tracker{/tr}</label>
 				<div class="col-md-9">
-					<select name="trackerId" class="form-control">
+					<select name="trackerId" id="trackerId" class="form-control">
 						<option value="">{tr}None{/tr}</option>
+						{if $checkPackage eq 'y'}
+							{foreach $trackers as $key => $tracker}
+								<option value="{$key}" {if $key eq $info.trackerId}selected="selected"{/if}>{$tracker}</option>
+							{/foreach}
+						{else}
+							{foreach $trackers as $key => $tracker}
+								{if $key eq $info.trackerId}
+									<option value="{$key}" selected="selected">{$tracker}</option>
+								{/if}
+							{/foreach}
+						{/if}
 					</select>
 					<div class="form-text">
-						<a href="tiki-list_trackers.php" class="link">{tr}View trackers{/tr}</a>
+						<a href="tiki-list_trackers.php" target="_blank" class="link">{tr}View trackers{/tr}</a>
+					</div>
+				</div>
+			</div>
+			<div class="form-group row">
+				<div class="col-md-12" id="zone_fields">
+					<div>
+						<hr/>
+						<div class="bonds" id="original" style="display:block;">
+						</div>
+						<hr/>
+						&nbsp;<span id="output"></span>
+						<br/><br/>
+						<div id="input"></div>
 					</div>
 				</div>
 			</div>
@@ -287,3 +314,133 @@
 		</div>
 	</form>
 {/block}
+
+{jq}
+	var fieldLinks;
+	var inputOri;
+	var links;
+	$(document).ready(function () {
+		$("#zone_fields").hide();
+		var trackerId = document.getElementById("trackerId");
+		var trackerAcc = document.getElementById("trackerAcc").value;
+		var checkPackage = document.getElementById("checkPackage").value;
+		if (trackerId.value != trackerAcc) {
+			$('input[name=preferences]').val('');
+		}
+		else {
+			links = $('input[name=preferences]').val();
+		}
+		trackerId.addEventListener("change", function() {
+			if (trackerId.value != '' && checkPackage == 'y') {
+				if (trackerId.value == trackerAcc) {
+					$('input[name=preferences]').val(links);
+				}
+				else {
+					$('input[name=preferences]').val('');
+				}
+				getFields(trackerId.value);
+			}
+			else {
+				$("#zone_fields").hide();
+				$('.modal-dialog').removeClass("modal-lg");
+			}
+		});
+
+		if (trackerId.value != '' && checkPackage == 'y') {
+			getFields(trackerId.value);
+		}
+
+		$("#replace_account").submit( function(eventObj) {
+			if ((typeof fieldLinks !== "undefined") && ($('select[name="type"] option:selected').val() == 'tracker')) {
+				var results = fieldLinks.fieldsLinker("getLinks");
+				$("<input />").attr("type", "hidden")
+					.attr("name", "preferences")
+					.attr("value", JSON.stringify(results))
+					.appendTo("#replace_account");
+				return true;
+			}
+		});
+	});
+
+	function getFields(id) {
+		var preferences = [];
+		if ($("input[name=preferences]").val() !== '') {
+			preferences = JSON.parse($("input[name=preferences]").val());
+		}
+
+		$("#zone_fields").show();
+		var options = [];
+		options = $.extend({
+			controller: 'mailin',
+			action: 'fields_account',
+			content: parseInt(id)
+		}, options);
+		$.ajax({
+			type: 'POST',
+			url: 'tiki-ajax_services.php',
+			dataType: 'json',
+			data: options,
+			success: function (data) {
+				if(data != false) {
+					inputOri = {
+						"localization": {
+						},
+						"options": {
+							"associationMode": "oneToOne", // oneToOne,manyToMany
+							"lineStyle": "square-ends",
+							"buttonErase": "Erase Links",
+							"displayMode": "original",
+							"whiteSpace": "normal", //normal,nowrap,pre,pre-wrap,pre-line,break-spaces default => nowrap
+							"mobileClickIt": false
+							},
+						"Lists": [
+							{
+								"name": "Mail elements",
+								"list": [
+									"Subject",
+									"User",
+									"From",
+									"To",
+									"Description",
+									"Date",
+									"Body",
+									"Attachments"
+								]
+							},
+							{
+								"name": "Tracker Available Fields",
+								"list": data
+							}
+						],
+						"existingLinks": preferences['links']
+					};
+					fieldLinks = $("#original").fieldsLinker("init", inputOri);
+					$('.modal-dialog').addClass("modal-lg");
+					$('.FL-left').css({'background': '', 'width': '21%'});
+					$('.FL-mid').css({'background': '', 'width': '23%'});
+					$('.FL-mid').children("canvas").css({'background': '', 'width': '100%'});
+					$('.FL-right').css({'background': '', 'width': '56%'});
+					$('.eraseLink').addClass("btn-primary");
+				}
+				else {
+					$("#zone_fields").hide();
+					inputOri = {
+						"localization": {},
+						"options": {},
+						"Lists": [
+							{
+								"name": "Mail elements",
+								"list": []
+							},
+							{
+								"name": "Tracker Available Fields",
+								"list": []
+							}
+						],
+					};
+					fieldLinks = $("#original").fieldsLinker("init", inputOri);
+				}
+			},
+		});
+	}
+{/jq}

@@ -28,6 +28,7 @@ class TrackerProvider implements ProviderInterface
 		return new Action\DirectFactory('Tiki\MailIn\Action\Tracker', [
 			'attachments' => $acc['attachments'],
 			'trackerId' => $acc['trackerId'],
+			'preferences' => $acc['preferences']
 		]);
 	}
 }

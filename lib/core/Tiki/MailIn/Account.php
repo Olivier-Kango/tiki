@@ -25,6 +25,8 @@ class Account
 	private $saveHtml;
 	private $auto_attachments;
 	private $inline_attachments;
+	private $trackerId;
+	private $preferences;
 
 	private static function getSource(array $acc)
 	{
@@ -33,6 +35,16 @@ class Account
 		} else {
 			return new Source\Pop3($acc['host'], $acc['port'], $acc['username'], $acc['pass']);
 		}
+	}
+
+	function getPreferences()
+	{
+		return $this->preferences;
+	}
+
+	function getTrackerId()
+	{
+		return $this->trackerId;
 	}
 
 	public static function test(array $acc)
@@ -71,6 +83,8 @@ class Account
 		$account->deleteOnError = $acc['leave_email'] != 'y';
 		$account->auto_attachments = $acc['attachments'] == 'y';
 		$account->inline_attachments = $acc['show_inlineImages'] == 'y';
+		$account->trackerId = $acc['trackerId'];
+		$account->preferences = $acc['preferences'];
 
 		return $account;
 	}

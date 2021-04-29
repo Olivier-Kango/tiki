@@ -39,7 +39,7 @@ class Tracker implements ActionInterface
 	{
 		$user = $message->getAssociatedUser();
 		$perms = TikiLib::lib('tiki')->get_user_permission_accessor($user, 'tracker', $this->tracker);
-		if(!$perms->tiki_p_view_trackers || !$perms->tiki_p_create_tracker_items){
+		if(! $perms->tiki_p_view_trackers || ! $perms->tiki_p_create_tracker_items){
 			return false;
 		}
 		return true;
@@ -169,6 +169,19 @@ class Tracker implements ActionInterface
 			$message->getBody(),
 		];
 
+		// predefined elements of the incoming mail
+		$preFields = [
+			'Subject',
+			'User',
+			'From',
+			'To',
+			'Description',
+			'Date',
+			'Body',
+			'Attachments'
+		];
+
+
 		if ($this->tracker == 0) {
 			// create new tracker
 			$trackerId = $this->createTracker($from);
@@ -184,23 +197,8 @@ class Tracker implements ActionInterface
 
 			$definition = $this->getDefinition($trackerId);
 
-			$galleryId = $prefs['fgal_root_id']; // defalut file gallery
-			$gal_info = $filegallib->get_file_gallery($galleryId);
-			if(!$gal_info) {
-				$galInfo = [
-					'galleryId' => '',
-					'parentId' => $galleryId,
-					'name' => 'MailInTrackerGal' . time(),
-					'description' => '',
-					'user' => $message->getAssociatedUser(),
-					'public' => 'y',
-					'visible' => 'y',
-				];
-				$galleryId = $filegallib->replace_file_gallery($galInfo);
-				$gal_info = $filegallib->get_file_gallery($galleryId);
-			}
-
-			$itemFiles='';
+			// upload attachments
+			$itemFiles = $this->uploadAttachments($account, $message);
 
 			if ($this->canAttach() && $account->hasAutoAttach()) {
 				$i=0;
@@ -229,8 +227,35 @@ class Tracker implements ActionInterface
 					'fields' => $toItem,
 				]
 			);
+		} else {
+			$trackerId = $account->getTrackerId();
+			$definition = Tracker_Definition::get($trackerId);
+			$preferences = $account->getPreferences();
+			$preferences = json_decode($preferences, true);
+			$preferences = $preferences['links'];
+
+			// upload attachments
+			$itemFiles = $this->uploadAttachments($account, $message);
+			$datasItem[] = $itemFiles;
+
+			$toItem = [];
+			// construct final table
+			for ($i=0; $i < sizeof($preFields); $i++) {
+				for ($j=0; $j < sizeof($preferences) ; $j++) { 
+					if ($preFields[$i] == $preferences[$j]['from']) {
+						$toItem[$preferences[$j]['to']] = $datasItem[$i];
+					}
+				}
+			}
+			$itemId = $trackerUtilities->insertItem(
+				$definition,
+				[
+					'status' => null,
+					'fields' => $toItem,
+				]
+			);
 		}
-		return true;
+		//return true;
 	}
 
 	function canAttach()
@@ -259,5 +284,42 @@ class Tracker implements ActionInterface
 
 		$definition->setFields($fields['data']);
 		return $definition;
+	}
+
+	// upload incoming mail files
+	private function uploadAttachments($account, $message) {
+		global $prefs;
+		$filegallib = TikiLib::lib('filegal');
+		$galleryId = $prefs['fgal_root_id']; // defalut file gallery
+			$gal_info = $filegallib->get_file_gallery($galleryId);
+			if(! $gal_info) {
+				$galInfo = [
+					'galleryId' => '',
+					'parentId' => $galleryId,
+					'name' => 'MailInTrackerGal' . time(),
+					'description' => '',
+					'user' => $message->getAssociatedUser(),
+					'public' => 'y',
+					'visible' => 'y',
+				];
+				$galleryId = $filegallib->replace_file_gallery($galInfo);
+				$gal_info = $filegallib->get_file_gallery($galleryId);
+			}
+
+			$itemFiles='';
+			if ($this->canAttach() && $account->hasAutoAttach()) {
+				$i=0;
+				foreach ($message->getAttachments() as $att) {
+					// upload each attachment
+					$id = $this->attachFile($gal_info, $att, $message->getAssociatedUser());
+					if ($i == 0) {
+						$itemFiles .= $id;
+					} else {
+						$itemFiles .= ',' . $id;
+					}
+					$i++;
+				}
+			}
+			return $itemFiles;
 	}
 }

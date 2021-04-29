@@ -38,8 +38,24 @@ if (isset($_REQUEST['mailin_autocheck'])) {
 }
 
 $artlib = TikiLib::lib('art');
+$headerlib = TikiLib::lib('header');
+$trklib = TikiLib::lib('trk');
 
 $smarty->assign('mailin_types', $mailinlib->list_available_types());
+// check package availability
+$checkPackage = $mailinlib->checkPackage();
+if ($checkPackage == 'y') {
+	$headerlib->add_cssfile('vendor_bundled/vendor/philippemarcmeyer/fieldslinker/fieldsLinker.css');
+	$headerlib->add_jsfile('vendor_bundled/vendor/philippemarcmeyer/fieldslinker/fieldsLinker.js', true);
+	$headerlib->add_css('#original {width: 100%;}');
+} else {
+	$message = $errorMessageToAppend;
+	$message .= tr('To use Fieldslinker Tiki needs the philippemarcmeyer/fieldslinker package. If you do not have permission to install this package, ask the site administrator.');
+	Feedback::warning(sprintf(tra($message)));
+}
+
+$smarty->assign('mailin_types', $mailinlib->list_available_types());
+$smarty->assign('checkPackage', $checkPackage);
 
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');

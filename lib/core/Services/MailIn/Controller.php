@@ -21,6 +21,9 @@ class Services_MailIn_Controller
 	{
 		$mailinlib = TikiLib::lib('mailin');
 		$accountId = $input->accountId->int();	// array('html' => $result);
+		$trklib = TikiLib::lib('trk');
+		$trackers = $trklib->list_trackers(0, -1, 'name_asc', '');
+		$trackers = $trackers['list'];
 
 		$util = new Services_Utilities();
 		if ($util->isConfirmPost()) {
@@ -57,7 +60,8 @@ class Services_MailIn_Controller
 				$input->respond_email->int() ? 'y' : 'n',
 				$input->leave_email->int() ? 'y' : 'n',
 				$input->galleryId->int(),
-				$input->trackerId->int()
+				$input->trackerId->int(),
+				$input->preferences->text()
 			);
 
 			if ($result) {
@@ -83,8 +87,10 @@ class Services_MailIn_Controller
 				'types' => $artlib->list_types(),
 				'topics' => $artlib->list_topics(),
 				'galleries' => TikiLib::lib('filegal')->getSubGalleries(0, true, 'upload_files'),
+				'trackers' => $trackers,
 				'accountId' => $accountId,
 				'mailinTypes' => $mailinlib->list_available_types(),
+				'checkPackage' => $mailinlib->checkPackage(),
 				'info' => $info ?: [
 					'account' => '',
 					'username' => '',
@@ -108,6 +114,7 @@ class Services_MailIn_Controller
 					'leave_email' => 'n',
 					'galleryId' => '',
 					'trackerId' => '',
+					'preferences' => ''
 				],
 			];
 		}
@@ -137,5 +144,25 @@ class Services_MailIn_Controller
 				'info' => $info,
 			];
 		}
+	}
+
+	// take all permanent names of the fields from the selected tracker
+	function action_fields_account($input)
+	{
+		$result = $input->data();
+		$content = $result['content'];
+		$trklib = TikiLib::lib('trk');
+		$util = new Services_Utilities();
+		// get all tracker fields
+		$fields = $trklib->list_tracker_fields($content, 0, -1, 'position_asc', '', true, '', '');
+		$permNames = [];
+		foreach($fields['data'] as $field) {
+			foreach ($field as $key => $value) {
+				if ($key == 'type' && $value != 'q') {
+					$permNames [] = $field['permName'];
+				}
+			}
+		}
+		return $permNames;
 	}
 }
