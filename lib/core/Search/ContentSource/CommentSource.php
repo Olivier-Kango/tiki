@@ -88,7 +88,7 @@ class Search_ContentSource_CommentSource implements Search_ContentSource_Interfa
 						'_extra_groups' => $ownerGroup ? [$ownerGroup] : null,
 					]);
 				}
-				$data['tracker_id'] = $typeFactory->identifier($item['tracker_id']);
+				$data['tracker_id'] = $typeFactory->identifier($item['trackerId']);
 			}
 		}
 
