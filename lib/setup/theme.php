@@ -182,5 +182,10 @@ $langLib->loadThemeOverrides($prefs['language'], $theme_active);
 
 //Note: if Theme Control is active, than tiki-tc.php can modify the active theme
 
+// Web Monetization
+if ($prefs['webmonetization_all_website'] === 'y' && ! empty($prefs['webmonetization_default_payment_pointer'])) {
+	$headerlib->add_meta('monetization', $prefs['webmonetization_default_payment_pointer']);
+}
+
 //finish
 $smarty->initializePaths();

@@ -162,6 +162,13 @@
 						{preference name=zotero_group_id}
 						{preference name=zotero_style}
 					</div>
+					{preference name=webmonetization_enabled}
+					<div class="adminoptionboxchild" id="webmonetization_enabled_childcontainer">
+						{preference name=webmonetization_default_payment_pointer}
+						{preference name=webmonetization_all_website}
+						{preference name=webmonetization_always_default}
+						{preference name=webmonetization_default_paywall_text}
+					</div>
 				</div>
 			</fieldset>
 		{/tab}

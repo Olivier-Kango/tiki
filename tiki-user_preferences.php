@@ -302,6 +302,13 @@ if ($prefs['feature_userPreferences'] == 'y' && isset($_POST["new_prefs"]) && $a
 		$tikilib->set_user_preference($userwatch, 'perspective_preferred', null);
 	}
 
+	if (isset($_POST['webmonetization_payment_pointer'])) {
+		$tikilib->set_user_preference($userwatch, 'webmonetization_payment_pointer', $_POST['webmonetization_payment_pointer']);
+	}
+	if (isset($_POST['webmonetization_paywall_text'])) {
+		$tikilib->set_user_preference($userwatch, 'webmonetization_paywall_text', $_POST['webmonetization_paywall_text']);
+	}
+
 	TikiLib::events()->trigger(
 		'tiki.user.update',
 		[

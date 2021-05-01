@@ -210,6 +210,10 @@ function get_default_prefs()
 			'feature_lastup' => 'y',
 
 			'terminology_profile_installed' => 'n',
+
+			// Web Monetization
+			'webmonetization_payment_pointer' => '',
+			'webmonetization_default_paywall_text' => '',
 		]
 	);
 

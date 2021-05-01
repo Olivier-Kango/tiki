@@ -361,18 +361,18 @@
 					</div>
 				</div>
 
+				<div class="form-check">
+					<label class="form-check-label">
+						<input class="form-check-input" type="checkbox" name="display_12hr_clock" {if $user_prefs.display_12hr_clock eq 'y'}checked="checked"{/if}>{tr}Use 12-hour clock in time selectors{/tr}
+					</label>
+				</div>
+				{if 1 eq 1 || $prefs.feature_community_mouseover eq 'y'}
 					<div class="form-check">
 						<label class="form-check-label">
-							<input class="form-check-input" type="checkbox" name="display_12hr_clock" {if $user_prefs.display_12hr_clock eq 'y'}checked="checked"{/if}>{tr}Use 12-hour clock in time selectors{/tr}
+							<input class="form-check-input" type="checkbox" name="show_mouseover_user_info" {if $show_mouseover_user_info eq 'y'}checked="checked"{/if}>{tr}Display info tooltip on mouseover for every user who allows his/her information to be public{/tr}
 						</label>
 					</div>
-					{if 1 eq 1 || $prefs.feature_community_mouseover eq 'y'}
-						<div class="form-check">
-							<label class="form-check-label">
-								<input class="form-check-input" type="checkbox" name="show_mouseover_user_info" {if $show_mouseover_user_info eq 'y'}checked="checked"{/if}>{tr}Display info tooltip on mouseover for every user who allows his/her information to be public{/tr}
-							</label>
-						</div>
-					{/if}
+				{/if}
 
 				{if $prefs.feature_messages eq 'y' and $tiki_p_messages eq 'y'}
 					<legend>{tr}User Messages{/tr}</legend>
@@ -591,6 +591,27 @@
 						{button _text="{tr}Reset{/tr}" _onclick="if (confirm('{tr}This will reset the visibility of all the tips, notices and warning remarks boxes you have closed.{/tr}')) {ldelim}deleteCookie('rbox');{rdelim}return false;" _class='btn-sm'}
 					</div>
 				</div>
+
+				{if $prefs.webmonetization_enabled eq 'y'}
+					<legend>{tr}Web Monetization{/tr}</legend>
+					<div class="form-group row clearfix">
+						<label class="col-form-label col-md-4" for="webmonetization_payment_pointer">
+							{tr}Payment pointer{/tr}
+						</label>
+						<div class="col-md-8">
+							<input type="text" class="form-control" name="webmonetization_payment_pointer" id="webmonetization_payment_pointer" value="{$user_prefs.webmonetization_payment_pointer}">
+						</div>
+					</div>
+					<div class="form-group row clearfix">
+						<label class="col-form-label col-md-4" for="webmonetization_paywall_text">
+							{tr}Default paywall text{/tr}
+						</label>
+						<div class="col-md-8">
+							<textarea id='webmonetization_paywall_text' type="text" rows="5" name="webmonetization_paywall_text" class="form-control">{$user_prefs.webmonetization_paywall_text|escape}</textarea>
+						</div>
+					</div>
+				{/if}
+
 				<div class="submit text-center">
 					<input type="submit" class="btn btn-primary" name="new_prefs" value="{tr}Save changes{/tr}">
 				</div>
