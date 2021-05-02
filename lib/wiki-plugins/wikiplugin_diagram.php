@@ -14,7 +14,7 @@ function wikiplugin_diagram_info()
 	$info = [
 		'name' => tr('Diagram'),
 		'documentation' => 'PluginDiagram',
-		'description' => tr('Display mxGraph/Draw.io diagrams'),
+		'description' => tr('Display diagrams.net/mxGraph/Draw.io diagrams'),
 		'prefs' => ['wikiplugin_diagram'],
 		'iconname' => 'sitemap',
 		'tags' => ['basic'],
@@ -66,7 +66,7 @@ function wikiplugin_diagram_info()
 			'template' => [
 				'required' => false,
 				'name' => tr('template'),
-				'description' => tr('Diagram\'s file id to use as a template to new the diagram. This parameter will be skipped if if the fileId parameter is present.'),
+				'description' => tr('Diagram\'s file id to use as a template to new the diagram. This parameter will be skipped if the fileId parameter is present.'),
 				'since' => '23.0',
 				'filter' => 'int',
 			],
