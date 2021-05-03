@@ -261,6 +261,7 @@ if (! timezone) {
 		$object = current_object();
 	}
 	$jqueryTiki['current_object'] = $object;
+	$jqueryTiki['usernamePattern'] = $prefs['username_pattern'];
 
 
 	if ($prefs['feature_calendar'] === 'y') {

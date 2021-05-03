@@ -159,6 +159,11 @@ function smarty_block_textarea($params, $content, $smarty, $repeat)
 		$headerlib->add_js("var autoSaveId = '" . addcslashes($auto_save_referrer, "'") . "';");
 	}
 
+	if ($prefs['feature_notify_users_mention'] === 'y' && $prefs['feature_tag_users'] === 'y') {
+		$headerlib->add_jsfile('lib/jquery_tiki/user_mentions.js');
+		$headerlib->add_jq_onready("$('#$as_id').userMentions();");
+	}
+
 	if ($params['_wysiwyg'] == 'y' && $params['_simple'] == 'n') {
 		// TODO cope with wysiwyg and simple
 
