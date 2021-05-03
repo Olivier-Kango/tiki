@@ -1385,4 +1385,103 @@ class EditLib
 		}
 		return $new_page_attrs;
 	}
+
+	/**
+	 * Bound to tiki.save to find and notifiy users of any mentions
+	 *
+	 * @param array $args
+	 *
+	 * @throws Exception
+	 */
+	final public function process_mentions(array $arguments) : void
+	{
+		global $prefs;
+
+		// Notify users/usergroups
+		if ($prefs['feature_notify_users_mention'] === 'y' && $prefs['feature_tag_users'] === 'y') {
+
+			if ($arguments['type'] === 'wiki page') {
+				$oldData = $arguments['old_data'] ?? '';
+				$newData = $arguments['data'] ?? '';
+			} else if ($arguments['type'] === 'trackeritem' && isset($arguments['values_by_permname'])) {
+				$oldData = implode("\n", array_values(array_diff($arguments['old_values_by_permname'], $arguments['values_by_permname'])));
+				$newData = implode("\n", array_values(array_diff($arguments['values_by_permname'], $arguments['old_values_by_permname'])));
+			} else if (isset($arguments['content'])) {	//  'forum post', 'blog post', comments
+				$oldData = '';
+				$newData = $arguments['content'] ?? '';
+			} else {
+				$oldData = '';
+				$newData = '';
+			}
+
+			if ($oldData || $newData) {
+				$oldData = explode("\n", $oldData);
+				$newData = explode("\n", $newData);
+				$sections = [];
+				require_once('lib/diff/difflib.php');
+				$textDiff = new Text_Diff($oldData, $newData, true);
+				if (! $textDiff->isEmpty()) {
+					foreach ($textDiff->_edits as $edit) {
+						if (is_a($edit, 'Text_Diff_Op_add')) { // new content
+							$sections[] = findMentions($edit->final, 'new');
+						} elseif (is_a($edit, 'Text_Diff_Op_change')) { // change or new content
+							$sections[] = findMentionsOnChange($edit);
+						} elseif (is_a($edit, 'Text_Diff_Op_copy')) { // no diffs on content
+							$sections[] = findMentions($edit->final, 'old');
+						}
+					}
+				}
+				$count = 1;
+				$tikiLibUser = TikiLib::lib('user');
+				$smarty = TikiLib::lib('smarty');
+				$smarty->loadPlugin('smarty_function_object_link');
+
+				$objectUrl = smarty_function_object_link(
+					['type' => $arguments['type'],  'id' => $arguments['object']],
+					$smarty->getEmptyInternalTemplate()
+				);
+
+				// strip out html to get the plain url and title?
+				if (preg_match('/<a.* href=["\'](.*?)["\'].*>(.*?)<\/a>/', $objectUrl, $matches)) {
+					$objectUrl = $matches[1];
+					$title = $matches[2];
+				}
+
+				foreach (array_filter($sections) as $sec) {
+					$notifiedUsers = [];
+					foreach ($sec as $possibleUser) {
+						if (isset($possibleUser) && $possibleUser['state'] == 'new') {
+							$mentionedBy = $tikiLibUser->clean_user($arguments['user']);	// gets realName
+							$mentionedUser = substr($possibleUser['mention'], strpos($possibleUser['mention'], "@") + 1);
+							if ($mentionedUser) {
+								$userInfo = $tikiLibUser->get_user_info($mentionedUser);
+								if (is_array($userInfo) && $userInfo['userId'] > 0) {
+									if (! in_array($mentionedUser, $notifiedUsers)) {
+										$url = $objectUrl;
+										if ($arguments['type'] === 'wiki page') {
+											$url .= '#mentioned-' . $mentionedUser . '-section-' . $count;
+										}
+
+										$emailData = [
+											'siteName' => TikiLib::lib('tiki')->get_preference('browsertitle'),
+											'mentionedBy' => $mentionedBy,
+											'url' => $url,
+											'type' => $arguments['type'],
+											'title' => $title ?? $arguments['object'],
+										];
+
+										Tiki\Notifications\Email::sendMentionNotification(
+											'mention_notification_subject.tpl', 'mention_notification.tpl', $emailData, [$userInfo]
+										);
+										$notifiedUsers[] = $mentionedUser;
+									}
+									$count++;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 }

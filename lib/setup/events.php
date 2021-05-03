@@ -53,6 +53,10 @@ function tiki_setup_events()
 		}
 	}
 
+	if ($prefs['feature_notify_users_mention'] === 'y' && $prefs['feature_tag_users'] === 'y') {
+		$events->bind('tiki.save', $defer('edit', 'process_mentions'));
+	}
+
 	if ($prefs['feature_trackers'] == 'y') {
 		$events->bind('tiki.trackeritem.save', $defer('trk', 'send_replace_item_notifications'));
 		$events->bind('tiki.trackeritem.save', $defer('trk', 'sync_item_geo'));
