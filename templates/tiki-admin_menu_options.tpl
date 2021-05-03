@@ -228,7 +228,7 @@
 					</select>
 				</div>
 				<div class="col-sm-2">
-					{button _text='{tr}Deploy{/tr}' _class='deploy_menu btn btn-primary' _type='default' _ajax='n'}
+					{button _text='{tr}Deploy{/tr}' _class='deploy_menu btn btn-primary' _type='primary' _ajax='n'}
 				</div>
 			</form>
 
