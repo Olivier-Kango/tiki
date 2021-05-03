@@ -1457,10 +1457,7 @@ class EditLib
 								$userInfo = $tikiLibUser->get_user_info($mentionedUser);
 								if (is_array($userInfo) && $userInfo['userId'] > 0) {
 									if (! in_array($mentionedUser, $notifiedUsers)) {
-										$url = $objectUrl;
-										if ($arguments['type'] === 'wiki page') {
-											$url .= '#mentioned-' . $mentionedUser . '-section-' . $count;
-										}
+										$url = $objectUrl .= '#mentioned-' . $mentionedUser . '-section-' . $count;
 
 										$emailData = [
 											'siteName' => TikiLib::lib('tiki')->get_preference('browsertitle'),
