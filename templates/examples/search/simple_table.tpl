@@ -2,8 +2,8 @@
 {if not empty($column.field)}
 	{$column = [$column]}{* if there is only one column then it will not be in an array *}
 {/if}
-<div class="table-responsive ts-wrapperdiv">
-	<table class="table normal table-hover table-striped">
+<div {if $id}id="{$id}-div" {/if}class="table-responsive ts-wrapperdiv" {if $tsOn}style="visibility:hidden;"{/if}>
+	<table {if $id}id="{$id}" {/if}class="table normal table-hover table-striped" data-count="{$count}">
 		<thead>
 			{$header=false}
 			{foreach from=$column item=col}
@@ -72,5 +72,8 @@
 				</tr>
 			{/foreach}
 		</tbody>
+		{if !empty($tstotals) && $tsOn}
+			{include file="../../tablesorter/totals.tpl" fieldcount="{$fieldcount}"}
+		{/if}
 	</table>
 </div>
