@@ -19,6 +19,7 @@
  *
  *    _wysiwyg: force wysiwyg editor
  *    _is_html: parse as html
+ *    _preview: add a preview in a tab
  *
  * usage: {textarea id='my_area' name='my_area'}{tr}My Text{/tr}{/textarea}
  */
@@ -54,6 +55,7 @@ function smarty_block_textarea($params, $content, $smarty, $repeat)
 	}
 
 	$params['_simple'] = isset($params['_simple']) ? $params['_simple'] : 'n';
+	$params['_preview'] = isset($params['_preview']) ? $params['_preview'] : 'n';
 
 	if (! isset($params['_wysiwyg'])) {
 		if ($params['_simple'] === 'n') {
@@ -361,5 +363,13 @@ function admintoolbar() {
 		$headerlib->add_js($js_editconfirm);
 	}	// end if ($params['_simple'] == 'n')
 
-	return $auto_save_warning . $html;
+	$html = $auto_save_warning . $html;
+
+	if ($params['_preview'] === 'y') {
+		$smarty->assign('edit_form', $html);
+		$html = $smarty->fetch('wiki_edit_with_preview.tpl');
+		$headerlib->add_jsfile('lib/jquery_tiki/edit_preview.js');
+	}
+
+	return $html;
 }

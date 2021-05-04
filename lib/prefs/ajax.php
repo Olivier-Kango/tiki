@@ -34,5 +34,11 @@ function prefs_ajax_list()
 			'default' => 'y',
 			'dependencies' => ['ajax_inline_edit'],
 		],
+		'ajax_edit_previews' => [
+			'name' => tr('Preview Edits'),
+			'description' => tr('Add a preview tab to text areas.'),
+			'type' => 'flag',
+			'default' => 'y',
+		],
 	];
 }

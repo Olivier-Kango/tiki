@@ -27,6 +27,7 @@
 				</div>
 				{preference name=feature_wysiwyg}
 				{preference name=ajax_autosave}
+				{preference name=ajax_edit_previews}
 			</fieldset>
 
 			<fieldset>
