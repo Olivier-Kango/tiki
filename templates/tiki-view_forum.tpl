@@ -213,7 +213,7 @@
 					<div class="form-group row">
 						<label class="col-sm-2 col-form-label" for="editpost">{tr}Message{/tr}</label>
 						<div class="col-sm-10">
-							{textarea id="editpost" class="form-control" name="comments_data" _simple="y" codemirror="y" syntax="tiki" _toolbars=$prefs.feature_forum_parse}{$comment_data}{/textarea}
+							{textarea id="editpost" class="form-control" name="comments_data" _simple="y" codemirror="y" syntax="tiki" _toolbars=$prefs.feature_forum_parse _preview=$prefs.ajax_edit_previews}{$comment_data}{/textarea}
 						</div>
 					</div>
 					{if ($forum_info.att eq 'att_all') or ($forum_info.att eq 'att_admin' and $tiki_p_admin_forum eq 'y') or ($forum_info.att eq 'att_perm' and $tiki_p_forum_attach eq 'y')}
