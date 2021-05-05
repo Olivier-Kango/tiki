@@ -310,19 +310,26 @@
 {/if}{* $tiki_p_forum_post *}
 {/block}
 </section>
-{if $prefs.forum_reply_forcetitle eq 'y'}
-{jq}
-$('#editpostform').submit( function() {
-	if (!$('#comments-title').val()) {
-		alert('{tr}Please enter a title{/tr}');
-		return false;
-	}
-});
-{/jq}
-{/if}
 {jq}
 	var $forum = $("#editpostform");
+
+	if (jqueryTiki.validate) {
+		$forum.validate({
+			rules: {		// make sure required fields are entered
+				{{if $prefs.forum_reply_notitle eq 'n'}}comments_title: "required",
+{{/if}}				comments_data: "required",
+			},
+			messages: {
+				comments_title: "{tr}Post title is required {/tr}",
+				comments_data: "{tr}Post message is required {/tr}",
+			},
+		});
+	}
+
 	$forum.submit(function() {
+		if (jqueryTiki.validate && ! $(this).valid()) {
+			return false;
+		}
 		// prevent double submission
 		if (!$forum.data("sub")) {
 			$forum.tikiModal('Save in Progress...');
