@@ -996,7 +996,24 @@
 	{/if}
 	{jq}
 		var $forum = $("#editpageform");
+
+		if (jqueryTiki.validate) {
+			$forum.validate({
+				rules: {		// make sure required fields are entered
+					comments_title: "required",
+					comments_data: "required",
+				},
+				messages: {
+					comments_title: "{tr}Topic title is required {/tr}",
+					comments_data: "{tr}Topic message is required {/tr}",
+				},
+			});
+		}
+
 		$forum.submit(function() {
+			if (jqueryTiki.validate && ! $(this).valid()) {
+				return false;
+			}
 			// prevent double submission
 			if (!$forum.data("sub")) {
 				$forum.tikiModal('Save in Progress...');
