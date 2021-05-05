@@ -169,39 +169,39 @@
 							</div>
 						</div>
 					{/if}
-					{if $tiki_p_admin_forum eq 'y' or $forum_info.topic_smileys eq 'y'}
-					<div class="form-group row">
-						<label class="col-sm-2 col-form-label" for="comments_topictype">{tr}Type{/tr}</label>
-						<div class="col-sm-10">
-							{if $tiki_p_admin_forum eq 'y'}
-									<select name="comment_topictype" id="comment_topictype" class="form-control comment_topictype">
-										<option value="n" {if $comment_topictype eq 'n'}selected="selected"{/if}>{tr}Normal{/tr}</option>
-										<option value="a" {if $comment_topictype eq 'a'}selected="selected"{/if}>{tr}Announce{/tr}</option>
-										<option value="h" {if $comment_topictype eq 'h'}selected="selected"{/if}>{tr}Hot{/tr}</option>
-										<option value="s" {if $comment_topictype eq 's'}selected="selected"{/if}>{tr}Sticky{/tr}</option>
-										<option value="d" {if $comment_topictype eq 'd'}selected="selected"{/if}>{tr}Deliberation{/tr}</option>
-									</select>
-								{/if}
-							</div>
-							<div class="col-sm-2">
-								{if $forum_info.topic_smileys eq 'y'}
-									<select name="comment_topicsmiley" class="form-control comment_topicsmiley">
-										<option value="" {if $comment_topicsmiley eq ''}selected="selected"{/if}>{tr}no feeling{/tr}</option>
-										<option value="icon_frown.gif" {if $comment_topicsmiley eq 'icon_frown.gif'}selected="selected"{/if}>{tr}frown{/tr}</option>
-										<option value="icon_exclaim.gif" {if $comment_topicsmiley eq 'icon_exclaim.gif'}selected="selected"{/if}>{tr}exclaim{/tr}</option>
-										<option value="icon_idea.gif" {if $comment_topicsmiley eq 'icon_idea.gif'}selected="selected"{/if}>{tr}idea{/tr}</option>
-										<option value="icon_mad.gif" {if $comment_topicsmiley eq 'icon_mad.gif'}selected="selected"{/if}>{tr}mad{/tr}</option>
-										<option value="icon_neutral.gif" {if $comment_topicsmiley eq 'icon_neutral.gif'}selected="selected"{/if}>{tr}neutral{/tr}</option>
-										<option value="icon_question.gif" {if $comment_topicsmiley eq 'icon_question.gif'}selected="selected"{/if}>{tr}question{/tr}</option>
-										<option value="icon_sad.gif" {if $comment_topicsmiley eq 'icon_sad.gif'}selected="selected"{/if}>{tr}sad{/tr}</option>
-										<option value="icon_smile.gif" {if $comment_topicsmiley eq 'icon_smile.gif'}selected="selected"{/if}>{tr}happy{/tr}</option>
-										<option value="icon_wink.gif" {if $comment_topicsmiley eq 'icon_wink.gif'}selected="selected"{/if}>{tr}wink{/tr}</option>
-									</select>
-								{/if}
+					{if $tiki_p_admin_forum eq 'y'}
+						<div class="form-group row">
+							<label class="col-sm-2 col-form-label" for="comments_topictype">{tr}Type{/tr}</label>
+							<div class="col-sm-10">
+								<select name="comment_topictype" id="comment_topictype" class="form-control comment_topictype">
+									<option value="n" {if $comment_topictype eq 'n'}selected="selected"{/if}>{tr}Normal{/tr}</option>
+									<option value="a" {if $comment_topictype eq 'a'}selected="selected"{/if}>{tr}Announce{/tr}</option>
+									<option value="h" {if $comment_topictype eq 'h'}selected="selected"{/if}>{tr}Hot{/tr}</option>
+									<option value="s" {if $comment_topictype eq 's'}selected="selected"{/if}>{tr}Sticky{/tr}</option>
+									<option value="d" {if $comment_topictype eq 'd'}selected="selected"{/if}>{tr}Deliberation{/tr}</option>
+								</select>
 							</div>
 						</div>
 					{/if}
-
+					{if $forum_info.topic_smileys eq 'y'}
+						<div class="form-group row">
+							<label class="col-sm-2 col-form-label" for="comments_topictype">{tr}Smiley{/tr}</label>
+							<div class="col-sm-10">
+								<select name="comment_topicsmiley" class="form-control comment_topicsmiley">
+									<option value="" {if $comment_topicsmiley eq ''}selected="selected"{/if}>{tr}no feeling{/tr}</option>
+									<option value="icon_frown.gif" {if $comment_topicsmiley eq 'icon_frown.gif'}selected="selected"{/if}>{tr}frown{/tr}</option>
+									<option value="icon_exclaim.gif" {if $comment_topicsmiley eq 'icon_exclaim.gif'}selected="selected"{/if}>{tr}exclaim{/tr}</option>
+									<option value="icon_idea.gif" {if $comment_topicsmiley eq 'icon_idea.gif'}selected="selected"{/if}>{tr}idea{/tr}</option>
+									<option value="icon_mad.gif" {if $comment_topicsmiley eq 'icon_mad.gif'}selected="selected"{/if}>{tr}mad{/tr}</option>
+									<option value="icon_neutral.gif" {if $comment_topicsmiley eq 'icon_neutral.gif'}selected="selected"{/if}>{tr}neutral{/tr}</option>
+									<option value="icon_question.gif" {if $comment_topicsmiley eq 'icon_question.gif'}selected="selected"{/if}>{tr}question{/tr}</option>
+									<option value="icon_sad.gif" {if $comment_topicsmiley eq 'icon_sad.gif'}selected="selected"{/if}>{tr}sad{/tr}</option>
+									<option value="icon_smile.gif" {if $comment_topicsmiley eq 'icon_smile.gif'}selected="selected"{/if}>{tr}happy{/tr}</option>
+									<option value="icon_wink.gif" {if $comment_topicsmiley eq 'icon_wink.gif'}selected="selected"{/if}>{tr}wink{/tr}</option>
+								</select>
+							</div>
+						</div>
+					{/if}
 					{if $forum_info.topic_summary eq 'y'}
 						<div class="form-group row">
 							<label class="col-sm-2 col-form-label">{tr}Summary{/tr}</label>
