@@ -241,7 +241,7 @@
 							{else}
 								{$forum_wysiwyg = 'n'}
 							{/if}
-							{textarea rows="10" codemirror='true' syntax='tiki' id="editpost2" class="form-control" name="comments_data" _wysiwyg=n}{strip}
+							{textarea rows="10" codemirror='true' syntax='tiki' id="editpost2" class="form-control" name="comments_data" _wysiwyg=n _preview=$prefs.ajax_edit_previews}{strip}
 								{*If set to reply not empty, if you are editing a post, or previewing, put the contents in the text area.*}
 								{if ($prefs.feature_forum_replyempty ne 'y') || $edit_reply > 0 || $comment_preview eq 'y' || !empty($tikifeedback)}
 									{$comment_data}
@@ -291,13 +291,16 @@
 							{if !empty($user) && $prefs.feature_comments_post_as_anonymous eq 'y'}
 								<input type="submit" class="btn btn-primary btn-sm" name="comments_postComment_anonymous" value="{tr}Post as Anonymous{/tr}" onclick="needToConfirm=false;">
 							{/if}
-							<input type="submit" class="btn btn-primary btn-sm" name="comments_previewComment" id="comments_previewComment" value="{tr}Preview{/tr}">
-							{jq}$("#comments_previewComment").click(function () {
-								if ($("#userfile1").val()) {
-								alert("{tr}Please note that the preview does not keep the attached file which you will have to choose before posting.{/tr}");
-								}
-								needToConfirm=false;
-								});{/jq}
+							{if $prefs.ajax_edit_previews eq 'n'}
+								<input type="submit" class="btn btn-primary btn-sm" name="comments_previewComment" id="comments_previewComment" value="{tr}Preview{/tr}">
+								{jq}$("#comments_previewComment").click(function () {
+									if ($("#userfile1").val()) {
+										alert("{tr}Please note that the preview does not keep the attached file which you will have to choose before posting.{/tr}");
+									}
+										needToConfirm=false;
+									});
+								{/jq}
+							{/if}
 							<input type="submit" class="btn btn-secondary btn-sm" name="comments_cancelComment" value="{tr}Cancel{/tr}" onclick="hide('{$postclass}open'); return false">
 						</div>
 					</div>
