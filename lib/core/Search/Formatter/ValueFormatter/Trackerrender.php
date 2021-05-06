@@ -40,20 +40,23 @@ class Search_Formatter_ValueFormatter_Trackerrender extends Search_Formatter_Val
 			switch ($value) {
 				case 'o':
 					$status = 'open';
+					$istatus = tra('Open');
 					break;
 				case 'p':
 					$status = 'pending';
+					$istatus = tra('Pending');
 					break;
 				default:
 				case 'c':
 					$status = 'closed';
+					$istatus = tra('Closed');
 					break;
 			}
 
 			$smarty = TikiLib::lib('smarty');
 			$smarty->loadPlugin('smarty_function_icon');
 			return smarty_function_icon(['name' => 'status-' . $status, 'iclass' => 'tips', 'ititle' => ':'
-				. ucfirst($status) ], $smarty->getEmptyInternalTemplate());
+				. $istatus ], $smarty->getEmptyInternalTemplate());
 		} elseif (substr($name, 0, 14) !== 'tracker_field_') {
 			return $value;
 		}
