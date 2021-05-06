@@ -1055,4 +1055,34 @@ body {
   transform: scale(1);
   overflow: visible;
 }
+
+.move_to_trackers {
+  text-transform: none;
+  z-index: 1;
+  position: absolute;
+  display: none;
+  background-color: #fff;
+  padding: 10px;
+  border: solid 1px #ede8e6;
+  font-weight: normal;
+  padding-right: 25px;
+  padding-left: 0px;
+  font-size: 80%;
+  top: 34px;
+  min-width: 55px;
+  right: 2px;
+  border-top: none;
+  padding-top: 0px;
+}
+.move_to_trackers a {
+  border: none;
+  font-size: 100%;
+}
+.msg_move_to .move_to_trackers {
+  font-size: 100%;
+  left: auto;
+  right: 0px;
+  top: 33px;
+  font-variant: normal;
+}
 /*# sourceMappingURL=site.css.map */

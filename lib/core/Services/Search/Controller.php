@@ -197,4 +197,13 @@ class Services_Search_Controller
 			throw new Services_Exception_NotAvailable($e->getMessage());
 		}
 	}
+
+	function action_object_selector($input)
+	{
+		global $smarty;
+		$smarty->loadPlugin('smarty_function_object_selector');
+		return [
+			'selector' => smarty_function_object_selector($input->params->array(), $smarty->getEmptyInternalTemplate())
+		];
+	}
 }

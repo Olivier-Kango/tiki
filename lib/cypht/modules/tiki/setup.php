@@ -107,45 +107,61 @@ add_output('settings', 'allow_external_images_setting', true, 'tiki', 'start_adv
 add_output('settings', 'enable_oauth2_over_imap_setting', true, 'tiki', 'allow_external_images_setting', 'after');
 add_output('settings', 'enable_gmail_contacts_module_setting', true, 'tiki', 'enable_oauth2_over_imap_setting', 'after');
 
+/* tracker field email folder handling */
+add_handler('message', 'tracker_message_list_type', true, 'core', 'message_list_type', 'after');
+add_handler('message_list', 'check_path_redirect', true, 'core', 'load_user_data', 'after');
+add_output('ajax_imap_message_content', 'add_move_to_trackers', true, 'imap', 'filter_message_headers', 'after');
+setup_base_ajax_page('ajax_move_to_tracker', 'core');
+add_handler('ajax_move_to_tracker', 'load_imap_servers_from_config',  true, 'imap');
+add_handler('ajax_move_to_tracker', 'imap_oauth2_token_check', true, 'imap');
+add_handler('ajax_move_to_tracker', 'move_to_tracker', true, 'tiki', 'imap_oauth2_token_check', 'after');
+add_handler('ajax_move_to_tracker', 'save_imap_cache',  true, 'imap', 'move_to_tracker', 'after');
+add_handler('ajax_move_to_tracker', 'close_session_early',  true, 'core', 'save_imap_cache', 'after');
+add_output('ajax_move_to_tracker', 'pass_redirect_url', true, 'tiki');
+
 return array(
-	'allowed_pages' => array(
+  'allowed_pages' => array(
     'groupmail',
     'ajax_tiki_groupmail',
     'ajax_take_groupmail',
     'ajax_put_back_groupmail',
-	'ajax_rsvp_action',
+    'ajax_rsvp_action',
     'ajax_add_to_calendar',
     'ajax_update_participant_status',
-    'ajax_remove_from_calendar'
-	),
-	'allowed_get' => array(
-	),
-	'allowed_output' => array(
-		'operator' => array(FILTER_SANITIZE_STRING, false),
-		'item_removed' => array(FILTER_VALIDATE_BOOLEAN, false),
-	),
-	'allowed_post' => array(
-		'imap_server_id' => FILTER_VALIDATE_INT,
-		'imap_msg_uid' => FILTER_SANITIZE_STRING,
-		'folder' => FILTER_SANITIZE_STRING,
-		'msgid' => FILTER_SANITIZE_STRING,
+    'ajax_remove_from_calendar',
+    'ajax_move_to_tracker'
+  ),
+  'allowed_get' => array(
+  ),
+  'allowed_output' => array(
+    'operator' => array(FILTER_SANITIZE_STRING, false),
+    'item_removed' => array(FILTER_VALIDATE_BOOLEAN, false),
+    'redirect_url' => array(FILTER_SANITIZE_STRING, false),
+  ),
+  'allowed_post' => array(
+    'imap_server_id' => FILTER_VALIDATE_INT,
+    'imap_msg_uid' => FILTER_SANITIZE_STRING,
+    'folder' => FILTER_SANITIZE_STRING,
+    'msgid' => FILTER_SANITIZE_STRING,
     'rsvp_action' => FILTER_SANITIZE_STRING,
     'calendar_id' => FILTER_VALIDATE_INT,
     'debug_mode' => FILTER_VALIDATE_INT,
-	'allow_external_images' => FILTER_VALIDATE_INT,
-	'tiki_enable_oauth2_over_imap' => FILTER_VALIDATE_INT,
-	'tiki_enable_gmail_contacts_module' => FILTER_VALIDATE_INT,
-	'gmail_client_id' => FILTER_SANITIZE_STRING,
-	'gmail_client_secret' => FILTER_SANITIZE_STRING,
-	'gmail_client_uri' => FILTER_SANITIZE_STRING,
-	'gmail_auth_uri' => FILTER_SANITIZE_STRING,
-	'gmail_token_uri' => FILTER_SANITIZE_STRING,
-	'gmail_refresh_uri' => FILTER_SANITIZE_STRING,
-	'outlook_client_id' => FILTER_SANITIZE_STRING,
-	'outlook_client_secret' => FILTER_SANITIZE_STRING,
-	'outlook_client_uri' => FILTER_SANITIZE_STRING,
-	'outlook_auth_uri' => FILTER_SANITIZE_STRING,
-	'outlook_token_uri' => FILTER_SANITIZE_STRING,
-	'outlook_refresh_uri' => FILTER_SANITIZE_STRING,
-	)
+    'allow_external_images' => FILTER_VALIDATE_INT,
+    'tiki_enable_oauth2_over_imap' => FILTER_VALIDATE_INT,
+    'tiki_enable_gmail_contacts_module' => FILTER_VALIDATE_INT,
+    'gmail_client_id' => FILTER_SANITIZE_STRING,
+    'gmail_client_secret' => FILTER_SANITIZE_STRING,
+    'gmail_client_uri' => FILTER_SANITIZE_STRING,
+    'gmail_auth_uri' => FILTER_SANITIZE_STRING,
+    'gmail_token_uri' => FILTER_SANITIZE_STRING,
+    'gmail_refresh_uri' => FILTER_SANITIZE_STRING,
+    'outlook_client_id' => FILTER_SANITIZE_STRING,
+    'outlook_client_secret' => FILTER_SANITIZE_STRING,
+    'outlook_client_uri' => FILTER_SANITIZE_STRING,
+    'outlook_auth_uri' => FILTER_SANITIZE_STRING,
+    'outlook_token_uri' => FILTER_SANITIZE_STRING,
+    'outlook_refresh_uri' => FILTER_SANITIZE_STRING,
+    'tracker_field_id' => FILTER_VALIDATE_INT,
+    'tracker_item_id' => FILTER_VALIDATE_INT,
+  )
 );

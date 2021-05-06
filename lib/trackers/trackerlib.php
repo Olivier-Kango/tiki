@@ -5209,6 +5209,15 @@ class TrackerLib extends TikiLib
 		return $fields;
 	}
 
+	public function get_fields_by_type($type)
+	{
+		$fields = $this->fields();
+		return $fields->fetchAll(
+			$fields->all(),
+			['type' => $fields->exactly($type)]
+		);
+	}
+
 	/**
 	 * Get a field handler for a specific fieldtype. The handler comes initialized with the field / item data passed.
 	 * @param array $field.
