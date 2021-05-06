@@ -47,8 +47,9 @@ $javascript_enabled_detect = getCookie('javascript_enabled_detect', '', '0');
 // Cookie Consent: setCookieSection uses the session tiki_cookie_jar to simulate cookies,
 // so check that $feature_no_cookie is not true because cookies are not really set when using cookie_consent_feature
 // and so javascript will get disabled by mistake
-
-if (empty($javascript_enabled_detect) && $feature_no_cookie) {
+if ($prefs['javascript_assume_enabled'] === 'y') {
+	$prefs['javascript_enabled'] = 'y';
+} elseif (empty($javascript_enabled_detect) && $feature_no_cookie) {
 	$prefs['javascript_enabled'] = 'y';					// assume javascript should be enabled while cookie consent is pending
 } elseif ($prefs['javascript_enabled'] === '' && $prefs['disableJavascript'] != 'y' && $javascript_enabled_detect < 3) {
 	// Set the cookie to 'y', through javascript - expires: approx. 1 year
@@ -61,9 +62,7 @@ if (empty($javascript_enabled_detect) && $feature_no_cookie) {
 			strpos($_SERVER['PHP_SELF'], 'tiki-login.php') === false &&
 			strpos($_SERVER['PHP_SELF'], 'tiki-install.php') === false) {
 		$javascript_enabled_detect++;
-		if ($prefs['javascript_assume_enabled'] != 'y') {
-			setCookieSection('javascript_enabled_detect', $javascript_enabled_detect, '', $plus_one_year / 1000);
-		}
+		setCookieSection('javascript_enabled_detect', $javascript_enabled_detect, '', $plus_one_year / 1000);
 	}
 } elseif ($js_cookie !== 'y') {	// no js cookie detected
 	$prefs['javascript_enabled'] = 'n';
