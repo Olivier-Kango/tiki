@@ -1055,4 +1055,16 @@ body {
   transform: scale(1);
   overflow: visible;
 }
+
+.msg_controls a {
+width: unset;
+border: unset;
+letter-spacing: unset;
+}
+
+@media only screen and (min-width: 600px) {
+  .message_list {
+    margin-top: 50px;
+  }
+}
 /*# sourceMappingURL=site.css.map */
