@@ -8401,6 +8401,7 @@ $lang = array(
 // "Minimum number of votes needed to show Add-to-Calendar icon, so that new users do\n\t\t\t\t\tnot see a potentially confusing icon before the convene has enough information on it" => "Minimum number of votes needed to show Add-to-Calendar icon, so that new users do\n\t\t\t\t\tnot see a potentially confusing icon before the convene has enough information on it",
 // "Date-Time Format" => "Date-Time Format",
 "Display date and time in short or long format, according to the site wide setting" => "날짜와 시간을 약식 혹은 긴 형식으로 표시, 사이트 전역 설정을 따름",
+"Display date and time in short or long format, according to the site wide setting (or use \"other\" to specify a custom format below)" => "날짜와 시간을 약식 혹은 긴 형식으로 표시, 사이트 전역 설정을 따름",
 "Short" => "짧음",
 "Long" => "장기",
 // "Observe Admin Permissions" => "Observe Admin Permissions",

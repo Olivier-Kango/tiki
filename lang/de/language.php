@@ -8400,6 +8400,7 @@ $lang = array(
 // "Minimum number of votes needed to show Add-to-Calendar icon, so that new users do\n\t\t\t\t\tnot see a potentially confusing icon before the convene has enough information on it" => "Minimum number of votes needed to show Add-to-Calendar icon, so that new users do\n\t\t\t\t\tnot see a potentially confusing icon before the convene has enough information on it",
 // "Date-Time Format" => "Date-Time Format",
 "Display date and time in short or long format, according to the site wide setting" => "Zeige Datum und Zeit entsprechend der site-weiten Einstellungen in einem Kurz- oder einem Langformat",
+"Display date and time in short or long format, according to the site wide setting (or use \"other\" to specify a custom format below)" => "Zeige Datum und Zeit entsprechend der site-weiten Einstellungen in einem Kurz- oder einem Langformat",
 "Short" => "Kurz",
 "Long" => "Lang",
 // "Observe Admin Permissions" => "Observe Admin Permissions",
