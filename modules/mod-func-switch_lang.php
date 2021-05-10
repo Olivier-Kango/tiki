@@ -66,7 +66,7 @@ function module_switch_lang($mod_reference, $module_params)
 			} else {
 				$languages[$i]['flag'] = '';
 			}
-			if (isset($pageRenderer) && count($pageRenderer->trads) > 0) {
+			if (isset($pageRenderer) && ! empty($pageRenderer->trads)) {
 				$languages[$i]['class'] = ' unavailable';
 				for ($t = 0, $tcount_pageR = count($pageRenderer->trads); $t < $tcount_pageR; $t++) {
 					if ($pageRenderer->trads[$t]['lang'] == $languages[$i]['value']) {
