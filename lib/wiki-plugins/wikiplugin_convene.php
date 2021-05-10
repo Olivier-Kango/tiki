@@ -47,15 +47,24 @@ function wikiplugin_convene_info(): array
 			'dateformat' => [
 				'required' => false,
 				'name' => tra('Date-Time Format'),
-				'description' => tra('Display date and time in short or long format, according to the site wide setting'),
+				'description' => tra('Display date and time in short or long format, according to the site wide setting (or use "other" to specify a custom format below)'),
 				'since' => '9.0',
 				'filter' => 'alpha',
 				'default' => 'short',
 				'options' => [
 					['text' => '', 'value' => ''],
 					['text' => tra('Short'), 'value' => 'short'],
-					['text' => tra('Long'), 'value' => 'long']
+					['text' => tra('Long'), 'value' => 'long'],
+					['text' => tra('Other'), 'value' => 'other'],
 				]
+			],
+			'dateformatother' => [
+				'required' => false,
+				'name' => tra('Other Date-Time Format'),
+				'description' => tra('Use a custom format string for the dates using PHP "strftime" or "date_format" parameters'),
+				'since' => '23.0',
+				'filter' => 'text',
+				'default' => '',
 			],
 			'adminperms' => [
 				'required' => false,
@@ -187,7 +196,14 @@ function wikiplugin_convene($data, $params): string
 		}
 		$dateLabels[$stamp] = [];
 		if ($params['dateformat'] === "long") {
-			$dateLabels[$stamp]['formatted'] =  $tikilib->get_long_datetime($stamp);
+			$dateLabels[$stamp]['formatted'] = $tikilib->get_long_datetime($stamp);
+		} else if ($params['dateformat'] === 'other') {
+			$format = $params['dateformatother'];
+			if (strpos($format, '%') === 0) {	// assuming a strftime format starts with %
+				$dateLabels[$stamp]['formatted'] = TikiLib::date_format($format, $stamp);
+			} else {
+				$dateLabels[$stamp]['formatted'] = TikiLib::date_format2($format, $stamp);
+			}
 		} else {
 			$dateLabels[$stamp]['formatted'] =  $tikilib->get_short_datetime($stamp);
 		}
