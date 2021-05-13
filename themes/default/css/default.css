@@ -19,6 +19,7 @@
   --cyan: #17a2b8;
   --white: #fff;
   --gray: #6c757d;
+  --gray-light: #d3daea;
   --gray-dark: #343a40;
   --primary: #007bff;
   --secondary: #6c757d;
@@ -8511,10 +8512,18 @@ div.drillshow {
   font-weight: bold;
 }
 code, pre.codelisting {
-  color: #e83e8c;
-  background: #f8f9fa;
+  color: var(--pink);
+  background: var(--light);
   border: 1px solid white;
   border-radius: 1px;
+}
+pre.codelisting {
+  color: var(--gray-dark);
+  border-color: var(--gray-light);
+  padding: 1em;
+}
+pre.codelisting code {
+  white-space: pre-wrap;
 }
 .edit-menu {
   position: absolute;
