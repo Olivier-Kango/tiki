@@ -47,7 +47,7 @@ function module_recordrtc($mod_reference, $smod_params) 	// modifies $smod_param
 		return;
 	}
 
-	$recordRtcService = new Services_Recordrtc_Controller();
+	$recordRtcService = new Services_RecordRtc_Controller();
 	$recordRtcService->setUp();
 
 	$recordRtcVendor = VendorHelper::getAvailableVendorPath('recordrtc', 'npm-asset/recordrtc/RecordRTC.js');
