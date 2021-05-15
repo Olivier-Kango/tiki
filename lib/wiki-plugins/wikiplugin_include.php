@@ -120,6 +120,18 @@ function wikiplugin_include_info()
 					['text' => tr('No'), 'value' => 'n'],
 				],
 			],
+			'page_replace_icon' => [
+				'required' => false,
+				'name' => tr('Replace Include Icon'),
+				'description' => tr('Option to show the replace page icon, for the included page to be replaced by original wiki text. Depends on the "edit icons" settings.'),
+				'default' => 'y',
+				'filter' => 'alpha',
+				'options' => [
+					['text' => '', 'value' => ''],
+					['text' => tr('Yes'), 'value' => 'y'],
+					['text' => tr('No'), 'value' => 'n'],
+				],
+			],
 			'max_chars_included' => [
 				'required' => false,
 				'name' => tr('Max characters included'),
@@ -148,6 +160,7 @@ function wikiplugin_include($dataIn, $params)
 		'pagedenied_text' => '',
 		'page_edit_icon' => 'y',
 		'parse_included_page' => 'n',
+		'page_replace_icon' => 'y',
 		'pagenotapproved_text' => tr('There are no approved versions of this page.'),
 	], $params);
 	extract($params, EXTR_SKIP);
@@ -157,6 +170,14 @@ function wikiplugin_include($dataIn, $params)
 	if (! isset($max_inclusions)) {
 		$max_inclusions = 5;
 	}
+
+	if (isset($replace) && (int) $replace === 1) {
+		$linkoriginal = 'n';
+		$page_edit_icon = 'n';
+		$page_replace_icon = 'n';
+	}
+
+	$returnto = ! empty($GLOBALS['page']) ? $GLOBALS['page'] : $_SERVER['REQUEST_URI'];
 
 	// This variable is for accessing included page name within plugins in that page
 	global $wikiplugin_included_page;
@@ -271,8 +292,43 @@ function wikiplugin_include($dataIn, $params)
 
 	$parserlib = TikiLib::lib('parser');
 
-	if ($params['parse_included_page'] === 'y') {
+	if ($page_replace_icon === 'y') {
+		$pageInfo = $tikilib->get_page_info($returnto);
+		$pageData = ! empty($pageInfo['data']) ? $pageInfo['data'] : '';
+		$permsPage = $tikilib->get_perm_object($returnto, 'wiki page', $pageData, false);
+		$tikiPEdit = ! empty($permsPage['tiki_p_edit']) ? $permsPage['tiki_p_edit'] : 'n';
 
+		if ($tikiPEdit === 'y') {
+			static $includeId = 1;
+
+			$headerlib = TikiLib::lib('header');
+			$headerlib->add_jsfile('lib/jquery_tiki/wikiplugin-include.js');
+
+			$smarty = TikiLib::lib('smarty');
+			$smarty->loadPlugin('smarty_function_ticket');
+			$smarty->loadPlugin('smarty_function_icon');
+
+			$tip = tr('Include Plugin') . ' | ' . tr('This section is included, click if you want to customize the content.');
+
+			$id = 'wikiplugin-include-' . $includeId;
+			if (! isset($_GET['replaceby'])
+				|| (isset($_GET['replaceby']) && (int) $_GET['replaceby'] != $includeId)
+				&& (empty($_REQUEST['display']) || $_REQUEST['display'] != 'pdf')
+			) {
+				$confirmData = [
+					'index' => $includeId,
+					'page' => $returnto,
+					'ticket' => smarty_function_ticket(['mode' => 'get'], $smarty),
+				];
+				$text .= '<a id="' . $id . '" class="editplugin wikiplugin-include-replace" href="javascript:void(1)" data-info=\'' . json_encode($confirmData) . '\'">' .
+					smarty_function_icon(['name' => 'exchange', 'iclass' => 'tips', 'ititle' => $tip], $smarty->getEmptyInternalTemplate()) . '</a>';
+			}
+
+			$includeId++;
+		}
+	}
+
+	if ($params['parse_included_page'] === 'y') {
 		$old_options = $parserlib->option;
 		$options = [
 			'is_html' => $data[$fragmentIdentifier]['is_html'],
@@ -311,7 +367,6 @@ function wikiplugin_include($dataIn, $params)
 			$smarty->loadPlugin('smarty_block_ajax_href');
 			$smarty->loadPlugin('smarty_function_icon');
 			$tip = tr('Include Plugin') . ' | ' . tr('Edit the included page:') . ' &quot;' . $page . '&quot;';
-			$returnto = ! empty($GLOBALS['page']) ? $GLOBALS['page'] : $_SERVER['REQUEST_URI'];
 			if (empty($_REQUEST['display']) || $_REQUEST['display'] != 'pdf') {
 				$text .= '<a class="editplugin" ' . // ironically smarty_block_self_link doesn't work for this! ;)
 				smarty_block_ajax_href(['template' => 'tiki-editpage.tpl'], 'tiki-editpage.php?page=' . urlencode($page) . '&returnto=' . urlencode($returnto), $smarty, $tmp = false) . '>' .
