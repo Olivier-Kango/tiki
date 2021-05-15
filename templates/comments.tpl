@@ -201,7 +201,7 @@
 					<input type="hidden" name="comments_threshold" value="{$comments_threshold|escape}">
 					<input type="hidden" name="thread_sort_mode" value="{$thread_sort_mode|escape}">
 					<input type="hidden" name="comments_objectId" value="{$comments_objectId|escape}">
-					<input type="hidden" name="comments_title" value="{if isset($page) and $page}{$page|escape}{/if}">
+					{if not empty($page)}<input type="hidden" name="comments_title" value="{$page|escape}">{/if}
 					{if $forumId}<input type="hidden" name="forumId" value="{$forumId|escape}">{/if}
 
 					{* Traverse request variables that were set to this page adding them as hidden data *}
@@ -226,9 +226,9 @@
 
 					{if $prefs.forum_reply_notitle neq 'y'}
 						<div class="form-group row">
-							<label class="col-sm-2 col-form-label" for="comments-title">{tr}Title{/tr} <span class="text-danger">*</span> </label>
+							<label class="col-sm-2 col-form-label" for="comments_title">{tr}Title{/tr} <span class="text-danger">*</span> </label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" name="comments_title" id="comments-title" value="{$comment_title|escape}">
+								<input type="text" class="form-control" name="comments_title" id="comments_title" value="{$comment_title|escape}">
 							</div>
 						</div>
 					{/if}
