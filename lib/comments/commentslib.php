@@ -3209,9 +3209,9 @@ class Comments extends TikiLib
 		}
 
 		$comments = $this->table('tiki_comments');
-		$threadId = $this->check_for_topic($title, $_REQUEST['forumId'] ?? 0);
+		$topicId = $this->check_for_topic($title, $_REQUEST['forumId'] ?? 0);
 
-		if (! $threadId) {
+		if (! $topicId || $parentId) {
 			$threadId = $comments->insert(
 				[
 					'objectType' => $object[0],
@@ -3236,6 +3236,8 @@ class Comments extends TikiLib
 					'locked' => 'n',
 				]
 			);
+		} else {
+			return false;
 		}
 
 		global $prefs;
@@ -3827,6 +3829,10 @@ class Comments extends TikiLib
 		$data = str_replace($noparsed['key'], $noparsed['data'], $data);
 
 		$params['comments_data'] = rtrim($data);
+
+		if (! isset($params['comment_topictype'])) {
+			$params['comment_topictype'] = 'n';
+		}
 
 		if ($tiki_p_admin_forum != 'y') {// non admin can only post normal
 			$params['comment_topictype'] = 'n';
