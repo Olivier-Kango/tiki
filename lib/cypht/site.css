@@ -1061,10 +1061,18 @@ width: unset;
 border: unset;
 letter-spacing: unset;
 }
-
+.message_list {
+  margin-top: 80px;
+}
+.inline-cypht .content_title .mailbox_list_title {
+  padding-top: 50px;
+}
 @media only screen and (min-width: 600px) {
   .message_list {
-    margin-top: 50px;
+    margin-top: 0px;
+  }
+  .inline-cypht .content_title .mailbox_list_title {
+    padding-top: unset;
   }
 }
 /*# sourceMappingURL=site.css.map */
