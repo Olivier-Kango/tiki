@@ -171,7 +171,7 @@ class ScssCompileCommand extends Command
 
 		$scss = new Compiler();
 		$scss->setImportPaths($inputDir);
-		$result = $scss->compile($inputData);
+		$result = $scss->compileString($inputData);
 
 		if ($outputFile) {
 			file_put_contents($outputFile, $result);
