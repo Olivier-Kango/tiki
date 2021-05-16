@@ -286,7 +286,7 @@ class Language_GetStrings
 		foreach ($this->languages as $lang) {
 			$filePath = $this->baseDir . '/lang/' . $lang . '/' . $this->fileName;
 			$writeFile = $this->writeFileFactory->factory($filePath);
-			$writeFile->writeStringsToFile($strings, $this->outputFiles);
+			$writeFile->writeStringsToFile($strings, $this->outputFiles, $lang);
 		}
 	}
 
