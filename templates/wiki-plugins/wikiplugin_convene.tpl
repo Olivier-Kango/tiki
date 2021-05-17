@@ -38,10 +38,10 @@
 									{if $editThisUser}
 										<div class='btn-group'>
 											<button class='conveneUpdateUser icon btn btn-primary btn-sm'>
-												{icon name='pencil' iclass='tips' ititle='{tr}Edit User/Save changes{/tr}'}
+												{icon name='pencil' iclass='tips' ititle="{tr}Edit User/Save changes{/tr}"}
 											</button>
 											<button data-user='{$voter}' class='conveneDeleteUser icon btn btn-danger btn-sm'>
-												{icon name='delete' iclass='tips' ititle='{tr}Remove User{/tr}'}
+												{icon name='delete' iclass='tips' ititle="{tr}Remove User{/tr}"}
 											</button>
 										</div>
 									{/if}
@@ -77,10 +77,10 @@
 								{if $canEdit}
 									<div class='btn-group'>
 										<button class='conveneUpdateUser icon btn btn-primary btn-sm'>
-											{icon name='pencil' iclass='tips' ititle='{tr}Edit User/Save changes{/tr}'}
+											{icon name='pencil' iclass='tips' ititle="{tr}Edit User/Save changes{/tr}"}
 										</button>
 										<button data-user='{$voter}' class='conveneDeleteUser icon btn btn-danger btn-sm'>
-											{icon name='delete' iclass='tips' ititle='{tr}Remove User{/tr}'}
+											{icon name='delete' iclass='tips' ititle="{tr}Remove User{/tr}"}
 										</button>
 									</div>
 								{/if}
