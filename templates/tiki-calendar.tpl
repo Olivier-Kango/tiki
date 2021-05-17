@@ -339,7 +339,7 @@ $("#filtercal").submit(function () {
 				height: 'auto'
 			});
 			calendar.render();
-			addFullCalendarPrint('#calendar', '#calendar-pdf-btn', calendar);
+			{{if $prefs.print_pdf_from_url neq 'none'}addFullCalendarPrint('#calendar', '#calendar-pdf-btn', calendar);{/if}}
 		{/jq}
 	{/if}
 	{if $pdf_export eq 'y' and $pdf_warning eq 'n'}

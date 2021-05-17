@@ -261,6 +261,7 @@ if (! timezone) {
 	}
 	$jqueryTiki['current_object'] = $object;
 	$jqueryTiki['usernamePattern'] = $prefs['username_pattern'];
+	$jqueryTiki['print_pdf_from_url'] = "{$prefs['print_pdf_from_url']}";
 
 
 	if ($prefs['feature_calendar'] === 'y') {
