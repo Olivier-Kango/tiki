@@ -57,10 +57,10 @@ class WikiPlugin_TranslationOfTest extends TikiTestCase
 	public function provider(): array
 	{
 		return [
-			['', '<a href="tiki-index.php?page=SomePage"  data-toggle="popover" data-container="body" data-trigger="click" data-content="&lt;a&#x20;href&#x3D;&quot;tiki-edit_translation.php&#x3F;page&#x3D;SomePage&amp;target_lang&#x3D;fr&#x23;new_translation&quot;&gt;Translate&#x20;this&#x20;link&lt;&#x2F;a&gt;"  data-delay=\'{"show":"0","hide":"100"}\'>SomePage</a>',
+			['', '<a href="tiki-index.php?page=SomePage"  data-toggle="popover" data-container="body" data-trigger="click" data-content="&lt;a&#x20;href&#x3D;&quot;tiki-edit_translation.php&#x3F;page&#x3D;SomePage&amp;target_lang&#x3D;fr&#x23;new_translation&quot;&gt;Translate&#x20;this&#x20;link&lt;&#x2F;a&gt;"  data-delay=\'{"show":"500","hide":"250"}\'>SomePage</a>',
 				  ['orig_page' => 'SomePage', 'translation_lang' => 'fr'],
 				  "Happy Path Case"],
-			['', '<a href="tiki-index.php?page=SomePage"  data-toggle="popover" data-container="body" data-trigger="click" data-content="&lt;a&#x20;href&#x3D;&quot;tiki-edit_translation.php&#x3F;page&#x3D;SomePage&amp;target_lang&#x3D;fr&amp;translation_name&#x3D;UnePage&#x23;new_translation&quot;&gt;Translate&#x20;this&#x20;link&lt;&#x2F;a&gt;"  data-delay=\'{"show":"0","hide":"100"}\'>UnePage</a>',
+			['', '<a href="tiki-index.php?page=SomePage"  data-toggle="popover" data-container="body" data-trigger="click" data-content="&lt;a&#x20;href&#x3D;&quot;tiki-edit_translation.php&#x3F;page&#x3D;SomePage&amp;target_lang&#x3D;fr&amp;translation_name&#x3D;UnePage&#x23;new_translation&quot;&gt;Translate&#x20;this&#x20;link&lt;&#x2F;a&gt;"  data-delay=\'{"show":"500","hide":"250"}\'>UnePage</a>',
 				  ['orig_page' => 'SomePage', 'translation_lang' => 'fr', 'translation_page' => 'UnePage'],
 				  "Case with name of translated page provided"],
 		];
