@@ -331,6 +331,10 @@ class Tracker_Field_Files extends Tracker_Field_Abstract implements Tracker_Fiel
 			$context['canBrowse'] = Perms::get(['type' => 'file gallery', 'object' => $defaultGalleryId])->view_file_gallery;
 		}
 
+		if ($this->getOption('uploadInModal') === 'n') {
+			TikiLib::lib('access')->setTicket();
+		}
+
 		return $this->renderTemplate('trackerinput/files.tpl', $context, [
 			'replaceFile' => 'y' == $this->getOption('replace', 'n'),
 			'addDecriptionOnUpload' => $this->getOption('addDecriptionOnUpload') === 'y' ? 1 : 0,
