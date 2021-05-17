@@ -82,6 +82,11 @@ class Tracker_Field_UserGroups extends Tracker_Field_Abstract implements Tracker
 				}
 			}
 			$value = array_unique(array_filter($value));
+
+			// add Registered back in if the user exists and is in no other groups
+			if (empty($value) && ! empty($itemUsers)) {
+				$value = ['Registered'];
+			}
 			natcasesort($value);
 		}
 
