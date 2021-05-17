@@ -101,7 +101,7 @@ class GetStringsCommand extends Command
 		$options['lang'] = $input->getOption('lang') ?: null;
 		$options['outputFiles'] = $input->getOption('outputfiles') ?: null;
 		$excludeDirs = ['_custom', 'dump', 'img', 'lang', 'bin', 'installer/schema', 'vendor_bundled', 'vendor', 'vendor_extra', 'vendor_custom',
-						'lib/test', 'temp', 'permissioncheck', 'storage', 'tiki_tests', 'doc', 'db', 'lib/openlayers', 'tests', 'modules/cache'];
+						'lib/test', 'temp', 'permissioncheck', 'storage', 'tiki_tests', 'doc', 'db', 'lib/openlayers', 'tests'];
 		$excludeDirs = array_filter($excludeDirs, 'is_dir'); // only keep in the exclude list if the dir exists
 
 		// Files are processed after the base directory, so adding a file here allows to scan it even if its directory was excluded.

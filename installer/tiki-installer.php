@@ -240,7 +240,6 @@ function create_dirs($domain = '')
 		'img/wiki',
 		'img/wiki_up',
 		'img/trackers',
-		'modules/cache',
 		'temp',
 		'temp/cache',
 		'temp/templates_c',

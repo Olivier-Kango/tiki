@@ -297,7 +297,7 @@ fi
 # -------------------------------------
 
 DIR_LIST_DEFAULT="admin db doc dump files img installer lang lib modules permissioncheck storage temp templates tests themes tiki_tests vendor vendor_extra whelp"
-DIR_LIST_WRITABLE="db dump img/wiki img/wiki_up img/trackers modules/cache storage storage/public temp temp/cache temp/public temp/templates_c templates themes whelp mods files tiki_tests/tests temp/unified-index vendor"
+DIR_LIST_WRITABLE="db dump img/wiki img/wiki_up img/trackers storage storage/public temp temp/cache temp/public temp/templates_c templates themes whelp mods files tiki_tests/tests temp/unified-index vendor"
 DIRS=${DIR_LIST_WRITABLE}
 
 # part 4 - several functions

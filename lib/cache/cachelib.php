@@ -93,7 +93,6 @@ class Cachelib
 			$this->erase_dir_content("temp/templates_c/$tikidomain");
 			$this->erase_dir_content("temp/public/$tikidomain");
 			$this->erase_dir_content("temp/cache/$tikidomain");
-			$this->erase_dir_content("modules/cache/$tikidomain");
 
 			$banner = glob("temp/banner*.*");
 			array_map('unlink', $banner);
@@ -131,12 +130,6 @@ class Cachelib
 			$this->erase_dir_content("temp/public/$tikidomain");
 			if (! $inInstaller) {
 				$logslib->add_log($log_section, 'erased temp/public content');
-			}
-		}
-		if (in_array('modules_cache', $dir_names)) {
-			$this->erase_dir_content("modules/cache/$tikidomain");
-			if (! $inInstaller) {
-				$logslib->add_log($log_section, 'erased modules/cache content');
 			}
 		}
 		if (in_array('prefs', $dir_names)) {

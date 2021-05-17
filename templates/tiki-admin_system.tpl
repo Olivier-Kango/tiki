@@ -21,11 +21,6 @@
 		<td><a href="tiki-admin_system.php?do=templates_c" class="tips" title=":{tr}Empty{/tr}">{icon name="trash"}</a></td>
 	</tr>
 	<tr>
-		<td><b>./modules/cache/</b></td>
-		<td>({$modules.cant} {tr}Files{/tr} / {$modules.total|kbsize|default:'0 Kb'})</td>
-		<td><a href="tiki-admin_system.php?do=modules_cache" class="tips" title=":{tr}Empty{/tr}">{icon name="trash"}</a></td>
-	</tr>
-	<tr>
 		<td><b>./temp/cache/</b></td>
 		<td>({$tempcache.cant} {tr}Files{/tr} / {$tempcache.total|kbsize|default:'0 Kb'})</td>
 		<td><a href="tiki-admin_system.php?do=temp_cache" class="tips" title=":{tr}Empty{/tr}">{icon name="trash"}</a></td>

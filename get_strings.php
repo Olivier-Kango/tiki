@@ -63,7 +63,7 @@ $excludeDirs = [
 	'dump' , 'img', 'lang', 'bin', 'installer/schema',
 	'vendor_bundled', 'vendor', 'vendor_extra', 'vendor_custom',
 	 'lib/test',	'temp', 'permissioncheck',
-	'storage',	'tiki_tests', 'doc', 'db','lib/openlayers','tests', 'modules/cache'
+	'storage',	'tiki_tests', 'doc', 'db','lib/openlayers','tests'
 ];
 $excludeDirs = array_filter($excludeDirs, 'is_dir'); // only keep in the exclude list if the dir exists
 

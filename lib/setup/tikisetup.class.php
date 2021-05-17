@@ -67,7 +67,6 @@ class TikiSetup extends TikiInit
 				# 'dump',
 				# 'img/wiki',
 				# 'img/wiki_up',
-				'modules/cache',
 				'temp',
 				'temp/templates_c',
 				# 'var',
