@@ -36,7 +36,11 @@ class ImageTransformer extends Manipulator
 		file_put_contents($work_file, $this->file->getContents());
 		$image = null;
 
-		if (extension_loaded('exif') && extension_loaded('gd')) {
+		$exif = [];
+
+		if (extension_loaded('exif') && extension_loaded('gd') &&
+				($this->file->filetype === 'image/jpeg' || $this->file->filetype === 'image/tiff')) {
+
 			$exif = exif_read_data($work_file);
 		}
 
