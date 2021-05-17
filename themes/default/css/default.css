@@ -19,7 +19,6 @@
   --cyan: #17a2b8;
   --white: #fff;
   --gray: #6c757d;
-  --gray-light: #d3daea;
   --gray-dark: #343a40;
   --primary: #007bff;
   --secondary: #6c757d;
@@ -8512,17 +8511,20 @@ div.drillshow {
   font-weight: bold;
 }
 code, pre.codelisting {
-  color: var(--pink);
-  background: var(--light);
-  border: 1px solid white;
-  border-radius: 1px;
+  background: #f8f9fa;
+  border: 1px solid transparent;
+  padding: 0.4rem 0.6rem;
+}
+code {
+  color: #e83e8c;
 }
 pre.codelisting {
-  color: var(--gray-dark);
-  border-color: var(--gray-light);
-  padding: 1em;
+  color: #495057;
+  border-color: #dee2e6;
+  border-radius: 0.25rem;
 }
 pre.codelisting code {
+  color: inherit;
   white-space: pre-wrap;
 }
 .edit-menu {
