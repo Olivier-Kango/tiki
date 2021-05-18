@@ -27,9 +27,7 @@ global $prefs;
 $login_url_params = '';
 $isOpenIdValid = false;
 
-/** @var \Tiki\Lib\OpenIdConnect\OpenIdConnectLib $oicLib */
-$oicLib = TikiLib::lib('openidconnect');
-if (! empty($_REQUEST['code']) && $prefs['auth_method'] == 'openid_connect' && $oicLib->isAvailable()) {
+if (! empty($_REQUEST['code']) && $prefs['auth_method'] == 'openid_connect' && TikiLib::lib('openidconnect')->isAvailable()) {
 	$_REQUEST['user'] = '';
 } elseif (isset($_REQUEST['cas']) && $_REQUEST['cas'] == 'y' && $prefs['auth_method'] == 'cas') {
 	$login_url_params = '?cas=y';
@@ -224,6 +222,7 @@ if (isset($_REQUEST['intertiki']) and in_array($_REQUEST['intertiki'], array_key
 	}
 } elseif ($prefs['auth_method'] == 'openid_connect' && isset($_GET['code'])) {
 	try {
+		$oicLib = TikiLib::lib('openidconnect');
 		$token = $oicLib->getAccessToken($_GET['code']);
 		$idToken = $token->getIdToken();
 		$name = $idToken->getClaim('preferred_username', false) ?: $idToken->getClaim('name', false);
