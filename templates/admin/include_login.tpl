@@ -573,6 +573,7 @@
 				{preference name=openidconnect_issuer}
 				{preference name=openidconnect_auth_url}
 				{preference name=openidconnect_access_token_url}
+				{preference name=openidconnect_details_url}
 				{preference name=openidconnect_verify_method}
 				{if $prefs.openidconnect_verify_method eq 'jwks'}
 					{preference name=openidconnect_jwks_url}

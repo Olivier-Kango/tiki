@@ -99,13 +99,13 @@ function module_login_box($mod_reference, &$module_params)
 	);
 
 	if ($prefs['auth_method'] == 'openid_connect') {
-	$openIdConnectLib = TikiLib::lib('openidconnect');
+		$openIdConnectLib = TikiLib::lib('openidconnect');
 		if ($openIdConnectLib->isAvailable()) {
-		$smarty->assign(
-			'openidconnect_redirect_url',
-			$openIdConnectLib->generateURL()
-		);
-	}
+			$smarty->assign(
+				'openidconnect_redirect_url',
+				$openIdConnectLib->generateURL()
+			);
+		}
 	}
 
 	if ($prefs['allowRegister'] === 'y' && (empty($module_params['register']) || $module_params['register'] === 'y')) {

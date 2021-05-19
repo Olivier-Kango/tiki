@@ -26,6 +26,13 @@ function prefs_openidconnect_list()
 		],
 		'openidconnect_access_token_url' => [
 			'name' => tr('Provider URL user access token url'),
+			'description' => tr('URL from the OpenId provider to fetch the access_token'),
+			'type' => 'text',
+			'default' => '',
+		],
+		'openidconnect_details_url' => [
+			'name' => tr('Provider URL resource owner details'),
+			'description' => tr('URL from the OpenId provider that provides information on the granted user.'),
 			'type' => 'text',
 			'default' => '',
 		],
