@@ -242,6 +242,8 @@ if (! timezone) {
 	$jqueryTiki['helpurl'] = $prefs['feature_help'] === 'y' ? $prefs['helpurl'] : '';
 	$jqueryTiki['shortDateFormat'] = $prefs['short_date_format_js'];
 	$jqueryTiki['shortTimeFormat'] = $prefs['short_time_format_js'];
+	$jqueryTiki['changeMonth'] = $prefs['change_month'] === 'y' ? true : false;
+	$jqueryTiki['changeYear'] = $prefs['change_year'] === 'y' ? true : false;
 	$jqueryTiki['username'] = $user;
 	$jqueryTiki['userRealName'] = TikiLib::lib('user')->clean_user($user);
 	$jqueryTiki['userAvatar'] = $base_url . TikiLib::lib('userprefs')->get_public_avatar_path($user);

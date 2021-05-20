@@ -33,5 +33,29 @@ function prefs_change_list()
 			'default' => 'y',
 			'tags' => ['basic'],
 		],
+		'change_month' => [
+			'name' => tra('Select month in Date Picker'),
+			'description' => tra('Users can select month in the Date Picker instead of seeing month as text.'),
+			'help' => 'https://api.jqueryui.com/datepicker/#option-changeMonth',
+			'type' => 'list',
+			'options' => [
+				'n' => tra('No'),
+				'y' => tra('Yes'),
+			],
+			'default' => 'n',
+			'tags' => ['basic']
+		],
+		'change_year' => [
+			'name' => tra('Select year in Date Picker'),
+			'description' => tra('Users can select year in the Date Picker instead of seeing year as text.'),
+			'help' => 'https://api.jqueryui.com/datepicker/#option-changeYear',
+			'type' => 'list',
+			'options' => [
+				'n' => tra('No'),
+				'y' => tra('Yes'),
+			],
+			'default' => 'n',
+			'tags' => ['basic']
+		],
 	];
 }
