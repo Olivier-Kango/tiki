@@ -617,8 +617,8 @@
 								<div class="col-md-8">
 									<select name="page_hide_title" class="form-control">
 										<option value="0" {if $page_hide_title == 0}selected{/if}>{tr}Default{/tr}</option>
-										{*<option value="1" {if $page_hide_title == 1}selected{/if}>{tr}On{/tr}</option>*}
-										<option value="-1" {if $page_hide_title == -1}selected{/if}>{tr}Off{/tr}</option>
+										{*<option value="1" {if $page_hide_title == 1}selected{/if}>{tr}On_C(on-off){/tr}</option>*}
+										<option value="-1" {if $page_hide_title == -1}selected{/if}>{tr}Off_C(on-off){/tr}</option>
 									</select>
 								</div>
 							</div>
