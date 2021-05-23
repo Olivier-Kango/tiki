@@ -1,5 +1,5 @@
 {$filters}
-<div id="{$trackercalendarData.id|escape}"></div>
+<div id="{$trackercalendarData.id|escape}" class="wp-trackercalendar"></div>
 {jq}
 	$("#{{$trackercalendarData.id|escape}}").setupFullCalendar({{$trackercalendarData|json_encode}});
 {/jq}
