@@ -140,6 +140,9 @@ a.fc-event:hover {
 		table-layout: auto;
 		.weeks { padding: 8px; }
 	}
+	.wp-trackercalendar {
+		min-height: 30em;
+	}
 }
 
 @media (max-width: breakpoint-max(sm)) {

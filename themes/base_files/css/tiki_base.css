@@ -2792,6 +2792,9 @@ a.fc-event:hover {
   .col1 .table-responsive > .caltable .weeks {
     padding: 8px;
   }
+  .wp-trackercalendar {
+    min-height: 30em;
+  }
 }
 @media (max-width: 767.98px) {
   .tiki_calendar .col1 #editcalitem .modal-body {
