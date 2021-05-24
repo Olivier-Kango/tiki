@@ -8772,7 +8772,7 @@ class UsersLib extends TikiLib
 		global $prefs;
 		if ($prefs['auth_token_preserve_tempusers'] == 'y') {
 			$this->remove_user_from_all_groups($uname);
-		} else {
+		} else if ($this->user_exists($uname)) {
 			$this->remove_user($uname);
 		}
 	}
