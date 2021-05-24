@@ -36,6 +36,7 @@ composer:
     COMPOSER_DISCARD_CHANGES: "true"
     COMPOSER_NO_INTERACTION: "1"
   script:
+    - composer -V | grep "version 2" || composer self-update --2
     - composer --ansi install -d vendor_bundled --no-progress --prefer-dist -n
   artifacts:
     paths:
@@ -61,6 +62,7 @@ phplint:
     TARGET: HEAD^
   script:
   - git diff --name-status $TARGET | grep -v "^D" | cut -c 3- | sort -u | grep '\.php$' - 2>&1 > /dev/null || { git diff --name-status $TARGET && echo && echo 'No files to be processed. Skipping...' && echo && exit 0; }
+  - composer -V | grep "version 2" || composer self-update --2
   - composer --ansi install -d vendor_bundled --no-progress --prefer-dist -n
   - git diff --name-status $TARGET
   # Because we just lint changed files we need to filter by php extension before call bin/phplint
@@ -73,6 +75,7 @@ smarty-lint:
     TARGET: HEAD^
   script:
   - git diff --name-status $TARGET | grep -v "^D" | cut -c 3- | sort -u | grep '\.tpl$' - 2>&1 > /dev/null || { git diff --name-status $TARGET && echo && echo 'No files to be processed. Skipping...' && echo && exit 0; }
+  - composer -V | grep "version 2" || composer self-update --2
   - composer --ansi install -d vendor_bundled --no-progress --prefer-dist -n
   - git diff --name-status $TARGET
   - git diff --name-status $TARGET | grep -v "^D" | cut -c 3- | sort -u | grep '\.tpl$' | xargs -I 0 php vendor_bundled/vendor/umakantp/smartylint/smartyl --files=0 --ignore-rules=doc/devtools/smartyl.rules.xml
@@ -151,6 +154,7 @@ composer-lock:
   stage: tiki-check
   script:
     - cp $(command -v composer) temp/composer.phar
+    - php temp/composer.phar -V | grep "version 2" || php temp/composer.phar self-update --2
     - php doc/devtools/update_composer_lock.php
   allow_failure: true
 
@@ -167,6 +171,7 @@ composer-lock:
     - 'mysql -u root --password=$MYSQL_ROOT_PASSWORD -h mysql --skip-column-names -B -e "SELECT CONCAT(''Version: '', VERSION(), CHAR(13), ''sql_mode: '', @@GLOBAL.sql_mode)"'
     - 'composer -Vvvv 2>&1 | grep -E "(Running|Composer)"'
     - php -v
+    - composer -V | grep "version 2" || composer self-update --2
     - composer --ansi install -d doc/devtools/dbdiff/ --no-progress --prefer-dist -n
     - echo "GRANT ALL ON tikiold.* TO '${MYSQL_USER}';" | mysql -u root --password=$MYSQL_ROOT_PASSWORD -h mysql
     - echo "GRANT ALL ON tikinew.* TO '${MYSQL_USER}';" | mysql -u root --password=$MYSQL_ROOT_PASSWORD -h mysql
@@ -336,6 +341,7 @@ unit-tests-74:
 sensiolabs-vendor-security-check:
   stage: vendors-security
   script:
+    - composer -V | grep "version 2" || composer self-update --2
     - cp composer.json.dist composer.json
     - composer require jerome-breton/casperjs-installer:dev-master --no-progress
     - composer require enygma/expose:^3.0 --no-progress
@@ -385,6 +391,7 @@ update_vendor_bundled_dependencies:
     - git config --global user.email "${GITLAB_USER_EMAIL}"
     - git config --global user.name "${GITLAB_USER_NAME}"
   script:
+    - composer -V | grep "version 2" || composer self-update --2
     - DATE=`date +%Y%m%d`
     - BRANCH_NAME="${BRANCH_NAME}_${DATE}"
     - php doc/devtools/update_vendor_bundled.php
