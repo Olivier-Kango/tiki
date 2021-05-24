@@ -210,6 +210,7 @@
 				</div>
 				{preference name=jquery_timeago}
 				{preference name=jquery_jqdoublescroll}
+				{preference name=allowImageLazyLoad}
 				{preference name=tiki_prefix_css}
 				<div class="adminoptionboxchild">
 					<fieldset>
