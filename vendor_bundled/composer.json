@@ -6,7 +6,7 @@
 	"minimum-stability": "stable",
 	"require": {
 		"sam152/javascript-equal-height-responsive-rows": "1.0.0",
-		"adodb/adodb-php": "^5.20",
+		"adodb/adodb-php": "^5.21",
 		"afarkas/html5shiv": "3.7.3",
 		"ahand/mobileesp": "dev-master",
 		"avianey/jqdoublescroll": ">=1.0.0",
@@ -218,7 +218,7 @@
 			"ZendSearch": "vendor/zendframework/zendsearch/library/"
 		},
 		"psr-4": {
-			"Tiki\\": "../lib/core/",
+			"Tiki\\": ["../lib/core/Tiki", "../lib/core/"],
 			"Tiki\\Lib\\": "../lib/"
 		},
 		"classmap": [
@@ -244,7 +244,10 @@
 			"vendor/adodb/adodb-php/drivers/adodb-db2ora.inc.php",
 			"vendor/adodb/adodb-php/drivers/adodb-mysqlt.inc.php",
 			"vendor/adodb/adodb-php/session/adodb-session2.php",
-			"vendor/adodb/adodb-php/session/old/crypt.inc.php"
+			"vendor/adodb/adodb-php/session/old/crypt.inc.php",
+			"vendor/pear/text_wiki_mediawiki/Text/Wiki/Parse/***",
+			"vendor/pear/text_wiki_mediawiki/Text/Wiki/Render/***",
+			"vendor/pear/pear/./PEAR/Exception.php"
 		]
 	},
 	"autoload-dev": {

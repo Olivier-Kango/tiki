@@ -11,7 +11,7 @@
  * Letter key: ~i~
  *
  */
-class Tracker_field_Image extends Tracker_Field_File
+class Tracker_Field_Image extends Tracker_Field_File
 {
 	private $imgMimeTypes;
 	private $imgMaxSize;

@@ -18,7 +18,7 @@ include_once __DIR__ . '/MockMTWrapper.php';
  * Class used to update the modifications done in one version of page to the other version of same page.
  */
 
-class Multilingual_Aligner_UpdateSentences1
+class Multilingual_Aligner_UpdateSentences
 {
 
 	//$translation is 1 in case of source modification(H) and 0 in case of target modification(T"), final_diff is carrying end result
