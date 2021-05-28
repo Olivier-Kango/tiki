@@ -224,32 +224,48 @@ class Tracker_Field_Wiki extends Tracker_Field_Text implements Tracker_Field_Exp
 			$itemId = $this->getItemId();
 		}
 
+		$tikilib = TikiLib::lib('tiki');
+		$newPageData = $requestData[$ins_id];
 		if ($page_name) {
 			// There is already a wiki pagename set (the value of the field is the wiki page name)
-			if (TikiLib::lib('tiki')->page_exists($page_name)) {
+			if ($tikilib->page_exists($page_name)) {
 				// Get wiki page content
-				$page_info = TikiLib::lib('tiki')->get_page_info($page_name);
+				$page_info = $tikilib->get_page_info($page_name);
 				$page_data = $page_info['data'];
-				if (! empty($requestData[$ins_id])) {
+
+				if (! empty($newPageData)) {
+					// to compare new data with esiting HTMLPurifier must be taken into consideration
+					if ($page_info['is_html'] == 1 && $prefs['feature_purifier'] != 'n') {
+						$noparsed = [];
+						$parserLib = TikiLib::lib('parser');
+						$parserLib->plugins_remove($newPageData, $noparsed);
+
+						require_once('lib/htmlpurifier_tiki/HTMLPurifier.tiki.php');
+						$newPageData = HTMLPurifier($newPageData);
+
+						$parserLib->plugins_replace($newPageData, $noparsed, true);
+					}
+
 					// There is new page data provided
-					if ($page_data != $requestData[$ins_id]) {
+					if ($page_data != $newPageData) {
 						// Update page data
 						$edit_comment = 'Updated by Tracker Field ' . $fieldId;
 						$short_name = $requestData[$insForPagenameField];
 						$ins_fields_data[$this->getOption('fieldIdForPagename')]['value'] = $short_name;
 						if ($this->isValid($ins_fields_data, $itemId) === true) {
-							TikiLib::lib('tiki')->update_page($page_name, $requestData[$ins_id], $edit_comment, $user, TikiLib::lib('tiki')->get_ip_address(), '', 0, '', $is_html, null, null, $this->getOption('wysiwyg'));
+							$tikilib->update_page($page_name, $newPageData, $edit_comment, $user, $tikilib->get_ip_address(), '', 0, '', $is_html, null, null, $this->getOption('wysiwyg'));
+							TikiLib::lib('unifiedsearch')->invalidateObject('trackeritem', $itemId);
 						}
 					}
 				}
 			} else {
 				$to_create_page = true;
 			}
-		} elseif (! empty($requestData[$ins_id])) {
+		} elseif (! empty($newPageData)) {
 			// the field value is currently null and there is input, so would need to create page.
 			if ($short_name = $requestData[$insForPagenameField]) {
 				$page_name = $this->getFullPageName($short_name);
-				if ($page_name && ! TikiLib::lib('tiki')->page_exists($page_name)) {
+				if ($page_name && ! $tikilib->page_exists($page_name)) {
 					$ins_fields_data[$this->getOption('fieldIdForPagename')]['value'] = $short_name;
 					if ($this->isValid($ins_fields_data) === true) {
 						$to_create_page = true;
@@ -262,13 +278,14 @@ class Tracker_Field_Wiki extends Tracker_Field_Text implements Tracker_Field_Exp
 
 		if ($to_create_page) {
 			// Note we do not want to create blank pages, but if in the event a page that is already linked is deleted, a blank page will be created.
-			if (! empty($requestData[$ins_id])) {
-				$page_data = $requestData[$ins_id];
+			if (! empty($newPageData)) {
+				$page_data = $newPageData;
 			}
 			// re-clean the page name here incase it comes from legacy data, i.e. from a partial import
 			$page_name = $this->cleanPageName($page_name);
 			$edit_comment = 'Created by Tracker Field ' . $fieldId;
-			TikiLib::lib('tiki')->create_page($page_name, 0, $page_data, TikiLib::lib('tiki')->now, $edit_comment, $user, TikiLib::lib('tiki')->get_ip_address(), '', '', $is_html, null, $this->getOption('wysiwyg'));
+			$tikilib->create_page($page_name, 0, $page_data, $tikilib->now, $edit_comment, $user, $tikilib->get_ip_address(), '', '', $is_html, null, $this->getOption('wysiwyg'));
+			TikiLib::lib('unifiedsearch')->invalidateObject('trackeritem', $this->getItemId());
 		}
 
 		if (empty($page_name) && $_SERVER['REQUEST_METHOD'] === 'POST' && empty($requestData[$insForPagenameField])) {
