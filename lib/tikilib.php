@@ -5068,7 +5068,7 @@ class TikiLib extends TikiDb_Bridge
 		global $prefs;
 		$pageNameEncode = urlencode($pageName);
 		if (! $skipCache && isset($this->cache_page_info[$pageNameEncode])
-			&& ( ! $retrieve_datas || isset($this->cache_page_info[$pageNameEncode]['data']) )
+			&& (! $retrieve_datas || ! empty($this->cache_page_info[$pageNameEncode]['data']))
 		) {
 			return $this->cache_page_info[$pageNameEncode];
 		}
