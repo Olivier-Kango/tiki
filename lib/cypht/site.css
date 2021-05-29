@@ -1075,4 +1075,10 @@ letter-spacing: unset;
     padding-top: unset;
   }
 }
+.msg_move_to{
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-content: center;
+}
 /*# sourceMappingURL=site.css.map */
