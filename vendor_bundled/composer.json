@@ -91,7 +91,7 @@
 		"nolimits4web/swiper": "^4.2",
 		"npm-asset/blueimp-file-upload": "^9.28",
 		"npm-asset/chart.js": "^2.7.0",
-		"npm-asset/fullcalendar": "5.3.2",
+		"npm-asset/fullcalendar": "^5.3.2",
 		"npm-asset/fullcalendar--moment": "^5.5",
 		"npm-asset/html2canvas": "^1.0.0-RC.5",
 		"npm-asset/moment-duration-format": "^2.3",
