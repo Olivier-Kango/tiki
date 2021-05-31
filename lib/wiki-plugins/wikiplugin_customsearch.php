@@ -988,8 +988,8 @@ function cs_design_daterange($id, $fieldname, $fieldid, $arguments, $default, &$
 	}
 
 	$picker = '';
-	$picker .= smarty_function_jscalendar($params_from, $smarty->getEmptyInternalTemplate());
-	$picker .= smarty_function_jscalendar($params_to, $smarty->getEmptyInternalTemplate());
+	$picker .= '<div class="col-sm-6">' . smarty_function_jscalendar($params_from, $smarty->getEmptyInternalTemplate()) . '</div>';
+	$picker .= '<div class="col-sm-6">' . smarty_function_jscalendar($params_to, $smarty->getEmptyInternalTemplate()) . '</div>';
 
 	$script .= "
 $('#{$fieldid_from},#{$fieldid_to}').change(function() {
@@ -1008,7 +1008,7 @@ function updateDateRange_$fieldid() {
 updateDateRange_$fieldid();
 ";
 
-	return $picker;
+	return '<div class="daterange row">' . $picker . '</div>';
 }
 
 function cs_design_distance($id, $fieldname, $fieldid, $arguments, $default, &$script)
