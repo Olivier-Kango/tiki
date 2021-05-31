@@ -47,7 +47,7 @@
 					<div class="preview">
 						{$calitem.parsed}
 					</div>
-					<h2>
+					<h2 class="my-3">
 						{if $id}
 							{tr}Edit Calendar Item{/tr}
 						{else}
