@@ -420,6 +420,12 @@ $('#customsearch_$id').submit(function() {
 window.customsearch_$id = customsearch$id;
 ";
 
+	if (is_array($_REQUEST['default'])) {
+		$defaultRequest = $_REQUEST['default'];
+	} else {
+		$defaultRequest = [];
+	}
+
 	$parser = new WikiParser_PluginArgumentParser;
 	$dr = 0;
 	foreach ($matches as $match) {
@@ -435,15 +441,48 @@ window.customsearch_$id = customsearch$id;
 			$match->replaceWith('');
 			continue;
 		}
-		if (! empty($arguments['_field']) && ! empty($arguments['_filter']) && $arguments['_filter'] == 'content') {
-			$filter = $arguments['_field'];
-		} elseif (empty($arguments['_field']) && ! empty($arguments['_filter']) && $arguments['_filter'] == 'content') {
-			$filter = 'content';
-		} else {
-			$filter = '';
-		}
-		if ($filter && ! empty($_REQUEST['default'][$filter])) {
-			$default = $_REQUEST['default'][$filter];
+
+		if ($defaultRequest) {
+			foreach ($defaultRequest as $key => $value) {
+				if (! empty($arguments['id']) && $key === $arguments['id']) {
+					$default = $value;
+					unset($defaultRequest[$key]);
+					break;
+				} elseif (! empty($arguments['_field']) && $key === $arguments['_field']) {
+					$default = $value;
+					unset($defaultRequest[$key]);
+					break;
+				} elseif (empty($arguments['id']) && empty($arguments['_field']) && $key === $arguments['_filter']) {
+					$default = $value;
+					unset($defaultRequest[$key]);
+					break;
+				} elseif (! empty($arguments['id']) && (
+						! empty($defaultRequest["{$arguments['id']}_from"]) ||
+						! empty($defaultRequest["{$arguments['id']}_to"]) ||
+						! empty($defaultRequest["{$arguments['id']}_gap"])
+					)) {
+
+					// defaults for date ranges with the id
+					$default = [
+						'from' => $defaultRequest["{$arguments['id']}_from"] ?? '',
+						'to'   => $defaultRequest["{$arguments['id']}_to"] ?? '',
+						'gap'  => $defaultRequest["{$arguments['id']}_gap"] ?? '',
+					];
+				} elseif (! empty($arguments['_field']) && (
+						! empty($defaultRequest["{$arguments['_field']}_from"]) ||
+						! empty($defaultRequest["{$arguments['_field']}_to"]) ||
+						! empty($defaultRequest["{$arguments['_field']}_gap"])
+					)) {
+
+					// defaults for date ranges with the field name
+					$default = [
+						'from' => $defaultRequest["{$arguments['_field']}_from"] ?? '',
+						'to'   => $defaultRequest["{$arguments['_field']}_to"] ?? '',
+						'gap'  => $defaultRequest["{$arguments['_field']}_gap"] ?? '',
+					];
+				}
+			}
+
 		} elseif ($recalllastsearch && isset($_SESSION["customsearch_$id"][$fieldid])) {
 			$default = $_SESSION["customsearch_$id"][$fieldid];
 		} elseif (! empty($arguments['_default'])) {
@@ -918,6 +957,16 @@ function cs_design_daterange($id, $fieldname, $fieldid, $arguments, $default, &$
 
 	$smarty = TikiLib::lib('smarty');
 	$smarty->loadPlugin('smarty_function_jscalendar');
+
+	if (! empty($default['from'])) {
+		$_from = $default['from'];
+	}
+	if (! empty($default['to'])) {
+		$_to = $default['to'];
+	}
+	if (! empty($default['gap'])) {
+		$_gap = $default['gap'];
+	}
 
 	$params_from = [];
 	$params_to = [];
