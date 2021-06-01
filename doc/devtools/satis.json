@@ -751,6 +751,17 @@
 		{
 			"type": "package",
 			"package": {
+				"name": "openlayers/openlayers",
+				"version": "6.5.0",
+				"dist": {
+					"url": "https://github.com/openlayers/openlayers/releases/download/v6.5.0/v6.5.0-dist.zip",
+					"type": "zip"
+				}
+			}
+		},
+		{
+			"type": "package",
+			"package": {
 				"name": "walkermatt/ol-layerswitcher",
 				"version": "3.3.0",
 				"dist": {
@@ -2019,7 +2030,6 @@
 		"npm-asset/lozad": ">=1.6.0",
 		"npm-asset/moment": ">=2.24.0",
 		"npm-asset/moment-duration-format": "^2.3.2",
-		"npm-asset/openlayers": ">=6.5.0",
 		"npm-asset/pdfjs-dist": ">=2.0.487",
 		"npm-asset/pdfjs-dist-viewer-min": "^2.1.266",
 		"npm-asset/popper.js": ">=1.14.3",
