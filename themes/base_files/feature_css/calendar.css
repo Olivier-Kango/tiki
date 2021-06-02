@@ -110,7 +110,6 @@
 #exportcal {
 	z-index: 200 !important;
 	position: absolute;
-	padding: 1rem;
 }
 
 #exportcal .caltitle,

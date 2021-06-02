@@ -54,16 +54,12 @@
 			{button href="tiki-calendar_edit_item.php" _type="link" _text="{tr}Add Event{/tr}" _icon_name="create"}
 		{/if}
 
-		{if $tiki_p_view_events eq 'y' and $prefs.calendar_export eq 'y'}
-			{button href="#" _onclick="toggle('exportcal');return false;" _text="{tr}Export{/tr}" _icon_name="import"}
-		{/if}
-
 		{if $viewlist eq 'list'}
 			{capture name=href}?viewlist=table{if $smarty.request.todate}&amp;todate={$smarty.request.todate}{/if}{/capture}
 			{button href=$smarty.capture.href _text="{tr}Calendar View{/tr}" _icon_name="calendar"}
 		{else}
 			{capture name=href}?viewlist=list{if $smarty.request.todate}&amp;todate={$smarty.request.todate}{/if}{/capture}
-			{button href=$smarty.capture.href _text="{tr}List View{/tr}" _icon_name="list" _class="btn-info"}
+			{button href=$smarty.capture.href _text="{tr}List View{/tr}" _icon_name="list"}
 		{/if}
 
 		{if count($listcals) >= 1}
@@ -102,6 +98,32 @@ $("#filtercal").submit(function () {
 {/jq}
 			</div>
 
+			{if $tiki_p_view_events eq 'y' and $prefs.calendar_export eq 'y'}
+				{button href="#" _onclick="toggle('exportcal');return false;" _text="{tr}Export{/tr}" _icon_name="export"}
+				<div class="d-inline-block">
+					<form id="exportcal" class="card" method="post" action="{$exportUrl}" name="f" style="display:none;">
+						<input type="hidden" name="export" value="y">
+						<div class="card-header caltitle py-1 px-2">{tr}Export calendars{/tr}</div>
+						<div class="caltoggle">
+							{select_all checkbox_names='calendarIds[]' label="{tr}Check / Uncheck All{/tr}"}
+						</div>
+						{foreach item=k from=$listcals}
+							<div class="calcheckbox">
+								<input type="checkbox" name="calendarIds[]" value="{$k|escape}" id="groupexcal_{$k}" {if $thiscal.$k}checked="checked"{/if}>
+								<label for="groupexcal_{$k}" class="calId{$k}">{$infocals.$k.name|escape}</label>
+							</div>
+						{/foreach}
+						<div class="calcheckbox">
+							<a href="{$iCalAdvParamsUrl}">{tr}advanced parameters{/tr}</a>
+						</div>
+						<div class="calinput">
+							<input type="submit" class="btn btn-primary btn-sm" name="ical" value="{tr}Export as iCal{/tr}">
+							<input type="submit" class="btn btn-primary btn-sm" name="csv" value="{tr}Export as CSV{/tr}">
+						</div>
+					</form>
+				</div>
+			{/if}
+
 			{if count($thiscal)}
 				<div id="configlinks" class="form-group row text-right">
 					{assign var='maxCalsForButton' value=20}
@@ -114,7 +136,7 @@ $("#filtercal").submit(function () {
 							{if count($checkedCals) > $maxCalsForButton}
 								<option style="background:#{$thiscustombgcolor};color:#{$thiscustomfgcolor};" onclick="toggle('filtercal')">{$thisinfocalsname}</option>
 							{else}
-								{button href="{$k|sefurl:'calendar'}" _style="background:#$thiscustombgcolor;color:#$thiscustomfgcolor;border:1px solid #$thiscustomfgcolor;" _text="$thisinfocalsname"}
+								{button href="{$k|sefurl:'calendar'}" _style="background:#$thiscustombgcolor;color:#$thiscustomfgcolor;border:1px solid #$thiscustomfgcolor;" _text="$thisinfocalsname" _class='btn btn-sm mr-2'}
 							{/if}
 						{/if}
 					{/foreach}
@@ -143,29 +165,6 @@ $("#filtercal").submit(function () {
 			&nbsp;
 		{/section}
 	</div>
-	{/if}
-
-	{if $tiki_p_view_events eq 'y'}
-		<form id="exportcal" class="modal-content" method="post" action="{$exportUrl}" name="f" style="display:none;">
-			<input type="hidden" name="export" value="y">
-			<div class="caltitle">{tr}Export calendars{/tr}</div>
-			<div class="caltoggle">
-				{select_all checkbox_names='calendarIds[]' label="{tr}Check / Uncheck All{/tr}"}
-			</div>
-			{foreach item=k from=$listcals}
-				<div class="calcheckbox">
-					<input type="checkbox" name="calendarIds[]" value="{$k|escape}" id="groupcal_{$k}" {if $thiscal.$k}checked="checked"{/if}>
-					<label for="groupcal_{$k}" class="calId{$k}">{$infocals.$k.name|escape}</label>
-				</div>
-			{/foreach}
-			<div class="calcheckbox">
-				<a href="{$iCalAdvParamsUrl}">{tr}advanced parameters{/tr}</a>
-			</div>
-			<div class="calinput">
-				<input type="submit" class="btn btn-primary btn-sm" name="ical" value="{tr}Export as iCal{/tr}">
-				<input type="submit" class="btn btn-primary btn-sm" name="csv" value="{tr}Export as CSV{/tr}">
-			</div>
-		</form>
 	{/if}
 
 	{if $prefs.display_12hr_clock eq 'y'}
