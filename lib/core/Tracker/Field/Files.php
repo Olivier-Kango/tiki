@@ -811,6 +811,9 @@ function filterFile($info)
 
 	function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
 	{
+		$value = $this->getValue();
+		$baseKey = $this->getBaseKey();
+
 		if ($this->getOption('indexGeometry') && $this->getValue()) {
 			TikiLib::lib('smarty')->loadPlugin('smarty_modifier_sefurl');
 			$urls = [];
@@ -822,11 +825,9 @@ function filterFile($info)
 				'geo_located' => $typeFactory->identifier('y'),
 				'geo_file' => $typeFactory->identifier(implode(',', $urls)),
 				'geo_file_format' => $typeFactory->identifier($this->getOption('indexGeometry')),
+				$baseKey => $typeFactory->identifier($value),
 			];
 		} else {
-			$value = $this->getValue();
-			$baseKey = $this->getBaseKey();
-
 			$fileIds = array_filter(explode(',', $value));
 			$fileInfo = $this->getFileInfo($fileIds);
 
