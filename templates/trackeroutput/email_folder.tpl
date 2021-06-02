@@ -16,13 +16,13 @@
 			<tr>
 				<td>
 					{if $email.sender}
-						{$email.sender}
+						{$email.sender|escape}
 					{else}
-						{$email.from}
+						{$email.from|escape}
 					{/if}
 				</td>
-				<td>{$email.recipient}</td>
-				<td><a href="tiki-webmail.php?page=message&amp;uid={$email.fileId}&amp;list_path=tracker_folder_{$email.itemId}_{$email.fieldId}&amp;list_parent=tracker_{$email.trackerId}">{$email.subject}</a></td>
+				<td>{$email.recipient|escape}</td>
+				<td><a href="tiki-webmail.php?page=message&amp;uid={$email.fileId}&amp;list_path=tracker_folder_{$email.itemId}_{$email.fieldId}&amp;list_parent=tracker_{$email.trackerId}">{$email.subject|escape}</a></td>
 				<td>{$email.date|tiki_short_datetime}</td>
 			</tr>
 		{/foreach}

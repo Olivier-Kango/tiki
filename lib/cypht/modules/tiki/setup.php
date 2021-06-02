@@ -118,6 +118,12 @@ add_handler('ajax_move_to_tracker', 'move_to_tracker', true, 'tiki', 'imap_oauth
 add_handler('ajax_move_to_tracker', 'save_imap_cache',  true, 'imap', 'move_to_tracker', 'after');
 add_handler('ajax_move_to_tracker', 'close_session_early',  true, 'core', 'save_imap_cache', 'after');
 add_output('ajax_move_to_tracker', 'pass_redirect_url', true, 'tiki');
+setup_base_ajax_page('ajax_tiki_message_content', 'core');
+add_handler('ajax_tiki_message_content', 'tiki_message_content',  true);
+add_handler('ajax_tiki_message_content', 'close_session_early',  true, 'core');
+add_output('ajax_tiki_message_content', 'filter_message_headers', true, 'imap');
+add_output('ajax_tiki_message_content', 'filter_message_body', true, 'imap');
+add_output('ajax_tiki_message_content', 'filter_message_struct', true, 'imap');
 
 return array(
   'allowed_pages' => array(
@@ -129,7 +135,8 @@ return array(
     'ajax_add_to_calendar',
     'ajax_update_participant_status',
     'ajax_remove_from_calendar',
-    'ajax_move_to_tracker'
+    'ajax_move_to_tracker',
+    'ajax_tiki_message_content'
   ),
   'allowed_get' => array(
   ),
@@ -141,8 +148,11 @@ return array(
   'allowed_post' => array(
     'imap_server_id' => FILTER_VALIDATE_INT,
     'imap_msg_uid' => FILTER_SANITIZE_STRING,
+    'imap_msg_part' => FILTER_SANITIZE_STRING,
     'folder' => FILTER_SANITIZE_STRING,
     'msgid' => FILTER_SANITIZE_STRING,
+    'imap_allow_images' => FILTER_VALIDATE_BOOLEAN,
+    'list_path' => FILTER_SANITIZE_STRING,
     'rsvp_action' => FILTER_SANITIZE_STRING,
     'calendar_id' => FILTER_VALIDATE_INT,
     'debug_mode' => FILTER_VALIDATE_INT,

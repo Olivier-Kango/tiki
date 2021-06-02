@@ -13,6 +13,7 @@
 
 if (!defined('DEBUG_MODE')) { die(); }
 
+require_once APP_PATH.'modules/tiki/functions.php';
 require_once APP_PATH.'modules/tiki/general_modules.php';
 require_once APP_PATH.'modules/tiki/groupmail_modules.php';
 require_once APP_PATH.'modules/tiki/calendar_modules.php';

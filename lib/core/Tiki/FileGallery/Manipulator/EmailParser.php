@@ -22,79 +22,40 @@ class EmailParser extends Manipulator
 
 		$message_content = $file->getContents();
 		try {
-			$message = \Laminas\Mail\Message::fromString($message_content);
+			$message = \ZBateson\MailMimeParser\Message::from($message_content);
 		} catch (\Exception\RuntimeException $e) {
 			Feedback::error(tr('Failed parsing file %0 as an email.', $file->fileId) . '<br />' . $e->getMessage());
 			return false;
 		}
-		$headers = $message->getHeaders();
 
 		$result = [
-			'subject' => $message->getSubject(),
-			'body' => $message->getBodyText(),
-			'from' => '',
-			'sender' => '',
-			'recipient' => '',
+			'subject' => $message->getHeaderValue('Subject'),
+			'body' => $message->getContent(),
+			'from' => $this->getRawAddress($message->getHeader('From')),
+			'sender' => $this->getRawAddress($message->getHeader('Sender')),
+			'recipient' => $this->getRawAddress($message->getHeader('To')),
 			'date' => '',
-			'content_type' => '',
-			'plaintext' => '',
-			'html' => '',
+			'content_type' => $message->getHeaderValue('Content-Type'),
+			'plaintext' => $message->getTextContent(),
+			'html' => $message->getHtmlContent(),
+			'message_raw' => $message,
 		];
 
-		$from = $headers->get('From');
-		if ($from) {
-			$result['from'] = $from->getFieldValue();
-		}
-
-		$sender = $headers->get('Sender');
-		if ($sender) {
-			$result['sender'] = $sender->getFieldValue();
-		}
-
-		$recipient = $headers->get('To');
-		if ($recipient) {
-			$result['recipient'] = $recipient->getFieldValue();
-		}
-
-		$content_type = $headers->get('Content-Type');
-		$boundary = '';
-		if ($content_type) {
-			$result['content_type'] = $content_type->getType();
-			$boundary = $content_type->getParameter('boundary');
-		} else {
-			$result['content_type'] = '';
-		}
-
-		$date = $headers->get('Date');
+		$date = $message->getHeader('Date');
 		if ($date) {
-			$result['date'] = strtotime($date->getFieldValue());
+			$result['date'] = $date->getDateTime()->getTimestamp();
 		} else {
 			$result['date'] = '';
 		}
 
-		if ($headers->has('mime-version') && $boundary) {
-			try {
-				$mime = \Laminas\Mime\Message::createFromMessage($message_content, $boundary);
-				foreach ($mime->getParts() as $part) {
-					$content_type = '';
-					$headers = $part->getHeadersArray();
-					foreach ($headers as $header) {
-						if (strtolower($header[0]) == 'content-type') {
-							$content_type = $header[1];
-						}
-					}
-					if (stristr($content_type, 'text/plain')) {
-						$result['plaintext'] = $part->getRawContent();
-					}
-					if (stristr($content_type, 'text/html')) {
-						$result['html'] = $part->getRawContent();
-					}
-				}
-			} catch (\Exception\RuntimeException $e) {
-				Feedback::error(tr('Failed extracting text parts from file %0 as an email.', $file->fileId) . '<br />' . $e->getMessage());
-			}
-		}
-
 		return $result;
+	}
+
+	protected function getRawAddress($header) {
+		if ($header) {
+			return $header->getRawValue();
+		} else {
+			return '';
+		}
 	}
 }
