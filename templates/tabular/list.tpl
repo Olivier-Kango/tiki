@@ -14,7 +14,11 @@
 			{permission name=tabular_import type=tabular object=$tabularId}
 				<a class="btn btn-primary" href="{bootstrap_modal controller=tabular action=import_csv tabularId=$tabularId target=list _params=$baseArguments}">{icon name=import} {tr}Import{/tr}</a>
 			{/permission}
-
+			{permission name=admin_trackers}
+				<a class="btn btn-primary" href="{bootstrap_modal controller='tabular' action='duplicate' tabularId=$tabularId}">
+					{icon name='copy'} {tr}Duplicate{/tr}
+				</a>
+			{/permission}
 		</div>
 		{permission name=tabular_edit type=tabular object=$tabularId}
 			<a class="btn btn-link" href="{service controller=tabular action=edit tabularId=$tabularId}">{icon name=edit} {tr}Edit{/tr}</a>
