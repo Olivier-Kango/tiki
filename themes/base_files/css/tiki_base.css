@@ -3918,6 +3918,12 @@ body.fullscreen.tiki.navbar-padding {
 .tiki .popover .popover-body .table td {
   word-break: break-word;
 }
+.tiki .popover.popover-sm {
+  max-width: 20vw !important;
+}
+.tiki .popover.popover-md {
+  max-width: 30vw !important;
+}
 .tiki .media-overflow-visible, .tiki .media-overflow-visible .media-body {
   overflow: visible;
 }
