@@ -665,7 +665,7 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
 		// r = ItemLink
 		// w = DynamicList
 		if ($tracker && $filterFieldThere && (! $filterFieldIdHere || $filterFieldThere['type'] === 'r' || $filterFieldThere['type'] === 'w')) {
-			if (($filterFieldThere['type'] === 'r' || $filterFieldThere['type'] === 'w') && $filterFieldHere['type'] !== 'r') {
+			if (($filterFieldThere['type'] === 'r' || $filterFieldThere['type'] === 'w') && (! $filterFieldHere || $filterFieldHere['type'] !== 'r')) {
 				$technique = 'id';
 			}
 		}

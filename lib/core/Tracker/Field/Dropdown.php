@@ -245,7 +245,7 @@ class Tracker_Field_Dropdown extends Tracker_Field_Abstract implements Tracker_F
 		}
 
 		if (preg_match('/^(").*\1$/', $value)) {
-			$value = substr($value, 1, sizeof($value) - 2);
+			$value = substr($value, 1, strlen($value) - 2);
 		}
 
 		return $value;
