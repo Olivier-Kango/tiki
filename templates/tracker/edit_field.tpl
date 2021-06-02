@@ -224,25 +224,27 @@ $('select[name=type]').change(function () {
 					</div>
 				</div>
 			{/if}
-			<div class="form-group row mx-0">
-				<label for="encryption_key_id" class="col-form-label">{tr}Encryption key{/tr}</label>
-				{help url="Encryption"}
-				<select name="encryption_key_id" data-original="{$field.encryptionKeyId}" class="confirm-prompt form-control">
-					<option value=""></option>
-					{foreach from=$encryption_keys item=key}
-						<option value="{$key.keyId|escape}"
-							{if $field.encryptionKeyId eq $key.keyId}selected="selected"{/if}>
-							{$key.name|escape}
-						</option>
-					{/foreach}
-				</select>
-				<div class="form-text">
-					{tr}Allow using shared encryption keys to store data entered in this field in encrypted format and decrypt upon request.{/tr}
+			{if $prefs.feature_user_encryption eq 'y'}
+				<div class="form-group row mx-0">
+					<label for="encryption_key_id" class="col-form-label">{tr}Encryption key{/tr}</label>
+					{help url="Encryption"}
+					<select name="encryption_key_id" data-original="{$field.encryptionKeyId}" class="confirm-prompt form-control">
+						<option value=""></option>
+						{foreach from=$encryption_keys item=key}
+							<option value="{$key.keyId|escape}"
+								{if $field.encryptionKeyId eq $key.keyId}selected="selected"{/if}>
+								{$key.name|escape}
+							</option>
+						{/foreach}
+					</select>
+					<div class="form-text">
+						{tr}Allow using shared encryption keys to store data entered in this field in encrypted format and decrypt upon request.{/tr}
+					</div>
+					<div class="alert alert-danger">
+						{icon name="warning"} {tr}Changing the encryption key will invalidate existing data.{/tr}
+					</div>
 				</div>
-				<div class="alert alert-danger">
-					{icon name="warning"} {tr}Changing the encryption key will invalidate existing data.{/tr}
-				</div>
-			</div>
+			{/if}
 		{/accordion_group}
 	{/accordion}
 
