@@ -153,11 +153,13 @@
 											<span class="mode">{$column->getMode()|escape}</span>
 										</a>
 									</td>
-									<td>
-										<div class="input-group input-group-sm">
-											<input class="remote-field form-control" type="text" value="{$column->getRemoteField()|escape}" size="5">
-										</div>
-									</td>
+									{if $has_odbc}
+										<td>
+											<div class="input-group input-group-sm">
+												<input class="remote-field form-control" type="text" value="{$column->getRemoteField()|escape}" size="5">
+											</div>
+										</td>
+									{/if}
 									<td><input class="primary" type="radio" name="pk" {if $column->isPrimaryKey()} checked {/if}></td>
 									<td><input class="unique-key" type="checkbox" {if $column->isUniqueKey()} checked {/if}></td>
 									<td><input class="read-only" type="checkbox" {if $column->isReadOnly()} checked {/if}></td>
