@@ -122,6 +122,15 @@ body.fullscreen.tiki.navbar-padding {
 	}
 }
 
+// use `customClass: "popover-sm"` option on the popover function for narrow popovers
+.tiki .popover.popover-sm {
+	max-width: 20vw !important;
+}
+
+.tiki .popover.popover-md {
+	max-width: 30vw !important;
+}
+
 
 .tiki .media-overflow-visible,
 .tiki .media-overflow-visible .media-body {
