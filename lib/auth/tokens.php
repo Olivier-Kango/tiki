@@ -90,7 +90,7 @@ class AuthTokens
 		)->fetchRow();
 
 		global $prefs, $tikiroot;		// $full defined in route.php
-		if ($prefs['feature_sefurl'] === 'y') {
+		if ($prefs['feature_sefurl'] === 'y' && strpos($entry, 'tiki-autologin.php') === false) {
 			$sefurlTypeMap = $this->getSefurlTypeMap();
 			$keys = array_keys($_GET);
 			$seftype = '';
