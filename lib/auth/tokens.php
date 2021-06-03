@@ -67,7 +67,7 @@ class AuthTokens
 		$usersToDelete = $this->db->fetchAll(
 			'SELECT tokenId, userPrefix FROM tiki_auth_tokens
 				WHERE (timeout != -1 AND UNIX_TIMESTAMP(creation) + timeout < UNIX_TIMESTAMP())
-				OR `hits` = 0 OR `hits` = `maxhits`',
+				OR `hits` = 0',
 			null,
 			10000
 		);
@@ -79,7 +79,7 @@ class AuthTokens
 		$this->db->query(
 			'DELETE FROM tiki_auth_tokens
 				WHERE (timeout != -1 AND UNIX_TIMESTAMP(creation) + timeout < UNIX_TIMESTAMP())
-				OR `hits` = 0 OR `hits` = `maxhits`',
+				OR `hits` = 0',
 			null,
 			10000
 		);
