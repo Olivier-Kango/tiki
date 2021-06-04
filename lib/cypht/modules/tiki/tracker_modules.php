@@ -147,60 +147,19 @@ class Hm_Handler_tiki_message_content extends Hm_Handler_Module {
 
         $this->out('msg_text_uid', $form['imap_msg_uid']);
         $this->out('msg_list_path', $this->request->post['list_path']);
-        $part = false;
+        $part_num = false;
         if (isset($this->request->post['imap_msg_part']) && preg_match("/[0-9\.]+/", $this->request->post['imap_msg_part'])) {
-            $part = $this->request->post['imap_msg_part'];
+            $part_num = $this->request->post['imap_msg_part'];
         }
         if (array_key_exists('imap_allow_images', $this->request->post) && $this->request->post['imap_allow_images']) {
             $this->out('imap_allow_images', true);
         }
         $this->out('header_allow_images', $this->config->get('allow_external_image_sources'));
 
-        $trk = TikiLib::lib('trk');
-        $path = str_replace('tracker_folder_', '', $this->request->post['list_path']);
-        list ($itemId, $fieldId) = explode('_', $path);
-
-        $field = $trk->get_field_info($fieldId);
-        if (! $field) {
-            Hm_Msgs::add('ERRTracker field not found');
+        $message = tiki_parse_message($this->request->post['list_path'], $form['imap_msg_uid']);
+        if (! $message) {
             return;
         }
-
-        $item = $trk->get_item_info($itemId);
-        if (! $item) {
-            Hm_Msgs::add('ERRTracker item not found');
-            return;
-        }
-        $item[$field['fieldId']] = $trk->get_item_value(null, $item['itemId'], $field['fieldId']);
-
-        $definition = Tracker_Definition::get($field['trackerId']);
-        $handler = $trk->get_field_handler($field, $item);
-        $data = $handler->getFieldData();
-
-        if (! isset($data['emails']) || ! is_array($data['emails'])) {
-            Hm_Msgs::add('ERRTracker field storage is broken or you are using the wrong field type');
-            return;
-        }
-
-        $email = false;
-        foreach ($data['emails'] as $eml) {
-            if ($eml['fileId'] == $form['imap_msg_uid']) {
-                $email = $eml;
-                break;
-            }
-        }
-
-        if (! $email) {
-            Hm_Msgs::add('ERREmail not found in related tracker item');
-            return;
-        }
-
-        if (empty($email['message_raw'])) {
-            Hm_Msgs::add('ERREmail could not be parsed');
-            return;
-        }
-
-        $message = $email['message_raw'];
 
         $msg_headers = [];
         foreach ($message->getAllHeaders() as $header) {
@@ -209,38 +168,40 @@ class Hm_Handler_tiki_message_content extends Hm_Handler_Module {
         $msg_struct = tiki_mime_part_to_bodystructure($message);
         $msg_struct_current = [];
 
-        if ($part !== false) {
-            // TODO
+        if ($part_num !== false) {
+            $part = tiki_get_mime_part($message, $part_num);
         } else {
             if (!$this->user_config->get('text_only_setting', false)) {
                 $part = $message->getHtmlPart();
                 if (! $part) {
                     $part = $message->getTextPart();
                 }
-                // TODO: $msg_text = add_attached_images($msg_text, $form['imap_msg_uid'], $msg_struct, $imap);
             } else {
                 $part = $message->getTextPart();
             }
-            $msg_text = $part->getContent();
-            $list = explode('/', $part->getContentType());
-            $msg_struct_current = [
-                'type' => $list[0],
-                'subtype' => $list[1],
-            ];
+        }
+        $msg_text = $part->getContent();
+        $list = explode('/', $part->getContentType());
+        $msg_struct_current = [
+            'type' => $list[0],
+            'subtype' => $list[1],
+        ];
+        if ($message_struct_current['subtype'] == 'html') {
+            // TODO: $msg_text = add_attached_images($msg_text, $form['imap_msg_uid'], $msg_struct, $imap);
         }
 
         $this->out('msg_struct', $msg_struct);
         $this->out('list_headers', get_list_headers($msg_headers));
         $this->out('msg_headers', $msg_headers);
-        $this->out('imap_msg_part', "$part");
+        $this->out('imap_msg_part', "$part_num");
         $this->out('use_message_part_icons', $this->user_config->get('msg_part_icons_setting', false));
         $this->out('simple_msg_part_view', $this->user_config->get('simple_msg_parts_setting', false));
         if ($msg_struct_current) {
             $this->out('msg_struct_current', $msg_struct_current);
         }
         $this->out('msg_text', $msg_text);
-        $this->out('msg_download_args', sprintf("page=message&amp;uid=%s&amp;list_path=amp;imap_download_message=1", $form['imap_msg_uid'], $this->request->post['list_path']));
-        $this->out('msg_show_args', sprintf("page=message&amp;uid=%s&amp;list_path=&amp;imap_show_message=1", $form['imap_msg_uid'], $this->request->post['list_path']));
+        $this->out('msg_download_args', sprintf("page=message&amp;uid=%s&amp;list_path=%s&amp;tiki_download_message=1", $form['imap_msg_uid'], $this->request->post['list_path']));
+        $this->out('msg_show_args', sprintf("page=message&amp;uid=%s&amp;list_path=%s&amp;tiki_show_message=1", $form['imap_msg_uid'], $this->request->post['list_path']));
 
         clear_existing_reply_details($this->session);
         if ($part == 0) {
@@ -249,6 +210,57 @@ class Hm_Handler_tiki_message_content extends Hm_Handler_Module {
         }
         $this->session->set(sprintf('reply_details__%s', $this->request->post['list_path'], $form['imap_msg_uid']),
             array('ts' => time(), 'msg_struct' => $msg_struct_current, 'msg_text' => $msg_text, 'msg_headers' => $msg_headers));
+    }
+}
+
+/**
+ * Retrieve a message part and show in the browser (mainly images)
+ * @subpackage tiki/handler
+ */
+class Hm_Handler_tiki_download_message extends Hm_Handler_Module {
+    public function process() {
+        $show = $download = false;
+        if (array_key_exists('tiki_show_message', $this->request->get) && $this->request->get['tiki_show_message']) {
+            $show = true;
+        }
+        if (array_key_exists('tiki_download_message', $this->request->get) && $this->request->get['tiki_download_message']) {
+            $download = true;
+        }
+        if ($show || $download) {
+            $uid = NULL;
+            $list_path = NULL;
+            $msg_id = NULL;
+            if (array_key_exists('uid', $this->request->get) && $this->request->get['uid']) {
+                $uid = $this->request->get['uid'];
+            }
+            if (array_key_exists('list_path', $this->request->get) && $this->request->get['list_path']) {
+                $list_path = $this->request->get['list_path'];
+            }
+            if (array_key_exists('imap_msg_part', $this->request->get) && preg_match("/^[0-9\.]+$/", $this->request->get['imap_msg_part'])) {
+                $msg_id = $this->request->get['imap_msg_part'];
+            }
+            if ($list_path !== NULL && $uid !== NULL && $msg_id !== NULL) {
+                $message = tiki_parse_message($list_path, $uid);
+                if (! $message) {
+                    return;
+                }
+
+                $part = tiki_get_mime_part($message, $msg_id);
+
+                if ($download) {
+                    $struct = tiki_mime_part_to_bodystructure($part, "0'");
+                    $name = get_imap_part_name($struct[0], $uid, $msg_id);
+                    header('Content-Disposition: attachment; filename="'.$name.'"');
+                }
+
+                header('Content-Type: '.$part->getContentType());
+                header('Content-Transfer-Encoding: binary');
+                ob_end_clean();
+                echo $part->getContent();
+                Hm_Functions::cease();
+            }
+            Hm_Msgs::add('ERRAn Error occurred trying to download the message');
+        }
     }
 }
 

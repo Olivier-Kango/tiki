@@ -109,6 +109,7 @@ add_output('settings', 'enable_gmail_contacts_module_setting', true, 'tiki', 'en
 
 /* tracker field email folder handling */
 add_handler('message', 'tracker_message_list_type', true, 'core', 'message_list_type', 'after');
+add_handler('message', 'tiki_download_message', true, 'core', 'message_list_type', 'after');
 add_handler('message_list', 'check_path_redirect', true, 'core', 'load_user_data', 'after');
 add_output('ajax_imap_message_content', 'add_move_to_trackers', true, 'imap', 'filter_message_headers', 'after');
 setup_base_ajax_page('ajax_move_to_tracker', 'core');
@@ -139,6 +140,8 @@ return array(
     'ajax_tiki_message_content'
   ),
   'allowed_get' => array(
+    'tiki_download_message' => FILTER_VALIDATE_BOOLEAN,
+    'tiki_show_message'  => FILTER_VALIDATE_BOOLEAN,
   ),
   'allowed_output' => array(
     'operator' => array(FILTER_SANITIZE_STRING, false),

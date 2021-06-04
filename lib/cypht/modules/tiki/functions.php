@@ -9,10 +9,66 @@
 if (!defined('DEBUG_MODE')) { die(); }
 
 /**
+ * Retrive a Tiki-stored mail message and convert to a parsed mime message
+ * @subpackage tiki/functions
+ * @param string $list_path the Cypht list path
+ * @param string $msg_uid message uid
+ * @return array
+ */
+if (!hm_exists('tiki_parse_message')) {
+function tiki_parse_message($list_path, $msg_uid) {
+    $trk = TikiLib::lib('trk');
+    $path = str_replace('tracker_folder_', '', $list_path);
+    list ($itemId, $fieldId) = explode('_', $path);
+
+    $field = $trk->get_field_info($fieldId);
+    if (! $field) {
+        Hm_Msgs::add('ERRTracker field not found');
+        return;
+    }
+
+    $item = $trk->get_item_info($itemId);
+    if (! $item) {
+        Hm_Msgs::add('ERRTracker item not found');
+        return;
+    }
+    $item[$field['fieldId']] = $trk->get_item_value(null, $item['itemId'], $field['fieldId']);
+
+    $definition = Tracker_Definition::get($field['trackerId']);
+    $handler = $trk->get_field_handler($field, $item);
+    $data = $handler->getFieldData();
+
+    if (! isset($data['emails']) || ! is_array($data['emails'])) {
+        Hm_Msgs::add('ERRTracker field storage is broken or you are using the wrong field type');
+        return;
+    }
+
+    $email = false;
+    foreach ($data['emails'] as $eml) {
+        if ($eml['fileId'] == $msg_uid) {
+            $email = $eml;
+            break;
+        }
+    }
+
+    if (! $email) {
+        Hm_Msgs::add('ERREmail not found in related tracker item');
+        return;
+    }
+
+    if (empty($email['message_raw'])) {
+        Hm_Msgs::add('ERREmail could not be parsed');
+        return;
+    }
+
+    return $email['message_raw'];
+}}
+
+/**
  * Convert MimePart message parts to IMAP-compatible BODYSTRUCTURE
  * @subpackage tiki/functions
  * @param ZBateson\MailMimeParser\Message\Part\MimePart $part the mime message part
- * @param int $part_num the mime message part number
+ * @param string $part_num the mime message part number
  * @return array
  */
 if (!hm_exists('tiki_mime_part_to_bodystructure')) {
@@ -57,4 +113,27 @@ function tiki_mime_part_to_bodystructure($part, $part_num = '0') {
         }
     }
     return $result;
+}}
+
+/**
+ * Retrieve mime part based off part number
+ * @subpackage tiki/functions
+ * @param ZBateson\MailMimeParser\Message\Part\MimePart $part the mime message part
+ * @param string $part_num the mime message part number
+ * @return ZBateson\MailMimeParser\Message\Part\MimePart
+ */
+if (!hm_exists('tiki_get_mime_part')) {
+function tiki_get_mime_part($part, $part_num = '0') {
+    $part_num = explode('.', $part_num);
+    array_shift($part_num);
+    if (empty($part_num)) {
+        return $part;
+    }
+    $part_num = array_values($part_num);
+    foreach ($part->getChildParts() as $i => $subpart) {
+        if ($part_num[0]-1 == $i) {
+            return tiki_get_mime_part($subpart, implode('.', $part_num));
+        }
+    }
+    return null;
 }}
