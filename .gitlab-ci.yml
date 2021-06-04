@@ -465,8 +465,8 @@ tiki-package:
       - vendor_bundled/vendor/
       - .composercache/files
     policy: pull
-  dependencies:
-    - composer
+  #dependencies:
+  #  - composer
   artifacts:
     paths:
       - tiki-${CI_COMMIT_REF_SLUG}.tar.gz
