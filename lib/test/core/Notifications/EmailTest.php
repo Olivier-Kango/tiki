@@ -47,6 +47,10 @@ class EmailTest extends TestCase
 	{
 		global $user;
 
+		// make sure the threads pref is set
+		$tikilib = TikiLib::lib('tiki');
+		$tikilib->set_preference('forum_notifications_use_new_threads', 'n');
+
 		/** @var Comments $commentsLib */
 		$commentsLib = TikiLib::lib('comments');
 		$forumId = $commentsLib->replace_forum(0, 'Test Forum');
@@ -148,6 +152,10 @@ class EmailTest extends TestCase
 	public function testGetEmailThreadHeadersForBlogPosts()
 	{
 		global $user;
+
+		// make sure the threads pref is set
+		$tikilib = TikiLib::lib('tiki');
+		$tikilib->set_preference('forum_notifications_use_new_threads', 'n');
 
 		$commentsLib = TikiLib::lib('comments');
 		$blogLib = TikiLib::lib('blog');
