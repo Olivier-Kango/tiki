@@ -11,7 +11,7 @@
  * Letter key: ~GF~
  *
  */
-class Tracker_Field_GeographicFeature extends Tracker_Field_Abstract implements Tracker_Field_Synchronizable, Tracker_Field_Indexable
+class Tracker_Field_GeographicFeature extends Tracker_Field_Abstract implements Tracker_Field_Synchronizable, Tracker_Field_Indexable, Tracker_Field_Exportable
 {
 	public static function getTypes()
 	{
@@ -69,10 +69,14 @@ class Tracker_Field_GeographicFeature extends Tracker_Field_Abstract implements 
 
 	function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
 	{
+		$value = $this->getValue();
+		$baseKey = $this->getBaseKey();
+
 		return [
 			'geo_located' => $typeFactory->identifier('y'),
 			'geo_feature' => $typeFactory->identifier($this->getValue()),
 			'geo_feature_field' => $typeFactory->identifier($this->getConfiguration('permName')),
+			$baseKey => $typeFactory->identifier($value),
 		];
 	}
 
@@ -84,5 +88,41 @@ class Tracker_Field_GeographicFeature extends Tracker_Field_Abstract implements 
 	function getGlobalFields()
 	{
 		return [];
+	}
+
+	function getTabularSchema()
+	{
+		$schema = new Tracker\Tabular\Schema($this->getTrackerDefinition());
+
+		$permName = $this->getConfiguration('permName');
+
+		$schema->addNew($permName, 'default')
+			->setLabel($this->getConfiguration('name'))
+			->setRenderTransform(
+				function ($value) use ($permName) {
+					$json = json_encode(json_decode($value));
+					if ($json === false) {
+						Feedback::error(tr('Geographic Feature field "%0" cannot be JSON decoded', $permName));
+						$json = '';
+					} elseif ($json === 'null') {
+						$json = '';
+					}
+					return $json;
+				}
+			)
+			->setParseIntoTransform(
+				function (&$info, $value) use ($permName) {
+					$json = json_encode(json_decode($value));
+					if ($json === false) {
+						Feedback::error(tr('Geographic Feature field "%0" cannot be JSON decoded', $permName));
+						$json = '';
+					} elseif ($json === 'null') {
+						$json = '';
+					}
+					$info['fields'][$permName] = $json;
+				}
+			);
+
+		return $schema;
 	}
 }
