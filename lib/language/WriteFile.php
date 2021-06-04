@@ -110,7 +110,7 @@ class Language_WriteFile
 
 			fwrite($handle, ");\n");
 			if ($language != "en") {
-				fwrite($handle, "\$lang = array_merge(\$lang, \$lang_current);\n");
+				fwrite($handle, "\$lang = array_replace(\$lang, \$lang_current);\n");
 			}
 			fclose($handle);
 		}
