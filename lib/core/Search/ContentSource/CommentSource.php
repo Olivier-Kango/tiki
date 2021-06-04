@@ -39,7 +39,11 @@ class Search_ContentSource_CommentSource implements Search_ContentSource_Interfa
 
 		if ($this->indexer) {
 			$object = $commentslib->get_comment_object($objectId);
-			$this->indexer->errorContext = 'Comment owner '.$object['objectType'] . ' ' . $object['object'];
+			if ($object) {
+				$this->indexer->errorContext = 'Comment owner '.$object['objectType'] . ' ' . $object['object'];
+			} else {
+				$this->indexer->errorContext = 'Comment owner (can not find object ' . $objectId . ')';
+			}
 		}
 
 		$comment = $commentslib->get_comment($objectId);

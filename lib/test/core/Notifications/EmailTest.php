@@ -73,7 +73,7 @@ class EmailTest extends TestCase
 
 		$this->assertEquals($messageId, $headers['Message-Id']);
 		$this->assertArrayNotHasKey('In-Reply-To', $headers);
-		$this->assertEquals($md5Header, $headers['References']);
+		$this->assertEquals($md5Header, $headers['References'] ?? null);
 
 		//2nd post in same thread:
 
@@ -179,7 +179,7 @@ class EmailTest extends TestCase
 
 		$this->assertEquals($messageId, $headers['Message-Id']);
 		$this->assertArrayNotHasKey('In-Reply-To', $headers);
-		$this->assertEquals($md5Header, $headers['References']);
+		$this->assertEquals($md5Header, $headers['References'] ?? null);
 
 		//2nd comment (reply to first - will have a parentId but no in_reply_to in database)
 		$messageId2 = '';
