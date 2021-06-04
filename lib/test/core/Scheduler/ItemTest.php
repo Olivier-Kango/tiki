@@ -237,8 +237,6 @@ class ItemTest extends TestCase
 
 	public function testGetPreviousRunDateWithDelay()
 	{
-		$this->markTestSkipped('Skipping test - 2021-06-04 - needs fixing.');
-
 		global $prefs;
 		$delay = 30; // 30 min delay
 		$prefs['scheduler_delay'] = $delay;
@@ -246,7 +244,7 @@ class ItemTest extends TestCase
 		$schedulerStub = $this->createPartialMock(Scheduler_Item::class, []);
 		$schedulerStub->user_run_now = 1;
 		$schedulerStub->run_time = '0 * * * *'; // Every hour
-		$time = time();
+		$time = strtotime($delay . ' minutes ago');
 		$expectedTime = $time - ($time % 3600) + ($delay * 60); // We want the hour on 0 minutes
 		$runDate = $schedulerStub->getPreviousRunDate();
 
