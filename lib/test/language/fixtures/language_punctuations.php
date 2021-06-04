@@ -1,7 +1,8 @@
 <?php
 // File header
 
-$lang = array(
+include('lang/en/language.php'); // Needed for providing a sensible default text for untranslated strings with context like : "edit_C(verb)"
+$lang_current = array(
 // "First string" => "First string",
 // "Second string" => "Second string",
 "Used string" => "Another translation",
@@ -11,3 +12,4 @@ $lang = array(
 "Add user:" => "Translation",
 // "All users" => "All users",
 );
+$lang = array_merge($lang, $lang_current);
