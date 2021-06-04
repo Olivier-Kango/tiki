@@ -328,10 +328,7 @@ class Services_Language_Utilities
 		}
 
 		//finish php file
-		$custom_code .= ");\r\n";
-
-		//Commented out as it thorws php fatal error (unsupported operand)
-		//$custom_code .= '$lang = $lang_custom + $lang;';
+		$custom_code .= ");\r\n\$lang = array_replace(\$lang, \$lang_custom);\r\n";
 
 		//write the strings to custom.php file
 		if (! ($fp = fopen($custom_file, 'w+'))) {
