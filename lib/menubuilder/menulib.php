@@ -572,7 +572,7 @@ class MenuLib extends TikiLib
 			die;
 		}
 		while (! feof($fhandle)) {
-			$res = ['optionId' => '', 'type' => '', 'name' => '', 'url' => '', 'position' => 0, 'section' => '', 'perm' => '', 'groupname' => '', 'userlevel' => '', 'class' => '', 'remove' => ''];
+			$res = ['optionId' => '', 'type' => '', 'name' => '', 'url' => '', 'position' => 0, 'section' => '', 'perm' => '', 'groupname' => '', 'userlevel' => '', 'class' => '', 'icon' => '', 'remove' => ''];
 			$data = fgetcsv($fhandle, 1000);
 			if (empty($data)) {
 				continue;
@@ -580,7 +580,7 @@ class MenuLib extends TikiLib
 			for ($i = 0, $icount_fields = count($fields); $i < $icount_fields; $i++) {
 				$res[$fields[$i]] = $data[$i];
 			}
-			if ($res['optionId'] == 0 || $this->check_menu_option($menuId, $res['optionId'])) {
+			if (empty($res['optionId']) || $this->check_menu_option($menuId, $res['optionId'])) {
 				$options[] = $res;
 			} else {
 				$smarty->assign('msg', tra('You can only use optionId = 0 to create a new option; or, to update a menu, use an optionId that is the same as an optionId that is already used in the menu.'));
@@ -593,14 +593,14 @@ class MenuLib extends TikiLib
 			if ($option['remove'] == 'y') {
 				$this->remove_menu_option($option['optionId']);
 			} else {
-				$this->replace_menu_option($menuId, $option['optionId'], $option['name'], $option['url'], $option['type'], $option['position'], $option['section'], $option['perm'], $option['groupname'], $option['userlevel'], '', $option['class']);
+				$this->replace_menu_option($menuId, $option['optionId'], $option['name'], $option['url'], $option['type'], $option['position'], $option['section'], $option['perm'], $option['groupname'], $option['userlevel'], $option['icon'], $option['class']);
 			}
 		}
 	}
 
 	public function export_menu_options($menuId, $encoding)
 	{
-		$data = '"optionId","type","name","url","position","section","perm","groupname","userlevel","class","remove"' . "\r\n";
+		$data = '"optionId","type","name","url","position","section","perm","groupname","userlevel","class","icon","remove"' . "\r\n";
 		$options = $this->list_menu_options($menuId, 0, -1, 'position_asc', '', true, 0, true);
 		foreach ($options['data'] as $option) {
 			$data .= $option['optionId']
@@ -613,6 +613,7 @@ class MenuLib extends TikiLib
 							. '","' . $option['groupname']
 							. '",' . $option['userlevel']
 							. ',' . $option['class']
+							. ',' . $option['icon']
 							. ',"n"' . "\r\n"
 							;
 		}

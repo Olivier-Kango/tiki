@@ -107,7 +107,7 @@
 					</div>
 				</div>
 			{/if}
-			{if $prefs.menus_items_icons eq 'y'}
+			{if $menuInfo.use_items_icons eq 'y'}
 				<div class="form-group row">
 					<label class="col-form-label col-md-3" for="icon">{tr}Icon:{/tr}</label>
 

@@ -249,7 +249,6 @@ class Services_Menu_Controller
 			$level = $input->level->text();
 			$icon = $input->icon->text();
 			$class = $input->class->text();
-			$class = $input->class->text();
 			$tplGroupContainer = $input->tplGroupContainer->text();
 			$tplGroupContainerId = '';
 			if ($tplGroupContainer && $tplGroupContainer != "None") {
