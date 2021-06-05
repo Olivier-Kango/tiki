@@ -172,9 +172,9 @@ class FileGalLib extends TikiLib
 				$gallery['show_author'] = $gallery['showuser'];    // TODO something about creator?
 				$gallery['show_hits'] = $gallery['showhits'];
 
-				if ($gallery['show_name'] === 'y' && $gallery['show_filename'] === 'y') {
+				if ($gallery['show_name'] === 'y' && $gallery['showfilename'] === 'y') {
 					$gallery['show_name'] = 'a';
-				} elseif ($gallery['show_filename'] === 'y') {
+				} elseif ($gallery['showfilename'] === 'y') {
 					$gallery['show_name'] = 'f';
 				} else {
 					$gallery['show_name'] = 'n';
