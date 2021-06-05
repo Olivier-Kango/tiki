@@ -7,7 +7,7 @@
 
 class Tiki_Profile_InstallHandler_ArticleType extends Tiki_Profile_InstallHandler
 {
-	function getData()
+	public function getData()
 	{
 		if ($this->data) {
 			return $this->data;
@@ -45,7 +45,7 @@ class Tiki_Profile_InstallHandler_ArticleType extends Tiki_Profile_InstallHandle
 		return $this->data = $data;
 	}
 
-	function canInstall()
+	public function canInstall()
 	{
 		$data = $this->getData();
 
@@ -56,7 +56,7 @@ class Tiki_Profile_InstallHandler_ArticleType extends Tiki_Profile_InstallHandle
 		return true;
 	}
 
-	function _install()
+	public function _install()
 	{
 		$artlib = TikiLib::lib('art');
 		$data = $this->getData();

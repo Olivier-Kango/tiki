@@ -11,7 +11,7 @@ class Definition
 {
 	private $info;
 
-	function __construct($info)
+	public function __construct($info)
 	{
 		$this->info = $info;
 		if (isset($this->info['id']) && ! isset($this->info['galleryId'])) {
@@ -24,7 +24,7 @@ class Definition
 	 * Get file wrapper object responsible for accessing the underlying storage.
 	 * @see FileWrapper\WrapperInterface for supported methods.
 	 */
-	function getFileWrapper($file)
+	public function getFileWrapper($file)
 	{
 		return $this->handler->getFileWrapper($file);
 	}
@@ -32,7 +32,7 @@ class Definition
 	/**
 	 * @see Handler\HandlerInterface
 	 */
-	function delete($file)
+	public function delete($file)
 	{
 		$this->handler->delete($file);
 	}
@@ -40,18 +40,20 @@ class Definition
 	/**
 	 * @see Handler\HandlerInterface
 	 */
-	function uniquePath($file) {
+	public function uniquePath($file)
+	{
 		return $this->handler->uniquePath($file);
 	}
 
 	/**
 	 * @see Handler\HandlerInterface
 	 */
-	function isWritable() {
+	public function isWritable()
+	{
 		return $this->handler->isWritable();
 	}
 
-	function getInfo()
+	public function getInfo()
 	{
 		return $this->info;
 	}
@@ -61,7 +63,8 @@ class Definition
 	 * Currently, we have: db storage or filesystem storage.
 	 * This method updates the file contents to be in the right place.
 	 */
-	function fixFileLocation($file) {
+	public function fixFileLocation($file)
+	{
 		global $prefs;
 
 		if ($file->path) {

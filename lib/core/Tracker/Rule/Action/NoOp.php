@@ -8,7 +8,7 @@ use Tiki\Lib\core\Tracker\Rule\Type\Nothing;
 
 class NoOp extends Action
 {
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct('', Nothing::class, '', [Nothing::class]);
 	}

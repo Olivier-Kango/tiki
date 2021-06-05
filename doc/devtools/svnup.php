@@ -297,7 +297,7 @@ class SvnUpCommand extends Command
 
 				// Now that we know the upper revision number, svn up to it.
 				$errors = ['', 'Text conflicts'];
-				$this->OutputErrors($logger, shell_exec('svn update --accept postpone --revision ' . $mixedRev . ' 2>&1'), 'Problem with svn up, check for conflicts.', $errors, ! $input->getOption('no-db'));
+				$this->outputErrors($logger, shell_exec('svn update --accept postpone --revision ' . $mixedRev . ' 2>&1'), 'Problem with svn up, check for conflicts.', $errors, ! $input->getOption('no-db'));
 				if ($logger->hasErrored()) {
 					$progress->setMessage('Preexisting local conflicts exist. Update Aborted.');
 					if ($input->getOption('email')) {
@@ -332,7 +332,7 @@ class SvnUpCommand extends Command
 		$progress->setMessage('Updating SVN');
 		$progress->advance();
 		$errors = ['','Text conflicts'];
-		$this->OutputErrors($logger, shell_exec("svn update --revision $rev --accept $svnConflict 2>&1"), 'Problem with svn up, check for conflicts.', $errors, ! $input->getOption('no-db'));
+		$this->outputErrors($logger, shell_exec("svn update --revision $rev --accept $svnConflict 2>&1"), 'Problem with svn up, check for conflicts.', $errors, ! $input->getOption('no-db'));
 
 		// set revision number updated to.
 		$raw = shell_exec('svn info  2>&1');
@@ -366,7 +366,7 @@ class SvnUpCommand extends Command
 			$setupParams .= ' -g ' . $input->getOption('group');
 		}
 
-		$this->OutputErrors($logger, shell_exec("sh setup.sh $setupParams -n fix 2>&1"), 'Problem running setup.sh', $errors, ! $input->getOption('no-db'));   // 2>&1 suppresses all terminal output, but allows full capturing for logs & verbiage
+		$this->outputErrors($logger, shell_exec("sh setup.sh $setupParams -n fix 2>&1"), 'Problem running setup.sh', $errors, ! $input->getOption('no-db'));   // 2>&1 suppresses all terminal output, but allows full capturing for logs & verbiage
 
 		if (! $input->getOption('no-db')) {
 			// generate a secdb database so when database:update is run, it also gets updated.
@@ -376,7 +376,7 @@ class SvnUpCommand extends Command
 				$progress->advance();
 
 				$errors = ['is not writable', ''];
-				$this->OutputErrors($logger, shell_exec('php doc/devtools/release.php --only-secdb --no-check-svn'), 'Problem updating secdb', $errors);
+				$this->outputErrors($logger, shell_exec('php doc/devtools/release.php --only-secdb --no-check-svn'), 'Problem updating secdb', $errors);
 			}
 
 			// note: running database update also clears the cache
@@ -401,7 +401,7 @@ class SvnUpCommand extends Command
 				}
 
 				putenv('SHELL_VERBOSITY'); // Clear the environment variable, since console.php (Symfony console application) will pick this value if set
-				$this->OutputErrors($logger, shell_exec($shellCom . ' 2>&1'), 'Problem Rebuilding Index', $errors, ! $input->getOption('no-db'));   // 2>&1 suppresses all terminal output, but allows full capturing for logs & verbiage
+				$this->outputErrors($logger, shell_exec($shellCom . ' 2>&1'), 'Problem Rebuilding Index', $errors, ! $input->getOption('no-db'));   // 2>&1 suppresses all terminal output, but allows full capturing for logs & verbiage
 			}
 
 			/* generate caches */

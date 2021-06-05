@@ -13,7 +13,7 @@ class TrackerSourceEntry implements SourceEntryInterface
 	private $data;
 	private $extra;
 
-	function __construct($itemId)
+	public function __construct($itemId)
 	{
 		$this->item = \Tracker_Item::fromId($itemId);
 		$this->data = $this->item->getData();
@@ -23,7 +23,7 @@ class TrackerSourceEntry implements SourceEntryInterface
 		];
 	}
 
-	function render(\Tracker\Tabular\Schema\Column $column)
+	public function render(\Tracker\Tabular\Schema\Column $column)
 	{
 		$field = $column->getField();
 		if (isset($this->data['fields'][$field])) {

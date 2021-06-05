@@ -13,8 +13,10 @@ use TikiLib;
 use Perms;
 use Perms_Context;
 
-class BasicAuth extends AbstractBasic {
-  protected function validateUserPass($username, $password) {
+class BasicAuth extends AbstractBasic
+{
+  protected function validateUserPass($username, $password)
+  {
     global $user;
 
     if ($username == 'Anonymous') {

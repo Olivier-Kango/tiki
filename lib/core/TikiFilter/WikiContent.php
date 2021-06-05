@@ -7,7 +7,7 @@
 
 class TikiFilter_WikiContent implements Laminas\Filter\FilterInterface
 {
-	function filter($value)
+	public function filter($value)
 	{
 		$parserlib = TikiLib::lib('parser');
 		$noparsed = [];

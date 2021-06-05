@@ -23,7 +23,7 @@ class Tiki_Profile_SymbolLoader implements ArrayAccess
 	private $filters;
 	private $nextFilters;
 
-	function __construct($store = null, array $filters = null, array $nextFilters = ['profile', 'domain'])
+	public function __construct($store = null, array $filters = null, array $nextFilters = ['profile', 'domain'])
 	{
 		$this->store = $store ?: new Tiki_Profile_SymbolLoader_Store;
 		$this->nextFilters = $nextFilters;
@@ -33,23 +33,23 @@ class Tiki_Profile_SymbolLoader implements ArrayAccess
 		];
 	}
 
-	function offsetGet($name)
+	public function offsetGet($name)
 	{
 		return $this->store->get($name, $this->filters);
 	}
 
-	function offsetExists($name)
+	public function offsetExists($name)
 	{
 		return true;
 	}
-	function offsetSet($name, $value)
+	public function offsetSet($name, $value)
 	{
 	}
-	function offsetUnset($name)
+	public function offsetUnset($name)
 	{
 	}
 
-	function __get($name)
+	public function __get($name)
 	{
 		$nextFilters = $this->nextFilters;
 		$next = array_shift($nextFilters);
@@ -63,10 +63,10 @@ class Tiki_Profile_SymbolLoader implements ArrayAccess
 
 class Tiki_Profile_SymbolLoader_Store
 {
-	const KEY = 'profile_symbols_lookup';
+	public const KEY = 'profile_symbols_lookup';
 	private $data = false;
 
-	function get($name, $filters)
+	public function get($name, $filters)
 	{
 		$this->loadData();
 		$profile = $filters['profile'];
@@ -83,7 +83,7 @@ class Tiki_Profile_SymbolLoader_Store
 		return $this->data[$domain][$profile][$name];
 	}
 
-	function fetch($name, $filters)
+	public function fetch($name, $filters)
 	{
 		$filters = array_filter($filters);
 		$filters['object'] = $name;

@@ -11,7 +11,7 @@ class PaginatedQuerySource extends QuerySource
 {
 	private $resultset;
 
-	function getEntries()
+	public function getEntries()
 	{
 		$result = $this->getResultSet();
 
@@ -20,7 +20,7 @@ class PaginatedQuerySource extends QuerySource
 		}
 	}
 
-	function getResultSet()
+	public function getResultSet()
 	{
 		if (! $this->resultset) {
 			$lib = \TikiLib::lib('unifiedsearch');

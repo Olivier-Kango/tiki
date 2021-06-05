@@ -9,7 +9,7 @@ use Tiki\Lib\core\Tracker\Rule\Type\Nothing;
 
 class CollectionNotEmpty extends Operator
 {
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct(tr('is not empty'), Nothing::class, '.val().length>0', [Collection::class]);
 	}

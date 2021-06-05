@@ -12,10 +12,10 @@ interface SourceInterface
 	/**
 	 * Provides an iterable result
 	 */
-	function getEntries();
+	public function getEntries();
 
 	/**
 	 * @return \Tracker\Tabular\Schema
 	 */
-	function getSchema();
+	public function getSchema();
 }

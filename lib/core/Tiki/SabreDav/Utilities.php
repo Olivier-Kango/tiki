@@ -12,22 +12,26 @@ use Sabre\VObject;
 use TikiLib;
 use TikiMail;
 
-class Utilities {
-  static function checkUploadPermission($galleryDefinition) {
+class Utilities
+{
+  public static function checkUploadPermission($galleryDefinition)
+  {
     $canUpload = TikiLib::lib('filegal')->can_upload_to($galleryDefinition->getInfo());
     if (! $canUpload) {
       throw new DAV\Exception\Forbidden('Permission denied.');
     }
   }
 
-  static function checkCreatePermission($galleryDefinition) {
+  public static function checkCreatePermission($galleryDefinition)
+  {
     $perms = TikiLib::lib('tiki')->get_perm_object('', 'file gallery', $galleryDefinition->getInfo());
     if ($perms['tiki_p_create_file_galleries'] != 'y') {
       throw new DAV\Exception\Forbidden('Permission denied.');
     }
   }
 
-  static function checkDeleteGalleryPermission($galleryDefinition) {
+  public static function checkDeleteGalleryPermission($galleryDefinition)
+  {
     global $user, $prefs;
 
     $info = $galleryDefinition->getInfo();
@@ -40,14 +44,16 @@ class Utilities {
     }
   }
 
-  static function checkDeleteFilePermission($galleryDefinition) {
+  public static function checkDeleteFilePermission($galleryDefinition)
+  {
     $perms = TikiLib::lib('tiki')->get_perm_object('', 'file gallery', $galleryDefinition->getInfo());
     if ($perms['tiki_p_remove_files'] != 'y' && $perms['tiki_p_admin_file_galleries'] != 'y') {
       throw new DAV\Exception\Forbidden('Permission denied.');
     }
   }
 
-  static function parseContents($name, $data) {
+  public static function parseContents($name, $data)
+  {
     if (is_resource($data)) {
       $content = stream_get_contents($data);
     } else {
@@ -68,7 +74,8 @@ class Utilities {
    * @param string $calendarData
    * @return array
    */
-  static function getDenormalizedData($calendarData, $timezone) {
+  public static function getDenormalizedData($calendarData, $timezone)
+  {
     $vObject = VObject\Reader::read($calendarData);
     $componentType = null;
     $component = null;
@@ -112,7 +119,8 @@ class Utilities {
     return $result;
   }
 
-  static function getDenormalizedDataFromComponent($component, $timezone) {
+  public static function getDenormalizedDataFromComponent($component, $timezone)
+  {
     $firstOccurence = null;
     $lastOccurence = null;
     $rec = null;
@@ -286,7 +294,8 @@ class Utilities {
     return $result;
   }
 
-  static function mapEventStatus($event_status) {
+  public static function mapEventStatus($event_status)
+  {
     switch ($event_status) {
       case '0':
         return 'TENTATIVE';
@@ -298,7 +307,8 @@ class Utilities {
     return '';
   }
 
-  static function reverseMapEventStatus($event_status) {
+  public static function reverseMapEventStatus($event_status)
+  {
     switch ($event_status) {
       case 'TENTATIVE':
         return '0';
@@ -310,7 +320,8 @@ class Utilities {
     return '';
   }
 
-  static function mapAttendeeRole($role) {
+  public static function mapAttendeeRole($role)
+  {
     switch ($role) {
       case '0':
         return 'CHAIR';
@@ -324,7 +335,8 @@ class Utilities {
     return '';
   }
 
-  static function reverseMapAttendeeRole($role) {
+  public static function reverseMapAttendeeRole($role)
+  {
     switch ($role) {
       case 'CHAIR':
         return '0';
@@ -349,7 +361,8 @@ class Utilities {
    * future may recur indefinitely long. Thus, current implementation leaves parsing the timezone identifier to the clients as TZID
    * is all we really have in Tiki - the timezone name user is acting in.
    */
-  static function constructCalendarData($row) {
+  public static function constructCalendarData($row)
+  {
     static $calendar_timezones = [];
     if (isset($calendar_timezones[$row['calendarId']])) {
       $timezone = $calendar_timezones[$row['calendarId']];
@@ -443,7 +456,8 @@ class Utilities {
     return $vcalendar;
   }
 
-  static function handleITip($args) {
+  public static function handleITip($args)
+  {
     if (empty($args['process_itip'])) {
       return;
     }

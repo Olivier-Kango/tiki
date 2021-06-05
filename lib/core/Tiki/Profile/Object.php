@@ -13,7 +13,7 @@ class Tiki_Profile_Object
 
 	private $references = null;
 
-	public static function serializeNamedObject($object) // {{{
+	public static function serializeNamedObject($object)
 	{
 		if (strpos($object['domain'], '://') === false) {
 			if (is_dir($object['domain'])) {
@@ -23,9 +23,9 @@ class Tiki_Profile_Object
 			}
 		}
 		return sprintf("%s#%s", Tiki_Profile::getProfileKeyfor($object['domain'], $object['profile']), $object['object']);
-	} // }}}
+	}
 
-	public static function getNamedObjects() // {{{
+	public static function getNamedObjects()
 	{
 		global $tikilib;
 
@@ -37,15 +37,15 @@ class Tiki_Profile_Object
 		}
 
 		return $objects;
-	} // }}}
+	}
 
-	function __construct(&$data, Tiki_Profile $profile) // {{{
+	public function __construct(&$data, Tiki_Profile $profile)
 	{
 		$this->data = &$data;
 		$this->profile = $profile;
-	} // }}}
+	}
 
-	function getDescription() // {{{
+	public function getDescription()
 	{
 		$str = '';
 		if ($this->isWellStructured()) {
@@ -56,32 +56,32 @@ class Tiki_Profile_Object
 			$str .= tra('Bad object');
 		}
 		return $str;
-	} // }}}
+	}
 
-	function isWellStructured() // {{{
+	public function isWellStructured()
 	{
 		$is = isset($this->data['type'], $this->data['data']);
 		return $is;
-	} // }}}
+	}
 
-	function getType() // {{{
+	public function getType()
 	{
 		return $this->data['type'];
-	} // }}}
+	}
 
-	function getRef() // {{{
+	public function getRef()
 	{
 		if (isset($this->data['ref'])) {
 			return trim($this->data['ref']);
 		}
-	} // }}}
+	}
 
-	function getValue() // {{{
+	public function getValue()
 	{
 		return $this->id;
-	} // }}}
+	}
 
-	function setValue($value) // {{{
+	public function setValue($value)
 	{
 		$this->id = $value;
 
@@ -92,9 +92,9 @@ class Tiki_Profile_Object
 		}
 
 		$this->profile->setSymbol($this->getType(), $name, $this->id, $named);
-	} // }}}
+	}
 
-	function getInternalReferences() // {{{
+	public function getInternalReferences()
 	{
 		if (! is_null($this->references)) {
 			return $this->references;
@@ -102,23 +102,23 @@ class Tiki_Profile_Object
 
 		$this->references = $this->traverseForReferences($this->data);
 		return $this->references;
-	} // }}}
+	}
 
-	function getData() // {{{
+	public function getData()
 	{
 		if (array_key_exists('data', $this->data)) {
 			return $this->data['data'];
 		}
 
 		return [];
-	} // }}}
+	}
 
-	public function replaceReferences(&$data, $suppliedUserData = false) // {{{
+	public function replaceReferences(&$data, $suppliedUserData = false)
 	{
 		$this->profile->replaceReferences($data, $suppliedUserData);
-	} // }}}
+	}
 
-	private function traverseForReferences($value) // {{{
+	private function traverseForReferences($value)
 	{
 		$array = [];
 		if (is_array($value)) {
@@ -142,17 +142,17 @@ class Tiki_Profile_Object
 		}
 
 			return $array;
-	} // }}}
+	}
 
-	function getProfile() // {{{
+	public function getProfile()
 	{
 		return $this->profile;
-	} // }}}
+	}
 
-	function __get($name) // {{{
+	public function __get($name)
 	{
 		if (array_key_exists($name, $this->data['data'])) {
 			return $this->data['data'][$name];
 		}
-	} // }}}
+	}
 }

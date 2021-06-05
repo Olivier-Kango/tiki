@@ -17,7 +17,7 @@ class Collection
 	private $collections = [];
 	private $resultset;
 
-	function __construct(\Tracker_Definition $definition)
+	public function __construct(\Tracker_Definition $definition)
 	{
 		$this->definition = $definition;
 	}
@@ -50,14 +50,14 @@ class Collection
 		}
 	}
 
-	function addNew($permName, $mode)
+	public function addNew($permName, $mode)
 	{
 		$column = new Filter($permName, $mode);
 		$this->filters[] = $column;
 		return $column;
 	}
 
-	function addCloned($permName, self $collection)
+	public function addCloned($permName, self $collection)
 	{
 		foreach ($collection->filters as $filter) {
 			$this->addNew($permName, $filter->getMode())
@@ -65,26 +65,26 @@ class Collection
 		}
 	}
 
-	function getFilters()
+	public function getFilters()
 	{
 		return $this->filters;
 	}
 
-	function applyConditions(\Search_Query $query)
+	public function applyConditions(\Search_Query $query)
 	{
 		foreach ($this->filters as $filter) {
 			$filter->applyCondition($query);
 		}
 	}
 
-	function applyInput(\JitFilter $input)
+	public function applyInput(\JitFilter $input)
 	{
 		foreach ($this->filters as $filter) {
 			$filter->applyInput($input);
 		}
 	}
 
-	function loadFilterDescriptor($descriptor)
+	public function loadFilterDescriptor($descriptor)
 	{
 		foreach ($descriptor as $filter) {
 			$fil = $this->addFilter($filter['field'], $filter['mode']);
@@ -99,7 +99,7 @@ class Collection
 		}
 	}
 
-	function addFilter($permName, $mode = null)
+	public function addFilter($permName, $mode = null)
 	{
 		if (isset($this->collections[$permName])) {
 			$partial = $this->collections[$permName];
@@ -125,7 +125,7 @@ class Collection
 		throw new Exception\ModeNotSupported($permName, $mode);
 	}
 
-	function getFieldCollection($permName)
+	public function getFieldCollection($permName)
 	{
 		if ($partial = $this->getSystemCollection($permName)) {
 			return $partial;
@@ -304,7 +304,7 @@ class Collection
 		}
 	}
 
-	function getFilterDescriptor()
+	public function getFilterDescriptor()
 	{
 		return array_map(function ($filter) {
 			return [
@@ -316,7 +316,7 @@ class Collection
 		}, $this->filters);
 	}
 
-	function getQueryArguments()
+	public function getQueryArguments()
 	{
 		$parts = [];
 		foreach ($this->filters as $filter) {
@@ -326,7 +326,7 @@ class Collection
 		return $parts;
 	}
 
-	function getAvailableFields()
+	public function getAvailableFields()
 	{
 		$fields = [
 			'itemId' => tr('Item ID'),
@@ -345,7 +345,7 @@ class Collection
 		return $fields;
 	}
 
-	function setResultSet(\Search_ResultSet $resultset)
+	public function setResultSet(\Search_ResultSet $resultset)
 	{
 		$this->resultset = $resultset;
 	}

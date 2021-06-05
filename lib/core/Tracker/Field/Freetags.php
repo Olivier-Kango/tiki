@@ -57,7 +57,7 @@ class Tracker_Field_Freetags extends Tracker_Field_Abstract implements Tracker_F
 		];
 	}
 
-	function getFieldData(array $requestData = [])
+	public function getFieldData(array $requestData = [])
 	{
 		$data = [];
 
@@ -95,7 +95,7 @@ class Tracker_Field_Freetags extends Tracker_Field_Abstract implements Tracker_F
 		return $data;
 	}
 
-	function addValue($value) {
+	public function addValue($value) {
 		$freetaglib = TikiLib::lib('freetag');
 		$tags = $freetaglib->_parse_tag($this->getValue());
 		if (! in_array($value, $tags)) {
@@ -106,7 +106,7 @@ class Tracker_Field_Freetags extends Tracker_Field_Abstract implements Tracker_F
 		}, $tags));
 	}
 
-	function removeValue($value) {
+	public function removeValue($value) {
 		$freetaglib = TikiLib::lib('freetag');
 		$tags = $freetaglib->_parse_tag($this->getValue());
 		$tags = array_filter($tags, function($t) use ($value) {
@@ -117,32 +117,32 @@ class Tracker_Field_Freetags extends Tracker_Field_Abstract implements Tracker_F
 		}, $tags));
 	}
 
-	function renderInput($context = [])
+	public function renderInput($context = [])
 	{
 		return $this->renderTemplate('trackerinput/freetags.tpl', $context);
 	}
 
-	function renderOutput($context = [])
+	public function renderOutput($context = [])
 	{
 		return $this->renderTemplate('trackeroutput/freetags.tpl', $context);
 	}
 
-	function importRemote($value)
+	public function importRemote($value)
 	{
 		return $value;
 	}
 
-	function exportRemote($value)
+	public function exportRemote($value)
 	{
 		return $value;
 	}
 
-	function importRemoteField(array $info, array $syncInfo)
+	public function importRemoteField(array $info, array $syncInfo)
 	{
 		return $info;
 	}
 
-	function getTabularSchema()
+	public function getTabularSchema()
 	{
 		$schema = new Tracker\Tabular\Schema($this->getTrackerDefinition());
 
@@ -161,7 +161,7 @@ class Tracker_Field_Freetags extends Tracker_Field_Abstract implements Tracker_F
 		return $schema;
 	}
 
-	function getFilterCollection()
+	public function getFilterCollection()
 	{
 		$filters = new Tracker\Filter\Collection($this->getTrackerDefinition());
 		$permName = $this->getConfiguration('permName');

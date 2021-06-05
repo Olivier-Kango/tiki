@@ -22,14 +22,14 @@ class TikiDb_Adodb_Result
 	 * @param $result
 	 * @param $rowCount
 	 */
-	function __construct($result, $rowCount)
+	public function __construct($result, $rowCount)
 	{
 		$this->result = &$result;
 		$this->numrows = is_numeric($rowCount) ? $rowCount : $this->result->RowCount();
 	}
 
 	/** @return array|int|false */
-	function fetchRow()
+	public function fetchRow()
 	{
 		if (is_object($this->result)) {
 			return $this->result->fetchRow();
@@ -41,7 +41,7 @@ class TikiDb_Adodb_Result
 	}
 
 	/** @return int */
-	function numRows()
+	public function numRows()
 	{
 		return (int) $this->numrows;
 	}
@@ -57,7 +57,7 @@ class TikiDb_Adodb extends TikiDb
 	/** @var int */
 	private $rowCount;
 
-	function __construct($db) // {{{
+	public function __construct($db)
 	{
 		if (! $db) {
 			die("Invalid db object passed to TikiDB constructor");
@@ -65,21 +65,21 @@ class TikiDb_Adodb extends TikiDb
 
 		$this->db = $db;
 		$this->db->SetFetchMode(ADODB_FETCH_ASSOC);
-	} // }}}
+	}
 
-	function __destruct() // {{{
+	public function __destruct()
 	{
 		if ($this->db) {
 			$this->db->Close();
 		}
-	} // }}}
+	}
 
-	function qstr($str) // {{{
+	public function qstr($str)
 	{
 		return $this->db->quote($str);
-	} // }}}
+	}
 
-	function query($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = parent::ERR_DIRECT) // {{{
+	public function query($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = parent::ERR_DIRECT)
 	{
 		global $num_queries;
 		$num_queries++;
@@ -116,5 +116,5 @@ class TikiDb_Adodb extends TikiDb
 		$this->setQuery(null);
 
 		return new TikiDb_Adodb_Result($result, $this->rowCount);
-	} // }}}
+	}
 }

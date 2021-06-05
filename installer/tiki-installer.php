@@ -109,7 +109,7 @@ class InstallerDatabaseErrorHandler implements TikiDb_ErrorHandler
 	 * @param $values
 	 * @param $result
 	 */
-	function handle(TikiDb $db, $query, $values, $result)
+	public function handle(TikiDb $db, $query, $values, $result)
 	{
 	}
 }
@@ -1214,8 +1214,10 @@ if ($install_step == '2') {
 		// The 'G' modifier is available since PHP 5.1.0
 		case 'g':
 			$memory_limit *= 1024;
+		// The 'm' modifier
 		case 'm':
 			$memory_limit *= 1024;
+		// The 'k' modifier
 		case 'k':
 			$memory_limit *= 1024;
 	}

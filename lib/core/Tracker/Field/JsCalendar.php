@@ -66,7 +66,7 @@ class Tracker_Field_JsCalendar extends Tracker_Field_DateTime
 		return $definition;
 	}
 
-	function getFieldData(array $requestData = [])
+	public function getFieldData(array $requestData = [])
 	{
 		global $prefs;
 		if ($prefs['feature_jquery_ui'] !== 'y') {	// fall back to simple date field
@@ -98,7 +98,7 @@ class Tracker_Field_JsCalendar extends Tracker_Field_DateTime
 		];
 	}
 
-	function renderInput($context = [])
+	public function renderInput($context = [])
 	{
 		global $prefs;
 		if ($prefs['feature_jquery_ui'] !== 'y') {	// fall back to simple date field
@@ -134,7 +134,7 @@ class Tracker_Field_JsCalendar extends Tracker_Field_DateTime
 		return smarty_function_jscalendar($params, $smarty->getEmptyInternalTemplate());
 	}
 
-	function isValid($ins_fields_data)
+	public function isValid($ins_fields_data)
 	{
 		if ($notBefore = $this->getOption('notBefore')) {
 			$notBeforeTimestamp = $ins_fields_data[$notBefore]['value'];

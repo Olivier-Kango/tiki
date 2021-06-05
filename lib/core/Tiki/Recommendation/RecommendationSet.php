@@ -13,12 +13,12 @@ class RecommendationSet implements \Countable, \Iterator
 	private $recommendations = [];
 	private $debug = [];
 
-	function __construct($engineName)
+	public function __construct($engineName)
 	{
 		$this->engine = $engineName;
 	}
 
-	function add(EngineOutput $recommendation)
+	public function add(EngineOutput $recommendation)
 	{
 		if ($recommendation instanceof Recommendation) {
 			$this->recommendations[] = $recommendation;
@@ -27,47 +27,47 @@ class RecommendationSet implements \Countable, \Iterator
 		}
 	}
 
-	function addDebug($info)
+	public function addDebug($info)
 	{
 		$this->debug[] = $info;
 	}
 
-	function getEngine()
+	public function getEngine()
 	{
 		return $this->engine;
 	}
 
-	function getDebug()
+	public function getDebug()
 	{
 		return new \ArrayIterator($this->debug);
 	}
 
-	function count()
+	public function count()
 	{
 		return count($this->recommendations);
 	}
 
-	function current()
+	public function current()
 	{
 		return current($this->recommendations);
 	}
 
-	function next()
+	public function next()
 	{
 		next($this->recommendations);
 	}
 
-	function key()
+	public function key()
 	{
 		return key($this->recommendations);
 	}
 
-	function valid()
+	public function valid()
 	{
 		return current($this->recommendations) !== false;
 	}
 
-	function rewind()
+	public function rewind()
 	{
 		reset($this->recommendations);
 	}

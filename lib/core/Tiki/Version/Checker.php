@@ -10,17 +10,17 @@ class Tiki_Version_Checker
 	private $cycle;
 	private $version;
 
-	function setCycle($cycle)
+	public function setCycle($cycle)
 	{
 		$this->cycle = $cycle;
 	}
 
-	function setVersion($version)
+	public function setVersion($version)
 	{
 		$this->version = Tiki_Version_Version::get($version);
 	}
 
-	function check($callback)
+	public function check($callback)
 	{
 		$upgrades = [];
 		$branchupdate = null;

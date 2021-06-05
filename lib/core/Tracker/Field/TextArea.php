@@ -103,7 +103,7 @@ class Tracker_Field_TextArea extends Tracker_Field_Text
 		];
 	}
 
-	function postSaveHook($value)
+	public function postSaveHook($value)
 	{
 		$itemId = (int)$this->getItemId();
 		$fieldId = (int)$this->getFieldId();
@@ -113,7 +113,7 @@ class Tracker_Field_TextArea extends Tracker_Field_Text
 		$wikilib->update_wikicontent_links($value, 'trackeritemfield', sprintf("%d:%d", $itemId, $fieldId));
 	}
 
-	function getFieldData(array $requestData = [])
+	public function getFieldData(array $requestData = [])
 	{
 		$ins_id = $this->getInsertId();
 		$data = $this->processMultilingual($requestData, $ins_id);
@@ -153,7 +153,7 @@ class Tracker_Field_TextArea extends Tracker_Field_Text
 		return $data;
 	}
 
-	function renderInput($context = [])
+	public function renderInput($context = [])
 	{
 		static $firstTime = true;
 
@@ -182,7 +182,7 @@ class Tracker_Field_TextArea extends Tracker_Field_Text
 		return $this->renderTemplate('trackerinput/textarea.tpl', $context, $data) . $is_html;
 	}
 
-	function renderInnerOutput($context = [])
+	public function renderInnerOutput($context = [])
 	{
 		$output = parent::renderInnerOutput($context);
 
@@ -194,7 +194,7 @@ class Tracker_Field_TextArea extends Tracker_Field_Text
 		}
 	}
 
-	function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
+	public function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
 	{
 		$value = $this->getValue();
 		$fieldType = $this->getIndexableType();
@@ -229,7 +229,7 @@ class Tracker_Field_TextArea extends Tracker_Field_Text
 		}
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		global $prefs;
 		$baseKey = $this->getBaseKey();
@@ -246,7 +246,7 @@ class Tracker_Field_TextArea extends Tracker_Field_Text
 		return $data;
 	}
 
-	function getGlobalFields()
+	public function getGlobalFields()
 	{
 		global $prefs;
 		$baseKey = $this->getBaseKey();
@@ -262,7 +262,7 @@ class Tracker_Field_TextArea extends Tracker_Field_Text
 		return $data;
 	}
 
-	function getTabularSchema()
+	public function getTabularSchema()
 	{
 		global $prefs;
 		$schema = new Tracker\Tabular\Schema($this->getTrackerDefinition());

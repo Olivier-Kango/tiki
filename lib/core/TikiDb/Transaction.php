@@ -14,12 +14,12 @@ class TikiDb_Transaction
 {
 	private $token;
 
-	function __construct()
+	public function __construct()
 	{
 		$this->token = TikiLib::lib('unifiedsearch')->startBatch();
 	}
 
-	function commit()
+	public function commit()
 	{
 		$done = TikiLib::lib('unifiedsearch')->endBatch($this->token);
 

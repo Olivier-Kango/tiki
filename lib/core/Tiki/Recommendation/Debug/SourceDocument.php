@@ -15,14 +15,14 @@ class SourceDocument implements EngineOutput
 	private $object;
 	private $title;
 
-	function __construct($type, $object, $title = null)
+	public function __construct($type, $object, $title = null)
 	{
 		$this->type = $type;
 		$this->object = $object;
 		$this->title = $title;
 	}
 
-	function __toString()
+	public function __toString()
 	{
 		return tr('Source: %0:%1 (%2)', $this->type, $this->object, $this->title ?: tr('Unknown'));
 	}

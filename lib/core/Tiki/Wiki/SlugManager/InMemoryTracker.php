@@ -11,12 +11,12 @@ class InMemoryTracker
 {
 	private $slugs = [];
 
-	function add($slug)
+	public function add($slug)
 	{
 		$this->slugs[$slug] = true;
 	}
 
-	function __invoke($slug)
+	public function __invoke($slug)
 	{
 		return isset($this->slugs[$slug]);
 	}

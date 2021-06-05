@@ -29,7 +29,7 @@ abstract class TikiDb
 	/**
 	 * @return TikiDb
 	 */
-	public static function get() // {{{
+	public static function get()
 	{
 		if (empty(self::$instance) && (! defined('DB_TIKI_SETUP') || DB_TIKI_SETUP) && ! defined('TIKI_IN_INSTALLER')) {
 			// if we are in the console and database setup has completed then this error needs to be ignored.
@@ -49,28 +49,28 @@ abstract class TikiDb
 		}
 
 		return self::$instance;
-	} // }}}
+	}
 
-	public static function set(TikiDb $instance) // {{{
+	public static function set(TikiDb $instance)
 	{
 		return self::$instance = $instance;
-	} // }}}
+	}
 
-	function startTimer() // {{{
+	public function startTimer()
 	{
 		list($micro, $sec) = explode(' ', microtime());
 		return $micro + $sec;
-	} // }}}
+	}
 
-	function stopTimer($starttime) // {{{
+	public function stopTimer($starttime)
 	{
 		global $elapsed_in_db;
 		list($micro, $sec) = explode(' ', microtime());
 		$now = $micro + $sec;
 		$elapsed_in_db += $now - $starttime;
-	} // }}}
+	}
 
-	abstract function qstr($str);
+	abstract public function qstr($str);
 
 	/**
 	 * @param null $query
@@ -80,28 +80,28 @@ abstract class TikiDb
 	 * @param bool $reporterrors
 	 * @return TikiDb_Pdo_Result
 	 */
-	abstract function query($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = self::ERR_DIRECT);
+	abstract public function query($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = self::ERR_DIRECT);
 
-	function lastInsertId() // {{{
+	public function lastInsertId()
 	{
 		return $this->getOne('SELECT LAST_INSERT_ID()');
-	} // }}}
+	}
 
-	function queryError($query, &$error, $values = null, $numrows = -1, $offset = -1) // {{{
+	public function queryError($query, &$error, $values = null, $numrows = -1, $offset = -1)
 	{
 		$this->errorMessage = '';
 		$result = $this->query($query, $values, $numrows, $offset, self::ERR_NONE);
 		$error = $this->errorMessage;
 
 		return $result;
-	} // }}}
+	}
 
-	function queryException($query, $values = null, $numrows = -1, $offset = -1) // {{{
+	public function queryException($query, $values = null, $numrows = -1, $offset = -1)
 	{
 		return $this->query($query, $values, $numrows, $offset, self::ERR_EXCEPTION);
-	} // }}}
+	}
 
-	function getOne($query, $values = null, $reporterrors = self::ERR_DIRECT, $offset = 0) // {{{
+	public function getOne($query, $values = null, $reporterrors = self::ERR_DIRECT, $offset = 0)
 	{
 		$result = $this->query($query, $values, 1, $offset, $reporterrors);
 
@@ -116,9 +116,9 @@ abstract class TikiDb
 		}
 
 		return false;
-	} // }}}
+	}
 
-	function fetchAll($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = self::ERR_DIRECT) // {{{
+	public function fetchAll($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = self::ERR_DIRECT)
 	{
 		$result = $this->query($query, $values, $numrows, $offset, $reporterrors);
 
@@ -130,9 +130,9 @@ abstract class TikiDb
 			}
 		}
 		return $rows;
-	} // }}}
+	}
 
-	function fetchMap($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = self::ERR_DIRECT) // {{{
+	public function fetchMap($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = self::ERR_DIRECT)
 	{
 		$result = $this->fetchAll($query, $values, $numrows, $offset, $reporterrors);
 
@@ -146,44 +146,44 @@ abstract class TikiDb
 		}
 
 		return $map;
-	} // }}}
+	}
 
-	function setErrorHandler(TikiDb_ErrorHandler $handler) // {{{
+	public function setErrorHandler(TikiDb_ErrorHandler $handler)
 	{
 		$this->errorHandler = $handler;
-	} // }}}
+	}
 
-	function setTablePrefix($prefix) // {{{
+	public function setTablePrefix($prefix)
 	{
 		$this->tablePrefix = $prefix;
-	} // }}}
+	}
 
-	function setUsersTablePrefix($prefix) // {{{
+	public function setUsersTablePrefix($prefix)
 	{
 		$this->usersTablePrefix = $prefix;
-	} // }}}
+	}
 
-	function getServerType() // {{{
+	public function getServerType()
 	{
 		return $this->serverType;
-	} // }}}
+	}
 
-	function setServerType($type) // {{{
+	public function setServerType($type)
 	{
 		$this->serverType = $type;
-	} // }}}
+	}
 
-	function getErrorMessage() // {{{
+	public function getErrorMessage()
 	{
 		return $this->errorMessage;
-	} // }}}
+	}
 
-	protected function setErrorMessage($message) // {{{
+	protected function setErrorMessage($message)
 	{
 		$this->errorMessage = $message;
-	} // }}}
+	}
 
-	protected function handleQueryError($query, $values, $result, $mode) // {{{
+	protected function handleQueryError($query, $values, $result, $mode)
 	{
 		if ($mode === self::ERR_NONE) {
 			return null;
@@ -192,9 +192,9 @@ abstract class TikiDb
 		} elseif ($mode === self::ERR_EXCEPTION || ! $this->errorHandler) {
 			TikiDb_Exception::classify($this->errorMessage);
 		}
-	} // }}}
+	}
 
-	protected function convertQueryTablePrefixes(&$query) // {{{
+	protected function convertQueryTablePrefixes(&$query)
 	{
 		$db_table_prefix = $this->tablePrefix;
 		$common_users_table_prefix = $this->usersTablePrefix;
@@ -210,9 +210,9 @@ abstract class TikiDb
 			$query = str_replace("`messu_", "`" . $db_table_prefix . "messu_", $query);
 			$query = str_replace("`sessions", "`" . $db_table_prefix . "sessions", $query);
 		}
-	} // }}}
+	}
 
-	function convertSortMode($sort_mode, $fields = null) // {{{
+	public function convertSortMode($sort_mode, $fields = null)
 	{
 		if (! $sort_mode) {
 			return '1';
@@ -262,24 +262,24 @@ abstract class TikiDb
 
 		$sort_mode = implode(',', $sorts);
 		return $sort_mode;
-	} // }}}
+	}
 
-	function getQuery() // {{{
+	public function getQuery()
 	{
 		return $this->savedQuery;
-	} // }}}
+	}
 
-	function setQuery($sql) // {{{
+	public function setQuery($sql)
 	{
 		$this->savedQuery = $sql;
-	} // }}}
+	}
 
-	function ifNull($field, $ifNull) // {{{
+	public function ifNull($field, $ifNull)
 	{
 		return " COALESCE($field, $ifNull) ";
-	} // }}}
+	}
 
-	function in($field, $values, &$bindvars) // {{{
+	public function in($field, $values, &$bindvars)
 	{
 		$parts = explode('.', $field);
 		foreach ($parts as &$part) {
@@ -294,9 +294,9 @@ abstract class TikiDb
 		} else {
 			return " 0 ";
 		}
-	} // }}}
+	}
 
-	function parentObjects(&$objects, $table, $childKey, $parentKey) // {{{
+	public function parentObjects(&$objects, $table, $childKey, $parentKey)
 	{
 		$query = "select `$childKey`, `$parentKey` from `$table` where `$childKey` in (" . implode(',', array_fill(0, count($objects), '?')) . ')';
 		foreach ($objects as $object) {
@@ -309,9 +309,9 @@ abstract class TikiDb
 		foreach ($objects as $i => $object) {
 			$objects[$i][$parentKey] = $ret[$object['itemId']];
 		}
-	} // }}}
+	}
 
-	function concat() // {{{
+	public function concat()
 	{
 		$arr = func_get_args();
 
@@ -322,23 +322,23 @@ abstract class TikiDb
 		} else {
 			return '';
 		}
-	} // }}}
+	}
 
-	function table($tableName, $autoIncrement = true) // {{{
+	public function table($tableName, $autoIncrement = true)
 	{
 		return new TikiDb_Table($this, $tableName, $autoIncrement);
-	} // }}}
+	}
 
-	function begin() // {{{
+	public function begin()
 	{
-		return new TikiDb_Transaction;
-	} // }}}
+		return new TikiDb_Transaction();
+	}
 
 	/**
 	* Get a list of installed engines in the MySQL instance
 	* $return array of engine names
 	*/
-	function getEngines()
+	public function getEngines()
 	{
 		static $engines = [];
 		if (empty($engines)) {
@@ -356,7 +356,7 @@ abstract class TikiDb
 	 * Check if InnoDB is an avaible engine
 	 * @return true if the InnoDB engine is available
 	 */
-	function hasInnoDB()
+	public function hasInnoDB()
 	{
 		$engines = $this->getEngines();
 		foreach ($engines as $engine) {
@@ -372,7 +372,7 @@ abstract class TikiDb
 	 * Assumes that all tables use the same table engine
 	 * @return string identifying the current engine, or an empty string if not installed
 	 */
-	function getCurrentEngine()
+	public function getCurrentEngine()
 	{
 		static $engine = '';
 		if (empty($engine)) {
@@ -393,7 +393,7 @@ abstract class TikiDb
 	 * 2) engine = InnoDB and MySQL version >= 5.6
 	 * @return true if it is supported, otherwise false
 	 */
-	function isMySQLFulltextSearchSupported()
+	public function isMySQLFulltextSearchSupported()
 	{
 		$currentEngine = $this->getCurrentEngine();
 		if (strcasecmp($currentEngine, "MyISAM") == 0) {
@@ -414,7 +414,7 @@ abstract class TikiDb
 	 * Read the MySQL version string.
 	 * @return version string
 	 */
-	function getMySQLVersion()
+	public function getMySQLVersion()
 	{
 		static $version = '';
 		if (empty($version)) {
@@ -430,7 +430,7 @@ abstract class TikiDb
 	 * Read the MySQL version number, e.g. 5.5
 	 * @return version float
 	 */
-	function getMySQLVersionNr()
+	public function getMySQLVersionNr()
 	{
 		$versionNr = 0.0;
 		$version = $this->getMySQLVersion();
@@ -438,7 +438,7 @@ abstract class TikiDb
 		return $versionNr;
 	}
 
-	function listTables()
+	public function listTables()
 	{
 		$result = $this->fetchAll("show tables");
 		$list = [];
@@ -457,7 +457,7 @@ abstract class TikiDb
 	*	Check if MySQL is using an SSL connection
 	*	@return true if MySQL uses SSL. Otherwise false;
 	*/
-	function isMySQLConnSSL()
+	public function isMySQLConnSSL()
 	{
 		if (! $this->haveMySQLSSL()) {
 			return false;
@@ -472,7 +472,7 @@ abstract class TikiDb
 	*	Check if the MySQL installation has SSL activated
 	*	@return true is SSL is supported and activated on the current MySQL server
 	*/
-	function haveMySQLSSL()
+	public function haveMySQLSSL()
 	{
 		static $haveMySQLSSL = null;
 
@@ -503,7 +503,7 @@ abstract class TikiDb
 	 * @param int $timeout
 	 * @return bool if lock was created
 	 */
-	function getLock($str, $timeout = 1)
+	public function getLock($str, $timeout = 1)
 	{
 		if ($this->isLocked($str)) {
 			return false;
@@ -517,7 +517,7 @@ abstract class TikiDb
 	 * @param $str
 	 * @return bool
 	 */
-	function releaseLock($str)
+	public function releaseLock($str)
 	{
 		$result = $this->getOne("SELECT RELEASE_LOCK(?) as isReleased", [$str]);
 		return (bool)((int)$result);
@@ -528,7 +528,7 @@ abstract class TikiDb
 	 * @param $str
 	 * @return bool
 	 */
-	function isLocked($str)
+	public function isLocked($str)
 	{
 		$result = $this->getOne("SELECT IS_USED_LOCK(?) as isLocked", [$str]);
 		return (bool)((int)$result);

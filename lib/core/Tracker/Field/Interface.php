@@ -21,7 +21,7 @@ interface Tracker_Field_Interface
 	 * @param array something like $_REQUEST
 	 * @return
 	 */
-	function getFieldData(array $requestData = []);
+	public function getFieldData(array $requestData = []);
 
 	/**
 	 * return the html of the input form for a field
@@ -29,7 +29,7 @@ interface Tracker_Field_Interface
 	 * @param
 	 * @return string html
 	*/
-	function renderInput($context = []);
+	public function renderInput($context = []);
 
 	/**
 	 * return the html for the output of a field
@@ -38,12 +38,12 @@ interface Tracker_Field_Interface
 	 * @param
 	 * @return string html
 	*/
-	function renderOutput($context = []);
+	public function renderOutput($context = []);
 
 	/**
 	 * Generate the plain text comparison to include in the watch email.
 	 */
-	function watchCompare($old, $new);
+	public function watchCompare($old, $new);
 
 	//function handleSave($value, $oldValue);
 
@@ -52,10 +52,10 @@ interface Tracker_Field_Interface
 	/**
 	 * Augmentable fields allow adding a value to the set of pre-existing values.
 	 */
-	function addValue($value);
+	public function addValue($value);
 
 	/**
 	 * Augmentable fields allow removing a value from the set of pre-existing values.
 	 */
-	function removeValue($value);
+	public function removeValue($value);
 }

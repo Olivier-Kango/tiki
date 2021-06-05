@@ -9,11 +9,11 @@ namespace Tiki\SabreDav\AddressBookType;
 
 interface AddressBookTypeInterface
 {
-  function isEnabled();
-  function isReadOnly();
-	function getAddressBooks();
-  function getCards($uris);
-  function createCard($cardUri, $cardData);
-  function updateCard($cardUri, $cardData);
-  function deleteCard($cardUri);
+  public function isEnabled();
+  public function isReadOnly();
+  public function getAddressBooks();
+  public function getCards($uris);
+  public function createCard($cardUri, $cardData);
+  public function updateCard($cardUri, $cardData);
+  public function deleteCard($cardUri);
 }

@@ -25,7 +25,7 @@ class FileDraft extends File
     "lockedby" => "",
   ];
 
-  function __construct($params = [])
+  public function __construct($params = [])
   {
     global $mimetypes;
     include_once(__DIR__ . '/../../../mime/mimetypes.php');
@@ -36,19 +36,21 @@ class FileDraft extends File
     $this->init($params);
   }
 
-  static function fromFile($file) {
+  public static function fromFile($file)
+  {
     $draft = new FileDraft;
     $draft->setParams(array_intersect_key($file->getParams(), $draft->getParams()));
     return $draft;
   }
 
-  static function fromFileDraft($params) {
+  public static function fromFileDraft($params)
+  {
     $draft = new FileDraft;
     $draft->setParams($params);
     return $draft;
   }
 
-  static function id($id = 0)
+  public static function id($id = 0)
   {
     $file = File::id($id);
     $params = TikiLib::lib("filegal")->get_file_draft((int)$id);
@@ -59,17 +61,20 @@ class FileDraft extends File
     }
   }
 
-  function setParams($params) {
+  public function setParams($params)
+  {
     $this->param = $params;
   }
 
-  function init($params) {
+  public function init($params)
+  {
     foreach ($params as $key => $val) {
       $this->setParam($key, $val);
     }
   }
 
-  function galleryDefinition() {
+  public function galleryDefinition()
+  {
     $filegallib = TikiLib::lib('filegal');
     $file = $filegallib->get_file($this->fileId);
     return $filegallib->getGalleryDefinition($file['galleryId']);

@@ -49,7 +49,7 @@ class Tracker_Field_UserGroups extends Tracker_Field_Abstract implements Tracker
 		];
 	}
 
-	function getFieldData(array $requestData = [])
+	public function getFieldData(array $requestData = [])
 	{
 		$itemId = $this->getItemId();
 
@@ -96,17 +96,17 @@ class Tracker_Field_UserGroups extends Tracker_Field_Abstract implements Tracker
 		];
 	}
 
-	function renderInput($context = [])
+	public function renderInput($context = [])
 	{
 		return $this->renderOutput($context);
 	}
 
-	function renderOutput($context = [])
+	public function renderOutput($context = [])
 	{
 		return $this->renderTemplate('trackeroutput/usergroups.tpl', $context);
 	}
 
-	function renderDiff($context = [])
+	public function renderDiff($context = [])
 	{
 		if (isset($context['oldValue'])) {
 			$context['renderedOldValue'] = $context['oldValue'];
@@ -120,7 +120,7 @@ class Tracker_Field_UserGroups extends Tracker_Field_Abstract implements Tracker
 		return '';
 	}
 
-	function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
+	public function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
 	{
 		$baseKey = $this->getBaseKey();
 		$data = $this->getFieldData();
@@ -132,19 +132,19 @@ class Tracker_Field_UserGroups extends Tracker_Field_Abstract implements Tracker
 		];
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		$baseKey = $this->getBaseKey();
 		return [$baseKey];
 	}
 
-	function getGlobalFields()
+	public function getGlobalFields()
 	{
 		$baseKey = $this->getBaseKey();
 		return [$baseKey => true];
 	}
 
-	function getFilterCollection()
+	public function getFilterCollection()
 	{
 		$userlib = TikiLib::lib('user');
 		$groups = $userlib->list_all_groups_with_permission();

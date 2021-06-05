@@ -25,7 +25,7 @@ class Tiki_Profile_InstallHandler_WikiPage extends Tiki_Profile_InstallHandler
 	private $mode = 'create_or_update';
 	private $exists;
 
-	function fetchData()
+	public function fetchData()
 	{
 		if ($this->name) {
 			return;
@@ -85,7 +85,7 @@ class Tiki_Profile_InstallHandler_WikiPage extends Tiki_Profile_InstallHandler
 		}
 	}
 
-	function canInstall()
+	public function canInstall()
 	{
 		$this->fetchData();
 		if (empty($this->name)) {
@@ -128,7 +128,7 @@ class Tiki_Profile_InstallHandler_WikiPage extends Tiki_Profile_InstallHandler
 		return $this->mode;
 	}
 
-	function _install()
+	public function _install()
 	{
 		global $prefs;
 
@@ -400,7 +400,7 @@ class Tiki_Profile_InstallHandler_WikiPage extends Tiki_Profile_InstallHandler
 	 * @param string $pageName
 	 * @return bool
 	 */
-	function remove($pageName)
+	public function remove($pageName)
 	{
 		if (! empty($pageName)) {
 			$tikilib = \TikiLib::lib('tiki');

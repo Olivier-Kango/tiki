@@ -11,12 +11,12 @@ class Comparator
 {
 	private $engines;
 
-	function __construct(EngineSet $engines)
+	public function __construct(EngineSet $engines)
 	{
 		$this->engines = $engines;
 	}
 
-	function generate($input)
+	public function generate($input)
 	{
 		$out = [];
 

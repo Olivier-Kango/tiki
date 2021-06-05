@@ -15,12 +15,12 @@ class SubjectPrefixFactory implements FactoryInterface
 {
 	private $config;
 
-	function __construct($config)
+	public function __construct($config)
 	{
 		$this->config = $config;
 	}
 
-	function createAction(Account $account, Message $message)
+	public function createAction(Account $account, Message $message)
 	{
 		$subject = $message->getSubject();
 

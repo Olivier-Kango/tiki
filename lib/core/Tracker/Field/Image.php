@@ -85,14 +85,14 @@ class Tracker_Field_Image extends Tracker_Field_File
 		];
 	}
 
-	function __construct($fieldInfo, $itemData, $trackerDefinition)
+	public function __construct($fieldInfo, $itemData, $trackerDefinition)
 	{
 		parent::__construct($fieldInfo, $itemData, $trackerDefinition);
 		$this->imgMimeTypes = ['image/jpeg', 'image/gif', 'image/png', 'image/pjpeg', 'image/bmp'];
 		$this->imgMaxSize = (1048576 * 4); // 4Mo
 	}
 
-	function getFieldData(array $requestData = [])
+	public function getFieldData(array $requestData = [])
 	{
 		global $prefs;
 		$smarty = TikiLib::lib('smarty');
@@ -125,7 +125,7 @@ class Tracker_Field_Image extends Tracker_Field_File
 		}
 	}
 
-	function renderInnerOutput($context = [])
+	public function renderInnerOutput($context = [])
 	{
 		global $prefs;
 		$smarty = TikiLib::lib('smarty');
@@ -191,7 +191,7 @@ class Tracker_Field_Image extends Tracker_Field_File
 		return $ret;
 	}
 
-	function renderInput($context = [])
+	public function renderInput($context = [])
 	{
 		return $this->renderTemplate(
 			'trackerinput/image.tpl',
@@ -202,7 +202,7 @@ class Tracker_Field_Image extends Tracker_Field_File
 		);
 	}
 
-	function handleSave($value, $oldValue)
+	public function handleSave($value, $oldValue)
 	{
 		if (! empty($value)) {
 			$old_file = $oldValue;
@@ -277,7 +277,7 @@ class Tracker_Field_Image extends Tracker_Field_File
 		return [round($image_width * $ratio), round($image_height * $ratio)];
 	}
 
-	function getImageFilename($name, $itemId, $fieldId)
+	public function getImageFilename($name, $itemId, $fieldId)
 	{
 		$ext = pathinfo($name, PATHINFO_EXTENSION);
 		if (! in_array($ext, ['png', 'gif', 'jpg', 'jpeg'])) {
@@ -292,12 +292,12 @@ class Tracker_Field_Image extends Tracker_Field_File
 		return "img/trackers/$name";
 	}
 
-	function isImageType($mimeType)
+	public function isImageType($mimeType)
 	{
 		return in_array($mimeType, $this->imgMimeTypes);
 	}
 
-	function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
+	public function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
 	{
 		$value = $this->getValue();
 		$baseKey = $this->getBaseKey();

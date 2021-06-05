@@ -72,7 +72,7 @@ class Tracker_Field_ShowTikiOrg extends Tracker_Field_Abstract
 		];
 	}
 
-	function getFieldData(array $requestData = [])
+	public function getFieldData(array $requestData = [])
 	{
 		global $user;
 
@@ -199,12 +199,12 @@ class Tracker_Field_ShowTikiOrg extends Tracker_Field_Abstract
 		return $ret;
 	}
 
-	function renderInput($context = [])
+	public function renderInput($context = [])
 	{
 		return $this->renderTemplate('trackerinput/showtikiorg.tpl', $context);
 	}
 
-	function renderOutput($context = [])
+	public function renderOutput($context = [])
 	{
 		return $this->renderTemplate('trackerinput/showtikiorg.tpl', $context);
 	}

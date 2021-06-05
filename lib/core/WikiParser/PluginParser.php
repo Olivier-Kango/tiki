@@ -10,19 +10,19 @@ class WikiParser_PluginParser
 	private $argumentParser;
 	private $pluginRunner;
 
-	function parse($text)
+	public function parse($text)
 	{
 		if (! $this->argumentParser || ! $this->pluginRunner) {
 			return $text;
 		}
 	}
 
-	function setArgumentParser($parser)
+	public function setArgumentParser($parser)
 	{
 		$this->argumentParser = $parser;
 	}
 
-	function setPluginRunner($runner)
+	public function setPluginRunner($runner)
 	{
 		$this->pluginRunner = $runner;
 	}

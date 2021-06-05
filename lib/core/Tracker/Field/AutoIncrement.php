@@ -69,7 +69,7 @@ class Tracker_Field_AutoIncrement extends Tracker_Field_Abstract implements Trac
 		];
 	}
 
-	function getFieldData(array $requestData = [])
+	public function getFieldData(array $requestData = [])
 	{
 		$ins_id = $this->getInsertId();
 		$value = isset($requestData[$ins_id]) ? $requestData[$ins_id] : $this->getValue();
@@ -77,7 +77,7 @@ class Tracker_Field_AutoIncrement extends Tracker_Field_Abstract implements Trac
 		return ['value' => $value];
 	}
 
-	function renderInput($context = [])
+	public function renderInput($context = [])
 	{
 		return $this->renderTemplate('trackerinput/autoincrement.tpl', $context);
 	}
@@ -106,7 +106,7 @@ class Tracker_Field_AutoIncrement extends Tracker_Field_Abstract implements Trac
 		return $value;
 	}
 
-	function handleSave($value, $oldValue)
+	public function handleSave($value, $oldValue)
 	{
 		if ($this->getTrackerDefinition()->getConfiguration('tabularSync') && $value) {
 			// remote source should be able to insert auto-increment values
@@ -129,7 +129,7 @@ class Tracker_Field_AutoIncrement extends Tracker_Field_Abstract implements Trac
 		];
 	}
 
-	function getTabularSchema()
+	public function getTabularSchema()
 	{
 		$schema = new Tracker\Tabular\Schema($this->getTrackerDefinition());
 
@@ -166,7 +166,7 @@ class Tracker_Field_AutoIncrement extends Tracker_Field_Abstract implements Trac
 		return $schema;
 	}
 
-	function getFilterCollection()
+	public function getFilterCollection()
 	{
 		$filters = new Tracker\Filter\Collection($this->getTrackerDefinition());
 		$permName = $this->getConfiguration('permName');
@@ -189,7 +189,7 @@ class Tracker_Field_AutoIncrement extends Tracker_Field_Abstract implements Trac
 		return $filters;
 	}
 
-	function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
+	public function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
 	{
 		$item = $this->getValue();
 		$baseKey = $this->getBaseKey();
@@ -203,13 +203,13 @@ class Tracker_Field_AutoIncrement extends Tracker_Field_Abstract implements Trac
 		return $out;
 	}
 
-	function getProvidedFields() {
+	public function getProvidedFields() {
 		$baseKey = $this->getBaseKey();
 		return [$baseKey, "{$baseKey}_text"];
 	}
 
 	// if we need to update after field save then do it here
-	function handleFieldSave($data)
+	public function handleFieldSave($data)
 	{
 		if ($this->getOption('update')) {
 			$trklib = TikiLib::lib('trk');

@@ -11,12 +11,12 @@ class Selector
 {
 	private $lib;
 
-	function __construct($lib)
+	public function __construct($lib)
 	{
 		$this->lib = $lib;
 	}
 
-	function read($input, $format = null)
+	public function read($input, $format = null)
 	{
 		$parts = explode(':', trim($input), 2);
 
@@ -28,7 +28,7 @@ class Selector
 		return null;
 	}
 
-	function readMultiple($input, $format = null)
+	public function readMultiple($input, $format = null)
 	{
 		if (! is_array($input)) {
 			$input = explode("\n", $input);
@@ -42,7 +42,7 @@ class Selector
 		return array_values(array_filter($raw));
 	}
 
-	function readMultipleSimple($type, $input, $separator, $format = null)
+	public function readMultipleSimple($type, $input, $separator, $format = null)
 	{
 		if (is_string($input)) {
 			$parts = explode($separator, $input);
@@ -59,7 +59,7 @@ class Selector
 		}, array_values($parts));
 	}
 
-	function getTitle($type, $object, $format = null)
+	public function getTitle($type, $object, $format = null)
 	{
 		return $this->lib->get_title($type, $object, $format);
 	}

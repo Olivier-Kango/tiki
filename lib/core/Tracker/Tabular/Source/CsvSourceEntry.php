@@ -11,18 +11,18 @@ class CsvSourceEntry implements SourceEntryInterface
 {
 	private $data;
 
-	function __construct($data)
+	public function __construct($data)
 	{
 		$this->data = $data;
 	}
 
-	function render(\Tracker\Tabular\Schema\Column $column)
+	public function render(\Tracker\Tabular\Schema\Column $column)
 	{
 		$entry = $this->data[spl_object_hash($column)];
 		return $column->render($entry);
 	}
 
-	function parseInto(& $info, $column)
+	public function parseInto(& $info, $column)
 	{
 		$entry = $this->data[spl_object_hash($column)];
 		$column->parseInto($info, $entry);

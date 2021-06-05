@@ -7,7 +7,7 @@
 
 class Tiki_Profile_InstallHandler_Module extends Tiki_Profile_InstallHandler
 {
-	function getData()
+	public function getData()
 	{
 		if ($this->data) {
 			return $this->data;
@@ -30,7 +30,7 @@ class Tiki_Profile_InstallHandler_Module extends Tiki_Profile_InstallHandler
 		return $this->data = $data;
 	}
 
-	function formatData($data)
+	public function formatData($data)
 	{
 		$data['groups'] = serialize($data['groups']);
 
@@ -49,7 +49,7 @@ class Tiki_Profile_InstallHandler_Module extends Tiki_Profile_InstallHandler
 		return $data;
 	}
 
-	function canInstall()
+	public function canInstall()
 	{
 		$data = $this->getData();
 		if (! isset($data['name'], $data['position'], $data['order'])) {
@@ -59,7 +59,7 @@ class Tiki_Profile_InstallHandler_Module extends Tiki_Profile_InstallHandler
 		return true;
 	}
 
-	function _install()
+	public function _install()
 	{
 		$data = $this->getData();
 
@@ -135,7 +135,7 @@ class Tiki_Profile_InstallHandler_Module extends Tiki_Profile_InstallHandler
 	 * @param string $module
 	 * @return bool
 	 */
-	function remove($module)
+	public function remove($module)
 	{
 		if (! empty($module)) {
 			$modlib = TikiLib::lib('mod');

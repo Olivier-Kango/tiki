@@ -16,18 +16,18 @@ class Schema
 	private $filters;
 	private $config;
 
-	function __construct(\Tracker_Definition $definition)
+	public function __construct(\Tracker_Definition $definition)
 	{
 		$this->definition = $definition;
 		$this->filters = new \Tracker\Filter\Collection($definition);
 	}
 
-	function getDefinition()
+	public function getDefinition()
 	{
 		return $this->definition;
 	}
 
-	function getHtmlOutputSchema()
+	public function getHtmlOutputSchema()
 	{
 		$out = new self($this->definition);
 		$out->filters = $this->filters;
@@ -50,7 +50,7 @@ class Schema
 		return $out;
 	}
 
-	function getPlainOutputSchema()
+	public function getPlainOutputSchema()
 	{
 		$out = new self($this->definition);
 		$out->filters = $this->filters;
@@ -85,7 +85,7 @@ class Schema
 		return $out;
 	}
 
-	function loadConfig($config)
+	public function loadConfig($config)
 	{
 		$config = array_merge([
 			'simple_headers' => 0,
@@ -99,32 +99,32 @@ class Schema
 		$this->config = $config;
 	}
 
-	function canImportUpdate()
+	public function canImportUpdate()
 	{
 		return $this->config['import_update'];
 	}
 
-	function ignoreImportBlanks()
+	public function ignoreImportBlanks()
 	{
 		return $this->config['ignore_blanks'];
 	}
 
-	function isImportTransaction()
+	public function isImportTransaction()
 	{
 		return $this->config['import_transaction'];
 	}
 
-	function useBulkImport()
+	public function useBulkImport()
 	{
 		return $this->config['bulk_import'];
 	}
 
-	function isSkipUnmodified()
+	public function isSkipUnmodified()
 	{
 		return $this->config['skip_unmodified'];
 	}
 
-	function loadFormatDescriptor($descriptor)
+	public function loadFormatDescriptor($descriptor)
 	{
 		foreach ($descriptor as $column) {
 			try {
@@ -161,17 +161,17 @@ class Schema
 		}
 	}
 
-	function loadFilterDescriptor(array $descriptor)
+	public function loadFilterDescriptor(array $descriptor)
 	{
 		$this->filters->loadFilterDescriptor($descriptor);
 	}
 
-	function getFilterCollection()
+	public function getFilterCollection()
 	{
 		return $this->filters;
 	}
 
-	function getFormatDescriptor()
+	public function getFormatDescriptor()
 	{
 		return array_map(function ($column) {
 			return [
@@ -188,12 +188,12 @@ class Schema
 		}, $this->columns);
 	}
 
-	function getFilterDescriptor()
+	public function getFilterDescriptor()
 	{
 		return $this->filters->getFilterDescriptor();
 	}
 
-	function addColumn($permName, $mode)
+	public function addColumn($permName, $mode)
 	{
 		if (isset($this->schemas[$permName])) {
 			$partial = $this->schemas[$permName];
@@ -208,7 +208,7 @@ class Schema
 		return $column;
 	}
 
-	function setPrimaryKey($field)
+	public function setPrimaryKey($field)
 	{
 		if ($this->primaryKey) {
 			throw new \Exception(tr('Primary key already defined.'));
@@ -225,12 +225,12 @@ class Schema
 		throw new Exception\FieldNotFound($field);
 	}
 
-	function getPrimaryKey()
+	public function getPrimaryKey()
 	{
 		return $this->primaryKey;
 	}
 
-	function isPrimaryKeyAutoIncrement()
+	public function isPrimaryKeyAutoIncrement()
 	{
 		if ($this->primaryKey) {
 			$field = $this->definition->getFieldFromPermName($this->primaryKey->getField());
@@ -257,14 +257,14 @@ class Schema
 		throw new Exception\ModeNotSupported($permName, $mode);
 	}
 
-	function addNew($permName, $mode)
+	public function addNew($permName, $mode)
 	{
 		$column = new Schema\Column($permName, $mode);
 		$this->columns[] = $column;
 		return $column;
 	}
 
-	function addStatic($value)
+	public function addStatic($value)
 	{
 		$column = new Schema\Column('ignore', uniqid());
 		$column->setReadOnly(true);
@@ -276,19 +276,19 @@ class Schema
 		return $column;
 	}
 
-	function getColumns()
+	public function getColumns()
 	{
 		return $this->columns;
 	}
 
-	function validate()
+	public function validate()
 	{
 		foreach ($this->columns as $column) {
 			$column->validateAgainst($this);
 		}
 	}
 
-	function validateAgainstHeaders(array $headers)
+	public function validateAgainstHeaders(array $headers)
 	{
 		foreach ($this->columns as $column) {
 			$header = array_shift($headers);
@@ -314,7 +314,7 @@ class Schema
 		}
 	}
 
-	function getAvailableFields()
+	public function getAvailableFields()
 	{
 		$fields = ['itemId' => tr('Item ID'), 'status' => tr('Status'), 'actions' => tr('Actions')];
 
@@ -325,7 +325,7 @@ class Schema
 		return $fields;
 	}
 
-	function getFieldSchema($permName)
+	public function getFieldSchema($permName)
 	{
 		if ($partial = $this->getSystemSchema($permName)) {
 			return $partial;

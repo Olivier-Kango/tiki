@@ -8,7 +8,7 @@
 // FIXME: This may quietly alter the value. Users of this filter should report if the value is modified.
 class TikiFilter_PreventXss implements Laminas\Filter\FilterInterface
 {
-	function filter($value)
+	public function filter($value)
 	{
 		// No need to filter really simple values
 		if (ctype_alnum($value) || empty($value)) {
@@ -22,7 +22,7 @@ class TikiFilter_PreventXss implements Laminas\Filter\FilterInterface
 	 * Original code could be found here:
 	 * http://quickwired.com/smallprojects/php_xss_filter_function.php
 	 */
-	function RemoveXSS($val)
+	public function RemoveXSS($val)
 	{
 		static $ra_as_tag_only = null;
 		static $ra_as_attribute = null;
@@ -160,7 +160,7 @@ class TikiFilter_PreventXss implements Laminas\Filter\FilterInterface
 		return $val;
 	}
 
-	function RemoveXSSchars(&$val)
+	public function RemoveXSSchars(&$val)
 	{
 		static $patterns = null;
 		static $replacements = null;
@@ -206,7 +206,7 @@ class TikiFilter_PreventXss implements Laminas\Filter\FilterInterface
 		return $found;
 	}
 
-	function RemoveXSSregexp(&$ra, &$val, $prefix = '', $suffix = '', $allow_spaces = false)
+	public function RemoveXSSregexp(&$ra, &$val, $prefix = '', $suffix = '', $allow_spaces = false)
 	{
 		$val_before = $val;
 		$found = true;

@@ -24,7 +24,8 @@ use Perms;
  * is 'principals/', but this can be overridden.
  *
  */
-class PrincipalBackend extends DAVACL\PrincipalBackend\AbstractBackend implements DAVACL\PrincipalBackend\CreatePrincipalSupport {
+class PrincipalBackend extends DAVACL\PrincipalBackend\AbstractBackend implements DAVACL\PrincipalBackend\CreatePrincipalSupport
+{
 
     /**
      * A list of additional fields to support
@@ -60,7 +61,8 @@ class PrincipalBackend extends DAVACL\PrincipalBackend\AbstractBackend implement
      * @param string $prefixPath
      * @return array
      */
-    function getPrincipalsByPrefix($prefixPath) {
+    public function getPrincipalsByPrefix($prefixPath)
+    {
         global $prefs, $user;
 
         $principals = [];
@@ -103,7 +105,8 @@ class PrincipalBackend extends DAVACL\PrincipalBackend\AbstractBackend implement
      * @param string $path
      * @return array
      */
-    function getPrincipalByPath($path) {
+    public function getPrincipalByPath($path)
+    {
         global $prefs;
 
         $user = null;
@@ -143,7 +146,8 @@ class PrincipalBackend extends DAVACL\PrincipalBackend\AbstractBackend implement
      * @param string $path
      * @param DAV\PropPatch $propPatch
      */
-    function updatePrincipal($path, DAV\PropPatch $propPatch) {
+    public function updatePrincipal($path, DAV\PropPatch $propPatch)
+    {
         // noop - we don't allow Tiki user update for now
     }
 
@@ -176,7 +180,8 @@ class PrincipalBackend extends DAVACL\PrincipalBackend\AbstractBackend implement
      * @param string $test
      * @return array
      */
-    function searchPrincipals($prefixPath, array $searchProperties, $test = 'allof') {
+    public function searchPrincipals($prefixPath, array $searchProperties, $test = 'allof')
+    {
         if (count($searchProperties) == 0) {
             return [];    //No criteria
         }
@@ -240,7 +245,8 @@ class PrincipalBackend extends DAVACL\PrincipalBackend\AbstractBackend implement
      * @param string $principalPrefix
      * @return string
      */
-    function findByUri($uri, $principalPrefix) {
+    public function findByUri($uri, $principalPrefix)
+    {
         $value = null;
         $scheme = null;
         list($scheme, $value) = explode(":", $uri, 2);
@@ -274,7 +280,8 @@ class PrincipalBackend extends DAVACL\PrincipalBackend\AbstractBackend implement
      * @param string $principal
      * @return array
      */
-    function getGroupMemberSet($principal) {
+    public function getGroupMemberSet($principal)
+    {
         // noop - ignore groups for now
     }
 
@@ -284,7 +291,8 @@ class PrincipalBackend extends DAVACL\PrincipalBackend\AbstractBackend implement
      * @param string $principal
      * @return array
      */
-    function getGroupMembership($principal) {
+    public function getGroupMembership($principal)
+    {
         // noop - ignore groups for now
     }
 
@@ -297,7 +305,8 @@ class PrincipalBackend extends DAVACL\PrincipalBackend\AbstractBackend implement
      * @param array $members
      * @return void
      */
-    function setGroupMemberSet($principal, array $members) {
+    public function setGroupMemberSet($principal, array $members)
+    {
         // noop - ignore groups for now
     }
 
@@ -312,12 +321,14 @@ class PrincipalBackend extends DAVACL\PrincipalBackend\AbstractBackend implement
      * @param MkCol $mkCol
      * @return void
      */
-    function createPrincipal($path, MkCol $mkCol) {
+    public function createPrincipal($path, MkCol $mkCol)
+    {
         // noop - ignore user creation for now
     }
 
 
-    public static function mapUriToUser($principalUri) {
+    public static function mapUriToUser($principalUri)
+    {
         if (preg_match('#principals/(.*)$#', $principalUri, $m)) {
             $user = $m[1];
             if (TikiLib::lib('user')->user_exists($user)) {
@@ -330,7 +341,8 @@ class PrincipalBackend extends DAVACL\PrincipalBackend\AbstractBackend implement
         }
     }
 
-    public static function mapUserToUri($user) {
+    public static function mapUserToUri($user)
+    {
         return 'principals/'.$user;
     }
 }

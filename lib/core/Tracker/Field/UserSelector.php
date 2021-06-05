@@ -121,7 +121,7 @@ class Tracker_Field_UserSelector extends Tracker_Field_Abstract implements Track
 		];
 	}
 
-	function getFieldData(array $requestData = [])
+	public function getFieldData(array $requestData = [])
 	{
 		global $user, $prefs;
 
@@ -172,7 +172,7 @@ class Tracker_Field_UserSelector extends Tracker_Field_Abstract implements Track
 		return $data;
 	}
 
-	function addValue($user) {
+	public function addValue($user) {
 		$value = $this->getValue();
 		if ($value) {
 			$users = TikiLib::lib('trk')->parse_user_field($value);
@@ -185,7 +185,7 @@ class Tracker_Field_UserSelector extends Tracker_Field_Abstract implements Track
 		return TikiLib::lib('tiki')->str_putcsv($users);
 	}
 
-	function removeValue($user) {
+	public function removeValue($user) {
 		$value = $this->getValue();
 		if ($value) {
 			$users = TikiLib::lib('trk')->parse_user_field($value);
@@ -198,7 +198,7 @@ class Tracker_Field_UserSelector extends Tracker_Field_Abstract implements Track
 		return TikiLib::lib('tiki')->str_putcsv($users);
 	}
 
-	function renderInput($context = [])
+	public function renderInput($context = [])
 	{
 		global $user, $prefs;
 		$smarty = TikiLib::lib('smarty');
@@ -300,7 +300,7 @@ class Tracker_Field_UserSelector extends Tracker_Field_Abstract implements Track
 	 * @param array $groupIds
 	 * @return array
 	 */
-	function checkGroupsExist($groupIds)
+	public function checkGroupsExist($groupIds)
 	{
 		$userslib = TikiLib::lib('user');
 
@@ -315,7 +315,7 @@ class Tracker_Field_UserSelector extends Tracker_Field_Abstract implements Track
 		return $groups;
 	}
 
-	function renderInnerOutput($context = [])
+	public function renderInnerOutput($context = [])
 	{
 		$value = $this->getConfiguration('value');
 		if (empty($value)) {
@@ -333,17 +333,17 @@ class Tracker_Field_UserSelector extends Tracker_Field_Abstract implements Track
 		}
 	}
 
-	function importRemote($value)
+	public function importRemote($value)
 	{
 		return $value;
 	}
 
-	function exportRemote($value)
+	public function exportRemote($value)
 	{
 		return $value;
 	}
 
-	function importRemoteField(array $info, array $syncInfo)
+	public function importRemoteField(array $info, array $syncInfo)
 	{
 		$groupIds = $this->getOption('groupIds');
 		$groupIds = array_filter($groupIds);
@@ -379,7 +379,7 @@ class Tracker_Field_UserSelector extends Tracker_Field_Abstract implements Track
 	 * - permName_text: sortable text search for Real Name (if enabled) or user identifiers
 	 * - permName_unstemmed: lowercase and without stemming for use in wildcard searches
 	 */
-	function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
+	public function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
 	{
 		$baseKey = $this->getBaseKey();
 
@@ -406,7 +406,7 @@ class Tracker_Field_UserSelector extends Tracker_Field_Abstract implements Track
 		];
 	}
 
-	function getProvidedFields() {
+	public function getProvidedFields() {
 		$baseKey = $this->getBaseKey();
 		return [$baseKey, "{$baseKey}_text", "{$baseKey}_unstemmed"];
 	}
@@ -416,7 +416,7 @@ class Tracker_Field_UserSelector extends Tracker_Field_Abstract implements Track
 	 *
 	 * @return array
 	 */
-	function getGlobalFields()
+	public function getGlobalFields()
 	{
 		$baseKey = $this->getBaseKey();
 
@@ -434,7 +434,7 @@ class Tracker_Field_UserSelector extends Tracker_Field_Abstract implements Track
 	 *
 	 * @return array
 	 */
-	function getFacets()
+	public function getFacets()
 	{
 		$baseKey = $this->getBaseKey();
 
@@ -452,7 +452,7 @@ class Tracker_Field_UserSelector extends Tracker_Field_Abstract implements Track
 	 *
 	 * @return string
 	 */
-	function getLabel($username)
+	public function getLabel($username)
 	{
 		$realName = TikiLib::lib('user')->clean_user($username, $this->getOption('showRealname'));
 
@@ -463,7 +463,7 @@ class Tracker_Field_UserSelector extends Tracker_Field_Abstract implements Track
 	 * called from action_clone_item - sets to current user if autoassign == 1 or 2 (Creator or Modifier)
 	 * @param boolean $strict - strict copy will not modify values based on settings and logged user
 	 */
-	function handleClone($strict = false)
+	public function handleClone($strict = false)
 	{
 		global $user;
 
@@ -491,7 +491,7 @@ class Tracker_Field_UserSelector extends Tracker_Field_Abstract implements Track
 		];
 	}
 
-	function getTabularSchema()
+	public function getTabularSchema()
 	{
 		$permName = $this->getConfiguration('permName');
 		$name = $this->getConfiguration('name');
@@ -586,7 +586,7 @@ class Tracker_Field_UserSelector extends Tracker_Field_Abstract implements Track
 		return $schema;
 	}
 
-	function getFilterCollection()
+	public function getFilterCollection()
 	{
 		global $prefs;
 

@@ -15,7 +15,7 @@ class Tiki_Render_Editable
 	private $objectStoreUrl;
 	private $field;
 
-	function __construct($html, array $parameters)
+	public function __construct($html, array $parameters)
 	{
 		$this->inner = $html;
 		$this->field = $parameters['field'];
@@ -44,7 +44,7 @@ class Tiki_Render_Editable
 		$this->objectStoreUrl = $parameters['object_store_url'];
 	}
 
-	function __toString()
+	public function __toString()
 	{
 		global $prefs;
 		TikiLib::lib('smarty')->loadPlugin('smarty_modifier_escape');

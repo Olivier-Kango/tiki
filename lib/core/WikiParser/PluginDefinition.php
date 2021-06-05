@@ -10,34 +10,34 @@ class WikiParser_PluginDefinition implements ArrayAccess, Countable
 	private $repository;
 	private $data;
 
-	function __construct($repository, $data)
+	public function __construct($repository, $data)
 	{
 		$this->repository = $repository;
 		$this->data = $data;
 	}
 
-	function offsetExists($offset)
+	public function offsetExists($offset)
 	{
 		return isset($this->data[$offset]);
 	}
 
-	function offsetGet($offset)
+	public function offsetGet($offset)
 	{
 		return $this->data[$offset];
 	}
 
-	function offsetSet($offset, $value)
+	public function offsetSet($offset, $value)
 	{
 		// Immutable
 		return $this->offsetGet($offset);
 	}
 
-	function offsetUnset($offset)
+	public function offsetUnset($offset)
 	{
 		// Immutable
 	}
 
-	function count()
+	public function count()
 	{
 		return count($this->data);
 	}

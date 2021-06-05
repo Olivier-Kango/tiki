@@ -11,17 +11,17 @@ class Manager
 {
 	private $table;
 
-	function __construct(\TikiDb $db)
+	public function __construct(\TikiDb $db)
 	{
 		$this->table = $db->table('tiki_tabular_formats');
 	}
 
-	function getList($conditions = [])
+	public function getList($conditions = [])
 	{
 		return $this->table->fetchAll(['tabularId', 'name', 'trackerId'], $conditions, -1, -1, 'name_asc');
 	}
 
-	function getInfo($tabularId)
+	public function getInfo($tabularId)
 	{
 		$info = $this->table->fetchFullRow(['tabularId' => $tabularId]);
 
@@ -32,7 +32,7 @@ class Manager
 		return $info;
 	}
 
-	function create($name, $trackerId, $odbc_config = [])
+	public function create($name, $trackerId, $odbc_config = [])
 	{
 		return $this->table->insert([
 			'name' => $name,
@@ -51,7 +51,7 @@ class Manager
 		]);
 	}
 
-	function update($tabularId, $name, array $fields, array $filters, array $config, array $odbc_config = [])
+	public function update($tabularId, $name, array $fields, array $filters, array $config, array $odbc_config = [])
 	{
 		return $this->table->update([
 			'name' => $name,
@@ -69,12 +69,12 @@ class Manager
 		], ['tabularId' => $tabularId]);
 	}
 
-	function remove($tabularId)
+	public function remove($tabularId)
 	{
 		return $this->table->delete(['tabularId' => $tabularId]);
 	}
 
-	function syncItemSaved($args)
+	public function syncItemSaved($args)
 	{
 		if (isset($args['skip_sync']) && $args['skip_sync']) {
 			return;
@@ -105,7 +105,7 @@ class Manager
 		}
 	}
 
-	function syncItemDeleted($args)
+	public function syncItemDeleted($args)
 	{
 		if (isset($args['skip_sync']) && $args['skip_sync']) {
 			return;

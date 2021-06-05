@@ -9,13 +9,13 @@ namespace Tracker\Filter\Control;
 
 class InlineCheckboxes extends MultiSelect
 {
-	function getId()
+	public function getId()
 	{
 		$first = key($this->options);
 		return $this->fieldName . '-' . $first;
 	}
 
-	function __toString()
+	public function __toString()
 	{
 		$this->applyOptions();
 

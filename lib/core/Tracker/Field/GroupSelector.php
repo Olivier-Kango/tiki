@@ -98,7 +98,7 @@ class Tracker_Field_GroupSelector extends Tracker_Field_Abstract implements Trac
 		];
 	}
 
-	function getFieldData(array $requestData = [])
+	public function getFieldData(array $requestData = [])
 	{
 		// $group is set to the default group in lib/setup/user_prefs.php
 		global $group, $user;
@@ -183,12 +183,12 @@ class Tracker_Field_GroupSelector extends Tracker_Field_Abstract implements Trac
 		return $data;
 	}
 
-	function renderInput($context = [])
+	public function renderInput($context = [])
 	{
 		return $this->renderTemplate('trackerinput/groupselector.tpl', $context);
 	}
 
-	function handleSave($value, $oldValue)
+	public function handleSave($value, $oldValue)
 	{
 		global $prefs, $user;
 
@@ -245,7 +245,7 @@ class Tracker_Field_GroupSelector extends Tracker_Field_Abstract implements Trac
 		];
 	}
 
-	function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
+	public function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
 	{
 		$baseKey = $this->getBaseKey();
 
@@ -257,13 +257,13 @@ class Tracker_Field_GroupSelector extends Tracker_Field_Abstract implements Trac
 		];
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		$baseKey = $this->getBaseKey();
 		return [$baseKey, "{$baseKey}_text"];
 	}
 
-	function getFilterCollection()
+	public function getFilterCollection()
 	{
 		$userlib = TikiLib::lib('user');
 		$groups = $userlib->list_all_groups_with_permission();

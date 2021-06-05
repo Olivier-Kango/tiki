@@ -37,12 +37,12 @@ class Account
 		}
 	}
 
-	function getPreferences()
+	public function getPreferences()
 	{
 		return $this->preferences;
 	}
 
-	function getTrackerId()
+	public function getTrackerId()
 	{
 		return $this->trackerId;
 	}
@@ -105,7 +105,7 @@ class Account
 		}
 	}
 
-	function isAnyoneAllowed()
+	public function isAnyoneAllowed()
 	{
 		return $this->anonymousAllowed;
 	}
@@ -159,7 +159,7 @@ class Account
 		}
 	}
 
-	function sendFailureResponse(Source\Message $message, $condition)
+	public function sendFailureResponse(Source\Message $message, $condition)
 	{
 		global $prefs;
 		$l = $prefs['language'];
@@ -180,7 +180,7 @@ class Account
 		$this->sendFailureReply($message, $mail);
 	}
 
-	function getReplyMail(Source\Message $message)
+	public function getReplyMail(Source\Message $message)
 	{
 		require_once 'lib/webmail/tikimaillib.php';
 		$mail = new TikiMail();
@@ -191,12 +191,12 @@ class Account
 		return $mail;
 	}
 
-	function getAddress()
+	public function getAddress()
 	{
 		return $this->accountAddress;
 	}
 
-	function sendFailureReply(Source\Message $message, TikiMail $mail)
+	public function sendFailureReply(Source\Message $message, TikiMail $mail)
 	{
 		if ($this->sendResponses) {
 			$this->sendReply($message, $mail);
@@ -204,17 +204,17 @@ class Account
 	}
 
 
-	function sendReply(Source\Message $message, TikiMail $mail)
+	public function sendReply(Source\Message $message, TikiMail $mail)
 	{
 		$mail->send([$message->getFromAddress()], 'mail');
 	}
 
-	function getDefaultCategory()
+	public function getDefaultCategory()
 	{
 		return $this->defaultCategory;
 	}
 
-	function parseBody($body, $canAllowHtml = true)
+	public function parseBody($body, $canAllowHtml = true)
 	{
 		global $prefs;
 
@@ -250,17 +250,17 @@ class Account
 		return preg_match('/<[^>]*>/', $str);
 	}
 
-	function hasAutoAttach()
+	public function hasAutoAttach()
 	{
 		return $this->auto_attachments;
 	}
 
-	function hasInlineAttach()
+	public function hasInlineAttach()
 	{
 		return $this->inline_attachments;
 	}
 
-	function check()
+	public function check()
 	{
 		global $prefs;
 

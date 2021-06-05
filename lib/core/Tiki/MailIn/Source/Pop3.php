@@ -20,7 +20,7 @@ class Pop3 implements SourceInterface
 	protected $username;
 	protected $password;
 
-	function __construct($host, $port, $username, $password)
+	public function __construct($host, $port, $username, $password)
 	{
 		$this->host = $host;
 		$this->port = (int) $port;
@@ -28,7 +28,7 @@ class Pop3 implements SourceInterface
 		$this->password = $password;
 	}
 
-	function test()
+	public function test()
 	{
 		try {
 			$pop = $this->connect();
@@ -44,7 +44,7 @@ class Pop3 implements SourceInterface
 	 * @return \Generator
 	 * @throws TransportException
 	 */
-	function getMessages()
+	public function getMessages()
 	{
 		$pop = $this->connect();
 		$toDelete = [];

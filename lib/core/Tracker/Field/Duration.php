@@ -126,7 +126,7 @@ class Tracker_Field_Duration extends Tracker_Field_Abstract implements Tracker_F
 		];
 	}
 
-	function getFieldData(array $requestData = [])
+	public function getFieldData(array $requestData = [])
 	{
 		$ins_id = $this->getInsertId();
 
@@ -141,12 +141,12 @@ class Tracker_Field_Duration extends Tracker_Field_Abstract implements Tracker_F
 		return ['value' => $value];
 	}
 
-	function renderInnerOutput($context = [])
+	public function renderInnerOutput($context = [])
 	{
 		return $this->humanize();
 	}
 
-	function renderInput($context = [], $params = [])
+	public function renderInput($context = [], $params = [])
 	{
 		global $prefs;
 
@@ -201,7 +201,7 @@ dpStore.setInputName('.json_encode($this->getInsertId()).');
 		return $appHtml;
 	}
 
-	function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
+	public function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
 	{
 		$baseKey = $this->getBaseKey();
 
@@ -213,28 +213,28 @@ dpStore.setInputName('.json_encode($this->getInsertId()).');
 		return $out;
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		$baseKey = $this->getBaseKey();
 		return [$baseKey, "{$baseKey}_text"];
 	}
 
-	function importRemote($value)
+	public function importRemote($value)
 	{
 		return $value;
 	}
 
-	function exportRemote($value)
+	public function exportRemote($value)
 	{
 		return $value;
 	}
 
-	function importRemoteField(array $info, array $syncInfo)
+	public function importRemoteField(array $info, array $syncInfo)
 	{
 		return $info;
 	}
 
-	function getComposedId($params) {
+	public function getComposedId($params) {
 		if (! $params['field']['fieldId'] || ! $params['field']['trackerId'] || ! $params['itemId']) {
 			return null;
 		} else {
@@ -242,12 +242,12 @@ dpStore.setInputName('.json_encode($this->getInsertId()).');
 		}
 	}
 
-	function getTabularSchema()
+	public function getTabularSchema()
 	{
 		// TODO
 	}
 
-	function getFilterCollection()
+	public function getFilterCollection()
 	{
 		// TODO
 	}

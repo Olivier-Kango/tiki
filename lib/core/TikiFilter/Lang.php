@@ -19,7 +19,7 @@ class TikiFilter_Lang implements Laminas\Filter\FilterInterface
 	 * @param mixed $input
 	 * @return mixed|string
 	 */
-	function filter($input)
+	public function filter($input)
 	{
 		$filtered = preg_filter('/^[a-zA-Z-_]*$/', '$0', $input);
 		return $filtered && file_exists('lang/' . $filtered . '/language.php') ? $filtered : '';

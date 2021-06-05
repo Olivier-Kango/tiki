@@ -16,30 +16,30 @@ class Comment implements ActionInterface
 	private $type;
 	private $object;
 
-	function __construct($args)
+	public function __construct($args)
 	{
 		$this->type = $args['type'];
 		$this->object = $args['object'];
 	}
 
-	function getName()
+	public function getName()
 	{
 		return tr('Comment');
 	}
 
-	function isEnabled()
+	public function isEnabled()
 	{
 		$service = new \Services_Comment_Controller;
 		return $service->isEnabled($this->type, $this->object);
 	}
 
-	function isAllowed(Account $account, Message $message)
+	public function isAllowed(Account $account, Message $message)
 	{
 		$service = new \Services_Comment_Controller;
 		return $service->canPost($this->type, $this->object);
 	}
 
-	function execute(Account $account, Message $message)
+	public function execute(Account $account, Message $message)
 	{
 		$body = $message->getHtmlBody();
 		$body = $account->parseBody($body, false);

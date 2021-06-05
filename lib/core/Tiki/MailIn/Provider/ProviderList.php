@@ -11,12 +11,12 @@ class ProviderList
 {
 	private $list = [];
 
-	function addProvider(ProviderInterface $provider)
+	public function addProvider(ProviderInterface $provider)
 	{
 		$this->list[] = $provider;
 	}
 
-	function getList()
+	public function getList()
 	{
 		usort($this->list, function ($a, $b) {
 			return strcmp($a->getLabel(), $b->getLabel());

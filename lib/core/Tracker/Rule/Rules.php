@@ -15,7 +15,7 @@ class Rules
 	private $actions;
 	private $else;
 
-	function __construct($data)
+	public function __construct($data)
 	{
 		if (is_string($data)) {
 			$data = json_decode($data);

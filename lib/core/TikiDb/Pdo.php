@@ -22,20 +22,20 @@ class TikiDb_Pdo_Result
 	 * @param $result
 	 * @param $rowCount
 	 */
-	function __construct($result, $rowCount)
+	public function __construct($result, $rowCount)
 	{
 		$this->result = &$result;
 		$this->numrows = is_numeric($rowCount) ? $rowCount : count($this->result);
 	}
 
 	/** @return array */
-	function fetchRow()
+	public function fetchRow()
 	{
 		return is_array($this->result) ? array_shift($this->result) : 0;
 	}
 
 	/** @return int */
-	function numRows()
+	public function numRows()
 	{
 		return (int) $this->numrows;
 	}
@@ -52,7 +52,7 @@ class TikiDb_Pdo extends TikiDb
 	 * TikiDb_Pdo constructor.
 	 * @param PDO $db
 	 */
-	function __construct($db) // {{{
+	public function __construct($db)
 	{
 		if (! $db) {
 			die("Invalid db object passed to TikiDB constructor");
@@ -60,17 +60,17 @@ class TikiDb_Pdo extends TikiDb
 
 		$this->db = $db;
 		$this->setServerType($db->getAttribute(PDO::ATTR_DRIVER_NAME));
-	} // }}}
+	}
 
-	function qstr($str) // {{{
+	public function qstr($str)
 	{
 		if (is_null($str)) {
 			return 'NULL';
 		}
 		return $this->db->quote($str);
-	} // }}}
+	}
 
-	private function _query($query, $values = null, $numrows = -1, $offset = -1) // {{{
+	private function _query($query, $values = null, $numrows = -1, $offset = -1)
 	{
 		global $num_queries;
 		$num_queries++;
@@ -126,9 +126,9 @@ class TikiDb_Pdo extends TikiDb
 				return $pq->fetchAll(PDO::FETCH_ASSOC);
 			}
 		}
-	} // }}}
+	}
 
-	function fetchAll($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = parent::ERR_DIRECT) // {{{
+	public function fetchAll($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = parent::ERR_DIRECT)
 	{
 		$result = $this->_query($query, $values, $numrows, $offset);
 		if (! is_array($result)) {
@@ -136,20 +136,20 @@ class TikiDb_Pdo extends TikiDb
 		}
 
 		return $result;
-	} // }}}
+	}
 
-	function query($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = self::ERR_DIRECT) // {{{
+	public function query($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = self::ERR_DIRECT)
 	{
 		$result = $this->_query($query, $values, $numrows, $offset);
 		if ($result === false) {
 			$this->handleQueryError($query, $values, $result, $reporterrors);
 		}
 		return new TikiDb_Pdo_Result($result, $this->rowCount);
-	} // }}}
+	}
 
-	function lastInsertId() // {{{
+	public function lastInsertId()
 	{
 		return $this->db->lastInsertId();
-	} // }}}
+	}
 
 }

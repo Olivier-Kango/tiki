@@ -7,7 +7,7 @@
 
 class Tiki_Profile_InstallHandler_Forum extends Tiki_Profile_InstallHandler
 {
-	function getData()
+	public function getData()
 	{
 		if ($this->data) {
 			return $this->data;
@@ -84,7 +84,7 @@ class Tiki_Profile_InstallHandler_Forum extends Tiki_Profile_InstallHandler
 		return $this->data = $data;
 	}
 
-	function canInstall()
+	public function canInstall()
 	{
 		$data = $this->getData();
 
@@ -107,7 +107,7 @@ class Tiki_Profile_InstallHandler_Forum extends Tiki_Profile_InstallHandler
 		);
 	}
 
-	function _install()
+	public function _install()
 	{
 		$comments = TikiLib::lib('comments');
 
@@ -276,7 +276,7 @@ class Tiki_Profile_InstallHandler_Forum extends Tiki_Profile_InstallHandler
 	 * @param string $forumName
 	 * @return bool
 	 */
-	function remove($forumName)
+	public function remove($forumName)
 	{
 		if (! empty($forumName)) {
 			$comments = TikiLib::lib('comments');

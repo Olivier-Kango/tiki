@@ -7,7 +7,7 @@
 
 class Tiki_Profile_InstallHandler_Perspective extends Tiki_Profile_InstallHandler
 {
-	function getData()
+	public function getData()
 	{
 		if ($this->data) {
 			return $this->data;
@@ -26,7 +26,7 @@ class Tiki_Profile_InstallHandler_Perspective extends Tiki_Profile_InstallHandle
 		return $this->data = $data;
 	}
 
-	function canInstall()
+	public function canInstall()
 	{
 		$data = $this->getData();
 		if (! isset($data['name'])) {
@@ -36,7 +36,7 @@ class Tiki_Profile_InstallHandler_Perspective extends Tiki_Profile_InstallHandle
 		return true;
 	}
 
-	function _install()
+	public function _install()
 	{
 		$perspectivelib = TikiLib::lib('perspective');
 

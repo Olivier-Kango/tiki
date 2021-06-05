@@ -9,22 +9,22 @@ namespace Tiki\Wiki\SlugManager;
 
 class UrlencodeGenerator implements Generator
 {
-	function getName()
+	public function getName()
 	{
 		return 'urlencode';
 	}
 
-	function getLabel()
+	public function getLabel()
 	{
 		return tr('URL Encode (Tiki Classic)');
 	}
 
-	function generate($pageName, $suffix = null)
+	public function generate($pageName, $suffix = null)
 	{
 		return urlencode($pageName) . $suffix;
 	}
 
-	function degenerate($slug)
+	public function degenerate($slug)
 	{
 		return urldecode($slug);
 	}

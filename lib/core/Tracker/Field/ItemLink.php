@@ -232,7 +232,7 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
 		];
 	}
 
-	function getFieldData(array $requestData = [])
+	public function getFieldData(array $requestData = [])
 	{
 		$string_id = $this->getInsertId();
 		if (isset($requestData[$string_id])) {
@@ -254,7 +254,7 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
 		return $data;
 	}
 
-	function addValue($value) {
+	public function addValue($value) {
 		$existing = explode(',', $this->getValue());
 		if (! in_array($value, $existing)) {
 			$existing[] = $value;
@@ -262,7 +262,7 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
 		return implode(',', $existing);
 	}
 
-	function removeValue($value) {
+	public function removeValue($value) {
 		$existing = explode(',', $this->getValue());
 		$existing = array_filter($existing, function($v) use ($value) {
 			return $v != $value;
@@ -270,7 +270,7 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
 		return implode(',', $existing);
 	}
 
-	function useSelector()
+	public function useSelector()
 	{
 		global $prefs;
 
@@ -297,7 +297,7 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
 		return true;
 	}
 
-	function renderInput($context = [])
+	public function renderInput($context = [])
 	{
 		$trackerPerms = Perms::get('tracker', $this->getOption('trackerId'));
 
@@ -512,7 +512,7 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
 		];
 	}
 
-	function renderOutput($context = [])
+	public function renderOutput($context = [])
 	{
 		$smarty = TikiLib::lib('smarty');
 
@@ -583,7 +583,7 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
 		return $label;
 	}
 
-	function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
+	public function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
 	{
 		$item = $this->getValue();
 		$label = $this->getItemLabel($item, ['list_mode' => 'csv']);
@@ -625,7 +625,7 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
 		return $out;
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		$baseKey = $this->getBaseKey();
 		$fields = [$baseKey, "{$baseKey}_text"];
@@ -651,7 +651,7 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
 		return $fields;
 	}
 
-	function getGlobalFields()
+	public function getGlobalFields()
 	{
 		$baseKey = $this->getBaseKey();
 		$fields = ["{$baseKey}_text" => true];
@@ -677,12 +677,12 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
 		return $fields;
 	}
 
-	function getItemValue($itemId)
+	public function getItemValue($itemId)
 	{
 		return $label = TikiLib::lib('object')->get_title('trackeritem', $itemId);
 	}
 
-	function getItemLabel($itemIds, $context = ['list_mode' => ''])
+	public function getItemLabel($itemIds, $context = ['list_mode' => ''])
 	{
 		$items = explode(',', $itemIds);
 
@@ -759,7 +759,7 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
 		return $fulllabel;
 	}
 
-	function getItemList()
+	public function getItemList()
 	{
 		if ($displayFieldsList = $this->getDisplayFieldsListArray()) {
 			if ($this->getOption('displayFieldsListType') === 'table') {
@@ -833,17 +833,17 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
 		return str_replace(',', '</td><td>', $format);
 	}
 
-	function importRemote($value)
+	public function importRemote($value)
 	{
 		return $value;
 	}
 
-	function exportRemote($value)
+	public function exportRemote($value)
 	{
 		return $value;
 	}
 
-	function importRemoteField(array $info, array $syncInfo)
+	public function importRemoteField(array $info, array $syncInfo)
 	{
 		$sourceOptions = explode(',', $info['options']);
 		$trackerId = isset($sourceOptions[0]) ? (int) $sourceOptions[0] : 0;
@@ -921,7 +921,7 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
 		return $data;
 	}
 
-	function handleSave($value, $oldValue)
+	public function handleSave($value, $oldValue)
 	{
 		// if selectMultipleValues is enabled, convert the array
 		// of options to string before saving the field value in the db
@@ -938,7 +938,7 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
 		];
 	}
 
-	function itemsRequireRefresh($trackerId, $modifiedFields)
+	public function itemsRequireRefresh($trackerId, $modifiedFields)
 	{
 		if ($this->getOption('trackerId') != $trackerId) {
 			return false;
@@ -955,17 +955,17 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
 		return count($intersect) > 0;
 	}
 
-	function cascadeCategories($trackerId)
+	public function cascadeCategories($trackerId)
 	{
 		return $this->cascade($trackerId, self::CASCADE_CATEG);
 	}
 
-	function cascadeStatus($trackerId)
+	public function cascadeStatus($trackerId)
 	{
 		return $this->cascade($trackerId, self::CASCADE_STATUS);
 	}
 
-	function cascadeDelete($trackerId)
+	public function cascadeDelete($trackerId)
 	{
 		return $this->cascade($trackerId, self::CASCADE_DELETE);
 	}
@@ -979,7 +979,7 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
 		return ($this->getOption('cascade') & $flag) > 0;
 	}
 
-	function watchCompare($old, $new)
+	public function watchCompare($old, $new)
 	{
 		$o = $this->getItemLabel($old);
 		$n = $this->getItemLabel($new);
@@ -1024,7 +1024,7 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
 	 *
 	 * @return array
 	 */
-	function getFacets()
+	public function getFacets()
 	{
 		$baseKey = $this->getBaseKey();
 
@@ -1035,7 +1035,7 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
 		];
 	}
 
-	function getTabularSchema()
+	public function getTabularSchema()
 	{
 		$schema = new Tracker\Tabular\Schema($this->getTrackerDefinition());
 		$permName = $this->getConfiguration('permName');
@@ -1164,7 +1164,7 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
 		return $schema;
 	}
 
-	function getFilterCollection()
+	public function getFilterCollection()
 	{
 		$collection = new Tracker\Filter\Collection($this->getTrackerDefinition());
 		$permName = $this->getConfiguration('permName');

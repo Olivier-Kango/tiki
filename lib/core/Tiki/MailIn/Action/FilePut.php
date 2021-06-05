@@ -15,24 +15,24 @@ class FilePut implements ActionInterface
 {
 	private $galleryId;
 
-	function __construct(array $params)
+	public function __construct(array $params)
 	{
 		$this->galleryId = isset($params['galleryId']) ? (int)$params['galleryId'] : 0;
 	}
 
-	function getName()
+	public function getName()
 	{
 		return tr('Save File');
 	}
 
-	function isEnabled()
+	public function isEnabled()
 	{
 		global $prefs;
 
 		return $prefs['feature_file_galleries'] == 'y';
 	}
 
-	function isAllowed(Account $account, Message $message)
+	public function isAllowed(Account $account, Message $message)
 	{
 		$user = $message->getAssociatedUser();
 		$perms = TikiLib::lib('tiki')->get_user_permission_accessor($user, 'file gallery', $this->galleryId);
@@ -44,7 +44,7 @@ class FilePut implements ActionInterface
 		return true;
 	}
 
-	function execute(Account $account, Message $message)
+	public function execute(Account $account, Message $message)
 	{
 		global $user;
 

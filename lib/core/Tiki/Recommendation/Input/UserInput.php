@@ -11,12 +11,12 @@ class UserInput
 {
 	private $user;
 
-	function __construct($username)
+	public function __construct($username)
 	{
 		$this->user = $username;
 	}
 
-	function getUser()
+	public function getUser()
 	{
 		return $this->user;
 	}

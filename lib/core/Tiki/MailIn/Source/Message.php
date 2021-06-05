@@ -9,7 +9,7 @@ namespace Tiki\MailIn\Source;
 
 class Message
 {
-	const EXTRACT_EMAIL_REGEX = '/<?([-!#$%&\'*+\.\/0-9=?A-Z^_`a-z{|}~]+@[-!#$%&\'*+\/0-9=?A-Z^_`a-z{|}~]+\.[-!#$%&\'*+\.\/0-9=?A-Z^_`a-z{|}~]+)>?/';
+	public const EXTRACT_EMAIL_REGEX = '/<?([-!#$%&\'*+\.\/0-9=?A-Z^_`a-z{|}~]+@[-!#$%&\'*+\/0-9=?A-Z^_`a-z{|}~]+\.[-!#$%&\'*+\.\/0-9=?A-Z^_`a-z{|}~]+)>?/';
 
 	private $id;
 	private $deleteCallback;
@@ -25,23 +25,23 @@ class Message
 
 	private $associatedUser;
 
-	function __construct($id, $deleteCallback)
+	public function __construct($id, $deleteCallback)
 	{
 		$this->id = $id;
 		$this->deleteCallback = $deleteCallback;
 	}
 
-	function getMessageId()
+	public function getMessageId()
 	{
 		return $this->messageId;
 	}
 
-	function setMessageId($messageId)
+	public function setMessageId($messageId)
 	{
 		$this->messageId = $messageId;
 	}
 
-	function setRawFrom($from)
+	public function setRawFrom($from)
 	{
 		$this->from = $from;
 
@@ -51,24 +51,24 @@ class Message
 		}
 	}
 
-	function getFromAddress()
+	public function getFromAddress()
 	{
 		preg_match(self::EXTRACT_EMAIL_REGEX, $this->from, $mail);
 
 		return $mail[1];
 	}
 
-	function setAssociatedUser($user)
+	public function setAssociatedUser($user)
 	{
 		$this->associatedUser = $user;
 	}
 
-	function getAssociatedUser()
+	public function getAssociatedUser()
 	{
 		return $this->associatedUser;
 	}
 
-	function delete()
+	public function delete()
 	{
 		if ($this->deleteCallback) {
 			$callback = $this->deleteCallback;
@@ -77,32 +77,32 @@ class Message
 		}
 	}
 
-	function setSubject($subject)
+	public function setSubject($subject)
 	{
 		$this->subject = $subject;
 	}
 
-	function getSubject()
+	public function getSubject()
 	{
 		return $this->subject;
 	}
 
-	function setBody($body)
+	public function setBody($body)
 	{
 		$this->body = $body;
 	}
 
-	function getBody()
+	public function getBody()
 	{
 		return $this->body;
 	}
 
-	function setHtmlBody($body)
+	public function setHtmlBody($body)
 	{
 		$this->htmlBody = $body;
 	}
 
-	function getHtmlBody($fallback = true)
+	public function getHtmlBody($fallback = true)
 	{
 		if ($fallback) {
 			return $this->htmlBody ?: $this->body;
@@ -111,17 +111,17 @@ class Message
 		}
 	}
 
-	function setContent($content)
+	public function setContent($content)
 	{
 		$this->content = $content;
 	}
 
-	function getContent()
+	public function getContent()
 	{
 		return $this->content;
 	}
 
-	function addAttachment($contentId, $name, $type, $size, $data)
+	public function addAttachment($contentId, $name, $type, $size, $data)
 	{
 		$this->attachments[$contentId] = [
 			'contentId' => $contentId,
@@ -133,36 +133,36 @@ class Message
 		];
 	}
 
-	function setLink($contentId, $link)
+	public function setLink($contentId, $link)
 	{
 		if (isset($this->attachments[$contentId])) {
 			$this->attachments[$contentId]['link'] = $link;
 		}
 	}
 
-	function getAttachments()
+	public function getAttachments()
 	{
 		return array_values($this->attachments);
 	}
 
-	function getAttachment($contentId)
+	public function getAttachment($contentId)
 	{
 		if (isset($this->attachments[$contentId])) {
 			return $this->attachments[$contentId];
 		}
 	}
 
-	function getRecipient()
+	public function getRecipient()
 	{
 		return $this->recipient;
 	}
 
-	function setRecipient($recipient)
+	public function setRecipient($recipient)
 	{
 		$this->recipient = $recipient;
 	}
 
-	function getRecipientAddress()
+	public function getRecipientAddress()
 	{
 		preg_match(self::EXTRACT_EMAIL_REGEX, $this->recipient, $mail);
 

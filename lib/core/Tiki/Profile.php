@@ -32,29 +32,29 @@ class Tiki_Profile
 	private static $resolvePrefix = null;
 	private static $developerMode = false;
 
-	function setFeedback($feed) // {{{
+	public function setFeedback($feed)
 	{
 		if (is_array($feed)) {
 			$this->feedback = $feed;
 		} else {
 			$this->feedback[] = $feed;
 		}
-	} // }}}
-	function getFeedback($index = null) // {{{
+	}
+	public function getFeedback($index = null)
 	{
 		if (! is_null($index) && $index < count($this->feedback)) {
 			return $this->feedback[ $index ];
 		} else {
 			return $this->feedback;
 		}
-	} // }}}
+	}
 
-	public static function enableDeveloperMode() // {{{
+	public static function enableDeveloperMode()
 	{
 		self::$developerMode = true;
-	} // }}}
+	}
 
-	public static function convertLists($data, $conversion, $prependKey = false) // {{{
+	public static function convertLists($data, $conversion, $prependKey = false)
 	{
 		foreach ($conversion as $key => $endValue) {
 			if (! isset($data[$key])) {
@@ -79,9 +79,9 @@ class Tiki_Profile
 		}
 
 		return $data;
-	} // }}}
+	}
 
-	public static function convertYesNo($data) // {{{
+	public static function convertYesNo($data)
 	{
 		$copy = (array) $data;
 		foreach ($copy as &$value) {
@@ -91,9 +91,9 @@ class Tiki_Profile
 		}
 
 		return $copy;
-	} // }}}
+	}
 
-	public static function getProfileKeyfor($domain, $profile) // {{{
+	public static function getProfileKeyfor($domain, $profile)
 	{
 		if (strpos($domain, '://') === false) {
 			if (\Tiki\Package\ExtensionManager::isExtensionEnabled($domain)) {
@@ -106,23 +106,23 @@ class Tiki_Profile
 			}
 		}
 		return $domain . '/' . $profile;
-	} // }}}
+	}
 
-	public static function useUnicityPrefix($prefix) // {{{
+	public static function useUnicityPrefix($prefix)
 	{
 		self::$resolvePrefix = $prefix;
-	} // }}}
+	}
 
-	public static function withPrefix($profile) // {{{
+	public static function withPrefix($profile)
 	{
 		if (self::$resolvePrefix) {
 			return self::$resolvePrefix . ':' . $profile;
 		} else {
 			return $profile;
 		}
-	} // }}}
+	}
 
-	private static function getObjectReference($object, $full = true) // {{{
+	private static function getObjectReference($object, $full = true)
 	{
 		// If a prefix was set, attempt to isolate the lookup to the prefix first
 		if ($full) {
@@ -141,9 +141,9 @@ class Tiki_Profile
 		}
 
 		return self::$known[$serialized];
-	} // }}}
+	}
 
-	private static function findObjectReference($object) // {{{
+	private static function findObjectReference($object)
 	{
 		global $tikilib;
 
@@ -166,9 +166,9 @@ class Tiki_Profile
 		}
 
 		return null;
-	} // }}}
+	}
 
-	public static function fromUrl($url) // {{{
+	public static function fromUrl($url)
 	{
 		$profile = new self;
 		$profile->transport = new Tiki_Profile_Transport_Repository($url);
@@ -195,9 +195,9 @@ class Tiki_Profile
 		}
 
 		return $profile;
-	} // }}}
+	}
 
-	public static function fromNames($domain, $profile) // {{{
+	public static function fromNames($domain, $profile)
 	{
 		if (strpos($domain, '://') === false) {
 			if (is_dir($domain)) {
@@ -222,9 +222,9 @@ class Tiki_Profile
 
 			return self::fromUrl($url);
 		}
-	} // }}}
+	}
 
-	public static function fromDb($pageName) // {{{
+	public static function fromDb($pageName)
 	{
 		$tikilib = TikiLib::lib('tiki');
 		$wikilib = TikiLib::lib('wiki');
@@ -245,9 +245,9 @@ class Tiki_Profile
 		}
 
 		return false;
-	} // }}}
+	}
 
-	public static function fromString($string, $name = '') // {{{
+	public static function fromString($string, $name = '')
 	{
 		$profile = new self;
 		$profile->domain = 'tiki://local';
@@ -259,9 +259,9 @@ class Tiki_Profile
 		$profile->loadYaml($content);
 
 		return $profile;
-	} // }}}
+	}
 
-	public static function fromFile($path, $name) // {{{
+	public static function fromFile($path, $name)
 	{
 		$path = rtrim($path, '/');
 		$ymlPath = "$path/$name.yml";
@@ -288,7 +288,7 @@ class Tiki_Profile
 		}
 
 		return false;
-	} // }}}
+	}
 
 	/**
 	 * Validates if the value supplied can be considered a valid reference
@@ -314,11 +314,11 @@ class Tiki_Profile
 		return false;
 	}
 
-	private function __construct() // {{{
+	private function __construct()
 	{
-	} // }}}
+	}
 
-	function __get($name) // {{{
+	public function __get($name)
 	{
 		switch ($name) {
 			case 'domain':
@@ -327,9 +327,9 @@ class Tiki_Profile
 			case 'pageUrl':
 				return $this->$name;
 		}
-	} // }}}
+	}
 
-	private function analyseMeta($url) // {{{
+	private function analyseMeta($url)
 	{
 		$parts = parse_url($url);
 
@@ -350,9 +350,9 @@ class Tiki_Profile
 		$this->pageUrl = dirname($url) . '/' . urlencode($this->profile);
 
 		return true;
-	} // }}}
+	}
 
-	private function loadYaml($content) // {{{
+	private function loadYaml($content)
 	{
 		$this->pageContent = $content;
 
@@ -390,7 +390,7 @@ class Tiki_Profile
 
 		$this->fetchExternals();
 		$this->getObjects();
-	} // }}}
+	}
 
 	public function getData()
 	{
@@ -402,12 +402,12 @@ class Tiki_Profile
 		$this->data = $data;
 	}
 
-	public function fetchExternals() // {{{
+	public function fetchExternals()
 	{
 		$this->traverseForExternals($this->data);
-	} // }}}
+	}
 
-	private function traverseForExternals(&$data) // {{{
+	private function traverseForExternals(&$data)
 	{
 		if (is_array($data)) {
 			foreach ($data as &$value) {
@@ -420,9 +420,9 @@ class Tiki_Profile
 			$pageName = substr($data, strlen('wikiparsed:'));
 			$data = $this->getPageParsed($pageName);
 		}
-	} // }}}
+	}
 
-	public function getPageContent($pageName) // {{{
+	public function getPageContent($pageName)
 	{
 		$content = $this->transport->getPageContent($pageName);
 		if (! $content) {
@@ -430,7 +430,7 @@ class Tiki_Profile
 		}
 
 		return $content;
-	} // }}}
+	}
 
 
 	public function getProfilePath()
@@ -443,7 +443,7 @@ class Tiki_Profile
 		return $path_tmp;
 	}
 
-	public function getPageParsed($pageName) // {{{
+	public function getPageParsed($pageName)
 	{
 		$content = $this->transport->getPageParsed($pageName);
 		if (! $content) {
@@ -451,9 +451,9 @@ class Tiki_Profile
 		}
 
 		return $content;
-	} // }}}
+	}
 
-	function mergeData($old, $new) // {{{
+	public function mergeData($old, $new)
 	{
 		if (is_array($old) && is_array($new)) {
 			foreach ($new as $key => $value) {
@@ -468,9 +468,9 @@ class Tiki_Profile
 		} else {
 			return $new;
 		}
-	} // }}}
+	}
 
-	function getNamedObjects() // {{{
+	public function getNamedObjects()
 	{
 		if (! isset($this->data['objects'])) {
 			return [];
@@ -485,14 +485,14 @@ class Tiki_Profile
 		}
 
 		return $named;
-	} // }}}
+	}
 
-	function getReferences() // {{{
+	public function getReferences()
 	{
 		return $this->traverseForReferences($this->data);
-	} // }}}
+	}
 
-	function getExternalReferences() // {{{
+	public function getExternalReferences()
 	{
 		$out = [];
 
@@ -503,9 +503,9 @@ class Tiki_Profile
 		}
 
 		return $out;
-	} // }}}
+	}
 
-	private function traverseForReferences($value) // {{{
+	private function traverseForReferences($value)
 	{
 		$array = [];
 		if (is_array($value)) {
@@ -525,13 +525,13 @@ class Tiki_Profile
 			$array = array_unique($array, SORT_REGULAR);
 
 			return $array;
-	} // }}}
+	}
 
 	public function containsReferences($value) // {{{
 	{
 		$refs = $this->traverseForReferences($value);
 		return count($refs) > 0;
-	} // }}}
+	}
 
 	/**
 	 * Convert references into an array key => value with domain, profile and object.
@@ -541,7 +541,7 @@ class Tiki_Profile
 	 * @param $parts
 	 * @return array
 	 */
-	function convertReference($parts) // {{{
+	public function convertReference($parts)
 	{
 		if (count($parts) == '5') {
 			list($full, $null0, $null1, $domain, $profile) = $parts;
@@ -558,14 +558,14 @@ class Tiki_Profile
 		}
 
 		return [ 'domain' => $domain, 'profile' => $profile, 'object' => $object ];
-	} // }}}
+	}
 
-	function getRequiredInput() // {{{
+	public function getRequiredInput()
 	{
 		return $this->traverseForRequiredInput($this->data);
-	} // }}}
+	}
 
-	function traverseForRequiredInput($value) // {{{
+	public function traverseForRequiredInput($value)
 	{
 		$array = [];
 		if (is_array($value)) {
@@ -577,9 +577,9 @@ class Tiki_Profile
 		}
 
 			return $array;
-	} // }}}
+	}
 
-	function getRequiredProfiles($recursive = false, $known = []) // {{{
+	public function getRequiredProfiles($recursive = false, $known = [])
 	{
 		$profiles = [];
 
@@ -601,9 +601,9 @@ class Tiki_Profile
 		}
 
 		return $profiles;
-	} // }}}
+	}
 
-	public function replaceReferences(&$data, $suppliedUserData = false, $leaveUnknown = false) // {{{
+	public function replaceReferences(&$data, $suppliedUserData = false, $leaveUnknown = false)
 	{
 		if ($suppliedUserData === false) {
 			$suppliedUserData = $this->getRequiredInput();
@@ -713,16 +713,16 @@ class Tiki_Profile
 				$data = str_replace($needles, $replacements, $data);
 			}
 		}
-	} // }}}
+	}
 
-	function getInstructionPage() // {{{
+	public function getInstructionPage()
 	{
 		if (isset($this->data['instructions'])) {
 			return $this->data['instructions'];
 		}
-	} // }}}
+	}
 
-	function getPreferences() // {{{
+	public function getPreferences()
 	{
 		$prefs = [];
 
@@ -732,7 +732,7 @@ class Tiki_Profile
 		}
 
 		return $prefs;
-	} // }}}
+	}
 
 
 	/**
@@ -752,16 +752,16 @@ class Tiki_Profile
 		return $packages;
 	}
 
-	function getGroupMap() // {{{
+	public function getGroupMap()
 	{
 		if (! isset($this->data['mappings'])) {
 			return [];
 		}
 
 		return $this->data['mappings'];
-	} // }}}
+	}
 
-	function getPermissions($groupMap = []) // {{{
+	public function getPermissions($groupMap = [])
 	{
 		if (! array_key_exists('permissions', $this->data)) {
 			return [];
@@ -846,21 +846,21 @@ class Tiki_Profile
 		}
 
 		return $groups;
-	} // }}}
+	}
 
 	/**
 	 * Gets the objects that have already been loaded from the profile or have been installed, otherwise
 	 * it loads it from the profile itself.
 	 * @return array|null
 	 */
-	function getLoadedObjects() // {{{
+	public function getLoadedObjects()
 	{
 		if (! is_null($this->objects)) {
 			return $this->objects;
 		} else {
 			return $this->getObjects();
 		}
-	} // }}}
+	}
 
 	/**
 	 * Loads objects for the profile for the purpose of installation or the steps before the installation.
@@ -868,7 +868,7 @@ class Tiki_Profile
 	 * like the reference IDs to be lost.
 	 * @return array|null
 	 */
-	function getObjects() // {{{
+	public function getObjects()
 	{
 		// Note this function needs to be called each time the objects need to be refreshed after YAML replacements
 
@@ -920,9 +920,9 @@ class Tiki_Profile
 
 		$this->objects = $classified;
 		return $this->objects;
-	} // }}}
+	}
 
-	function removeSymbols() // {{{
+	public function removeSymbols()
 	{
 		global $tikilib;
 		$tikilib->query(
@@ -936,9 +936,9 @@ class Tiki_Profile
 				unset(self::$known[$obj]);
 			}
 		}
-	} // }}}
+	}
 
-	function setSymbol($type, $name, $value, $named = 'y') // {{{
+	public function setSymbol($type, $name, $value, $named = 'y')
 	{
 		$symbols = TikiDb::get()->table('tiki_profile_symbols');
 		$symbols->insert(
@@ -951,16 +951,16 @@ class Tiki_Profile
 				'named' => $named,
 			]
 		);
-	} // }}}
+	}
 
-	function getProfileKey($prefix = true) // {{{
+	public function getProfileKey($prefix = true)
 	{
 		if (! $prefix) {
 			return self::getProfileKeyfor($this->domain, $this->profile);
 		} else {
 			return self::getProfileKeyfor($this->domain, $this->withPrefix($this->profile));
 		}
-	} // }}}
+	}
 
 	/**
 	 * Based on an objectType (eg: menu) and an objectId (eg: Id of a menu) query tiki_profile_symbols table and return domain, profile and object information
@@ -969,7 +969,7 @@ class Tiki_Profile
 	 * @param mixed $objectId        Name or ID of object
 	 * @return array
 	 */
-	static function getObjectSymbolDetails($objectType, $objectId)
+	public static function getObjectSymbolDetails($objectType, $objectId)
 	{
 		$result = [];
 
@@ -982,7 +982,7 @@ class Tiki_Profile
 		return $result;
 	}
 
-	function getPath()
+	public function getPath()
 	{
 		$domain = $this->domain;
 		$profile = $this->profile;
@@ -998,7 +998,7 @@ class Tiki_Profile
 		} else {
 			return $domain;
 		}
-	} // }}}
+	}
 
 	/**
 	 * Validate that the values of the Named Objects that will be used as references are valid references

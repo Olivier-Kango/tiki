@@ -9,12 +9,12 @@ class TikiFilter_HtmlPurifier implements Laminas\Filter\FilterInterface
 {
 	private $cache;
 
-	function __construct($cacheFolder)
+	public function __construct($cacheFolder)
 	{
 		$this->cache = $cacheFolder;
 	}
 
-	function filter($data)
+	public function filter($data)
 	{
 		require_once('lib/htmlpurifier_tiki/HTMLPurifier.tiki.php');
 

@@ -8,7 +8,7 @@ use Tiki\Lib\core\Tracker\Rule\Type\DateTime;
 
 class DateTimeOn extends Operator
 {
-	function __construct()
+	public function __construct()
 	{
 		$syntax = '.val() * 1 - $("[name=tzoffset]").val() * 60 >= (new Date("%argument%")).getTime() / 1000 && ' .
 			'$("[name=%field%:last]").val() * 1 - $("[name=tzoffset]").val() * 60 < ((new Date("%argument%")).getTime() / 1000 + 86400)';

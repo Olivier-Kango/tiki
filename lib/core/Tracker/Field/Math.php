@@ -55,7 +55,7 @@ class Tracker_Field_Math extends Tracker_Field_Abstract implements Tracker_Field
 		];
 	}
 
-	function getFieldData(array $requestData = [])
+	public function getFieldData(array $requestData = [])
 	{
 		if (isset($requestData[$this->getInsertId()])) {
 			$value = $requestData[$this->getInsertId()];
@@ -68,12 +68,12 @@ class Tracker_Field_Math extends Tracker_Field_Abstract implements Tracker_Field
 		];
 	}
 
-	function renderInput($context = [])
+	public function renderInput($context = [])
 	{
 		return tr('Value will be re-calculated on save. Current value: %0', $this->getValue());
 	}
 
-	function renderOutput($context = [])
+	public function renderOutput($context = [])
 	{
 		$mirrorField = $this->getOption('mirrorField');
 		if ($mirrorField && $mirrorField != $this->getFieldId()) {
@@ -88,22 +88,22 @@ class Tracker_Field_Math extends Tracker_Field_Abstract implements Tracker_Field
 		}
 	}
 
-	function importRemote($value)
+	public function importRemote($value)
 	{
 		return $value;
 	}
 
-	function exportRemote($value)
+	public function exportRemote($value)
 	{
 		return $value;
 	}
 
-	function importRemoteField(array $info, array $syncInfo)
+	public function importRemoteField(array $info, array $syncInfo)
 	{
 		return $info;
 	}
 
-	function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
+	public function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
 	{
 		$value = $this->getValue();
 
@@ -124,13 +124,13 @@ class Tracker_Field_Math extends Tracker_Field_Abstract implements Tracker_Field
 		return $out;
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		$baseKey = $this->getBaseKey();
 		return [$baseKey];
 	}
 
-	function getGlobalFields()
+	public function getGlobalFields()
 	{
 		return [];
 	}
@@ -142,7 +142,7 @@ class Tracker_Field_Math extends Tracker_Field_Abstract implements Tracker_Field
 	 * and make them available for other Math fields in the same item, thus
 	 * greatly speeding up the process.
 	 */
-	function handleFinalSave(array &$data)
+	public function handleFinalSave(array &$data)
 	{
 		try {
 			$this->prepareFieldValues($data);
@@ -164,7 +164,7 @@ class Tracker_Field_Math extends Tracker_Field_Abstract implements Tracker_Field
 		}
 	}
 
-	function getTabularSchema()
+	public function getTabularSchema()
 	{
 		$schema = new Tracker\Tabular\Schema($this->getTrackerDefinition());
 
@@ -179,7 +179,7 @@ class Tracker_Field_Math extends Tracker_Field_Abstract implements Tracker_Field
 		return $schema;
 	}
 
-	function getFilterCollection()
+	public function getFilterCollection()
 	{
 		$collection = new Tracker\Filter\Collection($this->getTrackerDefinition());
 		$permName = $this->getConfiguration('permName');

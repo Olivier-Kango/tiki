@@ -7,7 +7,7 @@
 
 class WikiParser_PluginArgumentParser
 {
-	function parse($data)
+	public function parse($data)
 	{
 		$arguments = [];
 		$data = TikiLib::lib("parser")->unprotectSpecialChars($data, true);	// need to get &quot; converted back to " etc

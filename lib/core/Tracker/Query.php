@@ -520,7 +520,7 @@ class Tracker_Query
 	 * @access  public
 	 * @param   mixed  $tracker, id or tracker name if $this->byName() called
 	 */
-	function __construct($tracker = '')
+	public function __construct($tracker = '')
 	{
 		global $tikilib;
 		$this->tracker = $tracker;
@@ -611,7 +611,7 @@ class Tracker_Query
 	 * Adds the field names to the beginning of the array of tracker items
 	 *
 	 */
-	static function prepend_field_header(&$trackerPrimary = [], $nameOrder = [])
+	public static function prepend_field_header(&$trackerPrimary = [], $nameOrder = [])
 	{
 		global $tikilib;
 		$result = $tikilib->fetchAll("SELECT fieldId, trackerId, name FROM tiki_tracker_fields");
@@ -654,7 +654,7 @@ class Tracker_Query
 	 * Simple direction parsing from string to type
 	 *
 	 */
-	private static function sort_direction($dir)
+	private static function sortDirection($dir)
 	{
 		switch ($dir) {
 			case "asc":
@@ -684,23 +684,23 @@ class Tracker_Query
 		return $dir;
 	}
 
-	static function arfsort(&$array, $fieldList)
+	public static function arfsort(&$array, $fieldList)
 	{
 		if (! is_array($fieldList)) {
 			$fieldList = explode('|', $fieldList);
-			$fieldList = [[$fieldList[0], self::sort_direction($fieldList[1])]];
+			$fieldList = [[$fieldList[0], self::sortDirection($fieldList[1])]];
 		} else {
 			for ($i = 0, $count_fieldList = count($fieldList); $i < $count_fieldList; ++$i) {
 				$fieldList[$i] = explode('|', $fieldList[$i]);
-				$fieldList[$i] = [$fieldList[$i][0], self::sort_direction($fieldList[$i][1])];
+				$fieldList[$i] = [$fieldList[$i][0], self::sortDirection($fieldList[$i][1])];
 			}
 		}
 
 		$GLOBALS['__ARFSORT_LIST__'] = $fieldList;
-		usort($array, 'arfsort_func');
+		usort($array, 'arfsortFunc');
 	}
 
-	function arfsort_func($a, $b)
+	public function arfsortFunc($a, $b)
 	{
 		foreach ($GLOBALS['__ARFSORT_LIST__'] as $f) {
 			switch ($f[1]) {
@@ -719,7 +719,7 @@ class Tracker_Query
 		return 0;
 	}
 
-	private function concat_str($field)
+	private function concatStr($field)
 	{
 		if ($this->concat == false) {
 			return $field;
@@ -765,7 +765,7 @@ class Tracker_Query
 	 * 		)
 	 * )
 	 */
-	function query()
+	public function query()
 	{
 		$trklib = TikiLib::lib('trk');
 		$tikilib = TikiLib::lib('tiki');
@@ -885,9 +885,9 @@ class Tracker_Query
 			tiki_tracker_items.status,
 			tiki_tracker_item_fields.itemId,
 			tiki_tracker_fields.trackerId,
-			" . $this->concat_str("tiki_tracker_fields.name") . " AS fieldNames,
-			" . $this->concat_str("tiki_tracker_item_fields.fieldId") . " AS fieldIds,
-			" . $this->concat_str("IFNULL(items_right.value, tiki_tracker_item_fields.value)") . " AS item_values
+			" . $this->concatStr("tiki_tracker_fields.name") . " AS fieldNames,
+			" . $this->concatStr("tiki_tracker_item_fields.fieldId") . " AS fieldIds,
+			" . $this->concatStr("IFNULL(items_right.value, tiki_tracker_item_fields.value)") . " AS item_values
 
 				FROM tiki_tracker_item_fields " . ($isSearch == true ? " AS search_item_fields " : "") . "
 
@@ -983,7 +983,7 @@ class Tracker_Query
 				//End "AND" style checking of results
 
 				if ($this->render == true) {
-					$value = $this->render_field_value($trackerFieldDefinition[$fieldId], $itemValues[$key]);
+					$value = $this->renderFieldValue($trackerFieldDefinition[$fieldId], $itemValues[$key]);
 				} else {
 					$value = $itemValues[$key];
 				}
@@ -1030,7 +1030,7 @@ class Tracker_Query
 	 * @param   string  $value
 	 * @return  mixed $value rendered field value
 	 */
-	private function render_field_value($fieldDefinition, $value)
+	private function renderFieldValue($fieldDefinition, $value)
 	{
 		$trklib = TikiLib::lib('trk');
 		$fieldDefinition['value'] = $value;
@@ -1059,7 +1059,7 @@ class Tracker_Query
 	 * @param   string  $value
 	 * @return  mixed $value rendered field value
 	 */
-	static function filter_fields_from_tracker_query($tracker, $fieldIdsToRemove = [], $fieldIdsToShow = [])
+	public static function filter_fields_from_tracker_query($tracker, $fieldIdsToRemove = [], $fieldIdsToShow = [])
 	{
 		if (empty($fieldIdsToShow) == false) {
 			$newTracker = [];
@@ -1088,7 +1088,7 @@ class Tracker_Query
 	 * Joins tracker arrays together.
 	 *
 	 */
-	static function join_trackers($trackerLeft, $trackerRight, $fieldLeftId, $joinType)
+	public static function join_trackers($trackerLeft, $trackerRight, $fieldLeftId, $joinType)
 	{
 		$joinedTracker = [];
 
@@ -1125,7 +1125,7 @@ class Tracker_Query
 	}
 
 
-	static function to_csv($array, $header = false, $col_sep = ",", $row_sep = "\n", $qut = '"', $fileName = 'file.csv')
+	public static function to_csv($array, $header = false, $col_sep = ",", $row_sep = "\n", $qut = '"', $fileName = 'file.csv')
 	{
 
 		header("Content-type: application/csv");

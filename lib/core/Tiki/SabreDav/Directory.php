@@ -11,11 +11,13 @@ namespace Tiki\SabreDav;
 use Sabre\DAV;
 use TikiLib;
 
-class Directory extends DAV\Collection {
+class Directory extends DAV\Collection
+{
 
 	private $definition;
 
-	function __construct($path_or_id = '/') {
+	public function __construct($path_or_id = '/')
+	{
 		if ((int)$path_or_id == 0) {
 			$result = TikiLib::lib('filegal')->get_objectid_from_virtual_path($path_or_id);
 			if (! $result || $result['type'] != 'filegal') {
@@ -26,7 +28,8 @@ class Directory extends DAV\Collection {
 		$this->definition = TikiLib::lib('filegal')->getGalleryDefinition($path_or_id);
 	}
 
-	function getChildren() {
+	public function getChildren()
+	{
 		global $prefs;
 
 		$children = array();
@@ -43,7 +46,8 @@ class Directory extends DAV\Collection {
 		return $children;
 	}
 
-	function getChildFromDB($row) {
+	public function getChildFromDB($row)
+	{
 		if ($row['isgal']) {
 			return new Directory($row['id']);
 		} else {
@@ -51,7 +55,8 @@ class Directory extends DAV\Collection {
 		}
 	}
 
-	function getChild($name) {
+	public function getChild($name)
+	{
 		$wikiDir = new WikiDirectory();
 		if ($name === $wikiDir->getName()) {
 			return $wikiDir;
@@ -66,7 +71,8 @@ class Directory extends DAV\Collection {
 		throw new DAV\Exception\NotFound('The file with name: ' . $name . ' could not be found');
 	}
 
-	function childExists($name) {
+	public function childExists($name)
+	{
 		$results = $this->galleryChildren();
 		foreach ($results['data'] as $row) {
 			if ($row['filename'] === $name) {
@@ -76,23 +82,27 @@ class Directory extends DAV\Collection {
 		return false;
 	}
 
-	function getLastModified() {
+	public function getLastModified()
+	{
 		$info = $this->definition->getInfo();
 		return $info['lastModif'];
 	}
 
-	function getName() {
+	public function getName()
+	{
 		$info = $this->definition->getInfo();
 		return $info['name'];
 	}
 
-	function setName($name) {
+	public function setName($name)
+	{
 		$info = $this->definition->getInfo();
 		$info['name'] = $name;
 		TikiLib::lib('filegal')->replace_file_gallery($info);
 	}
 
-	function createFile($name, $data = null) {
+	public function createFile($name, $data = null)
+	{
 		global $user, $prefs;
 
 		Utilities::checkUploadPermission($this->definition);
@@ -108,7 +118,8 @@ class Directory extends DAV\Collection {
 		);
 	}
 
-	function createDirectory($name) {
+	public function createDirectory($name)
+	{
 		global $user;
 
 		Utilities::checkCreatePermission($this->definition);
@@ -125,7 +136,8 @@ class Directory extends DAV\Collection {
 		TikiLib::lib('filegal')->replace_file_gallery($filegalInfo);
 	}
 
-	function delete() {
+	public function delete()
+	{
 		Utilities::checkDeleteGalleryPermission($this->definition);
 
 		$info = $this->definition->getInfo();
@@ -133,12 +145,14 @@ class Directory extends DAV\Collection {
 		TikiLib::lib('filegal')->remove_file_gallery($info['galleryId'], $info['galleryId']);
 	}
 
-	function getGalleryId() {
+	public function getGalleryId()
+	{
 		$info = $this->definition->getInfo();
 		return $info['galleryId'];
 	}
 
-	private function galleryChildren($find = null) {
+	private function galleryChildren($find = null)
+	{
 		$info = $this->definition->getInfo();
 		return TikiLib::lib('filegal')->get_files(0, -1, 'name_desc', $find, $info['galleryId'], false, true);
 	}

@@ -13,7 +13,7 @@ class Tiki_Event_Manager
 	private $counter = 0;
 	private $eventLog = [];
 
-	function reset()
+	public function reset()
 	{
 		$this->eventRegistry = [];
 		$this->priorities = [];
@@ -22,7 +22,7 @@ class Tiki_Event_Manager
 	/**
 	 * Binds an event at normal priority and handles event chaining.
 	 */
-	function bind($eventName, $callback, array $arguments = [])
+	public function bind($eventName, $callback, array $arguments = [])
 	{
 		$priority = 0;
 
@@ -41,7 +41,7 @@ class Tiki_Event_Manager
 	 * Priorities are numeric, false indicates that the event executes at all levels. This is used for chaining
 	 * and happens transparently when using bind() with an event as the callback.
 	 */
-	function bindPriority($priority, $eventName, $callback, array $arguments = [])
+	public function bindPriority($priority, $eventName, $callback, array $arguments = [])
 	{
 		if ($priority !== false) {
 			$this->priorities[] = $priority;
@@ -54,7 +54,7 @@ class Tiki_Event_Manager
 		];
 	}
 
-	function trigger($eventName, array $arguments = [])
+	public function trigger($eventName, array $arguments = [])
 	{
 		$arguments['EVENT_ID'] = ++$this->counter;
 
@@ -67,7 +67,7 @@ class Tiki_Event_Manager
 		}
 	}
 
-	function internalTrigger($eventName, array $arguments, $priority, $originalEvent)
+	public function internalTrigger($eventName, array $arguments, $priority, $originalEvent)
 	{
 		if (isset($this->eventRegistry[$eventName])) {
 			foreach ($this->eventRegistry[$eventName] as $callback) {
@@ -86,7 +86,7 @@ class Tiki_Event_Manager
 		}
 	}
 
-	function getEventGraph()
+	public function getEventGraph()
 	{
 		$edges = [];
 		$nodes = array_keys($this->eventRegistry);
@@ -117,7 +117,7 @@ class Tiki_Event_Manager
 	 * Needs to be activated via setting TIKI_HEADER_REPORT_EVENTS as a
 	 * server environment variable
 	 */
-	function logEvent($event, $args)
+	public function logEvent($event, $args)
 	{
 		$eventKey = str_replace(".", "_", $event);
 		$this->eventLog[$eventKey] = $args;
@@ -129,7 +129,7 @@ class Tiki_Event_Manager
 	 * Needs to be activated via setting TIKI_HEADER_REPORT_EVENTS as a
 	 * server environment variable
 	 */
-	function getEventLog()
+	public function getEventLog()
 	{
 		return $this->eventLog;
 	}

@@ -7,7 +7,7 @@
 
 class Tiki_Profile_InstallHandler_DataChannel extends Tiki_Profile_InstallHandler
 {
-	function getData()
+	public function getData()
 	{
 		if ($this->data) {
 			return $this->data;
@@ -23,7 +23,7 @@ class Tiki_Profile_InstallHandler_DataChannel extends Tiki_Profile_InstallHandle
 		return $this->data = $data;
 	}
 
-	function canInstall()
+	public function canInstall()
 	{
 		$data = $this->getData();
 		if (! isset($data['name'], $data['profile'])) {
@@ -39,7 +39,7 @@ class Tiki_Profile_InstallHandler_DataChannel extends Tiki_Profile_InstallHandle
 		return true;
 	}
 
-	function _install()
+	public function _install()
 	{
 		global $tikilib, $prefs;
 		$channels = Tiki_Profile_ChannelList::fromConfiguration($prefs['profile_channels']);

@@ -157,7 +157,7 @@ class PreferencesExportCommand extends Command
 	 * @param $fields
 	 * @param $data
 	 */
-	function export_wiki($export_file,$fields,$data)
+	public function export_wiki($export_file,$fields,$data)
 	{
 		$header_fields = implode("|",$fields);
 		$header = "{FANCYTABLE(head=\"". $header_fields . "\")}";
@@ -177,7 +177,7 @@ class PreferencesExportCommand extends Command
 	 * @param $fields
 	 * @return array
 	 */
-	function collect_raw_data($fields)
+	public function collect_raw_data($fields)
 	{
 		$data = [];
 
@@ -227,7 +227,7 @@ class PreferencesExportCommand extends Command
 	/**
 	 * @param $data
 	 */
-	function remove_fake_descriptions(& $data)
+	public function remove_fake_descriptions(& $data)
 	{
 		foreach ($data as & $row) {
 			if ($row['name'] == $row['description']) {
@@ -240,7 +240,7 @@ class PreferencesExportCommand extends Command
 	 * @param $data
 	 * @param $prefs
 	 */
-	function set_default_values(& $data, $prefs)
+	public function set_default_values(& $data, $prefs)
 	{
 		foreach ($data as & $row) {
 			$row['default'] = isset($prefs[$row['preference']]) ? $prefs[$row['preference']] : '';
@@ -256,7 +256,7 @@ class PreferencesExportCommand extends Command
 	 * @param $field
 	 * @return array
 	 */
-	function index_data($data, $field)
+	public function index_data($data, $field)
 	{
 		$index = [];
 
@@ -276,7 +276,7 @@ class PreferencesExportCommand extends Command
 	/**
 	 * @param $data
 	 */
-	function collect_locations(& $data)
+	public function collect_locations(& $data)
 	{
 		$prefslib = TikiLib::lib('prefs');
 
@@ -294,7 +294,7 @@ class PreferencesExportCommand extends Command
 	 * @param $index
 	 * @param $stopWords
 	 */
-	function update_search_flag(& $data, $index, $stopWords)
+	public function update_search_flag(& $data, $index, $stopWords)
 	{
 		foreach ($data as & $row) {
 			$name = strtolower($row['name']);

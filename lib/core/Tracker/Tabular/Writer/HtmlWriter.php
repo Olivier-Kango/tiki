@@ -9,11 +9,11 @@ namespace Tracker\Tabular\Writer;
 
 class HtmlWriter
 {
-	function __construct()
+	public function __construct()
 	{
 	}
 
-	function getData(\Tracker\Tabular\Source\SourceInterface $source)
+	public function getData(\Tracker\Tabular\Source\SourceInterface $source)
 	{
 		$schema = $source->getSchema();
 		$schema = $schema->getHtmlOutputSchema();

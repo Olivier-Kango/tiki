@@ -7,7 +7,7 @@
 
 class Tiki_Profile_Transport_Local implements Tiki_Profile_Transport_Interface
 {
-	function getPageContent($pageName)
+	public function getPageContent($pageName)
 	{
 		$tikilib = TikiLib::lib('tiki');
 		$info = $tikilib->get_page_info($pageName);
@@ -17,7 +17,7 @@ class Tiki_Profile_Transport_Local implements Tiki_Profile_Transport_Interface
 		return $info['data'];
 	}
 
-	function getPageParsed($pageName)
+	public function getPageParsed($pageName)
 	{
 		$content = $this->getPageContent($pageName);
 
@@ -26,7 +26,7 @@ class Tiki_Profile_Transport_Local implements Tiki_Profile_Transport_Interface
 		}
 	}
 
-	function getProfilePath()
+	public function getProfilePath()
 	{
 	}
 }

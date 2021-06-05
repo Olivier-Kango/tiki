@@ -29,7 +29,7 @@ class Tracker_Field_UserSubscription extends Tracker_Field_Abstract
 		];
 	}
 
-	function getFieldData(array $requestData = [])
+	public function getFieldData(array $requestData = [])
 	{
 		global $user, $jitPost;
 		$userlib = TikiLib::lib('user');
@@ -88,11 +88,11 @@ class Tracker_Field_UserSubscription extends Tracker_Field_Abstract
 		return $current_field_ins;
 	}
 
-	function renderInput($context = [])
+	public function renderInput($context = [])
 	{
 		return $this->renderTemplate('trackerinput/usersubscription.tpl', $context);
 	}
-	function renderOutput($context = [])
+	public function renderOutput($context = [])
 	{
 		return $this->renderTemplate('trackeroutput/usersubscription.tpl', $context);
 	}

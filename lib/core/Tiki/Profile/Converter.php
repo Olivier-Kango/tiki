@@ -7,5 +7,5 @@
 
 interface Tiki_Profile_Converter
 {
-	function convert($value);
+	public function convert($value);
 }

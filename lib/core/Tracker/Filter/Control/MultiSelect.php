@@ -14,25 +14,25 @@ class MultiSelect implements Control
 	protected $extra;
 	protected $values = [];
 
-	function __construct($name, $options, callable $extra = null)
+	public function __construct($name, $options, callable $extra = null)
 	{
 		$this->fieldName = $name;
 		$this->options = $options;
 		$this->extra = $extra;
 	}
 
-	function applyInput(\JitFilter $input)
+	public function applyInput(\JitFilter $input)
 	{
 		$input->replaceFilter($this->fieldName, 'text');
 		$this->values = $input->asArray($this->fieldName);
 	}
 
-	function getQueryArguments()
+	public function getQueryArguments()
 	{
 		return [$this->fieldName => $this->values];
 	}
 
-	function getDescription()
+	public function getDescription()
 	{
 		$this->applyOptions();
 		return implode(', ', array_map(function ($val) {
@@ -40,23 +40,23 @@ class MultiSelect implements Control
 		}, $this->values)) ?: null;
 	}
 
-	function getId()
+	public function getId()
 	{
 		return $this->fieldName;
 	}
 
-	function isUsable()
+	public function isUsable()
 	{
 		$this->applyOptions();
 		return count($this->options) > 0;
 	}
 
-	function hasValue()
+	public function hasValue()
 	{
 		return count($this->values) > 0;
 	}
 
-	function getValues()
+	public function getValues()
 	{
 		return $this->values;
 	}
@@ -80,7 +80,7 @@ class MultiSelect implements Control
 		}
 	}
 
-	function __toString()
+	public function __toString()
 	{
 		$this->applyOptions();
 

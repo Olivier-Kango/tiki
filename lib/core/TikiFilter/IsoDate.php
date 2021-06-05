@@ -7,12 +7,12 @@
 
 class TikiFilter_IsoDate implements Laminas\Filter\FilterInterface
 {
-	function __construct($format = 'Y-m-d')
+	public function __construct($format = 'Y-m-d')
 	{
 		$this->format = $format;
 	}
 
-	function filter($value)
+	public function filter($value)
 	{
 		$format = $this->format;
 		if ($date = date_create_from_format($format, $value)) {

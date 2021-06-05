@@ -19,9 +19,9 @@ use ZipArchive;
  */
 class Zip
 {
-	const TEMPORARY_FOLDER_NAME = 'temp/';
-	const CONFIG_FOLDER_NAME = 'db/';
-	const SCHEMA_FOLDER_NAME = 'installer/schema/';
+	public const TEMPORARY_FOLDER_NAME = 'temp/';
+	public const CONFIG_FOLDER_NAME = 'db/';
+	public const SCHEMA_FOLDER_NAME = 'installer/schema/';
 
 	protected $fileName = '';
 

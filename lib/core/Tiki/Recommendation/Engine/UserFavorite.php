@@ -14,12 +14,12 @@ class UserFavorite implements EngineInterface
 {
 	private $lib;
 
-	function __construct($unifiedsearch)
+	public function __construct($unifiedsearch)
 	{
 		$this->lib = $unifiedsearch;
 	}
 
-	function generate($input)
+	public function generate($input)
 	{
 		assert($input instanceof \Tiki\Recommendation\Input\UserInput);
 

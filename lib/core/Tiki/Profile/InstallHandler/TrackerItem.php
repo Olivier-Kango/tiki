@@ -9,7 +9,7 @@ class Tiki_Profile_InstallHandler_TrackerItem extends Tiki_Profile_InstallHandle
 {
 	private $mode = 'create';
 
-	private function getData() // {{{
+	private function getData()
 	{
 		if ($this->data) {
 			return $this->data;
@@ -18,25 +18,25 @@ class Tiki_Profile_InstallHandler_TrackerItem extends Tiki_Profile_InstallHandle
 		$data = $this->obj->getData();
 
 		return $this->data = $data;
-	} // }}}
+	}
 
-	function getDefaultValues() // {{{
+	public function getDefaultValues()
 	{
 		return [
 			'tracker' => 0,
 			'status' => '',
 			'values' => [],
 		];
-	} // }}}
+	}
 
-	function getConverters() // {{{
+	public function getConverters()
 	{
 		return [
 			'status' => new Tiki_Profile_ValueMapConverter([ 'open' => 'o', 'pending' => 'p', 'closed' => 'c' ]),
 		];
-	} // }}}
+	}
 
-	function canInstall()
+	public function canInstall()
 	{
 		$data = $this->getData();
 
@@ -60,7 +60,7 @@ class Tiki_Profile_InstallHandler_TrackerItem extends Tiki_Profile_InstallHandle
 		return true;
 	}
 
-	function convertMode($data)
+	public function convertMode($data)
 	{
 		if (isset($data['mode']) && $data['mode'] == 'update') {
 			if (empty($data['itemId'])) {
@@ -72,7 +72,7 @@ class Tiki_Profile_InstallHandler_TrackerItem extends Tiki_Profile_InstallHandle
 		return true;
 	}
 
-	function _install()
+	public function _install()
 	{
 		$data = $this->getData();
 		$converters = $this->getConverters();
@@ -129,7 +129,7 @@ class Tiki_Profile_InstallHandler_TrackerItem extends Tiki_Profile_InstallHandle
 	 *
 	 * @return bool
 	 */
-	static function export(Tiki_Profile_Writer $writer, $item)
+	public static function export(Tiki_Profile_Writer $writer, $item)
 	{
 		if (empty($item) || ! is_array($item)) {
 			return false;
@@ -181,7 +181,7 @@ class Tiki_Profile_InstallHandler_TrackerItem extends Tiki_Profile_InstallHandle
 	 * @param string $trackerItem
 	 * @return bool
 	 */
-	function remove($trackerItem)
+	public function remove($trackerItem)
 	{
 		if (! empty($trackerItem)) {
 			$trklib = TikiLib::lib('trk');

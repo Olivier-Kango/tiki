@@ -11,12 +11,12 @@ class ODBCWriter
 {
 	private $odbc_manager;
 
-	function __construct($config)
+	public function __construct($config)
 	{
 		$this->odbc_manager = new \Tracker\Tabular\ODBCManager($config);
 	}
 
-	function write(\Tracker\Tabular\Source\SourceInterface $source)
+	public function write(\Tracker\Tabular\Source\SourceInterface $source)
 	{
 		$schema = $source->getSchema();
 		$schema->validate();
@@ -43,7 +43,7 @@ class ODBCWriter
 	/**
 	 * Called after trackeritem save event, this method updates remote data source with local changes
 	 */
-	function sync(\Tracker\Tabular\Schema $schema, int $item_id, array $old_values, array $new_values)
+	public function sync(\Tracker\Tabular\Schema $schema, int $item_id, array $old_values, array $new_values)
 	{
 		$schema->validate();
 		$columns = $schema->getColumns();
@@ -113,7 +113,7 @@ class ODBCWriter
 		return $mapped;
 	}
 
-	function delete($pk, $id) {
+	public function delete($pk, $id) {
 		return $this->odbc_manager->delete($pk, $id);
 	}
 }

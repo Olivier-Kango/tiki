@@ -23,23 +23,23 @@ class CachedLookupHelper
 	private $lookup;
 	private $enableLookup = false;
 
-	function __construct($baseCount = 100)
+	public function __construct($baseCount = 100)
 	{
 		$this->baseCount = $baseCount;
 	}
 
-	function setInit(callable $fn)
+	public function setInit(callable $fn)
 	{
 		$this->init = $fn;
 	}
 
-	function setLookup(callable $fn)
+	public function setLookup(callable $fn)
 	{
 		$this->lookup = $fn;
 		$this->enableLookup = true;
 	}
 
-	function get($value)
+	public function get($value)
 	{
 		if ($this->init) {
 			// Enable lookup on missing values only if not all values have been initially

@@ -16,7 +16,7 @@ class Tracker_Options
 
 	public static function fromSerialized($json, array $info)
 	{
-		$options = new Tracker_Options;
+		$options = new Tracker_Options();
 		$options->info = $info;
 		$options->data = json_decode($json, true);
 
@@ -25,7 +25,7 @@ class Tracker_Options
 
 	public static function fromString($string, array $info)
 	{
-		$options = new Tracker_Options;
+		$options = new Tracker_Options();
 		$options->info = $info;
 
 		$parts = preg_split('/\s*,\s*/', trim($string));
@@ -53,7 +53,7 @@ class Tracker_Options
 
 	public static function fromArray(array $rawData, array $typeInfo)
 	{
-		$options = new Tracker_Options;
+		$options = new Tracker_Options();
 		$options->info = $typeInfo;
 
 		foreach ($rawData as $key => $value) {
@@ -75,7 +75,7 @@ class Tracker_Options
 
 	public static function fromInput(JitFilter $input, array $typeInfo)
 	{
-		$options = new Tracker_Options;
+		$options = new Tracker_Options();
 		$options->info = $typeInfo;
 
 		foreach ($typeInfo['params'] as $key => $info) {
@@ -141,7 +141,7 @@ class Tracker_Options
 		}
 	}
 
-	function getParamDefinition($key)
+	public function getParamDefinition($key)
 	{
 		if (isset($this->info['params'][$key])) {
 			$data = $this->info['params'][$key];
@@ -156,7 +156,7 @@ class Tracker_Options
 		$this->data[$key] = $value;
 	}
 
-	function getParam($key, $default = false)
+	public function getParam($key, $default = false)
 	{
 		if (isset($this->data[$key]) && ($this->data[$key] !== '' || ! is_array($default))) {
 			return $this->data[$key];
@@ -171,7 +171,7 @@ class Tracker_Options
 		return $default;
 	}
 
-	function getParamFromIndex($index, $default = false)
+	public function getParamFromIndex($index, $default = false)
 	{
 		if ($field = $this->getParamDefinitionFromIndex($index)) {
 			return $this->getParam($field['key'], $default);
@@ -180,7 +180,7 @@ class Tracker_Options
 		}
 	}
 
-	function getAllParameters()
+	public function getAllParameters()
 	{
 		$out = [];
 
@@ -193,12 +193,12 @@ class Tracker_Options
 		return $out;
 	}
 
-	function serialize()
+	public function serialize()
 	{
 		return json_encode($this->data);
 	}
 
-	function buildOptionsArray()
+	public function buildOptionsArray()
 	{
 		$out = [];
 		foreach ($this->getLegacySort() as $key) {

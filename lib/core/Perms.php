@@ -301,27 +301,27 @@ class Perms
 		return $valid;
 	}
 
-	function setGroups(array $groups)
+	public function setGroups(array $groups)
 	{
 		$this->groups = $groups;
 	}
 
-	function getGroups()
+	public function getGroups()
 	{
 		return $this->groups;
 	}
 
-	function setPrefix($prefix)
+	public function setPrefix($prefix)
 	{
 		$this->prefix = $prefix;
 	}
 
-	function setResolverFactories(array $factories)
+	public function setResolverFactories(array $factories)
 	{
 		$this->factories = $factories;
 	}
 
-	function setCheckSequence(array $sequence)
+	public function setCheckSequence(array $sequence)
 	{
 		$this->checkSequence = $sequence;
 	}

@@ -8,7 +8,7 @@ use Tiki\Lib\core\Tracker\Rule\Type\DateTime;
 
 class DateTimeBefore extends Operator
 {
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct(
 			tr('before'),

@@ -12,25 +12,25 @@ class PhysicalFile implements WrapperInterface
 	private $path;
 	private $basePath;
 
-	function __construct($basePath, $path)
+	public function __construct($basePath, $path)
 	{
 		$this->basePath = rtrim($basePath, '/\\');
 		$this->path = $path;
 	}
 
-	function getReadableFile()
+	public function getReadableFile()
 	{
 		return $this->fullPath();
 	}
 
-	function getContents()
+	public function getContents()
 	{
 		$tmpfname = $this->fullPath();
 
 		return \file_get_contents($tmpfname);
 	}
 
-	function getChecksum()
+	public function getChecksum()
 	{
 		$tmpfname = $this->fullPath();
 		if (filesize($tmpfname) > 0) {
@@ -40,15 +40,15 @@ class PhysicalFile implements WrapperInterface
 		}
 	}
 
-	function getSize() {
+	public function getSize() {
 		return filesize($this->fullPath());
 	}
 
-	function isFileLocal() {
+	public function isFileLocal() {
 		return true;
 	}
 
-	function replaceContents($data) {
+	public function replaceContents($data) {
 		$dest = $this->fullPath();
 		$baseDir = dirname($dest);
 
@@ -67,7 +67,7 @@ class PhysicalFile implements WrapperInterface
 		}
 	}
 
-	function getStorableContent() {
+	public function getStorableContent() {
 		return [
 			'data' => null,
 			'path' => $this->path,

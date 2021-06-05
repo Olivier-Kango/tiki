@@ -23,13 +23,13 @@ class WikiParser_Parsable extends ParserLib
 	/** @var array Footnotes added via the FOOTNOTE plugin. These are read by wikiplugin_footnotearea(). */
 	public $footnotes;
 
-	function __construct($markup)
+	public function __construct($markup)
 	{
 		$this->markup = $markup;
 	}
 
 	// This recursive function handles pre- and no-parse sections and plugins
-	function parse_first(&$data, &$preparsed, &$noparsed, $real_start_diff = '0')
+	public function parse_first(&$data, &$preparsed, &$noparsed, $real_start_diff = '0')
 	{
 		global $tikilib, $tiki_p_edit, $prefs, $pluginskiplist;
 		$smarty = TikiLib::lib('smarty');
@@ -100,7 +100,7 @@ class WikiParser_Parsable extends ParserLib
 						$this->option['suppress_icons'] = $plugin_name != 'include' && $plugin_parent && $plugin_parent == 'include' ?
 							true : $this->option['suppress_icons'];
 
-						$ret = $this->plugin_execute($plugin_name, $plugin_data, $arguments, $start, false);
+						$ret = $this->pluginExecute($plugin_name, $plugin_data, $arguments, $start, false);
 
 						// restore previous suppress_icons state
 						$this->option['suppress_icons'] = $suppress_icons;
@@ -209,7 +209,7 @@ if ( \$('#$id') ) {
 	 * options defaults : is_html => false, absolute_links => false, language => ''
 	 * @return string
 	 */
-	function parse($options)
+	public function parse($options)
 	{
 		// Don't bother if there's nothing...
 		if (gettype($this->markup) <> 'string' || mb_strlen($this->markup) < 1) {
@@ -402,7 +402,7 @@ if ( \$('#$id') ) {
 		return $data;
 	}
 
-	function plugin_execute($name, $data = '', $args = [], $offset = 0, $validationPerformed = false, $option = [])
+	public function pluginExecute($name, $data = '', $args = [], $offset = 0, $validationPerformed = false, $option = [])
 	{
 		global $killtoc;
 
@@ -490,7 +490,7 @@ if ( \$('#$id') ) {
 				return $plugin_result;
 			}
 		} elseif (WikiPlugin_Negotiator_Wiki_Alias::findImplementation($name, $data, $args)) {
-			return $this->plugin_execute($name, $data, $args, $offset, $validationPerformed);
+			return $this->pluginExecute($name, $data, $args, $offset, $validationPerformed);
 		}
 	}
 }

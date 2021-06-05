@@ -14,7 +14,7 @@ class SelectorItem implements \ArrayAccess
 	private $object;
 	private $format;
 
-	function __construct($selector, $type, $object, $format = null)
+	public function __construct($selector, $type, $object, $format = null)
 	{
 		$this->selector = $selector;
 		$this->type = $type;
@@ -22,17 +22,17 @@ class SelectorItem implements \ArrayAccess
 		$this->format = $format;
 	}
 
-	function getTitle()
+	public function getTitle()
 	{
 		return $this->selector->getTitle($this->type, $this->object, $this->format);
 	}
 
-	function offsetExists($offset)
+	public function offsetExists($offset)
 	{
 		return in_array($offset, ['type', 'id', 'title']);
 	}
 
-	function offsetGet($offset)
+	public function offsetGet($offset)
 	{
 		switch ($offset) {
 			case 'type':
@@ -44,15 +44,15 @@ class SelectorItem implements \ArrayAccess
 		}
 	}
 
-	function offsetSet($offset, $value)
+	public function offsetSet($offset, $value)
 	{
 	}
 
-	function offsetUnset($offset)
+	public function offsetUnset($offset)
 	{
 	}
 
-	function __toString()
+	public function __toString()
 	{
 		return "{$this->type}:{$this->object}";
 	}

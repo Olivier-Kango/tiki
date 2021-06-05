@@ -49,19 +49,19 @@ class Tracker_Field_Header extends Tracker_Field_Abstract implements Tracker_Fie
 		];
 	}
 
-	function getFieldData(array $requestData = [])
+	public function getFieldData(array $requestData = [])
 	{
 		$ins_id = $this->getInsertId();
 
 		return [];
 	}
 
-	function renderInput($context = [])
+	public function renderInput($context = [])
 	{
 		return $this->renderOutput($context);
 	}
 
-	function renderOutput($context = [])
+	public function renderOutput($context = [])
 	{
 		if (isset($context['list_mode']) && $context['list_mode'] === 'csv') {
 			return;
@@ -135,17 +135,17 @@ class Tracker_Field_Header extends Tracker_Field_Abstract implements Tracker_Fie
 		return $html;
 	}
 
-	function importRemote($value)
+	public function importRemote($value)
 	{
 		return '';
 	}
 
-	function exportRemote($value)
+	public function exportRemote($value)
 	{
 		return '';
 	}
 
-	function importRemoteField(array $info, array $syncInfo)
+	public function importRemoteField(array $info, array $syncInfo)
 	{
 		return $info;
 	}

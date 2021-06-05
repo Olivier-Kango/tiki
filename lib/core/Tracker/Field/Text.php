@@ -86,19 +86,19 @@ class Tracker_Field_Text extends Tracker_Field_Abstract implements Tracker_Field
 		];
 	}
 
-	function getFieldData(array $requestData = [])
+	public function getFieldData(array $requestData = [])
 	{
 		$data = $this->processMultilingual($requestData, $this->getInsertId());
 
 		return $data;
 	}
 
-	function renderInput($context = [])
+	public function renderInput($context = [])
 	{
 		return $this->renderTemplate('trackerinput/text.tpl', $context);
 	}
 
-	function renderInnerOutput($context = [])
+	public function renderInnerOutput($context = [])
 	{
 		$pre = '';
 		$post = '';
@@ -133,7 +133,7 @@ class Tracker_Field_Text extends Tracker_Field_Abstract implements Tracker_Field
 		return $pre . $value . $post;
 	}
 
-	function renderOutput($context = [])
+	public function renderOutput($context = [])
 	{
 		if (isset($context['history']) && $context['history'] == 'y' && is_array($this->getConfiguration('value'))) {
 			return $this->renderTemplate('trackeroutput/text_history.tpl');
@@ -206,7 +206,7 @@ class Tracker_Field_Text extends Tracker_Field_Abstract implements Tracker_Field
 		return $text;
 	}
 
-	function handleSave($value, $oldValue)
+	public function handleSave($value, $oldValue)
 	{
 		if (is_array($value)) {
 			return [
@@ -219,7 +219,7 @@ class Tracker_Field_Text extends Tracker_Field_Abstract implements Tracker_Field
 		}
 	}
 
-	function filterValue($value)
+	public function filterValue($value)
 	{
 		$length = $this->getOption('max');
 
@@ -235,22 +235,22 @@ class Tracker_Field_Text extends Tracker_Field_Abstract implements Tracker_Field
 		return $value;
 	}
 
-	function importRemote($value)
+	public function importRemote($value)
 	{
 		return $value;
 	}
 
-	function exportRemote($value)
+	public function exportRemote($value)
 	{
 		return $value;
 	}
 
-	function importRemoteField(array $info, array $syncInfo)
+	public function importRemoteField(array $info, array $syncInfo)
 	{
 		return $info;
 	}
 
-	function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
+	public function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
 	{
 		$value = $this->getValue();
 		$fieldType = $this->getIndexableType();
@@ -287,7 +287,7 @@ class Tracker_Field_Text extends Tracker_Field_Abstract implements Tracker_Field
 		}
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		global $prefs;
 		$baseKey = $this->getBaseKey();
@@ -305,7 +305,7 @@ class Tracker_Field_Text extends Tracker_Field_Abstract implements Tracker_Field
 		return $data;
 	}
 
-	function getGlobalFields()
+	public function getGlobalFields()
 	{
 		global $prefs;
 		$baseKey = $this->getBaseKey();
@@ -326,7 +326,7 @@ class Tracker_Field_Text extends Tracker_Field_Abstract implements Tracker_Field
 		return 'sortable';
 	}
 
-	function isValid($ins_fields_data)
+	public function isValid($ins_fields_data)
 	{
 		$value = $this->getValue();
 
@@ -348,7 +348,7 @@ class Tracker_Field_Text extends Tracker_Field_Abstract implements Tracker_Field
 		return $ret;
 	}
 
-	function getTabularSchema()
+	public function getTabularSchema()
 	{
 		global $prefs;
 		$schema = new Tracker\Tabular\Schema($this->getTrackerDefinition());
@@ -449,7 +449,7 @@ class Tracker_Field_Text extends Tracker_Field_Abstract implements Tracker_Field
 		return $schema;
 	}
 
-	function getFilterCollection()
+	public function getFilterCollection()
 	{
 		global $prefs;
 

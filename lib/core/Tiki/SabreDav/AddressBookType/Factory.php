@@ -13,7 +13,8 @@ use TikiLib;
 
 class Factory
 {
-	public static function all($user) {
+	public static function all($user)
+	{
 		return [
 			new Webmail($user),
 			new System($user),
@@ -21,7 +22,8 @@ class Factory
 		];
 	}
 
-	public static function fromId($id, $user) {
+	public static function fromId($id, $user)
+	{
 		if (preg_match('/^(webmail|system).(.*)$/', $id, $m)) {
 			$type = $m[1];
 			$principal = $m[2];

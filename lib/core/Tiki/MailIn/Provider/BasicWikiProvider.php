@@ -15,25 +15,25 @@ class BasicWikiProvider implements ProviderInterface
 	private $label;
 	private $class;
 
-	function __construct($type, $label, $class)
+	public function __construct($type, $label, $class)
 	{
 		$this->type = $type;
 		$this->label = $label;
 		$this->class = $class;
 	}
 
-	function isEnabled()
+	public function isEnabled()
 	{
 		global $prefs;
 		return $prefs['feature_wiki'] == 'y';
 	}
 
-	function getType()
+	public function getType()
 	{
 		return $this->type;
 	}
 
-	function getLabel()
+	public function getLabel()
 	{
 		/* Catch strings
 		tr('Create or update wiki page')
@@ -44,7 +44,7 @@ class BasicWikiProvider implements ProviderInterface
 		return tr($this->label);
 	}
 
-	function getActionFactory(array $acc)
+	public function getActionFactory(array $acc)
 	{
 		$wikiParams = [
 			'namespace' => $acc['namespace'],

@@ -12,7 +12,7 @@ class Tiki_Profile_InstallHandler_ActivityStreamRule extends Tiki_Profile_Instal
 	private $rule;
 	private $notes;
 
-	function fetchData()
+	public function fetchData()
 	{
 		$data = $this->obj->getData();
 
@@ -35,7 +35,7 @@ class Tiki_Profile_InstallHandler_ActivityStreamRule extends Tiki_Profile_Instal
 		}
 	}
 
-	function canInstall()
+	public function canInstall()
 	{
 		$this->fetchData();
 
@@ -46,7 +46,7 @@ class Tiki_Profile_InstallHandler_ActivityStreamRule extends Tiki_Profile_Instal
 		return true;
 	}
 
-	function _install()
+	public function _install()
 	{
 		$this->fetchData();
 		$this->replaceReferences($this->eventType);

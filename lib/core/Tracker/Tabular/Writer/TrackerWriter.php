@@ -9,11 +9,11 @@ namespace Tracker\Tabular\Writer;
 
 class TrackerWriter
 {
-	function sendHeaders()
+	public function sendHeaders()
 	{
 	}
 
-	function write(\Tracker\Tabular\Source\SourceInterface $source)
+	public function write(\Tracker\Tabular\Source\SourceInterface $source)
 	{
 		$utilities = new \Services_Tracker_Utilities;
 		$schema = $source->getSchema();

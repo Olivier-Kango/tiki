@@ -179,7 +179,7 @@ class Tracker_Field_ItemsList extends Tracker_Field_Abstract implements Tracker_
 	 * @see Tracker_Field_Interface::getFieldData()
 	 *
 	 */
-	function getFieldData(array $requestData = [])
+	public function getFieldData(array $requestData = [])
 	{
 		$items = $this->getItemIds();
 		$list = $this->getItemLabels($items);
@@ -192,7 +192,7 @@ class Tracker_Field_ItemsList extends Tracker_Field_Abstract implements Tracker_
 		return $ret;
 	}
 
-	function renderInput($context = [])
+	public function renderInput($context = [])
 	{
 		if (empty($this->getOption('fieldIdHere'))) {
 			return $this->renderOutput(['render_input' => 'y']);
@@ -233,7 +233,7 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
 		}
 	}
 
-	function renderOutput($context = [])
+	public function renderOutput($context = [])
 	{
 		if (isset($context['search_render']) && $context['search_render'] == 'y') {
 			$itemIds = $this->getData($this->getConfiguration('fieldId'));
@@ -294,7 +294,7 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
 		}
 	}
 
-	function itemsRequireRefresh($trackerId, $modifiedFields)
+	public function itemsRequireRefresh($trackerId, $modifiedFields)
 	{
 		if ($this->getOption('trackerId') != $trackerId) {
 			return false;
@@ -315,7 +315,7 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
 		return count($intersect) > 0;
 	}
 
-	function watchCompare($old, $new)
+	public function watchCompare($old, $new)
 	{
 		$o = '';
 		$items = $this->getItemIds();
@@ -324,7 +324,7 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
 		return parent::watchCompare($o, $n);	// then compare as text
 	}
 
-	function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
+	public function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
 	{
 		$baseKey = $this->getBaseKey();
 		$items = $this->getItemIds();
@@ -338,7 +338,7 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
 		];
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		$baseKey = $this->getBaseKey();
 		return [
@@ -347,12 +347,12 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
 		];
 	}
 
-	function getGlobalFields()
+	public function getGlobalFields()
 	{
 		return [];
 	}
 
-	function getTabularSchema()
+	public function getTabularSchema()
 	{
 		$schema = new Tracker\Tabular\Schema($this->getTrackerDefinition());
 		$permName = $this->getConfiguration('permName');
@@ -585,7 +585,7 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
 		return $schema;
 	}
 
-	function getFilterCollection()
+	public function getFilterCollection()
 	{
 		$collection = new Tracker\Filter\Collection($this->getTrackerDefinition());
 		$permName = $this->getConfiguration('permName');

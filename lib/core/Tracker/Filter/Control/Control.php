@@ -12,7 +12,7 @@ interface Control
 	/**
 	 * Collect the input values for the controlled field.
 	 */
-	function applyInput(\JitFilter $input);
+	public function applyInput(\JitFilter $input);
 
 	/**
 	 * Provide the portion of the query arguments relating to this field.
@@ -20,31 +20,31 @@ interface Control
 	 *
 	 * Provided as a map to be handled by http_build_query()
 	 */
-	function getQueryArguments();
+	public function getQueryArguments();
 
 	/**
 	 * Provide a textual description of the filter being applied.
 	 * Return null when unapplied.
 	 */
-	function getDescription();
+	public function getDescription();
 
 	/**
 	 * Provide the ID of the primary field to be referenced by the label.
 	 */
-	function getId();
+	public function getId();
 
 	/**
 	 * Determines if the control is usable.
 	 */
-	function isUsable();
+	public function isUsable();
 
 	/**
 	 * Determines if the control has a selected value.
 	 */
-	function hasValue();
+	public function hasValue();
 
 	/**
 	 * Render the field within a form.
 	 */
-	function __toString();
+	public function __toString();
 }

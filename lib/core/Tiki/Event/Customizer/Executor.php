@@ -10,13 +10,13 @@ class Tiki_Event_Customizer_Executor implements Tiki_Event_EdgeProvider
 	private $ruleSet;
 	private $runner;
 
-	function __construct(Tiki_Event_Customizer_RuleSet $ruleSet, Math_Formula_Runner $runner)
+	public function __construct(Tiki_Event_Customizer_RuleSet $ruleSet, Math_Formula_Runner $runner)
 	{
 		$this->ruleSet = $ruleSet;
 		$this->runner = $runner;
 	}
 
-	function __invoke($arguments, $eventName, $priority)
+	public function __invoke($arguments, $eventName, $priority)
 	{
 		$rules = $this->ruleSet->getRules();
 		$runner = $this->runner;
@@ -39,7 +39,7 @@ class Tiki_Event_Customizer_Executor implements Tiki_Event_EdgeProvider
 		}
 	}
 
-	function getTargetEvents()
+	public function getTargetEvents()
 	{
 		$out = [];
 

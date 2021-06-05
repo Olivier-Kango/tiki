@@ -12,8 +12,10 @@ use Sabre\DAV;
 use TikiLib;
 use Perms;
 
-class WikiDirectory extends DAV\Collection {
-	function getChildren() {
+class WikiDirectory extends DAV\Collection
+{
+	public function getChildren()
+	{
 		$pages = $this->getWikiPages();
 		$children = [];
 		foreach ($pages as $page) {
@@ -22,7 +24,8 @@ class WikiDirectory extends DAV\Collection {
 		return $children;
 	}
 
-	function getChild($name) {
+	public function getChild($name)
+	{
 		$children = $this->getWikiPages();
 		foreach ($children as $child) {
 			if ($child['pageName'] === $name) {
@@ -33,7 +36,8 @@ class WikiDirectory extends DAV\Collection {
 		throw new DAV\Exception\NotFound('The wiki page with name: ' . $name . ' could not be found');
 	}
 
-	function childExists($name) {
+	public function childExists($name)
+	{
 		$children = $this->getWikiPages();
 		foreach ($children as $child) {
 			if ($child['pageName'] === $name) {
@@ -43,11 +47,13 @@ class WikiDirectory extends DAV\Collection {
 		return false;
 	}
 
-	function getName() {
+	public function getName()
+	{
 		return 'Wiki Pages';
 	}
 
-	function createFile($name, $data = null) {
+	public function createFile($name, $data = null)
+	{
 		global $user;
 
 		$perms = Perms::get();
@@ -61,15 +67,18 @@ class WikiDirectory extends DAV\Collection {
 		$tikilib->create_page($name, 0, $info['content'], $tikilib->now, "Created from WebDAV", $user, $tikilib->get_ip_address());
 	}
 
-	function createDirectory($name) {
+	public function createDirectory($name)
+	{
 		# not supported
 	}
 
-	function delete() {
+	public function delete()
+	{
 		# not supported
 	}
 
-	private function getWikiPages() {
+	private function getWikiPages()
+	{
 		$pages = TikiLib::lib('tiki')->list_pages();
 		return $pages['data'];
 	}

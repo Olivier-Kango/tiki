@@ -82,7 +82,7 @@ class Tracker_Field_DateTime extends Tracker_Field_Abstract implements Tracker_F
 		];
 	}
 
-	function getFieldData(array $requestData = [])
+	public function getFieldData(array $requestData = [])
 	{
 		$ins_id = $this->getInsertId();
 
@@ -101,7 +101,7 @@ class Tracker_Field_DateTime extends Tracker_Field_Abstract implements Tracker_F
 		return $data;
 	}
 
-	function renderInput($context = [])
+	public function renderInput($context = [])
 	{
 		global $user;
 
@@ -114,7 +114,7 @@ class Tracker_Field_DateTime extends Tracker_Field_Abstract implements Tracker_F
 		return $this->renderTemplate('trackerinput/datetime.tpl', $context);
 	}
 
-	function renderInnerOutput($context = [])
+	public function renderInnerOutput($context = [])
 	{
 		global $prefs;
 
@@ -149,7 +149,7 @@ class Tracker_Field_DateTime extends Tracker_Field_Abstract implements Tracker_F
 		}
 	}
 
-	function watchCompare($old, $new)
+	public function watchCompare($old, $new)
 	{
 		global $prefs;
 		$dformat = $prefs['short_date_format'] . ' ' . $prefs['short_time_format'];
@@ -161,22 +161,22 @@ class Tracker_Field_DateTime extends Tracker_Field_Abstract implements Tracker_F
 		return parent::watchCompare($old, $new);
 	}
 
-	function importRemote($value)
+	public function importRemote($value)
 	{
 		return $value;
 	}
 
-	function exportRemote($value)
+	public function exportRemote($value)
 	{
 		return $value;
 	}
 
-	function importRemoteField(array $info, array $syncInfo)
+	public function importRemoteField(array $info, array $syncInfo)
 	{
 		return $info;
 	}
 
-	function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
+	public function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
 	{
 		$value = $this->getValue();
 		$timestamp = $typeFactory->timestamp($value, $this->getOption('datetime') == 'd');
@@ -199,7 +199,7 @@ class Tracker_Field_DateTime extends Tracker_Field_Abstract implements Tracker_F
 		return $data;
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		$data = parent::getProvidedFields();
 
@@ -210,7 +210,7 @@ class Tracker_Field_DateTime extends Tracker_Field_Abstract implements Tracker_F
 		return $data;
 	}
 
-	function getGlobalFields()
+	public function getGlobalFields()
 	{
 		$data = parent::getGlobalFields();
 
@@ -221,7 +221,7 @@ class Tracker_Field_DateTime extends Tracker_Field_Abstract implements Tracker_F
 		return $data;
 	}
 
-	function getTabularSchema()
+	public function getTabularSchema()
 	{
 		global $prefs;
 
@@ -248,7 +248,7 @@ class Tracker_Field_DateTime extends Tracker_Field_Abstract implements Tracker_F
 		return $schema;
 	}
 
-	function getFilterCollection()
+	public function getFilterCollection()
 	{
 		$filters = new Tracker\Filter\Collection($this->getTrackerDefinition());
 		$permName = $this->getConfiguration('permName');
@@ -269,7 +269,7 @@ class Tracker_Field_DateTime extends Tracker_Field_Abstract implements Tracker_F
 		return $filters;
 	}
 
-	function getFacets()
+	public function getFacets()
 	{
 		$baseKey = $this->getBaseKey();
 		// add this a a generic Term facet/aggregation and the plugin will override it depending on type

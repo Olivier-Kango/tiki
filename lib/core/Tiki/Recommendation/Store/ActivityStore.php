@@ -19,19 +19,19 @@ class ActivityStore implements StoreInterface
 
 	private $tx;
 
-	function __construct($unifiedsearch, $relation, \Tiki_Event_Manager $events)
+	public function __construct($unifiedsearch, $relation, \Tiki_Event_Manager $events)
 	{
 		$this->unified = $unifiedsearch;
 		$this->relation = $relation;
 		$this->events = $events;
 	}
 
-	function __destruct()
+	public function __destruct()
 	{
 		$this->terminate();
 	}
 
-	function getInputs()
+	public function getInputs()
 	{
 		$db = \TikiDb::get();
 
@@ -43,7 +43,7 @@ class ActivityStore implements StoreInterface
 		}
 	}
 
-	function terminate()
+	public function terminate()
 	{
 		if ($this->tx) {
 			$this->tx->commit();
@@ -51,7 +51,7 @@ class ActivityStore implements StoreInterface
 		}
 	}
 
-	function isReceived($input, Recommendation $rec)
+	public function isReceived($input, Recommendation $rec)
 	{
 		if ($input instanceof Input\UserInput) {
 			$query = $this->unified->buildQuery([
@@ -71,7 +71,7 @@ class ActivityStore implements StoreInterface
 		return false;
 	}
 
-	function store($input, RecommendationSet $recommendations)
+	public function store($input, RecommendationSet $recommendations)
 	{
 		if ($input instanceof Input\UserInput) {
 			foreach ($recommendations as $rec) {

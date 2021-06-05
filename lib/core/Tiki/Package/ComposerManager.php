@@ -18,9 +18,9 @@ use Symfony\Component\Yaml\Exception\ParseException;
 class ComposerManager
 {
 
-	const STATUS_INSTALLED = 'installed';
-	const STATUS_MISSING = 'missing';
-	const CONFIG_PACKAGE_FILE = 'ComposerPackages.yml';
+	public const STATUS_INSTALLED = 'installed';
+	public const STATUS_MISSING = 'missing';
+	public const CONFIG_PACKAGE_FILE = 'ComposerPackages.yml';
 
 	/**
 	 * @var string the path where the composer file is located

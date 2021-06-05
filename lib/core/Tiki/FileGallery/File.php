@@ -56,7 +56,7 @@ class File
 	private $exists = false;
 	private $wrapper = null;
 
-	function __construct($params = [])
+	public function __construct($params = [])
 	{
 		global $mimetypes;
 		include_once(__DIR__ . '/../../../mime/mimetypes.php');
@@ -69,15 +69,17 @@ class File
 		$this->init($params);
 	}
 
-	function __get($name) {
+	public function __get($name)
+	{
 		return $this->getParam($name);
 	}
 
-	function __isset($name) {
+	public function __isset($name)
+	{
 		return isset($this->param[$name]);
 	}
 
-	static function filename($filename = "")
+	public static function filename($filename = "")
 	{
 		$tikilib = TikiLib::lib('tiki');
 
@@ -96,20 +98,22 @@ class File
 	/**
 	 * Facade method to instantiate a File object based on the db fileId
 	 */
-	static function id($id = 0)
+	public static function id($id = 0)
 	{
 		$me = new self(TikiLib::lib("filegal")->get_file((int)$id));
 		return $me;
 	}
 
-	function clone() {
+	public function clone()
+	{
 		$params = $this->getParams();
 		unset($params['fileId']);
 		$params['created'] = 0;
 		return new self($params);
 	}
 
-	function init($params) {
+	public function init($params)
+	{
 		foreach ($params as $key => $val) {
 			$this->setParam($key, $val);
 		}
@@ -118,7 +122,8 @@ class File
 		}
 	}
 
-	function validateDraft($draft) {
+	public function validateDraft($draft)
+	{
 		foreach ($draft->getParams() as $key => $val) {
 			$this->setParam($key, $val);
 		}
@@ -128,37 +133,39 @@ class File
 		}
 	}
 
-	function setParam($param, $value)
+	public function setParam($param, $value)
 	{
 		$this->param[$param] = $value;
 		return $this;
 	}
 
-	function getParam($param = "")
+	public function getParam($param = "")
 	{
 		return $this->param[$param];
 	}
 
-	function getParams() {
+	public function getParams()
+	{
 		return $this->param;
 	}
 
 	/**
 	 * Retrieve parameters to be saved in files db table.
 	 */
-	function getParamsForDB() {
+	public function getParamsForDB()
+	{
 		return array_filter($this->param, function($key){
 			return $key != 'backlinkPerms';
 		}, ARRAY_FILTER_USE_KEY);
 	}
 
-	function archive($archive = 0)
+	public function archive($archive = 0)
 	{
 		$archives = $this->listArchives();
 		return self::id($archives[$archive]['id']);
 	}
 
-	function archiveFromLastModif($lastModif)
+	public function archiveFromLastModif($lastModif)
 	{
 		foreach ($this->listArchives() as $archive) {
 			if ($archive['lastModif'] == $lastModif) {
@@ -167,24 +174,25 @@ class File
 		}
 	}
 
-	function data()
+	public function data()
 	{
 		return $this->getParam('data');
 	}
 
-	function exists()
+	public function exists()
 	{
 		return $this->exists;
 	}
 
-	function listArchives()
+	public function listArchives()
 	{
 		$archives = TikiLib::lib("filegal")->get_archives((int)$this->getParam('fileId'));
 		$archives = \array_reverse($archives['data']);
 		return $archives;
 	}
 
-	function replace($data, $type = null, $name = null, $filename = null, $resizex = null, $resizey = null) {
+	public function replace($data, $type = null, $name = null, $filename = null, $resizex = null, $resizey = null)
+	{
 		global $user, $prefs, $jitRequest;
 
 		$user = (! empty($user) ? $user : 'Anonymous');
@@ -223,7 +231,8 @@ class File
 		return $saveHandler->save();
 	}
 
-	function replaceQuick($data) {
+	public function replaceQuick($data)
+	{
 		global $user;
 		if (!$this->replaceContents($data)) {
 			return false;
@@ -232,12 +241,12 @@ class File
 		TikiLib::lib('filegal')->update_file($this->fileId, $this->getParamsForDB());
 	}
 
-	function delete()
+	public function delete()
 	{
 		TikiLib::lib("filegal")->remove_file($this->param);
 	}
 
-	function diffLatestWithArchive($archive = 0)
+	public function diffLatestWithArchive($archive = 0)
 	{
 		include_once(__DIR__ . "/../../../diff/Diff.php");
 
@@ -254,7 +263,8 @@ class File
 	/**
 	 * Get gallery definition object for this file.
 	 */
-	function galleryDefinition() {
+	public function galleryDefinition()
+	{
 		return TikiLib::lib('filegal')->getGalleryDefinition($this->getParam('galleryId'));
 	}
 
@@ -264,7 +274,8 @@ class File
 	 * requires it. Ensures data/path db parameters are sane.
 	 * @see FileWrapper\WrapperInterface for supported methods.
 	 */
-	function getWrapper() {
+	public function getWrapper()
+	{
 		if ($this->wrapper !== null) {
 			return $this->wrapper;
 		}
@@ -280,14 +291,16 @@ class File
 	/**
 	 * Retrieve file contents as a string.
 	 */
-	function getContents() {
+	public function getContents()
+	{
 		return $this->getWrapper()->getContents();
 	}
 
 	/**
 	 * Replace file contents from a string. Prepares the params to be later saved in db.
 	 */
-	function replaceContents($data) {
+	public function replaceContents($data)
+	{
 		$wrapper = $this->getWrapper();
 		try {
 			$wrapper->replaceContents($data);

@@ -50,7 +50,7 @@ class Tracker_Field_CountrySelector extends Tracker_Field_Abstract implements Tr
 		];
 	}
 
-	function getFieldData(array $requestData = [])
+	public function getFieldData(array $requestData = [])
 	{
 		$ins_id = $this->getInsertId();
 
@@ -70,7 +70,7 @@ class Tracker_Field_CountrySelector extends Tracker_Field_Abstract implements Tr
 		return TikiLib::lib('trk')->get_flags(true, true, ($this->getOption('sortorder') != 1));
 	}
 
-	function renderInnerOutput($context = [])
+	public function renderInnerOutput($context = [])
 	{
 		$flags = $this->getConfiguration('flags');
 		$current = $this->getConfiguration('value');
@@ -103,27 +103,27 @@ class Tracker_Field_CountrySelector extends Tracker_Field_Abstract implements Tr
 		return '<img src="img/flags/' . smarty_modifier_escape($code) . '.png" title="' . smarty_modifier_escape($label) . '" alt="' . smarty_modifier_escape($label) . '" />';
 	}
 
-	function renderInput($context = [])
+	public function renderInput($context = [])
 	{
 		return $this->renderTemplate('trackerinput/countryselector.tpl', $context);
 	}
 
-	function importRemote($value)
+	public function importRemote($value)
 	{
 		return $value;
 	}
 
-	function exportRemote($value)
+	public function exportRemote($value)
 	{
 		return $value;
 	}
 
-	function importRemoteField(array $info, array $syncInfo)
+	public function importRemoteField(array $info, array $syncInfo)
 	{
 		return $info;
 	}
 
-	function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
+	public function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
 	{
 		$possibilities = $this->getPossibilities();
 		$value = $this->getValue();
@@ -136,19 +136,19 @@ class Tracker_Field_CountrySelector extends Tracker_Field_Abstract implements Tr
 		];
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		$baseKey = $this->getBaseKey();
 		return [$baseKey, $baseKey . '_text'];
 	}
 
-	function getGlobalFields()
+	public function getGlobalFields()
 	{
 		$baseKey = $this->getBaseKey();
 		return ["{$baseKey}_text" => true];
 	}
 
-	function getTabularSchema()
+	public function getTabularSchema()
 	{
 		$schema = new Tracker\Tabular\Schema($this->getTrackerDefinition());
 
@@ -207,7 +207,7 @@ class Tracker_Field_CountrySelector extends Tracker_Field_Abstract implements Tr
 		return $schema;
 	}
 
-	function getFilterCollection()
+	public function getFilterCollection()
 	{
 		$filters = new Tracker\Filter\Collection($this->getTrackerDefinition());
 		$permName = $this->getConfiguration('permName');

@@ -13,7 +13,7 @@ use TikiLib;
 
 class WikiPrepend extends WikiPut
 {
-	function getName()
+	public function getName()
 	{
 		return tr('Wiki Prepend');
 	}

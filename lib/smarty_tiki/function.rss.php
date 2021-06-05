@@ -24,7 +24,7 @@ function smarty_function_rss($params, $smarty)
 		$max = 99;
 	}
 
-	$out = TikiLib::lib('parser')->plugin_execute(
+	$out = TikiLib::lib('parser')->pluginExecute(
 		'rss',
 		'',
 		['id' => $id, 'max' => $max,],

@@ -47,7 +47,7 @@ class Tracker_Field_StaticText extends Tracker_Field_Abstract implements Tracker
 		];
 	}
 
-	function getFieldData(array $requestData = [])
+	public function getFieldData(array $requestData = [])
 	{
 		global $tikilib;
 
@@ -77,29 +77,29 @@ class Tracker_Field_StaticText extends Tracker_Field_Abstract implements Tracker
 		return ['value' => $value];
 	}
 
-	function renderInput($context = [])
+	public function renderInput($context = [])
 	{
 		return $this->renderTemplate('trackerinput/statictext.tpl', $context);
 	}
 
-	function handleSave($value, $oldValue)
+	public function handleSave($value, $oldValue)
 	{
 		return [
 			'value' => false,
 		];
 	}
 
-	function importRemote($value)
+	public function importRemote($value)
 	{
 		return '';
 	}
 
-	function exportRemote($value)
+	public function exportRemote($value)
 	{
 		return '';
 	}
 
-	function importRemoteField(array $info, array $syncInfo)
+	public function importRemoteField(array $info, array $syncInfo)
 	{
 		return $info;
 	}

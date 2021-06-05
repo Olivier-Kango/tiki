@@ -12,7 +12,7 @@ class Tracker_Field_Relation extends Tracker_Field_Abstract
 	const OPT_READONLY = 'readonly';
 	const OPT_INVERT = 'invert';
 
-	static $refreshedTargets = [];
+	public static $refreshedTargets = [];
 
 	public static function getTypes()
 	{
@@ -98,7 +98,7 @@ class Tracker_Field_Relation extends Tracker_Field_Abstract
 		];
 	}
 
-	function getFieldData(array $requestData = [])
+	public function getFieldData(array $requestData = [])
 	{
 		$insertId = $this->getInsertId();
 
@@ -128,7 +128,7 @@ class Tracker_Field_Relation extends Tracker_Field_Abstract
 		];
 	}
 
-	function addValue($value) {
+	public function addValue($value) {
 		$existing = explode("\n", $this->getValue());
 		if (! in_array($value, $existing)) {
 			$existing[] = $value;
@@ -136,7 +136,7 @@ class Tracker_Field_Relation extends Tracker_Field_Abstract
 		return implode("\n", $existing);
 	}
 
-	function removeValue($value) {
+	public function removeValue($value) {
 		$existing = explode("\n", $this->getValue());
 		$existing = array_filter($existing, function($v) use ($value) {
 			return $v != $value;
@@ -144,7 +144,7 @@ class Tracker_Field_Relation extends Tracker_Field_Abstract
 		return implode("\n", $existing);
 	}
 
-	function renderInput($context = [])
+	public function renderInput($context = [])
 	{
 		if ($this->getOption(self::OPT_READONLY)) {
 			return tra('Read-only');
@@ -177,7 +177,7 @@ class Tracker_Field_Relation extends Tracker_Field_Abstract
 		);
 	}
 
-	function renderInnerOutput($context = [])
+	public function renderInnerOutput($context = [])
 	{
 		if ($context['list_mode'] === 'csv') {
 			$fieldId = $this->getConfiguration('fieldId');
@@ -226,7 +226,7 @@ class Tracker_Field_Relation extends Tracker_Field_Abstract
 		}
 	}
 
-	function renderOutput($context = [])
+	public function renderOutput($context = [])
 	{
 		$list_mode = $context['list_mode'] ?? '';
 		if ($list_mode === 'csv' || $list_mode === 'text') {
@@ -262,7 +262,7 @@ class Tracker_Field_Relation extends Tracker_Field_Abstract
 		}
 	}
 
-	function handleSave($value, $oldValue)
+	public function handleSave($value, $oldValue)
 	{
 		if ($value) {
 			$target = explode("\n", trim($value));
@@ -327,7 +327,7 @@ class Tracker_Field_Relation extends Tracker_Field_Abstract
 		];
 	}
 
-	function watchCompare($old, $new)
+	public function watchCompare($old, $new)
 	{
 	}
 
@@ -503,7 +503,7 @@ class Tracker_Field_Relation extends Tracker_Field_Abstract
 		}
 	}
 
-	function getDocumentPart(Search_Type_Factory_Interface $typeFactory, $mode = '')
+	public function getDocumentPart(Search_Type_Factory_Interface $typeFactory, $mode = '')
 	{
 		$baseKey = $this->getBaseKey();
 
@@ -555,7 +555,7 @@ class Tracker_Field_Relation extends Tracker_Field_Abstract
 		];
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		$baseKey = $this->getBaseKey();
 		return [
@@ -566,7 +566,7 @@ class Tracker_Field_Relation extends Tracker_Field_Abstract
 		];
 	}
 
-	function getGlobalFields()
+	public function getGlobalFields()
 	{
 		$baseKey = $this->getBaseKey();
 		return ["{$baseKey}_plain" => true];	// index contents with the object titles

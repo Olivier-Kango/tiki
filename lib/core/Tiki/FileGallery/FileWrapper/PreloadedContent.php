@@ -13,19 +13,19 @@ class PreloadedContent implements WrapperInterface
 
 	private $temporaryFile = false;
 
-	function __construct($data)
+	public function __construct($data)
 	{
 		$this->data = $data;
 	}
 
-	function __destruct()
+	public function __destruct()
 	{
 		if (false !== $this->temporaryFile) {
 			\unlink($this->temporaryFile);
 		}
 	}
 
-	function getReadableFile()
+	public function getReadableFile()
 	{
 		if (false !== $this->temporaryFile) {
 			return $this->temporaryFile;
@@ -43,29 +43,29 @@ class PreloadedContent implements WrapperInterface
 		return $tmpfname;
 	}
 
-	function getContents()
+	public function getContents()
 	{
 		return $this->data;
 	}
 
-	function getChecksum()
+	public function getChecksum()
 	{
 		return md5($this->data);
 	}
 
-	function getSize() {
+	public function getSize() {
 		return function_exists('mb_strlen') ? mb_strlen($this->data, '8bit') : strlen($this->data);
 	}
 
-	function isFileLocal() {
+	public function isFileLocal() {
 		return false;
 	}
 
-	function replaceContents($data) {
+	public function replaceContents($data) {
 		$this->data = $data;
 	}
 
-	function getStorableContent() {
+	public function getStorableContent() {
 		return [
 			'data' => $this->data,
 			'path' => null,

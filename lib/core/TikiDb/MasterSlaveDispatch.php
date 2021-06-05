@@ -12,123 +12,123 @@ class TikiDb_MasterSlaveDispatch extends TikiDb
 
 	private $lastUsed;
 
-	function __construct(TikiDb $master, TikiDb $slave)
+	public function __construct(TikiDb $master, TikiDb $slave)
 	{
 		$this->master = $master;
 		$this->slave = $slave;
 		$this->lastUsed = $slave;
 	}
 
-	function getReal()
+	public function getReal()
 	{
 		return $this->slave;
 	}
 
-	function startTimer() // {{{
+	public function startTimer()
 	{
 		$this->getApplicable()->startTimer();
-	} // }}}
+	}
 
-	function stopTimer($starttime) // {{{
+	public function stopTimer($starttime)
 	{
 		$this->getApplicable()->stopTimer($starttime);
-	} // }}}
+	}
 
-	function qstr($str) // {{{
+	public function qstr($str)
 	{
 		return $this->getApplicable()->qstr($str);
-	} // }}}
+	}
 
-	function query($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = true) // {{{
+	public function query($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = true)
 	{
 		return $this->getApplicable($query)->query($query, $values, $numrows, $offset, $reporterrors);
-	} // }}}
+	}
 
-	function queryError($query, &$error, $values = null, $numrows = -1, $offset = -1) // {{{
+	public function queryError($query, &$error, $values = null, $numrows = -1, $offset = -1)
 	{
 		return $this->getApplicable($query)->queryError($query, $error, $values, $numrows, $offset);
-	} // }}}
+	}
 
-	function getOne($query, $values = null, $reporterrors = true, $offset = 0) // {{{
+	public function getOne($query, $values = null, $reporterrors = true, $offset = 0)
 	{
 		return $this->getApplicable($query)->getOne($query, $values, $reporterrors, $offset);
-	} // }}}
+	}
 
-	function setErrorHandler(TikiDb_ErrorHandler $handler) // {{{
+	public function setErrorHandler(TikiDb_ErrorHandler $handler)
 	{
 		$this->getApplicable()->setErrorHandler($handler);
-	} // }}}
+	}
 
-	function setTablePrefix($prefix) // {{{
+	public function setTablePrefix($prefix)
 	{
 		$this->getApplicable()->setTablePrefix($prefix);
-	} // }}}
+	}
 
-	function setUsersTablePrefix($prefix) // {{{
+	public function setUsersTablePrefix($prefix)
 	{
 		$this->getApplicable()->setUsersTablePrefix($prefix);
-	} // }}}
+	}
 
-	function getServerType() // {{{
+	public function getServerType()
 	{
 		return $this->getApplicable()->getServerType();
-	} // }}}
+	}
 
-	function setServerType($type) // {{{
+	public function setServerType($type)
 	{
 		$this->getApplicable()->setServerType($type);
-	} // }}}
+	}
 
-	function getErrorMessage() // {{{
+	public function getErrorMessage()
 	{
 		return $this->lastUsed->getErrorMessage();
-	} // }}}
+	}
 
-	protected function setErrorMessage($message) // {{{
+	protected function setErrorMessage($message)
 	{
 		$this->getApplicable()->setErrorMessage($message);
-	} // }}}
+	}
 
-	protected function handleQueryError($query, $values, $result) // {{{
+	protected function handleQueryError($query, $values, $result)
 	{
 		$this->getApplicable()->handleQueryError($query, $values, $result);
-	} // }}}
+	}
 
-	protected function convertQueryTablePrefixes(&$query) // {{{
+	protected function convertQueryTablePrefixes(&$query)
 	{
 		$this->getApplicable($query)->convertQueryTablePrefixes($query);
-	} // }}}
+	}
 
-	function convertSortMode($sort_mode) // {{{
+	public function convertSortMode($sort_mode)
 	{
 		return $this->getApplicable()->convertSortMode($sort_mode);
-	} // }}}
+	}
 
-	function getQuery() // {{{
+	public function getQuery()
 	{
 		return $this->getApplicable()->getQuery();
-	} // }}}
+	}
 
-	function setQuery($sql) // {{{
+	public function setQuery($sql)
 	{
 		return $this->getApplicable()->setQuery($sql);
-	} // }}}
+	}
 
-	function ifNull($field, $ifNull) // {{{
+	public function ifNull($field, $ifNull)
 	{
 		return $this->getApplicable()->ifNull($field, $ifNull);
-	} // }}}
+	}
 
-	function in($field, $values, &$bindvars) // {{{
+	public function in($field, $values, &$bindvars)
 	{
 		return $this->getApplicable()->in($field, $values, $bindvars);
-	} // }}}
+	}
 
-	function concat() // {{{
+	public function concat()
 	{
 		$arr = func_get_args();
 		return call_user_func_array([ $this->getApplicable(), 'concat' ], $arr);
-	} // }}}
+	}
 
 	private function getApplicable($query = '')
 	{

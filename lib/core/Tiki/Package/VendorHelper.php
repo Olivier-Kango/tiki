@@ -16,12 +16,12 @@ class VendorHelper
 	/**
 	 * Keyword to add to vendor path prefixes in order to replace it with the package name
 	 */
-	const REPLACEABLE_PACKAGE_NAME_KEYWORD = '{{package}}';
+	public const REPLACEABLE_PACKAGE_NAME_KEYWORD = '{{package}}';
 
 	/**
 	 * Available vendor paths to check
 	 */
-	const AVAILABLE_VENDOR_PATHS = [
+	public const AVAILABLE_VENDOR_PATHS = [
 		'vendor_custom' => 'vendor_custom/tiki-pkg-' . self::REPLACEABLE_PACKAGE_NAME_KEYWORD . '/',
 		'vendor'        => 'vendor/'
 	];

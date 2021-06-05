@@ -12,24 +12,24 @@ class JitFilter implements ArrayAccess, Iterator, Countable
 	private $lastUsed = [];
 	private $filters = [];
 
-	function __construct($data)
+	public function __construct($data)
 	{
 		$this->stored = $data;
 	}
 
-	function offsetExists($offset)
+	public function offsetExists($offset)
 	{
 		return isset($this->stored[$offset]);
 	}
 
-	function offsetUnset($offset)
+	public function offsetUnset($offset)
 	{
 		unset($this->stored[$offset]);
 		unset($this->lastUsed[$offset]);
 		unset($this->filters[$offset]);
 	}
 
-	function offsetGet($key)
+	public function offsetGet($key)
 	{
 		// Composed objects go through
 		if ($this->stored[$key] instanceof self) {
@@ -62,7 +62,7 @@ class JitFilter implements ArrayAccess, Iterator, Countable
 		}
 	}
 
-	function offsetSet($key, $value)
+	public function offsetSet($key, $value)
 	{
 		unset($this->lastUsed[$key]);
 
@@ -73,7 +73,7 @@ class JitFilter implements ArrayAccess, Iterator, Countable
 		}
 	}
 
-	function asArray($key = false, $separator = false)
+	public function asArray($key = false, $separator = false)
 	{
 		if ($key === false) {
 			$ret = [];
@@ -103,7 +103,7 @@ class JitFilter implements ArrayAccess, Iterator, Countable
 		}
 	}
 
-	function subset($keys)
+	public function subset($keys)
 	{
 		$jit = new self([]);
 		$jit->defaultFilter = $this->defaultFilter;
@@ -121,12 +121,12 @@ class JitFilter implements ArrayAccess, Iterator, Countable
 		return $jit;
 	}
 
-	function isArray($key)
+	public function isArray($key)
 	{
 		return isset($this->stored[$key]) && $this->offsetGet($key) instanceof self;
 	}
 
-	function keys()
+	public function keys()
 	{
 		return array_keys($this->stored);
 	}
@@ -142,12 +142,12 @@ class JitFilter implements ArrayAccess, Iterator, Countable
 		return null;
 	}
 
-	function setDefaultFilter($filter)
+	public function setDefaultFilter($filter)
 	{
 		$this->defaultFilter = TikiFilter::get($filter);
 	}
 
-	function replaceFilter($key, $filter)
+	public function replaceFilter($key, $filter)
 	{
 		$filter = TikiFilter::get($filter);
 
@@ -158,7 +158,7 @@ class JitFilter implements ArrayAccess, Iterator, Countable
 		}
 	}
 
-	function replaceFilters($filters)
+	public function replaceFilters($filters)
 	{
 		foreach ($filters as $key => $values) {
 			if (is_array($values)
@@ -171,33 +171,33 @@ class JitFilter implements ArrayAccess, Iterator, Countable
 		}
 	}
 
-	function current()
+	public function current()
 	{
 		$key = key($this->stored);
 		return $this->offsetGet($key);
 	}
 
-	function next()
+	public function next()
 	{
 		next($this->stored);
 	}
 
-	function rewind()
+	public function rewind()
 	{
 		reset($this->stored);
 	}
 
-	function key()
+	public function key()
 	{
 		return key($this->stored);
 	}
 
-	function valid()
+	public function valid()
 	{
 		return false !== current($this->stored);
 	}
 
-	function count()
+	public function count()
 	{
 		return count($this->stored);
 	}
@@ -206,7 +206,7 @@ class JitFilter implements ArrayAccess, Iterator, Countable
 	 * @param $key
 	 * @return JitFilter_Element
 	 */
-	function __get($key)
+	public function __get($key)
 	{
 		if (! isset($this->stored[$key])) {
 			return new JitFilter_Element(null);
@@ -219,14 +219,14 @@ class JitFilter implements ArrayAccess, Iterator, Countable
 		return new JitFilter_Element($this->stored[$key]);
 	}
 
-	function filter($filter)
+	public function filter($filter)
 	{
 		$jit = new self($this->stored);
 		$jit->setDefaultFilter($filter);
 		return $jit->asArray();
 	}
 
-	function __call($name, $arguments)
+	public function __call($name, $arguments)
 	{
 		return $this->filter($name);
 	}

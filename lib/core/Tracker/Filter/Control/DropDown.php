@@ -13,18 +13,18 @@ class DropDown implements Control
 	private $options;
 	private $value = '';
 
-	function __construct($name, array $options)
+	public function __construct($name, array $options)
 	{
 		$this->fieldName = $name;
 		$this->options = $options;
 	}
 
-	function applyInput(\JitFilter $input)
+	public function applyInput(\JitFilter $input)
 	{
 		$this->value = $input->{$this->fieldName}->text();
 	}
 
-	function getQueryArguments()
+	public function getQueryArguments()
 	{
 		if ($this->value) {
 			return [$this->fieldName => $this->value];
@@ -33,34 +33,34 @@ class DropDown implements Control
 		}
 	}
 
-	function getDescription()
+	public function getDescription()
 	{
 		if ($this->value) {
 			return $this->options[$this->value];
 		}
 	}
 
-	function getId()
+	public function getId()
 	{
 		return $this->fieldName;
 	}
 
-	function isUsable()
+	public function isUsable()
 	{
 		return count($this->options) > 0;
 	}
 
-	function hasValue()
+	public function hasValue()
 	{
 		return ! empty($this->value);
 	}
 
-	function getValue()
+	public function getValue()
 	{
 		return $this->value;
 	}
 
-	function __toString()
+	public function __toString()
 	{
 		$smarty = \TikiLib::lib('smarty');
 		$smarty->assign('control', [

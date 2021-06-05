@@ -106,7 +106,7 @@ class Tracker_Field_Dropdown extends Tracker_Field_Abstract implements Tracker_F
 		return new Tracker_Field_Dropdown($fieldInfo, $itemData, $trackerDefinition);
 	}
 
-	function getFieldData(array $requestData = [])
+	public function getFieldData(array $requestData = [])
 	{
 
 		$ins_id = $this->getInsertId();
@@ -128,7 +128,7 @@ class Tracker_Field_Dropdown extends Tracker_Field_Abstract implements Tracker_F
 		];
 	}
 
-	function addValue($value) {
+	public function addValue($value) {
 		$existing = explode(',', $this->getValue());
 		if (! in_array($value, $existing)) {
 			$existing[] = $value;
@@ -136,7 +136,7 @@ class Tracker_Field_Dropdown extends Tracker_Field_Abstract implements Tracker_F
 		return implode(',', $existing);
 	}
 
-	function removeValue($value) {
+	public function removeValue($value) {
 		$existing = explode(',', $this->getValue());
 		$existing = array_filter($existing, function($v) use ($value) {
 			return $v != $value;
@@ -144,12 +144,12 @@ class Tracker_Field_Dropdown extends Tracker_Field_Abstract implements Tracker_F
 		return implode(',', $existing);
 	}
 
-	function renderInput($context = [])
+	public function renderInput($context = [])
 	{
 		return $this->renderTemplate('trackerinput/dropdown.tpl', $context);
 	}
 
-	function renderInnerOutput($context = [])
+	public function renderInnerOutput($context = [])
 	{
 		if (! empty($context['list_mode']) && $context['list_mode'] === 'csv') {
 			return implode(', ', $this->getConfiguration('selected'));
@@ -169,17 +169,17 @@ class Tracker_Field_Dropdown extends Tracker_Field_Abstract implements Tracker_F
 		}
 	}
 
-	function importRemote($value)
+	public function importRemote($value)
 	{
 		return $value;
 	}
 
-	function exportRemote($value)
+	public function exportRemote($value)
 	{
 		return $value;
 	}
 
-	function importRemoteField(array $info, array $syncInfo)
+	public function importRemoteField(array $info, array $syncInfo)
 	{
 		return $info;
 	}
@@ -251,7 +251,7 @@ class Tracker_Field_Dropdown extends Tracker_Field_Abstract implements Tracker_F
 		return $value;
 	}
 
-	function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
+	public function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
 	{
 		$value = $this->getValue();
 		$label = $this->getValueLabel($value);
@@ -263,19 +263,19 @@ class Tracker_Field_Dropdown extends Tracker_Field_Abstract implements Tracker_F
 		];
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		$baseKey = $this->getBaseKey();
 		return [$baseKey, $baseKey . '_text'];
 	}
 
-	function getGlobalFields()
+	public function getGlobalFields()
 	{
 		$baseKey = $this->getBaseKey();
 		return ["{$baseKey}_text" => true];
 	}
 
-	function getFacets()
+	public function getFacets()
 	{
 		$baseKey = $this->getBaseKey();
 		return [
@@ -285,7 +285,7 @@ class Tracker_Field_Dropdown extends Tracker_Field_Abstract implements Tracker_F
 		];
 	}
 
-	function getTabularSchema()
+	public function getTabularSchema()
 	{
 		$schema = new Tracker\Tabular\Schema($this->getTrackerDefinition());
 
@@ -331,7 +331,7 @@ class Tracker_Field_Dropdown extends Tracker_Field_Abstract implements Tracker_F
 		return $schema;
 	}
 
-	function getFilterCollection()
+	public function getFilterCollection()
 	{
 		$filters = new Tracker\Filter\Collection($this->getTrackerDefinition());
 		$permName = $this->getConfiguration('permName');

@@ -11,23 +11,23 @@ use Tiki\MailIn\Action;
 
 class WikiMultipleProvider implements ProviderInterface
 {
-	function isEnabled()
+	public function isEnabled()
 	{
 		global $prefs;
 		return $prefs['feature_wiki'] == 'y';
 	}
 
-	function getType()
+	public function getType()
 	{
 		return 'wiki';
 	}
 
-	function getLabel()
+	public function getLabel()
 	{
 		return tr('Wiki (multiple actions)');
 	}
 
-	function getActionFactory(array $acc)
+	public function getActionFactory(array $acc)
 	{
 		$wikiParams = [
 			'namespace' => $acc['namespace'],

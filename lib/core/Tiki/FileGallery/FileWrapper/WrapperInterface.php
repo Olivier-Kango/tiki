@@ -13,37 +13,37 @@ interface WrapperInterface
 	 * Returns a path to a readable file path to read the content from.
 	 * Can be used by external tools who use a file path as the input.
 	 */
-	function getReadableFile();
+	public function getReadableFile();
 
 	/**
 	 * Returns the content of the file as a string.
 	 */
-	function getContents();
+	public function getContents();
 
   /**
    * Returns the file checksum.
    */
-  function getChecksum();
+  public function getChecksum();
 
   /**
    * Get file size in bytes.
    */
-  function getSize();
+  public function getSize();
 
   /**
    * Is the file available on the local filesystem?
    */
-  function isFileLocal();
+  public function isFileLocal();
 
   /**
    * Replace file contents.
    */
-  function replaceContents($data);
+  public function replaceContents($data);
 
   /**
    * Get Tiki database storable content of this file.
    * Implementations can use data, path, filesize, etc. db columns.
    * If needed, more columns can be added.
    */
-  function getStorableContent();
+  public function getStorableContent();
 }

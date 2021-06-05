@@ -8,7 +8,7 @@ use Tiki\Lib\core\Tracker\Rule\Type\Number;
 
 class NumberLessThan extends Operator
 {
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct('<', Number::class, '.val()<%argument%', [Number::class]);
 	}

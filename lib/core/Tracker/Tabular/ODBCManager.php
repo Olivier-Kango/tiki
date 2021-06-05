@@ -12,7 +12,7 @@ class ODBCManager
 	private $config;
 	private $errors;
 
-	function __construct($config)
+	public function __construct($config)
 	{
 		$this->config = $config;
 	}

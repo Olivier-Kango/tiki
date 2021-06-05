@@ -44,7 +44,7 @@ class Tracker_Field_File extends Tracker_Field_Abstract
 		];
 	}
 
-	function getFieldData(array $requestData = [])
+	public function getFieldData(array $requestData = [])
 	{
 		$ins_id = $this->getInsertId();
 
@@ -64,12 +64,12 @@ class Tracker_Field_File extends Tracker_Field_Abstract
 		return $data;
 	}
 
-	function renderInput($context = [])
+	public function renderInput($context = [])
 	{
 		return $this->renderTemplate('trackerinput/file.tpl', $context);
 	}
 
-	function renderInnerOutput($context = [])
+	public function renderInnerOutput($context = [])
 	{
 		$att_id = $this->getValue();
 
@@ -100,7 +100,7 @@ class Tracker_Field_File extends Tracker_Field_Abstract
 		return $link;
 	}
 
-	function handleSave($value, $oldValue)
+	public function handleSave($value, $oldValue)
 	{
 		global $prefs, $user;
 		$tikilib = TikiLib::lib('tiki');
@@ -134,18 +134,18 @@ class Tracker_Field_File extends Tracker_Field_Abstract
 		];
 	}
 
-	function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
+	public function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
 	{
 		return [
 		];
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		return [];
 	}
 
-	function getGlobalFields()
+	public function getGlobalFields()
 	{
 		return [];
 	}

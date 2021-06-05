@@ -9,7 +9,7 @@ class Tiki_Profile_Writer_Queue
 {
 	private $entries = [];
 
-	function add(array $data)
+	public function add(array $data)
 	{
 		if ($info = $this->findInfo($data)) {
 			$hash = "{$info['type']}:{$info['object']}";
@@ -22,7 +22,7 @@ class Tiki_Profile_Writer_Queue
 		}
 	}
 
-	function filterIncluded(Tiki_Profile_Writer $writer)
+	public function filterIncluded(Tiki_Profile_Writer $writer)
 	{
 		array_walk(
 			$this->entries,
@@ -41,7 +41,7 @@ class Tiki_Profile_Writer_Queue
 		);
 	}
 
-	function filterInstalled(Tiki_Profile_Writer_ProfileFinder $finder)
+	public function filterInstalled(Tiki_Profile_Writer_ProfileFinder $finder)
 	{
 		$this->entries = array_filter(
 			$this->entries,
@@ -96,7 +96,7 @@ class Tiki_Profile_Writer_Queue
 		}
 	}
 
-	function __toString()
+	public function __toString()
 	{
 		$entries = $this->entries;
 		usort(

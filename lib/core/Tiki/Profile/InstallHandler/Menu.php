@@ -7,7 +7,7 @@
 
 class Tiki_Profile_InstallHandler_Menu extends Tiki_Profile_InstallHandler
 {
-	function getData()
+	public function getData()
 	{
 		if ($this->data) {
 			return $this->data;
@@ -38,7 +38,7 @@ class Tiki_Profile_InstallHandler_Menu extends Tiki_Profile_InstallHandler
 		return $this->data = $data;
 	}
 
-	function flatten($entries, &$list) // {{{
+	public function flatten($entries, &$list)
 	{
 		foreach ($entries as $item) {
 			$children = $item['items'];
@@ -47,9 +47,9 @@ class Tiki_Profile_InstallHandler_Menu extends Tiki_Profile_InstallHandler
 			$list[] = $item;
 			$this->flatten($children, $list);
 		}
-	} // }}}
+	}
 
-	private function fixItem(&$item, &$position, $parent = null) // {{{
+	private function fixItem(&$item, &$position, $parent = null)
 	{
 		$position += 10;
 
@@ -106,9 +106,9 @@ class Tiki_Profile_InstallHandler_Menu extends Tiki_Profile_InstallHandler
 				$perm = 'tiki_p_' . $perm;
 			}
 		}
-	} // }}}
+	}
 
-	function canInstall()
+	public function canInstall()
 	{
 		$data = $this->getData();
 		if (! isset($data['name'])) {
@@ -121,7 +121,7 @@ class Tiki_Profile_InstallHandler_Menu extends Tiki_Profile_InstallHandler
 		return true;
 	}
 
-	function _install()
+	public function _install()
 	{
 		$tikilib = TikiLib::lib('tiki');
 		$modlib = TikiLib::lib('mod');
@@ -244,7 +244,7 @@ class Tiki_Profile_InstallHandler_Menu extends Tiki_Profile_InstallHandler
 	 * @param string $menu
 	 * @return bool
 	 */
-	function remove($menu)
+	public function remove($menu)
 	{
 		if (! empty($menu)) {
 			$menulib = TikiLib::lib('menu');

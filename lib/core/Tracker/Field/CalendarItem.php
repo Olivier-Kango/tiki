@@ -58,7 +58,7 @@ class Tracker_Field_CalendarItem extends Tracker_Field_JsCalendar
 	 * @param array $itemData
 	 * @param Tracker_Definition $trackerDefinition
 	 */
-	function __construct($fieldInfo, $itemData, $trackerDefinition)
+	public function __construct($fieldInfo, $itemData, $trackerDefinition)
 	{
 
 		$this->attributeLib = TikiLib::lib('attribute');
@@ -78,7 +78,7 @@ class Tracker_Field_CalendarItem extends Tracker_Field_JsCalendar
 		parent::__construct($fieldInfo, $itemData, $trackerDefinition);
 	}
 
-	function handleSave($value, $oldValue)
+	public function handleSave($value, $oldValue)
 	{
 		$calendarId = $this->getOption('calendarId');
 		$calitemId = $this->getCalendarItemId();
@@ -155,7 +155,7 @@ class Tracker_Field_CalendarItem extends Tracker_Field_JsCalendar
 		];
 	}
 
-	function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
+	public function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
 	{
 		$data = parent::getDocumentPart($typeFactory);
 
@@ -184,7 +184,7 @@ class Tracker_Field_CalendarItem extends Tracker_Field_JsCalendar
 		return $data;
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		$data = parent::getProvidedFields();
 
@@ -201,7 +201,7 @@ class Tracker_Field_CalendarItem extends Tracker_Field_JsCalendar
 		return $data;
 	}
 
-	function getFieldData(array $requestData = [])
+	public function getFieldData(array $requestData = [])
 	{
 		$data = parent::getFieldData($requestData);
 
@@ -218,7 +218,7 @@ class Tracker_Field_CalendarItem extends Tracker_Field_JsCalendar
 	 * @return string
 	 * @throws Exception
 	 */
-	function renderInput($context = [])
+	public function renderInput($context = [])
 	{
 		global $tikiroot;
 
@@ -249,7 +249,7 @@ class Tracker_Field_CalendarItem extends Tracker_Field_JsCalendar
 		return $this->renderTemplate('trackerinput/calendaritem.tpl', $context, ['editUrl' => $editUrl, 'event' => $event]);
 	}
 
-	function isValid($ins_fields_data)
+	public function isValid($ins_fields_data)
 	{
 		return parent::isValid($ins_fields_data);
 	}

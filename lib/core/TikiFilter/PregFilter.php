@@ -30,7 +30,7 @@ class TikiFilter_PregFilter implements Laminas\Filter\FilterInterface
 	 * @param int $limit
 	 * @param null $count
 	 */
-	function __construct($pattern, $replacement, $limit = -1, $count = null)
+	public function __construct($pattern, $replacement, $limit = -1, $count = null)
 	{
 		$this->pattern = $pattern;
 		$this->replacement = $replacement;
@@ -42,7 +42,7 @@ class TikiFilter_PregFilter implements Laminas\Filter\FilterInterface
 	 * @param mixed $subject
 	 * @return mixed
 	 */
-	function filter($subject)
+	public function filter($subject)
 	{
 		if (is_null($this->count)) {
 			$return = preg_filter($this->pattern, $this->replacement, $subject, $this->limit);

@@ -16,25 +16,25 @@ class ArticlePut implements ActionInterface
 	private $topicId;
 	private $type;
 
-	function __construct(array $params)
+	public function __construct(array $params)
 	{
 		$this->topicId = isset($params['topic']) ? (int)$params['topic'] : 0;
 		$this->type = isset($params['type']) ? (int)$params['type'] : null;
 	}
 
-	function getName()
+	public function getName()
 	{
 		return tr('Submit Article');
 	}
 
-	function isEnabled()
+	public function isEnabled()
 	{
 		global $prefs;
 
 		return $prefs['feature_submissions'] == 'y';
 	}
 
-	function isAllowed(Account $account, Message $message)
+	public function isAllowed(Account $account, Message $message)
 	{
 		$user = $message->getAssociatedUser();
 		$perms = TikiLib::lib('tiki')->get_user_permission_accessor($user, 'topic', $this->topicId);
@@ -46,7 +46,7 @@ class ArticlePut implements ActionInterface
 		return true;
 	}
 
-	function execute(Account $account, Message $message)
+	public function execute(Account $account, Message $message)
 	{
 		$artlib = TikiLib::lib('art');
 		$tikilib = TikiLib::lib('tiki');

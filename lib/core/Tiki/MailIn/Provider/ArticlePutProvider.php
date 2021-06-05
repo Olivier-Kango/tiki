@@ -11,23 +11,23 @@ use Tiki\MailIn\Action;
 
 class ArticlePutProvider implements ProviderInterface
 {
-	function isEnabled()
+	public function isEnabled()
 	{
 		global $prefs;
 		return $prefs['feature_submissions'] == 'y';
 	}
 
-	function getType()
+	public function getType()
 	{
 		return 'article-put';
 	}
 
-	function getLabel()
+	public function getLabel()
 	{
 		return tr('Create or update article');
 	}
 
-	function getActionFactory(array $acc)
+	public function getActionFactory(array $acc)
 	{
 		return new Action\DirectFactory('Tiki\MailIn\Action\ArticlePut', [
 			'topic' => $acc['article_topicId'],

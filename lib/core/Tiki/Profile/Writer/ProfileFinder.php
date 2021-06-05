@@ -10,12 +10,12 @@ class Tiki_Profile_Writer_ProfileFinder
 	private $profiles = [];
 	private $symbols;
 
-	function __construct()
+	public function __construct()
 	{
 		$this->symbols = TikiDb::get()->table('tiki_profile_symbols');
 	}
 
-	function lookup($type, $object)
+	public function lookup($type, $object)
 	{
 		$result = $this->symbols->fetchAll(
 			[
@@ -34,12 +34,12 @@ class Tiki_Profile_Writer_ProfileFinder
 		}
 	}
 
-	function getProfiles()
+	public function getProfiles()
 	{
 		return array_values($this->profiles);
 	}
 
-	function getSymbols($repository, $profile)
+	public function getSymbols($repository, $profile)
 	{
 		return $this->symbols->fetchAll(
 			[
@@ -54,7 +54,7 @@ class Tiki_Profile_Writer_ProfileFinder
 		);
 	}
 
-	function checkProfileAndFlush()
+	public function checkProfileAndFlush()
 	{
 		$count = count($this->profiles);
 

@@ -10,13 +10,13 @@ class Tiki_Profile_ValueMapConverter
 	private $map;
 	private $implode;
 
-	function __construct($map, $implodeArray = false)
+	public function __construct($map, $implodeArray = false)
 	{
 		$this->map = $map;
 		$this->implode = $implodeArray;
 	}
 
-	function convert($value)
+	public function convert($value)
 	{
 		if (is_array($value)) {
 			foreach ($value as &$v) {
@@ -39,7 +39,7 @@ class Tiki_Profile_ValueMapConverter
 		}
 	}
 
-	function reverse($key)
+	public function reverse($key)
 	{
 		$tab = array_flip($this->map);
 

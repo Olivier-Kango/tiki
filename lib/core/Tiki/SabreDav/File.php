@@ -12,11 +12,13 @@ use Sabre\DAV;
 use TikiLib;
 use Tiki\FileGallery\File as TikiFile;
 
-class File extends DAV\File {
+class File extends DAV\File
+{
 
 	private $file;
 
-	function __construct($path_or_id) {
+	public function __construct($path_or_id)
+	{
 		if ((int)$path_or_id == 0) {
 			$result = TikiLib::lib('filegal')->get_objectid_from_virtual_path($path);
 			if (! $result || $result['type'] != 'file') {
@@ -27,36 +29,44 @@ class File extends DAV\File {
 		$this->file = TikiFile::id($path_or_id);
 	}
 
-	function getFile() {
+	public function getFile()
+	{
 		return $this->file;
 	}
 
-	function getName() {
+	public function getName()
+	{
 		return $this->file->filename;
 	}
 
-	function get() {
+	public function get()
+	{
 		return $this->file->getContents();
 	}
 
-	function getSize() {
+	public function getSize()
+	{
 		return $this->file->filesize;
 	}
 
-	function getETag() {
+	public function getETag()
+	{
 		$md5 = md5($this->file->hash . $this->file->lastModif);
 		return '"' . $md5 . '-' . crc32($md5) . '"';
 	}
 
-	function getContentType() {
+	public function getContentType()
+	{
 		return $this->file->filetype;
 	}
 
-	function getLastModified() {
+	public function getLastModified()
+	{
 		return $this->file->lastModif;
 	}
 
-	function put($data) {
+	public function put($data)
+	{
 		Utilities::checkUploadPermission($this->file->galleryDefinition());
 
 		$info = Utilities::parseContents($this->file->filename, $data);
@@ -64,13 +74,15 @@ class File extends DAV\File {
 		$this->file->replace($info['content'], $info['mime'], $this->file->name, $this->file->filename);
 	}
 
-	function setName($name) {
+	public function setName($name)
+	{
 		Utilities::checkUploadPermission($this->file->galleryDefinition());
 
 		$this->file->replace($this->file->data, $this->file->filetype, $name, $name);
 	}
 
-	function delete() {
+	public function delete()
+	{
 		Utilities::checkDeleteFilePermission($this->file->galleryDefinition());
 
 		$this->file->delete();

@@ -39,7 +39,7 @@ class Tracker_Field_Kaltura extends Tracker_Field_Abstract implements Tracker_Fi
 		];
 	}
 
-	function getFieldData(array $requestData = [])
+	public function getFieldData(array $requestData = [])
 	{
 		$insertId = $this->getInsertId();
 
@@ -56,7 +56,7 @@ class Tracker_Field_Kaltura extends Tracker_Field_Abstract implements Tracker_Fi
 		];
 	}
 
-	function renderInput($context = [])
+	public function renderInput($context = [])
 	{
 		$kalturalib = TikiLib::lib('kalturauser');
 		$movies = array_filter(explode(',', $this->getValue()));
@@ -81,7 +81,7 @@ class Tracker_Field_Kaltura extends Tracker_Field_Abstract implements Tracker_Fi
 		);
 	}
 
-	function renderOutput($context = [])
+	public function renderOutput($context = [])
 	{
 		if ($context['list_mode'] === 'y') {
 			$otherParams = $this->getOption('displayParamsForLists', []);
@@ -106,17 +106,17 @@ class Tracker_Field_Kaltura extends Tracker_Field_Abstract implements Tracker_Fi
 		return $output;
 	}
 
-	function importRemote($value)
+	public function importRemote($value)
 	{
 		return $value;
 	}
 
-	function exportRemote($value)
+	public function exportRemote($value)
 	{
 		return $value;
 	}
 
-	function importRemoteField(array $info, array $syncInfo)
+	public function importRemoteField(array $info, array $syncInfo)
 	{
 		return $info;
 	}

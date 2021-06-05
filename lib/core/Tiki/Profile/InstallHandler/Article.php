@@ -7,7 +7,7 @@
 
 class Tiki_Profile_InstallHandler_Article extends Tiki_Profile_InstallHandler
 {
-	function getData()
+	public function getData()
 	{
 		if ($this->data) {
 			return $this->data;
@@ -34,7 +34,7 @@ class Tiki_Profile_InstallHandler_Article extends Tiki_Profile_InstallHandler
 		return $this->data = $data;
 	}
 
-	function canInstall()
+	public function canInstall()
 	{
 		$data = $this->getData();
 
@@ -45,7 +45,7 @@ class Tiki_Profile_InstallHandler_Article extends Tiki_Profile_InstallHandler
 		return true;
 	}
 
-	function _install()
+	public function _install()
 	{
 		global $prefs;
 		$artlib = TikiLib::lib('art');
@@ -166,7 +166,7 @@ class Tiki_Profile_InstallHandler_Article extends Tiki_Profile_InstallHandler
 	 * @param string $article
 	 * @return bool
 	 */
-	function remove($article)
+	public function remove($article)
 	{
 		if (! empty($article)) {
 			$artlib = TikiLib::lib('art');

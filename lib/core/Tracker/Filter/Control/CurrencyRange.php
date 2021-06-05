@@ -16,13 +16,13 @@ class CurrencyRange implements Control
 	private $toCurrency = '';
 	private $meta = 0;
 
-	function __construct($name, $meta)
+	public function __construct($name, $meta)
 	{
 		$this->fieldName = $name;
 		$this->meta = $meta;
 	}
 
-	function applyInput(\JitFilter $input)
+	public function applyInput(\JitFilter $input)
 	{
 		$this->from = $input->{$this->fieldName . '_from'}->float() ?: '';
 		$this->fromCurrency = $input->{$this->fieldName . '_from_currency'}->text() ?: '';
@@ -30,7 +30,7 @@ class CurrencyRange implements Control
 		$this->toCurrency = $input->{$this->fieldName . '_to_currency'}->text() ?: '';
 	}
 
-	function getQueryArguments()
+	public function getQueryArguments()
 	{
 		if ($this->from && $this->to) {
 			return [
@@ -44,7 +44,7 @@ class CurrencyRange implements Control
 		}
 	}
 
-	function getDescription()
+	public function getDescription()
 	{
 		if ($this->hasValue()) {
 			$tikilib = \TikiLib::lib('tiki');
@@ -58,42 +58,42 @@ class CurrencyRange implements Control
 		}
 	}
 
-	function getId()
+	public function getId()
 	{
 		return $this->fieldName . '_from';
 	}
 
-	function isUsable()
+	public function isUsable()
 	{
 		return true;
 	}
 
-	function hasValue()
+	public function hasValue()
 	{
 		return ! empty($this->from) && ! empty($this->to);
 	}
 
-	function getFrom()
+	public function getFrom()
 	{
 		return $this->from;
 	}
 
-	function getFromCurrency()
+	public function getFromCurrency()
 	{
 		return $this->fromCurrency;
 	}
 
-	function getTo()
+	public function getTo()
 	{
 		return $this->to;
 	}
 
-	function getToCurrency()
+	public function getToCurrency()
 	{
 		return $this->toCurrency;
 	}
 
-	function __toString()
+	public function __toString()
 	{
 		$smarty = \TikiLib::lib('smarty');
 		$smarty->assign('control', [

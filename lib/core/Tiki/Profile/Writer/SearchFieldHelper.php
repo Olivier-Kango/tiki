@@ -9,12 +9,12 @@ class Tiki_Profile_Writer_SearchFieldHelper
 {
 	private $mapping = [];
 
-	function addGlobalSource(Search_GlobalSource_Interface $source)
+	public function addGlobalSource(Search_GlobalSource_Interface $source)
 	{
 		$this->addProvider($source);
 	}
 
-	function addContentSource($objectType, Search_ContentSource_Interface $source)
+	public function addContentSource($objectType, Search_ContentSource_Interface $source)
 	{
 		$this->addProvider($source);
 	}
@@ -26,14 +26,14 @@ class Tiki_Profile_Writer_SearchFieldHelper
 		}
 	}
 
-	function getTypeForField($field)
+	public function getTypeForField($field)
 	{
 		if (isset($this->mapping[$field])) {
 			return $this->mapping[$field];
 		}
 	}
 
-	function replaceFilterReferences(Tiki_Profile_Writer $writer, $args)
+	public function replaceFilterReferences(Tiki_Profile_Writer $writer, $args)
 	{
 		if (isset($args['categories'])) {
 			$args['categories'] = Tiki_Profile_Writer_Helper::uniform_string('category', $writer, $args['categories']);
@@ -58,7 +58,7 @@ class Tiki_Profile_Writer_SearchFieldHelper
 		return $args;
 	}
 
-	function replaceStepReferences(Tiki_Profile_Writer $writer, $args)
+	public function replaceStepReferences(Tiki_Profile_Writer $writer, $args)
 	{
 		if (isset($args['action'], $args['field'], $args['value']) && $args['action'] == 'tracker_item_modify') {
 			$trklib = TikiLib::lib('trk');

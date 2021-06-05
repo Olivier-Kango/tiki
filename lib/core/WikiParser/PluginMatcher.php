@@ -75,7 +75,7 @@ class WikiParser_PluginMatcher implements Iterator, Countable
 		return $this->leftOpen == 0;
 	}
 
-	function findMatches($start, $end)
+	public function findMatches($start, $end)
 	{
 		global $prefs;
 
@@ -150,7 +150,7 @@ class WikiParser_PluginMatcher implements Iterator, Countable
 		}
 	}
 
-	function getText()
+	public function getText()
 	{
 		return $this->text;
 	}
@@ -173,7 +173,7 @@ class WikiParser_PluginMatcher implements Iterator, Countable
 		}
 	}
 
-	function isParsedLocation($pos)
+	public function isParsedLocation($pos)
 	{
 		foreach ($this->ranges as $range) {
 			list($open, $close ) = $range;
@@ -186,7 +186,7 @@ class WikiParser_PluginMatcher implements Iterator, Countable
 		return true;
 	}
 
-	function count()
+	public function count()
 	{
 		return count($this->starts);
 	}
@@ -194,7 +194,7 @@ class WikiParser_PluginMatcher implements Iterator, Countable
 	/**
 	 * @return WikiParser_PluginMatcher_Match
 	 */
-	function current()
+	public function current()
 	{
 		return $this->starts[ $this->scanPosition ];
 	}
@@ -202,7 +202,7 @@ class WikiParser_PluginMatcher implements Iterator, Countable
 	/**
 	 * @return WikiParser_PluginMatcher_Match
 	 */
-	function next()
+	public function next()
 	{
 		foreach ($this->starts as $key => $m) {
 			if ($key > $this->scanPosition) {
@@ -214,23 +214,23 @@ class WikiParser_PluginMatcher implements Iterator, Countable
 		$this->scanPosition = -1;
 	}
 
-	function key()
+	public function key()
 	{
 		return $this->scanPosition;
 	}
 
-	function valid()
+	public function valid()
 	{
 		return isset($this->starts[$this->scanPosition]);
 	}
 
-	function rewind()
+	public function rewind()
 	{
 		reset($this->starts);
 		$this->scanPosition = key($this->starts);
 	}
 
-	function getChunkFrom($pos, $size)
+	public function getChunkFrom($pos, $size)
 	{
 		return substr($this->text, $pos, $size);
 	}
@@ -251,7 +251,7 @@ class WikiParser_PluginMatcher implements Iterator, Countable
 		return end(array_keys($this->ends));
 	}
 
-	function findText($string, $from, $to)
+	public function findText($string, $from, $to)
 	{
 		if ($from >= strlen($this->text)) {
 			return false;
@@ -266,7 +266,7 @@ class WikiParser_PluginMatcher implements Iterator, Countable
 		return $pos;
 	}
 
-	function performReplace($match, $string)
+	public function performReplace($match, $string)
 	{
 		$start = $match->getStart();
 		$end = $match->getEnd();
@@ -364,14 +364,14 @@ class WikiParser_PluginMatcher_Match
 	private $initialstart = false;
 	private $arguments = false;
 
-	function __construct($matcher, $start)
+	public function __construct($matcher, $start)
 	{
 		$this->matcher = $matcher;
 		$this->start = $start;
 		$this->initialstart = $start;
 	}
 
-	function findName($limit)
+	public function findName($limit)
 	{
 		$candidate = $this->matcher->getChunkFrom($this->start + 1, self::NAME_MAX_LENGTH);
 		$name = strtok($candidate, " (}\n\r,");
@@ -407,7 +407,7 @@ class WikiParser_PluginMatcher_Match
 		return true;
 	}
 
-	function findArguments($limit)
+	public function findArguments($limit)
 	{
 		if ($this->nameEnd === false) {
 			return false;
@@ -468,7 +468,7 @@ class WikiParser_PluginMatcher_Match
 		return true;
 	}
 
-	function findEnd($after, $limit)
+	public function findEnd($after, $limit)
 	{
 		if ($this->bodyStart === false) {
 			return false;
@@ -493,18 +493,18 @@ class WikiParser_PluginMatcher_Match
 		return true;
 	}
 
-	function inside($match)
+	public function inside($match)
 	{
 		return $this->start > $match->start
 			&& $this->end < $match->end;
 	}
 
-	function replaceWith($string)
+	public function replaceWith($string)
 	{
 		$this->matcher->performReplace($this, $string);
 	}
 
-	function replaceWithPlugin($name, $params, $content)
+	public function replaceWithPlugin($name, $params, $content)
 	{
 		$hasBody = ! empty($content) && ! ctype_space($content);
 
@@ -531,49 +531,49 @@ class WikiParser_PluginMatcher_Match
 		$this->replaceWith($replacement);
 	}
 
-	function getName()
+	public function getName()
 	{
 		return $this->name;
 	}
 
-	function getArguments()
+	public function getArguments()
 	{
 		return $this->arguments;
 	}
 
-	function getBody()
+	public function getBody()
 	{
 		return $this->matcher->getChunkFrom($this->bodyStart, $this->bodyEnd - $this->bodyStart);
 	}
 
-	function getStart()
+	public function getStart()
 	{
 		return $this->start;
 	}
 
-	function getEnd()
+	public function getEnd()
 	{
 		return $this->end;
 	}
 
-	function getInitialStart()
+	public function getInitialStart()
 	{
 		return $this->initialstart;
 	}
 
-	function getBodyStart()
+	public function getBodyStart()
 	{
 		return $this->bodyStart;
 	}
 
-	function invalidate()
+	public function invalidate()
 	{
 		$this->matcher = false;
 		$this->start = false;
 		$this->end = false;
 	}
 
-	function applyOffset($offset)
+	public function applyOffset($offset)
 	{
 		$this->start += $offset;
 		$this->end += $offset;
@@ -607,7 +607,7 @@ class WikiParser_PluginMatcher_Match
 		return $count;
 	}
 
-	function changeMatcher($matcher)
+	public function changeMatcher($matcher)
 	{
 		$this->matcher = $matcher;
 	}

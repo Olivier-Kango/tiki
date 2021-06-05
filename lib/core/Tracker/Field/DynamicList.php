@@ -99,7 +99,7 @@ class Tracker_Field_DynamicList extends Tracker_Field_Abstract implements Tracke
 		];
 	}
 
-	function getFieldData(array $requestData = [])
+	public function getFieldData(array $requestData = [])
 	{
 		$ins_id = $this->getInsertId();
 		$data = [
@@ -115,7 +115,7 @@ class Tracker_Field_DynamicList extends Tracker_Field_Abstract implements Tracke
 		return $data;
 	}
 
-	function handleSave($value, $oldValue)
+	public function handleSave($value, $oldValue)
 	{
 		// if selectMultipleValues is enabled, convert the array of options to string before saving the field value in the db
 		if ($this->getOption('selectMultipleValues')) {
@@ -131,7 +131,7 @@ class Tracker_Field_DynamicList extends Tracker_Field_Abstract implements Tracke
 		];
 	}
 
-	function renderInput($context = [])
+	public function renderInput($context = [])
 	{
 		// REFACTOR: can't use list-tracker_field_values_ajax.php yet as it doesn't seem to filter
 
@@ -377,7 +377,7 @@ $("input[name=ins_' . $filterFieldIdHere . '], select[name=ins_' . $filterFieldI
 		return $output;
 	}
 
-	function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
+	public function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
 	{
 		$item = $this->getValue();
 		$baseKey = $this->getBaseKey();
@@ -394,13 +394,13 @@ $("input[name=ins_' . $filterFieldIdHere . '], select[name=ins_' . $filterFieldI
 		return $out;
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		$baseKey = $this->getBaseKey();
 		return [$baseKey, "{$baseKey}_text"];
 	}
 
-	function getItemList()
+	public function getItemList()
 	{
 		return TikiLib::lib('trk')->get_all_items(
 			$this->getOption('trackerId'),
@@ -413,7 +413,7 @@ $("input[name=ins_' . $filterFieldIdHere . '], select[name=ins_' . $filterFieldI
 	 * Get tabular schema
 	 * @return Schema
 	 */
-	function getTabularSchema()
+	public function getTabularSchema()
 	{
 		$schema = new Tracker\Tabular\Schema($this->getTrackerDefinition());
 		$permName = $this->getConfiguration('permName');

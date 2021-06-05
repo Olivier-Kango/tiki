@@ -22,58 +22,58 @@ class WikiParser_OutputLink
 	private $wikiLookup;
 	private $wikiBuilder = 'trim';
 
-	function setIdentifier($identifier)
+	public function setIdentifier($identifier)
 	{
 		$this->identifier = $identifier;
 	}
 
-	function setNamespace($namespace, $separator)
+	public function setNamespace($namespace, $separator)
 	{
 		$this->namespace = $namespace;
 		$this->namespaceSeparator = $separator;
 	}
 
-	function setDescription($description)
+	public function setDescription($description)
 	{
 		$this->description = $description;
 	}
 
-	function setQualifier($qualifier)
+	public function setQualifier($qualifier)
 	{
 		$this->qualifier = $qualifier;
 	}
 
-	function setLanguage($lang)
+	public function setLanguage($lang)
 	{
 		$this->language = $lang;
 	}
 
-	function setWikiLookup($lookup)
+	public function setWikiLookup($lookup)
 	{
 		$this->wikiLookup = $lookup;
 	}
 
-	function setWikiLinkBuilder($builder)
+	public function setWikiLinkBuilder($builder)
 	{
 		$this->wikiBuilder = $builder;
 	}
 
-	function setExternals(array $externals)
+	public function setExternals(array $externals)
 	{
 		$this->externals = $externals;
 	}
 
-	function setHandlePlurals($handle)
+	public function setHandlePlurals($handle)
 	{
 		$this->handlePlurals = (bool) $handle;
 	}
 
-	function setAnchor($anchor)
+	public function setAnchor($anchor)
 	{
 		$this->anchor = $anchor;
 	}
 
-	function getHtml($ck_editor = false)
+	public function getHtml($ck_editor = false)
 	{
 		$page = $this->identifier;
 		$description = $this->identifier;

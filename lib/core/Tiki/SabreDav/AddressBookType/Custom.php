@@ -18,20 +18,24 @@ class Custom implements AddressBookTypeInterface
 	private $user;
 	private $addressBookId;
 
-	public function __construct($user, $addressBookId = null) {
+	public function __construct($user, $addressBookId = null)
+	{
 		$this->user = $user;
 		$this->addressBookId = $addressBookId;
 	}
 
-	public function isEnabled() {
+	public function isEnabled()
+	{
 		return true;
 	}
 
-	public function isReadOnly() {
+	public function isReadOnly()
+	{
 		return false;
 	}
 
-	public function getAddressBooks() {
+	public function getAddressBooks()
+	{
 		$result = [];
 		$address_books = TikiLib::lib('addressbook')->list_address_books($this->user);
 		foreach ($address_books as $row) {
@@ -46,7 +50,8 @@ class Custom implements AddressBookTypeInterface
 		return $result;
 	}
 
-	public function getCards($uris = null) {
+	public function getCards($uris = null)
+	{
 		if (is_array($uris)) {
 			$cards = TikiLib::lib('addressbook')->list_cards($this->addressBookId, -1, -1, $uris);
 		} else {
@@ -67,7 +72,8 @@ class Custom implements AddressBookTypeInterface
 		}, $cards);
 	}
 
-	public function createCard($cardUri, $cardData) {
+	public function createCard($cardUri, $cardData)
+	{
 		$data = [
 			'carddata' => $cardData,
 			'uri' => $cardUri,
@@ -80,7 +86,8 @@ class Custom implements AddressBookTypeInterface
 		return '"'.$data['etag'].'"';
 	}
 
-	public function updateCard($cardUri, $cardData) {
+	public function updateCard($cardUri, $cardData)
+	{
 		$data = [
 			'carddata' => $cardData,
 			'lastmodified' => time(),
@@ -91,7 +98,8 @@ class Custom implements AddressBookTypeInterface
 		return '"'.$data['etag'].'"';
 	}
 
-	public function deleteCard($cardUri) {
+	public function deleteCard($cardUri)
+	{
 		return TikiLib::lib('addressbook')->delete_card($this->addressBookId, $cardUri);
 	}
 }

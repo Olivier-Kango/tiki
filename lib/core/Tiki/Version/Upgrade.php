@@ -12,14 +12,14 @@ class Tiki_Version_Upgrade
 	private $new;
 	private $isRequired;
 
-	function __construct($old, $new, $isRequired)
+	public function __construct($old, $new, $isRequired)
 	{
 		$this->old = Tiki_Version_Version::get($old);
 		$this->new = Tiki_Version_Version::get($new);
 		$this->isRequired = $isRequired;
 	}
 
-	function getMessage()
+	public function getMessage()
 	{
 		$parts = [];
 		if ($this->isRequired) {

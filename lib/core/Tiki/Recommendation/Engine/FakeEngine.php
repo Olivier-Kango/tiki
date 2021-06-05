@@ -13,12 +13,12 @@ class FakeEngine implements EngineInterface
 {
 	private $list;
 
-	function __construct($list)
+	public function __construct($list)
 	{
 		$this->list = $list;
 	}
 
-	function generate($input)
+	public function generate($input)
 	{
 		foreach ($this->list as $entry) {
 			if (is_array($entry)) {

@@ -13,7 +13,7 @@ class System implements HandlerInterface
 {
 	private $real;
 
-	function __construct()
+	public function __construct()
 	{
 		global $prefs;
 
@@ -27,22 +27,22 @@ class System implements HandlerInterface
 		}
 	}
 
-	function getFileWrapper($file)
+	public function getFileWrapper($file)
 	{
 		return $this->real->getFileWrapper($file);
 	}
 
-	function delete($file)
+	public function delete($file)
 	{
 		return $this->real->delete($file);
 	}
 
-	function uniquePath($file)
+	public function uniquePath($file)
 	{
 		return $this->real->uniquePath($file);
 	}
 
-	function isWritable() {
+	public function isWritable() {
 		return $this->real->isWritable();
 	}
 }

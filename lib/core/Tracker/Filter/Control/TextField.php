@@ -12,17 +12,17 @@ class TextField implements Control
 	private $fieldName;
 	private $value = '';
 
-	function __construct($name)
+	public function __construct($name)
 	{
 		$this->fieldName = $name;
 	}
 
-	function applyInput(\JitFilter $input)
+	public function applyInput(\JitFilter $input)
 	{
 		$this->value = $input->{$this->fieldName}->text();
 	}
 
-	function getQueryArguments()
+	public function getQueryArguments()
 	{
 		if ($this->value) {
 			return [$this->fieldName => $this->value];
@@ -31,32 +31,32 @@ class TextField implements Control
 		}
 	}
 
-	function getDescription()
+	public function getDescription()
 	{
 		return $this->value ?: null;
 	}
 
-	function getId()
+	public function getId()
 	{
 		return $this->fieldName;
 	}
 
-	function isUsable()
+	public function isUsable()
 	{
 		return true;
 	}
 
-	function hasValue()
+	public function hasValue()
 	{
 		return ! empty($this->value);
 	}
 
-	function getValue()
+	public function getValue()
 	{
 		return $this->value;
 	}
 
-	function __toString()
+	public function __toString()
 	{
 		$smarty = \TikiLib::lib('smarty');
 		$smarty->assign('control', [

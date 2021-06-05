@@ -7,7 +7,7 @@
 
 class Tiki_Profile_InstallHandler_TrackerField extends Tiki_Profile_InstallHandler
 {
-	private function getData() // {{{
+	private function getData()
 	{
 		if ($this->data) {
 			return $this->data;
@@ -20,9 +20,9 @@ class Tiki_Profile_InstallHandler_TrackerField extends Tiki_Profile_InstallHandl
 		$data = Tiki_Profile::convertYesNo($data);
 
 		return $this->data = $data;
-	} // }}}
+	}
 
-	static function getDefaultValues() // {{{
+	public static function getDefaultValues()
 	{
 		return [
 			'name' => '',
@@ -46,13 +46,13 @@ class Tiki_Profile_InstallHandler_TrackerField extends Tiki_Profile_InstallHandl
 			'validation_param' => '',
 			'validation_message' => '',
 		];
-	} // }}}
+	}
 
-	static function getConverters() // {{{
+	public static function getConverters()
 	{
 		return [
 			'type' => new Tiki_Profile_ValueMapConverter(
-				[ // {{{
+				[
 					'action' => 'x',
 					'attachment' => 'A',
 					'auto_increment' => 'q',
@@ -100,7 +100,7 @@ class Tiki_Profile_InstallHandler_TrackerField extends Tiki_Profile_InstallHandl
 					'user' => 'u',
 					'webservice' => 'W',
 				]
-			), // }}}
+			),
 			'visible' => new Tiki_Profile_ValueMapConverter(
 				[
 					'public' => 'n',
@@ -112,7 +112,7 @@ class Tiki_Profile_InstallHandler_TrackerField extends Tiki_Profile_InstallHandl
 				]
 			),
 		];
-	} // }}}
+	}
 
 	private static function getOptionMap() //{{{
 	{
@@ -136,9 +136,9 @@ class Tiki_Profile_InstallHandler_TrackerField extends Tiki_Profile_InstallHandl
 			'validation_message' => 'validationMessage',
 			'rules' => 'rules',
 		];
-	} // }}}
+	}
 
-	function canInstall()
+	public function canInstall()
 	{
 		$data = $this->getData();
 
@@ -149,7 +149,7 @@ class Tiki_Profile_InstallHandler_TrackerField extends Tiki_Profile_InstallHandl
 		return true;
 	}
 
-	function _install()
+	public function _install()
 	{
 		$data = $this->getData();
 		$converters = self::getConverters();
@@ -219,7 +219,7 @@ class Tiki_Profile_InstallHandler_TrackerField extends Tiki_Profile_InstallHandl
 		);
 	}
 
-	static function export(Tiki_Profile_Writer $writer, $field)
+	public static function export(Tiki_Profile_Writer $writer, $field)
 	{
 		if (! is_array($field)) {
 			$trklib = TikiLib::lib('trk');
@@ -297,7 +297,7 @@ class Tiki_Profile_InstallHandler_TrackerField extends Tiki_Profile_InstallHandl
 	 * @param string $trackerField
 	 * @return bool
 	 */
-	function remove($trackerField)
+	public function remove($trackerField)
 	{
 		if (! empty($trackerField)) {
 			$trklib = TikiLib::lib('trk');

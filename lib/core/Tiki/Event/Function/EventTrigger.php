@@ -9,12 +9,12 @@ class Tiki_Event_Function_EventTrigger extends Math_Formula_Function
 {
 	private $manager;
 
-	function __construct(Tiki_Event_Manager $manager)
+	public function __construct(Tiki_Event_Manager $manager)
 	{
 		$this->manager = $manager;
 	}
 
-	function evaluate($element)
+	public function evaluate($element)
 	{
 		$arguments = [];
 		$eventName = $element[0];

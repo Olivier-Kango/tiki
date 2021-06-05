@@ -7,7 +7,7 @@
 
 class Tiki_Profile_InstallHandler_RatingConfig extends Tiki_Profile_InstallHandler
 {
-	function getData()
+	public function getData()
 	{
 		if ($this->data) {
 			return $this->data;
@@ -21,7 +21,7 @@ class Tiki_Profile_InstallHandler_RatingConfig extends Tiki_Profile_InstallHandl
 		return $this->data = $data;
 	}
 
-	function canInstall()
+	public function canInstall()
 	{
 		$data = $this->getData();
 		if (! isset($data['name'], $data['formula'])) {
@@ -31,7 +31,7 @@ class Tiki_Profile_InstallHandler_RatingConfig extends Tiki_Profile_InstallHandl
 		return true;
 	}
 
-	function _install()
+	public function _install()
 	{
 		$ratingconfiglib = TikiLib::lib('ratingconfig');
 

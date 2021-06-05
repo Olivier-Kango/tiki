@@ -16,7 +16,8 @@ use Sabre\DAVACL;
  * Only uses principal exposure. Real ACL is done in backends.
  *
  */
-class AclPlugin extends DAVACL\Plugin {
+class AclPlugin extends DAVACL\Plugin
+{
     /**
      * Checks if the current user has the specified privilege(s).
      * Always return true as real ACL is done in corresponding backends.

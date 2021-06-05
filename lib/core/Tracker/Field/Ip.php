@@ -40,7 +40,7 @@ class Tracker_Field_Ip extends Tracker_Field_Abstract implements Tracker_Field_S
 		];
 	}
 
-	function getFieldData(array $requestData = [])
+	public function getFieldData(array $requestData = [])
 	{
 		global $tiki_p_admin_trackers;
 
@@ -64,22 +64,22 @@ class Tracker_Field_Ip extends Tracker_Field_Abstract implements Tracker_Field_S
 		];
 	}
 
-	function renderInput($context = [])
+	public function renderInput($context = [])
 	{
 		return $this->renderTemplate("trackerinput/ip.tpl", $context);
 	}
 
-	function importRemote($value)
+	public function importRemote($value)
 	{
 		return $value;
 	}
 
-	function exportRemote($value)
+	public function exportRemote($value)
 	{
 		return $value;
 	}
 
-	function importRemoteField(array $info, array $syncInfo)
+	public function importRemoteField(array $info, array $syncInfo)
 	{
 		return $info;
 	}

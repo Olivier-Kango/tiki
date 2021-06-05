@@ -13,7 +13,7 @@ class Tracker_Field_Factory
 	private $typeMap = [];
 	private $infoMap = [];
 
-	function __construct($trackerDefinition = null)
+	public function __construct($trackerDefinition = null)
 	{
 		$this->trackerDefinition = $trackerDefinition;
 
@@ -93,17 +93,17 @@ class Tracker_Field_Factory
 		}
 	}
 
-	function compareName($a, $b)
+	public function compareName($a, $b)
 	{
 		return strcasecmp($a['name'], $b['name']);
 	}
 
-	function getFieldTypes()
+	public function getFieldTypes()
 	{
 		return $this->infoMap;
 	}
 
-	function getFieldInfo($type)
+	public function getFieldInfo($type)
 	{
 		if (isset($this->infoMap[$type])) {
 			return $this->infoMap[$type];
@@ -117,12 +117,12 @@ class Tracker_Field_Factory
 	 * @Example 'q' => 'Tracker_Field_AutoIncrement', ...
 	 * @return array letterType => classname
 	 */
-	function getTypeMap()
+	public function getTypeMap()
 	{
 		return $this->typeMap;
 	}
 
-	function getHandler($field_info, $itemData = [])
+	public function getHandler($field_info, $itemData = [])
 	{
 		if (! isset($field_info['type'])) {
 			// When does a field have no type? Should this not throw an exception? Chealer 2017-05-23

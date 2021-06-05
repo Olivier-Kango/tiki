@@ -7,9 +7,9 @@
 
 interface Tiki_Profile_Transport_Interface
 {
-	function getPageContent($pageName);
+	public function getPageContent($pageName);
 
-	function getPageParsed($pageName);
+	public function getPageParsed($pageName);
 
-	function getProfilePath();
+	public function getProfilePath();
 }

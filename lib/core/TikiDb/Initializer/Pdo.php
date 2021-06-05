@@ -7,12 +7,12 @@
 
 class TikiDb_Initializer_Pdo
 {
-	function isSupported()
+	public function isSupported()
 	{
 		return extension_loaded("pdo") && in_array('mysql', PDO::getAvailableDrivers());
 	}
 
-	function getConnection(array $credentials)
+	public function getConnection(array $credentials)
 	{
 		// Set the host string for PDO dsn.
 		$db_hoststring = "host={$credentials['host']}";
@@ -63,7 +63,7 @@ class TikiDb_Initializer_Pdo
 		}
 	}
 
-	function setupSSL(&$pdo_options)
+	public function setupSSL(&$pdo_options)
 	{
 		global $tikiroot, $tikipath;
 

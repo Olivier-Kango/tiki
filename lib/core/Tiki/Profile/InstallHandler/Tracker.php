@@ -7,7 +7,7 @@
 
 class Tiki_Profile_InstallHandler_Tracker extends Tiki_Profile_InstallHandler
 {
-	public function getData() // {{{
+	public function getData()
 	{
 		if ($this->data) {
 			return $this->data;
@@ -20,9 +20,9 @@ class Tiki_Profile_InstallHandler_Tracker extends Tiki_Profile_InstallHandler
 		$data = Tiki_Profile::convertYesNo($data);
 
 		return $this->data = $data;
-	} // }}}
+	}
 
-	public static function getOptionMap() // {{{
+	public static function getOptionMap()
 	{
 		// Also used by TrackerOption
 		return [
@@ -67,9 +67,9 @@ class Tiki_Profile_InstallHandler_Tracker extends Tiki_Profile_InstallHandler
 			'use_form_classes' => 'useFormClasses',
 			'form_classes' => 'formClasses',
 		];
-	} // }}}
+	}
 
-	private static function getDefaults() // {{{
+	private static function getDefaults()
 	{
 		$defaults = array_fill_keys(array_keys(self::getOptionMap()), 'n');
 		$defaults['name'] = '';
@@ -87,9 +87,9 @@ class Tiki_Profile_InstallHandler_Tracker extends Tiki_Profile_InstallHandler
 		$defaults['popup_fields'] = '';
 		$defaults['section_format'] = 'flat';
 		return $defaults;
-	} // }}}
+	}
 
-	public static function getOptionConverters() // {{{
+	public static function getOptionConverters()
 	{
 		// Also used by TrackerOption
 		return [
@@ -100,9 +100,9 @@ class Tiki_Profile_InstallHandler_Tracker extends Tiki_Profile_InstallHandler
 			'default_status' => new Tiki_Profile_ValueMapConverter([ 'open' => 'o', 'pending' => 'p', 'closed' => 'c' ]),
 			'modification_status' => new Tiki_Profile_ValueMapConverter([ 'open' => 'o', 'pending' => 'p', 'closed' => 'c' ]),
 		];
-	} // }}}
+	}
 
-	function canInstall() // {{{
+	public function canInstall()
 	{
 		$data = $this->getData();
 
@@ -121,9 +121,9 @@ class Tiki_Profile_InstallHandler_Tracker extends Tiki_Profile_InstallHandler
 		}
 
 		return true;
-	} // }}}
+	}
 
-	function _install() // {{{
+	public function _install()
 	{
 		$values = self::getDefaults();
 
@@ -157,7 +157,7 @@ class Tiki_Profile_InstallHandler_Tracker extends Tiki_Profile_InstallHandler
 
 		$trackerId = $trklib->get_tracker_by_name($name);
 		return $trklib->replace_tracker($trackerId, $name, $description, $options, 'y');
-	} // }}}
+	}
 
 	/**
 	 * Export trackers
@@ -277,7 +277,7 @@ class Tiki_Profile_InstallHandler_Tracker extends Tiki_Profile_InstallHandler
 		}
 
 		return true;
-	} // }}}
+	}
 
 	/**
 	 * Export and dump the output of the profile writer
@@ -300,7 +300,7 @@ class Tiki_Profile_InstallHandler_Tracker extends Tiki_Profile_InstallHandler
 	 * @param string $tracker
 	 * @return bool
 	 */
-	function remove($tracker)
+	public function remove($tracker)
 	{
 		if (! empty($tracker)) {
 			$trklib = TikiLib::lib('trk');

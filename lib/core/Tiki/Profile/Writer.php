@@ -14,7 +14,7 @@ class Tiki_Profile_Writer
 	private $externalWriter;
 	private $references = [];
 
-	function __construct($directory, $profileName)
+	public function __construct($directory, $profileName)
 	{
 		$this->filePath = "$directory/$profileName.yml";
 		$this->externalWriter = new Tiki_Profile_Writer_ExternalWriter("$directory/$profileName");
@@ -34,7 +34,7 @@ class Tiki_Profile_Writer
 	/**
 	 * Set the reference name for the next object to be added.
 	 */
-	function pushReference($name)
+	public function pushReference($name)
 	{
 		$this->references[] = $name;
 	}
@@ -42,31 +42,31 @@ class Tiki_Profile_Writer
 	/**
 	 * Write an external page content.
 	 */
-	function writeExternal($page, $content, $ext = '.wiki')
+	public function writeExternal($page, $content, $ext = '.wiki')
 	{
 		$this->externalWriter->write($page . $ext, $content);
 	}
 
-	function getExternalWriter()
+	public function getExternalWriter()
 	{
 		return $this->externalWriter;
 	}
 
-	function setPreference($name, $value)
+	public function setPreference($name, $value)
 	{
 		$this->data['preferences'][$name] = $value;
 		// Add a fake entry to record the inclusion timestamp, removed during clean-up
 		$this->addFake('preference', $name);
 	}
 
-	function getPreference($name)
+	public function getPreference($name)
 	{
 		if (isset($this->data['preferences'][$name])) {
 			return $this->data['preferences'][$name];
 		}
 	}
 
-	function addFake($type, $id)
+	public function addFake($type, $id)
 	{
 		$this->addRawObject($type, null, $id, ['_is_fake' => true]);
 	}
@@ -76,7 +76,7 @@ class Tiki_Profile_Writer
 	 * object already exists within the profile, it will first be removed, allowing objects to
 	 * be refreshed in the profile under construction.
 	 */
-	function addObject($type, $currentId, array $data)
+	public function addObject($type, $currentId, array $data)
 	{
 		$reference = $this->getInternalReference($type, $currentId, $data);
 
@@ -89,7 +89,7 @@ class Tiki_Profile_Writer
 		return $reference;
 	}
 
-	function addPermissions($groupName, array $data)
+	public function addPermissions($groupName, array $data)
 	{
 		$this->addFake('group', $groupName);
 
@@ -163,7 +163,7 @@ class Tiki_Profile_Writer
 	 * When an object is being added, the previously unknown references within the object may be
 	 * resolved. This removed the unknwn object references and replaces them with a permanent key.
 	 */
-	function removeUnknown($type, $id, $replacement)
+	public function removeUnknown($type, $id, $replacement)
 	{
 		if (! is_array($this->data['unknown_objects'])) {
 			return;
@@ -207,7 +207,7 @@ class Tiki_Profile_Writer
 	/**
 	 * Provides the list of currently unknown objects.
 	 */
-	function getUnknownObjects()
+	public function getUnknownObjects()
 	{
 		if (is_array($this->data['unknown_objects'])) {
 			return array_map(
@@ -227,7 +227,7 @@ class Tiki_Profile_Writer
 	 * the declarative interfaces (plugins, field types, preferences, ...). Extra parameters are
 	 * provided in those cases since the type may depend on other arguments.
 	 */
-	function getReference($type, $id, array $parameters = [])
+	public function getReference($type, $id, array $parameters = [])
 	{
 		if (empty($id)) {
 			// Empty strings, id=0, ... not valid references skip
@@ -281,12 +281,12 @@ class Tiki_Profile_Writer
 		return null;
 	}
 
-	function isKnown($type, $id)
+	public function isKnown($type, $id)
 	{
 		return ! is_null($this->getObject($type, $id));
 	}
 
-	function getInclusionTimestamp($type, $id)
+	public function getInclusionTimestamp($type, $id)
 	{
 		$object = $this->getObject($type, $id);
 
@@ -295,7 +295,7 @@ class Tiki_Profile_Writer
 		}
 	}
 
-	function formatExternalReference($symbol, $profile, $repository = null)
+	public function formatExternalReference($symbol, $profile, $repository = null)
 	{
 		$symbol = trim($symbol);
 		$profile = trim($profile);
@@ -342,7 +342,7 @@ class Tiki_Profile_Writer
 	/**
 	 * Write in-memory changes to the disk.
 	 */
-	function save()
+	public function save()
 	{
 		file_put_contents($this->filePath, Yaml::dump($this->quoteArray($this->data), 20, 2, Yaml::DUMP_MULTI_LINE_LITERAL_BLOCK));
 		$this->externalWriter->apply();
@@ -351,12 +351,12 @@ class Tiki_Profile_Writer
 	/**
 	 * quote strings that may be problematic in YAML
 	 */
-	function quoteArray($arr)
+	public function quoteArray($arr)
 	{
 		array_walk_recursive($arr, 'Tiki_Profile_Writer::quoteString');
 		return ($arr);
 	}
-	function quoteString(&$data, $key)
+	public function quoteString(&$data, $key)
 	{
 		if (strtolower($data) == 'yes' || strtolower($data) == 'no'
 			|| strpos($data, '{') !== false || strpos($data, '[') !== false
@@ -370,7 +370,7 @@ class Tiki_Profile_Writer
 	/**
 	 * Removes all of the meta-data used while the profile is under construction.
 	 */
-	function clean()
+	public function clean()
 	{
 		array_walk(
 			$this->data['objects'],
@@ -390,7 +390,7 @@ class Tiki_Profile_Writer
 		);
 	}
 
-	function dump()
+	public function dump()
 	{
 		$clone = clone $this;
 		$clone->clean();

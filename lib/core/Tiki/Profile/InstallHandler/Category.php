@@ -13,7 +13,7 @@ class Tiki_Profile_InstallHandler_Category extends Tiki_Profile_InstallHandler
 	private $migrateparent = 0;
 	private $items = [];
 
-	function fetchData()
+	public function fetchData()
 	{
 		if ($this->name) {
 			return;
@@ -42,7 +42,7 @@ class Tiki_Profile_InstallHandler_Category extends Tiki_Profile_InstallHandler
 		}
 	}
 
-	function canInstall()
+	public function canInstall()
 	{
 		$this->fetchData();
 
@@ -53,7 +53,7 @@ class Tiki_Profile_InstallHandler_Category extends Tiki_Profile_InstallHandler
 		return true;
 	}
 
-	function _install()
+	public function _install()
 	{
 		global $tikilib;
 		$this->fetchData();
@@ -156,7 +156,7 @@ class Tiki_Profile_InstallHandler_Category extends Tiki_Profile_InstallHandler
 	 * @param string $category
 	 * @return bool
 	 */
-	function remove($category)
+	public function remove($category)
 	{
 		if (! empty($category)) {
 			$categlib = TikiLib::lib('categ');

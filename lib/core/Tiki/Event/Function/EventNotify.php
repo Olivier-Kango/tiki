@@ -9,12 +9,12 @@ class Tiki_Event_Function_EventNotify extends Math_Formula_Function
 {
 	private $recorder;
 
-	function __construct($recorder)
+	public function __construct($recorder)
 	{
 		$this->recorder = $recorder;
 	}
 
-	function evaluate($element)
+	public function evaluate($element)
 	{
 		$monitorlib = TikiLib::lib('monitor');
 
@@ -47,7 +47,7 @@ class Tiki_Event_Function_EventNotify extends Math_Formula_Function
 	 * @return array|string array of user names
 	 * @throws Exception if user not found
 	 */
-	function getUsers($userpath, $arguments)
+	public function getUsers($userpath, $arguments)
 	{
 		$userarr = explode(":", $userpath);
 

@@ -12,7 +12,7 @@ class TikiFilter_Alpha extends Laminas\Filter\PregReplace
 {
 	private $filter;
 
-	function __construct($space = false)
+	public function __construct($space = false)
 	{
 		$space = is_bool($space) ? $space : false;
 		$whiteSpace = $space === true ? '\s' : '';
@@ -28,7 +28,7 @@ class TikiFilter_Alpha extends Laminas\Filter\PregReplace
 		}
 	}
 
-	function filter($value)
+	public function filter($value)
 	{
 		if (! extension_loaded('intl')) {
 			return parent::filter($value);

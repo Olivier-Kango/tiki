@@ -11,18 +11,18 @@ class CsvWriter
 {
 	private $file;
 
-	function __construct($outputFile)
+	public function __construct($outputFile)
 	{
 		$this->file = new \SplFileObject($outputFile, 'w');
 	}
 
-	function sendHeaders($filename = 'tiki-tracker-tabular-export.csv')
+	public function sendHeaders($filename = 'tiki-tracker-tabular-export.csv')
 	{
 		header('Content-Type: text/csv; charset=utf8');
 		header("Content-Disposition:attachment;filename=$filename");
 	}
 
-	function write(\Tracker\Tabular\Source\SourceInterface $source)
+	public function write(\Tracker\Tabular\Source\SourceInterface $source)
 	{
 		$schema = $source->getSchema();
 		$schema = $schema->getPlainOutputSchema();

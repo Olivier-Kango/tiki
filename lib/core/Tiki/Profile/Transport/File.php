@@ -9,12 +9,12 @@ class Tiki_Profile_Transport_File implements Tiki_Profile_Transport_Interface
 {
 	private $path;
 
-	function __construct($path, $profileName)
+	public function __construct($path, $profileName)
 	{
 		$this->path = "$path/$profileName";
 	}
 
-	function getPageContent($pageName)
+	public function getPageContent($pageName)
 	{
 		$fullpath = $this->path . '/' . $pageName . '.wiki';
 		if (file_exists($fullpath)) {
@@ -24,7 +24,7 @@ class Tiki_Profile_Transport_File implements Tiki_Profile_Transport_Interface
 		}
 	}
 
-	function getPageParsed($pageName)
+	public function getPageParsed($pageName)
 	{
 		$content = $this->getPageContent($pageName);
 
@@ -35,7 +35,7 @@ class Tiki_Profile_Transport_File implements Tiki_Profile_Transport_Interface
 		}
 	}
 
-	function getProfilePath()
+	public function getProfilePath()
 	{
 		return $this->path;
 	}

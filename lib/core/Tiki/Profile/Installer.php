@@ -11,7 +11,7 @@ use Tiki\Yaml\Filter\ReplaceUserData as YamlReplaceUserData;
 
 class Tiki_Profile_Installer
 {
-	public static function exportGroup(Tiki_Profile_Writer $writer, $group, $categories = false, $objects = false) // {{{
+	public static function exportGroup(Tiki_Profile_Writer $writer, $group, $categories = false, $objects = false)
 	{
 		$userlib = \TikiLib::lib('user');
 		$info = $userlib->get_group_info($group);
@@ -64,9 +64,9 @@ class Tiki_Profile_Installer
 		$writer->addPermissions($group, $data);
 
 		return true;
-	} // }}}
+	}
 
-	private static function getPermissionList($writer, $objectType, $group) // {{{
+	private static function getPermissionList($writer, $objectType, $group)
 	{
 		switch ($objectType) {
 			case 'category':
@@ -108,7 +108,7 @@ class Tiki_Profile_Installer
 			$map[$id]['allow'][] = substr($row['permName'], 7);
 		}
 		return array_values($map);
-	} // }}}
+	}
 
 	private $installed = [];
 	private $handlers = [
@@ -184,27 +184,27 @@ class Tiki_Profile_Installer
 	 * @param $feed - (strings append, array replaces) lines of feedback text
 	 * @return none
 	 */
-	function setFeedback($feed) // {{{
+	public function setFeedback($feed)
 	{
 		if (is_array($feed)) {
 			$this->feedback = $feed;
 		} else {
 			$this->feedback[] = $feed;
 		}
-	} // }}}
+	}
 
 	/**
 	 * @param $index - (int) index of feedback string to return if present
 	 * @return mixed string or whole array if no index specified
 	 */
-	function getFeedback($index = null) // {{{
+	public function getFeedback($index = null)
 	{
 		if (! is_null($index) && $index < count($this->feedback)) {
 			return $this->feedback[$index];
 		} else {
 			return $this->feedback;
 		}
-	} // }}}
+	}
 
 	/**
 	 * Add changes to the tracking list for profile changes
@@ -215,7 +215,7 @@ class Tiki_Profile_Installer
 	 * @param $description - mixed with aditional information
 	 * @return none
 	 */
-	function setTrackProfileChanges($type, $newValue = false, $oldValue = false, $description = false)
+	public function setTrackProfileChanges($type, $newValue = false, $oldValue = false, $description = false)
 	{
 		$this->profileChanges[] = [
 			'type' => $type,
@@ -231,7 +231,7 @@ class Tiki_Profile_Installer
 	 * @param int|null $index - index of feedback string to return if present
 	 * @return mixed string or whole array if no index specified
 	 */
-	function getTrackProfileChanges($index = null)
+	public function getTrackProfileChanges($index = null)
 	{
 		if (! is_null($index) && $index < count($this->profileChanges)) {
 			return $this->profileChanges[$index];
@@ -241,19 +241,19 @@ class Tiki_Profile_Installer
 	}
 
 
-	public static function convertType($type) // {{{
+	public static function convertType($type)
 	{
 		if (isset(self::$typeMap[$type])) {
 			return self::$typeMap[$type];
 		} else {
 			return $type;
 		}
-	} // }}}
+	}
 
 	/**
 	 * Converts a Tiki object type to a profile object type.
 	 */
-	public static function convertTypeInvert($type) // {{{
+	public static function convertTypeInvert($type)
 	{
 		$typeMap = self::$typeMapInvert;
 
@@ -262,9 +262,9 @@ class Tiki_Profile_Installer
 		} else {
 			return $type;
 		}
-	} // }}}
+	}
 
-	public static function convertObject($type, $id, $contextualizedInfo = []) // {{{
+	public static function convertObject($type, $id, $contextualizedInfo = [])
 	{
 		global $tikilib;
 
@@ -279,9 +279,9 @@ class Tiki_Profile_Installer
 		} else {
 			return $id;
 		}
-	} // }}}
+	}
 
-	function __construct() // {{{
+	public function __construct()
 	{
 		global $tikilib;
 
@@ -289,29 +289,29 @@ class Tiki_Profile_Installer
 		foreach ($result as $row) {
 			$this->installed[Tiki_Profile::getProfileKeyFor($row['domain'], $row['profile'])] = true;
 		}
-	} // }}}
+	}
 
-	function setUserData($userData) // {{{
+	public function setUserData($userData)
 	{
 		$this->userData = $userData;
-	} // }}}
+	}
 
-	function setDebug() // {{{
+	public function setDebug()
 	{
 		$this->debug = true;
-	} // }}}
+	}
 
-	function disablePrefixDependencies() // {{{
+	public function disablePrefixDependencies()
 	{
 		$this->prefixDependencies = false;
-	} // }}}
+	}
 
-	function enablePrefixDependencies() // {{{
+	public function enablePrefixDependencies()
 	{
 		$this->prefixDependencies = true;
-	} // }}}
+	}
 
-	function getInstallOrder(Tiki_Profile $profile) // {{{
+	public function getInstallOrder(Tiki_Profile $profile)
 	{
 		if ($profile == null) {
 			return false;
@@ -399,7 +399,7 @@ class Tiki_Profile_Installer
 		}
 
 		return $final;
-	} // }}}
+	}
 
 	/**
 	 * Install a profile
@@ -409,7 +409,7 @@ class Tiki_Profile_Installer
 	 * @param bool $dryRun set to tru to run the install without applying the profile
 	 * @return bool
 	 */
-	function install(Tiki_Profile $profile, $empty_cache = 'all', $dryRun = false) // {{{
+	public function install(Tiki_Profile $profile, $empty_cache = 'all', $dryRun = false)
 	{
 		global $tikidomain;
 		$cachelib = TikiLib::lib('cache');
@@ -451,19 +451,19 @@ class Tiki_Profile_Installer
 			$this->setFeedback(tra('An error occurred: ') . $e->getMessage());
 			return false;
 		}
-	} // }}}
+	}
 
-	function isInstalled(Tiki_Profile $profile, $prefix = true) // {{{
+	public function isInstalled(Tiki_Profile $profile, $prefix = true)
 	{
 		return array_key_exists($profile->getProfileKey($prefix), $this->installed);
-	} // }}}
+	}
 
-	function isKeyInstalled($domain, $profile) // {{{
+	public function isKeyInstalled($domain, $profile)
 	{
 		return array_key_exists(Tiki_Profile::getProfileKeyFor($domain, $profile), $this->installed);
-	} // }}}
+	}
 
-	function isInstallable(Tiki_Profile $profile) // {{{
+	public function isInstallable(Tiki_Profile $profile)
 	{
 		foreach ($profile->getObjects() as $object) {
 			$handler = $this->getInstallHandler($object);
@@ -477,9 +477,9 @@ class Tiki_Profile_Installer
 		}
 
 		return true;
-	} // }}}
+	}
 
-	public function getInstallHandler(Tiki_Profile_Object $object) // {{{
+	public function getInstallHandler(Tiki_Profile_Object $object)
 	{
 		$type = $object->getType();
 		if (array_key_exists($type, $this->handlers)) {
@@ -492,9 +492,9 @@ class Tiki_Profile_Installer
 				return new $class($object, $this->userData);
 			}
 		}
-	} // }}}
+	}
 
-	private function doInstall(Tiki_Profile $profile, $dryRun = false) // {{{
+	private function doInstall(Tiki_Profile $profile, $dryRun = false)
 	{
 		$this->setFeedback(tra('Applying profile') . ': ' . $profile->profile);
 
@@ -569,7 +569,7 @@ class Tiki_Profile_Installer
 
 		$this->applyPreferences($profile, $leftovers, $dryRun);
 		tiki_setup_events();
-	} // }}}
+	}
 
 	/**
 	 * Revert a profile
@@ -742,7 +742,7 @@ class Tiki_Profile_Installer
 		}
 	}
 
-	private function setupGroup($groupName, $info, $permissions, $objects, $groupMap, $dryRun = false) // {{{
+	private function setupGroup($groupName, $info, $permissions, $objects, $groupMap, $dryRun = false)
 	{
 		$userlib = TikiLib::lib('user');
 
@@ -857,22 +857,22 @@ class Tiki_Profile_Installer
 			}
 			$this->setFeedback(tr('User %0 was added to %1', $user, $groupName));
 		}
-	} // }}}
+	}
 
-	function forget(Tiki_Profile $profile) // {{{
+	public function forget(Tiki_Profile $profile)
 	{
 		$key = $profile->getProfileKey();
 		unset($this->installed[$key]);
 		$profile->removeSymbols();
-	} // }}}
+	}
 
-	function limitGlobalPreferences(array $allowedPreferences) // {{{
+	public function limitGlobalPreferences(array $allowedPreferences)
 	{
 		$this->allowedGlobalPreferences = $allowedPreferences;
-	} // }}}
+	}
 
-	function limitObjectTypes(array $objectTypes) // {{{
+	public function limitObjectTypes(array $objectTypes)
 	{
 		$this->allowedObjectTypes = $objectTypes;
-	} // }}}
+	}
 }

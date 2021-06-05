@@ -20,7 +20,7 @@ require_once 'Patch.php';
  */
 class Installer extends TikiDb_Bridge implements SplSubject
 {
-	static $instance = null; // Singleton instance
+	public static $instance = null; // Singleton instance
 	private $observers;
 
 	public $scripts = [];
@@ -49,7 +49,7 @@ class Installer extends TikiDb_Bridge implements SplSubject
 	 * Get the instance (creating one if necessary)
 	 * @return Installer
 	 */
-	static function getInstance()
+	public static function getInstance()
 	{
 		if (is_null(self::$instance)) {
 			self::$instance = new self();
@@ -57,7 +57,7 @@ class Installer extends TikiDb_Bridge implements SplSubject
 		return self::$instance;
 	}
 
-	function cleanInstall() // {{{
+	public function cleanInstall()
 	{
 		if ($image = $this->getBaseImage()) {
 			$this->runFile($image);
@@ -86,9 +86,9 @@ class Installer extends TikiDb_Bridge implements SplSubject
 		}
 
 		$this->update();
-	} // }}}
+	}
 
-	function update() // {{{
+	public function update()
 	{
 		// Mark InnoDB usage for updates
 		if (strcasecmp($this->getCurrentEngine(), "InnoDB") == 0) {
@@ -149,14 +149,14 @@ class Installer extends TikiDb_Bridge implements SplSubject
 		foreach ($this->scripts as $script) {
 			$this->runScript($script);
 		}
-	} // }}}
+	}
 
 	/**
 	 * @param $patch
 	 * @param $force true if the patch should be applied even if already marked as applied
 	 * @throws Exception Code 1 if unknown patch, 2 if application attempt fails, 3 if patch was already installed and $force is false
 	 */
-	function installPatch($patch, $force = false) // {{{
+	public function installPatch($patch, $force = false)
 	{
 		if (! $force && isset(Patch::$list[$patch]) && Patch::$list[$patch]->isApplied()) {
 			throw new Exception('Patch already applied', 3);
@@ -216,12 +216,12 @@ class Installer extends TikiDb_Bridge implements SplSubject
 		} else {
 			Patch::$list[$patch]->record();
 		}
-	} // }}}
+	}
 
 	/**
 	 * @param $script
 	 */
-	function runScript($script) // {{{
+	public function runScript($script)
 	{
 		$file = __DIR__ . "/script/$script.php";
 
@@ -234,7 +234,7 @@ class Installer extends TikiDb_Bridge implements SplSubject
 		}
 
 		$this->executed[] = $script;
-	} // }}}
+	}
 
 
 	private function applyProfile($profileFile)
@@ -264,7 +264,7 @@ class Installer extends TikiDb_Bridge implements SplSubject
 	 * @param $clearTable=true	Flag saying if the target table should be truncated or not
 	 * @return bool
 	 */
-	function runDataFile($file, $targetTable, $clearTable = true) // {{{
+	public function runDataFile($file, $targetTable, $clearTable = true)
 	{
 		if (! is_file($file) || ! $command = file_get_contents($file)) {
 			print('Fatal: Cannot open ' . $file);
@@ -291,7 +291,7 @@ class Installer extends TikiDb_Bridge implements SplSubject
 	 * @param $file
 	 * @return bool
 	 */
-	function runFile($file, $convertFormat = true) // {{{
+	public function runFile($file, $convertFormat = true)
 	{
 		if (! is_file($file) || ! $command = file_get_contents($file)) {
 			throw new Exception('Fatal: Cannot open ' . $file);
@@ -326,7 +326,7 @@ class Installer extends TikiDb_Bridge implements SplSubject
 		$this->queries['currentStmt'] = '';
 
 		return $status;
-	} // }}}
+	}
 
 	/**
 	 * @param null $query
@@ -337,7 +337,7 @@ class Installer extends TikiDb_Bridge implements SplSubject
 	 * @param string $patch
 	 * @return bool
 	 */
-	function query($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = true, $patch = '') // {{{
+	public function query($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = true, $patch = '')
 	{
 		$error = '';
 		$result = $this->queryError($query, $error, $values);
@@ -349,12 +349,12 @@ class Installer extends TikiDb_Bridge implements SplSubject
 			$this->queries['failed'][] = [$query, $error, substr(basename($patch), 0, -4)];
 			return false;
 		}
-	} // }}}
+	}
 
 	/**
 	 * @throws Exception In case of filesystem access issue
 	 */
-	function buildPatchList()
+	public function buildPatchList()
 	{
 		$patches = [];
 		foreach (['sql', 'yml', 'php' /* "php" for standalone PHP scripts */] as $extension) {
@@ -394,7 +394,7 @@ class Installer extends TikiDb_Bridge implements SplSubject
 	}
 
 
-	function buildScriptList() // {{{
+	public function buildScriptList()
 	{
 		$files = glob(__DIR__ . '/script/*.php');
 		if (empty($files)) {
@@ -407,31 +407,31 @@ class Installer extends TikiDb_Bridge implements SplSubject
 			$filename = basename($file);
 			$this->scripts[] = substr($filename, 0, -4);
 		}
-	} // }}}
+	}
 
 	/**
 	 * @param $tableName
 	 * @return bool
 	 */
-	function tableExists($tableName) // {{{
+	public function tableExists($tableName)
 	{
 		$list = $this->listTables();
 		return in_array($tableName, $list);
-	} // }}}
+	}
 
-	function isInstalled() // {{{
+	public function isInstalled()
 	{
 		return $this->tableExists('tiki_preferences');
-	} // }}}
+	}
 
 	/**
 	 * @return bool
 	 */
-	function requiresUpdate() // {{{
+	public function requiresUpdate()
 	{
 		return count(Patch::getPatches([Patch::NOT_APPLIED])) > 0;
-	} // }}}
-	function checkInstallerLocked() // {{{
+	}
+	public function checkInstallerLocked()
 	{
 		$iniFile = __DIR__ . '/../db/lock';
 
@@ -440,7 +440,7 @@ class Installer extends TikiDb_Bridge implements SplSubject
 			return 1;
 		}
 	}
-	private function getBaseImage() // {{{
+	private function getBaseImage()
 	{
 		$iniFile = __DIR__ . '/../db/install.ini';
 
@@ -498,7 +498,7 @@ class Installer extends TikiDb_Bridge implements SplSubject
 				unlink($cacheFile);
 			}
 		}
-	} // }}}
+	}
 
 	/**
 	 * Use this if the default for a preference changes to preserve the old default behaviour on upgrades
@@ -506,7 +506,7 @@ class Installer extends TikiDb_Bridge implements SplSubject
 	 * @param string $prefName
 	 * @param string $oldDefault
 	 */
-	function preservePreferenceDefault($prefName, $oldDefault)
+	public function preservePreferenceDefault($prefName, $oldDefault)
 	{
 
 		if ($this->tableExists('tiki_preferences')) {

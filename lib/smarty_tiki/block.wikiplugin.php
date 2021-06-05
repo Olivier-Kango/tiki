@@ -37,7 +37,7 @@ function smarty_block_wikiplugin($params, $content, $smarty, $repeat = false)
 	}
 
 	$parserlib = TikiLib::lib('parser');
-	$out = $parserlib->plugin_execute(
+	$out = $parserlib->pluginExecute(
 		$name,
 		$content,
 		$params,

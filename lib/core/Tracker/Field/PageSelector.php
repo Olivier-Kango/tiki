@@ -64,7 +64,7 @@ class Tracker_Field_PageSelector extends Tracker_Field_Abstract
 		];
 	}
 
-	function getFieldData(array $requestData = [])
+	public function getFieldData(array $requestData = [])
 	{
 		$ins_id = $this->getInsertId();
 
@@ -78,12 +78,12 @@ class Tracker_Field_PageSelector extends Tracker_Field_Abstract
 		];
 	}
 
-	function renderInput($context = [])
+	public function renderInput($context = [])
 	{
 		return $this->renderTemplate('trackerinput/pageselector.tpl', $context);
 	}
 
-	function renderOutput($context = [])
+	public function renderOutput($context = [])
 	{
 		$value = $this->getConfiguration('value');
 		if ($value) {

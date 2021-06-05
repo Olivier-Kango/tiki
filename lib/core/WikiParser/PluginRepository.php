@@ -10,12 +10,12 @@ class WikiParser_PluginRepository
 	private $folders = [];
 	private $pluginsFound = [];
 
-	function addPluginFolder($folder)
+	public function addPluginFolder($folder)
 	{
 		$this->folders[] = $folder;
 	}
 
-	function getInfo($pluginName)
+	public function getInfo($pluginName)
 	{
 		if (! $this->pluginExists($pluginName)) {
 			return null;
@@ -41,7 +41,7 @@ class WikiParser_PluginRepository
 		return new WikiParser_PluginDefinition($this, $infoName());
 	}
 
-	function pluginExists($pluginName)
+	public function pluginExists($pluginName)
 	{
 		$pluginName = strtolower($pluginName);
 
@@ -67,7 +67,7 @@ class WikiParser_PluginRepository
 		return file_exists($file);
 	}
 
-	function getList()
+	public function getList()
 	{
 		$real = [];
 

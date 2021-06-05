@@ -58,7 +58,7 @@ class Services_Utilities
 			TikiLib::lib('access')->redirect($referer);
 		//javascript
 		} else {
-			Feedback::send_headers();
+			Feedback::sendHeaders();
 			die;
 		}
 	}
@@ -80,7 +80,7 @@ class Services_Utilities
 			TikiLib::lib('access')->redirect($referer);
 		//javascript
 		} else {
-			Feedback::send_headers();
+			Feedback::sendHeaders();
 			//the js confirmAction function in tiki-confirm.js uses this to close the modal
 			return ['extra' => 'close'];
 		}

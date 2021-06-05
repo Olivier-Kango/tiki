@@ -8,7 +8,7 @@
 //THIS HANDLER STILL DON'T WORK PROPERLY. USE WITH CAUTION.
 class Tiki_Profile_InstallHandler_Calendar extends Tiki_Profile_InstallHandler
 {
-	function getData()
+	public function getData()
 	{
 		if ($this->data) {
 			return $this->data;
@@ -25,7 +25,7 @@ class Tiki_Profile_InstallHandler_Calendar extends Tiki_Profile_InstallHandler
 		return $this->data = $data;
 	}
 
-	function canInstall()
+	public function canInstall()
 	{
 		$data = $this->getData();
 
@@ -54,7 +54,7 @@ class Tiki_Profile_InstallHandler_Calendar extends Tiki_Profile_InstallHandler
 		return true;
 	}
 
-	function _install()
+	public function _install()
 	{
 		if ($this->canInstall()) {
 			$calendarlib = TikiLib::lib('calendar');
@@ -147,7 +147,7 @@ class Tiki_Profile_InstallHandler_Calendar extends Tiki_Profile_InstallHandler
 	 * @param string $calendar
 	 * @return bool
 	 */
-	function remove($calendar)
+	public function remove($calendar)
 	{
 		if (! empty($calendar)) {
 			$calendarlib = TikiLib::lib('calendar');

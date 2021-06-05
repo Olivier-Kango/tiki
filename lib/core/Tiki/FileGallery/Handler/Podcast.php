@@ -11,13 +11,14 @@ class Podcast extends FileSystem
 {
 	private $directory;
 
-	function __construct()
+	public function __construct()
 	{
 		global $prefs;
 		parent::__construct($prefs['fgal_podcast_dir']);
 	}
 
-  function uniquePath($file) {
+  public function uniquePath($file)
+  {
     if (! empty($file->path)) {
       return $file->path;
     }

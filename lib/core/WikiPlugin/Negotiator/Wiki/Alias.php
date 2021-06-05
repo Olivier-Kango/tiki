@@ -186,7 +186,7 @@ class WikiPlugin_Negotiator_Wiki_Alias
 		return false;
 	}
 
-	static function replaceArgs($content, $rules, $args)
+	public static function replaceArgs($content, $rules, $args)
 	{
 		$patterns = [];
 		$replacements = [];

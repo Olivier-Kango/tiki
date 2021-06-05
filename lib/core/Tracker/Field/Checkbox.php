@@ -29,7 +29,7 @@ class Tracker_Field_Checkbox extends Tracker_Field_Abstract implements Tracker_F
 		];
 	}
 
-	function getFieldData(array $requestData = [])
+	public function getFieldData(array $requestData = [])
 	{
 		$ins_id = $this->getInsertId();
 
@@ -52,12 +52,12 @@ class Tracker_Field_Checkbox extends Tracker_Field_Abstract implements Tracker_F
 		];
 	}
 
-	function renderInput($context = [])
+	public function renderInput($context = [])
 	{
 		return $this->renderTemplate('trackerinput/checkbox.tpl', $context);
 	}
 
-	function handleSave($value, $oldValue)
+	public function handleSave($value, $oldValue)
 	{
 		if ($value == 'on') {
 			$value = 'y';
@@ -68,22 +68,22 @@ class Tracker_Field_Checkbox extends Tracker_Field_Abstract implements Tracker_F
 		];
 	}
 
-	function importRemote($value)
+	public function importRemote($value)
 	{
 		return $value;
 	}
 
-	function exportRemote($value)
+	public function exportRemote($value)
 	{
 		return $value;
 	}
 
-	function importRemoteField(array $info, array $syncInfo)
+	public function importRemoteField(array $info, array $syncInfo)
 	{
 		return $info;
 	}
 
-	function renderOutput($context = [])
+	public function renderOutput($context = [])
 	{
 		$fieldData = $this->getFieldData();
 		if ($fieldData['value'] == 'y' && $context['list_mode'] !== 'csv') {
@@ -95,7 +95,7 @@ class Tracker_Field_Checkbox extends Tracker_Field_Abstract implements Tracker_F
 		}
 	}
 
-	function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
+	public function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
 	{
 		$baseKey = $this->getBaseKey();
 		$checked = $this->getValue() === 'y';
@@ -105,7 +105,7 @@ class Tracker_Field_Checkbox extends Tracker_Field_Abstract implements Tracker_F
 		];
 	}
 
-	function getTabularSchema()
+	public function getTabularSchema()
 	{
 		$schema = new Tracker\Tabular\Schema($this->getTrackerDefinition());
 
@@ -146,7 +146,7 @@ class Tracker_Field_Checkbox extends Tracker_Field_Abstract implements Tracker_F
 		return $schema;
 	}
 
-	function getFilterCollection()
+	public function getFilterCollection()
 	{
 		$filters = new Tracker\Filter\Collection($this->getTrackerDefinition());
 		$permName = $this->getConfiguration('permName');

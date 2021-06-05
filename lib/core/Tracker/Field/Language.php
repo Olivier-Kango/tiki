@@ -34,7 +34,7 @@ class Tracker_Field_Language extends Tracker_Field_Abstract implements Tracker_F
 		];
 	}
 
-	function getFieldData(array $requestData = [])
+	public function getFieldData(array $requestData = [])
 	{
 		$insertId = $this->getInsertId();
 
@@ -53,7 +53,7 @@ class Tracker_Field_Language extends Tracker_Field_Abstract implements Tracker_F
 		];
 	}
 
-	function renderInput($context = [])
+	public function renderInput($context = [])
 	{
 		return $this->renderTemplate(
 			'trackerinput/language.tpl',
@@ -64,7 +64,7 @@ class Tracker_Field_Language extends Tracker_Field_Abstract implements Tracker_F
 		);
 	}
 
-	function renderOutput($context = [])
+	public function renderOutput($context = [])
 	{
 		$selected = $this->getConfiguration('value');
 
@@ -82,14 +82,14 @@ class Tracker_Field_Language extends Tracker_Field_Abstract implements Tracker_F
 		);
 	}
 
-	function handleSave($value, $oldValue)
+	public function handleSave($value, $oldValue)
 	{
 		return [
 			'value' => $value,
 		];
 	}
 
-	function watchCompare($old, $new)
+	public function watchCompare($old, $new)
 	{
 	}
 
@@ -122,22 +122,22 @@ class Tracker_Field_Language extends Tracker_Field_Abstract implements Tracker_F
 		return isset($languages[$lang]);
 	}
 
-	function importRemote($value)
+	public function importRemote($value)
 	{
 		return $value;
 	}
 
-	function exportRemote($value)
+	public function exportRemote($value)
 	{
 		return $value;
 	}
 
-	function importRemoteField(array $info, array $syncInfo)
+	public function importRemoteField(array $info, array $syncInfo)
 	{
 		return $info;
 	}
 
-	function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
+	public function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
 	{
 		$baseKey = $this->getBaseKey();
 		return [
@@ -146,13 +146,13 @@ class Tracker_Field_Language extends Tracker_Field_Abstract implements Tracker_F
 		];
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		$baseKey = $this->getBaseKey();
 		return [$baseKey, 'language'];
 	}
 
-	function getGlobalFields()
+	public function getGlobalFields()
 	{
 		return [];
 	}

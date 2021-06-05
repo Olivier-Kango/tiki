@@ -29,7 +29,7 @@ class Tracker_Field_GeographicFeature extends Tracker_Field_Abstract implements 
 		];
 	}
 
-	function getFieldData(array $requestData = [])
+	public function getFieldData(array $requestData = [])
 	{
 		if (isset($requestData[$this->getInsertId()])) {
 			$value = $requestData[$this->getInsertId()];
@@ -42,32 +42,32 @@ class Tracker_Field_GeographicFeature extends Tracker_Field_Abstract implements 
 		];
 	}
 
-	function renderInput($context = [])
+	public function renderInput($context = [])
 	{
 		return tr('Feature cannot be set or modified through this interface.');
 	}
 
-	function renderOutput($context = [])
+	public function renderOutput($context = [])
 	{
 		return tr('Feature cannot be viewed.');
 	}
 
-	function importRemote($value)
+	public function importRemote($value)
 	{
 		return $value;
 	}
 
-	function exportRemote($value)
+	public function exportRemote($value)
 	{
 		return $value;
 	}
 
-	function importRemoteField(array $info, array $syncInfo)
+	public function importRemoteField(array $info, array $syncInfo)
 	{
 		return $info;
 	}
 
-	function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
+	public function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
 	{
 		$value = $this->getValue();
 		$baseKey = $this->getBaseKey();
@@ -80,12 +80,12 @@ class Tracker_Field_GeographicFeature extends Tracker_Field_Abstract implements 
 		];
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		return ['geo_located', 'geo_feature', 'geo_feature_field'];
 	}
 
-	function getGlobalFields()
+	public function getGlobalFields()
 	{
 		return [];
 	}

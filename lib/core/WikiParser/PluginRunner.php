@@ -7,5 +7,5 @@
 
 interface WikiParser_PluginRunner
 {
-	function run($name, $body, $arguments);
+	public function run($name, $body, $arguments);
 }

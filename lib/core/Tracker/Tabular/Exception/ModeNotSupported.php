@@ -12,7 +12,7 @@ class ModeNotSupported extends Exception
 	private $mode;
 	private $permName;
 
-	function __construct($permName, $mode)
+	public function __construct($permName, $mode)
 	{
 		parent::__construct(tr('Field mode not found: %0 for %1', $mode, $permName));
 		$this->mode = $mode;

@@ -9,17 +9,17 @@ namespace Tiki\Wiki\SlugManager;
 
 class UnderscoreGenerator implements Generator
 {
-	function getName()
+	public function getName()
 	{
 		return 'underscore';
 	}
 
-	function getLabel()
+	public function getLabel()
 	{
 		return tr('Replace spaces with underscores');
 	}
 
-	function generate($pageName, $suffix = null)
+	public function generate($pageName, $suffix = null)
 	{
 		$slug = preg_replace('/\s+/', '_', trim($pageName));
 
@@ -30,7 +30,7 @@ class UnderscoreGenerator implements Generator
 		return $slug;
 	}
 
-	function degenerate($slug)
+	public function degenerate($slug)
 	{
 		return preg_replace('/_+/', ' ', trim($slug));
 	}

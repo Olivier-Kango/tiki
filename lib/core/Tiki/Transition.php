@@ -14,19 +14,19 @@ class Tiki_Transition
 
 	private $blockers;
 
-	function __construct($from, $to)
+	public function __construct($from, $to)
 	{
 		$this->from = $from;
 		$this->to = $to;
 	}
 
-	function setStates(array $states)
+	public function setStates(array $states)
 	{
 		$this->states = $states;
 		$this->blockers = null;
 	}
 
-	function addGuard($type, $boundary, $set)
+	public function addGuard($type, $boundary, $set)
 	{
 		if (method_exists($this, '_' . $type)) {
 			$this->guards[] = [$type, $boundary, $set];
@@ -35,12 +35,12 @@ class Tiki_Transition
 		}
 	}
 
-	function isReady()
+	public function isReady()
 	{
 		return count($this->explain()) == 0;
 	}
 
-	function explain()
+	public function explain()
 	{
 		$this->blockers = [];
 		$this->_exactly(1, [$this->from]);

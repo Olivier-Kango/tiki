@@ -7,7 +7,7 @@
 
 class Tiki_Profile_InstallHandler_Goal extends Tiki_Profile_InstallHandler
 {
-	function fetchData()
+	public function fetchData()
 	{
 		if ($this->data) {
 			return $this->data;
@@ -34,7 +34,7 @@ class Tiki_Profile_InstallHandler_Goal extends Tiki_Profile_InstallHandler
 		$this->data = $data;
 	}
 
-	function canInstall()
+	public function canInstall()
 	{
 		$this->fetchData();
 
@@ -45,7 +45,7 @@ class Tiki_Profile_InstallHandler_Goal extends Tiki_Profile_InstallHandler
 		return true;
 	}
 
-	function _install()
+	public function _install()
 	{
 		$this->fetchData();
 		$this->replaceReferences($this->data);

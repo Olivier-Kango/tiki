@@ -48,7 +48,7 @@ abstract class Tracker_Field_Abstract implements Tracker_Field_Interface, Tracke
 	 * @param array $trackerDefinition - the tracker definition.
 	 *
 	 */
-	function __construct($fieldInfo, $itemData, $trackerDefinition)
+	public function __construct($fieldInfo, $itemData, $trackerDefinition)
 	{
 		$this->options = Tracker_Options::fromSerialized($fieldInfo['options'], $fieldInfo);
 
@@ -228,7 +228,7 @@ abstract class Tracker_Field_Abstract implements Tracker_Field_Interface, Tracke
 		return $result;
 	}
 
-	function watchCompare($old, $new)
+	public function watchCompare($old, $new)
 	{
 		$name = $this->getConfiguration('name');
 		$hidden = $this->getConfiguration('isHidden', 'n');
@@ -515,7 +515,7 @@ abstract class Tracker_Field_Abstract implements Tracker_Field_Interface, Tracke
 		return $smarty->fetch($file, $file);
 	}
 
-	function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
+	public function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
 	{
 		$baseKey = $this->getBaseKey();
 		return [
@@ -523,31 +523,31 @@ abstract class Tracker_Field_Abstract implements Tracker_Field_Interface, Tracke
 		];
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		$baseKey = $this->getBaseKey();
 		return [$baseKey];
 	}
 
-	function getGlobalFields()
+	public function getGlobalFields()
 	{
 		$baseKey = $this->getBaseKey();
 		return [$baseKey => true];
 	}
 
-	function getBaseKey()
+	public function getBaseKey()
 	{
 		global $prefs;
 		$indexKey = $prefs['unified_trackerfield_keys'];
 		return 'tracker_field_' . $this->baseKeyPrefix . $this->getConfiguration($indexKey);
 	}
 
-	function setBaseKeyPrefix($prefix)
+	public function setBaseKeyPrefix($prefix)
 	{
 		$this->baseKeyPrefix = $prefix;
 	}
 
-	function replaceBaseKey($permName)
+	public function replaceBaseKey($permName)
 	{
 		$this->definition['permName'] = $permName;
 	}

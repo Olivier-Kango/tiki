@@ -14,19 +14,19 @@ class TikiDb_Initializer
 	private $preferred;
 	private $initializeCallback;
 
-	function setPreferredConnector($connector)
+	public function setPreferredConnector($connector)
 	{
 		if (isset($this->connectors[$connector])) {
 			$this->preferred = $connector;
 		}
 	}
 
-	function setInitializeCallback($callback)
+	public function setInitializeCallback($callback)
 	{
 		$this->initializeCallback = $callback;
 	}
 
-	function getConnection(array $credentials)
+	public function getConnection(array $credentials)
 	{
 		if ($connector = $this->getInitializer($this->preferred)) {
 			return $this->initialize($connector, $credentials);

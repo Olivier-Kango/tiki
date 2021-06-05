@@ -18,17 +18,17 @@ class Generator
 	/**
 	 * The prefix to be added when scanning the sub folder for valid type handlers
 	 */
-	const NAMESPACE_PREFIX = '\\Tiki\\Sitemap\\Type\\';
+	public const NAMESPACE_PREFIX = '\\Tiki\\Sitemap\\Type\\';
 
 	/**
 	 * The base class the type handlers must extend
 	 */
-	const BASE_CLASS = '\\Tiki\\Sitemap\\AbstractType';
+	public const BASE_CLASS = '\\Tiki\\Sitemap\\AbstractType';
 
 	/**
 	 * The base of the sitemap file name
 	 */
-	const BASE_FILE_NAME = 'sitemap';
+	public const BASE_FILE_NAME = 'sitemap';
 
 	protected $basePath;
 

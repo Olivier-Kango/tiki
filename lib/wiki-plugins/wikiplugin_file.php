@@ -239,5 +239,5 @@ function wikiplugin_file($data, $params)
 	}
 	$middle = $filedata["desc"];
 
-	return TikiLib::lib('parser')->plugin_execute('attach', $middle, $forward);
+	return TikiLib::lib('parser')->pluginExecute('attach', $middle, $forward);
 }

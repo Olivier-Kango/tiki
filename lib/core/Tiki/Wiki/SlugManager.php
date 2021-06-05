@@ -12,7 +12,7 @@ class SlugManager
 	private $generators = [];
 	private $validationCallback;
 
-	function __construct()
+	public function __construct()
 	{
 		$table = \TikiDb::get()->table('tiki_pages');
 		$this->validationCallback = function ($slug) use ($table) {
@@ -20,17 +20,17 @@ class SlugManager
 		};
 	}
 
-	function setValidationCallback(callable $callback)
+	public function setValidationCallback(callable $callback)
 	{
 		$this->validationCallback = $callback;
 	}
 
-	function addGenerator(SlugManager\Generator $generator)
+	public function addGenerator(SlugManager\Generator $generator)
 	{
 		$this->generators[$generator->getName()] = $generator;
 	}
 
-	function getOptions()
+	public function getOptions()
 	{
 		return array_map(function ($generator) {
 			return $generator->getLabel();
@@ -45,7 +45,7 @@ class SlugManager
 	 * @return mixed
 	 * @throws \Exception
 	 */
-	function generate($generator, $pageName, $asciiOnly = false, $ignoreCounter = false)
+	public function generate($generator, $pageName, $asciiOnly = false, $ignoreCounter = false)
 	{
 		$exists = $this->validationCallback;
 
@@ -69,7 +69,7 @@ class SlugManager
 		return $slug;
 	}
 
-	function degenerate($generator, $slug)
+	public function degenerate($generator, $slug)
 	{
 		$impl = $this->generators[$generator];
 

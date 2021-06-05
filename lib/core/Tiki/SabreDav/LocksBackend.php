@@ -14,7 +14,8 @@ use Sabre\DAV\Locks\LockInfo;
 
 use TikiLib;
 
-class LocksBackend extends FileBackend {
+class LocksBackend extends FileBackend
+{
   /**
    * Returns a list of Sabre\DAV\Locks\LockInfo objects
    *
@@ -32,7 +33,8 @@ class LocksBackend extends FileBackend {
    * @param bool $returnChildLocks
    * @return array
    */
-  function getLocks($uri, $returnChildLocks) {
+  public function getLocks($uri, $returnChildLocks)
+  {
     $locks = parent::getLocks($uri, $returnChildLocks);
     // check wiki page locks
     if (preg_match('#^Wiki Pages/#', $uri)) {
@@ -112,7 +114,8 @@ class LocksBackend extends FileBackend {
    * @param LockInfo $lockInfo
    * @return bool
    */
-  function lock($uri, LockInfo $lockInfo) {
+  public function lock($uri, LockInfo $lockInfo)
+  {
     parent::lock($uri, $lockInfo);
     try {
       if ($m = preg_match('#^Wiki Pages/(.*)$#', $uri)) {
@@ -136,7 +139,8 @@ class LocksBackend extends FileBackend {
    * @param LockInfo $lockInfo
    * @return bool
    */
-  function unlock($uri, LockInfo $lockInfo) {
+  public function unlock($uri, LockInfo $lockInfo)
+  {
     parent::unlock($uri, $lockInfo);
     try {
       if ($m = preg_match('#^Wiki Pages/(.*)$#', $uri)) {

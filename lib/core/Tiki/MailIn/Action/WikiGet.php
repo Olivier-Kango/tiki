@@ -13,12 +13,12 @@ use TikiLib;
 
 class WikiGet extends WikiPut
 {
-	function getName()
+	public function getName()
 	{
 		return tr('Wiki Get');
 	}
 
-	function isAllowed(Account $account, Message $message)
+	public function isAllowed(Account $account, Message $message)
 	{
 		$user = $message->getAssociatedUser();
 		$page = $this->getPage($message);
@@ -27,7 +27,7 @@ class WikiGet extends WikiPut
 		return $perms->view;
 	}
 
-	function execute(Account $account, Message $message)
+	public function execute(Account $account, Message $message)
 	{
 		$tikilib = TikiLib::lib('tiki');
 		$page = $this->getPage($message);

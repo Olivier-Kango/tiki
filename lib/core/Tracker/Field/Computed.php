@@ -58,7 +58,7 @@ class Tracker_Field_Computed extends Tracker_Field_Abstract
 		];
 	}
 
-	function getFieldData(array $requestData = [])
+	public function getFieldData(array $requestData = [])
 	{
 		$ins_id = $this->getInsertId();
 		$data = [];
@@ -95,17 +95,17 @@ class Tracker_Field_Computed extends Tracker_Field_Abstract
 		return $data;
 	}
 
-	function renderOutput($context = [])
+	public function renderOutput($context = [])
 	{
 		return $this->renderTemplate('trackeroutput/computed.tpl', $context);
 	}
 
-	function renderInput($context = [])
+	public function renderInput($context = [])
 	{
 		return $this->renderOutput($context);
 	}
 
-	function handleSave($value, $oldValue)
+	public function handleSave($value, $oldValue)
 	{
 		return [
 			'value' => false,

@@ -12,14 +12,14 @@ class TrackerSource implements SourceInterface
 	private $schema;
 	private $trackerId;
 
-	function __construct(\Tracker\Tabular\Schema $schema)
+	public function __construct(\Tracker\Tabular\Schema $schema)
 	{
 		$def = $schema->getDefinition();
 		$this->trackerId = $def->getConfiguration('trackerId');
 		$this->schema = $schema;
 	}
 
-	function getEntries()
+	public function getEntries()
 	{
 		$table = \TikiDb::get()->table('tiki_tracker_items');
 		$ids = $table->fetchColumn('itemId', [
@@ -31,7 +31,7 @@ class TrackerSource implements SourceInterface
 		}
 	}
 
-	function getSchema()
+	public function getSchema()
 	{
 		return $this->schema;
 	}

@@ -853,10 +853,10 @@ class ParserLib extends TikiDb_Bridge
 		return "$name-$bodyHash-$argsHash-$bodyLen-$argsLen";
 	}
 
-	// Transitional wrapper over WikiParser_Parsable::plugin_execute()
-	function plugin_execute($name, $data = '', $args = [], $offset = 0, $validationPerformed = false, $option = [])
+	// Transitional wrapper over WikiParser_Parsable::pluginExecute()
+	function pluginExecute($name, $data = '', $args = [], $offset = 0, $validationPerformed = false, $option = [])
 	{
-		return (new WikiParser_Parsable(''))->plugin_execute($name, $data, $args, $offset, $validationPerformed, $option);
+		return (new WikiParser_Parsable(''))->pluginExecute($name, $data, $args, $offset, $validationPerformed, $option);
 	}
 
 	//*

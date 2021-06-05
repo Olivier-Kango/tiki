@@ -13,7 +13,7 @@ class QuerySource implements SourceInterface
 	private $trackerId;
 	protected $query;
 
-	function __construct(\Tracker\Tabular\Schema $schema, \Search_Query $query)
+	public function __construct(\Tracker\Tabular\Schema $schema, \Search_Query $query)
 	{
 		$def = $schema->getDefinition();
 		$this->trackerId = $def->getConfiguration('trackerId');
@@ -21,7 +21,7 @@ class QuerySource implements SourceInterface
 		$this->schema = $schema;
 	}
 
-	function getEntries()
+	public function getEntries()
 	{
 		$lib = \TikiLib::lib('unifiedsearch');
 
@@ -32,7 +32,7 @@ class QuerySource implements SourceInterface
 		}
 	}
 
-	function getSchema()
+	public function getSchema()
 	{
 		return $this->schema;
 	}

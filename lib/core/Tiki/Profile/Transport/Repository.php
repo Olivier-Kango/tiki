@@ -9,12 +9,12 @@ class Tiki_Profile_Transport_Repository implements Tiki_Profile_Transport_Interf
 {
 	private $url;
 
-	function __construct($url)
+	public function __construct($url)
 	{
 		$this->url = $url;
 	}
 
-	function getPageContent($pageName)
+	public function getPageContent($pageName)
 	{
 		$exportUrl = dirname($this->url) . '/tiki-export_wiki_pages.php?'
 			. http_build_query([ 'page' => $pageName ]);
@@ -35,7 +35,7 @@ class Tiki_Profile_Transport_Repository implements Tiki_Profile_Transport_Interf
 		}
 	}
 
-	function getPageParsed($pageName)
+	public function getPageParsed($pageName)
 	{
 		$pageUrl = dirname($this->url) . '/tiki-index_raw.php?'
 			. http_build_query([ 'page' => $pageName ]);
@@ -47,7 +47,7 @@ class Tiki_Profile_Transport_Repository implements Tiki_Profile_Transport_Interf
 		return $content;
 	}
 
-	function getProfilePath()
+	public function getProfilePath()
 	{
 		return $this->url;
 	}

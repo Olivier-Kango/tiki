@@ -12,5 +12,5 @@ use Tiki\MailIn\Source\Message;
 
 interface FactoryInterface
 {
-	function createAction(Account $account, Message $message);
+	public function createAction(Account $account, Message $message);
 }

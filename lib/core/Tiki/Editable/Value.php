@@ -12,7 +12,7 @@ class Tiki_Editable_Value
 	private $fieldFetchUrl;
 	private $objectStoreUrl;
 
-	function __construct($html, array $parameters)
+	public function __construct($html, array $parameters)
 	{
 		$this->inner = $html;
 
@@ -32,7 +32,7 @@ class Tiki_Editable_Value
 		$this->objectStoreUrl = $parameters['object_store_url'];
 	}
 
-	function __toString()
+	public function __toString()
 	{
 		global $prefs;
 

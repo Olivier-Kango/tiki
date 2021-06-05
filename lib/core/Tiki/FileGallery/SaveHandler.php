@@ -16,14 +16,16 @@ class SaveHandler
   private $fileDraftsTable;
   private $galleriesTable;
 
-  public function __construct($file) {
+  public function __construct($file)
+  {
     $this->file = $file;
     $this->filesTable = TikiLib::lib('filegal')->table('tiki_files');
     $this->galleriesTable = TikiLib::lib('filegal')->table('tiki_file_galleries');
     $this->fileDraftsTable = TikiLib::lib('filegal')->table('tiki_file_drafts');
   }
 
-  public function save() {
+  public function save()
+  {
     global $prefs, $user;
 
     $initialFileId = $this->file->fileId;
@@ -67,7 +69,8 @@ class SaveHandler
     return $fileId;
   }
 
-  public function validateDraft() {
+  public function validateDraft()
+  {
     global $user;
 
     $archives = $this->file->galleryDefinition()->getInfo()['archives'];
@@ -95,7 +98,8 @@ class SaveHandler
     }
   }
 
-  private function insertFile() {
+  private function insertFile()
+  {
     global $prefs, $user;
 
     $file = $this->file;
@@ -134,7 +138,8 @@ class SaveHandler
     return $fileId;
   }
 
-  private function insertDraft() {
+  private function insertDraft()
+  {
     if ($this->file->getWrapper()->getSize() == 0) {
       return $this->filesTable->update($this->file->getParamsForDB(), ['fileId' => $this->file->fileId]);
     } else {
@@ -144,7 +149,8 @@ class SaveHandler
     }
   }
 
-  private function saveArchive() {
+  private function saveArchive()
+  {
     global $prefs;
 
     $file = $this->file;

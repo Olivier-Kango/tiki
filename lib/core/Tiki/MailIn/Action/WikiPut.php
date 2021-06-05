@@ -16,25 +16,25 @@ class WikiPut implements ActionInterface
 	private $namespace;
 	private $routing;
 
-	function __construct(array $params)
+	public function __construct(array $params)
 	{
 		$this->namespace = isset($params['namespace']) ? $params['namespace'] : null;
 		$this->routing = ! empty($params['structure_routing']);
 	}
 
-	function getName()
+	public function getName()
 	{
 		return tr('Wiki Create/Update');
 	}
 
-	function isEnabled()
+	public function isEnabled()
 	{
 		global $prefs;
 
 		return $prefs['feature_wiki'] == 'y';
 	}
 
-	function isAllowed(Account $account, Message $message)
+	public function isAllowed(Account $account, Message $message)
 	{
 		$tikilib = TikiLib::lib('tiki');
 		$user = $message->getAssociatedUser();
@@ -62,7 +62,7 @@ class WikiPut implements ActionInterface
 		return $perms->edit;
 	}
 
-	function canAttach(Account $account, Message $message)
+	public function canAttach(Account $account, Message $message)
 	{
 		global $prefs;
 		if ($prefs['feature_wiki_attachments'] != 'y') {
@@ -87,7 +87,7 @@ class WikiPut implements ActionInterface
 		return $perms->wiki_attach_files || $account->isAnyoneAllowed();
 	}
 
-	function execute(Account $account, Message $message)
+	public function execute(Account $account, Message $message)
 	{
 		$tikilib = TikiLib::lib('tiki');
 

@@ -63,17 +63,17 @@ class Tracker_Field_WebService extends Tracker_Field_Abstract
 		];
 	}
 
-	function getFieldData(array $requestData = [])
+	public function getFieldData(array $requestData = [])
 	{
 		return [];
 	}
 
-	function renderInput($context = [])
+	public function renderInput($context = [])
 	{
 		return '<div class="text-muted">' . tr('Read only') . '</div>';
 	}
 
-	function renderOutput($context = [])
+	public function renderOutput($context = [])
 	{
 
 		$name = $this->getOption('service');
@@ -285,7 +285,7 @@ class Tracker_Field_WebService extends Tracker_Field_Abstract
 		return $output;
 	}
 
-	function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
+	public function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
 	{
 		$baseKey = $this->getBaseKey();
 		$value = json_decode($this->getValue(), true);
@@ -312,7 +312,7 @@ class Tracker_Field_WebService extends Tracker_Field_Abstract
 		];
 	}
 
-	function getProvidedFields() {
+	public function getProvidedFields() {
 		$baseKey = $this->getBaseKey();
 		return [$baseKey, "{$baseKey}_text", "{$baseKey}_json"];
 	}

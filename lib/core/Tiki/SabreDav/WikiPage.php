@@ -12,11 +12,13 @@ use Sabre\DAV;
 use TikiLib;
 use Perms;
 
-class WikiPage extends DAV\File {
+class WikiPage extends DAV\File
+{
 
 	private $page;
 
-	function __construct($path) {
+	public function __construct($path)
+	{
 		$name = preg_replace('#^/#', '', $path);
 		$this->page = TikiLib::lib('tiki')->get_page_info($name);
 		if (!$this->page) {
@@ -24,32 +26,39 @@ class WikiPage extends DAV\File {
 		}
 	}
 
-	function getName() {
+	public function getName()
+	{
 		return $this->page['pageName'];
 	}
 
-	function get() {
+	public function get()
+	{
 		return $this->page['data'];
 	}
 
-	function getSize() {
+	public function getSize()
+	{
 		return $this->page['page_size'];
 	}
 
-	function getETag() {
+	public function getETag()
+	{
 		$md5 = md5($this->page['pageName'] . $this->page['lastModif']);
 		return '"' . $md5 . '-' . crc32($md5) . '"';
 	}
 
-	function getContentType() {
+	public function getContentType()
+	{
 		return 'application/octet-stream';
 	}
 
-	function getLastModified() {
+	public function getLastModified()
+	{
 		return $this->page['lastModif'];
 	}
 
-	function put($data) {
+	public function put($data)
+	{
 		global $user;
 
 		$perms = Perms::get(['type' => 'wiki page', 'id' => $this->page['page_id']]);
@@ -63,7 +72,8 @@ class WikiPage extends DAV\File {
 		$tikilib->update_page($this->page['pageName'], $info['content'], "Updated from WebDAV", $user, $tikilib->get_ip_address());
 	}
 
-	function setName($name) {
+	public function setName($name)
+	{
 		$perms = Perms::get(['type' => 'wiki page', 'id' => $this->page['page_id']]);
 		if (! $perms->rename) {
 			throw new DAV\Exception\Forbidden(tr('Permission denied.'));
@@ -72,7 +82,8 @@ class WikiPage extends DAV\File {
 		TikiLib::lib('wiki')->wiki_rename_page($this->page['pageName'], $name);
 	}
 
-	function delete() {
+	public function delete()
+	{
 		$perms = Perms::get(['type' => 'wiki page', 'id' => $this->page['page_id']]);
 		if (! $perms->remove) {
 			throw new DAV\Exception\Forbidden(tr('Permission denied.'));

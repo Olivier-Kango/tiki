@@ -15,7 +15,7 @@ class Tiki_Connect_Server extends Tiki_Connect_Abstract
 		$this->indexFile = 'temp/connect_server-index';
 	}
 
-	function getMatchingConnections($criteria)
+	public function getMatchingConnections($criteria)
 	{
 		$index = $this->getIndex();
 
@@ -83,7 +83,7 @@ class Tiki_Connect_Server extends Tiki_Connect_Abstract
 		return $ret;
 	}
 
-	function rebuildIndex()
+	public function rebuildIndex()
 	{
 		$this->getIndex(true);
 	}
@@ -169,7 +169,7 @@ class Tiki_Connect_Server extends Tiki_Connect_Abstract
 		return $doc;
 	}
 
-	function recordConnection($status, $guid, $data = '', $server = false)
+	public function recordConnection($status, $guid, $data = '', $server = false)
 	{
 		$created = parent::recordConnection($status, $guid, $data, $server);
 
@@ -183,7 +183,7 @@ class Tiki_Connect_Server extends Tiki_Connect_Abstract
 	 * @return array
 	 */
 
-	function getReceivedDataStats()
+	public function getReceivedDataStats()
 	{
 		global $prefs;
 
@@ -204,7 +204,7 @@ class Tiki_Connect_Server extends Tiki_Connect_Abstract
 		return $ret;
 	}
 
-	function getReceivedDataLatest()
+	public function getReceivedDataLatest()
 	{
 
 		// select distinct guid from tiki_connect where server=1;
@@ -221,7 +221,7 @@ class Tiki_Connect_Server extends Tiki_Connect_Abstract
 	 * @return string
 	 */
 
-	function isPendingGuid($guid)
+	public function isPendingGuid($guid)
 	{
 		$res = $this->connectTable->fetchOne(
 			'data',
@@ -242,7 +242,7 @@ class Tiki_Connect_Server extends Tiki_Connect_Abstract
 	 * @return bool
 	 */
 
-	function isConfirmedGuid($guid)
+	public function isConfirmedGuid($guid)
 	{
 		$res = $this->connectTable->fetchCount(
 			[

@@ -23,19 +23,19 @@ class Tracker implements ActionInterface
 		$this->attachments = $params['attachments'];
 	}
 
-	function getName()
+	public function getName()
 	{
 		return tr('Store mail in Tracker');
 	}
 
-	function isEnabled()
+	public function isEnabled()
 	{
 		global $prefs;
 
 		return $prefs['feature_trackers'] == 'y';
 	}
 
-	function isAllowed(Account $account, Message $message)
+	public function isAllowed(Account $account, Message $message)
 	{
 		$user = $message->getAssociatedUser();
 		$perms = TikiLib::lib('tiki')->get_user_permission_accessor($user, 'tracker', $this->tracker);
@@ -45,7 +45,7 @@ class Tracker implements ActionInterface
 		return true;
 	}
 
-	function createTracker($from)
+	public function createTracker($from)
 	{
 		$trackerUtilities = new Services_Tracker_Utilities();
 		$trackerData = [
@@ -58,7 +58,7 @@ class Tracker implements ActionInterface
 		return $trackerId;
 	}
 
-	function execute(Account $account, Message $message)
+	public function execute(Account $account, Message $message)
 	{
 		global $prefs;
 		$tikilib = TikiLib::lib('tiki');
@@ -258,7 +258,7 @@ class Tracker implements ActionInterface
 		//return true;
 	}
 
-	function canAttach()
+	public function canAttach()
 	{
 		global $prefs;
 		if ($prefs['trackerfield_files'] != 'y') {

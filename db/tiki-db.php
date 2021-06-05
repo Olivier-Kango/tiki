@@ -157,7 +157,7 @@ if ($dbversion_tiki == '1.10') {
 /**
  *
  */
-class TikiDb_LegacyErrorHandler implements TikiDb_ErrorHandler
+class TikiDbLegacyErrorHandler implements TikiDb_ErrorHandler
 {
 	/**
 	 * @param TikiDb $db
@@ -165,7 +165,7 @@ class TikiDb_LegacyErrorHandler implements TikiDb_ErrorHandler
 	 * @param $values
 	 * @param $result
 	 */
-	function handle(TikiDb $db, $query, $values, $result) // {{{
+	public function handle(TikiDb $db, $query, $values, $result) // {{{
 	{
 		global $prefs;
 		$smarty = TikiLib::lib('smarty');
@@ -212,19 +212,19 @@ class TikiDb_LegacyErrorHandler implements TikiDb_ErrorHandler
 		$this->log($msg . ' - ' . $q);
 
 		exit(1);
-	} // }}}
+	}
 	/**
 	 * @param $msg
 	 */
-	function log($msg)
+	public function log($msg)
 	{
 		global $user, $tikilib;
 		$query = 'insert into `tiki_actionlog` (`objectType`,`action`,`object`,`user`,`ip`,`lastModif`, `comment`, `client`) values (?,?,?,?,?,?,?,?)';
 		$result = $tikilib->query($query, ['system', 'db error', 'system', $user, $tikilib->get_ip_address(), $tikilib->now, $msg, substr($_SERVER['HTTP_USER_AGENT'], 0, 200)]);
-	} // }}}
+	}
 }
 
-$initializer = new TikiDb_Initializer;
+$initializer = new TikiDb_Initializer();
 $initializer->setPreferredConnector($credentials['api_tiki']);
 $initializer->setInitializeCallback(
 	function ($db) {
@@ -233,7 +233,7 @@ $initializer->setInitializeCallback(
 		$db->setServerType($db_tiki);
 
 		if (! defined('TIKI_CONSOLE')) {
-			$db->setErrorHandler(new TikiDb_LegacyErrorHandler);
+			$db->setErrorHandler(new TikiDbLegacyErrorHandler());
 		}
 
 		if (isset($db_table_prefix)) {

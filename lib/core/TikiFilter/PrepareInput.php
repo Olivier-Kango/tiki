@@ -9,18 +9,18 @@ class TikiFilter_PrepareInput
 {
 	private $delimiter;
 
-	function __construct($delimiter)
+	public function __construct($delimiter)
 	{
 		$this->delimiter = $delimiter;
 	}
 
-	static function delimiter($delimiter)
+	public static function delimiter($delimiter)
 	{
 		$me = new self($delimiter);
 		return $me;
 	}
 
-	function prepare(array $input)
+	public function prepare(array $input)
 	{
 		$output = [];
 
@@ -47,7 +47,7 @@ class TikiFilter_PrepareInput
 		return $output;
 	}
 
-	function flatten($values, &$newValues = [], $prefix = '')
+	public function flatten($values, &$newValues = [], $prefix = '')
 	{
 		foreach ($values as $key => $value) {
 			if (is_array($value) || is_object($value)) {
@@ -62,7 +62,7 @@ class TikiFilter_PrepareInput
 		return $newValues;
 	}
 
-	function toString($values, &$newValues = [], $prefex = '')
+	public function toString($values, &$newValues = [], $prefex = '')
 	{
 		$flatArray = self::flatten($values, $newValues, $prefex);
 
@@ -75,7 +75,7 @@ class TikiFilter_PrepareInput
 		return $output;
 	}
 
-	function prepareFromString($input = '')
+	public function prepareFromString($input = '')
 	{
 		$stringArray = explode("\n", $input);
 

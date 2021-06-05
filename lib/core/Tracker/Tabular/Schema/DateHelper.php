@@ -12,12 +12,12 @@ class DateHelper
 	private $label;
 	private $prior = [];
 
-	function __construct($label)
+	public function __construct($label)
 	{
 		$this->label = $label;
 	}
 
-	function setupUnix(Column $column)
+	public function setupUnix(Column $column)
 	{
 		$permName = $column->getField();
 		$this->setupCallbacks(
@@ -35,7 +35,7 @@ class DateHelper
 		);
 	}
 
-	function setupFormat($format, Column $column)
+	public function setupFormat($format, Column $column)
 	{
 		$permName = $column->getField();
 		$this->setupCallbacks(

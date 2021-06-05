@@ -9,17 +9,17 @@ namespace Tiki\Wiki\SlugManager;
 
 class DashGenerator implements Generator
 {
-	function getName()
+	public function getName()
 	{
 		return 'dash';
 	}
 
-	function getLabel()
+	public function getLabel()
 	{
 		return tr('Replace spaces with dashes');
 	}
 
-	function generate($pageName, $suffix = null)
+	public function generate($pageName, $suffix = null)
 	{
 		$slug = preg_replace('/\s+/', '-', trim($pageName));
 
@@ -30,7 +30,7 @@ class DashGenerator implements Generator
 		return $slug;
 	}
 
-	function degenerate($slug)
+	public function degenerate($slug)
 	{
 		return preg_replace('/\-+/', ' ', trim($slug));
 	}

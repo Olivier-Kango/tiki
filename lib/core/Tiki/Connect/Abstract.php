@@ -129,7 +129,7 @@ abstract class Tiki_Connect_Abstract
 	 * @return datetime $created
 	 */
 
-	function recordConnection($status, $guid, $data = '', $server = false)
+	public function recordConnection($status, $guid, $data = '', $server = false)
 	{
 
 		if (is_array($data) || is_object($data)) {
@@ -161,7 +161,7 @@ abstract class Tiki_Connect_Abstract
 	 * @return array
 	 */
 
-	function getVotesForGuid($guid, $server = false)
+	public function getVotesForGuid($guid, $server = false)
 	{
 		if (! empty($guid)) {
 			$res = $this->connectTable->fetchAll(
@@ -194,7 +194,7 @@ abstract class Tiki_Connect_Abstract
 	 * @return void
 	 */
 
-	function removeGuid($guid, $server = false)
+	public function removeGuid($guid, $server = false)
 	{
 		$this->connectTable->update(
 			[

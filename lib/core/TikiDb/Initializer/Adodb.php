@@ -17,12 +17,12 @@ if (! defined('ADODB_CASE_ASSOC')) {
 
 class TikiDb_Initializer_Adodb
 {
-	function isSupported()
+	public function isSupported()
 	{
 		return class_exists('ADOConnection');
 	}
 
-	function getConnection(array $credentials)
+	public function getConnection(array $credentials)
 	{
 		$dbTiki = ADONewConnection('mysqli');
 

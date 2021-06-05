@@ -9,7 +9,7 @@ use Tiki\Lib\core\Tracker\Rule\Type\Text;
 
 class TextIsUsername extends Operator
 {
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct(tr('is username'), Nothing::class, '.val()===jqueryTiki.username', [Text::class]);
 	}

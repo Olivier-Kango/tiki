@@ -7,7 +7,7 @@
 
 class Tiki_Profile_InstallHandler_TrackerOption extends Tiki_Profile_InstallHandler
 {
-	private function getData() // {{{
+	private function getData()
 	{
 		if ($this->data) {
 			return $this->data;
@@ -18,19 +18,19 @@ class Tiki_Profile_InstallHandler_TrackerOption extends Tiki_Profile_InstallHand
 		$data = Tiki_Profile::convertYesNo($data);
 
 		return $this->data = $data;
-	} // }}}
+	}
 
-	private function getOptionMap() // {{{
+	private function getOptionMap()
 	{
 		return Tiki_Profile_InstallHandler_Tracker::getOptionMap();
-	} // }}}
+	}
 
-	private function getOptionConverters() // {{{
+	private function getOptionConverters()
 	{
 		return Tiki_Profile_InstallHandler_Tracker::getOptionConverters();
-	} // }}}
+	}
 
-	function canInstall() // {{{
+	public function canInstall()
 	{
 		$data = $this->getData();
 
@@ -40,9 +40,9 @@ class Tiki_Profile_InstallHandler_TrackerOption extends Tiki_Profile_InstallHand
 		}
 
 		return true;
-	} // }}}
+	}
 
-	function _install() // {{{
+	public function _install()
 	{
 		$input = $this->getData();
 		$this->replaceReferences($input);
@@ -65,5 +65,5 @@ class Tiki_Profile_InstallHandler_TrackerOption extends Tiki_Profile_InstallHand
 		$trklib->replace_tracker_option($input['tracker'], $name, $value);
 
 		return true;
-	} // }}}
+	}
 }

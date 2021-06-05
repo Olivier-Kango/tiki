@@ -177,7 +177,7 @@ class Menu
 	 * @param array $list
 	 * @return null
 	 */
-	protected function flatten($entries, &$list) // {{{
+	protected function flatten($entries, &$list)
 	{
 		if (! empty($entries)) {
 			foreach ($entries as $item) {

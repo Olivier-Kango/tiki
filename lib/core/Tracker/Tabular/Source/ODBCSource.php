@@ -12,13 +12,13 @@ class ODBCSource implements SourceInterface
 	private $schema;
 	private $odbc_manager;
 
-	function __construct(\Tracker\Tabular\Schema $schema, array $odbc_config)
+	public function __construct(\Tracker\Tabular\Schema $schema, array $odbc_config)
 	{
 		$this->schema = $schema;
 		$this->odbc_manager = new \Tracker\Tabular\ODBCManager($odbc_config);
 	}
 
-	function getEntries()
+	public function getEntries()
 	{
 		$definition = $this->schema->getDefinition();
 		$modifiedField = $definition->getConfiguration('tabularSyncModifiedField');
@@ -41,12 +41,12 @@ class ODBCSource implements SourceInterface
 		}
 	}
 
-	function getSchema()
+	public function getSchema()
 	{
 		return $this->schema;
 	}
 
-	function getRemoteSchema() {
+	public function getRemoteSchema() {
 		$result = [];
 		$schema = $this->odbc_manager->getSchema();
 		foreach ($schema as $row) {
@@ -60,7 +60,7 @@ class ODBCSource implements SourceInterface
 		return $result;
 	}
 
-	function importSuccess() {
+	public function importSuccess() {
 		$definition = $this->schema->getDefinition();
 		if ($definition->getConfiguration('tabularSyncModifiedField')) {
 			\TikiLib::lib('trk')->replace_tracker_option($definition->getConfiguration('trackerId'), 'tabularSyncLastImport', time());

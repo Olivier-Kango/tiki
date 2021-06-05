@@ -12,13 +12,13 @@ class BatchProcessor
 	private $store;
 	private $engines;
 
-	function __construct(Store\StoreInterface $store, EngineSet $engines)
+	public function __construct(Store\StoreInterface $store, EngineSet $engines)
 	{
 		$this->store = $store;
 		$this->engines = $engines;
 	}
 
-	function process()
+	public function process()
 	{
 		$inputs = $this->store->getInputs();
 

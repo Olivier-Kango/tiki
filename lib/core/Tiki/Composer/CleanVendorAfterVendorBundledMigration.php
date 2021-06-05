@@ -29,12 +29,12 @@ class CleanVendorAfterVendorBundledMigration
 	// $ STRING=$(ls -d */* | grep -v "^composer/" | grep -v "^bin/" | LC_COLLATE=C sort -fu | tr '\n' ':' | sed 's/:$//')
 	// $ echo -n $STRING | md5sum
 	//
-	const PRE_MIGRATION_OLD_VENDOR_FOLDER_MD5_HASH = '6997e3dc0e3ad453ab8ea9798653a0fa'; // version 17 before change
-	const VENDOR_FOLDER_MD5_HASH_16_X = '40473ceff65c1045ccd10ebd5e5e3110'; // version 16.3
-	const VENDOR_FOLDER_MD5_HASH_15_X = '273278571219f62e2d658e510684d763'; // version 15.6
-	const VENDOR_FOLDER_MD5_HASH_14_X = 'fbf3913809c5575aee178a1c2437a48a'; // version 14.4
-	const VENDOR_FOLDER_MD5_HASH_13_X = '507a38862ece4a36a6787850e7e732be'; // version 13.2
-	const VENDOR_FOLDER_MD5_HASH_12_X = '466948d920571e4065b5ddde9b0d72da'; // version 12.13
+	public const PRE_MIGRATION_OLD_VENDOR_FOLDER_MD5_HASH = '6997e3dc0e3ad453ab8ea9798653a0fa'; // version 17 before change
+	public const VENDOR_FOLDER_MD5_HASH_16_X = '40473ceff65c1045ccd10ebd5e5e3110'; // version 16.3
+	public const VENDOR_FOLDER_MD5_HASH_15_X = '273278571219f62e2d658e510684d763'; // version 15.6
+	public const VENDOR_FOLDER_MD5_HASH_14_X = 'fbf3913809c5575aee178a1c2437a48a'; // version 14.4
+	public const VENDOR_FOLDER_MD5_HASH_13_X = '507a38862ece4a36a6787850e7e732be'; // version 13.2
+	public const VENDOR_FOLDER_MD5_HASH_12_X = '466948d920571e4065b5ddde9b0d72da'; // version 12.13
 
 	/**
 	 * @param Event $event

@@ -7,7 +7,7 @@
 
 class Tiki_Profile_DateConverter
 {
-	function convert($value)
+	public function convert($value)
 	{
 		if (is_int($value)) {
 			return $value;

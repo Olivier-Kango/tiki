@@ -10,17 +10,17 @@ class Tiki_Event_Customizer_RuleSet
 	private $parser;
 	private $rules = [];
 
-	function __construct()
+	public function __construct()
 	{
 		$this->parser = new Math_Formula_Parser;
 	}
 
-	function addRule($function)
+	public function addRule($function)
 	{
 		$this->rules[] = $this->parser->parse($function);
 	}
 
-	function getRules()
+	public function getRules()
 	{
 		return $this->rules;
 	}

@@ -33,15 +33,15 @@ class WikiPlugin_Negotiator_Wiki
 	public static $standardRelativePath = 'lib/wiki-plugins/wikiplugin_';
 	public static $zendRelativePath = 'vendor_bundled/vendor/zendframework/zendframework1/library/';
 	public static $checkZendPaths = true;
-	static $pluginIndexes = [];
-	static $pluginInfo = [];
-	static $parserLevels = [];
-	static $currentParserLevel = 0;
-	static $pluginsAwaitingExecution = [];
-	static $pluginInstances = [];
-	static $pluginDetails = [];
+	public static $pluginIndexes = [];
+	public static $pluginInfo = [];
+	public static $parserLevels = [];
+	public static $currentParserLevel = 0;
+	public static $pluginsAwaitingExecution = [];
+	public static $pluginInstances = [];
+	public static $pluginDetails = [];
 
-	function __construct(& $parser)
+	public function __construct(& $parser)
 	{
 		$this->parser = & $parser;
 		$this->page = & $parser->page;
@@ -61,7 +61,7 @@ class WikiPlugin_Negotiator_Wiki
 		unset(self::$pluginInfo[$this->name]);
 	}
 
-	function injectedExists()
+	public function injectedExists()
 	{
 		if (isset(self::$pluginInstances[$this->name]) && gettype(self::$pluginInstances[$this->name]) == 'object') {
 			return true;
@@ -112,7 +112,7 @@ class WikiPlugin_Negotiator_Wiki
 		return self::$pluginIndexes[$this->name];
 	}
 
-	function execute()
+	public function execute()
 	{
 		$output = '';
 		if ($this->enabled($output) == false) {
@@ -168,12 +168,12 @@ class WikiPlugin_Negotiator_Wiki
 		//smarty or unrecognized end
 	}
 
-	function toSyntax()
+	public function toSyntax()
 	{
 		return $this->syntax . $this->body . $this->closing;
 	}
 
-	function urlEncodeArgs()
+	public function urlEncodeArgs()
 	{
 		$args = '';// not using http_build_query() as it converts spaces into +
 		if (! empty($this->args)) {
@@ -234,7 +234,7 @@ class WikiPlugin_Negotiator_Wiki
 		return false;
 	}
 
-	function canExecute()
+	public function canExecute()
 	{
 		global $tikilib, $prefs;
 		// If validation is disabled, anything can execute
@@ -284,7 +284,7 @@ class WikiPlugin_Negotiator_Wiki
 		}
 	}
 
-	function enabled(& $output)
+	public function enabled(& $output)
 	{
 		if (! $this->info) {
 			return true; // Legacy plugins always execute
@@ -310,7 +310,7 @@ class WikiPlugin_Negotiator_Wiki
 		return true;
 	}
 
-	function isEditable()
+	public function isEditable()
 	{
 		global $tiki_p_edit, $prefs, $section;
 
@@ -565,7 +565,7 @@ class WikiPlugin_Negotiator_Wiki
 		}
 	}
 
-	function button($wrapInNp = true)
+	public function button($wrapInNp = true)
 	{
 		$headerlib = TikiLib::lib('header');
 		$smarty = TikiLib::lib('smarty');

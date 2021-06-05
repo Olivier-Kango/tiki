@@ -50,31 +50,31 @@ class Tracker_Field_Action implements Tracker_Field_Interface
 		];
 	}
 
-	function getFieldData(array $requestData = [])
+	public function getFieldData(array $requestData = [])
 	{
 		return [];
 	}
 
-	function renderInput($context = [])
+	public function renderInput($context = [])
 	{
 		return null;
 	}
 
-	function renderOutput($context = [])
+	public function renderOutput($context = [])
 	{
 		return null;
 	}
 
-	function watchCompare($new, $old)
+	public function watchCompare($new, $old)
 	{
 		return null;
 	}
 
-	function addValue($value) {
+	public function addValue($value) {
 		return null;
 	}
 
-	function removeValue($value) {
+	public function removeValue($value) {
 		return null;
 	}
 }

@@ -11,17 +11,17 @@ class EngineSet
 {
 	private $engines = [];
 
-	function register($name, Engine\EngineInterface $engine)
+	public function register($name, Engine\EngineInterface $engine)
 	{
 		$this->registerWeighted($name, 1, $engine);
 	}
 
-	function registerWeighted($name, $weight, Engine\EngineInterface $engine)
+	public function registerWeighted($name, $weight, Engine\EngineInterface $engine)
 	{
 		$this->engines[$name] = [$weight, $engine];
 	}
 
-	function getBasicList()
+	public function getBasicList()
 	{
 		foreach ($this->engines as $name => $entry) {
 			list($weight, $engine) = $entry;
@@ -29,7 +29,7 @@ class EngineSet
 		}
 	}
 
-	function getGenerator()
+	public function getGenerator()
 	{
 		$list = [];
 		foreach ($this->engines as $name => $entry) {
@@ -52,7 +52,7 @@ class EngineSet
 		}
 	}
 
-	function getCount()
+	public function getCount()
 	{
 		return count($this->engines);
 	}

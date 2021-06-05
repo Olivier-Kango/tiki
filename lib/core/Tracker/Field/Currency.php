@@ -116,7 +116,7 @@ class Tracker_Field_Currency extends Tracker_Field_Abstract implements Tracker_F
 		];
 	}
 
-	function getFieldData(array $requestData = [])
+	public function getFieldData(array $requestData = [])
 	{
 		$ins_id = $this->getInsertId();
 		if (isset($requestData[$ins_id])) {
@@ -145,7 +145,7 @@ class Tracker_Field_Currency extends Tracker_Field_Abstract implements Tracker_F
 		];
 	}
 
-	function renderInnerOutput($context = [])
+	public function renderInnerOutput($context = [])
 	{
 		$data = $this->getFieldData();
 		$locale = $this->getOption('locale', 'en_US');
@@ -169,7 +169,7 @@ class Tracker_Field_Currency extends Tracker_Field_Abstract implements Tracker_F
 		}
 	}
 
-	function renderOutput($context = [])
+	public function renderOutput($context = [])
 	{
 		$smarty = TikiLib::lib('smarty');
 
@@ -194,13 +194,13 @@ class Tracker_Field_Currency extends Tracker_Field_Abstract implements Tracker_F
 		);
 	}
 
-	function renderInput($context = [])
+	public function renderInput($context = [])
 	{
 		$data = $this->getAvailableCurrencies();
 		return $this->renderTemplate('trackerinput/currency.tpl', $context, $data);
 	}
 
-	function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
+	public function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
 	{
 		$value = $this->getValue();
 		$defaultAmount = $this->convertToDefaultCurrency($this->getFieldData());
@@ -213,27 +213,27 @@ class Tracker_Field_Currency extends Tracker_Field_Abstract implements Tracker_F
 		return $out;
 	}
 
-	function getProvidedFields() {
+	public function getProvidedFields() {
 		$baseKey = $this->getBaseKey();
 		return [$baseKey, "{$baseKey}_base"];
 	}
 
-	function importRemote($value)
+	public function importRemote($value)
 	{
 		return $value;
 	}
 
-	function exportRemote($value)
+	public function exportRemote($value)
 	{
 		return $value;
 	}
 
-	function importRemoteField(array $info, array $syncInfo)
+	public function importRemoteField(array $info, array $syncInfo)
 	{
 		return $info;
 	}
 
-	function getTabularSchema()
+	public function getTabularSchema()
 	{
 		$schema = new Tracker\Tabular\Schema($this->getTrackerDefinition());
 
@@ -251,7 +251,7 @@ class Tracker_Field_Currency extends Tracker_Field_Abstract implements Tracker_F
 		return $schema;
 	}
 
-	function getFilterCollection()
+	public function getFilterCollection()
 	{
 		$filters = new Tracker\Filter\Collection($this->getTrackerDefinition());
 		$permName = $this->getConfiguration('permName');

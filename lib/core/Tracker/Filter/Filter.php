@@ -18,95 +18,95 @@ class Filter
 	private $control;
 	private $applyCondition;
 
-	function __construct($permName, $mode)
+	public function __construct($permName, $mode)
 	{
 		$this->permName = $permName;
 		$this->mode = $mode;
 	}
 
-	function getField()
+	public function getField()
 	{
 		return $this->permName;
 	}
 
-	function getMode()
+	public function getMode()
 	{
 		return $this->mode;
 	}
 
-	function setLabel($label)
+	public function setLabel($label)
 	{
 		$this->label = $label;
 		return $this;
 	}
 
-	function getLabel()
+	public function getLabel()
 	{
 		return $this->label;
 	}
 
-	function getPosition()
+	public function getPosition()
 	{
 		return $this->position;
 	}
 
-	function setPosition($position)
+	public function setPosition($position)
 	{
 		$this->position = $position;
 		return $this;
 	}
 
-	function setHelp($help)
+	public function setHelp($help)
 	{
 		$this->help = $help;
 		return $this;
 	}
 
-	function getHelp()
+	public function getHelp()
 	{
 		return $this->help;
 	}
 
-	function setType($type)
+	public function setType($type)
 	{
 		$this->type = $type;
 		return $this;
 	}
 
-	function getType()
+	public function getType()
 	{
 		return $this->type;
 	}
 
-	function setControl(Control\Control $control)
+	public function setControl(Control\Control $control)
 	{
 		$this->control = $control;
 		return $this;
 	}
 
-	function getControl()
+	public function getControl()
 	{
 		return $this->control;
 	}
 
-	function setApplyCondition(callable $apply)
+	public function setApplyCondition(callable $apply)
 	{
 		$this->applyCondition = $apply;
 		return $this;
 	}
 
-	function applyCondition(\Search_Query $query)
+	public function applyCondition(\Search_Query $query)
 	{
 		$cb = $this->applyCondition;
 		$cb($this->control, $query);
 	}
 
-	function applyInput(\JitFilter $input)
+	public function applyInput(\JitFilter $input)
 	{
 		$this->control->applyInput($input);
 	}
 
-	function copyProperties(self $other)
+	public function copyProperties(self $other)
 	{
 		$this->help = $other->help;
 		$this->label = $other->label;

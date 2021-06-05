@@ -9,7 +9,7 @@ class Tiki_Profile_InstallHandler_ActivityRuleSet extends Tiki_Profile_InstallHa
 {
 	private $rules = [];
 
-	function fetchData()
+	public function fetchData()
 	{
 		$data = $this->obj->getData();
 
@@ -18,14 +18,14 @@ class Tiki_Profile_InstallHandler_ActivityRuleSet extends Tiki_Profile_InstallHa
 		}
 	}
 
-	function canInstall()
+	public function canInstall()
 	{
 		$this->fetchData();
 
 		return true;
 	}
 
-	function _install()
+	public function _install()
 	{
 		$this->fetchData();
 		$this->replaceReferences($this->rules);

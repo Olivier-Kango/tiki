@@ -7,7 +7,7 @@
 
 class Tiki_Profile_InstallHandler_BlogPost extends Tiki_Profile_InstallHandler
 {
-	function getData()
+	public function getData()
 	{
 		if ($this->data) {
 			return $this->data;
@@ -27,7 +27,7 @@ class Tiki_Profile_InstallHandler_BlogPost extends Tiki_Profile_InstallHandler
 		return $this->data = $data;
 	}
 
-	function canInstall()
+	public function canInstall()
 	{
 		$data = $this->getData();
 		if (! isset($data['blog'])) {
@@ -40,7 +40,7 @@ class Tiki_Profile_InstallHandler_BlogPost extends Tiki_Profile_InstallHandler
 		return true;
 	}
 
-	function _install()
+	public function _install()
 	{
 		global $prefs;
 		$bloglib = TikiLib::lib('blog');
@@ -75,7 +75,7 @@ class Tiki_Profile_InstallHandler_BlogPost extends Tiki_Profile_InstallHandler
 	 * @param string $blogPost
 	 * @return bool
 	 */
-	function remove($blogPost)
+	public function remove($blogPost)
 	{
 		if (! empty($blogPost)) {
 			$bloglib = TikiLib::lib('blog');

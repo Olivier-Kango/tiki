@@ -6,7 +6,7 @@ class Configuration
 {
 	private $dom;
 
-	function __construct($xmlString)
+	public function __construct($xmlString)
 	{
 		if ($xmlString instanceof \DOMDocument) {
 			$this->dom = $xmlString;
@@ -17,12 +17,12 @@ class Configuration
 		}
 	}
 
-	function getXml()
+	public function getXml()
 	{
 		return $this->dom->saveXML();
 	}
 
-	function removeModule($moduleName)
+	public function removeModule($moduleName)
 	{
 		$toRemove = $this->getRemoveList($moduleName);
 

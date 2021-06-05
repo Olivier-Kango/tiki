@@ -11,12 +11,12 @@ class ODBCSourceEntry implements SourceEntryInterface
 {
 	private $data;
 
-	function __construct($data)
+	public function __construct($data)
 	{
 		$this->data = $data;
 	}
 
-	function render(\Tracker\Tabular\Schema\Column $column)
+	public function render(\Tracker\Tabular\Schema\Column $column)
 	{
 		$field = $column->getRemoteField();
 		if (isset($this->data[$field])) {
@@ -27,7 +27,7 @@ class ODBCSourceEntry implements SourceEntryInterface
 		return $column->render($value);
 	}
 
-	function parseInto(& $info, $column)
+	public function parseInto(& $info, $column)
 	{
 		$entry = $this->data[$column->getRemoteField()];
 		$column->parseInto($info, $entry, $this->data);

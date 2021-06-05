@@ -9,7 +9,7 @@ class Tiki_Profile_InstallHandler_GoalSet extends Tiki_Profile_InstallHandler
 {
 	private $goals = [];
 
-	function fetchData()
+	public function fetchData()
 	{
 		$data = $this->obj->getData();
 
@@ -18,14 +18,14 @@ class Tiki_Profile_InstallHandler_GoalSet extends Tiki_Profile_InstallHandler
 		}
 	}
 
-	function canInstall()
+	public function canInstall()
 	{
 		$this->fetchData();
 
 		return true;
 	}
 
-	function _install()
+	public function _install()
 	{
 		$this->fetchData();
 		$this->replaceReferences($this->goals);

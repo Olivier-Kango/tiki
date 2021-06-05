@@ -16,22 +16,22 @@ use Tiki\Process\Process;
 class ComposerCli
 {
 
-	const COMPOSER_URL = 'https://getcomposer.org/installer';
-	const COMPOSER_SETUP = 'temp/composer-setup.php';
-	const COMPOSER_PHAR = 'temp/composer.phar';
-	const COMPOSER_CONFIG = 'composer.json';
-	const COMPOSER_LOCK = 'composer.lock';
-	const COMPOSER_HOME = 'temp/composer';
-	const PHP_COMMAND_NAMES = [
+	public const COMPOSER_URL = 'https://getcomposer.org/installer';
+	public const COMPOSER_SETUP = 'temp/composer-setup.php';
+	public const COMPOSER_PHAR = 'temp/composer.phar';
+	public const COMPOSER_CONFIG = 'composer.json';
+	public const COMPOSER_LOCK = 'composer.lock';
+	public const COMPOSER_HOME = 'temp/composer';
+	public const PHP_COMMAND_NAMES = [
 		'php',
 		// TODO: Dynamically build version part from running PHP version
 		'php56',
 		'php5.6',
 		'php5.6-cli',
 	];
-	const PHP_MIN_VERSION = '7.2.0';
+	public const PHP_MIN_VERSION = '7.2.0';
 
-	const FALLBACK_COMPOSER_JSON = '{"minimum-stability": "stable","config": {"process-timeout": 5000,"bin-dir": "bin","component-dir": "vendor/components"}, "repositories": [{"type": "composer","url": "https://composer.tiki.org"}]}';
+	public const FALLBACK_COMPOSER_JSON = '{"minimum-stability": "stable","config": {"process-timeout": 5000,"bin-dir": "bin","component-dir": "vendor/components"}, "repositories": [{"type": "composer","url": "https://composer.tiki.org"}]}';
 
 	/**
 	 * @var string path to the base folder from tiki

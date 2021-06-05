@@ -139,7 +139,7 @@ function wikiplugin_convene($data, $params): string
 	$smarty->loadPlugin('smarty_modifier_avatarize');
 
 	//in case there is any feedback from a previous ajax action since this plugin does not refresh the page upon edit
-	Feedback::send_headers();
+	Feedback::sendHeaders();
 
 	static $convenePluginIndex = 0;
 	++$convenePluginIndex;

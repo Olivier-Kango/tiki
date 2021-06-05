@@ -14,7 +14,7 @@ class Tiki_Version_Utils
 	 * @return array
 	 * @throws Exception
 	 */
-	static function checkUpdatesForVersion($version)
+	public static function checkUpdatesForVersion($version)
 	{
 		$tikilib = TikiLib::lib('tiki');
 

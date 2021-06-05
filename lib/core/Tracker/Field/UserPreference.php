@@ -35,7 +35,7 @@ class Tracker_Field_UserPreference extends Tracker_Field_Abstract
 		];
 	}
 
-	function getFieldData(array $requestData = [])
+	public function getFieldData(array $requestData = [])
 	{
 		$ins_id = $this->getInsertId();
 
@@ -64,7 +64,7 @@ class Tracker_Field_UserPreference extends Tracker_Field_Abstract
 		return ['value' => $value];
 	}
 
-	function renderInnerOutput($context = [])
+	public function renderInnerOutput($context = [])
 	{
 		$fieldData = $this->getFieldData();
 		$value = $fieldData['value'];
@@ -76,7 +76,7 @@ class Tracker_Field_UserPreference extends Tracker_Field_Abstract
 		return $value;
 	}
 
-	function renderInput($context = [])
+	public function renderInput($context = [])
 	{
 		if ($this->getOption('type') === 'country') {
 			$context['flags'] = TikiLib::lib('tiki')->get_flags('', '', '', true);
@@ -86,7 +86,7 @@ class Tracker_Field_UserPreference extends Tracker_Field_Abstract
 		return $this->renderTemplate('trackerinput/userpreference.tpl', $context);
 	}
 
-	function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
+	public function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
 	{
 		$baseKey = $this->getBaseKey();
 		return [

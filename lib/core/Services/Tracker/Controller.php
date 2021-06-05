@@ -955,7 +955,7 @@ class Services_Tracker_Controller
 						$trackername = tr($trackerinfo['name']);
 						$msg = tr('New "%0" item successfully created.', $trackername);
 						Feedback::success($msg);
-						Feedback::send_headers();
+						Feedback::sendHeaders();
 					} else {
 						Feedback::success(tr('New tracker item %0 successfully created.', $itemId));
 					}
@@ -1187,7 +1187,7 @@ class Services_Tracker_Controller
 				if ($result && $suppressFeedback !== true) {
 					Feedback::success(tr('Tracker item %0 has been updated', $itemId), true);
 				} else {
-					Feedback::send_headers();
+					Feedback::sendHeaders();
 				}
 			} else {
 				if ($result && $suppressFeedback !== true) {
@@ -1198,12 +1198,12 @@ class Services_Tracker_Controller
 						$itemtitle = $this->utilities->getTitle($definition, $item);
 						$msg = tr('%0: Updated "%1"', $trackername, $itemtitle) . " [" . TikiLib::lib('tiki')->get_long_time( TikiLib::lib('tiki')->now ) . "]";
 						Feedback::success($msg);
-						Feedback::send_headers();
+						Feedback::sendHeaders();
 					} else {
 						Feedback::success(tr('Tracker item %0 has been updated', $itemId));
 					}
 				} else {
-					Feedback::send_headers();
+					Feedback::sendHeaders();
 				}
 				$redirect = $input->redirect->url();
 

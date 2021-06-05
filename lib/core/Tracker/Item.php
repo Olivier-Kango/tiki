@@ -47,7 +47,7 @@ class Tracker_Item
 
 	public static function fromInfo($info)
 	{
-		$obj = new self;
+		$obj = new self();
 		if (empty($info['trackerId']) && ! empty($info['itemId'])) {
 			$info['trackerId'] = TikiLib::lib('trk')->get_tracker_for_item($info['itemId']);
 		}
@@ -60,7 +60,7 @@ class Tracker_Item
 
 	public static function newItem($trackerId)
 	{
-		$obj = new self;
+		$obj = new self();
 		$obj->info = [];
 		$obj->definition = Tracker_Definition::get($trackerId);
 		$obj->asNew();
@@ -73,13 +73,13 @@ class Tracker_Item
 	{
 	}
 
-	function asNew()
+	public function asNew()
 	{
 		$this->isNew = true;
 		$this->info['itemId'] = null;
 	}
 
-	function canView()
+	public function canView()
 	{
 		if ($this->isNew()) {
 			return true;
@@ -98,7 +98,7 @@ class Tracker_Item
 		return $this->perms->$permName;
 	}
 
-	function canModify()
+	public function canModify()
 	{
 		if ($this->isNew()) {
 			return $this->perms->create_tracker_items;
@@ -119,7 +119,7 @@ class Tracker_Item
 		}
 	}
 
-	function canRemove()
+	public function canRemove()
 	{
 		if ($this->isNew()) {
 			return false;
@@ -247,7 +247,7 @@ class Tracker_Item
 				$trackerId = $this->definition->getConfiguration('trackerId');
 				return Perms::get('tracker', $trackerId);
 			} else {
-				$accessor = new Perms_Accessor;
+				$accessor = new Perms_Accessor();
 				$accessor->setResolver(new Perms_Resolver_Default(false));
 				return $accessor;
 			}
@@ -312,7 +312,8 @@ class Tracker_Item
 		}
 	}
 
-	public function getAllowedUserGroupsForField($field) {
+	public function getAllowedUserGroupsForField($field)
+	{
 		$isHidden = $field['isHidden'];
 		$visibleBy = $field['visibleBy'];
 
@@ -338,7 +339,7 @@ class Tracker_Item
 		return $allowed;
 	}
 
-	function canViewField($fieldId)
+	public function canViewField($fieldId)
 	{
 		$fieldId = $this->prepareFieldId($fieldId);
 
@@ -357,7 +358,6 @@ class Tracker_Item
 		if (! $field) {
 			return false;
 		}
-		
 		// filter fields to show only Tag field that users has permissio to access
 		if ($field['type'] == 'F' && empty($this->perms['view_freetags'])) {
 			return false;
@@ -378,7 +378,7 @@ class Tracker_Item
 		}
 	}
 
-	function canModifyField($fieldId)
+	public function canModifyField($fieldId)
 	{
 		$fieldId = $this->prepareFieldId($fieldId);
 
@@ -565,11 +565,10 @@ class Tracker_Item
 	/**
 	 * Gets a tracker item's data
 	 *
-	 * @param JitFilter|null $input		optional input object
-	 * @param bool|false $forExport		gets the field output in list_mode=csv not necessarily the stored value
-	 * @return array					[permName => value]
+	 * @param JitFilter|null $input optional input object
+	 * @param bool|false $forExport gets the field output in list_mode=csv not necessarily the stored value
+	 * @return array [permName => value]
 	 */
-
 	public function getData($input = null, $forExport = false)
 	{
 		$out = [];
@@ -617,10 +616,12 @@ class Tracker_Item
 		return $this->definition;
 	}
 
-	function getDisplayedStatus()
+	public function getDisplayedStatus()
 	{
-		if (($this->definition->getConfiguration('showStatus', 'n') == 'y' && $this->definition->getConfiguration('showStatusAdminOnly', 'n') == 'n')
-			|| ($this->definition->getConfiguration('showStatusAdminOnly', 'n') == 'y' && $this->perms->admin_trackers)) {
+		if (
+			($this->definition->getConfiguration('showStatus', 'n') == 'y' && $this->definition->getConfiguration('showStatusAdminOnly', 'n') == 'n')
+			|| ($this->definition->getConfiguration('showStatusAdminOnly', 'n') == 'y' && $this->perms->admin_trackers)
+		) {
 			$status = $this->isNew()
 				? $this->definition->getConfiguration('newItemStatus', 'o')
 				: $this->info['status'];

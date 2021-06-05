@@ -11,23 +11,23 @@ use Tiki\MailIn\Action;
 
 class FilePutProvider implements ProviderInterface
 {
-	function isEnabled()
+	public function isEnabled()
 	{
 		global $prefs;
 		return $prefs['feature_file_galleries'] == 'y';
 	}
 
-	function getType()
+	public function getType()
 	{
 		return 'file-put';
 	}
 
-	function getLabel()
+	public function getLabel()
 	{
 		return tr('Save email as a file');
 	}
 
-	function getActionFactory(array $acc)
+	public function getActionFactory(array $acc)
 	{
 		return new Action\DirectFactory('Tiki\MailIn\Action\FilePut', [
 			'galleryId' => $acc['galleryId'],

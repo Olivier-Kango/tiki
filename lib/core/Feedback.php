@@ -153,7 +153,7 @@ class Feedback
 			$_SESSION['tikifeedback'][] = $feedback;
 		}
 		if ($sendHeaders) {
-			self::send_headers();
+			self::sendHeaders();
 		}
 	}
 
@@ -243,7 +243,7 @@ class Feedback
 	 *
 	 * @throws Exception
 	 */
-	public static function send_headers()
+	public static function sendHeaders()
 	{
 		require_once 'lib/smarty_tiki/function.feedback.php';
 		$feedback = rawurlencode(str_replace(["\n", "\r", "\t"], '', smarty_function_feedback(

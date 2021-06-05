@@ -13,7 +13,7 @@ class Tiki_Version_Version
 	private $sub;
 	private $number;
 
-	function __construct($major, $minor, $extra = 0, $sub = 0, $number = 0)
+	public function __construct($major, $minor, $extra = 0, $sub = 0, $number = 0)
 	{
 		$this->major = (int) $major;
 		$this->minor = (int) $minor;
@@ -38,12 +38,12 @@ class Tiki_Version_Version
 		}
 	}
 
-	function getMajor()
+	public function getMajor()
 	{
 		return $this->major;
 	}
 
-	function isUpgradeTo($version)
+	public function isUpgradeTo($version)
 	{
 		// Note that this does not cover all cases, upgrades are only official releases
 		// and the 'extra' portion is ignored as only used by legacy versions, which anything
@@ -60,7 +60,7 @@ class Tiki_Version_Version
 		}
 	}
 
-	function __toString()
+	public function __toString()
 	{
 		$string = "{$this->major}.{$this->minor}";
 

@@ -47,17 +47,17 @@ class Tracker_Field_InGroup extends Tracker_Field_Abstract
 		];
 	}
 
-	function getFieldData(array $requestData = [])
+	public function getFieldData(array $requestData = [])
 	{
 		return [];
 	}
 
-	function renderInput($context = [])
+	public function renderInput($context = [])
 	{
 		$this->renderOutput($context);	// read only
 	}
 
-	function renderOutput($context = [])
+	public function renderOutput($context = [])
 	{
 		$trklib = TikiLib::lib('trk');
 		$itemUsers = $trklib->get_item_creators($this->getConfiguration('trackerId'), $this->getItemId());

@@ -26,7 +26,7 @@ class Column
 	private $incompatibilities = [];
 	private $plainReplacement = null;
 
-	function __construct($permName, $mode)
+	public function __construct($permName, $mode)
 	{
 		$this->permName = $permName;
 		$this->mode = $mode;
@@ -34,123 +34,123 @@ class Column
 		};
 	}
 
-	function getLabel()
+	public function getLabel()
 	{
 		return $this->label;
 	}
 
-	function setLabel($label)
+	public function setLabel($label)
 	{
 		$this->label = $label;
 		return $this;
 	}
 
-	function getRemoteField()
+	public function getRemoteField()
 	{
 		return $this->remoteField;
 	}
 
-	function setRemoteField($remoteField)
+	public function setRemoteField($remoteField)
 	{
 		$this->remoteField = $remoteField;
 		return $this;
 	}
 
-	function getDisplayAlign()
+	public function getDisplayAlign()
 	{
 		return $this->displayAlign;
 	}
 
-	function setDisplayAlign($align)
+	public function setDisplayAlign($align)
 	{
 		$this->displayAlign = $align;
 		return $this;
 	}
 
-	function addIncompatibility($field, $mode)
+	public function addIncompatibility($field, $mode)
 	{
 		$this->incompatibilities[] = [$field, $mode];
 		return $this;
 	}
 
-	function setRenderTransform(callable $transform)
+	public function setRenderTransform(callable $transform)
 	{
 		$this->renderTransform = $transform;
 		return $this;
 	}
 
-	function setParseIntoTransform(callable $transform)
+	public function setParseIntoTransform(callable $transform)
 	{
 		$this->parseIntoTransform = $transform;
 		return $this;
 	}
 
-	function setPrimaryKey($pk)
+	public function setPrimaryKey($pk)
 	{
 		$this->isPrimary = (bool) $pk;
 		return $this;
 	}
 
-	function setReadOnly($readOnly)
+	public function setReadOnly($readOnly)
 	{
 		$this->isReadOnly = (bool) $readOnly;
 		return $this;
 	}
 
-	function setExportOnly($exportOnly)
+	public function setExportOnly($exportOnly)
 	{
 		$this->isExportOnly = (bool) $exportOnly;
 		return $this;
 	}
 
-	function setUniqueKey($uniqueKey)
+	public function setUniqueKey($uniqueKey)
 	{
 		$this->isUniqueKey = (bool) $uniqueKey;
 		return $this;
 	}
 
-	function setPlainReplacement($replacement)
+	public function setPlainReplacement($replacement)
 	{
 		$this->plainReplacement = $replacement;
 		return $this;
 	}
 
-	function is($field, $mode)
+	public function is($field, $mode)
 	{
 		return $field == $this->permName && $mode == $this->mode;
 	}
 
-	function isPrimaryKey()
+	public function isPrimaryKey()
 	{
 		return $this->isPrimary;
 	}
 
-	function isReadOnly()
+	public function isReadOnly()
 	{
 		return $this->isReadOnly;
 	}
 
-	function isExportOnly()
+	public function isExportOnly()
 	{
 		return $this->isExportOnly;
 	}
 
-	function isUniqueKey()
+	public function isUniqueKey()
 	{
 		return $this->isUniqueKey;
 	}
 
-	function getField()
+	public function getField()
 	{
 		return $this->permName;
 	}
 
-	function getMode()
+	public function getMode()
 	{
 		return $this->mode;
 	}
 
-	function getEncodedHeader()
+	public function getEncodedHeader()
 	{
 		if ($this->isReadOnly) {
 			return $this->label;
@@ -160,17 +160,17 @@ class Column
 		}
 	}
 
-	function getPlainReplacement()
+	public function getPlainReplacement()
 	{
 		return $this->plainReplacement;
 	}
 
-	function render($value)
+	public function render($value)
 	{
 		return call_user_func_array($this->renderTransform, func_get_args());
 	}
 
-	function parseInto(& $info, $value, $extra = null)
+	public function parseInto(& $info, $value, $extra = null)
 	{
 		$c = $this->parseIntoTransform;
 		if (! $this->isReadOnly) {
@@ -178,18 +178,18 @@ class Column
 		}
 	}
 
-	function addQuerySource($name, $field)
+	public function addQuerySource($name, $field)
 	{
 		$this->querySources[$name] = $field;
 		return $this;
 	}
 
-	function getQuerySources()
+	public function getQuerySources()
 	{
 		return $this->querySources;
 	}
 
-	function validateAgainst(\Tracker\Tabular\Schema $schema)
+	public function validateAgainst(\Tracker\Tabular\Schema $schema)
 	{
 		if ($this->isPrimary && $this->isReadOnly) {
 			throw new \Exception(tr('Primary Key fields cannot be read-only.'));
@@ -225,7 +225,7 @@ class Column
 		}
 	}
 
-	function withWrappedRenderTransform(callable $callback)
+	public function withWrappedRenderTransform(callable $callback)
 	{
 		$column = new self($this->permName, $this->mode);
 		$column->label = $this->label;

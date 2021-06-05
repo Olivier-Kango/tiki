@@ -12,5 +12,5 @@ interface SourceEntryInterface
 	/**
 	 * Renders an entry part from specified column
 	 */
-	function render(\Tracker\Tabular\Schema\Column $column);
+	public function render(\Tracker\Tabular\Schema\Column $column);
 }

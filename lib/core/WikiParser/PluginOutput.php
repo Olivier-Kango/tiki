@@ -92,7 +92,7 @@ class WikiParser_PluginOutput
 		return self::error(tra('Plugin disabled'), $content);
 	}
 
-	function toWiki()
+	public function toWiki()
 	{
 		switch ($this->format) {
 			case 'wiki':
@@ -102,7 +102,7 @@ class WikiParser_PluginOutput
 		}
 	}
 
-	function toHtml($parseOptions = [])
+	public function toHtml($parseOptions = [])
 	{
 		switch ($this->format) {
 			case 'wiki':

@@ -12,7 +12,8 @@ use Feedback;
 
 class Validator extends Manipulator
 {
-  public function run($args = []) {
+  public function run($args = [])
+  {
     if (! $this->isValid($this->file->filename)) {
       Feedback::error(tr('`%0` does not match acceptable naming patterns.', $this->file->filename));
       return false;
@@ -43,7 +44,8 @@ class Validator extends Manipulator
     return true;
   }
 
-  private function areDupesAllowed() {
+  private function areDupesAllowed()
+  {
     global $prefs;
 
     $filesTable = TikiLib::lib('filegal')->table('tiki_files');

@@ -13,18 +13,18 @@ class DateRange implements Control
 	private $from = '';
 	private $to = '';
 
-	function __construct($name)
+	public function __construct($name)
 	{
 		$this->fieldName = $name;
 	}
 
-	function applyInput(\JitFilter $input)
+	public function applyInput(\JitFilter $input)
 	{
 		$this->from = $input->{$this->fieldName . '_from'}->int() ?: '';
 		$this->to = $input->{$this->fieldName . '_to'}->int() ?: '';
 	}
 
-	function getQueryArguments()
+	public function getQueryArguments()
 	{
 		if ($this->from && $this->to) {
 			return [
@@ -36,7 +36,7 @@ class DateRange implements Control
 		}
 	}
 
-	function getDescription()
+	public function getDescription()
 	{
 		if ($this->hasValue()) {
 			$tikilib = \TikiLib::lib('tiki');
@@ -50,33 +50,33 @@ class DateRange implements Control
 		}
 	}
 
-	function getId()
+	public function getId()
 	{
 		return $this->fieldName . '_from';
 	}
 
-	function isUsable()
+	public function isUsable()
 	{
 		return true;
 	}
 
-	function hasValue()
+	public function hasValue()
 	{
 		return ! empty($this->from) && ! empty($this->to);
 	}
 
-	function getFrom()
+	public function getFrom()
 	{
 		return $this->from;
 	}
 
-	function getTo()
+	public function getTo()
 	{
 		// Date ranges are inclusive, so use end of day so last day is included
 		return $this->to + 3600 * 24 - 1;
 	}
 
-	function __toString()
+	public function __toString()
 	{
 		$smarty = \TikiLib::lib('smarty');
 		$smarty->assign('control', [

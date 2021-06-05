@@ -13,7 +13,7 @@ class AutoDetectCsvSource implements SourceInterface
 {
 	private $source;
 
-	function __construct(\Tracker_Definition $definition, $fileName)
+	public function __construct(\Tracker_Definition $definition, $fileName)
 	{
 		$file = new \SplFileObject($fileName, 'r');
 		$headers = $file->fgetcsv();
@@ -38,12 +38,12 @@ class AutoDetectCsvSource implements SourceInterface
 		$this->source = new CsvSource($schema, $fileName);
 	}
 
-	function getEntries()
+	public function getEntries()
 	{
 		return $this->source->getEntries();
 	}
 
-	function getSchema()
+	public function getSchema()
 	{
 		return $this->source->getSchema();
 	}

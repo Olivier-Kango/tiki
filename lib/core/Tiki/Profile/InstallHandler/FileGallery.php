@@ -7,7 +7,7 @@
 
 class Tiki_Profile_InstallHandler_FileGallery extends Tiki_Profile_InstallHandler
 {
-	function getData()
+	public function getData()
 	{
 		if ($this->data) {
 			return $this->data;
@@ -117,7 +117,7 @@ class Tiki_Profile_InstallHandler_FileGallery extends Tiki_Profile_InstallHandle
 		return $this->data = $data;
 	}
 
-	function canInstall()
+	public function canInstall()
 	{
 		$data = $this->getData();
 		if (! isset($data['name'])) {
@@ -146,7 +146,7 @@ class Tiki_Profile_InstallHandler_FileGallery extends Tiki_Profile_InstallHandle
 		return true;
 	}
 
-	function _install()
+	public function _install()
 	{
 		$filegallib = TikiLib::lib('filegal');
 
@@ -179,7 +179,7 @@ class Tiki_Profile_InstallHandler_FileGallery extends Tiki_Profile_InstallHandle
 		return $galleryId;
 	}
 
-	function upload($gal_info, $url)
+	public function upload($gal_info, $url)
 	{
 		$filegallib = TikiLib::lib('filegal');
 		if ($filegallib->lookup_source($url)) {
@@ -207,7 +207,7 @@ class Tiki_Profile_InstallHandler_FileGallery extends Tiki_Profile_InstallHandle
 	 * @param $gal_info
 	 * @param $file
 	 */
-	function uploadFile($gal_info, $file)
+	public function uploadFile($gal_info, $file)
 	{
 		$filegallib = TikiLib::lib('filegal');
 
@@ -334,7 +334,7 @@ class Tiki_Profile_InstallHandler_FileGallery extends Tiki_Profile_InstallHandle
 	 * @return bool
 	 * @throws Exception
 	 */
-	function remove($fileGallery)
+	public function remove($fileGallery)
 	{
 		if (! empty($fileGallery)) {
 			$filegallib = TikiLib::lib('filegal');

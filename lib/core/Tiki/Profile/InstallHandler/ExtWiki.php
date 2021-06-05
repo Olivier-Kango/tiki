@@ -7,14 +7,14 @@
 
 class Tiki_Profile_InstallHandler_ExtWiki extends Tiki_Profile_InstallHandler
 {
-	function getData()
+	public function getData()
 	{
 		$data = $this->obj->getData();
 
 		return $data;
 	}
 
-	function canInstall()
+	public function canInstall()
 	{
 		$data = $this->getData();
 		if (! isset($data['name'], $data['url'])) {
@@ -24,7 +24,7 @@ class Tiki_Profile_InstallHandler_ExtWiki extends Tiki_Profile_InstallHandler
 		return true;
 	}
 
-	function _install()
+	public function _install()
 	{
 		$data = $this->getData();
 

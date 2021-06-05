@@ -10,12 +10,12 @@ class Tiki_Render_Lazy
 	private $callback;
 	private $data;
 
-	function __construct($callback)
+	public function __construct($callback)
 	{
 		$this->callback = $callback;
 	}
 
-	function __toString()
+	public function __toString()
 	{
 		if ($this->callback) {
 			try {

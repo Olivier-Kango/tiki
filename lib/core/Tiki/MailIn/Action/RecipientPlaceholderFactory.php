@@ -15,7 +15,7 @@ class RecipientPlaceholderFactory implements FactoryInterface
 {
 	private $actionMap;
 
-	function __construct(array $actionMap)
+	public function __construct(array $actionMap)
 	{
 		global $prefs;
 
@@ -28,7 +28,7 @@ class RecipientPlaceholderFactory implements FactoryInterface
 		$this->actionMap = $actionMap;
 	}
 
-	function createAction(Account $account, Message $message)
+	public function createAction(Account $account, Message $message)
 	{
 		if (preg_match($this->pattern, $message->getRecipient(), $parts) && isset($parts['DATA'])) {
 			$info = \Tiki_Security::get()->decode($parts['DATA']);

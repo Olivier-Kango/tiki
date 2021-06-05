@@ -13,29 +13,29 @@ class Recommendation implements EngineOutput
 	private $object;
 	private $title;
 
-	function __construct($type, $object, $title = null)
+	public function __construct($type, $object, $title = null)
 	{
 		$this->type = $type;
 		$this->object = $object;
 		$this->title = $title;
 	}
 
-	function getType()
+	public function getType()
 	{
 		return $this->type;
 	}
 
-	function getId()
+	public function getId()
 	{
 		return $this->object;
 	}
 
-	function getTitle()
+	public function getTitle()
 	{
 		return $this->title;
 	}
 
-	function __toString()
+	public function __toString()
 	{
 		return tr('Recommendation: %0:%1 (%2)', $this->type, $this->object, $this->title ?: tr('Unknown'));
 	}

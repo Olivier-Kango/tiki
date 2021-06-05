@@ -49,7 +49,7 @@ class Tracker_Field_Url extends Tracker_Field_Abstract implements Tracker_Field_
 		];
 	}
 
-	function getFieldData(array $requestData = [])
+	public function getFieldData(array $requestData = [])
 	{
 		$ins_id = $this->getInsertId();
 
@@ -60,7 +60,7 @@ class Tracker_Field_Url extends Tracker_Field_Abstract implements Tracker_Field_
 		];
 	}
 
-	function renderOutput($context = [])
+	public function renderOutput($context = [])
 	{
 		$smarty = TikiLib::lib('smarty');
 
@@ -115,27 +115,27 @@ class Tracker_Field_Url extends Tracker_Field_Abstract implements Tracker_Field_
 		}
 	}
 
-	function renderInput($context = [])
+	public function renderInput($context = [])
 	{
 		return $this->renderTemplate("trackerinput/url.tpl", $context);
 	}
 
-	function importRemote($value)
+	public function importRemote($value)
 	{
 		return $value;
 	}
 
-	function exportRemote($value)
+	public function exportRemote($value)
 	{
 		return $value;
 	}
 
-	function importRemoteField(array $info, array $syncInfo)
+	public function importRemoteField(array $info, array $syncInfo)
 	{
 		return $info;
 	}
 
-	function getTabularSchema()
+	public function getTabularSchema()
 	{
 		$schema = new Tracker\Tabular\Schema($this->getTrackerDefinition());
 

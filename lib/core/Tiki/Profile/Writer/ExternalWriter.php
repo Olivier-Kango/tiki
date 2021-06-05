@@ -11,7 +11,7 @@ class Tiki_Profile_Writer_ExternalWriter
 	private $files;
 	private $hashes = [];
 
-	function __construct($dataPath)
+	public function __construct($dataPath)
 	{
 		$this->dataPath = $dataPath;
 		$files = array_filter(
@@ -24,13 +24,13 @@ class Tiki_Profile_Writer_ExternalWriter
 		$this->files = array_fill_keys($files, null);
 	}
 
-	function write($file, $content)
+	public function write($file, $content)
 	{
 		$this->files[$file] = $content;
 		$this->hashes[$file] = null;
 	}
 
-	function apply()
+	public function apply()
 	{
 		foreach (array_filter($this->files) as $file => $content) {
 			$hash = sha1($content);
@@ -40,7 +40,7 @@ class Tiki_Profile_Writer_ExternalWriter
 		}
 	}
 
-	function getFiles()
+	public function getFiles()
 	{
 		foreach ($this->files as $file => $content) {
 			if (is_null($content)) {

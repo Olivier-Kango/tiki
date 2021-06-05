@@ -187,7 +187,7 @@ class Services_Search_CustomSearchController
 		$index = $unifiedsearchlib->getIndex();
 		$resultSet = $query->search($index);
 		if (! empty($_SESSION['tikifeedback']) && $_SESSION['tikifeedback'][0]['type'] === 'error') {
-			Feedback::send_headers();
+			Feedback::sendHeaders();
 		} else {
 			$resultSet->setTsSettings($builder->getTsSettings());
 			$resultSet->setId('wpcs-' . $id);

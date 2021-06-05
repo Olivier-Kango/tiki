@@ -12,7 +12,7 @@ class CsvSource implements SourceInterface
 	private $schema;
 	private $file;
 
-	function __construct(\Tracker\Tabular\Schema $schema, $fileName, $delimiter = ',')
+	public function __construct(\Tracker\Tabular\Schema $schema, $fileName, $delimiter = ',')
 	{
 		ini_set('auto_detect_line_endings',true);
 		$this->schema = $schema->getPlainOutputSchema();
@@ -20,7 +20,7 @@ class CsvSource implements SourceInterface
 		$this->file->setCsvControl($delimiter);
 	}
 
-	function getEntries()
+	public function getEntries()
 	{
 		$this->file->fseek(0);
 
@@ -43,7 +43,7 @@ class CsvSource implements SourceInterface
 		}
 	}
 
-	function getSchema()
+	public function getSchema()
 	{
 		return $this->schema;
 	}

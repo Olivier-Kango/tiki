@@ -188,7 +188,7 @@ class Tracker_Field_Files extends Tracker_Field_Abstract implements Tracker_Fiel
 		return $options;
 	}
 
-	function getFieldData(array $requestData = [])
+	public function getFieldData(array $requestData = [])
 	{
 		global $prefs;
 		$filegallib = TikiLib::lib('filegal');
@@ -296,7 +296,7 @@ class Tracker_Field_Files extends Tracker_Field_Abstract implements Tracker_Fiel
 		];
 	}
 
-	function renderInput($context = [])
+	public function renderInput($context = [])
 	{
 		global $prefs;
 
@@ -341,7 +341,7 @@ class Tracker_Field_Files extends Tracker_Field_Abstract implements Tracker_Fiel
 		]);
 	}
 
-	function renderOutput($context = [])
+	public function renderOutput($context = [])
 	{
 		global $prefs;
 		global $mimetypes;
@@ -536,7 +536,7 @@ class Tracker_Field_Files extends Tracker_Field_Abstract implements Tracker_Fiel
 		return $ret;
 	}
 
-	function handleSave($value, $oldValue)
+	public function handleSave($value, $oldValue)
 	{
 		$new = array_diff(explode(',', $value), explode(',', $oldValue));
 		$remove = array_diff(explode(',', $oldValue), explode(',', $value));
@@ -571,7 +571,7 @@ class Tracker_Field_Files extends Tracker_Field_Abstract implements Tracker_Fiel
 	/**
 	 * called from action_clone_item and duplicates the related files if option duplicateGalleryID is set
 	 */
-	function handleClone($strict = false)
+	public function handleClone($strict = false)
 	{
 		global $prefs;
 
@@ -595,7 +595,7 @@ class Tracker_Field_Files extends Tracker_Field_Abstract implements Tracker_Fiel
 		];
 	}
 
-	function watchCompare($old, $new)
+	public function watchCompare($old, $new)
 	{
 		$name = $this->getConfiguration('name');
 		$isVisible = $this->getConfiguration('isHidden', 'n') == 'n';
@@ -677,7 +677,7 @@ class Tracker_Field_Files extends Tracker_Field_Abstract implements Tracker_Fiel
 		return $result;
 	}
 
-function filterFile($info)
+	public function filterFile($info)
 	{
 		$filter = $this->getOption('filter');
 
@@ -809,7 +809,7 @@ function filterFile($info)
 		}
 	}
 
-	function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
+	public function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
 	{
 		$value = $this->getValue();
 		$baseKey = $this->getBaseKey();
@@ -851,7 +851,7 @@ function filterFile($info)
 		}
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		if ($this->getOption('indexGeometry') && $this->getValue()) {
 			return ['geo_located', 'geo_file', 'geo_file_format'];
@@ -868,7 +868,7 @@ function filterFile($info)
 		}
 	}
 
-	function getGlobalFields()
+	public function getGlobalFields()
 	{
 		if ($this->getOption('indexGeometry') && $this->getValue()) {
 			return [];
@@ -878,7 +878,7 @@ function filterFile($info)
 		}
 	}
 
-	function getTabularSchema()
+	public function getTabularSchema()
 	{
 		$schema = new Tracker\Tabular\Schema($this->getTrackerDefinition());
 

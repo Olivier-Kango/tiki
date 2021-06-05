@@ -9,13 +9,13 @@ class Tiki_MemoryLimit
 {
 	private $initialLimit;
 
-	function __construct($targetLimit)
+	public function __construct($targetLimit)
 	{
 		$this->initialLimit = ini_get('memory_limit');
 		$this->applyMinimalLimit($targetLimit);
 	}
 
-	function __destruct()
+	public function __destruct()
 	{
 		// Restore initial limit
 		$this->applySafeLimit($this->initialLimit);

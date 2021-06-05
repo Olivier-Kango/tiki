@@ -14,7 +14,7 @@ abstract class Manipulator
 	/** @var File */
 	protected $file;
 
-	function __construct(File $file)
+	public function __construct(File $file)
 	{
 		$this->file = $file;
 	}

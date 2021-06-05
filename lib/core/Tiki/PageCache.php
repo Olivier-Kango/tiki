@@ -17,7 +17,7 @@ class Tiki_PageCache
 		return new self;
 	}
 
-	function disableForRegistered()
+	public function disableForRegistered()
 	{
 		global $user;
 
@@ -28,7 +28,7 @@ class Tiki_PageCache
 		return $this;
 	}
 
-	function onlyForGet()
+	public function onlyForGet()
 	{
 		if ($_SERVER['REQUEST_METHOD'] != 'GET') {
 			$this->cacheData = null;
@@ -37,7 +37,7 @@ class Tiki_PageCache
 		return $this;
 	}
 
-	function requiresPreference($preference)
+	public function requiresPreference($preference)
 	{
 		global $prefs;
 
@@ -48,7 +48,7 @@ class Tiki_PageCache
 		return $this;
 	}
 
-	function addKeys($array, $keys)
+	public function addKeys($array, $keys)
 	{
 		if (is_array($this->cacheData)) {
 			foreach ($keys as $k) {
@@ -61,7 +61,7 @@ class Tiki_PageCache
 		return $this;
 	}
 
-	function addArray($array)
+	public function addArray($array)
 	{
 		if (is_array($this->cacheData)) {
 			$this->cacheData = array_merge($this->cacheData, $array);
@@ -70,7 +70,7 @@ class Tiki_PageCache
 		return $this;
 	}
 
-	function addValue($key, $value)
+	public function addValue($key, $value)
 	{
 		if (is_array($this->cacheData)) {
 			$this->cacheData[$key] = $value;
@@ -79,14 +79,14 @@ class Tiki_PageCache
 		return $this;
 	}
 
-	function checkMeta($role, $data)
+	public function checkMeta($role, $data)
 	{
 		$this->meta = array_merge([ 'role' => $role ], $data);
 
 		return $this;
 	}
 
-	function applyCache()
+	public function applyCache()
 	{
 		if (is_array($this->cacheData)) {
 			$memcachelib = TikiLib::lib("memcache");
@@ -165,7 +165,7 @@ class Tiki_PageCache
 		return $this;
 	}
 
-	function cleanUp()
+	public function cleanUp()
 	{
 		if ($this->key) {
 			$cachedOutput = [
@@ -195,14 +195,14 @@ class Tiki_PageCache
 		$this->meta = null;
 	}
 
-	function invalidate()
+	public function invalidate()
 	{
 		if ($this->meta) {
 			TikiLib::lib("memcache")->set($this->meta, time());
 		}
 	}
 
-	function __destruct()
+	public function __destruct()
 	{
 		$this->cleanUp();
 	}

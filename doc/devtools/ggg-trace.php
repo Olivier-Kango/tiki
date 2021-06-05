@@ -28,16 +28,16 @@
 /**
  *
  */
-class ggg_trace
+class GggTrace
 {
-	var $fp;
+	public $fp;
 
 	/**
 	 * @param string $nameStr
 	 */
-	function __construct($nameStr = 'ggg-trace.out')
+	public function __construct($nameStr = 'ggg-trace.out')
 	{
-		register_shutdown_function([&$this, '_ggg_trace']); // the & is important
+		register_shutdown_function([&$this, 'gggTraceShutdown']); // the & is important
 		$this->fp = fopen($nameStr, 'a');
 		fwrite($this->fp, "\n");
 		// e.g. 20031231 17:00:20
@@ -49,7 +49,7 @@ class ggg_trace
 	/**
 	 * @param string $outStr
 	 */
-	function out($outStr = '')
+	public function out($outStr = '')
 	{
 		fwrite($this->fp, "$outStr");
 	}
@@ -57,7 +57,7 @@ class ggg_trace
 	/**
 	 * @param string $outStr
 	 */
-	function outln($outStr = '')
+	public function outln($outStr = '')
 	{
 		fwrite($this->fp, "$outStr\n");
 	}
@@ -66,7 +66,7 @@ class ggg_trace
 	 * @param $var
 	 * @param int $indent
 	 */
-	function outvar($var, $indent = 0)
+	public function outvar($var, $indent = 0)
 	{
 		if ($indent > 8) {
 			fwrite($this->fp, "Too many levels of recursion! \n");
@@ -95,15 +95,15 @@ class ggg_trace
 		}
 	}
 
-	function _ggg_trace()
+	public function gggTraceShutdown()
 	{
 		fwrite($this->fp, '*' . date('Ymd G:i:s') . "*Finishing****************************************************\n");
 		fclose($this->fp);
 	}
 }
 
-$ggg_traceFiles = new ggg_trace('ggg-traceFiles.out');
+$ggg_traceFiles = new GggTrace('ggg-traceFiles.out');
 $ggg_traceFiles->outln(__FILE__);
 
-$ggg_tracer = new ggg_trace();
+$ggg_tracer = new GggTrace();
 // $ggg_tracer->outln("Tracer initialized in ggg-trace.php...");

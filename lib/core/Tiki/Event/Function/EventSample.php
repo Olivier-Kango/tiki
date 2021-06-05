@@ -7,12 +7,12 @@
 
 class Tiki_Event_Function_EventSample extends Math_Formula_Function
 {
-	function __construct($recorder)
+	public function __construct($recorder)
 	{
 		$this->recorder = $recorder;
 	}
 
-	function evaluate($element)
+	public function evaluate($element)
 	{
 		$recorded = $this->evaluateChild($element[0]);
 		$event = $this->evaluateChild($element[1]);

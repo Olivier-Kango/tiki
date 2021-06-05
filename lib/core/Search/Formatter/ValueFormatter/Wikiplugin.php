@@ -56,7 +56,7 @@ class Search_Formatter_ValueFormatter_Wikiplugin extends Search_Formatter_ValueF
 		}
 
 		$parserlib = TikiLib::lib('parser');
-		$out = $parserlib->plugin_execute(
+		$out = $parserlib->pluginExecute(
 			$name,
 			$content,
 			$params,

@@ -11,7 +11,7 @@
  */
 class Tiki_Profile_List
 {
-	function getSources()
+	public function getSources()
 	{
 		global $prefs;
 		$raw = explode("\n", $prefs['profile_sources']);
@@ -36,7 +36,7 @@ class Tiki_Profile_List
 		return $sources;
 	}
 
-	function refreshCache($path)
+	public function refreshCache($path)
 	{
 		global $tikilib;
 		$file = $this->getCacheLocation($path);
@@ -75,7 +75,7 @@ class Tiki_Profile_List
 		return true;
 	}
 
-	function getCategoryList($source = '')
+	public function getCategoryList($source = '')
 	{
 		$category_list = [];
 
@@ -104,7 +104,7 @@ class Tiki_Profile_List
 		return(array_unique($category_list));
 	}
 
-	function getList($source = '', $categories = [], $profilename = '')
+	public function getList($source = '', $categories = [], $profilename = '')
 	{
 		$installer = new Tiki_Profile_Installer;
 		$list = [];

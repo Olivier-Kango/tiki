@@ -17,7 +17,7 @@ class Tiki_Connect_Client extends Tiki_Connect_Abstract
 	 * 						depending on connect prefs
 	 */
 
-	function buildConnectData()
+	public function buildConnectData()
 	{
 		global $prefs, $TWV;
 		$info = ['version' => $TWV->version];
@@ -70,7 +70,7 @@ class Tiki_Connect_Client extends Tiki_Connect_Abstract
 		return $info;
 	}
 
-	function getLastDataSent()
+	public function getLastDataSent()
 	{
 		$res = $this->connectTable->fetchAll(
 			['created', 'data'],
@@ -90,7 +90,7 @@ class Tiki_Connect_Client extends Tiki_Connect_Abstract
 		}
 	}
 
-	function diffDataWithLastSent($data)
+	public function diffDataWithLastSent($data)
 	{
 		$lastData = $this->getLastDataSent();
 
@@ -121,7 +121,7 @@ class Tiki_Connect_Client extends Tiki_Connect_Abstract
 	 * @return string guid
 	 */
 
-	function getPendingGuid()
+	public function getPendingGuid()
 	{
 		$res = TikiDb::get()->getOne(
 			"SELECT `guid` FROM `tiki_connect` WHERE `type` = 'pending' AND " .
@@ -137,7 +137,7 @@ class Tiki_Connect_Client extends Tiki_Connect_Abstract
 	 * @return string guid
 	 */
 
-	function getConfirmedGuid()
+	public function getConfirmedGuid()
 	{
 		$res = $this->connectTable->fetchAll(
 			['created', 'guid'],
@@ -162,7 +162,7 @@ class Tiki_Connect_Client extends Tiki_Connect_Abstract
 	 * @return array of votes
 	 */
 
-	function getVote($pref)
+	public function getVote($pref)
 	{
 		$votes = $this->getVotes();
 		if (isset($votes->$pref)) {
@@ -180,7 +180,7 @@ class Tiki_Connect_Client extends Tiki_Connect_Abstract
 	 * @return array
 	 */
 
-	function getVotes($reload = false)
+	public function getVotes($reload = false)
 	{
 		global $prefs;
 
@@ -199,7 +199,7 @@ class Tiki_Connect_Client extends Tiki_Connect_Abstract
 	 * @return void
 	 */
 
-	function saveVotesForGuid($guid, $votes)
+	public function saveVotesForGuid($guid, $votes)
 	{
 
 		if (is_array($votes) || is_object($votes)) {

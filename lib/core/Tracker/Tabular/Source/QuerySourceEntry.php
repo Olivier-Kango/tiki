@@ -11,12 +11,12 @@ class QuerySourceEntry implements SourceEntryInterface
 {
 	private $data;
 
-	function __construct($data)
+	public function __construct($data)
 	{
 		$this->data = $data;
 	}
 
-	function render(\Tracker\Tabular\Schema\Column $column)
+	public function render(\Tracker\Tabular\Schema\Column $column)
 	{
 		$field = $column->getField();
 		$key = 'tracker_field_' . $field;

@@ -43,7 +43,7 @@ class Tiki_Profile_ChannelList
 		return $list;
 	}
 
-	function canExecuteChannels(array $channelNames, array $groups, $skipInputCheck = false)
+	public function canExecuteChannels(array $channelNames, array $groups, $skipInputCheck = false)
 	{
 		foreach ($channelNames as $channel) {
 			if (! array_key_exists($channel, $this->channels)) {
@@ -78,7 +78,7 @@ class Tiki_Profile_ChannelList
 		return true;
 	}
 
-	function getProfiles(array $channelNames)
+	public function getProfiles(array $channelNames)
 	{
 		$profiles = [];
 
@@ -93,7 +93,7 @@ class Tiki_Profile_ChannelList
 		return $profiles;
 	}
 
-	function addChannel($name, $domain, $profile, $groups)
+	public function addChannel($name, $domain, $profile, $groups)
 	{
 		$this->channels[ $name ] = [
 			'domain' => $domain,
@@ -102,7 +102,7 @@ class Tiki_Profile_ChannelList
 		];
 	}
 
-	function getConfiguration()
+	public function getConfiguration()
 	{
 		$out = '';
 		foreach ($this->channels as $name => $info) {

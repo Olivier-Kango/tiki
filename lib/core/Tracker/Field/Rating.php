@@ -85,7 +85,7 @@ class Tracker_Field_Rating extends Tracker_Field_Abstract
 		];
 	}
 
-	function getFieldData(array $requestData = [])
+	public function getFieldData(array $requestData = [])
 	{
 		$ins_id = $this->getInsertId();
 
@@ -114,12 +114,12 @@ class Tracker_Field_Rating extends Tracker_Field_Abstract
 		];
 	}
 
-	function renderOutput($context = [])
+	public function renderOutput($context = [])
 	{
 		return $this->renderTemplate('trackeroutput/rating.tpl', $context);
 	}
 
-	function renderInput($context = [])
+	public function renderInput($context = [])
 	{
 		if ($this->getConfiguration('type') == 's') {
 			return $this->renderTemplate('trackerinput/rating.tpl', $context);
@@ -133,7 +133,7 @@ class Tracker_Field_Rating extends Tracker_Field_Abstract
 		}
 	}
 
-	function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
+	public function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
 	{
 		$data = $this->gatherVoteData();
 		$baseKey = $this->getBaseKey();
@@ -145,7 +145,7 @@ class Tracker_Field_Rating extends Tracker_Field_Abstract
 		];
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		$baseKey = $this->getBaseKey();
 		return [
@@ -155,7 +155,7 @@ class Tracker_Field_Rating extends Tracker_Field_Abstract
 		];
 	}
 
-	function getGlobalFields()
+	public function getGlobalFields()
 	{
 		return [];
 	}

@@ -51,7 +51,7 @@ class DeclFilter implements \Laminas\Filter\FilterInterface
 	/**
 	 * Applies the registered filters on the provided data.
 	 */
-	function filter($data)
+	public function filter($data)
 	{
 		$keys = array_keys($data);
 
@@ -74,7 +74,7 @@ class DeclFilter implements \Laminas\Filter\FilterInterface
 	 * @var array Key-value pairs in which the key is the key to apply on and
 	 *            the value is the filter or filter name.
 	 */
-	function addStaticKeyFilters(array $filters)
+	public function addStaticKeyFilters(array $filters)
 	{
 		require_once 'DeclFilter/StaticKeyFilterRule.php';
 		$rule = new DeclFilter_StaticKeyFilterRule($filters);
@@ -91,7 +91,7 @@ class DeclFilter implements \Laminas\Filter\FilterInterface
 	 * @var array Key-value pairs in which the key is the key to apply on and
 	 *            the value is the filter or filter name.
 	 */
-	function addStaticKeyFiltersForArrays($filters)
+	public function addStaticKeyFiltersForArrays($filters)
 	{
 		require_once 'DeclFilter/StaticKeyFilterRule.php';
 		$rule = new DeclFilter_StaticKeyFilterRule($filters);
@@ -103,7 +103,7 @@ class DeclFilter implements \Laminas\Filter\FilterInterface
 	/**
 	 * Unset the specifies keys.
 	 */
-	function addStaticKeyUnset(array $keys)
+	public function addStaticKeyUnset(array $keys)
 	{
 		require_once 'DeclFilter/StaticKeyUnsetRule.php';
 		$rule = new DeclFilter_StaticKeyUnsetRule($keys);
@@ -118,7 +118,7 @@ class DeclFilter implements \Laminas\Filter\FilterInterface
 	 *
 	 * @var mixed Filter object or filter name
 	 */
-	function addCatchAllFilter($filter)
+	public function addCatchAllFilter($filter)
 	{
 		require_once 'DeclFilter/CatchAllFilterRule.php';
 		$rule = new DeclFilter_CatchAllFilterRule($filter);
@@ -130,7 +130,7 @@ class DeclFilter implements \Laminas\Filter\FilterInterface
 	/**
 	 * Unset all remaining keys.
 	 */
-	function addCatchAllUnset($param = null)
+	public function addCatchAllUnset($param = null)
 	{
 		require_once 'DeclFilter/CatchAllUnsetRule.php';
 		$rule = new DeclFilter_CatchAllUnsetRule();
@@ -138,7 +138,7 @@ class DeclFilter implements \Laminas\Filter\FilterInterface
 		$this->rules[] = $rule;
 	}
 
-	function addKeyPatternFilters($filters)
+	public function addKeyPatternFilters($filters)
 	{
 		require_once 'DeclFilter/KeyPatternFilterRule.php';
 		$rule = new DeclFilter_KeyPatternFilterRule($filters);
@@ -146,7 +146,7 @@ class DeclFilter implements \Laminas\Filter\FilterInterface
 		$this->rules[] = $rule;
 	}
 
-	function addKeyPatternFiltersForArrays($filters)
+	public function addKeyPatternFiltersForArrays($filters)
 	{
 		require_once 'DeclFilter/KeyPatternFilterRule.php';
 		$rule = new DeclFilter_KeyPatternFilterRule($filters);
@@ -155,7 +155,7 @@ class DeclFilter implements \Laminas\Filter\FilterInterface
 		$this->rules[] = $rule;
 	}
 
-	function addKeyPatternUnset($keys)
+	public function addKeyPatternUnset($keys)
 	{
 		require_once 'DeclFilter/KeyPatternUnsetRule.php';
 		$rule = new DeclFilter_KeyPatternUnsetRule($keys);

@@ -7,7 +7,7 @@
 
 class Tiki_Profile_InstallHandler_Template extends Tiki_Profile_InstallHandler
 {
-	function getData()
+	public function getData()
 	{
 		if ($this->data) {
 			return $this->data;
@@ -25,7 +25,7 @@ class Tiki_Profile_InstallHandler_Template extends Tiki_Profile_InstallHandler
 		return $this->data = $data;
 	}
 
-	function canInstall()
+	public function canInstall()
 	{
 		$data = $this->getData();
 		if (! isset($data['name'])) {
@@ -41,7 +41,7 @@ class Tiki_Profile_InstallHandler_Template extends Tiki_Profile_InstallHandler
 		return true;
 	}
 
-	function _install()
+	public function _install()
 	{
 		$templateslib = TikiLib::lib('template');
 

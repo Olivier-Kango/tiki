@@ -8,7 +8,7 @@ use Tiki\Lib\core\Tracker\Rule\Type\Boolean;
 
 class BooleanTrueFalse extends Operator
 {
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct(tr('is checked'), Boolean::class, '.is(":checked")==%argument%', [Boolean::class]);
 	}

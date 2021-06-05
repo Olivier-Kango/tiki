@@ -11,23 +11,23 @@ use Tiki\MailIn\Action;
 
 class ReplyHandlerProvider implements ProviderInterface
 {
-	function isEnabled()
+	public function isEnabled()
 	{
 		global $prefs;
 		return ! empty($prefs['monitor_reply_email_pattern']);
 	}
 
-	function getType()
+	public function getType()
 	{
 		return 'reply-handler';
 	}
 
-	function getLabel()
+	public function getLabel()
 	{
 		return tr('Reply Handler');
 	}
 
-	function getActionFactory(array $acc)
+	public function getActionFactory(array $acc)
 	{
 		return new Action\RecipientPlaceholderFactory([
 			'comment' => 'Tiki\MailIn\Action\Comment',

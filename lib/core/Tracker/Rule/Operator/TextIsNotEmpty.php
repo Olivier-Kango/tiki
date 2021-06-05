@@ -10,7 +10,7 @@ use Tiki\Lib\core\Tracker\Rule\Type\Text;
 
 class TextIsNotEmpty extends Operator
 {
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct(tr('is not empty'), Nothing::class, '.val()!==""', [Text::class, DateTime::class]);
 	}

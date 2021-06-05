@@ -7,23 +7,23 @@ use Tiki\MailIn\Action;
 class TrackerProvider implements ProviderInterface
 {
 
-	function isEnabled()
+	public function isEnabled()
 	{
 		global $prefs;
 		return $prefs['feature_trackers'] == 'y';
 	}
 
-	function getType()
+	public function getType()
 	{
 		return 'tracker';
 	}
 
-	function getLabel()
+	public function getLabel()
 	{
 		return tr('Store mail in Tracker');
 	}
 
-	function getActionFactory(array $acc)
+	public function getActionFactory(array $acc)
 	{
 		return new Action\DirectFactory('Tiki\MailIn\Action\Tracker', [
 			'attachments' => $acc['attachments'],

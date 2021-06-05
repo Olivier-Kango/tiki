@@ -53,7 +53,7 @@ class Tracker_Field_Icon extends Tracker_Field_Abstract
 		];
 	}
 
-	function getFieldData(array $requestData = [])
+	public function getFieldData(array $requestData = [])
 	{
 		$insertId = $this->getInsertId();
 
@@ -91,7 +91,7 @@ class Tracker_Field_Icon extends Tracker_Field_Abstract
 		);
 	}
 
-	function renderInput($context = [])
+	public function renderInput($context = [])
 	{
 		$filegallib = TikiLib::lib('filegal');
 
@@ -126,7 +126,7 @@ class Tracker_Field_Icon extends Tracker_Field_Abstract
 		);
 	}
 
-	function renderInnerOutput($context = [])
+	public function renderInnerOutput($context = [])
 	{
 		if ($context['list_mode'] === 'csv') {
 			return $this->getValue();
@@ -135,7 +135,7 @@ class Tracker_Field_Icon extends Tracker_Field_Abstract
 		}
 	}
 
-	function handleSave($value, $oldValue)
+	public function handleSave($value, $oldValue)
 	{
 		$value = TikiLib::makeAbsoluteLinkRelative($value);
 		return [
@@ -160,7 +160,7 @@ class Tracker_Field_Icon extends Tracker_Field_Abstract
 		}
 	}
 
-	function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
+	public function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
 	{
 		if ('index' == $this->getOption('update')) {
 			$value = $this->getValue();

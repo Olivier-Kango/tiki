@@ -14,18 +14,18 @@ class FileSystem implements HandlerInterface
 	private $directory;
 	private $preserveFilename = false;
 
-	function __construct($directory)
+	public function __construct($directory)
 	{
 		$this->directory = $directory;
 		$this->directory = rtrim($directory, '/\\');
 	}
 
-	function getFileWrapper($file)
+	public function getFileWrapper($file)
 	{
 		return new PhysicalFile($this->directory, $file->path);
 	}
 
-	function delete($file)
+	public function delete($file)
 	{
 		$full = "{$this->directory}/$file->path";
 
@@ -84,7 +84,7 @@ class FileSystem implements HandlerInterface
 		return $name;
 	}
 
-	function isWritable() {
+	public function isWritable() {
 		return is_writable($this->directory);
 	}
 }

@@ -14,14 +14,14 @@ class ObjectSelector implements Control
 	private $value = '';
 	private $multi = false;
 
-	function __construct($name, array $filters, $multi = false)
+	public function __construct($name, array $filters, $multi = false)
 	{
 		$this->fieldName = $name;
 		$this->filters = $filters;
 		$this->multi = $multi;
 	}
 
-	function applyInput(\JitFilter $input)
+	public function applyInput(\JitFilter $input)
 	{
 		if ($this->multi) {
 			$value = $input->{$this->fieldName}->text();
@@ -34,7 +34,7 @@ class ObjectSelector implements Control
 		}
 	}
 
-	function getQueryArguments()
+	public function getQueryArguments()
 	{
 		if ($this->value) {
 			return [$this->fieldName => $this->value];
@@ -43,34 +43,34 @@ class ObjectSelector implements Control
 		}
 	}
 
-	function getDescription()
+	public function getDescription()
 	{
 		if ($this->value) {
 			return \TikiLib::lib('object')->get_title($this->filters['type'], $this->value);
 		}
 	}
 
-	function getId()
+	public function getId()
 	{
 		return $this->fieldName;
 	}
 
-	function isUsable()
+	public function isUsable()
 	{
 		return true;
 	}
 
-	function hasValue()
+	public function hasValue()
 	{
 		return ! empty($this->value);
 	}
 
-	function getValue()
+	public function getValue()
 	{
 		return $this->value;
 	}
 
-	function __toString()
+	public function __toString()
 	{
 		$params = $this->filters;
 		$params['_simpleid'] = $this->fieldName;

@@ -108,7 +108,7 @@ class Tracker_Field_Location extends Tracker_Field_Abstract implements Tracker_F
 		];
 	}
 
-	function getFieldData(array $requestData = [])
+	public function getFieldData(array $requestData = [])
 	{
 		if (isset($requestData[$this->getInsertId()])) {
 			$value = $requestData[$this->getInsertId()];
@@ -142,13 +142,13 @@ class Tracker_Field_Location extends Tracker_Field_Abstract implements Tracker_F
 		}
 	}
 
-	function renderInput($context = [])
+	public function renderInput($context = [])
 	{
 		TikiLib::lib('header')->add_map();
 		return $this->renderTemplate('trackerinput/location.tpl', $context);
 	}
 
-	function renderOutput($context = [])
+	public function renderOutput($context = [])
 	{
 		if ($context['list_mode'] === 'csv') {
 			return $this->getConfiguration('value');
@@ -168,7 +168,7 @@ class Tracker_Field_Location extends Tracker_Field_Abstract implements Tracker_F
 		}
 	}
 
-	function handleSave($value, $oldValue)
+	public function handleSave($value, $oldValue)
 	{
 		$sourceFieldsList = $this->getOption('sourceFieldsList');
 
@@ -233,22 +233,22 @@ class Tracker_Field_Location extends Tracker_Field_Abstract implements Tracker_F
 		return $out;
 	}
 
-	function importRemote($value)
+	public function importRemote($value)
 	{
 		return $value;
 	}
 
-	function exportRemote($value)
+	public function exportRemote($value)
 	{
 		return $value;
 	}
 
-	function importRemoteField(array $info, array $syncInfo)
+	public function importRemoteField(array $info, array $syncInfo)
 	{
 		return $info;
 	}
 
-	function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
+	public function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
 	{
 		$value = $this->getValue();
 		$sourceFieldsList = $this->getOption('sourceFieldsList');
@@ -279,7 +279,7 @@ class Tracker_Field_Location extends Tracker_Field_Abstract implements Tracker_F
 		];
 	}
 
-	function getTabularSchema()
+	public function getTabularSchema()
 	{
 		$schema = new Tracker\Tabular\Schema($this->getTrackerDefinition());
 

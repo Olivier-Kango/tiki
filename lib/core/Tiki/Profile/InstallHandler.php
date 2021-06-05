@@ -11,15 +11,15 @@ abstract class Tiki_Profile_InstallHandler
 	private $userData;
 	protected $data;
 
-	function __construct(Tiki_Profile_Object $obj, $userData)
+	public function __construct(Tiki_Profile_Object $obj, $userData)
 	{
 		$this->obj = $obj;
 		$this->userData = $userData;
 	}
 
-	abstract function canInstall();
+	abstract public function canInstall();
 
-	final function install()
+	final public function install()
 	{
 		$id = $this->_install();
 		if (empty($id)) {
@@ -33,10 +33,10 @@ abstract class Tiki_Profile_InstallHandler
 		$this->obj->setValue($id);
 	}
 
-	function replaceReferences(&$data) // {{{
+	public function replaceReferences(&$data)
 	{
 		$this->obj->replaceReferences($data, $this->userData);
-	} // }}}
+	}
 
-	abstract function _install();
+	abstract public function _install();
 }

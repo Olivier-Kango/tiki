@@ -13,20 +13,20 @@ interface HandlerInterface
    * Returns a FileWrapper\WrapperInterface for accessing and modifying the file contents
    * and metadata.
    */
-	function getFileWrapper($file);
+	public function getFileWrapper($file);
 
   /**
    * Deletes a file from the underlying storage.
    */
-	function delete($file);
+	public function delete($file);
 
   /**
    * Ensures unique filename is available for new files if underlying storage requires it.
    */
-  function uniquePath($file);
+  public function uniquePath($file);
 
   /**
    * Is the underlying storage location writable.
    */
-  function isWritable();
+  public function isWritable();
 }

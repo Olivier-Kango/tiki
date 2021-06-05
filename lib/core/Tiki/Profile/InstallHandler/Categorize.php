@@ -11,7 +11,7 @@ class Tiki_Profile_InstallHandler_Categorize extends Tiki_Profile_InstallHandler
 	private $object;
 	private $categories = [];
 
-	function fetchData()
+	public function fetchData()
 	{
 		$data = $this->obj->getData();
 
@@ -28,7 +28,7 @@ class Tiki_Profile_InstallHandler_Categorize extends Tiki_Profile_InstallHandler
 		}
 	}
 
-	function canInstall()
+	public function canInstall()
 	{
 		$this->fetchData();
 
@@ -39,7 +39,7 @@ class Tiki_Profile_InstallHandler_Categorize extends Tiki_Profile_InstallHandler
 		return true;
 	}
 
-	function _install()
+	public function _install()
 	{
 		global $tikilib;
 		$this->fetchData();
