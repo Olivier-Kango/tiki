@@ -465,6 +465,7 @@ tiki-package:
       - vendor_bundled/vendor/
       - .composercache/files
     policy: pull
+  dependencies: []
   #dependencies:
   #  - composer
   artifacts:
