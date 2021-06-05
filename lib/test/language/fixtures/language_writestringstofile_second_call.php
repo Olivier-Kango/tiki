@@ -6,4 +6,4 @@ $lang_current = array(
 // "Errors" => "Errors",
 "Errors:" => "خطاها:",
 );
-$lang = array_merge($lang, $lang_current);
+$lang = array_replace($lang, $lang_current);

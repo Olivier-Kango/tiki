@@ -9,4 +9,4 @@ $lang_current = array(
 "Translation is the same as English string" => "Translation is the same as English string",
 // "etc" => "etc",
 );
-$lang = array_merge($lang, $lang_current);
+$lang = array_replace($lang, $lang_current);

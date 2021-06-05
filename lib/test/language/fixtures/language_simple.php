@@ -7,4 +7,4 @@ $lang_current = array(
 // "Second string" => "Second string",
 // "etc" => "etc",
 );
-$lang = array_merge($lang, $lang_current);
+$lang = array_replace($lang, $lang_current);

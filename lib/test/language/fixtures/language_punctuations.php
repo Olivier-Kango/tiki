@@ -12,4 +12,4 @@ $lang_current = array(
 "Add user:" => "Translation",
 // "All users" => "All users",
 );
-$lang = array_merge($lang, $lang_current);
+$lang = array_replace($lang, $lang_current);

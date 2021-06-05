@@ -14,4 +14,4 @@ $lang_current = array(
 /* file4 */
 // "etc" => "etc",
 );
-$lang = array_merge($lang, $lang_current);
+$lang = array_replace($lang, $lang_current);
