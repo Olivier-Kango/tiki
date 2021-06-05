@@ -135,7 +135,7 @@ class FileGalLib extends TikiLib
 	/**
 	 * Functionality to migrate files from image galleries to file galleries
 	 */
-	function migrateFilesFromImageGalleries()
+	final public function migrateFilesFromImageGalleries(): int
 	{
 
 		global $prefs;
@@ -148,6 +148,7 @@ class FileGalLib extends TikiLib
 		$tikiImagesData = TikiDb::get()->table('tiki_images_data');
 
 		$galleryIdMap = [];
+		$rootFileGalleryId = 0;
 
 		if ($tikiImages->fetchCount([])) {
 			$rootFileGalleryId = $this->replace_file_gallery([
@@ -248,6 +249,7 @@ class FileGalLib extends TikiLib
 				}
 			}
 		}
+		return $rootFileGalleryId;
 	}
 
 	/**
