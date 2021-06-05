@@ -49,4 +49,4 @@ $lang_current = array(
 // "Help on \$admintitle Config" => "Help on \$admintitle Config",
 "Congratulations!\n\nYour server can send emails.\n\n" => "Поздравляем!\n\nВаш сервер умеет рассылать письма.\n\n",
 );
-$lang = array_merge($lang, $lang_current);
+$lang = array_replace($lang, $lang_current);

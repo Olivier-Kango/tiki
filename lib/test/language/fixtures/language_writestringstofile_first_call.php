@@ -5,4 +5,4 @@ include('lang/en/language.php'); // Needed for providing a sensible default text
 $lang_current = array(
 "Errors" => "Ошибки",
 );
-$lang = array_merge($lang, $lang_current);
+$lang = array_replace($lang, $lang_current);

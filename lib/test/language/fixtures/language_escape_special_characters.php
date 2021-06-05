@@ -11,4 +11,4 @@ $lang_current = array(
 "Congratulations!\n\nYour server can send emails.\n\n" => "Gratulation!\n\nDein Server kann Emails senden.\n\n",
 // "Handling actions of plugin \"%s\" failed" => "Handling actions of plugin \"%s\" failed",
 );
-$lang = array_merge($lang, $lang_current);
+$lang = array_replace($lang, $lang_current);
