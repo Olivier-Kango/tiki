@@ -476,7 +476,7 @@ class LogsLib extends TikiLib
 			}
 		}
 
-		$amid[] = " a.`action` like c.`action` and a.`objectType` = c.`objectType`" . ($all ? "" : " and (c.`status` = 'v')");
+		$amid[] = " a.`action` = c.`action` and a.`objectType` = c.`objectType`" . ($all ? "" : " and (c.`status` = 'v')");
 
 		if (count($amid)) {
 			$mid = implode(" and ", $amid);
