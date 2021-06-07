@@ -43,11 +43,16 @@ function tiki_parse_message($list_path, $msg_uid) {
         return;
     }
 
-    $email = false;
+    $email = $prev = $next = false;
     foreach ($data['emails'] as $eml) {
         if ($eml['fileId'] == $msg_uid) {
             $email = $eml;
-            break;
+        } else {
+            if (! $email) {
+                $prev = $eml;
+            } elseif (! $next) {
+                $next = $eml;
+            }
         }
     }
 
@@ -61,7 +66,10 @@ function tiki_parse_message($list_path, $msg_uid) {
         return;
     }
 
-    return $email['message_raw'];
+    $email['prev'] = $prev;
+    $email['next'] = $next;
+
+    return $email;
 }}
 
 /**

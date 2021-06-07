@@ -125,6 +125,7 @@ add_handler('ajax_tiki_message_content', 'close_session_early',  true, 'core');
 add_output('ajax_tiki_message_content', 'filter_message_headers', true, 'imap');
 add_output('ajax_tiki_message_content', 'filter_message_body', true, 'imap');
 add_output('ajax_tiki_message_content', 'filter_message_struct', true, 'imap');
+add_output('ajax_tiki_message_content', 'add_prev_next_links', true);
 
 return array(
   'allowed_pages' => array(
@@ -147,6 +148,10 @@ return array(
     'operator' => array(FILTER_SANITIZE_STRING, false),
     'item_removed' => array(FILTER_VALIDATE_BOOLEAN, false),
     'redirect_url' => array(FILTER_SANITIZE_STRING, false),
+    'msg_prev_link' => array(FILTER_SANITIZE_STRING, false),
+    'msg_prev_subject' => array(FILTER_SANITIZE_STRING, false),
+    'msg_next_link' => array(FILTER_SANITIZE_STRING, false),
+    'msg_next_subject' => array(FILTER_SANITIZE_STRING, false),
   ),
   'allowed_post' => array(
     'imap_server_id' => FILTER_VALIDATE_INT,

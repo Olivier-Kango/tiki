@@ -156,10 +156,12 @@ class Hm_Handler_tiki_message_content extends Hm_Handler_Module {
         }
         $this->out('header_allow_images', $this->config->get('allow_external_image_sources'));
 
-        $message = tiki_parse_message($this->request->post['list_path'], $form['imap_msg_uid']);
-        if (! $message) {
+        $email = tiki_parse_message($this->request->post['list_path'], $form['imap_msg_uid']);
+        if (! $email) {
             return;
         }
+
+        $message = $email['message_raw'];
 
         $msg_headers = [];
         foreach ($message->getAllHeaders() as $header) {
@@ -184,7 +186,12 @@ class Hm_Handler_tiki_message_content extends Hm_Handler_Module {
                 $part = $message->getTextPart();
             }
         }
-        $msg_text = $part->getContent();
+        if ($part_num !== false && $part_num == 0) {
+            $file = Tiki\FileGallery\File::id($email['fileId']);
+            $msg_text = $file->getContents();
+        } else {
+            $msg_text = $part->getContent();
+        }
         $list = explode('/', $part->getContentType());
         $msg_struct_current = [
             'type' => $list[0],
@@ -206,13 +213,21 @@ class Hm_Handler_tiki_message_content extends Hm_Handler_Module {
         $this->out('msg_text', $msg_text);
         $this->out('msg_download_args', sprintf("page=message&amp;uid=%s&amp;list_path=%s&amp;tiki_download_message=1", $form['imap_msg_uid'], $this->request->post['list_path']));
         $this->out('msg_show_args', sprintf("page=message&amp;uid=%s&amp;list_path=%s&amp;tiki_show_message=1", $form['imap_msg_uid'], $this->request->post['list_path']));
+        if ($email['prev']) {
+            $this->out('msg_prev_link', sprintf("?page=message&amp;uid=%s&amp;list_path=tracker_folder_%s_%s&list_parent=tracker_%s", $email['prev']['fileId'], $email['prev']['itemId'], $email['prev']['fieldId'], $email['prev']['trackerId']));
+            $this->out('msg_prev_subject', $email['prev']['subject']);
+        }
+        if ($email['next']) {
+            $this->out('msg_next_link', sprintf("?page=message&amp;uid=%s&amp;list_path=tracker_folder_%s_%s&list_parent=tracker_%s", $email['next']['fileId'], $email['next']['itemId'], $email['next']['fieldId'], $email['next']['trackerId']));
+            $this->out('msg_next_subject', $email['next']['subject']);
+        }
 
         clear_existing_reply_details($this->session);
         if ($part == 0) {
             $msg_struct_current['type'] = 'text';
             $msg_struct_current['subtype'] = 'plain';
         }
-        $this->session->set(sprintf('reply_details__%s', $this->request->post['list_path'], $form['imap_msg_uid']),
+        $this->session->set(sprintf('reply_details_%s_%s', $this->request->post['list_path'], $form['imap_msg_uid']),
             array('ts' => time(), 'msg_struct' => $msg_struct_current, 'msg_text' => $msg_text, 'msg_headers' => $msg_headers));
     }
 }
@@ -244,11 +259,12 @@ class Hm_Handler_tiki_download_message extends Hm_Handler_Module {
                 $msg_id = $this->request->get['imap_msg_part'];
             }
             if ($list_path !== NULL && $uid !== NULL && $msg_id !== NULL) {
-                $message = tiki_parse_message($list_path, $uid);
-                if (! $message) {
+                $email = tiki_parse_message($list_path, $uid);
+                if (! $email) {
                     return;
                 }
 
+                $message = $email['message_raw'];
                 $part = tiki_get_mime_part($message, $msg_id);
 
                 if ($download) {
@@ -289,6 +305,19 @@ class Hm_Output_add_move_to_trackers extends Hm_Output_Module {
         $headers = $this->get('msg_headers');
         $headers = preg_replace("#<a class=\"archive_link[^>]*>.*?</a>#", "\\0 ".$res, $headers);
         $this->out('msg_headers', $headers, false);
+    }
+}
+
+/**
+ * Forward prev/next links to the frontend
+ * @subpackage tiki/output
+ */
+class Hm_Output_add_prev_next_links extends Hm_Output_Module {
+    protected function output() {
+        $this->out('msg_prev_link', $this->get('msg_prev_link'));
+        $this->out('msg_prev_subject', $this->get('msg_prev_subject'));
+        $this->out('msg_next_link', $this->get('msg_next_link'));
+        $this->out('msg_next_subject', $this->get('msg_next_subject'));
     }
 }
 
