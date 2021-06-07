@@ -53,7 +53,11 @@ class EmailParser extends Manipulator
 
 	protected function getRawAddress($header) {
 		if ($header) {
-			return $header->getRawValue();
+			if (function_exists('mb_decode_mimeheader')) {
+				return mb_decode_mimeheader($header->getRawValue());
+			} else {
+				return $header->getRawValue();
+			}
 		} else {
 			return '';
 		}

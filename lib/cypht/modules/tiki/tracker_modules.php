@@ -163,7 +163,11 @@ class Hm_Handler_tiki_message_content extends Hm_Handler_Module {
 
         $msg_headers = [];
         foreach ($message->getAllHeaders() as $header) {
-            $msg_headers[$header->getName()] = $header->getRawValue();
+            if (function_exists('mb_decode_mimeheader')) {
+                $msg_headers[$header->getName()] = mb_decode_mimeheader($header->getRawValue());
+            } else {
+                $msg_headers[$header->getName()] = $header->getRawValue();
+            }
         }
         $msg_struct = tiki_mime_part_to_bodystructure($message);
         $msg_struct_current = [];
@@ -186,8 +190,8 @@ class Hm_Handler_tiki_message_content extends Hm_Handler_Module {
             'type' => $list[0],
             'subtype' => $list[1],
         ];
-        if ($message_struct_current['subtype'] == 'html') {
-            // TODO: $msg_text = add_attached_images($msg_text, $form['imap_msg_uid'], $msg_struct, $imap);
+        if ($msg_struct_current['subtype'] == 'html') {
+            $msg_text = tiki_add_attached_images($message, $msg_text);
         }
 
         $this->out('msg_struct', $msg_struct);
@@ -248,8 +252,8 @@ class Hm_Handler_tiki_download_message extends Hm_Handler_Module {
                 $part = tiki_get_mime_part($message, $msg_id);
 
                 if ($download) {
-                    $struct = tiki_mime_part_to_bodystructure($part, "0'");
-                    $name = get_imap_part_name($struct[0], $uid, $msg_id);
+                    $struct = tiki_mime_part_to_bodystructure($part, "0");
+                    $name = get_imap_part_name($struct[0], $uid, preg_replace("/^0\./", "", $msg_id));
                     header('Content-Disposition: attachment; filename="'.$name.'"');
                 }
 

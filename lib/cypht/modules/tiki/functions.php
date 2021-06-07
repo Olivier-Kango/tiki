@@ -77,8 +77,8 @@ function tiki_mime_part_to_bodystructure($part, $part_num = '0') {
     $header = $part->getHeader('Content-Type');
     $attributes = [];
     foreach (['boundary', 'charset', 'name'] as $param) {
-        if ($header->hasParameter($name)) {
-            $attributes[$name] = $header->getValueFor($name);
+        if ($header->hasParameter($param)) {
+            $attributes[$param] = $header->getValueFor($param);
         }
     }
     $header = $part->getHeader('Content-Disposition');
@@ -136,4 +136,26 @@ function tiki_get_mime_part($part, $part_num = '0') {
         }
     }
     return null;
+}}
+
+
+/**
+ * Replace inline images in an HTML message part
+ * @subpackage tiki/functions
+ * @param ZBateson\MailMimeParser\Message\Part\MimePart $message the mime message part
+ * @param string $txt HTML
+ */
+if (!hm_exists('tiki_add_attached_images')) {
+function tiki_add_attached_images($message, $txt) {
+    if (preg_match_all("/src=('|\"|)cid:([^\s'\"]+)/", $txt, $matches)) {
+        $cids = array_pop($matches);
+        foreach ($cids as $id) {
+            $part = $message->getPartByContentId($id);
+            if (substr($part->getContentType(), 0, 5) != 'image') {
+                continue;
+            }
+            $txt = str_replace('cid:'.$id, 'data:'.$part->getContentType().';base64,'.base64_encode($part->getContent()), $txt);
+        }
+    }
+    return $txt;
 }}
