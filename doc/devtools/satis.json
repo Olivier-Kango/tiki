@@ -1885,6 +1885,7 @@
 		"components/jquery-migrate": ">=3.0.0",
 		"components/jqueryui": ">=1.12",
 		"components/revealjs": ">=3.6",
+		"composer/ca-bundle" : "1.0.0 || dev-main || ^1.2.9",
 		"composer/semver": "^1.5",
 		"container-interop/container-interop": ">=1.0",
 		"css-tricks/anythingslider-themes": ">=1.4.1",
