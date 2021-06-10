@@ -3788,7 +3788,7 @@ class Comments extends TikiLib
 			$errors[] = tra('A contribution is mandatory');
 		}
 		//if original post, comment title is necessary. Message is also necessary unless, pref says message is not.
-		if (empty($params['comments_reply_threadId'])) {
+		if (empty($params['comments_reply_threadId']) && empty($params['comments_threadId'])) {
 			if (empty($params['comments_title']) || (empty($params['comments_data']) && $prefs['feature_forums_allow_thread_titles'] != 'y')) {
 				$errors[] = tra('Please enter a Title and Message for your new forum topic.');
 			}
