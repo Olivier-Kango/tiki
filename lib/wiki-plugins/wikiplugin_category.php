@@ -32,8 +32,7 @@ function wikiplugin_category_info()
 				'description' => tra('List of object types to include in the list, separated by "+", for example, ')
 					. '<code>article+blog+blog post+fgal</code>',
 				'since' => '1',
-				'accepted' => 'article, blog, blog post, fgal, forum, igal, newsletter, event, poll, quiz, survey,
-					tracker, wiki, img',
+				'accepted' => 'article, blog, blog post, fgal, forum, newsletter, event, poll, quiz, survey, tracker, wiki, img',
 				'filter' => 'text',
 				'default' => '*',
 			],

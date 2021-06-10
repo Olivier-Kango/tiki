@@ -44,8 +44,6 @@ class AvatarLib extends TikiLib
 
 		/** @var UserPrefsLib $userprefslib */
 		$userprefslib = TikiLib::lib('userprefs');
-		/** @var ImageGalsLib $imagegallib */
-		$imagegallib = TikiLib::lib('imagegal');
 
 		if (empty($userwatch)) {
 			$userwatch = $user;
@@ -115,8 +113,7 @@ class AvatarLib extends TikiLib
 					imagefill($t, 0, 0, $trans_colour);
 					imagecopyresampled($t, $img, 0, 0, 0, 0, $tw, $ty, $size_x, $size_y);
 				} else {
-					$t = imagecreate($tw, $ty);
-					$imagegallib->ImageCopyResampleBicubic($t, $img, 0, 0, 0, 0, $tw, $ty, $size_x, $size_y);
+					// TODO ImageGalleryRemoval23.x - replace imagick if no GD
 				}
 				// CHECK IF THIS TEMP IS WRITEABLE OR CHANGE THE PATH TO A WRITEABLE DIRECTORY
 				$tmpfname = tempnam($prefs['tmpDir'], "TMPIMG");

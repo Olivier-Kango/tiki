@@ -583,10 +583,6 @@ if ($prefs['feature_search'] !== 'y' || $prefs['unified_add_to_categ_search'] !=
 		false
 	);
 
-	if ($prefs['feature_galleries'] == 'y') {
-		$galleries = $tikilib->list_galleries($offset, -1, 'name_desc', 'admin', $find_objects);
-	}
-
 	if ($prefs['feature_file_galleries'] == 'y') {
 		$filegallib = TikiLib::lib('filegal');
 		$file_galleries = $filegallib->list_file_galleries(

@@ -575,6 +575,15 @@ class CheckSchemaUpgrade
 		$dbConnection->exec("ALTER TABLE `tiki_actionlog_conf` AUTO_INCREMENT = 1");
 		$dbConnection->exec("INSERT INTO `tiki_actionlog_conf` SELECT * FROM `tiki_actionlog_conf_tmp`");
 		$dbConnection->exec("DROP TABLE `tiki_actionlog_conf_tmp`");
+
+		// reload tiki_sefurl_regex_out in the upgraded tiki to account for the case where an old entry is removed
+		$dbConnection->exec("CREATE TABLE `tiki_sefurl_regex_out_tmp` AS SELECT * FROM `tiki_sefurl_regex_out` ORDER BY `order`, `id`");
+		$dbConnection->exec("ALTER TABLE `tiki_sefurl_regex_out_tmp` CHANGE COLUMN id id int NULL");
+		$dbConnection->exec("UPDATE `tiki_sefurl_regex_out_tmp` SET id=NULL");
+		$dbConnection->exec("DELETE FROM `tiki_sefurl_regex_out`");
+		$dbConnection->exec("ALTER TABLE `tiki_sefurl_regex_out` AUTO_INCREMENT = 1");
+		$dbConnection->exec("INSERT INTO `tiki_sefurl_regex_out` SELECT * FROM `tiki_sefurl_regex_out_tmp`");
+		$dbConnection->exec("DROP TABLE `tiki_sefurl_regex_out_tmp`");
 	}
 
 	/**
@@ -589,7 +598,7 @@ class CheckSchemaUpgrade
 		$argv = $GLOBALS['argv'];
 		$fakeArgv = [
 			$argv[0],
-			sprintf('--server1=%s:%s@%s', $this->oldDb['user'], $this->oldDb['pass'], $this->oldDb['host']),
+				sprintf('--server1=%s:%s@%s', $this->oldDb['user'], $this->oldDb['pass'], $this->oldDb['host']),
 			sprintf('--server2=%s:%s@%s', $this->newDb['user'], $this->newDb['pass'], $this->newDb['host']),
 			'--type=all',
 			'--include=all',

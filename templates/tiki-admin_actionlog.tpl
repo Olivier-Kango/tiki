@@ -155,13 +155,9 @@
 									{/foreach}
 								</select>
 								<br>
-								{tr}Save graphs to image gallery:{/tr}
-								<select name="galleryId">
-									<option value="" selected="selected"/>
-									{foreach item=gallery from=$galleries}
-										<option value="{$gallery.galleryId|escape}">{$gallery.name}</option>
-									{/foreach}
-								</select>
+								{*tr}Save graphs to image gallery:{/tr*}
+								{* TODO ImageGalleryRemoval23.x *}
+
 							{/if}
 						</div>
 					{/if}

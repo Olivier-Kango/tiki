@@ -403,12 +403,6 @@ $admin_icons = [
 		'description' => tr('Settings for blogs'),
 		'help' => 'Blog',
 	],
-	"gal" => [
-		'title' => tr('Image Galleries'),
-		'disabled' => $prefs['feature_galleries'] != 'y',
-		'description' => tr('Defaults and configuration for image galleries (will be phased out in favour of file galleries)'),
-		'help' => 'Image Gallery',
-	],
 	"articles" => [
 		'title' => tr('Articles'),
 		'disabled' => $prefs['feature_articles'] != 'y',

@@ -187,16 +187,6 @@ function prefs_users_list()
 			'default' => 'y',
 			'tags' => ['basic'],
 		],
-		'users_prefs_mytiki_gals' => [
-			'name' => tra('My galleries'),
-			'type' => 'flag',
-			'description' => tr('List all galleries edited by the user.'),
-			'dependencies' => [
-				'feature_galleries',
-			],
-			'default' => 'y',
-			'tags' => ['basic'],
-		],
 		'users_prefs_mytiki_msgs' => [
 			'name' => tra('My messages'),
 			'type' => 'flag',

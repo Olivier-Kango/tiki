@@ -25,14 +25,6 @@
 					{tr}Wiki pages{/tr}
 				</a>
 			{/if}
-			{if $prefs.feature_galleries eq 'y'}
-				<a class="dropdown-item" {if $type eq 'image gallery'} id="highlight"{/if} href="tiki-browse_categories.php?find={$find|escape:"url"}&amp;deep={$deep|escape:"url"}&amp;type=image+gallery&amp;parentId={$parentId|escape:"url"}&amp;sort_mode={$sort_mode|escape:"url"}">
-					{tr}Image galleries{/tr}
-				</a>
-				<a class="dropdown-item" {if $type eq 'image'} id="highlight"{/if} href="tiki-browse_categories.php?find={$find|escape:"url"}&amp;deep={$deep|escape:"url"}&amp;type=image&amp;parentId={$parentId|escape:"url"}&amp;sort_mode={$sort_mode|escape:"url"}">
-					{tr}Images{/tr}
-				</a>
-			{/if}
 			{if $prefs.feature_file_galleries eq 'y'}
 				<a class="dropdown-item" {if $type eq 'file gallery'}id="highlight"{/if} href="tiki-browse_categories.php?find={$find|escape:"url"}&amp;deep={$deep|escape:"url"}&amp;type=file+gallery&amp;parentId={$parentId|escape:"url"}&amp;sort_mode={$sort_mode|escape:"url"}">
 					{tr}File Galleries{/tr}

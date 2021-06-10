@@ -52,38 +52,6 @@
 		</div>
 	{/if}
 
-	{if $prefs.feature_galleries eq 'y' and $mytiki_gals eq 'y'}
-		<div id="content2" class="content clearfix mb-4">
-			<h4>{if $userwatch eq $user}{tr}My galleries{/tr}{else}{tr}User Galleries{/tr}{/if}</h4>
-			<div class="table-responsive">
-				<table class="table table-striped table-hover">
-					<tr>
-						<th>{tr}Gallery{/tr}</th>
-						<th style="width:50px"></th>
-					</tr>
-
-					{section name=ix loop=$user_galleries}
-						<tr>
-							<td class="text">
-								<a class="tips" title=":{tr}View{/tr}" href="{$user_galleries[ix].galleryId|sefurl:gallery}">
-									{$user_galleries[ix].name}
-								</a>
-							</td>
-							<td class="action">
-								<a class="tips" href="tiki-galleries.php?editgal={$user_galleries[ix].galleryId}" title=":{tr}Edit{/tr}">
-									{icon name='edit'}
-								</a>
-							</td>
-						</tr>
-					{/section}
-				</table>
-			</div>
-			<ul class="nav nav-pills float-right">
-				<li><a href="#">{tr}Records{/tr} <span class="badge badge-secondary">{$user_galleries|@count}</span></a></li>
-			</ul>
-		</div>
-	{/if}
-
 	{if $prefs.feature_articles eq 'y' and $mytiki_articles eq 'y'}
 		<div id="content3" class="content clearfix mb-4">
 			<h4>{if $userwatch eq $user}{tr}My Articles{/tr}{else}{tr}User Articles{/tr}{/if}</h4>

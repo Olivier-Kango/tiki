@@ -1522,30 +1522,9 @@ class LogsLib extends TikiLib
 
 	function insert_image($galleryId, $graph, $ext, $title, $period)
 	{
-		global $prefs, $user;
-		$imagegallib = TikiLib::lib('imagegal');
+		// TODO ImageGalleryRemoval23.x replace with file gallery if still needed
+		Feedback::warning(tr('Logs lib `insert_image` image gallery functionality needs to be replace with file gallery equivalent'));
 
-		$filename = $prefs['tmpDir'] . '/' . md5(rand() . time()) . '.' . $ext;
-		$graph->Stroke($filename);
-		$info = getimagesize($filename);
-		$size = filesize($filename);
-		$fp = fopen($filename, "rb");
-		$data = fread($fp, $size);
-		fclose($fp);
-		$imagegallib->insert_image(
-			$_REQUEST['galleryId'],
-			$title . $period,
-			'',
-			$title . $period . '.' . $ext,
-			'image/' . $ext,
-			$data,
-			$size,
-			$info[0],
-			$info[1],
-			$user,
-			'',
-			''
-		);
 	}
 
 	function get_more_info($actions, $categNames = [])
@@ -1623,26 +1602,6 @@ class LogsLib extends TikiLib
 					}
 					break;
 
-				case 'image gallery':
-					if ($action['action'] == 'Uploaded') {
-						$action['link'] = 'tiki-browse_image.php?galleryId=' . $action['object'] . '&' . $action['comment'];
-					} else {
-						$action['link'] = 'tiki-browse_gallery.php?galleryId=' . $action['object'];
-					}
-
-					if (! isset($imageGalleryNames)) {
-						$imagegallib = TikiLib::lib('imagegal');
-						$objects = $imagegallib->list_galleries(0, -1, 'name_asc', 'admin');
-						foreach ($objects['data'] as $object) {
-							$imageGalleryNames[$object['galleryId']] = $object['name'];
-						}
-					}
-
-					if (! empty($imageGalleryNames[$action['object']])) {
-						$action['object'] = $imageGalleryNames[$action['object']];
-					}
-					break;
-
 				case 'file gallery':
 					if ($action['action'] == 'Uploaded' || $action['action'] == 'Downloaded') {
 						$action['link'] = 'tiki-upload_file.php?galleryId=' . $action['object'] . '&' . $action['comment'];
@@ -1681,9 +1640,6 @@ class LogsLib extends TikiLib
 							$action['link'] = 'tiki-list_file_gallery.php?galleryId=' . $action['object'] . $matches[2];
 							break;
 
-						case 'image gallery':
-							$action['link'] = 'tiki-browse_gallery.php?galleryId=' . $action['object'] . $matches[2];
-							break;
 					}
 
 					break;

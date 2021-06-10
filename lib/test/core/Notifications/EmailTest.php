@@ -156,6 +156,7 @@ class EmailTest extends TestCase
 		// make sure the threads pref is set
 		$tikilib = TikiLib::lib('tiki');
 		$tikilib->set_preference('forum_notifications_use_new_threads', 'n');
+		$tikilib->set_preference('user_blog_watch_editor', 'n');
 
 		$commentsLib = TikiLib::lib('comments');
 		$blogLib = TikiLib::lib('blog');

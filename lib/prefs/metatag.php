@@ -35,15 +35,6 @@ function prefs_metatag_list()
 			],
 			'default' => 'n',
 		],
-		'metatag_imagetitle' => [
-			'name' => tra('Use the image title instead'),
-			'description' => tra('Use the image title in the meta title tag'),
-			'type' => 'flag',
-			'dependencies' => [
-				'feature_galleries',
-			],
-			'default' => 'n',
-		],
 		'metatag_description' => [
 			'name' => tra('Description'),
 			'description' => tra('A short description of the website. Some search engines display this information with the website\'s listing.'),

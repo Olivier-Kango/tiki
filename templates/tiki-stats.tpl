@@ -9,9 +9,6 @@
 			{if $wiki_stats}
 				{button href="#wiki_stats" _type="link" class="btn btn-link" _icon_name="file-text" _text="{tr}Wiki{/tr}"}
 			{/if}
-			{if $igal_stats}
-				{button href="#igal_stats" _type="link" class="btn btn-link" _icon_name="file-image-o" _text="{tr}Image galleries{/tr}"}
-			{/if}
 			{if $fgal_stats}
 				{button href="#fgal_stats" _type="link" class="btn btn-link" _icon_name="folder-open-o" _text="{tr}File Galleries{/tr}"}
 			{/if}
@@ -117,39 +114,6 @@
 					<tr>
 						<td>{tr}Average links per page{/tr}</td>
 						<td style="text-align:right;">{$wiki_stats.lpp|string_format:"%.2f"}</td>
-					</tr>
-				</table>
-			</div>
-		{/if}
-
-		{if $igal_stats}
-			<h2 id="igal_stats">{tr}Image galleries Stats{/tr}</h2>
-			{cycle values="odd,even" print=false advance=false}
-			<div class="table-responsive">
-				<table class="table table-striped">
-					<tr>
-						<td>{tr}Galleries{/tr}</td>
-						<td style="text-align:right;">{$igal_stats.galleries}</td>
-					</tr>
-					<tr>
-						<td>{tr}Images{/tr}</td>
-						<td style="text-align:right;">{$igal_stats.images}</td>
-					</tr>
-					<tr>
-						<td>{tr}Average images per gallery{/tr}</td>
-						<td style="text-align:right;">{$igal_stats.ipg|string_format:"%.2f"}</td>
-					</tr>
-					<tr>
-						<td>{tr}Total size of images{/tr}</td>
-						<td style="text-align:right;">{$igal_stats.size} {tr}Mb{/tr}</td>
-					</tr>
-					<tr>
-						<td>{tr}Average image size{/tr}</td>
-						<td style="text-align:right;">{$igal_stats.bpi|string_format:"%.2f"} {tr}bytes{/tr}</td>
-					</tr>
-					<tr>
-						<td>{tr}Visits to image galleries{/tr}</td>
-						<td style="text-align:right;">{$igal_stats.visits|@default:'0'}</td>
 					</tr>
 				</table>
 			</div>

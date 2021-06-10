@@ -130,7 +130,6 @@
 					{preference name=feature_slideshow}
 					{preference name=feature_slideshow_pdfexport}
 					{preference name=feature_faqs}
-					{preference name=feature_galleries}
 				</div>
 				<fieldset class="mb-3 w-100 clearfix featurelist">
 					<legend><h4 class="showhide_heading" id="Progressive_Web_App"> {tr}Progressive Web App{/tr}  <a href="#Progressive_Web_App" class="heading-link"><span class="icon icon-link fas fa-link "></span></a></h4></legend>

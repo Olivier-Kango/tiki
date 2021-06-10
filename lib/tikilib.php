@@ -1134,9 +1134,6 @@ class TikiLib extends TikiDb_Bridge
 					case 'calendar_changed':
 						$res['perm'] = $this->user_has_perm_on_object($res['user'], $object, 'calendar', 'tiki_p_view_calendar');
 						break;
-					case 'image_gallery_changed':
-						$res['perm'] = $this->user_has_perm_on_object($res['user'], $object, 'image gallery', 'tiki_p_view_image_gallery');
-						break;
 					case 'category_changed':
 						$categlib = TikiLib::lib('categ');
 						$res['perm'] = $categlib->has_view_permission($res['user'], $object);
@@ -2811,18 +2808,6 @@ class TikiLib extends TikiDb_Bridge
 					$blog = $bloglib->get_blog($blogId);
 					$objectLink = ! empty($blog['title']) ? '[' . $uri . '|' . $blog['title'] . ']' : '';
 					break;
-				case (substr($slug, 0, 11) === 'browseimage' || substr($slug, 0, 5) === 'image' || substr($slug, 0, 3) === 'img'):
-					if (substr($slug, 0, 11) === 'browseimage') {
-						$imageId = substr($slug, 11);
-					} elseif (substr($slug, 0, 5) === 'image') {
-						$imageId = substr($slug, 5);
-					} else {
-						$imageId = substr($slug, 3);
-					}
-					$imagegallib = TikiLib::lib('imagegal');
-					$image = $imagegallib->get_image_info($imageId);
-					$objectLink = ! empty($image['name']) ? '[' . $uri . '|' . $image['name'] . ']' : '';
-					break;
 				case substr($slug, 0, 8) === 'calevent':
 					$eventId = substr($slug, 8);
 					$calendarlib = TikiLib::lib('calendar');
@@ -3037,12 +3022,6 @@ class TikiLib extends TikiDb_Bridge
 					$commentslib = TikiLib::lib('comments');
 					$forum = $commentslib->get_forum($forumId);
 					$objectLink = ! empty($forum['name']) ? '[' . $uri . '|' . $forum['name'] . ']' : '';
-					break;
-				case (substr($param, 0, 7) === 'imageId' || substr($param, 0, 2) === 'id'):
-					$imageId = (substr($param, 0, 7) === 'imageId') ? substr($param, 8) : substr($param, 3);
-					$imagegallib = TikiLib::lib('imagegal');
-					$image = $imagegallib->get_image_info($imageId);
-					$objectLink = ! empty($image['name']) ? '[' . $uri . '|' . $image['name'] . ']' : '';
 					break;
 				case substr($param, 0, 4) === 'nlId':
 					$newsletterId = substr($param, 5);
@@ -3534,106 +3513,6 @@ class TikiLib extends TikiDb_Bridge
 
 		$structures->delete(['page_ref_id' => $page_ref_id]);
 		return true;
-	}
-
-	/*shared*/
-	/**
-	 * @param int $offset
-	 * @param $maxRecords
-	 * @param string $sort_mode
-	 * @param string $user
-	 * @param null $find
-	 * @return array
-	 */
-	function list_galleries($offset = 0, $maxRecords = -1, $sort_mode = 'name_desc', $user = '', $find = null)
-	{
-		// If $user is admin then get ALL galleries, if not only user galleries are shown
-		global $tiki_p_admin_galleries, $tiki_p_admin;
-
-		$old_sort_mode = '';
-
-		if (in_array($sort_mode, ['images desc', 'images asc'])) {
-			$old_offset = $offset;
-
-			$old_maxRecords = $maxRecords;
-			$old_sort_mode = $sort_mode;
-			$sort_mode = 'user desc';
-			$offset = 0;
-			$maxRecords = -1;
-		}
-
-		// If the user is not admin then select `it` 's own galleries or public galleries
-		if ($tiki_p_admin_galleries === 'y' or $tiki_p_admin === 'y') {
-			$whuser = "";
-			$bindvars = [];
-		} else {
-			$whuser = "where `user`=? or public=?";
-			$bindvars = [$user,'y'];
-		}
-
-		if (! empty($find)) {
-			$findesc = '%' . $find . '%';
-
-			if (empty($whuser)) {
-				$whuser = "where `name` like ? or `description` like ?";
-				$bindvars = [$findesc,$findesc];
-			} else {
-				$whuser .= " and `name` like ? or `description` like ?";
-				$bindvars[] = $findesc;
-				$bindvars[] = $findesc;
-			}
-		}
-
-		// If sort mode is versions then offset is 0, maxRecords is -1 (again) and sort_mode is nil
-		// If sort mode is links then offset is 0, maxRecords is -1 (again) and sort_mode is nil
-		// If sort mode is backlinks then offset is 0, maxRecords is -1 (again) and sort_mode is nil
-		$query = "select * from `tiki_galleries` $whuser order by " . $this->convertSortMode($sort_mode);
-		$query_cant = "select count(*) from `tiki_galleries` $whuser";
-		$result = $this->fetchAll($query, $bindvars, $maxRecords, $offset);
-		$cant = $this->getOne($query_cant, $bindvars);
-		$ret = [];
-
-		$images = $this->table('tiki_images');
-		foreach ($result as $res) {
-			global $user;
-			$add = $this->user_has_perm_on_object($user, $res['galleryId'], 'image gallery', 'tiki_p_view_image_gallery');
-			if ($add) {
-				$aux = [];
-
-				$aux["name"] = $res["name"];
-				$gid = $res["galleryId"];
-				$aux["visible"] = $res["visible"];
-				$aux["id"] = $gid;
-				$aux["galleryId"] = $res["galleryId"];
-				$aux["description"] = $res["description"];
-				$aux["created"] = $res["created"];
-				$aux["lastModif"] = $res["lastModif"];
-				$aux["user"] = $res["user"];
-				$aux["hits"] = $res["hits"];
-				$aux["public"] = $res["public"];
-				$aux["theme"] = $res["theme"];
-				$aux["geographic"] = $res["geographic"];
-				$aux["images"] = $images->fetchCount(['galleryId' => $gid]);
-				$ret[] = $aux;
-			}
-		}
-
-		if ($old_sort_mode == 'images asc') {
-			usort($ret, 'compare_images');
-		}
-
-		if ($old_sort_mode == 'images desc') {
-			usort($ret, 'r_compare_images');
-		}
-
-		if (in_array($old_sort_mode, ['images desc', 'images asc'])) {
-			$ret = array_slice($ret, $old_offset, $old_maxRecords);
-		}
-
-		$retval = [];
-		$retval["data"] = $ret;
-		$retval["cant"] = $cant;
-		return $retval;
 	}
 
 	// Deprecated in favor of list_pages

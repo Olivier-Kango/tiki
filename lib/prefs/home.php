@@ -30,39 +30,7 @@ function prefs_home_list($partial = false)
 			'default' => 1,
 			'profile_reference' => 'file_gallery',
 		],
-		'home_gallery' => [
-			'name' => tra('Home gallery (main gallery)'),
-			'type' => 'list',
-			'options' => $partial ? [] : listimgal_pref(),
-			'default' => 0,
-			'profile_reference' => 'image_gallery',
-		],
 	];
-}
-
-/**
- * listimgal_pref: retrieve the list of image galleries for the home_gallery preference
- *
- * @access public
- * @return array: galleryId => name (truncated)
- */
-function listimgal_pref()
-{
-	$imagegallib = TikiLib::lib('imagegal');
-
-	$allimgals = $imagegallib->list_visible_galleries(0, -1, 'name_desc', 'admin', '');
-
-	$listimgals = [];
-
-	if ($allimgals['cant'] > 0) {
-		foreach ($allimgals['data'] as $oneimgal) {
-			$listimgals[ $oneimgal['galleryId'] ] = substr($oneimgal['name'], 0, 30);
-		}
-	} else {
-		$listimgals[''] = tra('No image gallery available (create one first)');
-	}
-
-	return $listimgals;
 }
 
 /**

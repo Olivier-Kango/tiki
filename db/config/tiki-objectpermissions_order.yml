@@ -315,15 +315,6 @@ faqs:
     - admin_faqs
     - suggest_faq
     - view_faqs
-'image galleries':
-    - admin_galleries
-    - assign_perm_image_gallery
-    - batch_upload_image_dir
-    - batch_upload_images
-    - create_galleries
-    - list_image_galleries
-    - upload_images
-    - view_image_gallery
 media:
     - admin_kaltura
     - list_videos

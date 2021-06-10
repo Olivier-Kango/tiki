@@ -509,38 +509,6 @@ class SearchLib extends TikiLib
 	 * @param int $categId
 	 * @return array
 	 */
-	function find_galleries($words = '', $offset = 0, $maxRecords = -1, $fulltext = false, $filter = '', $boolean = 'n', $searchDate = 0, $categId = 0)
-	{
-		static $search_galleries = [
-			'from' => '`tiki_galleries` g',
-			'name' => 'g.`name`',
-			'data' => 'g.`description`',
-			'hits' => 'g.`hits`',
-			'lastModif' => '`lastModif`',
-			'href' => 'tiki-browse_gallery.php?galleryId=%d',
-			'id' => ['galleryId'],
-			'pageName' => 'g.`name`',
-			'search' => ['g.`name`', 'g.`description`'],
-
-			'permName' => 'tiki_p_view_image_gallery',
-			'objectType' => 'image gallery',
-			'objectKey' => '`galleryId`',
-		];
-
-		return $this->_find($search_galleries, $words, $offset, $maxRecords, $fulltext, $filter, $boolean, tra('Gallery'), $searchDate, $categId);
-	}
-
-	/**
-	 * @param string $words
-	 * @param int $offset
-	 * @param $maxRecords
-	 * @param bool $fulltext
-	 * @param string $filter
-	 * @param string $boolean
-	 * @param int $searchDate
-	 * @param int $categId
-	 * @return array
-	 */
 	function find_faqs($words = '', $offset = 0, $maxRecords = -1, $fulltext = false, $filter = '', $boolean = 'n', $searchDate = 0, $categId = 0)
 	{
 		$search_faqs = [
@@ -606,39 +574,6 @@ class SearchLib extends TikiLib
 			$searchDate,
 			$categId
 		);
-	}
-
-	/**
-	 * @param string $words
-	 * @param int $offset
-	 * @param $maxRecords
-	 * @param bool $fulltext
-	 * @param string $filter
-	 * @param string $boolean
-	 * @param int $searchDate
-	 * @param int $categId
-	 * @return array
-	 */
-	function find_images($words = '', $offset = 0, $maxRecords = -1, $fulltext = false, $filter = '', $boolean = 'n', $searchDate = 0, $categId = 0)
-	{
-		static $search_images = [
-			'from' => '`tiki_images` i',
-			'name' => 'i.`name`',
-			 'data' => 'i.`description`',
-			 'hits' => 'i.`hits`',
-			'lastModif' => 'i.`created`',
-			'href' => 'tiki-browse_image.php?imageId=%d',
-			'id' => ['`imageId`'],
-			'pageName' => 'i.`name`',
-			'search' => ['i.`name`', 'i.`description`'],
-
-			'permName' => 'tiki_p_view_image_gallery',
-			'objectType' => 'image gallery',
-			'objectKey' => '`galleryId`',
-
-		];
-
-		return $this->_find($search_images, $words, $offset, $maxRecords, $fulltext, $filter, $boolean, tra('Image'), $searchDate, $categId);
 	}
 
 	/**
@@ -949,22 +884,8 @@ class SearchLib extends TikiLib
 			$cant += $rv['cant'];
 		}
 
-		if ($prefs['feature_galleries'] == 'y') {
-			$rv = $this->find_galleries($words, $offset, $maxRecords, $fulltext, $filter, $boolean, $searchDate, $categId);
-
-			$data = array_merge($data, $rv['data']);
-			$cant += $rv['cant'];
-		}
-
 		if ($prefs['feature_faqs'] == 'y' && $tiki_p_view_faqs == 'y') {
 			$rv = $this->find_faqs($words, $offset, $maxRecords, $fulltext, $filter, $boolean, $searchDate, $categId);
-
-			$data = array_merge($data, $rv['data']);
-			$cant += $rv['cant'];
-		}
-
-		if ($prefs['feature_galleries'] == 'y') {
-			$rv = $this->find_images($words, $offset, $maxRecords, $fulltext, $filter, $boolean, $searchDate, $categId);
 
 			$data = array_merge($data, $rv['data']);
 			$cant += $rv['cant'];

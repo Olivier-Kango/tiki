@@ -211,15 +211,6 @@
 						</tr>
 					{/if}
 
-					{if $prefs.feature_galleries eq 'y'}
-						<tr>
-							<td>{tr}My galleries{/tr}</td>
-							<td>
-								<input type="checkbox" class="form-check-input" name="mytiki_gals" {if $mytiki_gals eq 'y'}checked="checked"{/if}>
-							</td>
-						</tr>
-					{/if}
-
 					{if $prefs.feature_messages eq 'y' and $tiki_p_messages eq 'y'}
 						<tr>
 							<td>{tr}My messages{/tr}</td>

@@ -54,14 +54,6 @@ if ($prefs['feature_blogs'] == 'y') {
 		$smarty->assign_by_ref('user_blog_posts', $user_blog_posts['data']);
 	}
 }
-if ($prefs['feature_galleries'] == 'y') {
-	$mytiki_gals = $tikilib->get_user_preference($user, 'mytiki_gals', 'y');
-	if ($mytiki_gals == 'y') {
-		$user_galleries = $tikilib->get_user_galleries($userwatch, -1);
-		$smarty->assign_by_ref('user_galleries', $user_galleries);
-		$smarty->assign('mytiki_gals', 'y');
-	}
-}
 if ($prefs['feature_trackers'] == 'y') {
 	$mytiki_user_items = $tikilib->get_user_preference($user, 'mytiki_items', 'y');
 	if ($mytiki_user_items == 'y') {

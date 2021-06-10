@@ -2772,9 +2772,6 @@ class Comments extends TikiLib
 			case 'file gallery':
 				$href = 'tiki-list_file_gallery.php?galleryId=';
 				break;
-			case 'image gallery':
-				$href = 'tiki-browse_gallery.php?galleryId=';
-				break;
 			case 'poll':
 				$href = 'tiki-poll_results.php?pollId=';
 				break;

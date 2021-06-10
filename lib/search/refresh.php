@@ -60,11 +60,6 @@ function refresh_search_index()
 			$locs[] = "random_refresh_index_dir_sites";
 		}
 
-		if ($prefs['feature_galleries'] == 'y') {
-			$locs[] = "random_refresh_imggals";
-			$locs[] = "random_refresh_img";
-		}
-
 		if ($prefs['feature_file_galleries'] == "y") {
 			$locs[] = "random_refresh_filegal";
 			$locs[] = "random_refresh_file";

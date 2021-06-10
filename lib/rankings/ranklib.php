@@ -398,35 +398,6 @@ $query = "select a.*, tf.*, max(b.`commentDate`) as `lastPost` from
 	 * @param $limit
 	 * @return mixed
 	 */
-	function gal_ranking_top_galleries($limit)
-	{
-		global $user;
-		$query = "select * from `tiki_galleries` where `visible`=? order by `hits` desc";
-
-		$result = $this->query($query, ['y']);
-		$ret = [];
-		$count = 0;
-		while (($res = $result->fetchRow()) && $count < $limit) {
-			if ($this->user_has_perm_on_object($user, $res['galleryId'], 'image gallery', 'tiki_p_view_image_gallery')) {
-				$aux['name'] = $res['name'];
-				$aux['hits'] = $res['hits'];
-				$aux['href'] = 'tiki-browse_gallery.php?galleryId=' . $res['galleryId'];
-				$ret[] = $aux;
-				++$count;
-			}
-		}
-
-		$retval["data"] = $ret;
-		$retval["title"] = tra("Wiki top galleries");
-		$retval["y"] = tra("Visits");
-		$retval["type"] = "nb";
-		return $retval;
-	}
-
-	/**
-	 * @param $limit
-	 * @return mixed
-	 */
 	function filegal_ranking_top_galleries($limit)
 	{
 		global $user;
@@ -456,34 +427,6 @@ $query = "select a.*, tf.*, max(b.`commentDate`) as `lastPost` from
 	 * @param $limit
 	 * @return mixed
 	 */
-	function gal_ranking_top_images($limit)
-	{
-		global $user;
-		$query = "select `imageId`, `name`, `hits`, `galleryId` from `tiki_images` order by `hits` desc";
-
-		$result = $this->query($query, [], $limit, 0);
-		$ret = [];
-
-		while ($res = $result->fetchRow()) {
-			if ($this->user_has_perm_on_object($user, $res['galleryId'], 'image gallery', 'tiki_p_view_image_gallery')) {
-				$aux["name"] = $res["name"];
-				$aux["hits"] = $res["hits"];
-				$aux["href"] = 'tiki-browse_image.php?imageId=' . $res["imageId"];
-				$ret[] = $aux;
-			}
-		}
-
-		$retval["data"] = $ret;
-		$retval["title"] = tra("Wiki top images");
-		$retval["y"] = tra("Hits");
-		$retval["type"] = "nb";
-		return $retval;
-	}
-
-	/**
-	 * @param $limit
-	 * @return mixed
-	 */
 	function filegal_ranking_top_files($limit)
 	{
 		global $user;
@@ -505,34 +448,6 @@ $query = "select a.*, tf.*, max(b.`commentDate`) as `lastPost` from
 		$retval["title"] = tra("Wiki top files");
 		$retval["y"] = tra("Downloads");
 		$retval["type"] = "nb";
-		return $retval;
-	}
-
-	/**
-	 * @param $limit
-	 * @return mixed
-	 */
-	function gal_ranking_last_images($limit)
-	{
-		global $user;
-		$query = "select `imageId`,`name`,`created`, `galleryId` from `tiki_images` order by `created` desc";
-
-		$result = $this->query($query, [], $limit, 0);
-		$ret = [];
-
-		while ($res = $result->fetchRow()) {
-			if ($this->user_has_perm_on_object($user, $res['galleryId'], 'image gallery', 'tiki_p_view_image_gallery')) {
-				$aux["name"] = $res["name"];
-				$aux["hits"] = $res["created"];
-				$aux["href"] = 'tiki-browse_image.php?imageId=' . $res["imageId"];
-				$ret[] = $aux;
-			}
-		}
-
-		$retval["data"] = $ret;
-		$retval["title"] = tra("Wiki most-recent images");
-		$retval["y"] = tra("Upload date");
-		$retval["type"] = "date";
 		return $retval;
 	}
 

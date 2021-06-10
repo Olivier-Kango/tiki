@@ -443,10 +443,6 @@ if (! isset($_REQUEST['offset'])) {
 $maximum = 0;
 $maxRecords = $prefs['maxRecords'];
 
-$galleries = $tikilib->list_galleries($offset, $maxRecords, 'lastModif_desc', $user, '');
-$smarty->assign('galleries', $galleries['data']);
-$maximum = max($maximum, $galleries['cant']);
-
 $polls = $polllib->list_active_polls($offset, $maxRecords, 'publishDate_desc', '');
 $smarty->assign('polls', $polls['data']);
 $maximum = max($maximum, $polls['cant']);

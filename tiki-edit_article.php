@@ -473,7 +473,6 @@ if (isset($_REQUEST['preview']) or ! empty($errors)) {
 
 if (isset($_REQUEST['save']) && empty($errors)) {
 	check_ticket('edit-article');
-	$imagegallib = TikiLib::lib('imagegal');
 
 	# convert from the displayed 'site' time to 'server' time
 	if (isset($_REQUEST['publish_Hour'])) {
@@ -588,9 +587,10 @@ if (isset($_REQUEST['save']) && empty($errors)) {
 		$imgname = $_FILES['userfile1']['name'];
 	}
 
+	// TODO ImageGalleryRemoval23.x replace with a file gallery version
 	// Parse $edit and eliminate image references to external URIs (make them internal)
-	$body = $imagegallib->capture_images($body);
-	$heading = $imagegallib->capture_images($heading);
+	//$body = $imagegallib->capture_images($body);
+	//$heading = $imagegallib->capture_images($heading);
 
 	// Convert absolute to relative links
 	$heading = $tikilib->convertAbsoluteLinksToRelative($heading);

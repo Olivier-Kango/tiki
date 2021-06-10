@@ -38,7 +38,6 @@ function tiki_route($path)
 		'faqs' => 'tiki-list_faqs.php',
 		'filelist' => 'tiki-list_file_gallery.php',
 		'forums' => 'tiki-forums.php',
-		'galleries' => 'tiki-galleries.php',
 		'login' => 'tiki-login_scr.php',
 		'logout' => 'tiki-logout.php',
 		'me' => 'tiki-user_information.php',
@@ -72,7 +71,6 @@ function tiki_route($path)
 	tiki_route_attempt('|^blog(\d+)(\-.*)?$|', 'tiki-view_blog.php', tiki_route_single(1, 'blogId'));
 	tiki_route_attempt('|^blogpost(\d+)(\-.*)?$|', 'tiki-view_blog_post.php', tiki_route_single(1, 'postId'));
 	tiki_route_attempt('|^cat(\d+)(\-.*)?$|', 'tiki-browse_categories.php', tiki_route_single(1, 'parentId'));
-	tiki_route_attempt_prefix('browseimage', 'tiki-browse_image.php', 'imageId');
 	tiki_route_attempt('/^event(\d+)(\-.*)?$/', 'tiki-calendar_edit_item.php', tiki_route_single(1, 'viewcalitemId'));
 
 	tiki_route_attempt(
@@ -93,7 +91,7 @@ function tiki_route($path)
 	tiki_route_attempt_prefix('forum', 'tiki-view_forum.php', 'forumId');
 	tiki_route_attempt('|^forumthread(\d+)(\-.*)?$|', 'tiki-view_forum_thread.php', tiki_route_single(1, 'comments_parentId'));
 	tiki_route_attempt_prefix('calevent', 'tiki-calendar_edit_item.php', 'viewcalitemId');
-	tiki_route_attempt_prefix('gallery', 'tiki-browse_gallery.php', 'galleryId');
+	// TODO ImageGalleryRemoval23.x remove these eventually, or now?
 	tiki_route_attempt_prefix('img', 'show_image.php', 'id');
 	tiki_route_attempt_prefix('image', 'show_image.php', 'id');
 	tiki_route_attempt(
@@ -106,6 +104,7 @@ function tiki_route($path)
 			];
 		}
 	);
+	// TODO ImageGalleryRemoval23.x
 	tiki_route_attempt('|^item(\d+)(\-.*)?$|', 'tiki-view_tracker_item.php', tiki_route_single(1, 'itemId'));
 	tiki_route_attempt_prefix('int', 'tiki-integrator.php', 'repID');
 	tiki_route_attempt_prefix('newsletter', 'tiki-newsletters.php', 'nlId', ['info' => '1']);

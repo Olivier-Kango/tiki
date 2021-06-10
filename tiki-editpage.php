@@ -1098,7 +1098,6 @@ if (isset($_REQUEST["save"])
 	if (isset($_REQUEST['wiki_cache'])) {
 		$wikilib->set_page_cache($_REQUEST['page'], $_REQUEST['wiki_cache']);
 	}
-	$imagegallib = TikiLib::lib('imagegal');
 	$cat_desc = ($prefs['feature_wiki_description'] === 'y') ? substr($_REQUEST["description"], 0, 200) : '';
 	$cat_name = $_REQUEST["page"];
 	$cat_href = "tiki-index.php?page=" . urlencode($cat_objid);
@@ -1111,8 +1110,9 @@ if (isset($_REQUEST["save"])
 	// convert absolute to relative links
 	$edit = $tikilib->convertAbsoluteLinksToRelative($edit);
 
+	// TODO ImageGalleryRemoval23.x replace with a file gallery version
 	// Parse $edit and eliminate image references to external URIs (make them internal)
-	$edit = $imagegallib->capture_images($edit);
+	//$edit = $imagegallib->capture_images($edit);
 
 	// add permisions here otherwise return error!
 	if (isset($prefs['wiki_feature_copyrights'])

@@ -162,23 +162,6 @@ function wikiplugin_colorbox($data, $params)
 		} else {
 			$smarty->assign('colorboxThumb', 'display');
 		}
-	} elseif (! empty($params['galId'])) {
-		if ($prefs['feature_galleries'] != 'y') {
-			return tra('This feature is disabled') . ': feature_galleries';
-		}
-		if (! $tikilib->user_has_perm_on_object($user, $params['galId'], 'gallery', 'tiki_p_view_image_gallery')) {
-			return tra('Permission denied');
-		}
-		$imagegallib = TikiLib::lib('imagegal');
-		if (empty($params['sort_mode'])) {
-			$params['sort_mode'] = 'created_desc';
-		}
-		$files = $imagegallib->get_images(0, -1, $params['sort_mode'], '', $params['galId']);
-		$smarty->assign('colorboxUrl', 'show_image.php?id=');
-		$smarty->assign('colorboxColumn', 'imageId');
-		if ($params['thumb'] != 'n') {
-			$smarty->assign('colorboxThumb', 'thumb');
-		}
 	} else {
 		return tra('Incorrect param');
 	}
