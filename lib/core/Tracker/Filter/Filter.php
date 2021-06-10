@@ -14,6 +14,7 @@ class Filter
 	private $position = 'default';
 	private $label;
 	private $help;
+	private $type;
 	private $control;
 	private $applyCondition;
 
@@ -64,6 +65,17 @@ class Filter
 	function getHelp()
 	{
 		return $this->help;
+	}
+
+	function setType($type)
+	{
+		$this->type = $type;
+		return $this;
+	}
+
+	function getType()
+	{
+		return $this->type;
 	}
 
 	function setControl(Control\Control $control)
