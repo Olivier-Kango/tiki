@@ -893,7 +893,7 @@ $('#$fieldid').change(function() {
 });
 ";
 			return $html;
-		} elseif ($field['type'] === 'd') {
+		} elseif (in_array($field['type'], ['d','D','R','M'])) { // or types - dropdown, dropdown with other, radio button. multiselect
 			$data = $handler->getFieldData();
 
 			$options = array_keys($data['possibilities']);
