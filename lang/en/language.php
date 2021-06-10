@@ -4655,6 +4655,7 @@ $lang = array(
 // "Use jQuery upload" => "Use jQuery upload",
 // "Use the improved Tiki 15+ upload page" => "Use the improved Tiki 15+ upload page",
 // "Redirect to file gallery" => "Redirect to file gallery",
+"Redirect migrated image gallery files to file galleries" => "Redirect to file gallery",
 // "If enabled, redirect all requests to images that were migrated from the image gallery to the corresponding file in the file gallery" => "If enabled, redirect all requests to images that were migrated from the image gallery to the corresponding file in the file gallery",
 // "Revision approval" => "Revision approval",
 // "Uses flagged revisions to hide unapproved wiki page revisions from users without necessary privileges" => "Uses flagged revisions to hide unapproved wiki page revisions from users without necessary privileges",
