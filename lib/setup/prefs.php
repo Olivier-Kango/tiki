@@ -206,7 +206,6 @@ function get_default_prefs()
 			'feature_sefurl_paths' => [''], //empty string needed to keep preference from setting unexpectedly
 			'feature_sefurl_routes' => 'n',
 
-			'feature_bidi' => 'n',
 			'feature_lastup' => 'y',
 
 			'terminology_profile_installed' => 'n',
@@ -221,7 +220,6 @@ function get_default_prefs()
 
 	$_SESSION['tmpDir'] = sys_get_temp_dir();
 
-	$prefs['feature_bidi'] = 'n';
 	$prefs['feature_lastup'] = 'y';
 
 	// Be sure we have a default value for user prefs

@@ -20,7 +20,6 @@ $inputConfiguration = [
 require_once('tiki-setup.php');
 
 if (Language::isRTL()) {
-	$prefs['feature_bidi'] = 'y';
 	TikiLib::lib('header')->add_cssfile('vendor_bundled/vendor/hesammousavi/bootstrap-v4-rtl/bootstrap-rtl.min.css', 99); // 99 is high rank order as it should load after all other css files
 }
 

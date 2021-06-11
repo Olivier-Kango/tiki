@@ -91,7 +91,7 @@ window.CKEDITOR.plugins.addExternal( "inlinesave", "' . $tikiroot . 'lib/ckedito
 window.CKEDITOR.config.extraPlugins += (window.CKEDITOR.config.extraPlugins ? ",inlinecancel" : "inlinecancel" );
 window.CKEDITOR.plugins.addExternal( "inlinecancel", "' . $tikiroot . 'lib/ckeditor_tiki/plugins/inlinecancel/");
 window.CKEDITOR.config.ajaxSaveRefreshTime = 30 ;			// RefreshTime
-window.CKEDITOR.config.contentsLangDirection = ' . ($prefs['feature_bidi'] === 'y' ? '"rtl"' : '"ui"') . ';
+window.CKEDITOR.config.contentsLangDirection = ' . (Language::isRTL()  ? '"rtl"' : '"ui"') . ';
 // --- plugins
 window.CKEDITOR.config.autoSavePage = "' . addcslashes($pageName, '"') . '";		// unique reference for each page
 window.CKEDITOR.config.allowedContent = true;
@@ -148,7 +148,7 @@ window.CKEDITOR.config.toolbar = ' . $cktools . ';
 window.CKEDITOR.config.extraPlugins += (window.CKEDITOR.config.extraPlugins ? ",autosave" : "autosave" );
 window.CKEDITOR.plugins.addExternal( "autosave", "' . $tikiroot . 'lib/ckeditor_tiki/plugins/autosave/");
 window.CKEDITOR.config.ajaxAutoSaveRefreshTime = 30 ;			// RefreshTime
-window.CKEDITOR.config.contentsLangDirection = ' . ($prefs['feature_bidi'] === 'y' ? '"rtl"' : '"ui"') . ';
+window.CKEDITOR.config.contentsLangDirection = ' . (Language::isRTL() ? '"rtl"' : '"ui"') . ';
 window.CKEDITOR.config.ajaxAutoSaveSensitivity = 2 ;			// Sensitivity to key strokes
 register_id("' . $dom_id . '","' . addcslashes($auto_save_referrer, '"') . '");	// Register auto_save so it gets removed on submit
 ajaxLoadingShow("' . $dom_id . '");
@@ -181,7 +181,7 @@ ajaxLoadingShow("' . $dom_id . '");
 	templates_files: ["' . $tikiroot . 'lib/ckeditor_tiki/tikitemplates.js"],
 	skin: "' . ($prefs['wysiwyg_toolbar_skin'] != 'default' ? $prefs['wysiwyg_toolbar_skin'] : 'moono') . '",
 	defaultLanguage: "' . $this->languageMap($prefs['language']) . '",
- 	contentsLangDirection: "' . ($prefs['feature_bidi'] === 'y' ? 'rtl' : 'ltr') . '",
+ 	contentsLangDirection: "' . (Language::isRTL() ? 'rtl' : 'ltr') . '",
 	language: "' . ($prefs['feature_detect_language'] === 'y' ? '' : $this->languageMap($prefs['language'])) . '"
 	' . (empty($params['rows']) ? ',height: "' . (empty($params['height']) ? '400' : $params['height']) . '"' : '') . '
 	, resize_dir: "both"
