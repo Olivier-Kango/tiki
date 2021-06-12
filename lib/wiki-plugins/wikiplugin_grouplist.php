@@ -86,7 +86,7 @@ function wikiplugin_grouplist($data, $params)
 	if (! empty($params['own']) && $params['own'] == 'y') {
 		$user_details = $userlib->get_user_details($user);
 		$groups_user = $user_details['groups'];
-		$groups = array_intersect_key($groups_user, $groups);
+		$groups = array_intersect($groups_user, $groups);
 	}
 	$groups = $userlib->get_group_info($groups);
 	$smarty->assign_by_ref('groups', $groups);
