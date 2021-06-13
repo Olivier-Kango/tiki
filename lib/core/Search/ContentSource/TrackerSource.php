@@ -9,17 +9,17 @@ class Search_ContentSource_TrackerSource implements Search_ContentSource_Interfa
 {
 	private $db;
 
-	function __construct()
+	public function __construct()
 	{
 		$this->db = TikiDb::get();
 	}
 
-	function getDocuments()
+	public function getDocuments()
 	{
 		return $this->db->table('tiki_trackers')->fetchColumn('trackerId', []);
 	}
 
-	function getDocument($objectId, Search_Type_Factory_Interface $typeFactory)
+	public function getDocument($objectId, Search_Type_Factory_Interface $typeFactory)
 	{
 		$lib = TikiLib::lib('trk');
 
@@ -44,7 +44,7 @@ class Search_ContentSource_TrackerSource implements Search_ContentSource_Interfa
 		return $data;
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		return [
 			'title',
@@ -59,7 +59,7 @@ class Search_ContentSource_TrackerSource implements Search_ContentSource_Interfa
 		];
 	}
 
-	function getGlobalFields()
+	public function getGlobalFields()
 	{
 		return [
 			'title' => true,

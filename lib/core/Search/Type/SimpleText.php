@@ -9,12 +9,12 @@ class Search_Type_SimpleText implements Search_Type_Interface
 {
 	private $value;
 
-	function __construct($value)
+	public function __construct($value)
 	{
 		$this->value = $value;
 	}
 
-	function getValue()
+	public function getValue()
 	{
 		return TikiLib::strtolower($this->value);
 	}

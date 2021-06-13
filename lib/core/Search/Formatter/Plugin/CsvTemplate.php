@@ -7,12 +7,12 @@
 
 class Search_Formatter_Plugin_CsvTemplate extends Search_Formatter_Plugin_AbstractTableTemplate
 {
-	function getFormat()
+	public function getFormat()
 	{
 		return self::FORMAT_CSV;
 	}
 
-	function prepareEntry($valueFormatter)
+	public function prepareEntry($valueFormatter)
 	{
 		$entry = [];
 		$searchRow = $valueFormatter->getPlainValues();
@@ -30,7 +30,7 @@ class Search_Formatter_Plugin_CsvTemplate extends Search_Formatter_Plugin_Abstra
 		return $entry;
 	}
 
-	function renderEntries(Search_ResultSet $entries)
+	public function renderEntries(Search_ResultSet $entries)
 	{
 		$fh = fopen('php://temp', 'rw');
 		$header = [];

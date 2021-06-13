@@ -11,7 +11,7 @@ class Search_Expr_Tokenizer
 	const OPEN = '(';
 	const CLOSE = ')';
 
-	function tokenize($string)
+	public function tokenize($string)
 	{
 		$tokens = [];
 		$open = false;

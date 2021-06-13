@@ -9,12 +9,12 @@ class Search_Action_Factory
 {
 	private $actions = [];
 
-	function register(array $actions)
+	public function register(array $actions)
 	{
 		$this->actions = array_merge($this->actions, $actions);
 	}
 
-	function fromMatch($match)
+	public function fromMatch($match)
 	{
 		$parser = new WikiParser_PluginArgumentParser;
 		$arrayBuilder = new Search_Formatter_ArrayBuilder;
@@ -31,7 +31,7 @@ class Search_Action_Factory
 		}
 	}
 
-	function build($name, array $data)
+	public function build($name, array $data)
 	{
 		$sequence = new Search_Action_Sequence($name);
 

@@ -22,7 +22,7 @@ class Search_Action_FileGalleryChangeFilename implements Search_Action_Action
 	  '%field_name%' => 'field.name',
 	];
 
-	function getValues()
+	public function getValues()
 	{
 		return [
 		  'object_type' => true,
@@ -33,7 +33,7 @@ class Search_Action_FileGalleryChangeFilename implements Search_Action_Action
 		];
 	}
 
-	function validate(JitFilter $data)
+	public function validate(JitFilter $data)
 	{
 
 		$object_type = $data->object_type->text();
@@ -74,7 +74,7 @@ class Search_Action_FileGalleryChangeFilename implements Search_Action_Action
 		return true;
 	}
 
-	function execute(JitFilter $data)
+	public function execute(JitFilter $data)
 	{
 
 		global $user, $prefs;
@@ -155,7 +155,7 @@ class Search_Action_FileGalleryChangeFilename implements Search_Action_Action
 		return true;
 	}
 
-	function requiresInput(JitFilter $data)
+	public function requiresInput(JitFilter $data)
 	{
 		return false;
 	}

@@ -8,7 +8,7 @@
 class Search_Formatter_ValueFormatter_Timeago extends Search_Formatter_ValueFormatter_Datetime
 {
 
-	function render($name, $value, array $entry)
+	public function render($name, $value, array $entry)
 	{
 		global $prefs;
 

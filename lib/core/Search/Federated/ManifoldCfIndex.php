@@ -12,13 +12,13 @@ class ManifoldCfIndex implements IndexInterface
 	private $type;
 	private $prefix;
 
-	function __construct($type, $urlPrefix)
+	public function __construct($type, $urlPrefix)
 	{
 		$this->type = $type;
 		$this->prefix = $urlPrefix;
 	}
 
-	function getTransformations()
+	public function getTransformations()
 	{
 		return [
 			function ($entry) {
@@ -37,17 +37,17 @@ class ManifoldCfIndex implements IndexInterface
 		];
 	}
 
-	function applyContentConditions(\Search_Query $query, $content)
+	public function applyContentConditions(\Search_Query $query, $content)
 	{
 		$query->filterContent($content, ['file']);
 	}
 
-	function applySimilarConditions(\Search_Query $query, $type, $object)
+	public function applySimilarConditions(\Search_Query $query, $type, $object)
 	{
 		$query->filterSimilar($type, $object, 'file');
 	}
 
-	function getType()
+	public function getType()
 	{
 		return $this->type;
 	}

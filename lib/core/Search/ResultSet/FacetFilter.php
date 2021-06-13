@@ -10,28 +10,28 @@ class Search_ResultSet_FacetFilter
 	private $facet;
 	private $data;
 
-	function __construct(Search_Query_Facet_Interface $facet, array $data)
+	public function __construct(Search_Query_Facet_Interface $facet, array $data)
 	{
 		$this->facet = $facet;
 		$this->data = $data;
 	}
 
-	function isFacet(Search_Query_Facet_Interface $facet)
+	public function isFacet(Search_Query_Facet_Interface $facet)
 	{
 		return $this->facet->getName() === $facet->getName();
 	}
 
-	function getName()
+	public function getName()
 	{
 		return $this->facet->getName();
 	}
 
-	function getLabel()
+	public function getLabel()
 	{
 		return $this->facet->getLabel();
 	}
 
-	function getOperator()
+	public function getOperator()
 	{
 		if (is_a($this->facet, 'Search_Query_Facet_Term')) {
 			return $this->facet->getOperator();
@@ -40,7 +40,7 @@ class Search_ResultSet_FacetFilter
 		}
 	}
 
-	function getOptions()
+	public function getOptions()
 	{
 		$out = [];
 

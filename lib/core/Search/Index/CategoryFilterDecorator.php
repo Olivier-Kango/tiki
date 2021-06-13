@@ -9,13 +9,13 @@ class Search_Index_CategoryFilterDecorator extends Search_Index_AbstractIndexDec
 {
 	private $excluded;
 
-	function __construct(Search_Index_Interface $index, array $excluded)
+	public function __construct(Search_Index_Interface $index, array $excluded)
 	{
 		parent::__construct($index);
 		$this->excluded = $excluded;
 	}
 
-	function addDocument(array $document)
+	public function addDocument(array $document)
 	{
 		if (isset($document['deep_categories'])) {
 			if (method_exists($document['deep_categories'], 'getRawValue')) {

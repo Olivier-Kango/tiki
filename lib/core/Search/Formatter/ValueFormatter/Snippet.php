@@ -10,7 +10,7 @@ class Search_Formatter_ValueFormatter_Snippet extends Search_Formatter_ValueForm
 	private $length = 240;
 	private $suffix = '...';
 
-	function __construct($arguments)
+	public function __construct($arguments)
 	{
 		if (isset($arguments['length'])) {
 			$this->length = (int) $arguments['length'];
@@ -21,7 +21,7 @@ class Search_Formatter_ValueFormatter_Snippet extends Search_Formatter_ValueForm
 		}
 	}
 
-	function render($name, $value, array $entry)
+	public function render($name, $value, array $entry)
 	{
 		$snippet = TikiLib::lib('tiki')->get_snippet($value, '', false, '', $this->length + 1);
 

@@ -7,7 +7,7 @@
 
 class Search_Formatter_ArrayBuilder
 {
-	function getData($string)
+	public function getData($string)
 	{
 		$matches = WikiParser_PluginMatcher::match($string);
 		$parser = new WikiParser_PluginArgumentParser;

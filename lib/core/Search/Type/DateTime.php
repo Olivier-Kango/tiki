@@ -9,7 +9,7 @@ class Search_Type_DateTime implements Search_Type_Interface
 {
 	private $value;
 
-	function __construct($value, $dateOnly = false)
+	public function __construct($value, $dateOnly = false)
 	{
 		if (is_numeric($value)) {
 			if ($dateOnly) {
@@ -25,7 +25,7 @@ class Search_Type_DateTime implements Search_Type_Interface
 		}
 	}
 
-	function getValue()
+	public function getValue()
 	{
 		return $this->value;
 	}

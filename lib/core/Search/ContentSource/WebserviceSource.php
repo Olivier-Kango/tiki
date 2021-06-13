@@ -12,14 +12,14 @@ class Search_ContentSource_WebserviceSource implements Search_ContentSource_Inte
 	private $tiki_webservice_template;
 	private $output;
 
-	function __construct()
+	public function __construct()
 	{
 		$this->db = TikiDb::get();
 		$this->tiki_webservice_template = $this->db->table('tiki_webservice_template');
 		$this->output = [];
 	}
 
-	function getDocuments()
+	public function getDocuments()
 	{
 		// get webservice templates using the index "engine"
 		$rows = $this->tiki_webservice_template->fetchAll(['service', 'template', 'output',], ['engine' => 'index']);
@@ -90,7 +90,7 @@ class Search_ContentSource_WebserviceSource implements Search_ContentSource_Inte
 	 * @param Search_Type_Factory_Interface $typeFactory
 	 * @return array|bool
 	 */
-	function getDocument($templateName, Search_Type_Factory_Interface $typeFactory)
+	public function getDocument($templateName, Search_Type_Factory_Interface $typeFactory)
 	{
 		if (strpos($templateName, ':') !== false) {	// multi-index template from getDocuments
 			list ($templateName, $index) = explode(':', $templateName);
@@ -208,7 +208,7 @@ class Search_ContentSource_WebserviceSource implements Search_ContentSource_Inte
 	 * @param array|mixed $params
 	 * @return bool|mixed|string
 	 */
-	function getData($serviceName, $templateName, $params = null)
+	public function getData($serviceName, $templateName, $params = null)
 	{
 		if ($this->output) {
 			return $this->output;
@@ -238,7 +238,7 @@ class Search_ContentSource_WebserviceSource implements Search_ContentSource_Inte
 		}
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		return [
 			'title',
@@ -251,7 +251,7 @@ class Search_ContentSource_WebserviceSource implements Search_ContentSource_Inte
 		];
 	}
 
-	function getGlobalFields()
+	public function getGlobalFields()
 	{
 		return [
 			'title' => true,

@@ -14,7 +14,7 @@ class Search_ContentSource_ActivityStreamSource implements Search_ContentSource_
 	private $mapping;
 	private $trackerLib;
 
-	function __construct($source = null)
+	public function __construct($source = null)
 	{
 		global $prefs;
 		$this->lib = TikiLib::lib('activity');
@@ -25,12 +25,12 @@ class Search_ContentSource_ActivityStreamSource implements Search_ContentSource_
 		$this->trackerLib = TikiLib::lib('trk');
 	}
 
-	function getDocuments()
+	public function getDocuments()
 	{
 		return $this->lib->getActivityList();
 	}
 
-	function getDocument($objectId, Search_Type_Factory_Interface $typeFactory)
+	public function getDocument($objectId, Search_Type_Factory_Interface $typeFactory)
 	{
 		global $prefs;
 
@@ -105,13 +105,13 @@ class Search_ContentSource_ActivityStreamSource implements Search_ContentSource_
 		return $document;
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		$mapping = $this->lib->getMapping();
 		return array_merge(['event_type', 'modification_date', 'clear_list', 'date'], array_keys($mapping));
 	}
 
-	function getGlobalFields()
+	public function getGlobalFields()
 	{
 		return [
 			'date' => true,

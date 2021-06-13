@@ -12,38 +12,38 @@ class Search_Formatter_Plugin_SmartyTemplate implements Search_Formatter_Plugin_
 	private $data = [];
 	private $fields = [];
 
-	function __construct($templateFile, $changeDelimiters = false)
+	public function __construct($templateFile, $changeDelimiters = false)
 	{
 		$this->templateFile = $templateFile;
 		$this->changeDelimiters = (bool) $changeDelimiters;
 	}
 
-	function setData(array $data)
+	public function setData(array $data)
 	{
 		$this->data = $data;
 	}
 
-	function getFields()
+	public function getFields()
 	{
 		return $this->fields;
 	}
 
-	function setFields(array $fields)
+	public function setFields(array $fields)
 	{
 		$this->fields = $fields;
 	}
 
-	function getFormat()
+	public function getFormat()
 	{
 		return self::FORMAT_HTML;
 	}
 
-	function prepareEntry($entry)
+	public function prepareEntry($entry)
 	{
 		return $entry->getPlainValues();
 	}
 
-	function renderEntries(Search_ResultSet $entries)
+	public function renderEntries(Search_ResultSet $entries)
 	{
 		$smarty = new Smarty_Tiki;
 

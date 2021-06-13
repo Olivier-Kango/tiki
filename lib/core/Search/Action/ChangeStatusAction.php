@@ -7,7 +7,7 @@
 
 class Search_Action_ChangeStatusAction implements Search_Action_Action
 {
-	function getValues()
+	public function getValues()
 	{
 		return [
 			'object_type' => true,
@@ -17,7 +17,7 @@ class Search_Action_ChangeStatusAction implements Search_Action_Action
 		];
 	}
 
-	function validate(JitFilter $data)
+	public function validate(JitFilter $data)
 	{
 		$object_type = $data->object_type->text();
 		$object_id = $data->object_id->int();
@@ -50,7 +50,7 @@ class Search_Action_ChangeStatusAction implements Search_Action_Action
 		return true;
 	}
 
-	function execute(JitFilter $data)
+	public function execute(JitFilter $data)
 	{
 		$trklib = TikiLib::lib('trk');
 		$trklib->change_status([$data->object_id->int()], $data->to->alpha());
@@ -58,7 +58,7 @@ class Search_Action_ChangeStatusAction implements Search_Action_Action
 		return true;
 	}
 
-	function requiresInput(JitFilter $data)
+	public function requiresInput(JitFilter $data)
 	{
 		return false;
 	}

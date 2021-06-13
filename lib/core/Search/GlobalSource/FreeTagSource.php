@@ -9,12 +9,12 @@ class Search_GlobalSource_FreeTagSource implements Search_GlobalSource_Interface
 {
 	private $freetaglib;
 
-	function __construct()
+	public function __construct()
 	{
 		$this->freetaglib = TikiLib::lib('freetag');
 	}
 
-	function getFacets()
+	public function getFacets()
 	{
 		return [
 			Search_Query_Facet_Term::fromField('freetags')
@@ -23,19 +23,19 @@ class Search_GlobalSource_FreeTagSource implements Search_GlobalSource_Interface
 		];
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		return ['freetags', 'freetags_text'];
 	}
 
-	function getGlobalFields()
+	public function getGlobalFields()
 	{
 		return [
 			'freetags_text' => true,
 		];
 	}
 
-	function getData($objectType, $objectId, Search_Type_Factory_Interface $typeFactory, array $data = [])
+	public function getData($objectType, $objectId, Search_Type_Factory_Interface $typeFactory, array $data = [])
 	{
 		if (isset($data['freetags']) || isset($data['freetags_text'])) {
 			return [];

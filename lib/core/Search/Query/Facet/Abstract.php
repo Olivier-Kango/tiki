@@ -12,47 +12,47 @@ abstract class Search_Query_Facet_Abstract implements Search_Query_Facet_Interfa
 	protected $renderCallback;
 	protected $label;
 
-	function __construct($field)
+	public function __construct($field)
 	{
 		$this->field = $field;
 		$this->name = $field;
 		$this->label = ucfirst($field);
 	}
 
-	function getName()
+	public function getName()
 	{
 		return $this->name;
 	}
 
-	function setName($name)
+	public function setName($name)
 	{
 		$this->name = $name;
 		return $this;
 	}
 
-	function getField()
+	public function getField()
 	{
 		return $this->field;
 	}
 
-	function getLabel()
+	public function getLabel()
 	{
 		return $this->label;
 	}
 
-	function setLabel($label)
+	public function setLabel($label)
 	{
 		$this->label = $label;
 		return $this;
 	}
 
-	function setRenderCallback($callback)
+	public function setRenderCallback($callback)
 	{
 		$this->renderCallback = $callback;
 		return $this;
 	}
 
-	function render($value)
+	public function render($value)
 	{
 		if ($cb = $this->renderCallback) {
 			return call_user_func($cb, $value);
@@ -61,5 +61,5 @@ abstract class Search_Query_Facet_Abstract implements Search_Query_Facet_Interfa
 		return $value;
 	}
 
-	abstract function getType();
+	abstract public function getType();
 }

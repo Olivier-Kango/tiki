@@ -9,19 +9,19 @@ class Search_ContentSource_CalendarItemSource implements Search_ContentSource_In
 {
 	private $db;
 
-	function __construct()
+	public function __construct()
 	{
 		$this->db = TikiDb::get();
 	}
 
-	function getReferenceMap()
+	public function getReferenceMap()
 	{
 		return [
 			'calendar_id' => 'calendar',
 		];
 	}
 
-	function getDocuments()
+	public function getDocuments()
 	{
 		$files = $this->db->table('tiki_calendar_items');
 		return $files->fetchColumn(
@@ -33,7 +33,7 @@ class Search_ContentSource_CalendarItemSource implements Search_ContentSource_In
 		);
 	}
 
-	function getDocument($objectId, Search_Type_Factory_Interface $typeFactory)
+	public function getDocument($objectId, Search_Type_Factory_Interface $typeFactory)
 	{
 		$lib = TikiLib::lib('calendar');
 
@@ -87,7 +87,7 @@ class Search_ContentSource_CalendarItemSource implements Search_ContentSource_In
 		return $data;
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		return [
 			'title',
@@ -116,7 +116,7 @@ class Search_ContentSource_CalendarItemSource implements Search_ContentSource_In
 		];
 	}
 
-	function getGlobalFields()
+	public function getGlobalFields()
 	{
 		return [
 			'title' => true,

@@ -7,7 +7,7 @@
 
 class Search_Index_QueryAlertDecorator extends Search_Index_AbstractIndexDecorator
 {
-	function addDocument(array $document)
+	public function addDocument(array $document)
 	{
 		$matches = $this->parent->getMatchingQueries($document);
 

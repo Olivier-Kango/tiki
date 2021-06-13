@@ -12,7 +12,7 @@ class Search_Formatter_ValueFormatter_Categorylist extends Search_Formatter_Valu
 	private $singleList = 'y';
 	private $separator;
 
-	function __construct($arguments)
+	public function __construct($arguments)
 	{
 		if (! empty($arguments['requiredParents'])) {
 			$this->requiredParents = explode(',', $arguments['requiredParents']);
@@ -45,7 +45,7 @@ class Search_Formatter_ValueFormatter_Categorylist extends Search_Formatter_Valu
 		}
 	}
 
-	function render($name, $value, array $entry)
+	public function render($name, $value, array $entry)
 	{
 		$smarty = TikiLib::lib('smarty');
 		$smarty->loadPlugin('smarty_function_object_link');

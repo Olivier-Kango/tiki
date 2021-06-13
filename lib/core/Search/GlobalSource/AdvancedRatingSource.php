@@ -11,13 +11,13 @@ class Search_GlobalSource_AdvancedRatingSource implements Search_GlobalSource_In
 	private $fields = null;
 	private $recalculate = false;
 
-	function __construct($recalculate = false)
+	public function __construct($recalculate = false)
 	{
 		$this->ratinglib = TikiLib::lib('rating');
 		$this->recalculate = $recalculate;
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		if (is_null($this->fields)) {
 			$ratingconfiglib = TikiLib::lib('ratingconfig');
@@ -31,12 +31,12 @@ class Search_GlobalSource_AdvancedRatingSource implements Search_GlobalSource_In
 		return $this->fields;
 	}
 
-	function getGlobalFields()
+	public function getGlobalFields()
 	{
 		return [];
 	}
 
-	function getData($objectType, $objectId, Search_Type_Factory_Interface $typeFactory, array $data = [])
+	public function getData($objectType, $objectId, Search_Type_Factory_Interface $typeFactory, array $data = [])
 	{
 		$ratings = $this->ratinglib->obtain_ratings($objectType, $objectId, $this->recalculate);
 

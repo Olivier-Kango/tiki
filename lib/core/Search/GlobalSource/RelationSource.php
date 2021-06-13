@@ -10,17 +10,17 @@ class Search_GlobalSource_RelationSource implements Search_GlobalSource_Interfac
 	private $relationlib;
 	private $contentSources;
 
-	function __construct()
+	public function __construct()
 	{
 		$this->relationlib = TikiLib::lib('relation');
 	}
 
-	function setContentSources($contentSources)
+	public function setContentSources($contentSources)
 	{
 		$this->contentSources = $contentSources;
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		return [
 			'relations',
@@ -28,12 +28,12 @@ class Search_GlobalSource_RelationSource implements Search_GlobalSource_Interfac
 		];
 	}
 
-	function getGlobalFields()
+	public function getGlobalFields()
 	{
 		return [];
 	}
 
-	function getData($objectType, $objectId, Search_Type_Factory_Interface $typeFactory, array $data = [])
+	public function getData($objectType, $objectId, Search_Type_Factory_Interface $typeFactory, array $data = [])
 	{
 		global $prefs;
 		if (isset($data['relations']) || isset($data['relation_types'])) {

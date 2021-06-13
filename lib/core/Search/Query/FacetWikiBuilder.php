@@ -9,9 +9,9 @@ class Search_Query_FacetWikiBuilder
 {
 	private $facets = [];
 
-	function apply(WikiParser_PluginMatcher $matches)
+	public function apply(WikiParser_PluginMatcher $matches)
 	{
-		$argumentParser = new WikiParser_PluginArgumentParser;
+		$argumentParser = new WikiParser_PluginArgumentParser();
 
 		foreach ($matches as $match) {
 			if ($match->getName() === 'facet') {
@@ -46,7 +46,7 @@ class Search_Query_FacetWikiBuilder
 		}
 	}
 
-	function build(Search_Query $query, Search_FacetProvider $provider)
+	public function build(Search_Query $query, Search_FacetProvider $provider)
 	{
 		foreach ($this->facets as $facet) {
 			if (isset($facet['id'])) {
@@ -58,11 +58,9 @@ class Search_Query_FacetWikiBuilder
 				$real = $provider->getFacet($facet['name']);	// name is actually field, id allows multiple aggs per field
 			}
 			if ($real) {
-
 				if ($facet['type'] === 'date_histogram' && ! is_a($real, '\Search_Query_Facet_DateHistogram')) {
 					// tracker date fields return a generic "Term" facet but the plugin should choose range of histogram
 					$real = Search_Query_Facet_DateHistogram::fromField($real->getField())->setLabel($real->getLabel());
-
 				} else if ($facet['type'] === 'date_range' && ! is_a($real, '\Search_Query_Facet_DateRange')) {
 					// same for date range
 					$real = Search_Query_Facet_DateRange::fromField($real->getField())->setLabel($real->getLabel());
@@ -98,7 +96,6 @@ class Search_Query_FacetWikiBuilder
 						}
 					}
 				} elseif (is_a($real, '\Search_Query_Facet_DateHistogram')) {
-
 					if (! empty($facet['interval'])) {
 						$real->setInterval($facet['interval']);
 					}
@@ -129,5 +126,4 @@ class Search_Query_FacetWikiBuilder
 	{
 		return $this->facets;
 	}
-
 }

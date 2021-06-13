@@ -9,19 +9,19 @@ class Search_ContentSource_FileSource implements Search_ContentSource_Interface,
 {
 	private $db;
 
-	function __construct()
+	public function __construct()
 	{
 		$this->db = TikiDb::get();
 	}
 
-	function getReferenceMap()
+	public function getReferenceMap()
 	{
 		return [
 			'gallery_id' => 'file_gallery',
 		];
 	}
 
-	function getDocuments()
+	public function getDocuments()
 	{
 		$files = $this->db->table('tiki_files');
 		return $files->fetchColumn(
@@ -35,7 +35,7 @@ class Search_ContentSource_FileSource implements Search_ContentSource_Interface,
 		);
 	}
 
-	function getDocument($objectId, Search_Type_Factory_Interface $typeFactory)
+	public function getDocument($objectId, Search_Type_Factory_Interface $typeFactory)
 	{
 		global $prefs;
 
@@ -97,7 +97,7 @@ class Search_ContentSource_FileSource implements Search_ContentSource_Interface,
 		return $data;
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		return [
 			'title',
@@ -134,7 +134,7 @@ class Search_ContentSource_FileSource implements Search_ContentSource_Interface,
 		];
 	}
 
-	function getGlobalFields()
+	public function getGlobalFields()
 	{
 		return [
 			'title' => true,

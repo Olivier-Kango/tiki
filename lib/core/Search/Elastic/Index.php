@@ -22,23 +22,23 @@ class Search_Elastic_Index implements Search_Index_Interface, Search_Index_Query
 	private $multisearchIndices;
 	private $multisearchStack;
 
-	function __construct(Search_Elastic_Connection $connection, $index)
+	public function __construct(Search_Elastic_Connection $connection, $index)
 	{
 		$this->connection = $connection;
 		$this->index = $index;
 	}
 
-	function setCamelCaseEnabled($enabled)
+	public function setCamelCaseEnabled($enabled)
 	{
 		$this->camelCase = (bool) $enabled;
 	}
 
-	function setPossessiveStemmerEnabled($enabled)
+	public function setPossessiveStemmerEnabled($enabled)
 	{
 		$this->possessiveStemmer = (bool) $enabled;
 	}
 
-	function destroy()
+	public function destroy()
 	{
 		$this->connection->deleteIndex($this->index);
 		return true;
@@ -53,7 +53,7 @@ class Search_Elastic_Index implements Search_Index_Interface, Search_Index_Query
 		return $this->providedMappings;
 	}
 
-	function exists()
+	public function exists()
 	{
 		$indexStatus = $this->connection->getIndexStatus($this->index);
 
@@ -64,7 +64,7 @@ class Search_Elastic_Index implements Search_Index_Interface, Search_Index_Query
 		}
 	}
 
-	function addDocument(array $data)
+	public function addDocument(array $data)
 	{
 		list($objectType, $objectId, $data) = $this->generateDocument($data);
 		unset($this->invalidateList[$objectType . ':' . $objectId]);
@@ -280,7 +280,7 @@ class Search_Elastic_Index implements Search_Index_Interface, Search_Index_Query
 		}
 	}
 
-	function endUpdate()
+	public function endUpdate()
 	{
 		foreach ($this->invalidateList as $object) {
 			$this->connection->unindex($this->index, $object['object_type'], $object['object_id']);
@@ -291,12 +291,12 @@ class Search_Elastic_Index implements Search_Index_Interface, Search_Index_Query
 		$this->invalidateList = [];
 	}
 
-	function optimize()
+	public function optimize()
 	{
 		Feedback::warning(tr('Elasticsearch does not support optimize.'));
 	}
 
-	function invalidateMultiple(array $objectList)
+	public function invalidateMultiple(array $objectList)
 	{
 		foreach ($objectList as $object) {
 			$key = $object['object_type'] . ':' . $object['object_id'];
@@ -310,7 +310,7 @@ class Search_Elastic_Index implements Search_Index_Interface, Search_Index_Query
 	 * @param Search_Query $fullQuery The fully formatted query that is to be passed to Elasticsearch
 	 * @param Search_Query $originalQuery The original query which would be used later to retrieve final results
 	 */
-	function addToMultisearchStack($id, $indices, $fullQuery, $originalQuery) {
+	public function addToMultisearchStack($id, $indices, $fullQuery, $originalQuery) {
 		$this->multisearchStack[] = ['id' => $id, 'fullQuery' => $fullQuery, 'originalQuery' => $originalQuery];
 		$this->multisearchIndices = $indices;
 	}
@@ -319,7 +319,7 @@ class Search_Elastic_Index implements Search_Index_Interface, Search_Index_Query
 	 * @return array Raw results retrieved from Elasticsearch. Not to be confused with final transformed results that
 	 * contains perms and are not cacheable because has source info as PDO objects etc.
 	 */
-	function triggerMultisearch() {
+	public function triggerMultisearch() {
 		$results = $this->connection->search($this->multisearchIndices, array_column($this->multisearchStack, 'fullQuery'), [], true);
 		$ret = [];
 		foreach ($results as $k => $result) {
@@ -339,7 +339,7 @@ class Search_Elastic_Index implements Search_Index_Interface, Search_Index_Query
 	 * Called from the Search_Query->search().
 	 * @return Search_Elastic_ResultSet
 	 */
-	function find(Search_Query_Interface $query, $resultStart, $resultCount, $multisearchId = '', $resultFromMultisearch = '')
+	public function find(Search_Query_Interface $query, $resultStart, $resultCount, $multisearchId = '', $resultFromMultisearch = '')
 	{
 		global $prefs;
 		/**
@@ -552,7 +552,7 @@ class Search_Elastic_Index implements Search_Index_Interface, Search_Index_Query
 		return $resultSet;
 	}
 
-	function scroll(Search_Query_Interface $query)
+	public function scroll(Search_Query_Interface $query)
 	{
 		$builder = new Search_Elastic_OrderBuilder($this);
 		$orderPart = $builder->build($query->getSortOrder());
@@ -594,7 +594,7 @@ class Search_Elastic_Index implements Search_Index_Interface, Search_Index_Query
 		} while (count($result->hits->hits) > 0);
 	}
 
-	function getTypeFactory()
+	public function getTypeFactory()
 	{
 		return new Search_Elastic_TypeFactory;
 	}
@@ -617,13 +617,13 @@ class Search_Elastic_Index implements Search_Index_Interface, Search_Index_Query
 		};
 	}
 
-	function getMatchingQueries(array $document)
+	public function getMatchingQueries(array $document)
 	{
 		list($type, $object, $document) = $this->generateDocument($document);
 		return $this->connection->percolate($this->index, $type, $document);
 	}
 
-	function store($name, Search_Expr_Interface $expr)
+	public function store($name, Search_Expr_Interface $expr)
 	{
 		$builder = new Search_Elastic_QueryBuilder($this);
 		$builder->setDocumentReader($this->createDocumentReader());
@@ -632,12 +632,12 @@ class Search_Elastic_Index implements Search_Index_Interface, Search_Index_Query
 		$this->connection->storeQuery($this->index, $name, $doc);
 	}
 
-	function unstore($name)
+	public function unstore($name)
 	{
 		$this->connection->unstoreQuery($this->index, $name);
 	}
 
-	function setFacetCount($count)
+	public function setFacetCount($count)
 	{
 		$this->facetCount = (int) $count;
 	}

@@ -9,17 +9,17 @@ class Search_ContentSource_FileGallerySource implements Search_ContentSource_Int
 {
 	private $db;
 
-	function __construct()
+	public function __construct()
 	{
 		$this->db = TikiDb::get();
 	}
 
-	function getDocuments()
+	public function getDocuments()
 	{
 		return $this->db->table('tiki_file_galleries')->fetchColumn('galleryId', []);
 	}
 
-	function getDocument($objectId, Search_Type_Factory_Interface $typeFactory)
+	public function getDocument($objectId, Search_Type_Factory_Interface $typeFactory)
 	{
 		$lib = TikiLib::lib('filegal');
 
@@ -45,7 +45,7 @@ class Search_ContentSource_FileGallerySource implements Search_ContentSource_Int
 		return $data;
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		return [
 			'title',
@@ -63,7 +63,7 @@ class Search_ContentSource_FileGallerySource implements Search_ContentSource_Int
 		];
 	}
 
-	function getGlobalFields()
+	public function getGlobalFields()
 	{
 		return [
 			'title' => true,

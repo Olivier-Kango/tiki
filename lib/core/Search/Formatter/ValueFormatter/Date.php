@@ -7,7 +7,7 @@
 
 class Search_Formatter_ValueFormatter_Date extends Search_Formatter_ValueFormatter_Datetime
 {
-	function __construct($arguments)
+	public function __construct($arguments)
 	{
 		if (isset($arguments['dateFormat'])) {
 			$this->format = $arguments['dateFormat'];

@@ -11,12 +11,12 @@ class UrlPrefixTransform
 {
 	private $prefix;
 
-	function __construct($prefix)
+	public function __construct($prefix)
 	{
 		$this->prefix = rtrim($prefix, '/');
 	}
 
-	function __invoke($entry)
+	public function __invoke($entry)
 	{
 		if (isset($entry['url'])) {
 			$entry['url'] = $this->prefix . '/' . ltrim($entry['url'], '/');

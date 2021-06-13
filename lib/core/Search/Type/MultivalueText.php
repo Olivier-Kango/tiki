@@ -9,17 +9,17 @@ class Search_Type_MultivalueText implements Search_Type_Interface
 {
 	private $values;
 
-	function __construct(array $values)
+	public function __construct(array $values)
 	{
 		$this->values = $values;
 	}
 
-	function getRawValue()
+	public function getRawValue()
 	{
 		return $this->values;
 	}
 
-	function getValue()
+	public function getValue()
 	{
 		$strings = [];
 		foreach ($this->values as $val) {

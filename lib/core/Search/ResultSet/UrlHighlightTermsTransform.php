@@ -11,7 +11,7 @@ class UrlHighlightTermsTransform
 {
 	private $termsParameter;
 
-	function __construct($terms)
+	public function __construct($terms)
 	{
 		if ($terms) {
 			$this->termsParameter = 'highlight=' . urlencode(implode(' ', $terms));
@@ -20,7 +20,7 @@ class UrlHighlightTermsTransform
 		}
 	}
 
-	function __invoke($entry)
+	public function __invoke($entry)
 	{
 		if (isset($entry['url']) && $this->termsParameter) {
 			$entry['url'] = $entry['url'] . (strpos($entry['url'], '?') === false ? '?' : '&') . $this->termsParameter;

@@ -23,7 +23,7 @@ class Search_Query_Order
 	private $order;
 	private $arguments;
 
-	function __construct($field, $mode, $order, array $arguments = [])
+	public function __construct($field, $mode, $order, array $arguments = [])
 	{
 		$this->field = $field;
 		$this->mode = $mode;
@@ -31,22 +31,22 @@ class Search_Query_Order
 		$this->arguments = $arguments;
 	}
 
-	function getField()
+	public function getField()
 	{
 		return $this->field;
 	}
 
-	function getOrder()
+	public function getOrder()
 	{
 		return $this->order;
 	}
 
-	function getMode()
+	public function getMode()
 	{
 		return $this->mode;
 	}
 
-	function getArguments()
+	public function getArguments()
 	{
 		return $this->arguments;
 	}

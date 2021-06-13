@@ -12,14 +12,14 @@ class Search_MySql_QueryBuffer
 	private $prefix;
 	private $buffer = [];
 
-	function __construct(TikiDb $db, $count, $prefix)
+	public function __construct(TikiDb $db, $count, $prefix)
 	{
 		$this->db = $db;
 		$this->count = max(10, (int) $count);
 		$this->prefix = $prefix;
 	}
 
-	function push($block)
+	public function push($block)
 	{
 		$this->buffer[] = $block;
 
@@ -28,7 +28,7 @@ class Search_MySql_QueryBuffer
 		}
 	}
 
-	function flush()
+	public function flush()
 	{
 		if (count($this->buffer) == 0) {
 			return;
@@ -37,7 +37,7 @@ class Search_MySql_QueryBuffer
 		$this->realFlush();
 	}
 
-	function setPrefix($prefix)
+	public function setPrefix($prefix)
 	{
 		if ($prefix !== $this->prefix) {
 			$this->flush();
@@ -58,7 +58,7 @@ class Search_MySql_QueryBuffer
 		$this->clear();
 	}
 
-	function clear()
+	public function clear()
 	{
 		$this->buffer = [];
 	}

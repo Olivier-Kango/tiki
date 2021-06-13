@@ -9,12 +9,12 @@ class Search_Query_WeightCalculator_Field implements Search_Query_WeightCalculat
 {
 	private $map;
 
-	function __construct(array $weightMap)
+	public function __construct(array $weightMap)
 	{
 		$this->map = array_map('floatval', $weightMap);
 	}
 
-	function calculate(Search_Expr_Interface $expr)
+	public function calculate(Search_Expr_Interface $expr)
 	{
 		if (method_exists($expr, 'getField')) {
 			$field = $expr->getField();

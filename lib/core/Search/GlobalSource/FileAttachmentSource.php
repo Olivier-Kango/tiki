@@ -11,26 +11,26 @@ class Search_GlobalSource_FileAttachmentSource implements Search_GlobalSource_In
 	private $attributelib;
 	private $fileSource;
 
-	function __construct(Search_ContentSource_Interface $source)
+	public function __construct(Search_ContentSource_Interface $source)
 	{
 		$this->relationlib = TikiLib::lib('relation');
 		$this->attributelib = TikiLib::lib('attribute');
 		$this->fileSource = $source;
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		return ['attachment_contents', 'attachments', 'primary_image'];
 	}
 
-	function getGlobalFields()
+	public function getGlobalFields()
 	{
 		return [
 			'attachment_contents' => false,
 		];
 	}
 
-	function getData($objectType, $objectId, Search_Type_Factory_Interface $typeFactory, array $data = [])
+	public function getData($objectType, $objectId, Search_Type_Factory_Interface $typeFactory, array $data = [])
 	{
 		$relations = $this->relationlib->get_relations_from($objectType, $objectId, 'tiki.file.attach');
 		$attributes = $this->attributelib->get_attributes($objectType, $objectId);

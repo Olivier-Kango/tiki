@@ -13,7 +13,7 @@ class Search_Query_WikiBuilder
 	private $aggregate = false;
 	private $boost = 1;
 
-	function __construct(Search_Query $query, $input = null)
+	public function __construct(Search_Query $query, $input = null)
 	{
 		global $prefs;
 		if (! empty($prefs['maxRecords'])) {
@@ -35,14 +35,14 @@ class Search_Query_WikiBuilder
 	 * Only boost max page on aggregate when the calling code
 	 * handles the resultset properly.
 	 */
-	function enableAggregate()
+	public function enableAggregate()
 	{
 		$this->aggregate = true;
 	}
 
-	function apply(WikiParser_PluginMatcher $matches)
+	public function apply(WikiParser_PluginMatcher $matches)
 	{
-		$argumentParser = new WikiParser_PluginArgumentParser;
+		$argumentParser = new WikiParser_PluginArgumentParser();
 
 		foreach ($matches as $match) {
 			$name = $match->getName();
@@ -54,7 +54,7 @@ class Search_Query_WikiBuilder
 		$this->applyPagination();
 	}
 
-	function applyPagination()
+	public function applyPagination()
 	{
 		$offsetArg = $this->paginationArguments['offset_arg'];
 		$maxRecords = $this->paginationArguments['max'];
@@ -65,7 +65,7 @@ class Search_Query_WikiBuilder
 		}
 	}
 
-	function addQueryArgument($name, $arguments)
+	public function addQueryArgument($name, $arguments)
 	{
 		foreach ($arguments as $key => $value) {
 			$function = "wpquery_{$name}_{$key}";
@@ -76,17 +76,17 @@ class Search_Query_WikiBuilder
 		}
 	}
 
-	function getPaginationArguments()
+	public function getPaginationArguments()
 	{
 		return $this->paginationArguments;
 	}
 
-	function wpquery_list_max($query, $value)
+	public function wpquery_list_max($query, $value)
 	{
 		$this->paginationArguments['max'] = max(1, (int) $value);
 	}
 
-	function wpquery_filter_editable($query, $editableType, array $arguments)
+	public function wpquery_filter_editable($query, $editableType, array $arguments)
 	{
 		$fields = $this->get_fields_from_arguments($arguments);
 		$masterField = null;
@@ -131,13 +131,13 @@ class Search_Query_WikiBuilder
 		}
 	}
 
-	function wpquery_filter_type($query, $value)
+	public function wpquery_filter_type($query, $value)
 	{
 		$value = explode(',', $value);
 		$query->filterType($value);
 	}
 
-	function wpquery_filter_nottype($query, $value)
+	public function wpquery_filter_nottype($query, $value)
 	{
 		$value = explode(',', $value);
 		$value = array_map(
@@ -149,34 +149,34 @@ class Search_Query_WikiBuilder
 		$query->filterContent(implode(' AND ', $value), 'object_type');
 	}
 
-	function wpquery_filter_categories($query, $value)
+	public function wpquery_filter_categories($query, $value)
 	{
 		$query->filterCategory($value);
 	}
 
-	function wpquery_filter_templatedgroup($query, $value)
+	public function wpquery_filter_templatedgroup($query, $value)
 	{
 		$categories = TikiLib::lib('categ')->get_managed_categories($value);
 		if (count($categories) > 0) {
 			$ids = array_map(function ($cat) {
 				return $cat['categId'];
 			}, $categories);
-			$value = implode(' OR ',$ids);
+			$value = implode(' OR ', $ids);
 		}
 		$query->filterCategory($value);
 	}
 
-	function wpquery_filter_contributors($query, $value)
+	public function wpquery_filter_contributors($query, $value)
 	{
 		$query->filterContributors($value);
 	}
 
-	function wpquery_filter_deepcategories($query, $value)
+	public function wpquery_filter_deepcategories($query, $value)
 	{
 		$query->filterCategory($value, true);
 	}
 
-	function wpquery_filter_multivalue($query, $value, array $arguments)
+	public function wpquery_filter_multivalue($query, $value, array $arguments)
 	{
 		if (isset($arguments['field'])) {
 			$fields = explode(',', $arguments['field']);
@@ -187,7 +187,7 @@ class Search_Query_WikiBuilder
 		$query->filterMultivalue($value, $fields);
 	}
 
-	function wpquery_filter_content($query, $value, array $arguments)
+	public function wpquery_filter_content($query, $value, array $arguments)
 	{
 		$fields = $this->get_fields_from_arguments($arguments);
 
@@ -200,18 +200,18 @@ class Search_Query_WikiBuilder
 		$query->filterContent($value, $fields);
 	}
 
-	function wpquery_filter_exact($query, $value, array $arguments)
+	public function wpquery_filter_exact($query, $value, array $arguments)
 	{
 		$fields = $this->get_fields_from_arguments($arguments);
 		$query->filterIdentifier($value, $fields);
 	}
 
-	function wpquery_filter_language($query, $value)
+	public function wpquery_filter_language($query, $value)
 	{
 		$query->filterLanguage($value);
 	}
 
-	function wpquery_filter_relation($query, $value, $arguments)
+	public function wpquery_filter_relation($query, $value, $arguments)
 	{
 		if (! isset($arguments['qualifier'], $arguments['objecttype'])) {
 			Feedback::error(tr('Missing objectype or qualifier for relation filter.'));
@@ -233,12 +233,12 @@ class Search_Query_WikiBuilder
 		$query->filterRelation($token);
 	}
 
-	function wpquery_filter_favorite($query, $value)
+	public function wpquery_filter_favorite($query, $value)
 	{
 		$this->wpquery_filter_relation($query, $value, ['qualifier' => 'tiki.user.favorite.invert', 'objecttype' => 'user']);
 	}
 
-	function wpquery_filter_range($query, $value, array $arguments)
+	public function wpquery_filter_range($query, $value, array $arguments)
 	{
 		if (isset($arguments['from']) && ! is_numeric($arguments['from'])) {
 			$time = strtotime($arguments['from']);
@@ -276,7 +276,7 @@ class Search_Query_WikiBuilder
 		$query->filterRange($arguments['from'], $arguments['to'], $value);
 	}
 
-	function wpquery_filter_textrange($query, $value, array $arguments)
+	public function wpquery_filter_textrange($query, $value, array $arguments)
 	{
 		if (! isset($arguments['from'], $arguments['to'])) {
 			Feedback::error(tr('The range filter is missing \"from\" or \"to\".'));
@@ -284,7 +284,7 @@ class Search_Query_WikiBuilder
 		$query->filterTextRange($arguments['from'], $arguments['to'], $value);
 	}
 
-	function wpquery_filter_numericrange($query, $value, array $arguments)
+	public function wpquery_filter_numericrange($query, $value, array $arguments)
 	{
 		if (! isset($arguments['from'], $arguments['to'])) {
 			Feedback::error(tr('The range filter is missing \"from\" or \"to\".'));
@@ -292,7 +292,7 @@ class Search_Query_WikiBuilder
 		$query->filterNumericRange($arguments['from'], $arguments['to'], $value);
 	}
 
-	function wpquery_filter_personalize($query, $type, array $arguments)
+	public function wpquery_filter_personalize($query, $type, array $arguments)
 	{
 		global $user;
 		$targetUser = $user;
@@ -347,7 +347,7 @@ class Search_Query_WikiBuilder
 		}
 	}
 
-	function wpquery_filter_distance($query, $value, array $arguments)
+	public function wpquery_filter_distance($query, $value, array $arguments)
 	{
 		if (! isset($arguments['distance'], $arguments['lat'], $arguments['lon'])) {
 			Feedback::error(tr('The distance filter is missing \"distance\", \"lat\" or \"lon\".'));
@@ -355,7 +355,7 @@ class Search_Query_WikiBuilder
 		$query->filterDistance($value, $arguments['lat'], $arguments['lon']);
 	}
 
-	function wpquery_filter_similar($query, $value, array $arguments)
+	public function wpquery_filter_similar($query, $value, array $arguments)
 	{
 		$object = [];
 		if (! empty($arguments['similar']) && strpos($arguments['similar'], ':')) {
@@ -375,7 +375,7 @@ class Search_Query_WikiBuilder
 		}
 	}
 
-	function wpquery_sort_mode($query, $value, array $arguments)
+	public function wpquery_sort_mode($query, $value, array $arguments)
 	{
 		if ($value == 'randommode') {
 			if (! empty($arguments['modes'])) {
@@ -410,10 +410,9 @@ class Search_Query_WikiBuilder
 			}
 		} elseif ($value === 'script') {
 			if (isset($arguments['source'])) {
-
 				$arguments['order'] = isset($arguments['order']) ? $arguments['order'] : 'asc';
-				$arguments['lang']  = isset($arguments['lang'])  ? $arguments['lang']  : 'painless';
-				$arguments['type']  = isset($arguments['type'])  ? $arguments['type']  : 'number';
+				$arguments['lang']  = isset($arguments['lang']) ? $arguments['lang']  : 'painless';
+				$arguments['type']  = isset($arguments['type']) ? $arguments['type']  : 'number';
 
 				unset($arguments['mode']);
 
@@ -423,49 +422,48 @@ class Search_Query_WikiBuilder
 				Feedback::error(tr('Script sort: Missing source argument'));
 				return;
 			}
-
 		}
 		$query->setOrder($value);
 	}
 
-	function wpquery_pagination_onclick($query, $value)
+	public function wpquery_pagination_onclick($query, $value)
 	{
 		$this->paginationArguments['_onclick'] = $value;
 	}
 
-	function wpquery_pagination_offset_jsvar($query, $value)
+	public function wpquery_pagination_offset_jsvar($query, $value)
 	{
 		$this->paginationArguments['offset_jsvar'] = $value;
 	}
 
-	function wpquery_pagination_offset_arg($query, $value)
+	public function wpquery_pagination_offset_arg($query, $value)
 	{
 		$this->paginationArguments['offset_arg'] = $value;
 	}
 
-	function wpquery_pagination_sort_jsvar($query, $value)
+	public function wpquery_pagination_sort_jsvar($query, $value)
 	{
 		$this->paginationArguments['sort_jsvar'] = $value;
 	}
 
-	function wpquery_pagination_sort_arg($query, $value)
+	public function wpquery_pagination_sort_arg($query, $value)
 	{
 		$this->paginationArguments['sort_arg'] = $value;
 	}
 
-	function wpquery_pagination_max($query, $value)
+	public function wpquery_pagination_max($query, $value)
 	{
 		$this->paginationArguments['max'] = (int) $value;
 	}
 
-	function wpquery_group_boost($query, $value)
+	public function wpquery_group_boost($query, $value)
 	{
 		if ($this->aggregate) {
 			$this->boost *= max(1, (int)$value);
 		}
 	}
 
-	function wpquery_index_federated($query, $value = '')
+	public function wpquery_index_federated($query, $value = '')
 	{
 		$indices = TikiLib::lib('federatedsearch')->getIndices();
 		$indexFilter = [];
@@ -484,15 +482,15 @@ class Search_Query_WikiBuilder
 		}
 	}
 
-	function isNextPossible()
+	public function isNextPossible()
 	{
 		return $this->boost == 1;
 	}
 
-	function applyTablesorter(WikiParser_PluginMatcher $matches, $hasactions = false)
+	public function applyTablesorter(WikiParser_PluginMatcher $matches, $hasactions = false)
 	{
 		$ret = ['max' => false, 'tsOn' => false];
-		$parser = new WikiParser_PluginArgumentParser;
+		$parser = new WikiParser_PluginArgumentParser();
 		$args = [];
 		$tsc = [];
 		$tsf = [];

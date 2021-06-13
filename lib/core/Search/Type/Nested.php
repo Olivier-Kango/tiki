@@ -9,12 +9,12 @@ class Search_Type_Nested implements Search_Type_Interface
 {
 	private $values;
 
-	function __construct(array $values)
+	public function __construct(array $values)
 	{
 		$this->values = $values;
 	}
 
-	function getValue()
+	public function getValue()
 	{
 		return $this->values;
 	}

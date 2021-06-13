@@ -9,17 +9,17 @@ class Search_Type_PlainMediumText implements Search_Type_Interface
 {
 	private $value;
 
-	function __construct($value)
+	public function __construct($value)
 	{
 		$this->value = $value;
 	}
 
-	function getValue()
+	public function getValue()
 	{
 		return $this->value;
 	}
 
-	function filter(array $filters)
+	public function filter(array $filters)
 	{
 		$value = $this->value;
 

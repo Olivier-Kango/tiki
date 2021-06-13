@@ -10,7 +10,7 @@ class Search_Formatter_Plugin_ArrayTemplate extends Search_Formatter_Plugin_Abst
 	private $fieldPermNames;
 	private $nonTrackerFields;
 
-	function __construct($template)
+	public function __construct($template)
 	{
 		$this->fieldPermNames = [];
 		$this->nonTrackerFields = [
@@ -27,12 +27,12 @@ class Search_Formatter_Plugin_ArrayTemplate extends Search_Formatter_Plugin_Abst
 		parent::__construct($template);
 	}
 
-	function getFormat()
+	public function getFormat()
 	{
 		return self::FORMAT_ARRAY;
 	}
 
-	function setFieldPermNames($fields)
+	public function setFieldPermNames($fields)
 	{
 		$this->fieldPermNames = array_map(function ($f) {
 			if (in_array($f['permName'], $this->nonTrackerFields)) {
@@ -43,7 +43,7 @@ class Search_Formatter_Plugin_ArrayTemplate extends Search_Formatter_Plugin_Abst
 		}, $fields);
 	}
 
-	function prepareEntry($valueFormatter)
+	public function prepareEntry($valueFormatter)
 	{
 		$entry = [];
 		$searchRow = $valueFormatter->getPlainValues();
@@ -73,7 +73,7 @@ class Search_Formatter_Plugin_ArrayTemplate extends Search_Formatter_Plugin_Abst
 		return $entry;
 	}
 
-	function renderEntries(Search_ResultSet $entries)
+	public function renderEntries(Search_ResultSet $entries)
 	{
 		$result = [];
 		foreach ($entries as $entry) {

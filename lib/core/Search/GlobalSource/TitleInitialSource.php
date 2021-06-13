@@ -10,7 +10,7 @@ class Search_GlobalSource_TitleInitialSource implements Search_GlobalSource_Inte
 	private $substr;
 	private $strtoupper;
 
-	function __construct()
+	public function __construct()
 	{
 		if (function_exists('mb_substr')) {
 			$this->substr = 'mb_substr';
@@ -21,7 +21,7 @@ class Search_GlobalSource_TitleInitialSource implements Search_GlobalSource_Inte
 		}
 	}
 
-	function getFacets()
+	public function getFacets()
 	{
 		return [
 			Search_Query_Facet_Term::fromField('title_initial')
@@ -31,17 +31,17 @@ class Search_GlobalSource_TitleInitialSource implements Search_GlobalSource_Inte
 		];
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		return ['title_initial', 'title_firstword'];
 	}
 
-	function getGlobalFields()
+	public function getGlobalFields()
 	{
 		return [];
 	}
 
-	function getData($objectType, $objectId, Search_Type_Factory_Interface $typeFactory, array $data = [])
+	public function getData($objectType, $objectId, Search_Type_Factory_Interface $typeFactory, array $data = [])
 	{
 		$title = empty($data['title']) ? null : $data['title']->getValue();
 		$title = empty($title) ? '0' : $title;

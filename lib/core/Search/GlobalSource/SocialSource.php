@@ -10,13 +10,13 @@ class Search_GlobalSource_SocialSource implements Search_GlobalSource_Interface
 	private $sociallib;
 	private $userlib;
 
-	function __construct()
+	public function __construct()
 	{
 		$this->sociallib = TikiLib::lib('social');
 		$this->userlib = TikiLib::lib('user');
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		return [
 			'user_groups',
@@ -25,12 +25,12 @@ class Search_GlobalSource_SocialSource implements Search_GlobalSource_Interface
 		];
 	}
 
-	function getGlobalFields()
+	public function getGlobalFields()
 	{
 		return [];
 	}
 
-	function getData($objectType, $objectId, Search_Type_Factory_Interface $typeFactory, array $data = [])
+	public function getData($objectType, $objectId, Search_Type_Factory_Interface $typeFactory, array $data = [])
 	{
 		$groups = [];
 		$followers = [];

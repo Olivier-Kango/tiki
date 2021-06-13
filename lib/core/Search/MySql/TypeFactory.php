@@ -7,22 +7,22 @@
 
 class Search_MySql_TypeFactory implements Search_Type_Factory_Interface
 {
-	function plaintext($value)
+	public function plaintext($value)
 	{
 		return new Search_Type_PlainText($value);
 	}
 
-	function plainmediumtext($value)
+	public function plainmediumtext($value)
 	{
 		return new Search_Type_PlainMediumText($value);
 	}
 
-	function wikitext($value)
+	public function wikitext($value)
 	{
 		return new Search_Type_WikiText($value);
 	}
 
-	function timestamp($value, $dateOnly = false)
+	public function timestamp($value, $dateOnly = false)
 	{
 		if (is_numeric($value)) {
 			if ($dateOnly) {
@@ -42,51 +42,51 @@ class Search_MySql_TypeFactory implements Search_Type_Factory_Interface
 		}
 	}
 
-	function identifier($value)
+	public function identifier($value)
 	{
 		return new Search_Type_Whole($value);
 	}
 
-	function numeric($value)
+	public function numeric($value)
 	{
 		return new Search_Type_Numeric($value);
 	}
 
-	function multivalue($values)
+	public function multivalue($values)
 	{
 		return new Search_Type_MultivalueText((array) $values);
 	}
 
 	/* Not supported in MySQL indexes - use elasticsearch*/
-	function object($values)
+	public function object($values)
 	{
 		return null;
 	}
 	/* Not supported in MySQL indexes - use elasticsearch */
-	function nested($values)
+	public function nested($values)
 	{
 		return null;
 	}
 
 	/* Not supported in MySQL indexes - use elasticsearch */
-	function geopoint($values)
+	public function geopoint($values)
 	{
 		return null;
 	}
 
-	function sortable($value)
+	public function sortable($value)
 	{
 		return new Search_Type_PlainShortText($value);
 	}
 
 	/* Not supported in MySQL indexes but treating as sortable */
-	function simpletext($value)
+	public function simpletext($value)
 	{
 		return new Search_Type_PlainShortText($value);
 	}
 
 	/* Not fully supported in MySQL indexes - elasticsearch recommended */
-	function json($value)
+	public function json($value)
 	{
 		if (is_array($value)) {
 			$value = json_encode($value);

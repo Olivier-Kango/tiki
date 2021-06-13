@@ -7,7 +7,7 @@
 
 class Search_Action_Delete implements Search_Action_Action
 {
-	function getValues()
+	public function getValues()
 	{
 		return [
 			'object_type' => true,
@@ -16,7 +16,7 @@ class Search_Action_Delete implements Search_Action_Action
 		];
 	}
 
-	function validate(JitFilter $data)
+	public function validate(JitFilter $data)
 	{
 		$object_type = $data->object_type->text();
 		$object_id = $data->object_id->int();
@@ -54,7 +54,7 @@ class Search_Action_Delete implements Search_Action_Action
 		return true;
 	}
 
-	function execute(JitFilter $data)
+	public function execute(JitFilter $data)
 	{
 		global $access;
 		if (substr(php_sapi_name(), 0, 3) !== 'cli') {
@@ -69,7 +69,7 @@ class Search_Action_Delete implements Search_Action_Action
 		if ($aggregateFields) {
 			$unifiedsearchlib = TikiLib::lib('unifiedsearch');
 			$index = $unifiedsearchlib->getIndex();
-			$query = new Search_Query;
+			$query = new Search_Query();
 			$unifiedsearchlib->initQuery($query);
 			foreach ($aggregateFields as $agField => $value) {
 				$query->filterIdentifier((string)$value, $agField);
@@ -85,7 +85,7 @@ class Search_Action_Delete implements Search_Action_Action
 		return true;
 	}
 
-	function requiresInput(JitFilter $data)
+	public function requiresInput(JitFilter $data)
 	{
 		return false;
 	}

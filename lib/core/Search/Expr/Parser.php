@@ -9,7 +9,7 @@ class Search_Expr_Parser
 {
 	private $special = ['(', ')', 'AND', 'OR', 'NOT', '+'];
 
-	function parse($string)
+	public function parse($string)
 	{
 		$tokenizer = new Search_Expr_Tokenizer;
 

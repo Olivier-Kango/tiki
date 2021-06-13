@@ -9,7 +9,7 @@ class Search_Action_TrackerItemClone implements Search_Action_Action
 {
 	private $cloned_object_id = null;
 
-	function getValues()
+	public function getValues()
 	{
 		return [
 			'object_type' => true,
@@ -17,7 +17,7 @@ class Search_Action_TrackerItemClone implements Search_Action_Action
 		];
 	}
 
-	function validate(JitFilter $data)
+	public function validate(JitFilter $data)
 	{
 		$object_type = $data->object_type->text();
 		$object_id = $data->object_id->int();
@@ -35,7 +35,7 @@ class Search_Action_TrackerItemClone implements Search_Action_Action
 		return true;
 	}
 
-	function execute(JitFilter $data)
+	public function execute(JitFilter $data)
 	{
 		$object_id = $data->object_id->int();
 
@@ -52,7 +52,7 @@ class Search_Action_TrackerItemClone implements Search_Action_Action
 			throw new Search_Action_Exception(tr("You don't have permission to create new items"));
 		}
 
-		$utilities = new Services_Tracker_Utilities;
+		$utilities = new Services_Tracker_Utilities();
 		$itemObject = $utilities->cloneItem($itemObject->getDefinition(), $itemData, $object_id, $strict = true);
 		if ($itemObject) {
 			$this->cloned_object_id = $itemObject->getId();
@@ -62,12 +62,13 @@ class Search_Action_TrackerItemClone implements Search_Action_Action
 		}
 	}
 
-	function requiresInput(JitFilter $data)
+	public function requiresInput(JitFilter $data)
 	{
 		return false;
 	}
 
-	function changeObject($data) {
+	public function changeObject($data)
+	{
 		if (empty($this->cloned_object_id)) {
 			return $data;
 		}

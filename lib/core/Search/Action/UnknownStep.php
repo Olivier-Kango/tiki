@@ -9,31 +9,31 @@ class Search_Action_UnknownStep implements Search_Action_Step
 {
 	private $actionName;
 
-	function __construct($action = null)
+	public function __construct($action = null)
 	{
 		$this->actionName = $action;
 	}
 
-	function getFields()
+	public function getFields()
 	{
 		return [];
 	}
 
-	function validate(array $entry)
+	public function validate(array $entry)
 	{
 		throw new Search_Action_Exception(tr('Unknown search action step: %0', $this->actionName));
 	}
 
-	function execute(array $entry)
+	public function execute(array $entry)
 	{
 	}
 
-	function requiresInput()
+	public function requiresInput()
 	{
 		return false;
 	}
 
-	function getName()
+	public function getName()
 	{
 		return $this->actionName;
 	}

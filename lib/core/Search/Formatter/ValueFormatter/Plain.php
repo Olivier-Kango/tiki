@@ -9,14 +9,14 @@ class Search_Formatter_ValueFormatter_Plain extends Search_Formatter_ValueFormat
 {
 	private $separator = ', ';
 
-	function __construct($arguments)
+	public function __construct($arguments)
 	{
 		if (isset($arguments['separator'])) {
 			$this->separator = $arguments['separator'];
 		}
 	}
 
-	function render($name, $value, array $entry)
+	public function render($name, $value, array $entry)
 	{
 		if (is_array($value)) {
 			return implode($this->separator, $value);

@@ -11,7 +11,7 @@ class Search_Formatter_ValueFormatter_Number extends Search_Formatter_ValueForma
 	private $dec_point = null;
 	private $thousands_sep = null;
 
-	function __construct($arguments)
+	public function __construct($arguments)
 	{
 		if (isset($arguments['decimals'])) {
 			$this->decimals = $arguments['decimals'];
@@ -24,7 +24,7 @@ class Search_Formatter_ValueFormatter_Number extends Search_Formatter_ValueForma
 		}
 	}
 
-	function render($name, $value, array $entry)
+	public function render($name, $value, array $entry)
 	{
 		if ((string)(float)$value !== (string)$value) {
 			return $value;

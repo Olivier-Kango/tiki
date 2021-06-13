@@ -10,18 +10,18 @@ class Search_Type_Timestamp implements Search_Type_Interface
 	private $value;
 	private $dateOnly;
 
-	function __construct($value, $dateOnly = false)
+	public function __construct($value, $dateOnly = false)
 	{
 		$this->value = $value;
 		$this->dateOnly = $dateOnly;
 	}
 
-	function getValue()
+	public function getValue()
 	{
 		return $this->value;
 	}
 
-	function isDateOnly()
+	public function isDateOnly()
 	{
 		return $this->dateOnly;
 	}

@@ -8,30 +8,30 @@
 interface Search_Type_Factory_Interface
 {
 	// tokenized - indexed - unstored in database
-	function plaintext($value);
+	public function plaintext($value);
 	// tokenized - indexed - unstored in database
-	function plainmediumtext($value);
+	public function plainmediumtext($value);
 	// wiki parsed before indexed - tokenized - indexed - unstored in database
-	function wikitext($value);
+	public function wikitext($value);
 	// not tokenized - indexed - stored in database
-	function timestamp($value, $dateOnly = false);
+	public function timestamp($value, $dateOnly = false);
 	// not tokenized - indexed - stored in database
-	function identifier($value);
+	public function identifier($value);
 	// not tokenized - indexed - stored in database
-	function numeric($value);
+	public function numeric($value);
 	// tokenized - indexed - unstored in database
-	function multivalue($values);
+	public function multivalue($values);
 	// tokenized - indexed - unstored in database
-	function object($values);
+	public function object($values);
 	// tokenized - indexed - unstored in database
-	function nested($values);
+	public function nested($values);
 	// tokenized - indexed - stored in database
-	function sortable($value);
+	public function sortable($value);
 	// tokenized - using Elasticsearch simple analyzer without stemming etc.
 	// useful in wildcard searches or when stemming is not desired. e.g. *leslie* doesn't match leslie.
-	function simpletext($value);
+	public function simpletext($value);
 	// tokenized - indexed - unstored in database (?)
-	function geopoint($value);
+	public function geopoint($value);
 	// like object but - not indexed - not mapped
-	function json($value);
+	public function json($value);
 }

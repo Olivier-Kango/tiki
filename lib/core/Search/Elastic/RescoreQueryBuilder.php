@@ -25,7 +25,7 @@ class Search_Elastic_RescoreQueryBuilder
 	private $documentReader;
 	private $accumulate;
 
-	function __construct()
+	public function __construct()
 	{
 		$this->factory = new Search_Elastic_TypeFactory;
 		$this->documentReader = function ($type, $object) {
@@ -33,7 +33,7 @@ class Search_Elastic_RescoreQueryBuilder
 		};
 	}
 
-	function build(Search_Expr_Interface $expr)
+	public function build(Search_Expr_Interface $expr)
 	{
 		$this->accumulate = [];
 
@@ -55,7 +55,7 @@ class Search_Elastic_RescoreQueryBuilder
 		return $query;
 	}
 
-	function setDocumentReader($callback)
+	public function setDocumentReader($callback)
 	{
 		$this->documentReader = $callback;
 	}
@@ -92,7 +92,7 @@ class Search_Elastic_RescoreQueryBuilder
 		];
 	}
 
-	function __invoke($node, $childNodes)
+	public function __invoke($node, $childNodes)
 	{
 		if ($node instanceof ExplicitPhrase) {
 			$type = $node->getType();

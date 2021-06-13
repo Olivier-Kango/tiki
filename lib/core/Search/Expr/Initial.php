@@ -12,7 +12,7 @@ class Search_Expr_Initial implements Search_Expr_Interface
 	private $field;
 	private $weight;
 
-	function __construct($string, $type = null, $field = null, $weight = 1.0)
+	public function __construct($string, $type = null, $field = null, $weight = 1.0)
 	{
 		$this->string = $string;
 		$this->type = $type;
@@ -20,53 +20,53 @@ class Search_Expr_Initial implements Search_Expr_Interface
 		$this->setWeight($weight);
 	}
 
-	function setType($type)
+	public function setType($type)
 	{
 		$this->type = $type;
 	}
 
-	function getType()
+	public function getType()
 	{
 		return $this->type;
 	}
 
-	function setField($field = 'global')
+	public function setField($field = 'global')
 	{
 		$this->field = $field;
 	}
 
-	function setWeight($weight)
+	public function setWeight($weight)
 	{
 		$this->weight = (float) $weight;
 	}
 
-	function getWeight()
+	public function getWeight()
 	{
 		return $this->weight;
 	}
 
-	function walk($callback)
+	public function walk($callback)
 	{
 		return call_user_func($callback, $this, []);
 	}
 
-	function getContent()
+	public function getContent()
 	{
 		return $this->string;
 	}
 
-	function getValue(Search_Type_Factory_Interface $typeFactory)
+	public function getValue(Search_Type_Factory_Interface $typeFactory)
 	{
 		$type = $this->type;
 		return $typeFactory->$type($this->string);
 	}
 
-	function getField()
+	public function getField()
 	{
 		return $this->field;
 	}
 
-	function traverse($callback)
+	public function traverse($callback)
 	{
 		return call_user_func($callback, $callback, $this, []);
 	}

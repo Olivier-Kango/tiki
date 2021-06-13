@@ -22,7 +22,7 @@ class Search_Query implements Search_Query_Interface
 	private $transformations = [];
 	private $returnOnlyResultList = [];
 
-	function __construct($query = null, $expr = 'and')
+	public function __construct($query = null, $expr = 'and')
 	{
 		if ($expr === 'or') {
 			$this->expr = new Search_Expr_Or([]);
@@ -35,17 +35,17 @@ class Search_Query implements Search_Query_Interface
 		}
 	}
 
-	function __clone()
+	public function __clone()
 	{
 		$this->expr = clone $this->expr;
 	}
 
-	function setIdentifierFields(array $fields)
+	public function setIdentifierFields(array $fields)
 	{
 		$this->identifierFields = $fields;
 	}
 
-	function addObject($type, $objectId)
+	public function addObject($type, $objectId)
 	{
 		if (is_null($this->objectList)) {
 			$this->objectList = new Search_Expr_Or([]);
@@ -58,7 +58,7 @@ class Search_Query implements Search_Query_Interface
 		$this->objectList->addPart(new Search_Expr_And([$type, $objectId]));
 	}
 
-	function filterContent($query, $field = 'contents')
+	public function filterContent($query, $field = 'contents')
 	{
 		global $prefs;
 		if ($prefs['unified_search_default_operator'] == 1 && strpos($query, '*') !== false) {
@@ -69,12 +69,12 @@ class Search_Query implements Search_Query_Interface
 		$this->addPart($query, 'plaintext', $field);
 	}
 
-	function filterIdentifier($query, $field)
+	public function filterIdentifier($query, $field)
 	{
 		$this->addPart(new Search_Expr_Token($query), 'identifier', $field);
 	}
 
-	function filterType($types)
+	public function filterType($types)
 	{
 		if (is_array($types)) {
 			foreach ($types as $type) {
@@ -92,32 +92,32 @@ class Search_Query implements Search_Query_Interface
 		}
 	}
 
-	function filterMultivalue($query, $field)
+	public function filterMultivalue($query, $field)
 	{
 		$this->addPart($query, 'multivalue', $field);
 	}
 
-	function filterContributors($query)
+	public function filterContributors($query)
 	{
 		$this->filterMultivalue($query, 'contributors');
 	}
 
-	function filterCategory($query, $deep = false)
+	public function filterCategory($query, $deep = false)
 	{
 		$this->filterMultivalue($query, $deep ? 'deep_categories' : 'categories');
 	}
 
-	function filterTags($query)
+	public function filterTags($query)
 	{
 		$this->filterMultivalue($query, 'freetags');
 	}
 
-	function filterLanguage($query)
+	public function filterLanguage($query)
 	{
 		$this->addPart($query, 'identifier', 'language');
 	}
 
-	function filterPermissions(array $groups, $user = null)
+	public function filterPermissions(array $groups, $user = null)
 	{
 		$tokens = [];
 		foreach ($groups as $group) {
@@ -134,7 +134,7 @@ class Search_Query implements Search_Query_Interface
 			$this->addPart($or, 'multivalue', 'allowed_groups');
 		}
 
-		$this->applyTransform(new Search_Formatter_Transform_FieldPermissionEnforcer);
+		$this->applyTransform(new Search_Formatter_Transform_FieldPermissionEnforcer());
 	}
 
 	/**
@@ -146,8 +146,7 @@ class Search_Query implements Search_Query_Interface
 	 * @link			http://www.php.net/manual/en/datetime.formats.php
 	 * @return void
 	 */
-
-	function filterRange($from, $to, $field = 'modification_date')
+	public function filterRange($from, $to, $field = 'modification_date')
 	{
 		if (! is_numeric($from)) {
 			$from2 = strtotime($from);
@@ -175,7 +174,7 @@ class Search_Query implements Search_Query_Interface
 		$this->addPart(new Search_Expr_Range($from, $to), 'timestamp', $field);
 	}
 
-	function filterTextRange($from, $to, $field = 'title')
+	public function filterTextRange($from, $to, $field = 'title')
 	{
 		/* make the range filter work regardless of ordering - if from > to, swap */
 		if (strcmp($from, $to) > 0) {
@@ -186,7 +185,7 @@ class Search_Query implements Search_Query_Interface
 		$this->addPart(new Search_Expr_Range($from, $to), 'plaintext', $field);
 	}
 
-	function filterNumericRange($from, $to, $field)
+	public function filterNumericRange($from, $to, $field)
 	{
 		/* make the range filter work regardless of ordering - if from > to, swap */
 		if ($to < $from) {
@@ -197,17 +196,17 @@ class Search_Query implements Search_Query_Interface
 		$this->addPart(new Search_Expr_Range($from, $to), 'numeric', $field);
 	}
 
-	function filterInitial($initial, $field = 'title')
+	public function filterInitial($initial, $field = 'title')
 	{
 		$this->addPart(new Search_Expr_Initial($initial), 'plaintext', $field);
 	}
 
-	function filterNotInitial($initial, $field = 'title')
+	public function filterNotInitial($initial, $field = 'title')
 	{
 		$this->addPart(new Search_Expr_Not(new Search_Expr_Initial($initial)), 'plaintext', $field);
 	}
 
-	function filterRelation($query, array $invertable = [])
+	public function filterRelation($query, array $invertable = [])
 	{
 		$query = $this->parse($query);
 		$replacer = new Search_Query_RelationReplacer($invertable);
@@ -215,7 +214,7 @@ class Search_Query implements Search_Query_Interface
 		$this->addPart($query, 'multivalue', 'relations');
 	}
 
-	function filterSimilar($type, $object, $field = 'contents')
+	public function filterSimilar($type, $object, $field = 'contents')
 	{
 		$part = new Search_Expr_And(
 			[
@@ -234,7 +233,7 @@ class Search_Query implements Search_Query_Interface
 		$this->expr->addPart($part);
 	}
 
-	function filterSimilarToThese($objects, $content, $field = 'contents')
+	public function filterSimilarToThese($objects, $content, $field = 'contents')
 	{
 		$excluded = [];
 		foreach ($objects as $object) {
@@ -258,7 +257,7 @@ class Search_Query implements Search_Query_Interface
 		$this->expr->addPart($part);
 	}
 
-	function filterDistance($distance, $lat, $lon, $field = 'geo_point')
+	public function filterDistance($distance, $lat, $lon, $field = 'geo_point')
 	{
 		$this->addPart(new Search_Expr_Distance($distance, $lat, $lon), 'geo_distance', $field);
 	}
@@ -284,7 +283,7 @@ class Search_Query implements Search_Query_Interface
 		}
 	}
 
-	function setOrder($order)
+	public function setOrder($order)
 	{
 		if (is_string($order)) {
 			$this->sortOrder = Search_Query_Order::parse($order);
@@ -293,7 +292,7 @@ class Search_Query implements Search_Query_Interface
 		}
 	}
 
-	function setRange($start, $count = null)
+	public function setRange($start, $count = null)
 	{
 		$this->start = (int) $start;
 
@@ -302,7 +301,7 @@ class Search_Query implements Search_Query_Interface
 		}
 	}
 
-	function setCount($count = null)
+	public function setCount($count = null)
 	{
 		if ($count) {
 			$this->count = (int) $count;
@@ -313,18 +312,18 @@ class Search_Query implements Search_Query_Interface
 	 * Affects the range from a numeric value
 	 * @param $pageNumber int Page number from 1 to n
 	 */
-	function setPage($pageNumber)
+	public function setPage($pageNumber)
 	{
 		$pageNumber = max(1, (int) $pageNumber);
 		$this->setRange(($pageNumber - 1) * $this->count);
 	}
 
-	function setWeightCalculator(Search_Query_WeightCalculator_Interface $calculator)
+	public function setWeightCalculator(Search_Query_WeightCalculator_Interface $calculator)
 	{
 		$this->weightCalculator = $calculator;
 	}
 
-	function getSortOrder()
+	public function getSortOrder()
 	{
 		if ($this->sortOrder) {
 			return $this->sortOrder;
@@ -343,7 +342,7 @@ class Search_Query implements Search_Query_Interface
 	 * of a single query.
 	 * @return Search_ResultSet
 	 */
-	function search(Search_Index_Interface $index, $multisearchId = '', $resultFromMultisearch = '')
+	public function search(Search_Index_Interface $index, $multisearchId = '', $resultFromMultisearch = '')
 	{
 		$this->finalize();
 		try {
@@ -397,7 +396,7 @@ class Search_Query implements Search_Query_Interface
 		return $resultset;
 	}
 
-	function scroll($index)
+	public function scroll($index)
 	{
 		$this->finalize();
 
@@ -417,12 +416,12 @@ class Search_Query implements Search_Query_Interface
 		}
 	}
 
-	function applyTransform(callable $transform)
+	public function applyTransform(callable $transform)
 	{
 		$this->transformations[] = $transform;
 	}
 
-	function store($name, $index)
+	public function store($name, $index)
 	{
 		if ($index instanceof Search_Index_QueryRepository) {
 			$this->finalize();
@@ -479,7 +478,7 @@ class Search_Query implements Search_Query_Interface
 		}
 	}
 
-	function getExpr()
+	public function getExpr()
 	{
 		return $this->expr;
 	}
@@ -487,7 +486,7 @@ class Search_Query implements Search_Query_Interface
 	private function parse($query)
 	{
 		if (is_string($query)) {
-			$parser = new Search_Expr_Parser;
+			$parser = new Search_Expr_Parser();
 			$query = $parser->parse($query);
 		} elseif ($query instanceof Search_Expr_Interface) {
 			$query = clone $query;
@@ -496,14 +495,14 @@ class Search_Query implements Search_Query_Interface
 		return $query;
 	}
 
-	function getTerms()
+	public function getTerms()
 	{
 		$terms = [];
 
-		$extractor = new Search_Type_Factory_Direct;
+		$extractor = new Search_Type_Factory_Direct();
 
 		$this->expr->walk(
-			function ($expr) use (& $terms, $extractor) {
+			function ($expr) use (&$terms, $extractor) {
 				if ($expr instanceof Search_Expr_Token && $expr->getField() == 'contents') {
 					$terms[] = $expr->getValue($extractor)->getValue();
 				}
@@ -513,14 +512,14 @@ class Search_Query implements Search_Query_Interface
 		return $terms;
 	}
 
-	function getSubQuery($name)
+	public function getSubQuery($name)
 	{
 		if (empty($name)) {
 			return $this;
 		}
 
 		if (! isset($this->subQueries[$name])) {
-			$subquery = new self;
+			$subquery = new self();
 			$subquery->expr = new Search_Expr_Or([]);
 			$this->expr->addPart($subquery->expr);
 
@@ -530,10 +529,10 @@ class Search_Query implements Search_Query_Interface
 		return $this->subQueries[$name];
 	}
 
-	function getPostFilter()
+	public function getPostFilter()
 	{
 		if (! $this->postFilter) {
-			$subquery = new self;
+			$subquery = new self();
 			$this->postFilter = $subquery;
 			$subquery->postFilter = $subquery;
 		}
@@ -541,22 +540,22 @@ class Search_Query implements Search_Query_Interface
 		return $this->postFilter;
 	}
 
-	function requestFacet(Search_Query_Facet_Interface $facet)
+	public function requestFacet(Search_Query_Facet_Interface $facet)
 	{
 		$this->facets[] = $facet;
 	}
 
-	function getFacets()
+	public function getFacets()
 	{
 		return $this->facets;
 	}
 
-	function includeForeign($indexName, Search_Query $query)
+	public function includeForeign($indexName, Search_Query $query)
 	{
 		$this->foreignQueries[$indexName] = $query;
 	}
 
-	function getForeignQueries()
+	public function getForeignQueries()
 	{
 		return $this->foreignQueries;
 	}

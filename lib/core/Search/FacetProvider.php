@@ -9,26 +9,26 @@ class Search_FacetProvider implements Search_FacetProvider_Interface
 {
 	private $facets = [];
 
-	function addContentSource($type, Search_ContentSource_Interface $source)
+	public function addContentSource($type, Search_ContentSource_Interface $source)
 	{
 		if ($source instanceof Search_FacetProvider_Interface) {
 			$this->addProvider($source);
 		}
 	}
 
-	function addGlobalSource(Search_GlobalSource_Interface $source)
+	public function addGlobalSource(Search_GlobalSource_Interface $source)
 	{
 		if ($source instanceof Search_FacetProvider_Interface) {
 			$this->addProvider($source);
 		}
 	}
 
-	function addProvider(Search_FacetProvider_Interface $provider)
+	public function addProvider(Search_FacetProvider_Interface $provider)
 	{
 		$this->addFacets($provider->getFacets());
 	}
 
-	function addFacets(array $facets)
+	public function addFacets(array $facets)
 	{
 		foreach ($facets as $facet) {
 			$this->facets[$facet->getName()] = $facet;
@@ -38,7 +38,7 @@ class Search_FacetProvider implements Search_FacetProvider_Interface
 	/**
 	 * @return \Search_Query_Facet_Term[]
 	 */
-	function getFacets()
+	public function getFacets()
 	{
 		return $this->facets;
 	}
@@ -48,7 +48,7 @@ class Search_FacetProvider implements Search_FacetProvider_Interface
 	 *
 	 * @return \Search_Query_Facet_Term|void
 	 */
-	function getFacet($name)
+	public function getFacet($name)
 	{
 		if (isset($this->facets[$name])) {
 			return $this->facets[$name];

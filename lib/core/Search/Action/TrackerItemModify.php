@@ -7,7 +7,7 @@
 
 class Search_Action_TrackerItemModify implements Search_Action_Action
 {
-	function getValues()
+	public function getValues()
 	{
 		return [
 			'object_type' => true,
@@ -23,7 +23,7 @@ class Search_Action_TrackerItemModify implements Search_Action_Action
 		];
 	}
 
-	function validate(JitFilter $data)
+	public function validate(JitFilter $data)
 	{
 		$object_type = $data->object_type->text();
 		$object_id = $data->object_id->int();
@@ -32,7 +32,7 @@ class Search_Action_TrackerItemModify implements Search_Action_Action
 		$calc = $data->calc->text();
 		$add = $data->add->text();
 		$remove = $data->remove->text();
-		$method= $data->method->text();
+		$method = $data->method->text();
 		$aggregateFields = $data->aggregate_fields->none();
 
 		if ($aggregateFields && $object_type != 'aggregate') {
@@ -72,7 +72,7 @@ class Search_Action_TrackerItemModify implements Search_Action_Action
 		return true;
 	}
 
-	function execute(JitFilter $data)
+	public function execute(JitFilter $data)
 	{
 		$object_id = $data->object_id->int();
 		$aggregateFields = $data->aggregate_fields->none();
@@ -80,7 +80,7 @@ class Search_Action_TrackerItemModify implements Search_Action_Action
 		if ($aggregateFields) {
 			$unifiedsearchlib = TikiLib::lib('unifiedsearch');
 			$index = $unifiedsearchlib->getIndex();
-			$query = new Search_Query;
+			$query = new Search_Query();
 			$unifiedsearchlib->initQuery($query);
 			foreach ($aggregateFields as $agField => $value) {
 				$query->filterIdentifier((string)$value, $agField);
@@ -100,10 +100,9 @@ class Search_Action_TrackerItemModify implements Search_Action_Action
 		return $executed;
 	}
 
-	function requiresInput(JitFilter $data)
+	public function requiresInput(JitFilter $data)
 	{
 		if (empty($data->value->text()) && empty($data->calc->text()) && empty($data->add->text()) && empty($data->remove->text())) {
-
 			// return data for the call to fetch_item_field
 			$permName = $data->field->text();
 			$field = TikiLib::lib('trk')->get_field_by_perm_name($permName);
@@ -167,7 +166,7 @@ class Search_Action_TrackerItemModify implements Search_Action_Action
 
 		if (empty($add) && empty($remove)) {
 			if(is_string($value)) {
-				$value = ['ins_'.$fieldInfo['fieldId'] => $value];
+				$value = ['ins_' . $fieldInfo['fieldId'] => $value];
 			}
 			$data = $handler->getFieldData($value);
 			$value = $data['value'];
@@ -195,7 +194,7 @@ class Search_Action_TrackerItemModify implements Search_Action_Action
 			}
 		}
 
-		$utilities = new Services_Tracker_Utilities;
+		$utilities = new Services_Tracker_Utilities();
 		return $utilities->updateItem(
 			$definition,
 			[

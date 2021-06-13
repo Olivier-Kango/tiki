@@ -65,7 +65,7 @@ class Search_Indexer
 				}
 
 				if ($this->errorContext) {
-					$error = $this->errorContext.': '.$error;
+					$error = $this->errorContext . ': ' . $error;
 				}
 
 				$this->cacheErrors[] = compact('error', 'errstr', 'errfile', 'errline');
@@ -136,7 +136,6 @@ class Search_Indexer
 		$timer = new timer();
 
 		foreach ($this->contentSources as $objectType => $contentSource) {
-
 			if ($progress) {
 				if (! empty($lastStats['default']['times'][$objectType]) && ! empty($lastStats['default']['counts'][$objectType])) {
 					$docTime = $lastStats['default']['times'][$objectType] * 1000 / $lastStats['default']['counts'][$objectType];
@@ -360,7 +359,7 @@ class Search_Indexer
 		return $data;
 	}
 
-	private function getGlobalContent(array & $data, $globalFields)
+	private function getGlobalContent(array &$data, $globalFields)
 	{
 		$content = '';
 

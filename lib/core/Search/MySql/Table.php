@@ -17,7 +17,7 @@ class Search_MySql_Table extends TikiDb_Table
 	private $dataBuffer;
 	private $tfTranslator;
 
-	function __construct($db, $table)
+	public function __construct($db, $table)
 	{
 		parent::__construct($db, $table);
 
@@ -27,7 +27,7 @@ class Search_MySql_Table extends TikiDb_Table
 		$this->tfTranslator = new Search_MySql_TrackerFieldTranslator;
 	}
 
-	function __destruct()
+	public function __destruct()
 	{
 		try {
 			$this->flush();
@@ -36,7 +36,7 @@ class Search_MySql_Table extends TikiDb_Table
 		}
 	}
 
-	function drop()
+	public function drop()
 	{
 		$table = $this->escapeIdentifier($this->tableName);
 		$this->db->query("DROP TABLE IF EXISTS $table");
@@ -46,7 +46,7 @@ class Search_MySql_Table extends TikiDb_Table
 		$this->emptyBuffer();
 	}
 
-	function exists()
+	public function exists()
 	{
 		if (is_null($this->exists)) {
 			$tables = $this->db->listTables();
@@ -56,7 +56,7 @@ class Search_MySql_Table extends TikiDb_Table
 		return $this->exists;
 	}
 
-	function insert(array $values, $ignore = false)
+	public function insert(array $values, $ignore = false)
 	{
 		$keySet = implode(', ', array_map([$this, 'escapeIdentifier'], array_map([$this->tfTranslator, 'shortenize'], array_keys($values))));
 
@@ -67,7 +67,7 @@ class Search_MySql_Table extends TikiDb_Table
 		return 0;
 	}
 
-	function ensureHasField($fieldName, $type)
+	public function ensureHasField($fieldName, $type)
 	{
 		$this->loadDefinition();
 
@@ -77,7 +77,7 @@ class Search_MySql_Table extends TikiDb_Table
 		}
 	}
 
-	function hasIndex($fieldName, $type)
+	public function hasIndex($fieldName, $type)
 	{
 		$this->loadDefinition();
 
@@ -91,7 +91,7 @@ class Search_MySql_Table extends TikiDb_Table
 	 * @param $type
 	 * @throws Search_MySql_QueryException
 	 */
-	function ensureHasIndex($fieldName, $type)
+	public function ensureHasIndex($fieldName, $type)
 	{
 		global $prefs;
 
@@ -218,7 +218,7 @@ class Search_MySql_Table extends TikiDb_Table
 		$this->dataBuffer->push($valueSet);
 	}
 
-	function flush()
+	public function flush()
 	{
 		$this->schemaBuffer->flush();
 		$this->dataBuffer->flush();

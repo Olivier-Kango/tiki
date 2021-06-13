@@ -10,23 +10,23 @@ class Search_Formatter_Plugin_ReportTemplate implements Search_Formatter_Plugin_
 	private $template;
 	private $format;
 
-	function __construct($template)
+	public function __construct($template)
 	{
 		$this->template = WikiParser_PluginMatcher::match($template);
 		$this->format = self::FORMAT_WIKI;
 	}
 
-	function setRaw($isRaw)
+	public function setRaw($isRaw)
 	{
 		$this->format = $isRaw ? self::FORMAT_HTML : self::FORMAT_WIKI;
 	}
 
-	function getFormat()
+	public function getFormat()
 	{
 		return $this->format;
 	}
 
-	function getFields()
+	public function getFields()
 	{
 		$parser = new WikiParser_PluginArgumentParser;
 
@@ -46,13 +46,13 @@ class Search_Formatter_Plugin_ReportTemplate implements Search_Formatter_Plugin_
 		return $fields;
 	}
 
-	function prepareEntry($valueFormatter)
+	public function prepareEntry($valueFormatter)
 	{
 		// TODO: handle both plain values from the search index for the report and display formatted values in the output
 		return $valueFormatter->getPlainValues();
 	}
 
-	function renderEntries(Search_ResultSet $entries)
+	public function renderEntries(Search_ResultSet $entries)
 	{
 		$matches = clone $this->template;
 		foreach ($matches as $match) {

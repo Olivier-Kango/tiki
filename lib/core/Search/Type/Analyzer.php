@@ -11,7 +11,7 @@
  */
 class Search_Type_Analyzer
 {
-	function findType($key, $value)
+	public function findType($key, $value)
 	{
 		if (is_array($value)) {
 			if ($this->isSimple($value)) {

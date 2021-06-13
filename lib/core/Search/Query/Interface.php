@@ -7,7 +7,7 @@
 
 interface Search_Query_Interface
 {
-	function getExpr();
-	function getSortOrder();
-	function getFacets();
+	public function getExpr();
+	public function getSortOrder();
+	public function getFacets();
 }

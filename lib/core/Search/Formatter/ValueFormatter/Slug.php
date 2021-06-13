@@ -10,12 +10,12 @@ class Search_Formatter_ValueFormatter_Slug extends Search_Formatter_ValueFormatt
 {
 	private $manager = null;
 
-	function __construct($arguments)
+	public function __construct($arguments)
 	{
 		$this->manager = TikiLib::lib('slugmanager');
 	}
 
-	function render($name, $value, array $entry)
+	public function render($name, $value, array $entry)
 	{
 		global $prefs;
 

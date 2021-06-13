@@ -9,12 +9,12 @@ class Search_GlobalSource_CategorySource implements Search_GlobalSource_Interfac
 {
 	private $categlib;
 
-	function __construct()
+	public function __construct()
 	{
 		$this->categlib = TikiLib::lib('categ');
 	}
 
-	function getFacets()
+	public function getFacets()
 	{
 		$facets = [
 			Search_Query_Facet_Term::fromField('deep_categories')
@@ -37,7 +37,7 @@ class Search_GlobalSource_CategorySource implements Search_GlobalSource_Interfac
 		return $facets;
 	}
 
-	function getReferenceMap()
+	public function getReferenceMap()
 	{
 		$list = [
 			'categories' => 'category',
@@ -51,7 +51,7 @@ class Search_GlobalSource_CategorySource implements Search_GlobalSource_Interfac
 		return $list;
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		$list = ['categories', 'deep_categories'];
 		foreach ($this->categlib->getCustomFacets() as $categId) {
@@ -62,12 +62,12 @@ class Search_GlobalSource_CategorySource implements Search_GlobalSource_Interfac
 		return $list;
 	}
 
-	function getGlobalFields()
+	public function getGlobalFields()
 	{
 		return [];
 	}
 
-	function getData($objectType, $objectId, Search_Type_Factory_Interface $typeFactory, array $data = [])
+	public function getData($objectType, $objectId, Search_Type_Factory_Interface $typeFactory, array $data = [])
 	{
 		if (isset($data['categories']) || isset($data['deep_categories'])) {
 			return [];

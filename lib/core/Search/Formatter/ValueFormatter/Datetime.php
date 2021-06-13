@@ -9,7 +9,7 @@ class Search_Formatter_ValueFormatter_Datetime extends Search_Formatter_ValueFor
 {
 	protected $format;
 
-	function __construct(array $arguments = [])
+	public function __construct(array $arguments = [])
 	{
 		if (isset($arguments['dateFormat'])) {
 			$this->format = $arguments['dateFormat'];
@@ -19,7 +19,7 @@ class Search_Formatter_ValueFormatter_Datetime extends Search_Formatter_ValueFor
 		}
 	}
 
-	function render($name, $value, array $entry)
+	public function render($name, $value, array $entry)
 	{
 		$tikilib = TikiLib::lib('tiki');
 		$time = $this->timestamp($value);

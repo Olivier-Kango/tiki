@@ -10,8 +10,7 @@ class Search_Query_Facet_DateHistogram extends Search_Query_Facet_Abstract imple
 	private $interval;
 	private $format;
 
-
-	static function fromField($field)
+	public static function fromField($field)
 	{
 		return new self($field);
 	}
@@ -19,7 +18,7 @@ class Search_Query_Facet_DateHistogram extends Search_Query_Facet_Abstract imple
 	/**
 	 * @return string
 	 */
-	function getType()
+	public function getType()
 	{
 		return 'date_histogram';
 	}
@@ -27,7 +26,7 @@ class Search_Query_Facet_DateHistogram extends Search_Query_Facet_Abstract imple
 	/**
 	 * @return string
 	 */
-	function getInterval()
+	public function getInterval()
 	{
 		return $this->interval;
 	}
@@ -37,7 +36,7 @@ class Search_Query_Facet_DateHistogram extends Search_Query_Facet_Abstract imple
 	 *
 	 * @return Search_Query_Facet_Interface
 	 */
-	function setInterval($interval)
+	public function setInterval($interval)
 	{
 		$this->interval = $interval;
 		return $this;

@@ -22,7 +22,7 @@ class Search_Formatter_Builder
 	private $isDownload;
 	private $downloadName;
 
-	function __construct()
+	public function __construct()
 	{
 		$this->parser = new WikiParser_PluginArgumentParser;
 		$this->paginationArguments = [
@@ -33,27 +33,27 @@ class Search_Formatter_Builder
 		$this->isDownload = false;
 	}
 
-	function setPaginationArguments($arguments)
+	public function setPaginationArguments($arguments)
 	{
 		$this->paginationArguments = $arguments;
 	}
 
-	function setFormatterPlugin(Search_Formatter_Plugin_Interface $plugin)
+	public function setFormatterPlugin(Search_Formatter_Plugin_Interface $plugin)
 	{
 		$this->formatterPlugin = $plugin;
 	}
 
-	function setActions($actions)
+	public function setActions($actions)
 	{
 		$this->actions = $actions;
 	}
 
-	function setDownload($isDownload)
+	public function setDownload($isDownload)
 	{
 		$this->isDownload = $isDownload;
 	}
 
-	function apply($matches)
+	public function apply($matches)
 	{
 		foreach ($matches as $match) {
 			$name = $match->getName();
@@ -80,7 +80,7 @@ class Search_Formatter_Builder
 		}
 	}
 
-	function getFormatter()
+	public function getFormatter()
 	{
 		$plugin = $this->formatterPlugin;
 		if (! $plugin) {

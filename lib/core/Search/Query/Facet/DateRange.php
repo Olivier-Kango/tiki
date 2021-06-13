@@ -11,7 +11,7 @@ class Search_Query_Facet_DateRange extends Search_Query_Facet_Abstract implement
 	private $format;
 	private $keyed = false;
 
-	static function fromField($field)
+	public static function fromField($field)
 	{
 		return new self($field);
 	}
@@ -19,7 +19,7 @@ class Search_Query_Facet_DateRange extends Search_Query_Facet_Abstract implement
 	/**
 	 * @return string
 	 */
-	function getType()
+	public function getType()
 	{
 		return 'date_range';
 	}
@@ -27,7 +27,7 @@ class Search_Query_Facet_DateRange extends Search_Query_Facet_Abstract implement
 	/**
 	 * @return array
 	 */
-	function getRanges()
+	public function getRanges()
 	{
 		return $this->ranges;
 	}
@@ -45,7 +45,7 @@ class Search_Query_Facet_DateRange extends Search_Query_Facet_Abstract implement
 	 *
 	 * @return Search_Query_Facet_Interface
 	 */
-	function addRange($to, $from, $key = '')
+	public function addRange($to, $from, $key = '')
 	{
 		$range = [
 			'to' => $to,
@@ -62,7 +62,8 @@ class Search_Query_Facet_DateRange extends Search_Query_Facet_Abstract implement
 		return $this;
 	}
 
-	public function clearRanges() {
+	public function clearRanges()
+	{
 		$this->ranges = [];
 	}
 

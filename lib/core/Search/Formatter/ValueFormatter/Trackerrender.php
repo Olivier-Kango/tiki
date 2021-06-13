@@ -12,7 +12,7 @@ class Search_Formatter_ValueFormatter_Trackerrender extends Search_Formatter_Val
 	private $editable = false;
 	private $group = false;
 
-	function __construct($arguments)
+	public function __construct($arguments)
 	{
 		if (isset($arguments['list_mode']) && $arguments['list_mode'] !== 'n') {
 			if ($arguments['list_mode'] == 'csv') {
@@ -34,7 +34,7 @@ class Search_Formatter_ValueFormatter_Trackerrender extends Search_Formatter_Val
 		}
 	}
 
-	function render($name, $value, array $entry)
+	public function render($name, $value, array $entry)
 	{
 		if ($name === 'tracker_status') {
 			switch ($value) {
@@ -110,7 +110,7 @@ class Search_Formatter_ValueFormatter_Trackerrender extends Search_Formatter_Val
 		return '~np~' . $rendered . '~/np~';
 	}
 
-	function canCache()
+	public function canCache()
 	{
 		if ($this->cancache === null) {
 			trigger_error('Search_Formatter_ValueFormatter_Trackerrender->canCache() called before field rendered, assuming "true"');

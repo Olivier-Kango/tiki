@@ -12,7 +12,7 @@ class Search_ContentFilter_VersionNumber implements Laminas\Filter\FilterInterfa
 		return preg_replace_callback('/[0-9]+(\.[0-9]+)+/', [$this, 'augmentVersionTokens'], $value);
 	}
 
-	function augmentVersionTokens($version)
+	public function augmentVersionTokens($version)
 	{
 		$version = $version[0];
 		$out = $version;

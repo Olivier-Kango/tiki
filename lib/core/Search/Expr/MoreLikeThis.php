@@ -16,7 +16,7 @@ class Search_Expr_MoreLikeThis implements Search_Expr_Interface
 	/**
 	 * If a single argument is provided, it will be assumed to be the direct content.
 	 */
-	function __construct($type, $object = null)
+	public function __construct($type, $object = null)
 	{
 		if (is_null($object)) {
 			$this->content = $type;
@@ -26,59 +26,59 @@ class Search_Expr_MoreLikeThis implements Search_Expr_Interface
 		}
 	}
 
-	function setType($type)
+	public function setType($type)
 	{
 	}
 
-	function getType()
+	public function getType()
 	{
 		return 'plaintext';
 	}
 
-	function getContent()
+	public function getContent()
 	{
 		return $this->content;
 	}
 
-	function setField($field = 'contents')
+	public function setField($field = 'contents')
 	{
 		$this->field = $field;
 	}
 
-	function setWeight($weight)
+	public function setWeight($weight)
 	{
 	}
 
-	function getWeight()
+	public function getWeight()
 	{
 		return 1;
 	}
 
-	function walk($callback)
+	public function walk($callback)
 	{
 		return call_user_func($callback, $this, []);
 	}
 
-	function getValue(Search_Type_Factory_Interface $typeFactory)
+	public function getValue(Search_Type_Factory_Interface $typeFactory)
 	{
 	}
 
-	function getField()
+	public function getField()
 	{
 		return $this->field;
 	}
 
-	function traverse($callback)
+	public function traverse($callback)
 	{
 		return call_user_func($callback, $callback, $this, []);
 	}
 
-	function getObjectType()
+	public function getObjectType()
 	{
 		return $this->type;
 	}
 
-	function getObjectId()
+	public function getObjectId()
 	{
 		return $this->object;
 	}

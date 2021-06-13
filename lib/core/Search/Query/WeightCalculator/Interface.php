@@ -7,5 +7,5 @@
 
 interface Search_Query_WeightCalculator_Interface
 {
-	function calculate(Search_Expr_Interface $expr);
+	public function calculate(Search_Expr_Interface $expr);
 }

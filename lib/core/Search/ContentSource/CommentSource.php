@@ -12,7 +12,7 @@ class Search_ContentSource_CommentSource implements Search_ContentSource_Interfa
 	private $permissionMap;
 	private $indexer;
 
-	function __construct($types)
+	public function __construct($types)
 	{
 		$this->types = $types;
 
@@ -21,7 +21,7 @@ class Search_ContentSource_CommentSource implements Search_ContentSource_Interfa
 		$this->permissionMap = TikiLib::lib('object')->map_object_type_to_permission(true);
 	}
 
-	function getDocuments()
+	public function getDocuments()
 	{
 		$comments = $this->db->table('tiki_comments');
 
@@ -33,7 +33,7 @@ class Search_ContentSource_CommentSource implements Search_ContentSource_Interfa
 		);
 	}
 
-	function getDocument($objectId, Search_Type_Factory_Interface $typeFactory)
+	public function getDocument($objectId, Search_Type_Factory_Interface $typeFactory)
 	{
 		$commentslib = TikiLib::lib('comments');
 
@@ -99,7 +99,7 @@ class Search_ContentSource_CommentSource implements Search_ContentSource_Interfa
 		return $data;
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		return [
 			'title',
@@ -121,7 +121,7 @@ class Search_ContentSource_CommentSource implements Search_ContentSource_Interfa
 		];
 	}
 
-	function getGlobalFields()
+	public function getGlobalFields()
 	{
 		return [
 			'title' => true,

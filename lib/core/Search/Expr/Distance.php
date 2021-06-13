@@ -13,7 +13,7 @@ class Search_Expr_Distance implements Search_Expr_Interface
 	private $field;
 	private $weight;
 
-	function __construct($distance, $lat, $lon, $field = 'geo_point', $weight = 1.0)
+	public function __construct($distance, $lat, $lon, $field = 'geo_point', $weight = 1.0)
 	{
 		$this->distance = $distance;
 		$this->lat = (float) $lat;
@@ -46,41 +46,41 @@ class Search_Expr_Distance implements Search_Expr_Interface
 		return $this->lon;
 	}
 
-	function setType($type)
+	public function setType($type)
 	{
 	}
 
-	function setField($field = 'geo_point')
+	public function setField($field = 'geo_point')
 	{
 	}
 
-	function setWeight($weight)
+	public function setWeight($weight)
 	{
 		$this->weight = (float) $weight;
 	}
 
-	function getWeight()
+	public function getWeight()
 	{
 		return $this->weight;
 	}
 
-	function walk($callback)
+	public function walk($callback)
 	{
 		return call_user_func($callback, $this, []);
 	}
 
-	function getValue(Search_Type_Factory_Interface $typeFactory)
+	public function getValue(Search_Type_Factory_Interface $typeFactory)
 	{
 		$type = $this->type;
 		return $typeFactory->$type($this->string);
 	}
 
-	function getField()
+	public function getField()
 	{
 		return $this->field;
 	}
 
-	function traverse($callback)
+	public function traverse($callback)
 	{
 		return call_user_func($callback, $callback, $this, []);
 	}

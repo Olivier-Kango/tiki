@@ -9,12 +9,12 @@ class Search_Elastic_FacetReader
 {
 	private $data;
 
-	function __construct(stdClass $data)
+	public function __construct(stdClass $data)
 	{
 		$this->data = $data;
 	}
 
-	function getFacetFilter(Search_Query_Facet_Interface $facet)
+	public function getFacetFilter(Search_Query_Facet_Interface $facet)
 	{
 		$facetName = $facet->getName();
 		$entry = null;

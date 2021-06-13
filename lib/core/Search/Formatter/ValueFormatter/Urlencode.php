@@ -9,14 +9,14 @@ class Search_Formatter_ValueFormatter_Urlencode extends Search_Formatter_ValueFo
 {
 	private $separator = false;
 
-	function __construct($arguments)
+	public function __construct($arguments)
 	{
 		if (isset($arguments['separator'])) {
 			$this->separator = $arguments['separator'];
 		}
 	}
 
-	function render($name, $value, array $entry)
+	public function render($name, $value, array $entry)
 	{
 		if (is_array($value) && $this->separator !== false) {
 			return urlencode(implode($this->separator, $value));

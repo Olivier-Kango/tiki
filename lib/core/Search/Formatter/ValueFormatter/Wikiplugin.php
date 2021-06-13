@@ -9,12 +9,12 @@ class Search_Formatter_ValueFormatter_Wikiplugin extends Search_Formatter_ValueF
 {
 	private $arguments;
 
-	function __construct($arguments)
+	public function __construct($arguments)
 	{
 		$this->arguments = $arguments;
 	}
 
-	function render($name, $value, array $entry)
+	public function render($name, $value, array $entry)
 	{
 		if (substr($name, 0, 11) !== 'wikiplugin_') {
 			return $value;

@@ -10,25 +10,25 @@ class Search_GlobalSource_ArticleAttachmentSource implements Search_GlobalSource
 	private $relationlib;
 	private $source;
 
-	function __construct(Search_ContentSource_Interface $source)
+	public function __construct(Search_ContentSource_Interface $source)
 	{
 		$this->relationlib = TikiLib::lib('relation');
 		$this->source = $source;
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		return ['article_contents'];
 	}
 
-	function getGlobalFields()
+	public function getGlobalFields()
 	{
 		return [
 			'article_contents' => false,
 		];
 	}
 
-	function getData($objectType, $objectId, Search_Type_Factory_Interface $typeFactory, array $data = [])
+	public function getData($objectType, $objectId, Search_Type_Factory_Interface $typeFactory, array $data = [])
 	{
 		$relations = $this->relationlib->get_relations_from($objectType, $objectId, 'tiki.article.attach');
 

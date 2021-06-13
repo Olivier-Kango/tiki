@@ -14,7 +14,7 @@ class Search_ContentSource_UserSource implements Search_ContentSource_Interface
 	private $trk;
 	private $visibility;
 
-	function __construct($visibility)
+	public function __construct($visibility)
 	{
 		$this->db = TikiDb::get();
 		$this->user = TikiLib::lib('user');
@@ -24,12 +24,12 @@ class Search_ContentSource_UserSource implements Search_ContentSource_Interface
 		$this->visibility = $visibility;
 	}
 
-	function getDocuments()
+	public function getDocuments()
 	{
 		return $this->db->table('users_users')->fetchColumn('login', []);
 	}
 
-	function getDocument($objectId, Search_Type_Factory_Interface $typeFactory)
+	public function getDocument($objectId, Search_Type_Factory_Interface $typeFactory)
 	{
 		global $prefs;
 
@@ -136,7 +136,7 @@ class Search_ContentSource_UserSource implements Search_ContentSource_Interface
 		}
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		static $data;
 
@@ -175,7 +175,7 @@ class Search_ContentSource_UserSource implements Search_ContentSource_Interface
 		return array_unique($data);
 	}
 
-	function getGlobalFields()
+	public function getGlobalFields()
 	{
 		static $data;
 

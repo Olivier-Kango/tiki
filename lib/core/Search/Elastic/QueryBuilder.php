@@ -21,7 +21,7 @@ class Search_Elastic_QueryBuilder
 	private $documentReader;
 	private $index;
 
-	function __construct(Search_Elastic_Index $index = null)
+	public function __construct(Search_Elastic_Index $index = null)
 	{
 		$this->factory = new Search_Elastic_TypeFactory;
 		$this->documentReader = function ($type, $object) {
@@ -30,7 +30,7 @@ class Search_Elastic_QueryBuilder
 		$this->index = $index;
 	}
 
-	function build(Search_Expr_Interface $expr)
+	public function build(Search_Expr_Interface $expr)
 	{
 		$query = $expr->traverse($this);
 
@@ -47,12 +47,12 @@ class Search_Elastic_QueryBuilder
 		return $query;
 	}
 
-	function setDocumentReader($callback)
+	public function setDocumentReader($callback)
 	{
 		$this->documentReader = $callback;
 	}
 
-	function __invoke($callback, $node, $childNodes)
+	public function __invoke($callback, $node, $childNodes)
 	{
 		if ($node instanceof ImplicitPhrase) {
 			$node = $node->getBasicOperator();

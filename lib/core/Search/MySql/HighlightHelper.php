@@ -11,7 +11,7 @@ class Search_MySql_HighlightHelper implements Laminas\Filter\FilterInterface
 	private $replacements = [];
 	private $snippetHelper;
 
-	function __construct(array $words)
+	public function __construct(array $words)
 	{
 		$this->words = $words;
 
@@ -27,7 +27,7 @@ class Search_MySql_HighlightHelper implements Laminas\Filter\FilterInterface
 		$this->snippetHelper = new Search_ResultSet_SnippetHelper;
 	}
 
-	function filter($content)
+	public function filter($content)
 	{
 		$content = $this->snippetHelper->filter($content);
 		$content = str_ireplace($this->words, $this->replacements, $content);

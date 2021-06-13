@@ -12,23 +12,23 @@ class Search_Query_Facet_Term extends Search_Query_Facet_Abstract implements Sea
 	private $order;
 	private $min_doc_count;
 
-	static function fromField($field)
+	public static function fromField($field)
 	{
 		return new self($field);
 	}
 
-	function getCount()
+	public function getCount()
 	{
 		return $this->count;
 	}
 
-	function setCount($count)
+	public function setCount($count)
 	{
 		$this->count = $count;
 		return $this;
 	}
 
-	function setRenderMap(array $map)
+	public function setRenderMap(array $map)
 	{
 		return $this->setRenderCallback(
 			function ($value) use ($map) {
@@ -41,18 +41,18 @@ class Search_Query_Facet_Term extends Search_Query_Facet_Abstract implements Sea
 		);
 	}
 
-	function getType()
+	public function getType()
 	{
 		return 'terms';
 	}
 
-	function setOperator($operator)
+	public function setOperator($operator)
 	{
 		$this->operator = in_array($operator, ['and', 'or']) ? $operator : 'or';
 		return $this;
 	}
 
-	function getOperator()
+	public function getOperator()
 	{
 		return $this->operator;
 	}
@@ -101,5 +101,4 @@ class Search_Query_Facet_Term extends Search_Query_Facet_Abstract implements Sea
 		$this->min_doc_count = $min;
 		return $this;
 	}
-
 }

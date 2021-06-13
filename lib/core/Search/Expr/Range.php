@@ -13,7 +13,7 @@ class Search_Expr_Range implements Search_Expr_Interface
 	private $field;
 	private $weight;
 
-	function __construct($from, $to, $type = null, $field = null, $weight = 1.0)
+	public function __construct($from, $to, $type = null, $field = null, $weight = 1.0)
 	{
 		$this->from = $from;
 		$this->to = $to;
@@ -22,7 +22,7 @@ class Search_Expr_Range implements Search_Expr_Interface
 		$this->weight = (float) $weight;
 	}
 
-	function getToken($which)
+	public function getToken($which)
 	{
 		if ($which != 'from' && $which != 'to') {
 			return null;
@@ -31,43 +31,43 @@ class Search_Expr_Range implements Search_Expr_Interface
 		return new Search_Expr_Token($this->$which, $this->type, $this->field);
 	}
 
-	function setType($type)
+	public function setType($type)
 	{
 		$this->type = $type;
 	}
 
-	function setField($field = 'global')
+	public function setField($field = 'global')
 	{
 		$this->field = $field;
 	}
 
-	function setWeight($weight)
+	public function setWeight($weight)
 	{
 		$this->weight = (float) $weight;
 	}
 
-	function getWeight()
+	public function getWeight()
 	{
 		return $this->weight;
 	}
 
-	function walk($callback)
+	public function walk($callback)
 	{
 		return call_user_func($callback, $this, []);
 	}
 
-	function getValue(Search_Type_Factory_Interface $typeFactory)
+	public function getValue(Search_Type_Factory_Interface $typeFactory)
 	{
 		$type = $this->type;
 		return $typeFactory->$type($this->string);
 	}
 
-	function getField()
+	public function getField()
 	{
 		return $this->field;
 	}
 
-	function traverse($callback)
+	public function traverse($callback)
 	{
 		return call_user_func($callback, $callback, $this, []);
 	}

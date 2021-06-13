@@ -13,20 +13,20 @@ class Search_Index_Memory implements Search_Index_Interface
 	private $lastStart;
 	private $lastCount;
 
-	function addDocument(array $data)
+	public function addDocument(array $data)
 	{
 		$this->data[] = $data;
 	}
 
-	function endUpdate()
+	public function endUpdate()
 	{
 	}
 
-	function invalidateMultiple(array $objectList)
+	public function invalidateMultiple(array $objectList)
 	{
 	}
 
-	function find(Search_Query_Interface $query, $resultStart, $resultCount)
+	public function find(Search_Query_Interface $query, $resultStart, $resultCount)
 	{
 		$this->lastQuery = $query->getExpr();
 		$this->lastOrder = $query->getSortOrder();
@@ -35,22 +35,22 @@ class Search_Index_Memory implements Search_Index_Interface
 		return new Search_ResultSet([], 0, $resultStart, $resultCount);
 	}
 
-	function getTypeFactory()
+	public function getTypeFactory()
 	{
-		return new Search_MySql_TypeFactory;
+		return new Search_MySql_TypeFactory();
 	}
 
-	function optimize()
+	public function optimize()
 	{
 	}
 
-	function destroy()
+	public function destroy()
 	{
 		$this->data = [];
 		return true;
 	}
 
-	function exists()
+	public function exists()
 	{
 		return count($this->data) > 0;
 	}
@@ -58,7 +58,7 @@ class Search_Index_Memory implements Search_Index_Interface
 	/**
 	 * For test purposes.
 	 */
-	function size()
+	public function size()
 	{
 		return count($this->data);
 	}
@@ -66,7 +66,7 @@ class Search_Index_Memory implements Search_Index_Interface
 	/**
 	 * For test purposes.
 	 */
-	function getDocument($index)
+	public function getDocument($index)
 	{
 		return $this->data[$index];
 	}
@@ -74,7 +74,7 @@ class Search_Index_Memory implements Search_Index_Interface
 	/**
 	 * For test purposes.
 	 */
-	function getLastQuery()
+	public function getLastQuery()
 	{
 		return $this->lastQuery;
 	}
@@ -82,7 +82,7 @@ class Search_Index_Memory implements Search_Index_Interface
 	/**
 	 * For test purposes.
 	 */
-	function getLastOrder()
+	public function getLastOrder()
 	{
 		return $this->lastOrder;
 	}
@@ -90,7 +90,7 @@ class Search_Index_Memory implements Search_Index_Interface
 	/**
 	 * For test purposes.
 	 */
-	function getLastStart()
+	public function getLastStart()
 	{
 		return $this->lastStart;
 	}
@@ -98,7 +98,7 @@ class Search_Index_Memory implements Search_Index_Interface
 	/**
 	 * For test purposes.
 	 */
-	function getLastCount()
+	public function getLastCount()
 	{
 		return $this->lastCount;
 	}

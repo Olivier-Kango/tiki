@@ -7,12 +7,12 @@
 
 interface Search_Query_Facet_Interface
 {
-	function getLabel();
-	function setLabel($label);
-	function getName();
-	function setName($name);
-	function getField();
-	function setRenderCallback($callback);
-	function render($value);
-	function getType();
+	public function getLabel();
+	public function setLabel($label);
+	public function getName();
+	public function setName($name);
+	public function getField();
+	public function setRenderCallback($callback);
+	public function render($value);
+	public function getType();
 }

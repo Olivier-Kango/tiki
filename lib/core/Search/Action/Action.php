@@ -10,11 +10,11 @@ interface Search_Action_Action
 	/**
 	 * Provides the list of values required by the actiion to execute.
 	 */
-	function getValues();
+	public function getValues();
 
-	function validate(JitFilter $data);
+	public function validate(JitFilter $data);
 
-	function execute(JitFilter $data);
+	public function execute(JitFilter $data);
 
-	function requiresInput(JitFilter $data);
+	public function requiresInput(JitFilter $data);
 }

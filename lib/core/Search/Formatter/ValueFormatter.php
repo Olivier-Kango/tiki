@@ -11,17 +11,17 @@ class Search_Formatter_ValueFormatter
 	static private $pageTitle = '';
 	static private $pageDescription = '';
 
-	function __construct($valueSet)
+	public function __construct($valueSet)
 	{
 		$this->valueSet = $valueSet;
 	}
 
-	function getPlainValues()
+	public function getPlainValues()
 	{
 		return $this->valueSet;
 	}
 
-	function __call($format, $arguments)
+	public function __call($format, $arguments)
 	{
 		$name = array_shift($arguments);
 		if (! $arguments = array_shift($arguments)) {

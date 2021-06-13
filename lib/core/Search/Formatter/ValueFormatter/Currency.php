@@ -13,7 +13,7 @@ class Search_Formatter_ValueFormatter_Currency extends Search_Formatter_ValueFor
 	private $currency_field = null;
 	private $amount_only = null;
 
-	function __construct($arguments)
+	public function __construct($arguments)
 	{
 		if (isset($arguments['date'])) {
 			$this->date = $arguments['date'];
@@ -38,7 +38,7 @@ class Search_Formatter_ValueFormatter_Currency extends Search_Formatter_ValueFor
 		}
 	}
 
-	function render($name, $value, array $entry)
+	public function render($name, $value, array $entry)
 	{
 		$trklib = TikiLib::lib('trk');
 

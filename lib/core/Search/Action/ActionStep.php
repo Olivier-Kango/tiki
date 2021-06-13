@@ -10,13 +10,13 @@ class Search_Action_ActionStep implements Search_Action_Step
 	private $action;
 	private $definition;
 
-	function __construct(Search_Action_Action $action, array $definition)
+	public function __construct(Search_Action_Action $action, array $definition)
 	{
 		$this->action = $action;
 		$this->definition = $definition;
 	}
 
-	function getFields()
+	public function getFields()
 	{
 		$initial = [];
 		foreach (array_keys($this->action->getValues()) as $keyName) {
@@ -49,7 +49,7 @@ class Search_Action_ActionStep implements Search_Action_Step
 		return array_diff(array_merge($initial, $required), $found);
 	}
 
-	function validate(array $entry)
+	public function validate(array $entry)
 	{
 		if ($entry = $this->prepare($entry)) {
 			return $this->action->validate($entry);
@@ -58,7 +58,7 @@ class Search_Action_ActionStep implements Search_Action_Step
 		return false;
 	}
 
-	function execute(array $entry)
+	public function execute(array $entry)
 	{
 		if ($entry = $this->prepare($entry)) {
 			return $this->action->execute($entry);
@@ -67,12 +67,12 @@ class Search_Action_ActionStep implements Search_Action_Step
 		return false;
 	}
 
-	function requiresInput()
+	public function requiresInput()
 	{
 		return $this->action->requiresInput(new JitFilter($this->definition));
 	}
 
-	function changeObject($data)
+	public function changeObject($data)
 	{
 		if (method_exists($this->action, 'changeObject')) {
 			$data = $this->action->changeObject($data);

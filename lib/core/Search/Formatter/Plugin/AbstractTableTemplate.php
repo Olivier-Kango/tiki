@@ -9,12 +9,12 @@ abstract class Search_Formatter_Plugin_AbstractTableTemplate implements Search_F
 {
 	protected $fields;
 
-	function __construct($template)
+	public function __construct($template)
 	{
 		$this->parseTemplate($template);
 	}
 
-	function parseTemplate($template)
+	public function parseTemplate($template)
 	{
 		$parser = new WikiParser_PluginArgumentParser;
 
@@ -40,7 +40,7 @@ abstract class Search_Formatter_Plugin_AbstractTableTemplate implements Search_F
 		}
 	}
 
-	function getFields()
+	public function getFields()
 	{
 		$fields = [];
 		foreach ($this->fields as $field => $arguments) {

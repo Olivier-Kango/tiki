@@ -9,22 +9,22 @@ class Search_GlobalSource_PermissionSource implements Search_GlobalSource_Interf
 {
 	private $perms;
 
-	function __construct(Perms $perms)
+	public function __construct(Perms $perms)
 	{
 		$this->perms = $perms;
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		return ['allowed_groups', 'allowed_users'];
 	}
 
-	function getGlobalFields()
+	public function getGlobalFields()
 	{
 		return [];
 	}
 
-	function getData($objectType, $objectId, Search_Type_Factory_Interface $typeFactory, array $data = [])
+	public function getData($objectType, $objectId, Search_Type_Factory_Interface $typeFactory, array $data = [])
 	{
 
 		if (! empty($data['_extra_users'])) {

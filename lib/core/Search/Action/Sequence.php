@@ -12,38 +12,38 @@ class Search_Action_Sequence
 	private $fields = [];
 	private $requiredGroup;
 
-	function __construct($name)
+	public function __construct($name)
 	{
 		$this->name = $name;
 	}
 
-	function setRequiredGroup($groupName)
+	public function setRequiredGroup($groupName)
 	{
 		$this->requiredGroup = $groupName;
 	}
 
-	function getName()
+	public function getName()
 	{
 		return $this->name;
 	}
 
-	function getFields()
+	public function getFields()
 	{
 		return $this->fields;
 	}
 
-	function isAllowed(array $groups)
+	public function isAllowed(array $groups)
 	{
 		return empty($this->requiredGroup) || in_array($this->requiredGroup, $groups);
 	}
 
-	function addStep(Search_Action_Step $step)
+	public function addStep(Search_Action_Step $step)
 	{
 		$this->steps[] = $step;
 		$this->fields = array_merge($this->fields, $step->getFields());
 	}
 
-	function execute(array $entry)
+	public function execute(array $entry)
 	{
 		foreach ($this->steps as $step) {
 			if (! $step->validate($entry)) {
@@ -62,7 +62,7 @@ class Search_Action_Sequence
 		return $success;
 	}
 
-	function requiresInput()
+	public function requiresInput()
 	{
 		$params = [];
 
@@ -76,7 +76,7 @@ class Search_Action_Sequence
 		}
 	}
 
-	function getSteps()
+	public function getSteps()
 	{
 		return $this->steps;
 	}

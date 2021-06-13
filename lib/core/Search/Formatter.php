@@ -13,28 +13,28 @@ class Search_Formatter
 	private $customFilters = [];
 	private $alternateOutput;
 
-	function __construct(Search_Formatter_Plugin_Interface $plugin, $counter = 0)
+	public function __construct(Search_Formatter_Plugin_Interface $plugin, $counter = 0)
 	{
 		$this->plugin = $plugin;
 		$this->counter = $counter;
 	}
 
-	function setAlternateOutput($output)
+	public function setAlternateOutput($output)
 	{
 		$this->alternateOutput = $output;
 	}
 
-	function addSubFormatter($name, $formatter)
+	public function addSubFormatter($name, $formatter)
 	{
 		$this->subFormatters[$name] = $formatter;
 	}
 
-	function addCustomFilter($filter)
+	public function addCustomFilter($filter)
 	{
 		$this->customFilters[] = $filter;
 	}
 
-	function format($list)
+	public function format($list)
 	{
 		if (0 == count($list) && $this->alternateOutput) {
 			return $this->renderFilters() . $this->alternateOutput;
@@ -45,7 +45,7 @@ class Search_Formatter
 			. $this->render($this->plugin, $list, Search_Formatter_Plugin_Interface::FORMAT_WIKI);
 	}
 
-	function getPopulatedList($list, $preload = true)
+	public function getPopulatedList($list, $preload = true)
 	{
 		global $prefs;
 

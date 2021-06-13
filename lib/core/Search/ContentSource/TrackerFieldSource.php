@@ -9,19 +9,19 @@ class Search_ContentSource_TrackerFieldSource implements Search_ContentSource_In
 {
 	private $db;
 
-	function __construct()
+	public function __construct()
 	{
 		$this->db = TikiDb::get();
 	}
 
-	function getDocuments()
+	public function getDocuments()
 	{
 		return $this->db->table('tiki_tracker_fields')->fetchColumn('fieldId', [
 			'type' => $this->db->table('tiki_tracker_fields')->notIn(['h'])
 		]);
 	}
 
-	function getDocument($objectId, Search_Type_Factory_Interface $typeFactory)
+	public function getDocument($objectId, Search_Type_Factory_Interface $typeFactory)
 	{
 		global $prefs;
 
@@ -68,7 +68,7 @@ class Search_ContentSource_TrackerFieldSource implements Search_ContentSource_In
 		return $data;
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		return [
 			'title',
@@ -82,7 +82,7 @@ class Search_ContentSource_TrackerFieldSource implements Search_ContentSource_In
 		];
 	}
 
-	function getGlobalFields()
+	public function getGlobalFields()
 	{
 		return [
 			'title' => true,

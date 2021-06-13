@@ -7,9 +7,9 @@
 
 interface Search_GlobalSource_Interface
 {
-	function getData($objectType, $objectId, Search_Type_Factory_Interface $typeFactory, array $data = []);
+	public function getData($objectType, $objectId, Search_Type_Factory_Interface $typeFactory, array $data = []);
 
-	function getProvidedFields();
+	public function getProvidedFields();
 
-	function getGlobalFields();
+	public function getGlobalFields();
 }

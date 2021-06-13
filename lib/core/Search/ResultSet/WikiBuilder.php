@@ -10,17 +10,17 @@ class Search_ResultSet_WikiBuilder
 	private $result;
 	private $paginationArguments;
 
-	function __construct(Search_ResultSet $result)
+	public function __construct(Search_ResultSet $result)
 	{
 		$this->result = $result;
 	}
 
-	function setPaginationArguments($paginationArguments)
+	public function setPaginationArguments($paginationArguments)
 	{
 		$this->paginationArguments = $paginationArguments;
 	}
 
-	function apply(WikiParser_PluginMatcher $matches)
+	public function apply(WikiParser_PluginMatcher $matches)
 	{
 		$argumentParser = new WikiParser_PluginArgumentParser;
 

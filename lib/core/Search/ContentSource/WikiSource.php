@@ -12,7 +12,7 @@ class Search_ContentSource_WikiSource implements Search_ContentSource_Interface
 	private $flaggedrevisionlib;
 	private $quantifylib;
 
-	function __construct()
+	public function __construct()
 	{
 		global $prefs;
 
@@ -28,12 +28,12 @@ class Search_ContentSource_WikiSource implements Search_ContentSource_Interface
 		}
 	}
 
-	function getDocuments()
+	public function getDocuments()
 	{
 		return $this->db->table('tiki_pages')->fetchColumn('pageName', []);
 	}
 
-	function getDocument($objectId, Search_Type_Factory_Interface $typeFactory)
+	public function getDocument($objectId, Search_Type_Factory_Interface $typeFactory)
 	{
 		global $prefs;
 
@@ -123,7 +123,7 @@ class Search_ContentSource_WikiSource implements Search_ContentSource_Interface
 		return $out;
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		$fields = [
 			'title',
@@ -156,7 +156,7 @@ class Search_ContentSource_WikiSource implements Search_ContentSource_Interface
 		return $fields;
 	}
 
-	function getGlobalFields()
+	public function getGlobalFields()
 	{
 		return [
 			'title' => true,

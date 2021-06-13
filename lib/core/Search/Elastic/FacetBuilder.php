@@ -10,13 +10,13 @@ class Search_Elastic_FacetBuilder
 	private $count;
 	private $mainKey;
 
-	function __construct($count = 10, $useAggregations = false)
+	public function __construct($count = 10, $useAggregations = false)
 	{
 		$this->count = $count;
 		$this->mainKey = $useAggregations ? 'aggregations' : 'facets';
 	}
 
-	function build(array $facets)
+	public function build(array $facets)
 	{
 		if (empty($facets)) {
 			return [];

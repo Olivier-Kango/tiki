@@ -16,7 +16,7 @@ class Search_Elastic_Connection
 
 	private $bulk;
 
-	function __construct($dsn)
+	public function __construct($dsn)
 	{
 		$this->dsn = rtrim($dsn, '/');
 		$this->version = null;
@@ -27,7 +27,7 @@ class Search_Elastic_Connection
 		}
 	}
 
-	function __destruct()
+	public function __destruct()
 	{
 		try {
 			$this->flush();
@@ -36,7 +36,7 @@ class Search_Elastic_Connection
 		}
 	}
 
-	function startBulk($size = 500)
+	public function startBulk($size = 500)
 	{
 		$this->bulk = new Search_Elastic_BulkOperation(
 			$size,
@@ -47,7 +47,7 @@ class Search_Elastic_Connection
 		);
 	}
 
-	function getStatus()
+	public function getStatus()
 	{
 		try {
 			$result = $this->get('/');
@@ -74,7 +74,7 @@ class Search_Elastic_Connection
 	 *
 	 * @return float
 	 */
-	function getVersion()
+	public function getVersion()
 	{
 		if ($this->version === null) {
 			$status = $this->getStatus();
@@ -89,7 +89,7 @@ class Search_Elastic_Connection
 		return $this->version;
 	}
 
-	function getIndexStatus($index = '')
+	public function getIndexStatus($index = '')
 	{
 		$index = $index ? '/' . $index : '';
 		try {
@@ -108,7 +108,7 @@ class Search_Elastic_Connection
 		}
 	}
 
-	function deleteIndex($index)
+	public function deleteIndex($index)
 	{
 		$this->flush();
 
@@ -122,7 +122,7 @@ class Search_Elastic_Connection
 		}
 	}
 
-	function search($index, array $query, array $args = [], $multisearch = false)
+	public function search($index, array $query, array $args = [], $multisearch = false)
 	{
 		$indices = (array) $index;
 		foreach ($indices as $index) {
@@ -156,7 +156,7 @@ class Search_Elastic_Connection
 		return $ret;
 	}
 
-	function validate($index, array $query)
+	public function validate($index, array $query)
 	{
 		$result = $this->post("/$index/_validate/query?explain=true", json_encode(['query' => $query['query']]));
 		if (isset($result->valid) && $result->valid === false) {
@@ -173,7 +173,7 @@ class Search_Elastic_Connection
 		}
 	}
 
-	function scroll($scrollId, array $args = [])
+	public function scroll($scrollId, array $args = [])
 	{
 		if ($this->getVersion() < 5.0) {
 			return $this->post('/_search/scroll?' . http_build_query($args, '', '&'), $scrollId);
@@ -183,7 +183,7 @@ class Search_Elastic_Connection
 		}
 	}
 
-	function storeQuery($index, $name, $query)
+	public function storeQuery($index, $name, $query)
 	{
 		if ($this->getVersion() >= 5) {
 			return $this->rawIndex($index, 'percolator', $name, $query);
@@ -192,7 +192,7 @@ class Search_Elastic_Connection
 		}
 	}
 
-	function unstoreQuery($index, $name)
+	public function unstoreQuery($index, $name)
 	{
 		if ($this->getVersion() >= 5) {
 			return $this->delete("/$index/{$this->mapping_type}/percolator-$name");
@@ -201,7 +201,7 @@ class Search_Elastic_Connection
 		}
 	}
 
-	function percolate($index, $type, $document)
+	public function percolate($index, $type, $document)
 	{
 		if (! empty($this->dirty['_percolator'])) {
 			$this->refresh('_percolator');
@@ -243,14 +243,14 @@ class Search_Elastic_Connection
 		}
 	}
 
-	function index($index, $type, $id, array $data)
+	public function index($index, $type, $id, array $data)
 	{
 		$type = $this->simplifyType($type);
 
 		$this->rawIndex($index, $type, $id, $data);
 	}
 
-	function assignAlias($alias, $targetIndex)
+	public function assignAlias($alias, $targetIndex)
 	{
 		$this->flush();
 
@@ -290,7 +290,7 @@ class Search_Elastic_Connection
 		}
 	}
 
-	function isRebuilding($aliasName)
+	public function isRebuilding($aliasName)
 	{
 		try {
 			$current = $this->rawApi('/_aliases');
@@ -337,7 +337,7 @@ class Search_Elastic_Connection
 		}
 	}
 
-	function unindex($index, $type, $id)
+	public function unindex($index, $type, $id)
 	{
 		$this->dirty[$index] = true;
 		$type = $this->simplifyType($type);
@@ -354,7 +354,7 @@ class Search_Elastic_Connection
 		}
 	}
 
-	function flush()
+	public function flush()
 	{
 		if ($this->bulk) {
 			try {
@@ -371,7 +371,7 @@ class Search_Elastic_Connection
 		}
 	}
 
-	function refresh($index)
+	public function refresh($index)
 	{
 		$this->flush();
 
@@ -379,7 +379,7 @@ class Search_Elastic_Connection
 		$this->dirty[$index] = false;
 	}
 
-	function document($index, $type, $id)
+	public function document($index, $type, $id)
 	{
 		if (! empty($this->dirty[$index])) {
 			$this->refresh($index);
@@ -395,7 +395,7 @@ class Search_Elastic_Connection
 		}
 	}
 
-	function mapping($index, array $mapping, callable $getIndex)
+	public function mapping($index, array $mapping, callable $getIndex)
 	{
 		$data = ["properties" => $mapping];
 
@@ -409,12 +409,12 @@ class Search_Elastic_Connection
 		return $result;
 	}
 
-	function postBulk($data)
+	public function postBulk($data)
 	{
 		$this->post("/_bulk", $data);
 	}
 
-	function rawApi($path)
+	public function rawApi($path)
 	{
 		return $this->get($path);
 	}
@@ -597,7 +597,7 @@ class Search_Elastic_Connection
 	 * connection within a single user session so that if a modification requires re-indexing,
 	 * the next page load will wait until indexing is done to show the results.
 	 */
-	function persistDirty(Tiki_Event_Manager $events)
+	public function persistDirty(Tiki_Event_Manager $events)
 	{
 		if (isset($_SESSION['elastic_search_dirty'])) {
 			$this->dirty = $_SESSION['elastic_search_dirty'];

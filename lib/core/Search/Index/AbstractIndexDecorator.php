@@ -9,67 +9,67 @@ class Search_Index_AbstractIndexDecorator implements Search_Index_Interface
 {
 	protected $parent;
 
-	function __construct(Search_Index_Interface $index)
+	public function __construct(Search_Index_Interface $index)
 	{
 		$this->parent = $index;
 	}
 
-	function addDocument(array $document)
+	public function addDocument(array $document)
 	{
 		return $this->parent->addDocument($document);
 	}
 
-	function invalidateMultiple(array $query)
+	public function invalidateMultiple(array $query)
 	{
 		return $this->parent->invalidateMultiple($query);
 	}
 
-	function endUpdate()
+	public function endUpdate()
 	{
 		return $this->parent->endUpdate();
 	}
 
-	function find(Search_Query_Interface $query, $resultStart, $resultCount)
+	public function find(Search_Query_Interface $query, $resultStart, $resultCount)
 	{
 		return $this->parent->find($query, $resultStart, $resultCount);
 	}
 
-	function getTypeFactory()
+	public function getTypeFactory()
 	{
 		return $this->parent->getTypeFactory();
 	}
 
-	function optimize()
+	public function optimize()
 	{
 		return $this->parent->optimize();
 	}
 
-	function destroy()
+	public function destroy()
 	{
 		return $this->parent->destroy();
 	}
 
-	function exists()
+	public function exists()
 	{
 		return $this->parent->exists();
 	}
 
-	function getMatchingQueries(array $document)
+	public function getMatchingQueries(array $document)
 	{
 		return $this->parent->getMatchingQueries($document);
 	}
 
-	function store($name, Search_Expr_Interface $expr)
+	public function store($name, Search_Expr_Interface $expr)
 	{
 		return $this->parent->store($name, $expr);
 	}
 
-	function unstore($name)
+	public function unstore($name)
 	{
 		return $this->parent->unstore($name);
 	}
 
-	function getRealIndex()
+	public function getRealIndex()
 	{
 		if ($this->parent instanceof self) {
 			return $this->parent->getRealIndex();

@@ -10,48 +10,48 @@ class Search_Expr_ImplicitPhrase implements Search_Expr_Interface
 	private $parts;
 	private $weight = 1.0;
 
-	function __construct(array $parts)
+	public function __construct(array $parts)
 	{
 		$this->parts = $parts;
 	}
 
-	function __clone()
+	public function __clone()
 	{
 		$this->parts = array_map(function ($part) {
 			return clone $part;
 		}, $this->parts);
 	}
 
-	function addPart(Search_Expr_Interface $part)
+	public function addPart(Search_Expr_Interface $part)
 	{
 		$this->parts[] = $part;
 	}
 
-	function setType($type)
+	public function setType($type)
 	{
 		foreach ($this->parts as $part) {
 			$part->setType($type);
 		}
 	}
 
-	function setField($field = 'global')
+	public function setField($field = 'global')
 	{
 		foreach ($this->parts as $part) {
 			$part->setField($field);
 		}
 	}
 
-	function setWeight($weight)
+	public function setWeight($weight)
 	{
 		$this->weight = (float) $weight;
 	}
 
-	function getWeight()
+	public function getWeight()
 	{
 		return $this->weight;
 	}
 
-	function getBasicOperator()
+	public function getBasicOperator()
 	{
 		global $prefs;
 		if ($prefs['unified_search_default_operator'] == 1) {
@@ -61,7 +61,7 @@ class Search_Expr_ImplicitPhrase implements Search_Expr_Interface
 		}
 	}
 
-	function walk($callback)
+	public function walk($callback)
 	{
 		$results = [];
 		foreach ($this->parts as $part) {
@@ -71,7 +71,7 @@ class Search_Expr_ImplicitPhrase implements Search_Expr_Interface
 		return call_user_func($callback, $this, $results);
 	}
 
-	function traverse($callback)
+	public function traverse($callback)
 	{
 		return call_user_func($callback, $callback, $this, $this->parts);
 	}

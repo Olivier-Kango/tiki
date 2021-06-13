@@ -22,7 +22,7 @@ class Search_MySql_QueryBuilder
 	private $tfTranslator;
 	private $indexes = [];
 
-	function __construct($db)
+	public function __construct($db)
 	{
 		$this->db = $db;
 		$this->factory = new Search_MySql_TypeFactory;
@@ -30,7 +30,7 @@ class Search_MySql_QueryBuilder
 		$this->tfTranslator = new Search_MySql_TrackerFieldTranslator;
 	}
 
-	function build(Search_Expr_Interface $expr)
+	public function build(Search_Expr_Interface $expr)
 	{
 		$this->indexes = [];
 		$query = $expr->walk($this);
@@ -38,12 +38,12 @@ class Search_MySql_QueryBuilder
 		return $query;
 	}
 
-	function getRequiredIndexes()
+	public function getRequiredIndexes()
 	{
 		return array_values($this->indexes);
 	}
 
-	function __invoke($node, $childNodes)
+	public function __invoke($node, $childNodes)
 	{
 		$exception = null;
 

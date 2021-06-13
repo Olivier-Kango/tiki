@@ -8,11 +8,11 @@
 class Search_Formatter_ValueFormatter_Templaterender extends Search_Formatter_ValueFormatter_Abstract
 {
 
-	function __construct($arguments)
+	public function __construct($arguments)
 	{
 	}
 
-	function render($name, $value, array $entry)
+	public function render($name, $value, array $entry)
 	{
 		$output = "{OUTPUT()}$value{OUTPUT}";
 
@@ -27,7 +27,7 @@ class Search_Formatter_ValueFormatter_Templaterender extends Search_Formatter_Va
 		return $rendered;
 	}
 
-	function canCache()
+	public function canCache()
 	{
 		return false;
 	}

@@ -9,12 +9,12 @@ class Search_Type_WikiText implements Search_Type_Interface
 {
 	private $value;
 
-	function __construct($value)
+	public function __construct($value)
 	{
 		$this->value = $value;
 	}
 
-	function getValue()
+	public function getValue()
 	{
 		global $prefs;
 		$out = TikiLib::lib('parser')->parse_data(
@@ -31,7 +31,7 @@ class Search_Type_WikiText implements Search_Type_Interface
 		return strip_tags($out);
 	}
 
-	function filter(array $filters)
+	public function filter(array $filters)
 	{
 		$value = $this->value;
 

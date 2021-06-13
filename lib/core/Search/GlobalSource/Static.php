@@ -10,13 +10,13 @@ class Search_GlobalSource_Static implements Search_GlobalSource_Interface
 	private $data;
 	private $typeMap;
 
-	function __construct($data, $typeMap)
+	public function __construct($data, $typeMap)
 	{
 		$this->data = $data;
 		$this->typeMap = $typeMap;
 	}
 
-	function getData($objectType, $objectId, Search_Type_Factory_Interface $typeFactory, array $data = [])
+	public function getData($objectType, $objectId, Search_Type_Factory_Interface $typeFactory, array $data = [])
 	{
 		$out = [];
 
@@ -28,12 +28,12 @@ class Search_GlobalSource_Static implements Search_GlobalSource_Interface
 		return $out;
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		return array_keys($this->typeMap);
 	}
 
-	function getGlobalFields()
+	public function getGlobalFields()
 	{
 		return array_fill_keys(array_keys($this->typeMap), true);
 	}

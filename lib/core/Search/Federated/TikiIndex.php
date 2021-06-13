@@ -12,20 +12,20 @@ class TikiIndex implements IndexInterface
 	private $prefix;
 	private $groups;
 
-	function __construct($urlPrefix, array $groups = [])
+	public function __construct($urlPrefix, array $groups = [])
 	{
 		$this->prefix = $urlPrefix;
 		$this->groups = $groups;
 	}
 
-	function getTransformations()
+	public function getTransformations()
 	{
 		return [
 			new UrlPrefixTransform($this->prefix),
 		];
 	}
 
-	function applyContentConditions(\Search_Query $query, $content)
+	public function applyContentConditions(\Search_Query $query, $content)
 	{
 		$query->filterContent('y', 'searchable');
 		$query->filterContent($content, ['title', 'contents']);
@@ -33,7 +33,7 @@ class TikiIndex implements IndexInterface
 		$this->applyRaw($query);
 	}
 
-	function applySimilarConditions(\Search_Query $query, $type, $object)
+	public function applySimilarConditions(\Search_Query $query, $type, $object)
 	{
 		$query->filterSimilar($type, $object);
 

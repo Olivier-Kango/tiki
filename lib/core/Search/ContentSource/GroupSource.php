@@ -9,17 +9,17 @@ class Search_ContentSource_GroupSource implements Search_ContentSource_Interface
 {
 	private $db;
 
-	function __construct()
+	public function __construct()
 	{
 		$this->db = TikiDb::get();
 	}
 
-	function getDocuments()
+	public function getDocuments()
 	{
 		return $this->db->table('users_groups')->fetchColumn('groupName', []);
 	}
 
-	function getDocument($objectId, Search_Type_Factory_Interface $typeFactory)
+	public function getDocument($objectId, Search_Type_Factory_Interface $typeFactory)
 	{
 		$row = $this->db->table('users_groups')->fetchRow(['groupDesc'], ['groupName' => $objectId]);
 
@@ -41,7 +41,7 @@ class Search_ContentSource_GroupSource implements Search_ContentSource_Interface
 		return $data;
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		return [
 			'title',
@@ -53,7 +53,7 @@ class Search_ContentSource_GroupSource implements Search_ContentSource_Interface
 		];
 	}
 
-	function getGlobalFields()
+	public function getGlobalFields()
 	{
 		return [
 			'title' => true,

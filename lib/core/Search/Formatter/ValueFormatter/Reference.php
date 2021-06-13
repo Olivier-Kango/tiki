@@ -10,7 +10,7 @@ class Search_Formatter_ValueFormatter_Reference extends Search_Formatter_ValueFo
 	private $separator = ', ';
 	private $type = 'wiki page';
 
-	function __construct($arguments)
+	public function __construct($arguments)
 	{
 		if (isset($arguments['separator'])) {
 			$this->separator = $arguments['separator'];
@@ -21,7 +21,7 @@ class Search_Formatter_ValueFormatter_Reference extends Search_Formatter_ValueFo
 		}
 	}
 
-	function render($name, $value, array $entry)
+	public function render($name, $value, array $entry)
 	{
 		$smarty = TikiLib::lib('smarty');
 		$smarty->loadPlugin('smarty_function_object_link');

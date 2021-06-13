@@ -31,7 +31,7 @@ class Search_Action_FileGalleryImageOverlay implements Search_Action_Action
 	  '%exif_gps_dms_lon%' => 'exif.gps_dms_lon',
 	];
 
-	function getValues()
+	public function getValues()
 	{
 		return [
 		  'object_type' => true,
@@ -42,7 +42,7 @@ class Search_Action_FileGalleryImageOverlay implements Search_Action_Action
 		];
 	}
 
-	function validate(JitFilter $data)
+	public function validate(JitFilter $data)
 	{
 
 		$object_type = $data->object_type->text();
@@ -83,7 +83,7 @@ class Search_Action_FileGalleryImageOverlay implements Search_Action_Action
 		return true;
 	}
 
-	function execute(JitFilter $data)
+	public function execute(JitFilter $data)
 	{
 
 		global $user, $prefs;
@@ -163,7 +163,7 @@ class Search_Action_FileGalleryImageOverlay implements Search_Action_Action
 
 		if ($prefs['fgal_keep_fileId'] == 'n') {
 			// new IDs are generated to for the last version we updated
-			$utilities = new Services_Tracker_Utilities;
+			$utilities = new Services_Tracker_Utilities();
 			$utilities->updateItem(
 				$definition,
 				[
@@ -179,7 +179,7 @@ class Search_Action_FileGalleryImageOverlay implements Search_Action_Action
 		return true;
 	}
 
-	function requiresInput(JitFilter $data)
+	public function requiresInput(JitFilter $data)
 	{
 		return false;
 	}
@@ -257,7 +257,7 @@ class Search_Action_FileGalleryImageOverlay implements Search_Action_Action
 	 * @param $fileData
 	 * @return array
 	 */
-	function getExifArray($fileData)
+	public function getExifArray($fileData)
 	{
 		$exif = [];
 		if ($fileData['filetype'] != 'image/jpeg' || ! function_exists('exif_read_data')) {

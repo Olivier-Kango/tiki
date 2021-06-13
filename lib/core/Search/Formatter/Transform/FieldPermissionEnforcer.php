@@ -21,7 +21,7 @@ class Search_Formatter_Transform_FieldPermissionEnforcer
 	private $user;
 	private $groups;
 
-	function __construct()
+	public function __construct()
 	{
 		global $user;
 
@@ -29,7 +29,7 @@ class Search_Formatter_Transform_FieldPermissionEnforcer
 		$this->groups = Perms::get()->getGroups();
 	}
 
-	function __invoke($entry)
+	public function __invoke($entry)
 	{
 		if (Perms::get()->admin) {
 			return $entry;

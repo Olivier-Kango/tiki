@@ -9,12 +9,12 @@ class Search_Elastic_OrderBuilder
 {
 	private $index;
 
-	function __construct(Search_Elastic_Index $index = null)
+	public function __construct(Search_Elastic_Index $index = null)
 	{
 		$this->index = $index;
 	}
 
-	function build(Search_Query_Order $order)
+	public function build(Search_Query_Order $order)
 	{
 		$component = '_score';
 		$field = $order->getField();
@@ -66,7 +66,7 @@ class Search_Elastic_OrderBuilder
 		];
 	}
 
-	function ensureHasField($field)
+	public function ensureHasField($field)
 	{
 		global $prefs;
 

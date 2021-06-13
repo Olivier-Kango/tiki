@@ -7,12 +7,12 @@
 
 class Search_Formatter_ValueFormatter_Sorthandle extends Search_Formatter_ValueFormatter_Abstract
 {
-	function __construct()
+	public function __construct()
 	{
 		TikiLib::lib('smarty')->loadPlugin('smarty_modifier_escape');
 	}
 
-	function render($name, $value, array $entry)
+	public function render($name, $value, array $entry)
 	{
 		if (substr($name, 0, 14) !== 'tracker_field_') {
 			return "";
@@ -44,7 +44,7 @@ class Search_Formatter_ValueFormatter_Sorthandle extends Search_Formatter_ValueF
 		return '~np~<span class="fas fa-sort inline-sort-handle" data-current-value="' . smarty_modifier_escape($value) . '"></span><span class="hidden">' . $rendered . '</span>~/np~';
 	}
 
-	function canCache()
+	public function canCache()
 	{
 		return false;
 	}

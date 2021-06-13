@@ -13,7 +13,7 @@ class Search_MySql_Index implements Search_Index_Interface
 	private $tfTranslator;
 	private $index_name;
 
-	function __construct(TikiDb $db, $index)
+	public function __construct(TikiDb $db, $index)
 	{
 		$this->db = $db;
 		$this->index_name = $index;
@@ -22,18 +22,18 @@ class Search_MySql_Index implements Search_Index_Interface
 		$this->tfTranslator = new Search_MySql_TrackerFieldTranslator;
 	}
 
-	function destroy()
+	public function destroy()
 	{
 		$this->table->drop();
 		return true;
 	}
 
-	function exists()
+	public function exists()
 	{
 		return $this->table->exists();
 	}
 
-	function addDocument(array $data)
+	public function addDocument(array $data)
 	{
 		foreach ($data as $key => $value) {
 			$this->handleField($key, $value);
@@ -89,24 +89,24 @@ class Search_MySql_Index implements Search_Index_Interface
 		}
 	}
 
-	function endUpdate()
+	public function endUpdate()
 	{
 		$this->table->flush();
 	}
 
-	function optimize()
+	public function optimize()
 	{
 		$this->table->flush();
 	}
 
-	function invalidateMultiple(array $objectList)
+	public function invalidateMultiple(array $objectList)
 	{
 		foreach ($objectList as $object) {
 			$this->table->deleteMultiple($object);
 		}
 	}
 
-	function find(Search_Query_Interface $query, $resultStart, $resultCount)
+	public function find(Search_Query_Interface $query, $resultStart, $resultCount)
 	{
 		try {
 			$words = $this->getWords($query->getExpr());
@@ -167,7 +167,7 @@ class Search_MySql_Index implements Search_Index_Interface
 		}
 	}
 
-	function scroll(Search_Query_Interface $query)
+	public function scroll(Search_Query_Interface $query)
 	{
 		$perPage = 100;
 		$hasMore = true;
@@ -221,12 +221,12 @@ class Search_MySql_Index implements Search_Index_Interface
 		return $words;
 	}
 
-	function getTypeFactory()
+	public function getTypeFactory()
 	{
 		return new Search_MySql_TypeFactory;
 	}
 
-	function getFieldsCount()
+	public function getFieldsCount()
 	{
 		return count($this->db->fetchAll("show columns from `{$this->index_name}`"));
 	}

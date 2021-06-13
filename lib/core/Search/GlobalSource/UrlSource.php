@@ -7,13 +7,13 @@
 
 class Search_GlobalSource_UrlSource implements Search_GlobalSource_Interface
 {
-	function __construct()
+	public function __construct()
 	{
 		$smarty = TikiLib::lib('smarty');
 		$smarty->loadPlugin('smarty_modifier_sefurl');
 	}
 
-	function getData($objectType, $objectId, Search_Type_Factory_Interface $typeFactory, array $data = [])
+	public function getData($objectType, $objectId, Search_Type_Factory_Interface $typeFactory, array $data = [])
 	{
 		if (isset($data['url'])) {
 			return false;
@@ -25,14 +25,14 @@ class Search_GlobalSource_UrlSource implements Search_GlobalSource_Interface
 		];
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		return [
 			'url',
 		];
 	}
 
-	function getGlobalFields()
+	public function getGlobalFields()
 	{
 		return [
 		];

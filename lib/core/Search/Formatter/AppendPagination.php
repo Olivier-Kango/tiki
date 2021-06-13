@@ -10,28 +10,28 @@ class Search_Formatter_AppendPagination implements Search_Formatter_Plugin_Inter
 	private $parent;
 	private $arguments;
 
-	function __construct(Search_Formatter_Plugin_Interface $parent, array $arguments = [])
+	public function __construct(Search_Formatter_Plugin_Interface $parent, array $arguments = [])
 	{
 		$this->parent = $parent;
 		$this->arguments = $arguments;
 	}
 
-	function getFields()
+	public function getFields()
 	{
 		return $this->parent->getFields();
 	}
 
-	function getFormat()
+	public function getFormat()
 	{
 		return $this->parent->getFormat();
 	}
 
-	function prepareEntry($entry)
+	public function prepareEntry($entry)
 	{
 		return $this->parent->prepareEntry($entry);
 	}
 
-	function renderEntries(Search_ResultSet $entries)
+	public function renderEntries(Search_ResultSet $entries)
 	{
 		if ($entries->getTsOn()) {
 			return $this->parent->renderEntries($entries);

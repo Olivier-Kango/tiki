@@ -12,26 +12,26 @@ class Search_ContentSource_TrackerItemSource implements Search_ContentSource_Int
 	private $mode;
 	private $indexer;
 
-	function __construct($mode = '')
+	public function __construct($mode = '')
 	{
 		$this->db = TikiDb::get();
 		$this->trklib = TikiLib::lib('trk');
 		$this->mode = $mode;
 	}
 
-	function getReferenceMap()
+	public function getReferenceMap()
 	{
 		return [
 			'tracker_id' => 'tracker',
 		];
 	}
 
-	function getDocuments()
+	public function getDocuments()
 	{
 		return $this->db->table('tiki_tracker_items')->fetchColumn('itemId', []);
 	}
 
-	function getDocument($objectId, Search_Type_Factory_Interface $typeFactory)
+	public function getDocument($objectId, Search_Type_Factory_Interface $typeFactory)
 	{
 		/*
 			If you wonder why this method uses straight SQL and not trklib, it's because
@@ -123,7 +123,7 @@ class Search_ContentSource_TrackerItemSource implements Search_ContentSource_Int
 		return $data;
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		static $data;
 
@@ -154,7 +154,7 @@ class Search_ContentSource_TrackerItemSource implements Search_ContentSource_Int
 		return array_unique($data);
 	}
 
-	function getGlobalFields()
+	public function getGlobalFields()
 	{
 		static $data;
 

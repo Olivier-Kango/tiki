@@ -4,12 +4,12 @@ class Search_Formatter_Transform_DynamicLoader
 {
 	private $source;
 
-	function __construct(Search_Formatter_DataSource_Interface $datasource)
+	public function __construct(Search_Formatter_DataSource_Interface $datasource)
 	{
 		$this->source = $datasource;
 	}
 
-	function __invoke($entry)
+	public function __invoke($entry)
 	{
 		return new Search_Formatter_Transform_DynamicLoaderWrapper($entry, $this->source);
 	}
@@ -20,7 +20,7 @@ class Search_Formatter_Transform_DynamicLoaderWrapper extends ArrayObject
 	private $source;
 	private $loaded = [];
 
-	function __construct($entry, $source)
+	public function __construct($entry, $source)
 	{
 		parent::__construct($entry);
 		$this->source = $source;
@@ -32,7 +32,7 @@ class Search_Formatter_Transform_DynamicLoaderWrapper extends ArrayObject
 		}
 	}
 
-	function offsetGet($name)
+	public function offsetGet($name)
 	{
 		$this->load($name);
 		if (isset($this[$name])) {
@@ -40,7 +40,7 @@ class Search_Formatter_Transform_DynamicLoaderWrapper extends ArrayObject
 		}
 	}
 
-	function offsetExists($name)
+	public function offsetExists($name)
 	{
 		return parent::offsetExists($name);
 	}

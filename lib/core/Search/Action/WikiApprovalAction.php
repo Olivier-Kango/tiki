@@ -7,7 +7,7 @@
 
 class Search_Action_WikiApprovalAction implements Search_Action_Action
 {
-	function getValues()
+	public function getValues()
 	{
 		return [
 			'object_type' => true,
@@ -16,7 +16,7 @@ class Search_Action_WikiApprovalAction implements Search_Action_Action
 		];
 	}
 
-	function validate(JitFilter $data)
+	public function validate(JitFilter $data)
 	{
 		$object_type = $data->object_type->text();
 		$object_id = $data->object_id->pagename();
@@ -38,7 +38,7 @@ class Search_Action_WikiApprovalAction implements Search_Action_Action
 		return true;
 	}
 
-	function execute(JitFilter $data)
+	public function execute(JitFilter $data)
 	{
 		$tikilib = TikiLib::lib('tiki');
 		$pageName = $data->object_id->pagename();
@@ -50,7 +50,7 @@ class Search_Action_WikiApprovalAction implements Search_Action_Action
 		return true;
 	}
 
-	function requiresInput(JitFilter $data)
+	public function requiresInput(JitFilter $data)
 	{
 		return false;
 	}

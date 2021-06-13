@@ -9,12 +9,12 @@ class Search_Query_RelationReplacer
 {
 	private $invertable;
 
-	function __construct(array $invertable)
+	public function __construct(array $invertable)
 	{
 		$this->invertable = $invertable;
 	}
 
-	function visit(Search_Expr_Interface $expr, $results)
+	public function visit(Search_Expr_Interface $expr, $results)
 	{
 		if ($expr instanceof Search_Expr_Token) {
 			$relation = Search_Query_Relation::fromToken($expr);

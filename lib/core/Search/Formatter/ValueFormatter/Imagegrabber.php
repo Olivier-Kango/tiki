@@ -13,7 +13,7 @@ class Search_Formatter_ValueFormatter_Imagegrabber extends Search_Formatter_Valu
 	private $width;
 	private $smartcrop;
 
-	function __construct($arguments)
+	public function __construct($arguments)
 	{
 		if (isset($arguments['max'])) {
 			$this->max = $arguments['max'];
@@ -32,7 +32,7 @@ class Search_Formatter_ValueFormatter_Imagegrabber extends Search_Formatter_Valu
 		}
 	}
 
-	function render($name, $value, array $entry)
+	public function render($name, $value, array $entry)
 	{
 		$pattern = '/\{img [^}]*(fileId="|dl)([0-9]+)"?[^}]*\}/';
 		preg_match_all($pattern, $value, $entry);

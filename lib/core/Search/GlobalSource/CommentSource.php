@@ -10,13 +10,13 @@ class Search_GlobalSource_CommentSource implements Search_GlobalSource_Interface
 	private $commentslib;
 	private $table;
 
-	function __construct()
+	public function __construct()
 	{
 		$this->commentslib = TikiLib::lib('comments');
 		$this->table = TikiDb::get()->table('tiki_comments');
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		return [
 			'comment_count',
@@ -24,14 +24,14 @@ class Search_GlobalSource_CommentSource implements Search_GlobalSource_Interface
 		];
 	}
 
-	function getGlobalFields()
+	public function getGlobalFields()
 	{
 		return [
 			'comment_data' => false,
 		];
 	}
 
-	function getData($objectType, $objectId, Search_Type_Factory_Interface $typeFactory, array $data = [])
+	public function getData($objectType, $objectId, Search_Type_Factory_Interface $typeFactory, array $data = [])
 	{
 		$data = '';
 		if ($objectType == 'forum post') {

@@ -27,7 +27,7 @@ class Search_ResultSet extends ArrayObject implements JsonSerializable
 		}
 	}
 
-	function __construct($result, $count, $offset, $maxRecords)
+	public function __construct($result, $count, $offset, $maxRecords)
 	{
 		parent::__construct($result);
 
@@ -38,7 +38,7 @@ class Search_ResultSet extends ArrayObject implements JsonSerializable
 		$this->checkNestedObjectPerms();
 	}
 
-	function replaceEntries($list)
+	public function replaceEntries($list)
 	{
 		$return = new self($list, $this->count, $this->offset, $this->maxRecords);
 		$return->estimate = $this->estimate;
@@ -52,74 +52,74 @@ class Search_ResultSet extends ArrayObject implements JsonSerializable
 		return $return;
 	}
 
-	function setHighlightHelper(Laminas\Filter\FilterInterface $helper)
+	public function setHighlightHelper(Laminas\Filter\FilterInterface $helper)
 	{
 		$this->highlightHelper = $helper;
 	}
 
-	function setEstimate($estimate)
+	public function setEstimate($estimate)
 	{
 		$this->estimate = (int) $estimate;
 	}
 
-	function setId($id)
+	public function setId($id)
 	{
 		$this->id = $id;
 	}
 
-	function getId()
+	public function getId()
 	{
 		return $this->id;
 	}
 
-	function setTsOn($tsOn)
+	public function setTsOn($tsOn)
 	{
 		$this->tsOn = $tsOn;
 	}
 
-	function setTsSettings($tsettings)
+	public function setTsSettings($tsettings)
 	{
 		$this->tsettings = $tsettings;
 	}
 
-	function getTsOn()
+	public function getTsOn()
 	{
 		return $this->tsOn;
 	}
 
-	function getTsSettings()
+	public function getTsSettings()
 	{
 		return $this->tsettings;
 	}
 
-	function getEstimate()
+	public function getEstimate()
 	{
 		return $this->estimate;
 	}
 
-	function getMaxRecords()
+	public function getMaxRecords()
 	{
 		return $this->maxRecords;
 	}
 
-	function setMaxResults($max)
+	public function setMaxResults($max)
 	{
 		$current = $this->exchangeArray([]);
 		$this->maxRecords = $max;
 		$this->exchangeArray(array_slice($current, 0, $max));
 	}
 
-	function getOffset()
+	public function getOffset()
 	{
 		return $this->offset;
 	}
 
-	function count()
+	public function count()
 	{
 		return $this->count;
 	}
 
-	function highlight($content)
+	public function highlight($content)
 	{
 		if ($this->highlightHelper) {
 			// Build the content string based on heuristics
@@ -151,12 +151,12 @@ class Search_ResultSet extends ArrayObject implements JsonSerializable
 		}
 	}
 
-	function hasMore()
+	public function hasMore()
 	{
 		return $this->count > $this->offset + $this->maxRecords;
 	}
 
-	function getFacet(Search_Query_Facet_Interface $facet)
+	public function getFacet(Search_Query_Facet_Interface $facet)
 	{
 		foreach ($this->filters as $filter) {
 			if ($filter->isFacet($facet)) {
@@ -165,17 +165,17 @@ class Search_ResultSet extends ArrayObject implements JsonSerializable
 		}
 	}
 
-	function getFacets()
+	public function getFacets()
 	{
 		return $this->filters;
 	}
 
-	function addFacetFilter(Search_ResultSet_FacetFilter $facet)
+	public function addFacetFilter(Search_ResultSet_FacetFilter $facet)
 	{
 		$this->filters[$facet->getName()] = $facet;
 	}
 
-	function groupBy($field, array $collect = [])
+	public function groupBy($field, array $collect = [])
 	{
 		$out = [];
 		foreach ($this as $entry) {
@@ -201,7 +201,7 @@ class Search_ResultSet extends ArrayObject implements JsonSerializable
 		$this->exchangeArray($out);
 	}
 
-	function aggregate(array $fields = [], array $totals = [])
+	public function aggregate(array $fields = [], array $totals = [])
 	{
 		$out = [];
 		foreach ($this as $entry) {
@@ -229,7 +229,7 @@ class Search_ResultSet extends ArrayObject implements JsonSerializable
 		$this->exchangeArray($out);
 	}
 
-	function applyTransform(callable $transform)
+	public function applyTransform(callable $transform)
 	{
 		foreach ($this as & $entry) {
 			$entry = $transform($entry);
@@ -237,7 +237,7 @@ class Search_ResultSet extends ArrayObject implements JsonSerializable
 	}
 	/**  When relations have indexed relation objects, remove them from the resultset if user doesn't have
 	 * proper permissions */
-	function checkNestedObjectPerms()
+	public function checkNestedObjectPerms()
 	{
 		global $user;
 		$user_groups = array_keys(TikiLib::lib('user')->get_user_groups_inclusion($user));
@@ -258,7 +258,7 @@ class Search_ResultSet extends ArrayObject implements JsonSerializable
 		}
 	}
 
-	function jsonSerialize()
+	public function jsonSerialize()
 	{
 		return [
 			'count' => $this->count,

@@ -9,12 +9,12 @@ class Search_Action_ReportingTransform
 {
 	private $data = [];
 
-	function setStatus($objectType, $objectId, $success)
+	public function setStatus($objectType, $objectId, $success)
 	{
 		$this->data["$objectType:$objectId"] = $success ? 'success' : 'error';
 	}
 
-	function __invoke($entry)
+	public function __invoke($entry)
 	{
 		$identifier = "{$entry['object_type']}:{$entry['object_id']}";
 		$entry['report_status'] = isset($this->data[$identifier]) ? $this->data[$identifier] : 'none';

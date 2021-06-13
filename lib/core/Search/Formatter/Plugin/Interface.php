@@ -12,11 +12,11 @@ interface Search_Formatter_Plugin_Interface
 	const FORMAT_ARRAY = 'array';
 	const FORMAT_CSV = 'csv';
 
-	function getFields();
+	public function getFields();
 
-	function getFormat();
+	public function getFormat();
 
-	function prepareEntry($entry);
+	public function prepareEntry($entry);
 
-	function renderEntries(Search_ResultSet $entries);
+	public function renderEntries(Search_ResultSet $entries);
 }

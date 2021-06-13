@@ -14,7 +14,7 @@ class Search_Query_Relation
 	public static function fromToken(Search_Expr_Token $token)
 	{
 		$token->setType('plaintext');
-		$value = $token->getValue(new Search_Type_Factory_Direct);
+		$value = $token->getValue(new Search_Type_Factory_Direct());
 		list($qualifier, $type, $object) = explode(':', $value->getValue(), 3);
 
 		return new self($qualifier, $type, $object);
@@ -26,29 +26,29 @@ class Search_Query_Relation
 		return $rel->getToken();
 	}
 
-	function __construct($qualifier, $type, $object)
+	public function __construct($qualifier, $type, $object)
 	{
 		$this->qualifier = $qualifier;
 		$this->type = $type;
 		$this->object = $object;
 	}
 
-	function __toString()
+	public function __toString()
 	{
 		return '"' . $this->getToken() . '"';
 	}
 
-	function getToken()
+	public function getToken()
 	{
 		return "{$this->qualifier}:{$this->type}:{$this->object}";
 	}
 
-	function getQualifier()
+	public function getQualifier()
 	{
 		return $this->qualifier;
 	}
 
-	function getInvert()
+	public function getInvert()
 	{
 		$qualifier = $this->qualifier;
 		$length = strlen('.invert');

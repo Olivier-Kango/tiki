@@ -7,10 +7,10 @@
 
 interface Search_Expr_Interface
 {
-	function setField($field = 'global');
-	function setType($type);
-	function setWeight($weight);
-	function getWeight();
+	public function setField($field = 'global');
+	public function setType($type);
+	public function setWeight($weight);
+	public function getWeight();
 
 	/**
 	 * Applies the callback to every node in the tree, applying to children first.
@@ -18,7 +18,7 @@ interface Search_Expr_Interface
 	 *
 	 * $callback($expr, array $processedChildNodes)
 	 */
-	function walk($callback);
+	public function walk($callback);
 
 	/**
 	 * Similar to walk, but leaves more control to the callback about the processing
@@ -29,5 +29,5 @@ interface Search_Expr_Interface
 	 *
 	 * The callback can call traverse on child expressions when suitable.
 	 */
-	function traverse($callback);
+	public function traverse($callback);
 }

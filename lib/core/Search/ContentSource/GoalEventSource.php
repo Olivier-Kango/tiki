@@ -9,17 +9,17 @@ class Search_ContentSource_GoalEventSource implements Search_ContentSource_Inter
 {
 	private $table;
 
-	function __construct()
+	public function __construct()
 	{
 		$this->table = TikiDb::get()->table('tiki_goal_events');
 	}
 
-	function getDocuments()
+	public function getDocuments()
 	{
 		return $this->table->fetchColumn('eventId', []);
 	}
 
-	function getDocument($objectId, Search_Type_Factory_Interface $typeFactory)
+	public function getDocument($objectId, Search_Type_Factory_Interface $typeFactory)
 	{
 		global $prefs;
 
@@ -45,12 +45,12 @@ class Search_ContentSource_GoalEventSource implements Search_ContentSource_Inter
 		}
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		return ['event_type', 'modification_date', 'user', 'goal_groups', 'target', 'date'];
 	}
 
-	function getGlobalFields()
+	public function getGlobalFields()
 	{
 		return [
 			'date' => true,

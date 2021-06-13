@@ -7,7 +7,7 @@
 
 class Search_Action_EmailAction implements Search_Action_Action
 {
-	function getValues()
+	public function getValues()
 	{
 		return [
 			'object_type' => true,
@@ -26,12 +26,12 @@ class Search_Action_EmailAction implements Search_Action_Action
 		];
 	}
 
-	function validate(JitFilter $data)
+	public function validate(JitFilter $data)
 	{
 		return true;
 	}
 
-	function execute(JitFilter $data)
+	public function execute(JitFilter $data)
 	{
 		global $prefs;
 
@@ -121,13 +121,13 @@ class Search_Action_EmailAction implements Search_Action_Action
 				$fileIds = [];
 
 				// get fileIds from Files field
-				if (! empty($data->file_attachment_field->text())){
+				if (! empty($data->file_attachment_field->text())) {
 					// get the contents of indicated Files field, i.e., the file ids
 					$object_id = $data->object_id->int();
 					$trklib = TikiLib::lib('trk');
 					$info = $trklib->get_tracker_item($object_id);
 					$definition = Tracker_Definition::get($info['trackerId']);
-					$field = str_replace('tracker_field_','', $data->file_attachment_field->word());
+					$field = str_replace('tracker_field_', '', $data->file_attachment_field->word());
 					$fieldInfo = $definition->getField($field);
 					$handler = $definition->getFieldFactory()->getHandler($fieldInfo, $info);
 					$values = $handler->getFieldData();
@@ -136,7 +136,7 @@ class Search_Action_EmailAction implements Search_Action_Action
 				}
 
 				// get fileIds of all files in a Gallery
-				if (! empty($data->file_attachment_gal->text())){
+				if (! empty($data->file_attachment_gal->text())) {
 					$fileGal = TikiLib::lib('filegal');
 					$files = $fileGal->get_files_info_from_gallery_id($data->file_attachment_gal->text());
 					foreach ($files as $file) {
@@ -190,7 +190,7 @@ class Search_Action_EmailAction implements Search_Action_Action
 		}
 	}
 
-	function requiresInput(JitFilter $data)
+	public function requiresInput(JitFilter $data)
 	{
 		return false;
 	}
@@ -260,7 +260,7 @@ class Search_Action_EmailAction implements Search_Action_Action
 
 		require_once('tiki-setup.php');
 		require_once 'lib/pdflib.php';
-		$generator = new PdfGenerator;
+		$generator = new PdfGenerator();
 		if (! empty($generator->error)) {
 			Feedback::error($generator->error);
 			return false;
@@ -306,5 +306,4 @@ class Search_Action_EmailAction implements Search_Action_Action
 
 		return(['contents' => $contents, 'filetype' => $filetype, 'filename' => $filename]);
 	}
-
 }

@@ -11,17 +11,17 @@ class Search_Formatter_DataSource_Declarative implements Search_Formatter_DataSo
 	private $globalSources = [];
 	private $prefilter;
 
-	function addContentSource($type, Search_ContentSource_Interface $contentSource)
+	public function addContentSource($type, Search_ContentSource_Interface $contentSource)
 	{
 		$this->contentSources[$type] = $contentSource;
 	}
 
-	function addGlobalSource(Search_GlobalSource_Interface $globalSource)
+	public function addGlobalSource(Search_GlobalSource_Interface $globalSource)
 	{
 		$this->globalSources[] = $globalSource;
 	}
 
-	function getData($entry, $requestedField)
+	public function getData($entry, $requestedField)
 	{
 		$type = $entry['object_type'];
 		$object = $entry['object_id'];
@@ -140,7 +140,7 @@ class Search_Formatter_DataSource_Declarative implements Search_Formatter_DataSo
 	 * First parameter, field list
 	 * Second parameter, the entry
 	 */
-	function setPrefilter($callback)
+	public function setPrefilter($callback)
 	{
 		$this->prefilter = $callback;
 	}

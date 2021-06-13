@@ -9,22 +9,22 @@ class Search_GlobalSource_VisitsSource implements Search_GlobalSource_Interface
 {
 	private $statslib;
 
-	function __construct()
+	public function __construct()
 	{
 		$this->statslib = TikiLib::lib('stats');
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		return ['visits'];
 	}
 
-	function getGlobalFields()
+	public function getGlobalFields()
 	{
 		return [];
 	}
 
-	function getData($objectType, $objectId, Search_Type_Factory_Interface $typeFactory, array $data = [])
+	public function getData($objectType, $objectId, Search_Type_Factory_Interface $typeFactory, array $data = [])
 	{
 		if ($objectType === 'wiki page') {
 			$objectType = 'wiki';

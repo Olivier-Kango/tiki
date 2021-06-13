@@ -13,14 +13,14 @@ class Search_Elastic_BulkOperation
 	private $mapping_type;
 	private $buffer = '';
 
-	function __construct($limit, $callback, $mapping_type)
+	public function __construct($limit, $callback, $mapping_type)
 	{
 		$this->limit = max(10, (int) $limit);
 		$this->callback = $callback;
 		$this->mapping_type = $mapping_type;
 	}
 
-	function flush()
+	public function flush()
 	{
 		if ($this->count > 0) {
 			$callback = $this->callback;
@@ -31,7 +31,7 @@ class Search_Elastic_BulkOperation
 		}
 	}
 
-	function index($index, $type, $id, array $data)
+	public function index($index, $type, $id, array $data)
 	{
 		$this->append(
 			[
@@ -41,7 +41,7 @@ class Search_Elastic_BulkOperation
 		);
 	}
 
-	function unindex($index, $type, $id)
+	public function unindex($index, $type, $id)
 	{
 		$this->append(
 			[

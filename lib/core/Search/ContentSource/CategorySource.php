@@ -9,17 +9,17 @@ class Search_ContentSource_CategorySource implements Search_ContentSource_Interf
 {
 	private $db;
 
-	function __construct()
+	public function __construct()
 	{
 		$this->db = TikiDb::get();
 	}
 
-	function getDocuments()
+	public function getDocuments()
 	{
 		return $this->db->table('tiki_categories')->fetchColumn('categId', []);
 	}
 
-	function getDocument($objectId, Search_Type_Factory_Interface $typeFactory)
+	public function getDocument($objectId, Search_Type_Factory_Interface $typeFactory)
 	{
 		$lib = TikiLib::lib('categ');
 
@@ -42,7 +42,7 @@ class Search_ContentSource_CategorySource implements Search_ContentSource_Interf
 		return $data;
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		return [
 			'title',
@@ -55,7 +55,7 @@ class Search_ContentSource_CategorySource implements Search_ContentSource_Interf
 		];
 	}
 
-	function getGlobalFields()
+	public function getGlobalFields()
 	{
 		return [
 			'title' => true,

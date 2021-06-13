@@ -9,19 +9,19 @@ class Search_ContentSource_ForumPostSource implements Search_ContentSource_Inter
 {
 	private $db;
 
-	function __construct()
+	public function __construct()
 	{
 		$this->db = TikiDb::get();
 	}
 
-	function getReferenceMap()
+	public function getReferenceMap()
 	{
 		return [
 			'forum_id' => 'forum',
 		];
 	}
 
-	function getDocuments()
+	public function getDocuments()
 	{
 		global $prefs;
 		if ($prefs['unified_forum_deepindexing'] == 'y') {
@@ -32,7 +32,7 @@ class Search_ContentSource_ForumPostSource implements Search_ContentSource_Inter
 		return $this->db->table('tiki_comments')->fetchColumn('threadId', $filters);
 	}
 
-	function getDocument($objectId, Search_Type_Factory_Interface $typeFactory)
+	public function getDocument($objectId, Search_Type_Factory_Interface $typeFactory)
 	{
 		global $prefs;
 
@@ -118,7 +118,7 @@ class Search_ContentSource_ForumPostSource implements Search_ContentSource_Inter
 	 * @return array
 	 * @throws Exception
 	 */
-	function getForumLastPostData($threadId, Search_Type_Factory_Interface $typeFactory)
+	public function getForumLastPostData($threadId, Search_Type_Factory_Interface $typeFactory)
 	{
 		$commentslib = TikiLib::lib('comments');
 		$commentslib->extras_enabled(false);
@@ -145,7 +145,7 @@ class Search_ContentSource_ForumPostSource implements Search_ContentSource_Inter
 		return $data;
 	}
 
-	function getProvidedFields()
+	public function getProvidedFields()
 	{
 		return [
 			'title',
@@ -184,7 +184,7 @@ class Search_ContentSource_ForumPostSource implements Search_ContentSource_Inter
 		];
 	}
 
-	function getGlobalFields()
+	public function getGlobalFields()
 	{
 		return [
 			'title' => true,

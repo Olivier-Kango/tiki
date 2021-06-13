@@ -14,7 +14,7 @@ class Search_MySql_FieldQueryBuilder
 {
 	private $invert = false;
 
-	function build(Search_Expr_Interface $expr, Search_Type_Factory_Interface $factory)
+	public function build(Search_Expr_Interface $expr, Search_Type_Factory_Interface $factory)
 	{
 		$invert = false;
 		$string = $expr->walk(
@@ -73,7 +73,7 @@ class Search_MySql_FieldQueryBuilder
 		return $string;
 	}
 
-	function isInverted()
+	public function isInverted()
 	{
 		return $this->invert;
 	}
