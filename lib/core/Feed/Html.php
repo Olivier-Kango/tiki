@@ -42,7 +42,7 @@ class Feed_Html extends Feed_Abstract
 		$caching = false;
 	}
 
-	function appendToContents(&$contents, $item)
+	public function appendToContents(&$contents, $item)
 	{
 		$contents->entry[] = $item;
 	}

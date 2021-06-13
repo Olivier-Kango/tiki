@@ -27,7 +27,7 @@ class H5P_Event extends H5PEventBase
 	 * @param string $library_version
 	 * @internal param string $library Name of H5P library affacted*  Name of H5P library affacted
 	 */
-	function __construct($type, $sub_type = null, $content_id = null, $content_title = null, $library_name = null, $library_version = null)
+	public function __construct($type, $sub_type = null, $content_id = null, $content_title = null, $library_name = null, $library_version = null)
 	{
 		global $user;
 

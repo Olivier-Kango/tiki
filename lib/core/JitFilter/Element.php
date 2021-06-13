@@ -38,12 +38,12 @@ class JitFilter_Element
 {
 	private $value;
 
-	function __construct($value)
+	public function __construct($value)
 	{
 		$this->value = $value;
 	}
 
-	function filter($filter)
+	public function filter($filter)
 	{
 		$filter = TikiFilter::get($filter);
 
@@ -55,7 +55,7 @@ class JitFilter_Element
 	 * @param $arguments
 	 * @return mixed
 	 */
-	function __call($name, $arguments)
+	public function __call($name, $arguments)
 	{
 		return $this->filter($name);
 	}

@@ -18,11 +18,11 @@ interface DeclFilter_Rule
 	 * @param mixed Key name
 	 * @return bool
 	 */
-	function match($key);
+	public function match($key);
 
 	/**
 	 * Apply the rule on the key. This method is expected to
 	 * modify the data array on the provided key only.
 	 */
-	function apply(array &$data, $key);
+	public function apply(array &$data, $key);
 }

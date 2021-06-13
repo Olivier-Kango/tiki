@@ -9,12 +9,12 @@ class DeclFilter_KeyPatternUnsetRule extends DeclFilter_UnsetRule
 {
 	private $keys;
 
-	function __construct($keys)
+	public function __construct($keys)
 	{
 		$this->keys = $keys;
 	}
 
-	function match($key)
+	public function match($key)
 	{
 		foreach ($this->keys as $pattern) {
 			if (preg_match($pattern, $key)) {

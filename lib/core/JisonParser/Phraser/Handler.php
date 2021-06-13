@@ -7,19 +7,19 @@
 
 class JisonParser_Phraser_Handler extends JisonParser_Phraser
 {
-	var $chars = [];
-	var $words = [];
-	var $currentWord = -1;
-	var $wordsChars = [];
-	var $indexes = [];
-	var $parsed = '';
-	var $cache = [];
+	public $chars = [];
+	public $words = [];
+	public $currentWord = -1;
+	public $wordsChars = [];
+	public $indexes = [];
+	public $parsed = '';
+	public $cache = [];
 
-	var $cssClassStart = '';
-	var $cssClassMiddle = '';
-	var $cssClassEnd = '';
+	public $cssClassStart = '';
+	public $cssClassMiddle = '';
+	public $cssClassEnd = '';
 
-	function setCssWordClasses($classes = [])
+	public function setCssWordClasses($classes = [])
 	{
 		$classes = array_merge(
 			[
@@ -37,12 +37,12 @@ class JisonParser_Phraser_Handler extends JisonParser_Phraser
 		return $this;
 	}
 
-	function tagHandler($tag)
+	public function tagHandler($tag)
 	{
 		return $tag;
 	}
 
-	function wordHandler($word)
+	public function wordHandler($word)
 	{
 		$this->currentWord++;
 		$this->words[] = $word;
@@ -73,7 +73,7 @@ class JisonParser_Phraser_Handler extends JisonParser_Phraser
 		return $word;
 	}
 
-	function charHandler($char)
+	public function charHandler($char)
 	{
 		if (empty($this->wordsChars[$this->currentWord])) {
 			$this->wordsChars[$this->currentWord] = "";
@@ -104,7 +104,7 @@ class JisonParser_Phraser_Handler extends JisonParser_Phraser
 		return $char;
 	}
 
-	function isUnique($parent, $phrase)
+	public function isUnique($parent, $phrase)
 	{
 		$parentWords = $this->sanitizeToWords($parent);
 		$phraseWords = $this->sanitizeToWords($phrase);
@@ -120,7 +120,7 @@ class JisonParser_Phraser_Handler extends JisonParser_Phraser
 		}
 	}
 
-	function findPhrases($parent, $phrases)
+	public function findPhrases($parent, $phrases)
 	{
 		$parentWords = $this->sanitizeToWords($parent);
 		$phrasesWords = [];
@@ -140,12 +140,12 @@ class JisonParser_Phraser_Handler extends JisonParser_Phraser
 		return $parent;
 	}
 
-	function clearIndexes()
+	public function clearIndexes()
 	{
 		$this->indexes = [];
 	}
 
-	function addIndexes($parentWords, $phraseWords)
+	public function addIndexes($parentWords, $phraseWords)
 	{
 		$phraseLength = count($phraseWords) - 1;
 		$phraseConcat = implode('|', $phraseWords);
@@ -170,7 +170,7 @@ class JisonParser_Phraser_Handler extends JisonParser_Phraser
 		}
 	}
 
-	static function hasPhrase($parent, $phrase)
+	public static function hasPhrase($parent, $phrase)
 	{
 		$parent = self::sanitizeToWords(utf8_encode($parent));
 		$phrase = self::sanitizeToWords(utf8_encode($phrase));
@@ -181,9 +181,9 @@ class JisonParser_Phraser_Handler extends JisonParser_Phraser
 		return (strpos($parent, $phrase) !== false);
 	}
 
-	static $sanitizedWords;
+	public static $sanitizedWords;
 
-	static function sanitizeToWords($html)
+	public static function sanitizeToWords($html)
 	{
 		if (isset(self::$sanitizedWords[$html])) {
 			return self::$sanitizedWords[$html];
@@ -199,7 +199,7 @@ class JisonParser_Phraser_Handler extends JisonParser_Phraser
 		return $sanitized;
 	}
 
-	static function superSanitize($html)
+	public static function superSanitize($html)
 	{
 		return utf8_encode(implode('', self::sanitizeToWords($html)));
 	}

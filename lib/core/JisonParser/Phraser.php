@@ -3,15 +3,15 @@
 
 class JisonParser_Phraser
 {
-	var $symbols_ = array();
-	var $terminals_ = array();
-	var $productions_ = array();
-	var $table = array();
-	var $defaultActions = array();
-	var $version = '0.3.6';
-	var $debug = false;
+	public $symbols_ = array();
+	public $terminals_ = array();
+	public $productions_ = array();
+	public $table = array();
+	public $defaultActions = array();
+	public $version = '0.3.6';
+	public $debug = false;
 
-	function __construct()
+	public function __construct()
 	{
 		//ini_set('error_reporting', E_ALL);
 		//ini_set('display_errors', 1);
@@ -32,13 +32,13 @@ class JisonParser_Phraser
 		
 		$this->options =		"<@@OPTIONS@@>";
 	}
-	
-	function trace()
+
+	public function trace()
 	{
 		
 	}
-	
-	function parser_performAction(&$thisS, $yytext, $yyleng, $yylineno, $yystate, $S, $_S, $O)
+
+	public function parser_performAction(&$thisS, $yytext, $yyleng, $yylineno, $yystate, $S, $_S, $O)
 	{
 		
 
@@ -68,7 +68,7 @@ break;
 
 	}
 
-	function parser_lex()
+	public function parser_lex()
 	{
 		$token = $this->lexer_lex(); // $end = 1
 		$token = (isset($token) ? $token : 1);
@@ -79,13 +79,13 @@ break;
 		
 		return $token;
 	}
-	
-	function parseError($str = "", $hash = array())
+
+	public function parseError($str = "", $hash = array())
 	{
 		throw new Exception($str);
 	}
-	
-	function parse($input)
+
+	public function parse($input)
 	{
 		$stack = array(0);
 		$stackCount = 1;
@@ -284,26 +284,26 @@ break;
 
 
 	/* Jison generated lexer */
-	var $EOF = 1;
-	var $S = "";
-	var $yy = "";
-	var $yylineno = "";
-	var $yyleng = "";
-	var $yytext = "";
-	var $match = "";
-	var $matched = "";
-	var $yyloc = array();
-	var $conditionsStack = array();
-	var $conditionStackCount = 0;
-	var $rules = array();
-	var $conditions = array();
-	var $done = false;
-	var $less;
-	var $more;
-	var $_input;
-	var $options;
-	
-	function setInput($input)
+	public $EOF = 1;
+	public $S = "";
+	public $yy = "";
+	public $yylineno = "";
+	public $yyleng = "";
+	public $yytext = "";
+	public $match = "";
+	public $matched = "";
+	public $yyloc = array();
+	public $conditionsStack = array();
+	public $conditionStackCount = 0;
+	public $rules = array();
+	public $conditions = array();
+	public $done = false;
+	public $less;
+	public $more;
+	public $_input;
+	public $options;
+
+	public function setInput($input)
 	{
 		$this->_input = $input;
 		$this->more = $this->less = $this->done = false;
@@ -317,8 +317,8 @@ break;
 			"last_column"=> 0
 		);
 	}
-	
-	function input()
+
+	public function input()
 	{
 		$ch = $this->_input[0];
 		$this->yytext .= $ch;
@@ -331,25 +331,25 @@ break;
 		return $ch;
 	}
 	
-	function unput($ch)
+	public function unput($ch)
 	{
 		$this->_input = $ch . $this->_input;
 		return $this;
 	}
-	
-	function more()
+
+	public function more()
 	{
 		$this->more = true;
 		return $this;
 	}
-	
-	function pastInput()
+
+	public function pastInput()
 	{
 		$past = substr($this->matched, 0, strlen($this->matched) - strlen($this->match));
 		return (strlen($past) > 20 ? '...' : '') . preg_replace("/\n/", "", substr($past, -20));
 	}
-	
-	function upcomingInput()
+
+	public function upcomingInput()
 	{
 		$next = $this->match;
 		if (strlen($next) < 20) {
@@ -357,8 +357,8 @@ break;
 		}
 		return preg_replace("/\n/", "", substr($next, 0, 20) . (strlen($next) > 20 ? '...' : ''));
 	}
-	
-	function showPosition()
+
+	public function showPosition()
 	{
 		$pre = $this->pastInput();
 
@@ -369,8 +369,8 @@ break;
 
 		return $pre . $this->upcomingInput() . "\n" . $c . "^";
 	}
-	
-	function next()
+
+	public function next()
 	{
 		if ($this->done == true) return $this->EOF;
 		
@@ -428,8 +428,8 @@ break;
 			));
 		}
 	}
-	
-	function lexer_lex()
+
+	public function lexer_lex()
 	{
 		$r = $this->next();
 		
@@ -439,20 +439,20 @@ break;
 		
 		return $r;
 	}
-	
-	function begin($condition)
+
+	public function begin($condition)
 	{
 		$this->conditionStackCount++;
 		$this->conditionStack[] = $condition;
 	}
-	
-	function popState()
+
+	public function popState()
 	{
 		$this->conditionStackCount--;
 		return array_pop($this->conditionStack);
 	}
-	
-	function _currentRules()
+
+	public function _currentRules()
 	{
 		return $this->conditions[
 			$this->conditionStack[
@@ -460,8 +460,8 @@ break;
 			]
 		]['rules'];
 	}
-	
-	function lexer_performAction(&$yy, $yy_, $avoiding_name_collisions, $YY_START = null)
+
+	public function lexer_performAction(&$yy, $yy_, $avoiding_name_collisions, $YY_START = null)
 	{
 		$YYSTATE = $YY_START;
 		

@@ -7,7 +7,7 @@
 
 class DeclFilter_CatchAllUnsetRule extends DeclFilter_UnsetRule
 {
-	function match($key)
+	public function match($key)
 	{
 		return true;
 	}

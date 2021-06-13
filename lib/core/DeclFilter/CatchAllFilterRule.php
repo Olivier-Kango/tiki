@@ -9,17 +9,17 @@ class DeclFilter_CatchAllFilterRule extends DeclFilter_FilterRule
 {
 	private $filter;
 
-	function __construct($filter)
+	public function __construct($filter)
 	{
 		$this->filter = TikiFilter::get($filter);
 	}
 
-	function match($key)
+	public function match($key)
 	{
 		return true;
 	}
 
-	function getFilter($key)
+	public function getFilter($key)
 	{
 		return $this->filter;
 	}

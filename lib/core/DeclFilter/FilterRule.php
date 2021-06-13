@@ -11,7 +11,7 @@ abstract class DeclFilter_FilterRule implements DeclFilter_Rule
 
 	abstract function getFilter($key);
 
-	function apply(array &$data, $key)
+	public function apply(array &$data, $key)
 	{
 		$filter = $this->getFilter($key);
 
@@ -22,7 +22,7 @@ abstract class DeclFilter_FilterRule implements DeclFilter_Rule
 		}
 	}
 
-	function applyOnElements()
+	public function applyOnElements()
 	{
 		$this->composite = true;
 	}

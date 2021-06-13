@@ -14,7 +14,7 @@ class Feed_Html_Receive extends Feed_Abstract
 	public $href = "";
 	public $version = "0.1";
 
-	function __construct($href)
+	public function __construct($href)
 	{
 		$this->href = $href;
 		parent::__construct($href);

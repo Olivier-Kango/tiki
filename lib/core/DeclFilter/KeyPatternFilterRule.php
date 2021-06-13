@@ -9,7 +9,7 @@ class DeclFilter_KeyPatternFilterRule extends DeclFilter_FilterRule
 {
 	private $rules;
 
-	function __construct($rules)
+	public function __construct($rules)
 	{
 		$this->rules = $rules;
 	}
@@ -25,12 +25,12 @@ class DeclFilter_KeyPatternFilterRule extends DeclFilter_FilterRule
 		return false;
 	}
 
-	function match($key)
+	public function match($key)
 	{
 		return false !== $this->getMatchingPattern($key);
 	}
 
-	function getFilter($key)
+	public function getFilter($key)
 	{
 		$pattern = $this->getMatchingPattern($key);
 		return TikiFilter::get($this->rules[$pattern]);

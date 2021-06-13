@@ -28,7 +28,7 @@ class H5P_H5PTiki implements H5PFrameworkInterface
 
 	public static $h5p_path;
 
-	function __construct()
+	public function __construct()
 	{
 		// Initialise the main H5P Tiki wrapper
 

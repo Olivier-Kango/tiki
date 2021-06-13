@@ -24,7 +24,7 @@ abstract class Feed_Abstract
 	public $version = "0.0";
 	public $encoding = "";
 
-	function __construct($name = "")
+	public function __construct($name = "")
 	{
 		if (empty($name)) {
 			$name = "http://" . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF'];
@@ -147,7 +147,7 @@ abstract class Feed_Abstract
 		}
 	}
 
-	function appendToContents(&$contents, $items)
+	public function appendToContents(&$contents, $items)
 	{
 		if (isset($items->feed->entry)) {
 			$contents->entry[] = $items->feed->entry;

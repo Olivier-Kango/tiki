@@ -22,13 +22,13 @@ class Category_Manipulator
 	private $overrides = [];
 	private $overrideAll = false;
 
-	function __construct($objectType, $objectId)
+	public function __construct($objectType, $objectId)
 	{
 		$this->objectType = $objectType;
 		$this->objectId = $objectId;
 	}
 
-	function addRequiredSet(array $categories, $default, $filter = null, $type = null)
+	public function addRequiredSet(array $categories, $default, $filter = null, $type = null)
 	{
 		$categories = array_unique($categories);
 		$this->constraints['required'][] = [
@@ -39,32 +39,32 @@ class Category_Manipulator
 		];
 	}
 
-	function overrideChecks()
+	public function overrideChecks()
 	{
 		$this->overrideAll = true;
 	}
 
-	function setCurrentCategories(array $categories)
+	public function setCurrentCategories(array $categories)
 	{
 		$this->current = $categories;
 	}
 
-	function setManagedCategories(array $categories)
+	public function setManagedCategories(array $categories)
 	{
 		$this->managed = $categories;
 	}
 
-	function setUnmanagedCategories(array $categories)
+	public function setUnmanagedCategories(array $categories)
 	{
 		$this->unmanaged = $categories;
 	}
 
-	function setNewCategories(array $categories)
+	public function setNewCategories(array $categories)
 	{
 		$this->new = $categories;
 	}
 
-	function getAddedCategories()
+	public function getAddedCategories()
 	{
 		$this->prepare();
 
@@ -72,7 +72,7 @@ class Category_Manipulator
 		return $this->filter($attempt, 'add_object');
 	}
 
-	function getRemovedCategories()
+	public function getRemovedCategories()
 	{
 		$this->prepare();
 
