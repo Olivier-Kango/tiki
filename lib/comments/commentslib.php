@@ -21,7 +21,7 @@ class Comments extends TikiLib
 	private $extras = true;
 
 	/* Functions for the forums */
-	function report_post($forumId, $parentId, $threadId, $user, $reason = '')
+	public function report_post($forumId, $parentId, $threadId, $user, $reason = '')
 	{
 		$reported = $this->table('tiki_forums_reported');
 
@@ -36,7 +36,7 @@ class Comments extends TikiLib
 		$reported->insert(array_merge($data, ['timestamp' => $this->now, 'reason' => $reason]));
 	}
 
-	function list_reported($forumId, $offset, $maxRecords, $sort_mode, $find)
+	public function list_reported($forumId, $offset, $maxRecords, $sort_mode, $find)
 	{
 
 		if ($find) {
@@ -65,22 +65,22 @@ class Comments extends TikiLib
 		return $retval;
 	}
 
-	function is_reported($threadId)
+	public function is_reported($threadId)
 	{
 		return $this->table('tiki_forums_reported')->fetchCount(['threadId' => (int) $threadId]);
 	}
 
-	function remove_reported($threadId)
+	public function remove_reported($threadId)
 	{
 		$this->table('tiki_forums_reported')->delete(['threadId' => (int) $threadId]);
 	}
 
-	function get_num_reported($forumId)
+	public function get_num_reported($forumId)
 	{
 		return $this->getOne("select count(*) from `tiki_forums_reported` tfr, `tiki_comments` tc where tfr.`threadId` = tc.`threadId` and `forumId`=?", [(int) $forumId]);
 	}
 
-	function mark_comment($user, $forumId, $threadId)
+	public function mark_comment($user, $forumId, $threadId)
 	{
 		if (! $user) {
 			return false;
@@ -99,12 +99,12 @@ class Comments extends TikiLib
 		);
 	}
 
-	function unmark_comment($user, $forumId, $threadId)
+	public function unmark_comment($user, $forumId, $threadId)
 	{
 		$this->table('tiki_forum_reads')->delete(['user' => $user, 'threadId' => (int) $threadId]);
 	}
 
-	function is_marked($threadId)
+	public function is_marked($threadId)
 	{
 		global $user;
 
@@ -116,7 +116,7 @@ class Comments extends TikiLib
 	}
 
 	/* Add an attachment to a post in a forum */
-	function add_thread_attachment($forum_info, $threadId, &$errors, $name, $type, $size, $inbound_mail = 0, $qId = 0, $fp = '', $data = '')
+	public function add_thread_attachment($forum_info, $threadId, &$errors, $name, $type, $size, $inbound_mail = 0, $qId = 0, $fp = '', $data = '')
 	{
 		$perms = Perms::get(['type' => 'thread', 'object' => $threadId]);
 		if (! ($forum_info['att'] == 'att_all'
@@ -201,7 +201,7 @@ class Comments extends TikiLib
 		return $this->forum_attach_file($threadId, $qId, $name, $type, $size, $data, $fhash, $forum_info['att_store_dir'], $forum_info['forumId']);
 	}
 
-	function forum_attach_file($threadId, $qId, $name, $type, $size, $data, $fhash, $dir, $forumId)
+	public function forum_attach_file($threadId, $qId, $name, $type, $size, $data, $fhash, $dir, $forumId)
 	{
 		if ($fhash) {
 			// Do not store data if we have a file
@@ -226,7 +226,7 @@ class Comments extends TikiLib
 		// Now the file is attached and we can proceed.
 	}
 
-	function get_thread_attachments($threadId, $qId)
+	public function get_thread_attachments($threadId, $qId)
 	{
 		$conditions = [];
 
@@ -240,7 +240,7 @@ class Comments extends TikiLib
 		return $attachments->fetchAll($attachments->all(), $conditions);
 	}
 
-	function get_thread_attachment($attId)
+	public function get_thread_attachment($attId)
 	{
 		$attachments = $this->table('tiki_forum_attachments');
 		$res = $attachments->fetchAll($attachments->all(), ['attId' => $attId]);
@@ -271,7 +271,7 @@ class Comments extends TikiLib
 		];
 	}
 
-	function remove_thread_attachment($attId)
+	public function remove_thread_attachment($attId)
 	{
 		$att = $this->get_thread_attachment($attId);
 		// Check if the attachment is stored in the filesystem and don't do anything by accident in root dir
@@ -281,7 +281,7 @@ class Comments extends TikiLib
 		$this->table('tiki_forum_attachments')->delete(['attId' => $attId]);
 	}
 
-	function parse_output(&$obj, &$parts, $i)
+	public function parse_output(&$obj, &$parts, $i)
 	{
 		if (! empty($obj->parts)) {
 			$temp_max = count($obj->parts);
@@ -340,7 +340,7 @@ class Comments extends TikiLib
 		}
 	}
 
-	function process_inbound_mail($forumId)
+	public function process_inbound_mail($forumId)
 	{
 		global $prefs, $user;
 		require_once("lib/webmail/net_pop3.php");
@@ -681,7 +681,7 @@ class Comments extends TikiLib
 	}
 
 	/* queue management */
-	function replace_queue(
+	public function replace_queue(
 		$qId,
 		$forumId,
 		$object,
@@ -753,12 +753,12 @@ class Comments extends TikiLib
 		return $qId;
 	}
 
-	function get_num_queued($object)
+	public function get_num_queued($object)
 	{
 		return $this->table('tiki_forums_queue')->fetchCount(['object' => $object]);
 	}
 
-	function list_forum_queue($object, $offset, $maxRecords, $sort_mode, $find)
+	public function list_forum_queue($object, $offset, $maxRecords, $sort_mode, $find)
 	{
 		$queue = $this->table('tiki_forums_queue');
 
@@ -785,7 +785,7 @@ class Comments extends TikiLib
 		];
 	}
 
-	function queue_get($qId)
+	public function queue_get($qId)
 	{
 		$res = $this->table('tiki_forums_queue')->fetchFullRow(['qId' => $qId]);
 		$res['attchments'] = $this->get_thread_attachments(0, $qId);
@@ -793,7 +793,7 @@ class Comments extends TikiLib
 		return $res;
 	}
 
-	function remove_queued($qId)
+	public function remove_queued($qId)
 	{
 		$this->table('tiki_object_attributes')->delete(['attribute' => 'tiki.forumpost.queueid', 'value' => $qId]);
 		$this->table('tiki_forums_queue')->delete(['qId' => $qId]);
@@ -801,7 +801,7 @@ class Comments extends TikiLib
 	}
 
 	//Approve queued message -> post as new comment
-	function approve_queued($qId)
+	public function approve_queued($qId)
 	{
 		global $prefs;
 		$userlib = TikiLib::lib('user');
@@ -894,7 +894,7 @@ class Comments extends TikiLib
 		return $threadId;
 	}
 
-	function get_forum_topics(
+	public function get_forum_topics(
 		$forumId,
 		$offset = 0,
 		$max = -1,
@@ -936,7 +936,7 @@ class Comments extends TikiLib
 		return $ret;
 	}
 
-	function count_forum_topics(
+	public function count_forum_topics(
 		$forumId,
 		$offset = 0,
 		$max = -1,
@@ -1088,7 +1088,7 @@ class Comments extends TikiLib
 		];
 	}
 
-	function get_last_forum_posts($forumId, $maxRecords = -1)
+	public function get_last_forum_posts($forumId, $maxRecords = -1)
 	{
 		$comments = $this->table('tiki_comments');
 
@@ -1162,7 +1162,7 @@ class Comments extends TikiLib
 	 * @param string $forumLanguage
 	 * @return int
 	 */
-	function replace_forum(
+	public function replace_forum(
 		$forumId = 0,
 		$name = '',
 		$description = '',
@@ -1325,7 +1325,7 @@ class Comments extends TikiLib
 	 * @param $forumId
 	 * @return mixed
 	 */
-	function get_forum($forumId)
+	public function get_forum($forumId)
 	{
 		$res = $this->table('tiki_forums')->fetchFullRow(['forumId' => $forumId]);
 		if (! empty($res)) {
@@ -1340,7 +1340,7 @@ class Comments extends TikiLib
 	 * @param $forum
 	 * @return mixed
 	 */
-	function get_forum_parents($forum)
+	public function get_forum_parents($forum)
 	{
 		$parents = [];
 
@@ -1357,7 +1357,7 @@ class Comments extends TikiLib
 	 * @param $newOrder
 	 * @return bool
 	 */
-	function reorder_forum($forumId, $newOrder)
+	public function reorder_forum($forumId, $newOrder)
 	{
 		$this->table('tiki_forums')->update(['forumOrder' => $newOrder],['forumId' => $forumId]);
 
@@ -1368,7 +1368,7 @@ class Comments extends TikiLib
 	 * @param $forumId
 	 * @return bool
 	 */
-	function remove_forum($forumId)
+	public function remove_forum($forumId)
 	{
 		$forum = $this->get_forum($forumId);
 
@@ -1396,7 +1396,7 @@ class Comments extends TikiLib
 	 * @param int $parentId (0 to get forums without parents, <0 to get all forums, >0 to get forums of specific parent)
 	 * @return array
 	 */
-	function list_forums($offset = 0, $maxRecords = -1, $sort_mode = 'name_asc', $find = '', $parentId = 0)
+	public function list_forums($offset = 0, $maxRecords = -1, $sort_mode = 'name_asc', $find = '', $parentId = 0)
 	{
 		$bindvars = [];
 
@@ -1530,7 +1530,7 @@ class Comments extends TikiLib
 	 * @param $find
 	 * @return array
 	 */
-	function list_forums_by_section($section, $offset, $maxRecords, $sort_mode, $find)
+	public function list_forums_by_section($section, $offset, $maxRecords, $sort_mode, $find)
 	{
 		$conditions = [
 			'section' => $section,
@@ -1586,7 +1586,7 @@ class Comments extends TikiLib
 	 * @param $threadId
 	 * @return bool
 	 */
-	function user_can_edit_post($user, $threadId)
+	public function user_can_edit_post($user, $threadId)
 	{
 		$result = $this->table('tiki_comments')->fetchOne('userName', ['threadId' => $threadId]);
 
@@ -1598,7 +1598,7 @@ class Comments extends TikiLib
 	 * @param $forumId
 	 * @return bool
 	 */
-	function user_can_post_to_forum($user, $forumId)
+	public function user_can_post_to_forum($user, $forumId)
 	{
 		// Check flood interval for the forum
 		$forum = $this->get_forum($forumId);
@@ -1638,7 +1638,7 @@ class Comments extends TikiLib
 	 * @param $parentId
 	 * @return bool
 	 */
-	function register_forum_post($forumId, $parentId)
+	public function register_forum_post($forumId, $parentId)
 	{
 		$forums = $this->table('tiki_forums');
 
@@ -1660,7 +1660,7 @@ class Comments extends TikiLib
 	 * @param $forumId
 	 * @param $parentId
 	 */
-	function register_remove_post($forumId, $parentId)
+	public function register_remove_post($forumId, $parentId)
 	{
 		$this->forum_prune($forumId);
 	}
@@ -1669,7 +1669,7 @@ class Comments extends TikiLib
 	 * @param $forumId
 	 * @return bool
 	 */
-	function forum_add_hit($forumId)
+	public function forum_add_hit($forumId)
 	{
 		global $prefs, $user;
 
@@ -1685,7 +1685,7 @@ class Comments extends TikiLib
 	 * @param $threadId
 	 * @return bool
 	 */
-	function comment_add_hit($threadId)
+	public function comment_add_hit($threadId)
 	{
 		global $prefs, $user;
 
@@ -1705,7 +1705,7 @@ class Comments extends TikiLib
 	 * @param int $generations
 	 * @return array
 	 */
-	function get_all_children($threadId, $generations = 99)
+	public function get_all_children($threadId, $generations = 99)
 	{
 		$comments = $this->table('tiki_comments');
 
@@ -1731,7 +1731,7 @@ class Comments extends TikiLib
 	 * @param $forumId
 	 * @return bool
 	 */
-	function forum_prune($forumId)
+	public function forum_prune($forumId)
 	{
 		$comments = $this->table('tiki_comments');
 
@@ -1803,7 +1803,7 @@ class Comments extends TikiLib
 	 * @param string $type
 	 * @return array
 	 */
-	function get_user_forum_comments($user, $max, $type = '')
+	public function get_user_forum_comments($user, $max, $type = '')
 	{
 		// get parent title as well, especially useful in flat forum
 		$parentinfo = '';
@@ -1844,7 +1844,7 @@ class Comments extends TikiLib
 	 * @param null $forum_info
 	 * @return mixed
 	 */
-	function get_comment($id, $message_id = null, $forum_info = null)
+	public function get_comment($id, $message_id = null, $forum_info = null)
 	{
 		$comments = $this->table('tiki_comments');
 		if ($message_id) {
@@ -1873,7 +1873,7 @@ class Comments extends TikiLib
 	 * @param $query_sort_mode
 	 * @return mixed
 	 */
-	function get_sub_forums($parentId = 0, $query_sort_mode = 'name_asc')
+	public function get_sub_forums($parentId = 0, $query_sort_mode = 'name_asc')
 	{
 		$bindvars = [];
 		$query_sort_mode = 'name_asc';
@@ -1890,7 +1890,7 @@ class Comments extends TikiLib
 	/**
 	* Returns the forum-id for a comment
 	*/
-	function get_comment_forum_id($commentId)
+	public function get_comment_forum_id($commentId)
 	{
 		return $this->table('tiki_comments')->fetchOne('object', ['threadId' => $commentId]);
 	}
@@ -1899,7 +1899,7 @@ class Comments extends TikiLib
 	 * @param $res
 	 * @param null $forum_info
 	 */
-	function add_comments_extras(&$res, $forum_info = null)
+	public function add_comments_extras(&$res, $forum_info = null)
 	{
 		if (! $this->extras) {
 			return;
@@ -1944,7 +1944,7 @@ class Comments extends TikiLib
 	 * @param $id
 	 * @return mixed
 	 */
-	function get_comment_father($id)
+	public function get_comment_father($id)
 	{
 		static $cache;
 		if (isset($cache[$id])) {
@@ -1962,7 +1962,7 @@ class Comments extends TikiLib
 	 * @param string $approved 'y' or 'n'
 	 * @return int the number of comments
 	 */
-	function count_comments($objectId, $approved = 'y')
+	public function count_comments($objectId, $approved = 'y')
 	{
 		global $tiki_p_admin_comments, $prefs;
 
@@ -1997,7 +1997,7 @@ class Comments extends TikiLib
 	 * @param $maxRecords
 	 * @return array|bool
 	 */
-	function order_comments_by_count($type = 'wiki', $lang = '', $maxRecords = -1)
+	public function order_comments_by_count($type = 'wiki', $lang = '', $maxRecords = -1)
 	{
 		global $prefs;
 		$bind = [];
@@ -2042,7 +2042,7 @@ class Comments extends TikiLib
 	 * @param int $parentId
 	 * @return mixed
 	 */
-	function count_comments_threads($objectId, $parentId = 0)
+	public function count_comments_threads($objectId, $parentId = 0)
 	{
 		$object = explode(":", $objectId, 2);
 		return $this->table('tiki_comments')->fetchCount(
@@ -2068,7 +2068,7 @@ class Comments extends TikiLib
 	 * @param string $approved
 	 * @return array
 	 */
-	function get_comment_replies(
+	public function get_comment_replies(
 		$id,
 		$sort_mode,
 		$offset,
@@ -2209,7 +2209,7 @@ class Comments extends TikiLib
 	 * @param int $seed
 	 * @return int
 	 */
-	function total_replies($reply_array, $seed = 0)
+	public function total_replies($reply_array, $seed = 0)
 	{
 		$retval = $seed;
 
@@ -2230,7 +2230,7 @@ class Comments extends TikiLib
 	 * @param $rep_flat
 	 * @param int $level
 	 */
-	function flatten_comment_replies(&$replies, &$rep_flat, $level = 0)
+	public function flatten_comment_replies(&$replies, &$rep_flat, $level = 0)
 	{
 		$reps = $replies['numReplies'];
 		for ($i = 0; $i < $reps; $i++) {
@@ -2245,7 +2245,7 @@ class Comments extends TikiLib
 	/**
 	 * @return string
 	 */
-	function pick_cookie()
+	public function pick_cookie()
 	{
 		$cookies = $this->table('tiki_cookies');
 		$cant = $cookies->fetchCount('tiki_cookies', []);
@@ -2266,7 +2266,7 @@ class Comments extends TikiLib
 	 * @param $data
 	 * @return mixed|string
 	 */
-	function parse_comment_data($data)
+	public function parse_comment_data($data)
 	{
 		global $prefs, $section;
 		$parserlib = TikiLib::lib('parser');
@@ -2306,7 +2306,7 @@ class Comments extends TikiLib
 	 * @param & $comment		array contianing comment title and data
 	 * @param $commentlength	length to truncate to
 	 */
-	function process_comment_title($comment, $commentlength)
+	public function process_comment_title($comment, $commentlength)
 	{
 		global $prefs;
 		if ($prefs['comments_notitle'] === 'y') {
@@ -2325,7 +2325,7 @@ class Comments extends TikiLib
 	/**
 	 * @param $time
 	 */
-	function set_time_control($time)
+	public function set_time_control($time)
 	{
 		$this->time_control = $time;
 	}
@@ -2345,7 +2345,7 @@ class Comments extends TikiLib
 	 * @param string $approved if user doesn't have tiki_p_admin_comments this param display or not only approved comments (default to 'y')
 	 * @return array
 	 */
-	function get_comments(
+	public function get_comments(
 		$objectId,
 		$parentId,
 		$offset = 0,
@@ -2628,7 +2628,7 @@ class Comments extends TikiLib
 	 * @param string $objectType
 	 * @return int the number of archived comments for an object
 	 */
-	function count_object_archived_comments($objectId, $objectType)
+	public function count_object_archived_comments($objectId, $objectType)
 	{
 		return $this->table('tiki_comments')->fetchCount(
 			[
@@ -2653,7 +2653,7 @@ class Comments extends TikiLib
 	 * @param bool $toponly
 	 * @param array|int $objectId limit comments return to one object id or array of objects ids
 	 */
-	function get_all_comments(
+	public function get_all_comments(
 		$type = '',
 		$offset = 0,
 		$maxRecords = -1,
@@ -2746,7 +2746,7 @@ class Comments extends TikiLib
 	 * @param int $threadId Id of a specific comment or forum thread
 	 * @return void|string void if unrecognized type or URL string otherwise
 	 */
-	function getHref($type, $object, $threadId)
+	public function getHref($type, $object, $threadId)
 	{
 		global $prefs;
 		switch ($type) {
@@ -2801,7 +2801,7 @@ class Comments extends TikiLib
 
 	/* @brief: gets the comments of the thread and of all its fathers (ex cept first one for forum)
 	 */
-	function get_comments_fathers($threadId, $ret = null, $message_id = null)
+	public function get_comments_fathers($threadId, $ret = null, $message_id = null)
 	{
 		$com = $this->get_comment($threadId, $message_id);
 
@@ -2825,12 +2825,12 @@ class Comments extends TikiLib
 	/**
 	 * @param $threadId
 	 */
-	function lock_comment($threadId)
+	public function lock_comment($threadId)
 	{
 		$this->table('tiki_comments')->update(['locked' => 'y'], ['threadId' => $threadId]);
 	}
 
-	function get_comment_object($threadId)
+	public function get_comment_object($threadId)
 	{
 		return $this->table('tiki_comments')->fetchRow(['object', 'objectType'], ['threadId' => $threadId]);
 	}
@@ -2839,7 +2839,7 @@ class Comments extends TikiLib
 	 * @param $threadId
 	 * @param $objectId
 	 */
-	function set_comment_object($threadId, $objectId)
+	public function set_comment_object($threadId, $objectId)
 	{
 		// Break out the type and object parameters.
 		$object = explode(":", $objectId, 2);
@@ -2856,7 +2856,7 @@ class Comments extends TikiLib
 	 * @param $threadId
 	 * @param $parentId
 	 */
-	function set_parent($threadId, $parentId)
+	public function set_parent($threadId, $parentId)
 	{
 		$comments = $this->table('tiki_comments');
 		$parent_message_id = $comments->fetchOne('message_id', ['threadId' => $parentId]);
@@ -2869,7 +2869,7 @@ class Comments extends TikiLib
 	/**
 	 * @param $threadId
 	 */
-	function unlock_comment($threadId)
+	public function unlock_comment($threadId)
 	{
 		$this->table('tiki_comments')->update(
 			['locked' => 'n'],
@@ -2883,7 +2883,7 @@ class Comments extends TikiLib
 	 * @param string $status
 	 * @return bool
 	 */
-	function lock_object_thread($objectId, $status = 'y')
+	public function lock_object_thread($objectId, $status = 'y')
 	{
 		if (empty($objectId)) {
 			return false;
@@ -2909,7 +2909,7 @@ class Comments extends TikiLib
 	 * @param $objectId
 	 * @return bool
 	 */
-	function unlock_object_thread($objectId)
+	public function unlock_object_thread($objectId)
 	{
 		return $this->lock_object_thread($objectId, 'n');
 	}
@@ -2919,7 +2919,7 @@ class Comments extends TikiLib
 	 * @param $objectId
 	 * @return bool
 	 */
-	function is_object_locked($objectId)
+	public function is_object_locked($objectId)
 	{
 		if (empty($objectId)) {
 			return false;
@@ -2936,7 +2936,7 @@ class Comments extends TikiLib
 	 * @param $objectType
 	 * @param $threadId
 	 */
-	function update_comment_links($data, $objectType, $threadId)
+	public function update_comment_links($data, $objectType, $threadId)
 	{
 		if ($objectType == 'forum') {
 			$type = 'forum post'; // this must correspond to that used in tiki_objects
@@ -2956,7 +2956,7 @@ class Comments extends TikiLib
 	 * @param $objectType
 	 * @param $threadId
 	 */
-	function process_save_plugins($data, $objectType, $threadId = null)
+	public function process_save_plugins($data, $objectType, $threadId = null)
 	{
 		global $prefs;
 		if ($objectType == 'forum') {
@@ -2986,7 +2986,7 @@ class Comments extends TikiLib
 	 * @param string $objectId
 	 * @param string $contributions
 	 */
-	function update_comment(
+	public function update_comment(
 		$threadId,
 		$title,
 		$comment_rating,
@@ -3090,7 +3090,7 @@ class Comments extends TikiLib
 	 * @return int $threadId id of the new comment
 	 * @throws Exception
 	 */
-	function post_new_comment(
+	public function post_new_comment(
 		$objectId,
 		$parentId,
 		$userName,
@@ -3412,7 +3412,7 @@ class Comments extends TikiLib
 	 * @param $forumId
 	 * @return mixed
 	 */
-	function check_for_topic($title, $forumId)
+	public function check_for_topic($title, $forumId)
 	{
 		$comments = $this->table('tiki_comments');
 		return $comments->fetchOne('threadId', [
@@ -3428,7 +3428,7 @@ class Comments extends TikiLib
 	 * @param string $status
 	 * @return bool
 	 */
-	function approve_comment($threadId, $status = 'y')
+	public function approve_comment($threadId, $status = 'y')
 	{
 		if ($threadId == 0) {
 			return false;
@@ -3441,7 +3441,7 @@ class Comments extends TikiLib
 	 * @param $threadId
 	 * @return bool
 	 */
-	function reject_comment($threadId)
+	public function reject_comment($threadId)
 	{
 		return $this->approve_comment($threadId, 'r');
 	}
@@ -3450,7 +3450,7 @@ class Comments extends TikiLib
 	 * @param $threadId
 	 * @return bool
 	 */
-	function remove_comment($threadId)
+	public function remove_comment($threadId)
 	{
 		if ($threadId == 0) {
 			return false;
@@ -3527,7 +3527,7 @@ class Comments extends TikiLib
 	 * @param $vote
 	 * @return bool
 	 */
-	function vote_comment($threadId, $user, $vote)
+	public function vote_comment($threadId, $user, $vote)
 	{
 		$userpoints = $this->table('tiki_userpoints');
 		$comments = $this->table('tiki_comments');
@@ -3590,7 +3590,7 @@ class Comments extends TikiLib
 	 * @param string $description
 	 * @return int
 	 */
-	function duplicate_forum($forumId, $name, $description = '')
+	public function duplicate_forum($forumId, $name, $description = '')
 	{
 		$forum_info = $this->get_forum($forumId);
 		$newForumId = $this->replace_forum(
@@ -3664,7 +3664,7 @@ class Comments extends TikiLib
 	 * @param int $parentId
 	 * @return bool|TikiDb_Adodb_Result|TikiDb_Pdo_Result
 	 */
-	function archive_thread($threadId, $parentId = 0)
+	public function archive_thread($threadId, $parentId = 0)
 	{
 		if ($threadId > 0 && $parentId >= 0) {
 			return $this->table('tiki_comments')->update(
@@ -3683,7 +3683,7 @@ class Comments extends TikiLib
 	 * @param int $parentId
 	 * @return bool|TikiDb_Adodb_Result|TikiDb_Pdo_Result
 	 */
-	function unarchive_thread($threadId, $parentId = 0)
+	public function unarchive_thread($threadId, $parentId = 0)
 	{
 		if ($threadId > 0 && $parentId >= 0) {
 			return $this->table('tiki_comments')->update(
@@ -3697,7 +3697,7 @@ class Comments extends TikiLib
 	/**
 	 * @return array
 	 */
-	function list_directories_to_save()
+	public function list_directories_to_save()
 	{
 		$dirs = [];
 		$forums = $this->list_forums();
@@ -3712,7 +3712,7 @@ class Comments extends TikiLib
 	/**
 	 * @return array
 	 */
-	function get_outbound_emails()
+	public function get_outbound_emails()
 	{
 		$forums = $this->table('tiki_forums');
 		$ret = $forums->fetchAll(
@@ -3738,7 +3738,7 @@ class Comments extends TikiLib
 	 * @param $errors
 	 * @return bool|int
 	 */
-	function post_in_forum($forum_info, &$params, &$feedbacks, &$errors)
+	public function post_in_forum($forum_info, &$params, &$feedbacks, &$errors)
 	{
 		global $tiki_p_admin_forum, $tiki_p_forum_post_topic;
 		global $tiki_p_forum_post, $prefs, $user, $tiki_p_forum_autoapp;
@@ -4053,7 +4053,7 @@ class Comments extends TikiLib
 	 * @param array $options
 	 * @param array $rating_override
 	 */
-	function add_forum_deliberations($threadId, $items = [], $options = [], $rating_override = [])
+	public function add_forum_deliberations($threadId, $items = [], $options = [], $rating_override = [])
 	{
 		global $user;
 
@@ -4079,7 +4079,7 @@ class Comments extends TikiLib
 	 * @param $threadId
 	 * @return mixed
 	 */
-	function get_forum_deliberations($threadId)
+	public function get_forum_deliberations($threadId)
 	{
 		$ratinglib = TikiLib::lib('rating');
 
@@ -4108,7 +4108,7 @@ class Comments extends TikiLib
 	/**
 	 * @param $threadId
 	 */
-	function delete_forum_deliberations($threadId)
+	public function delete_forum_deliberations($threadId)
 	{
 		$this->table('tiki_comments')->deleteMultiple(
 			[
@@ -4125,7 +4125,7 @@ class Comments extends TikiLib
 	 * @param string $sort_mode
 	 * @return array
 	 */
-	function get_all_thread_attachments($threadId, $offset = 0, $maxRecords = -1, $sort_mode = 'created_desc')
+	public function get_all_thread_attachments($threadId, $offset = 0, $maxRecords = -1, $sort_mode = 'created_desc')
 	{
 		$query = 'select tfa.* from `tiki_forum_attachments` tfa, `tiki_comments` tc where tc.`threadId`=tfa.`threadId` and ((tc.`threadId`=? and tc.`parentId`=?) or tc.`parentId`=?) order by ' . $this->convertSortMode($sort_mode);
 		$bindvars = [$threadId, 0, $threadId];
@@ -4143,7 +4143,7 @@ class Comments extends TikiLib
 	 * @param $sort_mode
 	 * @param $max_per_page
 	 */
-	function get_comment_position($comment_id, $parent_id, $sort_mode, $max_per_page, $show_approved = 'y')
+	public function get_comment_position($comment_id, $parent_id, $sort_mode, $max_per_page, $show_approved = 'y')
 	{
 
 		$bindvars = [$parent_id];
@@ -4226,7 +4226,7 @@ class Comments extends TikiLib
 	 * @param $threadId
 	 * @return mixed
 	 */
-	function find_root($threadId)
+	public function find_root($threadId)
 	{
 		$parent = $this->table('tiki_comments')->fetchOne('parentId', ['threadId' => $threadId]);
 
@@ -4242,7 +4242,7 @@ class Comments extends TikiLib
 	 * @param $threadId
 	 * @return array
 	 */
-	function get_root_path($threadId)
+	public function get_root_path($threadId)
 	{
 		$parent = $this->table('tiki_comments')->fetchOne('parentId', ['threadId' => $threadId]);
 
@@ -4260,7 +4260,7 @@ class Comments extends TikiLib
 	 * @return bool
 	 * @throws Exception
 	 */
-	function admin_forum($forumId)
+	public function admin_forum($forumId)
 	{
 		$perms = Perms::get('forum', $forumId);
 		if (! $perms->admin_forum) {
@@ -4286,7 +4286,7 @@ class Comments extends TikiLib
 	 *
 	 * @return array
 	 */
-	function get_lastPost($threadId)
+	public function get_lastPost($threadId)
 	{
 		$query = "select * from tiki_comments where parentId=? order by commentDate desc limit 1";
 		$ret = $this->fetchAll($query, [$threadId]);

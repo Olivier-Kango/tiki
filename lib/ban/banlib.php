@@ -20,7 +20,7 @@ class BanLib extends TikiLib
 	 * @param $banId
 	 * @return mixed
 	 */
-	function get_rule($banId)
+	public function get_rule($banId)
 	{
 		$query = "select * from `tiki_banning` where `banId`=?";
 
@@ -43,7 +43,7 @@ class BanLib extends TikiLib
 	 * @param $banId
 	 * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
 	 */
-	function remove_rule($banId)
+	public function remove_rule($banId)
 	{
 		$query = "delete from `tiki_banning_sections` where `banId`=?";
 		$this->query($query, [$banId]);
@@ -58,7 +58,7 @@ class BanLib extends TikiLib
 	 * @param $find
 	 * @return array
 	 */
-	function list_rules($offset, $maxRecords, $sort_mode, $find)
+	public function list_rules($offset, $maxRecords, $sort_mode, $find)
 	{
 
 		if ($find) {
@@ -108,7 +108,7 @@ class BanLib extends TikiLib
 	 * @param $rules
 	 * @return string
 	 */
-	function export_rules($rules)
+	public function export_rules($rules)
 	{
 		$csv = "banId,mode,title,ip1,ip2,ip3,ip4,user,date_from,date_to,use_dates,created,created_readable,message,sections\n";
 		foreach ($rules as $rule) {
@@ -163,7 +163,7 @@ class BanLib extends TikiLib
 	 * @return int
 	 * @throws Exception
 	 */
-	function importCSV($fname, $import_as_new)
+	public function importCSV($fname, $import_as_new)
 	{
 		$fields = false;
 		if ($fhandle = fopen($fname, 'r')) {
@@ -242,7 +242,7 @@ class BanLib extends TikiLib
 	 * @param $sections
 	 * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
 	 */
-	function replace_rule($banId, $mode, $title, $ip1, $ip2, $ip3, $ip4, $user, $date_from, $date_to, $use_dates, $message, $sections)
+	public function replace_rule($banId, $mode, $title, $ip1, $ip2, $ip3, $ip4, $user, $date_from, $date_to, $use_dates, $message, $sections)
 	{
 		if (empty($title)) {
 			$title = empty($user) ? "$ip1.$ip2.$ip3.$ip4" : $user;

@@ -21,7 +21,7 @@ class CacheLibRedis
 {
 	private $redis;
 
-	function __construct()
+	public function __construct()
 	{
 		global $prefs;
 		if (empty($this->redis)) {
@@ -37,7 +37,7 @@ class CacheLibRedis
 		}
 	}
 
-	function __destruct()
+	public function __destruct()
 	{
 		$this->redis->close();
 	}
@@ -57,7 +57,7 @@ class CacheLibRedis
 		return $keys;
 	}
 
-	function cacheItem($key, $data, $type = '')
+	public function cacheItem($key, $data, $type = '')
 	{
 		global $prefs;
 		$key = $this->getKey($key, $type);
@@ -68,31 +68,31 @@ class CacheLibRedis
 		}
 	}
 
-	function isCached($key, $type = '')
+	public function isCached($key, $type = '')
 	{
 		$key = $this->getKey($key, $type);
 		return $this->redis->exists($key);
 	}
 
-	function getCached($key, $type = '', $lastModif = false)
+	public function getCached($key, $type = '', $lastModif = false)
 	{
 		$key = $this->getKey($key, $type);
 		return $this->redis->get($key);
 	}
 
-	function invalidate($key, $type = '')
+	public function invalidate($key, $type = '')
 	{
 		$key = $this->getKey($key, $type);
 		return $this->redis->del([$key]);
 	}
 
-	function empty_type_cache($type)
+	public function empty_type_cache($type)
 	{
 		$keys = $this->findKeys($type . '*');
 		return $this->redis->del($keys);
 	}
 
-	function flush() {
+	public function flush() {
 		global $prefs;
 		if ($prefs['redis_prefix']) {
 			$keys = $this->findKeys('*');

@@ -14,7 +14,7 @@ if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
 class BannerLib extends TikiLib
 {
 
-	function select_banner_id($zone)
+	public function select_banner_id($zone)
 	{
 		$map = [0 => 'sun', 1 => 'mon', 2 => 'tue', 3 => 'wed', 4 => 'thu', 5 => 'fri', 6 => 'sat'];
 		$dw = $map[$this->date_format("%w")];
@@ -70,7 +70,7 @@ class BannerLib extends TikiLib
 	}
 
 
-	function select_banner($zone, $target = '_blank', $id = '')
+	public function select_banner($zone, $target = '_blank', $id = '')
 	{
 		global $prefs, $tikilib;
 
@@ -141,14 +141,14 @@ class BannerLib extends TikiLib
 		return $raw;
 	}
 
-	function add_click($bannerId)
+	public function add_click($bannerId)
 	{
 		$query = "update `tiki_banners` set `clicks` = `clicks` + 1 where `bannerId`=?";
 
 		$result = $this->query($query, [(int)$bannerId]);
 	}
 
-	function list_banners($offset = 0, $maxRecords = -1, $sort_mode = 'created_desc', $find = '', $user)
+	public function list_banners($offset = 0, $maxRecords = -1, $sort_mode = 'created_desc', $find = '', $user)
 	{
 		if ($user == 'admin') {
 			$mid = '';
@@ -186,7 +186,7 @@ class BannerLib extends TikiLib
 		return $retval;
 	}
 
-	function list_zones()
+	public function list_zones()
 	{
 		$query = "select `zone` from `tiki_zones`";
 
@@ -205,14 +205,14 @@ class BannerLib extends TikiLib
 		return $retval;
 	}
 
-	function remove_banner($bannerId)
+	public function remove_banner($bannerId)
 	{
 		$query = "delete from `tiki_banners` where `bannerId`=?";
 
 		$result = $this->query($query, [$bannerId]);
 	}
 
-	function get_banner($bannerId)
+	public function get_banner($bannerId)
 	{
 		$query = "select * from `tiki_banners` where `bannerId`=?";
 
@@ -226,7 +226,7 @@ class BannerLib extends TikiLib
 		return $res;
 	}
 
-	function replace_banner(
+	public function replace_banner(
 		$bannerId,
 		$client,
 		$url,
@@ -380,7 +380,7 @@ class BannerLib extends TikiLib
 		return $bannerId;
 	}
 
-	function banner_add_zone($zone)
+	public function banner_add_zone($zone)
 	{
 		$query = "delete from `tiki_zones` where `zone`=?";
 		$this->query($query, [$zone], -1, -1, false);
@@ -389,7 +389,7 @@ class BannerLib extends TikiLib
 		return true;
 	}
 
-	function banner_get_zones()
+	public function banner_get_zones()
 	{
 		$query = "select * from `tiki_zones`";
 
@@ -403,7 +403,7 @@ class BannerLib extends TikiLib
 		return $ret;
 	}
 
-	function banner_remove_zone($zone)
+	public function banner_remove_zone($zone)
 	{
 		$query = "delete from `tiki_zones` where `zone`=?";
 

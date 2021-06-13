@@ -27,9 +27,9 @@ define("SERVER_ERROR", -1);
 class TikiPhpBBLib
 {
 
-	var $db;
+	public $db;
 
-	function check($user, $pass)
+	public function check($user, $pass)
 	{
 
 	// no need to progress further if the user doesn't even exist
@@ -45,7 +45,7 @@ class TikiPhpBBLib
 		}
 	}
 
-	function connectdb()
+	public function connectdb()
 	{
 		global $prefs;
 		$dbhost = $prefs['auth_phpbb_dbhost'];
@@ -76,7 +76,7 @@ class TikiPhpBBLib
 	* @return bool
 	* @access public
 	*/
-	function userExists($username)
+	public function userExists($username)
 	{
 		global $prefs;
 
@@ -102,7 +102,7 @@ class TikiPhpBBLib
 	* @return bool
 	* @access public
 	*/
-	function authenticate($username, $password)
+	public function authenticate($username, $password)
 	{
 		global $prefs;
 
@@ -136,7 +136,7 @@ class TikiPhpBBLib
 	* @access public
 	* @return email or 0
 	*/
-	function grabEmail(&$username)
+	public function grabEmail(&$username)
 	{
 		global $prefs;
 		$dbconnection = $this->connectdb();

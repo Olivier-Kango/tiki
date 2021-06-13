@@ -13,7 +13,7 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
 
 class CopyrightsLib extends TikiLib
 {
-	function list_copyrights($page)
+	public function list_copyrights($page)
 	{
 		$query = 'select * from `tiki_copyrights` WHERE `page`=? order by ' . $this->convertSortMode('copyright_order_asc');
 		$query_cant = 'select count(*) from `tiki_copyrights` WHERE `page`=?';
@@ -31,19 +31,19 @@ class CopyrightsLib extends TikiLib
 		return $retval;
 	}
 
-	function top_copyright_order($page)
+	public function top_copyright_order($page)
 	{
 		$query = 'select MAX(`copyright_order`) from `tiki_copyrights` where `page` like ?';
 		return $this->getOne($query, [$page]);
 	}
 
-	function unique_copyright($page, $title)
+	public function unique_copyright($page, $title)
 	{
 		$query = 'select `copyrightID` from `tiki_copyrights` where `page`=? and `title`=?';
 		return $this->getOne($query, [$page, $title]);
 	}
 
-	function add_copyright($page, $title, $year, $authors, $copyrightHolder, $user)
+	public function add_copyright($page, $title, $year, $authors, $copyrightHolder, $user)
 	{
 		$top = $this->top_copyright_order($page);
 		$order = $top + 1;
@@ -52,28 +52,28 @@ class CopyrightsLib extends TikiLib
 		return true;
 	}
 
-	function edit_copyright($id, $title, $year, $authors, $copyrightHolder, $user)
+	public function edit_copyright($id, $title, $year, $authors, $copyrightHolder, $user)
 	{
 		$query = 'update `tiki_copyrights` SET `year`=?, `title`=?, `authors`=?, `holder`=?, `userName`=? where `copyrightId`=?';
 		$this->query($query, [$year, $title, $authors, $copyrightHolder, $user, (int)$id]);
 		return true;
 	}
 
-	function remove_copyright($id)
+	public function remove_copyright($id)
 	{
 		$query = 'delete from `tiki_copyrights` where `copyrightId`=?';
 		$this->query($query, [(int)$id]);
 		return true;
 	}
 
-	function up_copyright($id)
+	public function up_copyright($id)
 	{
 		$query = 'update `tiki_copyrights` set `copyright_order`=`copyright_order`-1 where `copyrightId`=?';
 		$result = $this->query($query, [(int)$id]);
 		return true;
 	}
 
-	function down_copyright($id)
+	public function down_copyright($id)
 	{
 		$query = 'update `tiki_copyrights` set `copyright_order`=`copyright_order`+1 where `copyrightId`=?';
 		$result = $this->query($query, [(int)$id]);

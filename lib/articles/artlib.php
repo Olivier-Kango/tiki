@@ -14,13 +14,13 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
 class ArtLib extends TikiLib
 {
 	//Special parsing for multipage articles
-	function get_number_of_pages($data)
+	public function get_number_of_pages($data)
 	{
 		$parts = explode('...page...', $data);
 		return count($parts);
 	}
 
-	function get_page($data, $i)
+	public function get_page($data, $i)
 	{
 		// Get slides
 		$parts = explode('...page...', $data);
@@ -40,7 +40,7 @@ class ArtLib extends TikiLib
 		return $ret;
 	}
 
-	function approve_submission($subId)
+	public function approve_submission($subId)
 	{
 		$data = $this->get_submission($subId);
 
@@ -92,7 +92,7 @@ class ArtLib extends TikiLib
 		$this->remove_submission($subId);
 	}
 
-	function add_article_hit($articleId)
+	public function add_article_hit($articleId)
 	{
 		if (StatsLib::is_stats_hit()) {
 			$query = "update `tiki_articles` set `nbreads`=`nbreads`+1 where `articleId`=?";
@@ -100,7 +100,7 @@ class ArtLib extends TikiLib
 		}
 	}
 
-	function remove_article($articleId, $article_data = '')
+	public function remove_article($articleId, $article_data = '')
 	{
 		global $user, $prefs;
 		$smarty = TikiLib::lib('smarty');
@@ -191,7 +191,7 @@ class ArtLib extends TikiLib
 		}
 	}
 
-	function remove_submission($subId)
+	public function remove_submission($subId)
 	{
 		if ($subId) {
 			$query = 'delete from `tiki_submissions` where `subId`=?';
@@ -201,7 +201,7 @@ class ArtLib extends TikiLib
 		}
 	}
 
-	function delete_expired_submissions($maxrows = 1000)
+	public function delete_expired_submissions($maxrows = 1000)
 	{
 		$tiki_submissions = TikiDb::get()->table('tiki_submissions');
 
@@ -225,8 +225,7 @@ class ArtLib extends TikiLib
 		return true;
 	}
 
-	function replace_submission($title, $authorName, $topicId, $useImage, $imgname, $imgsize, $imgtype, $imgdata, $heading, $body, $publishDate, $expireDate, $user, $subId, $image_x, $image_y, $type, $topline, $subtitle, $linkto, $image_caption, $lang, $rating = 0, $isfloat = 'n'
-														)
+	public function replace_submission($title, $authorName, $topicId, $useImage, $imgname, $imgsize, $imgtype, $imgdata, $heading, $body, $publishDate, $expireDate, $user, $subId, $image_x, $image_y, $type, $topline, $subtitle, $linkto, $image_caption, $lang, $rating = 0, $isfloat = 'n')
 	{
 		global $tiki_p_autoapprove_submission, $prefs;
 		$smarty = TikiLib::lib('smarty');
@@ -337,8 +336,7 @@ class ArtLib extends TikiLib
 		return $id;
 	}
 
-	function replace_article( $title, $authorName, $topicId, $useImage, $imgname, $imgsize, $imgtype, $imgdata, $heading, $body, $publishDate, $expireDate, $user, $articleId, $image_x, $image_y, $type, $topline, $subtitle, $linkto, $image_caption, $lang, $rating = 0, $isfloat = 'n', $emails = '', $from = '', $list_image_x = '', $list_image_y = '', $ispublished = 'y', $fromurl = false
-												)
+	public function replace_article($title, $authorName, $topicId, $useImage, $imgname, $imgsize, $imgtype, $imgdata, $heading, $body, $publishDate, $expireDate, $user, $articleId, $image_x, $image_y, $type, $topline, $subtitle, $linkto, $image_caption, $lang, $rating = 0, $isfloat = 'n', $emails = '', $from = '', $list_image_x = '', $list_image_y = '', $ispublished = 'y', $fromurl = false)
 	{
 
 		$tikilib = TikiLib::lib('tiki');
@@ -538,7 +536,7 @@ class ArtLib extends TikiLib
 		return $articleId;
 	}
 
-	function add_topic($name, $imagename, $imagetype, $imagesize, $imagedata)
+	public function add_topic($name, $imagename, $imagetype, $imagesize, $imagedata)
 	{
 		$query = 'insert into `tiki_topics`(`name`,`image_name`,`image_type`,`image_size`,`image_data`,`active`,`created`) values(?,?,?,?,?,?,?)';
 		$result = $this->query($query, [$name, $imagename, $imagetype, (int) $imagesize, $imagedata, 'y', (int) $this->now]);
@@ -548,7 +546,7 @@ class ArtLib extends TikiLib
 		return $topicId;
 	}
 
-	function remove_topic($topicId, $all = 0)
+	public function remove_topic($topicId, $all = 0)
 	{
 		$query = 'delete from `tiki_topics` where `topicId`=?';
 
@@ -565,7 +563,7 @@ class ArtLib extends TikiLib
 		return true;
 	}
 
-	function replace_topic_name($topicId, $name)
+	public function replace_topic_name($topicId, $name)
 	{
 		$query = 'update `tiki_topics` set `name` = ? where `topicId` = ?';
 		$result = $this->query($query, [$name, (int)$topicId]);
@@ -575,7 +573,7 @@ class ArtLib extends TikiLib
 		return true;
 	}
 
-	function replace_topic_image($topicId, $imagename, $imagetype, $imagesize, $imagedata)
+	public function replace_topic_image($topicId, $imagename, $imagetype, $imagesize, $imagedata)
 	{
 		$topicId = (int)$topicId;
 		$query = 'update `tiki_topics` set `image_name` = ?, `image_type` = ?, `image_size` = ?, `image_data` = ? where `topicId` = ?';
@@ -584,21 +582,21 @@ class ArtLib extends TikiLib
 		return true;
 	}
 
-	function activate_topic($topicId)
+	public function activate_topic($topicId)
 	{
 		$query = 'update `tiki_topics` set `active`=? where `topicId`=?';
 
 		$result = $this->query($query, ['y', $topicId]);
 	}
 
-	function deactivate_topic($topicId)
+	public function deactivate_topic($topicId)
 	{
 		$query = 'update `tiki_topics` set `active`=? where `topicId`=?';
 
 		$result = $this->query($query, ['n', $topicId]);
 	}
 
-	function get_topic($topicId)
+	public function get_topic($topicId)
 	{
 		$query = 'select `topicId`,`name`,`image_name`,`image_size`,`image_type` from `tiki_topics` where `topicId`=?';
 
@@ -608,13 +606,13 @@ class ArtLib extends TikiLib
 		return $res;
 	}
 
-	function get_topicId($name)
+	public function get_topicId($name)
 	{
 		$query = 'select `topicId` from `tiki_topics` where `name`=?';
 		return $this->getOne($query, [$name]);
 	}
 
-	function list_topics()
+	public function list_topics()
 	{
 		$query = 'select `topicId`,`name`,`image_name`,`image_size`,`image_type`,`active` from `tiki_topics` order by `name`';
 
@@ -632,7 +630,7 @@ class ArtLib extends TikiLib
 		return $ret;
 	}
 
-	function list_active_topics()
+	public function list_active_topics()
 	{
 		$query = 'select * from `tiki_topics` where `active`=?';
 
@@ -648,14 +646,14 @@ class ArtLib extends TikiLib
 	}
 
 	// Article Type functions
-	function add_type($type)
+	public function add_type($type)
 	{
 		$result = $this->query('insert into `tiki_article_types`(`type`) values(?)', [$type]);
 
 		return true;
 	}
 
-	function edit_type( $type, $use_ratings, $show_pre_publ, $show_post_expire, $heading_only, $allow_comments, $comment_can_rate_article, $show_image, $show_avatar, $show_author, $show_pubdate, $show_expdate, $show_reads, $show_size, $show_topline, $show_subtitle, $show_linkto, $show_image_caption, $creator_edit
+	public function edit_type( $type, $use_ratings, $show_pre_publ, $show_post_expire, $heading_only, $allow_comments, $comment_can_rate_article, $show_image, $show_avatar, $show_author, $show_pubdate, $show_expdate, $show_reads, $show_size, $show_topline, $show_subtitle, $show_linkto, $show_image_caption, $creator_edit
 										)
 	{
 		if ($use_ratings == 'on') {
@@ -811,7 +809,7 @@ class ArtLib extends TikiLib
 		);
 	}
 
-	function remove_type($type)
+	public function remove_type($type)
 	{
 		$query = 'delete from `tiki_article_types` where `type`=?';
 		$result = $this->query($query, [$type]);
@@ -820,7 +818,7 @@ class ArtLib extends TikiLib
 		$result = $this->query($query, [$type]);
 	}
 
-	function get_type($type)
+	public function get_type($type)
 	{
 		$query = 'select * from `tiki_article_types` where `type`=?';
 
@@ -830,7 +828,7 @@ class ArtLib extends TikiLib
 		return $res;
 	}
 
-	function list_types()
+	public function list_types()
 	{
 		$query = 'select * from `tiki_article_types`';
 		$result = $this->query($query, []);
@@ -844,7 +842,7 @@ class ArtLib extends TikiLib
 		return $ret;
 	}
 
-	function list_types_byname()
+	public function list_types_byname()
 	{
 		$query = "select * from `tiki_article_types` order by `type` asc";
 		$result = $this->query($query, []);
@@ -857,7 +855,7 @@ class ArtLib extends TikiLib
 		return $ret;
 	}
 
-	function get_user_articles($user, $max)
+	public function get_user_articles($user, $max)
 	{
 		$query = 'select `articleId` ,`title` from `tiki_articles` where `author`=? order by `publishDate` desc';
 
@@ -866,7 +864,7 @@ class ArtLib extends TikiLib
 		return Perms::filter(['type' => 'article'], 'object', $articles, ['object' => 'articleId'], 'read_article');
 	}
 
-	function import_csv($fileName, &$msgs, $csvDelimiter = ',')
+	public function import_csv($fileName, &$msgs, $csvDelimiter = ',')
 	{
 		global $user, $prefs, $tikilib;
 		$fhandle = fopen($fileName, 'r');
@@ -1065,7 +1063,7 @@ class ArtLib extends TikiLib
 		}
 	}
 
-	function delete_image_cache($image_type, $imageId)
+	public function delete_image_cache($image_type, $imageId)
 	{
 		global $prefs, $tikidomain;
 		// Input validation: imageId must be a number, and not 0
@@ -1097,13 +1095,13 @@ class ArtLib extends TikiLib
 		}
 	}
 
-	function get_title($articleId)
+	public function get_title($articleId)
 	{
 		$query = 'select `title` from `tiki_articles` where `articleId`=?';
 		return $this->getOne($query, [(int)$articleId]);
 	}
 
-	function fetchtopicId($topic)
+	public function fetchtopicId($topic)
 	{
 		$topicId = '';
 		$query = 'select `topicId` from `tiki_topics` where `name` = ?';
@@ -1111,7 +1109,7 @@ class ArtLib extends TikiLib
 		return $topicId;
 	}
 
-	function get_most_recent_article_id()
+	public function get_most_recent_article_id()
 	{
 		$maxRecords = 1;
 		$sort_mode = 'publishDate_desc';
@@ -1126,8 +1124,7 @@ class ArtLib extends TikiLib
 		return $id;
 	}
 
-	function list_articles( $offset = 0, $maxRecords = -1, $sort_mode = 'publishDate_desc', $find = '', $date_min = 0, $date_max = 0, $user = false, $type = '', $topicId = '', $visible_only = 'y', $topic = '', $categId = '', $creator = '', $group = '', $lang = '', $min_rating = '', $max_rating = '', $override_dates = false, $ispublished = '', $filter = ''
-												)
+	public function list_articles( $offset = 0, $maxRecords = -1, $sort_mode = 'publishDate_desc', $find = '', $date_min = 0, $date_max = 0, $user = false, $type = '', $topicId = '', $visible_only = 'y', $topic = '', $categId = '', $creator = '', $group = '', $lang = '', $min_rating = '', $max_rating = '', $override_dates = false, $ispublished = '', $filter = '')
 	{
 
 		global $user, $prefs;
@@ -1409,7 +1406,7 @@ class ArtLib extends TikiLib
 	 * @param bool $check_heading	use heading or (default) body
 	 * @return bool
 	 */
-	function is_html($article, $check_heading = false)
+	public function is_html($article, $check_heading = false)
 	{
 		global $prefs;
 
@@ -1420,7 +1417,7 @@ class ArtLib extends TikiLib
 						preg_match('/(<\/p>|<\/span>|<\/div>|<\/?br>)/', $text);
 	}
 
-	function list_submissions($offset = 0, $maxRecords = -1, $sort_mode = 'publishDate_desc', $find = '', $date = '', $type = '', $topicId = '', $lang = '')
+	public function list_submissions($offset = 0, $maxRecords = -1, $sort_mode = 'publishDate_desc', $find = '', $date = '', $type = '', $topicId = '', $lang = '')
 	{
 		if ($find) {
 			$findPattern = '%' . $find . '%';
@@ -1488,7 +1485,7 @@ class ArtLib extends TikiLib
 		return $retval;
 	}
 
-	function get_article($articleId, $checkPerms = true)
+	public function get_article($articleId, $checkPerms = true)
 	{
 		global $user, $prefs;
 		$query = "select `tiki_articles`.*,
@@ -1549,7 +1546,7 @@ class ArtLib extends TikiLib
 		return $res;
 	}
 
-	function get_submission($subId)
+	public function get_submission($subId)
 	{
 		$query = 'select * from `tiki_submissions` where `subId`=?';
 		$result = $this->query($query, [(int) $subId]);
@@ -1562,7 +1559,7 @@ class ArtLib extends TikiLib
 		return $res;
 	}
 
-	function get_topic_image($topicId)
+	public function get_topic_image($topicId)
 	{
 		$query = 'select `image_name` ,`image_size`,`image_type`, `image_data` from `tiki_topics` where `topicId`=?';
 		$result = $this->query($query, [(int) $topicId]);
@@ -1570,7 +1567,7 @@ class ArtLib extends TikiLib
 		return $res;
 	}
 
-	function get_article_image($id)
+	public function get_article_image($id)
 	{
 		$query = 'select `image_name` ,`image_size`,`image_type`, `image_data` from `tiki_articles` where `articleId`=?';
 		$result = $this->query($query, [(int) $id]);
@@ -1578,7 +1575,7 @@ class ArtLib extends TikiLib
 		return $res;
 	}
 
-	function add_article_type_attribute($artType, $attributeName)
+	public function add_article_type_attribute($artType, $attributeName)
 	{
 		$relationlib = TikiLib::lib('relation');
 		$attributelib = TikiLib::lib('attribute');
@@ -1593,7 +1590,7 @@ class ArtLib extends TikiLib
 		}
 	}
 
-	function delete_article_type_attribute($artType, $relationId)
+	public function delete_article_type_attribute($artType, $relationId)
 	{
 		$relationlib = TikiLib::lib('relation');
 		// double check relation is associated with article type before deleting
@@ -1606,7 +1603,7 @@ class ArtLib extends TikiLib
 		return true;
 	}
 
-	function get_article_type_attributes($artType, $orderby = '')
+	public function get_article_type_attributes($artType, $orderby = '')
 	{
 		$relationlib = TikiLib::lib('relation');
 		$attributelib = TikiLib::lib('attribute');
@@ -1622,7 +1619,7 @@ class ArtLib extends TikiLib
 		return $ret;
 	}
 
-	function set_article_attributes($articleId, $attributeArray, $isSubmission = false)
+	public function set_article_attributes($articleId, $attributeArray, $isSubmission = false)
 	{
 		// expects attributeArray in the form of $key=>$val where $key is tiki.article.xxxx and $val is value
 		$attributelib = TikiLib::lib('attribute');
@@ -1640,7 +1637,7 @@ class ArtLib extends TikiLib
 		return true;
 	}
 
-	function get_article_attributes($articleId, $isSubmission = false)
+	public function get_article_attributes($articleId, $isSubmission = false)
 	{
 		$attributelib = TikiLib::lib('attribute');
 
@@ -1660,7 +1657,7 @@ class ArtLib extends TikiLib
 		return $ret;
 	}
 
-	function transfer_attributes_from_submission($subId, $articleId)
+	public function transfer_attributes_from_submission($subId, $articleId)
 	{
 		$this->query(
 			'UPDATE `tiki_object_attributes` set `type` = ?, `itemId` = ? where `type` = ? and `itemId` = ?',
@@ -1675,7 +1672,7 @@ class ArtLib extends TikiLib
 	 * @param int $maxResults
 	 * @return array
 	 */
-	function get_related_articles($articleId, $maxResults = 5)
+	public function get_related_articles($articleId, $maxResults = 5)
 	{
 		$freetaglib = TikiLib::lib('freetag');
 		$relatedArticles = $freetaglib->get_similar('article', $articleId);

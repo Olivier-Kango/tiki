@@ -24,7 +24,7 @@ class TikiCalendarLib extends CalendarLib
 	 * @param string $find
 	 * @return array
 	 */
-	function list_items_by_day($tikiobj, $user, $tstart, $tstop, $offset, $maxRecords, $sort_mode = 'name_desc', $find = '')
+	public function list_items_by_day($tikiobj, $user, $tstart, $tstop, $offset, $maxRecords, $sort_mode = 'name_desc', $find = '')
 	{
 		return $this->list_tiki_items($tikiobj, $user, $tstart, $tstop, $offset, $maxRecords, $sort_mode, $find);
 	}
@@ -37,7 +37,7 @@ class TikiCalendarLib extends CalendarLib
 	 * @param string $item_name
 	 * @return array
 	 */
-	function getCalendar($calIds, &$viewstart, &$viewend, $group_by = '', $item_name = 'actions')
+	public function getCalendar($calIds, &$viewstart, &$viewend, $group_by = '', $item_name = 'actions')
 	{
 		return parent::getCalendar($calIds, $viewstart, $viewend, $group_by, $item_name);
 	}
@@ -53,7 +53,7 @@ class TikiCalendarLib extends CalendarLib
 	 * @param string $find
 	 * @return array
 	 */
-	function list_tiki_items($tikiobj, $user, $tstart, $tstop, $offset, $maxRecords, $sort_mode = 'name_desc', $find = '')
+	public function list_tiki_items($tikiobj, $user, $tstart, $tstop, $offset, $maxRecords, $sort_mode = 'name_desc', $find = '')
 	{
 		global $user;
 		$ret = [];
@@ -177,7 +177,7 @@ class TikiCalendarLib extends CalendarLib
 	 * @param null $bindvars
 	 * @return mixed
 	 */
-	function get_object_cal_infos($type, $bindvars = null)
+	public function get_object_cal_infos($type, $bindvars = null)
 	{
 		switch ($type) {
 			case 'art':
@@ -269,7 +269,7 @@ class TikiCalendarLib extends CalendarLib
 	 * @param null $bindvars
 	 * @return string
 	 */
-	function get_object_url($type, $bindvars = null)
+	public function get_object_url($type, $bindvars = null)
 	{
 		switch ($type) {
 			case 'art':
@@ -341,7 +341,7 @@ class TikiCalendarLib extends CalendarLib
 	 * @param bool $with_infos
 	 * @return array
 	 */
-	function getTikiItems($with_infos = true)
+	public function getTikiItems($with_infos = true)
 	{
 		global $prefs;
 		global $tiki_p_view, $tiki_p_read_article;

@@ -13,7 +13,7 @@ if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
 
 class BookmarkLib extends TikiLib
 {
-	function get_folder_path($folderId, $user)
+	public function get_folder_path($folderId, $user)
 	{
 		$path = '';
 
@@ -30,7 +30,7 @@ class BookmarkLib extends TikiLib
 		return $path;
 	}
 
-	function get_folder($folderId, $user)
+	public function get_folder($folderId, $user)
 	{
 		$query = "select * from `tiki_user_bookmarks_folders` where `folderId`=? and `user`=?";
 
@@ -44,7 +44,7 @@ class BookmarkLib extends TikiLib
 		return $res;
 	}
 
-	function get_url($urlId)
+	public function get_url($urlId)
 	{
 		$query = "select * from `tiki_user_bookmarks_urls` where `urlId`=?";
 
@@ -58,7 +58,7 @@ class BookmarkLib extends TikiLib
 		return $res;
 	}
 
-	function remove_url($urlId, $user)
+	public function remove_url($urlId, $user)
 	{
 		$query = "delete from `tiki_user_bookmarks_urls` where `urlId`=? and `user`=?";
 
@@ -66,7 +66,7 @@ class BookmarkLib extends TikiLib
 		return true;
 	}
 
-	function remove_folder($folderId, $user)
+	public function remove_folder($folderId, $user)
 	{
 		// Delete the category
 		$query = "delete from `tiki_user_bookmarks_folders` where `folderId`=? and `user`=?";
@@ -87,14 +87,14 @@ class BookmarkLib extends TikiLib
 		return true;
 	}
 
-	function update_folder($folderId, $name, $user)
+	public function update_folder($folderId, $name, $user)
 	{
 
 		$query = "update `tiki_user_bookmarks_folders` set `name`=? where `folderId`=? and `user`=?";
 		$result = $this->query($query, [$name,$folderId,$user]);
 	}
 
-	function add_folder($parentId, $name, $user)
+	public function add_folder($parentId, $name, $user)
 	{
 		// Don't allow empty/blank folder names.
 		if (empty($name)) {
@@ -112,7 +112,7 @@ class BookmarkLib extends TikiLib
 		$result = $this->query($query, [$maxId + 1,$name,$parentId,$user]);
 	}
 
-	function replace_url($urlId, $folderId, $name, $url, $user)
+	public function replace_url($urlId, $folderId, $name, $url, $user)
 	{
 		if ($urlId) {
 			$query = "update `tiki_user_bookmarks_urls` set `user`=?,`lastUpdated`=?,`folderId`=?,`name`=?,`url`=? where `urlId`=?";
@@ -128,7 +128,7 @@ class BookmarkLib extends TikiLib
 		return $id;
 	}
 
-	function refresh_url($urlId)
+	public function refresh_url($urlId)
 	{
 		$info = $this->get_url($urlId);
 
@@ -147,7 +147,7 @@ class BookmarkLib extends TikiLib
 		return true;
 	}
 
-	function list_folder($folderId, $offset, $maxRecords, $sort_mode = 'name_asc', $find, $user)
+	public function list_folder($folderId, $offset, $maxRecords, $sort_mode = 'name_asc', $find, $user)
 	{
 
 		if ($find) {
@@ -178,7 +178,7 @@ class BookmarkLib extends TikiLib
 		return $retval;
 	}
 
-	function get_child_folders($folderId, $user)
+	public function get_child_folders($folderId, $user)
 	{
 		$ret = [];
 

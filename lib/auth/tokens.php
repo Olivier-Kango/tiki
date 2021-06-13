@@ -26,7 +26,7 @@ class AuthTokens
 		);
 	}
 
-	function __construct($db, $options = [], DateTime $dt = null)
+	public function __construct($db, $options = [], DateTime $dt = null)
 	{
 		$this->db = $db;
 		$this->table = $this->db->table('tiki_auth_tokens');
@@ -46,7 +46,7 @@ class AuthTokens
 		}
 	}
 
-	function getToken($token)
+	public function getToken($token)
 	{
 		$data = $this->db->query(
 			'SELECT * FROM tiki_auth_tokens WHERE token = ? AND token = ' . self::SCHEME,
@@ -56,12 +56,12 @@ class AuthTokens
 		return $data;
 	}
 
-	function getTokens($conditions = [])
+	public function getTokens($conditions = [])
 	{
 		return $this->table->fetchAll([], $conditions, -1, -1, ['creation' => 'asc']);
 	}
 
-	function getGroups($token, $entry, $parameters)
+	public function getGroups($token, $entry, $parameters)
 	{
 		// Process deletion of temporary users that are created via tokens
 		$usersToDelete = $this->db->fetchAll(
@@ -211,7 +211,7 @@ class AuthTokens
 		];
 	}
 
-	function createToken($entry, array $parameters, array $groups, array $arguments = [])
+	public function createToken($entry, array $parameters, array $groups, array $arguments = [])
 	{
 		if (! empty($arguments['timeout'])) {
 			$timeout = min($this->maxTimeout, $arguments['timeout']);
@@ -278,7 +278,7 @@ class AuthTokens
 	 * @param string $userPrefix Username of the created users will be a 6 digit number based on the token ID prefixed with this (default is 'guest')
 	 * @return string A URL that has the security token included.
 	 */
-	function includeToken($url, array $groups = [], $email = '', $timeout = 0, $hits = 0, $createUser = false, $userPrefix = 'guest')
+	public function includeToken($url, array $groups = [], $email = '', $timeout = 0, $hits = 0, $createUser = false, $userPrefix = 'guest')
 	{
 		$data = parse_url($url);
 		$longurl = '';
@@ -348,7 +348,7 @@ class AuthTokens
 		return "{$data['scheme']}://{$data['host']}{$data['path']}$query$anchor";
 	}
 
-	function deleteToken($tokenId)
+	public function deleteToken($tokenId)
 	{
 		$userPrefix = $this->table->fetchOne(
 			'userPrefix',

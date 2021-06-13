@@ -17,22 +17,22 @@ class EncryptionLib extends TikiDb_Bridge
 	/**
 	 *
 	 */
-	function __construct()
+	public function __construct()
 	{
 		$this->encryption_keys = $this->table('tiki_encryption_keys');
 	}
 
-	function get_keys()
+	public function get_keys()
 	{
  		return $this->encryption_keys->fetchAll();
 	}
 
-	function get_key($keyId)
+	public function get_key($keyId)
 	{
 		return $this->encryption_keys->fetchFullRow(['keyId' => $keyId]);
 	}
 
-	function set_key($keyId, $data)
+	public function set_key($keyId, $data)
 	{
 		$existing = $this->get_key($keyId);
 		if ($existing) {
@@ -43,7 +43,7 @@ class EncryptionLib extends TikiDb_Bridge
 		}
 	}
 
-	function delete_key($keyId)
+	public function delete_key($keyId)
 	{
 		$this->encryption_keys->delete(['keyId' => $keyId]);
 
@@ -53,7 +53,7 @@ class EncryptionLib extends TikiDb_Bridge
 		return true;
 	}
 
-	function get_encrypted_fields()
+	public function get_encrypted_fields()
 	{
 		$table = $this->table('tiki_tracker_fields');
 		$result = $table->fetchAll(['fieldId', 'trackerId', 'name', 'encryptionKeyId'], ['encryptionKeyId' => $table->expr('$$ IS NOT NULL AND $$ > 0')]);

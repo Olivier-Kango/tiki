@@ -40,7 +40,7 @@ class Captcha
 	 *
 	 * @param string $type recaptcha|questions|default|dumb
 	 */
-	function __construct($type = '')
+	public function __construct($type = '')
 	{
 		global $prefs;
 
@@ -145,7 +145,7 @@ class Captcha
 	 *
 	 * @return string
 	 */
-	function generate()
+	public function generate()
 	{
 		$key = '';
 		try {
@@ -167,7 +167,7 @@ class Captcha
 	 *
 	 * @return string captcha ID
 	 */
-	function getId()
+	public function getId()
 	{
 		return $this->captcha->getId();
 	}
@@ -177,7 +177,7 @@ class Captcha
 	 *
 	 * @return string
 	 */
-	function render()
+	public function render()
 	{
 		$access = TikiLib::lib('access');
 		if ($access->is_xml_http_request()) {
@@ -215,7 +215,7 @@ Recaptcha.create("' . $this->captcha->getPubKey() . '",
 	 * @param array $input
 	 * @return bool true or false
 	 */
-	function validate($input = null)
+	public function validate($input = null)
 	{
 		if (is_null($input)) {
 			$input = $_REQUEST;
@@ -248,7 +248,7 @@ Recaptcha.create("' . $this->captcha->getPubKey() . '",
 	 *
 	 * @return string full path to default captcha image
 	 */
-	function getPath()
+	public function getPath()
 	{
 		try {
 			return $this->captcha->getImgDir() . $this->captcha->getId() . $this->captcha->getSuffix();
@@ -263,7 +263,7 @@ Recaptcha.create("' . $this->captcha->getPubKey() . '",
 	 *
 	 * @return void
 	 */
-	function setErrorMessages()
+	public function setErrorMessages()
 	{
 		$errors = [
 			'missingValue' => tra('Empty CAPTCHA value'),
@@ -284,7 +284,7 @@ Recaptcha.create("' . $this->captcha->getPubKey() . '",
 	 *
 	 * @return string error messages
 	 */
-	function getErrors()
+	public function getErrors()
 	{
 		return implode('<br />', $this->captcha->getMessages());
 	}
@@ -294,7 +294,7 @@ Recaptcha.create("' . $this->captcha->getPubKey() . '",
 	 *
 	 * @return void
 	 */
-	function recaptchaCustomTranslations()
+	public function recaptchaCustomTranslations()
 	{
 		$recaptchaService = $this->captcha->getService();
 		$recaptchaService->setOption(

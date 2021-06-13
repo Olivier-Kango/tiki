@@ -9,7 +9,7 @@ class ActivityLib
 {
 	private $mapping = false;
 
-	function getRules()
+	public function getRules()
 	{
 		$table = $this->rulesTable();
 		$table->useExceptions();
@@ -25,7 +25,7 @@ class ActivityLib
 		);
 	}
 
-	function getRule($id)
+	public function getRule($id)
 	{
 		return $this->rulesTable()->fetchRow(
 			[
@@ -44,9 +44,9 @@ class ActivityLib
 	/**
 	 * @throws Math_Formula_Exception
 	 */
-	function replaceRule($id, array $data)
+	public function replaceRule($id, array $data)
 	{
-		$testRunner = $this->getRunner(new Tiki_Event_Manager);
+		$testRunner = $this->getRunner(new Tiki_Event_Manager());
 		$testRunner->setFormula($data['rule']);
 		$testRunner->inspect();
 
@@ -59,7 +59,7 @@ class ActivityLib
 		return $result;
 	}
 
-	function deleteRule($id)
+	public function deleteRule($id)
 	{
 		return $this->rulesTable()->delete(
 			[
@@ -68,7 +68,7 @@ class ActivityLib
 		);
 	}
 
-	function deleteActivity($id)
+	public function deleteActivity($id)
 	{
 		$info = $this->streamTable()->delete(
 			[
@@ -80,7 +80,7 @@ class ActivityLib
 		return $info;
 	}
 
-	function preserveRules(array $ids)
+	public function preserveRules(array $ids)
 	{
 		$table = $this->rulesTable();
 		return $table->deleteMultiple(
@@ -90,7 +90,7 @@ class ActivityLib
 		);
 	}
 
-	function recordEvent($event, $arguments)
+	public function recordEvent($event, $arguments)
 	{
 		if (! $event) {
 			return; // prevent false recording of test runs
@@ -150,7 +150,7 @@ class ActivityLib
 	 * @param $event
 	 * @param $arguments
 	 */
-	function logEvent($event, $arguments, $includes = [], $excludes = [])
+	public function logEvent($event, $arguments, $includes = [], $excludes = [])
 	{
 		if (! $event) {
 			return; // prevent false recording of test runs
@@ -180,7 +180,7 @@ class ActivityLib
 		$events->trigger('tiki.eventlog.commit');
 	}
 
-	function bindBasicEvents(Tiki_Event_Manager $manager)
+	public function bindBasicEvents(Tiki_Event_Manager $manager)
 	{
 		global $prefs;
 		$map = [
@@ -209,10 +209,10 @@ class ActivityLib
 		);
 	}
 
-	function bindCustomEvents(Tiki_Event_Manager $manager)
+	public function bindCustomEvents(Tiki_Event_Manager $manager)
 	{
 		$runner = $this->getRunner($manager);
-		$customizer = new Tiki_Event_Customizer;
+		$customizer = new Tiki_Event_Customizer();
 
 		try {
 			foreach ($this->getRules() as $rule) {
@@ -250,12 +250,12 @@ class ActivityLib
 		);
 	}
 
-	function getActivityList()
+	public function getActivityList()
 	{
 		return $this->streamTable()->fetchColumn('activityId', []);
 	}
 
-	function getActivity($id)
+	public function getActivity($id)
 	{
 		$info = $this->streamTable()->fetchFullRow(
 			[
@@ -270,7 +270,7 @@ class ActivityLib
 		}
 	}
 
-	function getMapping()
+	public function getMapping()
 	{
 		if ($this->mapping === false) {
 			$table = $this->mappingTable();
@@ -280,13 +280,13 @@ class ActivityLib
 		return $this->mapping;
 	}
 
-	function getSample($eventName)
+	public function getSample($eventName)
 	{
 		$cachelib = TikiLib::lib('cache');
 		return $cachelib->getCached($eventName, 'event_sample');
 	}
 
-	function setSample($eventName, array $data)
+	public function setSample($eventName, array $data)
 	{
 		$data = $this->serializeData($data);
 		$cachelib = TikiLib::lib('cache');
@@ -314,7 +314,7 @@ class ActivityLib
 	{
 		$this->getMapping(); // Ensure mapping is loaded.
 
-		$mapper = new Search_Type_Analyzer;
+		$mapper = new Search_Type_Analyzer();
 		$mappingTable = $this->mappingTable();
 
 		foreach ($arguments as $key => $value) {

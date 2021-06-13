@@ -22,7 +22,7 @@ class ContributionLib extends TikiLib
 	 *
 	 * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
 	 */
-	function add_contribution($name, $description = '')
+	public function add_contribution($name, $description = '')
 	{
 		$query = 'insert into `tiki_contributions`(`name`, `description`) values(?, ?)';
 		return $this->query($query, [$name, $description]);
@@ -32,7 +32,7 @@ class ContributionLib extends TikiLib
 	 * @param $contributionId
 	 * @return mixed
 	 */
-	function get_contribution($contributionId)
+	public function get_contribution($contributionId)
 	{
 		$query = 'select * from `tiki_contributions` where `contributionId`=?';
 		$result = $this->query($query, [(int)$contributionId]);
@@ -46,7 +46,7 @@ class ContributionLib extends TikiLib
 	 *
 	 * @return TikiDb_Pdo_Result
 	 */
-	function replace_contribution($contributionId, $name, $description = '')
+	public function replace_contribution($contributionId, $name, $description = '')
 	{
 		$query = 'update `tiki_contributions` set `name`= ?, `description`=? where `contributionId`=?';
 		return $this->query($query, [$name, $description, (int)$contributionId]);
@@ -57,7 +57,7 @@ class ContributionLib extends TikiLib
 	 *
 	 * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
 	 */
-	function remove_contribution($contributionId)
+	public function remove_contribution($contributionId)
 	{
 		$query = 'delete from `tiki_contributions`where `contributionId`=?';
 		return $this->query($query, [$contributionId]);
@@ -70,7 +70,7 @@ class ContributionLib extends TikiLib
 	 * @param string $find
 	 * @return array
 	 */
-	function list_contributions($offset = 0, $maxRecords = -1, $sort_mode = 'name_asc', $find = '')
+	public function list_contributions($offset = 0, $maxRecords = -1, $sort_mode = 'name_asc', $find = '')
 	{
 		$bindvars = [];
 
@@ -108,7 +108,7 @@ class ContributionLib extends TikiLib
 	 * @param string $name
 	 * @param string $href
 	 */
-	function assign_contributions($contributions, $itemId, $objectType, $description = '', $name = '', $href = '')
+	public function assign_contributions($contributions, $itemId, $objectType, $description = '', $name = '', $href = '')
 	{
 		$objectlib = TikiLib::lib('object');
 
@@ -134,7 +134,7 @@ class ContributionLib extends TikiLib
 	 * @param $objectType
 	 * @return array
 	 */
-	function get_assigned_contributions($itemId, $objectType)
+	public function get_assigned_contributions($itemId, $objectType)
 	{
 		$query = 'select tc.* from `tiki_contributions` tc, `tiki_contributions_assigned` tca, `tiki_objects` tob' .
 						' where tob.`itemId`=? and tob.`type`=? and tca.`objectId`=tob.`objectId` and tca.`contributionId`= tc.`contributionId`' .
@@ -159,7 +159,7 @@ class ContributionLib extends TikiLib
 	 * @param $name
 	 * @param $href
 	 */
-	function change_assigned_contributions($itemIdOld, $objectTypeOld, $itemIdNew, $objectTypeNew, $description, $name, $href)
+	public function change_assigned_contributions($itemIdOld, $objectTypeOld, $itemIdNew, $objectTypeNew, $description, $name, $href)
 	{
 		if ($this->get_assigned_contributions($itemIdOld, $objectTypeOld)) {
 			$objectlib = TikiLib::lib('object');
@@ -179,7 +179,7 @@ class ContributionLib extends TikiLib
 	 * @param $itemId
 	 * @param $objectType
 	 */
-	function remove_assigned_contributions($itemId, $objectType)
+	public function remove_assigned_contributions($itemId, $objectType)
 	{
 		// works only if mysql> 4
 		// $query = 'delete tca from `tiki_contributions_assigned` tca left join `tiki_objects`tob on tob.`objectId`=tca.`objectId` where tob.`itemId`= ? and tob.`type`= ?';
@@ -193,7 +193,7 @@ class ContributionLib extends TikiLib
 	/**
 	 * @param $page
 	 */
-	function remove_page($page)
+	public function remove_page($page)
 	{
 		$objectlib = TikiLib::lib('object');
 		$query = 'select * from `tiki_history` where `pageName` = ?';
@@ -209,7 +209,7 @@ class ContributionLib extends TikiLib
 	/**
 	 * @param $historyId
 	 */
-	function remove_history($historyId)
+	public function remove_history($historyId)
 	{
 			//history object only created for contribution yet. You can remove object
 		$objectlib = TikiLib::lib('object');
@@ -221,7 +221,7 @@ class ContributionLib extends TikiLib
 	/**
 	 * @param $commentId
 	 */
-	function remove_comment($commentId)
+	public function remove_comment($commentId)
 	{
 			//history object only created for contribution yet. You can remove object
 		$objectlib = TikiLib::lib('object');
@@ -234,7 +234,7 @@ class ContributionLib extends TikiLib
 	 * @param $contributions
 	 * @return string
 	 */
-	function print_contributions($contributions)
+	public function print_contributions($contributions)
 	{
 		$print = '';
 
@@ -256,7 +256,7 @@ class ContributionLib extends TikiLib
 	 * @param int $delay
 	 * @return bool
 	 */
-	function update($action, $contributions, $delay = 15)
+	public function update($action, $contributions, $delay = 15)
 	{
 		$tikilib = TikiLib::lib('tiki');
 		$logslib = TikiLib::lib('logs');

@@ -14,7 +14,7 @@ class RelationLib extends TikiDb_Bridge
 {
 	private $table;
 
-	function __construct()
+	public function __construct()
 	{
 		$this->table = $this->table('tiki_object_relations');
 	}
@@ -24,7 +24,7 @@ class RelationLib extends TikiDb_Bridge
 	 * Optionally, the relation searched for can be specified. If the
 	 * relation ends with a dot, it will be used as a wildcard.
 	 */
-	function get_relations_from($type, $object, $relation = null, $orderBy = '', $max = -1)
+	public function get_relations_from($type, $object, $relation = null, $orderBy = '', $max = -1)
 	{
 		if (substr($relation, -7) === '.invert') {
 			return $this->get_relations_to($type, $object, substr($relation, 0, -7), $orderBy, $max);
@@ -51,7 +51,7 @@ class RelationLib extends TikiDb_Bridge
 	 * Obtain a list of objects that have a given relation
 	 *
 	 */
-	function get_related_objects($relation, $orderBy = '', $max = -1)
+	public function get_related_objects($relation, $orderBy = '', $max = -1)
 	{
 
 		$cond = [
@@ -73,7 +73,7 @@ class RelationLib extends TikiDb_Bridge
 	 * get_relations_from without caring about the object type which might be assumed
 	 */
 
-	function get_object_ids_with_relations_from($type, $object, $relation = null)
+	public function get_object_ids_with_relations_from($type, $object, $relation = null)
 	{
 		$ret = [];
 		$relations = $this->get_relations_from($type, $object, $relation);
@@ -88,7 +88,7 @@ class RelationLib extends TikiDb_Bridge
 	 * get_relations_to without caring about the object type which might be assumed
 	 */
 
-	function get_object_ids_with_relations_to($type, $object, $relation = null)
+	public function get_object_ids_with_relations_to($type, $object, $relation = null)
 	{
 		$ret = [];
 		$relations = $this->get_relations_to($type, $object, $relation);
@@ -104,7 +104,7 @@ class RelationLib extends TikiDb_Bridge
 	 * @param null $relation
 	 * @return mixed
 	 */
-	function get_relations_to($type, $object, $relation = null, $orderBy = '', $max = -1)
+	public function get_relations_to($type, $object, $relation = null, $orderBy = '', $max = -1)
 	{
 		if (substr($relation, -7) === '.invert') {
 			return $this->get_relations_from($type, $object, substr($relation, 0, -7), $orderBy, $max);
@@ -133,7 +133,7 @@ class RelationLib extends TikiDb_Bridge
 	 * relation naming, and document new tiki.*.* names that you add.
 	 * (also grep "add_relation" just in case there are undocumented names already used)
 	 */
-	function add_relation($relation, $src_type, $src_object, $target_type, $target_object, $ignoreExisting = false)
+	public function add_relation($relation, $src_type, $src_object, $target_type, $target_object, $ignoreExisting = false)
 	{
 		$relation = TikiFilter::get('attribute_type')->filter($relation);
 
@@ -182,7 +182,7 @@ class RelationLib extends TikiDb_Bridge
 	 * @param $target_object
 	 * @return int
 	 */
-	function get_relation_id($relation, $src_type, $src_object, $target_type, $target_object)
+	public function get_relation_id($relation, $src_type, $src_object, $target_type, $target_object)
 	{
 		$relation = TikiFilter::get('attribute_type')->filter($relation);
 
@@ -214,7 +214,7 @@ class RelationLib extends TikiDb_Bridge
 	 * @param $target_object
 	 * @return array
 	 */
-	function get_relations_by_prefix($relation_prefix, $src_type, $src_object, $target_type, $target_object)
+	public function get_relations_by_prefix($relation_prefix, $src_type, $src_object, $target_type, $target_object)
 	{
 		$ids = [];
 		if ($relation_prefix) {
@@ -239,7 +239,7 @@ class RelationLib extends TikiDb_Bridge
 	 * @param $get_invert default=false
 	 * @return int
 	 */
-	function get_relation_count($relation, $type, $object = null, $get_invert = false)
+	public function get_relation_count($relation, $type, $object = null, $get_invert = false)
 	{
 		$relation = TikiFilter::get('attribute_type')->filter($relation);
 
@@ -288,7 +288,7 @@ class RelationLib extends TikiDb_Bridge
 	/**
 	 * @param $id
 	 */
-	function remove_relation($id)
+	public function remove_relation($id)
 	{
 		$relation_info = $this->get_relation($id);
 		$this->table->delete(

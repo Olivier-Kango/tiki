@@ -73,17 +73,17 @@ class CryptLib extends TikiLib
 	// Init and release
 	////////////////////////////////
 
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct();
 	}
 
-	function __destruct()
+	public function __destruct()
 	{
 		$this->release();
 	}
 
-	function init()
+	public function init()
 	{
 		if (! isset($_SESSION['cryptphrase'])) {
 			throw new Exception(tra('Unable to locate cryptphrase'));
@@ -92,7 +92,7 @@ class CryptLib extends TikiLib
 		$this->initSeed($phraseMD5);
 	}
 
-	function initSeed($phraseMD5)
+	public function initSeed($phraseMD5)
 	{
 		if (extension_loaded('sodium')) {
 			$this->hasSodium = true;
@@ -113,12 +113,12 @@ class CryptLib extends TikiLib
 		}
 	}
 
-	function makeCryptPhrase($username, $cleartextPwd)
+	public function makeCryptPhrase($username, $cleartextPwd)
 	{
 		return md5($username . $cleartextPwd);
 	}
 
-	function release()
+	public function release()
 	{
 		if ($this->hasOpenSSL) {
 			$this->key = null;
@@ -130,7 +130,7 @@ class CryptLib extends TikiLib
 		}
 	}
 
-	function generateKey($algo)
+	public function generateKey($algo)
 	{
 		if (extension_loaded('sodium')) {
 			return random_bytes(SODIUM_CRYPTO_SECRETBOX_KEYBYTES);
@@ -144,12 +144,12 @@ class CryptLib extends TikiLib
 		throw new Exception(tra('No encryption extension found.'));
 	}
 
-	function isSupported()
+	public function isSupported()
 	{
 		return extension_loaded('sodium') || extension_loaded('openssl');
 	}
 
-	function algorithms()
+	public function algorithms()
 	{
 		if (extension_loaded('sodium')) {
 			return [];
@@ -171,26 +171,26 @@ class CryptLib extends TikiLib
 	 *
 	 * @return bool
 	 */
-	function hasSodiumCrypt()
+	public function hasSodiumCrypt()
 	{
 		return $this->hasSodium;
 	}
 
 	// Check if encryption is used (and not Base64)
-	function hasCrypt()
+	public function hasCrypt()
 	{
 		return $this->hasOpenSSL;
 	}
 
 	// Check if MCrypt module is available in case a conversion is needed
-	function hasMCrypt()
+	public function hasMCrypt()
 	{
 		return $this->mcrypt != null;
 	}
 
 	// Check if any data exists the user preference.
 	// Return true if data exit (not necessarily readable). false, if no stored data is found
-	function hasUserData($userprefKey, $paramName = '')
+	public function hasUserData($userprefKey, $paramName = '')
 	{
 		global $user;
 
@@ -214,7 +214,7 @@ class CryptLib extends TikiLib
 	 * @param string $method "mcrypt" for MCrypt, or "openssl" for OpenSSL, or "sodium" for Sodium
 	 * @return int Number of rows
 	 */
-	function getUserCryptDataStats($method)
+	public function getUserCryptDataStats($method)
 	{
 		if ($method == 'mcrypt') {
 			$pattern = 'dp.%';
@@ -247,7 +247,7 @@ class CryptLib extends TikiLib
 	 */
 	//
 	// Return false on failure otherwise the generated crypt text
-	function setUserData($userprefKey, $cleartext, $paramName = '')
+	public function setUserData($userprefKey, $cleartext, $paramName = '')
 	{
 		global $user;
 		if (empty($cleartext)) {
@@ -276,7 +276,7 @@ class CryptLib extends TikiLib
 	 */
 	//
 	// Return false on failure otherwise the generated crypt text
-	function putUserData($username, $userprefKey, $cleartext, $paramName = '')
+	public function putUserData($username, $userprefKey, $cleartext, $paramName = '')
 	{
 		if (empty($cleartext)) {
 			return false;
@@ -293,7 +293,7 @@ class CryptLib extends TikiLib
 	// Get the data from the user preferences.
 	// Decrypt and return cleartext
 	// Return false, if no stored data is found
-	function getUserData($userprefKey, $paramName = '')
+	public function getUserData($userprefKey, $paramName = '')
 	{
 		global $user;
 
@@ -353,7 +353,7 @@ class CryptLib extends TikiLib
 		return $cleartext;
 	}
 */
-	function getPasswordDomains($use_prefix = false)
+	public function getPasswordDomains($use_prefix = false)
 	{
 		global $prefs;
 
@@ -430,7 +430,7 @@ class CryptLib extends TikiLib
 	////////////////////////////////
 
 	// User has logged in
-	function onUserLogin($cleartextPwd)
+	public function onUserLogin($cleartextPwd)
 	{
 		global $user;
 
@@ -447,7 +447,7 @@ class CryptLib extends TikiLib
 
 	// User has changed the password
 	// Change/Rehash the password, given the old and the new key phrases
-	function onChangeUserPassword($oldCleartextPwd, $newCleartextPwd)
+	public function onChangeUserPassword($oldCleartextPwd, $newCleartextPwd)
 	{
 		global $user;
 
@@ -470,7 +470,7 @@ class CryptLib extends TikiLib
 
 	// Change/Rehash the password, given the old and the new key phrases
 	// Return true on success; otherwise false, e.g. if no stored password is found, or a decryption failure
-	function changeUserPassword($userprefKey, $oldPhraseMD5, $newPhraseMD5)
+	public function changeUserPassword($userprefKey, $oldPhraseMD5, $newPhraseMD5)
 	{
 		global $user;
 		// Retrieve the old password

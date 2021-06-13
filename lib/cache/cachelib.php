@@ -20,7 +20,7 @@ class Cachelib
 {
 	private $implementation;
 
-	function __construct()
+	public function __construct()
 	{
 		global $prefs;
 
@@ -34,7 +34,7 @@ class Cachelib
 		}
 	}
 
-	function replaceImplementation($implementation)
+	public function replaceImplementation($implementation)
 	{
 		$old = $this->implementation;
 		$this->implementation = $implementation;
@@ -42,22 +42,22 @@ class Cachelib
 		return $old;
 	}
 
-	function cacheItem($key, $data, $type = '')
+	public function cacheItem($key, $data, $type = '')
 	{
 		return $this->implementation->cacheItem($key, $data, $type);
 	}
 
-	function isCached($key, $type = '')
+	public function isCached($key, $type = '')
 	{
 		return $this->implementation->isCached($key, $type);
 	}
 
-	function getCached($key, $type = '', $lastModif = false)
+	public function getCached($key, $type = '', $lastModif = false)
 	{
 		return $this->implementation->getCached($key, $type, $lastModif);
 	}
 
-	function getSerialized($key, $type = '', $lastModif = false)
+	public function getSerialized($key, $type = '', $lastModif = false)
 	{
 		$data = $this->getCached($key, $type, $lastModif);
 
@@ -66,7 +66,7 @@ class Cachelib
 		}
 	}
 
-	function invalidate($key, $type = '')
+	public function invalidate($key, $type = '')
 	{
 		return $this->implementation->invalidate($key, $type);
 	}
@@ -79,7 +79,7 @@ class Cachelib
 	 * @param mixed $dir_names		all|templates_c|temp_cache|temp_public|modules_cache|prefs (default all)
 	 * @param string $log_section	Type of log message. Default 'system'
 	 */
-	function empty_cache($dir_names = ['all'], $log_section = 'system')
+	public function empty_cache($dir_names = ['all'], $log_section = 'system')
 	{
 		global $tikidomain, $prefs;
 		$logslib = TikiLib::lib('logs');
@@ -137,12 +137,12 @@ class Cachelib
 		}
 	}
 
-	function empty_type_cache($type)
+	public function empty_type_cache($type)
 	{
 		return $this->implementation->empty_type_cache($type);
 	}
 
-	function count_cache_files($path, $begin = null)
+	public function count_cache_files($path, $begin = null)
 	{
 		global $tikidomain;
 
@@ -196,7 +196,7 @@ class Cachelib
 		return $back;
 	}
 
-	function flush_opcode_cache()
+	public function flush_opcode_cache()
 	{
 		if (function_exists('apc_clear_cache')) {
 			apc_clear_cache();
@@ -214,7 +214,7 @@ class Cachelib
 	 *
 	 * @return void
 	 */
-	function flush_memcache()
+	public function flush_memcache()
 	{
 		global $prefs;
 
@@ -227,7 +227,7 @@ class Cachelib
 		return;
 	}
 
-	function flush_redis()
+	public function flush_redis()
 	{
 		global $prefs;
 
@@ -237,7 +237,7 @@ class Cachelib
 		return;
 	}
 
-	function erase_dir_content($path)
+	public function erase_dir_content($path)
 	{
 		global $tikidomain, $prefs;
 
@@ -293,7 +293,7 @@ class Cachelib
 		}
 	}
 
-	function cache_templates($path, $newlang)
+	public function cache_templates($path, $newlang)
 	{
 		global $prefs;
 		$smarty = TikiLib::lib('smarty');
@@ -436,7 +436,7 @@ class Cachelib
 		}
 	}
 
-	function get_cache_purge_rules($type = 'all')
+	public function get_cache_purge_rules($type = 'all')
 	{
 		if ($this->isCached($type, 'cachepurgerules')) {
 			return $this->getSerialized($type, 'cachepurgerules');
@@ -450,17 +450,17 @@ class Cachelib
 		return $rules;
 	}
 
-	function get_purge_rules_for_cache($cacheType, $cacheKey)
+	public function get_purge_rules_for_cache($cacheType, $cacheKey)
 	{
 		return TikiLib::lib('tiki')->fetchAll("select source_type as type, source_itemId as object from tiki_object_relations where relation = 'tiki.cache.purge' and target_type = ? and target_itemId = ?", array($cacheType, $cacheKey));
 	}
 
-	function clear_purge_rules_for_cache($cacheType, $cacheKey)
+	public function clear_purge_rules_for_cache($cacheType, $cacheKey)
 	{
 		return TikiLib::lib('tiki')->query("delete from tiki_object_relations where relation = 'tiki.cache.purge' and target_type = ? and target_itemId = ?", array($cacheType, $cacheKey));
 	}
 
-	function set_cache_purge_rule($type, $object, $cacheType, $cacheKey)
+	public function set_cache_purge_rule($type, $object, $cacheType, $cacheKey)
 	{
 		$relationId = TikiLib::lib('relation')->add_relation('tiki.cache.purge', $type, $object, $cacheType, $cacheKey, true);
 		if ($relationId) {
@@ -470,7 +470,7 @@ class Cachelib
 		return $relationId;
 	}
 
-	function invalidate_by_cache_purge_rules($args)
+	public function invalidate_by_cache_purge_rules($args)
 	{
 		// First get all candidates which match type (source_itemId does not matter for now - see below)
 		$cache_purge_rules = $this->get_cache_purge_rules($args['type']);
@@ -494,7 +494,7 @@ class CacheLibFileSystem
 {
 	public $folder;
 
-	function __construct()
+	public function __construct()
 	{
 		global $tikidomain;
 		$this->folder = realpath("temp/cache");
@@ -507,20 +507,20 @@ class CacheLibFileSystem
 		}
 	}
 
-	function cacheItem($key, $data, $type = '')
+	public function cacheItem($key, $data, $type = '')
 	{
 		$key = $type . md5($key);
 		@file_put_contents($this->folder . "/$key", $data);
 		return true;
 	}
 
-	function isCached($key, $type = '')
+	public function isCached($key, $type = '')
 	{
 		$key = $type . md5($key);
 		return is_file($this->folder . "/$key");
 	}
 
-	function getCached($key, $type = '', $lastModif = false)
+	public function getCached($key, $type = '', $lastModif = false)
 	{
 		$key = $type . md5($key);
 		$file = $this->folder . "/$key";
@@ -537,7 +537,7 @@ class CacheLibFileSystem
 		}
 	}
 
-	function invalidate($key, $type = '')
+	public function invalidate($key, $type = '')
 	{
 		$key = $type . md5($key);
 		if (is_file($this->folder . "/$key")) {
@@ -545,7 +545,7 @@ class CacheLibFileSystem
 		}
 	}
 
-	function empty_type_cache($type)
+	public function empty_type_cache($type)
 	{
 		$path = $this->folder;
 		$all = opendir($path);
@@ -564,28 +564,28 @@ class CacheLibMemcache
 		return $type . md5($key);
 	}
 
-	function cacheItem($key, $data, $type = '')
+	public function cacheItem($key, $data, $type = '')
 	{
 		TikiLib::lib("memcache")->set($this->getKey($key, $type), $data);
 		return true;
 	}
 
-	function isCached($key, $type = '')
+	public function isCached($key, $type = '')
 	{
 		return false;
 	}
 
-	function getCached($key, $type = '', $lastModif = false)
+	public function getCached($key, $type = '', $lastModif = false)
 	{
 		return TikiLib::lib("memcache")->get($this->getKey($key, $type));
 	}
 
-	function invalidate($key, $type = '')
+	public function invalidate($key, $type = '')
 	{
 		return TikiLib::lib("memcache")->delete($this->getKey($key, $type));
 	}
 
-	function empty_type_cache($type)
+	public function empty_type_cache($type)
 	{
 		return TikiLib::lib("memcache")->flush();
 	}
@@ -593,27 +593,27 @@ class CacheLibMemcache
 
 class CacheLibNoCache
 {
-	function cacheItem($key, $data, $type = '')
+	public function cacheItem($key, $data, $type = '')
 	{
 		return false;
 	}
 
-	function isCached($key, $type = '')
+	public function isCached($key, $type = '')
 	{
 		return false;
 	}
 
-	function getCached($key, $type = '', $lastModif = false)
+	public function getCached($key, $type = '', $lastModif = false)
 	{
 		return false;
 	}
 
-	function invalidate($key, $type = '')
+	public function invalidate($key, $type = '')
 	{
 		return false;
 	}
 
-	function empty_type_cache($type)
+	public function empty_type_cache($type)
 	{
 		return false;
 	}

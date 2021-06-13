@@ -155,7 +155,6 @@ class TikiLdapLib
 			}
 		}
 	}
-	// End public function TikiLdapLib($options)
 
 	public function __destruct()
 	{
@@ -269,7 +268,7 @@ class TikiLdapLib
 		}
 
 		return LdapException::LDAP_SUCCESS;
-	} // End bind()
+	}
 
 
 
@@ -332,7 +331,7 @@ class TikiLdapLib
 		}
 
 		return $this->user_attributes;
-	} // End: public function get_user_attributes()
+	}
 
 	// Request all users attributes
 	public function get_all_users_attributes()
@@ -369,7 +368,7 @@ class TikiLdapLib
 		}
 
 		return ($users_attributes);
-	} // End: public function get_user_attributes()
+	}
 
 	// return dn of all groups a user belongs to
 	public function get_groups($force_reload = false)
@@ -477,7 +476,7 @@ class TikiLdapLib
 		$this->add_log('ldap', count($this->groups) . ' groups found at line ' . __LINE__ . ' in ' . __FILE__);
 
 		return($this->groups);
-	} // End: private function get_group_dns()
+	}
 
 
 

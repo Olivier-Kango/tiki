@@ -16,7 +16,7 @@
 class CreditsLib extends TikiLib
 {
 
-	function getRawCredits($userId)
+	public function getRawCredits($userId)
 	{
 		$result = $this->query(
 			"SELECT `creditId`, `credit_type`, `creation_date`, `expiration_date`, `total_amount`, `used_amount`" .
@@ -33,7 +33,7 @@ class CreditsLib extends TikiLib
 		return $credits;
 	}
 
-	function getRawCreditsByType($userId, $credit_type)
+	public function getRawCreditsByType($userId, $credit_type)
 	{
 		$result = $this->query(
 			"SELECT `creditId`, `creation_date`, `expiration_date`, `total_amount`, `used_amount`" .
@@ -51,7 +51,7 @@ class CreditsLib extends TikiLib
 		return $credits;
 	}
 
-	function updateCreditType($credit_type, $display_text, $unit_text, $is_static_level = 'n', $scaling_divisor = 1)
+	public function updateCreditType($credit_type, $display_text, $unit_text, $is_static_level = 'n', $scaling_divisor = 1)
 	{
 		$bindvars = [$credit_type, $display_text, $unit_text, $is_static_level, $scaling_divisor];
 		$result = $this->query(
@@ -64,7 +64,7 @@ class CreditsLib extends TikiLib
 		return $result;
 	}
 
-	function getCreditTypes($staticonly = false)
+	public function getCreditTypes($staticonly = false)
 	{
 		$result = $this->query("SELECT `credit_type`, `display_text`, `unit_text`, `is_static_level`, `scaling_divisor` FROM `tiki_credits_types`");
 		$creditTypes = [];
@@ -80,7 +80,7 @@ class CreditsLib extends TikiLib
 		return $creditTypes;
 	}
 
-	function getCredits($userId)
+	public function getCredits($userId)
 	{
 		$result = $this->query(
 			"SELECT `credit_type`, SUM(`total_amount`) total_amount, SUM(`used_amount`) used_amount" .
@@ -130,7 +130,7 @@ class CreditsLib extends TikiLib
 		return $credits;
 	}
 
-	function getScaledCredits($userId)
+	public function getScaledCredits($userId)
 	{
 		$creditTypes = $this->getCreditTypes();
 		$credits = $this->getCredits($userId);
@@ -167,12 +167,12 @@ class CreditsLib extends TikiLib
 		return floor(1.5 * log(($value / $factor) * ($value / $factor) + 1));
 	}
 
-	function removeCreditBlock($creditId)
+	public function removeCreditBlock($creditId)
 	{
 		$this->query("DELETE FROM `tiki_credits` WHERE `creditId` = ?", [$creditId]);
 	}
 
-	function replaceCredit($creditId, $type, $used, $total, $validFrom, $expirationDate)
+	public function replaceCredit($creditId, $type, $used, $total, $validFrom, $expirationDate)
 	{
 		if (! empty($expirationDate)) {
 			$expirationDate = date('Y-m-d H:i:s', $time = strtotime($expirationDate));
@@ -199,7 +199,7 @@ class CreditsLib extends TikiLib
 	/**
 	 * Adds a new credits entry for the user.
 	 */
-	function addCredits($userId, $creditType, $amount, $expirationDate = null, $validFrom = null)
+	public function addCredits($userId, $creditType, $amount, $expirationDate = null, $validFrom = null)
 	{
 		if (! $amount) {
 			return false;
@@ -236,7 +236,7 @@ class CreditsLib extends TikiLib
 	 * enough credits, the function will return false. Credits may be used from
 	 * different entries. Entries expiring soon will be used first.
 	 */
-	function useCredits($userId, $creditType, $amount, $product_id = null)
+	public function useCredits($userId, $creditType, $amount, $product_id = null)
 	{
 		if ($amount == 0) {
 			return true;
@@ -317,7 +317,7 @@ class CreditsLib extends TikiLib
 		die("The verification failed in using credits.");
 	}
 
-	function restoreCredits($userId, $creditType, $amount, $product_id = null)
+	public function restoreCredits($userId, $creditType, $amount, $product_id = null)
 	{
 		// Only valid for level-type credits
 		if (! array_key_exists($creditType, $this->getCreditTypes(true))) {
@@ -352,7 +352,7 @@ class CreditsLib extends TikiLib
 	/**
 	 * Uses up a credit id and returns the amount of credits remaining to use.
 	 */
-	function _useCredits($creditId, $available, $amount)
+	public function _useCredits($creditId, $available, $amount)
 	{
 		if ($available >= $amount) {
 			$this->query(
@@ -375,7 +375,7 @@ class CreditsLib extends TikiLib
 	/**
 	 * Uses up a credit id and returns the amount of credits remaining to use.
 	 */
-	function _recCredits($userId, $creditType, $amount, $product_id = null)
+	public function _recCredits($userId, $creditType, $amount, $product_id = null)
 	{
 		return $this->query(
 			"INSERT INTO `tiki_credits_usage` (`userId`, `usage_date`, `credit_type`, `used_amount`, `product_id`)" .
@@ -388,14 +388,14 @@ class CreditsLib extends TikiLib
 	/**
 	 * Delete expired credit entries and those completely used up.
 	 */
-	function purgeCredits()
+	public function purgeCredits()
 	{
 		$this->query("DELETE FROM `tiki_credits` WHERE `expiration_date` IS NOT NULL AND `expiration_date` < NOW()");
 		$this->query("DELETE FROM `tiki_credits` WHERE `total_amount` = `used_amount`");
 	}
 
 
-	function getPlanExpiry($userId, $creditType)
+	public function getPlanExpiry($userId, $creditType)
 	{
 		$result = $this->getOne(
 			"SELECT MAX(`expiration_date`) FROM `tiki_credits` WHERE `userId` = ? AND `expiration_date` IS NOT NULL AND `credit_type` = ?",
@@ -409,7 +409,7 @@ class CreditsLib extends TikiLib
 		}
 	}
 
-	function getLatestPlanBegin($userId, $creditType)
+	public function getLatestPlanBegin($userId, $creditType)
 	{
 		$result = $this->getOne(
 			"SELECT MAX(`creation_date`) FROM `tiki_credits`" .
@@ -425,7 +425,7 @@ class CreditsLib extends TikiLib
 		}
 	}
 
-	function getNextPlanBegin($userId, $creditType)
+	public function getNextPlanBegin($userId, $creditType)
 	{
 		$result = $this->getOne(
 			"SELECT MIN(`creation_date`)" .
@@ -441,7 +441,7 @@ class CreditsLib extends TikiLib
 		}
 	}
 
-	function getCreditsUsage($target_user_id, $req_type, $start_date, $end_date)
+	public function getCreditsUsage($target_user_id, $req_type, $start_date, $end_date)
 	{
 		if ($req_type) {
 			$results = $this->query(

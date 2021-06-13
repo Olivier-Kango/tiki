@@ -30,7 +30,7 @@ class Memcachelib
 	 * @param bool $memcached_servers
 	 * @param bool $memcached_options
 	 */
-	function __construct($memcached_servers = false, $memcached_options = false)
+	public function __construct($memcached_servers = false, $memcached_options = false)
 	{
 		global $prefs, $tikidomainslash;
 
@@ -86,7 +86,7 @@ class Memcachelib
 	 * Return a reference to the memcache object.
 	 * @return object
 	 */
-	function getMemcache()
+	public function getMemcache()
 	{
 		return $this->memcache;
 	}
@@ -97,7 +97,7 @@ class Memcachelib
 	 * @param  mixed  $default value
 	 * @return mixed  value of the option, or default.
 	 */
-	function getOption($name, $default = null)
+	public function getOption($name, $default = null)
 	{
 		return isset($this->options[$name]) ?
 			$this->options[$name] : $default;
@@ -107,7 +107,7 @@ class Memcachelib
 	 * Return whether this thing is usable.
 	 * @return boolean
 	 */
-	function isEnabled()
+	public function isEnabled()
 	{
 		global $prefs;
 		if (isset($prefs['memcache_enabled']) && $prefs['memcache_enabled'] == 'y') {
@@ -124,7 +124,7 @@ class Memcachelib
 	 * @param  mixed $default value returned if result from memcache is NULL
 	 * @return mixed Value from memcache, or the default
 	 */
-	function get($key, $default = null)
+	public function get($key, $default = null)
 	{
 		$key = $this->buildKey($key);
 		$val = $this->memcache->get($key);
@@ -141,7 +141,7 @@ class Memcachelib
 	 * @param  array $keys, each will be passed through buildKey() before use
 	 * @return array Values, in order of keys passed.
 	 */
-	function getMulti($keys)
+	public function getMulti($keys)
 	{
 
 		// Run each key passed in through the buildKey() method.
@@ -171,7 +171,7 @@ class Memcachelib
 	 * @param bool $expiration  Optional expiration time
 	 * @return bool
 	 */
-	function set($key, $value, $flags = false, $expiration = false)
+	public function set($key, $value, $flags = false, $expiration = false)
 	{
 		$key = $this->buildKey($key);
 		$expiration = ($expiration) ?
@@ -188,7 +188,7 @@ class Memcachelib
 	 * @param $key, passed through buildKey() before use
 	 * @return bool
 	 */
-	function delete($key)
+	public function delete($key)
 	{
 		$key = $this->buildKey($key);
 		return $this->memcache->delete($key);
@@ -197,7 +197,7 @@ class Memcachelib
 	/**
 	 * Flush the memcache cache
 	 */
-	function flush()
+	public function flush()
 	{
 		return $this->memcache->flush();
 	}
@@ -216,7 +216,7 @@ class Memcachelib
 	 * @param bool $use_md5
 	 * @return string               the cache key
 	 */
-	function buildKey($key, $use_md5 = false)
+	public function buildKey($key, $use_md5 = false)
 	{
 
 		if (is_string($key)) {

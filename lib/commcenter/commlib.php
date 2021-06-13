@@ -14,7 +14,7 @@ if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
 class CommLib extends TikiLib
 {
 
-	function accept_page($receivedPageId)
+	public function accept_page($receivedPageId)
 	{
 		$info = $this->get_received_page($receivedPageId);
 
@@ -104,7 +104,7 @@ class CommLib extends TikiLib
 		return true;
 	}
 
-	function accept_article($receivedArticleId, $topic)
+	public function accept_article($receivedArticleId, $topic)
 	{
 		$artlib = TikiLib::lib('art');
 		$info = $this->get_received_article($receivedArticleId);
@@ -134,7 +134,7 @@ class CommLib extends TikiLib
 		return true;
 	}
 
-	function list_received_articles($offset, $maxRecords, $sort_mode = 'publishDate_desc', $find = '')
+	public function list_received_articles($offset, $maxRecords, $sort_mode = 'publishDate_desc', $find = '')
 	{
 		$bindvars = [];
 		if ($find) {
@@ -162,7 +162,7 @@ class CommLib extends TikiLib
 		return $retval;
 	}
 
-	function remove_received_page($receivedPageId)
+	public function remove_received_page($receivedPageId)
 	{
 		$info = $this->get_received_page($receivedPageId);
 
@@ -175,13 +175,13 @@ class CommLib extends TikiLib
 		}
 	}
 
-	function remove_received_article($receivedArticleId)
+	public function remove_received_article($receivedArticleId)
 	{
 		$query = "delete from `tiki_received_articles` where `receivedArticleId`=?";
 		$result = $this->query($query, [(int)$receivedArticleId]);
 	}
 
-	function get_received_page($receivedPageId)
+	public function get_received_page($receivedPageId)
 	{
 		$query = "select * from `tiki_received_pages` where `receivedPageId`=?";
 		$result = $this->query($query, [(int)$receivedPageId]);
@@ -195,7 +195,7 @@ class CommLib extends TikiLib
 		return $res;
 	}
 
-	function get_received_article($receivedArticleId)
+	public function get_received_article($receivedArticleId)
 	{
 		$query = "select * from `tiki_received_articles` where `receivedArticleId`=?";
 		$result = $this->query($query, [(int)$receivedArticleId]);
@@ -208,7 +208,7 @@ class CommLib extends TikiLib
 		return $res;
 	}
 
-	function update_received_article(
+	public function update_received_article(
 		$receivedArticleId,
 		$title,
 		$authorName,
@@ -250,7 +250,7 @@ class CommLib extends TikiLib
 		);
 	}
 
-	function update_received_page($receivedPageId, $pageName, $data, $comment)
+	public function update_received_page($receivedPageId, $pageName, $data, $comment)
 	{
 		$info = $this->get_received_page($receivedPageId);
 		if ($info['pageName'] != $pageName && ! empty($info['structureName'])) {
@@ -265,7 +265,7 @@ class CommLib extends TikiLib
 		$this->query($query, [$pageName, $data, $comment, (int)$receivedPageId]);
 	}
 
-	function receive_article(
+	public function receive_article(
 		$site,
 		$user,
 		$title,
@@ -328,7 +328,7 @@ class CommLib extends TikiLib
 		);
 	}
 
-	function receive_page($pageName, $data, $comment, $site, $user, $description)
+	public function receive_page($pageName, $data, $comment, $site, $user, $description)
 	{
 		// Remove previous page sent from the same site-user (an update)
 		$query = "delete from `tiki_received_pages` where `pageName`=? and `receivedFromsite`=? and `receivedFromUser`=? and `structureName`=?";
@@ -341,7 +341,7 @@ class CommLib extends TikiLib
 		$result = $this->query($query, [$pageName, $data, $comment, $site, $user, (int)$this->now, $description]);
 	}
 
-	function receive_structure_page($pageName, $data, $comment, $site, $user, $description, $structureName, $parentName, $pos, $alias)
+	public function receive_structure_page($pageName, $data, $comment, $site, $user, $description, $structureName, $parentName, $pos, $alias)
 	{
 		global $tikilib;
 		$query = "delete from `tiki_received_pages` where `pageName`=? and `receivedFromsite`=? and `receivedFromUser`=? and `structureName`=?";
@@ -368,7 +368,7 @@ class CommLib extends TikiLib
 		);
 	}
 
-	function rename_structure_pages($pages, $prefix, $postfix)
+	public function rename_structure_pages($pages, $prefix, $postfix)
 	{
 		$bindvars[] = $prefix;
 		$bindvars[] = $postfix;
@@ -388,4 +388,4 @@ class CommLib extends TikiLib
 		$this->query($query, $bindvars);
 	}
 }
-$commlib = new CommLib;
+$commlib = new CommLib();

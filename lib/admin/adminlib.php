@@ -24,7 +24,7 @@ class AdminLib extends TikiLib
 	 * @param $find
 	 * @return array
 	 */
-	function list_dsn($offset, $maxRecords, $sort_mode, $find)
+	public function list_dsn($offset, $maxRecords, $sort_mode, $find)
 	{
 
 		$bindvars = [];
@@ -60,7 +60,7 @@ class AdminLib extends TikiLib
 	 *
 	 * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
 	 */
-	function replace_dsn($dsnId, $dsn, $name)
+	public function replace_dsn($dsnId, $dsn, $name)
 	{
 		// Check the name
 		if ($dsnId) {
@@ -82,7 +82,7 @@ class AdminLib extends TikiLib
 	 *
 	 * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
 	 */
-	function remove_dsn($dsnId)
+	public function remove_dsn($dsnId)
 	{
 		$query = "delete from `tiki_dsn` where `dsnId`=?";
 		return $this->query($query, [$dsnId]);
@@ -92,7 +92,7 @@ class AdminLib extends TikiLib
 	 * @param int $dsnId
 	 * @return array|bool returns false on failure, or an array of values upon success
 	 */
-	function get_dsn($dsnId)
+	public function get_dsn($dsnId)
 	{
 		$query = "select * from `tiki_dsn` where `dsnId`=?";
 
@@ -110,7 +110,7 @@ class AdminLib extends TikiLib
 	 * @param $dsnName
 	 * @return array|bool returns false on failure, or an array of values upon success
 	 */
-	function get_dsn_from_name($dsnName)
+	public function get_dsn_from_name($dsnName)
 	{
 		$query = "select * from `tiki_dsn` where `name`=?";
 
@@ -131,7 +131,7 @@ class AdminLib extends TikiLib
 	 * @param $find
 	 * @return array
 	 */
-	function list_extwiki($offset, $maxRecords, $sort_mode, $find)
+	public function list_extwiki($offset, $maxRecords, $sort_mode, $find)
 	{
 		$bindvars = [];
 		if ($find) {
@@ -163,7 +163,7 @@ class AdminLib extends TikiLib
 	 *
 	 * @return array|bool|mixed
 	 */
-	function replace_extwiki($extwikiId, $extwiki, $name, $indexName = '', $groups = [])
+	public function replace_extwiki($extwikiId, $extwiki, $name, $indexName = '', $groups = [])
 	{
 		$table = $this->table('tiki_extwiki');
 		$data = [
@@ -184,7 +184,7 @@ class AdminLib extends TikiLib
 	 *
 	 * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
 	 */
-	function remove_extwiki($extwikiId)
+	public function remove_extwiki($extwikiId)
 	{
 		$query = "delete from `tiki_extwiki` where `extwikiId`=?";
 		return $this->query($query, [$extwikiId]);
@@ -194,7 +194,7 @@ class AdminLib extends TikiLib
 	 * @param int $extwikiId
 	 * @return bool
 	 */
-	function get_extwiki($extwikiId)
+	public function get_extwiki($extwikiId)
 	{
 		$table = $this->table('tiki_extwiki');
 		$row = $table->fetchFullRow(['extwikiId' => $extwikiId]);
@@ -209,7 +209,7 @@ class AdminLib extends TikiLib
 	/**
 	 * Remove unused wiki attachment pictures
 	 */
-	function remove_unused_pictures()
+	public function remove_unused_pictures()
 	{
 		global $tikidomain;
 
@@ -258,7 +258,7 @@ class AdminLib extends TikiLib
 	 * An image gallery function that removes orphaned images.
 	 */
 
-	function remove_orphan_images()
+	public function remove_orphan_images()
 	{
 		$merge = [];
 
@@ -331,7 +331,7 @@ class AdminLib extends TikiLib
 			$id = $res["imageId"];
 
 			if (! in_array($id, $positives)) {
-				TikiLib::lib('imagegal')->remove_image($id,$GLOBALS['user']);
+				TikiLib::lib('imagegal')->remove_image($id, $GLOBALS['user']);
 			}
 		}
 	}
@@ -342,7 +342,7 @@ class AdminLib extends TikiLib
 	 * @param string $tag
 	 * @return bool     false on no tag existing, true on tag already present
 	 */
-	function tag_exists($tag)
+	public function tag_exists($tag)
 	{
 		$query = "select distinct `tagName` from `tiki_tags` where `tagName` = ?";
 
@@ -357,7 +357,7 @@ class AdminLib extends TikiLib
 	 * @param string $tagname
 	 * @return bool     Right now only returns true
 	 */
-	function remove_tag($tagname)
+	public function remove_tag($tagname)
 	{
 		$query = "delete from `tiki_tags` where `tagName`=?";
 		$this->query($query, [$tagname]);
@@ -369,7 +369,7 @@ class AdminLib extends TikiLib
 	/**
 	 * @return array
 	 */
-	function get_tags()
+	public function get_tags()
 	{
 		$query = "select distinct `tagName` from `tiki_tags`";
 
@@ -390,7 +390,7 @@ class AdminLib extends TikiLib
 	 * @param $tagname
 	 * @see dump()
 	 */
-	function create_tag($tagname)
+	public function create_tag($tagname)
 	{
 		$query = "select * from `tiki_pages`";
 		$result = $this->query($query, []);
@@ -431,7 +431,7 @@ class AdminLib extends TikiLib
 	 * @param string $tagname
 	 * @return bool     currenty only returns true
 	 */
-	function restore_tag($tagname)
+	public function restore_tag($tagname)
 	{
 
 		$query = "update `tiki_pages` set `cache_timestamp`=0";
@@ -468,7 +468,7 @@ class AdminLib extends TikiLib
 	/** Dumps wiki pages to a tar file
 	 * @see create_tag()
 	 */
-	function dump()
+	public function dump()
 	{
 		global $tikidomain, $prefs;
 		$parserlib = TikiLib::lib('parser');
@@ -527,7 +527,7 @@ class AdminLib extends TikiLib
 	 * Validates if the php version is fully compatible with OPCache.
 	 * @return bool
 	 */
-	function checkOPCacheCompatibility()
+	public function checkOPCacheCompatibility()
 	{
 		return ! ((version_compare(PHP_VERSION, '7.1.0', '>=') && version_compare(PHP_VERSION, '7.2.0', '<')) //7.1.x
 			|| (version_compare(PHP_VERSION, '7.2.0', '>=') && version_compare(PHP_VERSION, '7.2.19', '<')) // >= 7.2.0 < 7.2.19

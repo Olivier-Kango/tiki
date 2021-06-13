@@ -13,7 +13,7 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
 
 class AutoSaveLib
 {
-	function __construct()
+	public function __construct()
 	{
 		$access = TikiLib::lib('access');
 
@@ -28,7 +28,7 @@ class AutoSaveLib
 	 * @param string $referer   user:section:object id
 	 * @return number			bytes that were written to the file, or false on failure
 	 */
-	function auto_save($id, $data, $referer = '')
+	public function auto_save($id, $data, $referer = '')
 	{
 		//	auto_save_log($id, $referer, 'auto_save');
 		$result = file_put_contents($this->auto_save_name($id, $referer), $data);
@@ -42,7 +42,7 @@ class AutoSaveLib
 	 * @param string $referer	textarea specifier (user:section:item)
 	 * @return bool				true on success or false on failure
 	 */
-	function remove_save($id, $referer = '')
+	public function remove_save($id, $referer = '')
 	{
 		$referer = $this->ensureReferrer($referer);
 		//	auto_save_log($id, $referer, 'remove_save');
@@ -62,7 +62,7 @@ class AutoSaveLib
 	 * @param string $referer    user:section:object id
 	 * @return bool
 	 */
-	function has_autosave($id, $referer = '')
+	public function has_autosave($id, $referer = '')
 	{
 		return file_exists($this->auto_save_name($id, $this->ensureReferrer($referer)));
 	}
@@ -74,7 +74,7 @@ class AutoSaveLib
 	 * @param string $referer    user:section:object id
 	 * @return bool|string
 	 */
-	function get_autosave($id, $referer = '')
+	public function get_autosave($id, $referer = '')
 	{
 		$file_name = $this->auto_save_name($id, $referer);
 		if (file_exists($file_name)) {
@@ -90,7 +90,7 @@ class AutoSaveLib
 	 * @param string $referer
 	 * @return string
 	 */
-	function ensureReferrer($referer = '')
+	public function ensureReferrer($referer = '')
 	{
 
 		// should be page name, but use URI if not?

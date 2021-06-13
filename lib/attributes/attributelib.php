@@ -18,7 +18,7 @@ class AttributeLib extends TikiDb_Bridge
 	/**
 	 *
 	 */
-	function __construct()
+	public function __construct()
 	{
 		$this->attributes = $this->table('tiki_object_attributes');
 		$this->cache = [];
@@ -31,7 +31,7 @@ class AttributeLib extends TikiDb_Bridge
 	 * @param $objectId mixed   Object id (or name for wiki pages)
 	 * @return array            Array [attribute => value]
 	 */
-	function get_attributes($type, $objectId)
+	public function get_attributes($type, $objectId)
 	{
 		if (count($this->cache) > 2048) {
 			$this->cache = [];
@@ -54,7 +54,7 @@ class AttributeLib extends TikiDb_Bridge
 	 * @param $attribute string     At least two dots and only lowercase letters
 	 * @return string|boolean       Contents of the attribute on the object or false if not present
 	 */
-	function get_attribute($type, $objectId, $attribute)
+	public function get_attribute($type, $objectId, $attribute)
 	{
 		return $this->attributes->fetchOne(
 			'value',
@@ -72,7 +72,7 @@ class AttributeLib extends TikiDb_Bridge
 	 * attribute naming, and document new tiki.*.* names that you add
 	 * (also grep "set_attribute" just in case there are undocumented names already used)
 	 */
-	function set_attribute($type, $objectId, $attribute, $value, $comment = null)
+	public function set_attribute($type, $objectId, $attribute, $value, $comment = null)
 	{
 		if (false === $name = $this->get_valid($attribute)) {
 			return false;
@@ -125,7 +125,7 @@ class AttributeLib extends TikiDb_Bridge
 		 * @param $value
 		 * @return mixed
 		 */
-	function find_objects_with($attribute, $value)
+	public function find_objects_with($attribute, $value)
 	{
 		$attribute = $this->get_valid($attribute);
 
@@ -140,7 +140,7 @@ class AttributeLib extends TikiDb_Bridge
 	 * @param $value
 	 * @return mixed
 	 */
-	function delete_objects_with($attribute, $value)
+	public function delete_objects_with($attribute, $value)
 	{
 		$attribute = $this->get_valid($attribute);
 		return $this->attributes->delete(

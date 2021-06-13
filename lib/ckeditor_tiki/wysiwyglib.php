@@ -11,9 +11,9 @@
 
 class WYSIWYGLib
 {
-	static $ckEditor = null;
+	public static $ckEditor = null;
 
-	function setupInlineEditor($pageName)
+	public function setupInlineEditor($pageName)
 	{
 		global $tikiroot, $prefs, $user;
 
@@ -113,7 +113,7 @@ window.CKEDITOR.config.toolbar = ' . $cktools . ';
 	}
 
 	// According to Jonny Bradley, "the full_page thing was something to do with the unfinished inline editing that is fairly broken now". 2017-06-12
-	function setUpEditor($is_html, $dom_id, $params = [], $auto_save_referrer = '', $full_page = true)
+	public function setUpEditor($is_html, $dom_id, $params = [], $auto_save_referrer = '', $full_page = true)
 	{
 		global $tikiroot, $prefs;
 		$headerlib = TikiLib::lib('header');
