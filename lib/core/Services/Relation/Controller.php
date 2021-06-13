@@ -9,7 +9,7 @@ class Services_Relation_Controller
 {
 	private $access;
 
-	function setUp()
+	public function setUp()
 	{
 		$this->access = TikiLib::lib('access');
 	}
@@ -21,7 +21,7 @@ class Services_Relation_Controller
 	 * @throws Exception
 	 * @throws Services_Exception
 	 */
-	function action_toggle($input)
+	public function action_toggle($input)
 	{
 		$relation = $input->relation->none();
 		$target_type = $input->target_type->none();
@@ -88,7 +88,7 @@ class Services_Relation_Controller
 	 * @throws Exception
 	 * @throws Services_Exception
 	 */
-	function action_toggle_group($input)
+	public function action_toggle_group($input)
 	{
 		$relation_prefix = $input->relation_prefix->none();
 		$relation = $input->relation->none();

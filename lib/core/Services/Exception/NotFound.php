@@ -7,7 +7,7 @@
 
 class Services_Exception_NotFound extends Services_Exception
 {
-	function __construct($message = '')
+	public function __construct($message = '')
 	{
 		if (empty($message)) {
 			$message = tr('Not found');

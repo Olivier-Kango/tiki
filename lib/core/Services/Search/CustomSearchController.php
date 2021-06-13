@@ -16,7 +16,7 @@ class Services_Search_CustomSearchController
 	private $distances = [];
 	private $contentFields;
 
-	function setUp()
+	public function setUp()
 	{
 		Services_Exception_Disabled::check('wikiplugin_list');
 		Services_Exception_Disabled::check('wikiplugin_customsearch');
@@ -25,7 +25,7 @@ class Services_Search_CustomSearchController
 		$this->contentFields = TikiLib::lib('tiki')->get_preference('unified_default_content', ['contents'], true);
 	}
 
-	function action_customsearch($input)
+	public function action_customsearch($input)
 	{
 		global $prefs;
 
@@ -363,8 +363,10 @@ class Services_Search_CustomSearchController
 			if (count($vals) == 2) {
 				$from = $vals[0];
 				$to = $vals[1];
-				if ((empty($config['_showtime']) || $config['_showtime'] === 'n') &&
-						(empty($config['_toendofday']) || $config['_toendofday'] === 'y')) {
+				if (
+					(empty($config['_showtime']) || $config['_showtime'] === 'n') &&
+					(empty($config['_toendofday']) || $config['_toendofday'] === 'y')
+				) {
 					$to += (24 * 3600) - 1;	// end date should be the end of the day, not the beginning
 				}
 				if (! empty($config['_field'])) {

@@ -10,14 +10,14 @@ class Services_MustRead_Controller
 	/** @var UnifiedSearchLib $unifiedsearchlib */
 	private $unifiedsearchlib;
 
-	function setUp()
+	public function setUp()
 	{
 		$this->unifiedsearchlib = TikiLib::lib('unifiedsearch');
 		Services_Exception_Denied::checkAuth();
 		Services_Exception_Disabled::check('mustread_enabled');
 	}
 
-	function action_list($input)
+	public function action_list($input)
 	{
 		global $prefs, $user;
 
@@ -43,7 +43,7 @@ class Services_MustRead_Controller
 		];
 	}
 
-	function action_mark($input)
+	public function action_mark($input)
 	{
 		global $user;
 
@@ -91,7 +91,7 @@ class Services_MustRead_Controller
 		];
 	}
 
-	function action_detail($input)
+	public function action_detail($input)
 	{
 		$item = $this->getItem($input->id->int());
 		$itemId = $item->getId();
@@ -117,7 +117,7 @@ class Services_MustRead_Controller
 		];
 	}
 
-	function action_detailcount($input)
+	public function action_detailcount($input)
 	{
 		$item = $this->getItem($input->id->int());
 		$itemId = $item->getId();
@@ -125,7 +125,7 @@ class Services_MustRead_Controller
 		return $count;
 	}
 
-	function action_circulate($input)
+	public function action_circulate($input)
 	{
 		$item = $this->getItem($input->id->int());
 
@@ -140,7 +140,7 @@ class Services_MustRead_Controller
 		];
 	}
 
-	function action_circulate_members($input)
+	public function action_circulate_members($input)
 	{
 		if ($_SERVER['REQUEST_METHOD'] != 'POST') {
 			throw new Services_Exception_NotAvailable(tr('Invalid request method'));
@@ -198,7 +198,7 @@ class Services_MustRead_Controller
 		];
 	}
 
-	function action_circulate_users($input)
+	public function action_circulate_users($input)
 	{
 		if ($_SERVER['REQUEST_METHOD'] != 'POST') {
 			throw new Services_Exception_NotAvailable(tr('Invalid request method'));
@@ -250,7 +250,7 @@ class Services_MustRead_Controller
 		];
 	}
 
-	function action_object($input)
+	public function action_object($input)
 	{
 		global $prefs;
 

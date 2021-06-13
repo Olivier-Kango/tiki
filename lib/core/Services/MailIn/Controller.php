@@ -7,7 +7,7 @@
 
 class Services_MailIn_Controller
 {
-	function setUp()
+	public function setUp()
 	{
 		Services_Exception_Disabled::check('feature_mailin');
 
@@ -17,7 +17,7 @@ class Services_MailIn_Controller
 		}
 	}
 
-	function action_replace_account($input)
+	public function action_replace_account($input)
 	{
 		$mailinlib = TikiLib::lib('mailin');
 		$accountId = $input->accountId->int();	// array('html' => $result);
@@ -120,14 +120,14 @@ class Services_MailIn_Controller
 		}
 	}
 
-	function action_remove_account($input)
+	public function action_remove_account($input)
 	{
 		$mailinlib = TikiLib::lib('mailin');
 		$accountId = $input->accountId->int();	// array('html' => $result);
 		$info = $mailinlib->get_mailin_account($accountId);
 
 		if (! $info) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		$util = new Services_Utilities();
@@ -147,7 +147,7 @@ class Services_MailIn_Controller
 	}
 
 	// take all permanent names of the fields from the selected tracker
-	function action_fields_account($input)
+	public function action_fields_account($input)
 	{
 		$result = $input->data();
 		$content = $result['content'];
@@ -156,7 +156,7 @@ class Services_MailIn_Controller
 		// get all tracker fields
 		$fields = $trklib->list_tracker_fields($content, 0, -1, 'position_asc', '', true, '', '');
 		$permNames = [];
-		foreach($fields['data'] as $field) {
+		foreach ($fields['data'] as $field) {
 			foreach ($field as $key => $value) {
 				if ($key == 'type' && $value != 'q') {
 					$permNames [] = $field['permName'];

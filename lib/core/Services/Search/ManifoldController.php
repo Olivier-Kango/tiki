@@ -9,13 +9,13 @@ use Search\Federated\ManifoldCfIndex;
 
 class Services_Search_ManifoldController
 {
-	function setUp()
+	public function setUp()
 	{
 		Services_Exception_Disabled::check('feature_search');
 		Services_Exception_Denied::checkGlobal('tiki_p_admin');
 	}
 
-	function action_check($input)
+	public function action_check($input)
 	{
 		$lib = TikiLib::lib('federatedsearch');
 		$unified = TikiLib::lib('unifiedsearch');
@@ -57,7 +57,7 @@ class Services_Search_ManifoldController
 		];
 	}
 
-	function action_create_index($input)
+	public function action_create_index($input)
 	{
 		global $prefs;
 

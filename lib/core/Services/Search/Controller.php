@@ -5,18 +5,18 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
-use \Symfony\Component\Console\Helper\FormatterHelper;
+use Symfony\Component\Console\Helper\FormatterHelper;
 
 class Services_Search_Controller
 {
-	function action_help($input)
+	public function action_help($input)
 	{
 		return [
 			'title' => tr('Help'),
 		];
 	}
 
-	function action_rebuild($input)
+	public function action_rebuild($input)
 	{
 		global $num_queries;
 		global $prefs;
@@ -103,7 +103,7 @@ class Services_Search_Controller
 		];
 	}
 
-	function action_process_queue($input)
+	public function action_process_queue($input)
 	{
 		Services_Exception_Denied::checkGlobal('admin');
 
@@ -126,7 +126,7 @@ class Services_Search_Controller
 		];
 	}
 
-	function action_lookup($input)
+	public function action_lookup($input)
 	{
 		global $prefs;
 

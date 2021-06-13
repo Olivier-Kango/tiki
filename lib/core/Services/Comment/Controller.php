@@ -20,7 +20,7 @@ class Services_Comment_Controller
 	 * @return array
 	 * @throws Services_Exception
 	 */
-	function action_list($input)
+	public function action_list($input)
 	{
 		global $prefs;
 
@@ -92,7 +92,7 @@ return false;";
 		];
 	}
 
-	function action_post($input)
+	public function action_post($input)
 	{
 		global $prefs, $user;
 
@@ -308,16 +308,16 @@ return false;";
 		];
 	}
 
-	function action_edit($input)
+	public function action_edit($input)
 	{
 		$threadId = $input->threadId->int();
 
 		if (! $comment = $this->getCommentInfo($threadId)) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		if (! $this->canEdit($comment)) {
-			throw new Services_Exception_Denied;
+			throw new Services_Exception_Denied();
 		}
 
 		$diffInfo = [];	// for saveAndComment
@@ -346,7 +346,7 @@ return false;";
 		];
 	}
 
-	function action_remove($input)
+	public function action_remove($input)
 	{
 		global $prefs, $user;
 
@@ -390,12 +390,12 @@ return false;";
 		];
 	}
 
-	function action_lock($input)
+	public function action_lock($input)
 	{
 		return $this->_action_lock($input, 'lock');
 	}
 
-	function action_unlock($input)
+	public function action_unlock($input)
 	{
 		return $this->_action_lock($input, 'unlock');
 	}
@@ -438,7 +438,7 @@ return false;";
 		];
 	}
 
-	function action_moderate($input)
+	public function action_moderate($input)
 	{
 		$threadId = $input->threadId->int();
 		$confirmation = $input->confirm->int();
@@ -484,7 +484,7 @@ return false;";
 		];
 	}
 
-	function action_archive($input)
+	public function action_archive($input)
 	{
 		$threadId = $input->threadId->int();
 		$do = $input->do->alpha();
@@ -522,7 +522,7 @@ return false;";
 		];
 	}
 
-	function action_deliberation_item($input)
+	public function action_deliberation_item($input)
 	{
 		return [];
 	}
@@ -744,7 +744,7 @@ return false;";
 		return $perms->admin_comments;
 	}
 
-	private function markEditable(& $comments)
+	private function markEditable(&$comments)
 	{
 		foreach ($comments as & $comment) {
 			$comment['can_edit'] = $this->canEdit($comment);

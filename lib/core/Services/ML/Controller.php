@@ -284,7 +284,7 @@ class Services_ML_Controller
 
 		$perms = Perms::get();
 		if (! $perms->machine_learning && ! $perms->admin) {
-			throw new Services_Exception_Denied;
+			throw new Services_Exception_Denied();
 		}
 	}
 
@@ -389,7 +389,7 @@ class Services_ML_Controller
 
 		$args = [];
 		try {
-			$ref = new ReflectionClass('Rubix\ML\\'.$class);
+			$ref = new ReflectionClass('Rubix\ML\\' . $class);
 			$constructor = $ref->getConstructor();
 			if ($constructor) {
 				foreach ($constructor->getParameters() as $key => $param) {
@@ -444,7 +444,7 @@ class Services_ML_Controller
 						if ($arg_values[$arg['name']] === 'false') {
 							$args[$key]['value'] = false;
 						} else {
-							$args[$key]['value'] = (boolean)$arg_values[$arg['name']];
+							$args[$key]['value'] = (bool)$arg_values[$arg['name']];
 						}
 					} else {
 						$args[$key]['value'] = $arg_values[$arg['name']];
@@ -588,7 +588,7 @@ class Services_ML_Controller
 				} else {
 					$results = $this->mllib->probaSample($model, $processedFields);
 					foreach ($results as $itemId => $proba) {
-						$results[$itemId] = ['proba' => number_format($proba*100, 2), 'fields' => []];
+						$results[$itemId] = ['proba' => number_format($proba * 100, 2), 'fields' => []];
 					}
 				}
 				foreach ($results as $itemId => $_) {
@@ -629,7 +629,7 @@ class Services_ML_Controller
 		$trackerId = $input->trackerId->int();
 		$definition = Tracker_Definition::get($trackerId);
 
-		if( !$definition ) {
+		if (! $definition) {
 			throw new Services_Exception_NotFound(tr('Tracker %0 not found', $trackerId));
 		}
 

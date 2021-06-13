@@ -13,13 +13,13 @@ class Services_Export_Controller
 	 * Get all content that could be synced with remote Tiki.
 	 * @return array
 	 */
-	function action_sync_content($input)
+	public function action_sync_content($input)
 	{
 		global $user;
 
 		$userlib = TikiLib::lib('user');
 		list($isvalid, $user) = $userlib->validate_user($input->user->text(), $input->password->text());
-		
+
 		if (! $isvalid) {
 			return [
 				'error' => 'Specified user credentials are invalid.'
@@ -46,9 +46,10 @@ class Services_Export_Controller
 	 * Currently available: wiki pages and tracker definitions + preferences/configuration.
 	 * @return string
 	 */
-	function dumpContent() {
+	public function dumpContent()
+	{
 		global $prefs;
-		
+
 		$data = "Preferences:\n";
 		$data .= Yaml::dump($prefs, 20, 2, Yaml::DUMP_MULTI_LINE_LITERAL_BLOCK);
 
@@ -57,7 +58,7 @@ class Services_Export_Controller
 		\Tiki_Profile_InstallHandler_Tracker::export($writer, '', true);
 
 		$data .= $writer->dump();
-		
+
 		foreach ($writer->getExternalWriter()->getFiles() as $file => $content) {
 			$data .= "\n\n$file\n$content";
 		}

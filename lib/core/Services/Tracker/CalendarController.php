@@ -11,12 +11,12 @@ class Services_Tracker_CalendarController
 	 * Returns the section for use with certain features like banning
 	 * @return string
 	 */
-	function getSection()
+	public function getSection()
 	{
 		return 'trackers';
 	}
 
-	function action_list($input)
+	public function action_list($input)
 	{
 		global $prefs, $user, $tikilib;
 

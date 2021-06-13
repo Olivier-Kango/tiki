@@ -18,7 +18,7 @@ class Services_File_FinderController
 
 	private $parentIds;
 
-	function setUp()
+	public function setUp()
 	{
 		global $prefs;
 
@@ -38,7 +38,7 @@ class Services_File_FinderController
 	 * Returns the section for use with certain features like banning
 	 * @return string
 	 */
-	function getSection()
+	public function getSection()
 	{
 		return 'file_galleries';
 	}
@@ -253,7 +253,7 @@ class Services_File_FinderController
 	 * @return bool|null
 	 * @throws Exception
 	 */
-	function elFinderAccess($attr, $path, $data, $volume)
+	public function elFinderAccess($attr, $path, $data, $volume)
 	{
 		global $prefs;
 

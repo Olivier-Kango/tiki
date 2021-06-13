@@ -7,14 +7,14 @@
 
 class Services_Search_StoredController
 {
-	function setUp()
+	public function setUp()
 	{
 		Services_Exception_Disabled::check('feature_search');
 		Services_Exception_Disabled::check('storedsearch_enabled');
 		Services_Exception_Denied::checkAuth();
 	}
 
-	function action_select($input)
+	public function action_select($input)
 	{
 		$lib = TikiLib::lib('storedsearch');
 		$queryId = null;
@@ -50,7 +50,7 @@ class Services_Search_StoredController
 		];
 	}
 
-	function action_list($input)
+	public function action_list($input)
 	{
 		$lib = TikiLib::lib('storedsearch');
 		$results = null;
@@ -78,7 +78,7 @@ class Services_Search_StoredController
 		];
 	}
 
-	function action_delete($input)
+	public function action_delete($input)
 	{
 		if (! $input->queryId->int()) {
 			return [
@@ -108,7 +108,7 @@ class Services_Search_StoredController
 		return $out;
 	}
 
-	function action_edit($input)
+	public function action_edit($input)
 	{
 		if (! $input->queryId->int()) {
 			return [

@@ -7,7 +7,7 @@
 
 class Services_AuthSource_OAuthController
 {
-	function action_request($input)
+	public function action_request($input)
 	{
 		$oauthlib = TikiLib::lib('oauth');
 
@@ -17,7 +17,7 @@ class Services_AuthSource_OAuthController
 		throw new Services_Exception_NotFound('Provider does not exist');
 	}
 
-	function action_callback($input)
+	public function action_callback($input)
 	{
 		$oauthlib = TikiLib::lib('oauth');
 

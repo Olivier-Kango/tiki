@@ -7,7 +7,7 @@
 
 class Services_Tracker_TodoController
 {
-	function setUp()
+	public function setUp()
 	{
 		global $prefs;
 
@@ -24,18 +24,18 @@ class Services_Tracker_TodoController
 	 * Returns the section for use with certain features like banning
 	 * @return string
 	 */
-	function getSection()
+	public function getSection()
 	{
 		return 'trackers';
 	}
 
-	function action_view($input)
+	public function action_view($input)
 	{
 		$trackerId = $input->trackerId->int();
 		$definition = Tracker_Definition::get($trackerId);
 
 		if (! $definition) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		$todolib = TikiLib::lib('todo');
@@ -49,13 +49,13 @@ class Services_Tracker_TodoController
 		];
 	}
 
-	function action_add($input)
+	public function action_add($input)
 	{
 		$trackerId = $input->trackerId->int();
 		$definition = Tracker_Definition::get($trackerId);
 
 		if (! $definition) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		$delayAfter = abs($input->after->int() * $input->after_unit->int());
@@ -104,7 +104,7 @@ class Services_Tracker_TodoController
 		];
 	}
 
-	function action_delete($input)
+	public function action_delete($input)
 	{
 		TikiLib::lib('todo')->delTodo($input->todoId->int());
 		return [

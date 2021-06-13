@@ -16,7 +16,7 @@ class Services_Edit_SemaphoreController
 	/** @var  TikiDb_Table */
 	private $table;
 
-	function setUp()
+	public function setUp()
 	{
 		Services_Exception_Disabled::check('feature_wiki');
 		Services_Exception_Disabled::check('feature_warn_on_edit');
@@ -28,7 +28,7 @@ class Services_Edit_SemaphoreController
 	 * Returns the section for use with certain features like banning
 	 * @return string
 	 */
-	function getSection()
+	public function getSection()
 	{
 		return 'wiki page';
 	}
@@ -37,7 +37,7 @@ class Services_Edit_SemaphoreController
 	 * @param JitFilter $input
 	 * @return mixed
 	 */
-	function action_set($input)
+	public function action_set($input)
 	{
 		global $user;
 
@@ -73,7 +73,7 @@ class Services_Edit_SemaphoreController
 	 * @param JitFilter $input
 	 * @return mixed
 	 */
-	function action_unset($input)
+	public function action_unset($input)
 	{
 		$object_id = $input->object_id->pagename();
 		$object_type = $input->object_type->pagename();
@@ -99,7 +99,7 @@ class Services_Edit_SemaphoreController
 	 * @param JitFilter $input
 	 * @return mixed
 	 */
-	function action_is_set($input)
+	public function action_is_set($input)
 	{
 		$object_id = $input->object_id->pagename();
 		$object_type = $input->object_type->pagename();
@@ -119,7 +119,7 @@ class Services_Edit_SemaphoreController
 	 * @param JitFilter $input
 	 * @return mixed
 	 */
-	function action_is_set_by_other($input)
+	public function action_is_set_by_other($input)
 	{
 		global $user;
 
@@ -150,7 +150,7 @@ class Services_Edit_SemaphoreController
 	 * @param JitFilter $input
 	 * @return mixed
 	 */
-	function action_get_value($input)
+	public function action_get_value($input)
 	{
 		$object_id = $input->object_id->pagename();
 		$object_type = $input->object_type->pagename();
@@ -173,7 +173,7 @@ class Services_Edit_SemaphoreController
 	 * @param JitFilter $input
 	 * @return mixed
 	 */
-	function action_get_user($input)
+	public function action_get_user($input)
 	{
 		global $user;
 
@@ -215,7 +215,8 @@ class Services_Edit_SemaphoreController
 			str_replace(' ', '_', $object_type);
 	}
 
-	private function removeExpired($limit) {
+	private function removeExpired($limit)
+	{
 		global $prefs;
 
 		if (! $limit) {

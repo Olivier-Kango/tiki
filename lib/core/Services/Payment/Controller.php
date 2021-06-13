@@ -8,12 +8,12 @@
 class Services_Payment_Controller
 {
 
-	function setUp()
+	public function setUp()
 	{
 		Services_Exception_Disabled::check('payment_feature', 'wikiplugin_addtocart');
 	}
 
-	function action_addtocart($input)
+	public function action_addtocart($input)
 	{
 		$cartlib = TikiLib::lib('cart');
 
@@ -22,7 +22,7 @@ class Services_Payment_Controller
 		return $cartlib->add_to_cart($params, $input);
 	}
 
-	function action_addalltocart($input)
+	public function action_addalltocart($input)
 	{
 		$cartlib = TikiLib::lib('cart');
 
@@ -36,7 +36,7 @@ class Services_Payment_Controller
 		return $ret;
 	}
 
-	function action_capture($input)
+	public function action_capture($input)
 	{
 		$perms = Perms::get();
 		if (! $perms->payment_admin) {

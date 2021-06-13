@@ -8,7 +8,7 @@
 
 class Services_StyleGuide_Controller
 {
-	function setUp()
+	public function setUp()
 	{
 		Services_Exception_Disabled::check('theme_customizer');
 	}
@@ -20,7 +20,7 @@ class Services_StyleGuide_Controller
 	 *
 	 * @return array
 	 */
-	function action_show($input)
+	public function action_show($input)
 	{
 		Services_Exception_Denied::checkGlobal('admin');
 		$sections = $input->sections->text();

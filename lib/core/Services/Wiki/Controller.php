@@ -24,7 +24,7 @@ class Services_Wiki_Controller
 		'destpage'			=> 'pagename',
 	];
 
-	function setUp()
+	public function setUp()
 	{
 		Services_Exception_Disabled::check('feature_wiki');
 	}
@@ -33,7 +33,7 @@ class Services_Wiki_Controller
 	 * Returns the section for use with certain features like banning
 	 * @return string
 	 */
-	function getSection()
+	public function getSection()
 	{
 		return 'wiki page';
 	}
@@ -43,7 +43,7 @@ class Services_Wiki_Controller
 	 * @return array
 	 * @throws Services_Exception_NotFound
 	 */
-	function action_get_page($input)
+	public function action_get_page($input)
 	{
 		$page = $input->page->text();
 		$info = TikiLib::lib('wiki')->get_page_info($page);
@@ -59,7 +59,7 @@ class Services_Wiki_Controller
 	 * @param $input
 	 * @return array
 	 */
-	function action_regenerate_slugs($input)
+	public function action_regenerate_slugs($input)
 	{
 		global $prefs;
 		Services_Exception_Denied::checkGlobal('admin');
@@ -68,7 +68,7 @@ class Services_Wiki_Controller
 			$pages = TikiDb::get()->table('tiki_pages');
 
 			$initial = TikiLib::lib('slugmanager');
-			$tracker = new Tiki\Wiki\SlugManager\InMemoryTracker;
+			$tracker = new Tiki\Wiki\SlugManager\InMemoryTracker();
 			$manager = clone $initial;
 			$manager->setValidationCallback($tracker);
 
@@ -116,16 +116,20 @@ class Services_Wiki_Controller
 	 * @throws Exception
 	 * @throws Services_Exception
 	 */
-	function action_remove_pages($input)
+	public function action_remove_pages($input)
 	{
 		global $user;
 		$util = new Services_Utilities();
 		//first pass - show confirm modal popup
 		if ($util->notConfirmPost()) {
 			$util->setVars($input, $this->filters, 'checked');
-			$pages = array_map(function ($pageName) { return ['pageName' => $pageName]; }, $util->items);
+			$pages = array_map(function ($pageName) {
+				return ['pageName' => $pageName];
+			}, $util->items);
 			$pages = Perms::simpleFilter('wiki page', 'pageName', 'remove', $pages);
-			$util->items = array_map(function ($pageName) { return array_pop($pageName); }, $pages);
+			$util->items = array_map(function ($pageName) {
+				return array_pop($pageName);
+			}, $pages);
 			if (count($util->items) > 0) {
 				$v = $input['version'];
 				if (count($util->items) == 1) {
@@ -172,9 +176,13 @@ class Services_Wiki_Controller
 			//after confirm submit - perform action and return success feedback
 		} elseif ($util->checkCsrf()) {
 			$util->setVars($input, $this->filters, 'items');
-			$pages = array_map(function ($pageName) { return ['pageName' => $pageName]; }, $util->items);
+			$pages = array_map(function ($pageName) {
+				return ['pageName' => $pageName];
+			}, $util->items);
 			$pages = Perms::simpleFilter('wiki page', 'pageName', 'remove', $pages);
-			$util->items = array_map(function ($pageName) { return array_pop($pageName); }, $pages);
+			$util->items = array_map(function ($pageName) {
+				return array_pop($pageName);
+			}, $pages);
 			//delete page
 			//checkbox in popup where user can change from all to last and vice versa
 			$all = ! empty($input['all']) && $input['all'] === 'on';
@@ -293,8 +301,10 @@ class Services_Wiki_Controller
 				}
 			}
 			//return to page
-			if (count($util->items) === 1 && ($all || $util->extra['one'])
-				&& strpos($_SERVER['HTTP_REFERER'], $allinfo['pageName']) !== false) {
+			if (
+				count($util->items) === 1 && ($all || $util->extra['one'])
+				&& strpos($_SERVER['HTTP_REFERER'], $allinfo['pageName']) !== false
+			) {
 				//go to tiki index if the page the user was on has been deleted - avoids no page found error.
 				global $prefs, $base_url;
 				return Services_Utilities::redirect($base_url . $prefs['tikiIndex']);
@@ -312,12 +322,12 @@ class Services_Wiki_Controller
 	 * @throws Services_Exception
 	 * @throws Services_Exception_Denied
 	 */
-	function action_remove_page_versions($input)
+	public function action_remove_page_versions($input)
 	{
 		$util = new Services_Utilities();
 		//first pass - show confirm modal popup
 		if ($util->notConfirmPost()) {
-			$util->setVars($input, $this->filters,'checked');
+			$util->setVars($input, $this->filters, 'checked');
 			$p = $input['page'];
 			Services_Exception_Denied::checkObject('remove', 'wiki page', $p);
 			if ($util->itemsCount > 0) {
@@ -377,16 +387,20 @@ class Services_Wiki_Controller
 	 * @throws Services_Exception
 	 * @throws Services_Exception_Disabled
 	 */
-	function action_print_pages($input)
+	public function action_print_pages($input)
 	{
 		Services_Exception_Disabled::check('feature_wiki_multiprint');
 		$util = new Services_Utilities();
 		//first pass - show confirm modal popup
 		if ($util->notConfirmPost()) {
-			$util->setVars($input, $this->filters,'checked');
-			$pages = array_map(function ($pageName) { return ['pageName' => $pageName]; }, $util->items);
+			$util->setVars($input, $this->filters, 'checked');
+			$pages = array_map(function ($pageName) {
+				return ['pageName' => $pageName];
+			}, $util->items);
 			$pages = Perms::simpleFilter('wiki page', 'pageName', 'view', $pages);
-			$util->items = array_map(function ($pageName) { return array_pop($pageName); }, $pages);
+			$util->items = array_map(function ($pageName) {
+				return array_pop($pageName);
+			}, $pages);
 			if (count($util->items) > 0) {
 				if (count($util->items) === 1) {
 					$msg = tr('Print the following page?');
@@ -400,9 +414,13 @@ class Services_Wiki_Controller
 		//after confirm submit - perform action and return success feedback
 		} elseif ($util->checkCsrf()) {
 			$util->setVars($input, $this->filters, 'items');
-			$pages = array_map(function ($pageName) { return ['pageName' => $pageName]; }, $util->items);
+			$pages = array_map(function ($pageName) {
+				return ['pageName' => $pageName];
+			}, $util->items);
 			$pages = Perms::simpleFilter('wiki page', 'pageName', 'view', $pages);
-			$util->items = array_map(function ($pageName) { return array_pop($pageName); }, $pages);
+			$util->items = array_map(function ($pageName) {
+				return array_pop($pageName);
+			}, $pages);
 			if (! empty($util->items)) {
 				return ['url' => 'tiki-print_multi_pages.php?print=y&printpages=' . urlencode(json_encode($util->items))];
 			} else {
@@ -412,16 +430,20 @@ class Services_Wiki_Controller
 		}
 	}
 
-	function action_export_pdf($input)
+	public function action_export_pdf($input)
 	{
 		Services_Exception_Disabled::check('feature_wiki_multiprint');
 		$util = new Services_Utilities();
 		//first pass - show confirm modal popup
 		if ($util->notConfirmPost()) {
-			$util->setVars($input, $this->filters,'checked');
-			$pages = array_map(function ($pageName) { return ['pageName' => $pageName]; }, $util->items);
+			$util->setVars($input, $this->filters, 'checked');
+			$pages = array_map(function ($pageName) {
+				return ['pageName' => $pageName];
+			}, $util->items);
 			$pages = Perms::simpleFilter('wiki page', 'pageName', 'view', $pages);
-			$util->items = array_map(function ($pageName) { return array_pop($pageName); }, $pages);
+			$util->items = array_map(function ($pageName) {
+				return array_pop($pageName);
+			}, $pages);
 			if (count($util->items) > 0) {
 				include_once 'lib/pdflib.php';
 				$pdf = new PdfGenerator();
@@ -441,9 +463,13 @@ class Services_Wiki_Controller
 		//after confirm submit - perform action
 		} elseif ($util->checkCsrf()) {
 			$util->setVars($input, $this->filters, 'items');
-			$pages = array_map(function ($pageName) { return ['pageName' => $pageName]; }, $util->items);
+			$pages = array_map(function ($pageName) {
+				return ['pageName' => $pageName];
+			}, $util->items);
 			$pages = Perms::simpleFilter('wiki page', 'pageName', 'view', $pages);
-			$util->items = array_map(function ($pageName) { return array_pop($pageName); }, $pages);
+			$util->items = array_map(function ($pageName) {
+				return array_pop($pageName);
+			}, $pages);
 			if (! empty($util->items)) {
 				include_once 'lib/pdflib.php';
 				$pdf = new PdfGenerator();
@@ -469,17 +495,21 @@ class Services_Wiki_Controller
 	 * @throws Services_Exception
 	 * @throws Services_Exception_Disabled
 	 */
-	function action_lock_pages($input)
+	public function action_lock_pages($input)
 	{
 		Services_Exception_Disabled::check('feature_wiki_usrlock');
 		$util = new Services_Utilities();
 		//first pass - show confirm modal popup
 		if ($util->notConfirmPost()) {
-			$util->setVars($input, $this->filters,'checked');
+			$util->setVars($input, $this->filters, 'checked');
 			$countUnfiltered = count($util->items);
-			$pages = array_map(function ($pageName) { return ['pageName' => $pageName]; }, $util->items);
+			$pages = array_map(function ($pageName) {
+				return ['pageName' => $pageName];
+			}, $util->items);
 			$pages = Perms::simpleFilter('wiki page', 'pageName', 'view', $pages);
-			$util->items = array_map(function ($pageName) { return array_pop($pageName); }, $pages);
+			$util->items = array_map(function ($pageName) {
+				return array_pop($pageName);
+			}, $pages);
 			foreach ($util->items as $key => $page) {
 				if (TikiLib::lib('wiki')->is_locked($page)) {
 					unset($util->items[$key]);
@@ -506,9 +536,13 @@ class Services_Wiki_Controller
 		//after confirm submit - perform action
 		} elseif ($util->checkCsrf()) {
 			$util->setVars($input, $this->filters, 'items');
-			$pages = array_map(function ($pageName) { return ['pageName' => $pageName]; }, $util->items);
+			$pages = array_map(function ($pageName) {
+				return ['pageName' => $pageName];
+			}, $util->items);
 			$pages = Perms::simpleFilter('wiki page', 'pageName', 'view', $pages);
-			$util->items = array_map(function ($pageName) { return array_pop($pageName); }, $pages);
+			$util->items = array_map(function ($pageName) {
+				return array_pop($pageName);
+			}, $pages);
 			$errorpages = [];
 			foreach ($util->items as $page) {
 				$res = TikiLib::lib('wiki')->lock_page($page);
@@ -558,21 +592,22 @@ class Services_Wiki_Controller
 	 * @throws Services_Exception
 	 * @throws Services_Exception_Disabled
 	 */
-	function action_unlock_pages($input)
+	public function action_unlock_pages($input)
 	{
 		Services_Exception_Disabled::check('feature_wiki_usrlock');
 		$util = new Services_Utilities();
 		//first pass - show confirm modal popup
 		if ($util->notConfirmPost()) {
-			$util->setVars($input, $this->filters,'checked');
+			$util->setVars($input, $this->filters, 'checked');
 			$countUnfiltered = $util->itemsCount;
 			$admin = Perms::get()->admin_wiki;
 			global $user;
 			foreach ($util->items as $key => $page) {
 				$pinfo = TikiLib::lib('tiki')->get_page_info($page);
-				if (! ($pinfo['flag'] == 'L' &&
-						($admin || ($user == $pinfo['lockedby']) || (! $pinfo['lockedby'] && $user == $pinfo['user']))
-					)
+				if (
+					! ($pinfo['flag'] == 'L' &&
+					($admin || ($user == $pinfo['lockedby']) ||
+					(! $pinfo['lockedby'] && $user == $pinfo['user'])))
 				) {
 					unset($util->items[$key]);
 				}
@@ -602,9 +637,10 @@ class Services_Wiki_Controller
 			global $user;
 			foreach ($util->items as $key => $page) {
 				$pinfo = TikiLib::lib('tiki')->get_page_info($page);
-				if (! ($pinfo['flag'] == 'L' &&
-					($admin || ($user == $pinfo['lockedby']) || (! $pinfo['lockedby'] && $user == $pinfo['user']))
-				)
+				if (
+					! ($pinfo['flag'] == 'L' &&
+					($admin || ($user == $pinfo['lockedby']) ||
+					(! $pinfo['lockedby'] && $user == $pinfo['user'])))
 				) {
 					unset($util->items[$key]);
 				}
@@ -658,13 +694,13 @@ class Services_Wiki_Controller
 	 * @throws Services_Exception
 	 * @throws Services_Exception_Denied
 	 */
-	function action_zip($input)
+	public function action_zip($input)
 	{
 		Services_Exception_Denied::checkGlobal('admin');
 		$util = new Services_Utilities();
 		//first pass - show confirm modal popup
 		if ($util->notConfirmPost()) {
-			$util->setVars($input, $this->filters,'checked');
+			$util->setVars($input, $this->filters, 'checked');
 			if ($util->itemsCount > 0) {
 				if ($util->itemsCount === 1) {
 					$msg = tr('Download a zipped file of the following page?');
@@ -679,7 +715,7 @@ class Services_Wiki_Controller
 		} elseif ($util->checkCsrf()) {
 			$util->setVars($input, $this->filters, 'items');
 			include_once('lib/wiki/xmllib.php');
-			$xmllib = new XmlLib;
+			$xmllib = new XmlLib();
 			$zipFile = 'dump/xml.zip';
 			$config['debug'] = false;
 			if ($xmllib->export_pages($util->items, null, $zipFile, $config)) {
@@ -704,13 +740,13 @@ class Services_Wiki_Controller
 	 * @throws Services_Exception
 	 * @throws Services_Exception_Denied
 	 */
-	function action_title($input)
+	public function action_title($input)
 	{
 		Services_Exception_Denied::checkGlobal('admin');
 		$util = new Services_Utilities();
 		//first pass - show confirm modal popup
 		if ($util->notConfirmPost()) {
-			$util->setVars($input, $this->filters,'checked');
+			$util->setVars($input, $this->filters, 'checked');
 			if ($util->itemsCount > 0) {
 				if ($util->itemsCount === 1) {
 					$msg = tr('Add page name as header of the following page?');

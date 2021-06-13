@@ -28,7 +28,7 @@ class Services_Utilities
 	 *
 	 * @return bool|string
 	 */
-	static function noJsPath()
+	public static function noJsPath()
 	{
 		global $prefs;
 		//no javascript
@@ -51,7 +51,7 @@ class Services_Utilities
 	 * @param bool $referer
 	 * @throws Exception
 	 */
-	static function sendFeedback($referer = false)
+	public static function sendFeedback($referer = false)
 	{
 		//no javascript
 		if (! empty($referer)) {
@@ -73,7 +73,7 @@ class Services_Utilities
 	 * @return array
 	 * @throws Exception
 	 */
-	static function closeModal($referer = false)
+	public static function closeModal($referer = false)
 	{
 		//no javascript
 		if (! empty($referer)) {
@@ -97,7 +97,7 @@ class Services_Utilities
 	 * @return array
 	 * @throws Exception
 	 */
-	static function refresh($referer = false, $strip = '')
+	public static function refresh($referer = false, $strip = '')
 	{
 		//no javascript
 		if (! empty($referer)) {
@@ -122,7 +122,7 @@ class Services_Utilities
 	 * @return array
 	 * @throws Exception
 	 */
-	static function redirect($url)
+	public static function redirect($url)
 	{
 		//no javascript
 		global $prefs;
@@ -143,7 +143,7 @@ class Services_Utilities
 	 * @throws Exception
 	 * @throws Services_Exception
 	 */
-	static function modalException($mes)
+	public static function modalException($mes)
 	{
 		$referer = self::noJsPath();
 		//no javascript
@@ -170,12 +170,12 @@ class Services_Utilities
 	 * @throws Exception
 	 * @throws Services_Exception
 	 */
-	function checkCsrf($error = 'services')
+	public function checkCsrf($error = 'services')
 	{
 		return TikiLib::lib('access')->checkCsrf(null, null, null, null, null, $error);
 	}
 
-	function isConfirmPost()
+	public function isConfirmPost()
 	{
 		$return = TikiLib::lib('access')->isActionPost() && isset($_POST['confirmForm']) && $_POST['confirmForm'] === 'y';
 		if ($return) {
@@ -185,23 +185,23 @@ class Services_Utilities
 		}
 	}
 
-	function notConfirmPost()
+	public function notConfirmPost()
 	{
 		return ! TikiLib::lib('access')->isActionPost() || ! isset($_POST['confirmForm']) || $_POST['confirmForm'] !== 'y';
 	}
 
-	function isActionPost()
+	public function isActionPost()
 	{
 		$access = TikiLib::lib('access');
 		return $access->isActionPost() && $access->checkCsrf(null, null, null, null, null, 'services');
 	}
 
-	function setTicket()
+	public function setTicket()
 	{
 		return TikiLib::lib('access')->setTicket();
 	}
 
-	function getTicket()
+	public function getTicket()
 	{
 		return TikiLib::lib('access')->getTicket();
 	}
@@ -214,7 +214,7 @@ class Services_Utilities
 	 * @param bool $itemsOffset
 	 * @throws Exception
 	 */
-	function setVars(JitFilter &$input, array $filters = [], $itemsOffset = false)
+	public function setVars(JitFilter &$input, array $filters = [], $itemsOffset = false)
 	{
 		if (!empty($filters)) {
 			$input->replaceFilters($filters);
@@ -244,7 +244,7 @@ class Services_Utilities
 	 * @param array $moreExtra
 	 * @return array
 	 */
-	function confirm($msg, $button, array $moreExtra = [])
+	public function confirm($msg, $button, array $moreExtra = [])
 	{
 		$thisExtra = [];
 		if (is_array($this->extra)) {

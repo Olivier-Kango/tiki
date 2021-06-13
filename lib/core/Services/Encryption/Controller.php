@@ -11,7 +11,7 @@ class Services_Encryption_Controller
 {
 	private $encryptionlib;
 
-	function setUp()
+	public function setUp()
 	{
 		$this->encryptionlib = TikiLib::lib('encryption');
 	}
@@ -20,12 +20,12 @@ class Services_Encryption_Controller
 	 * Returns the section for use with certain features like banning
 	 * @return string
 	 */
-	function getSection()
+	public function getSection()
 	{
 		return 'security';
 	}
 
-	function action_save_key($input)
+	public function action_save_key($input)
 	{
 		global $user, $prefs;
 
@@ -73,10 +73,10 @@ class Services_Encryption_Controller
 					TikiLib::lib('crypt')->init();
 					TikiLib::lib('crypt')->setUserData('sk', $shares[$i], $keyId);
 				} catch (Exception $e) {
-					TikiLib::lib('tiki')->set_user_preference($auser, 'pe.sk.'.$keyId, $shares[$i]);
+					TikiLib::lib('tiki')->set_user_preference($auser, 'pe.sk.' . $keyId, $shares[$i]);
 				}
 			} else {
-				TikiLib::lib('tiki')->set_user_preference($auser, 'pe.sk.'.$keyId, $shares[$i]);
+				TikiLib::lib('tiki')->set_user_preference($auser, 'pe.sk.' . $keyId, $shares[$i]);
 			}
 		}
 
@@ -87,7 +87,7 @@ class Services_Encryption_Controller
 		];
 	}
 
-	function action_get_key($input)
+	public function action_get_key($input)
 	{
 		global $prefs;
 
@@ -101,19 +101,19 @@ class Services_Encryption_Controller
 		];
 	}
 
-	function action_get_keys()
+	public function action_get_keys()
 	{
 		$encryption_keys = $this->encryptionlib->get_keys();
 
 		return $encryption_keys;
 	}
 
-	function action_delete_key($input)
+	public function action_delete_key($input)
 	{
 		return $this->encryptionlib->delete_key($input->keyId->int());
 	}
 
-	function action_get_share_for_key($input)
+	public function action_get_share_for_key($input)
 	{
 		$crypt = TikiLib::lib('crypt');
 		try {
@@ -123,14 +123,14 @@ class Services_Encryption_Controller
 			return null;
 		}
 		try {
-			$share = $crypt->getUserData('sk.'.$input->keyId->int());
+			$share = $crypt->getUserData('sk.' . $input->keyId->int());
 		} catch (Exception $e) {
 			throw new Services_Exception_Denied($e->getMessage());
 		}
 		return $share;
 	}
 
-	function action_decrypt_key($input)
+	public function action_decrypt_key($input)
 	{
 		$encryption_key = $this->encryptionlib->get_key($input->keyId->int());
 		if (empty($encryption_key)) {
@@ -154,12 +154,12 @@ class Services_Encryption_Controller
 		return $key;
 	}
 
-	function action_get_encrypted_fields()
+	public function action_get_encrypted_fields()
 	{
 		return $this->encryptionlib->get_encrypted_fields();
 	}
 
-	function action_enter_key($input)
+	public function action_enter_key($input)
 	{
 		$encryption_key = $this->encryptionlib->get_key($input->keyId->int());
 		if (empty($encryption_key)) {
@@ -180,11 +180,11 @@ class Services_Encryption_Controller
 
 	private function share($key, &$data)
 	{
-		if ($data['shares']+1 < 2) {
+		if ($data['shares'] + 1 < 2) {
 			throw new Services_Exception_Denied(tr('Key must be shared with minimum of one user.'));
 		}
-		$shares = Secret::share($key, $data['shares']+1, 2);
+		$shares = Secret::share($key, $data['shares'] + 1, 2);
 		$data['secret'] = $shares[0];
-		return array_slice($shares, 1, count($shares)-1);
+		return array_slice($shares, 1, count($shares) - 1);
 	}
 }

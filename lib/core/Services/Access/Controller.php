@@ -25,13 +25,13 @@ class Services_Access_Controller
 	 * @param $input JitFilter
 	 * @return array
 	 */
-	function action_confirm($input)
+	public function action_confirm($input)
 	{
 		$ret = $this->prepareReturn($input);
 		return $ret;
 	}
 
-	function action_confirm_select($input)
+	public function action_confirm_select($input)
 	{
 		$ret = $this->prepareReturn($input);
 		return $ret;

@@ -10,23 +10,23 @@ class Services_Workspace_ProfileAnalyser
 	private $profile;
 	private $builder;
 
-	function __construct(Tiki_Profile $profile)
+	public function __construct(Tiki_Profile $profile)
 	{
 		$this->profile = $profile;
-		$this->builder = new Services_Workspace_ProfileBuilder;
+		$this->builder = new Services_Workspace_ProfileBuilder();
 	}
 
-	function ref($name)
+	public function ref($name)
 	{
 		return $this->builder->ref($name);
 	}
 
-	function user($name)
+	public function user($name)
 	{
 		return $this->builder->user($name);
 	}
 
-	function contains(array $conditions)
+	public function contains(array $conditions)
 	{
 		$objects = $this->profile->getObjects();
 
@@ -66,7 +66,7 @@ class Services_Workspace_ProfileAnalyser
 	/**
 	 * Provides group information using the permission details from a specific object.
 	 */
-	function getGroups($type, $object)
+	public function getGroups($type, $object)
 	{
 		$out = [];
 
@@ -92,7 +92,7 @@ class Services_Workspace_ProfileAnalyser
 		return $this->simplify($out);
 	}
 
-	function getObjects($type, $default = null)
+	public function getObjects($type, $default = null)
 	{
 		$out = [];
 
@@ -113,7 +113,7 @@ class Services_Workspace_ProfileAnalyser
 	{
 		array_walk_recursive(
 			$data,
-			function (& $entry) {
+			function (&$entry) {
 				if (is_string($entry)) {
 					$entry = preg_replace('/\$profilerequest:(\w+)\$[^\$]*\$/', '{$1}', $entry);
 				}

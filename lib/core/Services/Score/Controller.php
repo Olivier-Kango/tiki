@@ -7,11 +7,11 @@
 class Services_Score_Controller
 {
 
-	function setUp()
+	public function setUp()
 	{
 	}
 
-	function action_create_score_event($input)
+	public function action_create_score_event($input)
 	{
 
 		$eventType = $input->eventType->text();

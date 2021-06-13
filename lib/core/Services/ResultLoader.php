@@ -21,33 +21,33 @@ class Services_ResultLoader implements Iterator
 	private $loaded = 0;
 	private $isLast = false;
 
-	function __construct($callback, $perPage = 50)
+	public function __construct($callback, $perPage = 50)
 	{
 		$this->perPage = (int) $perPage;
 		$this->callback = $callback;
 	}
 
-	function current()
+	public function current()
 	{
 		return $this->data[$this->position % $this->perPage];
 	}
 
-	function next()
+	public function next()
 	{
 		$this->position++;
 	}
 
-	function rewind()
+	public function rewind()
 	{
 		$this->position = 0;
 	}
 
-	function key()
+	public function key()
 	{
 		return $this->position;
 	}
 
-	function valid()
+	public function valid()
 	{
 		if ($this->position >= $this->loaded && ! $this->isLast) {
 			$this->data = call_user_func($this->callback, $this->position, $this->perPage);

@@ -20,7 +20,7 @@ class Services_User_ConditionsController
 			return false;
 		}
 
-		$lib = new self;
+		$lib = new self();
 		$page = $lib->getApprovalPageInfo();
 
 		if (! $page) {
@@ -47,7 +47,7 @@ class Services_User_ConditionsController
 		return true;
 	}
 
-	function setUp()
+	public function setUp()
 	{
 		global $user;
 
@@ -58,7 +58,7 @@ class Services_User_ConditionsController
 		}
 	}
 
-	function action_approval($input)
+	public function action_approval($input)
 	{
 		global $user;
 
@@ -202,7 +202,7 @@ class Services_User_ConditionsController
 			return true;
 		}
 
-		$lib = new self;
+		$lib = new self();
 		$birthDate = $lib->getBirthDate($user);
 
 		if (! $birthDate) {
@@ -222,10 +222,11 @@ class Services_User_ConditionsController
 
 	private function setBirthDate($user, $date)
 	{
-		if (preg_match('/^\d{4}\-\d{2}\-\d{2}$/', $date) // Basic format
-			&& false !== strtotime($date)                // Valid date
-			&& $date < date('Y-m-d')                     // Not in the future, that would be strange
-			) {
+		if (
+			preg_match('/^\d{4}\-\d{2}\-\d{2}$/', $date) // Basic format
+			&& false !== strtotime($date) // Valid date
+			&& $date < date('Y-m-d') // Not in the future, that would be strange
+		) {
 			$tikilib = TikiLib::lib('tiki');
 			$tikilib->set_user_preference($user, 'birth_date', $date);
 		}

@@ -1,8 +1,8 @@
 <?php
 
-use \GuzzleHttp\Psr7\Response;
-use \GuzzleHttp\Psr7\Stream;
-use \GuzzleHttp\Psr7\PumpStream;
+use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Psr7\Stream;
+use GuzzleHttp\Psr7\PumpStream;
 use Psr\Http\Message\StreamInterface;
 
 class JsonResponse extends Response

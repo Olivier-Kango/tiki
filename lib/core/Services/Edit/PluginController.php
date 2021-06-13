@@ -15,12 +15,12 @@ class Services_Edit_PluginController
 {
 	private $pluginList;
 
-	function __construct()
+	public function __construct()
 	{
 		$this->pluginList = [];
 	}
 
-	function setUp()
+	public function setUp()
 	{
 		Services_Exception_Disabled::check('feature_wiki');
 
@@ -31,7 +31,7 @@ class Services_Edit_PluginController
 	 * Returns the section for use with certain features like banning
 	 * @return string
 	 */
-	function getSection()
+	public function getSection()
 	{
 		return 'wiki page';
 	}
@@ -42,7 +42,7 @@ class Services_Edit_PluginController
 	 * @param JitFilter $input
 	 * @return array
 	 */
-	function action_list($input)
+	public function action_list($input)
 	{
 		$filter = $input->filter->text();
 		$title = $input->title->text();
@@ -100,7 +100,7 @@ class Services_Edit_PluginController
 	 * @throws Services_Exception_EditConflict
 	 * @throws Services_Exception_NotFound
 	 */
-	function action_edit($input)
+	public function action_edit($input)
 	{
 		global $prefs;
 
@@ -134,7 +134,6 @@ class Services_Edit_PluginController
 
 		$util = new Services_Utilities();
 		if ($util->isConfirmPost()) {
-
 			$this->action_replace($input);
 
 			TikiLib::lib('service')->internal('semaphore', 'unset', ['object_id' => $page]);
@@ -273,9 +272,9 @@ class Services_Edit_PluginController
 	 * @throws Services_Exception_Denied
 	 * @throws Services_Exception_NotFound
 	 */
-	function action_replace($input)
+	public function action_replace($input)
 	{
-		$util = new Services_Edit_Utilities;
+		$util = new Services_Edit_Utilities();
 		return $util->replacePlugin($input);
 	}
 
@@ -288,7 +287,7 @@ class Services_Edit_PluginController
 	 * @throws Services_Exception_BadRequest
 	 * @throws Services_Exception_Denied
 	 */
-	function action_convert_trackerlist($input)
+	public function action_convert_trackerlist($input)
 	{
 		global $user;
 
@@ -369,7 +368,6 @@ class Services_Edit_PluginController
 			}
 			throw new Exception('Plugin convert failed');
 		}
-
 	}
 
 	/**
@@ -379,7 +377,7 @@ class Services_Edit_PluginController
 	 * @return array
 	 * @throws Exception
 	 */
-	function action_list_edit($input)
+	public function action_list_edit($input)
 	{
 		global $prefs;
 
@@ -442,10 +440,10 @@ class Services_Edit_PluginController
 	 * @param array $parent
 	 * @param array $allowedPlugins names of plugins to include (sub plugins of {list}
 	 */
-	private function parsePlugins($body, & $plugins, & $done, $parent = null, $allowedPlugins)
+	private function parsePlugins($body, &$plugins, &$done, $parent = null, $allowedPlugins)
 	{
 		$matches = WikiParser_PluginMatcher::match($body);
-		$argumentParser = new WikiParser_PluginArgumentParser;
+		$argumentParser = new WikiParser_PluginArgumentParser();
 		$lastMatchEnd = 0;
 		$hasParent = $parent && in_array(strtolower($parent['name']), ['output', 'format']);
 

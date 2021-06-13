@@ -9,13 +9,13 @@ class Services_ActivityStream_Controller
 {
 	private $lib;
 
-	function setUp()
+	public function setUp()
 	{
 		$this->lib = TikiLib::lib('unifiedsearch');
 		Services_Exception_Disabled::check('wikiplugin_activitystream');
 	}
 
-	function action_render(JitFilter $request)
+	public function action_render(JitFilter $request)
 	{
 		$encoded = $request->stream->none();
 		$page = $request->page->int() ?: 1;
@@ -24,7 +24,7 @@ class Services_ActivityStream_Controller
 			throw new Services_Exception_Denied('Invalid request performed.');
 		}
 
-		$query = new Search_Query;
+		$query = new Search_Query();
 		$this->lib->initQuery($query);
 		$query->filterType('activity');
 

@@ -7,7 +7,7 @@
 
 class Services_Suite_Controller
 {
-	function setUp()
+	public function setUp()
 	{
 		Services_Exception_Disabled::check('suite_jitsi_provision');
 	}
@@ -21,7 +21,7 @@ class Services_Suite_Controller
 		return TikiLib::tikiUrl($url) . '&username=${username}&password=${password}';
 	}
 
-	function action_jitsi($input)
+	public function action_jitsi($input)
 	{
 		global $prefs;
 		$config = $prefs['suite_jitsi_configuration'];

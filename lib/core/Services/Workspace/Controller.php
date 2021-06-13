@@ -9,9 +9,9 @@ class Services_Workspace_Controller
 {
 	private $utilities;
 
-	function setUp()
+	public function setUp()
 	{
-		$this->utilities = new Services_Workspace_Utilities;
+		$this->utilities = new Services_Workspace_Utilities();
 
 		Services_Exception_Disabled::check('workspace_ui');
 		Services_Exception_Disabled::check('feature_perspective');
@@ -19,7 +19,7 @@ class Services_Workspace_Controller
 		Services_Exception_Disabled::check('feature_categories');
 	}
 
-	function action_create($input)
+	public function action_create($input)
 	{
 		global $prefs;
 		$templates = $this->utilities->getTemplateList();
@@ -36,7 +36,7 @@ class Services_Workspace_Controller
 			$perms = Perms::get('workspace', $template);
 
 			if (! $perms->workspace_instantiate) {
-				throw new Services_Exception_Denied;
+				throw new Services_Exception_Denied();
 			}
 			$workspaceName = $name;
 			$name = $templateInfo['name'] . $prefs['namespace_separator'] . $name;
@@ -69,7 +69,7 @@ class Services_Workspace_Controller
 		];
 	}
 
-	function action_list_templates($input)
+	public function action_list_templates($input)
 	{
 		return [
 			'title' => tr('Workspace Templates'),
@@ -77,15 +77,15 @@ class Services_Workspace_Controller
 		];
 	}
 
-	function action_add_template($input)
+	public function action_add_template($input)
 	{
 		if (! Perms::get()->admin) {
-			throw new Services_Exception_Denied;
+			throw new Services_Exception_Denied();
 		}
 
 		$id = null;
 		if ($input->name->text()) {
-			$builder = new Services_Workspace_ProfileBuilder;
+			$builder = new Services_Workspace_ProfileBuilder();
 			$builder->addGroup('Base', $builder->user('group'));
 			$builder->setManagingGroup('Base');
 			$builder->setPermissions(
@@ -148,10 +148,10 @@ class Services_Workspace_Controller
 		];
 	}
 
-	function action_edit_template($input)
+	public function action_edit_template($input)
 	{
 		if (! Perms::get()->admin) {
-			throw new Services_Exception_Denied;
+			throw new Services_Exception_Denied();
 		}
 
 		global $prefs;
@@ -162,7 +162,7 @@ class Services_Workspace_Controller
 		}
 
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-			$builder = new Services_Workspace_ProfileBuilder;
+			$builder = new Services_Workspace_ProfileBuilder();
 
 			if ($prefs['feature_areas'] == 'y' && $input->area->int()) {
 				$builder->addObject(
@@ -235,10 +235,10 @@ class Services_Workspace_Controller
 		];
 	}
 
-	function action_advanced_edit($input)
+	public function action_advanced_edit($input)
 	{
 		if (! Perms::get()->admin) {
-			throw new Services_Exception_Denied;
+			throw new Services_Exception_Denied();
 		}
 
 		if ($definition = $input->edit->wikicontent()) {
@@ -263,10 +263,10 @@ class Services_Workspace_Controller
 		];
 	}
 
-	function action_select_permissions($input)
+	public function action_select_permissions($input)
 	{
 		if (! Perms::get()->admin) {
-			throw new Services_Exception_Denied;
+			throw new Services_Exception_Denied();
 		}
 
 		$permissions = [];
@@ -303,7 +303,7 @@ class Services_Workspace_Controller
 		];
 	}
 
-	function action_edit_content($input)
+	public function action_edit_content($input)
 	{
 		$text = $input->content->text();
 		$content = $input->content->wikicontent();

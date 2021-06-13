@@ -17,7 +17,7 @@ class Services_Language_Utilities
 	 *
 	 * @return
 	 */
-	function insertTranslation($type, $source, $target)
+	public function insertTranslation($type, $source, $target)
 	{
 		$multilinguallib = TikiLib::lib('multilingual');
 		$sourceLang = $this->getLanguage($type, $source);
@@ -40,7 +40,7 @@ class Services_Language_Utilities
 	 *
 	 * @return
 	 */
-	function detachTranslation($type, $source, $target)
+	public function detachTranslation($type, $source, $target)
 	{
 		$multilinguallib = TikiLib::lib('multilingual');
 		$targetId = $this->toInternalId($type, $target);
@@ -56,7 +56,7 @@ class Services_Language_Utilities
 	 *
 	 * @return array List of language codes, eg: en, hu, de, etc
 	 */
-	function getTranslations($type, $object)
+	public function getTranslations($type, $object)
 	{
 		$multilinguallib = TikiLib::lib('multilingual');
 		$langLib = TikiLib::lib('language');
@@ -84,7 +84,7 @@ class Services_Language_Utilities
 	 *
 	 * @throws Services_Exception
 	 */
-	function getLanguage($type, $object)
+	public function getLanguage($type, $object)
 	{
 		$lang = null;
 		switch ($type) {
@@ -166,7 +166,7 @@ class Services_Language_Utilities
 	 * @internal param $none
 	 *
 	 */
-	function getLanguages($language = '')
+	public function getLanguages($language = '')
 	{
 		$langLib = TikiLib::lib('language');
 		$languages = $langLib->list_languages(false, null, true);
@@ -181,7 +181,7 @@ class Services_Language_Utilities
 	 * @return string $langDir The directory path languages or to a language specifically
 	 *
 	 */
-	function getLanguageDirectory($language = '')
+	public function getLanguageDirectory($language = '')
 	{
 		$langDir = "lang/";
 
@@ -206,7 +206,7 @@ class Services_Language_Utilities
 	 *
 	 * @throws exception
 	 */
-	function checkLangDirIsReadable($language = '')
+	public function checkLangDirIsReadable($language = '')
 	{
 		$directory = $this->getLanguageDirectory($language);
 		$langDirIsReadable = is_readable($directory);
@@ -227,7 +227,7 @@ class Services_Language_Utilities
 	 *
 	 * @throws exception
 	 */
-	function checkLangDirIsWritable($language = '')
+	public function checkLangDirIsWritable($language = '')
 	{
 		$directory = $this->getLanguageDirectory($language);
 		$langDirIsWritable = is_writable($directory);
@@ -246,7 +246,7 @@ class Services_Language_Utilities
 	 *
 	 * @return int $db_translation_count Count of translations in the database
 	 */
-	function getDbTranslationCount($language)
+	public function getDbTranslationCount($language)
 	{
 		$db_language = new LanguageTranslations($language);
 		$db_language_translations = $db_language->getDbTranslations();
@@ -262,7 +262,7 @@ class Services_Language_Utilities
 	 *
 	 * @return array $lang_custom The array of translations from the custom.php file for the language
 	 */
-	function getCustomPhpTranslations($language)
+	public function getCustomPhpTranslations($language)
 	{
 		$custom_file = $this->getLanguageDirectory($language);
 		$custom_file .= 'custom.php';
@@ -284,7 +284,7 @@ class Services_Language_Utilities
 	 *
 	 * @return int $item_count The count of translation items in the the custom.php file for the language
 	 */
-	function getCustomPhpTranslationCount($language)
+	public function getCustomPhpTranslationCount($language)
 	{
 		$lang_array = $this->getCustomPhpTranslations($language);
 		if (is_null($lang_array)) {
@@ -305,7 +305,7 @@ class Services_Language_Utilities
 	 *
 	 * @throws exception
 	 */
-	function writeCustomPhpTranslations($language, $data)
+	public function writeCustomPhpTranslations($language, $data)
 	{
 		//prepare custom file path
 		$custom_file = $this->getLanguageDirectory($language);
@@ -348,7 +348,7 @@ class Services_Language_Utilities
 	 * @return string custom.json
 	 *
 	 */
-	function getJsonCustomTranslationFileName()
+	public function getJsonCustomTranslationFileName()
 	{
 		$jsonCustomTranslationFileName = 'custom.json';
 		return $jsonCustomTranslationFileName;
@@ -363,7 +363,7 @@ class Services_Language_Utilities
 	 * @return boolean True
 	 *
 	 */
-	function writeJsonTranslationFile($language, $translations)
+	public function writeJsonTranslationFile($language, $translations)
 	{
 		//convert translation to JSON
 		$jsonTranslations = json_encode($translations);
@@ -391,7 +391,7 @@ class Services_Language_Utilities
 	 * @return boolean True
 	 *
 	 */
-	function getCustomJsonTranslationFile($language)
+	public function getCustomJsonTranslationFile($language)
 	{
 		//check if language directory is readable
 		$isReadable = $this->checkLangDirIsReadable($language);
@@ -419,7 +419,7 @@ class Services_Language_Utilities
 	 * @return array $updatedStringTranslationSet
 	 *
 	 */
-	function processStringTranslationSets($sourceStringTranslationSet, $targetStringTranslationSet, $process_type)
+	public function processStringTranslationSets($sourceStringTranslationSet, $targetStringTranslationSet, $process_type)
 	{
 		//validate input
 		if (! is_array($sourceStringTranslationSet)) {
@@ -431,15 +431,15 @@ class Services_Language_Utilities
 		//merge means that existing translations in the target are replaced and new ones are added to the set
 		if ($process_type === 'merge') {
 			$updatedStringTranslationSet = array_merge($targetStringTranslationSet, $sourceStringTranslationSet);
-		} //diff means that only those items are returned from source that are not in target
-		elseif ($process_type === 'diff') {
+			//diff means that only those items are returned from source that are not in target
+		} elseif ($process_type === 'diff') {
 			$updatedStringTranslationSet = array_diff($sourceStringTranslationSet, $targetStringTranslationSet);
-		} //intersect_merge means that values for matching keys are overwritten, but values for keys in the source set that do not exist in the target set are not added
-		elseif ($process_type === 'intersect_merge') {
+			//intersect_merge means that values for matching keys are overwritten, but values for keys in the source set that do not exist in the target set are not added
+		} elseif ($process_type === 'intersect_merge') {
 			$updatedStringTranslationSet = array_intersect($targetStringTranslationSet, $sourceStringTranslationSet);
 			$updatedStringTranslationSet = array_merge($updatedStringTranslationSet, $sourceStringTranslationSet);
-		} //replace means that source set is replace by the target set (you will probably just overwrite the variable in your function. This option is left here not to run into error in case for some reason the type is called)
-		elseif ($process_type === 'replace') {
+			//replace means that source set is replace by the target set (you will probably just overwrite the variable in your function. This option is left here not to run into error in case for some reason the type is called)
+		} elseif ($process_type === 'replace') {
 			$updatedStringTranslationSet = $sourceStringTranslationSet;
 		} else {
 			throw new Services_Exception(tr('Invalid process type'), 400);
@@ -454,7 +454,7 @@ class Services_Language_Utilities
 	 *
 	 */
 	//define upload types for the uploaded file
-	function getStringTranslationSetProcessTypes()
+	public function getStringTranslationSetProcessTypes()
 	{
 		$stringTranslationSetProcessTypes = [
 			'merge' => tra('Add new and update existing'),

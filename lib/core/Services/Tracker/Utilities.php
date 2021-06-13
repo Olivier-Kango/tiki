@@ -7,7 +7,7 @@
 
 class Services_Tracker_Utilities
 {
-	function insertItem($definition, $item)
+	public function insertItem($definition, $item)
 	{
 		$newItem = $this->replaceItem($definition, 0, $item['status'], $item['fields'], [
 			'validate' => isset($item['validate']) ? $item['validate'] : true,
@@ -19,7 +19,7 @@ class Services_Tracker_Utilities
 		return $newItem;
 	}
 
-	function updateItem($definition, $item)
+	public function updateItem($definition, $item)
 	{
 		return $this->replaceItem($definition, $item['itemId'], $item['status'], $item['fields'], [
 			'validate' => isset($item['validate']) ? $item['validate'] : true,
@@ -29,7 +29,7 @@ class Services_Tracker_Utilities
 		]);
 	}
 
-	function resaveItem($itemId)
+	public function resaveItem($itemId)
 	{
 		$tracker = TikiLib::lib('trk')->get_item_info($itemId);
 		if (! $tracker) {
@@ -47,7 +47,7 @@ class Services_Tracker_Utilities
 		]);
 	}
 
-	function validateItem($definition, $item, $fields = [])
+	public function validateItem($definition, $item, $fields = [])
 	{
 		$trackerId = $definition->getConfiguration('trackerId');
 		if (! $fields) {
@@ -148,7 +148,7 @@ class Services_Tracker_Utilities
 		return $fields;
 	}
 
-	function createField(array $data)
+	public function createField(array $data)
 	{
 		$definition = Tracker_Definition::get($data['trackerId']);
 
@@ -182,7 +182,7 @@ class Services_Tracker_Utilities
 		);
 	}
 
-	function updateField($trackerId, $fieldId, array $properties)
+	public function updateField($trackerId, $fieldId, array $properties)
 	{
 		$definition = Tracker_Definition::get($trackerId);
 
@@ -225,7 +225,7 @@ class Services_Tracker_Utilities
 	 *
 	 * @return mixed
 	 */
-	function getItems(array $conditions, $maxRecords = -1, $offset = -1, $fields = [])
+	public function getItems(array $conditions, $maxRecords = -1, $offset = -1, $fields = [])
 	{
 		$keyMap = [];
 		$definition = Tracker_Definition::get($conditions['trackerId']);
@@ -262,7 +262,7 @@ class Services_Tracker_Utilities
 		return $items;
 	}
 
-	function getItem($trackerId, $itemId)
+	public function getItem($trackerId, $itemId)
 	{
 		$items = $this->getItems(
 			[
@@ -277,7 +277,7 @@ class Services_Tracker_Utilities
 		return $item;
 	}
 
-	function getTitle($definition, $item)
+	public function getTitle($definition, $item)
 	{
 		$parts = [];
 
@@ -291,7 +291,7 @@ class Services_Tracker_Utilities
 		return implode(' ', $parts);
 	}
 
-	function processValues($definition, $item)
+	public function processValues($definition, $item)
 	{
 		$trklib = TikiLib::lib('trk');
 
@@ -325,7 +325,7 @@ class Services_Tracker_Utilities
 		return $out;
 	}
 
-	function createTracker($data)
+	public function createTracker($data)
 	{
 		$trklib = TikiLib::lib('trk');
 		return $trklib->replace_tracker(
@@ -337,7 +337,7 @@ class Services_Tracker_Utilities
 		);
 	}
 
-	function updateTracker($trackerId, $data)
+	public function updateTracker($trackerId, $data)
 	{
 		$trklib = TikiLib::lib('trk');
 		$name = $data['name'];
@@ -351,7 +351,7 @@ class Services_Tracker_Utilities
 		return $trklib->replace_tracker($trackerId, $name, $description, $data, $descriptionIsParsed);
 	}
 
-	function clearTracker($trackerId)
+	public function clearTracker($trackerId)
 	{
 		$table = TikiDb::get()->table('tiki_tracker_items');
 
@@ -369,9 +369,9 @@ class Services_Tracker_Utilities
 		return $success;
 	}
 
-	function importField($trackerId, $field, $preserve, $lastposition=0)
+	public function importField($trackerId, $field, $preserve, $lastposition = 0)
 	{
-		if ($lastposition == 1 || ! $field->position->int() ) {
+		if ($lastposition == 1 || ! $field->position->int()) {
 			// No position parameter was provided or user requested that new fields are added to the bottom
 			$trklib = TikiLib::lib('trk');
 			$position = $trklib->get_last_position($trackerId) + 10;
@@ -434,7 +434,7 @@ class Services_Tracker_Utilities
 		$this->updateField($trackerId, $fieldId, $data);
 	}
 
-	function exportField($field)
+	public function exportField($field)
 	{
 		return <<<EXPORT
 [FIELD{$field['fieldId']}]
@@ -457,7 +457,7 @@ rules = {$field['rules']}
 EXPORT;
 	}
 
-	function buildOptions($input, $typeInfo)
+	public function buildOptions($input, $typeInfo)
 	{
 		if (is_string($typeInfo)) {
 			$types = $this->getFieldTypes();
@@ -472,14 +472,14 @@ EXPORT;
 		return $options->serialize();
 	}
 
-	function parseOptions($raw, $typeInfo)
+	public function parseOptions($raw, $typeInfo)
 	{
 		$options = Tracker_Options::fromSerialized($raw, $typeInfo);
 
 		return $options->getAllParameters();
 	}
 
-	function getFieldTypesDisabled()
+	public function getFieldTypesDisabled()
 	{
 		$factory = new Tracker_Field_Factory(false);
 		$completeList = $factory->getFieldTypes();
@@ -495,7 +495,7 @@ EXPORT;
 		return $list;
 	}
 
-	function getFieldTypes($filter = [])
+	public function getFieldTypes($filter = [])
 	{
 		$factory = new Tracker_Field_Factory(false);
 		$completeList = $factory->getFieldTypes();
@@ -528,7 +528,7 @@ EXPORT;
 		return true;
 	}
 
-	function getFieldsFromIds($definition, $fieldIds)
+	public function getFieldsFromIds($definition, $fieldIds)
 	{
 		$fields = [];
 		foreach ($fieldIds as $fieldId) {
@@ -544,13 +544,13 @@ EXPORT;
 		return $fields;
 	}
 
-	function removeItem($itemId)
+	public function removeItem($itemId)
 	{
 		$trklib = TikiLib::lib('trk');
 		return $trklib->remove_tracker_item($itemId, true);
 	}
 
-	function removeItemAndReferences($definition, $itemObject, $uncascaded, $replacement)
+	public function removeItemAndReferences($definition, $itemObject, $uncascaded, $replacement)
 	{
 		$tx = TikiDb::get()->begin();
 
@@ -569,13 +569,13 @@ EXPORT;
 		$tx->commit();
 	}
 
-	function removeTracker($trackerId)
+	public function removeTracker($trackerId)
 	{
 		$trklib = TikiLib::lib('trk');
 		$trklib->remove_tracker($trackerId);
 	}
 
-	function duplicateTracker($trackerId, $name, $duplicateCategories, $duplicatePermissions)
+	public function duplicateTracker($trackerId, $name, $duplicateCategories, $duplicatePermissions)
 	{
 		$trklib = TikiLib::lib('trk');
 		$newTrackerId = $trklib->duplicate_tracker($trackerId, $name, '', 'n');
@@ -606,7 +606,7 @@ EXPORT;
 	 * @return Tracker_Item
 	 * @throws Exception
 	 */
-	function cloneItem($definition, $itemData, $itemId, $strict = false)
+	public function cloneItem($definition, $itemData, $itemId, $strict = false)
 	{
 		$transaction = TikiLib::lib('tiki')->begin();
 

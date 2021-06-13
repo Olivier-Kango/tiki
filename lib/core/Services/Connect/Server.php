@@ -9,7 +9,7 @@ class Services_Connect_Server
 {
 	private $connectlib;
 
-	function setUp()
+	public function setUp()
 	{
 		global $prefs;
 
@@ -22,7 +22,7 @@ class Services_Connect_Server
 		$this->connectlib = TikiLib::lib('connect_server');
 	}
 
-	function action_new($input)
+	public function action_new($input)
 	{
 		$rdata = [];
 
@@ -47,7 +47,7 @@ class Services_Connect_Server
 		return $rdata;
 	}
 
-	function action_confirm($input)
+	public function action_confirm($input)
 	{
 		$rdata = [];
 
@@ -91,7 +91,7 @@ class Services_Connect_Server
 		return $rdata;
 	}
 
-	function action_receive($input)
+	public function action_receive($input)
 	{
 		$rdata = [];
 
@@ -122,7 +122,7 @@ class Services_Connect_Server
 		return $rdata;
 	}
 
-	function action_cancel($input)
+	public function action_cancel($input)
 	{
 
 		$connectData = $input->connect_data->xss();

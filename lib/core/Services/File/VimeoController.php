@@ -9,13 +9,13 @@ class Services_File_VimeoController
 {
 	private $utilities;
 
-	function setUp()
+	public function setUp()
 	{
 		Services_Exception_Disabled::check('vimeo_upload');
-		$this->utilities = new Services_File_Utilities;
+		$this->utilities = new Services_File_Utilities();
 	}
 
-	function action_authorize()
+	public function action_authorize()
 	{
 		$servicelib = TikiLib::lib('service');
 		TikiLib::lib('access')->redirect(
@@ -29,7 +29,7 @@ class Services_File_VimeoController
 		);
 	}
 
-	function action_upload($input)
+	public function action_upload($input)
 	{
 		global $prefs, $tiki_p_admin;
 
@@ -88,7 +88,7 @@ class Services_File_VimeoController
 		];
 	}
 
-	function action_complete($input)
+	public function action_complete($input)
 	{
 		global $tiki_p_admin;
 
@@ -160,7 +160,7 @@ class Services_File_VimeoController
 	 * @return array
 	 * @throws Exception
 	 */
-	function action_view($input)
+	public function action_view($input)
 	{
 		$fileId = $input->file_id->text();
 		$vimeoUrl = $input->vimeo_url->text();

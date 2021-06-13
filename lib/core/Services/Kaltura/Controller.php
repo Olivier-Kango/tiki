@@ -7,12 +7,12 @@
 
 class Services_Kaltura_Controller
 {
-	function setUp()
+	public function setUp()
 	{
 		Services_Exception_Disabled::check('feature_kaltura');
 	}
 
-	function action_upload($input)
+	public function action_upload($input)
 	{
 		$perms = Perms::get();
 		if (! $perms->upload_videos) {
@@ -64,7 +64,7 @@ class Services_Kaltura_Controller
 	 * @throws Exception
 	 * @throws Services_Exception_Denied
 	 */
-	function action_list($input)
+	public function action_list($input)
 	{
 		$perms = Perms::get();
 		if (! $perms->upload_videos) {

@@ -7,7 +7,7 @@
 
 class Services_Draw_Controller
 {
-	function setUp()
+	public function setUp()
 	{
 		global $prefs;
 
@@ -24,12 +24,12 @@ class Services_Draw_Controller
 	 * Returns the section for use with certain features like banning
 	 * @return string
 	 */
-	function getSection()
+	public function getSection()
 	{
 		return 'file_galleries';
 	}
 
-	function action_edit($input)
+	public function action_edit($input)
 	{
 		global $drawFullscreen;
 		$headerlib = TikiLib::lib('header');
@@ -49,12 +49,12 @@ class Services_Draw_Controller
 		include_once 'tiki-edit_draw.php';
 	}
 
-	function action_replace($input)
+	public function action_replace($input)
 	{
 		//just a dummy for now, filegallery handles it all
 	}
 
-	function action_removeButtons()
+	public function action_removeButtons()
 	{
 		global $prefs;
 		return ['removeButtons' => $prefs['feature_draw_hide_buttons']];

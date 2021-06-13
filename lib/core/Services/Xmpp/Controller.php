@@ -8,7 +8,7 @@ require_once 'lib/auth/tokens.php';
 
 class Services_Xmpp_Controller
 {
-	function setUp()
+	public function setUp()
 	{
 		Services_Exception_Disabled::check('xmpp_feature');
 		Services_Exception_Disabled::check('auth_token_access');
@@ -23,7 +23,7 @@ class Services_Xmpp_Controller
 		throw new Services_Exception(tr('Must be authenticated'), 403);
 	}
 
-	function action_check_token($input)
+	public function action_check_token($input)
 	{
 		$xmpplib = TikiLib::lib('xmpp');
 		$query = $input->stored;
@@ -39,7 +39,7 @@ class Services_Xmpp_Controller
 		return ['valid' => $valid];
 	}
 
-	function action_get_user_info($input)
+	public function action_get_user_info($input)
 	{
 		$xmpplib = TikiLib::lib('xmpp');
 		$userlib = TikiLib::lib('user');
@@ -92,7 +92,7 @@ class Services_Xmpp_Controller
 		die(tr('Invalid token'));
 	}
 
-	function action_prebind($input)
+	public function action_prebind($input)
 	{
 		global $user;
 		$xmpplib = TikiLib::lib('xmpp');
@@ -108,7 +108,7 @@ class Services_Xmpp_Controller
 		return $result;
 	}
 
-	function action_groups_in_room($input)
+	public function action_groups_in_room($input)
 	{
 		global $tiki_p_admin;
 		if ($tiki_p_admin != 'y') {
@@ -130,7 +130,7 @@ class Services_Xmpp_Controller
 		return $return;
 	}
 
-	function action_users_in_room($input)
+	public function action_users_in_room($input)
 	{
 		global $tiki_p_list_users, $tiki_p_admin;
 		if ($tiki_p_list_users !== 'y' && $tiki_p_admin != 'y') {

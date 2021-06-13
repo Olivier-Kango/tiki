@@ -10,13 +10,13 @@ class Services_RemoteController
 	private $url;
 	private $controller;
 
-	function __construct($url, $controller)
+	public function __construct($url, $controller)
 	{
 		$this->url = $url;
 		$this->controller = $controller;
 	}
 
-	function __call($action, $args)
+	public function __call($action, $args)
 	{
 		$arguments = [];
 		if (isset($args[0]) && is_array($args[0])) {
@@ -26,7 +26,7 @@ class Services_RemoteController
 		return $this->getJson($action, $arguments);
 	}
 
-	function getResultLoader($action, $arguments, $offsetKey = 'offset', $maxRecordsKey = 'maxRecords', $resultKey = 'result', $perPage = 20)
+	public function getResultLoader($action, $arguments, $offsetKey = 'offset', $maxRecordsKey = 'maxRecords', $resultKey = 'result', $perPage = 20)
 	{
 		$client = $this->getClient($action, $arguments);
 		return new Services_ResultLoader(

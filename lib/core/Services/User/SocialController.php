@@ -9,7 +9,7 @@ class Services_User_SocialController
 {
 	private $lib;
 
-	function setUp()
+	public function setUp()
 	{
 		global $user;
 		Services_Exception_Disabled::check('feature_friends');
@@ -21,7 +21,7 @@ class Services_User_SocialController
 		$this->lib = TikiLib::lib('social');
 	}
 
-	function action_list_friends($input)
+	public function action_list_friends($input)
 	{
 		global $user;
 		// Checks if the username param was passed, if so return that user's friend list
@@ -52,7 +52,7 @@ class Services_User_SocialController
 		];
 	}
 
-	function action_add_friend($input)
+	public function action_add_friend($input)
 	{
 		global $user;
 
@@ -71,7 +71,7 @@ class Services_User_SocialController
 		];
 	}
 
-	function action_approve_friend($input)
+	public function action_approve_friend($input)
 	{
 		global $user;
 
@@ -91,7 +91,7 @@ class Services_User_SocialController
 		];
 	}
 
-	function action_remove_friend($input)
+	public function action_remove_friend($input)
 	{
 		global $user;
 
@@ -114,7 +114,7 @@ class Services_User_SocialController
 		];
 	}
 
-	function action_like($input)
+	public function action_like($input)
 	{
 		global $user;
 
@@ -125,7 +125,7 @@ class Services_User_SocialController
 		return [];
 	}
 
-	function action_unlike($input)
+	public function action_unlike($input)
 	{
 		global $user;
 

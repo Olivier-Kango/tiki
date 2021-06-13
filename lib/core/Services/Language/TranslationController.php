@@ -11,12 +11,12 @@ class Services_Language_TranslationController
 {
 	private $utilities;
 
-	function __construct()
+	public function __construct()
 	{
-		$this->utilities = new Services_Language_Utilities;
+		$this->utilities = new Services_Language_Utilities();
 	}
 
-	function setUp()
+	public function setUp()
 	{
 		global $prefs;
 
@@ -34,7 +34,7 @@ class Services_Language_TranslationController
 	 *
 	 * @throws Services_Exception
 	 */
-	function action_manage($input)
+	public function action_manage($input)
 	{
 		$type = $input->type->text();
 		$objectFilter = $this->getObjectFilter($type);
@@ -69,7 +69,7 @@ class Services_Language_TranslationController
 	 *
 	 * @throws Services_Exception
 	 */
-	function action_attach($input)
+	public function action_attach($input)
 	{
 		$type = $input->type->text();
 		$objectFilter = $this->getObjectFilter($type);
@@ -115,7 +115,7 @@ class Services_Language_TranslationController
 	 *
 	 * @throws Services_Exception
 	 */
-	function action_detach($input)
+	public function action_detach($input)
 	{
 		$type = $input->type->text();
 		$objectFilter = $this->getObjectFilter($type);
@@ -163,7 +163,7 @@ class Services_Language_TranslationController
 	 *
 	 * @return action Forward to utility action to perform the attaching
 	 */
-	function action_translate($input)
+	public function action_translate($input)
 	{
 		Services_Exception_Disabled::check('feature_machine_translation');
 
@@ -176,7 +176,7 @@ class Services_Language_TranslationController
 			$lang = $prefs['language'];
 		}
 
-		$factory = new Multilingual_MachineTranslation;
+		$factory = new Multilingual_MachineTranslation();
 		$impl = $factory->getDetectImplementation($lang);
 
 		$content = $impl->translateText($content);

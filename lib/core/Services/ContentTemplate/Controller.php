@@ -7,7 +7,7 @@
 
 class Services_ContentTemplate_Controller
 {
-	function setUp()
+	public function setUp()
 	{
 		global $prefs;
 
@@ -20,12 +20,12 @@ class Services_ContentTemplate_Controller
 	 * Returns the section for use with certain features like banning
 	 * @return string
 	 */
-	function getSection()
+	public function getSection()
 	{
 		return 'wiki page';
 	}
 
-	function action_list($input)
+	public function action_list($input)
 	{
 		// Validate access
 		$access = TikiLib::lib('access');

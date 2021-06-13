@@ -13,7 +13,7 @@ class Services_IDS_Controller
 	 */
 	private $access;
 
-	function setUp()
+	public function setUp()
 	{
 		$this->access = TikiLib::lib('access');
 	}
@@ -25,7 +25,7 @@ class Services_IDS_Controller
 	 * @throws Services_Exception_Denied
 	 * @throws Services_Exception_NotFound
 	 */
-	function action_remove($input)
+	public function action_remove($input)
 	{
 		Services_Exception_Denied::checkGlobal('admin_users');
 
@@ -35,7 +35,7 @@ class Services_IDS_Controller
 		$rule = IDS_Rule::getRule($ruleId);
 
 		if (! $rule) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		$util = new Services_Utilities();

@@ -16,7 +16,7 @@ class Services_Exception_Disabled extends Services_Exception
 		}
 	}
 
-	function __construct($preference)
+	public function __construct($preference)
 	{
 		parent::__construct(tr('Feature disabled: %0', $preference), 403);
 	}

@@ -25,7 +25,7 @@ class Services_Comment_AnnotationController
 	 * @throws Exception
 	 * @throws Services_Exception_Disabled
 	 */
-	function setUp()
+	public function setUp()
 	{
 		Services_Exception_Disabled::check('comments_inline_annotator');
 
@@ -50,7 +50,7 @@ class Services_Comment_AnnotationController
 	 * @throws Services_Exception_Denied
 	 */
 
-	function action_create($input)
+	public function action_create($input)
 	{
 		global $user;
 
@@ -65,7 +65,7 @@ class Services_Comment_AnnotationController
 		list($objectType, $objectId) = explode(':', $identifier, 2);
 
 		if (! $this->commentController->canPost($objectType, $objectId)) {
-			throw new Services_Exception_Denied;
+			throw new Services_Exception_Denied();
 		}
 
 		$comment = $this->formatComment($quote, $text);
@@ -115,7 +115,7 @@ class Services_Comment_AnnotationController
 	 * @throws Services_Exception_NotFound
 	 */
 
-	function action_update($input)
+	public function action_update($input)
 	{
 		$threadId = $input->threadId->int();
 		$params = new jitFilter(json_decode($input->json->none(), true));
@@ -152,7 +152,7 @@ class Services_Comment_AnnotationController
 	 * @throws Services_Exception
 	 */
 
-	function action_destroy($input)
+	public function action_destroy($input)
 	{
 		$input->offsetSet('confirm', 1);	// TODO but not sure how?
 
@@ -175,7 +175,7 @@ class Services_Comment_AnnotationController
 	 * @throws Services_Exception
 	 */
 
-	function action_search($input)
+	public function action_search($input)
 	{
 		$tikilib = TikiLib::lib('tiki');
 

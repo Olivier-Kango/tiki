@@ -15,17 +15,17 @@ class Services_Workspace_ProfileBuilder
 	private $permissions = [];
 	private $managingGroup;
 
-	function ref($name)
+	public function ref($name)
 	{
 		return '$' . $name;
 	}
 
-	function user($name)
+	public function user($name)
 	{
 		return '$profilerequest:' . $name . '$undefined$';
 	}
 
-	function addObject($type, $ref, array $data)
+	public function addObject($type, $ref, array $data)
 	{
 		if (isset($data['categories'])) {
 			$list = (array) $data['categories'];
@@ -48,13 +48,13 @@ class Services_Workspace_ProfileBuilder
 		];
 	}
 
-	function addGroup($internalName, $fullName, $autojoin = false)
+	public function addGroup($internalName, $fullName, $autojoin = false)
 	{
 		$this->groups[$internalName] = $fullName;
 		$this->autojoin[$internalName] = $autojoin;
 	}
 
-	function setPermissions($internalName, $type, $objectId, array $permissionList)
+	public function setPermissions($internalName, $type, $objectId, array $permissionList)
 	{
 		if (! isset($this->permissions[$internalName])) {
 			$this->permissions[$internalName] = ['objects' => []];
@@ -67,12 +67,12 @@ class Services_Workspace_ProfileBuilder
 		];
 	}
 
-	function setManagingGroup($group)
+	public function setManagingGroup($group)
 	{
 		$this->managingGroup = $group;
 	}
 
-	function getContent()
+	public function getContent()
 	{
 		$builder = clone $this;
 
@@ -116,7 +116,7 @@ class Services_Workspace_ProfileBuilder
 		$self = $this;
 		array_walk_recursive(
 			$data,
-			function (& $entry) use ($self) {
+			function (&$entry) use ($self) {
 				if (is_string($entry)) {
 					$entry = preg_replace_callback(
 						'/\{(\w+)\}/',

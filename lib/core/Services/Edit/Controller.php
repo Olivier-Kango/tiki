@@ -14,7 +14,7 @@
 class Services_Edit_Controller
 {
 
-	function setUp()
+	public function setUp()
 	{
 		Services_Exception_Disabled::check('feature_wiki');
 	}
@@ -23,12 +23,12 @@ class Services_Edit_Controller
 	 * Returns the section for use with certain features like banning
 	 * @return string
 	 */
-	function getSection()
+	public function getSection()
 	{
 		return 'wiki page';
 	}
 
-	function action_towiki($input)
+	public function action_towiki($input)
 	{
 		$res = TikiLib::lib('edit')->parseToWiki($input->data->none());
 
@@ -37,7 +37,7 @@ class Services_Edit_Controller
 		];
 	}
 
-	function action_tohtml($input)
+	public function action_tohtml($input)
 	{
 		$res = TikiLib::lib('edit')->parseToWysiwyg($input->data->none(), false, $input->allowhtml->int() ? true : false);
 
@@ -46,7 +46,7 @@ class Services_Edit_Controller
 		];
 	}
 
-	function action_inlinesave($input)
+	public function action_inlinesave($input)
 	{
 		global $user;
 
@@ -77,7 +77,7 @@ class Services_Edit_Controller
 		}
 	}
 
-	function action_preview($input)
+	public function action_preview($input)
 	{
 
 		Services_Exception_Disabled::check('feature_warn_on_edit');
@@ -283,7 +283,7 @@ $(window).on("load", function(){
 		];
 	}
 
-	function action_inline_dialog($input)
+	public function action_inline_dialog($input)
 	{
 		$smarty = TikiLib::lib('smarty');
 		$smarty->loadPlugin('smarty_function_service_inline');

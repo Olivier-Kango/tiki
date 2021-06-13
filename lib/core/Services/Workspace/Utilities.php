@@ -7,7 +7,7 @@
 
 class Services_Workspace_Utilities
 {
-	function validateCategory(array $path)
+	public function validateCategory(array $path)
 	{
 		$root = $this->getWorkspaceRoot();
 
@@ -20,7 +20,7 @@ class Services_Workspace_Utilities
 		}
 	}
 
-	function validatePerspective($name)
+	public function validatePerspective($name)
 	{
 		$perspectivelib = TikiLib::lib('perspective');
 
@@ -29,7 +29,7 @@ class Services_Workspace_Utilities
 		}
 	}
 
-	function validatePage($name)
+	public function validatePage($name)
 	{
 		$tikilib = TikiLib::lib('tiki');
 
@@ -38,7 +38,7 @@ class Services_Workspace_Utilities
 		}
 	}
 
-	function validateGroup($name)
+	public function validateGroup($name)
 	{
 		$userlib = TikiLib::lib('user');
 
@@ -47,7 +47,7 @@ class Services_Workspace_Utilities
 		}
 	}
 
-	function createCategory(array $path)
+	public function createCategory(array $path)
 	{
 		$root = $this->getWorkspaceRoot();
 		$category = null;
@@ -66,13 +66,13 @@ class Services_Workspace_Utilities
 		return $category;
 	}
 
-	function createPerspective($name)
+	public function createPerspective($name)
 	{
 		$perspectivelib = TikiLib::lib('perspective');
 		return $perspectivelib->replace_perspective(0, $name);
 	}
 
-	function createPage($name)
+	public function createPage($name)
 	{
 		$tikilib = TikiLib::lib('tiki');
 		$wikilib = TikiLib::lib('wiki');
@@ -82,7 +82,7 @@ class Services_Workspace_Utilities
 		}
 	}
 
-	function createGroup($name)
+	public function createGroup($name)
 	{
 		$userlib = TikiLib::lib('user');
 
@@ -91,7 +91,7 @@ class Services_Workspace_Utilities
 		}
 	}
 
-	function initialize(array $data)
+	public function initialize(array $data)
 	{
 		$perspectivelib = TikiLib::lib('perspective');
 		$perspectivelib->set_preference($data['perspective'], 'category_jail', [$data['category']]);
@@ -104,11 +104,11 @@ class Services_Workspace_Utilities
 		$categlib->categorize_any('perspective', $data['perspective'], $data['category']);
 	}
 
-	function applyTemplate(array $template, array $data)
+	public function applyTemplate(array $template, array $data)
 	{
 		$profile = Tiki_Profile::fromString($template['definition'], uniqid());
 
-		$installer = new Tiki_Profile_Installer;
+		$installer = new Tiki_Profile_Installer();
 		$installer->setUserData($data);
 		$value = $installer->install($profile);
 
@@ -157,7 +157,7 @@ class Services_Workspace_Utilities
 		);
 	}
 
-	function getTemplateList()
+	public function getTemplateList()
 	{
 		$list = $this->templates()->fetchAll(['templateId', 'name'], []);
 		$list = Perms::simpleFilter('workspace', 'templateId', 'workspace_instantiate', $list);
@@ -165,10 +165,10 @@ class Services_Workspace_Utilities
 		return $list;
 	}
 
-	function replaceTemplate($id, array $data)
+	public function replaceTemplate($id, array $data)
 	{
 		if (empty($data['name'])) {
-			throw new Services_Exception;
+			throw new Services_Exception();
 		}
 
 		$info = [
@@ -186,7 +186,7 @@ class Services_Workspace_Utilities
 		);
 	}
 
-	function getTemplate($id)
+	public function getTemplate($id)
 	{
 		return $this->templates()->fetchRow(
 			['templateId', 'name', 'definition', 'is_advanced'],

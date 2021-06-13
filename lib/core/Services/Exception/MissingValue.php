@@ -7,7 +7,7 @@
 
 class Services_Exception_MissingValue extends Services_Exception_FieldError
 {
-	function __construct($field)
+	public function __construct($field)
 	{
 		parent::__construct($field, tr('Field Required'));
 	}

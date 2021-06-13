@@ -12,13 +12,13 @@ class Services_Broker
 	private $container;
 	private $extensionPackage;
 
-	function __construct($container, $extensionPackage = '')
+	public function __construct($container, $extensionPackage = '')
 	{
 		$this->container = $container;
 		$this->extensionPackage = $extensionPackage;
 	}
 
-	function process($controller, $action, JitFilter $request)
+	public function process($controller, $action, JitFilter $request)
 	{
 		$access = TikiLib::lib('access');
 
@@ -70,7 +70,7 @@ class Services_Broker
 		}
 	}
 
-	function internal($controller, $action, $request = [])
+	public function internal($controller, $action, $request = [])
 	{
 		if (! $request instanceof JitFilter) {
 			$request = new JitFilter($request);
@@ -79,7 +79,7 @@ class Services_Broker
 		return $this->attemptProcess($controller, $action, $request);
 	}
 
-	function internalRender($controller, $action, $request)
+	public function internalRender($controller, $action, $request)
 	{
 		if (! $request instanceof JitFilter) {
 			$request = new JitFilter($request);

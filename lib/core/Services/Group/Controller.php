@@ -55,7 +55,7 @@ class Services_Group_Controller
 	 * @throws Services_Exception
 	 * @throws Services_Exception_Denied
 	 */
-	function action_remove_groups($input)
+	public function action_remove_groups($input)
 	{
 		Services_Exception_Denied::checkGlobal('admin');
 		$util = new Services_Utilities();
@@ -144,7 +144,7 @@ class Services_Group_Controller
 	 * @throws Services_Exception
 	 * @throws Services_Exception_Denied
 	 */
-	function action_new_group($input)
+	public function action_new_group($input)
 	{
 		Services_Exception_Denied::checkGlobal('admin');
 		$util = new Services_Utilities();
@@ -255,7 +255,7 @@ class Services_Group_Controller
 	 * @throws Services_Exception
 	 * @throws Services_Exception_Denied
 	 */
-	function action_modify_group($input)
+	public function action_modify_group($input)
 	{
 		Services_Exception_Denied::checkGlobal('admin');
 		$userlib = TikiLib::lib('user');
@@ -389,7 +389,7 @@ class Services_Group_Controller
 	 * @throws Services_Exception
 	 * @throws Services_Exception_Denied
 	 */
-	function action_add_user($input)
+	public function action_add_user($input)
 	{
 		global $prefs;
 		Services_Exception_Denied::checkGlobal('admin');
@@ -479,7 +479,7 @@ class Services_Group_Controller
 	 * @throws Services_Exception
 	 * @throws Services_Exception_Denied
 	 */
-	function action_ban_user($input)
+	public function action_ban_user($input)
 	{
 		global $prefs;
 		Services_Exception_Denied::checkGlobal('admin');
@@ -564,7 +564,7 @@ class Services_Group_Controller
 	 * @throws Services_Exception
 	 * @throws Services_Exception_Denied
 	 */
-	function action_unban_user($input)
+	public function action_unban_user($input)
 	{
 		global $prefs;
 		Services_Exception_Denied::checkGlobal('admin');

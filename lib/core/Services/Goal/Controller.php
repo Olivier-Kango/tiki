@@ -7,20 +7,20 @@
 
 class Services_Goal_Controller
 {
-	function setUp()
+	public function setUp()
 	{
 		Services_Exception_Disabled::check('goal_enabled');
 		Services_Exception_Denied::checkAuth();
 	}
 
-	function action_show($input)
+	public function action_show($input)
 	{
 		global $user;
 		$goallib = TikiLib::lib('goal');
 		$info = $goallib->fetchGoal($input->goalId->int());
 
 		if (! $info) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		$messages = [];
@@ -77,13 +77,13 @@ class Services_Goal_Controller
 		];
 	}
 
-	function action_show_list($input)
+	public function action_show_list($input)
 	{
 		$goallib = TikiLib::lib('goal');
 		$info = $goallib->fetchGoal($input->goalId->int());
 
 		if (! $info) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		return [
@@ -92,7 +92,7 @@ class Services_Goal_Controller
 		];
 	}
 
-	function action_admin($input)
+	public function action_admin($input)
 	{
 		$perms = Perms::get();
 		if (! $perms->goal_admin) {
@@ -109,7 +109,7 @@ class Services_Goal_Controller
 		];
 	}
 
-	function action_create($input)
+	public function action_create($input)
 	{
 		$perms = Perms::get();
 		if (! $perms->goal_admin) {
@@ -144,7 +144,7 @@ class Services_Goal_Controller
 		];
 	}
 
-	function action_edit($input)
+	public function action_edit($input)
 	{
 		$perms = Perms::get('goal', $input->goalId->int());
 		if (! $perms->goal_admin) {
@@ -155,7 +155,7 @@ class Services_Goal_Controller
 		$goal = $goallib->fetchGoal($input->goalId->int());
 
 		if (! $goal) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -214,7 +214,7 @@ class Services_Goal_Controller
 		];
 	}
 
-	function action_delete($input)
+	public function action_delete($input)
 	{
 		$perms = Perms::get('goal', $input->goalId->int());
 		if (! $perms->goal_admin) {
@@ -225,7 +225,7 @@ class Services_Goal_Controller
 		$goal = $goallib->fetchGoal($input->goalId->int());
 
 		if (! $goal) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		$removed = false;
@@ -245,7 +245,7 @@ class Services_Goal_Controller
 	/**
 	 * Action is completely stateless. Renders the provided data.
 	 */
-	function action_render_conditions($input)
+	public function action_render_conditions($input)
 	{
 		// No need to check permissions, no actions possible
 
@@ -264,7 +264,7 @@ class Services_Goal_Controller
 	/**
 	 * Action is completely stateless. Pass in parameters, get updated parameters.
 	 */
-	function action_edit_condition($input)
+	public function action_edit_condition($input)
 	{
 		// No need to check permissions, no actions possible
 
@@ -309,7 +309,7 @@ class Services_Goal_Controller
 	/**
 	 * Action is completely stateless. Renders the provided data.
 	 */
-	function action_render_rewards($input)
+	public function action_render_rewards($input)
 	{
 		// No need to check permissions, no actions possible
 
@@ -328,7 +328,7 @@ class Services_Goal_Controller
 	/**
 	 * Action is completely stateless. Pass in parameters, get updated parameters.
 	 */
-	function action_edit_reward($input)
+	public function action_edit_reward($input)
 	{
 		// No need to check permissions, no actions possible
 
@@ -372,7 +372,7 @@ class Services_Goal_Controller
 		];
 	}
 
-	function action_edit_eligible($input)
+	public function action_edit_eligible($input)
 	{
 		$perms = Perms::get('goal', $input->goalId->int());
 		if (! $perms->goal_modify_eligible) {
@@ -385,7 +385,7 @@ class Services_Goal_Controller
 		$goal = $goallib->fetchGoal($goalId);
 
 		if (! $goal) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {

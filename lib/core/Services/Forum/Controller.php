@@ -33,7 +33,7 @@ class Services_Forum_Controller
 		'remove_attachment'	=> 'digits',
 	];
 
-	function setUp()
+	public function setUp()
 	{
 		Services_Exception_Disabled::check('feature_forums');
 		$this->lib = TikiLib::lib('comments');
@@ -43,7 +43,7 @@ class Services_Forum_Controller
 	 * Returns the section for use with certain features like banning
 	 * @return string
 	 */
-	function getSection()
+	public function getSection()
 	{
 		return 'forums';
 	}
@@ -66,7 +66,7 @@ class Services_Forum_Controller
 	 * @return array
 	 * @throws Exception
 	 */
-	function action_lock_topic($input)
+	public function action_lock_topic($input)
 	{
 		return $this->lockUnlock($input, 'lock');
 	}
@@ -77,7 +77,7 @@ class Services_Forum_Controller
 	 * @return array
 	 * @throws Exception
 	 */
-	function action_unlock_topic($input)
+	public function action_unlock_topic($input)
 	{
 		return $this->lockUnlock($input, 'unlock');
 	}
@@ -88,7 +88,7 @@ class Services_Forum_Controller
 	 * @return array
 	 * @throws Exception
 	 */
-	function action_merge_topic($input)
+	public function action_merge_topic($input)
 	{
 		$forumId = $input['forumId'];
 		$this->checkPerms($forumId);
@@ -172,7 +172,7 @@ class Services_Forum_Controller
 	 * @throws Services_Exception
 	 * @throws Services_Exception_Denied
 	 */
-	function action_move_topic($input)
+	public function action_move_topic($input)
 	{
 		$forumId = $input['forumId'];
 		$this->checkPerms($forumId);
@@ -253,7 +253,7 @@ class Services_Forum_Controller
 	 * @return array
 	 * @throws Exception
 	 */
-	function action_delete_topic($input)
+	public function action_delete_topic($input)
 	{
 		$forumId = $input['forumId'];
 		$this->checkPerms($forumId);
@@ -313,7 +313,7 @@ class Services_Forum_Controller
 	 * @return array
 	 * @throws Exception
 	 */
-	function action_delete_attachment($input)
+	public function action_delete_attachment($input)
 	{
 		$forumId = $input['forumId'];
 		$this->checkPerms($forumId);
@@ -360,7 +360,7 @@ class Services_Forum_Controller
 	 * @return array
 	 * @throws Exception
 	 */
-	function action_archive_topic($input)
+	public function action_archive_topic($input)
 	{
 		return $this->archiveUnarchive($input, 'archive');
 	}
@@ -371,7 +371,7 @@ class Services_Forum_Controller
 	 * @return array
 	 * @throws Exception
 	 */
-	function action_unarchive_topic($input)
+	public function action_unarchive_topic($input)
 	{
 		return $this->archiveUnarchive($input, 'unarchive');
 	}
@@ -383,7 +383,7 @@ class Services_Forum_Controller
 	 * @return array
 	 * @throws Exception
 	 */
-	function action_delete_forum($input)
+	public function action_delete_forum($input)
 	{
 		$util = new Services_Utilities();
 		$util->setVars($input, $this->filters, 'checked');
@@ -442,7 +442,7 @@ class Services_Forum_Controller
 	 * @return array
 	 * @throws Exception
 	 */
-	function action_order_forum($input)
+	public function action_order_forum($input)
 	{
 		$util = new Services_Utilities();
 		$util->setVars($input, $this->filters, 'forumsId');

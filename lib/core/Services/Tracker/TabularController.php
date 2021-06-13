@@ -7,7 +7,7 @@
 
 class Services_Tracker_TabularController
 {
-	function setUp()
+	public function setUp()
 	{
 		Services_Exception_Disabled::check('tracker_tabular_enabled');
 	}
@@ -16,12 +16,12 @@ class Services_Tracker_TabularController
 	 * Returns the section for use with certain features like banning
 	 * @return string
 	 */
-	function getSection()
+	public function getSection()
 	{
 		return 'trackers';
 	}
 
-	function action_manage($input)
+	public function action_manage($input)
 	{
 		Services_Exception_Denied::checkGlobal('tiki_p_tabular_admin');
 
@@ -33,7 +33,7 @@ class Services_Tracker_TabularController
 		];
 	}
 
-	function action_delete($input)
+	public function action_delete($input)
 	{
 		$tabularId = $input->tabularId->int();
 
@@ -50,7 +50,7 @@ class Services_Tracker_TabularController
 		];
 	}
 
-	function action_create($input)
+	public function action_create($input)
 	{
 		Services_Exception_Denied::checkGlobal('tiki_p_tabular_admin');
 
@@ -82,7 +82,7 @@ class Services_Tracker_TabularController
 		];
 	}
 
-	function action_edit($input)
+	public function action_edit($input)
 	{
 		$lib = TikiLib::lib('tabular');
 		$info = $lib->getInfo($input->tabularId->int());
@@ -141,7 +141,7 @@ class Services_Tracker_TabularController
 	 * @throws Services_Exception_Denied
 	 * @throws Services_Exception_NotFound
 	 */
-	function action_duplicate($input)
+	public function action_duplicate($input)
 	{
 		$lib = TikiLib::lib('tabular');
 		$info = $lib->getInfo($input->tabularId->int());
@@ -170,7 +170,7 @@ class Services_Tracker_TabularController
 		];
 	}
 
-	function action_select($input)
+	public function action_select($input)
 	{
 		$permName = $input->permName->word();
 		$trackerId = $input->trackerId->int();
@@ -178,7 +178,7 @@ class Services_Tracker_TabularController
 		$tracker = \Tracker_Definition::get($trackerId);
 
 		if (! $tracker) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		Services_Exception_Denied::checkObject('tiki_p_view_trackers', 'tracker', $trackerId);
@@ -218,7 +218,7 @@ class Services_Tracker_TabularController
 		return $return;
 	}
 
-	function action_select_filter($input)
+	public function action_select_filter($input)
 	{
 		$permName = $input->permName->word();
 		$trackerId = $input->trackerId->int();
@@ -226,7 +226,7 @@ class Services_Tracker_TabularController
 		$tracker = \Tracker_Definition::get($trackerId);
 
 		if (! $tracker) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		Services_Exception_Denied::checkObject('tiki_p_view_trackers', 'tracker', $trackerId);
@@ -251,7 +251,7 @@ class Services_Tracker_TabularController
 		];
 	}
 
-	function action_export_full_csv($input)
+	public function action_export_full_csv($input)
 	{
 		$lib = TikiLib::lib('tabular');
 		$info = $lib->getInfo($input->tabularId->int());
@@ -289,7 +289,7 @@ class Services_Tracker_TabularController
 		}
 	}
 
-	function action_export_partial_csv($input)
+	public function action_export_partial_csv($input)
 	{
 		$tabularId = $input->tabularId->int();
 
@@ -338,7 +338,7 @@ class Services_Tracker_TabularController
 		];
 	}
 
-	function action_export_search_csv($input)
+	public function action_export_search_csv($input)
 	{
 		$lib = TikiLib::lib('tabular');
 		$trackerId = $input->trackerId->int();
@@ -396,7 +396,7 @@ class Services_Tracker_TabularController
 		}
 	}
 
-	function action_import_csv($input)
+	public function action_import_csv($input)
 	{
 		$lib = TikiLib::lib('tabular');
 		$info = $lib->getInfo($input->tabularId->int());
@@ -415,7 +415,7 @@ class Services_Tracker_TabularController
 
 		if ($_SERVER['REQUEST_METHOD'] == 'POST' && is_uploaded_file($_FILES['file']['tmp_name'])) {
 			$source = new \Tracker\Tabular\Source\CsvSource($schema, $_FILES['file']['tmp_name']);
-			$writer = new \Tracker\Tabular\Writer\TrackerWriter;
+			$writer = new \Tracker\Tabular\Writer\TrackerWriter();
 			$done = $writer->write($source);
 
 			unlink($_FILES['file']['tmp_name']);
@@ -432,7 +432,7 @@ class Services_Tracker_TabularController
 
 		if ($_SERVER['REQUEST_METHOD'] == 'POST' && $info['odbc_config']) {
 			$source = new \Tracker\Tabular\Source\ODBCSource($schema, $info['odbc_config']);
-			$writer = new \Tracker\Tabular\Writer\TrackerWriter;
+			$writer = new \Tracker\Tabular\Writer\TrackerWriter();
 			$done = $writer->write($source);
 
 			Feedback::success(tr('Your import was completed successfully.'));
@@ -453,7 +453,7 @@ class Services_Tracker_TabularController
 		];
 	}
 
-	function action_filter($input)
+	public function action_filter($input)
 	{
 		$tabularId = $input->tabularId->int();
 
@@ -491,7 +491,7 @@ class Services_Tracker_TabularController
 			$action = 'export_partial_csv';
 			$label = tr('Export');
 		} else {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		return [
@@ -514,7 +514,7 @@ class Services_Tracker_TabularController
 		];
 	}
 
-	function action_list($input)
+	public function action_list($input)
 	{
 		$tabularId = $input->tabularId->int();
 
@@ -584,7 +584,7 @@ class Services_Tracker_TabularController
 		];
 	}
 
-	function action_create_tracker($input)
+	public function action_create_tracker($input)
 	{
 		global $tikilib;
 
@@ -675,7 +675,7 @@ class Services_Tracker_TabularController
 				try {
 					$delimiter = $input->delimiter->text() == 'comma' ? ',' : ';';
 					$source = new \Tracker\Tabular\Source\CsvSource($schema, $_FILES['file']['tmp_name'], $delimiter);
-					$writer = new \Tracker\Tabular\Writer\TrackerWriter;
+					$writer = new \Tracker\Tabular\Writer\TrackerWriter();
 					$done = $writer->write($source);
 
 					unlink($_FILES['file']['tmp_name']);
@@ -721,7 +721,7 @@ class Services_Tracker_TabularController
 		$tracker = \Tracker_Definition::get($info['trackerId']);
 
 		if (! $tracker) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		$schema = new \Tracker\Tabular\Schema($tracker);

@@ -7,7 +7,7 @@
 
 class Services_Exception_EditConflict extends Services_Exception
 {
-	function __construct($message = null)
+	public function __construct($message = null)
 	{
 		if (is_null($message)) {
 			$message = tr('Edit conflict');

@@ -7,7 +7,7 @@
 
 class Services_Attribute_Controller
 {
-	function setUp()
+	public function setUp()
 	{
 	}
 
@@ -23,7 +23,7 @@ class Services_Attribute_Controller
 	 * @throws Exception
 	 * @throws Services_Exception
 	 */
-	function action_get($input)
+	public function action_get($input)
 	{
 		$attribute = $input->attribute->text();
 		$type = $input->type->text();

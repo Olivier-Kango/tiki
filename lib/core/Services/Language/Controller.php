@@ -11,13 +11,13 @@ class Services_Language_Controller
 {
 	private $utilities;
 
-	function __construct()
+	public function __construct()
 	{
-		$this->utilities = new Services_Language_Utilities;
-		$this->transifex = new Services_Language_TransifexController;
+		$this->utilities = new Services_Language_Utilities();
+		$this->transifex = new Services_Language_TransifexController();
 	}
 
-	function setUp()
+	public function setUp()
 	{
 		Services_Exception_Denied::checkAuth();
 		Services_Exception_Disabled::check('feature_multilingual');
@@ -30,7 +30,7 @@ class Services_Language_Controller
 	 *
 	 * @return language.php file
 	 */
-	function action_download_db_translations($input)
+	public function action_download_db_translations($input)
 	{
 		//check preference
 		Services_Exception_Disabled::check('lang_use_db');
@@ -69,7 +69,7 @@ class Services_Language_Controller
 	 *
 	 * @return array
 	 */
-	function action_write_to_language_php($input)
+	public function action_write_to_language_php($input)
 	{
 		//check preference
 		Services_Exception_Disabled::check('lang_use_db');
@@ -135,7 +135,7 @@ class Services_Language_Controller
 	 *
 	 * @return array
 	 */
-	function action_manage_custom_translations($input)
+	public function action_manage_custom_translations($input)
 	{
 		//check permissions
 		$perms = Perms::get('tiki');
@@ -220,7 +220,7 @@ class Services_Language_Controller
 	 *
 	 * @return file
 	 */
-	function action_download($input)
+	public function action_download($input)
 	{
 		//get input
 		$language = $input->language->text();
@@ -275,7 +275,7 @@ class Services_Language_Controller
 	 *
 	 * @return int
 	 */
-	function action_upload($input)
+	public function action_upload($input)
 	{
 		//check permissions
 		$perms = Perms::get('tiki');

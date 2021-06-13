@@ -7,7 +7,7 @@
 
 class Services_User_FavoriteController
 {
-	function setUp()
+	public function setUp()
 	{
 		global $prefs;
 
@@ -16,7 +16,7 @@ class Services_User_FavoriteController
 		}
 	}
 
-	function action_list($input)
+	public function action_list($input)
 	{
 		global $user;
 
@@ -33,7 +33,7 @@ class Services_User_FavoriteController
 		return $favorites;
 	}
 
-	function action_toggle($input)
+	public function action_toggle($input)
 	{
 		global $user;
 

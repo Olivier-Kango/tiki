@@ -42,7 +42,7 @@ class Services_Scheduler_Controller
 		$scheduler = $this->lib->get_scheduler($schedulerId);
 
 		if (! $scheduler) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 		$util = new Services_Utilities();
 		if ($util->isConfirmPost()) {
@@ -78,7 +78,7 @@ class Services_Scheduler_Controller
 		$scheduler = $this->lib->get_scheduler($schedulerId);
 
 		if (! $scheduler) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		$logger = new Tiki_Log('Webcron', \Psr\Log\LogLevel::ERROR);
@@ -129,7 +129,7 @@ class Services_Scheduler_Controller
 
 		$scheduler = $this->lib->get_scheduler($schedulerId);
 		if (! $scheduler) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		$schedulerId = $this->lib->set_scheduler(
@@ -169,7 +169,7 @@ class Services_Scheduler_Controller
 
 		$scheduler = $this->lib->get_scheduler($schedulerId);
 		if (! $scheduler) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		$util = new Services_Utilities();

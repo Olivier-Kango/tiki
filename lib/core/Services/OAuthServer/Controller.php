@@ -34,7 +34,7 @@ class Services_OAuthServer_Controller
 	 * @param JitFilter $request
 	 * @return void
 	 */
-	function action_authorize($request)
+	public function action_authorize($request)
 	{
 		global $user;
 
@@ -80,7 +80,7 @@ class Services_OAuthServer_Controller
 		Helpers::processPsr7Response($response);
 	}
 
-	function action_access_token($request)
+	public function action_access_token($request)
 	{
 		$accesslib = TikiLib::lib('access');
 		$oauthserverlib = TikiLib::lib('oauthserver');
@@ -94,7 +94,7 @@ class Services_OAuthServer_Controller
 		Helpers::processPsr7Response($response);
 	}
 
-	function action_consent($request)
+	public function action_consent($request)
 	{
 		global $user;
 
@@ -158,7 +158,7 @@ class Services_OAuthServer_Controller
 		exit;
 	}
 
-	function action_client_modify($request)
+	public function action_client_modify($request)
 	{
 		$access = TikiLib::lib('access');
 		$request = Helpers::tiki2Psr7Request($request);

@@ -7,7 +7,7 @@
 
 class Services_AutoSave_Controller
 {
-	function setUp()
+	public function setUp()
 	{
 		Services_Exception_Disabled::check('feature_ajax');
 		Services_Exception_Disabled::check('ajax_autosave');
@@ -21,7 +21,7 @@ class Services_AutoSave_Controller
 	 * @return array data         string: markup contents
 	 */
 
-	function action_get($input)
+	public function action_get($input)
 	{
 		$referer = $input->referer->text();
 		$res = '';
@@ -42,7 +42,7 @@ class Services_AutoSave_Controller
 	 * @return array              int: chars saved
 	 */
 
-	function action_save($input)
+	public function action_save($input)
 	{
 		$referer = $input->referer->text();
 		$res = '';
@@ -64,7 +64,7 @@ class Services_AutoSave_Controller
 	 * @return array
 	 */
 
-	function action_delete($input)
+	public function action_delete($input)
 	{
 		$referer = $input->referer->text();
 

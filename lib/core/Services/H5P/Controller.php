@@ -7,7 +7,7 @@
 
 class Services_H5P_Controller
 {
-	function setUp()
+	public function setUp()
 	{
 		global $prefs;
 
@@ -26,7 +26,7 @@ class Services_H5P_Controller
 	 * Returns the section for use with certain features like banning
 	 * @return string
 	 */
-	function getSection()
+	public function getSection()
 	{
 		return 'file_galleries';
 	}
@@ -37,7 +37,7 @@ class Services_H5P_Controller
 	 * @return array|string|null
 	 * @throws Services_Exception_NotAvailable
 	 */
-	function action_embed($input)
+	public function action_embed($input)
 	{
 		$smarty = TikiLib::lib('smarty');
 		$smarty->loadPlugin('smarty_function_button');
@@ -87,9 +87,9 @@ class Services_H5P_Controller
 			$extra = $input->asArray('extra');
 
 			$filtered = json_decode($content['filtered'], true);
-			foreach($filtered as $key => $value) {
+			foreach ($filtered as $key => $value) {
 				if (isset($extra[$key])) {
-					foreach($extra[$key] as $ekey => $evalue) {
+					foreach ($extra[$key] as $ekey => $evalue) {
 						if (isset($filtered[$key][$ekey])) {
 							$filtered[$key][$ekey] = $evalue;
 						}
@@ -134,7 +134,7 @@ class Services_H5P_Controller
 		];
 	}
 
-	function action_edit($input)
+	public function action_edit($input)
 	{
 		// Check permission
 		if (! Perms::get()->h5p_edit) {
@@ -271,7 +271,7 @@ class Services_H5P_Controller
 		];
 	}
 
-	function action_libraries($input)
+	public function action_libraries($input)
 	{
 		global $prefs;
 
@@ -293,9 +293,13 @@ class Services_H5P_Controller
 
 		if ($name) {
 			$out = $editor->getLibraryData(
-				$name, $major_version, $minor_version,
+				$name,
+				$major_version,
+				$minor_version,
 				substr($prefs['language'], 0, 2),
-				'', '', 'en'
+				'',
+				'',
+				'en'
 			);
 
 			// Log library load
@@ -319,7 +323,7 @@ class Services_H5P_Controller
 	 *
 	 * @return array
 	 */
-	function action_list_libraries($input)
+	public function action_list_libraries($input)
 	{
 		global $prefs;
 
@@ -339,9 +343,13 @@ class Services_H5P_Controller
 
 		if ($name) {
 			$results = $editor->getLibraryData(
-				$name, $majorVersion, $minorVersion,
+				$name,
+				$majorVersion,
+				$minorVersion,
 				substr($prefs['language'], 0, 2),
-				'', 'en', $defaultLanguage
+				'',
+				'en',
+				$defaultLanguage
 			);
 			$results = json_decode($results, true);
 
@@ -371,19 +379,18 @@ class Services_H5P_Controller
 		];
 	}
 
-	function action_library_install($input) {
+	public function action_library_install($input)
+	{
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
 			//$token = func_get_arg(1);
 			//if (! $this->isValidEditorToken($token)) return;
-
 			$editor = \H5P_EditorTikiStorage::get_h5peditor_instance();
 			$editor->ajax->action(H5PEditorEndpoints::LIBRARY_INSTALL, '', $input->id->text());
 			exit;
 		}
 	}
 
-	function action_files($input)
+	public function action_files($input)
 	{
 		$file = new \H5peditorFile(\H5P_H5PTiki::get_h5p_instance('interface'));
 		if (! $file->isLoaded()) {
@@ -398,7 +405,6 @@ class Services_H5P_Controller
 			// Save the valid file (as contentId = 0 as we're still in the editor at this point
 			$file = $core->fs->saveFile($file, 0);
 			\H5P_EditorTikiStorage::markFileForCleanup($file, 0);
-
 		}
 
 		header('Cache-Control: no-cache');
@@ -412,7 +418,7 @@ class Services_H5P_Controller
 	 * @return array
 	 * @throws Services_Exception_NotAvailable
 	 */
-	function action_results($input)
+	public function action_results($input)
 	{
 		global $user;
 
@@ -473,7 +479,7 @@ class Services_H5P_Controller
 	 * @return array
 	 * @throws Services_Exception_NotAvailable
 	 */
-	function action_userdata($input)
+	public function action_userdata($input)
 	{
 		global $user;
 
@@ -495,7 +501,7 @@ class Services_H5P_Controller
 		return ['data' => $data];
 	}
 
-	function action_list_results($input)
+	public function action_list_results($input)
 	{
 		// tiki_p_admin required for now
 		\Services_Exception_Denied::checkGlobal('admin');
@@ -511,7 +517,7 @@ LEFT JOIN `users_users` AS u ON u.`userId` = r.`user_id`');
 		];
 	}
 
-	function action_cron($input)
+	public function action_cron($input)
 	{
 		global $prefs;
 
@@ -546,7 +552,7 @@ LEFT JOIN `users_users` AS u ON u.`userId` = r.`user_id`');
 	 *
 	 * @return null
 	 */
-	function action_content_type_cache($input)
+	public function action_content_type_cache($input)
 	{
 		$token = $input->token->text();
 

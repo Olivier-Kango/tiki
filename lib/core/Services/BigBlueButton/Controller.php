@@ -7,17 +7,17 @@
 
 class Services_BigBlueButton_Controller
 {
-	function setUp()
+	public function setUp()
 	{
 		global $prefs;
 
 		Services_Exception_Disabled::check('bigbluebutton_feature');
 	}
 
-	function action_join($input)
+	public function action_join($input)
 	{
 		if (! $params = Tiki_Security::get()->decode($input->params->none())) {
-			throw new Services_Exception_Denied;
+			throw new Services_Exception_Denied();
 		}
 
 		$meetingName = $params['name'];
@@ -27,12 +27,12 @@ class Services_BigBlueButton_Controller
 
 		if (! $bigbluebuttonlib->roomExists($meetingName)) {
 			if (! $perms->bigbluebutton_create) {
-				throw new Services_Exception_NotFound;
+				throw new Services_Exception_NotFound();
 			}
 		}
 
 		if (! $perms->bigbluebutton_join) {
-			throw new Services_Exception_Denied;
+			throw new Services_Exception_Denied();
 		}
 
 		global $user;
@@ -65,10 +65,10 @@ class Services_BigBlueButton_Controller
 		$bigbluebuttonlib->joinMeeting($meetingName, $token);
 	}
 
-	function action_delete_recording($input)
+	public function action_delete_recording($input)
 	{
 		if (! Perms::get()->admin) {
-			throw new Services_Exception_Denied;
+			throw new Services_Exception_Denied();
 		}
 
 		$bigbluebuttonlib = TikiLib::lib('bigbluebutton');

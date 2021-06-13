@@ -7,13 +7,13 @@
 
 class Services_PDF_Controller
 {
-	function setUp()
+	public function setUp()
 	{
 		Services_Exception_Disabled::check('feature_wiki_print');
 	}
 
 	//function added to hold current state of fancy table / sorted table for pdf and print version. So when user generates pdf he gets his sorted data not default data in table.
-	function action_storeTable($input)
+	public function action_storeTable($input)
 	{
 	   //write content to file
 		$tableName = $input->tableName->text();
@@ -25,7 +25,7 @@ class Services_PDF_Controller
 		chmod($tableFile, 0755);
 	}
 
-	function action_checkPDFFile()
+	public function action_checkPDFFile()
 	{
 
 		if (file_exists('temp/public/pdffile_' . session_id() . '.txt')) {

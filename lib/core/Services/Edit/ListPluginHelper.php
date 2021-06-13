@@ -16,7 +16,7 @@
  */
 class Services_Edit_ListPluginHelper
 {
-	static function getDefinition()
+	public static function getDefinition()
 	{
 		return [
 			'filter' => [

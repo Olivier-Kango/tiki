@@ -47,7 +47,7 @@ class Services_CustomRoute_Controller
 		$route = $this->lib->getRoute($routeId);
 
 		if (! $route) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		if ($confirm) {

@@ -13,7 +13,7 @@ class Services_File_Controller
 	 */
 	private $utilities;
 
-	function setUp()
+	public function setUp()
 	{
 		global $prefs;
 
@@ -21,14 +21,14 @@ class Services_File_Controller
 			throw new Services_Exception_Disabled('feature_file_galleries');
 		}
 		$this->defaultGalleryId = $prefs['fgal_root_id'];
-		$this->utilities = new Services_File_Utilities;
+		$this->utilities = new Services_File_Utilities();
 	}
 
 	/**
 	 * Returns the section for use with certain features like banning
 	 * @return string
 	 */
-	function getSection()
+	public function getSection()
 	{
 		return 'file_galleries';
 	}
@@ -41,7 +41,7 @@ class Services_File_Controller
 	 * @return array
 	 * @throws Exception
 	 */
-	function action_uploader($input)
+	public function action_uploader($input)
 	{
 		$gal_info = $this->checkTargetGallery($input);
 		$filegallib = TikiLib::lib('filegal');
@@ -88,7 +88,7 @@ class Services_File_Controller
 		return $return;
 	}
 
-	function action_upload($input)
+	public function action_upload($input)
 	{
 		if ($input->files->asArray()) {
 			return [];
@@ -175,7 +175,7 @@ class Services_File_Controller
 			if ($fileId) {
 				$this->utilities->updateFile($gal_info, $name, $size, $type, $data, $fileId, $asuser, $title);
 			} else {
-				$fileId = $this->utilities->uploadFile($gal_info, $name, $size, $type, $data, $asuser, $image_x, $image_y, '','', $title);
+				$fileId = $this->utilities->uploadFile($gal_info, $name, $size, $type, $data, $asuser, $image_x, $image_y, '', '', $title);
 			}
 		} else {
 			$fileId = false;
@@ -213,7 +213,7 @@ class Services_File_Controller
 	 * @throws Services_Exception
 	 * @throws Services_Exception_NotAvailable
 	 */
-	function action_upload_multiple($input)
+	public function action_upload_multiple($input)
 	{
 		global $user;
 		$filegallib = TikiLib::lib('filegal');
@@ -310,7 +310,7 @@ class Services_File_Controller
 		return $output;
 	}
 
-	function action_browse($input)
+	public function action_browse($input)
 	{
 		try {
 			$gal_info = $this->checkTargetGallery($input);
@@ -331,13 +331,13 @@ class Services_File_Controller
 		];
 	}
 
-	function action_thumbnail_gallery($input)
+	public function action_thumbnail_gallery($input)
 	{
 		// Same as list gallery, different template
 		return $this->action_list_gallery($input);
 	}
 
-	function action_list_gallery($input)
+	public function action_list_gallery($input)
 	{
 		$galleryId = $input->galleryId->int();
 
@@ -370,7 +370,7 @@ class Services_File_Controller
 		];
 	}
 
-	function action_remote($input)
+	public function action_remote($input)
 	{
 		global $prefs;
 		if ($prefs['fgal_upload_from_source'] != 'y') {
@@ -420,7 +420,7 @@ class Services_File_Controller
 		];
 	}
 
-	function action_refresh($input)
+	public function action_refresh($input)
 	{
 		global $prefs;
 		if ($prefs['fgal_upload_from_source'] != 'y') {
@@ -443,7 +443,7 @@ class Services_File_Controller
 	 * @param $input	string "name" for the filename to find
 	 * @return array	file info for most recent file by that name
 	 */
-	function action_find($input)
+	public function action_find($input)
 	{
 
 		$filegallib = TikiLib::lib('filegal');
@@ -473,7 +473,7 @@ class Services_File_Controller
 		// Patch for uninitialized utilities.
 		//	The real problem is that setup is not called
 		if ($this->utilities == null) {
-			$this->utilities = new Services_File_Utilities;
+			$this->utilities = new Services_File_Utilities();
 		}
 
 		return $this->utilities->checkTargetGallery($galleryId);

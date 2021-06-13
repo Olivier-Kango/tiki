@@ -7,13 +7,13 @@
 
 class Services_User_MonitorController
 {
-	function setUp()
+	public function setUp()
 	{
 		Services_Exception_Disabled::check('monitor_enabled');
 		Services_Exception_Denied::checkAuth();
 	}
 
-	function action_object($input)
+	public function action_object($input)
 	{
 		global $user;
 
@@ -46,7 +46,7 @@ class Services_User_MonitorController
 		];
 	}
 
-	function action_set_component_last_view($input)
+	public function action_set_component_last_view($input)
 	{
 		global $user;
 
@@ -70,7 +70,7 @@ class Services_User_MonitorController
 		$tikiLib->set_user_preference($user, $prefName, time());
 	}
 
-	function action_stream($input)
+	public function action_stream($input)
 	{
 		$loginlib = TikiLib::lib('login');
 
@@ -84,24 +84,24 @@ class Services_User_MonitorController
 		$to = $input->to->text();
 
 		if (! $critical && ! $high && ! $low) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		global $user;
 		// get the groups this user is in
-		$user_groups=TikiLib::lib('tiki')->get_user_groups($user);
+		$user_groups = TikiLib::lib('tiki')->get_user_groups($user);
 
 		// get the id's from the users_groups table using the groupName
 		$where = " WHERE groupName IN (" . implode(',', array_fill(0, count($user_groups), '?')) . ')';
 		$query = "select id from users_groups" . $where;
-		$group_ids=TikiLib::lib('tiki')->fetchAll($query, $user_groups);
+		$group_ids = TikiLib::lib('tiki')->fetchAll($query, $user_groups);
 		$group_ids = array_column($group_ids, 'id');
 
 		// set up strings to append to our queries (pull group notifications)
-		$critical_groups="";
-		$high_groups="";
-		$low_groups="";
-		foreach($group_ids as $group_id) {
+		$critical_groups = '';
+		$high_groups = '';
+		$low_groups = '';
+		foreach ($group_ids as $group_id) {
 			$critical_groups .= " OR criticalgrp$group_id ";
 			$high_groups .= " OR highgrp$group_id ";
 			$low_groups .= " OR lowgrp$group_id ";
@@ -158,7 +158,7 @@ class Services_User_MonitorController
 		];
 	}
 
-	function action_unread($input)
+	public function action_unread($input)
 	{
 		global $user;
 		$loginlib = TikiLib::lib('login');
@@ -170,17 +170,17 @@ class Services_User_MonitorController
 		$userId = $loginlib->getUserId();
 
 		// get the groups this user is in
-		$user_groups=TikiLib::lib('tiki')->get_user_groups($user);
+		$user_groups = TikiLib::lib('tiki')->get_user_groups($user);
 
 		// get the id's from the users_groups table using the groupName
 		$where = " WHERE groupName IN (" . implode(',', array_fill(0, count($user_groups), '?')) . ')';
 		$query = "select id from users_groups" . $where;
-		$group_ids=TikiLib::lib('tiki')->fetchAll($query, $user_groups);
+		$group_ids = TikiLib::lib('tiki')->fetchAll($query, $user_groups);
 		$group_ids = array_column($group_ids, 'id');
 
 		// set up string to append to our query (pull group notifications)
-		$or_groups="";
-		foreach($group_ids as $group_id) {
+		$or_groups = '';
+		foreach ($group_ids as $group_id) {
 			$or_groups .= " OR criticalgrp$group_id OR highgrp$group_id OR lowgrp$group_id ";
 		}
 
@@ -217,7 +217,7 @@ class Services_User_MonitorController
 		];
 	}
 
-	function action_clearall($input)
+	public function action_clearall($input)
 	{
 		global $user;
 
@@ -234,7 +234,7 @@ class Services_User_MonitorController
 		];
 	}
 
-	function action_clearone($input)
+	public function action_clearone($input)
 	{
 		Services_Exception_Disabled::check('monitor_individual_clear');
 

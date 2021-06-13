@@ -7,7 +7,7 @@
 
 class Services_Article_Controller
 {
-	function setUp()
+	public function setUp()
 	{
 		Services_Exception_Disabled::check('feature_articles');
 	}
@@ -16,12 +16,12 @@ class Services_Article_Controller
 	 * Returns the section for use with certain features like banning
 	 * @return string
 	 */
-	function getSection()
+	public function getSection()
 	{
 		return 'cms';
 	}
 
-	function action_create_from_url($input)
+	public function action_create_from_url($input)
 	{
 		Services_Exception_Disabled::check('page_content_fetch');
 		Services_Exception_Denied::checkGlobal('edit_article');

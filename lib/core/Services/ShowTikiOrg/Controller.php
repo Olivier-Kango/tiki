@@ -10,14 +10,14 @@ use phpseclib\Net\SSH2;
 
 class Services_ShowTikiOrg_Controller
 {
-	function setUp()
+	public function setUp()
 	{
 		global $prefs;
 
 		Services_Exception_Disabled::check('trackerfield_showtikiorg');
 	}
 
-	function action_process($input)
+	public function action_process($input)
 	{
 		$id = $input->id->int();
 		$userid = $input->userid->int();
@@ -29,7 +29,7 @@ class Services_ShowTikiOrg_Controller
 
 		$item = Tracker_Item::fromId($id);
 		if (! $item->canViewField($fieldId)) {
-			throw new Services_Exception_Denied;
+			throw new Services_Exception_Denied();
 		}
 
 		$field = TikiLib::lib('trk')->get_tracker_field($fieldId);
@@ -107,7 +107,7 @@ class Services_ShowTikiOrg_Controller
 			global $user;
 
 			if (($command == 'update' || $command == 'reset' || $command == 'destroy') && ! TikiLib::lib('user')->user_has_permission($user, 'tiki_p_admin') && $user != $creator) {
-				throw new Services_Exception_Denied;
+				throw new Services_Exception_Denied();
 			}
 
 			if (empty($svntag)) {

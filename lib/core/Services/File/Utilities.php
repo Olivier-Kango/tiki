@@ -7,7 +7,7 @@
 
 class Services_File_Utilities
 {
-	function checkTargetGallery($galleryId)
+	public function checkTargetGallery($galleryId)
 	{
 		global $prefs;
 
@@ -24,19 +24,19 @@ class Services_File_Utilities
 		return $gal_info;
 	}
 
-	function getGallery($galleryId)
+	public function getGallery($galleryId)
 	{
 		$filegallib = TikiLib::lib('filegal');
 		return $filegallib->get_file_gallery_info($galleryId);
 	}
 
-	function uploadFile($gal_info, $name, $size, $type, $data, $asuser = null, $image_x = null, $image_y = null, $description = '', $created = '', $title = '')
+	public function uploadFile($gal_info, $name, $size, $type, $data, $asuser = null, $image_x = null, $image_y = null, $description = '', $created = '', $title = '')
 	{
 		$filegallib = TikiLib::lib('filegal');
 		return $filegallib->upload_single_file($gal_info, $name, $size, $type, $data, $asuser, $image_x, $image_y, $description, $created, $title);
 	}
 
-	function updateFile($gal_info, $name, $size, $type, $data, $fileId, $asuser = null, $title = '')
+	public function updateFile($gal_info, $name, $size, $type, $data, $fileId, $asuser = null, $title = '')
 	{
 		$filegallib = TikiLib::lib('filegal');
 		return $filegallib->update_single_file($gal_info, $name, $size, $type, $data, $fileId, $asuser, $title);

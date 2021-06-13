@@ -12,7 +12,7 @@ class Services_ResultLoader_WebService
 	private $countKey;
 	private $resultKey;
 
-	function __construct($client, $offsetKey, $countKey, $resultKey)
+	public function __construct($client, $offsetKey, $countKey, $resultKey)
 	{
 		$this->client = $client;
 		$this->offsetKey = $offsetKey;
@@ -20,7 +20,7 @@ class Services_ResultLoader_WebService
 		$this->resultKey = $resultKey;
 	}
 
-	function __invoke($offset, $count)
+	public function __invoke($offset, $count)
 	{
 		$this->client->setParameterPost(
 			array_merge(

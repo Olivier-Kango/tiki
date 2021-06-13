@@ -15,7 +15,7 @@ class Services_ActivityStream_ManageController
 	/**
 	 * Set up the controller
 	 */
-	function setUp()
+	public function setUp()
 	{
 		if (! Perms::get()->admin) {
 			throw new Services_Exception(tr('Permission Denied'), 403);
@@ -29,7 +29,7 @@ class Services_ActivityStream_ManageController
 	 * @return array
 	 * @throws Math_Formula_Parser_Exception
 	 */
-	function action_list()
+	public function action_list()
 	{
 		$rules = $this->lib->getRules();
 
@@ -51,7 +51,7 @@ class Services_ActivityStream_ManageController
 	 * @return array
 	 * @throws Math_Formula_Parser_Exception
 	 */
-	function action_delete(JitFilter $request)
+	public function action_delete(JitFilter $request)
 	{
 		$id = $request->ruleId->int();
 		$rule = $this->getRule($id);
@@ -87,7 +87,7 @@ class Services_ActivityStream_ManageController
 	 * @return array
 	 * @throws Exception
 	 */
-	function action_deleteactivity(JitFilter $request)
+	public function action_deleteactivity(JitFilter $request)
 	{
 		$id = $request->activityId->int();
 
@@ -115,7 +115,7 @@ class Services_ActivityStream_ManageController
 	 * @throws Math_Formula_Parser_Exception
 	 * @throws Services_Exception_FieldError
 	 */
-	function action_sample(JitFilter $request)
+	public function action_sample(JitFilter $request)
 	{
 		$id = $request->ruleId->int();
 
@@ -170,7 +170,7 @@ class Services_ActivityStream_ManageController
 	 * @throws Math_Formula_Parser_Exception
 	 * @throws Services_Exception_FieldError
 	 */
-	function action_record(JitFilter $request)
+	public function action_record(JitFilter $request)
 	{
 		$id = $request->ruleId->int();
 		$priority = $request['priority'];
@@ -221,7 +221,7 @@ class Services_ActivityStream_ManageController
 	 * @throws Services_Exception_FieldError
 	 * @throws Services_Exception_MissingValue
 	 */
-	function action_tracker_filter(JitFilter $request)
+	public function action_tracker_filter(JitFilter $request)
 	{
 		$id = $request->ruleId->int();
 
@@ -295,7 +295,7 @@ $customArguments
 	 * @throws Math_Formula_Parser_Exception
 	 * @throws Services_Exception_FieldError
 	 */
-	function action_advanced(JitFilter $request)
+	public function action_advanced(JitFilter $request)
 	{
 		$id = $request->ruleId->int();
 
@@ -391,7 +391,7 @@ $customArguments
 		}
 
 		if ($rule['rule']) {
-			$parser = new Math_Formula_Parser;
+			$parser = new Math_Formula_Parser();
 			$rule['element'] = $parser->parse($rule['rule']);
 		} else {
 			$rule['element'] = null;
@@ -408,7 +408,7 @@ $customArguments
 	 * @throws Services_Exception_Denied
 	 * @throws Services_Exception_FieldError
 	 */
-	function action_change_rule_type(JitFilter $input)
+	public function action_change_rule_type(JitFilter $input)
 	{
 		$id = $input->ruleId->int();
 		$rule = $this->getRule($id);
@@ -468,7 +468,7 @@ $customArguments
 	 * @throws Math_Formula_Parser_Exception
 	 * @throws Services_Exception_FieldError
 	 */
-	function action_change_rule_status(JitFilter $input)
+	public function action_change_rule_status(JitFilter $input)
 	{
 		$id = $input->ruleId->int();
 		$rule = $this->getRule($id);
@@ -479,8 +479,8 @@ $customArguments
 			//to disable a rule "event-record" needs to be changed to "event-sample" in the rule
 			if (($rule['ruleType'] === 'record' || $rule['ruleType'] === 'advanced') && $status === 'enabled') {
 				$rule['rule'] = str_replace('event-record', 'event-sample', $rule['rule']);
-			} //to enable a rule "event-sample" needs to be changed to "event-record" in the rule
-			elseif (($rule['ruleType'] === 'record' || $rule['ruleType'] === 'advanced') && $status === 'disabled') {
+				//to enable a rule "event-sample" needs to be changed to "event-record" in the rule
+			} elseif (($rule['ruleType'] === 'record' || $rule['ruleType'] === 'advanced') && $status === 'disabled') {
 				$rule['rule'] = str_replace('event-sample', 'event-record', $rule['rule']);
 			}
 

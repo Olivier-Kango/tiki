@@ -32,12 +32,12 @@ class Services_User_Controller
 		'wikiTpl'			=> 'pagename'
 	];
 
-	function setUp()
+	public function setUp()
 	{
 		$this->lib = TikiLib::lib('user');
 	}
 
-	function action_list_users($input)
+	public function action_list_users($input)
 	{
 		$groupIds = $input->groupIds->int();
 		$offset = $input->offset->int();
@@ -68,7 +68,7 @@ class Services_User_Controller
 	 * @return array
 	 * @throws Services_Exception
 	 */
-	function action_register($input)
+	public function action_register($input)
 	{
 		global $https_mode, $prefs;
 		if (! $https_mode && $prefs['https_login'] == 'required') {
@@ -109,7 +109,7 @@ class Services_User_Controller
 	 * @param $input JitFilter (username)
 	 * @return array
 	 */
-	function action_info($input)
+	public function action_info($input)
 	{
 		global $prefs, $user;
 
@@ -129,13 +129,20 @@ class Services_User_Controller
 			'shared_groups' => '',
 		];
 
-		if ($prefs['feature_community_mouseover'] == 'y' &&
-				$this->lib->get_user_preference($user, 'show_mouseover_user_info', 'y') == 'y' || $prefs['feature_friends'] == 'y') {
+		if (
+			$prefs['feature_community_mouseover'] == 'y' &&
+			$this->lib->get_user_preference($user, 'show_mouseover_user_info', 'y') == 'y' ||
+			$prefs['feature_friends'] == 'y'
+		) {
 			$other_user = $input->username->email();
 			$result['other_user'] = $other_user;
 
-			if ($this->lib->user_exists($other_user) &&
-					($tikilib->get_user_preference($other_user, 'user_information', 'public') === 'public' || $user == $other_user || $prefs['feature_friends'] == 'y')) {
+			if (
+				$this->lib->user_exists($other_user) &&
+				($tikilib->get_user_preference($other_user, 'user_information', 'public') === 'public' ||
+				$user == $other_user ||
+				$prefs['feature_friends'] == 'y')
+			) {
 				$info = $this->lib->get_user_info($other_user);
 
 				$result['add_friend_button'] = '';
@@ -223,8 +230,13 @@ class Services_User_Controller
 
 				if ($prefs['feature_score'] == 'y') {
 					$info['score'] = TikiLib::lib('score')->get_user_score($other_user);
-					if ($prefs['feature_community_mouseover_score'] == 'y' &&
-							! empty($info['score']) && $other_user !== 'admin' && $other_user !== 'system' && $other_user !== 'Anonymous') {
+					if (
+						$prefs['feature_community_mouseover_score'] == 'y' &&
+						! empty($info['score']) &&
+						$other_user !== 'admin' &&
+						$other_user !== 'system' &&
+						$other_user !== 'Anonymous'
+					) {
 						$result['starHtml'] = $tikilib->get_star($info['score']);
 					} else {
 						$result['starHtml'] = '';
@@ -320,7 +332,7 @@ class Services_User_Controller
 	 * @throws Services_Exception
 	 * @throws Services_Exception_Denied
 	 */
-	function action_remove_users($input)
+	public function action_remove_users($input)
 	{
 		Services_Exception_Denied::checkGlobal('admin_users');
 		$util = new Services_Utilities();
@@ -394,7 +406,7 @@ class Services_User_Controller
 	 * @throws Services_Exception_Denied
 	 * @throws Services_Exception_Disabled
 	 */
-	function action_ban_ips($input)
+	public function action_ban_ips($input)
 	{
 		Services_Exception_Disabled::check('feature_banning');
 		Services_Exception_Denied::checkGlobal('admin_banning');
@@ -433,7 +445,7 @@ class Services_User_Controller
 	 * @throws Services_Exception
 	 * @throws Services_Exception_Denied
 	 */
-	function action_manage_groups($input)
+	public function action_manage_groups($input)
 	{
 		global $prefs;
 		Services_Exception_Denied::checkGlobal('admin_users');
@@ -626,7 +638,7 @@ class Services_User_Controller
 	 * @throws Services_Exception
 	 * @throws Services_Exception_Denied
 	 */
-	function action_default_groups($input)
+	public function action_default_groups($input)
 	{
 		Services_Exception_Denied::checkGlobal('admin_users');
 		Services_Exception_Denied::checkGlobal('group_add_member');
@@ -710,7 +722,7 @@ class Services_User_Controller
 	 * @throws Services_Exception_Denied
 	 * @throws Services_Exception_Disabled
 	 */
-	function action_email_wikipage($input)
+	public function action_email_wikipage($input)
 	{
 		Services_Exception_Disabled::check('feature_wiki');
 		Services_Exception_Denied::checkGlobal('admin_users');
@@ -809,7 +821,7 @@ class Services_User_Controller
 		}
 	}
 
-	function action_send_message($input)
+	public function action_send_message($input)
 	{
 		global $user;
 		$userlib = TikiLib::lib('user');
@@ -827,22 +839,27 @@ class Services_User_Controller
 		}
 		$util = new Services_Utilities();
 		if ($util->isConfirmPost()) {
-			if (empty($input->subject->text()) && empty($input->body->text())) {
+			if (
+				empty($input->subject->text()) &&
+				empty($input->body->text())
+			) {
 				Feedback::error(tra('Message not sent - no subject or body.'));
 			} else {
 				//if message is successfully sent
-				if (TikiLib::lib('message')->post_message(
-					$input->userwatch->text(),
-					$user,
-					$input->to->text(),
-					'',
-					$input->subject->text(),
-					$input->body->text(),
-					$priority,
-					'',
-					isset($input->replytome) ? 'y' : '',
-					isset($input->bccme) ? 'y' : ''
-				)) {
+				if (
+					TikiLib::lib('message')->post_message(
+						$input->userwatch->text(),
+						$user,
+						$input->to->text(),
+						'',
+						$input->subject->text(),
+						$input->body->text(),
+						$priority,
+						'',
+						isset($input->replytome) ? 'y' : '',
+						isset($input->bccme) ? 'y' : ''
+					)
+				) {
 					$message = tr(
 						'Your message was successfully sent to %0,',
 						$userlib->clean_user($input->userwatch->text())
@@ -863,7 +880,7 @@ class Services_User_Controller
 		}
 	}
 
-	function action_get_message_count($input)
+	public function action_get_message_count($input)
 	{
 		global $user;
 
@@ -880,7 +897,7 @@ class Services_User_Controller
 		return (int) $messagelib->count_messages($user, 'messages', $unread, $sinceDate);
 	}
 
-	function action_invite_tempuser($input)
+	public function action_invite_tempuser($input)
 	{
 		Services_Exception_Denied::checkGlobal('admin_users');
 		$emails = $input->tempuser_emails->text();
@@ -927,7 +944,7 @@ class Services_User_Controller
 	 * @throws Services_Exception
 	 * @throws SmartyException
 	 */
-	function action_upload_avatar($input)
+	public function action_upload_avatar($input)
 	{
 		global $user;
 		$userwatch = $input->user->none();

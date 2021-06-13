@@ -9,10 +9,10 @@ class Services_Tracker_SyncController
 {
 	private $utilities;
 
-	function setUp()
+	public function setUp()
 	{
 		global $prefs;
-		$this->utilities = new Services_Tracker_Utilities;
+		$this->utilities = new Services_Tracker_Utilities();
 
 		if ($prefs['feature_trackers'] != 'y') {
 			throw new Services_Exception_Disabled('feature_trackers');
@@ -31,12 +31,12 @@ class Services_Tracker_SyncController
 	 * Returns the section for use with certain features like banning
 	 * @return string
 	 */
-	function getSection()
+	public function getSection()
 	{
 		return 'trackers';
 	}
 
-	function action_clone_remote($input)
+	public function action_clone_remote($input)
 	{
 		$url = $input->url->url();
 		$remoteTracker = $input->remote_tracker_id->int();
@@ -91,7 +91,7 @@ class Services_Tracker_SyncController
 		];
 	}
 
-	function action_sync_meta($input)
+	public function action_sync_meta($input)
 	{
 		list($trackerId, $definition, $syncInfo) = $this->readTracker($input);
 		$factory = $definition->getFieldFactory();
@@ -115,7 +115,7 @@ class Services_Tracker_SyncController
 		return [];
 	}
 
-	function action_sync_refresh($input)
+	public function action_sync_refresh($input)
 	{
 		list($trackerId, $definition, $syncInfo) = $this->readTracker($input);
 
@@ -151,7 +151,7 @@ class Services_Tracker_SyncController
 		return [];
 	}
 
-	function action_sync_new($input)
+	public function action_sync_new($input)
 	{
 		list($trackerId, $definition, $syncInfo) = $this->readTracker($input);
 
@@ -191,7 +191,7 @@ class Services_Tracker_SyncController
 		}
 	}
 
-	function action_sync_edit($input)
+	public function action_sync_edit($input)
 	{
 		list($trackerId, $definition, $syncInfo) = $this->readTracker($input);
 
@@ -364,7 +364,7 @@ class Services_Tracker_SyncController
 	private function attachTranslations($syncInfo, $type, $objectMap)
 	{
 		$unprocessed = $objectMap;
-		$utilities = new Services_Language_Utilities;
+		$utilities = new Services_Language_Utilities();
 
 		while (reset($unprocessed)) {
 			$remoteSource = key($unprocessed);
@@ -442,7 +442,7 @@ class Services_Tracker_SyncController
 		return $out;
 	}
 
-	private function processUpdates($inputType, & $list, $input, $definition, $remoteDefinition)
+	private function processUpdates($inputType, &$list, $input, $definition, $remoteDefinition)
 	{
 		$values = $input->$inputType->int();
 		if (! is_array($values)) {

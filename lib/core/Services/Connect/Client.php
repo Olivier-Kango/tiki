@@ -11,7 +11,7 @@ class Services_Connect_Client
 	private $connectlib;
 	private $remote;
 
-	function setUp()
+	public function setUp()
 	{
 		global $prefs;
 
@@ -23,7 +23,7 @@ class Services_Connect_Client
 		$this->remote = new Services_RemoteController($prefs['connect_server'], 'connect_server');
 	}
 
-	function action_vote($input)
+	public function action_vote($input)
 	{
 		global $prefs;
 
@@ -59,7 +59,7 @@ class Services_Connect_Client
 		return [ 'newVote' => $vote ];
 	}
 
-	function action_list($input = null)
+	public function action_list($input = null)
 	{
 		if (! Perms::get()->admin) {
 			throw new Services_Exception(tr('Reserved for administrators during development'), 403);
@@ -70,7 +70,7 @@ class Services_Connect_Client
 		return $info;
 	}
 
-	function action_send($input)
+	public function action_send($input)
 	{
 		global $prefs;
 
@@ -137,7 +137,7 @@ class Services_Connect_Client
 		return $data;
 	}
 
-	function action_cancel($input)
+	public function action_cancel($input)
 	{
 		$guid = $input->guid->text();
 		if ($guid) {

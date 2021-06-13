@@ -12,7 +12,7 @@ class Services_Module_Controller
 	 * @param JitFilter $input
 	 * @return array
 	 */
-	function action_execute($input)
+	public function action_execute($input)
 	{
 		$modlib = TikiLib::lib('mod');
 		$result = '';

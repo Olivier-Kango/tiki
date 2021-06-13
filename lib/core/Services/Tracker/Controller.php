@@ -12,10 +12,10 @@ class Services_Tracker_Controller
 	 */
 	private $utilities;
 
-	function setUp()
+	public function setUp()
 	{
 		global $prefs;
-		$this->utilities = new Services_Tracker_Utilities;
+		$this->utilities = new Services_Tracker_Utilities();
 
 		Services_Exception_Disabled::check('feature_trackers');
 	}
@@ -24,12 +24,12 @@ class Services_Tracker_Controller
 	 * Returns the section for use with certain features like banning
 	 * @return string
 	 */
-	function getSection()
+	public function getSection()
 	{
 		return 'trackers';
 	}
 
-	function action_view($input)
+	public function action_view($input)
 	{
 		$item = Tracker_Item::fromId($input->id->int());
 
@@ -59,7 +59,7 @@ class Services_Tracker_Controller
 		];
 	}
 
-	function action_add_field($input)
+	public function action_add_field($input)
 	{
 		$modal = $input->modal->int();
 		$trackerId = $input->trackerId->int();
@@ -73,7 +73,7 @@ class Services_Tracker_Controller
 		$definition = Tracker_Definition::get($trackerId);
 
 		if (! $definition) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		$name = $input->name->text();
@@ -148,7 +148,7 @@ class Services_Tracker_Controller
 		];
 	}
 
-	function action_list_fields($input)
+	public function action_list_fields($input)
 	{
 		global $prefs;
 
@@ -162,7 +162,7 @@ class Services_Tracker_Controller
 		$definition = Tracker_Definition::get($trackerId);
 
 		if (! $definition) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		$fields = $definition->getFields();
@@ -230,7 +230,7 @@ class Services_Tracker_Controller
 		];
 	}
 
-	function action_save_fields($input)
+	public function action_save_fields($input)
 	{
 		$trackerId = $input->trackerId->int();
 
@@ -242,7 +242,7 @@ class Services_Tracker_Controller
 		$definition = Tracker_Definition::get($trackerId);
 
 		if (! $definition) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		$hasList = false;
@@ -294,7 +294,7 @@ class Services_Tracker_Controller
 	 * @throws Services_Exception_DuplicateValue
 	 * @throws Services_Exception_NotFound
 	 */
-	function action_edit_field($input)
+	public function action_edit_field($input)
 	{
 		global $prefs;
 
@@ -309,12 +309,12 @@ class Services_Tracker_Controller
 		$definition = Tracker_Definition::get($trackerId);
 
 		if (! $definition) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		$field = $definition->getField($fieldId);
 		if (! $field) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		$types = $this->utilities->getFieldTypes();
@@ -449,7 +449,7 @@ class Services_Tracker_Controller
 			}
 		}
 
-		array_walk($typeInfo['params'], function (& $param) use ($fieldId, $field) {
+		array_walk($typeInfo['params'], function (&$param) use ($fieldId, $field) {
 			if (isset($param['profile_reference'])) {
 				$lib = TikiLib::lib('object');
 				$param['selector_type'] = $lib->getSelectorType($param['profile_reference']);
@@ -492,7 +492,7 @@ class Services_Tracker_Controller
 		];
 	}
 
-	function action_remove_fields($input)
+	public function action_remove_fields($input)
 	{
 		$trackerId = $input->trackerId->int();
 
@@ -506,12 +506,12 @@ class Services_Tracker_Controller
 		$definition = Tracker_Definition::get($trackerId);
 
 		if (! $definition) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		foreach ($fields as $fieldId) {
 			if (! $definition->getField($fieldId)) {
-				throw new Services_Exception_NotFound;
+				throw new Services_Exception_NotFound();
 			}
 		}
 
@@ -536,7 +536,7 @@ class Services_Tracker_Controller
 		}
 	}
 
-	function action_export_fields($input)
+	public function action_export_fields($input)
 	{
 		$trackerId = $input->trackerId->int();
 
@@ -550,7 +550,7 @@ class Services_Tracker_Controller
 		$definition = Tracker_Definition::get($trackerId);
 
 		if (! $definition) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		if ($fields) {
@@ -572,7 +572,7 @@ class Services_Tracker_Controller
 		];
 	}
 
-	function action_import_fields($input)
+	public function action_import_fields($input)
 	{
 		if (! Perms::get()->admin_trackers) {
 			throw new Services_Exception_Denied(tr('Reserved for tracker administrators'));
@@ -582,7 +582,7 @@ class Services_Tracker_Controller
 		$definition = Tracker_Definition::get($trackerId);
 
 		if (! $definition) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		$raw = $input->raw->none();
@@ -611,7 +611,7 @@ class Services_Tracker_Controller
 		];
 	}
 
-	function action_list_trackers($input)
+	public function action_list_trackers($input)
 	{
 		if (! Perms::get()->admin_trackers) {
 			throw new Services_Exception_Denied(tr('Reserved for tracker administrators'));
@@ -621,7 +621,7 @@ class Services_Tracker_Controller
 		return $trklib->list_trackers();
 	}
 
-	function action_list_items($input)
+	public function action_list_items($input)
 	{
 		// TODO : Eventually, this method should filter according to the actual permissions, but because
 		//        it is only to be used for tracker sync at this time, admin privileges are just fine.
@@ -640,7 +640,7 @@ class Services_Tracker_Controller
 		$definition = Tracker_Definition::get($trackerId);
 
 		if (! $definition) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		$items = $this->utilities->getItems(
@@ -673,7 +673,7 @@ class Services_Tracker_Controller
 	 * @throws Services_Exception_Denied
 	 * @throws Services_Exception_NotFound
 	 */
-	function action_get_item_inputs($input)
+	public function action_get_item_inputs($input)
 	{
 		$trackerId = $input->trackerId->int();
 		$trackerName = $input->trackerName->text();
@@ -686,13 +686,13 @@ class Services_Tracker_Controller
 		$definition = Tracker_Definition::get($trackerId);
 
 		if (! $definition) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		$itemObject = Tracker_Item::newItem($trackerId);
 
 		if (! $itemObject->canModify()) {
-			throw new Services_Exception_Denied;
+			throw new Services_Exception_Denied();
 		}
 
 		$query = Tracker_Query::tracker($byName ? $trackerName : $trackerId)
@@ -711,7 +711,7 @@ class Services_Tracker_Controller
 		return $inputs;
 	}
 
-	function action_clone_item($input)
+	public function action_clone_item($input)
 	{
 		global $prefs;
 
@@ -721,7 +721,7 @@ class Services_Tracker_Controller
 		$definition = Tracker_Definition::get($trackerId);
 
 		if (! $definition) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		$itemId = $input->itemId->int();
@@ -811,7 +811,7 @@ class Services_Tracker_Controller
 		];
 	}
 
-	function action_insert_item($input)
+	public function action_insert_item($input)
 	{
 		$processedFields = [];
 
@@ -827,13 +827,13 @@ class Services_Tracker_Controller
 		$definition = Tracker_Definition::get($trackerId);
 
 		if (! $definition) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		$itemObject = Tracker_Item::newItem($trackerId);
 
 		if (! $itemObject->canModify()) {
-			throw new Services_Exception_Denied;
+			throw new Services_Exception_Denied();
 		}
 
 		$fields = $input->fields->none();
@@ -843,7 +843,6 @@ class Services_Tracker_Controller
 		$toRemove = [];
 
 		if (empty($fields)) {
-
 			$fields = [];
 			foreach ($processedFields as $k => $f) {
 				$permName = $f['permName'];
@@ -1050,7 +1049,7 @@ class Services_Tracker_Controller
 	 * @throws Services_Exception_EditConflict
 	 *
 	 */
-	function action_update_item($input)
+	public function action_update_item($input)
 	{
 		global $prefs;
 
@@ -1059,7 +1058,7 @@ class Services_Tracker_Controller
 		$suppressFeedback = $input->suppressFeedback->bool();
 
 		if (! $definition) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		if (! $itemId = $input->itemId->int()) {
@@ -1068,12 +1067,12 @@ class Services_Tracker_Controller
 
 		$itemInfo = TikiLib::lib('trk')->get_tracker_item($itemId);
 		if (! $itemInfo || $itemInfo['trackerId'] != $trackerId) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		$itemObject = Tracker_Item::fromInfo($itemInfo);
 		if (! $itemObject->canModify()) {
-			throw new Services_Exception_Denied;
+			throw new Services_Exception_Denied();
 		}
 
 		if ($prefs['feature_warn_on_edit'] == 'y' && $input->conflictoverride->int() !== 1) {
@@ -1093,7 +1092,7 @@ class Services_Tracker_Controller
 						'modal' => 1,
 					], $smarty);
 					TikiLib::lib('header')->add_jq_onready('
-	var lock_link = $(\'<a href="'.$href.'">'.tra('Override lock and carry on with edit').'</a>\');
+	var lock_link = $(\'<a href="' . $href . '">' . tra('Override lock and carry on with edit') . '</a>\');
 	lock_link.on("click", function(e) {
 		var $link = $(this);
 		e.preventDefault();
@@ -1196,7 +1195,7 @@ class Services_Tracker_Controller
 						$trackername = tr($trackerinfo['name']);
 						$item = $this->utilities->getItem($trackerId, $itemId);
 						$itemtitle = $this->utilities->getTitle($definition, $item);
-						$msg = tr('%0: Updated "%1"', $trackername, $itemtitle) . " [" . TikiLib::lib('tiki')->get_long_time( TikiLib::lib('tiki')->now ) . "]";
+						$msg = tr('%0: Updated "%1"', $trackername, $itemtitle) . " [" . TikiLib::lib('tiki')->get_long_time(TikiLib::lib('tiki')->now) . "]";
 						Feedback::success($msg);
 						Feedback::sendHeaders();
 					} else {
@@ -1343,7 +1342,7 @@ class Services_Tracker_Controller
 		$definition = Tracker_Definition::get($trackerId);
 
 		if (! $definition) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		$itemId = $input->itemId->int();
@@ -1351,7 +1350,7 @@ class Services_Tracker_Controller
 		if ($itemId) {
 			$itemInfo = TikiLib::lib('trk')->get_tracker_item($itemId);
 			if (! $itemInfo || $itemInfo['trackerId'] != $trackerId) {
-				throw new Services_Exception_NotFound;
+				throw new Services_Exception_NotFound();
 			}
 		} else {
 			$itemInfo = ['trackerId' => $trackerId];
@@ -1566,17 +1565,17 @@ class Services_Tracker_Controller
 	 * @throws Services_Exception_Denied
 	 * @throws Services_Exception_NotFound
 	 */
-	function action_link_items($input)
+	public function action_link_items($input)
 	{
 		$trackerId = $input->trackerId->int();
 		$definition = Tracker_Definition::get($trackerId);
 
 		if (! $definition) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		if (! $field = $definition->getField($input->linkField->int())) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		$linkedItemIds = [];
@@ -1586,7 +1585,7 @@ class Services_Tracker_Controller
 			$itemObject = Tracker_Item::fromId($itemId);
 
 			if (! $itemObject) {
-				throw new Services_Exception_NotFound;
+				throw new Services_Exception_NotFound();
 			}
 
 			if (! $itemObject->canView()) {
@@ -1621,7 +1620,7 @@ class Services_Tracker_Controller
 			$itemObject = Tracker_Item::fromId($itemId);
 
 			if (! $itemObject) {
-				throw new Services_Exception_NotFound;
+				throw new Services_Exception_NotFound();
 			}
 
 			if (! $itemObject->canRemove()) {
@@ -1644,7 +1643,7 @@ class Services_Tracker_Controller
 		}
 	}
 
-	function action_fetch_item_field($input)
+	public function action_fetch_item_field($input)
 	{
 		global $prefs;
 
@@ -1654,22 +1653,22 @@ class Services_Tracker_Controller
 		$definition = Tracker_Definition::get($trackerId);
 
 		if (! $definition) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		if (! $field = $definition->getField($input->fieldId->int())) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		if ($itemId = $input->itemId->int()) {
 			$itemInfo = TikiLib::lib('trk')->get_tracker_item($itemId);
 			if (! $itemInfo || $itemInfo['trackerId'] != $trackerId) {
-				throw new Services_Exception_NotFound;
+				throw new Services_Exception_NotFound();
 			}
 
 			$itemObject = Tracker_Item::fromInfo($itemInfo);
 			if (! $processed = $itemObject->prepareFieldInput($field, $input->none())) {
-				throw new Services_Exception_Denied;
+				throw new Services_Exception_Denied();
 			}
 		} else {
 			$itemObject = Tracker_Item::newItem($trackerId);
@@ -1689,7 +1688,7 @@ class Services_Tracker_Controller
 		];
 	}
 
-	function action_set_location($input)
+	public function action_set_location($input)
 	{
 		$location = $input->location->text();
 
@@ -1699,23 +1698,23 @@ class Services_Tracker_Controller
 
 		$itemInfo = TikiLib::lib('trk')->get_tracker_item($itemId);
 		if (! $itemInfo) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		$trackerId = $itemInfo['trackerId'];
 		$definition = Tracker_Definition::get($trackerId);
 		if (! $definition) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		$itemObject = Tracker_Item::fromInfo($itemInfo);
 		if (! $itemObject->canModify()) {
-			throw new Services_Exception_Denied;
+			throw new Services_Exception_Denied();
 		}
 
 		$field = $definition->getGeolocationField();
 		if (! $field) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -1742,13 +1741,13 @@ class Services_Tracker_Controller
 		];
 	}
 
-	function action_remove_item($input)
+	public function action_remove_item($input)
 	{
 		$trackerId = $input->trackerId->int();
 		$definition = Tracker_Definition::get($trackerId);
 
 		if (! $definition) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		if (! $itemId = $input->itemId->int()) {
@@ -1759,12 +1758,12 @@ class Services_Tracker_Controller
 
 		$itemInfo = $trklib->get_tracker_item($itemId);
 		if (! $itemInfo || $itemInfo['trackerId'] != $trackerId) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		$itemObject = Tracker_Item::fromInfo($itemInfo);
 		if (! $itemObject->canRemove()) {
-			throw new Services_Exception_Denied;
+			throw new Services_Exception_Denied();
 		}
 
 		$uncascaded = $trklib->findUncascadedDeletes($itemId, $trackerId);
@@ -1785,7 +1784,7 @@ class Services_Tracker_Controller
 		];
 	}
 
-	function action_remove($input)
+	public function action_remove($input)
 	{
 		$trackerId = $input->trackerId->int();
 		$confirm = $input->confirm->int();
@@ -1798,7 +1797,7 @@ class Services_Tracker_Controller
 		$definition = Tracker_Definition::get($trackerId);
 
 		if (! $definition) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		if ($_SERVER['REQUEST_METHOD'] === 'POST' && $confirm) {
@@ -1817,7 +1816,7 @@ class Services_Tracker_Controller
 	}
 
 	//Function to just change the status of the tracker item
-	function action_update_item_status($input)
+	public function action_update_item_status($input)
 	{
 		if ($input->status->word() == 'DONE') {
 			return [
@@ -1830,7 +1829,7 @@ class Services_Tracker_Controller
 		$definition = Tracker_Definition::get($trackerId);
 
 		if (! $definition) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		if (! $itemId = $input->itemId->int()) {
@@ -1839,7 +1838,7 @@ class Services_Tracker_Controller
 
 		$itemInfo = TikiLib::lib('trk')->get_tracker_item($itemId);
 		if (! $itemInfo || $itemInfo['trackerId'] != $trackerId) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		if (empty($input->item_label->text())) {
@@ -1862,7 +1861,7 @@ class Services_Tracker_Controller
 
 		$itemObject = Tracker_Item::fromInfo($itemInfo);
 		if (! $itemObject->canModify()) {
-			throw new Services_Exception_Denied;
+			throw new Services_Exception_Denied();
 		}
 
 		if ($_SERVER['REQUEST_METHOD'] === 'POST' && $input->confirm->int()) {
@@ -1900,7 +1899,7 @@ class Services_Tracker_Controller
 		}
 	}
 
-	function action_clear($input)
+	public function action_clear($input)
 	{
 
 		return TikiLib::lib('tiki')->allocate_extra(
@@ -1915,7 +1914,7 @@ class Services_Tracker_Controller
 				$definition = Tracker_Definition::get($trackerId);
 
 				if (! $definition) {
-					throw new Services_Exception_NotFound;
+					throw new Services_Exception_NotFound();
 				}
 				$util = new Services_Utilities();
 				if ($util->isConfirmPost()) {
@@ -1943,7 +1942,7 @@ class Services_Tracker_Controller
 		);
 	}
 
-	function action_replace($input)
+	public function action_replace($input)
 	{
 		$trackerId = $input->trackerId->int();
 		$confirm = $input->confirm->int();
@@ -1957,7 +1956,7 @@ class Services_Tracker_Controller
 			$definition = Tracker_Definition::get($trackerId);
 
 			if (! $definition) {
-				throw new Services_Exception_NotFound;
+				throw new Services_Exception_NotFound();
 			}
 		} else {
 			$definition = Tracker_Definition::getDefault();
@@ -2080,7 +2079,7 @@ class Services_Tracker_Controller
 		];
 	}
 
-	function action_duplicate($input)
+	public function action_duplicate($input)
 	{
 		$confirm = $input->confirm->int();
 
@@ -2092,7 +2091,7 @@ class Services_Tracker_Controller
 			}
 			$definition = Tracker_Definition::get($trackerId);
 			if (! $definition) {
-				throw new Services_Exception_NotFound;
+				throw new Services_Exception_NotFound();
 			}
 			$name = $input->name->text();
 			if (! $name) {
@@ -2112,7 +2111,7 @@ class Services_Tracker_Controller
 		}
 	}
 
-	function action_export($input)
+	public function action_export($input)
 	{
 		$trackerId = $input->trackerId->int();
 		$filterField = $input->filterfield->string();
@@ -2126,7 +2125,7 @@ class Services_Tracker_Controller
 		$definition = Tracker_Definition::get($trackerId);
 
 		if (! $definition) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		if ($perms->admin_trackers) {
@@ -2163,7 +2162,7 @@ class Services_Tracker_Controller
 		];
 	}
 
-	function action_export_items($input)
+	public function action_export_items($input)
 	{
 		@ini_set('max_execution_time', 0);
 		TikiLib::lib('tiki')->allocate_extra(
@@ -2174,7 +2173,7 @@ class Services_Tracker_Controller
 				$definition = Tracker_Definition::get($trackerId);
 
 				if (! $definition) {
-					throw new Services_Exception_NotFound;
+					throw new Services_Exception_NotFound();
 				}
 
 				$perms = Perms::get('tracker', $trackerId);
@@ -2311,14 +2310,14 @@ class Services_Tracker_Controller
 		exit;
 	}
 
-	function action_dump_items($input)
+	public function action_dump_items($input)
 	{
 		$trackerId = $input->trackerId->int();
 
 		$definition = Tracker_Definition::get($trackerId);
 
 		if (! $definition) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		$perms = Perms::get('tracker', $trackerId);
@@ -2331,7 +2330,7 @@ class Services_Tracker_Controller
 		exit;
 	}
 
-	function action_export_profile($input)
+	public function action_export_profile($input)
 	{
 		if (! Perms::get()->admin_trackers) {
 			throw new Services_Exception_Denied(tr('Reserved for tracker administrators'));
@@ -2375,7 +2374,7 @@ class Services_Tracker_Controller
 		}
 	}
 
-	function action_import($input)
+	public function action_import($input)
 	{
 		if (! Perms::get()->admin_trackers) {
 			throw new Services_Exception_Denied(tr('Reserved for tracker administrators'));
@@ -2418,7 +2417,7 @@ class Services_Tracker_Controller
 		];
 	}
 
-	function action_import_items($input)
+	public function action_import_items($input)
 	{
 		$trackerId = $input->trackerId->int();
 
@@ -2430,7 +2429,7 @@ class Services_Tracker_Controller
 		$definition = Tracker_Definition::get($trackerId);
 
 		if (! $definition) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		if (isset($_FILES['importfile'])) {
@@ -2470,7 +2469,7 @@ class Services_Tracker_Controller
 		];
 	}
 
-	function action_vote($input)
+	public function action_vote($input)
 	{
 		$requestData = [];
 		$requestData['itemId'] = $input->i->int();
@@ -2507,7 +2506,7 @@ class Services_Tracker_Controller
 
 		if ($_SERVER['REQUEST_METHOD'] === 'POST' && $confirm) {
 			$transaction = $tikilib->begin();
-			$installer = new Tiki_Profile_Installer;
+			$installer = new Tiki_Profile_Installer();
 
 			$yaml = $input->yaml->text();
 			$name = "tracker_import:" . md5($yaml);
@@ -2618,7 +2617,7 @@ class Services_Tracker_Controller
 		return $out;
 	}
 
-	function action_select_tracker($input)
+	public function action_select_tracker($input)
 	{
 		$confirm = $input->confirm->int();
 
@@ -2640,14 +2639,14 @@ class Services_Tracker_Controller
 		}
 	}
 
-	function action_search_help($input)
+	public function action_search_help($input)
 	{
 		return [
 			'title' => tr('Help'),
 		];
 	}
 
-	function get_validation_options($formId = '')
+	public function get_validation_options($formId = '')
 	{
 		$jsString = ',
 		onkeyup: false,
@@ -2683,7 +2682,7 @@ class Services_Tracker_Controller
 		return $jsString;
 	}
 
-	function action_itemslist_output($input)
+	public function action_itemslist_output($input)
 	{
 		$trklib = TikiLib::lib('trk');
 		$field = $trklib->get_tracker_field($input->field->int());

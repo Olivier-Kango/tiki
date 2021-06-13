@@ -9,12 +9,12 @@
 class Services_Language_TransifexController extends Services_Language_Controller
 {
 
-	function __construct()
+	public function __construct()
 	{
-		$this->utilities = new Services_Language_Utilities;
+		$this->utilities = new Services_Language_Utilities();
 	}
 
-	function setUp()
+	public function setUp()
 	{
 		global $prefs;
 
@@ -54,8 +54,8 @@ class Services_Language_TransifexController extends Services_Language_Controller
 					$untranslated[$matches[1]] = $matches[2];
 					//lets keep the original lines as they were so that untranslated strings remain commented out
 					$lang[] = $matches[0];
-				} //assuming translated lines are those, where key and value are different
-				else {
+					//assuming translated lines are those, where key and value are different
+				} else {
 					$translated[$matches[1]] = $matches[2];
 					//remove slashes and space to activate translated lines
 					$lang[] = substr($matches[0], 3);

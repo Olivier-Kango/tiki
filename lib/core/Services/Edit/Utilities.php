@@ -73,7 +73,7 @@ class Services_Edit_Utilities
 				if (! $params) {
 					$params = $match->getArguments();
 				} elseif ($appendParams) {
-					$parser = new WikiParser_PluginArgumentParser;
+					$parser = new WikiParser_PluginArgumentParser();
 					$arguments = $parser->parse($match->getArguments());
 					$params = array_merge($arguments, $params);
 				}

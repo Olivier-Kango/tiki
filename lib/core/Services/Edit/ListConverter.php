@@ -27,7 +27,7 @@ class Services_Edit_ListConverter
 
 	public function __construct($sourcePlugin)
 	{
-		$this->utilities = new Services_Tracker_Utilities;
+		$this->utilities = new Services_Tracker_Utilities();
 
 		$this->sourcePlugin = $sourcePlugin;
 		$this->formats = [];
@@ -109,7 +109,7 @@ class Services_Edit_ListConverter
 						$this->columnOptions['url'] = $value;
 					}
 					break;
-				case 'wiki';
+				case 'wiki':
 					$this->columnOptions['wiki'] = $value;
 					break;
 				case 'status':
@@ -129,7 +129,7 @@ class Services_Edit_ListConverter
 					$filterExact = explode(':', $value);
 					break;
 				// *********************** filters from plugin TrackerFilter *************************
-				case 'filters';
+				case 'filters':
 					preg_match_all('!\d+!', $value, $matches); // 14/d:15/t turns into array(0=>14,1=>15)
 					$trackerFilterFields = $matches[0];
 					break;
@@ -305,7 +305,8 @@ class Services_Edit_ListConverter
 					'name'     => 'Status',
 					'permName' => 'tracker_status',
 					'type'     => 't',
-				], true
+				],
+				true
 			);
 		}
 

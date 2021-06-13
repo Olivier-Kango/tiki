@@ -22,7 +22,7 @@ class Services_Object_Controller
 		return $supported;
 	}
 
-	function action_infobox($input)
+	public function action_infobox($input)
 	{
 		$type = $input->type->none();
 		if (! in_array($type, self::supported())) {
@@ -44,11 +44,11 @@ class Services_Object_Controller
 		$trklib = TikiLib::lib('trk');
 
 		if (! $item = $trklib->get_tracker_item($itemId)) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		if (! $definition = Tracker_Definition::get($item['trackerId'])) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		$itemObject = Tracker_Item::fromInfo($item);
@@ -80,7 +80,7 @@ class Services_Object_Controller
 		$info = $lib->getActivity($itemId);
 
 		if (! $info) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		$smarty = TikiLib::lib('smarty');
@@ -90,7 +90,7 @@ class Services_Object_Controller
 	}
 
 
-	function action_lock($input)
+	public function action_lock($input)
 	{
 		$attributelib = TikiLib::lib('attribute');
 
@@ -121,7 +121,7 @@ class Services_Object_Controller
 		return [];
 	}
 
-	function action_unlock($input)
+	public function action_unlock($input)
 	{
 		global $user;
 		$attributelib = TikiLib::lib('attribute');
@@ -158,7 +158,7 @@ class Services_Object_Controller
 	 * @param $input JitFilter filtered input object
 	 * @throws Exception
 	 */
-	function action_report_error($input)
+	public function action_report_error($input)
 	{
 		Feedback::error($input->message->text(), true);
 	}

@@ -7,7 +7,7 @@
 
 class Services_Calendar_Controller
 {
-	function setUp()
+	public function setUp()
 	{
 		Services_Exception_Disabled::check('feature_calendar');
 	}
@@ -16,12 +16,12 @@ class Services_Calendar_Controller
 	 * Returns the section for use with certain features like banning
 	 * @return string
 	 */
-	function getSection()
+	public function getSection()
 	{
 		return 'calendar';
 	}
 
-	function action_move($input)
+	public function action_move($input)
 	{
 		$itemId = $this->getItemId($input);
 		$delta = $input->delta->int();
@@ -34,7 +34,7 @@ class Services_Calendar_Controller
 		];
 	}
 
-	function action_resize($input)
+	public function action_resize($input)
 	{
 		$itemId = $this->getItemId($input);
 		$delta = $input->delta->int();
@@ -55,12 +55,12 @@ class Services_Calendar_Controller
 		$cal_id = $calendarlib->get_calendarid($item);
 
 		if (! $item || ! $cal_id) {
-			throw new Services_Exception_NotFound;
+			throw new Services_Exception_NotFound();
 		}
 
 		$calperms = Perms::get([ 'type' => 'calendar', 'object' => $cal_id ]);
 		if (! $calperms->change_events) {
-			throw new Services_Exception_Denied;
+			throw new Services_Exception_Denied();
 		}
 
 		return $item;

@@ -10,7 +10,7 @@ class Services_Menu_Controller
 	/** @var  MenuLib */
 	private $menulib;
 
-	function setUp()
+	public function setUp()
 	{
 		$this->menulib = TikiLib::lib('menu');
 	}
@@ -19,7 +19,7 @@ class Services_Menu_Controller
 	 * @param JitFilter $input
 	 * @return mixed
 	 */
-	function action_get_menu($input)
+	public function action_get_menu($input)
 	{
 		$menuId = $input->menuId->int();
 		return $this->menulib->get_menu($menuId);
@@ -34,7 +34,7 @@ class Services_Menu_Controller
 	 * @throws Services_Exception_MissingValue
 	 * @throws Services_Exception_NotFound
 	 */
-	function action_edit($input)
+	public function action_edit($input)
 	{
 		//get menu details
 		$menuId = $input->menuId->int();
@@ -86,16 +86,15 @@ class Services_Menu_Controller
 			'info' => $info,
 			'symbol' => $symbol,
 		];
-
 	}
 
-	function action_edit_icon($input)
+	public function action_edit_icon($input)
 	{
-		$menuLib=$this->menulib;
+		$menuLib = $this->menulib;
 		$menuLib->replace_menu_icon($input->optionid->text(), $input->updatedicon->text());
 	}
 
-	function action_clone($input)
+	public function action_clone($input)
 	{
 		$menuId = $input->menuId->int();
 		$menuDetails = $this->get_menu_details($menuId);
@@ -140,7 +139,7 @@ class Services_Menu_Controller
 	 * @throws Services_Exception_MissingValue
 	 * @throws Services_Exception_NotFound
 	 */
-	function action_edit_option($input)
+	public function action_edit_option($input)
 	{
 		global $prefs;
 
@@ -260,7 +259,6 @@ class Services_Menu_Controller
 			$menuLib = $this->menulib;
 			$optionId = $menuLib->replace_menu_option($menuId, $optionId, $name, $url, $type, $position, $section, $perm, $groupname, $level, $icon, $class);
 			TikiLib::lib('attribute')->set_attribute('menu', $optionId, 'tiki.menu.templatedgroupid', $tplGroupContainerId);
-
 		}
 
 		$tplGroups = TikiLib::lib('user')->get_template_groups_containers();
@@ -287,7 +285,7 @@ class Services_Menu_Controller
 	 * @throws Services_Exception_Denied
 	 * @throws Services_Exception_NotFound
 	 */
-	function action_export_menu_options($input)
+	public function action_export_menu_options($input)
 	{
 		//get basic input
 		$menuId = $input->menuId->int();
@@ -328,7 +326,7 @@ class Services_Menu_Controller
 	 * @throws Services_Exception_Denied
 	 * @throws Services_Exception_NotFound
 	 */
-	function action_import_menu_options($input)
+	public function action_import_menu_options($input)
 	{
 		//get menu details
 		$menuId = $input->menuId->int();
@@ -374,7 +372,7 @@ class Services_Menu_Controller
 	 * @throws Services_Exception_Denied
 	 * @throws Services_Exception_NotFound
 	 */
-	function action_preview($input)
+	public function action_preview($input)
 	{
 		//get menu details
 		$menuId = $input->menuId->int();
@@ -417,7 +415,7 @@ class Services_Menu_Controller
 	 * @throws Services_Exception_Denied
 	 * @throws Services_Exception_NotFound
 	 */
-	function action_save($input)
+	public function action_save($input)
 	{
 
 		//get menu details
@@ -436,7 +434,6 @@ class Services_Menu_Controller
 
 		$util = new Services_Utilities();
 		if ($util->checkCsrf()) {
-
 			$oldOptions = $this->menulib->list_menu_options($menuId);
 			$options = json_decode($input->data->striptags(), true);
 
@@ -515,7 +512,7 @@ class Services_Menu_Controller
 	 * @throws Services_Exception_Denied
 	 * @throws Services_Exception_NotFound
 	 */
-	function action_remove($input)
+	public function action_remove($input)
 	{
 		$input->replaceFilters(['menuId' => 'digits', 'referer' => 'url']);
 		$util = new Services_Utilities();

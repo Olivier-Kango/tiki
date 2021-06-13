@@ -9,12 +9,12 @@ use Tiki\Recommendation as R;
 
 class Services_Recommendation_DevelopmentController
 {
-	function setUp()
+	public function setUp()
 	{
 		Services_Exception_Denied::checkGlobal('admin');
 	}
 
-	function action_compare($input)
+	public function action_compare($input)
 	{
 		$user = $input->user->username() ?: $GLOBALS['user'];
 		$input = new R\Input\UserInput($user);

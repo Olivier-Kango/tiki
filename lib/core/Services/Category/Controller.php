@@ -7,7 +7,7 @@
 
 class Services_Category_Controller
 {
-	function setUp()
+	public function setUp()
 	{
 		global $prefs;
 
@@ -20,12 +20,12 @@ class Services_Category_Controller
 	 * Returns the section for use with certain features like banning
 	 * @return string
 	 */
-	function getSection()
+	public function getSection()
 	{
 		return 'categories';
 	}
 
-	function action_list_categories($input)
+	public function action_list_categories($input)
 	{
 		global $prefs;
 
@@ -40,7 +40,7 @@ class Services_Category_Controller
 		return $categlib->getCategories(['identifier' => $parentId, 'type' => $descends ? 'descendants' : 'children']);
 	}
 
-	function action_categorize($input)
+	public function action_categorize($input)
 	{
 		$categId = $input->categId->int();
 		$objects = (array) $input->objects->none();
@@ -52,7 +52,7 @@ class Services_Category_Controller
 		}
 
 		$filteredObjects = $originalObjects = $this->convertObjects($objects);
-		$util =new Services_Utilities();
+		$util = new Services_Utilities();
 		if (count($originalObjects) && $util->isActionPost()) {
 			//first determine if objects are already in the category
 			$categlib = TikiLib::lib('categ');
@@ -98,7 +98,7 @@ class Services_Category_Controller
 		}
 	}
 
-	function action_uncategorize($input)
+	public function action_uncategorize($input)
 	{
 		$categId = $input->categId->digits();
 		$objects = (array) $input->objects->none();
@@ -110,7 +110,7 @@ class Services_Category_Controller
 		}
 
 		$filteredObjects = $originalObjects = $this->convertObjects($objects);
-		$util =new Services_Utilities();
+		$util = new Services_Utilities();
 		if (count($originalObjects) && $util->isActionPost()) {
 			//first determine if objects are already not in the category
 			$categlib = TikiLib::lib('categ');
@@ -156,7 +156,7 @@ class Services_Category_Controller
 		}
 	}
 
-	function action_select($input)
+	public function action_select($input)
 	{
 		$categlib = TikiLib::lib('categ');
 		$objectlib = TikiLib::lib('object');
