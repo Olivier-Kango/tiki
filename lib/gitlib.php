@@ -37,7 +37,7 @@ class GitLib extends TikiLib
 		}
 	}
 
-	function detect_git_binary()
+	public function detect_git_binary()
 	{
 		$php_os = strtoupper(PHP_OS);
 
@@ -54,7 +54,7 @@ class GitLib extends TikiLib
 		}
 	}
 
-	function run_git($args = [])
+	public function run_git($args = [])
 	{
 		array_unshift($args, $this->bin);
 

@@ -7,12 +7,12 @@
 
 class OAuthLib extends TikiDb_Bridge
 {
-	function is_authorized($provider_key)
+	public function is_authorized($provider_key)
 	{
 		return ! is_null($this->retrieve_token($provider_key));
 	}
 
-	function do_request($provider_key, $arguments)
+	public function do_request($provider_key, $arguments)
 	{
 		$configuration = $this->get_configuration($provider_key);
 
@@ -71,7 +71,7 @@ class OAuthLib extends TikiDb_Bridge
 		}
 	}
 
-	function request_token($provider_key)
+	public function request_token($provider_key)
 	{
 		try {
 			$consumer = $this->get_consumer($provider_key);
@@ -90,7 +90,7 @@ class OAuthLib extends TikiDb_Bridge
 		}
 	}
 
-	function request_access($provider_key)
+	public function request_access($provider_key)
 	{
 		$consumer = $this->get_consumer($provider_key);
 		$key = 'OAUTH_REQUEST_' . $provider_key;

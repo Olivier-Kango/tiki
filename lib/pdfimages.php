@@ -24,7 +24,8 @@ class PdfImagesLib
 	 * Sets the binary path of pdfimages
 	 * @param null $path|string The path to the pdfimages binary. Will default to Tiki preference location if not supplied.
 	 */
-	public function setBinaryPath($path = null){
+	public function setBinaryPath($path = null)
+	{
 		global $prefs;
 		if ($path){
 			$this->binaryPath = escapeshellcmd($path);
@@ -94,7 +95,7 @@ class PdfImagesLib
 	 *
 	 * @throws Exception If either path is not reachable
 	 */
-	public function setFilePaths ($sourcePDF, $destinationFolder)
+	public function setFilePaths($sourcePDF, $destinationFolder)
 	{
 		if (!is_readable($sourcePDF)){
 			throw new Exception ($this->source . 'not readable');

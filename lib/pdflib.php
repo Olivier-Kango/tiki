@@ -977,7 +977,7 @@ $(".convert-mailto").removeClass("convert-mailto").each(function () {
 		$doc->getElementsByTagName('body')->item(0)->appendChild($hrefDiv);
 		$content = $doc->saveHTML();
 		return str_replace("hyperanchor", "a", $content);
-	}// End of processHyperlinks
+	}
 
 	/**
 	 * Returns the current error
@@ -1010,7 +1010,7 @@ $(".convert-mailto").removeClass("convert-mailto").each(function () {
 		//process and return value
 		return str_ireplace(["{PAGETITLE}","{NB}"], [$page,"{nb}"], TikiLib::lib('parser')->parse_data(html_entity_decode($value), ['is_html' => true, 'parse_wiki' => true]));
 	}
-} //END OF PDF CLASS
+}
 
 
 function cleanContent($content, $tagArr)

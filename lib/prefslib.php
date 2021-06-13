@@ -104,7 +104,7 @@ class PreferencesLib
 		return '';
 	}
 
-	function getPreference($name, $deps = true, $source = null, $get_pages = false)
+	public function getPreference($name, $deps = true, $source = null, $get_pages = false)
 	{
 		global $prefs, $systemConfiguration;
 		static $id = 0;
@@ -450,7 +450,7 @@ class PreferencesLib
 	 * @param $preferences
 	 * @return array
 	 */
-	function unsetHiddenPreferences($preferences)
+	public function unsetHiddenPreferences($preferences)
 	{
 		if (empty($preferences)) {
 			return [];
@@ -467,7 +467,7 @@ class PreferencesLib
 		return $preferences;
 	}
 
-	function getMatchingPreferences($criteria, $filters = null, $maxRecords = 50, $sort = '')
+	public function getMatchingPreferences($criteria, $filters = null, $maxRecords = 50, $sort = '')
 	{
 		$index = $this->getIndex();
 
@@ -498,7 +498,7 @@ class PreferencesLib
 	 * @return array
 	 */
 
-	function applyChanges($handled, $data, $limitation = null)
+	public function applyChanges($handled, $data, $limitation = null)
 	{
 		global $user_overrider_prefs;
 		$tikilib = TikiLib::lib('tiki');
@@ -529,7 +529,7 @@ class PreferencesLib
 		return $changes;
 	}
 
-	function formatPreference($pref, $data)
+	public function formatPreference($pref, $data)
 	{
 		if (false !== $info = $this->getPreference($pref)) {
 			$function = '_get' . ucfirst($info['type']) . 'Value';
@@ -543,7 +543,7 @@ class PreferencesLib
 		}
 	}
 
-	function getInput(JitFilter $filter, $preferences = [], $environment = '')
+	public function getInput(JitFilter $filter, $preferences = [], $environment = '')
 	{
 		$out = [];
 
@@ -568,7 +568,7 @@ class PreferencesLib
 		return $out;
 	}
 
-	function getExtraSortColumns()
+	public function getExtraSortColumns()
 	{
 		global $prefs;
 		if (isset($prefs['rating_advanced']) && $prefs['rating_advanced'] == 'y') {
@@ -770,7 +770,7 @@ class PreferencesLib
 		return $index;
 	}
 
-	function indexNeedsRebuilding()
+	public function indexNeedsRebuilding()
 	{
 		$index = TikiLib::lib('unifiedsearch')->getIndex('preference');
 		return ! $index->exists();
@@ -1055,7 +1055,7 @@ class PreferencesLib
 	 * @return array (prefname => array( 'current' => current value, 'default' => default value ))
 	 */
 	// NOTE: tikilib contains a similar method called getModifiedPreferences
-	function getModifiedPrefsForExport($added = false)
+	public function getModifiedPrefsForExport($added = false)
 	{
 		$tikilib = TikiLib::lib('tiki');
 
@@ -1082,7 +1082,7 @@ class PreferencesLib
 		return $modified;
 	}
 
-	function getDefaults()
+	public function getDefaults()
 	{
 		$defaults = [];
 
@@ -1130,7 +1130,7 @@ class PreferencesLib
 		return $files;
 	}
 
-	function setFilters($tags)
+	public function setFilters($tags)
 	{
 		global $user;
 
@@ -1149,7 +1149,7 @@ class PreferencesLib
 		return $filters;
 	}
 
-	function getFilters($filters = null)
+	public function getFilters($filters = null)
 	{
 		if (! $filters) {
 			$filters = $this->getEnabledFilters();

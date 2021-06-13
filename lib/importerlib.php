@@ -54,7 +54,7 @@ class Importer extends Comments
 	 * @access public
 	 * @return int number of posts
 	 */
-	function importSQLForum($dbType, $dbPrefix, $sqlFile, $fF, $tF)
+	public function importSQLForum($dbType, $dbPrefix, $sqlFile, $fF, $tF)
 	{
 		$fHash = [];
 		$row = [];
@@ -156,7 +156,7 @@ class Importer extends Comments
 	 * @access public
 	 * @return array: indexed array of the field data
 	 */
-	function parseFields($record)
+	public function parseFields($record)
 	{
 		$fields = [];
 		$moo = "\'";
@@ -206,7 +206,7 @@ class Importer extends Comments
 	 * @access public
 	 * @return array of associative arrays for each record and the fields within the records
 	 */
-	function parseSQL($dbType, $dbPrefix, $table, $sqlFile, $fId)
+	public function parseSQL($dbType, $dbPrefix, $table, $sqlFile, $fId)
 	{
 
 		$headings = [];
@@ -309,7 +309,7 @@ class Importer extends Comments
 	 * @access public
 	 * @return -1 if error. Else an array with all the forum Id numbers and name pairs that exist in the SQL file.
 	 */
-	function parseForumList($dbType, $dbPrefix, $sqlFile)
+	public function parseForumList($dbType, $dbPrefix, $sqlFile)
 	{
 		$tHash  = [];
 		$fields = [];

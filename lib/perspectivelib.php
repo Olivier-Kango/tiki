@@ -17,7 +17,7 @@ class PerspectiveLib
 	/**
 	 *
 	 */
-	function __construct()
+	public function __construct()
 	{
 		$this->perspectives = TikiDb::get()->table('tiki_perspectives');
 		$this->perspectivePreferences = TikiDb::get()->table('tiki_perspective_preferences');
@@ -27,7 +27,7 @@ class PerspectiveLib
 	 * @param $user
 	 * @return int
 	 */
-	function get_preferred_perspective($user)
+	public function get_preferred_perspective($user)
 	{
 		$perspectiveId = null;
 
@@ -50,7 +50,7 @@ class PerspectiveLib
 	 * @param $prefs
 	 * @return int
 	 */
-	function get_current_perspective($prefs)
+	public function get_current_perspective($prefs)
 	{
 		global $user;
 		$tikilib = TikiLib::lib('tiki');
@@ -118,7 +118,7 @@ class PerspectiveLib
 	 * @param null $prefs
 	 * @return array
 	 */
-	function get_subnet_map($prefs = null)
+	public function get_subnet_map($prefs = null)
 	{
 		return $this->get_map($prefs, 'site_terminal_active', 'site_terminal_config');
 	}
@@ -127,7 +127,7 @@ class PerspectiveLib
 	 * @param null $prefs
 	 * @return array
 	 */
-	function get_domain_map($prefs = null)
+	public function get_domain_map($prefs = null)
 	{
 		return $this->get_map($prefs, 'multidomain_active', 'multidomain_config');
 	}
@@ -154,7 +154,7 @@ class PerspectiveLib
 	 * Returns a string-indexed array containing the preferences for the given perspective as "pref_name" => "pref_value".
 	 *
 	 */
-	function get_preferences($perspectiveId)
+	public function get_preferences($perspectiveId)
 	{
 		$result = TikiDb::get()->query("SELECT pref, value FROM tiki_perspective_preferences WHERE perspectiveId = ?", [ $perspectiveId ]);
 
@@ -167,7 +167,7 @@ class PerspectiveLib
 		return $out;
 	}
 
-	function load_perspective_preferences()
+	public function load_perspective_preferences()
 	{
 		global $prefs, $section;
 
@@ -185,7 +185,7 @@ class PerspectiveLib
 	 * @param $perspectiveId
 	 * @return mixed
 	 */
-	function get_perspective($perspectiveId)
+	public function get_perspective($perspectiveId)
 	{
 		$result = TikiDb::get()->query("SELECT perspectiveId, name FROM tiki_perspectives WHERE perspectiveId = ?", [ $perspectiveId ]);
 
@@ -207,7 +207,7 @@ class PerspectiveLib
 	 * @param int $perspective	perspective id
 	 * @param bool $by_area		switched by the "areas" feature according to content, so keeps the same REQUEST_URI
 	 */
-	function set_perspective($perspective, $by_area = false)
+	public function set_perspective($perspective, $by_area = false)
 	{
 		global $prefs, $url_scheme, $user, $tikiroot;
 
@@ -287,7 +287,7 @@ class PerspectiveLib
 	 * Returns true if and only if the operation succeeds.
 	 *
 	 */
-	function replace_perspective($perspectiveId, $name)
+	public function replace_perspective($perspectiveId, $name)
 	{
 		if ($perspectiveId) {
 			$this->perspectives->update(
@@ -305,7 +305,7 @@ class PerspectiveLib
 	 * Removes a perspective
 	 *
 	 */
-	function remove_perspective($perspectiveId)
+	public function remove_perspective($perspectiveId)
 	{
 		if ($perspectiveId) {
 			$this->perspectives->delete(['perspectiveId' => $perspectiveId]);
@@ -318,7 +318,7 @@ class PerspectiveLib
 	 *   array (in format "pref_name" => "pref_value").
 	 *
 	 */
-	function replace_preferences($perspectiveId, $preferences)
+	public function replace_preferences($perspectiveId, $preferences)
 	{
 		$this->perspectivePreferences->deleteMultiple(['perspectiveId' => $perspectiveId]);
 
@@ -333,7 +333,7 @@ class PerspectiveLib
 	 * Replaces a specific preference
 	 *
 	 */
-	function replace_preference($preference, $value, $newValue)
+	public function replace_preference($preference, $value, $newValue)
 	{
 		$this->perspectivePreferences->update(
 			['value' => serialize($newValue),],
@@ -348,7 +348,7 @@ class PerspectiveLib
 	 * Sets $preference's value for $perspectiveId to $value
 	 *
 	 */
-	function set_preference($perspectiveId, $preference, $value)
+	public function set_preference($perspectiveId, $preference, $value)
 	{
 		$this->perspectivePreferences->delete(
 			[
@@ -370,7 +370,7 @@ class PerspectiveLib
 	 * Returns true if and only if a perspective with the given $perspectiveId exists
 	 *
 	 */
-	function perspective_exists($perspectiveId)
+	public function perspective_exists($perspectiveId)
 	{
 		$db = TikiDb::get();
 
@@ -387,7 +387,7 @@ class PerspectiveLib
 	 * @param $maxRecords
 	 * @return array
 	 */
-	function list_perspectives($offset = 0, $maxRecords = -1)
+	public function list_perspectives($offset = 0, $maxRecords = -1)
 	{
 		$db = TikiDb::get();
 
@@ -407,7 +407,7 @@ class PerspectiveLib
 	 * Returns one of the perspectives with the given name
 	 *
 	 */
-	function get_perspective_with_given_name($name)
+	public function get_perspective_with_given_name($name)
 	{
 		$db = TikiDb::get();
 
@@ -418,7 +418,7 @@ class PerspectiveLib
 	 * Returns perspective's name from the Id
 	 *
 	 */
-	function get_perspective_name($id)
+	public function get_perspective_name($id)
 	{
 		$db = TikiDb::get();
 

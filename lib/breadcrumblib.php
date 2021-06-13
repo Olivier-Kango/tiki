@@ -32,7 +32,7 @@ class Breadcrumb
 	 * @param string $helpurl
 	 * @param string $helpdesc
 	 */
-	function __construct($title, $desc = '', $url = '', $helpurl = '', $helpdesc = '')
+	public function __construct($title, $desc = '', $url = '', $helpurl = '', $helpdesc = '')
 	{
 		if ($title == '') {
 			$this->title = 'Home';

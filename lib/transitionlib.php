@@ -16,7 +16,7 @@ class TransitionLib
 	/**
 	 * @param $transitionType
 	 */
-	function __construct($transitionType)
+	public function __construct($transitionType)
 	{
 		$this->transitionType = $transitionType;
 	}
@@ -26,7 +26,7 @@ class TransitionLib
 	 * @param null $type
 	 * @return array
 	 */
-	function getAvailableTransitions($object, $type = null)
+	public function getAvailableTransitions($object, $type = null)
 	{
 		$states = $this->getCurrentStates($object, $type);
 
@@ -59,7 +59,7 @@ class TransitionLib
 	 * @param null $type
 	 * @return array
 	 */
-	function getAvailableTransitionsFromState($state, $object, $type = null)
+	public function getAvailableTransitionsFromState($state, $object, $type = null)
 	{
 		$transitions = $this->getAvailableTransitions($object, $type);
 
@@ -79,7 +79,7 @@ class TransitionLib
 	 * @param null $type
 	 * @return bool
 	 */
-	function triggerTransition($transitionId, $object, $type = null)
+	public function triggerTransition($transitionId, $object, $type = null)
 	{
 		// Make sure the transition exists
 		if (! $transition = $this->getTransition($transitionId)) {
@@ -118,7 +118,7 @@ class TransitionLib
 	 * @param $states
 	 * @return array
 	 */
-	function listTransitions($states)
+	public function listTransitions($states)
 	{
 		$db = TikiDb::get();
 
@@ -146,7 +146,7 @@ class TransitionLib
 	 * @param array $guards
 	 * @return mixed
 	 */
-	function addTransition($from, $to, $name, $preserve = false, array $guards = [])
+	public function addTransition($from, $to, $name, $preserve = false, array $guards = [])
 	{
 		$db = TikiDb::get();
 
@@ -165,7 +165,7 @@ class TransitionLib
 	 * @param $label
 	 * @param $preserve
 	 */
-	function updateTransition($transitionId, $from, $to, $label, $preserve)
+	public function updateTransition($transitionId, $from, $to, $label, $preserve)
 	{
 		$db = TikiDb::get();
 		$db->query(
@@ -178,7 +178,7 @@ class TransitionLib
 	 * @param $transitionId
 	 * @param array $guards
 	 */
-	function updateGuards($transitionId, array $guards)
+	public function updateGuards($transitionId, array $guards)
 	{
 		$db = TikiDb::get();
 		$db->query(
@@ -190,7 +190,7 @@ class TransitionLib
 	/**
 	 * @param $transitionId
 	 */
-	function removeTransition($transitionId)
+	public function removeTransition($transitionId)
 	{
 		$db = TikiDb::get();
 
@@ -223,7 +223,7 @@ class TransitionLib
 	 * @param $transitionId
 	 * @return mixed
 	 */
-	function getTransition($transitionId)
+	public function getTransition($transitionId)
 	{
 		$db = TikiDb::get();
 

@@ -22,7 +22,7 @@ class Tiki_ShareGroup
 	/**
 	 * @param $name
 	 */
-	function __construct($name)
+	public function __construct($name)
 	{
 		$this->name = $name;
 		$this->groupPerm = [];
@@ -34,7 +34,7 @@ class Tiki_ShareGroup
 	/**
 	 * @param $permission
 	 */
-	function addGroupPermission($permission)
+	public function addGroupPermission($permission)
 	{
 		$this->groupPerm[$permission] = 'y';
 	}
@@ -43,7 +43,7 @@ class Tiki_ShareGroup
 	 * @param $source
 	 * @param $permission
 	 */
-	function addCategoryPermission($source, $permission)
+	public function addCategoryPermission($source, $permission)
 	{
 		if (! array_key_exists($permission, $this->categPerm)) {
 			$this->categPerm[$permission] = [];
@@ -55,7 +55,7 @@ class Tiki_ShareGroup
 	/**
 	 * @param $permission
 	 */
-	function addObjectPermission($permission)
+	public function addObjectPermission($permission)
 	{
 		$this->objectPerm[$permission] = 'y';
 		$this->selectedValues[] = $permission;
@@ -65,7 +65,7 @@ class Tiki_ShareGroup
 	 * @param $permission
 	 * @return string
 	 */
-	function getSourceCategory($permission)
+	public function getSourceCategory($permission)
 	{
 		if (array_key_exists($permission, $this->categPerm)) {
 			return implode(', ', $this->categPerm[$permission]);
@@ -78,7 +78,7 @@ class Tiki_ShareGroup
 	 * @param $permission
 	 * @return string
 	 */
-	function getLevel($permission)
+	public function getLevel($permission)
 	{
 		$ret = 'object';
 
@@ -96,7 +96,7 @@ class Tiki_ShareGroup
 	 * @param $permission
 	 * @return bool
 	 */
-	function isSelected($permission)
+	public function isSelected($permission)
 	{
 		return in_array($permission, $this->selectedValues);
 	}
@@ -104,7 +104,7 @@ class Tiki_ShareGroup
 	/**
 	 * @return bool
 	 */
-	function hasSelection()
+	public function hasSelection()
 	{
 		return count($this->selectedValues) != 0;
 	}
@@ -112,7 +112,7 @@ class Tiki_ShareGroup
 	/**
 	 * @param $permissions
 	 */
-	function setObjectPermissions($permissions)
+	public function setObjectPermissions($permissions)
 	{
 		// Make sure view is present
 		if (in_array('tiki_p_edit', $permissions) && ! in_array('tiki_p_view', $permissions)) {
@@ -135,7 +135,7 @@ class Tiki_ShareGroup
 	 * @param $name
 	 * @return bool
 	 */
-	function hasObjectPermission($name)
+	public function hasObjectPermission($name)
 	{
 		return isset($this->objectPerm[$name]);
 	}
@@ -158,7 +158,7 @@ class Tiki_ShareObject
 	 * @param $objectType
 	 * @param $objectId
 	 */
-	function __construct($objectType, $objectId)
+	public function __construct($objectType, $objectId)
 	{
 		global $Tiki_ShareObject__groups;
 
@@ -174,7 +174,7 @@ class Tiki_ShareObject
 		}
 	}
 
-	function loadGroups()
+	public function loadGroups()
 	{
 		global $tikilib;
 		global $Tiki_ShareObject__groups;
@@ -190,7 +190,7 @@ class Tiki_ShareObject
 	/**
 	 * @param $permissionName
 	 */
-	function loadPermission($permissionName)
+	public function loadPermission($permissionName)
 	{
 		global $tikilib;
 
@@ -233,7 +233,7 @@ class Tiki_ShareObject
 	 * @param $name
 	 * @return mixed
 	 */
-	function getGroup($name)
+	public function getGroup($name)
 	{
 		global $Tiki_ShareObject__groups;
 
@@ -251,7 +251,7 @@ class Tiki_ShareObject
 	/**
 	 * @return array
 	 */
-	function getValidGroups()
+	public function getValidGroups()
 	{
 		ksort($this->validGroups);
 
@@ -261,7 +261,7 @@ class Tiki_ShareObject
 	/**
 	 * @return array
 	 */
-	function getOtherGroups()
+	public function getOtherGroups()
 	{
 		global $Tiki_ShareObject__groups;
 
@@ -272,7 +272,7 @@ class Tiki_ShareObject
 	 * @param $name
 	 * @return bool
 	 */
-	function isValid($name)
+	public function isValid($name)
 	{
 		return array_key_exists($name, $this->validGroups);
 	}
@@ -280,7 +280,7 @@ class Tiki_ShareObject
 	/**
 	 * @param $validPermission
 	 */
-	function saveObjectPermissions($validPermission)
+	public function saveObjectPermissions($validPermission)
 	{
 		global $tikilib;
 

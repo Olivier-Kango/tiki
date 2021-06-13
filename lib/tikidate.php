@@ -113,7 +113,7 @@ class TikiDate
 	/**
 	 * Default constructor
 	 */
-	function __construct()
+	public function __construct()
 	{
 
 		if (isset($_SERVER['TZ']) && ! empty($_SERVER['TZ'])) {	// apache - can be set in .htaccess
@@ -137,7 +137,7 @@ class TikiDate
 	/**
 	 * @return array
 	 */
-	static function getTimeZoneList()
+	public static function getTimeZoneList()
 	{
 		$tz = [];
 		$now = new DateTime('now', new DateTimeZone('UTC'));
@@ -154,7 +154,7 @@ class TikiDate
 		return $tz;
 	}
 
-	static function tzServerOffset($display_tz = null)
+	public static function tzServerOffset($display_tz = null)
 	{
 		if (! $display_tz) {
 			$display_tz = 'UTC';
@@ -164,7 +164,7 @@ class TikiDate
 		return $tz->getOffset($d);
 	}
 
-	static function getStartDay($timestamp, $tz)
+	public static function getStartDay($timestamp, $tz)
 	{
 		$dt = DateTime::createFromFormat('U', $timestamp);
 		$tz = new DateTimeZone($tz);
@@ -178,7 +178,7 @@ class TikiDate
 	 * @param bool $is_strftime_format
 	 * @return string
 	 */
-	function format($format, $is_strftime_format = true)
+	public function format($format, $is_strftime_format = true)
 	{
 		global $prefs;
 
@@ -226,7 +226,7 @@ class TikiDate
 	/**
 	 * @param $days
 	 */
-	function addDays($days)
+	public function addDays($days)
 	{
 		if ($days >= 0) {
 			$this->date->modify("+$days day");
@@ -238,7 +238,7 @@ class TikiDate
 	/**
 	 * @param $months
 	 */
-	function addMonths($months)
+	public function addMonths($months)
 	{
 		if ($months >= 0) {
 			$this->date->modify("+$months months");
@@ -250,7 +250,7 @@ class TikiDate
 	/**
 	 * @return int
 	 */
-	function getTime()
+	public function getTime()
 	{
 		return (int)$this->date->format('U');
 	}
@@ -258,7 +258,7 @@ class TikiDate
 	/**
 	 * @return int
 	 */
-	function getWeekOfYear()
+	public function getWeekOfYear()
 	{
 		return (int)$this->date->format('W');
 	}
@@ -266,7 +266,7 @@ class TikiDate
 	/**
 	 * @param $date
 	 */
-	function setDate($date, $tz_id = null)
+	public function setDate($date, $tz_id = null)
 	{
 		if (is_numeric($date)) {
 			$this->date = new DateTime('@'.$date);
@@ -284,13 +284,13 @@ class TikiDate
 	 * @param $second
 	 * @param $partsecond
 	 */
-	function setLocalTime($day, $month, $year, $hour, $minute, $second, $partsecond)
+	public function setLocalTime($day, $month, $year, $hour, $minute, $second, $partsecond)
 	{
 		$this->date->setDate($year, $month, $day);
 		$this->date->setTime($hour, $minute, $second);
 	}
 
-	function getTZByID($tz_id) {
+	public function getTZByID($tz_id) {
 		global $prefs;
 		if (! self::TimezoneIsValidId($tz_id) && (! empty($prefs['timezone_offset']) || $prefs['timezone_offset'] == 0)) {	// timezone_offset in seconds
 			$tz_id = timezone_name_from_abbr($tz_id, $prefs['timezone_offset']);
@@ -309,7 +309,7 @@ class TikiDate
 	/**
 	 * @param $tz_id
 	 */
-	function setTZbyID($tz_id)
+	public function setTZbyID($tz_id)
 	{
 		$this->date->setTimezone($this->getTZByID($tz_id));
 	}
@@ -318,7 +318,7 @@ class TikiDate
 	 * @param $tz_id
 	 * @return string
 	 */
-	function convertMissingTimezone($tz_id)
+	public function convertMissingTimezone($tz_id)
 	{
 		switch ($tz_id) {		// Convert timezones not in PHP 5
 			case 'A':
@@ -395,7 +395,7 @@ class TikiDate
 				break;
 			case 'Z':
 				$tz_id = 'Etc/GMT';
-
+				break;
 			default:
 				$tz_id = 'UTC';
 				break;
@@ -406,7 +406,7 @@ class TikiDate
 	/**
 	 * @return string
 	 */
-	function getTimezoneId()
+	public function getTimezoneId()
 	{
 		$tz = $this->date->format('e');
 		if ($tz === 'GMT') {
@@ -421,7 +421,7 @@ class TikiDate
 	 * display_timezone can be manually set to an identifier in preferences but
 	 * will be an [uppercase] abbreviation if auto-detected by JavaScript.
 	 */
-	static function TimezoneIsValidId($id)
+	public static function TimezoneIsValidId($id)
 	{
 		return in_array($id, self::getTimezoneIdentifiers());
 	}
@@ -431,7 +431,7 @@ class TikiDate
 	 * This does not rely on an ever-expanding blacklist TikiDate::$deprecated_tz
 	 * Therefore it should not break every time the OS updates the TZ list
 	 */
-	static function isKnownTimezoneID($tzid) {
+	public static function isKnownTimezoneID($tzid) {
 		if (empty($tzid)) {
 			return false;
 		}
@@ -445,7 +445,7 @@ class TikiDate
 		return false;
 	}
 
-	static function getTimezoneAbbreviations()
+	public static function getTimezoneAbbreviations()
 	{
 		static $abbrevs = null;
 
@@ -456,7 +456,7 @@ class TikiDate
 		return $abbrevs;
 	}
 
-	static function getTimezoneIdentifiers()
+	public static function getTimezoneIdentifiers()
 	{
 		static $ids = null;
 

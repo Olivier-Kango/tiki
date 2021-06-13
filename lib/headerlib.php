@@ -132,7 +132,7 @@ class HeaderLib
 	public $jquerymigrate_version = '3.0.0';
 
 
-	function __construct()
+	public function __construct()
 	{
 		$smarty = TikiLib::lib('smarty');
 		$smarty->assign('headerlib', $this);
@@ -160,7 +160,7 @@ class HeaderLib
 	 * @param string $rank
 	 * @return string $file
 	 */
-	function convert_cdn($file, $rank = null)
+	public function convert_cdn($file, $rank = null)
 	{
 		global $prefs, $tikiroot;
 
@@ -189,7 +189,7 @@ class HeaderLib
 	}
 
 
-	function set_title($string)
+	public function set_title($string)
 	{
 		$this->title = urlencode($string);
 	}
@@ -201,7 +201,7 @@ class HeaderLib
 	 * @param string $url - relative url to this tiki instance
 	 * @return HeaderLib Current object
 	 */
-	function add_jsfile_dynamic($url)
+	public function add_jsfile_dynamic($url)
 	{
 		$this->add_jsfile_by_rank($url, '10dynamic', true);
 		return $this;
@@ -219,7 +219,7 @@ class HeaderLib
 	 * @param string $url - absolute url including http/https
 	 * @return HeaderLib Current object
 	 */
-	function add_jsfile_cdn($url)
+	public function add_jsfile_cdn($url)
 	{
 		$this->add_jsfile_by_rank($url, '20cdn', true);
 		return $this;
@@ -234,7 +234,7 @@ class HeaderLib
 	 * @param bool $skip_minify true if the file must not be minified, false if it can
 	 * @return HeaderLib Current object
 	 */
-	function add_jsfile_dependency($file, $skip_minify = false)
+	public function add_jsfile_dependency($file, $skip_minify = false)
 	{
 		$this->add_jsfile_by_rank($file, '30dependency', $skip_minify);
 		return $this;
@@ -249,7 +249,7 @@ class HeaderLib
 	 * @param bool $skip_minify true if the file must not be minified, false if it can
 	 * @return HeaderLib Current object
 	 */
-	function add_jsfile_external($file, $skip_minify = false)
+	public function add_jsfile_external($file, $skip_minify = false)
 	{
 		$this->add_jsfile_by_rank($file, '40external', $skip_minify);
 		return $this;
@@ -263,7 +263,7 @@ class HeaderLib
 	 * @param bool $skip_minify true if the file must not be minified, false if it can
 	 * @return HeaderLib Current object
 	 */
-	function add_jsfile($file, $skip_minify = false)
+	public function add_jsfile($file, $skip_minify = false)
 	{
 		$this->add_jsfile_by_rank($file, '50standard', $skip_minify);
 		return $this;
@@ -279,7 +279,7 @@ class HeaderLib
 	 * @param bool $skip_minify true if the file must not be minified, false if it can
 	 * @return HeaderLib Current object
 	 */
-	function add_jsfile_late($file, $skip_minify = false)
+	public function add_jsfile_late($file, $skip_minify = false)
 	{
 		$this->add_jsfile_by_rank($file, '60late', $skip_minify);
 		return $this;
@@ -294,7 +294,7 @@ class HeaderLib
 	 * @param bool $skip_minify true if the file must not be minified, false if it can
 	 * @return HeaderLib Current object
 	 */
-	function add_jsfile_by_rank($file, $rank, $skip_minify = false)
+	public function add_jsfile_by_rank($file, $rank, $skip_minify = false)
 	{
 		// if js is added after tiki-setup.php is run, add those js files to 'late'
 		// need to check whether this is really needed
@@ -311,7 +311,7 @@ class HeaderLib
 		return $this;
 	}
 
-	function drop_jsfile($file)
+	public function drop_jsfile($file)
 	{
 		$out = [];
 		foreach ($this->jsfiles as $rank => $data) {
@@ -332,7 +332,7 @@ class HeaderLib
 	 * @param integer $rank - loadorder optional, default 0
 	 * @return HeaderLib Current object
 	 */
-	function add_js_config($script, $rank = 0)
+	public function add_js_config($script, $rank = 0)
 	{
 		if (empty($this->js_config[$rank]) or ! in_array($script, $this->js_config[$rank])) {
 			$this->js_config[$rank][] = $script;
@@ -347,7 +347,7 @@ class HeaderLib
 	 * @param integer $rank loadorder optional, default = 0
 	 * @return HeaderLib Current object
 	 */
-	function add_js($script, $rank = 0)
+	public function add_js($script, $rank = 0)
 	{
 		if (empty($this->js[$rank]) or ! in_array($script, $this->js[$rank])) {
 			$this->js[$rank][] = $script;
@@ -361,7 +361,7 @@ class HeaderLib
 	 * @param number $rank - load order (default=0)
 	 * @return HeaderLib Current object
 	 */
-	function add_jq_onready($script, $rank = 0)
+	public function add_jq_onready($script, $rank = 0)
 	{
 		if (empty($this->jq_onready[$rank]) or ! in_array($script, $this->jq_onready[$rank])) {
 			$this->jq_onready[$rank][] = $script;
@@ -377,7 +377,7 @@ class HeaderLib
 	 *
 	 * @return $this
 	 */
-	function add_js_module($script, $rank = 0)
+	public function add_js_module($script, $rank = 0)
 	{
 		if (empty($this->js_modules[$rank]) or ! in_array($script, $this->js_modules[$rank])) {
 			$this->js_modules[$rank][] = $script;
@@ -385,7 +385,7 @@ class HeaderLib
 		return $this;
 	}
 
-	function add_cssfile($file, $rank = 0)
+	public function add_cssfile($file, $rank = 0)
 	{
 		if ((empty($this->cssfiles[$rank]) or ! in_array($file, $this->cssfiles[$rank])) && ! empty($file)) {
 			$this->cssfiles[$rank][] = $file;
@@ -393,7 +393,7 @@ class HeaderLib
 		return $this;
 	}
 
-	function replace_cssfile($old, $new, $rank)
+	public function replace_cssfile($old, $new, $rank)
 	{
 		foreach ($this->cssfiles[$rank] as $i => $css) {
 			if ($css == $old) {
@@ -404,7 +404,7 @@ class HeaderLib
 		return $this;
 	}
 
-	function drop_cssfile($file)
+	public function drop_cssfile($file)
 	{
 		$out = [];
 		foreach ($this->cssfiles as $rank => $data) {
@@ -418,7 +418,7 @@ class HeaderLib
 		return $this;
 	}
 
-	function add_css($rules, $rank = 0)
+	public function add_css($rules, $rank = 0)
 	{
 		if (empty($this->css[$rank]) or ! in_array($rules, $this->css[$rank])) {
 			$this->css[$rank][] = $rules;
@@ -426,7 +426,7 @@ class HeaderLib
 		return $this;
 	}
 
-	function add_rssfeed($href, $title, $rank = 0)
+	public function add_rssfeed($href, $title, $rank = 0)
 	{
 		if (empty($this->rssfeeds[$rank]) or ! in_array($href, array_keys($this->rssfeeds[$rank]))) {
 			$this->rssfeeds[$rank][$href] = $title;
@@ -434,20 +434,20 @@ class HeaderLib
 		return $this;
 	}
 
-	function add_meta($tag, $value)
+	public function add_meta($tag, $value)
 	{
 		$tag = addslashes($tag);
 		$this->metatags[$tag] = $value;
 		return $this;
 	}
 
-	function add_rawhtml($tags)
+	public function add_rawhtml($tags)
 	{
 		$this->rawhtml = $tags;
 		return $this;
 	}
 
-	function add_link($rel, $href, $sizes = '', $type = '', $color = '')
+	public function add_link($rel, $href, $sizes = '', $type = '', $color = '')
 	{
 		$this->linktags[$href]['href'] = $href;
 		$this->linktags[$href]['rel'] = $rel;
@@ -463,7 +463,7 @@ class HeaderLib
 		return $this;
 	}
 
-	function output_headers()
+	public function output_headers()
 	{
 		$smarty = TikiLib::lib('smarty');
 		$smarty->loadPlugin('smarty_modifier_escape');
@@ -550,7 +550,7 @@ class HeaderLib
 	 * Used in also lib/wiki/wikilib.php to rebuild the cache if activated
 	 * @return array $jsFiles effectivly used jsfiles in scripttags considering minification / cdns if activated.
 	 */
-	function getJsFilesWithScriptTags()
+	public function getJsFilesWithScriptTags()
 	{
 		/*
 		 // MISCONCEPTION: user cdns are supposed to work as entire tiki cdns - not user based additional url sources
@@ -779,7 +779,7 @@ class HeaderLib
 	 * @param string $hash
 	 * @return string        hash based on contents of the files
 	 */
-	private function getFilesContentsHash(array $files, & $hash = '')
+	private function getFilesContentsHash(array $files, &$hash = '')
 	{
 		foreach ($files as $file) {
 			if (is_array($file)) {
@@ -797,7 +797,7 @@ class HeaderLib
 	 * If minification is activated, file based JS (so not from a CDN) will be minified und put into one single file
 	 * @return string $jsScriptTags
 	 */
-	function output_js_files()
+	public function output_js_files()
 	{
 
 		// we get one sorted array with script tags
@@ -813,7 +813,7 @@ class HeaderLib
 
 
 
-	function output_js_config($wrap = true)
+	public function output_js_config($wrap = true)
 	{
 		global $prefs;
 
@@ -842,7 +842,7 @@ class HeaderLib
 		return $back;
 	}
 
-	function clear_js($clear_js_files = false)
+	public function clear_js($clear_js_files = false)
 	{
 		$this->js = [];
 		$this->jq_onready = [];
@@ -853,7 +853,7 @@ class HeaderLib
 		return $this;
 	}
 
-	function output_js($wrap = true)
+	public function output_js($wrap = true)
 	{
 	// called in tiki.tpl - JS output at end of file now (pre 5.0)
 		global $prefs;
@@ -921,7 +921,7 @@ class HeaderLib
 	 * Gets JavaScript and jQuery scripts as an array (for AJAX)
 	 * @return array[strings]
 	 */
-	function getJs()
+	public function getJs()
 	{
 
 		ksort($this->js);
@@ -950,14 +950,13 @@ class HeaderLib
 	}
 
 
-	function wrap_js($inJs, $module = false)
+	public function wrap_js($inJs, $module = false)
 	{
 		if ($module) {
 			return "<script type=\"module\" name=\"App\">\n" . $inJs . "\n</script>\n";
 		} else {
 			return "<script type=\"text/javascript\">\n<!--//--><![CDATA[//><!--\n" . $inJs . "//--><!]]>\n</script>\n";
 		}
-
 	}
 
 	/**
@@ -969,7 +968,7 @@ class HeaderLib
 	 *
 	 * @return array of JavaScript strings
 	 */
-	function getJsFromHTML($html, $switch_fn_definition = false, $isFiles = false)
+	public function getJsFromHTML($html, $switch_fn_definition = false, $isFiles = false)
 	{
 		$jsarr = [];
 		$js_script = [];
@@ -1005,7 +1004,7 @@ class HeaderLib
 		return array_filter($js_script);
 	}
 
-	function removeJsFromHTML($html)
+	public function removeJsFromHTML($html)
 	{
 		$html = preg_replace('/(?:<script.*type=[\'"]?text\/javascript[\'"]?.*>\s*?)(.*)(?:\s*<\/script>)/Umis', "", $html);
 		return $html;
@@ -1090,7 +1089,7 @@ class HeaderLib
 		$cachelib = TikiLib::lib('cache');
 
 		$fileSetHash = md5(serialize($files));
-		
+
 		/* The minimal file's name contains a hash based on the file contents, so that browsers will automatically load changes when files are modified.
 		However, since that hash is itself costly to create, it is cached server-side. Therefore, client caches will be refreshed when the server-side cache is cleared, after an upgrade for instance. */
 		$fileSetContentsHash = $cachelib->getCached($fileSetHash, 'minify_css_contents_by_paths');
@@ -1135,7 +1134,7 @@ class HeaderLib
 			'print' => [],
 		];
 
-		$pushFile = function ($section, $file) use (& $files) {
+		$pushFile = function ($section, $file) use (&$files) {
 			global $prefs;
 			$files[$section][] = $file;
 
@@ -1162,7 +1161,7 @@ class HeaderLib
 		return $files;
 	}
 
-	function get_css_files()
+	public function get_css_files()
 	{
 		$files = $this->collect_css_files();
 
@@ -1171,7 +1170,7 @@ class HeaderLib
 
 	// TODO compile_custom_scss function here
 
-	function add_map()
+	public function add_map()
 	{
 		global $prefs;
 
@@ -1239,7 +1238,7 @@ window.onload = loadScript;');
 	}
 
 
-	function __toString()
+	public function __toString()
 	{
 		return '';
 	}

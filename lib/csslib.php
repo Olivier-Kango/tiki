@@ -13,7 +13,7 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
 
 class cssLib extends TikiLib
 {
-	function list_layouts($theme = null, $theme_option = null)
+	public function list_layouts($theme = null, $theme_option = null)
 	{
 		global $prefs;
 
@@ -68,7 +68,7 @@ class cssLib extends TikiLib
 		return $available_layouts;
 	}
 
-	function list_user_selectable_layouts($theme = null, $theme_option = null)
+	public function list_user_selectable_layouts($theme = null, $theme_option = null)
 	{
 		global $prefs;
 
@@ -105,7 +105,7 @@ class cssLib extends TikiLib
 		return $selectable_layouts;
 	}
 
-	function list_css($path, $recursive = false)
+	public function list_css($path, $recursive = false)
 	{
 		$files = $this->list_files($path, '.css', $recursive);
 		foreach ($files as $i => $file) {
@@ -114,7 +114,7 @@ class cssLib extends TikiLib
 		return $files;
 	}
 
-	function list_files($path, $extension, $recursive)
+	public function list_files($path, $extension, $recursive)
 	{
 		$back = [];
 
@@ -138,7 +138,7 @@ class cssLib extends TikiLib
 		return $back;
 	}
 
-	function browse_css($path)
+	public function browse_css($path)
 	{
 		if (! is_file($path)) {
 			return ['error' => "No such file : $path"];
@@ -174,7 +174,7 @@ class cssLib extends TikiLib
 		];
 	}
 
-	function parse_css($data)
+	public function parse_css($data)
 	{
 		$back = [];
 
@@ -250,7 +250,7 @@ class cssLib extends TikiLib
 	 * @TODO: cache the results
 	 * @TODO: only read the first 30 lines or so of the file
 	 */
-	function version_css($path)
+	public function version_css($path)
 	{
 		if (! file_exists($path)) {
 			return false;

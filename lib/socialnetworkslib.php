@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -44,7 +45,7 @@ class SocialNetworksLib extends LogsLib
 	 *
 	 * @return string	URL for the current page
 	 */
-	function getURL()
+	public function getURL()
 	{
 		$url = 'http';
 		$port = '';
@@ -67,7 +68,7 @@ class SocialNetworksLib extends LogsLib
 	 *
 	 * @return bool	true, if this site is registered with twitter as an application
 	 */
-	function twitterRegistered()
+	public function twitterRegistered()
 	{
 		global $prefs;
 		return ($prefs['socialnetworks_twitter_consumer_key'] != '' and $prefs['socialnetworks_twitter_consumer_secret'] != '');
@@ -76,7 +77,7 @@ class SocialNetworksLib extends LogsLib
 	/**
 	 * If this site is registered with twitter, it redirects to twitter to ask for a request token
 	 */
-	function getTwitterRequestToken()
+	public function getTwitterRequestToken()
 	{
 		global $prefs;
 
@@ -109,13 +110,14 @@ class SocialNetworksLib extends LogsLib
 	 *
 	 * @return bool 		true on success
 	 */
-	function getTwitterAccessToken($user)
+	public function getTwitterAccessToken($user)
 	{
 		global $prefs;
 
-		if ($prefs['socialnetworks_twitter_consumer_key'] == ''
-				or $prefs['socialnetworks_twitter_consumer_secret'] == ''
-				or ! isset($_SESSION['TWITTER_REQUEST_TOKEN'])
+		if (
+			$prefs['socialnetworks_twitter_consumer_key'] == ''
+			or $prefs['socialnetworks_twitter_consumer_secret'] == ''
+			or ! isset($_SESSION['TWITTER_REQUEST_TOKEN'])
 		) {
 			return false;
 		}
@@ -138,7 +140,7 @@ class SocialNetworksLib extends LogsLib
 	 *
 	 * @return bool	true, if this site is registered with facebook as an application
 	 */
-	function facebookRegistered()
+	public function facebookRegistered()
 	{
 		global $prefs;
 		return ($prefs['socialnetworks_facebook_application_id'] != '' and $prefs['socialnetworks_facebook_application_secr'] != '');
@@ -147,7 +149,7 @@ class SocialNetworksLib extends LogsLib
 	/**
 	 * if this site is registered with facebook, it redirects to facebook to ask for a request token
 	 */
-	function getFacebookRequestToken()
+	public function getFacebookRequestToken()
 	{
 		global $prefs;
 		if (! $this->facebookRegistered()) {
@@ -189,7 +191,7 @@ class SocialNetworksLib extends LogsLib
 	 * @return bool|string|null
 	 * @throws Exception
 	 */
-	function getFacebookAccessToken()
+	public function getFacebookAccessToken()
 	{
 		global $prefs;
 		//make request and get response
@@ -229,7 +231,7 @@ class SocialNetworksLib extends LogsLib
 		}
 	}
 
-	function getFacebookUserProfile($access_token)
+	public function getFacebookUserProfile($access_token)
 	{
 		global $prefs;
 
@@ -252,7 +254,7 @@ class SocialNetworksLib extends LogsLib
 	 * @return bool
 	 * @throws Exception
 	 */
-	function facebookLoginPre()
+	public function facebookLoginPre()
 	{
 		global $prefs, $user;
 
@@ -279,7 +281,7 @@ class SocialNetworksLib extends LogsLib
 	*
 	* This is where real login happens
 	*/
-	function facebookLogin($access_token, $fb_profile)
+	public function facebookLogin($access_token, $fb_profile)
 	{
 		global $prefs, $user;
 		$userlib = TikiLib::lib('user');
@@ -327,7 +329,7 @@ class SocialNetworksLib extends LogsLib
 	 *
 	 * @returns $user it created
 	 */
-	function facebookCreateUser($access_token, $fb_profile)
+	public function facebookCreateUser($access_token, $fb_profile)
 	{
 		global $prefs, $user;
 		$userlib = TikiLib::lib('user');
@@ -391,13 +393,13 @@ class SocialNetworksLib extends LogsLib
 	 *
 	 * @return bool	true, if this site is registered with linkedIn as an application
 	 */
-	function linkedInRegistered()
+	public function linkedInRegistered()
 	{
 		global $prefs;
 		return ($prefs['socialnetworks_linkedin_client_id'] != '' and $prefs['socialnetworks_linkedin_client_secr'] != '');
 	}
 
-	function getLinkedInRequestToken()
+	public function getLinkedInRequestToken()
 	{
 		global $prefs;
 		if (! $this->linkedInRegistered()) {
@@ -425,7 +427,7 @@ class SocialNetworksLib extends LogsLib
 		die();
 	}
 
-	function getLinkedInAccessToken()
+	public function getLinkedInAccessToken()
 	{
 		global $prefs;
 		if (! $this->linkedInRegistered()) {
@@ -466,7 +468,7 @@ class SocialNetworksLib extends LogsLib
 		return true;
 	}
 
-	function linkedInLogin()
+	public function linkedInLogin()
 	{
 		global $user, $prefs;
 		$userlib = TikiLib::lib('user');
@@ -634,7 +636,7 @@ class SocialNetworksLib extends LogsLib
 	 *							(http://dev.twitter.com/pages/streaming_api_response_codes)
 	 *  							or a positive tweet id of the message
 	 */
-	function tweet($message, $user, $cutMessage = false)
+	public function tweet($message, $user, $cutMessage = false)
 	{
 		global $prefs;
 		$token = $this->get_user_preference($user, 'twitter_token', '');
@@ -693,7 +695,7 @@ class SocialNetworksLib extends LogsLib
 	 *
 	 * @return bool					true on success
 	 */
-	function destroyTweet($id, $user)
+	public function destroyTweet($id, $user)
 	{
 		global $prefs;
 		$token = $this->get_user_preference($user, 'twitter_token', '');
@@ -737,7 +739,7 @@ class SocialNetworksLib extends LogsLib
 	 * @return    string                body of the response page (json encoded object)
 	 * @throws Exception
 	 */
-	function facebookGraph($user, $action, $params, $addtoken = true, $method = 'POST')
+	public function facebookGraph($user, $action, $params, $addtoken = true, $method = 'POST')
 	{
 		if (! $this->facebookRegistered()) {
 			$this->add_log('facebookGraph', 'application not set up');
@@ -784,7 +786,7 @@ class SocialNetworksLib extends LogsLib
 	 *
 	 * @return	string|bool			false on error, object Id of the message on success
 	 */
-	function facebookWallPublish($user, $message, $url = '', $text = '', $caption = '', $privacy = '')
+	public function facebookWallPublish($user, $message, $url = '', $text = '', $caption = '', $privacy = '')
 	{
 		$params = [];
 		if ($url != '') {
@@ -816,7 +818,7 @@ class SocialNetworksLib extends LogsLib
 	 *
 	 * @return	string|bool			false on error, object Id of the message on success
 	 */
-	function facebookLike($user, $id)
+	public function facebookLike($user, $id)
 	{
 		$params = [];
 		$ret = $this->facebookGraph($user, "$id/likes/", $params);
@@ -832,7 +834,7 @@ class SocialNetworksLib extends LogsLib
 	 *
 	 * @return	string				body of the response page (json encoded object)
 	 */
-	function bitlyApi($user, $action, $params)
+	public function bitlyApi($user, $action, $params)
 	{
 		global $prefs;
 
@@ -874,7 +876,7 @@ class SocialNetworksLib extends LogsLib
 	 * @param $user
 	 * @param $url
 	 */
-	function bitlyShorten($user, $url)
+	public function bitlyShorten($user, $url)
 	{
 		$query = 'SELECT * FROM `tiki_url_shortener` WHERE `longurl_hash`=MD5(?)';
 
@@ -916,7 +918,7 @@ class SocialNetworksLib extends LogsLib
 	 * @param  string	$search		Search string
 	 * @return string|int			-1 if the user did not authorize the site with twitter, a negative number corresponding to the HTTP response codes from twitter (https://dev.twitter.com/docs/streaming-api/response-codes) or the requested timeline (json encoded object)
 	 */
-	function getTwitterTimeline($user, $timelineType = 'public', $search = 'tikiwiki')
+	public function getTwitterTimeline($user, $timelineType = 'public', $search = 'tikiwiki')
 	{
 		global $prefs;
 		$token = $this->get_user_preference($user, 'twitter_token', '');
@@ -967,7 +969,7 @@ class SocialNetworksLib extends LogsLib
 	 * @return        string|bool    false on error, JSON encoded Facebook response on success
 	 * @throws Exception
 	 */
-	function facebookGetWall($user, $addtoken = true)
+	public function facebookGetWall($user, $addtoken = true)
 	{
 		if (! $this->facebookRegistered()) {
 			$this->add_log('facebookGraph', 'application not set up');
@@ -1030,4 +1032,4 @@ class SocialNetworksLib extends LogsLib
 
 global $socialnetworkslib;
 
-$socialnetworkslib = new socialNetworksLib;
+$socialnetworkslib = new socialNetworksLib();

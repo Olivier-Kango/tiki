@@ -12,7 +12,7 @@ class ServiceLib
 	private $broker;
 	private $extensionPackageBrokers = [];
 
-	function getBroker($ExtensionPackage = '')
+	public function getBroker($ExtensionPackage = '')
 	{
 		if ($ExtensionPackage) {
 			$utilities = new PackageUtilities();
@@ -34,17 +34,17 @@ class ServiceLib
 		}
 	}
 
-	function internal($controller, $action, $request = [], $extensionPackage = '')
+	public function internal($controller, $action, $request = [], $extensionPackage = '')
 	{
 		return $this->getBroker($extensionPackage)->internal($controller, $action, $request);
 	}
 
-	function render($controller, $action, $request = [], $extensionPackage = '')
+	public function render($controller, $action, $request = [], $extensionPackage = '')
 	{
 		return $this->getBroker($extensionPackage)->internalRender($controller, $action, $request);
 	}
 
-	function getUrl($params)
+	public function getUrl($params)
 	{
 		global $prefs;
 

@@ -40,15 +40,17 @@ define('USE_ASSERTS', false);
  */
 class _WikiDiffEngine
 {
-	var $edits;    // List of editing operation to convert XV to YV.
-	var $xv = [], $yv = [];
-	var $xchanged, $ychanged;
+	public $edits;    // List of editing operation to convert XV to YV.
+	public $xv = [];
+	public $yv = [];
+	public $xchanged;
+	public $ychanged;
 
 	/**
 	 * @param $from_lines
 	 * @param $to_lines
 	 */
-	function __construct($from_lines, $to_lines)
+	public function __construct($from_lines, $to_lines)
 	{
 		$n_from = count($from_lines);
 		$n_to = count($to_lines);
@@ -187,7 +189,7 @@ class _WikiDiffEngine
 	 * match. The caller must trim matching lines from the beginning and end
 	 * of the portions it is going to specify.
 	 */
-	function _diag($xoff, $xlim, $yoff, $ylim, $nchunks)
+	public function _diag($xoff, $xlim, $yoff, $ylim, $nchunks)
 	{
 		$flip = false;
 
@@ -271,7 +273,7 @@ class _WikiDiffEngine
 	 * @param $ypos
 	 * @return mixed
 	 */
-	function _lcs_pos($ypos)
+	public function _lcs_pos($ypos)
 	{
 		$end = $this->lcs;
 		if ($end == 0 || $ypos > $this->seq[$end]) {
@@ -316,7 +318,7 @@ class _WikiDiffEngine
 	 * @param $yoff
 	 * @param $ylim
 	 */
-	function _compareseq($xoff, $xlim, $yoff, $ylim)
+	public function _compareseq($xoff, $xlim, $yoff, $ylim)
 	{
 		// Slide down the bottom initial diagonal.
 		while ($xoff < $xlim && $yoff < $ylim && $this->xv[$xoff] == $this->yv[$yoff]) {
@@ -374,7 +376,7 @@ class _WikiDiffEngine
 	 *
 	 * This is extracted verbatim from analyze.c (GNU diffutils-2.7).
 	 */
-	function _shift_boundaries($lines, &$changed, $other_changed)
+	public function _shift_boundaries($lines, &$changed, $other_changed)
 	{
 		$i = 0;
 		$j = 0;
@@ -500,12 +502,12 @@ class _WikiDiffEngine
  */
 class WikiDiff
 {
-	var $edits;
+	public $edits;
 
 	/**
 	 * Compute diff between files (or deserialize serialized WikiDiff.)
 	 */
-	function __construct($from_lines = false, $to_lines = false)
+	public function __construct($from_lines = false, $to_lines = false)
 	{
 		if ($from_lines && $to_lines) {
 			$compute = new _WikiDiffEngine($from_lines, $to_lines);
@@ -530,7 +532,7 @@ class WikiDiff
 	 * // reconstruct $lines1 from $lines2:
 	 * $out = $rev->apply($lines2);
 	 */
-	function reverse($from_lines)
+	public function reverse($from_lines)
 	{
 		$x = 0;
 		$rev = new WikiDiff;
@@ -571,7 +573,7 @@ class WikiDiff
 	 * // reconstruct $lines3 from $lines1:
 	 * $out = $comp->apply($lines1);
 	 */
-	function compose($that)
+	public function compose($that)
 	{
 		reset($this->edits);
 		reset($that->edits);
@@ -699,7 +701,7 @@ class WikiDiff
 	 * // reconstruct $lines2 from $lines1:
 	 * $out = $diff->apply($lines1);
 	 */
-	function apply($from_lines)
+	public function apply($from_lines)
 	{
 		$x = 0;
 		$xlim = count($from_lines);
@@ -737,7 +739,7 @@ class WikiDiff
 	 * // recover WikiDiff from serialized version:
 	 * $diff2 = new WikiDiff($string);
 	 */
-	function serialize()
+	public function serialize()
 	{
 		return serialize($this->edits);
 	}
@@ -745,7 +747,7 @@ class WikiDiff
 	/**
 	 * Return true if two files were equal.
 	 */
-	function isEmpty()
+	public function isEmpty()
 	{
 		if (count($this->edits) > 1) {
 			return false;
@@ -763,7 +765,7 @@ class WikiDiff
 	 *
 	 * This is mostly for diagnostic purposed.
 	 */
-	function lcs()
+	public function lcs()
 	{
 		$lcs = 0;
 		for (reset($this->edits), $currentedit = current($this->edits); $edit = $currentedit; next($this->edits)) {
@@ -780,7 +782,7 @@ class WikiDiff
 	 *
 	 * This is here only for debugging purposes.
 	 */
-	function _check($from_lines, $to_lines)
+	public function _check($from_lines, $to_lines)
 	{
 		$test = $this->apply($from_lines);
 		if (serialize($test) != serialize($to_lines)) {
@@ -822,14 +824,16 @@ class WikiDiff
  */
 class WikiDiffFormatter
 {
-	var $context_lines;
-	var $do_reverse_diff;
-	var $context_prefix, $deletes_prefix, $adds_prefix;
+	public $context_lines;
+	public $do_reverse_diff;
+	public $context_prefix;
+	public $deletes_prefix;
+	public $adds_prefix;
 
 	/**
 	 * @param bool $reverse
 	 */
-	function __construct($reverse = false)
+	public function __construct($reverse = false)
 	{
 		$this->do_reverse_diff = $reverse;
 		$this->context_lines = 0;
@@ -843,7 +847,7 @@ class WikiDiffFormatter
 	 * @param $from_lines
 	 * @return string
 	 */
-	function format($diff, $from_lines)
+	public function format($diff, $from_lines)
 	{
 		$html = '<table style="background-color: black" ' .
 			'cellspacing="2" cellpadding="2" border="0">';
@@ -858,7 +862,7 @@ class WikiDiffFormatter
 	 * @param $from_lines
 	 * @return string
 	 */
-	function _format($edits, $from_lines)
+	public function _format($edits, $from_lines)
 	{
 		$html = '';
 		$x = 0;
@@ -956,7 +960,7 @@ class WikiDiffFormatter
 	 * @param $color
 	 * @return string
 	 */
-	function _emit_lines($lines, $prefix, $color)
+	public function _emit_lines($lines, $prefix, $color)
 	{
 		$html = '';
 		reset($lines);
@@ -976,7 +980,7 @@ class WikiDiffFormatter
 	 * @param $hunks
 	 * @return string
 	 */
-	function _emit_diff($xbeg, $xlen, $ybeg, $ylen, $hunks)
+	public function _emit_diff($xbeg, $xlen, $ybeg, $ylen, $hunks)
 	{
 		$html = '<tr><td><table style="background-color: white"'
 			. ' cellspacing="0" border="0" cellpadding="4">'
@@ -1023,7 +1027,7 @@ class WikiDiffFormatter
 	 * @param $ylen
 	 * @return string
 	 */
-	function _diff_header($xbeg, $xlen, $ybeg, $ylen)
+	public function _diff_header($xbeg, $xlen, $ybeg, $ylen)
 	{
 		$what = $xlen ? ($ylen ? 'c' : 'd') : 'a';
 		$xlen = $xlen > 1 ? ',' . ($xbeg + $xlen - 1) : '';
@@ -1049,7 +1053,7 @@ class WikiUnifiedDiffFormatter extends WikiDiffFormatter
 	 * @param bool $reverse
 	 * @param int $context_lines
 	 */
-	function __construct($reverse = false, $context_lines = 3)
+	public function __construct($reverse = false, $context_lines = 3)
 	{
 		$this->do_reverse_diff = $reverse;
 		$this->context_lines = $context_lines;
@@ -1065,7 +1069,7 @@ class WikiUnifiedDiffFormatter extends WikiDiffFormatter
 	 * @param $ylen
 	 * @return string
 	 */
-	function _diff_header($xbeg, $xlen, $ybeg, $ylen)
+	public function _diff_header($xbeg, $xlen, $ybeg, $ylen)
 	{
 		$xlen = $xlen == 1 ? '' : ",$xlen";
 		$ylen = $ylen == 1 ? '' : ",$ylen";

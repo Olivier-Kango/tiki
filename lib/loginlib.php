@@ -13,12 +13,12 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
 
 class LoginLib
 {
-	function getUser()
+	public function getUser()
 	{
 		return $GLOBALS['user'];
 	}
 
-	function getUserId()
+	public function getUserId()
 	{
 		$id = TikiLib::lib('tiki')->get_user_id($this->getUser());
 		if ($id === -1) {
@@ -28,13 +28,13 @@ class LoginLib
 		}
 	}
 
-	function activateSession($user)
+	public function activateSession($user)
 	{
 		global $user_cookie_site;
 		$_SESSION[$user_cookie_site] = $user;
 	}
 
-	function switchUser($name)
+	public function switchUser($name)
 	{
 		global $user, $user_cookie_site;
 		$perms = Perms::get();
@@ -49,7 +49,7 @@ class LoginLib
 		$_SESSION[$user_cookie_site . '_previous'] = $user;
 	}
 
-	function revertSwitch()
+	public function revertSwitch()
 	{
 		global $user_cookie_site;
 		$key = $user_cookie_site . '_previous';
@@ -58,13 +58,13 @@ class LoginLib
 		$this->activateSession($username);
 	}
 
-	function isSwitched()
+	public function isSwitched()
 	{
 		global $user_cookie_site;
 		return isset($_SESSION[$user_cookie_site . '_previous']);
 	}
 
-	function logout()
+	public function logout()
 	{
 		$userlib = TikiLib::lib('user');
 		$userlib->user_logout($this->getUser());

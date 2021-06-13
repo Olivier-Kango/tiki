@@ -97,7 +97,7 @@ class Tiki_Webservice
 		return $list;
 	}
 
-	function save()
+	public function save()
 	{
 		global $tikilib;
 		$tikilib->query("DELETE FROM tiki_webservice WHERE service = ?", [ $this->name ]);
@@ -116,7 +116,7 @@ class Tiki_Webservice
 		);
 	}
 
-	function delete()
+	public function delete()
 	{
 		global $tikilib;
 		$tikilib->query("DELETE FROM tiki_webservice WHERE service = ?", [ $this->name ]);
@@ -127,7 +127,7 @@ class Tiki_Webservice
 	 * @param $newName
 	 * @return $this|null
 	 */
-	function rename($newName)
+	public function rename($newName)
 	{
 		$tiki_webservice = TikiDb::get()->table('tiki_webservice');
 		if (ctype_alpha($newName) && $tiki_webservice->fetchCount(['service' => $newName]) == 0) {
@@ -146,7 +146,7 @@ class Tiki_Webservice
 	/**
 	 * @return array
 	 */
-	function getParameters()
+	public function getParameters()
 	{
 		global $wsdllib;
 
@@ -168,7 +168,7 @@ class Tiki_Webservice
 	 * @param $params
 	 * @return array
 	 */
-	function getParameterMap($params)
+	public function getParameterMap($params)
 	{
 		$parameters = [];
 
@@ -193,7 +193,7 @@ class Tiki_Webservice
 	 * @param bool $fullReponse
 	 * @return bool|OIntegrate_Response
 	 */
-	function performRequest($params, $fullReponse = false, $clearCache = false)
+	public function performRequest($params, $fullReponse = false, $clearCache = false)
 	{
 		global $soaplib, $prefs;
 
@@ -259,7 +259,7 @@ class Tiki_Webservice
 	 * @param $name
 	 * @return Tiki_Webservice_Template
 	 */
-	function addTemplate($name)
+	public function addTemplate($name)
 	{
 		if (! ctype_alpha($name) || empty($name)) {
 			return;
@@ -277,7 +277,7 @@ class Tiki_Webservice
 	/**
 	 * @param $name
 	 */
-	function removeTemplate($name)
+	public function removeTemplate($name)
 	{
 		global $tikilib;
 
@@ -287,7 +287,7 @@ class Tiki_Webservice
 	/**
 	 * @return array
 	 */
-	function getTemplates()
+	public function getTemplates()
 	{
 		if ($this->all) {
 			return $this->templates;
@@ -319,7 +319,7 @@ class Tiki_Webservice
 	 * @param $name
 	 * @return Tiki_Webservice_Template
 	 */
-	function getTemplate($name)
+	public function getTemplate($name)
 	{
 		if (isset($this->templates[$name])) {
 			return $this->templates[$name];
@@ -346,7 +346,7 @@ class Tiki_Webservice
 		}
 	}
 
-	function getName()
+	public function getName()
 	{
 		return $this->name;
 	}
@@ -366,7 +366,7 @@ class Tiki_Webservice_Template
 	public $content;
 	public $lastModif;
 
-	function save()
+	public function save()
 	{
 		global $tikilib;
 
@@ -400,7 +400,7 @@ class Tiki_Webservice_Template
 	/**
 	 * @return string
 	 */
-	function getTemplateFile()
+	public function getTemplateFile()
 	{
 		$token = sprintf("%s_%s", $this->webservice->getName(), $this->name);
 		$file = "temp/cache/" . md5($token) . '.tpl';
@@ -417,7 +417,7 @@ class Tiki_Webservice_Template
 	 * @param $outputContext
 	 * @return mixed|string
 	 */
-	function render(OIntegrate_Response $response, $outputContext)
+	public function render(OIntegrate_Response $response, $outputContext)
 	{
 		return $response->render($this->engine, $this->output, $outputContext, $this->getTemplateFile());
 	}

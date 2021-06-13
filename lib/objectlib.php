@@ -13,7 +13,7 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
 
 class ObjectLib extends TikiLib
 {
-	const SecondsPerDay = 86400;
+	const SECONDSPERDAY = 86400;
 
 	/**
 	 *	Create an object record for the given Tiki object if one doesn't already exist.
@@ -27,7 +27,7 @@ class ObjectLib extends TikiLib
 	 *
 	 * Remember to update get_supported_types if this changes
 	 */
-	function add_object($type, $itemId, $checkHandled = true, $description = null, $name = null, $href = null)
+	public function add_object($type, $itemId, $checkHandled = true, $description = null, $name = null, $href = null)
 	{
 		$objectId = $this->get_object_id($type, $itemId);
 
@@ -188,7 +188,7 @@ class ObjectLib extends TikiLib
 	 *
 	 * @return array
 	 */
-	static function get_supported_types()
+	public static function get_supported_types()
 	{
 		return [
 			'article',
@@ -210,7 +210,7 @@ class ObjectLib extends TikiLib
 		];
 	}
 
-	function getSelectorType($type)
+	public function getSelectorType($type)
 	{
 		$supported = [
 			'category' => 'category',
@@ -232,7 +232,7 @@ class ObjectLib extends TikiLib
 		}
 	}
 
-	function insert_object($type, $itemId, $description = '', $name = '', $href = '')
+	public function insert_object($type, $itemId, $description = '', $name = '', $href = '')
 	{
 		if (! $itemId) {
 			// When called with a blank page name or any other empty value, no insertion should be made
@@ -255,7 +255,7 @@ class ObjectLib extends TikiLib
 		);
 	}
 
-	function get_object_id($type, $itemId)
+	public function get_object_id($type, $itemId)
 	{
 		$query = "select `objectId` from `tiki_objects` where `type`=? and `itemId`=?";
 		return $this->getOne($query, [$type, $itemId]);
@@ -263,7 +263,7 @@ class ObjectLib extends TikiLib
 
 	// Returns an array containing the object ids of objects of the same type.
 	// Each entry uses the item id as key and the object id as key. Items with no object id are ignored.
-	function get_object_ids($type, $itemIds)
+	public function get_object_ids($type, $itemIds)
 	{
 		if (empty($itemIds)) {
 			return [];
@@ -281,19 +281,22 @@ class ObjectLib extends TikiLib
 		return $objectIds;
 	}
 
-	function get_needed_perm($objectType, $action)
+	public function get_needed_perm($objectType, $action)
 	{
 		switch ($objectType) {
 			case 'wiki page':
+				// no return
 			case 'wiki':
 				switch ($action) {
 					case 'view':
+						// no return
 					case 'read':
 						return 'tiki_p_view';
 
 					case 'edit':
 						return 'tiki_p_edit';
 				}
+				// no return
 			case 'article':
 				switch ($action) {
 					case 'view':
@@ -303,6 +306,7 @@ class ObjectLib extends TikiLib
 					case 'edit':
 						return 'tiki_p_edit_article';
 				}
+				// no return
 			case 'post':
 				switch ($action) {
 					case 'view':
@@ -312,7 +316,7 @@ class ObjectLib extends TikiLib
 					case 'edit':
 						return 'tiki_p_create_blog';
 				}
-
+				// no return
 			case 'blog':
 				switch ($action) {
 					case 'view':
@@ -322,7 +326,7 @@ class ObjectLib extends TikiLib
 					case 'edit':
 						return 'tiki_p_create_blog';
 				}
-
+				// no return
 			case 'faq':
 				switch ($action) {
 					case 'view':
@@ -332,7 +336,7 @@ class ObjectLib extends TikiLib
 					case 'edit':
 						return 'tiki_p_admin_faqs';
 				}
-
+				// no return
 			case 'file gallery':
 				switch ($action) {
 					case 'view':
@@ -342,7 +346,7 @@ class ObjectLib extends TikiLib
 					case 'edit':
 						return 'tiki-admin_file_galleries';
 				}
-
+				// no return
 			case 'poll':
 				switch ($action) {
 					case 'view':
@@ -352,7 +356,7 @@ class ObjectLib extends TikiLib
 					case 'edit':
 						return 'tiki_p_admin';
 				}
-
+				// no return
 			case 'comment':
 			case 'comments':
 				switch ($action) {
@@ -363,7 +367,7 @@ class ObjectLib extends TikiLib
 					case 'edit':
 						return 'tiki_p_edit_comments';
 				}
-
+				// no return
 			case 'trackeritem':
 				switch ($action) {
 					case 'view':
@@ -373,7 +377,7 @@ class ObjectLib extends TikiLib
 					case 'edit':
 						return 'tiki_p_modify_tracker_items';
 				}
-
+				// no return
 			case 'trackeritem_closed':
 				switch ($action) {
 					case 'view':
@@ -383,7 +387,7 @@ class ObjectLib extends TikiLib
 					case 'edit':
 						return 'tiki_p_modify_tracker_items_closed';
 				}
-
+				// no return
 			case 'trackeritem_pending':
 				switch ($action) {
 					case 'view':
@@ -393,7 +397,7 @@ class ObjectLib extends TikiLib
 					case 'edit':
 						return 'tiki_p_modify_tracker_items_pending';
 				}
-
+				// no return
 			case 'tracker':
 				switch ($action) {
 					case 'view':
@@ -403,7 +407,7 @@ class ObjectLib extends TikiLib
 					case 'edit':
 						return 'tiki_p_admin_trackers';
 				}
-
+				// no return
 			case 'template':
 				switch ($action) {
 					case 'view':
@@ -413,12 +417,13 @@ class ObjectLib extends TikiLib
 					case 'edit':
 						return 'tiki_p_edit_content_templates';
 				}
+				// no return
 			default:
 				return '';
 		}
 	}
 
-	function get_info($objectType, $object)
+	public function get_info($objectType, $object)
 	{
 		switch ($objectType) {
 			case 'wiki':
@@ -472,7 +477,7 @@ class ObjectLib extends TikiLib
 		return (['error' => 'true']);
 	}
 
-	function set_data($objectType, $object, $data)
+	public function set_data($objectType, $object, $data)
 	{
 		switch ($objectType) {
 			case 'wiki':
@@ -484,26 +489,26 @@ class ObjectLib extends TikiLib
 		}
 	}
 
-	function delete_object($type, $itemId)
+	public function delete_object($type, $itemId)
 	{
 		$query = 'delete from `tiki_objects` where `itemId`=? and `type`=?';
 		$this->query($query, [$itemId, $type]);
 	}
 
-	function delete_object_via_objectid($objectId)
+	public function delete_object_via_objectid($objectId)
 	{
 		$query = 'delete from `tiki_objects` where `objectId`=?';
 		$this->query($query, [(int) $objectId]);
 	}
 
-	function get_object($type, $itemId)
+	public function get_object($type, $itemId)
 	{
 		$query = 'select * from `tiki_objects` where `itemId`=? and `type`=?';
 		$result = $this->query($query, [$itemId, $type]);
 		return $result->fetchRow();
 	}
 
-	function get_object_via_objectid($objectId)
+	public function get_object_via_objectid($objectId)
 	{
 		$query = 'select * from `tiki_objects` where `objectId`=?';
 		$result = $this->query($query, [(int) $objectId]);
@@ -516,7 +521,7 @@ class ObjectLib extends TikiLib
 	 * @param string $format - trackeritem format coming from ItemLink field or null by default
 	 * @return void|string
 	 */
-	function get_title($type, $id, $format = null)
+	public function get_title($type, $id, $format = null)
 	{
 		$detail = '';
 		switch ($type) {
@@ -528,6 +533,7 @@ class ObjectLib extends TikiLib
 				$trackerlib = TikiLib::lib('trk');
 				$info = $trackerlib->get_field_info($fieldId);
 				$extra = $info['name'];
+				// no return
 			case 'trackeritem':
 				if ($format) {
 					$lib = TikiLib::lib('unifiedsearch');
@@ -616,7 +622,7 @@ class ObjectLib extends TikiLib
 	 * @param $id
 	 * @return void|string
 	 */
-	function get_wiki_content($type, $objectId)
+	public function get_wiki_content($type, $objectId)
 	{
 		if (substr($type, -7) == 'comment') {
 			$comment_info = TikiLib::lib('comments')->get_comment((int)$objectId);
@@ -626,6 +632,7 @@ class ObjectLib extends TikiLib
 		switch ($type) {
 			case 'wiki':
 				$type = 'wiki page';
+				// no return
 			case 'wiki page':
 				$info = $this->get_page_info($objectId);
 				return $info['data'];
@@ -655,7 +662,7 @@ class ObjectLib extends TikiLib
 	 * @param string $type
 	 * @return string
 	 */
-	function get_verbose_type($type)
+	public function get_verbose_type($type)
 	{
 		if (substr($type, -7) == 'comment') {
 			$isComment = true;
@@ -689,12 +696,12 @@ class ObjectLib extends TikiLib
 	/**
 	 * Returns a hash indicating which permission is needed for viewing an object of desired type.
 	 *
-	 * @param boolean $comment - indicate if returned permission must be comment-related, e.g. 
+	 * @param boolean $comment - indicate if returned permission must be comment-related, e.g.
 	 * am I allowed to see comments on a tracker item if I have or don't have tiki_p_tracker_view_comments.
 	 * This allows search index to properly update comment permissions not basing them on viewing
 	 * parent tracker item or wiki page but the comment itself.
 	 */
-	static function map_object_type_to_permission($comment = false)
+	public static function map_object_type_to_permission($comment = false)
 	{
 		return [
 			'wiki page' => $comment ? 'tiki_p_wiki_view_comments' : 'tiki_p_view',
@@ -734,7 +741,7 @@ class ObjectLib extends TikiLib
 		];
 	}
 
-	function get_metadata($type, $object, & $classList)
+	public function get_metadata($type, $object, &$classList)
 	{
 		$smarty = TikiLib::lib('smarty');
 		$smarty->loadPlugin('smarty_modifier_escape');
@@ -763,7 +770,7 @@ class ObjectLib extends TikiLib
 		return $metadata;
 	}
 
-	function get_typeItemsInfo($type) // Returns information on all items of an object type (eg: menu, article, etc) from tiki_objects table
+	public function get_typeItemsInfo($type) // Returns information on all items of an object type (eg: menu, article, etc) from tiki_objects table
 	{
 		//get objects
 		$queryObjectInfo = 'select * from `tiki_objects` where `type`=?';
@@ -801,7 +808,7 @@ class ObjectLib extends TikiLib
 			$info = TikiLib::lib('tiki')->get_page_info($objectId, false);
 			if (isset($info)) {
 				$lastModif = $info['lastModif'];
-				$freshness = (int) ((time() - $lastModif) / self::SecondsPerDay);
+				$freshness = (int) ((time() - $lastModif) / self::SECONDSPERDAY);
 				return $freshness;
 			}
 		} else {

@@ -9,19 +9,19 @@ class Validators
 {
 	private $input;
 
-	function __construct()
+	public function __construct()
 	{
 		global $prefs;
 		$this->available = $this->get_all_validators();
 	}
 
-	function setInput($input)
+	public function setInput($input)
 	{
 		$this->input = $input;
 		return true;
 	}
 
-	function getInput()
+	public function getInput()
 	{
 		if (isset($this->input)) {
 			return $this->input;
@@ -30,7 +30,7 @@ class Validators
 		}
 	}
 
-	function validateInput($validator, $parameter = '', $message = '')
+	public function validateInput($validator, $parameter = '', $message = '')
 	{
 		include_once('lib/validators/validator_' . $validator . '.php');
 		if (! function_exists("validator_$validator") || ! isset($this->input)) {
@@ -52,7 +52,7 @@ class Validators
 		return $validators;
 	}
 
-	function generateTrackerValidateJS($fields_data, $prefix = 'ins_', $custom_rules = '', $custom_messages = '', $custom_handlers = '')
+	public function generateTrackerValidateJS($fields_data, $prefix = 'ins_', $custom_rules = '', $custom_messages = '', $custom_handlers = '')
 	{
 		$validationjs = 'rules: { ';
 		foreach ($fields_data as $field_value) {

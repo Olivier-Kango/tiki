@@ -20,7 +20,7 @@ class TodoLib
 	 * @param null $to
 	 * @return mixed
 	 */
-	function addTodo($after, $event, $objectType, $objectId = null, $from = null, $to = null)
+	public function addTodo($after, $event, $objectType, $objectId = null, $from = null, $to = null)
 	{
 		$db = TikiDb::get();
 		$query = 'INSERT INTO `tiki_todo` (`after`, `event`, `objectType`, `objectId`, `from`, `to`) VALUES (?, ?, ?, ?, ?, ?)';
@@ -39,7 +39,7 @@ class TodoLib
 	 * @param null $todoId
 	 * @return mixed
 	 */
-	function listTodoObject($objectType = null, $objectId = null, $todoId = null)
+	public function listTodoObject($objectType = null, $objectId = null, $todoId = null)
 	{
 		$db = TikiDb::get();
 		$query = 'SELECT * FROM `tiki_todo` tt ';
@@ -81,7 +81,7 @@ class TodoLib
 	/**
 	 * @param $id
 	 */
-	function delTodo($id)
+	public function delTodo($id)
 	{
 		$db = TikiDb::get();
 		$query = 'DELETE FROM `tiki_todo` WHERE `todoId`=? OR (`objectId`=? AND `objectType`=?)';
@@ -93,7 +93,7 @@ class TodoLib
 	 * @param $objectType
 	 * @param $objectId
 	 */
-	function delObjectTodo($objectType, $objectId)
+	public function delObjectTodo($objectType, $objectId)
 	{
 		$db = TikiDb::get();
 		$query = 'DELETE FROM `tiki_todo_notif` WHERE `objectType`=? AND `objectId` = ?';
@@ -108,7 +108,7 @@ class TodoLib
 	 * @param $todo
 	 * @return bool
 	 */
-	function applyTodo($todo)
+	public function applyTodo($todo)
 	{
 		switch ($todo['objectType']) {
 			case 'todo':
@@ -146,7 +146,7 @@ class TodoLib
 	 * @param null $except
 	 * @return bool
 	 */
-	function listObjectsTodo($todo, $except = null)
+	public function listObjectsTodo($todo, $except = null)
 	{
 		$func = 'listObjectsTodo_' . $todo['objectType'];
 		if (! method_exists($this, $func)) {
@@ -159,7 +159,7 @@ class TodoLib
 	 * @param $todoId
 	 * @return mixed
 	 */
-	function alreadyNotif($todoId)
+	public function alreadyNotif($todoId)
 	{
 		$db = TikiDb::get();
 		$query = 'SELECT `objectId` FROM `tiki_todo_notif` WHERE `todoId`=?';
@@ -175,7 +175,7 @@ class TodoLib
 	 * @param $objectType
 	 * @param $objectId
 	 */
-	function addNotif($todoId, $objectType, $objectId)
+	public function addNotif($todoId, $objectType, $objectId)
 	{
 		$db = TikiDb::get();
 		$query = 'INSERT INTO `tiki_todo_notif` (`todoId`, `objectType`, `objectId`) VALUES(?,?,?)';
@@ -185,14 +185,14 @@ class TodoLib
 	/**
 	 * @param $todoId
 	 */
-	function delNotif($todoId)
+	public function delNotif($todoId)
 	{
 		$db = TikiDb::get();
 		$query = 'DELETE FROM `tiki_todo_notif` WHERE `todoId`=?';
 		$db->query($query, [$todoId]);
 	}
 
-	function cleanNotif()
+	public function cleanNotif()
 	{
 		$db = TikiDb::get();
 		$query = 'DELETE FROM `tiki_todo_notif` WHERE `todoId` NOT IN (SELECT `todoId` FROM `tiki_todo`)';
@@ -204,7 +204,7 @@ class TodoLib
 	 * @param string $default_subject
 	 * @param string $default_body
 	 */
-	function mailTodo($todo, $to, $default_subject = 'Change notification', $default_body = '')
+	public function mailTodo($todo, $to, $default_subject = 'Change notification', $default_body = '')
 	{
 		global $prefs;
 		$userlib = TikiLib::lib('user');
@@ -238,7 +238,7 @@ class TodoLib
 	 * @param null $except
 	 * @return array
 	 */
-	function listObjectsTodo_tracker($todo, $except = null)
+	public function listObjectsTodo_tracker($todo, $except = null)
 	{
 		global $tikilib;
 		$trklib = TikiLib::lib('trk');
@@ -294,7 +294,7 @@ class TodoLib
 	 * @param $todo
 	 * @param $objects
 	 */
-	function applyTodo_tracker($todo, $objects)
+	public function applyTodo_tracker($todo, $objects)
 	{
 		$trklib = TikiLib::lib('trk');
 		$trklib->change_status($objects, $todo['to']['status']);
@@ -304,7 +304,7 @@ class TodoLib
 	 * @param $todo
 	 * @param $objects
 	 */
-	function notifyTodo_tracker($todo, $objects)
+	public function notifyTodo_tracker($todo, $objects)
 	{
 		global $prefs;
 		$smarty = TikiLib::lib('smarty');

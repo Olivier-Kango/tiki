@@ -13,7 +13,7 @@ class ZoteroLib extends TikiDb_Bridge
 	/**
 	 * @return bool
 	 */
-	function is_authorized()
+	public function is_authorized()
 	{
 		$oauthlib = TikiLib::lib('oauth');
 		return $oauthlib->is_authorized('zotero');
@@ -24,7 +24,7 @@ class ZoteroLib extends TikiDb_Bridge
 	 * @param int $limit
 	 * @return array|bool
 	 */
-	function get_references($tag, $limit = 25)
+	public function get_references($tag, $limit = 25)
 	{
 		global $prefs;
 
@@ -74,7 +74,7 @@ class ZoteroLib extends TikiDb_Bridge
 	 * @param $tag
 	 * @return bool|mixed
 	 */
-	function get_first_entry($tag)
+	public function get_first_entry($tag)
 	{
 		if ($references = $this->get_references($tag, 1)) {
 			return reset($references);
@@ -87,7 +87,7 @@ class ZoteroLib extends TikiDb_Bridge
 	 * @param $itemId
 	 * @return array|bool
 	 */
-	function get_entry($itemId)
+	public function get_entry($itemId)
 	{
 		global $prefs;
 
@@ -130,7 +130,7 @@ class ZoteroLib extends TikiDb_Bridge
 	 * @param $tag
 	 * @return bool
 	 */
-	function get_formatted_references($tag)
+	public function get_formatted_references($tag)
 	{
 		global $prefs;
 

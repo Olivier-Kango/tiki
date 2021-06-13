@@ -494,7 +494,7 @@ define('ZIP_ENDDIR_MAGIC', "PK\005\006");
 
 class ZipWriter
 {
-	function __construct($comment = '', $zipname = 'archive.zip')
+	public function __construct($comment = '', $zipname = 'archive.zip')
 	{
 		$this->comment = $comment;
 
@@ -507,7 +507,7 @@ class ZipWriter
 		header("Content-Disposition: attachment; filename=\"$zipname\"");
 	}
 
-	function addRegularFile($filename, $content, $attrib = false)
+	public function addRegularFile($filename, $content, $attrib = false)
 	{
 		if (! $attrib) {
 			$attrib = [];
@@ -596,7 +596,7 @@ class ZipWriter
 		$this->nfiles++;
 	}
 
-	function finish()
+	public function finish()
 	{
 		// Output the central directory
 		echo $this->dir;
@@ -635,7 +635,7 @@ class ZipWriter
  */
 class ZipReader
 {
-	function __construct($zipfile)
+	public function __construct($zipfile)
 	{
 		if (! is_string($zipfile)) {
 			$this->fp = $zipfile; // File already open
@@ -644,7 +644,7 @@ class ZipReader
 		}
 	}
 
-	function _read($nbytes)
+	public function _read($nbytes)
 	{
 		$chunk = fread($this->fp, $nbytes);
 
@@ -655,14 +655,14 @@ class ZipReader
 		return $chunk;
 	}
 
-	function done()
+	public function done()
 	{
 		fclose($this->fp);
 
 		return false;
 	}
 
-	function readFile()
+	public function readFile()
 	{
 		$head = $this->_read(30);
 

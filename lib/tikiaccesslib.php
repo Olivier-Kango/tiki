@@ -34,7 +34,7 @@ class TikiAccessLib extends TikiLib
 	private $logMsg = '';
 	private $userMsg = '';
 
-	function preventRedirect($prevent)
+	public function preventRedirect($prevent)
 	{
 		$this->noRedirect = (bool) $prevent;
 	}
@@ -45,7 +45,7 @@ class TikiAccessLib extends TikiLib
 	 *
 	 * @param bool $prevent
 	 */
-	function preventDisplayError($prevent)
+	public function preventDisplayError($prevent)
 	{
 		$this->noDisplayError = (bool) $prevent;
 	}
@@ -54,7 +54,7 @@ class TikiAccessLib extends TikiLib
 	 * check that the user is admin or has admin permissions
 	 *
 	 */
-	function check_admin($user, $feature_name = '')
+	public function check_admin($user, $feature_name = '')
 	{
 		global $tiki_p_admin, $prefs;
 		require_once('tiki-setup.php');
@@ -73,7 +73,7 @@ class TikiAccessLib extends TikiLib
 	/**
 	 * @param $user
 	 */
-	function check_user($user)
+	public function check_user($user)
 	{
 		global $prefs;
 		require_once('tiki-setup.php');
@@ -90,7 +90,7 @@ class TikiAccessLib extends TikiLib
 	 * @param array $permissions
 	 * @param string $permission_name
 	 */
-	function check_page($user = 'y', $features = [], $permissions = [], $permission_name = '')
+	public function check_page($user = 'y', $features = [], $permissions = [], $permission_name = '')
 	{
 		require_once('tiki-setup.php');
 
@@ -114,7 +114,7 @@ class TikiAccessLib extends TikiLib
 	 * @return void
 	 *
 	 */
-	function check_feature($features, $feature_name = '', $relevant_admin_panel = 'features', $either = false)
+	public function check_feature($features, $feature_name = '', $relevant_admin_panel = 'features', $either = false)
 	{
 		global $prefs;
 		require_once('tiki-setup.php');
@@ -177,7 +177,7 @@ class TikiAccessLib extends TikiLib
 	 * @param bool|string $objectType		optional object type (e.g. 'wiki page')
 	 * @param bool|string $objectId			optional object id (e.g. 'HomePage' or '42' depending on object type)
 	 */
-	function check_permission($permissions, $permission_name = '', $objectType = false, $objectId = false)
+	public function check_permission($permissions, $permission_name = '', $objectType = false, $objectId = false)
 	{
 		require_once('tiki-setup.php');
 
@@ -217,7 +217,7 @@ class TikiAccessLib extends TikiLib
 	 * @param bool|string $objectType		optional object type (e.g. 'wiki page')
 	 * @param bool|string $objectId			optional object id (e.g. 'HomePage' or '42' depending on object type)
 	 */
-	function check_permission_either($permissions, $permission_name = '', $objectType = false, $objectId = false)
+	public function check_permission_either($permissions, $permission_name = '', $objectType = false, $objectId = false)
 	{
 		require_once('tiki-setup.php');
 		$allowed = false;
@@ -254,7 +254,7 @@ class TikiAccessLib extends TikiLib
 	 * check permission, where the permission is normally unset
 	 *
 	 */
-	function check_permission_unset($permissions, $permission_name)
+	public function check_permission_unset($permissions, $permission_name)
 	{
 		require_once('tiki-setup.php');
 
@@ -273,7 +273,7 @@ class TikiAccessLib extends TikiLib
 	 * check page exists
 	 *
 	 */
-	function check_page_exists($page)
+	public function check_page_exists($page)
 	{
 		require_once('tiki-setup.php');
 		if (! $this->page_exists($page)) {
@@ -734,7 +734,7 @@ class TikiAccessLib extends TikiLib
 	 * @deprecated replaced by checkCsrfForm() and checkCsrf()
 	 * @see checkCsrf()				For post validation with or without confirmation check
 	 */
-	function check_authenticity($confirmation_text = '', $returnHtml = true, $errorMsg = false)
+	public function check_authenticity($confirmation_text = '', $returnHtml = true, $errorMsg = false)
 	{
 		$check = true;
 		if (empty($_POST['confirmForm']) || $_POST['confirmForm'] !== 'y') {
@@ -785,7 +785,7 @@ class TikiAccessLib extends TikiLib
 	 * @param string $message
 	 * @throws Exception
 	 */
-	function display_error($page, $errortitle = "", $errortype = "", $enableRedirect = true, $message = '')
+	public function display_error($page, $errortitle = "", $errortype = "", $enableRedirect = true, $message = '')
 	{
 		if ($this->noDisplayError) {
 			return;
@@ -880,7 +880,7 @@ class TikiAccessLib extends TikiLib
 	 * @param string $page
 	 * @return string
 	 */
-	function get_home_page($page = '')
+	public function get_home_page($page = '')
 	{
 		global $prefs, $use_best_language, $user;
 		$userlib = TikiLib::lib('user');
@@ -1019,7 +1019,7 @@ class TikiAccessLib extends TikiLib
 	 * @param int $code         HTTP code
 	 * @param string $msgtype   Type of message which determines styling (e.g., success, error, warning, etc.)
 	 */
-	function redirect($url = '', $msg = '', $code = 302, $msgtype = '')
+	public function redirect($url = '', $msg = '', $code = 302, $msgtype = '')
 	{
 		global $prefs;
 
@@ -1064,7 +1064,7 @@ class TikiAccessLib extends TikiLib
 	/**
 	 * @param $message
 	 */
-	function flash($message)
+	public function flash($message)
 	{
 		$this->redirect($_SERVER['REQUEST_URI'], $message);
 	}
@@ -1081,7 +1081,7 @@ class TikiAccessLib extends TikiLib
 	 *              send 401 Unauthorized headers.
 	 */
 
-	function authorize_rss($rssrights)
+	public function authorize_rss($rssrights)
 	{
 		global $user, $prefs;
 		$userlib = TikiLib::lib('user');
@@ -1127,7 +1127,7 @@ class TikiAccessLib extends TikiLib
 	/**
 	 * @return bool
 	 */
-	function http_auth()
+	public function http_auth()
 	{
 		global $tikidomain, $user;
 		$userlib = TikiLib::lib('user');
@@ -1165,7 +1165,7 @@ class TikiAccessLib extends TikiLib
 	 * @param bool $acceptFeed
 	 * @return array
 	 */
-	static function get_accept_types($acceptFeed = false)
+	public static function get_accept_types($acceptFeed = false)
 	{
 		$accept = explode(',', $_SERVER['HTTP_ACCEPT']);
 
@@ -1205,7 +1205,7 @@ class TikiAccessLib extends TikiLib
 	/**
 	 * @return bool
 	 */
-	static function is_machine_request()
+	public static function is_machine_request()
 	{
 		foreach (self::get_accept_types() as $name => $full) {
 			switch ($name) {
@@ -1224,7 +1224,7 @@ class TikiAccessLib extends TikiLib
 	 * @param bool $acceptFeed
 	 * @return bool
 	 */
-	static function is_serializable_request($acceptFeed = false)
+	public static function is_serializable_request($acceptFeed = false)
 	{
 		foreach (self::get_accept_types($acceptFeed) as $name => $full) {
 			switch ($name) {
@@ -1245,7 +1245,7 @@ class TikiAccessLib extends TikiLib
 	/**
 	 * @return bool
 	 */
-	function is_xml_http_request()
+	public function is_xml_http_request()
 	{
 		return ! empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
 	}
@@ -1261,7 +1261,7 @@ class TikiAccessLib extends TikiLib
 	 * [entryModificationKey] Key to lookup to find the modification date
 	 * [entryObjectDescriptors] Optional. Array containing two key names, object key and object type to lookup missing information (url and title)
 	 */
-	static function output_serialized($data, $feed_descriptor = null)
+	public static function output_serialized($data, $feed_descriptor = null)
 	{
 		foreach (self::get_accept_types(! is_null($feed_descriptor)) as $name => $full) {
 			switch ($name) {
@@ -1337,7 +1337,7 @@ class TikiAccessLib extends TikiLib
 	 *
 	 * @return bool|null Return true upon file access success, false upon failure, and null if the file does not exist.
 	 */
-	function isFileWebAccessible (string $filename): ? bool {
+	public function isFileWebAccessible(string $filename): ? bool {
 		global $tikipath, $base_url_http, $base_url_https;
 		// if the directory is within the Tiki root, then remove the prefixed Tiki root
 		if (0 === strpos ($filename, $tikipath)) {

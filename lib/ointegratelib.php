@@ -16,7 +16,7 @@ interface OIntegrate_Converter
 	 * @param $content
 	 * @return mixed
 	 */
-	function convert($content);
+	public function convert($content);
 }
 
 /**
@@ -29,7 +29,7 @@ interface OIntegrate_Engine
 	 * @param $templateFile
 	 * @return mixed
 	 */
-	function process($data, $templateFile);
+	public function process($data, $templateFile);
 }
 
 /**
@@ -45,44 +45,44 @@ class OIntegrate
 	 * @param $engineOutput
 	 * @return OIntegrate_Engine_JavaScript|OIntegrate_Engine_Smarty|OIntegrate_Engine_Index
 	 */
-	public static function getEngine($name, $engineOutput) // {{{
+	public static function getEngine($name, $engineOutput)
 	{
 		switch ($name) {
 			case 'javascript':
-				return new OIntegrate_Engine_JavaScript;
+				return new OIntegrate_Engine_JavaScript();
 			case 'smarty':
 				return new OIntegrate_Engine_Smarty($engineOutput == 'tikiwiki');
 			case 'index':
-				return new OIntegrate_Engine_Index;
+				return new OIntegrate_Engine_Index();
 		}
-	} // }}}
+	}
 
 	/**
 	 * @param $from
 	 * @param $to
 	 * @return OIntegrate_Converter_Direct|OIntegrate_Converter_EncodeHtml|OIntegrate_Converter_HtmlToTiki|OIntegrate_Converter_TikiToHtml|OIntegrate_Converter_Indexer
 	 */
-	public static function getConverter($from, $to) // {{{
+	public static function getConverter($from, $to)
 	{
 		switch ($from) {
 			case 'html':
 				if ($to == 'tikiwiki') {
-					return new OIntegrate_Converter_HtmlToTiki;
+					return new OIntegrate_Converter_HtmlToTiki();
 				} elseif ($to == 'html') {
-					return new OIntegrate_Converter_Direct;
+					return new OIntegrate_Converter_Direct();
 				}
 				break;
 			case 'tikiwiki':
 				if ($to == 'html') {
-					return new OIntegrate_Converter_TikiToHtml;
+					return new OIntegrate_Converter_TikiToHtml();
 				} elseif ($to == 'tikiwiki') {
-					return new OIntegrate_Converter_EncodeHtml;
+					return new OIntegrate_Converter_EncodeHtml();
 				}
 				break;
 			case 'index':
 			case 'mindex':
 				if ($to == 'index') {
-					return new OIntegrate_Converter_Indexer;
+					return new OIntegrate_Converter_Indexer();
 				} elseif ($to == 'html') {
 					return new OIntegrate_Converter_Indexer('html');
 				} elseif ($to == 'tikiwiki') {
@@ -90,7 +90,7 @@ class OIntegrate
 				}
 				break;
 		}
-	} // }}}
+	}
 
 	/**
 	 * @param string $url
@@ -98,7 +98,7 @@ class OIntegrate
 	 * @param bool $clearCache
 	 * @return OIntegrate_Response
 	 */
-	function performRequest($url, $postBody = null, $clearCache = false) // {{{
+	public function performRequest($url, $postBody = null, $clearCache = false) // {{{
 	{
 		$cachelib = TikiLib::lib('cache');
 		$tikilib = TikiLib::lib('tiki');
@@ -157,7 +157,7 @@ class OIntegrate
 		$requestContentType = $httpResponse->getHeaders()->get('Content-Type');
 		$cacheControl = $httpResponse->getHeaders()->get('Cache-Control');
 
-		$response = new OIntegrate_Response;
+		$response = new OIntegrate_Response();
 		$response->contentType = $requestContentType;
 		$response->cacheControl = $cacheControl;
 		if ($requestContentType) {
@@ -167,7 +167,7 @@ class OIntegrate
 		}
 		$response->data = $this->unserialize($mediaType, $content);
 
-		$filter = new DeclFilter;
+		$filter = new DeclFilter();
 		$filter->addCatchAllFilter('xss');
 
 		$response->data = $filter->filter($response->data);
@@ -202,14 +202,14 @@ class OIntegrate
 		}
 
 		return $response;
-	} // }}}
+	}
 
 	/**
 	 * @param string $type
 	 * @param string $data
 	 * @return array|mixed|null
 	 */
-	function unserialize($type, $data) // {{{
+	public function unserialize($type, $data)
 	{
 
 		if (empty($data)) {
@@ -238,24 +238,24 @@ class OIntegrate
 					return $out;
 				}
 		}
-	} // }}}
+	}
 
 	/**
 	 * @param $version
 	 */
-	function addSchemaVersion($version) // {{{
+	public function addSchemaVersion($version)
 	{
 		$this->schemaVersion[] = $version;
-	} // }}}
+	}
 
 	/**
 	 * @param $engine
 	 * @param $output
 	 */
-	function addAcceptTemplate($engine, $output) // {{{
+	public function addAcceptTemplate($engine, $output)
 	{
 		$this->acceptTemplate[] = "$engine/$output";
-	} // }}}
+	}
 }
 
 /**
@@ -277,7 +277,7 @@ class OIntegrate_Response
 	 * @param int $cacheLength
 	 * @return OIntegrate_Response
 	 */
-	public static function create($data, $schemaVersion, $cacheLength = 300) // {{{
+	public static function create($data, $schemaVersion, $cacheLength = 300)
 	{
 		$response = new self;
 		$response->version = '1.0';
@@ -291,14 +291,14 @@ class OIntegrate_Response
 		}
 
 		return $response;
-	} // }}}
+	}
 
 	/**
 	 * @param $engine
 	 * @param $output
 	 * @param $templateLocation
 	 */
-	function addTemplate($engine, $output, $templateLocation) // {{{
+	public function addTemplate($engine, $output, $templateLocation)
 	{
 		if (! array_key_exists('_template', $this->data)) {
 			$this->data['_template'] = [];
@@ -320,9 +320,9 @@ class OIntegrate_Response
 		}
 
 		$this->data['_template'][$engine][$output][] = $templateLocation;
-	} // }}}
+	}
 
-	function send() // {{{
+	public function send()
 	{
 		header('OIntegrate-Version: 1.0');
 		header('OIntegrate-SchemaVersion: ' . $this->schemaVersion);
@@ -337,7 +337,7 @@ class OIntegrate_Response
 		$access = TikiLib::lib('access');
 		$access->output_serialized($data);
 		exit;
-	} // }}}
+	}
 
 	/**
 	 * @param $engine
@@ -346,7 +346,7 @@ class OIntegrate_Response
 	 * @param $templateFile
 	 * @return mixed|string
 	 */
-	function render($engine, $engineOutput, $outputContext, $templateFile) // {{{
+	public function render($engine, $engineOutput, $outputContext, $templateFile)
 	{
 		$engine = OIntegrate::getEngine($engine, $engineOutput);
 		if (! $engine) {
@@ -361,13 +361,13 @@ class OIntegrate_Response
 
 		$raw = $engine->process($this->data, $templateFile);
 		return $output->convert($raw);
-	} // }}}
+	}
 
 	/**
 	 * @param null $supportedPairs
 	 * @return array
 	 */
-	function getTemplates($supportedPairs = null) // {{{
+	public function getTemplates($supportedPairs = null)
 	{
 		if (! is_array($this->data) || ! isset($this->data['_template']) || ! is_array($this->data['_template'])) {
 			return [];
@@ -396,20 +396,20 @@ class OIntegrate_Response
 		}
 
 		return $templates;
-	} // }}}
+	}
 }
 
 /**
  *
  */
-class OIntegrate_Engine_JavaScript implements OIntegrate_Engine // {{{
+class OIntegrate_Engine_JavaScript implements OIntegrate_Engine
 {
 	/**
 	 * @param $data
 	 * @param $templateFile
 	 * @return string
 	 */
-	function process($data, $templateFile)
+	public function process($data, $templateFile)
 	{
 		$json = json_encode($data);
 
@@ -420,19 +420,19 @@ var response = $json;
 EOC
 		. file_get_contents($templateFile);
 	}
-} // }}}
+}
 
 /**
  *
  */
-class OIntegrate_Engine_Smarty implements OIntegrate_Engine // {{{
+class OIntegrate_Engine_Smarty implements OIntegrate_Engine
 {
 	private $changeDelimiters;
 
 	/**
 	 * @param bool $changeDelimiters
 	 */
-	function __construct($changeDelimiters = false)
+	public function __construct($changeDelimiters = false)
 	{
 		$this->changeDelimiters = $changeDelimiters;
 	}
@@ -442,7 +442,7 @@ class OIntegrate_Engine_Smarty implements OIntegrate_Engine // {{{
 	 * @param $templateFile
 	 * @return mixed
 	 */
-	function process($data, $templateFile)
+	public function process($data, $templateFile)
 	{
 		/** @var Smarty_Tiki $smarty */
 		$smarty = new Smarty_Tiki;
@@ -456,7 +456,7 @@ class OIntegrate_Engine_Smarty implements OIntegrate_Engine // {{{
 		$smarty->assign('response', $data);
 		return $smarty->fetch($templateFile);
 	}
-} // }}}
+}
 
 /**
  * Engine to pass on raw data and mapping info from the template
@@ -468,7 +468,7 @@ class OIntegrate_Engine_Index implements OIntegrate_Engine
 	 * @param string $templateFile
 	 * @return array
 	 */
-	function process($data, $templateFile)
+	public function process($data, $templateFile)
 	{
 		$mappingString = file_get_contents($templateFile);
 		$mapping = json_decode($mappingString, true);
@@ -494,11 +494,11 @@ class OIntegrate_Converter_Direct implements OIntegrate_Converter // {{{
 	 * @param $content
 	 * @return mixed
 	 */
-	function convert($content)
+	public function convert($content)
 	{
 		return $content;
 	}
-} // }}}
+}
 
 /**
  *
@@ -509,11 +509,11 @@ class OIntegrate_Converter_EncodeHtml implements OIntegrate_Converter // {{{
 	 * @param $content
 	 * @return string
 	 */
-	function convert($content)
+	public function convert($content)
 	{
 		return htmlentities($content, ENT_QUOTES, 'UTF-8');
 	}
-} // }}}
+}
 
 /**
  *
@@ -524,11 +524,11 @@ class OIntegrate_Converter_HtmlToTiki implements OIntegrate_Converter // {{{
 	 * @param $content
 	 * @return string
 	 */
-	function convert($content)
+	public function convert($content)
 	{
 		return '~np~' . $content . '~/np~';
 	}
-} // }}}
+}
 
 /**
  *
@@ -539,11 +539,11 @@ class OIntegrate_Converter_TikiToHtml implements OIntegrate_Converter // {{{
 	 * @param $content
 	 * @return mixed|string
 	 */
-	function convert($content)
+	public function convert($content)
 	{
 		return TikiLib::lib('parser')->parse_data(htmlentities($content, ENT_QUOTES, 'UTF-8'));
 	}
-} // }}}
+}
 
 /**
  * Attempt to index the result from the request
@@ -552,7 +552,7 @@ class OIntegrate_Converter_Indexer implements OIntegrate_Converter
 {
 	private $format;
 
-	function __construct($format = 'none')
+	public function __construct($format = 'none')
 	{
 		$this->format = $format;
 	}
@@ -561,7 +561,7 @@ class OIntegrate_Converter_Indexer implements OIntegrate_Converter
 	 * @param $content
 	 * @return mixed|string
 	 */
-	function convert($content)
+	public function convert($content)
 	{
 		if ($this->format === 'html' || $this->format === 'tikiwiki') {
 			if (! empty($_REQUEST['nt_name'])) {	// preview from admin/webservice page
