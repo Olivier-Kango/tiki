@@ -11,18 +11,18 @@ class Multilingual_MachineTranslation_Cache implements Multilingual_MachineTrans
 	private $handler;
 	private $hash;
 
-	function __construct(Multilingual_MachineTranslation_Interface $handler, $hash)
+	public function __construct(Multilingual_MachineTranslation_Interface $handler, $hash)
 	{
 		$this->handler = $handler;
 		$this->hash = $hash;
 	}
 
-	function getSupportedLanguages()
+	public function getSupportedLanguages()
 	{
 		return $this->handler->getSupportedLanguages();
 	}
 
-	function translateText($text)
+	public function translateText($text)
 	{
 		$cachelib = TikiLib::lib('cache');
 

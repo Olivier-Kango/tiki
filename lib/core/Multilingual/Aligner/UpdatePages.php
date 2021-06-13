@@ -83,7 +83,7 @@ class Multilingual_Aligner_UpdatePages
 						$pat = 1;
 					}
 				}
-				if ($source_diff[$a] == ''|| $pat == 0) {
+				if ($source_diff[$a] == '' || $pat == 0) {
 					$index = array_search($source_diff[$a], $source_diff);
 					$index++;
 					$first = 0;

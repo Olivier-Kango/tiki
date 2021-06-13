@@ -8,11 +8,11 @@
 
 class Multilingual_Aligner_BilingualAligner
 {
-	var $l1_sentences = [];
-	var $l2_sentences = [];
-	var $nodes_at_current_level = [];
-	var $nodes_at_next_level = [];
-	var $cost_matrix = [];
+	public $l1_sentences = [];
+	public $l2_sentences = [];
+	public $nodes_at_current_level = [];
+	public $nodes_at_next_level = [];
+	public $cost_matrix = [];
 
 	public function align($l1_sentences, $l2_sentences)
 	{
@@ -42,7 +42,7 @@ class Multilingual_Aligner_BilingualAligner
 		$this->l2_sentences = $this->_segment_into_sentences($l2_text);
 	}
 
-	function _generate_shortest_path_matrix()
+	public function _generate_shortest_path_matrix()
 	{
 		//        print "-- _generate_shortest_path_matrix: invoked\n";
 
@@ -221,7 +221,7 @@ class Multilingual_Aligner_BilingualAligner
 		return $delta;
 	}
 
-	function _sentences_at_this_node($node_id)
+	public function _sentences_at_this_node($node_id)
 	{
 		$node_info = $this->_parse_node_ID($node_id);
 		$l1_sentence = $node_info[0];
@@ -238,7 +238,7 @@ class Multilingual_Aligner_BilingualAligner
 		return [$l1_next_sentence, $l2_next_sentence];
 	}
 
-	function _sentences_preceding_this_node($node_id)
+	public function _sentences_preceding_this_node($node_id)
 	{
 		$node_info = $this->_parse_node_ID($node_id);
 		$l1_sentence = $node_info[0];
@@ -246,7 +246,7 @@ class Multilingual_Aligner_BilingualAligner
 		return [$l1_sentence, $l2_sentence];
 	}
 
-	function _compute_node_transition_cost($destination_node)
+	public function _compute_node_transition_cost($destination_node)
 	{
 		$end_sentences = $this->_sentences_at_this_node($destination_node);
 		$l1_end_sentence = $end_sentences[0];

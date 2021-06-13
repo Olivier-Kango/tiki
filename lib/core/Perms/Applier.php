@@ -10,12 +10,12 @@ class Perms_Applier
 	private $objects = [];
 	private $restriction = false;
 
-	function addObject(Perms_Reflection_Container $object)
+	public function addObject(Perms_Reflection_Container $object)
 	{
 		$this->objects[] = $object;
 	}
 
-	function apply(Perms_Reflection_PermissionSet $set)
+	public function apply(Perms_Reflection_PermissionSet $set)
 	{
 		foreach ($this->objects as $object) {
 			$this->applyOnObject($object, $set);
@@ -24,7 +24,7 @@ class Perms_Applier
 		$cachelib->empty_type_cache('fgals_perms');
 	}
 
-	function restrictPermissions(array $permissions)
+	public function restrictPermissions(array $permissions)
 	{
 		$this->restriction = array_fill_keys($permissions, true);
 	}

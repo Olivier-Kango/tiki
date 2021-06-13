@@ -19,23 +19,23 @@ interface Perms_Resolver
 	 * @param array $groups - all groups available
 	 * @return bool $success - true if permission was found
 	 */
-	function check($permission, array $groups);
+	public function check($permission, array $groups);
 
 	/*
 	 * Get name of the object type the permissons to check belong to : i.e 'object', 'category'
 	 * @return $string name of object type
 	 */
-	function from();
+	public function from();
 
 	/*
 	 * Get array of applicable groups.
 	 * @return array $ applicableGroups
 	 */
-	function applicableGroups();
+	public function applicableGroups();
 
 	/*
 	 * Dump useful resolve information for debugging purposes.
 	 * @return array of resolved permissions
 	 */
-	function dump();
+	public function dump();
 }

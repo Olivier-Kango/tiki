@@ -19,19 +19,19 @@
 
 class Multilingual_Aligner_ShortestPathFinder
 {
-	var $visited = [];
-	var $distance = [];
-	var $previousNode = [];
-	var $startnode = null;
-	var $map = [];
-	var $infiniteDistance = 0;
-	var $numberOfNodes = 0;
-	var $bestPath = 0;
-	var $matrixWidth = 0;
-	var $shortestPathes = [];
-	var $nodes = [];
+	public $visited = [];
+	public $distance = [];
+	public $previousNode = [];
+	public $startnode = null;
+	public $map = [];
+	public $infiniteDistance = 0;
+	public $numberOfNodes = 0;
+	public $bestPath = 0;
+	public $matrixWidth = 0;
+	public $shortestPathes = [];
+	public $nodes = [];
 
-	function __construct(&$ourMap, $infiniteDistance)
+	public function __construct(&$ourMap, $infiniteDistance)
 	{
 		$this -> infiniteDistance = $infiniteDistance;
 		$this -> map = &$ourMap;
@@ -41,7 +41,7 @@ class Multilingual_Aligner_ShortestPathFinder
 		$this -> numberOfNodes = count($this->nodes);
 	}
 
-	function _nodesInMmatrix($distanceMatrix)
+	public function _nodesInMmatrix($distanceMatrix)
 	{
 		$nodes = [];
 		foreach (array_keys($distanceMatrix) as $originNode) {
@@ -63,7 +63,7 @@ class Multilingual_Aligner_ShortestPathFinder
 		return $nodes;
 	}
 
-	function computeShortestPathes($start, $to = null)
+	public function computeShortestPathes($start, $to = null)
 	{
 		$this -> startnode = $start;
 		foreach ($this->nodes as $currNode) {
@@ -99,7 +99,7 @@ class Multilingual_Aligner_ShortestPathFinder
 		return $this -> shortestPathes;
 	}
 
-	function findBestPath($ourDistance, $ourNodesLeft)
+	public function findBestPath($ourDistance, $ourNodesLeft)
 	{
 		//		echo "-- findBestPath: \ourDistance=\n";var_dump($ourDistance);echo "\n\$ourNodesLeft=\n";var_dump($ourNodesLeft);
 		$bestPath = $this -> infiniteDistance;
@@ -115,7 +115,7 @@ class Multilingual_Aligner_ShortestPathFinder
 		return $bestNode;
 	}
 
-	function updateDistanceAndPrevious($obp)
+	public function updateDistanceAndPrevious($obp)
 	{
 		//		echo "-- updateDistanceAndPrevious: \$obp=$obp\n";
 		foreach ($this->nodes as $currNode) {
@@ -133,17 +133,17 @@ class Multilingual_Aligner_ShortestPathFinder
 		//		echo "-- updateDistanceAndPrevious: upon exit, \$this->distance=\n";var_dump($this->distance);echo "\n\$this->previousNode=\n";var_dump($this->previousNode); echo"\n";
 	}
 
-	function shortestPathTo($destination_node_num)
+	public function shortestPathTo($destination_node_num)
 	{
 		return $this->shortestPathes[$destination_node_num];
 	}
 
-	function shortestDistanceTo($destination_node_num)
+	public function shortestDistanceTo($destination_node_num)
 	{
 		return $this->distance[$destination_node_num];
 	}
 
-	function printMap(&$map)
+	public function printMap(&$map)
 	{
 		$placeholder = ' %' . strlen($this -> infiniteDistance) . 'd';
 		$foo = '';
@@ -156,7 +156,7 @@ class Multilingual_Aligner_ShortestPathFinder
 		return $foo;
 	}
 
-	function getShortestPathesInfo($to = null)
+	public function getShortestPathesInfo($to = null)
 	{
 		$ourShortestPath = [];
 		foreach ($this->nodes as $aNode) {
@@ -182,7 +182,7 @@ class Multilingual_Aligner_ShortestPathFinder
 		return $ourShortestPath;
 	}
 
-	function getResults($to = null)
+	public function getResults($to = null)
 	{
 		$ourShortestPath = [];
 		$foo = '';

@@ -13,18 +13,18 @@ class Perms_ResolverFactory_TestFactory implements Perms_ResolverFactory
 	private $known;
 	private $resolvers;
 
-	function __construct(array $known, array $resolvers)
+	public function __construct(array $known, array $resolvers)
 	{
 		$this->known = $known;
 		$this->resolvers = $resolvers;
 	}
 
-	function bulk(array $baseContext, $bulkKey, array $values)
+	public function bulk(array $baseContext, $bulkKey, array $values)
 	{
 		return [];
 	}
 
-	function getHash(array $context)
+	public function getHash(array $context)
 	{
 		$parts = [];
 
@@ -37,7 +37,7 @@ class Perms_ResolverFactory_TestFactory implements Perms_ResolverFactory
 		return 'test:' . implode(':', $parts);
 	}
 
-	function getResolver(array $context)
+	public function getResolver(array $context)
 	{
 		$hash = $this->getHash($context);
 

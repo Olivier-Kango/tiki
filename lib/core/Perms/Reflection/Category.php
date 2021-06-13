@@ -7,7 +7,7 @@
 
 class Perms_Reflection_Category extends Perms_Reflection_Object
 {
-	function getParentPermissions()
+	public function getParentPermissions()
 	{
 		return $this->factory->get('global', null)->getDirectPermissions();
 	}

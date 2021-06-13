@@ -28,12 +28,12 @@ class Perms_ResolverFactory_ObjectFactory implements Perms_ResolverFactory
 		$this->parent = $parent;
 	}
 
-	function clear()
+	public function clear()
 	{
 		$this->known = [];
 	}
 
-	function getHash(array $context)
+	public function getHash(array $context)
 	{
 		if (isset($context['type'], $context['object'])) {
 			// parent permissions should all go in one hash key, so they share the cache
@@ -48,7 +48,7 @@ class Perms_ResolverFactory_ObjectFactory implements Perms_ResolverFactory
 		}
 	}
 
-	function bulk(array $baseContext, $bulkKey, array $values)
+	public function bulk(array $baseContext, $bulkKey, array $values)
 	{
 		if ($bulkKey != 'object' || ! isset($baseContext['type'])) {
 			return $values;
@@ -165,7 +165,7 @@ class Perms_ResolverFactory_ObjectFactory implements Perms_ResolverFactory
 		return array_values(array_diff($values, $found));
 	}
 
-	function getResolver(array $context)
+	public function getResolver(array $context)
 	{
 		if (! isset($context['type'], $context['object'])) {
 			return null;

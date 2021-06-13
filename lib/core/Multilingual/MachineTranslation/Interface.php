@@ -8,7 +8,7 @@
 
 interface Multilingual_MachineTranslation_Interface
 {
-	function getSupportedLanguages();
+	public function getSupportedLanguages();
 
-	function translateText($text);
+	public function translateText($text);
 }

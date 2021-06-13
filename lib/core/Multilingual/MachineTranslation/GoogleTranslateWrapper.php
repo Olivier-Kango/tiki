@@ -12,7 +12,7 @@
 
 class Multilingual_MachineTranslation_GoogleTranslateWrapper implements Multilingual_MachineTranslation_Interface
 {
-	  const SERVICE_URL = "https://www.googleapis.com/language/translate/v2";
+	const SERVICE_URL = "https://www.googleapis.com/language/translate/v2";
 
 	//wiki markup (keep this regex in case we decide to translate wiki markup and not html)
 	//	const WIKI_MARKUP = "/<[^>]*>| ?[\`\!\@\#\$\%\^\&\*\[\]\:\;\"\'\<\,\>\/\|\\\=\-\+\_\(\)]{2,} ?|\(\([\s\S]*?\)\)|\~[a-z]{2,3}\~[\s\S]*?\~\/[a-z]{2,3}\~|\~hs\~|\~\~[\s\S]*?\:|\~\~|[[^\|]*?\||\[[^|\]]*\]|\{\*[^\}\*]*?\*\}|\{[^\}]*?\}|^;|!/m";
@@ -22,7 +22,7 @@ class Multilingual_MachineTranslation_GoogleTranslateWrapper implements Multilin
 	//Include spaces in markup (Google adds some, and they will be stripped later. Want to preserve the original ones)
 	const HTML_MARKUP = "/ ?<[^>]*> ?| ?\(|\) ?/";
 	const TITLE_TAG = "/(<[Hh][\d][^>]*>(<[^>]*>)*)([^<]*)/";
-	  const NO_TRANSLATE_STRING = "<span class='notranslate'>\$0</span>";
+	const NO_TRANSLATE_STRING = "<span class='notranslate'>\$0</span>";
 	const NO_TRANSLATE_PATTERN = "/ <span class='notranslate'>(.*)<\/span> |^<span class='notranslate'>(.*)<\/span> | <span class='notranslate'>(.*)<\/span>\$|^<span class='notranslate'>(.*)<\/span>\$|<span class='notranslate'>(.*)<\/span>/Um";
 
 	private $key;
@@ -33,7 +33,7 @@ class Multilingual_MachineTranslation_GoogleTranslateWrapper implements Multilin
 	private $arrayOfUntranslatableStringsAndTheirIDs = [];
 	private $currentID = 169;
 
-	function __construct($key, $sourceLang, $targetLang, $html = true)
+	public function __construct($key, $sourceLang, $targetLang, $html = true)
 	{
 		$this->key = $key;
 		$this->sourceLang = $sourceLang;
@@ -47,7 +47,7 @@ class Multilingual_MachineTranslation_GoogleTranslateWrapper implements Multilin
 	}
 
 
-	function getSupportedLanguages()
+	public function getSupportedLanguages()
 	{
 		return [
 			'sq' => 'Albanian',
@@ -96,7 +96,7 @@ class Multilingual_MachineTranslation_GoogleTranslateWrapper implements Multilin
 	}
 
 
-	function translateText($text)
+	public function translateText($text)
 	{
 		$text = $this->escape_untranslatable_text($text);
 

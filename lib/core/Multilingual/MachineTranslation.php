@@ -20,7 +20,7 @@ class Multilingual_MachineTranslation
 		return $self;
 	}
 
-	function __construct()
+	public function __construct()
 	{
 		global $prefs;
 
@@ -39,7 +39,7 @@ class Multilingual_MachineTranslation
 		}
 	}
 
-	function getAvailableLanguages($realTranslations)
+	public function getAvailableLanguages($realTranslations)
 	{
 		global $langmapping, $prefs;
 		$usedLangs = [];
@@ -82,7 +82,7 @@ class Multilingual_MachineTranslation
 		return $proposed;
 	}
 
-	function getHtmlImplementation($source, $target)
+	public function getHtmlImplementation($source, $target)
 	{
 		global $prefs;
 
@@ -106,7 +106,7 @@ class Multilingual_MachineTranslation
 		return new Multilingual_MachineTranslation_Cache($handler, $source . $target);
 	}
 
-	function getDetectImplementation($target)
+	public function getDetectImplementation($target)
 	{
 		return $this->getHtmlImplementation(self::DETECT_LANGUAGE, $target);
 	}

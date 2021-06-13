@@ -18,7 +18,7 @@ class Perms_Check_Creator implements Perms_Check
 	 * @param string $key - the key used in the context array as the user
 	 * @params string $suffix - suffix appended to the permission name in $this->check()
 	 */
-	function __construct($user, $key = 'creator', $suffix = '_own')
+	public function __construct($user, $key = 'creator', $suffix = '_own')
 	{
 		$this->user = $user;
 		$this->key = $key;
@@ -36,7 +36,7 @@ class Perms_Check_Creator implements Perms_Check
 	 * @param array $groups - list of groups to check permission against
 	 * @return boolean $hasPermission- true|false
 	 */
-	function check(Perms_Resolver $resolver, array $context, $name, array $groups)
+	public function check(Perms_Resolver $resolver, array $context, $name, array $groups)
 	{
 		if (isset($context[$this->key]) && $context[$this->key] == $this->user) {
 			return $resolver->check($name . $this->suffix, $groups);
@@ -51,7 +51,7 @@ class Perms_Check_Creator implements Perms_Check
 	 * @params Perms_Resolver $resolver
 	 * @return array $applicableGroups - List of groups
 	 */
-	function applicableGroups(Perms_Resolver $resolver)
+	public function applicableGroups(Perms_Resolver $resolver)
 	{
 		return $resolver->applicableGroups();
 	}

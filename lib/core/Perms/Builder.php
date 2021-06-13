@@ -14,7 +14,7 @@ class Perms_Builder
 	private $adminPermissionMap = [];
 	private $globalOnlyPermissions = [];
 
-	function build()
+	public function build()
 	{
 		$alternateCheck = new Perms_Check_Alternate('admin');
 		$fixedCheck = new Perms_Check_Fixed($this->globalOnlyPermissions);
@@ -31,13 +31,13 @@ class Perms_Builder
 		return $perms;
 	}
 
-	function withCategories($with = true)
+	public function withCategories($with = true)
 	{
 		$this->categories = (bool) $with;
 		return $this;
 	}
 
-	function withDefinitions($definitions = [])
+	public function withDefinitions($definitions = [])
 	{
 		$this->definitions = $definitions;
 

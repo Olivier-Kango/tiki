@@ -51,7 +51,7 @@ class Perms_ResolverFactory_CategoryFactory implements Perms_ResolverFactory
 		$this->parent = $parent;
 	}
 
-	function clear()
+	public function clear()
 	{
 		$this->knownObjects = [];
 		$this->knownCategories = [];
@@ -61,7 +61,7 @@ class Perms_ResolverFactory_CategoryFactory implements Perms_ResolverFactory
 	 * Provides a hash matching the full list of ordered categories
 	 * applicable to the context.
 	 */
-	function getHash(array $context)
+	public function getHash(array $context)
 	{
 		if (! isset($context['type'], $context['object'])) {
 			return '';
@@ -81,7 +81,7 @@ class Perms_ResolverFactory_CategoryFactory implements Perms_ResolverFactory
 		}
 	}
 
-	function bulk(array $baseContext, $bulkKey, array $values)
+	public function bulk(array $baseContext, $bulkKey, array $values)
 	{
 		if (! isset($baseContext['type']) || $bulkKey != 'object') {
 			return $values;
@@ -266,7 +266,7 @@ class Perms_ResolverFactory_CategoryFactory implements Perms_ResolverFactory
 	 * that apply to the context. A permission granted on any of the
 	 * categories will be added to the pool.
 	 */
-	function getResolver(array $context)
+	public function getResolver(array $context)
 	{
 		if (! isset($context['type'], $context['object'])) {
 			return null;

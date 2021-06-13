@@ -10,17 +10,17 @@ class Perms_Reflection_Factory
 	private $fallback;
 	private $registry = [];
 
-	function register($type, $class)
+	public function register($type, $class)
 	{
 		$this->registry[$type] = $class;
 	}
 
-	function registerFallback($class)
+	public function registerFallback($class)
 	{
 		$this->fallback = $class;
 	}
 
-	function get($type, $object, $parentId = null)
+	public function get($type, $object, $parentId = null)
 	{
 		if (! $class = $this->getRegistered($type)) {
 			$class = $this->fallback;

@@ -14,27 +14,27 @@ class Perms_Resolver_Default implements Perms_Resolver
 {
 	private $value;
 
-	function __construct($value)
+	public function __construct($value)
 	{
 		$this->value = (bool) $value;
 	}
 
-	function check($name, array $groups)
+	public function check($name, array $groups)
 	{
 		return $this->value;
 	}
 
-	function from()
+	public function from()
 	{
 		return 'system';
 	}
 
-	function applicableGroups()
+	public function applicableGroups()
 	{
 		return ['Anonymous', 'Registered'];
 	}
 
-	function dump()
+	public function dump()
 	{
 		$result = [
 			'from' => $this->from(),

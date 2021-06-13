@@ -8,14 +8,14 @@
 class Multilingual_MachineTranslation_BingTranslateWrapper implements Multilingual_MachineTranslation_Interface
 {
 	const AUTH_URL = 'https://datamarket.accesscontrol.windows.net/v2/OAuth2-13';
-	  const TRANSLATE_URL = 'http://api.microsofttranslator.com/V2/Http.svc/Translate';
+	const TRANSLATE_URL = 'http://api.microsofttranslator.com/V2/Http.svc/Translate';
 
 	private $clientId;
 	private $clientSecret;
 	private $sourceLang;
 	private $targetLang;
 
-	function __construct($clientId, $clientSecret, $sourceLang, $targetLang)
+	public function __construct($clientId, $clientSecret, $sourceLang, $targetLang)
 	{
 		$this->clientId = $clientId;
 		$this->clientSecret = $clientSecret;
@@ -23,7 +23,7 @@ class Multilingual_MachineTranslation_BingTranslateWrapper implements Multilingu
 		$this->targetLang = $targetLang;
 	}
 
-	function getSupportedLanguages()
+	public function getSupportedLanguages()
 	{
 		return [
 		 'ar' => 'Arabic',
@@ -65,7 +65,7 @@ class Multilingual_MachineTranslation_BingTranslateWrapper implements Multilingu
 		];
 	}
 
-	function translateText($html)
+	public function translateText($html)
 	{
 		return $this->getTranslationFromBing($html);
 	}

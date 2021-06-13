@@ -160,7 +160,7 @@ class Reports_Users
 	 * @param strin $user
 	 * @return null
 	 */
-	function updateLastReport($user)
+	public function updateLastReport($user)
 	{
 		$this->table->update(
 			['last_report' => $this->dt->format('Y-m-d H:i:s')],

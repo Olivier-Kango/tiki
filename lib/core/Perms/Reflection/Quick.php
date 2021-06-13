@@ -13,14 +13,14 @@ class Perms_Reflection_Quick
 		'editors' => [ 'basic', 'registered' ],
 	];
 
-	function configure($name, array $permissions)
+	public function configure($name, array $permissions)
 	{
 		if ($name != 'none' && $name != 'userdefined') {
 			$this->configured[$name] = $permissions;
 		}
 	}
 
-	function getPermissions(Perms_Reflection_PermissionSet $current, array $groupMap)
+	public function getPermissions(Perms_Reflection_PermissionSet $current, array $groupMap)
 	{
 		$out = new Perms_Reflection_PermissionSet;
 
@@ -67,7 +67,7 @@ class Perms_Reflection_Quick
 		}
 	}
 
-	function getAppliedPermissions(Perms_Reflection_PermissionSet $current, array $groupList)
+	public function getAppliedPermissions(Perms_Reflection_PermissionSet $current, array $groupList)
 	{
 		$out = [];
 		$permissions = $current->getPermissionArray();

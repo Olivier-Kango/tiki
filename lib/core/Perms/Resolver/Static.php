@@ -21,7 +21,7 @@ class Perms_Resolver_Static implements Perms_Resolver
 	 * @param array $known - array[groupname] = array(perms)
 	 * @param string $from -type of object the permissons belongs to : i.e 'object', 'category'
 	 */
-	function __construct(array $known, $from = '')
+	public function __construct(array $known, $from = '')
 	{
 		foreach ($known as $group => $perms) {
 			$this->known[$group] = array_fill_keys($perms, true);
@@ -35,7 +35,7 @@ class Perms_Resolver_Static implements Perms_Resolver
 	 * @param array $groups - all groups available
 	 * @return bool $success - true if permission was found
 	 */
-	function check($name, array $groups)
+	public function check($name, array $groups)
 	{
 		foreach ($groups as $groupName) {
 			if (isset($this->known[$groupName])) {
@@ -52,7 +52,7 @@ class Perms_Resolver_Static implements Perms_Resolver
 	 * Get name of the object type the permissons to check belong to : i.e 'object', 'category'
 	 * @return $string name of object type
 	 */
-	function from()
+	public function from()
 	{
 		return $this->from;
 	}
@@ -61,12 +61,12 @@ class Perms_Resolver_Static implements Perms_Resolver
 	 * Get array of applicable groups.
 	 * @return array $ applicableGroups
 	 */
-	function applicableGroups()
+	public function applicableGroups()
 	{
 		return array_keys($this->known);
 	}
 
-	function dump()
+	public function dump()
 	{
 		$result = [
 			'from' => $this->from() ? $this->from() : 'global',

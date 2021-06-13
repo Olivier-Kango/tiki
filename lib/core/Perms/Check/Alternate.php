@@ -16,7 +16,7 @@ class Perms_Check_Alternate implements Perms_Check
 	 * Set the permission to check
 	 * @param string $permission - name of the permnission like 'add_object'
 	 */
-	function __construct($permission)
+	public function __construct($permission)
 	{
 		$this->permission = $permission;
 	}
@@ -31,7 +31,7 @@ class Perms_Check_Alternate implements Perms_Check
 	 * @param array $groups - list of groups to check permission against
 	 * @return boolean $hasPermission- true|false
 	 */
-	function check(Perms_Resolver $resolver, array $context, $name, array $groups)
+	public function check(Perms_Resolver $resolver, array $context, $name, array $groups)
 	{
 		if ($this->resolver) {
 			return $this->resolver->check($this->permission, $groups);
@@ -45,7 +45,7 @@ class Perms_Check_Alternate implements Perms_Check
 	 * Set the type of resolver to use. Resets the internal cache for applicable groups.
 	 * @param Perms_Resolver $resolver
 	 */
-	function setResolver($resolver)
+	public function setResolver($resolver)
 	{
 		$this->resolver = $resolver;
 		$this->applicableCache = null;
@@ -59,7 +59,7 @@ class Perms_Check_Alternate implements Perms_Check
 	 * @params Perms_Resolver $resolver - not used
 	 * @return array $applicableGroups - List of groups
 	 */
-	function applicableGroups(Perms_Resolver $resolver)
+	public function applicableGroups(Perms_Resolver $resolver)
 	{
 		if (! is_null($this->applicableCache)) {
 			return $this->applicableCache;

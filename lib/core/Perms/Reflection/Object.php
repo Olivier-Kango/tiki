@@ -12,7 +12,7 @@ class Perms_Reflection_Object implements Perms_Reflection_Container
 	protected $object;
 	protected $parentId;
 
-	function __construct($factory, $type, $object, $parentId = null)
+	public function __construct($factory, $type, $object, $parentId = null)
 	{
 		$this->factory = $factory;
 		$this->type = $type;
@@ -20,19 +20,19 @@ class Perms_Reflection_Object implements Perms_Reflection_Container
 		$this->parentId = $parentId;
 	}
 
-	function add($group, $permission)
+	public function add($group, $permission)
 	{
 		$userlib = TikiLib::lib('user');
 		$userlib->assign_object_permission($group, $this->object, $this->type, $permission);
 	}
 
-	function remove($group, $permission)
+	public function remove($group, $permission)
 	{
 		$userlib = TikiLib::lib('user');
 		$userlib->remove_object_permission($group, $this->object, $this->type, $permission);
 	}
 
-	function getDirectPermissions()
+	public function getDirectPermissions()
 	{
 		$userlib = TikiLib::lib('user');
 		$set = new Perms_Reflection_PermissionSet;
@@ -45,7 +45,7 @@ class Perms_Reflection_Object implements Perms_Reflection_Container
 		return $set;
 	}
 
-	function getParentPermissions()
+	public function getParentPermissions()
 	{
 		if ($permissions = $this->getCategoryPermissions()) {
 			return $permissions;

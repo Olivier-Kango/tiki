@@ -10,23 +10,23 @@ class Perms_Reflection_PermissionComparator
 	private $additions;
 	private $removals;
 
-	function __construct($left, $right)
+	public function __construct($left, $right)
 	{
 		$this->additions = $this->compare($right, $left);
 		$this->removals = $this->compare($left, $right);
 	}
 
-	function equal()
+	public function equal()
 	{
 		return empty($this->additions) && empty($this->removals);
 	}
 
-	function getAdditions()
+	public function getAdditions()
 	{
 		return $this->additions;
 	}
 
-	function getRemovals()
+	public function getRemovals()
 	{
 		return $this->removals;
 	}

@@ -26,7 +26,7 @@ class Perms_Context
 		self::$permissionList = $shortPermList;
 	}
 
-	function __construct($user, $activate = true)
+	public function __construct($user, $activate = true)
 	{
 		$tikilib = TikiLib::lib('tiki');
 		$this->user = $user;
@@ -37,12 +37,12 @@ class Perms_Context
 		}
 	}
 
-	function overrideGroups(array $groupList)
+	public function overrideGroups(array $groupList)
 	{
 		$this->groupList = $groupList;
 	}
 
-	function activate($globalize = false)
+	public function activate($globalize = false)
 	{
 		global $user, $globalperms;
 		$perms = Perms::getInstance();
@@ -60,7 +60,7 @@ class Perms_Context
 		}
 	}
 
-	function activatePermanently() {
+	public function activatePermanently() {
 		global $user, $globalperms;
 		$perms = Perms::getInstance();
 		$smarty = TikiLib::lib('smarty');
@@ -78,7 +78,7 @@ class Perms_Context
 		$this->previousGroupList = $perms->getGroups();
 	}
 
-	function __destruct()
+	public function __destruct()
 	{
 		global $user, $globalperms;
 		$user = $this->previousUser;

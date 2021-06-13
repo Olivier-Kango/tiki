@@ -9,7 +9,7 @@ class Perms_Reflection_PermissionSet
 {
 	private $set = [];
 
-	function add($group, $permission)
+	public function add($group, $permission)
 	{
 		if (is_array($permission)) {
 			foreach ($permission as $p) {
@@ -31,13 +31,13 @@ class Perms_Reflection_PermissionSet
 		}
 	}
 
-	function has($group, $permission)
+	public function has($group, $permission)
 	{
 		return isset($this->set[ $group ])
 			&& in_array($permission, $this->set[ $group ]);
 	}
 
-	function remove($group, $permission)
+	public function remove($group, $permission)
 	{
 		if (is_array($permission)) {
 			foreach ($permission as $p) {
@@ -56,7 +56,7 @@ class Perms_Reflection_PermissionSet
 		}
 	}
 
-	function getPermissionArray()
+	public function getPermissionArray()
 	{
 		return $this->set;
 	}

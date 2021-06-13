@@ -14,12 +14,12 @@
  */
 class Perms_ResolverFactory_GlobalFactory implements Perms_ResolverFactory
 {
-	function getHash(array $context)
+	public function getHash(array $context)
 	{
 		return 'global';
 	}
 
-	function getResolver(array $context)
+	public function getResolver(array $context)
 	{
 		$perms = [];
 		$db = TikiDb::get();
@@ -39,7 +39,7 @@ class Perms_ResolverFactory_GlobalFactory implements Perms_ResolverFactory
 		return new Perms_Resolver_Static($perms);
 	}
 
-	function bulk(array $baseContext, $bulkKey, array $values)
+	public function bulk(array $baseContext, $bulkKey, array $values)
 	{
 		return [];
 	}

@@ -16,7 +16,7 @@ class Perms_Check_Direct implements Perms_Check
 	 * @param array $groups - list of groups to check permission against
 	 * @return boolean $hasPermission- true|false
 	 */
-	function check(Perms_Resolver $resolver, array $context, $name, array $groups)
+	public function check(Perms_Resolver $resolver, array $context, $name, array $groups)
 	{
 		return $resolver->check($name, $groups);
 	}
@@ -26,7 +26,7 @@ class Perms_Check_Direct implements Perms_Check
 	 * @params Perms_Resolver $resolver - not used
 	 * @return array $applicableGroups - List of groups
 	 */
-	function applicableGroups(Perms_Resolver $resolver)
+	public function applicableGroups(Perms_Resolver $resolver)
 	{
 		return $resolver->applicableGroups();
 	}

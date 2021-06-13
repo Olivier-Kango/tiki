@@ -21,57 +21,57 @@ class Perms_Accessor implements ArrayAccess
 	private $groups = [];
 	private $checkSequence = null;
 
-	function setPrefix($prefix)
+	public function setPrefix($prefix)
 	{
 		$this->prefix = $prefix;
 	}
 
-	function getPrefix()
+	public function getPrefix()
 	{
 		return $this->prefix;
 	}
 
-	function setGroups(array $groups)
+	public function setGroups(array $groups)
 	{
 		$this->groups = $groups;
 	}
 
-	function getGroups()
+	public function getGroups()
 	{
 		return $this->groups;
 	}
 
-	function setResolver(Perms_Resolver $resolver)
+	public function setResolver(Perms_Resolver $resolver)
 	{
 		$this->resolver = $resolver;
 	}
 
-	function getResolver()
+	public function getResolver()
 	{
 		return $this->resolver;
 	}
 
-	function from()
+	public function from()
 	{
 		return $this->resolver->from();
 	}
 
-	function setContext(array $context)
+	public function setContext(array $context)
 	{
 		$this->context = $context;
 	}
 
-	function getContext()
+	public function getContext()
 	{
 		return $this->context;
 	}
 
-	function setCheckSequence(array $sequence)
+	public function setCheckSequence(array $sequence)
 	{
 		$this->checkSequence = $sequence;
 	}
 
-	function __get($name)
+	public function __get($name)
 	{
 
 		if ($this->resolver) {
@@ -98,7 +98,7 @@ class Perms_Accessor implements ArrayAccess
 		}
 	}
 
-	function globalize($permissions, $smarty = null, $sanitize = true)
+	public function globalize($permissions, $smarty = null, $sanitize = true)
 	{
 		foreach ($permissions as $perm) {
 			if ($sanitize) {
