@@ -7,7 +7,7 @@
 
 class Math_Formula_Parser
 {
-	function parse($string)
+	public function parse($string)
 	{
 		$tokenizer = new Math_Formula_Tokenizer;
 		$tokens = $tokenizer->getTokens($string);

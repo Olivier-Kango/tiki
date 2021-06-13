@@ -7,7 +7,7 @@
 
 class Math_Formula_Function_And extends Math_Formula_Function
 {
-	function evaluate($element)
+	public function evaluate($element)
 	{
 		$out = 0;
 

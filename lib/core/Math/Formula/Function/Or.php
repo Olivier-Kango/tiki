@@ -7,7 +7,7 @@
 
 class Math_Formula_Function_Or extends Math_Formula_Function
 {
-	function evaluate($element)
+	public function evaluate($element)
 	{
 		foreach ($element as $child) {
 			if ($this->evaluateChild($child)) {

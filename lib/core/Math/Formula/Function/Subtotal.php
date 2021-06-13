@@ -7,7 +7,7 @@
 
 class Math_Formula_Function_Subtotal extends Math_Formula_Function
 {
-	function evaluate($element)
+	public function evaluate($element)
 	{
 		$allowed = ['list', 'group', 'aggregate', 'separators', 'formula', 'having', 'transformers'];
 

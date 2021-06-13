@@ -7,7 +7,7 @@
 
 class Math_Formula_Function_Random extends Math_Formula_Function
 {
-	function evaluate($element)
+	public function evaluate($element)
 	{
 		$range = [0, 9999];
 

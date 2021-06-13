@@ -7,7 +7,7 @@
 
 class Math_Formula_Function_Sub extends Math_Formula_Function
 {
-	function evaluate($element)
+	public function evaluate($element)
 	{
 		$elements = [];
 

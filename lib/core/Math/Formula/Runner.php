@@ -13,7 +13,7 @@ class Math_Formula_Runner
 	private $known = [];
 	private $variables = [];
 
-	function __construct(array $sources)
+	public function __construct(array $sources)
 	{
 		foreach ($sources as $prefix => $factory) {
 			if (empty($factory)) {
@@ -24,7 +24,7 @@ class Math_Formula_Runner
 		}
 	}
 
-	function setFormula($element)
+	public function setFormula($element)
 	{
 		$this->element = $this->getElement($element);
 		$this->collected = [];
@@ -32,12 +32,12 @@ class Math_Formula_Runner
 		return $this->element;
 	}
 
-	function setVariables(array $variables)
+	public function setVariables(array $variables)
 	{
 		$this->variables = $variables;
 	}
 
-	function inspect()
+	public function inspect()
 	{
 		if ($this->element) {
 			$this->inspectElement($this->element);
@@ -47,12 +47,12 @@ class Math_Formula_Runner
 		}
 	}
 
-	function evaluate()
+	public function evaluate()
 	{
 		return $this->evaluateData($this->element);
 	}
 
-	function evaluateData($data, array $variables = [])
+	public function evaluateData($data, array $variables = [])
 	{
 		$current = $this->variables;
 		if (! empty($variables)) {
@@ -113,7 +113,7 @@ class Math_Formula_Runner
 		$op->evaluateTemplateFull($element, [ $this, 'inspectData' ]);
 	}
 
-	function inspectData($data)
+	public function inspectData($data)
 	{
 		if ($data instanceof Math_Formula_Element) {
 			$this->inspectElement($data);
@@ -176,7 +176,7 @@ class Math_Formula_Runner
 		};
 	}
 
-	function mockFunction($functionName, $function)
+	public function mockFunction($functionName, $function)
 	{
 		$this->known[$functionName] = $function;
 	}

@@ -7,7 +7,7 @@
 
 class Math_Formula_Function_Coalesce extends Math_Formula_Function
 {
-	function evaluate($element)
+	public function evaluate($element)
 	{
 		foreach ($element as $child) {
 			$value = $this->evaluateChild($child);

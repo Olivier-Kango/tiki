@@ -11,12 +11,12 @@ class Math_Formula_InternalString
 	private $type;
 	private $children;
 
-	function __construct($content)
+	public function __construct($content)
 	{
 		$this->content = trim($content, '"');
 	}
 
-	function getContent()
+	public function getContent()
 	{
 		return $this->content;
 	}

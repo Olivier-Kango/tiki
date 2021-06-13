@@ -7,7 +7,7 @@
 
 class Math_Formula_Function_CurrencyConvert extends Math_Formula_Function
 {
-	function evaluate($element)
+	public function evaluate($element)
 	{
 		if (count($element) != 2) {
 			$this->error(tr('currency-convert expects exactly 2 arguments'));

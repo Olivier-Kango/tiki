@@ -10,38 +10,38 @@ class Math_Formula_Element implements ArrayAccess, Iterator, Countable
 	private $type;
 	private $children;
 
-	function __construct($type, array $children = [])
+	public function __construct($type, array $children = [])
 	{
 		$this->type = $type;
 		$this->children = $children;
 	}
 
-	function addChild($child)
+	public function addChild($child)
 	{
 		$this->children[] = $child;
 	}
 
-	function offsetExists($offset)
+	public function offsetExists($offset)
 	{
 		return is_int($offset) && isset($this->children[$offset]);
 	}
 
-	function offsetGet($offset)
+	public function offsetGet($offset)
 	{
 		if (isset($this->children[$offset])) {
 			return $this->children[$offset];
 		}
 	}
 
-	function offsetSet($offset, $value)
+	public function offsetSet($offset, $value)
 	{
 	}
 
-	function offsetUnset($offset)
+	public function offsetUnset($offset)
 	{
 	}
 
-	function __get($name)
+	public function __get($name)
 	{
 		foreach ($this->children as $child) {
 			if ($child instanceof Math_Formula_Element && $child->type == $name) {
@@ -50,43 +50,43 @@ class Math_Formula_Element implements ArrayAccess, Iterator, Countable
 		}
 	}
 
-	function getType()
+	public function getType()
 	{
 		return $this->type;
 	}
 
-	function current()
+	public function current()
 	{
 		$key = key($this->children);
 		return $this->children[$key];
 	}
 
-	function next()
+	public function next()
 	{
 		next($this->children);
 	}
 
-	function rewind()
+	public function rewind()
 	{
 		reset($this->children);
 	}
 
-	function key()
+	public function key()
 	{
 		return key($this->children);
 	}
 
-	function valid()
+	public function valid()
 	{
 		return false !== current($this->children);
 	}
 
-	function count()
+	public function count()
 	{
 		return count($this->children);
 	}
 
-	function getExtraValues(array $allowedKeys)
+	public function getExtraValues(array $allowedKeys)
 	{
 		$extra = [];
 

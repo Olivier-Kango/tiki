@@ -7,7 +7,7 @@
 
 class Math_Formula_Function_Pad extends Math_Formula_Function
 {
-	function evaluate($element)
+	public function evaluate($element)
 	{
 		$elements = [];
 		$help = ' ' . tra('string $input , int $pad_length [, string $pad_string = " " [, string $pad_type = right|left|both ]]');

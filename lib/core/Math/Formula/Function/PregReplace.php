@@ -7,7 +7,7 @@
 
 class Math_Formula_Function_PregReplace extends Math_Formula_Function
 {
-	function evaluate($args)
+	public function evaluate($args)
 	{
 		$elements = [];
 

@@ -15,7 +15,7 @@
  */
 class Math_Formula_Function_Currency extends Math_Formula_Function
 {
-	function evaluate($element)
+	public function evaluate($element)
 	{
 		$amount = $this->evaluateChild($element[0]);
 		$currency = $this->evaluateChild($element[1]);

@@ -7,7 +7,7 @@
 
 class Math_Formula_Function_Not extends Math_Formula_Function
 {
-	function evaluate($element)
+	public function evaluate($element)
 	{
 		$componentBool = $this->evaluateChild($element[0]);
 

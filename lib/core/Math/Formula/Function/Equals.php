@@ -7,7 +7,7 @@
 
 class Math_Formula_Function_Equals extends Math_Formula_Function
 {
-	function evaluate($element)
+	public function evaluate($element)
 	{
 		// Multiple components will all need to be equal.
 

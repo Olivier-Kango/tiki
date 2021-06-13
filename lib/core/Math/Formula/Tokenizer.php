@@ -7,7 +7,7 @@
 
 class Math_Formula_Tokenizer
 {
-	function getTokens($string)
+	public function getTokens($string)
 	{
 		$tokens = [];
 

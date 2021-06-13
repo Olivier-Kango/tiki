@@ -7,7 +7,7 @@
 
 class Math_Formula_Function_SplitList extends Math_Formula_Function
 {
-	function evaluate($element)
+	public function evaluate($element)
 	{
 		$allowed = ['content', 'separator', 'keys', 'key'];
 

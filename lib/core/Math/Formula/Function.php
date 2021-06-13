@@ -10,14 +10,14 @@ abstract class Math_Formula_Function
 	private $callback;
 	protected $suppress_error = false;
 
-	function evaluateTemplate($element, $evaluateCallback)
+	public function evaluateTemplate($element, $evaluateCallback)
 	{
 		$this->callback = $evaluateCallback;
 		$this->suppress_error = false;
 		return $this->evaluate($element);
 	}
 
-	function evaluateTemplateFull($element, $evaluateCallback)
+	public function evaluateTemplateFull($element, $evaluateCallback)
 	{
 		$this->callback = $evaluateCallback;
 		$this->suppress_error = true;
@@ -28,7 +28,7 @@ abstract class Math_Formula_Function
 		}
 	}
 
-	abstract function evaluate($element);
+	abstract public function evaluate($element);
 
 	protected function evaluateChild($child, array $extraVariables = [])
 	{
