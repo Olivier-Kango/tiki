@@ -37,13 +37,12 @@ class GalleryMigrateCommand extends Command
 				if ($prefs['file_galleries_redirect_from_image_gallery'] !== 'y') {
 					$output->writeln(
 						'<comment>' . tr(
-							"To continue using image gallery id's in wiki pages you should enable the preference 'file_galleries_redirect_from_image_gallery'
-You can use the command: `php console.php preferences:set file_galleries_redirect_from_image_gallery y`"
+							"To continue using image gallery id's in wiki pages you should enable the preference 'file_galleries_redirect_from_image_gallery'. \nYou can use the command: `php console.php preferences:set file_galleries_redirect_from_image_gallery y`"
 						) . '</comment>'
 					);
 				}
 			} else {
-				$output->writeln('<error>' . tr('Something went wrong so, please check errors output here or php logs') . '</error>');
+				$output->writeln('<error>' . tr('Something went wrong so please check errors output here or php logs') . '</error>');
 			}
 
 		} else {
