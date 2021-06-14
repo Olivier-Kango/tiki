@@ -138,8 +138,11 @@ if (isset($_REQUEST['save']) && ! isset($_REQUEST['preview']) && ! isset($_REQUE
 }
 
 $displayTimezone = TikiLib::lib('tiki')->get_display_timezone();
+$browser_offset = 0 - (int)($_REQUEST['tzoffset'] ?? 0) * 60;
+$server_offset = !isset($_REQUEST['changeCal']) ? TikiDate::tzServerOffset($displayTimezone) : 0;
+
 if (isset($_REQUEST['act']) || isset($_REQUEST['preview']) || isset($_REQUEST['changeCal'])) {
-	$save = $_POST['save'];
+	$save = array_merge($calitem ?? [], $_POST['save']);
 	$save['allday'] = empty($_POST['allday']) ? 0 : 1;
 
 	if (! isset($save['date_start']) && ! isset($save['date_end'])) {
@@ -157,8 +160,6 @@ if (isset($_REQUEST['act']) || isset($_REQUEST['preview']) || isset($_REQUEST['c
 	// Take care of timestamps dates coming from jscalendar
 	if (isset($save['date_start']) || isset($save['date_end'])) {
 		if (isset($_REQUEST['tzoffset'])) {
-			$browser_offset = 0 - (int)$_REQUEST['tzoffset'] * 60;
-			$server_offset = TikiDate::tzServerOffset($displayTimezone);
 			$save['date_start'] = $save['date_start'] - $server_offset + $browser_offset;
 			$save['date_end'] = $save['date_end'] - $server_offset + $browser_offset;
 			if (! empty($_POST['startPeriod'])) {
@@ -474,15 +475,12 @@ if (isset($_REQUEST["delete"]) and ($_REQUEST["delete"]) and isset($_REQUEST["ca
 	if (isset($_REQUEST['todate'])) {
 		$now = $_REQUEST['todate'];
 		if (isset($_REQUEST['tzoffset'])) {
-			$browser_offset = 0 - (int)$_REQUEST['tzoffset'] * 60;
-			$server_offset = TikiDate::tzServerOffset($displayTimezone);
 			$now = $now - $server_offset + $browser_offset;
 		}
 	} else {
 		$now = $tikilib->now;
 	}
 	if (! empty($_REQUEST['tzoffset'])) {
-		$browser_offset = 0 - (int)$_REQUEST['tzoffset'] * 60;
 		$now = $now + $browser_offset;
 	}
 	//if current time of day is within the calendar day (between startday and endday), then use now as start, otherwise use beginning of calendar day

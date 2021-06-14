@@ -262,7 +262,7 @@ class CalRecurrence extends TikiLib
 						$this->getStart(),
 						$this->getEnd(),
 						$this->isAllday() ? 1 : 0,
-						$this->getLocationId(),
+						$this->getLocationId() ?: 0,
 						$this->getCategoryId(),
 						$this->getNlId(),
 						$this->getPriority(),
