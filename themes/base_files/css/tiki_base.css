@@ -5249,6 +5249,9 @@ h2:hover .heading-link, h3:hover .heading-link, h4:hover .heading-link, h5:hover
   display: block;
   /* flex-grow: 1; */
 }
+.col2 .navbar-light.bg-light, .col2 .navbar-dark.bg-dark, .col3 .navbar-light.bg-light, .col3 .navbar-dark.bg-dark {
+  background: none !important;
+}
 .navbar-nav.sm-vertical:not(.sm-collapsible) a:not(.dropdown-item) .sub-arrow {
   transform: rotate(-90deg);
   /* position: absolute;

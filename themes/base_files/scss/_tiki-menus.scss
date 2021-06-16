@@ -3,6 +3,14 @@
 	display: block;
 	/* flex-grow: 1; */
 }
+// Vertical menus shouldn't have the navbar backgrounds
+.col2,
+.col3 {
+	.navbar-light.bg-light,
+	.navbar-dark.bg-dark {
+		background: none !important;
+	}
+}
 
 .navbar-nav.sm-vertical:not(.sm-collapsible) a:not(.dropdown-item) .sub-arrow {
 	transform: rotate(-90deg);
