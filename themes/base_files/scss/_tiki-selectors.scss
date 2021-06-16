@@ -1401,3 +1401,7 @@ blockquote {
 .to-translate{
 	color : theme-color("danger");
 }
+
+// Smartmenus megamenu
+.dropdown-menu.mega-menu a { color: $dropdown-link-color; }
+a.dropdown-item { color: $dropdown-link-color; }

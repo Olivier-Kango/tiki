@@ -28,6 +28,11 @@ $font-family-serif:      Georgia, Cambria, "Times New Roman", Times, serif !defa
   }
 }
 
+// Updated for Smartmenus
+.bg-dark.navbar-dark .navbar-nav .mega-menu a { color: $link-color !important;
+	&:hover { color: $link-hover-color !important; }
+}
+
 .bg-light {
   background-color: #fff !important;
   border: 1px solid rgba(0, 0, 0, 0.1);

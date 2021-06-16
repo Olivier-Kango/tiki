@@ -291,6 +291,9 @@ h1.pagetitle > a:hover {
 .card a {
   color: #e69700;
 }
+.card .dropdown-menu a {
+	color: #fff;
+}
 .card-title {
   font-weight: bold;
 }

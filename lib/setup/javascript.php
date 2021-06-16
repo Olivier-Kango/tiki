@@ -201,6 +201,9 @@ if (! timezone) {
 	$jqueryTiki['tooltips'] = $prefs['feature_jquery_tooltips'] === 'y' ? true : false;
 	$jqueryTiki['autocomplete'] = $prefs['feature_jquery_autocomplete'] === 'y' ? true : false;
 	$jqueryTiki['superfish'] = $prefs['feature_jquery_superfish'] === 'y' ? true : false;
+	$jqueryTiki['smartmenus'] = $prefs['jquery_smartmenus_enable'] === 'y' ? true : false;
+	$jqueryTiki['smartmenus_collapsible_behavior'] = $prefs['jquery_smartmenus_collapsible_behavior'];
+	$jqueryTiki['smartmenus_open_close_click'] = $prefs['jquery_smartmenus_open_close_click'] === 'y' ? true : false;
 	$jqueryTiki['reflection'] = $prefs['feature_jquery_reflection'] === 'y' ? true : false;
 	$jqueryTiki['tablesorter'] = $prefs['feature_jquery_tablesorter'] === 'y' ? true : false;
 	$jqueryTiki['colorbox'] = $prefs['feature_shadowbox'] === 'y' ? true : false;

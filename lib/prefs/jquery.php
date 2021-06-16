@@ -151,17 +151,30 @@ function prefs_jquery_list($partial = false)
 			'tags' => ['advanced'],
 			'keywords' => 'smart menu',
 		],
-		'jquery_smartmenus_mode' => [
-			'name' => tra('SmartMenus Mode'),
+		'jquery_smartmenus_collapsible_behavior' => [
+			'name' => tra('SmartMenus collapsible behavior'),
+			'description' => tra('Parent items behavior in collapsible (mobile) view.'),
 			'type' => 'list',
 			'options' => [
-				'' => tra('None'),
-				'blue' => tra('Blue'),
-				'clean' => tra('Clean'),
-				'mint' => tra('Mint'),
-				'simple' => tra('Simple'),
+				'default' => tra('Default'),
+				'toggle' => tra('Toggle'),
+				'link' => tra('Link'),
+				'accordion' => tra('Accordion'),
+				'accordion-toggle' => tra('Accordion toggle'),
+				'accordion-link' => tra('Accordion link'),
 			],
-			'default' => '',
+			'default' => 'default',
+			'dependencies' => [
+				'jquery_smartmenus_enable',
+			],
+		],
+		'jquery_smartmenus_open_close_click' => [
+			'name' => tra('SmartMenus open/close on click'),
+			'description' => tra('Use mouse clicks to open/close item/sub menus'),
+			'type' => 'flag',
+			'default' => 'n',
+			'tags' => ['advanced'],
+			'keywords' => 'smart menu open close click',
 			'dependencies' => [
 				'jquery_smartmenus_enable',
 			],

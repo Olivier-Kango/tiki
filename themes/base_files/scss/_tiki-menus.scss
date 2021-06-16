@@ -1,0 +1,127 @@
+/* Smartmenus quick fix */
+.navbar-nav.sm-vertical {
+	display: block;
+	/* flex-grow: 1; */
+}
+
+.navbar-nav.sm-vertical:not(.sm-collapsible) a:not(.dropdown-item) .sub-arrow {
+	transform: rotate(-90deg);
+	/* position: absolute;
+	top: 55%;
+	margin-top: -5px;
+	bottom: auto;
+	left: auto;
+	margin-left: 0;
+	right: 10px; */
+}
+
+/* Smartmenus navbars (Megamenu static) */
+.mega-menu-static {
+	position: relative;
+}
+
+.mega-menu-static .navbar-nav .nav-item {
+	position: static;
+}
+
+.mega-menu-static .navbar-nav .mega-menu {
+	width: 100% !important;
+}
+
+// Override inline negative margin-left from Smartmenus JavaScript
+.tiki /*.mega-menu-static .navbar-nav:not(.sm-vertical) */ .navbar-nav .dropdown-menu.mega-menu {
+	margin-left: 0 !important;
+}
+
+/* Megamenu when vertical */
+.mega-menu-static .navbar-nav.sm-vertical .mega-menu {
+	margin-top: 0 !important;
+	top: 0 !important;
+}
+
+.mega-menu-static .mega-menu--inner-container,
+.mega-menu-static .mega-menu--item-container {
+	height: 100%;
+}
+
+.mega-menu-static .navbar-nav .mega-menu--item-container {
+	flex-wrap: wrap;
+}
+
+/* Megamenus */
+.navbar-nav .mega-menu {
+	max-width: none !important;
+	padding: 0;
+}
+
+.navbar-nav .mega-menu--inner-container {
+	display: flex;
+	justify-content: space-between;
+}
+
+.navbar-nav .mega-menu--item-container {
+	padding: 1.5rem 1rem 0 2rem;
+	display: flex;
+	flex-grow: 1;
+}
+
+.mega-menu--item-container > .mega-menu--item {
+	padding: 0 10px;
+	flex-grow: 1;
+}
+
+.mega-menu--item-container .mega-menu--item-level-1 {
+	margin-bottom: 1.5rem;
+}
+
+.mega-menu--item-container .mega-menu--item-level-1 > li > a {
+	font-weight: bold;
+}
+
+.mega-menu a:hover,
+.mega-menu--item-container .mega-menu--item-level-1 > li > a:hover { // uncommented and scope increased by Gary
+  text-decoration: none;
+}
+
+.mega-menu ul {
+	list-style-type: none;
+	padding-inline-start: 0;
+}
+
+//.mega-menu li a {
+//	color: black;
+//}
+
+.mega-menu-image {
+	position: relative;
+	margin-left: auto;
+	width: 200px;
+}
+
+.mega-menu-image img {
+	object-fit: cover;
+	height: 100%;
+	width: 100%;
+}
+
+.mega-menu-image img:before {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: lightgrey;
+	background: #f1f1f1;
+	padding: 10px;
+	content: '\f03e';
+	font-family: "Font Awesome 5 Free";
+	/* font-weight: 900; */
+	font-size: 3rem;
+	font-style: normal;
+	font-variant: normal;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+}

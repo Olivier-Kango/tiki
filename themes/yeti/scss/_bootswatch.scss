@@ -444,3 +444,15 @@ label,
 		color: #fff !important;
 	}
 }
+
+// Update for Smartmenus
+.navbar-dark.bg-dark .dropdown-menu.mega-menu a,
+.dropdown-item {
+	color: $navbar-dark-color;
+}
+
+.navbar-dark.bg-dark .dropdown-menu.mega-menu a:hover,
+.navbar-dark.bg-dark .dropdown-menu.mega-menu a:hover:focus  {
+	background-color: darken($gray-800, 5%);
+	color: #fff;
+}

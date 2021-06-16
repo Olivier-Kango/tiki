@@ -1340,10 +1340,10 @@ pre code {
   border-color: #b3b7bb;
 }
 .table-hover .table-secondary:hover {
-  background-color: #c8cccf;
+  background-color: #c8cbcf;
 }
 .table-hover .table-secondary:hover > td, .table-hover .table-secondary:hover > th {
-  background-color: #c8cccf;
+  background-color: #c8cbcf;
 }
 .table-success, .table-success > th, .table-success > td {
   background-color: #c3e6cb;
@@ -1376,10 +1376,10 @@ pre code {
   border-color: #ffdf7e;
 }
 .table-hover .table-warning:hover {
-  background-color: #ffe7a0;
+  background-color: #ffe8a1;
 }
 .table-hover .table-warning:hover > td, .table-hover .table-warning:hover > th {
-  background-color: #ffe7a0;
+  background-color: #ffe8a1;
 }
 .table-danger, .table-danger > th, .table-danger > td {
   background-color: #f5c6cb;
@@ -1388,10 +1388,10 @@ pre code {
   border-color: #ed969e;
 }
 .table-hover .table-danger:hover {
-  background-color: #f1b1b7;
+  background-color: #f1b0b7;
 }
 .table-hover .table-danger:hover > td, .table-hover .table-danger:hover > th {
-  background-color: #f1b1b7;
+  background-color: #f1b0b7;
 }
 .table-light, .table-light > th, .table-light > td {
   background-color: #fcfcfc;
@@ -1412,10 +1412,10 @@ pre code {
   border-color: #e2e7eb;
 }
 .table-hover .table-dark:hover {
-  background-color: #e0e5ea;
+  background-color: #e0e6ea;
 }
 .table-hover .table-dark:hover > td, .table-hover .table-dark:hover > th {
-  background-color: #e0e5ea;
+  background-color: #e0e6ea;
 }
 .table-active, .table-active > th, .table-active > td {
   background-color: rgba(0, 0, 0, 0.075);
@@ -4039,10 +4039,10 @@ a.badge-dark:focus, a.badge-dark.focus {
   border-color: #d6d8db;
 }
 .alert-secondary hr {
-  border-top-color: #c8cccf;
+  border-top-color: #c8cbcf;
 }
 .alert-secondary .alert-link {
-  color: #212326;
+  color: #202326;
 }
 .alert-success {
   color: #155724;
@@ -4064,7 +4064,7 @@ a.badge-dark:focus, a.badge-dark.focus {
   border-top-color: #abdde5;
 }
 .alert-info .alert-link {
-  color: #062c32;
+  color: #062c33;
 }
 .alert-warning {
   color: #856404;
@@ -4072,10 +4072,10 @@ a.badge-dark:focus, a.badge-dark.focus {
   border-color: #ffeeba;
 }
 .alert-warning hr {
-  border-top-color: #ffe7a0;
+  border-top-color: #ffe8a1;
 }
 .alert-warning .alert-link {
-  color: #533f02;
+  color: #533f03;
 }
 .alert-danger {
   color: #721c24;
@@ -4083,7 +4083,7 @@ a.badge-dark:focus, a.badge-dark.focus {
   border-color: #f5c6cb;
 }
 .alert-danger hr {
-  border-top-color: #f1b1b7;
+  border-top-color: #f1b0b7;
 }
 .alert-danger .alert-link {
   color: #491217;
@@ -4097,7 +4097,7 @@ a.badge-dark:focus, a.badge-dark.focus {
   border-top-color: #efefef;
 }
 .alert-light .alert-link {
-  color: #656565;
+  color: #666;
 }
 .alert-dark {
   color: #676c71;
@@ -4105,7 +4105,7 @@ a.badge-dark:focus, a.badge-dark.focus {
   border-color: #eff2f4;
 }
 .alert-dark hr {
-  border-top-color: #e0e5ea;
+  border-top-color: #e0e6ea;
 }
 .alert-dark .alert-link {
   color: #4f5356;
@@ -4363,7 +4363,7 @@ a.badge-dark:focus, a.badge-dark.focus {
 }
 .list-group-item-secondary.list-group-item-action:hover, .list-group-item-secondary.list-group-item-action:focus {
   color: #383d41;
-  background-color: #c8cccf;
+  background-color: #c8cbcf;
 }
 .list-group-item-secondary.list-group-item-action.active {
   color: #fff;
@@ -4402,7 +4402,7 @@ a.badge-dark:focus, a.badge-dark.focus {
 }
 .list-group-item-warning.list-group-item-action:hover, .list-group-item-warning.list-group-item-action:focus {
   color: #856404;
-  background-color: #ffe7a0;
+  background-color: #ffe8a1;
 }
 .list-group-item-warning.list-group-item-action.active {
   color: #fff;
@@ -4415,7 +4415,7 @@ a.badge-dark:focus, a.badge-dark.focus {
 }
 .list-group-item-danger.list-group-item-action:hover, .list-group-item-danger.list-group-item-action:focus {
   color: #721c24;
-  background-color: #f1b1b7;
+  background-color: #f1b0b7;
 }
 .list-group-item-danger.list-group-item-action.active {
   color: #fff;
@@ -4441,7 +4441,7 @@ a.badge-dark:focus, a.badge-dark.focus {
 }
 .list-group-item-dark.list-group-item-action:hover, .list-group-item-dark.list-group-item-action:focus {
   color: #676c71;
-  background-color: #e0e5ea;
+  background-color: #e0e6ea;
 }
 .list-group-item-dark.list-group-item-action.active {
   color: #fff;

@@ -1340,10 +1340,10 @@ pre code {
   border-color: #fedab0;
 }
 .table-hover .table-secondary:hover {
-  background-color: #ffdfbb;
+  background-color: #ffdfbc;
 }
 .table-hover .table-secondary:hover > td, .table-hover .table-secondary:hover > th {
-  background-color: #ffdfbb;
+  background-color: #ffdfbc;
 }
 .table-success, .table-success > th, .table-success > td {
   background-color: #c2e5c7;
@@ -1364,10 +1364,10 @@ pre code {
   border-color: #7ac2f7;
 }
 .table-hover .table-info:hover {
-  background-color: #a0d3f9;
+  background-color: #a0d3fa;
 }
 .table-hover .table-info:hover > td, .table-hover .table-info:hover > th {
-  background-color: #a0d3f9;
+  background-color: #a0d3fa;
 }
 .table-warning, .table-warning > th, .table-warning > td {
   background-color: #f2f2c2;
@@ -1376,10 +1376,10 @@ pre code {
   border-color: #e7e78d;
 }
 .table-hover .table-warning:hover {
-  background-color: #ededad;
+  background-color: #eeeead;
 }
 .table-hover .table-warning:hover > td, .table-hover .table-warning:hover > th {
-  background-color: #ededad;
+  background-color: #eeeead;
 }
 .table-danger, .table-danger > th, .table-danger > td {
   background-color: #f4cfce;
@@ -1388,10 +1388,10 @@ pre code {
   border-color: #eba6a3;
 }
 .table-hover .table-danger:hover {
-  background-color: #f0bab9;
+  background-color: #efbbb9;
 }
 .table-hover .table-danger:hover > td, .table-hover .table-danger:hover > th {
-  background-color: #f0bab9;
+  background-color: #efbbb9;
 }
 .table-light, .table-light > th, .table-light > td {
   background-color: white;
@@ -4039,7 +4039,7 @@ a.badge-dark:focus, a.badge-dark.focus {
   border-color: #ffebd5;
 }
 .alert-secondary hr {
-  border-top-color: #ffdfbb;
+  border-top-color: #ffdfbc;
 }
 .alert-secondary .alert-link {
   color: #725739;
@@ -4061,10 +4061,10 @@ a.badge-dark:focus, a.badge-dark.focus {
   border-color: #b8defb;
 }
 .alert-info hr {
-  border-top-color: #a0d3f9;
+  border-top-color: #a0d3fa;
 }
 .alert-info .alert-link {
-  color: #0b3d63;
+  color: #0b3d62;
 }
 .alert-warning {
   color: #7c7e26;
@@ -4072,10 +4072,10 @@ a.badge-dark:focus, a.badge-dark.focus {
   border-color: #f2f2c2;
 }
 .alert-warning hr {
-  border-top-color: #ededad;
+  border-top-color: #eeeead;
 }
 .alert-warning .alert-link {
-  color: #56571a;
+  color: #55571a;
 }
 .alert-danger {
   color: #813d3d;
@@ -4083,10 +4083,10 @@ a.badge-dark:focus, a.badge-dark.focus {
   border-color: #f4cfce;
 }
 .alert-danger hr {
-  border-top-color: #f0bab9;
+  border-top-color: #efbbb9;
 }
 .alert-danger .alert-link {
-  color: #5e2d2c;
+  color: #5e2d2d;
 }
 .alert-light {
   color: #949698;
@@ -4097,7 +4097,7 @@ a.badge-dark:focus, a.badge-dark.focus {
   border-top-color: #f2f2f2;
 }
 .alert-light .alert-link {
-  color: #7b7d7f;
+  color: #7a7d7f;
 }
 .alert-dark {
   color: #101214;
@@ -4363,7 +4363,7 @@ a.badge-dark:focus, a.badge-dark.focus {
 }
 .list-group-item-secondary.list-group-item-action:hover, .list-group-item-secondary.list-group-item-action:focus {
   color: #94714a;
-  background-color: #ffdfbb;
+  background-color: #ffdfbc;
 }
 .list-group-item-secondary.list-group-item-action.active {
   color: #fff;
@@ -4389,7 +4389,7 @@ a.badge-dark:focus, a.badge-dark.focus {
 }
 .list-group-item-info.list-group-item-action:hover, .list-group-item-info.list-group-item-action:focus {
   color: #105990;
-  background-color: #a0d3f9;
+  background-color: #a0d3fa;
 }
 .list-group-item-info.list-group-item-action.active {
   color: #fff;
@@ -4402,7 +4402,7 @@ a.badge-dark:focus, a.badge-dark.focus {
 }
 .list-group-item-warning.list-group-item-action:hover, .list-group-item-warning.list-group-item-action:focus {
   color: #7c7e26;
-  background-color: #ededad;
+  background-color: #eeeead;
 }
 .list-group-item-warning.list-group-item-action.active {
   color: #fff;
@@ -4415,7 +4415,7 @@ a.badge-dark:focus, a.badge-dark.focus {
 }
 .list-group-item-danger.list-group-item-action:hover, .list-group-item-danger.list-group-item-action:focus {
   color: #813d3d;
-  background-color: #f0bab9;
+  background-color: #efbbb9;
 }
 .list-group-item-danger.list-group-item-action.active {
   color: #fff;

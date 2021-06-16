@@ -187,9 +187,12 @@
 				{preference name=feature_jquery_media}
 				{preference name=feature_jquery_reflection}
 				{preference name=feature_jquery_superfish}
-				{preference name=jquery_smartmenus_enable}
-				<div class="adminoptionboxchild" id="jquery_smartmenus_enable_childcontainer">
-					{preference name=jquery_smartmenus_mode}
+				<div class="adminoptionbox">
+					{preference name=jquery_smartmenus_enable}
+					<div class="adminoptionboxchild" id="jquery_smartmenus_enable_childcontainer">
+						{preference name=jquery_smartmenus_collapsible_behavior}
+						{preference name=jquery_smartmenus_open_close_click}
+					</div>
 				</div>
 				{preference name=feature_jquery_tooltips}
 				{preference name=feature_jquery_tagcanvas}

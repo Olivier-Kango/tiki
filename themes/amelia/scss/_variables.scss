@@ -55,7 +55,6 @@ $table-head-bg: #108a93;
 $table-head-color: #fff;
 // Forms
 // Dropdowns
-$dropdown-link-color: 				#fff;
 $dropdown-bg:                      #fff;
 $dropdown-border-color:            #444;
 $dropdown-link-color:              #444;
@@ -123,3 +122,7 @@ body.fullscreen { background-color: $body-bg; } // Moved here because it needs $
 
 $blockquote-color: #e5e5e5;
 $blockquote-left-border-color: #e5e5e5;
+
+$dropdown-item: $dropdown-link-color;
+
+//$megamenu-dropdown-link-color: $dropdown-link-color;

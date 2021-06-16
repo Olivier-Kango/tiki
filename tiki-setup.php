@@ -546,17 +546,10 @@ if ($prefs['feature_jquery_tooltips'] === 'y' || $prefs['feature_jquery_superfis
 }
 if ($prefs['jquery_smartmenus_enable'] == 'y') {
 	$headerlib->add_jsfile('vendor_bundled/vendor/drmonty/smartmenus/js/jquery.smartmenus.js');
-	$headerlib->add_jsfile('vendor_bundled/vendor/drmonty/smartmenus/js/jquery.smartmenus.bootstrap-4.js');
+	// $headerlib->add_jsfile('vendor_bundled/vendor/drmonty/smartmenus/js/jquery.smartmenus.bootstrap-4.js');
+	$headerlib->add_jsfile('lib/jquery_tiki/tiki-smartmenus-bootstrap-4.js');
 	$headerlib->add_cssfile('vendor_bundled/vendor/drmonty/smartmenus/css/sm-core-css.css');
 	$headerlib->add_cssfile('vendor_bundled/vendor/drmonty/smartmenus/css/jquery.smartmenus.bootstrap-4.css');
-	if (! empty($prefs['jquery_smartmenus_mode'])) {
-		$headerlib->add_cssfile(
-			'vendor_bundled/vendor/drmonty/smartmenus/css/sm-' . $prefs['jquery_smartmenus_mode'] . '.css'
-		);
-	}
-	$headerlib->add_js('$(function() {
-  $("ul.navbanav").smartmenus();
-});');
 }
 if ($prefs['feature_jquery_reflection'] == 'y') {
 	$headerlib->add_jsfile('vendor_bundled/vendor/jquery-plugins/reflection-jquery/js/reflection.js');
