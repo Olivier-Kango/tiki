@@ -26,10 +26,21 @@
 			<div class="form-group row mx-0">
 				<label for="fieldPrefix">{tr}Field Prefix{/tr}</label>
 				<input class="form-control" type="text" name="fieldPrefix" id="fieldPrefix" value="{$info.fieldPrefix|escape}">
+				{tr}Short string prepended by default to all fields in this tracker.{/tr}
+			</div>
+			<div class="form-group row mx-0">
+				<label for="permName">{tr}Permanent Name{/tr}</label>
+				<input class="form-control" type="text" name="permName" id="permName" value="{$info.permName|escape}" required="required">
+				{tr}Required for Advanced Shopping Cart and some other tracker features, do not change this unless you are sure.{/tr}
 			</div>
 			{jq}$("#name").change(function() {
-	if ($("#name").val() && ! $("#fieldPrefix").val()) {
-		$("#fieldPrefix").val($("#name").val().replace(/s$/, "").replace(/ /, "").toLowerCase());
+	if ($("#name").val()) {
+		if (! $("#fieldPrefix").val()) {
+			$("#fieldPrefix").val($("#name").val().replace(/s$/, "").replace(/\W/g, "").toLowerCase());
+		}
+		if (! $("#permName").val()) {
+			$("#permName").val($("#name").val().replace(/s$/, "").replace(/\W/g, "").toLowerCase());
+		}
 	}
 });{/jq}
 		{/accordion_group}

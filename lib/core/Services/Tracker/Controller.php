@@ -1978,6 +1978,7 @@ class Services_Tracker_Controller
 				'description' => $input->description->text(),
 				'descriptionIsParsed' => $input->descriptionIsParsed->int() ? 'y' : 'n',
 				'fieldPrefix' => $input->fieldPrefix->text(),
+				'permName' => $input->permName->text(),
 				'showStatus' => $input->showStatus->int() ? 'y' : 'n',
 				'showStatusAdminOnly' => $input->showStatusAdminOnly->int() ? 'y' : 'n',
 				'showCreated' => $input->showCreated->int() ? 'y' : 'n',
