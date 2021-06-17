@@ -5765,7 +5765,7 @@ class UsersLib extends TikiLib
 			[
 				'name' => 'tiki_p_wiki_view_history',
 				'description' => tra('Can view wiki history'),
-				'level' => 'basic',
+				'level' => 'registered',
 				'type' => 'wiki',
 				'admin' => false,
 				'prefs' => ['feature_history'],
@@ -5945,7 +5945,7 @@ class UsersLib extends TikiLib
 			[
 				'name' => 'tiki_p_wiki_view_source',
 				'description' => tra('Can view source of wiki pages'),
-				'level' => 'basic',
+				'level' => 'registered',
 				'type' => 'wiki',
 				'admin' => false,
 				'prefs' => ['feature_source'],
