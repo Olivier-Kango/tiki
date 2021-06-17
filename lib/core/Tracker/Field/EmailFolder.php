@@ -113,12 +113,25 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements Tracker_F
 	function handleSave($value, $oldValue)
 	{
 		$filegallib = TikiLib::lib('filegal');
-		$galleryId = (int) $this->getOption('galleryId');
-		$galinfo = $filegallib->get_file_gallery($galleryId);
-		$fileId = $filegallib->upload_single_file($galinfo, $value['name'], $value['size'], $value['type'], $value['content']);
-		$value = explode(',', $value['existing']);
-		if ($fileId) {
-			$value[] = $fileId;
+		if (isset($value['new'])) {
+			$galleryId = (int) $this->getOption('galleryId');
+			$galinfo = $filegallib->get_file_gallery($galleryId);
+			$fileId = $filegallib->upload_single_file($galinfo, $value['new']['name'], $value['new']['size'], $value['new']['type'], $value['new']['content']);
+			$value = explode(',', $oldValue);
+			if ($fileId) {
+				$value[] = $fileId;
+			}
+		} elseif (isset($value['delete'])) {
+			$fileId = $value['delete'];
+			$existing = explode(',', $oldValue);
+			if (($key = array_search($fileId, $existing)) !== false) {
+				unset($existing[$key]);
+				$value = $existing;
+			}
+			$info = $filegallib->get_file_info($fileId);
+			if ($info) {
+				$filegallib->remove_file($info);
+			}
 		}
 		return parent::handleSave(implode(',', $value), $oldValue);
 	}

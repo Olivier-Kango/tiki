@@ -126,6 +126,12 @@ add_output('ajax_tiki_message_content', 'filter_message_headers', true, 'imap');
 add_output('ajax_tiki_message_content', 'filter_message_body', true, 'imap');
 add_output('ajax_tiki_message_content', 'filter_message_struct', true, 'imap');
 add_output('ajax_tiki_message_content', 'add_prev_next_links', true);
+setup_base_ajax_page('ajax_tiki_delete_message', 'core');
+add_handler('ajax_tiki_delete_message', 'message_list_type', true, 'core');
+add_handler('ajax_tiki_delete_message', 'tracker_message_list_type', true);
+add_handler('ajax_tiki_delete_message', 'close_session_early',  true, 'core');
+add_handler('ajax_tiki_delete_message', 'tiki_delete_message',  true);
+
 
 return array(
   'allowed_pages' => array(
@@ -138,7 +144,8 @@ return array(
     'ajax_update_participant_status',
     'ajax_remove_from_calendar',
     'ajax_move_to_tracker',
-    'ajax_tiki_message_content'
+    'ajax_tiki_message_content',
+    'ajax_tiki_delete_message'
   ),
   'allowed_get' => array(
     'tiki_download_message' => FILTER_VALIDATE_BOOLEAN,

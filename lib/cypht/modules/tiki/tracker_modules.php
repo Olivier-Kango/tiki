@@ -115,11 +115,12 @@ class Hm_Handler_move_to_tracker extends Hm_Handler_Module {
         }
 
         $field['value'] = [
-            'existing' => $trk->get_item_value($item['trackerId'], $item['itemId'], $form['tracker_field_id']),
-            'name' => !empty($headers['Message-ID']) ? $headers['Message-ID'] : $headers['Subject'],
-            'size' => strlen($msg),
-            'type' => 'message/rfc822',
-            'content' => $msg
+            'new' => [
+                'name' => !empty($headers['Message-ID']) ? $headers['Message-ID'] : $headers['Subject'],
+                'size' => strlen($msg),
+                'type' => 'message/rfc822',
+                'content' => $msg
+            ]
         ];
 
         $trk->replace_item($item['trackerId'], $item['itemId'], [
@@ -131,6 +132,45 @@ class Hm_Handler_move_to_tracker extends Hm_Handler_Module {
         $smarty->loadPlugin('smarty_modifier_sefurl');
         $url = smarty_modifier_sefurl($item['itemId'], 'trackeritem');
         $this->out('redirect_url', $url);
+    }
+}
+
+/**
+ * Delete a message
+ * @subpackage tiki/handler
+ */
+class Hm_Handler_tiki_delete_message extends Hm_Handler_Module {
+    /**
+     * Remove from the related EmailFolder field
+     */
+    public function process() {
+        list($success, $form) = $this->process_form(array('imap_msg_uid', 'list_path'));
+        if ($success) {
+            # TODO: move to a Trash folder
+            $path = str_replace('tracker_folder_', '', $form['list_path']);
+            list ($itemId, $fieldId) = explode('_', $path);
+            $trk = TikiLib::lib('trk');
+            $item = $trk->get_item_info($itemId);
+            if (! $item) {
+                Hm_Msgs::add('ERRTracker item not found');
+                $this->out('imap_delete_error', true);
+                return;
+            }
+            $field = $trk->get_field_info($fieldId);
+            if (! $field) {
+                Hm_Msgs::add('ERRTracker field not found');
+                $this->out('imap_delete_error', true);
+                return;
+            }
+            $field['value'] = [
+                'delete' => $form['imap_msg_uid']
+            ];
+            $trk->replace_item($item['trackerId'], $item['itemId'], [
+                'data' => [$field]
+            ]);
+            Hm_Msgs::add('Message deleted');
+            $this->out('imap_delete_error', false);
+        }
     }
 }
 
