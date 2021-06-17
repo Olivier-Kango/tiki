@@ -27,6 +27,45 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements Tracker_F
 						'legacy_index' => 0,
 						'profile_reference' => 'file_gallery',
 					],
+					'useFolders' => [
+						'name' => tr('Use Folders'),
+						'description' => tr('Use separate folders like Inbox, Sent, Trash.'),
+						'filter' => 'int',
+						'options' => [
+							0 => tr('No'),
+							1 => tr('Yes'),
+						],
+					],
+					'inboxName' => [
+						'name' => tr('Inbox Name'),
+						'description' => tr('Name of the Inbox folder.'),
+						'filter' => 'text',
+						'default' => 'Inbox',
+						'depends' => [
+							'field' => 'useFolders',
+							'value' => '1'
+						],
+					],
+					'sentName' => [
+						'name' => tr('Sent Name'),
+						'description' => tr('Name of the Sent folder.'),
+						'filter' => 'text',
+						'default' => 'Sent',
+						'depends' => [
+							'field' => 'useFolders',
+							'value' => '1'
+						],
+					],
+					'trashName' => [
+						'name' => tr('Trash Name'),
+						'description' => tr('Name of the Trash folder.'),
+						'filter' => 'text',
+						'default' => 'Trash',
+						'depends' => [
+							'field' => 'useFolders',
+							'value' => '1'
+						],
+					],
 				],
 			],
 		];
@@ -45,38 +84,42 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements Tracker_F
 			return [];
 		}
 
-		$value = '';
-		$ins_id = $this->getInsertId();
-		if (isset($requestData[$ins_id])) {
-			// Incoming data from form
-			$value = $requestData[$ins_id];
+		$value = $this->getValue();
+		$decoded = json_decode($value, true);
+		if ($decoded !== NULL) {
+			$fileIds = $decoded;
 		} else {
-			$value = $this->getValue();
+			$fileIds = [
+				'inbox' => array_filter(explode(',', $value))
+			];
 		}
 
 		// Obtain the information from the database for display
-		$fileIds = array_filter(explode(',', $value));
 		$emails = [];
-		foreach ($fileIds as $fileId) {
-			$file_object = Tiki\FileGallery\File::id($fileId);
-			$parsed_fields = (new Tiki\FileGallery\Manipulator\EmailParser($file_object))->run();
-			$parsed_fields['fileId'] = $fileId;
-			$parsed_fields['trackerId'] = $this->getTrackerDefinition()->getConfiguration('trackerId');
-			$parsed_fields['itemId'] = $this->getItemId();
-			$parsed_fields['fieldId'] = $this->getConfiguration('fieldId');
-			$emails[] = $parsed_fields;
+		foreach ($fileIds as $folder => $files) {
+			$emails[$folder] = [];
+			foreach ($files as $fileId) {
+				$file_object = Tiki\FileGallery\File::id($fileId);
+				$parsed_fields = (new Tiki\FileGallery\Manipulator\EmailParser($file_object))->run();
+				$parsed_fields['fileId'] = $fileId;
+				$parsed_fields['trackerId'] = $this->getTrackerDefinition()->getConfiguration('trackerId');
+				$parsed_fields['itemId'] = $this->getItemId();
+				$parsed_fields['fieldId'] = $this->getConfiguration('fieldId');
+				$emails[$folder][] = $parsed_fields;
+			}
 		}
 
 		return [
 			'galleryId' => $galleryId,
 			'emails' => $emails,
+			'count' => count($fileIds, COUNT_RECURSIVE),
 			'value' => $value,
 		];
 	}
 
 	function renderInput($context = [])
 	{
-		return $this->renderOutput($context);
+		return tr("Emails can be copied or moved here via the Webmail interface.");
 	}
 
 	function renderOutput($context = [])
@@ -94,46 +137,67 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements Tracker_F
 		$emails = $this->getConfiguration('emails');
 
 		if ($context['list_mode'] === 'text') {
-			return implode(
-				"\n",
-				array_map(
-					function ($email) {
-						return $email['subject'];
-					},
-					$emails
-				)
-			);
+			$folderFormatter = function($emails) {
+				return implode(
+					"\n",
+					array_map(
+						function ($email) {
+							return $email['subject'];
+						},
+						$emails
+					)
+				);
+			};
+			if ($this->getOption('useFolders')) {
+				$result = "";
+				foreach (['inbox', 'sent', 'trash'] as $folder) {
+					if (!empty($emails[$folder])) {
+						$result .= $this->getOption($folder.'Name')."\n";
+						$result .= $folderFormatter($emails[$folder]);
+					}
+				}
+			} else {
+				return $folderFormatter($emails['inbox']);
+			}
 		}
 
 		return $this->renderTemplate('trackeroutput/email_folder.tpl', $context, [
-			'emails' => $emails
+			'emails' => $emails,
+			'count' => $this->getConfiguration('count'),
 		]);
 	}
 
 	function handleSave($value, $oldValue)
 	{
+		$existing = json_decode($oldValue, true);
+		if ($existing === NULL) {
+			$existing = [
+				'inbox' => explode(',', $oldValue)
+			];
+		}
 		$filegallib = TikiLib::lib('filegal');
 		if (isset($value['new'])) {
 			$galleryId = (int) $this->getOption('galleryId');
 			$galinfo = $filegallib->get_file_gallery($galleryId);
 			$fileId = $filegallib->upload_single_file($galinfo, $value['new']['name'], $value['new']['size'], $value['new']['type'], $value['new']['content']);
-			$value = explode(',', $oldValue);
 			if ($fileId) {
-				$value[] = $fileId;
+				$folder = $value['folder'] ?? 'inbox';
+				$existing[$folder][] = $fileId;
 			}
 		} elseif (isset($value['delete'])) {
 			$fileId = $value['delete'];
-			$existing = explode(',', $oldValue);
-			if (($key = array_search($fileId, $existing)) !== false) {
-				unset($existing[$key]);
-				$value = $existing;
+			foreach ($existing as $folder => $_) {
+				if (($key = array_search($fileId, $existing[$folder])) !== false) {
+					unset($existing[$folder][$key]);
+					$existing[$folder] = array_values($existing[$folder]);
+				}
 			}
 			$info = $filegallib->get_file_info($fileId);
 			if ($info) {
 				$filegallib->remove_file($info);
 			}
 		}
-		return parent::handleSave(implode(',', $value), $oldValue);
+		return parent::handleSave(json_encode($existing), $oldValue);
 	}
 
 	function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
@@ -146,11 +210,13 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements Tracker_F
 		$dates = [];
 		$senders = [];
 		$recipients = [];
-		foreach ($emails as $email) {
-			$subjects[] = $email['subject'];
-			$dates[] = $email['date'];
-			$senders[] = $email['sender'];
-			$recipients[] = $email['recipient'];
+		foreach ($emails as $folder => $folder_emails) {
+			foreach ($folder_emails as $email) {
+				$subjects[] = $email['subject'];
+				$dates[] = $email['date'];
+				$senders[] = $email['sender'];
+				$recipients[] = $email['recipient'];
+			}
 		}
 
 		$out = [

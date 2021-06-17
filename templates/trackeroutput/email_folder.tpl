@@ -1,32 +1,22 @@
 <div id="display_f{$field.fieldId|escape}" class="email-folder-field display_f{$field.fieldId|escape}">
-	{if $data.emails|@count eq 0}
+	{if $data.count eq 0}
 		{tr}Emails can be copied or moved here via the Webmail interface.{/tr}
-	{else}
-	<table class="table table-striped table-hover">
-		<thead>
-		<tr>
-			<th>{tr}Sender{/tr}</th>
-			<th>{tr}Recipient{/tr}</th>
-			<th>{tr}Subject{/tr}</th>
-			<th>{tr}Date{/tr}</th>
-		</tr>
-		</thead>
-		<tbody>
-		{foreach from=$data.emails item=email}
-			<tr>
-				<td>
-					{if $email.sender}
-						{$email.sender|escape}
-					{else}
-						{$email.from|escape}
-					{/if}
-				</td>
-				<td>{$email.recipient|escape}</td>
-				<td><a href="tiki-webmail.php?page=message&amp;uid={$email.fileId}&amp;list_path=tracker_folder_{$email.itemId}_{$email.fieldId}&amp;list_parent=tracker_{$email.trackerId}">{$email.subject|escape}</a></td>
-				<td>{$email.date|tiki_short_datetime}</td>
-			</tr>
+	{elseif $field.options_map.useFolders}
+		{foreach from=$data.emails key=folder item=emails}
+			<div><a href="#" class="email-folder-switcher" data-folder="{$folder}">{$field.options_map["{$folder}Name"]}</a></div>
+			<div class="email-folder-contents folder-{$folder}" style="display: none">
+				{include file='trackeroutput/email_single_folder.tpl' emails=$emails}
+			</div>
 		{/foreach}
-		</tbody>
-	</table>
+		{jq}
+			$(".email-folder-switcher").on('click', function(e){
+				e.preventDefault();
+				$(this).closest('.email-folder-field').find(".email-folder-contents.folder-"+$(this).data('folder')).toggle();
+				return false;
+			});
+		{/jq}
+	{else}
+		{include file='trackeroutput/email_single_folder.tpl' emails=$data.emails.inbox}
 	{/if}
 </div>
+

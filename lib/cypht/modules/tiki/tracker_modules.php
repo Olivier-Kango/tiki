@@ -120,7 +120,8 @@ class Hm_Handler_move_to_tracker extends Hm_Handler_Module {
                 'size' => strlen($msg),
                 'type' => 'message/rfc822',
                 'content' => $msg
-            ]
+            ],
+            'folder' => 'inbox'
         ];
 
         $trk->replace_item($item['trackerId'], $item['itemId'], [
