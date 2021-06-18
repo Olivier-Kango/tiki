@@ -175,27 +175,13 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements Tracker_F
 				'inbox' => explode(',', $oldValue)
 			];
 		}
-		$filegallib = TikiLib::lib('filegal');
 		if (isset($value['new'])) {
-			$galleryId = (int) $this->getOption('galleryId');
-			$galinfo = $filegallib->get_file_gallery($galleryId);
-			$fileId = $filegallib->upload_single_file($galinfo, $value['new']['name'], $value['new']['size'], $value['new']['type'], $value['new']['content']);
-			if ($fileId) {
-				$folder = $value['folder'] ?? 'inbox';
-				$existing[$folder][] = $fileId;
+			$folder = $value['folder'] ?? 'inbox';
+			if ($this->getOption('useFolders') || $folder == 'inbox') {
+				$this->addEmail($existing[$folder], $value['new']);
 			}
 		} elseif (isset($value['delete'])) {
-			$fileId = $value['delete'];
-			foreach ($existing as $folder => $_) {
-				if (($key = array_search($fileId, $existing[$folder])) !== false) {
-					unset($existing[$folder][$key]);
-					$existing[$folder] = array_values($existing[$folder]);
-				}
-			}
-			$info = $filegallib->get_file_info($fileId);
-			if ($info) {
-				$filegallib->remove_file($info);
-			}
+			$this->deleteEmail($existing, $value['delete']);
 		}
 		return parent::handleSave(json_encode($existing), $oldValue);
 	}
@@ -265,5 +251,33 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements Tracker_F
 			});
 
 		return $schema;
+	}
+
+	protected function addEmail(&$existing, $file) {
+		$filegallib = TikiLib::lib('filegal');
+		$galleryId = (int) $this->getOption('galleryId');
+		$galinfo = $filegallib->get_file_gallery($galleryId);
+		$fileId = $filegallib->upload_single_file($galinfo, $file['name'], $file['size'], $file['type'], $file['content']);
+		if ($fileId) {
+			$existing[] = $fileId;
+		}
+	}
+
+	protected function deleteEmail(&$existing, $fileId) {
+		foreach ($existing as $folder => $_) {
+			if (($key = array_search($fileId, $existing[$folder])) !== false) {
+				unset($existing[$folder][$key]);
+				$existing[$folder] = array_values($existing[$folder]);
+				if ($this->getOption('useFolders') && $folder != 'trash') {
+					$existing['trash'][] = $fileId;
+				} else {
+					$filegallib = TikiLib::lib('filegal');
+					$info = $filegallib->get_file_info($fileId);
+					if ($info) {
+						$filegallib->remove_file($info);
+					}
+				}
+			}
+		}
 	}
 }

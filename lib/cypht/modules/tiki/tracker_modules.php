@@ -137,6 +137,52 @@ class Hm_Handler_move_to_tracker extends Hm_Handler_Module {
 }
 
 /**
+ * Save a sent message to EmailFolder field
+ * @subpackage tiki/handler
+ */
+class Hm_Handler_tiki_save_sent extends Hm_Handler_Module {
+    public function process() {
+        if (!$this->get('save_sent_msg')) {
+            return;
+        }
+        $mime = $this->get('save_sent_msg');
+        $msg = $mime->get_mime_msg();
+        $headers = $mime->get_headers();
+
+        $path = $this->request->post['compose_msg_path'];
+        if (!strstr($path, 'tracker_folder_')) {
+            return;
+        }
+        $path = str_replace('tracker_folder_', '', $path);
+        list ($itemId, $fieldId) = explode('_', $path);
+
+        $trk = TikiLib::lib('trk');
+        $item = $trk->get_item_info($itemId);
+        if (! $item) {
+            Hm_Msgs::add('ERRTracker item not found');
+            return;
+        }
+        $field = $trk->get_field_info($fieldId);
+        if (! $field) {
+            Hm_Msgs::add('ERRTracker field not found');
+            return;
+        }
+        $field['value'] = [
+            'folder' => 'sent',
+            'new' => [
+                'name' => !empty($headers['Message-Id']) ? $headers['Message-Id'] : $headers['Subject'],
+                'size' => strlen($msg),
+                'type' => 'message/rfc822',
+                'content' => $msg
+            ]
+        ];
+        $trk->replace_item($item['trackerId'], $item['itemId'], [
+            'data' => [$field]
+        ]);
+    }
+}
+
+/**
  * Delete a message
  * @subpackage tiki/handler
  */
@@ -147,7 +193,6 @@ class Hm_Handler_tiki_delete_message extends Hm_Handler_Module {
     public function process() {
         list($success, $form) = $this->process_form(array('imap_msg_uid', 'list_path'));
         if ($success) {
-            # TODO: move to a Trash folder
             $path = str_replace('tracker_folder_', '', $form['list_path']);
             list ($itemId, $fieldId) = explode('_', $path);
             $trk = TikiLib::lib('trk');
