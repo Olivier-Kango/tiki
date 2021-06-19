@@ -655,12 +655,13 @@ composer()
 	# http://dev.tiki.org/item4721
 	PHP_OPTION="--version"
 	REQUIRED_PHP_VERSION=74 # minimal version PHP 7.4 but no decimal seperator, no floating point data
+	MAX_PHP_VERSION=74      # maximum version PHP 7.4 as we can't support php8 yet
 	#${PHPCLI} ${PHP_OPTION}
 	LOCAL_PHP_VERSION=`"${PHPCLI}" ${PHP_OPTION} | ${GREP} ^PHP | ${CUT} -c5,7`
 	#echo ${LOCAL_PHP_VERSION}
 	LIKELY_ALTERNATE_PHP_CLI="php74 php7.4 php7.4-cli" # These have been known to exist on some hosting platforms
-	if [ "${LOCAL_PHP_VERSION}" -lt "${REQUIRED_PHP_VERSION}" ] ; then
-		echo "Wrong PHP version: php${LOCAL_PHP_VERSION} < required PHP version.  A version >= php${REQUIRED_PHP_VERSION} is necessary."
+	if [ "${LOCAL_PHP_VERSION}" -lt "${REQUIRED_PHP_VERSION}" ] || [ "${LOCAL_PHP_VERSION}" -gt "${MAX_PHP_VERSION}" ] ; then
+		echo "Wrong PHP version: php${LOCAL_PHP_VERSION}.  A version >= php${REQUIRED_PHP_VERSION} and <= php${MAX_PHP_VERSION} is necessary."
 		echo "Searching for typically named alternative PHP version ..."
 		for phptry in $LIKELY_ALTERNATE_PHP_CLI; do
 			PHPTRY=`which $phptry`
@@ -669,6 +670,7 @@ composer()
 				echo "... correct PHP version ${phptry} detected and used"
 				PHPCLI="${PHPTRY}"
 				PHPCLIFOUND="y"
+        composer_core
 				break
 			fi
 		done
