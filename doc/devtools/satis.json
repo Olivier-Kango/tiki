@@ -1910,6 +1910,7 @@
 		"h5p/h5p-core": ">=1.13.2",
 		"h5p/h5p-editor": ">=1.12.1",
 		"html2text/html2text": "4.2.1",
+		"hybridauth/hybridauth": ">=3.7.1",
 		"itsjavi/bootstrap-colorpicker": ">=2.5.1",
 		"j0k3r/php-readability": "^1.1.10",
 		"jasig/phpcas": ">=1.3",
