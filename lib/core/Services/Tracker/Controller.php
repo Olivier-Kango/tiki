@@ -1037,7 +1037,7 @@ class Services_Tracker_Controller
 	 *
 	 * Formatting the edit screen
 	 * - "title" optional. Sets a title for the edit screen.
-	 * - "skip_form_confirm_message" optional. Used with skip_form. E.g. "Are you sure you want to set this item to 'Closed'".
+	 * - "skip_form_message" optional. Used with skip_form. E.g. "Are you sure you want to set this item to 'Closed'".
 	 * - "button_label" optional. Used to override the label for the Update/Save button.
 	 * - "redirect" set a url to which a user should be redirected, if any.
 	 *
