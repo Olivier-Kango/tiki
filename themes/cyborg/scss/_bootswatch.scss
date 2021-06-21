@@ -15,10 +15,10 @@ $web-font-path: "https://fonts.googleapis.com/css?family=Roboto:400,700" !defaul
     border: 1px solid $gray-700;
   }
 
-  &.bg-dark {
-    background-color: $body-bg !important;
-    border: 1px solid $gray-700;
-  }
+// &.bg-dark {
+//    background-color: #060606 !important; //$body-bg !important;
+//    border: 1px solid $gray-700;
+//  }
 
   &.bg-light {
     background-color: $gray-500 !important;
@@ -34,6 +34,9 @@ $web-font-path: "https://fonts.googleapis.com/css?family=Roboto:400,700" !defaul
 
 }
 
+.navbar-dark.bg-dark { // Added by Gary  as the above rule wasn't working.
+	background: #060606 !important;
+}
 // Buttons =====================================================================
 
 .btn {

@@ -444,3 +444,9 @@ legend {
 		color: $link-hover-color;
 	}
 }
+
+.col2 .navbar,
+.col3 .navbar {
+	border: none;
+	box-shadow: none;
+}

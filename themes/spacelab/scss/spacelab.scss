@@ -37,3 +37,14 @@
 
 //.topbar .navbar-default .navbar-nav > li > a:hover,
 //.topbar .nav > li:hover { background: $navbar-default-link-hover-bg;}
+
+// Increase navbar height and side margins to reinstate Bootswatch style
+.topbar > * {
+	margin-top: .5rem;
+	margin-bottom: .5rem;
+}
+
+.topbar_modules {
+	margin-left: 30px;
+	margin-right: 30px;
+}

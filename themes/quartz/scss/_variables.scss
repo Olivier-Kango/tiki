@@ -8,7 +8,7 @@ $theme: "quartz" !default;
 //
 
 $white:    #fff !default;
-$gray-100: #f4dce7 !default;
+$gray-100: #f8f9fa !default;
 $gray-200: #e9ecef !default;
 $gray-300: #dee2e6 !default;
 $gray-400: #ced4da !default;
@@ -16,7 +16,7 @@ $gray-500: #adb5bd !default;
 $gray-600: #6c757d !default;
 $gray-700: #495057 !default;
 $gray-800: #343a40 !default;
-$gray-900: #1c2664 !default;
+$gray-900: #212529 !default;
 $black:    #000 !default;
 
 $blue:    #3a8fd9 !default;
@@ -28,7 +28,7 @@ $orange:  #fd7e14 !default;
 $yellow:  #ffc107 !default;
 $green:   #41d7a7 !default;
 $teal:    #528fb3 !default;
-$cyan:    #35a6c8; // #39cbfb !default;
+$cyan:    #39cbfb !default;
 
 $primary:       $pink !default;
 $secondary:     rgba($white, .4) !default;
@@ -48,7 +48,7 @@ $spacer: 2rem !default;
 // Body
 
 $body-bg:                   $purple !default;
-$body-color:                #ece6e6; //$white !default;
+$body-color:                $white !default;
 
 // Links
 
