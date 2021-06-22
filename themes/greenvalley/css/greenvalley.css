@@ -8718,6 +8718,12 @@ blockquote {
 .to-translate {
   color: #d9534f;
 }
+.dropdown-menu.mega-menu a {
+  color: #222;
+}
+a.dropdown-item {
+  color: #222;
+}
 .header_outer {
   margin-top: 24px;
 }
@@ -8731,11 +8737,16 @@ body.fullscreen .header_outer, body.fullscreen #footer {
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
 }
+.siteloginbar_popup > .btn {
+  color: #fff;
+  background-color: #5cb85c;
+  border-color: #5cb85c;
+}
 .topbar {
   margin-bottom: 20px;
 }
 .topbar, .navbar-dark, .navbar-fixed-top {
-  background: #473119 url("../images/menubar-wood.jpg") 50% 50% no-repeat;
+  background: #473119 url("../images/menubar-wood.jpg") 50% 50% no-repeat !important;
   background-size: cover;
   -webkit-box-shadow: inset 0 -3px 10px #331a00;
   box-shadow: inset 0 -3px 10px #331a00;
@@ -8743,30 +8754,30 @@ body.fullscreen .header_outer, body.fullscreen #footer {
   border-radius: 0;
 }
 .topbar .navbar-dark, .topbar .cssmenu_horiz ul, .topbar .navbar-dark .navbar-nav > li, .topbar .nav > li {
-  background: transparent;
+  background: transparent !important;
 }
 .navbar-dark .navbar-nav > li > a:hover, .navbar-dark .navbar-nav > li > a:focus {
-  background: transparent;
+  background: transparent !important;
 }
 .navbar-dark .navbar-nav > .active > a, .navbar-dark .navbar-nav > .active > a:hover, .navbar-dark .navbar-nav > .active > a:focus {
   background: transparent;
 }
-#topbar_modules {
-  background: #473119 url("../images/menubar-wood.jpg") 50% 50% no-repeat;
+.topbar_modules {
+  background: #473119 url("../images/menubar-wood.jpg") 50% 50% no-repeat !important;
   background-size: cover;
   -webkit-box-shadow: inset 0 -3px 10px #331a00;
   box-shadow: inset 0 -3px 10px #331a00;
   border: none;
   border-radius: 0;
 }
-#topbar_modules .navbar-dark {
+.topbar_modules .navbar-dark {
   background: transparent;
   border: none;
 }
-#topbar_modules .form-group {
+.topbar_modules .form-group {
   margin-bottom: 0;
 }
-#row-middle {
+.row-middle {
   background: url("../images/page_background_ltr.jpg") repeat;
   margin-top: -20px;
   padding-top: 20px;
