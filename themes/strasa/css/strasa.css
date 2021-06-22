@@ -8718,6 +8718,12 @@ blockquote {
 .to-translate {
   color: #df6e1e;
 }
+.dropdown-menu.mega-menu a {
+  color: #212529;
+}
+a.dropdown-item {
+  color: #212529;
+}
 body {
   background: #214d68 url("../images/body-bg_fw.png") repeat-x;
 }
@@ -8740,11 +8746,11 @@ body.fullscreen.tiki.navbar-padding {
 .btn-primary {
   border-color: #41cbe7 #223845 #223845 #41cbe7;
 }
-.layout_basic .top_modules, .layout_classic .top_modules.bg-dark {
+.layout_basic .top_modules, .layout_classic .top_modules.bg-dark-parent {
   color: #ffffff !important;
   background: #214d68 url("../images/headerbg.jpg") repeat-x 0 100% !important;
 }
-.layout_basic .top_modules a, .layout_basic .top_modules .btn-link, .layout_classic .top_modules.bg-dark a, .layout_classic .top_modules.bg-dark .btn-link {
+.layout_basic .top_modules a, .layout_basic .top_modules .btn-link, .layout_classic .top_modules.bg-dark-parent a, .layout_classic .top_modules.bg-dark-parent .btn-link {
   color: #ffffff !important;
 }
 .topbar {
