@@ -18,23 +18,16 @@ if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
  * Purpose:  Fetches a template from a wiki page
  * -------------------------------------------------------------
  */
-function smarty_resource_wiki_source($page, &$tpl_source, $smarty)
+function smarty_resource_wiki_source(string $page, ?string &$tpl_source, Smarty_Tiki $smarty)
 {
-	global $tikilib, $user;
+	$info = $smarty->checkWikiPageTemplatePerms($page, $tpl_source);
 
-	$perms = Perms::get([ 'type' => 'wiki page', 'object' => $page ]);
-	if (! $perms->use_as_template) {
-		$tpl_source = tra('Permission denied: the specified wiki page cannot be used as Smarty template resource') . '<br />';
-		// TODO: do not cache ! and return the message only once should be enough...
+	if ($info) {
+		$tpl_source = TikiLib::lib('parser')->parse_data($info['data'], ['is_html' => $info['is_html'], 'print' => 'y', 'inside_pretty' => true]);
 		return true;
-	}
-
-	$info = $tikilib->get_page_info($page);
-	if (empty($info)) {
+	} else {
 		return false;
 	}
-	$tpl_source = TikiLib::lib('parser')->parse_data($info['data'], ['is_html' => $info['is_html'], 'print' => 'y', 'inside_pretty' => true]);
-	return true;
 }
 
 function smarty_resource_wiki_timestamp($page, &$tpl_timestamp, $smarty)
