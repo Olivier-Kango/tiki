@@ -93,7 +93,7 @@ class AuthTokens
 		)->fetchRow();
 
 		if (! $data) {
-			return false;
+			return null;
 		}
 
 		global $prefs, $tikiroot;		// $full defined in route.php
