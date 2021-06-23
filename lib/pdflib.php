@@ -118,8 +118,15 @@ class PdfGenerator
 					}
 				}
 				$url = $base_url . $file . '?' . http_build_query($params, '', '&');
-				$session_params = session_get_cookie_params();
-				return $this->{$this->mode}($url, $pdata, $params);
+				$return = $this->{$this->mode}($url, $pdata, $params);
+
+				if ($prefs['auth_token_access'] == 'y') {
+					// clean up token created above just in case PDF needs to access images etc
+					$data = $tokenlib->getToken($params['TOKEN']);
+					$tokenlib->deleteToken($data['tokenId']);
+				}
+
+				return $return;
 			}
 		);
 	}
