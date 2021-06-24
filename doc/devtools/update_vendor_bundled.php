@@ -40,11 +40,22 @@ if ($initial_md5 !== $final_md5) {
 	$jsonContent = json_decode(file_get_contents($composerLock));
 
 	if (! empty($jsonContent->packages)) {
+		$errors = [];
 		foreach ($jsonContent->packages as $package) {
-			if (strrpos($package->dist->url, 'https://composer.tiki.org') !== 0) {
-				echo "composer.lock might contain packages from unverified sources. Aborting." . PHP_EOL;
-				exit(1);
+			if(! empty($package->type) && $package->type === "metapackage") {
+				continue; // metapackage is a empty package and does not have dist.url
 			}
+			if (strrpos($package->dist->url, 'https://composer.tiki.org') !== 0) {
+				$errors[] = "Package: " . $package->name . ", dist.url: " . $package->dist->url;
+			}
+		}
+		if (count($errors)) {
+			echo PHP_EOL;
+			foreach ($errors as $error) {
+				echo $error . PHP_EOL;
+			}
+			echo PHP_EOL . "Error: composer.lock might contain packages from unverified sources. Aborting." . PHP_EOL . PHP_EOL;
+			exit(1);
 		}
 	}
 
