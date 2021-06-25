@@ -23,13 +23,13 @@ $web-font-path: "https://fonts.googleapis.com/css?family=Open+Sans:400italic,700
     transition: color ease-in-out .2s;
   }
 
-  &.bg-primary {
+  &.bg-dark { // Changed by Gary
     @include btn-shadow($primary);
   }
 
-  &.bg-dark {
-    @include btn-shadow($secondary);
-  }
+//  &.bg-dark {
+//    @include btn-shadow($secondary);
+//  }
 
   &.bg-light {
     @include btn-shadow($gray-200);
