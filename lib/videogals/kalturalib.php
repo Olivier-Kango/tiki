@@ -28,7 +28,7 @@ class KalturaLib
 	private $sessionType;
 	private $initialized = false;
 
-	function __construct($session_type)
+	public function __construct($session_type)
 	{
 		$this->sessionType = $session_type;
 	}
@@ -99,19 +99,19 @@ class KalturaLib
 		return $this->client;
 	}
 
-	function getMediaUrl($entryId, $playerId)
+	public function getMediaUrl($entryId, $playerId)
 	{
 		global $prefs;
 		$config = $this->getConfig();
 		return $config->getServiceUrl() . "kwidget/wid/_{$prefs['kaltura_partnerId']}/uiconf_id/$playerId/entry_id/$entryId";
 	}
 
-	function getPlaylist($entryId)
+	public function getPlaylist($entryId)
 	{
 		return $this->getClient()->playlist->get($entryId);
 	}
 
-	function testSetup()
+	public function testSetup()
 	{
 		global $prefs;
 		if (empty($prefs['kaltura_partnerId']) || ! is_numeric($prefs['kaltura_partnerId']) || empty($prefs['kaltura_secret']) || empty($prefs['kaltura_adminSecret'])) {
@@ -163,7 +163,7 @@ class KalturaLib
 		return $uiConfs;
 	}
 
-	function getPlayersUiConfs()
+	public function getPlayersUiConfs()
 	{
 		$cachelib = TikiLib::lib('cache');
 
@@ -185,7 +185,7 @@ class KalturaLib
 		return $configurations;
 	}
 
-	function getPlayersUiConf($playerId)
+	public function getPlayersUiConf($playerId)
 	{
 		// Ontaining full list, because it is cached
 		$confs = $this->getPlayersUiConfs();
@@ -197,7 +197,7 @@ class KalturaLib
 		}
 	}
 
-	function updateStandardTikiKcw()
+	public function updateStandardTikiKcw()
 	{
 		if ($client = $this->getClient()) {
 			// first check if there is an existing one

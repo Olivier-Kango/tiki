@@ -21,7 +21,7 @@ class XmlLib extends TikiLib
 	public $config = ['comments' => true, 'attachments' => true, 'history' => true, 'images' => true, 'debug' => false];
 	public $structureStack = [];
 
-	function get_error()
+	public function get_error()
 	{
 		$str = '';
 		foreach ($this->errors as $i => $error) {
@@ -36,7 +36,7 @@ class XmlLib extends TikiLib
 	}
 
 	/* Export a list of pages or a structure */
-	function export_pages($pages = null, $structure = null, $zipFile = 'dump/xml.zip', $config = null)
+	public function export_pages($pages = null, $structure = null, $zipFile = 'dump/xml.zip', $config = null)
 	{
 		if (! class_exists('ZipArchive')) {
 			$this->errors[] = 'Problem zip initialisation';
@@ -103,7 +103,7 @@ class XmlLib extends TikiLib
 	}
 
 	/* export one page */
-	function export_page($page)
+	public function export_page($page)
 	{
 		global $prefs, $tikidomain;
 		$tikilib = TikiLib::lib('tiki');
@@ -225,7 +225,7 @@ class XmlLib extends TikiLib
 	}
 
 	/* import pages or structure */
-	function import_pages($zipFile = 'dump/xml.zip', $config = null)
+	public function import_pages($zipFile = 'dump/xml.zip', $config = null)
 	{
 		if (! empty($config)) {
 			$this->config = array_merge($this->config, $config);
@@ -275,7 +275,7 @@ class XmlLib extends TikiLib
 	}
 
 	/* create a page from an xml parsing result */
-	function create_page($info)
+	public function create_page($info)
 	{
 		global $prefs, $tiki_p_wiki_attach_files, $tiki_p_edit_comments, $tikidomain;
 		$tikilib = TikiLib::lib('tiki');
@@ -477,15 +477,15 @@ $xmllib = new XmlLib;
 
 class page_Parser extends XML_Parser
 {
-	var $page;
-	var $currentTag = null;
-	var $context = null;
-	var $folding = false; // keep tag as original
-	var $commentsStack = [];
-	var $commentId = 0;
-	var $iStructure = 0;
+	public $page;
+	public $currentTag = null;
+	public $context = null;
+	public $folding = false; // keep tag as original
+	public $commentsStack = [];
+	public $commentId = 0;
+	public $iStructure = 0;
 
-	function startHandler($parser, $name, $attribs)
+	public function startHandler($parser, $name, $attribs)
 	{
 		switch ($name) {
 			case 'page':
@@ -515,7 +515,7 @@ class page_Parser extends XML_Parser
 
 			case 'comments':
 				$comentsStack = [];
-
+				break;
 			case 'attachments':
 			case 'history':
 			case 'images':
@@ -558,7 +558,7 @@ class page_Parser extends XML_Parser
 		}
 	}
 
-	function endHandler($parser, $name)
+	public function endHandler($parser, $name)
 	{
 		$this->currentTag = null;
 		switch ($name) {
@@ -583,7 +583,7 @@ class page_Parser extends XML_Parser
 		}
 	}
 
-	function cdataHandler($parser, $data)
+	public function cdataHandler($parser, $data)
 	{
 		$data = trim($data);
 		if (empty($data)) {
@@ -596,7 +596,7 @@ class page_Parser extends XML_Parser
 		}
 	}
 
-	function getPages()
+	public function getPages()
 	{
 		return $this->pages;
 	}

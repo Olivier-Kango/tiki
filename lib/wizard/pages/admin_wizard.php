@@ -12,18 +12,18 @@ require_once('lib/wizard/wizard.php');
  */
 class AdminWizard extends Wizard
 {
-	function pageTitle()
+	public function pageTitle()
 	{
 		return tra('Tiki Setup');
 	}
 
-	function isEditable()
+	public function isEditable()
 	{
 		return false;
 	}
 
 
-	function onSetupPage($homepageUrl)
+	public function onSetupPage($homepageUrl)
 	{
 		$smarty = TikiLib::lib('smarty');
 		// Run the parent first
@@ -47,13 +47,13 @@ class AdminWizard extends Wizard
 		return true;
 	}
 
-	function getTemplate()
+	public function getTemplate()
 	{
 		$wizardTemplate = 'wizard/admin_wizard.tpl';
 		return $wizardTemplate;
 	}
 
-	function onContinue($homepageUrl)
+	public function onContinue($homepageUrl)
 	{
 		// Run the parent first
 		parent::onContinue($homepageUrl);

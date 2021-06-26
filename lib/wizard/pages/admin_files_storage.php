@@ -12,15 +12,15 @@ require_once('lib/wizard/wizard.php');
  */
 class AdminWizardFileStorage extends Wizard
 {
-	function pageTitle()
+	public function pageTitle()
 	{
 		return tra('Set up File storage');
 	}
-	function isEditable()
+	public function isEditable()
 	{
 		return true;
 	}
-	function isVisible()
+	public function isVisible()
 	{
 		global	$prefs;
 		return  $prefs['fgal_elfinder_feature'] === 'y' || // Elfinder
@@ -29,7 +29,7 @@ class AdminWizardFileStorage extends Wizard
 		;
 	}
 
-	function onSetupPage($homepageUrl)
+	public function onSetupPage($homepageUrl)
 	{
 		global $prefs;
 		$smarty = TikiLib::lib('smarty');
@@ -71,13 +71,13 @@ class AdminWizardFileStorage extends Wizard
 		return $showPage;
 	}
 
-	function getTemplate()
+	public function getTemplate()
 	{
 		$wizardTemplate = 'wizard/admin_files_storage.tpl';
 		return $wizardTemplate;
 	}
 
-	function onContinue($homepageUrl)
+	public function onContinue($homepageUrl)
 	{
 		global $tikilib;
 

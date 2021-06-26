@@ -30,7 +30,7 @@ APIC::import("org.apicnet.io.cdir");
 
 class OOoManifest extends absOOo {
 
-	function __construct($dir){
+	public function __construct($dir){
 		parent::__construct();
 		
 		$this->DIRXML   = $dir;
@@ -38,8 +38,8 @@ class OOoManifest extends absOOo {
 		$this->xml      = new DOMIT_Document();
 		$this->xml->setDocType("<!DOCTYPE manifest:manifest PUBLIC \"-//OpenOffice.org//DTD Manifest 1.0//EN\" \"Manifest.dtd\">");
 	}
-	
-	function create($type){
+
+	public function create($type){
 		$docManifestNode =& $this->xml->createElement("manifest:manifest");
 		$docManifestNode->setAttribute("xmlns:manifest", "http://openoffice.org/2001/manifest");
 		
@@ -104,14 +104,12 @@ class OOoManifest extends absOOo {
 		
 		$this->xml->setXMLDeclaration("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 	}
-	
-	
-	function Main(){
+
+
+	public function Main(){
 		$this->create("Writer");
 		mkdir (CACHE_PATH."/OOotmp");
 		mkdir (CACHE_PATH."/OOotmp/META-INF");
 		$this->save(CACHE_PATH."/OOotmp");
 	}
-	
-
-}	
+}

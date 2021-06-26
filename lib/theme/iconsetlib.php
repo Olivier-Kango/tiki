@@ -14,7 +14,7 @@ class IconsetLib
 	 * @return Iconset
 	 * @throws Exception
 	 */
-	function getIconsetForTheme($theme, $theme_option)
+	public function getIconsetForTheme($theme, $theme_option)
 	{
 		global $prefs;
 		$themelib = TikiLib::lib('theme');
@@ -63,7 +63,7 @@ class IconsetLib
 	 * @param $filename
 	 * @return array
 	 */
-	function loadFile($filename)
+	public function loadFile($filename)
 	{
 		$data = [];
 		if (is_readable($filename)) {
@@ -92,7 +92,7 @@ class Iconset
 	private $icons;
 	private $defaults;
 
-	function __construct($data)
+	public function __construct($data)
 	{
 		$this->name = $data['name'];
 		if (isset($data['description'])) {
@@ -115,7 +115,7 @@ class Iconset
 		}
 	}
 
-	function merge(Iconset $iconset, $over = true)
+	public function merge(Iconset $iconset, $over = true)
 	{
 		$tag = $iconset->tag();
 		$prepend = $iconset->prepend();
@@ -160,7 +160,7 @@ class Iconset
 	 *
 	 * @return array|null
 	 */
-	function getIcon($name)
+	public function getIcon($name)
 	{
 		if (isset($this->icons[$name])) {
 			return $this->icons[$name];

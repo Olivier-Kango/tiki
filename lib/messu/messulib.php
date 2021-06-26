@@ -17,7 +17,7 @@ class Messu extends TikiLib
 	/**
 	 * Put sent message to 'sent' box
 	 */
-	function save_sent_message($user, $from, $to, $cc, $subject, $body, $priority, $replyto_hash = '')
+	public function save_sent_message($user, $from, $to, $cc, $subject, $body, $priority, $replyto_hash = '')
 	{
 		global $prefs;
 		$userlib = TikiLib::lib('user');
@@ -77,7 +77,7 @@ class Messu extends TikiLib
 	 * @param string $bcc_sender	y/n send blind copy email to from user's
 	 * @return bool				success
 	 */
-	function post_message($user, $from, $to, $cc, $subject, $body, $priority, $replyto_hash = '', $replyto_email = '', $bcc_sender = '')
+	public function post_message($user, $from, $to, $cc, $subject, $body, $priority, $replyto_hash = '', $replyto_email = '', $bcc_sender = '')
 	{
 		global $prefs;
 		$userlib = TikiLib::lib('user');
@@ -202,7 +202,7 @@ class Messu extends TikiLib
 	 * Get a list of messages from users mailbox or users mail archive (from
 	 * which depends on $dbsource)
 	 */
-	function list_user_messages(
+	public function list_user_messages(
 		$user,
 		$offset,
 		$maxRecords,
@@ -276,7 +276,7 @@ class Messu extends TikiLib
 	 * Get the number of messages in the users mailbox or mail archive (from
 	 * which depends on $dbsource)
 	 */
-	function count_messages($user, $dbsource = 'messages', $unreadOnly = false, $newSince = 0)
+	public function count_messages($user, $dbsource = 'messages', $unreadOnly = false, $newSince = 0)
 	{
 		if ($dbsource == '') {
 			$dbsource = 'messages';
@@ -298,7 +298,7 @@ class Messu extends TikiLib
 	/**
 	 * Update message flagging
 	 */
-	function flag_message($user, $msgId, $flag, $val, $dbsource = 'messages')
+	public function flag_message($user, $msgId, $flag, $val, $dbsource = 'messages')
 	{
 		if (! $msgId || ! (in_array($flag, ['isRead', 'isFlagged']))) {
 			return false;
@@ -315,7 +315,7 @@ class Messu extends TikiLib
 	/**
 	 * Mark a message as replied
 	 */
-	function mark_replied($user, $replyto_hash, $dbsource = 'sent')
+	public function mark_replied($user, $replyto_hash, $dbsource = 'sent')
 	{
 		if ((! $replyto_hash) || ($replyto_hash == '')) {
 			return false;
@@ -333,7 +333,7 @@ class Messu extends TikiLib
 	 * Delete message from mailbox or users mail archive (from which depends on
 	 * $dbsource)
 	 */
-	function delete_message($user, $msgId, $dbsource = 'messages')
+	public function delete_message($user, $msgId, $dbsource = 'messages')
 	{
 		if (! $msgId) {
 			return false;
@@ -350,7 +350,7 @@ class Messu extends TikiLib
 	/**
 	 * Move message from mailbox to users mail archive
 	 */
-	function archive_message($user, $msgId, $dbsource = 'messages')
+	public function archive_message($user, $msgId, $dbsource = 'messages')
 	{
 		if (! $msgId) {
 			return false;
@@ -371,7 +371,7 @@ class Messu extends TikiLib
 	/**
 	 * Move message from archive to users mailbox
 	 */
-	function unarchive_message($user, $msgId, $dbsource = 'messages')
+	public function unarchive_message($user, $msgId, $dbsource = 'messages')
 	{
 		if (! $msgId) {
 			return false;
@@ -394,7 +394,7 @@ class Messu extends TikiLib
 	/**
 	 * Move read message older than x days from mailbox to users mail archive
 	 */
-	function archive_messages($user, $days, $dbsource = 'messages')
+	public function archive_messages($user, $days, $dbsource = 'messages')
 	{
 		if ($days < 1) {
 			return false;
@@ -417,7 +417,7 @@ class Messu extends TikiLib
 	/**
 	 * Move forward to the next message and get it from the database
 	 */
-	function get_next_message($user, $msgId, $sort_mode, $find, $flag, $flagval, $prio, $dbsource = 'messages')
+	public function get_next_message($user, $msgId, $sort_mode, $find, $flag, $flagval, $prio, $dbsource = 'messages')
 	{
 		if (! $msgId) {
 			return 0;
@@ -461,7 +461,7 @@ class Messu extends TikiLib
 	/**
 	 * Move backward to the next message and get it from the database
 	 */
-	function get_prev_message($user, $msgId, $sort_mode, $find, $flag, $flagval, $prio, $dbsource = 'messages')
+	public function get_prev_message($user, $msgId, $sort_mode, $find, $flag, $flagval, $prio, $dbsource = 'messages')
 	{
 		if (! $msgId) {
 			return 0;
@@ -505,7 +505,7 @@ class Messu extends TikiLib
 	 * Get a message from the users mailbox or his mail archive (from which
 	 * depends on $dbsource)
 	 */
-	function get_message($user, $msgId, $dbsource = 'messages')
+	public function get_message($user, $msgId, $dbsource = 'messages')
 	{
 		if ($dbsource == '') {
 			$dbsource = 'messages';
@@ -529,7 +529,7 @@ class Messu extends TikiLib
 	 * Get message from the users mailbox or his mail archive (from which
 	 * depends on $dbsource)
 	 */
-	function get_messages($user, $dbsource = 'messages', $subject = '', $to = '', $from = '')
+	public function get_messages($user, $dbsource = 'messages', $subject = '', $to = '', $from = '')
 	{
 		if ($dbsource == '') {
 			$dbsource = 'messages';
@@ -580,7 +580,7 @@ class Messu extends TikiLib
 	/**
 	 * Get mail source info from the  mail archive
 	 */
-	function get_archive_source($user, $msgId)
+	public function get_archive_source($user, $msgId)
 	{
 		$dbsource ='';
 

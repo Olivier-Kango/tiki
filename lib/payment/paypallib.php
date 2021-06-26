@@ -7,13 +7,13 @@
 
 class PaypalLib extends TikiDb_Bridge
 {
-	function get_invoice($ipn_data)
+	public function get_invoice($ipn_data)
 	{
 		global $prefs;
 		return isset($ipn_data['invoice']) ? str_replace($prefs['payment_invoice_prefix'], '', $ipn_data['invoice']) : 0;
 	}
 
-	function get_amount($ipn_data)
+	public function get_amount($ipn_data)
 	{
 		return $ipn_data['mc_gross'];
 	}
@@ -25,7 +25,7 @@ class PaypalLib extends TikiDb_Bridge
 	 * @param $payment_info
 	 * @return bool
 	 */
-	function is_valid($ipn_data, $payment_info)
+	public function is_valid($ipn_data, $payment_info)
 	{
 		// Make sure this is not a fake, must be verified even if discarded, otherwise will be resent
 		if (! $this->confirmed_by_paypal($ipn_data)) {
@@ -42,7 +42,7 @@ class PaypalLib extends TikiDb_Bridge
 	 * @param $skip_duplicates
 	 * @return bool
 	 */
-	function is_valid_for_payment($paypal_data, $payment_info, $skip_duplicates = true)
+	public function is_valid_for_payment($paypal_data, $payment_info, $skip_duplicates = true)
 	{
 		global $prefs;
 
@@ -85,7 +85,7 @@ class PaypalLib extends TikiDb_Bridge
 	 * @param string $lang	tiki language value
 	 * @return string		locale
 	 */
-	function localeMap($lang)
+	public function localeMap($lang)
 	{
 
 		$langMap = [
@@ -213,7 +213,7 @@ class PaypalLib extends TikiDb_Bridge
 	 * @param    string    The POST Message fields in &name=value pair format
 	 * @return    array    Parsed HTTP Response body
 	 */
-	function PayPalHttpPost($methodName_, $nvpStr_)
+	public function PayPalHttpPost($methodName_, $nvpStr_)
 	{
 		global $prefs;
 		$environment = $prefs['payment_paypal_environment'];
@@ -268,7 +268,7 @@ class PaypalLib extends TikiDb_Bridge
 		return $httpParsedResponseAr;
 	}
 
-	function PayPalLookupInvoice($invoiceId = "0", $startDate = "01/01/2010", $endDate = null)
+	public function PayPalLookupInvoice($invoiceId = "0", $startDate = "01/01/2010", $endDate = null)
 	{
 		// Set request-specific fields.
 		//$transactionID = urlencode('example_transaction_id');

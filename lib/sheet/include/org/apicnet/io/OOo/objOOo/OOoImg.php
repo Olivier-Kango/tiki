@@ -35,7 +35,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  */
 class OOoImg extends absOOo {
 
-	var $_styleImg;
+	public $_styleImg;
 
 	/**
 	 * OOoTable::OOoTable()
@@ -63,7 +63,7 @@ class OOoImg extends absOOo {
 	)
 	 * @return none
 	 **/
-	function __construct($argStyle){
+	public function __construct($argStyle){
 		parent::__construct();
 
 		if (is_array($argStyle)) {
@@ -76,7 +76,7 @@ class OOoImg extends absOOo {
 	}
 
 
-	function run(&$nodeContent, &$nodeStyle, $dir){
+	public function run(&$nodeContent, &$nodeStyle, $dir){
 		static $STYLNUM;
 		if (!isset($STYLNUM)){
 			$STYLNUM = array(

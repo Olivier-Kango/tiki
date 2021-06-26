@@ -25,7 +25,7 @@ abstract class Toolbar
 
 	private $requiredPrefs = [];
 
-	public static function getTag($tagName, $wysiwyg = false, $is_html = false) // {{{
+	public static function getTag($tagName, $wysiwyg = false, $is_html = false)
 	{
 		global $section;
 		//we detect sheet first because it has unique buttons
@@ -64,9 +64,9 @@ abstract class Toolbar
 		} elseif ($tagName == '|') {
 			return new ToolbarSpacer;
 		}
-	} // }}}
+	}
 
-	public static function getList($include_custom = true) // {{{
+	public static function getList($include_custom = true)
 	{
 		global $tikilib;
 		$parserlib = TikiLib::lib('parser');
@@ -173,7 +173,7 @@ abstract class Toolbar
 				$plugins
 			)
 		);
-	} // }}}
+	}
 
 	public static function getCustomList()
 	{
@@ -271,7 +271,7 @@ abstract class Toolbar
 
 	public static function fromData($tagName, $data)
 	{
- // {{{
+
 
 		$tag = null;
 
@@ -333,11 +333,11 @@ abstract class Toolbar
 			->setType($data['type']);
 
 		return $tag;
-	}	// }}}
+	}
 
-	abstract function getWikiHtml($areaId);
+	public abstract function getWikiHtml($areaId);
 
-	function isAccessible() // {{{
+	public function isAccessible()
 	{
 		global $prefs;
 
@@ -348,85 +348,85 @@ abstract class Toolbar
 		}
 
 		return true;
-	} // }}}
+	}
 
-	protected function addRequiredPreference($prefName) // {{{
+	protected function addRequiredPreference($prefName)
 	{
 		$this->requiredPrefs[] = $prefName;
-	} // }}}
+	}
 
-	protected function setIcon($icon) // {{{
+	protected function setIcon($icon)
 	{
 		$this->icon = $icon;
 
 		return $this;
-	} // }}}
+	}
 
-	protected function setIconName($iconname) // {{{
+	protected function setIconName($iconname)
 	{
 		$this->iconname = $iconname;
 
 		return $this;
-	} // }}}
+	}
 
-	protected function setLabel($label) // {{{
+	protected function setLabel($label)
 	{
 		$this->label = $label;
 
 		return $this;
-	} // }}}
+	}
 
-	protected function setWysiwygToken($token) // {{{
+	protected function setWysiwygToken($token)
 	{
 		$this->wysiwyg = $token;
 
 		return $this;
-	} // }}}
+	}
 
-	protected function setSyntax($syntax) // {{{
+	protected function setSyntax($syntax)
 	{
 		return $this;
-	} // }}}
+	}
 
-	protected function setType($type) // {{{
+	protected function setType($type)
 	{
 		$this->type = $type;
 
 		return $this;
-	} // }}}
+	}
 
-	function getIcon() // {{{
+	public function getIcon()
 	{
 		return $this->icon;
-	} // }}}
+	}
 
-	function getLabel() // {{{
+	public function getLabel()
 	{
 		return $this->label;
-	} // }}}
+	}
 
-	function getWysiwygToken($areaId) // {{{
+	public function getWysiwygToken($areaId)
 	{
 		return $this->wysiwyg;
-	} // }}}
+	}
 
 
-	function getWysiwygWikiToken($areaId) // {{{ // wysiwyg_htmltowiki
+	public function getWysiwygWikiToken($areaId) // wysiwyg_htmltowiki
 	{
 		return null;
-	} // }}}
+	}
 
-	function getSyntax($areaId) // {{{
+	public function getSyntax($areaId)
 	{
 		return '';
-	} // }}}
+	}
 
-	function getType() // {{{
+	public function getType()
 	{
 		return $this->type;
-	} // }}}
+	}
 
-	function getIconHtml() // {{{
+	public function getIconHtml()
 	{
 		if (! empty($this->iconname)) {
 			$iname = $this->iconname;
@@ -442,11 +442,11 @@ abstract class Toolbar
 		$smarty->loadPlugin('smarty_function_icon');
 		return smarty_function_icon(['name' => $iname, 'ititle' => ':'
 				. htmlentities($this->getLabel(), ENT_QUOTES, 'UTF-8'), 'iclass' => 'tips bottom'], $smarty->getEmptyInternalTemplate());
-	} // }}}
+	}
 
-	function getSelfLink($click, $title, $class)
+	public function getSelfLink($click, $title, $class)
 	{
- // {{{
+
 		global $prefs;
 		$smarty = TikiLib::lib('smarty');
 		$params = [];
@@ -469,7 +469,7 @@ abstract class Toolbar
 		}
 		$smarty->loadPlugin('smarty_block_self_link');
 		return smarty_block_self_link($params, $content, $smarty->getEmptyInternalTemplate());
-	} // }}}
+	}
 
 	protected function setupCKEditorTool($js, $name, $label = '', $icon = '')
 	{
@@ -507,37 +507,37 @@ JS
 
 class ToolbarSeparator extends Toolbar
 {
-	function __construct() // {{{
+	public function __construct()
 	{
 		$this->setWysiwygToken('-')
 			->setIcon('img/separator.gif')
 				->setType('Separator');
-	} // }}}
+	}
 
-	function getWikiHtml($areaId) // {{{
+	public function getWikiHtml($areaId)
 	{
 		return '|';
-	} // }}}
+	}
 }
 
 class ToolbarSpacer extends Toolbar
 {
-	function __construct() // {{{
+	public function __construct()
 	{
 		$this->setWysiwygToken('|')
 			->setIcon('img/trans.png')
 				->setType('Spacer');
-	} // }}}
+	}
 
-	function getWikiHtml($areaId) // {{{
+	public function getWikiHtml($areaId)
 	{
 		return '||';
-	} // }}}
+	}
 }
 
 class ToolbarCkOnly extends Toolbar
 {
-	function __construct($token, $icon = '', $iconname = '') // {{{
+	public function __construct($token, $icon = '', $iconname = '')
 	{
 		if (empty($icon)) {
 			$img_path = 'img/ckeditor/' . strtolower($token) . '.png';
@@ -551,9 +551,9 @@ class ToolbarCkOnly extends Toolbar
 			->setIcon($icon)
 			->setIconName($iconname)
 			->setType('CkOnly');
-	} // }}}
+	}
 
-	public static function fromName($name, $is_html) // {{{
+	public static function fromName($name, $is_html)
 	{
 		global $prefs;
 
@@ -639,14 +639,14 @@ class ToolbarCkOnly extends Toolbar
 			case 'unlink':
 				return new self('Unlink', null, 'unlink');
 		}
-	} // }}}
+	}
 
-	function getWikiHtml($areaId) // {{{
+	public function getWikiHtml($areaId)
 	{
 		return null;
-	} // }}}
+	}
 
-	function getWysiwygToken($areaId)
+	public function getWysiwygToken($areaId)
 	{
 		if ($this->wysiwyg === 'Image') {	// cke's own image tool
 			global $prefs;
@@ -658,7 +658,7 @@ class ToolbarCkOnly extends Toolbar
 		return $this->wysiwyg;
 	}
 
-	function getWysiwygWikiToken($areaId) // {{{ // wysiwyg_htmltowiki
+	public function getWysiwygWikiToken($areaId) // wysiwyg_htmltowiki
 	{
 		switch ($this->wysiwyg) {
 			case 'autosave':
@@ -680,16 +680,15 @@ class ToolbarCkOnly extends Toolbar
 			default:
 				return null;
 		}
-	} // }}}
+	}
 
-	function getLabel() // {{{
+	public function getLabel()
 	{
 		return $this->wysiwyg;
-	} // }}}
+	}
 
-	function getIconHtml() // {{{ for admin page
+	public function getIconHtml()
 	{
-
 		if (! empty($this->iconname)) {
 			$smarty = TikiLib::lib('smarty');
 			$smarty->loadPlugin('smarty_function_icon');
@@ -715,14 +714,14 @@ class ToolbarCkOnly extends Toolbar
 			' title="' . htmlentities($this->getLabel(), ENT_QUOTES, 'UTF-8') . '">' .
 			'<span class="cke_icon"> </span>' .
 			'</span></a></span>';
-	} // }}}
+	}
 }
 
 class ToolbarInline extends Toolbar
 {
 	protected $syntax;
 
-	public static function fromName($tagName) // {{{
+	public static function fromName($tagName)
 	{
 		switch ($tagName) {
 			case 'bold':
@@ -780,26 +779,26 @@ class ToolbarInline extends Toolbar
 			->setType('Inline');
 
 		return $tag;
-	} // }}}
+	}
 
-	function getSyntax($areaId) // {{{
+	public function getSyntax($areaId)
 	{
 		return $this->syntax;
-	} // }}}
+	}
 
-	function setSyntax($syntax) // {{{
+	public function setSyntax($syntax)
 	{
 		$this->syntax = $syntax;
 
 		return $this;
-	} // }}}
+	}
 
-	function getWysiwygWikiToken($areaId) // {{{ // wysiwyg_htmltowiki
+	public function getWysiwygWikiToken($areaId) // wysiwyg_htmltowiki
 	{
 		return $this->getWysiwygToken($areaId);
-	} // }}}
+	}
 
-	function getWikiHtml($areaId) // {{{
+	public function getWikiHtml($areaId)
 	{
 		if ($this->syntax == '~np~text~/np~') {	// closing ~/np~ tag breaks toolbar when inside nested plugins
 			return $this->getSelfLink(
@@ -814,14 +813,14 @@ class ToolbarInline extends Toolbar
 				'qt-inline'
 			);
 		}
-	} // }}}
+	}
 }
 
 class ToolbarBlock extends ToolbarInline // Will change in the future
 {
 	protected $syntax;
 
-	public static function fromName($tagName) // {{{
+	public static function fromName($tagName)
 	{
 		global $prefs;
 
@@ -896,9 +895,9 @@ class ToolbarBlock extends ToolbarInline // Will change in the future
 			->setType('Block');
 
 		return $tag;
-	} // }}}
+	}
 
-	function getWikiHtml($areaId) // {{{
+	public function getWikiHtml($areaId)
 	{
 		if ($this->syntax == '...page...') {	// for some reason breaks toolbar when inside nested plugins
 			return $this->getSelfLink(
@@ -913,14 +912,14 @@ class ToolbarBlock extends ToolbarInline // Will change in the future
 				'qt-block'
 			);
 		}
-	} // }}}
+	}
 }
 
 class ToolbarLineBased extends ToolbarInline // Will change in the future
 {
 	protected $syntax;
 
-	public static function fromName($tagName) // {{{
+	public static function fromName($tagName)
 	{
 		switch ($tagName) {
 			case 'list':
@@ -951,16 +950,16 @@ class ToolbarLineBased extends ToolbarInline // Will change in the future
 			->setType('LineBased');
 
 		return $tag;
-	} // }}}
+	}
 
-	function getWikiHtml($areaId) // {{{
+	public function getWikiHtml($areaId)
 	{
 		return $this->getSelfLink(
 			'insertAt(\'' . $areaId . '\', \'' . addslashes(htmlentities($this->syntax, ENT_COMPAT, 'UTF-8')) . '\', true, true);',
 			htmlentities($this->label, ENT_QUOTES, 'UTF-8'),
 			'qt-line'
 		);
-	} // }}}
+	}
 }
 
 
@@ -969,7 +968,7 @@ class ToolbarPicker extends Toolbar
 	private $list;
 	private $name;
 
-	public static function fromName($tagName) // {{{
+	public static function fromName($tagName)
 	{
 		global $section, $prefs;
 		$headerlib = TikiLib::lib('header');
@@ -1082,17 +1081,17 @@ class ToolbarPicker extends Toolbar
 		ToolbarPicker::setupJs();
 
 		return $tag;
-	} // }}}
+	}
 
-	function setName($name) // {{{
+	public function setName($name)
 	{
 		$this->name = $name;
 
 		return $this;
-	} // }}}
+	}
 
 
-	function getWysiwygWikiToken($areaId) // {{{ // wysiwyg_htmltowiki
+	public function getWysiwygWikiToken($areaId) // wysiwyg_htmltowiki
 	{
 		switch ($this->wysiwyg) {
 			case 'BGColor':
@@ -1103,22 +1102,22 @@ class ToolbarPicker extends Toolbar
 			default:
 				return null;
 		}
-	} // }}}
+	}
 
 
-	function setList($list) // {{{
+	public function setList($list)
 	{
 		$this->list = $list;
 
 		return $this;
-	} // }}}
+	}
 
-	protected function setSyntax($syntax) // {{{
+	protected function setSyntax($syntax)
 	{
 		$this->syntax = $syntax;
 
 		return $this;
-	} // }}}
+	}
 
 	public function getSyntax($areaId = '$areaId')
 	{
@@ -1141,7 +1140,7 @@ class ToolbarPicker extends Toolbar
 		}
 	}
 
-	function getWikiHtml($areaId) // {{{
+	public function getWikiHtml($areaId)
 	{
 		global $prefs;
 		$headerlib = TikiLib::lib('header');
@@ -1152,14 +1151,14 @@ class ToolbarPicker extends Toolbar
 			htmlentities($this->label, ENT_QUOTES, 'UTF-8'),
 			'qt-picker'
 		);
-	} // }}}
+	}
 
-	protected function setStyleType($type) // {{{
+	protected function setStyleType($type)
 	{
 		$this->styleType = $type;
 
 		return $this;
-	} // }}}
+	}
 }
 
 class ToolbarDialog extends Toolbar
@@ -1168,7 +1167,7 @@ class ToolbarDialog extends Toolbar
 	private $index;
 	private $name;
 
-	public static function fromName($tagName) // {{{
+	public static function fromName($tagName)
 	{
 		global $prefs;
 
@@ -1333,33 +1332,33 @@ class ToolbarDialog extends Toolbar
 		ToolbarDialog::setupJs();
 
 		return $tag;
-	} // }}}
+	}
 
-	function setList($list) // {{{
+	public function setList($list)
 	{
 		$this->list = $list;
 
 		return $this;
-	} // }}}
+	}
 
-	protected function setSyntax($syntax) // {{{
+	protected function setSyntax($syntax)
 	{
 		$this->syntax = $syntax;
 
 		return $this;
-	} // }}}
+	}
 
 	public function getSyntax($areaId = '$areaId')
 	{
 		return 'displayDialog( this, ' . $this->index . ', \'' . $areaId . '\')';
 	}
 
-	static function setupJs()
+	public static function setupJs()
 	{
 		TikiLib::lib('header')->add_jsfile('lib/jquery_tiki/tiki-toolbars.js');
 	}
 
-	function getWikiHtml($areaId) // {{{
+	public function getWikiHtml($areaId)
 	{
 		$headerlib = TikiLib::lib('header');
 		$headerlib->add_js("if (! window.dialogData) { window.dialogData = {}; } window.dialogData[$this->index] = "
@@ -1370,9 +1369,9 @@ class ToolbarDialog extends Toolbar
 			htmlentities($this->label, ENT_QUOTES, 'UTF-8'),
 			'qt-picker'
 		);
-	} // }}}
+	}
 
-	function getWysiwygToken($areaId) // {{{
+	public function getWysiwygToken($areaId)
 	{
 		if (! empty($this->wysiwyg)) {
 			TikiLib::lib('header')->add_js(
@@ -1383,9 +1382,9 @@ class ToolbarDialog extends Toolbar
 			$this->setupCKEditorTool($syntax, $this->wysiwyg, $this->label, $this->icon);
 		}
 		return $this->wysiwyg;
-	} // }}}
+	}
 
-	function getWysiwygWikiToken($areaId) // {{{ // wysiwyg_htmltowiki
+	public function getWysiwygWikiToken($areaId) // wysiwyg_htmltowiki
 	{
 		switch ($this->name) {
 			case 'tikilink':
@@ -1405,20 +1404,20 @@ class ToolbarDialog extends Toolbar
 		}
 
 		return $this->getWysiwygToken($areaId);
-	} // }}}
+	}
 }
 
 class ToolbarFullscreen extends Toolbar
 {
-	function __construct() // {{{
+	public function __construct()
 	{
 		$this->setLabel(tra('Full-screen edit'))
 			->setIconName('fullscreen')
 			->setWysiwygToken('Maximize')
 			->setType('Fullscreen');
-	} // }}}
+	}
 
-	function getWikiHtml($areaId) // {{{
+	public function getWikiHtml($areaId)
 	{
 
 		return $this->getSelfLink(
@@ -1426,24 +1425,24 @@ class ToolbarFullscreen extends Toolbar
 			htmlentities($this->label, ENT_QUOTES, 'UTF-8'),
 			'qt-fullscreen'
 		);
-	} // }}}
+	}
 
-	function getWysiwygWikiToken($areaId) // {{{ // wysiwyg_htmltowiki
+	public function getWysiwygWikiToken($areaId) // wysiwyg_htmltowiki
 	{
 		return $this->getWysiwygToken($areaId);
-	} // }}}
+	}
 }
 
 class ToolbarHelptool extends Toolbar
 {
-	function __construct() // {{{
+	public function __construct()
 	{
 		$this->setLabel(tra('Wiki Help'))
 			->setIcon('img/icons/help.png')
 			->setType('Helptool');
-	} // }}}
+	}
 
-	function getWikiHtml($areaId) // {{{
+	public function getWikiHtml($areaId)
 	{
 		global $section;
 
@@ -1465,9 +1464,9 @@ class ToolbarHelptool extends Toolbar
 		$help = tra('Help');
 
 		return "<a title=\":$help\" class=\"toolbar btn btn-sm px-2 qt-help tips bottom\" href=\"$url\" data-toggle=\"modal\" data-target=\"#bootstrap-modal\">$icon</a>";
-	} // }}}
+	}
 
-	function getWysiwygToken($areaId) // {{{
+	public function getWysiwygToken($areaId)
 	{
 		global $section;
 
@@ -1495,17 +1494,17 @@ class ToolbarHelptool extends Toolbar
 		return $name;
 	}
 
-	function getWysiwygWikiToken($areaId) // {{{ // wysiwyg_htmltowiki
+	public function getWysiwygWikiToken($areaId) // wysiwyg_htmltowiki
 	{
 		return $this->getWysiwygToken($areaId);
-	} // }}}
+	}
 }
 
 class ToolbarFileGallery extends Toolbar
 {
 	private $name;
 
-	function __construct() // {{{
+	public function __construct()
 	{
 		$this->setLabel(tra('Choose or upload images'))
 			->setIconName('image')
@@ -1513,9 +1512,9 @@ class ToolbarFileGallery extends Toolbar
 			->setWysiwygToken('tikiimage')
 			->setType('FileGallery')
 			->addRequiredPreference('feature_filegals_manager');
-	} // }}}
+	}
 
-	function getSyntax($areaId)
+	public function getSyntax($areaId)
 	{
 		global $prefs;
 		$smarty = TikiLib::lib('smarty');
@@ -1559,12 +1558,12 @@ class ToolbarFileGallery extends Toolbar
 		}
 	}
 
-	function getWikiHtml($areaId) // {{{
+	public function getWikiHtml($areaId)
 	{
 		return $this->getSelfLink($this->getSyntax($areaId), htmlentities($this->label, ENT_QUOTES, 'UTF-8'), 'qt-filegal');
-	} // }}}
+	}
 
-	function getWysiwygToken($areaId) // {{{
+	public function getWysiwygToken($areaId)
 	{
 		if (! empty($this->wysiwyg)) {
 			$this->name = $this->wysiwyg;	// temp
@@ -1573,32 +1572,32 @@ class ToolbarFileGallery extends Toolbar
 			$this->setupCKEditorTool($exec_js, $this->name, $this->label, $this->icon);
 		}
 		return $this->wysiwyg;
-	} // }}}
+	}
 
-	function getWysiwygWikiToken($areaId) // {{{ // wysiwyg_htmltowiki
+	public function getWysiwygWikiToken($areaId) // wysiwyg_htmltowiki
 	{
 		return $this->getWysiwygToken($areaId);
-	} // }}}
+	}
 
-	function isAccessible() // {{{
+	public function isAccessible()
 	{
 		return parent::isAccessible();
-	} // }}}
+	}
 }
 
 class ToolbarFileGalleryFile extends ToolbarFileGallery
 {
 
-	function __construct() // {{{
+	public function __construct()
 	{
 		$this->setLabel(tra('Choose or upload files'))
 			->setIconName('upload')
 			->setWysiwygToken('tikifile')
 			->setType('FileGallery')
 			->addRequiredPreference('feature_filegals_manager');
-	} // }}}
+	}
 
-	function getSyntax($areaId)
+	public function getSyntax($areaId)
 	{
 		$smarty = TikiLib::lib('smarty');
 		$smarty->loadPlugin('smarty_function_filegal_manager_url');
@@ -1610,7 +1609,7 @@ class ToolbarFileGalleryFile extends ToolbarFileGallery
 class ToolbarSwitchEditor extends Toolbar
 {
 	private $name;
-	function __construct() // {{{
+	public function __construct()
 	{
 		$this->setLabel(tra('Switch Editor (wiki or WYSIWYG)'))
 			->setIconName('pencil')
@@ -1618,18 +1617,18 @@ class ToolbarSwitchEditor extends Toolbar
 			->setWysiwygToken('tikiswitch')
 			->setType('SwitchEditor')
 			->addRequiredPreference('feature_wysiwyg');
-	} // }}}
+	}
 
-	function getWikiHtml($areaId) // {{{
+	public function getWikiHtml($areaId)
 	{
 		return $this->getSelfLink(
 			'switchEditor(\'wysiwyg\', $(this).parents(\'form\')[0]);',
 			htmlentities($this->label, ENT_QUOTES, 'UTF-8'),
 			'qt-switcheditor'
 		);
-	} // }}}
+	}
 
-	function getWysiwygToken($areaId) // {{{
+	public function getWysiwygToken($areaId)
 	{
 		global $prefs;
 		if (! empty($this->wysiwyg)) {
@@ -1641,28 +1640,28 @@ class ToolbarSwitchEditor extends Toolbar
 			}
 		}
 		return $this->wysiwyg;
-	} // }}}
+	}
 
 
-	function getWysiwygWikiToken($areaId) // {{{ // wysiwyg_htmltowiki
+	public function getWysiwygWikiToken($areaId) // wysiwyg_htmltowiki
 	{
 		return $this->getWysiwygToken($areaId);
-	} // }}}
+	}
 
 
-	function isAccessible() // {{{
+	public function isAccessible()
 	{
 		global $tiki_p_edit_switch_mode;
 
 		return parent::isAccessible() &&
 				! isset($_REQUEST['hdr']) &&		// or in section edit
 				$tiki_p_edit_switch_mode === 'y';	// or no perm (new in 7.1)
-	} // }}}
+	}
 
-/*	function getLabel() // {{{
+/*	function getLabel()
 	{
 		return $this->label;
-	} // }}}
+	}
 */
 }
 
@@ -1670,7 +1669,7 @@ class ToolbarSwitchEditor extends Toolbar
 class ToolbarAdmin extends Toolbar
 {
 	private $name;
-	function __construct() // {{{
+	public function __construct()
 	{
 		$this->setLabel(tra('Admin Toolbars'))
 			->setIconName('wrench')
@@ -1678,18 +1677,18 @@ class ToolbarAdmin extends Toolbar
 			->setWysiwygToken('admintoolbar')
 			->setType('admintoolbar');
 			//->addRequiredPreference('feature_wysiwyg');
-	} // }}}
+	}
 
-	function getWikiHtml($areaId) // {{{
+	public function getWikiHtml($areaId)
 	{
 		return $this->getSelfLink(
 			'admintoolbar();',
 			htmlentities($this->label, ENT_QUOTES, 'UTF-8'),
 			'qt-admintoolbar'
 		);
-	} // }}}
+	}
 
-	function getWysiwygToken($areaId) // {{{
+	public function getWysiwygToken($areaId)
 	{
 		global $prefs;
 		if (! empty($this->wysiwyg)) {
@@ -1701,20 +1700,20 @@ class ToolbarAdmin extends Toolbar
 			}
 		}
 		return $this->wysiwyg;
-	} // }}}
+	}
 
 
-	function getWysiwygWikiToken($areaId) // {{{ // wysiwyg_htmltowiki
+	public function getWysiwygWikiToken($areaId) // wysiwyg_htmltowiki
 	{
 		return $this->getWysiwygToken($areaId);
-	} // }}}
+	}
 }
 
 class ToolbarWikiplugin extends Toolbar
 {
 	private $pluginName;
 
-	public static function fromName($name) // {{{
+	public static function fromName($name)
 	{
 		global $tikilib;
 		$parserlib = TikiLib::lib('parser');
@@ -1741,45 +1740,46 @@ class ToolbarWikiplugin extends Toolbar
 				return $tag;
 			}
 		}
-	} // }}}
+	}
 
-	function setPluginName($name) // {{{
+	public function setPluginName($name)
 	{
 		$this->pluginName = $name;
 
 		return $this;
-	} // }}}
+	}
 
-	function getPluginName() // {{{
+	public function getPluginName()
 	{
 		return $this->pluginName;
-	} // }}}
+	}
 
-	function isAccessible() // {{{
+	public function isAccessible()
 	{
 		global $tikilib;
 		$parserlib = TikiLib::lib('parser');
 		$dummy_output = '';
 		return parent::isAccessible() && $parserlib->plugin_enabled($this->pluginName, $dummy_output);
-	} // }}}
+	}
 
-	private static function getToken($name) // {{{
+	private static function getToken($name)
 	{
 		switch ($name) {
 			case 'flash':
 				return 'Flash';
 		}
-	} // }}}
+	}
 
-	function getWikiHtml($areaId) // {{{
+	public function getWikiHtml($areaId)
 	{
 		return $this->getSelfLink(
 			'popupPluginForm(\'' . $areaId . '\',\'' . $this->pluginName . '\')',
 			htmlentities($this->label, ENT_QUOTES, 'UTF-8'),
 			'qt-plugin'
 		);
-	} // }}}
-	function getWysiwygToken($areaId, $add_js = true) // {{{
+	}
+
+	public function getWysiwygToken($areaId, $add_js = true)
 	{
 		if (! empty($this->wysiwyg) && $add_js) {
 			$js = "popupPluginForm(editor.name,'{$this->pluginName}');";
@@ -1803,9 +1803,9 @@ class ToolbarWikiplugin extends Toolbar
 			$this->setupCKEditorTool($js, $this->wysiwyg, $this->label, $iconpath);
 		}
 		return $this->wysiwyg;
-	} // }}}
+	}
 
-	function getWysiwygWikiToken($areaId, $add_js = true) // {{{ // wysiwyg_htmltowiki
+	public function getWysiwygWikiToken($areaId, $add_js = true) // wysiwyg_htmltowiki
 	{
 		switch ($this->pluginName) {
 			case 'img':
@@ -1815,14 +1815,14 @@ class ToolbarWikiplugin extends Toolbar
 		}
 
 		return $this->getWysiwygToken($areaId, $add_js);
-	} // }}}
+	}
 }
 
 class ToolbarSheet extends Toolbar
 {
 	protected $syntax;
 
-	public static function fromName($tagName) // {{{
+	public static function fromName($tagName)
 	{
 		switch ($tagName) {
 			case 'sheetsave':
@@ -1939,28 +1939,28 @@ class ToolbarSheet extends Toolbar
 		}
 
 		return $tag;
-	} // }}}
+	}
 
-	function getSyntax($areaId) // {{{
+	public function getSyntax($areaId)
 	{
 		return $this->syntax;
-	} // }}}
+	}
 
-	protected function setSyntax($syntax) // {{{
+	protected function setSyntax($syntax)
 	{
 		$this->syntax = $syntax;
 
 		return $this;
-	} // }}}
+	}
 
-	function getWikiHtml($areaId) // {{{
+	public function getWikiHtml($areaId)
 	{
 		return $this->getSelfLink(
 			addslashes(htmlentities($this->syntax, ENT_COMPAT, 'UTF-8')),
 			htmlentities($this->label, ENT_QUOTES, 'UTF-8'),
 			'qt-sheet'
 		);
-	} // }}}
+	}
 }
 
 
@@ -1980,7 +1980,7 @@ class ToolbarsList
 	 * @param array $tags_to_hide      list of tools not to show
 	 * @return ToolbarsList
 	 */
-	public static function fromPreference($params, $tags_to_hide = []) // {{{
+	public static function fromPreference($params, $tags_to_hide = [])
 	{
 		global $tikilib;
 
@@ -1997,9 +1997,9 @@ class ToolbarsList
 		$local = str_replace([',,', '|,', ',|', ',/', '/,'], [',', '|', '|', '/', '/'], $local);
 
 		return self::fromPreferenceString($local, $params);
-	} // }}}
+	}
 
-	public static function fromPreferenceString($string, $params) // {{{
+	public static function fromPreferenceString($string, $params)
 	{
 		global $toolbarPickerIndex;
 		$toolbarPickerIndex = -1;
@@ -2019,7 +2019,7 @@ class ToolbarsList
 		}
 
 		return $list;
-	} // }}}
+	}
 
 	public function addTag($name, $unique = false)
 	{
@@ -2039,7 +2039,7 @@ class ToolbarsList
 		return true;
 	}
 
-	private function addLine(array $tags, array $rtags = []) // {{{
+	private function addLine(array $tags, array $rtags = [])
 	{
 		$elements = [];
 		$j = count($rtags) > 0 ? 2 : 1;
@@ -2074,9 +2074,9 @@ class ToolbarsList
 		if (count($elements)) {
 			$this->lines[] = $elements;
 		}
-	} // }}}
+	}
 
-	function getWysiwygArray($areaId, $isHtml = true) // {{{
+	public function getWysiwygArray($areaId, $isHtml = true)
 	{
 		$lines = [];
 		foreach ($this->lines as $line) {
@@ -2112,9 +2112,9 @@ class ToolbarsList
 		}
 
 		return $lines;
-	} // }}}
+	}
 
-	function getWikiHtml($areaId, $comments = '') // {{{
+	public function getWikiHtml($areaId, $comments = '')
 	{
 		global $tiki_p_admin, $tiki_p_admin_toolbars, $section, $prefs;
 		$headerlib = TikiLib::lib('header');
@@ -2175,11 +2175,11 @@ class ToolbarsList
 		}
 
 		return $html;
-	} // }}}
+	}
 
-	function contains($name)
+	public function contains($name)
 	{
- // {{{
+
 		foreach ($this->lines as $line) {
 			foreach ($line as $group) {
 				foreach ($group as $tags) {
@@ -2192,7 +2192,7 @@ class ToolbarsList
 			}
 		}
 		return false;
-	} // }}}
+	}
 }
 
 
@@ -2211,7 +2211,7 @@ class ToolbarCombos
 	 *
 	 * @param string $tb_type The CKE toolbar type
 	 */
-	static function getFormatTags($tb_type)
+	public static function getFormatTags($tb_type)
 	{
 		switch ($tb_type) {
 			case 'wiki':

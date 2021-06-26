@@ -28,12 +28,11 @@ APIC::import("org.apicnet.io.File");
 
 class OOoMime extends ErrorManager {
 
-	function __construct($dir, $type){
+	public function __construct($dir, $type){
 		
 		$file = new File($dir."/mimetype");
 		if (!$file->exists()) {
 			$file->writeData("application/vnd.sun.xml.".$type);
 		}
 	}
-
-}	
+}

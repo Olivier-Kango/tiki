@@ -12,16 +12,16 @@ require_once('lib/wizard/wizard.php');
  */
 class AdminWizardEditorType extends Wizard
 {
-	function pageTitle()
+	public function pageTitle()
 	{
 		return tra('Select Editor type');
 	}
-	function isEditable()
+	public function isEditable()
 	{
 		return true;
 	}
 
-	function onSetupPage($homepageUrl)
+	public function onSetupPage($homepageUrl)
 	{
 		global $prefs;
 		$smarty = TikiLib::lib('smarty');
@@ -37,13 +37,13 @@ class AdminWizardEditorType extends Wizard
 		return $showPage;
 	}
 
-	function getTemplate()
+	public function getTemplate()
 	{
 		$wizardTemplate = 'wizard/admin_editor_type.tpl';
 		return $wizardTemplate;
 	}
 
-	function onContinue($homepageUrl)
+	public function onContinue($homepageUrl)
 	{
 		$tikilib = TikiLib::lib('tiki');
 

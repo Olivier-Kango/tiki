@@ -19,44 +19,44 @@ if (strpos($_SERVER["SCRIPT_NAME"],basename(__FILE__)) !== false) {
 */
 
 class StringBuffer extends APICObject {
-	var $str;
+	public $str;
 	
 	/**
 	* create an instance of a StringBuffer
 	* @param	string|core.StringBuffer	string source
 	* @access	public
 	*/
-	function __construct( $str = '' ) {
+	public function __construct( $str = '' ) {
 		$this->setString($str);
 	}
-	
-	function setString($str){
+
+	public function setString($str){
 		$this->str  = $str;
 	}
-	function prepend($str){
+	public function prepend($str){
 		$this->str = ( StringBuffer::validClass($str) ? $str->toString() : $str ) . $this->str;
 	}
-	
-	function append($str) {
+
+	public function append($str) {
 		$this->str .= ( StringBuffer::validClass($str) ? $str->toString() : $str );
 	}
-	
-	function toString() {
+
+	public function toString() {
 		return $this->str;
 	}
-	
-	function length() {
+
+	public function length() {
 		return strlen( $this->str );
 	}
-	
-	function charAt($index) {
+
+	public function charAt($index) {
 		if (is_integer($index) && $index>=0 && $index<$this->length()) {
 			return($this->str[$index]);
 		}
 		return;
 	}
-	
-	function  insertAt($index, $string){
+
+	public function insertAt($index, $string){
 		if (StringBuffer::validClass($string)) {
 			$string = $string->toString();
 		}
@@ -71,8 +71,8 @@ class StringBuffer extends APICObject {
 			return new StringBuffer($str_a->toString() . $string . $str_b->toString());
 		}
 	}
-	
-	function remove($from, $to){
+
+	public function remove($from, $to){
 		$from = (int)$from;
 		$to = (int)$to;
 		if ($from>$to){
@@ -102,7 +102,7 @@ class StringBuffer extends APICObject {
 	* @param $to string 			end index (exlude) to extract
 	* @return string 				the part of the string that have been extracted
 	**/
-	function substring($from, $to = -1) {
+	public function substring($from, $to = -1) {
 		$result = '';
 		if ($to>=$from){
 			$result = substr($this->str, $from, ($to-$from));
@@ -120,7 +120,7 @@ class StringBuffer extends APICObject {
 	* @param $length string 		numbers of characters to be extracted from the start index
 	* @return core.StringBuffer 	the part of the string that have been extracted
 	**/
-	function substr($start, $length = 0) {
+	public function substr($start, $length = 0) {
 		$result = '';
 		if ($length>$start){
 			$result = substr($this->str, $start, $length);
@@ -130,20 +130,20 @@ class StringBuffer extends APICObject {
 		
 		return new StringBuffer($result);
 	}
-	
-	function leftTrim(){
+
+	public function leftTrim(){
 		return new StringBuffer(ltrim($this->toString()));
 	}
-	
-	function rightTrim(){
+
+	public function rightTrim(){
 		return new StringBuffer(chop($this->toString()));
 	}
-	
-	function trimAll(){
+
+	public function trimAll(){
 		return new StringBuffer(trim($this->toString()));
 	}
-	
-	function indexOf($str, $offset = 0){
+
+	public function indexOf($str, $offset = 0){
 		$str = StringBuffer::toStringBuffer($str);
 		if (!isset($str) || $offset>=$this->length()) {
 			return -1;
@@ -155,16 +155,16 @@ class StringBuffer extends APICObject {
 			return $pos;
 		}
 	}
-	
-	function lastIndexOf($str){
+
+	public function lastIndexOf($str){
 		$res = $this->allIndexOf($str);
 		if ($res!="" && is_array($res) && count($res)>0){
 			return $res[count($res)-1];
 		}
 		return -1;
 	}
-	
-	function allIndexOf($str){
+
+	public function allIndexOf($str){
 		$res = array();
 		$pos = 0;
 		$offset = 0;
@@ -174,27 +174,27 @@ class StringBuffer extends APICObject {
 		}
 		return $res;
 	}
-	
-	function countAllIndexOf($str){
+
+	public function countAllIndexOf($str){
 		return count($this->allIndexOf($str));
 	}
-	
-	function endsWith($value, $ignorecase=FALSE){
+
+	public function endsWith($value, $ignorecase=FALSE){
 		$value = StringBuffer::toStringBuffer($value);
 		$pattern = '/('.str_replace("/","\\/",preg_quote($value->toString())).')$/'.($ignorecase==TRUE?'i':'');
 		return @preg_match($pattern, $this->str)>0;
 	}
-	
-	function startsWith($value, $ignorecase=FALSE){
+
+	public function startsWith($value, $ignorecase=FALSE){
 		$value = StringBuffer::toStringBuffer($value);
 		return @preg_match('/^('.str_replace("/","\\/",preg_quote($value->toString())).')/'.($ignorecase==TRUE?'i':''), $this->str)>0;
 	}
-	
-	function equalsIgnoreCase($str){
+
+	public function equalsIgnoreCase($str){
 		return $this->equals($str, TRUE);
 	}
-	
-	function equals($str, $ignorecase = FALSE){
+
+	public function equals($str, $ignorecase = FALSE){
 		$str = StringBuffer::toStringBuffer($str);
 		$pattern = '/^('.preg_quote($str->toString()).')$/';
 		if ($ignorecase){
@@ -208,7 +208,7 @@ class StringBuffer extends APICObject {
 	* @param $source string		the source string
 	* @return StringBuffer			the new lower case string
 	**/
-	function toLowerCase($source=""){
+	public function toLowerCase($source=""){
 		$string = preg_replace_callback('/([À-Ý]|[A-Z])/', function ($match) {
 			return chr(ord($match[1])+32);
 		}, $this->str);
@@ -220,7 +220,7 @@ class StringBuffer extends APICObject {
 	* @param $source string		the source string
 	* @return string 				the new upper case string
 	**/
-	function toUpperCase($source=""){
+	public function toUpperCase($source=""){
 		$string = preg_replace_callback('/([à-ý]|[a-z])/', function ($match) {
 			return chr(ord($match[1])-32);
 		}, $this->str);
@@ -234,11 +234,11 @@ class StringBuffer extends APICObject {
 	* @param $replace string 		string use to replace the occurences found
 	* @return string 				the new string resulting from the replacement
 	**/
-	function replace($oldstr, $newstr){
+	public function replace($oldstr, $newstr){
 		return new StringBuffer(str_replace($oldstr, $newstr, $this->str));
 	}
-	
-	function loadFromStream($filename){
+
+	public function loadFromStream($filename){
 		$buffers = new StringBuffer();
 		$file = NULL;
 		if (File::validClass($filename)){
@@ -252,8 +252,8 @@ class StringBuffer extends APICObject {
 		}
 		$this->str = $buffers->toString();
 	}
-	
-	function toArray($delim, $source = ''){
+
+	public function toArray($delim, $source = ''){
 		$s = ($source!=""?$source:$this->toString());
 		if (StringBuffer::validClass($source)){
 			$s = $s->toString();
@@ -261,15 +261,15 @@ class StringBuffer extends APICObject {
 		$key = explode($delim, $s);
 		return $key;
 	}
-	
-	function split($delim, $source = ''){
+
+	public function split($delim, $source = ''){
 		return $this->toArray($delim, $source);
 	}
 	
 	/**
 	* @return core.StringBuffer
 	**/
-	function keepSpaceOnly(){
+	public function keepSpaceOnly(){
 		$s = preg_replace('/(\r|\n|\t|\s{2,})/',' ',$this->str);
 		$s = preg_replace('/(\s+)/',' ',$s);
 		return new StringBuffer($s);
@@ -279,7 +279,7 @@ class StringBuffer extends APICObject {
 	* remove all accent from a string 
 	* @return the processed string without accent
 	**/
-	function removeAccents(){
+	public function removeAccents(){
 		return new StringBuffer(strtr('AAAAAAaaaaaaOOOOO0ooooooEEEEeeeeCcIIIIiiiiUUUUuuuuyNn','ÀÁÂÃÄÅàáâãäåÒÓÔÕÖØòóôõöøÈÉÊËèéêëÇçÌÍÎÏìíîïÙÚÛÜùúûüÿÑñ', $this->str));
 	}
 	
@@ -289,7 +289,7 @@ class StringBuffer extends APICObject {
 	* @param $source string 		string to calculate the soundex 
 	* @return string 				the soundex value
 	**/
-	function createSoundex($lang='en'){ 
+	public function createSoundex($lang='en'){
 		$s = $this->toString();
 		if ($lang=='fr'){
 			if (strlen($s)>0){
@@ -313,14 +313,14 @@ class StringBuffer extends APICObject {
 			return new StringBuffer(soundex($s));
 		}
 	}
-	
-	function match($pattern){
+
+	public function match($pattern){
 		$result = array();
 		preg_match($pattern, $this->toString(), $result);
 		return $result;
 	}
-	
-	function toStringBuffer($object){
+
+	public function toStringBuffer($object){
 		if (StringBuffer::validClass($object)) {
 			return $object;
 		}
@@ -333,8 +333,8 @@ class StringBuffer extends APICObject {
 		}
 		return NULL;
 	}
-	
-	function generateKey($length = 10, $keytype = ""){
+
+	public function generateKey($length = 10, $keytype = ""){
 		$length = (int)$length;
 		if ($length<=0) {
 			return FALSE;
@@ -371,32 +371,32 @@ class StringBuffer extends APICObject {
 			}
 		}
 		return $key;
-	} 
-	
-	
-	function intValue(){
+	}
+
+
+	public function intValue(){
 		$value = $this->toString();
 		$value = (int)$value;
 		return $value;
 	}
-	
-	function boolValue(){
+
+	public function boolValue(){
 		return (bool)$this->str;
 	}
-	
-	function charToHex($char){
+
+	public function charToHex($char){
 		return dechex(ord($char));
 	}
-	
-	function hexToChar($hex){
+
+	public function hexToChar($hex){
 		return chr(hexdec($hex));
 	}
-	
-	function validClass($object){
+
+	public function validClass($object){
 		return APICObject::validClass($object, 'stringbuffer');
 	}
 
-	function jsonValue(){
+	public function jsonValue(){
 		return json_decode($this->str);
 	}
 }

@@ -18,7 +18,7 @@ class MiniCalLib extends TikiLib
 	// end  : unix timestamp of the interval end time
 	// events : array of events for the slot listing:
 	// title, description and duration
-	function minical_events_by_slot($user, $start, $end, $interval)
+	public function minical_events_by_slot($user, $start, $end, $interval)
 	{
 		// since interval is in hour convert it to seconds
 		//$interval = $interval * 60 * 60;
@@ -53,7 +53,7 @@ class MiniCalLib extends TikiLib
 		return $slots;
 	}
 
-	function minical_upload_topic($user, $topicname, $name, $type, $size, $data, $path)
+	public function minical_upload_topic($user, $topicname, $name, $type, $size, $data, $path)
 	{
 		if (strlen($data) == 0) {
 			$isIcon = 'y';
@@ -64,7 +64,7 @@ class MiniCalLib extends TikiLib
 		$this->query($query, [$user,$topicname,$name,$type,(int)$size,$data,$isIcon,$path]);
 	}
 
-	function minical_list_topics($user, $offset, $maxRecords, $sort_mode, $find)
+	public function minical_list_topics($user, $offset, $maxRecords, $sort_mode, $find)
 	{
 		$bindvars = [$user];
 		if ($find) {
@@ -89,7 +89,7 @@ class MiniCalLib extends TikiLib
 		return $retval;
 	}
 
-	function minical_get_topic($user, $topicId)
+	public function minical_get_topic($user, $topicId)
 	{
 		$query = "select * from `tiki_minical_topics` where `user`=? and `topicId`=?";
 		$result = $this->query($query, [$user,(int)$topicId]);
@@ -97,7 +97,7 @@ class MiniCalLib extends TikiLib
 		return $res;
 	}
 
-	function minical_list_events($user, $offset, $maxRecords, $sort_mode, $find)
+	public function minical_list_events($user, $offset, $maxRecords, $sort_mode, $find)
 	{
 		$bindvars = [$user];
 		if ($find) {
@@ -131,7 +131,7 @@ class MiniCalLib extends TikiLib
 		return $retval;
 	}
 
-	function minical_list_events_from_date($user, $offset, $maxRecords, $sort_mode, $find, $pdate)
+	public function minical_list_events_from_date($user, $offset, $maxRecords, $sort_mode, $find, $pdate)
 	{
 		$bindvars = [(int)$pdate,$user];
 		if ($find) {
@@ -162,7 +162,7 @@ class MiniCalLib extends TikiLib
 		return $retval;
 	}
 
-	function minical_get_event($user, $eventId)
+	public function minical_get_event($user, $eventId)
 	{
 		$query = "select * from `tiki_minical_events` where `user`=? and `eventId`=?";
 		$result = $this->query($query, [$user,(int)$eventId]);
@@ -170,19 +170,19 @@ class MiniCalLib extends TikiLib
 		return $res;
 	}
 
-	function minical_remove_topic($user, $topicId)
+	public function minical_remove_topic($user, $topicId)
 	{
 		$query = "delete from `tiki_minical_topics` where `user`=? and `topicId`=?";
 		$this->query($query, [$user,(int)$topicId]);
 	}
 
-	function minical_event_reminded($user, $eventId)
+	public function minical_event_reminded($user, $eventId)
 	{
 		$query = "update `tiki_minical_events` set `reminded`=? where `user`=? and `eventId`=?";
 		$this->query($query, ["y",$user,(int)$eventId]);
 	}
 
-	function minical_replace_event($user, $eventId, $title, $description, $start, $duration, $topicId)
+	public function minical_replace_event($user, $eventId, $title, $description, $start, $duration, $topicId)
 	{
 		if ($eventId) {
 			$query = "update `tiki_minical_events` set `topicId`=?,`end`=?,`title`=?,`description`=?,`start`=?,`duration`=?,`reminded`=?  where `user`=? and `eventId`=?";
@@ -196,13 +196,13 @@ class MiniCalLib extends TikiLib
 		}
 	}
 
-	function minical_remove_event($user, $eventId)
+	public function minical_remove_event($user, $eventId)
 	{
 		$query = "delete from `tiki_minical_events` where `user`=? and `eventId`=?";
 		$this->query($query, [$user,(int)$eventId]);
 	}
 
-	function minical_get_events_to_remind($user, $rem)
+	public function minical_get_events_to_remind($user, $rem)
 	{
 		// Search for events that are not reminded and will start
 		// in less than $rem
@@ -216,10 +216,10 @@ class MiniCalLib extends TikiLib
 		return $ret;
 	}
 
-	function minical_remove_old($user, $pdate)
+	public function minical_remove_old($user, $pdate)
 	{
 		$query = "delete from `tiki_minical_events` where `user`=? and `start`<?";
 		$this->query($query, [$user,(int)$pdate]);
 	}
 }
-$minicallib = new MiniCalLib;
+$minicallib = new MiniCalLib();

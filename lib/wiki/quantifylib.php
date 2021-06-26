@@ -10,7 +10,7 @@ require_once 'lib/diff.php';
 class QuantifyLib extends TikiLib
 {
 
-	function recordChangeSize($pageId, $version, $oldData, $newData)
+	public function recordChangeSize($pageId, $version, $oldData, $newData)
 	{
 		global $prefs;
 
@@ -29,7 +29,7 @@ class QuantifyLib extends TikiLib
 		);
 	}
 
-	function calculateChangeSize($oldData, $newData)
+	public function calculateChangeSize($oldData, $newData)
 	{
 		$oldData = $this->segmentData($oldData);
 		$newData = $this->segmentData($newData);
@@ -50,7 +50,7 @@ class QuantifyLib extends TikiLib
 		return [ $added, $removed, count($newData) ];
 	}
 
-	function segmentData($data)
+	public function segmentData($data)
 	{
 		$data = preg_replace('/\.\s/', "\n", $data);
 		$segments = explode("\n", $data);
@@ -66,7 +66,7 @@ class QuantifyLib extends TikiLib
 		return $final;
 	}
 
-	function getCompleteness($pageId)
+	public function getCompleteness($pageId)
 	{
 		$value = $this->getOne(
 			"SELECT" .
@@ -96,7 +96,7 @@ class QuantifyLib extends TikiLib
 		return floor($value * 100);
 	}
 
-	function wiki_update($arguments)
+	public function wiki_update($arguments)
 	{
 		$tikilib = TikiLib::lib('tiki');
 		$this->recordChangeSize($arguments['page_id'], $arguments['version'], $arguments['old_data'], $arguments['data']);

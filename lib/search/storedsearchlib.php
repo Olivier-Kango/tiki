@@ -76,7 +76,7 @@ class StoredSearchLib
 		return true;
 	}
 
-	function updateQuery($queryId, $label, $priority, $description)
+	public function updateQuery($queryId, $label, $priority, $description)
 	{
 		$data = $this->getEditableQuery($queryId);
 

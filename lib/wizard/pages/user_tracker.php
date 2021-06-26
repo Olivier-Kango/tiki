@@ -12,23 +12,23 @@ require_once('lib/wizard/wizard.php');
  */
 class UserWizardUserTracker extends Wizard
 {
-	function pageTitle()
+	public function pageTitle()
 	{
 		return tra('User Details');
 	}
 
-	function isEditable()
+	public function isEditable()
 	{
 		return true;
 	}
 
-	function isVisible()
+	public function isVisible()
 	{
 		global	$prefs;
 		return $prefs['userTracker'] === 'y';
 	}
 
-	function onSetupPage($homepageUrl)
+	public function onSetupPage($homepageUrl)
 	{
 		global $user, $prefs;
 		$userlib = TikiLib::lib('user');
@@ -125,13 +125,13 @@ class UserWizardUserTracker extends Wizard
 		return $showPage;
 	}
 
-	function getTemplate()
+	public function getTemplate()
 	{
 		$wizardTemplate = 'wizard/user_tracker.tpl';
 		return $wizardTemplate;
 	}
 
-	function onContinue($homepageUrl)
+	public function onContinue($homepageUrl)
 	{
 		global $user, $prefs;
 		$userlib = TikiLib::lib('user');

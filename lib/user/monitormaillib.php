@@ -9,7 +9,7 @@ class MonitorMailLib
 {
 	private $mailQueue = [];
 
-	function queue($event, array $args, array $sendTo)
+	public function queue($event, array $args, array $sendTo)
 	{
 		$recipients = $this->getRecipients($sendTo);
 
@@ -20,7 +20,7 @@ class MonitorMailLib
 		];
 	}
 
-	function sendQueue()
+	public function sendQueue()
 	{
 		foreach ($this->mailQueue as $mail) {
 			foreach ($mail['recipients'] as $recipient) {
@@ -31,7 +31,7 @@ class MonitorMailLib
 		$this->mailQueue = [];
 	}
 
-	function sendDigest($info, $from, $to)
+	public function sendDigest($info, $from, $to)
 	{
 		global $prefs;
 		$out = false;

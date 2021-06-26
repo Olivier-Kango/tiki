@@ -37,14 +37,14 @@ APIC::import("org.apicnet.io.OOo.objOOo.OOoText");
  **/
 class OOoWriter extends absOOo {
 	
-	var $style;
-	var $STYLNUM = array(
+	public $style;
+	public $STYLNUM = array(
 		'style_family_text' => 1,
 		'style_family_para' => 1,
 		'style_page_style'	=> 1
 	);
-	
-	function __construct($dir){
+
+	public function __construct($dir){
 		parent::__construct();
 		$this->DIRXML = $dir;
 		$this->FILENAME = "content.xml";
@@ -61,9 +61,9 @@ class OOoWriter extends absOOo {
 		$this->style = new OOoStyle($this->DIRXML);
 		$this->xml->setDocType("<!DOCTYPE office:document-content PUBLIC \"-//OpenOffice.org//DTD OfficeDocument 1.0//EN\" \"office.dtd\">");
 	}
-	
-	
-	function create(){
+
+
+	public function create(){
 		$docWriterNode =& $this->xml->createElement("office:document-content");
 		$docWriterNode->setAttribute("xmlns:office", "http://openoffice.org/2000/office");
 		$docWriterNode->setAttribute("xmlns:style", "http://openoffice.org/2000/style");
@@ -146,16 +146,16 @@ class OOoWriter extends absOOo {
 		$this->xml->setXMLDeclaration("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 	}
 
-	function main(){
+	public function main(){
 		echo $this->toString();
 	}
-	
-	function save(){
+
+	public function save(){
 		parent::save();
 		$this->style->save();
 	}
-	
-	function areHeader(){
+
+	public function areHeader(){
 		$this->style->addHeader();
 	}
 	
@@ -166,7 +166,7 @@ class OOoWriter extends absOOo {
 	 * @param string $pageName
 	 * @return 
 	 **/
-	function addHeader($argHeager, $pageName = "pm1"){
+	public function addHeader($argHeager, $pageName = "pm1"){
 		$this->style->addStyleHeadFoot($argHeager, "Header", $pageName);
 	}
 	
@@ -177,7 +177,7 @@ class OOoWriter extends absOOo {
 	 * @param string $pageName
 	 * @return 
 	 **/
-	function addFooter($argFooter, $pageName = "pm1"){
+	public function addFooter($argFooter, $pageName = "pm1"){
 		$this->style->addStyleHeadFoot($argFooter, "Footer", $pageName);
 	}
 	
@@ -187,7 +187,7 @@ class OOoWriter extends absOOo {
 	 * @param $argPage
 	 * @return 
 	 **/
-	function addStylePage($argPage){
+	public function addStylePage($argPage){
 		return $this->style->addStylePage($argPage);
 	}
 	
@@ -197,7 +197,7 @@ class OOoWriter extends absOOo {
 	 * @param $objText
 	 * @return 
 	 **/
-	function addText($objText){
+	public function addText($objText){
 		if ($objText->className() == strtolower("OOoText")) {
 			$automaticStylesNode = & $this->getNode("/office:document-content/office:automatic-styles");
 			$bodyNode = & $this->getNode("/office:document-content/office:body");
@@ -212,7 +212,7 @@ class OOoWriter extends absOOo {
 	 * @param $objTable
 	 * @return 
 	 **/
-	function addTable($objTable){
+	public function addTable($objTable){
 		if ($objTable->className() == strtolower("OOoTable")) {
 			$automaticStylesNode = & $this->getNode("/office:document-content/office:automatic-styles");
 			$bodyNode = & $this->getNode("/office:document-content/office:body");
@@ -227,7 +227,7 @@ class OOoWriter extends absOOo {
 	 * @param $styleNamePage
 	 * @return 
 	 **/
-	function addPage($styleNamePage){
+	public function addPage($styleNamePage){
 		$argPara = array(
 			"paraName"	=> $styleNamePage
 		);
@@ -253,7 +253,7 @@ class OOoWriter extends absOOo {
 	 * @param integer $num nombre de ligne à ajouter
 	 * @return none
 	 **/
-	function addLine($num = 1){
+	public function addLine($num = 1){
 		$bodyNode = & $this->getNode("/office:document-content/office:body");
 		
 		while ($num > 0){

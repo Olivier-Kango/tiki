@@ -21,7 +21,7 @@ class UserFilesLib extends TikiLib
 	 * @param $user
 	 * @return int
 	 */
-	function userfiles_quota($user)
+	public function userfiles_quota($user)
 	{
 		if ($user == 'admin') {
 			return 0;
@@ -41,7 +41,7 @@ class UserFilesLib extends TikiLib
 	 * @param $data
 	 * @param $path
 	 */
-	function upload_userfile($user, $name, $filename, $filetype, $filesize, $data, $path)
+	public function upload_userfile($user, $name, $filename, $filetype, $filesize, $data, $path)
 	{
 		$query = "insert into `tiki_userfiles`(`user`,`name`,`filename`,`filetype`,`filesize`,`data`,`created`,`hits`,`path`)
     values(?,?,?,?,?,?,?,?,?)";
@@ -56,7 +56,7 @@ class UserFilesLib extends TikiLib
 	 * @param $find
 	 * @return array
 	 */
-	function list_userfiles($user, $offset, $maxRecords, $sort_mode, $find)
+	public function list_userfiles($user, $offset, $maxRecords, $sort_mode, $find)
 	{
 
 		if ($find) {
@@ -90,7 +90,7 @@ class UserFilesLib extends TikiLib
 	 * @param $fileId
 	 * @return mixed
 	 */
-	function get_userfile($user, $fileId)
+	public function get_userfile($user, $fileId)
 	{
 		$query = "select * from `tiki_userfiles` where `user`=? and `fileId`=?";
 
@@ -103,7 +103,7 @@ class UserFilesLib extends TikiLib
 	 * @param $user
 	 * @param $fileId
 	 */
-	function remove_userfile($user, $fileId)
+	public function remove_userfile($user, $fileId)
 	{
 		global $prefs;
 
@@ -117,4 +117,4 @@ class UserFilesLib extends TikiLib
 		$this->query($query, [$user,(int) $fileId]);
 	}
 }
-$userfileslib = new UserFilesLib;
+$userfileslib = new UserFilesLib();

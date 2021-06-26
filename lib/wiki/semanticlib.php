@@ -10,7 +10,7 @@ class SemanticLib
 	private $knownTokens = false;
 	private $newTokens = false;
 
-	private function loadKnownTokens() // {{{
+	private function loadKnownTokens()
 	{
 		if (is_array($this->knownTokens)) {
 			return;
@@ -27,9 +27,9 @@ class SemanticLib
 		}
 
 		ksort($this->knownTokens);
-	} // }}}
+	}
 
-	private function loadNewTokens() // {{{
+	private function loadNewTokens()
 	{
 		if (is_array($this->newTokens)) {
 			return;
@@ -47,9 +47,9 @@ class SemanticLib
 		$existing = array_keys($this->knownTokens);
 
 		$this->newTokens = array_diff($tokens, $existing);
-	} // }}}
+	}
 
-	function getToken($name, $field = null) // {{{
+	public function getToken($name, $field = null)
 	{
 		$this->loadKnownTokens();
 
@@ -66,9 +66,9 @@ class SemanticLib
 		}
 
 		return false;
-	} // }}}
+	}
 
-	function getInvert($name, $field = null) // {{{
+	public function getInvert($name, $field = null)
 	{
 		if (false !== $invert = $this->getToken($name, 'invert_token')) {
 			if (empty($invert)) {
@@ -79,29 +79,29 @@ class SemanticLib
 		}
 
 		return false;
-	} // }}}
+	}
 
-	function getTokens() // {{{
+	public function getTokens()
 	{
 		$this->loadKnownTokens();
 		return $this->knownTokens;
-	} // }}}
+	}
 
-	function getNewTokens() // {{{
+	public function getNewTokens()
 	{
 		$this->loadNewTokens();
 		return $this->newTokens;
-	} // }}}
+	}
 
-	function getAllTokens() // {{{
+	public function getAllTokens()
 	{
 		$this->loadKnownTokens();
 		$this->loadNewTokens();
 
 		return array_merge(array_keys($this->knownTokens), $this->newTokens);
-	} // }}}
+	}
 
-	function getLinksUsing($token, $conditions = []) // {{{
+	public function getLinksUsing($token, $conditions = [])
 	{
 		$db = TikiDb::get();
 
@@ -144,9 +144,9 @@ class SemanticLib
 		}
 
 		return $links;
-	} // }}}
+	}
 
-	function replaceToken($oldName, $newName, $label, $invert = null) // {{{
+	public function replaceToken($oldName, $newName, $label, $invert = null)
 	{
 		$exists = ( false !== $this->getToken($oldName) );
 
@@ -190,9 +190,9 @@ class SemanticLib
 		ksort($this->knownTokens);
 
 		return true;
-	} // }}}
+	}
 
-	private function replaceReferences($oldName, $newName = null) // {{{
+	private function replaceReferences($oldName, $newName = null)
 	{
 		$tikilib = TikiLib::lib('tiki');
 
@@ -227,16 +227,16 @@ class SemanticLib
 		}
 
 		return true;
-	} // }}}
+	}
 
-	function cleanToken($token) // {{{
+	public function cleanToken($token)
 	{
 		$this->replaceReferences($token);
 
 		$this->newTokens = array_diff($this->newTokens, [ $token ]);
-	} // }}}
+	}
 
-	function removeToken($token, $removeReferences = false) // {{{
+	public function removeToken($token, $removeReferences = false)
 	{
 		$tikilib = TikiLib::lib('tiki');
 
@@ -255,9 +255,9 @@ class SemanticLib
 		}
 
 		return true;
-	} // }}}
+	}
 
-	function renameToken($oldName, $newName) // {{{
+	public function renameToken($oldName, $newName)
 	{
 		$this->replaceReferences($oldName, $newName);
 
@@ -265,14 +265,14 @@ class SemanticLib
 		if (false === $this->getToken($newName)) {
 			$this->newTokens[] = $newName;
 		}
-	} // }}}
+	}
 
-	function isValid($token) // {{{
+	public function isValid($token)
 	{
 		return preg_match("/^[a-z0-9-]{1,15}\\z/", $token);
-	} // }}}
+	}
 
-	function getRelationList($page) // {{{
+	public function getRelationList($page)
 	{
 		$wikilib = TikiLib::lib('wiki');
 		$tikilib = TikiLib::lib('tiki');
@@ -319,9 +319,9 @@ class SemanticLib
 		}
 
 		return $relations;
-	} // }}}
+	}
 
-	function getAliasContaining($query, $exact_match = false, $in_lang = null) // {{{
+	public function getAliasContaining($query, $exact_match = false, $in_lang = null)
 	{
 		global $prefs;
 		$tikilib = TikiLib::lib('tiki');
@@ -357,9 +357,9 @@ class SemanticLib
 
 		$aliases = $this->onlyKeepAliasesFromPageInLanguage($in_lang, $aliases);
 		return $aliases;
-	} // }}}
+	}
 
-	function onlyKeepAliasesFromPageInLanguage($language, $aliases)
+	public function onlyKeepAliasesFromPageInLanguage($language, $aliases)
 	{
 		$multilinguallib = TikiLib::lib('multilingual');
 		if (! $language) {
@@ -377,7 +377,7 @@ class SemanticLib
 		return $aliasesInCorrectLanguage;
 	}
 
-	function getItemsFromTracker($page, $suffix)
+	public function getItemsFromTracker($page, $suffix)
 	{
 		$t_links = $this->getLinksUsing('trackerid', [ 'fromPage' => $page ]);
 		$f_links = $this->getLinksUsing('titlefieldid', [ 'fromPage' => $page ]);

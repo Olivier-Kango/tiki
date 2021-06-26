@@ -139,7 +139,7 @@ class ConverseJS
 		$this->options['auto_join_rooms'] = [ $room ];
 	}
 
-	public function append_mtime ($file, $argname = '_')
+	public function append_mtime($file, $argname = '_')
 	{
 		$mtime = '';
 		$file_path = $this->tiki_root . '/' . $file;

@@ -18,17 +18,17 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
  */
 class ImageFile
 {
-	var $header = null;
-	var $width = null;
-	var $height = null;
-	var $otherinfo = null;
+	public $header = null;
+	public $width = null;
+	public $height = null;
+	public $otherinfo = null;
 
 	/**
 	 * Assign common image metadata information to properties
 	 *
 	 * @param 		FileMetadata object			$metaObj
 	 */
-	function __construct($metaObj)
+	public function __construct($metaObj)
 	{
 			$this->header = getimagesize($metaObj->currname, $otherinfo);
 			$this->width = $this->header[0];

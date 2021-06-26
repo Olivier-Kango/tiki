@@ -12,21 +12,21 @@ require_once('lib/wizard/wizard.php');
  */
 class AdminWizardWysiwyg extends Wizard
 {
-	function pageTitle()
+	public function pageTitle()
 	{
 		return tra('Set up Wysiwyg editor');
 	}
-	function isEditable()
+	public function isEditable()
 	{
 		return true;
 	}
-	function isVisible()
+	public function isVisible()
 	{
 		global	$prefs;
 		return $prefs['feature_wysiwyg'] === 'y';
 	}
 
-	function onSetupPage($homepageUrl)
+	public function onSetupPage($homepageUrl)
 	{
 		global $prefs;
 		$smarty = TikiLib::lib('smarty');
@@ -48,13 +48,13 @@ class AdminWizardWysiwyg extends Wizard
 		return true;
 	}
 
-	function getTemplate()
+	public function getTemplate()
 	{
 		$wizardTemplate = 'wizard/admin_wysiwyg.tpl';
 		return $wizardTemplate;
 	}
 
-	function onContinue($homepageUrl)
+	public function onContinue($homepageUrl)
 	{
 		$tikilib = TikiLib::lib('tiki');
 

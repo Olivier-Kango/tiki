@@ -12,17 +12,17 @@ require_once('lib/wizard/wizard.php');
  */
 class ChangesWizardNewIn14 extends Wizard
 {
-	function pageTitle()
+	public function pageTitle()
 	{
 		return tra('New in Tiki 14');
 	}
 
-	function isEditable()
+	public function isEditable()
 	{
 		return true;
 	}
 
-	function onSetupPage($homepageUrl)
+	public function onSetupPage($homepageUrl)
 	{
 		global $prefs;
 		$smarty = TikiLib::lib('smarty');
@@ -39,14 +39,14 @@ class ChangesWizardNewIn14 extends Wizard
 		return $showPage;
 	}
 
-	function getTemplate()
+	public function getTemplate()
 	{
 		$wizardTemplate = 'wizard/changes_new_in_14.tpl';
 
 		return $wizardTemplate;
 	}
 
-	function onContinue($homepageUrl)
+	public function onContinue($homepageUrl)
 	{
 		global $tikilib;
 

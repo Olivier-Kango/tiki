@@ -12,21 +12,21 @@ require_once('lib/wizard/wizard.php');
  */
 class AdminWizardNamespace extends Wizard
 {
-	function pageTitle()
+	public function pageTitle()
 	{
 		return tra('Set up Namespace');
 	}
-	function isEditable()
+	public function isEditable()
 	{
 		return true;
 	}
-	function isVisible()
+	public function isVisible()
 	{
 		global	$prefs;
 		return $prefs['namespace_enabled'] === 'y';
 	}
 
-	function onSetupPage($homepageUrl)
+	public function onSetupPage($homepageUrl)
 	{
 		global $prefs;
 		$smarty = TikiLib::lib('smarty');
@@ -44,13 +44,13 @@ class AdminWizardNamespace extends Wizard
 		return true;
 	}
 
-	function getTemplate()
+	public function getTemplate()
 	{
 		$wizardTemplate = 'wizard/admin_namespace.tpl';
 		return $wizardTemplate;
 	}
 
-	function onContinue($homepageUrl)
+	public function onContinue($homepageUrl)
 	{
 		// Run the parent first
 		parent::onContinue($homepageUrl);

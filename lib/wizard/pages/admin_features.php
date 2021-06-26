@@ -12,7 +12,7 @@ require_once('lib/wizard/wizard.php');
  */
 class AdminWizardFeatures extends Wizard
 {
-	function pageTitle()
+	public function pageTitle()
 	{
 		return tra('Set up Main features');
 	}
@@ -21,7 +21,7 @@ class AdminWizardFeatures extends Wizard
 		return true;
 	}
 
-	function onSetupPage($homepageUrl)
+	public function onSetupPage($homepageUrl)
 	{
 		global $prefs;
 		$smarty = TikiLib::lib('smarty');
@@ -36,13 +36,13 @@ class AdminWizardFeatures extends Wizard
 		return true;
 	}
 
-	function getTemplate()
+	public function getTemplate()
 	{
 		$wizardTemplate = 'wizard/admin_features.tpl';
 		return $wizardTemplate;
 	}
 
-	function onContinue($homepageUrl)
+	public function onContinue($homepageUrl)
 	{
 		// Run the parent first
 		parent::onContinue($homepageUrl);

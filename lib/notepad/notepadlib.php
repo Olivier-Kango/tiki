@@ -16,7 +16,7 @@ if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
 */
 class NotepadLib extends TikiLib
 {
-	function get_note($user, $noteId)
+	public function get_note($user, $noteId)
 	{
 		$query = "select * from `tiki_user_notes` where `user`=? and `noteId`=?";
 		$result = $this->query($query, [$user,(int)$noteId]);
@@ -24,20 +24,20 @@ class NotepadLib extends TikiLib
 		return $res;
 	}
 
-	function set_note_parsing($user, $noteId, $mode)
+	public function set_note_parsing($user, $noteId, $mode)
 	{
 		$query = "update `tiki_user_notes` set `parse_mode`=? where `user`=? and `noteId`=?";
 		$this->query($query, [$mode,$user,(int)$noteId]);
 		return true;
 	}
 
-	function remove_note($user, $noteId)
+	public function remove_note($user, $noteId)
 	{
 		$query = "delete from `tiki_user_notes` where `user`=? and `noteId`=?";
 		$this->query($query, [$user,(int)$noteId]);
 	}
 
-	function list_notes($user, $offset, $maxRecords, $sort_mode, $find)
+	public function list_notes($user, $offset, $maxRecords, $sort_mode, $find)
 	{
 
 		$bindvars = [$user];
@@ -68,4 +68,4 @@ class NotepadLib extends TikiLib
 		return $retval;
 	}
 }
-$notepadlib = new NotepadLib;
+$notepadlib = new NotepadLib();

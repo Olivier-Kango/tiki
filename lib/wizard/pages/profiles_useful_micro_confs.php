@@ -12,16 +12,16 @@ require_once('lib/wizard/wizard.php');
  */
 class ProfilesWizardUsefulMicroConfs extends Wizard
 {
-	function pageTitle()
+	public function pageTitle()
 	{
 		return tra('Useful Micro Configurations');
 	}
-	function isEditable()
+	public function isEditable()
 	{
 		return false;
 	}
 
-	function onSetupPage($homepageUrl)
+	public function onSetupPage($homepageUrl)
 	{
 		global $prefs, $TWV;
 		$smarty = TikiLib::lib('smarty');
@@ -33,13 +33,13 @@ class ProfilesWizardUsefulMicroConfs extends Wizard
 		return true;
 	}
 
-	function getTemplate()
+	public function getTemplate()
 	{
 		$wizardTemplate = 'wizard/profiles_useful_micro_confs.tpl';
 		return $wizardTemplate;
 	}
 
-	function onContinue($homepageUrl)
+	public function onContinue($homepageUrl)
 	{
 		// Run the parent first
 		parent::onContinue($homepageUrl);

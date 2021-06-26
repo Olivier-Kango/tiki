@@ -64,7 +64,7 @@ class WikiLib extends TikiLib
 		return $ret;
 	}
 
-	function get_page_by_slug($slug)
+	public function get_page_by_slug($slug)
 	{
 		$pages = TikiDb::get()->table('tiki_pages');
 		$found = $pages->fetchOne('pageName', ['pageSlug' => $slug]);
@@ -92,7 +92,7 @@ class WikiLib extends TikiLib
 	 * @param string $page
 	 * @return string
 	 */
-	function get_slug_by_page($page)
+	public function get_slug_by_page($page)
 	{
 		$pages = TikiDb::get()->table('tiki_pages');
 		$slug = $pages->fetchOne('pageSlug', ['pageName' => $page]);

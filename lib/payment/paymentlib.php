@@ -64,7 +64,7 @@ class PaymentLib extends TikiDb_Bridge
 		return $ret;
 	}
 
-	function request_payment($description, $amount, $paymentWithin, $detail = null, $currency = null)
+	public function request_payment($description, $amount, $paymentWithin, $detail = null, $currency = null)
 	{
 		global $prefs, $user;
 		$userlib = TikiLib::lib('user');
@@ -107,7 +107,7 @@ class PaymentLib extends TikiDb_Bridge
 		];
 	}
 
-	function get_outstanding($offset, $max, $ofUser = '', $filter = [], $sort = null)
+	public function get_outstanding($offset, $max, $ofUser = '', $filter = [], $sort = null)
 	{
 		$conditions = '`amount_paid` < `amount` AND NOW() <= `due_date` AND `cancel_date` IS NULL AND (`authorized_until` IS NULL OR `authorized_until` <= NOW())';
 		if ($ofUser) {
@@ -118,7 +118,7 @@ class PaymentLib extends TikiDb_Bridge
 		return $this->get_payments($conditions, $offset, $max, $bindvars);
 	}
 
-	function get_past($offset, $max, $ofUser = '', $filter = [], $sort = null)
+	public function get_past($offset, $max, $ofUser = '', $filter = [], $sort = null)
 	{
 		global $prefs;
 		$parserlib = TikiLib::lib('parser');
@@ -170,7 +170,7 @@ class PaymentLib extends TikiDb_Bridge
 		];
 	}
 
-	function get_overdue($offset, $max, $ofUser = '', $filter = [], $sort = null)
+	public function get_overdue($offset, $max, $ofUser = '', $filter = [], $sort = null)
 	{
 		$conditions = '`amount_paid` < `amount` AND NOW() > `due_date` AND `cancel_date` IS NULL AND (`authorized_until` IS NULL OR `authorized_until` <= NOW())';
 		if ($ofUser) {
@@ -181,7 +181,7 @@ class PaymentLib extends TikiDb_Bridge
 		return $this->get_payments($conditions, $offset, $max, $bindvars);
 	}
 
-	function get_authorized($offset, $max, $ofUser = '', $filter = [], $sort = null)
+	public function get_authorized($offset, $max, $ofUser = '', $filter = [], $sort = null)
 	{
 		$conditions = '`amount_paid` < `amount` AND `cancel_date` IS NULL AND `authorized_until` IS NOT NULL AND `authorized_until` >= NOW()';
 		if ($ofUser) {
@@ -192,7 +192,7 @@ class PaymentLib extends TikiDb_Bridge
 		return $this->get_payments($conditions, $offset, $max, $bindvars);
 	}
 
-	function get_canceled($offset, $max, $ofUser = '', $filter = [], $sort = null)
+	public function get_canceled($offset, $max, $ofUser = '', $filter = [], $sort = null)
 	{
 		$conditions = '`cancel_date` IS NOT NULL';
 		if ($ofUser) {
@@ -203,12 +203,12 @@ class PaymentLib extends TikiDb_Bridge
 		return $this->get_payments($conditions, $offset, $max, $bindvars);
 	}
 
-	function uncancel_payment($id)
+	public function uncancel_payment($id)
 	{
 		$this->query('UPDATE `tiki_payment_requests` SET `cancel_date` = NULL WHERE `paymentRequestId` = ?', [ $id ]);
 	}
 
-	function cancel_payment($id)
+	public function cancel_payment($id)
 	{
 		if ($info = $this->get_payment($id)) {
 			if ($info['state'] != 'canceled') {
@@ -219,7 +219,7 @@ class PaymentLib extends TikiDb_Bridge
 		$this->query('UPDATE `tiki_payment_requests` SET `cancel_date` = NOW() WHERE `paymentRequestId` = ?', [ $id ]);
 	}
 
-	function get_payment($id)
+	public function get_payment($id)
 	{
 		global $tikilib, $prefs;
 		$info = $this->fetchAll(
@@ -333,7 +333,7 @@ class PaymentLib extends TikiDb_Bridge
 		return $out;
 	}
 
-	function enter_payment($invoice, $amount, $type, array $data)
+	public function enter_payment($invoice, $amount, $type, array $data)
 	{
 		$tx = TikiDb::get()->begin();
 
@@ -371,7 +371,7 @@ class PaymentLib extends TikiDb_Bridge
 		$tx->commit();
 	}
 
-	function enter_authorization($invoice, $type, $validForDays, array $data)
+	public function enter_authorization($invoice, $type, $validForDays, array $data)
 	{
 		global $user;
 		$userlib = TikiLib::lib('user');
@@ -405,7 +405,7 @@ class PaymentLib extends TikiDb_Bridge
 		}
 	}
 
-	function capture_payment($paymentId)
+	public function capture_payment($paymentId)
 	{
 		if ($info = $this->get_payment($paymentId)) {
 			foreach ($info['payments'] as $received) {
@@ -433,7 +433,7 @@ class PaymentLib extends TikiDb_Bridge
 		}
 	}
 
-	function register_behavior($invoice, $event, $behavior, array $arguments)
+	public function register_behavior($invoice, $event, $behavior, array $arguments)
 	{
 		if (! in_array($event, [ 'complete', 'cancel', 'authorize' ])) {
 			return false;
@@ -481,7 +481,7 @@ class PaymentLib extends TikiDb_Bridge
 		}
 	}
 
-	function gateway($name)
+	public function gateway($name)
 	{
 		if (isset($this->gateways[$name])) {
 			return $this->gateways[$name];

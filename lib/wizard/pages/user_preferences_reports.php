@@ -12,17 +12,17 @@ require_once('lib/wizard/wizard.php');
  */
 class UserWizardPreferencesReports extends Wizard
 {
-	function pageTitle()
+	public function pageTitle()
 	{
 		return tra('User Watches:') . ' ' . tra('Report Preferences');
 	}
 
-	function isEditable()
+	public function isEditable()
 	{
 		return true;
 	}
 
-	function isVisible()
+	public function isVisible()
 	{
 		global	$prefs;
 
@@ -35,7 +35,7 @@ class UserWizardPreferencesReports extends Wizard
 		return $linkVisible;
 	}
 
-	function onSetupPage($homepageUrl)
+	public function onSetupPage($homepageUrl)
 	{
 		global$user, $prefs;
 
@@ -59,13 +59,13 @@ class UserWizardPreferencesReports extends Wizard
 		return $showPage;
 	}
 
-	function getTemplate()
+	public function getTemplate()
 	{
 		$wizardTemplate = 'wizard/user_preferences_reports.tpl';
 		return $wizardTemplate;
 	}
 
-	function onContinue($homepageUrl)
+	public function onContinue($homepageUrl)
 	{
 		global $user, $prefs;
 

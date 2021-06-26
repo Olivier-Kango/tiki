@@ -36,15 +36,15 @@ APIC::import("org.apicnet.io.OOo.absOOo");
  **/
 class OOoStyle extends absOOo {
 
-	var $type;
+	public $type;
 	
-	var $STYLNUM = array(
+	public $STYLNUM = array(
 		'style_family_text' => 1,
 		'style_family_para' => 1,
 		'style_page_style'	=> 1
 	);
 
-	function __construct($dir){
+	public function __construct($dir){
 		parent::__construct();
 		$this->DIRXML = $dir;
 		$this->FILENAME = "styles.xml";
@@ -59,9 +59,9 @@ class OOoStyle extends absOOo {
 		}
 		$this->xml->setDocType("<!DOCTYPE office:document-styles PUBLIC \"-//OpenOffice.org//DTD OfficeDocument 1.0//EN\" \"office.dtd\">");
 	}
-	
-	
-	function create(){
+
+
+	public function create(){
 	
 		$docStyleNode =& $this->xml->createElement("office:document-styles");
 		$docStyleNode->setAttribute("xmlns:office", "http://openoffice.org/2000/office");
@@ -169,7 +169,7 @@ class OOoStyle extends absOOo {
 		$this->addGraphicStyle();
 	}
 
-	function main(){
+	public function main(){
 		echo $this->toString();
 	}
 	
@@ -179,7 +179,7 @@ class OOoStyle extends absOOo {
 	 * @param Array $styleArg
 	 * @return none
 	 **/
-	function addStyle($styleArg){
+	public function addStyle($styleArg){
 		/*
 		* style:name
 		* style:family
@@ -213,7 +213,7 @@ class OOoStyle extends absOOo {
 		);
 	 * @return none
 	 **/
-	function addStylePage($argPage){
+	public function addStylePage($argPage){
 		$this->verifIntegrite($argPage, "PageStyle");
 		$automaticStylesNode = & $this->getNode("/office:document-styles/office:automatic-styles");
 
@@ -284,7 +284,7 @@ class OOoStyle extends absOOo {
 	 * @param $pageMasterName
 	 * @return none
 	 **/
-	function addStyleHeadFoot($styleArg, $type, $pageMasterName){
+	public function addStyleHeadFoot($styleArg, $type, $pageMasterName){
 		
 		if ($type != "Header" && $type != "Footer") {
 		    $this -> ErrorTracker(4, "Le type demander doit être Header ou Footer", 'addStyleHeadFoot', __FILE__, __LINE__);
@@ -335,9 +335,8 @@ class OOoStyle extends absOOo {
 		/**********************Fin de Création*************************/
 		$masterPageNode->appendChild($headerNode);	
 	}
-	
-	
-	function addGraphicStyle(){
+
+	public function addGraphicStyle(){
 		$stylesNode = & $this->getNode("/office:document-styles/office:styles");
 		$styleNode = & $this->xml->createElement("style:default-style");
 		$styleNode->setAttribute("style:family", "graphics");
@@ -366,8 +365,4 @@ class OOoStyle extends absOOo {
 		$styleNode->appendChild($propertiesNode);
 		$stylesNode->appendChild($styleNode);
 	}
-	
-	
-	
-	
 }

@@ -20,7 +20,7 @@ require_once('lib/tree/tree.php');
 class BrowseTreeMaker extends TreeMaker
 {
 	/// Generate HTML code for tree. Need to redefine to add javascript cookies block
-	function make_tree($rootid, $ar)
+	public function make_tree($rootid, $ar)
 	{
 		$headerlib = TikiLib::lib('header');
 
@@ -52,41 +52,41 @@ class BrowseTreeMaker extends TreeMaker
 	//
 	//
 	//
-	function indent($nodeinfo)
+	public function indent($nodeinfo)
 	{
 		return "\t\t";
 	}
 
-	function node_start_code_flip($nodeinfo, $count = 0)
+	public function node_start_code_flip($nodeinfo, $count = 0)
 	{
 		return "\t" . '<li class="treenode withflip ' . (($count % 2) ? 'odd' : 'even') . '">';
 	}
 
-	function node_start_code($nodeinfo, $count = 0)
+	public function node_start_code($nodeinfo, $count = 0)
 	{
 		return "\t" . '<li class="treenode ' . (($count % 2) ? 'odd' : 'even') . '">';
 	}
 
 	//
-	function node_flipper_code($nodeinfo)
+	public function node_flipper_code($nodeinfo)
 	{
 		return '';
 	}
 
 	//
-	function node_data_start_code($nodeinfo)
+	public function node_data_start_code($nodeinfo)
 	{
 		return '';
 	}
 
 	//
-	function node_data_end_code($nodeinfo)
+	public function node_data_end_code($nodeinfo)
 	{
 		return "\n";
 	}
 
 	//
-	function node_child_start_code($nodeinfo)
+	public function node_child_start_code($nodeinfo)
 	{
 		global $prefs;
 
@@ -101,13 +101,13 @@ class BrowseTreeMaker extends TreeMaker
 	}
 
 	//
-	function node_child_end_code($nodeinfo)
+	public function node_child_end_code($nodeinfo)
 	{
 		return '</ul>';
 	}
 
 	//
-	function node_end_code($nodeinfo)
+	public function node_end_code($nodeinfo)
 	{
 		return "\t" . '</li>';
 	}

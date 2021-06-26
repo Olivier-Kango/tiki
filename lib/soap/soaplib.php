@@ -16,7 +16,7 @@ class Tiki_Soap
 	private $cookies;
 	public $allowCookies;	// boolean. If true, (session) cookies are handled
 
-	function __construct()
+	public function __construct()
 	{
 		$this->cookies = [];
 		$this->allowCookies = false;

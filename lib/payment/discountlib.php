@@ -7,7 +7,7 @@
 
 class DiscountLib extends TikiDb_Bridge
 {
-	function replace_discount($params)
+	public function replace_discount($params)
 	{
 		$info = $this->find_discount($params['code'], $params['id']);
 		if (empty($info)) {
@@ -24,13 +24,13 @@ class DiscountLib extends TikiDb_Bridge
 		}
 	}
 
-	function del_discount($id)
+	public function del_discount($id)
 	{
 		$query = 'delete from `tiki_discount` where `id`=?';
 		$this->query($query, [$id]);
 	}
 
-	function use_discount($code)
+	public function use_discount($code)
 	{
 		$info = $this->find_discount($code);
 		if (empty($info) || $info['max'] == 0) {
@@ -42,21 +42,21 @@ class DiscountLib extends TikiDb_Bridge
 		return $info['value'];
 	}
 
-	function find_discount($code, $notid = 0)
+	public function find_discount($code, $notid = 0)
 	{
 		$query = 'select * from `tiki_discount` where `code`=? and `id` !=?';
 		$info = $this->fetchAll($query, [$code, $notid], 1, 0);
 		return $info ? $info[0] : null;
 	}
 
-	function get_discount($id)
+	public function get_discount($id)
 	{
 		$query = 'select * from `tiki_discount` where `id` =?';
 		$info = $this->fetchAll($query, [$id], 1, 0);
 		return $info ? $info[0] : null;
 	}
 
-	function list_discounts($offset = 0, $max = -1)
+	public function list_discounts($offset = 0, $max = -1)
 	{
 		$query = 'select * from `tiki_discount`';
 		$bindvars = [];
@@ -67,4 +67,4 @@ class DiscountLib extends TikiDb_Bridge
 	}
 }
 global $discountlib;
-$discountlib = new DiscountLib;
+$discountlib = new DiscountLib();

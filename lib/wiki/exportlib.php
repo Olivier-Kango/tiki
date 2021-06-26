@@ -14,7 +14,7 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
 class ExportLib extends TikiLib
 {
 
-	function MakeWikiZip()
+	public function MakeWikiZip()
 	{
 		global $tikidomain;
 		$zipname = 'wikidb.zip';
@@ -39,7 +39,7 @@ class ExportLib extends TikiLib
 		return '';
 	}
 
-	function export_wiki_page($pageName, $nversions = 1, $showLatest = false)
+	public function export_wiki_page($pageName, $nversions = 1, $showLatest = false)
 	{
 		global $prefs;
 
@@ -82,7 +82,7 @@ class ExportLib extends TikiLib
 
 	// Returns all the versions for this page
 	// without the data itself
-	function get_page_history($page)
+	public function get_page_history($page)
 	{
 		$query = 'select `pageName`, `description`, `version`, `lastModif`, `user`, `ip`, `data`, `comment`' .
 						' from `tiki_history` where `pageName`=? order by ' . $this->convertSortMode('version_desc');
@@ -105,4 +105,4 @@ class ExportLib extends TikiLib
 		return $ret;
 	}
 }
-$exportlib = new ExportLib;
+$exportlib = new ExportLib();

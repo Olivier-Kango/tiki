@@ -34,7 +34,7 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  * @access public
  **/
 class HTTPHeader {
-	var $_var = array();
+	public $_var = array();
 	
 	/**
 	 * Constructeur
@@ -43,8 +43,8 @@ class HTTPHeader {
 	 * @param name $ string
 	 * @return mixed 
 	 * @todo change order (POST normally overrides GET)
-	 */	
-	function __construct(){
+	 */
+	public function __construct(){
 		if (sizeof($_GET)>0) $this->_var = array_merge($this->_var, $_GET);
 		if (sizeof($_POST)>0) $this->_var = array_merge($this->_var, $_POST);
 	}
@@ -57,7 +57,7 @@ class HTTPHeader {
 	 * @return mixed 
 	 * @todo change order (POST normally overrides GET)
 	 */
-	function &RequestGetVar($name){
+	public function &RequestGetVar($name){
 		if (isset($this->_var[$name])) {
 		    return $this->_var[$name];
 		}else {
@@ -73,7 +73,7 @@ class HTTPHeader {
 	 * @return mixed 
 	 * @todo change order (POST normally overrides GET)
 	 */
-	function addGetVar($name, $value){
+	public function addGetVar($name, $value){
 		if (isset($this->_var[$name])) {
 		    return FALSE;
 		}else {
@@ -94,7 +94,7 @@ class HTTPHeader {
 	 * @param name $ string the name of the variable
 	 * @return mixed value of the variable
 	 */
-	function ServerGetVar($name) { 
+	public function ServerGetVar($name) {
 		// Try the new stuff first, see link above
 		if (isset($_SERVER[$name])) {
 			return $_SERVER[$name];
@@ -127,7 +127,7 @@ class HTTPHeader {
 	 * @todo remove whatever may come after the PHP script - TO BE CHECKED !
 	 * @todo See code comments.
 	 */
-	function ServerGetBaseURI(){ 
+	public function ServerGetBaseURI(){
 		// Get the name of this URI
 		$path = $this->ServerGetVar('REQUEST_URI'); 
 		// if ((empty($path)) ||
@@ -168,7 +168,7 @@ class HTTPHeader {
 	 * @access public 
 	 * @return string HTTP host name
 	 */
-	function ServerGetHost(){
+	public function ServerGetHost(){
 		$server = $this-> ServerGetVar('HTTP_HOST');
 		if (empty($server)){ 
 			// HTTP_HOST is reliable only for HTTP 1.1
@@ -188,7 +188,7 @@ class HTTPHeader {
 	 * @access public 
 	 * @return string current HTTP protocol
 	 */
-	function ServerGetProtocol(){
+	public function ServerGetProtocol(){
 		$HTTPS =  $this->ServerGetVar('HTTPS');
 		 // IIS seems to set HTTPS = off for some reason
 		return (!empty($HTTPS) && $HTTPS != 'off') ? 'https' : 'http';
@@ -201,7 +201,7 @@ class HTTPHeader {
 	 * @returns string
 	 * @return base URL for Xaraya
 	 */
-	function ServerGetBaseURL(){
+	public function ServerGetBaseURL(){
 		$server =  $this->ServerGetHost();
 		$protocol =  $this->ServerGetProtocol();
 		$path =  $this->ServerGetBaseURI();
@@ -217,7 +217,7 @@ class HTTPHeader {
 	 * @return string current URL
 	 * @todo cfr. BaseURI() for other possible ways, or try PHP_SELF
 	 */
-	function ServerGetCurrentURL($args = array()) {
+	public function ServerGetCurrentURL($args = array()) {
 		 // get current URI
 		$request =  $this->ServerGetVar('QUERY_STRING');
 		
@@ -260,7 +260,7 @@ class HTTPHeader {
 	 * @access public 
 	 * @return bool true if locally referred, false if not
 	 */
-	function RequestIsLocalReferer(){
+	public function RequestIsLocalReferer(){
 		$server = ServerGetHost();
 		$referer = ServerGetVar('HTTP_REFERER');
 	

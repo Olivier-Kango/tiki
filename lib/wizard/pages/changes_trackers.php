@@ -12,17 +12,17 @@ require_once('lib/wizard/wizard.php');
  */
 class ChangesWizardTrackers extends Wizard
 {
-	function pageTitle()
+	public function pageTitle()
 	{
 		return tra('Trackers');
 	}
 
-	function isEditable()
+	public function isEditable()
 	{
 		return true;
 	}
 
-	function onSetupPage($homepageUrl)
+	public function onSetupPage($homepageUrl)
 	{
 		global $prefs;
 		// Run the parent first
@@ -33,13 +33,13 @@ class ChangesWizardTrackers extends Wizard
 		return $showPage;
 	}
 
-	function getTemplate()
+	public function getTemplate()
 	{
 		$wizardTemplate = 'wizard/changes_trackers.tpl';
 		return $wizardTemplate;
 	}
 
-	function onContinue($homepageUrl)
+	public function onContinue($homepageUrl)
 	{
 		// Run the parent first
 		parent::onContinue($homepageUrl);

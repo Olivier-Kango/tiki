@@ -17,7 +17,7 @@ if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
 class RefererLib extends TikiLib
 {
 
-	function clear_referer_stats()
+	public function clear_referer_stats()
 	{
 		$query = "delete from tiki_referer_stats";
 
@@ -31,7 +31,7 @@ class RefererLib extends TikiLib
 	 * @param $find
 	 * @return array
 	 */
-	function list_referer_stats($offset, $maxRecords, $sort_mode, $find)
+	public function list_referer_stats($offset, $maxRecords, $sort_mode, $find)
 	{
 		$bindvars = [];
 		if ($find) {
@@ -58,4 +58,4 @@ class RefererLib extends TikiLib
 		return $retval;
 	}
 }
-$refererlib = new RefererLib;
+$refererlib = new RefererLib();

@@ -21,7 +21,7 @@ class Exif
 	 *
 	 * @var array
 	 */
-	var	$specs = [
+	public $specs = [
 		//the PHP function exif_read_data adds the FILE group when returning exif data
 		'FILE' => [
 			'FileDateTime'	=> [
@@ -684,7 +684,7 @@ class Exif
 	 * @return 		array		$exif			Array of processed EXIF data, including label, newval and suffix values
 	 * 												for each field
 	 */
-	function processRawData($exifraw)
+	public function processRawData($exifraw)
 	{
 		$filter   = new Laminas\Filter\Word\CamelCaseToSeparator();
 		//array of tags to match exif array from file
@@ -808,7 +808,7 @@ class Exif
 	 *
 	 * @return 		array|float
 	 */
-	function divide($fractionString)
+	public function divide($fractionString)
 	{
 		if (! is_array($fractionString)) {
 			$fraction = explode('/', $fractionString);
@@ -831,7 +831,7 @@ class Exif
 	 *
 	 * @return		string		$ret			field array converted into a string
 	 */
-	function processArray($array, $fieldname)
+	public function processArray($array, $fieldname)
 	{
 		$ret = '';
 		if ($fieldname == 'GPSLatitude' || $fieldname == 'GPSLongitude') {

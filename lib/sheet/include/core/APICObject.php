@@ -42,10 +42,10 @@ class APICObject {
 	 * 
 	 * @return 
 	 **/
-	function __construct(){
+	public function __construct(){
 	}
-	
-	function getNewId(){
+
+	public function getNewId(){
 		$char_list = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
 		for($i = 0; $i < 20; $i++){
@@ -59,7 +59,7 @@ class APICObject {
 	 * 
 	 * @return le nom de la class courante ayant fait appel a cette fonction
 	 **/
-	function className(){return get_class($this);}
+	public function className(){return get_class($this);}
 	
 	/**
 	 * APICObject::getParentClass()
@@ -67,7 +67,7 @@ class APICObject {
 	 * @param $object
 	 * @return 
 	 **/
-	function getParentClass($object){return get_parent_class($object);}
+	public function getParentClass($object){return get_parent_class($object);}
 	
 	/**
 	 * APICObject::equals()
@@ -75,7 +75,7 @@ class APICObject {
 	 * @param $object
 	 * @return 
 	 **/
-	function equals(&$object){
+	public function equals(&$object){
 		if (APICObject::validClass($object)){
 			return TRUE;
 		}
@@ -87,14 +87,14 @@ class APICObject {
 	 * 
 	 * @return 
 	 **/
-	function toString(){return 'APICObject';}
+	public function toString(){return 'APICObject';}
 	
 	/**
 	 * APICObject::serialize()
 	 * 
 	 * @return 
 	 **/
-	function serialize(){
+	public function serialize(){
 		return serialize($this);
 	}
 	
@@ -103,7 +103,7 @@ class APICObject {
 	 * 
 	 * @return 
 	 **/
-	function load(){
+	public function load(){
 	}
 	
 	/**
@@ -112,14 +112,14 @@ class APICObject {
 	 * @access	public
 	 * @return	mixed
 	 */
-	function cloneNode(){	return $this;}
+	public function cloneNode(){	return $this;}
 	
 	/**
 	 * APICObject::hashValue()
 	 * 
 	 * @return 
 	 **/
-	function hashValue(){return md5(serialize($this));}
+	public function hashValue(){return md5(serialize($this));}
 	
 	/**
 	 * APICObject::validClass()
@@ -128,7 +128,7 @@ class APICObject {
 	 * @param string $classname
 	 * @return 
 	 **/
-	function validClass($object, $classname = 'APICObject'){
+	public function validClass($object, $classname = 'APICObject'){
 		return (is_object($object) && ($object->className()==$classname || is_subclass_of($object, $classname)));
 	}
 }

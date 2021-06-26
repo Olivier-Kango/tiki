@@ -12,7 +12,7 @@ class RatingLib extends TikiDb_Bridge
 	/**
 	 * Record a vote for the current user or anonymous visitor.
 	 */
-	function record_vote($type, $objectId, $score, $time = null)
+	public function record_vote($type, $objectId, $score, $time = null)
 	{
 		$target = $this->get_current_user();
 		return $this->record_user_vote($target, $type, $objectId, $score, $time);
@@ -21,18 +21,18 @@ class RatingLib extends TikiDb_Bridge
 	/**
 	 * Obtain the last vote on the item by the user or anonymous visitor.
 	 */
-	function get_vote($type, $objectId)
+	public function get_vote($type, $objectId)
 	{
 		$target = $this->get_current_user();
 		return $this->get_user_vote($target, $type, $objectId);
 	}
 
-	function get_vote_comment_author($comment_author, $type, $objectId)
+	public function get_vote_comment_author($comment_author, $type, $objectId)
 	{
 		return $this->get_user_vote($comment_author, $type, $objectId);
 	}
 
-	function convert_rating_sort(& $sort_mode, $type, $objectKey)
+	public function convert_rating_sort(& $sort_mode, $type, $objectKey)
 	{
 		if (preg_match('/^adv_rating_(\d+)_(asc|desc)$/', $sort_mode, $parts)) {
 			$sort_mode = 'adv_rating_' . $parts[2];
@@ -40,7 +40,7 @@ class RatingLib extends TikiDb_Bridge
 		}
 	}
 
-	function obtain_ratings($type, $itemId, $recalculate = false)
+	public function obtain_ratings($type, $itemId, $recalculate = false)
 	{
 		if ($type == 'wiki page') {
 			$itemId = TikiLib::lib('tiki')->get_page_id_from_name($itemId);
@@ -71,7 +71,7 @@ class RatingLib extends TikiDb_Bridge
 	 *                      - revote : If the user is allowed to vote multiple times, contains the
 	 *                                 amount of seconds between votes. Requires keep parameter.
 	 */
-	function collect($type, $objectId, $aggregate, array $params = [])
+	public function collect($type, $objectId, $aggregate, array $params = [])
 	{
 		if ($aggregate != 'avg' && $aggregate != 'sum') {
 			return false;
@@ -118,7 +118,7 @@ class RatingLib extends TikiDb_Bridge
 		return (double) $this->getOne($query, $bindvars);
 	}
 
-	function get_token($type, $objectId)
+	public function get_token($type, $objectId)
 	{
 		switch ($type) {
 			case 'article':
@@ -138,7 +138,7 @@ class RatingLib extends TikiDb_Bridge
 		return null;
 	}
 
-	function record_user_vote($user, $type, $objectId, $score, $time = null)
+	public function record_user_vote($user, $type, $objectId, $score, $time = null)
 	{
 		global $tikilib, $prefs;
 		if (! $this->is_valid($type, $score, $objectId)) {
@@ -179,12 +179,12 @@ class RatingLib extends TikiDb_Bridge
 		return true;
 	}
 
-	function record_anonymous_vote($sessionId, $type, $objectId, $score, $time = null)
+	public function record_anonymous_vote($sessionId, $type, $objectId, $score, $time = null)
 	{
 		return $this->record_user_vote($this->session_to_user($sessionId), $type, $objectId, $score, $time);
 	}
 
-	function is_valid($type, $value, $objectId)
+	public function is_valid($type, $value, $objectId)
 	{
 		$options = $this->get_options($type, $objectId, false, $hasLabel);
 
@@ -194,7 +194,7 @@ class RatingLib extends TikiDb_Bridge
 			return in_array($value, $options);
 	}
 
-	function get_options($type, $objectId, $skipOverride = false, &$hasLabels = false)
+	public function get_options($type, $objectId, $skipOverride = false, &$hasLabels = false)
 	{
 		$pref = 'rating_default_options';
 		$expectedArray = true;
@@ -239,14 +239,14 @@ class RatingLib extends TikiDb_Bridge
 		return $result;
 	}
 
-	function set_override($type, $objectId, $value)
+	public function set_override($type, $objectId, $value)
 	{
 		$options = $this->override_array($type);
 
 		TikiLib::lib('attribute')->set_attribute($type, $objectId, $type . ".rating.override", $options[$value - 1]);
 	}
 
-	function get_override($type, $objectId)
+	public function get_override($type, $objectId)
 	{
 		$attributelib = TikiLib::lib('attribute');
 		$override = $attributelib->get_attribute($type, $objectId, $type . '.rating.override');
@@ -259,7 +259,7 @@ class RatingLib extends TikiDb_Bridge
 	}
 
 
-	function override_array($type, $maintainArray = false, $sort = false)
+	public function override_array($type, $maintainArray = false, $sort = false)
 	{
 		global $prefs;
 
@@ -306,7 +306,7 @@ class RatingLib extends TikiDb_Bridge
 		return $array;
 	}
 
-	function votings($threadId, $type = 'comment', $normalize = false)
+	public function votings($threadId, $type = 'comment', $normalize = false)
 	{
 		global $prefs;
 
@@ -378,7 +378,7 @@ class RatingLib extends TikiDb_Bridge
 		return $votings;
 	}
 
-	function get_user_vote($user, $type, $objectId)
+	public function get_user_vote($user, $type, $objectId)
 	{
 		$result = $this->fetchAll(
 			'SELECT `optionId` FROM `tiki_user_votings` WHERE `user` = ? AND `id` = ? ORDER BY `time` DESC',
@@ -391,7 +391,7 @@ class RatingLib extends TikiDb_Bridge
 		}
 	}
 
-	function get_anonymous_vote($sessionId, $type, $objectId)
+	public function get_anonymous_vote($sessionId, $type, $objectId)
 	{
 		return $this->get_user_vote($this->session_to_user($sessionId), $type, $objectId);
 	}
@@ -412,7 +412,7 @@ class RatingLib extends TikiDb_Bridge
 		}
 	}
 
-	function test_formula($formula, $available = false)
+	public function test_formula($formula, $available = false)
 	{
 		try {
 			$runner = $this->get_runner();
@@ -430,7 +430,7 @@ class RatingLib extends TikiDb_Bridge
 		}
 	}
 
-	function refresh_rating($type, $object)
+	public function refresh_rating($type, $object)
 	{
 		$configurations = $this->get_initialized_configurations();
 		$runner = $this->get_runner();
@@ -438,7 +438,7 @@ class RatingLib extends TikiDb_Bridge
 		$this->internal_refresh_rating($type, $object, $runner, $configurations);
 	}
 
-	function attempt_refresh($all = false)
+	public function attempt_refresh($all = false)
 	{
 		global $prefs;
 		if (1 == mt_rand(1, $prefs['rating_recalculation_odd'])) {
@@ -446,12 +446,12 @@ class RatingLib extends TikiDb_Bridge
 		}
 	}
 
-	function refresh_all()
+	public function refresh_all()
 	{
 		$this->internal_refresh_list(-1);
 	}
 
-	function get_options_smiles_backgrounds($type)
+	public function get_options_smiles_backgrounds($type)
 	{
 		$sets = $this->get_options_smiles_id_sets();
 
@@ -468,7 +468,7 @@ class RatingLib extends TikiDb_Bridge
 		return $backgroundsSets;
 	}
 
-	function get_options_smiles_colors()
+	public function get_options_smiles_colors()
 	{
 		return [
 			0 => '#d2d2d2',
@@ -486,7 +486,7 @@ class RatingLib extends TikiDb_Bridge
 		];
 	}
 
-	function get_options_smiles_id_sets()
+	public function get_options_smiles_id_sets()
 	{
 		return [
 			2 => [ 1 => 1, 2 => 11],
@@ -503,7 +503,7 @@ class RatingLib extends TikiDb_Bridge
 		];
 	}
 
-	function get_options_smiles($type, $objectId = 0, $sort = false)
+	public function get_options_smiles($type, $objectId = 0, $sort = false)
 	{
 		$options = $this->get_options($type, $objectId, false, $hasLabels);
 		$colors = $this->get_options_smiles_colors();
@@ -601,4 +601,4 @@ class RatingLib extends TikiDb_Bridge
 }
 
 global $ratinglib;
-$ratinglib = new RatingLib;
+$ratinglib = new RatingLib();

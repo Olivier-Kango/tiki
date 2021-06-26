@@ -12,11 +12,12 @@ require_once('lib/wizard/wizard.php');
  */
 class AdminWizardCommunity extends Wizard
 {
-	function pageTitle()
+	public function pageTitle()
 	{
 		return tra('Set up User & Community features');
 	}
-	function isEditable()
+
+	public function isEditable()
 	{
 		return true;
 	}
@@ -29,7 +30,7 @@ class AdminWizardCommunity extends Wizard
 		return true;
 	}
 
-	function getTemplate()
+	public function getTemplate()
 	{
 		$wizardTemplate = 'wizard/admin_community.tpl';
 		return $wizardTemplate;

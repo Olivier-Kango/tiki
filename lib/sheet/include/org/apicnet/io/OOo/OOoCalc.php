@@ -38,14 +38,14 @@ APIC::import("org.apicnet.io.OOo.absOOo");
  **/
 class OOoCalc extends absOOo {
 	
-	var $style;
-	var $STYLNUM = array(
+	public $style;
+	public $STYLNUM = array(
 		'style_family_text' => 1,
 		'style_family_para' => 1,
 		'style_page_style'	=> 1
 	);
-	
-	function __construct($dir){
+
+	public function __construct($dir){
 		parent::__construct();
 		$this->DIRXML = $dir;
 		$this->FILENAME = "content.xml";
@@ -62,9 +62,9 @@ class OOoCalc extends absOOo {
 		$this->style = new OOoStyle($this->DIRXML);
 		$this->xml->setDocType("<!DOCTYPE office:document-content PUBLIC \"-//OpenOffice.org//DTD OfficeDocument 1.0//EN\" \"office.dtd\">");
 	}
-	
-	
-	function create(){
+
+
+	public function create(){
 		$docCalcNode =& $this->xml->createElement("office:document-content");
 		$docCalcNode->setAttribute("xmlns:office", "http://openoffice.org/2000/office");
 		$docCalcNode->setAttribute("xmlns:style", "http://openoffice.org/2000/style");
@@ -122,11 +122,11 @@ class OOoCalc extends absOOo {
 		$this->xml->setXMLDeclaration("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
 	}
 
-	function main(){
+	public function main(){
 		echo $this->toString();
 	}
-	
-	function save(){
+
+	public function save(){
 		parent::save();
 		$this->style->save();
 	}
@@ -138,7 +138,7 @@ class OOoCalc extends absOOo {
 	 * @param string $pageName
 	 * @return 
 	 **/
-	function addHeader($argHeager, $pageName = "pm1"){
+	public function addHeader($argHeager, $pageName = "pm1"){
 	//	$this->style->addStyleHeadFoot($argHeager, "Header", $pageName);
 	}
 	
@@ -149,7 +149,7 @@ class OOoCalc extends absOOo {
 	 * @param string $pageName
 	 * @return 
 	 **/
-	function addFooter($argFooter, $pageName = "pm1"){
+	public function addFooter($argFooter, $pageName = "pm1"){
 	//	$this->style->addStyleHeadFoot($argFooter, "Footer", $pageName);
 	}
 	
@@ -165,7 +165,7 @@ class OOoCalc extends absOOo {
 				)
 	 * @return none
 	 **/
-	function colSpan($argSpan){
+	public function colSpan($argSpan){
 		
 	}
 	
@@ -181,7 +181,7 @@ class OOoCalc extends absOOo {
 				)
 	 * @return none
 	 **/
-	function rowSpan($argSpan){
+	public function rowSpan($argSpan){
 		
 	}
 
@@ -210,7 +210,7 @@ class OOoCalc extends absOOo {
 				)
      * @return none
      */
-	function addcellData($lign, $Col, $argData){
+	public function addcellData($lign, $Col, $argData){
 		echo "/************************traitement des données***********************************/<br>";
 		echo("Col : ".$Col."<br>");
 		echo("lign : ".$lign."<br>");
@@ -307,9 +307,9 @@ class OOoCalc extends absOOo {
 			$currentRowNode->appendChild($tableCellNode);
 		}
     }
-	
-	
-	function maxChild(&$node){
+
+
+	public function maxChild(&$node){
 		$currentNode = &$node;
 		$max = 0;
 		
@@ -346,7 +346,7 @@ class OOoCalc extends absOOo {
 				)
      * @return none
      */
-	function addFeuille($argData = ""){
+	public function addFeuille($argData = ""){
 		//<table:table table:name="Feuille1" table:style-name="ta1">
 		//<table:table-column table:style-name="co1" table:number-columns-repeated="3" table:default-cell-style-name="Default" />
 		

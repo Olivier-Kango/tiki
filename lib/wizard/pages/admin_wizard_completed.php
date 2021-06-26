@@ -12,11 +12,11 @@ require_once('lib/wizard/wizard.php');
  */
 class AdminWizardCompleted extends Wizard
 {
-	function pageTitle()
+	public function pageTitle()
 	{
 		return tra('Configuration Wizard Completed!');
 	}
-	function isEditable()
+	public function isEditable()
 	{
 		return false;
 	}
@@ -29,13 +29,13 @@ class AdminWizardCompleted extends Wizard
 		return true;
 	}
 
-	function getTemplate()
+	public function getTemplate()
 	{
 		$wizardTemplate = 'wizard/admin_wizard_completed.tpl';
 		return $wizardTemplate;
 	}
 
-	function onContinue($homepageUrl)
+	public function onContinue($homepageUrl)
 	{
 		global $tikilib;
 

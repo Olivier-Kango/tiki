@@ -23,14 +23,14 @@ class ReconcileExifIptcXmp
 	 *
 	 * @var array
 	 */
-	var $alltypes = ['exif' => '', 'iptc' => '', 'xmp' => ''];
+	public $alltypes = ['exif' => '', 'iptc' => '', 'xmp' => ''];
 
 	/**
 	 * Maps IPTC field labels to EXIF field labels
 	 *
 	 * @var array
 	 */
-	var $iptcToExif = [
+	public $iptcToExif = [
 		'2#055' => 'DateTimeOriginal',	//date
 		'2#060' => 'DateTimeOriginalTime',//fake EXIF field to match IPTC time which is separated into a different field
 		'2#062' => 'DateTimeDigitized',	//date
@@ -46,7 +46,7 @@ class ReconcileExifIptcXmp
 	 *
 	 * @var array
 	 */
-	var $iptcToXmp = [
+	public $iptcToXmp = [
 		'2#004' => 'IntellectualGenre',		//Iptc4xmpCore
 		'2#005' => 'title',					//dc
 		'2#010' => 'Urgency',				//photoshop
@@ -84,7 +84,7 @@ class ReconcileExifIptcXmp
 	 *
 	 * @var array
 	 */
-	var $xmpToExif = [
+	public $xmpToExif = [
 		'description'		=> 'ImageDescription',
 		'rights'			=> 'Copyright',
 		'creator'			=> 'Artist',
@@ -105,7 +105,7 @@ class ReconcileExifIptcXmp
 	 *
 	 * @var array
 	 */
-	var $xmpPreferred = [
+	public $xmpPreferred = [
 		'DateTime'			=> 'ModifyDate',
 		'DateTimeOriginal'	=> 'DateCreated',
 		'DateTimeDigitized'	=> 'CreateDate',
@@ -116,7 +116,7 @@ class ReconcileExifIptcXmp
 	 *
 	 * @var array
 	 */
-	var $basicSummary = [
+	public $basicSummary = [
 		'User Data'			=> [
 			'Title'				=> [
 				'iptc'				=> '2#005',
@@ -190,7 +190,7 @@ class ReconcileExifIptcXmp
 	 *
 	 * @var array
 	 */
-	var $statspecs = [
+	public $statspecs = [
 		'fields'			=> [
 			'label'			=> 'Total Fields Shown',
 		],
@@ -207,7 +207,7 @@ class ReconcileExifIptcXmp
 	 *
 	 * @var array
 	 */
-	var $repeat = [
+	public $repeat = [
 		2	=> ['exif' => '', 'iptc' => ''],
 		3	=> ['iptc' => '', 'xmp' => ''],
 		4	=> ['exif' => '', 'xmp' => ''],
@@ -220,7 +220,7 @@ class ReconcileExifIptcXmp
 	 *
 	 * @var array
 	 */
-	var $flashmap = [
+	public $flashmap = [
 		'Fired' => [
 			'False'	=> 0,
 			'True'	=> 1,
@@ -251,7 +251,7 @@ class ReconcileExifIptcXmp
 	 *
 	 * @var array
 	 */
-	var $special = [
+	public $special = [
 		'ComponentsConfiguration' => '',
 	];
 
@@ -263,7 +263,7 @@ class ReconcileExifIptcXmp
 	 *
 	 * @return 		array|bool	$finalall		Array of reconciled data included stats
 	 */
-	function reconcileAllMeta($metadata)
+	public function reconcileAllMeta($metadata)
 	{
 		$types = [];
 
@@ -364,7 +364,7 @@ class ReconcileExifIptcXmp
 	 *
 	 * @return		array		$flat				flatted array
 	 */
-	function flatten($multiArray)
+	public function flatten($multiArray)
 	{
 		$flat = [];
 		foreach ($multiArray as $secondkeys) {
@@ -438,7 +438,7 @@ class ReconcileExifIptcXmp
 	 *
 	 * @return mixed
 	 */
-	function reconcile($types, $omni, $samekey = false, $i)
+	public function reconcile($types, $omni, $samekey = false, $i)
 	{
 		$match = [];
 		//identify the types and determine matches

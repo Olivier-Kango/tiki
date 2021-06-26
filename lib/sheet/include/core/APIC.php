@@ -57,7 +57,7 @@ class APIC extends APICObject {
 	* @since 1.1
 	* @update 06/06/2002
 	*/
-	function import($class, $module=NULL){
+	public function import($class, $module=NULL){
 		$class = preg_split('/,/', preg_replace('/\s{1,}/', '', $class));
 		$len = count($class);
 		for ($i =0; $i<$len; $i++){
@@ -73,7 +73,7 @@ class APIC extends APICObject {
 	 * @param unknown $module
 	 * @return 
 	 **/
-	function importData($class, $module=NULL){
+	public function importData($class, $module=NULL){
 		$packagename = APIClassRegistry::extractPackageName($class);
 		$path        = APIClassRegistry::convertToPath($class, $module);
 		if (APIClassRegistry::isClass($class)){// extracting class name
@@ -94,9 +94,9 @@ class APIC extends APICObject {
 	* @since 1.1
 	* @update 06/06/2002
 	*/
-	function _debug(){
+	public function _debug(){
 		APIClassRegistry::_debug();
-	} // end func
+	}
 	
 	/**
 	*  
@@ -105,9 +105,9 @@ class APIC extends APICObject {
 	* @since 1.1
 	* @update 06/06/2002
 	*/
-	function isRegistered($class){
+	public function isRegistered($class){
 		return APIClassRegistry::isRegistered($class);
-	} // end func
+	}
 	
 	/**
 	* 
@@ -123,7 +123,7 @@ class APIC extends APICObject {
 	* @since 1.1
 	* @update 06/06/2002
 	*/
-	function &loadClass($class, $parameters=NULL, $new_class=FALSE, $module=NULL){
+	public function &loadClass($class, $parameters=NULL, $new_class=FALSE, $module=NULL){
 		
 		APIC::import("org.apicnet.io.File"); 
 		
@@ -176,7 +176,7 @@ class APIC extends APICObject {
 				}
 			}
 		}
-	} // end func
+	}
 	
 	/**
 	*
@@ -186,7 +186,7 @@ class APIC extends APICObject {
 	* @since 1.1
 	* @update 06/06/2002
 	*/
-	function _display_core_package(){
+	public function _display_core_package(){
 		print("<font style='font-family: Courier New; font-size: 9pt; color:#ff3300'>");
 		print("<ol><li><strong>core</strong>");
 		print("<ol>");
@@ -194,7 +194,7 @@ class APIC extends APICObject {
 		print("</ol>");
 		print("</li></ol>");
 		print("</font>");
-	} // end func
+	}
 	
 	/**
 	*
@@ -204,11 +204,11 @@ class APIC extends APICObject {
 	* @since 1.1
 	* @update 06/06/2002
 	*/
-	function _display_packages(){
+	public function _display_packages(){
 		print("<font style='font-family: Courier New; font-size: 9pt; color:#006600'>");
 		APIC::listDir(JPHP_LIBRARY_PATH);
 		print("</font>");
-	} // end func
+	}
 	
 	/**
 	* 
@@ -219,7 +219,7 @@ class APIC extends APICObject {
 	* @since 1.1
 	* @update 06/06/2002
 	*/
-	function listDir($path){
+	public function listDir($path){
 		if (file_exists($path) && is_dir($path)){
 			print("<ol>");
 			$handle=opendir($path);
@@ -240,5 +240,5 @@ class APIC extends APICObject {
 		} else {
 			print("<li>classes library directory cannot be found</li>");
 		}
-	} // end func
-}// end class
+	}
+}

@@ -61,7 +61,7 @@ class ParserLib extends TikiDb_Bridge
 	 */
 	public $option = []; // An associative array of (most) parameters (despite the singular)
 
-	function setOptions($option = [])
+	public function setOptions($option = [])
 	{
 		global $page, $prefs;
 
@@ -104,12 +104,12 @@ class ParserLib extends TikiDb_Bridge
 		$this->option['exclude_plugins'] = array_map('strtolower', $this->option['exclude_plugins']);
 	}
 
-	function __construct()
+	public function __construct()
 	{
 		$this->setOptions();
 	}
 	//*
-	function parse_data_raw($data)
+	public function parse_data_raw($data)
 	{
 		$data = $this->parse_data($data);
 		$data = str_replace("tiki-index", "tiki-index_raw", $data);
@@ -147,7 +147,7 @@ class ParserLib extends TikiDb_Bridge
 
 	// This function handles the protection of html entities so that they are not mangled when
 	// parse_htmlchar runs, and as well so they can be properly seen, be it html or non-html
-	function protectSpecialChars($data, $is_html = false)
+	public function protectSpecialChars($data, $is_html = false)
 	{
 		if ((isset($this->option['is_html']) && $this->option['is_html'] != true) || ! empty($this->option['ck_editor'])) {
 			foreach ($this->specialChars as $key => $specialChar) {
@@ -158,7 +158,7 @@ class ParserLib extends TikiDb_Bridge
 	}
 
 	// This function removed the protection of html entities so that they are rendered as expected by the viewer
-	function unprotectSpecialChars($data, $is_html = false)
+	public function unprotectSpecialChars($data, $is_html = false)
 	{
 		if (( $is_html != false || ( isset($this->option['is_html']) && $this->option['is_html']))
 			|| $this->option['ck_editor']) {
@@ -176,7 +176,7 @@ class ParserLib extends TikiDb_Bridge
 
 	// Reverses parse_first.
 	//*
-	function replace_preparse(&$data, &$preparsed, &$noparsed, $is_html = false)
+	public function replace_preparse(&$data, &$preparsed, &$noparsed, $is_html = false)
 	{
 		$data1 = $data;
 		$data2 = "";
@@ -206,7 +206,7 @@ class ParserLib extends TikiDb_Bridge
 	 * @param $noparsed array	output array
 	 * @see parserLib::plugins_replace()
 	 */
-	function plugins_remove(&$data, &$noparsed, $removeCb = null)
+	public function plugins_remove(&$data, &$noparsed, $removeCb = null)
 	{
 		$tikilib = TikiLib::lib('tiki');
 		if (isset($removeCb) && ! is_callable($removeCb)) {
@@ -233,7 +233,7 @@ class ParserLib extends TikiDb_Bridge
 	 * @param $noparsed array	input array
 	 */
 
-	function plugins_replace(&$data, $noparsed, $is_html = false)
+	public function plugins_replace(&$data, $noparsed, $is_html = false)
 	{
 		$preparsed = [];	// unused
 		$noparsed['data'] = isset($noparsed['data']) ? str_replace('<x>', '', $noparsed['data']) : '';
@@ -348,7 +348,7 @@ class ParserLib extends TikiDb_Bridge
 	}
 
 	//*
-	function plugin_split_args($params_string)
+	public function plugin_split_args($params_string)
 	{
 		$parser = new WikiParser_PluginArgumentParser;
 
@@ -357,7 +357,7 @@ class ParserLib extends TikiDb_Bridge
 
 	// get all the plugins of a text- can be limitted only to some
 	//*
-	function getPlugins($data, $only = null)
+	public function getPlugins($data, $only = null)
 	{
 		$plugins = [];
 		for (;;) {
@@ -376,7 +376,7 @@ class ParserLib extends TikiDb_Bridge
 
 	// Transitional wrapper over WikiParser_Parsable::parse_first()
 	// This recursive function handles pre- and no-parse sections and plugins
-	function parse_first(&$data, &$preparsed, &$noparsed, $real_start_diff = '0')
+	public function parse_first(&$data, &$preparsed, &$noparsed, $real_start_diff = '0')
 	{
 		return (new WikiParser_Parsable(''))->parse_first($data, $preparsed, $noparsed, $real_start_diff);
 	}
@@ -447,13 +447,13 @@ class ParserLib extends TikiDb_Bridge
 	}
 
 	//*
-	function plugin_get_list($includeReal = true, $includeAlias = true)
+	public function plugin_get_list($includeReal = true, $includeAlias = true)
 	{
 		return WikiPlugin_Negotiator_Wiki::getList($includeReal, $includeAlias);
 	}
 
 	//*
-	function plugin_exists($name, $include = false)
+	public function plugin_exists($name, $include = false)
 	{
 		$php_name = 'lib/wiki-plugins/wikiplugin_';
 		$php_name .= TikiLib::strtolower($name) . '.php';
@@ -475,7 +475,7 @@ class ParserLib extends TikiDb_Bridge
 	}
 
 	//*
-	function plugin_info($name, $args = [])
+	public function plugin_info($name, $args = [])
 	{
 		static $known = [];
 
@@ -541,25 +541,25 @@ class ParserLib extends TikiDb_Bridge
 	}
 
 	//*
-	function plugin_alias_info($name)
+	public function plugin_alias_info($name)
 	{
 		return WikiPlugin_Negotiator_Wiki_Alias::info($name);
 	}
 
 	//*
-	function plugin_alias_store($name, $data)
+	public function plugin_alias_store($name, $data)
 	{
 		return WikiPlugin_Negotiator_Wiki_Alias::store($name, $data);
 	}
 
 	//*
-	function plugin_alias_delete($name)
+	public function plugin_alias_delete($name)
 	{
 		return WikiPlugin_Negotiator_Wiki_Alias::delete($name);
 	}
 
 	//*
-	function plugin_enabled($name, & $output)
+	public function plugin_enabled($name, & $output)
 	{
 		if (! $meta = $this->plugin_info($name)) {
 			return true; // Legacy plugins always execute
@@ -586,7 +586,7 @@ class ParserLib extends TikiDb_Bridge
 	}
 
 	//*
-	function plugin_is_inline($name)
+	public function plugin_is_inline($name)
 	{
 		if (! $meta = $this->plugin_info($name)) {
 			return true; // Legacy plugins always inline
@@ -617,7 +617,7 @@ class ParserLib extends TikiDb_Bridge
 	 * @return bool|string Boolean true if can execute, string 'rejected' if can't execute and plugin fingerprint if pending
 	 */
 	//*
-	function plugin_can_execute($name, $data = '', $args = [], $dont_modify = false)
+	public function plugin_can_execute($name, $data = '', $args = [], $dont_modify = false)
 	{
 		global $prefs;
 
@@ -675,7 +675,7 @@ class ParserLib extends TikiDb_Bridge
 	}
 
 	//*
-	function plugin_fingerprint_check($fp, $dont_modify = false)
+	public function plugin_fingerprint_check($fp, $dont_modify = false)
 	{
 		global $user;
 		$tikilib = TikiLib::lib('tiki');
@@ -723,7 +723,7 @@ class ParserLib extends TikiDb_Bridge
 	}
 
 	//*
-	function plugin_fingerprint_store($fp, $type)
+	public function plugin_fingerprint_store($fp, $type)
 	{
 		global $prefs, $user;
 		$tikilib = TikiLib::lib('tiki');
@@ -743,7 +743,7 @@ class ParserLib extends TikiDb_Bridge
 	}
 
 	//*
-	function plugin_clear_fingerprint($fp)
+	public function plugin_clear_fingerprint($fp)
 	{
 		$tikilib = TikiLib::lib('tiki');
 		$pluginSecurity = $tikilib->table('tiki_plugin_security');
@@ -751,7 +751,7 @@ class ParserLib extends TikiDb_Bridge
 	}
 
 	//*
-	function list_plugins_pending_approval()
+	public function list_plugins_pending_approval()
 	{
 		$tikilib = TikiLib::lib('tiki');
 		return $tikilib->fetchAll("SELECT `fingerprint`, `added_by`, `last_update`, `last_objectType`, `last_objectId` FROM `tiki_plugin_security` WHERE `status` = 'pending' ORDER BY `last_update` DESC");
@@ -781,7 +781,7 @@ class ParserLib extends TikiDb_Bridge
 	}
 
 	//*
-	function approve_all_pending_plugins()
+	public function approve_all_pending_plugins()
 	{
 		global $user;
 		$tikilib = TikiLib::lib('tiki');
@@ -791,7 +791,7 @@ class ParserLib extends TikiDb_Bridge
 	}
 
 	//*
-	function approve_selected_pending_plugings($fp)
+	public function approve_selected_pending_plugings($fp)
 	{
 		global $user;
 		$tikilib = TikiLib::lib('tiki');
@@ -801,7 +801,7 @@ class ParserLib extends TikiDb_Bridge
 	}
 
 	//*
-	function plugin_fingerprint($name, $meta, $data, $args)
+	public function plugin_fingerprint($name, $meta, $data, $args)
 	{
 		$validate = (isset($meta['validate']) ? $meta['validate'] : '');
 
@@ -854,7 +854,7 @@ class ParserLib extends TikiDb_Bridge
 	}
 
 	// Transitional wrapper over WikiParser_Parsable::pluginExecute()
-	function pluginExecute($name, $data = '', $args = [], $offset = 0, $validationPerformed = false, $option = [])
+	public function pluginExecute($name, $data = '', $args = [], $offset = 0, $validationPerformed = false, $option = [])
 	{
 		return (new WikiParser_Parsable(''))->pluginExecute($name, $data, $args, $offset, $validationPerformed, $option);
 	}
@@ -963,7 +963,7 @@ class ParserLib extends TikiDb_Bridge
 		return 	$ret;
 	}
 
-	function find_plugins($data, $name = null)
+	public function find_plugins($data, $name = null)
 	{
 		$parserlib = TikiLib::lib('parser');
 		$argumentParser = new WikiParser_PluginArgumentParser;
@@ -986,7 +986,7 @@ class ParserLib extends TikiDb_Bridge
 		return $occurrences;
 	}
 
-	function process_save_plugins($data, array $context)
+	public function process_save_plugins($data, array $context)
 	{
 		$parserlib = TikiLib::lib('parser');
 
@@ -1099,7 +1099,7 @@ class ParserLib extends TikiDb_Bridge
 	}
 
 	//*
-	function plugin_replace_args($content, $rules, $args)
+	public function plugin_replace_args($content, $rules, $args)
 	{
 		$patterns = [];
 		$replacements = [];
@@ -1132,7 +1132,7 @@ class ParserLib extends TikiDb_Bridge
 	}
 
 	//*
-	function plugin_is_editable($name)
+	public function plugin_is_editable($name)
 	{
 		global $tiki_p_edit, $prefs, $section;
 		$info = $this->plugin_info($name);
@@ -1150,7 +1150,7 @@ class ParserLib extends TikiDb_Bridge
 	 * @param string new page name
 	 * @return string new wiki parseable content with links replaced
 	 */
-	function replace_links($data, $oldName, $newName)
+	public function replace_links($data, $oldName, $newName)
 	{
 		global $prefs;
 		$quotedOldName = preg_quote($oldName, '/');
@@ -1189,7 +1189,7 @@ class ParserLib extends TikiDb_Bridge
 
 	// Replace hotwords in given line
 	//*
-	function replace_hotwords($line, $words = null)
+	public function replace_hotwords($line, $words = null)
 	{
 		global $prefs;
 
@@ -1225,7 +1225,7 @@ class ParserLib extends TikiDb_Bridge
 	// Make plain text URIs in text into clickable hyperlinks
 	//	check to see if autolinks is enabled before calling this function ($prefs['feature_autolinks'] == "y")
 	//*
-	function autolinks($text)
+	public function autolinks($text)
 	{
 		if ($text) {
 			global $prefs;
@@ -1300,7 +1300,7 @@ class ParserLib extends TikiDb_Bridge
 	 */
 	/* private */
 	//*
-	function close_blocks(&$data, &$in_paragraph, &$listbeg, &$divdepth, $close_paragraph, $close_lists, $close_divs)
+	public function close_blocks(&$data, &$in_paragraph, &$listbeg, &$divdepth, $close_paragraph, $close_lists, $close_divs)
 	{
 
 		$closed = 0;	// Set to non-zero if something has been closed out
@@ -1334,7 +1334,7 @@ class ParserLib extends TikiDb_Bridge
 	//PARSEDATA
 	// options defaults : is_html => false, absolute_links => false, language => ''
 	//*
-	function parse_data($data, $option = [])
+	public function parse_data($data, $option = [])
 	{
 		return (new WikiParser_Parsable($data))->parse($option);
 	}
@@ -1371,7 +1371,7 @@ class ParserLib extends TikiDb_Bridge
 	 *
 	 * @return string parsed data
 	 */
-	function parse_data_plugin($data, $inlineFirstP = false, $optionsOverride = [])
+	public function parse_data_plugin($data, $inlineFirstP = false, $optionsOverride = [])
 	{
 		$options['is_html'] = ($GLOBALS['prefs']['feature_wiki_allowhtml'] === 'y' && $GLOBALS['info']['is_html'] == true) ? true : false;
 
@@ -1400,7 +1400,7 @@ class ParserLib extends TikiDb_Bridge
 	/** Simpler and faster parse than parse_data()
 	 * This is only called from the parse Smarty modifier, for preference definitions.
 	 */
-	function parse_data_simple($data)
+	public function parse_data_simple($data)
 	{
 		$data = $this->parse_data_wikilinks($data, true);
 		$data = $this->parse_data_externallinks($data, true);
@@ -1730,7 +1730,7 @@ class ParserLib extends TikiDb_Bridge
 	}
 
 	//*
-	function parse_wiki_argvariable(&$data)
+	public function parse_wiki_argvariable(&$data)
 	{
 		global $prefs, $user;
 		$tikilib = TikiLib::lib('tiki');
@@ -2976,7 +2976,7 @@ class ParserLib extends TikiDb_Bridge
 	}
 
 	//*
-	function contains_html_block($inHtml)
+	public function contains_html_block($inHtml)
 	{
 		// detect all block elements as defined on http://www.w3.org/2007/07/xhtml-basic-ref.html
 		$block_detect_regexp = '/<[\/]?(?:address|blockquote|div|dl|fieldset|h\d|hr|li|noscript|ol|p|pre|table|ul)/i';
@@ -2984,14 +2984,14 @@ class ParserLib extends TikiDb_Bridge
 	}
 
 	//*
-	function contains_html_br($inHtml)
+	public function contains_html_br($inHtml)
 	{
 		$block_detect_regexp = '/<(?:br)/i';
 		return  (preg_match($block_detect_regexp, $this->unprotectSpecialChars($inHtml, true)) > 0);
 	}
 
 	//*
-	function get_wiki_link_replacement($pageLink, $extra = [], $ck_editor = false)
+	public function get_wiki_link_replacement($pageLink, $extra = [], $ck_editor = false)
 	{
 		global $prefs;
 		$wikilib = TikiLib::lib('wiki');
@@ -3064,7 +3064,7 @@ class ParserLib extends TikiDb_Bridge
 	}
 
 	//*
-	function parser_helper_wiki_info_getter($pageName)
+	public function parser_helper_wiki_info_getter($pageName)
 	{
 		global $prefs;
 		$tikilib = TikiLib::lib('tiki');
@@ -3128,7 +3128,7 @@ class ParserLib extends TikiDb_Bridge
 		}
 	}
 	//*
-	function parse_tagged_users($data)
+	public function parse_tagged_users($data)
 	{
 		$count = 1;
 		return preg_replace_callback(
@@ -3155,7 +3155,7 @@ class ParserLib extends TikiDb_Bridge
 	}
 
 	//*
-	function parse_smileys($data)
+	public function parse_smileys($data)
 	{
 		global $prefs;
 		static $patterns;
@@ -3209,7 +3209,7 @@ class ParserLib extends TikiDb_Bridge
 	}
 
 	//*
-	function get_pages($data, $withReltype = false)
+	public function get_pages($data, $withReltype = false)
 	{
 		global $page_regex, $prefs;
 		$tikilib = TikiLib::lib('tiki');

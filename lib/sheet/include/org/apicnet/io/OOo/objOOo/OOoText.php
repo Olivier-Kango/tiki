@@ -28,9 +28,9 @@ APIC::import("org.apicnet.io.File");
 
 class OOoText extends absOOo {
 
-	var $_text   = NULL;
-	var $_style;
-	var $StyleName;
+	public $_text   = NULL;
+	public $_style;
+	public $StyleName;
 		
 
 	/**
@@ -38,7 +38,7 @@ class OOoText extends absOOo {
 	 * 
 	 * @return 
 	 **/
-	function __construct(){
+	public function __construct(){
 		$this->xml = new DOMIT_Document();
 	}
 		/**
@@ -64,7 +64,7 @@ class OOoText extends absOOo {
 				)
 	 * @return none
 	 */
-	function setStylePara($argPara){
+	public function setStylePara($argPara){
 		$this->_style = $argPara;
 	}
 	
@@ -85,7 +85,7 @@ class OOoText extends absOOo {
 		);
 	 * @return none
 	 **/
-	function addText($argText){
+	public function addText($argText){
 		$this->_text[] = $argText;
 	}
 	
@@ -97,7 +97,7 @@ class OOoText extends absOOo {
 	 * @param $nodeStyle
 	 * @return 
 	 **/
-	function run(&$nodeContent, &$nodeStyle, $dir){
+	public function run(&$nodeContent, &$nodeStyle, $dir){
 		static $STYLNUM;
 		if (!isset($STYLNUM)){
 			$STYLNUM = array(

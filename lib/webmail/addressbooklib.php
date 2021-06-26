@@ -13,13 +13,13 @@ if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
 
 class AddressBookLib extends TikiLib
 {
-	function list_address_books($user, $offset = -1, $maxRecords = -1) {
+	public function list_address_books($user, $offset = -1, $maxRecords = -1) {
 		$query = "select * from `tiki_address_books` where `user` = ? order by `name`";
 		$bindvars = [$user];
 		return $this->fetchAll($query, $bindvars, $maxRecords, $offset);
 	}
 
-	function update_address_book($addressBookId, $data) {
+	public function update_address_book($addressBookId, $data) {
 		if ($addressBookId) {
 			$update = [];
 			$bindvars = [];
@@ -43,17 +43,17 @@ class AddressBookLib extends TikiLib
 		}
 	}
 
-	function delete_address_book($addressBookId) {
+	public function delete_address_book($addressBookId) {
 		$this->query("delete from `tiki_address_books` where `addressBookId` = ?", [$addressBookId]);
 		$this->query("delete from `tiki_address_cards` where `addressBookId` = ?", [$addressBookId]);
 	}
 
-	function get_address_book($addressBookId) {
+	public function get_address_book($addressBookId) {
 		$result = $this->query("select * from `tiki_address_books` where `addressBookId` = ?", $addressBookId);
 		return $result->fetchRow();
 	}
 
-	function list_cards($addressBookId, $offset = -1, $maxRecords = -1, $cardUris = []) {
+	public function list_cards($addressBookId, $offset = -1, $maxRecords = -1, $cardUris = []) {
 		$query = "select * from `tiki_address_cards` where `addressBookId` = ?";
 		$bindvars = [$addressBookId];
 		if ($cardUris) {
@@ -64,7 +64,7 @@ class AddressBookLib extends TikiLib
 		return $this->fetchAll($query, $bindvars, $maxRecords, $offset);
 	}
 
-	function create_card($data) {
+	public function create_card($data) {
 		$update = [];
 		$bindvars = [];
 		foreach ($data as $field => $value) {
@@ -79,7 +79,7 @@ class AddressBookLib extends TikiLib
 		return $this->lastInsertId();
 	}
 
-	function update_card($addressBookId, $uri, $data) {
+	public function update_card($addressBookId, $uri, $data) {
 		$update = [];
 		$bindvars = [];
 		foreach ($data as $field => $value) {
@@ -95,7 +95,7 @@ class AddressBookLib extends TikiLib
 		return $this->query($query, $bindvars);
 	}
 
-	function delete_card($addressBookId, $uri) {
+	public function delete_card($addressBookId, $uri) {
 		$this->query("delete from `tiki_address_cards` where `addressBookId` = ? and `uri` = ?", [$addressBookId, $uri]);
 	}
 }

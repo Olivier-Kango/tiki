@@ -10,34 +10,34 @@ class SocialLib
 	private $relationlib;
 	private $networkType;
 
-	function __construct()
+	public function __construct()
 	{
 		global $prefs;
 		$this->relationlib = TikiLib::lib('relation');
 		$this->networkType = $prefs['social_network_type'] ?: 'follow';
 	}
 
-	function listFriends($user)
+	public function listFriends($user)
 	{
 		return $this->getRelations('follow', $user);
 	}
 
-	function listFollowers($user)
+	public function listFollowers($user)
 	{
 		return $this->getRelations('follow.invert', $user);
 	}
 
-	function listIncomingRequests($user)
+	public function listIncomingRequests($user)
 	{
 		return $this->getRelations('request.invert', $user);
 	}
 
-	function listOutgoingRequests($user)
+	public function listOutgoingRequests($user)
 	{
 		return $this->getRelations('request', $user);
 	}
 
-	function addFriend($user, $newFriend)
+	public function addFriend($user, $newFriend)
 	{
 		if ($user == $newFriend) {
 			return false;
@@ -123,7 +123,7 @@ class SocialLib
 		return true;
 	}
 
-	function approveFriend($user, $newFriend)
+	public function approveFriend($user, $newFriend)
 	{
 		if ($this->networkType != 'follow_approval') {
 			return false;
@@ -170,7 +170,7 @@ class SocialLib
 		return false;
 	}
 
-	function removeFriend($user, $oldFriend)
+	public function removeFriend($user, $oldFriend)
 	{
 		$follow = $this->getRelation('follow', $user, $oldFriend);
 		$followInvert = $this->getRelation('follow.invert', $user, $oldFriend);
@@ -236,7 +236,7 @@ class SocialLib
 		return sha1("friendrelation/$a/$b");
 	}
 
-	function addLike($user, $type, $id)
+	public function addLike($user, $type, $id)
 	{
 		$like = $this->getLike($user, $type, $id);
 
@@ -256,7 +256,7 @@ class SocialLib
 		return false;
 	}
 
-	function removeLike($user, $type, $id)
+	public function removeLike($user, $type, $id)
 	{
 		$like = $this->getLike($user, $type, $id);
 
@@ -276,7 +276,7 @@ class SocialLib
 		return false;
 	}
 
-	function getLikes($type, $id)
+	public function getLikes($type, $id)
 	{
 		$relations = $this->relationlib->get_relations_to($type, $id, 'tiki.social.like');
 

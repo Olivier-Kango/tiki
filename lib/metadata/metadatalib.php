@@ -38,7 +38,7 @@ class FileMetadata
 	 *
 	 * @return \FileMetadata FileMetadata object with properties for the various types of metadata
 	 */
-	function getMetadata($file, $ispath = true, $extended = true)
+	public function getMetadata($file, $ispath = true, $extended = true)
 	{
 		if (empty($file)) {
 			return false;
@@ -159,7 +159,7 @@ class FileMetadata
 	 *
 	 * @return		array		$metarray			metarray with merged basic file data and extraction time
 	 */
-	function mergeBasicInfo($metaObj, $metarray)
+	public function mergeBasicInfo($metaObj, $metarray)
 	{
 		$sumtab		= 'Summary of Basic Information';
 		$timeheader = 'Metadata Extraction Time';
@@ -230,7 +230,7 @@ class FileMetadata
 	 *
 	 * @return bool
 	 */
-	function canProcessExtended()
+	public function canProcessExtended()
 	{
 		if (isset($this->basicraw['type']) && array_key_exists($this->basicraw['type'], $this->types)) {
 			return true;
@@ -250,7 +250,7 @@ class FileMetadata
 	 *
 	 * @return bool|string			segment portion is returned
 	 */
-	function getDataSegment($binarycontent, $marker, $markerlength, $sizelength)
+	public function getDataSegment($binarycontent, $marker, $markerlength, $sizelength)
 	{
 		//find position of segment marker
 		$markerpos = strpos($binarycontent, $marker);
@@ -281,7 +281,7 @@ class FileMetadata
 	 * Calls a smarty template to render the dialog box. The template will require a newval value for each field and
 	 * will check for label and suffix values
 	 */
-	function dialogTabs($metadata, $id, $id_link, $filename)
+	public function dialogTabs($metadata, $id, $id_link, $filename)
 	{
 		$smarty = TikiLib::lib('smarty');
 		$smarty->assign('id', $id);
@@ -301,7 +301,7 @@ class FileMetadata
 		return $smarty->fetch('metadata/meta_view_dialog.tpl');
 	}
 
-	function pageTabs($metadata)
+	public function pageTabs($metadata)
 	{
 		$smarty = TikiLib::lib('smarty');
 		if (is_array($metadata) && count($metadata) > 0) {
@@ -318,4 +318,4 @@ class FileMetadata
 		$smarty->assign('extended', $this->canProcessExtended() ? 'y' : 'n');
 		$smarty->display('metadata/meta_view_tabs.tpl');
 	}
-} //end of class
+}

@@ -43,15 +43,15 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */ 
 class APIClassRegistry extends ErrorManager{
 	
-	var $packages  = NULL;
-	var $classes   = NULL;
-	var $instances = NULL;
+	public $packages  = NULL;
+	public $classes   = NULL;
+	public $instances = NULL;
 	
 	/**
 	* Class registry constructor
 	* @access private
 	*/
-	function __construct(){
+	public function __construct(){
 		$this->packages = array();
 		$this->classes = array();
 		$this->instances = array();
@@ -64,7 +64,7 @@ class APIClassRegistry extends ErrorManager{
 	* @return	APIClassRegistry	a unique instance of a APIClassRegistry
 	* @access	private static
 	*/
-	function & getInstance(){
+	public function & getInstance(){
 		static $instance;
 		if (!isset($instance)){
 			$instance = new APIClassRegistry();
@@ -79,7 +79,7 @@ class APIClassRegistry extends ErrorManager{
 	* @return boolean TRUE if the class has been registered
 	* @access public static
 	*/
-	function register($class_package, $class_class=NULL){
+	public function register($class_package, $class_class=NULL){
 		static $registry;
 		if (!isset($registry)) {
 			$registry =& APIClassRegistry::getInstance();
@@ -104,8 +104,8 @@ class APIClassRegistry extends ErrorManager{
 		}
 		return FALSE;
 	}
-	
-	function registerClass($class_package, &$obj){
+
+	public function registerClass($class_package, &$obj){
 		static $registry;
 		if (!isset($registry)) {
 			$registry =& APIClassRegistry::getInstance();
@@ -113,8 +113,8 @@ class APIClassRegistry extends ErrorManager{
 		$extractedClassName = strtolower(APIClassRegistry::extractClassName($class_package));
 		$registry->instances[$extractedClassName] = $obj;
 	}
-	
-	function &loadClass($class_package, $parameters){
+
+	public function &loadClass($class_package, $parameters){
 		static $registry;
 		if (!isset($registry)) {
 			$registry =& APIClassRegistry::getInstance();
@@ -142,7 +142,7 @@ class APIClassRegistry extends ErrorManager{
 	*	@return boolean		TRUE if it's a package definition
 	*	@access public static
 	*/
-	function isPackage($package){
+	public function isPackage($package){
 		return $package[strlen($package)-1]==='*' && $package[strlen($package)-2]==='.';
 	}
 	
@@ -152,7 +152,7 @@ class APIClassRegistry extends ErrorManager{
 	*	@return boolean		TRUE if it's a package definition
 	*	@access public static
 	*/
-	function isClass($package){
+	public function isClass($package){
 		return isset($package) ? $package[strlen($package)-1]!=='*' : FALSE;
 	}
 	
@@ -162,7 +162,7 @@ class APIClassRegistry extends ErrorManager{
 	* @return string/core.StringBuffer	the extracted class name if extraction is a success or NULL if fail to extract
 	* @access public static
 	*/
-	function extractClassName($package){
+	public function extractClassName($package){
 		$array = explode('.', $package);
 		return $array[count($array)-1];
 	}
@@ -173,7 +173,7 @@ class APIClassRegistry extends ErrorManager{
 	* @return string/core.StringBuffer	the extracted package name if extraction is a success or NULL if fail to extract
 	* @access public static
 	*/
-	function extractPackageName($package){
+	public function extractPackageName($package){
 		if (APIClassRegistry::isPackage($package)){
 			return substr($package, 0, strlen($package)-2);
 		}else{
@@ -192,7 +192,7 @@ class APIClassRegistry extends ErrorManager{
 	* @return boolean	TRUE if the class/package is already registered
 	* @access public
 	*/
-	function isRegistered($class_package, $class_class=NULL){
+	public function isRegistered($class_package, $class_class=NULL){
 		static $registry;
 		// get unique instance
 		if (!isset($registry)) {
@@ -221,7 +221,7 @@ class APIClassRegistry extends ErrorManager{
 	* Convert to real path
 	*/ 
 	// ajouter une variable permettant de distinguer les imports du core et ceux des modules en utilisant APIC_MODULE_PATH
-	function convertToPath($package_name, $modulePath=NULL, $class_name=NULL){
+	public function convertToPath($package_name, $modulePath=NULL, $class_name=NULL){
 		$package_name = preg_replace('/(\*?)$/', '', $package_name);
 		$package_name = strtr($package_name, '*.',' /');
 		$package_name = str_replace(str_repeat(DIRECTORY_SEPARATOR,2), '.'.DIRECTORY_SEPARATOR, $package_name);
@@ -242,7 +242,7 @@ class APIClassRegistry extends ErrorManager{
 	* @return void
 	* @access public static
 	*/
-	function _debug(){
+	public function _debug(){
 		static $registry;
 		// get unique instance
 		if (!isset($registry)) {

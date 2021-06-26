@@ -21,7 +21,7 @@ class BasicInfo
 	 *
 	 * @var array
 	 */
-	var	$specs = [
+	public $specs = [
 		'size' => [
 			'label' => 'File Size',
 			'suffix' => 'bytes',
@@ -44,7 +44,7 @@ class BasicInfo
 	 *
 	 * @return 		array|bool	$basic				Processed metadata with expected fields used in later functions
 	 */
-	function processRawData($basicraw)
+	public function processRawData($basicraw)
 	{
 		if (is_array($basicraw)) {
 			foreach ($basicraw as $name => $field) {

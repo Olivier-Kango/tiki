@@ -74,18 +74,18 @@ if (!function_exists('file_get_contents')) {
 class Spreadsheet_Excel_Reader
 {
 
-	var $boundsheets = array();
-	var $formatRecords = array();
-	var $sst = array();
-	var $sheets = array();
-	var $data;
-	var $pos;
-	var $_ole;
-	var $_defaultEncoding;
-	var $_defaultFormat = Spreadsheet_Excel_Reader_DEF_NUM_FORMAT;
-	var $_columnsFormat = array();
+	public $boundsheets = array();
+	public $formatRecords = array();
+	public $sst = array();
+	public $sheets = array();
+	public $data;
+	public $pos;
+	public $_ole;
+	public $_defaultEncoding;
+	public $_defaultFormat = Spreadsheet_Excel_Reader_DEF_NUM_FORMAT;
+	public $_columnsFormat = array();
 
-	var $dateFormats = array (
+	public $dateFormats = array (
 			0xe => "d/m/Y",
 			0xf => "d-M-Y",
 			0x10 => "d-M",
@@ -99,7 +99,7 @@ class Spreadsheet_Excel_Reader
 			0x2e => "H:i:s",
 			0x2f => "i:s.S");
 
-	var $numberFormats = array(
+	public $numberFormats = array(
 			0x1 => "%1.0f", // "0"
 			0x2 => "%1.2f", // "0.00",
 			0x3 => "%1.0f", //"#,##0",
@@ -121,25 +121,25 @@ class Spreadsheet_Excel_Reader
 			0x2c => '$%1.2f', //"$#,##0.00;($#,##0.00)",
 			0x30 => '%1.0f'); //"##0.0E0";
 
-	function __construct(){
+	public function __construct(){
 		$this->_ole = new R_OLE();
 
 	}
 
-	function setOutputEncoding($Encoding){
+	public function setOutputEncoding($Encoding){
 		$this->_defaultEncoding = $Encoding;
 	}
 
-	function setDefaultFormat($sFormat){
+	public function setDefaultFormat($sFormat){
 		$this->_defaultFormat = $sFormat;
 	}
 
-	function setColumnFormat($column, $sFormat){
+	public function setColumnFormat($column, $sFormat){
 		$this->_columnsFormat[$column] = $sFormat;
 	}
 
 
-	function read($sFileName) {
+	public function read($sFileName) {
 		$res = $this->_ole->read($sFileName);
 		$this->data = $this->_ole->getWorkBook();
 		/*
@@ -176,7 +176,7 @@ class Spreadsheet_Excel_Reader
 
 	}
 
-	function _parse(){
+	public function _parse(){
 		$pos = 0;
 
 		$code = ord($this->data[$pos]) | ord($this->data[$pos+1])<<8;
@@ -437,7 +437,7 @@ class Spreadsheet_Excel_Reader
 
 	}
 
-	function _parsesheet($spos){
+	public function _parsesheet($spos){
 		$cont = true;
 		// read BOF
 		$code = ord($this->data[$spos]) | ord($this->data[$spos+1])<<8;
@@ -604,7 +604,7 @@ class Spreadsheet_Excel_Reader
 
 	}
 
-	function isDate($spos){
+	public function isDate($spos){
 		//$xfindex = GetInt2d(, 4);
 		$xfindex = ord($this->data[$spos+4]) | ord($this->data[$spos+5]) << 8;
 		//echo 'check is date '.$xfindex.' '.$this->formatRecords['xfrecords'][$xfindex]['type']."\n";
@@ -628,7 +628,7 @@ class Spreadsheet_Excel_Reader
 		}
 	}
 
-	function createDate($numValue){
+	public function createDate($numValue){
 		if ($numValue > 1){
 			$utcDays = $numValue - ($this->nineteenFour ? Spreadsheet_Excel_Reader_utcOffsetDays1904 : Spreadsheet_Excel_Reader_utcOffsetDays);
 			$utcValue = round($utcDays * Spreadsheet_Excel_Reader_msInADay);
@@ -644,7 +644,7 @@ class Spreadsheet_Excel_Reader
 		return array($string, $raw);
 	}
 
-	function addcell($row, $col, $string, $raw = ''){
+	public function addcell($row, $col, $string, $raw = ''){
 		//echo "ADD cel $row-$col $string\n";
 		$this->sheets[$this->sn]['cells'][$row+1][$col+1] = $string;
 		if ($raw)
@@ -655,7 +655,7 @@ class Spreadsheet_Excel_Reader
 	}
 
 
-	function _GetIEEE754($rknum){
+	public function _GetIEEE754($rknum){
 		if (($rknum & 0x02) != 0) {
 			$value = $rknum >> 2;
 		} else {
@@ -669,7 +669,7 @@ class Spreadsheet_Excel_Reader
 		return $value;
 	}
 
-	function _encodeUTF16($string){
+	public function _encodeUTF16($string){
 		if ($this->_defaultEncoding){
 			return (Spreadsheet_Excel_Reader_HAVE_ICONV) ? iconv('UTF-16LE', $this->_defaultEncoding, $string): $string;
 		}else{
@@ -677,7 +677,7 @@ class Spreadsheet_Excel_Reader
 		}
 	}
 
-	function _GetInt4d($data, $pos) {
+	public function _GetInt4d($data, $pos) {
 		return ord($data[$pos]) | (ord($data[$pos+1]) << 8) | (ord($data[$pos+2]) << 16) | (ord($data[$pos+3]) << 24);
 	}
 

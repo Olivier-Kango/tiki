@@ -47,7 +47,7 @@ class WikiRenderer
 	public $canUndo = null;
 	public $trads = null;	// translated pages
 
-	function __construct($info, $user, $content_to_render = null)
+	public function __construct($info, $user, $content_to_render = null)
 	{
 		$this->info = $info;
 		$this->user = $user;
@@ -55,7 +55,7 @@ class WikiRenderer
 		$this->content_to_render = $content_to_render;
 	}
 
-	function applyPermissions() // {{{
+	public function applyPermissions()
 	{
 		$userlib = TikiLib::lib('user');
 		$permNames = $userlib->get_permission_names_for('wiki');
@@ -70,9 +70,9 @@ class WikiRenderer
 		$this->smartyassign('page_user', $this->info['user']);
 
 		return $objectperms;
-	} // }}}
+	}
 
-	function restoreAll() // {{{
+	public function restoreAll()
 	{
 		global $prefs;
 		$smarty = TikiLib::lib('smarty');
@@ -87,36 +87,36 @@ class WikiRenderer
 		foreach ($this->smartyRestore as $name => $value) {
 			$smarty->assign($name, $value);
 		}
-	} // }}}
+	}
 
-	function runSetups() // {{{
+	public function runSetups()
 	{
 		foreach ($this->prep as $method) {
 			$this->$method();
 		}
-	} // }}}
+	}
 
-	function setPageNumber($number) // {{{
+	public function setPageNumber($number)
 	{
 		$this->pageNumber = (int) $number;
-	} // }}}
+	}
 
-	function setSortMode($mode) // {{{
+	public function setSortMode($mode)
 	{
 		$this->sortMode = $mode;
-	} // }}}
+	}
 
-	function setShowAttachments($val) // {{{
+	public function setShowAttachments($val)
 	{
 		$this->showAttachments = $val;
-	} // }}}
+	}
 
-	function setStructureInfo($info) // {{{
+	public function setStructureInfo($info)
 	{
 		$this->structureInfo = $info;
-	} // }}}
+	}
 
-	private function setupStructure() // {{{
+	private function setupStructure()
 	{
 		if (! $this->structureInfo) {
 			return;
@@ -165,9 +165,9 @@ class WikiRenderer
 
 		$this->smartyassign('showstructs', $structs_with_perm);
 		$this->smartyassign('page_ref_id', $this->structureInfo['page_ref_id']);
-	} // }}}
+	}
 
-	private function setupContributors() // {{{
+	private function setupContributors()
 	{
 		global $prefs;
 		$wikilib = TikiLib::lib('wiki');
@@ -176,9 +176,9 @@ class WikiRenderer
 			$contributors = $wikilib->get_contributors($this->page, $this->info['user']);
 			$this->smartyassign('contributors', $contributors);
 		}
-	} // }}}
+	}
 
-	private function setupCreator() // {{{
+	private function setupCreator()
 	{
 		$wikilib = TikiLib::lib('wiki');
 
@@ -189,9 +189,9 @@ class WikiRenderer
 		}
 
 		$this->smartyassign('creator', $creator);
-	} // }}}
+	}
 
-	private function setupMultilingual() // {{{
+	private function setupMultilingual()
 	{
 		global $prefs;
 
@@ -224,9 +224,9 @@ class WikiRenderer
 		}
 
 		$this->smartyassign('translation_alert', $alertData);
-	} // }}}
+	}
 
-	private function setupBacklinks() // {{{
+	private function setupBacklinks()
 	{
 		global $prefs, $tiki_p_view_backlink;
 		$wikilib = TikiLib::lib('wiki');
@@ -235,9 +235,9 @@ class WikiRenderer
 			$backlinks = $wikilib->get_backlinks($this->page);
 			$this->smartyassign('backlinks', $backlinks);
 		}
-	} // }}}
+	}
 
-	private function setupActions() // {{{
+	private function setupActions()
 	{
 		global $prefs, $tiki_p_edit, $tiki_p_remove, $tiki_p_admin_wiki;
 		$wikilib = TikiLib::lib('wiki');
@@ -261,9 +261,9 @@ class WikiRenderer
 		}
 
 		$this->setupComments();
-	} // }}}
+	}
 
-	private function setupSlideshow() // {{{
+	private function setupSlideshow()
 	{
 		global $prefs;
 
@@ -282,9 +282,9 @@ class WikiRenderer
 
 			$this->smartyassign('show_slideshow', ( count($slides) > 1 ) ? 'y' : 'n');
 		}
-	} // }}}
+	}
 
-	private function setupPage() // {{{
+	private function setupPage()
 	{
 		global $prefs, $user;
 		$wikilib = TikiLib::lib('wiki');
@@ -423,9 +423,9 @@ class WikiRenderer
 		if (! empty($this->info['keywords'])) {
 			$this->smartyassign('metatag_local_keywords', $this->info['keywords']);
 		}
-	} // }}}
+	}
 
-	private function setupAttachments() // {{{
+	private function setupAttachments()
 	{
 		global $prefs;
 		$wikilib = TikiLib::lib('wiki');
@@ -443,9 +443,9 @@ class WikiRenderer
 		$atts = $wikilib->list_wiki_attachments($this->page, 0, -1, $this->sortMode, '');
 		$this->smartyassign('atts', $atts["data"]);
 		$this->smartyassign('atts_count', count($atts['data']));
-	} // }}}
+	}
 
-	private function setupFootnotes() // {{{
+	private function setupFootnotes()
 	{
 		global $prefs;
 		$wikilib = TikiLib::lib('wiki');
@@ -465,9 +465,9 @@ class WikiRenderer
 		}
 
 		$this->smartyassign('wiki_extras', 'y');
-	} // }}}
+	}
 
-	private function setupWatch() // {{{
+	private function setupWatch()
 	{
 		global $prefs;
 		$tikilib = TikiLib::lib('tiki');
@@ -500,9 +500,9 @@ class WikiRenderer
 				$this->smartyassign('watching_categories', $watching_categories);
 			}
 		}
-	} // }}}
+	}
 
-	private function setupCategories() // {{{
+	private function setupCategories()
 	{
 		global $prefs;
 		$categlib = TikiLib::lib('categ');
@@ -530,9 +530,9 @@ class WikiRenderer
 		} else {
 			$this->smartyassign('is_categorized', 'n');
 		}
-	} // }}}
+	}
 
-	private function setupPoll() // {{{
+	private function setupPoll()
 	{
 		global $prefs, $tiki_p_wiki_view_ratings;
 		$polllib = TikiLib::lib('poll');
@@ -547,9 +547,9 @@ class WikiRenderer
 		}
 		$ratings = $polllib->get_ratings('wiki page', $this->page, $this->user);
 		$this->smartyassign('ratings', $ratings);
-	} // }}}
+	}
 
-	private function setupBreadcrumbs() // {{{
+	private function setupBreadcrumbs()
 	{
 		global $prefs, $crumbs;
 
@@ -571,9 +571,9 @@ class WikiRenderer
 		$headtitle = breadcrumb_buildHeadTitle($prefs['site_title_breadcrumb'] == 'invertfull' ? array_reverse($crumbsLocal) : $crumbsLocal);
 		$this->smartyassign('headtitle', $headtitle);
 		$this->smartyassign('trail', $crumbs);
-	} // }}}
+	}
 
-	private function setGlobal($name, $value) // {{{
+	private function setGlobal($name, $value)
 	{
 		if ((empty($GLOBALS[$name]) || $GLOBALS[$name] != $value) && ! array_key_exists($name, $this->toRestore)) {
 			$this->toRestore[$name] = $value;
@@ -581,9 +581,9 @@ class WikiRenderer
 
 		$GLOBALS[$name] = $value;
 		$this->smartyassign($name, $value);
-	} // }}}
+	}
 
-	private function setPref($name, $value) // {{{
+	private function setPref($name, $value)
 	{
 		global $prefs;
 		if ($value != $prefs[$name] && ! array_key_exists($name, $this->prefRestore)) {
@@ -591,9 +591,9 @@ class WikiRenderer
 		}
 
 		$prefs[$name] = $value;
-	} // }}}
+	}
 
-	private function smartyassign($name, $value) // {{{
+	private function smartyassign($name, $value)
 	{
 		$smarty = TikiLib::lib('smarty');
 		if (! array_key_exists($name, $this->smartyRestore)) {
@@ -601,9 +601,9 @@ class WikiRenderer
 		}
 
 		$smarty->assign($name, $value);
-	} // }}}
+	}
 
-	function canUndo() // {{{
+	public function canUndo()
 	{
 		if ($this->canUndo !== null) {
 			return $this->canUndo;
@@ -619,27 +619,27 @@ class WikiRenderer
 		}
 
 		return $this->canUndo;
-	} // }}}
+	}
 
-	function setInfos($infos) // {{{
+	public function setInfos($infos)
 	{
 		$this->info = $infos;
-	} // }}}
+	}
 
-	function setInfo($name, $value) // {{{
+	public function setInfo($name, $value)
 	{
 		$this->info[$name] = $value;
-	} // }}}
+	}
 
-	function forceLatest() // {{{
+	public function forceLatest()
 	{
 		$this->content_to_render = $this->info['data'];
-	} // }}}
+	}
 
-	function useRaw() // {{{
+	public function useRaw()
 	{
 		$this->raw = true;
-	} // }}}
+	}
 
 	private function setupComments()
 	{

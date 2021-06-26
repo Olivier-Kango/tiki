@@ -16,7 +16,7 @@ class UnoconvLib
 {
 	protected $unoconv;
 
-	static $homeEnvCopy;
+	public static $homeEnvCopy;
 
 	const DEFAULT_PORT = 2002;
 

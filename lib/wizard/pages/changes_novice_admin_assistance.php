@@ -12,17 +12,17 @@ require_once('lib/wizard/wizard.php');
  */
 class ChangesWizardNoviceAdminAssistance extends Wizard
 {
-	function pageTitle()
+	public function pageTitle()
 	{
 		return tra('Novice Admin Assistance');
 	}
 
-	function isEditable()
+	public function isEditable()
 	{
 		return true;
 	}
 
-	function onSetupPage($homepageUrl)
+	public function onSetupPage($homepageUrl)
 	{
 		// Run the parent first
 		parent::onSetupPage($homepageUrl);
@@ -32,13 +32,13 @@ class ChangesWizardNoviceAdminAssistance extends Wizard
 		return $showPage;
 	}
 
-	function getTemplate()
+	public function getTemplate()
 	{
 		$wizardTemplate = 'wizard/changes_novice_admin_assistance.tpl';
 		return $wizardTemplate;
 	}
 
-	function onContinue($homepageUrl)
+	public function onContinue($homepageUrl)
 	{
 		// Run the parent first
 		parent::onContinue($homepageUrl);

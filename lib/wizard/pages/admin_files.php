@@ -12,16 +12,16 @@ require_once('lib/wizard/wizard.php');
  */
 class AdminWizardFiles extends Wizard
 {
-	function pageTitle()
+	public function pageTitle()
 	{
 		return tra('Set up File Gallery & Attachments');
 	}
-	function isEditable()
+	public function isEditable()
 	{
 		return true;
 	}
 
-	function onSetupPage($homepageUrl)
+	public function onSetupPage($homepageUrl)
 	{
 		// Run the parent first
 		parent::onSetupPage($homepageUrl);
@@ -29,13 +29,13 @@ class AdminWizardFiles extends Wizard
 		return true;
 	}
 
-	function getTemplate()
+	public function getTemplate()
 	{
 		$wizardTemplate = 'wizard/admin_files.tpl';
 		return $wizardTemplate;
 	}
 
-	function onContinue($homepageUrl)
+	public function onContinue($homepageUrl)
 	{
 		$tikilib = TikiLib::lib('tiki');
 		global $prefs;

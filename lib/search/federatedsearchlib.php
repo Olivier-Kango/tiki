@@ -11,12 +11,12 @@ class FederatedSearchLib
 	private $indices = [];
 	private $loaded = false;
 
-	function __construct($unifiedsearch)
+	public function __construct($unifiedsearch)
 	{
 		$this->unified = $unifiedsearch;
 	}
 
-	function addIndex($indexName, Search\Federated\IndexInterface $index)
+	public function addIndex($indexName, Search\Federated\IndexInterface $index)
 	{
 		$this->indices[$indexName] = $index;
 	}
@@ -28,7 +28,7 @@ class FederatedSearchLib
 		return $this->indices;
 	}
 
-	function augmentSimpleQuery(Search_Query $query, $content)
+	public function augmentSimpleQuery(Search_Query $query, $content)
 	{
 		$indices = $this->getIndices();
 
@@ -38,7 +38,7 @@ class FederatedSearchLib
 		}
 	}
 
-	function augmentSimilarQuery(Search_Query $query, $type, $object)
+	public function augmentSimilarQuery(Search_Query $query, $type, $object)
 	{
 		$indices = $this->getIndices();
 

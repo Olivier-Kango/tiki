@@ -12,17 +12,17 @@ require_once('lib/wizard/wizard.php');
  */
 class UserWizard extends Wizard
 {
-	function pageTitle()
+	public function pageTitle()
 	{
 		return tra('Welcome to the User Wizard');
 	}
 
-	function isEditable()
+	public function isEditable()
 	{
 		return false;
 	}
 
-	function onSetupPage($homepageUrl)
+	public function onSetupPage($homepageUrl)
 	{
 		global $TWV;
 		$smarty = TikiLib::lib('smarty');
@@ -37,13 +37,13 @@ class UserWizard extends Wizard
 		return true;
 	}
 
-	function getTemplate()
+	public function getTemplate()
 	{
 		$wizardTemplate = 'wizard/user_wizard.tpl';
 		return $wizardTemplate;
 	}
 
-	function onContinue($homepageUrl)
+	public function onContinue($homepageUrl)
 	{
 		// Run the parent first
 		parent::onContinue($homepageUrl);

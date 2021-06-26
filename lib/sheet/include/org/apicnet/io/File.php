@@ -20,55 +20,55 @@ if (strpos($_SERVER["SCRIPT_NAME"],basename(__FILE__)) !== false) {
 APIC::import('org.apicnet.util.StringBuffer');
 
 class File extends ErrorManager {
-	var $path  = NULL;
-	var $separator = NULL;
-	var $os = NULL;
-	
-	function __construct($path=NULL, $new=False){
+	public $path  = NULL;
+	public $separator = NULL;
+	public $os = NULL;
+
+	public function __construct($path=NULL, $new=False){
 		$this->separator = DIRECTORY_SEPARATOR;
 		$this->os = getenv('OS');
 		$this->setFilePath($path);
 		if ($new) $this->createFile();
 		parent::__construct();
 	}
-	
-	function setFilePath($path){
+
+	public function setFilePath($path){
 		if (File::validClass($path)){
 			$this->path  = $path->getFilePath();
 		} else {
 			$this->path = StringBuffer::validClass($path) ? $path->toString() : $path;
 		}
 	}
-	
-	function getFilePath(){
+
+	public function getFilePath(){
 		return $this->path;
 	}
-	
-	function getFileName(){
+
+	public function getFileName(){
 		return basename($this->getFilePath());
 	}
-	
-	function getParentDirectory(){
+
+	public function getParentDirectory(){
 		return dirname($this->getFilePath());
 	}
-	
-	function getRealPath(){
+
+	public function getRealPath(){
 		return realpath($this->getFilePath());
 	}
-	
-	function exists(){
+
+	public function exists(){
 		return file_exists($this->getFilePath());
 	}
-	
-	function isDirectory(){
+
+	public function isDirectory(){
 		return is_dir($this->getFilePath());
 	}
-	
-	function isFile(){
+
+	public function isFile(){
 		return is_file($this->getFilePath());
 	}
-	
-	function createFile(){
+
+	public function createFile(){
 		$isSucceful = true;
 		if (!$handle = fopen($this->getFilePath(), 'w')) {
 			$isSucceful = false;
@@ -76,13 +76,13 @@ class File extends ErrorManager {
 		fclose($handle);
 		return $isSucceful;
 	}
-	
-	function delFile(){
+
+	public function delFile(){
 		return unlink ($this->getFilePath());
 	}
-	
-	
-	function writeData($data){
+
+
+	public function writeData($data){
 		$isSucceful = true;
 		// Assurons nous que le fichier est accessible en écriture
 		if ($this->isWriteable()) {      
@@ -99,8 +99,8 @@ class File extends ErrorManager {
 		} 
 		return $isSucceful;
 	}
-	
-	function readData(){
+
+	public function readData(){
 		$isSucceful = true;
 		// Assurons nous que le fichier est accessible en écriture
 		if ($this->isReadable()) {      
@@ -114,8 +114,8 @@ class File extends ErrorManager {
 		if (!$isSucceful) return $isSucceful;
 		else return $contents;
 	}
-	
-	function lists($filenameFilter=NULL){
+
+	public function lists($filenameFilter=NULL){
 		$path = StringBuffer::toStringBuffer($this->getFilePath());
 		if (!isset($path)) {
 			return array();
@@ -147,8 +147,8 @@ class File extends ErrorManager {
 		}
 		return array_merge($folders,$files);
 	}
-	
-	function listFiles($filenameFilter=NULL){
+
+	public function listFiles($filenameFilter=NULL){
 		$path = StringBuffer::toStringBuffer($this->getFilePath());
 		$s = NULL;
 		if (!isset($path)) {
@@ -181,48 +181,48 @@ class File extends ErrorManager {
 		}
 		return array_merge($folders,$files);
 	}
-	
-	function length(){
+
+	public function length(){
 		if (!$this->isFile()) {
 			return 0;
 		}
 		return filesize($this->getFilePath());
 	}
-	
-	function lastModified(){
+
+	public function lastModified(){
 		return filemtime($this->getFilePath());
 	}
-	
-	function lastAccessed(){
+
+	public function lastAccessed(){
 		return fileatime($this->getFilePath());
 	}
-	
-	function setModification($time=NULL){
+
+	public function setModification($time=NULL){
 		if (!$this->isFile()){
 			return;
 		}
 		touch ( $this->getFilePath(), $time);
 	}
-	
-	function isReadable(){
+
+	public function isReadable(){
 		if (!$this->isFile()){
 			return FALSE;
 		}
 		return is_readable($this->getFilePath());
 	}
-	
-	function isWriteable(){
+
+	public function isWriteable(){
 		if (!$this->isFile()){
 			return FALSE;
 		}
 		return is_writeable( $this->getFilePath() );
 	}
-	
-	function toString(){
+
+	public function toString(){
 		return $this->getFilePath();
 	}
-	
-	function copyTo($file, $only_if_inexist = FALSE){
+
+	public function copyTo($file, $only_if_inexist = FALSE){
 		if (File::validClass($file) && $this->exists()){
 			if ($only_if_inexist==TRUE){
 				if ($file->exists()==FALSE){
@@ -234,8 +234,8 @@ class File extends ErrorManager {
 		}
 		return FALSE;
 	}
-	
-	function moveTo($file, $only_if_inexist = FALSE){
+
+	public function moveTo($file, $only_if_inexist = FALSE){
 		if (File::validClass($file) && $this->exists()){
 			if ($only_if_inexist==TRUE){
 				if ($file->exists()==FALSE){
@@ -247,8 +247,8 @@ class File extends ErrorManager {
 		}
 		return FALSE;
 	}
-	
-	function mkdirs($perms){
+
+	public function mkdirs($perms){
 		$path = StringBuffer::toStringBuffer($this->getFilePath());
 		if ($path->startsWith(".\\") || $path->startsWith("./")){
 			$path = $path->substring(2);
@@ -266,8 +266,8 @@ class File extends ErrorManager {
 		}
 		return $this->exists();
 	}
-	
-	function validClass($object){
+
+	public function validClass($object){
 		return APICObject::validClass($object, 'file');
 	}
 }

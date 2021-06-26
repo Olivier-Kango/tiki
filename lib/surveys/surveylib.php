@@ -20,7 +20,7 @@ class SurveyLib extends TikiLib
 	private $questionsTable;
 	private $optionsTable;
 
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct();
 
@@ -676,7 +676,7 @@ class SurveyLib extends TikiLib
 		return $ret;
 	}
 
-	function list_users_that_voted($surveyId)
+	public function list_users_that_voted($surveyId)
 	{
 		$conditions['id'] = 'survey' . $surveyId;
 		$conditions['optionId'] = 0;

@@ -28,7 +28,7 @@ class UserPrefsLib extends TikiLib
 	 * @param bool $sendToIntertiki
 	 * @throws Exception
 	 */
-	function set_user_avatar($user, $type, $avatarLibName, $avatarName, $avatarSize, $avatarType, $avatarData, $sendToIntertiki = true)
+	public function set_user_avatar($user, $type, $avatarLibName, $avatarName, $avatarSize, $avatarType, $avatarData, $sendToIntertiki = true)
 	{
 		global $prefs, $tikidomainslash;
 		$userlib = TikiLib::lib('user');
@@ -48,7 +48,7 @@ class UserPrefsLib extends TikiLib
 	 * @param $user
 	 * @return bool
 	 */
-	function get_user_avatar_img($user)
+	public function get_user_avatar_img($user)
 	{
 		$query = "select * from `users_users` where `login`=?";
 		$result = $this->query($query, [$user]);
@@ -59,7 +59,7 @@ class UserPrefsLib extends TikiLib
 		return $res;
 	}
 
-	function get_public_avatar_path($user)
+	public function get_public_avatar_path($user)
 	{
 		global $prefs, $tikidomainslash;
 
@@ -140,7 +140,7 @@ class UserPrefsLib extends TikiLib
 	 * @param $data
 	 * @return bool|int|null
 	 */
-	function set_file_gallery_image($u, $filename, $size, $type, $data)
+	public function set_file_gallery_image($u, $filename, $size, $type, $data)
 	{
 		global $prefs;
 		$tikilib = TikiLib::lib('tiki');
@@ -168,7 +168,7 @@ class UserPrefsLib extends TikiLib
 	 * @param $u
 	 * @return bool
 	 */
-	function remove_file_gallery_image($u)
+	public function remove_file_gallery_image($u)
 	{
 		$tikilib = TikiLib::lib('tiki');
 		$filegallib = TikiLib::lib('filegal');
@@ -186,7 +186,7 @@ class UserPrefsLib extends TikiLib
 	 * @param $u
 	 * @return null
 	 */
-	function get_user_picture_id($u)
+	public function get_user_picture_id($u)
 	{
 		$tikilib = TikiLib::lib('tiki');
 		return $tikilib->get_user_preference($u, 'user_fg_image_id');
@@ -196,7 +196,7 @@ class UserPrefsLib extends TikiLib
 	 * @param $user
 	 * @return array
 	 */
-	function get_userprefs($user)
+	public function get_userprefs($user)
 	{
 		$query = "select * from `tiki_user_preferences` where `user`=?";
 		$result = $this->query($query, [$user]);
@@ -214,7 +214,7 @@ class UserPrefsLib extends TikiLib
 	 * @param $userdst
 	 * @return float|null
 	 */
-	function get_userdistance($usersrc, $userdst)
+	public function get_userdistance($usersrc, $userdst)
 	{
 		if ($usersrc == $userdst) {
 			return null;
@@ -250,7 +250,7 @@ class UserPrefsLib extends TikiLib
 	 * @param $user
 	 * @return bool
 	 */
-	function get_user_clock_pref($user)
+	public function get_user_clock_pref($user)
 	{
 		global $prefs;
 		$tikilib = TikiLib::lib('tiki');

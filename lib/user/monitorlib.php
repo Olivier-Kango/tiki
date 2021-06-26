@@ -12,7 +12,7 @@ class MonitorLib
 	/**
 	 * Provides the list of priorities available for notifications.
 	 */
-	function getPriorities()
+	public function getPriorities()
 	{
 		static $priorities;
 		if ($priorities) {
@@ -43,7 +43,7 @@ class MonitorLib
 	 * @param type standard object type
 	 * @param object full itemId
 	 */
-	function getOptions($user, $type, $object)
+	public function getOptions($user, $type, $object)
 	{
 		global $prefs;
 
@@ -178,7 +178,7 @@ class MonitorLib
 	/**
 	 * Replaces the current priority for an event/target pair, for a specific user.
 	 */
-	function replacePriority($user, $event, $target, $priority)
+	public function replacePriority($user, $event, $target, $priority)
 	{
 		$tikilib = TikiLib::lib('tiki');
 		$userId = $tikilib->get_user_id($user);
@@ -211,7 +211,7 @@ class MonitorLib
 	 * notifications to be sent out. A final event is sent out on
 	 * shutdown to process the queued notifications.
 	 */
-	function bindEvents(Tiki_Event_Manager $events)
+	public function bindEvents(Tiki_Event_Manager $events)
 	{
 		$events->bind('tiki.process.shutdown', function () {
 			$this->finalEvent();
@@ -252,7 +252,7 @@ class MonitorLib
 		$this->queue[$eventId]['events'][] = $registeredEvent;
 	}
 
-	function directNotification($priority, $userId, $event, $args)
+	public function directNotification($priority, $userId, $event, $args)
 	{
 		if ($userId==0 && isset($args['groupname'])) {
 			$this->queue[$args['EVENT_ID']] = [

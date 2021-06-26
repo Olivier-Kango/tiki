@@ -7,7 +7,7 @@
 
 class Tiki_Formula_Function_RatingSum extends Tiki_Formula_Function_RatingAverage
 {
-	function __construct()
+	public function __construct()
 	{
 		$this->mode = 'sum';
 	}

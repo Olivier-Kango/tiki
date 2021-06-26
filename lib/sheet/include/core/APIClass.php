@@ -58,7 +58,7 @@ class APIClass {
 	 *	@return void
 	 *	@access public
 	 */
-	function import($package, $module=NULL){
+	public function import($package, $module=NULL){
 		// already registered ?
 		if (APIClassRegistry::isRegistered($package)){
 			return;

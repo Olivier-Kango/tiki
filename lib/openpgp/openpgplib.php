@@ -113,7 +113,7 @@ class OpenPGPLib
 	/**
 	* Constructor function. Set initial defaults.
 	*/
-	function __construct()
+	public function __construct()
 	{
 		global $prefs,$tiki_p_admin;
 
@@ -135,7 +135,7 @@ class OpenPGPLib
 	/**
 	* Accessor to set the CRLF style
 	*/
-	function setCrlf($crlf = "\n")
+	public function setCrlf($crlf = "\n")
 	{
 		if (! defined('CRLF')) {
 			define('CRLF', $crlf, true);
@@ -332,7 +332,7 @@ class OpenPGPLib
 	 *		1 => warnings and notices (STDERR)
 	 *		2 => exit status
 	 */
-	function gpg_encrypt()
+	public function gpg_encrypt()
 	{
 
 		global $prefs;
@@ -432,7 +432,7 @@ class OpenPGPLib
 	 *		1 => warnings and notices (STDERR)
 	 *		2 => exit status
 	 */
-	function gpg_getFingerprint($gpg_key_id = null)
+	public function gpg_getFingerprint($gpg_key_id = null)
 	{
 
 		//////////////////////////////////////////////////////////
@@ -502,7 +502,7 @@ class OpenPGPLib
 	 *		1 => warnings and notices (STDERR)
 	 *		2 => exit status
 	 */
-	function gpg_getPublicKey($gpg_key_id = null)
+	public function gpg_getPublicKey($gpg_key_id = null)
 	{
 
 		//////////////////////////////////////////////////////////
@@ -568,7 +568,7 @@ class OpenPGPLib
 	 * @access public
 	 * @return string (contact users' email or empty)
 	 */
-	function get_admin_email_for_armor_block()
+	public function get_admin_email_for_armor_block()
 	{
 		global $user, $prefs, $tikilib;
 		$empty = '';
@@ -587,7 +587,7 @@ class OpenPGPLib
 	 *		0 => $prepend_email_body
 	 *		1 => $user_armor
 	 */
-	function getPublickeyArmorBlock($req_priority, $req_to, $req_cc)
+	public function getPublickeyArmorBlock($req_priority, $req_to, $req_cc)
 	{
 
 		global $user;
@@ -667,7 +667,7 @@ class OpenPGPLib
 	 * Function to encode a header if necessary
 	 * according to RFC2047
 	 */
-	function _encodeHeader($input, $charset = 'ISO-8859-1')
+	public function _encodeHeader($input, $charset = 'ISO-8859-1')
 	{
 		preg_match_all('/(\w*[\x80-\xFF]+\w*)/', $input, $matches);
 
@@ -705,7 +705,7 @@ class OpenPGPLib
 	 * @access public
 	 * @return boolean	true/false
 	 */
-	function post_message_with_pgparmor_attachment(
+	public function post_message_with_pgparmor_attachment(
 		$user,
 		$from,
 		$to,
@@ -820,7 +820,7 @@ class OpenPGPLib
 	 * @access public
 	 * @return string	$text / The text body of the message prepended with original subject
 	 */
-	function prependSubjectToText($mail_headers, $text)
+	public function prependSubjectToText($mail_headers, $text)
 	{
 
 		// AS THE Subject-header is hidden and contains a hash only in a pgp/mime encrypted message subject-header
@@ -850,7 +850,7 @@ class OpenPGPLib
 	 *		0 => $html / The html body of the message prepended with original subject
 	 *		1 => $html_text / The html_text body of the message prepended with original subject
 	 */
-	function prependSubjectToHtml($mail_headers, $html, $text)
+	public function prependSubjectToHtml($mail_headers, $html, $text)
 	{
 
 		// AS THE Subject-header is hidden and contains a hash only in a pgp/mime encrypted message subject-header
@@ -888,7 +888,7 @@ class OpenPGPLib
 	 *		1 => string $gnupg_subject
 	 *		2 => string $pgpmime_encrypted_message_body
 	 */
-	function prepareEncryptWithMailSender($original_mail_headers, $original_mail_body, $mail_build_params_head_charset, $mail_recipients)
+	public function prepareEncryptWithMailSender($original_mail_headers, $original_mail_body, $mail_build_params_head_charset, $mail_recipients)
 	{
 
 			// Define gnupg/mime header variables; see constants above in this class
@@ -998,7 +998,7 @@ class OpenPGPLib
 	*		0 => array $gnupg_header_array
 	*		1 => string $pgpmime_encrypted_message_body
 	*/
-	function prepareEncryptWithSmtpSender($original_mail_headers, $original_mail_body, $mail_build_params_head_charset, $mail_recipients)
+	public function prepareEncryptWithSmtpSender($original_mail_headers, $original_mail_body, $mail_build_params_head_charset, $mail_recipients)
 	{
 
 			// Define gnupg/mime header variables; see constants above in this class
@@ -1139,7 +1139,7 @@ class OpenPGPLib
 	 *		0 => string $pgpmime_header
 	 *		1 => string $pgpmime_encrypted_message_body
 	 */
-	function prepareEncryptWithZendMail($original_mail_header = '', $original_mail_body = null, $recipients)
+	public function prepareEncryptWithZendMail($original_mail_header = '', $original_mail_body = null, $recipients)
 	{
 
 			// Define gnupg/mime header variables; see constants above in this class

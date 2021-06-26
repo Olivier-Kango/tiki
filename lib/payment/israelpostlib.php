@@ -9,7 +9,7 @@ class IsraelPostLib
 {
 	private $payment;
 
-	function __construct(PaymentLib $payment)
+	public function __construct(PaymentLib $payment)
 	{
 		$this->payment = $payment;
 	}

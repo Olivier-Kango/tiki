@@ -12,17 +12,17 @@ require_once('lib/wizard/wizard.php');
  */
 class AdminWizardLanguage extends Wizard
 {
-	function pageTitle()
+	public function pageTitle()
 	{
 		return tra('Set up Language');
 	}
 
-	function isEditable()
+	public function isEditable()
 	{
 		return true;
 	}
 
-	function onSetupPage($homepageUrl)
+	public function onSetupPage($homepageUrl)
 	{
 		// Run the parent first
 		parent::onSetupPage($homepageUrl);
@@ -32,13 +32,13 @@ class AdminWizardLanguage extends Wizard
 		return $showPage;
 	}
 
-	function getTemplate()
+	public function getTemplate()
 	{
 		$wizardTemplate = 'wizard/admin_language.tpl';
 		return $wizardTemplate;
 	}
 
-	function onContinue($homepageUrl)
+	public function onContinue($homepageUrl)
 	{
 		// Run the parent first
 		parent::onContinue($homepageUrl);

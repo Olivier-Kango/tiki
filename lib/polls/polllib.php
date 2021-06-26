@@ -28,7 +28,7 @@ class PollLib extends PollLibShared
 	 * @param $find
 	 * @return array
 	 */
-	function list_polls($offset, $maxRecords, $sort_mode, $find)
+	public function list_polls($offset, $maxRecords, $sort_mode, $find)
 	{
 		if ($find) {
 			$findesc = '%' . $find . '%';
@@ -66,7 +66,7 @@ class PollLib extends PollLibShared
 	 * @param $find
 	 * @return array
 	 */
-	function list_active_polls($offset, $maxRecords, $sort_mode, $find)
+	public function list_active_polls($offset, $maxRecords, $sort_mode, $find)
 	{
 
 		if ($find) {
@@ -101,7 +101,7 @@ class PollLib extends PollLibShared
 	 * @param $find
 	 * @return array
 	 */
-	function list_all_polls($offset, $maxRecords, $sort_mode, $find)
+	public function list_all_polls($offset, $maxRecords, $sort_mode, $find)
 	{
 
 		if ($find) {
@@ -132,7 +132,7 @@ class PollLib extends PollLibShared
 	/**
 	 * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
 	 */
-	function set_last_poll()
+	public function set_last_poll()
 	{
 		$query = "select max(`publishDate`) from `tiki_polls` where `publishDate`<=?";
 		$last = $this->getOne($query, [(int) $this->now]);
@@ -143,7 +143,7 @@ class PollLib extends PollLibShared
 	/**
 	 * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
 	 */
-	function close_all_polls()
+	public function close_all_polls()
 	{
 		$query = "select max(`publishDate`) from `tiki_polls` where `publishDate`<=?";
 		$last = $this->getOne($query, [(int) $this->now]);
@@ -154,7 +154,7 @@ class PollLib extends PollLibShared
 	/**
 	 * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
 	 */
-	function active_all_polls()
+	public function active_all_polls()
 	{
 		$query = "update `tiki_polls` set `active`=? where `publishDate`<=?";
 		return $this->query($query, ['a', (int) $this->now]);
@@ -165,7 +165,7 @@ class PollLib extends PollLibShared
 	 *
 	 * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
 	 */
-	function remove_poll_option($optionId)
+	public function remove_poll_option($optionId)
 	{
 		$query = "delete from `tiki_poll_options` where `optionId`=?";
 		return $this->query($query, [$optionId]);
@@ -175,7 +175,7 @@ class PollLib extends PollLibShared
 	 * @param $optionId
 	 * @return bool
 	 */
-	function get_poll_option($optionId)
+	public function get_poll_option($optionId)
 	{
 		$query = "select * from `tiki_poll_options` where `optionId`=?";
 		$result = $this->query($query, [$optionId]);

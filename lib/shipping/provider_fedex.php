@@ -11,14 +11,14 @@ class ShippingProvider_Fedex implements ShippingProvider
 	private $password;
 	private $meter;
 
-	function __construct(array $config)
+	public function __construct(array $config)
 	{
 		$this->key = $config['key'];
 		$this->password = $config['password'];
 		$this->meter = $config['meter'];
 	}
 
-	function getRates(array $from, array $to, array $packages)
+	public function getRates(array $from, array $to, array $packages)
 	{
 		if (! class_exists('SoapClient')) {
 			return [];

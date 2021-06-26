@@ -22,7 +22,7 @@ class AreasLib extends CategLib
 	private $areas;
 	private $areasArray;
 
-	function __construct()
+	public function __construct()
 	{
 		$this->areas = $this->table('tiki_areas');
 		$this->cacheAreas();
@@ -61,7 +61,7 @@ class AreasLib extends CategLib
 		return $objectPerspective;
 	}
 
-	function HandleObjectCategories($objectCategoryIds)
+	public function HandleObjectCategories($objectCategoryIds)
 	{
 		global $prefs;
 		$perspectivelib = TikiLib::lib('perspective');
@@ -183,7 +183,7 @@ class AreasLib extends CategLib
 		}
 	}
 
-	function update_areas()
+	public function update_areas()
 	{
 		global $prefs;
 		$this->areas->deleteMultiple([]);	// empty areas table before rebuilding
@@ -223,7 +223,7 @@ class AreasLib extends CategLib
 		}
 	}
 
-	function bind_area($categId, $perspectiveIds, $data = [])
+	public function bind_area($categId, $perspectiveIds, $data = [])
 	{
 		$perspectiveIds = (array)$perspectiveIds;
 		$conditions = ['categId' => $categId];
@@ -235,7 +235,7 @@ class AreasLib extends CategLib
 			$this->areas->insert(array_merge($data, $conditions));
 		}
 	}
-} // class end
+}
 
 /*-----------------------------------------------
 +++ Description of Perspective Binder / Areas +++

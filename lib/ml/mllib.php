@@ -17,18 +17,18 @@ class MachineLearningLib extends TikiDb_Bridge
 	/**
 	 *
 	 */
-	function __construct()
+	public function __construct()
 	{
 		$this->table = $this->table('tiki_machine_learning_models');
 	}
 
-	function get_models()
+	public function get_models()
 	{
 		$models = $this->table->fetchAll();
 		return array_map([$this, 'deserialize'], $models);
 	}
 
-	function get_model($mlmId)
+	public function get_model($mlmId)
 	{
 		$model = $this->table->fetchFullRow(['mlmId' => $mlmId]);
 		if (! $model) {
@@ -39,20 +39,20 @@ class MachineLearningLib extends TikiDb_Bridge
 		return $model;
 	}
 
-	function set_model($mlmId, $data)
+	public function set_model($mlmId, $data)
 	{
 		$data = $this->serialize($data);
 		return $this->table->insertOrUpdate($data, ['mlmId' => $mlmId]);
 	}
 
-	function delete_model($mlmId)
+	public function delete_model($mlmId)
 	{
 		$this->table->delete(['mlmId' => $mlmId]);
 		TikiLib::lib('cache')->invalidate($mlmId, 'mlmodel');
 		return true;
 	}
 
-	function hydrate($payload)
+	public function hydrate($payload)
 	{
 		$instances = [];
 		$payload = json_decode($payload);
@@ -62,7 +62,7 @@ class MachineLearningLib extends TikiDb_Bridge
 		return $instances;
 	}
 
-	function hydrate_single($class, $args)
+	public function hydrate_single($class, $args)
 	{
 		if (empty($class)) {
 			return [
@@ -106,7 +106,7 @@ class MachineLearningLib extends TikiDb_Bridge
 		];
 	}
 
-	function train($model, $test = false)
+	public function train($model, $test = false)
 	{
 		$learner = null;
 		$transformers = [];
@@ -186,7 +186,7 @@ class MachineLearningLib extends TikiDb_Bridge
 		}
 	}
 
-	function probaSample($model, $processedFields)
+	public function probaSample($model, $processedFields)
 	{
 		$sample = [];
 		foreach ($processedFields as $field) {
@@ -205,7 +205,7 @@ class MachineLearningLib extends TikiDb_Bridge
 		return $result;
 	}
 
-	function predictSample($model, $processedFields)
+	public function predictSample($model, $processedFields)
 	{
 		$sample = [];
 		foreach ($processedFields as $field) {
@@ -221,17 +221,17 @@ class MachineLearningLib extends TikiDb_Bridge
 		return $result;
 	}
 
-	function isRegressor($model) {
+	public function isRegressor($model) {
 		$estimator = $this->getTrainedModel($model);
 		return $estimator->type() == Rubix\ML\EstimatorType::regressor();
 	}
 
-	function ensureModelTrained($model)
+	public function ensureModelTrained($model)
 	{
 		$this->getTrainedModel($model);
 	}
 
-	function predefined($template)
+	public function predefined($template)
 	{
 		switch ($template) {
 			case 'MLT':

@@ -38,25 +38,25 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
 
 class PluginsLib extends TikiLib
 {
-	var $_errors;
-	var $_data;
-	var $_params;
+	public $_errors;
+	public $_data;
+	public $_params;
 	/**
 	 * Array of params to be expanded as arrays. Explode the string with {@link $separator}
 	 * @var array
 	 */
-	var $expanded_params = [];
+	public $expanded_params = [];
 	/**
 	 * Separator used to explote params listed on {@link $expanded_params}
 	 * @var string
 	 */
-	var $separator = "|";
+	public $separator = "|";
 	/**
 	 * List of fields retrieved from {@link TikiLib::list_pages()}
 	 * Keys are the name of the fields and values the names for tra();
 	 * @var array
 	 */
-	var $aInfoPresetNames = [
+	public $aInfoPresetNames = [
 			'hits' => 'Hits', 'lastModif' => 'Last mod', 'user' => 'Last author', 'len' => 'Size', 'comment' => 'Com',
 			'creator' => 'Creator', 'version' => 'Last ver', 'flag' => 'Status', 'versions' => 'Vers', 'links' => 'Links',
 			'backlinks' => 'Backlinks'];
@@ -70,7 +70,7 @@ class PluginsLib extends TikiLib
 	 * @param bool if set to true, assign default values from {@link PluginsLib::getDefaultArguments()}
 	 * @return array list of params
 	 */
-	function getParams($params, $request = false, $defaults = false)
+	public function getParams($params, $request = false, $defaults = false)
 	{
 		if ($defaults === false) {
 			$defaults = $this->getDefaultArguments();
@@ -109,7 +109,7 @@ class PluginsLib extends TikiLib
 	 * Made for overload it.
 	 * @return string
 	 */
-	function getName()
+	public function getName()
 	{
 		return preg_replace('/^WikiPlugin/', '', get_class($this));
 	}
@@ -119,7 +119,7 @@ class PluginsLib extends TikiLib
 	 * Made for overload it.
 	 * @return string
 	 */
-	function getDescription()
+	public function getDescription()
 	{
 		return $this->getName();
 	}
@@ -129,7 +129,7 @@ class PluginsLib extends TikiLib
 	 * Made for overload it.
 	 * @return string
 	 */
-	function getVersion()
+	public function getVersion()
 	{
 		return tra('No version indicated');
 		//return preg_replace("/[Revision: $]/", '',
@@ -141,7 +141,7 @@ class PluginsLib extends TikiLib
 	 * Use keys as the arguments and values as ... the default values
 	 * @return array
 	 */
-	function getDefaultArguments()
+	public function getDefaultArguments()
 	{
 		return ['description' => $this->getDescription()];
 	}
@@ -152,7 +152,7 @@ class PluginsLib extends TikiLib
 	 * @param string
 	 * @param array
 	 */
-	function run($data, $params)
+	public function run($data, $params)
 	{
 		/**
 		 * UGLY ERROR!.
@@ -160,18 +160,18 @@ class PluginsLib extends TikiLib
 		return $this->error('PluginsLib::run: pure virtual function. Don\'t be so lazy!');
 	}
 
-	function error($message)
+	public function error($message)
 	{
 		return '~np~<span class="warn">' . tra('Plugin ') . $this->getName() . ' ' . tra('failed')
 			. ' : ' . tra($message) . '</span>~/np~';
 	}
 
-	function getErrorDetail()
+	public function getErrorDetail()
 	{
 		return $this->_errors;
 	}
 
-	function _error($message)
+	public function _error($message)
 	{
 		$this->_errors = $message;
 		return false;
@@ -190,7 +190,7 @@ class PluginsLibUtil
 	 *              array("field"=>"pageName","name"=>"Page")
 	 * @return string
 	 */
-	static function createTable($aData, $aInfo = false, $aPrincipalField = false)
+	public static function createTable($aData, $aInfo = false, $aPrincipalField = false)
 	{
 		// contract
 		if (! $aPrincipalField or ! is_array($aPrincipalField)) {
@@ -316,7 +316,7 @@ class PluginsLibUtil
 		return $sOutput;
 	}
 
-	static function createList($aData)
+	public static function createList($aData)
 	{
 		$aPrincipalField = ['field' => 'pageName', 'name' => 'Pages'];
 
@@ -336,7 +336,7 @@ class PluginsLibUtil
 		return $sOutput;
 	}
 
-	static function handleDownload($query, $index, $matches)
+	public static function handleDownload($query, $index, $matches)
 	{
 		if (empty($_REQUEST['download'])) {
 			return;

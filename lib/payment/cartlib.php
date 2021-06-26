@@ -14,7 +14,7 @@ class CartLib
 	 * @param jitFilter $input			request input (POST)
 	 * @return bool						success
 	 */
-	function add_to_cart($product_info, $input)
+	public function add_to_cart($product_info, $input)
 	{
 		global $prefs, $user, $globalperms;
 
@@ -89,7 +89,7 @@ class CartLib
 	}
 
 	//Used for putting new items in the cart, to modify an already existing item in the cart, use update_quantity
-	function add_product($code, $quantity, $info, $parentCode = 0, $childInputedPrice = 0)
+	public function add_product($code, $quantity, $info, $parentCode = 0, $childInputedPrice = 0)
 	{
 		global $prefs;
 		$this->init_cart();
@@ -118,7 +118,7 @@ class CartLib
 		return true;
 	}
 
-	function get_product_info($code)
+	public function get_product_info($code)
 	{
 		// This function is used by several advanced cart features (e.g. bundled products, associated events)
 		global $prefs;
@@ -155,7 +155,7 @@ class CartLib
 		return $info;
 	}
 
-	function add_bundle($code, $quantity, $info)
+	public function add_bundle($code, $quantity, $info)
 	{
 		global $prefs;
 		if ($prefs['payment_cart_bundles'] != 'y') {
@@ -189,7 +189,7 @@ class CartLib
 		}
 	}
 
-	function get_tracker_item_ids_custom($trackerName, $fieldName, $value)
+	public function get_tracker_item_ids_custom($trackerName, $fieldName, $value)
 	{
 		global $tikilib;
 
@@ -208,7 +208,7 @@ class CartLib
 		return $itemId;
 	}
 
-	function get_tracker_item_id_custom($trackerName, $fieldName, $value)
+	public function get_tracker_item_id_custom($trackerName, $fieldName, $value)
 	{
 		global $tikilib;
 
@@ -227,7 +227,7 @@ class CartLib
 		return $itemId;
 	}
 
-	function get_tracker_value_custom($trackerName, $fieldName, $itemId)
+	public function get_tracker_value_custom($trackerName, $fieldName, $itemId)
 	{
 		global $tikilib;
 
@@ -246,7 +246,7 @@ class CartLib
 		return $value;
 	}
 
-	function get_tracker_values_custom($trackerName, $itemId)
+	public function get_tracker_values_custom($trackerName, $itemId)
 	{
 		global $tikilib;
 
@@ -270,7 +270,7 @@ class CartLib
 		return $item;
 	}
 
-	function set_tracker_value_custom($trackerName, $fieldName, $itemId, $value)
+	public function set_tracker_value_custom($trackerName, $fieldName, $itemId, $value)
 	{
 		global $tikilib;
 
@@ -289,7 +289,7 @@ class CartLib
 		);
 	}
 
-	function update_gift_certificate($invoice)
+	public function update_gift_certificate($invoice)
 	{
 		global $prefs;
 		//if total is more than 0 the gift card is less than the order total, otherwise the giftcard is as much as the order total
@@ -424,7 +424,7 @@ class CartLib
 		$paymentlib->register_behavior($invoice, 'cancel', 'cart_gift_certificate_refund', [ $this->gift_certificate_id, $this->gift_certificate_mode, $this->gift_certificate_amount, $this->gift_certificate_discount]);
 	}
 
-	function get_orderitems_of_order($orderId)
+	public function get_orderitems_of_order($orderId)
 	{
 		global $prefs;
 		$result = [];
@@ -441,13 +441,13 @@ class CartLib
 		return $result;
 	}
 
-	function get_gift_certificate_code($code = null)
+	public function get_gift_certificate_code($code = null)
 	{
 		$code = ($code ? $code : (isset($_SESSION['cart']['tiki-gc']['code']) ? $_SESSION['cart']['tiki-gc']['code'] : null)); //TODO: needs to be a little less dirty
 		return $code;
 	}
 
-	function get_gift_certificate($code = null)
+	public function get_gift_certificate($code = null)
 	{
 		global $prefs;
 		$this->gift_certificate_code = $code = ( $code ? $code : $this->get_gift_certificate_code() );
@@ -484,12 +484,12 @@ class CartLib
 		return ( $this->gift_certificate_amount > 0 ? true : false );
 	}
 
-	function remove_gift_certificate()
+	public function remove_gift_certificate()
 	{
 		unset($_SESSION['cart']['tiki-gc']);
 	}
 
-	function add_gift_certificate($code = null)
+	public function add_gift_certificate($code = null)
 	{
 		$this->get_gift_certificate($code);
 
@@ -507,14 +507,14 @@ class CartLib
 		}
 	}
 
-	function has_gift_certificate()
+	public function has_gift_certificate()
 	{
 		global $prefs;
 		$trklib = TikiLib::lib('trk');
 		return ($trklib->get_tracker_by_name($prefs['payment_cart_giftcert_tracker_name']) ? true : false );
 	}
 
-	function discount_from_total($total)
+	public function discount_from_total($total)
 	{
  //ensures that the discount being had isn't less that the total resulting in a negative value
 		switch ($this->gift_certificate_mode) {
@@ -533,7 +533,7 @@ class CartLib
 		return $total;
 	}
 
-	function product_reference_gift_certificate($total, $reference)
+	public function product_reference_gift_certificate($total, $reference)
 	{
 		$productTotal = 0;
 		$giftCertificateApplies = false;
@@ -573,7 +573,7 @@ class CartLib
 		return $total;
 	}
 
-	function gift_certificate_type_link()
+	public function gift_certificate_type_link()
 	{
 		if ($this->gift_certificate_code) {
 			switch ($this->gift_certificate_type) {
@@ -596,7 +596,7 @@ class CartLib
 		}
 	}
 
-	function get_total()
+	public function get_total()
 	{
 		$this->init_cart();
 		$this->get_gift_certificate();
@@ -631,7 +631,7 @@ class CartLib
 		return number_format($total, 2, '.', '');
 	}
 
-	function get_quantity($code)
+	public function get_quantity($code)
 	{
 		$this->init_cart();
 
@@ -642,7 +642,7 @@ class CartLib
 		}
 	}
 
-	function get_hash($code)
+	public function get_hash($code)
 	{
 		$this->init_cart();
 
@@ -653,7 +653,7 @@ class CartLib
 		}
 	}
 
-	function generate_item_description($item, $parentCode = 0)
+	public function generate_item_description($item, $parentCode = 0)
 	{
 		$wiki = '';
 
@@ -677,7 +677,7 @@ class CartLib
 		return $wiki;
 	}
 
-	function get_description()
+	public function get_description()
 	{
 		$id_label = tra('ID');
 		$product_label = tra('Product');
@@ -713,7 +713,7 @@ class CartLib
 		return $wiki;
 	}
 
-	function get_total_weight()
+	public function get_total_weight()
 	{
 		$this->init_cart();
 
@@ -728,7 +728,7 @@ class CartLib
 		return $total;
 	}
 
-	function get_count()
+	public function get_count()
 	{
 		$this->init_cart();
 
@@ -743,13 +743,13 @@ class CartLib
 		return $total;
 	}
 
-	function product_in_cart($code)
+	public function product_in_cart($code)
 	{
 		return isset($_SESSION['cart'][$code]);
 	}
 
 	 //Used for adjusting already added items in the cart
-	function update_quantity($code, $quantity, $info = ['exchangetoproductid' => 0, 'exchangeorderamount' => 0])
+	public function update_quantity($code, $quantity, $info = ['exchangetoproductid' => 0, 'exchangeorderamount' => 0])
 	{
 		global $prefs;
 		$currentQuantity = $this->get_quantity($code);
@@ -799,7 +799,7 @@ class CartLib
 		}
 	}
 
-	function request_payment()
+	public function request_payment()
 	{
 		global $prefs, $user;
 		$tikilib = TikiLib::lib('tiki');
@@ -964,7 +964,7 @@ class CartLib
 		return $invoice;
 	}
 
-	function process_item($invoice, $total, $info, $userInput, $cartuser, $profileinstaller, $orderitemprofile, $parentQuantity = 0, $parentCode = 0)
+	public function process_item($invoice, $total, $info, $userInput, $cartuser, $profileinstaller, $orderitemprofile, $parentQuantity = 0, $parentCode = 0)
 	{
 		global $user, $prefs, $record_profile_items_created;
 		$userlib = TikiLib::lib('user');
@@ -1035,7 +1035,7 @@ class CartLib
 		return $ret;
 	}
 
-	function empty_cart()
+	public function empty_cart()
 	{
 		$this->clear_onhold_list();
 		$_SESSION['cart'] = [];
@@ -1087,7 +1087,7 @@ class CartLib
 		}
 	}
 
-	function get_bundled_products($parentCode)
+	public function get_bundled_products($parentCode)
 	{
 		$cart = $this->get_content();
 		if (isset($cart[$parentCode]['bundledproducts'])) {
@@ -1097,14 +1097,14 @@ class CartLib
 		}
 	}
 
-	function get_content()
+	public function get_content()
 	{
 		$this->init_cart();
 
 		return $_SESSION['cart'];
 	}
 
-	function get_inventory_type($productId)
+	public function get_inventory_type($productId)
 	{
 		global $prefs;
 		$productTrackerId = $prefs['payment_cart_product_tracker'];
@@ -1113,7 +1113,7 @@ class CartLib
 		return $trklib->get_item_value($productTrackerId, $productId, $inventoryTypeFieldId);
 	}
 
-	function get_inventory($productId, $less_hold = true)
+	public function get_inventory($productId, $less_hold = true)
 	{
 		global $prefs;
 		$inventoryType = $this->get_inventory_type($productId);
@@ -1137,7 +1137,7 @@ class CartLib
 		return $trklib->get_item_value($productTrackerId, $productId, $inventoryFieldId);
 	}
 
-	function change_inventory($productId, $amount = 1, $changeLessHold = true)
+	public function change_inventory($productId, $amount = 1, $changeLessHold = true)
 	{
 		global $prefs;
 		if ($prefs['payment_cart_inventory'] != 'y') {
@@ -1158,7 +1158,7 @@ class CartLib
 		return true;
 	}
 
-	function hold_inventory($productId, $amount = 1)
+	public function hold_inventory($productId, $amount = 1)
 	{
 		if ($bundledProducts = $this->get_bundled_products($productId)) {
 			foreach ($bundledProducts as $b) {
@@ -1175,7 +1175,7 @@ class CartLib
 		return true;
 	}
 
-	function unhold_inventory($productId, $amount = 1)
+	public function unhold_inventory($productId, $amount = 1)
 	{
 		if ($bundledProducts = $this->get_bundled_products($productId)) {
 			foreach ($bundledProducts as $b) {
@@ -1277,7 +1277,7 @@ class CartLib
 		return true;
 	}
 
-	function extend_onhold_list()
+	public function extend_onhold_list()
 	{
 		global $tikilib, $prefs;
 		$extend = $prefs['payment_cart_inventoryhold_expiry'] * 60;
@@ -1319,7 +1319,7 @@ class CartLib
 		return true;
 	}
 
-	function get_missing_user_information_fields($product_class_id, $type = 'required')
+	public function get_missing_user_information_fields($product_class_id, $type = 'required')
 	{
 		global $user, $prefs;
 		$trklib = TikiLib::lib('trk');
@@ -1354,7 +1354,7 @@ class CartLib
 		return $missing;
 	}
 
-	function get_missing_user_information_form($product_class_id, $type = 'required')
+	public function get_missing_user_information_form($product_class_id, $type = 'required')
 	{
 		global $prefs;
 		if ($type == 'required') {
@@ -1364,7 +1364,7 @@ class CartLib
 		}
 	}
 
-	function skip_user_information_form_if_not_missing($product_class_id)
+	public function skip_user_information_form_if_not_missing($product_class_id)
 	{
 		global $prefs;
 		if ($this->get_tracker_value_custom($prefs['payment_cart_productclasses_tracker_name'], 'Skip Required Form if Filled', $product_class_id) == 'Yes') {
@@ -1374,7 +1374,7 @@ class CartLib
 		}
 	}
 
-	function get_group_discount()
+	public function get_group_discount()
 	{
 		// TOTALLY CUSTOM until proper feature is ready
 		global $user;
@@ -1389,7 +1389,7 @@ class CartLib
 		return 0;
 	}
 
-	function update_group_discount($invoice)
+	public function update_group_discount($invoice)
 	{
 		global $prefs;
 		// Now to take into account group discount as well
@@ -1411,7 +1411,7 @@ class CartLib
 		}
 	}
 
-	function get_gift_certificate_cost($id = 0)
+	public function get_gift_certificate_cost($id = 0)
 	{
 		global $prefs;
 		if (! $id) {
@@ -1433,7 +1433,7 @@ class CartLib
 		return $cost;
 	}
 
-	function handle_error($msg)
+	public function handle_error($msg)
 	{
 		$access = TikiLib::lib('access');
 

@@ -21,7 +21,7 @@ if (strpos($_SERVER["SCRIPT_NAME"],basename(__FILE__)) !== false) {
 //
 
 if ( !defined( "INCLUCDED_DIR" ) ) {
-	define( "INCLUCDED_DIR", TRUE  );
+    define( "INCLUCDED_DIR", TRUE  );
 
 /**
  * CDir
@@ -44,18 +44,18 @@ if ( !defined( "INCLUCDED_DIR" ) ) {
  * @access public
  **/
 Class CDir extends ErrorManager {
-    var $aFiles;
+    public $aFiles;
 
-    Function __construct(){
+    public function __construct(){
         $this->Init();
-		parent::__construct();
+        parent::__construct();
     }
 
-    Function Init(){
+    public function Init(){
         unset( $this->aFiles );
         $this->aFiles = array();
     }
-	
+
     /**
      * CDir::Read()
      * 
@@ -69,7 +69,7 @@ Class CDir extends ErrorManager {
      * @param string $sExclude  regular expression for filtering path- and filenames
      * @return 
      **/
-    Function Read( $sPath, $sInclude = "", $fRecursive = false, $levelRecursive=2, $fFiles = true, $fDirectories = true, $sRoot = "", $sExclude = "" ){
+    public function Read( $sPath, $sInclude = "", $fRecursive = false, $levelRecursive=2, $fFiles = true, $fDirectories = true, $sRoot = "", $sExclude = "" ){
         $oHandle = opendir( $sPath );
         while ( $sFilename = readdir( $oHandle ) ){
             $fInsert = true;
@@ -128,12 +128,12 @@ Class CDir extends ErrorManager {
      * 
      * @return 
      **/
-    Function Output(){
+    public function Output(){
         reset( $this->aFiles );
-		foreach ($this->aFiles as $aFile) {
-			$this->OutputFile($aFile);
-		}
-	}
+        foreach ($this->aFiles as $aFile) {
+            $this->OutputFile($aFile);
+        }
+    }
 
     /**
      * CDir::OutputFile()
@@ -141,7 +141,7 @@ Class CDir extends ErrorManager {
      * @param $aFile
      * @return 
      **/
-    Function OutputFile( $aFile ){
+    public function OutputFile( $aFile ){
         printf( "Path: %s<br>\n", $this->GetPath( $aFile ) );
         printf( "File: %s<br>\n", $this->GetFile( $aFile ) );
         printf( "Extension: %s<br>\n", $this->GetExtension( $aFile ) );
@@ -159,7 +159,7 @@ Class CDir extends ErrorManager {
      * @param $aFile
      * @return 
      **/
-    Function GetPath( $aFile ){
+    public function GetPath( $aFile ){
         return( $aFile[ "Path" ] );
     }
 
@@ -169,7 +169,7 @@ Class CDir extends ErrorManager {
      * @param $aFile
      * @return 
      **/
-    Function GetFile( $aFile ){
+    public function GetFile( $aFile ){
         return( $aFile[ "File" ] );
     }
 
@@ -179,7 +179,7 @@ Class CDir extends ErrorManager {
      * @param $aFile
      * @return 
      **/
-    Function GetExtension( $aFile ){
+    public function GetExtension( $aFile ){
         return( $aFile[ "Extension" ] );
     }
 
@@ -189,7 +189,7 @@ Class CDir extends ErrorManager {
      * @param $aFile
      * @return 
      **/
-    Function GetIsDirectory( $aFile ){
+    public function GetIsDirectory( $aFile ){
         return( $aFile[ "IsDirectory" ] );
     }
 
@@ -199,7 +199,7 @@ Class CDir extends ErrorManager {
      * @param $aFile
      * @return 
      **/
-    Function GetIsFile( $aFile ){
+    public function GetIsFile( $aFile ){
         return( !$this->GetIsDirectory( $aFile ) );
     }
 
@@ -209,7 +209,7 @@ Class CDir extends ErrorManager {
      * @param $aFile
      * @return 
      **/
-    Function FullName( $aFile ){
+    public function FullName( $aFile ){
         return( $this->GetPath( $aFile ) . $this->FileName( $aFile ) );
     }
 
@@ -219,21 +219,21 @@ Class CDir extends ErrorManager {
      * @param $aFile
      * @return 
      **/
-    Function FileName( $aFile ){
+    public function FileName( $aFile ){
         $sBuffer = $this->DirectoryName( $aFile );
         if ( $this->GetIsDirectory( $aFile ) )
             $sBuffer .= "/";
 
         return( $sBuffer );
     }
-	
+
     /**
      * CDir::DirectoryName() DirectoryName returns the same as FileName, but without a ending "/" for Directories.
      * 
      * @param $aFile
      * @return 
      **/
-    Function DirectoryName( $aFile ){
+    public function DirectoryName( $aFile ){
         $sBuffer = $this->GetExtension( $aFile );
         if ( !empty( $sBuffer ) )
             $sBuffer = "." . $sBuffer;
@@ -241,85 +241,85 @@ Class CDir extends ErrorManager {
 
         return( $sBuffer );
     }
-	
-	// Based on the other notes given before.
-	// Sorts an array (you know the kind) by key
-	// and by the comparison operator you prefer.
-	
-	// Note that instead of most important criteron first, it's
-	// least important criterion first.
-	
-	// The default sort order is ascending, and the default sort
-	// type is strnatcmp.
-	
-	// function multisort($array[, $key, $order, $type]...)
-	function multisort($array){
-	   for($i = 1; $i < func_num_args(); $i += 3){
-	       $key = func_get_arg($i);
-	       
-	       $order = true;
-	       if($i + 1 < func_num_args())
-	           $order = func_get_arg($i + 1);
-	       
-	       $type = 0;
-	       if($i + 2 < func_num_args())
-	           $type = func_get_arg($i + 2);
-	
-	       switch($type){
-	           case 1: // Case insensitive natural.
-	               $t = 'strcasenatcmp($a[' . $key . '], $b[' . $key . '])';
-	               break;
-	           case 2: // Numeric.
-	               $t = '$a[' . $key . '] - $b[' . $key . ']';
-	               break;
-	           case 3: // Case sensitive string.
-	               $t = 'strcmp($a[' . $key . '], $b[' . $key . '])';
-	               break;
-	           case 4: // Case insensitive string.
-	               $t = 'strcasecmp($a[' . $key . '], $b[' . $key . '])';
-	               break;
-	           default: // Case sensitive natural.
-	               $t = 'strnatcmp($a[' . $key . '], $b[' . $key . '])';
-	               break;
-	       }
-	
-	       uasort($array, create_function('$a, $b', 'return ' . ($order ? '' : '-') . '(' . $t . ');'));
-	   }
-	
-	   return $array;
-	}
-	
-	//function multisort([$key, $order, $type]...)
-	function sort(){
-		$error  = FALSE;
-		$params = "";
-		$plen   = func_num_args();
-		$result = NULL;
-		
-		if (func_num_args() > 2) {
-			
-			for($i = 0; $i < func_num_args(); $i += 3){
-				$Key = func_get_arg($i);
-				$order = func_get_arg($i + 1);
-				if ($order) $order = 1;
-				else $order = 0;
-				$type = func_get_arg($i + 2);
-				$params .= $Key.", ".$order.", ".$type;
-				if ($i + 3 < func_num_args()) $params .= ', ';
-			}
-		} else {
-			$error = TRUE;
-		}
-		
-		if (!$error) {
-			//echo("params : multisort(\$this->aFiles, ".$params.");<br>");
-			eval("\$result = \$this->multisort(\$this->aFiles, ".$params.");");
-		} else {
-			$this -> ErrorTracker(4, "Error dans le trie du tableau", 'sort', __FILE__, __LINE__);
-		}
-		
-		return $result;
-	}
+
+    // Based on the other notes given before.
+    // Sorts an array (you know the kind) by key
+    // and by the comparison operator you prefer.
+
+    // Note that instead of most important criteron first, it's
+    // least important criterion first.
+
+    // The default sort order is ascending, and the default sort
+    // type is strnatcmp.
+
+    // function multisort($array[, $key, $order, $type]...)
+    public function multisort($array){
+       for($i = 1; $i < func_num_args(); $i += 3){
+           $key = func_get_arg($i);
+
+           $order = true;
+           if($i + 1 < func_num_args())
+               $order = func_get_arg($i + 1);
+
+           $type = 0;
+           if($i + 2 < func_num_args())
+               $type = func_get_arg($i + 2);
+
+           switch($type){
+               case 1: // Case insensitive natural.
+                   $t = 'strcasenatcmp($a[' . $key . '], $b[' . $key . '])';
+                   break;
+               case 2: // Numeric.
+                   $t = '$a[' . $key . '] - $b[' . $key . ']';
+                   break;
+               case 3: // Case sensitive string.
+                   $t = 'strcmp($a[' . $key . '], $b[' . $key . '])';
+                   break;
+               case 4: // Case insensitive string.
+                   $t = 'strcasecmp($a[' . $key . '], $b[' . $key . '])';
+                   break;
+               default: // Case sensitive natural.
+                   $t = 'strnatcmp($a[' . $key . '], $b[' . $key . '])';
+                   break;
+           }
+
+           uasort($array, create_function('$a, $b', 'return ' . ($order ? '' : '-') . '(' . $t . ');'));
+       }
+
+       return $array;
+    }
+
+    //function multisort([$key, $order, $type]...)
+    public function sort(){
+        $error  = FALSE;
+        $params = "";
+        $plen   = func_num_args();
+        $result = NULL;
+
+        if (func_num_args() > 2) {
+
+            for($i = 0; $i < func_num_args(); $i += 3){
+                $Key = func_get_arg($i);
+                $order = func_get_arg($i + 1);
+                if ($order) $order = 1;
+                else $order = 0;
+                $type = func_get_arg($i + 2);
+                $params .= $Key.", ".$order.", ".$type;
+                if ($i + 3 < func_num_args()) $params .= ', ';
+            }
+        } else {
+            $error = TRUE;
+        }
+
+        if (!$error) {
+            //echo("params : multisort(\$this->aFiles, ".$params.");<br>");
+            eval("\$result = \$this->multisort(\$this->aFiles, ".$params.");");
+        } else {
+            $this -> ErrorTracker(4, "Error dans le trie du tableau", 'sort', __FILE__, __LINE__);
+        }
+
+        return $result;
+    }
 }
 
 }

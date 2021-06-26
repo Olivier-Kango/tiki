@@ -13,23 +13,23 @@ $userprefslib = TikiLib::lib('userprefs');
  */
 class UserWizardPreferencesParams extends Wizard
 {
-	function pageTitle()
+	public function pageTitle()
 	{
 		return tra('User Preferences:') . ' ' . tra('Settings');
 	}
 
-	function isEditable()
+	public function isEditable()
 	{
 		return true;
 	}
 
-	function isVisible()
+	public function isVisible()
 	{
 		global	$prefs;
 		return $prefs['feature_userPreferences'] === 'y';
 	}
 
-	function onSetupPage($homepageUrl)
+	public function onSetupPage($homepageUrl)
 	{
 		global	$user, $prefs, $tiki_p_messages;
 		$userlib = TikiLib::lib('user');
@@ -167,13 +167,13 @@ class UserWizardPreferencesParams extends Wizard
 		return true;
 	}
 
-	function getTemplate()
+	public function getTemplate()
 	{
 		$wizardTemplate = 'wizard/user_preferences_params.tpl';
 		return $wizardTemplate;
 	}
 
-	function onContinue($homepageUrl)
+	public function onContinue($homepageUrl)
 	{
 		global $tikilib, $user, $prefs, $tiki_p_admin, $tikidomain;
 

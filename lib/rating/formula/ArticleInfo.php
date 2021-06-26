@@ -7,7 +7,7 @@
 
 class Tiki_Formula_Function_ArticleInfo extends Math_Formula_Function
 {
-	function evaluate($element)
+	public function evaluate($element)
 	{
 		global $prefs;
 

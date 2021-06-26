@@ -15,7 +15,7 @@ class TikiSecure
 	private $bits = 1024;
 	private $type = "file";
 
-	function __construct($certName = "", $bits = 0)
+	public function __construct($certName = "", $bits = 0)
 	{
 		if (! empty($certName)) {
 			$this->certName = $certName;
@@ -25,17 +25,17 @@ class TikiSecure
 		}
 	}
 
-	function typeFile()
+	public function typeFile()
 	{
 		$this->type = "file";
 	}
 
-	function typeFileGallery()
+	public function typeFileGallery()
 	{
 		$this->type = "filegallery";
 	}
 
-	function encrypt($data = "")
+	public function encrypt($data = "")
 	{
 		$keys = $this->getKeys();
 
@@ -49,7 +49,7 @@ class TikiSecure
 		return $rsa->encrypt($data);
 	}
 
-	function decrypt($cipher)
+	public function decrypt($cipher)
 	{
 		if ($this->hasKeys() == false) {
 			return "";
@@ -65,7 +65,7 @@ class TikiSecure
 		return $rsa->decrypt($cipher);
 	}
 
-	function hasKeys()
+	public function hasKeys()
 	{
 		if ($this->type == "filegallery") {
 			return FileGallery\File::filename($this->certName)->exists();
@@ -76,7 +76,7 @@ class TikiSecure
 		}
 	}
 
-	function getKeys()
+	public function getKeys()
 	{
 		//Get existing certificate if it exists
 		if ($this->hasKeys()) {
@@ -117,7 +117,7 @@ class TikiSecure
 		return $keys;
 	}
 
-	static function timestamp($hash, $clientTime = "", $requester = "")
+	public static function timestamp($hash, $clientTime = "", $requester = "")
 	{
 		$me = new self($requester, 2048);
 		$keys = $me->getKeys();
@@ -131,7 +131,7 @@ class TikiSecure
 		];
 	}
 
-	static function openTimestamp($timestamp = [], $requester)
+	public static function openTimestamp($timestamp = [], $requester)
 	{
 		$me = new self($requester, 2048);
 		$timestamp->timestamp = $me->decrypt($timestamp->timestamp);

@@ -38,29 +38,29 @@ APIC::import("org.apicnet.io.CDir");
  **/
 class OOoUtil extends absOOo{
 
-	var $directories = array("Images", "META-INF");
-	var $pictures    = array("gif", "png");
-	var $tmpdir;
-	var $docExist;
+	public $directories = array("Images", "META-INF");
+	public $pictures    = array("gif", "png");
+	public $tmpdir;
+	public $docExist;
 
-	function __construct(){}
+	public function __construct(){}
 
-	function isTextDocument () {}
+	public function isTextDocument() {}
 
-	function isCalcDocument () {}
+	public function isCalcDocument() {}
 
-	function isContent () {}
+	public function isContent() {}
 
-	function isMeta () {}
+	public function isMeta() {}
 
-	function isSettings () {}
+	public function isSettings() {}
 
 
-	function Ouput(){
+	public function Ouput(){
 
 	}
 
-	function Zip($name){
+	public function Zip($name){
 		$file = new File($this->tmpdir."/".$name, FALSE);
 		if ($file->exists()) {
 			$file->delFile();
@@ -87,12 +87,12 @@ class OOoUtil extends absOOo{
 		}
 	}
 
-	function unZip($dir, $file){
+	public function unZip($dir, $file){
 		$zip = APIC::LoadClass("org.apicnet.io.archive.CZip");
 		$zip->extract($dir, $file);
 	}
 
-	function createDirectories(){
+	public function createDirectories(){
 		$this->tmpdir = CACHE_PATH."/OOotmp".rand();
 		mkdir ($this->tmpdir);
 
@@ -101,7 +101,7 @@ class OOoUtil extends absOOo{
 		}
 	}
 
-	function delDir($dir){
+	public function delDir($dir){
 		$current_dir = opendir($dir);
 		while($entryname = readdir($current_dir)){
 			if(is_dir("$dir/$entryname") and ($entryname != "." and $entryname!="..")){
@@ -114,12 +114,12 @@ class OOoUtil extends absOOo{
 		rmdir(${dir});
 	}
 
-	function convert($img, $format){
+	public function convert($img, $format){
 
 	}
 
 
-	function listFiles(){
+	public function listFiles(){
 		$cdir = new CDir();
 		$cdir->Read( $this->tmpdir."/", "", true, 5 , true, true);
 		$allFiles = array();
@@ -136,11 +136,11 @@ class OOoUtil extends absOOo{
 
 
 
-	function isImpressDocument () {}
-	function isDrawDocument () {}
+	public function isImpressDocument() {}
+	public function isDrawDocument() {}
 
 
-	function main(){
+	public function main(){
 		$this->Directories();
 	}
 }

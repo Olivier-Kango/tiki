@@ -9,7 +9,7 @@ class FlaggedRevisionLib extends TikiDb_Bridge
 {
 	const ACTION = 'Flagged';
 
-	function flag_revision($pageName, $version, $flag, $value, $comment = '')
+	public function flag_revision($pageName, $version, $flag, $value, $comment = '')
 	{
 		global $prefs;
 		$attributelib = TikiLib::lib('attribute');
@@ -37,7 +37,7 @@ class FlaggedRevisionLib extends TikiDb_Bridge
 		}
 	}
 
-	function get_version_with($pageName, $flag, $value)
+	public function get_version_with($pageName, $flag, $value)
 	{
 		$this->get_version_query($pageName, $flag, $value, $query, $bindvars);
 
@@ -47,7 +47,7 @@ class FlaggedRevisionLib extends TikiDb_Bridge
 		return $first;
 	}
 
-	function get_versions_with($pageName, $flag, $value)
+	public function get_versions_with($pageName, $flag, $value)
 	{
 		$this->get_version_query($pageName, $flag, $value, $query, $bindvars, 'version');
 		$result = $this->fetchAll($query, $bindvars);
@@ -60,7 +60,7 @@ class FlaggedRevisionLib extends TikiDb_Bridge
 		return $versions;
 	}
 
-	function get_flag_comment($pageName, $version, $flag, $value)
+	public function get_flag_comment($pageName, $version, $flag, $value)
 	{
 		$query = 'SELECT toa.`comment` FROM `tiki_history` th INNER JOIN `tiki_object_attributes` toa ON toa.`itemId` = `historyId` AND toa.`type` = ? WHERE toa.`attribute` = ? AND toa.`value` = ? AND th.`pageName` = ? AND th.`version`=?';
 		$bindvars = [
@@ -106,7 +106,7 @@ class FlaggedRevisionLib extends TikiDb_Bridge
 		return (bool)$result;
 	}
 
-	function page_requires_approval($pageName)
+	public function page_requires_approval($pageName)
 	{
 		global $prefs, $tikilib;
 
@@ -126,7 +126,7 @@ class FlaggedRevisionLib extends TikiDb_Bridge
 		return false;
 	}
 
-	function find_approval_information($page, $version)
+	public function find_approval_information($page, $version)
 	{
 		global $prefs;
 

@@ -23,7 +23,7 @@ class ThemeControlLib extends ThemeLib
 	@param $theme
 	@param $option
 	*/
-	function tc_assign_category($categId, $theme)
+	public function tc_assign_category($categId, $theme)
 	{
 		$this->tc_remove_cat($categId);
 		$query = "delete from `tiki_theme_control_categs` where `categId`=?";
@@ -37,7 +37,7 @@ class ThemeControlLib extends ThemeLib
 	@param $theme
 	@param string $option
 	*/
-	function tc_assign_section($section, $theme)
+	public function tc_assign_section($section, $theme)
 	{
 		$this->tc_remove_section($section);
 		$query = "delete from `tiki_theme_control_sections` where `section`=?";
@@ -53,7 +53,7 @@ class ThemeControlLib extends ThemeLib
 	@param $name
 	@param string $option
 	*/
-	function tc_assign_object($objId, $theme, $type, $name)
+	public function tc_assign_object($objId, $theme, $type, $name)
 	{
 		$objId = md5($type . $objId);
 		$this->tc_remove_object($objId);
@@ -67,7 +67,7 @@ class ThemeControlLib extends ThemeLib
 	@param $categId
 	@return string
 	*/
-	function tc_get_theme_by_categ($categId)
+	public function tc_get_theme_by_categ($categId)
 	{
 		if ($this->getOne("select count(*) from `tiki_theme_control_categs` where `categId`=?", [$categId])) {
 			return $this->getOne("select `theme` from `tiki_theme_control_categs` where `categId`=?", [$categId]);
@@ -80,7 +80,7 @@ class ThemeControlLib extends ThemeLib
 	@param $section
 	@return string
 	*/
-	function tc_get_theme_by_section($section)
+	public function tc_get_theme_by_section($section)
 	{
 		if ($this->getOne("select count(*) from `tiki_theme_control_sections` where `section`=?", [$section])) {
 			return $this->getOne("select `theme` from `tiki_theme_control_sections` where `section`=?", [$section]);
@@ -94,7 +94,7 @@ class ThemeControlLib extends ThemeLib
 	@param $objId
 	@return string
 	*/
-	function tc_get_theme_by_object($type, $objId)
+	public function tc_get_theme_by_object($type, $objId)
 	{
 		$objId = md5($type . $objId);
 		if ($this->getOne("select count(*) from `tiki_theme_control_objects` where `type`=? and `objId`=?", [$type, $objId])) {
@@ -111,7 +111,7 @@ class ThemeControlLib extends ThemeLib
 	@param $find
 	@return array
 	*/
-	function tc_list_categories($offset, $maxRecords, $sort_mode, $find)
+	public function tc_list_categories($offset, $maxRecords, $sort_mode, $find)
 	{
 		if ($find) {
 			$findesc = '%' . $find . '%';
@@ -144,7 +144,7 @@ class ThemeControlLib extends ThemeLib
 	@param $find
 	@return array
 	*/
-	function tc_list_sections($offset, $maxRecords, $sort_mode, $find)
+	public function tc_list_sections($offset, $maxRecords, $sort_mode, $find)
 	{
 		if ($find) {
 			$findesc = '%' . $find . '%';
@@ -177,7 +177,7 @@ class ThemeControlLib extends ThemeLib
 	@param $find
 	@return array
 	*/
-	function tc_list_objects($type, $offset, $maxRecords, $sort_mode, $find)
+	public function tc_list_objects($type, $offset, $maxRecords, $sort_mode, $find)
 	{
 		if ($find) {
 			$findesc = '%' . $find . '%';
@@ -204,7 +204,7 @@ class ThemeControlLib extends ThemeLib
 	/*
 	@param $cat
 	*/
-	function tc_remove_cat($cat)
+	public function tc_remove_cat($cat)
 	{
 		$query = "delete from `tiki_theme_control_categs` where `categId`=?";
 		$this->query($query, [$cat]);
@@ -213,7 +213,7 @@ class ThemeControlLib extends ThemeLib
 	/*
 	@param $section
 	*/
-	function tc_remove_section($section)
+	public function tc_remove_section($section)
 	{
 		$query = "delete from `tiki_theme_control_sections` where `section`=?";
 		$this->query($query, [$section]);
@@ -222,7 +222,7 @@ class ThemeControlLib extends ThemeLib
 	/*
 	@param $objId
 	*/
-	function tc_remove_object($objId)
+	public function tc_remove_object($objId)
 	{
 		$query = "delete from `tiki_theme_control_objects` where `objId`=?";
 		$this->query($query, [$objId]);
@@ -232,7 +232,7 @@ class ThemeControlLib extends ThemeLib
 	@param $type
 	@return: the theme control theme (tc_theme) and option (tc_theme_option). First check section, than override with category than finally override with object setting.
 	*/
-	function get_tc_theme($type, $objectId)
+	public function get_tc_theme($type, $objectId)
 	{
 		global $prefs, $section;
 		$categlib = TikiLib::lib('categ');

@@ -12,16 +12,16 @@ require_once('lib/wizard/wizard.php');
  */
 class ProfilesWizardDemoCommonConfs extends Wizard
 {
-	function pageTitle()
+	public function pageTitle()
 	{
 		return tra('Demo of Commonly Used Configurations');
 	}
-	function isEditable()
+	public function isEditable()
 	{
 		return false;
 	}
 
-	function onSetupPage($homepageUrl)
+	public function onSetupPage($homepageUrl)
 	{
 		global$TWV;
 		$smarty = TikiLib::lib('smarty');
@@ -34,13 +34,13 @@ class ProfilesWizardDemoCommonConfs extends Wizard
 		return true;
 	}
 
-	function getTemplate()
+	public function getTemplate()
 	{
 		$wizardTemplate = 'wizard/profiles_demo_common_confs.tpl';
 		return $wizardTemplate;
 	}
 
-	function onContinue($homepageUrl)
+	public function onContinue($homepageUrl)
 	{
 		// Run the parent first
 		parent::onContinue($homepageUrl);

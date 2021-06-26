@@ -12,17 +12,17 @@ require_once('lib/wizard/wizard.php');
  */
 class ChangesWizardPermissionsAndLogs extends Wizard
 {
-	function pageTitle()
+	public function pageTitle()
 	{
 		return tra('Permissions & Logs');
 	}
 
-	function isEditable()
+	public function isEditable()
 	{
 		return false;
 	}
 
-	function onSetupPage($homepageUrl)
+	public function onSetupPage($homepageUrl)
 	{
 		// Run the parent first
 		parent::onSetupPage($homepageUrl);
@@ -32,13 +32,13 @@ class ChangesWizardPermissionsAndLogs extends Wizard
 		return $showPage;
 	}
 
-	function getTemplate()
+	public function getTemplate()
 	{
 		$wizardTemplate = 'wizard/changes_permissions_and_logs.tpl';
 		return $wizardTemplate;
 	}
 
-	function onContinue($homepageUrl)
+	public function onContinue($homepageUrl)
 	{
 		// Run the parent first
 		parent::onContinue($homepageUrl);

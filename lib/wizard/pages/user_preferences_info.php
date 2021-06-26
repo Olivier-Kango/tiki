@@ -13,17 +13,17 @@ $userprefslib = TikiLib::lib('userprefs');
  */
 class UserWizardPreferencesInfo extends Wizard
 {
-	function pageTitle()
+	public function pageTitle()
 	{
 		return tra('User Preferences:') . ' ' . tra('Personal Information');
 	}
 
-	function isEditable()
+	public function isEditable()
 	{
 		return true;
 	}
 
-	function isVisible()
+	public function isVisible()
 	{
 		global	$prefs;
 		//return $prefs['feature_userPreferences'] === 'y';
@@ -31,7 +31,7 @@ class UserWizardPreferencesInfo extends Wizard
 					 // preferences feature is disabled site-wide & he/she might want to ask the site admin to enable it
 	}
 
-	function onSetupPage($homepageUrl)
+	public function onSetupPage($homepageUrl)
 	{
 
 		global $user, $prefs, $user_preferences;
@@ -92,13 +92,13 @@ class UserWizardPreferencesInfo extends Wizard
 		return $showPage;
 	}
 
-	function getTemplate()
+	public function getTemplate()
 	{
 		$wizardTemplate = 'wizard/user_preferences_info.tpl';
 		return $wizardTemplate;
 	}
 
-	function onContinue($homepageUrl)
+	public function onContinue($homepageUrl)
 	{
 		global $user, $prefs;
 		$tikilib = TikiLib::lib('tiki');

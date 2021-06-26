@@ -18,7 +18,7 @@ class HistLib extends TikiLib
 		*	Removes a specific version of a page
 		*
 		*/
-	function remove_version($page, $version, $historyId = '')
+	public function remove_version($page, $version, $historyId = '')
 	{
 		global $prefs;
 		if ($prefs['feature_contribution'] == 'y') {
@@ -42,7 +42,7 @@ class HistLib extends TikiLib
 		}
 	}
 
-	function use_version($page, $version, $comment = '')
+	public function use_version($page, $version, $comment = '')
 	{
 		$this->invalidate_cache($page);
 
@@ -106,7 +106,7 @@ class HistLib extends TikiLib
 	}
 
 	// Used to see a specific version of the page
-	function get_view_date($date_str)
+	public function get_view_date($date_str)
 	{
 		global $tikilib;
 
@@ -126,7 +126,7 @@ class HistLib extends TikiLib
 		return $view_date;
 	}
 
-	function get_user_versions($user)
+	public function get_user_versions($user)
 	{
 		$query
 			= "select `pageName`,`version`, `lastModif`, `user`, `ip`, `comment` from `tiki_history` where `user`=? order by `lastModif` desc";
@@ -149,7 +149,7 @@ class HistLib extends TikiLib
 	}
 
 	// Returns information about a specific version of a page
-	function get_version($page, $version)
+	public function get_version($page, $version)
 	{
 		//fix for encoded slowly without doing it all at once in the installer upgrade script
 		$wikilib = TikiLib::lib('wiki');
@@ -163,7 +163,7 @@ class HistLib extends TikiLib
 	}
 
 	// Get page info for a specified version
-	function get_hist_page_info($pageName, $version = null)
+	public function get_hist_page_info($pageName, $version = null)
 	{
 		$info = parent::get_page_info($pageName);
 
@@ -206,7 +206,7 @@ class HistLib extends TikiLib
 
 	// Returns all the versions for this page
 	// without the data itself
-	function get_page_history($page, $fetchdata = true, $offset = 0, $limit = -1)
+	public function get_page_history($page, $fetchdata = true, $offset = 0, $limit = -1)
 	{
 		global $prefs;
 
@@ -243,7 +243,7 @@ class HistLib extends TikiLib
 
 	// Returns one version of the page from the history
 	// without the data itself (version = 0 now returns data from current version)
-	function get_page_from_history($page, $version, $fetchdata = false)
+	public function get_page_from_history($page, $version, $fetchdata = false)
 	{
 		$wikilib = TikiLib::lib('wiki');
 		$converter = new convertToTiki9();
@@ -300,7 +300,7 @@ class HistLib extends TikiLib
 	 * @return bool int
 	 */
 
-	function get_page_latest_version($page, $sort_mode = 'version_desc')
+	public function get_page_latest_version($page, $sort_mode = 'version_desc')
 	{
 
 		$query = "select `version` from `tiki_history` where `pageName`=? order by " . $this->convertSortMode($sort_mode);
@@ -322,7 +322,7 @@ class HistLib extends TikiLib
 	// them both is right.
 	// Also, it's possible that latest version in history has been rejected (with Flagged Revisions),
 	// so the current version is not the biggest number.
-	function get_page_next_version($page, $willDoHistory = true)
+	public function get_page_next_version($page, $willDoHistory = true)
 	{
 		$query = "select `version` from `tiki_history` where `pageName`=? order by `version` desc";
 		$result = $this->query($query, [$page], 1);
@@ -342,7 +342,7 @@ class HistLib extends TikiLib
 		return $version + ($willDoHistory ? 1 : 0);
 	}
 
-	function version_exists($pageName, $version)
+	public function version_exists($pageName, $version)
 	{
 
 		$query = "select `pageName` from `tiki_history` where `pageName` = ? and `version`=?";
@@ -352,7 +352,7 @@ class HistLib extends TikiLib
 
 	// This function get the last changes from pages from the last $days days
 	// if days is 0 this gets all the registers
-	function get_last_changes($days, $offset = 0, $limit = -1, $sort_mode = 'lastModif_desc', $findwhat = '')
+	public function get_last_changes($days, $offset = 0, $limit = -1, $sort_mode = 'lastModif_desc', $findwhat = '')
 	{
 			global $user;
 
@@ -403,7 +403,7 @@ class HistLib extends TikiLib
 
 		return ['data' => $ret, 'cant' => $cant];
 	}
-	function get_nb_history($page)
+	public function get_nb_history($page)
 	{
 		$query_cant = "select count(*) from `tiki_history` where `pageName` = ?";
 		$cant = $this->getOne($query_cant, [$page]);
@@ -412,7 +412,7 @@ class HistLib extends TikiLib
 
 	// This function gets the version number of the version before or after the time specified
 	// (note that current version is not included in search)
-	function get_version_by_time($page, $unixtimestamp, $before_or_after = 'before', $include_minor = true)
+	public function get_version_by_time($page, $unixtimestamp, $before_or_after = 'before', $include_minor = true)
 	{
 		$query = "select `version`, `version_minor`, `lastModif` from `tiki_history` where `pageName`=? order by `version` desc";
 		$result = $this->query($query, [$page]);
@@ -495,12 +495,12 @@ class Document
 	/**
 	 * @var string	start marker. If set, text before this marker (including the marker itself) will be removed
 	 */
-	var $startmarker = '';
+	public $startmarker = '';
 
 	/**
 	 * @var string	end marker. If set, text after this marker (including the marker itself) will be removed
 	 */
-	var $endmarker = '';
+	public $endmarker = '';
 
 	/**
 	 * @var string	regex for splitting page text into an array of words;
@@ -526,7 +526,7 @@ class Document
 	 * @param string	$start		start marker (all text will be skipped, including this marker which must be at the beginning of a line)
 	 * @param string	$end		end marker (all text will be skipped from this marker on, including this marker which must be at the beginning of a line)
 	 */
-	function __construct($page, $lastversion = 0, $process = 1, $showpopups = true, $startmarker = '', $endmarker = '')
+	public function __construct($page, $lastversion = 0, $process = 1, $showpopups = true, $startmarker = '', $endmarker = '')
 	{
 		$histlib = TikiLib::lib('hist');
 
@@ -710,7 +710,7 @@ class Document
 	 *
 	 * returns the history (identical to $histlib->get_page_history, but saves another fetch from database as we already have the info
 	 */
-	function getHistory()
+	public function getHistory()
 	{
 		return array_slice($this->_data, 1);
 	}
@@ -719,7 +719,7 @@ class Document
 	 *
 	 * returns the page info history (identical to $tikilib->get_page_info, but saves another fetch from database as we already have the info
 	 */
-	function getInfo()
+	public function getInfo()
 	{
 		return $this->_info;
 	}
@@ -732,7 +732,7 @@ class Document
 	 * @see mergeDiff
 	 * @return	array	list of words in the document (no author etc.)
 	 */
-	function getDiffArray()
+	public function getDiffArray()
 	{
 		$diffarray = [];
 		foreach ($this->_document as &$word) {
@@ -753,7 +753,7 @@ class Document
 	 * @param	string	$filter		regex to filter out non printable characters (difference between characters and printables)
 	 * @return	array				array indexed by author containing arrays with statistics (words, deleted_words, whitespaces, deleted_whitespaces, characters, deleted_characters, printables, deleted_printables)
 	 */
-	function getStatistics($filter = '/([[:blank:]]|[[:cntrl:]]|[[:punct:]]|[[:space:]])/')
+	public function getStatistics($filter = '/([[:blank:]]|[[:cntrl:]]|[[:punct:]]|[[:space:]])/')
 	{
 		$style = 0;
 		if ($this->_filter != $filter) { //a new filter invalidates the statistics
@@ -845,7 +845,7 @@ class Document
 	 * @see		getStatistics
 	 * @return	array with statistics (words, deleted_words, whitespaces, deleted_whitespaces, characters, deleted_characters, printables, deleted_printables)
 	 */
-	function getTotal()
+	public function getTotal()
 	{
 		return $this->_total;
 	}
@@ -862,7 +862,7 @@ class Document
 	 * </table>
 	 * @return	array|string	depending on the parameter $type, a string or array containing the documents words
 	 */
-	function get($type = '', $options = [])
+	public function get($type = '', $options = [])
 	{
 		switch ($type) {
 			case 'words':
@@ -1025,7 +1025,7 @@ class Document
 	 * @param string	$pluginstr		Complete Plugin tag including brackets () containing the parameters
 	 * @return	array|bool				Array containing the parameters or false if none are given
 	 */
-	function retrieveParams($pluginstr)
+	public function retrieveParams($pluginstr)
 	{
 		$params = [];
 		$start = strpos($pluginstr, '(');
@@ -1051,7 +1051,7 @@ class Document
 	 * @param string	$newpage	a string with a later version of the page
 	 * @param string	$newauthor	name of the author of the new version
 	 */
-	function mergeDiff($newpage, $newauthor)
+	public function mergeDiff($newpage, $newauthor)
 	{
 		$this->_history = false;
 		$author = $newauthor;
@@ -1125,7 +1125,7 @@ class Document
 	 *
 	 * parses the left over author/include tags and sets the author accordingly
 	 */
-	function parseAuthorAndInclude()
+	public function parseAuthorAndInclude()
 	{
 		$newdoc = [];
 		$author = '';

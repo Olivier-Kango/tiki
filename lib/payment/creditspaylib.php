@@ -7,7 +7,7 @@
 
 class UserPayCredits extends CreditsLib
 {
-	function __construct()
+	public function __construct()
 	{
 		global $user, $prefs;
 		$valid_credits = unserialize($prefs['payment_tikicredits_types']);
@@ -36,7 +36,7 @@ class UserPayCredits extends CreditsLib
 		$this->credits = $ret;
 	}
 
-	function setPrice($price)
+	public function setPrice($price)
 	{
 		$credits = $this->credits;
 		foreach ($credits as $k => $uc) {
@@ -50,7 +50,7 @@ class UserPayCredits extends CreditsLib
 		$this->credits = $credits;
 	}
 
-	function payAmount($creditType, $amount, $invoice)
+	public function payAmount($creditType, $amount, $invoice)
 	{
 		global $user;
 		$tikilib = TikiLib::lib('tiki');

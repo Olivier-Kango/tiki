@@ -17,19 +17,19 @@ class RatingConfigLib extends TikiDb_Bridge
 		return $this->table('tiki_rating_obtained');
 	}
 
-	function get_configurations()
+	public function get_configurations()
 	{
 		return $this->fetchAll('SELECT * FROM `tiki_rating_configs`');
 	}
 
-	function get_configuration($id)
+	public function get_configuration($id)
 	{
 		return $this->config()->fetchFullRow([
 			'ratingConfigId' => $id,
 		]);
 	}
 
-	function create_configuration($name)
+	public function create_configuration($name)
 	{
 		$this->query(
 			'INSERT INTO `tiki_rating_configs` ( `name`, `formula` ) VALUES( ?, ? )',
@@ -39,7 +39,7 @@ class RatingConfigLib extends TikiDb_Bridge
 		return $this->lastInsertId();
 	}
 
-	function update_configuration($id, $name, $expiry, $formula)
+	public function update_configuration($id, $name, $expiry, $formula)
 	{
 		$this->query(
 			'UPDATE `tiki_rating_configs` SET `name` = ?, `expiry` = ?, `formula` = ? WHERE `ratingConfigId` = ?',
@@ -47,7 +47,7 @@ class RatingConfigLib extends TikiDb_Bridge
 		);
 	}
 
-	function record_value($info, $type, $object, $value)
+	public function record_value($info, $type, $object, $value)
 	{
 		$now = time() + $info['expiry'];
 
@@ -59,7 +59,7 @@ class RatingConfigLib extends TikiDb_Bridge
 		);
 	}
 
-	function get_expired_object_list($max)
+	public function get_expired_object_list($max)
 	{
 		global $prefs;
 
@@ -94,7 +94,7 @@ class RatingConfigLib extends TikiDb_Bridge
 		);
 	}
 
-	function preserve_configurations(array $ids)
+	public function preserve_configurations(array $ids)
 	{
 		$config = $this->config();
 		$obtained = $this->obtained();

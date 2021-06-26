@@ -19,7 +19,7 @@ class CustomShippingProvider_Example extends CustomShippingProvider
 {
 	private $services;
 
-	function __construct()	// needs to be without params
+	public function __construct()	// needs to be without params
 	{
 		$this->services = [
 			'standard' => [
@@ -53,17 +53,17 @@ class CustomShippingProvider_Example extends CustomShippingProvider
 		];
 	}
 
-	function getName()
+	public function getName()
 	{
 		return tra('Custom Shipping Example');
 	}
 
-	function getCurrency()
+	public function getCurrency()
 	{
 		return 'USD';
 	}
 
-	function getRates(array $from, array $to, array $packages)
+	public function getRates(array $from, array $to, array $packages)
 	{
 		if (! empty($to) && ! empty($packages)) {
 			$rates = [];

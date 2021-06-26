@@ -47,18 +47,18 @@ $incErrorManager = true;
  **/
 class ErrorManager extends APICObject {
 
-    var $errorCounter = Array(0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0);
+    public $errorCounter = [0 => 0, 1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0];
 
-    var $errorMessage = '';
-    var $errorEscape = '';
-    var $errorLog = '';
-    var $errorAlarme = '';
+    public $errorMessage = '';
+    public $errorEscape = '';
+    public $errorLog = '';
+    public $errorAlarme = '';
 
-    var $errorTrackingLevel = 1;
-    var $numberError = 0;
-    var $maxErrorReport = 0;
+    public $errorTrackingLevel = 1;
+    public $numberError = 0;
+    public $maxErrorReport = 0;
 
-    var $errorManagerSystem = true;
+    public $errorManagerSystem = true;
 
 
     /**
@@ -71,7 +71,7 @@ class ErrorManager extends APICObject {
      * @param string $alarme
      * @return 
      **/
-    function __construct($errorManagerSystem = '', $level = '', $escape = '', $file = '', $alarme = ''){
+	public function __construct($errorManagerSystem = '', $level = '', $escape = '', $file = '', $alarme = ''){
 		$this -> SetErrorSystem($errorManagerSystem);
 		$this -> SetErrorLevel($level);
 		$this -> SetErrorEscape($escape);
@@ -86,7 +86,7 @@ class ErrorManager extends APICObject {
 	 * @param string $arg
 	 * @return 
 	 **/
-	function SetErrorSystem($arg = ''){
+	public function SetErrorSystem($arg = ''){
 		if (defined('ERROR_MANAGER_SYSTEM') && ! $arg) $arg = ERROR_MANAGER_SYSTEM;
         $this -> errorManagerSystem = $arg;
 
@@ -94,27 +94,27 @@ class ErrorManager extends APICObject {
         else $this -> errorManagerSystem = false;
 		}
 
-	function SetErrorLevel($arg = ''){
+	public function SetErrorLevel($arg = ''){
 		if (defined('ERROR_MANAGER_LEVEL') && ! $arg) $arg = ERROR_MANAGER_LEVEL;
 		if ($arg) $this -> errorTrackingLevel = $arg;
 		}
 
-	function SetErrorEscape($arg = ''){
+	public function SetErrorEscape($arg = ''){
 		if (defined('ERROR_MANAGER_ESCAPE') && ! $arg) $arg = ERROR_MANAGER_ESCAPE;
 		if ($arg && ! $this -> SetErrorOut($arg)) $this -> errorEscape = '';
 		}
 
-    function SetErrorAlarme($arg = ''){
+	public function SetErrorAlarme($arg = ''){
     	if (defined('ERROR_MANAGER_ALARME') && ! $arg) $arg = ERROR_MANAGER_ALARME;
     	if ($arg) $this -> errorAlarme = $arg;
     	}
 
-	function SetErrorLog($arg = ''){
+	public function SetErrorLog($arg = ''){
 		if (defined('ERROR_MANAGER_LOG') && ! $arg) $arg = ERROR_MANAGER_LOG;
 		if ($arg) $this -> errorLog = $arg;
 		}
 
-    function SetErrorLock($func){
+	public function SetErrorLock($func){
         if (strtolower($func) == 'actived') $func = true;
         if (strtolower($func) == 'desactived') $func = false;
 
@@ -122,7 +122,7 @@ class ErrorManager extends APICObject {
         return true;
         }
 
-    function SetErrorOut($url){
+	public function SetErrorOut($url){
         if (is_file($url) || strpos($url, 'http://') !== false) {
             $this -> errorEscape = $url;
             return true;
@@ -140,7 +140,7 @@ class ErrorManager extends APICObject {
      * @param string $line
      * @return 
      **/
-    function ErrorTracker($warning, $message, $func = '', $file = '', $line = ''){
+	public function ErrorTracker($warning, $message, $func = '', $file = '', $line = ''){
 		$stackError = debug_backtrace();
         switch ($warning){
             case 1:
@@ -193,7 +193,7 @@ class ErrorManager extends APICObject {
 	}
 
 
-    function ErrorChecker($level = ''){
+	public function ErrorChecker($level = ''){
         if ($level == '') $level = $this -> errorTrackingLevel;
 
         if ($this -> maxErrorReport >= $level) {

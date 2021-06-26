@@ -25,7 +25,7 @@ class UserMailinLib extends TikiLib
 	 * @return mixed array - 'data', 'cant'
 	 *
 	 */
-	function locate_struct($user, $subject, &$body)
+	public function locate_struct($user, $subject, &$body)
 	{
 		$result = [];
 		$routes = $this->list_user_mailin_struct($user);
@@ -91,7 +91,7 @@ class UserMailinLib extends TikiLib
 	 * @param $find
 	 * @return array
 	 */
-	function list_user_mailin_struct($user, $maxRecords = -1, $offset = 0)
+	public function list_user_mailin_struct($user, $maxRecords = -1, $offset = 0)
 	{
 		$bindvars = [$user];
 		$query = "select u.email, mailin.*, p.pageName, s2.page_ref_id as page_struct_refid, s2.parent_id as page_struct_parentid, s.page_ref_id, s.parent_id , p2.pageName as structName
@@ -113,7 +113,7 @@ order by p2.pageName, p.pageName";
 	}
 
 
-	function list_all_user_mailin_struct($onlyActive = true, $maxRecords = -1, $offset = 0)
+	public function list_all_user_mailin_struct($onlyActive = true, $maxRecords = -1, $offset = 0)
 	{
 		$sqlOnlyActive = '';
 		if ($onlyActive) {
@@ -139,14 +139,14 @@ order by mailin.username, p2.pageName, p.pageName
 		return $retval;
 	}
 
-	function add_user_mailin_struct($username, $subj_pattern, $body_pattern, $structure_id, $page_id, $is_active)
+	public function add_user_mailin_struct($username, $subj_pattern, $body_pattern, $structure_id, $page_id, $is_active)
 	{
 		$bindvars = [$username, $subj_pattern, $body_pattern, (int)$structure_id, (int)$page_id, $is_active];
 		$query = "insert into `tiki_user_mailin_struct`(`username`,`subj_pattern`,`body_pattern`,`structure_id`,`page_id`,`is_active`) values(?,?,?,?,?,?)";
 		$result = $this->query($query, $bindvars);
 	}
 
-	function update_user_mailin_struct($mailin_struct_id, $username, $subj_pattern, $body_pattern, $structure_id, $page_id, $is_active)
+	public function update_user_mailin_struct($mailin_struct_id, $username, $subj_pattern, $body_pattern, $structure_id, $page_id, $is_active)
 	{
 		if ($mailin_struct_id) {
 			$bindvars = [$username, $subj_pattern, $body_pattern, (int)$structure_id, (int)$page_id, $is_active, (int)$mailin_struct_id];
@@ -157,7 +157,7 @@ order by mailin.username, p2.pageName, p.pageName
 		return false;
 	}
 
-	function delete_user_mailin_struct($mailin_struct_id)
+	public function delete_user_mailin_struct($mailin_struct_id)
 	{
 		if ($mailin_struct_id) {
 			$bindvars = [(int)$mailin_struct_id];

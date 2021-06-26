@@ -20,7 +20,7 @@ class UserMenuLib extends TikiLib
 	/**
 	 * @param $user
 	 */
-	function add_bk($user)
+	public function add_bk($user)
 	{
 		$query = 'select tubu.`name`,`url`' .
 						' from `tiki_user_bookmarks_urls` tubu, `tiki_user_bookmarks_folders` tubf' .
@@ -60,7 +60,7 @@ class UserMenuLib extends TikiLib
 	 * @param $find
 	 * @return array
 	 */
-	function list_usermenus($user, $offset, $maxRecords, $sort_mode, $find)
+	public function list_usermenus($user, $offset, $maxRecords, $sort_mode, $find)
 	{
 
 		if ($find) {
@@ -94,7 +94,7 @@ class UserMenuLib extends TikiLib
 	 * @param $menuId
 	 * @return mixed
 	 */
-	function get_usermenu($user, $menuId)
+	public function get_usermenu($user, $menuId)
 	{
 		$query = 'select * from `tiki_user_menus` where `user`=? and `menuId`=?';
 
@@ -107,7 +107,7 @@ class UserMenuLib extends TikiLib
 	 * @param $user
 	 * @return mixed
 	 */
-	function get_max_position($user)
+	public function get_max_position($user)
 	{
 		return $this->getOne('select max(position) from `tiki_user_menus` where `user`=?', [$user]);
 	}
@@ -121,7 +121,7 @@ class UserMenuLib extends TikiLib
 	 * @param $mode
 	 * @return mixed
 	 */
-	function replace_usermenu($user, $menuId, $name, $url, $position, $mode)
+	public function replace_usermenu($user, $menuId, $name, $url, $position, $mode)
 	{
 
 		if ($menuId) {
@@ -142,7 +142,7 @@ class UserMenuLib extends TikiLib
 	 * @param $user
 	 * @param $menuId
 	 */
-	function remove_usermenu($user, $menuId)
+	public function remove_usermenu($user, $menuId)
 	{
 		$query = 'delete from `tiki_user_menus` where `user`=? and `menuId`=?';
 

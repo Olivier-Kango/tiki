@@ -24,7 +24,7 @@ class MultilingualLib extends TikiLib
 	/*
 	 * Create the translation of wiki page $srcPageName.
 	 */
-	function createTranslationOfPage($srcPageName, $srcLang, $targPageName, $targLang, $targPageContent)
+	public function createTranslationOfPage($srcPageName, $srcLang, $targPageName, $targLang, $targPageContent)
 	{
 		global $tikilib, $user;
 
@@ -41,7 +41,7 @@ class MultilingualLib extends TikiLib
 	 * @param: objLang = lang of the translation
 	 * @requirment: no translation of the source in this lang must exist
 	 */
-	function insertTranslation($type, $srcId, $srcLang, $objId, $objLang)
+	public function insertTranslation($type, $srcId, $srcLang, $objId, $objLang)
 	{
 		global $prefs;
 
@@ -88,7 +88,7 @@ class MultilingualLib extends TikiLib
 	 * @brief update the object for the language of a translation set
 	 * @param $objId: new object for the translation of $srcId of type $type in the language $objLang
 	 */
-	function updateTranslation($type, $srcId, $objId, $objLang)
+	public function updateTranslation($type, $srcId, $objId, $objLang)
 	{
 		$query = "update `tiki_translated_objects` set `objId`=? where `type`=? and `srcId`=? and `lang`=?";
 		$this->query($query, [$objId, $type, $srcId, $objLang]);
@@ -98,7 +98,7 @@ class MultilingualLib extends TikiLib
 	 * @brief get the translation in a language of an object if exists
 	 * @return array(objId, traId)
 	 */
-	function getTranslation($type, $srcId, $objLang)
+	public function getTranslation($type, $srcId, $objLang)
 	{
 		$query =
 						"select t2.`objId`, t2.`traId`" .
@@ -113,7 +113,7 @@ class MultilingualLib extends TikiLib
 	 * @param $objId
 	 * @return array
 	 */
-	function getTrads($type, $objId)
+	public function getTrads($type, $objId)
 	{
 		$query =
 						"select t2.`traId`, t2.`objId`, t2.`lang`" .
@@ -146,7 +146,7 @@ class MultilingualLib extends TikiLib
 	 * @return array
 	 * @throws Exception
 	 */
-	function getTranslations($type, $objId, $objName = '', $objLang = '', $long = false)
+	public function getTranslations($type, $objId, $objName = '', $objLang = '', $long = false)
 	{
 		if ($type == 'wiki page') {
 			$query =
@@ -183,7 +183,7 @@ class MultilingualLib extends TikiLib
 	/**
 	 * @brief sort function on langName string
 	 */
-	function compare_lang($l1, $l2)
+	public function compare_lang($l1, $l2)
 	{
 		return strcmp($l1['langName'], $l2['langName']);
 	}
@@ -191,7 +191,7 @@ class MultilingualLib extends TikiLib
 	/**
 	 * @brief: update lang in all tiki pages
 	 */
-	function updateObjectLang($type, $objId, $lang, $optimisation = false)
+	public function updateObjectLang($type, $objId, $lang, $optimisation = false)
 	{
 		if ($this->getTranslation($type, $objId, $lang)) {
 			return 'alreadyTrad';
@@ -215,7 +215,7 @@ class MultilingualLib extends TikiLib
 	/**
 	 * @brief: detach one translation
 	 */
-	function detachTranslation($type, $objId)
+	public function detachTranslation($type, $objId)
 	{
 		$query = "delete from `tiki_translated_objects` where `type`= ? and `objId`=?";
 		$this->query($query, [$type, $objId]);
@@ -225,7 +225,7 @@ class MultilingualLib extends TikiLib
 	/**
 	 * @brief : test if val exists in a list of objects
 	 */
-	function exist($tab, $val, $col)
+	public function exist($tab, $val, $col)
 	{
 		foreach ($tab as $t) {
 			if ($t[$col] == $val) {
@@ -239,7 +239,7 @@ class MultilingualLib extends TikiLib
 	 * @brief : returns an ordered list of preferred languages
 	 * @param $langContext: optional the language the user comes from
 	 */
-	function preferredLangs($langContext = null, $include_browser_lang = null)
+	public function preferredLangs($langContext = null, $include_browser_lang = null)
 	{
 		global $user, $prefs, $tikilib;
 		$langs = [];
@@ -311,7 +311,7 @@ class MultilingualLib extends TikiLib
 	/**
 	 * @brief : return the root language ex: en-uk returns en
 	 */
-	function rootLang($lang)
+	public function rootLang($lang)
 	{
 		return preg_replace("/(.*)-(.*)/", '$1', $lang);
 	}
@@ -319,7 +319,7 @@ class MultilingualLib extends TikiLib
 	/**
 	 * @brief : fitler a list of object to have only one objet in the set of translations with the best language
 	 */
-	function selectLangList($type, $listObjs, $langContext = null)
+	public function selectLangList($type, $listObjs, $langContext = null)
 	{
 		if (! $listObjs || count($listObjs) <= 1) {
 			return $listObjs;
@@ -390,7 +390,7 @@ class MultilingualLib extends TikiLib
 	/**
 	 * @brief : select the object with the best language from another object
 	 */
-	function selectLangObj($type, $objId, $langContext = null)
+	public function selectLangObj($type, $objId, $langContext = null)
 	{
 		$trads = $this->getTrads($type, $objId);
 		if (! $trads) {
@@ -410,7 +410,7 @@ class MultilingualLib extends TikiLib
 	/**
 	 * Determine if the best language should be used for an object, based on request and preference parameters,
 	 */
-	function useBestLanguage()
+	public function useBestLanguage()
 	{
 		/*
 		 * Indicates whether or not content should be displayed in the user's preferred language
@@ -461,7 +461,7 @@ class MultilingualLib extends TikiLib
 	 * @param $no_bl_value
 	 * @return mixed|string
 	 */
-	function setUrlNoBestLanguageArg($url, $no_bl_value)
+	public function setUrlNoBestLanguageArg($url, $no_bl_value)
 	{
 		if (preg_match('/[?&]no_bl=/', $url)) {
 			$url = preg_replace('/([?&])no_bl=[yn]{0,1}/', '$1no_bl=$no_bl_value', $url);
@@ -479,7 +479,7 @@ class MultilingualLib extends TikiLib
 	/**
 	 * @return array
 	 */
-	function getSupportedTranslationBitFlags()
+	public function getSupportedTranslationBitFlags()
 	{
 		return [ 'critical' ];
 	}
@@ -488,7 +488,7 @@ class MultilingualLib extends TikiLib
 	 * @param $flags
 	 * @return array
 	 */
-	function normalizeTranslationBitFlags($flags)
+	public function normalizeTranslationBitFlags($flags)
 	{
 		if (! is_array($flags)) {
 			$flags = explode(',', $flags);
@@ -504,7 +504,7 @@ class MultilingualLib extends TikiLib
 	 * @param int $version
 	 * @param array $flags
 	 */
-	function createTranslationBit($type, $objId, $version = 0, $flags = [])
+	public function createTranslationBit($type, $objId, $version = 0, $flags = [])
 	{
 		if ($type != 'wiki page') {
 			die('Translation sync only available for wiki pages.');
@@ -533,7 +533,7 @@ class MultilingualLib extends TikiLib
 	 * @param int $sourceVersion
 	 * @param int $targetVersion
 	 */
-	function propagateTranslationBits($type, $sourceId, $targetId, $sourceVersion = 0, $targetVersion = 0)
+	public function propagateTranslationBits($type, $sourceId, $targetId, $sourceVersion = 0, $targetVersion = 0)
 	{
 		if ($type != 'wiki page') {
 			die('Translation sync only available for wiki pages.');
@@ -638,7 +638,7 @@ class MultilingualLib extends TikiLib
 	 * @param bool $page_unique
 	 * @return array
 	 */
-	function getMissingTranslationBits($type, $objId, $flags = [], $page_unique = false)
+	public function getMissingTranslationBits($type, $objId, $flags = [], $page_unique = false)
 	{
 		if ($type != 'wiki page') {
 			die('Translation sync only available for wiki pages.');
@@ -689,7 +689,7 @@ class MultilingualLib extends TikiLib
 	 * @param $pageIdToUpdate
 	 * @return array
 	 */
-	function getTranslationsWithBit($translationBit, $pageIdToUpdate)
+	public function getTranslationsWithBit($translationBit, $pageIdToUpdate)
 	{
 		$pageIdToUpdate = (int) $pageIdToUpdate;
 		$translationBit = (int) $translationBit;
@@ -724,7 +724,7 @@ class MultilingualLib extends TikiLib
 	 * @param $pageId
 	 * @return array
 	 */
-	function getSourceHistory($pageId)
+	public function getSourceHistory($pageId)
 	{
 		$result = $this->query(
 			"SELECT DISTINCT
@@ -760,7 +760,7 @@ class MultilingualLib extends TikiLib
 	 * @param $pageId
 	 * @return array
 	 */
-	function getTargetHistory($pageId)
+	public function getTargetHistory($pageId)
 	{
 		$result = $this->query(
 			"SELECT DISTINCT
@@ -798,7 +798,7 @@ class MultilingualLib extends TikiLib
 	 * @param $targetPage
 	 * @return string
 	 */
-	function subqueryObtainUpdateVersion($sourcePage, $targetPage)
+	public function subqueryObtainUpdateVersion($sourcePage, $targetPage)
 	{
 		// Meant to be inlined in an other query. Useful in many cases.
 
@@ -829,7 +829,7 @@ class MultilingualLib extends TikiLib
 	 * @param $pageId
 	 * @return array
 	 */
-	function getBetterPages($pageId)
+	public function getBetterPages($pageId)
 	{
 		$pageId = (int) $pageId;
 
@@ -868,7 +868,7 @@ class MultilingualLib extends TikiLib
 	 * @param $pageId
 	 * @return array
 	 */
-	function getWorstPages($pageId)
+	public function getWorstPages($pageId)
 	{
 		$pageId = (int) $pageId;
 
@@ -917,7 +917,7 @@ class MultilingualLib extends TikiLib
 	 * @param $version
 	 * @return array
 	 */
-	function get_page_bit_flags($pageId, $version)
+	public function get_page_bit_flags($pageId, $version)
 	{
 		$query = "select distinct `flags` from `tiki_pages_translation_bits` where `page_id`=? and `version`=?";
 		$result = $this->query($query, [$pageId, $version]);
@@ -933,7 +933,7 @@ class MultilingualLib extends TikiLib
 	 * @param $pageName
 	 * @return mixed
 	 */
-	function getLangOfPage($pageName)
+	public function getLangOfPage($pageName)
 	{
 		$pageInfo = $this->get_page_info($pageName);
 		$lang = $pageInfo['lang'];
@@ -943,7 +943,7 @@ class MultilingualLib extends TikiLib
 	/**
 	 * @return string
 	 */
-	function currentPageSearchLanguage()
+	public function currentPageSearchLanguage()
 	{
 		/*
 		 * Returns the language to be used for a normal page find.
@@ -964,7 +964,7 @@ class MultilingualLib extends TikiLib
 	 *
 	 * @access public
 	 */
-	function currentTermSearchLanguage()
+	public function currentTermSearchLanguage()
 	{
 		global $_REQUEST, $_SESSION;
 
@@ -986,7 +986,7 @@ class MultilingualLib extends TikiLib
 	/**
 	 * @param $lang
 	 */
-	function storeCurrentTermSearchLanguageInSession($lang)
+	public function storeCurrentTermSearchLanguageInSession($lang)
 	{
 		global $_SESSION;
 		$_SESSION['find_term_last_done_in_lang'] = $lang;
@@ -995,7 +995,7 @@ class MultilingualLib extends TikiLib
 	/**
 	 * @return array
 	 */
-	function preferredLangsInfo()
+	public function preferredLangsInfo()
 	{
 		global $tikilib, $tracer;
 
@@ -1032,7 +1032,7 @@ class MultilingualLib extends TikiLib
 	 * @param $language
 	 * @return null
 	 */
-	function getTemplateIDInLanguage($section, $template_name, $language)
+	public function getTemplateIDInLanguage($section, $template_name, $language)
 	{
 		$templateslib = TikiLib::lib('template');
 
@@ -1057,7 +1057,7 @@ class MultilingualLib extends TikiLib
 	/**
 	 * @param $on_or_off
 	 */
-	function setMachineTranslationFeatureTo($on_or_off)
+	public function setMachineTranslationFeatureTo($on_or_off)
 	{
 		$this->mtEnabled = $on_or_off;
 	}
@@ -1067,7 +1067,7 @@ class MultilingualLib extends TikiLib
 	 * @param null $language
 	 * @return mixed
 	 */
-	function getTranslationsInProgressFlags($page_id, $language = null)
+	public function getTranslationsInProgressFlags($page_id, $language = null)
 	{
 		$fields = '`page_id`';
 		$valuesSpec = "?";
@@ -1088,7 +1088,7 @@ class MultilingualLib extends TikiLib
 	 * @param $page_id
 	 * @param $language
 	 */
-	function addTranslationInProgressFlags($page_id, $language)
+	public function addTranslationInProgressFlags($page_id, $language)
 	{
 		//
 		// First, make sure that there isn't already a row in the table
@@ -1105,7 +1105,7 @@ class MultilingualLib extends TikiLib
 	 * @param $page_id
 	 * @param $language
 	 */
-	function deleteTranslationInProgressFlags($page_id, $language)
+	public function deleteTranslationInProgressFlags($page_id, $language)
 	{
 		$query =
 			"DELETE FROM `tiki_translations_in_progress`\n" .
@@ -1122,7 +1122,7 @@ class MultilingualLib extends TikiLib
 	 * @param $mid
 	 * @param $bindvars
 	 */
-	function sqlTranslationOrphan($objectType, $sqlObjectId, $columnObjectId, $langs, &$join, &$mid, &$bindvars)
+	public function sqlTranslationOrphan($objectType, $sqlObjectId, $columnObjectId, $langs, &$join, &$mid, &$bindvars)
 	{
 		$join .= " left join `tiki_translated_objects` tro on (tro.`type` = '$objectType' AND tro.`objId` = $sqlObjectId.`$columnObjectId`) ";
 		$translationOrphan_mid = " tro.`traId` IS NULL OR $sqlObjectId.`lang`IS NULL ";
@@ -1145,7 +1145,7 @@ class MultilingualLib extends TikiLib
 		}
 	}
 
-	function translateLinksInPageContent($src_content, $targ_lang)
+	public function translateLinksInPageContent($src_content, $targ_lang)
 	{
 		$targ_content = $src_content;
 
@@ -1182,7 +1182,7 @@ class MultilingualLib extends TikiLib
 	 * eventually, we could pretranslate standard terminology captured with
 	 * Tiki's Collaborative Multilingual Terminology profile.
 	 */
-	function partiallyPretranslateContentOfPage($source_page, $target_lang)
+	public function partiallyPretranslateContentOfPage($source_page, $target_lang)
 	{
 		global $tikilib, $tracer;
 
@@ -1200,7 +1200,7 @@ class MultilingualLib extends TikiLib
 	 * See test MultilingualLibTest.test_defaultTargetLanguageForNewTranslation() for
 	 * examples of use.
 	 */
-	function defaultTargetLanguageForNewTranslation($src_lang, $langs_already_translated, $user_langs)
+	public function defaultTargetLanguageForNewTranslation($src_lang, $langs_already_translated, $user_langs)
 	{
 		global $tracer;
 
@@ -1226,7 +1226,7 @@ class MultilingualLib extends TikiLib
 		return $default_lang;
 	}
 
-	function setupBiDi()
+	public function setupBiDi()
 	{
 		global $prefs;
 

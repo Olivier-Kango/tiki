@@ -30,25 +30,25 @@ APIC::import("org.apicnet.io.OOo.*");
 
 class OOoDoc extends OOoUtil {
 
-	var $meta;
-	var $content;
-	var $setting;
-	var $manifest;
-	var $fileName;
-	var $dirName;
-	var $XMLTYPE = array('Writer', 'Calc', 'Impress',	'Draw');
-	var $TYPE;
-	
-	
-	function __construct(){
+	public $meta;
+	public $content;
+	public $setting;
+	public $manifest;
+	public $fileName;
+	public $dirName;
+	public $XMLTYPE = ['Writer', 'Calc', 'Impress', 'Draw'];
+	public $TYPE;
+
+
+	public function __construct(){
 		$this->TYPE     = NULL;
 		$this->docExist = FALSE;
 		$this->manifest = NULL;
 		$this->createDirectories();
 	}
-	
-	
-	function newWriter(){
+
+
+	public function newWriter(){
 		$this->TYPE     = "Writer";
 		$this->docExist = TRUE;
 		$this->meta     = new OOoMeta($this->tmpdir);
@@ -57,8 +57,8 @@ class OOoDoc extends OOoUtil {
 		$this->manifest = new OOoManifest($this->tmpdir);
 		$this->mimeType = new OOoMime($this->tmpdir, $this->TYPE);
 	}
-	
-	function newCalc(){
+
+	public function newCalc(){
 		$this->TYPE     = "Calc";
 		$this->docExist = TRUE;
 		$this->meta     = new OOoMeta($this->tmpdir);
@@ -68,8 +68,8 @@ class OOoDoc extends OOoUtil {
 		$this->manifest = new OOoManifest($this->tmpdir);
 		$this->mimeType = new OOoMime($this->tmpdir, $this->TYPE);
 	}
-	
-	function openWriter($file){
+
+	public function openWriter($file){
 		$this->TYPE     = "Writer";
 		$allRep         = explode("/", $file);
 		$this->fileName = array_pop($allRep);
@@ -82,8 +82,8 @@ class OOoDoc extends OOoUtil {
 		//$this->style    = new OOoStyle($file);
 		//$this->content  = new OOoWriter($file);
 	}
-	
-	function openCalc($file){
+
+	public function openCalc($file){
 		$this->TYPE     = "Calc";
 		
 		$allRep         = explode("/", $file);
@@ -97,12 +97,12 @@ class OOoDoc extends OOoUtil {
 		//$this->style   = new OOoStyle($file);
 		//$this->content = new OOoCalc($file);
 	}
-	
-	function setName($name){
+
+	public function setName($name){
 		$this->fileName  = $name;
 	}
-	
-	function save(){
+
+	public function save(){
 		if ($this->docExist) {
 			$this->meta->setDate();
 			$this->meta->save();
@@ -125,13 +125,13 @@ class OOoDoc extends OOoUtil {
 			$this -> ErrorTracker(4, "Aucun document OpenOffice a été créé", 'save', __FILE__, __LINE__);
 		}
 	}
-	
-	function close(){
+
+	public function close(){
 		$this->delDir($this->tmpdir);
 	}
-	
-	
-	function download(){
+
+
+	public function download(){
 		$OOoFile = new File(CACHE_PATH."/".$this->fileName);
 		if ($OOoFile->exists()) {
 			$df_size = $OOoFile->length();
@@ -153,8 +153,8 @@ class OOoDoc extends OOoUtil {
 		}
 		return false;
 	}
-	
-	
-	function mail(){
+
+
+	public function mail(){
 	}
 }

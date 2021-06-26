@@ -40,18 +40,18 @@ APIC::import("org.apicnet.io.File");
  **/
 class absOOo extends ErrorManager {
 
-	var $DIRXML			 = "";						// chemin du répertoire ou se situe le xml instancié
-	var $XMLTYPE 		 = array(					// Tableau des types de document pouvant être généré
+	public $DIRXML			 = "";						// chemin du répertoire ou se situe le xml instancié
+	public $XMLTYPE 		 = array(					// Tableau des types de document pouvant être généré
 		'Writer',
 		'Calc',
 		'Impress',
 		'Draw');
-	var $MIME			 = array(					// Instance tu type mime des fichiers OpenOffice crée
+	public $MIME			 = array(					// Instance tu type mime des fichiers OpenOffice crée
 		'Writer' => "vnd.sun.xml.writer",
 		'Calc' => "vnd.sun.xml.calc");
-	var $FILENAME;									// Nom du ficheir xml instanciée
-	var $xml;										// instance correspondant au xml chargé
-	var $ARGDATA		= array(					// Tableau des données pouvant être envoyé au parseur OOo
+	public $FILENAME;									// Nom du ficheir xml instanciée
+	public $xml;										// instance correspondant au xml chargé
+	public $ARGDATA		= array(					// Tableau des données pouvant être envoyé au parseur OOo
 		"PageStyle"	=>  array(						// lorsque la donnée a comme valeur TRUE cela signifie qu'elle est obligatoire si la valeur est FALSE elle est facultative et si une valeur est présente alors c'est la valeur par défaut dans le cas ou elle ne serai pas donnée
 			"NameStyle"		=> TRUE,				//
 			"NameStyleSuiv"	=> FALSE,				// Nom du style de page suivant
@@ -175,7 +175,7 @@ class absOOo extends ErrorManager {
 	 * @return none
 	 * @access public
 	 **/
-	function __construct(){
+	public function __construct(){
 		parent::__construct();
 	}
 
@@ -187,7 +187,7 @@ class absOOo extends ErrorManager {
 	 * @return String la chaine de caractère decodé
 	 * @access public
 	 **/
-	function decode_text($str){
+	public function decode_text($str){
 		//return iconv('UTF-8', 'ISO-8859-1', $str);
 	}
 
@@ -198,7 +198,7 @@ class absOOo extends ErrorManager {
 	 * @return String la chaine de caractère encoder
 	 * @access public
 	 **/
-	function encode_text($str){
+	public function encode_text($str){
 		$str = iconv('ISO-8859-1', 'UTF-8', $str);
 		$tbl["'"]="&apos;";
 		$tbl["<"]="&lt;";
@@ -217,7 +217,7 @@ class absOOo extends ErrorManager {
 	 * @return  none
 	 * @access private
 	 **/
-	function save(){
+	public function save(){
 		$XMLContent = $this->toString();
 
 		$xmlFile = new File($this->DIRXML."/".$this->FILENAME, TRUE);
@@ -237,7 +237,7 @@ class absOOo extends ErrorManager {
 	 * @return none
 	 * @access private
 	 **/
-	function verifIntegrite(&$arrayData, $typeArray){
+	public function verifIntegrite(&$arrayData, $typeArray){
 		$ArrVerif = $this->ARGDATA[$typeArray];
 
 		for(reset($ArrVerif); $key = key($ArrVerif); next($ArrVerif)) {
@@ -255,7 +255,7 @@ class absOOo extends ErrorManager {
 	}
 
 
-	function &setProperties($style, $dir){
+	public function &setProperties($style, $dir){
 		if (is_array($style)) {
 
 			$propertiesNode =& $this->xml->createElement("style:properties");
@@ -339,7 +339,7 @@ class absOOo extends ErrorManager {
 	 * )
 	 * @return
 	 **/
-	function setTabs($tabs){
+	public function setTabs($tabs){
 		if (is_array($tabs)) {
 
 			$tabsNode =& $this->xml->createElement("style:tab-stops");
@@ -366,7 +366,7 @@ class absOOo extends ErrorManager {
 	 * @return DOMIT_Nodes l'enfant rechercher
 	 * @access private
 	 **/
-	function &accessor($path, $item = NULL){
+	public function &accessor($path, $item = NULL){
 		if (preg_match("/@/i", $path)) {
 
 			$arrPath     = explode("@", $path);
@@ -416,7 +416,7 @@ class absOOo extends ErrorManager {
 	 * @return DOMIT_Nodes
 	 * @access private
 	 **/
-	function &getNodeRec(&$node, $path){
+	public function &getNodeRec(&$node, $path){
 
 		$arrPath     = explode("/", $path);
 
@@ -486,7 +486,7 @@ class absOOo extends ErrorManager {
 	 * @return DOMIT_Nodes
 	 * @access private
 	 **/
-	function &getNode($path){
+	public function &getNode($path){
 		//	echo("<h2>".$path."</h2>");
 		return $this->getNodeRec($this->xml->documentElement, $path);
 	}
@@ -498,7 +498,7 @@ class absOOo extends ErrorManager {
 	 * @return none
 	 * @access private
 	 **/
-	function removeNode($path){
+	public function removeNode($path){
 		$arrPath     = explode("/", $path);
 		$parentPath  = "/".implode("/", array_slice ($arrPath, 2));
 		$childPath	 = $path;
@@ -516,7 +516,7 @@ class absOOo extends ErrorManager {
 	 * @return boolean vrai si le sous-noeud exist dans le noeud, faux dans le cas contraire
 	 * @access private
 	 **/
-	function ssNodeExist(&$node, $nodeSearch){
+	public function ssNodeExist(&$node, $nodeSearch){
 		$currentNode = &$node;
 		$find        = FALSE;
 		if (preg_match("/@/i", $nodeSearch)) {
@@ -559,7 +559,7 @@ class absOOo extends ErrorManager {
 	 * @return Integer
 	 * @access private
 	 **/
-	function countNode($path){
+	public function countNode($path){
 		$arrPath       = explode("/", $path);
 		$currentNode   = & $this->xml->documentElement;
 
@@ -584,7 +584,7 @@ class absOOo extends ErrorManager {
 	 * @return none
 	 * @access private
 	 **/
-	function setNodeText($path, $text){
+	public function setNodeText($path, $text){
 		$node     = &$this->getNode($path);
 		//	$textNode = &$this->xml->createTextNode($this->encode_text($text));
 		$textNode = &$this->xml->createTextNode($text);
@@ -605,7 +605,7 @@ class absOOo extends ErrorManager {
 	 * @return DOMIT_Node le nouveau noeud crée
 	 * @access private
 	 **/
-	function ChildText($tagName, $text){
+	public function ChildText($tagName, $text){
 		$appChildNode = &$this->xml->createElement($tagName);
 		//	$appChildNode->appendChild($this->xml->createTextNode($this->encode_text($text)));
 		$appChildNode->appendChild($this->xml->createTextNode($text));
@@ -619,7 +619,7 @@ class absOOo extends ErrorManager {
 	 * @return String
 	 * @access private
 	 **/
-	function toString(){
+	public function toString(){
 		return $this->xml->toString();
 	}
 }

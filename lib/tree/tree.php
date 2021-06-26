@@ -30,10 +30,10 @@ require_once('lib/debug/debugger.php');
 abstract class TreeMaker
 {
 	/// Unique prefix for cookies generated for this tree
-	var $prefix;
+	public $prefix;
 
 	/// Constructor
-	function __construct($prefix)
+	public function __construct($prefix)
 	{
 		$this->prefix = $prefix;
 	}
@@ -43,7 +43,7 @@ abstract class TreeMaker
 	// *  parent => Identifier of the node's parent
 	// *  data   => Node content (HTML)
 	/// Returns HTML code for tree
-	function make_tree($rootid, $ar)
+	public function make_tree($rootid, $ar)
 	{
 		return $this->make_tree_r($rootid, $ar);
 	}
@@ -113,7 +113,7 @@ abstract class TreeMaker
 		return $result;
 	}
 
-	function node_cookie_state($id)
+	public function node_cookie_state($id)
 	{
 		if (isset($_COOKIE[$this->prefix])) {
 			if (preg_match("/\@$id\:(\w)/", $_COOKIE[$this->prefix], $m)) {
@@ -149,53 +149,53 @@ abstract class TreeMaker
 	 *       So to make smth other use inheritance and redefine
 	 *       corresponding function :)
 	 */
-	function indent($nodeinfo)
+	public function indent($nodeinfo)
 	{
 		return '';
 	}
 
-	function node_start_code($nodeinfo, $count = 0)
+	public function node_start_code($nodeinfo, $count = 0)
 	{
 		return '';
 	}
 
-	function node_start_code_flip($nodeinfo, $count = 0)
-	{
-		return '';
-	}
-
-	//
-	function node_flipper_code($nodeinfo)
+	public function node_start_code_flip($nodeinfo, $count = 0)
 	{
 		return '';
 	}
 
 	//
-	function node_data_start_code($nodeinfo)
+	public function node_flipper_code($nodeinfo)
 	{
 		return '';
 	}
 
 	//
-	function node_data_end_code($nodeinfo)
+	public function node_data_start_code($nodeinfo)
 	{
 		return '';
 	}
 
 	//
-	function node_child_start_code($nodeinfo)
+	public function node_data_end_code($nodeinfo)
 	{
 		return '';
 	}
 
 	//
-	function node_child_end_code($nodeinfo)
+	public function node_child_start_code($nodeinfo)
 	{
 		return '';
 	}
 
 	//
-	function node_end_code($nodeinfo)
+	public function node_child_end_code($nodeinfo)
+	{
+		return '';
+	}
+
+	//
+	public function node_end_code($nodeinfo)
 	{
 		return '';
 	}

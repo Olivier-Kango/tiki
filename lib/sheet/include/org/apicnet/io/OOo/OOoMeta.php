@@ -44,7 +44,7 @@ class OOoMeta extends absOOo {
 	 * @param $dir
 	 * @return none
 	 **/
-	function __construct($dir){
+	public function __construct($dir){
 		parent::__construct();
 		$this->DIRXML = $dir;
 		$this->FILENAME = "meta.xml";
@@ -66,7 +66,7 @@ class OOoMeta extends absOOo {
 	 * 
 	 * @return none
 	 **/
-	function create(){
+	public function create(){
 		$docMetaNode =& $this->xml->createElement("office:document-meta");
 		$docMetaNode->setAttribute("xmlns:office", "http://openoffice.org/2000/office");
 		$docMetaNode->setAttribute("xmlns:xlink", "http://www.w3.org/1999/xlink");
@@ -91,7 +91,7 @@ class OOoMeta extends absOOo {
 	 * 
 	 * @return String le fichier méta sous forme de chaîne de carctère
 	 **/
-	function getBody(){
+	public function getBody(){
 		return $this->toString();
 	}
 	
@@ -100,7 +100,7 @@ class OOoMeta extends absOOo {
 	 * 
 	 * @return String
 	 **/
-	function generator(){
+	public function generator(){
 		$generator = $this->accessor("/office:document-meta/office:meta/meta:generator", 0);
 		return $generator->getText();
 	}
@@ -110,7 +110,7 @@ class OOoMeta extends absOOo {
 	 * 
 	 * @return String
 	 **/
-	function title(){
+	public function title(){
 		$title = $this->accessor("/office:document-meta/office:meta/dc:title", 0);
 		return $title->getText();
 	}
@@ -121,7 +121,7 @@ class OOoMeta extends absOOo {
 	 * @param String $text
 	 * @return none
 	 **/
-	function setTitle($text){
+	public function setTitle($text){
 		$officeMetaNode = &$this->xml->documentElement->firstChild;
 		
 		if (!$this->ssNodeExist($officeMetaNode, "dc:creator")) {
@@ -138,7 +138,7 @@ class OOoMeta extends absOOo {
 	 * @param String $text
 	 * @return String
 	 **/
-	function description($text){
+	public function description($text){
 		$description = $this->accessor("/office:document-meta/office:meta/dc:description", 0);
 		return $description->getText();
 	}
@@ -149,7 +149,7 @@ class OOoMeta extends absOOo {
 	 * @param String $text
 	 * @return none
 	 **/
-	function setDescription($text){
+	public function setDescription($text){
 		$officeMetaNode = &$this->xml->documentElement->firstChild;
 		
 		if (!$this->ssNodeExist($officeMetaNode, "dc:creator")) {
@@ -164,7 +164,7 @@ class OOoMeta extends absOOo {
 	 * 
 	 * @return String
 	 **/
-	function creation_date(){
+	public function creation_date(){
 		$creation_date = $this->accessor("/office:document-meta/office:meta/meta:creation-date", 0);
 		return $creation_date->getText();
 	}
@@ -174,7 +174,7 @@ class OOoMeta extends absOOo {
 	 * 
 	 * @return String
 	 **/
-	function creator(){
+	public function creator(){
 		$creator = $this->accessor("/office:document-meta/office:meta/dc:creator", 0);
 		return $creator->getText();
 	}
@@ -185,7 +185,7 @@ class OOoMeta extends absOOo {
 	 * @param String $text
 	 * @return none
 	 **/
-	function setCreator($text){
+	public function setCreator($text){
 		$officeMetaNode = &$this->xml->documentElement->firstChild;
 		
 		if (!$this->ssNodeExist($officeMetaNode, "dc:creator")) {
@@ -201,7 +201,7 @@ class OOoMeta extends absOOo {
 	 * 
 	 * @return String
 	 **/
-	function subject(){
+	public function subject(){
 		$creator = $this->accessor("/office:document-meta/office:meta/dc:subject", 0);
 		return $creator->getText();
 	}
@@ -212,7 +212,7 @@ class OOoMeta extends absOOo {
 	 * @param String $text
 	 * @return none
 	 **/
-	function setSubject($text){
+	public function setSubject($text){
 		$officeMetaNode = &$this->xml->documentElement->firstChild;
 		
 		if (!$this->ssNodeExist($officeMetaNode, "dc:subject")) {
@@ -227,7 +227,7 @@ class OOoMeta extends absOOo {
 	 * 
 	 * @return String
 	 **/
-	function date(){
+	public function date(){
 		$date = $this->accessor("/office:document-meta/office:meta/dc:date", 0);
 		return $date->getText();
 	}
@@ -237,7 +237,7 @@ class OOoMeta extends absOOo {
 	 * 
 	 * @return none
 	 **/
-	function setDate(){
+	public function setDate(){
 		$this->setNodeText("/office:document-meta/office:meta/dc:date", date ("Y-m-d\\TH:i:s"));
 	}
 
@@ -246,7 +246,7 @@ class OOoMeta extends absOOo {
 	 * 
 	 * @return String
 	 **/
-	function language(){
+	public function language(){
 		$language = $this->accessor("/office:document-meta/office:meta/dc:language", 0);
 		return $language->getText();
 	}
@@ -256,7 +256,7 @@ class OOoMeta extends absOOo {
 	 * 
 	 * @return String
 	 **/
-	function keywords(){
+	public function keywords(){
 		$areKeywords = TRUE;
 		$strKeywords = "";
 		$i = 0;
@@ -279,7 +279,7 @@ class OOoMeta extends absOOo {
 	 * @param String $word
 	 * @return none
 	 **/
-	function addKeyword($word){
+	public function addKeyword($word){
 		$areKeywords = FALSE;
 		$i = 0;
 		$userDefined = $this->accessor("/office:document-meta/office:meta/meta:keywords/meta:keyword", $i);
@@ -312,7 +312,7 @@ class OOoMeta extends absOOo {
 	 * @param String $word
 	 * @return none
 	 **/
-	function removeKeyword($word){
+	public function removeKeyword($word){
 			/*
 			* <meta:keyworts>
 				<meta:keywort>First keywort</meta:keywort>
@@ -327,7 +327,7 @@ class OOoMeta extends absOOo {
 	 * 
 	 * @return none
 	 **/
-	function removeKeywords(){
+	public function removeKeywords(){
 		$this->removeNode("/office:document-meta/office:meta/meta:keywords");
 	}
 	
@@ -337,7 +337,7 @@ class OOoMeta extends absOOo {
 	 * @param String $name
 	 * @return String
 	 **/
-	function getUser_defined($name){
+	public function getUser_defined($name){
 		$userDefined = $this->accessor("/office:document-meta/office:meta/meta:user-defined@[meta:name='".$name."']", 0);
 		return $userDefined->getText();
 	}
@@ -351,7 +351,7 @@ class OOoMeta extends absOOo {
 	 * @param String $value
 	 * @return none
 	 **/
-	function setUser_defined($name, $value){
+	public function setUser_defined($name, $value){
 		$officeMetaNode = &$this->xml->documentElement->firstChild;
 		
 		if (!$this->ssNodeExist($officeMetaNode, "meta:user-defined@[meta:name='".$name."']") && $this->countNode("/office:document-meta/office:meta/meta:user-defined") < 3) {
@@ -363,5 +363,4 @@ class OOoMeta extends absOOo {
 			$this->setNodeText("/office:document-meta/office:meta/meta:user-defined@[meta:name='".$name."']", $value);
 		}
 	}
-
 }

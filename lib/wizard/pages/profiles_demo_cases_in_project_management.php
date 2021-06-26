@@ -12,16 +12,16 @@ require_once('lib/wizard/wizard.php');
  */
 class ProfilesWizardDemoProjectManagement extends Wizard
 {
-	function pageTitle()
+	public function pageTitle()
 	{
 		return tra('Demo of Cases in Project Management');
 	}
-	function isEditable()
+	public function isEditable()
 	{
 		return false;
 	}
 
-	function onSetupPage($homepageUrl)
+	public function onSetupPage($homepageUrl)
 	{
 		global $prefs, $TWV;
 		$smarty = TikiLib::lib('smarty');
@@ -33,13 +33,13 @@ class ProfilesWizardDemoProjectManagement extends Wizard
 		return true;
 	}
 
-	function getTemplate()
+	public function getTemplate()
 	{
 		$wizardTemplate = 'wizard/profiles_demo_cases_in_project_management.tpl';
 		return $wizardTemplate;
 	}
 
-	function onContinue($homepageUrl)
+	public function onContinue($homepageUrl)
 	{
 		// Run the parent first
 		parent::onContinue($homepageUrl);

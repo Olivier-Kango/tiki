@@ -34,12 +34,12 @@ APIC::import("org.apicnet.io.OOo.absOOo");
  */
 class OOoTable extends absOOo {
 
-	var $_column;
-	var $_row;
-	var $_lignCur;
-	var $_colSpan;
-	var $_rowSpan;
-	var $_table = array();
+	public $_column;
+	public $_row;
+	public $_lignCur;
+	public $_colSpan;
+	public $_rowSpan;
+	public $_table = array();
 
 	/**
 	 * OOoTable::OOoTable()
@@ -60,7 +60,7 @@ class OOoTable extends absOOo {
 	)
 	 * @return
 	 **/
-	function __construct($column, $row, $argStyle){
+	public function __construct($column, $row, $argStyle){
 		parent::__construct();
 		$this -> _column  = $column;
 		$this -> _row     = $row;
@@ -87,7 +87,7 @@ class OOoTable extends absOOo {
 	 * @param integer $curentCol
 	 * @return array
 	 **/
-	function colMaxNextSpan($argArray, $curentCol){
+	public function colMaxNextSpan($argArray, $curentCol){
 		$max    = $curentCol*1000000;	// un nombre très grand
 
 		if (count($argArray) > 1) {
@@ -117,7 +117,7 @@ class OOoTable extends absOOo {
 	)
 	 * @return none
 	 **/
-	function colSpan($argSpan){
+	public function colSpan($argSpan){
 		if (is_array($argSpan)) {
 			$this->verifIntegrite($argSpan, "infCSpan");
 
@@ -152,7 +152,7 @@ class OOoTable extends absOOo {
 	)
 	 * @return none
 	 **/
-	function rowSpan($argSpan){
+	public function rowSpan($argSpan){
 		if (!is_array($argSpan)) {
 			$this->verifIntegrite($argSpan, "infRSpan");
 
@@ -201,7 +201,7 @@ class OOoTable extends absOOo {
 	)
 	 * @return none
 	 */
-	function addcellData($column, $row, $argData){
+	public function addcellData($column, $row, $argData){
 		if (is_array($argData)) {
 			if ($column < $this->_column && $row < $this->_row) {
 				$this->verifIntegrite($argData, "cellStyle");
@@ -213,7 +213,7 @@ class OOoTable extends absOOo {
 	}
 
 
-	function run(&$nodeContent, &$nodeStyle, $dir){
+	public function run(&$nodeContent, &$nodeStyle, $dir){
 		static $STYLNUM;
 		if (!isset($STYLNUM)){
 			$STYLNUM = array(

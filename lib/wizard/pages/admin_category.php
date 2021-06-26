@@ -12,21 +12,21 @@ require_once('lib/wizard/wizard.php');
  */
 class AdminWizardCategory extends Wizard
 {
-	function pageTitle()
+	public function pageTitle()
 	{
 		return tra('Define Categories');
 	}
-	function isEditable()
+	public function isEditable()
 	{
 		return false;
 	}
-	function isVisible()
+	public function isVisible()
 	{
 		global	$prefs;
 		return $prefs['feature_categories'] === 'y';
 	}
 
-	function onSetupPage($homepageUrl)
+	public function onSetupPage($homepageUrl)
 	{
 		global $prefs;
 		// Run the parent first
@@ -39,13 +39,13 @@ class AdminWizardCategory extends Wizard
 		return true;
 	}
 
-	function getTemplate()
+	public function getTemplate()
 	{
 		$wizardTemplate = 'wizard/admin_category.tpl';
 		return $wizardTemplate;
 	}
 
-	function onContinue($homepageUrl)
+	public function onContinue($homepageUrl)
 	{
 		// Run the parent first
 		parent::onContinue($homepageUrl);

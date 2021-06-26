@@ -33,7 +33,7 @@ class UserModulesLib extends TikiLib
 	 *
 	 * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
 	 */
-	function unassign_user_module($moduleId, $user)
+	public function unassign_user_module($moduleId, $user)
 	{
 		$query = "delete from `tiki_user_assigned_modules` where `moduleId`=? and `user`=?";
 		return $this->query($query, [$moduleId, $user]);
@@ -45,7 +45,7 @@ class UserModulesLib extends TikiLib
 	 *
 	 * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
 	 */
-	function up_user_module($moduleId, $user)
+	public function up_user_module($moduleId, $user)
 	{
 		$query = "update `tiki_user_assigned_modules` set `ord`=`ord`-1 where `moduleId`=? and `user`=?";
 		return $this->query($query, [$moduleId, $user]);
@@ -57,7 +57,7 @@ class UserModulesLib extends TikiLib
 	 *
 	 * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
 	 */
-	function down_user_module($moduleId, $user)
+	public function down_user_module($moduleId, $user)
 	{
 		$query = "update `tiki_user_assigned_modules` set `ord`=`ord`+1 where `moduleId`=? and `user`=?";
 		return $this->query($query, [$moduleId, $user]);
@@ -70,7 +70,7 @@ class UserModulesLib extends TikiLib
 	 *
 	 * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
 	 */
-	function set_column_user_module($moduleId, $user, $position)
+	public function set_column_user_module($moduleId, $user, $position)
 	{
 		$query = "update `tiki_user_assigned_modules` set `position`=? where `moduleId`=? and `user`=?";
 		return $this->query($query, [$position, $moduleId, $user]);
@@ -84,7 +84,7 @@ class UserModulesLib extends TikiLib
 	 *
 	 * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
 	 */
-	function assign_user_module($moduleId, $position, $order, $user)
+	public function assign_user_module($moduleId, $position, $order, $user)
 	{
 		$query = "select * from `tiki_modules` where `moduleId`=?";
 		$result = $this->query($query, [$moduleId]);
@@ -96,7 +96,7 @@ class UserModulesLib extends TikiLib
 		return $this->query($query, $bindvars);
 	}
 
-	function get_user_assigned_modules($user)
+	public function get_user_assigned_modules($user)
 	{
 		$query = "select * from `tiki_user_assigned_modules` where `user`=? order by `position` asc,`ord` asc";
 
@@ -110,7 +110,7 @@ class UserModulesLib extends TikiLib
 		return $ret;
 	}
 
-	function get_user_assigned_modules_pos($user, $pos)
+	public function get_user_assigned_modules_pos($user, $pos)
 	{
 		$query = "select * from `tiki_user_assigned_modules` where `user`=? and `position`=? order by `ord` asc";
 
@@ -124,7 +124,7 @@ class UserModulesLib extends TikiLib
 		return $ret;
 	}
 
-	function get_assigned_modules_user($user, $position)
+	public function get_assigned_modules_user($user, $position)
 	{
 		$query = "select `umod`.`name`, `umod`.`position`, `umod`.`ord`, `umod`.`type`,
                   `mod`.`title`, `mod`.`cache_time`, `mod`.`rows`, `mod`.`params`,
@@ -142,7 +142,7 @@ class UserModulesLib extends TikiLib
 		return $ret;
 	}
 
-	function user_has_assigned_modules($user)
+	public function user_has_assigned_modules($user)
 	{
 		$query = "select count(`moduleId`) from `tiki_user_assigned_modules` where `user`=?";
 
@@ -157,7 +157,7 @@ class UserModulesLib extends TikiLib
 	 *
 	 * @return bool|TikiDb_Pdo_Result|TikiDb_Adodb_Result
 	 */
-	function create_user_assigned_modules($user)
+	public function create_user_assigned_modules($user)
 	{
 		$query = "delete from `tiki_user_assigned_modules` where `user`=?";
 
@@ -196,7 +196,7 @@ class UserModulesLib extends TikiLib
 		return isset($result2) ? $result2 : false;
 	}
 	// Return the list of modules that can be assigned by the user
-	function get_user_assignable_modules($user)
+	public function get_user_assignable_modules($user)
 	{
 		global $prefs;
 		$userlib = TikiLib::lib('user');
@@ -242,7 +242,7 @@ class UserModulesLib extends TikiLib
 	 *
 	 * @return bool|TikiDb_Adodb_Result|TikiDb_Pdo_Result
 	 */
-	function swap_up_user_module($moduleId, $user)
+	public function swap_up_user_module($moduleId, $user)
 	{
 		return $this->swap_adjacent($moduleId, $user, '<');
 	}
@@ -255,7 +255,7 @@ class UserModulesLib extends TikiLib
 	 *
 	 * @return bool|TikiDb_Adodb_Result|TikiDb_Pdo_Result
 	 */
-	function swap_down_user_module($moduleId, $user)
+	public function swap_down_user_module($moduleId, $user)
 	{
 		return $this->swap_adjacent($moduleId, $user, '>');
 	}
@@ -269,7 +269,7 @@ class UserModulesLib extends TikiLib
 	 *
 	 * @return bool|TikiDb_Pdo_Result|TikiDb_Adodb_Result
 	 */
-	function swap_adjacent($moduleId, $user, $op)
+	public function swap_adjacent($moduleId, $user, $op)
 	{
 		// Get position and order of module to swap
 		$query = "select `ord`,`position` from `tiki_user_assigned_modules` where `moduleId`=? and user=?";
@@ -301,7 +301,7 @@ class UserModulesLib extends TikiLib
 	 *
 	 * @return TikiDb_Adodb_Result|TikiDb_Pdo_Result
 	 */
-	function move_module($moduleId, $user)
+	public function move_module($moduleId, $user)
 	{
 		// Get current position
 		$query = "select `position` from `tiki_user_assigned_modules` where `moduleId`=? and `user`=?";
@@ -310,7 +310,7 @@ class UserModulesLib extends TikiLib
 		return $this->set_column_user_module($moduleId, $user, ($res['position'] == 'right' ? 'left' : 'right'));
 	}
 	/// Add a module to all the user who have assigned module and who don't have already this module
-	function add_module_users($moduleId, $name, $title, $position, $order, $cache_time, $rows, $groups, $params, $type)
+	public function add_module_users($moduleId, $name, $title, $position, $order, $cache_time, $rows, $groups, $params, $type)
 	{
 		// for the user who already has this module, update only the type
 		$this->query('update `tiki_user_assigned_modules` set `type`=? where `moduleId`=?', [$type,$name]);

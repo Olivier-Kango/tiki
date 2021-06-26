@@ -20,7 +20,7 @@ class Xmp
 	 *
 	 * @var array
 	 */
-	var	$specs = [
+	public $specs = [
 		'photoshop'			=> [
 			'ColorMode' 	=> [
 				'options' 	=> [
@@ -62,7 +62,7 @@ class Xmp
 	 *
 	 * @var array
 	 */
-	var $special = [
+	public $special = [
 		'ComponentsConfiguration' => '',
 	];
 
@@ -74,7 +74,7 @@ class Xmp
 	 *
 	 * @return array|bool
 	 */
-	function processRawData($xmpstring)
+	public function processRawData($xmpstring)
 	{
 		//need to do a little preparation before processing fields
 		if (! empty($xmpstring)) {
@@ -170,7 +170,7 @@ class Xmp
 	 *
 	 * @return 		xml string|false	$xmp_text			Returns fully formed xml string
 	 */
-	function getXmp($filecontent, $filetype)
+	public function getXmp($filecontent, $filetype)
 	{
 		if ($filetype == 'image/jpeg') {
 			$done = false;
@@ -217,7 +217,7 @@ class Xmp
 	 *
 	 * @return 		array|bool				$xmparray		Relevant portions of document converted to an array
 	 */
-	function xmpDomToArray($xmpObj)
+	public function xmpDomToArray($xmpObj)
 	{
 		if ($xmpObj !== false) {
 			//This section is for the first pass
@@ -320,7 +320,7 @@ class Xmp
 		return $xmparray;
 	}
 
-	function specialHandling($fieldname, $value)
+	public function specialHandling($fieldname, $value)
 	{
 		$ret = '';
 		if ($fieldname == 'ComponentsConfiguration' && isset($value)) {

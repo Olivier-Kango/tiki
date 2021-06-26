@@ -8,7 +8,7 @@
 
 class PageContentLib
 {
-	function augmentInformation($data)
+	public function augmentInformation($data)
 	{
 		global $prefs;
 
@@ -22,7 +22,7 @@ class PageContentLib
 		return $data;
 	}
 
-	function grabContent($url)
+	public function grabContent($url)
 	{
 		$tikilib = TikiLib::lib('tiki');
 
@@ -94,7 +94,7 @@ class PageContentLib
 		return [$base, $relative];
 	}
 
-	function replacePaths($html, $url)
+	public function replacePaths($html, $url)
 	{
 		// Modified from: http://stackoverflow.com/questions/21201062/using-readability-api-to-scrape-most-relavant-image-from-page
 

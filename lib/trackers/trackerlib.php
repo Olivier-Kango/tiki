@@ -40,7 +40,7 @@ class TrackerLib extends TikiLib
 	public $trackerinfo_cache;
 	private $sectionFormats = [];
 
-	function __construct()
+	public function __construct()
 	{
 		$this->now = time();
 		$this->registerSectionFormat('flat', 'view', 'trackeroutput/layout_flat.tpl', tr('Flat'));
@@ -49,7 +49,7 @@ class TrackerLib extends TikiLib
 		$this->registerSectionFormat('tab', 'edit', 'trackerinput/layout_tab.tpl', tr('Tabs'));
 	}
 
-	function registerSectionFormat($layout, $mode, $template, $label)
+	public function registerSectionFormat($layout, $mode, $template, $label)
 	{
 		if ($template) {
 			$this->sectionFormats[$layout][$mode] = [
@@ -59,12 +59,12 @@ class TrackerLib extends TikiLib
 		}
 	}
 
-	function unregisterSectionFormat($layout)
+	public function unregisterSectionFormat($layout)
 	{
 		unset($this->sectionFormats[$layout]);
 	}
 
-	function getSectionFormatTemplate($layout, $mode)
+	public function getSectionFormatTemplate($layout, $mode)
 	{
 		if (isset($this->sectionFormats[$layout][$mode])) {
 			return $this->sectionFormats[$layout][$mode]['template'];
@@ -76,7 +76,7 @@ class TrackerLib extends TikiLib
 		}
 	}
 
-	function getGlobalSectionFormats()
+	public function getGlobalSectionFormats()
 	{
 		$out = [];
 		foreach ($this->sectionFormats as $layout => $modes) {
@@ -450,7 +450,7 @@ class TrackerLib extends TikiLib
 		return $res;
 	}
 
-	function get_all_item_id($trackerId, $fieldId, $value)
+	public function get_all_item_id($trackerId, $fieldId, $value)
 	{
 		$query = "select distinct ttif.`itemId` from `tiki_tracker_items` tti, `tiki_tracker_item_fields` ttif ";
 		$query .= " where tti.`itemId`=ttif.`itemId` and tti.`trackerId`=? and ttif.`fieldId`=? ";
@@ -2522,7 +2522,7 @@ class TrackerLib extends TikiLib
 		return $total;
 	}
 
-	function parse_imported_date($dateString, $dateFormat)
+	public function parse_imported_date($dateString, $dateFormat)
 	{
 
 		$tikilib = TikiLib::lib('tiki');
@@ -3575,7 +3575,7 @@ class TrackerLib extends TikiLib
 	 * @access public
 	 * @return
 	 */
-	function get_trackers_containing($name)
+	public function get_trackers_containing($name)
 	{
 		if (empty($name)) {
 			return [];

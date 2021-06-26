@@ -12,22 +12,22 @@ require_once('lib/wizard/wizard.php');
  */
 class AdminWizardAutoTOC extends Wizard
 {
-	function pageTitle()
+	public function pageTitle()
 	{
 		return tra('Set up Auto TOC');
 	}
-	function isEditable()
+	public function isEditable()
 	{
 		return true;
 	}
 
-	function isVisible()
+	public function isVisible()
 	{
 		global	$prefs;
 		return $prefs['wiki_auto_toc'] === 'y';
 	}
 
-	function onSetupPage($homepageUrl)
+	public function onSetupPage($homepageUrl)
 	{
 		// Run the parent first
 		parent::onSetupPage($homepageUrl);
@@ -39,13 +39,13 @@ class AdminWizardAutoTOC extends Wizard
 		return true;
 	}
 
-	function getTemplate()
+	public function getTemplate()
 	{
 		$wizardTemplate = 'wizard/admin_auto_toc.tpl';
 		return $wizardTemplate;
 	}
 
-	function onContinue($homepageUrl)
+	public function onContinue($homepageUrl)
 	{
 		// Run the parent first
 		parent::onContinue($homepageUrl);

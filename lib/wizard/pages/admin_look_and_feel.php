@@ -12,16 +12,16 @@ require_once('lib/wizard/wizard.php');
  */
 class AdminWizardLookAndFeel extends Wizard
 {
-	function pageTitle()
+	public function pageTitle()
 	{
 		return tra('Set up Look & Feel');
 	}
-	function isEditable()
+	public function isEditable()
 	{
 		return true;
 	}
 
-	function onSetupPage($homepageUrl)
+	public function onSetupPage($homepageUrl)
 	{
 		global $prefs;
 		$smarty = TikiLib::lib('smarty');
@@ -224,13 +224,13 @@ JS
 		return true;
 	}
 
-	function getTemplate()
+	public function getTemplate()
 	{
 		$wizardTemplate = 'wizard/admin_look_and_feel.tpl';
 		return $wizardTemplate;
 	}
 
-	function onContinue($homepageUrl)
+	public function onContinue($homepageUrl)
 	{
 		// Run the parent first
 		$changes = parent::onContinue($homepageUrl);
@@ -245,7 +245,7 @@ JS
 	 * @param $opt - optional option file name
 	 * @return string path to thumbnail file
 	 */
-	function get_thumbnail_file($stl, $opt = '') // find thumbnail if there is one
+	public function get_thumbnail_file($stl, $opt = '') // find thumbnail if there is one
 	{
 		$tikilib = TikiLib::lib('tiki');
 		if (! empty($opt) && $opt != tr('None')) {
@@ -257,7 +257,7 @@ JS
 		return $tikilib->get_style_path($stl, $opt, $filename);
 	}
 
-	function setupThumbnailScript($styles)
+	public function setupThumbnailScript($styles)
 	{
 		global	$prefs;
 		$headerlib = TikiLib::lib('header');

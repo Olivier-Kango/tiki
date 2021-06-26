@@ -13,7 +13,7 @@ if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
 
 class NotificationLib extends TikiLib
 {
-	function list_mail_events($offset, $maxRecords, $sort_mode, $find)
+	public function list_mail_events($offset, $maxRecords, $sort_mode, $find)
 	{
 		if ($find) {
 			$findesc = '%' . $find . '%';
@@ -40,13 +40,13 @@ class NotificationLib extends TikiLib
 		return $retval;
 	}
 
-	function update_mail_address($user, $oldMail, $newMail)
+	public function update_mail_address($user, $oldMail, $newMail)
 	{
 		$query = "update `tiki_user_watches` set `email`=? where `user`=? and `email`=?";
 		$result = $this->query($query, [$user, $newMail, $oldMail]);
 	}
 
-	function get_mail_events($event, $object)
+	public function get_mail_events($event, $object)
 	{
 		global $tikilib;
 		$objectlib = TikiLib::lib('object');
@@ -70,7 +70,7 @@ class NotificationLib extends TikiLib
 	 *   Second-level array are also string-indexed with elements label (description of the event),
 	 *   type (usually the type of watched objects) and url (a relevant script to access when an event happens, if any).
 	 */
-	function get_global_watch_types($checkPermission = false)
+	public function get_global_watch_types($checkPermission = false)
 	{
 		global $prefs, $tiki_p_admin, $tiki_p_admin_file_galleries;
 		$watches['user_registers'] = [

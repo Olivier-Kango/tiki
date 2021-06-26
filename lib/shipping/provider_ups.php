@@ -13,14 +13,14 @@ class ShippingProvider_Ups implements ShippingProvider
 	private $password;
 	private $license;
 
-	function __construct(array $config)
+	public function __construct(array $config)
 	{
 		$this->username = $config['username'];
 		$this->password = $config['password'];
 		$this->license = $config['license'];
 	}
 
-	function getRates(array $from, array $to, array $packages)
+	public function getRates(array $from, array $to, array $packages)
 	{
 		if ($dom = $this->obtain($from, $to, $packages)) {
 			$rates = [];

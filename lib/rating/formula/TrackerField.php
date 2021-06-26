@@ -7,7 +7,7 @@
 
 class Tiki_Formula_Function_TrackerField extends Math_Formula_Function
 {
-	function evaluate($element)
+	public function evaluate($element)
 	{
 		$default = 0;
 		$allowed = [ 'object', 'field' ];

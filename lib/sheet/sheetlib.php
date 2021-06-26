@@ -18,7 +18,7 @@ class SheetLib extends TikiLib
 {
 	private $setup_jQuery_sheet_files;
 
-	function get_sheet_info($sheetId) // {{{2
+	public function get_sheet_info($sheetId) // {{{2
 	{
 		$result = $this->query("SELECT * FROM `tiki_sheets` WHERE `sheetId` = ?", [ $sheetId ]);
 		$result = $result->fetchRow();
@@ -45,7 +45,7 @@ class SheetLib extends TikiLib
 		}
 	}
 
-	function get_sheet_layout($sheetId) // {{{2
+	public function get_sheet_layout($sheetId) // {{{2
 	{
 		$result = $this->query("SELECT `className`, `headerRow`, `footerRow`, `parseValues`, `metadata` FROM `tiki_sheet_layout` WHERE `sheetId` = ? AND `end` IS NULL", [ $sheetId ]);
 
@@ -66,13 +66,13 @@ class SheetLib extends TikiLib
 	}
 
 	//general relationships management
-	function add_relate($type, $sheetId, $childId)
+	public function add_relate($type, $sheetId, $childId)
 	{
 		$relationlib = TikiLib::lib('relation');
 		$relationlib->add_relation("tiki.sheet." . $type, "sheetId", $sheetId, $type . "Id", $childId);
 	}
 
-	function remove_relate($type, $sheetId, $childId)
+	public function remove_relate($type, $sheetId, $childId)
 	{
 		$relationlib = TikiLib::lib('relation');
 		foreach ($relationlib->get_relations_from("sheetId", $sheetId, "tiki.sheet." . $type) as $result) {
@@ -82,7 +82,7 @@ class SheetLib extends TikiLib
 		}
 	}
 
-	function get_relate_all($type, $sheetId, $inverted = false)
+	public function get_relate_all($type, $sheetId, $inverted = false)
 	{
 		$relationlib = TikiLib::lib('relation');
 		$entityIds = [];
@@ -98,14 +98,14 @@ class SheetLib extends TikiLib
 		return $entityIds;
 	}
 
-	function remove_relate_all($type, $sheetId)
+	public function remove_relate_all($type, $sheetId)
 	{
 		foreach ($this->get_relate_all($type, $sheetId) as $entityId) {
 			$this->remove_related_tracker($sheetId, $entityId);
 		}
 	}
 
-	function update_relate($type, $sheetId, $entityIds)
+	public function update_relate($type, $sheetId, $entityIds)
 	{
 		$this->remove_relate_all($type, $sheetId);
 
@@ -115,72 +115,72 @@ class SheetLib extends TikiLib
 	}
 
 	//file relationships
-	function add_related_file($sheetId, $fileId)
+	public function add_related_file($sheetId, $fileId)
 	{
 		$this->add_relate("file", $sheetId, $fileId);
 	}
 
-	function remove_related_file($sheetId, $fileId)
+	public function remove_related_file($sheetId, $fileId)
 	{
 		$this->remove_relate("file", $sheetId, $fileId);
 	}
 
-	function remove_related_files($sheetId)
+	public function remove_related_files($sheetId)
 	{
 		$this->remove_relate_all("file", $sheetId);
 	}
 
-	function get_related_file_ids($sheetId)
+	public function get_related_file_ids($sheetId)
 	{
 		return $this->get_relate_all("file", $sheetId);
 	}
 
-	function update_related_files($sheetId, $fileId)
+	public function update_related_files($sheetId, $fileId)
 	{
 		$this->update_relate("file", $sheetId, $fileId);
 	}
 
 	//tracker relationships
-	function add_related_tracker($sheetId, $trackerId)
+	public function add_related_tracker($sheetId, $trackerId)
 	{
 		$this->add_relate("tracker", $sheetId, $trackerId);
 	}
 
-	function remove_related_tracker($sheetId, $trackerId)
+	public function remove_related_tracker($sheetId, $trackerId)
 	{
 		$this->remove_relate("tracker", $sheetId, $trackerId);
 	}
 
-	function remove_related_trackers($sheetId)
+	public function remove_related_trackers($sheetId)
 	{
 		$this->remove_relate_all("tracker", $sheetId);
 	}
 
-	function get_related_tracker_ids($sheetId)
+	public function get_related_tracker_ids($sheetId)
 	{
 		return $this->get_relate_all("tracker", $sheetId);
 	}
 
-	function update_related_trackers($sheetId, $trackerIds)
+	public function update_related_trackers($sheetId, $trackerIds)
 	{
 		$this->update_relate("tracker", $sheetId, $trackerIds);
 	}
 
 	//sheet relationships
-	function add_related_sheet($sheetId, $childSheetId)
+	public function add_related_sheet($sheetId, $childSheetId)
 	{
 		$this->remove_related_sheet($sheetId, $childSheetId);
 
 		$this->add_relate("sheet", $sheetId, $childSheetId);
 	}
 
-	function remove_related_sheets($sheetId)
+	public function remove_related_sheets($sheetId)
 	{
 		$this->query(" UPDATE `tiki_sheets` SET `parentSheetId` = 0 WHERE `parentSheetId` = ? ", [ $sheetId ]);
 		$this->remove_relate_all("sheet", $sheetId);
 	}
 
-	function remove_related_sheet($childSheetId)
+	public function remove_related_sheet($childSheetId)
 	{
 		$this->query(" UPDATE `tiki_sheets` SET `parentSheetId` = 0 WHERE `sheetId` = ? ", [ $childSheetId ]);
 		$sheetIds = $this->get_related_sheet_ids($childSheetId, true);
@@ -188,7 +188,7 @@ class SheetLib extends TikiLib
 		$this->remove_relate("sheet", $sheetId, $childSheetId);
 	}
 
-	function update_related_sheets($sheetId, $childSheetIds)
+	public function update_related_sheets($sheetId, $childSheetIds)
 	{
 		foreach ($childSheetIds as $childSheetId) {
 			$this->remove_related_sheet($sheetId, $childSheetId);
@@ -197,7 +197,7 @@ class SheetLib extends TikiLib
 		$this->update_relate("sheet", $sheetId, $childSheetIds);
 	}
 
-	function get_related_sheet_ids($sheetId, $getParent = false) // {{{2
+	public function get_related_sheet_ids($sheetId, $getParent = false) // {{{2
 	{
 		$sheetIds = [];
 		foreach ($this->fetchAll("SELECT `sheetId` FROM `tiki_sheets` WHERE `parentSheetId` = ?", [ $sheetId ]) as $result) {
@@ -213,7 +213,7 @@ class SheetLib extends TikiLib
 		return $sheetIds;
 	}
 
-	function list_sheets($offset = 0, $maxRecord = -1, $sort_mode = 'title_desc', $find = '') // {{{2
+	public function list_sheets($offset = 0, $maxRecord = -1, $sort_mode = 'title_desc', $find = '') // {{{2
 	{
 		global $user;
 		$userlib = TikiLib::lib('user');
@@ -294,7 +294,7 @@ class SheetLib extends TikiLib
 		return $results;
 	}
 
-	function get_created($sheetId)
+	public function get_created($sheetId)
 	{
 		return $this->getOne("
 				SELECT begin
@@ -304,7 +304,7 @@ class SheetLib extends TikiLib
 			", [ $sheetId ]);
 	}
 
-	function get_sheet_created($sheetId)
+	public function get_sheet_created($sheetId)
 	{
 		return $this->getOne("
 				SELECT begin
@@ -314,7 +314,7 @@ class SheetLib extends TikiLib
 			", [ $sheetId ]);
 	}
 
-	function get_lastModif($sheetId)
+	public function get_lastModif($sheetId)
 	{
 		return $this->getOne("
 				SELECT begin
@@ -325,7 +325,7 @@ class SheetLib extends TikiLib
 			", [ $sheetId ]);
 	}
 
-	function get_sheet_lastModif($sheetId)
+	public function get_sheet_lastModif($sheetId)
 	{
 		return $this->getOne("
 				SELECT end
@@ -336,7 +336,7 @@ class SheetLib extends TikiLib
 			", [ $sheetId ]);
 	}
 
-	function remove_sheet($sheetId) // {{{2
+	public function remove_sheet($sheetId) // {{{2
 	{
 		global $prefs;
 		$this->query("DELETE FROM `tiki_sheets` WHERE `sheetId` = ?", [ $sheetId ]);
@@ -351,7 +351,7 @@ class SheetLib extends TikiLib
 		}
 	}
 
-	function replace_sheet($sheetId, $title, $description, $author, $parentSheetId = 0, $layout = []) // {{{2
+	public function replace_sheet($sheetId, $title, $description, $author, $parentSheetId = 0, $layout = []) // {{{2
 	{
 		global $prefs;
 
@@ -404,14 +404,14 @@ class SheetLib extends TikiLib
 		return $sheetId;
 	}
 
-	function set_sheet_title($sheetId, $title)
+	public function set_sheet_title($sheetId, $title)
 	{
 		if ($sheetId) {
 			$this->query("UPDATE `tiki_sheets` SET `title` = ? WHERE `sheetId` = ?", [ $title, $sheetId ]);
 		}
 	}
 
-	function setup_jquery_sheet()
+	public function setup_jquery_sheet()
 	{
 		$headerlib = TikiLib::lib('header');
 		if (! $this->setup_jQuery_sheet_files) {
@@ -443,7 +443,7 @@ class SheetLib extends TikiLib
 		}
 	}
 
-	function sheet_history($sheetId)
+	public function sheet_history($sheetId)
 	{
 		return $this->fetchAll("
 			SELECT DISTINCT
@@ -456,7 +456,7 @@ class SheetLib extends TikiLib
 			ORDER BY begin DESC", [ $sheetId, $sheetId ]);
 	}
 
-	function rollback_sheet($id, $readdate = null)
+	public function rollback_sheet($id, $readdate = null)
 	{
 		global $user, $prefs;
 
@@ -495,7 +495,7 @@ class SheetLib extends TikiLib
 		return $id;
 	}
 
-	function clone_sheet($sheetId, $readdate = null, $parentSheetId = 0)
+	public function clone_sheet($sheetId, $readdate = null, $parentSheetId = 0)
 	{
 		global $user, $prefs;
 
@@ -554,7 +554,7 @@ class SheetLib extends TikiLib
 		return $newSheetId;
 	}
 
-	function clone_layout($sheetId, $className, $headerRow, $footerRow, $parseValues = 'n') // {{{2
+	public function clone_layout($sheetId, $className, $headerRow, $footerRow, $parseValues = 'n') // {{{2
 	{
 		if ($row = $this->get_sheet_layout($sheetId)) {
 			if ($row[ 'className' ] == $className
@@ -580,7 +580,7 @@ class SheetLib extends TikiLib
 		return true;
 	}
 
-	function save_sheet($sheets, $sheetId, $layout = [])
+	public function save_sheet($sheets, $sheetId, $layout = [])
 	{
 		global $user;
 
@@ -635,7 +635,7 @@ class SheetLib extends TikiLib
 	 * @param $style A simple css style string used with an html dom object
 	 * @param $attr The name of the css attribute you'd like to extract from $style
 	 */
-	function get_attr_from_css_string($style, $attr, $default)
+	public function get_attr_from_css_string($style, $attr, $default)
 	{
 		$style = strtolower($style);
 		$style = str_replace(' ', '', $style);
@@ -659,7 +659,7 @@ class SheetLib extends TikiLib
 	}
 
 	// array_search with recursive searching, optional partial matches and optional search by key
-	function array_searchRecursive($needle, $haystack, $strict = false, $path = [])
+	public function array_searchRecursive($needle, $haystack, $strict = false, $path = [])
 	{
 		if (! is_array($haystack)) {
 			return false;
@@ -677,7 +677,7 @@ class SheetLib extends TikiLib
 		return false;
 	}
 
-	function diff_sheets_as_html($id, $dates = null)
+	public function diff_sheets_as_html($id, $dates = null)
 	{
 		global $prefs;
 
@@ -797,17 +797,17 @@ class SheetLib extends TikiLib
 		return [$result1, $result2];
 	}
 
-	function user_can_view($id)
+	public function user_can_view($id)
 	{
 		global $user;
 		$objectperms = Perms::get('sheet', $id);
 		return ( $objectperms->view_sheet || $objectperms->admin );
 	}
 
-	function user_can_edit($id)
+	public function user_can_edit($id)
 	{
 		global $user;
 		$objectperms = Perms::get('sheet', $id);
 		return ( $objectperms->edit_sheet || $objectperms->admin );
 	}
-} // }}}1
+}

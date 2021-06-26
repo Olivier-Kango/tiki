@@ -29,7 +29,7 @@ class XMPPLib extends TikiLib
 		return $this->server_http_bind;
 	}
 
-	function __construct()
+	public function __construct()
 	{
 		global $prefs;
 
@@ -45,7 +45,7 @@ class XMPPLib extends TikiLib
 		}
 	}
 
-	function get_user_connection_info($user)
+	public function get_user_connection_info($user)
 	{
 		global $prefs;
 		global $tikilib;
@@ -85,7 +85,7 @@ class XMPPLib extends TikiLib
 		return $info;
 	}
 
-	function check_token($givenUser, $givenToken)
+	public function check_token($givenUser, $givenToken)
 	{
 		global $prefs;
 
@@ -104,7 +104,7 @@ class XMPPLib extends TikiLib
 			&& $param['user'] === $givenUser;
 	}
 
-	function create_room_from_wikipage($args, $name, $priority)
+	public function create_room_from_wikipage($args, $name, $priority)
 	{
 		global $prefs;
 		global $user;
@@ -184,7 +184,7 @@ class XMPPLib extends TikiLib
 		}
 	}
 
-	function create_room($room, $args)
+	public function create_room($room, $args)
 	{
 		if (empty($args) || empty($args['roomname'])) {
 			return;
@@ -199,7 +199,7 @@ class XMPPLib extends TikiLib
 		return $return;
 	}
 
-	function sanitize_name($text)
+	public function sanitize_name($text)
 	{
 		global $tikilib;
 		$result = $tikilib->take_away_accent($text);
@@ -209,7 +209,7 @@ class XMPPLib extends TikiLib
 		return $result;
 	}
 
-	function prebind($user)
+	public function prebind($user)
 	{
 		global $prefs;
 		global $tikilib;
@@ -286,7 +286,7 @@ class XMPPLib extends TikiLib
 	 * @return string
 	 * @throws Exception
 	 */
-	function render_xmpp_client($params = [])
+	public function render_xmpp_client($params = [])
 	{
 		global $user, $prefs;
 
@@ -426,13 +426,13 @@ class XMPPLib extends TikiLib
 		}, $params);
 	}
 
-	function add_group_to_room($room, $name, $role = 'members')
+	public function add_group_to_room($room, $name, $role = 'members')
 	{
 		$restapi = $this->getRestApi();
 		return $restapi->addGroupRoleToChatRoom($room, $name, $role);
 	}
 
-	function add_groups_to_room($params = array(), $defaultRoom = '', $defaultRole = 'members')
+	public function add_groups_to_room($params = array(), $defaultRoom = '', $defaultRole = 'members')
 	{
 		$params = array_map(function ($item) use ($defaultRoom, $defaultRole) {
 			$status = is_array($item);

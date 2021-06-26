@@ -32,7 +32,7 @@ class OLE_PPS_File extends OLE_PPS
     * The temporary dir for storing the OLE file
     * @var string
     */
-    var $_tmp_dir;
+    public $_tmp_dir;
 
     /**
     * The constructor
@@ -41,7 +41,7 @@ class OLE_PPS_File extends OLE_PPS
     * @param string $name The name of the file (in Unicode)
     * @see OLE::Asc2Ucs()
     */
-    function __construct($name)
+    public function __construct($name)
     {
         $this->_tmp_dir = '';
         $this->OLE_PPS(
@@ -64,7 +64,7 @@ class OLE_PPS_File extends OLE_PPS
     * @param string $dir The dir to be used as temp dir
     * @return true if given dir is valid, false otherwise
     */
-    function setTempDir($dir)
+    public function setTempDir($dir)
     {
         if (is_dir($dir)) {
             $this->_tmp_dir = $dir;
@@ -79,7 +79,7 @@ class OLE_PPS_File extends OLE_PPS
     * @access public
     * @return mixed true on success. PEAR_Error on failure
     */
-    function init()
+    public function init()
     {
         $this->_tmp_filename = tempnam($this->_tmp_dir, "OLE_PPS_File");
         $fh = @fopen($this->_tmp_filename, "w+b");
@@ -98,7 +98,7 @@ class OLE_PPS_File extends OLE_PPS
     * @access public
     * @param string $data The data to append
     */
-    function append($data)
+    public function append($data)
     {
         if ($this->_PPS_FILE) {
             fwrite($this->_PPS_FILE, $data);

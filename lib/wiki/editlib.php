@@ -27,7 +27,7 @@ class EditLib
 
 	// general
 
-	function make_sure_page_to_be_created_is_not_an_alias($page, $page_info)
+	public function make_sure_page_to_be_created_is_not_an_alias($page, $page_info)
 	{
 		$access = TikiLib::lib('access');
 		$tikilib = TikiLib::lib('tiki');
@@ -51,7 +51,7 @@ class EditLib
 		}
 	}
 
-	function user_needs_to_specify_language_of_page_to_be_created($page, $page_info, $new_page_inherited_attributes = null)
+	public function user_needs_to_specify_language_of_page_to_be_created($page, $page_info, $new_page_inherited_attributes = null)
 	{
 		global $prefs;
 		if (isset($_REQUEST['need_lang']) && $_REQUEST['need_lang'] == 'n') {
@@ -77,12 +77,12 @@ class EditLib
 
 	// translation functions
 
-	function isTranslationMode()
+	public function isTranslationMode()
 	{
 		return $this->isUpdateTranslationMode() || $this->isNewTranslationMode();
 	}
 
-	function isNewTranslationMode()
+	public function isNewTranslationMode()
 	{
 		global $prefs;
 
@@ -100,7 +100,7 @@ class EditLib
 		return false;
 	}
 
-	function isUpdateTranslationMode()
+	public function isUpdateTranslationMode()
 	{
 		return isset($_REQUEST['source_page'])
 			&& isset($_REQUEST['oldver'])
@@ -108,7 +108,7 @@ class EditLib
 			&& isset($_REQUEST['newver']);
 	}
 
-	function prepareTranslationData()
+	public function prepareTranslationData()
 	{
 		$this->setTranslationSourceAndTargetPageNames();
 		$this->setTranslationSourceAndTargetVersions();
@@ -164,7 +164,7 @@ class EditLib
 		}
 	}
 
-	function aTranslationWasSavedAs($complete_or_partial)
+	public function aTranslationWasSavedAs($complete_or_partial)
 	{
 		if (! $this->isTranslationMode() ||
 			! isset($_REQUEST['save'])) {
@@ -187,7 +187,7 @@ class EditLib
 	 * @param unknown_type $col
 	 * @return The hex representation
 	 */
-	function parseColor(&$col)
+	public function parseColor(&$col)
 	{
 
 		if (preg_match("/^rgb\( *(\d+) *, *(\d+) *, *(\d+) *\)$/", $col, $parts)) {
@@ -544,12 +544,14 @@ class EditLib
 						if ($style[$format] == 'italic') {
 							$this->processWikiTag('span', $src, $p, '\'\'', '\'\'', true, true);
 						}
+						// no break
 					case 'text-decoration':
 						if ($style[$format] == 'line-through') {
 							$this->processWikiTag('span', $src, $p, '--', '--', true, true);
 						} elseif ($style[$format] == 'underline') {
 							$this->processWikiTag('span', $src, $p, '===', '===', true, true);
 						}
+						// no break
 				} // switch format
 			} // foreach style
 		} // style
@@ -565,7 +567,7 @@ class EditLib
 	 * @param string $style The value of the style attribute
 	 * @param array $parsed key/value pairs
 	 */
-	function parseStyleAttribute(&$style, &$parsed)
+	public function parseStyleAttribute(&$style, &$parsed)
 	{
 
 		$matches = [];
@@ -617,7 +619,7 @@ class EditLib
 	 * @param string $list List of styles
 	 * @param array $parsed The parsed list
 	 */
-	function parseStyleList(&$list, &$parsed)
+	public function parseStyleList(&$list, &$parsed)
 	{
 
 		$matches = [];
@@ -679,7 +681,7 @@ class EditLib
 	}
 
 
-	function saveCompleteTranslation()
+	public function saveCompleteTranslation()
 	{
 		$multilinguallib = TikiLib::lib('multilingual');
 		$tikilib = TikiLib::lib('tiki');
@@ -697,7 +699,7 @@ class EditLib
 		$multilinguallib->deleteTranslationInProgressFlags($targetInfo['page_id'], $sourceInfo['lang']);
 	}
 
-	function savePartialTranslation()
+	public function savePartialTranslation()
 	{
 		$tikilib = TikiLib::lib('tiki');
 		$multilinguallib = TikiLib::lib('multilingual');
@@ -717,7 +719,7 @@ class EditLib
 	 * @return string			wiki markup
 	 */
 
-	function parseToWiki($inData)
+	public function parseToWiki($inData)
 	{
 
 		global $prefs;
@@ -751,7 +753,7 @@ class EditLib
 		return $parsed;
 	}
 
-	function parseToWikiPlugin($matches)
+	public function parseToWikiPlugin($matches)
 	{
 		if (count($matches) > 1) {
 			return nl2br($matches[1]);
@@ -768,7 +770,7 @@ class EditLib
 	 * @return string			html to send to ckeditor
 	 */
 
-	function parseToWysiwyg($inData, $fromWiki = false, $isHtml = false, $options = [])
+	public function parseToWysiwyg($inData, $fromWiki = false, $isHtml = false, $options = [])
 	{
 		global $tikiroot, $prefs;
 
@@ -836,7 +838,7 @@ class EditLib
 	 * @return string			html with wiki plugins
 	 */
 
-	static function partialParseWysiwygToWiki($inData)
+	public static function partialParseWysiwygToWiki($inData)
 	{
 		if (empty($inData)) {
 			return '';
@@ -899,7 +901,7 @@ class EditLib
 						   ['first_td'] = flag: 'is <tr> was just before this <td>'
 						   ['first_tr'] = flag: 'is <table> was just before this <tr>'
 	 */
-	function walk_and_parse(&$c, &$src, &$p, $head_url)
+	public function walk_and_parse(&$c, &$src, &$p, $head_url)
 	{
 		global $prefs;
 		// If no string
@@ -1020,6 +1022,7 @@ class EditLib
 							if ($src && $prefs['feature_wiki_paragraph_formatting'] !== 'y') {
 								$src .= "\n";
 							}
+							// no break
 						case 'div': // Wiki parsing creates divs for center
 							if (isset($node['pars'])) {
 								$this->parseParDivTag($isPar, $node['pars'], $src, $p);
@@ -1267,9 +1270,9 @@ class EditLib
 		if (substr($src, -2) == "\n\n") {	// seem to always get too many line ends
 			$src = substr($src, 0, -2);
 		}
-	}	// end walk_and_parse
+	}
 
-	function startNewLine(&$str)
+	public function startNewLine(&$str)
 	{
 		if (strlen($str) && substr($str, -1) != "\n") {
 			$str .= "\n";
@@ -1285,7 +1288,7 @@ class EditLib
 	 */
 
 
-	function parse_html(&$inHtml)
+	public function parse_html(&$inHtml)
 	{
 		include(__DIR__ . '/../htmlparser/htmlparser.inc');
 		// Read compiled (serialized) grammar
@@ -1341,10 +1344,10 @@ class EditLib
 		$out_data = preg_replace(",&#160;,mU", " ", $out_data);
 
 		return $out_data;
-	}	// end parse_html
+	}
 
 
-	function get_new_page_attributes_from_parent_pages($page, $page_info)
+	public function get_new_page_attributes_from_parent_pages($page, $page_info)
 	{
 		$tikilib = TikiLib::lib('tiki');
 		$wikilib = TikiLib::lib('wiki');
@@ -1363,7 +1366,7 @@ class EditLib
 		return $new_page_attrs;
 	}
 
-	function get_newpage_language_from_parent_page($page, $page_info, $parent_pages_info, $new_page_attrs)
+	public function get_newpage_language_from_parent_page($page, $page_info, $parent_pages_info, $new_page_attrs)
 	{
 		if (! isset($page_info['lang'])) {
 			$lang = null;

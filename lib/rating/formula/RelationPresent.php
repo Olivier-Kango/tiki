@@ -7,7 +7,7 @@
 
 class Tiki_Formula_Function_RelationPresent extends Math_Formula_Function
 {
-	function evaluate($element)
+	public function evaluate($element)
 	{
 		$default = 0;
 		$allowed = ['qualifier', 'from', 'to'];

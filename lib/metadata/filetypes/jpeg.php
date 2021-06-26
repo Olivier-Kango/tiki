@@ -26,7 +26,7 @@ class Jpeg extends ImageFile
 	 *
 	 * @return	array		$metadata		Returns an array of metadata
 	 */
-	function getExtendedData($metaObj)
+	public function getExtendedData($metaObj)
 	{
 		/*
 		 * these properties can be accessed similarly for all image files and were set in the ImageFile class that

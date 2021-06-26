@@ -16,7 +16,7 @@ if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
  */
 class MailinLib extends TikiDb_Bridge
 {
-	function list_available_types()
+	public function list_available_types()
 	{
 		$container = TikiInit::getContainer();
 		$list = $container->get('tiki.mailin.providerlist');
@@ -39,7 +39,7 @@ class MailinLib extends TikiDb_Bridge
 	 * @param $find
 	 * @return array
 	 */
-	function list_mailin_accounts($offset, $maxRecords, $sort_mode, $find)
+	public function list_mailin_accounts($offset, $maxRecords, $sort_mode, $find)
 	{
 
 		if ($find) {
@@ -78,7 +78,7 @@ class MailinLib extends TikiDb_Bridge
 	 * @param $find
 	 * @return array
 	 */
-	function list_active_mailin_accounts($offset, $maxRecords, $sort_mode, $find)
+	public function list_active_mailin_accounts($offset, $maxRecords, $sort_mode, $find)
 	{
 
 		if ($find) {
@@ -141,7 +141,7 @@ class MailinLib extends TikiDb_Bridge
 	 * @param  mixed $preferences
 	 * @return bool
 	 */
-	function replace_mailin_account($accountId, $account, $protocol, $host, $port, $username, $clearpass, $type, $active, $anonymous, $admin, $attachments, $tracker_attachments, $routing, $article_topicId = null, $article_type = null, $discard_after = null, $show_inlineImages = 'n', $save_html = 'y', $categoryId = 0, $namespace = '', $respond_email = 'y', $leave_email = 'n', $galleryId = null, $trackerId = null, $preferences = null)
+	public function replace_mailin_account($accountId, $account, $protocol, $host, $port, $username, $clearpass, $type, $active, $anonymous, $admin, $attachments, $tracker_attachments, $routing, $article_topicId = null, $article_type = null, $discard_after = null, $show_inlineImages = 'n', $save_html = 'y', $categoryId = 0, $namespace = '', $respond_email = 'y', $leave_email = 'n', $galleryId = null, $trackerId = null, $preferences = null)
 	{
 		// Fix values
 		if ($attachments == null) {
@@ -209,7 +209,7 @@ class MailinLib extends TikiDb_Bridge
 	 *
 	 * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
 	 */
-	function remove_mailin_account($accountId)
+	public function remove_mailin_account($accountId)
 	{
 		$query = "delete from `tiki_mailin_accounts` where `accountId`=?";
 		return $this->query($query, [(int)$accountId]);
@@ -220,7 +220,7 @@ class MailinLib extends TikiDb_Bridge
 	 *
 	 * @return array|bool
 	 */
-	function get_mailin_account($accountId)
+	public function get_mailin_account($accountId)
 	{
 		$query = "select * from `tiki_mailin_accounts` where `accountId`=?";
 		$result = $this->query($query, [(int)$accountId]);
@@ -243,7 +243,7 @@ class MailinLib extends TikiDb_Bridge
 	 * @return crypt Encoded password
 	 *
 	 */
-	function encryptPassword($pwd)
+	public function encryptPassword($pwd)
 	{
 		$encoded = base64_encode($pwd);
 		return $encoded;
@@ -256,7 +256,7 @@ class MailinLib extends TikiDb_Bridge
 	 * @return string Return clear text password
 	 *
 	 */
-	function decryptPassword($encoded)
+	public function decryptPassword($encoded)
 	{
 		$plaintext = base64_decode($encoded);
 		return $plaintext;
@@ -267,7 +267,7 @@ class MailinLib extends TikiDb_Bridge
 	 *
 	 * @return string
 	 */
-	function checkPackage() {
+	public function checkPackage() {
 		$status = "n";
 		if (file_exists('vendor_bundled/vendor/philippemarcmeyer/fieldslinker/')) {
 			$status = "y";

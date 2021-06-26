@@ -23,7 +23,7 @@ class TikiMail
 	 * @param string|null $from	from email
 	 * @param string|null $fromName	from Name
 	 */
-	function __construct($user = null, $from = null, $fromName = null)
+	public function __construct($user = null, $from = null, $fromName = null)
 	{
 		global $user_preferences, $prefs;
 
@@ -67,11 +67,11 @@ class TikiMail
 		}
 	}
 
-	function setUser($user)
+	public function setUser($user)
 	{
 	}
 
-	function setFrom($email, $name = null)
+	public function setFrom($email, $name = null)
 	{
 		if (! $name) {
 			$name = null;	// zend now requires "Name must be a string" (or null, not false)
@@ -79,7 +79,7 @@ class TikiMail
 		$this->mail->setFrom($email, $name);
 	}
 
-	function setReplyTo($email, $name = null)
+	public function setReplyTo($email, $name = null)
 	{
 		if (! $name) {
 			$name = null;	// zend now requires "Name must be a string" (or null, not false)
@@ -87,12 +87,12 @@ class TikiMail
 		$this->mail->setReplyTo($email, $name);
 	}
 
-	function setSubject($subject)
+	public function setSubject($subject)
 	{
 		$this->mail->setSubject($subject);
 	}
 
-	function setHtml($html, $text = null, $images_dir = null)
+	public function setHtml($html, $text = null, $images_dir = null)
 	{
 		global $prefs;
 		if ($prefs['mail_apply_css'] != 'n') {
@@ -162,7 +162,7 @@ class TikiMail
 		}
 	}
 
-	function setText($text = '')
+	public function setText($text = '')
 	{
 		$body = $this->mail->getBody();
 		if ($body instanceof \Laminas\Mime\Message) {
@@ -205,21 +205,21 @@ class TikiMail
 		}
 	}
 
-	function setCc($address)
+	public function setCc($address)
 	{
 		foreach ((array) $address as $cc) {
 			$this->mail->addCc($cc);
 		}
 	}
 
-	function setBcc($address)
+	public function setBcc($address)
 	{
 		foreach ((array) $address as $bcc) {
 			$this->mail->addBcc($bcc);
 		}
 	}
 
-	function setHeader($name, $value)
+	public function setHeader($name, $value)
 	{
 		$headers = $this->mail->getHeaders();
 		switch ($name) {
@@ -238,7 +238,7 @@ class TikiMail
 		}
 	}
 
-	function addPart($content, $type)
+	public function addPart($content, $type)
 	{
 		$body = $this->mail->getBody();
 		if (! ($body instanceof \Laminas\Mime\Message)) {
@@ -261,12 +261,12 @@ class TikiMail
 	 *
 	 * @return \Laminas\Mail\Message
 	 */
-	function getMessage()
+	public function getMessage()
 	{
 		return $this->mail;
 	}
 
-	function send($recipients, $type = 'mail')
+	public function send($recipients, $type = 'mail')
 	{
 		global $tikilib, $prefs;
 		$logslib = TikiLib::lib('logs');
@@ -319,7 +319,7 @@ class TikiMail
 		$this->mail->setBody($newBody);
 	}
 
-	function addAttachment($data, $filename, $mimetype)
+	public function addAttachment($data, $filename, $mimetype)
 	{
 		$body = $this->mail->getBody();
 		if (! ($body instanceof \Laminas\Mime\Message)) {
@@ -345,7 +345,7 @@ class TikiMail
 	 *
 	 * @return string scrambled email
 	 */
-	static function scrambleEmail($email, $method = 'unicode')
+	public static function scrambleEmail($email, $method = 'unicode')
 	{
 		switch ($method) {
 			case 'strtr':

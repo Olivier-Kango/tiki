@@ -14,7 +14,7 @@ class CCLiteLib extends TikiDb_Bridge
 	private $currencies;
 	private $merchant_user;
 
-	function __construct()
+	public function __construct()
 	{
 		global $prefs;
 		$access = TikiLib::lib('access');
@@ -191,7 +191,7 @@ class CCLiteLib extends TikiDb_Bridge
 	 * @return		result from cclite server (html hopefully)
 	 */
 
-	function cclite_send_request($command, $other_user = '', $registry = '', $amount = 0, $currency = '', $main_user = '')
+	public function cclite_send_request($command, $other_user = '', $registry = '', $amount = 0, $currency = '', $main_user = '')
 	{
 		global $user, $prefs;
 
@@ -367,14 +367,14 @@ class CCLiteLib extends TikiDb_Bridge
 	}
 
 	// used to transport merchant key hash - probably duplicates of tiki fns REFACTOR?
-	static function urlsafe_b64encode($string)
+	public static function urlsafe_b64encode($string)
 	{
 		$data = base64_encode($string);
 		$data = str_replace(['+', '/', '='], ['-', '_', ''], $data);
 		return $data;
 	}
 
-	static function urlsafe_b64decode($string)
+	public static function urlsafe_b64decode($string)
 	{
 		$data = str_replace(['-', '_'], ['+', '/'], $string);
 		$mod4 = strlen($data) % 4;
@@ -386,4 +386,4 @@ class CCLiteLib extends TikiDb_Bridge
 }
 
 global $cclitelib;
-$cclitelib = new CCLiteLib;
+$cclitelib = new CCLiteLib();

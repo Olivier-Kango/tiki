@@ -21,9 +21,9 @@ APIC::import("org.apicnet.io.File");
 
 class CZip {
 
-	function __construct(){}
+	public function __construct(){}
 
-	function Zip($dir, $zipfilename){
+	public function Zip($dir, $zipfilename){
     	if (@function_exists('gzcompress')) {
 			
 			$file = new File($zipfilename, TRUE);
@@ -73,7 +73,7 @@ class CZip {
 		else return 0;
 	}
 
-	function GetFileList($dir){
+	public function GetFileList($dir){
 		if (file_exists($dir)) {
 			$args = func_get_args();
 			$pref = $args[1];
@@ -95,10 +95,10 @@ class CZip {
 		return $file;
 	}
 
-    var $datasec      = array();
-    var $ctrl_dir     = array();
-    var $eof_ctrl_dir = "\x50\x4b\x05\x06\x00\x00\x00\x00";
-    var $old_offset   = 0;
+    public $datasec      = array();
+    public $ctrl_dir     = array();
+    public $eof_ctrl_dir = "\x50\x4b\x05\x06\x00\x00\x00\x00";
+    public $old_offset   = 0;
 
     /**
      * Converts an Unix timestamp to a four byte DOS date and time format (date
@@ -110,7 +110,7 @@ class CZip {
      *
      * @access private
      */
-    function unix2DosTime($unixtime = 0) {
+	public function unix2DosTime($unixtime = 0) {
         $timearray = ($unixtime == 0) ? getdate() : getdate($unixtime);
 
         if ($timearray['year'] < 1980) {
@@ -124,7 +124,7 @@ class CZip {
 
         return (($timearray['year'] - 1980) << 25) | ($timearray['mon'] << 21) | ($timearray['mday'] << 16) |
                 ($timearray['hours'] << 11) | ($timearray['minutes'] << 5) | ($timearray['seconds'] >> 1);
-    } // end of the 'unix2DosTime()' method
+    }
 
 
     /**
@@ -136,7 +136,7 @@ class CZip {
      *
      * @access public
      */
-    function addFile($data, $name, $time = 0){
+	public function addFile($data, $name, $time = 0){
         $name     = str_replace('\\', '/', $name);
 
         $dtime    = dechex($this->unix2DosTime($time));
@@ -203,7 +203,7 @@ class CZip {
         // optional extra field, file comment goes here
         // save to central directory
         $this -> ctrl_dir[] = $cdrec;
-    } // end of the 'addFile()' method
+    }
 
 
     /**
@@ -213,7 +213,7 @@ class CZip {
      *
      * @access public
      */
-    function file(){
+	public function file(){
         $data    = implode('', $this -> datasec);
         $ctrldir = implode('', $this -> ctrl_dir);
 
@@ -226,16 +226,15 @@ class CZip {
             pack('V', strlen($ctrldir)) .           // size of central dir
             pack('V', strlen($data)) .              // offset to start of central dir
             "\x00\x00";                             // .zip file comment length
-    } // end of the 'file()' method
+    }
 
-	
-	function createDir($dir){
+	public function createDir($dir){
 		if (preg_match("/(\/$)/i", $dir)) @mkdir (substr($dir, 0, strlen($dir) - 1));
 		else @mkdir ($dir);
 	}
-	
-	
-	function createFile($file, $data){
+
+
+	public function createFile($file, $data){
 		$file = new File($file, TRUE);
 		if ($file->exists()) {
 			$file->delFile();
@@ -243,9 +242,9 @@ class CZip {
 		}
 		$file->writeData($data);
 	}
-	
-	
-	function extract($dir, $zipfilename){
+
+
+	public function extract($dir, $zipfilename){
 		if (function_exists("zip_open")) {
 			//$dir  = eregi_replace("(\..*$)", "", $zipfilename);
 			$this->createDir($dir);
@@ -265,4 +264,4 @@ class CZip {
 	}
 	
 
-} // end of the 'PHPZip' class
+}

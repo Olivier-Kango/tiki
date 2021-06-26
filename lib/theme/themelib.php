@@ -22,7 +22,7 @@ class ThemeLib extends TikiLib
 	/*
 	@return array of folder names in themes directory
 	*/
-	function get_themes($theme_base_path = 'themes')
+	public function get_themes($theme_base_path = 'themes')
 	{
 		$themes = [];
 		$list_css = glob("{$theme_base_path}/*/css/*.css");
@@ -42,7 +42,7 @@ class ThemeLib extends TikiLib
 	/* replaces legacy list_styles() function
 	@return array of all themes offered by Tiki
 	*/
-	function list_themes()
+	public function list_themes()
 	{
 		//set special array values and get themes from the main themes directory
 		$themes = [
@@ -63,7 +63,7 @@ class ThemeLib extends TikiLib
 	/*
 	@return array of all theme options
 	*/
-	function get_options()
+	public function get_options()
 	{
 		$options = [];
 		foreach (glob("themes/*/options/*/css/*.css") as $css) {
@@ -78,7 +78,7 @@ class ThemeLib extends TikiLib
 	@param $theme - main theme (e.g. "fivealive")
 	@return array of options the theme's options directory (e.g. from "themes/fivealive/options/")
 	*/
-	function list_theme_options($theme)
+	public function list_theme_options($theme)
 	{
 		$theme_options = [];
 		if (isset($theme) and $theme != 'custom_url') { //don't consider custom URL themes to have options
@@ -99,7 +99,7 @@ class ThemeLib extends TikiLib
 	/* the group theme setting is stored in one column, so we need an array where all themes and all options are all available
 	@return array of all themes and all options
 	*/
-	function list_themes_and_options()
+	public function list_themes_and_options()
 	{
 		$theme_options = [];
 		$themes = $this->list_themes();
@@ -118,7 +118,7 @@ class ThemeLib extends TikiLib
 	/* if theme and option is concatenated into one string (eg: group themes, theme control), than extract theme and option info from the string
 	@return theme and option name
 	*/
-	function extract_theme_and_option($themeoption)
+	public function extract_theme_and_option($themeoption)
 	{
 		$items = explode("/", $themeoption);
 		$theme = $items[0]; //theme is always there
@@ -135,7 +135,7 @@ class ThemeLib extends TikiLib
 	@param $option - optional theme option file name
 	@return string path to thumbnail file to be used by an img element
 	*/
-	function get_thumbnail_file($theme, $option = '')
+	public function get_thumbnail_file($theme, $option = '')
 	{
 		if (! empty($option) && $option != tr('None')) {
 			$filename = $option . '.png'; // add .png
@@ -154,7 +154,7 @@ class ThemeLib extends TikiLib
 	 * @return string          - path to dir or file if found or empty if not - e.g. "themes/mydomain.tld/fivealive/options/akebi/"
 	 */
 
-	function get_theme_path($theme = '', $option = '', $filename = '', $subdir = '')
+	public function get_theme_path($theme = '', $option = '', $filename = '', $subdir = '')
 	{
 		global $tikidomain;
 
@@ -234,7 +234,7 @@ class ThemeLib extends TikiLib
 		return $path;
 	}
 
-	function get_theme_css($theme = '', $option = '')
+	public function get_theme_css($theme = '', $option = '')
 	{
 		if ($option) {
 			return $this->get_theme_path($theme, $option, $option . '.css');
@@ -246,7 +246,7 @@ class ThemeLib extends TikiLib
 	/* get list of base iconsets
 	@return $base_iconsets - an array containing all icon set names from themes/base_files/iconsets folder
 	*/
-	function list_base_iconsets()
+	public function list_base_iconsets()
 	{
 		$base_iconsets = [];
 		$iconsetlib = TikiLib::lib('iconset');
@@ -265,7 +265,7 @@ class ThemeLib extends TikiLib
 	/* get list of available themes and options
 	@return array of available themes and options based on $prefs['available_themes'] setting. This function does not consider if change_theme is on or off.
 	*/
-	function get_available_themesandoptions()
+	public function get_available_themesandoptions()
 	{
 		global $prefs;
 		$available_themesandoptions = [];
@@ -280,7 +280,7 @@ class ThemeLib extends TikiLib
 	/* get a list of available themes
 	@return array of available themes based on $prefs['available_themes'] setting. This function does not consider if change_theme is on or off.
 	*/
-	function get_available_themes()
+	public function get_available_themes()
 	{
 		global $prefs;
 		$available_themes = [];
@@ -300,7 +300,7 @@ class ThemeLib extends TikiLib
 	/* get a list of available options for a theme
 	@return array of available theme options based on $prefs['available_themes'] setting. This function does not consider if change_theme is on or off.
 	*/
-	function get_available_options($theme)
+	public function get_available_options($theme)
 	{
 		global $prefs;
 		$available_options = [];

@@ -12,11 +12,11 @@ require_once('lib/wizard/wizard.php');
  */
 class AdminWizardAdvanced extends Wizard
 {
-	function pageTitle()
+	public function pageTitle()
 	{
 		return tra('Set up some advanced options');
 	}
-	function isEditable()
+	public function isEditable()
 	{
 		return true;
 	}
@@ -31,7 +31,7 @@ class AdminWizardAdvanced extends Wizard
 		return true;
 	}
 
-	function getTemplate()
+	public function getTemplate()
 	{
 		$wizardTemplate = 'wizard/admin_advanced.tpl';
 		return $wizardTemplate;

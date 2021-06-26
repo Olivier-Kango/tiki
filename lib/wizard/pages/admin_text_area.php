@@ -12,11 +12,11 @@ require_once('lib/wizard/wizard.php');
  */
 class AdminWizardTextArea extends Wizard
 {
-	function pageTitle()
+	public function pageTitle()
 	{
 		return tra('Set up Text Area');
 	}
-	function isEditable()
+	public function isEditable()
 	{
 		return true;
 	}
@@ -46,7 +46,7 @@ class AdminWizardTextArea extends Wizard
 		return $showPage;
 	}
 
-	function getTemplate()
+	public function getTemplate()
 	{
 		$wizardTemplate = 'wizard/admin_text_area.tpl';
 		return $wizardTemplate;

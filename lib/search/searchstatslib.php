@@ -16,13 +16,13 @@ if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
  */
 class SearchStatsLib extends TikiLib
 {
-	function clear_search_stats()
+	public function clear_search_stats()
 	{
 		$query = "delete from tiki_search_stats";
 		$result = $this->query($query, []);
 	}
 
-	function register_term_hit($term)
+	public function register_term_hit($term)
 	{
 		$term = trim($term);
 
@@ -45,7 +45,7 @@ class SearchStatsLib extends TikiLib
 	 * @param $find
 	 * @return array
 	 */
-	function list_search_stats($offset, $maxRecords, $sort_mode, $find)
+	public function list_search_stats($offset, $maxRecords, $sort_mode, $find)
 	{
 		if ($find) {
 			$mid = " where (`term` like ?)";

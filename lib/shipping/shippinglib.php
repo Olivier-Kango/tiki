@@ -7,12 +7,12 @@
 
 interface ShippingProvider
 {
-	function getRates(array $from, array $to, array $packages);
+	public function getRates(array $from, array $to, array $packages);
 }
 
 abstract class CustomShippingProvider implements ShippingProvider
 {
-	abstract function getName();
+	public abstract function getName();
 }
 
 class ShippingLib
@@ -23,12 +23,12 @@ class ShippingLib
 		'/^[0-9]{5}$/' => 'US',
 	];
 
-	function addProvider(ShippingProvider $provider)
+	public function addProvider(ShippingProvider $provider)
 	{
 		$this->providers[] = $provider;
 	}
 
-	function getRates(array $from, array $to, array $packages)
+	public function getRates(array $from, array $to, array $packages)
 	{
 		$rates = [];
 
@@ -82,7 +82,7 @@ class ShippingLib
 		return $out;
 	}
 
-	static function getCustomShippingProvider($name)
+	public static function getCustomShippingProvider($name)
 	{
 
 		$file = __DIR__ . '/custom/' . $name . '.php';
@@ -99,7 +99,7 @@ class ShippingLib
 }
 
 global $shippinglib, $prefs;
-$shippinglib = new ShippingLib;
+$shippinglib = new ShippingLib();
 
 if (! empty($prefs['shipping_fedex_enable']) && $prefs['shipping_fedex_enable'] === 'y') {
 	require_once 'lib/shipping/provider_fedex.php';

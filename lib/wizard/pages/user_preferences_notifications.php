@@ -12,23 +12,23 @@ require_once('lib/wizard/wizard.php');
  */
 class UserWizardPreferencesNotifications extends Wizard
 {
-	function pageTitle()
+	public function pageTitle()
 	{
 		return tra('User Watches:') . ' ' . tra('Notification Preferences');
 	}
 
-	function isEditable()
+	public function isEditable()
 	{
 		return true;
 	}
 
-	function isVisible()
+	public function isVisible()
 	{
 		global	$prefs;
 		return $prefs['feature_user_watches'] === 'y';
 	}
 
-	function onSetupPage($homepageUrl)
+	public function onSetupPage($homepageUrl)
 	{
 		global	$user, $prefs;
 
@@ -58,13 +58,13 @@ class UserWizardPreferencesNotifications extends Wizard
 		return $showPage;
 	}
 
-	function getTemplate()
+	public function getTemplate()
 	{
 		$wizardTemplate = 'wizard/user_preferences_notifications.tpl';
 		return $wizardTemplate;
 	}
 
-	function onContinue($homepageUrl)
+	public function onContinue($homepageUrl)
 	{
 		global $user, $prefs;
 

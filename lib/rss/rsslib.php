@@ -17,7 +17,7 @@ class RSSLib extends TikiDb_Bridge
 	private $feeds;
 	private $modules;
 
-	function __construct()
+	public function __construct()
 	{
 		$this->items = $this->table('tiki_rss_items');
 		$this->feeds = $this->table('tiki_rss_feeds');
@@ -33,7 +33,7 @@ class RSSLib extends TikiDb_Bridge
 	 *
 	 * @return string feed format name
 	 */
-	function get_current_feed_format_name()
+	public function get_current_feed_format_name()
 	{
 		$ver = $this->get_current_feed_format();
 
@@ -52,7 +52,7 @@ class RSSLib extends TikiDb_Bridge
 	 *
 	 * @return int $ver
 	 */
-	function get_current_feed_format()
+	public function get_current_feed_format()
 	{
 		global $prefs;
 
@@ -66,7 +66,7 @@ class RSSLib extends TikiDb_Bridge
 	}
 
 	/* check for cached rss feed data */
-	function get_from_cache($uniqueid, $rss_version = "9")
+	public function get_from_cache($uniqueid, $rss_version = "9")
 	{
 		global $tikilib, $user, $prefs;
 
@@ -111,7 +111,7 @@ class RSSLib extends TikiDb_Bridge
 	}
 
 	/* put to cache */
-	function put_to_cache($uniqueid, $rss_version, $output)
+	public function put_to_cache($uniqueid, $rss_version, $output)
 	{
 		global $user, $tikilib;
 		// caching rss data for anonymous users only
@@ -158,7 +158,7 @@ class RSSLib extends TikiDb_Bridge
 	 *
 	 * @return array the generated feed
 	 */
-	function generate_feed($section, $uniqueid, $feed_version, $changes, $itemurl, $urlparam, $id, $title, $titleId, $desc, $descId, $dateId, $authorId, $fromcache = false
+	public function generate_feed($section, $uniqueid, $feed_version, $changes, $itemurl, $urlparam, $id, $title, $titleId, $desc, $descId, $dateId, $authorId, $fromcache = false
 			)
 	{
 		global $tiki_p_admin, $prefs;
@@ -313,7 +313,7 @@ class RSSLib extends TikiDb_Bridge
 	 * @param string $login
 	 * @return array author data (can be the login name or the realName if set and email if public)
 	 */
-	function process_item_author($login)
+	public function process_item_author($login)
 	{
 		$userlib = TikiLib::lib('user');
 		$tikilib = TikiLib::lib('tiki');
@@ -340,7 +340,7 @@ class RSSLib extends TikiDb_Bridge
 	// --------------------------------------------
 
 	/* get (a part of) the list of existing rss feeds from db */
-	function list_rss_modules($offset = 0, $maxRecords = null, $sort_mode = 'name_asc', $find = '')
+	public function list_rss_modules($offset = 0, $maxRecords = null, $sort_mode = 'name_asc', $find = '')
 	{
 		global $prefs;
 
@@ -365,7 +365,7 @@ class RSSLib extends TikiDb_Bridge
 	}
 
 	/* replace rss feed in db */
-	function replace_rss_module($rssId, $name, $description, $url, $refresh, $showTitle, $showPubDate, $noUpdate = false)
+	public function replace_rss_module($rssId, $name, $description, $url, $refresh, $showTitle, $showPubDate, $noUpdate = false)
 	{
 		//if ($this->rss_module_name_exists($name)) return false; // TODO: Check the name
 		$refresh = 60 * $refresh;
@@ -394,7 +394,7 @@ class RSSLib extends TikiDb_Bridge
 	}
 
 	/* remove rss feed from db */
-	function remove_rss_module($rssId)
+	public function remove_rss_module($rssId)
 	{
 		$resultModule = $this->modules->delete(['rssId' => $rssId,]);
 		$resultItems = $this->items->deleteMultiple(['rssId' => $rssId,]);
@@ -402,7 +402,7 @@ class RSSLib extends TikiDb_Bridge
 	}
 
 	/* read rss feed data from db */
-	function get_rss_module($rssId)
+	public function get_rss_module($rssId)
 	{
 		return $this->modules->fetchFullRow(['rssId' => $rssId]);
 	}
@@ -412,7 +412,7 @@ class RSSLib extends TikiDb_Bridge
 	 *
 	 * @return mixed
 	 */
-	function refresh_rss_module($rssId)
+	public function refresh_rss_module($rssId)
 	{
 		return $this->update_feeds([ $rssId ], true);
 	}
@@ -421,7 +421,7 @@ class RSSLib extends TikiDb_Bridge
 	 * @return array
 	 * @throws Exception
 	 */
-	function refresh_all_rss_modules()
+	public function refresh_all_rss_modules()
 	{
 		$mods = $this->list_rss_modules(0, -1);
 		$feeds = [];
@@ -437,7 +437,7 @@ class RSSLib extends TikiDb_Bridge
 	 *
 	 * @return TikiDb_Adodb_Result|TikiDb_Pdo_Result
 	 */
-	function clear_rss_cache($rssId, $olderThan = 0)
+	public function clear_rss_cache($rssId, $olderThan = 0)
 	{
 		$conditions = ['rssId' => (int)$rssId];
 
@@ -449,30 +449,30 @@ class RSSLib extends TikiDb_Bridge
 	}
 
 	/* check if an rss feed name already exists */
-	function rss_module_name_exists($name)
+	public function rss_module_name_exists($name)
 	{
 		return $this->modules->fetchCount(['name' => $name]);
 	}
 
 	/* get rss feed id by name */
-	function get_rss_module_id($name)
+	public function get_rss_module_id($name)
 	{
 		return $this->modules->fetchOne('rssId', ['name' => $name]);
 	}
 
 	/* check if 'showTitle' for an rss feed is enabled */
-	function get_rss_showTitle($rssId)
+	public function get_rss_showTitle($rssId)
 	{
 		return $this->modules->fetchOne('showTitle', ['rssId' => $rssId]);
 	}
 
 	/* check if 'showPubdate' for an rss feed is enabled */
-	function get_rss_showPubDate($rssId)
+	public function get_rss_showPubDate($rssId)
 	{
 		return $this->modules->fetchOne('showPubDate', ['rssId' => $rssId]);
 	}
 
-	function get_feed_items($feeds, $count = 10)
+	public function get_feed_items($feeds, $count = 10)
 	{
 		$feeds = (array) $feeds;
 
@@ -532,7 +532,7 @@ class RSSLib extends TikiDb_Bridge
 	{
 		global $tikilib;
 
-		$filter = new DeclFilter;
+		$filter = new DeclFilter();
 		$filter->addStaticKeyFilters(
 			[
 				'url' => 'url',
@@ -622,7 +622,7 @@ class RSSLib extends TikiDb_Bridge
 		return $success;
 	}
 
-	function get_feed_source_categories($rssId)
+	public function get_feed_source_categories($rssId)
 	{
 		$feeds = $this->items->fetchAll(['categories'], ['rssId' => $rssId]);
 		$categories = [];
@@ -639,7 +639,7 @@ class RSSLib extends TikiDb_Bridge
 		return $categories;
 	}
 
-	function get_article_custom_info($rssId)
+	public function get_article_custom_info($rssId)
 	{
 		$result = $this->modules->fetchOne('actions', ['rssId' => $rssId]);
 		$actions = json_decode($result);
@@ -897,7 +897,7 @@ class RSSLib extends TikiDb_Bridge
 	 *
 	 * @return TikiDb_Adodb_Result|TikiDb_Pdo_Result
 	 */
-	function set_article_generator($rssId, $configuration)
+	public function set_article_generator($rssId, $configuration)
 	{
 		$configuration['type'] = 'article';
 
@@ -924,7 +924,7 @@ class RSSLib extends TikiDb_Bridge
 		);
 	}
 
-	function get_article_generator($rssId)
+	public function get_article_generator($rssId)
 	{
 		$module = $this->get_rss_module($rssId);
 
@@ -955,7 +955,7 @@ class RSSLib extends TikiDb_Bridge
 		return $default;
 	}
 
-	function generate_feed_from_data($data, $feed_descriptor)
+	public function generate_feed_from_data($data, $feed_descriptor)
 	{
 		require_once 'lib/smarty_tiki/modifier.sefurl.php';
 

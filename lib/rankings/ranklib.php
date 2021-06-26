@@ -22,7 +22,7 @@ class RankLib extends TikiLib
 	 * @param null $lang
 	 * @return mixed
 	 */
-	function wiki_ranking_top_pages($limit, $categ = [], $lang = null)
+	public function wiki_ranking_top_pages($limit, $categ = [], $lang = null)
 	{
 		global $user, $prefs;
 		$pagesAdded = [];
@@ -85,7 +85,7 @@ class RankLib extends TikiLib
 	 * @param array $categ
 	 * @return mixed
 	 */
-	function wiki_ranking_top_pagerank($limit, $categ = [])
+	public function wiki_ranking_top_pagerank($limit, $categ = [])
 	{
 		global $user, $prefs;
 
@@ -133,7 +133,7 @@ class RankLib extends TikiLib
 	 * @param array $categ
 	 * @return mixed
 	 */
-	function wiki_ranking_last_pages($limit, $categ = [])
+	public function wiki_ranking_last_pages($limit, $categ = [])
 	{
 		global $user, $prefs;
 
@@ -177,13 +177,13 @@ class RankLib extends TikiLib
 	 * @param bool $last_replied
 	 * @return mixed
 	 */
-	function forums_ranking_last_replied_topics($limit, $forumId = '', $last_replied = true)
+	public function forums_ranking_last_replied_topics($limit, $forumId = '', $last_replied = true)
 	{
 		$retval = $this->forums_ranking_last_topics($limit, $forumId, $last_replied);
 		return $retval;
 	}
 
-	function forums_ranking_last_topics($limit, $forumId = '', $last_replied = false)
+	public function forums_ranking_last_topics($limit, $forumId = '', $last_replied = false)
 	{
 		// $last_replied == true, means that topics shown will be based on last replied, not last created.
 		global $user;
@@ -247,7 +247,7 @@ $query = "select a.*, tf.*, max(b.`commentDate`) as `lastPost` from
 	 * @param string $forumId
 	 * @return mixed
 	 */
-	function forums_ranking_last_posts($limit, $toponly = false, $forumId = '')
+	public function forums_ranking_last_posts($limit, $toponly = false, $forumId = '')
 	{
 		global $user;
 		$offset = 0;
@@ -284,7 +284,7 @@ $query = "select a.*, tf.*, max(b.`commentDate`) as `lastPost` from
 	 * @param string $forumId
 	 * @return mixed
 	 */
-	function forums_ranking_most_read_topics($limit, $forumId = '')
+	public function forums_ranking_most_read_topics($limit, $forumId = '')
 	{
 		$result = TikiLib::lib('comments')->get_all_comments('forum', 0, $limit, 'hits_desc', '', '', '', true, $forumId);
 
@@ -308,7 +308,7 @@ $query = "select a.*, tf.*, max(b.`commentDate`) as `lastPost` from
 	 * @param $qty
 	 * @return mixed
 	 */
-	function forums_top_posters($qty)
+	public function forums_top_posters($qty)
 	{
 		$query = "select `user`, `posts` from `tiki_user_postings` order by " . $this->convertSortMode("posts_desc");
 		$result = $this->query($query, [], $qty);
@@ -328,7 +328,7 @@ $query = "select a.*, tf.*, max(b.`commentDate`) as `lastPost` from
 	 * @param $limit
 	 * @return mixed
 	 */
-	function forums_ranking_top_topics($limit)
+	public function forums_ranking_top_topics($limit)
 	{
 		$ret = [];
 		$comments = TikiLib::lib('comments')->get_forum_topics(null, 0, $limit, 'average_desc');
@@ -352,7 +352,7 @@ $query = "select a.*, tf.*, max(b.`commentDate`) as `lastPost` from
 	 * @param $limit
 	 * @return mixed
 	 */
-	function forums_ranking_most_visited_forums($limit)
+	public function forums_ranking_most_visited_forums($limit)
 	{
 		$result = TikiLib::lib('comments')->list_forums(0, $limit, 'hits_desc');
 		$ret = [];
@@ -375,7 +375,7 @@ $query = "select a.*, tf.*, max(b.`commentDate`) as `lastPost` from
 	 * @param $limit
 	 * @return mixed
 	 */
-	function forums_ranking_most_commented_forum($limit)
+	public function forums_ranking_most_commented_forum($limit)
 	{
 		$result = TikiLib::lib('comments')->list_forums(0, $limit, 'comments_desc');
 		$ret = [];
@@ -398,7 +398,7 @@ $query = "select a.*, tf.*, max(b.`commentDate`) as `lastPost` from
 	 * @param $limit
 	 * @return mixed
 	 */
-	function filegal_ranking_top_galleries($limit)
+	public function filegal_ranking_top_galleries($limit)
 	{
 		global $user;
 		$query = "select * from `tiki_file_galleries` where `visible`=? order by `hits` desc";
@@ -427,7 +427,7 @@ $query = "select a.*, tf.*, max(b.`commentDate`) as `lastPost` from
 	 * @param $limit
 	 * @return mixed
 	 */
-	function filegal_ranking_top_files($limit)
+	public function filegal_ranking_top_files($limit)
 	{
 		global $user;
 		$query = "select `fileId`,`filename`,`hits`, `galleryId` from `tiki_files` order by `hits` desc";
@@ -455,7 +455,7 @@ $query = "select a.*, tf.*, max(b.`commentDate`) as `lastPost` from
 	 * @param $limit
 	 * @return mixed
 	 */
-	function filegal_ranking_last_files($limit)
+	public function filegal_ranking_last_files($limit)
 	{
 		global $user;
 		$query = "select `fileId`,`filename`,`created`, `galleryId` from `tiki_files` order by `created` desc";
@@ -483,7 +483,7 @@ $query = "select a.*, tf.*, max(b.`commentDate`) as `lastPost` from
 	 * @param $limit
 	 * @return mixed
 	 */
-	function cms_ranking_top_articles($limit)
+	public function cms_ranking_top_articles($limit)
 	{
 		global $user;
 		$query = "select `tiki_articles`.*, `tiki_article_types`.`show_pre_publ` from `tiki_articles` inner join `tiki_article_types` on `tiki_articles`.`type` = `tiki_article_types`.`type` order by `nbreads` desc";
@@ -511,7 +511,7 @@ $query = "select a.*, tf.*, max(b.`commentDate`) as `lastPost` from
 	 * @param $limit
 	 * @return mixed
 	 */
-	function blog_ranking_top_blogs($limit)
+	public function blog_ranking_top_blogs($limit)
 	{
 		global $user;
 		$query = "select * from `tiki_blogs` order by `hits` desc";
@@ -539,7 +539,7 @@ $query = "select a.*, tf.*, max(b.`commentDate`) as `lastPost` from
 	 * @param $limit
 	 * @return mixed
 	 */
-	function blog_ranking_top_active_blogs($limit)
+	public function blog_ranking_top_active_blogs($limit)
 	{
 		global $user;
 		$query = "select * from `tiki_blogs` order by `activity` desc";
@@ -567,7 +567,7 @@ $query = "select a.*, tf.*, max(b.`commentDate`) as `lastPost` from
 	 * @param $limit
 	 * @return mixed
 	 */
-	function blog_ranking_last_posts($limit)
+	public function blog_ranking_last_posts($limit)
 	{
 		global $user;
 		$query = "select * from `tiki_blog_posts` order by `created` desc";
@@ -599,7 +599,7 @@ $query = "select a.*, tf.*, max(b.`commentDate`) as `lastPost` from
 	 * @param array $categ
 	 * @return mixed
 	 */
-	function wiki_ranking_top_authors($limit, $categ = [])
+	public function wiki_ranking_top_authors($limit, $categ = [])
 	{
 		global $user;
 
@@ -641,7 +641,7 @@ $query = "select a.*, tf.*, max(b.`commentDate`) as `lastPost` from
 	 * @param $limit
 	 * @return mixed
 	 */
-	function cms_ranking_top_authors($limit)
+	public function cms_ranking_top_authors($limit)
 	{
 		$query = "select distinct `author`, count(*) as `numb` from `tiki_articles` group by `author` order by " . $this->convertSortMode("numb_desc");
 
@@ -662,4 +662,4 @@ $query = "select a.*, tf.*, max(b.`commentDate`) as `lastPost` from
 		return $retval;
 	}
 }
-$ranklib = new RankLib;
+$ranklib = new RankLib();

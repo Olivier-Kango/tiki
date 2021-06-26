@@ -23,7 +23,7 @@ class PollLibShared extends TikiLib
 	 * @param $pollId
 	 * @return bool
 	 */
-	function get_poll($pollId)
+	public function get_poll($pollId)
 	{
 		$query = "select * from `tiki_polls` where `pollId`=?";
 		$result = $this->query($query, [(int)$pollId]);
@@ -38,7 +38,7 @@ class PollLibShared extends TikiLib
 	 * @param $optionId
 	 * @return array
 	 */
-	function get_poll_voters($optionId)
+	public function get_poll_voters($optionId)
 	{
 		$query = "select user from `tiki_user_votings` where `optionId`=?";
 		$result = $this->query($query, [(int)$optionId]);
@@ -55,7 +55,7 @@ class PollLibShared extends TikiLib
 	 * @param int $to
 	 * @return array
 	 */
-	function list_poll_options($pollId, $from = 0, $to = 0)
+	public function list_poll_options($pollId, $from = 0, $to = 0)
 	{
 		if (empty($from) && empty($to)) {
 			$query = 'select * from `tiki_poll_options` where `pollId`=?';
@@ -82,7 +82,7 @@ class PollLibShared extends TikiLib
 	 * @param string $active
 	 * @return int
 	 */
-	function get_random_poll($active = "a")
+	public function get_random_poll($active = "a")
 	{
 		$bindvars = [(int)$this->now, $active];
 
@@ -115,7 +115,7 @@ class PollLibShared extends TikiLib
 	 * @param string $find
 	 * @return array
 	 */
-	function get_polls($type = 'a', $datestart = 0, $dateend = '', $find = '')
+	public function get_polls($type = 'a', $datestart = 0, $dateend = '', $find = '')
 	{
 		if (! $dateend) {
 			$dateend = date('U');
@@ -153,7 +153,7 @@ class PollLibShared extends TikiLib
 	 *
 	 * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result|bool
 	 */
-	function poll_vote($user, $pollId, $optionId, $previous_vote)
+	public function poll_vote($user, $pollId, $optionId, $previous_vote)
 	{
 		if (! $previous_vote || $previous_vote == 0) {
 			$query = "update `tiki_polls` set `votes`=`votes`+1 where `pollId`=?";
@@ -176,7 +176,7 @@ class PollLibShared extends TikiLib
 	 * @param null $user
 	 * @return array
 	 */
-	function get_ratings($cat_type, $cat_objid, $user = null)
+	public function get_ratings($cat_type, $cat_objid, $user = null)
 	{
 		global $tikilib, $prefs;
 
@@ -236,7 +236,7 @@ class PollLibShared extends TikiLib
 	 *
 	 * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
 	 */
-	function remove_poll($pollId)
+	public function remove_poll($pollId)
 	{
 		$query = "delete from `tiki_poll_objects` where `pollId`=?";
 		$this->query($query, [(int) $pollId]);
@@ -257,7 +257,7 @@ class PollLibShared extends TikiLib
 	 * @param $cat_objid
 	 * @return mixed
 	 */
-	function get_catObjectId($cat_type, $cat_objid)
+	public function get_catObjectId($cat_type, $cat_objid)
 	{
 		return $this->getOne("select `objectId` from `tiki_objects` where `type`=? and `itemId`=?", [$cat_type, $cat_objid]);
 	}
@@ -266,7 +266,7 @@ class PollLibShared extends TikiLib
 	 * @param $catObjectId
 	 * @return mixed
 	 */
-	function has_object_polls($catObjectId)
+	public function has_object_polls($catObjectId)
 	{
 		$query = "select count(*) from `tiki_poll_objects` where `catObjectId`=?";
 		return $this->getOne($query, [(int) $catObjectId]);
@@ -278,7 +278,7 @@ class PollLibShared extends TikiLib
 	 * @param null $pollId
 	 * @return bool
 	 */
-	function remove_object_poll($cat_type, $cat_objid, $pollId = null)
+	public function remove_object_poll($cat_type, $cat_objid, $pollId = null)
 	{
 		$catObjectId = $this->get_catObjectId($cat_type, $cat_objid);
 		$query = "delete from `tiki_poll_objects` where `catObjectId`=?";
@@ -298,7 +298,7 @@ class PollLibShared extends TikiLib
 	 * @param $title
 	 * @return mixed
 	 */
-	function create_poll($template_id, $title)
+	public function create_poll($template_id, $title)
 	{
 		$pollid = $this->replace_poll(0, $title, "o", date('U'));
 		$options = $this->list_poll_options($template_id);
@@ -317,7 +317,7 @@ class PollLibShared extends TikiLib
 	 *
 	 * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
 	 */
-	function replace_poll_option($pollId, $optionId, $title, $position)
+	public function replace_poll_option($pollId, $optionId, $title, $position)
 	{
 		if ($optionId) {
 			$query = "update `tiki_poll_options` set `title`=?,`position`=? where `optionId`=?";
@@ -337,7 +337,7 @@ class PollLibShared extends TikiLib
 	 * @param int $voteConsiderationSpan
 	 * @return mixed
 	 */
-	function replace_poll($pollId, $title, $active, $publishDate, $voteConsiderationSpan = 0)
+	public function replace_poll($pollId, $title, $active, $publishDate, $voteConsiderationSpan = 0)
 	{
 		if ($pollId) {
 			$query = "update `tiki_polls` set `title`=?,`active`=?,`publishDate`=?, `voteConsiderationSpan`=? where `pollId`=?";
@@ -361,7 +361,7 @@ class PollLibShared extends TikiLib
 	 *
 	 * @return TikiDb_Pdo_Result
 	 */
-	function poll_categorize($catObjectId, $pollId, $title = '')
+	public function poll_categorize($catObjectId, $pollId, $title = '')
 	{
 		$query = "delete from `tiki_poll_objects` where `catObjectId`=? and `pollId`=?";
 		$this->query($query, [(int) $catObjectId, (int) $pollId], -1, -1, false);
@@ -373,7 +373,7 @@ class PollLibShared extends TikiLib
 	 * @param $pollId
 	 * @return array
 	 */
-	function get_poll_categories($pollId)
+	public function get_poll_categories($pollId)
 	{
 		$categlib = TikiLib::lib('categ');
 
@@ -392,7 +392,7 @@ class PollLibShared extends TikiLib
 	 * @param $pollId
 	 * @return array
 	 */
-	function get_poll_objects($pollId)
+	public function get_poll_objects($pollId)
 	{
 		$query = "select tob.* from `tiki_objects` tob, `tiki_poll_objects` tpo where tpo.`pollId`=? and tpo.`catObjectId`=tob.`objectId`";
 		$result = $this->query($query, [(int) $pollId]);
@@ -409,7 +409,7 @@ class PollLibShared extends TikiLib
 	 * @param $pollId
 	 * @return bool
 	 */
-	function clone_poll($pollId)
+	public function clone_poll($pollId)
 	{
 		$poll = $this->get_poll($pollId);
 		if (! is_array($poll)) {
@@ -434,7 +434,7 @@ class PollLibShared extends TikiLib
 	 *  compute percent of each option and nb of votes and pondarated total of poll
 	 *
 	 */
-	function options_percent(&$poll_info, &$options)
+	public function options_percent(&$poll_info, &$options)
 	{
 		global $prefs;
 		if (! empty($prefs['poll_percent_decimals'])) {
@@ -480,7 +480,7 @@ class PollLibShared extends TikiLib
 	 *
 	 * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
 	 */
-	function delete_vote($pollId, $user, $ip, $optionId)
+	public function delete_vote($pollId, $user, $ip, $optionId)
 	{
 		$query = 'delete from `tiki_user_votings` where `id`=? and `optionId`=? and ';
 		$bindvars = ['poll' . $pollId, $optionId];
@@ -502,4 +502,4 @@ class PollLibShared extends TikiLib
 		return $result;
 	}
 }
-$polllib = new PollLibShared;
+$polllib = new PollLibShared();

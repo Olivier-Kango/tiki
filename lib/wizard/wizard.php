@@ -24,12 +24,12 @@ abstract class Wizard
 	* @return string
 	*
 	*/
-	function pageTitle()
+	public function pageTitle()
 	{
 		return 'Page title not set';
 	}
 
-	function getTemplate()
+	public function getTemplate()
 	{
 		return null;
 	}
@@ -40,7 +40,7 @@ abstract class Wizard
 	* @return bool		true if the page should be displayed
 	*
 	*/
-	function isVisible()
+	public function isVisible()
 	{
 		return true;
 	}
@@ -52,7 +52,7 @@ abstract class Wizard
 	 * @return bool		true if the page alters preferences or other settings
 	 *
 	 */
-	function isEditable()
+	public function isEditable()
 	{
 		return false;
 	}
@@ -64,7 +64,7 @@ abstract class Wizard
 	 * @return bool true if page should be shown. If false, the wizard will skip the page
 	 *
 	 */
-	function onSetupPage($homepageUrl)
+	public function onSetupPage($homepageUrl)
 	{
 		return true;
 	}
@@ -75,7 +75,7 @@ abstract class Wizard
 	 * @return array
 	 *
 	 */
-	function onContinue($homepageUrl)
+	public function onContinue($homepageUrl)
 	{
 		// Save the user selection for showing the wizard on login or not
 		$showOnLogin = ( isset($_POST['showOnLogin']) && $_POST['showOnLogin'] == 'on' ) ? 'y' : 'n';

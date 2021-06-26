@@ -38,15 +38,13 @@ function GetInt4d($data, $pos) {
 
 class R_OLE
 {
-    var $data = '';
-    
-    
-    function __construct(){
-        
-        
+    public $data = '';
+
+	public function __construct()
+	{
     }
-    
-    function read($sFileName){
+
+	public function read($sFileName){
         $this->data = file_get_contents($sFileName);
         $this->numBigBlockDepotBlocks = GetInt4d($this->data, NUM_BIG_BLOCK_DEPOT_BLOCKS_POS);
         $this->sbdStartBlock = GetInt4d($this->data, SMALL_BLOCK_DEPOT_BLOCK_POS);
@@ -136,8 +134,8 @@ class R_OLE
         $this->__readPropertySets();
 
     }
-    
-     function __readData($bl) {
+
+	public function __readData($bl) {
         $block = $bl;
         $pos = 0;
         $data = '';
@@ -149,8 +147,8 @@ class R_OLE
         }
 		return $data;
      }
-        
-    function __readPropertySets(){
+
+	public function __readPropertySets(){
         $offset = 0;
         
         while ($offset < strlen($this->entry)) {
@@ -192,9 +190,9 @@ class R_OLE
         }   
         
     }
-    
-    
-    function getWorkBook(){
+
+
+	public function getWorkBook(){
     	if ($this->props[$this->wrkbook]['size'] < SMALL_BLOCK_THRESHOLD){
 //    	  getSmallBlockStream(PropertyStorage ps)
 
@@ -240,5 +238,4 @@ class R_OLE
 	        return $streamData;
     	}
     }
-    
 }

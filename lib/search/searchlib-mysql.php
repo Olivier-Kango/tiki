@@ -21,7 +21,7 @@ class SearchLib extends TikiLib
 	/**
 	 * @param $words
 	 */
-	function register_search($words)
+	public function register_search($words)
 	{
 		$words = addslashes($words);
 
@@ -56,7 +56,7 @@ class SearchLib extends TikiLib
  * //todo: extract the short words from the list and do a simple search on them, them merge with the full search results on the remaining words
  * \return the nb of results + array('name', 'data', 'hits', 'lastModif', 'href', 'pageName', 'relevance'
 **/
-	function _find(
+	public function _find(
 		$h,
 		$words = '',
 		$offset = 0,
@@ -358,7 +358,7 @@ class SearchLib extends TikiLib
 	 * @param int $categId
 	 * @return array
 	 */
-	function find_wikis($words = '', $offset = 0, $maxRecords = -1, $fulltext = false, $filter = '', $boolean = 'n', $searchDate = 0, $lang = '', $categId = 0)
+	public function find_wikis($words = '', $offset = 0, $maxRecords = -1, $fulltext = false, $filter = '', $boolean = 'n', $searchDate = 0, $lang = '', $categId = 0)
 	{
 		global $tikilib, $prefs;
 		$rv = [];
@@ -448,7 +448,7 @@ class SearchLib extends TikiLib
 	 * @param $b
 	 * @return int
 	 */
-	function find_relevance_cmp($a, $b)
+	public function find_relevance_cmp($a, $b)
 	{
 		return ($a['relevance'] > $b['relevance']) ? -1 : (($a['relevance'] < $b['relevance']) ? 1 : 0);
 	}
@@ -464,7 +464,7 @@ class SearchLib extends TikiLib
 	 * @param int $categId
 	 * @return array
 	 */
-	function find_calendars($words = '', $offset = 0, $maxRecords = -1, $fulltext = false, $filter = '', $boolean = 'n', $searchDate = 0, $categId = 0)
+	public function find_calendars($words = '', $offset = 0, $maxRecords = -1, $fulltext = false, $filter = '', $boolean = 'n', $searchDate = 0, $categId = 0)
 	{
 		static $search_calendar = [
 			'from' => '`tiki_calendar_items` c',
@@ -509,7 +509,7 @@ class SearchLib extends TikiLib
 	 * @param int $categId
 	 * @return array
 	 */
-	function find_faqs($words = '', $offset = 0, $maxRecords = -1, $fulltext = false, $filter = '', $boolean = 'n', $searchDate = 0, $categId = 0)
+	public function find_faqs($words = '', $offset = 0, $maxRecords = -1, $fulltext = false, $filter = '', $boolean = 'n', $searchDate = 0, $categId = 0)
 	{
 		$search_faqs = [
 			'from' => '`tiki_faq_questions` q, `tiki_faqs` f',
@@ -541,7 +541,7 @@ class SearchLib extends TikiLib
 	 * @param int $categId
 	 * @return array
 	 */
-	function find_directory($words = '', $offset = 0, $maxRecords = -1, $fulltext = false, $filter = '', $boolean = 'n', $searchDate = 0, $categId = 0)
+	public function find_directory($words = '', $offset = 0, $maxRecords = -1, $fulltext = false, $filter = '', $boolean = 'n', $searchDate = 0, $categId = 0)
 	{
 		static $search_directory = [
 			'from' => '`tiki_directory_sites` d',
@@ -587,7 +587,7 @@ class SearchLib extends TikiLib
 	 * @param int $categId
 	 * @return array
 	 */
-	function find_forums($words = '', $offset = 0, $maxRecords = -1, $fulltext = false, $filter = '', $boolean = 'n', $searchDate = 0, $categId = 0)
+	public function find_forums($words = '', $offset = 0, $maxRecords = -1, $fulltext = false, $filter = '', $boolean = 'n', $searchDate = 0, $categId = 0)
 	{
 		$search_forums = [
 			'from' => '`tiki_comments` c, `tiki_forums` f',
@@ -623,7 +623,7 @@ class SearchLib extends TikiLib
 	 * @param int $searchDate
 	 * @return array
 	 */
-	function find_files($words = '', $offset = 0, $maxRecords = -1, $fulltext = false, $filter = '', $boolean = 'n', $searchDate = 0)
+	public function find_files($words = '', $offset = 0, $maxRecords = -1, $fulltext = false, $filter = '', $boolean = 'n', $searchDate = 0)
 	{
 		static $search_files = [
 			'from' => '`tiki_files` f',
@@ -661,7 +661,7 @@ class SearchLib extends TikiLib
 	 * @param int $categId
 	 * @return array
 	 */
-	function find_blogs($words = '', $offset = 0, $maxRecords = -1, $fulltext = false, $filter = '', $boolean = 'n', $searchDate = 0, $categId = 0)
+	public function find_blogs($words = '', $offset = 0, $maxRecords = -1, $fulltext = false, $filter = '', $boolean = 'n', $searchDate = 0, $categId = 0)
 	{
 		static $search_blogs = [
 			'from' => '`tiki_blogs` b',
@@ -701,7 +701,7 @@ class SearchLib extends TikiLib
 	 * @param string $lang
 	 * @return array
 	 */
-	function find_articles($words = '', $offset = 0, $maxRecords = -1, $fulltext = false, $filter = '', $boolean = 'n', $searchDate = 0, $categId = 0, $lang = '')
+	public function find_articles($words = '', $offset = 0, $maxRecords = -1, $fulltext = false, $filter = '', $boolean = 'n', $searchDate = 0, $categId = 0, $lang = '')
 	{
 		static $search_articles = [
 			'from' => '`tiki_articles` a',
@@ -764,7 +764,7 @@ class SearchLib extends TikiLib
 	 * @param int $categId
 	 * @return array
 	 */
-	function find_posts($words = '', $offset = 0, $maxRecords = -1, $fulltext = false, $filter = '', $boolean = 'n', $searchDate = 0, $categId = 0)
+	public function find_posts($words = '', $offset = 0, $maxRecords = -1, $fulltext = false, $filter = '', $boolean = 'n', $searchDate = 0, $categId = 0)
 	{
 		global $user;
 
@@ -806,7 +806,7 @@ class SearchLib extends TikiLib
 	 * @param int $categId
 	 * @return array
 	 */
-	function find_trackers($words = '', $offset = 0, $maxRecords = -1, $fulltext = false, $filter = '', $boolean = 'n', $searchDate = 0, $categId = 0)
+	public function find_trackers($words = '', $offset = 0, $maxRecords = -1, $fulltext = false, $filter = '', $boolean = 'n', $searchDate = 0, $categId = 0)
 	{
 		$trklib = TikiLib::lib('trk');
 		global $tiki_p_view_trackers_pending;
@@ -870,7 +870,7 @@ class SearchLib extends TikiLib
 	 * @param string $lang
 	 * @return array
 	 */
-	function find_pages($words = '', $offset = 0, $maxRecords = -1, $fulltext = false, $filter = '', $boolean = 'n', $searchDate = 0, $categId = 0, $lang = '')
+	public function find_pages($words = '', $offset = 0, $maxRecords = -1, $fulltext = false, $filter = '', $boolean = 'n', $searchDate = 0, $categId = 0, $lang = '')
 	{
 		$data = [];
 		$cant = 0;
@@ -978,4 +978,4 @@ class SearchLib extends TikiLib
 			'cant' => $cant,
 		];
 	}
-} # class SearchLib
+}

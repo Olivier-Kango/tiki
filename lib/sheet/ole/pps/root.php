@@ -33,7 +33,7 @@ class OLE_PPS_Root extends OLE_PPS
     * The temporary dir for storing the OLE file
     * @var string
     */
-    var $_tmp_dir;
+    public $_tmp_dir;
     
     /**
     * Constructor
@@ -42,7 +42,7 @@ class OLE_PPS_Root extends OLE_PPS
     * @param integer $time_1st A timestamp
     * @param integer $time_2nd A timestamp
     */
-    function construct($time_1st, $time_2nd, $raChild)
+    public function construct($time_1st, $time_2nd, $raChild)
     {
         $this->_tmp_dir = '';
         $this->OLE_PPS(
@@ -65,7 +65,7 @@ class OLE_PPS_Root extends OLE_PPS
     * @param string $dir The dir to be used as temp dir
     * @return true if given dir is valid, false otherwise
     */
-    function setTempDir($dir)
+    public function setTempDir($dir)
     {
         if (is_dir($dir)) {
             $this->_tmp_dir = $dir;
@@ -83,7 +83,7 @@ class OLE_PPS_Root extends OLE_PPS
     * @access public
     * @return mixed true on success, PEAR_Error on failure
     */
-    function save($filename)
+    public function save($filename)
     {
         // Initial Setting for saving
         $this->_BIG_BLOCK_SIZE  = pow(2,
@@ -146,7 +146,7 @@ class OLE_PPS_Root extends OLE_PPS
     * @param array $raList Reference to an array of PPS's
     * @return array The array of numbers
     */
-    function _calcSize(&$raList) 
+    public function _calcSize(&$raList)
     {
         // Calculate Basic Setting
         list($iSBDcnt, $iBBcnt, $iPPScnt) = array(0,0,0);
@@ -185,7 +185,7 @@ class OLE_PPS_Root extends OLE_PPS
     * @see save()
     * @return integer
     */
-    function _adjust2($i2)
+    public function _adjust2($i2)
     {
         $iWk = log($i2)/log(2);
         return ($iWk > floor($iWk))? floor($iWk)+1:$iWk;
@@ -199,7 +199,7 @@ class OLE_PPS_Root extends OLE_PPS
     * @param integer $iBBcnt
     * @param integer $iPPScnt
     */
-    function _saveHeader($iSBDcnt, $iBBcnt, $iPPScnt)
+    public function _saveHeader($iSBDcnt, $iBBcnt, $iPPScnt)
     {
         $FILE = $this->_FILEH_;
   
@@ -282,7 +282,7 @@ class OLE_PPS_Root extends OLE_PPS
     * @param integer $iStBlk
     * @param array &$raList Reference to array of PPS's
     */
-    function _saveBigData($iStBlk, &$raList)
+    public function _saveBigData($iStBlk, &$raList)
     {
         $FILE = $this->_FILEH_;
    
@@ -339,7 +339,7 @@ class OLE_PPS_Root extends OLE_PPS
     * @access private
     * @param array &$raList Reference to array of PPS's
     */
-    function _makeSmallData(&$raList)
+    public function _makeSmallData(&$raList)
     {
         $sRes = '';
         $FILE = $this->_FILEH_;
@@ -402,7 +402,7 @@ class OLE_PPS_Root extends OLE_PPS
     * @access private
     * @param array $raList Reference to an array with all PPS's
     */
-    function _savePps(&$raList) 
+    public function _savePps(&$raList)
     {
         // Save each PPS WK
         for ($i = 0; $i < count($raList); $i++) {
@@ -427,7 +427,7 @@ class OLE_PPS_Root extends OLE_PPS
     * @param integer $iBsize
     * @param integer $iPpsCnt
     */
-    function _saveBbd($iSbdSize, $iBsize, $iPpsCnt) 
+    public function _saveBbd($iSbdSize, $iBsize, $iPpsCnt)
     {
         $FILE = $this->_FILEH_;
         // Calculate Basic Setting

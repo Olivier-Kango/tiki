@@ -21,7 +21,7 @@ class MimeLib
 	 * @param $path
 	 * @return string
 	 */
-	static function from_path($filename, $path)
+	public static function from_path($filename, $path)
 	{
 		if ($type = self::physical_check_from_path($path)) {
 			return self::handle_physical_exceptions($type, $filename);
@@ -35,7 +35,7 @@ class MimeLib
 	 * @param $content
 	 * @return string
 	 */
-	static function from_content($filename, $content)
+	public static function from_content($filename, $content)
 	{
 		if ($type = self::physical_check_from_content($content)) {
 			return self::handle_physical_exceptions($type, $filename, $content);
@@ -48,7 +48,7 @@ class MimeLib
 	 * @param $filename
 	 * @return string
 	 */
-	static function from_filename($filename)
+	public static function from_filename($filename)
 	{
 		return self::from_file_extension($filename);
 	}

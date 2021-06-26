@@ -46,7 +46,7 @@ class TWVersion
 	 */
 	public $git;
 
-	function __construct()
+	public function __construct()
 	{
 		$this->branch 	= 'trunk';
 
@@ -66,7 +66,7 @@ class TWVersion
 	 * Returns the latest minor release in the same major version release series.
 	 * @return mixed
 	 */
-	function getLatestMinorRelease()
+	public function getLatestMinorRelease()
 	{
 		$this->pollVersion();
 		return $this->latestMinorRelease;
@@ -77,7 +77,7 @@ class TWVersion
 	 *
 	 * @return string
 	 */
-	function getBaseVersion()
+	public function getBaseVersion()
 	{
 		return preg_replace("/^(\d+\.\d+).*$/", '$1', $this->version);
 	}
@@ -86,7 +86,7 @@ class TWVersion
 	 * Returns an array of all used Tiki stars.
 	 * @return string[]
 	 */
-	function tikiStars()
+	public function tikiStars()
 	{
 		return [
 				1 => 'Spica',			// 0.9
@@ -134,7 +134,7 @@ class TWVersion
 	 *
 	 * @return string[]
 	 */
-	function tikiVersions()
+	public function tikiVersions()
 	{
 		return [
 				1 => '1.9.1',
@@ -356,7 +356,7 @@ class TWVersion
 	 * Gets the latest star used by Tiki.
 	 * @return mixed|string
 	 */
-	function getStar()
+	public function getStar()
 	{
 		$stars = $this->tikiStars();
 		return $stars[count($stars)];
@@ -408,7 +408,7 @@ class TWVersion
 	/**
 	 * @return mixed Returns true if the current major version is the latest, false otherwise.
 	 */
-	function isLatestMajorVersion()
+	public function isLatestMajorVersion()
 	{
 		$this->pollVersion();
 		return $this->isLatestMajorVersion;
@@ -418,7 +418,7 @@ class TWVersion
 	 * Returns true if the current version is the latest in its major version release series, false otherwise.
 	 * @return bool
 	 */
-	function isLatestMinorRelease()
+	public function isLatestMinorRelease()
 	{
 		$this->pollVersion();
 		return $this->latestMinorRelease == $this->version || version_compare($this->version, $this->latestRelease) == 1;

@@ -22,7 +22,7 @@ class Iptc
 	 *
 	 * @var array
 	 */
-	var	$specs = [
+	public $specs = [
 		'iptc'		=> [
 			'1#000' => [
 				'label' => 'Envelope Record Version',
@@ -618,7 +618,7 @@ class Iptc
 	 * @return 		array		$iptc			Array of processed IPTC data, including label, newval and suffix values
 	 * 												for each field
 	 */
-	function processRawData($iptcraw)
+	public function processRawData($iptcraw)
 	{
 		foreach ($iptcraw as $group => $fields) {
 			foreach ($fields as $name => $field) {
