@@ -5,7 +5,7 @@ use Search\Federated\UrlPrefixTransform;
 
 class Search_Elastic_PrefilterTest extends PHPUnit\Framework\TestCase
 {
-	static $restorePrefs;
+	public static $restorePrefs;
 
 	public static function setUpBeforeClass(): void
 	{

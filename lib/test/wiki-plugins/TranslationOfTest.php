@@ -36,7 +36,7 @@ class WikiPlugin_TranslationOfTest extends TikiTestCase
 	{
 		global $user, $testhelpers;
 
-		$testhelpers->remove_all_versions($this->page_containing_plugin);
+		$testhelpers->removeAllVersions($this->page_containing_plugin);
 
 		unset($_SERVER['HTTP_HOST'], $_SERVER['REQUEST_URI']);
 		$user = $this->orig_user;
@@ -49,7 +49,7 @@ class WikiPlugin_TranslationOfTest extends TikiTestCase
 	 * @param array $params
 	 * @param string $message
 	 */
-	public function testWikiPlugin_TranslationOf($data, $expectedOutput, $params = [], $message = ""): void
+	public function testWikiPluginTranslationOf($data, $expectedOutput, $params = [], $message = ""): void
 	{
 		$this->assertEquals($expectedOutput, wikiplugin_translationof($data, $params), $message);
 	}
@@ -66,7 +66,7 @@ class WikiPlugin_TranslationOfTest extends TikiTestCase
 		];
 	}
 
-	public function test_create_page_that_contains_a_TranslationOf_plugin_generates_an_object_relation(): void
+	public function testCreatePageThatContainsAtranslationOfPluginGeneratesAnObjectRelation(): void
 	{
 		global $prefs;
 		$tikilib = TikiLib::lib('tiki');

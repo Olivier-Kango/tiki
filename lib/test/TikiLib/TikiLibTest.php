@@ -18,32 +18,32 @@ class TikiLibTest extends TikiTestCase
 	{
 		global $testhelpers;
 
-		$testhelpers->simulate_tiki_script_context();
+		$testhelpers->simulateTikiScriptContext();
 	}
 
 	protected function tearDown() : void
 	{
 		global $testhelpers;
 
-		$testhelpers->remove_all_versions($this->some_page_name1);
-		$testhelpers->remove_all_versions($this->some_page_name2);
-		$testhelpers->remove_all_versions($this->some_page_name3);
+		$testhelpers->removeAllVersions($this->some_page_name1);
+		$testhelpers->removeAllVersions($this->some_page_name2);
+		$testhelpers->removeAllVersions($this->some_page_name3);
 
-		$testhelpers->remove_all_versions('PageThatDoesntExist');
+		$testhelpers->removeAllVersions('PageThatDoesntExist');
 
 
-		$testhelpers->stop_simulating_tiki_script_context();
+		$testhelpers->stopSimulatingTikiScriptContext();
 	}
 
-	public function test__remove_all_versions__Removes_all_relations_also(): void
+	public function testRemoveAllVersionsRemovesAllRelationsAlso(): void
 	{
 		global $testhelpers;
 		$relationlib = TikiLib::lib('relation');
 		$tikilib = TikiLib::lib('tiki');
 
-		$testhelpers->create_page($this->some_page_name1, 0, "Hello from " . $this->some_page_name1);
-		$testhelpers->create_page($this->some_page_name2, 0, "Hello from " . $this->some_page_name2);
-		$testhelpers->create_page($this->some_page_name3, 0, "Hello from " . $this->some_page_name3);
+		$testhelpers->createPage($this->some_page_name1, 0, "Hello from " . $this->some_page_name1);
+		$testhelpers->createPage($this->some_page_name2, 0, "Hello from " . $this->some_page_name2);
+		$testhelpers->createPage($this->some_page_name3, 0, "Hello from " . $this->some_page_name3);
 
 		$relation_name = 'tiki.wiki.somerelation';
 		$relationlib->add_relation($relation_name, 'wiki page', $this->some_page_name1, 'wiki page', $this->some_page_name2);

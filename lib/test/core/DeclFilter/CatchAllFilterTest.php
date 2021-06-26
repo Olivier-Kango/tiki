@@ -10,7 +10,7 @@
  *
  */
 
-class DeclFilter_CatchAllFilterTest extends TikiTestCase
+class DeclFilterCatchAllFilterTest extends TikiTestCase
 {
 	public function testMatch()
 	{

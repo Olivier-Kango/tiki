@@ -15,12 +15,12 @@ class AccountingLibTest extends PHPUnit\Framework\TestCase
 		require_once(__DIR__ . '/../../TestHelpers.php');
 		$this->testHelpers = new TestHelpers();
 
-		$this->testHelpers->simulate_tiki_script_context('tiki-accounting_books.php', 'admin');
+		$this->testHelpers->simulateTikiScriptContext('tiki-accounting_books.php', 'admin');
 	}
 
 	protected function tearDown() : void
 	{
-		$this->testHelpers->stop_simulating_tiki_script_context();
+		$this->testHelpers->stopSimulatingTikiScriptContext();
 	}
 
 	public function testBasicUsage()

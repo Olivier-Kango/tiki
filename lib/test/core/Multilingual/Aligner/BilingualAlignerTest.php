@@ -13,7 +13,7 @@
 class Multilingual_Aligner_BilingualAlignerTest extends TikiTestCase
 {
 
-	public function ___test_reminder()
+	public function ___testReminder()
 	{
 		$this->fail("remember to reactivate all tests in BilingualAlignerTest");
 	}
@@ -24,7 +24,7 @@ class Multilingual_Aligner_BilingualAlignerTest extends TikiTestCase
 	//    These tests illustrate how to use this class.
 	////////////////////////////////////////////////////////////////
 
-	public function this_is_how_you_create_a_BilingualAligner()
+	public function thisIsHowYouCreateAbilingualAligner()
 	{
 		$aligner = new Multilingual_Aligner_BilingualAligner();
 	}
@@ -40,7 +40,7 @@ class Multilingual_Aligner_BilingualAlignerTest extends TikiTestCase
 		$this->aligner = new Multilingual_Aligner_BilingualAligner();
 	}
 
-	public function this_is_how_you_align_two_texts()
+	public function thisIsHowYouAlignTwoTexts()
 	{
 		$aligner = new Multilingual_Aligner_BilingualAligner();
 		$en_entences = ["Hello earthlings. Take me to your leader."];
@@ -59,7 +59,7 @@ class Multilingual_Aligner_BilingualAlignerTest extends TikiTestCase
 	/**
 	 * @group multilingual
 	 */
-	public function test__segment_into_sentences()
+	public function testSegmentIntoSentences()
 	{
 		$text = "This is sentence 1! This is sentence 2\n* This is sentence 3";
 		$got_sentences = $this->aligner->_segment_into_sentences($text);
@@ -78,7 +78,7 @@ class Multilingual_Aligner_BilingualAlignerTest extends TikiTestCase
 	/**
 	 * @group multilingual
 	 */
-	public function test__segment_parallel_texts_to_sentences()
+	public function testSegmentParallelTextsToSentences()
 	{
 		$l1_text = "This is sentence 1! This is sentence 2.";
 		$l2_text = "Voici la phrase 1! Voici la phrase 2.";
@@ -104,12 +104,12 @@ class Multilingual_Aligner_BilingualAlignerTest extends TikiTestCase
 	/**
 	 * @group multilingual
 	 */
-	public function test__sentence_length_delta()
+	public function testSentenceLengthDelta()
 	{
 
 		$l1_sentence = "Hello world.";
 		$l2_sentence = "Bonjour le monde.";
-		$this->assert_sentence_length_delta_is(
+		$this->assertSentenceLengthDeltaIs(
 			$l1_sentence,
 			$l2_sentence,
 			0.417,
@@ -118,7 +118,7 @@ class Multilingual_Aligner_BilingualAlignerTest extends TikiTestCase
 
 		$l1_sentence = "";
 		$l2_sentence = "Bonjour le monde.";
-		$this->assert_sentence_length_delta_is(
+		$this->assertSentenceLengthDeltaIs(
 			$l1_sentence,
 			$l2_sentence,
 			1,
@@ -127,7 +127,7 @@ class Multilingual_Aligner_BilingualAlignerTest extends TikiTestCase
 
 		$l1_sentence = "Hello world.";
 		$l2_sentence = "";
-		$this->assert_sentence_length_delta_is(
+		$this->assertSentenceLengthDeltaIs(
 			$l1_sentence,
 			$l2_sentence,
 			1,
@@ -136,7 +136,7 @@ class Multilingual_Aligner_BilingualAlignerTest extends TikiTestCase
 
 		$l1_sentence = "";
 		$l2_sentence = "";
-		$this->assert_sentence_length_delta_is(
+		$this->assertSentenceLengthDeltaIs(
 			$l1_sentence,
 			$l2_sentence,
 			0,
@@ -145,7 +145,7 @@ class Multilingual_Aligner_BilingualAlignerTest extends TikiTestCase
 
 		$l1_sentence = null;
 		$l2_sentence = "Bonjour le monde.";
-		$this->assert_sentence_length_delta_is(
+		$this->assertSentenceLengthDeltaIs(
 			$l1_sentence,
 			$l2_sentence,
 			1,
@@ -155,7 +155,7 @@ class Multilingual_Aligner_BilingualAlignerTest extends TikiTestCase
 		$l1_sentence = "Hello world.";
 		$l2_sentence = null;
 
-		$this->assert_sentence_length_delta_is(
+		$this->assertSentenceLengthDeltaIs(
 			$l1_sentence,
 			$l2_sentence,
 			1,
@@ -165,7 +165,7 @@ class Multilingual_Aligner_BilingualAlignerTest extends TikiTestCase
 		$l1_sentence = null;
 		$l2_sentence = null;
 
-		$this->assert_sentence_length_delta_is(
+		$this->assertSentenceLengthDeltaIs(
 			$l1_sentence,
 			$l2_sentence,
 			0,
@@ -173,12 +173,12 @@ class Multilingual_Aligner_BilingualAlignerTest extends TikiTestCase
 		);
 	}
 
-	public function ___test_generate_shortest_path_matrix()
+	public function __testGenerateShortestPathMatrix()
 	{
 
 		$this->fail("Expected distance matrix is missing some destinations after some changes we made. Fix it.");
 
-		$this->_setup_segmented_sentences();
+		$this->setupSegmentedSentences();
 		$this->aligner->_generate_shortest_path_matrix();
 
 		$exp_cost_matrix = [];
@@ -337,27 +337,27 @@ class Multilingual_Aligner_BilingualAlignerTest extends TikiTestCase
 	/**
 	 * @group multilingual
 	 */
-	public function test__parse_node_ID()
+	public function testParseNodeID()
 	{
-		$this->assert_parse_node_ID_yields(
+		$this->assertParseNodeIDYields(
 			'3m1|5m1',
 			[3, 'm', 1, 5, 'm', 1],
 			"Parsed node ID info was wrong for case where sentences are matched."
 		);
 
-		$this->assert_parse_node_ID_yields(
+		$this->assertParseNodeIDYields(
 			'3m1|5m0',
 			[3, 'm', 1, 5, 'm', 0],
 			"Parsed node ID info was wrong for case where sentences were skipped."
 		);
 
-		$this->assert_parse_node_ID_yields(
+		$this->assertParseNodeIDYields(
 			'-1m1|-1m1',
 			[-1, 'm', 1, -1, 'm', 1],
 			"Parsed node ID info was wrong for case with sentence number = -1 (i.e., cursor before first sentences on both sides)."
 		);
 
-		$this->assert_parse_node_ID_yields(
+		$this->assertParseNodeIDYields(
 			'-1n0|-1n0',
 			[-1, 'n', 0, -1, 'n', 0],
 			"Parsed node ID info was wrong for START node '-1n0|-1n0'."
@@ -368,9 +368,9 @@ class Multilingual_Aligner_BilingualAlignerTest extends TikiTestCase
 	/**
 	 * @group multilingual
 	 */
-	public function test__generate_node_ID()
+	public function testGenerateNodeID()
 	{
-		$this->_setup_segmented_sentences();
+		$this->setupSegmentedSentences();
 
 		$this->assertEquals(
 			'0m1|0m0',
@@ -393,27 +393,27 @@ class Multilingual_Aligner_BilingualAlignerTest extends TikiTestCase
 	/**
 	 * @group multilingual
 	 */
-	public function test__sentences_at_this_node()
+	public function testSentencesAtThisNode()
 	{
-		$this->assert_sentences_at_this_node(
+		$this->assertSentencesAtThisNode(
 			'3m1|5m1',
 			[4, 6],
 			"Current sentences were wrong for node with matches on both sides."
 		);
 
-		$this->assert_sentences_at_this_node(
+		$this->assertSentencesAtThisNode(
 			'-1m1|-1m1',
 			[0, 0],
 			"Current sentences were wrong for initial nodes (i.e., sentence number = -1)"
 		);
 
-		$this->assert_sentences_at_this_node(
+		$this->assertSentencesAtThisNode(
 			'4m1|5m0',
 			[5, 5],
 			"Current sentences were wrong for case where we skip a sentence."
 		);
 
-		$this->assert_sentences_at_this_node(
+		$this->assertSentencesAtThisNode(
 			'-1n0|-1n0',
 			[-1, -1],
 			"Current sentences were wrong for START node '-1n0|-1n0'."
@@ -423,7 +423,7 @@ class Multilingual_Aligner_BilingualAlignerTest extends TikiTestCase
 	/**
 	 * @group multilingual
 	 */
-	public function test__sentences_preceding_this_node()
+	public function testSentencesPrecedingThisNode()
 	{
 		$node = '3m1|5m1';
 		$sentences_preceding_node = $this->aligner->_sentences_preceding_this_node($node);
@@ -437,35 +437,35 @@ class Multilingual_Aligner_BilingualAlignerTest extends TikiTestCase
 	/**
 	 * @group multilingual
 	 */
-	public function test__compute_node_transition_cost()
+	public function testComputeNodeTransitionCost()
 	{
-		$this->_setup_segmented_sentences();
+		$this->setupSegmentedSentences();
 
-		$this->assert__compute_node_transition_cost__yields(
+		$this->assertComputeNodeTransitionCostYields(
 			"0m1|0m1",
 			0,
 			"Transition cost failed for 1 to 1 match"
 		);
 
-		$this->assert__compute_node_transition_cost__yields(
+		$this->assertComputeNodeTransitionCostYields(
 			"0m1|0m2",
 			1.29,
 			"Transition cost failed for 1 to 2 match"
 		);
 
-		$this->assert__compute_node_transition_cost__yields(
+		$this->assertComputeNodeTransitionCostYields(
 			"0m2|0m1",
 			0.58,
 			"Transition cost failed for 2 to 1 match"
 		);
 
-		$this->assert__compute_node_transition_cost__yields(
+		$this->assertComputeNodeTransitionCostYields(
 			"0m1|0m0",
 			1,
 			"Transition cost failed for L1 side skip"
 		);
 
-		$this->assert__compute_node_transition_cost__yields(
+		$this->assertComputeNodeTransitionCostYields(
 			"0m0|0m1",
 			1,
 			"Transition cost failed for L2 side skip"
@@ -476,28 +476,28 @@ class Multilingual_Aligner_BilingualAlignerTest extends TikiTestCase
 	// Helper methods
 	////////////////////////////////////////////////////////////////
 
-	private function assert_sentence_length_delta_is($l1_sentence, $l2_sentence, $exp_delta, $message)
+	private function assertSentenceLengthDeltaIs($l1_sentence, $l2_sentence, $exp_delta, $message)
 	{
 		$got_delta = $this->aligner->_sentence_length_delta($l1_sentence, $l2_sentence);
 		$message = $message . "\nSentence length delta was wrong.";
 		$this->assertEqualsWithDelta($exp_delta, $got_delta, 0.001, $message);
 	}
 
-	private function _setup_segmented_sentences()
+	private function setupSegmentedSentences()
 	{
 		$en_entences = "Hello earthlings. Take me to your leader.";
 		$fr_sentences = "Bonjour terriens. Inutile de résister. Amenez moi à votre chef.";
 		$this->aligner->_segment_parallel_texts_to_sentences($en_entences, $fr_sentences);
 	}
 
-	private function assert_parse_node_ID_yields($node_id, $exp_parsed_info, $message)
+	private function assertParseNodeIDYields($node_id, $exp_parsed_info, $message)
 	{
 		//       print "-- assert_parse_node_ID_yields: \$node_id=$node_id\n";
 		$parsed_info = $this->aligner->_parse_node_ID($node_id);
 		$this->assertEquals($exp_parsed_info, $parsed_info, "$message\nParsed info was wrong for node ID: '$node_id'");
 	}
 
-	private function assert_sentences_at_this_node($node_id, $exp_next_sentences, $message)
+	private function assertSentencesAtThisNode($node_id, $exp_next_sentences, $message)
 	{
 		$next_sentences = $this->aligner->_sentences_at_this_node($node_id);
 		$this->assertEquals(
@@ -538,7 +538,7 @@ class Multilingual_Aligner_BilingualAlignerTest extends TikiTestCase
 		}
 	}
 
-	public function assert__compute_node_transition_cost__yields(
+	public function assertComputeNodeTransitionCostYields(
 		$destination_node,
 		$exp_cost,
 		$message

@@ -335,7 +335,7 @@ class TikiDb_TableTest extends PHPUnit\Framework\TestCase
 		$this->assertEquals(['hello', 'world'], $table->fetchColumn('group', ['object' => 42, 'event' => 'foobar'], -1, -1, 'ASC'));
 	}
 
-	public function testFetchAll_shouldConsiderOnlyProvidedFields()
+	public function testFetchAllShouldConsiderOnlyProvidedFields()
 	{
 		$expectedResult = [
 			['user' => 'admin'],
@@ -354,7 +354,7 @@ class TikiDb_TableTest extends PHPUnit\Framework\TestCase
 		$this->assertEquals($expectedResult, $table->fetchAll(['user', 'email'], []));
 	}
 
-	public function testFetchAll_shouldReturnAllFieldsIfFirstParamIsEmpty()
+	public function testFetchAllShouldReturnAllFieldsIfFirstParamIsEmpty()
 	{
 		$expectedResult = [
 			['user' => 'admin'],

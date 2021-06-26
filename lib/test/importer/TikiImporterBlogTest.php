@@ -58,7 +58,7 @@ class TikiImporter_Blog_Test extends TikiImporter_TestCase
 		ob_get_clean();
 	}
 
-	public function testInsertData_shouldCallInsertItemSixTimes(): void
+	public function testInsertDataShouldCallInsertItemSixTimes(): void
 	{
 		ob_start();
 
@@ -90,7 +90,7 @@ class TikiImporter_Blog_Test extends TikiImporter_TestCase
 				ob_get_clean();
 	}
 
-	public function testInsertData_shouldNotCallInsertItem(): void
+	public function testInsertDataShouldNotCallInsertItem(): void
 	{
 		ob_start();
 
@@ -109,7 +109,7 @@ class TikiImporter_Blog_Test extends TikiImporter_TestCase
 		ob_get_clean();
 	}
 
-	public function testInsertData_shouldReturnCountData(): void
+	public function testInsertDataShouldReturnCountData(): void
 	{
 		ob_start();
 
@@ -144,7 +144,7 @@ class TikiImporter_Blog_Test extends TikiImporter_TestCase
 		ob_get_clean();
 	}
 
-	public function testInsertData_shouldNotCreateBlogIfNoPosts(): void
+	public function testInsertDataShouldNotCreateBlogIfNoPosts(): void
 	{
 		ob_start();
 
@@ -174,7 +174,7 @@ class TikiImporter_Blog_Test extends TikiImporter_TestCase
 	/**
 	 * @group marked-as-skipped
 	 */
-	public function testInsertItem_shouldCallInsertCommentsForPage(): void
+	public function testInsertItemShouldCallInsertCommentsForPage(): void
 	{
 		$this->markTestSkipped("As of 2013-09-30, this test is broken. Skipping it for now.");
 		$obj = $this->getMockBuilder('TikiImporter_Blog')
@@ -191,7 +191,7 @@ class TikiImporter_Blog_Test extends TikiImporter_TestCase
 	/**
 	 * @group marked-as-skipped
 	 */
-	public function testInsertItem_shouldCallInsertCommentsForPost(): void
+	public function testInsertItemShouldCallInsertCommentsForPost(): void
 	{
 		$this->markTestSkipped("As of 2013-09-30, this test is broken. Skipping it for now.");
 		$obj = $this->getMockBuilder('TikiImporter_Blog')
@@ -205,7 +205,7 @@ class TikiImporter_Blog_Test extends TikiImporter_TestCase
 		$obj->insertItem($post);
 	}
 
-	public function testInsertItem_shouldReturnObjId(): void
+	public function testInsertItemShouldReturnObjId(): void
 	{
 		ob_start();
 
@@ -223,7 +223,7 @@ class TikiImporter_Blog_Test extends TikiImporter_TestCase
 		ob_get_clean();
 	}
 
-	public function testInsertItem_shoudReturnNull(): void
+	public function testInsertItemShoudReturnNull(): void
 	{
 		ob_start();
 

@@ -17,5 +17,5 @@ if ($argc != 2) {
 }
 
 $test_TikiAcceptanceTestDBRestorer = new TikiAcceptanceTestDBRestorerSQLDumps();
-$test_TikiAcceptanceTestDBRestorer->create_dump_file($argv[1]);
+$test_TikiAcceptanceTestDBRestorer->createDumpFile($argv[1]);
 echo "File $argv[1] was created in your mysql data directory\n";

@@ -10,7 +10,7 @@
  *
  */
 
-class DeclFilter_ConfigureTest extends TikiTestCase
+class DeclFilterConfigureTest extends TikiTestCase
 {
 	public function testSimple()
 	{

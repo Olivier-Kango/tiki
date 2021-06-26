@@ -10,7 +10,7 @@
  *
  */
 
-class JitFilter_IteratorTest extends TikiTestCase
+class JitFilterIteratorTest extends TikiTestCase
 {
 	private $array;
 

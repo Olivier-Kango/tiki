@@ -56,7 +56,7 @@ class Language_GetStringsEndToEndTest extends TikiTestCase
 		return substr($fileContents, $start);
 	}
 
-	public function testGetStrings_endToEnd(): void
+	public function testGetStringsEndToEnd(): void
 	{
 		$obj = new Language_GetStrings(
 			new Language_CollectFiles,
@@ -78,7 +78,7 @@ class Language_GetStringsEndToEndTest extends TikiTestCase
 		);
 	}
 
-	public function testGetStrings_endToEnd_customLanguageFileName(): void
+	public function testGetStringsEndToEndCustomLanguageFileName(): void
 	{
 		$fileName = 'language_r.php';
 
@@ -107,7 +107,7 @@ class Language_GetStringsEndToEndTest extends TikiTestCase
 		);
 	}
 
-	public function testGetStrings_endToEnd_severalLanguageFiles(): void
+	public function testGetStringsEndToEndSeveralLanguageFiles(): void
 	{
 		$ruDir = new vfsStreamDirectory('ru');
 		$faDir = new vfsStreamDirectory('fa');

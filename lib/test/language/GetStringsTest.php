@@ -41,7 +41,7 @@ class Language_GetStringsTest extends TikiTestCase
 		$this->obj = new Language_GetStrings($this->collectFiles, $this->writeFileFactory, ['baseDir' => $this->baseDir]);
 	}
 
-	public function testConstruct_shouldRaiseExceptionForInvalidBaseDir(): void
+	public function testConstructShouldRaiseExceptionForInvalidBaseDir(): void
 	{
 		$this->expectException('Language_Exception');
 		$this->obj = new Language_GetStrings($this->collectFiles, $this->writeFileFactory, ['baseDir' => 'invalidDir']);
@@ -62,7 +62,7 @@ class Language_GetStringsTest extends TikiTestCase
 		$this->assertEquals([$php, $tpl], $this->obj->getFileTypes());
 	}
 
-	public function testAddFileType_shouldRaiseExceptionIfSameTypeIsAddedMoreThanOnce(): void
+	public function testAddFileTypeShouldRaiseExceptionIfSameTypeIsAddedMoreThanOnce(): void
 	{
 		$this->expectException('Language_Exception');
 
@@ -74,13 +74,13 @@ class Language_GetStringsTest extends TikiTestCase
 		$this->obj->addFileType($php);
 	}
 
-	public function testCollectStrings_shouldRaiseExceptionIfEmptyFileTypes(): void
+	public function testCollectStringsShouldRaiseExceptionIfEmptyFileTypes(): void
 	{
 		$this->expectException('Language_Exception');
 		$this->obj->collectStrings('file.php');
 	}
 
-	public function testCollectStrings_shouldRaiseExceptionIfInvalidFileExtension(): void
+	public function testCollectStringsShouldRaiseExceptionIfInvalidFileExtension(): void
 	{
 		$this->expectException('Language_Exception');
 		$this->fileType->method('getExtensions')->willReturn(['.php']);
@@ -88,7 +88,7 @@ class Language_GetStringsTest extends TikiTestCase
 		$this->obj->collectStrings('file.');
 	}
 
-	public function testCollectStrings_withFileTypePhp(): void
+	public function testCollectStringsWithFileTypePhp(): void
 	{
 		$this->obj->addFileType(new Language_FileType_Php);
 		$strings = $this->obj->collectStrings(__DIR__ . '/fixtures/test_collecting_strings.php');
@@ -101,7 +101,7 @@ class Language_GetStringsTest extends TikiTestCase
 		$this->assertEquals($expectedResult, $strings);
 	}
 
-	public function testCollectStrings_shouldCallRegexPostProcessMethodIfOneExists(): void
+	public function testCollectStringsShouldCallRegexPostProcessMethodIfOneExists(): void
 	{
 		$php = $this->getMockBuilder('Language_FileType_Php')
 					->onlyMethods(['getExtensions', 'getCleanupRegexes', 'singleQuoted', 'doubleQuoted'])
@@ -119,7 +119,7 @@ class Language_GetStringsTest extends TikiTestCase
 		$this->obj->collectStrings(__DIR__ . '/fixtures/test_collecting_strings.php');
 	}
 
-	public function testCollectStrings_withFileTypeTpl(): void
+	public function testCollectStringsWithFileTypeTpl(): void
 	{
 		$this->obj->addFileType(new Language_FileType_Tpl);
 		$strings = $this->obj->collectStrings(__DIR__ . '/fixtures/test_collecting_strings.tpl');
@@ -134,7 +134,7 @@ class Language_GetStringsTest extends TikiTestCase
 		$this->assertEquals($expectedResult, $strings);
 	}
 
-	public function testCollectString_shouldNotConsiderEmptyCallsToTra(): void
+	public function testCollectStringShouldNotConsiderEmptyCallsToTra(): void
 	{
 		$this->obj->addFileType(new Language_FileType_Php);
 
@@ -163,13 +163,13 @@ class Language_GetStringsTest extends TikiTestCase
 		$this->assertEquals($expectedResult, $this->obj->collectStrings(vfsStream::url('root/' . $fileName)));
 	}
 
-	public function testRun_shouldRaiseExceptionIfEmptyFileTypes(): void
+	public function testRunShouldRaiseExceptionIfEmptyFileTypes(): void
 	{
 		$this->expectException('Language_Exception');
 		$this->obj->run();
 	}
 
-	public function testRun_shouldReturnCollectedStrings(): void
+	public function testRunShouldReturnCollectedStrings(): void
 	{
 		$files = ['file1', 'file2', 'file3'];
 
@@ -202,28 +202,28 @@ class Language_GetStringsTest extends TikiTestCase
 		$this->assertNull($obj->run());
 	}
 
-	public function testSetLanguages_shouldSetLanguagesForArrayParam(): void
+	public function testSetLanguagesShouldSetLanguagesForArrayParam(): void
 	{
 		$languages = ['en', 'es', 'pt-br'];
 		$this->obj->setLanguages($languages);
 		$this->assertEquals($this->obj->getLanguages(), $languages);
 	}
 
-	public function testSetLanguages_shouldSetLanguagesForStringParam(): void
+	public function testSetLanguagesShouldSetLanguagesForStringParam(): void
 	{
 		$language = 'en';
 		$this->obj->setLanguages($language);
 		$this->assertEquals($this->obj->getLanguages(), [$language]);
 	}
 
-	public function testSetLanguages_shouldRaiseExceptionForInvalidLanguage(): void
+	public function testSetLanguagesShouldRaiseExceptionForInvalidLanguage(): void
 	{
 		$languages = ['en', 'invalid'];
 		$this->expectException('Language_Exception');
 		$this->obj->setLanguages($languages);
 	}
 
-	public function testSetLanguages_shouldCallGetAllLanguagesIfLanguageParamIsNull(): void
+	public function testSetLanguagesShouldCallGetAllLanguagesIfLanguageParamIsNull(): void
 	{
 		$obj = $this->getMockBuilder('Language_GetStrings')
 					->onlyMethods(['getAllLanguages'])
@@ -234,7 +234,7 @@ class Language_GetStringsTest extends TikiTestCase
 		$obj->setLanguages();
 	}
 
-	public function testWriteToFiles_shouldCallWriteStringsThreeTimes(): void
+	public function testWriteToFilesShouldCallWriteStringsThreeTimes(): void
 	{
 		$strings = ['string1', 'string2', 'string3', 'string4'];
 
@@ -257,7 +257,7 @@ class Language_GetStringsTest extends TikiTestCase
 		$this->obj->writeToFiles($strings);
 	}
 
-	public function testWriteToFiles_shouldCallWriteStringsWithOutputFileParam(): void
+	public function testWriteToFilesShouldCallWriteStringsWithOutputFileParam(): void
 	{
 		$strings = ['string1', 'string2', 'string3', 'string4'];
 
@@ -269,7 +269,7 @@ class Language_GetStringsTest extends TikiTestCase
 		$obj->writeToFiles($strings);
 	}
 
-	public function testWriteToFiles_shouldUseCustomFileName(): void
+	public function testWriteToFilesShouldUseCustomFileName(): void
 	{
 		$strings = ['string1', 'string2', 'string3', 'string4'];
 
@@ -280,7 +280,7 @@ class Language_GetStringsTest extends TikiTestCase
 		$obj->writeToFiles($strings);
 	}
 
-	public function testScanFiles_shouldReturnStringsFromFiles(): void
+	public function testScanFilesShouldReturnStringsFromFiles(): void
 	{
 		$files = ['file1', 'file2', 'file3'];
 
@@ -303,7 +303,7 @@ class Language_GetStringsTest extends TikiTestCase
 		$this->assertEquals($strings, $obj->scanFiles($files));
 	}
 
-	public function testScanFiles_shouldReturnInformationAboutTheFilesWhereTheStringsWereFound(): void
+	public function testScanFilesShouldReturnInformationAboutTheFilesWhereTheStringsWereFound(): void
 	{
 		$files = ['file1', 'file2', 'file3'];
 

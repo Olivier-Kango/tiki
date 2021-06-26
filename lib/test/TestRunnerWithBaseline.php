@@ -47,22 +47,22 @@ class TestRunnerWithBaseline
 	{
 		global $tracer;
 
-		$this->config_from_cmdline_options();
+		$this->configFromCmdlineOptions();
 
 		if ($this->help) {
 			$this->usage();
 		}
 
-		$this->run_tests();
+		$this->runTests();
 
-		$this->print_diffs_with_baseline();
+		$this->printDiffsWithBaseline();
 
 		if ($this->action === 'update_baseline') {
-			$this->save_current_log_as_baseline();
+			$this->saveCurrentLogAsBaseline();
 		}
 	}
 
-	public function run_tests()
+	public function runTests()
 	{
 		global $tracer;
 
@@ -97,23 +97,23 @@ class TestRunnerWithBaseline
 		}
 	}
 
-	public function print_diffs_with_baseline()
+	public function printDiffsWithBaseline()
 	{
 		global $tracer;
 
-		$this->do_echo("\n\nChecking for differences with baseline test logs...\n\n");
+		$this->doEcho("\n\nChecking for differences with baseline test logs...\n\n");
 
 		$baseline_issues;
 		if (file_exists($this->logpath_baseline())) {
-			$baseline_issues = $this->read_log_file($this->logpath_baseline());
+			$baseline_issues = $this->readLogFile($this->logpath_baseline());
 		} else {
-			$this->do_echo("=== WARNING: No baseline file exists. Assuming empty baseline.\n\n");
-			$baseline_issues = $this->make_empty_issues_list();
+			$this->doEcho("=== WARNING: No baseline file exists. Assuming empty baseline.\n\n");
+			$baseline_issues = $this->makeEmptyIssuesList();
 		}
 
-		$current_issues = $this->read_log_file($this->logpath_current());
+		$current_issues = $this->readLogFile($this->logpath_current());
 
-		$this->diffs = $this->compare_two_test_runs($baseline_issues, $current_issues);
+		$this->diffs = $this->compareTwoTestRuns($baseline_issues, $current_issues);
 
 		$nb_failures_introduced = count($this->diffs['failures_introduced']);
 		$nb_failures_fixed = count($this->diffs['failures_fixed']);
@@ -125,46 +125,46 @@ class TestRunnerWithBaseline
 				$nb_failures_fixed + $nb_errors_fixed;
 
 		if ($total_diffs > 0) {
-			$this->do_echo("\n\nThere were $total_diffs differences with baseline.\n
+			$this->doEcho("\n\nThere were $total_diffs differences with baseline.\n
 
 Below is a list of tests that differ from the baseline.
 See above details about each error or failure.
 ");
 			if ($nb_failures_introduced > 0) {
-				$this->do_echo("\nNb of new FAILURES: $nb_failures_introduced:\n");
+				$this->doEcho("\nNb of new FAILURES: $nb_failures_introduced:\n");
 				foreach ($this->diffs['failures_introduced'] as $an_issue) {
-					$this->do_echo("   $an_issue\n");
+					$this->doEcho("   $an_issue\n");
 				}
 			}
 
 			if ($nb_errors_introduced > 0) {
-				$this->do_echo("\nNb of new ERRORS: $nb_errors_introduced:\n");
+				$this->doEcho("\nNb of new ERRORS: $nb_errors_introduced:\n");
 				foreach ($this->diffs['errors_introduced'] as $an_issue) {
-					$this->do_echo("   $an_issue\n");
+					$this->doEcho("   $an_issue\n");
 				}
 			}
 
 			if ($nb_failures_fixed > 0) {
-				$this->do_echo("\nNb of newly FIXED FAILURES: $nb_failures_fixed:\n");
+				$this->doEcho("\nNb of newly FIXED FAILURES: $nb_failures_fixed:\n");
 				foreach ($this->diffs['failures_fixed'] as $an_issue) {
-					$this->do_echo("   $an_issue\n");
+					$this->doEcho("   $an_issue\n");
 				}
 			}
 
 			if ($nb_errors_fixed > 0) {
-				$this->do_echo("\nNb of newly FIXED ERRORS: $nb_errors_fixed:\n");
+				$this->doEcho("\nNb of newly FIXED ERRORS: $nb_errors_fixed:\n");
 				foreach ($this->diffs['errors_fixed'] as $an_issue) {
-					$this->do_echo("   $an_issue\n");
+					$this->doEcho("   $an_issue\n");
 				}
 			}
 		} else {
-			$this->do_echo("\n\nNo differences with baseline run. All is \"normal\".\n\n");
+			$this->doEcho("\n\nNo differences with baseline run. All is \"normal\".\n\n");
 		}
 
-		$this->do_echo("\n\n");
+		$this->doEcho("\n\n");
 	}
 
-	public function logpath_current()
+	public function logpathCurrent()
 	{
 
 		$path = __DIR__ . DIRECTORY_SEPARATOR . $this->logname_stem . ".current.json";
@@ -174,7 +174,7 @@ See above details about each error or failure.
 		return $path;
 	}
 
-	public function logpath_baseline()
+	public function logpathBaseline()
 	{
 
 		$path = __DIR__ . DIRECTORY_SEPARATOR . $this->logname_stem . ".baseline.json";
@@ -184,18 +184,18 @@ See above details about each error or failure.
 		return $path;
 	}
 
-	public function ask_if_want_to_create_baseline()
+	public function askIfWantToCreateBaseline()
 	{
-		$answer = $this->prompt_for(
+		$answer = $this->promptFor(
 			"There is no baseline log. Would you like to log current failures and errors as the baseline?",
 			['y', 'n']
 		);
 		if ($answer === 'y') {
-			$this->save_current_log_as_baseline();
+			$this->saveCurrentLogAsBaseline();
 		}
 	}
 
-	public function process_phpunit_log_data($log_data)
+	public function processPhpunitLogData($log_data)
 	{
 		global $tracer;
 
@@ -247,7 +247,7 @@ See above details about each error or failure.
 		return $issues;
 	}
 
-	public function compare_two_test_runs($baseline_issues, $current_issues)
+	public function compareTwoTestRuns($baseline_issues, $current_issues)
 	{
 		global $tracer;
 
@@ -287,24 +287,24 @@ See above details about each error or failure.
 		return $diffs;
 	}
 
-	public function save_current_log_as_baseline()
+	public function saveCurrentLogAsBaseline()
 	{
-		if ($this->total_new_issues_found() > 0) {
-			$answer = $this->prompt_for(
+		if ($this->totalNewIssuesFound() > 0) {
+			$answer = $this->promptFor(
 				"Some new failures and/or errors were introduced (see above for details).\n\nAre you SURE you want to save the current run as a baseline?\n",
 				['y', 'n']
 			);
 			if ($answer === 'n') {
-				$this->do_echo("\nThe current run was NOT saved as the new baseline.\n");
+				$this->doEcho("\nThe current run was NOT saved as the new baseline.\n");
 				return;
 			}
 		}
 
-		$this->do_echo("\n\nSaving current phpunit log as the baseline.\n");
-		copy($this->logpath_current(), $this->logpath_baseline());
+		$this->doEcho("\n\nSaving current phpunit log as the baseline.\n");
+		copy($this->logpathCurrent(), $this->logpathBaseline());
 	}
 
-	public function prompt_for($prompt, $eligible_answers)
+	public function promptFor($prompt, $eligible_answers)
 	{
 		$prompt = "\n\n$prompt (" . implode('|', $eligible_answers) . ")\n> ";
 		$answer = null;
@@ -318,11 +318,11 @@ See above details about each error or failure.
 			}
 		}
 
-		$this->do_echo("\$answer='$answer'\n'");
+		$this->doEcho("\$answer='$answer'\n'");
 		return $answer;
 	}
 
-	public function read_log_file($log_file_path)
+	public function readLogFile($log_file_path)
 	{
 		global $tracer;
 
@@ -338,15 +338,15 @@ See above details about each error or failure.
 
 		$json_decoded = json_decode($json_string, true);
 
-		return $this->process_phpunit_log_data($json_decoded);
+		return $this->processPhpunitLogData($json_decoded);
 	}
 
-	public function config_from_cmdline_options()
+	public function configFromCmdlineOptions()
 	{
 		global $argv, $tracer;
 
 		$options = getopt('', ['action:', 'phpunit-options:', 'filter:', 'help']);
-		$options = $this->validate_cmdline_options($options);
+		$options = $this->validateCmdlineOptions($options);
 
 		if (isset($options['help'])) {
 			$this->help = true;
@@ -365,7 +365,7 @@ See above details about each error or failure.
 		}
 	}
 
-	public function validate_cmdline_options($options)
+	public function validateCmdlineOptions($options)
 	{
 		global $tracer;
 
@@ -430,12 +430,12 @@ Options
 		exit("\n$help");
 	}
 
-	public function make_empty_issues_list()
+	public function makeEmptyIssuesList()
 	{
 		return ['pass' => [], 'failures' => [], 'errors' => []];
 	}
 
-	public function total_new_issues_found()
+	public function totalNewIssuesFound()
 	{
 		global $tracer;
 		$total = count($this->diffs['errors_introduced']) + count($this->diffs['failures_introduced']);
@@ -445,7 +445,7 @@ Options
 		return $total;
 	}
 
-	private function do_echo($message)
+	private function doEcho($message)
 	{
 		if ($this->output_fpath == null) {
 			echo($message);

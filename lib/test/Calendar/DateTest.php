@@ -7,7 +7,7 @@
 class Calendar_DateTest extends TikiTestCase
 {
 
-	public function testMake_time(): void
+	public function testMakeTime(): void
 	{
 		global $tikilib;
 		$date = $tikilib->make_time(0, 0, 0, 8, 1, 2010);

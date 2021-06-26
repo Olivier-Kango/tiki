@@ -32,19 +32,19 @@ class Language_WriteFileTest extends TikiTestCase
 		$this->obj = new Language_WriteFile($this->parseFile);
 	}
 
-	public function testConstruct_shouldRaiseExceptionIfFileIsNotWritable(): void
+	public function testConstructShouldRaiseExceptionIfFileIsNotWritable(): void
 	{
 		$this->langFile->chmod(0444);
 		$this->expectException('Language_Exception');
 		new Language_WriteFile($this->parseFile);
 	}
 
-	public function testWriteStringsToFile_shouldReturnFalseIfEmptyParam(): void
+	public function testWriteStringsToFileShouldReturnFalseIfEmptyParam(): void
 	{
 		$this->assertFalse($this->obj->writeStringsToFile([]));
 	}
 
-	public function testWriteStringsToFile_shouldWriteSimpleStrings(): void
+	public function testWriteStringsToFileShouldWriteSimpleStrings(): void
 	{
 		$this->parseFile->expects($this->once())->method('getTranslations')->willReturn([]);
 
@@ -72,7 +72,7 @@ class Language_WriteFileTest extends TikiTestCase
 		);
 	}
 
-	public function writeStringsToFile_provider(): array
+	public function writeStringsToFileProvider(): array
 	{
 		$strings = [
 			'First string' => ['name' => 'First string', 'files' => ['file1', 'file3']],
@@ -86,10 +86,10 @@ class Language_WriteFileTest extends TikiTestCase
 	}
 
 	/**
-	 * @dataProvider writeStringsToFile_provider
+	 * @dataProvider writeStringsToFileProvider
 	 * @param $strings
 	 */
-	public function testWriteStringsToFile_shouldKeepTranslationsEvenIfTheyAreEqualToEnglishString($strings): void
+	public function testWriteStringsToFileShouldKeepTranslationsEvenIfTheyAreEqualToEnglishString($strings): void
 	{
 		$this->parseFile->expects($this->once())->method('getTranslations')->willReturn(
 			[
@@ -115,10 +115,10 @@ class Language_WriteFileTest extends TikiTestCase
 	}
 
 	/**
-	 * @dataProvider writeStringsToFile_provider
+	 * @dataProvider writeStringsToFileProvider
 	 * @param $strings
 	 */
-	public function testWriteStringsToFile_shouldIgnoreUnusedStrings($strings): void
+	public function testWriteStringsToFileShouldIgnoreUnusedStrings($strings): void
 	{
 		$this->parseFile->expects($this->once())->method('getTranslations')->willReturn(
 			[
@@ -144,10 +144,10 @@ class Language_WriteFileTest extends TikiTestCase
 	}
 
 	/**
-	 * @dataProvider writeStringsToFile_provider
+	 * @dataProvider writeStringsToFileProvider
 	 * @param $strings
 	 */
-	public function testWriteStringsToFile_shouldOutputFileWhereStringsWasFound($strings): void
+	public function testWriteStringsToFileShouldOutputFileWhereStringsWasFound($strings): void
 	{
 		$this->parseFile->expects($this->once())->method('getTranslations')->willReturn(
 			[
@@ -173,10 +173,10 @@ class Language_WriteFileTest extends TikiTestCase
 	}
 
 	/**
-	 * @dataProvider writeStringsToFile_provider
+	 * @dataProvider writeStringsToFileProvider
 	 * @param $strings
 	 */
-	public function testWriteStringsToFile_shouldConsiderStringsWithPunctuationInEndASpecialCase($strings): void
+	public function testWriteStringsToFileShouldConsiderStringsWithPunctuationInEndASpecialCase($strings): void
 	{
 		$this->parseFile->expects($this->once())->method('getTranslations')->willReturn(
 			[
@@ -208,10 +208,10 @@ class Language_WriteFileTest extends TikiTestCase
 	}
 
 	/**
-	 * @dataProvider writeStringsToFile_provider
+	 * @dataProvider writeStringsToFileProvider
 	 * @param $strings
 	 */
-	public function testWriteStringsToFile_shouldProperlyHandleSpecialCharactersInsideStrings($strings): void
+	public function testWriteStringsToFileShouldProperlyHandleSpecialCharactersInsideStrings($strings): void
 	{
 		$this->parseFile->expects($this->once())->method('getTranslations')->willReturn(
 			[
@@ -240,7 +240,7 @@ class Language_WriteFileTest extends TikiTestCase
 		);
 	}
 
-	public function testWriteStringsToFile_shouldNotKeepTranslationsWithPunctuationOnSuccessiveCalls(): void
+	public function testWriteStringsToFileShouldNotKeepTranslationsWithPunctuationOnSuccessiveCalls(): void
 	{
 		$this->parseFile->expects($this->at(0))
 						->method('getTranslations')->willReturn(['Errors' => 'Ошибки',]);

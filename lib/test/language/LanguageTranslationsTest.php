@@ -151,7 +151,7 @@ class LanguageTranslationsTest extends TikiTestCase
 		);
 	}
 
-	public function testWriteLanguageFileCallingTwoTimes_shouldNotDuplicateStringsInTheFile(): void
+	public function testWriteLanguageFileCallingTwoTimesShouldNotDuplicateStringsInTheFile(): void
 	{
 		copy(__DIR__ . '/fixtures/language_orig.php', $this->langDir . '/language.php');
 		$this->obj->writeLanguageFile();
@@ -162,7 +162,7 @@ class LanguageTranslationsTest extends TikiTestCase
 		);
 	}
 
-	public function testWriteLanguage_shouldReturnTheNumberOfNewStringsInLanguageFile(): void
+	public function testWriteLanguageShouldReturnTheNumberOfNewStringsInLanguageFile(): void
 	{
 		copy(__DIR__ . '/fixtures/language_orig.php', $this->langDir . '/language.php');
 		$expectedResult = ['modif' => 2, 'new' => 4];
@@ -170,7 +170,7 @@ class LanguageTranslationsTest extends TikiTestCase
 		$this->assertEquals($expectedResult, $return);
 	}
 
-	public function testWriteLanguage_shouldIgnoreEmptyStrings(): void
+	public function testWriteLanguageShouldIgnoreEmptyStrings(): void
 	{
 		TikiDb::get()->query('INSERT INTO `tiki_language` (`source`, `lang`, `tran`, `changed`) VALUES (?, ?, ?, ?)', ['', $this->lang, '', 1]);
 		copy(__DIR__ . '/fixtures/language_orig.php', $this->langDir . '/language.php');
@@ -181,7 +181,7 @@ class LanguageTranslationsTest extends TikiTestCase
 		);
 	}
 
-	public function testWriteLanguage_shouldRaiseExceptionForInvalidLanguagePhp(): void
+	public function testWriteLanguageShouldRaiseExceptionForInvalidLanguagePhp(): void
 	{
 		$this->expectException('Language_Exception');
 		copy(__DIR__ . '/fixtures/language_invalid.php', $this->langDir . '/language.php');
@@ -225,7 +225,7 @@ class LanguageTranslationsTest extends TikiTestCase
 		$this->assertEquals($expectedResult, $obj->getFileUntranslated());
 	}
 
-	public function testGetFileUntranslated_checkCache(): void
+	public function testGetFileUntranslatedCheckCache(): void
 	{
 		$expectedResult = [
 				"Kalture Video" => ['source' => "Kalture Video", 'tran' => null],
@@ -256,7 +256,7 @@ class LanguageTranslationsTest extends TikiTestCase
 		$this->assertEquals($expectedResult, $this->obj->getFileUntranslated());
 	}
 
-	public function getAllTranslations_dataProvider(): array
+	public function getAllTranslationsDataProvider(): array
 	{
 		$fileTranslations = [
 				"categorize" => ["source" => "categorize", "tran" => "categorizar"],
@@ -277,7 +277,7 @@ class LanguageTranslationsTest extends TikiTestCase
 	}
 
 	/**
-	 * @dataProvider getAllTranslations_dataProvider
+	 * @dataProvider getAllTranslationsDataProvider
 	 *
 	 * @param $fileTranslations
 	 * @param $dbTranslations
@@ -307,11 +307,11 @@ class LanguageTranslationsTest extends TikiTestCase
 	}
 
 	/**
-	 * @dataProvider getAllTranslations_dataProvider
+	 * @dataProvider getAllTranslationsDataProvider
 	 * @param $fileTranslations
 	 * @param $dbTranslations
 	 */
-	public function testGetAllTranslations_filterByMaxRecordsAndOffset($fileTranslations, $dbTranslations): void
+	public function testGetAllTranslationsFilterByMaxRecordsAndOffset($fileTranslations, $dbTranslations): void
 	{
 		$expectedResult = [
 				'translations' => [
@@ -332,11 +332,11 @@ class LanguageTranslationsTest extends TikiTestCase
 	}
 
 	/**
-	 * @dataProvider getAllTranslations_dataProvider
+	 * @dataProvider getAllTranslationsDataProvider
 	 * @param $fileTranslations
 	 * @param $dbTranslations
 	 */
-	public function testGetAllTranslations_filterByMaxRecordsOffsetAndSearch($fileTranslations, $dbTranslations): void
+	public function testGetAllTranslationsFilterByMaxRecordsOffsetAndSearch($fileTranslations, $dbTranslations): void
 	{
 		$expectedResult = [
 				'translations' => [
@@ -356,11 +356,11 @@ class LanguageTranslationsTest extends TikiTestCase
 	}
 
 	/**
-	 * @dataProvider getAllTranslations_dataProvider
+	 * @dataProvider getAllTranslationsDataProvider
 	 * @param $fileTranslations
 	 * @param $dbTranslations
 	 */
-	public function testGetAllTranslations_searchByTranslation($fileTranslations, $dbTranslations): void
+	public function testGetAllTranslationsSearchByTranslation($fileTranslations, $dbTranslations): void
 	{
 		$expectedResult = [
 				'translations' => [
@@ -385,7 +385,7 @@ class LanguageTranslationsTest extends TikiTestCase
 		$this->assertCount(27, $this->obj->getFileTranslations());
 	}
 
-	public function testGetFileTranslations_shouldEscapeSpecialCharacters(): void
+	public function testGetFileTranslationsShouldEscapeSpecialCharacters(): void
 	{
 		$trans = $this->obj->getFileTranslations();
 		$this->assertArrayHasKey('Second test special "characters" escaping', $trans);
@@ -450,7 +450,7 @@ class LanguageTranslationsTest extends TikiTestCase
 		$this->assertEquals($expectedResult, $this->obj->getDbUntranslated());
 	}
 
-	public function testGetDbUntranslated_filterByMaxRecordsAndOffset(): void
+	public function testGetDbUntranslatedFilterByMaxRecordsAndOffset(): void
 	{
 		global $prefs;
 		$prefs['record_untranslated'] = 'y';
@@ -465,7 +465,7 @@ class LanguageTranslationsTest extends TikiTestCase
 		$this->assertEquals($expectedResult, $this->obj->getDbUntranslated(1, 2));
 	}
 
-	public function testGetDbUntranslated_filterBySearch(): void
+	public function testGetDbUntranslatedFilterBySearch(): void
 	{
 		global $prefs;
 		$prefs['record_untranslated'] = 'y';
@@ -480,7 +480,7 @@ class LanguageTranslationsTest extends TikiTestCase
 		$this->assertEquals($expectedResult, $this->obj->getDbUntranslated(-1, 0, 'string 3'));
 	}
 
-	public function getAllUntranslated_dataProvider(): array
+	public function getAllUntranslatedDataProvider(): array
 	{
 		$dbUntranslated = [
 				'Untranslated string 1' => ['source' => 'Untranslated string 1', 'tran' => null],
@@ -506,7 +506,7 @@ class LanguageTranslationsTest extends TikiTestCase
 	}
 
 	/**
-	 * @dataProvider getAllUntranslated_dataProvider
+	 * @dataProvider getAllUntranslatedDataProvider
 	 * @param $dbUntranslated
 	 * @param $fileUntranslated
 	 * @param $dbTranslations

@@ -5,7 +5,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
-class Tiki_Event_ManagerTest extends PHPUnit\Framework\TestCase
+class TikiEventManagerTest extends PHPUnit\Framework\TestCase
 {
 	private $called;
 

@@ -10,7 +10,7 @@
  *
  */
 
-class Category_ManipulatorTest extends TikiTestCase
+class CategoryManipulatorTest extends TikiTestCase
 {
 	public function testSimpleManipulation()
 	{

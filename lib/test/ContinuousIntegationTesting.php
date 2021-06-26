@@ -33,18 +33,18 @@ class ContinuousIntegrationTesting
 	{
 		$this->tiki_root_dir = $tiki_root_dir;
 		$this->testrunner = new TestRunnerWithBaseline();
-		$this->get_revision_last_tested();
+		$this->getRevisionLastTested();
 	}
 
 	public function run()
 	{
 		$current_revision = $this->svnup();
-		if (! $this->needs_testing($current_revision)) {
+		if (! $this->needsTesting($current_revision)) {
 			echo "\n\nLatest revision was already tested. No need to retest.\n\n";
 		} else {
-			$this->run_tests();
+			$this->runTests();
 		}
-		$this->update_revision_last_tested();
+		$this->updateRevisionLastTested();
 	}
 
 	public function svnup()
@@ -63,7 +63,7 @@ class ContinuousIntegrationTesting
 
 " . $svn_output);
 
-		$current_revision = $this->extract_current_revision_from_svnup_output($svn_output);
+		$current_revision = $this->extractCurrentRevisionFromSvnupOutput($svn_output);
 
 		$this->current_revision = $current_revision;
 
@@ -71,7 +71,7 @@ class ContinuousIntegrationTesting
 	}
 
 
-	private function extract_current_revision_from_svnup_output($svn_output)
+	private function extractCurrentRevisionFromSvnupOutput($svn_output)
 	{
 		$matches = [];
 		$matched = preg_match("/(^|\n)At revision ([\d]+)/", $svn_output, $matches);
@@ -83,7 +83,7 @@ class ContinuousIntegrationTesting
 		return $revision;
 	}
 
-	public function needs_testing($current_revision)
+	public function needsTesting($current_revision)
 	{
 		$answer = true;
 		if ($this->revision_last_tested == $current_revision) {
@@ -92,40 +92,40 @@ class ContinuousIntegrationTesting
 		return $answer;
 	}
 
-	public function run_tests()
+	public function runTests()
 	{
 		echo("\n\nRunning the tests.\n\n");
 
-		$baseline_log = $this->revision_log_fpath("baseline");
-		$current_revision_log = $this->revision_log_fpath($this->current_revision);
-		$output_fpath = $this->output_fpath();
+		$baseline_log = $this->revisionLogFpath("baseline");
+		$current_revision_log = $this->revisionLogFpath($this->current_revision);
+		$output_fpath = $this->outputFpath();
 		$this->testrunner = new TestRunnerWithBaseline($baseline_log, $current_revision_log, $output_fpath);
 
 		$this->testrunner->run();
 	}
 
-	private function revision_log_fpath($revision)
+	private function revisionLogFpath($revision)
 	{
 		$fname = "phpunit-log." . $revision . ".json";
 		return implode(DIRECTORY_SEPARATOR, [$this->tiki_root_dir, 'lib', 'test', $fname]);
 	}
 
-	private function revision_last_tested_fpath()
+	private function revisionLastTestedFpath()
 	{
 		return implode(DIRECTORY_SEPARATOR, [$this->tiki_root_dir, 'lib', 'test', 'revision_last_tested.txt']);
 	}
 
-	private function update_revision_last_tested()
+	private function updateRevisionLastTested()
 	{
-		file_put_contents($this->revision_last_tested_fpath(), $this->current_revision);
+		file_put_contents($this->revisionLastTestedFpath(), $this->current_revision);
 	}
 
-	private function get_revision_last_tested()
+	private function getRevisionLastTested()
 	{
-		$this->revision_last_tested = file_get_contents($this->revision_last_tested_fpath());
+		$this->revision_last_tested = file_get_contents($this->revisionLastTestedFpath());
 	}
 
-	private function output_fpath()
+	private function outputFpath()
 	{
 		return implode(DIRECTORY_SEPARATOR, [$this->tiki_root_dir, 'lib', 'test', 'phpunit-output.' . $this->current_revision . ".txt"]);
 	}

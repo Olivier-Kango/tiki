@@ -17,14 +17,14 @@ class TestHelpers
 	 * - If any global libs were replaced by mock implementations, reset them to their
 	 *   real implementation.
 	 */
-	public function reset_all()
+	public function resetAll()
 	{
 		global $tikilib;
 
 		$tikilib = new TikiLib;
 	}
 
-	public function simulate_tiki_script_context($script_uri = 'tiki-index.php', $logged_on_as_user = 'some_user', $host = 'localhost')
+	public function simulateTikiScriptContext($script_uri = 'tiki-index.php', $logged_on_as_user = 'some_user', $host = 'localhost')
 	{
 
 		global $_SERVER, $user, $prefs;
@@ -38,7 +38,7 @@ class TestHelpers
 		$prefs['site_language'] = 'en';
 	}
 
-	public function stop_simulating_tiki_script_context()
+	public function stopSimulatingTikiScriptContext()
 	{
 		global $tikilib, $user;
 
@@ -47,9 +47,9 @@ class TestHelpers
 	}
 
 	/*
-	 * Like $tikilib->create_page(), except that it will delete the page if it already exists.
+	 * Like $tikilib->createPage(), except that it will delete the page if it already exists.
 	 */
-	public function create_page($name, $hits, $data, $lastModif = null, $comment = '', $user = 'admin', $ip = '0.0.0.0', $description = '', $lang = '', $is_html = false, $hash = null, $wysiwyg = null, $wiki_authors_style = '', $minor = 0, $created = '')
+	public function createPage($name, $hits, $data, $lastModif = null, $comment = '', $user = 'admin', $ip = '0.0.0.0', $description = '', $lang = '', $is_html = false, $hash = null, $wysiwyg = null, $wiki_authors_style = '', $minor = 0, $created = '')
 	{
 		global $tikilib;
 
@@ -64,7 +64,7 @@ class TestHelpers
 	}
 
 
-	public function remove_all_versions($page_name)
+	public function removeAllVersions($page_name)
 	{
 		global $tikilib;
 

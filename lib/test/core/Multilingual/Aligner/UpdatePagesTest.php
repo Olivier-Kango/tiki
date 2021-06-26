@@ -50,7 +50,7 @@ class Multilingual_Aligner_UpdatePagesTest extends TikiTestCase
 	}
 
 
-	public function ___test_reminder()
+	public function __testReminder()
 	{
 		$this->fail("remember to reactivate all tests in UpdateSentences");
 	}
@@ -60,7 +60,7 @@ class Multilingual_Aligner_UpdatePagesTest extends TikiTestCase
 	//    These tests illustrate how to use this class.
 	////////////////////////////////////////////////////////////////
 
-	public function this_is_how_you_create_a_UpdatePages()
+	public function thisIsHowYouCreateAupdatePages()
 	{
 		$test = new Multilingual_Aligner_UpdatePages();
 	}
@@ -71,7 +71,7 @@ class Multilingual_Aligner_UpdatePagesTest extends TikiTestCase
 	//       created as above.
 	////////////////////////////////////////////////////////////////
 
-	public function test_sentence_added_on_source_side_only()
+	public function testSentenceAddedOnSourceSideOnly()
 	{
 		$source_lng = "en";
 		$target_lng = "fr";
@@ -85,7 +85,7 @@ class Multilingual_Aligner_UpdatePagesTest extends TikiTestCase
 
 		$expected_content = $this->insertSentenceAtIndex(1, "Added_Source " . $this->mt_extra_source_sentence, $target_modified_array);
 
-		$this->do_test_basic_updating(
+		$this->doTestBasicUpdating(
 			$source_lng,
 			$target_lng,
 			$source_original_array,
@@ -98,7 +98,7 @@ class Multilingual_Aligner_UpdatePagesTest extends TikiTestCase
 	}
 
 
-	public function test_sentence_inserted_on_target_side_only()
+	public function testSentenceInsertedOnTargetSideOnly()
 	{
 		$source_lng = "en";
 		$target_lng = "fr";
@@ -112,7 +112,7 @@ class Multilingual_Aligner_UpdatePagesTest extends TikiTestCase
 
 		$expected_content = $target_modified_array;
 
-		$this->do_test_basic_updating(
+		$this->doTestBasicUpdating(
 			$source_lng,
 			$target_lng,
 			$source_original_array,
@@ -125,7 +125,7 @@ class Multilingual_Aligner_UpdatePagesTest extends TikiTestCase
 	}
 
 
-	public function test_sentence_deleted_on_source_side_only()
+	public function testSentenceDeletedOnSourceSideOnly()
 	{
 		$source_lng = "en";
 		$target_lng = "fr";
@@ -140,7 +140,7 @@ class Multilingual_Aligner_UpdatePagesTest extends TikiTestCase
 		$expected_content = $target_modified_array;
 		$expected_content [1] = "Deleted_Source " . $expected_content [1];
 
-		$this->do_test_basic_updating(
+		$this->doTestBasicUpdating(
 			$source_lng,
 			$target_lng,
 			$source_original_array,
@@ -152,7 +152,7 @@ class Multilingual_Aligner_UpdatePagesTest extends TikiTestCase
 		);
 	}
 
-	public function test_sentence_deleted_on_target_side_only()
+	public function testSentenceDeletedOnTargetSideOnly()
 	{
 		$source_lng = "en";
 		$target_lng = "fr";
@@ -167,7 +167,7 @@ class Multilingual_Aligner_UpdatePagesTest extends TikiTestCase
 		$expected_content = $target_original_array;
 		$expected_content [1] = "Deleted_Target " . $expected_content [1];
 
-		$this->do_test_basic_updating(
+		$this->doTestBasicUpdating(
 			$source_lng,
 			$target_lng,
 			$source_original_array,
@@ -182,7 +182,7 @@ class Multilingual_Aligner_UpdatePagesTest extends TikiTestCase
 	/**
 	 * @group marked-as-skipped
 	 */
-	public function test_sentence_inserted_in_both_source_and_target_sides()
+	public function testSentenceInsertedInBothSourceAndTargetSides()
 	{
 		$this->markTestSkipped("This test is failing at the moment. Need to fix it");
 
@@ -199,7 +199,7 @@ class Multilingual_Aligner_UpdatePagesTest extends TikiTestCase
 
 		$expected_content = $this->insertSentenceAtIndex(1, "Added_Source " . $this->mt_extra_source_sentence, $target_modified_array);
 
-		$this->do_test_basic_updating(
+		$this->doTestBasicUpdating(
 			$source_lng,
 			$target_lng,
 			$source_original_array,
@@ -214,7 +214,7 @@ class Multilingual_Aligner_UpdatePagesTest extends TikiTestCase
 	/**
 	 * @group marked-as-skipped
 	 */
-	public function test_sentence_deleted_on_both_source_and_target_sides()
+	public function testSentenceDeletedOnBothSourceAndTargetSides()
 	{
 		$this->markTestSkipped("This test is failing at the moment. Need to fix it");
 
@@ -233,7 +233,7 @@ class Multilingual_Aligner_UpdatePagesTest extends TikiTestCase
 		$expected_content [1] = "Deleted_Source " . $expected_content [1];
 		$expected_content [2] = "Deleted_Target " . $expected_content [2];
 
-		$this->do_test_basic_updating(
+		$this->doTestBasicUpdating(
 			$source_lng,
 			$target_lng,
 			$source_original_array,
@@ -246,7 +246,7 @@ class Multilingual_Aligner_UpdatePagesTest extends TikiTestCase
 	}
 
 
-	public function do_test_basic_updating(
+	public function doTestBasicUpdating(
 		$source_lng,
 		$target_lng,
 		$orig_source_array,

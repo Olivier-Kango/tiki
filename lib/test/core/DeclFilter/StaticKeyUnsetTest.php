@@ -10,7 +10,7 @@
  *
  */
 
-class DeclFilter_StaticKeyUnsetTest extends TikiTestCase
+class DeclFilterStaticKeyUnsetTest extends TikiTestCase
 {
 	public function testMatch()
 	{

@@ -765,7 +765,7 @@ Estou a disposição para te ajudar com mais informações. Abraços, Rodrigo.',
 		$this->assertEquals($expectedResult, $this->obj->parseWordpressShortcodes($content));
 	}
 
-	public function testInsertItem_shouldCallStoreNewLink(): void
+	public function testInsertItemShouldCallStoreNewLink(): void
 	{
 		$obj = $this->getMockBuilder('TikiImporter_Blog_Wordpress')
 			->onlyMethods(['storeNewLink', 'insertPost'])
@@ -840,7 +840,7 @@ Estou a disposição para te ajudar com mais informações. Abraços, Rodrigo.',
 		$this->assertEquals($expectedResult, $this->obj->permalinks);
 	}
 
-	public function testInsertData_shouldSetObjIdOnItemsArray(): void
+	public function testInsertDataShouldSetObjIdOnItemsArray(): void
 	{
 		ob_start();
 		$_POST['replaceInternalLinks'] = 'on';
@@ -878,7 +878,7 @@ Estou a disposição para te ajudar com mais informações. Abraços, Rodrigo.',
 		ob_get_clean();
 	}
 
-	public function testInsertData_shouldNotCallReplaceInternalLinks(): void
+	public function testInsertDataShouldNotCallReplaceInternalLinks(): void
 	{
 		ob_start();
 		$obj = $this->getMockBuilder('TikiImporter_Blog_Wordpress')

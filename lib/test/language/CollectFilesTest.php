@@ -29,14 +29,14 @@ class Language_CollectFilesTest extends TikiTestCase
 		$dir2->addChild(new vfsStreamFile('file4.txt'));
 	}
 
-	public function testSetExcludeDirs_shouldRaiseExceptionForInvalidDir(): void
+	public function testSetExcludeDirsShouldRaiseExceptionForInvalidDir(): void
 	{
 		$dirs = ['invalidDir'];
 		$this->expectException('Language_Exception');
 		$this->obj->setExcludeDirs($dirs);
 	}
 
-	public function testSetExcludeDirsAndGetExcludeDir_shouldSetProperty(): void
+	public function testSetExcludeDirsAndGetExcludeDirShouldSetProperty(): void
 	{
 		$dirs = ['fixtures'];
 		$cwd = getcwd();
@@ -47,21 +47,21 @@ class Language_CollectFilesTest extends TikiTestCase
 		chdir($cwd);
 	}
 
-	public function testIncludeFilesDirs_shouldRaiseExceptionForInvalidFile(): void
+	public function testIncludeFilesDirsShouldRaiseExceptionForInvalidFile(): void
 	{
 		$dirs = ['invalidFile'];
 		$this->expectException('Language_Exception');
 		$this->obj->setIncludeFiles($dirs);
 	}
 
-	public function testIncludeFilesDirsAndGetIncludeFiles_shouldSetProperty(): void
+	public function testIncludeFilesDirsAndGetIncludeFilesShouldSetProperty(): void
 	{
 		$dirs = [__DIR__ . '/fixtures'];
 		$this->obj->setIncludeFiles($dirs);
 		$this->assertEquals($dirs, $this->obj->getIncludeFiles());
 	}
 
-	public function testRun_shouldMergeArrays(): void
+	public function testRunShouldMergeArrays(): void
 	{
 		$obj = $this->getMockBuilder('Language_CollectFiles')
 					->onlyMethods(['scanDir', 'getIncludeFiles'])
@@ -72,19 +72,19 @@ class Language_CollectFilesTest extends TikiTestCase
 		$this->assertEquals(['lib/test.php', 'tiki-test.php', 'tiki-index.php'], $obj->run('.'));
 	}
 
-	public function testScanDir_shouldRaiseExceptionForInvalidDir(): void
+	public function testScanDirShouldRaiseExceptionForInvalidDir(): void
 	{
 		$this->expectException('Language_Exception');
 		$this->obj->scanDir('invalidDir');
 	}
 
-	public function testScanDir_shouldReturnFiles(): void
+	public function testScanDirShouldReturnFiles(): void
 	{
 		$expectedResult = ['vfs://root/dir1/file1.tpl', 'vfs://root/dir2/file2.php', 'vfs://root/dir2/file3.php'];
 		$this->assertEquals($expectedResult, $this->obj->scanDir(vfsStream::url('root')));
 	}
 
-	public function testScanDir_shouldIgnoreExcludedDirs(): void
+	public function testScanDirShouldIgnoreExcludedDirs(): void
 	{
 		$obj = $this->getMockBuilder('Language_CollectFiles')
 					->onlyMethods(['getExcludeDirs'])
@@ -95,7 +95,7 @@ class Language_CollectFilesTest extends TikiTestCase
 		$this->assertEquals($expectedResult, $obj->scanDir(vfsStream::url('root')));
 	}
 
-	public function testScanDir_shouldAcceptIncludedFiles(): void
+	public function testScanDirShouldAcceptIncludedFiles(): void
 	{
 		$obj = $this->getMockBuilder('Language_CollectFiles')
 					->onlyMethods(['getExcludeDirs', 'getIncludeFiles'])

@@ -25,7 +25,7 @@ class Reports_CacheTest extends TikiDatabaseTestCase
 		return $this->createMySQLXMLDataSet(__DIR__ . '/fixtures/reports_cache_dataset.xml');
 	}
 
-	public function testDelete_shouldDeleteAllEntriesForAUser()
+	public function testDeleteShouldDeleteAllEntriesForAUser()
 	{
 		$expectedTable = $this->createMySQLXmlDataSet(__DIR__ . '/fixtures/reports_cache_dataset_delete.xml')
 			->getTable('tiki_user_reports_cache');
@@ -37,7 +37,7 @@ class Reports_CacheTest extends TikiDatabaseTestCase
 		$this->assertTablesEqual($expectedTable, $queryTable);
 	}
 
-	public function testGet_shouldReturnEntriesForGivenUser()
+	public function testGetShouldReturnEntriesForGivenUser()
 	{
 		$expectedResult = [['user' => 'test', 'event' => 'wiki_page_changed',
 			'data' =>
@@ -56,7 +56,7 @@ class Reports_CacheTest extends TikiDatabaseTestCase
 	/**
 	 * @group marked-as-skipped
 	 */
-	public function testAdd_shouldAddInformationAboutChangedObjectToCache()
+	public function testAddShouldAddInformationAboutChangedObjectToCache()
 	{
 		$this->markTestSkipped("As of 2013-09-30, this test is broken. Skipping it for now.");
 

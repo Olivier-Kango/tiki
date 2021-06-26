@@ -33,16 +33,16 @@ class TestRunnerWithBaselineTest extends PHPUnit\Framework\TestCase
 
 
 	/**
-	 * @dataProvider dataProvider_process_phpunit_log_data
+	 * @dataProvider dataProviderProcessPhpunitLogData
 	 * @param $log_data
 	 * @param $exp_failures
 	 * @param $exp_errors
 	 * @param $exp_pass
 	 * @param $message
 	 */
-	public function test_process_phpunit_log_data($log_data, $exp_failures, $exp_errors, $exp_pass, $message) : void
+	public function testProcessPhpunitLogData($log_data, $exp_failures, $exp_errors, $exp_pass, $message) : void
 	{
-		$issues = $this->runner->process_phpunit_log_data($log_data);
+		$issues = $this->runner->processPhpunitLogData($log_data);
 		$this->assertEquals(
 			$exp_failures,
 			$issues['failures'],
@@ -62,7 +62,7 @@ class TestRunnerWithBaselineTest extends PHPUnit\Framework\TestCase
 		);
 	}
 
-	public function dataProvider_process_phpunit_log_data() : array
+	public function dataProviderProcessPhpunitLogData() : array
 	{
 		return
 			[
@@ -124,15 +124,15 @@ class TestRunnerWithBaselineTest extends PHPUnit\Framework\TestCase
 	}
 
 	/**
-	 * @dataProvider dataProvider_compare_two_test_runs
+	 * @dataProvider dataProviderCompareTwoTestRuns
 	 * @param $baseline_issues
 	 * @param $current_issues
 	 * @param $exp_differences
 	 * @param $message
 	 */
-	public function test_compare_two_test_runs($baseline_issues, $current_issues, $exp_differences, $message) : void
+	public function testCompareTwoTestRuns($baseline_issues, $current_issues, $exp_differences, $message) : void
 	{
-		$got_differences = $this->runner->compare_two_test_runs($baseline_issues, $current_issues);
+		$got_differences = $this->runner->compareTwoTestRuns($baseline_issues, $current_issues);
 		$this->assertEquals(
 			$exp_differences,
 			$got_differences,
@@ -140,7 +140,7 @@ class TestRunnerWithBaselineTest extends PHPUnit\Framework\TestCase
 		);
 	}
 
-	public function dataProvider_compare_two_test_runs() : array
+	public function dataProviderCompareTwoTestRuns() : array
 	{
 		return
 			[

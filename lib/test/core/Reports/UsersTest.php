@@ -33,7 +33,7 @@ class Reports_UsersTest extends TikiDatabaseTestCase
 		return $this->createMySQLXMLDataSet(__DIR__ . '/fixtures/user_reports_dataset.xml');
 	}
 
-	public function testDelete_shouldDeleteUserReportsPreferences()
+	public function testDeleteShouldDeleteUserReportsPreferences()
 	{
 		$user = 'admin';
 
@@ -47,12 +47,12 @@ class Reports_UsersTest extends TikiDatabaseTestCase
 		$this->assertTablesEqual($expectedTable, $queryTable);
 	}
 
-	public function testGet_shouldReturnEmptyIfUserIsNotUsingReports()
+	public function testGetShouldReturnEmptyIfUserIsNotUsingReports()
 	{
 		$this->assertEmpty($this->obj->get('someuserNotUsingReports'));
 	}
 
-	public function testGet_shouldReturnUsersReportsPreferences()
+	public function testGetShouldReturnUsersReportsPreferences()
 	{
 		$expectedResult = ['id' => 2, 'interval' => 'daily', 'view' => 'detailed', 'type' => 'html',
 			'always_email' => 1, 'last_report' => '2012-01-15 12:22:08'];
@@ -60,7 +60,7 @@ class Reports_UsersTest extends TikiDatabaseTestCase
 		$this->assertEquals($expectedResult, $this->obj->get('test'));
 	}
 
-	public function testSave_shouldInsertData()
+	public function testSaveShouldInsertData()
 	{
 		$expectedTable = $this->createMySQLXmlDataSet(__DIR__ . '/fixtures/user_reports_dataset_insert.xml')
 			->getTable('tiki_user_reports');
@@ -75,7 +75,7 @@ class Reports_UsersTest extends TikiDatabaseTestCase
 		$this->assertTablesEqual($expectedTable, $queryTable);
 	}
 
-	public function testSave_shouldUpdateData()
+	public function testSaveShouldUpdateData()
 	{
 		$expectedTable = $this->createMySQLXmlDataSet(__DIR__ . '/fixtures/user_reports_dataset_update.xml')
 			->getTable('tiki_user_reports');
@@ -87,7 +87,7 @@ class Reports_UsersTest extends TikiDatabaseTestCase
 		$this->assertTablesEqual($expectedTable, $queryTable);
 	}
 
-	public function testAddUserToDailyReport_shouldCallSave()
+	public function testAddUserToDailyReportShouldCallSave()
 	{
 		$obj = $this->getMockBuilder('Reports_Users')
 			->onlyMethods(['save'])
@@ -98,14 +98,14 @@ class Reports_UsersTest extends TikiDatabaseTestCase
 		$obj->addUserToDailyReports(['user' => 'test']);
 	}
 
-	public function testGetUsersForReport_shouldReturnArrayWithUsers()
+	public function testGetUsersForReportShouldReturnArrayWithUsers()
 	{
 		$expectedResult = ['test'];
 		$users = $this->obj->getUsersForReport();
 		$this->assertEquals($expectedResult, $users);
 	}
 
-	public function testGetUsersForReport_shouldIncludeNewlyCreatedUsersWithLastReportFieldEmpty()
+	public function testGetUsersForReportShouldIncludeNewlyCreatedUsersWithLastReportFieldEmpty()
 	{
 		$this->db->query(
 			"INSERT INTO `tiki_user_reports` (`user`, `interval`, `view`, `type`, `always_email`)
@@ -117,7 +117,7 @@ class Reports_UsersTest extends TikiDatabaseTestCase
 		$this->assertEquals($expectedResult, $users);
 	}
 
-	public function testUpdateLastReport_shouldUpdateLastReportField()
+	public function testUpdateLastReportShouldUpdateLastReportField()
 	{
 		$expectedTable = $this->createMySQLXmlDataSet(__DIR__ . '/fixtures/user_reports_dataset_update_last_report.xml')
 			->getTable('tiki_user_reports');
@@ -132,7 +132,7 @@ class Reports_UsersTest extends TikiDatabaseTestCase
 		$this->assertTablesEqual($expectedTable, $queryTable);
 	}
 
-	public function testGetAllUsers_shouldReturnAllUsers()
+	public function testGetAllUsersShouldReturnAllUsers()
 	{
 		$users = $this->obj->getAllUsers();
 		$this->assertEquals(['admin', 'test'], $users);

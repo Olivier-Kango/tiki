@@ -35,10 +35,10 @@ class Tiki_Command_ListExecute_ExecuteTest extends TikiTestCase
 
 		require_once(__DIR__ . '/../../../../TestHelpers.php');
 
-		$testhelpers->simulate_tiki_script_context();
+		$testhelpers->simulateTikiScriptContext();
 
 		TikiLib::lib('tiki')->query('TRUNCATE TABLE tiki_plugin_security');
-		$testhelpers->remove_all_versions(self::PAGE_NAME);
+		$testhelpers->removeAllVersions(self::PAGE_NAME);
 
 		$application = new Application();
 		$application->add(new ListExecuteCommand());
@@ -46,7 +46,7 @@ class Tiki_Command_ListExecute_ExecuteTest extends TikiTestCase
 		$command = $application->find('list:execute');
 		$this->commandTester = new CommandTester($command);
 
-		$testhelpers->create_page(self::PAGE_NAME, 0, self::CONTENT_FOR_FINGERPRINT);
+		$testhelpers->createPage(self::PAGE_NAME, 0, self::CONTENT_FOR_FINGERPRINT);
 	}
 
 	protected function tearDown(): void
@@ -55,7 +55,7 @@ class Tiki_Command_ListExecute_ExecuteTest extends TikiTestCase
 
 		parent::tearDown();
 
-		$testhelpers->reset_all();
+		$testhelpers->resetAll();
 	}
 
 	/**

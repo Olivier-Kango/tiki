@@ -63,14 +63,14 @@ class MultilingualLibTest extends TikiTestCase
 
 	/**
 	 * @group multilingual
-	 * @dataProvider dataProvider_translateLinksInPageContent
+	 * @dataProvider dataProviderTranslateLinksInPageContent
 	 * @param $src_content
 	 * @param $targ_lang
 	 * @param $exp_translated_content
 	 * @param $message
 	 * @throws Exception
 	 */
-	public function test_translateLinksInPageContent($src_content, $targ_lang, $exp_translated_content, $message)
+	public function testTranslateLinksInPageContent($src_content, $targ_lang, $exp_translated_content, $message)
 	{
 		$multilinguallib = TikiLib::lib('multilingual');
 		$got_translated_content = $multilinguallib->translateLinksInPageContent($src_content, $targ_lang);
@@ -83,7 +83,7 @@ class MultilingualLibTest extends TikiTestCase
 	}
 
 
-	public function dataProvider_translateLinksInPageContent()
+	public function dataProviderTranslateLinksInPageContent()
 	{
 		return [
 
@@ -106,7 +106,7 @@ class MultilingualLibTest extends TikiTestCase
 
 	/**
 	 * @group multilingual
-	 * @dataProvider dataProvider_defaultTargetLanguageForNewTranslation
+	 * @dataProvider dataProviderDefaultTargetLanguageForNewTranslation
 	 * @param $src_lang
 	 * @param $langs_already_translated
 	 * @param $user_langs
@@ -114,7 +114,7 @@ class MultilingualLibTest extends TikiTestCase
 	 * @param $message
 	 * @throws Exception
 	 */
-	public function test_defaultTargetLanguageForNewTranslation(
+	public function testDefaultTargetLanguageForNewTranslation(
 		$src_lang,
 		$langs_already_translated,
 		$user_langs,
@@ -128,7 +128,7 @@ class MultilingualLibTest extends TikiTestCase
 		$this->assertEquals($got_lang, $exp_lang, $message . "\nThe default target language was not as expected.");
 	}
 
-	public function dataProvider_defaultTargetLanguageForNewTranslation()
+	public function dataProviderDefaultTargetLanguageForNewTranslation()
 	{
 		return [
 
@@ -145,14 +145,14 @@ class MultilingualLibTest extends TikiTestCase
 
 	/**
 	 * @group multilingual
-	 * @dataProvider dataProvider_partiallyPretranslateContentOfPage
+	 * @dataProvider dataProviderPartiallyPretranslateContentOfPage
 	 * @param $source_page
 	 * @param $targ_lang
 	 * @param $exp_pretranslation
 	 * @param $message
 	 * @throws Exception
 	 */
-	public function test_partiallyPretranslateContentOfPage($source_page, $targ_lang, $exp_pretranslation, $message)
+	public function testPartiallyPretranslateContentOfPage($source_page, $targ_lang, $exp_pretranslation, $message)
 	{
 		$multilinguallib = TikiLib::lib('multilingual');
 
@@ -160,7 +160,7 @@ class MultilingualLibTest extends TikiTestCase
 		$this->assertEquals($got_pretranslation, $exp_pretranslation, "$message\nSource page was not properly pretranslated.");
 	}
 
-	public function dataProvider_partiallyPretranslateContentOfPage()
+	public function dataProviderPartiallyPretranslateContentOfPage()
 	{
 		return [
 			["SomePage", "fr",

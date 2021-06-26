@@ -34,7 +34,7 @@ class Reports_EndToEndTest extends TikiDatabaseTestCase
 		return $this->createMySQLXMLDataSet(__DIR__ . '/fixtures/end_to_end_test_dataset.xml');
 	}
 
-	public function testReportsEndToEnd_shouldUpdateLastReportFieldInUsersTable()
+	public function testReportsEndToEndShouldUpdateLastReportFieldInUsersTable()
 	{
 		$this->obj->send();
 
@@ -45,7 +45,7 @@ class Reports_EndToEndTest extends TikiDatabaseTestCase
 		$this->assertTablesEqual($expectedUserReportsTable, $queryUserReportsTable);
 	}
 
-	public function testReportsEndToEnd_shouldCleanReportsCacheAfterSendingMessages()
+	public function testReportsEndToEndShouldCleanReportsCacheAfterSendingMessages()
 	{
 		$this->obj->send();
 
@@ -55,7 +55,7 @@ class Reports_EndToEndTest extends TikiDatabaseTestCase
 		$this->assertEquals(0, $queryCacheTable->getRowCount());
 	}
 
-	public function testReportsEndToEnd_shouldSendEmail()
+	public function testReportsEndToEndShouldSendEmail()
 	{
 		$this->mail->expects($this->once())->method('setUser')->with('test');
 		$this->mail->expects($this->once())->method('setHtml')->with(file_get_contents(__DIR__ . '/fixtures/email_body.txt'));

@@ -7,7 +7,7 @@
 
 class Reports_FactoryTest extends TikiTestCase
 {
-	public function testBuild_shouldReturnInstances()
+	public function testBuildShouldReturnInstances()
 	{
 		$classes = ['Reports_Users', 'Reports_Cache', 'Reports_Manager', 'Reports_Send'];
 
@@ -16,7 +16,7 @@ class Reports_FactoryTest extends TikiTestCase
 		}
 	}
 
-	public function testBuild_shouldThrowExceptionForUnknownClass()
+	public function testBuildShouldThrowExceptionForUnknownClass()
 	{
 		$this->expectException('Exception');
 		Reports_Factory::build('Unknown_Class');

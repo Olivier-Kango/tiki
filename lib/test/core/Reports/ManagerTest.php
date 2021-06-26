@@ -23,7 +23,7 @@ class Reports_ManagerTest extends TikiTestCase
 		$this->obj = new Reports_Manager($this->reportsUsers, $this->reportsCache, $this->reportsSend, $this->usersLib);
 	}
 
-	public function testDelete_shouldCallMethodToDeleteUserPreferenceAndMethodToDeleteCache()
+	public function testDeleteShouldCallMethodToDeleteUserPreferenceAndMethodToDeleteCache()
 	{
 		$user = 'test';
 
@@ -33,7 +33,7 @@ class Reports_ManagerTest extends TikiTestCase
 		$this->obj->delete($user);
 	}
 
-	public function testAddToCache_shouldGetUsersUsingPeriodicReportsAndCallMethodToAddToCache()
+	public function testAddToCacheShouldGetUsersUsingPeriodicReportsAndCallMethodToAddToCache()
 	{
 		$watches = [
 			['user' => 'admin'],
@@ -53,7 +53,7 @@ class Reports_ManagerTest extends TikiTestCase
 		$this->obj->addToCache($watches, $data);
 	}
 
-	public function testSave_shouldCallReportsUsersSave()
+	public function testSaveShouldCallReportsUsersSave()
 	{
 		$user = 'admin';
 		$interval = 'daily';

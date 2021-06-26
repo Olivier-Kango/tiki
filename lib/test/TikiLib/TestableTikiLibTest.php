@@ -7,7 +7,7 @@
 
 class TestableTikiLibTest extends TikiTestCase
 {
-	public function testOverrideLib_shouldChangeValueReturnedByLib(): void
+	public function testOverrideLibShouldChangeValueReturnedByLib(): void
 	{
 		$obj = new TestableTikiLib;
 
@@ -16,7 +16,7 @@ class TestableTikiLibTest extends TikiTestCase
 		$this->assertInstanceOf(stdClass::class, TikiLib::lib('tiki'));
 	}
 
-	public function testOverrideLib_shouldRestoreDefaultValueAfterObjectDestruction(): void
+	public function testOverrideLibShouldRestoreDefaultValueAfterObjectDestruction(): void
 	{
 		$obj = new TestableTikiLib;
 
@@ -28,7 +28,7 @@ class TestableTikiLibTest extends TikiTestCase
 		$this->assertInstanceOf(TikiLib::class, TikiLib::lib('tiki'));
 	}
 
-	public function testOverrideLib_shouldWorkWithMockObjects(): void
+	public function testOverrideLibShouldWorkWithMockObjects(): void
 	{
 		$obj = new TestableTikiLib;
 
@@ -40,7 +40,7 @@ class TestableTikiLibTest extends TikiTestCase
 		$this->assertStringContainsString('Mock_CalendarLib_', get_class(TikiLib::lib('calendar')));
 	}
 
-	public function testOverrideLib_checkIfLibReturnedToOriginalStateAfterLastTest(): void
+	public function testOverrideLibCheckIfLibReturnedToOriginalStateAfterLastTest(): void
 	{
 		$this->assertInstanceOf(CalendarLib::class, TikiLib::lib('calendar'));
 	}

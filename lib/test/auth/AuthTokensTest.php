@@ -193,13 +193,13 @@ class AuthTokensTest extends TikiDatabaseTestCase
 		$this->assertRegExp('/TOKEN=[a-z0-9]{32}#Test/i', $new);
 	}
 
-	public function testGetTokens_shouldReturnEmptyArrayIfNoToken(): void
+	public function testGetTokensShouldReturnEmptyArrayIfNoToken(): void
 	{
 		$this->db->query('TRUNCATE tiki_auth_tokens');
 		$this->assertEquals([], $this->obj->getTokens());
 	}
 
-	public function testGetTokens_shouldReturnAllTokens(): void
+	public function testGetTokensShouldReturnAllTokens(): void
 	{
 		$token1 = '91bba2f998b48fce0146016809886127';
 		$token2 = '823bde97a717c55b2cfbf9fbd6c81816';
@@ -223,7 +223,7 @@ class AuthTokensTest extends TikiDatabaseTestCase
 		$this->assertEmpty($this->table->fetchRow(['entry'], ['tokenId' => $tokenId]));
 	}
 
-	public function testGetGroups_shouldDeleteExpiredTokens(): void
+	public function testGetGroupsShouldDeleteExpiredTokens(): void
 	{
 		$expectedTable = $this->createMySQLXmlDataSet(__DIR__ . '/fixtures/auth_tokens_dataset_delete_timeout.xml')
 			->getTable('tiki_auth_tokens');
@@ -235,7 +235,7 @@ class AuthTokensTest extends TikiDatabaseTestCase
 		self::assertTablesEqual($expectedTable, $queryTable);
 	}
 
-	public function testGetGroups_shouldDeleteTokensWithoutHitsLeft(): void
+	public function testGetGroupsShouldDeleteTokensWithoutHitsLeft(): void
 	{
 		// 2012-02-01 13:25:07
 		$this->dt->setTimestamp('1328109907');
@@ -253,14 +253,14 @@ class AuthTokensTest extends TikiDatabaseTestCase
 		self::assertTablesEqual($expectedTable, $queryTable);
 	}
 
-	public function testGetGroups_shouldDecrementHits(): void
+	public function testGetGroupsShouldDecrementHits(): void
 	{
 		$this->obj->getGroups('e2990f7983b7b6c46b3987536aa38d32', 'tiki-index.php', []);
 
 		$this->assertEquals('9', $this->db->getOne('SELECT hits FROM tiki_auth_tokens WHERE tokenId = 3'));
 	}
 
-	public function testGetGroups_shouldDecrementIfUnlimitedHits(): void
+	public function testGetGroupsShouldDecrementIfUnlimitedHits(): void
 	{
 		$this->db->query('UPDATE tiki_auth_tokens set maxHits = -1, hits = -1 WHERE tokenId = 3');
 

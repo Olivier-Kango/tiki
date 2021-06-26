@@ -9,7 +9,7 @@
  * @group unit
  *
  */
-class JitFilter_FilterTest extends TikiTestCase
+class JitFilterFilterTest extends TikiTestCase
 {
 	private $array;
 

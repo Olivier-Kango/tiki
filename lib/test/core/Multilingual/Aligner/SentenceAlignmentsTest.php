@@ -13,7 +13,7 @@
 class Multilingual_Aligner_SentenceAlignmentsTest extends TikiTestCase
 {
 
-	public function ___test_reminder()
+	public function ___testReminder()
 	{
 		$this->fail("remember to reactivate all tests in SentenceAlignments");
 	}
@@ -31,7 +31,7 @@ class Multilingual_Aligner_SentenceAlignmentsTest extends TikiTestCase
 	/**
 	 * @group multilingual
 	 */
-	public function this_is_how_you_create_a_SentenceAlignments()
+	public function thisIsHowYouCreateAsentenceAlignments()
 	{
 		$aligner = new Multilingual_Aligner_SentenceAlignments();
 	}
@@ -50,7 +50,7 @@ class Multilingual_Aligner_SentenceAlignmentsTest extends TikiTestCase
 	/**
 	 * @group multilingual
 	 */
-	public function test_This_is_how_you_add_sentences()
+	public function testThisIsHowYouAddSentences()
 	{
 		$en_sentence = "hello world";
 		$fr_sentence = "bonjour le monde";
@@ -63,7 +63,7 @@ class Multilingual_Aligner_SentenceAlignmentsTest extends TikiTestCase
 	/**
 	 * @group multilingual
 	 */
-	public function __test_This_is_how_you_retrieve_a_sentence_in_the_other_language()
+	public function __testThisIsHowYouRetrieveAsentenceInTheOtherLanguage()
 	{
 		$en_sentence = "hello world";
 		$fr_sentence = $this->alignments->getSentenceInOtherLanguage($en_sentence, 'en');

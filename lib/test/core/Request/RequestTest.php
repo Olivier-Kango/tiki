@@ -43,17 +43,17 @@ class RequestTest extends TikiTestCase
 		}
 	}
 
-	public function testConstruct_shouldSetHttpRequestProperties()
+	public function testConstructShouldSetHttpRequestProperties()
 	{
 		$this->assertTrue(true);
 	}
 
-	public function testGetProperty_shouldReturnNullIfPropertyNotSet()
+	public function testGetPropertyShouldReturnNullIfPropertyNotSet()
 	{
 		$this->assertNull($this->obj->getProperty('invalidKey'));
 	}
 
-	public function testGetAndSetProperty_shouldSetAndReturnPropertyValue()
+	public function testGetAndSetPropertyShouldSetAndReturnPropertyValue()
 	{
 		$this->obj->setProperty('someKey', 'someValue');
 		$this->assertEquals('someValue', $this->obj->getProperty('someKey'));
@@ -65,12 +65,12 @@ class RequestTest extends TikiTestCase
 		$this->assertEquals('overrideValue', $this->obj->getProperty('otherKey'));
 	}
 
-	public function testHasProperty_shouldReturnFalse()
+	public function testHasPropertyShouldReturnFalse()
 	{
 		$this->assertFalse($this->obj->hasProperty('invalidKey'));
 	}
 
-	public function testHasProperty_shouldReturnTrue()
+	public function testHasPropertyShouldReturnTrue()
 	{
 		$this->obj->setProperty('someKey', 'someValue');
 		$this->assertTrue($this->obj->hasProperty('someKey'));

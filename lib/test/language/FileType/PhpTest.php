@@ -18,7 +18,7 @@ class Language_FileType_PhpTest extends TikiTestCase
 		$this->obj = new Language_FileType_Php();
 	}
 
-	public function testSingleQuoted_shouldRemoveEscapesFromSingleQuotes()
+	public function testSingleQuotedShouldRemoveEscapesFromSingleQuotes()
 	{
 		$strings = [
 			'Features',
@@ -37,7 +37,7 @@ class Language_FileType_PhpTest extends TikiTestCase
 		$this->assertEquals($expectedResult, $this->obj->singleQuoted($strings));
 	}
 
-	public function testDoubleQuoted_shouldRemoveEscapes()
+	public function testDoubleQuotedShouldRemoveEscapes()
 	{
 		$strings = [
 			'Congratulations!\n\nYour server can send emails.\n\n',

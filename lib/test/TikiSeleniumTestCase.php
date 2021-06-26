@@ -66,7 +66,7 @@ class TikiSeleniumTestCase extends PHPUnit_Extensions_Selenium2TestCase
 
 	public function logInIfNecessaryAs($my_user)
 	{
-		if (! $this->_login_as($my_user)) {
+		if (! $this->loginAs($my_user)) {
 			die("Couldn't log in as $my_user!");
 		}
 	}
@@ -113,7 +113,7 @@ class TikiSeleniumTestCase extends PHPUnit_Extensions_Selenium2TestCase
 		}
 	}
 
-	private function _login_as($user)
+	private function loginAs($user)
 	{
 		if ($this->isElementPresent("sl-login-user")) {
 			$password = $this->user_credentials[$user];
@@ -127,7 +127,7 @@ class TikiSeleniumTestCase extends PHPUnit_Extensions_Selenium2TestCase
 		return true;
 	}
 
-	public function implode_with_key($glue = null, $pieces, $hifen = '=>')
+	public function implodeWithKey($glue = null, $pieces, $hifen = '=>')
 	{
 		$return = null;
 		foreach ($pieces as $tk => $tv) {

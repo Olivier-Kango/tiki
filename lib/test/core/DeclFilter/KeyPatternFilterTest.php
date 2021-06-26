@@ -10,7 +10,7 @@
  *
  */
 
-class DeclFilter_KeyPatternFilterTest extends TikiTestCase
+class DeclFilterKeyPatternFilterTest extends TikiTestCase
 {
 	public function testMatch()
 	{

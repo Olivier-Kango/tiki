@@ -25,7 +25,7 @@ class WikiLibTest extends TestCase
 		global $testhelpers;
 
 		require_once(__DIR__ . '/../TestHelpers.php');
-		$testhelpers->simulate_tiki_script_context();
+		$testhelpers->simulateTikiScriptContext();
 
 		require_once(__DIR__ . '/../../../lib/wiki/renderlib.php');
 	}
@@ -34,9 +34,9 @@ class WikiLibTest extends TestCase
 	{
 		global $testhelpers;
 
-		$testhelpers->remove_all_versions($this->pageName);
+		$testhelpers->removeAllVersions($this->pageName);
 
-		$testhelpers->stop_simulating_tiki_script_context();
+		$testhelpers->stopSimulatingTikiScriptContext();
 	}
 
 	/**
@@ -63,7 +63,7 @@ Some text
 Some more text
 ';
 
-		$testhelpers->create_page($this->pageName, 0, $pageContent);
+		$testhelpers->createPage($this->pageName, 0, $pageContent);
 
 		// processPageDisplayOptions needs this
 		$_REQUEST['page'] = $this->pageName;

@@ -36,4 +36,4 @@ $dbTiki->Connect($host_tiki, $user_tiki, $pass_tiki, $dbs_tiki);
 $installer = Installer::getInstance();
 $installer->update();
 
-$test_TikiAcceptanceTestDBRestorer->create_dump_file($argv[1]);
+$test_TikiAcceptanceTestDBRestorer->createDumpFile($argv[1]);

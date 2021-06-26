@@ -41,7 +41,7 @@ class Rating_AggregationTest extends TikiTestCase
 		parent::tearDown();
 		TikiDb::get()->query('DELETE FROM `tiki_user_votings` WHERE `id` LIKE ?', ['test.%']);
 
-		$testhelpers->reset_all();
+		$testhelpers->resetAll();
 		$prefs['rating_default_options'] = $this->ratingDefaultOptions;
 		$prefs['rating_allow_multi_votes'] = $this->ratingAllowMultipleVotes;
 	}
