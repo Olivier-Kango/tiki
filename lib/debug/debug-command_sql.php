@@ -17,31 +17,31 @@ require_once('lib/debug/debugger-ext.php');
 class DbgSQLQuery extends DebuggerCommand
 {
 	/// \b Must have function to announce command name in debugger console
-	function name()
+	public function name()
 	{
 		return 'sql';
 	}
 
 	/// \b Must have function to provide help to debugger console
-	function description()
+	public function description()
 	{
 		return 'Exec SQL query on Tiki DB';
 	}
 
 	/// \b Must have function to provide help to debugger console
-	function syntax()
+	public function syntax()
 	{
 		return 'sql [sql-query]';
 	}
 
 	/// \b Must have function to show example of usage of given command
-	function example()
+	public function example()
 	{
 		return 'sql select * from tiki_preferences';
 	}
 
 	/// Execute command with given set of arguments.
-	function execute($params)
+	public function execute($params)
 	{
 		//
 		// Due to limitations of Smarty, I am forced to use

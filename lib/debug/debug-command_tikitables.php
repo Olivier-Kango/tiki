@@ -17,31 +17,31 @@ require_once('lib/debug/debugger-ext.php');
 class DbgSQLTables extends DebuggerCommand
 {
 	/// \b Must have function to announce command name in debugger console
-	function name()
+	public function name()
 	{
 		return 'tikitables';
 	}
 
 	/// \b Must have function to provide help to debugger console
-	function description()
+	public function description()
 	{
 		return 'Show list of Tiki tables in DB schema';
 	}
 
 	/// \b Must have function to provide help to debugger console
-	function syntax()
+	public function syntax()
 	{
 		return 'tikitables [partial-name]';
 	}
 
 	/// \b Must have function to show example of usage of given command
-	function example()
+	public function example()
 	{
 		return 'tikitables' . "\n" . 'tikitables user' . "\n" . 'tikitables ions$';
 	}
 
 	/// Execute command with given set of arguments.
-	function execute($params)
+	public function execute($params)
 	{
 		$this->set_result_type(TPL_RESULT);
 

@@ -34,13 +34,13 @@ class TikiImporter_Wiki_Mediawiki extends TikiImporter_Wiki
 	 * The directory used to save the attachments.
 	 * It is defined on $this->import()
 	 */
-	var $attachmentsDestDir = '';
+	public $attachmentsDestDir = '';
 
 	/**
 	 * Text_Wiki object to handle Mediawiki
 	 * syntax parsing
 	 */
-	var $parser = '';
+	public $parser = '';
 
 	/**
 	 * @see lib/importer/TikiImporter#importOptions()
@@ -71,7 +71,7 @@ class TikiImporter_Wiki_Mediawiki extends TikiImporter_Wiki
 	 * @return void
 	 * @throws Exception if DOMDocument not available
 	 */
-	function checkRequirements()
+	public function checkRequirements()
 	{
 		if (! class_exists('DOMDocument')) {
 			throw new Exception(tra('Class DOMDocument not available, check your PHP installation. For more information see http://php.net/manual/en/book.dom.php'));
@@ -87,7 +87,7 @@ class TikiImporter_Wiki_Mediawiki extends TikiImporter_Wiki
 	 * @return void
 	 * @throws UnexpectedValueException if invalid file mime type
 	 */
-	function import($filePath = null)
+	public function import($filePath = null)
 	{
 		if ($filePath == null) {
 			die("This particular implementation of the method requires an explicity file path.");
@@ -120,7 +120,7 @@ class TikiImporter_Wiki_Mediawiki extends TikiImporter_Wiki
 	 * of Mediawiki syntax and define some configuration
 	 * option
 	 */
-	function configureParser()
+	public function configureParser()
 	{
 		$this->parser = Text_Wiki::factory('Mediawiki');
 
@@ -153,7 +153,7 @@ class TikiImporter_Wiki_Mediawiki extends TikiImporter_Wiki
 	 *
 	 * @throws DOMException if XML file does not validate against schema
 	 */
-	function validateInput()
+	public function validateInput()
 	{
 		$mediawiki = $this->dom->getElementsByTagName('mediawiki');
 
@@ -191,7 +191,7 @@ class TikiImporter_Wiki_Mediawiki extends TikiImporter_Wiki
 	 *
 	 * @returns void
 	 */
-	function checkRequirementsForAttachments()
+	public function checkRequirementsForAttachments()
 	{
 		global $tikidomain;
 
@@ -238,7 +238,7 @@ class TikiImporter_Wiki_Mediawiki extends TikiImporter_Wiki
 	 *
 	 * @return array $parsedData
 	 */
-	function parseData()
+	public function parseData()
 	{
 		$parsedData = [];
 		$pages = $this->dom->getElementsByTagName('page');
@@ -272,7 +272,7 @@ class TikiImporter_Wiki_Mediawiki extends TikiImporter_Wiki
 	 *
 	 * @return void
 	 */
-	function downloadAttachments()
+	public function downloadAttachments()
 	{
 		$pages = $this->dom->getElementsByTagName('page');
 
@@ -336,7 +336,7 @@ class TikiImporter_Wiki_Mediawiki extends TikiImporter_Wiki
 	 * @return array $data information for one wiki page
 	 * @throws ImporterParserException if fail to parse all revisions of a page
 	 */
-	function extractInfo(DOMElement $page)
+	public function extractInfo(DOMElement $page)
 	{
 		$data = [];
 		$data['revisions'] = [];
@@ -407,7 +407,7 @@ class TikiImporter_Wiki_Mediawiki extends TikiImporter_Wiki
 	 * @return array $data information for one wiki page revision
 	 * @throws ImporterParserException if unable to parse revision content
 	 */
-	function extractRevision(DOMElement $revision)
+	public function extractRevision(DOMElement $revision)
 	{
 		global $prefs;
 		$data = [];
@@ -457,7 +457,7 @@ class TikiImporter_Wiki_Mediawiki extends TikiImporter_Wiki
 	/**
 	 * Extracts the categories from the page data
 	 **/
-	function extractCategories(&$data)
+	public function extractCategories(&$data)
 	{
 		if (preg_match_all('/(\(\(Category:(\s*[^\)]+\s*)\)\)\s*)/', $data['data'], $matches)) {
 			foreach ($matches[1] as $match) {
@@ -474,7 +474,7 @@ class TikiImporter_Wiki_Mediawiki extends TikiImporter_Wiki
 	 * @param DOMElement $contributor
 	 * @return array $data
 	 */
-	function extractContributor(DOMElement $contributor)
+	public function extractContributor(DOMElement $contributor)
 	{
 		$data = [];
 
@@ -513,7 +513,7 @@ class TikiImporter_Wiki_Mediawiki extends TikiImporter_Wiki
 	 * @param string $mediawikiText
 	 * @return string $tikiText
 	 */
-	function convertMarkup($mediawikiText)
+	public function convertMarkup($mediawikiText)
 	{
 		if (! empty($mediawikiText)) {
 			$tikiText = $this->parser->transform($mediawikiText, 'Tiki');

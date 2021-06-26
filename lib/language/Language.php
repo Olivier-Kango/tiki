@@ -154,7 +154,7 @@ class Language extends TikiDb_Bridge
 	 * @param bool $all
 	 * @return array|mixed
 	 */
-	static function list_languages($path = false, $short = null, $all = false)
+	public static function list_languages($path = false, $short = null, $all = false)
 	{
 		global $prefs;
 
@@ -204,7 +204,7 @@ class Language extends TikiDb_Bridge
 	/**
 	 * @return array
 	 */
-	static function get_language_map()
+	public static function get_language_map()
 	{
 		$languages = self::list_languages();
 
@@ -220,7 +220,7 @@ class Language extends TikiDb_Bridge
 	 * @param $language
 	 * @return bool
 	 */
-	function is_valid_language($language)
+	public function is_valid_language($language)
 	{
 		return preg_match("/^[a-zA-Z-_]*$/", $language)
 			&& file_exists('lang/' . $language . '/language.php');
@@ -232,7 +232,7 @@ class Language extends TikiDb_Bridge
 	 * @param $b
 	 * @return int
 	 */
-	static function formatted_language_compare($a, $b)
+	public static function formatted_language_compare($a, $b)
 	{
 		return strcasecmp($a['name'], $b['name']);
 	}
@@ -244,7 +244,7 @@ class Language extends TikiDb_Bridge
 	 * @param bool $all
 	 * @return array
 	 */
-	static function format_language_list($languages, $short = null, $all = false)
+	public static function format_language_list($languages, $short = null, $all = false)
 	{
 		// The list of available languages so far with both English and
 		// translated names.

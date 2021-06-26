@@ -21,16 +21,16 @@ define('DBG_PLUGINS_DIR', 'lib/debug');
 class Debugger extends ResultType
 {
   /// Array of found command providers
-	var $commands;
+	public $commands;
 
   ///Index of interface extension found as external debugger command
-	var $noname_cmd_idx;
+	public $noname_cmd_idx;
 
   /// Array of user logged messages. Elements are stored with keys 'timestamp' and 'msg'
-	var $dmsgs;
+	public $dmsgs;
 
   /// Constructor
-	function __construct()
+	public function __construct()
 	{
 	  // Call base constructor
 		parent::__construct();
@@ -42,7 +42,7 @@ class Debugger extends ResultType
 	}
 
   /// Rebuild commands list
-	function rescan_for_commands()
+	public function rescan_for_commands()
 	{
 		$files = [];
 		if (is_dir(DBG_PLUGINS_DIR)) {
@@ -79,7 +79,7 @@ class Debugger extends ResultType
 	}
 
   /// Handle user typed command
-	function execute($rawcmd)
+	public function execute($rawcmd)
 	{
 		$this->reset();
 		$rawcmd = trim($rawcmd);
@@ -140,7 +140,7 @@ class Debugger extends ResultType
 	}
 
   /// Request from interface module to draw plugable parts...
-	function background_tabs_draw()
+	public function background_tabs_draw()
 	{
 		$result = [];
 		foreach ($this->commands as $cmd) {
@@ -151,7 +151,7 @@ class Debugger extends ResultType
 		return $result;
 	}
   /// Store user messages...
-	function msg($s)
+	public function msg($s)
 	{
 		$this->dmsgs[] = ["timestamp" => time(), "msg" => $s];
 	}
@@ -160,7 +160,7 @@ class Debugger extends ResultType
    * \todo Need to rename all local variables to smth realy unique
    *       (smth that user never guess and try to print :)
    */
-	function str_var_dump($v)
+	public function str_var_dump($v)
 	{
 		$result = '';
 		$v = trim($v);
@@ -177,7 +177,7 @@ class Debugger extends ResultType
 		}
 		return $result;
 	}
-	function var_dump($v)
+	public function var_dump($v)
 	{
 		$this->dmsgs[] = ["timestamp" => time(), "msg" => $this->str_var_dump($v)];
 	}

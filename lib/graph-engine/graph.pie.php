@@ -14,15 +14,15 @@ require_once 'lib/graph-engine/core.php';
  */
 class PieChartGraphic extends Graphic
 {
-	var $pie_data;
+	public $pie_data;
 
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct();
 		$this->pie_data = [];
 	}
 
-	function getRequiredSeries()
+	public function getRequiredSeries()
 	{
 		return [
 			'label' => false,
@@ -32,7 +32,7 @@ class PieChartGraphic extends Graphic
 		];
 	}
 
-	function _handleData($data)
+	public function _handleData($data)
 	{
 		$elements = count($data['value']);
 
@@ -65,7 +65,7 @@ class PieChartGraphic extends Graphic
 		return true;
 	}
 
-	function _drawContent(&$renderer)
+	public function _drawContent(&$renderer)
 	{
 		$layout = $this->_layout();
 		$centerX = $layout['pie-center-x'];
@@ -89,12 +89,12 @@ class PieChartGraphic extends Graphic
 		}
 	}
 
-	function _drawLegendBox(&$renderer, $color)
+	public function _drawLegendBox(&$renderer, $color)
 	{
 		$renderer->drawRectangle(0, 0, 1, 1, $renderer->getStyle("FillStroke-$color"));
 	}
 
-	function _default()
+	public function _default()
 	{
 		return array_merge(
 			parent::_default(),

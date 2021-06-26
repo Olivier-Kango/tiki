@@ -16,7 +16,7 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
  */
 class mime
 {
-	function __construct()
+	public function __construct()
 	{
 	}
 
@@ -26,7 +26,7 @@ class mime
 	 * @param string $crlf
 	 * @return array|bool
 	 */
-	function decode($input, $default_ctype = 'text/plain', $crlf = "\r\n")
+	public function decode($input, $default_ctype = 'text/plain', $crlf = "\r\n")
 	{
 		$back = [];
 
@@ -150,7 +150,7 @@ class mime
 			switch (strtolower($content_type['value'])) {
 				case 'text/html':
 					$type = 'html';
-
+					// no break;
 				case 'text/plain':
 					if (! empty($content_disposition) && $content_disposition['value'] == 'attachment') {
 						$back['attachments'][] = $back['d_parameters'];
@@ -218,7 +218,7 @@ class mime
 	 * @param string $encoding
 	 * @return mixed|string
 	 */
-	function decodeBody($input, $encoding = '7bit')
+	public function decodeBody($input, $encoding = '7bit')
 	{
 		switch ($encoding) {
 			case '7bit':
@@ -245,7 +245,7 @@ class mime
 	 * @param $type string			text or html
 	 * @return string
 	 */
-	function getPartBody($decodedMail, $type)
+	public function getPartBody($decodedMail, $type)
 	{
 		$body = '';
 
@@ -299,7 +299,7 @@ class mime
 	 * @param $output
 	 * @return array
 	 */
-	function get_bodies($output)
+	public function get_bodies($output)
 	{
 			$bodies = [];	/* BUG: only one body for the moment */
 		if (isset($output['text'][0])) {
@@ -319,7 +319,7 @@ class mime
 	 * @param $output
 	 * @return array
 	 */
-	function get_attachments($output)
+	public function get_attachments($output)
 	{
 		$cnt = 0;
 		$attachments = [];

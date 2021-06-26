@@ -30,13 +30,13 @@ require_once('lib/debug/debugger-ext.php');
 class DebuggerCommand_Test extends DebuggerCommand
 {
 	/// \b Must have function to announce command name in debugger console
-	function name()
+	public function name()
 	{
 		return 'test';
 	}
 
 	/// Execute command with given set of arguments. Must return string of result.
-	function execute($params)
+	public function execute($params)
 	{
 		// NOTE: Don't forget to set result type! By default it is NO_RESULT.
 		$this->set_result_type(TEXT_RESULT);

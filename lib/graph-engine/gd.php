@@ -16,18 +16,18 @@ require_once('lib/graph-engine/core.php');
 
 class GD_GRenderer extends GRenderer // {{{1
 {
-	var $gd;
-	var $styles;
-	var $colors;
-	var $fonts;
+	public $gd;
+	public $styles;
+	public $colors;
+	public $fonts;
 
-	var $format;
-	var $width;
-	var $height;
+	public $format;
+	public $width;
+	public $height;
 
-	var $imageMap;
+	public $imageMap;
 
-	function __construct($width = 0, $height = 0, $format = 'png') // {{{2
+	public function __construct($width = 0, $height = 0, $format = 'png') // {{{2
 	{
 		// Null size does not create a graphic.
 		$this->styles = [];
@@ -44,7 +44,7 @@ class GD_GRenderer extends GRenderer // {{{1
 		$this->height = $height;
 	}
 
-	function addLink($target, $left, $top, $right, $bottom, $title = null) // {{{2
+	public function addLink($target, $left, $top, $right, $bottom, $title = null) // {{{2
 	{
 		$this->_convertPosition($left, $top);
 		$this->_convertPosition($right, $bottom);
@@ -54,7 +54,7 @@ class GD_GRenderer extends GRenderer // {{{1
 		$this->imageMap .= "<area shape=\"rect\" coords=\"$left,$top,$right,$bottom\" href=\"$target\" alt=\"$title\" title=\"$title\"/>\n";
 	}
 
-	function drawLine($x1, $y1, $x2, $y2, $style) // {{{2
+	public function drawLine($x1, $y1, $x2, $y2, $style) // {{{2
 	{
 		$this->_convertPosition($x1, $y1);
 		$this->_convertPosition($x2, $y2);
@@ -62,7 +62,7 @@ class GD_GRenderer extends GRenderer // {{{1
 		imageline($this->gd, $x1, $y1, $x2, $y2, $style['line']);
 	}
 
-	function drawRectangle($left, $top, $right, $bottom, $style) // {{{2
+	public function drawRectangle($left, $top, $right, $bottom, $style) // {{{2
 	{
 		if ($top > $bottom) {
 			// Filled rect has a problem when coordinates are inverted.
@@ -88,7 +88,7 @@ class GD_GRenderer extends GRenderer // {{{1
 		imagerectangle($this->gd, $left, $top, $right, $bottom, $style['line']);
 	}
 
-	function drawPie($centerX, $centerY, $radius, $begin, $end, $style) // {{{2
+	public function drawPie($centerX, $centerY, $radius, $begin, $end, $style) // {{{2
 	{
 		$radius = $radius * 2;
 		if ($begin != 0 || $end != 360) {
@@ -105,7 +105,7 @@ class GD_GRenderer extends GRenderer // {{{1
 		imagefilledarc($this->gd, $centerX, $centerY, $radius, $radius, $begin, $end, $style['line'], IMG_ARC_NOFILL | IMG_ARC_EDGED);
 	}
 
-	function drawText($text, $left, $right, $height, $style) // {{{2
+	public function drawText($text, $left, $right, $height, $style) // {{{2
 	{
 		$h = $height; // Creating duplicate (temp)
 		$this->_convertPosition($left, $height);
@@ -123,17 +123,17 @@ class GD_GRenderer extends GRenderer // {{{1
 		}
 	}
 
-	function getTextWidth($text, $style) // {{{2
+	public function getTextWidth($text, $style) // {{{2
 	{
 		return imagefontwidth($style['font']) * strlen($text) / $this->width;
 	}
 
-	function getTextHeight($style) // {{{2
+	public function getTextHeight($style) // {{{2
 	{
 		return imagefontheight($style['font']) / $this->height;
 	}
 
-	function getStyle($name) // {{{2
+	public function getStyle($name) // {{{2
 	{
 		if (isset($this->styles[$name])) {
 			return $this->styles[$name];
@@ -142,7 +142,7 @@ class GD_GRenderer extends GRenderer // {{{1
 		return $this->styles[$name] = $this->_findStyle($name);
 	}
 
-	function httpOutput($filename) // {{{2
+	public function httpOutput($filename) // {{{2
 	{
 		switch ($this->format) {
 			case 'png':
@@ -160,7 +160,7 @@ class GD_GRenderer extends GRenderer // {{{1
 		imagedestroy($this->gd);
 	}
 
-	function writeToStream($stream) // {{{2
+	public function writeToStream($stream) // {{{2
 	{
 		ob_start();
 		switch ($this->format) {
@@ -178,26 +178,26 @@ class GD_GRenderer extends GRenderer // {{{1
 		imagedestroy($this->gd);
 	}
 
-	function getMapContent() // {{{2
+	public function getMapContent() // {{{2
 	{
 		return $this->imageMap;
 	}
 
-	function _convertLength($value, $type) // {{{2
+	public function _convertLength($value, $type) // {{{2
 	{
 		// $type is either 'width' or 'height'
 		// $value is a 0-1 float
 		return floor($value * $this->$type);
 	}
 
-	function _convertPosition(&$x, &$y) // {{{2
+	public function _convertPosition(&$x, &$y) // {{{2
 	{
 		// Parameters passed by ref!
 		$x = $this->_convertLength($x, 'width');
 		$y = $this->_convertLength($y, 'height');
 	}
 
-	function _findStyle($name) // {{{2
+	public function _findStyle($name) // {{{2
 	{
 		$parts = explode('-', $name);
 		$style = [];
@@ -225,6 +225,7 @@ class GD_GRenderer extends GRenderer // {{{1
 				break;
 			case 'Normal':
 				array_shift($parts);
+				break;
 			default:
 				if ($parts[0] == 'Text') {
 					$style['font'] = 4;
@@ -266,7 +267,7 @@ class GD_GRenderer extends GRenderer // {{{1
 		return $style;
 	}
 
-	function _getColor($name) // {{{2
+	public function _getColor($name) // {{{2
 	{
 		$name = strtolower($name);
 
@@ -277,18 +278,18 @@ class GD_GRenderer extends GRenderer // {{{1
 		return $this->colors[$name] = $this->_findColor($name);
 	}
 
-	function _findColor($name) // {{{2
+	public function _findColor($name) // {{{2
 	{
 		$color = $this->_getRawColor($name);
 		return imagecolorallocate($this->gd, (int)$color['r'], (int)$color['g'], (int)$color['b']);
 	}
 
-	function _drawLeftText($string, $left, $height, $style) // {{{2
+	public function _drawLeftText($string, $left, $height, $style) // {{{2
 	{
 		imagestring($this->gd, $style['font'], $left, $height, $string, $this->_getColor('Black'));
 	}
 
-	function _drawCenterText($string, $left, $right, $height, $style) // {{{2
+	public function _drawCenterText($string, $left, $right, $height, $style) // {{{2
 	{
 		$width = imagefontwidth($style['font']) * strlen($string);
 		$x = ( $right - $left ) / 2 + $left - $width / 2;
@@ -296,11 +297,11 @@ class GD_GRenderer extends GRenderer // {{{1
 		imagestring($this->gd, $style['font'], $x, $height, $string, $this->_getColor('Black'));
 	}
 
-	function _drawRightText($string, $right, $height, $style) // {{{2
+	public function _drawRightText($string, $right, $height, $style) // {{{2
 	{
 		$width = imagefontwidth($style['font']) * strlen($string);
 		$x = $right - $width;
 
 		imagestring($this->gd, $style['font'], $x, $height, $string, $this->_getColor('Black'));
 	}
-} // }}}1
+}

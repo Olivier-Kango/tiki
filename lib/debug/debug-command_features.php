@@ -17,31 +17,31 @@ require_once('lib/debug/debugger-ext.php');
 class DbgFeatures extends DebuggerCommand
 {
 	/// \b Must have function to announce command name in debugger console
-	function name()
+	public function name()
 	{
 		return 'features';
 	}
 
 	/// \b Must have function to provide help to debugger console
-	function description()
+	public function description()
 	{
 		return 'Show features on/off state';
 	}
 
 	/// \b Must have function to provide help to debugger console
-	function syntax()
+	public function syntax()
 	{
 		return 'features [partial-name]';
 	}
 
 	/// \b Must have function to show example of usage of given command
-	function example()
+	public function example()
 	{
 		return 'features' . "\n" . 'features wiki';
 	}
 
 	/// Execute command with given set of arguments.
-	function execute($params)
+	public function execute($params)
 	{
 		$this->set_result_type(TPL_RESULT);
 

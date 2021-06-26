@@ -17,12 +17,12 @@ include_once('lib/tikilib.php');
 
 class TikiIntegrator
 {
-	var $c_rep;                         //!< cached value for repository data
+	public $c_rep;                         //!< cached value for repository data
 
 	/// Repository management
 	//\{
 	/// List all
-	function list_repositories($visible_only)
+	public function list_repositories($visible_only)
 	{
 		global $tikilib;
 		$values = [];
@@ -41,7 +41,7 @@ class TikiIntegrator
 	}
 
 	/// Add/Update
-	function add_replace_repository($repID, $name, $path, $start, $css, $vis, $cacheable, $exp, $descr)
+	public function add_replace_repository($repID, $name, $path, $start, $css, $vis, $cacheable, $exp, $descr)
 	{
 		global $tikilib;
 		$parms = [$name, $path, $start, $css, $vis, $cacheable, $exp, $descr];
@@ -59,7 +59,7 @@ class TikiIntegrator
 	}
 
 	/// Get one entry by ID
-	function get_repository($repID)
+	public function get_repository($repID)
 	{
 		global $tikilib;
 		// Check if we already cache requested repository info
@@ -77,7 +77,7 @@ class TikiIntegrator
 		return $res;
 	}
 	/// Remove repository and all rules configured for it
-	function remove_repository($repID)
+	public function remove_repository($repID)
 	{
 		global $tikilib;
 		$query = "delete from `tiki_integrator_rules` where `repID`=?";
@@ -95,7 +95,7 @@ class TikiIntegrator
 	/// Rules management
 	//\{
 	/// List rules for given repository
-	function list_rules($repID)
+	public function list_rules($repID)
 	{
 		global $tikilib;
 		$query = "select * from `tiki_integrator_rules` where `repID`=? order by `ord`";
@@ -107,7 +107,7 @@ class TikiIntegrator
 		return $ret;
 	}
 	/// Add or update rule for repository
-	function add_replace_rule($repID, $ruleID, $ord, $srch, $repl, $type, $case, $rxmod, $en, $descr)
+	public function add_replace_rule($repID, $ruleID, $ord, $srch, $repl, $type, $case, $rxmod, $en, $descr)
 	{
 		global $tikilib;
 
@@ -131,7 +131,7 @@ class TikiIntegrator
 		$this->clear_cache($repID);
 	}
 	/// Get one entry by ID
-	function get_rule($ruleID)
+	public function get_rule($ruleID)
 	{
 		global $tikilib;
 		$query = "select * from `tiki_integrator_rules` where `ruleID`=?";
@@ -143,7 +143,7 @@ class TikiIntegrator
 		return $res;
 	}
 	/// Remove rule
-	function remove_rule($ruleID)
+	public function remove_rule($ruleID)
 	{
 		global $tikilib;
 		// Clear cached pages for this repository
@@ -154,7 +154,7 @@ class TikiIntegrator
 		$result = $tikilib->query($query, [$ruleID]);
 	}
 	/// Apply rule to string
-	function apply_rule(&$rep, &$rule, $data)
+	public function apply_rule(&$rep, &$rule, $data)
 	{
 		// Is there something to search? If no or rule disabled return original data
 		if ((strlen($rule["srch"]) == 0) || ($rule["enabled"] != 'y')) {
@@ -185,7 +185,7 @@ class TikiIntegrator
 		return $d;
 	}
 	/// Apply all rules in defined order and returns a filtered text
-	function apply_all_rules($repID, $data)
+	public function apply_all_rules($repID, $data)
 	{
 		$rules = $this->list_rules($repID);
 		// Get repository configuration data
@@ -199,7 +199,7 @@ class TikiIntegrator
 	}
 	//\}
 	/// Build full path to file inside given repository
-	function get_rep_file($rep, $file = '')
+	public function get_rep_file($rep, $file = '')
 	{
 		// Is repository path absolute? (start from www root ('/'))
 		$p = '';
@@ -219,7 +219,7 @@ class TikiIntegrator
 		return $p . '/' . ((strlen($file) > 0) ? $file : $rep["start_page"]);
 	}
 	/// Return CSS file for given repository
-	function get_rep_css($repID)
+	public function get_rep_css($repID)
 	{
 		global $style;
 		global $style_base;
@@ -285,7 +285,7 @@ class TikiIntegrator
 	 *  d) copy to main rules table
 	 *
 	 */
-	function copy_rules($srcID, $dstID)
+	public function copy_rules($srcID, $dstID)
 	{
 		$rules = $this->list_rules($srcID);
 		foreach ($rules as $rule) {
@@ -313,7 +313,7 @@ class TikiIntegrator
 	 *
 	 * \note File is not checked for existence...
 	 */
-	function get_file($repID, $file, $use_cache = 'y', $url = '')
+	public function get_file($repID, $file, $use_cache = 'y', $url = '')
 	{
 		global $tikilib;
 		$data = '';
@@ -351,7 +351,7 @@ class TikiIntegrator
 		return $data;
 	}
 	/// Clear cache for given repository
-	function clear_cache($repID)
+	public function clear_cache($repID)
 	{
 		global $tikilib;
 		// Delete all cached URLs with word 'integrator' in a script
@@ -363,7 +363,7 @@ class TikiIntegrator
 		);
 	}
 	/// Clear cache of given file for given repository
-	function clear_cached_file($repID, $file)
+	public function clear_cached_file($repID, $file)
 	{
 		global $tikilib;
 		// Delete all cached URLs with word 'integrator' in a script

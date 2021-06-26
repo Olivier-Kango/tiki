@@ -29,7 +29,7 @@ class FilegalCopyLib extends FileGalLib
 	 * @return array					feedback messages
 	 */
 
-	function processCopy($files, $destinationPath, $move = false)
+	public function processCopy($files, $destinationPath, $move = false)
 	{
 
 		$feedback = [];
@@ -64,7 +64,7 @@ class FilegalCopyLib extends FileGalLib
 	 * @param bool $move
 	 * @return array					[fileName[,error]]
 	 */
-	function copyFile($file, $destinationPath, $move = false)
+	public function copyFile($file, $destinationPath, $move = false)
 	{
 		$file = \Tiki\FileGallery\File::id($file['fileId']);
 		

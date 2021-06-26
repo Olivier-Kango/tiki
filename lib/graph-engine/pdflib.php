@@ -23,7 +23,7 @@ class PDFLib_GRenderer extends GRenderer // {{{1
 	public $width;
 	public $height;
 
-	function __construct($format = null, $orientation = 'landscape') // {{{2
+	public function __construct($format = null, $orientation = 'landscape') // {{{2
 	{
 		// Null size does not create a graphic.
 		$this->styles = [];
@@ -42,11 +42,11 @@ class PDFLib_GRenderer extends GRenderer // {{{1
 		}
 	}
 
-	function addLink($target, $left, $top, $right, $bottom, $title = null) // {{{2
+	public function addLink($target, $left, $top, $right, $bottom, $title = null) // {{{2
 	{
 	}
 
-	function drawLine($x1, $y1, $x2, $y2, $style) // {{{2
+	public function drawLine($x1, $y1, $x2, $y2, $style) // {{{2
 	{
 		$this->_convertPosition($x1, $y1);
 		$this->_convertPosition($x2, $y2);
@@ -68,7 +68,7 @@ class PDFLib_GRenderer extends GRenderer // {{{1
 		pdf_stroke($this->pdf);
 	}
 
-	function drawRectangle($left, $top, $right, $bottom, $style) // {{{2
+	public function drawRectangle($left, $top, $right, $bottom, $style) // {{{2
 	{
 		$this->_convertPosition($left, $top);
 		$this->_convertPosition($right, $bottom);
@@ -106,7 +106,7 @@ class PDFLib_GRenderer extends GRenderer // {{{1
 		}
 	}
 
-	function drawPie($centerX, $centerY, $radius, $begin, $end, $style) // {{{2
+	public function drawPie($centerX, $centerY, $radius, $begin, $end, $style) // {{{2
 	{
 		$this->_convertPosition($centerX, $centerY);
 		$radius = $radius * min($this->width, $this->height);
@@ -146,7 +146,7 @@ class PDFLib_GRenderer extends GRenderer // {{{1
 		}
 	}
 
-	function drawText($text, $left, $right, $height, $style) // {{{2
+	public function drawText($text, $left, $right, $height, $style) // {{{2
 	{
 		$h = $height; // Creating duplicate (temp)
 		$this->_convertPosition($left, $height);
@@ -166,17 +166,17 @@ class PDFLib_GRenderer extends GRenderer // {{{1
 		pdf_show_boxed($this->pdf, $text, $left, $height - $style['font'], $right - $left, $style['font'], $style['align'], '');
 	}
 
-	function getTextWidth($text, $style) // {{{2
+	public function getTextWidth($text, $style) // {{{2
 	{
 		return pdf_stringwidth($this->pdf, $text, $this->font, $style['font']) / $this->width;
 	}
 
-	function getTextHeight($style) // {{{2
+	public function getTextHeight($style) // {{{2
 	{
 		return $style['font'] / $this->height;
 	}
 
-	function getStyle($name) // {{{2
+	public function getStyle($name) // {{{2
 	{
 		if (isset($this->styles[$name])) {
 			return $this->styles[$name];
@@ -185,7 +185,7 @@ class PDFLib_GRenderer extends GRenderer // {{{1
 		return $this->styles[$name] = $this->_findStyle($name);
 	}
 
-	function httpOutput($filename) // {{{2
+	public function httpOutput($filename) // {{{2
 	{
 		pdf_end_page($this->pdf);
 		pdf_close($this->pdf);
@@ -201,7 +201,7 @@ class PDFLib_GRenderer extends GRenderer // {{{1
 		pdf_delete($this->pdf);
 	}
 
-	function writeToStream($stream) // {{{2
+	public function writeToStream($stream) // {{{2
 	{
 		pdf_end_page($this->pdf);
 		pdf_close($this->pdf);
@@ -212,21 +212,21 @@ class PDFLib_GRenderer extends GRenderer // {{{1
 		pdf_delete($this->pdf);
 	}
 
-	function _convertLength($value, $type) // {{{2
+	public function _convertLength($value, $type) // {{{2
 	{
 		// $type is either 'width' or 'height'
 		// $value is a 0-1 float
 		return floor($value * $this->$type);
 	}
 
-	function _convertPosition(&$x, &$y) // {{{2
+	public function _convertPosition(&$x, &$y) // {{{2
 	{
 		// Parameters passed by ref!
 		$x = $this->_convertLength($x, 'width');
 		$y = $this->height - $this->_convertLength($y, 'height');
 	}
 
-	function _findStyle($name) // {{{2
+	public function _findStyle($name) // {{{2
 	{
 		$parts = explode('-', $name);
 		$style = [];
@@ -254,6 +254,7 @@ class PDFLib_GRenderer extends GRenderer // {{{1
 				break;
 			case 'Normal':
 				array_shift($parts);
+				break;
 			default:
 				if ($parts[0] == 'Text') {
 					$style['font'] = 12;
@@ -296,7 +297,7 @@ class PDFLib_GRenderer extends GRenderer // {{{1
 		return $style;
 	}
 
-	function _getColor($name) // {{{2
+	public function _getColor($name) // {{{2
 	{
 		$c = [ 'rgb' ];
 		$color = $this->_getRawColor(strtolower($name));
@@ -309,7 +310,7 @@ class PDFLib_GRenderer extends GRenderer // {{{1
 		return $c;
 	}
 
-	function _getFormat($format, $orientation) // {{{2
+	public function _getFormat($format, $orientation) // {{{2
 	{
 		/*
 			Taken from lib/pdflib/class.ezpdf.php
@@ -473,4 +474,4 @@ class PDFLib_GRenderer extends GRenderer // {{{1
 
 		return $size;
 	}
-} // }}}1
+}

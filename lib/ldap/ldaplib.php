@@ -22,7 +22,7 @@ class LdapLib extends TikiLib
 	 * @param bool $all : return all records if true
 	 * @return str or array if $all = true
 	 */
-	function get_field($dsn, $filter, $field, $all = false)
+	public function get_field($dsn, $filter, $field, $all = false)
 	{
 		// Force autoloading
 		if (! class_exists('ADOConnection')) {

@@ -12,7 +12,7 @@ if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
 
 class ScormLib
 {
-	function handle_file_creation($args)
+	public function handle_file_creation($args)
 	{
 		if ($metadata = $this->getRequestMetadata($args)) {
 			$this->createItem(
@@ -24,7 +24,7 @@ class ScormLib
 		}
 	}
 
-	function handle_file_update($args)
+	public function handle_file_update($args)
 	{
 		if (isset($args['initialFileId']) && $metadata = $this->getRequestMetadata($args)) {
 			$relationlib = TikiLib::lib('relation');

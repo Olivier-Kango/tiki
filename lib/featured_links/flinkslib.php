@@ -26,7 +26,7 @@ class FlinksLib extends TikiLib
 	 *
 	 * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
 	 */
-	function add_featured_link($url, $title, $description = '', $position = 0, $type = 'f')
+	public function add_featured_link($url, $title, $description = '', $position = 0, $type = 'f')
 	{
 		$query = "delete from `tiki_featured_links` where `url`=?";
 		$this->query($query, [$url], -1, -1, false);
@@ -39,7 +39,7 @@ class FlinksLib extends TikiLib
 	 *
 	 * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
 	 */
-	function remove_featured_link($url)
+	public function remove_featured_link($url)
 	{
 		$query = "delete from `tiki_featured_links` where `url`=?";
 		return $this->query($query, [$url]);
@@ -54,7 +54,7 @@ class FlinksLib extends TikiLib
 	 *
 	 * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
 	 */
-	function update_featured_link($url, $title, $description, $position = 0, $type = 'f')
+	public function update_featured_link($url, $title, $description, $position = 0, $type = 'f')
 	{
 		$query = "update `tiki_featured_links` set `title`=?, `type`=?, `description`=?, `position`=? where `url`=?";
 		return $this->query($query, [$title,$type,$description,$position,$url]);
@@ -65,7 +65,7 @@ class FlinksLib extends TikiLib
 	 *
 	 * @return bool|TikiDb_Pdo_Result|TikiDb_Adodb_Result
 	 */
-	function add_featured_link_hit($url)
+	public function add_featured_link_hit($url)
 	{
 		global $prefs, $user;
 
@@ -82,7 +82,7 @@ class FlinksLib extends TikiLib
 	 *
 	 * @return array|bool
 	 */
-	function get_featured_link($url)
+	public function get_featured_link($url)
 	{
 		$query = "select * from `tiki_featured_links` where `url`=?";
 
@@ -98,7 +98,7 @@ class FlinksLib extends TikiLib
 	/**
 	 * @return bool
 	 */
-	function generate_featured_links_positions()
+	public function generate_featured_links_positions()
 	{
 		$query = "select `url` from `tiki_featured_links` order by `hits` desc";
 		$result = $this->query($query, []);
@@ -115,4 +115,4 @@ class FlinksLib extends TikiLib
 		return true;
 	}
 }
-$flinkslib = new FlinksLib;
+$flinkslib = new FlinksLib();

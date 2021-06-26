@@ -13,40 +13,40 @@ if (! defined("_ECHOSERVER_HTML_PARSER")) {
 	 */
 	class HtmlParser
 	{
-		var $pos,
-		$tagpos,
-		$length,
-		$data,
-		$stacktag,
-		$stacktagpos,
-		$name,
-		$quotstate,
-		$quottype,
-		$parname,
-		$pars,
-		$tagname,
-		$content,
-		$contentpos,
-		$allreadyparsed,
-		$pg,
-		$dc,
-		$nc,
-		$qc,
-		$prevstate,
-		$processtag,
-		$processpar,
-		$processparvalue,
-		$c,
-		$cp,
-		$text,
-		$incomment,
-		$skipto,
-		$tagreg,
-		$wasquot;
+		public $pos;
+		public $tagpos;
+		public $length;
+		public $data;
+		public $stacktag;
+		public $stacktagpos;
+		public $name;
+		public $quotstate;
+		public $quottype;
+		public $parname;
+		public $pars;
+		public $tagname;
+		public $content;
+		public $contentpos;
+		public $allreadyparsed;
+		public $pg;
+		public $dc;
+		public $nc;
+		public $qc;
+		public $prevstate;
+		public $processtag;
+		public $processpar;
+		public $processparvalue;
+		public $c;
+		public $cp;
+		public $text;
+		public $incomment;
+		public $skipto;
+		public $tagreg;
+		public $wasquot;
 /**********************************************************************************
  * Class constructor
  **********************************************************************************/
-		function __construct($data, $grammar, $name = "", $datatype = 0)
+		public function __construct($data, $grammar, $name = "", $datatype = 0)
 		{
 			$this->dc = [" ","\t","\r","\n","<",">","\"","'","=","/"];
 			$this->nc = ["<",">","=","/"];
@@ -103,7 +103,7 @@ if (! defined("_ECHOSERVER_HTML_PARSER")) {
 /********************************************************************************************
  *  Get word from data
  ********************************************************************************************/
-		function GetWord(&$word)
+		public function GetWord(&$word)
 		{
 			$word = "";
 			$this->wasquot = 0;
@@ -267,7 +267,7 @@ anyword -1  2  3  3  5  3 -1  8 -1
  7 got '/', waiting any word as close tagname
  8 got any word as close tag name, waiting '>'
  ********************************************************************************************/
-		function Parse()
+		public function Parse()
 		{
 			$automat = [
 	  // states         0   1   2   3   4   5   6   7   8
@@ -421,7 +421,7 @@ anyword -1  2  3  3  5  3 -1  8 -1
 /********************************************************************************************
  *  Add new tag
  ********************************************************************************************/
-		function AddNewTag($open, $xmlclose = 0)
+		public function AddNewTag($open, $xmlclose = 0)
 		{
 			$actionclose = 0;
 			if (! $open && in_array($this->tagname, $this->pg) && $this->pg[$this->tagname]["endtag"] != "absent") {
@@ -519,7 +519,7 @@ anyword -1  2  3  3  5  3 -1  8 -1
 /********************************************************************************************
  *  Add new text
  ********************************************************************************************/
-		function AddNewText($text, $script = 0, $comment = 0)
+		public function AddNewText($text, $script = 0, $comment = 0)
 		{
 			if (! strlen($text)) {
 				return;
@@ -547,7 +547,7 @@ anyword -1  2  3  3  5  3 -1  8 -1
 /********************************************************************************************
  *  Find first tag in stack
  ********************************************************************************************/
-		function FindTag($tagname)
+		public function FindTag($tagname)
 		{
 			for ($i = $this->stacktagpos; $i >= 0; $i--) {
 				if ($this->stacktag[$i]["tag"][$this->stacktag[$i]["tag"]["contentpos"]]["data"]["name"] == $tagname) {

@@ -43,7 +43,7 @@ class FilegalBatchLib extends FileGalLib
 	 * @return array				feedback messages
 	 */
 
-	function processBatchUpload($files, $galleryId = null, $options = [])
+	public function processBatchUpload($files, $galleryId = null, $options = [])
 	{
 		include_once('lib/mime/mimetypes.php');
 		global $mimetypes, $user, $prefs;
@@ -260,7 +260,7 @@ class FilegalBatchLib extends FileGalLib
 	 * @return array Files [file, size, ext, writable]
 	 * @throws Exception
 	 */
-	function batchUploadFileList($filedir = '')
+	public function batchUploadFileList($filedir = '')
 	{
 		global $prefs;
 

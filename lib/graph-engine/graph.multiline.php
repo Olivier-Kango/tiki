@@ -14,15 +14,15 @@ require_once 'lib/graph-engine/abstract.gridbased.php';
  */
 class MultilineGraphic extends GridBasedGraphic
 {
-	var $lines;
+	public $lines;
 
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct();
 		$this->lines = [];
 	}
 
-	function getRequiredSeries()
+	public function getRequiredSeries()
 	{
 		return [
 			'label' => false,
@@ -33,7 +33,7 @@ class MultilineGraphic extends GridBasedGraphic
 		];
 	}
 
-	function _getMinValue($type)
+	public function _getMinValue($type)
 	{
 		switch ($type) {
 			case 'dependant':
@@ -61,7 +61,7 @@ class MultilineGraphic extends GridBasedGraphic
 		return $min;
 	}
 
-	function _getMaxValue($type)
+	public function _getMaxValue($type)
 	{
 		switch ($type) {
 			case 'dependant':
@@ -82,12 +82,12 @@ class MultilineGraphic extends GridBasedGraphic
 		}
 	}
 
-	function _getLabels($type)
+	public function _getLabels($type)
 	{
 		return [];
 	}
 
-	function _handleData($data)
+	public function _handleData($data)
 	{
 		$lines = [];
 		for ($i = 0; isset($data['y' . $i]); ++$i) {
@@ -131,7 +131,7 @@ class MultilineGraphic extends GridBasedGraphic
 		return true;
 	}
 
-	function _drawGridContent(&$renderer)
+	public function _drawGridContent(&$renderer)
 	{
 		$layout = $this->_layout();
 
@@ -163,12 +163,12 @@ class MultilineGraphic extends GridBasedGraphic
 		}
 	}
 
-	function _drawLegendBox(&$renderer, $color)
+	public function _drawLegendBox(&$renderer, $color)
 	{
 		$renderer->drawLine(0, 1, 1, 0, $renderer->getStyle("Bold-LineStroke-$color"));
 	}
 
-	function _default()
+	public function _default()
 	{
 		return array_merge(parent::_default(), []);
 	}

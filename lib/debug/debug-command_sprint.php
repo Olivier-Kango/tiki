@@ -17,31 +17,31 @@ require_once('lib/debug/debugger-ext.php');
 class DbgSPrint extends DebuggerCommand
 {
 	/// \b Must have function to announce command name in debugger console
-	function name()
+	public function name()
 	{
 		return 'sprint';
 	}
 
 	/// \b Must have function to provide help to debugger console
-	function description()
+	public function description()
 	{
 		return 'Print Smarty variable';
 	}
 
 	/// \b Must have function to provide help to debugger console
-	function syntax()
+	public function syntax()
 	{
 		return 'sprint var1 var2 var3 ...';
 	}
 
 	/// \b Must have functio to show example of usage of given command
-	function example()
+	public function example()
 	{
 		return 'sprint user feature_left_column';
 	}
 
 	/// Execute command with given set of arguments.
-	function execute($params)
+	public function execute($params)
 	{
 		$smarty = TikiLib::lib('smarty');
 

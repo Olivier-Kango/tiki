@@ -26,7 +26,7 @@ class FaqLib extends TikiLib
 	 * @param $find
 	 * @return mixed
 	 */
-	function list_faqs($offset, $maxRecords, $sort_mode, $find)
+	public function list_faqs($offset, $maxRecords, $sort_mode, $find)
 	{
 		$mid = '';
 		if ($find) {
@@ -72,7 +72,7 @@ class FaqLib extends TikiLib
 	 * @param $faqId
 	 * @return bool
 	 */
-	function get_faq($faqId)
+	public function get_faq($faqId)
 	{
 		$query = "select * from `tiki_faqs` where `faqId`=?";
 		$result = $this->query($query, [(int)$faqId]);
@@ -89,7 +89,7 @@ class FaqLib extends TikiLib
 	 * @param $answer
 	 * @param $user
 	 */
-	function add_suggested_faq_question($faqId, $question, $answer, $user)
+	public function add_suggested_faq_question($faqId, $question, $answer, $user)
 	{
 		$question = strip_tags($question, '<a>');
 
@@ -107,7 +107,7 @@ class FaqLib extends TikiLib
 	 * @param $faqId
 	 * @return array
 	 */
-	function list_suggested_questions($offset, $maxRecords, $sort_mode, $find, $faqId)
+	public function list_suggested_questions($offset, $maxRecords, $sort_mode, $find, $faqId)
 	{
 		$bindvars = [];
 		if ($find || $faqId) {
@@ -152,7 +152,7 @@ class FaqLib extends TikiLib
 	 * @param $find
 	 * @return array
 	 */
-	function list_all_faq_questions($offset, $maxRecords, $sort_mode, $find)
+	public function list_all_faq_questions($offset, $maxRecords, $sort_mode, $find)
 	{
 
 		$bindvars = [];
@@ -186,7 +186,7 @@ class FaqLib extends TikiLib
 	 * @param $faqId
 	 * @return bool
 	 */
-	function remove_faq($faqId)
+	public function remove_faq($faqId)
 	{
 		$query = "delete from `tiki_faqs` where `faqId`=?";
 
@@ -202,7 +202,7 @@ class FaqLib extends TikiLib
 	 * @param $questionId
 	 * @return bool
 	 */
-	function remove_faq_question($questionId)
+	public function remove_faq_question($questionId)
 	{
 		$faqId = $this->getOne('select `faqId` from `tiki_faq_questions` where `questionId`=?', [$questionId]);
 		$result = $this->query('delete from `tiki_faq_questions` where `questionId`=?', [$questionId]);
@@ -213,7 +213,7 @@ class FaqLib extends TikiLib
 	 * @param $questionId
 	 * @return bool
 	 */
-	function get_faq_question($questionId)
+	public function get_faq_question($questionId)
 	{
 		$query = "select * from `tiki_faq_questions` where `questionId`=?";
 
@@ -230,7 +230,7 @@ class FaqLib extends TikiLib
 	/**
 	 * @param $faqId
 	 */
-	function add_faq_hit($faqId)
+	public function add_faq_hit($faqId)
 	{
 		global $prefs, $user;
 
@@ -248,7 +248,7 @@ class FaqLib extends TikiLib
 	 * @param $answer
 	 * @return bool
 	 */
-	function replace_faq_question($faqId, $questionId, $question, $answer)
+	public function replace_faq_question($faqId, $questionId, $question, $answer)
 	{
 		// Check the name
 		if ($questionId) {
@@ -276,7 +276,7 @@ class FaqLib extends TikiLib
 	 * @param $canSuggest
 	 * @return mixed
 	 */
-	function replace_faq($faqId, $title, $description, $canSuggest)
+	public function replace_faq($faqId, $title, $description, $canSuggest)
 	{
 		// Check the name
 		if ($faqId) {
@@ -304,7 +304,7 @@ class FaqLib extends TikiLib
 	 * @param string $find
 	 * @return array
 	 */
-	function list_faq_questions($faqId = 0, $offset = 0, $maxRecords = -1, $sort_mode = 'question_asc', $find = '')
+	public function list_faq_questions($faqId = 0, $offset = 0, $maxRecords = -1, $sort_mode = 'question_asc', $find = '')
 	{
 		if (! empty($faqId)) {
 			$mid = ' where `faqId`=? ';
@@ -343,7 +343,7 @@ class FaqLib extends TikiLib
 	/**
 	 * @param $sfqId
 	 */
-	function remove_suggested_question($sfqId)
+	public function remove_suggested_question($sfqId)
 	{
 		$query = "delete from `tiki_suggested_faq_questions` where `sfqId`=?";
 
@@ -353,7 +353,7 @@ class FaqLib extends TikiLib
 	/**
 	 * @param $sfqId
 	 */
-	function approve_suggested_question($sfqId)
+	public function approve_suggested_question($sfqId)
 	{
 		$info = $this->get_suggested_question($sfqId);
 
@@ -365,7 +365,7 @@ class FaqLib extends TikiLib
 	 * @param $sfqId
 	 * @return bool
 	 */
-	function get_suggested_question($sfqId)
+	public function get_suggested_question($sfqId)
 	{
 		$query = "select * from `tiki_suggested_faq_questions` where `sfqId`=?";
 		$result = $this->query($query, [$sfqId]);

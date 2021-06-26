@@ -17,10 +17,10 @@ require_once('lib/debug/debugger-ext.php');
 class DbgCmd_Watch extends DebuggerCommand
 {
 	/// Array of variables to watch in format: [md5hash] = var_name
-	var $watches;
+	public $watches;
 
 	/// Restore watches list at construction time
-	function __construct()
+	public function __construct()
 	{
 		global $user;
 
@@ -37,27 +37,27 @@ class DbgCmd_Watch extends DebuggerCommand
 		}
 	}
 
-	function name()
+	public function name()
 	{
 		return 'watch';
 	}
 
-	function description()
+	public function description()
 	{
 		return 'Manage variables watch list';
 	}
 
-	function syntax()
+	public function syntax()
 	{
 		return 'watch (add|rm) $php_var1 smarty_var2 $php_var3 smarty_var4 ...';
 	}
 
-	function example()
+	public function example()
 	{
 		return 'watch add $user tiki_p_view' . "\n" . 'watch rm user $_REQUEST $_SERVER["HTTP_USER_AGENT"]';
 	}
 
-	function execute($params)
+	public function execute($params)
 	{
 		global $user;
 
@@ -113,7 +113,7 @@ class DbgCmd_Watch extends DebuggerCommand
 	}
 
 	/// Return the name of watches file
-	function watchfile()
+	public function watchfile()
 	{
 		global $user;
 
@@ -121,7 +121,7 @@ class DbgCmd_Watch extends DebuggerCommand
 	}
 
 	/// Save watchlist for given user. If current list is empty --> remove file.
-	function store_watches()
+	public function store_watches()
 	{
 		if (count($this->watches) > 0) {
 			$s = serialize($this->watches);
@@ -137,7 +137,7 @@ class DbgCmd_Watch extends DebuggerCommand
 	}
 
 	/// Function to create interface part of command: return ["button name"] = <html code>
-	function draw_interface()
+	public function draw_interface()
 	{
 		$result = [];
 
@@ -157,7 +157,7 @@ class DbgCmd_Watch extends DebuggerCommand
 	}
 
 	///
-	function value_of_smarty_var($v)
+	public function value_of_smarty_var($v)
 	{
 		$smarty = TikiLib::lib('smarty');
 
@@ -177,7 +177,7 @@ class DbgCmd_Watch extends DebuggerCommand
 	}
 
 	///
-	function value_of_php_var($v)
+	public function value_of_php_var($v)
 	{
 		global $debugger;
 
@@ -186,13 +186,13 @@ class DbgCmd_Watch extends DebuggerCommand
 	}
 
 	/// Function to return caption string to draw plugable tab in interface
-	function caption()
+	public function caption()
 	{
 		return 'watches';
 	}
 
 	/// Need to display button if we have smth to show
-	function have_interface()
+	public function have_interface()
 	{
 		return count($this->watches) > 0;
 	}

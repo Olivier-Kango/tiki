@@ -24,7 +24,7 @@ class HotwordsLib extends TikiLib
 	 * @param string $find
 	 * @return array
 	 */
-	function list_hotwords($offset = 0, $maxRecords = -1, $sort_mode = 'word_desc', $find = '')
+	public function list_hotwords($offset = 0, $maxRecords = -1, $sort_mode = 'word_desc', $find = '')
 	{
 
 		if ($find) {
@@ -58,7 +58,7 @@ class HotwordsLib extends TikiLib
 	 *
 	 * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
 	 */
-	function add_hotword($word, $url)
+	public function add_hotword($word, $url)
 	{
 //		$word = addslashes($word);
 
@@ -74,10 +74,10 @@ class HotwordsLib extends TikiLib
 	 *
 	 * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
 	 */
-	function remove_hotword($word)
+	public function remove_hotword($word)
 	{
 		$query = "delete from `tiki_hotwords` where `word`=?";
 		return $this->query($query, [$word]);
 	}
 }
-$hotwordlib = new HotwordsLib;
+$hotwordlib = new HotwordsLib();

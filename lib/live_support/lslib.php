@@ -7,21 +7,21 @@
 
 class Lslib extends TikiLib
 {
-	function set_operator_id($reqId, $senderId)
+	public function set_operator_id($reqId, $senderId)
 	{
 		$query = 'update `tiki_live_support_requests` set `operator_id` = ? where `reqId`=?';
 
 		$this->query($query, [$senderId, $reqId]);
 	}
 
-	function set_user_id($reqId, $senderId)
+	public function set_user_id($reqId, $senderId)
 	{
 		$query = 'update `tiki_live_support_requests` set `user_id` = ? where `reqId`=?';
 
 		$this->query($query, [$senderId, $reqId]);
 	}
 
-	function new_user_request($user, $tiki_user, $email, $reason)
+	public function new_user_request($user, $tiki_user, $email, $reason)
 	{
 		$reqId = md5(uniqid('.'));
 		$query = 'insert into `tiki_live_support_requests`' .
@@ -36,7 +36,7 @@ class Lslib extends TikiLib
 		return $reqId;
 	}
 
-	function get_last_request()
+	public function get_last_request()
 	{
 		$x = $this->getOne('select max(`timestamp`) from `tiki_live_support_requests`', []);
 
@@ -47,13 +47,13 @@ class Lslib extends TikiLib
 		}
 	}
 
-	function get_max_active_request()
+	public function get_max_active_request()
 	{
 		return $this->getOne('select max(`reqId`) from `tiki_live_support_requests` where `status`=?', ['active']);
 	}
 
 	// Remove active requests
-	function purge_requests()
+	public function purge_requests()
 	{
 		$min = $this->now - 60 * 2; // 1 minute = timeout.
 		$query = 'update `tiki_live_support_requests` set `status`=? where `timestamp` < ?';
@@ -61,12 +61,12 @@ class Lslib extends TikiLib
 	}
 
 	// Get status for request
-	function get_request_status($reqId)
+	public function get_request_status($reqId)
 	{
 		return $this->getOne('select `status` from `tiki_live_support_requests` where `reqId`=?', [$reqId]);
 	}
 
-	function set_request_status($reqId, $status)
+	public function set_request_status($reqId, $status)
 	{
 		$query = 'update `tiki_live_support_requests` set `status`=? where `reqId`=?';
 
@@ -74,7 +74,7 @@ class Lslib extends TikiLib
 	}
 
 	// Get request information
-	function get_request($reqId)
+	public function get_request($reqId)
 	{
 		$query = 'select * from `tiki_live_support_requests` where `reqId`=?';
 
@@ -83,7 +83,7 @@ class Lslib extends TikiLib
 		return $res;
 	}
 
-	function set_operator_status($user, $status)
+	public function set_operator_status($user, $status)
 	{
 		// If switching to offline then sum online time for this operator
 		if ($status == 'offline') {
@@ -96,7 +96,7 @@ class Lslib extends TikiLib
 		$this->query($query, [$status, $this->now,$user]);
 	}
 
-	function get_operator_status($user)
+	public function get_operator_status($user)
 	{
 		$status = $this->getOne('select `status` from `tiki_live_support_operators` where `user`=?', [$user]);
 
@@ -108,7 +108,7 @@ class Lslib extends TikiLib
 	}
 
 	// Accepts a request, change status to op_accepted
-	function operator_accept($reqId, $user, $operator_id)
+	public function operator_accept($reqId, $user, $operator_id)
 	{
 		$query = 'update `tiki_live_support_requests` set `operator_id`=?,operator=?,status=?,timestamp=?,chat_started=? where `reqId`=?';
 		$this->query($query, [$operator_id, $user, 'op_accepted', $this->now, $this->now, $reqId]);
@@ -116,7 +116,7 @@ class Lslib extends TikiLib
 		$this->query($query, [$user]);
 	}
 
-	function user_close_request($reqId)
+	public function user_close_request($reqId)
 	{
 		if (! $reqId) {
 			return;
@@ -126,7 +126,7 @@ class Lslib extends TikiLib
 		$this->query($query, ['user closed', $this->now, $this->now, $reqId]);
 	}
 
-	function operator_close_request($reqId)
+	public function operator_close_request($reqId)
 	{
 		if (! $reqId) {
 			return;
@@ -136,7 +136,7 @@ class Lslib extends TikiLib
 		$this->query($query, ['operator closed', $this->now, $this->now, $reqId]);
 	}
 
-	function get_requests($status)
+	public function get_requests($status)
 	{
 		$this->purge_requests();
 
@@ -152,7 +152,7 @@ class Lslib extends TikiLib
 	}
 
 	//EVENT HANDLING
-	function get_new_events($reqId, $senderId, $last)
+	public function get_new_events($reqId, $senderId, $last)
 	{
 		$query = 'select * from `tiki_live_support_events` where `senderId`=? and reqId=? and `eventId`>?';
 
@@ -169,7 +169,7 @@ class Lslib extends TikiLib
 		return $ret;
 	}
 
-	function get_last_event($reqId, $senderId)
+	public function get_last_event($reqId, $senderId)
 	{
 		return $this->getOne(
 			'select max(`seqId`) from `tiki_live_support_events` where `senderId`<>? and reqId=?',
@@ -177,7 +177,7 @@ class Lslib extends TikiLib
 		);
 	}
 
-	function get_support_event($reqId, $event, $senderId)
+	public function get_support_event($reqId, $event, $senderId)
 	{
 		return $this->getOne(
 			'select `data` from `tiki_live_support_events` where `senderId`<>? and `reqId`=? and `seqId`=?',
@@ -185,7 +185,7 @@ class Lslib extends TikiLib
 		);
 	}
 
-	function put_message($reqId, $msg, $senderId)
+	public function put_message($reqId, $msg, $senderId)
 	{
 		$seq = $this->getOne('select max(`seqId`) from `tiki_live_support_events` where `reqId`=?', [$reqId]);
 
@@ -200,9 +200,9 @@ class Lslib extends TikiLib
 		$this->query($query, [$seq, $reqId, 'msg', $senderId, $msg, $this->now]);
 	}
 
-	function operators_online()
+	public function operators_online()
 	{
 		return $this->getOne('select count(*) from `tiki_live_support_operators` where `status`=?', ['online']);
 	}
 }
-$lslib = new Lslib;
+$lslib = new Lslib();

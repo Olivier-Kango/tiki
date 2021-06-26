@@ -8,7 +8,7 @@
 class LsAdminlib extends TikiLib
 {
 
-	function add_operator($user)
+	public function add_operator($user)
 	{
 		$this->getOne('delete from `tiki_live_support_operators` where `user`=?', [$user], false);
 		$query = 'insert into `tiki_live_support_operators`' .
@@ -19,19 +19,19 @@ class LsAdminlib extends TikiLib
 		$this->query($query, [$user, 0, 'offline', 0, 0, 0, 0, 0, 0, 0, 0]);
 	}
 
-	function remove_operator($user)
+	public function remove_operator($user)
 	{
 		$query = 'delete from `tiki_live_support_operators` where `user`=?';
 
 		$this->query($query, [$user]);
 	}
 
-	function is_operator($user)
+	public function is_operator($user)
 	{
 		return $this->getOne('select count(*) from `tiki_live_support_operators` where `user`=?', [$user]);
 	}
 
-	function get_operators($status)
+	public function get_operators($status)
 	{
 		$query = 'select * from `tiki_live_support_operators` where `status`=?';
 
@@ -46,13 +46,13 @@ class LsAdminlib extends TikiLib
 		return $ret;
 	}
 
-	function post_support_message($username, $user, $user_email, $title, $data, $priority, $module, $resolution, $assigned_to = '')
+	public function post_support_message($username, $user, $user_email, $title, $data, $priority, $module, $resolution, $assigned_to = '')
 	{
 		// very nice that (redflo)
 		die('MISSING CODE');
 	}
 
-	function list_support_messages($offset, $maxRecords, $sort_mode, $find, $where)
+	public function list_support_messages($offset, $maxRecords, $sort_mode, $find, $where)
 	{
 		if ($find) {
 			$findesc = '%' . $find . '%';
@@ -89,7 +89,7 @@ class LsAdminlib extends TikiLib
 		return $retval;
 	}
 
-	function get_modules()
+	public function get_modules()
 	{
 		$query = 'select * from `tiki_live_support_modules`';
 
@@ -104,7 +104,7 @@ class LsAdminlib extends TikiLib
 	}
 
 	/* functions for transcripts */
-	function list_support_requests($offset, $maxRecords, $sort_mode, $find, $where)
+	public function list_support_requests($offset, $maxRecords, $sort_mode, $find, $where)
 	{
 		if ($find) {
 			$findesc = '%' . $find . '%';
@@ -142,7 +142,7 @@ class LsAdminlib extends TikiLib
 		return $retval;
 	}
 
-	function get_all_tiki_users()
+	public function get_all_tiki_users()
 	{
 		$query = 'select distinct(`tiki_user`) from `tiki_live_support_requests`';
 
@@ -156,7 +156,7 @@ class LsAdminlib extends TikiLib
 		return $ret;
 	}
 
-	function get_all_operators()
+	public function get_all_operators()
 	{
 		$query = 'select distinct(`operator`) from `tiki_live_support_requests`';
 
@@ -170,7 +170,7 @@ class LsAdminlib extends TikiLib
 		return $ret;
 	}
 
-	function get_events($reqId)
+	public function get_events($reqId)
 	{
 		$query = 'select tlr.`operator_id`, tlr.`user_id`, tle.`data`, tle.`timestamp`, tlr.`user`, tlr.`operator`, tlr.`tiki_user`, tle.`senderId`' .
 						' from `tiki_live_support_events` tle, `tiki_live_support_requests` tlr' .

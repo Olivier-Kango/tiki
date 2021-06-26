@@ -20,7 +20,7 @@ require_once('lib/debug/debugger.php');
 class DbgCmd_DebugMessages extends DebuggerCommand
 {
 	/// Function to create interface part of command: return ["button name"] = <html code>
-	function draw_interface()
+	public function draw_interface()
 	{
 		$smarty = TikiLib::lib('smarty');
 
@@ -30,13 +30,13 @@ class DbgCmd_DebugMessages extends DebuggerCommand
 	}
 
 	/// Function to return caption string to draw plugable tab in interface
-	function caption()
+	public function caption()
 	{
 		return 'debug messages';
 	}
 
 	/// Need to display button if we have smth to show
-	function have_interface()
+	public function have_interface()
 	{
 		global $debugger;
 

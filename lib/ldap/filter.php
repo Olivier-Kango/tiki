@@ -11,9 +11,9 @@
  */
 class LDAPFilter
 {
-	var $_subfilters = [];
-	var $_match;
-	var $_filter;
+	public $_subfilters = [];
+	public $_match;
+	public $_filter;
 
    /**
 	* Combine two or more filter objects using a logical operator
@@ -29,7 +29,7 @@ class LDAPFilter
 	* @return LDAPFilter|Exception
 	* @static
 	*/
-	function &combine($log_op, $filters)
+	public function &combine($log_op, $filters)
 	{
 		// substitude named operators to logical operators
 		if ($log_op == 'and') {
@@ -90,7 +90,7 @@ class LDAPFilter
 	* @access static
 	* @return LDAPFilter|Net_LDAP_Error
 	*/
-	function parse($FILTER)
+	public function parse($FILTER)
 	{
 		if (preg_match('/^\((.+?)\)$/', $FILTER, $matches)) {
 			if (in_array(substr($matches[1], 0, 1), ['!', '|', '&'])) {

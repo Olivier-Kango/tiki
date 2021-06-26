@@ -7,37 +7,37 @@
 
 require_once 'lib/graph-engine/core.php';
 
-class GridBasedGraphic extends Graphic // {{{1
+class GridBasedGraphic extends Graphic
 {
-	var $dependant;
-	var $independant;
-	var $vertical;
-	var $horizontal;
+	public $dependant;
+	public $independant;
+	public $vertical;
+	public $horizontal;
 
-	function __construct() // {{{2
+	public function __construct()
 	{
 		parent::__construct();
 	}
 
-	function _getMinValue($type) // {{{2
+	public function _getMinValue($type)
 	{
 		// Type is 'dependant' or 'independant'
 		die("Abstract Function Call");
 	}
 
-	function _getMaxValue($type) // {{{2
+	public function _getMaxValue($type)
 	{
 		// Type is 'dependant' or 'independant'
 		die("Abstract Function Call");
 	}
 
-	function _getLabels($type) // {{{2
+	public function _getLabels($type)
 	{
 		// Type is 'dependant' or 'independant'
 		die("Abstract Function Call");
 	}
 
-	function _drawContent(&$renderer) // {{{2
+	public function _drawContent(&$renderer)
 	{
 		$top = 0;
 		$left = 0;
@@ -52,7 +52,7 @@ class GridBasedGraphic extends Graphic // {{{1
 		$this->_drawGridArea(new Fake_GRenderer($renderer, $left, $top, $right, $bottom), $layout);
 	}
 
-	function _initScales(&$renderer, $layout, $type) // {{{2
+	public function _initScales(&$renderer, $layout, $type)
 	{
 		switch ($layout["grid-$type-scale"]) {
 			case 'linear':
@@ -68,7 +68,7 @@ class GridBasedGraphic extends Graphic // {{{1
 		$this->$ori = &$this->$type;
 	}
 
-	function _drawScales(&$renderer, $layout, &$left, &$top, &$right, &$bottom) // {{{2
+	public function _drawScales(&$renderer, $layout, &$left, &$top, &$right, &$bottom)
 	{
 		// Loop until scales are stable
 		do {
@@ -117,7 +117,7 @@ class GridBasedGraphic extends Graphic // {{{1
 		}
 	}
 
-	function _drawGridArea(&$renderer, $layout) // {{{2
+	public function _drawGridArea(&$renderer, $layout)
 	{
 		$renderer->drawRectangle(0, 0, 1, 1, $renderer->getStyle($layout['grid-background']));
 		$this->vertical->drawGrid($renderer);
@@ -126,12 +126,12 @@ class GridBasedGraphic extends Graphic // {{{1
 		$this->_drawGridContent($renderer);
 	}
 
-	function _drawGridContent(&$renderer) // {{{2
+	public function _drawGridContent(&$renderer)
 	{
 		die("Abstract Function Call");
 	}
 
-	function _default() // {{{2
+	public function _default()
 	{
 		return array_merge(
 			parent::_default(),
@@ -168,15 +168,15 @@ class GridBasedGraphic extends Graphic // {{{1
 			]
 		);
 	}
-} // }}}1
+}
 
-class GridScale // {{{1
+class GridScale
 {
-	var $orientation;
-	var $type;
-	var $layout;
+	public $orientation;
+	public $type;
+	public $layout;
 
-	function __construct($type, $layout) // {{{2
+	public function __construct($type, $layout)
 	{
 		$this->type = $type;
 		$this->layout = $layout;
@@ -188,49 +188,49 @@ class GridScale // {{{1
 		}
 	}
 
-	function drawScale(&$renderer) // {{{2
+	public function drawScale(&$renderer)
 	{
 		die("Abstract Function Call");
 	}
 
-	function drawGrid(&$renderer) // {{{2
+	public function drawGrid(&$renderer)
 	{
 		die("Abstract Function Call");
 	}
 
-	function getLocation($value) // {{{2
+	public function getLocation($value)
 	{
 		die("Abstract Function Call");
 	}
 
-	function getRange($value) // {{{2
+	public function getRange($value)
 	{
 		die("Abstract Function Call");
 	}
 
-	function getSize(&$renderer, $available) // {{{2
+	public function getSize(&$renderer, $available)
 	{
 		die("Abstract Function Call");
 	}
-} // }}}1
+}
 
-class LinearGridScale extends GridScale // {{{1
+class LinearGridScale extends GridScale
 {
-	var $min;
-	var $max;
+	public $min;
+	public $max;
 
-	var $majorScaleCount;
-	var $majorScaleRound;
-	var $minorScaleCount;
-	var $minorScaleRound;
+	public $majorScaleCount;
+	public $majorScaleRound;
+	public $minorScaleCount;
+	public $minorScaleRound;
 
-	var $zero;
-	var $value;
+	public $zero;
+	public $value;
 
-	var $skip;
-	var $count;
+	public $skip;
+	public $count;
 
-	function __construct($type, $layout, $min, $max) // {{{2
+	public function __construct($type, $layout, $min, $max)
 	{
 		parent::__construct($type, $layout);
 		$this->min = $min;
@@ -241,7 +241,7 @@ class LinearGridScale extends GridScale // {{{1
 		$this->_adjustScale();
 	}
 
-	function _adjustScale() // {{{2
+	public function _adjustScale()
 	{
 		$max = $this->max;
 		$min = $this->min;
@@ -282,7 +282,7 @@ class LinearGridScale extends GridScale // {{{1
 		$this->value = $maj / (1 / $this->majorScaleCount);
 	}
 
-	function drawGrid(&$renderer) // {{{2
+	public function drawGrid(&$renderer)
 	{
 		$base = "grid-{$this->type}";
 
@@ -327,7 +327,7 @@ class LinearGridScale extends GridScale // {{{1
 		}
 	}
 
-	function drawScale(&$renderer) // {{{2
+	public function drawScale(&$renderer)
 	{
 		$base = "grid-{$this->type}";
 
@@ -385,7 +385,7 @@ class LinearGridScale extends GridScale // {{{1
 		}
 	}
 
-	function _drawGridLine(&$renderer, $pos, $style) // {{{2
+	public function _drawGridLine(&$renderer, $pos, $style)
 	{
 		if ($this->orientation == 'vertical') {
 			$renderer->drawLine(0, $pos, 1, $pos, $style);
@@ -394,7 +394,7 @@ class LinearGridScale extends GridScale // {{{1
 		}
 	}
 
-	function _drawGridTick(&$renderer, $pos, $style, $font, $size, $round = false) // {{{2
+	public function _drawGridTick(&$renderer, $pos, $style, $font, $size, $round = false)
 	{
 		if ($this->orientation == 'vertical') {
 			$size = $size / $renderer->width;
@@ -441,7 +441,7 @@ class LinearGridScale extends GridScale // {{{1
 		}
 	}
 
-	function getSize(&$renderer, $available) // {{{2
+	public function getSize(&$renderer, $available)
 	{
 		$param = $this->layout["grid-{$this->type}-major-font"];
 		if ($param !== false) {
@@ -460,7 +460,7 @@ class LinearGridScale extends GridScale // {{{1
 		}
 	}
 
-	function _calculateSkip($size, $space) // {{{2
+	public function _calculateSkip($size, $space)
 	{
 		$skip = 0;
 		while ($size > $space * ++$skip) {
@@ -469,7 +469,7 @@ class LinearGridScale extends GridScale // {{{1
 		return $skip;
 	}
 
-	function _getLargest(&$renderer, $font) // {{{2
+	public function _getLargest(&$renderer, $font)
 	{
 		return  max(
 			$renderer->getTextWidth($this->min, $font),
@@ -477,17 +477,17 @@ class LinearGridScale extends GridScale // {{{1
 		);
 	}
 
-	function _getMajorInterval() // {{{2
+	public function _getMajorInterval()
 	{
 		return 1 / $this->majorScaleCount;
 	}
 
-	function _getMinorInterval() // {{{2
+	public function _getMinorInterval()
 	{
 		return 1 / $this->majorScaleCount / $this->minorScaleCount;
 	}
 
-	function _getZeroLocation() // {{{2
+	public function _getZeroLocation()
 	{
 		$loc = $this->max / ($this->max - $this->min);
 
@@ -498,7 +498,7 @@ class LinearGridScale extends GridScale // {{{1
 		return $loc;
 	}
 
-	function _getValue($pos, $round = false) // {{{2
+	public function _getValue($pos, $round = false)
 	{
 		$zpos = $this->zero;
 
@@ -515,7 +515,7 @@ class LinearGridScale extends GridScale // {{{1
 		}
 	}
 
-	function getLocation($value) // {{{2
+	public function getLocation($value)
 	{
 		$pos = $value / $this->value;
 
@@ -528,7 +528,7 @@ class LinearGridScale extends GridScale // {{{1
 
 		return $pos;
 	}
-	function getRange($value) // {{{2
+	public function getRange($value)
 	{
 		$width = $this->_getMinorInterval() / 2;
 		$pos = $this->getLocation($value);
@@ -536,16 +536,16 @@ class LinearGridScale extends GridScale // {{{1
 		sort($locs);
 		return $locs;
 	}
-} // }}}1
+}
 
-class StaticGridScale extends GridScale // {{{1
+class StaticGridScale extends GridScale
 {
-	var $labels;
-	var $width;
-	var $layers;
-	var $count;
+	public $labels;
+	public $width;
+	public $layers;
+	public $count;
 
-	function __construct($type, $layout, $labels) // {{{2
+	public function __construct($type, $layout, $labels)
 	{
 		parent::__construct($type, $layout);
 		$this->labels = $labels;
@@ -553,7 +553,7 @@ class StaticGridScale extends GridScale // {{{1
 		$this->count = 0;
 	}
 
-	function drawGrid(&$renderer) // {{{2
+	public function drawGrid(&$renderer)
 	{
 		$base = "grid-{$this->type}";
 
@@ -569,7 +569,7 @@ class StaticGridScale extends GridScale // {{{1
 		}
 	}
 
-	function drawScale(&$renderer) // {{{2
+	public function drawScale(&$renderer)
 	{
 		$base = "grid-{$this->type}";
 
@@ -592,7 +592,7 @@ class StaticGridScale extends GridScale // {{{1
 		}
 	}
 
-	function _calculateSkip($size, $space) // {{{2
+	public function _calculateSkip($size, $space)
 	{
 		$space = abs($space);
 		$skip = 0;
@@ -605,7 +605,7 @@ class StaticGridScale extends GridScale // {{{1
 		return $skip;
 	}
 
-	function _drawGridLine(&$renderer, $pos, $style) // {{{2
+	public function _drawGridLine(&$renderer, $pos, $style)
 	{
 		if ($this->orientation == 'vertical') {
 			$renderer->drawLine(0, $pos, 1, $pos, $style);
@@ -614,7 +614,7 @@ class StaticGridScale extends GridScale // {{{1
 		}
 	}
 
-	function _drawGridTick(&$renderer, $pos, $style, $font, $size) // {{{2
+	public function _drawGridTick(&$renderer, $pos, $style, $font, $size)
 	{
 		if ($this->orientation == 'vertical') {
 			$size = $size / $renderer->width;
@@ -669,7 +669,7 @@ class StaticGridScale extends GridScale // {{{1
 		}
 	}
 
-	function getSize(&$renderer, $available) // {{{2
+	public function getSize(&$renderer, $available)
 	{
 		$param = $this->layout["grid-{$this->type}-major-font"];
 		if ($param !== false) {
@@ -696,7 +696,7 @@ class StaticGridScale extends GridScale // {{{1
 		}
 	}
 
-	function _getValue($pos) // {{{2
+	public function _getValue($pos)
 	{
 		$index = (int)round($pos / $this->width);
 		if (isset($this->labels[ $index ])) {
@@ -706,11 +706,11 @@ class StaticGridScale extends GridScale // {{{1
 		}
 	}
 
-	function getLocation($value) // {{{2
+	public function getLocation($value)
 	{
 		return array_sum($this->getRange($value)) / 2;
 	}
-	function getRange($value) // {{{2
+	public function getRange($value)
 	{
 		$key = array_search($value, $this->labels);
 		$begin = $key * $this->width;
@@ -718,4 +718,4 @@ class StaticGridScale extends GridScale // {{{1
 
 		return [ $begin, $end ];
 	}
-} // }}}1
+}

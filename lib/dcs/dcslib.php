@@ -82,7 +82,7 @@ class DCSLib extends TikiLib
 	 * @param null $lang
 	 * @return mixed
 	 */
-	function get_actual_content($fieldvalue, $lang = null)
+	public function get_actual_content($fieldvalue, $lang = null)
 	{
 		$query = 'SELECT * FROM `tiki_programmed_content` WHERE `contentId`=? AND `publishDate`<=? ORDER BY `publishDate` DESC';
 		$result = $this->fetchAll($query, [(int)$fieldvalue, $this->now]);
@@ -94,7 +94,7 @@ class DCSLib extends TikiLib
 	 * @param null $lang
 	 * @return mixed
 	 */
-	function get_actual_content_by_label($fieldvalue, $lang = null)
+	public function get_actual_content_by_label($fieldvalue, $lang = null)
 	{
 		$query = 'SELECT tpc.*'
 			. ' FROM `tiki_programmed_content` AS tpc, `tiki_content` AS tc'
@@ -106,7 +106,7 @@ class DCSLib extends TikiLib
 	/**
 	 * @param $contentId
 	 */
-	function remove_contents($contentId)
+	public function remove_contents($contentId)
 	{
 		$query = "delete from `tiki_programmed_content` where `contentId`=?";
 
@@ -122,7 +122,7 @@ class DCSLib extends TikiLib
 	 * @param string $find
 	 * @return array
 	 */
-	function list_content($offset = 0, $maxRecords = -1, $sort_mode = 'contentId_desc', $find = '')
+	public function list_content($offset = 0, $maxRecords = -1, $sort_mode = 'contentId_desc', $find = '')
 	{
 		if ($find) {
 			$findesc = '%' . $find . '%';
@@ -182,7 +182,7 @@ class DCSLib extends TikiLib
 	 * @param $contentId
 	 * @return mixed
 	 */
-	function get_actual_content_date($contentId)
+	public function get_actual_content_date($contentId)
 	{
 		$query = "select max(`publishDate`) from `tiki_programmed_content` where `contentId`=? and `publishDate`<=?";
 		$res = $this->getOne($query, [$contentId, $this->now]);
@@ -194,7 +194,7 @@ class DCSLib extends TikiLib
 	 * @param null $lang
 	 * @return string
 	 */
-	function get_random_content($contentId = 0, $lang = null)
+	public function get_random_content($contentId = 0, $lang = null)
 	{
 
 		$where = ' WHERE `publishDate`<=?';
@@ -223,7 +223,7 @@ class DCSLib extends TikiLib
 	 * @param $contentId
 	 * @return mixed
 	 */
-	function get_next_content($contentId)
+	public function get_next_content($contentId)
 	{
 		$query = "select min(`publishDate`) from `tiki_programmed_content` where `contentId`=? and `publishDate`>?";
 		$res = $this->getOne($query, [$contentId, $this->now]);
@@ -238,7 +238,7 @@ class DCSLib extends TikiLib
 	 * @param string $find
 	 * @return array
 	 */
-	function list_programmed_content($contentId, $offset = 0, $maxRecords = -1, $sort_mode = 'publishDate_desc', $find = '')
+	public function list_programmed_content($contentId, $offset = 0, $maxRecords = -1, $sort_mode = 'publishDate_desc', $find = '')
 	{
 		if ($find) {
 			$findesc = '%' . $find . '%';
@@ -270,7 +270,7 @@ class DCSLib extends TikiLib
 	 * @param string $content_type
 	 * @return mixed
 	 */
-	function replace_programmed_content($pId, $contentId, $publishDate, $data, $content_type = 'static')
+	public function replace_programmed_content($pId, $contentId, $publishDate, $data, $content_type = 'static')
 	{
 		if (! $pId) {
 			// was replace into ...
@@ -294,7 +294,7 @@ class DCSLib extends TikiLib
 	 * @param $id
 	 * @return bool
 	 */
-	function remove_programmed_content($id)
+	public function remove_programmed_content($id)
 	{
 		$query = "delete from `tiki_programmed_content` where `pId`=?";
 
@@ -307,7 +307,7 @@ class DCSLib extends TikiLib
 	 * @param string $fieldname
 	 * @return bool|mixed
 	 */
-	function get_content($fieldvalue, $fieldname = 'contentId')
+	public function get_content($fieldvalue, $fieldname = 'contentId')
 	{
 		if ($fieldname != 'contentId' && $fieldname != 'contentLabel') {
 			return false;
@@ -324,7 +324,7 @@ class DCSLib extends TikiLib
 	 * @param $id
 	 * @return mixed
 	 */
-	function get_programmed_content($id)
+	public function get_programmed_content($id)
 	{
 		$query = "select * from `tiki_programmed_content` where `pId`=?";
 
@@ -339,7 +339,7 @@ class DCSLib extends TikiLib
 	 * @param null $label
 	 * @return mixed
 	 */
-	function replace_content($contentId, $description, $label = null)
+	public function replace_content($contentId, $description, $label = null)
 	{
 		$bindvars = [$description];
 		if ($label !== null) {

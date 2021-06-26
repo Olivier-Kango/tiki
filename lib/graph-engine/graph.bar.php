@@ -9,11 +9,11 @@ require_once 'lib/graph-engine/abstract.gridbased.php';
 
 class BarBasedGraphic extends GridBasedGraphic // {{{1
 {
-	var $columns;
-	var $styleMap;
-	var $columnMap;
+	public $columns;
+	public $styleMap;
+	public $columnMap;
 
-	function __construct() // {{{2
+	public function __construct() // {{{2
 	{
 		parent::__construct();
 		$this->columns = [];
@@ -21,7 +21,7 @@ class BarBasedGraphic extends GridBasedGraphic // {{{1
 		$this->columnMap = [];
 	}
 
-	function getRequiredSeries() // {{{2
+	public function getRequiredSeries() // {{{2
 	{
 		return [
 						'label' => false,
@@ -32,7 +32,7 @@ class BarBasedGraphic extends GridBasedGraphic // {{{1
 		];
 	}
 
-	function _getMinValue($type) // {{{2
+	public function _getMinValue($type) // {{{2
 	{
 		switch ($type) {
 			case 'dependant':
@@ -54,7 +54,7 @@ class BarBasedGraphic extends GridBasedGraphic // {{{1
 		return $min;
 	}
 
-	function _getMaxValue($type) // {{{2
+	public function _getMaxValue($type) // {{{2
 	{
 		switch ($type) {
 			case 'dependant':
@@ -69,7 +69,7 @@ class BarBasedGraphic extends GridBasedGraphic // {{{1
 		}
 	}
 
-	function _getLabels($type) // {{{2
+	public function _getLabels($type) // {{{2
 	{
 		switch ($type) {
 			case 'dependant':
@@ -79,7 +79,7 @@ class BarBasedGraphic extends GridBasedGraphic // {{{1
 		}
 	}
 
-	function _handleData($data) // {{{2
+	public function _handleData($data) // {{{2
 	{
 		$columns = [];
 
@@ -136,7 +136,7 @@ class BarBasedGraphic extends GridBasedGraphic // {{{1
 		return true;
 	}
 
-	function _drawGridContent(&$renderer) // {{{2
+	public function _drawGridContent(&$renderer) // {{{2
 	{
 		$layout = $this->_layout();
 		$zero = $this->dependant->getLocation(0);
@@ -165,12 +165,12 @@ class BarBasedGraphic extends GridBasedGraphic // {{{1
 		}
 	}
 
-	function _drawColumn(&$renderer, $values, $zero)
+	public function _drawColumn(&$renderer, $values, $zero)
 	{
 		die("Abstract Function Call");
 	}
 
-	function _drawBox(&$renderer, $left, $top, $right, $bottom, $style)
+	public function _drawBox(&$renderer, $left, $top, $right, $bottom, $style)
 	{
 		$style = $renderer->getStyle($style);
 
@@ -184,12 +184,12 @@ class BarBasedGraphic extends GridBasedGraphic // {{{1
 		}
 	}
 
-	function _drawLegendBox(&$renderer, $color) // {{{2
+	public function _drawLegendBox(&$renderer, $color) // {{{2
 	{
 		$renderer->drawRectangle(0, 1, 1, 0, $renderer->getStyle("FillStroke-$color"));
 	}
 
-	function _default() // {{{2
+	public function _default() // {{{2
 	{
 		return array_merge(
 			parent::_default(),
@@ -199,16 +199,16 @@ class BarBasedGraphic extends GridBasedGraphic // {{{1
 			]
 		);
 	}
-} // }}}1
+}
 
 class BarStackGraphic extends BarBasedGraphic // {{{1
 {
-	function __construct() // {{{2
+	public function __construct() // {{{2
 	{
 		parent::__construct();
 	}
 
-	function _getMinValue($type) // {{{2
+	public function _getMinValue($type) // {{{2
 	{
 		switch ($type) {
 			case 'dependant':
@@ -218,8 +218,10 @@ class BarStackGraphic extends BarBasedGraphic // {{{1
 				}
 
 				$min = min($extremes);
+				break;
 			case 'independant':
 				$min = min(array_keys($this->columns));
+				break;
 		}
 
 		if ($min > 0) {
@@ -229,7 +231,7 @@ class BarStackGraphic extends BarBasedGraphic // {{{1
 		return $min;
 	}
 
-	function _getMaxValue($type) // {{{2
+	public function _getMaxValue($type) // {{{2
 	{
 		switch ($type) {
 			case 'dependant':
@@ -245,7 +247,7 @@ class BarStackGraphic extends BarBasedGraphic // {{{1
 		}
 	}
 
-	function _drawColumn(&$renderer, $values, $zero) // {{{2
+	public function _drawColumn(&$renderer, $values, $zero) // {{{2
 	{
 		$layout = $this->_layout();
 		$begin = ( 1 - $layout['stack-column-width'] ) / 2;
@@ -279,23 +281,23 @@ class BarStackGraphic extends BarBasedGraphic // {{{1
 		}
 	}
 
-	function _default() // {{{2
+	public function _default() // {{{2
 	{
 		return array_merge(
 			parent::_default(),
 			['stack-column-width' => 0.6]
 		);
 	}
-} // }}}1
+}
 
 class MultibarGraphic extends BarBasedGraphic // {{{1
 {
-	function __construct() // {{{2
+	public function __construct()
 	{
 		parent::__construct();
 	}
 
-	function _drawColumn(&$renderer, $values, $zero) // {{{2
+	public function _drawColumn(&$renderer, $values, $zero)
 	{
 		$layout = $this->_layout();
 		$count = count($values);
@@ -325,11 +327,11 @@ class MultibarGraphic extends BarBasedGraphic // {{{1
 		return $positions;
 	}
 
-	function _default() // {{{2
+	public function _default()
 	{
 		return array_merge(
 			parent::_default(),
 			['multi-columns-width' => 0.8]
 		);
 	}
-} // }}}1
+}

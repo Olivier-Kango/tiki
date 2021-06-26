@@ -17,31 +17,31 @@ require_once('lib/debug/debugger-ext.php');
 class DbgSList extends DebuggerCommand
 {
 	/// \b Must have function to announce command name in debugger console
-	function name()
+	public function name()
 	{
 		return 'slist';
 	}
 
 	/// \b Must have function to provide help to debugger console
-	function description()
+	public function description()
 	{
 		return 'Display list of Smarty variables. Better to specify partial name or very long list of vars will returns.';
 	}
 
 	/// \b Must have function to provide help to debugger console
-	function syntax()
+	public function syntax()
 	{
 		return 'slist [partial-name]';
 	}
 
 	/// \b Must have function to show example of usage of given command
-	function example()
+	public function example()
 	{
 		return 'slist' . "\n" . 'slist auth' . "\n" . 'slist ^wiki' . "\n" . 'slist .+admin.*';
 	}
 
 	/// Execute command with given set of arguments.
-	function execute($params)
+	public function execute($params)
 	{
 		$this->set_result_type(HTML_RESULT);
 

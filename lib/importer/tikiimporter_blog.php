@@ -76,7 +76,7 @@ class TikiImporter_Blog extends TikiImporter
 	 *
 	 * @return null
 	 */
-	function import($filePath = null)
+	public function import($filePath = null)
 	{
 		$this->setupTiki();
 
@@ -103,7 +103,7 @@ class TikiImporter_Blog extends TikiImporter
 	 *
 	 * @return void
 	 */
-	function setupTiki()
+	public function setupTiki()
 	{
 		$tikilib = TikiLib::lib('tiki');
 
@@ -117,7 +117,7 @@ class TikiImporter_Blog extends TikiImporter
 	 *
 	 * @return array $countData stats about the content that has been imported
 	 */
-	function insertData($parsedData = null)
+	public function insertData($parsedData = null)
 	{
 		$countData = [];
 
@@ -186,7 +186,7 @@ class TikiImporter_Blog extends TikiImporter
 	 * @param array $item a page or post
 	 * @return int|string page name or post id
 	 */
-	function insertItem($item)
+	public function insertItem($item)
 	{
 		$methodName = 'insert' . ucfirst($item['type']);
 
@@ -223,7 +223,7 @@ class TikiImporter_Blog extends TikiImporter
 	 *
 	 * @return void
 	 */
-	function createBlog()
+	public function createBlog()
 	{
 		global $user;
 		$bloglib = TikiLib::lib('blog');
@@ -277,7 +277,7 @@ class TikiImporter_Blog extends TikiImporter
 	 * @param array $tags
 	 * @return void
 	 */
-	function createTags($tags)
+	public function createTags($tags)
 	{
 		$freetaglib = TikiLib::lib('freetag');
 		foreach ($tags as $tag) {
@@ -293,7 +293,7 @@ class TikiImporter_Blog extends TikiImporter
 	 * @param array $tags
 	 * @return void
 	 */
-	function linkObjectWithTags($objId, $type, $tags)
+	public function linkObjectWithTags($objId, $type, $tags)
 	{
 		$freetaglib = TikiLib::lib('freetag');
 		global $user;
@@ -307,7 +307,7 @@ class TikiImporter_Blog extends TikiImporter
 	 * @param array $categories
 	 * @return void
 	 */
-	function createCategories($categories)
+	public function createCategories($categories)
 	{
 		$categlib = TikiLib::lib('categ');
 
@@ -330,7 +330,7 @@ class TikiImporter_Blog extends TikiImporter
 	 * @param array $categories
 	 * @return void
 	 */
-	function linkObjectWithCategories($objId, $type, $categories)
+	public function linkObjectWithCategories($objId, $type, $categories)
 	{
 		$categlib = TikiLib::lib('categ');
 
@@ -353,7 +353,7 @@ class TikiImporter_Blog extends TikiImporter
 	 * @param array $page
 	 * @return string|bool page name if was possible to create the new page or false
 	 */
-	function insertPage($page)
+	public function insertPage($page)
 	{
 		$objectlib = TikiLib::lib('object');
 
@@ -374,7 +374,7 @@ class TikiImporter_Blog extends TikiImporter
 	 * @param array $post
 	 * @return int|bool post id if one was created or false
 	 */
-	function insertPost($post)
+	public function insertPost($post)
 	{
 		$bloglib = TikiLib::lib('blog');
 		$objectlib = TikiLib::lib('object');
@@ -413,7 +413,7 @@ class TikiImporter_Blog extends TikiImporter
 	 * @param array $comments
 	 * @return void
 	 */
-	function insertComments($objId, $objType, $comments)
+	public function insertComments($objId, $objType, $comments)
 	{
 		$commentslib = TikiLib::lib('comments');
 
@@ -464,7 +464,7 @@ class TikiImporter_Blog extends TikiImporter
 	 *
 	 * @return void
 	 */
-	function instantiateImporterWiki()
+	public function instantiateImporterWiki()
 	{
 		require_once('tikiimporter_wiki.php');
 		$this->importerWiki = new TikiImporter_Wiki;

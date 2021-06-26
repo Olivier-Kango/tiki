@@ -21,7 +21,7 @@ class HtmlPagesLib extends TikiLib
 	 *
 	 * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
 	 */
-	function remove_html_page($pageName)
+	public function remove_html_page($pageName)
 	{
 		$query = 'delete from `tiki_html_pages` where binary `pageName`=?';
 		return $this->query($query, [$pageName]);
@@ -34,7 +34,7 @@ class HtmlPagesLib extends TikiLib
 	 * @param $find
 	 * @return array
 	 */
-	function list_html_pages($offset, $maxRecords, $sort_mode, $find)
+	public function list_html_pages($offset, $maxRecords, $sort_mode, $find)
 	{
 		$bindvars = [];
 
@@ -71,7 +71,7 @@ class HtmlPagesLib extends TikiLib
 	 * @param $find
 	 * @return array
 	 */
-	function list_html_page_content($pageName, $offset, $maxRecords, $sort_mode, $find)
+	public function list_html_page_content($pageName, $offset, $maxRecords, $sort_mode, $find)
 	{
 		$bindvars = [$pageName];
 		$mid = ' where binary `pageName`=? ';
@@ -104,7 +104,7 @@ class HtmlPagesLib extends TikiLib
 	 * @param $data
 	 * @return mixed
 	 */
-	function parse_html_page($pageName, $data)
+	public function parse_html_page($pageName, $data)
 	{
 		global $tikilib; // only required for parsing <wiki>...</wiki> tags
 
@@ -134,7 +134,7 @@ class HtmlPagesLib extends TikiLib
 	 * @param $refresh
 	 * @return mixed
 	 */
-	function replace_html_page($pageName, $type, $content, $refresh)
+	public function replace_html_page($pageName, $type, $content, $refresh)
 	{
 		$query = 'delete from `tiki_html_pages` where binary `pageName`=?';
 		$this->query($query, [$pageName], -1, -1, false);
@@ -181,7 +181,7 @@ class HtmlPagesLib extends TikiLib
 	 *
 	 * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
 	 */
-	function replace_html_page_content($pageName, $zone, $content)
+	public function replace_html_page_content($pageName, $zone, $content)
 	{
 		$query = 'update `tiki_html_pages_dynamic_zones` set `content`=? where binary `pageName`=? and `zone`=?';
 		return $this->query($query, [$content, $pageName, $zone]);
@@ -193,7 +193,7 @@ class HtmlPagesLib extends TikiLib
 	 *
 	 * @return TikiDb_Pdo_Result|TikiDb_Adodb_Result
 	 */
-	function remove_html_page_content($pageName, $zone)
+	public function remove_html_page_content($pageName, $zone)
 	{
 		$query = 'delete from `tiki_html_pages_dynamic_zones` where binary `pageName`=? and `zone`=?';
 		return $this->query($query, [$pageName, $zone]);
@@ -203,7 +203,7 @@ class HtmlPagesLib extends TikiLib
 	 * @param $pageName
 	 * @return bool
 	 */
-	function get_html_page($pageName)
+	public function get_html_page($pageName)
 	{
 		$query = 'select * from `tiki_html_pages` where binary `pageName`=?';
 		$result = $this->query($query, [$pageName]);
@@ -221,7 +221,7 @@ class HtmlPagesLib extends TikiLib
 	 * @param $zone
 	 * @return bool
 	 */
-	function get_html_page_content($pageName, $zone)
+	public function get_html_page_content($pageName, $zone)
 	{
 		$query = 'select * from `tiki_html_pages_dynamic_zones` where binary `pageName`=? and `zone`=?';
 		$result = $this->query($query, [$pageName, $zone]);
@@ -234,4 +234,4 @@ class HtmlPagesLib extends TikiLib
 		return $res;
 	}
 }
-$htmlpageslib = new HtmlPagesLib;
+$htmlpageslib = new HtmlPagesLib();

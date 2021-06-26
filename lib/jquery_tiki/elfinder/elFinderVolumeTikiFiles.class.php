@@ -1140,4 +1140,4 @@ class elFinderVolumeTikiFiles extends elFinderVolumeDriver
 	{
 		// Not used in Tiki
 	}
-} // END class
+}

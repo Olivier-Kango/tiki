@@ -71,7 +71,7 @@ class Tracer
 	// Method for pretty printing a data structure as a "human readable"
 	// JSON string
 	//
-	function pretty_print($in, $indent = 0, Closure $_escape = null)
+	public function pretty_print($in, $indent = 0, Closure $_escape = null)
 	{
 		//
 		// Pretty printing of a large data structure can consume time if it is called often.

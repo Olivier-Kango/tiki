@@ -32,57 +32,57 @@
 
 class GRenderer // {{{1
 {
-	function addLink($target, $left, $top, $right, $bottom, $title = null) // {{{2
+	public function addLink($target, $left, $top, $right, $bottom, $title = null)
 	{
 		die("Abstract Function Call");
 	}
 
-	function drawLine($x1, $y1, $x2, $y2, $style) // {{{2
+	public function drawLine($x1, $y1, $x2, $y2, $style)
 	{
 		die("Abstract Function Call");
 	}
 
-	function drawRectangle($left, $top, $right, $bottom, $style) // {{{2
+	public function drawRectangle($left, $top, $right, $bottom, $style)
 	{
 		die("Abstract Function Call");
 	}
 
-	function drawPie($centerX, $centerY, $radius, $begin, $end, $style) // {{{2
+	public function drawPie($centerX, $centerY, $radius, $begin, $end, $style)
 	{
 		die("Abstract Function Call");
 	}
 
-	function drawText($text, $left, $right, $height, $style) // {{{2
+	public function drawText($text, $left, $right, $height, $style)
 	{
 		die("Abstract Function Call");
 	}
 
-	function getTextWidth($text, $style) // {{{2
+	public function getTextWidth($text, $style)
 	{
 		die("Abstract Function Call");
 	}
 
-	function getTextHeight($style) // {{{2
+	public function getTextHeight($style)
 	{
 		die("Abstract Function Call");
 	}
 
-	function getStyle($name) // {{{2
+	public function getStyle($name)
 	{
 		return null;
 	}
 
-	function httpOutput($filename) // {{{2
+	public function httpOutput($filename)
 	{
 		die("Abstract Function Call");
 	}
 
-	function writeToStream($stream) // {{{2
+	public function writeToStream($stream)
 	{
 		die("Abstract Function Call");
 	}
 
-	function _getRawColor($name) // {{{2
+	public function _getRawColor($name)
 	{
 		switch ($name) {
 			case 'red':
@@ -112,17 +112,17 @@ class GRenderer // {{{1
 				return [ 'r' => 0x00, 'g' => 0x00, 'b' => 0x00 ];
 		}
 	}
-} // }}}1
+}
 
 class Fake_GRenderer extends GRenderer // {{{1
 {
-	var $renderer;
-	var $left;
-	var $top;
-	var $width;
-	var $height;
+	public $renderer;
+	public $left;
+	public $top;
+	public $width;
+	public $height;
 
-	function __construct(&$renderer, $left, $top, $right, $bottom)
+	public function __construct(&$renderer, $left, $top, $right, $bottom)
 	{
 		$this->renderer = &$renderer;
 		$this->left = $left;
@@ -131,7 +131,7 @@ class Fake_GRenderer extends GRenderer // {{{1
 		$this->height = $bottom - $top;
 	}
 
-	function addLink($target, $left, $top, $right, $bottom, $title = null) // {{{2
+	public function addLink($target, $left, $top, $right, $bottom, $title = null)
 	{
 		$this->renderer->addLink(
 			$target,
@@ -143,7 +143,7 @@ class Fake_GRenderer extends GRenderer // {{{1
 		);
 	}
 
-	function drawLine($x1, $y1, $x2, $y2, $style) // {{{2
+	public function drawLine($x1, $y1, $x2, $y2, $style)
 	{
 		$this->renderer->drawLine(
 			$x1 * $this->width + $this->left,
@@ -154,7 +154,7 @@ class Fake_GRenderer extends GRenderer // {{{1
 		);
 	}
 
-	function drawRectangle($left, $top, $right, $bottom, $style) // {{{2
+	public function drawRectangle($left, $top, $right, $bottom, $style)
 	{
 		$this->renderer->drawRectangle(
 			$left * $this->width + $this->left,
@@ -165,7 +165,7 @@ class Fake_GRenderer extends GRenderer // {{{1
 		);
 	}
 
-	function drawPie($centerX, $centerY, $radius, $begin, $end, $style) // {{{2
+	public function drawPie($centerX, $centerY, $radius, $begin, $end, $style)
 	{
 		$this->renderer->drawPie(
 			$centerX * $this->width + $this->left,
@@ -177,7 +177,7 @@ class Fake_GRenderer extends GRenderer // {{{1
 		);
 	}
 
-	function drawText($text, $left, $right, $height, $style) // {{{2
+	public function drawText($text, $left, $right, $height, $style)
 	{
 		$this->renderer->drawText(
 			$text,
@@ -188,35 +188,35 @@ class Fake_GRenderer extends GRenderer // {{{1
 		);
 	}
 
-	function getTextWidth($text, $style) // {{{2
+	public function getTextWidth($text, $style)
 	{
 		// Make sure the font size does not get smaller with scale
 		return $this->renderer->getTextWidth($text, $style) / $this->width;
 	}
 
-	function getTextHeight($style) // {{{2
+	public function getTextHeight($style)
 	{
 		// Make sure the font size does not get smaller with scale
 		return $this->renderer->getTextHeight($style) / $this->height;
 	}
 
-	function getStyle($name) // {{{2
+	public function getStyle($name)
 	{
 		return $this->renderer->getStyle($name);
 	}
 
-	function httpOutput($filename) // {{{2
+	public function httpOutput($filename)
 	{
 		$this->renderer->httpOutput($filename);
 	}
 
-	function writeToStream($stream) // {{{2
+	public function writeToStream($stream)
 	{
 		$this->renderer->writeToStream($stream);
 	}
-} // }}}1
+}
 
-class DataHandler // {{{
+class DataHandler
 {
 	/**
 	 * Provides means to hook into the data display sequence to add decorations
@@ -235,53 +235,53 @@ class DataHandler // {{{
 	 * @param series		The key of the source series of the data.
 	 * @param entryIndex	The zero-based index of the entry in the series.
 	 */
-	function handle($renderer, $positionData, $series, $entryIndex)
+	public function handle($renderer, $positionData, $series, $entryIndex)
 	{
 		die("Abstract Function Call");
 	}
-} // }}}
+}
 
-class Graphic // {{{1
+class Graphic
 {
-	var $legend;
-	var $title;
-	var $parameters;
-	var $dataHandlers;
+	public $legend;
+	public $title;
+	public $parameters;
+	public $dataHandlers;
 
-	function __construct() // {{{2
+	public function __construct()
 	{
 		$this->legend = [];
 		$this->parameters = [];
 		$this->dataHandlers = [];
 	}
 
-	function setTitle($title) // {{{2
+	public function setTitle($title)
 	{
 		$this->title = $title;
 	}
 
-	function addLegend($color, $value, $url = null) // {{{2
+	public function addLegend($color, $value, $url = null)
 	{
 		// $color name
 		// $value label
 		$this->legend[] = [ $color, $value, $url ];
 	}
 
-	function addDataHandler($handler) // {{{2
+	public function addDataHandler($handler)
 	{
 		if (is_a($handler, 'DataHandler')) {
 			$this->dataHandlers[] = $handler;
 		}
 	}
 
-	function getRequiredSeries() // {{{2
+	public function getRequiredSeries()
 	{
 		// Returns an associative array with series name as key
 		// Value has to be true if the series is required.
 		die("Abstract Function Call");
 	}
 
-	function draw(&$renderer) // {{{2
+	public function draw(&$renderer)
 	{
 		$top = 0;
 		$left = 0;
@@ -310,7 +310,7 @@ class Graphic // {{{1
 		}
 	}
 
-	function setData($data) // {{{2
+	public function setData($data)
 	{
 		if (! is_array($data)) {
 			return false;
@@ -333,12 +333,12 @@ class Graphic // {{{1
 		return $this->_handleData($data);
 	}
 
-	function setParam($name, $value) // {{{2
+	public function setParam($name, $value)
 	{
 		$this->parameters[$name] = $value;
 	}
 
-	function _getColor() // {{{2
+	public function _getColor()
 	{
 		static $index = 0;
 		$colors = [
@@ -354,7 +354,7 @@ class Graphic // {{{1
 		return $colors[$index++ % count($colors)];
 	}
 
-	function _drawLegend(&$renderer, &$left, &$top, &$right, &$bottom, $layout) // {{{2
+	public function _drawLegend(&$renderer, &$left, &$top, &$right, &$bottom, $layout)
 	{
 		$box_size = $layout['legend-box-size'];
 		$padding = $layout['legend-padding'];
@@ -513,22 +513,22 @@ class Graphic // {{{1
 		// }}}3
 	}
 
-	function _drawContent(&$renderer) // {{{2
+	public function _drawContent(&$renderer)
 	{
 		die("Abstract Function Call");
 	}
 
-	function _drawLegendBox(&$renderer, $color) // {{{2
+	public function _drawLegendBox(&$renderer, $color)
 	{
 		die("Abstract Function Call");
 	}
 
-	function _handleData($data) // {{{2
+	public function _handleData($data)
 	{
 		die("Abstract Function Call");
 	}
 
-	function _default() // {{{2
+	public function _default()
 	{
 		return [
 			'title-active' => true,
@@ -548,16 +548,16 @@ class Graphic // {{{1
 		];
 	}
 
-	function _layout()
+	public function _layout()
 	{
 		// Planning some user-preferences, until then, defaults.
 		return array_merge($this->_default(), $this->parameters);
 	}
 
-	function _notify($renderer, $positionData, $series, $index)
+	public function _notify($renderer, $positionData, $series, $index)
 	{
 		foreach ($this->dataHandlers as $handler) {
 			$handler->handle($renderer, $positionData, $series, $index);
 		}
 	}
-} // }}}1
+}

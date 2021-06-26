@@ -7,9 +7,9 @@
 
 class GoalLib
 {
-	static $runner;
+	public static $runner;
 
-	function listGoals()
+	public function listGoals()
 	{
 		$table = $this->table();
 
@@ -23,7 +23,7 @@ class GoalLib
 		}, $list);
 	}
 
-	function listConditions()
+	public function listConditions()
 	{
 		$table = $this->table();
 		$table->useExceptions();
@@ -37,14 +37,14 @@ class GoalLib
 		}, $list);
 	}
 
-	function removeGoal($goalId)
+	public function removeGoal($goalId)
 	{
 		$this->table()->delete(['goalId' => $goalId]);
 
 		TikiLib::lib('goalevent')->touch();
 	}
 
-	function preserveGoals(array $ids)
+	public function preserveGoals(array $ids)
 	{
 		$table = $this->table();
 		return $table->deleteMultiple(
@@ -54,7 +54,7 @@ class GoalLib
 		);
 	}
 
-	function replaceGoal($goalId, array $data)
+	public function replaceGoal($goalId, array $data)
 	{
 		$base = null;
 
@@ -102,7 +102,7 @@ class GoalLib
 		return $goalId;
 	}
 
-	function fetchGoal($goalId)
+	public function fetchGoal($goalId)
 	{
 		$goal = $this->table()->fetchFullRow(['goalId' => $goalId]);
 
@@ -115,7 +115,7 @@ class GoalLib
 		}
 	}
 
-	function isEligible(array $goal, array $context)
+	public function isEligible(array $goal, array $context)
 	{
 		if ($goal['type'] == 'user') {
 			return count(array_intersect($context['groups'], $goal['eligible'])) > 0;
@@ -126,7 +126,7 @@ class GoalLib
 		}
 	}
 
-	function evaluateConditions(array $goal, array $context)
+	public function evaluateConditions(array $goal, array $context)
 	{
 		$this->prepareConditions($goal);
 		$runner = $this->getRunner();
@@ -180,7 +180,7 @@ class GoalLib
 		return $goal;
 	}
 
-	function unevaluateConditions($goal)
+	public function unevaluateConditions($goal)
 	{
 		$goal['complete'] = false;
 
@@ -192,7 +192,7 @@ class GoalLib
 		return $goal;
 	}
 
-	function evaluateAllGoals()
+	public function evaluateAllGoals()
 	{
 		$tx = TikiDb::get()->begin();
 
@@ -325,7 +325,7 @@ class GoalLib
 		return $metric;
 	}
 
-	function getMetricList()
+	public function getMetricList()
 	{
 		return [
 			'event-count' => ['label' => tr('Event Count'), 'arguments' => ['eventType']],
@@ -336,7 +336,7 @@ class GoalLib
 		];
 	}
 
-	function listEligibleGroups()
+	public function listEligibleGroups()
 	{
 		global $prefs;
 		$groups = TikiLib::lib('user')->list_all_groups();

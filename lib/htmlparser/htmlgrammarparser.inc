@@ -13,32 +13,32 @@ if (! defined("_ECHOSERVER_HTML_GRAMMARPARSER")) {
 	 */
 	class HtmlGrammarParser
 	{
-		var $line,
-		$column,
-		$pos,
-		$length,
-		$data,
-		$pg,
-		$pgpos,
-		$parpos,
-		$incomment,
-		$name,
-		$allreadyparsed,
-		$errors,
-		$errpos,
-		$quotstate,
-		$firstprev,
-		$secondprev,
-		$firststate,
-		$secondstate,
-		$iseof,
-		$mode,
-		$tagname,
-		$parname;
+		public $line;
+		public $column;
+		public $pos;
+		public $length;
+		public $data;
+		public $pg;
+		public $pgpos;
+		public $parpos;
+		public $incomment;
+		public $name;
+		public $allreadyparsed;
+		public $errors;
+		public $errpos;
+		public $quotstate;
+		public $firstprev;
+		public $secondprev;
+		public $firststate;
+		public $secondstate;
+		public $iseof;
+		public $mode;
+		public $tagname;
+		public $parname;
 /**********************************************************************************
  * Class constructor
  **********************************************************************************/
-		function __construct($data)
+		public function __construct($data)
 		{
 			$this->firstprev = ["state" => 0,"word" => ""];
 			$this->secondprev = ["state" => 0,"word" => ""];
@@ -81,7 +81,7 @@ if (! defined("_ECHOSERVER_HTML_GRAMMARPARSER")) {
 /********************************************************************************************
  *  Store parser's errors and warnings
  ********************************************************************************************/
-		function SetError($e, $str, $line = 0, $column = 0, $errtype = "Warning")
+		public function SetError($e, $str, $line = 0, $column = 0, $errtype = "Warning")
 		{
 			$this->errors[++$this->errpos]["type"] = $errtype;
 			$this->errors[$this->errpos]["code"] = $e;
@@ -99,7 +99,7 @@ if (! defined("_ECHOSERVER_HTML_GRAMMARPARSER")) {
 /********************************************************************************************
  *  Print parser's errors and warnings
  ********************************************************************************************/
-		function PrintErrors()
+		public function PrintErrors()
 		{
 			for ($i = 0; $i <= $this->errpos; $i++) {
 				print $this->errors[$i]["str"];
@@ -109,7 +109,7 @@ if (! defined("_ECHOSERVER_HTML_GRAMMARPARSER")) {
 /********************************************************************************************
  *  Get word from data
  ********************************************************************************************/
-		function GetWord($word)
+		public function GetWord($word)
 		{
 			$word = "";
 			$found = 0;
@@ -241,7 +241,7 @@ EOF	-1 -1 -1 -2
  3 got '>', waiting eof or '<'
 
  ********************************************************************************************/
-		function ParseFirst($word)
+		public function ParseFirst($word)
 		{
 			if ($this->iseof) {
 				$this->firstprev["state"] = 0;
@@ -341,7 +341,7 @@ EOF	    -1 -1 -1 -1 -1
  3 collect words to next '"'
  4 got parvalue, waiting new parname
  ********************************************************************************************/
-		function ParseSecond($word)
+		public function ParseSecond($word)
 		{
 			if ($this->iseof) {
 				return false;
@@ -420,7 +420,7 @@ EOF	    -1 -1 -1 -1 -1
 /********************************************************************************************
  *  Parse closeon structure
  ********************************************************************************************/
-		function ParseCloseOn($str, $notexists, $exists)
+		public function ParseCloseOn($str, $notexists, $exists)
 		{
 			$arr = explode("|", $str);
 			if (! is_array($arr)) {
@@ -442,7 +442,7 @@ EOF	    -1 -1 -1 -1 -1
 /********************************************************************************************
  *  Parse grammar
  ********************************************************************************************/
-		function Parse()
+		public function Parse()
 		{
 			if ($this->allreadyparsed) {
 				return true;
@@ -454,10 +454,10 @@ EOF	    -1 -1 -1 -1 -1
 					$this->iseof = true;
 				}
 				switch (strtolower($word)) {
-					case "/*";
+					case "/*":
 						$this->incomment *= -1;
 					break;
-					case "*/";
+					case "*/":
 						if ($this->incomment != 1) {
 							$this->SetError(1, "Not found begin of comment operator.", $this->line, $this->column, "Error");
 							return;
@@ -488,7 +488,7 @@ EOF	    -1 -1 -1 -1 -1
 /********************************************************************************************
  *  Prepare grammar for future using
  ********************************************************************************************/
-		function PrepareGrammar()
+		public function PrepareGrammar()
 		{
 			$edittagsaftertable = $this->ScanGrammar();
 			$l = sizeof($this->pg);
@@ -509,7 +509,7 @@ EOF	    -1 -1 -1 -1 -1
 /********************************************************************************************
  *  Scan grammar for creating edittagsafter table
  ********************************************************************************************/
-		function ScanGrammar()
+		public function ScanGrammar()
 		{
 			$edittagsaftertable = [];
 			for ($i = 0; $i < sizeof($this->pg); $i++) {
@@ -524,7 +524,7 @@ EOF	    -1 -1 -1 -1 -1
 /********************************************************************************************
  *  Save precompiled grammar in file
  ********************************************************************************************/
-		function SaveGrammar($name)
+		public function SaveGrammar($name)
 		{
 			$str = serialize($this->pg);
 			if (! $fp = fopen($name, "w")) {
@@ -537,4 +537,4 @@ EOF	    -1 -1 -1 -1 -1
 		}
 	}
 
-} //_ECHOSERVER_HTML_GRAMMARPARSER
+}

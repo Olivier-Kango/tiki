@@ -21,7 +21,7 @@ class DebuggerCommand extends ResultType
 	 *
 	 * Assume interface extension if no name provided
 	 */
-	function name()
+	public function name()
 	{
 		return '';
 	}
@@ -30,43 +30,43 @@ class DebuggerCommand extends ResultType
 	 *
 	 * Used as title foe interface extentions
 	 */
-	function description()
+	public function description()
 	{
 		return 'No help available for ' . $this->name();
 	}
 
 	/// \b Must have function to provide help to debugger console
-	function syntax()
+	public function syntax()
 	{
 		return $this->name();
 	}
 
 	/// \b Must have functio to show exampla of usage of given command
-	function example()
+	public function example()
 	{
 		return 'No example available for ' . $this->name();
 	}
 
 	/// Execute command with given set of arguments. Must return string of result.
-	function execute($params)
+	public function execute($params)
 	{
 		return 'No result';
 	}
 
 	/// Say to debugger is this command need to draw some interface on console...
-	function have_interface()
+	public function have_interface()
 	{
 		return false;
 	}
 
 	/// Return HTML code of our interface to debugger
-	function draw_interface()
+	public function draw_interface()
 	{
 		return '';
 	}
 
 	/// Function to return caption string to draw plugable tab in interface
-	function caption()
+	public function caption()
 	{
 		return 'caption';
 	}

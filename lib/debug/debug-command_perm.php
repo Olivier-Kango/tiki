@@ -17,31 +17,31 @@ require_once('lib/debug/debugger-ext.php');
 class DbgPermissions extends DebuggerCommand
 {
 	/// \b Must have function to announce command name in debugger console
-	function name()
+	public function name()
 	{
 		return 'perm';
 	}
 
 	/// \b Must have function to provide help to debugger console
-	function description()
+	public function description()
 	{
 		return 'Show current permissions in a convenient way';
 	}
 
 	/// \b Must have function to provide help to debugger console
-	function syntax()
+	public function syntax()
 	{
 		return 'perm [partial-name]';
 	}
 
 	/// \b Must have function to show example of usage of given command
-	function example()
+	public function example()
 	{
 		return 'perm' . "\n" . 'perm admin' . "\n" . 'perm .*_comments$';
 	}
 
 	/// Execute command with given set of arguments.
-	function execute($params)
+	public function execute($params)
 	{
 		$userlib = TikiLib::lib('user');
 		$smarty = TikiLib::lib('smarty');

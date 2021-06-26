@@ -26,19 +26,19 @@ define('TPL_RESULT', 3);
 class ResultType
 {
 	/// Type of result (see consts defined above)
-	var $result_type;
+	public $result_type;
 
 	/// Template name if $result_type == TPL_RESULT
-	var $result_tpl;
+	public $result_tpl;
 
 	/// Constructor init all
-	function __construct()
+	public function __construct()
 	{
 		$this->reset();
 	}
 
 	/// Init all vars to default state
-	function reset()
+	public function reset()
 	{
 		$this->result_tpl = '';
 
@@ -46,12 +46,12 @@ class ResultType
 	}
 
 	/// Accessor for result_type
-	function result_type()
+	public function result_type()
 	{
 		return $this->result_type;
 	}
 
-	function set_result_type($type)
+	public function set_result_type($type)
 	{
 		$this->result_tpl = '';
 
@@ -59,12 +59,12 @@ class ResultType
 	}
 
 	/// Accessor for result_tpl
-	function result_tpl()
+	public function result_tpl()
 	{
 		return $this->result_tpl;
 	}
 
-	function set_result_tpl($tpl)
+	public function set_result_tpl($tpl)
 	{
 		$this->result_tpl = $tpl;
 	}

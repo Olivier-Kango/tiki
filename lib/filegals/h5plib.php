@@ -31,7 +31,7 @@ class H5PLib
 	 * H5PLib constructor.
 	 * @throws Exception
 	 */
-	function __construct()
+	public function __construct()
 	{
 		if (! extension_loaded('zip')) {
 			throw new Exception(tr('PHP Zip extension not found, reqiuired for Feature H5P'));
@@ -39,7 +39,7 @@ class H5PLib
 		$this->H5PTiki = \H5P_H5PTiki::get_h5p_instance('interface');
 	}
 
-	function __destruct()
+	public function __destruct()
 	{
 	}
 
@@ -54,7 +54,7 @@ class H5PLib
 	 *  - 'filetype' => $type
 	 *
 	 */
-	function handle_fileCreation($args)
+	public function handle_fileCreation($args)
 	{
 		if (! $this->H5PTiki->isSaving && $metadata = $this->getRequestMetadata($args)) {
 			$validator = H5P_H5PTiki::get_h5p_instance('validator');
@@ -82,7 +82,7 @@ class H5PLib
 	 *  - 'filetype' => $type
 	 *
 	 */
-	function handle_fileUpdate($args)
+	public function handle_fileUpdate($args)
 	{
 		if (! $this->H5PTiki->isSaving && isset($args['object']) && $metadata = $this->getRequestMetadata($args)) {
 			$validator = H5P_H5PTiki::get_h5p_instance('validator');
@@ -107,7 +107,7 @@ class H5PLib
 	 *  - 'filetype' => $type
 	 *
 	 */
-	function handle_fileDelete($args)
+	public function handle_fileDelete($args)
 	{
 		if (isset($args['object']) && $args['type'] === 'file') {
 			$id = $this->getContentIdFromFileId($args['object']);

@@ -13,12 +13,12 @@ class VimeoLib
 	 * VimeoLib constructor.
 	 * @param OAuthLib $oauthlib
 	 */
-	function __construct($oauthlib)
+	public function __construct($oauthlib)
 	{
 		$this->oauth = $oauthlib;
 	}
 
-	function isAuthorized()
+	public function isAuthorized()
 	{
 		return $this->oauth->is_authorized('vimeo');
 	}
@@ -28,7 +28,7 @@ class VimeoLib
 	 *
 	 * @return array
 	 */
-	function getQuota()
+	public function getQuota()
 	{
 		$data = $this->callMethod('/me');
 		return $data['upload_quota'];
@@ -39,7 +39,7 @@ class VimeoLib
 	 *
 	 * @return array
 	 */
-	function getTicket()
+	public function getTicket()
 	{
 		$data = $this->callMethod(
 			'/me/videos',
@@ -49,7 +49,7 @@ class VimeoLib
 		return $data;
 	}
 
-	function complete($completeUri)
+	public function complete($completeUri)
 	{
 		$data = $this->callMethod(
 			$completeUri,
@@ -59,7 +59,7 @@ class VimeoLib
 		return $data;
 	}
 
-	function setTitle($videoId, $title)
+	public function setTitle($videoId, $title)
 	{
 		$data = $this->callMethod(
 			'/videos/' . $videoId,
@@ -71,7 +71,7 @@ class VimeoLib
 		return $data;
 	}
 
-	function deleteVideo($videoId)
+	public function deleteVideo($videoId)
 	{
 		$data = $this->callMethod(
 			'/videos/' . $videoId,

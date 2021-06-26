@@ -80,7 +80,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
 	 * @return void
 	 * @throws Exception if DOMDocument not available
 	 */
-	function checkRequirements()
+	public function checkRequirements()
 	{
 		if (! class_exists('DOMDocument')) {
 			throw new Exception(tra('Class DOMDocument not available, check your PHP installation. For more information see http://php.net/manual/en/book.dom.php'));
@@ -90,7 +90,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
 	/*
 	 * @see lib/importer/TikiImporter_Blog#setupTiki()
 	 */
-	function setupTiki()
+	public function setupTiki()
 	{
 		global $tikilib;
 
@@ -115,7 +115,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
 	 * @return null
 	 * @throws UnexpectedValueException if invalid file mime type
 	 */
-	function import($filePath = null)
+	public function import($filePath = null)
 	{
 		if ($filePath == null) {
 			die("This particular implementation of the method requires an explicity file path.");
@@ -161,7 +161,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
 	 * @throws DOMException if not able to validate file
 	 * @return bool true if valid file
 	 */
-	function validateInput()
+	public function validateInput()
 	{
 		$rss = $this->dom->getElementsByTagName('rss');
 
@@ -181,7 +181,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
 	 *
 	 * @returns void
 	 */
-	function checkRequirementsForAttachments()
+	public function checkRequirementsForAttachments()
 	{
 		if (ini_get('allow_url_fopen') === false) {
 			$this->saveAndDisplayLog("Aborting: you need to enable the PHP setting 'allow_url_fopen' to be able to import attachments. Fix the problem or try to import without the attachments.\n");
@@ -197,7 +197,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
 	 *
 	 * @return null
 	 */
-	function parseData()
+	public function parseData()
 	{
 		$this->saveAndDisplayLog("\n" . tra("Extracting data from XML file:") . "\n");
 
@@ -217,7 +217,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
 	 *
 	 * @return array permalinks
 	 */
-	function extractPermalinks()
+	public function extractPermalinks()
 	{
 		$data = $this->dom->getElementsByTagName('item');
 		$permalinks = [];
@@ -266,7 +266,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
 	 *
 	 * @return array all extract items (pages, posts and attachments)
 	 */
-	function extractItems()
+	public function extractItems()
 	{
 		$data = $this->dom->getElementsByTagName('item');
 
@@ -297,7 +297,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
 	 *
 	 * @return array tags
 	 */
-	function extractTags()
+	public function extractTags()
 	{
 		$tags = [];
 
@@ -322,7 +322,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
 	 *
 	 *  @return array categories
 	 */
-	function extractCategories()
+	public function extractCategories()
 	{
 		$categories = [];
 
@@ -362,7 +362,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
 	 *
 	 * @return void
 	 */
-	function downloadAttachments()
+	public function downloadAttachments()
 	{
 		$filegallib = TikiLib::lib('filegal');
 
@@ -445,7 +445,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
 	 *
 	 * @return int created gallery id
 	 */
-	function createFileGallery()
+	public function createFileGallery()
 	{
 		$filegallib = TikiLib::lib('filegal');
 		global $user;
@@ -471,7 +471,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
 	 *
 	 * @return array all the attachments
 	 */
-	function extractAttachmentsInfo()
+	public function extractAttachmentsInfo()
 	{
 		$attachments = [];
 		$items = $this->dom->getElementsByTagName('item');
@@ -523,7 +523,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
 	 * @param $str the html text in which to insert lines
 	 * @return string
 	 */
-	function replaceParagraphWithLineBreak($content)
+	public function replaceParagraphWithLineBreak($content)
 	{
 		$new_content = preg_replace("/<p[^>]*?>/", "", $content);
 		$new_content = str_replace("</p>", "<br />", $new_content);
@@ -542,7 +542,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
 	 * @param $content the html text in which to insert parse embedded youtube
 	 * @return string
 	 */
-	function parseYoutubeEmbedded($content)
+	public function parseYoutubeEmbedded($content)
 	{
 		$newcontent = $content;
 		$dom = new DOMDocument;
@@ -575,7 +575,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
 	 * @return array $data information for one item (page or post)
 	 * @throws ImporterParserException if fail to parse an item
 	 */
-	function extractInfo(DOMElement $item)
+	public function extractInfo(DOMElement $item)
 	{
 		$data = [];
 		$data['categories'] = [];
@@ -669,7 +669,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
 	 * @param string $content post or page content
 	 * @return string modified content
 	 */
-	function parseContent($content)
+	public function parseContent($content)
 	{
 		$content = $this->parseContentAttachmentsUrl($content);
 		$content = $this->parseWordpressShortcodes($content);
@@ -685,7 +685,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
 	 * @param string $content post or page content
 	 * @return string parsed content
 	 */
-	function parseContentAttachmentsUrl($content)
+	public function parseContentAttachmentsUrl($content)
 	{
 		$filegallib = TikiLib::lib('filegal');
 
@@ -733,7 +733,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
 	 * @param string $content page or post content
 	 * @return string parsed content
 	 */
-	function parseWordpressShortcodes($content)
+	public function parseWordpressShortcodes($content)
 	{
 		$sortcodes = $this->matchWordpressShortcodes($content);
 
@@ -760,7 +760,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
 	 * @param string $content page or post content
 	 * @return array shortcode matches
 	 */
-	function matchWordpressShortcodes($content)
+	public function matchWordpressShortcodes($content)
 	{
 		$matches = [];
 
@@ -793,7 +793,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
 	 * @param array $b
 	 * @return int
 	 */
-	function compareShortcodes($a, $b)
+	public function compareShortcodes($a, $b)
 	{
 		if ($a[0] == $b[0]) {
 			return 0;
@@ -810,7 +810,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
 	 * @param DOMElement $commentNode
 	 * @return array|false $comment return false if comment is marked as spam
 	 */
-	function extractComment(DOMElement $commentNode)
+	public function extractComment(DOMElement $commentNode)
 	{
 		$comment = [];
 
@@ -865,7 +865,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
 	 * @param array $item a page or post data
 	 * @return bool whether the item has or not internal links
 	 */
-	function identifyInternalLinks($item)
+	public function identifyInternalLinks($item)
 	{
 		foreach ($this->permalinks as $links) {
 			// in WP each post or page in general has two different permalinks
@@ -884,7 +884,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
 	 * Extract blog information (title, description etc) and
 	 * set $this->blogInfo.
 	 */
-	function extractBlogInfo()
+	public function extractBlogInfo()
 	{
 		$this->blogInfo['title'] = $this->dom->getElementsByTagName('title')->item(0)->nodeValue;
 		$this->blogInfo['link'] = rtrim($this->dom->getElementsByTagName('link')->item(0)->nodeValue, '/');
@@ -904,7 +904,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
 	 *
 	 * @return int blog created date (actually oldest post date)
 	 */
-	function extractBlogCreatedDate()
+	public function extractBlogCreatedDate()
 	{
 		$dates = [];
 		$created = 0;
@@ -930,7 +930,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
 	 *
 	 * @return Laminas\Http\Client
 	 */
-	function getHttpClient()
+	public function getHttpClient()
 	{
 		return TikiLib::lib('tiki')->get_http_client();
 	}
@@ -941,7 +941,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
 	 *
 	 * @see lib/importer/TikiImporter_Blog#insertItem($item)
 	 */
-	function insertItem($item)
+	public function insertItem($item)
 	{
 		$objId = parent::insertItem($item);
 
@@ -960,7 +960,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
 	 * @param array $item
 	 * @return void
 	 */
-	function storeNewLink($objId, $item)
+	public function storeNewLink($objId, $item)
 	{
 		global $prefs, $base_url;
 
@@ -995,7 +995,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
 	 *
 	 * @see lib/importer/TikiImporter_Blog#insertData()
 	 */
-	function insertData($parsedData = null)
+	public function insertData($parsedData = null)
 	{
 		$countData = parent::insertData();
 
@@ -1014,7 +1014,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
 	 * @param array $items
 	 * @return void
 	 */
-	function replaceInternalLinks($items)
+	public function replaceInternalLinks($items)
 	{
 		$bloglib = TikiLib::lib('blog');
 		$tikilib = TikiLib::lib('tiki');
@@ -1061,7 +1061,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
 	 *
 	 * @return array
 	 */
-	function getHtaccessRules()
+	public function getHtaccessRules()
 	{
 		$rules = '';
 

@@ -8,12 +8,12 @@
 class Encoding
 {
 
-	var $_inputSupportedEncodings = ['ISO-8859-1','ISO-8859-15','UTF-8'];
-	var $_ouputSupportedEncodings = ['ISO-8859-1','ISO-8859-15','UTF-8',];
-	var $_supportedEncodings = 'UTF-8,ISO-8859-1,ISO-8859-15';
+	public $_inputSupportedEncodings = ['ISO-8859-1','ISO-8859-15','UTF-8'];
+	public $_ouputSupportedEncodings = ['ISO-8859-1','ISO-8859-15','UTF-8',];
+	public $_supportedEncodings = 'UTF-8,ISO-8859-1,ISO-8859-15';
 
 	// Class constructor
-	function __construct($inputEncoding = 'ISO-8859-1', $outputEncoding = 'UTF-8')
+	public function __construct($inputEncoding = 'ISO-8859-1', $outputEncoding = 'UTF-8')
 	{
 
 		// Check if mb_convert_encoding is installed
@@ -25,39 +25,39 @@ class Encoding
 	}
 
 	// Set default input encoding, return false if fails loading encoding
-	function set_input_encoding($encoding)
+	public function set_input_encoding($encoding)
 	{
 		$this->_input_encoding = $encoding;
 		return true;
 	}
 
 	// Set default output encoding, return false if fails loading encoding
-	function set_output_encoding($encoding)
+	public function set_output_encoding($encoding)
 	{
 		$this->_output_encoding = $encoding;
 		return true;
 	}
 
 	// Get default input encoding
-	function get_input_encoding()
+	public function get_input_encoding()
 	{
 		return $this->_input_encoding;
 	}
 
 	// Get default output encoding
-	function get_output_encoding()
+	public function get_output_encoding()
 	{
 		return $this->_output_encoding;
 	}
 
 	// Return encoding of a string
-	function detect_encoding($str)
+	public function detect_encoding($str)
 	{
 		return mb_detect_encoding($str, $this->_supportedEncodings);
 	}
 
 	// Convert string to another encoding, return false on failure
-	function convert_encoding($str, $inputEncoding = null, $outputEncoding = null)
+	public function convert_encoding($str, $inputEncoding = null, $outputEncoding = null)
 	{
 		if ($inputEncoding == null || $inputEncoding == '') {
 			if ($this->get_input_encoding() == '') {
@@ -81,7 +81,7 @@ class Encoding
 	}
 
 	// Returns true if $string is valid UTF-8 and false otherwise.
-	function is_utf8($str)
+	public function is_utf8($str)
 	{
 	   // From http://w3.org/International/questions/qa-forms-utf-8.html
 		return preg_match(
@@ -100,19 +100,19 @@ class Encoding
 	}
 
 	// Return array of supported input encodings
-	function get_input_supported_encodings()
+	public function get_input_supported_encodings()
 	{
 		return $this->_inputSupportedEncodings;
 	}
 
 	// Return array of supported output encodings
-	function get_output_supported_encodings()
+	public function get_output_supported_encodings()
 	{
 		return $this->_outputSupportedEncodings;
 	}
 
 	// Return array of supported encodings
-	function get_supported_encodings()
+	public function get_supported_encodings()
 	{
 		return $this->_supportedEncodings;
 	}

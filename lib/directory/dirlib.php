@@ -23,7 +23,7 @@ class DirLib extends TikiLib
 	 * @param $categId
 	 * @return string
 	 */
-	function dir_get_category_path_admin($categId)
+	public function dir_get_category_path_admin($categId)
 	{
 		global $prefs;
 		$info = $this->dir_get_category($categId);
@@ -39,7 +39,7 @@ class DirLib extends TikiLib
 	 * @param $categId
 	 * @return string
 	 */
-	function dir_get_path_text($categId)
+	public function dir_get_path_text($categId)
 	{
 		global $prefs;
 		$info = $this->dir_get_category($categId);
@@ -55,7 +55,7 @@ class DirLib extends TikiLib
 	 * @param $categId
 	 * @return string
 	 */
-	function dir_get_category_path_browse($categId)
+	public function dir_get_category_path_browse($categId)
 	{
 		global $prefs;
 		$path = '';
@@ -73,7 +73,7 @@ class DirLib extends TikiLib
 	 * @param $categId
 	 * @return array|null
 	 */
-	function dir_build_breadcrumb_trail($categId)
+	public function dir_build_breadcrumb_trail($categId)
 	{
 		$crumbs = [];
 		$info = $this->dir_get_category($categId);
@@ -97,7 +97,7 @@ class DirLib extends TikiLib
 	 * @param $cant
 	 * @return array
 	 */
-	function get_random_subcats($parent, $cant)
+	public function get_random_subcats($parent, $cant)
 	{
 		//Return an array of 'cant' random subcategories
 		$count = $this->getOne("select count(*) from `tiki_directory_categories` where `parent`=?", [(int)$parent]);
@@ -130,7 +130,7 @@ class DirLib extends TikiLib
 	 * @param $find
 	 * @return array
 	 */
-	function dir_list_categories($parent, $offset, $maxRecords, $sort_mode, $find)
+	public function dir_list_categories($parent, $offset, $maxRecords, $sort_mode, $find)
 	{
 		$bindvars = [(int)$parent];
 		if ($find) {
@@ -168,7 +168,7 @@ class DirLib extends TikiLib
 	 * @param $find
 	 * @return array
 	 */
-	function dir_list_all_categories($offset, $maxRecords, $sort_mode, $find)
+	public function dir_list_all_categories($offset, $maxRecords, $sort_mode, $find)
 	{
 		$bindvars = [];
 		if ($find) {
@@ -206,7 +206,7 @@ class DirLib extends TikiLib
 	 * @param string $isValid
 	 * @return array
 	 */
-	function dir_list_sites($parent, $offset = 0, $maxRecords = -1, $sort_mode = 'hits_desc', $find = '', $isValid = 'y')
+	public function dir_list_sites($parent, $offset = 0, $maxRecords = -1, $sort_mode = 'hits_desc', $find = '', $isValid = 'y')
 	{
 		$bindvars = [(int)$parent];
 		if ($find) {
@@ -245,7 +245,7 @@ class DirLib extends TikiLib
 	 * @param $find
 	 * @return array
 	 */
-	function dir_list_invalid_sites($offset, $maxRecords, $sort_mode, $find)
+	public function dir_list_invalid_sites($offset, $maxRecords, $sort_mode, $find)
 	{
 		$bindvars = ["n"];
 		if ($find) {
@@ -276,7 +276,7 @@ class DirLib extends TikiLib
 	 * @param $siteId
 	 * @return array
 	 */
-	function dir_get_site_categories($siteId)
+	public function dir_get_site_categories($siteId)
 	{
 		$query = "select tdc.`name`,tcs.`categId` from `tiki_category_sites` tcs,`tiki_directory_categories` tdc where tcs.`siteId`=? and tcs.`categId`=tdc.`categId`";
 		$result = $this->query($query, [(int)$siteId]);
@@ -296,7 +296,7 @@ class DirLib extends TikiLib
 	 * @param $find
 	 * @return array
 	 */
-	function dir_list_all_sites($offset, $maxRecords, $sort_mode, $find)
+	public function dir_list_all_sites($offset, $maxRecords, $sort_mode, $find)
 	{
 		$bindvars = [];
 		if ($find) {
@@ -330,7 +330,7 @@ class DirLib extends TikiLib
 	 * @param $find
 	 * @return array
 	 */
-	function dir_list_all_valid_sites($offset, $maxRecords, $sort_mode, $find)
+	public function dir_list_all_valid_sites($offset, $maxRecords, $sort_mode, $find)
 	{
 		$bindvars = ['y'];
 		$mid = " where `isValid`=? ";
@@ -365,7 +365,7 @@ class DirLib extends TikiLib
 	 * @param int $siteId
 	 * @return array
 	 */
-	function dir_get_all_categories($offset, $maxRecords, $sort_mode, $find, $siteId = 0)
+	public function dir_get_all_categories($offset, $maxRecords, $sort_mode, $find, $siteId = 0)
 	{
 		$bindvars = [];
 		if ($find) {
@@ -405,7 +405,7 @@ class DirLib extends TikiLib
 	 * @param $parent
 	 * @return array
 	 */
-	function dir_get_all_categories_np($offset, $maxRecords, $sort_mode, $find, $parent)
+	public function dir_get_all_categories_np($offset, $maxRecords, $sort_mode, $find, $parent)
 	{
 		$bindvars = [(int)$parent];
 		if ($find) {
@@ -438,7 +438,7 @@ class DirLib extends TikiLib
 	 * @param int $siteId
 	 * @return array
 	 */
-	function dir_get_all_categories_accept_sites($offset, $maxRecords, $sort_mode, $find, $siteId = 0)
+	public function dir_get_all_categories_accept_sites($offset, $maxRecords, $sort_mode, $find, $siteId = 0)
 	{
 		$bindvars = ['y'];
 		if ($find) {
@@ -476,7 +476,7 @@ class DirLib extends TikiLib
 	/**
 	 * @param $siteId
 	 */
-	function dir_validate_site($siteId)
+	public function dir_validate_site($siteId)
 	{
 		$query = "update `tiki_directory_sites` set `isValid`=? where `siteId`=?";
 		$this->query($query, ["y", (int)$siteId]);
@@ -491,7 +491,7 @@ class DirLib extends TikiLib
 	 * @param $isValid
 	 * @return mixed
 	 */
-	function dir_replace_site($siteId, $name, $description, $url, $country, $isValid)
+	public function dir_replace_site($siteId, $name, $description, $url, $country, $isValid)
 	{
 		global $prefs;
 
@@ -532,7 +532,7 @@ class DirLib extends TikiLib
 	 * @param $editorGroup
 	 * @return mixed
 	 */
-	function dir_replace_category($parent, $categId, $name, $description, $childrenType, $viewableChildren, $allowSites, $showCount, $editorGroup)
+	public function dir_replace_category($parent, $categId, $name, $description, $childrenType, $viewableChildren, $allowSites, $showCount, $editorGroup)
 	{
 
 		if ($categId) {
@@ -555,7 +555,7 @@ class DirLib extends TikiLib
 	 * @param $siteId
 	 * @return bool
 	 */
-	function dir_get_site($siteId)
+	public function dir_get_site($siteId)
 	{
 		$query = "select * from `tiki_directory_sites` where `siteId`=?";
 		$result = $this->query($query, [(int)$siteId]);
@@ -570,7 +570,7 @@ class DirLib extends TikiLib
 	 * @param $categId
 	 * @return bool
 	 */
-	function dir_get_category($categId)
+	public function dir_get_category($categId)
 	{
 		$query = "select * from `tiki_directory_categories` where `categId`=?";
 		$result = $this->query($query, [(int)$categId]);
@@ -584,7 +584,7 @@ class DirLib extends TikiLib
 	/**
 	 * @param $siteId
 	 */
-	function dir_remove_site($siteId)
+	public function dir_remove_site($siteId)
 	{
 		$query = "delete from `tiki_directory_sites` where `siteId`=?";
 		$this->query($query, [(int)$siteId]);
@@ -596,7 +596,7 @@ class DirLib extends TikiLib
 	 * @param $siteId
 	 * @param $categId
 	 */
-	function dir_add_site_to_category($siteId, $categId)
+	public function dir_add_site_to_category($siteId, $categId)
 	{
 		$query = "delete from `tiki_category_sites` where `siteId`=? and `categId`=?";
 		$this->query($query, [(int)$siteId,(int)$categId]);
@@ -607,7 +607,7 @@ class DirLib extends TikiLib
 	/**
 	 * @param $siteId
 	 */
-	function remove_site_from_categories($siteId)
+	public function remove_site_from_categories($siteId)
 	{
 		$query = "delete from `tiki_category_sites` where `siteId`=?";
 		$this->query($query, [(int)$siteId]);
@@ -617,7 +617,7 @@ class DirLib extends TikiLib
 	 * @param $siteId
 	 * @param $categId
 	 */
-	function remove_site_from_category($siteId, $categId)
+	public function remove_site_from_category($siteId, $categId)
 	{
 		$query = "delete from `tiki_category_sites` where `siteId`=? and `categId`=?";
 		$this->query($query, [(int)$siteId,(int)$categId]);
@@ -626,7 +626,7 @@ class DirLib extends TikiLib
 	/**
 	 * @param $categId
 	 */
-	function dir_remove_category($categId)
+	public function dir_remove_category($categId)
 	{
 		$parent_categId = $categId;
 		$query = "select * from `tiki_directory_categories` where `parent`=?";
@@ -661,7 +661,7 @@ class DirLib extends TikiLib
 	 * @param $parent
 	 * @param $related
 	 */
-	function dir_remove_related($parent, $related)
+	public function dir_remove_related($parent, $related)
 	{
 		$query = "delete from `tiki_related_categories` where `categId`=? and `relatedTo`=?";
 		$this->query($query, [(int)$parent,(int)$related]);
@@ -675,7 +675,7 @@ class DirLib extends TikiLib
 	 * @param $find
 	 * @return array
 	 */
-	function dir_list_related_categories($parent, $offset, $maxRecords, $soet_mode, $find)
+	public function dir_list_related_categories($parent, $offset, $maxRecords, $soet_mode, $find)
 	{
 		$query = "select * from `tiki_related_categories` where `categId`=?";
 		$query_cant = "select count(*) from `tiki_related_categories` where `categId`=?";
@@ -698,7 +698,7 @@ class DirLib extends TikiLib
 	 * @param $parent
 	 * @param $categ
 	 */
-	function dir_add_categ_rel($parent, $categ)
+	public function dir_add_categ_rel($parent, $categ)
 	{
 		$query = "delete from `tiki_related_categories` where `categId`=? and `relatedTo`=?";
 		$this->query($query, [(int)$parent,(int)$categ]);
@@ -710,7 +710,7 @@ class DirLib extends TikiLib
 	 * @param $url
 	 * @return mixed
 	 */
-	function dir_url_exists($url)
+	public function dir_url_exists($url)
 	{
 		$cant = $this->getOne("select count(*) from `tiki_directory_sites` where `url`=?", [$url]);
 		return $cant;
@@ -719,7 +719,7 @@ class DirLib extends TikiLib
 	/**
 	 * @param $siteId
 	 */
-	function dir_add_site_hit($siteId)
+	public function dir_add_site_hit($siteId)
 	{
 		global $prefs, $user;
 		if (StatsLib::is_stats_hit()) {
@@ -731,7 +731,7 @@ class DirLib extends TikiLib
 	/**
 	 * @param $categId
 	 */
-	function dir_add_category_hit($categId)
+	public function dir_add_category_hit($categId)
 	{
 		global $prefs, $user;
 		if (StatsLib::is_stats_hit()) {
@@ -748,7 +748,7 @@ class DirLib extends TikiLib
 	 * @param string $sort_mode
 	 * @return array
 	 */
-	function dir_search($words, $how = 'or', $offset = 0, $maxRecords = -1, $sort_mode = 'hits_desc')
+	public function dir_search($words, $how = 'or', $offset = 0, $maxRecords = -1, $sort_mode = 'hits_desc')
 	{
 		// First of all split the words by whitespaces building the query string
 		// we'll search by name, url, description and cache, the relevance will be calculated using hits
@@ -800,7 +800,7 @@ class DirLib extends TikiLib
 	 * @param string $sort_mode
 	 * @return array
 	 */
-	function dir_search_cat($parent, $words, $how = 'or', $offset = 0, $maxRecords = -1, $sort_mode = 'hits_desc')
+	public function dir_search_cat($parent, $words, $how = 'or', $offset = 0, $maxRecords = -1, $sort_mode = 'hits_desc')
 	{
 		// First of all split the words by whitespaces building the query string
 		// we'll search by name, url, description and cache, the relevance will be calculated using hits
@@ -848,7 +848,7 @@ class DirLib extends TikiLib
 		return $retval;
 	}
 }
-$dirlib = new DirLib;
+$dirlib = new DirLib();
 
 /**
  * @param $p1

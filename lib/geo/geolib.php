@@ -15,7 +15,7 @@ class GeoLib
 	 * @param $itemId
 	 * @return array
 	 */
-	function get_coordinates($type, $itemId)
+	public function get_coordinates($type, $itemId)
 	{
 		$attributelib = TikiLib::lib('attribute');
 
@@ -44,7 +44,7 @@ class GeoLib
 	 * @param $itemId
 	 * @return string
 	 */
-	function get_coordinates_string($type, $itemId)
+	public function get_coordinates_string($type, $itemId)
 	{
 		if ($coords = $this->get_coordinates($type, $itemId)) {
 			return $this->build_location_string($coords);
@@ -55,7 +55,7 @@ class GeoLib
 	 * @param array $coords
 	 * @return string
 	 */
-	function build_location_string($coords)
+	public function build_location_string($coords)
 	{
 		$string = '';
 
@@ -76,7 +76,7 @@ class GeoLib
 	 * @param $itemId
 	 * @param $coordinates
 	 */
-	function set_coordinates($type, $itemId, $coordinates)
+	public function set_coordinates($type, $itemId, $coordinates)
 	{
 		if (is_string($coordinates)) {
 			$coordinates = $this->parse_coordinates($coordinates);
@@ -97,7 +97,7 @@ class GeoLib
 	 * @param $string
 	 * @return array
 	 */
-	function parse_coordinates($string)
+	public function parse_coordinates($string)
 	{
 		if (preg_match("/^(-?\d*(\.\d+)?),(-?\d*(\.\d+)?)(,(\d+))?$/", $string, $parts)) {
 			$coords = [
@@ -117,7 +117,7 @@ class GeoLib
 	 * @param $where
 	 * @return array|bool
 	 */
-	function geocode($where)
+	public function geocode($where)
 	{
 		global $prefs;
 
@@ -157,7 +157,7 @@ class GeoLib
 	 * @param $geo
 	 * @return array|bool
 	 */
-	function geofudge($geo)
+	public function geofudge($geo)
 	{
 		if (! $geo) {
 			return false;
@@ -174,7 +174,7 @@ class GeoLib
 	 * @param $itemId
 	 * @param $geo
 	 */
-	function setTrackerGeo($itemId, $geo)
+	public function setTrackerGeo($itemId, $geo)
 	{
 		global $prefs;
 		$trklib = TikiLib::lib('trk');
@@ -196,7 +196,7 @@ class GeoLib
 		}
 	}
 
-	function get_default_center()
+	public function get_default_center()
 	{
 		global $prefs;
 		$coords = $this->parse_coordinates($prefs['gmap_defaultx'] . ',' . $prefs['gmap_defaulty'] . ',' . $prefs['gmap_defaultz']);

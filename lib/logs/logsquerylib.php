@@ -23,89 +23,89 @@ class LogsQueryLib
 	public $limit = null;
 	public $desc = true;
 
-	static function type($type = "")
+	public static function type($type = "")
 	{
 		$me = new self();
 		$me->type = $type;
 		return $me;
 	}
 
-	static function wikiPage($id = "")
+	public static function wikiPage($id = "")
 	{
 		return LogsQueryLib::type("wiki page")->id($id);
 	}
 
-	static function wikiPagesFrom($user = "")
+	public static function wikiPagesFrom($user = "")
 	{
 		return LogsQueryLib::type("wiki page")->id($id);
 	}
 
-	static function forum($id = "")
+	public static function forum($id = "")
 	{
 		return LogsQueryLib::type("forum")->id($id);
 	}
 
-	static function fileGallery($id = "")
+	public static function fileGallery($id = "")
 	{
 		return LogsQueryLib::type("file gallery")->id($id);
 	}
 
-	static function imageGallery($id = "")
+	public static function imageGallery($id = "")
 	{
 		return LogsQueryLib::type("image gallery")->id($id);
 	}
 
-	static function category($id = "")
+	public static function category($id = "")
 	{
 		return LogsQueryLib::type("category")->id($id);
 	}
 
-	static function system($id = "")
+	public static function system($id = "")
 	{
 		return LogsQueryLib::type("system")->id($id);
 	}
 
-	static function message($id = "")
+	public static function message($id = "")
 	{
 		return LogsQueryLib::type("message")->id($id);
 	}
 
-	static function comment($id = "")
+	public static function comment($id = "")
 	{
 		return LogsQueryLib::type("comment")->id($id);
 	}
 
-	static function sheet($id = "")
+	public static function sheet($id = "")
 	{
 		return LogsQueryLib::type("sheet")->id($id);
 	}
 
-	static function blog($id = "")
+	public static function blog($id = "")
 	{
 		return LogsQueryLib::type("blog")->id($id);
 	}
 
-	static function file($id = "")
+	public static function file($id = "")
 	{
 		return LogsQueryLib::type("file")->id($id);
 	}
 
-	static function article($id = "")
+	public static function article($id = "")
 	{
 		return LogsQueryLib::type("article")->id($id);
 	}
 
-	static function trackerItem($id = "")
+	public static function trackerItem($id = "")
 	{
 		return LogsQueryLib::type("trackeritem")->id($id);
 	}
 
-	static function wikiPageAttachment($id = "")
+	public static function wikiPageAttachment($id = "")
 	{
 		return LogsQueryLib::type("wiki page attachment")->id($id);
 	}
 
-	static function listTypes()
+	public static function listTypes()
 	{
 		$tikilib = TikiLib::lib('tiki');
 		$result = [];
@@ -117,7 +117,7 @@ class LogsQueryLib
 		return $result;
 	}
 
-	static function listActions()
+	public static function listActions()
 	{
 		$tikilib = TikiLib::lib('tiki');
 		$result = [];
@@ -129,77 +129,77 @@ class LogsQueryLib
 		return $result;
 	}
 
-	static function url($id = "")
+	public static function url($id = "")
 	{
 		return LogsQueryLib::type("url")->id($id);
 	}
 
-	function id($id = "")
+	public function id($id = "")
 	{
 		$this->id = $id;
 		return $this;
 	}
 
-	function viewed()
+	public function viewed()
 	{
 		return $this->action("viewed");
 	}
 
-	function action($action)
+	public function action($action)
 	{
 		$this->action = $action;
 		return $this;
 	}
 
-	function start($start)
+	public function start($start)
 	{
 		$this->start = $start;
 		return $this;
 	}
 
-	function end($end)
+	public function end($end)
 	{
 		$this->end = $end;
 		return $this;
 	}
 
-	function client($client)
+	public function client($client)
 	{
 		$this->client = $client;
 		return $this;
 	}
 
-	function count()
+	public function count()
 	{
 		$this->groupType = "count";
 		return $this->fetchAll();
 	}
 
-	function countByDate()
+	public function countByDate()
 	{
 		$this->groupType = "countByDate";
 		return $this->fetchAll();
 	}
 
-	function limit($limit)
+	public function limit($limit)
 	{
 		$this->limit = $limit;
 		return $this;
 	}
 
-	function desc()
+	public function desc()
 	{
 		$this->desc = true;
 		return $this;
 	}
 
-	function asc()
+	public function asc()
 	{
 		$this->desc = false;
 		return $this;
 	}
 
-	function countByDateFilterId($ids = [])
+	public function countByDateFilterId($ids = [])
 	{
 		$tikilib = TikiLib::lib('tiki');
 
@@ -219,7 +219,7 @@ class LogsQueryLib
 		return $result;
 	}
 
-	function countUsersFilterId($ids = [])
+	public function countUsersFilterId($ids = [])
 	{
 		$tikilib = TikiLib::lib('tiki');
 
@@ -240,7 +240,7 @@ class LogsQueryLib
 		return $result;
 	}
 
-	function countUsersIPFilterId($ids = [])
+	public function countUsersIPFilterId($ids = [])
 	{
 		$tikilib = TikiLib::lib('tiki');
 
@@ -257,7 +257,7 @@ class LogsQueryLib
 		return $result;
 	}
 
-	function fetchAll()
+	public function fetchAll()
 	{
 		$tikilib = TikiLib::lib('tiki');
 

@@ -7,7 +7,7 @@
 
 class GoalRewardLib
 {
-	function getRewardList()
+	public function getRewardList()
 	{
 		global $prefs;
 
@@ -92,7 +92,7 @@ class GoalRewardLib
 		return $out;
 	}
 
-	function giveRewardsToUser($user, $rewards, $list = null)
+	public function giveRewardsToUser($user, $rewards, $list = null)
 	{
 		if (! $list) {
 			$list = $this->getRewardList();
@@ -104,7 +104,7 @@ class GoalRewardLib
 		}
 	}
 
-	function giveRewardsToMembers($group, $rewards)
+	public function giveRewardsToMembers($group, $rewards)
 	{
 		$list = $this->getRewardList();
 

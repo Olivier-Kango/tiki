@@ -90,7 +90,7 @@ class FreetagLib extends ObjectLib
 	 * Constructor for the freetag class.
 	 *
 	 */
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct();
 
@@ -124,7 +124,7 @@ class FreetagLib extends ObjectLib
 	 *
 	 * @return array|bool of Object ID numbers that reference your original objects.
 	 */
-	function get_objects_with_tag($tag, $type = '', $user = '', $offset = 0, $maxRecords = -1, $sort_mode = 'created_desc', $find = '')
+	public function get_objects_with_tag($tag, $type = '', $user = '', $offset = 0, $maxRecords = -1, $sort_mode = 'created_desc', $find = '')
 	{
 		if (! isset($tag)) {
 			return false;
@@ -195,9 +195,7 @@ class FreetagLib extends ObjectLib
 	 * 2. If you can fix this with subquery that works as far back as MSSQL 4.1, may be worth
 	 * doing. But my experience with subquery is that it may be slower anyway.
 	 */
-	function get_objects_with_tag_combo($tagArray, $type = '', $thisUser = '', $offset = 0, $maxRecords = -1, $sort_mode = 'name_asc', $find = '', $broaden = 'n', $objectId = null
-
-																		)
+	public function get_objects_with_tag_combo($tagArray, $type = '', $thisUser = '', $offset = 0, $maxRecords = -1, $sort_mode = 'name_asc', $find = '', $broaden = 'n', $objectId = null)
 	{
 		global $tiki_p_admin, $user, $prefs;
 		$objectIds = explode(':', $objectId);
@@ -368,7 +366,7 @@ class FreetagLib extends ObjectLib
 	 *
 	 * @return An array of Object ID numbers that reference your original objects.
 	 */
-	function get_objects_with_tag_id($tagId, $user = '', $offset = 0, $maxRecords = -1)
+	public function get_objects_with_tag_id($tagId, $user = '', $offset = 0, $maxRecords = -1)
 	{
 		if (! isset($tagId)) {
 			return false;
@@ -428,7 +426,7 @@ class FreetagLib extends ObjectLib
 	 *	 - 'raw_tag' => The raw-form tag
 	 *	 - 'user' => The unique ID of the person who tagged the object with this tag.
 	 */
-	function get_tags_on_object($itemId, $type, $offset = 0, $maxRecords = -1, $user = null)
+	public function get_tags_on_object($itemId, $type, $offset = 0, $maxRecords = -1, $user = null)
 	{
 		if (! isset($itemId) || ! isset($type) || empty($itemId) || empty($type) || is_array($itemId) || ! is_string($type)) {
 			return false;
@@ -483,7 +481,7 @@ class FreetagLib extends ObjectLib
 	 * @access public
 	 * @return
 	 */
-	function get_all_tags_on_object_for_language($itemId, $type, $lang)
+	public function get_all_tags_on_object_for_language($itemId, $type, $lang)
 	{
 		if (! isset($itemId) || ! isset($type) || empty($itemId) || empty($type)) {
 			return false;
@@ -525,7 +523,7 @@ class FreetagLib extends ObjectLib
 	 * @access public
 	 * @return tagId
 	 */
-	function find_or_create_tag($tag, $lang = null, $anyLanguage = true)
+	public function find_or_create_tag($tag, $lang = null, $anyLanguage = true)
 	{
 		$normalized_tag = $this->normalize_tag($tag);
 
@@ -599,7 +597,7 @@ class FreetagLib extends ObjectLib
 	 * @return Returns true if successful, false otherwise. Does not operate as a transaction.
 	 */
 
-	function safe_tag($user, $itemId, $type, $tag, $lang = null)
+	public function safe_tag($user, $itemId, $type, $tag, $lang = null)
 	{
 		if (! isset($itemId) || ! isset($type) || ! isset($tag) ||
 				empty($itemId) || empty($type) || empty($tag)) {
@@ -682,7 +680,7 @@ class FreetagLib extends ObjectLib
 	 *
 	 * @return string Returns the tag in normalized form.
 	 */
-	function normalize_tag($tag)
+	public function normalize_tag($tag)
 	{
 		if (! empty($this->_normalized_valid_chars) && $this->_normalized_valid_chars != '*') {
 			$normalized_valid_chars = $this->_normalized_valid_chars;
@@ -706,7 +704,7 @@ class FreetagLib extends ObjectLib
 	 *
 	 * @return string Returns the tag in normalized form.
 	 */
-	function delete_object_tag($itemId, $type, $tag, $user = false)
+	public function delete_object_tag($itemId, $type, $tag, $user = false)
 	{
 		if (! isset($itemId) || ! isset($type) || ! isset($tag) ||
 				empty($itemId) || empty($type) || empty($tag)) {
@@ -747,7 +745,7 @@ class FreetagLib extends ObjectLib
 	 *
 	 * @return string Returns the tag in normalized form.
 	 */
-	function delete_all_object_tags_for_user($user, $itemId, $type)
+	public function delete_all_object_tags_for_user($user, $itemId, $type)
 	{
 		if (! isset($user) || ! isset($itemId) || ! isset($type)
 				|| empty($user) || empty($itemId) || empty($type)) {
@@ -786,7 +784,7 @@ class FreetagLib extends ObjectLib
 	 *
 	 * @return string Returns the tag in normalized form.
 	 */
-	function get_tag_id($tag)
+	public function get_tag_id($tag)
 	{
 		if (! isset($tag) || empty($tag)) {
 			die('get_tag_id argument missing');
@@ -804,7 +802,7 @@ class FreetagLib extends ObjectLib
 	 * @param $tagId
 	 * @return mixed
 	 */
-	function get_tag_from_id($tagId)
+	public function get_tag_from_id($tagId)
 	{
 		return $this->table('tiki_freetags')->fetchOne('tag', ['tagId' => $tagId]);
 	}
@@ -820,7 +818,7 @@ class FreetagLib extends ObjectLib
 	 *
 	 * @return string Returns the tag in normalized form.
 	 */
-	function get_raw_tag_id($tag)
+	public function get_raw_tag_id($tag)
 	{
 		if (! isset($tag) || empty($tag)) {
 			die('get_tag_id argument missing');
@@ -848,7 +846,7 @@ class FreetagLib extends ObjectLib
 	 *
 	 * @return string Returns the tag in normalized form.
 	 */
-	function tag_object($user, $itemId, $type, $tag_string, $lang = null)
+	public function tag_object($user, $itemId, $type, $tag_string, $lang = null)
 	{
 		if ($tag_string == '') {
 			return true;
@@ -874,7 +872,7 @@ class FreetagLib extends ObjectLib
 	 * @access public
 	 * @return void
 	 */
-	function update_tags($user, $itemId, $type, $tag_string, $old_user = false, $lang = null)
+	public function update_tags($user, $itemId, $type, $tag_string, $old_user = false, $lang = null)
 	{
 
 		// Perform tag parsing
@@ -900,7 +898,7 @@ class FreetagLib extends ObjectLib
 	 * @access protected
 	 * @return
 	 */
-	function _parse_tag($tag_string)
+	public function _parse_tag($tag_string)
 	{
 		$query = trim($tag_string);
 
@@ -933,7 +931,7 @@ class FreetagLib extends ObjectLib
 	 * @access protected
 	 * @return void
 	 */
-	function _tag_object_array($user, $itemId, $type, $tagArray, $lang = null)
+	public function _tag_object_array($user, $itemId, $type, $tagArray, $lang = null)
 	{
 		// first check for lang of object
 		if (! $lang) {
@@ -972,7 +970,7 @@ class FreetagLib extends ObjectLib
 	 *	 - 'count' => The number of objects tagged with this tag.
 	 */
 
-	function get_most_popular_tags($user = '', $offset = 0, $maxRecords = 25, $type = null, $objectId = null, $tsort_mode = 'tag_asc')
+	public function get_most_popular_tags($user = '', $offset = 0, $maxRecords = 25, $type = null, $objectId = null, $tsort_mode = 'tag_asc')
 	{
 
 		$objectIds = explode(':', $objectId);
@@ -1066,7 +1064,7 @@ class FreetagLib extends ObjectLib
 	 * @return array Returns a PHP array with tags ordered randomly
 	 */
 
-	function get_tag_suggestion($exclude = '', $max = 10, $lang = null)
+	public function get_tag_suggestion($exclude = '', $max = 10, $lang = null)
 	{
 		global $prefs;
 		if (! $lang && ! empty($prefs['language'])) {
@@ -1104,7 +1102,7 @@ class FreetagLib extends ObjectLib
 	 *
 	 * @return int Returns the count
 	 */
-	function count_tags($user = '')
+	public function count_tags($user = '')
 	{
 		$bindvals = [];
 
@@ -1139,7 +1137,7 @@ class FreetagLib extends ObjectLib
 	 * @return array Returns an array where the keys are normalized tags, and the
 	 * values are numeric quantity of objects tagged with that tag.
 	 */
-	function silly_list($max = 100)
+	public function silly_list($max = 100)
 	{
 		$query = 'SELECT `tag`, `raw_tag`, COUNT(`objectId`) AS quantity'
 						. ' FROM `tiki_freetags` t, `tiki_freetagged_objects` o'
@@ -1183,7 +1181,7 @@ class FreetagLib extends ObjectLib
 	 * values are numeric quantity of objects tagged with BOTH tags, sorted by
 	 * number of occurences of that tag (high to low).
 	 */
-	function similar_tags($tag, $max = 100)
+	public function similar_tags($tag, $max = 100)
 	{
 
 		if (! isset($tag) || empty($tag)) {
@@ -1227,7 +1225,7 @@ class FreetagLib extends ObjectLib
 	 * @param null $minCommon
 	 * @return array
 	 */
-	function get_similar($type, $objectId, $maxResults = 10, $targetType = null, $with = 'freetag', $minCommon = null)
+	public function get_similar($type, $objectId, $maxResults = 10, $targetType = null, $with = 'freetag', $minCommon = null)
 	{
 		global $prefs;
 		if ($with == 'category') {
@@ -1329,7 +1327,7 @@ class FreetagLib extends ObjectLib
 	 * @access public
 	 * @return true
 	 */
-	function cleanup_tags()
+	public function cleanup_tags()
 	{
 		$this->query('DELETE FROM `tiki_freetagged_objects` WHERE `tagId` NOT IN(SELECT `tagId` FROM `tiki_freetags`)');
 		$this->query(
@@ -1356,7 +1354,7 @@ class FreetagLib extends ObjectLib
 	 * @access public
 	 * @return
 	 */
-	function get_object_tags_multilingual($type, $objectId, $accept_languages, $offset, $maxRecords)
+	public function get_object_tags_multilingual($type, $objectId, $accept_languages, $offset, $maxRecords)
 	{
 		$mid = '';
 		$bindvars = [];
@@ -1459,7 +1457,7 @@ class FreetagLib extends ObjectLib
 	 * @access public
 	 * @return
 	 */
-	function set_tag_language($tagId, $lang)
+	public function set_tag_language($tagId, $lang)
 	{
 		$langLib = TikiLib::lib('language');
 		if (! $langLib->is_valid_language($lang)) {
@@ -1533,7 +1531,7 @@ class FreetagLib extends ObjectLib
 	 * @access public
 	 * @return void
 	 */
-	function translate_tag($srcLang, $srcTagId, $dstLang, $content)
+	public function translate_tag($srcLang, $srcTagId, $dstLang, $content)
 	{
 		$multilinguallib = TikiLib::lib('multilingual');
 
@@ -1572,7 +1570,7 @@ class FreetagLib extends ObjectLib
 	 * @access public
 	 * @return void
 	 */
-	function clear_tag_language_from_id($tagId)
+	public function clear_tag_language_from_id($tagId)
 	{
 		$this->query('UPDATE tiki_freetags SET lang = NULL WHERE tagId = ?', [$tagId]);
 		$this->query(
@@ -1589,7 +1587,7 @@ class FreetagLib extends ObjectLib
 	 * @access public
 	 * @return
 	 */
-	function get_tags_containing($tag)
+	public function get_tags_containing($tag)
 	{
 		$tag = $this->normalize_tag($tag);
 
@@ -1619,7 +1617,7 @@ class FreetagLib extends ObjectLib
 	 * @access public
 	 * @return array tags
 	 */
-	function dumb_parse_tags($tagString)
+	public function dumb_parse_tags($tagString)
 	{
 		if (! is_string($tagString) || empty($tagString)) {
 			return [];
@@ -1641,7 +1639,7 @@ class FreetagLib extends ObjectLib
 	/**
 	 * @return Laminas\Tag\Cloud
 	 */
-	function get_cloud()
+	public function get_cloud()
 	{
 		$query = "SELECT tag title, COUNT(*) weight, f.tagId FROM tiki_freetags f INNER JOIN tiki_freetagged_objects fo ON f.tagId = fo.tagId GROUP BY f.tagId, tag";
 		$result = $this->fetchAll($query);

@@ -9,12 +9,12 @@ class GoalEventLib
 {
 	const CACHE_KEY = 'goal_events';
 
-	function touch()
+	public function touch()
 	{
 		TikiLib::lib('cache')->invalidate(self::CACHE_KEY);
 	}
 
-	function bindEvents($manager)
+	public function bindEvents($manager)
 	{
 		try {
 			foreach ($this->getGoalEvents() as $eventType) {

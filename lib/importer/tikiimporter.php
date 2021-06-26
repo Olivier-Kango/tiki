@@ -80,7 +80,7 @@ class TikiImporter
 	 *
 	 * @return array $importFeedback array with the number of pages imported etc
 	 */
-	function import($filePath = null)
+	public function import($filePath = null)
 	{
 	}
 
@@ -90,7 +90,7 @@ class TikiImporter
 	 * Must be implemented by classes
 	 * that extends this one.
 	 */
-	function validateInput()
+	public function validateInput()
 	{
 	}
 
@@ -101,7 +101,7 @@ class TikiImporter
 	 * that extends this one and should return
 	 * the data to be used by insertData.
 	 */
-	function parseData()
+	public function parseData()
 	{
 	}
 
@@ -114,7 +114,7 @@ class TikiImporter
 	 *
 	 * @param array $parsedData data ready to be inserted into Tiki
 	 */
-	function insertData($parsedData = null)
+	public function insertData($parsedData = null)
 	{
 	}
 
@@ -127,7 +127,7 @@ class TikiImporter
 	 *
 	 * If an error is found the methods should raise an exception.
 	 */
-	function checkRequirements()
+	public function checkRequirements()
 	{
 	}
 
@@ -143,7 +143,7 @@ class TikiImporter
 	 *
 	 * @return array $importOptions
 	 */
-	function getOptions()
+	public function getOptions()
 	{
 		$class = get_class($this);
 		$importOptions = [];
@@ -163,7 +163,7 @@ class TikiImporter
 	 *
 	 * @return void
 	 */
-	static function changePhpSettings()
+	public static function changePhpSettings()
 	{
 		if (ini_get('error_reporting') != (E_ALL & ~E_DEPRECATED)) {
 			error_reporting(E_ALL & ~E_DEPRECATED);
@@ -185,7 +185,7 @@ class TikiImporter
 	 * @param int $code error code
 	 * @return string $message error message
 	 */
-	static function displayPhpUploadError($code)
+	public static function displayPhpUploadError($code)
 	{
 		require_once(__DIR__ . '/../init/tra.php');
 		$errors = [1 => tra('The uploaded file exceeds the upload_max_filesize directive in php.ini.') . ' ' . ini_get('upload_max_filesize') . 'B',
@@ -210,7 +210,7 @@ class TikiImporter
 	 * @param bool $error if the message is a error or not (default false)
 	 * @return void
 	 */
-	function saveAndDisplayLog($msg, $error = false)
+	public function saveAndDisplayLog($msg, $error = false)
 	{
 		$this->log .= $msg;
 

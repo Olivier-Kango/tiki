@@ -49,7 +49,7 @@ class LanguageTranslations extends TikiDb_Bridge
 	 * Set the language based on the paratemer or if
 	 * no parameter given uses Tiki user or global preference
 	 */
-	function __construct($lang = null)
+	public function __construct($lang = null)
 	{
 		global $user, $user_preferences;
 

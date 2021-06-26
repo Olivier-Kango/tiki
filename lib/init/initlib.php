@@ -1,11 +1,4 @@
 <?php
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\Config\FileLocator;
-use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
-use Symfony\Component\DependencyInjection\Dumper\PhpDumper;
-use Symfony\Component\Yaml\Yaml;
-use Tiki\Package\ExtensionManager as PackageExtensionManager;
-use Symfony\Component\Config\Exception\FileLocatorFileNotFoundException;
 
 /**
  * Tiki initialization functions and classes
@@ -15,6 +8,15 @@ use Symfony\Component\Config\Exception\FileLocatorFileNotFoundException;
  * @copyright (c) Copyright by authors of the Tiki Wiki CMS Groupware Project. All Rights Reserved. See copyright.txt for details and a complete list of authors.
  * @licence Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
  */
+
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\DependencyInjection\Dumper\PhpDumper;
+use Symfony\Component\Yaml\Yaml;
+use Tiki\Package\ExtensionManager as PackageExtensionManager;
+use Symfony\Component\Config\Exception\FileLocatorFileNotFoundException;
+
 // $Id$
 
 //this script may only be included - so its better to die if called directly.
@@ -94,11 +96,11 @@ class TikiInit
 	/**
 	 * dummy constructor
 	 */
-	function __construct()
+	public function __construct()
 	{
 	}
 
-	static function getContainer()
+	public static function getContainer()
 	{
 		/** @var ContainerBuilder $container */
 		static $container;
@@ -187,7 +189,7 @@ class TikiInit
 /** Return 'windows' if windows, otherwise 'unix'
  * \static
  */
-	function os()
+	public function os()
 	{
 		static $os;
 		if (! isset($os)) {
@@ -204,7 +206,7 @@ class TikiInit
 /** Return true if windows, otherwise false
   * @static
   */
-	static function isWindows()
+	public static function isWindows()
 	{
 		static $windows;
 		if (! isset($windows)) {
@@ -220,7 +222,7 @@ class TikiInit
 	 *
 	 * @return bool
 	 */
-	static function is_writeable($path)
+	public static function is_writeable($path)
 	{
 		if (self::isWindows()) {
 			return self::is__writable($path);
@@ -241,7 +243,7 @@ class TikiInit
 	 * @param string $path	directory to test	NOTE: use a trailing slash for folders!!!
 	 * @return bool
 	 */
-	static function is__writable($path)
+	public static function is__writable($path)
 	{
 		if ($path[strlen($path) - 1] == '/') { // recursively return a temporary file path
 			return self::is__writable($path . uniqid(mt_rand()) . '.tmp');
@@ -267,7 +269,7 @@ class TikiInit
 	 * @param string $path the path to prepend
 	 * @return string
 	 */
-	static function prependIncludePath($path)
+	public static function prependIncludePath($path)
 	{
 		$include_path = ini_get('include_path');
 		$paths = explode(PATH_SEPARATOR, $include_path);
@@ -286,7 +288,7 @@ class TikiInit
 	 * @static
 	 * @param mixed $path
 	 */
-	static function appendIncludePath($path)
+	public static function appendIncludePath($path)
 	{
 		$include_path = ini_get('include_path');
 		$paths = explode(PATH_SEPARATOR, $include_path);
@@ -307,7 +309,7 @@ class TikiInit
 	 * @param string String to be converted
 	 * @return UTF-8 representation of the string
 	 */
-	static function to_utf8($string)
+	public static function to_utf8($string)
 	{
 		if (preg_match(
 			'%^(?:
@@ -334,7 +336,7 @@ class TikiInit
 	 * @return true if IIS server, else false
 	   * @static
 	 */
-	static function isIIS()
+	public static function isIIS()
 	{
 		static $IIS;
 
@@ -351,12 +353,12 @@ class TikiInit
 	 * @return true if IIS server, else false
 	   * \static
 	 */
-	static function hasIIS_UrlRewriteModule()
+	public static function hasIIS_UrlRewriteModule()
 	{
 		return isset($_SERVER['IIS_UrlRewriteModule']) == true;
 	}
 
-	static function getCredentialsFile()
+	public static function getCredentialsFile()
 	{
 		global $default_api_tiki, $api_tiki, $db_tiki, $dbversion_tiki, $host_tiki, $user_tiki, $pass_tiki, $dbs_tiki, $tikidomain, $tikidomainslash, $dbfail_url;
 		// Please use the local.php file instead containing these variables
@@ -440,7 +442,7 @@ class TikiInit
 		return $local_php;
 	}
 
-	static function getEnvironmentCredentials()
+	public static function getEnvironmentCredentials()
 	{
 		// Load connection strings from environment variables, as used by Azure and possibly other hosts
 		$connectionString = null;

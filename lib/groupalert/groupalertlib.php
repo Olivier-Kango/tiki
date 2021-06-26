@@ -27,7 +27,7 @@ class groupAlertLib extends TikiLib
 	 * @param $displayEachUser
 	 * @return bool
 	 */
-	function AddGroup($ObjectType, $ObjectNumber, $GroupName, $displayEachUser)
+	public function AddGroup($ObjectType, $ObjectNumber, $GroupName, $displayEachUser)
 	{
 		if ($displayEachUser == "on") {
 			$displayEachUser = 'y';
@@ -50,7 +50,7 @@ class groupAlertLib extends TikiLib
 	 * @param $ObjectNumber
 	 * @return mixed
 	 */
-	function GetGroup($ObjectType, $ObjectNumber)
+	public function GetGroup($ObjectType, $ObjectNumber)
 	{
 		$res = $this->getOne("select `groupName` from `tiki_groupalert` where ( `objectType` = ? and `objectId` = ? )", [$ObjectType,$ObjectNumber]);
 		return $res ;
@@ -62,7 +62,7 @@ class groupAlertLib extends TikiLib
 	 * @param $GroupName
 	 * @return mixed
 	 */
-	function GetShowEachUser($ObjectType, $ObjectNumber, $GroupName)
+	public function GetShowEachUser($ObjectType, $ObjectNumber, $GroupName)
 	{
 		return $this->getOne("select `displayEachuser` from `tiki_groupalert` where ( `objectType` = ? and `objectId` = ? and `groupName` =? )", [$ObjectType,$ObjectNumber,$GroupName]);
 	}
@@ -71,7 +71,7 @@ class groupAlertLib extends TikiLib
 	 * @param $ListUserToAlert
 	 * @param $URI
 	 */
-	function Notify($ListUserToAlert, $URI)
+	public function Notify($ListUserToAlert, $URI)
 	{
 		$userlib = TikiLib::lib('user');
 		$tikilib = TikiLib::lib('tiki');
