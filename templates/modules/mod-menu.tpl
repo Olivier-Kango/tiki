@@ -8,7 +8,14 @@
 					<img id="logo-header" src="{$module_params.navbar_brand}" alt="Logo">
 				</a>
 			{/if}
-			{if empty($module_params.navbar_toggle) or $module_params.navbar_toggle neq 'n'}
+			{if empty($module_params.navbar_toggle)}
+				{if empty($module_params.type) or $module_params.type eq 'vert'}
+					{$module_params.navbar_toggle = 'n'}
+				{else}
+					{$module_params.navbar_toggle = 'y'}
+				{/if}
+			{/if}
+			{if $module_params.navbar_toggle eq 'y'}
 				<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#mod-menu{$module_position}{$module_ord} .navbar-collapse" aria-controls="mod-menu{$module_position}{$module_ord}" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>

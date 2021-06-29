@@ -97,7 +97,7 @@ function smarty_function_menu($params, $smarty)
 		$structured = [];
 
 		// Unification with structure menus - adds sectionLevel
-		if (! $menu_info['structure']) {
+		if (empty($menu_info['structure'])) {
 			$channels['data'] = add_section_levels_to_menu_data($channels['data']);
 		}
 
@@ -132,7 +132,7 @@ function smarty_function_menu($params, $smarty)
 				}
 
 				// Pushes the element at the end of selected element children.
-				if ($branch['children']) {
+				if (! empty($branch['children'])) {
 					array_push($branch['children'], $element);
 				} else {
 					$branch['children'] = [$element];
