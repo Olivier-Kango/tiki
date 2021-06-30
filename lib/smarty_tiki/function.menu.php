@@ -66,7 +66,7 @@ function smarty_function_menu($params, $smarty)
 	$objectCategories = TikiLib::lib('categ')->get_current_object_categories();
 
 	if ($objectCategories) {
-		list($categGroups) = array_values(
+		$categGroups = array_values(
 			array_filter(
 				array_map(
 					function ($categId) {
