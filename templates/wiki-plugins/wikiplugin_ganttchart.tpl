@@ -36,6 +36,11 @@
 				});
 			}
 		}
+
+		function duplicateGantt() {
+			var ganttDuplicator = $.JST.createFromTemplate({}, "GANTT_DUPLICATOR");
+			createModalPopup(800, 250).append(ganttDuplicator);
+		}
 {/literal}
 		function loadI18n() {
 			GanttMaster.messages = {
@@ -105,12 +110,10 @@
 				<span class="ganttButtonSeparator"></span>
 				<button onclick="$('#workSpace').trigger('fullScreen.gantt');return false;" class="button textual icon" title="fullscreen" id="fullscrbtn"><span class="teamworkIcon">@</span></button>
 				<button onclick="ge.element.toggleClass('colorByStatus' );return false;" class="button textual icon"><span class="teamworkIcon">&sect;</span></button>
-				&nbsp; &nbsp; &nbsp; &nbsp;
+				{/literal}{if $ganttIdField}{literal}<button onclick="duplicateGantt();" class="btn btn-outline-primary" title="{tr}Duplicate{/tr}">{tr}Duplicate{/tr}</button>{/literal}{/if}{literal}
 				<button onclick="saveGanttOnServer();" id="ganttSaveProject" class="btn btn-primary requireWrite" title="{tr}Save{/tr}">{tr}Save{/tr}</button>
 				&nbsp;
 				<img id="ganttLoading" src="../../img/spinner.gif" title="{tr}Loading{/tr}" alt="{tr}Loading{/tr}"/>
-				<button class="button login" title="login/enroll" onclick="loginEnroll($(this));" style="display:none;">login/enroll</button>
-				<button class="button opt collab" title="Start with Twproject" onclick="collaborate($(this));" style="display:none;"><em>collaborate</em></button>
 			</div>
 		</div>
 		-->
@@ -280,6 +283,7 @@
 
 					<input type="hidden" name="trackerItemId" value="(#=obj.id#)" />
 					<input type="hidden" name="trackerId" value="{/literal}{$trackerId}{literal}" />
+					<input type="hidden"name="{/literal}{$ganttIdField}{literal}" value="(#=obj.fieldId#)" />
 					<input type="hidden"name="ticket" value="{/literal}{$ticket}{literal}" />
 
 					<div style="text-align: right; padding-top: 20px">
@@ -322,6 +326,40 @@
 				<td><input type="text" name="name" value="(#=obj.name#)" style="width:100%;" class="formElements"></td>
 				<td align="center"><span class="teamworkIcon delRes del" style="cursor: pointer">d</span></td>
 			</tr>
+			-->
+		</div>
+
+		<div class="__template__" type="GANTT_DUPLICATOR">
+			<!--
+			<div class="ganttDuplicator">
+				<h2 class="taskData">{/literal}{tr}Gantt Duplicator{/tr}{literal}</h2>
+				<form method="post">
+					<table  cellspacing="1" cellpadding="5" width="100%" class="taskData table" border="0">
+						<tr>
+							<td colspan="3" valign="top">
+								<label for="ganttId" class="required">{/literal}{tr}Gantt ID{/tr}{literal}</label><br>
+								<input type="text" name="ganttId" id="ganttId"class="formElements" autocomplete='off' maxlength=255 style='width:100%' value="" required="true" oldvalue="1">
+							</td>
+						</tr>
+						<tr>
+							<td colspan="3" valign="top">
+								<input type="checkbox" id="updateToDuplicate" name="updateToDuplicate">
+								&nbsp;<label for="updateToDuplicate">{/literal}{tr}Update wiki page to duplicated Gantt chart{/tr}{literal}</label>&nbsp;
+							</td>
+						</tr>
+					</table>
+
+					<input type="hidden" name="trackerId" value="{/literal}{$trackerId}{literal}" />
+					<input type="hidden" name="sourceGanttId" value="{/literal}{$ganttId}{literal}" />
+					<input type="hidden" name="ganttIdField" value="{/literal}{$ganttIdField}{literal}" />
+					<input type="hidden"name="ticket" value="{/literal}{$ticket}{literal}" />
+					<input type="hidden" name="ganttDuplicator" value="true" />
+
+					<div style="text-align: right; padding-top: 20px">
+						<button type="submit" id="saveDuplicatorButton" class="button first">{/literal}{tr}Save{/tr}{literal}</button>
+					</div>
+				</form>
+			</div>
 			-->
 		</div>
 	</div>

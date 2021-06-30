@@ -148,6 +148,32 @@ function wikiplugin_ganttchart_info()
 				'filter' => 'none',
 				'since' => 19,
 			],
+			'canDuplicate' => [
+				'name' => tr('Allow gantt items duplication'),
+				'description' => tr('Flag field to allow duplicate tasks'),
+				'required' => false,
+				'filter' => 'alpha',
+				'default' => 'y',
+				'options' => [
+					['text' => tra('Yes'), 'value' => 'y'],
+					['text' => tra('No'), 'value' => 'n']
+				],
+				'since' => 23,
+			],
+			'ganttId' => [
+				'name' => tr('Gantt chart ID'),
+				'description' => tr('Gantt chart ID value to filter'),
+				'required' => false,
+				'filter' => 'word',
+				'since' => 23,
+			],
+			'ganttIdField' => [
+				'name' => tr('Gantt chart field permanent name'),
+				'description' => tr('Permanent name of the field to use to filters the ganttId'),
+				'required' => false,
+				'filter' => 'word',
+				'since' => 23,
+			],
 		],
 	];
 }
@@ -184,6 +210,8 @@ function wikiplugin_ganttchart($data, $params)
 	$canWrite = ! empty($params['canWrite']) ? filter_var($params['canWrite'], FILTER_VALIDATE_BOOLEAN) : false;
 	$canDelete = ! empty($params['canDelete']) ? filter_var($params['canDelete'], FILTER_VALIDATE_BOOLEAN) : false;
 	$canWriteOnParent = ! empty($params['canWriteOnParent']) ? filter_var($params['canWriteOnParent'], FILTER_VALIDATE_BOOLEAN) : false;
+	$ganttId = ! empty($params['ganttId']) ? $params['ganttId'] : '';
+	$ganttIdField = ! empty($params['ganttIdField']) ? $params['ganttIdField'] : '';
 
 	$definition = Tracker_Definition::get($trackerId);
 	if (! $definition) {
@@ -203,15 +231,25 @@ function wikiplugin_ganttchart($data, $params)
 	}
 
 	$trklib = TikiLib::lib('trk');
+	$ganttIdFieldDef = $ganttIdField ? $trklib->get_tracker_field($ganttIdField) : null;
+
+	if (! empty($ganttIdField) && ! $ganttIdFieldDef) {
+		return WikiParser_PluginOutput::userError(tr('ganttIdField parameter is not valid field perm_name.'));
+	}
+
 	$trackerDefinition = Tracker_Definition::get($trackerId);
 	$listfields = $trackerDefinition->getFields();
 	$orderField = $trklib->get_tracker_field($order);
 	$orderItems = ! empty($orderField['fieldId']) ? 'f_' . $orderField['fieldId'] . '_asc' : 'created_asc';
-	$listItems = $trklib->list_items($trackerId, 0, -1, $orderItems, $listfields);
+	$filterField = $ganttIdFieldDef ? [$ganttIdFieldDef['fieldId']] : '';
+	$filterExactValue = $ganttIdFieldDef ? [$ganttId] : '';
+	$listItems = $trklib->list_items($trackerId, 0, -1, $orderItems, $listfields, $filterField, '', '', '', $filterExactValue);
 	$ganttValues = [];
 	$ganttRoles = [];
 	$allResources = [];
 	$allRoles = [];
+	$filterRoles = [];
+	$allFilterRoles = [];
 	$allLevel = [];
 	$listHasChildren = [];
 
@@ -230,8 +268,9 @@ function wikiplugin_ganttchart($data, $params)
 	$itemIds = [];
 	$roleId = 1;
 	foreach ($listItems['data'] as $item) {
+		$fieldId = '';
 		$fieldItemValues = $item['field_values'];
-		$itemId = 0;
+		$itemId = $item['itemId'];
 		$fieldOrder = 0;
 		$fieldStatus = '';
 		$fieldDepends = '';
@@ -249,6 +288,10 @@ function wikiplugin_ganttchart($data, $params)
 		$hasChild = false;
 
 		foreach ($fieldItemValues as $fieldItem) {
+			if ($ganttIdFieldDef && $fieldItem['fieldId'] == $ganttIdFieldDef['fieldId']) {
+				$fieldId = $fieldItem['value'];
+			}
+
 			if (! isset($allLevel[$fieldItem['itemId']])) {
 				$allLevel[$fieldItem['itemId']] = 0;
 			}
@@ -272,8 +315,6 @@ function wikiplugin_ganttchart($data, $params)
 			}
 			if ($name == $fieldItem['permName'] && ! empty($fieldItem['value'])) {
 				$fieldName = $fieldItem['value'];
-				$itemId = $fieldItem['itemId'];
-				$itemIds[] = $itemId;
 			}
 			if ($description == $fieldItem['permName'] && ! empty($fieldItem['value'])) {
 				$fieldDescription = $fieldItem['value'];
@@ -312,6 +353,7 @@ function wikiplugin_ganttchart($data, $params)
 			}
 		}
 
+		$itemIds[] = $itemId;
 		$numDays = countWorkingDays(($fieldStartDate / 1000), ($fieldEndDate / 1000));
 
 		$resourceIdValue = '';
@@ -324,11 +366,20 @@ function wikiplugin_ganttchart($data, $params)
 		foreach ($allRoles as $role) {
 			if ($role['name'] == $selectedRoleValue) {
 				$roleIdValue = $role['id'];
+
+				if ($ganttIdFieldDef && ! in_array($role['name'], $filterRoles)) {
+					$allFilterRoles[] = [
+						'id' => $role['id'],
+						'name' => $role['name']
+					];
+					$filterRoles[] = $role['name'];
+				}
 			}
 		}
 
 		$ganttValues[] = [
 			'id' => $itemId,
+			'fieldId' => $fieldId,
 			'name' => $fieldName,
 			'order' => $fieldOrder,
 			'progress' => $fieldProgress,
@@ -365,13 +416,24 @@ function wikiplugin_ganttchart($data, $params)
 
 	$info = ! empty($_POST) ? $_POST : [];
 
+	if (! empty($allFilterRoles)) {
+		$allRoles = $allFilterRoles;
+	}
+
 	updateTasks($info, $params, $allResources, $allRoles);
-	save($info, $params, $allResources, $allRoles, true);
+
+	$canDuplicate = ($params['canDuplicate'] ?? 'y') === 'y';
+
+	if (isset($info['ganttDuplicator']) && $canDuplicate) {
+		duplicate($info, $params, $listItems['data'], $levelParam, $depends);
+	} else {
+		save($info, $params, $allResources, $allRoles, true);
+	}
 
 	$headerlib = TikiLib::lib('header');
-	$headerlib->add_cssfile('themes/base_files/feature_css/wikiplugin-ganttchart.css');
 	$headerlib->add_cssfile('vendor_bundled/vendor/robicch/jquery-gantt/libs/jquery/dateField/jquery.dateField.css');
 	$headerlib->add_cssfile('vendor_bundled/vendor/robicch/jquery-gantt/gantt.css');
+	$headerlib->add_cssfile('themes/base_files/feature_css/wikiplugin-ganttchart.css');
 	$headerlib->add_jsfile('vendor_bundled/vendor/robicch/jquery-gantt/libs/jquery/jquery.livequery.1.1.1.min.js');
 	$headerlib->add_jsfile('vendor_bundled/vendor/robicch/jquery-gantt/libs/jquery/jquery.timers.js');
 	$headerlib->add_jsfile('vendor_bundled/vendor/robicch/jquery-gantt/libs/utilities.js');
@@ -393,6 +455,13 @@ function wikiplugin_ganttchart($data, $params)
 
 	$smarty = TikiLib::lib('smarty');
 	$smarty->assign('trackerId', $trackerId);
+
+	$permsTracker = TikiLib::lib('tiki')->get_perm_object($trackerId, 'tracker');
+
+	if ($permsTracker['tiki_p_create_tracker_items'] === 'y' && $canDuplicate) {
+		$smarty->assign('ganttId', $ganttId);
+		$smarty->assign('ganttIdField', $ganttIdField);
+	}
 
 	$ganttProject = [
 		'tasks' => $ganttValues,
@@ -562,6 +631,162 @@ function save($info, $params, $allResources, $allRoles, $notifications = false)
 				$access->redirect($_SERVER['HTTP_REFERER']);
 			}
 		}
+	}
+}
+
+/**
+ * Duplicate tracker item information
+ *
+ * @param array $info
+ * @param array $params
+ * @param array $trackerData
+ * @param string $levelParam
+ * @param string $depends
+ * @return null
+ */
+function duplicate(array $info, array $params, array $trackerData, string $levelParam = '', string $depends = '')
+{
+	$access = TikiLib::lib('access');
+	if (! empty($info) && $access->checkCsrf()) {
+		$error = false;
+		$trackerId = ! empty($info['ganttId']) ? $info['trackerId'] : 0;
+		$sourceGanttId = ! empty($info['sourceGanttId']) ? trim($info['sourceGanttId']) : '';
+		$ganttId = ! empty($info['ganttId']) ? trim($info['ganttId']) : '';
+		$ganttIdField = ! empty($info['ganttIdField']) ? trim($info['ganttIdField']) : '';
+
+		if ($trackerId != $params['trackerId']) {
+			Feedback::error(tr('You are trying to update a tracker that is not used by this gantt chart'));
+			$error = true;
+		}
+
+		$definition = Tracker_Definition::get($trackerId);
+		$permsTracker = TikiLib::lib('tiki')->get_perm_object($trackerId, 'tracker', $definition->getInformation());
+
+		if ($permsTracker['tiki_p_create_tracker_items'] === 'n') {
+			Feedback::error(tr('You do not have permission to create tracker items'));
+			$error = true;
+		}
+
+		$definition = Tracker_Definition::get($trackerId);
+		if (! $definition) {
+			Feedback::error(tr('Tracker definitions not found'));
+			$error = true;
+		}
+
+		if (empty($ganttIdField)) {
+			Feedback::error(tr('Gantt Field ID is not defined'));
+			$error = true;
+		}
+
+		if (empty($ganttId)) {
+			Feedback::error(tr('Gantt ID cannot be empty'));
+			$error = true;
+		}
+
+		$trackerlib = TikiLib::lib('trk');
+		$trackerField = $trackerlib->get_tracker_field($ganttIdField);
+
+		// CHECK IF CHOSEN GANTT ID EXISTS
+		$items = $trackerlib->list_items($trackerId, 0, -1, '', '', [$trackerField['fieldId']], '', '', '', [$ganttId]);
+		if ($items['cant']) {
+			Feedback::error(tr('Gantt ID already exists'));
+			$error = true;
+		}
+
+		if (empty($trackerData)) {
+			Feedback::error(tr('Tracker items data not found'));
+			$error = true;
+		}
+
+		if ($error) {
+			$access->redirect($_SERVER['HTTP_REFERER']);
+		}
+
+		$trackerUtilities = new Services_Tracker_Utilities;
+		$countDuplicatedItems = 0;
+		$insertedItems = [];
+		$mapFields = [];
+		$mapLevel = [];
+		$mapDependencies = [];
+		foreach ($trackerData as $data) {
+			$itemFields = [];
+			$itemFields['status'] = $data['status'] ?? null;
+			$itemFields['fields'] = [];
+			$fieldValues = ! empty($data['field_values']) ? $data['field_values'] : [];
+			foreach ($fieldValues as $field) {
+				$permName = ! empty($field['permName']) ? $field['permName'] : '';
+				$value = $field['value'] ?? '';
+
+				if (! empty($value) && $permName == $levelParam) {
+					$mapLevel[$data['itemId']] = $value;
+				}
+				if (! empty($value) && $permName == $depends) {
+					$mapDependencies[$data['itemId']] = $value;
+				}
+				if ($permName == $ganttIdField && $value == $sourceGanttId) {
+					$value = $ganttId;
+				}
+				if (! empty($permName)) {
+					$itemFields['fields'][$field['permName']] = $value;
+				}
+			}
+
+			$itemId = $trackerUtilities->insertItem($definition, $itemFields);
+			$itemFields['itemId'] = $itemId;
+			$insertedItems[] = $itemFields;
+			$mapFields[$data['itemId']] = $itemId;
+
+			if ($itemId) {
+				$countDuplicatedItems++;
+			}
+		}
+
+		// Map levels and dependencies
+		if (! empty($mapLevel) || ! empty($mapDependencies)) {
+			foreach ($insertedItems as $items) {
+				$fields = $items['fields'] ?? [];
+				foreach ($fields as $permName => $value) {
+					if (! $value && isset($mapFields[$value]) && ($permName == $levelParam || $permName == $depends)) {
+						$items['fields'][$permName] = $mapFields[$value];
+					}
+				}
+				$trackerUtilities->updateItem($definition, $items);
+			}
+		}
+
+		if ($success = $countDuplicatedItems == count($trackerData)) {
+			Feedback::success(tr('Gantt chart duplicated'));
+		}
+
+		$page = ! empty($GLOBALS['page']) ? $GLOBALS['page'] : ($_REQUEST['page'] ?? null);
+		if ($success && isset($info['updateToDuplicate']) && isset($page)) {
+			$tikilib = TikiLib::lib('tiki');
+			$pageInfo = $tikilib->get_page_info($page);
+			$pageData = ! empty($pageInfo['data']) ? $pageInfo['data'] : '';
+			$permsPage = $tikilib->get_perm_object($page, 'wiki page', $pageData, false);
+			$tikiPEdit = ! empty($permsPage['tiki_p_edit']) ? $permsPage['tiki_p_edit'] : 'n';
+
+			if ($tikiPEdit === 'y') {
+				try {
+					$util = new Services_Edit_Utilities;
+					$util->replacePlugin(new JitFilter([
+						'page' => $page,
+						'message' => tr('Gantt chart plugin updated'),
+						'type' => 'ganttchart',
+						'content' => '~same~',
+						'index' => 1,
+						'appendParams' => 1,
+						'params' => [
+							'ganttId' => $ganttId,
+						]
+					]), false);
+				} catch (Exception $e) {
+					Feedback::error($e->getMessage());
+				}
+			}
+		}
+
+		$access->redirect($_SERVER['HTTP_REFERER']);
 	}
 }
 
