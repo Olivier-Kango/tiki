@@ -72,7 +72,7 @@ function smarty_function_menu($params, $smarty)
 					function ($categId) {
 						$categ = TikiLib::lib('categ')->get_category($categId);
 						$parent = TikiLib::lib('categ')->get_category($categ["parentId"]);
-						if (! $parent || $parent["id"] != 0 || ! $parent["tplGroupContainerId"]) {
+						if (! $parent || $parent["parentId"] != 0 || ! $parent["tplGroupContainerId"]) {
 							return null;
 						}
 						$templatedgroupid = TikiLib::lib('attribute')->get_attribute("category", $categId, "tiki.category.templatedgroupid");
