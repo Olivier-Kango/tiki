@@ -63,7 +63,7 @@ class ODBCManager
 			foreach (array_chunk($row, 50, true) as $chunk) {
 				$sql = "UPDATE {$this->config['table']} SET ".implode(', ', array_map(function($k) { return "\"{$k}\" = ?"; }, array_keys($chunk)))." WHERE \"{$pk}\" = ?";
 				$rs = odbc_prepare($conn, $sql);
-				$params = array_map(function($v){ return empty($v) ? null : $v; }, array_values($chunk));
+				$params = array_map(function($v){ return empty($v) && $v !== '0' ? null : $v; }, array_values($chunk));
 				$params[] = $id;
 				odbc_execute($rs, $params);
 				if (odbc_error()) {
@@ -100,7 +100,7 @@ class ODBCManager
 		foreach (array_chunk($row, 50, true) as $chunk) {
 			$sql = "UPDATE {$this->config['table']} SET ".implode(', ', array_map(function($k) { return "\"{$k}\" = ?"; }, array_keys($chunk)))." WHERE ".implode(' AND ', array_map(function($k, $v) { return empty($v) ? "\"{$k} IS NULL\"" : "\"{$k}\" = ?"; }, array_keys($existing), $existing));
 			$rs = odbc_prepare($conn, $sql);
-			$params = array_map(function($v){ return empty($v) ? null : $v; }, array_values($chunk));
+			$params = array_map(function($v){ return empty($v) && $v !== '0' ? null : $v; }, array_values($chunk));
 			$params = array_merge($params, array_filter(array_values($existing)));
 			odbc_execute($rs, $params);
 			if (odbc_error()) {
