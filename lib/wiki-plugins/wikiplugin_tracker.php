@@ -1162,7 +1162,8 @@ function wikiplugin_tracker($data, $params)
 						}
 						$categlib = TikiLib::lib('categ');
 						$categs = $categlib->getCategories($filter, true, false);
-						$_REQUEST["$fields_prefix$f"][] = $categs[0]['categId'];
+						$categ = array_shift($categs);
+						$_REQUEST["$fields_prefix$f"][] = $categ['categId'];
 					} elseif (preg_match('/preference\((.*)\)/', $autosavevalues[$i], $matches)) {
 						$_REQUEST["$fields_prefix$f"] = $prefs[$matches[1]];
 					} elseif (isset($transactionName) && preg_match('/#TSTEP\[(\d+)\]\[(\d+|name|pass)\]/', $autosavevalues[$i], $matches)) {
