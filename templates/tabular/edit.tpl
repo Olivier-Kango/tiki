@@ -5,26 +5,7 @@
 {/block}
 
 {block name="navigation"}
-	<div class="t_navbar mb-4">
-		<div class="btn-group">
-			<a class="btn btn-primary" href="{bootstrap_modal controller=tabular action=filter tabularId=$tabularId target=list _params=$baseArguments}">{icon name=filter} {tr}Filter{/tr}</a>
-			{permission name=tabular_export type=tabular object=$tabularId}
-				<a class="btn btn-primary" href="{bootstrap_modal controller=tabular action=filter tabularId=$tabularId target=export _params=$baseArguments}">{icon name=export} {tr}Export{/tr}</a>
-			{/permission}
-			{permission name=tabular_import type=tabular object=$tabularId}
-				<a class="btn btn-primary" href="{bootstrap_modal controller=tabular action=import_csv tabularId=$tabularId target=list _params=$baseArguments}">{icon name=import} {tr}Import{/tr}</a>
-			{/permission}
-			{permission name=admin_trackers}
-				<a class="btn btn-primary" href="{bootstrap_modal controller='tabular' action='duplicate' tabularId=$tabularId}">
-					{icon name='copy'} {tr}Duplicate{/tr}
-				</a>
-			{/permission}
-		</div>
-		{permission name=admin_trackers}
-			<a class="btn btn-link" href="{service controller=tabular action=create}">{icon name=create} {tr}New{/tr}</a>
-			<a class="btn btn-link" href="{service controller=tabular action=manage}">{icon name=list} {tr}Manage{/tr}</a>
-		{/permission}
-	</div>
+	{include file='templates/tabular/include_tabular_navbar.tpl' mode='edit'}
 {/block}
 
 {block name="content"}
