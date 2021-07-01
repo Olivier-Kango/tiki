@@ -340,12 +340,12 @@ $(".collapse-toggle", ".siteloginbar_popup .dropdown-menu").click(function () {
 			</div>
 		{/if}
 		<div class="social-buttons">
-			{if $prefs.socialnetworks_facebook_login eq 'y' and $mode neq "header" and empty($user)}
-				{button _icon_name='facebook' _text="{tr}Log in via Facebook{/tr}" _class='btn btn-social btn-facebook' _script='tiki-socialnetworks.php' _auto_args=request_facebook request_facebook=true _title="{tr}Log in via Facebook{/tr}"}
-			{/if}
-			{if $prefs.socialnetworks_linkedin_login eq 'y' and $mode neq "header" and empty($user)}
-				{button _icon_name='linkedin' _text="{tr}Log in via LinkedIn{/tr}" _class='btn btn-social btn-linkedin' _script='tiki-socialnetworks_linkedin.php' _auto_args=connect connect='y' _title="{tr}Log in via LinkedIn{/tr}"}
-			{/if}
+			{foreach from=$prefs.socnets_enabledProviders  key=k  item=pNum}
+			    {$providerName = $socnetsAll[$pNum]}
+			    {if $prefs["socnets_`$providerName`_loginEnabled"] eq 'y' and $mode neq "header" and empty($user)}
+				{button _icon_name="{$providerName|lower}" _text="{tr}Log in via {/tr}{$providerName}" _class="btn btn-social btn-{$providerName|lower}" _script="tiki-login_hybridauth.php" _auto_args=provider provider="{$providerName}"  _title="{tr}Log in via {/tr}{$providerName}"}
+			    {/if}
+			{/foreach}
 		</div>
 		{$close_tags}
 		{if $prefs.auth_method eq 'openid' and !$user and (!isset($registration) || $registration neq 'y')}
