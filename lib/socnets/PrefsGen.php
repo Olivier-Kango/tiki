@@ -339,8 +339,10 @@ class PrefsGen
 		$ret = [];
 		$socnets = self::getHybridProvidersPHP();
 		foreach ( $socnets as $name ){
-			if ($prefs[self::$socPreffix . $name . '_socnetEnabled'] === 'y')
+			$prefName = self::$socPreffix . $name . '_socnetEnabled';
+			if (isset($prefs[$prefName]) && $prefs[$prefName] === 'y') {
 				$ret[] = $name;
+			}
 		}
 
 		//Util::log2('get socnetsAll prefs:', $prefs[self::$socPreffix . 'socnetsAll'] );
