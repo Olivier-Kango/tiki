@@ -768,14 +768,46 @@ class Services_Tracker_Controller
 			$processedFields = $processedItem['fields'];
 		}
 
+		// sets all fields for the tracker item with their value
+		$processedFields = $itemObject->prepareInput($input);
+		// fields that we want to change in the form. If
+		$editableFields = $input->editable->none();
+		// fields where the value is forced.
+		$forcedFields = $input->forced->none();
+
+		// if forced fields are set, remove them from the processedFields since they will not show up visually
+		// in the form; they will be set up separately and hidden.
+		if (! empty($forcedFields)) {
+			foreach ($processedFields as $k => $f) {
+				$permName = $f['permName'];
+				if (isset($forcedFields[$permName])) {
+					unset($processedFields[$k]);
+				}
+			}
+		}
+
+		if (empty($editableFields)) {
+			//if editable fields, show all fields in the form (except the ones from forced which have been removed).
+			$displayedFields = $processedFields;
+		} else {
+			// if editableFields is set, only add the field if found in the editableFields array
+			$displayedFields = [];
+			foreach ($processedFields as $k => $f) {
+				$permName = $f['permName'];
+				if (in_array($permName, $editableFields)) {
+					$displayedFields[] = $f;
+				}
+			}
+		}
+		
 		return [
 			'title' => tr('Duplicate Item'),
 			'trackerId' => $trackerId,
 			'itemId' => $itemId,
 			'created' => $id,
 			'data' => $itemData['fields'],
-			'fields' => $itemObject->prepareInput($input),
-			'processedFields' => $processedFields,
+			'fields' => $displayedFields,
+			'forced' => $forcedFields,
 		];
 	}
 
@@ -1005,7 +1037,7 @@ class Services_Tracker_Controller
 	 *
 	 * Formatting the edit screen
 	 * - "title" optional. Sets a title for the edit screen.
-	 * - "skip_form_confirm_message" optional. Used with skip_form. E.g. "Are you sure you want to set this item to 'Closed'".
+	 * - "skip_form_message" optional. Used with skip_form. E.g. "Are you sure you want to set this item to 'Closed'".
 	 * - "button_label" optional. Used to override the label for the Update/Save button.
 	 * - "redirect" set a url to which a user should be redirected, if any.
 	 *
@@ -1946,6 +1978,7 @@ class Services_Tracker_Controller
 				'description' => $input->description->text(),
 				'descriptionIsParsed' => $input->descriptionIsParsed->int() ? 'y' : 'n',
 				'fieldPrefix' => $input->fieldPrefix->text(),
+				'permName' => $input->permName->text(),
 				'showStatus' => $input->showStatus->int() ? 'y' : 'n',
 				'showStatusAdminOnly' => $input->showStatusAdminOnly->int() ? 'y' : 'n',
 				'showCreated' => $input->showCreated->int() ? 'y' : 'n',

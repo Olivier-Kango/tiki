@@ -30,7 +30,7 @@
 			{button _text='{tr}Save Options{/tr}' _class='save_menu  btn btn-sm disabled float-left mb-2' _type='primary' _ajax='n' _auto_args='save_menu,page_ref_id'}
 			<ol class="new-option">
 				<li id="node_new" class="clearfix new row">
-					<div class="col-sm-12">
+					<div class="col-sm-12 px-0">
 						<div class="float-left label-group">
 							<div class="input-group input-group-sm" style="max-width: 100%">
 								<div class="input-group-append">
@@ -67,6 +67,8 @@
 							</div>
 						</div>
 					</div>
+					{* TODO: Logic for nested new options *}
+					{* <ol class="child-options"></ol> *}
 				</li>
 			</ol>
 		</div>
@@ -81,8 +83,8 @@
 				<ol id="options">
 					{$prevpos = 0}
 					{foreach $options as $option}
-						<li class="row clearfix" id="node_{$option.optionId}" data-position="{$option.position}" data-parent="{$option.parent}" data-type="{$option.type}">
-							<div class="col-sm-12">
+						<li class="row clearfix" id="node_{$option.optionId}" data-id="{$option.optionId}" data-position="{$option.position}" data-parent="{$option.parent}" data-type="{$option.type}">
+							<div class="col-sm-12 px-0">
 								{if $option.name}
 									{capture assign='tooltip'}{strip}
 										{if $editable_menu_info.parse eq 'y'}

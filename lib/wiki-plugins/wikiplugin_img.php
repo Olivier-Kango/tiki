@@ -54,21 +54,6 @@ function wikiplugin_img_info()
 				'parentparam' => ['name' => 'type', 'value' => 'fileId'],
 				'profile_reference' => 'file',
 			],
-			'id' => [
-				'required' => true,
-				'name' => tra('Image ID'),
-				'description' => tr(
-					'Numeric ID of an image in an image gallery (or a comma- or %0-separated list of IDs).',
-					'<code>|</code>'
-				),
-				'since' => '4.0',
-				'doctype' => 'id',
-				'filter' => 'text',
-				'advanced' => $prefs['feature_galleries'] !== 'y',
-				'accepted' => tra('Valid image IDs separated by commas or |'),
-				'default' => '',
-				'parentparam' => ['name' => 'type', 'value' => 'id'],
-			],
 			'src' => [
 				'required' => true,
 				'name' => tra('Image Source'),
@@ -560,12 +545,6 @@ function wikiplugin_img_info()
 			],
 		],
 	];
-	if ($prefs['feature_galleries'] === 'y') {
-		$info['params']['type']['options'][] = ['text' => tra('Image Gallery Image'), 'value' => 'id'];
-		$info['params']['thumb']['options'][] = ['text' => tra('Browse'), 'value' => 'browse', 'description' => tra('Image gallery browse window for the image will open when the thumbnail is clicked if the image is in a Tiki image gallery')];
-		$info['params']['thumb']['options'][] = ['text' => tra('Browse Popup'), 'value' => 'browsepopup', 'description' => tra('Same as "browse" except that the page opens in a new window or tab.')];
-		$info['params']['thumb']['description'] = tra('Makes the image a thumbnail that enlarges to full size when clicked or moused over (unless "link" is set to another target). "browse" and "browsepopup" only work with image gallery and "download" only works with file gallery or attachments.');
-	}
 	if ($prefs['feature_draw'] === 'y') {
 		$info['params']['noDrawIcon'] = [
 			'required' => false,
@@ -816,16 +795,7 @@ function wikiplugin_img($data, $params)
 			|| ! empty($imgdata['attId']))
 		) {
 			//Try to get image from database
-			if (! empty($imgdata['id'])) {
-				$imagegallib = TikiLib::lib('imagegal');
-				$dbinfo = $imagegallib->get_image_info($imgdata['id'], 'o');
-				$dbinfo2 = $imagegallib->get_image($imgdata['id'], 'o');
-				$dbinfo = isset($dbinfo) && isset($dbinfo2) ? array_merge($dbinfo, $dbinfo2) : [];
-				$dbinfot = $imagegallib->get_image_info($imgdata['id'], 't');
-				$dbinfot2 = $imagegallib->get_image($imgdata['id'], 't');
-				$dbinfot = isset($dbinfot) && isset($dbinfot2) ? array_merge($dbinfot, $dbinfot2) : [];
-				$basepath = $prefs['gal_use_dir'];
-			} elseif (empty($dbinfo) && ! empty($imgdata['fileId'])) {
+			if (empty($dbinfo) && ! empty($imgdata['fileId'])) {
 				$imgdata['file'] = \Tiki\FileGallery\File::id($imgdata['fileId']);
 				if ($imgdata['file']->fileId) {
 					$dbinfo = $imgdata['file']->getParams();
@@ -849,10 +819,6 @@ function wikiplugin_img($data, $params)
 					return '^' . tra('Server does not support image manipulation.') . '^';
 				} elseif (! empty($imgdata['fileId'])) {
 					if (! $userlib->user_has_perm_on_object($user, $imgdata['fileId'], 'file', 'tiki_p_download_files')) {
-						return $notice;
-					}
-				} elseif (! empty($imgdata['id'])) {
-					if (! $userlib->user_has_perm_on_object($user, $dbinfo['galleryId'], 'image gallery', 'tiki_p_view_image_gallery')) {
 						return $notice;
 					}
 				} elseif (! empty($imgdata['attId'])) {

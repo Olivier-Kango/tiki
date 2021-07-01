@@ -488,6 +488,8 @@ function wikiplugin_tracker_info()
 				) . '<br />'
 					. '<code>categories(x)</code> - ' . tr('selects the first child category under a category with ID
 						%0x%1 for use in a category field', '<code>', '</code>') . '<br />'
+					. '<code>category(x)</code> - ' . tr('selects a category with this ID
+						%0x%1 for use in a category field', '<code>', '</code>') . '<br />'
 					. '<code>preference(x)</code> - ' . tr('inserts the value of the preference with %0x%1 being the
 						preference name.', '<code>', '</code>'),
 				'since' => '5.0',
@@ -1154,15 +1156,21 @@ function wikiplugin_tracker($data, $params)
 					if (! $ff = $trklib->get_field($f, $flds['data'])) {
 						continue;
 					}
-					if (preg_match('/categories\(([0-9]+)\)/', $autosavevalues[$i], $matches)) {
-						if (ctype_digit($matches[1]) && $matches[1] > 0) {
-							$filter = ['identifier' => $matches[1], 'type' => 'descendants'];
+					if (preg_match('/categor(ies|y)\(([0-9]+)\)/', $autosavevalues[$i], $matches)) {
+						if ($matches && ctype_digit($matches[2]) && $matches[2] > 0) {
+							if ($matches[1] === 'ies') {
+								$filterType = 'descendants';
+							} else {
+								$filterType = 'self';
+							}
+							$filter = ['identifier' => $matches[2], 'type' => $filterType];
 						} else {
 							$filter = null;
 						}
 						$categlib = TikiLib::lib('categ');
 						$categs = $categlib->getCategories($filter, true, false);
-						$_REQUEST["$fields_prefix$f"][] = $categs[0]['categId'];
+						$categ = array_shift($categs);
+						$_REQUEST["$fields_prefix$f"][] = $categ['categId'];
 					} elseif (preg_match('/preference\((.*)\)/', $autosavevalues[$i], $matches)) {
 						$_REQUEST["$fields_prefix$f"] = $prefs[$matches[1]];
 					} elseif (isset($transactionName) && preg_match('/#TSTEP\[(\d+)\]\[(\d+|name|pass)\]/', $autosavevalues[$i], $matches)) {

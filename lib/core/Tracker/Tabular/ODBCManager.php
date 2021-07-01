@@ -60,13 +60,15 @@ class ODBCManager
 			$id = null;
 		}
 		if ($exists) {
-			$sql = "UPDATE {$this->config['table']} SET ".implode(', ', array_map(function($k) { return "\"{$k}\" = ?"; }, array_keys($row)))." WHERE \"{$pk}\" = ?";
-			$rs = odbc_prepare($conn, $sql);
-			$params = array_map(function($v){ return empty($v) ? null : $v; }, array_values($row));
-			$params[] = $id;
-			odbc_execute($rs, $params);
-			if (odbc_error()) {
-				$this->errors[] = tr("Error updating remote item: %0", odbc_errormsg());
+			foreach (array_chunk($row, 50, true) as $chunk) {
+				$sql = "UPDATE {$this->config['table']} SET ".implode(', ', array_map(function($k) { return "\"{$k}\" = ?"; }, array_keys($chunk)))." WHERE \"{$pk}\" = ?";
+				$rs = odbc_prepare($conn, $sql);
+				$params = array_map(function($v){ return empty($v) && $v !== '0' ? null : $v; }, array_values($chunk));
+				$params[] = $id;
+				odbc_execute($rs, $params);
+				if (odbc_error()) {
+					$this->errors[] = tr("Error updating remote item: %0", odbc_errormsg());
+				}
 			}
 			$sql = "SELECT * FROM {$this->config['table']} WHERE \"{$pk}\" = ?";
 			$rs = odbc_prepare($conn, $sql);
@@ -95,13 +97,15 @@ class ODBCManager
 		}
 		$this->handleErrors();
 		$conn = $this->getConnection();
-		$sql = "UPDATE {$this->config['table']} SET ".implode(', ', array_map(function($k) { return "\"{$k}\" = ?"; }, array_keys($row)))." WHERE ".implode(' AND ', array_map(function($k, $v) { return empty($v) ? "\"{$k} IS NULL\"" : "\"{$k}\" = ?"; }, array_keys($existing), $existing));
-		$rs = odbc_prepare($conn, $sql);
-		$params = array_map(function($v){ return empty($v) ? null : $v; }, array_values($row));
-		$params = array_merge($params, array_filter(array_values($existing)));
-		odbc_execute($rs, $params);
-		if (odbc_error()) {
-			$this->errors[] = tr("Error updating remote item: %0", odbc_errormsg());
+		foreach (array_chunk($row, 50, true) as $chunk) {
+			$sql = "UPDATE {$this->config['table']} SET ".implode(', ', array_map(function($k) { return "\"{$k}\" = ?"; }, array_keys($chunk)))." WHERE ".implode(' AND ', array_map(function($k, $v) { return empty($v) ? "\"{$k} IS NULL\"" : "\"{$k}\" = ?"; }, array_keys($existing), $existing));
+			$rs = odbc_prepare($conn, $sql);
+			$params = array_map(function($v){ return empty($v) && $v !== '0' ? null : $v; }, array_values($chunk));
+			$params = array_merge($params, array_filter(array_values($existing)));
+			odbc_execute($rs, $params);
+			if (odbc_error()) {
+				$this->errors[] = tr("Error updating remote item: %0", odbc_errormsg());
+			}
 		}
 		foreach ($row as $k => $v) {
 			$existing[$k] = $v;
@@ -148,7 +152,7 @@ class ODBCManager
 	private function stopErrorHandler() {
 		set_error_handler($this->orig_handler);
 		if ($this->errors) {
-			throw new \Exception($this->errors[0]);
+			throw new \Exception(implode(' ', $this->errors));
 		}
 	}
 }

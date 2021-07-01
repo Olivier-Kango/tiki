@@ -253,10 +253,12 @@ class Tracker_Field_DateTime extends Tracker_Field_Abstract implements Tracker_F
 		$filters = new Tracker\Filter\Collection($this->getTrackerDefinition());
 		$permName = $this->getConfiguration('permName');
 		$name = $this->getConfiguration('name');
+		$type = $this->getConfiguration('type');
 		$baseKey = $this->getBaseKey();
 
 		$filters->addNew($permName, 'range')
 			->setLabel($name)
+			->setType($type)
 			->setControl(new Tracker\Filter\Control\DateRange("tf_{$permName}_range"))
 			->setApplyCondition(function ($control, Search_Query $query) use ($baseKey) {
 				if ($control->hasValue()) {

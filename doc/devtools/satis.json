@@ -751,6 +751,17 @@
 		{
 			"type": "package",
 			"package": {
+				"name": "openlayers/openlayers",
+				"version": "6.5.0",
+				"dist": {
+					"url": "https://github.com/openlayers/openlayers/releases/download/v6.5.0/v6.5.0-dist.zip",
+					"type": "zip"
+				}
+			}
+		},
+		{
+			"type": "package",
+			"package": {
 				"name": "walkermatt/ol-layerswitcher",
 				"version": "3.3.0",
 				"dist": {
@@ -1874,6 +1885,7 @@
 		"components/jquery-migrate": ">=3.0.0",
 		"components/jqueryui": ">=1.12",
 		"components/revealjs": ">=3.6",
+		"composer/ca-bundle" : "1.0.0 || dev-main || ^1.2.9",
 		"composer/semver": "^1.5",
 		"container-interop/container-interop": ">=1.0",
 		"css-tricks/anythingslider-themes": ">=1.4.1",
@@ -1898,6 +1910,7 @@
 		"h5p/h5p-core": ">=1.13.2",
 		"h5p/h5p-editor": ">=1.12.1",
 		"html2text/html2text": "4.2.1",
+		"hybridauth/hybridauth": ">=3.7.1",
 		"itsjavi/bootstrap-colorpicker": ">=2.5.1",
 		"j0k3r/php-readability": "^1.1.10",
 		"jasig/phpcas": ">=1.3",
@@ -2010,7 +2023,7 @@
 		"npm-asset/chartjs-color-string": ">=0.5.0",
 		"npm-asset/chartjs-color": ">=2.2.0",
 		"npm-asset/color-name": ">=1.1.4",
-		"npm-asset/converse.js": "^5.0.1",
+		"npm-asset/converse.js": ">=5.0.1",
 		"npm-asset/dexie": "2.0.4",
 		"npm-asset/fullcalendar": "3.10.2||^5.3.0",
 		"npm-asset/fullcalendar-scheduler": "1.10.1||^5.3.0",
@@ -2026,6 +2039,7 @@
 		"npm-asset/recordrtc": ">=5.6.1",
 		"npm-asset/reveal.js": "^3.9.2",
 		"npm-asset/sass-svg-uri": ">=1.0",
+		"npm-asset/sentry--browser": "^6.0",
 		"npm-asset/signature_pad": "^2.3.2",
 		"npm-asset/vue": ">=2.6.10",
 		"npm-asset/zxing--library": ">=0.17.0",
@@ -2083,8 +2097,8 @@
 		"rmm5t/jquery-timeago": "^1.5",
 		"robloach/component-installer": "^0.2",
 		"robicch/jquery-gantt": "^6.3|dev-master",
-		"rubix/extras": "dev-master",
-		"rubix/ml": "^0.2.0",
+		"rubix/extras": "dev-master|0.4.0-beta|>=1.0.0",
+		"rubix/ml": ">=0.4.0",
 		"sabre/dav": ">=3.2.3",
 		"scssphp/scssphp": "^1.0.6",
 		"sebastian/code-unit-reverse-lookup": ">=1.0.0",
@@ -2098,6 +2112,8 @@
 		"sebastian/resource-operations": ">=1.0.0",
 		"sebastian/version": ">=1.0.6",
 		"sensiolabs/security-checker": "^5.0",
+		"sentry/sdk": "^3.1",
+		"setasign/fpdi": ">=2.3.3|2.1.0",
 		"simile_timeline/simile_timeline": ">=2.3.0",
 		"smarty/smarty": ">=3.1.14",
 		"sorich87/bootstrap-tour": ">0.10.2",

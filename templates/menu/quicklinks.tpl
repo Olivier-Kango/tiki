@@ -23,9 +23,6 @@
 							{if $prefs.home_blog}
 								<option
 								value="{$prefs.home_blog|sefurl:blog},{tr}Home Blog{/tr},feature_blogs,tiki_p_view_blogs">{tr}Home Blog{/tr}</option>{/if}
-							{if $prefs.home_gallery}
-								<option
-								value="tiki-browse_gallery.php?galleryId={$prefs.home_gallery},{tr}Home Image Gal{/tr},feature_galleries,tiki_p_view_image_gallery">{tr}Home Image Gallery{/tr}</option>{/if}
 							{if $prefs.home_file_gallery}
 							<option
 							value="tiki-list_file_gallery?galleryId={$prefs.home_file_gallery},{tr}Home File Gal{/tr},feature_file_galleries,tiki_p_view_file_gallery">{tr}Home File Gallery{/tr}</option>{/if}
@@ -65,23 +62,6 @@
 								<option value="tiki-wiki_rankings.php,{tr}Rankings{/tr},feature_wiki_rankings,tiki_p_view">{tr}Rankings{/tr}</option>
 								<option value="tiki-listpages.php,{tr}List pages{/tr},feature_listPages,tiki_p_view">{tr}List pages{/tr}</option>
 								<option value="tiki-index.php?page=SandBox,{tr}Sandbox{/tr},feature_sandbox,tiki_p_view">{tr}Sandbox{/tr}</option>
-							</select>
-						</div>
-					</div>
-				{/if}
-
-				{if $prefs.feature_galleries eq 'y'}
-					<div class="form-group row">
-						<label class="col-form-label col-sm-5" for="wikilinks4">{tr}Images:{/tr} </label>
-
-						<div class="col-sm-7">
-							<select name="wikilinks" id="wikilinks4" class="form-control"
-									onchange="setMenuCon(options[selectedIndex].value);return true;">
-								<option value=",,,">{tr}Choose{/tr} ...</option>
-								<option value="tiki-galleries.php,{tr}List galleries{/tr},feature_galleries,tiki_p_view_image_gallery">{tr}List image galleries{/tr}</option>
-								<option value="tiki-upload_image.php,{tr}Upload image{/tr},feature_galleries,tiki_p_upload_images">{tr}Upload{/tr}</option>
-								<option value="tiki-galleries_rankings.php,{tr}Gallery Rankings{/tr},feature_gal_rankings,tiki_p_view_image_gallery">{tr}Rankings{/tr}</option>
-								<option value="tiki-browse_gallery.php?galleryId=,{tr}Browse a gallery{/tr},feature_galleries,tiki_p_view_image_gallery">{tr}Browse a gallery{/tr}</option>
 							</select>
 						</div>
 					</div>

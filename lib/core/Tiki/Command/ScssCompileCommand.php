@@ -160,21 +160,23 @@ class ScssCompileCommand extends Command
 	}
 
 	/**
-	 * @param $inputFile
-	 * @param string $outputFile
+	 * @param string          $inputFile
+	 * @param string          $outputFile
 	 * @param OutputInterface $output
+	 *
+	 * @throws \ScssPhp\ScssPhp\Exception\SassException
 	 */
-	protected function compile($inputFile, $outputFile = '', $output = null)
+	private function compile(string $inputFile, string $outputFile = '', OutputInterface $output = null): void
 	{
 		$inputData = file_get_contents($inputFile);
 		$inputDir = dirname(realpath($inputFile));
 
 		$scss = new Compiler();
 		$scss->setImportPaths($inputDir);
-		$result = $scss->compile($inputData);
+		$result = $scss->compileString($inputData);
 
 		if ($outputFile) {
-			file_put_contents($outputFile, $result);
+			file_put_contents($outputFile, $result->getCss());
 		}
 	}
 }

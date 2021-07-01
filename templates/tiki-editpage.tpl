@@ -604,9 +604,9 @@
 								<label for="pageAutoToc" class="col-md-4 col-form-label">{tr}Automatic table of contents{/tr}</label>
 								<div class="col-md-8">
 									<select name="pageAutoToc" class="form-control">
-										<option value="0" {if $pageAutoToc == 0}selected{/if}>{tr}Default{/tr} ({if $prefs.wiki_toc_default eq 'off'}{tr}Off{/tr}{else}{tr}On{/tr}{/if})</option>
-										<option value="1" {if $pageAutoToc == 1}selected{/if}>{tr}On{/tr}</option>
-										<option value="-1" {if $pageAutoToc == -1}selected{/if}>{tr}Off{/tr}</option>
+										<option value="0" {if $pageAutoToc == 0}selected{/if}>{tr}Default{/tr} ({if $prefs.wiki_toc_default eq 'off'}{tr}Off_C(on-off){/tr}{else}{tr}On_C(on-off){/tr}{/if})</option>
+										<option value="1" {if $pageAutoToc == 1}selected{/if}>{tr}On_C(on-off){/tr}</option>
+										<option value="-1" {if $pageAutoToc == -1}selected{/if}>{tr}Off_C(on-off){/tr}</option>
 									</select>
 								</div>
 							</div>
@@ -617,8 +617,8 @@
 								<div class="col-md-8">
 									<select name="page_hide_title" class="form-control">
 										<option value="0" {if $page_hide_title == 0}selected{/if}>{tr}Default{/tr}</option>
-										{*<option value="1" {if $page_hide_title == 1}selected{/if}>{tr}On{/tr}</option>*}
-										<option value="-1" {if $page_hide_title == -1}selected{/if}>{tr}Off{/tr}</option>
+										{*<option value="1" {if $page_hide_title == 1}selected{/if}>{tr}On_C(on-off){/tr}</option>*}
+										<option value="-1" {if $page_hide_title == -1}selected{/if}>{tr}Off_C(on-off){/tr}</option>
 									</select>
 								</div>
 							</div>

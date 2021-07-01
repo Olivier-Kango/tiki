@@ -20,7 +20,7 @@ a,
 	color: #0056b3; /*#666666;*/
 }
 
-a:hover
+a:hover,
 .autotoc a:hover,
 .popover button.btn-link.link-list:hover,
 .popover button.btn-link.link-list .icon:hover,
@@ -774,7 +774,7 @@ a.pagetitle:hover {
 .titleb {
 	color: #fff;
 	text-decoration: none;
-	padding: 1.5px;
+	padding: 2px;
 }
 
 /***** Blogs *****/

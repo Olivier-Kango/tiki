@@ -157,7 +157,7 @@
 				</div>
 				<ul id="page_list_container">
 					{foreach $listpages.data as $aPage}
-						<li class="ui-state-default">
+						<li class="ui-state-default" data-page-name="{$aPage.pageName|escape}">
 							{$aPage.pageName|escape}
 						</li>
 					{/foreach}

@@ -146,7 +146,6 @@ if (empty($_POST['install_step'])) {
 if (! empty($_POST['lang'])) {
 	$language = $prefs['site_language'] = $prefs['language'] = $_POST['lang'];
 	if (Language::isRTL()) {
-		$prefs['feature_bidi'] = 'y';
 		TikiLib::lib('header')->add_cssfile('vendor_bundled/vendor/hesammousavi/bootstrap-v4-rtl/bootstrap-rtl.min.css', 99); // 99 is high rank order as it should load after all other css files
 	}
 } else {
@@ -240,7 +239,6 @@ function create_dirs($domain = '')
 		'img/wiki',
 		'img/wiki_up',
 		'img/trackers',
-		'modules/cache',
 		'temp',
 		'temp/cache',
 		'temp/templates_c',

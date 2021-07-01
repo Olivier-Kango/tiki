@@ -30,10 +30,6 @@
 											<option value="pages">{tr}Entire Site{/tr}</option>
 											{if $prefs.feature_wiki eq 'y'}<option value="wikis"{if $smod_params.where eq "wikis"} selected="selected"{/if}>{tr}Wiki Pages{/tr}</option>{/if}
 											{if $prefs.feature_directory eq 'y'}<option value="directory"{if $smod_params.where eq "directory"} selected="selected"{/if}>{tr}Directory{/tr}</option>{/if}
-											{if $prefs.feature_galleries eq 'y'}
-												<option value="galleries"{if $smod_params.where eq "galleries"} selected="selected"{/if}>{tr}Image Gals{/tr}</option>
-												<option value="images"{if $smod_params.where eq "images"} selected="selected"{/if}>{tr}Images{/tr}</option>
-											{/if}
 											{if $prefs.feature_file_galleries eq 'y'}<option value="files"{if $smod_params.where eq "files"} selected="selected"{/if}>{tr}Files{/tr}</option>{/if}
 											{if $prefs.feature_articles eq 'y'}<option value="articles"{if $smod_params.where eq "articles"} selected="selected"{/if}>{tr}Articles{/tr}</option>{/if}
 											{if $prefs.feature_forums eq 'y'}<option value="forums"{if $smod_params.where eq "forums"} selected="selected"{/if}>{tr}Forums{/tr}</option>{/if}

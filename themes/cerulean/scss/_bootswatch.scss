@@ -90,3 +90,10 @@ $text-shadow: 0 1px 0 rgba(0, 0, 0, 0.05) !default;
 // Progress bars ===============================================================
 
 // Containers ==================================================================
+
+.bg-light {
+	background-image: linear-gradient(white, #e9ecef 60%, #e3e7eb);
+}
+.bg-light {
+	background-color: #f8f9fa !important;
+}

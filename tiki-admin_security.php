@@ -18,13 +18,6 @@ if ($prefs['feature_file_galleries'] == 'y' && ! empty($prefs['fgal_use_dir']) &
 		'message' => tra('The Path to store files in the filegallery should be outside the tiki root directory')
 	];
 }
-if ($prefs['feature_galleries'] == 'y' && ! empty($prefs['gal_use_dir']) && substr($prefs['gal_use_dir'], 0, 1) != '/') {
-	$tikisettings['gal_use_dir'] = [
-		'risk' => tra('unsafe') ,
-		'setting' => $prefs['gal_use_dir'],
-		'message' => tra('The Path to store files in the imagegallery should be outside the tiki root directory')
-	];
-}
 if ($prefs['feature_edit_templates'] == 'y') {
 	$tikisettings['edit_templates'] = [
 		'risk' => tra('unsafe') ,

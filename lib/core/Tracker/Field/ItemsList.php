@@ -662,16 +662,15 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
 
 		$technique = 'value';
 
-		// not sure this is working
-		// r = item link
+		// r = ItemLink
+		// w = DynamicList
 		if ($tracker && $filterFieldThere && (! $filterFieldIdHere || $filterFieldThere['type'] === 'r' || $filterFieldThere['type'] === 'w')) {
-			if ($filterFieldThere['type'] === 'r' || $filterFieldThere['type'] === 'w') {
+			if (($filterFieldThere['type'] === 'r' || $filterFieldThere['type'] === 'w') && (! $filterFieldHere || $filterFieldHere['type'] !== 'r')) {
 				$technique = 'id';
 			}
 		}
 
-		// not sure this is working
-		// q = Autoincrement
+		// q = AutoIncrement
 		if ($filterFieldHere && $filterFieldHere['type'] == 'q' && isset($filterFieldHere['options_array'][3]) && $filterFieldHere['options_array'][3] == 'itemId') {
 			$technique = 'id';
 		}

@@ -74,36 +74,6 @@
 				{preference name=feed_blog_showAuthor}
 				{preference name=feed_blog_homepage}
 			</div>
-			{preference name=feed_image_galleries}
-			<div class="adminoptionboxchild" id="feed_image_galleries_childcontainer">
-				<div class="form-group row clearfix">
-					<div class="col-md-8 offset-md-4">
-						<a class="btn btn-primary btn-sm tips" href="tiki-image_galleries_rss.php" title=":{tr}Feed for image galleries{/tr}">
-							{icon name="rss"} {tr}View{/tr}
-						</a>
-					</div>
-				</div>
-				{preference name=feed_image_galleries_title}
-				{preference name=feed_image_galleries_desc}
-				{preference name=feed_image_galleries_max}
-				{preference name=feed_image_galleries_showAuthor}
-				{preference name=feed_image_galleries_homepage}
-			</div>
-			{preference name=feed_image_gallery}
-			<div class="adminoptionboxchild" id="feed_image_gallery_childcontainer">
-				<div class="form-group row clearfix">
-					<div class="col-md-8 offset-md-4">
-						<a class="btn btn-primary btn-sm tips" href="tiki-galleries.php" title=":{tr}Feed for individual image galleries{/tr}">
-							{icon name="rss"} {tr}View{/tr}
-						</a>
-					</div>
-				</div>
-				{preference name=feed_image_gallery_title}
-				{preference name=feed_image_gallery_desc}
-				{preference name=feed_image_gallery_max}
-				{preference name=feed_image_gallery_showAuthor}
-				{preference name=feed_image_gallery_homepage}
-			</div>
 			{preference name=feed_file_galleries}
 			<div class="adminoptionboxchild" id="feed_file_galleries_childcontainer">
 				<div class="form-group row clearfix">

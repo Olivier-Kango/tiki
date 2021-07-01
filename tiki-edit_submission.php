@@ -374,7 +374,6 @@ if (isset($_REQUEST['preview']) || ! empty($errors)) {
 // Pro
 if ((isset($_REQUEST['save']) || isset($_REQUEST['submitarticle'])) && empty($errors)) {
 	check_ticket('edit-submission');
-	$imagegallib = TikiLib::lib('imagegal');
 
 	# convert from the displayed 'site' time to UTC time
 	//Convert 12-hour clock hours to 24-hour scale to compute time
@@ -455,9 +454,10 @@ if ((isset($_REQUEST['save']) || isset($_REQUEST['submitarticle'])) && empty($er
 		$imgname = $_FILES['userfile1']['name'];
 	}
 
+	// TODO ImageGalleryRemoval23.x replace with a file gallery version
 	// Parse $edit and eliminate image references to external URIs (make them internal)
-	$body = $imagegallib->capture_images($body);
-	$heading = $imagegallib->capture_images($heading);
+	//$body = $imagegallib->capture_images($body);
+	//$heading = $imagegallib->capture_images($heading);
 
 	// If page exists
 	if (! isset($_REQUEST['topicId'])) {

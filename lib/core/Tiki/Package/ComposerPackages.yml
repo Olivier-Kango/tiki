@@ -41,7 +41,7 @@ FullCalendarScheduler:
   name: npm-asset/fullcalendar-scheduler
   requiredBy:
     - "wikiplugin_trackercalendar"
-  requiredVersion: ^5.3.2
+  requiredVersion: ^5.7.0
 Faker:
   licence: MIT
   licenceUrl: "https://github.com/fzaninotto/Faker/blob/master/LICENSE"

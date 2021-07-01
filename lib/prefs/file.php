@@ -38,7 +38,7 @@ function prefs_file_list()
 			],
 		],
 		'file_galleries_redirect_from_image_gallery' => [
-			'name' => tra('Redirect to file gallery'),
+			'name' => tra('Redirect migrated image gallery files to file galleries'),
 			'description' => tra('If enabled, redirect all requests to images that were migrated from the image gallery to the corresponding file in the file gallery'),
 			'type' => 'flag',
 			'default' => 'n',

@@ -103,22 +103,6 @@ function module_user_bookmarks($mod_reference, $module_params)
 					$name = $info["name"];
 				}
 
-				// Check if we are bookmarking an image gallery
-				if (strstr($_SERVER["REQUEST_URI"], 'tiki-browse_gallery') || strstr($_SERVER["REQUEST_URI"], 'tiki-list_gallery')) {
-					$imagegallib = TikiLib::lib('imagegal');
-					$info = $imagegallib->get_gallery($setup_query_data["galleryId"]);
-
-					$name = $info["name"];
-				}
-
-				// Check if we are bookmarking an image
-				if (strstr($_SERVER["REQUEST_URI"], 'tiki-browse_image')) {
-					$imagegallib = TikiLib::lib('imagegal');
-					$info = $imagegallib->get_image($setup_query_data["imageId"]);
-
-					$name = $info["name"];
-				}
-
 				// Check if we are bookmarking a forum
 				if (strstr($_SERVER["REQUEST_URI"], 'tiki-view_forum')) {
 					$info = TikiLib::lib('comments')->get_forum($setup_query_data["forumId"]);

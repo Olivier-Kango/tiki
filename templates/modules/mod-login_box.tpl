@@ -290,7 +290,7 @@ $(".collapse-toggle", ".siteloginbar_popup .dropdown-menu").click(function () {
 				{strip}
 					<div {if $mode eq 'header'}style="display: inline-block"{/if}><ul class="{if $mode neq 'header'}list-unstyled"{else}list-inline"{/if}>
 						{if $module_params.show_register eq 'y' && $prefs.allowRegister eq 'y'}
-							<li class="register{if $mode eq 'popup'} dropdown-item{/if} list-item"><a href="tiki-register.php{if !empty($prefs.registerKey)}?key={$prefs.registerKey|escape:'url'}{/if}" title="{tr}Click here to register{/tr}"{if !empty($prefs.registerKey)} rel="nofollow"{/if}>{tr}Register{/tr}</a></li>
+							<li class="register{if $mode eq 'popup'} dropdown-item{/if} list-item"><a href="tiki-register.php{if !empty($prefs.registerKey)}?key={$prefs.registerKey|escape:'url'}{/if}" class="dropdown-item" title="{tr}Click here to register{/tr}"{if !empty($prefs.registerKey)} rel="nofollow"{/if}>{tr}Register{/tr}</a></li>
 						{/if}
 						{if $prefs.twoFactorAuth eq 'y' and $module_params.show_two_factor_auth ne 'y'}
 							{if $mode eq 'header' && $module_params.show_forgot eq 'y' && $prefs.forgotPass eq 'y'}

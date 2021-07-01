@@ -41,16 +41,6 @@ class Sections
 			'itemObjectType' => 'file',
 			'commentsFeature' => 'feature_file_galleries_comments',
 		],
-		// tra('Image Gallery')
-		// tra('Image')
-		'galleries' => [
-			'feature' => 'feature_galleries',
-			'key' => 'galleryId',
-			'itemkey' => 'imageId',
-			'objectType' => 'image gallery',
-			'itemObjectType' => 'image',
-			'commentsFeature' => 'feature_image_galleries_comments',
-		],
 		// tra('Forum')
 		// tra('Forum Post')
 		'forums' => [

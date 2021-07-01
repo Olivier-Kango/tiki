@@ -35,7 +35,6 @@
 							<a id="tab_show_user" data-target="#tab_user" href="#" class="tab_option list-group-item active">{tr}User Information{/tr}</a>
 							{if $prefs['feature_wiki'] eq 'y'}<a id="tab_show_wikis" data-target="#tab_wikis" href="#" class="tab_option list-group-item">{tr}Wikis{/tr}</a>{/if}
 							{if $prefs['feature_blogs'] eq 'y'}<a id="tab_show_blogs" data-target="#tab_blogs" href="#" class="tab_option list-group-item">{tr}Blogs{/tr}</a>{/if}
-							{if $prefs['feature_galleries'] eq 'y'}<a id="tab_show_galleries" data-target="#tab_galleries" href="#" class="tab_option list-group-item">{tr}Galleries{/tr}</a>{/if}
 							{if $prefs['feature_trackers'] eq 'y'}<a id="tab_show_trackers" data-target="#tab_trackers" href="#" class="tab_option list-group-item">{tr}Trackers{/tr}</a>{/if}
 							{if $prefs['feature_articles'] eq 'y'}<a id="tab_show_articles" data-target="#tab_articles" href="#" class="tab_option list-group-item">{tr}Articles{/tr}</a>{/if}
 							{if $prefs['feature_forums'] eq 'y'}<a id="tab_show_forums" data-target="#tab_forums" href="#" class="tab_option list-group-item">{tr}Forum Threads{/tr}</a>{/if}

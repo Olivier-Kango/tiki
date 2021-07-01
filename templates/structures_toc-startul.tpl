@@ -1,7 +1,9 @@
 {strip}
 	{if $toc_type eq 'admin'}
-		<ol class="admintoc" data-params='{$json_params}'>
+		<div class='col-sm-12'>
+			<ol class="admintoc depth-{$cur_depth}" data-params='{$json_params}'>
 	{else}
-		<ul class="toc">
+		<div class='col-sm-12'>
+			<ul class="toc">
 	{/if}
 {/strip}

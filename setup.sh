@@ -297,7 +297,7 @@ fi
 # -------------------------------------
 
 DIR_LIST_DEFAULT="admin db doc dump files img installer lang lib modules permissioncheck storage temp templates tests themes tiki_tests vendor vendor_extra whelp"
-DIR_LIST_WRITABLE="db dump img/wiki img/wiki_up img/trackers modules/cache storage storage/public temp temp/cache temp/public temp/templates_c templates themes whelp mods files tiki_tests/tests temp/unified-index vendor"
+DIR_LIST_WRITABLE="db dump img/wiki img/wiki_up img/trackers storage storage/public temp temp/cache temp/public temp/templates_c templates themes whelp mods files tiki_tests/tests temp/unified-index vendor"
 DIRS=${DIR_LIST_WRITABLE}
 
 # part 4 - several functions
@@ -528,11 +528,11 @@ composer_core()
 	then
 		# todo : if exists php;
 		if [ ${LOGCOMPOSERFLAG} = "0" ] ; then
-			"${PHPCLI}" temp/composer.phar self-update --1 "$OPT_QUIET"
+			"${PHPCLI}" temp/composer.phar self-update --2 "$OPT_QUIET"
 			RETURNVAL=$?
 		fi
 		if [ ${LOGCOMPOSERFLAG} = "1" ] ; then
-			"${PHPCLI}" temp/composer.phar self-update --1 "$OPT_QUIET" > ${TIKI_COMPOSER_SELF_UPDATE_LOG}
+			"${PHPCLI}" temp/composer.phar self-update --2 "$OPT_QUIET" > ${TIKI_COMPOSER_SELF_UPDATE_LOG}
 			RETURNVAL=$?
 		fi
 		if [ ${RETURNVAL} -eq 0 ];
@@ -553,11 +553,11 @@ composer_core()
 	then
 		if exists curl;
 		then
-			curl -s https://getcomposer.org/installer | "${PHPCLI}" -- --install-dir=temp --1
+			curl -s https://getcomposer.org/installer | "${PHPCLI}" -- --install-dir=temp --2
 		else
 			echo "CURL command not found. Trying to obtain the composer executable using PHP."
 			# todo : if exists php;
-			"${PHPCLI}" -r "eval('?>'.file_get_contents('https://getcomposer.org/installer'));" -- --install-dir=temp --1
+			"${PHPCLI}" -r "eval('?>'.file_get_contents('https://getcomposer.org/installer'));" -- --install-dir=temp --2
 		fi
 		# if PATCHCOMPOSERFLAG then modify temp/composer.phar to avoid the warnings
 		# this hack is not yet possible because of a self signature check in temp/composer.phar
@@ -580,7 +580,7 @@ composer_core()
 	# todo : move "if exists php;" to function composer
 
 	# check if we are in development mode so we can prevent uninstalling of development files
-	DEVELOPMENT="--no-dev --optimize-autoloader"
+	DEVELOPMENT="--no-dev"
 		if [ -d vendor_bundled/vendor/phpunit ]; then
 		    DEVELOPMENT=""
 		fi
@@ -589,7 +589,7 @@ composer_core()
 	then
 		if [ ${LOGCOMPOSERFLAG} = "0" ] ; then
 			#until php -dmemory_limit=-1 temp/composer.phar install --working-dir vendor_bundled --prefer-dist --no-dev
-			until "${PHPCLI}" -dmemory_limit=-1 temp/composer.phar install --working-dir vendor_bundled --prefer-dist ${DEVELOPMENT} 2>&1 | sed '/Warning: Ambiguous class resolution/d'
+			until "${PHPCLI}" -dmemory_limit=-1 temp/composer.phar install --working-dir vendor_bundled --prefer-dist --optimize-autoloader ${DEVELOPMENT} 2>&1 | sed '/Warning: Ambiguous class resolution/d'
 			# setting memory_limit here prevents suhosin ALERT - script tried to increase memory_limit to 536870912 bytes
 			do
 				if [ $N -eq 7 ];
@@ -607,7 +607,7 @@ composer_core()
 			done
 		fi
 		if [ ${LOGCOMPOSERFLAG} = "1" ] ; then
-			until "${PHPCLI}" -dmemory_limit=-1 temp/composer.phar install --working-dir vendor_bundled --prefer-dist ${DEVELOPMENT} > ${TIKI_COMPOSER_INSTALL_LOG}
+			until "${PHPCLI}" -dmemory_limit=-1 temp/composer.phar install --working-dir vendor_bundled --prefer-dist --optimize-autoloader ${DEVELOPMENT} > ${TIKI_COMPOSER_INSTALL_LOG}
 			# setting memory_limit here prevents suhosin ALERT - script tried to increase memory_limit to 536870912 bytes
 			do
 				if [ $N -eq 7 ];
@@ -627,7 +627,7 @@ composer_core()
 		if [ ${LOGCOMPOSERFLAG} = "2" ] ; then
 			echo "Suppress output lines with 'Warning: Ambiguous class resolution'\n..."
 			#until php -dmemory_limit=-1 temp/composer.phar install --working-dir vendor_bundled --prefer-dist --no-dev | sed '/Warning: Ambiguous class resolution/d'
-			until "${PHPCLI}" -dmemory_limit=-1 temp/composer.phar install --working-dir vendor_bundled --prefer-dist ${DEVELOPMENT}
+			until "${PHPCLI}" -dmemory_limit=-1 temp/composer.phar install --working-dir vendor_bundled --prefer-dist --optimize-autoloader ${DEVELOPMENT}
 			# setting memory_limit here prevents suhosin ALERT - script tried to increase memory_limit to 536870912 bytes
 			do
 				if [ $N -eq 7 ];
@@ -655,12 +655,13 @@ composer()
 	# http://dev.tiki.org/item4721
 	PHP_OPTION="--version"
 	REQUIRED_PHP_VERSION=74 # minimal version PHP 7.4 but no decimal seperator, no floating point data
+	MAX_PHP_VERSION=74      # maximum version PHP 7.4 as we can't support php8 yet
 	#${PHPCLI} ${PHP_OPTION}
 	LOCAL_PHP_VERSION=`"${PHPCLI}" ${PHP_OPTION} | ${GREP} ^PHP | ${CUT} -c5,7`
 	#echo ${LOCAL_PHP_VERSION}
 	LIKELY_ALTERNATE_PHP_CLI="php74 php7.4 php7.4-cli" # These have been known to exist on some hosting platforms
-	if [ "${LOCAL_PHP_VERSION}" -lt "${REQUIRED_PHP_VERSION}" ] ; then
-		echo "Wrong PHP version: php${LOCAL_PHP_VERSION} < required PHP version.  A version >= php${REQUIRED_PHP_VERSION} is necessary."
+	if [ "${LOCAL_PHP_VERSION}" -lt "${REQUIRED_PHP_VERSION}" ] || [ "${LOCAL_PHP_VERSION}" -gt "${MAX_PHP_VERSION}" ] ; then
+		echo "Wrong PHP version: php${LOCAL_PHP_VERSION}.  A version >= php${REQUIRED_PHP_VERSION} and <= php${MAX_PHP_VERSION} is necessary."
 		echo "Searching for typically named alternative PHP version ..."
 		for phptry in $LIKELY_ALTERNATE_PHP_CLI; do
 			PHPTRY=`which $phptry`
@@ -669,6 +670,7 @@ composer()
 				echo "... correct PHP version ${phptry} detected and used"
 				PHPCLI="${PHPTRY}"
 				PHPCLIFOUND="y"
+        composer_core
 				break
 			fi
 		done

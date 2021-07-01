@@ -64,9 +64,6 @@
 		<fieldset class="mb-3 w-100 clearfix featurelist">
 			<legend>{tr}Other New Features{/tr}</legend>
 			{preference name=jquery_smartmenus_enable}
-			<div class="adminoptionboxchild" id="jquery_smartmenus_enable_childcontainer">
-				{preference name=jquery_smartmenus_mode}
-			</div>
 			{preference name=jquery_ui_modals_draggable}
 			{preference name=jquery_ui_modals_resizable}
 			{preference name=tiki_prefix_css}

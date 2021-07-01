@@ -123,24 +123,6 @@ function prefs_feed_list()
 			'default' => 'n',
 			'tags' => ['basic'],
 		],
-		'feed_image_galleries' => [
-			'name' => tra('RSS for image galleries'),
-			'description' => tra('RSS feed for image galleries'),
-			'type' => 'flag',
-			'dependencies' => [
-				'feature_galleries',
-			],
-			'default' => 'n',
-		],
-		'feed_image_gallery' => [
-			'name' => tra('RSS for individual image galleries'),
-			'description' => tra('RSS feeds for individual image galleries'),
-			'type' => 'flag',
-			'dependencies' => [
-				'feature_galleries',
-			],
-			'default' => 'n',
-		],
 		'feed_file_galleries' => [
 			'name' => tra('RSS for file galleries'),
 			'description' => tra('RSS feed for file galleries'),
@@ -249,22 +231,6 @@ function prefs_feed_list()
 			'units' => tra('items'),
 			'default' => 10,
 		],
-		'feed_image_galleries_max' => [
-			'name' => tra('Maximum number of items to display'),
-			'type' => 'text',
-			'size' => 5,
-			'filter' => 'digits',
-			'units' => tra('items'),
-			'default' => 10,
-		],
-		'feed_image_gallery_max' => [
-			'name' => tra('Maximum number of items to display'),
-			'type' => 'text',
-			'size' => 5,
-			'filter' => 'digits',
-			'units' => tra('items'),
-			'default' => 10,
-		],
 		'feed_file_galleries_max' => [
 			'name' => tra('Maximum number of items to display'),
 			'type' => 'text',
@@ -352,26 +318,6 @@ function prefs_feed_list()
 			'type' => 'flag',
 			'default' => 'n',
 		],
-		'feed_image_galleries_showAuthor' => [
-			'name' => tra('Show author'),
-			'type' => 'flag',
-			'default' => 'n',
-		],
-		'feed_image_gallery_showAuthor' => [
-			'name' => tra('Show author'),
-			'type' => 'flag',
-			'default' => 'n',
-		],
-		'feed_file_galleries_showAuthor' => [
-			'name' => tra('Show author'),
-			'type' => 'flag',
-			'default' => 'n',
-		],
-		'feed_file_gallery_showAuthor' => [
-			'name' => tra('Show author'),
-			'type' => 'flag',
-			'default' => 'n',
-		],
 		'feed_wiki_showAuthor' => [
 			'name' => tra('Show author'),
 			'type' => 'flag',
@@ -420,18 +366,6 @@ function prefs_feed_list()
 			'default' => '',
 		],
 		'feed_blog_homepage' => [
-			'name' => tra('Homepage URL'),
-			'type' => 'text',
-			'size' => '60',
-			'default' => '',
-		],
-		'feed_image_galleries_homepage' => [
-			'name' => tra('Homepage URL'),
-			'type' => 'text',
-			'size' => '60',
-			'default' => '',
-		],
-		'feed_image_gallery_homepage' => [
 			'name' => tra('Homepage URL'),
 			'type' => 'text',
 			'size' => '60',
@@ -503,18 +437,6 @@ function prefs_feed_list()
 			'type' => 'text',
 			'size' => '80',
 			'default' => '',
-		],
-		'feed_image_galleries_title' => [
-			'name' => tra('Title'),
-			'type' => 'text',
-			'size' => '80',
-			'default' => tra('Tiki RSS feed for image galleries'),
-		],
-		'feed_image_gallery_title' => [
-			'name' => tra('Title'),
-			'type' => 'text',
-			'size' => '80',
-			'default' => tra('Tiki RSS feed for the image gallery: '),
 		],
 		'feed_file_galleries_title' => [
 			'name' => tra('Title'),
@@ -590,20 +512,6 @@ function prefs_feed_list()
 			'type' => 'textarea',
 			'size' => 2,
 			'default' => '',
-		],
-		'feed_image_galleries_desc' => [
-			'name' => tra('Image galleries RSS description'),
-			'description' => tra('Description to be published as part of the RSS feed for image galleries.'),
-			'type' => 'textarea',
-			'size' => 2,
-			'default' => tra('Latest images uploaded to the image galleries.'),
-		],
-		'feed_image_gallery_desc' => [
-			'name' => tra('Individual image galleries RSS Description'),
-			'description' => tra('Description to be published as part of the RSS feeds for individual image galleries.'),
-			'type' => 'textarea',
-			'size' => 2,
-			'default' => tra('Latest images uploaded to this image gallery.'),
 		],
 		'feed_file_galleries_desc' => [
 			'name' => tra('File galleries RSS description'),

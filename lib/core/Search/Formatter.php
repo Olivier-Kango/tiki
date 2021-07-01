@@ -147,6 +147,7 @@ class Search_Formatter
 			$field = [
 				'id' => $filter->getControl()->getId(),
 				'name' => $filter->getLabel(),
+				'type' => $filter->getType(),
 				'renderedInput' => $filter->getControl(),
 			];
 			if (preg_match("/<input.*type=['\"](text|search)['\"]/", $field['renderedInput'])) {

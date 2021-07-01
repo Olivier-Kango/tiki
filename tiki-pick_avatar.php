@@ -11,7 +11,6 @@
 $section = 'mytiki';
 require_once('tiki-setup.php');
 $userprefslib = TikiLib::lib('userprefs');
-$imagegallib = TikiLib::lib('imagegal');
 $access->check_feature('feature_userPreferences');
 $access->check_user($user);
 $auto_query_args = ['view_user'];

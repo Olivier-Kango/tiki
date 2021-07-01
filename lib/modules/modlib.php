@@ -356,14 +356,14 @@ class ModLib extends TikiLib
 	function clear_cache()
 	{
 		global $tikidomain;
-		$dircache = "modules/cache";
+		$dircache = "temp/cache";
 		if ($tikidomain) {
 			$dircache .= "/$tikidomain";
 		}
 		$h = opendir($dircache);
 		$i = 0;
 		while (($file = readdir($h)) !== false) {
-			if (substr($file, 0, 3) == 'mod') {
+			if (substr($file, 0, 4) == 'mod-') {
 				$file = "$dircache/$file";
 				$result = unlink($file);
 				if ($result) {
@@ -1281,7 +1281,7 @@ class ModLib extends TikiLib
 
 		$cb = $info['cachekeygen'];
 
-		$cachefile = 'modules/cache/';
+		$cachefile = 'temp/cache/';
 		if ($tikidomain) {
 			$cachefile .= "$tikidomain/";
 		}

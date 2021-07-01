@@ -130,7 +130,6 @@
 					{preference name=feature_slideshow}
 					{preference name=feature_slideshow_pdfexport}
 					{preference name=feature_faqs}
-					{preference name=feature_galleries}
 				</div>
 				<fieldset class="mb-3 w-100 clearfix featurelist">
 					<legend><h4 class="showhide_heading" id="Progressive_Web_App"> {tr}Progressive Web App{/tr}  <a href="#Progressive_Web_App" class="heading-link"><span class="icon icon-link fas fa-link "></span></a></h4></legend>
@@ -188,9 +187,12 @@
 				{preference name=feature_jquery_media}
 				{preference name=feature_jquery_reflection}
 				{preference name=feature_jquery_superfish}
-				{preference name=jquery_smartmenus_enable}
-				<div class="adminoptionboxchild" id="jquery_smartmenus_enable_childcontainer">
-					{preference name=jquery_smartmenus_mode}
+				<div class="adminoptionbox">
+					{preference name=jquery_smartmenus_enable}
+					<div class="adminoptionboxchild" id="jquery_smartmenus_enable_childcontainer">
+						{preference name=jquery_smartmenus_collapsible_behavior}
+						{preference name=jquery_smartmenus_open_close_click}
+					</div>
 				</div>
 				{preference name=feature_jquery_tooltips}
 				{preference name=feature_jquery_tagcanvas}
@@ -210,6 +212,7 @@
 				</div>
 				{preference name=jquery_timeago}
 				{preference name=jquery_jqdoublescroll}
+				{preference name=allowImageLazyLoad}
 				{preference name=tiki_prefix_css}
 				<div class="adminoptionboxchild">
 					<fieldset>

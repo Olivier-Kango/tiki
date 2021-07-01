@@ -891,9 +891,9 @@ body.wikitext {
 	border: 1px solid $gray-500;
 }
 
-.admintoclevel .actions input {
-	border: solid 1px $gray-500;
-}
+// .admintoclevel .actions input {
+// 	border: solid 1px $gray-500;
+// }
 
 // /* Fullscreen textareas */
 .TextArea-fullscreen,
@@ -1169,10 +1169,21 @@ span.plugin-mouseover {
 
 code,
 pre.codelisting {
-	color: $code-color;
 	background: $code-bg;
-	border: 1px solid lighten($code-color, 60%);
-	border-radius: 1px;
+	border: $border-width solid transparent;
+	padding: $code-padding-y $code-padding-x;
+}
+code {
+	color: $code-color;
+}
+pre.codelisting {
+	color: $code-block-color;
+	border-color: $border-color;
+	border-radius: $border-radius;
+}
+pre.codelisting code {
+	color: inherit;
+	white-space: pre-wrap;
 }
 
 // edit menu contextual icons
@@ -1390,3 +1401,7 @@ blockquote {
 .to-translate{
 	color : theme-color("danger");
 }
+
+// Smartmenus megamenu
+.dropdown-menu.mega-menu a { color: $dropdown-link-color; }
+a.dropdown-item { color: $dropdown-link-color; }

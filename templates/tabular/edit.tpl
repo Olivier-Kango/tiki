@@ -5,12 +5,7 @@
 {/block}
 
 {block name="navigation"}
-	<div class="t_navbar mb-4">
-		{permission name=admin_trackers}
-			<a class="btn btn-link" href="{service controller=tabular action=create}">{icon name=create} {tr}New{/tr}</a>
-			<a class="btn btn-link" href="{service controller=tabular action=manage}">{icon name=list} {tr}Manage{/tr}</a>
-		{/permission}
-	</div>
+	{include file='templates/tabular/include_tabular_navbar.tpl' mode='edit'}
 {/block}
 
 {block name="content"}
@@ -139,11 +134,13 @@
 											<span class="mode">{$column->getMode()|escape}</span>
 										</a>
 									</td>
-									<td>
-										<div class="input-group input-group-sm">
-											<input class="remote-field form-control" type="text" value="{$column->getRemoteField()|escape}" size="5">
-										</div>
-									</td>
+									{if $has_odbc}
+										<td>
+											<div class="input-group input-group-sm">
+												<input class="remote-field form-control" type="text" value="{$column->getRemoteField()|escape}" size="5">
+											</div>
+										</td>
+									{/if}
 									<td><input class="primary" type="radio" name="pk" {if $column->isPrimaryKey()} checked {/if}></td>
 									<td><input class="unique-key" type="checkbox" {if $column->isUniqueKey()} checked {/if}></td>
 									<td><input class="read-only" type="checkbox" {if $column->isReadOnly()} checked {/if}></td>

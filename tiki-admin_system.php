@@ -62,8 +62,6 @@ $tempcache = $cachelib->count_cache_files("temp/cache/$tikidomain");
 $smarty->assign('tempcache', $tempcache);
 $temppublic = $cachelib->count_cache_files("temp/public/$tikidomain");
 $smarty->assign('temppublic', $temppublic);
-$modules = $cachelib->count_cache_files("modules/cache/$tikidomain");
-$smarty->assign('modules', $modules);
 $templates = [];
 foreach ($languages as $clang) {
 	if ($smarty->use_sub_dirs) { // was if (is_dir("templates_c/$tikidomain/")) ppl with tikidomains should test. redflo
@@ -78,9 +76,6 @@ if ($prefs['feature_forums'] == 'y') {
 	$dirs = $commentslib->list_directories_to_save();
 } else {
 	$dirs = [];
-}
-if ($prefs['feature_galleries'] == 'y' && ! empty($prefs['gal_use_dir'])) {
-	$dirs[] = $prefs['gal_use_dir'];
 }
 if ($prefs['feature_file_galleries'] == 'y' && ! empty($prefs['fgal_use_dir'])) {
 	$dirs[] = $prefs['fgal_use_dir'];

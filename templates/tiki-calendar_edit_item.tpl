@@ -47,7 +47,7 @@
 					<div class="preview">
 						{$calitem.parsed}
 					</div>
-					<h2>
+					<h2 class="my-3">
 						{if $id}
 							{tr}Edit Calendar Item{/tr}
 						{else}
@@ -78,7 +78,7 @@
 							{$calendar.name|escape}<br>{tr}or{/tr}&nbsp;
 							<input type="submit" class="btn btn-secondary btn-sm" name="changeCal" value="{tr}Go to{/tr}">
 						{/if}
-						<select name="save[calendarId]" id="calid" class="form-control">
+						<select name="save[calendarId]" id="calid" onchange="needToConfirm=false;$('#editcalitem').data('submitter', 'save[calendarId]').submit();" class="form-control">
 							{foreach item=it key=itid from=$listcals}
 								{if $it.tiki_p_add_events eq 'y'}
 									{$calstyle = ''}

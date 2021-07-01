@@ -97,12 +97,15 @@ function module_login_box($mod_reference, &$module_params)
 			'can_revert' => TikiLib::lib('login')->isSwitched(),
 		]
 	);
-	$openIdConnectLib = TikiLib::lib('openidconnect');
-	if ($prefs['auth_method'] == 'openid_connect' && $openIdConnectLib->isAvailable()) {
-		$smarty->assign(
-			'openidconnect_redirect_url',
-			$openIdConnectLib->generateURL()
-		);
+
+	if ($prefs['auth_method'] == 'openid_connect') {
+		$openIdConnectLib = TikiLib::lib('openidconnect');
+		if ($openIdConnectLib->isAvailable()) {
+			$smarty->assign(
+				'openidconnect_redirect_url',
+				$openIdConnectLib->generateURL()
+			);
+		}
 	}
 
 	if ($prefs['allowRegister'] === 'y' && (empty($module_params['register']) || $module_params['register'] === 'y')) {

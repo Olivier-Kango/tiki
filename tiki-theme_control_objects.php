@@ -44,13 +44,6 @@ if (empty($_REQUEST['type'])) {
 }
 $smarty->assign('type', $_REQUEST['type']);
 switch ($_REQUEST['type']) {
-	case 'image gallery':
-		$objects = $tikilib->list_galleries(0, -1, 'name_desc', 'admin', $find_objects);
-		$smarty->assign_by_ref('objects', $objects["data"]);
-		$objects = $objects['data'];
-		correct_array($objects, 'galleryId', 'name');
-		break;
-
 	case 'file gallery':
 		$objects = $filegallib->list_file_galleries(0, -1, 'name_desc', 'admin', $find_objects, $prefs['fgal_root_id']);
 		$smarty->assign_by_ref('objects', $objects["data"]);

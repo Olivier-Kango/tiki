@@ -6742,7 +6742,6 @@ themes/base_files/iconsets/default.php -text
 themes/base_files/iconsets/index.php -text
 themes/base_files/iconsets/legacy.php -text
 themes/base_files/index.php -text
-themes/base_files/other/BiDi/BiDi.css -text
 themes/base_files/other/BiDi/index.php -text
 themes/base_files/other/index.php -text
 themes/base_files/other/integrator/README -text

@@ -32,12 +32,6 @@ if ($prefs['feature_wiki'] == "y") {
 	$wiki_stats = false;
 }
 $smarty->assign_by_ref('wiki_stats', $wiki_stats);
-if ($prefs['feature_galleries'] == 'y') {
-	$igal_stats = $statslib->image_gal_stats();
-} else {
-	$igal_stats = false;
-}
-$smarty->assign_by_ref('igal_stats', $igal_stats);
 if ($prefs['feature_file_galleries'] == 'y') {
 	$fgal_stats = $statslib->file_gal_stats();
 } else {

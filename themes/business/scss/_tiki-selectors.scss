@@ -55,7 +55,7 @@ h2.sitesubtitle {
 .topbar,
   // .topbar .cssmenu_horiz ul,
 .topbar.bg-dark > li,
-.topbar.bg-light > li
+.topbar.bg-light > li,
 .topbar .nav > li {
   background: #1f5daa; /* Old browsers */
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #1f5daa), color-stop(2%, #3977c4), color-stop(3%, #3b7ac7), color-stop(5%, #3877c6), color-stop(7%, #3a7cca), color-stop(9%, #3778c8), color-stop(19%, #3674c7), color-stop(43%, #2c6abf), color-stop(69%, #1c5cb3), color-stop(93%, #1454ac), color-stop(97%, #1455a9), color-stop(98%, #1a57a8), color-stop(100%, #346dba)); /* Chrome,Safari4+ */
@@ -230,4 +230,11 @@ h3.card-title {
   background: transparent !important;
   border-left: none;
   border-right: none;
+}
+
+// Update for Smartmenus
+.navbar .navbar-nav.sm-vertical {
+	.dropdown { border: none;
+	 a { color: #0082e0; }
+	}
 }

@@ -243,7 +243,7 @@ $("body").on("change", "input[name=ins_' . $filterFieldIdHere . '], select[name=
 
 if( $("input[name=ins_' . $filterFieldIdHere . '], select[name=ins_' . $filterFieldIdHere . ']").length == 0 ) {
 	// inline edit fix
-	$("<input type=\"hidden\" name=\"ins_' . $filterFieldIdHere . '\">").val(' . json_encode($filterFieldValueHere) . ').insertBefore("select[name=' . $insertId . ']").trigger("change");
+	$("<input type=\"hidden\" name=\"ins_' . $filterFieldIdHere . '\">").val(' . json_encode($filterFieldValueHere) . ').insertBefore("select[name=\'' . $insertId . '\']").trigger("change");
 }
 		'
 		); // add_jq_onready
@@ -286,6 +286,7 @@ $("input[name=ins_' . $filterFieldIdHere . '], select[name=ins_' . $filterFieldI
 			$remoteItemIds = array_filter($remoteItemIds);
 		}
 		$output = '';
+		$context['list_mode'] = 'csv';
 
 		foreach ((array) $remoteItemIds as $remoteItemId) {
 			$itemInfo = $trklib->get_tracker_item($remoteItemId);
@@ -308,7 +309,6 @@ $("input[name=ins_' . $filterFieldIdHere . '], select[name=ins_' . $filterFieldI
 					// for some reason, need to apply the values back, otherwise renderOutput does not return a value - bug or intended?
 					$listFieldThere = array_merge($listFieldThere, $valueField);
 					$handler = $trklib->get_field_handler($listFieldThere, $itemInfo);
-					$context = ['showlinks' => 'n'];
 					if ($handler) {
 						$labelField = $handler->renderOutput($context);
 						$output .= $labelField;
@@ -322,7 +322,6 @@ $("input[name=ins_' . $filterFieldIdHere . '], select[name=ins_' . $filterFieldI
 					$listFieldThere = array_merge($listFieldThere, ['value' => $remoteItemId]);
 					$handler = $trklib->get_field_handler($listFieldThere, $itemInfo);
 					// do not inherit showlinks settings from remote items.
-					$context = ['showlinks' => 'n'];
 					if ($handler) {
 						$labelField = $handler->renderOutput($context);
 						$output .= $labelField;
@@ -342,7 +341,6 @@ $("input[name=ins_' . $filterFieldIdHere . '], select[name=ins_' . $filterFieldI
 						Feedback::error(tr('DynamicList field: Field "%0" not found', $listFieldThere['permName']));
 					}
 					// do not inherit showlinks settings from remote items.
-					$context = ['showlinks' => 'n'];
 					foreach ($displayFieldIdThere as $displayFieldId) {
 						$displayField = $trklib->get_tracker_field($displayFieldId);
 						// not shure why this is needed - and only for some fieldtypes?
@@ -367,7 +365,6 @@ $("input[name=ins_' . $filterFieldIdHere . '], select[name=ins_' . $filterFieldI
 					}
 					$handler = $trklib->get_field_handler($listFieldThere, $itemInfo);
 					// do not inherit showlinks settings from remote items.
-					$context = ['showlinks' => 'n'];
 					if ($handler) {
 						$labelField = $handler->renderOutput($context);
 						$output .= $labelField;

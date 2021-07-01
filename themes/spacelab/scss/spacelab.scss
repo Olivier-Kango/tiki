@@ -1,15 +1,11 @@
-// $Id$
-/* Adapted by the Tiki Community for Tiki Wiki CMS Groupware.
- Original Bootswatch information:
- */
-/*! Original theme information:
+/*  Original Bootswatch information:
  * bootswatch v3.3.6
  * Homepage: http://bootswatch.com
  * Copyright 2012-2015 Thomas Park
  * Licensed under MIT
  * Based on Bootstrap
  *
- * Adapted by the Tiki Community for Tiki Wiki CMS Groupware
+ * Adapted by the Tiki Community for Tiki Wiki CMS Groupware.
 */
 
 @import "variables"; // Needs to come first, to override defaults.
@@ -20,20 +16,45 @@
 @import "../../base_files/scss/_bs3-bs4-transition.scss";
 @import "../../base_files/scss/_external-scripts.scss";
 
-//.topbar {
-//	.btn-shadow(@navbar-default-bg);
-//	filter: none;
-//	.box-shadow(0 1px 10px rgba(0, 0, 0, 0.1));
-// }
 
 .topbar .navbar {
 	-webkit-box-shadow: none;
 	box-shadow: none;
 }
 
-//.topbar .navbar-default .navbar-nav > li > a,
-//.topbar .navbar-default .navbar-nav > li,
-//.topbar .nav > li { background: transparent;}
+.topbar > * {
+	margin-top: .5rem;
+	margin-bottom: .5rem;
+}
 
-//.topbar .navbar-default .navbar-nav > li > a:hover,
-//.topbar .nav > li:hover { background: $navbar-default-link-hover-bg;}
+.topbar_modules {
+	margin-left: 30px;
+	margin-right: 30px;
+}
+
+// Replicate navbar color used on Bootswatch sample page, in that case for bg-primary
+.tiki .navbar-dark.bg-dark {
+	background-image: linear-gradient(#6d94bf, #446e9b 50%, #3e648d) !important;
+	-webkit-filter: none;
+	filter: none;
+	border: 1px solid #345578;
+	nav#topbar_modules,
+	#topbar_modules .navbar.navbar-dark.bg-dark {
+		background: transparent !important;
+		background-image: none !important;
+		border: none !important;
+	}
+}
+
+.tiki .navbar-light.bg-light {
+	background-image: linear-gradient(white, #eee 50%, #e4e4e4) !important;
+	-webkit-filter: none;
+	filter: none;
+	border: 1px solid #d5d5d5;
+	nav#topbar_modules,
+	#topbar_modules .navbar.navbar-light.bg-light {
+		background: transparent !important;
+		background-image: none !important;
+		border: none !important;
+	}
+}

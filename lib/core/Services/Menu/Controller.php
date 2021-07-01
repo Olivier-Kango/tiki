@@ -249,7 +249,6 @@ class Services_Menu_Controller
 			$level = $input->level->text();
 			$icon = $input->icon->text();
 			$class = $input->class->text();
-			$class = $input->class->text();
 			$tplGroupContainer = $input->tplGroupContainer->text();
 			$tplGroupContainerId = '';
 			if ($tplGroupContainer && $tplGroupContainer != "None") {
@@ -441,6 +440,19 @@ class Services_Menu_Controller
 			$oldOptions = $this->menulib->list_menu_options($menuId);
 			$options = json_decode($input->data->striptags(), true);
 
+			$optionsToRemove = array_filter($oldOptions['data'], function ($item) use ($options) {
+				foreach ($options as $option) {
+					if ($option['optionId'] == $item['optionId']) {
+						return false;    // still here
+					}
+				}
+				return true;    // gone
+			});
+
+			foreach ($optionsToRemove as $item) {
+				$this->menulib->remove_menu_option($item['optionId']);
+			}
+
 			foreach ($options as $option) {
 				$optionId = $option['optionId'];
 				if ($optionId) {
@@ -479,18 +491,18 @@ class Services_Menu_Controller
 				);
 			}
 
-			$optionsToRemove = array_filter($oldOptions['data'], function ($item) use ($options) {
-				foreach ($options as $option) {
-					if ($option['optionId'] == $item['optionId']) {
-						return false;    // still here
-					}
-				}
-				return true;    // gone
-			});
+			// $optionsToRemove = array_filter($oldOptions['data'], function ($item) use ($options) {
+			// 	foreach ($options as $option) {
+			// 		if ($option['optionId'] == $item['optionId']) {
+			// 			return false;    // still here
+			// 		}
+			// 	}
+			// 	return true;    // gone
+			// });
 
-			foreach ($optionsToRemove as $item) {
-				$this->menulib->remove_menu_option($item['optionId']);
-			}
+			// foreach ($optionsToRemove as $item) {
+			// 	$this->menulib->remove_menu_option($item['optionId']);
+			// }
 		}
 
 		return ['menuId' => $menuId];

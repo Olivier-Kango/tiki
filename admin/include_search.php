@@ -77,13 +77,6 @@ function activated_features()
 				}
 				break;
 
-			case 'galleries':
-				if (isset($prefs['feature_galleries']) and $prefs['feature_galleries'] == 'y') {
-					$activated_features[] = 'galleries';
-					$activated_features[] = 'images';
-				}
-				break;
-
 			case 'trackers':
 				if (isset($prefs['feature_trackers']) and $prefs['feature_trackers'] == 'y') {
 					$activated_features[] = 'trackers';

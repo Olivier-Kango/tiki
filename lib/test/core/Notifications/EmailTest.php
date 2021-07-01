@@ -47,6 +47,10 @@ class EmailTest extends TestCase
 	{
 		global $user;
 
+		// make sure the threads pref is set
+		$tikilib = TikiLib::lib('tiki');
+		$tikilib->set_preference('forum_notifications_use_new_threads', 'n');
+
 		/** @var Comments $commentsLib */
 		$commentsLib = TikiLib::lib('comments');
 		$forumId = $commentsLib->replace_forum(0, 'Test Forum');
@@ -73,7 +77,7 @@ class EmailTest extends TestCase
 
 		$this->assertEquals($messageId, $headers['Message-Id']);
 		$this->assertArrayNotHasKey('In-Reply-To', $headers);
-		$this->assertEquals($md5Header, $headers['References']);
+		$this->assertEquals($md5Header, $headers['References'] ?? null);
 
 		//2nd post in same thread:
 
@@ -149,6 +153,11 @@ class EmailTest extends TestCase
 	{
 		global $user;
 
+		// make sure the threads pref is set
+		$tikilib = TikiLib::lib('tiki');
+		$tikilib->set_preference('forum_notifications_use_new_threads', 'n');
+		$tikilib->set_preference('user_blog_watch_editor', 'n');
+
 		$commentsLib = TikiLib::lib('comments');
 		$blogLib = TikiLib::lib('blog');
 		$blogId = $blogLib->replace_blog('Test Blog', '', 'admin', 'y', 25, 0, '', 'y', 'y', 'y', 'y', 'y', 'y', 'n', 'y', 'n', 'n', '', 'n', 5, 'n');
@@ -179,7 +188,7 @@ class EmailTest extends TestCase
 
 		$this->assertEquals($messageId, $headers['Message-Id']);
 		$this->assertArrayNotHasKey('In-Reply-To', $headers);
-		$this->assertEquals($md5Header, $headers['References']);
+		$this->assertEquals($md5Header, $headers['References'] ?? null);
 
 		//2nd comment (reply to first - will have a parentId but no in_reply_to in database)
 		$messageId2 = '';

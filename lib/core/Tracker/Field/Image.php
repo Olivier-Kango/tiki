@@ -11,7 +11,7 @@
  * Letter key: ~i~
  *
  */
-class Tracker_field_Image extends Tracker_Field_File
+class Tracker_Field_Image extends Tracker_Field_File
 {
 	private $imgMimeTypes;
 	private $imgMaxSize;
@@ -221,14 +221,8 @@ class Tracker_field_Image extends Tracker_Field_File
 
 			if ($this->isImageType($type)) {
 				if ($maxSize = $this->getOption('uploadLimitScale')) {
-					$imagegallib = TikiLib::lib('imagegal');	// TODO: refactor to use Image class directly and remove dependency on imagegals
-					$imagegallib->image = $value;
-					$imagegallib->readimagefromstring();
-					$imagegallib->getimageinfo();
-					if ($imagegallib->xsize > $maxSize || $imagegallib->ysize > $maxSize) {
-						$imagegallib->rescaleImage($maxSize, $maxSize);
-						$value = $imagegallib->image;
-					}
+					// TODO ImageGalleryRemoval23.x
+					// TODO: refactor to use Image class directly
 				}
 				$filesize = $this->getConfiguration('file_size');
 				if ($filesize <= $this->imgMaxSize) {

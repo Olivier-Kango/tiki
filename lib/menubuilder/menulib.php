@@ -250,47 +250,37 @@ class MenuLib extends TikiLib
 			'-' => tra('separator'),
 		];
 
-		$parent = 0;
-		$count = count($options);
+		$current_parents_branch = [];
 
-		for ($i = 0; $i < $count; $i++) {
-			$option = $options[$i];
-
-			if (in_array($option['type'], ['s', 'r', '1', '2', '3'])) {	// can have children
-				if ($option['type'] === 's' || $option['type'] === 'r') {
-					$parent = 0;
-				}
-				if ($option['type'] === $treeOut[$parent]['type']) {
-					$option['parent'] = $treeOut[$parent]['parent'];
-				} else if (is_numeric($option['type']) && is_numeric($treeOut[$parent]['type']) && (int) $option['type'] < (int) $treeOut[$parent]['type']) {
-					$option['parent'] = $treeOut[$treeOut[$parent]['parent']]['parent'];
-				} else {
-					$option['parent'] = $parent;
-				}
-				$option['type_description'] = tra($types[$option['type']]);
-				$parent = (int) $option['optionId'];
-				$treeOut[$option['optionId']] = $option;
-
-				while ($i < $count - 1) {
-					$option = $options[$i + 1];
-
-					if ($option['type'] === 'o' || $option['type'] === '-') {
-						$option['type_description'] = $types[$option['type']];
-						$option['parent'] = $parent;
-						$treeOut[$option['optionId']] = $option;
-						$i++;
-					} else {
-						break;
-					}
-				}
-			} else {
-				$treeOut[$option['optionId']] = $option;
+		$treeOut = array_map(function ($option) use (&$current_parents_branch, &$types) {
+			if ($option['type'] === 's' || $option['type'] === 'r') {
+				array_splice($current_parents_branch, 0);
+				$option['parent'] = 0;
+				array_push($current_parents_branch, $option['optionId']);
+			} elseif (is_numeric($option['type'])) {
+				array_splice($current_parents_branch, (int) $option['type']);
+				$option['parent'] = end(array_values($current_parents_branch));
+				array_push($current_parents_branch, $option['optionId']);
+			} elseif ($option['type'] === 'o') {
+				$option['parent'] = end(array_values($current_parents_branch));
+			} elseif ($option['type'] === '-') {
+				array_pop($current_parents_branch);
 			}
-		}
+
+			$option['type_description'] = $types[$option['type']];
+
+			return $option;
+		}, $options);
+
+		$treeOut = array_filter($treeOut, function($option) {
+			return $option['type'] !== '-';
+		});
 
 		if (isset($cant)) {
-			$options = ['data' => $treeOut,
-			'cant' => $cant];
+			$options = [
+				'data' => $treeOut,
+				'cant' => $cant
+			];
 		}
 
 		return $options;
@@ -572,7 +562,7 @@ class MenuLib extends TikiLib
 			die;
 		}
 		while (! feof($fhandle)) {
-			$res = ['optionId' => '', 'type' => '', 'name' => '', 'url' => '', 'position' => 0, 'section' => '', 'perm' => '', 'groupname' => '', 'userlevel' => '', 'class' => '', 'remove' => ''];
+			$res = ['optionId' => '', 'type' => '', 'name' => '', 'url' => '', 'position' => 0, 'section' => '', 'perm' => '', 'groupname' => '', 'userlevel' => '', 'class' => '', 'icon' => '', 'remove' => ''];
 			$data = fgetcsv($fhandle, 1000);
 			if (empty($data)) {
 				continue;
@@ -580,7 +570,7 @@ class MenuLib extends TikiLib
 			for ($i = 0, $icount_fields = count($fields); $i < $icount_fields; $i++) {
 				$res[$fields[$i]] = $data[$i];
 			}
-			if ($res['optionId'] == 0 || $this->check_menu_option($menuId, $res['optionId'])) {
+			if (empty($res['optionId']) || $this->check_menu_option($menuId, $res['optionId'])) {
 				$options[] = $res;
 			} else {
 				$smarty->assign('msg', tra('You can only use optionId = 0 to create a new option; or, to update a menu, use an optionId that is the same as an optionId that is already used in the menu.'));
@@ -593,14 +583,14 @@ class MenuLib extends TikiLib
 			if ($option['remove'] == 'y') {
 				$this->remove_menu_option($option['optionId']);
 			} else {
-				$this->replace_menu_option($menuId, $option['optionId'], $option['name'], $option['url'], $option['type'], $option['position'], $option['section'], $option['perm'], $option['groupname'], $option['userlevel'], '', $option['class']);
+				$this->replace_menu_option($menuId, $option['optionId'], $option['name'], $option['url'], $option['type'], $option['position'], $option['section'], $option['perm'], $option['groupname'], $option['userlevel'], $option['icon'], $option['class']);
 			}
 		}
 	}
 
 	public function export_menu_options($menuId, $encoding)
 	{
-		$data = '"optionId","type","name","url","position","section","perm","groupname","userlevel","class","remove"' . "\r\n";
+		$data = '"optionId","type","name","url","position","section","perm","groupname","userlevel","class","icon","remove"' . "\r\n";
 		$options = $this->list_menu_options($menuId, 0, -1, 'position_asc', '', true, 0, true);
 		foreach ($options['data'] as $option) {
 			$data .= $option['optionId']
@@ -613,6 +603,7 @@ class MenuLib extends TikiLib
 							. '","' . $option['groupname']
 							. '",' . $option['userlevel']
 							. ',' . $option['class']
+							. ',' . $option['icon']
 							. ',"n"' . "\r\n"
 							;
 		}

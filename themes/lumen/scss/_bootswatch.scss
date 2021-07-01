@@ -413,3 +413,10 @@ a.list-group-item {
 	font-size: $font-size-base;
 	font-family: $font-family-sans-serif;
 }
+
+// Update for Smartmenus
+.col2 .navbar.navbar-expand-lg,
+.col3 .navbar.navbar-expand-lg {
+	border: none;
+	box-shadow: none;
+}

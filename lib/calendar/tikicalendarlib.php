@@ -344,7 +344,7 @@ class TikiCalendarLib extends CalendarLib
 	function getTikiItems($with_infos = true)
 	{
 		global $prefs;
-		global $tiki_p_view, $tiki_p_view_image_gallery, $tiki_p_read_article;
+		global $tiki_p_view, $tiki_p_read_article;
 		global $tiki_p_read_blog, $tiki_p_forum_read, $tiki_p_view_directory;
 		global $tiki_p_view_file_gallery, $tiki_p_view_faqs, $tiki_p_take_quiz;
 		global $tiki_p_view_trackers, $tiki_p_take_survey, $tiki_p_subscribe_newsletters;
@@ -354,12 +354,6 @@ class TikiCalendarLib extends CalendarLib
 					'label' => tra('Wiki'),
 					'feature' => '' . $prefs['feature_wiki'],
 					'right' => "$tiki_p_view"
-			],
-
-			'gal' => [
-					'label' => tra('Image Gallery'),
-					'feature' => '' . $prefs['feature_galleries'],
-					'right' => "$tiki_p_view_image_gallery"
 			],
 
 			'art' => [

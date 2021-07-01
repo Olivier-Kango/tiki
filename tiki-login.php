@@ -27,9 +27,7 @@ global $prefs;
 $login_url_params = '';
 $isOpenIdValid = false;
 
-/** @var \Tiki\Lib\OpenIdConnect\OpenIdConnectLib $oicLib */
-$oicLib = TikiLib::lib('openidconnect');
-if (! empty($_REQUEST['code']) && $prefs['auth_method'] == 'openid_connect' && $oicLib->isAvailable()) {
+if (! empty($_REQUEST['code']) && $prefs['auth_method'] == 'openid_connect' && TikiLib::lib('openidconnect')->isAvailable()) {
 	$_REQUEST['user'] = '';
 } elseif (isset($_REQUEST['cas']) && $_REQUEST['cas'] == 'y' && $prefs['auth_method'] == 'cas') {
 	$login_url_params = '?cas=y';
@@ -224,6 +222,7 @@ if (isset($_REQUEST['intertiki']) and in_array($_REQUEST['intertiki'], array_key
 	}
 } elseif ($prefs['auth_method'] == 'openid_connect' && isset($_GET['code'])) {
 	try {
+		$oicLib = TikiLib::lib('openidconnect');
 		$token = $oicLib->getAccessToken($_GET['code']);
 		$idToken = $token->getIdToken();
 		$name = $idToken->getClaim('preferred_username', false) ?: $idToken->getClaim('name', false);
@@ -455,7 +454,7 @@ if ($isvalid && ($isOpenIdValid || $access->checkCsrf(null, null, null, null, nu
 			}
 		}
 	}
-} else {	// if ($isvalid) - invalid
+} else {	// if ($isvalid) = false
 	// check if site is closed
 	if ($prefs['site_closed'] === 'y') {
 		unset($bypass_siteclose_check);
@@ -464,33 +463,43 @@ if ($isvalid && ($isOpenIdValid || $access->checkCsrf(null, null, null, null, nu
 		}
 		switch ($error) {
 			case PASSWORD_INCORRECT:
+				http_response_code(401);
 				$error = tra('Invalid username or password');
 				break;
 			case TWO_FA_INCORRECT:
+				http_response_code(401);
 				$error = tra('Invalid two-factor code ');
 				break;
 			case USER_NOT_FOUND:
+				http_response_code(401);
 				$error = tra('Invalid username or password');
 				break;
 			case ACCOUNT_DISABLED:
+				http_response_code(403);
 				$error = tra('Account requires administrator approval.');
 				break;
 			case ACCOUNT_WAITING_USER:
+				http_response_code(403);
 				$error = tra('You did not validate your account.');
 				break;
 			case USER_AMBIGOUS:
+				http_response_code(400);
 				$error = tra('You must use the right case for your username.');
 				break;
 			case USER_NOT_VALIDATED:
+				http_response_code(403);
 				$error = tra('You are not yet validated.');
 				break;
 			case USER_ALREADY_LOGGED:
+				http_response_code(400);
 				$error = tra('You are already logged in.');
 				break;
 			case EMAIL_AMBIGUOUS:
+				http_response_code(400);
 				$error = tra("There is more than one user account with this email. Please contact the administrator.");
 				break;
 			default:
+				http_response_code(401);
 				$error = tra('Authentication error');
 		}
 		$error_login = $error;
@@ -552,12 +561,15 @@ if ($isvalid && ($isOpenIdValid || $access->checkCsrf(null, null, null, null, nu
 	}
 	switch ($error) {
 		case PASSWORD_INCORRECT:
+			http_response_code(401);
 			$error = tra('Invalid username or password');
 			break;
 		case TWO_FA_INCORRECT:
+			http_response_code(401);
 			$error = tra('Invalid two-factor code');
 			break;
 		case USER_NOT_FOUND:
+			http_response_code(401);
 			$smarty->assign('error_login', $error);
 			$smarty->assign('mid', 'tiki-login.tpl');
 			$smarty->assign('error_user', $_REQUEST["user"]);
@@ -565,31 +577,38 @@ if ($isvalid && ($isOpenIdValid || $access->checkCsrf(null, null, null, null, nu
 			exit;
 
 		case ACCOUNT_DISABLED:
+			http_response_code(403);
 			$error = tra('Account requires administrator approval.');
 			break;
 
 		case ACCOUNT_WAITING_USER:
+			http_response_code(403);
 			$error = tra('You did not validate your account.');
 			$extraButton = ['href' => 'tiki-send_mail.php?user=' . urlencode($_REQUEST['user']), 'text' => tra('Resend'), 'comment' => tra('You should have received an email. Check your mailbox and your spam box. Otherwise click on the button to resend the email')];
 			break;
 
 		case USER_AMBIGOUS:
+			http_response_code(400);
 			$error = tra('You must use the right case for your username.');
 			break;
 
 		case USER_NOT_VALIDATED:
+			http_response_code(403);
 			$error = tra('You are not yet validated.');
 			break;
 
 		case USER_ALREADY_LOGGED:
+			http_response_code(400);
 			$error = tra('You are already logged in.');
 			break;
 
 		case EMAIL_AMBIGUOUS:
+			http_response_code(400);
 			$error = tra("There is more than one user account with this email. Please contact the administrator.");
 			break;
 
 		default:
+			http_response_code(401);
 			$error = tra('Authentication error');
 	}
 	if (isset($extraButton)) {

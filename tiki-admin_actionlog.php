@@ -484,7 +484,6 @@ if (isset($_REQUEST['graph'])) {
 		require_once('lib/jpgraph/src/jpgraph.php');
 		require_once('lib/jpgraph/src/jpgraph_bar.php');
 		require_once('lib/jpgraph/src/jpgraph_mgraph.php');
-		$imagegallib = TikiLib::lib('imagegal');
 		$ext = 'jpeg';
 		$background = new MGraph();
 		$background->SetImgFormat($ext);
@@ -782,9 +781,8 @@ if (isset($_REQUEST['graph'])) {
 	//get_strings tra('white'), tra('gray'), tra('silver'), tra('ivory'), tra('whitesmoke'), tra('beige'),tra('darkgrey')
 	$smarty->assign('defaultBgcolor', 'whitesmoke');
 	$smarty->assign('defaultLegendBgcolor', 'white');
-	$imagegallib = TikiLib::lib('imagegal');
-	$galleries = $imagegallib->list_galleries(0, -1, 'name_asc', $user, '');
-	$smarty->assign('galleries', $galleries['data']);
+	// TODO ImageGalleryRemoval23.x
+
 }
 
 if (empty($_REQUEST)) {

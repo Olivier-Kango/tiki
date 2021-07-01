@@ -9,7 +9,7 @@
  *  Test wiki page rendering options
  */
 
-namespace Tiki\Lib\wiki;
+namespace test\Tiki\Lib\wiki;
 
 use Exception;
 use PHPUnit\Framework\TestCase;

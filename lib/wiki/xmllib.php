@@ -152,30 +152,9 @@ class XmlLib extends TikiLib
 						return false;
 					}
 				} elseif (! empty($args['src']) && preg_match('|show_image.php\?(.*)|', $args['src'], $m)) {
-					$imagegallib = TikiLib::lib('imagegal');
-					if (($i = strpos($args['src'], 'tiki-download_file.php')) > 0) {
-						$path = $_SERVER['HTTP_HOST'] . $tikiroot . substr($args['src'], $i);
-					} else {
-						$path = $_SERVER['HTTP_HOST'] . $tikiroot . $args['src'];
-					}
-					$img = $this->httprequest($path);
-					parse_str($m[1], $p);
 
-					if (isset($p['name']) && isset($p['galleryId'])) {
-						$id = $imagegallib->get_imageid_byname($p['name'], $p['galleryId']);
-					} elseif (isset($p['name'])) {
-						$id = $imagegallib->get_imageid_byname($p['name']);
-					} elseif (isset($p['id'])) {
-						$id = $p['id'];
-					}
+					// TODO ImageGalleryRemoval23.x - replace with tiki.file.imageid fileId
 
-					$image = ['where' => 'gal', 'zip' => "$dir/images/gal/" . $id, 'wiki' => $args['src']];
-
-					if (! $this->zip->addFromString($image['zip'], $img)) {
-						$this->errors[] = 'Can not add the image';
-						$this->errorsArgs[] = $m[1];
-						return false;
-					}
 				} elseif (! empty($args['src']) && preg_match('|tiki-download_file.php\?(.*)|', $args['src'], $m)) {
 					if (($i = strpos($args['src'], 'tiki-download_file.php')) > 0) {
 						$path = $_SERVER['HTTP_HOST'] . $tikiroot . substr($args['src'], $i);

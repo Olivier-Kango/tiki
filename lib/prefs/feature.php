@@ -87,50 +87,6 @@ function prefs_feature_list($partial = false)
 				'permType' => 'blogs',
 			],
 		],
-		'feature_gal_batch' => [
-			'name' => tra('Enable directory batch loading'),
-			'description' => tra('Import large number of files by placing them them in a local directory accessible via a network share, scp, ftp, or other protocols.'),
-			'type' => 'flag',
-			'default' => 'n',
-			'hint' => tra('You will need to setup a web-readable directory (outside of your web space is better). Then create a way to upload images to that directory.')
-		],
-		'feature_gal_rankings' => [
-			'name' => tra('Rankings'),
-			'description' => tra('Users can see several charts or rankings about the file.'),
-			'type' => 'flag',
-			'default' => 'n',
-		],
-		'feature_gal_slideshow' => [
-			'name' => tra('Slideshow'),
-			'type' => 'flag',
-			'default' => 'n',
-		],
-		'feature_galleries' => [
-			'name' => tra('Image gallery'),
-			'description' => tra('Collections of images for viewing or downloading (photo albums)'),
-			'warning' => tra('File galleries can be used instead.'),
-			'type' => 'flag',
-			'help' => 'Image+Gallery',
-			'default' => 'n',
-			'admin' => 'gal',
-			'view' => 'tiki-galleries.php',
-			'tags' => ['deprecated'],
-		],
-		'feature_image_galleries_comments' => [
-			'name' => tra('Image Gallery Comments'),
-			'description' => tra('Users with permission may post threaded comments. The comments will appear at the bottom of the page.'),
-			'type' => 'flag',
-			'default' => 'n',
-		],
-		'feature_image_gallery_mandatory_category' => [
-			'name' => tra('Limit image gallery categories to those under this category'),
-			'type' => 'list',
-			'dependencies' => [
-				'feature_categories',
-			],
-			'options' => $catree,
-			'default' => -1,
-		],
 		'feature_machine_translation' => [
 			'name' => tra('Machine translation'),
 			'description' => tra('Uses machine translation to translate the content of the site to other languages. Note that this feature relies on external services thay may not be free. Google Translate is a paid service.'),

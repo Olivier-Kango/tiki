@@ -175,10 +175,6 @@ function module_since_last_visit_new($mod_reference, $params = null)
 				$perm = 'tiki_p_view_file_gallery';
 				break;
 
-			case 'image gallery':
-				$perm = 'tiki_p_view_image_gallery';
-				break;
-
 			case 'poll':
 				// no perm check for viewing polls, only a perm for taking them
 				break;
@@ -379,46 +375,6 @@ function module_since_last_visit_new($mod_reference, $params = null)
 		}
 		$ret['items']['blogPosts']['count'] = $count;
 	}
-
-
-	/////////////////////////////////////////////////////////////////////////
-	// IMAGE GALLERIES
-	if ($prefs['feature_galleries'] == 'y') {
-		// image galleries
-		$ret['items']['imageGalleries']['label'] = tra('new image galleries');
-		$ret['items']['imageGalleries']['cname'] = 'slvn_imageGalleries_menu';
-		$query = "select `galleryId`,`name`,`created`,`user` from `tiki_galleries` where `created`>? order by `created` desc";
-		$result = $tikilib->query($query, [(int) $last], $resultCount);
-
-		$count = 0;
-		while ($res = $result->fetchRow()) {
-			if ($userlib->user_has_perm_on_object($user, $res['galleryId'], 'image gallery', 'tiki_p_view_image_gallery')) {
-				$ret['items']['imageGalleries']['list'][$count]['href']  = 'tiki-browse_gallery.php?galleryId=' . $res['galleryId'];
-				$ret['items']['imageGalleries']['list'][$count]['title'] = $tikilib->get_short_datetime($res['created']) . ' ' . tra('by') . ' ' . smarty_modifier_username($res['user']);
-				$ret['items']['imageGalleries']['list'][$count]['label'] = $res['name'];
-				$count++;
-			}
-		}
-		$ret['items']['imageGalleries']['count'] = $count;
-
-		// images
-		$ret['items']['images']['label'] = tra('new images');
-		$ret['items']['images']['cname'] = 'slvn_images_menu';
-		$query = 'select `imageId`,`galleryId`,`name`,`created`,`user` from `tiki_images` where `created`>? order by `created` desc';
-		$result = $tikilib->query($query, [(int) $last], $resultCount);
-
-		$count = 0;
-		while ($res = $result->fetchRow()) {
-			if ($userlib->user_has_perm_on_object($user, $res['galleryId'], 'image gallery', 'tiki_p_view_image_gallery')) {
-				$ret['items']['images']['list'][$count]['href']  = 'tiki-browse_image.php?galleryId=' . $res['galleryId'] . '&imageId=' . $res['imageId'];
-				$ret['items']['images']['list'][$count]['title'] = $tikilib->get_short_datetime($res['created']) . ' ' . tra('by') . ' ' . smarty_modifier_username($res['user']);
-				$ret['items']['images']['list'][$count]['label'] = $res['name'];
-				$count++;
-			}
-		}
-		$ret['items']['images']['count'] = $count;
-	}
-
 
 	/////////////////////////////////////////////////////////////////////////
 	// FILE GALLERIES

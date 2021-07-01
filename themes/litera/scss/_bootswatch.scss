@@ -11,9 +11,10 @@ $font-family-serif:      Georgia, Cambria, "Times New Roman", Times, serif !defa
 
 // Navbar ======================================================================
 
-.navbar {
-  font-size: 0.875em;
-}
+// Commented out by Gary because IMO this is too small.
+//.navbar {
+//  font-size: 0.875em;
+//}
 
 .bg-dark {
   background-color: $success !important;
@@ -26,6 +27,11 @@ $font-family-serif:      Georgia, Cambria, "Times New Roman", Times, serif !defa
       color: $light !important;
     }
   }
+}
+
+// Updated for Smartmenus
+.bg-dark.navbar-dark .navbar-nav .mega-menu a { color: $link-color !important;
+	&:hover { color: $link-hover-color !important; }
 }
 
 .bg-light {
@@ -169,12 +175,12 @@ table,
 .nav,
 .breadcrumb,
 .pagination {
-  font-size: 0.875em;
+  font-size: .95rem; // 0.875em; Changed by Gary
 }
 
-.dropdown-menu {
-  font-size: 0.875em;
-}
+//.dropdown-menu { Commented out by Gary -- seems too small to me.
+//  font-size: 0.875em;
+//}
 
 // Indicators ==================================================================
 

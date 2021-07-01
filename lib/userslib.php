@@ -4854,78 +4854,6 @@ class UsersLib extends TikiLib
 				'scope' => 'global',
 			],
 			[
-				'name' => 'tiki_p_admin_galleries',
-				'description' => tra('Can admin Image Galleries'),
-				'level' => 'editors',
-				'type' => 'image galleries',
-				'admin' => true,
-				'prefs' => ['feature_galleries'],
-				'scope' => 'object',
-			],
-			[
-				'name' => 'tiki_p_assign_perm_image_gallery',
-				'description' => tra('Can assign permissions to image galleries'),
-				'level' => 'admin',
-				'type' => 'image galleries',
-				'admin' => false,
-				'prefs' => ['feature_galleries'],
-				'scope' => 'object',
-			],
-			[
-				'name' => 'tiki_p_batch_upload_image_dir',
-				'description' => tra('Can use Directory Batch Load'),
-				'level' => 'editors',
-				'type' => 'image galleries',
-				'admin' => false,
-				'prefs' => ['feature_galleries'],
-				'scope' => 'object',
-			],
-			[
-				'name' => 'tiki_p_batch_upload_images',
-				'description' => tra('Can upload .zip files of images'),
-				'level' => 'editors',
-				'type' => 'image galleries',
-				'admin' => false,
-				'prefs' => ['feature_galleries'],
-				'scope' => 'object',
-			],
-			[
-				'name' => 'tiki_p_create_galleries',
-				'description' => tra('Can create image galleries'),
-				'level' => 'editors',
-				'type' => 'image galleries',
-				'admin' => false,
-				'prefs' => ['feature_galleries'],
-				'scope' => 'global',
-			],
-			[
-				'name' => 'tiki_p_list_image_galleries',
-				'description' => tra('Can list image galleries'),
-				'level' => 'basic',
-				'type' => 'image galleries',
-				'admin' => false,
-				'prefs' => ['feature_galleries'],
-				'scope' => 'global',
-			],
-			[
-				'name' => 'tiki_p_upload_images',
-				'description' => tra('Can upload images'),
-				'level' => 'registered',
-				'type' => 'image galleries',
-				'admin' => false,
-				'prefs' => ['feature_galleries'],
-				'scope' => 'object',
-			],
-			[
-				'name' => 'tiki_p_view_image_gallery',
-				'description' => tra('Can view image galleries'),
-				'level' => 'basic',
-				'type' => 'image galleries',
-				'admin' => false,
-				'prefs' => ['feature_galleries'],
-				'scope' => 'object',
-			],
-			[
 				'name' => 'tiki_p_admin_kaltura',
 				'description' => tra('Can admin Kaltura video feature'),
 				'level' => 'admin',
@@ -5837,7 +5765,7 @@ class UsersLib extends TikiLib
 			[
 				'name' => 'tiki_p_wiki_view_history',
 				'description' => tra('Can view wiki history'),
-				'level' => 'basic',
+				'level' => 'registered',
 				'type' => 'wiki',
 				'admin' => false,
 				'prefs' => ['feature_history'],
@@ -6017,7 +5945,7 @@ class UsersLib extends TikiLib
 			[
 				'name' => 'tiki_p_wiki_view_source',
 				'description' => tra('Can view source of wiki pages'),
-				'level' => 'basic',
+				'level' => 'registered',
 				'type' => 'wiki',
 				'admin' => false,
 				'prefs' => ['feature_source'],
@@ -8772,7 +8700,7 @@ class UsersLib extends TikiLib
 		global $prefs;
 		if ($prefs['auth_token_preserve_tempusers'] == 'y') {
 			$this->remove_user_from_all_groups($uname);
-		} else {
+		} else if ($this->user_exists($uname)) {
 			$this->remove_user($uname);
 		}
 	}

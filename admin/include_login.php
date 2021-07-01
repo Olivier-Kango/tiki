@@ -46,6 +46,22 @@ if (! empty($_REQUEST['refresh_email_group']) && $access->checkCsrf(true)) {
 		Feedback::note(tra("No user emails matched the group pattern definitions, or the matching users were already assigned, or email patterns have not been set for any groups."));
 	}
 }
+if (! empty($_REQUEST['resync_tracker']) && $access->checkCsrf(true)) {
+	if (! empty($prefs["user_trackersync_trackers"])) {
+		$nb = ['trackers' => 0, 'items' => 0];
+		$utilities = new Services_Tracker_Utilities;
+		$trackersync_trackers = unserialize($prefs["user_trackersync_trackers"]);
+		foreach ($trackersync_trackers as $trackersync_id) {
+			$nb['trackers']++;
+			$items = TikiLib::lib('trk')->get_all_tracker_items($trackersync_id);
+			foreach ($items as $itemId) {
+				$nb['items']++;
+				$utilities->resaveItem($itemId);
+			}
+		}
+		Feedback::success(tr("%0 tracker(s) with %1 item(s) were synchronized.", $nb['trackers'], $nb['items']));
+	}
+}
 
 $smarty->assign('gd_lib_found', function_exists('gd_info') ? 'y' : 'n');
 

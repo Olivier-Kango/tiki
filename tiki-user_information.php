@@ -151,10 +151,6 @@ if ($prefs['feature_display_my_to_others'] == 'y') {
 		$user_blog_posts = $bloglib->list_posts(0, -1, 'created_desc', '', -1, $userwatch);
 		$smarty->assign_by_ref('user_blog_posts', $user_blog_posts['data']);
 	}
-	if ($prefs['feature_galleries'] == 'y') {
-		$user_galleries = $tikilib->get_user_galleries($userwatch, -1);
-		$smarty->assign_by_ref('user_galleries', $user_galleries);
-	}
 	if ($prefs['feature_trackers'] == 'y') {
 		$trklib = TikiLib::lib('trk');
 		$user_items = $trklib->get_user_items($userwatch);

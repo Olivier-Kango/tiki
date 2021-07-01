@@ -54,7 +54,7 @@ class Multilingual_Aligner_UpdatePages
 			$target_modified_sentences[$a] = trim($target_modified_sentences[$a]);
 		}
 
-		$update = new Multilingual_Aligner_UpdateSentences1();
+		$update = new Multilingual_Aligner_UpdateSentences();
 		$source_diff = $update->DifferencebetweenOriginalFileandModifiedFile($source_outofdate_sentences, $source_modified_sentences, $this->alignments, $this->translator, 'en', 'fr', 1);
 		$target_diff = $update->DifferencebetweenOriginalFileandModifiedFile($target_outofdate_sentences, $target_modified_sentences, $this->alignments, $this->translator, 'en', 'fr', 0);
 

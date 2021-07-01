@@ -842,7 +842,7 @@ return false;";
 		// so it can refresh the page after the post
 		TikiLib::lib('header')->add_jq_onready(/** @lang JavaScript */
 			'
-$(".comment-post").parents("form").submit(ajaxSubmitEventHandler(function (data) {
+$(".comment-post").parents("form").off("submit").submit(ajaxSubmitEventHandler(function (data) {
 	$.closeModal();
 	location.href = location.href.replace(/#.*$/, "");
 }));

@@ -299,25 +299,6 @@
 						</select>
 					</div>
 					<div class="col-sm-2">
-						<a class="tips" href="javascript:setUserModuleFromCombo('list_galleries', 'um_data');" title=":{tr}Use gallery{/tr}">{icon name='add' alt="{tr}Use{/tr}"}</a>
-						<a title="{tr}Help{/tr}" {popup text="Params: id= showgalleryname=1 hideimgname=1 hidelink=1" width=100 center=true}>{icon name='help'}</a>
-					</div>
-				</div>
-			{/if}
-			{if $galleries}
-				<div class="form-group row">
-					<label class="col-sm-4 col-form-label">{tr}Random image from{/tr}</label>
-					<div class="col-sm-6">
-						<select name="galleries" id='list_galleries' class="form-control">
-							<option value="{literal}{{/literal}gallery id=-1{literal}}{/literal}">{tr}All galleries{/tr}</option>
-							{section name=ix loop=$galleries}
-								<option value="{literal}{{/literal}gallery id={$galleries[ix].galleryId}{literal}}{/literal}">{$galleries[ix].name|escape}</option>
-							{/section}
-						</select>
-					</div>
-					<div class="col-sm-2">
-						<a class="tips" href="javascript:setUserModuleFromCombo('list_galleries', 'um_data');" title=":{tr}Use gallery{/tr}">{icon name='add' alt="{tr}Use{/tr}"}</a>
-						<a title="{tr}Help{/tr}" {popup text="Params: id= showgalleryname=1 hideimgname=1 hidelink=1" width=100 center=true}>{icon name='help'}</a>
 					</div>
 				</div>
 			{/if}

@@ -9,10 +9,10 @@ $web-font-path: "https://fonts.googleapis.com/css?family=Open+Sans:300italic,400
 
 // Navbar ======================================================================
 
-.navbar {
-  font-size: $font-size-sm;
-  font-weight: $headings-font-weight;
-}
+//.navbar { // Commented out by Gary because the size is too small IMO.
+//  font-size: $font-size-sm;
+//  font-weight: $headings-font-weight;
+//}
 
 .bg-primary {
 
@@ -435,12 +435,4 @@ label,
 	font-weight: lighter;
 }
 
-// Additional for Tiki
-// Fix bad contrast
-.dropdown-item.text-danger {
-	background: #fff;
-	border-radius: 0;
-	&:hover {
-		color: #fff !important;
-	}
-}
+

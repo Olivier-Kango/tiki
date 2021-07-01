@@ -37,7 +37,6 @@ function module_menu_info()
 				'description' => tra('Direction for menu: horiz or vert (default vert)'),
 				'filter' => 'text',
 			],
-
 			// FIXME: There are 3 types of menus: Bootstrap, CSS or classic (JavaScript). There should be a single option to select between the 3, or 1 should be removed (CSS).
 			'css' => [
 				'name' => tra('CSS/Superfish'),
@@ -49,6 +48,22 @@ function module_menu_info()
 				'description' => tra('') . ' ( y / n )',
 				'default' => 'y',
 			],
+			'megamenu' => [
+				'name' => tra('Use Smartmenu Megamenu'),
+				'description' => tra('This is a Smartmenu that has a flattened structure of level 1 (Smartmenu preference must be turned on).') . ' ( y / n )',
+				'default' => 'n',
+			],
+			'megamenu_static' => [
+				'name' => tra('Use Static Megamenu'),
+				'description' => tra('This is a full-width navbar-nav Megamenu') . ' ( y / n )',
+				'default' => 'y',
+			],
+			// TODO - needs image url field
+			// 'megamenu_images' => [
+			// 	'name' => tra('Use Megamenu Images'),
+			// 	'description' => tra('Adds an image to each Megamenu') . ' ( y / n )',
+			// 	'default' => 'n',
+			// ],
 
 			'navbar_toggle' => [
 				'name' => tra('Show Navbar Toggle Button'),
@@ -57,12 +72,12 @@ function module_menu_info()
 			],
 			'navbar_brand' => [
 				'name' => tra('The URL of the navbar brand (logo)'),
-				'description' => tra('Used in Bootstrap navbar menus, if there is a Brand logo to be attached to the menu'),
+				'description' => tra('Used in Bootstrap navbar menus, if there is a brand logo to be attached to the menu'),
 				'default' => '',
 			],
 			'navbar_class' => [
 				'name' => tra('CSS class(es) for the menu nav element'),
-				'description' => tra('Default specified is for Bootstrap menus. Replace "navbar-light bg-light" with "navbar-dark bg-dark" for a dark navbar.'),
+				'description' => tra('Default specified is for Bootstrap menus. Replace "navbar-light bg-light" with "navbar-dark bg-dark" for a dark navbar. For a vertical Smartmenu, use "navbar navbar-expand-lg."'),
 				'default' => 'navbar navbar-expand-lg navbar-light bg-light',
 			],
 			'menu_id' => [

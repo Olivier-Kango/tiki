@@ -107,7 +107,6 @@ function wikiplugin_datachannel_info()
 					['text' => '', 'value' => ''],
 					['text' => tra('Clear all Tiki caches'), 'value' => 'all'],
 					['text' => './temp/templates_c/', 'value' => 'templates_c'],
-					['text' => './modules/cache/', 'value' => 'modules_cache'],
 					['text' => './temp/cache/', 'value' => 'temp_cache'],
 					['text' => './temp/public/', 'value' => 'temp_public'],
 					['text' => tra('All user prefs sessions'), 'value' => 'prefs'],

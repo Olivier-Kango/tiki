@@ -55,9 +55,10 @@ class Language_WriteFile
 	 *
 	 * @param array $strings English strings collected from source files
 	 * @param bool $outputFiles whether file paths were string was found should be included or not in the output
+	 * @param string $language current language being processed
 	 * @return null
 	 */
-	public function writeStringsToFile(array $strings, $outputFiles = false)
+	public function writeStringsToFile(array $strings, $outputFiles = false, string $language = "")
 	{
 		if (empty($strings)) {
 			return false;
@@ -96,13 +97,21 @@ class Language_WriteFile
 		if ($handle) {
 			fwrite($handle, "<?php\n");
 			fwrite($handle, $this->fileHeader());
-			fwrite($handle, "\$lang = array(\n"); // do not use short array syntax here yet for Transifex.com translation resource import (till they add support for the PHP short array syntax)
+			if ($language != "en") {
+				fwrite($handle, "include('lang/en/language.php'); // Needed for providing a sensible default text for untranslated strings with context like : \"edit_C(verb)\"\n");
+				fwrite($handle, "\$lang_current = array(\n"); // do not use short array syntax here yet for Transifex.com translation resource import (till they add support for the PHP short array syntax)
+			} else {
+				fwrite($handle, "\$lang = array(\n"); // do not use short array syntax here yet for Transifex.com translation resource import (till they add support for the PHP short array syntax)
+			}
 
 			foreach ($entries as $entry) {
-				fwrite($handle, $this->formatString($entry, $outputFiles));
+				fwrite($handle, $this->formatString($entry, $outputFiles, $language));
 			}
 
 			fwrite($handle, ");\n");
+			if ($language != "en") {
+				fwrite($handle, "\$lang = array_replace(\$lang, \$lang_current);\n");
+			}
 			fclose($handle);
 		}
 
@@ -152,15 +161,20 @@ TXT;
 	 *
 	 * @param array $entry an array with the English source string and the translation if any
 	 * @param bool $outputFiles whether file paths were string was found should be included or not in the output
+	 * @param string $language current language being processed
 	 * @return string
 	 */
-	protected function formatString(array $entry, $outputFiles = false)
+	protected function formatString(array $entry, $outputFiles = false, string $language = "")
 	{
 		// final formated string
 		$string = '';
 
 		if ($outputFiles && (isset($entry['files']) && ! empty($entry['files']))) {
 			$string .= '/* ' . join(', ', $entry['files']) . " */\n";
+		}
+
+		if ($language == 'en' && !isset($entry['translation']) && preg_match('/(.*)_C\(.*\)$/', $entry['name'], $match)) {
+			$entry['translation'] = $match[1];
 		}
 
 		$source = Language::addPhpSlashes($entry['name']);

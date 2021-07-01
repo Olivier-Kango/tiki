@@ -349,6 +349,10 @@ Gantt Online
 	vertical-align: middle;
 }
 
+.ganttButtonSeparator{
+	margin: 0 8px;
+}
+
 .button span.teamworkIcon {
 	font-size: .95em;
 }

@@ -511,13 +511,6 @@
 							</label>
 						</div>
 					{/if}
-					{if $prefs.feature_galleries eq 'y'}
-						<div class="form-check">
-							<label class="form-check-label">
-								<input class="form-check-input" type="checkbox" name="mytiki_gals" {if $user_prefs.mytiki_gals eq 'y'}checked="checked"{/if}>{tr}My galleries{/tr}
-							</label>
-						</div>
-					{/if}
 					{if $prefs.feature_messages eq 'y' and $tiki_p_messages eq 'y'}
 						<div class="form-check">
 							<label class="form-check-label">

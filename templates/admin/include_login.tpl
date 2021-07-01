@@ -105,6 +105,12 @@
 					{preference name=user_trackersync_geo}
 					{preference name=user_trackersync_lang}
 					{preference name=user_tracker_auto_assign_item_field}
+					<div class="form-group row">
+						<div class="col-sm-8 offset-sm-4">
+							{button href="?page=login&amp;resync_tracker=y" _onclick="confirmPopup('{tr}Resynchronize all user preferences based on above settings?{/tr}', '{ticket mode=get}')" _text="{tr}Synchronize all users{/tr}"}
+							<div class="form-text">{tr}This will re-save all user tracker items to resynchronize prefs like real name, user groups, location.{/tr}</div>
+						</div>
+					</div>
 				</div>
 				{preference name=user_force_avatar_upload}
 				{preference name=tracker_force_fill}
@@ -573,6 +579,7 @@
 				{preference name=openidconnect_issuer}
 				{preference name=openidconnect_auth_url}
 				{preference name=openidconnect_access_token_url}
+				{preference name=openidconnect_details_url}
 				{preference name=openidconnect_verify_method}
 				{if $prefs.openidconnect_verify_method eq 'jwks'}
 					{preference name=openidconnect_jwks_url}

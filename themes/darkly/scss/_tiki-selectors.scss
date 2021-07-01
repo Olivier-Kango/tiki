@@ -2,14 +2,14 @@
 
 .cssmenu_horiz a,
 .cssmenu_vert a {
-	color: @link-color;
+	color: $link-color;
 }
 
 .cssmenu_horiz li ul,
 .cssmenu_vert li ul {
 	margin: 2px 0 0;
-	background-color: @dropdown-bg;
-	border: 1px solid @dropdown-fallback-border; // IE8 fallback
+	background-color: $dropdown-bg;
+	border: 1px solid $dropdown-fallback-border; // IE8 fallback
 //	border: 1px solid $dropdown-border-color;
 	border-radius: $border-radius;
 	.box-shadow(0 6px 12px rgba(0, 0, 0, .175));
@@ -20,9 +20,9 @@
 	> li > a {
 		padding: 3px 20px;
 		font-weight: normal;
-		line-height: @line-height-base;
-		color: @dropdown-link-color;
-		background: @dropdown-bg;
+		line-height: $line-height-base;
+		color: $dropdown-link-color;
+		background: $dropdown-bg;
 	}
 }
 
@@ -34,10 +34,14 @@
 	&:hover,
 	&:focus {
 		text-decoration: none;
-		color: @dropdown-link-hover-color;
-		background-color: @dropdown-link-hover-bg;
+		color: $dropdown-link-hover-color;
+		background-color: $dropdown-link-hover-bg;
 	}
 }
 
 body.fullscreen { background: $body-bg; }
+
+// Update for Smartmenus
+$dropdown-item: $dropdown-link-color;
+.dropdown-menu.mega-menu a { color: $link-color !important; }
 

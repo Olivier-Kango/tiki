@@ -749,3 +749,17 @@ table.treetable {
 .middle_outer .row.topbar .bg-dark {
 	background: transparent !important;
 }
+
+// Update for Smartmenus (override tiki_base.css value)
+.dropdown-menu.mega-menu a,
+.dropdown-item {
+	color: $link-color;
+	&:hover {
+		color: $link-hover-color;
+	}
+}
+
+.mega-menu--inner-container {
+	background: black;
+	opacity: .9;
+}

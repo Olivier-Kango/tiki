@@ -6,7 +6,7 @@
 	"minimum-stability": "stable",
 	"require": {
 		"sam152/javascript-equal-height-responsive-rows": "1.0.0",
-		"adodb/adodb-php": "^5.20",
+		"adodb/adodb-php": "^5.21",
 		"afarkas/html5shiv": "3.7.3",
 		"ahand/mobileesp": "dev-master",
 		"avianey/jqdoublescroll": ">=1.0.0",
@@ -91,7 +91,7 @@
 		"nolimits4web/swiper": "^4.2",
 		"npm-asset/blueimp-file-upload": "^9.28",
 		"npm-asset/chart.js": "^2.7.0",
-		"npm-asset/fullcalendar": "5.3.2",
+		"npm-asset/fullcalendar": "^5.3.2",
 		"npm-asset/fullcalendar--moment": "^5.5",
 		"npm-asset/html2canvas": "^1.0.0-RC.5",
 		"npm-asset/moment-duration-format": "^2.3",
@@ -103,7 +103,7 @@
 		"npm-asset/signature_pad": "^2.3.2",
 		"openannotation/annotator": ">=1.2.10",
 		"openid/php-openid": "2.2.2",
-		"openlayers/openlayers": "^5.3",
+		"openlayers/openlayers": "^6.5",
 		"walkermatt/ol-layerswitcher": ">=3.3.0",
 		"paragonie/random_compat": "^2.0",
 		"pclzip/pclzip": "^2.8",
@@ -162,7 +162,8 @@
 		"ext-iconv": "*",
 		"ext-zip": "*",
 		"npm-asset/select2": "^4.0",
-		"npm-asset/ttskch--select2-bootstrap4-theme": "^1.5"
+		"npm-asset/ttskch--select2-bootstrap4-theme": "^1.5",
+		"npm-asset/sortablejs": "^1.13"
 	},
 	"require-dev": {
 		"bafs/testify": "dev-master",
@@ -219,7 +220,7 @@
 			"ZendSearch": "vendor/zendframework/zendsearch/library/"
 		},
 		"psr-4": {
-			"Tiki\\": "../lib/core/",
+			"Tiki\\": ["../lib/core/Tiki", "../lib/core/"],
 			"Tiki\\Lib\\": "../lib/"
 		},
 		"classmap": [
@@ -245,7 +246,10 @@
 			"vendor/adodb/adodb-php/drivers/adodb-db2ora.inc.php",
 			"vendor/adodb/adodb-php/drivers/adodb-mysqlt.inc.php",
 			"vendor/adodb/adodb-php/session/adodb-session2.php",
-			"vendor/adodb/adodb-php/session/old/crypt.inc.php"
+			"vendor/adodb/adodb-php/session/old/crypt.inc.php",
+			"vendor/pear/text_wiki_mediawiki/Text/Wiki/Parse/***",
+			"vendor/pear/text_wiki_mediawiki/Text/Wiki/Render/***",
+			"vendor/pear/pear/./PEAR/Exception.php"
 		]
 	},
 	"autoload-dev": {

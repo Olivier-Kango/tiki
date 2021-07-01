@@ -203,7 +203,8 @@ class UnifiedSearchLib
 				);
 				break;
 			default:
-				die('Unsupported');
+				Feedback::error(tr('Unsupported index type "%0". Needs to be one of "mysql" or "elastic". Try resaving the Search Control Panel', $prefs['unified_engine']));
+				return [];
 		}
 
 		// Build in -new

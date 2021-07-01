@@ -66,16 +66,25 @@ class AuthTokens
 		// Process deletion of temporary users that are created via tokens
 		$usersToDelete = $this->db->fetchAll(
 			'SELECT tokenId, userPrefix FROM tiki_auth_tokens
-			WHERE (timeout != -1 AND UNIX_TIMESTAMP(creation) + timeout < UNIX_TIMESTAMP()) OR `hits` = 0'
+				WHERE (timeout != -1 AND UNIX_TIMESTAMP(creation) + timeout < UNIX_TIMESTAMP())
+				OR `hits` = 0',
+			null,
+			2000
 		);
 
+		$userlib = TikiLib::lib('user');
 		foreach ($usersToDelete as $del) {
-			TikiLib::lib('user')->remove_temporary_user($del['userPrefix'] . $del['tokenId']);
+			if (! empty($del['userPrefix'])) {
+				$userlib->remove_temporary_user($del['userPrefix'] . $del['tokenId']);
+			}
 		}
 
 		$this->db->query(
 			'DELETE FROM tiki_auth_tokens
-			 WHERE (timeout != -1 AND UNIX_TIMESTAMP(creation) + timeout < UNIX_TIMESTAMP()) OR `hits` = 0'
+				WHERE (timeout != -1 AND UNIX_TIMESTAMP(creation) + timeout < UNIX_TIMESTAMP())
+				OR `hits` = 0',
+			null,
+			2000
 		);
 
 		$data = $this->db->query(
@@ -83,8 +92,12 @@ class AuthTokens
 			[ $token ]
 		)->fetchRow();
 
+		if (! $data) {
+			return null;
+		}
+
 		global $prefs, $tikiroot;		// $full defined in route.php
-		if ($prefs['feature_sefurl'] === 'y') {
+		if ($prefs['feature_sefurl'] === 'y' && strpos($entry, 'tiki-autologin.php') === false) {
 			$sefurlTypeMap = $this->getSefurlTypeMap();
 			$keys = array_keys($_GET);
 			$seftype = '';
@@ -139,7 +152,6 @@ class AuthTokens
 
 		// Process autologin of temporary users
 		if ($data['createUser'] == 'y') {
-			$userlib = TikiLib::lib('user');
 			$tempuser = $data['userPrefix'] . $userlib->autogenerate_login($data['tokenId'], 6);
 			$groups = json_decode($data['groups'], true);
 			if (! $userlib->user_exists($tempuser)) {

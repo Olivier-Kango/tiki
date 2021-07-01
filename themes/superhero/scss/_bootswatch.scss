@@ -200,3 +200,12 @@ label,
     }
   }
 }
+
+// Update for Smartmenus (override tiki_base.css value)
+.dropdown-menu.mega-menu a,
+.dropdown-item {
+	color: $link-color;
+	&:hover {
+		color: $link-hover-color;
+	}
+}

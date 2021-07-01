@@ -737,8 +737,8 @@ function prefs_wiki_list($partial = false)
 			'description' => tr('Set the default for the table of contents (default "on" and can be toggled per page)'),
 			'type' => 'list',
 			'options' => [
-				'on' => tra('On'),
-				'off' => tra('Off'),
+				'on' => tra('On_C(on-off)'),
+				'off' => tra('Off_C(on-off)'),
 			],
 			'default' => 'on',
 			'dependencies' => [

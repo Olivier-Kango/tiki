@@ -203,10 +203,10 @@ if (isset($_POST['save']) && $prefs['feature_contribution'] == 'y' && $prefs['fe
 }
 
 if (isset($_POST['save']) && ! $contribution_needed && $access->checkCsrf()) {
-	$imagegallib = TikiLib::lib('imagegal');
 	$smarty->assign('individual', 'n');
 
-	$edit_data = $imagegallib->capture_images($edit_data);
+	// TODO ImageGalleryRemoval23.x replace with a file gallery version
+	//$edit_data = $imagegallib->capture_images($edit_data);
 	$edit_data = $tikilib->convertAbsoluteLinksToRelative($edit_data);
 
 	$title = isset($_POST['title']) ? $_POST['title'] : '';

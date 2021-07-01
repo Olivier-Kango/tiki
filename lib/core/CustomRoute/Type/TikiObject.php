@@ -82,15 +82,6 @@ class TikiObject extends Type
 				}
 				break;
 
-			case 'gallery':
-				$galleries = $tikilib->list_galleries(0, -1, 'name_desc');
-
-				foreach ($galleries['data'] as $gallery) {
-					$objects[$gallery['galleryId']] = $gallery['name'];
-				}
-
-				break;
-
 			case 'wiki page':
 				$pages = $tikilib->list_pages(0, -1, 'pageName_asc');
 

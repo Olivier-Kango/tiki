@@ -32,13 +32,6 @@ $events = [
 ["feature_file_galleries","File Galleries","fgallery_download",tra("Download another user's file"),5,0],  // tikilib.php
 ["feature_file_galleries","File Galleries","fgallery_is_downloaded",tra("Have your file downloaded"),5,0], // tikilib.php
 
-["feature_galleries","Image galleries","igallery_new",tra("Create a new image gallery"),10,0], // imagegallib.php
-["feature_galleries","Image galleries","igallery_new_img",tra("Upload a new image to a gallery"),6,0], // imagegallib.php
-["feature_galleries","Image galleries","igallery_see",tra("View another user's gallery"),4,0],  // imagegallib.php
-["feature_galleries","Image galleries","igallery_see_img",tra("View another user's images"),3,0], // imagegallib.php
-["feature_galleries","Image galleries","igallery_seen",tra("Have your gallery viewed by another user"),2,0], // imagegallib.php
-["feature_galleries","Image galleries","igallery_img_seen",tra("Have your image viewed"),1,0], // imagegallib.php
-
 ["feature_blogs","Blogs","blog_new",tra("Create a new blog"),20,0], // bloglib.php
 ["feature_blogs","Blogs","blog_post",tra("Post in a blog"),5,0], // bloglib.php
 ["feature_blogs","Blogs","blog_read",tra("Read another user's blog"),2,0], // tikilib.php

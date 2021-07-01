@@ -32,10 +32,11 @@ class WikiParser_PluginArgumentParser
 			$data = substr($data, $pos + 1);
 			$data = ltrim($data);
 
-			if (! empty($data) && $data[0] == '"') {
+			if (! empty($data) && ($data[0] == '"' || $data[0] == "'")) {
+				$quote_style = $data[0];
 				$quote = 0;
 				// Parameter between quotes, find closing quote not escaped by a \
-				while (false !== $quote = strpos($data, '"', $quote + 1)) {
+				while (false !== $quote = strpos($data, $quote_style, $quote + 1)) {
 					if ($data[$quote - 1] != "\\") {
 						break;
 					}
@@ -44,7 +45,7 @@ class WikiParser_PluginArgumentParser
 				// Closing quote found
 				if ($quote !== false) {
 					$value = substr($data, 1, $quote - 1);
-					$arguments[$name] = str_replace('\"', '"', $value);
+					$arguments[$name] = str_replace("\\$quote_style", $quote_style, $value);
 
 					$data = substr($data, $quote + 1);
 					continue;

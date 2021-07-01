@@ -473,7 +473,7 @@ class EnglishUpdateCommand extends Command
 		}
 
 		/**
-		 * Tokens indicating that the replacement sting was found and replaced in the language file
+		 * Tokens indicating that the replacement string was found and replaced in the language file
 		 * @ver array
 		 */
 		$string = [];
@@ -511,6 +511,26 @@ class EnglishUpdateCommand extends Command
 								$lang[$langNow] = true;
 							} else {
 								$skipped[$key] = true;
+							}
+						}
+						// If the replacement string has context information, create a non-commented translation in the english language file
+						// Strings with context need to be translated in the 'en' language file
+						// See https://dev.tiki.org/Translations-Revamp
+						if ($langNow == 'en') {
+							if (preg_match('/^\/\/ "' . preg_quote($entry['-'], '/') . '[' . implode('', Language::punctuations) . ']?".*/m', $file, $match)) {
+								// if the replacement string does not already exist
+								if (! strpos($file, "\n\"" . $entry['+'] . '"')) {
+									// then replace the original string with an exact copy and a 'updated' copy on the next line
+									$replace = preg_replace('/\/\/ "' . preg_quote($entry['-'], '/') . '[' . implode('', Language::punctuations) . ']?"/', '"' . $entry['+'] . '"', $match[0], 1);
+									$file = str_replace($match[0], $match[0] . "\n" . $replace, $file);
+
+									// keep track of overall numbers
+									$string[$key] = true;
+									$lang[$langNow] = true;
+									unset($skipped[$key]);
+								} else {
+									$skipped[$key] = true;
+								}
 							}
 						}
 					}

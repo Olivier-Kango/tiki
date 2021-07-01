@@ -299,6 +299,13 @@ blockquote.pull-right {
 	color: #c6e99c !important;
 }
 
+/* Update for Smartmenus */
+.sm-vertical.navbar-nav .nav-link,
+.sm-vertical.navbar-nav .nav-link {
+	background: none !important;
+	border: none;
+}
+
 .topbar .navbar-dark .navbar-collapse,
 .tiki .bg-dark {
 	border: none;

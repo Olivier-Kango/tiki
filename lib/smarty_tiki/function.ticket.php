@@ -21,7 +21,7 @@ if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
  * 						- Set mode=get to return token only with no HTML. Used with links that lead to state-changing
  * 							actions where the confirmSimple() onclick method is used to generate a confirmation form
  * 							with the token
- * @param $smarty		Smarty_Tiki
+ * @param $smarty		Smarty_Internal_Template
  * @return string
  * @throws Exception
  */

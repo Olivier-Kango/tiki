@@ -65,10 +65,6 @@ function smarty_modifier_sefurl($source, $type = 'wiki', $with_next = '', $all_l
 			$href = $sefurl ? "calevent$source" : "tiki-calendar_edit_item.php?viewcalitemId=$source";
 			break;
 
-		case 'gallery':
-			$href = 'tiki-browse_gallery.php?galleryId=' . $source;
-			break;
-
 		case 'article':
 			$href = $sefurl ? "article$source" : "tiki-read_article.php?articleId=$source";
 			break;

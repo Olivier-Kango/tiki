@@ -47,8 +47,9 @@ $javascript_enabled_detect = getCookie('javascript_enabled_detect', '', '0');
 // Cookie Consent: setCookieSection uses the session tiki_cookie_jar to simulate cookies,
 // so check that $feature_no_cookie is not true because cookies are not really set when using cookie_consent_feature
 // and so javascript will get disabled by mistake
-
-if (empty($javascript_enabled_detect) && $feature_no_cookie) {
+if ($prefs['javascript_assume_enabled'] === 'y') {
+	$prefs['javascript_enabled'] = 'y';
+} elseif (empty($javascript_enabled_detect) && $feature_no_cookie) {
 	$prefs['javascript_enabled'] = 'y';					// assume javascript should be enabled while cookie consent is pending
 } elseif ($prefs['javascript_enabled'] === '' && $prefs['disableJavascript'] != 'y' && $javascript_enabled_detect < 3) {
 	// Set the cookie to 'y', through javascript - expires: approx. 1 year
@@ -61,9 +62,7 @@ if (empty($javascript_enabled_detect) && $feature_no_cookie) {
 			strpos($_SERVER['PHP_SELF'], 'tiki-login.php') === false &&
 			strpos($_SERVER['PHP_SELF'], 'tiki-install.php') === false) {
 		$javascript_enabled_detect++;
-		if ($prefs['javascript_assume_enabled'] != 'y') {
-			setCookieSection('javascript_enabled_detect', $javascript_enabled_detect, '', $plus_one_year / 1000);
-		}
+		setCookieSection('javascript_enabled_detect', $javascript_enabled_detect, '', $plus_one_year / 1000);
 	}
 } elseif ($js_cookie !== 'y') {	// no js cookie detected
 	$prefs['javascript_enabled'] = 'n';
@@ -202,6 +201,9 @@ if (! timezone) {
 	$jqueryTiki['tooltips'] = $prefs['feature_jquery_tooltips'] === 'y' ? true : false;
 	$jqueryTiki['autocomplete'] = $prefs['feature_jquery_autocomplete'] === 'y' ? true : false;
 	$jqueryTiki['superfish'] = $prefs['feature_jquery_superfish'] === 'y' ? true : false;
+	$jqueryTiki['smartmenus'] = $prefs['jquery_smartmenus_enable'] === 'y' ? true : false;
+	$jqueryTiki['smartmenus_collapsible_behavior'] = $prefs['jquery_smartmenus_collapsible_behavior'];
+	$jqueryTiki['smartmenus_open_close_click'] = $prefs['jquery_smartmenus_open_close_click'] === 'y' ? true : false;
 	$jqueryTiki['reflection'] = $prefs['feature_jquery_reflection'] === 'y' ? true : false;
 	$jqueryTiki['tablesorter'] = $prefs['feature_jquery_tablesorter'] === 'y' ? true : false;
 	$jqueryTiki['colorbox'] = $prefs['feature_shadowbox'] === 'y' ? true : false;
@@ -227,7 +229,6 @@ if (! timezone) {
 	$jqueryTiki['ajax'] = $prefs['feature_ajax'] === 'y' ? true : false;
 	$jqueryTiki['syntaxHighlighter'] = $prefs['feature_syntax_highlighter'] === 'y' ? true : false;
 	$jqueryTiki['select2'] = $prefs['jquery_select2'] === 'y' ? true : false;
-	$jqueryTiki['select2-bootstrap4-theme'] = $prefs['jquery_select2-bootstrap4-theme'] === 'y' ? true : false;
 	$jqueryTiki['select2_sortable'] = $prefs['jquery_select2_sortable'] === 'y' ? true : false;
 	$jqueryTiki['mapTileSets'] = $tikilib->get_preference('geo_tilesets', ['openstreetmap'], true);
 	$jqueryTiki['infoboxTypes'] = Services_Object_Controller::supported();
@@ -243,6 +244,8 @@ if (! timezone) {
 	$jqueryTiki['helpurl'] = $prefs['feature_help'] === 'y' ? $prefs['helpurl'] : '';
 	$jqueryTiki['shortDateFormat'] = $prefs['short_date_format_js'];
 	$jqueryTiki['shortTimeFormat'] = $prefs['short_time_format_js'];
+	$jqueryTiki['changeMonth'] = $prefs['change_month'] === 'y' ? true : false;
+	$jqueryTiki['changeYear'] = $prefs['change_year'] === 'y' ? true : false;
 	$jqueryTiki['username'] = $user;
 	$jqueryTiki['userRealName'] = TikiLib::lib('user')->clean_user($user);
 	$jqueryTiki['userAvatar'] = $base_url . TikiLib::lib('userprefs')->get_public_avatar_path($user);
@@ -262,6 +265,7 @@ if (! timezone) {
 	}
 	$jqueryTiki['current_object'] = $object;
 	$jqueryTiki['usernamePattern'] = $prefs['username_pattern'];
+	$jqueryTiki['print_pdf_from_url'] = "{$prefs['print_pdf_from_url']}";
 
 
 	if ($prefs['feature_calendar'] === 'y') {

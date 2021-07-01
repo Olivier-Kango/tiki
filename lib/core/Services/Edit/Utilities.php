@@ -7,8 +7,8 @@
 
 //this script may only be included - so its better to die if called directly.
 if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
-  header('location: index.php');
-  exit;
+	header('location: index.php');
+	exit;
 }
 
 /**
@@ -16,81 +16,87 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
  */
 class Services_Edit_Utilities
 {
-  public function replacePlugin($input, $checkCsrf = true)
-  {
-    global $user;
+	public function replacePlugin($input, $checkCsrf = true)
+	{
+		global $user;
 
-    $tikilib = TikiLib::lib('tiki');
+		$tikilib = TikiLib::lib('tiki');
 
-    $page = $input->page->pagename();
-    $type = $input->type->word();
-    $message = $input->message->text();
-    $content = $input->content->wikicontent();
-    $index = $input->index->int();
-    $params = $input->asArray('params');
-    $appendParams = $input->appendParams->int();
+		$page = $input->page->pagename();
+		$type = $input->type->word();
+		$message = $input->message->text();
+		$content = $input->content->wikicontent();
+		$index = $input->index->int();
+		$params = $input->asArray('params');
+		$appendParams = $input->appendParams->int();
 
-    $referer = $_SERVER['HTTP_REFERER'];
+		$referer = $_SERVER['HTTP_REFERER'];
 
-    if (! $page || ! $type || ! $referer) {
-      throw new Services_Exception(tr('Missing parameters'));
-    }
+		if (! $page || ! $type || ! $referer) {
+			throw new Services_Exception(tr('Missing parameters'));
+		}
 
-    $plugin = strtolower($type);
+		$plugin = strtolower($type);
 
-    if (! $message) {
-      $message = tr('%0 Plugin modified by editor.', $plugin);
-    }
+		if (! $message) {
+			$message = tr('%0 Plugin modified by editor.', $plugin);
+		}
 
-    $info = $tikilib->get_page_info($page);
-    if (! $info) {
-      throw new Services_Exception_NotFound(tr('Page "%0" not found', $page));
-    }
+		$info = $tikilib->get_page_info($page);
+		if (! $info) {
+			throw new Services_Exception_NotFound(tr('Page "%0" not found', $page));
+		}
 
-    $perms = $tikilib->get_perm_object($page, 'wiki page', $info, false);
-    if ($perms['tiki_p_edit'] !== 'y') {
-      throw new Services_Exception_Denied(tr('You do not have permission to edit "%0"', $page));
-    }
+		$perms = $tikilib->get_perm_object($page, 'wiki page', $info, false);
+		if ($perms['tiki_p_edit'] !== 'y') {
+			throw new Services_Exception_Denied(tr('You do not have permission to edit "%0"', $page));
+		}
 
-    $current = $info['data'];
+		$current = $info['data'];
 
-    $matches = WikiParser_PluginMatcher::match($current);
-    $count = 0;
-    $util = new Services_Utilities();
-    foreach ($matches as $match) {
-      if ($match->getName() !== $plugin) {
-        continue;
-      }
+		$matches = WikiParser_PluginMatcher::match($current);
+		$count = 0;
+		$util = new Services_Utilities();
+		foreach ($matches as $match) {
+			if ($match->getName() !== $plugin) {
+				continue;
+			}
 
-      ++$count;
+			++$count;
 
-      if ($index === $count && (!$checkCsrf || $util->checkCsrf())) {
-        // by using content of "~same~", it will not replace the body that is there
-        if ($content == "~same~") {
-          $content = $match->getBody();
-        }
+			if ($index === $count && (! $checkCsrf || $util->checkCsrf())) {
+			  // by using content of "~same~", it will not replace the body that is there
+				if ($content == "~same~") {
+					$content = $match->getBody();
+				}
 
-        if (! $params) {
-          $params = $match->getArguments();
-        } elseif ($appendParams) {
-          $parser = new WikiParser_PluginArgumentParser;
-          $arguments = $parser->parse($match->getArguments());
-          $params = array_merge($arguments, $params);
-        }
+				if (! $params) {
+					$params = $match->getArguments();
+				} elseif ($appendParams) {
+					$parser = new WikiParser_PluginArgumentParser;
+					$arguments = $parser->parse($match->getArguments());
+					$params = array_merge($arguments, $params);
+				}
 
-        $match->replaceWithPlugin($plugin, $params, $content);
+				if ($plugin == 'include' && $params['replace'] == 1) {
+					include_once('lib/wiki-plugins/wikiplugin_include.php');
+					$text = wikiplugin_include(null, $params);
+					$match->replaceWith($text);
+				} else {
+					$match->replaceWithPlugin($plugin, $params, $content);
+				}
 
-        $tikilib->update_page(
-          $page,
-          $matches->getText(),
-          $message,
-          $user,
-          $tikilib->get_ip_address()
-        );
-        Feedback::success($message);
-        return [];
-      }
-    }
-    throw new Exception('Plugin edit failed');
-  }
+				$tikilib->update_page(
+					$page,
+					$matches->getText(),
+					$message,
+					$user,
+					$tikilib->get_ip_address()
+				);
+				Feedback::success($message);
+				return [];
+			}
+		}
+		throw new Exception('Plugin edit failed');
+	}
 }

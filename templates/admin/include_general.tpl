@@ -371,6 +371,8 @@
 				{preference name=display_field_order}
 				{preference name=display_start_year}
 				{preference name=display_end_year}
+				{preference name=change_month}
+				{preference name=change_year}
 				{preference name=users_prefs_display_12hr_clock}
 			</fieldset>
 			{preference name=tiki_same_day_time_only}

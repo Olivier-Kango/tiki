@@ -112,10 +112,6 @@
 								{if $prefs.feature_calendar eq 'y'}
 									<option value="calendars">{tr}Calendar Items{/tr}</option>
 								{/if}
-								{if $prefs.feature_galleries eq 'y'}
-									<option value="galleries">{tr}Galleries{/tr}</option>
-									<option value="images">{tr}Images{/tr}</option>
-								{/if}
 								{if $prefs.feature_file_galleries eq 'y'}
 									<option value="files">{tr}Files{/tr}</option>
 								{/if}

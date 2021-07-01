@@ -509,31 +509,6 @@ $("#add_object_type").change(function () {
 							</div>
 						{/if}
 
-						{if $prefs.feature_galleries eq 'y' and $galleries}
-							<div class="form-group row">
-								<label class="col-sm-3 col-form-label" for="galleryId">
-									{tr}Image gallery{/tr}
-								</label>
-								<div class="col-sm-6 input-group">
-									<select name="galleryId" id="galleryId" class="form-control">
-										{section name=ix loop=$galleries}
-											<option value="{$galleries[ix].galleryId|escape}">
-												{$galleries[ix].name|truncate:80:"(...)":true|escape}
-											</option>
-										{/section}
-									</select>
-									<span class="input-group-append">
-										<input
-											type="submit"
-											class="btn btn-primary"
-											name="addgallery"
-											value="{tr}Add{/tr}"
-										>
-									</span>
-								</div>
-							</div>
-						{/if}
-
 						{if $prefs.feature_file_galleries eq 'y' and $file_galleries}
 							<div class="form-group row">
 								<label class="col-sm-3 col-form-label" for="file_galleryId">

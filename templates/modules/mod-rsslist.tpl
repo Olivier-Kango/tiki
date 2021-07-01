@@ -15,11 +15,6 @@
 				{icon name="rss"} {tr}Articles{/tr}
 			</a>
 		{/if}
-		{if $prefs.feature_galleries eq 'y' and $prefs.feed_image_galleries eq 'y' and $tiki_p_view_image_gallery eq 'y'}
-			<a class="linkmodule tips" title=":{tr}Image Galleries feed{/tr}" href="tiki-image_galleries_rss.php?ver={$prefs.feed_default_version}">
-				{icon name="rss"} {tr}Image Galleries{/tr}
-			</a>
-		{/if}
 		{if $prefs.feature_file_galleries eq 'y' and $prefs.feed_file_galleries eq 'y' and $tiki_p_view_file_gallery eq 'y'}
 			<a class="linkmodule tips" title=":{tr}File Galleries feed{/tr}" href="tiki-file_galleries_rss.php?ver={$prefs.feed_default_version}">
 				{icon name="rss"} {tr}File Galleries{/tr}

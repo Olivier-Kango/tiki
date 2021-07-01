@@ -77,7 +77,7 @@ class Search_Action_EmailAction implements Search_Action_Action
 				}
 			}
 
-			$content = $this->parse($data->content->none(), $data->is_html->boolean());
+			$content = $this->parse($data->content->none(), $data->is_html->int());
 			$subject = $this->parse($data->subject->text());
 
 			$mail->setSubject(strip_tags($subject));

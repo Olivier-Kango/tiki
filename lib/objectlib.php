@@ -109,14 +109,6 @@ class ObjectLib extends TikiLib
 						$href = 'tiki-view_forum.php?forumId=' . $itemId;
 						break;
 
-					case 'image gallery':
-						$info = $this->get_gallery($itemId);
-
-						$description = $info['description'];
-						$name = $info['name'];
-						$href = 'tiki-browse_gallery.php?galleryId=' . $itemId;
-						break;
-
 					case 'perspective':
 						$info = TikiLib::lib('perspective')->get_perspective($itemId);
 						$name = $info['name'];
@@ -349,16 +341,6 @@ class ObjectLib extends TikiLib
 
 					case 'edit':
 						return 'tiki-admin_file_galleries';
-				}
-
-			case 'image gallery':
-				switch ($action) {
-					case 'view':
-					case 'read':
-						return 'tiki_p_view_image_gallery';
-
-					case 'edit':
-						return 'tiki_p_admin_galleries';
 				}
 
 			case 'poll':
@@ -719,7 +701,6 @@ class ObjectLib extends TikiLib
 			'wiki' => $comment ? 'tiki_p_wiki_view_comments' : 'tiki_p_view',
 			'forum' => 'tiki_p_forum_read',
 			'forum post' => 'tiki_p_forum_read',
-			'image gallery' => 'tiki_p_view_image_gallery',
 			'file gallery' => 'tiki_p_view_file_gallery',
 			'tracker' => 'tiki_p_view_trackers',
 			'blog' => 'tiki_p_read_blog',
@@ -743,7 +724,6 @@ class ObjectLib extends TikiLib
 			'blog post' => 'tiki_p_read_blog',
 			'article' => 'tiki_p_read_article',
 			'submission' => 'tiki_p_approve_submission',
-			'image' => 'tiki_p_view_image_gallery',
 			'calendar' => 'tiki_p_view_calendar',
 			'file' => 'tiki_p_download_files',
 			'trackeritem' => $comment ? 'tiki_p_tracker_view_comments' : 'tiki_p_view_trackers',

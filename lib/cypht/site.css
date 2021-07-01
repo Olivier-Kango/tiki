@@ -1094,4 +1094,25 @@ letter-spacing: unset;
   top: 33px;
   font-variant: normal;
 }
+
+.message_list {
+  margin-top: 80px;
+}
+.inline-cypht .content_title .mailbox_list_title {
+  padding-top: 50px;
+}
+@media only screen and (min-width: 600px) {
+  .message_list {
+    margin-top: 0px;
+  }
+  .inline-cypht .content_title .mailbox_list_title {
+    padding-top: unset;
+  }
+}
+.msg_move_to{
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-content: center;
+}
 /*# sourceMappingURL=site.css.map */

@@ -249,6 +249,7 @@
 				<legend>{tr}Other{/tr}</legend>
 				<div class="admin featurelist">
 					{preference name=feature_shadowbox}
+					{preference name=allowImageLazyLoad}
 					<div class="adminoptionboxchild" id="feature_shadowbox_childcontainer">
 						{preference name=jquery_colorbox_theme}
 					</div>

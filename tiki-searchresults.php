@@ -97,10 +97,6 @@ if ($where == 'articles') {
 	$access->check_feature('feature_articles');
 }
 
-if (($where == 'galleries' || $where == 'images')) {
-	$access->check_feature('feature_galleries');
-}
-
 if (($where == 'blogs' || $where == 'posts')) {
 	$access->check_feature('feature_blogs');
 }
@@ -184,10 +180,6 @@ if ($prefs['feature_calendar'] == 'y') {
 }
 if ($prefs['feature_wiki'] == 'y') {
 	$where_list['wikis'] = tra('Wiki Pages');
-}
-if ($prefs['feature_galleries'] == 'y') {
-	$where_list['galleries'] = tra('Galleries');
-	$where_list['images'] = tra('Images');
 }
 if ($prefs['feature_file_galleries'] == 'y') {
 	$where_list['files'] = tra('Files');

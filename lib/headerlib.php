@@ -1139,7 +1139,7 @@ class HeaderLib
 			global $prefs;
 			$files[$section][] = $file;
 
-			if ($prefs['feature_bidi'] == 'y') {
+			if (Language::isRTL()) {
 				$rtl = str_replace('.css', '', $file) . '-rtl.css';
 
 				if (file_exists($rtl)) {

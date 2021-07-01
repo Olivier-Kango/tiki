@@ -2396,9 +2396,6 @@ if (! $standalone) {
 	} else {
 		$dirs = array();
 	}
-	if ($prefs['feature_galleries'] == 'y' && ! empty($prefs['gal_use_dir'])) {
-		$dirs[] = $prefs['gal_use_dir'];
-	}
 	if ($prefs['feature_file_galleries'] == 'y' && ! empty($prefs['fgal_use_dir'])) {
 		$dirs[] = $prefs['fgal_use_dir'];
 	}

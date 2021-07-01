@@ -31,7 +31,7 @@ function smarty_function_modulelist($params, $smarty)
 	}
 
 	$dir = '';
-	if (isset($params['bidi']) && $params['bidi'] == 'y' && $prefs['feature_bidi'] == 'y') {
+	if (Language::isRTL()) {
 		$dir = ' dir="rtl"';
 	}
 

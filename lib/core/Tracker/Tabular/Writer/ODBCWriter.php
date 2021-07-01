@@ -31,6 +31,9 @@ class ODBCWriter
 				if ($column->isPrimaryKey()) {
 					$pk = $column->getRemoteField();
 					$id = $row[$pk];
+					if ($schema->isPrimaryKeyAutoIncrement()) {
+						unset($row[$pk]);
+					}
 				}
 			}
 			$this->odbc_manager->replace($pk, $id, $row);

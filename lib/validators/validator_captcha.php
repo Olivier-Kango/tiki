@@ -11,19 +11,23 @@ function validator_captcha($input, $parameter = '', $message = '')
 	$captchalib = TikiLib::lib('captcha');
 	$_REQUEST['captcha'] = ['input' => $input, 'id' => $parameter];
 	if (! $captchalib->validate()) {
+		if (method_exists($captchalib->captcha, 'getSession')) {
+			// the following needed to keep session active for ajax checking
+			$session = $captchalib->captcha->getSession();
+			$session->setExpirationHops(2, null, true);
+			$captchalib->captcha->setSession($session);
+			$captchalib->captcha->setKeepSession(false);
+		}
+		// now return errors
+		return $captchalib->getErrors();
+	}
+	if (method_exists($captchalib->captcha, 'getSession')) {
 		// the following needed to keep session active for ajax checking
 		$session = $captchalib->captcha->getSession();
 		$session->setExpirationHops(2, null, true);
 		$captchalib->captcha->setSession($session);
 		$captchalib->captcha->setKeepSession(false);
-		// now return errors
-		return $captchalib->getErrors();
 	}
-	// the following needed to keep session active for ajax checking
-	$session = $captchalib->captcha->getSession();
-	$session->setExpirationHops(2, null, true);
-	$captchalib->captcha->setSession($session);
-	$captchalib->captcha->setKeepSession(false);
 	// now return ok
 	return true;
 }

@@ -493,17 +493,6 @@ function feature_home_pages($partial = false)
 		$tikiIndex['tiki-view_blog.php?blogId=' . $prefs['home_blog']] = tra('Blog:') . $home_blog_name;
 	}
 
-	// Image gallery
-	if (! $partial && $prefs['feature_galleries'] == 'y') {
-		if ($prefs['home_gallery'] != '0') {
-			$hgalinfo = $tikilib->get_gallery($prefs['home_gallery']);
-			$home_gal_name = substr($hgalinfo["name"], 0, 20);
-		} else {
-			$home_gal_name = tra('Set Image gal homepage first');
-		}
-		$tikiIndex['tiki-browse_gallery.php?galleryId=' . $prefs['home_gallery']] = tra('Image Gallery:') . $home_gal_name;
-	}
-
 	// File gallery
 	if (! $partial && $prefs['feature_file_galleries'] == 'y') {
 			$filegallib = TikiLib::lib('filegal');
