@@ -9346,9 +9346,6 @@ body.wikitext {
 .structure_select .cssmenu_horiz ul li {
   border: 1px solid #bbb;
 }
-.admintoclevel .actions input {
-  border: solid 1px #bbb;
-}
 .TextArea-fullscreen, .TextArea-fullscreen .edit-zone-footer, .CodeMirror-fullscreen, .CodeMirror-fullscreen .edit-zone-footer {
   background-color: #fff;
 }

@@ -796,6 +796,7 @@ class StructLib extends TikiLib
 		if ($structure_tree != '') {
 			if (($maxdepth <= 0) || ($cur_depth < $maxdepth)) {
 				$smarty->assign('toc_type', $type);
+				$smarty->assign('cur_depth', $cur_depth);
 				$ret .= $smarty->fetch('structures_toc-startul.tpl') . "\n";
 
 				foreach ($structure_tree as $leaf) {
@@ -826,7 +827,7 @@ class StructLib extends TikiLib
 					if (isset($leaf['sub']) && is_array($leaf['sub'])) {
 						$ret .= $this->fetch_toc($leaf['sub'], $showdesc, $numbering, $type, $page, $maxdepth, $cur_depth + 1, $structurePageName) . "</li>\n";
 					} else {
-						$ret .= str_repeat("\t", ($cur_depth * 2) + 1) . "</li>\n";
+						$ret .= str_repeat("\t", ($cur_depth * 2) + 1) . "<div class='col-sm-12'><ol class='admintoc'></ol></div></li>\n";
 					}
 				}
 				$ret .= $smarty->fetch('structures_toc-endul.tpl') . "\n";

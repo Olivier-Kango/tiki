@@ -8449,9 +8449,6 @@ body.wikitext {
 .structure_select .cssmenu_horiz ul li {
   border: 1px solid #b4bcc2;
 }
-.admintoclevel .actions input {
-  border: solid 1px #b4bcc2;
-}
 .TextArea-fullscreen, .TextArea-fullscreen .edit-zone-footer, .CodeMirror-fullscreen, .CodeMirror-fullscreen .edit-zone-footer {
   background-color: #fff;
 }

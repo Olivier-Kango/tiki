@@ -8362,9 +8362,6 @@ body.wikitext {
 .structure_select .cssmenu_horiz ul li {
   border: 1px solid #555;
 }
-.admintoclevel .actions input {
-  border: solid 1px #555;
-}
 .TextArea-fullscreen, .TextArea-fullscreen .edit-zone-footer, .CodeMirror-fullscreen, .CodeMirror-fullscreen .edit-zone-footer {
   background-color: #108a93;
 }

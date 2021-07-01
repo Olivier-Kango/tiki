@@ -465,32 +465,41 @@ div.tiki_plugin {
 	font-style: italic;
 }
 
-.admintoclevel {
-	margin: .2em;
-	padding: 0.4em 0.4em 0.6em;
+.structure-container ol.depth-0 {
+	padding-inline-start: 0;
+
+	& > li {
+		padding: 0.5em;
+		margin: 0.2em;
+		border: 1px solid $gray-200;
+	}
 }
 
-.admintoclevel .admintoclevel {
-	margin-right: 0;
-	border-right: 0 none;
-}
+// .admintoclevel {
+// 	margin: .2em;
+// 	padding: 0.4em 0.4em 0.6em;
+// }
 
-.admintoclevel .actions {
-	float: right;
-	padding-right: .3em;
-}
+// .admintoclevel .admintoclevel {
+// 	margin-right: 0;
+// 	border-right: 0 none;
+// }
 
-.admintoclevel .actions a {
-	padding-right: .3em;
-}
+// .admintoclevel .actions {
+// 	float: right;
+// 	padding-right: .3em;
+// }
 
-.admintoclevel .actions input {
-	margin-right: 2em;
-	font-style: italic;
-	opacity: 0.5;
-	//	border: solid 1px @gray;
-	width: 15em;
-}
+// .admintoclevel .actions a {
+// 	padding-right: .3em;
+// }
+
+// .admintoclevel .actions input {
+// 	margin-right: 2em;
+// 	font-style: italic;
+// 	opacity: 0.5;
+// 	width: 15em;
+// }
 
 #page_list_container {
 	list-style: none;

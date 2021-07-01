@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "29a428f737801b7b63985216914c8c41",
+    "content-hash": "401003cc64832368ff9d31351b4c1f3f",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -5591,6 +5591,18 @@
                 "type": "zip",
                 "url": "https://composer.tiki.org/dist/npm-asset/signature_pad/npm-asset-signature_pad-2.3.2.zip",
                 "shasum": "8d9aacb1a969528a6fdbbeaaa953dedc318f5ce5"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/sortablejs",
+            "version": "1.13.0",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/sortablejs/-/sortablejs-1.13.0.tgz"
             },
             "type": "npm-asset",
             "license": [

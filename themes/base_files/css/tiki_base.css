@@ -538,9 +538,6 @@ body.wikitext {
 .structure_select .cssmenu_horiz ul li {
   border: 1px solid #adb5bd;
 }
-.admintoclevel .actions input {
-  border: solid 1px #adb5bd;
-}
 .TextArea-fullscreen, .TextArea-fullscreen .edit-zone-footer, .CodeMirror-fullscreen, .CodeMirror-fullscreen .edit-zone-footer {
   background-color: #fff;
 }
@@ -4695,26 +4692,13 @@ div.tiki_plugin {
   font-weight: bold;
   font-style: italic;
 }
-.admintoclevel {
+.structure-container ol.depth-0 {
+  padding-inline-start: 0;
+}
+.structure-container ol.depth-0 > li {
+  padding: 0.5em;
   margin: 0.2em;
-  padding: 0.4em 0.4em 0.6em;
-}
-.admintoclevel .admintoclevel {
-  margin-right: 0;
-  border-right: 0 none;
-}
-.admintoclevel .actions {
-  float: right;
-  padding-right: 0.3em;
-}
-.admintoclevel .actions a {
-  padding-right: 0.3em;
-}
-.admintoclevel .actions input {
-  margin-right: 2em;
-  font-style: italic;
-  opacity: 0.5;
-  width: 15em;
+  border: 1px solid #e9ecef;
 }
 #page_list_container {
   list-style: none;

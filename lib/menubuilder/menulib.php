@@ -250,47 +250,37 @@ class MenuLib extends TikiLib
 			'-' => tra('separator'),
 		];
 
-		$parent = 0;
-		$count = count($options);
+		$current_parents_branch = [];
 
-		for ($i = 0; $i < $count; $i++) {
-			$option = $options[$i];
-
-			if (in_array($option['type'], ['s', 'r', '1', '2', '3'])) {	// can have children
-				if ($option['type'] === 's' || $option['type'] === 'r') {
-					$parent = 0;
-				}
-				if ($option['type'] === $treeOut[$parent]['type']) {
-					$option['parent'] = $treeOut[$parent]['parent'];
-				} else if (is_numeric($option['type']) && is_numeric($treeOut[$parent]['type']) && (int) $option['type'] < (int) $treeOut[$parent]['type']) {
-					$option['parent'] = $treeOut[$treeOut[$parent]['parent']]['parent'];
-				} else {
-					$option['parent'] = $parent;
-				}
-				$option['type_description'] = tra($types[$option['type']]);
-				$parent = (int) $option['optionId'];
-				$treeOut[$option['optionId']] = $option;
-
-				while ($i < $count - 1) {
-					$option = $options[$i + 1];
-
-					if ($option['type'] === 'o' || $option['type'] === '-') {
-						$option['type_description'] = $types[$option['type']];
-						$option['parent'] = $parent;
-						$treeOut[$option['optionId']] = $option;
-						$i++;
-					} else {
-						break;
-					}
-				}
-			} else {
-				$treeOut[$option['optionId']] = $option;
+		$treeOut = array_map(function ($option) use (&$current_parents_branch, &$types) {
+			if ($option['type'] === 's' || $option['type'] === 'r') {
+				array_splice($current_parents_branch, 0);
+				$option['parent'] = 0;
+				array_push($current_parents_branch, $option['optionId']);
+			} elseif (is_numeric($option['type'])) {
+				array_splice($current_parents_branch, (int) $option['type']);
+				$option['parent'] = end(array_values($current_parents_branch));
+				array_push($current_parents_branch, $option['optionId']);
+			} elseif ($option['type'] === 'o') {
+				$option['parent'] = end(array_values($current_parents_branch));
+			} elseif ($option['type'] === '-') {
+				array_pop($current_parents_branch);
 			}
-		}
+
+			$option['type_description'] = $types[$option['type']];
+
+			return $option;
+		}, $options);
+
+		$treeOut = array_filter($treeOut, function($option) {
+			return $option['type'] !== '-';
+		});
 
 		if (isset($cant)) {
-			$options = ['data' => $treeOut,
-			'cant' => $cant];
+			$options = [
+				'data' => $treeOut,
+				'cant' => $cant
+			];
 		}
 
 		return $options;

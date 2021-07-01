@@ -8447,9 +8447,6 @@ body.wikitext {
 .structure_select .cssmenu_horiz ul li {
   border: 1px solid #98978b;
 }
-.admintoclevel .actions input {
-  border: solid 1px #98978b;
-}
 .TextArea-fullscreen, .TextArea-fullscreen .edit-zone-footer, .CodeMirror-fullscreen, .CodeMirror-fullscreen .edit-zone-footer {
   background-color: #fff;
 }
@@ -9894,4 +9891,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 }
 .navbar-light .navbar-nav .show > .nav-link, .navbar-light .navbar-nav .nav-link.active {
   color: #000;
+}
+.navbar-dark .navbar-nav .nav-link {
+  color: rgba(255, 255, 255, 0.5);
 }

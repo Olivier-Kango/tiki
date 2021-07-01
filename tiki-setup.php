@@ -438,6 +438,7 @@ if ($prefs['geo_enabled'] === 'y') {
 	}
 }
 $headerlib->add_jsfile('vendor_bundled/vendor/jquery-plugins/jquery-json/src/jquery.json.js');
+$headerlib->add_jsfile('vendor_bundled/vendor/npm-asset/sortablejs/Sortable.min.js');
 
 if ($prefs['feature_jquery_zoom'] === 'y') {
 	$headerlib->add_jsfile('vendor_bundled/vendor/jquery-plugins/zoom/jquery.zoom.js')
