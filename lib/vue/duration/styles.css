@@ -51,6 +51,11 @@
 	color: #6d35a6;
 }
 
+.dp-alert i {
+	font-size: 0.7em;
+	color: #6d35a6;
+}
+
 .dp-amount--view {
 	display: inline-block;
 	cursor: pointer;

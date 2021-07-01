@@ -13,10 +13,12 @@ class Tiki_Render_Editable
 	private $label = null;
 	private $fieldFetchUrl;
 	private $objectStoreUrl;
+	private $field;
 
 	function __construct($html, array $parameters)
 	{
 		$this->inner = $html;
+		$this->field = $parameters['field'];
 
 		if (! empty($parameters['layout']) && in_array($parameters['layout'], ['inline', 'block', 'dialog'])) {
 			$this->layout = $parameters['layout'];
@@ -53,6 +55,8 @@ class Tiki_Render_Editable
 
 		// block = dialog goes to span as well
 		$tag = ($this->layout == 'block') ? 'div' : 'span';
+		$fieldId = $this->field['id'];
+		$fieldType = $this->field['type'];
 		$fieldFetch = smarty_modifier_escape(json_encode($this->fieldFetchUrl));
 		$objectStore = $this->objectStoreUrl;
 		$objectStore['edit'] = 'inline';
@@ -77,6 +81,6 @@ class Tiki_Render_Editable
 		$group = smarty_modifier_escape($this->group);
 		$smarty = TikiLib::lib('smarty');
 		$smarty->loadPlugin('smarty_function_icon');
-		return "<$tag class=\"$class\" data-field-fetch-url=\"$fieldFetch\" data-object-store-url=\"$objectStore\" data-group=\"$group\" data-label=\"$label\">$value" . smarty_function_icon(['name' => 'edit', 'iclass' => 'ml-2'], $smarty) . "</$tag>";
+		return "<$tag class=\"$class\" data-field-fetch-url=\"$fieldFetch\" data-object-store-url=\"$objectStore\" data-group=\"$group\" data-label=\"$label\" data-field-id=\"$fieldId\" data-field-type=\"$fieldType\">$value" . smarty_function_icon(['name' => 'edit', 'iclass' => 'ml-2'], $smarty) . "</$tag>";
 	}
 }

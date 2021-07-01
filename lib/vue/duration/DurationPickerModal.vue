@@ -7,11 +7,11 @@
 						Duration picker
 						<i class="fas fa-edit"></i>
 					</span>
-					<span class="dp-amount--input__header--btn unselectable" :class="{ active: store.state.view === 'chronometer'}" v-if="store.state.chronometer" v-on:click="gotoChronometer">
+					<!-- <span class="dp-amount--input__header--btn unselectable" :class="{ active: store.state.view === 'chronometer'}" v-if="store.state.chronometer" v-on:click="gotoChronometer">
 						Start/Stop
 						<i class="fas fa-stopwatch"></i>
-					</span>
-					<span v-if="saveButton" class="dp-amount--input__header--btn unselectable inline-edit-save-fields">
+					</span> -->
+					<span class="dp-amount--input__header--btn unselectable inline-edit-save-fields" v-if="saveButton" v-on:click="handleSave">
 						Save
 						<i class="far fa-save"></i>
 					</span>
@@ -47,6 +47,7 @@
 		data: function () {
 			return {
 				store: this.$parent.store,
+				inputId: this.$parent.store.state.inputId,
 				saveButton: true
 			}
 		},
@@ -59,6 +60,12 @@
 			},
 			gotoChronometer: function() {
 				this.store.setView('chronometer')
+			},
+			handleSave: function () {
+				// Saving is done in inline-edit.js
+				this.inputId && this.store.removeDurationDraft(this.inputId).then(data => {
+					this.store.state.draft = false;
+				});
 			}
 		}
 	};

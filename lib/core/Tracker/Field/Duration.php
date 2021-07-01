@@ -146,7 +146,7 @@ class Tracker_Field_Duration extends Tracker_Field_Abstract implements Tracker_F
 		return $this->humanize();
 	}
 
-	function renderInput($context = [])
+	function renderInput($context = [], $params = [])
 	{
 		global $prefs;
 
@@ -171,10 +171,14 @@ class Tracker_Field_Duration extends Tracker_Field_Abstract implements Tracker_F
 		if (!$value) {
 			$value = 0;
 		}
+		$composedFieldId = $this->getComposedId($params);
+
 		$headerlib->add_js('
 momentDurationFormatSetup(moment);
 var dpStore = DurationPickerStore();
 dpStore.setInitialDuration({
+	inputId: '.json_encode($composedFieldId).',
+	draft: '.json_encode($_SESSION['duration_drafts'][$composedFieldId]).',
 	value: '.$value.',
 	units: '.json_encode($this->enabledUnits()).',
 	chronometer: '.$this->getOption("chronometer").'
@@ -184,9 +188,7 @@ dpStore.setInputName('.json_encode($this->getInsertId()).');
 
 		$vuejslib = TikiLib::lib('vuejs');
 
-		$params = [
-			'store' => 'dpStore'
-		];
+		$params['store'] = 'dpStore';
 
 		$appHtml = $vuejslib->processVue('lib/vue/duration/DurationPicker.vue', 'DurationPicker', true, $params);
 		$appHtml .= $vuejslib->processVue('lib/vue/duration/DurationPickerModal.vue', 'DurationPickerModal');
@@ -230,6 +232,14 @@ dpStore.setInputName('.json_encode($this->getInsertId()).');
 	function importRemoteField(array $info, array $syncInfo)
 	{
 		return $info;
+	}
+
+	function getComposedId($params) {
+		if (! $params['field']['fieldId'] || ! $params['field']['trackerId'] || ! $params['itemId']) {
+			return null;
+		} else {
+			return "{$params['field']['fieldId']}{$params['field']['trackerId']}{$params['itemId']}";
+		}
 	}
 
 	function getTabularSchema()

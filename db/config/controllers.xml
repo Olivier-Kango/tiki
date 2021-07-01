@@ -76,6 +76,7 @@
 		<service id="tiki.controller.tabular" class="Services_Tracker_TabularController"/>
 		<service id="tiki.controller.tracker" class="Services_Tracker_Controller"/>
 		<service id="tiki.controller.tracker_calendar" class="Services_Tracker_CalendarController"/>
+		<service id="tiki.controller.tracker_duration" class="Services_Tracker_DurationController"/>
 		<service id="tiki.controller.tracker_sync" class="Services_Tracker_SyncController"/>
 		<service id="tiki.controller.tracker_todo" class="Services_Tracker_TodoController"/>
 		<service id="tiki.controller.translation" class="Services_Language_TranslationController"/>

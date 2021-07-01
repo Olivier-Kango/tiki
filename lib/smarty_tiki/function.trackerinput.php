@@ -63,6 +63,6 @@ function smarty_function_trackerinput($params, $smarty)
 			}
 		}
 
-		return $handler->renderInput($context) . $info . $desc;
+		return $handler->renderInput($context, $params) . $info . $desc;
 	}
 }
