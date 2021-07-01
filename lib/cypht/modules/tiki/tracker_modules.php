@@ -66,39 +66,78 @@ class Hm_Handler_move_to_tracker extends Hm_Handler_Module {
     public function process() {
         global $smarty;
 
-        list($success, $form) = $this->process_form(array('tracker_field_id', 'tracker_item_id', 'imap_msg_uid', 'imap_server_id', 'folder'));
+        list($success, $form) = $this->process_form(array('tracker_field_id', 'tracker_item_id', 'imap_msg_uid', 'list_path'));
         if (! $success) {
             return;
         }
-        $cache = Hm_IMAP_List::get_cache($this->cache, $form['imap_server_id']);
-        $imap = Hm_IMAP_List::connect($form['imap_server_id'], $cache);
-        if (! imap_authed($imap)) {
-            Hm_Msgs::add('ERRCould not authenticate with mail server');
-            return;
-        }
-        if (! $imap->select_mailbox(hex2bin($form['folder']))) {
-            Hm_Msgs::add('ERRMailbox not found');
-            return;
-        }
-        $msg = $imap->get_message_content($form['imap_msg_uid'], 0);
-        $msg = str_replace("\r\n", "\n", $msg);
-        $msg = str_replace("\n", "\r\n", $msg);
-        $msg = rtrim($msg)."\r\n";
-
-        $headers = $imap->get_message_headers($form['imap_msg_uid']);
-
-        // ensure file was saved before removing it from remote mailbox
-        TikiLib::events()->bind('tiki.trackeritem.update', function($args) {
-            $imap = $args['imap'];
-            $form = $args['form'];
-            $old = $args['old_values'][$form['tracker_field_id']];
-            $new = $args['values'][$form['tracker_field_id']];
-            if (substr_count($old, ',') != substr_count($new, ',')) {
-                if ($imap->message_action('DELETE', array($form['imap_msg_uid']))) {
-                   $imap->message_action('EXPUNGE', array($form['imap_msg_uid']));
-                }
+        if (preg_match("/^imap_(\w+)_(.+)/", $form['list_path'], $matches)) {
+            $imap_server_id = $matches[1];
+            $folder = hex2bin($matches[2]);
+            $cache = Hm_IMAP_List::get_cache($this->cache, $imap_server_id);
+            $imap = Hm_IMAP_List::connect($imap_server_id, $cache);
+            if (! imap_authed($imap)) {
+                Hm_Msgs::add('ERRCould not authenticate with mail server');
+                return;
             }
-        }, ['imap' => $imap, 'form' => $form]);
+            if (! $imap->select_mailbox($folder)) {
+                Hm_Msgs::add('ERRMailbox not found');
+                return;
+            }
+            $msg = $imap->get_message_content($form['imap_msg_uid'], 0);
+            $msg = str_replace("\r\n", "\n", $msg);
+            $msg = str_replace("\n", "\r\n", $msg);
+            $msg = rtrim($msg)."\r\n";
+
+            $headers = $imap->get_message_headers($form['imap_msg_uid']);
+
+            // ensure file was saved before removing it from remote mailbox
+            TikiLib::events()->bind('tiki.trackeritem.update', function($args) {
+                $imap = $args['imap'];
+                $form = $args['form'];
+                $old = $args['old_values'][$form['tracker_field_id']];
+                $new = $args['values'][$form['tracker_field_id']];
+                if (substr_count($old, ',') != substr_count($new, ',')) {
+                    if ($imap->message_action('DELETE', array($form['imap_msg_uid']))) {
+                        $imap->message_action('EXPUNGE', array($form['imap_msg_uid']));
+                    }
+                }
+            }, ['imap' => $imap, 'form' => $form]);
+        } elseif (preg_match("/^tracker_folder_/", $form['list_path'], $matches)) {
+            $email = tiki_parse_message($form['list_path'], $form['imap_msg_uid']);
+            if (! $email) {
+                Hm_Msgs::add('ERRMessage could not be loaded');
+                return;
+            }
+            $file = Tiki\FileGallery\File::id($email['fileId']);
+            $msg = $file->getContents();
+
+            $headers = [
+                'Message-ID' => $email['message_id'],
+                'Subject' => $email['subject'],
+            ];
+
+            // ensure file was saved before removing it from Tiki
+            TikiLib::events()->bind('tiki.trackeritem.update', function($args) {
+                $email = $args['email'];
+                if ($args['object'] == $email['itemId']) {
+                    return;
+                }
+                $trk = TikiLib::lib('trk');
+                $field = $trk->get_field_info($email['fieldId']);
+                if (! $field) {
+                    return;
+                }
+                $field['value'] = [
+                    'delete' => $email['fileId']
+                ];
+                $trk->replace_item($email['trackerId'], $email['itemId'], [
+                    'data' => [$field]
+                ]);
+            }, ['email' => $email]);
+        } else {
+            Hm_Msgs::add('ERRMessage from this source could not be moved');
+            return;
+        }
 
         $trk = TikiLib::lib('trk');
         $item = $trk->get_item_info($form['tracker_item_id']);
@@ -366,6 +405,42 @@ class Hm_Handler_tiki_download_message extends Hm_Handler_Module {
                 Hm_Functions::cease();
             }
             Hm_Msgs::add('ERRAn Error occurred trying to download the message');
+        }
+    }
+}
+
+/**
+ * Process a move/copy action
+ * @subpackage tiki/handler
+ */
+class Hm_Handler_tiki_process_move extends Hm_Handler_Module {
+    public function process() {
+        list($success, $form) = $this->process_form(array('imap_move_to', 'imap_move_action', 'imap_move_ids'));
+        if ($success) {
+            $moved = 0;
+            $dest_path = explode('_', $form['imap_move_to']);
+            $msg_ids = explode(',', $form['imap_move_ids']);
+            foreach ($msg_ids as $msg_id) {
+                list($list_path, $uid) = explode('#', $msg_id);
+                $email = tiki_parse_message($list_path, $uid);
+                if (! $email) {
+                    continue;
+                }
+                $result = tiki_move_to_imap_server($email, $form['imap_move_action'], $dest_path, $this->cache);
+                if ($result) {
+                    $moved++;
+                }
+            }
+            if ($moved == 0) {
+                Hm_Msgs::add('ERRUnable to move/copy selected messages');
+            }
+            elseif ($form['imap_move_action'] == 'move') {
+                Hm_Msgs::add($moved == 1 ? 'Message moved' : $moved.' messages moved');
+            }
+            else {
+                Hm_Msgs::add($moved == 1 ? 'Message copied' : $moved.' messages copied');
+            }
+            $this->out('move_count', $moved);
         }
     }
 }

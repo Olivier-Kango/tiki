@@ -173,3 +173,42 @@ function tiki_add_attached_images($message, $txt) {
     }
     return $txt;
 }}
+
+/**
+ * Copy/Move messages from Tiki to an IMAP server
+ * @subpackage tiki/functions
+ * @param array $email Tiki-stored message to move
+ * @param string $action action type, copy or move
+ * @param array $dest_path imap id and folder to copy/move to
+ * @param object $hm_cache cache interface
+ * @return boolean result
+ */
+if (!hm_exists('tiki_move_to_imap_server')) {
+function tiki_move_to_imap_server($email, $action, $dest_path, $hm_cache) {
+    $cache = Hm_IMAP_List::get_cache($hm_cache, $dest_path[1]);
+    $dest_imap = Hm_IMAP_List::connect($dest_path[1], $cache);
+    if ($dest_imap) {
+        $file = Tiki\FileGallery\File::id($email['fileId']);
+        $msg = $file->getContents();
+        if ($dest_imap->append_start(hex2bin($dest_path[2]), strlen($msg), true)) {
+            $dest_imap->append_feed($msg."\r\n");
+            if ($dest_imap->append_end()) {
+                if ($action == 'move') {
+                    $trk = TikiLib::lib('trk');
+                    $field = $trk->get_field_info($email['fieldId']);
+                    if (! $field) {
+                        return false;
+                    }
+                    $field['value'] = [
+                        'delete' => $email['fileId']
+                    ];
+                    $trk->replace_item($email['trackerId'], $email['itemId'], [
+                        'data' => [$field]
+                    ]);
+                }
+                return true;
+            }
+        }
+    }
+    return false;
+}}

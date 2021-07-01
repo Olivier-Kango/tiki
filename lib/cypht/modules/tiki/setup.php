@@ -127,11 +127,18 @@ add_output('ajax_tiki_message_content', 'filter_message_headers', true, 'imap');
 add_output('ajax_tiki_message_content', 'filter_message_body', true, 'imap');
 add_output('ajax_tiki_message_content', 'filter_message_struct', true, 'imap');
 add_output('ajax_tiki_message_content', 'add_prev_next_links', true);
+add_output('ajax_tiki_message_content', 'add_move_to_trackers', true);
 setup_base_ajax_page('ajax_tiki_delete_message', 'core');
 add_handler('ajax_tiki_delete_message', 'message_list_type', true, 'core');
 add_handler('ajax_tiki_delete_message', 'tracker_message_list_type', true);
 add_handler('ajax_tiki_delete_message', 'close_session_early',  true, 'core');
 add_handler('ajax_tiki_delete_message', 'tiki_delete_message',  true);
+setup_base_ajax_page('ajax_tiki_move_copy_action', 'core');
+add_handler('ajax_tiki_move_copy_action', 'load_imap_servers_from_config',  true, 'imap');
+add_handler('ajax_tiki_move_copy_action', 'imap_oauth2_token_check', true, 'imap');
+add_handler('ajax_tiki_move_copy_action', 'tiki_process_move',  true);
+add_handler('ajax_tiki_move_copy_action', 'save_imap_cache',  true, 'imap');
+add_handler('ajax_tiki_move_copy_action', 'close_session_early',  true, 'core');
 
 
 return array(
@@ -146,7 +153,8 @@ return array(
     'ajax_remove_from_calendar',
     'ajax_move_to_tracker',
     'ajax_tiki_message_content',
-    'ajax_tiki_delete_message'
+    'ajax_tiki_delete_message',
+    'ajax_tiki_move_copy_action',
   ),
   'allowed_get' => array(
     'tiki_download_message' => FILTER_VALIDATE_BOOLEAN,
@@ -189,5 +197,8 @@ return array(
     'outlook_refresh_uri' => FILTER_SANITIZE_STRING,
     'tracker_field_id' => FILTER_VALIDATE_INT,
     'tracker_item_id' => FILTER_VALIDATE_INT,
+    'imap_move_ids' => FILTER_SANITIZE_STRING,
+    'imap_move_to' => FILTER_SANITIZE_STRING,
+    'imap_move_action' => FILTER_SANITIZE_STRING,
   )
 );

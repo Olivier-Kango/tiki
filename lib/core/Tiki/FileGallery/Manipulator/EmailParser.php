@@ -29,6 +29,7 @@ class EmailParser extends Manipulator
 		}
 
 		$result = [
+			'message_id' => $message->getHeaderValue('Message-ID'),
 			'subject' => $message->getHeaderValue('Subject'),
 			'body' => $message->getContent(),
 			'from' => $this->getRawAddress($message->getHeader('From')),
