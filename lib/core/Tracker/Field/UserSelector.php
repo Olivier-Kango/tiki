@@ -108,7 +108,7 @@ class Tracker_Field_UserSelector extends Tracker_Field_Abstract implements Track
 					],
 					'showRealname' => [
 						'name' => tr('Show real name if possible'),
-						'description' => tr('Requires global setting "Show user\'s real name" to be enable in the Tracker Control Panel'),
+						'description' => tr('Requires global setting "Show user\'s real name" to be enabled in the Tracker Control Panel'),
 						'filter' => 'int',
 						'options' => [
 							0 => tr('No'),
