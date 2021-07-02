@@ -119,6 +119,16 @@ class ActivityLib
 			$encoded = json_encode($arguments);
 		}
 
+		if (strlen($encoded) >= 16777215) {
+			unset($arguments['old_data']);
+			$encoded = json_encode($arguments);
+		}
+
+		if (strlen($encoded) >= 16777215) {
+			unset($arguments['data']);
+			$encoded = json_encode($arguments);
+		}
+
 		$id = $this->streamTable()->insert(
 			[
 				'eventType' => $event,
