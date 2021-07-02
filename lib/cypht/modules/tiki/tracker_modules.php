@@ -171,7 +171,7 @@ class Hm_Handler_move_to_tracker extends Hm_Handler_Module {
 
         $smarty->loadPlugin('smarty_modifier_sefurl');
         $url = smarty_modifier_sefurl($item['itemId'], 'trackeritem');
-        $this->out('redirect_url', $url);
+        $this->out('tiki_redirect_url', $url);
     }
 }
 
@@ -488,7 +488,7 @@ class Hm_Output_add_prev_next_links extends Hm_Output_Module {
  */
 class Hm_Output_pass_redirect_url extends Hm_Output_Module {
     protected function output() {
-        $url = $this->get('redirect_url');
-        $this->out('redirect_url', $url);
+        $url = $this->get('tiki_redirect_url');
+        $this->out('tiki_redirect_url', $url);
     }
 }

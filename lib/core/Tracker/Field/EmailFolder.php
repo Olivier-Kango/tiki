@@ -277,6 +277,7 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements Tracker_F
 						$filegallib->remove_file($info);
 					}
 				}
+				break;
 			}
 		}
 	}

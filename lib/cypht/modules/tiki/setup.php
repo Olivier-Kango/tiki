@@ -163,7 +163,7 @@ return array(
   'allowed_output' => array(
     'operator' => array(FILTER_SANITIZE_STRING, false),
     'item_removed' => array(FILTER_VALIDATE_BOOLEAN, false),
-    'redirect_url' => array(FILTER_SANITIZE_STRING, false),
+    'tiki_redirect_url' => array(FILTER_SANITIZE_STRING, false),
     'msg_prev_link' => array(FILTER_SANITIZE_STRING, false),
     'msg_prev_subject' => array(FILTER_SANITIZE_STRING, false),
     'msg_next_link' => array(FILTER_SANITIZE_STRING, false),

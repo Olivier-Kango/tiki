@@ -90,9 +90,11 @@ function tiki_mime_part_to_bodystructure($part, $part_num = '0') {
     $content_type = explode('/', $part->getContentType());
     $header = $part->getHeader('Content-Type');
     $attributes = [];
-    foreach (['boundary', 'charset', 'name'] as $param) {
-        if ($header->hasParameter($param)) {
-            $attributes[$param] = $header->getValueFor($param);
+    if ($header) {
+        foreach (['boundary', 'charset', 'name'] as $param) {
+            if ($header->hasParameter($param)) {
+                $attributes[$param] = $header->getValueFor($param);
+            }
         }
     }
     $header = $part->getHeader('Content-Disposition');
