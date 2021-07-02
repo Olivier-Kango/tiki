@@ -41,12 +41,29 @@ class Search_MySql_Index implements Search_Index_Interface
 
 		$data = array_map(
 			function ($entry) {
-				return $entry->getValue();
+				return $this->getValue($entry);
 			},
 			$data
 		);
 
 		$this->table->insert($data);
+	}
+
+	private function getValue(Search_Type_Interface $data)
+	{
+		$value = $data->getValue();
+
+		if (($data instanceof Search_Type_Whole
+				|| $data instanceof Search_Type_PlainShortText
+				|| $data instanceof Search_Type_PlainText
+				|| $data instanceof Search_Type_MultivalueText)
+			&& strlen($value) >= 65535
+		) {
+			$value = function_exists('mb_strcut') ?
+				mb_strcut($value, 0, 65535) : substr($value, 0, 65535);
+		}
+
+		return $value;
 	}
 
 	private function handleField($name, $value)
@@ -209,7 +226,8 @@ class Search_MySql_Index implements Search_Index_Interface
 		return new Search_MySql_TypeFactory;
 	}
 
-	function getFieldsCount() {
+	function getFieldsCount()
+	{
 		return count($this->db->fetchAll("show columns from `{$this->index_name}`"));
 	}
 
