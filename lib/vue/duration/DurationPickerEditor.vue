@@ -1,7 +1,7 @@
 <template>
 	<div class="dp-editor--container">
 		<div class="dp-amount--editor__header">
-			<DurationPickerTitle v-if="store.state.chronometer" />
+			<!-- <DurationPickerTitle v-if="store.state.chronometer" /> -->
 			<DurationPickerAmounts :duration="store.state.duration" :amounts="getAmounts"></DurationPickerAmounts>
 		</div>
 		<div class="dp-amount--input__wrapper" v-on:keydown="handleTabKeys">
@@ -13,7 +13,7 @@
 					placeholder="__"
 					min="-1"
 					v-on:input="handleInput"
-					v-on:keypress="handleKeypress"
+					v-on:keydown="handleKeydown"
 					:value="convertValue"
 				>
 				<div class="dp-amount--input__label">{{ store.state.activeUnit }}</div>
@@ -58,7 +58,10 @@
 			return {
 				currentValue: 0,
 				interval: false,
-				store: this.$parent.store
+				timeoutId: null,
+				store: this.$parent.store,
+				inputId: this.$parent.store.state.inputId,
+				ignore: false
 			}
 		},
 		props: {
@@ -76,6 +79,8 @@
 		// },
 		beforeDestroy: function () {
 			clearInterval(this.interval);
+			clearTimeout(this.timeoutId);
+			this.ignore = true;
 		},
 		computed: {
 			convertValue: function() {
@@ -91,9 +96,10 @@
 			}
 		},
 		methods: {
-			handleKeypress: function (e) {
-				if (e.target.value.length > 3) {
-					// e.preventDefault();
+			handleKeydown: function (e) {
+				if (this.store.state.playing) {
+					e.preventDefault();
+					return;
 				}
 			},
 			handleInput: function (e) {
@@ -102,6 +108,20 @@
 					value = 0;
 				}
 				this.store.setDurationValue(value - this.currentValue, this.store.state.activeUnit);
+
+				if (!this.timeoutId) {
+					this.timeoutId = setTimeout(() => {
+						if (!this.store.state.playing) {
+							this.inputId && this.store.saveDurationDraft(this.inputId,{ draftAmounts: this.getTotalAmounts() })
+								.then(data => {
+									if (this.ignore) return;
+									this.store.state.draft = data;
+								});
+						}
+						clearTimeout(this.timeoutId);
+						this.timeoutId = null;
+					}, 180);
+				}
 			},
 			handleClickUnit: function(unit) {
 				this.$refs.input.focus();
@@ -125,7 +145,14 @@
 				this.store.setActiveUnit(unit);
 			},
 			handleArithmetic: function (step) {
+				if (this.store.state.playing) return;
 				this.store.setDurationValue(step, this.store.state.activeUnit);
+				if (!this.store.state.playing) {
+					this.inputId && this.store.saveDurationDraft(this.inputId, { draftAmounts: this.getTotalAmounts() })
+						.then(data => {
+							this.store.state.draft = data;
+						});
+				}
 			},
 			startArithmetic: function (step) {
 				if (!this.interval) {
@@ -137,6 +164,11 @@
 				clearInterval(this.interval);
 				this.interval = false;
 				this.$refs.input.focus();
+			},
+			getTotalAmounts: function() {
+				const totalDuration = this.store.getTotalDuration();
+				const amounts = this.store.__calcDuration(totalDuration);
+				return amounts;
 			}
 		}
 	};

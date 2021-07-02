@@ -171,6 +171,8 @@ class Services_Search_Controller
 										$item[$key . "_names"] ??
 										$item[$key . "_text"] ??
 										implode(',', $item[$key]);
+								} elseif (!empty($item[$key.'_text'])) {
+									$value = $item[$key.'_text'];
 								}
 								return $value;
 							}

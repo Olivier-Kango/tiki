@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "401003cc64832368ff9d31351b4c1f3f",
+    "content-hash": "a29dbeed68e3a319b2a605a4cfc1b3fd",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -2029,13 +2029,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/h5p/h5p-php-library.git",
-                "reference": "eeefc1228b4294d75288be341e5dea97a10927cb"
+                "reference": "aaf26d584bd076d8b1f7fcb2afeca09c2e3b1646"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/h5p/h5p-core/h5p-h5p-core-eeefc1228b4294d75288be341e5dea97a10927cb-zip-5ec22d.zip",
-                "reference": "eeefc1228b4294d75288be341e5dea97a10927cb",
-                "shasum": "c555a2ddd03cd4c97cf0d0aa861d5981cb534e7d"
+                "url": "https://composer.tiki.org/dist/h5p/h5p-core/h5p-h5p-core-aaf26d584bd076d8b1f7fcb2afeca09c2e3b1646-zip-4c6a86.zip",
+                "reference": "aaf26d584bd076d8b1f7fcb2afeca09c2e3b1646",
+                "shasum": "2653d6b4df7baef0379e0670cf4b44b594de3361"
             },
             "require": {
                 "php": ">=5.3.0"
@@ -2078,7 +2078,7 @@
                 "interactive",
                 "quiz"
             ],
-            "time": "2021-06-17T11:07:56+00:00"
+            "time": "2021-07-01T08:40:04+00:00"
         },
         {
             "name": "h5p/h5p-editor",
@@ -2086,13 +2086,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/h5p/h5p-editor-php-library.git",
-                "reference": "3b2d0b65cd882c485b6575bb80948c9831c6a489"
+                "reference": "67a3c62dc65754405241d7b931d4e424f0e38d0b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/h5p/h5p-editor/h5p-h5p-editor-3b2d0b65cd882c485b6575bb80948c9831c6a489-zip-352f06.zip",
-                "reference": "3b2d0b65cd882c485b6575bb80948c9831c6a489",
-                "shasum": "457fb774eb4cc5d4558ac9ef4789b259a1d379cf"
+                "url": "https://composer.tiki.org/dist/h5p/h5p-editor/h5p-h5p-editor-67a3c62dc65754405241d7b931d4e424f0e38d0b-zip-48e569.zip",
+                "reference": "67a3c62dc65754405241d7b931d4e424f0e38d0b",
+                "shasum": "5f236bc70369d464f48627784a30acccd1005559"
             },
             "require": {
                 "php": ">=5.3.0"
@@ -2135,7 +2135,7 @@
                 "interactive",
                 "quiz"
             ],
-            "time": "2021-06-24T13:37:25+00:00"
+            "time": "2021-07-01T07:22:21+00:00"
         },
         {
             "name": "hesammousavi/bootstrap-v4-rtl",
@@ -2168,6 +2168,63 @@
                 "bootstrap-rtl"
             ],
             "time": "2020-09-01T05:04:14+00:00"
+        },
+        {
+            "name": "hybridauth/hybridauth",
+            "version": "3.7.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hybridauth/hybridauth.git",
+                "reference": "0ec1b8cb8b230aae739422c5e42bc5733b3a7316"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/hybridauth/hybridauth/hybridauth-hybridauth-0ec1b8cb8b230aae739422c5e42bc5733b3a7316-zip-adba7d.zip",
+                "reference": "0ec1b8cb8b230aae739422c5e42bc5733b3a7316",
+                "shasum": "e09bcb8bea2ad2e6f6a4b047acc5c11086f9c5b3"
+            },
+            "require": {
+                "php": "^5.4 || ^7.0 || ^8.0"
+            },
+            "require-dev": {
+                "ext-curl": "*",
+                "phpunit/phpunit": "^4.8.35 || ^6.5 || ^8.0"
+            },
+            "suggest": {
+                "firebase/php-jwt": "Needed to support Apple provider",
+                "phpseclib/phpseclib": "Needed to support Apple provider"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Hybridauth\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Miled",
+                    "email": "hybridauth@gmail.com"
+                }
+            ],
+            "description": "PHP Social Authentication Library",
+            "homepage": "https://hybridauth.github.io",
+            "keywords": [
+                "Authentication",
+                "OpenId",
+                "api",
+                "apple",
+                "authorization",
+                "facebook",
+                "google",
+                "oauth",
+                "social",
+                "twitter"
+            ],
+            "time": "2021-03-13T17:35:33+00:00"
         },
         {
             "name": "itsjavi/bootstrap-colorpicker",
@@ -2268,13 +2325,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jasonmunro/cypht.git",
-                "reference": "0e47bae9def84da0f7db6175be5028e60d3aeb44"
+                "reference": "44567c7b01045c32bdb11cfe3d823bcdcbca522a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-0e47bae9def84da0f7db6175be5028e60d3aeb44-zip-f40f5c.zip",
-                "reference": "0e47bae9def84da0f7db6175be5028e60d3aeb44",
-                "shasum": "c2a1534195ce71c782e9dd08d3976aa2303fc7d7"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-44567c7b01045c32bdb11cfe3d823bcdcbca522a-zip-785eac.zip",
+                "reference": "44567c7b01045c32bdb11cfe3d823bcdcbca522a",
+                "shasum": "612547841b6538cbc44c17254a20ca8e55ac12cf"
             },
             "require": {
                 "christian-riesen/base32": "^1.3.2",
@@ -2323,7 +2380,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2021-06-28T18:53:34+00:00"
+            "time": "2021-06-30T21:02:53+00:00"
         },
         {
             "name": "jquery-form/form",
@@ -3810,17 +3867,17 @@
         },
         {
             "name": "laminas/laminas-session",
-            "version": "2.10.0",
+            "version": "2.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-session.git",
-                "reference": "921e6a9f807ee243a9a4f8a8a297929d0c2b50cd"
+                "reference": "c4e19f1a3bc6f7ecf6f25f79b32717a544236922"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-session/laminas-laminas-session-921e6a9f807ee243a9a4f8a8a297929d0c2b50cd-zip-004e3b.zip",
-                "reference": "921e6a9f807ee243a9a4f8a8a297929d0c2b50cd",
-                "shasum": "4e4cee5ad25cb66070cfe70cdb349e25e52d9894"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-session/laminas-laminas-session-c4e19f1a3bc6f7ecf6f25f79b32717a544236922-zip-4f61ce.zip",
+                "reference": "c4e19f1a3bc6f7ecf6f25f79b32717a544236922",
+                "shasum": "276acde4a91e5292d92ec1467e9baccb91d2ab3f"
             },
             "require": {
                 "laminas/laminas-eventmanager": "^3.0",
@@ -3834,7 +3891,7 @@
             "require-dev": {
                 "container-interop/container-interop": "^1.1",
                 "laminas/laminas-cache": "^2.6.1",
-                "laminas/laminas-coding-standard": "~1.0.0",
+                "laminas/laminas-coding-standard": "~2.2.1",
                 "laminas/laminas-db": "^2.7",
                 "laminas/laminas-http": "^2.5.4",
                 "laminas/laminas-servicemanager": "^3.0.3",
@@ -3874,7 +3931,7 @@
                 "laminas",
                 "session"
             ],
-            "time": "2020-10-31T15:33:31+00:00"
+            "time": "2021-06-30T15:33:53+00:00"
         },
         {
             "name": "laminas/laminas-soap",

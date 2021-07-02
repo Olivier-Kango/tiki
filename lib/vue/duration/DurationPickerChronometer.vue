@@ -1,27 +1,27 @@
 <template>
 	<div class="dp-chronometer__container">
 		<div class="dp-chronometer__group">
-			<span class="dp-chronometer-btn unselectable" v-on:click="addTimer" title="add time">
+			<!-- <span class="dp-chronometer-btn unselectable" v-on:click="addTimer" title="add time">
 				<i class="fas fa-plus"></i>
-			</span>
+			</span> -->
 			<span class="dp-chronometer-btn unselectable" v-if="show" v-on:click="startTimer" title="start">
 				<i class="fas fa-play"></i>
 			</span>
 			<span class="dp-chronometer-btn unselectable" v-if="!show" v-on:click="stopTimer" title="pause">
 				<i class="fas fa-pause"></i>
 			</span>
-			<span class="dp-chronometer-btn unselectable dp-danger" v-on:click="deleteTimestamp" title="delete">
+			<!-- <span class="dp-chronometer-btn unselectable dp-danger" v-on:click="deleteTimestamp" title="delete">
 				<i class="fas fa-trash"></i>
-			</span>
+			</span> -->
 			<span class="dp-chronometer-btn unselectable dp-danger" v-on:click="resetTimer" title="reset">
 				<i class="fas fa-undo-alt"></i>
 			</span>
-			<span class="dp-chronometer-btn unselectable" v-on:click="prevTimestamp" title="prev">
+			<!-- <span class="dp-chronometer-btn unselectable" v-on:click="prevTimestamp" title="prev">
 				<i class="fas fa-chevron-left"></i>
-			</span>
-			<span class="dp-chronometer-btn unselectable" v-on:click="nextTimestamp" title="next">
+			</span> -->
+			<!-- <span class="dp-chronometer-btn unselectable" v-on:click="nextTimestamp" title="next">
 				<i class="fas fa-chevron-right"></i>
-			</span>
+			</span> -->
 		</div>
 	</div>
 </template>
@@ -32,25 +32,42 @@
 		data: function () {
 			return {
 				store: this.$parent.store,
+				inputId: this.$parent.store.state.inputId,
 				startId: false,
+				intervalId: null,
 				startDuration: null,
 				show: true,
-				timestamp: null
+				timestamp: null,
+				startTime: null
 			};
 		},
+		mounted: function () {
+			if (this.store.state.draft && this.store.state.draft.startTime) {
+				this.startTime = this.store.state.draft.startTime;
+				this.startTimer();
+			}
+		},
 		beforeDestroy: function () {
-			cancelAnimationFrame(this.startId);
+			// cancelAnimationFrame(this.startId);
+			clearInterval(this.intervalId);
 		},
 		methods: {
 			startTimer: function () {
 				if (this.startId) return;
 				this.store.setPlaying(true);
 				this.show = false;
-				this.startTime = moment();
+				if (!this.startTime) {
+					this.startTime = moment();
+					this.inputId && this.store.saveDurationDraft(this.inputId, { startTime: this.startTime.toISOString() })
+						.then(data => {
+							this.store.state.draft = data;
+						});
+				}
 				this.timestamp = this.store.getTimestamp(this.store.state.activeTimestamp);
 				this.updateActiveTimestamp({startTime: this.startTime});
 
-				this.startId = requestAnimationFrame(this.startChronometer);
+				// this.startId = requestAnimationFrame(this.startChronometer);
+				this.intervalId = setInterval(this.startChronometerInterval, 1000);
 			},
 			startChronometer: function() {
 				const momentCurrentTime = moment();
@@ -58,21 +75,42 @@
 				this.updateActiveTimestamp({spentTime: moment.duration(millisecondsDiff).add(this.timestamp.spentTime)})
 				this.startId = requestAnimationFrame(this.startChronometer);
 			},
+			startChronometerInterval: function () {
+				const momentCurrentTime = moment();
+				const millisecondsDiff = momentCurrentTime.diff(this.startTime);
+				const currentSpentTime = moment.duration(millisecondsDiff).add(this.timestamp.spentTime);
+				this.updateActiveTimestamp({spentTime: currentSpentTime});
+			},
 			stopTimer: function () {
-				cancelAnimationFrame(this.startId);
+				this.inputId && this.store.saveDurationDraft(this.inputId, { startTime: '', draftAmounts: this.getTotalAmounts() })
+					.then(data => {
+						this.store.state.draft = data;
+					});
+				// cancelAnimationFrame(this.startId);
+				clearInterval(this.intervalId);
+				this.startTime = null;
 				this.startId = false;
 				this.show = true;
 				this.store.setPlaying(false);
 				this.updateActiveTimestamp({stopTime: moment()});
 			},
+			getTotalAmounts: function() {
+				const totalDuration = this.store.getTotalDuration();
+				const amounts = this.store.__calcDuration(totalDuration);
+				return amounts;
+			},
 			resetTimer: function () {
 				if (this.store.state.playing) return;
 				if (confirm("Reset to initial state ?")) {
-					cancelAnimationFrame(this.startId);
+					// cancelAnimationFrame(this.startId);
+					clearInterval(this.intervalId);
 					this.startId = false;
 					this.show = true;
 
 					this.store.resetIntitialDuration();
+					this.inputId && this.store.removeDurationDraft(this.inputId).then(data => {
+						this.store.state.draft = false;
+					});
 				}
 			},
 			addTimer: function() {

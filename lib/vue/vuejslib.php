@@ -99,6 +99,7 @@ var vm = new Vue({
 	  render: h => h($name),
 	  data: function () { return $data; },
 	}).\$mount(`#$name`);
+observeVueApp(vm);
 "
 				);
 				return "<div id=\"$name\"></div>";

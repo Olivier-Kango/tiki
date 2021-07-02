@@ -6156,6 +6156,10 @@ class TrackerLib extends TikiLib
 						'layout' => $params['editable'],
 						'label' => $field['name'],
 						'group' => ! empty($params['editgroup']) ? $params['editgroup'] : false,
+						'field' => [
+							'id' => "{$field['fieldId']}{$field['trackerId']}{$item['itemId']}",
+							'type' => $field['type']
+						],
 						'object_store_url' => [
 							'controller' => 'tracker',
 							'action' => 'update_item',

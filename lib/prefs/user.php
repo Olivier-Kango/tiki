@@ -279,7 +279,7 @@ function prefs_user_list($partial = false)
 			'name' => tra('Show user\'s real name'),
 			'description' => tra('Use the user\'s real name instead of log-in name in the autocomplete selector in trackers'),
 			'type' => 'flag',
-			'hint' => tra('This is a global switch for the parameter "Show real name if possible". Activated it in the options of each User Selector field independently.'),
+			'hint' => tra('This is a global switch for the parameter "Show real name if possible". Requires activation in the options of each User Selector field independently.'),
 			'dependencies' => ['feature_jquery_autocomplete', 'user_show_realnames', 'feature_trackers'],
 			'default' => 'n',
 

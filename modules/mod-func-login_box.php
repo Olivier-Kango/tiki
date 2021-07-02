@@ -11,6 +11,10 @@ if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
 	exit;
 }
 
+//aris002 CHECK if we really can't avoid this?
+require_once('lib/socnets/PrefsGen.php');
+use TikiLib\Socnets\PrefsGen\PrefsGen;
+
 /**
  * @return array
  */
@@ -108,6 +112,9 @@ function module_login_box($mod_reference, &$module_params)
 		}
 	}
 
+	if ($prefs['feature_socialnetworks'] === 'y') {
+	    $smarty->assign('socnetsAll', PrefsGen::getHybridProvidersPHP());
+	}
 	if ($prefs['allowRegister'] === 'y' && (empty($module_params['register']) || $module_params['register'] === 'y')) {
 		$module_params['show_register'] = 'y';
 	} else {
