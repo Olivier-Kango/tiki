@@ -5,12 +5,6 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
-//this script may only be included - so its better to die if called directly.
-if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
-	header("location: index.php");
-	exit;
-}
-
 /**
  * Returns a string with the href and data attributes to make a bootstrap modal appear on a link
  * Note: Expects to be inside a "double quoted" href attribute in an html anchor

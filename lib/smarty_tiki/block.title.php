@@ -18,13 +18,6 @@
  *
  * usage: {title help='Example' admpage='example'}{tr}Example{/tr}{/title}
  */
-
-//this script may only be included - so its better to die if called directly.
-if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
-	header("location: index.php");
-	exit;
-}
-
 function smarty_block_title($params, $content, $template, &$repeat)
 {
 	global $prefs, $tiki_p_view_templates, $tiki_p_edit_templates, $tiki_p_admin;

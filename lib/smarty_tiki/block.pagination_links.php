@@ -42,13 +42,6 @@
  *  - _onclick : to allow for custom onclick for link
  *  - offset_jsvar : the variable name of the javascript variable to store the requested offset when pagination link is clicked (does not work with reloff).
  */
-
-//this script may only be included - so its better to die if called directly.
-if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
-	header("location: index.php");
-	exit;
-}
-
 function smarty_block_pagination_links($params, $url, $smarty, &$repeat)
 {
 	global $prefs;

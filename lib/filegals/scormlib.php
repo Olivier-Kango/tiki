@@ -5,11 +5,6 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
-if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
-	header("location: index.php");
-	exit;
-}
-
 class ScormLib
 {
 	public function handle_file_creation($args)

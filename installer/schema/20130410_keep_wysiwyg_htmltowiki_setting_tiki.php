@@ -5,11 +5,6 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
-if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
-	header("location: index.php");
-	exit;
-}
-
 /**
  * default for wysiwyg_htmltowiki changed between tiki 10 and 11 in r45440 - this maintains previous default setting
  *

@@ -35,13 +35,6 @@
  *   _script : specify another script than the current one (this disable AJAX for this link when the current script is different).
  *   _on* : specify values of on* (e.g. onclick) HTML attributes used for javascript events
  */
-
-//this script may only be included - so its better to die if called directly.
-if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
-	header("location: index.php");
-	exit;
-}
-
 function smarty_block_self_link($params, $content, $smarty, &$repeat = false)
 {
 	$default_type = 'absolute_path';

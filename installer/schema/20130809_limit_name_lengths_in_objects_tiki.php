@@ -5,11 +5,6 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
-if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
-	header("location: index.php");
-	exit;
-}
-
 /*
 This patch will TRUNCATE the tiki_objects.itemId and name values so they don't exceed the maximum allowed page name length
 The current maximum allowed page name length = 158 characters.

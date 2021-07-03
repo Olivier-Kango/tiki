@@ -35,13 +35,6 @@
  *  - width		    e.g. "50%", "200px" default=""
  *  - store_cookie  "y|n" default y, set to n to not store closed state in a cookie
  */
-
-//this script may only be included - so its better to die if called directly.
-if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
-	header("location: index.php");
-	exit;
-}
-
 function smarty_block_remarksbox($params, $content, $smarty, &$repeat)
 {
 	global $prefs;

@@ -1,8 +1,4 @@
 <?php
-if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
-	header("location: index.php");
-	exit;
-}
 
 /**
  * Create links in tiki_links table for objects other than wiki pages,

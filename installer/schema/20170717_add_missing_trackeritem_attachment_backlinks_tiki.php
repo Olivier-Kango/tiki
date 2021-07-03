@@ -5,11 +5,6 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
-if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
-	header("location: index.php");
-	exit;
-}
-
 /**
  * Backlinks for tracker Files field attachments to their respective items
  * were not being recorded until r63258. This script adds missing backlinks.

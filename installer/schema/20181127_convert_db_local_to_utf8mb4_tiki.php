@@ -5,11 +5,6 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
-if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
-	header("location: index.php");
-	exit;
-}
-
 /**
  * We change the client_charset value from 'utf8' to 'utf8mb4' if it is still 'utf8'.
  * Since db/local.php is a very important file, we keep a backup if we edit it.

@@ -34,13 +34,6 @@
  * error was used only in case the name was not there.
  * I fixed that error case. -- mose
  */
-
-//this script may only be included - so its better to die if called directly.
-if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
-	header("location: index.php");
-	exit;
-}
-
 function smarty_block_tikimodule($params, $content, $smarty, &$repeat)
 {
 	if ($repeat) {

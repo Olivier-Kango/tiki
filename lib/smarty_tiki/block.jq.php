@@ -33,12 +33,6 @@
  *  Escaped already - not re-parsed, not wrapped in literals
  *    {jq}{literal}$(#exampleId").show({/literal}{if $animation_fast eq 'y'}"fast"{else}"slow"{/if}){/jq}
  */
-
-//this script may only be included - so its better to die if called directly.
-if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
-	header("location: index.php");
-	exit;
-}
 /**
  * @param array                    $params
  * @param string|null              $content

@@ -15,13 +15,6 @@
  * to strip all HTML at once... And it have no nasty BUG which is incorrectly
  * join some words together...
  */
-
-//this script may only be included - so its better to die if called directly.
-if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
-	header("location: index.php");
-	exit;
-}
-
 function smarty_block_compact($params, $content, $smarty, &$repeat)
 {
 	if ($repeat) {

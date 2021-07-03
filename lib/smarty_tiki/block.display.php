@@ -15,13 +15,6 @@
  * ex.: {display groups='Anonymous,-Registered,foo' friends=$f_42[ error='You may not see this item']}$f_1...$f_9///else///Become friend with $_42 first{/display}
  * TODO : Re-implement friend filter
  */
-
-//this script may only be included - so its better to die if called directly.
-if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
-	header("location: index.php");
-	exit;
-}
-
 function smarty_block_display($params, $content, $smarty, &$repeat)
 {
 	global $prefs, $user;

@@ -23,13 +23,6 @@
  *
  * usage: {textarea id='my_area' name='my_area'}{tr}My Text{/tr}{/textarea}
  */
-
-//this script may only be included - so its better to die if called directly.
-if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
-	header("location: index.php");
-	exit;
-}
-
 /**
  * @param array $params
  * @param string $content

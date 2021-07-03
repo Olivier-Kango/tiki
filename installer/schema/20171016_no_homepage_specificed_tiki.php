@@ -1,8 +1,4 @@
 <?php
-if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
-	header("location: index.php");
-	exit;
-}
 
 /**
  * In some upgrade cases pages without a name can cause a "No wiki page specified" error on tiki-index.php

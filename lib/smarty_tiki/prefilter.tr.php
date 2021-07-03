@@ -5,12 +5,6 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
-//this script may only be included - so its better to die if called directly.
-if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
-	header("location: index.php");
-	exit;
-}
-
 // Smarty translation prefilter. This prefilter tries to offload the tr block from as much work as possible to keep
 // the performance penalty of translation limited to compilation. It does not intervene if an argument is given (lang)
 // and in some cases when translation may only be possible at runtime.
