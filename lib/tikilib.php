@@ -5,6 +5,8 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
+use Tiki\TikiInit;
+
 require_once(__DIR__ . '/../lib/debug/Tracer.php');
 
 // this script may only be included - so its better to die if called directly.

@@ -13,6 +13,7 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
 
 use Laminas\Config\Config;
 use Tiki\Command\ConsoleSetupException;
+use Tiki\TikiInit;
 
 require_once('lib/init/initlib.php');
 

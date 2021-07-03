@@ -44,7 +44,7 @@ class ExtensionManager
 		}
 
 		if ($useContainer) {
-			$container = \TikiInit::getContainer();
+			$container = \Tiki\TikiInit::getContainer();
 			try {
 				$result = $container->getParameter('tiki.packages.extensions');
 				if (! empty($result)) {

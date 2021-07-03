@@ -84,7 +84,7 @@ class ConfigureCommand extends Command
 // \$system_configuration_identifier = 'example.com';
 
 LOCALPHP;
-		$local_php = \TikiInit::getCredentialsFile();
+		$local_php = \Tiki\TikiInit::getCredentialsFile();
 		file_put_contents($local_php, $out);
 
 		$output->writeln("Wrote $local_php");

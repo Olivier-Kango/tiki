@@ -8,6 +8,8 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
+use Tiki\TikiInit;
+
 require_once('tiki-setup.php');
 
 $access->check_feature('feature_calendar');

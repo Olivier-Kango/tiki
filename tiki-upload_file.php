@@ -8,6 +8,8 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
+use Tiki\TikiInit;
+
 $section = 'file_galleries';
 $isUpload = false;
 

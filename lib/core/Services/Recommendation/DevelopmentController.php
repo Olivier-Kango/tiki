@@ -6,6 +6,7 @@
 // $Id$
 
 use Tiki\Recommendation as R;
+use Tiki\TikiInit;
 
 class Services_Recommendation_DevelopmentController
 {

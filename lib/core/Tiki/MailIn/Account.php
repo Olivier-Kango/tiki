@@ -64,7 +64,7 @@ class Account
 		];
 
 		try {
-			$container = \TikiInit::getContainer();
+			$container = \Tiki\TikiInit::getContainer();
 			$type = str_replace('-', '', $acc['type']);
 			$provider = $container->get("tiki.mailin.provider.{$type}");
 

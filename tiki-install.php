@@ -10,6 +10,8 @@
  */
 // $Id$
 
+use Tiki\TikiInit;
+
 const MIN_PHP_VERSION = '7.4.0';
 
 $in_installer = 1;

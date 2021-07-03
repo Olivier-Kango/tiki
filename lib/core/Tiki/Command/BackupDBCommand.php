@@ -45,7 +45,7 @@ class BackupDBCommand extends Command
 			return;
 		}
 
-		$local = \TikiInit::getCredentialsFile();
+		$local = \Tiki\TikiInit::getCredentialsFile();
 		if (! is_readable($local)) {
 			$output->writeln('<error>Error: "' . $local . '" not readable.</error>');
 			return;

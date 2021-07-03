@@ -7,7 +7,7 @@
 
 namespace Tiki\File;
 
-use TikiInit;
+use Tiki\TikiInit;
 use Tiki\Process\Process;
 use Tiki\FileGallery\File;
 use Tiki\Lib\Alchemy\AlchemyLib;

@@ -6,6 +6,7 @@
 // $Id$
 
 use Tiki\Package\ExtensionManager;
+use Tiki\TikiInit;
 use Tiki\Yaml\Directives as YamlDirectives;
 use Tiki\Yaml\Filter\ReplaceUserData as YamlReplaceUserData;
 

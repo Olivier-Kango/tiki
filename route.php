@@ -6,6 +6,7 @@
 // $Id$
 
 // Adding support for an other web server? Check the end of the file
+use Tiki\TikiInit;
 
 /**
  * Routing method, receives the path portion of the URL relative to tiki root.

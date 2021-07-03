@@ -17,7 +17,9 @@ class Autoload
 	/**
 	 * @var string[] Map of classes to register / handle
 	 */
-	protected static $aliasMap = [ ];
+	protected static $aliasMap = [
+		'TikiInit' => 'Tiki\\TikiInit',
+	];
 
 	/**
 	 * @var ClassLoader pointer to composer autoloader
@@ -30,7 +32,7 @@ class Autoload
 	 *
 	 * @param string $class the name of the class to be autoloaded
 	 */
-	public static function autoloadAlias($class)
+	public static function autoloadAlias($class): ?bool
 	{
 		// check if we can handle this class
 		if (! isset(static::$aliasMap[$class])) {
@@ -61,7 +63,7 @@ class Autoload
 			return static::$composerAutoloader;
 		}
 
-		static::$composerAutoloader = require __DIR__ . '/../../../../vendor_bundled/vendor/autoload.php';
+		static::$composerAutoloader = require TIKI_PATH . '/vendor_bundled/vendor/autoload.php';
 		return static::$composerAutoloader;
 	}
 }

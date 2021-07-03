@@ -55,6 +55,7 @@ $elapsed_in_db = 0.0;
 $server_load = '';
 $area = 'tiki';
 $crumbs = [];
+require_once('lib/core/Tiki/TikiInit.php');
 require_once('lib/setup/tikisetup.class.php');
 require_once('lib/setup/timer.class.php');
 $tiki_timer = new timer();

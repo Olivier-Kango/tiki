@@ -6,6 +6,7 @@
 // $Id$
 
 use Tiki\Package\Extension\Utilities as PackageUtilities;
+use Tiki\TikiInit;
 
 class ServiceLib
 {
