@@ -85,6 +85,7 @@ if (is_dir(__DIR__ . '/../../vendor_custom')) {
 	}
 }
 
+spl_autoload_register('Tiki\PSR12Migration\Autoload::autoloadAlias');
 spl_autoload_register('Tiki_Autoload::autoload');
 
 /**
