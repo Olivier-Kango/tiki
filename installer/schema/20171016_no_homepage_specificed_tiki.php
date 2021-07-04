@@ -1,5 +1,7 @@
 <?php
 
+use Tiki\Installer\Installer;
+
 /**
  * In some upgrade cases pages without a name can cause a "No wiki page specified" error on tiki-index.php
  * Also the pref wikiHomePage can be set to NULL causing the same error

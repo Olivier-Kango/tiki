@@ -5,594 +5,519 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
-//this script may only be included - so its better to die if called directly.
-use Tiki\TikiInit;
+use Tiki\Installer\InstallerDatabaseErrorHandler;
 
-if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
-	header("location: index.php");
+/**
+ * @return bool
+ */
+function has_tiki_db()
+{
+	global $installer;
+	return $installer->tableExists('users_users');
+}
+
+/**
+ * @return bool
+ */
+function has_tiki_db_20()
+{
+	global $installer;
+	return $installer->tableExists('tiki_pages_translation_bits');
+}
+
+/**
+ * @param $dbb_tiki
+ * @param $host_tiki
+ * @param $user_tiki
+ * @param $pass_tiki
+ * @param $dbs_tiki
+ * @param string $client_charset
+ * @param string $api_tiki
+ * @param string $dbversion_tiki
+ */
+function write_local_php($dbb_tiki, $host_tiki, $user_tiki, $pass_tiki, $dbs_tiki, $client_charset = '', $api_tiki = '', $dbversion_tiki = 'current')
+{
+	global $local;
+	global $db_tiki;
+	if ($dbs_tiki && $user_tiki) {
+		$db_tiki = addslashes($dbb_tiki);
+		$host_tiki = addslashes($host_tiki);
+		$user_tiki = addslashes($user_tiki);
+		$pass_tiki = addslashes($pass_tiki);
+		$dbs_tiki = addslashes($dbs_tiki);
+		$fw = fopen($local, 'w');
+		$filetowrite = "<?php\n";
+		$filetowrite .= "\$db_tiki='" . $db_tiki . "';\n";
+		if ($dbversion_tiki == 'current') {
+			require_once 'lib/setup/twversion.class.php';
+			$twversion = new TWVersion();
+			$dbversion_tiki = $twversion->getBaseVersion();
+		}
+		$filetowrite .= "\$dbversion_tiki='" . $dbversion_tiki . "';\n";
+		$filetowrite .= "\$host_tiki='" . $host_tiki . "';\n";
+		$filetowrite .= "\$user_tiki='" . $user_tiki . "';\n";
+		$filetowrite .= "\$pass_tiki='" . $pass_tiki . "';\n";
+		$filetowrite .= "\$dbs_tiki='" . $dbs_tiki . "';\n";
+		if (! empty($api_tiki)) {
+			$filetowrite .= "\$api_tiki='" . $api_tiki . "';\n";
+		}
+		if (! empty($client_charset)) {
+			$filetowrite .= "\$client_charset='$client_charset';\n";
+		}
+		$filetowrite .= "// \$dbfail_url = '';\n";
+		$filetowrite .= "// \$noroute_url = './';\n";
+		$filetowrite .= "// If you experience text encoding issues after updating (e.g. apostrophes etc showing up as strange characters) \n";
+		$filetowrite .= "// \$client_charset='latin1';\n";
+		$filetowrite .= "// \$client_charset='utf8mb4';\n";
+		$filetowrite .= "// See http://tiki.org/ReleaseNotes5.0#Known_Issues and http://doc.tiki.org/Understanding+Encoding for more info\n\n";
+		$filetowrite .= "// If your php installation does not not have pdo extension\n";
+		$filetowrite .= "// \$api_tiki = 'adodb';\n\n";
+		$filetowrite .= "// Want configurations managed at the system level or restrict some preferences? http://doc.tiki.org/System+Configuration\n";
+		$filetowrite .= "// \$system_configuration_file = '/etc/tiki.ini.php';\n";
+		$filetowrite .= "// \$system_configuration_identifier = 'example.com';\n\n";
+		fwrite($fw, $filetowrite);
+		fclose($fw);
+	}
+}
+
+/**
+ * @param string $domain
+ * @return string
+ */
+function create_dirs($domain = '')
+{
+	global $tikipath;
+	$dirs = [
+		'db',
+		'dump',
+		'img/wiki',
+		'img/wiki_up',
+		'img/trackers',
+		'temp',
+		'temp/cache',
+		'temp/templates_c',
+		'templates'];
+
+	$ret = "";
+	foreach ($dirs as $dir) {
+		$dir = $dir . '/' . $domain;
+
+		if (! is_dir($dir)) {
+			$created = @mkdir($dir, 02775); // Try creating the directory
+			if (! $created) {
+				$ret .= "The directory '$tikipath$dir' could not be created.\n";
+			}
+		} elseif (! TikiInit::is_writeable($dir)) {
+			@chmod($dir, 02775);
+			if (! TikiInit::is_writeable($dir)) {
+				$ret .= "The directory '$tikipath$dir' is not writeable.\n";
+			}
+		}
+	}
+	return $ret;
+}
+
+/**
+ * @return bool
+ */
+function isWindows()
+{
+	static $windows;
+
+	if (! isset($windows)) {
+		$windows = substr(PHP_OS, 0, 3) == 'WIN';
+	}
+
+	return $windows;
+}
+
+function check_session_save_path()
+{
+	global $errors;
+	if (ini_get('session.save_handler') == 'files') {
+		$save_path = ini_get('session.save_path');
+		// check if we can check it. The session.save_path can be outside
+		// the open_basedir paths.
+		$open_basedir = ini_get('open_basedir');
+		if (empty($open_basedir)) {
+			if (! is_dir($save_path)) {
+				$errors .= "The directory '$save_path' does not exist or PHP is not allowed to access it (check open_basedir entry in php.ini).\n";
+			} elseif (! TikiInit::is_writeable($save_path)) {
+				$errors .= "The directory '$save_path' is not writeable.\n";
+			}
+		}
+
+		if ($errors) {
+			$save_path = sys_get_temp_dir();
+
+			if (is_dir($save_path) && TikiInit::is_writeable($save_path)) {
+				ini_set('session.save_path', $save_path);
+
+				$errors = '';
+			}
+		}
+	}
+}
+
+function get_webserver_uid()
+{
+	global $wwwuser;
+	global $wwwgroup;
+	$wwwuser = '';
+	$wwwgroup = '';
+
+	if (isWindows()) {
+		$wwwuser = 'SYSTEM';
+
+		$wwwgroup = 'SYSTEM';
+	}
+
+	if (function_exists('posix_getuid')) {
+		$user = @posix_getpwuid(@posix_getuid());
+
+		$group = @posix_getpwuid(@posix_getgid());
+		$wwwuser = $user ? $user['name'] : false;
+		$wwwgroup = $group ? $group['name'] : false;
+	}
+
+	if (! $wwwuser) {
+		$wwwuser = 'nobody (or the user account the web server is running under)';
+	}
+
+	if (! $wwwgroup) {
+		$wwwgroup = 'nobody (or the group account the web server is running under)';
+	}
+}
+
+function error_and_exit()
+{
+	global $errors, $tikipath;
+
+	$PHP_CONFIG_FILE_PATH = PHP_CONFIG_FILE_PATH;
+
+	$httpd_conf = 'httpd.conf';
+	/*
+			ob_start();
+			phpinfo (INFO_MODULES);
+
+			if (preg_match('/Server Root<\/b><\/td><td\s+align="left">([^<]*)</', ob_get_contents(), $m)) {
+					$httpd_conf = $m[1] . '/' . $httpd_conf;
+			}
+
+			ob_end_clean();
+	*/
+
+	print "<html><body>\n<h2><IMG SRC=\"img/tiki/Tiki_WCG.png\" ALT=\"\" BORDER=0><br /\>
+	<font color='red'>Tiki Installer cannot proceed</font></h2>\n<pre>\n$errors";
+
+	if (! isWindows()) {
+		print "<br /><br />Your options:
+
+
+1- With FTP access:
+	a) Change the permissions (chmod) of the directories to 777.
+	b) Create any missing directories
+	c) <a href='tiki-install.php'>Execute the Tiki installer again</a> (Once you have executed these commands, this message will disappear!)
+
+or
+
+2- With shell (SSH) access, you can run the command below.
+
+	a) To run setup.sh, follow the instructions:
+		\$ cd $tikipath
+		\$ sh setup.sh
+
+		The script will offer you options depending on your server configuration.
+
+	b) <a href='tiki-install.php'>Execute the Tiki installer again</a> (Once you have executed these commands, this message will disappear!)
+
+
+<hr>
+If you have problems accessing a directory, check the open_basedir entry in
+$PHP_CONFIG_FILE_PATH/php.ini or $httpd_conf.
+
+<hr>
+
+<a href='http://doc.tiki.org/Installation' target='_blank'>Consult the tiki.org installation guide</a> if you need more help or <a href='http://tiki.org/tiki-forums.php' target='_blank'>visit the forums</a>
+
+";
+	}
+	print "</pre></body></html>";
 	exit;
 }
 
 
-require_once __DIR__ . '/../lib/setup/twversion.class.php';
-require_once 'Patch.php';
+
+// Try to see if we have an admin account
+/**
+ * @param $api_tiki
+ * @return string
+ */
+function has_admin($api_tiki)
+{
+	$query = "select hash from users_users where login='admin'";
+	$res = false;
+
+	$db = TikiDb::get();
+	$result = $db->fetchAll($query);
+
+	if (is_array($result)) {
+		$res = reset($result);
+	}
+
+	if ($res && isset($res['hash'])) {
+		$admin_acc = 'y';
+	} else {
+		$admin_acc = 'n';
+	}
+
+	return $admin_acc;
+}
 
 /**
- * @see Patch
+ * @param $dbTiki
+ * @return bool
  */
-class Installer extends TikiDb_Bridge implements SplSubject
+function get_admin_email()
 {
-	public static $instance = null; // Singleton instance
-	private $observers;
+	global $installer;
+	$query = "SELECT `email` FROM `users_users` WHERE `userId`=1";
+	@$result = $installer->query($query);
 
-	public $scripts = [];
-	public $executed = [];
-
-	public $queries = [
-		'currentStmt' => '',
-		'currentFile' => '',
-		'executed' => 0,
-		'total' => 0,
-
-		'successful' => [],
-		'failed' => []
-	];
-
-	public $useInnoDB = true;
-
-	private function __construct()
-	{
-		$this->observers = new SplObjectStorage();
-		$this->buildPatchList();
-		$this->buildScriptList();
+	if ($result && $res = $result->fetchRow()) {
+		return $res['email'];
 	}
 
-	/**
-	 * Get the instance (creating one if necessary)
-	 * @return Installer
-	 */
-	public static function getInstance()
-	{
-		if (is_null(self::$instance)) {
-			self::$instance = new self();
-		}
-		return self::$instance;
-	}
+	return false;
+}
 
-	public function cleanInstall()
-	{
-		if ($image = $this->getBaseImage()) {
-			$this->runFile($image);
-			$this->buildPatchList();
-			$this->buildScriptList();
-		} else {
-			// No image specified, standard install
-			$this->runFile(__DIR__ . '/../db/tiki.sql');
-			if ($this->isMySQLFulltextSearchSupported()) {
-				$this->runFile(__DIR__ . '/../db/tiki_fulltext_indexes.sql');
+/**
+ * @param $dbTiki
+ * @param $prefs
+ * @return bool
+ */
+function update_preferences(&$prefs)
+{
+	global $installer;
+	$query = "SELECT `name`, `value` FROM `tiki_preferences`";
+	@$result = $installer->query($query);
+
+	if ($result) {
+		while ($res = $result->fetchRow()) {
+			if (! isset($prefs[$res['name']])) {
+				$prefs[$res['name']] = $res['value'];
 			}
-			if ($this->useInnoDB) {
-				$this->runFile(__DIR__ . '/../db/tiki_innodb.sql');
+		}
+		return true;
+	}
+
+	return false;
+}
+
+/**
+ * @param $account
+ */
+function fix_admin_account($account)
+{
+	global $installer;
+
+	$result = $installer->query('SELECT `id` FROM `users_groups` WHERE `groupName` = "Admins"');
+	if (! $row = $result->fetchRow()) {
+		$installer->query('INSERT INTO `users_groups` (`groupName`) VALUES("Admins")');
+	}
+
+	$installer->query('INSERT IGNORE INTO `users_grouppermissions` (`groupName`, `permName`) VALUES("Admins", "tiki_p_admin")');
+
+	$result = $installer->query('SELECT `userId` FROM `users_users` WHERE `login` = ?', [ $account ]);
+	if ($row = $result->fetchRow()) {
+		$id = $row['userId'];
+		$installer->query('INSERT IGNORE INTO `users_usergroups` (`userId`, `groupName`) VALUES(?, "Admins")', [ $id ]);
+	}
+}
+
+/* possible error after upgrade 4 */
+function fix_disable_accounts()
+{
+	global $installer;
+	$installer->query('update `users_users` set `waiting`=NULL where `waiting` = ? and `valid` is NULL', ['a']);
+}
+
+/**
+ * @return array
+ */
+function list_disable_accounts()
+{
+	global $installer;
+	$result = $installer->query('select `login` from `users_users` where `waiting` = ? and `valid` is NULL', ['a']);
+	$ret = [];
+	while ($res = $result->fetchRow()) {
+		$ret[] = $res['login'];
+	}
+	return $ret;
+}
+
+/**
+ * @param $api
+ * @param $driver
+ * @param $host
+ * @param $user
+ * @param $pass
+ * @param $dbname
+ * @param $client_charset
+ * @param $dbTiki
+ * @return bool|int
+ */
+function initTikiDB(&$api, &$driver, $host, $user, $pass, $dbname, $client_charset, &$dbTiki)
+{
+	$initializer = new TikiDb_Initializer;
+	$initializer->setPreferredConnector($driver);
+	$initializer->setInitializeCallback(
+		function ($db) {
+			$db->setServerType('pdo');
+			$db->setErrorHandler(new InstallerDatabaseErrorHandler);
+		}
+	);
+
+	$dbcon = false;
+	try {
+		$dbTiki = $initializer->getConnection(
+			[
+				'host' => $host,
+				'user' => $user,
+				'pass' => $pass,
+				'dbs' => $dbname,
+				'charset' => $client_charset,
+			]
+		);
+	} catch (Exception $e) {
+		Feedback::error($e->getMessage());
+	}
+	$dbcon = ! empty($dbTiki);
+
+	// Attempt to create database. This might work if the $user has create database permissions.
+	if (! $dbcon) {
+		// First first get a valid connection to the database
+		try {
+			$dbTiki = $initializer->getConnection(
+				[
+					'host' => $host,
+					'user' => $user,
+					'pass' => $pass,
+					//'dbs' => $dbname,
+					'charset' => $client_charset,
+				]
+			);
+		} catch (Exception $e) {
+			Feedback::error($e->getMessage());
+		}
+		$dbcon = ! empty($dbTiki);
+		// First check that suggested database name will not cause issues
+		$dbname_clean = preg_replace('/[^a-z0-9$_-]/', "", $dbname);
+		if ($dbname_clean != $dbname) {
+			Feedback::error(tra("Some invalid characters were detected in database name. Please use alphanumeric characters or _ or -.", '', false, [$dbname_clean]));
+			$dbcon = false;
+		} elseif ($dbcon) {
+			$error = '';
+			$sql = "CREATE DATABASE IF NOT EXISTS `$dbname_clean` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;";
+			$dbTiki->queryError($sql, $error);
+			if (empty($error)) {
+				// assure the DB has the right default encoding (if the DB already existed)
+				$dbTiki->query("ALTER DATABASE `$dbname_clean` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
+				Feedback::success(tra("Database `%0` was created.", '', false, [$dbname_clean]));
 			} else {
-				$this->runFile(__DIR__ . '/../db/tiki_myisam.sql');
+				Feedback::error(tra("Database `%0` creation failed. You need to create the database.", '', false, [$dbname_clean]));
 			}
-			$this->buildPatchList();
-			$this->buildScriptList();
 
-			// Base SQL file contains the distribution tiki patches up to this point
-			foreach (Patch::getPatches([Patch::NOT_APPLIED]) as $patchName => $patch) {
-				if (preg_match('/_tiki$/', $patchName)) {
-					$patch->record();
-				}
-			}
-		}
-
-		$this->update();
-	}
-
-	public function update()
-	{
-		// Mark InnoDB usage for updates
-		if (strcasecmp($this->getCurrentEngine(), "InnoDB") == 0) {
-			$this->useInnoDB = true;
-		} else {
-			$this->useInnoDB = false;
-		}
-
-		if (! $this->tableExists('tiki_schema')) {
-			// DB too old to handle auto update
-
-			if (file_exists(__DIR__ . '/../db/custom_upgrade.sql')) {
-				$this->runFile(__DIR__ . '/../db/custom_upgrade.sql');
-			} else {
-				// If 1.9
-				if (! $this->tableExists('tiki_minichat')) {
-					$this->runFile(__DIR__ . '/../db/tiki_1.9to2.0.sql');
-				}
-
-				$this->runFile(__DIR__ . '/../db/tiki_2.0to3.0.sql');
-			}
-		}
-
-		$this->assureDefaultCharSetIsAlignedWithTikiSchema();
-
-		$TWV = new TWVersion;
-		$dbversion_tiki = $TWV->version;
-
-		// If a Mysql data file exists, use that. Very fast
-		//	If data file is missing or the batch loader is not available, use the single insert method
-		$secdb = __DIR__ . '/../db/tiki-secdb_' . $dbversion_tiki . '_mysql.sql';
-		$secdbData = __DIR__ . '/../db/tiki-secdb_' . $dbversion_tiki . '_mysql.data';
-		if (file_exists($secdbData)) {
-			// A MySQL datafile exists
-			$truncateTable = true;
-			$rc = $this->runDataFile($secdbData, 'tiki_secdb', $truncateTable);
-			if ($rc == false) {
-				// The batch loader failed
-				if (file_exists($secdb)) {
-					// Run single inserts
-					$this->runFile($secdb, false);
-				}
-			}
-		} elseif (file_exists($secdb)) {
-			// Run single inserts
-			$this->runFile($secdb, false);
-		}
-		foreach (Patch::getPatches([Patch::NOT_APPLIED]) as $patchName => $patch) {
 			try {
-				$this->installPatch($patchName);
+				$dbTiki = $initializer->getConnection(
+					[
+						'host' => $host,
+						'user' => $user,
+						'pass' => $pass,
+						'dbs' => $dbname,
+						'charset' => $client_charset,
+					]
+				);
+				$dbcon = ! empty($dbTiki);
 			} catch (Exception $e) {
-				if ($e->getCode() != 2) {
-					throw $e;
-				}
-			}
-		}
-
-		foreach ($this->scripts as $script) {
-			$this->runScript($script);
-		}
-	}
-
-	/**
-	 * @param $patch
-	 * @param $force true if the patch should be applied even if already marked as applied
-	 * @throws Exception Code 1 if unknown patch, 2 if application attempt fails, 3 if patch was already installed and $force is false
-	 */
-	public function installPatch($patch, $force = false)
-	{
-		if (! $force && isset(Patch::$list[$patch]) && Patch::$list[$patch]->isApplied()) {
-			throw new Exception('Patch already applied', 3);
-		}
-
-		$schema = __DIR__ . "/schema/$patch.sql";
-		$script = __DIR__ . "/schema/$patch.php";
-		$profile = __DIR__ . "/schema/$patch.yml";
-
-		$pre = "pre_$patch";
-		$post = "post_$patch";
-		$standalone = "upgrade_$patch";
-
-		if (file_exists($script)) {
-			require $script;
-			$status = true;
-		}
-
-		global $dbs_tiki;
-		$local_php = TikiInit::getCredentialsFile();
-		if (is_readable($local_php)) {
-			require($local_php);
-			unset($db_tiki, $host_tiki, $user_tiki, $pass_tiki);
-		}
-
-		if (function_exists($standalone)) {
-			$status = $standalone($this);
-			if (is_null($status)) {
-				$status = true;
+				Feedback::error($e->getMessage());
 			}
 		} else {
-			if (function_exists($pre)) {
-				$pre($this);
-			}
-
-			if (file_exists($profile)) {
-				$status = $this->applyProfile($profile);
-			} else {
-				try {
-					$status = $this->runFile($schema);
-				} catch (Exception $e) {
-				}
-			}
-
-			if (function_exists($post)) {
-				$post($this);
-			}
-		}
-		if (! isset($status)) {
-			if (array_key_exists($patch, Patch::$list)) {
-				throw new LogicException('Patch not found');
-			} else {
-				throw new Exception('No such patch', 1);
-			}
-		} elseif (! $status) {
-			throw new Exception('Patch application failed', 2);
-		} else {
-			Patch::$list[$patch]->record();
+			Feedback::error(tra("Database `%0`. Unable to connect to database.", '', false, [$dbname_clean]));
 		}
 	}
 
-	/**
-	 * @param $script
-	 */
-	public function runScript($script)
-	{
-		$file = __DIR__ . "/script/$script.php";
-
-		if (file_exists($file)) {
-			require $file;
-		}
-
-		if (function_exists($script)) {
-			$script($this);
-		}
-
-		$this->executed[] = $script;
+	if (isset($dbTiki)) {
+		TikiDb::set($dbTiki);
 	}
 
+	return $dbcon;
+}
 
-	private function applyProfile($profileFile)
-	{
-		// By the time a profile install is requested, the installation should be functional enough to work
-		require_once 'tiki-setup.php';
-		$directory = dirname($profileFile);
-		$profile = substr(basename($profileFile), 0, -4);
 
-		$profile = Tiki_Profile::fromFile($directory, $profile);
-
-		$tx = $this->begin();
-
-		$installer = new Tiki_Profile_Installer;
-		$ret = $installer->install($profile);
-
-		$tx->commit();
-
-		return $ret;
+/**
+ * Create an user to own created database
+ *
+ * @param $dbTiki  valid connection
+ * @param $user  username for new db user
+ * @param $pass  password for new db user
+ * @param $dbname  database name
+ * @return bool|int
+ */
+function createTikiDBUser(&$dbTiki, $host, $user, $pass, $dbname)
+{
+	if (preg_match('/^(127\.0\.\d{1,3}\.\d{1,3}|localhost)(:\d+)?$/', $host)) {
+		$host = 'localhost';
+	} else {
+		$host = '%';
 	}
 
-	/**
-	 * Batch insert from a mysql data file
-	 *
-	 * @param $file				MySQL export file
-	 * @param $targetTable		Target table
-	 * @param $clearTable=true	Flag saying if the target table should be truncated or not
-	 * @return bool
-	 */
-	public function runDataFile($file, $targetTable, $clearTable = true)
-	{
-		if (! is_file($file) || ! $command = file_get_contents($file)) {
-			print('Fatal: Cannot open ' . $file);
-			exit(1);
-		}
+	$pass = addslashes($pass);
+	$sql = "GRANT ALL PRIVILEGES ON `$dbname`.* TO `$user`@`$host` IDENTIFIED BY '$pass';";
+	$dbTiki->queryError($sql, $error);
 
-		if ($clearTable == true) {
-			$statement = 'truncate table ' . $targetTable;
-			$this->query($statement);
-		}
-
-		// LOAD DATA INFILE doesn't like single \ directory separators. Replace with \\
-		$inFile = str_replace('\\', '\\\\', $file);
-
-		$status = true;
-		$statement = 'LOAD DATA INFILE "' . $inFile . '" INTO TABLE ' . $targetTable;
-		if ($this->query($statement) === false) {
-			$status = false;
-		}
-		return $status;
+	if (empty($error)) {
+		Feedback::success(tra("User `%0` was created.", '', false, [$user]));
+	} else {
+		Feedback::error(tra("User `%0` creation failed.", '', false, [$user]));
 	}
 
-	/**
-	 * @param $file
-	 * @return bool
-	 */
-	public function runFile($file, $convertFormat = true)
-	{
-		if (! is_file($file) || ! $command = file_get_contents($file)) {
-			throw new Exception('Fatal: Cannot open ' . $file);
+	return empty($error);
+}
+
+/**
+ * @param $dbname
+ */
+function convert_database_to_utf8($dbname)
+{
+	$db = TikiDb::get();
+
+	if ($result = $db->fetchAll('SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = ?', $dbname)) {
+		$db->query("ALTER DATABASE `$dbname` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
+
+		foreach ($result as $row) {
+			$db->query("ALTER TABLE `{$row['TABLE_NAME']}` CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci");
 		}
-
-		// split the file into several queries?
-		$statements = preg_split("#(;\s*\n)|(;\s*\r\n)#", $command);
-		$statements = array_filter($statements, function ($st) {
-			return trim($st) && preg_match('/^\s*(?!-- )/m', $st);
-		});
-
-		$this->queries['currentFile'] = basename($file);
-		$this->queries['total'] += count($statements);
-
-		$status = true;
-		foreach ($statements as $statement) {
-			if ($this->useInnoDB && $convertFormat) {
-				// Convert all MyISAM statments to InnoDB
-				$statement = str_ireplace("MyISAM", "InnoDB", $statement);
-			}
-
-			if ($this->query($statement, [], -1, -1, true, $file) === false) {
-				$status = false;
-			}
-
-			$this->queries['executed'] += 1;
-			$this->queries['currentStmt'] = $statement;
-			$this->notify();
-		}
-
-		$this->queries['currentFile'] = '';
-		$this->queries['currentStmt'] = '';
-
-		return $status;
+	} else {
+		die('MySQL INFORMATION_SCHEMA not available. Your MySQL version is too old to perform this operation. (convert_database_to_utf8)');
 	}
+}
 
-	/**
-	 * @param null $query
-	 * @param array $values
-	 * @param $numrows
-	 * @param $offset
-	 * @param bool $reporterrors
-	 * @param string $patch
-	 * @return bool
-	 */
-	public function query($query = null, $values = null, $numrows = -1, $offset = -1, $reporterrors = true, $patch = '')
-	{
-		$error = '';
-		$result = $this->queryError($query, $error, $values);
+/**
+ * @param $dbname
+ * @param $previous
+ */
+function fix_double_encoding($dbname, $previous)
+{
+	$db = TikiDb::get();
 
-		if ($result && empty($error)) {
-			$this->queries['successful'][] = $query;
-			return $result;
-		} else {
-			$this->queries['failed'][] = [$query, $error, substr(basename($patch), 0, -4)];
-			return false;
+	$text_fields = $db->fetchAll("SELECT TABLE_NAME, COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = ? AND CHARACTER_SET_NAME IS NOT NULL", [$dbname]);
+
+	if ($text_fields) {
+		foreach ($text_fields as $field) {
+			$db->query("UPDATE `{$field['TABLE_NAME']}` SET `{$field['COLUMN_NAME']}` = CONVERT(CONVERT(CONVERT(CONVERT(`{$field['COLUMN_NAME']}` USING binary) USING utf8mb4) USING $previous) USING binary)");
 		}
-	}
-
-	/**
-	 * @throws Exception In case of filesystem access issue
-	 */
-	public function buildPatchList()
-	{
-		$patches = [];
-		foreach (['sql', 'yml', 'php' /* "php" for standalone PHP scripts */] as $extension) {
-			$files = glob(__DIR__ . '/schema/*_*.' . $extension); // glob() does not portably support brace expansion, hence the loop
-			if ($files === false) {
-				throw new Exception('Failed to scan patches');
-			}
-			foreach ($files as $file) {
-				$filename = basename($file);
-				$patches[] = substr($filename, 0, -4);
-			}
-		}
-		$patches = array_unique($patches);
-
-		$installed = [];
-		if ($this->tableExists('tiki_schema')) {
-			$installed = $this->table('tiki_schema')->fetchColumn('patch_name', []);
-		}
-
-		if (empty($installed)) {
-			// Erase initial error
-			$this->queries['failed'] = [];
-		}
-
-		Patch::$list = [];
-		sort($patches);
-		foreach ($patches as $patchName) {
-			if (in_array($patchName, $installed)) {
-				$status = Patch::ALREADY_APPLIED;
-			} else {
-				$status = Patch::NOT_APPLIED;
-			}
-			$patch = new Patch($patchName, $status);
-			$patch->optional = substr($patchName, 0, 8) == 'optional'; // Ignore patches starting with "optional". These patches have drawbacks and should be manually run by informed administrators.
-			Patch::$list[$patchName] = $patch;
-		}
-	}
-
-
-	public function buildScriptList()
-	{
-		$files = glob(__DIR__ . '/script/*.php');
-		if (empty($files)) {
-			return;
-		}
-		foreach ($files as $file) {
-			if (basename($file) === "index.php") {
-				continue;
-			}
-			$filename = basename($file);
-			$this->scripts[] = substr($filename, 0, -4);
-		}
-	}
-
-	/**
-	 * @param $tableName
-	 * @return bool
-	 */
-	public function tableExists($tableName)
-	{
-		$list = $this->listTables();
-		return in_array($tableName, $list);
-	}
-
-	public function isInstalled()
-	{
-		return $this->tableExists('tiki_preferences');
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function requiresUpdate()
-	{
-		return count(Patch::getPatches([Patch::NOT_APPLIED])) > 0;
-	}
-	public function checkInstallerLocked()
-	{
-		$iniFile = __DIR__ . '/../db/lock';
-
-
-		if (! is_readable($iniFile)) {
-			return 1;
-		}
-	}
-	private function getBaseImage()
-	{
-		$iniFile = __DIR__ . '/../db/install.ini';
-
-		$ini = [];
-		if (is_readable($iniFile)) {
-			$ini = parse_ini_file($iniFile);
-		}
-
-		$direct = __DIR__ . '/../db/custom_tiki.sql';
-		$fetch = null;
-		$check = null;
-
-		if (isset($ini['source.type'])) {
-			switch ($ini['source.type']) {
-				case 'local':
-					$direct = $ini['source.file'];
-					break;
-				case 'http':
-					$fetch = $ini['source.file'];
-					if (isset($ini['source.md5'])) {
-						$check = $ini['source.md5'];
-					}
-					break;
-			}
-		}
-
-		if (is_readable($direct)) {
-			return $direct;
-		}
-
-		if (! $fetch) {
-			return;
-		}
-
-		$cacheFile = __DIR__ . '/../temp/cache/sql' . md5($fetch);
-
-		if (is_readable($cacheFile)) {
-			return $cacheFile;
-		}
-
-		$read = fopen($fetch, 'r');
-		$write = fopen($cacheFile, 'w+');
-
-		if ($read && $write) {
-			while (! feof($read)) {
-				fwrite($write, fread($read, 1024 * 100));
-			}
-
-			fclose($read);
-			fclose($write);
-
-			if (! $check || $check == md5_file($cacheFile)) {
-				return $cacheFile;
-			} else {
-				unlink($cacheFile);
-			}
-		}
-	}
-
-	/**
-	 * Use this if the default for a preference changes to preserve the old default behaviour on upgrades
-	 *
-	 * @param string $prefName
-	 * @param string $oldDefault
-	 */
-	public function preservePreferenceDefault($prefName, $oldDefault)
-	{
-
-		if ($this->tableExists('tiki_preferences')) {
-			$tiki_preferences = $this->table('tiki_preferences');
-			$hasValue = $tiki_preferences->fetchCount(['name' => $prefName]);
-
-			if (empty($hasValue)) {	// old value not in database so was on default value
-				$tiki_preferences->insert(['name' => $prefName, 'value' => $oldDefault]);
-			}
-		}
-	}
-
-	public function attach(SplObserver $observable)
-	{
-		if (method_exists($observable, 'update')) {
-			$this->observers->attach($observable);
-		} else {
-			throw new Exception('Observable should implement `update` method');
-		}
-	}
-
-	public function detach(SplObserver $observable)
-	{
-		$this->observers->detach($observable);
-	}
-
-	public function notify()
-	{
-		foreach ($this->observers as $observer) {
-			$observer->update($this);
-		}
-	}
-
-	/**
-	 * Compares the charset encoding of the database with the one from tiki_schema, column patch_name (used as reference)
-	 *
-	 * If they are different, attempts to update teh default charset and collation from the database to
-	 * match the one from tiki_schema, as it should be the reference for the encoding of that tiki database.
-	 * The key case for both charset not to match is when the tiki db was restored to a new db but the encoding
-	 * of that new db was not set to the right values. That will then cause that new tables won't be created with
-	 * the right encoding (aligned with the rest of the tiki tables)
-	 */
-	protected function assureDefaultCharSetIsAlignedWithTikiSchema()
-	{
-		$databaseInfoResult = $this->query(
-			'SELECT SCHEMA_NAME, DEFAULT_CHARACTER_SET_NAME, DEFAULT_COLLATION_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = DATABASE()'
-		);
-		if (! $databaseInfoResult || ! $databaseInfo = $databaseInfoResult->fetchRow()) {
-			return;
-		}
-
-		$tableInfoResult = $this->query(
-			'SELECT TABLE_SCHEMA, CHARACTER_SET_NAME, COLLATION_NAME from INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = "tiki_schema" AND COLUMN_NAME="patch_name"'
-		);
-		if (! $tableInfoResult || ! $tableInfo = $tableInfoResult->fetchRow()) {
-			return;
-		}
-
-		if (! $databaseInfo || ! $tableInfo) { // if we cant retrieve the info we can not do anything
-			return;
-		}
-
-		if ($databaseInfo['DEFAULT_CHARACTER_SET_NAME'] === $tableInfo['CHARACTER_SET_NAME']
-			&& $databaseInfo['DEFAULT_COLLATION_NAME'] === $tableInfo['COLLATION_NAME']) {
-			// all OK, charset and collation are aligned
-			return;
-		}
-
-		// Info is not aligned, forcing to align the default values for the database with tiki_schema
-		// Someone may have restored the db without setting the right default values for teh database for instance.
-		switch ($tableInfo['CHARACTER_SET_NAME']) {
-			case 'utf8':
-				$this->query(
-					'ALTER DATABASE `' . $tableInfo['TABLE_SCHEMA'] . '` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci'
-				);
-				break;
-			case 'utf8mb4':
-				$this->query(
-					'ALTER DATABASE `' . $tableInfo['TABLE_SCHEMA'] . '` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci'
-				);
-				break;
-			default:
-				// we will only attempt to align for some char sets, other configuration needs to be done manually
-				break;
-		}
+	} else {
+		die('MySQL INFORMATION_SCHEMA not available. Your MySQL version is too old to perform this operation. (fix_double_encoding)');
 	}
 }

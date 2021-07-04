@@ -6,6 +6,7 @@
 // $Id$
 
 use Laminas\Config\Config;
+use Tiki\Installer\Installer;
 
 const TIKI_IN_TEST = 1;
 

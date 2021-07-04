@@ -20,7 +20,7 @@ use Tiki\Theme\ThemeInstaller;
 use Tiki\Theme\Zip as ThemeZip;
 use ZipArchive;
 use Exception;
-use Installer;
+use Tiki\Installer\Installer;
 
 /**
  * Install theme deploying via a theme package

@@ -9,6 +9,7 @@
 // $Id$
 
 
+use Tiki\Installer\Installer;
 use Tiki\Package\ExtensionManager;
 use Tiki\Suggestion\Rules;
 

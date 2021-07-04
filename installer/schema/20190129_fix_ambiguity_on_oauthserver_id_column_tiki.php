@@ -4,6 +4,7 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
+use Tiki\Installer\Installer;
 
 /**
  * In r68910 the file was added without "_tiki", and the fix in r69062 breaks updates when the DB state is between r68910 and r69062

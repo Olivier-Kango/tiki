@@ -18,7 +18,7 @@ use Tiki\Theme\Module as ThemeModule;
 use Tiki\Theme\Zip as ThemeZip;
 use ZipArchive;
 use Exception;
-use Installer;
+use Tiki\Installer\Installer;
 
 /**
  * Update theme deploying via a theme package

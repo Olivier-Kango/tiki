@@ -40,7 +40,7 @@ class PatchCommand extends Command
 		$forceApplication = $input->getOption('force-application');
 		$forceMark = $input->getOption('force-mark');
 
-		$installer = \Installer::getInstance();
+		$installer = \Tiki\Installer\Installer::getInstance();
 		if (! $installer->isInstalled()) {
 			$output->writeln('<error>Database not found</error>');
 			return false;
@@ -61,7 +61,7 @@ class PatchCommand extends Command
 					}
 					if ($forceMark) {
 						$output->writeln("Patch forcibly marked as applied");
-						\Patch::$list[$name]->record();
+						\Tiki\Installer\Patch::$list[$name]->record();
 					}
 					break;
 				case 3:

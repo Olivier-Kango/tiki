@@ -227,7 +227,8 @@
 		},
 		"psr-4": {
 			"Tiki\\": ["../lib/core/Tiki", "../lib/core/"],
-			"Tiki\\Lib\\": "../lib/"
+			"Tiki\\Lib\\": "../lib/",
+			"Tiki\\Installer\\": "../installer/"
 		},
 		"classmap": [
 			"../installer/",

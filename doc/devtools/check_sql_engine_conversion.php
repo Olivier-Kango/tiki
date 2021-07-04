@@ -343,7 +343,7 @@ class CheckSqlEngineConversion
 	/**
 	 * Execute a set of statements contained in one SQL string
 	 *
-	 * @see \Installer::runFile for original code
+	 * @see \Tiki\Installer\Installer::runFile for original code
 	 *
 	 * @param string $sql
 	 * @param PDO $dbConnection

@@ -5,6 +5,8 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
+use Tiki\Installer\Installer;
+
 /**
  * Move h5p assets to the new dir if it doesn't exist
  *

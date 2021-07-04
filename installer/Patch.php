@@ -5,8 +5,12 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
+namespace Tiki\Installer;
+use DomainException;
+
 /**
  * A procedure to adapt a Tiki database to a code change, implemented by SQL, Yaml or PHP files
+ *
  * @see Installer
  */
 class Patch
@@ -28,6 +32,7 @@ class Patch
 
 	/**
 	 * Defines the state
+	 *
 	 * @param int $status One of the constants of this class
 	 */
 	public function setStatus($status)
@@ -41,8 +46,10 @@ class Patch
 
 	/**
 	 * Get the patches matching the specified statuses
+	 *
 	 * @param int[] $statuses Allowed statuses
 	 * @param bool true to obtain optional patches, false for required only
+	 *
 	 * @return Patch[] Matching patches
 	 */
 	public static function getPatches($statuses, $optional = false)
@@ -58,6 +65,7 @@ class Patch
 
 	/**
 	 * Indicates if the patch is applied
+	 *
 	 * @return bool true is the patch is applied, false otherwise
 	 */
 	public function isApplied()

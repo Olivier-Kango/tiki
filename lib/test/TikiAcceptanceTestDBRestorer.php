@@ -12,6 +12,8 @@
  * Window - Preferences - PHPeclipse - PHP - Code Templates
  */
 
+use Tiki\Installer\Installer;
+
 require_once('installer/installlib.php');
 
 abstract class TikiAcceptanceTestDBRestorer

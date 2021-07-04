@@ -5,6 +5,8 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
+use Tiki\Installer\Installer;
+
 require_once('tiki-setup.php');
 //TODO Use a pref to handle the list
 if (! empty($tikiMonitorRestriction)) {

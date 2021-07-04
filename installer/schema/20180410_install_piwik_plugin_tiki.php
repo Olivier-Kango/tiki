@@ -1,5 +1,7 @@
 <?php
 
+use Tiki\Installer\Installer;
+
 /**
  * Enable piwik plugin if site_piwik_code preference enable
  *

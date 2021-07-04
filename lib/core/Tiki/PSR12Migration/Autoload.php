@@ -19,6 +19,10 @@ class Autoload
 	 */
 	protected static $aliasMap = [
 		'TikiInit' => 'Tiki\\TikiInit',
+		'Patch' => 'Tiki\\Installer\\Patch',
+		'ProgressBar' => 'Tiki\\Installer\\ProgressBar',
+		'Installer' => 'Tiki\\Installer\\Installer',
+		'InstallerDatabaseErrorHandler' => 'Tiki\\Installer\\InstallerDatabaseErrorHandler',
 	];
 
 	/**

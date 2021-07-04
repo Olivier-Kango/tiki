@@ -1,10 +1,12 @@
 <?php
 
+use Tiki\Installer\Installer;
+
 /**
  * Create links in tiki_links table for objects other than wiki pages,
  * comments and forum posts.
  *
- * @param Installer $installer
+ * @param \X\Installer $installer
  */
 function upgrade_20171123_create_object_links_tiki($installer)
 {

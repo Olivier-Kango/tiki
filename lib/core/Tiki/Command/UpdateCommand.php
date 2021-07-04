@@ -30,7 +30,7 @@ class UpdateCommand extends Command
 	protected function execute(InputInterface $input, OutputInterface $output)
 	{
 		$autoRegister = $input->getOption('auto-register');
-		$installer = \Installer::getInstance();
+		$installer = \Tiki\Installer\Installer::getInstance();
 		$installed = $installer->tableExists('users_users');
 
 		if ($installed) {
@@ -39,14 +39,14 @@ class UpdateCommand extends Command
 
 			$installer->update();
 			$output->writeln('Update completed.');
-			foreach (array_keys(\Patch::getPatches([\Patch::NEWLY_APPLIED])) as $patch) {
+			foreach (array_keys(\Tiki\Installer\Patch::getPatches([\Tiki\Installer\Patch::NEWLY_APPLIED])) as $patch) {
 				$output->writeln("<info>Installed: $patch</info>");
 			}
-			foreach (array_keys(\Patch::getPatches([\Patch::NOT_APPLIED])) as $patch) {
+			foreach (array_keys(\Tiki\Installer\Patch::getPatches([\Tiki\Installer\Patch::NOT_APPLIED])) as $patch) {
 				$output->writeln("<error>Failed: $patch</error>");
 
 				if ($autoRegister) {
-					\Patch::$list[$patch]->record();
+					\Tiki\Installer\Patch::$list[$patch]->record();
 				}
 			}
 

@@ -10,6 +10,7 @@ use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Tiki\Command\ConsoleSetupException;
 use Tiki\Command\ConsoleApplicationBuilder;
+use Tiki\Installer\Installer;
 
 /**
  * Sets up the environment that the console will run in.

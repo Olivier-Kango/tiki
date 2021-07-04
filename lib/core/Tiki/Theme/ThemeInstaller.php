@@ -7,7 +7,7 @@
 namespace Tiki\Theme;
 
 use Exception;
-use Installer;
+use Tiki\Installer\Installer;
 use Symfony\Component\Filesystem\Filesystem as Filesystem;
 use Symfony\Component\Process\PhpExecutableFinder;
 use Symfony\Component\Yaml\Yaml;
