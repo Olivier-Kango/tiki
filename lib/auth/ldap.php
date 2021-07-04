@@ -14,6 +14,7 @@ use Laminas\Ldap\Filter;
 use Laminas\Ldap\Ldap;
 use Laminas\Ldap\Exception\LdapException;
 use Laminas\Ldap\Collection\DefaultIterator as LdapCollectionIterator;
+use Tiki\Lib\Logs\LogsLib;
 
 class TikiLdapLib
 {

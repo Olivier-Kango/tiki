@@ -144,7 +144,7 @@ class SvnUpCommand extends Command
 			if (($error === '' && ! $return) || ($error && strpos($return, $error))) {
 				$logger->error($errorMessage);
 				if ($log) {
-					$logs = new \LogsLib();
+					$logs = new \Tiki\Lib\Logs\LogsLib();
 					$logs->add_action('svn update', $errorMessage, 'system');
 				}
 			}
@@ -222,7 +222,7 @@ class SvnUpCommand extends Command
 
 		// if were using a db, then configure it.
 		if (! $input->getOption('no-db')) {
-			$logslib = new \LogsLib();
+			$logslib = new \Tiki\Lib\Logs\LogsLib();
 		}
 
 		// die gracefully if shell_exec is not enabled;

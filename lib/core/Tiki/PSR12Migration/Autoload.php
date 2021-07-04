@@ -23,6 +23,8 @@ class Autoload
 		'ProgressBar' => 'Tiki\\Installer\\ProgressBar',
 		'Installer' => 'Tiki\\Installer\\Installer',
 		'InstallerDatabaseErrorHandler' => 'Tiki\\Installer\\InstallerDatabaseErrorHandler',
+		'LogsLib' => 'Tiki\\Lib\\Logs\\LogsLib',
+		'LogsQueryLib' => 'Tiki\\Lib\\Logs\\LogsQueryLib',
 	];
 
 	/**

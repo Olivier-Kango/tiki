@@ -9,13 +9,6 @@
 
 namespace TikiLib\Socnets\TikiHybrid;
 
-//do we still need this fuse if we use a namespace?
-// this script may only be included - so its better to die if called directly.
-if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
-	header('location: index.php');
-	exit;
-}
-
 require_once('lib/socnets/Util.php');
 use TikiLib\Socnets\Util\Util;
 require_once('lib/socnets/LLOG.php');
@@ -33,8 +26,7 @@ use \TikiLib;
 use \Feedback;
 use Tracker_Definition;
 use Services_Tracker_Utilities;
-$logslib = TikiLib::lib('logs');
-use LogsLib;
+use Tiki\Lib\Logs\LogsLib;
 
 
 class TikiHybrid  extends LogsLib

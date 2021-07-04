@@ -172,11 +172,11 @@
 		<service id="tiki.lib.login" class="LoginLib">
 			<file>%kernel.root_dir%/lib/loginlib.php</file>
 		</service>
-		<service id="tiki.lib.logs" class="LogsLib">
-			<file>%kernel.root_dir%/lib/logs/logslib.php</file>
+		<service id="tiki.lib.logs" class="Tiki\Lib\Logs\LogsLib">
+			<file>%kernel.root_dir%/lib/Logs/LogsLib.php</file>
 		</service>
-		<service id="tiki.lib.logsqry" class="LogsQueryLib">
-			<file>%kernel.root_dir%/lib/logs/logsquerylib.php</file>
+		<service id="tiki.lib.logsqry" class="Tiki\Lib\Logs\LogsQueryLib">
+			<file>%kernel.root_dir%/lib/Logs/LogsQueryLib.php</file>
 		</service>
 		<service id="tiki.lib.ml" class="MachineLearningLib">
 			<file>%kernel.root_dir%/lib/ml/mllib.php</file>

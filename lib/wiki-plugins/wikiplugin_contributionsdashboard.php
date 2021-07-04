@@ -5,6 +5,8 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
+use Tiki\Lib\Logs\LogsQueryLib;
+
 function wikiplugin_contributionsdashboard_info()
 {
 	return [

@@ -5,6 +5,9 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
+namespace Tiki\Lib\Logs;
+use TikiLib;
+
 class LogsQueryLib
 {
 	public $type = "";
@@ -244,7 +247,7 @@ class LogsQueryLib
 
 		foreach ($ids as $id) {
 			foreach ($this->id($id)->fetchAll() as $log) {
-				$result[json_encode(["ip" => $log['ip'],"user" => $log['user']])]++;
+				$result[json_encode(["ip" => $log['ip'], "user" => $log['user']])]++;
 			}
 		}
 
@@ -263,27 +266,28 @@ class LogsQueryLib
 		$query = "
 			SELECT
 				" . ($this->groupType == "count" ? " COUNT(actionId) as count " : "") . "
-				" . ($this->groupType == "countByDate" ? " COUNT(actionId) AS count, DATE_FORMAT(FROM_UNIXTIME(lastModif), '%m/%d/%Y') as date " : "") . "
+				" . ($this->groupType == "countByDate" ? " COUNT(actionId) AS count, DATE_FORMAT(FROM_UNIXTIME(lastModif), '%m/%d/%Y') as date " : "")
+			. "
 				" . (empty($this->groupType) ? " * " : "") . "
 			FROM
 				tiki_actionlog
 			WHERE
 				objectType = ?
 				" . (
-					! empty($this->id) ? " AND object = ? " : ""
-				) . "
+			! empty($this->id) ? " AND object = ? " : ""
+			) . "
 				" . (
-					! empty($this->action) ? " AND action = ? " : ""
-				) . "
+			! empty($this->action) ? " AND action = ? " : ""
+			) . "
 				" . (
-					! empty($this->start) ? " AND lastModif > ? " : ""
-				) . "
+			! empty($this->start) ? " AND lastModif > ? " : ""
+			) . "
 				" . (
-					! empty($this->end) ? " AND lastModif < ? " : ""
-				) . "
+			! empty($this->end) ? " AND lastModif < ? " : ""
+			) . "
 				" . (
-					! empty($this->client) ? " AND client = ? " : ""
-				) . "
+			! empty($this->client) ? " AND client = ? " : ""
+			) . "
 
 			" . ($this->groupType == "countByDate" ? " GROUP BY DATE_FORMAT(FROM_UNIXTIME(lastModif), '%Y%m%d') " : "") . "
 
