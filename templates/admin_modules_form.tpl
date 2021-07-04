@@ -106,6 +106,8 @@
 										<option value="horiz" {if $param.value eq 'horiz'}selected="selected"{/if}>horiz</option>
 										<option value="vert" {if $param.value eq 'vert'}selected="selected"{/if}>vert</option>
 									</select>
+								{elseif $param.type eq 'textarea'}
+									<textarea type="text" id="assign_params[{$name|escape}]" name="assign_params[{$name|escape}]"{if !empty($param.filter)} class="{$param.filter} form-control"{else} class="{$param.filter} form-control"{/if}>{$param.value|escape}</textarea>
 								{else}
 									<input type="text" id="assign_params[{$name|escape}]" name="assign_params[{$name|escape}]" value="{$param.value|escape}"{if !empty($param.filter)} class="{$param.filter} form-control"{else} class="{$param.filter} form-control"{/if}>
 								{/if}
