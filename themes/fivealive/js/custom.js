@@ -4,7 +4,7 @@ $('#topbar').affix({
       offset: {
         top: $('#page-header').height()-$('#topbar').height()
       }
-});	
+});    
 
 /* highlight the top nav as scrolling occurs */
 $('body').scrollspy({ target: '#topbar' })
