@@ -49,11 +49,11 @@ class TWVersion
 
     public function __construct()
     {
-        $this->branch   = 'trunk';
+        $this->branch   = 'stable';
 
         // Set everything else, including defaults.
         $this->version  = '23.0vcs';
-        $this->star     = 'Corona Borealis';
+        $this->star     = 'Wasat';
         $this->releases = [];
 
         // Check for Subversion or not
@@ -123,6 +123,7 @@ class TWVersion
                 31 => 'Tarazed',         // 20.x
                 32 => 'UY Scuti',        // 21.x
                 33 => 'Corona Borealis', // 22.x
+                34 => 'Wasat',           // 23.x
         ];
     }
 
