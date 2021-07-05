@@ -56,6 +56,7 @@ class Autoload
 		}
 
 		if ($classExists) {
+			Report::classAlias($class, $realClass);
 			class_alias($realClass, $class);
 			return true;
 		}
