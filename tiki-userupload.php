@@ -10,9 +10,9 @@ $section = 'mytiki';
 
 require_once('tiki-setup.php');
 if ($prefs['feature_use_fgal_for_user_files'] == 'y' && $user != '') {
-	$filegallib = TikiLib::lib('filegal');
-	$idGallery = $filegallib->get_user_file_gallery();
+    $filegallib = TikiLib::lib('filegal');
+    $idGallery = $filegallib->get_user_file_gallery();
 
-	// redirect user in correct gallery
-	header('location: tiki-upload_file.php?galleryId=' . $idGallery);
+    // redirect user in correct gallery
+    header('location: tiki-upload_file.php?galleryId=' . $idGallery);
 }

@@ -15,65 +15,65 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class UpdateCommand extends Command
 {
-	protected function configure()
-	{
-		$this
-			->setName('database:update')
-			->setDescription('Update the database to the latest schema')
-			->addOption(
-				'auto-register',
-				'a',
-				InputOption::VALUE_NONE,
-				'Record any failed patch as applied.'
-			);
-	}
+    protected function configure()
+    {
+        $this
+            ->setName('database:update')
+            ->setDescription('Update the database to the latest schema')
+            ->addOption(
+                'auto-register',
+                'a',
+                InputOption::VALUE_NONE,
+                'Record any failed patch as applied.'
+            );
+    }
 
-	protected function execute(InputInterface $input, OutputInterface $output)
-	{
-		$autoRegister = $input->getOption('auto-register');
-		$installer = \Tiki\Installer\Installer::getInstance();
-		$installed = $installer->tableExists('users_users');
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $autoRegister = $input->getOption('auto-register');
+        $installer = \Tiki\Installer\Installer::getInstance();
+        $installed = $installer->tableExists('users_users');
 
-		if ($installed) {
-			// tiki-setup.php may not have been run yet, so load the minimum required libs to be able process the schema updates
-			require_once('lib/tikilib.php');
+        if ($installed) {
+            // tiki-setup.php may not have been run yet, so load the minimum required libs to be able process the schema updates
+            require_once('lib/tikilib.php');
 
-			$installer->update();
-			$output->writeln('Update completed.');
-			foreach (array_keys(\Tiki\Installer\Patch::getPatches([\Tiki\Installer\Patch::NEWLY_APPLIED])) as $patch) {
-				$output->writeln("<info>Installed: $patch</info>");
-			}
-			foreach (array_keys(\Tiki\Installer\Patch::getPatches([\Tiki\Installer\Patch::NOT_APPLIED])) as $patch) {
-				$output->writeln("<error>Failed: $patch</error>");
+            $installer->update();
+            $output->writeln('Update completed.');
+            foreach (array_keys(\Tiki\Installer\Patch::getPatches([\Tiki\Installer\Patch::NEWLY_APPLIED])) as $patch) {
+                $output->writeln("<info>Installed: $patch</info>");
+            }
+            foreach (array_keys(\Tiki\Installer\Patch::getPatches([\Tiki\Installer\Patch::NOT_APPLIED])) as $patch) {
+                $output->writeln("<error>Failed: $patch</error>");
 
-				if ($autoRegister) {
-					\Tiki\Installer\Patch::$list[$patch]->record();
-				}
-			}
+                if ($autoRegister) {
+                    \Tiki\Installer\Patch::$list[$patch]->record();
+                }
+            }
 
-			if (count($installer->executed)) {
-				foreach ($installer->executed as $script) {
-					$output->writeln("<info>Executed: $script</info>");
-				}
-			}
+            if (count($installer->executed)) {
+                foreach ($installer->executed as $script) {
+                    $output->writeln("<info>Executed: $script</info>");
+                }
+            }
 
-			$output->writeln('<info>Queries executed successfully: ' . count($installer->queries['successful']) . '</info>');
+            $output->writeln('<info>Queries executed successfully: ' . count($installer->queries['successful']) . '</info>');
 
-			foreach ($installer->queries['failed'] as $error) {
-				list( $query, $message, $patch ) = $error;
-				if (! $patch) {
-					// Installer::query() does not set a meaningful third element when the error is caused by a PHP script. Needs some architectural work to solve properly
-					$patch = 'unknown patch script';
-				}
-				$output->writeln("<error>Error in $patch\n\t$query\n\t$message</error>");
-			}
+            foreach ($installer->queries['failed'] as $error) {
+                list( $query, $message, $patch ) = $error;
+                if (! $patch) {
+                    // Installer::query() does not set a meaningful third element when the error is caused by a PHP script. Needs some architectural work to solve properly
+                    $patch = 'unknown patch script';
+                }
+                $output->writeln("<error>Error in $patch\n\t$query\n\t$message</error>");
+            }
 
-			// tiki-setup.php may not have been run yet, so load the minimum required libs to be able to clear the caches
-			require_once('lib/cache/cachelib.php');
-			$cachelib = new \Cachelib();
-			$cachelib->empty_cache();
-		} else {
-			$output->writeln('<error>Database not found.</error>');
-		}
-	}
+            // tiki-setup.php may not have been run yet, so load the minimum required libs to be able to clear the caches
+            require_once('lib/cache/cachelib.php');
+            $cachelib = new \Cachelib();
+            $cachelib->empty_cache();
+        } else {
+            $output->writeln('<error>Database not found.</error>');
+        }
+    }
 }

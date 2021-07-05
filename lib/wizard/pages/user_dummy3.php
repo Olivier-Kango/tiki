@@ -13,30 +13,30 @@ require_once('lib/wizard/wizard.php');
  */
 class UserWizardDummy3 extends Wizard
 {
-	public function isEditable()
-	{
-		return false;
-	}
+    public function isEditable()
+    {
+        return false;
+    }
 
-	public function onSetupPage($homepageUrl)
-	{
-		$smarty = TikiLib::lib('smarty');
+    public function onSetupPage($homepageUrl)
+    {
+        $smarty = TikiLib::lib('smarty');
 
-		// Run the parent first
-		parent::onSetupPage($homepageUrl);
+        // Run the parent first
+        parent::onSetupPage($homepageUrl);
 
-		return true;
-	}
+        return true;
+    }
 
-	public function getTemplate()
-	{
-		$wizardTemplate = 'wizard/user_dummy3.tpl';
-		return $wizardTemplate;
-	}
+    public function getTemplate()
+    {
+        $wizardTemplate = 'wizard/user_dummy3.tpl';
+        return $wizardTemplate;
+    }
 
-	public function onContinue($homepageUrl)
-	{
-		// Run the parent first
-		parent::onContinue($homepageUrl);
-	}
+    public function onContinue($homepageUrl)
+    {
+        // Run the parent first
+        parent::onContinue($homepageUrl);
+    }
 }

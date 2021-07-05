@@ -8,25 +8,25 @@
 
 function wikiplugin_cookie_info()
 {
-	return [
-		'name' => tra('Cookie'),
-		'documentation' => 'PluginCookie',
-		'description' => tra('Display a random tagline or "cookie" (in the "fortune cookie" sense).'),
-		'prefs' => [ 'wikiplugin_cookie' ],
-		'iconname' => 'quotes',
-		'introduced' => 3,
-		'tags' => [ 'basic' ],
-		'params' => [
-		],
-	];
+    return [
+        'name' => tra('Cookie'),
+        'documentation' => 'PluginCookie',
+        'description' => tra('Display a random tagline or "cookie" (in the "fortune cookie" sense).'),
+        'prefs' => [ 'wikiplugin_cookie' ],
+        'iconname' => 'quotes',
+        'introduced' => 3,
+        'tags' => [ 'basic' ],
+        'params' => [
+        ],
+    ];
 }
 
 function wikiplugin_cookie($data, $params)
 {
-	global $tikilib;
+    global $tikilib;
 
-	// Replace cookie
-	$cookie = $tikilib->pick_cookie();
+    // Replace cookie
+    $cookie = $tikilib->pick_cookie();
 
-	return $cookie;
+    return $cookie;
 }

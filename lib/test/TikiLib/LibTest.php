@@ -8,19 +8,19 @@
 
 class TikiLib_LibTest extends PHPUnit\Framework\TestCase
 {
-	public function testLibShouldReturnInstanceOfTikiLib(): void
-	{
-		$this->assertInstanceOf(TikiLib::class, TikiLib::lib('tiki'));
-	}
+    public function testLibShouldReturnInstanceOfTikiLib(): void
+    {
+        $this->assertInstanceOf(TikiLib::class, TikiLib::lib('tiki'));
+    }
 
-	public function testLibShouldReturnInstanceOfCalendar(): void
-	{
-		$this->assertInstanceOf(CalendarLib::class, TikiLib::lib('calendar'));
-	}
+    public function testLibShouldReturnInstanceOfCalendar(): void
+    {
+        $this->assertInstanceOf(CalendarLib::class, TikiLib::lib('calendar'));
+    }
 
-	public function testLibShouldReturnNullForInvalidClass(): void
-	{
-		$this->expectException(Exception::class);
-		TikiLib::lib('invalidClass');
-	}
+    public function testLibShouldReturnNullForInvalidClass(): void
+    {
+        $this->expectException(Exception::class);
+        TikiLib::lib('invalidClass');
+    }
 }

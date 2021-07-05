@@ -8,58 +8,58 @@
 
 class Search_ContentSource_Static implements Search_ContentSource_Interface
 {
-	private $data;
-	private $typeMap;
+    private $data;
+    private $typeMap;
 
-	public function __construct(array $data, $typeMap)
-	{
-		$this->data = $data;
-		$this->typeMap = $typeMap;
-	}
+    public function __construct(array $data, $typeMap)
+    {
+        $this->data = $data;
+        $this->typeMap = $typeMap;
+    }
 
-	public function getDocuments()
-	{
-		return array_keys($this->data);
-	}
+    public function getDocuments()
+    {
+        return array_keys($this->data);
+    }
 
-	public function getDocument($objectId, Search_Type_Factory_Interface $typeFactory)
-	{
-		if (! isset($this->data[$objectId])) {
-			return false;
-		}
+    public function getDocument($objectId, Search_Type_Factory_Interface $typeFactory)
+    {
+        if (! isset($this->data[$objectId])) {
+            return false;
+        }
 
-		$out = [];
+        $out = [];
 
-		if (is_int(key($this->data[$objectId]))) {
-			foreach ($this->data[$objectId] as $entry) {
-				$out[] = $this->mapData($entry, $typeFactory);
-			}
-		} else {
-			$out = $this->mapData($this->data[$objectId], $typeFactory);
-		}
+        if (is_int(key($this->data[$objectId]))) {
+            foreach ($this->data[$objectId] as $entry) {
+                $out[] = $this->mapData($entry, $typeFactory);
+            }
+        } else {
+            $out = $this->mapData($this->data[$objectId], $typeFactory);
+        }
 
-		return $out;
-	}
+        return $out;
+    }
 
-	private function mapData($data, $typeFactory)
-	{
-		$out = [];
+    private function mapData($data, $typeFactory)
+    {
+        $out = [];
 
-		foreach ($data as $key => $value) {
-			$type = $this->typeMap[$key];
-			$out[$key] = $typeFactory->$type($value);
-		}
+        foreach ($data as $key => $value) {
+            $type = $this->typeMap[$key];
+            $out[$key] = $typeFactory->$type($value);
+        }
 
-		return $out;
-	}
+        return $out;
+    }
 
-	public function getProvidedFields()
-	{
-		return array_keys($this->typeMap);
-	}
+    public function getProvidedFields()
+    {
+        return array_keys($this->typeMap);
+    }
 
-	public function getGlobalFields()
-	{
-		return array_fill_keys(array_keys($this->typeMap), true);
-	}
+    public function getGlobalFields()
+    {
+        return array_fill_keys(array_keys($this->typeMap), true);
+    }
 }

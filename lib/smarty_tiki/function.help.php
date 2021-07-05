@@ -8,11 +8,11 @@
 
 function smarty_function_help($params, $smarty)
 {
-	extract($params);
-	// Param = zone
-	if (empty($url) && empty($desc) && empty($crumb)) {
-		trigger_error("assign: missing parameter: help (url desc)|crumb");
-		return;
-	}
-	print help_doclink($params);
+    extract($params);
+    // Param = zone
+    if (empty($url) && empty($desc) && empty($crumb)) {
+        trigger_error("assign: missing parameter: help (url desc)|crumb");
+        return;
+    }
+    print help_doclink($params);
 }

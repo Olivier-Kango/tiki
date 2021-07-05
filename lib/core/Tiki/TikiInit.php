@@ -311,8 +311,8 @@ class TikiInit
         // Please use the local.php file instead containing these variables
         // If you set sessions to store in the database, you will need a local.php file
         // Otherwise you will be ok.
-        //$api_tiki		= 'pear';
-        //$api_tiki			= 'pdo';
+        //$api_tiki     = 'pear';
+        //$api_tiki         = 'pdo';
         $api_tiki = 'pdo';
         $db_tiki = 'mysql';
         $dbversion_tiki = '2.0';

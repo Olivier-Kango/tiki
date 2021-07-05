@@ -8,22 +8,22 @@
 
 function smarty_function_object_title($params, $smarty)
 {
-	if (! isset($params['type'], $params['id']) && ! isset($params['identifier'])) {
-		return tra('No object information provided.');
-	}
+    if (! isset($params['type'], $params['id']) && ! isset($params['identifier'])) {
+        return tra('No object information provided.');
+    }
 
-	if (isset($params['type'], $params['id'])) {
-		$type = $params['type'];
-		$object = $params['id'];
-		if (substr($type, -7) == 'comment') {
-			$type = substr($type, 0, strlen($type) - 8);
-			$info = TikiLib::lib('comments')->get_comment((int)$object);
-			$object = $info['object'];
-		}
-	} else {
-		list($type, $object) = explode(':', $params['identifier'], 2);
-	}
+    if (isset($params['type'], $params['id'])) {
+        $type = $params['type'];
+        $object = $params['id'];
+        if (substr($type, -7) == 'comment') {
+            $type = substr($type, 0, strlen($type) - 8);
+            $info = TikiLib::lib('comments')->get_comment((int)$object);
+            $object = $info['object'];
+        }
+    } else {
+        list($type, $object) = explode(':', $params['identifier'], 2);
+    }
 
-	$smarty->loadPlugin('smarty_modifier_escape');
-	return smarty_modifier_escape(TikiLib::lib('object')->get_title($type, $object));
+    $smarty->loadPlugin('smarty_modifier_escape');
+    return smarty_modifier_escape(TikiLib::lib('object')->get_title($type, $object));
 }

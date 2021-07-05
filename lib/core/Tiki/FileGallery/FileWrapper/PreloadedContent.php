@@ -10,72 +10,72 @@ namespace Tiki\FileGallery\FileWrapper;
 
 class PreloadedContent implements WrapperInterface
 {
-	private $data;
+    private $data;
 
-	private $temporaryFile = false;
+    private $temporaryFile = false;
 
-	public function __construct($data)
-	{
-		$this->data = $data;
-	}
-
-	public function __destruct()
-	{
-		if (false !== $this->temporaryFile) {
-			\unlink($this->temporaryFile);
-		}
-	}
-
-	public function getReadableFile()
-	{
-		if (false !== $this->temporaryFile) {
-			return $this->temporaryFile;
-		}
-
-		$sIniUploadTmpDir = \ini_get('upload_tmp_dir');
-		if (! empty($sIniUploadTmpDir)) {
-			$sTmpDir = \ini_get('upload_tmp_dir');
-		} else {
-			$sTmpDir = '/tmp';
-		}
-
-		$this->temporaryFile = $tmpfname = \tempnam($sTmpDir, 'wiki_');
-		@\file_put_contents($tmpfname, $this->data);
-		return $tmpfname;
-	}
-
-	public function getContents()
-	{
-		return $this->data;
-	}
-
-	public function getChecksum()
-	{
-		return md5($this->data);
-	}
-
-	public function getSize()
+    public function __construct($data)
     {
-		return function_exists('mb_strlen') ? mb_strlen($this->data, '8bit') : strlen($this->data);
-	}
+        $this->data = $data;
+    }
 
-	public function isFileLocal()
+    public function __destruct()
     {
-		return false;
-	}
+        if (false !== $this->temporaryFile) {
+            \unlink($this->temporaryFile);
+        }
+    }
 
-	public function replaceContents($data)
+    public function getReadableFile()
     {
-		$this->data = $data;
-	}
+        if (false !== $this->temporaryFile) {
+            return $this->temporaryFile;
+        }
 
-	public function getStorableContent()
+        $sIniUploadTmpDir = \ini_get('upload_tmp_dir');
+        if (! empty($sIniUploadTmpDir)) {
+            $sTmpDir = \ini_get('upload_tmp_dir');
+        } else {
+            $sTmpDir = '/tmp';
+        }
+
+        $this->temporaryFile = $tmpfname = \tempnam($sTmpDir, 'wiki_');
+        @\file_put_contents($tmpfname, $this->data);
+        return $tmpfname;
+    }
+
+    public function getContents()
     {
-		return [
-			'data' => $this->data,
-			'path' => null,
-			'filesize' => $this->getSize(),
-			'hash' => $this->getChecksum(),
-		];
-	}
+        return $this->data;
+    }
+
+    public function getChecksum()
+    {
+        return md5($this->data);
+    }
+
+    public function getSize()
+    {
+        return function_exists('mb_strlen') ? mb_strlen($this->data, '8bit') : strlen($this->data);
+    }
+
+    public function isFileLocal()
+    {
+        return false;
+    }
+
+    public function replaceContents($data)
+    {
+        $this->data = $data;
+    }
+
+    public function getStorableContent()
+    {
+        return [
+            'data' => $this->data,
+            'path' => null,
+            'filesize' => $this->getSize(),
+            'hash' => $this->getChecksum(),
+        ];
+    }
 }

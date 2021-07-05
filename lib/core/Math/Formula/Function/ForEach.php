@@ -8,37 +8,37 @@
 
 class Math_Formula_Function_ForEach extends Math_Formula_Function
 {
-	public function evaluate($element)
-	{
-		$allowed = ['list', 'formula'];
+    public function evaluate($element)
+    {
+        $allowed = ['list', 'formula'];
 
-		if ($extra = $element->getExtraValues($allowed)) {
-			$this->error(tr('Unexpected values: %0', implode(', ', $extra)));
-		}
+        if ($extra = $element->getExtraValues($allowed)) {
+            $this->error(tr('Unexpected values: %0', implode(', ', $extra)));
+        }
 
-		$list = $element->list;
-		if (! $list || count($list) != 1) {
-			$this->error(tra('Field must be provided and contain one argument: list'));
-		}
-		$list = $this->evaluateChild($list[0]);
+        $list = $element->list;
+        if (! $list || count($list) != 1) {
+            $this->error(tra('Field must be provided and contain one argument: list'));
+        }
+        $list = $this->evaluateChild($list[0]);
 
-		if (! $element->formula || count($element->formula) != 1) {
-			$this->error(tra('Field must be provided and contain a function.'));
-		}
-		$formula = $element->formula[0];
+        if (! $element->formula || count($element->formula) != 1) {
+            $this->error(tra('Field must be provided and contain a function.'));
+        }
+        $formula = $element->formula[0];
 
-		$out = [];
+        $out = [];
 
-		if (is_array($list)) {
-			foreach ($list as $values) {
-				if (is_array($values)) {
-					$out[] = $this->evaluateChild($formula, $values);
-				} else {
-					$out[] = $this->evaluateChild($formula, ['$1' => $values]);
-				}
-			}
-		}
+        if (is_array($list)) {
+            foreach ($list as $values) {
+                if (is_array($values)) {
+                    $out[] = $this->evaluateChild($formula, $values);
+                } else {
+                    $out[] = $this->evaluateChild($formula, ['$1' => $values]);
+                }
+            }
+        }
 
-		return $out;
-	}
+        return $out;
+    }
 }

@@ -12,21 +12,21 @@ use Tiki\Recommendation\Recommendation;
 
 class FakeEngine implements EngineInterface
 {
-	private $list;
+    private $list;
 
-	public function __construct($list)
-	{
-		$this->list = $list;
-	}
+    public function __construct($list)
+    {
+        $this->list = $list;
+    }
 
-	public function generate($input)
-	{
-		foreach ($this->list as $entry) {
-			if (is_array($entry)) {
-				yield new Recommendation($entry['type'], $entry['object']);
-			} else {
-				yield $entry;
-			}
-		}
-	}
+    public function generate($input)
+    {
+        foreach ($this->list as $entry) {
+            if (is_array($entry)) {
+                yield new Recommendation($entry['type'], $entry['object']);
+            } else {
+                yield $entry;
+            }
+        }
+    }
 }

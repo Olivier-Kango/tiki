@@ -11,11 +11,11 @@
  */
 function module_rsslist_info()
 {
-	return [
-		'name' => tra('News Feeds'),
-		'description' => tra('List of feeds available on this site.'),
-		'prefs' => [],
-	];
+    return [
+        'name' => tra('News Feeds'),
+        'description' => tra('List of feeds available on this site.'),
+        'prefs' => [],
+    ];
 }
 
 /**

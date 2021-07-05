@@ -13,99 +13,99 @@ use org\bovigo\vfs\vfsStreamDirectory;
 
 class Language_CollectFilesTest extends TikiTestCase
 {
-	protected function setUp(): void
-	{
-		$this->obj = new Language_CollectFiles();
+    protected function setUp(): void
+    {
+        $this->obj = new Language_CollectFiles();
 
-		// setup a mock filesystem with directories and files
-		$root = vfsStream::setup('root');
-		$dir1 = new vfsStreamDirectory('dir1');
-		$dir2 = new vfsStreamDirectory('dir2');
-		$root->addChild($dir1);
-		$root->addChild($dir2);
+        // setup a mock filesystem with directories and files
+        $root = vfsStream::setup('root');
+        $dir1 = new vfsStreamDirectory('dir1');
+        $dir2 = new vfsStreamDirectory('dir2');
+        $root->addChild($dir1);
+        $root->addChild($dir2);
 
-		$dir1->addChild(new vfsStreamFile('file1.tpl'));
-		$dir2->addChild(new vfsStreamFile('file2.php'));
-		$dir2->addChild(new vfsStreamFile('file3.php'));
-		$dir2->addChild(new vfsStreamFile('file4.txt'));
-	}
+        $dir1->addChild(new vfsStreamFile('file1.tpl'));
+        $dir2->addChild(new vfsStreamFile('file2.php'));
+        $dir2->addChild(new vfsStreamFile('file3.php'));
+        $dir2->addChild(new vfsStreamFile('file4.txt'));
+    }
 
-	public function testSetExcludeDirsShouldRaiseExceptionForInvalidDir(): void
-	{
-		$dirs = ['invalidDir'];
-		$this->expectException('Language_Exception');
-		$this->obj->setExcludeDirs($dirs);
-	}
+    public function testSetExcludeDirsShouldRaiseExceptionForInvalidDir(): void
+    {
+        $dirs = ['invalidDir'];
+        $this->expectException('Language_Exception');
+        $this->obj->setExcludeDirs($dirs);
+    }
 
-	public function testSetExcludeDirsAndGetExcludeDirShouldSetProperty(): void
-	{
-		$dirs = ['fixtures'];
-		$cwd = getcwd();
-		chdir(__DIR__);
-		$expectedResult = [getcwd() . '/' . 'fixtures'];
-		$this->obj->setExcludeDirs($dirs);
-		$this->assertEquals($expectedResult, $this->obj->getExcludeDirs());
-		chdir($cwd);
-	}
+    public function testSetExcludeDirsAndGetExcludeDirShouldSetProperty(): void
+    {
+        $dirs = ['fixtures'];
+        $cwd = getcwd();
+        chdir(__DIR__);
+        $expectedResult = [getcwd() . '/' . 'fixtures'];
+        $this->obj->setExcludeDirs($dirs);
+        $this->assertEquals($expectedResult, $this->obj->getExcludeDirs());
+        chdir($cwd);
+    }
 
-	public function testIncludeFilesDirsShouldRaiseExceptionForInvalidFile(): void
-	{
-		$dirs = ['invalidFile'];
-		$this->expectException('Language_Exception');
-		$this->obj->setIncludeFiles($dirs);
-	}
+    public function testIncludeFilesDirsShouldRaiseExceptionForInvalidFile(): void
+    {
+        $dirs = ['invalidFile'];
+        $this->expectException('Language_Exception');
+        $this->obj->setIncludeFiles($dirs);
+    }
 
-	public function testIncludeFilesDirsAndGetIncludeFilesShouldSetProperty(): void
-	{
-		$dirs = [__DIR__ . '/fixtures'];
-		$this->obj->setIncludeFiles($dirs);
-		$this->assertEquals($dirs, $this->obj->getIncludeFiles());
-	}
+    public function testIncludeFilesDirsAndGetIncludeFilesShouldSetProperty(): void
+    {
+        $dirs = [__DIR__ . '/fixtures'];
+        $this->obj->setIncludeFiles($dirs);
+        $this->assertEquals($dirs, $this->obj->getIncludeFiles());
+    }
 
-	public function testRunShouldMergeArrays(): void
-	{
-		$obj = $this->getMockBuilder('Language_CollectFiles')
-					->onlyMethods(['scanDir', 'getIncludeFiles'])
-					->getMock();
-		$obj->expects($this->once())->method('scanDir')->willReturn(['lib/test.php', 'tiki-test.php']);
-		$obj->expects($this->once())->method('getIncludeFiles')->willReturn(['tiki-test.php', 'tiki-index.php']);
+    public function testRunShouldMergeArrays(): void
+    {
+        $obj = $this->getMockBuilder('Language_CollectFiles')
+                    ->onlyMethods(['scanDir', 'getIncludeFiles'])
+                    ->getMock();
+        $obj->expects($this->once())->method('scanDir')->willReturn(['lib/test.php', 'tiki-test.php']);
+        $obj->expects($this->once())->method('getIncludeFiles')->willReturn(['tiki-test.php', 'tiki-index.php']);
 
-		$this->assertEquals(['lib/test.php', 'tiki-test.php', 'tiki-index.php'], $obj->run('.'));
-	}
+        $this->assertEquals(['lib/test.php', 'tiki-test.php', 'tiki-index.php'], $obj->run('.'));
+    }
 
-	public function testScanDirShouldRaiseExceptionForInvalidDir(): void
-	{
-		$this->expectException('Language_Exception');
-		$this->obj->scanDir('invalidDir');
-	}
+    public function testScanDirShouldRaiseExceptionForInvalidDir(): void
+    {
+        $this->expectException('Language_Exception');
+        $this->obj->scanDir('invalidDir');
+    }
 
-	public function testScanDirShouldReturnFiles(): void
-	{
-		$expectedResult = ['vfs://root/dir1/file1.tpl', 'vfs://root/dir2/file2.php', 'vfs://root/dir2/file3.php'];
-		$this->assertEquals($expectedResult, $this->obj->scanDir(vfsStream::url('root')));
-	}
+    public function testScanDirShouldReturnFiles(): void
+    {
+        $expectedResult = ['vfs://root/dir1/file1.tpl', 'vfs://root/dir2/file2.php', 'vfs://root/dir2/file3.php'];
+        $this->assertEquals($expectedResult, $this->obj->scanDir(vfsStream::url('root')));
+    }
 
-	public function testScanDirShouldIgnoreExcludedDirs(): void
-	{
-		$obj = $this->getMockBuilder('Language_CollectFiles')
-					->onlyMethods(['getExcludeDirs'])
-					->getMock();
+    public function testScanDirShouldIgnoreExcludedDirs(): void
+    {
+        $obj = $this->getMockBuilder('Language_CollectFiles')
+                    ->onlyMethods(['getExcludeDirs'])
+                    ->getMock();
 
-		$obj->expects($this->exactly(5))->method('getExcludeDirs')->willReturn(['vfs://root/dir1']);
-		$expectedResult = ['vfs://root/dir2/file2.php', 'vfs://root/dir2/file3.php'];
-		$this->assertEquals($expectedResult, $obj->scanDir(vfsStream::url('root')));
-	}
+        $obj->expects($this->exactly(5))->method('getExcludeDirs')->willReturn(['vfs://root/dir1']);
+        $expectedResult = ['vfs://root/dir2/file2.php', 'vfs://root/dir2/file3.php'];
+        $this->assertEquals($expectedResult, $obj->scanDir(vfsStream::url('root')));
+    }
 
-	public function testScanDirShouldAcceptIncludedFiles(): void
-	{
-		$obj = $this->getMockBuilder('Language_CollectFiles')
-					->onlyMethods(['getExcludeDirs', 'getIncludeFiles'])
-					->getMock();
+    public function testScanDirShouldAcceptIncludedFiles(): void
+    {
+        $obj = $this->getMockBuilder('Language_CollectFiles')
+                    ->onlyMethods(['getExcludeDirs', 'getIncludeFiles'])
+                    ->getMock();
 
-		$obj->expects($this->exactly(3))->method('getExcludeDirs')->willReturn(['vfs://root/dir2']);
-		$obj->expects($this->exactly(2))->method('getIncludeFiles')->willReturn(['vfs://root/dir2/file3.php']);
+        $obj->expects($this->exactly(3))->method('getExcludeDirs')->willReturn(['vfs://root/dir2']);
+        $obj->expects($this->exactly(2))->method('getIncludeFiles')->willReturn(['vfs://root/dir2/file3.php']);
 
-		$expectedResult = ['vfs://root/dir1/file1.tpl', 'vfs://root/dir2/file3.php'];
-		$this->assertEquals($expectedResult, $obj->scanDir(vfsStream::url('root')));
-	}
+        $expectedResult = ['vfs://root/dir1/file1.tpl', 'vfs://root/dir2/file3.php'];
+        $this->assertEquals($expectedResult, $obj->scanDir(vfsStream::url('root')));
+    }
 }

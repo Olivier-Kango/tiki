@@ -14,8 +14,8 @@
  */
 function smarty_function_cookie_jar($params, $smarty)
 {
-	if (empty($params['name'])) {
-		return;
-	}
-	return getCookie($params['name']);
+    if (empty($params['name'])) {
+        return;
+    }
+    return getCookie($params['name']);
 }

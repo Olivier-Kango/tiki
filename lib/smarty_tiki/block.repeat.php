@@ -17,18 +17,18 @@
  */
 function smarty_block_repeat($params, $content, $smarty, &$repeat)
 {
-	if ($repeat || ! empty($content)) {
-		$intCount = (int)$params['count'];
-		if ($intCount < 0) {
-			trigger_error("block: negative 'count' parameter");
-			return;
-		}
+    if ($repeat || ! empty($content)) {
+        $intCount = (int)$params['count'];
+        if ($intCount < 0) {
+            trigger_error("block: negative 'count' parameter");
+            return;
+        }
 
-		$strRepeat = str_repeat($content, $intCount);
-		if (! empty($params['assign'])) {
-			$smarty->assign($params['assign'], $strRepeat);
-		} else {
-			return $strRepeat;
-		}
-	}
+        $strRepeat = str_repeat($content, $intCount);
+        if (! empty($params['assign'])) {
+            $smarty->assign($params['assign'], $strRepeat);
+        } else {
+            return $strRepeat;
+        }
+    }
 }

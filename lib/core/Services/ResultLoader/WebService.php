@@ -8,41 +8,41 @@
 
 class Services_ResultLoader_WebService
 {
-	private $client;
-	private $offsetKey;
-	private $countKey;
-	private $resultKey;
+    private $client;
+    private $offsetKey;
+    private $countKey;
+    private $resultKey;
 
-	public function __construct($client, $offsetKey, $countKey, $resultKey)
-	{
-		$this->client = $client;
-		$this->offsetKey = $offsetKey;
-		$this->countKey = $countKey;
-		$this->resultKey = $resultKey;
-	}
+    public function __construct($client, $offsetKey, $countKey, $resultKey)
+    {
+        $this->client = $client;
+        $this->offsetKey = $offsetKey;
+        $this->countKey = $countKey;
+        $this->resultKey = $resultKey;
+    }
 
-	public function __invoke($offset, $count)
-	{
-		$this->client->setParameterPost(
-			array_merge(
-				$this->client->getRequest()->getPost()->getArrayCopy(),
-				[
-					$this->offsetKey => $offset,
-					$this->countKey  => $count,
-				]
-			)
-		);
-		$this->client->setHeaders(['Accept' => 'application/json']);
+    public function __invoke($offset, $count)
+    {
+        $this->client->setParameterPost(
+            array_merge(
+                $this->client->getRequest()->getPost()->getArrayCopy(),
+                [
+                    $this->offsetKey => $offset,
+                    $this->countKey  => $count,
+                ]
+            )
+        );
+        $this->client->setHeaders(['Accept' => 'application/json']);
 
-		$this->client->setMethod(Laminas\Http\Request::METHOD_POST);
-		$response = $this->client->send();
+        $this->client->setMethod(Laminas\Http\Request::METHOD_POST);
+        $response = $this->client->send();
 
-		if (! $response->isSuccess()) {
-			$body = json_decode($response->getBody());
-			throw new Services_Exception(tr('Remote service inaccessible (%0), error: "%1"', $response->getStatusCode(), $body->message), 400);
-		}
+        if (! $response->isSuccess()) {
+            $body = json_decode($response->getBody());
+            throw new Services_Exception(tr('Remote service inaccessible (%0), error: "%1"', $response->getStatusCode(), $body->message), 400);
+        }
 
-		$out = json_decode($response->getBody(), true);
-		return $out[$this->resultKey];
-	}
+        $out = json_decode($response->getBody(), true);
+        return $out[$this->resultKey];
+    }
 }

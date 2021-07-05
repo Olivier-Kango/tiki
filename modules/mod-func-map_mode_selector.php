@@ -11,13 +11,13 @@
  */
 function module_map_mode_selector_info()
 {
-	return [
-		'name' => tra('Mode Selector'),
-		'description' => tra("Toggle input modes for the map."),
-		'prefs' => [],
-		'params' => [
-		],
-	];
+    return [
+        'name' => tra('Mode Selector'),
+        'description' => tra("Toggle input modes for the map."),
+        'prefs' => [],
+        'params' => [
+        ],
+    ];
 }
 
 /**

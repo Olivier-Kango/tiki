@@ -19,97 +19,97 @@ use WikiParser_PluginMatcher;
 
 class ListExecuteCommand extends Command
 {
-	protected function configure()
-	{
-		$this
-			->setName('list:execute')
-			->setDescription('Performs Plugin ListExecute command on a particular page')
-			->addArgument(
-				'page',
-				InputArgument::REQUIRED,
-				'Page name where Plugin ListExecute is setup'
-			)
-			->addArgument(
-				'action',
-				InputArgument::REQUIRED,
-				'Name of the action to be executed as defined on the target page'
-			)
-			->addArgument(
-				'input',
-				InputArgument::OPTIONAL,
-				'If action takes a variable input parameter, specify it here'
-			)
-			->addOption(
-				'request',
-				null,
-				InputOption::VALUE_OPTIONAL,
-				'Specify query string defining the request variables to be used on the wiki page. E.g. "days=30&alert=2"'
-			)
-			;
-	}
+    protected function configure()
+    {
+        $this
+            ->setName('list:execute')
+            ->setDescription('Performs Plugin ListExecute command on a particular page')
+            ->addArgument(
+                'page',
+                InputArgument::REQUIRED,
+                'Page name where Plugin ListExecute is setup'
+            )
+            ->addArgument(
+                'action',
+                InputArgument::REQUIRED,
+                'Name of the action to be executed as defined on the target page'
+            )
+            ->addArgument(
+                'input',
+                InputArgument::OPTIONAL,
+                'If action takes a variable input parameter, specify it here'
+            )
+            ->addOption(
+                'request',
+                null,
+                InputOption::VALUE_OPTIONAL,
+                'Specify query string defining the request variables to be used on the wiki page. E.g. "days=30&alert=2"'
+            )
+            ;
+    }
 
-	protected function execute(InputInterface $input, OutputInterface $output)
-	{
-		$page = $input->getArgument('page');
-		$action = $input->getArgument('action');
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $page = $input->getArgument('page');
+        $action = $input->getArgument('action');
 
-		$tikilib = TikiLib::lib('tiki');
-		if (! $pageInfo = $tikilib->get_page_info($page)) {
-			$output->writeln("Page $page not found.");
-			return false;
-		}
+        $tikilib = TikiLib::lib('tiki');
+        if (! $pageInfo = $tikilib->get_page_info($page)) {
+            $output->writeln("Page $page not found.");
+            return false;
+        }
 
-		if ($request = $input->getOption('request')) {
-			parse_str($request, $_POST);
-		}
+        if ($request = $input->getOption('request')) {
+            parse_str($request, $_POST);
+        }
 
-		$_POST['list_action'] = $action;
-		for ($i = 1; $i <= 10; $i++) {
-			$_POST['objects' . $i] = ['ALL'];
-		}
-		$_POST['list_input'] = $input->getArgument('input');
+        $_POST['list_action'] = $action;
+        for ($i = 1; $i <= 10; $i++) {
+            $_POST['objects' . $i] = ['ALL'];
+        }
+        $_POST['list_input'] = $input->getArgument('input');
 
-		$_GET = $_REQUEST = $_POST; // wiki_argvariable needs this
+        $_GET = $_REQUEST = $_POST; // wiki_argvariable needs this
 
-		$matches = WikiParser_PluginMatcher::match($pageInfo['data']);
+        $matches = WikiParser_PluginMatcher::match($pageInfo['data']);
 
-		// Let's check if the plugin is approved
-		if (! empty($matches)) {
-			$argumentParser = new WikiParser_PluginArgumentParser();
-			$parserLib = TikiLib::lib('parser');
+        // Let's check if the plugin is approved
+        if (! empty($matches)) {
+            $argumentParser = new WikiParser_PluginArgumentParser();
+            $parserLib = TikiLib::lib('parser');
 
-			foreach ($matches as $match) {
-				if ($match->getName() !== 'listexecute') {
-					continue;
-				}
+            foreach ($matches as $match) {
+                if ($match->getName() !== 'listexecute') {
+                    continue;
+                }
 
-				$listExecuteMatches = WikiParser_PluginMatcher::match($match->getBody());
+                $listExecuteMatches = WikiParser_PluginMatcher::match($match->getBody());
 
-				foreach ($listExecuteMatches as $listExecuteMatch) {
-					$arguments = $argumentParser->parse($listExecuteMatch->getArguments());
+                foreach ($listExecuteMatches as $listExecuteMatch) {
+                    $arguments = $argumentParser->parse($listExecuteMatch->getArguments());
 
-					// If the action of the list execute is not the requested one, move on
-					if ($listExecuteMatch->getName() !== 'action' || ! isset($arguments['name']) || $arguments['name'] != $action) {
-						continue;
-					}
+                    // If the action of the list execute is not the requested one, move on
+                    if ($listExecuteMatch->getName() !== 'action' || ! isset($arguments['name']) || $arguments['name'] != $action) {
+                        continue;
+                    }
 
-					$status = $parserLib->plugin_can_execute($match->getName(), $match->getBody(), $argumentParser->parse($match->getArguments()));
+                    $status = $parserLib->plugin_can_execute($match->getName(), $match->getBody(), $argumentParser->parse($match->getArguments()));
 
-					if ($status !== true) {
-						$outputMessage = "Action $action failed on page $page. ";
-						$outputMessage .= $status == 'rejected' ?
-							'ListExecute plugin was rejected.' :
-							'ListExecute plugin is pending for approval.';
+                    if ($status !== true) {
+                        $outputMessage = "Action $action failed on page $page. ";
+                        $outputMessage .= $status == 'rejected' ?
+                            'ListExecute plugin was rejected.' :
+                            'ListExecute plugin is pending for approval.';
 
-						$output->write("<error>$outputMessage</error>");
-						return 1;
-					}
-				}
-			}
-		}
+                        $output->write("<error>$outputMessage</error>");
+                        return 1;
+                    }
+                }
+            }
+        }
 
-		TikiLib::lib('parser')->parse_data($pageInfo['data']);
+        TikiLib::lib('parser')->parse_data($pageInfo['data']);
 
-		$output->writeln("Action $action executed on page $page.");
-	}
+        $output->writeln("Action $action executed on page $page.");
+    }
 }

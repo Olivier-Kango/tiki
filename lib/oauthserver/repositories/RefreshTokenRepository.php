@@ -12,21 +12,21 @@ use League\OAuth2\Server\Entities\RefreshTokenEntityInterface;
 
 class RefreshTokenRepository implements RefreshTokenRepositoryInterface
 {
-	public function getNewRefreshToken()
-	{
-		return new RefreshTokenEntity();
-	}
+    public function getNewRefreshToken()
+    {
+        return new RefreshTokenEntity();
+    }
 
-	public function isRefreshTokenRevoked($tokenId)
-	{
-		return false;
-	}
+    public function isRefreshTokenRevoked($tokenId)
+    {
+        return false;
+    }
 
-	public function persistNewRefreshToken(RefreshTokenEntityInterface $code)
-	{
-	}
+    public function persistNewRefreshToken(RefreshTokenEntityInterface $code)
+    {
+    }
 
-	public function revokeRefreshToken($tokenId)
-	{
-	}
+    public function revokeRefreshToken($tokenId)
+    {
+    }
 }

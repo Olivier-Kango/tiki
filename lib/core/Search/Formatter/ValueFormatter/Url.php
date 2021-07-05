@@ -9,8 +9,8 @@
 
 class Search_Formatter_ValueFormatter_Url extends Search_Formatter_ValueFormatter_Abstract
 {
-	public function render($name, $value, array $entry)
-	{
-		return urlencode($value);
-	}
+    public function render($name, $value, array $entry)
+    {
+        return urlencode($value);
+    }
 }

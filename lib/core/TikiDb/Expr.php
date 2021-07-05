@@ -8,22 +8,22 @@
 
 class TikiDb_Expr
 {
-	private $string;
-	private $arguments;
+    private $string;
+    private $arguments;
 
-	public function __construct($string, array $arguments)
-	{
-		$this->string = $string;
-		$this->arguments = $arguments;
-	}
+    public function __construct($string, array $arguments)
+    {
+        $this->string = $string;
+        $this->arguments = $arguments;
+    }
 
-	public function getQueryPart($currentField)
-	{
-		return str_replace('$$', $currentField, $this->string);
-	}
+    public function getQueryPart($currentField)
+    {
+        return str_replace('$$', $currentField, $this->string);
+    }
 
-	public function getValues()
-	{
-		return $this->arguments;
-	}
+    public function getValues()
+    {
+        return $this->arguments;
+    }
 }

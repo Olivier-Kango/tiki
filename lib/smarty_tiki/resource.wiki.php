@@ -17,37 +17,37 @@
  */
 function smarty_resource_wiki_source(string $page, ?string &$tpl_source, Smarty_Tiki $smarty)
 {
-	$info = $smarty->checkWikiPageTemplatePerms($page, $tpl_source);
+    $info = $smarty->checkWikiPageTemplatePerms($page, $tpl_source);
 
-	if ($info) {
-		$tpl_source = TikiLib::lib('parser')->parse_data($info['data'], ['is_html' => $info['is_html'], 'print' => 'y', 'inside_pretty' => true]);
-		return true;
-	} else {
-		return false;
-	}
+    if ($info) {
+        $tpl_source = TikiLib::lib('parser')->parse_data($info['data'], ['is_html' => $info['is_html'], 'print' => 'y', 'inside_pretty' => true]);
+        return true;
+    } else {
+        return false;
+    }
 }
 
 function smarty_resource_wiki_timestamp($page, &$tpl_timestamp, $smarty)
 {
-	global $tikilib, $user;
-	$info = $tikilib->get_page_info($page);
-	if (empty($info)) {
-		return false;
-	}
-	if (preg_match('/\{([A-z-Z0-9_]+) */', $info['data']) || preg_match('/\{\{.+\}\}/', $info['data'])) { // there are some plugins - so it can be risky to cache the page
-		$tpl_timestamp = $tikilib->now + 100; // future needed in case consecutive run of template;
-	} else {
-		$tpl_timestamp = $info['lastModif'];
-	}
-	return true;
+    global $tikilib, $user;
+    $info = $tikilib->get_page_info($page);
+    if (empty($info)) {
+        return false;
+    }
+    if (preg_match('/\{([A-z-Z0-9_]+) */', $info['data']) || preg_match('/\{\{.+\}\}/', $info['data'])) { // there are some plugins - so it can be risky to cache the page
+        $tpl_timestamp = $tikilib->now + 100; // future needed in case consecutive run of template;
+    } else {
+        $tpl_timestamp = $info['lastModif'];
+    }
+    return true;
 }
 
 function smarty_resource_wiki_secure($tpl_name, $smarty)
 {
-	return true;
+    return true;
 }
 
 function smarty_resource_wiki_trusted($tpl_name, $smarty)
 {
-	return true;
+    return true;
 }

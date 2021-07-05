@@ -8,42 +8,42 @@
 
 class Search_Expr_TokenizerTest extends PHPUnit\Framework\TestCase
 {
-	private $tokenizer;
+    private $tokenizer;
 
-	protected function setUp(): void
-	{
-		$this->tokenizer = new Search_Expr_Tokenizer();
-	}
+    protected function setUp(): void
+    {
+        $this->tokenizer = new Search_Expr_Tokenizer();
+    }
 
-	public function testSingleWord()
-	{
-		$this->assertEquals(['hello'], $this->tokenizer->tokenize('hello'));
-	}
+    public function testSingleWord()
+    {
+        $this->assertEquals(['hello'], $this->tokenizer->tokenize('hello'));
+    }
 
-	public function testMultipleWords()
-	{
-		$this->assertEquals(['hello', 'world', 'who', 'listens'], $this->tokenizer->tokenize('hello world who listens'));
-	}
+    public function testMultipleWords()
+    {
+        $this->assertEquals(['hello', 'world', 'who', 'listens'], $this->tokenizer->tokenize('hello world who listens'));
+    }
 
-	public function testWithQuotedText()
-	{
-		$this->assertEquals(['hello world', 'who listens'], $this->tokenizer->tokenize('"hello world" "who listens"'));
-	}
+    public function testWithQuotedText()
+    {
+        $this->assertEquals(['hello world', 'who listens'], $this->tokenizer->tokenize('"hello world" "who listens"'));
+    }
 
-	public function testWithParenthesis()
-	{
-		$this->assertEquals(
-			[
-				'hello world (who?)',
-				'(',
-				'who',
-				')',
-				'(',
-				'test',
-				'listens',
-				')'
-			],
-			$this->tokenizer->tokenize('"hello world (who?)" (who) (test listens)')
-		);
-	}
+    public function testWithParenthesis()
+    {
+        $this->assertEquals(
+            [
+                'hello world (who?)',
+                '(',
+                'who',
+                ')',
+                '(',
+                'test',
+                'listens',
+                ')'
+            ],
+            $this->tokenizer->tokenize('"hello world (who?)" (who) (test listens)')
+        );
+    }
 }

@@ -16,43 +16,43 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class MLTrainCommand extends Command
 {
-	protected function configure()
-	{
-		$this
-			->setName('ml:train')
-			->setDescription('Train a particular machine learning model')
-			->addArgument(
-				'mlmId',
-				InputArgument::REQUIRED,
-				'Machine learning model ID'
-			)
-			->addOption(
-				'test',
-				null,
-				InputOption::VALUE_NONE,
-				'Test model training on a sample of the data.'
-			)
-			;
-	}
+    protected function configure()
+    {
+        $this
+            ->setName('ml:train')
+            ->setDescription('Train a particular machine learning model')
+            ->addArgument(
+                'mlmId',
+                InputArgument::REQUIRED,
+                'Machine learning model ID'
+            )
+            ->addOption(
+                'test',
+                null,
+                InputOption::VALUE_NONE,
+                'Test model training on a sample of the data.'
+            )
+            ;
+    }
 
-	protected function execute(InputInterface $input, OutputInterface $output)
-	{
-		$mlmId = $input->getArgument('mlmId');
-		$mllib = \TikiLib::lib('ml');
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $mlmId = $input->getArgument('mlmId');
+        $mllib = \TikiLib::lib('ml');
 
-		$model = $mllib->get_model($mlmId);
-		if (! $model) {
-			$output->writeln("<error>Model $mlmId not found.</error>");
-			return false;
-		}
+        $model = $mllib->get_model($mlmId);
+        if (! $model) {
+            $output->writeln("<error>Model $mlmId not found.</error>");
+            return false;
+        }
 
-		$test = $input->getOption('test');
+        $test = $input->getOption('test');
 
-		try {
-			$mllib->train($model, $test);
-			$output->writeln("Successfully trained model {$model['name']}.");
-		} catch (Exception $e) {
-			$output->writeln("<error>Error while trying to train model " . $model['name'] . ": " . $e->getMessage() . "</error>");
-		}
-	}
+        try {
+            $mllib->train($model, $test);
+            $output->writeln("Successfully trained model {$model['name']}.");
+        } catch (Exception $e) {
+            $output->writeln("<error>Error while trying to train model " . $model['name'] . ": " . $e->getMessage() . "</error>");
+        }
+    }
 }

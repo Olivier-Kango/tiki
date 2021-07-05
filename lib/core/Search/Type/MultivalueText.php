@@ -8,29 +8,29 @@
 
 class Search_Type_MultivalueText implements Search_Type_Interface
 {
-	private $values;
+    private $values;
 
-	public function __construct(array $values)
-	{
-		$this->values = $values;
-	}
+    public function __construct(array $values)
+    {
+        $this->values = $values;
+    }
 
-	public function getRawValue()
-	{
-		return $this->values;
-	}
+    public function getRawValue()
+    {
+        return $this->values;
+    }
 
-	public function getValue()
-	{
-		$strings = [];
-		foreach ($this->values as $val) {
-			$val = md5($val);
-			$raw = 'token' . $val;
+    public function getValue()
+    {
+        $strings = [];
+        foreach ($this->values as $val) {
+            $val = md5($val);
+            $raw = 'token' . $val;
 
-			// Must strip numbers to prevent tokenization
-			$strings[] = strtr($raw, '1234567890', 'pqrtuvwxyz');
-		}
+            // Must strip numbers to prevent tokenization
+            $strings[] = strtr($raw, '1234567890', 'pqrtuvwxyz');
+        }
 
-		return implode(' ', $strings);
-	}
+        return implode(' ', $strings);
+    }
 }

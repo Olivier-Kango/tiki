@@ -11,13 +11,13 @@
  */
 function module_article_topics_info()
 {
-	return [
-		'name' => tra('Article Topics'),
-		'description' => tra('Lists all article topics with links to their articles.'),
-		'prefs' => ['feature_articles'],
-		'params' => [],
-		'common_params' => ['nonums']
-	];
+    return [
+        'name' => tra('Article Topics'),
+        'description' => tra('Lists all article topics with links to their articles.'),
+        'prefs' => ['feature_articles'],
+        'params' => [],
+        'common_params' => ['nonums']
+    ];
 }
 
 /**
@@ -26,13 +26,13 @@ function module_article_topics_info()
  */
 function module_article_topics($mod_reference, $module_params)
 {
-	$smarty = TikiLib::lib('smarty');
-	$artlib = TikiLib::lib('art');
+    $smarty = TikiLib::lib('smarty');
+    $artlib = TikiLib::lib('art');
 
-	$listTopics = $artlib->list_topics();
-	/* To renumber array keys from 0 since smarty 3 doesn't seem to like arrays
-	 * that start with other keys in a section loop, which this variable is used in
-	 */
-	$listTopics = array_values($listTopics);
-	$smarty->assign('listTopics', $listTopics);
+    $listTopics = $artlib->list_topics();
+    /* To renumber array keys from 0 since smarty 3 doesn't seem to like arrays
+     * that start with other keys in a section loop, which this variable is used in
+     */
+    $listTopics = array_values($listTopics);
+    $smarty->assign('listTopics', $listTopics);
 }

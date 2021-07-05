@@ -8,18 +8,18 @@
 
 class Math_Formula_Function_Substring extends Math_Formula_Function
 {
-	public function evaluate($element)
-	{
-		$args = [];
+    public function evaluate($element)
+    {
+        $args = [];
 
-		foreach ($element as $child) {
-			$args[] = $this->evaluateChild($child);
-		}
+        foreach ($element as $child) {
+            $args[] = $this->evaluateChild($child);
+        }
 
-		if (count($args) < 2) {
-			$this->error('Not enough arguments');
-		}
+        if (count($args) < 2) {
+            $this->error('Not enough arguments');
+        }
 
-		return call_user_func_array('substr', $args);
-	}
+        return call_user_func_array('substr', $args);
+    }
 }

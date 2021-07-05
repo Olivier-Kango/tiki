@@ -16,11 +16,11 @@
  */
 function smarty_modifier_quoted($string, $format = 'simple', $replyto = '')
 {
-	if ($format == 'simple') {
-		$string = str_replace("\n", "\n>", $string);
-		$string = "\n>" . $string;
-	} elseif ($format == 'fancy') {
-		$string = "{QUOTE(replyto=>$replyto)}" . $string . '{QUOTE}';
-	}
-	return $string;
+    if ($format == 'simple') {
+        $string = str_replace("\n", "\n>", $string);
+        $string = "\n>" . $string;
+    } elseif ($format == 'fancy') {
+        $string = "{QUOTE(replyto=>$replyto)}" . $string . '{QUOTE}';
+    }
+    return $string;
 }

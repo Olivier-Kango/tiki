@@ -10,22 +10,22 @@ namespace Tracker\Filter\Control;
 
 class InlineCheckboxes extends MultiSelect
 {
-	public function getId()
-	{
-		$first = key($this->options);
-		return $this->fieldName . '-' . $first;
-	}
+    public function getId()
+    {
+        $first = key($this->options);
+        return $this->fieldName . '-' . $first;
+    }
 
-	public function __toString()
-	{
-		$this->applyOptions();
+    public function __toString()
+    {
+        $this->applyOptions();
 
-		$smarty = \TikiLib::lib('smarty');
-		$smarty->assign('control', [
-			'field' => $this->fieldName,
-			'options' => $this->options,
-			'values' => array_fill_keys($this->values, true),
-		]);
-		return $smarty->fetch('filter_control/inline_checkboxes.tpl');
-	}
+        $smarty = \TikiLib::lib('smarty');
+        $smarty->assign('control', [
+            'field' => $this->fieldName,
+            'options' => $this->options,
+            'values' => array_fill_keys($this->values, true),
+        ]);
+        return $smarty->fetch('filter_control/inline_checkboxes.tpl');
+    }
 }

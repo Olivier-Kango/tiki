@@ -12,14 +12,14 @@ $access->check_feature('feature_notepad');
 $access->check_user($user);
 $access->check_permission('tiki_p_notepad');
 if (! isset($_REQUEST["noteId"])) {
-	$smarty->assign('msg', tra("No note indicated"));
-	$smarty->display("error.tpl");
-	die;
+    $smarty->assign('msg', tra("No note indicated"));
+    $smarty->display("error.tpl");
+    die;
 }
 if (isset($_REQUEST["save"])) {
-	$disposition = "attachment";
+    $disposition = "attachment";
 } else {
-	$disposition = "inline";
+    $disposition = "inline";
 }
 $info = $notepadlib->get_note($user, $_REQUEST["noteId"]);
 header("Content-type: text/plain");

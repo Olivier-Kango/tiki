@@ -8,22 +8,22 @@
 
 function wikiplugin_sup_info()
 {
-	return [
-		'name' => tra('Superscript'),
-		'documentation' => 'PluginSup',
-		'description' => tra('Apply superscript font to text'),
-		'prefs' => [ 'wikiplugin_sup' ],
-		'body' => tra('text'),
-		'iconname' => 'superscript',
-		'introduced' => 2,
-		'filter' => 'wikicontent',
-		'tags' => [ 'basic' ],
-		'params' => [
-		],
-	];
+    return [
+        'name' => tra('Superscript'),
+        'documentation' => 'PluginSup',
+        'description' => tra('Apply superscript font to text'),
+        'prefs' => [ 'wikiplugin_sup' ],
+        'body' => tra('text'),
+        'iconname' => 'superscript',
+        'introduced' => 2,
+        'filter' => 'wikicontent',
+        'tags' => [ 'basic' ],
+        'params' => [
+        ],
+    ];
 }
 
 function wikiplugin_sup($data, $params)
 {
-	return "<sup>$data</sup>";
+    return "<sup>$data</sup>";
 }

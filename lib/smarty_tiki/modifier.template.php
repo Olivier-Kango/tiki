@@ -11,5 +11,5 @@
  */
 function smarty_modifier_template($string)
 {
-	return $string;
+    return $string;
 }

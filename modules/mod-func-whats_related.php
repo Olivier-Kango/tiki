@@ -11,12 +11,12 @@
  */
 function module_whats_related_info()
 {
-	return [
-		'name' => tra('Related Items'),
-		'description' => tra('Lists objects which share a category with the viewed object.'),
-		'prefs' => ['feature_categories'],
-		'params' => []
-	];
+    return [
+        'name' => tra('Related Items'),
+        'description' => tra('Lists objects which share a category with the viewed object.'),
+        'prefs' => ['feature_categories'],
+        'params' => []
+    ];
 }
 
 /**
@@ -25,9 +25,9 @@ function module_whats_related_info()
  */
 function module_whats_related($mod_reference, $module_params)
 {
-	$smarty = TikiLib::lib('smarty');
-	$categlib = TikiLib::lib('categ');
+    $smarty = TikiLib::lib('smarty');
+    $categlib = TikiLib::lib('categ');
 
-	$WhatsRelated = $categlib->get_link_related($_SERVER["REQUEST_URI"]);
-	$smarty->assign_by_ref('WhatsRelated', $WhatsRelated);
+    $WhatsRelated = $categlib->get_link_related($_SERVER["REQUEST_URI"]);
+    $smarty->assign_by_ref('WhatsRelated', $WhatsRelated);
 }

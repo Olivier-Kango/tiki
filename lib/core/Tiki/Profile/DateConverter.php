@@ -8,15 +8,15 @@
 
 class Tiki_Profile_DateConverter
 {
-	public function convert($value)
-	{
-		if (is_int($value)) {
-			return $value;
-		}
+    public function convert($value)
+    {
+        if (is_int($value)) {
+            return $value;
+        }
 
-		$time = strtotime($value);
-		if ($time !== false) {
-			return $time;
-		}
-	}
+        $time = strtotime($value);
+        if ($time !== false) {
+            return $time;
+        }
+    }
 }

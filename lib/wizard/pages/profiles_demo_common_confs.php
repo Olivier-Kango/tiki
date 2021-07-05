@@ -13,37 +13,37 @@ require_once('lib/wizard/wizard.php');
  */
 class ProfilesWizardDemoCommonConfs extends Wizard
 {
-	public function pageTitle()
-	{
-		return tra('Demo of Commonly Used Configurations');
-	}
-	public function isEditable()
-	{
-		return false;
-	}
+    public function pageTitle()
+    {
+        return tra('Demo of Commonly Used Configurations');
+    }
+    public function isEditable()
+    {
+        return false;
+    }
 
-	public function onSetupPage($homepageUrl)
-	{
-		global$TWV;
-		$smarty = TikiLib::lib('smarty');
+    public function onSetupPage($homepageUrl)
+    {
+        global$TWV;
+        $smarty = TikiLib::lib('smarty');
 
-		// Run the parent first
-		parent::onSetupPage($homepageUrl);
+        // Run the parent first
+        parent::onSetupPage($homepageUrl);
 
-		$smarty->assign('tikiMajorVersion', substr($TWV->version, 0, 2));
+        $smarty->assign('tikiMajorVersion', substr($TWV->version, 0, 2));
 
-		return true;
-	}
+        return true;
+    }
 
-	public function getTemplate()
-	{
-		$wizardTemplate = 'wizard/profiles_demo_common_confs.tpl';
-		return $wizardTemplate;
-	}
+    public function getTemplate()
+    {
+        $wizardTemplate = 'wizard/profiles_demo_common_confs.tpl';
+        return $wizardTemplate;
+    }
 
-	public function onContinue($homepageUrl)
-	{
-		// Run the parent first
-		parent::onContinue($homepageUrl);
-	}
+    public function onContinue($homepageUrl)
+    {
+        // Run the parent first
+        parent::onContinue($homepageUrl);
+    }
 }

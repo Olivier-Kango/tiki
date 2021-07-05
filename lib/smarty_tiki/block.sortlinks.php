@@ -21,25 +21,25 @@
  */
 function smarty_block_sortlinks($params, $content, $smarty, &$repeat)
 {
-	if ($repeat || ! empty($content)) {
-		$links = preg_split("/\n/", $content);
-		$links2 = [];
-		foreach ($links as $value) {
-			preg_match('/.*(<[^>]*>)(.*)(<\/[^¨>]*>)/U', $value, $splitted);
+    if ($repeat || ! empty($content)) {
+        $links = preg_split("/\n/", $content);
+        $links2 = [];
+        foreach ($links as $value) {
+            preg_match('/.*(<[^>]*>)(.*)(<\/[^¨>]*>)/U', $value, $splitted);
 //    $splitted=preg_split("/[<>]/",$value,-1,PREG_SPLIT_NO_EMPTY);
-			if (isset($splitted[2])) {
-				$splitted[2] = str_replace(["Î","É","È"], ['I','E','E'], $splitted[2]);
-				$links2[$splitted[2]] = $value;
-			}
-		}
+            if (isset($splitted[2])) {
+                $splitted[2] = str_replace(["Î","É","È"], ['I','E','E'], $splitted[2]);
+                $links2[$splitted[2]] = $value;
+            }
+        }
 
-		if (isset($params['case']) && $params['case'] == false) {
-			uksort($links2, 'strcasecmp');
-		} else {
-			ksort($links2);
-		}
-		foreach ($links2 as $value) {
-			echo $value;
-		}
-	}
+        if (isset($params['case']) && $params['case'] == false) {
+            uksort($links2, 'strcasecmp');
+        } else {
+            ksort($links2);
+        }
+        foreach ($links2 as $value) {
+            echo $value;
+        }
+    }
 }

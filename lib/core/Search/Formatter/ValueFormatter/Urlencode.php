@@ -8,21 +8,21 @@
 
 class Search_Formatter_ValueFormatter_Urlencode extends Search_Formatter_ValueFormatter_Abstract
 {
-	private $separator = false;
+    private $separator = false;
 
-	public function __construct($arguments)
-	{
-		if (isset($arguments['separator'])) {
-			$this->separator = $arguments['separator'];
-		}
-	}
+    public function __construct($arguments)
+    {
+        if (isset($arguments['separator'])) {
+            $this->separator = $arguments['separator'];
+        }
+    }
 
-	public function render($name, $value, array $entry)
-	{
-		if (is_array($value) && $this->separator !== false) {
-			return urlencode(implode($this->separator, $value));
-		} else {
-			return urlencode($value);
-		}
-	}
+    public function render($name, $value, array $entry)
+    {
+        if (is_array($value) && $this->separator !== false) {
+            return urlencode(implode($this->separator, $value));
+        } else {
+            return urlencode($value);
+        }
+    }
 }

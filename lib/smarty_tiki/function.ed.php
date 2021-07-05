@@ -8,14 +8,14 @@
 
 function smarty_function_ed($params, $smarty)
 {
-	global $tikilib;
-	extract($params);
-	// Param = zone
+    global $tikilib;
+    extract($params);
+    // Param = zone
 
-	if (empty($id)) {
-		trigger_error("ed: missing 'id' parameter");
-		return;
-	}
+    if (empty($id)) {
+        trigger_error("ed: missing 'id' parameter");
+        return;
+    }
 
-	print($banner);
+    print($banner);
 }

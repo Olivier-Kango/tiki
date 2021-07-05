@@ -23,16 +23,16 @@ use TikiLib;
  */
 class FilesIndexCommand extends Command
 {
-	protected function configure()
-	{
-		$this
-			->setName('files:index')
-			->setDescription(tr('Index files'));
-	}
+    protected function configure()
+    {
+        $this
+            ->setName('files:index')
+            ->setDescription(tr('Index files'));
+    }
 
-	protected function execute(InputInterface $input, OutputInterface $output)
-	{
-		$searchTextReindexedFilesAmount = TikiLib::lib('filegal')->reindex_all_files_for_search_text();
-		$output->writeln("<info>" . tr("The search text was reindexed for a total of %0 files.", $searchTextReindexedFilesAmount) . "</info>");
-	}
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $searchTextReindexedFilesAmount = TikiLib::lib('filegal')->reindex_all_files_for_search_text();
+        $output->writeln("<info>" . tr("The search text was reindexed for a total of %0 files.", $searchTextReindexedFilesAmount) . "</info>");
+    }
 }

@@ -8,5 +8,5 @@
 
 interface Tiki_Profile_Converter
 {
-	public function convert($value);
+    public function convert($value);
 }

@@ -8,84 +8,84 @@
 
 class Services_AuthSource_Controller
 {
-	public function setUp()
-	{
-		if (! Perms::get()->admin) {
-			throw new Services_Exception(tr('Permission Denied'), 403);
-		}
-	}
+    public function setUp()
+    {
+        if (! Perms::get()->admin) {
+            throw new Services_Exception(tr('Permission Denied'), 403);
+        }
+    }
 
-	private function sources()
-	{
-		//table does not have an autoincrement field
-		return TikiDb::get()->table('tiki_source_auth', false);
-	}
+    private function sources()
+    {
+        //table does not have an autoincrement field
+        return TikiDb::get()->table('tiki_source_auth', false);
+    }
 
-	public function action_list($input)
-	{
-		return $this->sources()->fetchColumn('identifier', []);
-	}
+    public function action_list($input)
+    {
+        return $this->sources()->fetchColumn('identifier', []);
+    }
 
-	public function action_save($input)
-	{
-		$url = $input->url->url();
-		$info = parse_url($url);
+    public function action_save($input)
+    {
+        $url = $input->url->url();
+        $info = parse_url($url);
 
-		$identifier = $input->identifier->text();
-		$method = $input->method->alpha();
-		$arguments = $input->arguments->none();
+        $identifier = $input->identifier->text();
+        $method = $input->method->alpha();
+        $arguments = $input->arguments->none();
 
-		if (! $info || ! $identifier || ! $method || ! $arguments) {
-			throw new Services_Exception(tr('Invalid data'), 406);
-		}
-		$util = new Services_Utilities();
-		if ($util->isActionPost()) {
-			if (empty($info['path'])) {
-				$info['path'] = '/';
-			}
-			$result = $this->sources()->insertOrUpdate(
-				[
-					'scheme'    => $info['scheme'],
-					'domain'    => $info['host'],
-					'path'      => $info['path'],
-					'method'    => $method,
-					'arguments' => json_encode($arguments),
-				],
-				['identifier' => $identifier,]
-			);
-			if ($result && $result->numrows()) {
-				Feedback::success(tr('Authentication added or modified'));
-			} else {
-				Feedback::error(tr('Authentication not added or modified'));
-			}
-			return ['identifier' => $identifier];
-		}
-	}
+        if (! $info || ! $identifier || ! $method || ! $arguments) {
+            throw new Services_Exception(tr('Invalid data'), 406);
+        }
+        $util = new Services_Utilities();
+        if ($util->isActionPost()) {
+            if (empty($info['path'])) {
+                $info['path'] = '/';
+            }
+            $result = $this->sources()->insertOrUpdate(
+                [
+                    'scheme'    => $info['scheme'],
+                    'domain'    => $info['host'],
+                    'path'      => $info['path'],
+                    'method'    => $method,
+                    'arguments' => json_encode($arguments),
+                ],
+                ['identifier' => $identifier,]
+            );
+            if ($result && $result->numrows()) {
+                Feedback::success(tr('Authentication added or modified'));
+            } else {
+                Feedback::error(tr('Authentication not added or modified'));
+            }
+            return ['identifier' => $identifier];
+        }
+    }
 
-	public function action_fetch($input)
-	{
-		$data = $this->sources()->fetchFullRow(
-			['identifier' => $input->identifier->text(),]
-		);
+    public function action_fetch($input)
+    {
+        $data = $this->sources()->fetchFullRow(
+            ['identifier' => $input->identifier->text(),]
+        );
 
-		$data['arguments'] = json_decode($data['arguments'], true);
-		$data['url'] = "{$data['scheme']}://{$data['domain']}{$data['path']}";
+        $data['arguments'] = json_decode($data['arguments'], true);
+        $data['url'] = "{$data['scheme']}://{$data['domain']}{$data['path']}";
 
-		return $data;
-	}
+        return $data;
+    }
 
-	public function action_delete($input)
-	{
-		$util = new Services_Utilities();
-		if ($util->isActionPost()) {
-			$result = $this->sources()->delete(
-				['identifier' => $input->identifier->text(),]
-			);
-			if ($result && $result->numrows()) {
-				Feedback::success(tr('Authentication deleted'));
-			} else {
-				Feedback::error(tr('Authentication not deleted'));
-			}
-		}
-	}
+    public function action_delete($input)
+    {
+        $util = new Services_Utilities();
+        if ($util->isActionPost()) {
+            $result = $this->sources()->delete(
+                ['identifier' => $input->identifier->text(),]
+            );
+            if ($result && $result->numrows()) {
+                Feedback::success(tr('Authentication deleted'));
+            } else {
+                Feedback::error(tr('Authentication not deleted'));
+            }
+        }
+    }
 }

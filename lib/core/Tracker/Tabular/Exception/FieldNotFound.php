@@ -10,11 +10,11 @@ namespace Tracker\Tabular\Exception;
 
 class FieldNotFound extends Exception
 {
-	private $field;
+    private $field;
 
-	public function __construct($field)
-	{
-		parent::__construct(tr('Field not found: %0', $field));
-		$this->field = $field;
-	}
+    public function __construct($field)
+    {
+        parent::__construct(tr('Field not found: %0', $field));
+        $this->field = $field;
+    }
 }

@@ -8,26 +8,26 @@
 
 class Search_Type_PlainText implements Search_Type_Interface
 {
-	private $value;
+    private $value;
 
-	public function __construct($value)
-	{
-		$this->value = $value;
-	}
+    public function __construct($value)
+    {
+        $this->value = $value;
+    }
 
-	public function getValue()
-	{
-		return $this->value;
-	}
+    public function getValue()
+    {
+        return $this->value;
+    }
 
-	public function filter(array $filters)
-	{
-		$value = $this->value;
+    public function filter(array $filters)
+    {
+        $value = $this->value;
 
-		foreach ($filters as $f) {
-			$value = $f->filter($value);
-		}
+        foreach ($filters as $f) {
+            $value = $f->filter($value);
+        }
 
-		return new self($value);
-	}
+        return new self($value);
+    }
 }

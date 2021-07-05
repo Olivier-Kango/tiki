@@ -15,42 +15,42 @@
  */
 class Perms_ResolverFactory_GlobalFactory implements Perms_ResolverFactory
 {
-	public function getHash(array $context)
-	{
-		return 'global';
-	}
+    public function getHash(array $context)
+    {
+        return 'global';
+    }
 
-	public function getResolver(array $context)
-	{
-		$perms = [];
-		$db = TikiDb::get();
+    public function getResolver(array $context)
+    {
+        $perms = [];
+        $db = TikiDb::get();
 
-		$result = $db->fetchAll('SELECT `groupName`,`permName` FROM users_grouppermissions');
-		foreach ($result as $row) {
-			$group = $row['groupName'];
-			$perm = $this->sanitize($row['permName']);
+        $result = $db->fetchAll('SELECT `groupName`,`permName` FROM users_grouppermissions');
+        foreach ($result as $row) {
+            $group = $row['groupName'];
+            $perm = $this->sanitize($row['permName']);
 
-			if (! isset($perms[$group])) {
-				$perms[$group] = [];
-			}
+            if (! isset($perms[$group])) {
+                $perms[$group] = [];
+            }
 
-			$perms[$group][] = $perm;
-		}
+            $perms[$group][] = $perm;
+        }
 
-		return new Perms_Resolver_Static($perms);
-	}
+        return new Perms_Resolver_Static($perms);
+    }
 
-	public function bulk(array $baseContext, $bulkKey, array $values)
-	{
-		return [];
-	}
+    public function bulk(array $baseContext, $bulkKey, array $values)
+    {
+        return [];
+    }
 
-	private function sanitize($name)
-	{
-		if (strpos($name, 'tiki_p_') === 0) {
-			return substr($name, strlen('tiki_p_'));
-		} else {
-			return $name;
-		}
-	}
+    private function sanitize($name)
+    {
+        if (strpos($name, 'tiki_p_') === 0) {
+            return substr($name, strlen('tiki_p_'));
+        } else {
+            return $name;
+        }
+    }
 }

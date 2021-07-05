@@ -8,23 +8,23 @@
 
 class Math_Formula_Function_IsEmpty extends Math_Formula_Function
 {
-	public function evaluate($element)
-	{
-		foreach ($element as $child) {
-			try {
-				$component = $this->evaluateChild($child);
-			} catch (Math_Formula_Exception $e) {
-				// if the child value is not in the variables (i.e. index) catch exception and return IsEmpty = true
-				return true;
-			}
-			if ($component instanceof Math_Formula_Applicator) {
-				return $component->isEmpty();
-			}
-			if (! empty($component)) {
-				return false;
-			}
-		}
+    public function evaluate($element)
+    {
+        foreach ($element as $child) {
+            try {
+                $component = $this->evaluateChild($child);
+            } catch (Math_Formula_Exception $e) {
+                // if the child value is not in the variables (i.e. index) catch exception and return IsEmpty = true
+                return true;
+            }
+            if ($component instanceof Math_Formula_Applicator) {
+                return $component->isEmpty();
+            }
+            if (! empty($component)) {
+                return false;
+            }
+        }
 
-		return true;
-	}
+        return true;
+    }
 }

@@ -11,13 +11,13 @@
  */
 function module_user_blogs_info()
 {
-	return [
-		'name' => tra('My Blogs'),
-		'description' => tra('Displays to registered users their blogs.'),
-		'prefs' => ['feature_blogs'],
-		'params' => [],
-		'common_params' => ["nonums"]
-	];
+    return [
+        'name' => tra('My Blogs'),
+        'description' => tra('Displays to registered users their blogs.'),
+        'prefs' => ['feature_blogs'],
+        'params' => [],
+        'common_params' => ["nonums"]
+    ];
 }
 
 /**
@@ -26,13 +26,13 @@ function module_user_blogs_info()
  */
 function module_user_blogs($mod_reference, $module_params)
 {
-	global $user;
-	if ($user) {
-		$smarty = TikiLib::lib('smarty');
-		$bloglib = TikiLib::lib('blog');
-		$ranking = $bloglib->list_user_blogs($user, false);
+    global $user;
+    if ($user) {
+        $smarty = TikiLib::lib('smarty');
+        $bloglib = TikiLib::lib('blog');
+        $ranking = $bloglib->list_user_blogs($user, false);
 
-		$smarty->assign('modUserBlogs', $ranking);
-		$smarty->assign('tpl_module_title', tra("My blogs"));
-	}
+        $smarty->assign('modUserBlogs', $ranking);
+        $smarty->assign('tpl_module_title', tra("My blogs"));
+    }
 }

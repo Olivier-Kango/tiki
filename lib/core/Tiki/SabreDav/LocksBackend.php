@@ -32,79 +32,79 @@ class LocksBackend extends FileBackend
    * @param bool $returnChildLocks
    * @return array
    */
-  public function getLocks($uri, $returnChildLocks)
-  {
-    $locks = parent::getLocks($uri, $returnChildLocks);
-    // check wiki page locks
-    if (preg_match('#^Wiki Pages/#', $uri)) {
-      $lockedPages = TikiLib::lib('wiki')->get_locked();
-      foreach ($lockedPages as $page) {
-        $existing = array_filter($locks, function ($lockInfo) use ($page) {
-          return $lockInfo->uri == 'Wiki Pages/' . $page['pageName'];
-        });
-        if (! $existing) {
-          $lockInfo = new LockInfo();
-          $lockInfo->owner = $page['lockedby'];
-          $lockInfo->token = DAV\UUIDUtil::getUUID();
-          $lockInfo->timeout = 0;
-          $lockInfo->created = $page['lastModif'];
-          $lockInfo->uri = 'Wiki Pages/' . $page['pageName'];
-          $locks[] = $lockInfo;
-        }
-      }
-      return $locks;
-    }
-    // since only file locks are supported, we don't need to search for parent uri locks
-    try {
-      $file = new File($uri);
-      if ($file->getFile()->lockedby) {
-        $existing = array_filter($locks, function ($lockInfo) use ($uri) {
-          return $lockInfo->uri == $uri;
-        });
-        if (! $existing) {
-          $lockInfo = new LockInfo();
-          $lockInfo->owner = $file->getFile()->lockedby;
-          $lockInfo->token = DAV\UUIDUtil::getUUID();
-          $lockInfo->timeout = 0;
-          $lockInfo->created = $file->getFile()->lastModif;
-          $lockInfo->uri = $uri;
-          $locks[] = $lockInfo;
-        }
-      }
-    } catch (DAV\Exception\NotFound $e) {
-      # ignore missing file or unsupported file gallery locks
-    }
-    if ($returnChildLocks) {
-      try {
-        $directory = new Directory($uri);
-        foreach ($directory->getChildren() as $child) {
-          if (get_class($child) == 'File') {
-            if ($child->getFile()->lockedby) {
-              $childUri = TikiLib::lib('filegal')->get_full_virtual_path($child->getFile()->fileId);
-              $existing = array_filter($locks, function ($lockInfo) use ($childUri) {
-                return $lockInfo->uri == $childUri;
-              });
-              if (! $existing) {
-                $lockInfo = new LockInfo();
-                $lockInfo->owner = $child->getFile()->lockedby;
-                $lockInfo->token = DAV\UUIDUtil::getUUID();
-                $lockInfo->timeout = 0;
-                $lockInfo->created = $child->getFile()->lastModif;
-                $lockInfo->uri = $childUri;
-                $locks[] = $lockInfo;
-              }
+    public function getLocks($uri, $returnChildLocks)
+    {
+        $locks = parent::getLocks($uri, $returnChildLocks);
+      // check wiki page locks
+        if (preg_match('#^Wiki Pages/#', $uri)) {
+            $lockedPages = TikiLib::lib('wiki')->get_locked();
+            foreach ($lockedPages as $page) {
+                $existing = array_filter($locks, function ($lockInfo) use ($page) {
+                    return $lockInfo->uri == 'Wiki Pages/' . $page['pageName'];
+                });
+                if (! $existing) {
+                      $lockInfo = new LockInfo();
+                      $lockInfo->owner = $page['lockedby'];
+                      $lockInfo->token = DAV\UUIDUtil::getUUID();
+                      $lockInfo->timeout = 0;
+                      $lockInfo->created = $page['lastModif'];
+                      $lockInfo->uri = 'Wiki Pages/' . $page['pageName'];
+                      $locks[] = $lockInfo;
+                }
             }
-          } else {
-            $galUri = TikiLib::lib('filegal')->get_full_virtual_path($child->getGalleryId());
-            $locks = array_merge($locks, $this->getLocks($galUri, $returnChildLocks));
-          }
+            return $locks;
         }
-      } catch (DAV\Exception\NotFound $e) {
-        # ignore missing file gallery
-      }
+      // since only file locks are supported, we don't need to search for parent uri locks
+        try {
+            $file = new File($uri);
+            if ($file->getFile()->lockedby) {
+                $existing = array_filter($locks, function ($lockInfo) use ($uri) {
+                    return $lockInfo->uri == $uri;
+                });
+                if (! $existing) {
+                      $lockInfo = new LockInfo();
+                      $lockInfo->owner = $file->getFile()->lockedby;
+                      $lockInfo->token = DAV\UUIDUtil::getUUID();
+                      $lockInfo->timeout = 0;
+                      $lockInfo->created = $file->getFile()->lastModif;
+                      $lockInfo->uri = $uri;
+                      $locks[] = $lockInfo;
+                }
+            }
+        } catch (DAV\Exception\NotFound $e) {
+          # ignore missing file or unsupported file gallery locks
+        }
+        if ($returnChildLocks) {
+            try {
+                $directory = new Directory($uri);
+                foreach ($directory->getChildren() as $child) {
+                    if (get_class($child) == 'File') {
+                        if ($child->getFile()->lockedby) {
+                              $childUri = TikiLib::lib('filegal')->get_full_virtual_path($child->getFile()->fileId);
+                              $existing = array_filter($locks, function ($lockInfo) use ($childUri) {
+                                return $lockInfo->uri == $childUri;
+                              });
+                            if (! $existing) {
+                                $lockInfo = new LockInfo();
+                                $lockInfo->owner = $child->getFile()->lockedby;
+                                $lockInfo->token = DAV\UUIDUtil::getUUID();
+                                $lockInfo->timeout = 0;
+                                $lockInfo->created = $child->getFile()->lastModif;
+                                $lockInfo->uri = $childUri;
+                                $locks[] = $lockInfo;
+                            }
+                        }
+                    } else {
+                        $galUri = TikiLib::lib('filegal')->get_full_virtual_path($child->getGalleryId());
+                        $locks = array_merge($locks, $this->getLocks($galUri, $returnChildLocks));
+                    }
+                }
+            } catch (DAV\Exception\NotFound $e) {
+              # ignore missing file gallery
+            }
+        }
+        return $locks;
     }
-    return $locks;
-  }
 
   /**
    * Locks a uri
@@ -113,23 +113,23 @@ class LocksBackend extends FileBackend
    * @param LockInfo $lockInfo
    * @return bool
    */
-  public function lock($uri, LockInfo $lockInfo)
-  {
-    parent::lock($uri, $lockInfo);
-    try {
-      if ($m = preg_match('#^Wiki Pages/(.*)$#', $uri)) {
-        if (TikiLib::lib('tiki')->page_exists($m[1])) {
-          TikiLib::lib('wiki')->lock_page($m[1]);
+    public function lock($uri, LockInfo $lockInfo)
+    {
+        parent::lock($uri, $lockInfo);
+        try {
+            if ($m = preg_match('#^Wiki Pages/(.*)$#', $uri)) {
+                if (TikiLib::lib('tiki')->page_exists($m[1])) {
+                    TikiLib::lib('wiki')->lock_page($m[1]);
+                }
+            } else {
+                $file = new File($uri);
+                TikiLib::lib('filegal')->lock_file($file->getFile()->fileId, $lockInfo->owner);
+            }
+        } catch (DAV\Exception\NotFound $e) {
+          # ignore missing file or unsupported file gallery locks
         }
-      } else {
-        $file = new File($uri);
-        TikiLib::lib('filegal')->lock_file($file->getFile()->fileId, $lockInfo->owner);
-      }
-    } catch (DAV\Exception\NotFound $e) {
-      # ignore missing file or unsupported file gallery locks
+        return true;
     }
-    return true;
-  }
 
   /**
    * Removes a lock from a uri
@@ -138,21 +138,21 @@ class LocksBackend extends FileBackend
    * @param LockInfo $lockInfo
    * @return bool
    */
-  public function unlock($uri, LockInfo $lockInfo)
-  {
-    parent::unlock($uri, $lockInfo);
-    try {
-      if ($m = preg_match('#^Wiki Pages/(.*)$#', $uri)) {
-        if (TikiLib::lib('tiki')->page_exists($m[1])) {
-          TikiLib::lib('wiki')->unlock_page($m[1]);
+    public function unlock($uri, LockInfo $lockInfo)
+    {
+        parent::unlock($uri, $lockInfo);
+        try {
+            if ($m = preg_match('#^Wiki Pages/(.*)$#', $uri)) {
+                if (TikiLib::lib('tiki')->page_exists($m[1])) {
+                    TikiLib::lib('wiki')->unlock_page($m[1]);
+                }
+            } else {
+                $file = new File($uri);
+                TikiLib::lib('filegal')->unlock_file($file->getFile()->fileId);
+            }
+        } catch (DAV\Exception\NotFound $e) {
+          # ignore missing file or unsupported file gallery locks
         }
-      } else {
-        $file = new File($uri);
-        TikiLib::lib('filegal')->unlock_file($file->getFile()->fileId);
-      }
-    } catch (DAV\Exception\NotFound $e) {
-      # ignore missing file or unsupported file gallery locks
+        return true;
     }
-    return true;
-  }
 }

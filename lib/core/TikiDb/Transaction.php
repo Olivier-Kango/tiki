@@ -13,20 +13,20 @@
  */
 class TikiDb_Transaction
 {
-	private $token;
+    private $token;
 
-	public function __construct()
-	{
-		$this->token = TikiLib::lib('unifiedsearch')->startBatch();
-	}
+    public function __construct()
+    {
+        $this->token = TikiLib::lib('unifiedsearch')->startBatch();
+    }
 
-	public function commit()
-	{
-		$done = TikiLib::lib('unifiedsearch')->endBatch($this->token);
+    public function commit()
+    {
+        $done = TikiLib::lib('unifiedsearch')->endBatch($this->token);
 
-		if ($done) {
-			$events = TikiLib::events();
-			$events->trigger('tiki.commit.after');
-		}
-	}
+        if ($done) {
+            $events = TikiLib::events();
+            $events->trigger('tiki.commit.after');
+        }
+    }
 }

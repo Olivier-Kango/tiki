@@ -13,11 +13,11 @@
  */
 function module_git_detail_info()
 {
-	return [
-		'name' => tra('GIT detail'),
-		'description' => tra('GIT commit and last update information.'),
-		'params' => [],
-	];
+    return [
+        'name' => tra('GIT detail'),
+        'description' => tra('GIT commit and last update information.'),
+        'params' => [],
+    ];
 }
 
 /**
@@ -29,21 +29,21 @@ function module_git_detail_info()
  */
 function module_git_detail($mod_reference, $module_params)
 {
-	$smarty = TikiLib::lib('smarty');
-	$gitlib = TikiLib::lib('git');
-	$error = '';
-	$content = [];
+    $smarty = TikiLib::lib('smarty');
+    $gitlib = TikiLib::lib('git');
+    $error = '';
+    $content = [];
 
-	try {
-		$content = $gitlib->get_info();
-	} catch (Exception $e) {
-		$error = $e->getMessage();
-	} catch (Error $e) {
-		$error = $e->getMessage();
-	} catch (Throwable $e) {
-		$error = $e->getMessage();
-	}
+    try {
+        $content = $gitlib->get_info();
+    } catch (Exception $e) {
+        $error = $e->getMessage();
+    } catch (Error $e) {
+        $error = $e->getMessage();
+    } catch (Throwable $e) {
+        $error = $e->getMessage();
+    }
 
-	$smarty->assign('error', $error);
-	$smarty->assign('content', $content);
+    $smarty->assign('error', $error);
+    $smarty->assign('content', $content);
 }

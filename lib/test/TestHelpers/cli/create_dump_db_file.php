@@ -8,13 +8,13 @@
 
 // Make sure script is run from a shell
 if (PHP_SAPI !== 'cli') {
-	die("Please run from a shell");
+    die("Please run from a shell");
 }
 
 require_once __DIR__ . '/../../../../vendor_bundled/vendor/autoload.php';
 
 if ($argc != 2) {
-	die("Missing argument. USAGE: $argv[0] <dump_filename>");
+    die("Missing argument. USAGE: $argv[0] <dump_filename>");
 }
 
 $test_TikiAcceptanceTestDBRestorer = new TikiAcceptanceTestDBRestorerSQLDumps();

@@ -8,26 +8,26 @@
 
 class Tiki_Event_Customizer
 {
-	private $ruleSets = [];
+    private $ruleSets = [];
 
-	public function addRule($eventName, $function)
-	{
-		$this->getRuleSet($eventName)->addRule($function);
-	}
+    public function addRule($eventName, $function)
+    {
+        $this->getRuleSet($eventName)->addRule($function);
+    }
 
-	public function bind(Tiki_Event_Manager $manager, Math_Formula_Runner $runner)
-	{
-		foreach ($this->ruleSets as $eventName => $ruleSet) {
-			$manager->bind($eventName, new Tiki_Event_Customizer_Executor($ruleSet, $runner));
-		}
-	}
+    public function bind(Tiki_Event_Manager $manager, Math_Formula_Runner $runner)
+    {
+        foreach ($this->ruleSets as $eventName => $ruleSet) {
+            $manager->bind($eventName, new Tiki_Event_Customizer_Executor($ruleSet, $runner));
+        }
+    }
 
-	private function getRuleSet($eventName)
-	{
-		if (! isset($this->ruleSets[$eventName])) {
-			$this->ruleSets[$eventName] = new Tiki_Event_Customizer_RuleSet();
-		}
+    private function getRuleSet($eventName)
+    {
+        if (! isset($this->ruleSets[$eventName])) {
+            $this->ruleSets[$eventName] = new Tiki_Event_Customizer_RuleSet();
+        }
 
-		return $this->ruleSets[$eventName];
-	}
+        return $this->ruleSets[$eventName];
+    }
 }

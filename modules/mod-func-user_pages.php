@@ -11,13 +11,13 @@
  */
 function module_user_pages_info()
 {
-	return [
-		'name' => tra('User Pages'),
-		'description' => tra('Displays to registered users the specified number of wiki pages which they were the last to edit.'),
-		'prefs' => ['feature_wiki'],
-		'params' => [],
-		'common_params' => ["rows", "nonums"]
-	];
+    return [
+        'name' => tra('User Pages'),
+        'description' => tra('Displays to registered users the specified number of wiki pages which they were the last to edit.'),
+        'prefs' => ['feature_wiki'],
+        'params' => [],
+        'common_params' => ["rows", "nonums"]
+    ];
 }
 
 /**
@@ -26,13 +26,13 @@ function module_user_pages_info()
  */
 function module_user_pages($mod_reference, $module_params)
 {
-	global $user;
-	if ($user) {
-		$tikilib = TikiLib::lib('tiki');
-		$smarty = TikiLib::lib('smarty');
+    global $user;
+    if ($user) {
+        $tikilib = TikiLib::lib('tiki');
+        $smarty = TikiLib::lib('smarty');
 
-		$ranking = $tikilib->get_user_pages($user, $mod_reference["rows"]);
-		$smarty->assign('modUserPages', $ranking);
-		$smarty->assign('tpl_module_title', tra("My Pages"));
-	}
+        $ranking = $tikilib->get_user_pages($user, $mod_reference["rows"]);
+        $smarty->assign('modUserPages', $ranking);
+        $smarty->assign('tpl_module_title', tra("My Pages"));
+    }
 }

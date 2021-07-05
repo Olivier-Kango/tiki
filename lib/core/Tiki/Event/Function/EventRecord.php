@@ -8,20 +8,20 @@
 
 class Tiki_Event_Function_EventRecord extends Math_Formula_Function
 {
-	private $recorder;
+    private $recorder;
 
-	public function __construct($recorder)
-	{
-		$this->recorder = $recorder;
-	}
+    public function __construct($recorder)
+    {
+        $this->recorder = $recorder;
+    }
 
-	public function evaluate($element)
-	{
-		$event = $this->evaluateChild($element[0]);
-		$arguments = $this->evaluateChild($element[1]);
+    public function evaluate($element)
+    {
+        $event = $this->evaluateChild($element[0]);
+        $arguments = $this->evaluateChild($element[1]);
 
-		$this->recorder->recordEvent($event, $arguments);
+        $this->recorder->recordEvent($event, $arguments);
 
-		return 1;
-	}
+        return 1;
+    }
 }

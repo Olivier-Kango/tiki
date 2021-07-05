@@ -7,14 +7,14 @@
 // $Id$
 
 if (basename($_SERVER['SCRIPT_NAME']) === basename(__FILE__)) {
-	die('This script may only be included.');
+    die('This script may only be included.');
 }
 
 // OpenID support
 if (isset($_SESSION['openid_userlist']) && isset($_SESSION['openid_url'])) {
-	$smarty->assign('openid_url', $_SESSION['openid_url']);
-	$smarty->assign('openid_userlist', $_SESSION['openid_userlist']);
+    $smarty->assign('openid_url', $_SESSION['openid_url']);
+    $smarty->assign('openid_userlist', $_SESSION['openid_userlist']);
 } else {
-	$smarty->assign('openid_url', '');
-	$smarty->assign('openid_userlist', []);
+    $smarty->assign('openid_url', '');
+    $smarty->assign('openid_userlist', []);
 }

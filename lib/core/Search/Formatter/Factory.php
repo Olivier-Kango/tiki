@@ -8,11 +8,11 @@
 
 class Search_Formatter_Factory
 {
-	public static $counter = 0;
+    public static $counter = 0;
 
-	public static function newFormatter($plugin)
-	{
-		self::$counter++;
-		return new Search_Formatter($plugin, self::$counter);
-	}
+    public static function newFormatter($plugin)
+    {
+        self::$counter++;
+        return new Search_Formatter($plugin, self::$counter);
+    }
 }

@@ -13,42 +13,42 @@ require_once('lib/wizard/wizard.php');
  */
 class AdminWizardCategory extends Wizard
 {
-	public function pageTitle()
-	{
-		return tra('Define Categories');
-	}
-	public function isEditable()
-	{
-		return false;
-	}
-	public function isVisible()
-	{
-		global	$prefs;
-		return $prefs['feature_categories'] === 'y';
-	}
+    public function pageTitle()
+    {
+        return tra('Define Categories');
+    }
+    public function isEditable()
+    {
+        return false;
+    }
+    public function isVisible()
+    {
+        global  $prefs;
+        return $prefs['feature_categories'] === 'y';
+    }
 
-	public function onSetupPage($homepageUrl)
-	{
-		global $prefs;
-		// Run the parent first
-		parent::onSetupPage($homepageUrl);
+    public function onSetupPage($homepageUrl)
+    {
+        global $prefs;
+        // Run the parent first
+        parent::onSetupPage($homepageUrl);
 
-		if (! $this->isVisible()) {
-			return false;
-		}
+        if (! $this->isVisible()) {
+            return false;
+        }
 
-		return true;
-	}
+        return true;
+    }
 
-	public function getTemplate()
-	{
-		$wizardTemplate = 'wizard/admin_category.tpl';
-		return $wizardTemplate;
-	}
+    public function getTemplate()
+    {
+        $wizardTemplate = 'wizard/admin_category.tpl';
+        return $wizardTemplate;
+    }
 
-	public function onContinue($homepageUrl)
-	{
-		// Run the parent first
-		parent::onContinue($homepageUrl);
-	}
+    public function onContinue($homepageUrl)
+    {
+        // Run the parent first
+        parent::onContinue($homepageUrl);
+    }
 }

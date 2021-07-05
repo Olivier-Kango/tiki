@@ -16,7 +16,7 @@ use org\bovigo\vfs\vfsStream;
 class Tiki_Package_ComposerCliTest extends TikiTestCase
 {
 
-	public const COMPOSER_JSON_DIST = '{
+    public const COMPOSER_JSON_DIST = '{
 	"name": "tiki/tiki-custom",
 	"description": "Tiki Wiki CMS Groupware",
 	"license": "LGPL-2.1",
@@ -31,7 +31,7 @@ class Tiki_Package_ComposerCliTest extends TikiTestCase
 	}
 }';
 
-	public const SAMPLE_COMPOSER = '{
+    public const SAMPLE_COMPOSER = '{
     "name": "tiki/tiki-custom",
     "description": "Tiki Wiki CMS Groupware",
     "license": "LGPL-2.1",
@@ -47,7 +47,7 @@ class Tiki_Package_ComposerCliTest extends TikiTestCase
     }
 }';
 
-	public const SAMPLE_COMPOSER_BIG = '{
+    public const SAMPLE_COMPOSER_BIG = '{
   "name": "tiki/tiki-custom",
   "description": "Tiki Wiki CMS Groupware - composer.json",
   "license": "LGPL-2.1",
@@ -64,311 +64,311 @@ class Tiki_Package_ComposerCliTest extends TikiTestCase
   }
 }';
 
-	protected $root;
-	protected $composerCli;
+    protected $root;
+    protected $composerCli;
 
-	protected function setUp(): void
-	{
-		parent::setUp();
+    protected function setUp(): void
+    {
+        parent::setUp();
 
-		$this->root = vfsStream::setup(__CLASS__);
-		$this->composerCli = new ComposerCli(vfsStream::url(__CLASS__));
-	}
+        $this->root = vfsStream::setup(__CLASS__);
+        $this->composerCli = new ComposerCli(vfsStream::url(__CLASS__));
+    }
 
-	/**
-	 * Test getComposerConfigOrDefault
-	 *
-	 * @param $composer
-	 * @param $composerDist
-	 * @param $expected
-	 *
-	 * @dataProvider getComposerConfigOrDefaultProvider
-	 */
-	public function testGetComposerConfigOrDefault($composer, $composerDist, $expected)
-	{
-		$structure = [];
-		if (! is_null($composer)) {
-			$structure['composer.json'] = $composer;
-		}
-		if (! is_null($composerDist)) {
-			$structure['composer.json.dist'] = $composerDist;
-		}
+    /**
+     * Test getComposerConfigOrDefault
+     *
+     * @param $composer
+     * @param $composerDist
+     * @param $expected
+     *
+     * @dataProvider getComposerConfigOrDefaultProvider
+     */
+    public function testGetComposerConfigOrDefault($composer, $composerDist, $expected)
+    {
+        $structure = [];
+        if (! is_null($composer)) {
+            $structure['composer.json'] = $composer;
+        }
+        if (! is_null($composerDist)) {
+            $structure['composer.json.dist'] = $composerDist;
+        }
 
-		$stream = uniqid(true);
-		vfsStream::setup($stream, null, $structure);
+        $stream = uniqid(true);
+        vfsStream::setup($stream, null, $structure);
 
-		$composerCli = new ComposerCli(vfsStream::url($stream));
+        $composerCli = new ComposerCli(vfsStream::url($stream));
 
-		$this->assertEquals(json_decode($expected, true), $composerCli->getComposerConfigOrDefault());
-	}
+        $this->assertEquals(json_decode($expected, true), $composerCli->getComposerConfigOrDefault());
+    }
 
-	public function getComposerConfigOrDefaultProvider()
-	{
-		return [
-			[self::SAMPLE_COMPOSER, self::COMPOSER_JSON_DIST, self::SAMPLE_COMPOSER],
-			[null, self::COMPOSER_JSON_DIST, self::COMPOSER_JSON_DIST],
-			[null, null, ComposerCli::FALLBACK_COMPOSER_JSON],
-		];
-	}
+    public function getComposerConfigOrDefaultProvider()
+    {
+        return [
+            [self::SAMPLE_COMPOSER, self::COMPOSER_JSON_DIST, self::SAMPLE_COMPOSER],
+            [null, self::COMPOSER_JSON_DIST, self::COMPOSER_JSON_DIST],
+            [null, null, ComposerCli::FALLBACK_COMPOSER_JSON],
+        ];
+    }
 
 
-	/**
-	 * Test getListOfPackagesFromConfig
-	 *
-	 * @param $composerJson
-	 * @param $showResult
-	 * @param $expected
-	 *
-	 * @dataProvider getListOfPackagesFromConfigProvider
-	 */
-	public function testGetListOfPackagesFromConfig($composerJson, $showResult, $expected)
-	{
-		vfsStream::create(
-			[
-				'composer.json' => $composerJson,
-			],
-			$this->root
-		);
+    /**
+     * Test getListOfPackagesFromConfig
+     *
+     * @param $composerJson
+     * @param $showResult
+     * @param $expected
+     *
+     * @dataProvider getListOfPackagesFromConfigProvider
+     */
+    public function testGetListOfPackagesFromConfig($composerJson, $showResult, $expected)
+    {
+        vfsStream::create(
+            [
+                'composer.json' => $composerJson,
+            ],
+            $this->root
+        );
 
-		$composerCli = $this->getMockBuilder(ComposerCli::class)
-			->onlyMethods(['checkConfigExists', 'canExecuteComposer', 'execShow'])
-			->setConstructorArgs([vfsStream::url(__CLASS__)])
-			->getMock();
+        $composerCli = $this->getMockBuilder(ComposerCli::class)
+            ->onlyMethods(['checkConfigExists', 'canExecuteComposer', 'execShow'])
+            ->setConstructorArgs([vfsStream::url(__CLASS__)])
+            ->getMock();
 
-		$composerCli->method('checkConfigExists')
-			->willReturn(true);
+        $composerCli->method('checkConfigExists')
+            ->willReturn(true);
 
-		$composerCli->method('canExecuteComposer')
-			->willReturn(true);
+        $composerCli->method('canExecuteComposer')
+            ->willReturn(true);
 
-		$composerCli->method('execShow')
-			->willReturn($showResult);
+        $composerCli->method('execShow')
+            ->willReturn($showResult);
 
-		$this->assertEquals($expected, $composerCli->getListOfPackagesFromConfig());
-	}
+        $this->assertEquals($expected, $composerCli->getListOfPackagesFromConfig());
+    }
 
-	public function getListOfPackagesFromConfigProvider()
-	{
-		return [
-			[ // no package installed, no key
-				self::SAMPLE_COMPOSER_BIG,
-				[],
-				[
-					[
-						'name' => 'foo/bar',
-						'status' => 'missing',
-						'required' => '^1.0.0',
-						'installed' => '',
-					],
-					[
-						'name' => 'test/unit',
-						'status' => 'missing',
-						'required' => '^1.0.0',
-						'installed' => '',
-					],
-				],
-			],
-			[ // no package installed, with key
-				self::SAMPLE_COMPOSER_BIG,
-				['installed' => []],
-				[
-					[
-						'name' => 'foo/bar',
-						'status' => 'missing',
-						'required' => '^1.0.0',
-						'installed' => '',
-					],
-					[
-						'name' => 'test/unit',
-						'status' => 'missing',
-						'required' => '^1.0.0',
-						'installed' => '',
-					],
-				],
-			],
-			[ // one package installed
-				self::SAMPLE_COMPOSER_BIG,
-				['installed' => [['name' => 'foo/bar', 'version' => '1.2.3']]],
-				[
-					[
-						'name' => 'foo/bar',
-						'status' => 'installed',
-						'required' => '^1.0.0',
-						'installed' => '1.2.3',
-					],
-					[
-						'name' => 'test/unit',
-						'status' => 'missing',
-						'required' => '^1.0.0',
-						'installed' => '',
-					],
-				],
-			],
-			[ // all packages installed
-				self::SAMPLE_COMPOSER_BIG,
-				['installed' => [['name' => 'foo/bar', 'version' => '1.2.3'], ['name' => 'test/unit', 'version' => '1.4.5']]],
-				[
-					[
-						'name' => 'foo/bar',
-						'status' => 'installed',
-						'required' => '^1.0.0',
-						'installed' => '1.2.3',
-					],
-					[
-						'name' => 'test/unit',
-						'status' => 'installed',
-						'required' => '^1.0.0',
-						'installed' => '1.4.5',
-					],
-				],
-			],
-			[ // packages installed that are not in composer.json
-				self::SAMPLE_COMPOSER_BIG,
-				['installed' => [['name' => 'foo/bar2', 'version' => '1.2.3']]],
-				[
-					[
-						'name' => 'foo/bar',
-						'status' => 'missing',
-						'required' => '^1.0.0',
-						'installed' => '',
-					],
-					[
-						'name' => 'test/unit',
-						'status' => 'missing',
-						'required' => '^1.0.0',
-						'installed' => '',
-					],
-				],
-			],
-			[ // all packages installed, case mismatch
-				self::SAMPLE_COMPOSER_BIG,
-				[
-					'installed' => [
-						['name' => 'FOO/BAR', 'version' => '1.2.3'],
-						['name' => 'TesT/UniT', 'version' => '1.4.5'],
-					],
-				],
-				[
-					[
-						'name' => 'foo/bar',
-						'status' => 'installed',
-						'required' => '^1.0.0',
-						'installed' => '1.2.3',
-					],
-					[
-						'name' => 'test/unit',
-						'status' => 'installed',
-						'required' => '^1.0.0',
-						'installed' => '1.4.5',
-					],
-				],
-			],
-		];
-	}
+    public function getListOfPackagesFromConfigProvider()
+    {
+        return [
+            [ // no package installed, no key
+                self::SAMPLE_COMPOSER_BIG,
+                [],
+                [
+                    [
+                        'name' => 'foo/bar',
+                        'status' => 'missing',
+                        'required' => '^1.0.0',
+                        'installed' => '',
+                    ],
+                    [
+                        'name' => 'test/unit',
+                        'status' => 'missing',
+                        'required' => '^1.0.0',
+                        'installed' => '',
+                    ],
+                ],
+            ],
+            [ // no package installed, with key
+                self::SAMPLE_COMPOSER_BIG,
+                ['installed' => []],
+                [
+                    [
+                        'name' => 'foo/bar',
+                        'status' => 'missing',
+                        'required' => '^1.0.0',
+                        'installed' => '',
+                    ],
+                    [
+                        'name' => 'test/unit',
+                        'status' => 'missing',
+                        'required' => '^1.0.0',
+                        'installed' => '',
+                    ],
+                ],
+            ],
+            [ // one package installed
+                self::SAMPLE_COMPOSER_BIG,
+                ['installed' => [['name' => 'foo/bar', 'version' => '1.2.3']]],
+                [
+                    [
+                        'name' => 'foo/bar',
+                        'status' => 'installed',
+                        'required' => '^1.0.0',
+                        'installed' => '1.2.3',
+                    ],
+                    [
+                        'name' => 'test/unit',
+                        'status' => 'missing',
+                        'required' => '^1.0.0',
+                        'installed' => '',
+                    ],
+                ],
+            ],
+            [ // all packages installed
+                self::SAMPLE_COMPOSER_BIG,
+                ['installed' => [['name' => 'foo/bar', 'version' => '1.2.3'], ['name' => 'test/unit', 'version' => '1.4.5']]],
+                [
+                    [
+                        'name' => 'foo/bar',
+                        'status' => 'installed',
+                        'required' => '^1.0.0',
+                        'installed' => '1.2.3',
+                    ],
+                    [
+                        'name' => 'test/unit',
+                        'status' => 'installed',
+                        'required' => '^1.0.0',
+                        'installed' => '1.4.5',
+                    ],
+                ],
+            ],
+            [ // packages installed that are not in composer.json
+                self::SAMPLE_COMPOSER_BIG,
+                ['installed' => [['name' => 'foo/bar2', 'version' => '1.2.3']]],
+                [
+                    [
+                        'name' => 'foo/bar',
+                        'status' => 'missing',
+                        'required' => '^1.0.0',
+                        'installed' => '',
+                    ],
+                    [
+                        'name' => 'test/unit',
+                        'status' => 'missing',
+                        'required' => '^1.0.0',
+                        'installed' => '',
+                    ],
+                ],
+            ],
+            [ // all packages installed, case mismatch
+                self::SAMPLE_COMPOSER_BIG,
+                [
+                    'installed' => [
+                        ['name' => 'FOO/BAR', 'version' => '1.2.3'],
+                        ['name' => 'TesT/UniT', 'version' => '1.4.5'],
+                    ],
+                ],
+                [
+                    [
+                        'name' => 'foo/bar',
+                        'status' => 'installed',
+                        'required' => '^1.0.0',
+                        'installed' => '1.2.3',
+                    ],
+                    [
+                        'name' => 'test/unit',
+                        'status' => 'installed',
+                        'required' => '^1.0.0',
+                        'installed' => '1.4.5',
+                    ],
+                ],
+            ],
+        ];
+    }
 
-	/**
-	 * Test addComposerPackageToJson
-	 *
-	 * @dataProvider addComposerPackageToJsonProvider
-	 *
-	 * @param $composerJson
-	 * @param $package
-	 * @param $version
-	 * @param $scripts
-	 * @param $expected
-	 */
-	public function testAddComposerPackageToJson($composerJson, $package, $version, $scripts, $expected)
-	{
+    /**
+     * Test addComposerPackageToJson
+     *
+     * @dataProvider addComposerPackageToJsonProvider
+     *
+     * @param $composerJson
+     * @param $package
+     * @param $version
+     * @param $scripts
+     * @param $expected
+     */
+    public function testAddComposerPackageToJson($composerJson, $package, $version, $scripts, $expected)
+    {
 
-		$result = $this->composerCli->addComposerPackageToJson(
-			$composerJson,
-			$package,
-			$version,
-			$scripts
-		);
+        $result = $this->composerCli->addComposerPackageToJson(
+            $composerJson,
+            $package,
+            $version,
+            $scripts
+        );
 
-		$this->assertEquals($expected, $result);
-	}
+        $this->assertEquals($expected, $result);
+    }
 
-	public function addComposerPackageToJsonProvider()
-	{
+    public function addComposerPackageToJsonProvider()
+    {
 
-		$returnDataProvider = [];
+        $returnDataProvider = [];
 
-		$composerJson = json_decode(self::SAMPLE_COMPOSER, true);
+        $composerJson = json_decode(self::SAMPLE_COMPOSER, true);
 
-		// simple test
-		$expected = $composerJson;
-		$expected['require']['package'] = 'version';
-		$returnDataProvider[] = [
-			$composerJson,
-			'package',
-			'version',
-			null,
-			$expected,
-		];
+        // simple test
+        $expected = $composerJson;
+        $expected['require']['package'] = 'version';
+        $returnDataProvider[] = [
+            $composerJson,
+            'package',
+            'version',
+            null,
+            $expected,
+        ];
 
-		// empty JSON
-		$expected = ['require' => ['package' => 'version']];
-		$returnDataProvider[] = [
-			'',
-			'package',
-			'version',
-			null,
-			$expected,
-		];
+        // empty JSON
+        $expected = ['require' => ['package' => 'version']];
+        $returnDataProvider[] = [
+            '',
+            'package',
+            'version',
+            null,
+            $expected,
+        ];
 
-		// require existing package
-		$returnDataProvider[] = [
-			$composerJson,
-			'psr/log',
-			'^1.0',
-			null,
-			$composerJson,
-		];
+        // require existing package
+        $returnDataProvider[] = [
+            $composerJson,
+            'psr/log',
+            '^1.0',
+            null,
+            $composerJson,
+        ];
 
-		// Add all scripts
-		$expected = $composerJson;
-		$expected['require']['foo/bar'] = '^1.0';
-		$expected['scripts'] = [
-			'pre-install-cmd' => ['FooBarInstaller\Installer::install'],
-			'pre-update-cmd' => ['FooBarInstaller\Installer::install'],
-			'post-install-cmd' => ['FooBarInstaller\Installer::install'],
-			'post-update-cmd' => ['FooBarInstaller\Installer::install'],
-		];
-		$returnDataProvider[] = [
-			$composerJson,
-			'foo/bar',
-			'^1.0',
-			[
-				'pre-install-cmd' => ['FooBarInstaller\Installer::install'],
-				'pre-update-cmd' => ['FooBarInstaller\Installer::install'],
-				'post-install-cmd' => ['FooBarInstaller\Installer::install'],
-				'post-update-cmd' => ['FooBarInstaller\Installer::install'],
-			],
-			$expected,
-		];
+        // Add all scripts
+        $expected = $composerJson;
+        $expected['require']['foo/bar'] = '^1.0';
+        $expected['scripts'] = [
+            'pre-install-cmd' => ['FooBarInstaller\Installer::install'],
+            'pre-update-cmd' => ['FooBarInstaller\Installer::install'],
+            'post-install-cmd' => ['FooBarInstaller\Installer::install'],
+            'post-update-cmd' => ['FooBarInstaller\Installer::install'],
+        ];
+        $returnDataProvider[] = [
+            $composerJson,
+            'foo/bar',
+            '^1.0',
+            [
+                'pre-install-cmd' => ['FooBarInstaller\Installer::install'],
+                'pre-update-cmd' => ['FooBarInstaller\Installer::install'],
+                'post-install-cmd' => ['FooBarInstaller\Installer::install'],
+                'post-update-cmd' => ['FooBarInstaller\Installer::install'],
+            ],
+            $expected,
+        ];
 
-		// Append Script
-		$source = $composerJson;
-		$source['scripts'] = [
-			'pre-install-cmd' => ['SomeInstaller\Installer::install'],
-		];
-		$expected = $composerJson;
-		$expected['require']['foo/bar'] = '^1.0';
-		$expected['scripts'] = [
-			'pre-install-cmd' => ['SomeInstaller\Installer::install', 'FooBarInstaller\Installer::install'],
-		];
-		$returnDataProvider[] = [
-			$source,
-			'foo/bar',
-			'^1.0',
-			[
-				'pre-install-cmd' => ['FooBarInstaller\Installer::install'],
-			],
-			$expected,
-		];
+        // Append Script
+        $source = $composerJson;
+        $source['scripts'] = [
+            'pre-install-cmd' => ['SomeInstaller\Installer::install'],
+        ];
+        $expected = $composerJson;
+        $expected['require']['foo/bar'] = '^1.0';
+        $expected['scripts'] = [
+            'pre-install-cmd' => ['SomeInstaller\Installer::install', 'FooBarInstaller\Installer::install'],
+        ];
+        $returnDataProvider[] = [
+            $source,
+            'foo/bar',
+            '^1.0',
+            [
+                'pre-install-cmd' => ['FooBarInstaller\Installer::install'],
+            ],
+            $expected,
+        ];
 
-		return $returnDataProvider;
-	}
+        return $returnDataProvider;
+    }
 }

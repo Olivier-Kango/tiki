@@ -11,28 +11,28 @@
  */
 function upgrade_20110905_multibyte_lc_fix_tiki($installer)
 {
-	if (function_exists('mb_strtolower')) {
-		$pages = $installer->table('tiki_pages')->fetchColumn('pageName', []);
-		$objectperms = $installer->table('users_objectpermissions');
+    if (function_exists('mb_strtolower')) {
+        $pages = $installer->table('tiki_pages')->fetchColumn('pageName', []);
+        $objectperms = $installer->table('users_objectpermissions');
 
-		foreach ($pages as $originalName) {
-			$lowercase = strtolower($originalName);
-			$mblowercase = mb_strtolower($originalName, 'UTF-8');
+        foreach ($pages as $originalName) {
+            $lowercase = strtolower($originalName);
+            $mblowercase = mb_strtolower($originalName, 'UTF-8');
 
-			if ($lowercase != $mblowercase) {
-				$old = md5('wiki page' . $lowercase);
-				$new = md5('wiki page' . $mblowercase);
+            if ($lowercase != $mblowercase) {
+                $old = md5('wiki page' . $lowercase);
+                $new = md5('wiki page' . $mblowercase);
 
-				$objectperms->updateMultiple(
-					[
-						'objectId' => $new,
-					],
-					[
-						'objectType' => 'wiki page',
-						'objectId' => $old,
-					]
-				);
-			}
-		}
-	}
+                $objectperms->updateMultiple(
+                    [
+                        'objectId' => $new,
+                    ],
+                    [
+                        'objectType' => 'wiki page',
+                        'objectId' => $old,
+                    ]
+                );
+            }
+        }
+    }
 }

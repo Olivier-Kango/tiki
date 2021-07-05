@@ -8,19 +8,19 @@
 
 class Math_Formula_Function_Concat extends Math_Formula_Function
 {
-	public function evaluate($element)
-	{
-		$out = '';
+    public function evaluate($element)
+    {
+        $out = '';
 
-		foreach ($element as $child) {
-			$child = $this->evaluateChild($child);
-			if (is_array($child)) {
-				$out .= implode('', $child);
-			} else {
-				$out .= $child;
-			}
-		}
+        foreach ($element as $child) {
+            $child = $this->evaluateChild($child);
+            if (is_array($child)) {
+                $out .= implode('', $child);
+            } else {
+                $out .= $child;
+            }
+        }
 
-		return $out;
-	}
+        return $out;
+    }
 }

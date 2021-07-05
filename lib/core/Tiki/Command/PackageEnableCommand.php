@@ -18,49 +18,49 @@ use Tiki\Package\ExtensionManager;
 
 class PackageEnableCommand extends Command
 {
-	protected function configure()
-	{
-		$this
-			->setName('package:enable')
-			->setDescription('Enable a Tiki Package')
-			->addArgument(
-				'package',
-				InputArgument::REQUIRED,
-				'Tiki package name'
-			);
-	}
+    protected function configure()
+    {
+        $this
+            ->setName('package:enable')
+            ->setDescription('Enable a Tiki Package')
+            ->addArgument(
+                'package',
+                InputArgument::REQUIRED,
+                'Tiki package name'
+            );
+    }
 
-	protected function execute(InputInterface $input, OutputInterface $output)
-	{
-		$io = new SymfonyStyle($input, $output);
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $io = new SymfonyStyle($input, $output);
 
-		$packageName = $input->getArgument('package');
+        $packageName = $input->getArgument('package');
 
-		$path = ExtensionManager::locatePackage($packageName);
+        $path = ExtensionManager::locatePackage($packageName);
 
-		if (empty($path)) {
-			$io->error('Package was not found. Did you forgot to install');
-			return 1;
-		}
+        if (empty($path)) {
+            $io->error('Package was not found. Did you forgot to install');
+            return 1;
+        }
 
-		$extensionPackage = ExtensionManager::get($packageName);
-		$update = isset($extensionPackage) ? $extensionPackage->hasUpdate() : false;
+        $extensionPackage = ExtensionManager::get($packageName);
+        $update = isset($extensionPackage) ? $extensionPackage->hasUpdate() : false;
 
-		$success = ExtensionManager::enableExtension($packageName, $path);
-		$messages = ExtensionManager::getMessages();
-		$io->writeln(implode(PHP_EOL, $messages));
+        $success = ExtensionManager::enableExtension($packageName, $path);
+        $messages = ExtensionManager::getMessages();
+        $io->writeln(implode(PHP_EOL, $messages));
 
-		if ($success && $update) {
-			$io->success(tr('Extension %0 was updated', $packageName));
-			return 0;
-		}
+        if ($success && $update) {
+            $io->success(tr('Extension %0 was updated', $packageName));
+            return 0;
+        }
 
-		if ($success) {
-			$io->success(tr('Extension %0 is now enabled', $packageName));
-			return 0;
-		}
+        if ($success) {
+            $io->success(tr('Extension %0 is now enabled', $packageName));
+            return 0;
+        }
 
-		$io->error(tr('Extension %0 was not enabled.', $packageName));
-		return 1;
-	}
+        $io->error(tr('Extension %0 was not enabled.', $packageName));
+        return 1;
+    }
 }

@@ -8,24 +8,24 @@
 
 class Perms_Check_Indirect implements Perms_Check
 {
-	private $map;
+    private $map;
 
-	public function __construct(array $map)
-	{
-		$this->map = $map;
-	}
+    public function __construct(array $map)
+    {
+        $this->map = $map;
+    }
 
-	public function check(Perms_Resolver $resolver, array $context, $name, array $groups)
-	{
-		if (isset($this->map[$name])) {
-			return $resolver->check($this->map[$name], $groups);
-		} else {
-			return false;
-		}
-	}
+    public function check(Perms_Resolver $resolver, array $context, $name, array $groups)
+    {
+        if (isset($this->map[$name])) {
+            return $resolver->check($this->map[$name], $groups);
+        } else {
+            return false;
+        }
+    }
 
-	public function applicableGroups(Perms_Resolver $resolver)
-	{
-		return $resolver->applicableGroups();
-	}
+    public function applicableGroups(Perms_Resolver $resolver)
+    {
+        return $resolver->applicableGroups();
+    }
 }

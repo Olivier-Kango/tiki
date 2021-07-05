@@ -8,14 +8,14 @@
 
 class Math_Formula_Function_Not extends Math_Formula_Function
 {
-	public function evaluate($element)
-	{
-		$componentBool = $this->evaluateChild($element[0]);
+    public function evaluate($element)
+    {
+        $componentBool = $this->evaluateChild($element[0]);
 
-		if ($componentBool) {
-			return false;
-		} else {
-			return true;
-		}
-	}
+        if ($componentBool) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }

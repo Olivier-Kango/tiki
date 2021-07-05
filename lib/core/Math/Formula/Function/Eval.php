@@ -8,14 +8,14 @@
 
 class Math_Formula_Function_Eval extends Math_Formula_Function
 {
-	public function evaluate($element)
-	{
-		$out = [];
+    public function evaluate($element)
+    {
+        $out = [];
 
-		foreach ($element as $child) {
-			$out[] = $this->evaluateChild($child);
-		}
+        foreach ($element as $child) {
+            $out[] = $this->evaluateChild($child);
+        }
 
-		return implode(' ', $out);
-	}
+        return implode(' ', $out);
+    }
 }

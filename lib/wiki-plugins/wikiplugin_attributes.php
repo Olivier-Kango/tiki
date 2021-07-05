@@ -8,31 +8,31 @@
 
 function wikiplugin_attributes_info()
 {
-	return [
-		'name' => tra('Attributes'),
-		'documentation' => 'PluginAttributes',
-		'description' => tra('Assign generic attributes to the current object'),
-		'prefs' => [ 'wikiplugin_attributes' ],
-		'extraparams' => true,
-		'defaultfilter' => 'text',
-		'iconname' => 'cog',
-		'introduced' => 6,
-		'params' => [
-		],
-	];
+    return [
+        'name' => tra('Attributes'),
+        'documentation' => 'PluginAttributes',
+        'description' => tra('Assign generic attributes to the current object'),
+        'prefs' => [ 'wikiplugin_attributes' ],
+        'extraparams' => true,
+        'defaultfilter' => 'text',
+        'iconname' => 'cog',
+        'introduced' => 6,
+        'params' => [
+        ],
+    ];
 }
 
 function wikiplugin_attributes_save($context, $data, $params)
 {
-	$attributelib = TikiLib::lib('attribute');
+    $attributelib = TikiLib::lib('attribute');
 
-	foreach ($params as $key => $value) {
-		$key = str_replace('_', '.', $key);
-		$attributelib->set_attribute($context['type'], $context['object'], $key, $value);
-	}
+    foreach ($params as $key => $value) {
+        $key = str_replace('_', '.', $key);
+        $attributelib->set_attribute($context['type'], $context['object'], $key, $value);
+    }
 }
 
 function wikiplugin_attributes($data, $params)
 {
-	return '';
+    return '';
 }

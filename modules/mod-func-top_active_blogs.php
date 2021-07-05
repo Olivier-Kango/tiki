@@ -11,13 +11,13 @@
  */
 function module_top_active_blogs_info()
 {
-	return [
-		'name' => tra('Most Active blogs'),
-		'description' => tra('Displays the specified number of blogs with links to them, from the most active one to the least.') . tra('Blog activity measurement can be more or less accurate.'),
-		'prefs' => ['feature_blogs'],
-		'params' => [],
-		'common_params' => ['nonums', 'rows']
-	];
+    return [
+        'name' => tra('Most Active blogs'),
+        'description' => tra('Displays the specified number of blogs with links to them, from the most active one to the least.') . tra('Blog activity measurement can be more or less accurate.'),
+        'prefs' => ['feature_blogs'],
+        'params' => [],
+        'common_params' => ['nonums', 'rows']
+    ];
 }
 
 /**
@@ -26,9 +26,9 @@ function module_top_active_blogs_info()
  */
 function module_top_active_blogs($mod_reference, $module_params)
 {
-	$smarty = TikiLib::lib('smarty');
-	$bloglib = TikiLib::lib('blog');
-	$ranking = $bloglib->list_blogs(0, $mod_reference["rows"], 'activity_desc', '');
+    $smarty = TikiLib::lib('smarty');
+    $bloglib = TikiLib::lib('blog');
+    $ranking = $bloglib->list_blogs(0, $mod_reference["rows"], 'activity_desc', '');
 
-	$smarty->assign('modTopActiveBlogs', $ranking["data"]);
+    $smarty->assign('modTopActiveBlogs', $ranking["data"]);
 }

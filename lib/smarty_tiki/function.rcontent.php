@@ -8,6 +8,6 @@
 
 function smarty_function_rcontent($params, $smarty)
 {
-	$dcslib = TikiLib::lib('dcs');
-	return $dcslib->get_random_content($params['id']);
+    $dcslib = TikiLib::lib('dcs');
+    return $dcslib->get_random_content($params['id']);
 }

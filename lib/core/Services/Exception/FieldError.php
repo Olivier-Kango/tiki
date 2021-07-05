@@ -8,8 +8,8 @@
 
 class Services_Exception_FieldError extends Services_Exception
 {
-	public function __construct($field, $message)
-	{
-		parent::__construct("<!--field[$field]-->" . $message, 409);
-	}
+    public function __construct($field, $message)
+    {
+        parent::__construct("<!--field[$field]-->" . $message, 409);
+    }
 }

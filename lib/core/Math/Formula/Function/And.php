@@ -8,17 +8,17 @@
 
 class Math_Formula_Function_And extends Math_Formula_Function
 {
-	public function evaluate($element)
-	{
-		$out = 0;
+    public function evaluate($element)
+    {
+        $out = 0;
 
-		foreach ($element as $child) {
-			$out = 1;
-			if (! $this->evaluateChild($child)) {
-				return 0;
-			}
-		}
+        foreach ($element as $child) {
+            $out = 1;
+            if (! $this->evaluateChild($child)) {
+                return 0;
+            }
+        }
 
-		return $out;
-	}
+        return $out;
+    }
 }

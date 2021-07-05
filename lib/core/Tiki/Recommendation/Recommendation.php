@@ -10,34 +10,34 @@ namespace Tiki\Recommendation;
 
 class Recommendation implements EngineOutput
 {
-	private $type;
-	private $object;
-	private $title;
+    private $type;
+    private $object;
+    private $title;
 
-	public function __construct($type, $object, $title = null)
-	{
-		$this->type = $type;
-		$this->object = $object;
-		$this->title = $title;
-	}
+    public function __construct($type, $object, $title = null)
+    {
+        $this->type = $type;
+        $this->object = $object;
+        $this->title = $title;
+    }
 
-	public function getType()
-	{
-		return $this->type;
-	}
+    public function getType()
+    {
+        return $this->type;
+    }
 
-	public function getId()
-	{
-		return $this->object;
-	}
+    public function getId()
+    {
+        return $this->object;
+    }
 
-	public function getTitle()
-	{
-		return $this->title;
-	}
+    public function getTitle()
+    {
+        return $this->title;
+    }
 
-	public function __toString()
-	{
-		return tr('Recommendation: %0:%1 (%2)', $this->type, $this->object, $this->title ?: tr('Unknown'));
-	}
+    public function __toString()
+    {
+        return tr('Recommendation: %0:%1 (%2)', $this->type, $this->object, $this->title ?: tr('Unknown'));
+    }
 }

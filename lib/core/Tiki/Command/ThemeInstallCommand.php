@@ -28,75 +28,75 @@ use Tiki\Installer\Installer;
  */
 class ThemeInstallCommand extends Command
 {
-	/**
-	 * Configures the current command.
-	 */
-	protected function configure()
-	{
-		$this
-			->setName('theme:install')
-			->setDescription('Install a new theme')
-			->addArgument(
-				'file',
-				InputArgument::REQUIRED,
-				'Zip file'
-			);
-	}
+    /**
+     * Configures the current command.
+     */
+    protected function configure()
+    {
+        $this
+            ->setName('theme:install')
+            ->setDescription('Install a new theme')
+            ->addArgument(
+                'file',
+                InputArgument::REQUIRED,
+                'Zip file'
+            );
+    }
 
-	/**
-	 * Executes the current command.
-	 *
-	 * @param InputInterface $input
-	 * @param OutputInterface $output
-	 * @return null
-	 */
-	protected function execute(InputInterface $input, OutputInterface $output)
-	{
-		global $tikipath;
-		$tikiRootFolder = ! empty($tikipath) ? $tikipath : dirname(dirname(dirname(dirname(__DIR__))));
+    /**
+     * Executes the current command.
+     *
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @return null
+     */
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        global $tikipath;
+        $tikiRootFolder = ! empty($tikipath) ? $tikipath : dirname(dirname(dirname(dirname(__DIR__))));
 
-		$file = $input->getArgument('file');
-		if (! file_exists($file)) {
-			$output->writeln('<error>' . tr('File not found') . '</error>');
-			return;
-		}
+        $file = $input->getArgument('file');
+        if (! file_exists($file)) {
+            $output->writeln('<error>' . tr('File not found') . '</error>');
+            return;
+        }
 
-		$themeZip = new ThemeZip();
-		$isZipFile = $themeZip->isZipFile($file);
-		$path_parts = pathinfo($file);
-		if (! $isZipFile) {
-			$output->writeln('<error>' . tr('File is not a .zip file.') . '</error>');
-			return;
-		}
-		$uniqueHash = 'ThemeZipTmp_' . uniqid('', true) . rand(0, PHP_INT_MAX);
-		$sourceFolder = $tikiRootFolder . '/temp/' . $uniqueHash ;
-		try {
-			$zip = new ZipArchive();
-			$zip->open($file);
-			$zip->extractTo($sourceFolder);
-			$zip->close();
-			global $tikipath;
-			$tikiRootFolder = ! empty($tikipath) ? $tikipath : dirname(dirname(dirname(dirname(__DIR__))));
+        $themeZip = new ThemeZip();
+        $isZipFile = $themeZip->isZipFile($file);
+        $path_parts = pathinfo($file);
+        if (! $isZipFile) {
+            $output->writeln('<error>' . tr('File is not a .zip file.') . '</error>');
+            return;
+        }
+        $uniqueHash = 'ThemeZipTmp_' . uniqid('', true) . rand(0, PHP_INT_MAX);
+        $sourceFolder = $tikiRootFolder . '/temp/' . $uniqueHash ;
+        try {
+            $zip = new ZipArchive();
+            $zip->open($file);
+            $zip->extractTo($sourceFolder);
+            $zip->close();
+            global $tikipath;
+            $tikiRootFolder = ! empty($tikipath) ? $tikipath : dirname(dirname(dirname(dirname(__DIR__))));
 
 
-			$themeInstaller = new ThemeInstaller($sourceFolder . "/" . $path_parts['filename'], $tikiRootFolder);
-			$themeInstaller->install();
+            $themeInstaller = new ThemeInstaller($sourceFolder . "/" . $path_parts['filename'], $tikiRootFolder);
+            $themeInstaller->install();
 
-			foreach ($themeInstaller->getMessages() as $message) {
-				$output->writeln($message);
-			}
-			$output->writeln('<info>' . tr('Theme installed:') . ' ' . $themeInstaller->getThemeName() . '</info>');
-		} catch (Exception $ex) {
-			$output->writeln($ex->getMessage());
-			return;
-		} finally {
-			$this->removeTemp($sourceFolder);
-		}
-	}
+            foreach ($themeInstaller->getMessages() as $message) {
+                $output->writeln($message);
+            }
+            $output->writeln('<info>' . tr('Theme installed:') . ' ' . $themeInstaller->getThemeName() . '</info>');
+        } catch (Exception $ex) {
+            $output->writeln($ex->getMessage());
+            return;
+        } finally {
+            $this->removeTemp($sourceFolder);
+        }
+    }
 
-	public function removeTemp($folder)
-	{
-		$fs = new Filesystem();
-		$fs->remove($folder);
-	}
+    public function removeTemp($folder)
+    {
+        $fs = new Filesystem();
+        $fs->remove($folder);
+    }
 }

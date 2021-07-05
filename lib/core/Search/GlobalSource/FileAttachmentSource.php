@@ -8,54 +8,54 @@
 
 class Search_GlobalSource_FileAttachmentSource implements Search_GlobalSource_Interface
 {
-	private $relationlib;
-	private $attributelib;
-	private $fileSource;
+    private $relationlib;
+    private $attributelib;
+    private $fileSource;
 
-	public function __construct(Search_ContentSource_Interface $source)
-	{
-		$this->relationlib = TikiLib::lib('relation');
-		$this->attributelib = TikiLib::lib('attribute');
-		$this->fileSource = $source;
-	}
+    public function __construct(Search_ContentSource_Interface $source)
+    {
+        $this->relationlib = TikiLib::lib('relation');
+        $this->attributelib = TikiLib::lib('attribute');
+        $this->fileSource = $source;
+    }
 
-	public function getProvidedFields()
-	{
-		return ['attachment_contents', 'attachments', 'primary_image'];
-	}
+    public function getProvidedFields()
+    {
+        return ['attachment_contents', 'attachments', 'primary_image'];
+    }
 
-	public function getGlobalFields()
-	{
-		return [
-			'attachment_contents' => false,
-		];
-	}
+    public function getGlobalFields()
+    {
+        return [
+            'attachment_contents' => false,
+        ];
+    }
 
-	public function getData($objectType, $objectId, Search_Type_Factory_Interface $typeFactory, array $data = [])
-	{
-		$relations = $this->relationlib->get_relations_from($objectType, $objectId, 'tiki.file.attach');
-		$attributes = $this->attributelib->get_attributes($objectType, $objectId);
+    public function getData($objectType, $objectId, Search_Type_Factory_Interface $typeFactory, array $data = [])
+    {
+        $relations = $this->relationlib->get_relations_from($objectType, $objectId, 'tiki.file.attach');
+        $attributes = $this->attributelib->get_attributes($objectType, $objectId);
 
-		$textual = [];
-		$files = [];
+        $textual = [];
+        $files = [];
 
-		foreach ($relations as $rel) {
-			if ($rel['type'] == 'file') {
-				$files[] = $rel['itemId'];
-				if ($data = $this->fileSource->getDocument($rel['itemId'], $typeFactory)) {
-					foreach ($this->fileSource->getGlobalFields() as $name => $keep) {
-						$textual[] = $data[$name]->getValue();
-					}
-				} else {
-					error_log("File " . $rel['itemId'] . ", referenced from " . $objectType . $objectId . " no longer exists.");
-				}
-			}
-		}
+        foreach ($relations as $rel) {
+            if ($rel['type'] == 'file') {
+                $files[] = $rel['itemId'];
+                if ($data = $this->fileSource->getDocument($rel['itemId'], $typeFactory)) {
+                    foreach ($this->fileSource->getGlobalFields() as $name => $keep) {
+                        $textual[] = $data[$name]->getValue();
+                    }
+                } else {
+                    error_log("File " . $rel['itemId'] . ", referenced from " . $objectType . $objectId . " no longer exists.");
+                }
+            }
+        }
 
-		return [
-			'attachments' => $typeFactory->multivalue($files),
-			'attachment_contents' => $typeFactory->plaintext(implode(' ', $textual)),
-			'primary_image' => $typeFactory->identifier(isset($attributes['tiki.object.image']) ? $attributes['tiki.object.image'] : ''),
-		];
-	}
+        return [
+            'attachments' => $typeFactory->multivalue($files),
+            'attachment_contents' => $typeFactory->plaintext(implode(' ', $textual)),
+            'primary_image' => $typeFactory->identifier(isset($attributes['tiki.object.image']) ? $attributes['tiki.object.image'] : ''),
+        ];
+    }
 }

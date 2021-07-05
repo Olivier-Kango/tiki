@@ -8,134 +8,134 @@
 
 class Reports_UsersTest extends TikiDatabaseTestCase
 {
-	protected $obj;
+    protected $obj;
 
-	protected $db;
+    protected $db;
 
-	protected $dt;
+    protected $dt;
 
-	protected $reportsCache;
+    protected $reportsCache;
 
-	protected function setUp(): void
-	{
-		$this->db = TikiDb::get();
+    protected function setUp(): void
+    {
+        $this->db = TikiDb::get();
 
-		$this->dt = new DateTime();
-		$this->dt->setTimezone(new DateTimeZone('UTC'));
-		$this->dt->setTimestamp('1326734528');
+        $this->dt = new DateTime();
+        $this->dt->setTimezone(new DateTimeZone('UTC'));
+        $this->dt->setTimestamp('1326734528');
 
-		$this->obj = new Reports_Users($this->db, $this->dt);
+        $this->obj = new Reports_Users($this->db, $this->dt);
 
-		parent::setUp();
-	}
+        parent::setUp();
+    }
 
-	public function getDataSet()
-	{
-		return $this->createMySQLXMLDataSet(__DIR__ . '/fixtures/user_reports_dataset.xml');
-	}
+    public function getDataSet()
+    {
+        return $this->createMySQLXMLDataSet(__DIR__ . '/fixtures/user_reports_dataset.xml');
+    }
 
-	public function testDeleteShouldDeleteUserReportsPreferences()
-	{
-		$user = 'admin';
+    public function testDeleteShouldDeleteUserReportsPreferences()
+    {
+        $user = 'admin';
 
-		$expectedTable = $this->createMySQLXmlDataSet(__DIR__ . '/fixtures/user_reports_dataset_delete.xml')
-			->getTable('tiki_user_reports');
+        $expectedTable = $this->createMySQLXmlDataSet(__DIR__ . '/fixtures/user_reports_dataset_delete.xml')
+            ->getTable('tiki_user_reports');
 
-		$this->obj->delete($user);
+        $this->obj->delete($user);
 
-		$queryTable = $this->getConnection()->createQueryTable('tiki_user_reports', 'SELECT * FROM tiki_user_reports');
+        $queryTable = $this->getConnection()->createQueryTable('tiki_user_reports', 'SELECT * FROM tiki_user_reports');
 
-		$this->assertTablesEqual($expectedTable, $queryTable);
-	}
+        $this->assertTablesEqual($expectedTable, $queryTable);
+    }
 
-	public function testGetShouldReturnEmptyIfUserIsNotUsingReports()
-	{
-		$this->assertEmpty($this->obj->get('someuserNotUsingReports'));
-	}
+    public function testGetShouldReturnEmptyIfUserIsNotUsingReports()
+    {
+        $this->assertEmpty($this->obj->get('someuserNotUsingReports'));
+    }
 
-	public function testGetShouldReturnUsersReportsPreferences()
-	{
-		$expectedResult = ['id' => 2, 'interval' => 'daily', 'view' => 'detailed', 'type' => 'html',
-			'always_email' => 1, 'last_report' => '2012-01-15 12:22:08'];
+    public function testGetShouldReturnUsersReportsPreferences()
+    {
+        $expectedResult = ['id' => 2, 'interval' => 'daily', 'view' => 'detailed', 'type' => 'html',
+            'always_email' => 1, 'last_report' => '2012-01-15 12:22:08'];
 
-		$this->assertEquals($expectedResult, $this->obj->get('test'));
-	}
+        $this->assertEquals($expectedResult, $this->obj->get('test'));
+    }
 
-	public function testSaveShouldInsertData()
-	{
-		$expectedTable = $this->createMySQLXmlDataSet(__DIR__ . '/fixtures/user_reports_dataset_insert.xml')
-			->getTable('tiki_user_reports');
+    public function testSaveShouldInsertData()
+    {
+        $expectedTable = $this->createMySQLXmlDataSet(__DIR__ . '/fixtures/user_reports_dataset_insert.xml')
+            ->getTable('tiki_user_reports');
 
-		// xml cannot properly represent null values, so set it after
-		$expectedTable->setValue(2, 'last_report', null);
+        // xml cannot properly represent null values, so set it after
+        $expectedTable->setValue(2, 'last_report', null);
 
-		$this->obj->save('newUser', 'weekly', 'detailed', 'html', 1);
+        $this->obj->save('newUser', 'weekly', 'detailed', 'html', 1);
 
-		$queryTable = $this->getConnection()->createQueryTable('tiki_user_reports', 'SELECT * FROM tiki_user_reports');
+        $queryTable = $this->getConnection()->createQueryTable('tiki_user_reports', 'SELECT * FROM tiki_user_reports');
 
-		$this->assertTablesEqual($expectedTable, $queryTable);
-	}
+        $this->assertTablesEqual($expectedTable, $queryTable);
+    }
 
-	public function testSaveShouldUpdateData()
-	{
-		$expectedTable = $this->createMySQLXmlDataSet(__DIR__ . '/fixtures/user_reports_dataset_update.xml')
-			->getTable('tiki_user_reports');
+    public function testSaveShouldUpdateData()
+    {
+        $expectedTable = $this->createMySQLXmlDataSet(__DIR__ . '/fixtures/user_reports_dataset_update.xml')
+            ->getTable('tiki_user_reports');
 
-		$this->obj->save('test', 'weekly', 'detailed', 'html', 1);
+        $this->obj->save('test', 'weekly', 'detailed', 'html', 1);
 
-		$queryTable = $this->getConnection()->createQueryTable('tiki_user_reports', 'SELECT * FROM tiki_user_reports');
+        $queryTable = $this->getConnection()->createQueryTable('tiki_user_reports', 'SELECT * FROM tiki_user_reports');
 
-		$this->assertTablesEqual($expectedTable, $queryTable);
-	}
+        $this->assertTablesEqual($expectedTable, $queryTable);
+    }
 
-	public function testAddUserToDailyReportShouldCallSave()
-	{
-		$obj = $this->getMockBuilder('Reports_Users')
-			->onlyMethods(['save'])
-			->disableOriginalConstructor()
-			->getMock();
+    public function testAddUserToDailyReportShouldCallSave()
+    {
+        $obj = $this->getMockBuilder('Reports_Users')
+            ->onlyMethods(['save'])
+            ->disableOriginalConstructor()
+            ->getMock();
 
-		$obj->expects($this->once())->method('save')->with('test', 'daily', 'detailed', 'html', 0);
-		$obj->addUserToDailyReports(['user' => 'test']);
-	}
+        $obj->expects($this->once())->method('save')->with('test', 'daily', 'detailed', 'html', 0);
+        $obj->addUserToDailyReports(['user' => 'test']);
+    }
 
-	public function testGetUsersForReportShouldReturnArrayWithUsers()
-	{
-		$expectedResult = ['test'];
-		$users = $this->obj->getUsersForReport();
-		$this->assertEquals($expectedResult, $users);
-	}
+    public function testGetUsersForReportShouldReturnArrayWithUsers()
+    {
+        $expectedResult = ['test'];
+        $users = $this->obj->getUsersForReport();
+        $this->assertEquals($expectedResult, $users);
+    }
 
-	public function testGetUsersForReportShouldIncludeNewlyCreatedUsersWithLastReportFieldEmpty()
-	{
-		$this->db->query(
-			"INSERT INTO `tiki_user_reports` (`user`, `interval`, `view`, `type`, `always_email`)
+    public function testGetUsersForReportShouldIncludeNewlyCreatedUsersWithLastReportFieldEmpty()
+    {
+        $this->db->query(
+            "INSERT INTO `tiki_user_reports` (`user`, `interval`, `view`, `type`, `always_email`)
 			VALUES ('newUser', 'weekly', 'detailed', 'html', 1)"
-		);
+        );
 
-		$expectedResult = ['test', 'newUser'];
-		$users = $this->obj->getUsersForReport();
-		$this->assertEquals($expectedResult, $users);
-	}
+        $expectedResult = ['test', 'newUser'];
+        $users = $this->obj->getUsersForReport();
+        $this->assertEquals($expectedResult, $users);
+    }
 
-	public function testUpdateLastReportShouldUpdateLastReportField()
-	{
-		$expectedTable = $this->createMySQLXmlDataSet(__DIR__ . '/fixtures/user_reports_dataset_update_last_report.xml')
-			->getTable('tiki_user_reports');
+    public function testUpdateLastReportShouldUpdateLastReportField()
+    {
+        $expectedTable = $this->createMySQLXmlDataSet(__DIR__ . '/fixtures/user_reports_dataset_update_last_report.xml')
+            ->getTable('tiki_user_reports');
 
-		$this->dt->setTimestamp('1326896528');
+        $this->dt->setTimestamp('1326896528');
 
-		$obj = new Reports_Users($this->db, $this->dt);
-		$obj->updateLastReport('test');
+        $obj = new Reports_Users($this->db, $this->dt);
+        $obj->updateLastReport('test');
 
-		$queryTable = $this->getConnection()->createQueryTable('tiki_user_reports', 'SELECT * FROM tiki_user_reports');
+        $queryTable = $this->getConnection()->createQueryTable('tiki_user_reports', 'SELECT * FROM tiki_user_reports');
 
-		$this->assertTablesEqual($expectedTable, $queryTable);
-	}
+        $this->assertTablesEqual($expectedTable, $queryTable);
+    }
 
-	public function testGetAllUsersShouldReturnAllUsers()
-	{
-		$users = $this->obj->getAllUsers();
-		$this->assertEquals(['admin', 'test'], $users);
-	}
+    public function testGetAllUsersShouldReturnAllUsers()
+    {
+        $users = $this->obj->getAllUsers();
+        $this->assertEquals(['admin', 'test'], $users);
+    }
 }

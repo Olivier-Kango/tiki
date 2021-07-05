@@ -11,10 +11,10 @@
  */
 function module_credits_info()
 {
-	return [
-		'name' => tra('Tiki User Credits'),
-		'description' => tra('Shows the credits a user has.'),
-		'prefs' => ['feature_credits'],
-		'params' => [],
-	];
+    return [
+        'name' => tra('Tiki User Credits'),
+        'description' => tra('Shows the credits a user has.'),
+        'prefs' => ['feature_credits'],
+        'params' => [],
+    ];
 }

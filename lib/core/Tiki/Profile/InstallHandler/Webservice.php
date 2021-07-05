@@ -8,49 +8,49 @@
 
 class Tiki_Profile_InstallHandler_Webservice extends Tiki_Profile_InstallHandler
 {
-	public function getData()
-	{
-		if ($this->data) {
-			return $this->data;
-		}
+    public function getData()
+    {
+        if ($this->data) {
+            return $this->data;
+        }
 
-		$defaults = [
-			'schema_version' => null,
-			'schema_documentation' => null,
-		];
+        $defaults = [
+            'schema_version' => null,
+            'schema_documentation' => null,
+        ];
 
-		$data = array_merge($defaults, $this->obj->getData());
+        $data = array_merge($defaults, $this->obj->getData());
 
-		return $this->data = $data;
-	}
+        return $this->data = $data;
+    }
 
-	public function canInstall()
-	{
-		$data = $this->getData();
+    public function canInstall()
+    {
+        $data = $this->getData();
 
-		if (! isset($data['name'], $data['url'])) {
-			return false;
-		}
+        if (! isset($data['name'], $data['url'])) {
+            return false;
+        }
 
-		return true;
-	}
+        return true;
+    }
 
-	public function _install()
-	{
-		global $tikilib;
-		$data = $this->getData();
+    public function _install()
+    {
+        global $tikilib;
+        $data = $this->getData();
 
-		$this->replaceReferences($data);
+        $this->replaceReferences($data);
 
-		require_once 'lib/webservicelib.php';
+        require_once 'lib/webservicelib.php';
 
-		$ws = Tiki_Webservice::create($data['name']);
-		$ws->url = $data['url'];
-		$ws->body = $data['body'];
-		$ws->schemaVersion = $data['schema_version'];
-		$ws->schemaDocumentation = $data['schema_documentation'];
-		$ws->save();
+        $ws = Tiki_Webservice::create($data['name']);
+        $ws->url = $data['url'];
+        $ws->body = $data['body'];
+        $ws->schemaVersion = $data['schema_version'];
+        $ws->schemaDocumentation = $data['schema_documentation'];
+        $ws->save();
 
-		return $ws->getName();
-	}
+        return $ws->getName();
+    }
 }

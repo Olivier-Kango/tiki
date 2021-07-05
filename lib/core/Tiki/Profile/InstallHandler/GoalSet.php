@@ -8,55 +8,55 @@
 
 class Tiki_Profile_InstallHandler_GoalSet extends Tiki_Profile_InstallHandler
 {
-	private $goals = [];
+    private $goals = [];
 
-	public function fetchData()
-	{
-		$data = $this->obj->getData();
+    public function fetchData()
+    {
+        $data = $this->obj->getData();
 
-		if (isset($data['goals']) && is_array($data['goals'])) {
-			$this->goals = $data['goals'];
-		}
-	}
+        if (isset($data['goals']) && is_array($data['goals'])) {
+            $this->goals = $data['goals'];
+        }
+    }
 
-	public function canInstall()
-	{
-		$this->fetchData();
+    public function canInstall()
+    {
+        $this->fetchData();
 
-		return true;
-	}
+        return true;
+    }
 
-	public function _install()
-	{
-		$this->fetchData();
-		$this->replaceReferences($this->goals);
+    public function _install()
+    {
+        $this->fetchData();
+        $this->replaceReferences($this->goals);
 
-		$lib = TikiLib::lib('goal');
-		$lib->preserveGoals($this->goals);
+        $lib = TikiLib::lib('goal');
+        $lib->preserveGoals($this->goals);
 
-		return true;
-	}
+        return true;
+    }
 
-	public static function export($writer)
-	{
-		$goallib = TikiLib::lib('goal');
-		$goals = $goallib->listGoals();
+    public static function export($writer)
+    {
+        $goallib = TikiLib::lib('goal');
+        $goals = $goallib->listGoals();
 
-		$ids = [];
-		foreach ($goals as $goal) {
-			if (Tiki_Profile_InstallHandler_Goal::export($writer, $goal['goalId'])) {
-				$ids[] = $goal['goalId'];
-			}
-		}
+        $ids = [];
+        foreach ($goals as $goal) {
+            if (Tiki_Profile_InstallHandler_Goal::export($writer, $goal['goalId'])) {
+                $ids[] = $goal['goalId'];
+            }
+        }
 
-		$writer->addObject(
-			'goal_set',
-			'set',
-			[
-				'goals' => $writer->getReference('goal', $ids),
-			]
-		);
+        $writer->addObject(
+            'goal_set',
+            'set',
+            [
+                'goals' => $writer->getReference('goal', $ids),
+            ]
+        );
 
-		return true;
-	}
+        return true;
+    }
 }

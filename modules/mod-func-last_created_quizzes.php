@@ -11,13 +11,13 @@
  */
 function module_last_created_quizzes_info()
 {
-	return [
-		'name' => tra('Newest Quizzes'),
-		'description' => tra('Displays the specified number of quizzes from newest to oldest.'),
-		'prefs' => ["feature_quizzes"],
-		'params' => [],
-		'common_params' => ['nonums', 'rows']
-	];
+    return [
+        'name' => tra('Newest Quizzes'),
+        'description' => tra('Displays the specified number of quizzes from newest to oldest.'),
+        'prefs' => ["feature_quizzes"],
+        'params' => [],
+        'common_params' => ['nonums', 'rows']
+    ];
 }
 
 /**
@@ -26,8 +26,8 @@ function module_last_created_quizzes_info()
  */
 function module_last_created_quizzes($mod_reference, $module_params)
 {
-	$smarty = TikiLib::lib('smarty');
-	$ranking = TikiLib::lib('quiz')->list_quizzes(0, $mod_reference["rows"], 'created_desc', '');
+    $smarty = TikiLib::lib('smarty');
+    $ranking = TikiLib::lib('quiz')->list_quizzes(0, $mod_reference["rows"], 'created_desc', '');
 
-	$smarty->assign('modLastCreatedQuizzes', $ranking["data"]);
+    $smarty->assign('modLastCreatedQuizzes', $ranking["data"]);
 }

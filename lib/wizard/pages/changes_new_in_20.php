@@ -13,40 +13,40 @@ require_once('lib/wizard/wizard.php');
  */
 class ChangesWizardNewIn20 extends Wizard
 {
-	public function pageTitle()
-	{
-		return tra('New in Tiki 20');
-	}
+    public function pageTitle()
+    {
+        return tra('New in Tiki 20');
+    }
 
-	public function isEditable()
-	{
-		return true;
-	}
+    public function isEditable()
+    {
+        return true;
+    }
 
-	public function onSetupPage($homepageUrl)
-	{
-		// Run the parent first
-		parent::onSetupPage($homepageUrl);
+    public function onSetupPage($homepageUrl)
+    {
+        // Run the parent first
+        parent::onSetupPage($homepageUrl);
 
-		$showPage = true;
+        $showPage = true;
 
-		// Show if any more specification is needed
+        // Show if any more specification is needed
 
-		return $showPage;
-	}
+        return $showPage;
+    }
 
-	public function getTemplate()
-	{
-		$wizardTemplate = 'wizard/changes_new_in_20.tpl';
+    public function getTemplate()
+    {
+        $wizardTemplate = 'wizard/changes_new_in_20.tpl';
 
-		return $wizardTemplate;
-	}
+        return $wizardTemplate;
+    }
 
-	public function onContinue($homepageUrl)
-	{
-		global $tikilib;
+    public function onContinue($homepageUrl)
+    {
+        global $tikilib;
 
-		// Run the parent first
-		parent::onContinue($homepageUrl);
-	}
+        // Run the parent first
+        parent::onContinue($homepageUrl);
+    }
 }

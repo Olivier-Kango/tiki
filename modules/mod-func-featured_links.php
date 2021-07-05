@@ -11,14 +11,14 @@
  */
 function module_featured_links_info()
 {
-	return [
-		'name' => tra('Featured Links'),
-		'description' => tra('Displays the site\'s first featured links.'),
-		'prefs' => ['feature_featuredLinks'],
-		'documentation' => 'Module featured_links',
-		'params' => [],
-		'common_params' => ['nonums', 'rows']
-	];
+    return [
+        'name' => tra('Featured Links'),
+        'description' => tra('Displays the site\'s first featured links.'),
+        'prefs' => ['feature_featuredLinks'],
+        'documentation' => 'Module featured_links',
+        'params' => [],
+        'common_params' => ['nonums', 'rows']
+    ];
 }
 
 /**
@@ -27,7 +27,7 @@ function module_featured_links_info()
  */
 function module_featured_links($mod_reference, $module_params)
 {
-	$tikilib = TikiLib::lib('tiki');
-	$smarty = TikiLib::lib('smarty');
-	$smarty->assign('featuredLinks', $tikilib->get_featured_links($mod_reference['rows']));
+    $tikilib = TikiLib::lib('tiki');
+    $smarty = TikiLib::lib('smarty');
+    $smarty->assign('featuredLinks', $tikilib->get_featured_links($mod_reference['rows']));
 }

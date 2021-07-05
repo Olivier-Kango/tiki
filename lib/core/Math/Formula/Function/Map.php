@@ -8,14 +8,14 @@
 
 class Math_Formula_Function_Map extends Math_Formula_Function
 {
-	public function evaluate($element)
-	{
-		$out = [];
+    public function evaluate($element)
+    {
+        $out = [];
 
-		foreach ($element as $child) {
-			$out[$child->getType()] = $this->evaluateChild($child[0]);
-		}
+        foreach ($element as $child) {
+            $out[$child->getType()] = $this->evaluateChild($child[0]);
+        }
 
-		return $out;
-	}
+        return $out;
+    }
 }

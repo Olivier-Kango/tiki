@@ -13,10 +13,10 @@
  */
 function upgrade_20130410_keep_wysiwyg_htmltowiki_setting_tiki($installer)
 {
-	$value = $installer->getOne("SELECT `value` FROM `tiki_preferences` WHERE `name` = 'wysiwyg_htmltowiki'");
+    $value = $installer->getOne("SELECT `value` FROM `tiki_preferences` WHERE `name` = 'wysiwyg_htmltowiki'");
 
-	if ($value !== 'y') {	// default values can be empty
-		$preferences = $installer->table('tiki_preferences');
-		$preferences->insertOrUpdate(['value' => 'n'], ['name' => 'wysiwyg_htmltowiki']);
-	}
+    if ($value !== 'y') {   // default values can be empty
+        $preferences = $installer->table('tiki_preferences');
+        $preferences->insertOrUpdate(['value' => 'n'], ['name' => 'wysiwyg_htmltowiki']);
+    }
 }

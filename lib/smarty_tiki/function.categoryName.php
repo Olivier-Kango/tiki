@@ -8,11 +8,11 @@
 
 function smarty_function_categoryName($params, $smarty)
 {
-	if (! isset($params['id'])) {
-		trigger_error("categoryName: missing 'id' parameter");
-		return;
-	}
+    if (! isset($params['id'])) {
+        trigger_error("categoryName: missing 'id' parameter");
+        return;
+    }
 
-	$categlib = TikiLib::lib('categ');
-	return $categlib->get_category_name($params['id']);
+    $categlib = TikiLib::lib('categ');
+    return $categlib->get_category_name($params['id']);
 }

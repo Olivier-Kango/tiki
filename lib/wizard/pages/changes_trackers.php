@@ -13,36 +13,36 @@ require_once('lib/wizard/wizard.php');
  */
 class ChangesWizardTrackers extends Wizard
 {
-	public function pageTitle()
-	{
-		return tra('Trackers');
-	}
+    public function pageTitle()
+    {
+        return tra('Trackers');
+    }
 
-	public function isEditable()
-	{
-		return true;
-	}
+    public function isEditable()
+    {
+        return true;
+    }
 
-	public function onSetupPage($homepageUrl)
-	{
-		global $prefs;
-		// Run the parent first
-		parent::onSetupPage($homepageUrl);
+    public function onSetupPage($homepageUrl)
+    {
+        global $prefs;
+        // Run the parent first
+        parent::onSetupPage($homepageUrl);
 
-		$showPage = true;
+        $showPage = true;
 
-		return $showPage;
-	}
+        return $showPage;
+    }
 
-	public function getTemplate()
-	{
-		$wizardTemplate = 'wizard/changes_trackers.tpl';
-		return $wizardTemplate;
-	}
+    public function getTemplate()
+    {
+        $wizardTemplate = 'wizard/changes_trackers.tpl';
+        return $wizardTemplate;
+    }
 
-	public function onContinue($homepageUrl)
-	{
-		// Run the parent first
-		parent::onContinue($homepageUrl);
-	}
+    public function onContinue($homepageUrl)
+    {
+        // Run the parent first
+        parent::onContinue($homepageUrl);
+    }
 }

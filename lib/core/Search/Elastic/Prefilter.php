@@ -8,19 +8,19 @@
 
 class Search_Elastic_Prefilter
 {
-	/**
-	 * Returns Elastic prefilter logic to possibly insert in a closure
-	 * @param $fields
-	 * @param $entry
-	 * @return array
-	 */
-	public function get($fields, $entry)
-	{
-		return array_filter(
-			$fields,
-			function ($field) use ($entry) {
-				return ! isset($entry[$field]);
-			}
-		);
-	}
+    /**
+     * Returns Elastic prefilter logic to possibly insert in a closure
+     * @param $fields
+     * @param $entry
+     * @return array
+     */
+    public function get($fields, $entry)
+    {
+        return array_filter(
+            $fields,
+            function ($field) use ($entry) {
+                return ! isset($entry[$field]);
+            }
+        );
+    }
 }

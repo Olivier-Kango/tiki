@@ -41,35 +41,35 @@ try {
     //
     // Event 1: User clicked SIGN-IN link
     //
-	//if (isset($_REQUEST['provider'])) //TODO some say it is not safe?
-	if (isset($_GET['provider'])) {
-		$provider = $_GET['provider'];
+    //if (isset($_REQUEST['provider'])) //TODO some say it is not safe?
+    if (isset($_GET['provider'])) {
+        $provider = $_GET['provider'];
         //TODO Validate here provider exists in the $prefs?
-		$storage->set('provider', $provider);
-		$tikihybridi = new TikiHybrid($provider);
+        $storage->set('provider', $provider);
+        $tikihybridi = new TikiHybrid($provider);
 
-		LLOG('login GET provider=', $provider);
+        LLOG('login GET provider=', $provider);
 
-		//header('Location: tiki-index.php');
-		//die;
-	}
+        //header('Location: tiki-index.php');
+        //die;
+    }
 
-	//
+    //
     // Event 2: Provider returns via CALLBACK
     //
     if ($provider = $storage->get('provider')) {
-		LLOG('Provider returns via CALLBACK storage provider:', $provider);
-		$tikihybridi->adapter->authenticate();
+        LLOG('Provider returns via CALLBACK storage provider:', $provider);
+        $tikihybridi->adapter->authenticate();
 
-  		$storage->set('provider', null);
+        $storage->set('provider', null);
 
-		$tikihybridi->login();
-		$tikihybridi->adapter->disconnect();
-		$tikihybridi = null;
+        $tikihybridi->login();
+        $tikihybridi->adapter->disconnect();
+        $tikihybridi = null;
     }
 
 
-  LLOG('aris002 COMMON END  /////////////////////////');
+    LLOG('aris002 COMMON END  /////////////////////////');
 } catch (Throwable $e) {
     error_log($e->getMessage());
     echo $e->getMessage();
@@ -79,9 +79,9 @@ try {
 /*
 //Do we still need this for tiki.tpl?
 if ($user) {
-	$token = $tikilib->get_user_preference($user, 'socnets_' . $providerId . '_token', '');
-	Feedback::warning("User exists");
-	$smarty->assign('socnets_' . $providerName, ($token != ''));
+    $token = $tikilib->get_user_preference($user, 'socnets_' . $providerId . '_token', '');
+    Feedback::warning("User exists");
+    $smarty->assign('socnets_' . $providerName, ($token != ''));
 }
 */
 //LLOG('writing adapter =null');

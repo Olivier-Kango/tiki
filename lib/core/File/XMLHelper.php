@@ -18,22 +18,22 @@ use SimpleXMLElement;
 class XMLHelper
 {
 
-	/**
-	 * Append a simpleXMLElement to another simpleXMLElement.
-	 * This is not supported using legacy simpleXMLELement
-	 * @param SimpleXMLElement $root
-	 * @param SimpleXMLElement $child
-	 */
-	public static function appendElement(SimpleXMLElement $root, SimpleXMLElement $child)
-	{
-		$node = $root->addChild($child->getName(), (string) $child);
+    /**
+     * Append a simpleXMLElement to another simpleXMLElement.
+     * This is not supported using legacy simpleXMLELement
+     * @param SimpleXMLElement $root
+     * @param SimpleXMLElement $child
+     */
+    public static function appendElement(SimpleXMLElement $root, SimpleXMLElement $child)
+    {
+        $node = $root->addChild($child->getName(), (string) $child);
 
-		foreach ($child->attributes() as $attr => $value) {
-			$node->addAttribute($attr, $value);
-		}
+        foreach ($child->attributes() as $attr => $value) {
+            $node->addAttribute($attr, $value);
+        }
 
-		foreach ($child->children() as $ch) {
-			self::appendElement($node, $ch);
-		}
-	}
+        foreach ($child->children() as $ch) {
+            self::appendElement($node, $ch);
+        }
+    }
 }

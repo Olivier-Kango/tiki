@@ -9,35 +9,35 @@
 class Services_Module_Controller
 {
 
-	/**
-	 * @param JitFilter $input
-	 * @return array
-	 */
-	public function action_execute($input)
-	{
-		$modlib = TikiLib::lib('mod');
-		$result = '';
+    /**
+     * @param JitFilter $input
+     * @return array
+     */
+    public function action_execute($input)
+    {
+        $modlib = TikiLib::lib('mod');
+        $result = '';
 
-		$modname = $input->module->text();
-		if ($modname) {
-			$params = $input->isArray('params') ? $input->asArray('params') : [];
+        $modname = $input->module->text();
+        if ($modname) {
+            $params = $input->isArray('params') ? $input->asArray('params') : [];
 
-			$moduleId = $input->moduleId->int();
+            $moduleId = $input->moduleId->int();
 
-			if ($moduleId) {
-				$module_reference = $modlib->get_assigned_module($moduleId);
-				parse_str($module_reference['params'], $module_reference['params']);
-				$module_reference['params'] = array_merge($params, $module_reference['params']);
-			} else {
-				$module_reference = [
-					'name' => $modname,
-					'params' => $params,
-				];
-			}
+            if ($moduleId) {
+                $module_reference = $modlib->get_assigned_module($moduleId);
+                parse_str($module_reference['params'], $module_reference['params']);
+                $module_reference['params'] = array_merge($params, $module_reference['params']);
+            } else {
+                $module_reference = [
+                    'name' => $modname,
+                    'params' => $params,
+                ];
+            }
 
 
-			$result = $modlib->execute_module($module_reference);
-		}
-		return ['html' => $result];
-	}
+            $result = $modlib->execute_module($module_reference);
+        }
+        return ['html' => $result];
+    }
 }

@@ -23,26 +23,26 @@
 function smarty_block_tr($params, $content, $smarty, &$repeat)
 {
 
-	if ($repeat || empty($content)) {
-		return;
-	}
+    if ($repeat || empty($content)) {
+        return;
+    }
 
-	if (empty($params['lang'])) {
-		$lang = '';
-	} else {
-		$lang = $params['lang'];
-	}
+    if (empty($params['lang'])) {
+        $lang = '';
+    } else {
+        $lang = $params['lang'];
+    }
 
-	$args = [];
-	foreach ($params as $key => $value) {
-		if (preg_match('/_([[:digit:]])+/', $key, $matches)) {
-			$args[$matches[1]] = $value;
-		}
-	}
+    $args = [];
+    foreach ($params as $key => $value) {
+        if (preg_match('/_([[:digit:]])+/', $key, $matches)) {
+            $args[$matches[1]] = $value;
+        }
+    }
 
-	if (empty($params['interactive']) || $params['interactive'] == 'y') {
-		return tra($content, $lang, false, $args);
-	} else {
-		return tra($content, $lang, true);
-	}
+    if (empty($params['interactive']) || $params['interactive'] == 'y') {
+        return tra($content, $lang, false, $args);
+    } else {
+        return tra($content, $lang, true);
+    }
 }

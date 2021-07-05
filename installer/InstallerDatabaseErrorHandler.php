@@ -13,13 +13,13 @@ use TikiDb_ErrorHandler;
 
 class InstallerDatabaseErrorHandler implements TikiDb_ErrorHandler
 {
-	/**
-	 * @param TikiDb $db
-	 * @param        $query
-	 * @param        $values
-	 * @param        $result
-	 */
-	public function handle(TikiDb $db, $query, $values, $result)
-	{
-	}
+    /**
+     * @param TikiDb $db
+     * @param        $query
+     * @param        $values
+     * @param        $result
+     */
+    public function handle(TikiDb $db, $query, $values, $result)
+    {
+    }
 }

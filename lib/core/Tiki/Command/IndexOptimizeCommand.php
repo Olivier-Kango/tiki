@@ -16,21 +16,21 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class IndexOptimizeCommand extends Command
 {
-	protected function configure()
-	{
-		$this
-			->setName('index:optimize')
-			->setDescription('Optimize the unified search index');
-	}
+    protected function configure()
+    {
+        $this
+            ->setName('index:optimize')
+            ->setDescription('Optimize the unified search index');
+    }
 
-	protected function execute(InputInterface $input, OutputInterface $output)
-	{
-		$unifiedsearchlib = \TikiLib::lib('unifiedsearch');
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $unifiedsearchlib = \TikiLib::lib('unifiedsearch');
 
-		$output->writeln('Started optimizing index...');
+        $output->writeln('Started optimizing index...');
 
-		$unifiedsearchlib->getIndex('data-write')->optimize();
+        $unifiedsearchlib->getIndex('data-write')->optimize();
 
-		$output->writeln('Optimizing index done');
-	}
+        $output->writeln('Optimizing index done');
+    }
 }

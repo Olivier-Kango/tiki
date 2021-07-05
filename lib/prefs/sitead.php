@@ -8,16 +8,16 @@
 
 function prefs_sitead_list()
 {
-	return [
-		'sitead_publish' => [
-			'name' => tra('Publish'),
-			'type' => 'flag',
-			'description' => tra('Make the banner visible to all site visitors.'),
-			'dependencies' => [
-				'feature_sitead',
-			],
-			'hint' => tra('Activate must be turned on for Publish to take effect.'),
-			'default' => 'n',
-		],
-	];
+    return [
+        'sitead_publish' => [
+            'name' => tra('Publish'),
+            'type' => 'flag',
+            'description' => tra('Make the banner visible to all site visitors.'),
+            'dependencies' => [
+                'feature_sitead',
+            ],
+            'hint' => tra('Activate must be turned on for Publish to take effect.'),
+            'default' => 'n',
+        ],
+    ];
 }

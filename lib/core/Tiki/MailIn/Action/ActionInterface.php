@@ -13,11 +13,11 @@ use Tiki\MailIn\Source\Message;
 
 interface ActionInterface
 {
-	public function getName();
+    public function getName();
 
-	public function isEnabled();
+    public function isEnabled();
 
-	public function isAllowed(Account $account, Message $message);
+    public function isAllowed(Account $account, Message $message);
 
-	public function execute(Account $account, Message $message);
+    public function execute(Account $account, Message $message);
 }

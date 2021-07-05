@@ -13,45 +13,45 @@ require_once('lib/wizard/wizard.php');
  */
 class ChangesWizardNewIn16 extends Wizard
 {
-	public function pageTitle()
-	{
-		return tra('New in Tiki 16');
-	}
+    public function pageTitle()
+    {
+        return tra('New in Tiki 16');
+    }
 
-	public function isEditable()
-	{
-		return true;
-	}
+    public function isEditable()
+    {
+        return true;
+    }
 
-	public function onSetupPage($homepageUrl)
-	{
-		global $prefs;
-		$smarty = TikiLib::lib('smarty');
-		$addonprefs = TikiLib::lib('prefs')->getPackagePrefs();
-		$smarty->assign('addonprefs', $addonprefs);
+    public function onSetupPage($homepageUrl)
+    {
+        global $prefs;
+        $smarty = TikiLib::lib('smarty');
+        $addonprefs = TikiLib::lib('prefs')->getPackagePrefs();
+        $smarty->assign('addonprefs', $addonprefs);
 
-		// Run the parent first
-		parent::onSetupPage($homepageUrl);
+        // Run the parent first
+        parent::onSetupPage($homepageUrl);
 
-		$showPage = true;
+        $showPage = true;
 
-		// Show if any more specification is needed
+        // Show if any more specification is needed
 
-		return $showPage;
-	}
+        return $showPage;
+    }
 
-	public function getTemplate()
-	{
-		$wizardTemplate = 'wizard/changes_new_in_16.tpl';
+    public function getTemplate()
+    {
+        $wizardTemplate = 'wizard/changes_new_in_16.tpl';
 
-		return $wizardTemplate;
-	}
+        return $wizardTemplate;
+    }
 
-	public function onContinue($homepageUrl)
-	{
-		global $tikilib;
+    public function onContinue($homepageUrl)
+    {
+        global $tikilib;
 
-		// Run the parent first
-		parent::onContinue($homepageUrl);
-	}
+        // Run the parent first
+        parent::onContinue($homepageUrl);
+    }
 }

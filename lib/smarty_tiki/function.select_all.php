@@ -20,45 +20,45 @@
  */
 function smarty_function_select_all($params, $smarty)
 {
-	global $prefs;
-	static $checkbox_count = -1;
+    global $prefs;
+    static $checkbox_count = -1;
 
-	if ($prefs['javascript_enabled'] == 'n' || ! is_array($params) || empty($params['checkbox_names'])) {
-		return;
-	}
+    if ($prefs['javascript_enabled'] == 'n' || ! is_array($params) || empty($params['checkbox_names'])) {
+        return;
+    }
 
-	$checkbox_count++;
-	if ($checkbox_count > 0) {
-		$id = '_' . $checkbox_count;
-	} else {
-		$id = '';
-	}
-	$onclick = '';
-	$checkbox_names = $params['checkbox_names'];
-	if (! is_array($checkbox_names)) {
-		$checkbox_names = explode(',', $checkbox_names);
-	}
-	if (isset($params['hidden_too']) && $params['hidden_too'] === 'y') {
-		$hidden_too = ',true';
-	} else {
-		$hidden_too = '';
-	}
+    $checkbox_count++;
+    if ($checkbox_count > 0) {
+        $id = '_' . $checkbox_count;
+    } else {
+        $id = '';
+    }
+    $onclick = '';
+    $checkbox_names = $params['checkbox_names'];
+    if (! is_array($checkbox_names)) {
+        $checkbox_names = explode(',', $checkbox_names);
+    }
+    if (isset($params['hidden_too']) && $params['hidden_too'] === 'y') {
+        $hidden_too = ',true';
+    } else {
+        $hidden_too = '';
+    }
 
-	$smarty->loadPlugin('smarty_modifier_escape');
+    $smarty->loadPlugin('smarty_modifier_escape');
 
-	if (isset($params['tablesorter']) &&  $params['tablesorter'] == '1') {
-		$onclick = '';
-	} else {
-		foreach ($checkbox_names as $cn) {
-			$onclick .= "switchCheckboxes(this.form,'" . htmlspecialchars(smarty_modifier_escape($cn, 'javascript')) . "',this.checked$hidden_too);";
-		}
-		$onclick = ' onclick="' . $onclick . '"';
-	}
+    if (isset($params['tablesorter']) &&  $params['tablesorter'] == '1') {
+        $onclick = '';
+    } else {
+        foreach ($checkbox_names as $cn) {
+            $onclick .= "switchCheckboxes(this.form,'" . htmlspecialchars(smarty_modifier_escape($cn, 'javascript')) . "',this.checked$hidden_too);";
+        }
+        $onclick = ' onclick="' . $onclick . '"';
+    }
 
-	return "<div class=\"form-check\">\n" .
-			'<input name="switcher' . $id . '" id="clickall' . $id . '" class="form-check-input position-static" type="checkbox"' . $onclick .
-			( empty($params['label']) ? ' title="' . tra('Select All') . '"' : '' ) .
-			'/>' . "\n" .
-			( ! empty($params['label']) ? '<label class="form-check-label" for="clickall' . $id . '">' . $params['label'] . "</label>\n" : '' ) .
-			"</div>\n";
+    return "<div class=\"form-check\">\n" .
+            '<input name="switcher' . $id . '" id="clickall' . $id . '" class="form-check-input position-static" type="checkbox"' . $onclick .
+            ( empty($params['label']) ? ' title="' . tra('Select All') . '"' : '' ) .
+            '/>' . "\n" .
+            ( ! empty($params['label']) ? '<label class="form-check-label" for="clickall' . $id . '">' . $params['label'] . "</label>\n" : '' ) .
+            "</div>\n";
 }

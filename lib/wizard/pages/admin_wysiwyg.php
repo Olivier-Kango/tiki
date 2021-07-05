@@ -13,72 +13,72 @@ require_once('lib/wizard/wizard.php');
  */
 class AdminWizardWysiwyg extends Wizard
 {
-	public function pageTitle()
-	{
-		return tra('Set up Wysiwyg editor');
-	}
-	public function isEditable()
-	{
-		return true;
-	}
-	public function isVisible()
-	{
-		global	$prefs;
-		return $prefs['feature_wysiwyg'] === 'y';
-	}
+    public function pageTitle()
+    {
+        return tra('Set up Wysiwyg editor');
+    }
+    public function isEditable()
+    {
+        return true;
+    }
+    public function isVisible()
+    {
+        global  $prefs;
+        return $prefs['feature_wysiwyg'] === 'y';
+    }
 
-	public function onSetupPage($homepageUrl)
-	{
-		global $prefs;
-		$smarty = TikiLib::lib('smarty');
+    public function onSetupPage($homepageUrl)
+    {
+        global $prefs;
+        $smarty = TikiLib::lib('smarty');
 
-		// Run the parent first
-		parent::onSetupPage($homepageUrl);
+        // Run the parent first
+        parent::onSetupPage($homepageUrl);
 
-		if (! $this->isVisible()) {
-			return false;
-		}
+        if (! $this->isVisible()) {
+            return false;
+        }
 
-		// Setup initial wizard screen
-		$smarty->assign('useHighlighter', isset($prefs['feature_syntax_highlighter']) && $prefs['feature_syntax_highlighter'] === 'y' ? 'y' : 'n');
-		$smarty->assign('useWysiwyg', isset($prefs['feature_wysiwyg']) && $prefs['feature_wysiwyg'] === 'y' ? 'y' : 'n');
-		$smarty->assign('useWysiwygDefault', isset($prefs['wysiwyg_default']) && $prefs['wysiwyg_default'] === 'y' ? 'y' : 'n');
-		$smarty->assign('useInlineEditing', isset($prefs['wysiwyg_inline_editing']) && $prefs['wysiwyg_inline_editing'] === 'y' ? 'y' : 'n');
-		$smarty->assign('editorType', isset($prefs['wysiwyg_htmltowiki']) && $prefs['wysiwyg_htmltowiki'] === 'y' ? 'wiki' : 'html');
+        // Setup initial wizard screen
+        $smarty->assign('useHighlighter', isset($prefs['feature_syntax_highlighter']) && $prefs['feature_syntax_highlighter'] === 'y' ? 'y' : 'n');
+        $smarty->assign('useWysiwyg', isset($prefs['feature_wysiwyg']) && $prefs['feature_wysiwyg'] === 'y' ? 'y' : 'n');
+        $smarty->assign('useWysiwygDefault', isset($prefs['wysiwyg_default']) && $prefs['wysiwyg_default'] === 'y' ? 'y' : 'n');
+        $smarty->assign('useInlineEditing', isset($prefs['wysiwyg_inline_editing']) && $prefs['wysiwyg_inline_editing'] === 'y' ? 'y' : 'n');
+        $smarty->assign('editorType', isset($prefs['wysiwyg_htmltowiki']) && $prefs['wysiwyg_htmltowiki'] === 'y' ? 'wiki' : 'html');
 
-		return true;
-	}
+        return true;
+    }
 
-	public function getTemplate()
-	{
-		$wizardTemplate = 'wizard/admin_wysiwyg.tpl';
-		return $wizardTemplate;
-	}
+    public function getTemplate()
+    {
+        $wizardTemplate = 'wizard/admin_wysiwyg.tpl';
+        return $wizardTemplate;
+    }
 
-	public function onContinue($homepageUrl)
-	{
-		$tikilib = TikiLib::lib('tiki');
+    public function onContinue($homepageUrl)
+    {
+        $tikilib = TikiLib::lib('tiki');
 
-		// Run the parent first
-		parent::onContinue($homepageUrl);
+        // Run the parent first
+        parent::onContinue($homepageUrl);
 
-		$editorType = $_REQUEST['editorType'];
-		switch ($editorType) {
-			case 'wiki':
-				// Wysiwyg in wiki mode is always optional (or?).
-				//	The setting is presented under HTML mode, and the user can change it there.
-				//	Unaware that it affects the wiki mode also, where it is safe to switch between wysiwyg and text mode.
-				$tikilib->set_preference('wysiwyg_optional', 'y');
-				$tikilib->set_preference('wysiwyg_htmltowiki', 'y');	// Use wiki syntax
-				break;
+        $editorType = $_REQUEST['editorType'];
+        switch ($editorType) {
+            case 'wiki':
+                // Wysiwyg in wiki mode is always optional (or?).
+                //  The setting is presented under HTML mode, and the user can change it there.
+                //  Unaware that it affects the wiki mode also, where it is safe to switch between wysiwyg and text mode.
+                $tikilib->set_preference('wysiwyg_optional', 'y');
+                $tikilib->set_preference('wysiwyg_htmltowiki', 'y');    // Use wiki syntax
+                break;
 
-			case 'html':
-				// Always use Wysiwyg mode as default
-				//  The setting is presented under WIKI mode, and the user can change it there.
-				//	Unaware that it affects the HTML mode also, where Wysiwyg always should be the default.
-				$tikilib->set_preference('wysiwyg_default', 'y');
-				$tikilib->set_preference('wysiwyg_htmltowiki', 'n');	// No not use wiki syntax
-				break;
-		}
-	}
+            case 'html':
+                // Always use Wysiwyg mode as default
+                //  The setting is presented under WIKI mode, and the user can change it there.
+                //  Unaware that it affects the HTML mode also, where Wysiwyg always should be the default.
+                $tikilib->set_preference('wysiwyg_default', 'y');
+                $tikilib->set_preference('wysiwyg_htmltowiki', 'n');    // No not use wiki syntax
+                break;
+        }
+    }
 }

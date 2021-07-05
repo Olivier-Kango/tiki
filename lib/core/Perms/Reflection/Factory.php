@@ -8,44 +8,44 @@
 
 class Perms_Reflection_Factory
 {
-	private $fallback;
-	private $registry = [];
+    private $fallback;
+    private $registry = [];
 
-	public function register($type, $class)
-	{
-		$this->registry[$type] = $class;
-	}
+    public function register($type, $class)
+    {
+        $this->registry[$type] = $class;
+    }
 
-	public function registerFallback($class)
-	{
-		$this->fallback = $class;
-	}
+    public function registerFallback($class)
+    {
+        $this->fallback = $class;
+    }
 
-	public function get($type, $object, $parentId = null)
-	{
-		if (! $class = $this->getRegistered($type)) {
-			$class = $this->fallback;
-		}
+    public function get($type, $object, $parentId = null)
+    {
+        if (! $class = $this->getRegistered($type)) {
+            $class = $this->fallback;
+        }
 
-		if ($class) {
-			return new $class($this, $type, $object, $parentId);
-		}
-	}
+        if ($class) {
+            return new $class($this, $type, $object, $parentId);
+        }
+    }
 
-	private function getRegistered($type)
-	{
-		if (isset($this->registry[$type])) {
-			return $this->registry[$type ];
-		}
-	}
+    private function getRegistered($type)
+    {
+        if (isset($this->registry[$type])) {
+            return $this->registry[$type ];
+        }
+    }
 
-	public static function getDefaultFactory()
-	{
-		$factory = new self();
-		$factory->register('global', 'Perms_Reflection_Global');
-		$factory->register('category', 'Perms_Reflection_Category');
-		$factory->registerFallback('Perms_Reflection_Object');
+    public static function getDefaultFactory()
+    {
+        $factory = new self();
+        $factory->register('global', 'Perms_Reflection_Global');
+        $factory->register('category', 'Perms_Reflection_Category');
+        $factory->registerFallback('Perms_Reflection_Object');
 
-		return $factory;
-	}
+        return $factory;
+    }
 }

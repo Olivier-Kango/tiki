@@ -8,9 +8,9 @@
 
 interface Search_Formatter_DataSource_Interface
 {
-	/**
-	 * Provides all of the fields in the same group as the requested field for a
-	 * given entry.
-	 */
-	public function getData($entry, $field);
+    /**
+     * Provides all of the fields in the same group as the requested field for a
+     * given entry.
+     */
+    public function getData($entry, $field);
 }

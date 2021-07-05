@@ -9,16 +9,16 @@
 // This is about improving wikiplugin_footnote, no relation to the "footnote" feature
 function prefs_footnote_list()
 {
-	return [
-		'footnote_popovers' => [
-			'name' => tra('Display footnote content in popover'),
-			'description' => tra('When the mouse is over the footnote reference, show footnote content in a popover window.'),
-			'type' => 'flag',
-			'default' => 'y',
-			'dependencies' => [
-				'wikiplugin_footnote',
-				'feature_jquery_ui'
-			],
-		],
-	];
+    return [
+        'footnote_popovers' => [
+            'name' => tra('Display footnote content in popover'),
+            'description' => tra('When the mouse is over the footnote reference, show footnote content in a popover window.'),
+            'type' => 'flag',
+            'default' => 'y',
+            'dependencies' => [
+                'wikiplugin_footnote',
+                'feature_jquery_ui'
+            ],
+        ],
+    ];
 }

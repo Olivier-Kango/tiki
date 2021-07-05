@@ -8,16 +8,16 @@
 
 class TikiFilter_WikiContent implements Laminas\Filter\FilterInterface
 {
-	public function filter($value)
-	{
-		$parserlib = TikiLib::lib('parser');
-		$noparsed = [];
-		$parserlib->plugins_remove($value, $noparsed);
+    public function filter($value)
+    {
+        $parserlib = TikiLib::lib('parser');
+        $noparsed = [];
+        $parserlib->plugins_remove($value, $noparsed);
 
-		$value = TikiFilter::get('xss')->filter($value);
+        $value = TikiFilter::get('xss')->filter($value);
 
-		$parserlib->plugins_replace($value, $noparsed, true);
+        $parserlib->plugins_replace($value, $noparsed, true);
 
-		return $value;
-	}
+        return $value;
+    }
 }

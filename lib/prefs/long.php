@@ -8,27 +8,27 @@
 
 function prefs_long_list()
 {
-	return [
-		'long_date_format' => [
-			'name' => tra('Long date format'),
-			'description' => tra('Specify how Tiki displays the date (longer version)'),
-			'help' => 'Date-and-Time#Date_and_Time_Formats',
-			'type' => 'text',
-			'size' => '30',
-			'default' => '%A %B %e, %Y',
-			'tags' => ['basic'],
-			//get_strings tra("%A %d of %B, %Y");
-		],
-		'long_time_format' => [
-			'name' => tra('Long time format'),
-			'description' => tra('Specify how Tiki displays the time (longer version)'),
-			'help' => 'Date-and-Time#Date_and_Time_Formats',
-			'type' => 'text',
-			'size' => '30',
-			'default' => '%H:%M:%S %Z',
-			'tags' => ['basic'],
-			//get_strings tra("%H:%M:%S %Z");
-		],
-		//get_strings tra("%A %d of %B, %Y %H:%M:%S %Z");
-	];
+    return [
+        'long_date_format' => [
+            'name' => tra('Long date format'),
+            'description' => tra('Specify how Tiki displays the date (longer version)'),
+            'help' => 'Date-and-Time#Date_and_Time_Formats',
+            'type' => 'text',
+            'size' => '30',
+            'default' => '%A %B %e, %Y',
+            'tags' => ['basic'],
+            //get_strings tra("%A %d of %B, %Y");
+        ],
+        'long_time_format' => [
+            'name' => tra('Long time format'),
+            'description' => tra('Specify how Tiki displays the time (longer version)'),
+            'help' => 'Date-and-Time#Date_and_Time_Formats',
+            'type' => 'text',
+            'size' => '30',
+            'default' => '%H:%M:%S %Z',
+            'tags' => ['basic'],
+            //get_strings tra("%H:%M:%S %Z");
+        ],
+        //get_strings tra("%A %d of %B, %Y %H:%M:%S %Z");
+    ];
 }

@@ -21,5 +21,5 @@
 
 function smarty_modifier_nonp($string)
 {
-	return preg_replace('/~[\/]?np~/', '', $string);
+    return preg_replace('/~[\/]?np~/', '', $string);
 }

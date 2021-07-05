@@ -7,8 +7,8 @@ use Tiki\Lib\core\Tracker\Rule\Action;
 
 class Text extends Type
 {
-	public function __construct()
-	{
-		parent::__construct('text');
-	}
+    public function __construct()
+    {
+        parent::__construct('text');
+    }
 }

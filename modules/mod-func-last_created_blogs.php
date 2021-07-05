@@ -11,13 +11,13 @@
  */
 function module_last_created_blogs_info()
 {
-	return [
-		'name' => tra('Newest Blogs'),
-		'description' => tra('Displays the specified number of blogs from newest to oldest.'),
-		'prefs' => ["feature_blogs"],
-		'params' => [],
-		'common_params' => ['nonums', 'rows']
-	];
+    return [
+        'name' => tra('Newest Blogs'),
+        'description' => tra('Displays the specified number of blogs from newest to oldest.'),
+        'prefs' => ["feature_blogs"],
+        'params' => [],
+        'common_params' => ['nonums', 'rows']
+    ];
 }
 
 /**
@@ -26,9 +26,9 @@ function module_last_created_blogs_info()
  */
 function module_last_created_blogs($mod_reference, $module_params)
 {
-	$smarty = TikiLib::lib('smarty');
-	$bloglib = TikiLib::lib('blog');
-	$ranking = $bloglib->list_blogs(0, $mod_reference["rows"], 'created_desc', '', 'blog');
+    $smarty = TikiLib::lib('smarty');
+    $bloglib = TikiLib::lib('blog');
+    $ranking = $bloglib->list_blogs(0, $mod_reference["rows"], 'created_desc', '', 'blog');
 
-	$smarty->assign('modLastCreatedBlogs', $ranking["data"]);
+    $smarty->assign('modLastCreatedBlogs', $ranking["data"]);
 }

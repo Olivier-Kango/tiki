@@ -10,27 +10,27 @@ namespace Tracker\Tabular\Source;
 
 class ODBCSourceEntry implements SourceEntryInterface
 {
-	private $data;
+    private $data;
 
-	public function __construct($data)
-	{
-		$this->data = $data;
-	}
+    public function __construct($data)
+    {
+        $this->data = $data;
+    }
 
-	public function render(\Tracker\Tabular\Schema\Column $column)
-	{
-		$field = $column->getRemoteField();
-		if (isset($this->data[$field])) {
-			$value = $this->data[$field];
-		} else {
-			$value = null;
-		}
-		return $column->render($value);
-	}
+    public function render(\Tracker\Tabular\Schema\Column $column)
+    {
+        $field = $column->getRemoteField();
+        if (isset($this->data[$field])) {
+            $value = $this->data[$field];
+        } else {
+            $value = null;
+        }
+        return $column->render($value);
+    }
 
-	public function parseInto(&$info, $column)
-	{
-		$entry = $this->data[$column->getRemoteField()];
-		$column->parseInto($info, $entry, $this->data);
-	}
+    public function parseInto(&$info, $column)
+    {
+        $entry = $this->data[$column->getRemoteField()];
+        $column->parseInto($info, $entry, $this->data);
+    }
 }

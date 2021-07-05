@@ -8,25 +8,25 @@
 
 class Math_Formula_Function_Floor extends Math_Formula_Function
 {
-	public function evaluate($element)
-	{
-		$elements = [];
+    public function evaluate($element)
+    {
+        $elements = [];
 
-		if (count($element) > 1) {
-			$this->error(tr('Too many arguments on floor.'));
-		}
+        if (count($element) > 1) {
+            $this->error(tr('Too many arguments on floor.'));
+        }
 
-		foreach ($element as $child) {
-			$elements[] = $this->evaluateChild($child);
-		}
+        foreach ($element as $child) {
+            $elements[] = $this->evaluateChild($child);
+        }
 
 
-		$number = array_shift($elements);
+        $number = array_shift($elements);
 
-		if ($number instanceof Math_Formula_Applicator) {
-			return $number->floor();
-		} else {
-			return floor($number);
-		}
-	}
+        if ($number instanceof Math_Formula_Applicator) {
+            return $number->floor();
+        } else {
+            return floor($number);
+        }
+    }
 }

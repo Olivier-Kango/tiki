@@ -11,13 +11,13 @@
  */
 function module_top_objects_info()
 {
-	return [
-		'name' => tra('Top Objects'),
-		'description' => tra('Displays the specified number of objects, starting with the one having the most hits.'),
-		'prefs' => ['feature_stats'],
-		'params' => [],
-		'common_params' => ['nonums', 'rows']
-	];
+    return [
+        'name' => tra('Top Objects'),
+        'description' => tra('Displays the specified number of objects, starting with the one having the most hits.'),
+        'prefs' => ['feature_stats'],
+        'params' => [],
+        'common_params' => ['nonums', 'rows']
+    ];
 }
 
 /**
@@ -26,10 +26,10 @@ function module_top_objects_info()
  */
 function module_top_objects($mod_reference, $module_params)
 {
-	$smarty = TikiLib::lib('smarty');
-	$statslib = TikiLib::lib('stats');
+    $smarty = TikiLib::lib('smarty');
+    $statslib = TikiLib::lib('stats');
 
-	$best_objects_stats = $statslib->best_overall_object_stats($mod_reference["rows"]);
+    $best_objects_stats = $statslib->best_overall_object_stats($mod_reference["rows"]);
 
-	$smarty->assign('modTopObjects', $best_objects_stats);
+    $smarty->assign('modTopObjects', $best_objects_stats);
 }

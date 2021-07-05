@@ -28,33 +28,33 @@
 
 function smarty_modifier_slug($string, $length = 70, $mixedCase = false, $breakWords = false)
 {
-	global $prefs;
-	TikiLib::lib('smarty')->loadPlugin('smarty_modifier_nonp');
+    global $prefs;
+    TikiLib::lib('smarty')->loadPlugin('smarty_modifier_nonp');
 
-	if (! $breakWords) {
-		$offset = strrpos($string, ' ', $length - strlen($string));
-		if ($offset) {
-			$length = $offset;
-		}
-	}
-	$string = substr(smarty_modifier_nonp($string), 0, $length);
-	if (! $mixedCase) {
-		$string = mb_strtolower($string);
-	}
+    if (! $breakWords) {
+        $offset = strrpos($string, ' ', $length - strlen($string));
+        if ($offset) {
+            $length = $offset;
+        }
+    }
+    $string = substr(smarty_modifier_nonp($string), 0, $length);
+    if (! $mixedCase) {
+        $string = mb_strtolower($string);
+    }
 
-	$asciiOnly = $prefs['url_only_ascii'] === 'y';
+    $asciiOnly = $prefs['url_only_ascii'] === 'y';
 
-	/** @var \Tiki\Wiki\SlugManager $slugManager */
-	$slugManager = TikiLib::lib('slugmanager');
-	// when used as a modifier in a smarty template (e.g. {$row.title|slug})
-	// we don't want the -2 at the end if a wiki page also exists, so disable the validator fn
-	$slugManager->setValidationCallback(function () {
-return false;
+    /** @var \Tiki\Wiki\SlugManager $slugManager */
+    $slugManager = TikiLib::lib('slugmanager');
+    // when used as a modifier in a smarty template (e.g. {$row.title|slug})
+    // we don't want the -2 at the end if a wiki page also exists, so disable the validator fn
+    $slugManager->setValidationCallback(function () {
+        return false;
     });
-	$str = $slugManager->generate($prefs['wiki_url_scheme'], $string, $asciiOnly);
+    $str = $slugManager->generate($prefs['wiki_url_scheme'], $string, $asciiOnly);
 
-	if (! $asciiOnly) {
-		$str = urlencode($str);
-	}
-	return $str;
+    if (! $asciiOnly) {
+        $str = urlencode($str);
+    }
+    return $str;
 }

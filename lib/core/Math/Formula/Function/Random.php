@@ -8,14 +8,14 @@
 
 class Math_Formula_Function_Random extends Math_Formula_Function
 {
-	public function evaluate($element)
-	{
-		$range = [0, 9999];
+    public function evaluate($element)
+    {
+        $range = [0, 9999];
 
-		foreach ($element as $child) {
-			$range[] = $this->evaluateChild($child);
-		}
+        foreach ($element as $child) {
+            $range[] = $this->evaluateChild($child);
+        }
 
-		return mt_rand(min($range), max($range));
-	}
+        return mt_rand(min($range), max($range));
+    }
 }

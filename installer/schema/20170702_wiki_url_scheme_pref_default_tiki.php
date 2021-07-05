@@ -14,5 +14,5 @@ use Tiki\Installer\Installer;
  */
 function upgrade_20170702_wiki_url_scheme_pref_default_tiki($installer)
 {
-	$installer->preservePreferenceDefault('wiki_url_scheme', 'urlencode');
+    $installer->preservePreferenceDefault('wiki_url_scheme', 'urlencode');
 }

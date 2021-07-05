@@ -8,36 +8,36 @@
 
 function wikiplugin_pref_info()
 {
-	return [
-		'name' => tra('Preference'),
-		'documentation' => 'PluginPref',
-		'description' => tra('Display content based on global preference settings'),
-		'body' => tr('Wiki text to display if conditions are met. The body may contain %0{ELSE}%1. Text after the marker
+    return [
+        'name' => tra('Preference'),
+        'documentation' => 'PluginPref',
+        'description' => tra('Display content based on global preference settings'),
+        'body' => tr('Wiki text to display if conditions are met. The body may contain %0{ELSE}%1. Text after the marker
 			will be displayed if not matching the conditions.', '<code>', '</code>'),
-		'prefs' => ['wikiplugin_pref'],
-		'filter' => 'wikicontent',
-		'extraparams' => true,
-		'iconname' => 'settings',
-		'introduced' => 11,
-		'params' => [
-		],
-	];
+        'prefs' => ['wikiplugin_pref'],
+        'filter' => 'wikicontent',
+        'extraparams' => true,
+        'iconname' => 'settings',
+        'introduced' => 11,
+        'params' => [
+        ],
+    ];
 }
 
 function wikiplugin_pref($data, $params)
 {
-	global $prefs, $tikilib;
-	$dataelse = '';
-	if (strpos($data, '{ELSE}')) {
-		$dataelse = substr($data, strpos($data, '{ELSE}') + 6);
-		$data = substr($data, 0, strpos($data, '{ELSE}'));
-	}
+    global $prefs, $tikilib;
+    $dataelse = '';
+    if (strpos($data, '{ELSE}')) {
+        $dataelse = substr($data, strpos($data, '{ELSE}') + 6);
+        $data = substr($data, 0, strpos($data, '{ELSE}'));
+    }
 
-	$else = false;
-	foreach ($params as $prefName => $prefValue) {
-		if ($tikilib->get_preference($prefName) != $prefValue) {
-			return $dataelse;
-		}
-	}
-	return $data;
+    $else = false;
+    foreach ($params as $prefName => $prefValue) {
+        if ($tikilib->get_preference($prefName) != $prefValue) {
+            return $dataelse;
+        }
+    }
+    return $data;
 }

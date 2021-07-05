@@ -8,5 +8,5 @@
 
 function smarty_modifier_namespace($pageName)
 {
-	return TikiLib::lib('wiki')->get_namespace($pageName);
+    return TikiLib::lib('wiki')->get_namespace($pageName);
 }

@@ -8,5 +8,5 @@
 
 function smarty_modifier_nonamespace($pageName)
 {
-	return TikiLib::lib('wiki')->get_without_namespace($pageName);
+    return TikiLib::lib('wiki')->get_without_namespace($pageName);
 }

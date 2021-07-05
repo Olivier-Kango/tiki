@@ -8,25 +8,25 @@
 
 class Math_Formula_Function_Round extends Math_Formula_Function
 {
-	public function evaluate($element)
-	{
-		$elements = [];
+    public function evaluate($element)
+    {
+        $elements = [];
 
-		if (count($element) > 2) {
-			$this->error(tr('Too many arguments on round.'));
-		}
+        if (count($element) > 2) {
+            $this->error(tr('Too many arguments on round.'));
+        }
 
-		foreach ($element as $child) {
-			$elements[] = $this->evaluateChild($child);
-		}
+        foreach ($element as $child) {
+            $elements[] = $this->evaluateChild($child);
+        }
 
-		$number = array_shift($elements);
-		$decimals = (int)array_shift($elements);
+        $number = array_shift($elements);
+        $decimals = (int)array_shift($elements);
 
-		if ($number instanceof Math_Formula_Applicator) {
-			return $number->round($decimals);
-		} else {
-			return round($number, $decimals);
-		}
-	}
+        if ($number instanceof Math_Formula_Applicator) {
+            return $number->round($decimals);
+        } else {
+            return round($number, $decimals);
+        }
+    }
 }

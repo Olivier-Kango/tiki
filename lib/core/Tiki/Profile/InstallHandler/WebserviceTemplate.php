@@ -8,46 +8,46 @@
 
 class Tiki_Profile_InstallHandler_WebserviceTemplate extends Tiki_Profile_InstallHandler
 {
-	public function getData()
-	{
-		if ($this->data) {
-			return $this->data;
-		}
+    public function getData()
+    {
+        if ($this->data) {
+            return $this->data;
+        }
 
-		$defaults = [];
+        $defaults = [];
 
-		$data = array_merge($defaults, $this->obj->getData());
+        $data = array_merge($defaults, $this->obj->getData());
 
-		return $this->data = $data;
-	}
+        return $this->data = $data;
+    }
 
-	public function canInstall()
-	{
-		$data = $this->getData();
+    public function canInstall()
+    {
+        $data = $this->getData();
 
-		if (! isset($data['name'], $data['engine'], $data['output'], $data['content'])) {
-			return false;
-		}
+        if (! isset($data['name'], $data['engine'], $data['output'], $data['content'])) {
+            return false;
+        }
 
-		return true;
-	}
+        return true;
+    }
 
-	public function _install()
-	{
-		global $tikilib;
-		$data = $this->getData();
+    public function _install()
+    {
+        global $tikilib;
+        $data = $this->getData();
 
-		$this->replaceReferences($data);
+        $this->replaceReferences($data);
 
-		require_once 'lib/webservicelib.php';
+        require_once 'lib/webservicelib.php';
 
-		$ws = Tiki_Webservice::getService($data['webservice']);
-		$template = $ws->addTemplate($data['name']);
-		$template->engine = $data['engine'];
-		$template->output = $data['output'];
-		$template->content = $data['content'];
-		$template->save();
+        $ws = Tiki_Webservice::getService($data['webservice']);
+        $template = $ws->addTemplate($data['name']);
+        $template->engine = $data['engine'];
+        $template->output = $data['output'];
+        $template->content = $data['content'];
+        $template->save();
 
-		return $template->name;
-	}
+        return $template->name;
+    }
 }

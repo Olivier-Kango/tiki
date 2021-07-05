@@ -8,20 +8,20 @@
 
 class DeclFilter_CatchAllFilterRule extends DeclFilter_FilterRule
 {
-	private $filter;
+    private $filter;
 
-	public function __construct($filter)
-	{
-		$this->filter = TikiFilter::get($filter);
-	}
+    public function __construct($filter)
+    {
+        $this->filter = TikiFilter::get($filter);
+    }
 
-	public function match($key)
-	{
-		return true;
-	}
+    public function match($key)
+    {
+        return true;
+    }
 
-	public function getFilter($key)
-	{
-		return $this->filter;
-	}
+    public function getFilter($key)
+    {
+        return $this->filter;
+    }
 }

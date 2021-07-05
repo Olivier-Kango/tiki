@@ -10,25 +10,25 @@ namespace Tracker\Tabular\Source;
 
 class PaginatedQuerySource extends QuerySource
 {
-	private $resultset;
+    private $resultset;
 
-	public function getEntries()
-	{
-		$result = $this->getResultSet();
+    public function getEntries()
+    {
+        $result = $this->getResultSet();
 
-		foreach ($result as $row) {
-			yield new QuerySourceEntry($row);
-		}
-	}
+        foreach ($result as $row) {
+            yield new QuerySourceEntry($row);
+        }
+    }
 
-	public function getResultSet()
-	{
-		if (! $this->resultset) {
-			$lib = \TikiLib::lib('unifiedsearch');
+    public function getResultSet()
+    {
+        if (! $this->resultset) {
+            $lib = \TikiLib::lib('unifiedsearch');
 
-			$this->resultset = $this->query->search($lib->getIndex());
-		}
+            $this->resultset = $this->query->search($lib->getIndex());
+        }
 
-		return $this->resultset;
-	}
+        return $this->resultset;
+    }
 }

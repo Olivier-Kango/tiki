@@ -9,27 +9,27 @@
 class Search_Formatter_ValueFormatter_Templaterender extends Search_Formatter_ValueFormatter_Abstract
 {
 
-	public function __construct($arguments)
-	{
-	}
+    public function __construct($arguments)
+    {
+    }
 
-	public function render($name, $value, array $entry)
-	{
-		$output = "{OUTPUT()}$value{OUTPUT}";
+    public function render($name, $value, array $entry)
+    {
+        $output = "{OUTPUT()}$value{OUTPUT}";
 
-		$matches = WikiParser_PluginMatcher::match($output);
+        $matches = WikiParser_PluginMatcher::match($output);
 
-		$builder = new Search_Formatter_Builder();
-		$builder->apply($matches);
+        $builder = new Search_Formatter_Builder();
+        $builder->apply($matches);
 
-		$formatter = $builder->getFormatter();
-		$rendered = $formatter->format([$entry]);
+        $formatter = $builder->getFormatter();
+        $rendered = $formatter->format([$entry]);
 
-		return $rendered;
-	}
+        return $rendered;
+    }
 
-	public function canCache()
-	{
-		return false;
-	}
+    public function canCache()
+    {
+        return false;
+    }
 }

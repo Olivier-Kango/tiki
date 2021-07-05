@@ -14,57 +14,57 @@ use TikiLib;
 
 class Comment implements ActionInterface
 {
-	private $type;
-	private $object;
+    private $type;
+    private $object;
 
-	public function __construct($args)
-	{
-		$this->type = $args['type'];
-		$this->object = $args['object'];
-	}
+    public function __construct($args)
+    {
+        $this->type = $args['type'];
+        $this->object = $args['object'];
+    }
 
-	public function getName()
-	{
-		return tr('Comment');
-	}
+    public function getName()
+    {
+        return tr('Comment');
+    }
 
-	public function isEnabled()
-	{
-		$service = new \Services_Comment_Controller();
-		return $service->isEnabled($this->type, $this->object);
-	}
+    public function isEnabled()
+    {
+        $service = new \Services_Comment_Controller();
+        return $service->isEnabled($this->type, $this->object);
+    }
 
-	public function isAllowed(Account $account, Message $message)
-	{
-		$service = new \Services_Comment_Controller();
-		return $service->canPost($this->type, $this->object);
-	}
+    public function isAllowed(Account $account, Message $message)
+    {
+        $service = new \Services_Comment_Controller();
+        return $service->canPost($this->type, $this->object);
+    }
 
-	public function execute(Account $account, Message $message)
-	{
-		$body = $message->getHtmlBody();
-		$body = $account->parseBody($body, false);
+    public function execute(Account $account, Message $message)
+    {
+        $body = $message->getHtmlBody();
+        $body = $account->parseBody($body, false);
 
-		$commentslib = TikiLib::lib('comments');
-		$message_id = ''; // By ref
-		$threadId = $commentslib->post_new_comment(
-			"{$this->type}:{$this->object}",
-			0,
-			$message->getAssociatedUser(),
-			$message->getSubject(),
-			$body['body'],
-			$message_id,
-			'',
-			'n',
-			'',
-			'',
-			'',
-			'',
-			'',
-			'',
-			''
-		);
+        $commentslib = TikiLib::lib('comments');
+        $message_id = ''; // By ref
+        $threadId = $commentslib->post_new_comment(
+            "{$this->type}:{$this->object}",
+            0,
+            $message->getAssociatedUser(),
+            $message->getSubject(),
+            $body['body'],
+            $message_id,
+            '',
+            'n',
+            '',
+            '',
+            '',
+            '',
+            '',
+            '',
+            ''
+        );
 
-		return true;
-	}
+        return true;
+    }
 }

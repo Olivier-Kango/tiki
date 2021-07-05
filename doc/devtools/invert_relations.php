@@ -17,8 +17,8 @@ $tx = $relationlib->begin();
 
 $result = $relationlib->fetchAll("select * from tiki_object_relations where relation = ?", [$relationOut]);
 foreach ($result as $row) {
-	$relationlib->add_relation($relationIn, $row['target_type'], $row['target_itemId'], $row['source_type'], $row['source_itemId'], true);
-	$relationlib->table('tiki_object_relations')->delete(['relationId' => $row['relationId']]);
+    $relationlib->add_relation($relationIn, $row['target_type'], $row['target_itemId'], $row['source_type'], $row['source_itemId'], true);
+    $relationlib->table('tiki_object_relations')->delete(['relationId' => $row['relationId']]);
 }
 $tx->commit();
 

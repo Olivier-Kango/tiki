@@ -11,11 +11,11 @@
  */
 function module_tikitests_info()
 {
-	return [
-		'name' => tra('Tiki Tests'),
-		'description' => tra('Tiki test suite helper.'),
-		'prefs' => ['feature_tikitests'],
-	];
+    return [
+        'name' => tra('Tiki Tests'),
+        'description' => tra('Tiki test suite helper.'),
+        'prefs' => ['feature_tikitests'],
+    ];
 }
 
 /**

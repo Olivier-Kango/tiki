@@ -13,32 +13,32 @@ require_once('lib/wizard/wizard.php');
  */
 class ChangesWizardCompleted extends Wizard
 {
-	public function pageTitle()
-	{
-		return tra('Changes Wizard Completed!');
-	}
-	public function isEditable()
-	{
-		return false;
-	}
+    public function pageTitle()
+    {
+        return tra('Changes Wizard Completed!');
+    }
+    public function isEditable()
+    {
+        return false;
+    }
 
-	public function onSetupPage($homepageUrl)
-	{
-		// Run the parent first
-		parent::onSetupPage($homepageUrl);
+    public function onSetupPage($homepageUrl)
+    {
+        // Run the parent first
+        parent::onSetupPage($homepageUrl);
 
-		return true;
-	}
+        return true;
+    }
 
-	public function getTemplate()
-	{
-		$wizardTemplate = 'wizard/changes_wizard_completed.tpl';
-		return $wizardTemplate;
-	}
+    public function getTemplate()
+    {
+        $wizardTemplate = 'wizard/changes_wizard_completed.tpl';
+        return $wizardTemplate;
+    }
 
-	public function onContinue($homepageUrl)
-	{
-		// Run the parent first
-		parent::onContinue($homepageUrl);
-	}
+    public function onContinue($homepageUrl)
+    {
+        // Run the parent first
+        parent::onContinue($homepageUrl);
+    }
 }

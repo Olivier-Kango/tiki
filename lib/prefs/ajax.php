@@ -9,37 +9,37 @@
 function prefs_ajax_list()
 {
 
-	return [
-		'ajax_autosave' => [
-			'name' => tra('Ajax auto-save'),
-			'description' => tra('Save content during editing, enabling work to be recovered after any interruption. Also enable a real-time preview. This option is required for WYSIWYG plugin processing.'),
-			'help' => 'Lost+Edit+Protection',
-			'type' => 'flag',
-			'dependencies' => [
-				'feature_ajax',
-				'feature_warn_on_edit',
-			],
-			'default' => 'y',
-		],
+    return [
+        'ajax_autosave' => [
+            'name' => tra('Ajax auto-save'),
+            'description' => tra('Save content during editing, enabling work to be recovered after any interruption. Also enable a real-time preview. This option is required for WYSIWYG plugin processing.'),
+            'help' => 'Lost+Edit+Protection',
+            'type' => 'flag',
+            'dependencies' => [
+                'feature_ajax',
+                'feature_warn_on_edit',
+            ],
+            'default' => 'y',
+        ],
 
-		'ajax_inline_edit' => [
-			'name' => tr('Inline editing'),
-			'description' => tr('Enable inline editing of certain values. Currently limited to tracker item fields.'),
-			'type' => 'flag',
-			'default' => 'n',
-		],
-		'ajax_inline_edit_trackerlist' => [
-			'name' => tr('Tracker list inline editing'),
-			'description' => tr('Enable inline editing of all fields on the tracker list page.'),
-			'type' => 'flag',
-			'default' => 'y',
-			'dependencies' => ['ajax_inline_edit'],
-		],
-		'ajax_edit_previews' => [
-			'name' => tr('Preview Edits'),
-			'description' => tr('Add a preview tab to text areas.'),
-			'type' => 'flag',
-			'default' => 'y',
-		],
-	];
+        'ajax_inline_edit' => [
+            'name' => tr('Inline editing'),
+            'description' => tr('Enable inline editing of certain values. Currently limited to tracker item fields.'),
+            'type' => 'flag',
+            'default' => 'n',
+        ],
+        'ajax_inline_edit_trackerlist' => [
+            'name' => tr('Tracker list inline editing'),
+            'description' => tr('Enable inline editing of all fields on the tracker list page.'),
+            'type' => 'flag',
+            'default' => 'y',
+            'dependencies' => ['ajax_inline_edit'],
+        ],
+        'ajax_edit_previews' => [
+            'name' => tr('Preview Edits'),
+            'description' => tr('Add a preview tab to text areas.'),
+            'type' => 'flag',
+            'default' => 'y',
+        ],
+    ];
 }

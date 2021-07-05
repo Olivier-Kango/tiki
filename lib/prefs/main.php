@@ -8,18 +8,18 @@
 
 function prefs_main_list()
 {
-	return [
-		'main_shadow_start' => [
-			'name' => tra('Main shadow start'),
-			'type' => 'textarea',
-			'size' => '2',
-			'default' => '',
-		],
-		'main_shadow_end' => [
-			'name' => tra('Main shadow end'),
-			'type' => 'textarea',
-			'size' => '2',
-			'default' => '',
-		],
-	];
+    return [
+        'main_shadow_start' => [
+            'name' => tra('Main shadow start'),
+            'type' => 'textarea',
+            'size' => '2',
+            'default' => '',
+        ],
+        'main_shadow_end' => [
+            'name' => tra('Main shadow end'),
+            'type' => 'textarea',
+            'size' => '2',
+            'default' => '',
+        ],
+    ];
 }

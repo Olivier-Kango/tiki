@@ -8,10 +8,10 @@
 
 function validator_passcode($input, $parameter = '', $message = '')
 {
-	global $prefs;
-	if ($input == $prefs['registerPasscode']) {
-		return true;
-	} else {
-		return tra('Wrong passcode. You need to know the passcode to register at this site');
-	}
+    global $prefs;
+    if ($input == $prefs['registerPasscode']) {
+        return true;
+    } else {
+        return tra('Wrong passcode. You need to know the passcode to register at this site');
+    }
 }

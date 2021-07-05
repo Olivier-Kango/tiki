@@ -15,46 +15,46 @@
  */
 class TikiRegistrationFields extends TikiLib
 {
-	public function __construct()
-	{
-	}
+    public function __construct()
+    {
+    }
 
-	/**
-	 * @param bool $user
-	 * @return array
-	 */
-	public function getVisibleFields2($user = false)
-	{
-		global $tikilib;
+    /**
+     * @param bool $user
+     * @return array
+     */
+    public function getVisibleFields2($user = false)
+    {
+        global $tikilib;
 
-		$query = 'SELECT `id`, `field` as `prefName`, `name` as `label`, `type`, `show`, `size` FROM `tiki_registration_fields` WHERE `show`=?';
-		$result = $tikilib->query($query, [1]);
+        $query = 'SELECT `id`, `field` as `prefName`, `name` as `label`, `type`, `show`, `size` FROM `tiki_registration_fields` WHERE `show`=?';
+        $result = $tikilib->query($query, [1]);
 
-		$ret = [];
+        $ret = [];
 
-		while ($res = $result->fetchRow()) {
-			if ($user) {
-				$res['value'] = $tikilib->get_user_preference($user, $res['prefName'], '');
-			}
-			$ret[] = $res;
-		}
-		return $ret;
-	}
+        while ($res = $result->fetchRow()) {
+            if ($user) {
+                $res['value'] = $tikilib->get_user_preference($user, $res['prefName'], '');
+            }
+            $ret[] = $res;
+        }
+        return $ret;
+    }
 
-	/**
-	 * @return array
-	 */
-	public function getHiddenFields()
-	{
-		global $tikilib;
-		$query = 'SELECT `field` FROM `tiki_registration_fields` WHERE `show`=?';
-		$result = $tikilib->query($query, [0]);
+    /**
+     * @return array
+     */
+    public function getHiddenFields()
+    {
+        global $tikilib;
+        $query = 'SELECT `field` FROM `tiki_registration_fields` WHERE `show`=?';
+        $result = $tikilib->query($query, [0]);
 
-		$ret = [];
+        $ret = [];
 
-		while ($res = $result->fetchRow()) {
-			$ret[] = $res['field'];
-		}
-		return $ret;
-	}
+        while ($res = $result->fetchRow()) {
+            $ret[] = $res['field'];
+        }
+        return $ret;
+    }
 }

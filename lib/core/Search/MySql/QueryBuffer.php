@@ -8,59 +8,59 @@
 
 class Search_MySql_QueryBuffer
 {
-	private $db;
-	private $count;
-	private $prefix;
-	private $buffer = [];
+    private $db;
+    private $count;
+    private $prefix;
+    private $buffer = [];
 
-	public function __construct(TikiDb $db, $count, $prefix)
-	{
-		$this->db = $db;
-		$this->count = max(10, (int) $count);
-		$this->prefix = $prefix;
-	}
+    public function __construct(TikiDb $db, $count, $prefix)
+    {
+        $this->db = $db;
+        $this->count = max(10, (int) $count);
+        $this->prefix = $prefix;
+    }
 
-	public function push($block)
-	{
-		$this->buffer[] = $block;
+    public function push($block)
+    {
+        $this->buffer[] = $block;
 
-		if (count($this->buffer) == $this->count) {
-			$this->flush();
-		}
-	}
+        if (count($this->buffer) == $this->count) {
+            $this->flush();
+        }
+    }
 
-	public function flush()
-	{
-		if (count($this->buffer) == 0) {
-			return;
-		}
+    public function flush()
+    {
+        if (count($this->buffer) == 0) {
+            return;
+        }
 
-		$this->realFlush();
-	}
+        $this->realFlush();
+    }
 
-	public function setPrefix($prefix)
-	{
-		if ($prefix !== $this->prefix) {
-			$this->flush();
-		}
+    public function setPrefix($prefix)
+    {
+        if ($prefix !== $this->prefix) {
+            $this->flush();
+        }
 
-		$this->prefix = $prefix;
-	}
+        $this->prefix = $prefix;
+    }
 
-	private function realFlush()
-	{
-		$query = $this->prefix . implode(', ', $this->buffer);
-		$this->db->queryError($query, $error);
+    private function realFlush()
+    {
+        $query = $this->prefix . implode(', ', $this->buffer);
+        $this->db->queryError($query, $error);
 
-		if ($error) {
-			throw new Search_MySql_LimitReachedException(tr("Could not perform index modification: %0", $error));
-		}
+        if ($error) {
+            throw new Search_MySql_LimitReachedException(tr("Could not perform index modification: %0", $error));
+        }
 
-		$this->clear();
-	}
+        $this->clear();
+    }
 
-	public function clear()
-	{
-		$this->buffer = [];
-	}
+    public function clear()
+    {
+        $this->buffer = [];
+    }
 }

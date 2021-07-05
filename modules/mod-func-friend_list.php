@@ -11,13 +11,13 @@
  */
 function module_friend_list_info()
 {
-	return [
-		'name' => tra('Friend List'),
-		'description' => tra('Displays a list of friends'),
-		'prefs' => ['feature_friends'],
-		'params' => [
-		],
-	];
+    return [
+        'name' => tra('Friend List'),
+        'description' => tra('Displays a list of friends'),
+        'prefs' => ['feature_friends'],
+        'params' => [
+        ],
+    ];
 }
 
 /**
@@ -26,5 +26,5 @@ function module_friend_list_info()
  */
 function module_friend_list($mod_reference, $module_params)
 {
-	// Template does everyting
+    // Template does everyting
 }

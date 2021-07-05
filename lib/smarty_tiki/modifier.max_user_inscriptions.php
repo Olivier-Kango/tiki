@@ -16,5 +16,5 @@
  */
 function smarty_modifier_max_user_inscriptions($text)
 {
-	return substr($text, 0, strpos($text, '#'));
+    return substr($text, 0, strpos($text, '#'));
 }

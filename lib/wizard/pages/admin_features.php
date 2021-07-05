@@ -13,39 +13,39 @@ require_once('lib/wizard/wizard.php');
  */
 class AdminWizardFeatures extends Wizard
 {
-	public function pageTitle()
-	{
-		return tra('Set up Main features');
-	}
-	function isEditable()
-	{
-		return true;
-	}
+    public function pageTitle()
+    {
+        return tra('Set up Main features');
+    }
+    function isEditable()
+    {
+        return true;
+    }
 
-	public function onSetupPage($homepageUrl)
-	{
-		global $prefs;
-		$smarty = TikiLib::lib('smarty');
-		// Run the parent first
-		parent::onSetupPage($homepageUrl);
+    public function onSetupPage($homepageUrl)
+    {
+        global $prefs;
+        $smarty = TikiLib::lib('smarty');
+        // Run the parent first
+        parent::onSetupPage($homepageUrl);
 
-		$isMultiLanguage = $prefs['feature_multilingual'] === 'y';
-		if ($isMultiLanguage) {
-			$smarty->assign('isMultiLanguage', $isMultiLanguage);
-		}
+        $isMultiLanguage = $prefs['feature_multilingual'] === 'y';
+        if ($isMultiLanguage) {
+            $smarty->assign('isMultiLanguage', $isMultiLanguage);
+        }
 
-		return true;
-	}
+        return true;
+    }
 
-	public function getTemplate()
-	{
-		$wizardTemplate = 'wizard/admin_features.tpl';
-		return $wizardTemplate;
-	}
+    public function getTemplate()
+    {
+        $wizardTemplate = 'wizard/admin_features.tpl';
+        return $wizardTemplate;
+    }
 
-	public function onContinue($homepageUrl)
-	{
-		// Run the parent first
-		parent::onContinue($homepageUrl);
-	}
+    public function onContinue($homepageUrl)
+    {
+        // Run the parent first
+        parent::onContinue($homepageUrl);
+    }
 }

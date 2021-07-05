@@ -8,17 +8,17 @@
 
 function smarty_function_banner($params, $smarty)
 {
-	$bannerlib = TikiLib::lib('banner');
-	$default = ['zone' => '', 'target' => '', 'id' => ''];
-	$params = array_merge($default, $params);
+    $bannerlib = TikiLib::lib('banner');
+    $default = ['zone' => '', 'target' => '', 'id' => ''];
+    $params = array_merge($default, $params);
 
-	extract($params);
+    extract($params);
 
-	if (empty($zone) && empty($id)) {
-		trigger_error("assign: missing 'zone' parameter");
-		return;
-	}
-	$banner = $bannerlib->select_banner($zone, $target, $id);
+    if (empty($zone) && empty($id)) {
+        trigger_error("assign: missing 'zone' parameter");
+        return;
+    }
+    $banner = $bannerlib->select_banner($zone, $target, $id);
 
-	print($banner);
+    print($banner);
 }

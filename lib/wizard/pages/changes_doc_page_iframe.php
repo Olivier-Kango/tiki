@@ -13,35 +13,35 @@ require_once('lib/wizard/wizard.php');
  */
 class ChangesWizardDocPageIframe extends Wizard
 {
-	public function pageTitle()
-	{
-		return tra('Related doc.tiki.org pages');
-	}
+    public function pageTitle()
+    {
+        return tra('Related doc.tiki.org pages');
+    }
 
-	public function isEditable()
-	{
-		return false;
-	}
+    public function isEditable()
+    {
+        return false;
+    }
 
-	public function onSetupPage($homepageUrl)
-	{
-		// Run the parent first
-		parent::onSetupPage($homepageUrl);
+    public function onSetupPage($homepageUrl)
+    {
+        // Run the parent first
+        parent::onSetupPage($homepageUrl);
 
-		$showPage = true;
+        $showPage = true;
 
-		return $showPage;
-	}
+        return $showPage;
+    }
 
-	public function getTemplate()
-	{
-		$wizardTemplate = 'wizard/changes_doc_page_iframe.tpl';
-		return $wizardTemplate;
-	}
+    public function getTemplate()
+    {
+        $wizardTemplate = 'wizard/changes_doc_page_iframe.tpl';
+        return $wizardTemplate;
+    }
 
-	public function onContinue($homepageUrl)
-	{
-		// Run the parent first
-		parent::onContinue($homepageUrl);
-	}
+    public function onContinue($homepageUrl)
+    {
+        // Run the parent first
+        parent::onContinue($homepageUrl);
+    }
 }

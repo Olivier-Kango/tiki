@@ -6,8 +6,8 @@ use Tiki\Lib\core\Tracker\Rule\Operator;
 
 class Collection extends Type
 {
-	public function __construct()
-	{
-		parent::__construct('Collection');
-	}
+    public function __construct()
+    {
+        parent::__construct('Collection');
+    }
 }

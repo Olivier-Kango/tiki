@@ -11,11 +11,11 @@
  */
 function module_usergroup_tracker_info()
 {
-	return [
-		'name' => tra('User-Group Tracker'),
-		'description' => tra('User and Group tracker links.'),
-		'prefs' => ['feature_trackers'],
-	];
+    return [
+        'name' => tra('User-Group Tracker'),
+        'description' => tra('User and Group tracker links.'),
+        'prefs' => ['feature_trackers'],
+    ];
 }
 
 /**

@@ -13,37 +13,37 @@ require_once('lib/wizard/wizard.php');
  */
 class ChangesWizardSendFeedback extends Wizard
 {
-	public function pageTitle()
-	{
-		return tra('Send feedback & Connect');
-	}
+    public function pageTitle()
+    {
+        return tra('Send feedback & Connect');
+    }
 
-	public function isEditable()
-	{
-		return true;
-	}
+    public function isEditable()
+    {
+        return true;
+    }
 
-	public function onSetupPage($homepageUrl)
-	{
-		global $prefs;
-		$smarty = TikiLib::lib('smarty');
-		// Run the parent first
-		parent::onSetupPage($homepageUrl);
+    public function onSetupPage($homepageUrl)
+    {
+        global $prefs;
+        $smarty = TikiLib::lib('smarty');
+        // Run the parent first
+        parent::onSetupPage($homepageUrl);
 
-		$showPage = true;
+        $showPage = true;
 
-		return $showPage;
-	}
+        return $showPage;
+    }
 
-	public function getTemplate()
-	{
-		$wizardTemplate = 'wizard/changes_send_feedback.tpl';
-		return $wizardTemplate;
-	}
+    public function getTemplate()
+    {
+        $wizardTemplate = 'wizard/changes_send_feedback.tpl';
+        return $wizardTemplate;
+    }
 
-	public function onContinue($homepageUrl)
-	{
-		// Run the parent first
-		parent::onContinue($homepageUrl);
-	}
+    public function onContinue($homepageUrl)
+    {
+        // Run the parent first
+        parent::onContinue($homepageUrl);
+    }
 }

@@ -8,15 +8,15 @@
 
 class Search_Type_Whole implements Search_Type_Interface
 {
-	private $value;
+    private $value;
 
-	public function __construct($value)
-	{
-		$this->value = $value;
-	}
+    public function __construct($value)
+    {
+        $this->value = $value;
+    }
 
-	public function getValue()
-	{
-		return $this->value;
-	}
+    public function getValue()
+    {
+        return $this->value;
+    }
 }

@@ -9,9 +9,9 @@
 /**
  *
  * returns a percentage instead of a fraction
- * @param float $string	fraction to format
+ * @param float $string fraction to format
  */
 function smarty_modifier_percent($string)
 {
-	return number_format($string * 100, 1);
+    return number_format($string * 100, 1);
 }

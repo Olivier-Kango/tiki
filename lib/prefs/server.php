@@ -9,29 +9,29 @@
 function prefs_server_list($partial = false)
 {
 
-	// Skipping the getTimeZoneList() from tikidate which just emulates the pear date format
-	// Generating it is extremely costly in terms of memory.
-	if (class_exists('DateTimeZone')) {
-		$timezones = DateTimeZone::listIdentifiers();
-	} elseif (class_exists('DateTime')) {
-		$timezones = array_keys(DateTime::getTimeZoneList());
-	} else {
-		$timezones = TikiDate::getTimeZoneList();
-		$timezones = array_keys($timezones);
-	}
+    // Skipping the getTimeZoneList() from tikidate which just emulates the pear date format
+    // Generating it is extremely costly in terms of memory.
+    if (class_exists('DateTimeZone')) {
+        $timezones = DateTimeZone::listIdentifiers();
+    } elseif (class_exists('DateTime')) {
+        $timezones = array_keys(DateTime::getTimeZoneList());
+    } else {
+        $timezones = TikiDate::getTimeZoneList();
+        $timezones = array_keys($timezones);
+    }
 
-	sort($timezones);
+    sort($timezones);
 
-	$tikidate = TikiLib::lib('tikidate');
+    $tikidate = TikiLib::lib('tikidate');
 
-	return [
-		'server_timezone' => [
-			'name' => tra('Time zone'),
-			'description' => tra('Indicates the default time zone to use for the server.'),
-			'type' => 'list',
-			'options' => array_combine($timezones, $timezones),
-			'default' => isset($tikidate) ? $tikidate->getTimezoneId() : 'UTC',
-			'tags' => ['basic'],
-		],
-	];
+    return [
+        'server_timezone' => [
+            'name' => tra('Time zone'),
+            'description' => tra('Indicates the default time zone to use for the server.'),
+            'type' => 'list',
+            'options' => array_combine($timezones, $timezones),
+            'default' => isset($tikidate) ? $tikidate->getTimezoneId() : 'UTC',
+            'tags' => ['basic'],
+        ],
+    ];
 }

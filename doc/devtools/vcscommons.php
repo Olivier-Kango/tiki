@@ -13,21 +13,21 @@
  */
 function color($string, $color)
 {
-	$avail = [
-		'red' => 31,
-		'green' => 32,
-		'yellow' => 33,
-		'blue' => 34,
-		'purple' => 35,
-		'cyan' => 36,
-		'gray' => 37,
-	];
+    $avail = [
+        'red' => 31,
+        'green' => 32,
+        'yellow' => 33,
+        'blue' => 34,
+        'purple' => 35,
+        'cyan' => 36,
+        'gray' => 37,
+    ];
 
-	if (! isset($avail[$color])) {
-		return $string;
-	}
+    if (! isset($avail[$color])) {
+        return $string;
+    }
 
-	return "\033[{$avail[$color]}m$string\033[0m";
+    return "\033[{$avail[$color]}m$string\033[0m";
 }
 
 /**
@@ -35,7 +35,7 @@ function color($string, $color)
  */
 function error($message)
 {
-	die(color($message, 'red') . "\n");
+    die(color($message, 'red') . "\n");
 }
 
 /**
@@ -43,7 +43,7 @@ function error($message)
  */
 function info($message)
 {
-	echo color($message, 'blue') . "\n";
+    echo color($message, 'blue') . "\n";
 }
 
 /**
@@ -51,5 +51,5 @@ function info($message)
  */
 function important($message)
 {
-	echo color($message, 'green') . "\n";
+    echo color($message, 'green') . "\n";
 }

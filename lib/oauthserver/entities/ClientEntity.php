@@ -10,114 +10,114 @@ use League\OAuth2\Server\Entities\Traits\EntityTrait;
  */
 class ClientEntity implements ClientEntityInterface
 {
-	use EntityTrait;
+    use EntityTrait;
     use ClientTrait;
 
-	const TABLE = 'tiki_oauthserver_clients';
+    const TABLE = 'tiki_oauthserver_clients';
 
-	public function __construct($data = array())
-	{
-		$data = array_merge([
-			'id'    => 0,
-			'name'          => '',
-			'client_id'     => '',
-			'client_secret' => '',
-			'redirect_uri'  => '',
-		], $data);
-
-		$this->setId($data['id']);
-		$this->setName($data['name']);
-		$this->setClientId($data['client_id']);
-		$this->setClientSecret($data['client_secret']);
-		$this->setRedirectUri($data['redirect_uri']);
-	}
-
-	public static function build($data)
-	{
-		return new self($data);
-	}
-
-	public function setId($id)
-	{
-		$this->id = (int) $id;
-		return $this;
-	}
-
-	public function getId()
+    public function __construct($data = array())
     {
-		return $this->id;
-	}
+        $data = array_merge([
+            'id'    => 0,
+            'name'          => '',
+            'client_id'     => '',
+            'client_secret' => '',
+            'redirect_uri'  => '',
+        ], $data);
 
-	public function setIdentifier($client_id)
-	{
-		return $this->setClientId($client_id);
-	}
+        $this->setId($data['id']);
+        $this->setName($data['name']);
+        $this->setClientId($data['client_id']);
+        $this->setClientSecret($data['client_secret']);
+        $this->setRedirectUri($data['redirect_uri']);
+    }
 
-	public function getIdentifier()
+    public static function build($data)
     {
-		return $this->getClientId();
-	}
+        return new self($data);
+    }
 
-	public function setName($name)
-	{
-		$this->name = $name;
-		return $this;
-	}
-
-	public function getName()
+    public function setId($id)
     {
-		return $this->name;
-	}
+        $this->id = (int) $id;
+        return $this;
+    }
 
-	public function setClientId($client_id)
-	{
-		$this->client_id = $client_id;
-		return $this;
-	}
-
-	public function getClientId()
+    public function getId()
     {
-		return $this->client_id;
-	}
+        return $this->id;
+    }
 
-	public function setClientSecret($client_secret)
-	{
-		$this->client_secret = $client_secret;
-		return $this;
-	}
-
-	public function getClientSecret()
+    public function setIdentifier($client_id)
     {
-		return $this->client_secret;
-	}
+        return $this->setClientId($client_id);
+    }
 
-	public function setRedirectUri($redirect_uri)
-	{
-		$this->redirect_uri = $redirect_uri;
-		return $this;
-	}
+    public function getIdentifier()
+    {
+        return $this->getClientId();
+    }
 
-	public function getRedirectUri()
-	{
-		return $this->redirect_uri;
-	}
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
+    }
 
-	public function toArray()
-	{
-		return array(
-			'id'            => $this->getId(),
-			'name'          => $this->getName(),
-			'client_id'     => $this->getClientId(),
-			'client_secret' => $this->getClientSecret(),
-			'redirect_uri'  => $this->getRedirectUri(),
-		);
-	}
+    public function getName()
+    {
+        return $this->name;
+    }
 
-	public function toJson()
-	{
-		return json_encode(
-			$this->toArray(),
-			JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
-		);
-	}
+    public function setClientId($client_id)
+    {
+        $this->client_id = $client_id;
+        return $this;
+    }
+
+    public function getClientId()
+    {
+        return $this->client_id;
+    }
+
+    public function setClientSecret($client_secret)
+    {
+        $this->client_secret = $client_secret;
+        return $this;
+    }
+
+    public function getClientSecret()
+    {
+        return $this->client_secret;
+    }
+
+    public function setRedirectUri($redirect_uri)
+    {
+        $this->redirect_uri = $redirect_uri;
+        return $this;
+    }
+
+    public function getRedirectUri()
+    {
+        return $this->redirect_uri;
+    }
+
+    public function toArray()
+    {
+        return array(
+            'id'            => $this->getId(),
+            'name'          => $this->getName(),
+            'client_id'     => $this->getClientId(),
+            'client_secret' => $this->getClientSecret(),
+            'redirect_uri'  => $this->getRedirectUri(),
+        );
+    }
+
+    public function toJson()
+    {
+        return json_encode(
+            $this->toArray(),
+            JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE
+        );
+    }
 }

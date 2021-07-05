@@ -8,190 +8,190 @@
 
 class Tiki_Profile_InstallHandler_WikiPage extends Tiki_Profile_InstallHandler
 {
-	private $content;
-	private $description;
-	private $namespace;
-	private $name;
-	private $lang;
-	private $translations = [];
-	private $message;
-	private $structure;
-	private $structure_as_sibling;
-	private $wysiwyg;
-	private $wiki_authors_style;
-	private $geolocation;
-	private $hide_title;
-	private $locked;
-	private $freetags;
-	private $mode = 'create_or_update';
-	private $exists;
+    private $content;
+    private $description;
+    private $namespace;
+    private $name;
+    private $lang;
+    private $translations = [];
+    private $message;
+    private $structure;
+    private $structure_as_sibling;
+    private $wysiwyg;
+    private $wiki_authors_style;
+    private $geolocation;
+    private $hide_title;
+    private $locked;
+    private $freetags;
+    private $mode = 'create_or_update';
+    private $exists;
 
-	public function fetchData()
-	{
-		if ($this->name) {
-			return;
-		}
+    public function fetchData()
+    {
+        if ($this->name) {
+            return;
+        }
 
-		$data = $this->obj->getData();
+        $data = $this->obj->getData();
 
-		if (array_key_exists('message', $data)) {
-			$this->message = $data['message'];
-		}
-		if (array_key_exists('freetags', $data)) {
-			$this->freetags = $data['freetags'];
-		}
-		if (array_key_exists('name', $data)) {
-			$this->name = $data['name'];
-		}
-		if (array_key_exists('namespace', $data)) {
-			$this->namespace = $data['namespace'];
-		}
-		if (array_key_exists('description', $data)) {
-			$this->description = $data['description'];
-		}
-		if (array_key_exists('lang', $data)) {
-			$this->lang = $data['lang'];
-		}
-		if (array_key_exists('content', $data)) {
-			$this->content = $data['content'];
-		}
-		if (array_key_exists('mode', $data)) {
-			$this->mode = $data['mode'];
-		}
-		if (
+        if (array_key_exists('message', $data)) {
+            $this->message = $data['message'];
+        }
+        if (array_key_exists('freetags', $data)) {
+            $this->freetags = $data['freetags'];
+        }
+        if (array_key_exists('name', $data)) {
+            $this->name = $data['name'];
+        }
+        if (array_key_exists('namespace', $data)) {
+            $this->namespace = $data['namespace'];
+        }
+        if (array_key_exists('description', $data)) {
+            $this->description = $data['description'];
+        }
+        if (array_key_exists('lang', $data)) {
+            $this->lang = $data['lang'];
+        }
+        if (array_key_exists('content', $data)) {
+            $this->content = $data['content'];
+        }
+        if (array_key_exists('mode', $data)) {
+            $this->mode = $data['mode'];
+        }
+        if (
             $this->lang
-			&& array_key_exists('translations', $data)
-			&& is_array($data['translations'])
+            && array_key_exists('translations', $data)
+            && is_array($data['translations'])
         ) {
-			$this->translations = $data['translations'];
-		}
-		if (array_key_exists('structure', $data)) {
-			$this->structure = $data['structure'];
-		}
-		if (array_key_exists('structure_as_sibling', $data)) {
-			$this->structure_as_sibling = $data['structure_as_sibling'];
-		}
-		if (array_key_exists('wysiwyg', $data)) {
-			$this->wysiwyg = $data['wysiwyg'];
-		}
-		if (array_key_exists('wiki_authors_style', $data)) {
-			$this->wiki_authors_style = $data['wiki_authors_style'];
-		}
-		if (array_key_exists('geolocation', $data)) {
-			$this->geolocation = $data['geolocation'];
-		}
-		if (array_key_exists('hide_title', $data)) {
-			$this->hide_title = $data['hide_title'];
-		}
-		if (array_key_exists('locked', $data)) {
-			$this->locked = $data['locked'];
-		}
-	}
+            $this->translations = $data['translations'];
+        }
+        if (array_key_exists('structure', $data)) {
+            $this->structure = $data['structure'];
+        }
+        if (array_key_exists('structure_as_sibling', $data)) {
+            $this->structure_as_sibling = $data['structure_as_sibling'];
+        }
+        if (array_key_exists('wysiwyg', $data)) {
+            $this->wysiwyg = $data['wysiwyg'];
+        }
+        if (array_key_exists('wiki_authors_style', $data)) {
+            $this->wiki_authors_style = $data['wiki_authors_style'];
+        }
+        if (array_key_exists('geolocation', $data)) {
+            $this->geolocation = $data['geolocation'];
+        }
+        if (array_key_exists('hide_title', $data)) {
+            $this->hide_title = $data['hide_title'];
+        }
+        if (array_key_exists('locked', $data)) {
+            $this->locked = $data['locked'];
+        }
+    }
 
-	public function canInstall()
-	{
-		$this->fetchData();
-		if (empty($this->name)) {
-			return false;
-		}
+    public function canInstall()
+    {
+        $this->fetchData();
+        if (empty($this->name)) {
+            return false;
+        }
 
-		$this->convertMode();
+        $this->convertMode();
 
-		return true;
-	}
+        return true;
+    }
 
-	private function convertMode()
-	{
-		global $tikilib;
+    private function convertMode()
+    {
+        global $tikilib;
 
-		$name = $this->getPageName();
+        $name = $this->getPageName();
 
-		$this->exists = $tikilib->page_exists($name);
+        $this->exists = $tikilib->page_exists($name);
 
-		switch ($this->mode) {
-			case 'create':
-				if ($this->exists) {
-					throw new Exception("Page {$name} already exists and profile does not allow update.");
-				}
-				break;
-			case 'update':
-			case 'append':
-				if (! $this->exists) {
-					throw new Exception("Page {$name} does not exist and profile only allows update.");
-				}
-				break;
-			case 'create_or_update':
-				return $this->exists ? 'update' : 'create';
-			case 'create_or_append':
-				return $this->exists ? 'append' : 'create';
-			default:
-				throw new Exception("Invalid mode '{$this->mode}' for wiki handler.");
-		}
+        switch ($this->mode) {
+            case 'create':
+                if ($this->exists) {
+                    throw new Exception("Page {$name} already exists and profile does not allow update.");
+                }
+                break;
+            case 'update':
+            case 'append':
+                if (! $this->exists) {
+                    throw new Exception("Page {$name} does not exist and profile only allows update.");
+                }
+                break;
+            case 'create_or_update':
+                return $this->exists ? 'update' : 'create';
+            case 'create_or_append':
+                return $this->exists ? 'append' : 'create';
+            default:
+                throw new Exception("Invalid mode '{$this->mode}' for wiki handler.");
+        }
 
-		return $this->mode;
-	}
+        return $this->mode;
+    }
 
-	public function _install()
-	{
-		global $prefs;
+    public function _install()
+    {
+        global $prefs;
 
-		// Normalize mode
-		$this->canInstall();
+        // Normalize mode
+        $this->canInstall();
 
-		global $tikilib;
-		$this->fetchData();
-		$this->replaceReferences($this->name);
-		$this->replaceReferences($this->namespace);
-		$this->replaceReferences($this->description);
-		$this->replaceReferences($this->content);
-		$this->replaceReferences($this->lang);
-		$this->replaceReferences($this->translations);
-		$this->replaceReferences($this->message);
-		$this->replaceReferences($this->structure);
-		$this->replaceReferences($this->structure_as_sibling);
-		$this->replaceReferences($this->wysiwyg);
-		$this->replaceReferences($this->wiki_authors_style);
-		$this->replaceReferences($this->geolocation);
-		$this->replaceReferences($this->hide_title);
-		$this->replaceReferences($this->locked);
+        global $tikilib;
+        $this->fetchData();
+        $this->replaceReferences($this->name);
+        $this->replaceReferences($this->namespace);
+        $this->replaceReferences($this->description);
+        $this->replaceReferences($this->content);
+        $this->replaceReferences($this->lang);
+        $this->replaceReferences($this->translations);
+        $this->replaceReferences($this->message);
+        $this->replaceReferences($this->structure);
+        $this->replaceReferences($this->structure_as_sibling);
+        $this->replaceReferences($this->wysiwyg);
+        $this->replaceReferences($this->wiki_authors_style);
+        $this->replaceReferences($this->geolocation);
+        $this->replaceReferences($this->hide_title);
+        $this->replaceReferences($this->locked);
 
-		$this->mode = $this->convertMode();
+        $this->mode = $this->convertMode();
 
-		if (strpos($this->content, 'wikidirect:') === 0) {
-			$pageName = substr($this->content, strlen('wikidirect:'));
-			$this->content = $this->obj->getProfile()->getPageContent($pageName);
-		}
+        if (strpos($this->content, 'wikidirect:') === 0) {
+            $pageName = substr($this->content, strlen('wikidirect:'));
+            $this->content = $this->obj->getProfile()->getPageContent($pageName);
+        }
 
-		$finalName = $this->getPageName();
+        $finalName = $this->getPageName();
 
-		$hash = [];
+        $hash = [];
 
 
-		if ($this->mode == 'create') {
-			// wysiwyg settings
-			if ($this->wysiwyg) {
-				if ($this->wysiwyg != 'n') {
-					$this->wysiwyg = 'y';
-				} else {
-					$this->wysiwyg = 'n';
-				}
-			} else {
-				$this->wysiwyg = ($prefs['feature_wysiwyg'] === 'y' && $prefs['wysiwyg_default'] === 'y') ? 'y' : 'n';
-			}
-			$is_html = ($this->wysiwyg === 'y' && $prefs['wysiwyg_htmltowiki'] !== 'y');
+        if ($this->mode == 'create') {
+            // wysiwyg settings
+            if ($this->wysiwyg) {
+                if ($this->wysiwyg != 'n') {
+                    $this->wysiwyg = 'y';
+                } else {
+                    $this->wysiwyg = 'n';
+                }
+            } else {
+                $this->wysiwyg = ($prefs['feature_wysiwyg'] === 'y' && $prefs['wysiwyg_default'] === 'y') ? 'y' : 'n';
+            }
+            $is_html = ($this->wysiwyg === 'y' && $prefs['wysiwyg_htmltowiki'] !== 'y');
 
-			// locking
-			if ($this->locked == 'y') {
-				$hash['lock_it'] = 'y';
-			} else {
-				$this->locked = 'n';
-				$hash = null;
-			}
-			if (! $this->message) {
-				$this->message = tra('Created by profile installer');
-			}
-			if (! isset($this->structure)) {	// if we're adding the page to a structure then don't create it first here
-				if (
+            // locking
+            if ($this->locked == 'y') {
+                $hash['lock_it'] = 'y';
+            } else {
+                $this->locked = 'n';
+                $hash = null;
+            }
+            if (! $this->message) {
+                $this->message = tra('Created by profile installer');
+            }
+            if (! isset($this->structure)) {    // if we're adding the page to a structure then don't create it first here
+                if (
                     ! $tikilib->create_page(
                         $finalName,
                         0,
@@ -208,297 +208,297 @@ class Tiki_Profile_InstallHandler_WikiPage extends Tiki_Profile_InstallHandler
                         $this->wiki_authors_style
                     )
                 ) {
-					return null;
-				}
-			}
-		} else {
-			$info = $tikilib->get_page_info($finalName, true, true);
+                    return null;
+                }
+            }
+        } else {
+            $info = $tikilib->get_page_info($finalName, true, true);
 
-			if (! $this->wysiwyg && ! empty($info['wysiwyg'])) {
-				$this->wysiwyg = $info['wysiwyg'];
-			}
-			if (isset($info['is_html'])) {
-				$is_html = $info['is_html'];
-			} elseif ($this->wysiwyg === 'y') {
-				$is_html = ($prefs['wysiwyg_htmltowiki'] !== 'y');
-			}
+            if (! $this->wysiwyg && ! empty($info['wysiwyg'])) {
+                $this->wysiwyg = $info['wysiwyg'];
+            }
+            if (isset($info['is_html'])) {
+                $is_html = $info['is_html'];
+            } elseif ($this->wysiwyg === 'y') {
+                $is_html = ($prefs['wysiwyg_htmltowiki'] !== 'y');
+            }
 
-			if (! $this->description) {
-				$this->description = $info['description'];
-			}
+            if (! $this->description) {
+                $this->description = $info['description'];
+            }
 
-			if (! $this->lang) {
-				$this->lang = $info['lang'];
-			}
+            if (! $this->lang) {
+                $this->lang = $info['lang'];
+            }
 
-			if ($this->mode == 'append') {
-				$this->content = rtrim($info['data']) . "\n" . trim($this->content) . "\n";
-			}
+            if ($this->mode == 'append') {
+                $this->content = rtrim($info['data']) . "\n" . trim($this->content) . "\n";
+            }
 
-			if (! $this->message) {
-				$this->message = tra('Page updated by profile installer');
-			}
+            if (! $this->message) {
+                $this->message = tra('Page updated by profile installer');
+            }
 
-			$tikilib->update_page($finalName, $this->content, $this->message, 'admin', '0.0.0.0', $this->description, 0, $this->lang, $is_html, null, null, $this->wysiwyg, $this->wiki_authors_style);
-		}
+            $tikilib->update_page($finalName, $this->content, $this->message, 'admin', '0.0.0.0', $this->description, 0, $this->lang, $is_html, null, null, $this->wysiwyg, $this->wiki_authors_style);
+        }
 
-		global $prefs;
-		if (! empty($prefs['geo_locate_wiki']) && $prefs['geo_locate_wiki'] == 'y' && ! empty($this->geolocation)) {
-			TikiLib::lib('geo')->set_coordinates('wiki page', $this->name, $this->geolocation);
-		}
+        global $prefs;
+        if (! empty($prefs['geo_locate_wiki']) && $prefs['geo_locate_wiki'] == 'y' && ! empty($this->geolocation)) {
+            TikiLib::lib('geo')->set_coordinates('wiki page', $this->name, $this->geolocation);
+        }
 
-		if ($prefs['wiki_page_hide_title'] == 'y' && ! empty($this->hide_title)) {
-			if ($this->hide_title == 'y') {
-				$isHideTitle = -1;
-			} elseif ($this->hide_title == 'n') {
-				$isHideTitle = 0;
-			}
-			TikiLib::lib('wiki')->set_page_hide_title($finalName, $isHideTitle);
-		}
+        if ($prefs['wiki_page_hide_title'] == 'y' && ! empty($this->hide_title)) {
+            if ($this->hide_title == 'y') {
+                $isHideTitle = -1;
+            } elseif ($this->hide_title == 'n') {
+                $isHideTitle = 0;
+            }
+            TikiLib::lib('wiki')->set_page_hide_title($finalName, $isHideTitle);
+        }
 
-		$multilinguallib = TikiLib::lib('multilingual');
+        $multilinguallib = TikiLib::lib('multilingual');
 
-		$current = $tikilib->get_page_id_from_name($finalName);
-		foreach ($this->translations as $targetName) {
-			$target = $tikilib->get_page_info($targetName);
+        $current = $tikilib->get_page_id_from_name($finalName);
+        foreach ($this->translations as $targetName) {
+            $target = $tikilib->get_page_info($targetName);
 
-			if ($target && $target['lang'] && $target['lang'] != $this->lang) {
-				$multilinguallib->insertTranslation('wiki page', $current, $this->lang, $target['page_id'], $target['lang']);
-			}
-		}
+            if ($target && $target['lang'] && $target['lang'] != $this->lang) {
+                $multilinguallib->insertTranslation('wiki page', $current, $this->lang, $target['page_id'], $target['lang']);
+            }
+        }
 
-		// only create a new structure or add a new page to a structure if the structure parameter has been set AND mode is 'create'
-		if (isset($this->structure) && $this->mode == 'create') {
-			$options = [
-				'description'        => $this->description,
-				'lang'               => $this->lang,
-				'is_html'            => $is_html,
-				'hash'               => $hash,
-				'wysiwyg'            => $this->wysiwyg,
-				'wiki_authors_style' => $this->wiki_authors_style,
-				'content'            => $this->content,
-				'hide_toc'           => empty($this->content) ? 'n' : 'y',
-			];
+        // only create a new structure or add a new page to a structure if the structure parameter has been set AND mode is 'create'
+        if (isset($this->structure) && $this->mode == 'create') {
+            $options = [
+                'description'        => $this->description,
+                'lang'               => $this->lang,
+                'is_html'            => $is_html,
+                'hash'               => $hash,
+                'wysiwyg'            => $this->wysiwyg,
+                'wiki_authors_style' => $this->wiki_authors_style,
+                'content'            => $this->content,
+                'hide_toc'           => empty($this->content) ? 'n' : 'y',
+            ];
 
-			$structlib = TikiLib::lib('struct');
-			if ($this->structure === 0) {
-				$page_ref_id = 0;
-				// create a new structure with just the new wiki page if the profile structure: parameter is set to zero
-				$structlib->s_create_page(null, null, $finalName, '', 0, $options);
-			} elseif (is_numeric($this->structure)) {
-				$page_ref_id = $this->structure;
-			} else {
-				$page_ref_id = (int) $structlib->get_struct_ref_id($this->structure);
-			}
-			if ($page_ref_id > 0) {
-				// add the page to an existing structure when the profile structure: parameter is non-zero
-				// where the parameter is set to a page_ref_id and the new page is inserted after this page ref in the structure hierarchy
-				// In addition, if structure_as_sibling is set to 'y', then the new page is created as sibling rather than child.
-				$pageinfo = $structlib->s_get_page_info($page_ref_id);
-				$structure_id = $pageinfo['structure_id'];
-				if ($this->structure_as_sibling == 'y' && $pageinfo['parent_id'] > 0) {
-					$structure_parent = $pageinfo['parent_id'];
-				} else {
-					$structure_parent = $page_ref_id;
-				}
-				$structlib->s_create_page($structure_parent, $page_ref_id, $finalName, '', $structure_id, $options);
-			}
-		}
+            $structlib = TikiLib::lib('struct');
+            if ($this->structure === 0) {
+                $page_ref_id = 0;
+                // create a new structure with just the new wiki page if the profile structure: parameter is set to zero
+                $structlib->s_create_page(null, null, $finalName, '', 0, $options);
+            } elseif (is_numeric($this->structure)) {
+                $page_ref_id = $this->structure;
+            } else {
+                $page_ref_id = (int) $structlib->get_struct_ref_id($this->structure);
+            }
+            if ($page_ref_id > 0) {
+                // add the page to an existing structure when the profile structure: parameter is non-zero
+                // where the parameter is set to a page_ref_id and the new page is inserted after this page ref in the structure hierarchy
+                // In addition, if structure_as_sibling is set to 'y', then the new page is created as sibling rather than child.
+                $pageinfo = $structlib->s_get_page_info($page_ref_id);
+                $structure_id = $pageinfo['structure_id'];
+                if ($this->structure_as_sibling == 'y' && $pageinfo['parent_id'] > 0) {
+                    $structure_parent = $pageinfo['parent_id'];
+                } else {
+                    $structure_parent = $page_ref_id;
+                }
+                $structlib->s_create_page($structure_parent, $page_ref_id, $finalName, '', $structure_id, $options);
+            }
+        }
 
-		if ($this->freetags != "" && $tikilib->page_exists($finalName, false)) {
-			$cat_type = "wiki page";
-			$cat_objid = $finalName;
-			$cat_name = $finalName;
-			$tag_string = $this->freetags;
-			$cat_lang = null;
-			require_once 'freetag_apply.php';
-		}
+        if ($this->freetags != "" && $tikilib->page_exists($finalName, false)) {
+            $cat_type = "wiki page";
+            $cat_objid = $finalName;
+            $cat_name = $finalName;
+            $tag_string = $this->freetags;
+            $cat_lang = null;
+            require_once 'freetag_apply.php';
+        }
 
-		if ($prefs['profile_autoapprove_wikiplugins'] == 'y') {
-			$argumentParser = new \WikiParser_PluginArgumentParser();
-			$matches = \WikiParser_PluginMatcher::match($this->content);
-			$parserlib = \TikiLib::lib('parser');
-			foreach ($matches as $match) {
-				$parserlib->setOptions([ 'page' => $finalName ]);
-				$name = $match->getName();
-				$data = $match->getBody();
-				$args = $argumentParser->parse($match->getArguments());
-				$meta = $parserlib->plugin_info($name, $args);
-				if ($parserlib->plugin_can_execute($name, $data, $args) !== true) {
-					if ($fingerprint = $parserlib->plugin_fingerprint($name, $meta, $data, $args)) {
-						$parserlib->approve_selected_pending_plugings($fingerprint);
-					}
-				}
-			}
-		}
+        if ($prefs['profile_autoapprove_wikiplugins'] == 'y') {
+            $argumentParser = new \WikiParser_PluginArgumentParser();
+            $matches = \WikiParser_PluginMatcher::match($this->content);
+            $parserlib = \TikiLib::lib('parser');
+            foreach ($matches as $match) {
+                $parserlib->setOptions([ 'page' => $finalName ]);
+                $name = $match->getName();
+                $data = $match->getBody();
+                $args = $argumentParser->parse($match->getArguments());
+                $meta = $parserlib->plugin_info($name, $args);
+                if ($parserlib->plugin_can_execute($name, $data, $args) !== true) {
+                    if ($fingerprint = $parserlib->plugin_fingerprint($name, $meta, $data, $args)) {
+                        $parserlib->approve_selected_pending_plugings($fingerprint);
+                    }
+                }
+            }
+        }
 
-		return $finalName;
-	}
+        return $finalName;
+    }
 
-	private function getPageName()
-	{
-		global $prefs;
+    private function getPageName()
+    {
+        global $prefs;
 
-		$name = $this->name;
+        $name = $this->name;
 
-		if ($this->namespace) {
-			$name = "{$this->namespace}{$prefs['namespace_separator']}{$name}";
-		}
+        if ($this->namespace) {
+            $name = "{$this->namespace}{$prefs['namespace_separator']}{$name}";
+        }
 
-		return $name;
-	}
+        return $name;
+    }
 
-	/**
-	 * Export wikipages
-	 *
-	 * @param Tiki_Profile_Writer $writer
-	 * @param string|array $pageNames
-	 * @param bool $all
-	 * @return bool
-	 * @throws Exception
-	 */
-	public static function export(Tiki_Profile_Writer $writer, $pageNames, $all = false)
-	{
-		$tikilib = \TikiLib::lib('tiki');
-		$pagesArray = [];
+    /**
+     * Export wikipages
+     *
+     * @param Tiki_Profile_Writer $writer
+     * @param string|array $pageNames
+     * @param bool $all
+     * @return bool
+     * @throws Exception
+     */
+    public static function export(Tiki_Profile_Writer $writer, $pageNames, $all = false)
+    {
+        $tikilib = \TikiLib::lib('tiki');
+        $pagesArray = [];
 
-		$pageNames = (array) $pageNames;
+        $pageNames = (array) $pageNames;
 
-		foreach ($pageNames as $pageName) {
-			$listPages = $tikilib->list_pages(0, -1, 'pageName_desc', $pageName);
+        foreach ($pageNames as $pageName) {
+            $listPages = $tikilib->list_pages(0, -1, 'pageName_desc', $pageName);
 
-			if ($listPages['cant'] == 0) {
-				continue;
-			}
+            if ($listPages['cant'] == 0) {
+                continue;
+            }
 
-			$pagesArray[] = $listPages;
-		}
+            $pagesArray[] = $listPages;
+        }
 
-		foreach ($pagesArray as $pageData) {
-			foreach ($pageData['data'] as $page) {
-				$pageName = $page['pageName'];
-				$writer->writeExternal($pageName, $writer->getReference('wiki_content', $page['data']));
-				$writer->addObject(
-					'wiki_page',
-					$pageName,
-					array_filter([
-						'name' => $pageName,
-						'content' => "wikicontent:$pageName",
-						'description' => $page['description'],
-						'lang' => $page['lang'],
-						'wysiwyg' => $page['wysiwyg'],
-					])
-				);
-			}
-		}
+        foreach ($pagesArray as $pageData) {
+            foreach ($pageData['data'] as $page) {
+                $pageName = $page['pageName'];
+                $writer->writeExternal($pageName, $writer->getReference('wiki_content', $page['data']));
+                $writer->addObject(
+                    'wiki_page',
+                    $pageName,
+                    array_filter([
+                        'name' => $pageName,
+                        'content' => "wikicontent:$pageName",
+                        'description' => $page['description'],
+                        'lang' => $page['lang'],
+                        'wysiwyg' => $page['wysiwyg'],
+                    ])
+                );
+            }
+        }
 
-		return true;
-	}
+        return true;
+    }
 
-	/**
-	 * Export and get the output of the profile writer
-	 * @param $pageNames
-	 * @param $profileObject
-	 * @return string
-	 * @throws Exception
-	 */
-	public function dumpExport($pageNames, $profileObject)
-	{
-		$writer = new Tiki_Profile_Writer('temp', 'none');
-		self::export($writer, $pageNames);
+    /**
+     * Export and get the output of the profile writer
+     * @param $pageNames
+     * @param $profileObject
+     * @return string
+     * @throws Exception
+     */
+    public function dumpExport($pageNames, $profileObject)
+    {
+        $writer = new Tiki_Profile_Writer('temp', 'none');
+        self::export($writer, $pageNames);
 
-		return $writer->dump();
-	}
+        return $writer->dump();
+    }
 
-	/**
-	 * Remove wiki page
-	 *
-	 * @param string $pageName
-	 * @return bool
-	 */
-	public function remove($pageName)
-	{
-		if (! empty($pageName)) {
-			$tikilib = \TikiLib::lib('tiki');
-			if ($tikilib->remove_all_versions($pageName)) {
-				return true;
-			}
-		}
+    /**
+     * Remove wiki page
+     *
+     * @param string $pageName
+     * @return bool
+     */
+    public function remove($pageName)
+    {
+        if (! empty($pageName)) {
+            $tikilib = \TikiLib::lib('tiki');
+            if ($tikilib->remove_all_versions($pageName)) {
+                return true;
+            }
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	/**
-	 * Return wiki page object data
-	 *
-	 * @return array
-	 */
-	public function getData()
-	{
-		return $this->obj->getData();
-	}
+    /**
+     * Return wiki page object data
+     *
+     * @return array
+     */
+    public function getData()
+    {
+        return $this->obj->getData();
+    }
 
-	/**
-	 * Get current wiki page data
-	 *
-	 * @param array $wikiPage
-	 * @return mixed
-	 */
-	public function getCurrentData($wikiPage)
-	{
-		$wikiPageName = ! empty($wikiPage['name']) ? $wikiPage['name'] : '';
-		if (! empty($wikiPage)) {
-			$tikilib = \TikiLib::lib('tiki');
-			$pageData = $tikilib->get_page_info($wikiPageName);
-			if (! empty($pageData)) {
-				return $pageData;
-			}
-		}
-		return false;
-	}
+    /**
+     * Get current wiki page data
+     *
+     * @param array $wikiPage
+     * @return mixed
+     */
+    public function getCurrentData($wikiPage)
+    {
+        $wikiPageName = ! empty($wikiPage['name']) ? $wikiPage['name'] : '';
+        if (! empty($wikiPage)) {
+            $tikilib = \TikiLib::lib('tiki');
+            $pageData = $tikilib->get_page_info($wikiPageName);
+            if (! empty($pageData)) {
+                return $pageData;
+            }
+        }
+        return false;
+    }
 
-	/**
-	 * Get wiki page changes
-	 *
-	 * @param array $before
-	 * @param array $after
-	 * @return mixed
-	 */
-	public function getChanges($before, $after)
-	{
-		if (! empty($before['page_id']) && ! empty($after['page_id']) && $before['page_id'] === $after['page_id']) {
-			return $before;
-		}
-		return false;
-	}
+    /**
+     * Get wiki page changes
+     *
+     * @param array $before
+     * @param array $after
+     * @return mixed
+     */
+    public function getChanges($before, $after)
+    {
+        if (! empty($before['page_id']) && ! empty($after['page_id']) && $before['page_id'] === $after['page_id']) {
+            return $before;
+        }
+        return false;
+    }
 
-	/**
-	 * Revert wiki page data
-	 *
-	 * @param array $pageData
-	 * @return bool
-	 */
-	public function revert($pageData)
-	{
-		if (! empty($pageData)) {
-			$tikilib = \TikiLib::lib('tiki');
-			$tikilib->update_page(
-				$pageData['pageName'],
-				$pageData['data'],
-				$pageData['comment'],
-				$pageData['user'],
-				$pageData['ip'],
-				$pageData['description'],
-				$pageData['version_minor'],
-				$pageData['lang'],
-				$pageData['is_html'],
-				'',
-				null,
-				$pageData['wysiwyg'],
-				$pageData['wiki_authors_style']
-			);
-			return true;
-		}
-		return false;
-	}
+    /**
+     * Revert wiki page data
+     *
+     * @param array $pageData
+     * @return bool
+     */
+    public function revert($pageData)
+    {
+        if (! empty($pageData)) {
+            $tikilib = \TikiLib::lib('tiki');
+            $tikilib->update_page(
+                $pageData['pageName'],
+                $pageData['data'],
+                $pageData['comment'],
+                $pageData['user'],
+                $pageData['ip'],
+                $pageData['description'],
+                $pageData['version_minor'],
+                $pageData['lang'],
+                $pageData['is_html'],
+                '',
+                null,
+                $pageData['wysiwyg'],
+                $pageData['wiki_authors_style']
+            );
+            return true;
+        }
+        return false;
+    }
 }

@@ -8,24 +8,24 @@
 
 function prefs_mustread_list()
 {
-	return [
-		'mustread_enabled' => [
-			'name' => tr('Must read'),
-			'description' => tr('Allow assignment of mandatory readings and track progress.'),
-			'help' => 'Must+Reads',
-			'type' => 'flag',
-			'default' => 'n',
-			'dependencies' => ['feature_search', 'feature_trackers'],
-		],
-		'mustread_tracker' => [
-			'name' => tr('Must read tracker'),
-			'description' => tr('Tracker containing the individual read requests.'),
-			'hint' => tr('Tracker ID'),
-			'type' => 'text',
-			'filter' => 'int',
-			'size' => 6,
-			'profile_reference' => 'tracker',
-			'default' => '',
-		],
-	];
+    return [
+        'mustread_enabled' => [
+            'name' => tr('Must read'),
+            'description' => tr('Allow assignment of mandatory readings and track progress.'),
+            'help' => 'Must+Reads',
+            'type' => 'flag',
+            'default' => 'n',
+            'dependencies' => ['feature_search', 'feature_trackers'],
+        ],
+        'mustread_tracker' => [
+            'name' => tr('Must read tracker'),
+            'description' => tr('Tracker containing the individual read requests.'),
+            'hint' => tr('Tracker ID'),
+            'type' => 'text',
+            'filter' => 'int',
+            'size' => 6,
+            'profile_reference' => 'tracker',
+            'default' => '',
+        ],
+    ];
 }

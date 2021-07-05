@@ -15,71 +15,71 @@ use Tiki\FileGallery\File;
  */
 class Services_Diagram_Controller
 {
-	/**
-	 * Controller setup function. Runs before any action
-	 * @throws Services_Exception_Disabled
-	 */
-	public function setUp()
-	{
-		Services_Exception_Disabled::check('wikiplugin_diagram');
-	}
+    /**
+     * Controller setup function. Runs before any action
+     * @throws Services_Exception_Disabled
+     */
+    public function setUp()
+    {
+        Services_Exception_Disabled::check('wikiplugin_diagram');
+    }
 
-	/**
-	 * Function used to cache a diagram.
-	 * If the diagram is represented inline in a page, the cache file name result will be the md5 of the content
-	 * @param $input
-	 * @return array
-	 * @throws Exception
-	 */
-	public function action_image($input)
-	{
-		global $prefs;
+    /**
+     * Function used to cache a diagram.
+     * If the diagram is represented inline in a page, the cache file name result will be the md5 of the content
+     * @param $input
+     * @return array
+     * @throws Exception
+     */
+    public function action_image($input)
+    {
+        global $prefs;
 
-		$payload = [];
+        $payload = [];
 
-		if ($prefs['fgal_export_diagram_on_image_save'] !== 'y' || ! function_exists('simplexml_load_string')) {
-			return false;
-		}
+        if ($prefs['fgal_export_diagram_on_image_save'] !== 'y' || ! function_exists('simplexml_load_string')) {
+            return false;
+        }
 
-		$cacheLib = TikiLib::lib('cache');
-		$fileId = $input->fileId->int();
-		$data = $input->data->value();
-		$rawXml = $input->content->value();
+        $cacheLib = TikiLib::lib('cache');
+        $fileId = $input->fileId->int();
+        $data = $input->data->value();
+        $rawXml = $input->content->value();
 
-		if (! is_null($fileId) && $fileId !== 0) {
-			$file = File::id($fileId);
+        if (! is_null($fileId) && $fileId !== 0) {
+            $file = File::id($fileId);
 
-			if (empty($file)) {
-				return false;
-			}
+            if (empty($file)) {
+                return false;
+            }
 
-			$rawXml = $file->getContents();
-		}
+            $rawXml = $file->getContents();
+        }
 
-		$diagramRoot = simplexml_load_string($rawXml);
+        $diagramRoot = simplexml_load_string($rawXml);
 
-		foreach ($diagramRoot->diagram as $diagram) {
-			$diagramId = (string) $diagram->attributes()->id;
-			$cacheLib->cacheItem(md5($diagram->asXML()), $data[$diagramId], 'diagram');
-		}
+        foreach ($diagramRoot->diagram as $diagram) {
+            $diagramId = (string) $diagram->attributes()->id;
+            $cacheLib->cacheItem(md5($diagram->asXML()), $data[$diagramId], 'diagram');
+        }
 
-		return $payload;
-	}
+        return $payload;
+    }
 
-	public function action_tickets($input)
-	{
-		$payload = [];
+    public function action_tickets($input)
+    {
+        $payload = [];
 
-		if (! empty($input->ticketsAmount->int())) {
-			$payload['new_tickets'] = [];
-			$accesslib = TikiLib::lib('access');
+        if (! empty($input->ticketsAmount->int())) {
+            $payload['new_tickets'] = [];
+            $accesslib = TikiLib::lib('access');
 
-			for ($i = 0; $i < $input->ticketsAmount->int(); $i++) {
-				$accesslib->setTicket();
-				$payload['new_tickets'][] = $accesslib->getTicket();
-			}
-		}
+            for ($i = 0; $i < $input->ticketsAmount->int(); $i++) {
+                $accesslib->setTicket();
+                $payload['new_tickets'][] = $accesslib->getTicket();
+            }
+        }
 
-		return $payload;
-	}
+        return $payload;
+    }
 }

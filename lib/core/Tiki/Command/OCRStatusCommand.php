@@ -14,41 +14,41 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class OCRStatusCommand extends Command
 {
-	protected function configure()
-	{
-		$this
-			->setName('ocr:status')
-			->setDescription('Give statistics on file OCR status (Queued, Processing, Finished, Skipped)');
-	}
+    protected function configure()
+    {
+        $this
+            ->setName('ocr:status')
+            ->setDescription('Give statistics on file OCR status (Queued, Processing, Finished, Skipped)');
+    }
 
-	protected function execute(InputInterface $input, OutputInterface $output)
-	{
-		$ocrLib = \TikiLib::lib('ocr');
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $ocrLib = \TikiLib::lib('ocr');
 
-		//Retrieve the number of files marked as waiting to be processed.
-		$count = $ocrLib->table('tiki_files')->fetchCount(
-			['ocr_state' => $ocrLib::OCR_STATUS_PENDING]
-		);
-		$output->writeln("Queued files:       $count");
+        //Retrieve the number of files marked as waiting to be processed.
+        $count = $ocrLib->table('tiki_files')->fetchCount(
+            ['ocr_state' => $ocrLib::OCR_STATUS_PENDING]
+        );
+        $output->writeln("Queued files:       $count");
 
-		$count = $ocrLib->table('tiki_files')->fetchCount(
-			['ocr_state' => $ocrLib::OCR_STATUS_STALLED]
-		);
-		$output->writeln("Stalled files:      $count");
+        $count = $ocrLib->table('tiki_files')->fetchCount(
+            ['ocr_state' => $ocrLib::OCR_STATUS_STALLED]
+        );
+        $output->writeln("Stalled files:      $count");
 
-		$count = $ocrLib->table('tiki_files')->fetchCount(
-			['ocr_state' => $ocrLib::OCR_STATUS_PROCESSING]
-		);
-		$output->writeln("Processing files:   $count");
+        $count = $ocrLib->table('tiki_files')->fetchCount(
+            ['ocr_state' => $ocrLib::OCR_STATUS_PROCESSING]
+        );
+        $output->writeln("Processing files:   $count");
 
-		$count = $ocrLib->table('tiki_files')->fetchCount(
-			['ocr_state' => $ocrLib::OCR_STATUS_FINISHED]
-		);
-		$output->writeln("Finished files:     $count");
+        $count = $ocrLib->table('tiki_files')->fetchCount(
+            ['ocr_state' => $ocrLib::OCR_STATUS_FINISHED]
+        );
+        $output->writeln("Finished files:     $count");
 
-		$count = $ocrLib->table('tiki_files')->fetchCount(
-			['ocr_state' => $ocrLib::OCR_STATUS_SKIP]
-		);
-		$output->writeln("Will not OCR:       $count");
-	}
+        $count = $ocrLib->table('tiki_files')->fetchCount(
+            ['ocr_state' => $ocrLib::OCR_STATUS_SKIP]
+        );
+        $output->writeln("Will not OCR:       $count");
+    }
 }

@@ -8,18 +8,18 @@
 
 class Search_ResultSet_SnippetHelper implements Laminas\Filter\FilterInterface
 {
-	private $length;
-	private $formatter;
+    private $length;
+    private $formatter;
 
-	public function __construct($length = 240)
-	{
-		$this->length = (int) 240;
-		$this->formatter = new Search_Formatter_ValueFormatter_Snippet([ 'length' => $this->length ]);
-	}
+    public function __construct($length = 240)
+    {
+        $this->length = (int) 240;
+        $this->formatter = new Search_Formatter_ValueFormatter_Snippet([ 'length' => $this->length ]);
+    }
 
-	public function filter($content)
-	{
-		$snippet = $this->formatter->render('', $content, []);
-		return $snippet;
-	}
+    public function filter($content)
+    {
+        $snippet = $this->formatter->render('', $content, []);
+        return $snippet;
+    }
 }

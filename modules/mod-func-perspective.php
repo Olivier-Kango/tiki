@@ -11,12 +11,12 @@
  */
 function module_perspective_info()
 {
-	return [
-		'name' => tra('Perspective'),
-		'description' => tra('Enables to change current perspective.'),
-		'prefs' => ['feature_perspective'],
-		'params' => []
-	];
+    return [
+        'name' => tra('Perspective'),
+        'description' => tra('Enables to change current perspective.'),
+        'prefs' => ['feature_perspective'],
+        'params' => []
+    ];
 }
 
 /**
@@ -25,12 +25,12 @@ function module_perspective_info()
  */
 function module_perspective($mod_reference, $module_params)
 {
-	$perspectivelib = TikiLib::lib('perspective');
-	$smarty = TikiLib::lib('smarty');
-	global $prefs;
+    $perspectivelib = TikiLib::lib('perspective');
+    $smarty = TikiLib::lib('smarty');
+    global $prefs;
 
-	$perspectives = $perspectivelib->list_perspectives();
-	$smarty->assign('perspectives', $perspectives);
+    $perspectives = $perspectivelib->list_perspectives();
+    $smarty->assign('perspectives', $perspectives);
 
-	$smarty->assign('current_perspective', $perspectivelib->get_current_perspective($prefs));
+    $smarty->assign('current_perspective', $perspectivelib->get_current_perspective($prefs));
 }

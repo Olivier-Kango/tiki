@@ -10,27 +10,27 @@ namespace Tiki\Lib\FitVidJs;
 
 class FitVidJs
 {
-	public static function getCustomSelector(): string
-	{
-		global $prefs;
+    public static function getCustomSelector(): string
+    {
+        global $prefs;
 
-		$domains = $prefs['jquery_fitvidjs_additional_domains'];
+        $domains = $prefs['jquery_fitvidjs_additional_domains'];
 
-		if (empty($domains)) {
-			return '';
-		}
+        if (empty($domains)) {
+            return '';
+        }
 
-		$domains = explode("\n", $domains);
-		$customSelectors = array_map(
-			function ($domain) {
-				$domain = trim($domain);
-				return "iframe[src*='{$domain}']";
-			},
-			$domains
-		);
+        $domains = explode("\n", $domains);
+        $customSelectors = array_map(
+            function ($domain) {
+                $domain = trim($domain);
+                return "iframe[src*='{$domain}']";
+            },
+            $domains
+        );
 
-		$customSelectors = implode(', ', $customSelectors);
+        $customSelectors = implode(', ', $customSelectors);
 
-		return '{customSelector: "' . $customSelectors . '"}';
-	}
+        return '{customSelector: "' . $customSelectors . '"}';
+    }
 }

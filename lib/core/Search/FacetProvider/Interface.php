@@ -8,5 +8,5 @@
 
 interface Search_FacetProvider_Interface
 {
-	public function getFacets();
+    public function getFacets();
 }

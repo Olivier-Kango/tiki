@@ -16,152 +16,152 @@ use TikiLib;
 class CustomRouteLib extends TikiLib
 {
 
-	protected $tableName = 'tiki_custom_route';
+    protected $tableName = 'tiki_custom_route';
 
-	/**
-	 * List all routes or fetch one route
-	 *
-	 * @param null $routeId
-	 * @return mixed
-	 */
-	public function getRoute($routeId = null)
-	{
+    /**
+     * List all routes or fetch one route
+     *
+     * @param null $routeId
+     * @return mixed
+     */
+    public function getRoute($routeId = null)
+    {
 
-		$routeTable = $this->table($this->tableName);
+        $routeTable = $this->table($this->tableName);
 
-		$conditions = [];
+        $conditions = [];
 
-		if ($routeId) {
-			$conditions['id'] = $routeId;
-			return $routeTable->fetchRow([], $conditions);
-		}
+        if ($routeId) {
+            $conditions['id'] = $routeId;
+            return $routeTable->fetchRow([], $conditions);
+        }
 
-		return $routeTable->fetchAll([], $conditions);
-	}
+        return $routeTable->fetchAll([], $conditions);
+    }
 
-	/**
-	 * Insert or Update a route
-	 * @param $type
-	 * @param $from
-	 * @param $redirect
-	 * @param $description
-	 * @param $active
-	 * @param $shortUrl
-	 * @param $id
-	 * @return int
-	 *   The route id value
-	 */
-	public function setRoute($type, $from, $redirect, $description, $active, $shortUrl, $id)
-	{
+    /**
+     * Insert or Update a route
+     * @param $type
+     * @param $from
+     * @param $redirect
+     * @param $description
+     * @param $active
+     * @param $shortUrl
+     * @param $id
+     * @return int
+     *   The route id value
+     */
+    public function setRoute($type, $from, $redirect, $description, $active, $shortUrl, $id)
+    {
 
-		$values = [
-			'type' => $type,
-			'from' => $from,
-			'redirect' => $redirect,
-			'description' => $description,
-			'active' => $active,
-			'short_url' => $shortUrl,
-		];
+        $values = [
+            'type' => $type,
+            'from' => $from,
+            'redirect' => $redirect,
+            'description' => $description,
+            'active' => $active,
+            'short_url' => $shortUrl,
+        ];
 
-		$routeTable = $this->table($this->tableName);
+        $routeTable = $this->table($this->tableName);
 
-		if (! $id) {
-			return $routeTable->insert($values);
-		} else {
-			$routeTable->update($values, ['id' => $id]);
-			return $id;
-		}
-	}
+        if (! $id) {
+            return $routeTable->insert($values);
+        } else {
+            $routeTable->update($values, ['id' => $id]);
+            return $id;
+        }
+    }
 
-	/**
-	 * Remove the route
-	 *
-	 * @param $routeId
-	 */
-	public function removeRoute($routeId)
-	{
+    /**
+     * Remove the route
+     *
+     * @param $routeId
+     */
+    public function removeRoute($routeId)
+    {
 
-		$routeTable = $this->table($this->tableName);
-		$routeTable->delete(['id' => $routeId]);
+        $routeTable = $this->table($this->tableName);
+        $routeTable->delete(['id' => $routeId]);
 
-		$logslib = TikiLib::lib('logs');
-		$logslib->add_action('Removed', $routeId, 'custom_route');
-	}
+        $logslib = TikiLib::lib('logs');
+        $logslib->add_action('Removed', $routeId, 'custom_route');
+    }
 
-	public function getTikiPath($path)
-	{
+    public function getTikiPath($path)
+    {
 
-		$routeTable = $this->table($this->tableName);
-		$conditions = [];
+        $routeTable = $this->table($this->tableName);
+        $conditions = [];
 
-		$conditions['sef_url'] = $path;
-		return $routeTable->fetchRow(['tiki_url'], $conditions);
-	}
+        $conditions['sef_url'] = $path;
+        return $routeTable->fetchRow(['tiki_url'], $conditions);
+    }
 
-	/**
-	 * Get the available routes for a specific type
-	 *
-	 * @param array $type
-	 * @param array $orderClause
-	 * @param int $onlyActive
-	 * @return mixed
-	 */
-	public function getRouteByType($type = [], $orderClause = [], $onlyActive = 1)
-	{
+    /**
+     * Get the available routes for a specific type
+     *
+     * @param array $type
+     * @param array $orderClause
+     * @param int $onlyActive
+     * @return mixed
+     */
+    public function getRouteByType($type = [], $orderClause = [], $onlyActive = 1)
+    {
 
-		$routeTable = $this->table($this->tableName);
+        $routeTable = $this->table($this->tableName);
 
-		$conditions = [];
+        $conditions = [];
 
-		if (! empty($type)) {
-			$conditions['type'] = $routeTable->in($type);
-		}
+        if (! empty($type)) {
+            $conditions['type'] = $routeTable->in($type);
+        }
 
-		if ($onlyActive) {
-			$conditions['active'] = 1;
-		}
+        if ($onlyActive) {
+            $conditions['active'] = 1;
+        }
 
-		return $routeTable->fetchAll([], $conditions, -1, -1, $orderClause);
-	}
+        return $routeTable->fetchAll([], $conditions, -1, -1, $orderClause);
+    }
 
-	/**
-	 * Checks if there is a router already defined
-	 *
-	 * @param $from
-	 * @param $id
-	 *
-	 * @return bool
-	 *    True router is already defined, false otherwise.
-	 */
-	public function checkRouteExists($from, $id = null)
-	{
+    /**
+     * Checks if there is a router already defined
+     *
+     * @param $from
+     * @param $id
+     *
+     * @return bool
+     *    True router is already defined, false otherwise.
+     */
+    public function checkRouteExists($from, $id = null)
+    {
 
-		$routeTable = $this->table($this->tableName);
+        $routeTable = $this->table($this->tableName);
 
-		$conditions = [
-			'from' => $from,
-		];
+        $conditions = [
+            'from' => $from,
+        ];
 
-		if (! empty($id)) {
-			$conditions['id'] = $routeTable->not($id);
-		}
+        if (! empty($id)) {
+            $conditions['id'] = $routeTable->not($id);
+        }
 
-		$duplicateId = $routeTable->fetchOne('id', $conditions);
+        $duplicateId = $routeTable->fetchOne('id', $conditions);
 
-		return $duplicateId !== false;
-	}
+        return $duplicateId !== false;
+    }
 
-	/**
-	 * Search for Routes passing an array of filter conditions
-	 *
-	 * @param array $conditions
-	 * @return mixed
-	 */
-	public function findRoute(array $conditions)
-	{
+    /**
+     * Search for Routes passing an array of filter conditions
+     *
+     * @param array $conditions
+     * @return mixed
+     */
+    public function findRoute(array $conditions)
+    {
 
-		$routeTable = $this->table($this->tableName);
+        $routeTable = $this->table($this->tableName);
 
-		return $routeTable->fetchRow([], $conditions);
-	}
+        return $routeTable->fetchRow([], $conditions);
+    }
 }

@@ -8,11 +8,11 @@
 
 class TikiDb_Exception_DuplicateEntry extends Exception
 {
-	private $key;
+    private $key;
 
-	public function __construct($key, $entry)
-	{
-		parent::__construct(tr("Duplicate entry found (%0) for key '%1'", $entry, $key));
-		$this->key = $key;
-	}
+    public function __construct($key, $entry)
+    {
+        parent::__construct(tr("Duplicate entry found (%0) for key '%1'", $entry, $key));
+        $this->key = $key;
+    }
 }

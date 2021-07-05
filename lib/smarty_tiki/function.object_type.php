@@ -8,16 +8,16 @@
 
 function smarty_function_object_type($params, $smarty)
 {
-	if (! isset($params['type']) && ! isset($params['identifier'])) {
-		return tra('No object information provided.');
-	}
+    if (! isset($params['type']) && ! isset($params['identifier'])) {
+        return tra('No object information provided.');
+    }
 
-	if (isset($params['type'])) {
-		$type = $params['type'];
-	} else {
-		list($type, $object) = explode(':', $params['identifier'], 2);
-	}
+    if (isset($params['type'])) {
+        $type = $params['type'];
+    } else {
+        list($type, $object) = explode(':', $params['identifier'], 2);
+    }
 
-	$smarty->loadPlugin('smarty_modifier_escape');
-	return smarty_modifier_escape(TikiLib::lib('object')->get_verbose_type($type));
+    $smarty->loadPlugin('smarty_modifier_escape');
+    return smarty_modifier_escape(TikiLib::lib('object')->get_verbose_type($type));
 }

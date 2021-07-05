@@ -8,6 +8,6 @@
 
 function smarty_function_trackeroutput($params, $smarty)
 {
-	$trklib = TikiLib::lib('trk');
-	return $trklib->field_render_value($params);
+    $trklib = TikiLib::lib('trk');
+    return $trklib->field_render_value($params);
 }

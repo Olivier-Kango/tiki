@@ -9,13 +9,13 @@
 
 class Multilingual_MachineTranslation_Null implements Multilingual_MachineTranslation_Interface
 {
-	public function getSupportedLanguages()
-	{
-		return [];
-	}
+    public function getSupportedLanguages()
+    {
+        return [];
+    }
 
-	public function translateText($text)
-	{
-		return $text;
-	}
+    public function translateText($text)
+    {
+        return $text;
+    }
 }

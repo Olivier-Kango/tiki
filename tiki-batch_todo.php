@@ -13,9 +13,9 @@
 include('tiki-setup.php');
 $todolib = TikiLib::lib('todo');
 
-$access->check_feature('feature_trackers');	// TODO add more features as the lib does more
+$access->check_feature('feature_trackers'); // TODO add more features as the lib does more
 
 $todos = $todolib->listTodoObject();
 foreach ($todos as $todo) {
-	$todolib->applyTodo($todo);
+    $todolib->applyTodo($todo);
 }

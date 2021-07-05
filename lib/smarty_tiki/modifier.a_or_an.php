@@ -16,16 +16,16 @@
  */
 function smarty_modifier_a_or_an($string, $caps = false)
 {
-	global $prefs;
-	if (substr($prefs['language'], 0, 2) != 'en') {
-		return $string;
-	}
-	$vowels = ['a', 'e', 'i', 'o', 'u'];
-	$initial = strtolower(substr($string, 0, 1));
-	if (in_array($initial, $vowels)) {
-		$prefix = $caps ? 'An ' : 'an ';
-	} else {
-		$prefix = $caps ? 'A ' : 'a ';
-	}
-	return $prefix . $string;
+    global $prefs;
+    if (substr($prefs['language'], 0, 2) != 'en') {
+        return $string;
+    }
+    $vowels = ['a', 'e', 'i', 'o', 'u'];
+    $initial = strtolower(substr($string, 0, 1));
+    if (in_array($initial, $vowels)) {
+        $prefix = $caps ? 'An ' : 'an ';
+    } else {
+        $prefix = $caps ? 'A ' : 'a ';
+    }
+    return $prefix . $string;
 }

@@ -8,18 +8,18 @@
 
 function prefs_middle_list()
 {
-	return [
-		'middle_shadow_start' => [
-			'name' => tra('Middle shadow div start'),
-			'type' => 'textarea',
-			'size' => '2',
-			'default' => '',
-		],
-		'middle_shadow_end' => [
-			'name' => tra('Middle shadow div end'),
-			'type' => 'textarea',
-			'size' => '2',
-			'default' => '',
-		],
-	];
+    return [
+        'middle_shadow_start' => [
+            'name' => tra('Middle shadow div start'),
+            'type' => 'textarea',
+            'size' => '2',
+            'default' => '',
+        ],
+        'middle_shadow_end' => [
+            'name' => tra('Middle shadow div end'),
+            'type' => 'textarea',
+            'size' => '2',
+            'default' => '',
+        ],
+    ];
 }

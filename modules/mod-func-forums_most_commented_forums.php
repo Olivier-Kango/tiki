@@ -11,13 +11,13 @@
  */
 function module_forums_most_commented_forums_info()
 {
-	return [
-		'name' => tra('Most Commented Forums'),
-		'description' => tra('Display the specified number of the forums with the most comments.'),
-		'prefs' => ['feature_forums'],
-		'params' => [],
-		'common_params' => ['nonums', 'rows']
-	];
+    return [
+        'name' => tra('Most Commented Forums'),
+        'description' => tra('Display the specified number of the forums with the most comments.'),
+        'prefs' => ['feature_forums'],
+        'params' => [],
+        'common_params' => ['nonums', 'rows']
+    ];
 }
 
 /**
@@ -26,10 +26,10 @@ function module_forums_most_commented_forums_info()
  */
 function module_forums_most_commented_forums($mod_reference, $module_params)
 {
-	$smarty = TikiLib::lib('smarty');
-	global $ranklib;
-	include_once('lib/rankings/ranklib.php');
+    $smarty = TikiLib::lib('smarty');
+    global $ranklib;
+    include_once('lib/rankings/ranklib.php');
 
-	$ranking = $ranklib->forums_ranking_most_commented_forum($mod_reference["rows"]);
-	$smarty->assign('modForumsMostCommentedForums', $ranking["data"]);
+    $ranking = $ranklib->forums_ranking_most_commented_forum($mod_reference["rows"]);
+    $smarty->assign('modForumsMostCommentedForums', $ranking["data"]);
 }

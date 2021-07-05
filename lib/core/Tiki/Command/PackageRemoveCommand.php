@@ -18,81 +18,81 @@ use Tiki\Package\PackageCommandHelper;
 
 class PackageRemoveCommand extends Command
 {
-	/**
-	 * Configures the current command.
-	 */
-	protected function configure()
-	{
-		$this
-			->setName('package:remove')
-			->setDescription('Remove package')
-			->setHelp('This command allows you to remove packages.')
-			->addArgument(
-				'package',
-				InputArgument::OPTIONAL,
-				'Package ID'
-			);
-	}
+    /**
+     * Configures the current command.
+     */
+    protected function configure()
+    {
+        $this
+            ->setName('package:remove')
+            ->setDescription('Remove package')
+            ->setHelp('This command allows you to remove packages.')
+            ->addArgument(
+                'package',
+                InputArgument::OPTIONAL,
+                'Package ID'
+            );
+    }
 
-	/**
-	 * Executes the current command.
-	 *
-	 * @param InputInterface $input
-	 * @param OutputInterface $output
-	 */
-	protected function execute(InputInterface $input, OutputInterface $output)
-	{
-		global $tikipath;
-		$composerManager = new ComposerManager($tikipath);
+    /**
+     * Executes the current command.
+     *
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     */
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        global $tikipath;
+        $composerManager = new ComposerManager($tikipath);
 
-		if ($composerManager->composerIsAvailable()) {
-			$installedComposerPackages = $composerManager->getInstalled();
+        if ($composerManager->composerIsAvailable()) {
+            $installedComposerPackages = $composerManager->getInstalled();
 
-			if ($installedComposerPackages === false) {
-				$output->writeln('<comment>' . tr('No packages found in composer.json in the root of the project.') . '</comment>');
-			} else {
-				$removablePackages = PackageCommandHelper::getRemovablePackages($installedComposerPackages);
-				if (empty($installedComposerPackages) || empty($removablePackages)) {
-					$output->writeln('<comment>' . tr('No packages available to be removed.') . '</comment>');
-				} else {
-					$io = new SymfonyStyle($input, $output);
-					$packageKey = $input->getArgument('package');
-					if (isset($packageKey) && ! empty($packageKey)) {
-						if (in_array($packageKey, array_column($removablePackages, 'key'))) {
-							$output->writeln('<info>' . tr('Removing package: ') . $packageKey . '</info>');
-							$result = $composerManager->removePackage($packageKey);
-							$io->newLine();
-							$output->writeln($result);
-						} else {
-							$output->writeln('<error>' . tr('Invalid Package: ') . $packageKey . '</error>');
-							return;
-						}
-					} else {
-						$io->newLine();
+            if ($installedComposerPackages === false) {
+                $output->writeln('<comment>' . tr('No packages found in composer.json in the root of the project.') . '</comment>');
+            } else {
+                $removablePackages = PackageCommandHelper::getRemovablePackages($installedComposerPackages);
+                if (empty($installedComposerPackages) || empty($removablePackages)) {
+                    $output->writeln('<comment>' . tr('No packages available to be removed.') . '</comment>');
+                } else {
+                    $io = new SymfonyStyle($input, $output);
+                    $packageKey = $input->getArgument('package');
+                    if (isset($packageKey) && ! empty($packageKey)) {
+                        if (in_array($packageKey, array_column($removablePackages, 'key'))) {
+                            $output->writeln('<info>' . tr('Removing package: ') . $packageKey . '</info>');
+                            $result = $composerManager->removePackage($packageKey);
+                            $io->newLine();
+                            $output->writeln($result);
+                        } else {
+                            $output->writeln('<error>' . tr('Invalid Package: ') . $packageKey . '</error>');
+                            return;
+                        }
+                    } else {
+                        $io->newLine();
 
-						$removablePackagesInfo = PackageCommandHelper::getInstalledPackagesInfo($removablePackages);
+                        $removablePackagesInfo = PackageCommandHelper::getInstalledPackagesInfo($removablePackages);
 
-						$output->writeln(tr('Packages that can be removed'));
-						PackageCommandHelper::renderInstalledPackagesTable($output, $removablePackagesInfo);
+                        $output->writeln(tr('Packages that can be removed'));
+                        PackageCommandHelper::renderInstalledPackagesTable($output, $removablePackagesInfo);
 
-						$helper = $this->getHelper('question');
-						$question = PackageCommandHelper::getQuestion('Which package do you want to remove', null, '?');
-						$question->setValidator(function ($answer) use ($removablePackages) {
-							return PackageCommandHelper::validatePackageSelection($answer, $removablePackages);
-						});
+                        $helper = $this->getHelper('question');
+                        $question = PackageCommandHelper::getQuestion('Which package do you want to remove', null, '?');
+                        $question->setValidator(function ($answer) use ($removablePackages) {
+                            return PackageCommandHelper::validatePackageSelection($answer, $removablePackages);
+                        });
 
-						$packageKey = $helper->ask($input, $output, $question);
+                        $packageKey = $helper->ask($input, $output, $question);
 
-						$output->writeln('<info>' . tr('Removing package: ') . $packageKey . '</info>');
-						$result = $composerManager->removePackage($packageKey);
-						$io->newLine();
-						$output->writeln($result);
-					}
-				}
-			}
-		} else {
-			$output->writeln('<error>' . tr('Composer could not be executed.') . '</error>');
-			return;
-		}
-	}
+                        $output->writeln('<info>' . tr('Removing package: ') . $packageKey . '</info>');
+                        $result = $composerManager->removePackage($packageKey);
+                        $io->newLine();
+                        $output->writeln($result);
+                    }
+                }
+            }
+        } else {
+            $output->writeln('<error>' . tr('Composer could not be executed.') . '</error>');
+            return;
+        }
+    }
 }

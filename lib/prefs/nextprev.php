@@ -8,11 +8,11 @@
 
 function prefs_nextprev_list()
 {
-	return [
-		'nextprev_pagination' => [
-			'name' => tra('Use relative (next / previous) pagination links'),
-			'type' => 'flag',
-			'default' => 'y',
-		],
-	];
+    return [
+        'nextprev_pagination' => [
+            'name' => tra('Use relative (next / previous) pagination links'),
+            'type' => 'flag',
+            'default' => 'y',
+        ],
+    ];
 }

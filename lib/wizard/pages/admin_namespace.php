@@ -13,47 +13,47 @@ require_once('lib/wizard/wizard.php');
  */
 class AdminWizardNamespace extends Wizard
 {
-	public function pageTitle()
-	{
-		return tra('Set up Namespace');
-	}
-	public function isEditable()
-	{
-		return true;
-	}
-	public function isVisible()
-	{
-		global	$prefs;
-		return $prefs['namespace_enabled'] === 'y';
-	}
+    public function pageTitle()
+    {
+        return tra('Set up Namespace');
+    }
+    public function isEditable()
+    {
+        return true;
+    }
+    public function isVisible()
+    {
+        global  $prefs;
+        return $prefs['namespace_enabled'] === 'y';
+    }
 
-	public function onSetupPage($homepageUrl)
-	{
-		global $prefs;
-		$smarty = TikiLib::lib('smarty');
-		// Run the parent first
-		parent::onSetupPage($homepageUrl);
+    public function onSetupPage($homepageUrl)
+    {
+        global $prefs;
+        $smarty = TikiLib::lib('smarty');
+        // Run the parent first
+        parent::onSetupPage($homepageUrl);
 
-		if (! $this->isVisible()) {
-			return false;
-		}
+        if (! $this->isVisible()) {
+            return false;
+        }
 
-		// Only show "hide namespace in structures" option, if structures are active
-		$isStructures = isset($prefs['feature_wiki_structure']) && $prefs['feature_wiki_structure'] === 'y' ? true : false;
-		$smarty->assign('isStructures', $isStructures);
+        // Only show "hide namespace in structures" option, if structures are active
+        $isStructures = isset($prefs['feature_wiki_structure']) && $prefs['feature_wiki_structure'] === 'y' ? true : false;
+        $smarty->assign('isStructures', $isStructures);
 
-		return true;
-	}
+        return true;
+    }
 
-	public function getTemplate()
-	{
-		$wizardTemplate = 'wizard/admin_namespace.tpl';
-		return $wizardTemplate;
-	}
+    public function getTemplate()
+    {
+        $wizardTemplate = 'wizard/admin_namespace.tpl';
+        return $wizardTemplate;
+    }
 
-	public function onContinue($homepageUrl)
-	{
-		// Run the parent first
-		parent::onContinue($homepageUrl);
-	}
+    public function onContinue($homepageUrl)
+    {
+        // Run the parent first
+        parent::onContinue($homepageUrl);
+    }
 }

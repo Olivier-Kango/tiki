@@ -18,90 +18,90 @@ use TikiDb;
  */
 class CachedLookupHelper
 {
-	private $baseCount;
-	private $cache = [];
-	private $init;
-	private $lookup;
-	private $enableLookup = false;
+    private $baseCount;
+    private $cache = [];
+    private $init;
+    private $lookup;
+    private $enableLookup = false;
 
-	public function __construct($baseCount = 100)
-	{
-		$this->baseCount = $baseCount;
-	}
+    public function __construct($baseCount = 100)
+    {
+        $this->baseCount = $baseCount;
+    }
 
-	public function setInit(callable $fn)
-	{
-		$this->init = $fn;
-	}
+    public function setInit(callable $fn)
+    {
+        $this->init = $fn;
+    }
 
-	public function setLookup(callable $fn)
-	{
-		$this->lookup = $fn;
-		$this->enableLookup = true;
-	}
+    public function setLookup(callable $fn)
+    {
+        $this->lookup = $fn;
+        $this->enableLookup = true;
+    }
 
-	public function get($value)
-	{
-		if ($this->init) {
-			// Enable lookup on missing values only if not all values have been initially
-			// loaded after attempting to load a fixed amount.
-			$this->cache = call_user_func($this->init, $this->baseCount);
-			$this->enableLookup = $this->enableLookup && count($this->cache) >= $this->baseCount;
-			if (! $this->enableLookup) {
-				// if there are duplicates on the field being looked fetchMap removes them, so double check to see it there might be more
-				if (count(call_user_func($this->init, $this->baseCount * 2))) {
-					$this->enableLookup = true;
-				}
-			}
-			$this->init = null;
-		}
+    public function get($value)
+    {
+        if ($this->init) {
+            // Enable lookup on missing values only if not all values have been initially
+            // loaded after attempting to load a fixed amount.
+            $this->cache = call_user_func($this->init, $this->baseCount);
+            $this->enableLookup = $this->enableLookup && count($this->cache) >= $this->baseCount;
+            if (! $this->enableLookup) {
+                // if there are duplicates on the field being looked fetchMap removes them, so double check to see it there might be more
+                if (count(call_user_func($this->init, $this->baseCount * 2))) {
+                    $this->enableLookup = true;
+                }
+            }
+            $this->init = null;
+        }
 
-		if (isset($this->cache[$value])) {
-			return $this->cache[$value];
-		}
+        if (isset($this->cache[$value])) {
+            return $this->cache[$value];
+        }
 
-		if ($this->enableLookup) {
-			return $this->cache[$value] = call_user_func($this->lookup, $value);
-		}
-	}
+        if ($this->enableLookup) {
+            return $this->cache[$value] = call_user_func($this->lookup, $value);
+        }
+    }
 
-	public static function fieldLookup($fieldId)
-	{
-		$table = TikiDb::get()->table('tiki_tracker_item_fields');
+    public static function fieldLookup($fieldId)
+    {
+        $table = TikiDb::get()->table('tiki_tracker_item_fields');
 
-		$cache = new self();
-		$cache->setInit(function ($count) use ($table, $fieldId) {
-			return $table->fetchMap('itemId', 'value', [
-				'fieldId' => $fieldId,
-			], $count, 0);
-		});
-		$cache->setLookup(function ($value) use ($table, $fieldId) {
-			return $table->fetchOne('value', [
-				'fieldId' => $fieldId,
-				'itemId' => $value,
-			]);
-		});
+        $cache = new self();
+        $cache->setInit(function ($count) use ($table, $fieldId) {
+            return $table->fetchMap('itemId', 'value', [
+                'fieldId' => $fieldId,
+            ], $count, 0);
+        });
+        $cache->setLookup(function ($value) use ($table, $fieldId) {
+            return $table->fetchOne('value', [
+                'fieldId' => $fieldId,
+                'itemId' => $value,
+            ]);
+        });
 
-		return $cache;
-	}
+        return $cache;
+    }
 
-	public static function fieldInvert($fieldId)
-	{
-		$table = TikiDb::get()->table('tiki_tracker_item_fields');
+    public static function fieldInvert($fieldId)
+    {
+        $table = TikiDb::get()->table('tiki_tracker_item_fields');
 
-		$cache = new self();
-		$cache->setInit(function ($count) use ($table, $fieldId) {
-			return $table->fetchMap('value', 'itemId', [
-				'fieldId' => $fieldId,
-			], $count, 0);
-		});
-		$cache->setLookup(function ($value) use ($table, $fieldId) {
-			return $table->fetchOne('itemId', [
-				'fieldId' => $fieldId,
-				'value' => $value,
-			]);
-		});
+        $cache = new self();
+        $cache->setInit(function ($count) use ($table, $fieldId) {
+            return $table->fetchMap('value', 'itemId', [
+                'fieldId' => $fieldId,
+            ], $count, 0);
+        });
+        $cache->setLookup(function ($value) use ($table, $fieldId) {
+            return $table->fetchOne('itemId', [
+                'fieldId' => $fieldId,
+                'value' => $value,
+            ]);
+        });
 
-		return $cache;
-	}
+        return $cache;
+    }
 }

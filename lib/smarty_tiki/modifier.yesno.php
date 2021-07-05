@@ -8,16 +8,16 @@
 
 function smarty_modifier_yesno($string)
 {
-	switch ($string) {
-		case 'y':
-			return tra('Yes');
-						break;
+    switch ($string) {
+        case 'y':
+            return tra('Yes');
+                        break;
 
-		case 'n':
-			return tra('No');
-						break;
+        case 'n':
+            return tra('No');
+                        break;
 
-		default:
-			return $string;
-	}
+        default:
+            return $string;
+    }
 }

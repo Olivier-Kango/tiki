@@ -6,8 +6,8 @@ use Tiki\Lib\core\Tracker\Rule\Type\Number;
 
 class NumberEquals extends Operator
 {
-	public function __construct()
-	{
-		parent::__construct('==', Number::class, '.val()===%argument%', [Number::class]);
-	}
+    public function __construct()
+    {
+        parent::__construct('==', Number::class, '.val()===%argument%', [Number::class]);
+    }
 }

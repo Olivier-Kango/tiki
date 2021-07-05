@@ -8,21 +8,21 @@
 
 function wikiplugin_markdown_info()
 {
-	return [
-		'name' => tra('Markdown'),
-		'documentation' => 'PluginMarkdown',
-		'description' => tra('Parse the body of the plugin using a Markdown parser.'),
-		'prefs' => ['wikiplugin_markdown'],
-		'body' => tra('Markdown syntax to be parsed'),
-		'iconname' => 'code',
-		'introduced' => 20,
-		'filter' => 'rawhtml_unsafe',
-		'format' => 'html',
-		'tags' => [ 'advanced' ],
-		'params' => [
-			// TODO: add some useful params here
-		],
-	];
+    return [
+        'name' => tra('Markdown'),
+        'documentation' => 'PluginMarkdown',
+        'description' => tra('Parse the body of the plugin using a Markdown parser.'),
+        'prefs' => ['wikiplugin_markdown'],
+        'body' => tra('Markdown syntax to be parsed'),
+        'iconname' => 'code',
+        'introduced' => 20,
+        'filter' => 'rawhtml_unsafe',
+        'format' => 'html',
+        'tags' => [ 'advanced' ],
+        'params' => [
+            // TODO: add some useful params here
+        ],
+    ];
 }
 
 // common requirement for extension packages
@@ -43,57 +43,57 @@ use League\CommonMark\HtmlElement;
 function wikiplugin_markdown($data, $params)
 {
 
-	global $prefs;
-	extract($params, EXTR_SKIP);
+    global $prefs;
+    extract($params, EXTR_SKIP);
 
-	$md = trim($data);
-	$md = str_replace('&lt;x&gt;', '', $md);
-	$md = str_replace('<x>', '', $md);
+    $md = trim($data);
+    $md = str_replace('&lt;x&gt;', '', $md);
+    $md = str_replace('<x>', '', $md);
 
-	// create pre-configured Environment
-	$environment = Environment::createCommonMarkEnvironment();
+    // create pre-configured Environment
+    $environment = Environment::createCommonMarkEnvironment();
 
-	// add Attributes-Extension
-	$environment->addExtension(new AttributesExtension());
-	$environment->addExtension(new TableExtension());
+    // add Attributes-Extension
+    $environment->addExtension(new AttributesExtension());
+    $environment->addExtension(new TableExtension());
 
-	// let's define our configurationon
-	$config = ['html_input' => 'escape', 'allow_unsafe_links' => 'false'];
-	$environment->setConfig(['html_input' => 'escape', 'allow_unsafe_links' => false]);
+    // let's define our configurationon
+    $config = ['html_input' => 'escape', 'allow_unsafe_links' => 'false'];
+    $environment->setConfig(['html_input' => 'escape', 'allow_unsafe_links' => false]);
 
-	// add default class to code blocks -> <pre class="codelisting">
-	$environment->addBlockRenderer(
-		FencedCode::class,
-		new class implements BlockRendererInterface {
-			public function render(AbstractBlock $block, ElementRendererInterface $htmlRenderer, bool $inTightList = false)
-			{
-				$htmlEl = (new FencedCodeRenderer())->render($block, $htmlRenderer, $inTightList);
-				$class = $htmlEl->getAttribute('class') ?: 'codelisting';
-				$htmlEl->setAttribute('class', $class);
-				return $htmlEl;
-			}
-		},
-		10
-	);
+    // add default class to code blocks -> <pre class="codelisting">
+    $environment->addBlockRenderer(
+        FencedCode::class,
+        new class implements BlockRendererInterface {
+            public function render(AbstractBlock $block, ElementRendererInterface $htmlRenderer, bool $inTightList = false)
+            {
+                $htmlEl = (new FencedCodeRenderer())->render($block, $htmlRenderer, $inTightList);
+                $class = $htmlEl->getAttribute('class') ?: 'codelisting';
+                $htmlEl->setAttribute('class', $class);
+                return $htmlEl;
+            }
+        },
+        10
+    );
 
-	// add default class to table -> <table class="wikitable table table-striped table-hover">
-	$environment->addBlockRenderer(
-		Table::class,
-		new class implements BlockRendererInterface {
-			public function render(AbstractBlock $block, ElementRendererInterface $htmlRenderer, bool $inTightList = false)
-			{
-				$htmlEl = (new TableRenderer())->render($block, $htmlRenderer, $inTightList);
-				$class = $htmlEl->getAttribute('class') ?: 'wikitable table table-striped table-hover';
-				$htmlEl->setAttribute('class', $class);
-				return $htmlEl;
-			}
-		},
-		10
-	);
+    // add default class to table -> <table class="wikitable table table-striped table-hover">
+    $environment->addBlockRenderer(
+        Table::class,
+        new class implements BlockRendererInterface {
+            public function render(AbstractBlock $block, ElementRendererInterface $htmlRenderer, bool $inTightList = false)
+            {
+                $htmlEl = (new TableRenderer())->render($block, $htmlRenderer, $inTightList);
+                $class = $htmlEl->getAttribute('class') ?: 'wikitable table table-striped table-hover';
+                $htmlEl->setAttribute('class', $class);
+                return $htmlEl;
+            }
+        },
+        10
+    );
 
-	$converter = new CommonMarkConverter($config, $environment);
-	$md = $converter->convertToHtml($md);
+    $converter = new CommonMarkConverter($config, $environment);
+    $md = $converter->convertToHtml($md);
 
-	# TODO: "if param wiki then" $md = TikiLib::lib('parser')->parse_data($md, ['is_html' => true, 'parse_wiki' => true]);
-	return $md;
+    # TODO: "if param wiki then" $md = TikiLib::lib('parser')->parse_data($md, ['is_html' => true, 'parse_wiki' => true]);
+    return $md;
 }

@@ -10,5 +10,5 @@ namespace Tiki\Suggestion;
 
 interface SuggestionRulesInterface
 {
-	public function parser();
+    public function parser();
 }

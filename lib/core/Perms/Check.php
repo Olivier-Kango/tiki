@@ -8,7 +8,7 @@
 
 interface Perms_Check
 {
-	public function check(Perms_Resolver $resolver, array $context, $name, array $groups);
+    public function check(Perms_Resolver $resolver, array $context, $name, array $groups);
 
-	public function applicableGroups(Perms_Resolver $resolver);
+    public function applicableGroups(Perms_Resolver $resolver);
 }

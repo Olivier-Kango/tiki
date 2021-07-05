@@ -8,20 +8,20 @@
 
 function wikiplugin_tr_info()
 {
-	return [
-		'name' => tra('Translate'),
-		'documentation' => 'PluginTR',
-		'description' => tra('Translate text to the user language'),
-		'prefs' => [ 'feature_multilingual', 'wikiplugin_tr' ],
-		'body' => tra('string'),
-		'iconname' => 'language',
-		'introduced' => 2,
-		'params' => [
-		],
-	];
+    return [
+        'name' => tra('Translate'),
+        'documentation' => 'PluginTR',
+        'description' => tra('Translate text to the user language'),
+        'prefs' => [ 'feature_multilingual', 'wikiplugin_tr' ],
+        'body' => tra('string'),
+        'iconname' => 'language',
+        'introduced' => 2,
+        'params' => [
+        ],
+    ];
 }
 
 function wikiplugin_tr($data)
 {
-	return tra($data);
+    return tra($data);
 }

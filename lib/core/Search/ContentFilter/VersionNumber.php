@@ -8,21 +8,21 @@
 
 class Search_ContentFilter_VersionNumber implements Laminas\Filter\FilterInterface
 {
-	public function filter($value)
-	{
-		return preg_replace_callback('/[0-9]+(\.[0-9]+)+/', [$this, 'augmentVersionTokens'], $value);
-	}
+    public function filter($value)
+    {
+        return preg_replace_callback('/[0-9]+(\.[0-9]+)+/', [$this, 'augmentVersionTokens'], $value);
+    }
 
-	public function augmentVersionTokens($version)
-	{
-		$version = $version[0];
-		$out = $version;
+    public function augmentVersionTokens($version)
+    {
+        $version = $version[0];
+        $out = $version;
 
-		$pos = -1;
-		while (false !== $pos = strpos($version, '.', $pos + 1)) {
-			$out .= ' ' . substr($version, 0, $pos);
-		}
+        $pos = -1;
+        while (false !== $pos = strpos($version, '.', $pos + 1)) {
+            $out .= ' ' . substr($version, 0, $pos);
+        }
 
-		return $out;
-	}
+        return $out;
+    }
 }

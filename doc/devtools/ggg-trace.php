@@ -31,76 +31,76 @@
  */
 class GggTrace
 {
-	public $fp;
+    public $fp;
 
-	/**
-	 * @param string $nameStr
-	 */
-	public function __construct($nameStr = 'ggg-trace.out')
-	{
-		register_shutdown_function([&$this, 'gggTraceShutdown']); // the & is important
-		$this->fp = fopen($nameStr, 'a');
-		fwrite($this->fp, "\n");
-		// e.g. 20031231 17:00:20
-		fwrite($this->fp, '*' . date('Ymd G:i:s') . "*Starting*****************************************************\n");
+    /**
+     * @param string $nameStr
+     */
+    public function __construct($nameStr = 'ggg-trace.out')
+    {
+        register_shutdown_function([&$this, 'gggTraceShutdown']); // the & is important
+        $this->fp = fopen($nameStr, 'a');
+        fwrite($this->fp, "\n");
+        // e.g. 20031231 17:00:20
+        fwrite($this->fp, '*' . date('Ymd G:i:s') . "*Starting*****************************************************\n");
 
-		// print date("Ymd G:i:s<br>",time()); // e.g. 20031231 17:00:20
-	}
+        // print date("Ymd G:i:s<br>",time()); // e.g. 20031231 17:00:20
+    }
 
-	/**
-	 * @param string $outStr
-	 */
-	public function out($outStr = '')
-	{
-		fwrite($this->fp, "$outStr");
-	}
+    /**
+     * @param string $outStr
+     */
+    public function out($outStr = '')
+    {
+        fwrite($this->fp, "$outStr");
+    }
 
-	/**
-	 * @param string $outStr
-	 */
-	public function outln($outStr = '')
-	{
-		fwrite($this->fp, "$outStr\n");
-	}
+    /**
+     * @param string $outStr
+     */
+    public function outln($outStr = '')
+    {
+        fwrite($this->fp, "$outStr\n");
+    }
 
-	/**
-	 * @param $var
-	 * @param int $indent
-	 */
-	public function outvar($var, $indent = 0)
-	{
-		if ($indent > 8) {
-			fwrite($this->fp, "Too many levels of recursion! \n");
-			return;
-		}
+    /**
+     * @param $var
+     * @param int $indent
+     */
+    public function outvar($var, $indent = 0)
+    {
+        if ($indent > 8) {
+            fwrite($this->fp, "Too many levels of recursion! \n");
+            return;
+        }
 
-		$spaces = sprintf('%' . $indent . 's', '');
-		fwrite($this->fp, $spaces . $var . "\n");
+        $spaces = sprintf('%' . $indent . 's', '');
+        fwrite($this->fp, $spaces . $var . "\n");
 
-		if (is_array($var)) {
-			$indent++;
-			$spaces = sprintf('%' . $indent . 's', '');
-			foreach ($var as $key => $val) {
-				if ($key === 'GLOBALS' && is_array($val)) {
-					// In case we are called with $ggg_tracer->outvar($GLOBALS);
-					// and we don't check here, we get an infinite recursion.
-					// If another array has an element called GLOBALS, oh well.
-					fwrite($this->fp, "ggg-trace.php, line 62: Found GLOBALS array, not recursing. \n");
-				} elseif (is_array($val)) {
-					$this->out($spaces . "$key = ");
-					$this->outvar($val, $indent);
-				} else {
-					fwrite($this->fp, $spaces . $key . '=>' . $val . "\n");
-				}
-			}
-		}
-	}
+        if (is_array($var)) {
+            $indent++;
+            $spaces = sprintf('%' . $indent . 's', '');
+            foreach ($var as $key => $val) {
+                if ($key === 'GLOBALS' && is_array($val)) {
+                    // In case we are called with $ggg_tracer->outvar($GLOBALS);
+                    // and we don't check here, we get an infinite recursion.
+                    // If another array has an element called GLOBALS, oh well.
+                    fwrite($this->fp, "ggg-trace.php, line 62: Found GLOBALS array, not recursing. \n");
+                } elseif (is_array($val)) {
+                    $this->out($spaces . "$key = ");
+                    $this->outvar($val, $indent);
+                } else {
+                    fwrite($this->fp, $spaces . $key . '=>' . $val . "\n");
+                }
+            }
+        }
+    }
 
-	public function gggTraceShutdown()
-	{
-		fwrite($this->fp, '*' . date('Ymd G:i:s') . "*Finishing****************************************************\n");
-		fclose($this->fp);
-	}
+    public function gggTraceShutdown()
+    {
+        fwrite($this->fp, '*' . date('Ymd G:i:s') . "*Finishing****************************************************\n");
+        fclose($this->fp);
+    }
 }
 
 $ggg_traceFiles = new GggTrace('ggg-traceFiles.out');

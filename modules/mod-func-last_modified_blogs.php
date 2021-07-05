@@ -11,13 +11,13 @@
  */
 function module_last_modified_blogs_info()
 {
-	return [
-		'name' => tra('Last-Modified Blogs'),
-		'description' => tra('Displays the specified number of blogs, starting from the most recently modified.'),
-		'prefs' => ["feature_blogs"],
-		'params' => [],
-		'common_params' => ['nonums', 'rows']
-	];
+    return [
+        'name' => tra('Last-Modified Blogs'),
+        'description' => tra('Displays the specified number of blogs, starting from the most recently modified.'),
+        'prefs' => ["feature_blogs"],
+        'params' => [],
+        'common_params' => ['nonums', 'rows']
+    ];
 }
 
 /**
@@ -26,10 +26,10 @@ function module_last_modified_blogs_info()
  */
 function module_last_modified_blogs($mod_reference, $module_params)
 {
-	$smarty = TikiLib::lib('smarty');
-	$bloglib = TikiLib::lib('blog');
+    $smarty = TikiLib::lib('smarty');
+    $bloglib = TikiLib::lib('blog');
 
-	$ranking = $bloglib->list_blogs(0, $mod_reference["rows"], 'lastModif_desc', '', 'blog');
+    $ranking = $bloglib->list_blogs(0, $mod_reference["rows"], 'lastModif_desc', '', 'blog');
 
-	$smarty->assign('modLastModifiedBlogs', $ranking["data"]);
+    $smarty->assign('modLastModifiedBlogs', $ranking["data"]);
 }

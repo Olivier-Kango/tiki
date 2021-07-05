@@ -18,11 +18,11 @@
  */
 function smarty_modifier_parse($string, $simple = false)
 {
-	$parserlib = TikiLib::lib('parser');
-	if ($simple) {
-		$string = htmlentities($string, ENT_QUOTES, 'UTF-8'); // Surely this should not be done here, if it is necessary. Chealer 2017-12-29
-		return $parserlib->parse_data_simple($string);
-	} else {
-		return $parserlib->parse_data($string);
-	}
+    $parserlib = TikiLib::lib('parser');
+    if ($simple) {
+        $string = htmlentities($string, ENT_QUOTES, 'UTF-8'); // Surely this should not be done here, if it is necessary. Chealer 2017-12-29
+        return $parserlib->parse_data_simple($string);
+    } else {
+        return $parserlib->parse_data($string);
+    }
 }

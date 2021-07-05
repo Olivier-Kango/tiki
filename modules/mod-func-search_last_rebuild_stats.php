@@ -7,8 +7,8 @@
 
 //this script may only be included - so its better to die if called directly.
 if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
-	header("location: index.php");
-	exit;
+    header("location: index.php");
+    exit;
 }
 
 /**
@@ -16,13 +16,13 @@ if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
  */
 function module_search_last_rebuild_stats_info()
 {
-	return [
-		'name' => tra('Search Rebuild Stats'),
-		'description' => tra('Results of the previous search index rebuild.'),
-		'prefs' => ['feature_search'],
-		'params' => [],
-		'common_params' => ['nonums', 'rows']
-	];
+    return [
+        'name' => tra('Search Rebuild Stats'),
+        'description' => tra('Results of the previous search index rebuild.'),
+        'prefs' => ['feature_search'],
+        'params' => [],
+        'common_params' => ['nonums', 'rows']
+    ];
 }
 
 /**

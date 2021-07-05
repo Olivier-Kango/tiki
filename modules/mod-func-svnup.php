@@ -11,11 +11,11 @@
  */
 function module_svnup_info()
 {
-	return [
-		'name' => tra('SVN Up Info'),
-		'description' => tra('SVN Version and last update information.'),
-		'params' => [],
-	];
+    return [
+        'name' => tra('SVN Up Info'),
+        'description' => tra('SVN Version and last update information.'),
+        'params' => [],
+    ];
 }
 
 /**

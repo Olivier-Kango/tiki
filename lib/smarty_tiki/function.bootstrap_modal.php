@@ -19,14 +19,14 @@
 
 function smarty_function_bootstrap_modal($params, $smarty)
 {
-	$smarty->loadPlugin('smarty_function_service');
-	if (! empty($params['size'])) {
-		$size = '" data-size="' . $params['size'];
-		unset($params['size']);
-	} else {
-		$size = '';
-	}
-	$params['modal'] = 1;
-	$href = smarty_function_service($params, $smarty);
-	return "$href\" data-toggle=\"modal\" data-backdrop=\"static\" data-target=\".modal.fade:not(.show)$size";
+    $smarty->loadPlugin('smarty_function_service');
+    if (! empty($params['size'])) {
+        $size = '" data-size="' . $params['size'];
+        unset($params['size']);
+    } else {
+        $size = '';
+    }
+    $params['modal'] = 1;
+    $href = smarty_function_service($params, $smarty);
+    return "$href\" data-toggle=\"modal\" data-backdrop=\"static\" data-target=\".modal.fade:not(.show)$size";
 }

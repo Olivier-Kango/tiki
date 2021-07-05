@@ -14,20 +14,20 @@
  */
 function smarty_modifier_tiki_remaining_days_from_now($time, $format)
 {
-	global $tikilib;
+    global $tikilib;
 
-	$iNbDayBetween = ($time - $tikilib->now) / (60 * 60 * 24);
+    $iNbDayBetween = ($time - $tikilib->now) / (60 * 60 * 24);
 
-	if ($iNbDayBetween > 1) {
-		$result = sprintf(
-			($iNbDayBetween > 1 ? tra('in %s days, the %s') : tra('in %s day, the %s')),
-			'<b>' . round($iNbDayBetween) . '</b>',
-			$tikilib->date_format($format, $time)
-		);
-	} elseif ($iNbDayBetween > 0) {
-		$result = tra('Today');
-	} else {
-		$result = '-';
-	}
-	return $result;
+    if ($iNbDayBetween > 1) {
+        $result = sprintf(
+            ($iNbDayBetween > 1 ? tra('in %s days, the %s') : tra('in %s day, the %s')),
+            '<b>' . round($iNbDayBetween) . '</b>',
+            $tikilib->date_format($format, $time)
+        );
+    } elseif ($iNbDayBetween > 0) {
+        $result = tra('Today');
+    } else {
+        $result = '-';
+    }
+    return $result;
 }

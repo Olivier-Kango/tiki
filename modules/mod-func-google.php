@@ -11,10 +11,10 @@
  */
 function module_google_info()
 {
-	return [
-		'name' => tra('Google Search'),
-		'description' => tra('Displays a simple form to search on Google. By default, search results are limited to those on the Tiki site.'),
-		'prefs' => [],
-		'params' => []
-	];
+    return [
+        'name' => tra('Google Search'),
+        'description' => tra('Displays a simple form to search on Google. By default, search results are limited to those on the Tiki site.'),
+        'prefs' => [],
+        'params' => []
+    ];
 }

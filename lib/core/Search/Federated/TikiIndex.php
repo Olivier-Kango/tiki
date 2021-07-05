@@ -10,47 +10,47 @@ namespace Search\Federated;
 
 class TikiIndex implements IndexInterface
 {
-	private $prefix;
-	private $groups;
+    private $prefix;
+    private $groups;
 
-	public function __construct($urlPrefix, array $groups = [])
-	{
-		$this->prefix = $urlPrefix;
-		$this->groups = $groups;
-	}
+    public function __construct($urlPrefix, array $groups = [])
+    {
+        $this->prefix = $urlPrefix;
+        $this->groups = $groups;
+    }
 
-	public function getTransformations()
-	{
-		return [
-			new UrlPrefixTransform($this->prefix),
-		];
-	}
+    public function getTransformations()
+    {
+        return [
+            new UrlPrefixTransform($this->prefix),
+        ];
+    }
 
-	public function applyContentConditions(\Search_Query $query, $content)
-	{
-		$query->filterContent('y', 'searchable');
-		$query->filterContent($content, ['title', 'contents']);
+    public function applyContentConditions(\Search_Query $query, $content)
+    {
+        $query->filterContent('y', 'searchable');
+        $query->filterContent($content, ['title', 'contents']);
 
-		$this->applyRaw($query);
-	}
+        $this->applyRaw($query);
+    }
 
-	public function applySimilarConditions(\Search_Query $query, $type, $object)
-	{
-		$query->filterSimilar($type, $object);
+    public function applySimilarConditions(\Search_Query $query, $type, $object)
+    {
+        $query->filterSimilar($type, $object);
 
-		$this->applyRaw($query);
-	}
+        $this->applyRaw($query);
+    }
 
-	private function applyRaw($query)
-	{
-		$unified = \TikiLib::lib('unifiedsearch');
-		$unified->initQueryBase($query, false);
+    private function applyRaw($query)
+    {
+        $unified = \TikiLib::lib('unifiedsearch');
+        $unified->initQueryBase($query, false);
 
-		$applyAs = $this->groups;
-		if (empty($applyAs)) {
-			$unified->initQueryPermissions($query);
-		} else {
-			$query->filterPermissions($applyAs);
-		}
-	}
+        $applyAs = $this->groups;
+        if (empty($applyAs)) {
+            $unified->initQueryPermissions($query);
+        } else {
+            $query->filterPermissions($applyAs);
+        }
+    }
 }

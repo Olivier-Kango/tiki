@@ -8,14 +8,14 @@
 
 function payment_behavior_record_cart_order($items = [])
 {
-	global $tikilib;
+    global $tikilib;
 
-	if (! count($items)) {
-		return false;
-	}
+    if (! count($items)) {
+        return false;
+    }
 
-	$mid = " WHERE `itemId` IN (" . implode(",", array_fill(0, count($items), '?')) . ")";
-	$query = "UPDATE `tiki_tracker_items` SET `status` = 'o'" . $mid;
-	$tikilib->query($query, $items);
-	return true;
+    $mid = " WHERE `itemId` IN (" . implode(",", array_fill(0, count($items), '?')) . ")";
+    $query = "UPDATE `tiki_tracker_items` SET `status` = 'o'" . $mid;
+    $tikilib->query($query, $items);
+    return true;
 }

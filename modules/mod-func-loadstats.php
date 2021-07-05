@@ -11,11 +11,11 @@
  */
 function module_loadstats_info()
 {
-	return [
-		'name' => tra('Server Load'),
-		'description' => tra('Report of server resources used'),
-		'params' => [],
-	];
+    return [
+        'name' => tra('Server Load'),
+        'description' => tra('Report of server resources used'),
+        'params' => [],
+    ];
 }
 
 /**

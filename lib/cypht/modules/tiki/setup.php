@@ -7,7 +7,7 @@
 // $Id$
 
 if (! defined('DEBUG_MODE')) {
-die();
+    die();
 }
 
 handler_source('tiki');

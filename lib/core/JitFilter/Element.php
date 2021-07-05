@@ -37,27 +37,27 @@
  */
 class JitFilter_Element
 {
-	private $value;
+    private $value;
 
-	public function __construct($value)
-	{
-		$this->value = $value;
-	}
+    public function __construct($value)
+    {
+        $this->value = $value;
+    }
 
-	public function filter($filter)
-	{
-		$filter = TikiFilter::get($filter);
+    public function filter($filter)
+    {
+        $filter = TikiFilter::get($filter);
 
-		return $filter->filter($this->value);
-	}
+        return $filter->filter($this->value);
+    }
 
-	/**
-	 * @param $name
-	 * @param $arguments
-	 * @return mixed
-	 */
-	public function __call($name, $arguments)
-	{
-		return $this->filter($name);
-	}
+    /**
+     * @param $name
+     * @param $arguments
+     * @return mixed
+     */
+    public function __call($name, $arguments)
+    {
+        return $this->filter($name);
+    }
 }

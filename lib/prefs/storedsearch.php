@@ -8,12 +8,12 @@
 
 function prefs_storedsearch_list()
 {
-	return [
-		'storedsearch_enabled' => [
-			'name' => tr('Stored searches'),
-			'description' => tr('Allow users to store search queries.'),
-			'type' => 'flag',
-			'default' => 'n',
-		],
-	];
+    return [
+        'storedsearch_enabled' => [
+            'name' => tr('Stored searches'),
+            'description' => tr('Allow users to store search queries.'),
+            'type' => 'flag',
+            'default' => 'n',
+        ],
+    ];
 }

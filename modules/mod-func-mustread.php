@@ -11,18 +11,18 @@
  */
 function module_mustread_info()
 {
-	return [
-		'name' => tr('Must Read'),
-		'description' => tr('Request the creation of a mustread item based on the current object.'),
-		'prefs' => ['mustread_enabled'],
-		'params' => [
-			'objectField' => [
-				'required' => true,
-				'name' => tr('Object Field'),
-				'description' => tr('Permanent name of the field containing the object reference'),
-			],
-		],
-	];
+    return [
+        'name' => tr('Must Read'),
+        'description' => tr('Request the creation of a mustread item based on the current object.'),
+        'prefs' => ['mustread_enabled'],
+        'params' => [
+            'objectField' => [
+                'required' => true,
+                'name' => tr('Object Field'),
+                'description' => tr('Permanent name of the field containing the object reference'),
+            ],
+        ],
+    ];
 }
 
 /**
@@ -31,14 +31,14 @@ function module_mustread_info()
  */
 function module_mustread($mod_reference, $module_params)
 {
-	global $prefs;
+    global $prefs;
 
-	$smarty = TikiLib::lib('smarty');
+    $smarty = TikiLib::lib('smarty');
 
-	$object = current_object();
+    $object = current_object();
 
-	$smarty->assign('mustread_module', [
-		'object' => $object,
-		'field' => $module_params['objectField'],
-	]);
+    $smarty->assign('mustread_module', [
+        'object' => $object,
+        'field' => $module_params['objectField'],
+    ]);
 }

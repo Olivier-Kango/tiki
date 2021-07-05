@@ -11,7 +11,7 @@
 // $Id$
 
 if (! isset($_REQUEST["zone"])) {
-	die;
+    die;
 }
 
 require_once('tiki-setup.php');

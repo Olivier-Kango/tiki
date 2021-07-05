@@ -17,18 +17,18 @@
  */
 function smarty_block_wiki($params, $content, $smarty, &$repeat)
 {
-	if ($repeat) {
-		return;
-	}
+    if ($repeat) {
+        return;
+    }
 
-	if ((isset($params['isHtml'])) and ($params['isHtml'] )) {
-		$isHtml = true;
-	} else {
-		$isHtml = false;
-	}
-	$ret = TikiLib::lib('parser')->parse_data($content, ['is_html' => $isHtml]);
-	if (isset($params['line']) && $params['line'] == 1) {
-		$ret = preg_replace(['/<br \/>$/', '/[\n\r]*$/'], '', $ret);
-	}
-	return $ret;
+    if ((isset($params['isHtml'])) and ($params['isHtml'] )) {
+        $isHtml = true;
+    } else {
+        $isHtml = false;
+    }
+    $ret = TikiLib::lib('parser')->parse_data($content, ['is_html' => $isHtml]);
+    if (isset($params['line']) && $params['line'] == 1) {
+        $ret = preg_replace(['/<br \/>$/', '/[\n\r]*$/'], '', $ret);
+    }
+    return $ret;
 }

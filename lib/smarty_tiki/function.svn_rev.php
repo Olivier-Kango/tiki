@@ -8,6 +8,6 @@
 
 function smarty_function_svn_rev()
 {
-	$svn = svn_last_update();
-	return isset($svn['svnrev']) ? $svn['svnrev'] : null;
+    $svn = svn_last_update();
+    return isset($svn['svnrev']) ? $svn['svnrev'] : null;
 }

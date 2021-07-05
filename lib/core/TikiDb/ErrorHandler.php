@@ -8,5 +8,5 @@
 
 interface TikiDb_ErrorHandler
 {
-	public function handle(TikiDb $db, $query, $values, $result);
+    public function handle(TikiDb $db, $query, $values, $result);
 }

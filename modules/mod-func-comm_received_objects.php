@@ -11,13 +11,13 @@
  */
 function module_comm_received_objects_info()
 {
-	return [
-		'name' => tra('Received Objects'),
-		'description' => tra('Displays the number of pages received (via Communications).'),
-		'prefs' => ["feature_comm"],
-		'documentation' => 'Module comm_received_objects',
-		'params' => []
-	];
+    return [
+        'name' => tra('Received Objects'),
+        'description' => tra('Displays the number of pages received (via Communications).'),
+        'prefs' => ["feature_comm"],
+        'documentation' => 'Module comm_received_objects',
+        'params' => []
+    ];
 }
 
 /**
@@ -26,9 +26,9 @@ function module_comm_received_objects_info()
  */
 function module_comm_received_objects($mod_reference, $module_params)
 {
-	$tikilib = TikiLib::lib('tiki');
-	$smarty = TikiLib::lib('smarty');
-	$ranking = $tikilib->list_received_pages(0, -1, 'pageName_asc');
+    $tikilib = TikiLib::lib('tiki');
+    $smarty = TikiLib::lib('smarty');
+    $ranking = $tikilib->list_received_pages(0, -1, 'pageName_asc');
 
-	$smarty->assign('modReceivedPages', $ranking["cant"]);
+    $smarty->assign('modReceivedPages', $ranking["cant"]);
 }

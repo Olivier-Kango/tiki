@@ -13,55 +13,55 @@ require_once('lib/wizard/wizard.php');
  */
 class AdminWizardTextArea extends Wizard
 {
-	public function pageTitle()
-	{
-		return tra('Set up Text Area');
-	}
-	public function isEditable()
-	{
-		return true;
-	}
+    public function pageTitle()
+    {
+        return tra('Set up Text Area');
+    }
+    public function isEditable()
+    {
+        return true;
+    }
 
-	public function onSetupPage($homepageUrl)
-	{
-		global $prefs;
-		$smarty = TikiLib::lib('smarty');
-		// Run the parent first
-		parent::onSetupPage($homepageUrl);
+    public function onSetupPage($homepageUrl)
+    {
+        global $prefs;
+        $smarty = TikiLib::lib('smarty');
+        // Run the parent first
+        parent::onSetupPage($homepageUrl);
 
-		$showPage = true;
+        $showPage = true;
 
-		// Mark that Wysiwyg HTML mode is used
-		if (
+        // Mark that Wysiwyg HTML mode is used
+        if (
             (isset($prefs['feature_wysiwyg']) && $prefs['feature_wysiwyg'] === 'y') &&
-			(! isset($prefs['wysiwyg_htmltowiki']) || $prefs['wysiwyg_htmltowiki'] === 'n')
+            (! isset($prefs['wysiwyg_htmltowiki']) || $prefs['wysiwyg_htmltowiki'] === 'n')
         ) {
-			$smarty->assign('isHtmlMode', true);
-		} else {
-			$smarty->assign('isHtmlMode', false);
-		}
+            $smarty->assign('isHtmlMode', true);
+        } else {
+            $smarty->assign('isHtmlMode', false);
+        }
 
-		// Hide Codemirror for RTL languages, since it doesn't work
-		require_once('lib/language/Language.php');
-		$isRTL = Language::isRTL();
-		$smarty->assign('isRTL', $isRTL);
+        // Hide Codemirror for RTL languages, since it doesn't work
+        require_once('lib/language/Language.php');
+        $isRTL = Language::isRTL();
+        $smarty->assign('isRTL', $isRTL);
 
-		return $showPage;
-	}
+        return $showPage;
+    }
 
-	public function getTemplate()
-	{
-		$wizardTemplate = 'wizard/admin_text_area.tpl';
-		return $wizardTemplate;
-	}
+    public function getTemplate()
+    {
+        $wizardTemplate = 'wizard/admin_text_area.tpl';
+        return $wizardTemplate;
+    }
 
-	public function onContinue($homepageUrl)
-	{
-		global $tikilib;
+    public function onContinue($homepageUrl)
+    {
+        global $tikilib;
 
-		// Run the parent first
-		parent::onContinue($homepageUrl);
+        // Run the parent first
+        parent::onContinue($homepageUrl);
 
-		// Configure detail preferences in own page
-	}
+        // Configure detail preferences in own page
+    }
 }

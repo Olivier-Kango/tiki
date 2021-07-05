@@ -13,37 +13,37 @@
  */
 class Perms_Resolver_Default implements Perms_Resolver
 {
-	private $value;
+    private $value;
 
-	public function __construct($value)
-	{
-		$this->value = (bool) $value;
-	}
+    public function __construct($value)
+    {
+        $this->value = (bool) $value;
+    }
 
-	public function check($name, array $groups)
-	{
-		return $this->value;
-	}
+    public function check($name, array $groups)
+    {
+        return $this->value;
+    }
 
-	public function from()
-	{
-		return 'system';
-	}
+    public function from()
+    {
+        return 'system';
+    }
 
-	public function applicableGroups()
-	{
-		return ['Anonymous', 'Registered'];
-	}
+    public function applicableGroups()
+    {
+        return ['Anonymous', 'Registered'];
+    }
 
-	public function dump()
-	{
-		$result = [
-			'from' => $this->from(),
-			'perms' => [],
-		];
-		foreach ($this->applicableGroups as $group) {
-			$result['perms'][$this->value ? 'all' : 'none'][] = $group;
-		}
-		return $result;
-	}
+    public function dump()
+    {
+        $result = [
+            'from' => $this->from(),
+            'perms' => [],
+        ];
+        foreach ($this->applicableGroups as $group) {
+            $result['perms'][$this->value ? 'all' : 'none'][] = $group;
+        }
+        return $result;
+    }
 }

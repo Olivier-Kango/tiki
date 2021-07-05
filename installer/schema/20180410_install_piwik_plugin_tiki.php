@@ -9,9 +9,9 @@ use Tiki\Installer\Installer;
  */
 function upgrade_20180410_install_piwik_plugin_tiki($installer)
 {
-	$sitePiwikCode = $installer->getOne("SELECT value FROM `tiki_preferences` WHERE `name` = 'site_piwik_code'");
-	if (! empty($sitePiwikCode)) {
-		$tikilib = $tikilib = TikiLib::lib('tiki');
-		$tikilib->set_preference('wikiplugin_piwik', 'y');
-	}
+    $sitePiwikCode = $installer->getOne("SELECT value FROM `tiki_preferences` WHERE `name` = 'site_piwik_code'");
+    if (! empty($sitePiwikCode)) {
+        $tikilib = $tikilib = TikiLib::lib('tiki');
+        $tikilib->set_preference('wikiplugin_piwik', 'y');
+    }
 }

@@ -11,12 +11,12 @@
  */
 function module_freetag_info()
 {
-	return [
-		'name' => tra('Tags Editor'),
-		'description' => tra('Shows current tags and enables adding and removing some if permissions allow.'),
-		'prefs' => ['feature_freetags'],
-		'params' => []
-	];
+    return [
+        'name' => tra('Tags Editor'),
+        'description' => tra('Shows current tags and enables adding and removing some if permissions allow.'),
+        'prefs' => ['feature_freetags'],
+        'params' => []
+    ];
 }
 
 /**
@@ -25,23 +25,23 @@ function module_freetag_info()
  */
 function module_freetag($mod_reference, $module_params)
 {
-	global $sections, $section;
-	$smarty = TikiLib::lib('smarty');
-	$modlib = TikiLib::lib('mod');
+    global $sections, $section;
+    $smarty = TikiLib::lib('smarty');
+    $modlib = TikiLib::lib('mod');
 
-	$globalperms = Perms::get();
-	if ($globalperms->view_freetags && isset($sections[$section])) {
-		$tagid = 0;
-		$par = $sections[$section];
-		if (isset($par['itemkey']) && ! empty($_REQUEST["{$par['itemkey']}"])) {
-			$tagid = $_REQUEST["{$par['itemkey']}"];
-		} elseif (isset($par['key']) && ! empty($_REQUEST["{$par['key']}"])) {
-			$tagid = $_REQUEST["{$par['key']}"];
-		}
-		if ($tagid) {
-			$smarty->assign('viewTags', 'y');
-		}
-	} elseif ($modlib->is_admin_mode(true)) {
-		$smarty->assign('viewTags', 'y');
-	}
+    $globalperms = Perms::get();
+    if ($globalperms->view_freetags && isset($sections[$section])) {
+        $tagid = 0;
+        $par = $sections[$section];
+        if (isset($par['itemkey']) && ! empty($_REQUEST["{$par['itemkey']}"])) {
+            $tagid = $_REQUEST["{$par['itemkey']}"];
+        } elseif (isset($par['key']) && ! empty($_REQUEST["{$par['key']}"])) {
+            $tagid = $_REQUEST["{$par['key']}"];
+        }
+        if ($tagid) {
+            $smarty->assign('viewTags', 'y');
+        }
+    } elseif ($modlib->is_admin_mode(true)) {
+        $smarty->assign('viewTags', 'y');
+    }
 }

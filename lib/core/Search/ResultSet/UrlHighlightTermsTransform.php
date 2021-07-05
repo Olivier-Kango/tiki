@@ -10,23 +10,23 @@ namespace Search\ResultSet;
 
 class UrlHighlightTermsTransform
 {
-	private $termsParameter;
+    private $termsParameter;
 
-	public function __construct($terms)
-	{
-		if ($terms) {
-			$this->termsParameter = 'highlight=' . urlencode(implode(' ', $terms));
-		} else {
-			$this->termsParameter = '';
-		}
-	}
+    public function __construct($terms)
+    {
+        if ($terms) {
+            $this->termsParameter = 'highlight=' . urlencode(implode(' ', $terms));
+        } else {
+            $this->termsParameter = '';
+        }
+    }
 
-	public function __invoke($entry)
-	{
-		if (isset($entry['url']) && $this->termsParameter) {
-			$entry['url'] = $entry['url'] . (strpos($entry['url'], '?') === false ? '?' : '&') . $this->termsParameter;
-		}
+    public function __invoke($entry)
+    {
+        if (isset($entry['url']) && $this->termsParameter) {
+            $entry['url'] = $entry['url'] . (strpos($entry['url'], '?') === false ? '?' : '&') . $this->termsParameter;
+        }
 
-		return $entry;
-	}
+        return $entry;
+    }
 }

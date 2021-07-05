@@ -6,8 +6,8 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
 if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
-	header("location: index.php");
-	exit;
+    header("location: index.php");
+    exit;
 }
 
 /**
@@ -15,33 +15,33 @@ if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
  */
 function module_list_info()
 {
-	return [
-		'name' => tra('List'),
-		'description' => tra('List objects from the Unified Index'),
-		'prefs' => ['feature_search'],
-		'params' => [
-			'body' => [
-				'required' => false,
-				'name' => tra('Body'),
-				'description' => tra('Definition of the list as used in plugin list.'),
-				'filter' => 'text',
-				'type' => 'textarea',
-				'default' => '',
-			],
-			'searchable_only' => [
-				'required' => false,
-				'name' => tra('Searchable Only Results'),
-				'description' => tra('Only include results marked as searchable in the index.'),
-				'filter' => 'digits',
-				'default' => '1',
-				'options' => [
-					['text' => tra(''), 'value' => ''],
-					['text' => tra('Yes'), 'value' => '1'],
-					['text' => tra('No'), 'value' => '0'],
-				],
-			],
-		],
-	];
+    return [
+        'name' => tra('List'),
+        'description' => tra('List objects from the Unified Index'),
+        'prefs' => ['feature_search'],
+        'params' => [
+            'body' => [
+                'required' => false,
+                'name' => tra('Body'),
+                'description' => tra('Definition of the list as used in plugin list.'),
+                'filter' => 'text',
+                'type' => 'textarea',
+                'default' => '',
+            ],
+            'searchable_only' => [
+                'required' => false,
+                'name' => tra('Searchable Only Results'),
+                'description' => tra('Only include results marked as searchable in the index.'),
+                'filter' => 'digits',
+                'default' => '1',
+                'options' => [
+                    ['text' => tra(''), 'value' => ''],
+                    ['text' => tra('Yes'), 'value' => '1'],
+                    ['text' => tra('No'), 'value' => '0'],
+                ],
+            ],
+        ],
+    ];
 }
 
 /**
@@ -50,5 +50,5 @@ function module_list_info()
  */
 function module_list($mod_reference, $module_params)
 {
-	// nothing to do here?
+    // nothing to do here?
 }

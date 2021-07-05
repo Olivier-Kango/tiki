@@ -8,43 +8,43 @@
 
 class Perms_Reflection_PermissionComparator
 {
-	private $additions;
-	private $removals;
+    private $additions;
+    private $removals;
 
-	public function __construct($left, $right)
-	{
-		$this->additions = $this->compare($right, $left);
-		$this->removals = $this->compare($left, $right);
-	}
+    public function __construct($left, $right)
+    {
+        $this->additions = $this->compare($right, $left);
+        $this->removals = $this->compare($left, $right);
+    }
 
-	public function equal()
-	{
-		return empty($this->additions) && empty($this->removals);
-	}
+    public function equal()
+    {
+        return empty($this->additions) && empty($this->removals);
+    }
 
-	public function getAdditions()
-	{
-		return $this->additions;
-	}
+    public function getAdditions()
+    {
+        return $this->additions;
+    }
 
-	public function getRemovals()
-	{
-		return $this->removals;
-	}
+    public function getRemovals()
+    {
+        return $this->removals;
+    }
 
-	private function compare($left, $right)
-	{
-		$out = [];
+    private function compare($left, $right)
+    {
+        $out = [];
 
-		$all = $left->getPermissionArray();
-		foreach ($all as $group => $permissions) {
-			foreach ($permissions as $perm) {
-				if (! $right->has($group, $perm)) {
-					$out[] = [ $group, $perm ];
-				}
-			}
-		}
+        $all = $left->getPermissionArray();
+        foreach ($all as $group => $permissions) {
+            foreach ($permissions as $perm) {
+                if (! $right->has($group, $perm)) {
+                    $out[] = [ $group, $perm ];
+                }
+            }
+        }
 
-		return $out;
-	}
+        return $out;
+    }
 }

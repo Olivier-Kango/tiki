@@ -10,5 +10,5 @@ namespace Tiki\Recommendation\Engine;
 
 interface EngineInterface
 {
-	public function generate($input);
+    public function generate($input);
 }

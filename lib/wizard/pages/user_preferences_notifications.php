@@ -13,113 +13,113 @@ require_once('lib/wizard/wizard.php');
  */
 class UserWizardPreferencesNotifications extends Wizard
 {
-	public function pageTitle()
-	{
-		return tra('User Watches:') . ' ' . tra('Notification Preferences');
-	}
+    public function pageTitle()
+    {
+        return tra('User Watches:') . ' ' . tra('Notification Preferences');
+    }
 
-	public function isEditable()
-	{
-		return true;
-	}
+    public function isEditable()
+    {
+        return true;
+    }
 
-	public function isVisible()
-	{
-		global	$prefs;
-		return $prefs['feature_user_watches'] === 'y';
-	}
+    public function isVisible()
+    {
+        global  $prefs;
+        return $prefs['feature_user_watches'] === 'y';
+    }
 
-	public function onSetupPage($homepageUrl)
-	{
-		global	$user, $prefs;
+    public function onSetupPage($homepageUrl)
+    {
+        global  $user, $prefs;
 
-		$tikilib = TikiLib::lib('tiki');
-		$smarty = TikiLib::lib('smarty');
+        $tikilib = TikiLib::lib('tiki');
+        $smarty = TikiLib::lib('smarty');
 
-		// Run the parent first
-		parent::onSetupPage($homepageUrl);
+        // Run the parent first
+        parent::onSetupPage($homepageUrl);
 
-		$showPage = false;
+        $showPage = false;
 
-		// Show if option is selected
-		if ($prefs['feature_user_watches'] === 'y') {
-			$showPage = true;
-		}
+        // Show if option is selected
+        if ($prefs['feature_user_watches'] === 'y') {
+            $showPage = true;
+        }
 
-		// Setup initial wizard screen
-		$smarty->assign('user_calendar_watch_editor', $tikilib->get_user_preference($user, 'user_calendar_watch_editor'));
-		$smarty->assign('user_article_watch_editor', $tikilib->get_user_preference($user, 'user_article_watch_editor'));
-		$smarty->assign('user_wiki_watch_editor', $tikilib->get_user_preference($user, 'user_wiki_watch_editor'));
-		$smarty->assign('user_blog_watch_editor', $tikilib->get_user_preference($user, 'user_blog_watch_editor'));
-		$smarty->assign('user_tracker_watch_editor', $tikilib->get_user_preference($user, 'user_tracker_watch_editor'));
-		$smarty->assign('user_comment_watch_editor', $tikilib->get_user_preference($user, 'user_comment_watch_editor'));
-		$smarty->assign('user_category_watch_editor', $tikilib->get_user_preference($user, 'user_category_watch_editor'));
-		$smarty->assign('user_plugin_approval_watch_editor', $tikilib->get_user_preference($user, 'user_plugin_approval_watch_editor'));
+        // Setup initial wizard screen
+        $smarty->assign('user_calendar_watch_editor', $tikilib->get_user_preference($user, 'user_calendar_watch_editor'));
+        $smarty->assign('user_article_watch_editor', $tikilib->get_user_preference($user, 'user_article_watch_editor'));
+        $smarty->assign('user_wiki_watch_editor', $tikilib->get_user_preference($user, 'user_wiki_watch_editor'));
+        $smarty->assign('user_blog_watch_editor', $tikilib->get_user_preference($user, 'user_blog_watch_editor'));
+        $smarty->assign('user_tracker_watch_editor', $tikilib->get_user_preference($user, 'user_tracker_watch_editor'));
+        $smarty->assign('user_comment_watch_editor', $tikilib->get_user_preference($user, 'user_comment_watch_editor'));
+        $smarty->assign('user_category_watch_editor', $tikilib->get_user_preference($user, 'user_category_watch_editor'));
+        $smarty->assign('user_plugin_approval_watch_editor', $tikilib->get_user_preference($user, 'user_plugin_approval_watch_editor'));
 
-		return $showPage;
-	}
+        return $showPage;
+    }
 
-	public function getTemplate()
-	{
-		$wizardTemplate = 'wizard/user_preferences_notifications.tpl';
-		return $wizardTemplate;
-	}
+    public function getTemplate()
+    {
+        $wizardTemplate = 'wizard/user_preferences_notifications.tpl';
+        return $wizardTemplate;
+    }
 
-	public function onContinue($homepageUrl)
-	{
-		global $user, $prefs;
+    public function onContinue($homepageUrl)
+    {
+        global $user, $prefs;
 
-		$tikilib = TikiLib::lib('tiki');
+        $tikilib = TikiLib::lib('tiki');
 
-		// Run the parent first
-		parent::onContinue($homepageUrl);
+        // Run the parent first
+        parent::onContinue($homepageUrl);
 
-		if (isset($_REQUEST['user_calendar_watch_editor']) && $_REQUEST['user_calendar_watch_editor'] == 'on') {
-			$tikilib->set_user_preference($user, 'user_calendar_watch_editor', 'y');
-		} else {
-			$tikilib->set_user_preference($user, 'user_calendar_watch_editor', 'n');
-		}
+        if (isset($_REQUEST['user_calendar_watch_editor']) && $_REQUEST['user_calendar_watch_editor'] == 'on') {
+            $tikilib->set_user_preference($user, 'user_calendar_watch_editor', 'y');
+        } else {
+            $tikilib->set_user_preference($user, 'user_calendar_watch_editor', 'n');
+        }
 
-		if (isset($_REQUEST['user_article_watch_editor']) && $_REQUEST['user_article_watch_editor'] == 'on') {
-			$tikilib->set_user_preference($user, 'user_article_watch_editor', 'y');
-		} else {
-			$tikilib->set_user_preference($user, 'user_article_watch_editor', 'n');
-		}
+        if (isset($_REQUEST['user_article_watch_editor']) && $_REQUEST['user_article_watch_editor'] == 'on') {
+            $tikilib->set_user_preference($user, 'user_article_watch_editor', 'y');
+        } else {
+            $tikilib->set_user_preference($user, 'user_article_watch_editor', 'n');
+        }
 
-		if (isset($_REQUEST['user_wiki_watch_editor']) && $_REQUEST['user_wiki_watch_editor'] == 'on') {
-			$tikilib->set_user_preference($user, 'user_wiki_watch_editor', 'y');
-		} else {
-			$tikilib->set_user_preference($user, 'user_wiki_watch_editor', 'n');
-		}
+        if (isset($_REQUEST['user_wiki_watch_editor']) && $_REQUEST['user_wiki_watch_editor'] == 'on') {
+            $tikilib->set_user_preference($user, 'user_wiki_watch_editor', 'y');
+        } else {
+            $tikilib->set_user_preference($user, 'user_wiki_watch_editor', 'n');
+        }
 
-		if (isset($_REQUEST['user_blog_watch_editor']) && $_REQUEST['user_blog_watch_editor'] == 'on') {
-			$tikilib->set_user_preference($user, 'user_blog_watch_editor', 'y');
-		} else {
-			$tikilib->set_user_preference($user, 'user_blog_watch_editor', 'n');
-		}
+        if (isset($_REQUEST['user_blog_watch_editor']) && $_REQUEST['user_blog_watch_editor'] == 'on') {
+            $tikilib->set_user_preference($user, 'user_blog_watch_editor', 'y');
+        } else {
+            $tikilib->set_user_preference($user, 'user_blog_watch_editor', 'n');
+        }
 
-		if (isset($_REQUEST['user_tracker_watch_editor']) && $_REQUEST['user_tracker_watch_editor'] == 'on') {
-			$tikilib->set_user_preference($user, 'user_tracker_watch_editor', 'y');
-		} else {
-			$tikilib->set_user_preference($user, 'user_tracker_watch_editor', 'n');
-		}
+        if (isset($_REQUEST['user_tracker_watch_editor']) && $_REQUEST['user_tracker_watch_editor'] == 'on') {
+            $tikilib->set_user_preference($user, 'user_tracker_watch_editor', 'y');
+        } else {
+            $tikilib->set_user_preference($user, 'user_tracker_watch_editor', 'n');
+        }
 
-		if (isset($_REQUEST['user_comment_watch_editor']) && $_REQUEST['user_comment_watch_editor'] == 'on') {
-			$tikilib->set_user_preference($user, 'user_comment_watch_editor', 'y');
-		} else {
-			$tikilib->set_user_preference($user, 'user_comment_watch_editor', 'n');
-		}
+        if (isset($_REQUEST['user_comment_watch_editor']) && $_REQUEST['user_comment_watch_editor'] == 'on') {
+            $tikilib->set_user_preference($user, 'user_comment_watch_editor', 'y');
+        } else {
+            $tikilib->set_user_preference($user, 'user_comment_watch_editor', 'n');
+        }
 
-		if (isset($_REQUEST['user_category_watch_editor']) && $_REQUEST['user_category_watch_editor'] == 'on') {
-			$tikilib->set_user_preference($user, 'user_category_watch_editor', 'y');
-		} else {
-			$tikilib->set_user_preference($user, 'user_category_watch_editor', 'n');
-		}
+        if (isset($_REQUEST['user_category_watch_editor']) && $_REQUEST['user_category_watch_editor'] == 'on') {
+            $tikilib->set_user_preference($user, 'user_category_watch_editor', 'y');
+        } else {
+            $tikilib->set_user_preference($user, 'user_category_watch_editor', 'n');
+        }
 
-		if (isset($_REQUEST['user_plugin_approval_watch_editor']) && $_REQUEST['user_plugin_approval_watch_editor'] == 'on') {
-			$tikilib->set_user_preference($user, 'user_plugin_approval_watch_editor', 'y');
-		} else {
-			$tikilib->set_user_preference($user, 'user_plugin_approval_watch_editor', 'n');
-		}
-	}
+        if (isset($_REQUEST['user_plugin_approval_watch_editor']) && $_REQUEST['user_plugin_approval_watch_editor'] == 'on') {
+            $tikilib->set_user_preference($user, 'user_plugin_approval_watch_editor', 'y');
+        } else {
+            $tikilib->set_user_preference($user, 'user_plugin_approval_watch_editor', 'n');
+        }
+    }
 }

@@ -13,7 +13,7 @@
  */
 
 if (! defined('DEBUG_MODE')) {
-die();
+    die();
 }
 
 require_once APP_PATH . 'modules/smtp/hm-mime-message.php';
@@ -465,49 +465,49 @@ class Hm_Output_add_rsvp_actions extends Hm_Output_Module
  * @return string
  */
 if (! hm_exists('get_calendar_part_imap')) {
-function get_calendar_part_imap($struct, $mod)
-{
-    $event = $method = null;
-    $part = false;
-    foreach ($struct as $id => $vals) {
-        if (is_array($vals) && isset($vals['type'])) {
-            if ($vals['type'] . '/' . $vals['subtype'] == 'text/calendar') {
-                $part = $id;
-                $method = $vals['attributes']['method'];
-            }
-            if (isset($vals['subs'])) {
-                return get_calendar_part_imap($vals['subs'], $mod);
-            }
-        } else {
-            if (is_array($vals) && count($vals) == 1 && isset($vals['subs'])) {
-                return get_calendar_part_imap($vals['subs'], $mod);
-            }
-        }
-    }
-    if (! $part) {
-        return;
-    }
-    list($success, $form) = $mod->process_form(array('imap_server_id', 'imap_msg_uid', 'folder'));
-    if ($success) {
-        $cache = Hm_IMAP_List::get_cache($mod->cache, $form['imap_server_id']);
-        $imap = Hm_IMAP_List::connect($form['imap_server_id'], $cache);
-        if (imap_authed($imap)) {
-            if ($imap->select_mailbox(hex2bin($form['folder']))) {
-                $msg_struct = $imap->get_message_structure($form['imap_msg_uid']);
-                if ($part !== false) {
-                    if ($part == 0) {
-                        $max = 500000;
-                    } else {
-                        $max = false;
-                    }
-                    $struct = $imap->search_bodystructure($msg_struct, array('imap_part_number' => $part));
-                    $msg_struct_current = array_shift($struct);
-                    $event = $imap->get_message_content($form['imap_msg_uid'], $part, $max, $msg_struct_current);
+    function get_calendar_part_imap($struct, $mod)
+    {
+        $event = $method = null;
+        $part = false;
+        foreach ($struct as $id => $vals) {
+            if (is_array($vals) && isset($vals['type'])) {
+                if ($vals['type'] . '/' . $vals['subtype'] == 'text/calendar') {
+                    $part = $id;
+                    $method = $vals['attributes']['method'];
+                }
+                if (isset($vals['subs'])) {
+                    return get_calendar_part_imap($vals['subs'], $mod);
+                }
+            } else {
+                if (is_array($vals) && count($vals) == 1 && isset($vals['subs'])) {
+                    return get_calendar_part_imap($vals['subs'], $mod);
                 }
             }
         }
+        if (! $part) {
+            return;
+        }
+        list($success, $form) = $mod->process_form(array('imap_server_id', 'imap_msg_uid', 'folder'));
+        if ($success) {
+            $cache = Hm_IMAP_List::get_cache($mod->cache, $form['imap_server_id']);
+            $imap = Hm_IMAP_List::connect($form['imap_server_id'], $cache);
+            if (imap_authed($imap)) {
+                if ($imap->select_mailbox(hex2bin($form['folder']))) {
+                    $msg_struct = $imap->get_message_structure($form['imap_msg_uid']);
+                    if ($part !== false) {
+                        if ($part == 0) {
+                            $max = 500000;
+                        } else {
+                            $max = false;
+                        }
+                        $struct = $imap->search_bodystructure($msg_struct, array('imap_part_number' => $part));
+                        $msg_struct_current = array_shift($struct);
+                        $event = $imap->get_message_content($form['imap_msg_uid'], $part, $max, $msg_struct_current);
+                    }
+                }
+            }
+        }
+        $mod->out('calendar_method', $method);
+        $mod->out('calendar_event_raw', $event);
     }
-    $mod->out('calendar_method', $method);
-    $mod->out('calendar_event_raw', $event);
-}
 }

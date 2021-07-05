@@ -13,8 +13,8 @@
 
 class TikiFilter_RawUnsafe implements Laminas\Filter\FilterInterface
 {
-	public function filter($value)
-	{
-		return str_replace('<x>', '', $value);
-	}
+    public function filter($value)
+    {
+        return str_replace('<x>', '', $value);
+    }
 }

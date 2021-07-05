@@ -18,42 +18,42 @@ use Tiki\TikiInit;
 
 class SchedulerRunCommand extends Command
 {
-	protected function configure()
-	{
-		$this
-			->setName('scheduler:run')
-			->setDescription('Run scheduled tasks')
-			->addOption(
-				'skip-check-user',
-				null,
-				InputOption::VALUE_NONE,
-				'Skip system user check that is running the scheduler'
-			);
-	}
+    protected function configure()
+    {
+        $this
+            ->setName('scheduler:run')
+            ->setDescription('Run scheduled tasks')
+            ->addOption(
+                'skip-check-user',
+                null,
+                InputOption::VALUE_NONE,
+                'Skip system user check that is running the scheduler'
+            );
+    }
 
-	protected function execute(InputInterface $input, OutputInterface $output)
-	{
-		global $prefs;
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        global $prefs;
 
-		if ($prefs['feature_scheduler'] != 'y') {
-			$output->writeln("<error>Scheduler feature is not enabled.</error>");
-			exit(1);
-		}
+        if ($prefs['feature_scheduler'] != 'y') {
+            $output->writeln("<error>Scheduler feature is not enabled.</error>");
+            exit(1);
+        }
 
-		$verbosityLevelMap = [
-			LogLevel::ERROR => OutputInterface::OUTPUT_NORMAL,
-			LogLevel::NOTICE => OutputInterface::OUTPUT_NORMAL,
-			LogLevel::INFO   => OutputInterface::VERBOSITY_VERY_VERBOSE,
-			LogLevel::DEBUG   => OutputInterface::VERBOSITY_DEBUG,
-		];
+        $verbosityLevelMap = [
+            LogLevel::ERROR => OutputInterface::OUTPUT_NORMAL,
+            LogLevel::NOTICE => OutputInterface::OUTPUT_NORMAL,
+            LogLevel::INFO   => OutputInterface::VERBOSITY_VERY_VERBOSE,
+            LogLevel::DEBUG   => OutputInterface::VERBOSITY_DEBUG,
+        ];
 
-		$logger = new ConsoleLogger($output, $verbosityLevelMap);
-		$manager = new \Scheduler_Manager($logger);
+        $logger = new ConsoleLogger($output, $verbosityLevelMap);
+        $manager = new \Scheduler_Manager($logger);
 
-		if (! $input->getOption('skip-check-user') && ! TikiInit::isWindows() && function_exists('posix_getuid')) {
-			$manager->setHasTempFolderOwnership(posix_getuid() === fileowner(TIKI_PATH . '/temp/cache'));
-		}
+        if (! $input->getOption('skip-check-user') && ! TikiInit::isWindows() && function_exists('posix_getuid')) {
+            $manager->setHasTempFolderOwnership(posix_getuid() === fileowner(TIKI_PATH . '/temp/cache'));
+        }
 
-		$manager->run();
-	}
+        $manager->run();
+    }
 }

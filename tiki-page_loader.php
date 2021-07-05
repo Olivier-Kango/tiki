@@ -17,24 +17,24 @@ $refresh = 1000 * $_REQUEST["refresh"];
 ?>
 
 <html>
-	<head>
-		<script language = 'Javascript' type = 'text/javascript'>
+    <head>
+        <script language = 'Javascript' type = 'text/javascript'>
 
-		<?php
-		$zones = $htmlpageslib->list_html_page_content($_REQUEST["pageName"], 0, -1, 'zone_asc', '');
-		$cmds = [];
-		$temp_max = count($zones["data"]);
-		for ($i = 0; $i < $temp_max; $i++) {
-			$cmd = 'top.document.getElementById("' . $zones["data"][$i]["zone"] . '").innerHTML="' . $zones["data"][$i]["content"] . '";';
-			echo $cmd;
-		}
-?>
+        <?php
+        $zones = $htmlpageslib->list_html_page_content($_REQUEST["pageName"], 0, -1, 'zone_asc', '');
+        $cmds = [];
+        $temp_max = count($zones["data"]);
+        for ($i = 0; $i < $temp_max; $i++) {
+            $cmd = 'top.document.getElementById("' . $zones["data"][$i]["zone"] . '").innerHTML="' . $zones["data"][$i]["content"] . '";';
+            echo $cmd;
+        }
+        ?>
 
-		</script>
-	</head>
+        </script>
+    </head>
 
-	<body onload = "window.setInterval('location.reload()','<?php
-	echo $refresh ?>');">
+    <body onload = "window.setInterval('location.reload()','<?php
+    echo $refresh ?>');">
 
-	</body>
+    </body>
 </html>

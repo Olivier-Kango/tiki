@@ -8,6 +8,6 @@
 
 function smarty_function_svn_lastup()
 {
-	$svn = svn_last_update();
-	return isset($svn['lastup']) ? $svn['lastup'] : null;
+    $svn = svn_last_update();
+    return isset($svn['lastup']) ? $svn['lastup'] : null;
 }

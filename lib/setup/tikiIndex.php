@@ -7,9 +7,9 @@
 // $Id$
 
 if (basename($_SERVER['SCRIPT_NAME']) === basename(__FILE__)) {
-	die('This script may only be included.');
+    die('This script may only be included.');
 }
 
 if (! empty($prefs['useUrlIndex']) && $prefs['useUrlIndex'] == 'y') {
-	$prefs['tikiIndex'] = $prefs['urlIndex'];
+    $prefs['tikiIndex'] = $prefs['urlIndex'];
 }

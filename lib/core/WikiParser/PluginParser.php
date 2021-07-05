@@ -8,23 +8,23 @@
 
 class WikiParser_PluginParser
 {
-	private $argumentParser;
-	private $pluginRunner;
+    private $argumentParser;
+    private $pluginRunner;
 
-	public function parse($text)
-	{
-		if (! $this->argumentParser || ! $this->pluginRunner) {
-			return $text;
-		}
-	}
+    public function parse($text)
+    {
+        if (! $this->argumentParser || ! $this->pluginRunner) {
+            return $text;
+        }
+    }
 
-	public function setArgumentParser($parser)
-	{
-		$this->argumentParser = $parser;
-	}
+    public function setArgumentParser($parser)
+    {
+        $this->argumentParser = $parser;
+    }
 
-	public function setPluginRunner($runner)
-	{
-		$this->pluginRunner = $runner;
-	}
+    public function setPluginRunner($runner)
+    {
+        $this->pluginRunner = $runner;
+    }
 }

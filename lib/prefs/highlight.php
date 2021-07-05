@@ -9,15 +9,15 @@
 
 function prefs_highlight_list($partial = false)
 {
-	return [
-		'highlight_group' => [
-			'name' => tra('Highlight group'),
-			'help' => 'Groups',
-			'type' => 'list',
-			'options' => highlight_group_values($partial),
-			'default' => '0',
-		],
-	];
+    return [
+        'highlight_group' => [
+            'name' => tra('Highlight group'),
+            'help' => 'Groups',
+            'type' => 'list',
+            'options' => highlight_group_values($partial),
+            'default' => '0',
+        ],
+    ];
 }
 
 /**
@@ -28,21 +28,21 @@ function prefs_highlight_list($partial = false)
  */
 function highlight_group_values($partial)
 {
-	$userlib = TikiLib::lib('user');
+    $userlib = TikiLib::lib('user');
 
-	if ($partial) {
-		return false;
-	}
+    if ($partial) {
+        return false;
+    }
 
-	$listgroups = $userlib->get_groups(0, -1, 'groupName_desc', '', '', 'n');
+    $listgroups = $userlib->get_groups(0, -1, 'groupName_desc', '', '', 'n');
 
-	$dropdown_listgroups = [];
-	$dropdown_listgroups['0'] = tra('None');
+    $dropdown_listgroups = [];
+    $dropdown_listgroups['0'] = tra('None');
 
-	$funcSubstr = function_exists('mb_substr') ? 'mb_substr' : 'substr';
-	foreach ($listgroups['data'] as $onegroup) {
-		$dropdown_listgroups[$onegroup['groupName']] = $funcSubstr($onegroup['groupName'], 0, 50);
-	}
+    $funcSubstr = function_exists('mb_substr') ? 'mb_substr' : 'substr';
+    foreach ($listgroups['data'] as $onegroup) {
+        $dropdown_listgroups[$onegroup['groupName']] = $funcSubstr($onegroup['groupName'], 0, 50);
+    }
 
-	return $dropdown_listgroups;
+    return $dropdown_listgroups;
 }

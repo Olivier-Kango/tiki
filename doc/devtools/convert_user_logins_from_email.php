@@ -26,8 +26,8 @@ $tikilib = TikiLib::lib('tiki');
 $userlib = TikiLib::lib('user');
 
 $allUsers = $userTable->fetchAll(
-	['userId', 'email', 'login'],
-	['login' => $userTable->not('admin')]
+    ['userId', 'email', 'login'],
+    ['login' => $userTable->not('admin')]
 );
 
 // keep new logins to check for duplicates
@@ -36,34 +36,34 @@ $newLogins = ['admin'];
 $ret = null;
 
 foreach ($allUsers as $aUser) {
-	$oldLogin = $aUser['login'];
+    $oldLogin = $aUser['login'];
 
-	$rc = preg_match('/(.*?)@(.*?).([^.]+)$/', $oldLogin, $loginMatches);
+    $rc = preg_match('/(.*?)@(.*?).([^.]+)$/', $oldLogin, $loginMatches);
 
-	if ($rc) {
-		$login = strtolower($loginMatches[1]);
+    if ($rc) {
+        $login = strtolower($loginMatches[1]);
 
-		if (in_array($login, $newLogins) || strlen($login) < $minUsernameLength) {
-			$login .= '.' . $loginMatches[2];
-		}
-		if (in_array($login, $newLogins) || strlen($login) < $minUsernameLength) {
-			$login .= '.' . $loginMatches[3];
-		}
-		if (in_array($login, $newLogins)) {
-			$login .= '.' . $aUser['userId'];
-		}
-		//echo "Changing user {$oldLogin} to $login...";
+        if (in_array($login, $newLogins) || strlen($login) < $minUsernameLength) {
+            $login .= '.' . $loginMatches[2];
+        }
+        if (in_array($login, $newLogins) || strlen($login) < $minUsernameLength) {
+            $login .= '.' . $loginMatches[3];
+        }
+        if (in_array($login, $newLogins)) {
+            $login .= '.' . $aUser['userId'];
+        }
+        //echo "Changing user {$oldLogin} to $login...";
 
-		// use the userlib function to change it to what we want
-		$userlib->change_login($oldLogin, $login);
+        // use the userlib function to change it to what we want
+        $userlib->change_login($oldLogin, $login);
 
-		$newLogins[] = $login;
+        $newLogins[] = $login;
 
-		//echo " done\n";
-	} else {
-		echo "Not done {$oldLogin}\n";
-	}
-	ob_flush();
+        //echo " done\n";
+    } else {
+        echo "Not done {$oldLogin}\n";
+    }
+    ob_flush();
 }
 
 $tikilib->set_preference('login_is_email', 'n');

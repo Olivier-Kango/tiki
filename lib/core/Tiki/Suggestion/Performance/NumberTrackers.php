@@ -13,19 +13,19 @@ use TikiLib;
 
 class NumberTrackers implements SuggestionRules
 {
-	private static $limitTrackers = 100;
+    private static $limitTrackers = 100;
 
-	public function parser()
-	{
-		global $prefs;
-		$message = '';
-		if ($prefs['feature_trackers'] == 'y') {
-			$trackers = TikiLib::lib('trk')->list_trackers();
-			$totalTrackers = ! empty($trackers['cant']) ? $trackers['cant'] : 0;
-			if ($totalTrackers >= self::$limitTrackers) {
-				$message = tra('You are using a lot of trackers: well done! Did you know about the advanced features?');
-			}
-		}
-		return $message;
-	}
+    public function parser()
+    {
+        global $prefs;
+        $message = '';
+        if ($prefs['feature_trackers'] == 'y') {
+            $trackers = TikiLib::lib('trk')->list_trackers();
+            $totalTrackers = ! empty($trackers['cant']) ? $trackers['cant'] : 0;
+            if ($totalTrackers >= self::$limitTrackers) {
+                $message = tra('You are using a lot of trackers: well done! Did you know about the advanced features?');
+            }
+        }
+        return $message;
+    }
 }

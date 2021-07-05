@@ -13,20 +13,20 @@ use Composer\Script\Event;
 class RestoreVendors
 {
 
-	public static function restore(Event $event)
-	{
-		$composer = $event->getComposer();
-		$vendors = $composer->getConfig()->get('vendor-dir');
+    public static function restore(Event $event)
+    {
+        $composer = $event->getComposer();
+        $vendors = $composer->getConfig()->get('vendor-dir');
 
-		if (substr($vendors, -1, 1) !== DIRECTORY_SEPARATOR) {
-			$vendors .= DIRECTORY_SEPARATOR;
-		}
+        if (substr($vendors, -1, 1) !== DIRECTORY_SEPARATOR) {
+            $vendors .= DIRECTORY_SEPARATOR;
+        }
 
-		$repoManager = $composer->getRepositoryManager()->getLocalRepository();
-		$package = $repoManager->findPackages('plotly/plotly.js');
+        $repoManager = $composer->getRepositoryManager()->getLocalRepository();
+        $package = $repoManager->findPackages('plotly/plotly.js');
 
-		if (! file_exists($vendors . 'plotly/plotly.js/dist/plotly-basic.min.js') && ! empty($package[0])) {
-			$repoManager->removePackage($package[0]);
-		}
-	}
+        if (! file_exists($vendors . 'plotly/plotly.js/dist/plotly-basic.min.js') && ! empty($package[0])) {
+            $repoManager->removePackage($package[0]);
+        }
+    }
 }

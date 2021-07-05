@@ -8,80 +8,80 @@
 
 class Reports_CacheTest extends TikiDatabaseTestCase
 {
-	protected $obj;
+    protected $obj;
 
-	protected function setUp(): void
-	{
-		$db = TikiDb::get();
-		$dt = new DateTime();
-		$dt->setTimezone(new DateTimeZone('UTC'));
-		$dt->setTimestamp('1326990210');
-		$this->obj = new Reports_Cache($db, $dt);
+    protected function setUp(): void
+    {
+        $db = TikiDb::get();
+        $dt = new DateTime();
+        $dt->setTimezone(new DateTimeZone('UTC'));
+        $dt->setTimestamp('1326990210');
+        $this->obj = new Reports_Cache($db, $dt);
 
-		parent::setUp();
-	}
+        parent::setUp();
+    }
 
-	public function getDataSet()
-	{
-		return $this->createMySQLXMLDataSet(__DIR__ . '/fixtures/reports_cache_dataset.xml');
-	}
+    public function getDataSet()
+    {
+        return $this->createMySQLXMLDataSet(__DIR__ . '/fixtures/reports_cache_dataset.xml');
+    }
 
-	public function testDeleteShouldDeleteAllEntriesForAUser()
-	{
-		$expectedTable = $this->createMySQLXmlDataSet(__DIR__ . '/fixtures/reports_cache_dataset_delete.xml')
-			->getTable('tiki_user_reports_cache');
+    public function testDeleteShouldDeleteAllEntriesForAUser()
+    {
+        $expectedTable = $this->createMySQLXmlDataSet(__DIR__ . '/fixtures/reports_cache_dataset_delete.xml')
+            ->getTable('tiki_user_reports_cache');
 
-		$this->obj->delete('admin');
+        $this->obj->delete('admin');
 
-		$queryTable = $this->getConnection()->createQueryTable('tiki_user_reports_cache', 'SELECT * FROM tiki_user_reports_cache');
+        $queryTable = $this->getConnection()->createQueryTable('tiki_user_reports_cache', 'SELECT * FROM tiki_user_reports_cache');
 
-		$this->assertTablesEqual($expectedTable, $queryTable);
-	}
+        $this->assertTablesEqual($expectedTable, $queryTable);
+    }
 
-	public function testGetShouldReturnEntriesForGivenUser()
-	{
-		$expectedResult = [['user' => 'test', 'event' => 'wiki_page_changed',
-			'data' =>
-				[
-					'event' => 'wiki_page_changed', 'pageName' => 'test', 'object' => 'test',
-					'editUser' => 'test', 'editComment' => '', 'oldVer' => 2
-				],
-			'time' => '2012-01-19 16:23:30'
-		]];
+    public function testGetShouldReturnEntriesForGivenUser()
+    {
+        $expectedResult = [['user' => 'test', 'event' => 'wiki_page_changed',
+            'data' =>
+                [
+                    'event' => 'wiki_page_changed', 'pageName' => 'test', 'object' => 'test',
+                    'editUser' => 'test', 'editComment' => '', 'oldVer' => 2
+                ],
+            'time' => '2012-01-19 16:23:30'
+        ]];
 
-		$entries = $this->obj->get('test');
+        $entries = $this->obj->get('test');
 
-		$this->assertEquals($expectedResult, $entries);
-	}
+        $this->assertEquals($expectedResult, $entries);
+    }
 
-	/**
-	 * @group marked-as-skipped
-	 */
-	public function testAddShouldAddInformationAboutChangedObjectToCache()
-	{
-		$this->markTestSkipped("As of 2013-09-30, this test is broken. Skipping it for now.");
+    /**
+     * @group marked-as-skipped
+     */
+    public function testAddShouldAddInformationAboutChangedObjectToCache()
+    {
+        $this->markTestSkipped("As of 2013-09-30, this test is broken. Skipping it for now.");
 
-		$expectedTable = $this->createMySQLXmlDataSet(__DIR__ . '/fixtures/reports_cache_dataset_add.xml')
-			->getTable('tiki_user_reports_cache');
+        $expectedTable = $this->createMySQLXmlDataSet(__DIR__ . '/fixtures/reports_cache_dataset_add.xml')
+            ->getTable('tiki_user_reports_cache');
 
-		$users = ['admin', 'test'];
+        $users = ['admin', 'test'];
 
-		$watches = [
-			['user' => 'admin'],
-			['user' => 'test'],
-			['user' => 'notUsingPeriodicReports']
-		];
+        $watches = [
+            ['user' => 'admin'],
+            ['user' => 'test'],
+            ['user' => 'notUsingPeriodicReports']
+        ];
 
-		$expectedResult = array_slice($watches, 2, 1, true);
+        $expectedResult = array_slice($watches, 2, 1, true);
 
-		$cacheData = ['event' => 'wiki_page_changed'];
+        $cacheData = ['event' => 'wiki_page_changed'];
 
-		$this->obj->add($watches, $cacheData, $users);
+        $this->obj->add($watches, $cacheData, $users);
 
-		$queryTable = $this->getConnection()->createQueryTable('tiki_user_reports_cache', 'SELECT * FROM tiki_user_reports_cache');
+        $queryTable = $this->getConnection()->createQueryTable('tiki_user_reports_cache', 'SELECT * FROM tiki_user_reports_cache');
 
-		$this->assertTablesEqual($expectedTable, $queryTable);
+        $this->assertTablesEqual($expectedTable, $queryTable);
 
-		$this->assertEquals($expectedResult, $watches);
-	}
+        $this->assertEquals($expectedResult, $watches);
+    }
 }

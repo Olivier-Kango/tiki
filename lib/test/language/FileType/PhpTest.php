@@ -12,46 +12,46 @@ require_once(__DIR__ . '/../../../language/FileType/Php.php');
 class Language_FileType_PhpTest extends TikiTestCase
 {
 
-	protected $obj;
+    protected $obj;
 
-	protected function setUp(): void
-	{
-		$this->obj = new Language_FileType_Php();
-	}
+    protected function setUp(): void
+    {
+        $this->obj = new Language_FileType_Php();
+    }
 
-	public function testSingleQuotedShouldRemoveEscapesFromSingleQuotes()
-	{
-		$strings = [
-			'Features',
-			'Enable/disable Tiki features here, but configure them elsewhere',
-			"Show user\'s real name instead of log-in name in the autocomplete selector in trackers",
-			'General preferences and settings',
-		];
+    public function testSingleQuotedShouldRemoveEscapesFromSingleQuotes()
+    {
+        $strings = [
+            'Features',
+            'Enable/disable Tiki features here, but configure them elsewhere',
+            "Show user\'s real name instead of log-in name in the autocomplete selector in trackers",
+            'General preferences and settings',
+        ];
 
-		$expectedResult = [
-			'Features',
-			'Enable/disable Tiki features here, but configure them elsewhere',
-			"Show user's real name instead of log-in name in the autocomplete selector in trackers",
-			'General preferences and settings',
-		];
+        $expectedResult = [
+            'Features',
+            'Enable/disable Tiki features here, but configure them elsewhere',
+            "Show user's real name instead of log-in name in the autocomplete selector in trackers",
+            'General preferences and settings',
+        ];
 
-		$this->assertEquals($expectedResult, $this->obj->singleQuoted($strings));
-	}
+        $this->assertEquals($expectedResult, $this->obj->singleQuoted($strings));
+    }
 
-	public function testDoubleQuotedShouldRemoveEscapes()
-	{
-		$strings = [
-			'Congratulations!\n\nYour server can send emails.\n\n',
-			'Handling actions of plugin \"%s\" failed',
-			'Could not create \$tdo.mid in data directory',
-		];
+    public function testDoubleQuotedShouldRemoveEscapes()
+    {
+        $strings = [
+            'Congratulations!\n\nYour server can send emails.\n\n',
+            'Handling actions of plugin \"%s\" failed',
+            'Could not create \$tdo.mid in data directory',
+        ];
 
-		$expectedResult = [
-			"Congratulations!\n\nYour server can send emails.\n\n",
-			'Handling actions of plugin "%s" failed',
-			'Could not create $tdo.mid in data directory',
-		];
+        $expectedResult = [
+            "Congratulations!\n\nYour server can send emails.\n\n",
+            'Handling actions of plugin "%s" failed',
+            'Could not create $tdo.mid in data directory',
+        ];
 
-		$this->assertEquals($expectedResult, $this->obj->doubleQuoted($strings));
-	}
+        $this->assertEquals($expectedResult, $this->obj->doubleQuoted($strings));
+    }
 }

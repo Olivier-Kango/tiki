@@ -8,17 +8,17 @@
 
 function prefs_social_list()
 {
-	return [
-		'social_network_type' => [
-			'name' => tra('Social network type'),
-			'description' => tra('Select how the friendship relations within the social network should be treated.'),
-			'type' => 'list',
-			'options' => [
-				'follow' => tr('Follow (as in Twitter)'),
-				'friend' => tr('Friend (as in Facebook)'),
-				'follow_approval' => tr('Followers need approval'),
-			],
-			'default' => 'follow',
-		],
-	];
+    return [
+        'social_network_type' => [
+            'name' => tra('Social network type'),
+            'description' => tra('Select how the friendship relations within the social network should be treated.'),
+            'type' => 'list',
+            'options' => [
+                'follow' => tr('Follow (as in Twitter)'),
+                'friend' => tr('Friend (as in Facebook)'),
+                'follow_approval' => tr('Followers need approval'),
+            ],
+            'default' => 'follow',
+        ],
+    ];
 }

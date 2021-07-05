@@ -8,45 +8,47 @@
 
 function prefs_error_list()
 {
-	return [
-		'error_reporting_adminonly' => [
-			'name' => tra('PHP errors visible to admin only'),
-			'hint' => tra('During site development, it\'s better to display errors to all users. However, in production settings, errors should only be displayed to administrators.'),
-			'type' => 'flag',
-			'description' => tr('PHP Errors will be shown to only the Admin user.'),
-			'default' => 'y',
-		],
-		'error_reporting_level' => [
-			'name' => tra('PHP Error reporting level'),
-			'description' => tra('Level of errors to be reported. Errors can be seen in a collapsible box at the bottom of the page, if any exist.'),
-			'type' => 'list',
-			'options' => [
-				0 => tra('No error reporting'),
-				2047 => tra('Report all PHP errors except strict'),
-				-1 => tra('Report all PHP errors'),
-				2039 => tra('Report all PHP errors except notices'),
-				1 => tra('According to the PHP configuration')
-			],
-			'default' => 2039,	//	E_ALL & ~E_NOTICE
-		],
-		'error_tracking_enabled_php' => [
-			'name' => tra('Track PHP errors'),
-			'description' => tra('Enable integration with error tracking service(ex: Sentry, GlitchTip) for PHP.'),
-			'type' => 'flag',
-			'default' => 'n',
-		],
-		'error_tracking_enabled_js' => [
-			'name' => tra('Track JavaScript errors'),
-			'description' => tra('Enable integration with error tracking service(ex: Sentry, GlitchTip) for JavaScript.'),
-			'type' => 'flag',
-			'default' => 'n',
-		],
-		'error_tracking_dsn' => [
-			'name' => tra('Data Source Name (DSN)'),
-			'description' => tra('DSN used for connect to the error tracking service.'),
-			'type' => 'text',
-			'filter' => 'url',
-			'default' => '',
-		],
-	];
+    return [
+        'error_reporting_adminonly'  => [
+            'name'        => tra('PHP errors visible to admin only'),
+            'hint'        => tra(
+                'During site development, it\'s better to display errors to all users. However, in production settings, errors should only be displayed to administrators.'
+            ),
+            'type'        => 'flag',
+            'description' => tr('PHP Errors will be shown to only the Admin user.'),
+            'default'     => 'y',
+        ],
+        'error_reporting_level'      => [
+            'name'        => tra('PHP Error reporting level'),
+            'description' => tra('Level of errors to be reported. Errors can be seen in a collapsible box at the bottom of the page, if any exist.'),
+            'type'        => 'list',
+            'options'     => [
+                0    => tra('No error reporting'),
+                2047 => tra('Report all PHP errors except strict'),
+                -1   => tra('Report all PHP errors'),
+                2039 => tra('Report all PHP errors except notices'),
+                1    => tra('According to the PHP configuration'),
+            ],
+            'default'     => 2039,    //	E_ALL & ~E_NOTICE
+        ],
+        'error_tracking_enabled_php' => [
+            'name'        => tra('Track PHP errors'),
+            'description' => tra('Enable integration with error tracking service(ex: Sentry, GlitchTip) for PHP.'),
+            'type'        => 'flag',
+            'default'     => 'n',
+        ],
+        'error_tracking_enabled_js'  => [
+            'name'        => tra('Track JavaScript errors'),
+            'description' => tra('Enable integration with error tracking service(ex: Sentry, GlitchTip) for JavaScript.'),
+            'type'        => 'flag',
+            'default'     => 'n',
+        ],
+        'error_tracking_dsn'         => [
+            'name'        => tra('Data Source Name (DSN)'),
+            'description' => tra('DSN used for connect to the error tracking service.'),
+            'type'        => 'text',
+            'filter'      => 'url',
+            'default'     => '',
+        ],
+    ];
 }

@@ -8,48 +8,48 @@
 
 function smarty_function_modulelist($params, $smarty)
 {
-	$moduleZones = $smarty->getTemplateVars('module_zones');
+    $moduleZones = $smarty->getTemplateVars('module_zones');
 
-	global $prefs;
-	if (empty($params['zone'])) {
-		return tr("Missing %0 parameter", 'zone');
-	}
+    global $prefs;
+    if (empty($params['zone'])) {
+        return tr("Missing %0 parameter", 'zone');
+    }
 
-	$zone = $params['zone'];
+    $zone = $params['zone'];
 
-	$tag = "div";
-	$class = 'modules';
-	if (! empty($params['class'])) {
-		$class .= ' ' . $params['class'];
-		if (strpos($class, 'navbar') !== false) {
-			$tag = 'nav';
-		}
-	}
+    $tag = "div";
+    $class = 'modules';
+    if (! empty($params['class'])) {
+        $class .= ' ' . $params['class'];
+        if (strpos($class, 'navbar') !== false) {
+            $tag = 'nav';
+        }
+    }
 
-	$id = $zone . '_modules';
-	if (! empty($params['id'])) {
-		$id = $params['id'];
-	}
+    $id = $zone . '_modules';
+    if (! empty($params['id'])) {
+        $id = $params['id'];
+    }
 
-	$dir = '';
-	if (Language::isRTL()) {
-		$dir = ' dir="rtl"';
-	}
+    $dir = '';
+    if (Language::isRTL()) {
+        $dir = ' dir="rtl"';
+    }
 
-	$content = '';
-	$key = $zone . '_modules';
-	if (isset($moduleZones[$key]) && is_array($moduleZones[$key])) {
-		$content = implode(
-			'',
-			array_map(
-				function ($module) {
-					return (isset($module['data']) ? $module['data'] : '');
-				},
-				$moduleZones[$key]
-			)
-		);
-	}
-	return <<<OUT
+    $content = '';
+    $key = $zone . '_modules';
+    if (isset($moduleZones[$key]) && is_array($moduleZones[$key])) {
+        $content = implode(
+            '',
+            array_map(
+                function ($module) {
+                    return (isset($module['data']) ? $module['data'] : '');
+                },
+                $moduleZones[$key]
+            )
+        );
+    }
+    return <<<OUT
 <$tag class="$class" id="$id"$dir>
 	$content
 </$tag>

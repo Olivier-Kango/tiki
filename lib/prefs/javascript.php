@@ -8,25 +8,25 @@
 
 function prefs_javascript_list()
 {
-	return [
-		'javascript_cdn' => [
-			'name' => tra('Use CDN for JavaScript'),
-			'description' => tra('Obtain jQuery and jQuery UI libraries through a content delivery network (CDN).'),
-			'type' => 'list',
-			'options' => [
-				'none' => tra('None'),
-				'google' => tra('Google'),
-				'jquery' => tra('jQuery'),
-			],
-			'default' => 'none',
-			'tags' => ['basic'],
-		],
-		'javascript_assume_enabled' => [
-			'name' => tra('Assume JavaScript is enabled even if not supported'),
-			'description' => tra('Assume JavaScript is enabled even if not supported, could be useful for load testing using tools like JMeter.'),
-			'type' => 'flag',
-			'default' => 'n',
-			'tags' => ['advanced'],
-		],
-	];
+    return [
+        'javascript_cdn' => [
+            'name' => tra('Use CDN for JavaScript'),
+            'description' => tra('Obtain jQuery and jQuery UI libraries through a content delivery network (CDN).'),
+            'type' => 'list',
+            'options' => [
+                'none' => tra('None'),
+                'google' => tra('Google'),
+                'jquery' => tra('jQuery'),
+            ],
+            'default' => 'none',
+            'tags' => ['basic'],
+        ],
+        'javascript_assume_enabled' => [
+            'name' => tra('Assume JavaScript is enabled even if not supported'),
+            'description' => tra('Assume JavaScript is enabled even if not supported, could be useful for load testing using tools like JMeter.'),
+            'type' => 'flag',
+            'default' => 'n',
+            'tags' => ['advanced'],
+        ],
+    ];
 }

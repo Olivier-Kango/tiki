@@ -14,10 +14,10 @@
  */
 function smarty_function_reindex_file_pixel($params, $smarty)
 {
-	if (! is_array($params) || ! isset($params['id']) || ( $id = (int) $params['id'] ) <= 0) {
-		return '';
-	}
+    if (! is_array($params) || ! isset($params['id']) || ( $id = (int) $params['id'] ) <= 0) {
+        return '';
+    }
 
-	global $tikiroot;
-	return '<img src="' . $tikiroot . 'reindex_file.php?id=' . $id . '" width="1" height="1" />';
+    global $tikiroot;
+    return '<img src="' . $tikiroot . 'reindex_file.php?id=' . $id . '" width="1" height="1" />';
 }

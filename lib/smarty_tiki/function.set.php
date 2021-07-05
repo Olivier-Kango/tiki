@@ -11,5 +11,5 @@
  */
 function smarty_function_set($params, $smarty)
 {
-	$smarty->assign($params['var'], $params['value']);
+    $smarty->assign($params['var'], $params['value']);
 }

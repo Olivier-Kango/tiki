@@ -17,32 +17,32 @@ use Psr\Log\LogLevel;
 
 class SchedulerHealCommand extends Command
 {
-	protected function configure()
-	{
-		$this
-			->setName('scheduler:heal')
-			->addArgument(
-				'schedulerId',
-				InputArgument::OPTIONAL,
-				'Scheduler Id to be healed'
-			)
-			->setDescription('Heal scheduled tasks');
-	}
+    protected function configure()
+    {
+        $this
+            ->setName('scheduler:heal')
+            ->addArgument(
+                'schedulerId',
+                InputArgument::OPTIONAL,
+                'Scheduler Id to be healed'
+            )
+            ->setDescription('Heal scheduled tasks');
+    }
 
-	protected function execute(InputInterface $input, OutputInterface $output)
-	{
-		$schedulerId = $input->getArgument('schedulerId');
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $schedulerId = $input->getArgument('schedulerId');
 
-		$verbosityLevelMap = [
-			LogLevel::ERROR => OutputInterface::OUTPUT_NORMAL,
-			LogLevel::NOTICE => OutputInterface::OUTPUT_NORMAL,
-			LogLevel::INFO => OutputInterface::VERBOSITY_VERY_VERBOSE,
-			LogLevel::DEBUG => OutputInterface::VERBOSITY_DEBUG,
-		];
+        $verbosityLevelMap = [
+            LogLevel::ERROR => OutputInterface::OUTPUT_NORMAL,
+            LogLevel::NOTICE => OutputInterface::OUTPUT_NORMAL,
+            LogLevel::INFO => OutputInterface::VERBOSITY_VERY_VERBOSE,
+            LogLevel::DEBUG => OutputInterface::VERBOSITY_DEBUG,
+        ];
 
-		$logger = new ConsoleLogger($output, $verbosityLevelMap);
+        $logger = new ConsoleLogger($output, $verbosityLevelMap);
 
-		$manager = new \Scheduler_Manager($logger);
-		$manager->heal($schedulerId);
-	}
+        $manager = new \Scheduler_Manager($logger);
+        $manager->heal($schedulerId);
+    }
 }

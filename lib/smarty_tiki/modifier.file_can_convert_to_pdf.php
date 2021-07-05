@@ -16,5 +16,5 @@
  */
 function smarty_modifier_file_can_convert_to_pdf($string)
 {
-	return \Tiki\File\PDFHelper::canConvertToPDF($string);
+    return \Tiki\File\PDFHelper::canConvertToPDF($string);
 }

@@ -16,5 +16,5 @@
  */
 function smarty_modifier_lcfirst($s)
 {
-	return strtolower($s[0]) . substr($s, 1);
+    return strtolower($s[0]) . substr($s, 1);
 }

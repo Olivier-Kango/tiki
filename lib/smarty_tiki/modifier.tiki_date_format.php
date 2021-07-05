@@ -19,5 +19,5 @@
  */
 function smarty_modifier_tiki_date_format($string, $format, $_user = false)
 {
-	return TikiLib::date_format(tra($format), $string, $_user);
+    return TikiLib::date_format(tra($format), $string, $_user);
 }

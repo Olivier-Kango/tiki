@@ -13,7 +13,7 @@
  */
 
 if (! defined('DEBUG_MODE')) {
-die();
+    die();
 }
 
 require_once APP_PATH . 'modules/tiki/functions.php';

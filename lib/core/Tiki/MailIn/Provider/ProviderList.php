@@ -10,18 +10,18 @@ namespace Tiki\MailIn\Provider;
 
 class ProviderList
 {
-	private $list = [];
+    private $list = [];
 
-	public function addProvider(ProviderInterface $provider)
-	{
-		$this->list[] = $provider;
-	}
+    public function addProvider(ProviderInterface $provider)
+    {
+        $this->list[] = $provider;
+    }
 
-	public function getList()
-	{
-		usort($this->list, function ($a, $b) {
-			return strcmp($a->getLabel(), $b->getLabel());
-		});
-		return $this->list;
-	}
+    public function getList()
+    {
+        usort($this->list, function ($a, $b) {
+            return strcmp($a->getLabel(), $b->getLabel());
+        });
+        return $this->list;
+    }
 }

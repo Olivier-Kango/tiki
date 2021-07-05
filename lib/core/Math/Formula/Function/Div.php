@@ -8,39 +8,39 @@
 
 class Math_Formula_Function_Div extends Math_Formula_Function
 {
-	public function evaluate($element)
-	{
-		$elements = [];
+    public function evaluate($element)
+    {
+        $elements = [];
 
-		foreach ($element as $child) {
-			$evaluatedChild = $this->evaluateChild($child);
-			$elements[] = ! empty($evaluatedChild) ? $evaluatedChild : 0;
-		}
+        foreach ($element as $child) {
+            $evaluatedChild = $this->evaluateChild($child);
+            $elements[] = ! empty($evaluatedChild) ? $evaluatedChild : 0;
+        }
 
-		$out = array_shift($elements);
-		if (! $out instanceof Math_Formula_Applicator) {
-			foreach ($elements as $element) {
-				if ($element instanceof Math_Formula_Applicator) {
-					$out = $element->clone($out);
-					break;
-				}
-			}
-		}
+        $out = array_shift($elements);
+        if (! $out instanceof Math_Formula_Applicator) {
+            foreach ($elements as $element) {
+                if ($element instanceof Math_Formula_Applicator) {
+                    $out = $element->clone($out);
+                    break;
+                }
+            }
+        }
 
-		foreach ($elements as $element) {
-			if ($out instanceof Math_Formula_Applicator) {
-				$out = $out->div($element);
-			} elseif ($element && is_numeric($out) && is_numeric($element)) {
-				$out /= $element;
-			} else {
-				// suppress error with division by zero only when inspecting formula as it will always have 'zero' data
-				if (! $this->suppress_error) {
-					$this->error(tr('Divide by zero on "%0"', implode(',', $elements)));
-				}
-				return false;
-			}
-		}
+        foreach ($elements as $element) {
+            if ($out instanceof Math_Formula_Applicator) {
+                $out = $out->div($element);
+            } elseif ($element && is_numeric($out) && is_numeric($element)) {
+                $out /= $element;
+            } else {
+                // suppress error with division by zero only when inspecting formula as it will always have 'zero' data
+                if (! $this->suppress_error) {
+                    $this->error(tr('Divide by zero on "%0"', implode(',', $elements)));
+                }
+                return false;
+            }
+        }
 
-		return $out;
-	}
+        return $out;
+    }
 }

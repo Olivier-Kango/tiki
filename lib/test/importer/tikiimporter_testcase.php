@@ -13,5 +13,5 @@
  */
 abstract class TikiImporter_TestCase extends PHPUnit\Framework\TestCase
 {
-	protected $backupGlobals = false;
+    protected $backupGlobals = false;
 }

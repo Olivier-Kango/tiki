@@ -8,15 +8,15 @@
 
 class Search_Type_SimpleText implements Search_Type_Interface
 {
-	private $value;
+    private $value;
 
-	public function __construct($value)
-	{
-		$this->value = $value;
-	}
+    public function __construct($value)
+    {
+        $this->value = $value;
+    }
 
-	public function getValue()
-	{
-		return TikiLib::strtolower($this->value);
-	}
+    public function getValue()
+    {
+        return TikiLib::strtolower($this->value);
+    }
 }

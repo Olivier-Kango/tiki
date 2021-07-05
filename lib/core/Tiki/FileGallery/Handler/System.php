@@ -12,39 +12,39 @@ use Tiki\FileGallery\FileWrapper\PreloadedContent;
 
 class System implements HandlerInterface
 {
-	private $real;
+    private $real;
 
-	public function __construct()
-	{
-		global $prefs;
-
-		if ($prefs['fgal_use_db'] == 'n') {
-			$this->real = new FileSystem($prefs['fgal_use_dir']);
-			if (! empty($prefs['fgal_preserve_filenames'])) {
-				$this->real->setPreserveFilename($prefs['fgal_preserve_filenames'] == 'y');
-			}
-		} else {
-			$this->real = new Preloaded();
-		}
-	}
-
-	public function getFileWrapper($file)
-	{
-		return $this->real->getFileWrapper($file);
-	}
-
-	public function delete($file)
-	{
-		return $this->real->delete($file);
-	}
-
-	public function uniquePath($file)
-	{
-		return $this->real->uniquePath($file);
-	}
-
-	public function isWritable()
+    public function __construct()
     {
-		return $this->real->isWritable();
-	}
+        global $prefs;
+
+        if ($prefs['fgal_use_db'] == 'n') {
+            $this->real = new FileSystem($prefs['fgal_use_dir']);
+            if (! empty($prefs['fgal_preserve_filenames'])) {
+                $this->real->setPreserveFilename($prefs['fgal_preserve_filenames'] == 'y');
+            }
+        } else {
+            $this->real = new Preloaded();
+        }
+    }
+
+    public function getFileWrapper($file)
+    {
+        return $this->real->getFileWrapper($file);
+    }
+
+    public function delete($file)
+    {
+        return $this->real->delete($file);
+    }
+
+    public function uniquePath($file)
+    {
+        return $this->real->uniquePath($file);
+    }
+
+    public function isWritable()
+    {
+        return $this->real->isWritable();
+    }
 }

@@ -17,8 +17,8 @@
  */
 function smarty_modifier_truex($string)
 {
-	if ((int) $string == 1) {
-		return('x');
-	}
-	return('-');
+    if ((int) $string == 1) {
+        return('x');
+    }
+    return('-');
 }

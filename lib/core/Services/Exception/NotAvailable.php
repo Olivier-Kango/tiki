@@ -8,8 +8,8 @@
 
 class Services_Exception_NotAvailable extends Services_Exception
 {
-	public function __construct($message)
-	{
-		parent::__construct($message, 405);
-	}
+    public function __construct($message)
+    {
+        parent::__construct($message, 405);
+    }
 }

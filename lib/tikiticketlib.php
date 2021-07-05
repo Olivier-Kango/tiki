@@ -8,24 +8,24 @@
 
 //this script may only be included - so its better to die if called directly.
 if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
-	header('location: index.php');
-	exit;
+    header('location: index.php');
+    exit;
 }
 
 /*
-	 Tikiwiki CSRF protection.
-	 also called Sea-Surfing
+     Tikiwiki CSRF protection.
+     also called Sea-Surfing
 
-	 This protection is deprecated. Previous uses in the form...
-	 if (isset($_REQUEST['perform_action']) {
-		 check_ticket('foo');
-		 restricted_modification();
-	 }
-	 ask_ticket('foo');
+     This protection is deprecated. Previous uses in the form...
+     if (isset($_REQUEST['perform_action']) {
+         check_ticket('foo');
+         restricted_modification();
+     }
+     ask_ticket('foo');
 
-	 ...can now simply use...
-	 $access->check_authenticity();
-	 restricted_modification();
+     ...can now simply use...
+     $access->check_authenticity();
+     restricted_modification();
  */
 
 /**
@@ -35,8 +35,8 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
  */
 function ask_ticket($area)
 {
-	$_SESSION['antisurf'] = $area;
-	return true;
+    $_SESSION['antisurf'] = $area;
+    return true;
 }
 
 /**
@@ -48,21 +48,21 @@ function ask_ticket($area)
  */
 function check_ticket($area)
 {
-	if (! isset($_SESSION['antisurf'])) {
-		$_SESSION['antisurf'] = '';
-	}
-	if ($_SESSION['antisurf'] != $area) {
-		global $prefs;
-		$_SESSION['antisurf'] = $area;
-		if ($prefs['feature_ticketlib'] == 'y') {
-			$smarty = TikiLib::lib('smarty');
-			$smarty->assign('post', $_POST);
-			$smarty->assign('query', $_SERVER['QUERY_STRING']);
-			$smarty->assign('self', $_SERVER['PHP_SELF']);
-			$smarty->assign('msg', tra('Possible cross-site request forgery (CSRF, or "sea surfing") detected. Operation blocked.'));
-			$smarty->display('error_ticket.tpl');
-			die;
-		}
-	}
-	return true;
+    if (! isset($_SESSION['antisurf'])) {
+        $_SESSION['antisurf'] = '';
+    }
+    if ($_SESSION['antisurf'] != $area) {
+        global $prefs;
+        $_SESSION['antisurf'] = $area;
+        if ($prefs['feature_ticketlib'] == 'y') {
+            $smarty = TikiLib::lib('smarty');
+            $smarty->assign('post', $_POST);
+            $smarty->assign('query', $_SERVER['QUERY_STRING']);
+            $smarty->assign('self', $_SERVER['PHP_SELF']);
+            $smarty->assign('msg', tra('Possible cross-site request forgery (CSRF, or "sea surfing") detected. Operation blocked.'));
+            $smarty->display('error_ticket.tpl');
+            die;
+        }
+    }
+    return true;
 }

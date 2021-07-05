@@ -10,20 +10,20 @@ namespace Search\Federated;
 
 class UrlPrefixTransform
 {
-	private $prefix;
+    private $prefix;
 
-	public function __construct($prefix)
-	{
-		$this->prefix = rtrim($prefix, '/');
-	}
+    public function __construct($prefix)
+    {
+        $this->prefix = rtrim($prefix, '/');
+    }
 
-	public function __invoke($entry)
-	{
-		if (isset($entry['url'])) {
-			$entry['url'] = $this->prefix . '/' . ltrim($entry['url'], '/');
-			$entry['_external'] = true;
-		}
+    public function __invoke($entry)
+    {
+        if (isset($entry['url'])) {
+            $entry['url'] = $this->prefix . '/' . ltrim($entry['url'], '/');
+            $entry['_external'] = true;
+        }
 
-		return $entry;
-	}
+        return $entry;
+    }
 }

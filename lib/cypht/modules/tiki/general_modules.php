@@ -13,7 +13,7 @@
  */
 
 if (! defined('DEBUG_MODE')) {
-die();
+    die();
 }
 
 /**
@@ -110,7 +110,7 @@ class Hm_Handler_process_debug_mode extends Hm_Handler_Module
     {
         function debug_mode_callback($val)
         {
- return $val;
+            return $val;
         }
         process_site_setting('debug_mode', $this, 'debug_mode_callback', false, true);
     }
@@ -126,7 +126,7 @@ class Hm_Handler_process_allow_external_images extends Hm_Handler_Module
     {
         function allow_external_images_callback($val)
         {
- return $val;
+            return $val;
         }
         process_site_setting('allow_external_images', $this, 'allow_external_images_callback', false, true);
     }
@@ -222,7 +222,7 @@ class Hm_Handler_process_enable_oauth2_over_imap extends Hm_Handler_Module
     {
         function tiki_enable_oauth2_over_imap_callback($val)
         {
-return $val;
+            return $val;
         }
         process_site_setting('tiki_enable_oauth2_over_imap', $this, 'tiki_enable_oauth2_over_imap_callback', false, true);
         process_site_setting('tiki_enable_gmail_contacts_module', $this, 'tiki_enable_oauth2_over_imap_callback', false, true);
@@ -343,7 +343,7 @@ class Hm_Handler_process_enable_gmail_contacts_module extends Hm_Handler_Module
     {
         function tiki_enable_gmail_contacts_module_callback($val)
         {
- return $val;
+            return $val;
         }
         process_site_setting('tiki_enable_gmail_contacts_module', $this, 'tiki_enable_gmail_contacts_module_callback', false, true);
     }

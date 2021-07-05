@@ -8,68 +8,68 @@
 
 class Search_ContentSource_FileGallerySource implements Search_ContentSource_Interface
 {
-	private $db;
+    private $db;
 
-	public function __construct()
-	{
-		$this->db = TikiDb::get();
-	}
+    public function __construct()
+    {
+        $this->db = TikiDb::get();
+    }
 
-	public function getDocuments()
-	{
-		return $this->db->table('tiki_file_galleries')->fetchColumn('galleryId', []);
-	}
+    public function getDocuments()
+    {
+        return $this->db->table('tiki_file_galleries')->fetchColumn('galleryId', []);
+    }
 
-	public function getDocument($objectId, Search_Type_Factory_Interface $typeFactory)
-	{
-		$lib = TikiLib::lib('filegal');
+    public function getDocument($objectId, Search_Type_Factory_Interface $typeFactory)
+    {
+        $lib = TikiLib::lib('filegal');
 
-		$item = $lib->get_file_gallery_info($objectId);
+        $item = $lib->get_file_gallery_info($objectId);
 
-		if (! $item) {
-			return false;
-		}
+        if (! $item) {
+            return false;
+        }
 
-		$data = [
-			'title' => $typeFactory->sortable($item['name']),
-			'creation_date' => $typeFactory->timestamp($item['created']),
-			'modification_date' => $typeFactory->timestamp($item['lastModif']),
-			'date' => $typeFactory->timestamp($item['created']),
-			'description' => $typeFactory->plaintext($item['description']),
-			'language' => $typeFactory->identifier('unknown'),
+        $data = [
+            'title' => $typeFactory->sortable($item['name']),
+            'creation_date' => $typeFactory->timestamp($item['created']),
+            'modification_date' => $typeFactory->timestamp($item['lastModif']),
+            'date' => $typeFactory->timestamp($item['created']),
+            'description' => $typeFactory->plaintext($item['description']),
+            'language' => $typeFactory->identifier('unknown'),
 
-			'gallery_id' => $typeFactory->identifier($item['parentId']),
+            'gallery_id' => $typeFactory->identifier($item['parentId']),
 
-			'view_permission' => $typeFactory->identifier('tiki_p_view_file_gallery'),
-		];
+            'view_permission' => $typeFactory->identifier('tiki_p_view_file_gallery'),
+        ];
 
-		return $data;
-	}
+        return $data;
+    }
 
-	public function getProvidedFields()
-	{
-		return [
-			'title',
-			'description',
-			'language',
-			'creation_date',
-			'modification_date',
-			'date',
+    public function getProvidedFields()
+    {
+        return [
+            'title',
+            'description',
+            'language',
+            'creation_date',
+            'modification_date',
+            'date',
 
-			'gallery_id',
+            'gallery_id',
 
-			'searchable',
+            'searchable',
 
-			'view_permission',
-		];
-	}
+            'view_permission',
+        ];
+    }
 
-	public function getGlobalFields()
-	{
-		return [
-			'title' => true,
-			'description' => true,
-			'date' => true,
-		];
-	}
+    public function getGlobalFields()
+    {
+        return [
+            'title' => true,
+            'description' => true,
+            'date' => true,
+        ];
+    }
 }

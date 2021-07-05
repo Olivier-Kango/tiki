@@ -11,13 +11,13 @@
  */
 function module_last_created_faqs_info()
 {
-	return [
-		'name' => tra('Newest FAQs'),
-		'description' => tra('Displays the specified number of FAQs from newest to oldest.'),
-		'prefs' => ["feature_faqs"],
-		'params' => [],
-		'common_params' => ['nonums', 'rows']
-	];
+    return [
+        'name' => tra('Newest FAQs'),
+        'description' => tra('Displays the specified number of FAQs from newest to oldest.'),
+        'prefs' => ["feature_faqs"],
+        'params' => [],
+        'common_params' => ['nonums', 'rows']
+    ];
 }
 
 /**
@@ -26,10 +26,10 @@ function module_last_created_faqs_info()
  */
 function module_last_created_faqs($mod_reference, $module_params)
 {
-	$smarty = TikiLib::lib('smarty');
+    $smarty = TikiLib::lib('smarty');
 
-	$faqlib = TikiLib::lib('faq');
-	$ranking = $faqlib->list_faqs(0, $mod_reference["rows"], 'created_desc', '');
+    $faqlib = TikiLib::lib('faq');
+    $ranking = $faqlib->list_faqs(0, $mod_reference["rows"], 'created_desc', '');
 
-	$smarty->assign('modLastCreatedFaqs', $ranking["data"]);
+    $smarty->assign('modLastCreatedFaqs', $ranking["data"]);
 }

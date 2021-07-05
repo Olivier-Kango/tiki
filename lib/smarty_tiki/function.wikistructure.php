@@ -15,12 +15,12 @@
 
 function smarty_function_wikistructure($params, $smarty)
 {
-	include_once('lib/wiki-plugins/wikiplugin_toc.php');
+    include_once('lib/wiki-plugins/wikiplugin_toc.php');
 
-	if (! empty($params['id'])) {
-		$params['structId'] = $params['id'];
-	}
-	$html = wikiplugin_toc('', $params);
-	$html = str_replace(['~np~', '~/np~'], '', $html);
-	return $html;
+    if (! empty($params['id'])) {
+        $params['structId'] = $params['id'];
+    }
+    $html = wikiplugin_toc('', $params);
+    $html = str_replace(['~np~', '~/np~'], '', $html);
+    return $html;
 }

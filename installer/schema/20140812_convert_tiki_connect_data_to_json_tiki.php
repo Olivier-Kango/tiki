@@ -8,19 +8,19 @@
 
 function upgrade_20140812_convert_tiki_connect_data_to_json_tiki($installer)
 {
-	$tiki_connect = TikiDb::get()->table('tiki_connect');
+    $tiki_connect = TikiDb::get()->table('tiki_connect');
 
-	$rows = $tiki_connect->fetchAll(['id', 'created', 'type', 'data', 'guid', 'server']);
+    $rows = $tiki_connect->fetchAll(['id', 'created', 'type', 'data', 'guid', 'server']);
 
-	foreach ($rows as $row) {
-		if (! empty($row['data'])) {
-			$data = unserialize($row['data']);
-			if ($data) {
-				$tiki_connect->update(
-					['data' => json_encode($data)],
-					['id' => $row['id']]
-				);
-			}
-		}
-	}
+    foreach ($rows as $row) {
+        if (! empty($row['data'])) {
+            $data = unserialize($row['data']);
+            if ($data) {
+                $tiki_connect->update(
+                    ['data' => json_encode($data)],
+                    ['id' => $row['id']]
+                );
+            }
+        }
+    }
 }

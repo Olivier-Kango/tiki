@@ -20,28 +20,28 @@ require_once "renderer_sidebyside.php";
 class Text_Diff_Renderer_inline extends Text_Diff_Renderer_sidebyside
 {
 
-	public function __construct($context_lines = 4, $words = 1)
-	{
-		$this->_leading_context_lines = $context_lines;
-		$this->_trailing_context_lines = $context_lines;
-		$this->_words = $words;
-	}
+    public function __construct($context_lines = 4, $words = 1)
+    {
+        $this->_leading_context_lines = $context_lines;
+        $this->_trailing_context_lines = $context_lines;
+        $this->_words = $words;
+    }
 
-	protected function _block($xbeg, $xlen, $ybeg, $ylen, &$edits)
-	{
-		$this->_startBlock($this->_blockHeader($xbeg, $xlen, $ybeg, $ylen));
-		$orig = [];
-		$final = [];
-		foreach ($edits as $edit) {
-			if (is_array($edit->orig)) {
-				$orig = array_merge($orig, $edit->orig);
-			}
-			if (is_array($edit->final)) {
-				$final = array_merge($final, $edit->final);
-			}
-		}
-		$lines = diffChar($orig, $final, $this->_words, "character_inline");
-		echo "<tr class='diffbody'><td colspan='3'>$lines[0]</td></tr>\n";
-		$this->_endBlock();
-	}
+    protected function _block($xbeg, $xlen, $ybeg, $ylen, &$edits)
+    {
+        $this->_startBlock($this->_blockHeader($xbeg, $xlen, $ybeg, $ylen));
+        $orig = [];
+        $final = [];
+        foreach ($edits as $edit) {
+            if (is_array($edit->orig)) {
+                $orig = array_merge($orig, $edit->orig);
+            }
+            if (is_array($edit->final)) {
+                $final = array_merge($final, $edit->final);
+            }
+        }
+        $lines = diffChar($orig, $final, $this->_words, "character_inline");
+        echo "<tr class='diffbody'><td colspan='3'>$lines[0]</td></tr>\n";
+        $this->_endBlock();
+    }
 }

@@ -8,98 +8,98 @@
 
 function wikiplugin_signature_info()
 {
-	return [
-		'name'          => tra('Signature'),
-		'documentation' => 'PluginSignature',
-		'description'   => tra(
-			'Allows to draw signatures.'
-		),
-		'prefs'         => ['wikiplugin_signature'],
-		'extraparams'   => true,
-		'params'        => [
-			'name'   => [
-				'required'    => false,
-				'name'        => tra('Name'),
-				'description' => tra(
-					'Name of component.'
-				),
-			],
-			'width'  => [
-				'required'    => false,
-				'name'        => tra('Width'),
-				'description' => tra(
-					'Signature image width (default is 400px)'
-				),
-			],
-			'height' => [
-				'required'    => false,
-				'name'        => tra('Height'),
-				'description' => tra(
-					'Signature image height (default is 200px)'
-				),
-			],
-			'align' => [
-				'required'    => false,
-				'name'        => tra('Align'),
-				'description' => tra(
-					'Signature image align in document (default is left)'
-				),
-			],
-		],
-	];
+    return [
+        'name'          => tra('Signature'),
+        'documentation' => 'PluginSignature',
+        'description'   => tra(
+            'Allows to draw signatures.'
+        ),
+        'prefs'         => ['wikiplugin_signature'],
+        'extraparams'   => true,
+        'params'        => [
+            'name'   => [
+                'required'    => false,
+                'name'        => tra('Name'),
+                'description' => tra(
+                    'Name of component.'
+                ),
+            ],
+            'width'  => [
+                'required'    => false,
+                'name'        => tra('Width'),
+                'description' => tra(
+                    'Signature image width (default is 400px)'
+                ),
+            ],
+            'height' => [
+                'required'    => false,
+                'name'        => tra('Height'),
+                'description' => tra(
+                    'Signature image height (default is 200px)'
+                ),
+            ],
+            'align' => [
+                'required'    => false,
+                'name'        => tra('Align'),
+                'description' => tra(
+                    'Signature image align in document (default is left)'
+                ),
+            ],
+        ],
+    ];
 }
 
 function wikiplugin_signature($data, $params)
 {
-	global $user, $page;
+    global $user, $page;
 
-	static $signatureIndex = 0;
-	++$signatureIndex;
+    static $signatureIndex = 0;
+    ++$signatureIndex;
 
-	$editPerm = TikiLib::lib('tiki')->user_has_perm_on_object(
-		$user,
-		$page,
-		'wiki page',
-		'tiki_p_edit'
-	);
+    $editPerm = TikiLib::lib('tiki')->user_has_perm_on_object(
+        $user,
+        $page,
+        'wiki page',
+        'tiki_p_edit'
+    );
 
-	$headerlib = TikiLib::lib('header');
-	$headerlib->add_jsfile(
-		'vendor_bundled/vendor/npm-asset/signature_pad/dist/signature_pad.min.js'
-	);
-	$headerlib->add_jsfile('lib/jquery_tiki/wikiplugin-signature.js', true);
-	$headerlib->add_cssfile(
-		'themes/base_files/feature_css/wikiplugin-signature.css'
-	);
+    $headerlib = TikiLib::lib('header');
+    $headerlib->add_jsfile(
+        'vendor_bundled/vendor/npm-asset/signature_pad/dist/signature_pad.min.js'
+    );
+    $headerlib->add_jsfile('lib/jquery_tiki/wikiplugin-signature.js', true);
+    $headerlib->add_cssfile(
+        'themes/base_files/feature_css/wikiplugin-signature.css'
+    );
 
-	$defaults = [
-		'name' => $params['name'],
-		'editPerm' => $editPerm ? 1 : 0,
-		'data' => $data,
-		'height' => '200px',
-		'width' => '400px',
-		'align' => 'left',
-		'index' => $signatureIndex,
-	];
+    $defaults = [
+        'name' => $params['name'],
+        'editPerm' => $editPerm ? 1 : 0,
+        'data' => $data,
+        'height' => '200px',
+        'width' => '400px',
+        'align' => 'left',
+        'index' => $signatureIndex,
+    ];
 
-	$params = array_merge($defaults, $params);
+    $params = array_merge($defaults, $params);
 
-	if (! preg_match('/px$|%$/', trim($params['height']))) {
-		$params['height'] = $params['height'] . 'px';
-	}
+    if (! preg_match('/px$|%$/', trim($params['height']))) {
+        $params['height'] = $params['height'] . 'px';
+    }
 
-	if (! preg_match('/px$|%$/', trim($params['width']))) {
-		$params['width'] = $params['width'] . 'px';
-	}
+    if (! preg_match('/px$|%$/', trim($params['width']))) {
+        $params['width'] = $params['width'] . 'px';
+    }
 
-	$smarty = TikiLib::lib('smarty');
-	$smarty->assign($params);
+    $smarty = TikiLib::lib('smarty');
+    $smarty->assign($params);
 
-	$access = TikiLib::lib('access');
-	$access->setTicket();
-	$ticket = $access->getTicket();
-	$smarty->assign('ticket', $ticket);
-	$smarty->assign('pageName', $page);
+    $access = TikiLib::lib('access');
+    $access->setTicket();
+    $ticket = $access->getTicket();
+    $smarty->assign('ticket', $ticket);
+    $smarty->assign('pageName', $page);
 
-	return'~np~' . $smarty->fetch('wiki-plugins/wikiplugin_signature.tpl') . '~/np~' ;
+    return'~np~' . $smarty->fetch('wiki-plugins/wikiplugin_signature.tpl') . '~/np~' ;
 }

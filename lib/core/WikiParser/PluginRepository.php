@@ -8,79 +8,79 @@
 
 class WikiParser_PluginRepository
 {
-	private $folders = [];
-	private $pluginsFound = [];
+    private $folders = [];
+    private $pluginsFound = [];
 
-	public function addPluginFolder($folder)
-	{
-		$this->folders[] = $folder;
-	}
+    public function addPluginFolder($folder)
+    {
+        $this->folders[] = $folder;
+    }
 
-	public function getInfo($pluginName)
-	{
-		if (! $this->pluginExists($pluginName)) {
-			return null;
-		}
+    public function getInfo($pluginName)
+    {
+        if (! $this->pluginExists($pluginName)) {
+            return null;
+        }
 
-		$pluginName = strtolower($pluginName);
-		$location = $this->pluginsFound[$pluginName];
+        $pluginName = strtolower($pluginName);
+        $location = $this->pluginsFound[$pluginName];
 
-		$functionName = "wikiplugin_$pluginName";
-		$infoName = "wikiplugin_{$pluginName}_info";
+        $functionName = "wikiplugin_$pluginName";
+        $infoName = "wikiplugin_{$pluginName}_info";
 
-		include_once "{$location}/$functionName.php";
+        include_once "{$location}/$functionName.php";
 
-		if (! function_exists($functionName)) {
-			$this->pluginsFound[ $pluginName ] = false;
-			return null;
-		}
+        if (! function_exists($functionName)) {
+            $this->pluginsFound[ $pluginName ] = false;
+            return null;
+        }
 
-		if (! function_exists($infoName)) {
-			return null;
-		}
+        if (! function_exists($infoName)) {
+            return null;
+        }
 
-		return new WikiParser_PluginDefinition($this, $infoName());
-	}
+        return new WikiParser_PluginDefinition($this, $infoName());
+    }
 
-	public function pluginExists($pluginName)
-	{
-		$pluginName = strtolower($pluginName);
+    public function pluginExists($pluginName)
+    {
+        $pluginName = strtolower($pluginName);
 
-		if (isset($this->pluginsFound[ $pluginName ])) {
-			return false !== $this->pluginsFound[ $pluginName ];
-		}
+        if (isset($this->pluginsFound[ $pluginName ])) {
+            return false !== $this->pluginsFound[ $pluginName ];
+        }
 
-		foreach ($this->folders as $folder) {
-			if ($this->pluginExistsIn($pluginName, $folder)) {
-				$this->pluginsFound[ $pluginName ] = $folder;
-				return true;
-			}
-		}
+        foreach ($this->folders as $folder) {
+            if ($this->pluginExistsIn($pluginName, $folder)) {
+                $this->pluginsFound[ $pluginName ] = $folder;
+                return true;
+            }
+        }
 
-		$this->pluginsFound[ $pluginName ] = false;
-		return false;
-	}
+        $this->pluginsFound[ $pluginName ] = false;
+        return false;
+    }
 
-	private function pluginExistsIn($pluginName, $folder)
-	{
-		$file = $folder . '/wikiplugin_' . $pluginName . '.php';
+    private function pluginExistsIn($pluginName, $folder)
+    {
+        $file = $folder . '/wikiplugin_' . $pluginName . '.php';
 
-		return file_exists($file);
-	}
+        return file_exists($file);
+    }
 
-	public function getList()
-	{
-		$real = [];
+    public function getList()
+    {
+        $real = [];
 
-		foreach ($this->folders as $folder) {
-			foreach (glob($folder . '/wikiplugin_*.php') as $file) {
-				$base = basename($file);
-				$plugin = substr($base, 11, -4);
+        foreach ($this->folders as $folder) {
+            foreach (glob($folder . '/wikiplugin_*.php') as $file) {
+                $base = basename($file);
+                $plugin = substr($base, 11, -4);
 
-				$real[] = $plugin;
-			}
-		}
+                $real[] = $plugin;
+            }
+        }
 
-		return $real;
-	}
+        return $real;
+    }
 }

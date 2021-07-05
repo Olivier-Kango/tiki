@@ -8,57 +8,57 @@
 
 class Search_ContentSource_GroupSource implements Search_ContentSource_Interface
 {
-	private $db;
+    private $db;
 
-	public function __construct()
-	{
-		$this->db = TikiDb::get();
-	}
+    public function __construct()
+    {
+        $this->db = TikiDb::get();
+    }
 
-	public function getDocuments()
-	{
-		return $this->db->table('users_groups')->fetchColumn('groupName', []);
-	}
+    public function getDocuments()
+    {
+        return $this->db->table('users_groups')->fetchColumn('groupName', []);
+    }
 
-	public function getDocument($objectId, Search_Type_Factory_Interface $typeFactory)
-	{
-		$row = $this->db->table('users_groups')->fetchRow(['groupDesc'], ['groupName' => $objectId]);
+    public function getDocument($objectId, Search_Type_Factory_Interface $typeFactory)
+    {
+        $row = $this->db->table('users_groups')->fetchRow(['groupDesc'], ['groupName' => $objectId]);
 
-		if (! $row) {
-			return false;
-		}
+        if (! $row) {
+            return false;
+        }
 
-		$groupName = $objectId;
+        $groupName = $objectId;
 
-		$data = [
-			'title' => $typeFactory->sortable($groupName),
-			'description' => $typeFactory->plaintext($row['groupDesc']),
+        $data = [
+            'title' => $typeFactory->sortable($groupName),
+            'description' => $typeFactory->plaintext($row['groupDesc']),
 
-			'searchable' => $typeFactory->identifier('n'),
+            'searchable' => $typeFactory->identifier('n'),
 
-			'view_permission' => $typeFactory->identifier('tiki_p_group_view'),
-		];
+            'view_permission' => $typeFactory->identifier('tiki_p_group_view'),
+        ];
 
-		return $data;
-	}
+        return $data;
+    }
 
-	public function getProvidedFields()
-	{
-		return [
-			'title',
-			'description',
+    public function getProvidedFields()
+    {
+        return [
+            'title',
+            'description',
 
-			'searchable',
+            'searchable',
 
-			'view_permission',
-		];
-	}
+            'view_permission',
+        ];
+    }
 
-	public function getGlobalFields()
-	{
-		return [
-			'title' => true,
-			'description' => true,
-		];
-	}
+    public function getGlobalFields()
+    {
+        return [
+            'title' => true,
+            'description' => true,
+        ];
+    }
 }

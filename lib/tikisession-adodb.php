@@ -20,5 +20,5 @@ unset($dbs_tiki);
 ini_set('session.save_handler', 'user');
 // Force autoload
 if (! class_exists('ADODB_Session')) {
-	die('AdoDb Session missing');
+    die('AdoDb Session missing');
 }

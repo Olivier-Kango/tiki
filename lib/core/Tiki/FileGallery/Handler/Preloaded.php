@@ -12,22 +12,22 @@ use Tiki\FileGallery\FileWrapper\PreloadedContent;
 
 class Preloaded implements HandlerInterface
 {
-	public function getFileWrapper($file)
-	{
-		return new PreloadedContent($file->data);
-	}
+    public function getFileWrapper($file)
+    {
+        return new PreloadedContent($file->data);
+    }
 
-	public function delete($file)
-	{
-	}
+    public function delete($file)
+    {
+    }
 
-  public function uniquePath($file)
-  {
-    return $file->path;
-  }
+    public function uniquePath($file)
+    {
+        return $file->path;
+    }
 
-  public function isWritable()
-  {
-    return true;
-  }
+    public function isWritable()
+    {
+        return true;
+    }
 }

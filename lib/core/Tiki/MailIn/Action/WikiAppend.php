@@ -14,17 +14,17 @@ use TikiLib;
 
 class WikiAppend extends WikiPut
 {
-	public function getName()
-	{
-		return tr('Wiki Append');
-	}
+    public function getName()
+    {
+        return tr('Wiki Append');
+    }
 
-	protected function handleContent($data, $info)
-	{
-		if ($info) {
-			return $info['data'] . "\n" . $data['body'];
-		} else {
-			return $data['body'];
-		}
-	}
+    protected function handleContent($data, $info)
+    {
+        if ($info) {
+            return $info['data'] . "\n" . $data['body'];
+        } else {
+            return $data['body'];
+        }
+    }
 }

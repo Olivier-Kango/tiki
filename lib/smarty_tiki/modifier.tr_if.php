@@ -10,20 +10,20 @@
 
 function smarty_modifier_tr_if($source)
 {
-	global $prefs;
-	$args = array_slice(func_get_args(), 1);
+    global $prefs;
+    $args = array_slice(func_get_args(), 1);
 
-	if ($prefs['language'] != 'en') {
-		include_once('lib/init/tra.php');
-		return tra($source, '', false, $args);
-	} else {
-		$replace = array_values($args);
-		$search = array_map(
-			function ($arg) {
-				return '%' . $arg;
-			},
-			array_keys($args)
-		);
-		return str_replace($search, $replace, $source);
-	}
+    if ($prefs['language'] != 'en') {
+        include_once('lib/init/tra.php');
+        return tra($source, '', false, $args);
+    } else {
+        $replace = array_values($args);
+        $search = array_map(
+            function ($arg) {
+                return '%' . $arg;
+            },
+            array_keys($args)
+        );
+        return str_replace($search, $replace, $source);
+    }
 }

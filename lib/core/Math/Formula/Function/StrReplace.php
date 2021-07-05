@@ -8,18 +8,18 @@
 
 class Math_Formula_Function_StrReplace extends Math_Formula_Function
 {
-	public function evaluate($args)
-	{
-		$elements = [];
+    public function evaluate($args)
+    {
+        $elements = [];
 
-		if (count($args) != 3) {
-			$this->error(tr('Str-replace needs exactly 3 arguments: search, replace and subject.'));
-		}
+        if (count($args) != 3) {
+            $this->error(tr('Str-replace needs exactly 3 arguments: search, replace and subject.'));
+        }
 
-		foreach ($args as $child) {
-			$elements[] = $this->evaluateChild($child);
-		}
+        foreach ($args as $child) {
+            $elements[] = $this->evaluateChild($child);
+        }
 
-		return str_replace($elements[0], $elements[1], $elements[2]);
-	}
+        return str_replace($elements[0], $elements[1], $elements[2]);
+    }
 }

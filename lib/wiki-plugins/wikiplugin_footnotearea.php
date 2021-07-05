@@ -8,35 +8,35 @@
 
 function wikiplugin_footnotearea_info()
 {
-	return [
-		'name' => tra('Footnote Area'),
-		'documentation' => 'PluginFootnoteArea',
-		'description' => tra('Create automatically numbered footnotes (together with PluginFootnote)'),
-		'prefs' => ['wikiplugin_footnote'],
-		'iconname' => 'superscript',
-		'format' => 'html',
-		'introduced' => 3,
-		'params' => [
-			'class' => [
-				'required' => false,
-				'name' => tra('Class'),
-				'description' => tra('Filter footnotearea by footnote class'),
-				'since' => '17.0',
-				'default' => '',
-				'filter' => 'alnum',
-				'accepted' => tra('Valid CSS class'),
-			],
-			'sameasstyle' => [
-				'required' => false,
-				'name' => tra('SameAs Style'),
-				'description' => tra('Numbering style for sameas referencing.'),
-				'since' => '17.0',
-				'default' => 'disc',
-				'filter' => 'text',
-				'accepted' => tra('Valid Tiki ((Number Style))'),
-			],
-		],
-	];
+    return [
+        'name' => tra('Footnote Area'),
+        'documentation' => 'PluginFootnoteArea',
+        'description' => tra('Create automatically numbered footnotes (together with PluginFootnote)'),
+        'prefs' => ['wikiplugin_footnote'],
+        'iconname' => 'superscript',
+        'format' => 'html',
+        'introduced' => 3,
+        'params' => [
+            'class' => [
+                'required' => false,
+                'name' => tra('Class'),
+                'description' => tra('Filter footnotearea by footnote class'),
+                'since' => '17.0',
+                'default' => '',
+                'filter' => 'alnum',
+                'accepted' => tra('Valid CSS class'),
+            ],
+            'sameasstyle' => [
+                'required' => false,
+                'name' => tra('SameAs Style'),
+                'description' => tra('Numbering style for sameas referencing.'),
+                'since' => '17.0',
+                'default' => 'disc',
+                'filter' => 'text',
+                'accepted' => tra('Valid Tiki ((Number Style))'),
+            ],
+        ],
+    ];
 }
 
 /**
@@ -49,27 +49,27 @@ function wikiplugin_footnotearea_info()
  */
 function wikiplugin_footnotearea($data, $params, $offset, $context)
 {
-	$footnotes = $context->footnotes;
-	$smarty = TikiLib::lib('smarty');
+    $footnotes = $context->footnotes;
+    $smarty = TikiLib::lib('smarty');
 
-	if (isset($params['sameasstyle'])) {
-		$smarty->assign('sameType', $params['sameasstyle']);
-	} else {
-		$smarty->assign('sameType', 'disc');
-	}
+    if (isset($params['sameasstyle'])) {
+        $smarty->assign('sameType', $params['sameasstyle']);
+    } else {
+        $smarty->assign('sameType', 'disc');
+    }
 
-	$html = '';
+    $html = '';
 
-	if (isset($params['class'])) {                                       // if class was given
-		if (isset($footnotes['lists'][$params['class']])) {        // if the class exists
-			$html = genFootnoteArea($footnotes['lists'][$params['class']]);
-			unset($footnotes['lists'][$params['class']]['entry']);
-		}
-	} else {
-		$html = genFootnoteArea($footnotes['lists']['.def.']);
-	}
+    if (isset($params['class'])) {                                       // if class was given
+        if (isset($footnotes['lists'][$params['class']])) {        // if the class exists
+            $html = genFootnoteArea($footnotes['lists'][$params['class']]);
+            unset($footnotes['lists'][$params['class']]['entry']);
+        }
+    } else {
+        $html = genFootnoteArea($footnotes['lists']['.def.']);
+    }
 
-	return $html;
+    return $html;
 }
 
 /**
@@ -83,9 +83,9 @@ function wikiplugin_footnotearea($data, $params, $offset, $context)
 
 function genFootnoteArea($list)
 {
-	$smarty = TikiLib::lib('smarty');
-	$smarty->assign('footnotes', $list['entry']);
-	$smarty->assign('listType', $list['listType']);
+    $smarty = TikiLib::lib('smarty');
+    $smarty->assign('footnotes', $list['entry']);
+    $smarty->assign('listType', $list['listType']);
 
-	return $smarty->fetch('templates/wiki-plugins/wikiplugin_footnotearea.tpl');
+    return $smarty->fetch('templates/wiki-plugins/wikiplugin_footnotearea.tpl');
 }

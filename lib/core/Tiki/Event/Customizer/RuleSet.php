@@ -8,21 +8,21 @@
 
 class Tiki_Event_Customizer_RuleSet
 {
-	private $parser;
-	private $rules = [];
+    private $parser;
+    private $rules = [];
 
-	public function __construct()
-	{
-		$this->parser = new Math_Formula_Parser();
-	}
+    public function __construct()
+    {
+        $this->parser = new Math_Formula_Parser();
+    }
 
-	public function addRule($function)
-	{
-		$this->rules[] = $this->parser->parse($function);
-	}
+    public function addRule($function)
+    {
+        $this->rules[] = $this->parser->parse($function);
+    }
 
-	public function getRules()
-	{
-		return $this->rules;
-	}
+    public function getRules()
+    {
+        return $this->rules;
+    }
 }

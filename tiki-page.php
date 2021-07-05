@@ -16,9 +16,9 @@ $statslib = TikiLib::lib('stats');
 $access->check_feature('feature_html_pages');
 $access->check_permission('tiki_p_view_html_pages');
 if (! isset($_REQUEST["pageName"])) {
-	$smarty->assign('msg', tra("No page indicated"));
-	$smarty->display("error.tpl");
-	die;
+    $smarty->assign('msg', tra("No page indicated"));
+    $smarty->display("error.tpl");
+    die;
 }
 $page_data = $htmlpageslib->get_html_page($_REQUEST["pageName"]);
 $smarty->assign('type', $page_data["type"]);
@@ -30,9 +30,9 @@ $smarty->assign_by_ref('parsed', $parsed);
 $section = 'html_pages';
 include_once('tiki-section_options.php');
 if ($prefs['feature_theme_control'] == 'y') {
-	$cat_type = 'html page';
-	$cat_objid = $_REQUEST['pageName'];
-	include('tiki-tc.php');
+    $cat_type = 'html page';
+    $cat_objid = $_REQUEST['pageName'];
+    include('tiki-tc.php');
 }
 ask_ticket('html-page');
 //add a hit

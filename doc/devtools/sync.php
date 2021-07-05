@@ -24,7 +24,7 @@ $tikilib = new TikiLib();
 $users = $userlib->get_group_users('CC');
 
 foreach ($users as $user) {
-	$res = $userlib->get_user_info($user);
-	echo "replace into users_users set userId='" . $res['userId'] . "', pass_due='" . (time() + (60 * 60 * 24 * 999)) . "', email='" . $res['email'] . "', hash='" . $res['hash'] . "', login='" . $res['login'] . "';\n";
-	echo "insert ignore into users_usergroups set userId='" . $res['userId'] . "', groupName='Registered';\n";
+    $res = $userlib->get_user_info($user);
+    echo "replace into users_users set userId='" . $res['userId'] . "', pass_due='" . (time() + (60 * 60 * 24 * 999)) . "', email='" . $res['email'] . "', hash='" . $res['hash'] . "', login='" . $res['login'] . "';\n";
+    echo "insert ignore into users_usergroups set userId='" . $res['userId'] . "', groupName='Registered';\n";
 }

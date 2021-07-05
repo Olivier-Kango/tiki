@@ -8,77 +8,77 @@
 
 class Search_Action_Sequence
 {
-	private $name;
-	private $steps = [];
-	private $fields = [];
-	private $requiredGroup;
+    private $name;
+    private $steps = [];
+    private $fields = [];
+    private $requiredGroup;
 
-	public function __construct($name)
-	{
-		$this->name = $name;
-	}
+    public function __construct($name)
+    {
+        $this->name = $name;
+    }
 
-	public function setRequiredGroup($groupName)
-	{
-		$this->requiredGroup = $groupName;
-	}
+    public function setRequiredGroup($groupName)
+    {
+        $this->requiredGroup = $groupName;
+    }
 
-	public function getName()
-	{
-		return $this->name;
-	}
+    public function getName()
+    {
+        return $this->name;
+    }
 
-	public function getFields()
-	{
-		return $this->fields;
-	}
+    public function getFields()
+    {
+        return $this->fields;
+    }
 
-	public function isAllowed(array $groups)
-	{
-		return empty($this->requiredGroup) || in_array($this->requiredGroup, $groups);
-	}
+    public function isAllowed(array $groups)
+    {
+        return empty($this->requiredGroup) || in_array($this->requiredGroup, $groups);
+    }
 
-	public function addStep(Search_Action_Step $step)
-	{
-		$this->steps[] = $step;
-		$this->fields = array_merge($this->fields, $step->getFields());
-	}
+    public function addStep(Search_Action_Step $step)
+    {
+        $this->steps[] = $step;
+        $this->fields = array_merge($this->fields, $step->getFields());
+    }
 
-	public function execute(array $entry)
-	{
-		foreach ($this->steps as $step) {
-			if (! $step->validate($entry)) {
-				return false;
-			}
-		}
+    public function execute(array $entry)
+    {
+        foreach ($this->steps as $step) {
+            if (! $step->validate($entry)) {
+                return false;
+            }
+        }
 
-		$success = true;
-		foreach ($this->steps as $step) {
-			$success = $step->execute($entry) && $success;
-			if (method_exists($step, 'changeObject')) {
-				$entry = $step->changeObject($entry);
-			}
-		}
+        $success = true;
+        foreach ($this->steps as $step) {
+            $success = $step->execute($entry) && $success;
+            if (method_exists($step, 'changeObject')) {
+                $entry = $step->changeObject($entry);
+            }
+        }
 
-		return $success;
-	}
+        return $success;
+    }
 
-	public function requiresInput()
-	{
-		$params = [];
+    public function requiresInput()
+    {
+        $params = [];
 
-		foreach ($this->steps as $step) {
-			$params[] = $step->requiresInput();
-		}
-		if (empty(array_filter($params))) {
-			return false;
-		} else {
-			return json_encode($params);
-		}
-	}
+        foreach ($this->steps as $step) {
+            $params[] = $step->requiresInput();
+        }
+        if (empty(array_filter($params))) {
+            return false;
+        } else {
+            return json_encode($params);
+        }
+    }
 
-	public function getSteps()
-	{
-		return $this->steps;
-	}
+    public function getSteps()
+    {
+        return $this->steps;
+    }
 }

@@ -10,40 +10,40 @@ namespace Tracker\Tabular\Writer;
 
 class CsvWriter
 {
-	private $file;
+    private $file;
 
-	public function __construct($outputFile)
-	{
-		$this->file = new \SplFileObject($outputFile, 'w');
-	}
+    public function __construct($outputFile)
+    {
+        $this->file = new \SplFileObject($outputFile, 'w');
+    }
 
-	public function sendHeaders($filename = 'tiki-tracker-tabular-export.csv')
-	{
-		header('Content-Type: text/csv; charset=utf8');
-		header("Content-Disposition:attachment;filename=$filename");
-	}
+    public function sendHeaders($filename = 'tiki-tracker-tabular-export.csv')
+    {
+        header('Content-Type: text/csv; charset=utf8');
+        header("Content-Disposition:attachment;filename=$filename");
+    }
 
-	public function write(\Tracker\Tabular\Source\SourceInterface $source)
-	{
-		$schema = $source->getSchema();
-		$schema = $schema->getPlainOutputSchema();
-		$schema->validate();
+    public function write(\Tracker\Tabular\Source\SourceInterface $source)
+    {
+        $schema = $source->getSchema();
+        $schema = $schema->getPlainOutputSchema();
+        $schema->validate();
 
-		$columns = $schema->getColumns();
-		$headers = [];
-		foreach ($columns as $column) {
-			$headers[] = $column->getEncodedHeader();
-		}
-		$this->file->fputcsv($headers);
+        $columns = $schema->getColumns();
+        $headers = [];
+        foreach ($columns as $column) {
+            $headers[] = $column->getEncodedHeader();
+        }
+        $this->file->fputcsv($headers);
 
-		foreach ($source->getEntries() as $entry) {
-			$row = [];
+        foreach ($source->getEntries() as $entry) {
+            $row = [];
 
-			foreach ($columns as $column) {
-				$row[] = $entry->render($column);
-			}
+            foreach ($columns as $column) {
+                $row[] = $entry->render($column);
+            }
 
-			$this->file->fputcsv($row);
-		}
-	}
+            $this->file->fputcsv($row);
+        }
+    }
 }

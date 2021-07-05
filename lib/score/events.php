@@ -8,8 +8,8 @@
 
 //this script may only be included - so its better to die if called directly.
 if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
-	header("location: index.php");
-	exit;
+    header("location: index.php");
+    exit;
 }
 
 // Each element of $events is an array with (dependent features, category, event name, translated description, default score, default expiration)

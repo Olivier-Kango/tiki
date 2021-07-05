@@ -8,9 +8,9 @@
 
 interface Perms_Reflection_Container
 {
-	public function add($group, $permission);
-	public function remove($group, $permission);
+    public function add($group, $permission);
+    public function remove($group, $permission);
 
-	public function getDirectPermissions();
-	public function getParentPermissions();
+    public function getDirectPermissions();
+    public function getParentPermissions();
 }

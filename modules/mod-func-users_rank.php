@@ -11,13 +11,13 @@
  */
 function module_users_rank_info()
 {
-	return [
-		'name' => tra('Most Active Users'),
-		'description' => tra('Display the specified number of users and their score, starting from the one with the highest score.'),
-		'prefs' => ['feature_score'],
-		'params' => [],
-		'common_params' => ['nonums', 'rows']
-	];
+    return [
+        'name' => tra('Most Active Users'),
+        'description' => tra('Display the specified number of users and their score, starting from the one with the highest score.'),
+        'prefs' => ['feature_score'],
+        'params' => [],
+        'common_params' => ['nonums', 'rows']
+    ];
 }
 
 /**
@@ -26,8 +26,8 @@ function module_users_rank_info()
  */
 function module_users_rank($mod_reference, $module_params)
 {
-	$smarty = TikiLib::lib('smarty');
-	$tikilib = TikiLib::lib('tiki');
-	$users_rank = $tikilib->rank_users($mod_reference["rows"]);
-	$smarty->assign('users_rank', $users_rank);
+    $smarty = TikiLib::lib('smarty');
+    $tikilib = TikiLib::lib('tiki');
+    $users_rank = $tikilib->rank_users($mod_reference["rows"]);
+    $smarty->assign('users_rank', $users_rank);
 }

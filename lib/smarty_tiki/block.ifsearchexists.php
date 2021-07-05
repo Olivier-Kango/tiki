@@ -8,20 +8,20 @@
 
 function smarty_block_ifsearchexists($params, $content, $smarty, &$repeat)
 {
-	if (empty($params['type']) || empty($params['id'])) {
-		return '';
-	}
+    if (empty($params['type']) || empty($params['id'])) {
+        return '';
+    }
 
-	TikiLib::lib('access')->check_feature('feature_search');
+    TikiLib::lib('access')->check_feature('feature_search');
 
-	$query = new Search_Query();
-	$query->addObject($params['type'], $params['id']);
-	$index = TikiLib::lib('unifiedsearch')->getIndex();
-	$result = $query->search($index);
+    $query = new Search_Query();
+    $query->addObject($params['type'], $params['id']);
+    $index = TikiLib::lib('unifiedsearch')->getIndex();
+    $result = $query->search($index);
 
-	if ($result->count() > 0) {
-		return $content;
-	} else {
-		return '';
-	}
+    if ($result->count() > 0) {
+        return $content;
+    } else {
+        return '';
+    }
 }

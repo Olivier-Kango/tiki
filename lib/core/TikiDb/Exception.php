@@ -10,14 +10,14 @@ use Tiki\Command\ConsoleSetupException;
 
 class TikiDb_Exception extends Exception
 {
-	public static function classify($error)
-	{
-		if (preg_match('/^Duplicate entry \'(?P<entry>.*)\' for key \'(?P<key>.*)\'$/', $error, $parts)) {
-			throw new TikiDb_Exception_DuplicateEntry($parts['key'], $parts['entry']);
-		}
-		if (defined('TIKI_CONSOLE')) {
-			throw new ConsoleSetupException($error, 1003);
-		}
-			throw new self($error);
-	}
+    public static function classify($error)
+    {
+        if (preg_match('/^Duplicate entry \'(?P<entry>.*)\' for key \'(?P<key>.*)\'$/', $error, $parts)) {
+            throw new TikiDb_Exception_DuplicateEntry($parts['key'], $parts['entry']);
+        }
+        if (defined('TIKI_CONSOLE')) {
+            throw new ConsoleSetupException($error, 1003);
+        }
+            throw new self($error);
+    }
 }

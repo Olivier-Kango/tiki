@@ -12,21 +12,21 @@
 
 class TikiLib_UrlEncodeAccentTest extends PHPUnit\Framework\TestCase
 {
-	protected function setUp(): void
-	{
-		$this->tikilib = TikiLib::lib('tiki');
-	}
+    protected function setUp(): void
+    {
+        $this->tikilib = TikiLib::lib('tiki');
+    }
 
-	public function testUrlEncodeAccentShouldNotChangeValidUrlString(): void
-	{
-		$str = 'SomeString';
-		$this->assertEquals($str, $this->tikilib->urlencode_accent($str));
-	}
+    public function testUrlEncodeAccentShouldNotChangeValidUrlString(): void
+    {
+        $str = 'SomeString';
+        $this->assertEquals($str, $this->tikilib->urlencode_accent($str));
+    }
 
-	public function testUrlEncodeAccentShouldChangeStringWithInvalidCharactersForUrl(): void
-	{
-		$str = 'http://tiki.org/Página en español';
-		$modifedString = 'http://tiki.org/P%C3%A1gina%20en%20espa%C3%B1ol';
-		$this->assertEquals($modifedString, $this->tikilib->urlencode_accent($str));
-	}
+    public function testUrlEncodeAccentShouldChangeStringWithInvalidCharactersForUrl(): void
+    {
+        $str = 'http://tiki.org/Página en español';
+        $modifedString = 'http://tiki.org/P%C3%A1gina%20en%20espa%C3%B1ol';
+        $this->assertEquals($modifedString, $this->tikilib->urlencode_accent($str));
+    }
 }

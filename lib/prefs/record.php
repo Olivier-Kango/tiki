@@ -8,12 +8,12 @@
 
 function prefs_record_list()
 {
-	return [
-		'record_untranslated' => [
-			'name' => tra('Record untranslated strings'),
-			'description' => tra('Keep track of the unsuccessful attemps to translate strings.'),
-			'type' => 'flag',
-			'default' => 'n',
-		],
-	];
+    return [
+        'record_untranslated' => [
+            'name' => tra('Record untranslated strings'),
+            'description' => tra('Keep track of the unsuccessful attemps to translate strings.'),
+            'type' => 'flag',
+            'default' => 'n',
+        ],
+    ];
 }

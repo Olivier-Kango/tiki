@@ -8,17 +8,17 @@
 
 class Search_Action_ReportingTransform
 {
-	private $data = [];
+    private $data = [];
 
-	public function setStatus($objectType, $objectId, $success)
-	{
-		$this->data["$objectType:$objectId"] = $success ? 'success' : 'error';
-	}
+    public function setStatus($objectType, $objectId, $success)
+    {
+        $this->data["$objectType:$objectId"] = $success ? 'success' : 'error';
+    }
 
-	public function __invoke($entry)
-	{
-		$identifier = "{$entry['object_type']}:{$entry['object_id']}";
-		$entry['report_status'] = isset($this->data[$identifier]) ? $this->data[$identifier] : 'none';
-		return $entry;
-	}
+    public function __invoke($entry)
+    {
+        $identifier = "{$entry['object_type']}:{$entry['object_id']}";
+        $entry['report_status'] = isset($this->data[$identifier]) ? $this->data[$identifier] : 'none';
+        return $entry;
+    }
 }

@@ -8,14 +8,14 @@
 
 class Math_Formula_Function_Clean extends Math_Formula_Function
 {
-	public function evaluate($element)
-	{
+    public function evaluate($element)
+    {
         $out = "";
 
-	    foreach ($element as $child) {
+        foreach ($element as $child) {
             $out .= TikiLib::remove_non_word_characters_and_accents($this->evaluateChild($child));
         }
 
         return $out;
-	}
+    }
 }

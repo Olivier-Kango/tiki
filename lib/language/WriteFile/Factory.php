@@ -14,14 +14,14 @@ require_once(__DIR__ . '/../../language/File.php');
  */
 class Language_WriteFile_Factory
 {
-	/**
-	 * Create a WriteFile object
-	 *
-	 * @param string $filePath path to language.php file
-	 * @return Language_WriteFile
-	 */
-	public function factory($filePath)
-	{
-		return new Language_WriteFile(new Language_File($filePath));
-	}
+    /**
+     * Create a WriteFile object
+     *
+     * @param string $filePath path to language.php file
+     * @return Language_WriteFile
+     */
+    public function factory($filePath)
+    {
+        return new Language_WriteFile(new Language_File($filePath));
+    }
 }

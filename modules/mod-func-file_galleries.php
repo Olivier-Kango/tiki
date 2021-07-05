@@ -11,12 +11,12 @@
  */
 function module_file_galleries_info()
 {
-	return [
-		'name' => tra('File Galleries'),
-		'description' => tra('Displays links to file galleries.'),
-		'prefs' => ['feature_file_galleries'],
-		'params' => [],
-	];
+    return [
+        'name' => tra('File Galleries'),
+        'description' => tra('Displays links to file galleries.'),
+        'prefs' => ['feature_file_galleries'],
+        'params' => [],
+    ];
 }
 
 /**
@@ -25,8 +25,8 @@ function module_file_galleries_info()
  */
 function module_file_galleries($mod_reference, $module_params)
 {
-	$filegallib = TikiLib::lib('filegal');
-	$smarty = TikiLib::lib('smarty');
+    $filegallib = TikiLib::lib('filegal');
+    $smarty = TikiLib::lib('smarty');
 
-	$smarty->assign('tree', $filegallib->getTreeHTML());
+    $smarty->assign('tree', $filegallib->getTreeHTML());
 }

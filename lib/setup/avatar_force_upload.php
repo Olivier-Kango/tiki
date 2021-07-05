@@ -6,18 +6,18 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) != false) {
-		header('location: index.php');
-		exit;
+        header('location: index.php');
+        exit;
 }
 global $user;
 if (empty($user)) {
-		return;
+        return;
 }
 
 $avatar = TikiLib::lib('tiki')->get_user_avatar($user);
 
 if (! $avatar || is_array($avatar) || strpos($avatar, 'img/noavatar') !== false) {
-		// Avatar if found should be HTML
-		$action = 'avatar';
-		$smarty->assign_by_ref("force_fill_action", $action);
+        // Avatar if found should be HTML
+        $action = 'avatar';
+        $smarty->assign_by_ref("force_fill_action", $action);
 }

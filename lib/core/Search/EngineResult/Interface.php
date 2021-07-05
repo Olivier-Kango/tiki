@@ -7,5 +7,5 @@
 
 interface Search_EngineResult_Interface
 {
-	public function getEngineFieldsCount();
+    public function getEngineFieldsCount();
 }

@@ -11,13 +11,13 @@
  */
 function module_map_search_location_info()
 {
-	return [
-		'name' => tra('Map location search'),
-		'description' => tra("Simple search controls for the map."),
-		'prefs' => [],
-		'params' => [
-		],
-	];
+    return [
+        'name' => tra('Map location search'),
+        'description' => tra("Simple search controls for the map."),
+        'prefs' => [],
+        'params' => [
+        ],
+    ];
 }
 
 /**
@@ -26,7 +26,7 @@ function module_map_search_location_info()
  */
 function module_map_search_location($mod_reference, $module_params)
 {
-	static $counter = 0;
-	$smarty = TikiLib::lib('smarty');
-	$smarty->assign('search_location_id', 'search_location_' . ++$counter);
+    static $counter = 0;
+    $smarty = TikiLib::lib('smarty');
+    $smarty->assign('search_location_id', 'search_location_' . ++$counter);
 }

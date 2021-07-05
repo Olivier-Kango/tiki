@@ -8,62 +8,62 @@
 
 class Search_Expr_Token implements Search_Expr_Interface
 {
-	private $string;
-	private $type;
-	private $field;
-	private $weight;
+    private $string;
+    private $type;
+    private $field;
+    private $weight;
 
-	public function __construct($string, $type = null, $field = null, $weight = 1.0)
-	{
-		$this->string = $string;
-		$this->type = $type;
-		$this->field = $field;
-		$this->setWeight($weight);
-	}
+    public function __construct($string, $type = null, $field = null, $weight = 1.0)
+    {
+        $this->string = $string;
+        $this->type = $type;
+        $this->field = $field;
+        $this->setWeight($weight);
+    }
 
-	public function setType($type)
-	{
-		$this->type = $type;
-	}
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
 
-	public function getType()
-	{
-		return $this->type;
-	}
+    public function getType()
+    {
+        return $this->type;
+    }
 
-	public function setField($field = 'global')
-	{
-		$this->field = $field;
-	}
+    public function setField($field = 'global')
+    {
+        $this->field = $field;
+    }
 
-	public function setWeight($weight)
-	{
-		$this->weight = (float) $weight;
-	}
+    public function setWeight($weight)
+    {
+        $this->weight = (float) $weight;
+    }
 
-	public function getWeight()
-	{
-		return $this->weight;
-	}
+    public function getWeight()
+    {
+        return $this->weight;
+    }
 
-	public function walk($callback)
-	{
-		return call_user_func($callback, $this, []);
-	}
+    public function walk($callback)
+    {
+        return call_user_func($callback, $this, []);
+    }
 
-	public function getValue(Search_Type_Factory_Interface $typeFactory)
-	{
-		$type = $this->type;
-		return $typeFactory->$type($this->string);
-	}
+    public function getValue(Search_Type_Factory_Interface $typeFactory)
+    {
+        $type = $this->type;
+        return $typeFactory->$type($this->string);
+    }
 
-	public function getField()
-	{
-		return $this->field;
-	}
+    public function getField()
+    {
+        return $this->field;
+    }
 
-	public function traverse($callback)
-	{
-		return call_user_func($callback, $callback, $this, []);
-	}
+    public function traverse($callback)
+    {
+        return call_user_func($callback, $callback, $this, []);
+    }
 }

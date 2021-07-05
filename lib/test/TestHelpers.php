@@ -10,67 +10,67 @@
 class TestHelpers
 {
 
-	private $orig_user;
+    private $orig_user;
 
-	/*
-	 * Restore the application and DB to its original state.
-	 * - Undo any changes that may have been done to the DB through TestHelpers methods
-	 * - If any global libs were replaced by mock implementations, reset them to their
-	 *   real implementation.
-	 */
-	public function resetAll()
-	{
-		global $tikilib;
+    /*
+     * Restore the application and DB to its original state.
+     * - Undo any changes that may have been done to the DB through TestHelpers methods
+     * - If any global libs were replaced by mock implementations, reset them to their
+     *   real implementation.
+     */
+    public function resetAll()
+    {
+        global $tikilib;
 
-		$tikilib = new TikiLib();
-	}
+        $tikilib = new TikiLib();
+    }
 
-	public function simulateTikiScriptContext($script_uri = 'tiki-index.php', $logged_on_as_user = 'some_user', $host = 'localhost')
-	{
+    public function simulateTikiScriptContext($script_uri = 'tiki-index.php', $logged_on_as_user = 'some_user', $host = 'localhost')
+    {
 
-		global $_SERVER, $user, $prefs;
+        global $_SERVER, $user, $prefs;
 
-		$this->orig_user = $user;
+        $this->orig_user = $user;
 
-		$_SERVER['HTTP_HOST'] = $host;
-		$_SERVER['REQUEST_URI'] = $script_uri;
-		$user = $logged_on_as_user;
+        $_SERVER['HTTP_HOST'] = $host;
+        $_SERVER['REQUEST_URI'] = $script_uri;
+        $user = $logged_on_as_user;
 
-		$prefs['site_language'] = 'en';
-	}
+        $prefs['site_language'] = 'en';
+    }
 
-	public function stopSimulatingTikiScriptContext()
-	{
-		global $tikilib, $user;
+    public function stopSimulatingTikiScriptContext()
+    {
+        global $tikilib, $user;
 
-		unset($_SERVER['HTTP_HOST'], $_SERVER['REQUEST_URI']);
-		$user = $this->orig_user;
-	}
+        unset($_SERVER['HTTP_HOST'], $_SERVER['REQUEST_URI']);
+        $user = $this->orig_user;
+    }
 
-	/*
-	 * Like $tikilib->createPage(), except that it will delete the page if it already exists.
-	 */
-	public function createPage($name, $hits, $data, $lastModif = null, $comment = '', $user = 'admin', $ip = '0.0.0.0', $description = '', $lang = '', $is_html = false, $hash = null, $wysiwyg = null, $wiki_authors_style = '', $minor = 0, $created = '')
-	{
-		global $tikilib;
+    /*
+     * Like $tikilib->createPage(), except that it will delete the page if it already exists.
+     */
+    public function createPage($name, $hits, $data, $lastModif = null, $comment = '', $user = 'admin', $ip = '0.0.0.0', $description = '', $lang = '', $is_html = false, $hash = null, $wysiwyg = null, $wiki_authors_style = '', $minor = 0, $created = '')
+    {
+        global $tikilib;
 
-		if ($lastModif == null) {
-			$lastModif = $tikilib->now;
-		}
+        if ($lastModif == null) {
+            $lastModif = $tikilib->now;
+        }
 
-		if ($tikilib->page_exists($name)) {
-			$tikilib->remove_all_versions($name);
-		}
-		$tikilib->create_page($name, $hits, $data, $lastModif, $comment, $user, $ip, $description, $lang, $is_html, $hash, $wysiwyg, $wiki_authors_style, $minor, $created);
-	}
+        if ($tikilib->page_exists($name)) {
+            $tikilib->remove_all_versions($name);
+        }
+        $tikilib->create_page($name, $hits, $data, $lastModif, $comment, $user, $ip, $description, $lang, $is_html, $hash, $wysiwyg, $wiki_authors_style, $minor, $created);
+    }
 
 
-	public function removeAllVersions($page_name)
-	{
-		global $tikilib;
+    public function removeAllVersions($page_name)
+    {
+        global $tikilib;
 
-		$tikilib->remove_all_versions($page_name);
-	}
+        $tikilib->remove_all_versions($page_name);
+    }
 }
 
 $testhelpers = new TestHelpers();

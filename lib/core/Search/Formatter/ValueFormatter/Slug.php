@@ -9,19 +9,19 @@
 
 class Search_Formatter_ValueFormatter_Slug extends Search_Formatter_ValueFormatter_Abstract
 {
-	private $manager = null;
+    private $manager = null;
 
-	public function __construct($arguments)
-	{
-		$this->manager = TikiLib::lib('slugmanager');
-	}
+    public function __construct($arguments)
+    {
+        $this->manager = TikiLib::lib('slugmanager');
+    }
 
-	public function render($name, $value, array $entry)
-	{
-		global $prefs;
+    public function render($name, $value, array $entry)
+    {
+        global $prefs;
 
-		$slug = $this->manager->generate($prefs['wiki_url_scheme'], $value, $prefs['url_only_ascii'] === 'y');
+        $slug = $this->manager->generate($prefs['wiki_url_scheme'], $value, $prefs['url_only_ascii'] === 'y');
 
-		return $slug;
-	}
+        return $slug;
+    }
 }

@@ -8,14 +8,14 @@
 
 interface Search_Action_Action
 {
-	/**
-	 * Provides the list of values required by the actiion to execute.
-	 */
-	public function getValues();
+    /**
+     * Provides the list of values required by the actiion to execute.
+     */
+    public function getValues();
 
-	public function validate(JitFilter $data);
+    public function validate(JitFilter $data);
 
-	public function execute(JitFilter $data);
+    public function execute(JitFilter $data);
 
-	public function requiresInput(JitFilter $data);
+    public function requiresInput(JitFilter $data);
 }

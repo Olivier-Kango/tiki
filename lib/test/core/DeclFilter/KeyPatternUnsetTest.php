@@ -13,41 +13,41 @@
 
 class DeclFilterKeyPatternUnsetTest extends TikiTestCase
 {
-	public function testMatch()
-	{
-		$rule = new DeclFilter_KeyPatternUnsetRule(
-			[
-				'/^foo_\d+$/',
-				'/^bar_[a-z]+$/',
-			]
-		);
+    public function testMatch()
+    {
+        $rule = new DeclFilter_KeyPatternUnsetRule(
+            [
+                '/^foo_\d+$/',
+                '/^bar_[a-z]+$/',
+            ]
+        );
 
-		$this->assertTrue($rule->match('foo_123'));
-		$this->assertTrue($rule->match('bar_abc'));
-		$this->assertFalse($rule->match('foo_abc'));
-		$this->assertFalse($rule->match('baz'));
-	}
+        $this->assertTrue($rule->match('foo_123'));
+        $this->assertTrue($rule->match('bar_abc'));
+        $this->assertFalse($rule->match('foo_abc'));
+        $this->assertFalse($rule->match('baz'));
+    }
 
-	public function testApply()
-	{
-		$rule = new DeclFilter_KeyPatternUnsetRule(
-			[
-				'/^foo_\d+$/',
-				'/^bar_[a-z]+$/',
-			]
-		);
+    public function testApply()
+    {
+        $rule = new DeclFilter_KeyPatternUnsetRule(
+            [
+                '/^foo_\d+$/',
+                '/^bar_[a-z]+$/',
+            ]
+        );
 
-		$data = [
-			'foo_123' => '123abc',
-			'bar_abc' => '123abc',
-			'foo' => '123abc',
-		];
+        $data = [
+            'foo_123' => '123abc',
+            'bar_abc' => '123abc',
+            'foo' => '123abc',
+        ];
 
-		$rule->apply($data, 'foo_123');
-		$rule->apply($data, 'bar_abc');
+        $rule->apply($data, 'foo_123');
+        $rule->apply($data, 'bar_abc');
 
-		$this->assertFalse(isset($data['foo_123']));
-		$this->assertFalse(isset($data['bar_abc']));
-		$this->assertEquals('123abc', $data['foo']);
-	}
+        $this->assertFalse(isset($data['foo_123']));
+        $this->assertFalse(isset($data['bar_abc']));
+        $this->assertEquals('123abc', $data['foo']);
+    }
 }

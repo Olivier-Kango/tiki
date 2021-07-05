@@ -8,8 +8,8 @@ use Tiki\Lib\core\Tracker\Rule\Type\Text;
 
 class TextIsNotEmpty extends Operator
 {
-	public function __construct()
-	{
-		parent::__construct(tr('is not empty'), Nothing::class, '.val()!==""', [Text::class, DateTime::class]);
-	}
+    public function __construct()
+    {
+        parent::__construct(tr('is not empty'), Nothing::class, '.val()!==""', [Text::class, DateTime::class]);
+    }
 }

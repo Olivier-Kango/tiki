@@ -11,39 +11,39 @@
  */
 class Perms_ResolverFactory_TestFactory implements Perms_ResolverFactory
 {
-	private $known;
-	private $resolvers;
+    private $known;
+    private $resolvers;
 
-	public function __construct(array $known, array $resolvers)
-	{
-		$this->known = $known;
-		$this->resolvers = $resolvers;
-	}
+    public function __construct(array $known, array $resolvers)
+    {
+        $this->known = $known;
+        $this->resolvers = $resolvers;
+    }
 
-	public function bulk(array $baseContext, $bulkKey, array $values)
-	{
-		return [];
-	}
+    public function bulk(array $baseContext, $bulkKey, array $values)
+    {
+        return [];
+    }
 
-	public function getHash(array $context)
-	{
-		$parts = [];
+    public function getHash(array $context)
+    {
+        $parts = [];
 
-		foreach ($this->known as $key) {
-			if (isset($context[$key])) {
-				$parts[] = $context[$key];
-			}
-		}
+        foreach ($this->known as $key) {
+            if (isset($context[$key])) {
+                $parts[] = $context[$key];
+            }
+        }
 
-		return 'test:' . implode(':', $parts);
-	}
+        return 'test:' . implode(':', $parts);
+    }
 
-	public function getResolver(array $context)
-	{
-		$hash = $this->getHash($context);
+    public function getResolver(array $context)
+    {
+        $hash = $this->getHash($context);
 
-		if (isset($this->resolvers[$hash])) {
-			return $this->resolvers[$hash];
-		}
-	}
+        if (isset($this->resolvers[$hash])) {
+            return $this->resolvers[$hash];
+        }
+    }
 }

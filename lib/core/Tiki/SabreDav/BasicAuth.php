@@ -15,23 +15,23 @@ use Perms_Context;
 
 class BasicAuth extends AbstractBasic
 {
-  protected function validateUserPass($username, $password)
-  {
-    global $user;
+    protected function validateUserPass($username, $password)
+    {
+        global $user;
 
-    if ($username == 'Anonymous') {
-      $user = $username;
-      $isvalid = true;
-    } else {
-      list($isvalid, $user) = TikiLib::lib('user')->validate_user($username, $password);
+        if ($username == 'Anonymous') {
+            $user = $username;
+            $isvalid = true;
+        } else {
+            list($isvalid, $user) = TikiLib::lib('user')->validate_user($username, $password);
+        }
+
+        if ($isvalid) {
+          // enforce permissions of the incoming user and their groups
+            $permContext = new Perms_Context($user, false);
+            $permContext->activatePermanently();
+        }
+
+        return $isvalid;
     }
-
-    if ($isvalid) {
-      // enforce permissions of the incoming user and their groups
-      $permContext = new Perms_Context($user, false);
-      $permContext->activatePermanently();
-    }
-
-    return $isvalid;
-  }
 }

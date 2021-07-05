@@ -8,15 +8,15 @@
 
 class DeclFilter_StaticKeyUnsetRule extends DeclFilter_UnsetRule
 {
-	private $keys;
+    private $keys;
 
-	public function __construct($keys)
-	{
-		$this->keys = $keys;
-	}
+    public function __construct($keys)
+    {
+        $this->keys = $keys;
+    }
 
-	public function match($key)
-	{
-		return in_array($key, $this->keys);
-	}
+    public function match($key)
+    {
+        return in_array($key, $this->keys);
+    }
 }

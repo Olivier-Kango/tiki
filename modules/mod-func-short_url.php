@@ -11,9 +11,9 @@
  */
 function module_short_url_info()
 {
-	return [
-		'name' => tra('Short URL'),
-		'description' => tra('Creates or shows a short url for the visiting page.'),
-		'prefs' => ['feature_sefurl_routes', 'sefurl_short_url'],
-	];
+    return [
+        'name' => tra('Short URL'),
+        'description' => tra('Creates or shows a short url for the visiting page.'),
+        'prefs' => ['feature_sefurl_routes', 'sefurl_short_url'],
+    ];
 }

@@ -6,8 +6,8 @@ use Tiki\Lib\core\Tracker\Rule\Type\Text;
 
 class TextContains extends Operator
 {
-	public function __construct()
-	{
-		parent::__construct(tr('contains'), Text::class, '.val().indexOf("%argument%") > -1', [Text::class]);
-	}
+    public function __construct()
+    {
+        parent::__construct(tr('contains'), Text::class, '.val().indexOf("%argument%") > -1', [Text::class]);
+    }
 }

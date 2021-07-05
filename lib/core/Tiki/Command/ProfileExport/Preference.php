@@ -15,43 +15,43 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class Preference extends ObjectWriter
 {
-	protected function configure()
-	{
-		$this
-			->setName('profile:export:preference')
-			->setDescription('Include a preference within the profile definition')
-			->addOption(
-				'all',
-				null,
-				InputOption::VALUE_NONE,
-				'Export all preferences'
-			)
-			->addArgument(
-				'name',
-				InputArgument::OPTIONAL,
-				'Preference name'
-			);
-	}
+    protected function configure()
+    {
+        $this
+            ->setName('profile:export:preference')
+            ->setDescription('Include a preference within the profile definition')
+            ->addOption(
+                'all',
+                null,
+                InputOption::VALUE_NONE,
+                'Export all preferences'
+            )
+            ->addArgument(
+                'name',
+                InputArgument::OPTIONAL,
+                'Preference name'
+            );
+    }
 
-	protected function execute(InputInterface $input, OutputInterface $output)
-	{
-		$preference = $input->getArgument('name');
-		$all = $input->getOption('all');
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $preference = $input->getArgument('name');
+        $all = $input->getOption('all');
 
-		if (! $all && empty($preference)) {
-			$output->writeln('<error>' . tra('Not enough arguments (missing: "name" or "--all" options)') . '</error>');
-			return false;
-		}
+        if (! $all && empty($preference)) {
+            $output->writeln('<error>' . tra('Not enough arguments (missing: "name" or "--all" options)') . '</error>');
+            return false;
+        }
 
-		$writer = $this->getProfileWriter($input);
+        $writer = $this->getProfileWriter($input);
 
-		$prefslib = \TikiLib::lib('prefs');
-		$result = $prefslib->exportPreference($writer, $preference, $all);
+        $prefslib = \TikiLib::lib('prefs');
+        $result = $prefslib->exportPreference($writer, $preference, $all);
 
-		if ($result) {
-			$writer->save();
-		} else {
-			$output->writeln("Preference not found: $preference");
-		}
-	}
+        if ($result) {
+            $writer->save();
+        } else {
+            $output->writeln("Preference not found: $preference");
+        }
+    }
 }

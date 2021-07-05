@@ -11,14 +11,14 @@
  */
 function module_random_pages_info()
 {
-	return [
-		'name' => tra('Random Pages'),
-		'description' => tra('Displays the specified number of random wiki pages.'),
-		'prefs' => ['feature_wiki'],
-		'documentation' => 'Module random_pages',
-		'params' => [],
-		'common_params' => ["rows", "nonums"]
-	];
+    return [
+        'name' => tra('Random Pages'),
+        'description' => tra('Displays the specified number of random wiki pages.'),
+        'prefs' => ['feature_wiki'],
+        'documentation' => 'Module random_pages',
+        'params' => [],
+        'common_params' => ["rows", "nonums"]
+    ];
 }
 
 /**
@@ -27,8 +27,8 @@ function module_random_pages_info()
  */
 function module_random_pages($mod_reference, $module_params)
 {
-	$tikilib = TikiLib::lib('tiki');
-	$pages = $tikilib->list_pages(0, $mod_reference["rows"], "random", '', '', true, true);
-	$smarty = TikiLib::lib('smarty');
-	$smarty->assign('modRandomPages', $pages["data"]);
+    $tikilib = TikiLib::lib('tiki');
+    $pages = $tikilib->list_pages(0, $mod_reference["rows"], "random", '', '', true, true);
+    $smarty = TikiLib::lib('smarty');
+    $smarty->assign('modRandomPages', $pages["data"]);
 }

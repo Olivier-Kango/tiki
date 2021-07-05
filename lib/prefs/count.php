@@ -8,12 +8,12 @@
 
 function prefs_count_list()
 {
-	return [
-		'count_admin_pvs' => [
-			'name' => tra('Count admin pageviews'),
-			'description' => tra('Include pageviews by Admin when reporting stats.'),
-			'type' => 'flag',
-			'default' => 'n',
-		],
-	];
+    return [
+        'count_admin_pvs' => [
+            'name' => tra('Count admin pageviews'),
+            'description' => tra('Include pageviews by Admin when reporting stats.'),
+            'type' => 'flag',
+            'default' => 'n',
+        ],
+    ];
 }

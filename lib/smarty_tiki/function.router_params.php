@@ -14,70 +14,70 @@
  */
 function smarty_function_router_params($params, $smarty)
 {
-	if (empty($params['name'])) {
-		return;
-	}
+    if (empty($params['name'])) {
+        return;
+    }
 
-	$className = 'Tiki\\CustomRoute\\Type\\' . $params['name'];
+    $className = 'Tiki\\CustomRoute\\Type\\' . $params['name'];
 
-	if (! class_exists($className)) {
-		return;
-	}
+    if (! class_exists($className)) {
+        return;
+    }
 
-	$routerParams = $params['params'];
+    $routerParams = $params['params'];
 
-	$class = new $className();
-	$inputParams = $class->getParams();
-	$routerName = strtolower($class->getRouteType());
-	$html = '';
+    $class = new $className();
+    $inputParams = $class->getParams();
+    $routerName = strtolower($class->getRouteType());
+    $html = '';
 
-	foreach ($inputParams as $key => $param) {
-		$escapedParam = smarty_modifier_escape($routerParams[$key]);
-		$inputKey = $routerName . '_' . $key;
+    foreach ($inputParams as $key => $param) {
+        $escapedParam = smarty_modifier_escape($routerParams[$key]);
+        $inputKey = $routerName . '_' . $key;
 
-		switch ($param['type']) {
-			case 'text':
-				$input = '<input type="text" id="' . $inputKey . '" class="form-control" name="' . $inputKey . '" value="' . $escapedParam . '">';
-				break;
-			case 'select':
-				$input = '<select id="' . $inputKey . '" class="form-control" name="' . $inputKey . '">';
+        switch ($param['type']) {
+            case 'text':
+                $input = '<input type="text" id="' . $inputKey . '" class="form-control" name="' . $inputKey . '" value="' . $escapedParam . '">';
+                break;
+            case 'select':
+                $input = '<select id="' . $inputKey . '" class="form-control" name="' . $inputKey . '">';
 
-				if (! empty($param['function'])) {
-					$args = [];
-					foreach ($param['args'] as $value) {
-						$args[] = smarty_modifier_escape($routerParams[$value]);
-					}
+                if (! empty($param['function'])) {
+                    $args = [];
+                    foreach ($param['args'] as $value) {
+                        $args[] = smarty_modifier_escape($routerParams[$value]);
+                    }
 
-					$objects = call_user_func_array([$className, $param['function']], $args);
-					$param['options'] = $objects;
-				}
+                    $objects = call_user_func_array([$className, $param['function']], $args);
+                    $param['options'] = $objects;
+                }
 
-				if (! empty($param['options'])) {
-					foreach ($param['options'] as $optionKey => $optionValue) {
-						$selected = $optionKey == $params['params'][$key] ? 'selected' : '';
-						$input .= '<option value="' . $optionKey . '" ' . $selected . '>' . $optionValue . '</option>';
-					}
-				}
+                if (! empty($param['options'])) {
+                    foreach ($param['options'] as $optionKey => $optionValue) {
+                        $selected = $optionKey == $params['params'][$key] ? 'selected' : '';
+                        $input .= '<option value="' . $optionKey . '" ' . $selected . '>' . $optionValue . '</option>';
+                    }
+                }
 
-				$input .= '</select>';
-				break;
-		}
+                $input .= '</select>';
+                break;
+        }
 
-		$required = ! empty($param['required']) ? ' *' : '';
+        $required = ! empty($param['required']) ? ' *' : '';
 
-		$infoHtml = '';
-		if (! empty($param['description'])) {
-			$description = smarty_modifier_escape($param['description']);
-			$icon = smarty_function_icon(['name' => 'information'], $smarty);
+        $infoHtml = '';
+        if (! empty($param['description'])) {
+            $description = smarty_modifier_escape($param['description']);
+            $icon = smarty_function_icon(['name' => 'information'], $smarty);
 
-			$infoHtml = <<<HTML
+            $infoHtml = <<<HTML
 <a class="tikihelp text-info" title="{$param['name']}: {$description}">
 	{$icon}
 </a>
 HTML;
-		}
+        }
 
-		$html .= <<<HTML
+        $html .= <<<HTML
 <div class="form-group row" data-task-name="{$params['name']}" style="display:none">
 	<label class="col-sm-3 col-md-2 col-form-label" for="{$inputKey}">{$param['name']}{$required}</label>
 	<div class="col-sm-9 col-md-10">
@@ -86,7 +86,7 @@ HTML;
 	</div>
 </div>
 HTML;
-	}
+    }
 
-	echo $html;
+    echo $html;
 }

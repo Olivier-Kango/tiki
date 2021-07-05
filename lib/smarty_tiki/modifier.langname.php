@@ -8,10 +8,10 @@
 
 function smarty_modifier_langname($lang)
 {
-	if (empty($lang)) {
-		return '';
-	}
+    if (empty($lang)) {
+        return '';
+    }
 
-	include('lang/langmapping.php');
-	return empty($langmapping[$lang]) ? $lang : tra($langmapping[$lang][0]);
+    include('lang/langmapping.php');
+    return empty($langmapping[$lang]) ? $lang : tra($langmapping[$lang][0]);
 }

@@ -8,31 +8,31 @@
 
 class Tiki_Profile_InstallHandler_ExtWiki extends Tiki_Profile_InstallHandler
 {
-	public function getData()
-	{
-		$data = $this->obj->getData();
+    public function getData()
+    {
+        $data = $this->obj->getData();
 
-		return $data;
-	}
+        return $data;
+    }
 
-	public function canInstall()
-	{
-		$data = $this->getData();
-		if (! isset($data['name'], $data['url'])) {
-			return false;
-		}
+    public function canInstall()
+    {
+        $data = $this->getData();
+        if (! isset($data['name'], $data['url'])) {
+            return false;
+        }
 
-		return true;
-	}
+        return true;
+    }
 
-	public function _install()
-	{
-		$data = $this->getData();
+    public function _install()
+    {
+        $data = $this->getData();
 
-		$this->replaceReferences($data);
+        $this->replaceReferences($data);
 
-		TikiLib::lib('admin')->replace_extwiki(null, $data['url'], $data['name']);
+        TikiLib::lib('admin')->replace_extwiki(null, $data['url'], $data['name']);
 
-		return $data['name'];
-	}
+        return $data['name'];
+    }
 }

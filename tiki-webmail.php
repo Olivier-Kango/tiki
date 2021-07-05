@@ -30,9 +30,9 @@ $access->check_permission_either(['tiki_p_use_webmail', 'tiki_p_use_group_webmai
 $access->check_user($user);
 
 if (empty($_SESSION['cypht']['username']) || $_SESSION['cypht']['username'] != $user) {
-  unset($_SESSION['cypht']);
-  $headerlib = TikiLib::lib('header');
-  $headerlib->add_js('
+    unset($_SESSION['cypht']);
+    $headerlib = TikiLib::lib('header');
+    $headerlib->add_js('
 document.cookie = "hm_reload_folders=1";
 for(var i =0; i < sessionStorage.length; i++){
     var key = sessionStorage.key(i);
@@ -48,8 +48,8 @@ if (
     || (! empty($_SESSION['cypht']['username']) && $_SESSION['cypht']['username'] != $user)
 ) {
   // resetting the session on purpose - could be coming from PluginCypht
-  $_SESSION['cypht'] = [];
-  $_SESSION['cypht']['preference_name'] = 'cypht_user_config';
+    $_SESSION['cypht'] = [];
+    $_SESSION['cypht']['preference_name'] = 'cypht_user_config';
 }
 
 define('VENDOR_PATH', $tikipath . '/vendor_bundled/vendor/');
@@ -65,7 +65,7 @@ require_once APP_PATH . 'lib/framework.php';
 require_once $tikipath . '/lib/cypht/integration/classes.php';
 
 if (empty($_SESSION['cypht']['request_key'])) {
-  $_SESSION['cypht']['request_key'] = Hm_Crypt::unique_id();
+    $_SESSION['cypht']['request_key'] = Hm_Crypt::unique_id();
 }
 $_SESSION['cypht']['username'] = $user;
 
@@ -76,66 +76,66 @@ $config = new Tiki_Hm_Site_Config_File(APP_PATH . 'hm3.rc');
 $dispatcher = new Hm_Dispatch($config);
 
 if (! empty($_SESSION['cypht']['user_data']['debug_mode_setting'])) {
-  $msgs = Hm_Debug::get();
-  foreach ($msgs as $msg) {
-    $logslib->add_log('cypht', $msg);
-  }
+    $msgs = Hm_Debug::get();
+    foreach ($msgs as $msg) {
+        $logslib->add_log('cypht', $msg);
+    }
 }
 
 $smarty->assign('output_data', '<div class="inline-cypht"><input type="hidden" id="hm_page_key" value="' . Hm_Request_Key::generate() . '" />'
-	. $dispatcher->output
-	. "</div>");
+    . $dispatcher->output
+    . "</div>");
 $smarty->assign('mid', 'tiki-webmail.tpl');
 
 //handle message priting
 if (isset($_POST['display']) && $_POST['display'] == 'pdf') {
-	require_once 'lib/pdflib.php';
-	$generator = new PdfGenerator(PdfGenerator::MPDF);
-	if (! empty($generator->error)) {
-		Feedback::error($generator->error);
-	} else {
-    if (isset($_POST['uid'])) {
-			$uid = $_POST['uid'];
+    require_once 'lib/pdflib.php';
+    $generator = new PdfGenerator(PdfGenerator::MPDF);
+    if (! empty($generator->error)) {
+        Feedback::error($generator->error);
+    } else {
+        if (isset($_POST['uid'])) {
+            $uid = $_POST['uid'];
+        }
+        if (isset($_POST['list_path'])) {
+            $list_path = $_POST['list_path'];
+        }
+        if (isset($_POST['header_subject'])) {
+            $header_subject = $_POST['header_subject'];
+        }
+        if (isset($_POST['header_date'])) {
+            $header_date = $_POST['header_date'];
+        }
+        if (isset($_POST['header_from'])) {
+            $header_from = $_POST['header_from'];
+        }
+        if (isset($_POST['header_to'])) {
+            $header_to = $_POST['header_to'];
+        }
+        if (isset($_POST['msg_text'])) {
+            $msg_text = $_POST['msg_text'];
+        }
+        $contentpage = createPage($header_subject, $header_date, $header_from, $header_to, $msg_text, $origin);
+        $filename = $header_from . '_' . $header_subject;
+        $params = [
+        'page' => 'messsage',
+        'uid' => $uid,
+        'list_path' => $list_path
+        ];
+        $pdata = '<pdfsettings pagetitle="n" printfriendly="n"></pdfsettings>' . $contentpage;
+        $pdf = $generator->getPdf('tiki-webmail.php', $params, preg_replace('/%u([a-fA-F0-9]{4})/', '&#x\\1;', $pdata));
+        $length = strlen($pdf);
+        header('Cache-Control: private, must-revalidate');
+        header('Pragma: private');
+        header("Content-Description: File Transfer");
+        $filename  = preg_replace('/\W+/u', '_', $filename); // Replace non words with underscores for valid file names
+        $filename = \TikiLib::lib('tiki')->remove_non_word_characters_and_accents($filename);
+        header('Content-disposition: attachment; filename="' . $filename . '.pdf"');
+        header("Content-Type: application/pdf");
+        header("Content-Transfer-Encoding: binary");
+        header('Content-Length: ' . $length);
+        echo $pdf;
     }
-    if (isset($_POST['list_path'])) {
-			$list_path = $_POST['list_path'];
-    }
-    if (isset($_POST['header_subject'])) {
-      $header_subject = $_POST['header_subject'];
-    }
-    if (isset($_POST['header_date'])) {
-			$header_date = $_POST['header_date'];
-    }
-    if (isset($_POST['header_from'])) {
-			$header_from = $_POST['header_from'];
-    }
-    if (isset($_POST['header_to'])) {
-			$header_to = $_POST['header_to'];
-    }
-    if (isset($_POST['msg_text'])) {
-			$msg_text = $_POST['msg_text'];
-    }
-    $contentpage = createPage($header_subject, $header_date, $header_from, $header_to, $msg_text, $origin);
-    $filename = $header_from . '_' . $header_subject;
-    $params = [
-      'page' => 'messsage',
-      'uid' => $uid,
-      'list_path' => $list_path
-    ];
-    $pdata = '<pdfsettings pagetitle="n" printfriendly="n"></pdfsettings>' . $contentpage;
-		$pdf = $generator->getPdf('tiki-webmail.php', $params, preg_replace('/%u([a-fA-F0-9]{4})/', '&#x\\1;', $pdata));
-		$length = strlen($pdf);
-		header('Cache-Control: private, must-revalidate');
-		header('Pragma: private');
-		header("Content-Description: File Transfer");
-		$filename  = preg_replace('/\W+/u', '_', $filename); // Replace non words with underscores for valid file names
-		$filename = \TikiLib::lib('tiki')->remove_non_word_characters_and_accents($filename);
-		header('Content-disposition: attachment; filename="' . $filename . '.pdf"');
-		header("Content-Type: application/pdf");
-		header("Content-Transfer-Encoding: binary");
-		header('Content-Length: ' . $length);
-		echo $pdf;
-	}
 }
 
 $smarty->display('tiki.tpl');
@@ -145,7 +145,7 @@ $smarty->display('tiki.tpl');
  */
 function createPage($header_subject, $header_date, $header_from, $header_to, $msg_text)
 {
-	return <<<END
+    return <<<END
     <<!DOCTYPE html>
 <html>
 <head>

@@ -14,90 +14,90 @@
 
 class CacheLibRedis
 {
-	private $redis;
+    private $redis;
 
-	public function __construct()
-	{
-		global $prefs;
-		if (empty($this->redis)) {
-			$this->redis = new Redis();
-			$success = $this->redis->pconnect($prefs["redis_host"], $prefs["redis_port"], $prefs["redis_timeout"]);
-			if (! $success) {
-				throw new Exception('Unable to connect to Redis.');
-			}
-			if ($prefs['redis_prefix']) {
-				// This option automatically prefixes ALL keys provided as input to Redis
-				$this->redis->setOption(Redis::OPT_PREFIX, $prefs['redis_prefix']);
-			}
-		}
-	}
-
-	public function __destruct()
-	{
-		$this->redis->close();
-	}
-
-	private function getKey($key, $type)
+    public function __construct()
     {
-		$key = $type . md5($key);
-		return $key;
-	}
+        global $prefs;
+        if (empty($this->redis)) {
+            $this->redis = new Redis();
+            $success = $this->redis->pconnect($prefs["redis_host"], $prefs["redis_port"], $prefs["redis_timeout"]);
+            if (! $success) {
+                throw new Exception('Unable to connect to Redis.');
+            }
+            if ($prefs['redis_prefix']) {
+                // This option automatically prefixes ALL keys provided as input to Redis
+                $this->redis->setOption(Redis::OPT_PREFIX, $prefs['redis_prefix']);
+            }
+        }
+    }
 
-	private function findKeys($pattern)
+    public function __destruct()
     {
-		global $prefs;
-		$keys = $this->redis->keys($pattern);
-		if ($prefs['redis_prefix']) {
-			// Need to strip prefix as it will be re-added
-			$keys = substr_replace($keys, '', 0, strlen($prefs['redis_prefix']));
-		}
-		return $keys;
-	}
+        $this->redis->close();
+    }
 
-	public function cacheItem($key, $data, $type = '')
-	{
-		global $prefs;
-		$key = $this->getKey($key, $type);
-		if ($prefs['redis_expiry']) {
-			return $this->redis->setEx($key, $prefs['redis_expiry'], $data);
-		} else {
-			return $this->redis->set($key, $data);
-		}
-	}
-
-	public function isCached($key, $type = '')
-	{
-		$key = $this->getKey($key, $type);
-		return $this->redis->exists($key);
-	}
-
-	public function getCached($key, $type = '', $lastModif = false)
-	{
-		$key = $this->getKey($key, $type);
-		return $this->redis->get($key);
-	}
-
-	public function invalidate($key, $type = '')
-	{
-		$key = $this->getKey($key, $type);
-		return $this->redis->del([$key]);
-	}
-
-	public function empty_type_cache($type)
-	{
-		$keys = $this->findKeys($type . '*');
-		return $this->redis->del($keys);
-	}
-
-	public function flush()
+    private function getKey($key, $type)
     {
-		global $prefs;
-		if ($prefs['redis_prefix']) {
-			$keys = $this->findKeys('*');
-			$this->redis->del($keys);
-		} else {
-			$this->redis->flushAll();
-		}
-		return;
-	}
+        $key = $type . md5($key);
+        return $key;
+    }
+
+    private function findKeys($pattern)
+    {
+        global $prefs;
+        $keys = $this->redis->keys($pattern);
+        if ($prefs['redis_prefix']) {
+            // Need to strip prefix as it will be re-added
+            $keys = substr_replace($keys, '', 0, strlen($prefs['redis_prefix']));
+        }
+        return $keys;
+    }
+
+    public function cacheItem($key, $data, $type = '')
+    {
+        global $prefs;
+        $key = $this->getKey($key, $type);
+        if ($prefs['redis_expiry']) {
+            return $this->redis->setEx($key, $prefs['redis_expiry'], $data);
+        } else {
+            return $this->redis->set($key, $data);
+        }
+    }
+
+    public function isCached($key, $type = '')
+    {
+        $key = $this->getKey($key, $type);
+        return $this->redis->exists($key);
+    }
+
+    public function getCached($key, $type = '', $lastModif = false)
+    {
+        $key = $this->getKey($key, $type);
+        return $this->redis->get($key);
+    }
+
+    public function invalidate($key, $type = '')
+    {
+        $key = $this->getKey($key, $type);
+        return $this->redis->del([$key]);
+    }
+
+    public function empty_type_cache($type)
+    {
+        $keys = $this->findKeys($type . '*');
+        return $this->redis->del($keys);
+    }
+
+    public function flush()
+    {
+        global $prefs;
+        if ($prefs['redis_prefix']) {
+            $keys = $this->findKeys('*');
+            $this->redis->del($keys);
+        } else {
+            $this->redis->flushAll();
+        }
+        return;
+    }
 }

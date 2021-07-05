@@ -9,35 +9,35 @@
 /* inserts the content of an rss feed into a module */
 function smarty_function_article($params, $smarty)
 {
-	$tikilib = TikiLib::lib('tiki');
-	$artlib = TikiLib::lib('art');
-	extract($params);
+    $tikilib = TikiLib::lib('tiki');
+    $artlib = TikiLib::lib('art');
+    extract($params);
 
-	if (empty($max)) {
-		$max = 99;
-	}
+    if (empty($max)) {
+        $max = 99;
+    }
 
 
 
-	// skip="x,y" will not print Xth and Yth items
-	// useful to avoid default first items
-	if (! empty($skip) && preg_match('/^\d+(,\d+)*$/', $skip)) {
-		$skipped_items = explode(',', $skip);
-		$skip = [];
-		foreach ($skipped_items as $i) {
-			$skip[$i] = 1;
-		}
-	} else {
-		$skip = [];
-	}
-	$list_articles = $artlib->list_articles(0, $max, 'publishDate_desc', '', '', '', '', '', '', 1);
+    // skip="x,y" will not print Xth and Yth items
+    // useful to avoid default first items
+    if (! empty($skip) && preg_match('/^\d+(,\d+)*$/', $skip)) {
+        $skipped_items = explode(',', $skip);
+        $skip = [];
+        foreach ($skipped_items as $i) {
+            $skip[$i] = 1;
+        }
+    } else {
+        $skip = [];
+    }
+    $list_articles = $artlib->list_articles(0, $max, 'publishDate_desc', '', '', '', '', '', '', 1);
 
-	$x = "";
+    $x = "";
 
-	foreach ($list_articles['data'] as $article_data) {
-		$x .= "<div class=\"articles\">";
-		$x .= "<a href=\"tiki-read_article.php?articleId=" . $article_data['articleId'] . "\" class=\"article\">";
-		$x .= $article_data['title'] . " - " . $tikilib->date_format('%d/%m/%Y', $article_data['publishDate']) . "</a></div>\n";
-	}
-	echo $x;
+    foreach ($list_articles['data'] as $article_data) {
+        $x .= "<div class=\"articles\">";
+        $x .= "<a href=\"tiki-read_article.php?articleId=" . $article_data['articleId'] . "\" class=\"article\">";
+        $x .= $article_data['title'] . " - " . $tikilib->date_format('%d/%m/%Y', $article_data['publishDate']) . "</a></div>\n";
+    }
+    echo $x;
 }

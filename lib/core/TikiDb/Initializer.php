@@ -8,58 +8,58 @@
 
 class TikiDb_Initializer
 {
-	private $connectors = [
-		'pdo' => 'TikiDb_Initializer_Pdo',
-		'adodb' => 'TikiDb_Initializer_Adodb',
-	];
-	private $preferred;
-	private $initializeCallback;
+    private $connectors = [
+        'pdo' => 'TikiDb_Initializer_Pdo',
+        'adodb' => 'TikiDb_Initializer_Adodb',
+    ];
+    private $preferred;
+    private $initializeCallback;
 
-	public function setPreferredConnector($connector)
-	{
-		if (isset($this->connectors[$connector])) {
-			$this->preferred = $connector;
-		}
-	}
+    public function setPreferredConnector($connector)
+    {
+        if (isset($this->connectors[$connector])) {
+            $this->preferred = $connector;
+        }
+    }
 
-	public function setInitializeCallback($callback)
-	{
-		$this->initializeCallback = $callback;
-	}
+    public function setInitializeCallback($callback)
+    {
+        $this->initializeCallback = $callback;
+    }
 
-	public function getConnection(array $credentials)
-	{
-		if ($connector = $this->getInitializer($this->preferred)) {
-			return $this->initialize($connector, $credentials);
-		}
+    public function getConnection(array $credentials)
+    {
+        if ($connector = $this->getInitializer($this->preferred)) {
+            return $this->initialize($connector, $credentials);
+        }
 
-		foreach (array_keys($this->connectors) as $name) {
-			if ($connector = $this->getInitializer($name)) {
-				return $this->initialize($connector, $credentials);
-			}
-		}
-	}
+        foreach (array_keys($this->connectors) as $name) {
+            if ($connector = $this->getInitializer($name)) {
+                return $this->initialize($connector, $credentials);
+            }
+        }
+    }
 
-	private function initialize($connector, $credentials)
-	{
-		if ($db = $connector->getConnection($credentials)) {
-			if ($callback = $this->initializeCallback) {
-				$callback($db);
-			}
+    private function initialize($connector, $credentials)
+    {
+        if ($db = $connector->getConnection($credentials)) {
+            if ($callback = $this->initializeCallback) {
+                $callback($db);
+            }
 
-			return $db;
-		}
-	}
+            return $db;
+        }
+    }
 
-	private function getInitializer($name)
-	{
-		if (! isset($this->connectors[$name])) {
-			return false;
-		}
+    private function getInitializer($name)
+    {
+        if (! isset($this->connectors[$name])) {
+            return false;
+        }
 
-		$connector = new $this->connectors[$name]();
-		if ($connector->isSupported()) {
-			return $connector;
-		}
-	}
+        $connector = new $this->connectors[$name]();
+        if ($connector->isSupported()) {
+            return $connector;
+        }
+    }
 }

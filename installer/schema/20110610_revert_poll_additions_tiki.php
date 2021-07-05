@@ -11,10 +11,10 @@
  */
 function upgrade_20110610_revert_poll_additions_tiki($installer)
 {
-	$installer->query("DROP TABLE IF EXISTS `tiki_poll_votes`");
-	$result = $installer->fetchAll("SHOW COLUMNS FROM `tiki_polls` WHERE `Field`='anonym'");
+    $installer->query("DROP TABLE IF EXISTS `tiki_poll_votes`");
+    $result = $installer->fetchAll("SHOW COLUMNS FROM `tiki_polls` WHERE `Field`='anonym'");
 
-	if ($result) {
-		$result = $installer->query("ALTER TABLE `tiki_polls` DROP COLUMN `anonym`;");
-	}
+    if ($result) {
+        $result = $installer->query("ALTER TABLE `tiki_polls` DROP COLUMN `anonym`;");
+    }
 }

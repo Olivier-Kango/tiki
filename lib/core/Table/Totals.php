@@ -8,8 +8,8 @@
 
 //this script may only be included - so its better to die if called directly.
 if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
-	header('location: index.php');
-	exit;
+    header('location: index.php');
+    exit;
 }
 
 /**
@@ -21,37 +21,37 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
  */
 class Table_Totals
 {
-	/**
-	 * @param array $s
-	 * @param $count
-	 * @return bool
-	 */
-	public static function getTotalsHtml(array $s, $count)
-	{
-		if (Table_Check::isEnabled()) {
-			if (! empty($s['math'])) {
-				$smarty = TikiLib::lib('smarty');
-				$smarty->assign('fieldcount', $count);
-				$smarty->assign('tstotals', $s['math']['totals']);
-				$smarty->assign('tscols', $s['columns']);
-				return $smarty->fetch('tablesorter/totals.tpl');
-			}
-		} else {
-			return false;
-		}
-	}
+    /**
+     * @param array $s
+     * @param $count
+     * @return bool
+     */
+    public static function getTotalsHtml(array $s, $count)
+    {
+        if (Table_Check::isEnabled()) {
+            if (! empty($s['math'])) {
+                $smarty = TikiLib::lib('smarty');
+                $smarty->assign('fieldcount', $count);
+                $smarty->assign('tstotals', $s['math']['totals']);
+                $smarty->assign('tscols', $s['columns']);
+                return $smarty->fetch('tablesorter/totals.tpl');
+            }
+        } else {
+            return false;
+        }
+    }
 
-	/**
-	 * @param array $s
-	 */
-	public static function setTotals(array $s)
-	{
-		if (Table_Check::isEnabled()) {
-			if (! empty($s['math'])) {
-				$smarty = TikiLib::lib('smarty');
-				$smarty->assign('tstotals', $s['math']['totals']);
-				$smarty->assign('tscols', $s['columns']);
-			}
-		}
-	}
+    /**
+     * @param array $s
+     */
+    public static function setTotals(array $s)
+    {
+        if (Table_Check::isEnabled()) {
+            if (! empty($s['math'])) {
+                $smarty = TikiLib::lib('smarty');
+                $smarty->assign('tstotals', $s['math']['totals']);
+                $smarty->assign('tscols', $s['columns']);
+            }
+        }
+    }
 }

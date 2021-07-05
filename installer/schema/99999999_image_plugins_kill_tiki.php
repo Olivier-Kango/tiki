@@ -19,19 +19,19 @@
  */
 function upgrade_99999999_image_plugins_kill_tiki($installer)
 {
-	global $prefs, $tikiroot, $user_overrider_prefs, $tiki_p_trust_input, $local_php;	// globals are required here for tiki-setup_base.php
-	require_once('lib/tikilib.php');
+    global $prefs, $tikiroot, $user_overrider_prefs, $tiki_p_trust_input, $local_php;   // globals are required here for tiki-setup_base.php
+    require_once('lib/tikilib.php');
 
-	$access = TikiLib::lib('access');
-	$tikilib = TikiLib::lib('tiki');
-	$smarty = TikiLib::lib('smarty');
+    $access = TikiLib::lib('access');
+    $tikilib = TikiLib::lib('tiki');
+    $smarty = TikiLib::lib('smarty');
 
-	require_once('db/tiki-db.php');
+    require_once('db/tiki-db.php');
 
-	$tikilib = new TikiLib();
+    $tikilib = new TikiLib();
 
-	// ******************************** THUMB plugin
-	$plugstring = <<<PLUGINTEXT
+    // ******************************** THUMB plugin
+    $plugstring = <<<PLUGINTEXT
 {CODE(caption=>YAML,wrap=1)}
 objects:
  -
@@ -120,13 +120,13 @@ objects:
 {CODE}
 PLUGINTEXT;
 
-	$profile_installer = new Tiki_Profile_Installer();
-	$profile = Tiki_Profile::fromString($plugstring, 'THUMB');
-	$profile->removeSymbols();
-	$profile_installer->install($profile);
+    $profile_installer = new Tiki_Profile_Installer();
+    $profile = Tiki_Profile::fromString($plugstring, 'THUMB');
+    $profile->removeSymbols();
+    $profile_installer->install($profile);
 
-	// ********************************  IMAGE plugin
-	$plugstring = <<<PLUGINTEXT
+    // ********************************  IMAGE plugin
+    $plugstring = <<<PLUGINTEXT
 {CODE(caption=>YAML,wrap=1)}
 objects:
  -
@@ -345,13 +345,13 @@ objects:
 {CODE}
 PLUGINTEXT;
 
-	$profile_installer = new Tiki_Profile_Installer();
-	$profile = Tiki_Profile::fromString($plugstring, 'IMAGE');
-	$profile->removeSymbols();
-	$profile_installer->install($profile);
+    $profile_installer = new Tiki_Profile_Installer();
+    $profile = Tiki_Profile::fromString($plugstring, 'IMAGE');
+    $profile->removeSymbols();
+    $profile_installer->install($profile);
 
-	// ********************************  PICTURE plugin
-	$plugstring = <<<PLUGINTEXT
+    // ********************************  PICTURE plugin
+    $plugstring = <<<PLUGINTEXT
 {CODE(caption=>YAML,wrap=1)}
 objects:
  -
@@ -379,8 +379,8 @@ objects:
 {CODE}
 PLUGINTEXT;
 
-	$profile_installer = new Tiki_Profile_Installer();
-	$profile = Tiki_Profile::fromString($plugstring, 'PICTURE');
-	$profile->removeSymbols();
-	$profile_installer->install($profile);
+    $profile_installer = new Tiki_Profile_Installer();
+    $profile = Tiki_Profile::fromString($plugstring, 'PICTURE');
+    $profile->removeSymbols();
+    $profile_installer->install($profile);
 }

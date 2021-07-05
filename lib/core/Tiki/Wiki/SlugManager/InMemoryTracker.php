@@ -10,15 +10,15 @@ namespace Tiki\Wiki\SlugManager;
 
 class InMemoryTracker
 {
-	private $slugs = [];
+    private $slugs = [];
 
-	public function add($slug)
-	{
-		$this->slugs[$slug] = true;
-	}
+    public function add($slug)
+    {
+        $this->slugs[$slug] = true;
+    }
 
-	public function __invoke($slug)
-	{
-		return isset($this->slugs[$slug]);
-	}
+    public function __invoke($slug)
+    {
+        return isset($this->slugs[$slug]);
+    }
 }

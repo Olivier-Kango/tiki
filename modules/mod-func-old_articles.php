@@ -11,13 +11,13 @@
  */
 function module_old_articles_info()
 {
-	return [
-		'name' => tra('Old Articles'),
-		'description' => tra('Displays the specified number of old articles (which do not show on articles home page anymore).'),
-		'prefs' => ['feature_articles'],
-		'params' => [],
-		'common_params' => ["rows", "nonums"]
-	];
+    return [
+        'name' => tra('Old Articles'),
+        'description' => tra('Displays the specified number of old articles (which do not show on articles home page anymore).'),
+        'prefs' => ['feature_articles'],
+        'params' => [],
+        'common_params' => ["rows", "nonums"]
+    ];
 }
 
 /**
@@ -26,15 +26,15 @@ function module_old_articles_info()
  */
 function module_old_articles($mod_reference, $module_params)
 {
-	global $user, $prefs;
-	$smarty = TikiLib::lib('smarty');
-	$tikilib = TikiLib::lib('tiki');
-	$artlib = TikiLib::lib('art');
+    global $user, $prefs;
+    $smarty = TikiLib::lib('smarty');
+    $tikilib = TikiLib::lib('tiki');
+    $artlib = TikiLib::lib('art');
 
-	if (! isset($prefs['maxArticles'])) {
-		$prefs['maxArticles'] = 0;
-	}
+    if (! isset($prefs['maxArticles'])) {
+        $prefs['maxArticles'] = 0;
+    }
 
-	$ranking = $artlib->list_articles($prefs['maxArticles'], $mod_reference["rows"], 'publishDate_desc', '', '', '', $user);
-	$smarty->assign('modOldArticles', $ranking["data"]);
+    $ranking = $artlib->list_articles($prefs['maxArticles'], $mod_reference["rows"], 'publishDate_desc', '', '', '', $user);
+    $smarty->assign('modOldArticles', $ranking["data"]);
 }

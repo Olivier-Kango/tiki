@@ -8,12 +8,12 @@
 
 function prefs_oauthserver_list()
 {
-	return [
-		'oauthserver_encryption_key' => [
-			'name' => tra('Encryption key for OAuthServer'),
-			'description' => tra('A key used to encrypt/decrypt authorization codes'),
-			'type' => 'text',
-			'default' => '',
-		],
-	];
+    return [
+        'oauthserver_encryption_key' => [
+            'name' => tra('Encryption key for OAuthServer'),
+            'description' => tra('A key used to encrypt/decrypt authorization codes'),
+            'type' => 'text',
+            'default' => '',
+        ],
+    ];
 }

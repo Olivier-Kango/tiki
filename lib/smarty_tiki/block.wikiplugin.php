@@ -15,34 +15,34 @@
 function smarty_block_wikiplugin($params, $content, $smarty, $repeat = false)
 {
 
-	if ($repeat) {
-		return '';
-	}
+    if ($repeat) {
+        return '';
+    }
 
-	if (! isset($params['_name'])) {
-		return '<div class="alert alert-warning">' . tra('Plugin name not specified.') . '</div>';
-	}
+    if (! isset($params['_name'])) {
+        return '<div class="alert alert-warning">' . tra('Plugin name not specified.') . '</div>';
+    }
 
-	$name = $params['_name'];
-	unset($params['_name']);
+    $name = $params['_name'];
+    unset($params['_name']);
 
-	if (! empty($params['_compactArguments_'])) {
-		$params = $params['_compactArguments_'];
-	}
+    if (! empty($params['_compactArguments_'])) {
+        $params = $params['_compactArguments_'];
+    }
 
-	$parserlib = TikiLib::lib('parser');
-	$out = $parserlib->pluginExecute(
-		$name,
-		$content,
-		$params,
-		0,
-		false,
-		[
-			'context_format' => 'html',
-			'ck_editor' => false,
-			'is_html' => true
-		]
-	);
-	$parserlib->setOptions();
-	return $out;
+    $parserlib = TikiLib::lib('parser');
+    $out = $parserlib->pluginExecute(
+        $name,
+        $content,
+        $params,
+        0,
+        false,
+        [
+            'context_format' => 'html',
+            'ck_editor' => false,
+            'is_html' => true
+        ]
+    );
+    $parserlib->setOptions();
+    return $out;
 }

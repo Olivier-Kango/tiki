@@ -8,7 +8,7 @@
 
 // Make sure script is run from a shell
 if (PHP_SAPI !== 'cli') {
-	die("Please run from a shell");
+    die("Please run from a shell");
 }
 
 require_once __DIR__ . '/../../../../vendor_bundled/vendor/autoload.php';
@@ -16,7 +16,7 @@ require_once __DIR__ . '/../../../../vendor_bundled/vendor/autoload.php';
 //die ("WARNING: This script will destroy the current Tiki db. Comment out this line in the script to proceed.");
 
 if ($argc != 2) {
-	die("Missing argument. USAGE: $argv[0] <dump_filename>");
+    die("Missing argument. USAGE: $argv[0] <dump_filename>");
 }
 
 $test_TikiAcceptanceTestDBRestorer = new TikiAcceptanceTestDBRestorerSQLDumps();
@@ -28,7 +28,7 @@ require_once('installer/installlib.php');
 
 // Force autoloading
 if (! class_exists('ADOConnection')) {
-	die('AdoDb not found.');
+    die('AdoDb not found.');
 }
 
 include $local_php;

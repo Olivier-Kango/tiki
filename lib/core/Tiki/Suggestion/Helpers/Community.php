@@ -12,11 +12,11 @@ use Tiki\Suggestion\SuggestionRulesInterface as SuggestionRules;
 
 class Community implements SuggestionRules
 {
-	public function parser()
-	{
-		$message = tra('Participate in the Tiki community:');
-		$message .= ' <a target="_blank" title="' . tra('Tiki Community') . '" href="https://tiki.org/Community">https://tiki.org/Community</a>';
+    public function parser()
+    {
+        $message = tra('Participate in the Tiki community:');
+        $message .= ' <a target="_blank" title="' . tra('Tiki Community') . '" href="https://tiki.org/Community">https://tiki.org/Community</a>';
 
-		return $message;
-	}
+        return $message;
+    }
 }

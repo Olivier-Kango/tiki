@@ -13,17 +13,17 @@
  */
 interface DeclFilter_Rule
 {
-	/**
-	 * Determines if the current rule applies for the given key.
-	 *
-	 * @param mixed Key name
-	 * @return bool
-	 */
-	public function match($key);
+    /**
+     * Determines if the current rule applies for the given key.
+     *
+     * @param mixed Key name
+     * @return bool
+     */
+    public function match($key);
 
-	/**
-	 * Apply the rule on the key. This method is expected to
-	 * modify the data array on the provided key only.
-	 */
-	public function apply(array &$data, $key);
+    /**
+     * Apply the rule on the key. This method is expected to
+     * modify the data array on the provided key only.
+     */
+    public function apply(array &$data, $key);
 }

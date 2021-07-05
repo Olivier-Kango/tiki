@@ -10,8 +10,8 @@ namespace Tracker\Tabular\Source;
 
 interface SourceEntryInterface
 {
-	/**
-	 * Renders an entry part from specified column
-	 */
-	public function render(\Tracker\Tabular\Schema\Column $column);
+    /**
+     * Renders an entry part from specified column
+     */
+    public function render(\Tracker\Tabular\Schema\Column $column);
 }

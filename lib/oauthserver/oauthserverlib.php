@@ -8,8 +8,8 @@
 
 //this script may only be included - so its better to die if called directly.
 if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
-	header("location: index.php");
-	exit;
+    header("location: index.php");
+    exit;
 }
 
 include __DIR__ . '/entities/UserEntity.php';
@@ -26,94 +26,94 @@ use League\OAuth2\Server\Grant\ImplicitGrant;
 
 class OAuthServerLib extends \TikiLib
 {
-	private $server;
+    private $server;
 
-	public function getEncryptionKey()
-	{
-		global $prefs;
-		$tikilib = TikiLib::lib('tiki');
+    public function getEncryptionKey()
+    {
+        global $prefs;
+        $tikilib = TikiLib::lib('tiki');
 
-		if (empty($prefs['oauthserver_encryption_key'])) {
-			$encryptionKey = $tikilib->generate_unique_sequence(32, true);
-			$tikilib->set_preference('oauthserver_encryption_key', $encryptionKey);
-		}
+        if (empty($prefs['oauthserver_encryption_key'])) {
+            $encryptionKey = $tikilib->generate_unique_sequence(32, true);
+            $tikilib->set_preference('oauthserver_encryption_key', $encryptionKey);
+        }
 
-		return $prefs['oauthserver_encryption_key'];
-	}
+        return $prefs['oauthserver_encryption_key'];
+    }
 
-	public function getClientRepository()
-	{
-		$database = TikiLib::lib('db');
-		return new ClientRepository($database);
-	}
+    public function getClientRepository()
+    {
+        $database = TikiLib::lib('db');
+        return new ClientRepository($database);
+    }
 
-	public function getAccessTokenRepository()
-	{
-		$database = TikiLib::lib('db');
-		return new AccessTokenRepository($database);
-	}
+    public function getAccessTokenRepository()
+    {
+        $database = TikiLib::lib('db');
+        return new AccessTokenRepository($database);
+    }
 
-	public function getServer()
-	{
-		if (empty($this->server)) {
-			$this->server = new AuthorizationServer(
-				$this->getClientRepository(),
-				new AccessTokenRepository(),
-				new ScopeRepository(),
-				new BearerTokenResponse(),
-				$this->getEncryptionKey()
-			);
-		}
-		return $this->server;
-	}
+    public function getServer()
+    {
+        if (empty($this->server)) {
+            $this->server = new AuthorizationServer(
+                $this->getClientRepository(),
+                new AccessTokenRepository(),
+                new ScopeRepository(),
+                new BearerTokenResponse(),
+                $this->getEncryptionKey()
+            );
+        }
+        return $this->server;
+    }
 
-	public function getUserEntity()
-	{
-		global $user;
-		$entity = new UserEntity();
-		$entity->setIdentifier($user);
-		return $entity;
-	}
+    public function getUserEntity()
+    {
+        global $user;
+        $entity = new UserEntity();
+        $entity->setIdentifier($user);
+        return $entity;
+    }
 
-	public function determineServerGrant()
-	{
-		global $user;
-		$server = $this->getServer();
+    public function determineServerGrant()
+    {
+        global $user;
+        $server = $this->getServer();
 
-		if (! empty($user)) {
-			$grant = new ImplicitGrant(new \DateInterval('PT1H'), '?');
-			$server->enableGrantType($grant);
-		}
+        if (! empty($user)) {
+            $grant = new ImplicitGrant(new \DateInterval('PT1H'), '?');
+            $server->enableGrantType($grant);
+        }
 
-		$grant = new AuthCodeGrant(
-			new AuthCodeRepository(),
-			new RefreshTokenRepository(),
-			new \DateInterval('PT10M')
-		);
-		$grant->setRefreshTokenTTL(new \DateInterval('P1M'));
-		$server->enableGrantType($grant);
+        $grant = new AuthCodeGrant(
+            new AuthCodeRepository(),
+            new RefreshTokenRepository(),
+            new \DateInterval('PT10M')
+        );
+        $grant->setRefreshTokenTTL(new \DateInterval('P1M'));
+        $server->enableGrantType($grant);
 
-		return $this;
-	}
+        return $this;
+    }
 
-	public function getClient($client_id)
-	{
-		return $this->getClientRepository()->get($client_id);
-	}
+    public function getClient($client_id)
+    {
+        return $this->getClientRepository()->get($client_id);
+    }
 
-	public function createClient($data)
-	{
-		$repo = $this->getClientRepository();
+    public function createClient($data)
+    {
+        $repo = $this->getClientRepository();
 
-		if (empty($data['client_id'])) {
-			$data['client_id'] = $repo::generateSecret(32);
-		}
+        if (empty($data['client_id'])) {
+            $data['client_id'] = $repo::generateSecret(32);
+        }
 
-		if (empty($data['client_secret'])) {
-			$data['client_secret'] = $repo::generateSecret(64);
-		}
+        if (empty($data['client_secret'])) {
+            $data['client_secret'] = $repo::generateSecret(64);
+        }
 
-		$entity = ClientRepository::build($data);
-		return $repo->create($entity);
-	}
+        $entity = ClientRepository::build($data);
+        return $repo->create($entity);
+    }
 }

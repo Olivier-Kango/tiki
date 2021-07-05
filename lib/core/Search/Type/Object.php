@@ -8,15 +8,15 @@
 
 class Search_Type_Object implements Search_Type_Interface
 {
-	private $values;
+    private $values;
 
-	public function __construct(array $values)
-	{
-		$this->values = $values;
-	}
+    public function __construct(array $values)
+    {
+        $this->values = $values;
+    }
 
-	public function getValue()
-	{
-		return $this->values;
-	}
+    public function getValue()
+    {
+        return $this->values;
+    }
 }

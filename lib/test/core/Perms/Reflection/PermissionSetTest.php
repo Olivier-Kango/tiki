@@ -13,67 +13,67 @@
 
 class Perms_Reflection_PermissionSetTest extends TikiTestCase
 {
-	public function testEmptySet()
-	{
-		$set = new Perms_Reflection_PermissionSet();
+    public function testEmptySet()
+    {
+        $set = new Perms_Reflection_PermissionSet();
 
-		$this->assertEquals([], $set->getPermissionArray());
-	}
+        $this->assertEquals([], $set->getPermissionArray());
+    }
 
-	public function testBasicSet()
-	{
-		$set = new Perms_Reflection_PermissionSet();
-		$set->add('Registered', 'view');
-		$set->add('Registered', 'edit');
-		$set->add('Anonymous', 'view');
+    public function testBasicSet()
+    {
+        $set = new Perms_Reflection_PermissionSet();
+        $set->add('Registered', 'view');
+        $set->add('Registered', 'edit');
+        $set->add('Anonymous', 'view');
 
-		$this->assertEquals(
-			[
-				'Registered' => ['view', 'edit'],
-				'Anonymous' => ['view'],
-			],
-			$set->getPermissionArray()
-		);
-	}
+        $this->assertEquals(
+            [
+                'Registered' => ['view', 'edit'],
+                'Anonymous' => ['view'],
+            ],
+            $set->getPermissionArray()
+        );
+    }
 
-	public function testDuplicateEntry()
-	{
-		$set = new Perms_Reflection_PermissionSet();
-		$set->add('Registered', 'view');
-		$set->add('Registered', 'edit');
-		$set->add('Registered', 'view');
+    public function testDuplicateEntry()
+    {
+        $set = new Perms_Reflection_PermissionSet();
+        $set->add('Registered', 'view');
+        $set->add('Registered', 'edit');
+        $set->add('Registered', 'view');
 
-		$this->assertEquals(
-			['Registered' => ['view', 'edit'],],
-			$set->getPermissionArray()
-		);
-	}
+        $this->assertEquals(
+            ['Registered' => ['view', 'edit'],],
+            $set->getPermissionArray()
+        );
+    }
 
-	public function testPositiveHas()
-	{
-		$set = new Perms_Reflection_PermissionSet();
-		$set->add('Anonymous', 'view');
+    public function testPositiveHas()
+    {
+        $set = new Perms_Reflection_PermissionSet();
+        $set->add('Anonymous', 'view');
 
-		$this->assertTrue($set->has('Anonymous', 'view'));
-	}
+        $this->assertTrue($set->has('Anonymous', 'view'));
+    }
 
-	public function testNegativeHas()
-	{
-		$set = new Perms_Reflection_PermissionSet();
+    public function testNegativeHas()
+    {
+        $set = new Perms_Reflection_PermissionSet();
 
-		$this->assertFalse($set->has('Anonymous', 'view'));
-	}
+        $this->assertFalse($set->has('Anonymous', 'view'));
+    }
 
-	public function testAddMultiple()
-	{
-		$equivalent = new Perms_Reflection_PermissionSet();
-		$equivalent->add('Anonymous', 'a');
-		$equivalent->add('Anonymous', 'b');
-		$equivalent->add('Anonymous', 'c');
+    public function testAddMultiple()
+    {
+        $equivalent = new Perms_Reflection_PermissionSet();
+        $equivalent->add('Anonymous', 'a');
+        $equivalent->add('Anonymous', 'b');
+        $equivalent->add('Anonymous', 'c');
 
-		$multi = new Perms_Reflection_PermissionSet();
-		$multi->add('Anonymous', ['a', 'b', 'c']);
+        $multi = new Perms_Reflection_PermissionSet();
+        $multi->add('Anonymous', ['a', 'b', 'c']);
 
-		$this->assertEquals($equivalent, $multi);
-	}
+        $this->assertEquals($equivalent, $multi);
+    }
 }

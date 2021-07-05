@@ -10,63 +10,63 @@ namespace Tracker\Tabular\Source;
 
 class ODBCSource implements SourceInterface
 {
-	private $schema;
-	private $odbc_manager;
+    private $schema;
+    private $odbc_manager;
 
-	public function __construct(\Tracker\Tabular\Schema $schema, array $odbc_config)
-	{
-		$this->schema = $schema;
-		$this->odbc_manager = new \Tracker\Tabular\ODBCManager($odbc_config);
-	}
-
-	public function getEntries()
-	{
-		$definition = $this->schema->getDefinition();
-		$modifiedField = $definition->getConfiguration('tabularSyncModifiedField');
-		$lastImport = $definition->getConfiguration('tabularSyncLastImport', null);
-		if ($modifiedField) {
-			$modifiedField = $definition->getField($modifiedField);
-		}
-		if ($lastImport) {
-			$lastImport = gmdate("Y-m-d H:i:s", $lastImport);
-		}
-		$fields = [];
-		foreach ($this->schema->getColumns() as $column) {
-			$fields[] = $column->getRemoteField();
-			if ($modifiedField && $modifiedField['permName'] == $column->getField()) {
-				$modifiedField = $column->getRemoteField();
-			}
-		}
-		foreach ($this->odbc_manager->iterate($fields, $modifiedField, $lastImport) as $row) {
-			yield new ODBCSourceEntry($row);
-		}
-	}
-
-	public function getSchema()
-	{
-		return $this->schema;
-	}
-
-	public function getRemoteSchema()
+    public function __construct(\Tracker\Tabular\Schema $schema, array $odbc_config)
     {
-		$result = [];
-		$schema = $this->odbc_manager->getSchema();
-		foreach ($schema as $row) {
-			$result[] = [
-				'name' => $row['COLUMN_NAME'],
-				'type' => $row['TYPE_NAME'],
-				'size' => $row['COLUMN_SIZE'],
-				'remarks' => $row['REMARKS'],
-			];
-		}
-		return $result;
-	}
+        $this->schema = $schema;
+        $this->odbc_manager = new \Tracker\Tabular\ODBCManager($odbc_config);
+    }
 
-	public function importSuccess()
+    public function getEntries()
     {
-		$definition = $this->schema->getDefinition();
-		if ($definition->getConfiguration('tabularSyncModifiedField')) {
-			\TikiLib::lib('trk')->replace_tracker_option($definition->getConfiguration('trackerId'), 'tabularSyncLastImport', time());
-		}
-	}
+        $definition = $this->schema->getDefinition();
+        $modifiedField = $definition->getConfiguration('tabularSyncModifiedField');
+        $lastImport = $definition->getConfiguration('tabularSyncLastImport', null);
+        if ($modifiedField) {
+            $modifiedField = $definition->getField($modifiedField);
+        }
+        if ($lastImport) {
+            $lastImport = gmdate("Y-m-d H:i:s", $lastImport);
+        }
+        $fields = [];
+        foreach ($this->schema->getColumns() as $column) {
+            $fields[] = $column->getRemoteField();
+            if ($modifiedField && $modifiedField['permName'] == $column->getField()) {
+                $modifiedField = $column->getRemoteField();
+            }
+        }
+        foreach ($this->odbc_manager->iterate($fields, $modifiedField, $lastImport) as $row) {
+            yield new ODBCSourceEntry($row);
+        }
+    }
+
+    public function getSchema()
+    {
+        return $this->schema;
+    }
+
+    public function getRemoteSchema()
+    {
+        $result = [];
+        $schema = $this->odbc_manager->getSchema();
+        foreach ($schema as $row) {
+            $result[] = [
+                'name' => $row['COLUMN_NAME'],
+                'type' => $row['TYPE_NAME'],
+                'size' => $row['COLUMN_SIZE'],
+                'remarks' => $row['REMARKS'],
+            ];
+        }
+        return $result;
+    }
+
+    public function importSuccess()
+    {
+        $definition = $this->schema->getDefinition();
+        if ($definition->getConfiguration('tabularSyncModifiedField')) {
+            \TikiLib::lib('trk')->replace_tracker_option($definition->getConfiguration('trackerId'), 'tabularSyncLastImport', time());
+        }
+    }
 }

@@ -8,32 +8,32 @@
 
 class Math_Formula_Function_Sub extends Math_Formula_Function
 {
-	public function evaluate($element)
-	{
-		$elements = [];
+    public function evaluate($element)
+    {
+        $elements = [];
 
-		foreach ($element as $child) {
-			$elements[] = $this->evaluateChild($child);
-		}
+        foreach ($element as $child) {
+            $elements[] = $this->evaluateChild($child);
+        }
 
-		$out = array_shift($elements);
-		if (! $out instanceof Math_Formula_Applicator) {
-			foreach ($elements as $element) {
-				if ($element instanceof Math_Formula_Applicator) {
-					$out = $element->clone($out);
-					break;
-				}
-			}
-		}
+        $out = array_shift($elements);
+        if (! $out instanceof Math_Formula_Applicator) {
+            foreach ($elements as $element) {
+                if ($element instanceof Math_Formula_Applicator) {
+                    $out = $element->clone($out);
+                    break;
+                }
+            }
+        }
 
-		foreach ($elements as $element) {
-			if ($out instanceof Math_Formula_Applicator) {
-				$out = $out->sub($element);
-			} elseif (is_numeric($element)) {
-				$out -= $element;
-			}
-		}
+        foreach ($elements as $element) {
+            if ($out instanceof Math_Formula_Applicator) {
+                $out = $out->sub($element);
+            } elseif (is_numeric($element)) {
+                $out -= $element;
+            }
+        }
 
-		return $out;
-	}
+        return $out;
+    }
 }

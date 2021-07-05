@@ -46,23 +46,23 @@
 
 function smarty_block_jq(array $params, ?string $content, Smarty_Internal_Template $smarty, bool &$repeat): string
 {
-	if ($repeat || empty($content)) {
-		return '';
-	}
+    if ($repeat || empty($content)) {
+        return '';
+    }
 
-	global $prefs;
-	if ($prefs['feature_jquery'] !== 'y') {
-		return $params['nojquery'] ?? tr('<!-- jq smarty plugin inactive: feature_jquery off -->');
-	}
-	/** @var \headerlib $headerlib */
-	$headerlib = TikiLib::lib('header');
+    global $prefs;
+    if ($prefs['feature_jquery'] !== 'y') {
+        return $params['nojquery'] ?? tr('<!-- jq smarty plugin inactive: feature_jquery off -->');
+    }
+    /** @var \headerlib $headerlib */
+    $headerlib = TikiLib::lib('header');
 
-	$params['rank'] = $params['rank'] ?? 0;
+    $params['rank'] = $params['rank'] ?? 0;
 
-	if (empty($params['notonready'])) {
-		$headerlib->add_jq_onready($content, $params['rank']);
-	} else {
-		$headerlib->add_js($content, $params['rank']);
-	}
-	return '';
+    if (empty($params['notonready'])) {
+        $headerlib->add_jq_onready($content, $params['rank']);
+    } else {
+        $headerlib->add_js($content, $params['rank']);
+    }
+    return '';
 }

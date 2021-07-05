@@ -8,41 +8,41 @@
 
 class Services_Attribute_Controller
 {
-	public function setUp()
-	{
-	}
+    public function setUp()
+    {
+    }
 
-	/**
-	 * Function to get an attribute
-	 *
-	 * @param $input JitFilter
-	 *  ->attribute string      lowercase letters and two dots
-	 *  ->type string           object type
-	 *  ->object mixed          id or name of object
-	 *
-	 * @return array value=>string containing the value
-	 * @throws Exception
-	 * @throws Services_Exception
-	 */
-	public function action_get($input)
-	{
-		$attribute = $input->attribute->text();
-		$type = $input->type->text();
-		$object = $input->object->text();
-		$value = '';
+    /**
+     * Function to get an attribute
+     *
+     * @param $input JitFilter
+     *  ->attribute string      lowercase letters and two dots
+     *  ->type string           object type
+     *  ->object mixed          id or name of object
+     *
+     * @return array value=>string containing the value
+     * @throws Exception
+     * @throws Services_Exception
+     */
+    public function action_get($input)
+    {
+        $attribute = $input->attribute->text();
+        $type = $input->type->text();
+        $object = $input->object->text();
+        $value = '';
 
-		// ensure the target, source, and relation info are passed to the service
-		if (! $type || ! $attribute) {
-			throw new Services_Exception(tr('Invalid input'), 400);
-		}
+        // ensure the target, source, and relation info are passed to the service
+        if (! $type || ! $attribute) {
+            throw new Services_Exception(tr('Invalid input'), 400);
+        }
 
-		if ($object) {		// for objects yet to be created we don't get an object id, so don't set any attributes
-			$value = TikiLib::lib('attribute')->get_attribute($type, $object, $attribute);
-		}
+        if ($object) {      // for objects yet to be created we don't get an object id, so don't set any attributes
+            $value = TikiLib::lib('attribute')->get_attribute($type, $object, $attribute);
+        }
 
-		//return the attribute value if there were no errors
-		return [
-			'value' => $value,
-		];
-	}
+        //return the attribute value if there were no errors
+        return [
+            'value' => $value,
+        ];
+    }
 }

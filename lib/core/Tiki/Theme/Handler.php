@@ -18,72 +18,72 @@ use Laminas\Filter\Word\UnderscoreToCamelCase as UnderscoreToCamelCase;
  */
 class Handler
 {
-	/**
-	 * Get all files inside folder
-	 *
-	 * @param string $pattern
-	 * @param int $flags
-	 * @return array
-	 */
-	public function getAllFolderFiles($pattern, $flags = 0)
-	{
-		$files = glob($pattern, $flags);
-		foreach (glob(dirname($pattern) . '/*', GLOB_ONLYDIR | GLOB_NOSORT) as $dir) {
-			$files = array_merge($files, $this->getAllFolderFiles($dir . '/' . basename($pattern), $flags));
-		}
-		return $files;
-	}
+    /**
+     * Get all files inside folder
+     *
+     * @param string $pattern
+     * @param int $flags
+     * @return array
+     */
+    public function getAllFolderFiles($pattern, $flags = 0)
+    {
+        $files = glob($pattern, $flags);
+        foreach (glob(dirname($pattern) . '/*', GLOB_ONLYDIR | GLOB_NOSORT) as $dir) {
+            $files = array_merge($files, $this->getAllFolderFiles($dir . '/' . basename($pattern), $flags));
+        }
+        return $files;
+    }
 
-	/**
-	 * Convert theme name into camelcase
-	 *
-	 * @param string $name
-	 * @return string
-	 */
-	public function getNameCamelCase($name)
-	{
-		$filterDash = new DashToCamelCase();
-		$filterUnderscore = new UnderscoreToCamelCase();
-		$convertedName = $filterDash->filter($name);
-		$convertedName = lcfirst($filterUnderscore->filter($convertedName));
-		return $convertedName;
-	}
+    /**
+     * Convert theme name into camelcase
+     *
+     * @param string $name
+     * @return string
+     */
+    public function getNameCamelCase($name)
+    {
+        $filterDash = new DashToCamelCase();
+        $filterUnderscore = new UnderscoreToCamelCase();
+        $convertedName = $filterDash->filter($name);
+        $convertedName = lcfirst($filterUnderscore->filter($convertedName));
+        return $convertedName;
+    }
 
-	/**
-	 * Check if theme exists
-	 *
-	 * @param string $theme
-	 * @return boolean
-	 */
-	public function themeExists($theme)
-	{
-		$themelib = TikiLib::lib('theme');
-		$listThemes = $themelib->get_themes();
-		if (in_array($theme, $listThemes)) {
-			return true;
-		}
-		return false;
-	}
+    /**
+     * Check if theme exists
+     *
+     * @param string $theme
+     * @return boolean
+     */
+    public function themeExists($theme)
+    {
+        $themelib = TikiLib::lib('theme');
+        $listThemes = $themelib->get_themes();
+        if (in_array($theme, $listThemes)) {
+            return true;
+        }
+        return false;
+    }
 
-	/**
-	 * Rename theme files
-	 *
-	 * @param array $themeFiles
-	 * @param string $name
-	 * @param string $rename
-	 * @return null
-	 */
-	public function convertFilesNames($themeFiles, $name, $rename)
-	{
-		if (! empty($themeFiles) && ! empty($name) && ! empty($rename)) {
-			$pattern = $name . '.';
-			$replacePattern = $rename . '.';
-			foreach ($themeFiles as $file) {
-				if (strpos($file, $pattern) !== false) {
-					$renameFile = str_replace($pattern, $replacePattern, $file);
-					rename($file, $renameFile);
-				}
-			}
-		}
-	}
+    /**
+     * Rename theme files
+     *
+     * @param array $themeFiles
+     * @param string $name
+     * @param string $rename
+     * @return null
+     */
+    public function convertFilesNames($themeFiles, $name, $rename)
+    {
+        if (! empty($themeFiles) && ! empty($name) && ! empty($rename)) {
+            $pattern = $name . '.';
+            $replacePattern = $rename . '.';
+            foreach ($themeFiles as $file) {
+                if (strpos($file, $pattern) !== false) {
+                    $renameFile = str_replace($pattern, $replacePattern, $file);
+                    rename($file, $renameFile);
+                }
+            }
+        }
+    }
 }

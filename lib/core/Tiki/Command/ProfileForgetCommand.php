@@ -17,68 +17,68 @@ use Tiki_Profile;
 
 class ProfileForgetCommand extends Command
 {
-	protected function configure()
-	{
-		$this
-			->setName('profile:forget')
-			->setDescription('Forget a profile installation')
-			->addArgument(
-				'profile',
-				InputArgument::REQUIRED,
-				'Profile name'
-			)
-			->addArgument(
-				'repository',
-				InputArgument::OPTIONAL,
-				'Repository',
-				'profiles.tiki.org'
-			)->addOption(
-				'revert',
-				null,
-				InputOption::VALUE_NONE,
-				'Rollback profile changes'
-			);
-	}
+    protected function configure()
+    {
+        $this
+            ->setName('profile:forget')
+            ->setDescription('Forget a profile installation')
+            ->addArgument(
+                'profile',
+                InputArgument::REQUIRED,
+                'Profile name'
+            )
+            ->addArgument(
+                'repository',
+                InputArgument::OPTIONAL,
+                'Repository',
+                'profiles.tiki.org'
+            )->addOption(
+                'revert',
+                null,
+                InputOption::VALUE_NONE,
+                'Rollback profile changes'
+            );
+    }
 
-	protected function execute(InputInterface $input, OutputInterface $output)
-	{
-		$profileName = $input->getArgument('profile');
-		$repository = $input->getArgument('repository');
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $profileName = $input->getArgument('profile');
+        $repository = $input->getArgument('repository');
 
-		$profile = \Tiki_Profile::fromNames($repository, $profileName);
+        $profile = \Tiki_Profile::fromNames($repository, $profileName);
 
-		if (! $profile) {
-			$output->writeln('<error>Profile not found.</error>');
-			return;
-		}
+        if (! $profile) {
+            $output->writeln('<error>Profile not found.</error>');
+            return;
+        }
 
-		$tikilib = \TikiLib::lib('tiki');
+        $tikilib = \TikiLib::lib('tiki');
 
-		$installer = new \Tiki_Profile_Installer();
-		$isInstalled = $installer->isInstalled($profile);
+        $installer = new \Tiki_Profile_Installer();
+        $isInstalled = $installer->isInstalled($profile);
 
-		if ($isInstalled) {
-			$transaction = $tikilib->begin();
+        if ($isInstalled) {
+            $transaction = $tikilib->begin();
 
-			if ($input->getOption('revert')) {
-				$query = "SELECT * FROM tiki_actionlog where action = 'profile apply' and object=? ORDER BY actionId DESC LIMIT 1";
-				$result = \TikiLib::lib('logs')->query($query, [$profileName]);
-				if ($logResult = $result->fetchRow()) {
-					$revertInfo = unserialize($logResult['log']);
-					if (! isset($revertInfo['reverted'])) {
-						\TikiLib::lib('logs')->revert_action($logResult['actionId'], $logResult['object'], 'profiles', $revertInfo);
-						$installer->revert($profile, $revertInfo);
-					}
-				} else {
-					$output->writeln('No changes were found in logs to revert.');
-				}
-			}
+            if ($input->getOption('revert')) {
+                $query = "SELECT * FROM tiki_actionlog where action = 'profile apply' and object=? ORDER BY actionId DESC LIMIT 1";
+                $result = \TikiLib::lib('logs')->query($query, [$profileName]);
+                if ($logResult = $result->fetchRow()) {
+                    $revertInfo = unserialize($logResult['log']);
+                    if (! isset($revertInfo['reverted'])) {
+                        \TikiLib::lib('logs')->revert_action($logResult['actionId'], $logResult['object'], 'profiles', $revertInfo);
+                        $installer->revert($profile, $revertInfo);
+                    }
+                } else {
+                    $output->writeln('No changes were found in logs to revert.');
+                }
+            }
 
-			$installer->forget($profile);
-			$transaction->commit();
-			$output->writeln('Profile forgotten.');
-		} else {
-			$output->writeln('<info>Profile was not installed or did not create any objects.</info>');
-		}
-	}
+            $installer->forget($profile);
+            $transaction->commit();
+            $output->writeln('Profile forgotten.');
+        } else {
+            $output->writeln('<info>Profile was not installed or did not create any objects.</info>');
+        }
+    }
 }

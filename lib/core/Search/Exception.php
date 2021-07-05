@@ -9,5 +9,5 @@
 class Search_Exception extends Exception
 {
   // add ability to ignore sending the feedback to the user on certain query exceptions when fields are not in the index
-  public $suppress_feedback = false;
+    public $suppress_feedback = false;
 }

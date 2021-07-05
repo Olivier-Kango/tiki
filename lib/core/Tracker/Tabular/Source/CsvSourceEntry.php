@@ -10,22 +10,22 @@ namespace Tracker\Tabular\Source;
 
 class CsvSourceEntry implements SourceEntryInterface
 {
-	private $data;
+    private $data;
 
-	public function __construct($data)
-	{
-		$this->data = $data;
-	}
+    public function __construct($data)
+    {
+        $this->data = $data;
+    }
 
-	public function render(\Tracker\Tabular\Schema\Column $column)
-	{
-		$entry = $this->data[spl_object_hash($column)];
-		return $column->render($entry);
-	}
+    public function render(\Tracker\Tabular\Schema\Column $column)
+    {
+        $entry = $this->data[spl_object_hash($column)];
+        return $column->render($entry);
+    }
 
-	public function parseInto(&$info, $column)
-	{
-		$entry = $this->data[spl_object_hash($column)];
-		$column->parseInto($info, $entry);
-	}
+    public function parseInto(&$info, $column)
+    {
+        $entry = $this->data[spl_object_hash($column)];
+        $column->parseInto($info, $entry);
+    }
 }

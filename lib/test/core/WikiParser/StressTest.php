@@ -12,9 +12,9 @@
 
 class WikiParser_StressTest extends PHPUnit\Framework\TestCase
 {
-	public function testMessProvidedByJonny()
-	{
-		$content = <<<WIKI
+    public function testMessProvidedByJonny()
+    {
+        $content = <<<WIKI
 {HTML()}<img style="margin-bottom: 10px" src="Web-Images/headers/Directory-Header_wide.jpg" border="0" />{HTML}{DIV(class="dark_acme1")}{DIV(class="wrapper")}{DIV(class="halffloat clearfix")}{DIV(class="box")}~tc~directory item photo~/tc~{\$f_130}
 
 ! {\$f_126}
@@ -72,8 +72,8 @@ Neighborhood: __{\$f_133}__
 {DIV}{DIV}{DIV}{DIV}{DIV}
 WIKI;
 
-		$matches = WikiParser_PluginMatcher::match($content);
+        $matches = WikiParser_PluginMatcher::match($content);
 
-		$this->assertGreaterThan(0, count($matches));
-	}
+        $this->assertGreaterThan(0, count($matches));
+    }
 }

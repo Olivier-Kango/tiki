@@ -20,5 +20,5 @@ use PHPUnit\Framework\TestCase;
 
 abstract class TikiTestCase extends TestCase
 {
-	protected $backupGlobals = false;
+    protected $backupGlobals = false;
 }

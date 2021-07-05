@@ -6,8 +6,8 @@ use Tiki\Lib\core\Tracker\Rule\Type\Text;
 
 class TextNotContains extends Operator
 {
-	public function __construct()
-	{
-		parent::__construct(tr('does not contain'), Text::class, '.val().indexOf("%argument%") === -1', [Text::class]);
-	}
+    public function __construct()
+    {
+        parent::__construct(tr('does not contain'), Text::class, '.val().indexOf("%argument%") === -1', [Text::class]);
+    }
 }

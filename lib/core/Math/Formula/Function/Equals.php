@@ -8,21 +8,21 @@
 
 class Math_Formula_Function_Equals extends Math_Formula_Function
 {
-	public function evaluate($element)
-	{
-		// Multiple components will all need to be equal.
+    public function evaluate($element)
+    {
+        // Multiple components will all need to be equal.
 
-		$out = [];
+        $out = [];
 
-		$reference = $this->evaluateChild($element[0]);
+        $reference = $this->evaluateChild($element[0]);
 
-		foreach ($element as $child) {
-			$component = $this->evaluateChild($child);
-			if ($component != $reference) {
-				return false;
-			}
-		}
+        foreach ($element as $child) {
+            $component = $this->evaluateChild($child);
+            if ($component != $reference) {
+                return false;
+            }
+        }
 
-		return true;
-	}
+        return true;
+    }
 }

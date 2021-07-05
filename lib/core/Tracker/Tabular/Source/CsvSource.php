@@ -10,42 +10,42 @@ namespace Tracker\Tabular\Source;
 
 class CsvSource implements SourceInterface
 {
-	private $schema;
-	private $file;
+    private $schema;
+    private $file;
 
-	public function __construct(\Tracker\Tabular\Schema $schema, $fileName, $delimiter = ',')
-	{
-		ini_set('auto_detect_line_endings', true);
-		$this->schema = $schema->getPlainOutputSchema();
-		$this->file = new \SplFileObject($fileName, 'r');
-		$this->file->setCsvControl($delimiter);
-	}
+    public function __construct(\Tracker\Tabular\Schema $schema, $fileName, $delimiter = ',')
+    {
+        ini_set('auto_detect_line_endings', true);
+        $this->schema = $schema->getPlainOutputSchema();
+        $this->file = new \SplFileObject($fileName, 'r');
+        $this->file->setCsvControl($delimiter);
+    }
 
-	public function getEntries()
-	{
-		$this->file->fseek(0);
+    public function getEntries()
+    {
+        $this->file->fseek(0);
 
-		$headers = $this->file->fgetcsv();
-		$this->schema->validateAgainstHeaders($headers);
+        $headers = $this->file->fgetcsv();
+        $this->schema->validateAgainstHeaders($headers);
 
-		while (! $this->file->eof()) {
-			$row = $this->file->fgetcsv();
+        while (! $this->file->eof()) {
+            $row = $this->file->fgetcsv();
 
-			if (count($row) == 1 && empty($row[0])) {
-				continue;
-			}
+            if (count($row) == 1 && empty($row[0])) {
+                continue;
+            }
 
-			$data = [];
-			foreach ($this->schema->getColumns() as $i => $column) {
-				$data[spl_object_hash($column)] = $row[$i];
-			}
+            $data = [];
+            foreach ($this->schema->getColumns() as $i => $column) {
+                $data[spl_object_hash($column)] = $row[$i];
+            }
 
-			yield new CsvSourceEntry($data);
-		}
-	}
+            yield new CsvSourceEntry($data);
+        }
+    }
 
-	public function getSchema()
-	{
-		return $this->schema;
-	}
+    public function getSchema()
+    {
+        return $this->schema;
+    }
 }

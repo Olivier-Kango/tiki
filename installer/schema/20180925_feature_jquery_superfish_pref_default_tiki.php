@@ -14,5 +14,5 @@ use Tiki\Installer\Installer;
  */
 function upgrade_20180925_feature_jquery_superfish_pref_default_tiki($installer)
 {
-	$installer->preservePreferenceDefault('feature_jquery_superfish', 'y');
+    $installer->preservePreferenceDefault('feature_jquery_superfish', 'y');
 }

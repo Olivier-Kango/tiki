@@ -8,19 +8,19 @@
 
 interface Search_Index_Interface
 {
-	public function addDocument(array $document);
+    public function addDocument(array $document);
 
-	public function invalidateMultiple(array $query);
+    public function invalidateMultiple(array $query);
 
-	public function endUpdate();
+    public function endUpdate();
 
-	public function find(Search_Query_Interface $query, $resultStart, $resultCount);
+    public function find(Search_Query_Interface $query, $resultStart, $resultCount);
 
-	public function getTypeFactory();
+    public function getTypeFactory();
 
-	public function optimize();
+    public function optimize();
 
-	public function destroy();
+    public function destroy();
 
-	public function exists();
+    public function exists();
 }

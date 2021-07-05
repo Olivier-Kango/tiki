@@ -8,10 +8,10 @@
 
 function smarty_function_count($params, $smarty)
 {
-	extract($params);
-	if (empty($var)) {
-		trigger_error("count: missing 'var' parameter");
-		return;
-	}
-	print(count($var));
+    extract($params);
+    if (empty($var)) {
+        trigger_error("count: missing 'var' parameter");
+        return;
+    }
+    print(count($var));
 }

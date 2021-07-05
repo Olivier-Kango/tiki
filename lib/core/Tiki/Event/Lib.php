@@ -8,22 +8,22 @@
 
 class Tiki_Event_Lib
 {
-	private $library;
-	private $method;
+    private $library;
+    private $method;
 
-	private function __construct($library, $method)
-	{
-		$this->library = $library;
-		$this->method = $method;
-	}
+    private function __construct($library, $method)
+    {
+        $this->library = $library;
+        $this->method = $method;
+    }
 
-	public static function defer($library, $method)
-	{
-		return new self($library, $method);
-	}
+    public static function defer($library, $method)
+    {
+        return new self($library, $method);
+    }
 
-	public function __invoke($arguments, $eventName, $priority)
-	{
-		TikiLib::lib($this->library)->{$this->method}($arguments, $eventName, $priority);
-	}
+    public function __invoke($arguments, $eventName, $priority)
+    {
+        TikiLib::lib($this->library)->{$this->method}($arguments, $eventName, $priority);
+    }
 }

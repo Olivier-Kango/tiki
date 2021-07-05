@@ -8,8 +8,8 @@
 
 //this script may only be included - so its better to die if called directly.
 if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
-	header('location: index.php');
-	exit;
+    header('location: index.php');
+    exit;
 }
 
 /**
@@ -19,21 +19,21 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
  */
 class ImageFile
 {
-	public $header = null;
-	public $width = null;
-	public $height = null;
-	public $otherinfo = null;
+    public $header = null;
+    public $width = null;
+    public $height = null;
+    public $otherinfo = null;
 
-	/**
-	 * Assign common image metadata information to properties
-	 *
-	 * @param 		FileMetadata object			$metaObj
-	 */
-	public function __construct($metaObj)
-	{
-			$this->header = getimagesize($metaObj->currname, $otherinfo);
-			$this->width = $this->header[0];
-			$this->height = $this->header[1];
-			$this->otherinfo = $otherinfo;
-	}
+    /**
+     * Assign common image metadata information to properties
+     *
+     * @param       FileMetadata object         $metaObj
+     */
+    public function __construct($metaObj)
+    {
+            $this->header = getimagesize($metaObj->currname, $otherinfo);
+            $this->width = $this->header[0];
+            $this->height = $this->header[1];
+            $this->otherinfo = $otherinfo;
+    }
 }

@@ -7,8 +7,8 @@ use Tiki\Lib\core\Tracker\Rule\Type\Nothing;
 
 class Editable extends Action
 {
-	public function __construct()
-	{
-		parent::__construct(tr('Editable'), Nothing::class, '.actionEditable(true)', [Field::class]);
-	}
+    public function __construct()
+    {
+        parent::__construct(tr('Editable'), Nothing::class, '.actionEditable(true)', [Field::class]);
+    }
 }

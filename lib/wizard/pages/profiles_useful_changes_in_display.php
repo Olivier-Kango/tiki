@@ -13,36 +13,36 @@ require_once('lib/wizard/wizard.php');
  */
 class ProfilesWizardUsefulChangesInDisplay extends Wizard
 {
-	public function pageTitle()
-	{
-		return tra('Useful Changes in Display Mode');
-	}
-	public function isEditable()
-	{
-		return false;
-	}
+    public function pageTitle()
+    {
+        return tra('Useful Changes in Display Mode');
+    }
+    public function isEditable()
+    {
+        return false;
+    }
 
-	public function onSetupPage($homepageUrl)
-	{
-		global $prefs, $TWV;
-		$smarty = TikiLib::lib('smarty');
-		// Run the parent first
-		parent::onSetupPage($homepageUrl);
+    public function onSetupPage($homepageUrl)
+    {
+        global $prefs, $TWV;
+        $smarty = TikiLib::lib('smarty');
+        // Run the parent first
+        parent::onSetupPage($homepageUrl);
 
-		$smarty->assign('tikiMajorVersion', substr($TWV->version, 0, 2));
+        $smarty->assign('tikiMajorVersion', substr($TWV->version, 0, 2));
 
-		return true;
-	}
+        return true;
+    }
 
-	public function getTemplate()
-	{
-		$wizardTemplate = 'wizard/profiles_useful_changes_in_display.tpl';
-		return $wizardTemplate;
-	}
+    public function getTemplate()
+    {
+        $wizardTemplate = 'wizard/profiles_useful_changes_in_display.tpl';
+        return $wizardTemplate;
+    }
 
-	public function onContinue($homepageUrl)
-	{
-		// Run the parent first
-		parent::onContinue($homepageUrl);
-	}
+    public function onContinue($homepageUrl)
+    {
+        // Run the parent first
+        parent::onContinue($homepageUrl);
+    }
 }

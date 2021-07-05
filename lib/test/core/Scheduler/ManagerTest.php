@@ -22,187 +22,187 @@ use UsersLib;
 class ManagerTest extends TestCase
 {
 
-	const USER = 'membershiptest_a';
-	protected static $items = [];
+    const USER = 'membershiptest_a';
+    protected static $items = [];
 
-	public static function tearDownAfterClass(): void
-	{
-		$schedlib = TikiLib::lib('scheduler');
+    public static function tearDownAfterClass(): void
+    {
+        $schedlib = TikiLib::lib('scheduler');
 
-		foreach (self::$items as $itemId) {
-			$schedlib->remove_scheduler($itemId);
-		}
-		$userlib = new UsersLib();
-		$userlib->remove_user(self::USER);
-	}
+        foreach (self::$items as $itemId) {
+            $schedlib->remove_scheduler($itemId);
+        }
+        $userlib = new UsersLib();
+        $userlib->remove_user(self::USER);
+    }
 
-	/**
-	 * Test if two active schedulers scheduled to run at same same, run.
-	 */
-	public function testSchedulersRunAtSameRunTime()
-	{
+    /**
+     * Test if two active schedulers scheduled to run at same same, run.
+     */
+    public function testSchedulersRunAtSameRunTime()
+    {
 
-		$logger = new Tiki_Log('UnitTests', LogLevel::ERROR);
-		$scheduler1 = Scheduler_Item::fromArray([
-			'id' => null,
-			'name' => 'Test Scheduler',
-			'description' => 'Test Scheduler',
-			'task' => 'ConsoleCommandTask',
-			'params' => '{"console_command":"list"}',
-			'run_time' => '* * * * *',
-			'status' => 'active',
-			're_run' => 0,
-			'run_only_once' => 0,
-			'creation_date' => time() - 60,
-			'user_run_now' => null,
-		], $logger);
+        $logger = new Tiki_Log('UnitTests', LogLevel::ERROR);
+        $scheduler1 = Scheduler_Item::fromArray([
+            'id' => null,
+            'name' => 'Test Scheduler',
+            'description' => 'Test Scheduler',
+            'task' => 'ConsoleCommandTask',
+            'params' => '{"console_command":"list"}',
+            'run_time' => '* * * * *',
+            'status' => 'active',
+            're_run' => 0,
+            'run_only_once' => 0,
+            'creation_date' => time() - 60,
+            'user_run_now' => null,
+        ], $logger);
 
-		$scheduler2 = Scheduler_Item::fromArray([
-			'id' => null,
-			'name' => 'Test Scheduler',
-			'description' => 'Test Scheduler',
-			'task' => 'ConsoleCommandTask',
-			'params' => '{"console_command":"list"}',
-			'run_time' => '*/1 * * * *',
-			'status' => 'active',
-			're_run' => 0,
-			'run_only_once' => 0,
-			'creation_date' => time() - 60,
-			'user_run_now' => null,
-		], $logger);
+        $scheduler2 = Scheduler_Item::fromArray([
+            'id' => null,
+            'name' => 'Test Scheduler',
+            'description' => 'Test Scheduler',
+            'task' => 'ConsoleCommandTask',
+            'params' => '{"console_command":"list"}',
+            'run_time' => '*/1 * * * *',
+            'status' => 'active',
+            're_run' => 0,
+            'run_only_once' => 0,
+            'creation_date' => time() - 60,
+            'user_run_now' => null,
+        ], $logger);
 
-		$scheduler1->save();
-		$scheduler2->save();
+        $scheduler1->save();
+        $scheduler2->save();
 
-		self::$items[] = $scheduler1->id;
-		self::$items[] = $scheduler2->id;
+        self::$items[] = $scheduler1->id;
+        self::$items[] = $scheduler2->id;
 
-		$manager = new Scheduler_Manager($logger);
-		$manager->run();
+        $manager = new Scheduler_Manager($logger);
+        $manager->run();
 
-		$this->assertNotEmpty($scheduler1->getLastRun());
-		$this->assertNotEmpty($scheduler2->getLastRun());
-	}
+        $this->assertNotEmpty($scheduler1->getLastRun());
+        $this->assertNotEmpty($scheduler2->getLastRun());
+    }
 
 
-	/**
-	 * Test if two active schedulers scheduled to run at same same, run.
-	 */
-	public function testSchedulersRunNow()
-	{
-		$userlib = new UsersLib();
-		$userlib->add_user(self::USER, 'abc', 'a@example.com');
+    /**
+     * Test if two active schedulers scheduled to run at same same, run.
+     */
+    public function testSchedulersRunNow()
+    {
+        $userlib = new UsersLib();
+        $userlib->add_user(self::USER, 'abc', 'a@example.com');
 
-		$logger = new Tiki_Log('UnitTests', LogLevel::ERROR);
+        $logger = new Tiki_Log('UnitTests', LogLevel::ERROR);
 
-		$scheduler1Data = [
-			'id' => null,
-			'name' => 'Test Scheduler',
-			'description' => 'Test Scheduler',
-			'task' => 'ConsoleCommandTask',
-			'params' => '{"console_command":"list"}',
-			'run_time' => '* * * * *',
-			'status' => Scheduler_Item::STATUS_ACTIVE,
-			're_run' => 0,
-			'run_only_once' => 0,
-			'user_run_now' => self::USER,
-		];
+        $scheduler1Data = [
+            'id' => null,
+            'name' => 'Test Scheduler',
+            'description' => 'Test Scheduler',
+            'task' => 'ConsoleCommandTask',
+            'params' => '{"console_command":"list"}',
+            'run_time' => '* * * * *',
+            'status' => Scheduler_Item::STATUS_ACTIVE,
+            're_run' => 0,
+            'run_only_once' => 0,
+            'user_run_now' => self::USER,
+        ];
 
-		$scheduler1 = Scheduler_Item::fromArray($scheduler1Data, $logger);
+        $scheduler1 = Scheduler_Item::fromArray($scheduler1Data, $logger);
 
-		$scheduler2Data = $scheduler1Data;
-		$scheduler2Data['status'] = Scheduler_Item::STATUS_INACTIVE;
+        $scheduler2Data = $scheduler1Data;
+        $scheduler2Data['status'] = Scheduler_Item::STATUS_INACTIVE;
 
-		$scheduler2 = Scheduler_Item::fromArray($scheduler2Data, $logger);
+        $scheduler2 = Scheduler_Item::fromArray($scheduler2Data, $logger);
 
-		$scheduler3Data = $scheduler2Data;
-		$scheduler3Data['user_run_now'] = null;
-		$scheduler3Data['creation_date'] = time() - 60;
-		$scheduler3 = Scheduler_Item::fromArray($scheduler3Data, $logger);
+        $scheduler3Data = $scheduler2Data;
+        $scheduler3Data['user_run_now'] = null;
+        $scheduler3Data['creation_date'] = time() - 60;
+        $scheduler3 = Scheduler_Item::fromArray($scheduler3Data, $logger);
 
-		$scheduler4Data = $scheduler3Data;
-		$scheduler4Data['status'] = Scheduler_Item::STATUS_ACTIVE;
-		$scheduler4 = Scheduler_Item::fromArray($scheduler4Data, $logger);
+        $scheduler4Data = $scheduler3Data;
+        $scheduler4Data['status'] = Scheduler_Item::STATUS_ACTIVE;
+        $scheduler4 = Scheduler_Item::fromArray($scheduler4Data, $logger);
 
-		$scheduler1->save();
-		$scheduler2->save();
-		$scheduler3->save();
-		$scheduler4->save();
+        $scheduler1->save();
+        $scheduler2->save();
+        $scheduler3->save();
+        $scheduler4->save();
 
-		self::$items[] = $scheduler1->id;
-		self::$items[] = $scheduler2->id;
-		self::$items[] = $scheduler3->id;
-		self::$items[] = $scheduler4->id;
+        self::$items[] = $scheduler1->id;
+        self::$items[] = $scheduler2->id;
+        self::$items[] = $scheduler3->id;
+        self::$items[] = $scheduler4->id;
 
-		$manager = new Scheduler_Manager($logger);
-		$manager->run();
-		$lastRun = $scheduler1->getLastRun();
-		$this->assertNotEmpty($lastRun);
-		$this->assertStringContainsString('Run triggered by ', $lastRun['output']);
+        $manager = new Scheduler_Manager($logger);
+        $manager->run();
+        $lastRun = $scheduler1->getLastRun();
+        $this->assertNotEmpty($lastRun);
+        $this->assertStringContainsString('Run triggered by ', $lastRun['output']);
 
-		$lastRun2 = $scheduler2->getLastRun();
-		$this->assertNotEmpty($lastRun2);
-		$this->assertStringContainsString('Run triggered by ' . self::USER, $lastRun['output']);
+        $lastRun2 = $scheduler2->getLastRun();
+        $this->assertNotEmpty($lastRun2);
+        $this->assertStringContainsString('Run triggered by ' . self::USER, $lastRun['output']);
 
-		$this->assertEmpty($scheduler3->getLastRun());
-		$this->assertNotEmpty($scheduler4->getLastRun());
+        $this->assertEmpty($scheduler3->getLastRun());
+        $this->assertNotEmpty($scheduler4->getLastRun());
 
-		$manager = new Scheduler_Manager($logger);
-		$manager->run();
-		$this->assertEquals($lastRun2['id'], $scheduler2->getLastRun()['id']);
-	}
+        $manager = new Scheduler_Manager($logger);
+        $manager->run();
+        $this->assertEquals($lastRun2['id'], $scheduler2->getLastRun()['id']);
+    }
 
-	/**
-	 * @covers Scheduler_Manager::shouldRun
-	 */
-	public function testShouldRun()
-	{
-		$schedulerStub = $this->createMock(Scheduler_Item::class);
-		$schedulerStub->user_run_now = 1;
-		$schedulerStub->run_time = '*/5 * * * *'; // Every 5 min
-		$schedulerStub
-			->method('getLastRun')
-			->willReturn([
-				'end_time' => strtotime('15 min ago')
-			]);
+    /**
+     * @covers Scheduler_Manager::shouldRun
+     */
+    public function testShouldRun()
+    {
+        $schedulerStub = $this->createMock(Scheduler_Item::class);
+        $schedulerStub->user_run_now = 1;
+        $schedulerStub->run_time = '*/5 * * * *'; // Every 5 min
+        $schedulerStub
+            ->method('getLastRun')
+            ->willReturn([
+                'end_time' => strtotime('15 min ago')
+            ]);
 
-		$schedulerStub
-			->method('getPreviousRunDate')
-			->willReturn(strtotime('10 min ago'));
+        $schedulerStub
+            ->method('getPreviousRunDate')
+            ->willReturn(strtotime('10 min ago'));
 
-		$managerStub = $this->createPartialMock(Scheduler_Manager::class, []);
-		$shouldRun = $managerStub->shouldRun($schedulerStub);
+        $managerStub = $this->createPartialMock(Scheduler_Manager::class, []);
+        $shouldRun = $managerStub->shouldRun($schedulerStub);
 
-		$this->assertTrue($shouldRun);
+        $this->assertTrue($shouldRun);
 
-		$schedulerStub->user_run_now = null;
-		$shouldRun = $managerStub->shouldRun($schedulerStub);
+        $schedulerStub->user_run_now = null;
+        $shouldRun = $managerStub->shouldRun($schedulerStub);
 
-		$this->assertTrue($shouldRun);
-	}
+        $this->assertTrue($shouldRun);
+    }
 
-	/**
-	 * @covers Scheduler_Manager::shouldRun
-	 */
-	public function testShouldNotRun()
-	{
-		$schedulerStub = $this->createMock(Scheduler_Item::class);
-		$schedulerStub->user_run_now = 0;
-		$schedulerStub->run_time = '0 * * * *'; // Every hour
+    /**
+     * @covers Scheduler_Manager::shouldRun
+     */
+    public function testShouldNotRun()
+    {
+        $schedulerStub = $this->createMock(Scheduler_Item::class);
+        $schedulerStub->user_run_now = 0;
+        $schedulerStub->run_time = '0 * * * *'; // Every hour
 
-		$schedulerStub
-			->method('getLastRun')
-			->willReturn([
-				'end_time' => strtotime('15 min ago')
-			]);
+        $schedulerStub
+            ->method('getLastRun')
+            ->willReturn([
+                'end_time' => strtotime('15 min ago')
+            ]);
 
-		$schedulerStub
-			->method('getPreviousRunDate')
-			->willReturn(time() - (time() % 3600));
+        $schedulerStub
+            ->method('getPreviousRunDate')
+            ->willReturn(time() - (time() % 3600));
 
-		$managerStub = $this->createPartialMock(Scheduler_Manager::class, ['shouldRun']);
-		$shouldRun = $managerStub->shouldRun($schedulerStub);
+        $managerStub = $this->createPartialMock(Scheduler_Manager::class, ['shouldRun']);
+        $shouldRun = $managerStub->shouldRun($schedulerStub);
 
-		$this->assertFalse($shouldRun);
-	}
+        $this->assertFalse($shouldRun);
+    }
 }

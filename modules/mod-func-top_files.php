@@ -11,13 +11,13 @@
  */
 function module_top_files_info()
 {
-	return [
-		'name' => tra('Top Files'),
-		'description' => tra('Displays the specified number of files with links to them, starting with the one with most hits.'),
-		'prefs' => ['feature_file_galleries'],
-		'params' => [],
-		'common_params' => ['nonums', 'rows']
-	];
+    return [
+        'name' => tra('Top Files'),
+        'description' => tra('Displays the specified number of files with links to them, starting with the one with most hits.'),
+        'prefs' => ['feature_file_galleries'],
+        'params' => [],
+        'common_params' => ['nonums', 'rows']
+    ];
 }
 
 /**
@@ -26,9 +26,9 @@ function module_top_files_info()
  */
 function module_top_files($mod_reference, $module_params)
 {
-	$smarty = TikiLib::lib('smarty');
-	$filegallib = TikiLib::lib('filegal');
-	$ranking = $filegallib->list_files(0, $mod_reference["rows"], 'hits_desc', '');
+    $smarty = TikiLib::lib('smarty');
+    $filegallib = TikiLib::lib('filegal');
+    $ranking = $filegallib->list_files(0, $mod_reference["rows"], 'hits_desc', '');
 
-	$smarty->assign('modTopFiles', $ranking["data"]);
+    $smarty->assign('modTopFiles', $ranking["data"]);
 }

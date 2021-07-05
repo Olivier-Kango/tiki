@@ -9,8 +9,8 @@
 //namespace TikiLib\Socnets\LLOG;
 
 if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
-	header('location: index.php');
-	exit;
+    header('location: index.php');
+    exit;
 }
 
 
@@ -20,9 +20,9 @@ use TikiLib\Socnets\Util\Util;
 
 function LLOG($msg, $msg2 = '')
 {
-  if ($msg2 === '') {
-    Util::log($msg);
-  } else {
-Util::log2($msg, $msg2);
-  }
+    if ($msg2 === '') {
+        Util::log($msg);
+    } else {
+        Util::log2($msg, $msg2);
+    }
 }

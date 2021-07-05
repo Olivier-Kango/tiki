@@ -13,16 +13,16 @@
  */
 function upgrade_20170717_add_missing_trackeritem_attachment_backlinks_tiki($installer)
 {
-	$filegal = TikiLib::lib('filegal');
-	$files = [];
-	$relations = $installer->table('tiki_object_relations');
-	$attachments = $relations->fetchAll(['source_itemId', 'target_itemId'], ['relation' => 'tiki.file.attach', 'source_type' => 'trackeritem', 'target_type' => 'file']);
-	foreach ($attachments as $rel) {
-		$files[$rel['source_itemId']][] = $rel['target_itemId'];
-	}
-	foreach ($files as $itemId => $fileIds) {
-		$context = ['type' => 'trackeritem', 'object' => $itemId];
-		$fileIds = array_unique($fileIds);
-		$filegal->replaceBacklinks($context, $fileIds);
-	}
+    $filegal = TikiLib::lib('filegal');
+    $files = [];
+    $relations = $installer->table('tiki_object_relations');
+    $attachments = $relations->fetchAll(['source_itemId', 'target_itemId'], ['relation' => 'tiki.file.attach', 'source_type' => 'trackeritem', 'target_type' => 'file']);
+    foreach ($attachments as $rel) {
+        $files[$rel['source_itemId']][] = $rel['target_itemId'];
+    }
+    foreach ($files as $itemId => $fileIds) {
+        $context = ['type' => 'trackeritem', 'object' => $itemId];
+        $fileIds = array_unique($fileIds);
+        $filegal->replaceBacklinks($context, $fileIds);
+    }
 }

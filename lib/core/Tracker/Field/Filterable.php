@@ -8,10 +8,10 @@
 
 interface Tracker_Field_Filterable
 {
-	public function getFilterCollection();
+    public function getFilterCollection();
 
-	/**
-	 * Defined in abstract, but needed when using remote indexing.
-	 */
-	public function setBaseKeyPrefix($prefix);
+    /**
+     * Defined in abstract, but needed when using remote indexing.
+     */
+    public function setBaseKeyPrefix($prefix);
 }

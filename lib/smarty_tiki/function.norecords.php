@@ -7,26 +7,26 @@
 // $Id$
 
 /**
-	function norecords
+    function norecords
 
-	Param list :
-		_colspan : How much column need to be covered
-		_text : text to display, bu default => No records found.
+    Param list :
+        _colspan : How much column need to be covered
+        _text : text to display, bu default => No records found.
 */
 
 function smarty_function_norecords($params, $smarty)
 {
-	$html = '<tr class="even">';
-	if (is_int($params["_colspan"])) {
-		$html .= '<td colspan="' . $params["_colspan"] . '" class="norecords">';
-	} else {
-		$html .= '<td class="norecords">';
-	}
-	if (isset($params["_text"])) {
-		$html .= tra($params["_text"]);
-	} else {
-		$html .= tra("No records found.");
-	}
-	$html .= "</td></tr>";
-	return $html;
+    $html = '<tr class="even">';
+    if (is_int($params["_colspan"])) {
+        $html .= '<td colspan="' . $params["_colspan"] . '" class="norecords">';
+    } else {
+        $html .= '<td class="norecords">';
+    }
+    if (isset($params["_text"])) {
+        $html .= tra($params["_text"]);
+    } else {
+        $html .= tra("No records found.");
+    }
+    $html .= "</td></tr>";
+    return $html;
 }

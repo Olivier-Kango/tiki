@@ -8,11 +8,11 @@
 
 interface Search_Action_Step
 {
-	public function getFields();
+    public function getFields();
 
-	public function validate(array $entry);
+    public function validate(array $entry);
 
-	public function execute(array $entry);
+    public function execute(array $entry);
 
-	public function requiresInput();
+    public function requiresInput();
 }

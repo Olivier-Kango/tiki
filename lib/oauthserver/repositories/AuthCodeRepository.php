@@ -14,21 +14,21 @@ use League\OAuth2\Server\Entities\AuthCodeEntityInterface;
 
 class AuthCodeRepository implements AuthCodeRepositoryInterface
 {
-	public function getNewAuthCode()
-	{
-		return new AuthCodeEntity();
-	}
+    public function getNewAuthCode()
+    {
+        return new AuthCodeEntity();
+    }
 
-	public function isAuthCodeRevoked($codeId)
-	{
-		return false;
-	}
+    public function isAuthCodeRevoked($codeId)
+    {
+        return false;
+    }
 
-	public function persistNewAuthCode(AuthCodeEntityInterface $code)
-	{
-	}
+    public function persistNewAuthCode(AuthCodeEntityInterface $code)
+    {
+    }
 
-	public function revokeAuthCode($codeId)
-	{
-	}
+    public function revokeAuthCode($codeId)
+    {
+    }
 }

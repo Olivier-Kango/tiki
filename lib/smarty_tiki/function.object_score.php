@@ -8,23 +8,23 @@
 
 function smarty_function_object_score($params, $smarty)
 {
-	extract($params);
-	if (empty($id) || empty($type)) {
-		trigger_error("object_score: missing id and/or type parameters");
-		return;
-	}
-	$scorelib = TikiLib::lib("score");
+    extract($params);
+    if (empty($id) || empty($type)) {
+        trigger_error("object_score: missing id and/or type parameters");
+        return;
+    }
+    $scorelib = TikiLib::lib("score");
 
-	if (! empty($ruleId)) {
-		return $scorelib->getPointsBalanceForRuleId($type, $id, $ruleId);
-	} elseif ($grouped == 'y') {
-		$scoreArr = $scorelib->getGroupedPointsBalance($type, $id);
-		if (empty($assign)) {
-			return $scoreArr;
-		} else {
-			$smarty->assign($assign, $scoreArr);
-		}
-	} else {
-		return $scorelib->getPointsBalance($type, $id);
-	}
+    if (! empty($ruleId)) {
+        return $scorelib->getPointsBalanceForRuleId($type, $id, $ruleId);
+    } elseif ($grouped == 'y') {
+        $scoreArr = $scorelib->getGroupedPointsBalance($type, $id);
+        if (empty($assign)) {
+            return $scoreArr;
+        } else {
+            $smarty->assign($assign, $scoreArr);
+        }
+    } else {
+        return $scorelib->getPointsBalance($type, $id);
+    }
 }

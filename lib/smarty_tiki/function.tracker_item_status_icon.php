@@ -8,32 +8,32 @@
 
 function smarty_function_tracker_item_status_icon($params, $smarty)
 {
-	global $prefs;
+    global $prefs;
 
-	if (empty($params['item'])) {
-		return '';
-	}
+    if (empty($params['item'])) {
+        return '';
+    }
 
-	$item = $params['item'];
+    $item = $params['item'];
 
-	if (! is_object($item)) {
-		$item = Tracker_Item::fromId($item);
-	}
+    if (! is_object($item)) {
+        $item = Tracker_Item::fromId($item);
+    }
 
-	if (! empty($prefs['tracker_status_in_objectlink'])) {
-		$show_status = $prefs['tracker_status_in_objectlink'];
-	} else {
-		$show_status = 'y';
-	}
+    if (! empty($prefs['tracker_status_in_objectlink'])) {
+        $show_status = $prefs['tracker_status_in_objectlink'];
+    } else {
+        $show_status = 'y';
+    }
 
-	if (($show_status == 'y') && $item && $status = $item->getDisplayedStatus()) {
-		$smarty->loadPlugin('smarty_function_icon');
-		return smarty_function_icon([
-			'name' => 'status-' . $status,
-			'iclass' => 'tips',
-			'ititle' => ':' . tr($status),
-		], $smarty);
-	}
+    if (($show_status == 'y') && $item && $status = $item->getDisplayedStatus()) {
+        $smarty->loadPlugin('smarty_function_icon');
+        return smarty_function_icon([
+            'name' => 'status-' . $status,
+            'iclass' => 'tips',
+            'ititle' => ':' . tr($status),
+        ], $smarty);
+    }
 
-	return '';
+    return '';
 }

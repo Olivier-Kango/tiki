@@ -9,21 +9,21 @@
 class Search_Formatter_ValueFormatter_Timeago extends Search_Formatter_ValueFormatter_Datetime
 {
 
-	public function render($name, $value, array $entry)
-	{
-		global $prefs;
+    public function render($name, $value, array $entry)
+    {
+        global $prefs;
 
-		if (preg_match('/^\d{14}$/', $value)) {
-			// Facing a date formated as YYYYMMDDHHIISS as indexed in lucene
-			// Always stored as UTC
-			$value = date_create_from_format('YmdHise', $value . 'UTC')->getTimestamp();
-		}
+        if (preg_match('/^\d{14}$/', $value)) {
+            // Facing a date formated as YYYYMMDDHHIISS as indexed in lucene
+            // Always stored as UTC
+            $value = date_create_from_format('YmdHise', $value . 'UTC')->getTimestamp();
+        }
 
-		if ($prefs['jquery_timeago'] === 'y' && $value) {
-			TikiLib::lib('header')->add_jq_onready('$("time.timeago").timeago();');
-			return '<time class="timeago" datetime="' . TikiLib::date_format('c', $value, false, 5, false) . '">' . $value . '</time>';
-		} else {
-			return parent::render($name, $value, $entry);
-		}
-	}
+        if ($prefs['jquery_timeago'] === 'y' && $value) {
+            TikiLib::lib('header')->add_jq_onready('$("time.timeago").timeago();');
+            return '<time class="timeago" datetime="' . TikiLib::date_format('c', $value, false, 5, false) . '">' . $value . '</time>';
+        } else {
+            return parent::render($name, $value, $entry);
+        }
+    }
 }

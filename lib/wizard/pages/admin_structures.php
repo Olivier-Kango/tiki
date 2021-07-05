@@ -13,46 +13,46 @@ require_once('lib/wizard/wizard.php');
  */
 class AdminWizardStructures extends Wizard
 {
-	public function pageTitle()
-	{
-		return tra('Set up Structures');
-	}
-	public function isEditable()
-	{
-		return true;
-	}
-	public function isVisible()
-	{
-		global	$prefs;
-		return isset($prefs['feature_wiki_structure']) && $prefs['feature_wiki_structure'] === 'y' ? true : false;
-	}
+    public function pageTitle()
+    {
+        return tra('Set up Structures');
+    }
+    public function isEditable()
+    {
+        return true;
+    }
+    public function isVisible()
+    {
+        global  $prefs;
+        return isset($prefs['feature_wiki_structure']) && $prefs['feature_wiki_structure'] === 'y' ? true : false;
+    }
 
-	public function onSetupPage($homepageUrl)
-	{
-		global $prefs;
-		$smarty = TikiLib::lib('smarty');
-		// Run the parent first
-		parent::onSetupPage($homepageUrl);
+    public function onSetupPage($homepageUrl)
+    {
+        global $prefs;
+        $smarty = TikiLib::lib('smarty');
+        // Run the parent first
+        parent::onSetupPage($homepageUrl);
 
-		if (! $this->isVisible()) {
-			return false;
-		}
+        if (! $this->isVisible()) {
+            return false;
+        }
 
-		$isCategories = isset($prefs['feature_categories']) && $prefs['feature_categories'] === 'y' ? true : false;
-		$smarty->assign('isCategories', $isCategories);
+        $isCategories = isset($prefs['feature_categories']) && $prefs['feature_categories'] === 'y' ? true : false;
+        $smarty->assign('isCategories', $isCategories);
 
-		return true;
-	}
+        return true;
+    }
 
-	public function getTemplate()
-	{
-		$wizardTemplate = 'wizard/admin_structures.tpl';
-		return $wizardTemplate;
-	}
+    public function getTemplate()
+    {
+        $wizardTemplate = 'wizard/admin_structures.tpl';
+        return $wizardTemplate;
+    }
 
-	public function onContinue($homepageUrl)
-	{
-		// Run the parent first
-		parent::onContinue($homepageUrl);
-	}
+    public function onContinue($homepageUrl)
+    {
+        // Run the parent first
+        parent::onContinue($homepageUrl);
+    }
 }

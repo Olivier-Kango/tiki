@@ -8,11 +8,11 @@
 
 function validator_password($input, $parameter = '', $message = '')
 {
-	$userlib = TikiLib::lib('user');
-	$errors = $userlib->check_password_policy($input);
-	if (! $errors) {
-		return true;
-	} else {
-		return $errors;
-	}
+    $userlib = TikiLib::lib('user');
+    $errors = $userlib->check_password_policy($input);
+    if (! $errors) {
+        return true;
+    } else {
+        return $errors;
+    }
 }

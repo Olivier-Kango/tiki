@@ -20,58 +20,58 @@ use Symfony\Component\Console\Helper\Table;
  */
 class PluginListRunCommand extends Command
 {
-	protected function configure()
-	{
-		$this
-			->setName('plugin:list')
-			->setDescription(tr('List all plugin invocations/calls'))
-			->addOption(
-				'pending',
-				null,
-				InputOption::VALUE_NONE,
-				tr('Shows only invocations/calls pending approval')
-			);
-	}
+    protected function configure()
+    {
+        $this
+            ->setName('plugin:list')
+            ->setDescription(tr('List all plugin invocations/calls'))
+            ->addOption(
+                'pending',
+                null,
+                InputOption::VALUE_NONE,
+                tr('Shows only invocations/calls pending approval')
+            );
+    }
 
-	protected function execute(InputInterface $input, OutputInterface $output)
-	{
-		$logger = new ConsoleLogger($output);
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $logger = new ConsoleLogger($output);
 
-		$onlyPending = $input->getOption('pending');
+        $onlyPending = $input->getOption('pending');
 
-		$status = $onlyPending ? ['pending'] : ['accept', 'pending'];
+        $status = $onlyPending ? ['pending'] : ['accept', 'pending'];
 
-		$logger->debug(tr('Listing plugins in status: %0', implode(', ', $status)));
+        $logger->debug(tr('Listing plugins in status: %0', implode(', ', $status)));
 
-		$parserLib = \TikiLib::lib('parser');
+        $parserLib = \TikiLib::lib('parser');
 
-		$pluginList = $parserLib->listPluginsByStatus($status);
-		$pluginTotal = count($pluginList);
+        $pluginList = $parserLib->listPluginsByStatus($status);
+        $pluginTotal = count($pluginList);
 
-		$logger->info(tr('Found %0 plugins', $pluginTotal));
+        $logger->info(tr('Found %0 plugins', $pluginTotal));
 
-		$table = new Table($output);
-		$table->setHeaders(['Plugin', 'Location', 'Added by', 'Status']);
-		$rows = [];
+        $table = new Table($output);
+        $table->setHeaders(['Plugin', 'Location', 'Added by', 'Status']);
+        $rows = [];
 
-		if ($pluginTotal > 0) {
-			foreach ($pluginList as $plugin) {
-				$location = '';
-				if (! empty($plugin['last_objectType'])) {
-					$location = ucfirst($plugin['last_objectType']) . ": ";
-				}
-				$location .= $plugin['last_objectId'];
-				$rows[] = [
-					$plugin['fingerprint'],
-					$location,
-					$plugin['added_by'],
-					$plugin['status'],
-				];
-			}
-			$table->setRows($rows);
-			$table->render();
-		} else {
-			$logger->warning(tr('No plugins found!'));
-		}
-	}
+        if ($pluginTotal > 0) {
+            foreach ($pluginList as $plugin) {
+                $location = '';
+                if (! empty($plugin['last_objectType'])) {
+                    $location = ucfirst($plugin['last_objectType']) . ": ";
+                }
+                $location .= $plugin['last_objectId'];
+                $rows[] = [
+                    $plugin['fingerprint'],
+                    $location,
+                    $plugin['added_by'],
+                    $plugin['status'],
+                ];
+            }
+            $table->setRows($rows);
+            $table->render();
+        } else {
+            $logger->warning(tr('No plugins found!'));
+        }
+    }
 }

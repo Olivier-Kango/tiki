@@ -12,35 +12,35 @@ use Tiki\MailIn\Action;
 
 class WikiMultipleProvider implements ProviderInterface
 {
-	public function isEnabled()
-	{
-		global $prefs;
-		return $prefs['feature_wiki'] == 'y';
-	}
+    public function isEnabled()
+    {
+        global $prefs;
+        return $prefs['feature_wiki'] == 'y';
+    }
 
-	public function getType()
-	{
-		return 'wiki';
-	}
+    public function getType()
+    {
+        return 'wiki';
+    }
 
-	public function getLabel()
-	{
-		return tr('Wiki (multiple actions)');
-	}
+    public function getLabel()
+    {
+        return tr('Wiki (multiple actions)');
+    }
 
-	public function getActionFactory(array $acc)
-	{
-		$wikiParams = [
-			'namespace' => $acc['namespace'],
-			'structure_routing' => $acc['routing'] == 'y',
-		];
+    public function getActionFactory(array $acc)
+    {
+        $wikiParams = [
+            'namespace' => $acc['namespace'],
+            'structure_routing' => $acc['routing'] == 'y',
+        ];
 
-		return new Action\SubjectPrefixFactory([
-			'GET:' => new Action\DirectFactory('Tiki\MailIn\Action\WikiGet', $wikiParams),
-			'APPEND:' => new Action\DirectFactory('Tiki\MailIn\Action\WikiAppend', $wikiParams),
-			'PREPEND:' => new Action\DirectFactory('Tiki\MailIn\Action\WikiPrepend', $wikiParams),
-			'PUT:' => new Action\DirectFactory('Tiki\MailIn\Action\WikiPut', $wikiParams),
-			'' => new Action\DirectFactory('Tiki\MailIn\Action\WikiPut', $wikiParams),
-		]);
-	}
+        return new Action\SubjectPrefixFactory([
+            'GET:' => new Action\DirectFactory('Tiki\MailIn\Action\WikiGet', $wikiParams),
+            'APPEND:' => new Action\DirectFactory('Tiki\MailIn\Action\WikiAppend', $wikiParams),
+            'PREPEND:' => new Action\DirectFactory('Tiki\MailIn\Action\WikiPrepend', $wikiParams),
+            'PUT:' => new Action\DirectFactory('Tiki\MailIn\Action\WikiPut', $wikiParams),
+            '' => new Action\DirectFactory('Tiki\MailIn\Action\WikiPut', $wikiParams),
+        ]);
+    }
 }

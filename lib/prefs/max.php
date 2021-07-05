@@ -8,15 +8,15 @@
 
 function prefs_max_list()
 {
-	return [
-		'max_username_length' => [
-			'name' => tra('Maximum length'),
-			'description' => tra('The greatest number of characters for a valid username.'),
-			'type' => 'text',
-			'size' => 5,
-			'filter' => 'digits',
-			'units' => tra('characters'),
-			'default' => 50,
-		],
-	];
+    return [
+        'max_username_length' => [
+            'name' => tra('Maximum length'),
+            'description' => tra('The greatest number of characters for a valid username.'),
+            'type' => 'text',
+            'size' => 5,
+            'filter' => 'digits',
+            'units' => tra('characters'),
+            'default' => 50,
+        ],
+    ];
 }

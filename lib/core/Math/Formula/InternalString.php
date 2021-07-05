@@ -8,17 +8,17 @@
 
 class Math_Formula_InternalString
 {
-	private $content;
-	private $type;
-	private $children;
+    private $content;
+    private $type;
+    private $children;
 
-	public function __construct($content)
-	{
-		$this->content = trim($content, '"');
-	}
+    public function __construct($content)
+    {
+        $this->content = trim($content, '"');
+    }
 
-	public function getContent()
-	{
-		return $this->content;
-	}
+    public function getContent()
+    {
+        return $this->content;
+    }
 }

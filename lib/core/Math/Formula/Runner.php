@@ -8,177 +8,177 @@
 
 class Math_Formula_Runner
 {
-	private $sources = [];
-	private $collected = [];
-	private $element;
-	private $known = [];
-	private $variables = [];
+    private $sources = [];
+    private $collected = [];
+    private $element;
+    private $known = [];
+    private $variables = [];
 
-	public function __construct(array $sources)
-	{
-		foreach ($sources as $prefix => $factory) {
-			if (empty($factory)) {
-				$factory = $this->getPrefixFactory($prefix);
-			}
+    public function __construct(array $sources)
+    {
+        foreach ($sources as $prefix => $factory) {
+            if (empty($factory)) {
+                $factory = $this->getPrefixFactory($prefix);
+            }
 
-			$this->sources[] = $factory;
-		}
-	}
+            $this->sources[] = $factory;
+        }
+    }
 
-	public function setFormula($element)
-	{
-		$this->element = $this->getElement($element);
-		$this->collected = [];
+    public function setFormula($element)
+    {
+        $this->element = $this->getElement($element);
+        $this->collected = [];
 
-		return $this->element;
-	}
+        return $this->element;
+    }
 
-	public function setVariables(array $variables)
-	{
-		$this->variables = $variables;
-	}
+    public function setVariables(array $variables)
+    {
+        $this->variables = $variables;
+    }
 
-	public function inspect()
-	{
-		if ($this->element) {
-			$this->inspectElement($this->element);
-			return $this->collected;
-		} else {
-			throw new Math_Formula_Runner_Exception(tra('No formula provided.'));
-		}
-	}
+    public function inspect()
+    {
+        if ($this->element) {
+            $this->inspectElement($this->element);
+            return $this->collected;
+        } else {
+            throw new Math_Formula_Runner_Exception(tra('No formula provided.'));
+        }
+    }
 
-	public function evaluate()
-	{
-		return $this->evaluateData($this->element);
-	}
+    public function evaluate()
+    {
+        return $this->evaluateData($this->element);
+    }
 
-	public function evaluateData($data, array $variables = [])
-	{
-		$current = $this->variables;
-		if (! empty($variables)) {
-			$this->variables = array_merge($this->variables, $variables);
-		}
-		if ($data instanceof Math_Formula_InternalString) {
-			$out = $data->getContent();
-		} elseif ($data instanceof Math_Formula_Element) {
-			$op = $this->getOperation($data);
-			$out = $op->evaluateTemplate($data, [ $this, 'evaluateData' ]);
-		} elseif (is_numeric($data)) {
-			$out = (double) $data;
-		} elseif (isset($this->variables[$data])) {
-			$out = $this->variables[$data];
-			$field = TikiLib::lib('trk')->get_field_by_perm_name($data);
-			if ($field && ($field['type'] === 'b' || $field['type'] === 'math')) {
-				$definition = Tracker_Definition::get($field['trackerId']);
-				// note: Tracker_Field_Abstract expects permName field values to be in fields subarray
-				// but variables can contain other valuable top level information like itemId
-				$handler = $definition->getFieldFactory()->getHandler($field, $this->variables + ['fields' => $this->variables]);
-				if ($field['type'] === 'math' && ($mirroredHandler = $handler->getMirroredHandler())) {
-					$handler = $mirroredHandler;
-				}
-				if ($handler instanceof Tracker_Field_Currency) {
-					$out = Math_Formula_Currency::fromCurrencyField($handler);
-				} elseif ($field['type'] === 'math') {
-					$out = Math_Formula_Currency::tryFromString($out);
-				}
-			}
-		} elseif (false !== $value = $this->findVariable(explode('.', $data), $this->variables)) {
-			$out = $value;
-		} else {
-			throw new Math_Formula_Exception(tr('Variable not found "%0".', $data));
-		}
-		$this->variables = $current;
-		return $out;
-	}
+    public function evaluateData($data, array $variables = [])
+    {
+        $current = $this->variables;
+        if (! empty($variables)) {
+            $this->variables = array_merge($this->variables, $variables);
+        }
+        if ($data instanceof Math_Formula_InternalString) {
+            $out = $data->getContent();
+        } elseif ($data instanceof Math_Formula_Element) {
+            $op = $this->getOperation($data);
+            $out = $op->evaluateTemplate($data, [ $this, 'evaluateData' ]);
+        } elseif (is_numeric($data)) {
+            $out = (double) $data;
+        } elseif (isset($this->variables[$data])) {
+            $out = $this->variables[$data];
+            $field = TikiLib::lib('trk')->get_field_by_perm_name($data);
+            if ($field && ($field['type'] === 'b' || $field['type'] === 'math')) {
+                $definition = Tracker_Definition::get($field['trackerId']);
+                // note: Tracker_Field_Abstract expects permName field values to be in fields subarray
+                // but variables can contain other valuable top level information like itemId
+                $handler = $definition->getFieldFactory()->getHandler($field, $this->variables + ['fields' => $this->variables]);
+                if ($field['type'] === 'math' && ($mirroredHandler = $handler->getMirroredHandler())) {
+                    $handler = $mirroredHandler;
+                }
+                if ($handler instanceof Tracker_Field_Currency) {
+                    $out = Math_Formula_Currency::fromCurrencyField($handler);
+                } elseif ($field['type'] === 'math') {
+                    $out = Math_Formula_Currency::tryFromString($out);
+                }
+            }
+        } elseif (false !== $value = $this->findVariable(explode('.', $data), $this->variables)) {
+            $out = $value;
+        } else {
+            throw new Math_Formula_Exception(tr('Variable not found "%0".', $data));
+        }
+        $this->variables = $current;
+        return $out;
+    }
 
-	private function findVariable($path, $variables)
-	{
-		if (! count($path)) {
-			return $variables;
-		}
+    private function findVariable($path, $variables)
+    {
+        if (! count($path)) {
+            return $variables;
+        }
 
-		$first = array_shift($path);
+        $first = array_shift($path);
 
-		if (isset($variables[$first])) {
-			return $this->findVariable($path, $variables[$first]);
-		} else {
-			return false;
-		}
-	}
+        if (isset($variables[$first])) {
+            return $this->findVariable($path, $variables[$first]);
+        } else {
+            return false;
+        }
+    }
 
-	private function inspectElement($element)
-	{
-		$op = $this->getOperation($element);
+    private function inspectElement($element)
+    {
+        $op = $this->getOperation($element);
 
-		$op->evaluateTemplateFull($element, [ $this, 'inspectData' ]);
-	}
+        $op->evaluateTemplateFull($element, [ $this, 'inspectData' ]);
+    }
 
-	public function inspectData($data)
-	{
-		if ($data instanceof Math_Formula_Element) {
-			$this->inspectElement($data);
-		} elseif (! is_numeric($data)) {
-			$this->collected[] = $data;
-		}
+    public function inspectData($data)
+    {
+        if ($data instanceof Math_Formula_Element) {
+            $this->inspectElement($data);
+        } elseif (! is_numeric($data)) {
+            $this->collected[] = $data;
+        }
 
-		return 0;
-	}
+        return 0;
+    }
 
-	private function getElement($element)
-	{
-		if (is_string($element)) {
-			$parser = new Math_Formula_Parser();
-			$element = $parser->parse($element);
-		}
+    private function getElement($element)
+    {
+        if (is_string($element)) {
+            $parser = new Math_Formula_Parser();
+            $element = $parser->parse($element);
+        }
 
-		return $element;
-	}
+        return $element;
+    }
 
-	private function getOperation($element)
-	{
-		$name = $element->getType();
+    private function getOperation($element)
+    {
+        $name = $element->getType();
 
-		if (isset($this->known[$name])) {
-			return $this->known[$name];
-		}
+        if (isset($this->known[$name])) {
+            return $this->known[$name];
+        }
 
-		foreach ($this->sources as $factory) {
-			if ($function = $factory($name)) {
-				return $this->known[$name] = $function;
-			}
-		}
+        foreach ($this->sources as $factory) {
+            if ($function = $factory($name)) {
+                return $this->known[$name] = $function;
+            }
+        }
 
-		throw new Math_Formula_Runner_Exception(tr('Unknown operation "%0".', $element->getType()));
-	}
+        throw new Math_Formula_Runner_Exception(tr('Unknown operation "%0".', $element->getType()));
+    }
 
-	private function getPrefixFactory($prefix)
-	{
-		return function ($functionName) use ($prefix) {
-			$filter = new Laminas\Filter\Word\DashToCamelCase();
+    private function getPrefixFactory($prefix)
+    {
+        return function ($functionName) use ($prefix) {
+            $filter = new Laminas\Filter\Word\DashToCamelCase();
 
-			// Workaround Deprecated errors showing from Zend lib
-			if (error_reporting() & E_DEPRECATED) {
-				$old_error_reporting = error_reporting();
-				error_reporting($old_error_reporting - E_DEPRECATED);
-			}
+            // Workaround Deprecated errors showing from Zend lib
+            if (error_reporting() & E_DEPRECATED) {
+                $old_error_reporting = error_reporting();
+                error_reporting($old_error_reporting - E_DEPRECATED);
+            }
 
-			$ucname = $filter->filter(ucfirst($functionName));
+            $ucname = $filter->filter(ucfirst($functionName));
 
-			if (isset($old_error_reporting)) {
-				error_reporting($old_error_reporting);
-			}
+            if (isset($old_error_reporting)) {
+                error_reporting($old_error_reporting);
+            }
 
-			$class = $prefix . $ucname;
+            $class = $prefix . $ucname;
 
-			if (class_exists($class)) {
-				return new $class();
-			}
-		};
-	}
+            if (class_exists($class)) {
+                return new $class();
+            }
+        };
+    }
 
-	public function mockFunction($functionName, $function)
-	{
-		$this->known[$functionName] = $function;
-	}
+    public function mockFunction($functionName, $function)
+    {
+        $this->known[$functionName] = $function;
+    }
 }

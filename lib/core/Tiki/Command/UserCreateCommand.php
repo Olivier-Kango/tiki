@@ -18,81 +18,81 @@ use Symfony\Component\Console\Question\Question;
 
 class UserCreateCommand extends Command
 {
-	protected function configure()
-	{
-		$this
-			->setName('users:create')
-			->setDescription('Create a new user')
-			->addArgument(
-				'login',
-				InputArgument::REQUIRED,
-				'User login'
-			)
-			->addOption(
-				'email',
-				null,
-				InputOption::VALUE_REQUIRED,
-				'User email (ignored if login_is_email is enabled)'
-			)
-			->addOption(
-				'password',
-				'p',
-				InputOption::VALUE_OPTIONAL,
-				'User password'
-			)
-			->addOption(
-				'groups',
-				'G',
-				InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
-				'List of supplementary groups of the new account (you can use multiple times)'
-			);
-	}
+    protected function configure()
+    {
+        $this
+            ->setName('users:create')
+            ->setDescription('Create a new user')
+            ->addArgument(
+                'login',
+                InputArgument::REQUIRED,
+                'User login'
+            )
+            ->addOption(
+                'email',
+                null,
+                InputOption::VALUE_REQUIRED,
+                'User email (ignored if login_is_email is enabled)'
+            )
+            ->addOption(
+                'password',
+                'p',
+                InputOption::VALUE_OPTIONAL,
+                'User password'
+            )
+            ->addOption(
+                'groups',
+                'G',
+                InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
+                'List of supplementary groups of the new account (you can use multiple times)'
+            );
+    }
 
-	protected function execute(InputInterface $input, OutputInterface $output)
-	{
-		global $prefs;
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        global $prefs;
 
-		$login_is_email = ! empty($prefs['login_is_email'])
-			&& $prefs['login_is_email'] != 'n';
+        $login_is_email = ! empty($prefs['login_is_email'])
+            && $prefs['login_is_email'] != 'n';
 
-		$login = $input->getArgument('login');
+        $login = $input->getArgument('login');
 
-		if ($login_is_email) {
-			$email = $login;
-		} else {
-			$email = $input->getOption('email');
-		}
-		$email = filter_var($email, FILTER_VALIDATE_EMAIL);
+        if ($login_is_email) {
+            $email = $login;
+        } else {
+            $email = $input->getOption('email');
+        }
+        $email = filter_var($email, FILTER_VALIDATE_EMAIL);
 
-		if (empty($email)) {
-			throw new \Exception("Email is missing or invalid", 1);
-		}
+        if (empty($email)) {
+            throw new \Exception("Email is missing or invalid", 1);
+        }
 
-		$groups = $input->getOption('groups');
-		$password = $input->getOption('password');
-		$userlib = \TikiLib::lib('user');
+        $groups = $input->getOption('groups');
+        $password = $input->getOption('password');
+        $userlib = \TikiLib::lib('user');
 
-		if ($userlib->user_exists($login)) {
-			throw new \Exception("User already exists", 1);
-		}
+        if ($userlib->user_exists($login)) {
+            throw new \Exception("User already exists", 1);
+        }
 
-		if (empty($password) && ! is_null($password)) {
-			$helper = $this->getHelper('question');
-			$password = $helper->ask($input, $output, new Question('Password: '));
+        if (empty($password) && ! is_null($password)) {
+            $helper = $this->getHelper('question');
+            $password = $helper->ask($input, $output, new Question('Password: '));
 
-			if (empty($password)) {
-				$output->writeln("Password was let unset");
-				$password = null;
-			}
-		}
+            if (empty($password)) {
+                $output->writeln("Password was let unset");
+                $password = null;
+            }
+        }
 
-		$user = $userlib->add_user($login, $password, $email, null, null, null, null, null, $groups);
+        $user = $userlib->add_user($login, $password, $email, null, null, null, null, null, $groups);
 
-		if (empty($user)) {
-			throw new \Exception("Error creating user", 1);
-		}
+        if (empty($user)) {
+            throw new \Exception("Error creating user", 1);
+        }
 
-		$user = $userlib->get_user_info($user);
-		$output->write(json_encode($user, JSON_PRETTY_PRINT));
-	}
+        $user = $userlib->get_user_info($user);
+        $output->write(json_encode($user, JSON_PRETTY_PRINT));
+    }
 }

@@ -32,23 +32,23 @@ require_once('lib/wiki-plugins/wikiplugin_rr.php');
  */
 function wikiplugin_r_info()
 {
-	$info = [
-		'name' => tra('R syntax'),
-		'documentation' => 'PluginR',
-		'prefs' => [ 'wikiplugin_r' ],
-		'description' => tra('Parse R syntax and show the output either from the code introduced between the plugin tags or from the file attached to a tracker item sent through PluginTracker. It can also be combined with Pretty Trackers to edit parameters from the script through web forms.'),
-	];
+    $info = [
+        'name' => tra('R syntax'),
+        'documentation' => 'PluginR',
+        'prefs' => [ 'wikiplugin_r' ],
+        'description' => tra('Parse R syntax and show the output either from the code introduced between the plugin tags or from the file attached to a tracker item sent through PluginTracker. It can also be combined with Pretty Trackers to edit parameters from the script through web forms.'),
+    ];
 
-	$info = array_merge(wikiplugin_rr_info(), $info);
-	unset($info['params']['security']);
-	unset($info['validate']);
+    $info = array_merge(wikiplugin_rr_info(), $info);
+    unset($info['params']['security']);
+    unset($info['validate']);
 
-	return $info;
+    return $info;
 }
 
 function wikiplugin_r($data, $params)
 {
-	$params['security'] = 1;
-	$params['caption'] = "R Code";
-	return wikiplugin_rr($data, $params);
+    $params['security'] = 1;
+    $params['caption'] = "R Code";
+    return wikiplugin_rr($data, $params);
 }

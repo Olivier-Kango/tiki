@@ -8,45 +8,45 @@
 
 class Search_GlobalSource_AdvancedRatingSource implements Search_GlobalSource_Interface
 {
-	private $ratinglib;
-	private $fields = null;
-	private $recalculate = false;
+    private $ratinglib;
+    private $fields = null;
+    private $recalculate = false;
 
-	public function __construct($recalculate = false)
-	{
-		$this->ratinglib = TikiLib::lib('rating');
-		$this->recalculate = $recalculate;
-	}
+    public function __construct($recalculate = false)
+    {
+        $this->ratinglib = TikiLib::lib('rating');
+        $this->recalculate = $recalculate;
+    }
 
-	public function getProvidedFields()
-	{
-		if (is_null($this->fields)) {
-			$ratingconfiglib = TikiLib::lib('ratingconfig');
+    public function getProvidedFields()
+    {
+        if (is_null($this->fields)) {
+            $ratingconfiglib = TikiLib::lib('ratingconfig');
 
-			$this->fields = [];
-			foreach ($ratingconfiglib->get_configurations() as $config) {
-				$this->fields[] = "adv_rating_{$config['ratingConfigId']}";
-			}
-		}
+            $this->fields = [];
+            foreach ($ratingconfiglib->get_configurations() as $config) {
+                $this->fields[] = "adv_rating_{$config['ratingConfigId']}";
+            }
+        }
 
-		return $this->fields;
-	}
+        return $this->fields;
+    }
 
-	public function getGlobalFields()
-	{
-		return [];
-	}
+    public function getGlobalFields()
+    {
+        return [];
+    }
 
-	public function getData($objectType, $objectId, Search_Type_Factory_Interface $typeFactory, array $data = [])
-	{
-		$ratings = $this->ratinglib->obtain_ratings($objectType, $objectId, $this->recalculate);
+    public function getData($objectType, $objectId, Search_Type_Factory_Interface $typeFactory, array $data = [])
+    {
+        $ratings = $this->ratinglib->obtain_ratings($objectType, $objectId, $this->recalculate);
 
-		$data = [];
+        $data = [];
 
-		foreach ($ratings as $id => $value) {
-			$data["adv_rating_$id"] = $typeFactory->sortable($value);
-		}
+        foreach ($ratings as $id => $value) {
+            $data["adv_rating_$id"] = $typeFactory->sortable($value);
+        }
 
-		return $data;
-	}
+        return $data;
+    }
 }

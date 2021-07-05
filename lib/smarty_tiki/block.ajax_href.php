@@ -15,27 +15,27 @@
  *
  * Params:
  *
- * 	_onclick	-	extra JS to run first onclick
+ *  _onclick    -   extra JS to run first onclick
  *
  */
 function smarty_block_ajax_href($params, $content, $smarty, $repeat)
 {
-	if ($repeat) {
-		return;
-	}
+    if ($repeat) {
+        return;
+    }
 
-	if (! empty($params['_onclick'])) {
-		$onclick = $params['_onclick'];
-		if (substr($onclick, -1) != ';') {
-			$onclick .= ';';
-		}
-	} else {
-		$onclick = '';
-	}
+    if (! empty($params['_onclick'])) {
+        $onclick = $params['_onclick'];
+        if (substr($onclick, -1) != ';') {
+            $onclick .= ';';
+        }
+    } else {
+        $onclick = '';
+    }
 
-	$attributes = " href=\"" . $content . '" ';
-	if (! empty($onclick)) {
-		$attributes .= "onclick=\"$onclick\" ";
-	}
-	return $attributes;
+    $attributes = " href=\"" . $content . '" ';
+    if (! empty($onclick)) {
+        $attributes .= "onclick=\"$onclick\" ";
+    }
+    return $attributes;
 }

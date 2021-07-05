@@ -10,13 +10,13 @@ namespace Tracker\Tabular\Source;
 
 interface SourceInterface
 {
-	/**
-	 * Provides an iterable result
-	 */
-	public function getEntries();
+    /**
+     * Provides an iterable result
+     */
+    public function getEntries();
 
-	/**
-	 * @return \Tracker\Tabular\Schema
-	 */
-	public function getSchema();
+    /**
+     * @return \Tracker\Tabular\Schema
+     */
+    public function getSchema();
 }

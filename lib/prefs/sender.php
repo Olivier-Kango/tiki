@@ -8,21 +8,21 @@
 
 function prefs_sender_list()
 {
-	return [
-		'sender_email' => [
-			'name' => tra('Sender email'),
-			'description' => tra('Email address that will be used as the sender for outgoing emails.'),
-			'type' => 'text',
-			'size' => 40,
-			'default' => '',
-			'tags' => ['basic'],
-		],
-		'sender_name' => [
-			'name' => tra('Sender full name'),
-			'description' => tra('Real name that will be used as the sender for outgoing emails'),
-			'type' => 'text',
-			'size' => 40,
-			'default' => '',
-		],
-	];
+    return [
+        'sender_email' => [
+            'name' => tra('Sender email'),
+            'description' => tra('Email address that will be used as the sender for outgoing emails.'),
+            'type' => 'text',
+            'size' => 40,
+            'default' => '',
+            'tags' => ['basic'],
+        ],
+        'sender_name' => [
+            'name' => tra('Sender full name'),
+            'description' => tra('Real name that will be used as the sender for outgoing emails'),
+            'type' => 'text',
+            'size' => 40,
+            'default' => '',
+        ],
+    ];
 }

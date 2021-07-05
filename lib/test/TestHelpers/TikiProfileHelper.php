@@ -14,86 +14,86 @@ use Tiki_Profile_Installer;
 
 class TikiProfileHelper
 {
-	/**
-	 * @param string $profileDomain
-	 * @param string $profileName
-	 *
-	 * @throws Exception
-	 */
-	public static function applyProfile($profileDomain, $profileName): void
-	{
-		$profile = Tiki_Profile::fromNames($profileDomain, $profileName);
+    /**
+     * @param string $profileDomain
+     * @param string $profileName
+     *
+     * @throws Exception
+     */
+    public static function applyProfile($profileDomain, $profileName): void
+    {
+        $profile = Tiki_Profile::fromNames($profileDomain, $profileName);
 
-		if (! $profile->validateNamedObjectsReferences()) { // sanity check on the Named Objects references
-			throw new Exception('Some of the named object references in the profile are invalid');
-		}
+        if (! $profile->validateNamedObjectsReferences()) { // sanity check on the Named Objects references
+            throw new Exception('Some of the named object references in the profile are invalid');
+        }
 
-		$installer = new Tiki_Profile_Installer();
-		$result = $installer->install($profile, 'all', false);
+        $installer = new Tiki_Profile_Installer();
+        $result = $installer->install($profile, 'all', false);
 
-		if (! $result) {
-			$errorString = '';
-			foreach ($installer->getFeedback() as $error) {
-				$errorString .= $error . "\n";
-			}
-			throw new Exception($errorString);
-		}
-	}
+        if (! $result) {
+            $errorString = '';
+            foreach ($installer->getFeedback() as $error) {
+                $errorString .= $error . "\n";
+            }
+            throw new Exception($errorString);
+        }
+    }
 
-	/**
-	 * @param string $sourceDirectory folder container the profile
-	 * @param string $profileName the profile name (will append .yml to get the file)
-	 * @param array $search array of strings to replace in the profile
-	 * @param array $replace array of the values to use in replace
-	 * @return string the folder (profileDomain) that was generated
-	 * @throws Exception if the temporary folder of tiki can't be found
-	 */
-	public static function applyTemplateProfile($sourceDirectory, $profileName, $search = [], $replace = []): string
-	{
-		$folder = TikiProfileHelper::createTemporaryDomainFromTemplate($sourceDirectory, $profileName, $search, $replace);
-		TikiProfileHelper::applyProfile($folder, $profileName);
+    /**
+     * @param string $sourceDirectory folder container the profile
+     * @param string $profileName the profile name (will append .yml to get the file)
+     * @param array $search array of strings to replace in the profile
+     * @param array $replace array of the values to use in replace
+     * @return string the folder (profileDomain) that was generated
+     * @throws Exception if the temporary folder of tiki can't be found
+     */
+    public static function applyTemplateProfile($sourceDirectory, $profileName, $search = [], $replace = []): string
+    {
+        $folder = TikiProfileHelper::createTemporaryDomainFromTemplate($sourceDirectory, $profileName, $search, $replace);
+        TikiProfileHelper::applyProfile($folder, $profileName);
 
-		return $folder;
-	}
+        return $folder;
+    }
 
-	/**
-	 * @param string $sourceDirectory folder container the profile
-	 * @param string $profileName the profile name (will append .yml to get the file)
-	 * @param array $search array of strings to replace in the profile
-	 * @param array $replace array of the values to use in replace
-	 * @return string the folder (profileDomain) that was generated
-	 * @throws Exception if the temporary folder of tiki can't be found
-	 */
-	public static function createTemporaryDomainFromTemplate($sourceDirectory, $profileName, $search = [], $replace = []): string
-	{
-		// use the temp folder to drop the new profile
-		$destinationFolder = realpath(
-			__DIR__ . DIRECTORY_SEPARATOR .
-			'..' . DIRECTORY_SEPARATOR .
-			'..' . DIRECTORY_SEPARATOR .
-			'..' . DIRECTORY_SEPARATOR .
-			'temp'
-		);
+    /**
+     * @param string $sourceDirectory folder container the profile
+     * @param string $profileName the profile name (will append .yml to get the file)
+     * @param array $search array of strings to replace in the profile
+     * @param array $replace array of the values to use in replace
+     * @return string the folder (profileDomain) that was generated
+     * @throws Exception if the temporary folder of tiki can't be found
+     */
+    public static function createTemporaryDomainFromTemplate($sourceDirectory, $profileName, $search = [], $replace = []): string
+    {
+        // use the temp folder to drop the new profile
+        $destinationFolder = realpath(
+            __DIR__ . DIRECTORY_SEPARATOR .
+            '..' . DIRECTORY_SEPARATOR .
+            '..' . DIRECTORY_SEPARATOR .
+            '..' . DIRECTORY_SEPARATOR .
+            'temp'
+        );
 
-		if (! $destinationFolder) {
-			throw new Exception('Tiki temp folder could not be found');
-		}
+        if (! $destinationFolder) {
+            throw new Exception('Tiki temp folder could not be found');
+        }
 
-		$destinationFolder .= DIRECTORY_SEPARATOR . uniqid('profile-', true);
+        $destinationFolder .= DIRECTORY_SEPARATOR . uniqid('profile-', true);
 
-		mkdir($destinationFolder);
+        mkdir($destinationFolder);
 
-		if (is_array($search) && count($search)) {
-			$profileContent = file_get_contents($sourceDirectory . DIRECTORY_SEPARATOR . $profileName . '.yml');
-			$profileContent = str_replace($search, $replace, $profileContent);
-			file_put_contents($destinationFolder . DIRECTORY_SEPARATOR . $profileName . '.yml', $profileContent);
-		} else {
-			copy(
-				$sourceDirectory . DIRECTORY_SEPARATOR . $profileName . '.yml',
-				$destinationFolder . DIRECTORY_SEPARATOR . $profileName . '.yml'
-			);
-		}
+        if (is_array($search) && count($search)) {
+            $profileContent = file_get_contents($sourceDirectory . DIRECTORY_SEPARATOR . $profileName . '.yml');
+            $profileContent = str_replace($search, $replace, $profileContent);
+            file_put_contents($destinationFolder . DIRECTORY_SEPARATOR . $profileName . '.yml', $profileContent);
+        } else {
+            copy(
+                $sourceDirectory . DIRECTORY_SEPARATOR . $profileName . '.yml',
+                $destinationFolder . DIRECTORY_SEPARATOR . $profileName . '.yml'
+            );
+        }
 
-		return $destinationFolder;
-	}
+        return $destinationFolder;
+    }
 }

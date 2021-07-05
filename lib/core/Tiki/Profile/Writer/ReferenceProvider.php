@@ -8,5 +8,5 @@
 
 interface Tiki_Profile_Writer_ReferenceProvider
 {
-	public function getReferenceMap();
+    public function getReferenceMap();
 }

@@ -13,41 +13,41 @@
 
 class DeclFilterCatchAllFilterTest extends TikiTestCase
 {
-	public function testMatch()
-	{
-		$rule = new DeclFilter_CatchAllFilterRule('digits');
+    public function testMatch()
+    {
+        $rule = new DeclFilter_CatchAllFilterRule('digits');
 
-		$this->assertTrue($rule->match('hello'));
-	}
+        $this->assertTrue($rule->match('hello'));
+    }
 
-	public function testApply()
-	{
-		$rule = new DeclFilter_CatchAllFilterRule('digits');
+    public function testApply()
+    {
+        $rule = new DeclFilter_CatchAllFilterRule('digits');
 
-		$data = [
-			'hello' => '123abc',
-		];
+        $data = [
+            'hello' => '123abc',
+        ];
 
-		$rule->apply($data, 'hello');
+        $rule->apply($data, 'hello');
 
-		$this->assertEquals('123', $data['hello']);
-	}
+        $this->assertEquals('123', $data['hello']);
+    }
 
-	public function testApplyRecursive()
-	{
-		$rule = new DeclFilter_CatchAllFilterRule('digits');
-		$rule->applyOnElements();
+    public function testApplyRecursive()
+    {
+        $rule = new DeclFilter_CatchAllFilterRule('digits');
+        $rule->applyOnElements();
 
-		$data = [
-			'hello' => [
-				'abc123',
-				'abc456',
-			],
-		];
+        $data = [
+            'hello' => [
+                'abc123',
+                'abc456',
+            ],
+        ];
 
-		$rule->apply($data, 'hello');
+        $rule->apply($data, 'hello');
 
-		$this->assertEquals('123', $data['hello'][0]);
-		$this->assertEquals('456', $data['hello'][1]);
-	}
+        $this->assertEquals('123', $data['hello'][0]);
+        $this->assertEquals('456', $data['hello'][1]);
+    }
 }

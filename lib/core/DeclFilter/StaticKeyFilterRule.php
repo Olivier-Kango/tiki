@@ -8,20 +8,20 @@
 
 class DeclFilter_StaticKeyFilterRule extends DeclFilter_FilterRule
 {
-	private $rules;
+    private $rules;
 
-	public function __construct($rules)
-	{
-		$this->rules = $rules;
-	}
+    public function __construct($rules)
+    {
+        $this->rules = $rules;
+    }
 
-	public function match($key)
-	{
-		return array_key_exists($key, $this->rules);
-	}
+    public function match($key)
+    {
+        return array_key_exists($key, $this->rules);
+    }
 
-	public function getFilter($key)
-	{
-		return TikiFilter::get($this->rules[$key]);
-	}
+    public function getFilter($key)
+    {
+        return TikiFilter::get($this->rules[$key]);
+    }
 }

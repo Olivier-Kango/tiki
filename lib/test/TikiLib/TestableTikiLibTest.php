@@ -8,41 +8,41 @@
 
 class TestableTikiLibTest extends TikiTestCase
 {
-	public function testOverrideLibShouldChangeValueReturnedByLib(): void
-	{
-		$obj = new TestableTikiLib();
+    public function testOverrideLibShouldChangeValueReturnedByLib(): void
+    {
+        $obj = new TestableTikiLib();
 
-		$this->assertInstanceOf(TikiLib::class, TikiLib::lib('tiki'));
-		$obj->overrideLibs(['tiki' => new stdClass()]);
-		$this->assertInstanceOf(stdClass::class, TikiLib::lib('tiki'));
-	}
+        $this->assertInstanceOf(TikiLib::class, TikiLib::lib('tiki'));
+        $obj->overrideLibs(['tiki' => new stdClass()]);
+        $this->assertInstanceOf(stdClass::class, TikiLib::lib('tiki'));
+    }
 
-	public function testOverrideLibShouldRestoreDefaultValueAfterObjectDestruction(): void
-	{
-		$obj = new TestableTikiLib();
+    public function testOverrideLibShouldRestoreDefaultValueAfterObjectDestruction(): void
+    {
+        $obj = new TestableTikiLib();
 
-		$this->assertInstanceOf(TikiLib::class, TikiLib::lib('tiki'));
-		$obj->overrideLibs(['tiki' => new stdClass()]);
-		$this->assertInstanceOf(stdClass::class, TikiLib::lib('tiki'));
+        $this->assertInstanceOf(TikiLib::class, TikiLib::lib('tiki'));
+        $obj->overrideLibs(['tiki' => new stdClass()]);
+        $this->assertInstanceOf(stdClass::class, TikiLib::lib('tiki'));
 
-		unset($obj);
-		$this->assertInstanceOf(TikiLib::class, TikiLib::lib('tiki'));
-	}
+        unset($obj);
+        $this->assertInstanceOf(TikiLib::class, TikiLib::lib('tiki'));
+    }
 
-	public function testOverrideLibShouldWorkWithMockObjects(): void
-	{
-		$obj = new TestableTikiLib();
+    public function testOverrideLibShouldWorkWithMockObjects(): void
+    {
+        $obj = new TestableTikiLib();
 
-		$calendarlib = $this->createMock(get_class(TikiLib::lib('calendar')));
-		$calendarlib->expects($this->never())->method('get_item');
+        $calendarlib = $this->createMock(get_class(TikiLib::lib('calendar')));
+        $calendarlib->expects($this->never())->method('get_item');
 
-		$this->assertInstanceOf(CalendarLib::class, TikiLib::lib('calendar'));
-		$obj->overrideLibs(['calendar' => $calendarlib]);
-		$this->assertStringContainsString('Mock_CalendarLib_', get_class(TikiLib::lib('calendar')));
-	}
+        $this->assertInstanceOf(CalendarLib::class, TikiLib::lib('calendar'));
+        $obj->overrideLibs(['calendar' => $calendarlib]);
+        $this->assertStringContainsString('Mock_CalendarLib_', get_class(TikiLib::lib('calendar')));
+    }
 
-	public function testOverrideLibCheckIfLibReturnedToOriginalStateAfterLastTest(): void
-	{
-		$this->assertInstanceOf(CalendarLib::class, TikiLib::lib('calendar'));
-	}
+    public function testOverrideLibCheckIfLibReturnedToOriginalStateAfterLastTest(): void
+    {
+        $this->assertInstanceOf(CalendarLib::class, TikiLib::lib('calendar'));
+    }
 }

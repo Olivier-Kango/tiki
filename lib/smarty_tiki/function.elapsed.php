@@ -8,8 +8,8 @@
 
 function smarty_function_elapsed($params, $smarty)
 {
-	global $tiki_timer;
+    global $tiki_timer;
 
-	$ela = number_format($tiki_timer->elapsed(), 2);
-	print($ela);
+    $ela = number_format($tiki_timer->elapsed(), 2);
+    print($ela);
 }

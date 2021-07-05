@@ -8,47 +8,47 @@
 
 class Tiki_Profile_InstallHandler_Perspective extends Tiki_Profile_InstallHandler
 {
-	public function getData()
-	{
-		if ($this->data) {
-			return $this->data;
-		}
+    public function getData()
+    {
+        if ($this->data) {
+            return $this->data;
+        }
 
-		$defaults = [
-			'preferences' => [],
-		];
+        $defaults = [
+            'preferences' => [],
+        ];
 
-		$data = array_merge($defaults, $this->obj->getData());
+        $data = array_merge($defaults, $this->obj->getData());
 
-		$data['preferences'] = Tiki_Profile::convertLists($data['preferences'], ['enable' => 'y', 'disable' => 'n']);
+        $data['preferences'] = Tiki_Profile::convertLists($data['preferences'], ['enable' => 'y', 'disable' => 'n']);
 
-		$data['preferences'] = Tiki_Profile::convertYesNo($data['preferences']);
+        $data['preferences'] = Tiki_Profile::convertYesNo($data['preferences']);
 
-		return $this->data = $data;
-	}
+        return $this->data = $data;
+    }
 
-	public function canInstall()
-	{
-		$data = $this->getData();
-		if (! isset($data['name'])) {
-			return false;
-		}
+    public function canInstall()
+    {
+        $data = $this->getData();
+        if (! isset($data['name'])) {
+            return false;
+        }
 
-		return true;
-	}
+        return true;
+    }
 
-	public function _install()
-	{
-		$perspectivelib = TikiLib::lib('perspective');
+    public function _install()
+    {
+        $perspectivelib = TikiLib::lib('perspective');
 
-		$data = $this->getData();
+        $data = $this->getData();
 
-		$this->replaceReferences($data);
+        $this->replaceReferences($data);
 
-		if ($persp = $perspectivelib->replace_perspective(0, $data['name'])) {
-			$perspectivelib->replace_preferences($persp, $data['preferences']);
-		}
+        if ($persp = $perspectivelib->replace_perspective(0, $data['name'])) {
+            $perspectivelib->replace_preferences($persp, $data['preferences']);
+        }
 
-		return $persp;
-	}
+        return $persp;
+    }
 }

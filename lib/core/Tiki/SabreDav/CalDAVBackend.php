@@ -1272,7 +1272,7 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend implements
         $row = TikiLib::lib('calendar')->get_scheduling_object($user, $objectUri);
 
         if (! $row) {
-return null;
+            return null;
         }
 
         return [

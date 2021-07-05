@@ -8,74 +8,74 @@
 
 class Search_Expr_And implements Search_Expr_Interface
 {
-	private $parts;
-	private $weight = 1.0;
+    private $parts;
+    private $weight = 1.0;
 
-	public function __construct(array $parts)
-	{
-		$parts = array_filter($parts);
-		$this->parts = $parts;
-	}
+    public function __construct(array $parts)
+    {
+        $parts = array_filter($parts);
+        $this->parts = $parts;
+    }
 
-	public function __clone()
-	{
-		$this->parts = array_map(function ($part) {
-			return clone $part;
-		}, $this->parts);
-	}
+    public function __clone()
+    {
+        $this->parts = array_map(function ($part) {
+            return clone $part;
+        }, $this->parts);
+    }
 
-	public function addPart(Search_Expr_Interface $part)
-	{
-		$this->parts[] = $part;
-	}
+    public function addPart(Search_Expr_Interface $part)
+    {
+        $this->parts[] = $part;
+    }
 
-	public function setType($type)
-	{
-		foreach ($this->parts as $part) {
-			$part->setType($type);
-		}
-	}
+    public function setType($type)
+    {
+        foreach ($this->parts as $part) {
+            $part->setType($type);
+        }
+    }
 
-	public function setField($field = 'global')
-	{
-		foreach ($this->parts as $part) {
-			$part->setField($field);
-		}
-	}
+    public function setField($field = 'global')
+    {
+        foreach ($this->parts as $part) {
+            $part->setField($field);
+        }
+    }
 
-	public function setWeight($weight)
-	{
-		$this->weight = (float) $weight;
-	}
+    public function setWeight($weight)
+    {
+        $this->weight = (float) $weight;
+    }
 
-	public function getWeight()
-	{
-		return $this->weight;
-	}
+    public function getWeight()
+    {
+        return $this->weight;
+    }
 
-	public function walk($callback)
-	{
-		$results = [];
-		foreach ($this->parts as $part) {
-			$results[] = $part->walk($callback);
-		}
+    public function walk($callback)
+    {
+        $results = [];
+        foreach ($this->parts as $part) {
+            $results[] = $part->walk($callback);
+        }
 
-		return call_user_func($callback, $this, $results);
-	}
+        return call_user_func($callback, $this, $results);
+    }
 
-	public function traverse($callback)
-	{
-		return call_user_func($callback, $callback, $this, $this->parts);
-	}
+    public function traverse($callback)
+    {
+        return call_user_func($callback, $callback, $this, $this->parts);
+    }
 
-	/**
-	 * Returns a serialized string of the parts of the query. Used for caching since
-	 * the query parts will need to be hashed.
-	 *
-	 * @return string
-	 */
-	public function getSerializedParts()
-	{
-		return serialize($this->parts);
-	}
+    /**
+     * Returns a serialized string of the parts of the query. Used for caching since
+     * the query parts will need to be hashed.
+     *
+     * @return string
+     */
+    public function getSerializedParts()
+    {
+        return serialize($this->parts);
+    }
 }

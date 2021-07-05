@@ -18,33 +18,33 @@
  *
  * usage:
  * \code
- *	{modules_list list=$last_commit}
- *		{section name=ix loop=$last_commit}
- * 	<li>
- *			<a class="linkmodule" href="#">{$last_commit[ix].id}</a>
- *		</li>
- *		{/section}
- *	{/modules_list}
+ *  {modules_list list=$last_commit}
+ *      {section name=ix loop=$last_commit}
+ *  <li>
+ *          <a class="linkmodule" href="#">{$last_commit[ix].id}</a>
+ *      </li>
+ *      {/section}
+ *  {/modules_list}
  * \endcode
  *
  */
 function smarty_block_modules_list($params, $content, $smarty, &$repeat)
 {
-	if ($repeat) {
-		return;
-	}
+    if ($repeat) {
+        return;
+    }
 
-	if (count($params["list"]) > 0) {
-		if ($params["nonums"] == "y") {
-			$ret = '<ul>' . $content . '</ul>';
-		} else {
-			$ret = '<ol>' . $content . '</ol>';
-		}
-	} else {
-		if (empty($params['none'])) {
-			$params['none'] = 'No records to display'; //get_strings tra('No records to display');
-		}
-		$ret = '<em>' . tra($params['none']) . '</em>';
-	}
-	return $ret;
+    if (count($params["list"]) > 0) {
+        if ($params["nonums"] == "y") {
+            $ret = '<ul>' . $content . '</ul>';
+        } else {
+            $ret = '<ol>' . $content . '</ol>';
+        }
+    } else {
+        if (empty($params['none'])) {
+            $params['none'] = 'No records to display'; //get_strings tra('No records to display');
+        }
+        $ret = '<em>' . tra($params['none']) . '</em>';
+    }
+    return $ret;
 }

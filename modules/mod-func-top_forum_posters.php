@@ -11,13 +11,13 @@
  */
 function module_top_forum_posters_info()
 {
-	return [
-		'name' => tra('Top Forum Posters'),
-		'description' => tra('Displays the specified number of users who posted to forums, starting with the one having most posts.'),
-		'prefs' => ['feature_forums'],
-		'params' => [],
-		'common_params' => ['nonums', 'rows']
-	];
+    return [
+        'name' => tra('Top Forum Posters'),
+        'description' => tra('Displays the specified number of users who posted to forums, starting with the one having most posts.'),
+        'prefs' => ['feature_forums'],
+        'params' => [],
+        'common_params' => ['nonums', 'rows']
+    ];
 }
 
 /**
@@ -26,10 +26,10 @@ function module_top_forum_posters_info()
  */
 function module_top_forum_posters($mod_reference, $module_params)
 {
-	$smarty = TikiLib::lib('smarty');
-	global $ranklib;
-	include_once('lib/rankings/ranklib.php');
-	$posters = $ranklib->forums_top_posters($mod_reference["rows"]);
+    $smarty = TikiLib::lib('smarty');
+    global $ranklib;
+    include_once('lib/rankings/ranklib.php');
+    $posters = $ranklib->forums_top_posters($mod_reference["rows"]);
 
-	$smarty->assign('modTopForumPosters', $posters["data"]);
+    $smarty->assign('modTopForumPosters', $posters["data"]);
 }

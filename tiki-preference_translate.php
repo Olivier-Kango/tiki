@@ -21,47 +21,47 @@ $defaultLanguage = $prefs['site_language'] ? $prefs['site_language'] : 'en';
 $definition      = $prefsLib->getPreference($preference);
 
 if (empty($preference)) {
-	$smarty->assign('msg', tra('No preference given.'));
-	$smarty->assign('errortype', 0);
-	$smarty->display("error.tpl");
-	die;
+    $smarty->assign('msg', tra('No preference given.'));
+    $smarty->assign('errortype', 0);
+    $smarty->display("error.tpl");
+    die;
 }
 
 if ($definition['translatable'] != 'y') {
-	$smarty->assign('msg', tra('This preference is not translatable.'));
-	$smarty->assign('errortype', 0);
-	$smarty->display("error.tpl");
-	die;
+    $smarty->assign('msg', tra('This preference is not translatable.'));
+    $smarty->assign('errortype', 0);
+    $smarty->display("error.tpl");
+    die;
 }
 
 if (isset($_POST['save']) && $access->checkCsrf()) {
-	if (! empty($preference)) {
-		foreach ($_POST['new_val'] as $lang => $val) {
-			$prefsLib->setTranslatedPreference($preference, $lang, $val, $defaultLanguage);
-		}
-	}
+    if (! empty($preference)) {
+        foreach ($_POST['new_val'] as $lang => $val) {
+            $prefsLib->setTranslatedPreference($preference, $lang, $val, $defaultLanguage);
+        }
+    }
 }
 
 $translatedVal[$defaultLanguage] = $prefsLib->getTranslatedPreference($preference, $defaultLanguage);
 $preferredLanguages = $multilingualLib->preferredLangs();
 
 foreach ($preferredLanguages as $l) {
-	$usedLanguages[$l] = true;
-	if ($l != $defaultLanguage) {
-		$translatedVal[$l] = $prefsLib->getTranslatedPreference($preference, $l);
-	}
+    $usedLanguages[$l] = true;
+    if ($l != $defaultLanguage) {
+        $translatedVal[$l] = $prefsLib->getTranslatedPreference($preference, $l);
+    }
 }
 
 if (
     array_key_exists('additional_languages', $_POST) && is_array($_POST['additional_languages'])
-	&& $access->checkCsrf()
+    && $access->checkCsrf()
 ) {
-	foreach ($_POST['additional_languages'] as $lang) {
-		if ($lang != $defaultLanguage) {
-			$usedLanguages[$lang] = true;
-			$translatedVal[$lang] = $prefsLib->getTranslatedPreference($preference, $lang);
-		}
-	}
+    foreach ($_POST['additional_languages'] as $lang) {
+        if ($lang != $defaultLanguage) {
+            $usedLanguages[$lang] = true;
+            $translatedVal[$lang] = $prefsLib->getTranslatedPreference($preference, $lang);
+        }
+    }
 }
 
 $usedLanguages = array_keys($usedLanguages);

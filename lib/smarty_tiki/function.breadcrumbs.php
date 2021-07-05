@@ -8,40 +8,40 @@
 
 function smarty_function_breadcrumbs($params, $smarty)
 {
-	global $prefs;
-	extract($params);
+    global $prefs;
+    extract($params);
 
-	if (empty($crumbs)) {
-		trigger_error("assign: missing 'crumbs' parameter");
-		return;
-	}
-	if (empty($loc)) {
-		trigger_error("assign: missing 'loc' parameter");
-		return;
-	}
-	if ($type === 'pagetitle' && $prefs['site_title_breadcrumb'] === 'y') {
-		$type = 'desc';
-	}
-	$showLinks = empty($params['showLinks']) || $params['showLinks'] == 'y';
-	$text_to_display = '';
-	switch ($type) {
-		case 'invertfull':
-			$text_to_display = breadcrumb_buildHeadTitle(array_reverse($crumbs));
-			break;
-		case 'fulltrail':
-			$text_to_display = breadcrumb_buildHeadTitle($crumbs);
-			break;
-		case 'pagetitle':
-			$text_to_display = breadcrumb_getTitle($crumbs, $loc);
-			break;
-		case 'desc':
-			$text_to_display = breadcrumb_getDescription($crumbs, $loc);
-			break;
-		case 'trail':
-		default:
-			$text_to_display = breadcrumb_buildTrail($crumbs, $loc, $showLinks);
-			break;
-	}
+    if (empty($crumbs)) {
+        trigger_error("assign: missing 'crumbs' parameter");
+        return;
+    }
+    if (empty($loc)) {
+        trigger_error("assign: missing 'loc' parameter");
+        return;
+    }
+    if ($type === 'pagetitle' && $prefs['site_title_breadcrumb'] === 'y') {
+        $type = 'desc';
+    }
+    $showLinks = empty($params['showLinks']) || $params['showLinks'] == 'y';
+    $text_to_display = '';
+    switch ($type) {
+        case 'invertfull':
+            $text_to_display = breadcrumb_buildHeadTitle(array_reverse($crumbs));
+            break;
+        case 'fulltrail':
+            $text_to_display = breadcrumb_buildHeadTitle($crumbs);
+            break;
+        case 'pagetitle':
+            $text_to_display = breadcrumb_getTitle($crumbs, $loc);
+            break;
+        case 'desc':
+            $text_to_display = breadcrumb_getDescription($crumbs, $loc);
+            break;
+        case 'trail':
+        default:
+            $text_to_display = breadcrumb_buildTrail($crumbs, $loc, $showLinks);
+            break;
+    }
 
-	return $text_to_display;
+    return $text_to_display;
 }

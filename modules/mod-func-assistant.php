@@ -11,10 +11,10 @@
  */
 function module_assistant_info()
 {
-	return [
-		'name' => tra('Tiki Assistant'),
-		'description' => tra('Display an assistant to guide new Tiki admins.'),
-		'prefs' => [],
-		'params' => []
-	];
+    return [
+        'name' => tra('Tiki Assistant'),
+        'description' => tra('Display an assistant to guide new Tiki admins.'),
+        'prefs' => [],
+        'params' => []
+    ];
 }

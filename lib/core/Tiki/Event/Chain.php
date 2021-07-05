@@ -8,22 +8,22 @@
 
 class Tiki_Event_Chain implements Tiki_Event_EdgeProvider
 {
-	private $event;
-	private $manager;
+    private $event;
+    private $manager;
 
-	public function __construct(Tiki_Event_Manager $manager, $eventName)
-	{
-		$this->event = $eventName;
-		$this->manager = $manager;
-	}
+    public function __construct(Tiki_Event_Manager $manager, $eventName)
+    {
+        $this->event = $eventName;
+        $this->manager = $manager;
+    }
 
-	public function __invoke($arguments, $eventName, $priority)
-	{
-		$this->manager->internalTrigger($this->event, $arguments, $priority, $eventName);
-	}
+    public function __invoke($arguments, $eventName, $priority)
+    {
+        $this->manager->internalTrigger($this->event, $arguments, $priority, $eventName);
+    }
 
-	public function getTargetEvents()
-	{
-		return [$this->event];
-	}
+    public function getTargetEvents()
+    {
+        return [$this->event];
+    }
 }

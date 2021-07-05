@@ -10,20 +10,20 @@ require_once 'tiki-filter-base.php';
 $filter = \TikiFilter::get('xss');
 
 if (! empty($_REQUEST['error'])) {
-	$error = $filter->filter(substr($_REQUEST["error"], 0, 256));
+    $error = $filter->filter(substr($_REQUEST["error"], 0, 256));
 } else {
-	$error = '';
+    $error = '';
 }
 if (! empty($_REQUEST['title'])) {
-	$title = $filter->filter($_REQUEST['title']);
+    $title = $filter->filter($_REQUEST['title']);
 } else {
-	$title = '';
+    $title = '';
 }
 
 if (! empty($_REQUEST['login_error'])) {
-	$login_error = $filter->filter($_REQUEST["login_error"]);
+    $login_error = $filter->filter($_REQUEST["login_error"]);
 } else {
-	$login_error = '';
+    $login_error = '';
 }
 $style_alert = '' . $login_error != '' ? 'alert alert-danger' : '';
 $style_alert_btn = '' . $login_error != '' ? '' : 'display:none';
@@ -53,9 +53,9 @@ $login = '<form class="form-detail" id="myform" action="tiki-login.php?page=tiki
 </form>';
 
 if (file_exists('themes/base_files/other/site_closed_local.html')) {
-	$html = file_get_contents('themes/base_files/other/site_closed_local.html');
+    $html = file_get_contents('themes/base_files/other/site_closed_local.html');
 } else {
-	$html = file_get_contents('themes/base_files/other/site_closed.html');
+    $html = file_get_contents('themes/base_files/other/site_closed.html');
 }
 
 $html = str_replace('{error}', $error, $html);

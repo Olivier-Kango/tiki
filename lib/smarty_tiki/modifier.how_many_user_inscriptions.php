@@ -19,14 +19,14 @@
 function smarty_modifier_how_many_user_inscriptions($text)
 {
 
-	$pattern = "/\d+\[(\d+)\]/";
-	$out = preg_match_all($pattern, $text, $match);
+    $pattern = "/\d+\[(\d+)\]/";
+    $out = preg_match_all($pattern, $text, $match);
 
-	$nb = 0;
+    $nb = 0;
 
-	foreach ($match[1] as $n) {
-		$nb += ($n + 1);
-	}
+    foreach ($match[1] as $n) {
+        $nb += ($n + 1);
+    }
 
-	return $nb;
+    return $nb;
 }

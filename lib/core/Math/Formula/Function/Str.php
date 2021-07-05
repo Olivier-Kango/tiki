@@ -8,20 +8,20 @@
 
 class Math_Formula_Function_Str extends Math_Formula_Function
 {
-	public function evaluate($element)
-	{
-		$out = [];
+    public function evaluate($element)
+    {
+        $out = [];
 
-		foreach ($element as $child) {
-			if ($child instanceof Math_Formula_InternalString) {
-				$out[] = $child->getContent();
-			} elseif ($child instanceof Math_Formula_Element) {
-				$out[] = $this->evaluateChild($child);
-			} else {
-				$out[] = str_replace("~nl~", "\n", $child);
-			}
-		}
+        foreach ($element as $child) {
+            if ($child instanceof Math_Formula_InternalString) {
+                $out[] = $child->getContent();
+            } elseif ($child instanceof Math_Formula_Element) {
+                $out[] = $this->evaluateChild($child);
+            } else {
+                $out[] = str_replace("~nl~", "\n", $child);
+            }
+        }
 
-		return implode(' ', $out);
-	}
+        return implode(' ', $out);
+    }
 }

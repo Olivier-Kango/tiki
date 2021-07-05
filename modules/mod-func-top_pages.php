@@ -11,13 +11,13 @@
  */
 function module_top_pages_info()
 {
-	return [
-		'name' => tra('Top Pages'),
-		'description' => tra('Displays the specified number of wiki pages with links to them, starting with the one having the most hits.'),
-		'prefs' => ['feature_wiki'],
-		'params' => [],
-		'common_params' => ['nonums', 'rows']
-	];
+    return [
+        'name' => tra('Top Pages'),
+        'description' => tra('Displays the specified number of wiki pages with links to them, starting with the one having the most hits.'),
+        'prefs' => ['feature_wiki'],
+        'params' => [],
+        'common_params' => ['nonums', 'rows']
+    ];
 }
 
 /**
@@ -26,11 +26,11 @@ function module_top_pages_info()
  */
 function module_top_pages($mod_reference, $module_params)
 {
-	$smarty = TikiLib::lib('smarty');
-	global $ranklib;
-	include_once('lib/rankings/ranklib.php');
-	$categs = $ranklib->get_jail();
-	$ranking = $ranklib->wiki_ranking_top_pages($mod_reference["rows"], $categs ? $categs : []);
+    $smarty = TikiLib::lib('smarty');
+    global $ranklib;
+    include_once('lib/rankings/ranklib.php');
+    $categs = $ranklib->get_jail();
+    $ranking = $ranklib->wiki_ranking_top_pages($mod_reference["rows"], $categs ? $categs : []);
 
-	$smarty->assign('modTopPages', $ranking["data"]);
+    $smarty->assign('modTopPages', $ranking["data"]);
 }

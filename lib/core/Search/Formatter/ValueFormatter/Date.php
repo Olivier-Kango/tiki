@@ -8,13 +8,13 @@
 
 class Search_Formatter_ValueFormatter_Date extends Search_Formatter_ValueFormatter_Datetime
 {
-	public function __construct($arguments)
-	{
-		if (isset($arguments['dateFormat'])) {
-			$this->format = $arguments['dateFormat'];
-		} else {
-			$tikilib = TikiLib::lib('tiki');
-			$this->format = $tikilib->get_short_date_format();
-		}
-	}
+    public function __construct($arguments)
+    {
+        if (isset($arguments['dateFormat'])) {
+            $this->format = $arguments['dateFormat'];
+        } else {
+            $tikilib = TikiLib::lib('tiki');
+            $this->format = $tikilib->get_short_date_format();
+        }
+    }
 }

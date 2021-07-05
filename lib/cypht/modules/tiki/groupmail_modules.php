@@ -13,7 +13,7 @@
  */
 
 if (! defined('DEBUG_MODE')) {
-die();
+    die();
 }
 
 /**
@@ -531,35 +531,35 @@ class Hm_Output_put_back_groupmail_response extends Hm_Output_Module
  * @return string
  */
 if (! hm_exists('take_callback')) {
-function take_callback($vals, $style, $output_mod)
-{
-    global $user;
-    list($id, $operator) = $vals;
-    if (! empty($operator)) {
-        if ($operator == $user) {
-            $output = sprintf(
-                '<a class="btn btn-outline-secondary btn-sm tips mod_webmail_action webmail_taken" title="%s" onclick="tiki_groupmail_put_back(this, \'%s\'); return false;" href="#">%s</a>',
-                tr('Put this item back'),
-                $id,
-                $operator
-            );
+    function take_callback($vals, $style, $output_mod)
+    {
+        global $user;
+        list($id, $operator) = $vals;
+        if (! empty($operator)) {
+            if ($operator == $user) {
+                $output = sprintf(
+                    '<a class="btn btn-outline-secondary btn-sm tips mod_webmail_action webmail_taken" title="%s" onclick="tiki_groupmail_put_back(this, \'%s\'); return false;" href="#">%s</a>',
+                    tr('Put this item back'),
+                    $id,
+                    $operator
+                );
+            } else {
+                $output = sprintf(
+                    '<span class="btn btn-outline-secondary btn-sm tips mod_webmail_action webmail_taken" title="%s">%s</span>&nbsp;',
+                    tr('Taken by %0', $operator),
+                    $operator
+                );
+            }
         } else {
             $output = sprintf(
-                '<span class="btn btn-outline-secondary btn-sm tips mod_webmail_action webmail_taken" title="%s">%s</span>&nbsp;',
-                tr('Taken by %0', $operator),
-                $operator
+                '<a class="btn btn-outline-secondary btn-sm tips mod_webmail_action" title="%s" onclick="tiki_groupmail_take(this, \'%s\'); return false;" href="#">%s</a>',
+                tr('Take this email'),
+                $vals[0],
+                tr('TAKE')
             );
         }
-    } else {
-        $output = sprintf(
-            '<a class="btn btn-outline-secondary btn-sm tips mod_webmail_action" title="%s" onclick="tiki_groupmail_take(this, \'%s\'); return false;" href="#">%s</a>',
-            tr('Take this email'),
-            $vals[0],
-            tr('TAKE')
-        );
+        return sprintf('<td class="action">%s</td>', $output);
     }
-    return sprintf('<td class="action">%s</td>', $output);
-}
 }
 
 /**
@@ -571,35 +571,35 @@ function take_callback($vals, $style, $output_mod)
  * @return string
  */
 if (! hm_exists('sender_callback')) {
-function sender_callback($vals, $style, $output_mod)
-{
-    global $smarty, $tikiroot;
-    $smarty->loadPlugin('smarty_block_self_link');
-    $smarty->loadPlugin('smarty_modifier_sefurl');
-    list($class, $from, $operator, $contactId, $wikiPage) = $vals;
-    if ($contactId > 0) {
-        $output = smarty_block_self_link([
+    function sender_callback($vals, $style, $output_mod)
+    {
+        global $smarty, $tikiroot;
+        $smarty->loadPlugin('smarty_block_self_link');
+        $smarty->loadPlugin('smarty_modifier_sefurl');
+        list($class, $from, $operator, $contactId, $wikiPage) = $vals;
+        if ($contactId > 0) {
+            $output = smarty_block_self_link([
                 '_script' => $tikiroot . 'tiki-contacts.php',
                 'contactId' => $contactId,
                 '_icon_name' => 'user',
                 '_width' => 12,
                 '_height' => 12
             ], tr('View contact'), $smarty) . ' ';
-        if (! empty($wikiPage)) {
-            $output .= smarty_block_self_link([
-                '_script' => $tikiroot . smarty_modifier_sefurl($wikiPage),
-                '_class' => "mod_webmail_from"
-            ], $from, $smarty);
-        } else {
-            $output .= smarty_block_self_link([
+            if (! empty($wikiPage)) {
+                $output .= smarty_block_self_link([
+                    '_script' => $tikiroot . smarty_modifier_sefurl($wikiPage),
+                    '_class' => "mod_webmail_from"
+                ], $from, $smarty);
+            } else {
+                $output .= smarty_block_self_link([
                 '_script' => $tikiroot . 'tiki-contacts.php',
                 'contactId' => $contactId,
                 '_class' => "mod_webmail_from"
-            ], $from, $smarty);
+                ], $from, $smarty);
+            }
+        } else {
+            $output = '<span class="mod_webmail_from">' . $from . '</span>';
         }
-    } else {
-        $output = '<span class="mod_webmail_from">' . $from . '</span>';
+        return sprintf('<td class="%s" title="%s">%s</td>', $output_mod->html_safe($class), $output_mod->html_safe($from), $output);
     }
-    return sprintf('<td class="%s" title="%s">%s</td>', $output_mod->html_safe($class), $output_mod->html_safe($from), $output);
-}
 }

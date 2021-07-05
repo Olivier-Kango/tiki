@@ -11,11 +11,11 @@
 // $Id$
 
 $inputConfiguration = [
-	[
-		'staticKeyFilters' => [
-			'id' => 'int',
-		]
-	]
+    [
+        'staticKeyFilters' => [
+            'id' => 'int',
+        ]
+    ]
 ];
 
 require_once('tiki-setup.php');
@@ -26,7 +26,7 @@ $bannerlib = TikiLib::lib('banner');
 
 $info = $bannerlib->get_banner($_REQUEST['id']);
 if ($info) {
-	$bannerlib->add_click($info['bannerId']);
-	$url = urldecode($info['url']);
-	header("location: $url");
+    $bannerlib->add_click($info['bannerId']);
+    $url = urldecode($info['url']);
+    header("location: $url");
 }

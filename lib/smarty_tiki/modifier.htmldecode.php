@@ -16,5 +16,5 @@
  */
 function smarty_modifier_htmldecode($s)
 {
-	return TikiLib::htmldecode($s);
+    return TikiLib::htmldecode($s);
 }

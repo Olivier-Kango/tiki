@@ -37,13 +37,13 @@ $logslib = TikiLib::lib('logs');
  */
 function add_feedback($name, $message, $st, $num = null)
 {
-	TikiLib::lib('prefs')->addRecent($name);
+    TikiLib::lib('prefs')->addRecent($name);
 
-	Feedback::add(['num' => $num,
-		'mes' => $message,
-		'st' => $st,
-		'name' => $name,
-		'tpl' => 'pref',]);
+    Feedback::add(['num' => $num,
+        'mes' => $message,
+        'st' => $st,
+        'name' => $name,
+        'tpl' => 'pref',]);
 }
 
 /**
@@ -56,27 +56,27 @@ function add_feedback($name, $message, $st, $num = null)
  */
 function simple_set_toggle($feature)
 {
-	global $prefs;
-	$logslib = TikiLib::lib('logs');
-	$tikilib = TikiLib::lib('tiki');
-	if (isset($_REQUEST[$feature]) && $_REQUEST[$feature] == 'on') {
-		if ((! isset($prefs[$feature]) || $prefs[$feature] != 'y')) {
-			// not yet set at all or not set to y
-			if ($tikilib->set_preference($feature, 'y')) {
-				add_feedback($feature, tr('%0 enabled', $feature), 1, 1);
-				$logslib->add_action('feature', $feature, 'system', 'enabled');
-			}
-		}
-	} else {
-		if ((! isset($prefs[$feature]) || $prefs[$feature] != 'n')) {
-			// not yet set at all or not set to n
-			if ($tikilib->set_preference($feature, 'n')) {
-				add_feedback($feature, tr('%0 disabled', $feature), 0, 1);
-				$logslib->add_action('feature', $feature, 'system', 'disabled');
-			}
-		}
-	}
-	TikiLib::lib('cache')->invalidate('allperms');
+    global $prefs;
+    $logslib = TikiLib::lib('logs');
+    $tikilib = TikiLib::lib('tiki');
+    if (isset($_REQUEST[$feature]) && $_REQUEST[$feature] == 'on') {
+        if ((! isset($prefs[$feature]) || $prefs[$feature] != 'y')) {
+            // not yet set at all or not set to y
+            if ($tikilib->set_preference($feature, 'y')) {
+                add_feedback($feature, tr('%0 enabled', $feature), 1, 1);
+                $logslib->add_action('feature', $feature, 'system', 'enabled');
+            }
+        }
+    } else {
+        if ((! isset($prefs[$feature]) || $prefs[$feature] != 'n')) {
+            // not yet set at all or not set to n
+            if ($tikilib->set_preference($feature, 'n')) {
+                add_feedback($feature, tr('%0 disabled', $feature), 0, 1);
+                $logslib->add_action('feature', $feature, 'system', 'disabled');
+            }
+        }
+    }
+    TikiLib::lib('cache')->invalidate('allperms');
 }
 
 /**
@@ -91,50 +91,50 @@ function simple_set_toggle($feature)
  */
 function simple_set_value($feature, $pref = '', $isMultiple = false)
 {
-	global $prefs;
-	$logslib = TikiLib::lib('logs');
-	$tikilib = TikiLib::lib('tiki');
-	$old = $prefs[$feature];
-	if (isset($_POST[$feature])) {
-		if ($pref != '') {
-			if ($tikilib->set_preference($pref, $_POST[$feature])) {
-				$prefs[$feature] = $_POST[$feature];
-			}
-		} else {
-			$tikilib->set_preference($feature, $_POST[$feature]);
-		}
-	} elseif ($isMultiple) {
-		// Multiple selection controls do not exist if no item is selected.
-		// We still want the value to be updated.
-		if ($pref != '') {
-			if ($tikilib->set_preference($pref, [])) {
-				$prefs[$feature] = $_POST[$feature];
-			}
-		} else {
-			$tikilib->set_preference($feature, []);
-		}
-	}
-	if (isset($_POST[$feature]) && $old != $_POST[$feature]) {
-		add_feedback($feature, ($_POST[$feature]) ? tr('%0 set', $feature) : tr('%0 unset', $feature), 2);
-		$msg = '';
-		if (is_array($_POST[$feature]) && is_array($old)) {
-			$newCount = count($_POST[$feature]);
-			$oldCount = count($old);
-			if ($newCount > $oldCount) {
-				$added = $newCount - $oldCount;
-				$item = $added == 1 ? tr('item added') : tr('items added');
-				$msg = $added . ' ' . $item;
-			} elseif ($oldCount > $newCount) {
-				$deleted = $oldCount - $newCount;
-				$item = $deleted == 1 ? tr('item deleted') : tr('items deleted');
-				$msg = $deleted . ' ' . $item;
-			}
-		} else {
-			$msg = $old . ' => ' . $_POST[$feature];
-		}
-		$logslib->add_action('feature', $feature, 'system', $msg);
-	}
-	TikiLib::lib('cache')->invalidate('allperms');
+    global $prefs;
+    $logslib = TikiLib::lib('logs');
+    $tikilib = TikiLib::lib('tiki');
+    $old = $prefs[$feature];
+    if (isset($_POST[$feature])) {
+        if ($pref != '') {
+            if ($tikilib->set_preference($pref, $_POST[$feature])) {
+                $prefs[$feature] = $_POST[$feature];
+            }
+        } else {
+            $tikilib->set_preference($feature, $_POST[$feature]);
+        }
+    } elseif ($isMultiple) {
+        // Multiple selection controls do not exist if no item is selected.
+        // We still want the value to be updated.
+        if ($pref != '') {
+            if ($tikilib->set_preference($pref, [])) {
+                $prefs[$feature] = $_POST[$feature];
+            }
+        } else {
+            $tikilib->set_preference($feature, []);
+        }
+    }
+    if (isset($_POST[$feature]) && $old != $_POST[$feature]) {
+        add_feedback($feature, ($_POST[$feature]) ? tr('%0 set', $feature) : tr('%0 unset', $feature), 2);
+        $msg = '';
+        if (is_array($_POST[$feature]) && is_array($old)) {
+            $newCount = count($_POST[$feature]);
+            $oldCount = count($old);
+            if ($newCount > $oldCount) {
+                $added = $newCount - $oldCount;
+                $item = $added == 1 ? tr('item added') : tr('items added');
+                $msg = $added . ' ' . $item;
+            } elseif ($oldCount > $newCount) {
+                $deleted = $oldCount - $newCount;
+                $item = $deleted == 1 ? tr('item deleted') : tr('items deleted');
+                $msg = $deleted . ' ' . $item;
+            }
+        } else {
+            $msg = $old . ' => ' . $_POST[$feature];
+        }
+        $logslib->add_action('feature', $feature, 'system', $msg);
+    }
+    TikiLib::lib('cache')->invalidate('allperms');
 }
 
 $crumbs[] = new Breadcrumb(tra('Control Panels'), tra('Sections'), 'tiki-admin.php', 'Admin+Home', tra('Help on Configuration Sections', '', true));
@@ -150,48 +150,48 @@ $adminPage = '';
  */
 $tikiShowSuggestionsPopup = false;
 if ($prefs['feature_system_suggestions'] == 'y' && empty($_POST)) {
-	$adminLogin = ! empty($_SESSION['u_info']['id']) ? $_SESSION['u_info']['id'] : '';
-	$suggestionMessages = ! empty($_SESSION['suggestions_user_id_' . $adminLogin]) ? $_SESSION['suggestions_user_id_' . $adminLogin] : [];
+    $adminLogin = ! empty($_SESSION['u_info']['id']) ? $_SESSION['u_info']['id'] : '';
+    $suggestionMessages = ! empty($_SESSION['suggestions_user_id_' . $adminLogin]) ? $_SESSION['suggestions_user_id_' . $adminLogin] : [];
 
-	if (isset($_REQUEST['tikiSuggestionPopup'])) {
-		$_SESSION['suggestions_popup_off_user_id_' . $adminLogin] = true;
-		return;
-	}
+    if (isset($_REQUEST['tikiSuggestionPopup'])) {
+        $_SESSION['suggestions_popup_off_user_id_' . $adminLogin] = true;
+        return;
+    }
 
-	if (
+    if (
         ! empty($adminLogin)
-		&& ! isset($_SESSION['suggestions_off_user_id_' . $adminLogin])
-		&& TikiLib::lib('user')->user_is_in_group($user, 'Admins')
-	) {
-		if (isset($_REQUEST['tikiSuggestion'])) {
-			$_SESSION['suggestions_off_user_id_' . $adminLogin] = true;
-			return;
-		}
+        && ! isset($_SESSION['suggestions_off_user_id_' . $adminLogin])
+        && TikiLib::lib('user')->user_is_in_group($user, 'Admins')
+    ) {
+        if (isset($_REQUEST['tikiSuggestion'])) {
+            $_SESSION['suggestions_off_user_id_' . $adminLogin] = true;
+            return;
+        }
 
-		if (empty($suggestionMessages)) {
-			$suggestionRules = new Rules();
-			$suggestionMessages = $suggestionRules->getAllMessages();
-		}
+        if (empty($suggestionMessages)) {
+            $suggestionRules = new Rules();
+            $suggestionMessages = $suggestionRules->getAllMessages();
+        }
 
-		if (! empty($suggestionMessages)) {
-			$feedback['title'] = tra('Tiki Suggestions');
-			$feedback['mes'] = $suggestionMessages;
-			Feedback::note($feedback);
-			$_SESSION['suggestions_user_id_' . $adminLogin] = $suggestionMessages;
-		}
-	}
+        if (! empty($suggestionMessages)) {
+            $feedback['title'] = tra('Tiki Suggestions');
+            $feedback['mes'] = $suggestionMessages;
+            Feedback::note($feedback);
+            $_SESSION['suggestions_user_id_' . $adminLogin] = $suggestionMessages;
+        }
+    }
 
-	if (! empty($suggestionMessages) && ! isset($_SESSION['suggestions_popup_off_user_id_' . $adminLogin])) {
-		$tikiShowSuggestionsPopup = true;
-	}
+    if (! empty($suggestionMessages) && ! isset($_SESSION['suggestions_popup_off_user_id_' . $adminLogin])) {
+        $tikiShowSuggestionsPopup = true;
+    }
 }
 $smarty->assign('tikiShowSuggestionsPopup', $tikiShowSuggestionsPopup);
 
 $prefslib = TikiLib::lib('prefs');
 
 if (isset($_REQUEST['pref_filters']) && $access->checkCsrf()) {
-	$prefslib->setFilters($_REQUEST['pref_filters']);
-	Feedback::success(tra('Default preference filters set'));
+    $prefslib->setFilters($_REQUEST['pref_filters']);
+    Feedback::success(tra('Default preference filters set'));
 }
 
 /*
@@ -202,170 +202,170 @@ if (isset($_REQUEST['pref_filters']) && $access->checkCsrf()) {
 $blackL = TikiLib::lib('blacklist');
 
 if (isset($_POST['pass_blacklist']) && $jitPost->offsetExists('pass_blacklist_file')) {    // if preferences were updated and blacklist feature is enabled (or is being enabled)
-	$pass_blacklist_file = $jitPost->pass_blacklist_file->striptags();
-	$userfile = explode('-', $pass_blacklist_file);
-	$userfile = $userfile[3];
-	if ($userfile) {                       // if the blacklist is a user generated file
-		$passDir = 'storage/pass_blacklists/';
-	} else {
-		$passDir = 'lib/pass_blacklists/';
-	}
-	if ($pass_blacklist_file === 'auto') {
-		if (
+    $pass_blacklist_file = $jitPost->pass_blacklist_file->striptags();
+    $userfile = explode('-', $pass_blacklist_file);
+    $userfile = $userfile[3];
+    if ($userfile) {                       // if the blacklist is a user generated file
+        $passDir = 'storage/pass_blacklists/';
+    } else {
+        $passDir = 'lib/pass_blacklists/';
+    }
+    if ($pass_blacklist_file === 'auto') {
+        if (
             $_POST['min_pass_length'] != $GLOBALS['prefs']['min_pass_length'] ||
-			$_POST['pass_chr_num'] != $GLOBALS['prefs']['pass_chr_num']    ||
-			$_POST['pass_chr_special'] != $GLOBALS['prefs']['pass_chr_special']
+            $_POST['pass_chr_num'] != $GLOBALS['prefs']['pass_chr_num']    ||
+            $_POST['pass_chr_special'] != $GLOBALS['prefs']['pass_chr_special']
         ) {       // if blacklist is auto and an option is changed that could effect the selection
-			$prefname = implode('-', $blackL->selectBestBlacklist($_POST['pass_chr_num'], $_POST['pass_chr_special'], $_POST['min_pass_length']));
-			$filename = $passDir . $prefname . '.txt';
-			$tikilib->set_preference('pass_auto_blacklist', $prefname);
-			$blackL->loadBlacklist(dirname($_SERVER['SCRIPT_FILENAME']) . '/' . $filename);
-		}
-	} elseif ($pass_blacklist_file != $GLOBALS['prefs']['pass_blacklist_file']) {        // if manual selection mode has been changed
-		$filename = $passDir . $pass_blacklist_file . '.txt';
-		$blackL->loadBlacklist(dirname($_SERVER['SCRIPT_FILENAME']) . '/' . $filename);
-	}
+            $prefname = implode('-', $blackL->selectBestBlacklist($_POST['pass_chr_num'], $_POST['pass_chr_special'], $_POST['min_pass_length']));
+            $filename = $passDir . $prefname . '.txt';
+            $tikilib->set_preference('pass_auto_blacklist', $prefname);
+            $blackL->loadBlacklist(dirname($_SERVER['SCRIPT_FILENAME']) . '/' . $filename);
+        }
+    } elseif ($pass_blacklist_file != $GLOBALS['prefs']['pass_blacklist_file']) {        // if manual selection mode has been changed
+        $filename = $passDir . $pass_blacklist_file . '.txt';
+        $blackL->loadBlacklist(dirname($_SERVER['SCRIPT_FILENAME']) . '/' . $filename);
+    }
 }
 
 $temp_filters = isset($_REQUEST['filters']) ? explode(' ', $_REQUEST['filters']) : null;
 $smarty->assign('pref_filters', $prefslib->getFilters($temp_filters));
 
 if (isset($_POST['lm_preference']) && $access->checkCsrf()) {
-	$changes = $prefslib->applyChanges((array) $_POST['lm_preference'], $_POST);
-	foreach ($changes as $pref => $val) {
-		if ($val['type'] == 'reset') {
-			add_feedback($pref, tr('%0 reset', $pref), 4);
-			$logslib->add_action('feature', $pref, 'system', 'reset');
-		} else {
-			$value = $val['new'];
-			if ($value == 'y') {
-				add_feedback($pref, tr('%0 enabled', $pref), 1, 1);
-				$logslib->add_action('feature', $pref, 'system', 'enabled');
-			} elseif ($value == 'n') {
-				add_feedback($pref, tr('%0 disabled', $pref), 0, 1);
-				$logslib->add_action('feature', $pref, 'system', 'disabled');
-			} else {
-				add_feedback($pref, tr('%0 set', $pref), 1, 1);
-				$logslib->add_action('feature', $pref, 'system', (is_array($val['old']) ? implode(',', $val['old']) : $val['old']) . '=>' . (is_array($value) ? implode(',', $value) : $value));
-			}
-			/*
-				Enable/disable addreference/showreference plugins alognwith references feature.
-			*/
-			if ($pref == 'feature_references') {
-				$tikilib->set_preference('wikiplugin_addreference', $value);
-				$tikilib->set_preference('wikiplugin_showreference', $value);
+    $changes = $prefslib->applyChanges((array) $_POST['lm_preference'], $_POST);
+    foreach ($changes as $pref => $val) {
+        if ($val['type'] == 'reset') {
+            add_feedback($pref, tr('%0 reset', $pref), 4);
+            $logslib->add_action('feature', $pref, 'system', 'reset');
+        } else {
+            $value = $val['new'];
+            if ($value == 'y') {
+                add_feedback($pref, tr('%0 enabled', $pref), 1, 1);
+                $logslib->add_action('feature', $pref, 'system', 'enabled');
+            } elseif ($value == 'n') {
+                add_feedback($pref, tr('%0 disabled', $pref), 0, 1);
+                $logslib->add_action('feature', $pref, 'system', 'disabled');
+            } else {
+                add_feedback($pref, tr('%0 set', $pref), 1, 1);
+                $logslib->add_action('feature', $pref, 'system', (is_array($val['old']) ? implode(',', $val['old']) : $val['old']) . '=>' . (is_array($value) ? implode(',', $value) : $value));
+            }
+            /*
+                Enable/disable addreference/showreference plugins alognwith references feature.
+            */
+            if ($pref == 'feature_references') {
+                $tikilib->set_preference('wikiplugin_addreference', $value);
+                $tikilib->set_preference('wikiplugin_showreference', $value);
 
-				/* Add/Remove the plugin toolbars from the editor */
-				$toolbars = ['wikiplugin_addreference', 'wikiplugin_showreference'];
-				$t_action = ($value == 'y') ? 'add' : 'remove';
-				$tikilib->saveEditorToolbars($toolbars, 'global', $t_action);
-			}
-		}
-	}
+                /* Add/Remove the plugin toolbars from the editor */
+                $toolbars = ['wikiplugin_addreference', 'wikiplugin_showreference'];
+                $t_action = ($value == 'y') ? 'add' : 'remove';
+                $tikilib->saveEditorToolbars($toolbars, 'global', $t_action);
+            }
+        }
+    }
 }
 
 if (isset($_REQUEST['lm_criteria'])) {
-	set_time_limit(0);
-	try {
-		$smarty->assign('lm_criteria', $_REQUEST['lm_criteria']);
-		$results = $prefslib->getMatchingPreferences($_REQUEST['lm_criteria']);
-		$results = array_slice($results, 0, 50);
-		$results = $prefslib->unsetHiddenPreferences($results);
-		$smarty->assign('lm_searchresults', $results);
-	} catch (ZendSearch\Lucene\Exception\ExceptionInterface $e) {
-		Feedback::warning(['mes' => $e->getMessage(), 'title' => tr('Search error')]);
-		$smarty->assign('lm_criteria', '');
-		$smarty->assign('lm_searchresults', '');
-	}
+    set_time_limit(0);
+    try {
+        $smarty->assign('lm_criteria', $_REQUEST['lm_criteria']);
+        $results = $prefslib->getMatchingPreferences($_REQUEST['lm_criteria']);
+        $results = array_slice($results, 0, 50);
+        $results = $prefslib->unsetHiddenPreferences($results);
+        $smarty->assign('lm_searchresults', $results);
+    } catch (ZendSearch\Lucene\Exception\ExceptionInterface $e) {
+        Feedback::warning(['mes' => $e->getMessage(), 'title' => tr('Search error')]);
+        $smarty->assign('lm_criteria', '');
+        $smarty->assign('lm_searchresults', '');
+    }
 } else {
-	$smarty->assign('lm_criteria', '');
-	$smarty->assign('lm_searchresults', '');
+    $smarty->assign('lm_criteria', '');
+    $smarty->assign('lm_searchresults', '');
 }
 
 $smarty->assign('indexNeedsRebuilding', $prefslib->indexNeedsRebuilding());
 
 if (isset($_REQUEST['prefrebuild'])) {
-	$prefslib->rebuildIndex();
-	header('Location: ' . $base_url . 'tiki-admin.php');
+    $prefslib->rebuildIndex();
+    header('Location: ' . $base_url . 'tiki-admin.php');
 }
 
 global $admin_icons;
 include_once 'admin/define_admin_icons.php';
 
 if (isset($_REQUEST['page'])) {
-	$adminPage = $_REQUEST['page'];
-	// Check if the associated incude_*.php file exists. If not, check to see if it might exist in the Addons.
-	// If it exists, include the associated file
-	$utilities = new \Tiki\Package\Extension\Utilities();
-	if (file_exists("admin/include_$adminPage.php")) {
-		include_once("admin/include_$adminPage.php");
-	} elseif ($filepath = $utilities->getExtensionFilePath("admin/include_$adminPage.php")) {
-		include_once($filepath);
-	}
-	$url = 'tiki-admin.php' . '?page=' . $adminPage;
+    $adminPage = $_REQUEST['page'];
+    // Check if the associated incude_*.php file exists. If not, check to see if it might exist in the Addons.
+    // If it exists, include the associated file
+    $utilities = new \Tiki\Package\Extension\Utilities();
+    if (file_exists("admin/include_$adminPage.php")) {
+        include_once("admin/include_$adminPage.php");
+    } elseif ($filepath = $utilities->getExtensionFilePath("admin/include_$adminPage.php")) {
+        include_once($filepath);
+    }
+    $url = 'tiki-admin.php' . '?page=' . $adminPage;
 
-	if ($prefs['theme_unified_admin_backend'] === 'y') {
-		foreach ($admin_icons as & $admin_icon) {
-			foreach ($admin_icon['children'] as & $child) {
-				$child = array_merge(['disabled' => false, 'description' => ''], $child);
-			}
+    if ($prefs['theme_unified_admin_backend'] === 'y') {
+        foreach ($admin_icons as & $admin_icon) {
+            foreach ($admin_icon['children'] as & $child) {
+                $child = array_merge(['disabled' => false, 'description' => ''], $child);
+            }
 
-			if (isset($admin_icon['children'][$adminPage])) {
-				$admin_icon['selected'] = true;
-				$admin_icon['children'][$adminPage]['selected'] = true;
-				$admintitle = $admin_icon['children'][$adminPage]['title'];
-				$description = $admin_icon['children'][$adminPage]['description'] ?? '';
-				$helpUrl = $admin_icon['children'][$adminPage]['help'] ?? '';
-			}
-		}
-	} else {
-		foreach ($admin_icons as &$admin_icon) {
-			$admin_icon = array_merge([ 'disabled' => false, 'description' => ''], $admin_icon);
-		}
-		if (isset($admin_icons[$adminPage])) {
-			$admin_icon = $admin_icons[$adminPage];
+            if (isset($admin_icon['children'][$adminPage])) {
+                $admin_icon['selected'] = true;
+                $admin_icon['children'][$adminPage]['selected'] = true;
+                $admintitle = $admin_icon['children'][$adminPage]['title'];
+                $description = $admin_icon['children'][$adminPage]['description'] ?? '';
+                $helpUrl = $admin_icon['children'][$adminPage]['help'] ?? '';
+            }
+        }
+    } else {
+        foreach ($admin_icons as &$admin_icon) {
+            $admin_icon = array_merge([ 'disabled' => false, 'description' => ''], $admin_icon);
+        }
+        if (isset($admin_icons[$adminPage])) {
+            $admin_icon = $admin_icons[$adminPage];
 
-			$admintitle = $admin_icon['title'];
-			$description = isset($admin_icon['description']) ? $admin_icon['description'] : '';
-			$helpUrl = isset($admin_icon['help']) ? $admin_icon['help'] : '';
-		}
-	}
-	$helpDescription = tr("Help on %0 Config", $admintitle);
+            $admintitle = $admin_icon['title'];
+            $description = isset($admin_icon['description']) ? $admin_icon['description'] : '';
+            $helpUrl = isset($admin_icon['help']) ? $admin_icon['help'] : '';
+        }
+    }
+    $helpDescription = tr("Help on %0 Config", $admintitle);
 
-	$smarty->assign('include', $adminPage);
-	$smarty->assign('template_not_found', 'n');
-	if (substr($adminPage, 0, 3) == 'tp_' && ! file_exists("admin/include_$adminPage.tpl")) {
-		$packageAdminTplFile = $utilities->getExtensionFilePath("templates/admin/include_$adminPage.tpl");
-		if (! file_exists($packageAdminTplFile)) {
-			$smarty->assign('include', 'extension_package_missing_page');
-		}
-		if (! ExtensionManager::isExtensionEnabled(str_replace("_", "/", substr($adminPage, 3)))) {
-			$smarty->assign('include', 'extension_package_inactive');
-		}
-	} elseif (! file_exists("templates/admin/include_$adminPage.tpl")) {
-		// Graceful error management when URL is wrong for admin panel
-		$smarty->assign('template_not_found', 'y');
-	} else {
-		$smarty->assign('template_not_found', 'n');
-	}
+    $smarty->assign('include', $adminPage);
+    $smarty->assign('template_not_found', 'n');
+    if (substr($adminPage, 0, 3) == 'tp_' && ! file_exists("admin/include_$adminPage.tpl")) {
+        $packageAdminTplFile = $utilities->getExtensionFilePath("templates/admin/include_$adminPage.tpl");
+        if (! file_exists($packageAdminTplFile)) {
+            $smarty->assign('include', 'extension_package_missing_page');
+        }
+        if (! ExtensionManager::isExtensionEnabled(str_replace("_", "/", substr($adminPage, 3)))) {
+            $smarty->assign('include', 'extension_package_inactive');
+        }
+    } elseif (! file_exists("templates/admin/include_$adminPage.tpl")) {
+        // Graceful error management when URL is wrong for admin panel
+        $smarty->assign('template_not_found', 'y');
+    } else {
+        $smarty->assign('template_not_found', 'n');
+    }
 
-	//for most admin include page forms, need to redirect as changes to one pref can affect display of others
-	//however other forms that perform actions other than changing preferences should not redirect to avoid infinite loops
-	//for these add a hidden input named redirect with a value of 0
-	if (
+    //for most admin include page forms, need to redirect as changes to one pref can affect display of others
+    //however other forms that perform actions other than changing preferences should not redirect to avoid infinite loops
+    //for these add a hidden input named redirect with a value of 0
+    if (
         $access->csrfResult() && (! isset($_POST['redirect']) || $_POST['redirect'] === 1)
-		&& ! isset($_POST['saveblacklist']) && ! isset($_POST['viewblacklist'])
+        && ! isset($_POST['saveblacklist']) && ! isset($_POST['viewblacklist'])
     ) {
-		$access->redirect($_SERVER['REQUEST_URI'], '', 200);
-	}
+        $access->redirect($_SERVER['REQUEST_URI'], '', 200);
+    }
 } else {
-	$smarty->assign('include', 'list_sections');
+    $smarty->assign('include', 'list_sections');
 }
 
 if ($prefs['theme_unified_admin_backend'] === 'y') {
-	$headerlib->add_cssfile('themes/base_files/css/feature/adminui.css');
+    $headerlib->add_cssfile('themes/base_files/css/feature/adminui.css');
 } else {
-	$headerlib->add_cssfile('themes/base_files/feature_css/admin.css');
+    $headerlib->add_cssfile('themes/base_files/feature_css/admin.css');
 }
 $crumbs[] = new Breadcrumb($admintitle, $description, $url, $helpUrl, $helpDescription);
 $smarty->assign('admintitle', $admintitle);
@@ -380,19 +380,19 @@ $forcecheck = ! empty($_GET['forcecheck']);
 // Versioning feature has been enabled, so if the time is right, do a live
 // check, otherwise display the stored data.
 if ($prefs['feature_version_checks'] == 'y' || $forcecheck) {
-	$versionUtils = new Tiki_Version_Utils();
-	$upgrades = $versionUtils->checkUpdatesForVersion($TWV->version);
+    $versionUtils = new Tiki_Version_Utils();
+    $upgrades = $versionUtils->checkUpdatesForVersion($TWV->version);
 
-	$smarty->assign('upgrade_messages', $upgrades);
+    $smarty->assign('upgrade_messages', $upgrades);
 }
 
 // SSL setup
 $haveMySQLSSL = $tikilib->haveMySQLSSL();
 $smarty->assign('haveMySQLSSL', $haveMySQLSSL);
 if ($haveMySQLSSL) {
-	$isSSL = $tikilib->isMySQLConnSSL();
+    $isSSL = $tikilib->isMySQLConnSSL();
 } else {
-	$isSSL = false;
+    $isSSL = false;
 }
 $smarty->assign('mysqlSSL', $isSSL);
 
@@ -410,33 +410,33 @@ $smarty->assign('trail', $crumbs);
 $smarty->assign('crumb', count($crumbs) - 1);
 
 if (file_exists(__DIR__ . '/vendor/autoload.php')) {
-	if (
+    if (
         file_exists(__DIR__ . '/vendor/do_not_clean.txt')
-		|| ! ( // check the existence of critical files denoting a legacy vendor folder
-			(file_exists(__DIR__ . '/vendor/zendframework/zend-config/src/Config.php') //ZF2
-				|| file_exists(__DIR__ . '/vendor/bombayworks/zendframework1/library/Zend/Config.php')) //ZF1
-			&& (file_exists(__DIR__ . '/vendor/smarty/smarty/libs/Smarty.class.php') //Smarty
-				|| file_exists(__DIR__ . '/vendor/smarty/smarty/distribution/libs/Smarty.class.php')) //Smarty
-			&& file_exists(__DIR__ . '/vendor/adodb/adodb/adodb.inc.php') //Adodb
-		)
+        || ! ( // check the existence of critical files denoting a legacy vendor folder
+            (file_exists(__DIR__ . '/vendor/zendframework/zend-config/src/Config.php') //ZF2
+                || file_exists(__DIR__ . '/vendor/bombayworks/zendframework1/library/Zend/Config.php')) //ZF1
+            && (file_exists(__DIR__ . '/vendor/smarty/smarty/libs/Smarty.class.php') //Smarty
+                || file_exists(__DIR__ . '/vendor/smarty/smarty/distribution/libs/Smarty.class.php')) //Smarty
+            && file_exists(__DIR__ . '/vendor/adodb/adodb/adodb.inc.php') //Adodb
+        )
     ) {
-		$vendorAutoloadIgnored = false;
-	} else {
-		$vendorAutoloadIgnored = true;
-	}
+        $vendorAutoloadIgnored = false;
+    } else {
+        $vendorAutoloadIgnored = true;
+    }
 } else {
-	$vendorAutoloadIgnored = false;
+    $vendorAutoloadIgnored = false;
 }
 
 if (file_exists(__DIR__ . '/vendor/autoload-disabled.php')) {
-	$vendorAutoloadDisabled = true;
+    $vendorAutoloadDisabled = true;
 } else {
-	$vendorAutoloadDisabled = false;
+    $vendorAutoloadDisabled = false;
 }
 
 $smarty->assign('fgal_web_accessible', false);
 if ($prefs['fgal_use_dir'] && $prefs['fgal_use_db'] === 'n') {
-	$smarty->assign('fgal_web_accessible', $access->isFileWebAccessible($prefs['fgal_use_dir'] . 'index.php'));
+    $smarty->assign('fgal_web_accessible', $access->isFileWebAccessible($prefs['fgal_use_dir'] . 'index.php'));
 }
 $smarty->assign('vendor_autoload_ignored', $vendorAutoloadIgnored);
 $smarty->assign('vendor_autoload_disabled', $vendorAutoloadDisabled);

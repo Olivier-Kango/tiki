@@ -8,14 +8,14 @@
 
 class Math_Formula_Function_Lower extends Math_Formula_Function
 {
-	public function evaluate($element)
-	{
-		$out = "";
+    public function evaluate($element)
+    {
+        $out = "";
 
-		foreach ($element as $child) {
-			$out .= strtolower($this->evaluateChild($child));
-		}
+        foreach ($element as $child) {
+            $out .= strtolower($this->evaluateChild($child));
+        }
 
-		return $out;
-	}
+        return $out;
+    }
 }

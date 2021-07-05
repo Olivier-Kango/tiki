@@ -16,17 +16,17 @@ $access->check_feature(['feature_wiki', 'feature_backlinks']);
 
 // Get the page from the request var or default it to HomePage
 if (! isset($_REQUEST["page"])) {
-	$smarty->assign('msg', tra("No page indicated"));
-	$smarty->display("error.tpl");
-	die;
+    $smarty->assign('msg', tra("No page indicated"));
+    $smarty->display("error.tpl");
+    die;
 } else {
-	$page = $_REQUEST["page"];
-	$smarty->assign_by_ref('page', $_REQUEST["page"]);
+    $page = $_REQUEST["page"];
+    $smarty->assign_by_ref('page', $_REQUEST["page"]);
 }
 if (! ($info = $tikilib->get_page_info($page))) {
-	$smarty->assign('msg', tra('Page cannot be found'));
-	$smarty->display('error.tpl');
-	die;
+    $smarty->assign('msg', tra('Page cannot be found'));
+    $smarty->display('error.tpl');
+    die;
 }
 // Now check permissions to access this page
 $tikilib->get_perm_object($page, 'wiki page', $info);
@@ -34,9 +34,9 @@ $access->check_permission('tiki_p_view');
 
 // If the page doesn't exist then display an error
 if (! $tikilib->page_exists($page)) {
-	$smarty->assign('msg', tra("The page cannot be found"));
-	$smarty->display("error.tpl");
-	die;
+    $smarty->assign('msg', tra("The page cannot be found"));
+    $smarty->display("error.tpl");
+    die;
 }
 // Get the backlinks for the page "page"
 $backlinks = $wikilib->get_backlinks($page);

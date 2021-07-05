@@ -13,5 +13,5 @@ use Tiki\File\DiagramHelper;
  */
 function smarty_modifier_file_diagram($fileId)
 {
-	return DiagramHelper::isDiagram($fileId);
+    return DiagramHelper::isDiagram($fileId);
 }

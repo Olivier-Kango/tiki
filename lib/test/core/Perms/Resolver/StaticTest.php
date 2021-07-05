@@ -13,34 +13,34 @@
 
 class Perms_Resolver_StaticTest extends TikiTestCase
 {
-	public function testGroupNotDefined()
-	{
-		$static = new Perms_Resolver_Static([]);
+    public function testGroupNotDefined()
+    {
+        $static = new Perms_Resolver_Static([]);
 
-		$this->assertFalse($static->check('view', []));
-		$this->assertEquals([], $static->applicableGroups());
-	}
+        $this->assertFalse($static->check('view', []));
+        $this->assertEquals([], $static->applicableGroups());
+    }
 
-	public function testNotRightGroup()
-	{
-		$static = new Perms_Resolver_Static(
-			['Registered' => ['view', 'edit'],]
-		);
+    public function testNotRightGroup()
+    {
+        $static = new Perms_Resolver_Static(
+            ['Registered' => ['view', 'edit'],]
+        );
 
-		$this->assertFalse($static->check('view', ['Anonymous']));
-		$this->assertEquals(['Registered'], $static->applicableGroups());
-	}
+        $this->assertFalse($static->check('view', ['Anonymous']));
+        $this->assertEquals(['Registered'], $static->applicableGroups());
+    }
 
-	public function testRightGroup()
-	{
-		$static = new Perms_Resolver_Static(
-			[
-				'Anonymous' => ['view'],
-				'Registered' => ['view', 'edit'],
-			]
-		);
+    public function testRightGroup()
+    {
+        $static = new Perms_Resolver_Static(
+            [
+                'Anonymous' => ['view'],
+                'Registered' => ['view', 'edit'],
+            ]
+        );
 
-		$this->assertTrue($static->check('edit', ['Anonymous', 'Registered']));
-		$this->assertEquals(['Anonymous', 'Registered'], $static->applicableGroups());
-	}
+        $this->assertTrue($static->check('edit', ['Anonymous', 'Registered']));
+        $this->assertEquals(['Anonymous', 'Registered'], $static->applicableGroups());
+    }
 }

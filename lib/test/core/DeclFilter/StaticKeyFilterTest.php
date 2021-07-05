@@ -13,40 +13,40 @@
 
 class DeclFilterStaticKeyFilterTest extends TikiTestCase
 {
-	public function testMatch()
-	{
-		$rule = new DeclFilter_StaticKeyFilterRule(
-			[
-				'hello' => 'digits',
-				'world' => 'alpha',
-			]
-		);
+    public function testMatch()
+    {
+        $rule = new DeclFilter_StaticKeyFilterRule(
+            [
+                'hello' => 'digits',
+                'world' => 'alpha',
+            ]
+        );
 
-		$this->assertTrue($rule->match('hello'));
-		$this->assertTrue($rule->match('world'));
-		$this->assertFalse($rule->match('baz'));
-	}
+        $this->assertTrue($rule->match('hello'));
+        $this->assertTrue($rule->match('world'));
+        $this->assertFalse($rule->match('baz'));
+    }
 
-	public function testApply()
-	{
-		$rule = new DeclFilter_StaticKeyFilterRule(
-			[
-				'hello' => 'digits',
-				'world' => 'alpha',
-			]
-		);
+    public function testApply()
+    {
+        $rule = new DeclFilter_StaticKeyFilterRule(
+            [
+                'hello' => 'digits',
+                'world' => 'alpha',
+            ]
+        );
 
-		$data = [
-			'hello' => '123abc',
-			'world' => '123abc',
-			'foo' => '123abc',
-		];
+        $data = [
+            'hello' => '123abc',
+            'world' => '123abc',
+            'foo' => '123abc',
+        ];
 
-		$rule->apply($data, 'hello');
-		$rule->apply($data, 'world');
+        $rule->apply($data, 'hello');
+        $rule->apply($data, 'world');
 
-		$this->assertEquals('123', $data['hello']);
-		$this->assertEquals('abc', $data['world']);
-		$this->assertEquals('123abc', $data['foo']);
-	}
+        $this->assertEquals('123', $data['hello']);
+        $this->assertEquals('abc', $data['world']);
+        $this->assertEquals('123abc', $data['foo']);
+    }
 }

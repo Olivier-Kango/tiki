@@ -11,11 +11,11 @@
  */
 function module_payment_outstanding_info()
 {
-	return [
-		'name' => tra('Payments Outstanding'),
-		'description' => tra('Displays the payments outstanding for the current user.'),
-		'prefs' => ['payment_feature'],
-	];
+    return [
+        'name' => tra('Payments Outstanding'),
+        'description' => tra('Displays the payments outstanding for the current user.'),
+        'prefs' => ['payment_feature'],
+    ];
 }
 
 /**
@@ -24,12 +24,12 @@ function module_payment_outstanding_info()
  */
 function module_payment_outstanding($mod_reference, $module_params)
 {
-	global $user, $prefs;
+    global $user, $prefs;
 
-	$paymentlib = TikiLib::lib('payment');
-	$smarty = TikiLib::lib('smarty');
-	if ($user) {
-		$data = $paymentlib->get_outstanding(0, $mod_reference['rows'], $user);
-		$smarty->assign('outstanding', $data);
-	}
+    $paymentlib = TikiLib::lib('payment');
+    $smarty = TikiLib::lib('smarty');
+    if ($user) {
+        $data = $paymentlib->get_outstanding(0, $mod_reference['rows'], $user);
+        $smarty->assign('outstanding', $data);
+    }
 }

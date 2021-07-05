@@ -8,5 +8,5 @@
 
 interface Tiki_Event_EdgeProvider
 {
-	public function getTargetEvents();
+    public function getTargetEvents();
 }

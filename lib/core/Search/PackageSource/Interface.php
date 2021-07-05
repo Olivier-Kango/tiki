@@ -8,14 +8,14 @@
 
 interface Search_PackageSource_Interface
 {
-	/*
-	 * Returns a boolean for whether or not the AddonSource should be indexing for this particular item
-	 */
-	public function toIndex($objectType, $objectId, $data);
+    /*
+     * Returns a boolean for whether or not the AddonSource should be indexing for this particular item
+     */
+    public function toIndex($objectType, $objectId, $data);
 
-	public function getData($objectType, $objectId, Search_Type_Factory_Interface $typeFactory, array $data = []);
+    public function getData($objectType, $objectId, Search_Type_Factory_Interface $typeFactory, array $data = []);
 
-	public function getProvidedFields();
+    public function getProvidedFields();
 
-	public function getGlobalFields();
+    public function getGlobalFields();
 }

@@ -11,10 +11,10 @@
  */
 function module_notificationlink_info()
 {
-	return [
-		'name' => tra('Notifications Link'),
-		'description' => tra('Shows an icon with the number of and a link to user notifications'),
-		'prefs' => ['monitor_enabled'],
-		'params' => [],
-	];
+    return [
+        'name' => tra('Notifications Link'),
+        'description' => tra('Shows an icon with the number of and a link to user notifications'),
+        'prefs' => ['monitor_enabled'],
+        'params' => [],
+    ];
 }

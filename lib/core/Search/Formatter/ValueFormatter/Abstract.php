@@ -8,13 +8,13 @@
 
 abstract class Search_Formatter_ValueFormatter_Abstract implements Search_Formatter_ValueFormatter_Interface
 {
-	public function render($name, $value, array $entry)
-	{
-		return $value;
-	}
+    public function render($name, $value, array $entry)
+    {
+        return $value;
+    }
 
-	public function canCache()
-	{
-		return true;
-	}
+    public function canCache()
+    {
+        return true;
+    }
 }

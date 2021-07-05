@@ -13,51 +13,51 @@
 
 abstract class Language_FileType
 {
-	/**
-	 * List of regexes used to extract
-	 * translatable strings from a file.
-	 * @var array
-	 */
-	protected $regexes = [];
+    /**
+     * List of regexes used to extract
+     * translatable strings from a file.
+     * @var array
+     */
+    protected $regexes = [];
 
-	/**
-	 * List of valid file extensions for a
-	 * specific file type.
-	 * @var array
-	 */
-	protected $extensions = [];
+    /**
+     * List of valid file extensions for a
+     * specific file type.
+     * @var array
+     */
+    protected $extensions = [];
 
-	/**
-	 * List of regexes used to clean a file
-	 * before searching for translatable strings.
-	 * @var array
-	 */
-	protected $cleanupRegexes = [];
+    /**
+     * List of regexes used to clean a file
+     * before searching for translatable strings.
+     * @var array
+     */
+    protected $cleanupRegexes = [];
 
-	/**
-	 * Getter for $this->regexes
-	 * @return array
-	 */
-	public function getRegexes()
-	{
-		return $this->regexes;
-	}
+    /**
+     * Getter for $this->regexes
+     * @return array
+     */
+    public function getRegexes()
+    {
+        return $this->regexes;
+    }
 
-	/**
-	 * Getter for $this->extensions
-	 * @return array
-	 */
-	public function getExtensions()
-	{
-		return $this->extensions;
-	}
+    /**
+     * Getter for $this->extensions
+     * @return array
+     */
+    public function getExtensions()
+    {
+        return $this->extensions;
+    }
 
-	/**
-	 * Getter for $this->cleanupRegexes
-	 * @return array
-	 */
-	public function getCleanupRegexes()
-	{
-		return $this->cleanupRegexes;
-	}
+    /**
+     * Getter for $this->cleanupRegexes
+     * @return array
+     */
+    public function getCleanupRegexes()
+    {
+        return $this->cleanupRegexes;
+    }
 }

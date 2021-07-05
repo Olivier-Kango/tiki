@@ -7,8 +7,8 @@ use Tiki\Lib\core\Tracker\Rule\Type\Nothing;
 
 class Show extends Action
 {
-	public function __construct()
-	{
-		parent::__construct(tr('Show'), Nothing::class, '.show()', [Field::class]);
-	}
+    public function __construct()
+    {
+        parent::__construct(tr('Show'), Nothing::class, '.show()', [Field::class]);
+    }
 }

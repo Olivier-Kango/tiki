@@ -8,7 +8,7 @@
 
 interface Search_Formatter_ValueFormatter_Interface
 {
-	public function render($name, $value, array $entry);
+    public function render($name, $value, array $entry);
 
-	public function canCache();
+    public function canCache();
 }

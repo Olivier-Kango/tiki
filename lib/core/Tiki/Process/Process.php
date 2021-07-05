@@ -11,23 +11,23 @@ namespace Tiki\Process;
 class Process extends \Symfony\Component\Process\Process
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public function __construct($commandline, $cwd = null, array $env = null, $input = null, $timeout = 60, array $options = null)
-	{
-		$env = $this->setEnvDefaults($env);
-		parent::__construct($commandline, $cwd, $env, $input, $timeout, $options);
-	}
+    /**
+     * @inheritdoc
+     */
+    public function __construct($commandline, $cwd = null, array $env = null, $input = null, $timeout = 60, array $options = null)
+    {
+        $env = $this->setEnvDefaults($env);
+        parent::__construct($commandline, $cwd, $env, $input, $timeout, $options);
+    }
 
-	protected function setEnvDefaults($env)
-	{
-		$env = empty($env) ? [] : $env;
+    protected function setEnvDefaults($env)
+    {
+        $env = empty($env) ? [] : $env;
 
-		if (! isset($env['HTTP_ACCEPT_ENCODING'])) {
-			$env['HTTP_ACCEPT_ENCODING'] = '';
-		}
+        if (! isset($env['HTTP_ACCEPT_ENCODING'])) {
+            $env['HTTP_ACCEPT_ENCODING'] = '';
+        }
 
-		return $env;
-	}
+        return $env;
+    }
 }

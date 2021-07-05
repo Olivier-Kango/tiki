@@ -8,8 +8,8 @@
 
 class Search_Elastic_NotFoundException extends Search_Elastic_Exception
 {
-	public function __construct($type, $id)
-	{
-		parent::__construct(tr('Document not found in index %1 (%0)', $type, $id));
-	}
+    public function __construct($type, $id)
+    {
+        parent::__construct(tr('Document not found in index %1 (%0)', $type, $id));
+    }
 }

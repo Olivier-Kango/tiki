@@ -13,23 +13,23 @@
 
 class DeclFilterCatchAllUnsetTest extends TikiTestCase
 {
-	public function testMatch()
-	{
-		$rule = new DeclFilter_CatchAllUnsetRule();
+    public function testMatch()
+    {
+        $rule = new DeclFilter_CatchAllUnsetRule();
 
-		$this->assertTrue($rule->match('hello'));
-	}
+        $this->assertTrue($rule->match('hello'));
+    }
 
-	public function testApply()
-	{
-		$rule = new DeclFilter_CatchAllUnsetRule();
+    public function testApply()
+    {
+        $rule = new DeclFilter_CatchAllUnsetRule();
 
-		$data = [
-			'hello' => '123abc',
-		];
+        $data = [
+            'hello' => '123abc',
+        ];
 
-		$rule->apply($data, 'hello');
+        $rule->apply($data, 'hello');
 
-		$this->assertFalse(isset($data['hello']));
-	}
+        $this->assertFalse(isset($data['hello']));
+    }
 }

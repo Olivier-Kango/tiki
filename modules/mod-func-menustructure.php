@@ -11,18 +11,18 @@
  */
 function module_menustructure_info()
 {
-	return [
-		'name' => tra('Wiki Structure Menu'),
-		'description' => tra('Displays a structure.') . ' ' . tra('N.B. Deprecated, use the Menu module instead'),
-		'prefs' => ['feature_wiki_structure'],
-		'params' => [
-			'structure' => [
-				'name' => tra('Structure'),
-				'description' => tra('Structure to display in the menu.'),
-				'required' => true
-			]
-		]
-	];
+    return [
+        'name' => tra('Wiki Structure Menu'),
+        'description' => tra('Displays a structure.') . ' ' . tra('N.B. Deprecated, use the Menu module instead'),
+        'prefs' => ['feature_wiki_structure'],
+        'params' => [
+            'structure' => [
+                'name' => tra('Structure'),
+                'description' => tra('Structure to display in the menu.'),
+                'required' => true
+            ]
+        ]
+    ];
 }
 
 /**
@@ -31,17 +31,17 @@ function module_menustructure_info()
  */
 function module_menustructure($mod_reference, $module_params)
 {
-	$smarty = TikiLib::lib('smarty');
-	$structure = $module_params['structure'];
+    $smarty = TikiLib::lib('smarty');
+    $structure = $module_params['structure'];
 
-	if (! empty($structure)) {
-		$structlib = TikiLib::lib('struct');
-		$smarty->assign('tpl_module_title', $structure);
+    if (! empty($structure)) {
+        $structlib = TikiLib::lib('struct');
+        $smarty->assign('tpl_module_title', $structure);
 
-		$structureId = $structlib->get_struct_ref_id($structure);
+        $structureId = $structlib->get_struct_ref_id($structure);
 
-		if ($structureId) {
-			$smarty->assign_by_ref('structureId', $structureId);
-		}
-	}
+        if ($structureId) {
+            $smarty->assign_by_ref('structureId', $structureId);
+        }
+    }
 }

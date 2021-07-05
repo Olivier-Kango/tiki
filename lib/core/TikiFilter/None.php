@@ -9,8 +9,8 @@
 // Dummy filter (identity function)
 class TikiFilter_None implements Laminas\Filter\FilterInterface
 {
-	public function filter($value)
-	{
-		return $value;
-	}
+    public function filter($value)
+    {
+        return $value;
+    }
 }

@@ -8,8 +8,8 @@
 
 //this script may only be included - so its better to die if called directly.
 if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
-	header('location: index.php');
-	exit;
+    header('location: index.php');
+    exit;
 }
 
 /**
@@ -17,12 +17,12 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
  */
 function module_users_own_rank_info()
 {
-	return [
-		'name' => tra('My Score'),
-		'description' => tra('Display the logged user\'s rank and score.'),
-		'prefs' => [ 'feature_score' ],
-		'params' => []
-	];
+    return [
+        'name' => tra('My Score'),
+        'description' => tra('Display the logged user\'s rank and score.'),
+        'prefs' => [ 'feature_score' ],
+        'params' => []
+    ];
 }
 
 /**
@@ -31,15 +31,15 @@ function module_users_own_rank_info()
  */
 function module_users_own_rank($mod_reference, $module_params)
 {
-	global $user;
-	$scorelib = TikiLib::lib('score');
-	$smarty = TikiLib::lib('smarty');
+    global $user;
+    $scorelib = TikiLib::lib('score');
+    $smarty = TikiLib::lib('smarty');
 
-	$position = $scorelib->user_position($user);
-	$smarty->assign('position', $position);
-	$score = $scorelib->get_user_score($user);
-	$smarty->assign('score', $score);
-	$count = $scorelib->count_users(0);
-	$smarty->assign('count', $count);
-	$smarty->assign('user', $user);
+    $position = $scorelib->user_position($user);
+    $smarty->assign('position', $position);
+    $score = $scorelib->get_user_score($user);
+    $smarty->assign('score', $score);
+    $count = $scorelib->count_users(0);
+    $smarty->assign('count', $count);
+    $smarty->assign('user', $user);
 }

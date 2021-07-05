@@ -8,8 +8,8 @@
 
 interface Search_Index_QueryRepository
 {
-	public function getMatchingQueries(array $document);
+    public function getMatchingQueries(array $document);
 
-	public function store($name, Search_Expr_Interface $expr);
-	public function unstore($name);
+    public function store($name, Search_Expr_Interface $expr);
+    public function unstore($name);
 }

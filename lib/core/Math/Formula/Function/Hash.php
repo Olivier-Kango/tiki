@@ -9,15 +9,15 @@
 
 class Math_Formula_Function_Hash extends Math_Formula_Function
 {
-	public function evaluate($element)
-	{
-		$parts = [];
+    public function evaluate($element)
+    {
+        $parts = [];
 
-		foreach ($element as $child) {
-			$component = $this->evaluateChild($child);
-			$parts = array_merge($parts, (array) $component);
-		}
+        foreach ($element as $child) {
+            $component = $this->evaluateChild($child);
+            $parts = array_merge($parts, (array) $component);
+        }
 
-		return sha1(implode('/', $parts));
-	}
+        return sha1(implode('/', $parts));
+    }
 }

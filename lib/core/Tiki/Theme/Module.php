@@ -16,32 +16,32 @@ use TikiLib;
  */
 class Module
 {
-	/**
-	 * Add or update module
-	 *
-	 * @param array $data
-	 * @return bool|string
-	 */
-	public function addOrUpdate($data)
-	{
-		$modLib = TikiLib::lib('mod');
-		$default = [
-			'name' => '',
-			'title' => '',
-			'position' => '',
-			'order' => 0,
-			'cache' => 0,
-			'rows' => 10,
-			'groups' => null,
-			'params' => null,
-			'type' => null
-		];
-		$data = array_merge($default, $data);
-		$groups = ! empty($data['groups']) ? serialize($data['groups']) : null;
-		$moduleId = $modLib->assign_module(0, $data['name'], $data['title'], $data['position'], $data['order'], $data['cache'], $data['rows'], $groups, $data['params'], $data['type']);
-		if (! empty($moduleId)) {
-			return $data['name'];
-		}
-		return false;
-	}
+    /**
+     * Add or update module
+     *
+     * @param array $data
+     * @return bool|string
+     */
+    public function addOrUpdate($data)
+    {
+        $modLib = TikiLib::lib('mod');
+        $default = [
+            'name' => '',
+            'title' => '',
+            'position' => '',
+            'order' => 0,
+            'cache' => 0,
+            'rows' => 10,
+            'groups' => null,
+            'params' => null,
+            'type' => null
+        ];
+        $data = array_merge($default, $data);
+        $groups = ! empty($data['groups']) ? serialize($data['groups']) : null;
+        $moduleId = $modLib->assign_module(0, $data['name'], $data['title'], $data['position'], $data['order'], $data['cache'], $data['rows'], $groups, $data['params'], $data['type']);
+        if (! empty($moduleId)) {
+            return $data['name'];
+        }
+        return false;
+    }
 }

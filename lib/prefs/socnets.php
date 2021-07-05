@@ -17,10 +17,10 @@ use TikiLib\Socnets\PrefsGen\PrefsGen;
 **/
 function prefs_socnets_list()
 {
-	$prefix = substr(basename(__FILE__), 0, -4) . '_';
+    $prefix = substr(basename(__FILE__), 0, -4) . '_';
 
-  $prefs = PrefsGen::getSocPrefs($prefix);
-  return $prefs;
+    $prefs = PrefsGen::getSocPrefs($prefix);
+    return $prefs;
 }
 
 //to generate a function depending on the file name?

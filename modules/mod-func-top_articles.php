@@ -11,13 +11,13 @@
  */
 function module_top_articles_info()
 {
-	return [
-		'name' => tra('Top Articles'),
-		'description' => tra('Lists the specified number of articles with links to them, from the most visited one to the least.'),
-		'prefs' => ['feature_articles'],
-		'params' => [],
-		'common_params' => ['nonums', 'rows']
-	];
+    return [
+        'name' => tra('Top Articles'),
+        'description' => tra('Lists the specified number of articles with links to them, from the most visited one to the least.'),
+        'prefs' => ['feature_articles'],
+        'params' => [],
+        'common_params' => ['nonums', 'rows']
+    ];
 }
 
 /**
@@ -26,16 +26,16 @@ function module_top_articles_info()
  */
 function module_top_articles($mod_reference, $module_params)
 {
-	global $user;
-	$tikilib = TikiLib::lib('tiki');
-	$smarty = TikiLib::lib('smarty');
-	$artlib = TikiLib::lib('art');
+    global $user;
+    $tikilib = TikiLib::lib('tiki');
+    $smarty = TikiLib::lib('smarty');
+    $artlib = TikiLib::lib('art');
 
-	$lang = '';
-	if (isset($module_params['lang'])) {
-		$lang = $module_params['lang'];
-	}
-	$ranking = $artlib->list_articles(0, $mod_reference['rows'], 'nbreads_desc', '', '', '', $user, '', '', '', '', '', '', '', $lang, '', '', '', 'y');
+    $lang = '';
+    if (isset($module_params['lang'])) {
+        $lang = $module_params['lang'];
+    }
+    $ranking = $artlib->list_articles(0, $mod_reference['rows'], 'nbreads_desc', '', '', '', $user, '', '', '', '', '', '', '', $lang, '', '', '', 'y');
 
-	$smarty->assign('modTopArticles', $ranking["data"]);
+    $smarty->assign('modTopArticles', $ranking["data"]);
 }

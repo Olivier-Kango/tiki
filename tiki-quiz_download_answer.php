@@ -12,5 +12,5 @@ $access->check_feature('feature_quizzes');
 
 $quizlib = TikiLib::lib('quiz');
 if (isset($_REQUEST['answerUploadId'])) {
-	$quizlib->download_answer($_REQUEST['answerUploadId']);
+    $quizlib->download_answer($_REQUEST['answerUploadId']);
 }

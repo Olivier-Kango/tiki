@@ -19,49 +19,49 @@ use PHP_CodeSniffer\Files\File;
 class DisallowSymfonyProcessSniff implements Sniff
 {
 
-	/**
-	 * @inheritdoc
-	 */
-	public function register()
-	{
-		return [
-			T_USE,
-			T_NEW,
-		];
-	}
+    /**
+     * @inheritdoc
+     */
+    public function register()
+    {
+        return [
+            T_USE,
+            T_NEW,
+        ];
+    }
 
 
-	/**
-	 * @inheritdoc
-	 */
-	public function process(File $phpcsFile, $stackPtr)
-	{
-		if ($this->shouldIgnore($phpcsFile)) {
-			return;
-		}
+    /**
+     * @inheritdoc
+     */
+    public function process(File $phpcsFile, $stackPtr)
+    {
+        if ($this->shouldIgnore($phpcsFile)) {
+            return;
+        }
 
-		$tokens = $phpcsFile->getTokens();
+        $tokens = $phpcsFile->getTokens();
 
-		if ($tokens[$stackPtr]['code'] == T_USE) {
-			$find = [T_SEMICOLON, T_AS];
-		} else {
-			$find = [T_OPEN_PARENTHESIS];
-		}
+        if ($tokens[$stackPtr]['code'] == T_USE) {
+            $find = [T_SEMICOLON, T_AS];
+        } else {
+            $find = [T_OPEN_PARENTHESIS];
+        }
 
-		$end = $phpcsFile->findNext($find, ($stackPtr + 1));
-		$name = $phpcsFile->getTokensAsString(($stackPtr + 1), ($end - $stackPtr - 1));
-		$name = trim($name);
+        $end = $phpcsFile->findNext($find, ($stackPtr + 1));
+        $name = $phpcsFile->getTokensAsString(($stackPtr + 1), ($end - $stackPtr - 1));
+        $name = trim($name);
 
-		$regex = '/Symfony\\\\Component\\\\Process\\\\Process$/';
-		if (preg_match($regex, $name)) {
-			$error = 'Symfony\Component\Process\Process in use. Tiki\Process\Process should be used instead.';
-			$phpcsFile->addError($error, $stackPtr, 'Found');
-		}
-	}
+        $regex = '/Symfony\\\\Component\\\\Process\\\\Process$/';
+        if (preg_match($regex, $name)) {
+            $error = 'Symfony\Component\Process\Process in use. Tiki\Process\Process should be used instead.';
+            $phpcsFile->addError($error, $stackPtr, 'Found');
+        }
+    }
 
-	protected function shouldIgnore(File $phpcsFile)
-	{
-		$fileName = strtolower($phpcsFile->getFilename());
-		return preg_match('/lib\/core\/Tiki\/Process\/Process.php$/', $fileName);
-	}
+    protected function shouldIgnore(File $phpcsFile)
+    {
+        $fileName = strtolower($phpcsFile->getFilename());
+        return preg_match('/lib\/core\/Tiki\/Process\/Process.php$/', $fileName);
+    }
 }

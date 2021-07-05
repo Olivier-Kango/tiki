@@ -16,24 +16,24 @@
  * Usage:
 {vue}
 <template>
-	<p>{{ greeting }} World!</p>
+    <p>{{ greeting }} World!</p>
 </template>
 
 <script>
-	export default {
-		data: function () {
-			return {
-				greeting: 'Hello'
-			}
-		}
-	}
+    export default {
+        data: function () {
+            return {
+                greeting: 'Hello'
+            }
+        }
+    }
 </script>
 
 <style scoped>
-	p {
-		font-size: 2em;
-		text-align: center;
-	}
+    p {
+        font-size: 2em;
+        text-align: center;
+    }
 </style>
 {/vue}
  *
@@ -52,26 +52,26 @@
 
 function smarty_block_vue($params, $content, $smarty, &$repeat)
 {
-	global $prefs;
-	$headerlib = TikiLib::lib('header');
+    global $prefs;
+    $headerlib = TikiLib::lib('header');
 
-	if ($repeat || empty($content)) {
-		return '';
-	}
+    if ($repeat || empty($content)) {
+        return '';
+    }
 
-	if ($prefs['vuejs_enable'] === 'n') {
-		Feedback::error(tr('Vue.js is not enabled.'));
-		return '';
-	}
+    if ($prefs['vuejs_enable'] === 'n') {
+        Feedback::error(tr('Vue.js is not enabled.'));
+        return '';
+    }
 
-	if ($prefs['vuejs_always_load'] === 'n') {
-		$headerlib->add_jsfile_cdn("vendor_bundled/vendor/npm-asset/vue/dist/{$prefs['vuejs_build_mode']}");
-	}
+    if ($prefs['vuejs_always_load'] === 'n') {
+        $headerlib->add_jsfile_cdn("vendor_bundled/vendor/npm-asset/vue/dist/{$prefs['vuejs_build_mode']}");
+    }
 
-	// all ready? then we shall begin
+    // all ready? then we shall begin
 
-	$app = ! (empty($params['app']) || $params['app'] === 'n');
-	$name = ! isset($params['name']) ? '' : $params['name'];
+    $app = ! (empty($params['app']) || $params['app'] === 'n');
+    $name = ! isset($params['name']) ? '' : $params['name'];
 
-	return TikiLib::lib('vuejs')->processVue($content, $name, $app);
+    return TikiLib::lib('vuejs')->processVue($content, $name, $app);
 }

@@ -10,8 +10,8 @@ namespace Tiki\Wiki\SlugManager;
 
 interface Generator
 {
-	public function getName();
-	public function getLabel();
-	public function generate($pageName, $suffix = null);
-	public function degenerate($slug);
+    public function getName();
+    public function getLabel();
+    public function generate($pageName, $suffix = null);
+    public function degenerate($slug);
 }

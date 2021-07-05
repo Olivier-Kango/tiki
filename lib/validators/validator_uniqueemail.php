@@ -8,10 +8,10 @@
 
 function validator_uniqueemail($input, $parameter = '', $message = '')
 {
-	global $prefs;
-	$userlib = TikiLib::lib('user');
-	if ($userlib->get_user_by_email($input)) {
-		return tra("Email already in use");
-	}
-	return true;
+    global $prefs;
+    $userlib = TikiLib::lib('user');
+    if ($userlib->get_user_by_email($input)) {
+        return tra("Email already in use");
+    }
+    return true;
 }

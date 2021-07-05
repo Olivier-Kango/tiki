@@ -9,16 +9,16 @@
 // Param: 'id' or 'label'
 function smarty_function_content($params, $smarty)
 {
-	$dcslib = TikiLib::lib('dcs');
+    $dcslib = TikiLib::lib('dcs');
 
-	if (isset($params['id'])) {
-		$data = $dcslib->get_actual_content($params['id']);
-	} elseif (isset($params['label'])) {
-		$data = $dcslib->get_actual_content_by_label($params['label']);
-	} else {
-		trigger_error("assign: missing 'id' or 'label' parameter");
-		return false;
-	}
+    if (isset($params['id'])) {
+        $data = $dcslib->get_actual_content($params['id']);
+    } elseif (isset($params['label'])) {
+        $data = $dcslib->get_actual_content_by_label($params['label']);
+    } else {
+        trigger_error("assign: missing 'id' or 'label' parameter");
+        return false;
+    }
 
-	return $data;
+    return $data;
 }

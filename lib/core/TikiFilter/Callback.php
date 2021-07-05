@@ -8,17 +8,17 @@
 
 class TikiFilter_Callback implements Laminas\Filter\FilterInterface
 {
-	private $callback;
+    private $callback;
 
-	public function __construct($callback)
-	{
-		$this->callback = $callback;
-	}
+    public function __construct($callback)
+    {
+        $this->callback = $callback;
+    }
 
-	public function filter($value)
-	{
-		$f = $this->callback;
+    public function filter($value)
+    {
+        $f = $this->callback;
 
-		return $f($value);
-	}
+        return $f($value);
+    }
 }

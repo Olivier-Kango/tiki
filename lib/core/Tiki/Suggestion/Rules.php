@@ -10,34 +10,34 @@ namespace Tiki\Suggestion;
 
 class Rules
 {
-	private function getRules()
-	{
-		$rules = [];
-		$dirs = array_filter(glob(__DIR__ . '/*'), 'is_dir');
-		foreach ($dirs as $dir) {
-			$class = basename($dir);
-			$files = array_diff(scandir($dir), ['.', '..', 'index.php']);
-			foreach ($files as $file) {
-				$rules[] = 'Tiki\\Suggestion\\' . basename($dir) . '\\' . substr(basename($file), 0, -4);
-			}
-		}
-		return $rules;
-	}
+    private function getRules()
+    {
+        $rules = [];
+        $dirs = array_filter(glob(__DIR__ . '/*'), 'is_dir');
+        foreach ($dirs as $dir) {
+            $class = basename($dir);
+            $files = array_diff(scandir($dir), ['.', '..', 'index.php']);
+            foreach ($files as $file) {
+                $rules[] = 'Tiki\\Suggestion\\' . basename($dir) . '\\' . substr(basename($file), 0, -4);
+            }
+        }
+        return $rules;
+    }
 
-	public function getAllMessages()
-	{
-		$suggestionMessages = [];
-		$rules = $this->getRules();
-		foreach ($rules as $rule) {
-			$object = new $rule();
-			$suggestionParser = call_user_func_array([$object, 'parser'], []);
+    public function getAllMessages()
+    {
+        $suggestionMessages = [];
+        $rules = $this->getRules();
+        foreach ($rules as $rule) {
+            $object = new $rule();
+            $suggestionParser = call_user_func_array([$object, 'parser'], []);
 
-			if (! empty($suggestionParser)) {
-				$suggestionMessage = is_array($suggestionParser) ? $suggestionParser : [$suggestionParser];
-				$suggestionMessages = array_merge($suggestionMessages, $suggestionMessage);
-			}
-		}
+            if (! empty($suggestionParser)) {
+                $suggestionMessage = is_array($suggestionParser) ? $suggestionParser : [$suggestionParser];
+                $suggestionMessages = array_merge($suggestionMessages, $suggestionMessage);
+            }
+        }
 
-		return $suggestionMessages;
-	}
+        return $suggestionMessages;
+    }
 }

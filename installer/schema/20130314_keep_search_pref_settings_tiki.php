@@ -13,11 +13,11 @@
  */
 function upgrade_20130314_keep_search_pref_settings_tiki($installer)
 {
-	$unisearch = $installer->getOne("SELECT `value` FROM `tiki_preferences` WHERE `name` = 'feature_search'");
+    $unisearch = $installer->getOne("SELECT `value` FROM `tiki_preferences` WHERE `name` = 'feature_search'");
 
-	if ($unisearch !== 'n') {	// default values can be empty
-		$preferences = $installer->table('tiki_preferences');
-		$preferences->insertOrUpdate(['value' => 'y'], ['name' => 'feature_search']);
-		$preferences->insertOrUpdate(['value' => 'n'], ['name' => 'feature_search_fulltext']);
-	}
+    if ($unisearch !== 'n') {   // default values can be empty
+        $preferences = $installer->table('tiki_preferences');
+        $preferences->insertOrUpdate(['value' => 'y'], ['name' => 'feature_search']);
+        $preferences->insertOrUpdate(['value' => 'n'], ['name' => 'feature_search_fulltext']);
+    }
 }

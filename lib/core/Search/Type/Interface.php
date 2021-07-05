@@ -8,5 +8,5 @@
 
 interface Search_Type_Interface
 {
-	public function getValue();
+    public function getValue();
 }

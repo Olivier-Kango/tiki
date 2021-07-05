@@ -27,5 +27,5 @@
 
 function smarty_modifier_stringfix($string, $what = '_', $by = ' ')
 {
-	return str_replace($what, $by, $string);
+    return str_replace($what, $by, $string);
 }

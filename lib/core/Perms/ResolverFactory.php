@@ -8,7 +8,7 @@
 
 interface Perms_ResolverFactory
 {
-	public function getHash(array $context);
-	public function getResolver(array $context);
-	public function bulk(array $baseContext, $bulkKey, array $values);
+    public function getHash(array $context);
+    public function getResolver(array $context);
+    public function bulk(array $baseContext, $bulkKey, array $values);
 }

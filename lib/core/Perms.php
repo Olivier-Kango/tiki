@@ -90,7 +90,7 @@
  * replaced to evaluate the permissions for a different user
  * by creating a new Perms_Context object before accessing the perms,
  * e.g.
- * 		$permissionContext = new Perms_Context($aUserName);
+ *      $permissionContext = new Perms_Context($aUserName);
  *
  * Each ResolverFactory will generate a hash from the context which
  * represents a unique key to the matching resolver it would provide.
@@ -102,303 +102,303 @@
  */
 class Perms
 {
-	private static $instance;
+    private static $instance;
 
-	private $prefix = '';
-	private $groups = [];
-	private $factories = [];
-	private $checkSequence = null;
+    private $prefix = '';
+    private $groups = [];
+    private $factories = [];
+    private $checkSequence = null;
 
-	private $hashes = [];
+    private $hashes = [];
 
-	/**
-	 * Provides a new accessor configured with the global settings and
-	 * a resolver appropriate to the context requested.
-	 */
-	public static function get($context = [])
-	{
-		if (! is_array($context)) {
-			$args = func_get_args();
-			$context = [
-				'type' => $args[0],
-				'object' => $args[1],
-				'parentId' => isset($args[2]) ? $args[2] : null,
-			];
-		}
-
-		if (self::$instance) {
-			return self::$instance->getAccessor($context);
-		} else {
-			$accessor = new Perms_Accessor();
-			$accessor->setContext($context);
-
-			return $accessor;
-		}
-	}
-
-	public function getAccessor(array $context = [])
-	{
-		$accessor = new Perms_Accessor();
-		$accessor->setContext($context);
-
-		$accessor->setPrefix($this->prefix);
-		$accessor->setGroups($this->groups);
-
-		if ($this->checkSequence) {
-			$accessor->setCheckSequence($this->checkSequence);
-		}
-
-		if ($resolver = $this->getResolver($context)) {
-			$accessor->setResolver($resolver);
-		}
-
-		return $accessor;
-	}
-
-	public static function getInstance()
-	{
-		return self::$instance;
-	}
-
-	/**
-	 * Sets the global Perms instance to use when obtaining accessors.
-	 */
-	public static function set(self $perms)
-	{
-		self::$instance = $perms;
-	}
-
-	/**
-	 * Loads the data for multiple contexts at the same time. This method
-	 * can be used to reduce the amount of queries performed to request
-	 * multiple accessors. The method simply forwards the bulk call to
-	 * each of the ResolverFactory object in sequence, which is then
-	 * responsible to handle the call in an efficient manner and return
-	 * the list of objects which are left to be handled. Only the remaining
-	 * objects are sent to the subsequent factories.
-	 *
-	 * @param $baseContext array The part of the context common to all
-	 *                           objects.
-	 * @param $bulkKey string The key added for each of the objects in bulk
-	 *                        loading.
-	 * @param $data array A simple list of values to be loaded (such as a
-	 *                    list of page names) or a list of records. When
-	 *                    a list of records is provided, the $dataKey
-	 *                    parameter is required.
-	 * @param $dataKey mixed The key to fetch from each record when a dataset
-	 *                       is used.
-	 */
-	public static function bulk(array $baseContext, $bulkKey, array $data, $dataKey = null)
-	{
-		$remaining = [];
-
-		foreach ($data as $entry) {
-			if ($dataKey) {
-				$value = $entry[$dataKey];
-			} else {
-				$value = $entry;
-			}
-
-			$remaining[] = $value;
-		}
-
-		if (count($remaining)) {
-			self::$instance->loadBulk($baseContext, $bulkKey, $remaining);
-		}
-	}
-
-	/**
-	 * Filters a dataset based on a permission. The method will perform bulk
-	 * loading of the permissions on all objects in the dataset and then
-	 * filter the dataset with a single permission.
-	 *
-	 * @param $baseContext array The part of the context common to all
-	 *                           objects.
-	 * @param $bulkKey string The key added for each of the objects in bulk
-	 *                        loading.
-	 * @param $data array A list of records.
-	 * @param $contextMap mixed The key to fetch from each record as the object.
-	 * @param $permission string The permission name to validate on each record.
-	 * @return array What remains of the dataset after filtering.
-	 */
-	public static function filter(array $baseContext, $bulkKey, array $data, array $contextMap, $permission)
-	{
-		self::bulk($baseContext, $bulkKey, $data, $contextMap[$bulkKey]);
-
-		$valid = [];
-
-		foreach ($data as $entry) {
-			if (self::hasPerm($baseContext, $contextMap, $entry, $permission)) {
-				$valid[] = $entry;
-			}
-		}
-
-		return $valid;
-	}
-
-	public static function simpleFilter($type, $key, $permission, array $data)
-	{
-		return self::filter(
-			['type' => $type],
-			'object',
-			$data,
-			['object' => $key],
-			$permission
-		);
-	}
-
-	private static function hasPerm($baseContext, $contextMap, $entry, $permission)
-	{
-		$context = $baseContext;
-		foreach ($contextMap as $to => $from) {
-			$context[$to] = $entry[$from];
-		}
-
-		$accessor = self::get($context);
-		if (is_array($permission)) {
-			foreach ($permission as $perm) {
-				if ($accessor->$perm) {
-					return true;
-				}
-			}
-		} else {
-			return $accessor->$permission;
-		}
-	}
-
-	public static function mixedFilter(array $baseContext, $discriminator, $bulkKey, $data, $contextMapMap, $permissionMap)
-	{
-		//echo '<pre>BASECONTEXT'; print_r($baseContext); echo 'DISCRIMATOR';print_r($discriminator); echo 'BULKEY';print_r($bulkKey); echo 'DATA';print_r($data); echo 'CONTEXTMAPMAP';print_r($contextMapMap); echo 'PERMISSIONMAP';print_r($permissionMap); echo '</pre>';
-
-		$perType = [];
-
-		foreach ($data as $row) {
-			$type = $row[$discriminator];
-			if (! isset($perType[$type])) {
-				$perType[$type] = [];
-			}
-
-			$key = $contextMapMap[$type][$bulkKey];
-			$perType[$type][] = $row[$key];
-		}
-
-		foreach ($perType as $type => $values) {
-			$context = $baseContext;
-			$context[ $contextMapMap[$type][$discriminator] ] = $type;
-
-			self::$instance->loadBulk($context, $bulkKey, $values);
-		}
-
-		$valid = [];
-
-		foreach ($data as $entry) {
-			$type = $entry[$discriminator];
-
-			if (self::hasPerm($baseContext, $contextMapMap[$type], $entry, $permissionMap[$type])) {
-				$valid[] = $entry;
-			}
-		}
-
-		return $valid;
-	}
-
-	public function setGroups(array $groups)
-	{
-		$this->groups = $groups;
-	}
-
-	public function getGroups()
-	{
-		return $this->groups;
-	}
-
-	public function setPrefix($prefix)
-	{
-		$this->prefix = $prefix;
-	}
-
-	public function setResolverFactories(array $factories)
-	{
-		$this->factories = $factories;
-	}
-
-	public function setCheckSequence(array $sequence)
-	{
-		$this->checkSequence = $sequence;
-	}
-
-	private function getResolver(array $context)
-	{
-		$toSet = [];
-		$finalResolver = false;
-
-		foreach ($this->factories as $factory) {
-			$hash = $factory->getHash($context);
-
-			// no hash returned by factory means factory does not support that context
-			if (! $hash) {
-				continue;
-			}
-
-			if (isset($this->hashes[$hash])) {
-				$finalResolver = $this->hashes[$hash];
-			} else {
-				$finalResolver = $factory->getResolver($context);
-				$toSet[$hash] = $finalResolver;
-			}
-
-			if ($finalResolver) {
-				break;
-			}
-		}
-
-		// Limit the amount of hashes preserved to reduce memory consumption
-		if (count($this->hashes) > 1024) {
-			$this->hashes = [];
-		}
-
-		foreach ($toSet as $hash => $resolver) {
-			$this->hashes[$hash] = $resolver;
-		}
-
-		return $finalResolver;
-	}
-
-	private function loadBulk($baseContext, $bulkKey, $data)
-	{
-		foreach ($this->factories as $factory) {
-			$data = $factory->bulk($baseContext, $bulkKey, $data);
-		}
-	}
-
-	public function clear()
-	{
-		$this->hashes = [];
-		foreach ($this->factories as $factory) {
-			if (method_exists($factory, 'clear')) {
-				$factory->clear();
-			}
-		}
-	}
-
-	public static function parentType($type)
+    /**
+     * Provides a new accessor configured with the global settings and
+     * a resolver appropriate to the context requested.
+     */
+    public static function get($context = [])
     {
-		switch ($type) {
-			case 'trackeritem':
-				return 'tracker';
-			case 'file':
-				return 'file gallery';
-			case 'article':
-				return 'topic';
-			case 'blog post':
-				return 'blog';
-			case 'thread':
-				return 'forum';
-			case 'calendaritem':
-			case 'event':
-				return 'calendar';
-			default:
-				return '';
-		}
-	}
+        if (! is_array($context)) {
+            $args = func_get_args();
+            $context = [
+                'type' => $args[0],
+                'object' => $args[1],
+                'parentId' => isset($args[2]) ? $args[2] : null,
+            ];
+        }
+
+        if (self::$instance) {
+            return self::$instance->getAccessor($context);
+        } else {
+            $accessor = new Perms_Accessor();
+            $accessor->setContext($context);
+
+            return $accessor;
+        }
+    }
+
+    public function getAccessor(array $context = [])
+    {
+        $accessor = new Perms_Accessor();
+        $accessor->setContext($context);
+
+        $accessor->setPrefix($this->prefix);
+        $accessor->setGroups($this->groups);
+
+        if ($this->checkSequence) {
+            $accessor->setCheckSequence($this->checkSequence);
+        }
+
+        if ($resolver = $this->getResolver($context)) {
+            $accessor->setResolver($resolver);
+        }
+
+        return $accessor;
+    }
+
+    public static function getInstance()
+    {
+        return self::$instance;
+    }
+
+    /**
+     * Sets the global Perms instance to use when obtaining accessors.
+     */
+    public static function set(self $perms)
+    {
+        self::$instance = $perms;
+    }
+
+    /**
+     * Loads the data for multiple contexts at the same time. This method
+     * can be used to reduce the amount of queries performed to request
+     * multiple accessors. The method simply forwards the bulk call to
+     * each of the ResolverFactory object in sequence, which is then
+     * responsible to handle the call in an efficient manner and return
+     * the list of objects which are left to be handled. Only the remaining
+     * objects are sent to the subsequent factories.
+     *
+     * @param $baseContext array The part of the context common to all
+     *                           objects.
+     * @param $bulkKey string The key added for each of the objects in bulk
+     *                        loading.
+     * @param $data array A simple list of values to be loaded (such as a
+     *                    list of page names) or a list of records. When
+     *                    a list of records is provided, the $dataKey
+     *                    parameter is required.
+     * @param $dataKey mixed The key to fetch from each record when a dataset
+     *                       is used.
+     */
+    public static function bulk(array $baseContext, $bulkKey, array $data, $dataKey = null)
+    {
+        $remaining = [];
+
+        foreach ($data as $entry) {
+            if ($dataKey) {
+                $value = $entry[$dataKey];
+            } else {
+                $value = $entry;
+            }
+
+            $remaining[] = $value;
+        }
+
+        if (count($remaining)) {
+            self::$instance->loadBulk($baseContext, $bulkKey, $remaining);
+        }
+    }
+
+    /**
+     * Filters a dataset based on a permission. The method will perform bulk
+     * loading of the permissions on all objects in the dataset and then
+     * filter the dataset with a single permission.
+     *
+     * @param $baseContext array The part of the context common to all
+     *                           objects.
+     * @param $bulkKey string The key added for each of the objects in bulk
+     *                        loading.
+     * @param $data array A list of records.
+     * @param $contextMap mixed The key to fetch from each record as the object.
+     * @param $permission string The permission name to validate on each record.
+     * @return array What remains of the dataset after filtering.
+     */
+    public static function filter(array $baseContext, $bulkKey, array $data, array $contextMap, $permission)
+    {
+        self::bulk($baseContext, $bulkKey, $data, $contextMap[$bulkKey]);
+
+        $valid = [];
+
+        foreach ($data as $entry) {
+            if (self::hasPerm($baseContext, $contextMap, $entry, $permission)) {
+                $valid[] = $entry;
+            }
+        }
+
+        return $valid;
+    }
+
+    public static function simpleFilter($type, $key, $permission, array $data)
+    {
+        return self::filter(
+            ['type' => $type],
+            'object',
+            $data,
+            ['object' => $key],
+            $permission
+        );
+    }
+
+    private static function hasPerm($baseContext, $contextMap, $entry, $permission)
+    {
+        $context = $baseContext;
+        foreach ($contextMap as $to => $from) {
+            $context[$to] = $entry[$from];
+        }
+
+        $accessor = self::get($context);
+        if (is_array($permission)) {
+            foreach ($permission as $perm) {
+                if ($accessor->$perm) {
+                    return true;
+                }
+            }
+        } else {
+            return $accessor->$permission;
+        }
+    }
+
+    public static function mixedFilter(array $baseContext, $discriminator, $bulkKey, $data, $contextMapMap, $permissionMap)
+    {
+        //echo '<pre>BASECONTEXT'; print_r($baseContext); echo 'DISCRIMATOR';print_r($discriminator); echo 'BULKEY';print_r($bulkKey); echo 'DATA';print_r($data); echo 'CONTEXTMAPMAP';print_r($contextMapMap); echo 'PERMISSIONMAP';print_r($permissionMap); echo '</pre>';
+
+        $perType = [];
+
+        foreach ($data as $row) {
+            $type = $row[$discriminator];
+            if (! isset($perType[$type])) {
+                $perType[$type] = [];
+            }
+
+            $key = $contextMapMap[$type][$bulkKey];
+            $perType[$type][] = $row[$key];
+        }
+
+        foreach ($perType as $type => $values) {
+            $context = $baseContext;
+            $context[ $contextMapMap[$type][$discriminator] ] = $type;
+
+            self::$instance->loadBulk($context, $bulkKey, $values);
+        }
+
+        $valid = [];
+
+        foreach ($data as $entry) {
+            $type = $entry[$discriminator];
+
+            if (self::hasPerm($baseContext, $contextMapMap[$type], $entry, $permissionMap[$type])) {
+                $valid[] = $entry;
+            }
+        }
+
+        return $valid;
+    }
+
+    public function setGroups(array $groups)
+    {
+        $this->groups = $groups;
+    }
+
+    public function getGroups()
+    {
+        return $this->groups;
+    }
+
+    public function setPrefix($prefix)
+    {
+        $this->prefix = $prefix;
+    }
+
+    public function setResolverFactories(array $factories)
+    {
+        $this->factories = $factories;
+    }
+
+    public function setCheckSequence(array $sequence)
+    {
+        $this->checkSequence = $sequence;
+    }
+
+    private function getResolver(array $context)
+    {
+        $toSet = [];
+        $finalResolver = false;
+
+        foreach ($this->factories as $factory) {
+            $hash = $factory->getHash($context);
+
+            // no hash returned by factory means factory does not support that context
+            if (! $hash) {
+                continue;
+            }
+
+            if (isset($this->hashes[$hash])) {
+                $finalResolver = $this->hashes[$hash];
+            } else {
+                $finalResolver = $factory->getResolver($context);
+                $toSet[$hash] = $finalResolver;
+            }
+
+            if ($finalResolver) {
+                break;
+            }
+        }
+
+        // Limit the amount of hashes preserved to reduce memory consumption
+        if (count($this->hashes) > 1024) {
+            $this->hashes = [];
+        }
+
+        foreach ($toSet as $hash => $resolver) {
+            $this->hashes[$hash] = $resolver;
+        }
+
+        return $finalResolver;
+    }
+
+    private function loadBulk($baseContext, $bulkKey, $data)
+    {
+        foreach ($this->factories as $factory) {
+            $data = $factory->bulk($baseContext, $bulkKey, $data);
+        }
+    }
+
+    public function clear()
+    {
+        $this->hashes = [];
+        foreach ($this->factories as $factory) {
+            if (method_exists($factory, 'clear')) {
+                $factory->clear();
+            }
+        }
+    }
+
+    public static function parentType($type)
+    {
+        switch ($type) {
+            case 'trackeritem':
+                return 'tracker';
+            case 'file':
+                return 'file gallery';
+            case 'article':
+                return 'topic';
+            case 'blog post':
+                return 'blog';
+            case 'thread':
+                return 'forum';
+            case 'calendaritem':
+            case 'event':
+                return 'calendar';
+            default:
+                return '';
+        }
+    }
 }

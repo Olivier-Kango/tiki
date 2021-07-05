@@ -8,22 +8,22 @@
 
 function wikiplugin_pdfpagebreak_info()
 {
-	 return [
-				'name' => tra('PluginPDF Page Break'),
-				'documentation' => 'PluginPDFPageBreak',
-				'description' => tra('Helpful to format PDF files created, plugin adds page break in PDF file generated.'),
-				'tags' => [ 'basic' ],
-				'iconname' => 'pdf',
-				'prefs' => [ 'wikiplugin_pdf' ],
-				'introduced' => 17,
+     return [
+                'name' => tra('PluginPDF Page Break'),
+                'documentation' => 'PluginPDFPageBreak',
+                'description' => tra('Helpful to format PDF files created, plugin adds page break in PDF file generated.'),
+                'tags' => [ 'basic' ],
+                'iconname' => 'pdf',
+                'prefs' => [ 'wikiplugin_pdf' ],
+                'introduced' => 17,
 
-						   ];
+                           ];
 }
 
 function wikiplugin_pdfpagebreak()
 {
-	if (! empty($_GET['display']) && strstr($_GET['display'], 'pdf') == '') {
-		return;
-	}
-	return '<pagebreak></pagebreak>';
+    if (! empty($_GET['display']) && strstr($_GET['display'], 'pdf') == '') {
+        return;
+    }
+    return '<pagebreak></pagebreak>';
 }

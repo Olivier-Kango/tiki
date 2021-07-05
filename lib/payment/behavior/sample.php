@@ -8,5 +8,5 @@
 
 function payment_behavior_sample($exitMessage)
 {
-	die($exitMessage);
+    die($exitMessage);
 }

@@ -11,11 +11,11 @@
  */
 function module_permissions_info()
 {
-	return [
-		'name' => tr('Permissions'),
-		'description' => tr('List of active permissions for current object'),
-		'params' => []
-	];
+    return [
+        'name' => tr('Permissions'),
+        'description' => tr('List of active permissions for current object'),
+        'params' => []
+    ];
 }
 
 /**
@@ -24,13 +24,13 @@ function module_permissions_info()
  */
 function module_permissions($mod_reference, $module_params)
 {
-	$modPermissions = new \Tiki\Modules\Permissions();
-	$pagePermissions = $modPermissions->getPagePermissions();
+    $modPermissions = new \Tiki\Modules\Permissions();
+    $pagePermissions = $modPermissions->getPagePermissions();
 
-	if ($pagePermissions == null) {
-		return false;
-	}
+    if ($pagePermissions == null) {
+        return false;
+    }
 
-	$smarty = TikiLib::lib('smarty');
-	$smarty->assign('pagePermissions', $pagePermissions);
+    $smarty = TikiLib::lib('smarty');
+    $smarty->assign('pagePermissions', $pagePermissions);
 }

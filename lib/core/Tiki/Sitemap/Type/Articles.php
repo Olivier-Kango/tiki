@@ -16,21 +16,21 @@ use TikiLib;
  */
 class Articles extends AbstractType
 {
-	/**
-	 * Generate Sitemap
-	 */
-	public function generate()
-	{
-		if (! $this->checkFeatureAndPermissions('feature_articles')) {
-			return;
-		}
+    /**
+     * Generate Sitemap
+     */
+    public function generate()
+    {
+        if (! $this->checkFeatureAndPermissions('feature_articles')) {
+            return;
+        }
 
-		$articleLibrary = TikiLib::lib('art');
-		$listPages = $articleLibrary->list_articles(0, -1, 'publishDate_desc', '', 0, 0, false, '', '', 'y', '', '', '', '', '', '', '', false, 'y');
-		$listPages['data'] = array_filter($listPages['data'], function ($article) {
-			return ($article['disp_article'] === 'y');
-		});
+        $articleLibrary = TikiLib::lib('art');
+        $listPages = $articleLibrary->list_articles(0, -1, 'publishDate_desc', '', 0, 0, false, '', '', 'y', '', '', '', '', '', '', '', false, 'y');
+        $listPages['data'] = array_filter($listPages['data'], function ($article) {
+            return ($article['disp_article'] === 'y');
+        });
 
-		$this->addEntriesToSitemap($listPages, '/tiki-read_article.php?articleId=%s', 'articleId', 'article', 'articles.xml');
-	}
+        $this->addEntriesToSitemap($listPages, '/tiki-read_article.php?articleId=%s', 'articleId', 'article', 'articles.xml');
+    }
 }

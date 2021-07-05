@@ -13,20 +13,20 @@ use TikiLib;
 
 class NumberFiles implements SuggestionRules
 {
-	private static $totalFiles = 200;
+    private static $totalFiles = 200;
 
-	public function parser()
-	{
-		global $prefs;
-		$message = '';
-		if ($prefs['fgal_use_db'] === 'y') {
-			$filegallib = TikiLib::lib('filegal');
-			$files = $filegallib->list_files();
-			$totalFiles = ! empty($files['cant']) ? $files['cant'] : 0;
-			if ($totalFiles >= self::$totalFiles) {
-				$message = tra('You are using a lot of files, you can move out from the database to file system.');
-			}
-		}
-		return $message;
-	}
+    public function parser()
+    {
+        global $prefs;
+        $message = '';
+        if ($prefs['fgal_use_db'] === 'y') {
+            $filegallib = TikiLib::lib('filegal');
+            $files = $filegallib->list_files();
+            $totalFiles = ! empty($files['cant']) ? $files['cant'] : 0;
+            if ($totalFiles >= self::$totalFiles) {
+                $message = tra('You are using a lot of files, you can move out from the database to file system.');
+            }
+        }
+        return $message;
+    }
 }

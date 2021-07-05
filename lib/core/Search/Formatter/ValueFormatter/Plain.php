@@ -8,21 +8,21 @@
 
 class Search_Formatter_ValueFormatter_Plain extends Search_Formatter_ValueFormatter_Abstract
 {
-	private $separator = ', ';
+    private $separator = ', ';
 
-	public function __construct($arguments)
-	{
-		if (isset($arguments['separator'])) {
-			$this->separator = $arguments['separator'];
-		}
-	}
+    public function __construct($arguments)
+    {
+        if (isset($arguments['separator'])) {
+            $this->separator = $arguments['separator'];
+        }
+    }
 
-	public function render($name, $value, array $entry)
-	{
-		if (is_array($value)) {
-			return implode($this->separator, $value);
-		} else {
-			return $value;
-		}
-	}
+    public function render($name, $value, array $entry)
+    {
+        if (is_array($value)) {
+            return implode($this->separator, $value);
+        } else {
+            return $value;
+        }
+    }
 }
