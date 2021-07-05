@@ -2,99 +2,99 @@
 // Boxes
 .error .rbox-data .adminoption,
 .error .rbox-data .adminoptionlabel {
-	display: inline;
+    display: inline;
 }
 
 // Modules
 .modules {
-	position: relative;
+    position: relative;
 }
 
 h3.card-title {
-	display: block;
-	padding-top: 0;
-	margin: 0;
+    display: block;
+    padding-top: 0;
+    margin: 0;
 }
 
 .moduleflip {
-	display: none;
-	position: absolute;
-	right: .2rem;
-	top: .2rem;
-	width: 5rem;
+    display: none;
+    position: absolute;
+    right: .2rem;
+    top: .2rem;
+    width: 5rem;
 }
 
 .moduleflip > * {
-	padding: 0 .2rem;
+    padding: 0 .2rem;
 }
 
 .moduleflip > form .close {
-	font-size: 1.3rem;
+    font-size: 1.3rem;
 }
 
 .flipmodtitle.close {
-	line-height: 0.75;
+    line-height: 0.75;
 }
 
 a.flipmodtitle .icon {
-	font-size: 80%;
+    font-size: 80%;
 }
 
 .card:hover .moduleflip,
 .card:hover .moduleflip img {
-	display: block;
+    display: block;
 }
 
 .card-body {
-	table { width: 100%; }
-	a.linkmenu { display: block; }
-	ol { padding-left: 2rem; }
+    table { width: 100%; }
+    a.linkmenu { display: block; }
+    ol { padding-left: 2rem; }
 }
 
 .module .card-body {
-	&>ol,
-	&>ul {
-		margin-left: -7px;
-		overflow: hidden;
-		margin-top: 0;
-		margin-bottom: 0;
-	}
+    &>ol,
+    &>ul {
+        margin-left: -7px;
+        overflow: hidden;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
 }
 
 .box-months_links ul {
-	list-style-type: none;
-	padding-left: 0;
+    list-style-type: none;
+    padding-left: 0;
 }
 
 .box-months_links ul li {
-	list-style-type: none;
-	padding-left: 0.5em;
+    list-style-type: none;
+    padding-left: 0.5em;
 }
 
 .box-months_links ul li li {
-	list-style-type: none;
-	padding-left: 1.3em;
+    list-style-type: none;
+    padding-left: 1.3em;
 }
 
 .modcontrols > div > button.btn-link {
-	padding: 0;
+    padding: 0;
 }
 
 // MiniChat
 .box-minichat {
-	width: 100%;
+    width: 100%;
 }
 
 .minichat,
 .minichatdiv,
 .minichatchan {
-	overflow: auto;
+    overflow: auto;
 }
 
 #autosave_preview > div {
-	height: 30ex;
-	overflow-y: auto;
-	overflow-x: hidden;
+    height: 30ex;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 // Preserve legacy module HTML/appearance (after div.card-footer was added to div.module), but allow overriding by theme CSS for styling purposes, etc.

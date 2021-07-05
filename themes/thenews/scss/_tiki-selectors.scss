@@ -4,7 +4,7 @@
 $imagePath: "../images/";
 // image path use example:
 //  body {
-//	background-image: url('#{$imagePath}bg.jpg');
+//    background-image: url('#{$imagePath}bg.jpg');
 //  }
 
 .pagetitle a {
@@ -15,9 +15,9 @@ $topmodules-row-sidemargins: 0;
 $topbar-row-sidemargins: -15px;
 
 //body > .container {
-//	border: 1px solid #aaaaaa;
-//	margin-top: 18px;
-//	margin-bottom: 18px;
+//    border: 1px solid #aaaaaa;
+//    margin-top: 18px;
+//    margin-bottom: 18px;
 //}
 
 .container:not(.in-navbar)  {
@@ -64,9 +64,9 @@ $topbar-row-sidemargins: -15px;
 .cssmenu_horiz li.selected a,
 .cssmenu_horiz li.selected a:hover,
 .cssmenu_vert li.selected a {
-	text-decoration: none;
-	color: $navbar-light-hover-color;
-//	background-color: //$navbar-default-link-active-bg  //Deprecated?;
+    text-decoration: none;
+    color: $navbar-light-hover-color;
+//    background-color: //$navbar-default-link-active-bg  //Deprecated?;
 }
 
 .middle_outer {
@@ -75,51 +75,51 @@ $topbar-row-sidemargins: -15px;
   box-shadow: inset 0 45px 0 0 #efefef;
 }
 //#col1 {
-//	margin-left: -1px;
-//	margin-right: -1px;
+//    margin-left: -1px;
+//    margin-right: -1px;
 //}
 
 //#col2 {
-//	margin-right: -1px;
-//	margin-left: -1px;
-//	.content {
-//		margin-left: -15px;
-//		margin-right: -15px;
-//	  .card.module {
-//		margin-left: -1px;
-//		margin-right: -1px;
-//	  }
-//	}
+//    margin-right: -1px;
+//    margin-left: -1px;
+//    .content {
+//        margin-left: -15px;
+//        margin-right: -15px;
+//      .card.module {
+//        margin-left: -1px;
+//        margin-right: -1px;
+//      }
+//    }
 //}
 
 //#col3 {
 //  margin-left: -1px;
-//	margin-right: -1px;
-//	.content {
-//		margin-left: -15px;
-//		margin-right: -15px;
-//	}
+//    margin-right: -1px;
+//    .content {
+//        margin-left: -15px;
+//        margin-right: -15px;
+//    }
 //}
 
 //#col1,
 //#col2,
 //#col3 {
-//	border: 1px solid #aaaaaa;
-//	/*border-width: 0 1px;*/
+//    border: 1px solid #aaaaaa;
+//    /*border-width: 0 1px;*/
 //}
 
 //#col3 {
-//	border-right-width: 0;
+//    border-right-width: 0;
 //}
 
 //h3.card-title {
-//	color: black;
-//	font: 90% ;
-//	font-weight: bold;
-//	/*  height: 18px;
-//	  margin: 0px 0px 7px 1em;
-//	  padding: 0px;*/
-//	text-transform: uppercase;
+//    color: black;
+//    font: 90% ;
+//    font-weight: bold;
+//    /*  height: 18px;
+//      margin: 0px 0px 7px 1em;
+//      padding: 0px;*/
+//    text-transform: uppercase;
 //}
 .module .card-header {
   background: top left #eae9e0;
@@ -142,8 +142,8 @@ $topbar-row-sidemargins: -15px;
   top: -13px;
   color: #666 !important;
   span.moduletitle {
-	padding: .125em .5em;
-	background: #fbfbfb;
+    padding: .125em .5em;
+    background: #fbfbfb;
   }
 }
 
@@ -153,29 +153,29 @@ $topbar-row-sidemargins: -15px;
 #col3 .card,
 #col2 .card .card-header,
 #col3 .card .card-header {
-	border: none;
+    border: none;
 }
 
 .card-header {
-	padding: 10px 15px 0 10px;
+    padding: 10px 15px 0 10px;
 }
 
 body.fullscreen {
-	.container,
-	#col1 {
-		border: none;
-	}
+    .container,
+    #col1 {
+        border: none;
+    }
 }
 
 // // navbars with too many items overflows the container - why is this in the theme file?
 //.navbar-expand .navbar-nav {
-//	flex-wrap: wrap;
+//    flex-wrap: wrap;
 //}
 
 //@include media-breakpoint-up(lg) {
-//	.navbar-expand-lg .navbar-nav {
-//		flex-wrap: wrap;
-//	}
+//    .navbar-expand-lg .navbar-nav {
+//        flex-wrap: wrap;
+//    }
 //}
 
 .navbar-expand-md .navbar-nav .nav-link {

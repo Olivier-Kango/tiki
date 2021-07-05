@@ -13,12 +13,12 @@ $warning:       #f0ad4e;
 $danger:        #d9534f;
 
 $theme-colors: (
-	"primary": #0082e0,
-	"secondary": #7400c3,
-	"success": #5cb85c,
-	"info": #5bc0de,
-	"warning": #f0ad4e,
-	"danger": #d9534f
+    "primary": #0082e0,
+    "secondary": #7400c3,
+    "success": #5cb85c,
+    "info": #5bc0de,
+    "warning": #f0ad4e,
+    "danger": #d9534f
 );
 
 $gray-500: #737373; //lighten(@gray-base, 33.5%);
@@ -43,7 +43,7 @@ $font-family-sans-serif: 'Merriweather Sans', sans-serif;
 $headings-font-weight:        400;
 
 // Tables
-$table-border-color: 			  #dddddd;
+$table-border-color:               #dddddd;
 
 // Buttons (Primary and info need to be explicitly defined for converse.js.)
 $btn-primary-color: #ffffff;
@@ -61,17 +61,17 @@ $input-border: #dddddd;
 // Dropdowns
 // Navs
 //Navbar
-$navbar-dark-color:			 #ffffff;
-$navbar-dark-bg:				 #1f5daa;
-$navbar-dark-border:			 darken($navbar-dark-bg, 6.5%);
+$navbar-dark-color:             #ffffff;
+$navbar-dark-bg:                 #1f5daa;
+$navbar-dark-border:             darken($navbar-dark-bg, 6.5%);
 
 // Navbar links
-$navbar-dark-color: 				 #ffffff;
-$navbar-dark-hover-color: 		 darken(#fff, 10%);
-$navbar-dark-hover-bg: 			 transparent;
-$navbar-dark-active-color: 		 #ffffff;
-$navbar-dark-active-bg: 			 #3270bd;
-$navbar-dark-disabled-color:		 #cccccc;
+$navbar-dark-color:                  #ffffff;
+$navbar-dark-hover-color:          darken(#fff, 10%);
+$navbar-dark-hover-bg:              transparent;
+$navbar-dark-active-color:          #ffffff;
+$navbar-dark-active-bg:              #3270bd;
+$navbar-dark-disabled-color:         #cccccc;
 
 $navbar-light-color:                $navbar-dark-color;
 $navbar-light-hover-color:          $navbar-dark-hover-color;

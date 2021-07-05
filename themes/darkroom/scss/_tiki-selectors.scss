@@ -2,13 +2,13 @@
 
 $imagePath: "../images/";
 //body {
-//	background-image: url('#{$imagePath}bg.jpg');
+//    background-image: url('#{$imagePath}bg.jpg');
 //}
 $topmodules-row-margin-bottom: 15px;
 
 body,
 body.fullscreen {
-	background-image: url('#{$imagePath}474747_5e5e5e_40.png');
+    background-image: url('#{$imagePath}474747_5e5e5e_40.png');
 }
 
 #middle { padding-top: 10px; }
@@ -21,34 +21,34 @@ body.fullscreen {
 }
 
 .container:not(.in-navbar) {
-	background: #0c0c0c;
+    background: #0c0c0c;
 }
 
 body.layout_social > .container {
-	padding-top: 1.2rem;
+    padding-top: 1.2rem;
 }
 
 #col1 {
-	background: #3F3F3F;
-	border-left: 10px solid #0c0c0c;
-	border-right: 10px solid #0c0c0c;
-	padding-bottom: 10px;
+    background: #3F3F3F;
+    border-left: 10px solid #0c0c0c;
+    border-right: 10px solid #0c0c0c;
+    padding-bottom: 10px;
 }
 
 // /* Background for CkEditor */
 .cke_contents > .cke_wysiwyg_frame, .cke_contents > .cke_wysiwyg_div {
-	background: #3F3F3F !important;
-	color: $body-color !important;
+    background: #3F3F3F !important;
+    color: $body-color !important;
 }
 
 h3.card-title {
-	color: #9d9d9d;
-	font-size: 24px;
+    color: #9d9d9d;
+    font-size: 24px;
 }
 
 .card-body {
-	border: solid #292929;
-	border-width: 0 8px .5rem 8px;
+    border: solid #292929;
+    border-width: 0 8px .5rem 8px;
 }
 //.card.postbody,
 //.card.postbody .card-header,
@@ -83,24 +83,24 @@ h3.card-title {
 .tiki a.ui-button:active,
 .tiki .ui-button:active,
 .tiki .ui-button.ui-state-active:hover {
-	background: #818181; /* Old browsers */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #818181), color-stop(100%, #393939)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, #818181 0%, #393939 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top, #818181 0%, #393939 100%); /* Opera 11.10+ */
-	background: linear-gradient(to bottom, #818181 0%, #393939 100%) !important; /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#818181', endColorstr='#393939', GradientType=0);
-	border-color: transparent !important;
+    background: #818181; /* Old browsers */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #818181), color-stop(100%, #393939)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #818181 0%, #393939 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #818181 0%, #393939 100%); /* Opera 11.10+ */
+    background: linear-gradient(to bottom, #818181 0%, #393939 100%) !important; /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#818181', endColorstr='#393939', GradientType=0);
+    border-color: transparent !important;
 }
 
 .bg-dark,
 .bg-light {
-	background: #818181 !important;
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #818181), color-stop(100%, #393939)) !important;
-	background: -webkit-linear-gradient(top, #818181 0%, #393939 100%) !important;
-	background: -o-linear-gradient(top, #818181 0%, #393939 100%) !important;
-	background: linear-gradient(to bottom, #818181 0%, #393939 100%) !important;
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#818181', endColorstr='#393939', GradientType=0);
-	border-color: transparent !important;
+    background: #818181 !important;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #818181), color-stop(100%, #393939)) !important;
+    background: -webkit-linear-gradient(top, #818181 0%, #393939 100%) !important;
+    background: -o-linear-gradient(top, #818181 0%, #393939 100%) !important;
+    background: linear-gradient(to bottom, #818181 0%, #393939 100%) !important;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#818181', endColorstr='#393939', GradientType=0);
+    border-color: transparent !important;
 }
 
 .tiki .nav-link.active { border-color: #dee2e6  !important; }
@@ -109,15 +109,15 @@ h3.card-title {
 .nav-tabs > li.active > a:hover,
 .nav-tabs > li.active > a:focus,
 
-	//jQuery-UI overrides
+    //jQuery-UI overrides
 .tiki .ui-state-active,
 .tiki .ui-widget-content .ui-state-active,
 .tiki .ui-widget-header .ui-state-active,
 .tiki a.ui-button:active,
 .tiki .ui-button:active,
 .tiki .ui-button.ui-state-active:hover{
-	color: #ffffff;
-	border-color: #dee2e6 !important;
+    color: #ffffff;
+    border-color: #dee2e6 !important;
 }
 
 .tiki .ui-state-default:not(.ui-state-active) a:hover,
@@ -141,122 +141,122 @@ h3.card-title {
 .tiki .ui-widget-header .ui-state-focus,
 .tiki .ui-button:hover,
 .tiki .ui-button:focus {
-	border: 1px solid #cccccc;
-	background: #818181; /* Old browsers */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #818181), color-stop(100%, #393939)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, #818181 0%, #393939 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top, #818181 0%, #393939 100%); /* Opera 11.10+ */
-	background: linear-gradient(to bottom, #818181 0%, #393939 100%) !important; /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#818181', endColorstr='#393939', GradientType=0);
-	font-weight: normal;
-	color: #f2f2f2;
+    border: 1px solid #cccccc;
+    background: #818181; /* Old browsers */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #818181), color-stop(100%, #393939)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #818181 0%, #393939 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #818181 0%, #393939 100%); /* Opera 11.10+ */
+    background: linear-gradient(to bottom, #818181 0%, #393939 100%) !important; /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#818181', endColorstr='#393939', GradientType=0);
+    font-weight: normal;
+    color: #f2f2f2;
 }
 
 .top_modules {
-	.navbar-dark,
-	.navbar-light {
-		background: transparent !important;
-		border: none;
-	}
+    .navbar-dark,
+    .navbar-light {
+        background: transparent !important;
+        border: none;
+    }
 }
 
 .btn.btn-link {background: none !important;}
 
 .topbar {
-	margin-bottom: 1.3rem;
+    margin-bottom: 1.3rem;
 }
 
 #topbar_modules,
 #top_modules {
-	.bg-dark,
-	.bg-light {
-		background: transparent !important;
-		border: none;
-		margin-bottom: 0;
-	}
+    .bg-dark,
+    .bg-light {
+        background: transparent !important;
+        border: none;
+        margin-bottom: 0;
+    }
 }
 
 #topbar_modules .form-group {
-	margin-bottom: 0
+    margin-bottom: 0
 }
 
 .textarea-toolbar a.toolbar {
-	background: none !important;
+    background: none !important;
 }
 
 .nav > li > a {
-	padding: .4rem 10px;
+    padding: .4rem 10px;
 }
 
 select {
-	background: #292929
+    background: #292929
 }
 
 .cke_wysiwyg_frame, .cke_wysiwyg_div {
-	background: #292929 !important;
-	color: #ffffff !important;
+    background: #292929 !important;
+    color: #ffffff !important;
 }
 
 .even {
-	background: $table-bg-accent;
+    background: $table-bg-accent;
 }
 
 .odd,
 #trig_dptxt {
-	background: $table-bg;
-	color: $primary;
+    background: $table-bg;
+    color: $primary;
 }
 
 input[type="checkbox"] {
-	color: #ffffff !important;
-	background: $table-bg;
+    color: #ffffff !important;
+    background: $table-bg;
 }
 
 input.reportBuilderInput,
 .ui-datepicker {
-	background: #292929;
+    background: #292929;
 }
 
 textarea,
 input {
-	background: $input-bg;
-	color: $input-color;
+    background: $input-bg;
+    color: $input-color;
 }
 
 .jtrack-form {
-	background: #292929 !important;
+    background: #292929 !important;
 }
 
 .box-quickadmin .cssmenu_horiz ul li {
-	background-color: $body-bg;
+    background-color: $body-bg;
 }
 
 a.toolbar,
 .cssmenu_horiz a,
 .cssmenu_vert a {
-	color: $link-color;
+    color: $link-color;
 }
 
 .cssmenu_horiz li ul,
 .cssmenu_vert li ul {
-	padding: 0;
-	margin: 2px 0 0; // override default ul
-	//  font-size: $font-size-base;
-	background-color: $dropdown-bg;
-	border: 1px solid $dropdown-border-color;
-	border-radius: $border-radius;
-	@include box-shadow(0 6px 12px rgba(0, 0, 0, .175));
-	-webkit-background-clip: padding-box;
-	background-clip: padding-box;
+    padding: 0;
+    margin: 2px 0 0; // override default ul
+    //  font-size: $font-size-base;
+    background-color: $dropdown-bg;
+    border: 1px solid $dropdown-border-color;
+    border-radius: $border-radius;
+    @include box-shadow(0 6px 12px rgba(0, 0, 0, .175));
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
 
-	// Links within the dropdown menu
-	> li > a {
-		padding: 3px 20px;
-		font-weight: normal;
-		line-height: $line-height-base;
-		color: $dropdown-link-color;
-		background: $dropdown-bg;
-	}
+    // Links within the dropdown menu
+    > li > a {
+        padding: 3px 20px;
+        font-weight: normal;
+        line-height: $line-height-base;
+        color: $dropdown-link-color;
+        background: $dropdown-bg;
+    }
 }
 
 // Hover/Focus state
@@ -264,10 +264,10 @@ a.toolbar,
 .cssmenu_vert li a,
 .cssmenu_horiz ul li a,
 .cssmenu_vert ul li a {
-	&:hover,
-	&:focus {
-		text-decoration: none;
-		color: $dropdown-link-hover-color;
-		background-color: $dropdown-link-hover-bg;
-	}
+    &:hover,
+    &:focus {
+        text-decoration: none;
+        color: $dropdown-link-hover-color;
+        background-color: $dropdown-link-hover-bg;
+    }
 }

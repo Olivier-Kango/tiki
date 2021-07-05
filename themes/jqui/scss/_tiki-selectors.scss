@@ -2,20 +2,20 @@
 // This file is for additional LESS rules beyond what are in variables.scss.
 
 .topbar {
-	border-radius: $border-radius;
-	border: 1px solid #aaaaaa;
-	margin-bottom: 20px;
+    border-radius: $border-radius;
+    border: 1px solid #aaaaaa;
+    margin-bottom: 20px;
 }
 
 .topbar {
-	.nav > li > a {
-		border-right: 1px solid #aaaaaa;
-		font-weight: bold;
-	}
+    .nav > li > a {
+        border-right: 1px solid #aaaaaa;
+        font-weight: bold;
+    }
 
-	.nav > li:first-of-type > a {
-		border-left: none;
-	}
+    .nav > li:first-of-type > a {
+        border-left: none;
+    }
 }
 
 .topbar,
@@ -63,8 +63,8 @@
 }
 
 .card-title {
-	font-weight: bold;
-	font-size: 1rem;
+    font-weight: bold;
+    font-size: 1rem;
 }
 
 .card-body h4 { font-size: 1rem; }
@@ -80,12 +80,12 @@
 .btn-info,
 .btn-warning,
 .btn-danger {
-	background: #f2f2f2;
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f2f2f2), color-stop(46%, #f2f2f2), color-stop(50%, #e6e6e6), color-stop(50%, #eeeeee), color-stop(100%, #eeeeee));
-	background: -webkit-linear-gradient(top, #f2f2f2 0%, #f2f2f2 46%, #e6e6e6 50%, #eeeeee 50%, #eeeeee 100%);
-	background: -o-linear-gradient(top, #f2f2f2 0%, #f2f2f2 46%, #e6e6e6 50%, #eeeeee 50%, #eeeeee 100%);
-	background: linear-gradient(to bottom, #f2f2f2 0%, #f2f2f2 46%, #e6e6e6 50%, #eeeeee 50%, #eeeeee 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f2f2f2', endColorstr='#eeeeee', GradientType=0);
+    background: #f2f2f2;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f2f2f2), color-stop(46%, #f2f2f2), color-stop(50%, #e6e6e6), color-stop(50%, #eeeeee), color-stop(100%, #eeeeee));
+    background: -webkit-linear-gradient(top, #f2f2f2 0%, #f2f2f2 46%, #e6e6e6 50%, #eeeeee 50%, #eeeeee 100%);
+    background: -o-linear-gradient(top, #f2f2f2 0%, #f2f2f2 46%, #e6e6e6 50%, #eeeeee 50%, #eeeeee 100%);
+    background: linear-gradient(to bottom, #f2f2f2 0%, #f2f2f2 46%, #e6e6e6 50%, #eeeeee 50%, #eeeeee 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f2f2f2', endColorstr='#eeeeee', GradientType=0);
   color: #333;
 }
 
@@ -95,12 +95,12 @@
 .btn-info:hover,
 .btn-warning:hover,
 .btn-danger:hover {
-	background: #eeeeee;
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eeeeee), color-stop(50%,#eeeeee), color-stop(50%,#e6e6e6), color-stop(54%,#f2f2f2), color-stop(100%,#f2f2f2));
-	background: -webkit-linear-gradient(top,  #eeeeee 0%,#eeeeee 50%,#e6e6e6 50%,#f2f2f2 54%,#f2f2f2 100%);
-	background: -o-linear-gradient(top,  #eeeeee 0%,#eeeeee 50%,#e6e6e6 50%,#f2f2f2 54%,#f2f2f2 100%);
-	background: linear-gradient(to bottom,  #eeeeee 0%,#eeeeee 50%,#e6e6e6 50%,#f2f2f2 54%,#f2f2f2 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#f2f2f2',GradientType=0 );
+    background: #eeeeee;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eeeeee), color-stop(50%,#eeeeee), color-stop(50%,#e6e6e6), color-stop(54%,#f2f2f2), color-stop(100%,#f2f2f2));
+    background: -webkit-linear-gradient(top,  #eeeeee 0%,#eeeeee 50%,#e6e6e6 50%,#f2f2f2 54%,#f2f2f2 100%);
+    background: -o-linear-gradient(top,  #eeeeee 0%,#eeeeee 50%,#e6e6e6 50%,#f2f2f2 54%,#f2f2f2 100%);
+    background: linear-gradient(to bottom,  #eeeeee 0%,#eeeeee 50%,#e6e6e6 50%,#f2f2f2 54%,#f2f2f2 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#f2f2f2',GradientType=0 );
   color: #333;
 }
 
@@ -133,5 +133,5 @@
 // So form submit buttons with icons and text used in popover actions can look just like links
 .popover button.btn-link.link-list,
 .popover button.btn-link.link-list .icon {
-	font-size: $popover-font-size;
+    font-size: $popover-font-size;
 }

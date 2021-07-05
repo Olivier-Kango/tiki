@@ -24,18 +24,18 @@ body {
 }
 
 .tiki_trackers {
-	.icon-status-open, .icon-status-pending, .icon-status-closed {
-		filter: drop-shadow(0px 0px 1px black);
-	}
+    .icon-status-open, .icon-status-pending, .icon-status-closed {
+        filter: drop-shadow(0px 0px 1px black);
+    }
 }
 
 // Increase navbar height and side margins to reinstate Bootswatch style
 .topbar > * {
-	margin-top: .5rem;
-	margin-bottom: .5rem;
+    margin-top: .5rem;
+    margin-bottom: .5rem;
 }
 
 .topbar_modules {
-	margin-left: 30px;
-	margin-right: 30px;
+    margin-left: 30px;
+    margin-right: 30px;
 }

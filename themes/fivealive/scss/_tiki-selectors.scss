@@ -3,15 +3,15 @@
 // Image path example:
 $imagePath: "../images/";
 // body {
-//	background-image: url('#{$imagePath}bg.jpg');
+//    background-image: url('#{$imagePath}bg.jpg');
 // }
 
 .dropdown-item.btn-link.text-danger {
-	background: lighten($danger, 40%) !important; //lighten($danger, 70%);
-	border-radius: 0 !important;
-	&:hover {
-		background: lighten($danger, 30%) !important;
-	}
+    background: lighten($danger, 40%) !important; //lighten($danger, 70%);
+    border-radius: 0 !important;
+    &:hover {
+        background: lighten($danger, 30%) !important;
+    }
 }
 //.dropdown-item.text-danger {
 //  color: #fec0bd !important;
@@ -36,7 +36,7 @@ html {  background-color: #414141; }
 
   color: #000000;
   .siteloginbar_popup > .btn-link {
-	color: #f8f8f8;
+    color: #f8f8f8;
   }
 }
 
@@ -58,12 +58,12 @@ input[type="number"],
 input#login-pass,
 textarea,
 .adminoptionbox option {
-	background-color: $form-control-background; //#f8f9d4;
-	border-color: $form-control-border-colors; // #F5FB86 #FBFBEE #FBFBEE #F5FB86;
+    background-color: $form-control-background; //#f8f9d4;
+    border-color: $form-control-border-colors; // #F5FB86 #FBFBEE #FBFBEE #F5FB86;
 }
 
 .navbar-collapse {
-	border: none;
+    border: none;
 }
 
 // prevent gradient on gradient or on middle box-shadow
@@ -124,7 +124,7 @@ textarea,
 
 
 //h1, h2, h3, h4 {
-//  //	font-family: 'Kreon', serif;
+//  //    font-family: 'Kreon', serif;
 //  vertical-align: middle;
 //}
 
@@ -134,15 +134,15 @@ textarea,
   h3 a,
   a,
   a:hover {
-	color: #f8f8f8; //#101010;
-	font-weight: 800;
-	text-decoration: none;
+    color: #f8f8f8; //#101010;
+    font-weight: 800;
+    text-decoration: none;
   }
 
   h3 {
-	border-radius: 3px;
-	font-size: 34px;
-	padding: 12px 10px 6px 10px;
+    border-radius: 3px;
+    font-size: 34px;
+    padding: 12px 10px 6px 10px;
   }
 }
 
@@ -193,7 +193,7 @@ h1 {
   background: none;
   background-color: transparent;
   border: none;
-	}
+    }
 }
 
 
@@ -203,7 +203,7 @@ h1 {
 
 @media (max-width: 768px) {
   #page-header {
-	height: auto;
+    height: auto;
   }
 }
 
@@ -244,14 +244,14 @@ h1 {
     border-color: transparent;
   }
   h3.card-header {
-	color: #ffffff;
-	border-bottom: 1px dotted $footer-border-color;
+    color: #ffffff;
+    border-bottom: 1px dotted $footer-border-color;
   }
   //#ebdc14;
   legend,
   a,
   a:visited {
-	color: $footer-link-color;
+    color: $footer-link-color;
   }
   // #a9a9a9;
 }

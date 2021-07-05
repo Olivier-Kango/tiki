@@ -14,7 +14,7 @@
 // $gray-800: #343a40 !default;
 // $gray-900: #212529 !default;
 // $black:    #000 !default;
-$dark:				#c7d0d9;
+$dark:                #c7d0d9;
 
 $primary:         #6c839b;
 //$success: #48ca3b;
@@ -23,14 +23,14 @@ $primary:         #6c839b;
 //$danger: #df6e1e;
 
 $theme-colors: (
- 	"primary":        	#6c839b,
-// 	"secondary": 		#dddddd,
-// 	"success":         	#5cb85c,
-// 	"info":           	#5bc0de,
-// 	"warning":         	#f0ad4e,
-// 	"danger":          	#d9534f,
-	"light":			#f4f4f4,
- 	"dark":				#c7d0d9
+     "primary":            #6c839b,
+//     "secondary":         #dddddd,
+//     "success":             #5cb85c,
+//     "info":               #5bc0de,
+//     "warning":             #f0ad4e,
+//     "danger":              #d9534f,
+    "light":            #f4f4f4,
+     "dark":                #c7d0d9
 );
 
 // Options
@@ -58,7 +58,7 @@ $border-radius-sm:            0rem;
 $font-family-sans-serif: Cabin, "Helvetica Neue", Helvetica, Arial, sans-serif;
 $font-family-serif: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", "Bitstream Vera Sans", "Liberation Sans", Verdana, sans-serif;
 $font-size-base: .90rem;
-$popover-font-size:	$font-size-base * .875;
+$popover-font-size:    $font-size-base * .875;
 
 // Tables
 //$table-border-color: #dddddd;

@@ -4,11 +4,11 @@
 
 // navbars with too many items overflows the container
 .navbar-expand .navbar-nav {
-	flex-wrap: wrap;
+    flex-wrap: wrap;
 }
 
 @include media-breakpoint-up(lg) {
-	.navbar-expand-lg .navbar-nav {
-		flex-wrap: wrap;
-	}
+    .navbar-expand-lg .navbar-nav {
+        flex-wrap: wrap;
+    }
 }

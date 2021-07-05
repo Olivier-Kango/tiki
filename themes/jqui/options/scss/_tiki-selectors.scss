@@ -3,7 +3,7 @@
 // Image path example:
 
 // body {
-//	background-image: url('#{$imagePath}bg.jpg');
+//    background-image: url('#{$imagePath}bg.jpg');
 // }
 //
 
@@ -11,36 +11,36 @@
 #col2 .card,
 #col3 .card,
 #bottom_modules .card {
-	//  background: url('#{$imagePath}options/plum/siteheader.jpg') -1000px -200px no-repeat #1C0029;
-	border: $side-column-border-size; // none;
+    //  background: url('#{$imagePath}options/plum/siteheader.jpg') -1000px -200px no-repeat #1C0029;
+    border: $side-column-border-size; // none;
 }
 
 #col2 .card-heading,
 #col3 .card-heading,
 #bottom_modules .card-heading {
-	background: $side-column-card-heading-background; // #e1d518 url('#{$imagePath}siteheader.png') no-repeat -1000px -200px;
-	border-bottom: none;
+    background: $side-column-card-heading-background; // #e1d518 url('#{$imagePath}siteheader.png') no-repeat -1000px -200px;
+    border-bottom: none;
 }
 
 // Header graphics
 .header_outer {
-	/* whole width div containing the header strip */
-	background: $header_outer-background;
+    /* whole width div containing the header strip */
+    background: $header_outer-background;
 }
 
 .header_container > .header {
-	/* inner <header> element that gets .fixedwidth class applied */
-	background: $header_container_header-background;
+    /* inner <header> element that gets .fixedwidth class applied */
+    background: $header_container_header-background;
 }
 
 .middle_outer {
-	background: $middle_outer_background;
+    background: $middle_outer_background;
 }
 
 .page-header {
-	margin-top: 0;
-	margin-bottom: 0;
-	border-bottom: none;
+    margin-top: 0;
+    margin-bottom: 0;
+    border-bottom: none;
 }
 
 .form-control,
@@ -55,89 +55,89 @@ input[type="number"],
 input#login-pass,
 textarea,
 .adminoptionbox option {
-	background-color: $form-control-background; //#f8f9d4;
-	border-color: $form-control-border-colors; // #F5FB86 #FBFBEE #FBFBEE #F5FB86;
+    background-color: $form-control-background; //#f8f9d4;
+    border-color: $form-control-border-colors; // #F5FB86 #FBFBEE #FBFBEE #F5FB86;
 }
 
 .navbar-collapse {
-	border: none;
+    border: none;
 }
 
 #footer {
-	background: $footer-background;
-	color: $footer-color; // #696969;
-	padding: 1px 0 2px 0;
-	width: 100%;
+    background: $footer-background;
+    color: $footer-color; // #696969;
+    padding: 1px 0 2px 0;
+    width: 100%;
 }
 
 .footer_liner {
-	border-top: 1px solid $footer-border-color; //#ebdc14;
-	border-bottom: 1px solid $footer-border-color; // #ebdc14;
+    border-top: 1px solid $footer-border-color; //#ebdc14;
+    border-bottom: 1px solid $footer-border-color; // #ebdc14;
 }
 
 .footer_liner {
-	h3.card-title {
-		color: #ffffff;
-		border-bottom: 1px dotted $footer-border-color;
-	}
-	//#ebdc14;
-	legend,
-	a,
-	a:visited {
-		color: $footer-link-color;
-	}
-	// #a9a9a9;
+    h3.card-title {
+        color: #ffffff;
+        border-bottom: 1px dotted $footer-border-color;
+    }
+    //#ebdc14;
+    legend,
+    a,
+    a:visited {
+        color: $footer-link-color;
+    }
+    // #a9a9a9;
 }
 
 // $navbar-default-link-background: #bfbd23;
 .navbar-nav .open .dropdown-menu,
 .navbar-nav .open .dropdown-menu li,
 .navbar-default .navbar-nav > li > a {
-	background: $navbar-default-navbar-nav-li-a-background; // #cdbe23;
+    background: $navbar-default-navbar-nav-li-a-background; // #cdbe23;
 }
 
 .navbar-default .navbar-nav li a:hover {
-	background: $navbar-default-navbar-nav-li-a-hover-background;
+    background: $navbar-default-navbar-nav-li-a-hover-background;
 }
 
 .postbody-title {
-	background: $postbody-title-background; //url('#{$imagePath}siteheader.png') no-repeat -480px -200px;
+    background: $postbody-title-background; //url('#{$imagePath}siteheader.png') no-repeat -480px -200px;
 }
 
 .siteloginbar_popup .dropdown-menu > li > a {
-	color: #ffffff;
+    color: #ffffff;
 }
 
 // This comes last to enable site title color of theme options under FiveAlive-lite to have priority over the default set by FiveAlive.
 header.header {
-	.sitetitle,
-	.sitesubtitle {
-		color: $primary;
-		text-shadow: none;
-	}
-	//  a,
-	//  a:visited {color: $brand-primary;
-	//  }
+    .sitetitle,
+    .sitesubtitle {
+        color: $primary;
+        text-shadow: none;
+    }
+    //  a,
+    //  a:visited {color: $brand-primary;
+    //  }
 }
 
 h1 {
-	font-size: 1.6em;
-	background: $h1-background;
-	padding-left: $h1-padding-left;
+    font-size: 1.6em;
+    background: $h1-background;
+    padding-left: $h1-padding-left;
 }
 
 h2 {
-	font-size: 1.6em;
-	background: $h2-background;
-	padding-left: $h2-padding-left;
+    font-size: 1.6em;
+    background: $h2-background;
+    padding-left: $h2-padding-left;
 }
 
 h1.sitetitle {
-	background: $sitetitle-background;
+    background: $sitetitle-background;
 }
 
 h2.sitesubtitle {
-	background: $sitesubtitle-background;
+    background: $sitesubtitle-background;
 }
 
 .btn,
@@ -145,13 +145,13 @@ h2.sitesubtitle {
 input[type="reset"],
 input[type="submit"],
 .button input {
-	background: $button-background-gradient;
-	text-transform: $button-text-transform;
+    background: $button-background-gradient;
+    text-transform: $button-text-transform;
 }
 
 .btn.btn-link,
 input[type="submit"].btn-link {
-	background: none;
+    background: none;
 }
 
 .btn:hover,
@@ -159,22 +159,22 @@ input[type="submit"].btn-link {
 input[type="reset"]:hover,
 input[type="submit"]:hover,
 .button input:hover {
-	background: $button-hover-background-gradient;
+    background: $button-hover-background-gradient;
 }
 
 #topbar_modules {
-	.card-heading,
-	.navbar-collapse,
-	.navbar-form {
-		background: none;
-		border-width: 0;
-	}
-	.navbar {
-		border: none;
-	}
-	.navbar-nav > li > a {
-		padding-top: 8px;
-		padding-bottom: 8px;
-	}
+    .card-heading,
+    .navbar-collapse,
+    .navbar-form {
+        background: none;
+        border-width: 0;
+    }
+    .navbar {
+        border: none;
+    }
+    .navbar-nav > li > a {
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
 }
 

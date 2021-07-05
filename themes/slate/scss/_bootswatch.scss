@@ -419,7 +419,7 @@ legend {
 // So form submit buttons with icons and text used in popover actions can look just like links
 .popover button.btn-link.link-list,
 .popover button.btn-link.link-list .icon {
-	font-size: $popover-font-size;
+    font-size: $popover-font-size;
 }
 
 .topbar {
@@ -439,14 +439,14 @@ legend {
 // Update for Smartmenus (override tiki_base.css value)
 .dropdown-menu.mega-menu a,
 .dropdown-item {
-	color: $link-color;
-	&:hover {
-		color: $link-hover-color;
-	}
+    color: $link-color;
+    &:hover {
+        color: $link-hover-color;
+    }
 }
 
 .col2 .navbar,
 .col3 .navbar {
-	border: none;
-	box-shadow: none;
+    border: none;
+    box-shadow: none;
 }

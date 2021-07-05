@@ -4,14 +4,14 @@
 
 // Variables needed for button color variants (start)
 $theme-colors: (
-	"primary": #18a3bb,
-	"secondary": #005064,
-	"success": #5cb85c,
-	"info": #007378,
-	"warning": #f0ad4e,
-	"danger": #ff5c1a,
-	"light": #ffffff,
-	"dark": #18a3bb);
+    "primary": #18a3bb,
+    "secondary": #005064,
+    "success": #5cb85c,
+    "info": #007378,
+    "warning": #f0ad4e,
+    "danger": #ff5c1a,
+    "light": #ffffff,
+    "dark": #18a3bb);
 
 $primary: #18a3bb;
 $secondary: #005064;
@@ -23,15 +23,15 @@ $light: #ffffff;
 $dark: #18a3bb;
 
 $theme-colors: map-merge(
-		("primary": $primary,
-		"secondary": $secondary,
-		"success": $success,
-		"info": $info,
-		"warning": $warning,
-		"danger": $danger,
-		"light": $light,
-		"dark": $dark),
-	$theme-colors);
+        ("primary": $primary,
+        "secondary": $secondary,
+        "success": $success,
+        "info": $info,
+        "warning": $warning,
+        "danger": $danger,
+        "light": $light,
+        "dark": $dark),
+    $theme-colors);
 
 // The following are default values from vendor/twbs/bootstrap/scss/variables.scss - change as needed for theme child option (or to match values in parent theme).
 // Comment-out any that are already defined in the parent theme variables.scss file and shouldn't be redefined.

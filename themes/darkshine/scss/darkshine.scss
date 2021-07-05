@@ -12,18 +12,18 @@
 
 // override for converseJS chatbox background colors
 .tiki #conversejs, .tiki #conversejs.converse-embedded {
-	#controlbox {
-		.box-flyout { background-color: #f3f3f3; }
+    #controlbox {
+        .box-flyout { background-color: #f3f3f3; }
     }
 
-	.chatbox {
-		.box-flyout {
-			background-color: #f3f3f3;
+    .chatbox {
+        .box-flyout {
+            background-color: #f3f3f3;
         }
     }
 }
 
 // override for some cypht background colors
 body.tiki.tiki-webmail {
-	background: #90140c url('#{$imagePath}stripes.png') repeat-x 50% 0;
+    background: #90140c url('#{$imagePath}stripes.png') repeat-x 50% 0;
 }

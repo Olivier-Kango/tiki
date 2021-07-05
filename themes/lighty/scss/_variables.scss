@@ -16,7 +16,7 @@ $gray-900: #212529;
 $primary: #e2d4d4;
 
 $theme-colors: (
- 	"primary": #e2d4d4
+     "primary": #e2d4d4
 );
 
 // Options
@@ -63,7 +63,7 @@ $btn-secondary-bg:               $body-bg;
 $btn-secondary-border:           $btn-primary-border;
 
 // Forms
-$input-border: 					$body-bg;
+$input-border:                     $body-bg;
 $input-border-focus:            $primary;
 $input-color-placeholder:       $gray-300;
 
@@ -92,7 +92,7 @@ $navbar-dark-link-color:                 #ffffff;
 $navbar-dark-link-hover-color:           $gray-800;
 $navbar-dark-link-hover-bg:              darken($navbar-dark-bg, 6.5%);
 $navbar-dark-link-active-color:          #ffffff;
-$navbar-dark-link-active-bg:			darken($navbar-dark-bg, 6.5%);
+$navbar-dark-link-active-bg:            darken($navbar-dark-bg, 6.5%);
 // Pagination
 // Jumbotron
 // Cards

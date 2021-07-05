@@ -12,25 +12,25 @@
 
 // override for converseJS chatbox background colors
 .tiki #conversejs, .tiki #conversejs.converse-embedded {
-	#controlbox {
-		.box-flyout { background-color: #fff; }
+    #controlbox {
+        .box-flyout { background-color: #fff; }
     }
 
-	.chatbox {
-		.box-flyout {
-			background-color: #fff;
+    .chatbox {
+        .box-flyout {
+            background-color: #fff;
         }
     }
 }
 
 // override for some cypht background colors
 body.tiki.tiki-webmail {
-	background: #214d68 url('#{$imagePath}body-bg_fw.png') repeat-x;
+    background: #214d68 url('#{$imagePath}body-bg_fw.png') repeat-x;
 }
 
 // override for jQuery-UI colors
 .tiki .ui-widget-header {
-	color: #fff;
+    color: #fff;
 }
 
 .tiki .ui-state-default,
@@ -39,8 +39,8 @@ body.tiki.tiki-webmail {
 .tiki .ui-button,
 .tiki html .ui-button.ui-state-disabled:hover,
 .tiki html .ui-button.ui-state-disabled:active {
-	color: #069;
-	background: #dee2e6
+    color: #069;
+    background: #dee2e6
 }
 
 .tiki .ui-state-active,
@@ -49,6 +49,6 @@ body.tiki.tiki-webmail {
 .tiki a.ui-button:active,
 .tiki .ui-button:active,
 .tiki .ui-button.ui-state-active:hover {
-	color: #069;
-	background: #fff;
+    color: #069;
+    background: #fff;
 }

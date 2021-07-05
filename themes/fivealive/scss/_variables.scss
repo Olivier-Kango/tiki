@@ -24,14 +24,14 @@ $warning: #c3a124;
 $danger: #c3631f;
 
 $theme-colors: (
- 	"primary":        	#1174a5,
- 	"secondary": 		#6400a5,
- 	"success":         	#3fa533,
- 	"info":           	#4d3a7d,
- 	"warning":         	#c3a124,
- 	"danger":          	#c3631f//,
-//	"light":			#ffffff,
-// 	"dark":				#000000
+     "primary":            #1174a5,
+     "secondary":         #6400a5,
+     "success":             #3fa533,
+     "info":               #4d3a7d,
+     "warning":             #c3a124,
+     "danger":              #c3631f//,
+//    "light":            #ffffff,
+//     "dark":                #000000
 );
 
 // Options
@@ -56,10 +56,10 @@ $headings-font-weight:    600;
 
 // Buttons
 $btn-primary-bg:                 #2098cd;
-$btn-link-disabled-color:		 #777777;
+$btn-link-disabled-color:         #777777;
 
 // Forms
-$input-color-placeholder: 		#777777;
+$input-color-placeholder:         #777777;
 
 // Dropdowns
 $dropdown-bg: #1376a8;
@@ -76,7 +76,7 @@ $navbar-height:     54px;
 $navbar-dark-border: none;
 
 // Navbarlinks ??
-$nav-link-padding-y: 				0.9rem;
+$nav-link-padding-y:                 0.9rem;
 $navbar-dark-color:                #efefef;
 $navbar-dark-hover-color:          #fff;
 $navbar-dark-hover-bg:             #000; // transparent;

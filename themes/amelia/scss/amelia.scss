@@ -23,15 +23,15 @@
   background-color: #82241b;
   border-color: #82241b;
   &:hover {
-	background-color: #621b14;
-	border-color: #581812;
+    background-color: #621b14;
+    border-color: #581812;
   }
 }
 
 .tiki_trackers {
-	.icon-status-open, .icon-status-pending, .icon-status-closed {
-		filter: drop-shadow(0px 0px 1px black);
-	}
+    .icon-status-open, .icon-status-pending, .icon-status-closed {
+        filter: drop-shadow(0px 0px 1px black);
+    }
 }
 
 .textarea-toolbar a.toolbar { color: #222; }

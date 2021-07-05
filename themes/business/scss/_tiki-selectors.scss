@@ -3,7 +3,7 @@
 // Image path example:
 $imagePath: "../images/";
 // body {
-//	background-image: url('#{$imagePath}bg.jpg');
+//    background-image: url('#{$imagePath}bg.jpg');
 // }
 
 $topmodules-row-sidemargins: 0;
@@ -19,11 +19,11 @@ $topbar-row-sidemargins: -15px;
   color: #fff;
 
   & button {
-	color: #fff;
+    color: #fff;
   }
 
   & a {
-	color: #fff;
+    color: #fff;
   }
 }
 
@@ -82,7 +82,7 @@ h2.sitesubtitle {
   border-right: 1px solid #1957aa;
 
   & > a {
-	color: #fff;
+    color: #fff;
   }
 }
 
@@ -152,20 +152,20 @@ footer.main-footer .container {
   color: #fff;
 
   & a:not(.dropdown-item) {
-	color: #fff;
+    color: #fff;
   }
 
   .dropdown-item .tips {
-	color: $body-color;
+    color: $body-color;
 
-	&:hover {
-	  text-decoration: none;
-	}
+    &:hover {
+      text-decoration: none;
+    }
   }
 }
 
 h3.card-title {
-  //	font-size: 90%;
+  //    font-size: 90%;
   font-weight: 700;
 }
 
@@ -234,7 +234,7 @@ h3.card-title {
 
 // Update for Smartmenus
 .navbar .navbar-nav.sm-vertical {
-	.dropdown { border: none;
-	 a { color: #0082e0; }
-	}
+    .dropdown { border: none;
+     a { color: #0082e0; }
+    }
 }

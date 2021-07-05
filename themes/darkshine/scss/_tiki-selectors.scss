@@ -28,7 +28,7 @@ body.fullscreen {
   .nav-link,
   button.dropdown-toggle,
   .cssmenu_horiz > li > a {
-	color: #fff;
+    color: #fff;
   }
 }
 
@@ -58,27 +58,27 @@ body.fullscreen {
 .top_modules.bg-dark { background: transparent !important; }
 
 .sitetitle:not(.adminoptionbox) {
-	background: url('#{$imagePath}title_background.jpg') no-repeat transparent;
-	color: #FE9B27;
-	cursor: default;
-	text-transform: uppercase;
-	font: 2.5em/1.8em "Trebuchet MS", "Georgia", "Lucidia Grande";
-	height: 101px;
-	letter-spacing: 8px;
-	margin-top: 66px;
-	text-align: center;
-	//  width: 410px;
+    background: url('#{$imagePath}title_background.jpg') no-repeat transparent;
+    color: #FE9B27;
+    cursor: default;
+    text-transform: uppercase;
+    font: 2.5em/1.8em "Trebuchet MS", "Georgia", "Lucidia Grande";
+    height: 101px;
+    letter-spacing: 8px;
+    margin-top: 66px;
+    text-align: center;
+    //  width: 410px;
 }
 
 .sitetitle:not(.adminoptionbox),
 .sitetitle a,
 .sitesubtitle:not(.adminoptionbox) {
-	color: #fe9b27;
+    color: #fe9b27;
 }
 
 h2.sitesubtitle {
-	font-size: 20px;
-	margin-top: 0;
+    font-size: 20px;
+    margin-top: 0;
 }
 
 .top_modules div:not(.card) .btn-link,
@@ -87,7 +87,7 @@ h2.sitesubtitle {
 .layout_basic .top_modules .navbar-brand,
 .layout_basic .top_modules .nav-link,
 .layout_basic .top_modules button.dropdown-toggle {
-	color: #fe9b27;
+    color: #fe9b27;
 }
 
 .topbar_modules {
@@ -95,30 +95,30 @@ h2.sitesubtitle {
   border-bottom: 1px solid #916047;
   .cssmenu_horiz > li:nth-child(1n),
   .navbar-nav .nav-item:nth-child(1n) {
-	background: url('#{$imagePath}blue.png') no-repeat;
+    background: url('#{$imagePath}blue.png') no-repeat;
   }
   .cssmenu_horiz > li:nth-child(2n),
   .navbar-nav .nav-item:nth-child(2n) {
-	background: url('#{$imagePath}red.png') no-repeat;
+    background: url('#{$imagePath}red.png') no-repeat;
   }
   .cssmenu_horiz > li:nth-child(3n),
   .navbar-nav .nav-item:nth-child(3n) {
-	background: url('#{$imagePath}orange.png') no-repeat;
+    background: url('#{$imagePath}orange.png') no-repeat;
   }
   .cssmenu_horiz > li:nth-child(4n),
   .navbar-nav .nav-item:nth-child(4n) {
-	background: url('#{$imagePath}green.png') no-repeat;
+    background: url('#{$imagePath}green.png') no-repeat;
   }
   .cssmenu_horiz > li > a {
-	color: #fff;
-	font-size: 0.9rem;
-	font-weight: bold;
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: bold;
   }
   .form-control {
-	height: calc(2rem + 2px);
+    height: calc(2rem + 2px);
   }
   button.search_mod_magnifier {
-	font-size: .8rem;
+    font-size: .8rem;
   }
 }
 
@@ -163,11 +163,11 @@ h2.sitesubtitle {
 
   // Links within the dropdown menu
   > li > a {
-	padding: 3px 20px;
-	font-weight: normal;
-	line-height: $line-height-base;
-	color: $dropdown-link-color;
-	background: $dropdown-bg;
+    padding: 3px 20px;
+    font-weight: normal;
+    line-height: $line-height-base;
+    color: $dropdown-link-color;
+    background: $dropdown-bg;
   }
 }
 
@@ -178,9 +178,9 @@ h2.sitesubtitle {
 .cssmenu_vert ul > li > a {
   &:hover,
   &:focus {
-	text-decoration: none;
-	color: $dropdown-link-hover-color;
-	background-color: $dropdown-link-hover-bg;
+    text-decoration: none;
+    color: $dropdown-link-hover-color;
+    background-color: $dropdown-link-hover-bg;
   }
 }
 
@@ -202,9 +202,9 @@ h2.sitesubtitle {
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fec782', endColorstr='#783c1c',GradientType=0 );
   padding: 15px;
   .card {
-	border: 3px solid #fff;
-	border-radius: 0px;
-	margin: 15px;
+    border: 3px solid #fff;
+    border-radius: 0px;
+    margin: 15px;
   }
 }
 
@@ -214,21 +214,21 @@ h2.sitesubtitle {
 }
 
 .btn-primary {
-	background: #ffd19f;
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffd19f), color-stop(3%, #fea841), color-stop(5%, #fca73a), color-stop(8%, #fda541), color-stop(10%, #ffa340), color-stop(13%, #f8a441), color-stop(15%, #ffa439), color-stop(18%, #fba23e), color-stop(21%, #fea23f), color-stop(46%, #fc9338), color-stop(54%, #fe9039), color-stop(59%, #fc8c36), color-stop(100%, #fd7931));
-	background: -webkit-linear-gradient(top, #ffd19f 0%, #fea841 3%, #fca73a 5%, #fda541 8%, #ffa340 10%, #f8a441 13%, #ffa439 15%, #fba23e 18%, #fea23f 21%, #fc9338 46%, #fe9039 54%, #fc8c36 59%, #fd7931 100%);
-	background: -o-linear-gradient(top, #ffd19f 0%, #fea841 3%, #fca73a 5%, #fda541 8%, #ffa340 10%, #f8a441 13%, #ffa439 15%, #fba23e 18%, #fea23f 21%, #fc9338 46%, #fe9039 54%, #fc8c36 59%, #fd7931 100%);
-	background: linear-gradient(to bottom, #ffd19f 0%, #fea841 3%, #fca73a 5%, #fda541 8%, #ffa340 10%, #f8a441 13%, #ffa439 15%, #fba23e 18%, #fea23f 21%, #fc9338 46%, #fe9039 54%, #fc8c36 59%, #fd7931 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffd19f', endColorstr='#fd7931', GradientType=0);
+    background: #ffd19f;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffd19f), color-stop(3%, #fea841), color-stop(5%, #fca73a), color-stop(8%, #fda541), color-stop(10%, #ffa340), color-stop(13%, #f8a441), color-stop(15%, #ffa439), color-stop(18%, #fba23e), color-stop(21%, #fea23f), color-stop(46%, #fc9338), color-stop(54%, #fe9039), color-stop(59%, #fc8c36), color-stop(100%, #fd7931));
+    background: -webkit-linear-gradient(top, #ffd19f 0%, #fea841 3%, #fca73a 5%, #fda541 8%, #ffa340 10%, #f8a441 13%, #ffa439 15%, #fba23e 18%, #fea23f 21%, #fc9338 46%, #fe9039 54%, #fc8c36 59%, #fd7931 100%);
+    background: -o-linear-gradient(top, #ffd19f 0%, #fea841 3%, #fca73a 5%, #fda541 8%, #ffa340 10%, #f8a441 13%, #ffa439 15%, #fba23e 18%, #fea23f 21%, #fc9338 46%, #fe9039 54%, #fc8c36 59%, #fd7931 100%);
+    background: linear-gradient(to bottom, #ffd19f 0%, #fea841 3%, #fca73a 5%, #fda541 8%, #ffa340 10%, #f8a441 13%, #ffa439 15%, #fba23e 18%, #fea23f 21%, #fc9338 46%, #fe9039 54%, #fc8c36 59%, #fd7931 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffd19f', endColorstr='#fd7931', GradientType=0);
 }
 
 .btn-primary:hover {
-	background: #fd7931;
-	background: -webkit-gradient(linear, left bottom, left top, color-stop(0%, #ffd19f), color-stop(3%, #fea841), color-stop(5%, #fca73a), color-stop(8%, #fda541), color-stop(10%, #ffa340), color-stop(13%, #f8a441), color-stop(15%, #ffa439), color-stop(18%, #fba23e), color-stop(21%, #fea23f), color-stop(46%, #fc9338), color-stop(54%, #fe9039), color-stop(59%, #fc8c36), color-stop(100%, #fd7931));
-	background: -webkit-linear-gradient(bottom, #ffd19f 0%, #fea841 3%, #fca73a 5%, #fda541 8%, #ffa340 10%, #f8a441 13%, #ffa439 15%, #fba23e 18%, #fea23f 21%, #fc9338 46%, #fe9039 54%, #fc8c36 59%, #fd7931 100%);
-	background: -o-linear-gradient(bottom, #ffd19f 0%, #fea841 3%, #fca73a 5%, #fda541 8%, #ffa340 10%, #f8a441 13%, #ffa439 15%, #fba23e 18%, #fea23f 21%, #fc9338 46%, #fe9039 54%, #fc8c36 59%, #fd7931 100%);
-	background: linear-gradient(to top, #ffd19f 0%, #fea841 3%, #fca73a 5%, #fda541 8%, #ffa340 10%, #f8a441 13%, #ffa439 15%, #fba23e 18%, #fea23f 21%, #fc9338 46%, #fe9039 54%, #fc8c36 59%, #fd7931 100%);
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffd19f', endColorstr='#fd7931', GradientType=0);
+    background: #fd7931;
+    background: -webkit-gradient(linear, left bottom, left top, color-stop(0%, #ffd19f), color-stop(3%, #fea841), color-stop(5%, #fca73a), color-stop(8%, #fda541), color-stop(10%, #ffa340), color-stop(13%, #f8a441), color-stop(15%, #ffa439), color-stop(18%, #fba23e), color-stop(21%, #fea23f), color-stop(46%, #fc9338), color-stop(54%, #fe9039), color-stop(59%, #fc8c36), color-stop(100%, #fd7931));
+    background: -webkit-linear-gradient(bottom, #ffd19f 0%, #fea841 3%, #fca73a 5%, #fda541 8%, #ffa340 10%, #f8a441 13%, #ffa439 15%, #fba23e 18%, #fea23f 21%, #fc9338 46%, #fe9039 54%, #fc8c36 59%, #fd7931 100%);
+    background: -o-linear-gradient(bottom, #ffd19f 0%, #fea841 3%, #fca73a 5%, #fda541 8%, #ffa340 10%, #f8a441 13%, #ffa439 15%, #fba23e 18%, #fea23f 21%, #fc9338 46%, #fe9039 54%, #fc8c36 59%, #fd7931 100%);
+    background: linear-gradient(to top, #ffd19f 0%, #fea841 3%, #fca73a 5%, #fda541 8%, #ffa340 10%, #f8a441 13%, #ffa439 15%, #fba23e 18%, #fea23f 21%, #fc9338 46%, #fe9039 54%, #fc8c36 59%, #fd7931 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffd19f', endColorstr='#fd7931', GradientType=0);
 }
 
 .btn-danger {
@@ -346,45 +346,45 @@ h2.sitesubtitle {
 }
 
 footer.footer {
-	.card {
-	  border: none;
-	  background: transparent;
-	  -webkit-box-shadow: none;
-	  box-shadow: none;
-	}
-	  .card-header {
-		background: transparent;
-		border-color: transparent;
-	}
+    .card {
+      border: none;
+      background: transparent;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+    }
+      .card-header {
+        background: transparent;
+        border-color: transparent;
+    }
 }
 
 #bottom_modules {
-	background: #000000;
-	border: solid #600;
-	border-width: 0 15px;
+    background: #000000;
+    border: solid #600;
+    border-width: 0 15px;
 }
 
 .main-footer,
 footer.footer {
-	color: lighten(#9d9d9d, 15%);
-	a {
-		color: #9d9d9d;
-		&:hover,
-		&:focus {
-			color: lighten(#9d9d9d, 15%);
-		}
-	}
-	h1, h2, h3, h4, h5 {
-		color: $warning;
-	}
+    color: lighten(#9d9d9d, 15%);
+    a {
+        color: #9d9d9d;
+        &:hover,
+        &:focus {
+            color: lighten(#9d9d9d, 15%);
+        }
+    }
+    h1, h2, h3, h4, h5 {
+        color: $warning;
+    }
 }
 
 // /* Autosave Preview handle */
 #autosave_preview {
-	background: #f3f3f3;
-	color: $body-color;
+    background: #f3f3f3;
+    color: $body-color;
 }
 
 .tablesorter-header {
-	color: #e5e5e5;
+    color: #e5e5e5;
 }

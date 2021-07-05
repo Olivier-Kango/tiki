@@ -396,17 +396,17 @@ select.form-control {
 // So form submit buttons with icons and text used in popover actions can look just like links
 .popover button.btn-link.link-list,
 .dropdown-item button.btn-link.link-list {
-	text-decoration: underline;
+    text-decoration: underline;
 }
 
 .cssmenu_horiz ul li button.btn-link.link-list,
 .cssmenu_vert ul li button.btn-link.link-list {
-	text-decoration: none;
+    text-decoration: none;
 }
 
 .cssmenu_horiz ul li:not(.dropdown-item) button.btn-link.link-list,
 .cssmenu_vert ul li:not(.dropdown-item) button.btn-link.link-list {
-	font-weight: bold;
+    font-weight: bold;
 }
 
 pre {

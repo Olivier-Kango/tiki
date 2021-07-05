@@ -3,20 +3,20 @@
 // Image path example:
 $imagePath: "../images/";
 // body {
-//	background-image: url('#{$imagePath}bg.jpg');
+//    background-image: url('#{$imagePath}bg.jpg');
 // }
 
 // Improve color contrast for readability
 .alert-info,
 .alert-success,
 .alert-danger {
-	color: #fff;
-	.alert-link {
-		color: #fff;
-	}
+    color: #fff;
+    .alert-link {
+        color: #fff;
+    }
 }
 
 //
 button.dropdown-toggle + .dropdown-menu  .btn.dropdown-item {
-	border-radius: 0;
-	background-color: transparent; }
+    border-radius: 0;
+    background-color: transparent; }

@@ -19,26 +19,26 @@ body {
 }
 
 //.topbar.bg-dark,
-	// .topbar .cssmenu_horiz ul,
+    // .topbar .cssmenu_horiz ul,
 //.topbar .navbar-default .navbar-nav > li,
 //.topbar .nav > li,
 //.card-heading,
 //.navbar-default .navbar-collapse,
 //.navbar-default .navbar-form {
-//	-webkit-background-image: linear-gradient(to bottom, #484e55, #3a3f44 60%, #313539);
-//	-o-background-image: linear-gradient(to bottom, #484e55, #3a3f44 60%, #313539);
-//	background-image: linear-gradient(to bottom, #484e55, #3a3f44 60%, #313539);
+//    -webkit-background-image: linear-gradient(to bottom, #484e55, #3a3f44 60%, #313539);
+//    -o-background-image: linear-gradient(to bottom, #484e55, #3a3f44 60%, #313539);
+//    background-image: linear-gradient(to bottom, #484e55, #3a3f44 60%, #313539);
 //}
 
 body.fullscreen { background: $body-bg; }
 
 // Increase navbar height and side margins to reinstate Bootswatch style
 .topbar > * {
-	margin-top: .5rem;
-	margin-bottom: .5rem;
+    margin-top: .5rem;
+    margin-bottom: .5rem;
 }
 
 .topbar_modules {
-	margin-left: 30px;
-	margin-right: 30px;
+    margin-left: 30px;
+    margin-right: 30px;
 }

@@ -22,8 +22,8 @@ body.fullscreen.tiki.navbar-padding {
 }
 
 .even {
-	background: #f0f0f0;
-	color: #343a40;
+    background: #f0f0f0;
+    color: #343a40;
 }
 
 .navbar .container {
@@ -41,7 +41,7 @@ body.fullscreen.tiki.navbar-padding {
 
   a,
   .btn-link {
-	color: #ffffff !important;
+    color: #ffffff !important;
   }
 }
 
@@ -57,8 +57,8 @@ body.fullscreen.tiki.navbar-padding {
 // div:not(.topbar) .navbar-light .navbar-nav > li,
 // .topbar .nav > li,
 .siteloginbar_popup .dropdown-menu {
-//	background: #2498c7 url('#{$imagePath}topbar-left2.png') no-repeat 100% 0;
-//	background-size: auto 100%;
+//    background: #2498c7 url('#{$imagePath}topbar-left2.png') no-repeat 100% 0;
+//    background-size: auto 100%;
   background: #2498c7;
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #2498c7), color-stop(4%, #047aa8), color-stop(39%, #1b98c6), color-stop(65%, #32b5e1), color-stop(70%, #32bbe9), color-stop(100%, #44d1fe));
   background: -webkit-linear-gradient(top, #2498c7 0%, #047aa8 4%, #1b98c6 39%, #32b5e1 65%, #32bbe9 70%, #44d1fe 100%);
@@ -77,7 +77,7 @@ body.fullscreen.tiki.navbar-padding {
   > a,
   > a:hover,
   > a:focus {
-	background: transparent;
+    background: transparent;
   }
 }
 
@@ -91,9 +91,9 @@ body.fullscreen.tiki.navbar-padding {
 .navbar-dark .nav-link,
 .navbar-light .nav-link {
   color: #fff !important;
-	&:hover {
-		color: darken(#fff, 10%) !important;
-	}
+    &:hover {
+        color: darken(#fff, 10%) !important;
+    }
 }
 
 
@@ -105,70 +105,70 @@ input,
 
 .wikitext {
   h1 {
-	color: #000000;
-//	line-height: .9em;
+    color: #000000;
+//    line-height: .9em;
   }
 
   h2 {
-	color: #309fc0;
-//	line-height: .9em;
-	border-bottom: solid 1px #3090c0;
-	text-transform: uppercase;
+    color: #309fc0;
+//    line-height: .9em;
+    border-bottom: solid 1px #3090c0;
+    text-transform: uppercase;
   }
 
   h3 {
-	color: #303030;
-	//  line-height: .8em;
-	font-style: italic;
+    color: #303030;
+    //  line-height: .8em;
+    font-style: italic;
   }
 
   h3.card-title {
-	font-style: normal;
+    font-style: normal;
   }
 
   h4 {
-	border-bottom: dashed 1px #ccf0ff;
-	color: #3f3f3f;
+    border-bottom: dashed 1px #ccf0ff;
+    color: #3f3f3f;
   }
 
   h5 {
-	color: #6f6f6f;
-	font-style: italic;
+    color: #6f6f6f;
+    font-style: italic;
   }
 
   h6 {
-	color: #909090;
+    color: #909090;
   }
 }
 
 .wikitext.nopagetitle {
   h1 {
-	color: #309fc0;
-	border-bottom: solid 1px #3090c0;
-	text-transform: uppercase;
+    color: #309fc0;
+    border-bottom: solid 1px #3090c0;
+    text-transform: uppercase;
   }
 
   h2 {
-	color: #303030;
-	font-style: italic;
-	border-bottom: none;
-	text-transform: none;
+    color: #303030;
+    font-style: italic;
+    border-bottom: none;
+    text-transform: none;
   }
 
   h3 {
-	border-bottom: dashed 1px #ccf0ff;
-	color: #3f3f3f;
-	font-style: normal;
+    border-bottom: dashed 1px #ccf0ff;
+    color: #3f3f3f;
+    font-style: normal;
   }
 
   h4 {
-	color: #6f6f6f;
-	font-style: italic;
-	border-bottom: none;
+    color: #6f6f6f;
+    font-style: italic;
+    border-bottom: none;
   }
 
   h5 {
-	color: #909090;
+    color: #909090;
   }
 }
 
@@ -189,9 +189,9 @@ h3.card-title {
   padding-bottom: 5px;
   border-top-right-radius: 8px;
   border-bottom-right-radius: 8px;
-	margin-top: 30px;
+    margin-top: 30px;
   margin-bottom: 20px;
-	margin-left: -15px;
+    margin-left: -15px;
 }
 
 #bottom_modules {
@@ -199,12 +199,12 @@ h3.card-title {
   color: #999999;
 
   .card-title {
-	color: #999999;
+    color: #999999;
   }
 
   a:hover,
   a:focus {
-	color: #024c7b;
+    color: #024c7b;
   }
 }
 
@@ -233,12 +233,12 @@ td.heading a:visited {
 .adminanchors.card { background: transparent; }
 
 #footer {
-	color: #999;
-	background: #2e3035;
+    color: #999;
+    background: #2e3035;
 }
 #footer > a,
 #footer .cssmenu_horiz > li > a,
 #footer .cssmenu_vert > li > a {
-	color: #aeebff;
+    color: #aeebff;
 }
 

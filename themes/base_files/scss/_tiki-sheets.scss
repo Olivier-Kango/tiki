@@ -2,7 +2,7 @@
 // /***** TikiSheets *****/
 
 .jSBarTopParent .jSBarController {
-	height: 0 !important;
+    height: 0 !important;
 }
 
 .tiki .jSParent .jS td { font-size: $tiki-sheet-font-size; }
@@ -10,16 +10,16 @@
 .tiki .jSParent .jS td { border-color: $tiki-sheet-border-color; }
 
 .plugin-sample {
-	padding: 5px;
-	font-family: "Courier New", Courier, monospace;
+    padding: 5px;
+    font-family: "Courier New", Courier, monospace;
 }
 
 .plugin-sample .plugin-param {
-	padding-left: 15px;
+    padding-left: 15px;
 }
 
 // /***** Accounting *****/
 
 td.journalDeleted {
-	color: #ddd;
+    color: #ddd;
 }
