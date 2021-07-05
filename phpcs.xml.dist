@@ -59,7 +59,7 @@
 
 	<!-- Tiki uses the Zend Coding Standards
 		reference: https://github.com/zendframework/zend-coding-standard/blob/master/ruleset.xml -->
-	<rule ref="PSR2"/>
+	<rule ref="PSR12"/>
 	<rule ref="Generic.Arrays.DisallowLongArraySyntax">
 		<exclude-pattern>*/tiki-check.php</exclude-pattern>
 	</rule>
@@ -87,19 +87,6 @@
 		<properties>
 			<property name="spacing" value="1"/>
 			<property name="ignoreNewlines" value="true"/>
-		</properties>
-	</rule>
-
-	<!-- Tiki uses tabs for indentation -->
-	<arg name="tab-width" value="4"/>
-	<rule ref="PSR2">
-		<exclude name="Generic.WhiteSpace.DisallowTabIndent"/>
-	</rule>
-	<rule ref="Generic.WhiteSpace.DisallowSpaceIndent"/>
-	<rule ref="Generic.WhiteSpace.ScopeIndent">
-		<properties>
-			<property name="indent" value="4"/>
-			<property name="tabIndent" value="true"/>
 		</properties>
 	</rule>
 
