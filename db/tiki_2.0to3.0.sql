@@ -68,8 +68,8 @@ UPDATE tiki_menu_options SET section = 'feature_wiki_structure' WHERE optionId =
 
 #2008-08-18 lphuberdeau
 CREATE TABLE tiki_schema (
-	patch_name VARCHAR(30) PRIMARY KEY,
-	install_date TIMESTAMP
+    patch_name VARCHAR(30) PRIMARY KEY,
+    install_date TIMESTAMP
 ) ENGINE=MyISAM;
 
 # This file is now obsolete. To modify the database, simply add a file to the installer/schema/

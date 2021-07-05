@@ -322,54 +322,54 @@ function wikiplugin_vimeo($data, $params)
             $access->checkAuthenticity();
             $ticket = $access->getTicket();
             $js = '
-				$("body").on("vimeo_uploaded", ".vimeo_upload", function(event, data) {
-					var params = {
-						daconfirm: "y",
-						ticket: "' . $ticket . '",
-						page: ' . json_encode($page) . ',
-						content: "",
-						index: ' . $instance . ',
-						type: "vimeo",
-						params: {
-							url: data.url
-						}
-					};
-					$.post("tiki-wikiplugin_edit.php", params, function() {
-						$.get($.service("wiki", "get_page", {page:' . json_encode($page) . '}), function (data) {
-							if (data) {
-								$("#page-data").html(data);
-							}
-						});
-					});
-					$.closeModal();
-				});
-			';
+                $("body").on("vimeo_uploaded", ".vimeo_upload", function(event, data) {
+                    var params = {
+                        daconfirm: "y",
+                        ticket: "' . $ticket . '",
+                        page: ' . json_encode($page) . ',
+                        content: "",
+                        index: ' . $instance . ',
+                        type: "vimeo",
+                        params: {
+                            url: data.url
+                        }
+                    };
+                    $.post("tiki-wikiplugin_edit.php", params, function() {
+                        $.get($.service("wiki", "get_page", {page:' . json_encode($page) . '}), function (data) {
+                            if (data) {
+                                $("#page-data").html(data);
+                            }
+                        });
+                    });
+                    $.closeModal();
+                });
+            ';
         } else {
             // Tracker edit, whether in tracker UI or tracker plugin within wiki page
             $js = '
-				$("body").on("vimeo_uploaded", ".vimeo_upload", function(event, data) {
-					handleVimeoFile($(".vimeo.dialog"), data);
-					$.closeModal();
-				});
-			';
+                $("body").on("vimeo_uploaded", ".vimeo_upload", function(event, data) {
+                    handleVimeoFile($(".vimeo.dialog"), data);
+                    $.closeModal();
+                });
+            ';
         }
         $js .= '
-			$(".vimeo.dialog").click(function () {
-				vimeoUploadModal = $.openModal({
-					remote: $.service(
-						"vimeo",
-						"upload",
-						{
-							title: tr("Upload Video")' .
+            $(".vimeo.dialog").click(function () {
+                vimeoUploadModal = $.openModal({
+                    remote: $.service(
+                        "vimeo",
+                        "upload",
+                        {
+                            title: tr("Upload Video")' .
                 (! empty($params['galleryId']) ? ',galleryId:' . $params['galleryId'] : '') .
                 (! empty($params['fromFieldId']) ? ',fieldId:' . $params['fromFieldId'] : '') .
                 (! empty($params['fromItemId']) ? ',itemId:' . $params['fromItemId'] : '') . '
-						}
-					)
-				});
-				return false;
-			});
-		';
+                        }
+                    )
+                });
+                return false;
+            });
+        ';
 
         TikiLib::lib('header')->add_jq_onready($js);
 

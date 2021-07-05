@@ -13,7 +13,7 @@ function wikiplugin_userpref_info()
         'documentation' => 'PluginUserpref',
         'description' => tra('Display contents based on user preference settings'),
         'body' => tr('Wiki text to display if conditions are met. The body may contain %0. Text after the marker
-			will be displayed to users not matching the conditions.', '<code>{ELSE}</code>'),
+            will be displayed to users not matching the conditions.', '<code>{ELSE}</code>'),
         'prefs' => ['wikiplugin_userpref'],
         'filter' => 'wikicontent',
         'extraparams' => true,

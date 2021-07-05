@@ -55,7 +55,7 @@ CREATE TABLE babl_words_$lang (
 # Dumping data for table 'babl_words_$lang'
 #
 
-	
+
 HEADER
 
 print" written.\n";
@@ -71,9 +71,9 @@ while(<READ>){
     chomp;
     $currentWord=$_;
     if($currentWord=~/\//){
-	$num+=1;
-	addVariationsOf($currentWord);
-	$currentWord =~ s/(.*?)\/.*/$1/;
+    $num+=1;
+    addVariationsOf($currentWord);
+    $currentWord =~ s/(.*?)\/.*/$1/;
     }
     writeWord($currentWord)
 }
@@ -94,49 +94,49 @@ sub parseAff{
     open(AFF, $affFile)||die "Unable to open $affFile: $!\n";
     
     while(<AFF>){
-	$currentLine=$_;
-	if($_=~'SFX'){
-	    # we have a suffix set of lines ahead
-	    # we get the code letter it uses ($code), if it can be combined with prefixes or not ($combine) and the number of lines to read on ($readAhead)
-	    ($garbage,$code,$combine,$readAhead) = split / /,$currentLine;	    
-	    for($i=0;$i<$readAhead;$i++){
-		chomp($currentLine=<AFF>);
-		# now we get each of the lists.
-		# here the code is repeated everytime and then the rule is given.
-		# the form is: if a word $matches a regexp, then we remove the $charToRemove and add the $charToAdd
-		($garbage,$code,$charToRemove,$charToAdd,$matches)= split / /,$currentLine;
-		# create a hash to put into the array of infos contained in the suffixes hash
-		my %info=("remove"=>$charToRemove,"add"=>$charToAdd,"if"=>$matches);
-		# create or add the info to an array (read below to get an idea of this structure)
-		if($suffixes{$code}){
-		    # that code already has an array, so we just add the new one to it
-		    $suffixes{$code}=[@{$suffixes{$code}},\%info];
-	        }else{
-		    # we have to create the array and put the first info
-		    $suffixes{$code}=[\%info];
-	        } 
-	    }
-	    # the structure we have created is of the form:
-	    # a hash associating codes to (references to) arrays, to each code we have an array
-	    # these arrays contain hashes that tell us:
-	    # "remove" -> which characters the word must end with (and must be removed from it)
-	    # "add" -> which characters we have to add at the end of the word
-	    # "if" -> the string that the end of the word must match so that this rule applies (use /b here!)
-	}
-	elsif($currentLine=~'PFX'){
-	    # we have a prefix line ahead
-	    # we don't have a documentation on this!!!
-	    print "\nATTENTION: a preffix was found, but they are not supported, please note that your resulting '.sql' dictionary WILL NOT BE COMPLETE\n If you find documentation on this please note the authors of this code.\n"
-	}
-	else{
-	    if($currentLine=~'SET'||$currentLine=~'TRY'){
-		# telling us of the charset to be used...
-		# line not supported by the dic in tikiwiki... ignore it!
-	    }else{
-		print "\nATTENTION\nThe following line was found on your $affFile:\n$currentLine We have no idea what to do with it, it might contain useful info or might be garbage, if you are unsure ask for help!\nThe program will continue normally.\n\nParsing resumed... ";
-	    }
-	}
-	
+    $currentLine=$_;
+    if($_=~'SFX'){
+        # we have a suffix set of lines ahead
+        # we get the code letter it uses ($code), if it can be combined with prefixes or not ($combine) and the number of lines to read on ($readAhead)
+        ($garbage,$code,$combine,$readAhead) = split / /,$currentLine;
+        for($i=0;$i<$readAhead;$i++){
+        chomp($currentLine=<AFF>);
+        # now we get each of the lists.
+        # here the code is repeated everytime and then the rule is given.
+        # the form is: if a word $matches a regexp, then we remove the $charToRemove and add the $charToAdd
+        ($garbage,$code,$charToRemove,$charToAdd,$matches)= split / /,$currentLine;
+        # create a hash to put into the array of infos contained in the suffixes hash
+        my %info=("remove"=>$charToRemove,"add"=>$charToAdd,"if"=>$matches);
+        # create or add the info to an array (read below to get an idea of this structure)
+        if($suffixes{$code}){
+            # that code already has an array, so we just add the new one to it
+            $suffixes{$code}=[@{$suffixes{$code}},\%info];
+            }else{
+            # we have to create the array and put the first info
+            $suffixes{$code}=[\%info];
+            }
+        }
+        # the structure we have created is of the form:
+        # a hash associating codes to (references to) arrays, to each code we have an array
+        # these arrays contain hashes that tell us:
+        # "remove" -> which characters the word must end with (and must be removed from it)
+        # "add" -> which characters we have to add at the end of the word
+        # "if" -> the string that the end of the word must match so that this rule applies (use /b here!)
+    }
+    elsif($currentLine=~'PFX'){
+        # we have a prefix line ahead
+        # we don't have a documentation on this!!!
+        print "\nATTENTION: a preffix was found, but they are not supported, please note that your resulting '.sql' dictionary WILL NOT BE COMPLETE\n If you find documentation on this please note the authors of this code.\n"
+    }
+    else{
+        if($currentLine=~'SET'||$currentLine=~'TRY'){
+        # telling us of the charset to be used...
+        # line not supported by the dic in tikiwiki... ignore it!
+        }else{
+        print "\nATTENTION\nThe following line was found on your $affFile:\n$currentLine We have no idea what to do with it, it might contain useful info or might be garbage, if you are unsure ask for help!\nThe program will continue normally.\n\nParsing resumed... ";
+        }
+    }
+
     }
     print" done.\n";
     close(AFF);
@@ -149,20 +149,20 @@ sub addVariationsOf{
     # we get the codes
     my ($word, @codes) = split /\//, $word;
     foreach $code (@codes){
-	foreach $refToHash (@{$suffixes{$code}}){
-	    if($word=~/$refToHash->{"if"}$/){
+    foreach $refToHash (@{$suffixes{$code}}){
+        if($word=~/$refToHash->{"if"}$/){
 
-		# yes we have a match remove last bit:
-		$toStrip=$word;
-		$toStrip=~s/$refToHash->{"remove"}$//;
-		
-		# create the variation of the word
-		$newWord=$toStrip.$refToHash->{"add"};
-		 
-		# add to our 'sql' file
-		writeWord($newWord);
-	    }
-	}
+        # yes we have a match remove last bit:
+        $toStrip=$word;
+        $toStrip=~s/$refToHash->{"remove"}$//;
+
+        # create the variation of the word
+        $newWord=$toStrip.$refToHash->{"add"};
+
+        # add to our 'sql' file
+        writeWord($newWord);
+        }
+    }
     }
 }
 
@@ -180,6 +180,6 @@ sub outputWords{
     my ($word);
     print "\nPRINTING\n";
     foreach $word (keys %allWords){
-	print WRITE "INSERT INTO babl_words_$lang VALUES ('$word','$Word{$word}');\n";
+    print WRITE "INSERT INTO babl_words_$lang VALUES ('$word','$Word{$word}');\n";
     }
 }

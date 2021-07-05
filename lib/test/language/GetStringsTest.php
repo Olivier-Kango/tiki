@@ -146,15 +146,15 @@ class Language_GetStringsTest extends TikiTestCase
         $file = new vfsStreamFile($fileName);
         $file->setContent(
             "'sub' => array(
-			       'required' => false,
-			       'default' => 'n',
-			       'filter' => 'alpha',
-			       'options' => array(
-			           array('text' => tra(''), 'value' => ''),
-			           array('text' => tra('Yes'), 'value' => 'y'),
-			           array('text' => tra('No'), 'value' => 'n')
-			       ),
-			   ),"
+                   'required' => false,
+                   'default' => 'n',
+                   'filter' => 'alpha',
+                   'options' => array(
+                       array('text' => tra(''), 'value' => ''),
+                       array('text' => tra('Yes'), 'value' => 'y'),
+                       array('text' => tra('No'), 'value' => 'n')
+                   ),
+               ),"
         );
 
         $root->addChild($file);

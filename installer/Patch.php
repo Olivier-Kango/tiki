@@ -88,12 +88,12 @@ class Patch
     public function pushPatchNameToBrowser($targetElement, $content)
     {
         $scripts = <<<HTML
-		<script class="progress_bar_script">
-			var element = parent.document.getElementById("{$targetElement}");
-			if (element) {
-				element.innerHTML = "{$content}";
-			}
-		</script>
+        <script class="progress_bar_script">
+            var element = parent.document.getElementById("{$targetElement}");
+            if (element) {
+                element.innerHTML = "{$content}";
+            }
+        </script>
 HTML;
         $working_env = php_sapi_name();
         if ($working_env != 'cli') {

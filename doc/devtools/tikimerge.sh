@@ -32,9 +32,9 @@ exit 0
 
 EXCLUDE="lang"
 if [ -z $1 ]; then
-	FILES="."
+    FILES="."
 else
-	FILES=$*
+    FILES=$*
 fi
 
 echo "# Start of block you can just copy-paste"
@@ -48,11 +48,11 @@ echo "cvs -q up -d -r BRANCH-1-9 $FILES"
 echo "cvs -q tag -r BRANCH-1-9 -F BRANCH-1-9-HEAD $FILES"
 echo "cvs -q up -dA $FILES"
 for i in $FILES; do
-	echo "cvs -q up -dkk -j MERGE-1-9-HEAD -j BRANCH-1-9-HEAD $i"
+    echo "cvs -q up -dkk -j MERGE-1-9-HEAD -j BRANCH-1-9-HEAD $i"
 done
 for i in $EXCLUDE; do
-	echo "rm -rf $i"
-	echo "cvs -q up -dA $i"
+    echo "rm -rf $i"
+    echo "cvs -q up -dA $i"
 done
 echo "grep -r '<<<<<<<' $FILES"
 echo "cvs ci -m'Instant-Auto-Merge from BRANCH-1-9 to HEAD' $FILES"

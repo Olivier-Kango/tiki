@@ -137,7 +137,7 @@ $table-bg-hover:                #f5f5f5;
 $table-bg-active:               $table-bg-hover;
 
 //** Border color for table and cell borders.
-$table-border-color: 			  #dddddd;
+$table-border-color:               #dddddd;
 
 
 //== Buttons
@@ -366,18 +366,18 @@ $navbar-padding-x:        floor(($grid-gutter-width / 2));
 $navbar-padding-y:          (($navbar-height - $line-height-base) / 2);
 $navbar-collapse-max-height:       340px;
 
-$navbar-default-color:			 #ffffff;
-$navbar-default-bg:				 #1f5daa;
-$navbar-default-border:			 darken($navbar-default-bg, 6.5%);
+$navbar-default-color:             #ffffff;
+$navbar-default-bg:                 #1f5daa;
+$navbar-default-border:             darken($navbar-default-bg, 6.5%);
 
 // Navbar links
-$navbar-default-link-color: 				 #ffffff;
-$navbar-default-link-hover-color: 		 darken(#fff, 10%);
-$navbar-default-link-hover-bg: 			 #3270bd;
-$navbar-default-link-active-color: 		 #ffffff;
-//$navbar-default-link-active-bg  //Deprecated?: 			 #3270bd;
-$navbar-default-link-disabled-color:		 #cccccc;
-$navbar-default-link-disabled-bg:			 transparent;
+$navbar-default-link-color:                  #ffffff;
+$navbar-default-link-hover-color:          darken(#fff, 10%);
+$navbar-default-link-hover-bg:              #3270bd;
+$navbar-default-link-active-color:          #ffffff;
+//$navbar-default-link-active-bg  //Deprecated?:              #3270bd;
+$navbar-default-link-disabled-color:         #cccccc;
+$navbar-default-link-disabled-bg:             transparent;
 
 // Navbar brand label
 $navbar-default-brand-color:               $navbar-default-link-color;

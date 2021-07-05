@@ -53,7 +53,7 @@ function wikiplugin_draw_info()
                 'required' => false,
                 'name' => tra('Force Display Archive'),
                 'description' => tr('The latest revision of file is automatically shown, by setting archive to Yes (%0),
-				it bypasses this check and shows the archive rather than the latest revision', '<code>y</code>'),
+                it bypasses this check and shows the archive rather than the latest revision', '<code>y</code>'),
                 'filter' => 'alpha',
                 'default' => 'n',
                 'since' => '8.0',
@@ -111,44 +111,44 @@ function wikiplugin_draw($data, $params)
 
         $headerlib->add_jq_onready(
             <<<JQ
-			$('#newDraw$drawIndex').submit(function() {
-				var form = $(this);
-				var fields = form.serializeArray();
-				$.wikiTrackingDraw = {
-					fileId: 0,
-					page: '$page',
-					index: '$drawIndex',
-					label: '$label',
-					type: 'draw',
-					content: '',
-					params: {
-						width: '',
-						height: '',
-						id: 0 //this will be updated
-					}
-				};
-				$.each(fields, function(i, field){
-					form.data(field.name.toLowerCase(), field.value);
-				});
+            $('#newDraw$drawIndex').submit(function() {
+                var form = $(this);
+                var fields = form.serializeArray();
+                $.wikiTrackingDraw = {
+                    fileId: 0,
+                    page: '$page',
+                    index: '$drawIndex',
+                    label: '$label',
+                    type: 'draw',
+                    content: '',
+                    params: {
+                        width: '',
+                        height: '',
+                        id: 0 //this will be updated
+                    }
+                };
+                $.each(fields, function(i, field){
+                    form.data(field.name.toLowerCase(), field.value);
+                });
 
-				return form.ajaxEditDraw();
-			});
+                return form.ajaxEditDraw();
+            });
 JQ
         );
         return <<<EOF
-		~np~
-		<form id="newDraw$drawIndex" method="get" action="tiki-edit_draw.php">
-			<p>
-				<input type="submit" class="btn btn-primary btn-sm" name="label" value="$label" class="newSvgButton" />$in
-				<select name="galleryId">
-					$galHtml
-				</select>
-				<input type="hidden" name="index" value="$drawIndex"/>
-				<input type="hidden" name="page" value="$page"/>
-				<input type="hidden" name="archive" value="$archive"/>
-			</p>
-		</form>
-		~/np~
+        ~np~
+        <form id="newDraw$drawIndex" method="get" action="tiki-edit_draw.php">
+            <p>
+                <input type="submit" class="btn btn-primary btn-sm" name="label" value="$label" class="newSvgButton" />$in
+                <select name="galleryId">
+                    $galHtml
+                </select>
+                <input type="hidden" name="index" value="$drawIndex"/>
+                <input type="hidden" name="page" value="$page"/>
+                <input type="hidden" name="archive" value="$archive"/>
+            </p>
+        </form>
+        ~/np~
 EOF;
     }
 

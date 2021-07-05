@@ -388,7 +388,7 @@ function wikiplugin_pluginmanager_info()
                 'required' => false,
                 'name' => tra('Information'),
                 'description' => tr('Determines what information is shown. Values separated with %0|%1.
-					Ignored when %0singletitle%1 is set to %0top%1 or %0none%1.', '<code>', '</code>'),
+                    Ignored when %0singletitle%1 is set to %0top%1 or %0none%1.', '<code>', '</code>'),
                    'filter' => 'text',
                 'accepted' => tra('One or more of: description | parameters | paraminfo'),
                 'default' => 'description | parameters | paraminfo ',
@@ -406,7 +406,7 @@ function wikiplugin_pluginmanager_info()
                 'required' => false,
                 'name' => tra('Plugin'),
                 'description' => tr('Name of a plugin (e.g., backlinks), or list separated by %0|%1, or range separated
-					 by %0-%1. Single plugin can be used with %0limit%1 parameter.', '<code>', '</code>'),
+                     by %0-%1. Single plugin can be used with %0limit%1 parameter.', '<code>', '</code>'),
                 'filter' => 'text',
                 'default' => '',
                 'since' => '5.0',
@@ -415,7 +415,7 @@ function wikiplugin_pluginmanager_info()
                 'required' => false,
                 'name' => tra('Module'),
                 'description' => tr('Name of a module (e.g., calendar_new), or list separated by %0|%1, or range separated
-					by %0-%1. Single module can be used with %0limit%1 parameter.', '<code>', '</code>'),
+                    by %0-%1. Single module can be used with %0limit%1 parameter.', '<code>', '</code>'),
                 'filter' => 'text',
                 'default' => '',
                 'since' => '6.1',
@@ -454,7 +454,7 @@ function wikiplugin_pluginmanager_info()
                 'required' => false,
                 'name' => tra('Limit'),
                 'description' => tra('Number of plugins to show. Can be used either with start or plugin as the starting
-					point. Must be an integer 1 or greater.'),
+                    point. Must be an integer 1 or greater.'),
                 'filter' => 'digits',
                 'default' => '',
                 'since' => '5.0',
@@ -463,7 +463,7 @@ function wikiplugin_pluginmanager_info()
                 'required' => false,
                 'name' => tra('Parameter Type'),
                 'description' => tr('Only list parameters with this %0doctype%1 setting. Set to %0none%1 to show only
-					parameters without a type setting and the body instructions.', '<code>', '</code>'),
+                    parameters without a type setting and the body instructions.', '<code>', '</code>'),
                 'since' => '15.0',
                 'filter' => 'alpha',
                 'default' => '',
@@ -487,7 +487,7 @@ function wikiplugin_pluginmanager_info()
                 'required' => false,
                 'name' => tra('Show Top Info'),
                 'description' => tr('Show information above the table regarding preferences required and the first
-					version when the plugin became available. Shown by default.'),
+                    version when the plugin became available. Shown by default.'),
                 'since' => '15.0',
                 'filter' => 'alpha',
                 'default' => '',

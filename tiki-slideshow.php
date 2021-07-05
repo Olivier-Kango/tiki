@@ -18,8 +18,8 @@ $wikilib = TikiLib::lib('wiki');
 
 $headerlib->add_js(
     "var fragments='y';
-	var fragmentClass='grow';
-	var fragmentHighlightColor='highlight-blue';"
+    var fragmentClass='grow';
+    var fragmentHighlightColor='highlight-blue';"
 );
 include_once('lib/wiki-plugins/wikiplugin_slideshow.php');
 
@@ -229,136 +229,136 @@ $headerlib->add_css(
 
 $headerlib->add_jq_onready(
     '$("<link/>", {rel: "stylesheet",type: "text/css",href: "", id:"themeCSS"}).appendTo("head");
-	$("body").append("<style type=\"text/css\">.reveal li,.reveal section p { font-size: 1.3em; line-height:1.4em } .reveal li{margin:0.1em 0.5em 0.1em 0.5em} .reveal li ul li{font-size:0.9em !important; margin:0em !important}.reveal section pre code { font-size: 0.7em !important;} .reveal h1 {font-size: 2.8em; text-transform:none !important;margin-bottom:0 !important;} .reveal  {font-size: 1.4em;}.reveal .slides section .fragment.grow.visible {transform: scale(1.03);}.reveal table {overflow: hidden;} .reveal section img {border:0px;background:none;box-shadow:none} .reveal table th, .reveal table td{text-align:center;vertical-align:top !important} .reveal ul{vertical-align:top !important}</style>");
-	var extraElements=["#page-bar",".icon_edit_section",".icon-link-external",".editplugin","#show-errors-button",".wikitext",".icon_edit_section","#toc","footer",".heading-link"];
-	jQuery.each( extraElements, function( i, val ) {
-		$( val ).remove();
-	});
+    $("body").append("<style type=\"text/css\">.reveal li,.reveal section p { font-size: 1.3em; line-height:1.4em } .reveal li{margin:0.1em 0.5em 0.1em 0.5em} .reveal li ul li{font-size:0.9em !important; margin:0em !important}.reveal section pre code { font-size: 0.7em !important;} .reveal h1 {font-size: 2.8em; text-transform:none !important;margin-bottom:0 !important;} .reveal  {font-size: 1.4em;}.reveal .slides section .fragment.grow.visible {transform: scale(1.03);}.reveal table {overflow: hidden;} .reveal section img {border:0px;background:none;box-shadow:none} .reveal table th, .reveal table td{text-align:center;vertical-align:top !important} .reveal ul{vertical-align:top !important}</style>");
+    var extraElements=["#page-bar",".icon_edit_section",".icon-link-external",".editplugin","#show-errors-button",".wikitext",".icon_edit_section","#toc","footer",".heading-link"];
+    jQuery.each( extraElements, function( i, val ) {
+        $( val ).remove();
+    });
 
 
-	if(fragments=="y") {
-		$( "li" ).addClass( "fragment "+fragmentClass+" "+fragmentHighlightColor );
-	}
+    if(fragments=="y") {
+        $( "li" ).addClass( "fragment "+fragmentClass+" "+fragmentHighlightColor );
+    }
 
-	$("#ss-settings").click(function () {
-		var position = $("#ss-options").position();
-		if(position.left==0){
-			$("#ss-settings").switchClass("fa-times","fa-cogs");
-			$("#ss-options").animate({left: \'-2000px\'});
-		}
-		else {
-			$("#ss-settings").switchClass("fa-cogs","fa-times");
-			$("#ss-options").animate({left: \'0px\'});}
-		});
-		Reveal.addEventListener( \'slidechanged\', function( event ) {
+    $("#ss-settings").click(function () {
+        var position = $("#ss-options").position();
+        if(position.left==0){
+            $("#ss-settings").switchClass("fa-times","fa-cogs");
+            $("#ss-options").animate({left: \'-2000px\'});
+        }
+        else {
+            $("#ss-settings").switchClass("fa-cogs","fa-times");
+            $("#ss-options").animate({left: \'0px\'});}
+        });
+        Reveal.addEventListener( \'slidechanged\', function( event ) {
 
-			var position = $("#ss-options").position();
-			if(position.left==0){
-				$("#ss-settings").switchClass("fa-times","fa-cogs");
-				$("#ss-options").animate({left: \'-2000px\'});
-			}
-		});
+            var position = $("#ss-options").position();
+            if(position.left==0){
+                $("#ss-settings").switchClass("fa-times","fa-cogs");
+                $("#ss-options").animate({left: \'-2000px\'});
+            }
+        });
 
-		//reveal controls
-		$("body").delegate("#play","click", function () {
-			if($("#play").hasClass("fa-play-circle")) {
-				$("#play").switchClass("fa-play-circle","fa-pause-circle", 1000, "easeInOutQuad");
-				Reveal.configure({ autoSlide:10000 });
-				$(this).attr("style","color:#fff");
+        //reveal controls
+        $("body").delegate("#play","click", function () {
+            if($("#play").hasClass("fa-play-circle")) {
+                $("#play").switchClass("fa-play-circle","fa-pause-circle", 1000, "easeInOutQuad");
+                Reveal.configure({ autoSlide:10000 });
+                $(this).attr("style","color:#fff");
 
-			}
-			else {
-				$("#play").switchClass("fa-pause-circle","fa-play-circle", 1000, "easeInOutQuad");
-				Reveal.configure({ autoSlide: 0 });
-				$(this).attr("style","");
-			}
-		});
-		$("body").delegate("#firstSlide","click", function () {
-			Reveal.slide( 0, 0,0 ); //Reveal.slide( indexh, indexv, indexf );
-		});
-		$("body").delegate("#lastSlide","click", function () {
-			Reveal.slide( Reveal.getTotalSlides()-1, 0,0 ); //Reveal.slide( indexh, indexv, indexf );
-		});
-		$("body").delegate("#nextSlide","click", function () {
-			var currentSlide=Reveal.getIndices().h;
-			Reveal.slide(currentSlide+1,0,0); //Reveal.slide( indexh, indexv, indexf );
-		});
-		$("body").delegate("#prevSlide","click", function () {
-			var currentSlide=Reveal.getIndices().h;
-			if(currentSlide>0) {
-			Reveal.slide(currentSlide-1,0,0);
-			 } //Reveal.slide( indexh, indexv, indexf );
-		});
-		$("body").delegate("#listSlides","click", function () {
-			Reveal.toggleOverview();
-		});
-		$("body").delegate("#loop","click", function () {
-			if($("#loop").hasClass("icon-inactive")){
-				$("#loop").switchClass("icon-inactive","icon-active");
-				Reveal.configure({loop: true});
-				$(this).attr("style","color:#fff");
-			}
-			else{
-				$("#loop").switchClass("icon-active","icon-inactive");
-				Reveal.configure({loop: false});
-				$(this).attr("style","");
-			}
+            }
+            else {
+                $("#play").switchClass("fa-pause-circle","fa-play-circle", 1000, "easeInOutQuad");
+                Reveal.configure({ autoSlide: 0 });
+                $(this).attr("style","");
+            }
+        });
+        $("body").delegate("#firstSlide","click", function () {
+            Reveal.slide( 0, 0,0 ); //Reveal.slide( indexh, indexv, indexf );
+        });
+        $("body").delegate("#lastSlide","click", function () {
+            Reveal.slide( Reveal.getTotalSlides()-1, 0,0 ); //Reveal.slide( indexh, indexv, indexf );
+        });
+        $("body").delegate("#nextSlide","click", function () {
+            var currentSlide=Reveal.getIndices().h;
+            Reveal.slide(currentSlide+1,0,0); //Reveal.slide( indexh, indexv, indexf );
+        });
+        $("body").delegate("#prevSlide","click", function () {
+            var currentSlide=Reveal.getIndices().h;
+            if(currentSlide>0) {
+            Reveal.slide(currentSlide-1,0,0);
+             } //Reveal.slide( indexh, indexv, indexf );
+        });
+        $("body").delegate("#listSlides","click", function () {
+            Reveal.toggleOverview();
+        });
+        $("body").delegate("#loop","click", function () {
+            if($("#loop").hasClass("icon-inactive")){
+                $("#loop").switchClass("icon-inactive","icon-active");
+                Reveal.configure({loop: true});
+                $(this).attr("style","color:#fff");
+            }
+            else{
+                $("#loop").switchClass("icon-active","icon-inactive");
+                Reveal.configure({loop: false});
+                $(this).attr("style","");
+            }
 
-		});
-		//end of controls
+        });
+        //end of controls
 
-		$( "#showtheme" ).change(function() {
-			var selectedCSS=$("#showtheme" ).val();
-			$("#themeCSS").attr("href","vendor_bundled/vendor/npm-asset/reveal.js/css/theme/"+selectedCSS+".css");
-		});
-		$( "#showtransition" ).change(function() {
-			var selectedTransition=$("#showtransition" ).val();
-			Reveal.configure({ transition: selectedTransition });
-		});
-		$("body").delegate("#exportPDF","click", function () {
-			if($("#showtheme" ).val()!="") {
-				var pdfURL= $( "#exportPDF" ).attr("href")+"&theme="+$("#showtheme" ).val();
-				$( "#exportPDF" ).attr("href",pdfURL);
-			}
-		});
-		//Append slide title with URL on slide change
-		Reveal.addEventListener( "slidechanged", function( event ) { location.hash = "!_"+$(".present table tr td").children("h1").attr("id");});
-		Reveal.initialize({ width: "98%",height: "100%",center: false});
-		$(window).bind("load", function() {
-			//loop to scale contents
-			$( "section" ).each(function( index ) {
-				var overflow=$(this).innerHeight()-$(document).innerHeight();
-				var scalePercent=Math.round(100-((overflow/$(document).innerHeight())*100));
-				if(overflow>30){
-					if(scalePercent>70){ scalePercent>85?scalePercent=1:scalePercent=2;}
-					else if(scalePercent>30) {scalePercent>45?scalePercent=3:scalePercent=4;}
-					else if(scalePercent>25){scalePercent=5;}
-					else{scalePercent=6;}
-					$(this).addClass("scale-"+scalePercent);
-				}
-			});
-			//end of loop
-		});
+        $( "#showtheme" ).change(function() {
+            var selectedCSS=$("#showtheme" ).val();
+            $("#themeCSS").attr("href","vendor_bundled/vendor/npm-asset/reveal.js/css/theme/"+selectedCSS+".css");
+        });
+        $( "#showtransition" ).change(function() {
+            var selectedTransition=$("#showtransition" ).val();
+            Reveal.configure({ transition: selectedTransition });
+        });
+        $("body").delegate("#exportPDF","click", function () {
+            if($("#showtheme" ).val()!="") {
+                var pdfURL= $( "#exportPDF" ).attr("href")+"&theme="+$("#showtheme" ).val();
+                $( "#exportPDF" ).attr("href",pdfURL);
+            }
+        });
+        //Append slide title with URL on slide change
+        Reveal.addEventListener( "slidechanged", function( event ) { location.hash = "!_"+$(".present table tr td").children("h1").attr("id");});
+        Reveal.initialize({ width: "98%",height: "100%",center: false});
+        $(window).bind("load", function() {
+            //loop to scale contents
+            $( "section" ).each(function( index ) {
+                var overflow=$(this).innerHeight()-$(document).innerHeight();
+                var scalePercent=Math.round(100-((overflow/$(document).innerHeight())*100));
+                if(overflow>30){
+                    if(scalePercent>70){ scalePercent>85?scalePercent=1:scalePercent=2;}
+                    else if(scalePercent>30) {scalePercent>45?scalePercent=3:scalePercent=4;}
+                    else if(scalePercent>25){scalePercent=5;}
+                    else{scalePercent=6;}
+                    $(this).addClass("scale-"+scalePercent);
+                }
+            });
+            //end of loop
+        });
 
-		Reveal.addEventListener( \'ready\', function( event ) {
+        Reveal.addEventListener( \'ready\', function( event ) {
 
-			var found=0;
-			if(location.hash && found==0){
-		 		var goToSlide = location.hash.replace("#!_","");
-		 		var slideCount=0;
-		 		$( "section table tr td" ).each(function( index ) {
-					if(found==1){return;}
-					if($(this).children("h1").attr("id")==goToSlide && found==0){
-			 			Reveal.slide(slideCount);
-			 			found=1;
-					}
-					if($(this).children("h1").attr("id")){
-						slideCount++;
-					}
-			 	});
-			 }
-		});
-		'
+            var found=0;
+            if(location.hash && found==0){
+                 var goToSlide = location.hash.replace("#!_","");
+                 var slideCount=0;
+                 $( "section table tr td" ).each(function( index ) {
+                    if(found==1){return;}
+                    if($(this).children("h1").attr("id")==goToSlide && found==0){
+                         Reveal.slide(slideCount);
+                         found=1;
+                    }
+                    if($(this).children("h1").attr("id")){
+                        slideCount++;
+                    }
+                 });
+             }
+        });
+        '
 );
 
 ask_ticket('index-raw');

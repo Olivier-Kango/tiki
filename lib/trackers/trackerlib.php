@@ -578,8 +578,8 @@ class TrackerLib extends TikiLib
             $fields = [];
             $itid = $res["itemId"];
             $query2 = "select ttif.`fieldId`,`name`,`value`,`type`,`isTblVisible`,`isMain`,`position`
-				from `tiki_tracker_item_fields` ttif, `tiki_tracker_fields` ttf
-				where ttif.`fieldId`=ttf.`fieldId` and `itemId`=? order by `position` asc";
+                from `tiki_tracker_item_fields` ttif, `tiki_tracker_fields` ttf
+                where ttif.`fieldId`=ttf.`fieldId` and `itemId`=? order by `position` asc";
             $result2 = $this->fetchAll($query2, [(int) $res["itemId"]]);
             $pass = true;
             $kx = "";
@@ -1269,9 +1269,9 @@ class TrackerLib extends TikiLib
                         $link_field = (int)$field['fieldId'];
                         $remote_field = (int)$field['options_array'][1];
                         $sort_tables = '
-							LEFT JOIN `tiki_tracker_item_fields` itemlink ON tti.itemId = itemlink.itemId AND itemlink.fieldId = ' . $link_field . '
-							LEFT JOIN `tiki_tracker_item_fields` sttif ON itemlink.value = sttif.itemId AND sttif.fieldId = ' . $remote_field . '
-						';
+                            LEFT JOIN `tiki_tracker_item_fields` itemlink ON tti.itemId = itemlink.itemId AND itemlink.fieldId = ' . $link_field . '
+                            LEFT JOIN `tiki_tracker_item_fields` sttif ON itemlink.value = sttif.itemId AND sttif.fieldId = ' . $remote_field . '
+                        ';
                         break;
                     case 's':
 //                      if ($field['name'] == 'Rating' || $field['name'] == tra('Rating')) { // No need to have that string, isn't it? Admins can replace for a more suited string in their use case
@@ -4054,7 +4054,7 @@ class TrackerLib extends TikiLib
     public function get_filtered_item_values($fieldId, $value, $fieldIdOut)
     {
         $query = "select ttifOut.`value` from `tiki_tracker_item_fields` ttifOut, `tiki_tracker_item_fields` ttif
-			where ttifOut.`itemId`= ttif.`itemId`and ttif.`fieldId`=? and ttif.`value`=? and ttifOut.`fieldId`=?";
+            where ttifOut.`itemId`= ttif.`itemId`and ttif.`fieldId`=? and ttif.`value`=? and ttifOut.`fieldId`=?";
         $bindvars = [$fieldId, $value, $fieldIdOut];
         $result = $this->query($query, $bindvars);
         $ret = [];
@@ -6302,16 +6302,16 @@ class TrackerLib extends TikiLib
                 // quick way of getting all ItemsList items pointing to the itemId via the field we examine
                 if (empty($fieldIdThere)) {
                     $query = "SELECT itemId
-					FROM tiki_tracker_item_fields ttif
-					WHERE ttif.fieldId = ?
-					AND ttif.`value` = ?";
+                    FROM tiki_tracker_item_fields ttif
+                    WHERE ttif.fieldId = ?
+                    AND ttif.`value` = ?";
                     $bindvars = [$fieldIdHere, $itemId];
                 } else {
                     $query = "SELECT COALESCE(ttif2.itemId, ttif1.value) as itemId
-					FROM tiki_tracker_item_fields ttif1
-					LEFT JOIN tiki_tracker_item_fields ttif2 ON (ttif2.value = ttif1.value OR ttif2.value = ttif1.itemId) AND ttif2.fieldId = ?
-					WHERE ttif1.fieldId = ?
-					AND ttif1.itemId = ?";
+                    FROM tiki_tracker_item_fields ttif1
+                    LEFT JOIN tiki_tracker_item_fields ttif2 ON (ttif2.value = ttif1.value OR ttif2.value = ttif1.itemId) AND ttif2.fieldId = ?
+                    WHERE ttif1.fieldId = ?
+                    AND ttif1.itemId = ?";
                     $bindvars = [$fieldIdHere, $fieldIdThere, $itemId];
                 }
 
@@ -6539,11 +6539,11 @@ class TrackerLib extends TikiLib
             foreach ($currencies as $currency) {
                 $rates[$date][$currency] = $this->getOne(
                     'SELECT ttif3.value as rate FROM tiki_tracker_items tti
-					LEFT JOIN tiki_tracker_item_fields ttif1 ON tti.itemId = ttif1.itemId AND ttif1.fieldId = ?
-					LEFT JOIN tiki_tracker_item_fields ttif2 ON tti.itemId = ttif2.itemId AND ttif2.fieldId = ?
-					LEFT JOIN tiki_tracker_item_fields ttif3 ON tti.itemId = ttif3.itemId AND ttif3.fieldId = ?
-					WHERE tti.trackerId = ? AND ttif1.value = ? AND DATE_FORMAT(FROM_UNIXTIME(ttif2.value), \'%Y-%m-%d\') <= ?
-					ORDER BY ttif2.value DESC',
+                    LEFT JOIN tiki_tracker_item_fields ttif1 ON tti.itemId = ttif1.itemId AND ttif1.fieldId = ?
+                    LEFT JOIN tiki_tracker_item_fields ttif2 ON tti.itemId = ttif2.itemId AND ttif2.fieldId = ?
+                    LEFT JOIN tiki_tracker_item_fields ttif3 ON tti.itemId = ttif3.itemId AND ttif3.fieldId = ?
+                    WHERE tti.trackerId = ? AND ttif1.value = ? AND DATE_FORMAT(FROM_UNIXTIME(ttif2.value), \'%Y-%m-%d\') <= ?
+                    ORDER BY ttif2.value DESC',
                     [$currencyField['fieldId'], $dateField['fieldId'], $rateField['fieldId'], $trackerId, $currency, $date]
                 );
             }

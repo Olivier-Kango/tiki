@@ -21,7 +21,7 @@ function wikiplugin_memberlist_info()
                 'required' => true,
                 'name' => tra('Groups'),
                 'description' => tr('List of groups to handle through the interface (use %0*%1 for all). Semi-colon
-					separated.', '<code>', '</code>'),
+                    separated.', '<code>', '</code>'),
                 'since' => '4.0',
                 'separator' => ':',
                 'filter' => 'groupname',
@@ -65,7 +65,7 @@ function wikiplugin_memberlist_info()
                 'required' => false,
                 'name' => tra('Members Only'),
                 'description' => tr('Show only groups containing a certain user. Enter %0%user%%1 to show groups for
-					the current logged-in user.', '<code>', '</code>'),
+                    the current logged-in user.', '<code>', '</code>'),
                 'since' => '8.0',
                 'default' => '',
                 'filter' => 'username',
@@ -95,7 +95,7 @@ function wikiplugin_memberlist_info()
                 'required' => false,
                 'name' => tra('Set as Default Group'),
                 'description' => tra('Adds possibility to set group as default group. This automatically adds the user
-					to the group. "Required" option will not propose simple addition in group.'),
+                    to the group. "Required" option will not propose simple addition in group.'),
                 'since' => '9.2',
                 'default' => 'n',
                 'filter' => 'alpha',
@@ -291,7 +291,7 @@ function wikiplugin_memberlist($data, $params)
         // css workarounds for when in non tabs mode
         TikiLib::lib('header')->add_css(
             '.memberlist > fieldset { border: none; margin:  0; padding:  0; }
-			.memberlist > fieldset > legend { display: none; }'
+            .memberlist > fieldset > legend { display: none; }'
         );
     }
     $out = '~np~' . $smarty->fetch('wiki-plugins/wikiplugin_memberlist.tpl') . '~/np~';

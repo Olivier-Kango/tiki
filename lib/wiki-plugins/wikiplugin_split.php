@@ -49,7 +49,7 @@ function wikiplugin_split_info()
                 'required' => false,
                 'name' => tra('Column Sizes'),
                 'description' => tr('Specify all column widths in number of pixels or percent, separating each width
-					by a pipe (%0)', '<code>|</code>'),
+                    by a pipe (%0)', '<code>|</code>'),
                 'since' => '1',
                 'seprator' => '|',
                 'filter' => 'text',
@@ -59,7 +59,7 @@ function wikiplugin_split_info()
                 'required' => false,
                 'name' => tra('First'),
                 'description' => tra('Cells specified are ordered first left to right across rows (default) or top to
-					bottom down columns'),
+                    bottom down columns'),
                 'since' => '1',
                 'filter' => 'alpha',
                 'default' => 'line',
@@ -73,7 +73,7 @@ function wikiplugin_split_info()
                 'required' => false,
                 'name' => tra('Editable'),
                 'description' => tr('Display edit icon for each section. Works when used on a wiki page and the %0
-					parameter is set to %1', '<code>first</code>', '<code>col</code>'),
+                    parameter is set to %1', '<code>first</code>', '<code>col</code>'),
                 'since' => '1',
                 'filter' => 'alpha',
                 'default' => 'n',
@@ -108,8 +108,8 @@ function wikiplugin_split_rollback($data, $hashes)
  *       start of new line ('\n' character - e.g. lists and headers)... such
  *       user lines must stay with the same layout when applying
  *       this plugin to render them properly after...
- *		$data = the preparsed data (plugin, code, np.... already parsed)
- *		$pos is the position in the object where the non-parsed data begins
+ *        $data = the preparsed data (plugin, code, np.... already parsed)
+ *        $pos is the position in the object where the non-parsed data begins
  */
 function wikiplugin_split($data, $params, $pos)
 {

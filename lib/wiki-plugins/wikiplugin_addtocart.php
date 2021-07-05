@@ -79,7 +79,7 @@ function wikiplugin_addtocart_info()
                 'required' => false,
                 'name' => tra('Location'),
                 'description' => tr('URL of the product\'s information. The URL may be relative or absolute (begin
-					with %0http://%1).', '<code>', '</code>'),
+                    with %0http://%1).', '<code>', '</code>'),
                 'filter' => 'url',
                 'since' => '5.0',
                 'default' => '',
@@ -265,9 +265,9 @@ function wikiplugin_addtocart($data, $params)
         if ($information_form && ! $skip_information_form) {
             $headerlib->add_jq_onready(
                 "$('form.addProductToCartForm{$params['productclass']}')
-					.cartProductClassMissingForm({
-						informationForm: '$information_form'
-					});"
+                    .cartProductClassMissingForm({
+                        informationForm: '$information_form'
+                    });"
             );
         }
     }

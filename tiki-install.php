@@ -54,12 +54,12 @@ if (file_exists($lockFile)) {
     $title = 'Tiki Installer Disabled';
     $td = empty($tikidomain) ? '' : '/' . $tikidomain;
     $content = '
-							<p class="under-text">As a security precaution, the Tiki Installer has been disabled. To re-enable the installer:</p>
-								<ol class="installer-ordered-list-style">
-									<li class="installer-ordered-list"><p>Use your file manager application to find the directory where you have unpacked your Tiki and remove the <span class="text-danger font-weight-bold">lock</span> file which was created in the <span class="text-danger font-weight-bold">db</span> folder.</p></li>
-									<li class="installer-ordered-list"><p>Re-run <strong ><a class="text-yellow-inst" href="tiki-install.php' . (empty($tikidomain) ? '' : "?multi=$tikidomain") . '" title="Tiki Installer">tiki-install.php' . (empty($tikidomain) ? '' : "?multi=$tikidomain") . '</a></strong>.</p></li>
-								</ol>
-							';
+                            <p class="under-text">As a security precaution, the Tiki Installer has been disabled. To re-enable the installer:</p>
+                                <ol class="installer-ordered-list-style">
+                                    <li class="installer-ordered-list"><p>Use your file manager application to find the directory where you have unpacked your Tiki and remove the <span class="text-danger font-weight-bold">lock</span> file which was created in the <span class="text-danger font-weight-bold">db</span> folder.</p></li>
+                                    <li class="installer-ordered-list"><p>Re-run <strong ><a class="text-yellow-inst" href="tiki-install.php' . (empty($tikidomain) ? '' : "?multi=$tikidomain") . '" title="Tiki Installer">tiki-install.php' . (empty($tikidomain) ? '' : "?multi=$tikidomain") . '</a></strong>.</p></li>
+                                </ol>
+                            ';
     createPage($title, $content);
 }
 
@@ -121,16 +121,16 @@ if (isset($_SESSION['accessible'])) {
     // Thus, display a form.
     $title = 'Tiki Installer Security Precaution';
     $content = '
-							<p class="text-info mt-lg-3 mx-3">You are attempting to run the Tiki Installer. For your protection, this installer can be used only by a site administrator.To verify that you are a site administrator, enter your <strong><em>database</em></strong> credentials (database username and password) here.</p>
+                            <p class="text-info mt-lg-3 mx-3">You are attempting to run the Tiki Installer. For your protection, this installer can be used only by a site administrator.To verify that you are a site administrator, enter your <strong><em>database</em></strong> credentials (database username and password) here.</p>
 
-							<p class="text-info mx-3">If you have forgotten your database credentials, find the directory where you have unpacked your Tiki and have a look inside the <strong class="text-yellow-inst">db</strong> folder into the <strong class="text-yellow-inst">local.php</strong> file.</p>
-							<form method="post" action="tiki-install.php" class="text-center">
-								<input type="hidden" name="enterinstall" value="1">
-								<p><label for="dbuser" class="sr-only">Database username</label> <input type="text" id="dbuser" name="dbuser" class="col-6 offset-3 form-control text-center" placeholder="Database username"/></p>
-								<p><label for="dbpass" class="sr-only">Database password</label> <input type="password" id="dbpass" name="dbpass" class="col-6 offset-3 form-control text-center" placeholder="Database password"/></p>
-								<p><input type="submit" class="btn btn-primary" value=" Validate and Continue " /></p>
-							</form>
-							<p>&nbsp;</p>';
+                            <p class="text-info mx-3">If you have forgotten your database credentials, find the directory where you have unpacked your Tiki and have a look inside the <strong class="text-yellow-inst">db</strong> folder into the <strong class="text-yellow-inst">local.php</strong> file.</p>
+                            <form method="post" action="tiki-install.php" class="text-center">
+                                <input type="hidden" name="enterinstall" value="1">
+                                <p><label for="dbuser" class="sr-only">Database username</label> <input type="text" id="dbuser" name="dbuser" class="col-6 offset-3 form-control text-center" placeholder="Database username"/></p>
+                                <p><label for="dbpass" class="sr-only">Database password</label> <input type="password" id="dbpass" name="dbpass" class="col-6 offset-3 form-control text-center" placeholder="Database password"/></p>
+                                <p><input type="submit" class="btn btn-primary" value=" Validate and Continue " /></p>
+                            </form>
+                            <p>&nbsp;</p>';
     createPage($title, $content);
 }
 
@@ -147,18 +147,18 @@ function createPage($title, $content)
 {
     echo <<<END
 <!DOCTYPE html
-	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-	<head>
-		<meta name="robots" content="noindex, nofollow">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<link type="text/css" rel="stylesheet" href="themes/base_files/css/tiki_base.css" />
-		<link type="text/css" rel="stylesheet" href="themes/default/css/default.css" />
-		<link type="text/css" rel="stylesheet" href="themes/css/tiki-install.css" />
-		<title>$title</title>
-	</head>
+    <head>
+        <meta name="robots" content="noindex, nofollow">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link type="text/css" rel="stylesheet" href="themes/base_files/css/tiki_base.css" />
+        <link type="text/css" rel="stylesheet" href="themes/default/css/default.css" />
+        <link type="text/css" rel="stylesheet" href="themes/css/tiki-install.css" />
+        <title>$title</title>
+    </head>
     <body class="installer-body">
          <header class="header-main">
             <img alt="Site Logo" src="img/tiki/Tiki_WCG_light.png" class="logo-box" />
@@ -166,18 +166,18 @@ function createPage($title, $content)
                 <div class="heading-text">
                     <h2 class="main-text">$title</h2>
                 </div>
-			<div class="row mb-2">
-				<div class="col" id="col1">
-					<div class="text-center">
+            <div class="row mb-2">
+                <div class="col" id="col1">
+                    <div class="text-center">
                     $content
                 </div>
             </div>
-			</div>
-			<div style="position:fixed;bottom:1.5em;right:1.5em;z-index:1;">
-				<a href="http://tiki.org" target="_blank" title="Powered by Tiki Wiki CMS Groupware"><img src="img/tiki/tikibutton.png" alt="Powered by Tiki Wiki CMS Groupware" /></a>
-			</div>
-		</div>
-	</body>
+            </div>
+            <div style="position:fixed;bottom:1.5em;right:1.5em;z-index:1;">
+                <a href="http://tiki.org" target="_blank" title="Powered by Tiki Wiki CMS Groupware"><img src="img/tiki/tikibutton.png" alt="Powered by Tiki Wiki CMS Groupware" /></a>
+            </div>
+        </div>
+    </body>
 </html>
 END;
     die;

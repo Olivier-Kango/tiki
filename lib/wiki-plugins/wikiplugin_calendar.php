@@ -47,7 +47,7 @@ function wikiplugin_calendar_info()
             'viewmode' => [
                 'name' => tra('View Time Span'),
                 'description' => tr('If in calendar (%0) View Type, determines the time span displayed by the
-					calendar.', '<code>table</code>') . tra('Default is month'),
+                    calendar.', '<code>table</code>') . tra('Default is month'),
                 'since' => '4.0',
                 'filter' => 'word',
                 'default' => 'month',

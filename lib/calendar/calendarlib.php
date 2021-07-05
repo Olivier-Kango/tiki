@@ -1807,10 +1807,10 @@ class CalendarLib extends TikiLib
     public function get_changes($calendarId, $synctoken, $maxRecords = -1)
     {
         $query = 'select c1.calitemId, c1.operation, ci.uri
-			from `tiki_calendar_changes` c1
-			left join `tiki_calendar_changes` c2 on c1.calitemId = c2.calitemId and c1.synctoken < c2.synctoken
-			left join `tiki_calendar_items` ci on c1.calitemId = ci.calitemId
-			where c1.calendarId = ? and c1.synctoken > ? and c2.calitemId is null';
+            from `tiki_calendar_changes` c1
+            left join `tiki_calendar_changes` c2 on c1.calitemId = c2.calitemId and c1.synctoken < c2.synctoken
+            left join `tiki_calendar_items` ci on c1.calitemId = ci.calitemId
+            where c1.calendarId = ? and c1.synctoken > ? and c2.calitemId is null';
         $bindvars = [$calendarId, $synctoken];
         return $this->fetchAll($query, $bindvars, $maxRecords);
     }

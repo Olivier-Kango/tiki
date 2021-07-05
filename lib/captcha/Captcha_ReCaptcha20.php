@@ -95,10 +95,10 @@ class Captcha_ReCaptcha20 extends Laminas\Captcha\ReCaptcha
     {
         static $id = 1;
         TikiLib::lib('header')->add_js("
-				grecaptcha.render('g-recaptcha{$id}', {
-				'sitekey': '{$this->getPubkey()}'
-				});
-				", 100);
+                grecaptcha.render('g-recaptcha{$id}', {
+                'sitekey': '{$this->getPubkey()}'
+                });
+                ", 100);
         return '<div id="g-recaptcha' . $id . '"></div>';
     }
 }

@@ -37,98 +37,98 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */ 
 class APICObject {
 
-	/**
-	 * Constructeur : APICObject::APICObject()
-	 * 
-	 * @return 
-	 **/
-	public function __construct(){
-	}
+    /**
+     * Constructeur : APICObject::APICObject()
+     *
+     * @return
+     **/
+    public function __construct(){
+    }
 
-	public function getNewId(){
-		$char_list = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    public function getNewId(){
+        $char_list = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
-		for($i = 0; $i < 20; $i++){
-			$sid .= substr($char_list, rand(0, strlen($char_list)), 1);
-		}
-		return md5($sid);
-	}
-	
-	/**
-	 * APICObject::className()
-	 * 
-	 * @return le nom de la class courante ayant fait appel a cette fonction
-	 **/
-	public function className(){return get_class($this);}
-	
-	/**
-	 * APICObject::getParentClass()
-	 * 
-	 * @param $object
-	 * @return 
-	 **/
-	public function getParentClass($object){return get_parent_class($object);}
-	
-	/**
-	 * APICObject::equals()
-	 * 
-	 * @param $object
-	 * @return 
-	 **/
-	public function equals(&$object){
-		if (APICObject::validClass($object)){
-			return TRUE;
-		}
-		return FALSE;
-	}
-	
-	/**
-	 * APICObject::toString()
-	 * 
-	 * @return 
-	 **/
-	public function toString(){return 'APICObject';}
-	
-	/**
-	 * APICObject::serialize()
-	 * 
-	 * @return 
-	 **/
-	public function serialize(){
-		return serialize($this);
-	}
-	
-	/**
-	 * APICObject::serialize()
-	 * 
-	 * @return 
-	 **/
-	public function load(){
-	}
-	
-	/**
-	 * Returns a copy of this object instance.
-	 *
-	 * @access	public
-	 * @return	mixed
-	 */
-	public function cloneNode(){	return $this;}
-	
-	/**
-	 * APICObject::hashValue()
-	 * 
-	 * @return 
-	 **/
-	public function hashValue(){return md5(serialize($this));}
-	
-	/**
-	 * APICObject::validClass()
-	 * 
-	 * @param $object
-	 * @param string $classname
-	 * @return 
-	 **/
-	public function validClass($object, $classname = 'APICObject'){
-		return (is_object($object) && ($object->className()==$classname || is_subclass_of($object, $classname)));
-	}
+        for($i = 0; $i < 20; $i++){
+            $sid .= substr($char_list, rand(0, strlen($char_list)), 1);
+        }
+        return md5($sid);
+    }
+
+    /**
+     * APICObject::className()
+     *
+     * @return le nom de la class courante ayant fait appel a cette fonction
+     **/
+    public function className(){return get_class($this);}
+
+    /**
+     * APICObject::getParentClass()
+     *
+     * @param $object
+     * @return
+     **/
+    public function getParentClass($object){return get_parent_class($object);}
+
+    /**
+     * APICObject::equals()
+     *
+     * @param $object
+     * @return
+     **/
+    public function equals(&$object){
+        if (APICObject::validClass($object)){
+            return TRUE;
+        }
+        return FALSE;
+    }
+
+    /**
+     * APICObject::toString()
+     *
+     * @return
+     **/
+    public function toString(){return 'APICObject';}
+
+    /**
+     * APICObject::serialize()
+     *
+     * @return
+     **/
+    public function serialize(){
+        return serialize($this);
+    }
+
+    /**
+     * APICObject::serialize()
+     *
+     * @return
+     **/
+    public function load(){
+    }
+
+    /**
+     * Returns a copy of this object instance.
+     *
+     * @access    public
+     * @return    mixed
+     */
+    public function cloneNode(){    return $this;}
+
+    /**
+     * APICObject::hashValue()
+     *
+     * @return
+     **/
+    public function hashValue(){return md5(serialize($this));}
+
+    /**
+     * APICObject::validClass()
+     *
+     * @param $object
+     * @param string $classname
+     * @return
+     **/
+    public function validClass($object, $classname = 'APICObject'){
+        return (is_object($object) && ($object->className()==$classname || is_subclass_of($object, $classname)));
+    }
 }

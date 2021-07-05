@@ -68,11 +68,11 @@ class RedactDBCommand extends Command
 
         // Pseudonymise e-mail
         $output->writeln('<comment>Pseudonymising user e-mails.</comment>');
-        $query = "	SELECT DISTINCT table_name
-				FROM information_schema.columns
-				WHERE column_name = 'email'
-				AND table_name <> 'users_users'
-				AND table_schema = '$dbs_tiki';";
+        $query = "    SELECT DISTINCT table_name
+                FROM information_schema.columns
+                WHERE column_name = 'email'
+                AND table_name <> 'users_users'
+                AND table_schema = '$dbs_tiki';";
         $result = $tikilib->query($query);
         $ret = [];
         while ($res = $result->fetchRow()) {
@@ -89,11 +89,11 @@ class RedactDBCommand extends Command
 
         // Pseudonymise user name
         $output->writeln('<comment>Pseudonymising user names.</comment>');
-        $query = "	SELECT DISTINCT table_name
-				FROM information_schema.columns
-				WHERE column_name = 'user'
-				AND table_name <> 'users_users'
-				AND table_schema = '$dbs_tiki';";
+        $query = "    SELECT DISTINCT table_name
+                FROM information_schema.columns
+                WHERE column_name = 'user'
+                AND table_name <> 'users_users'
+                AND table_schema = '$dbs_tiki';";
         $result = $tikilib->query($query);
         $ret = [];
         while ($res = $result->fetchRow()) {

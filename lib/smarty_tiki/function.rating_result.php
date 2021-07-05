@@ -22,12 +22,12 @@ function smarty_function_rating_result($params, $smarty)
                 $extra_info = ')';
             }
             $tableBody .= '<td style="width:' . $voting['percent'] . '%; text-align: center;">
-				<div class="ui-widget-content">' .
+                <div class="ui-widget-content">' .
                     ($prefs['rating_smileys'] == 'y' ? '<img src="' . $smiles[$vote]['img'] . '"/> ' : '<b>' . $vote . '</b> ') .
                     '(' . $voting['votes'] . $extra_info .
                     ($prefs['rating_smileys'] == 'y' ? '<div style="background-color: ' . $smiles[$vote]['color'] . ';">&nbsp;</div>' : '') .
                 '</div>
-			</td>';
+            </td>';
         }
     } elseif ($votings) {
         // $smarty->loadPlugin('function_rating_result_avg'); apparently "plugin function_rating_result_avg is not a valid name format"

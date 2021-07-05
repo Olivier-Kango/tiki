@@ -54,7 +54,7 @@ function wikiplugin_stat_info()
                 'required' => false,
                 'name' => tra('Last 24 Hours'),
                 'description' => tr('Added and/or viewed in the last 24 hours (only added items shown for tracker
-					items whether %0a%1 (added) or %0v%1 (viewed) or both is set)', '<code>', '</code>'),
+                    items whether %0a%1 (added) or %0v%1 (viewed) or both is set)', '<code>', '</code>'),
                 'since' => '4.0',
                 'filter' => 'text',
                 'accepted' => tra('a or v or both separated by a colon. Example: "a:v" or "v:a"'),
@@ -71,7 +71,7 @@ function wikiplugin_stat_info()
                 'required' => false,
                 'name' => tra('Today'),
                 'description' => tr('Added and/or viewed since the beginning of the day (only added items shown for
-					tracker items whether %0a%1 (added) or %0v%1 (viewed) or both is set)', '<code>', '</code>'),
+                    tracker items whether %0a%1 (added) or %0v%1 (viewed) or both is set)', '<code>', '</code>'),
                 'since' => '4.0',
                 'filter' => 'text',
                 'accepted' => tra('a or v or both separated by a colon. Example: "a:v" or "v:a"'),
@@ -88,7 +88,7 @@ function wikiplugin_stat_info()
                 'required' => false,
                 'name' => tra('Last 7 Days'),
                 'description' => tr('Added and/or viewed in the last 7 days (only added items shown for tracker items
-					whether %0a%1 (added) or %0v%1 (viewed) or both is set)', '<code>', '</code>'),
+                    whether %0a%1 (added) or %0v%1 (viewed) or both is set)', '<code>', '</code>'),
                 'since' => '4.0',
                 'filter' => 'text',
                 'accepted' => tra('a or v or both separated by a colon. Example: "a:v" or "v:a"'),
@@ -105,7 +105,7 @@ function wikiplugin_stat_info()
                 'required' => false,
                 'name' => tra('This Week'),
                 'description' => tr('Added and/or viewed since the beginning of the week (only added items shown for
-					tracker items whether %0a%1 (added) or %0v%1 (viewed) or both is set)', '<code>', '</code>'),
+                    tracker items whether %0a%1 (added) or %0v%1 (viewed) or both is set)', '<code>', '</code>'),
                 'since' => '4.0',
                 'filter' => 'text',
                 'accepted' => tra('a or v or both separated by a colon. Example: "a:v" or "v:a"'),
@@ -122,7 +122,7 @@ function wikiplugin_stat_info()
                 'required' => false,
                 'name' => tr('Last Month'),
                 'description' => tr('Added and/or viewed last month (only added items shown for tracker items
-					whether %0a%1 (added) or %0v%1 (viewed) or both is set)', '<code>', '</code>'),
+                    whether %0a%1 (added) or %0v%1 (viewed) or both is set)', '<code>', '</code>'),
                 'since' => '4.0',
                 'filter' => 'text',
                 'accepted' => tra('a or v or both separated by a colon. Example: "a:v" or "v:a"'),
@@ -139,7 +139,7 @@ function wikiplugin_stat_info()
                 'required' => false,
                 'name' => tra('This Month'),
                 'description' => tr('Added and/or viewed since the beginning of the month (only added items shown for
-					tracker items whether %0a%1 (added) or %0v%1 (viewed) or both is set)', '<code>', '</code>'),
+                    tracker items whether %0a%1 (added) or %0v%1 (viewed) or both is set)', '<code>', '</code>'),
                 'since' => '4.0',
                 'filter' => 'text',
                 'accepted' => tra('a or v or both separated by a colon. Example: "a:v" or "v:a"'),
@@ -156,7 +156,7 @@ function wikiplugin_stat_info()
                 'required' => false,
                 'name' => tra('Last Year'),
                 'description' => tr('Added and/or viewed in the last 365 days (only added items shown for tracker
-					items whether %0a%1 (added) or %0v%1 (viewed) or both is set)', '<code>', '</code>'),
+                    items whether %0a%1 (added) or %0v%1 (viewed) or both is set)', '<code>', '</code>'),
                 'since' => '4.0',
                 'filter' => 'text',
                 'accepted' => tra('a or v or both separated by a colon. Example: "a:v" or "v:a"'),
@@ -173,7 +173,7 @@ function wikiplugin_stat_info()
                 'required' => false,
                 'name' => tra('This Year'),
                 'description' => tr('Added and/or viewed since the beginning of the year (only added items shown for
-					tracker items whether %0a%1 (added) or %0v%1 (viewed) or both is set)', '<code>', '</code>'),
+                    tracker items whether %0a%1 (added) or %0v%1 (viewed) or both is set)', '<code>', '</code>'),
                 'since' => '4.0',
                 'filter' => 'text',
                 'accepted' => tra('a or v or both separated by a colon. Example: "a:v" or "v:a"'),

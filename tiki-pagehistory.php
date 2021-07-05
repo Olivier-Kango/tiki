@@ -415,28 +415,28 @@ $not_comparing = $comparing ? 'false' : 'true';
 $headerlib->add_jq_onready(
 <<<JS
 \$("input[name=oldver], input[name=newver]").change(function () {
-	var ver = parseInt(\$(this).val(), 10), ver2;
-	if (ver == 0) { ver = $current_version; }
-	if (\$(this).attr("name") == "oldver") {
-		\$("input[name=newver]").each(function () {
-			ver2 = parseInt(\$(this).val(), 10);
-			if (ver2 == 0) { ver2 = $current_version; }
-			\$(this).attr("disabled", (ver2 <= ver));
-		});
-	} else if (\$(this).attr("name") == "newver") {
-		\$("input[name=oldver]").each(function () {
-			ver2 = parseInt(\$(this).val(), 10);
-			if (ver2 == 0) { ver2 = $current_version; }
-			\$(this).attr("disabled", (ver2 >= ver));
-		});
-	}
+    var ver = parseInt(\$(this).val(), 10), ver2;
+    if (ver == 0) { ver = $current_version; }
+    if (\$(this).attr("name") == "oldver") {
+        \$("input[name=newver]").each(function () {
+            ver2 = parseInt(\$(this).val(), 10);
+            if (ver2 == 0) { ver2 = $current_version; }
+            \$(this).attr("disabled", (ver2 <= ver));
+        });
+    } else if (\$(this).attr("name") == "newver") {
+        \$("input[name=oldver]").each(function () {
+            ver2 = parseInt(\$(this).val(), 10);
+            if (ver2 == 0) { ver2 = $current_version; }
+            \$(this).attr("disabled", (ver2 >= ver));
+        });
+    }
 });
 if (\$("input[name=newver][checked=checked]").length) {
-	\$("input[name=newver][checked=checked]").change();
-	\$("input[name=oldver][checked=checked]").change();
+    \$("input[name=newver][checked=checked]").change();
+    \$("input[name=oldver][checked=checked]").change();
 } else if ($not_comparing) {
-	\$("input[name=newver]:eq(0)").prop("checked", "checked").change();
-	\$("input[name=oldver]:eq(1)").prop("checked", "checked").change();
+    \$("input[name=newver]:eq(0)").prop("checked", "checked").change();
+    \$("input[name=oldver]:eq(1)").prop("checked", "checked").change();
 }
 JS
 );

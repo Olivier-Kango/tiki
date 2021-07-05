@@ -83,7 +83,7 @@ function wikiplugin_trade_info()
                 'name' => tra('Input Title'),
                 'description' => tra('Title of the input form.') . ' ' . tr(
                     'Use %0 for the amount, %1 for currency,
-					 %2 for your user name, %3 for the other user.',
+                     %2 for your user name, %3 for the other user.',
                     '<code>%0</code>',
                     '<code>%1</code>',
                     '<code>%2</code>',
@@ -91,7 +91,7 @@ function wikiplugin_trade_info()
                 ) . ' '
                     . tra('Supports wiki syntax') . '<br />' . tr('Default') . ':'
                     . tra('"Payment of %0 %1 from user %2 to %3" for offered items, "Request payment of %0 %1 to user
-					%2 from %3" for wanted'),
+                    %2 from %3" for wanted'),
                 'since' => '6.0',
                 'filter' => 'text',
                 'default' => '',

@@ -122,7 +122,7 @@ from `tiki_user_mailin_struct` mailin
         left outer join `tiki_structures` s2 on s2.`structure_id` = mailin.`structure_id` and s2.`page_id` = mailin.`page_id`
         left outer join `users_users` u on u.login = mailin.username
 where 1 = 1
-" . $sqlOnlyActive . "	
+" . $sqlOnlyActive . "    
 order by mailin.username, p2.pageName, p.pageName
 ";
         $bindvars = [];

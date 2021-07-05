@@ -43,7 +43,7 @@ class MailinLib extends TikiDb_Bridge
             $mid = " where `account` like ?";
             $bindvars = [$findesc];
         } else {
-            $mid = "	";
+            $mid = "    ";
             $bindvars = [];
         }
 

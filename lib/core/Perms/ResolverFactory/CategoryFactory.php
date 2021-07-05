@@ -152,8 +152,8 @@ class Perms_ResolverFactory_CategoryFactory implements Perms_ResolverFactory
             $bindvars = [];
             $result = $db->fetchAll(
                 "SELECT co.`categId`, items.`itemId` FROM `tiki_tracker_items` items
-				INNER JOIN `tiki_objects` o ON items.`trackerId` = o.`itemId` AND o.`type` = 'tracker'
-				INNER JOIN `tiki_category_objects` co ON co.`catObjectId` = o.`objectId` WHERE " .
+                INNER JOIN `tiki_objects` o ON items.`trackerId` = o.`itemId` AND o.`type` = 'tracker'
+                INNER JOIN `tiki_category_objects` co ON co.`catObjectId` = o.`objectId` WHERE " .
                 $db->in('items.itemId', array_keys($objects), $bindvars) . " ORDER BY co.`catObjectId`, co.`categId`",
                 $bindvars
             );
@@ -161,8 +161,8 @@ class Perms_ResolverFactory_CategoryFactory implements Perms_ResolverFactory
             $bindvars = [];
             $result = $db->fetchAll(
                 "SELECT co.`categId`, items.`threadId` AS itemId FROM `tiki_comments` items
-				INNER JOIN `tiki_objects` o ON items.`object` = o.`itemId` AND o.`type` = 'forum'
-				INNER JOIN `tiki_category_objects` co ON co.`catObjectId` = o.`objectId` WHERE " .
+                INNER JOIN `tiki_objects` o ON items.`object` = o.`itemId` AND o.`type` = 'forum'
+                INNER JOIN `tiki_category_objects` co ON co.`catObjectId` = o.`objectId` WHERE " .
                 $db->in('items.threadId', array_keys($objects), $bindvars) . " ORDER BY co.`catObjectId`, co.`categId`",
                 $bindvars
             );
@@ -170,8 +170,8 @@ class Perms_ResolverFactory_CategoryFactory implements Perms_ResolverFactory
             $bindvars = [];
             $result = $db->fetchAll(
                 "SELECT co.`categId`, items.`fileId` AS itemId FROM `tiki_files` items
-				INNER JOIN `tiki_objects` o ON items.`galleryId` = o.`itemId` AND o.`type` = 'file gallery'
-				INNER JOIN `tiki_category_objects` co ON co.`catObjectId` = o.`objectId` WHERE " .
+                INNER JOIN `tiki_objects` o ON items.`galleryId` = o.`itemId` AND o.`type` = 'file gallery'
+                INNER JOIN `tiki_category_objects` co ON co.`catObjectId` = o.`objectId` WHERE " .
                 $db->in('items.fileId', array_keys($objects), $bindvars) . " ORDER BY co.`catObjectId`, co.`categId`",
                 $bindvars
             );
@@ -179,8 +179,8 @@ class Perms_ResolverFactory_CategoryFactory implements Perms_ResolverFactory
             $bindvars = [];
             $result = $db->fetchAll(
                 "SELECT co.`categId`, items.`calitemId` AS itemId FROM `tiki_calendar_items` items
-				INNER JOIN `tiki_objects` o ON items.`calendarId` = o.`itemId` AND o.`type` = 'calendar'
-				INNER JOIN `tiki_category_objects` co ON co.`catObjectId` = o.`objectId` WHERE " .
+                INNER JOIN `tiki_objects` o ON items.`calendarId` = o.`itemId` AND o.`type` = 'calendar'
+                INNER JOIN `tiki_category_objects` co ON co.`catObjectId` = o.`objectId` WHERE " .
                 $db->in('items.calitemId', array_keys($objects), $bindvars) . " ORDER BY co.`catObjectId`, co.`categId`",
                 $bindvars
             );
@@ -188,8 +188,8 @@ class Perms_ResolverFactory_CategoryFactory implements Perms_ResolverFactory
             $bindvars = [];
             $result = $db->fetchAll(
                 "SELECT co.`categId`, items.`postId` AS itemId FROM `tiki_blog_posts` items
-				INNER JOIN `tiki_objects` o ON items.`blogId` = o.`itemId` AND o.`type` = 'blog'
-				INNER JOIN `tiki_category_objects` co ON co.`catObjectId` = o.`objectId` WHERE " .
+                INNER JOIN `tiki_objects` o ON items.`blogId` = o.`itemId` AND o.`type` = 'blog'
+                INNER JOIN `tiki_category_objects` co ON co.`catObjectId` = o.`objectId` WHERE " .
                 $db->in('items.postId', array_keys($objects), $bindvars) . " ORDER BY co.`catObjectId`, co.`categId`",
                 $bindvars
             );
@@ -239,10 +239,10 @@ class Perms_ResolverFactory_CategoryFactory implements Perms_ResolverFactory
             'SELECT `objectId`, `groupName`, `permName` FROM `users_objectpermissions` WHERE `objectType` = \'category\' AND ' . $db->in('objectId', array_keys($objects), $bindvars)
             . ' UNION ALL '
             . 'SELECT md5(CONCAT(\'category\', r.`categId`)), g.`groupName`, p.`permName` FROM `users_objectpermissions` p
-				JOIN tiki_categories_roles r ON p.objectId = md5(CONCAT(\'category\', r.`categRoleId`))
-				JOIN `users_groups` gr ON r.`groupRoleId` = gr.id AND p.groupName = gr.`groupName`
-				JOIN `users_groups` g ON r.`groupId` = g.id
-				WHERE p.`objectType` = \'category\' AND  ' . $db->in('r.categId', array_values($objects), $bindvars),
+                JOIN tiki_categories_roles r ON p.objectId = md5(CONCAT(\'category\', r.`categRoleId`))
+                JOIN `users_groups` gr ON r.`groupRoleId` = gr.id AND p.groupName = gr.`groupName`
+                JOIN `users_groups` g ON r.`groupId` = g.id
+                WHERE p.`objectType` = \'category\' AND  ' . $db->in('r.categId', array_values($objects), $bindvars),
             $bindvars
         );
 

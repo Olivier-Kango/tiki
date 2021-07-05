@@ -32,7 +32,7 @@ function wikiplugin_sheet_info()
                 'required' => false,
                 'name' => tra('Sheet Url Location'),
                 'description' => tr('Internal URL of the Table to use as a spreadsheet. Either %0id%1 or %0url%1 is
-					required.', '<code>', '</code>'),
+                    required.', '<code>', '</code>'),
                 'filter' => 'url',
                 'default' => '',
                 'since' => '6.0'
@@ -57,7 +57,7 @@ function wikiplugin_sheet_info()
                 'required' => false,
                 'name' => tra('Width'),
                 'description' => tr('Width in pixels or percentage. Default value is page width, for example, %0200px%1 or
-					%0100%%1', '<code>', '</code>'),
+                    %0100%%1', '<code>', '</code>'),
                 'filter' => 'text',
                 'accepted' => 'Number of pixels followed by \'px\' or percent followed by %).',
                 'default' => 'Page width',
@@ -104,7 +104,7 @@ function wikiplugin_sheet_info()
                 'required' => false,
                 'name' => tra('Range'),
                 'description' => tr('Show a range of cells (or single cell). Default shows all. e.g. %0D1:F3%1 or
-					%0e14:e14%1', '<code>', '</code>'),
+                    %0e14:e14%1', '<code>', '</code>'),
                 'filter' => 'text',
                 'accepted' => 'Cell range, e.g. "D1:F3" or "e14:e14"',
                 'default' => 'All cells',
@@ -157,31 +157,31 @@ function wikiplugin_sheet($data, $params)
                 $smarty->loadPlugin('smarty_function_ticket');
                 $ticket = smarty_function_ticket([], $smarty->getEmptyInternalTemplate());
                 return <<<EOF
-				~np~
-				<form id="$formId" method="post" action="tiki-wikiplugin_edit.php">
-				<div>
-					<input type="hidden" name="page" value="$page"/>
-					<input type="hidden" name="content" value="$data"/>
-					<input type="hidden" name="index" value="$index"/>
-					<input type="hidden" name="type" value="sheet"/>
-					<input type="hidden" name="params[id]" value="$sheetId"/>
-					$ticket
- 				</div>
-				</form>
-				<script type="text/javascript">
-				document.getElementById('$formId').submit();
-				</script>
-				~/np~
+                ~np~
+                <form id="$formId" method="post" action="tiki-wikiplugin_edit.php">
+                <div>
+                    <input type="hidden" name="page" value="$page"/>
+                    <input type="hidden" name="content" value="$data"/>
+                    <input type="hidden" name="index" value="$index"/>
+                    <input type="hidden" name="type" value="sheet"/>
+                    <input type="hidden" name="params[id]" value="$sheetId"/>
+                    $ticket
+                 </div>
+                </form>
+                <script type="text/javascript">
+                document.getElementById('$formId').submit();
+                </script>
+                ~/np~
 EOF;
             } else {
                 $label = tra('Create New Sheet');
                 return <<<EOF
 ~np~
 <form method="post" action="">
-	<p>
-		<input type="submit" name="create_sheet" class="btn btn-primary" value="$label"/>
-		<input type="hidden" name="index" value="$index"/>
-	</p>
+    <p>
+        <input type="submit" name="create_sheet" class="btn btn-primary" value="$label"/>
+        <input type="hidden" name="index" value="$index"/>
+    </p>
 </form>
 ~/np~
 EOF;
@@ -250,12 +250,12 @@ EOF;
         $sheetlib->setup_jquery_sheet();
         $headerlib->add_jq_onready(
             '$("div#tiki_sheet' . $index . '").each(function() {
-				$(this).sheet($.extend($.sheet.tikiOptions,{
-				editable:false'
+                $(this).sheet($.extend($.sheet.tikiOptions,{
+                editable:false'
             . $calcOff .
             '}));
-			$(\'.icon-pdf\').parent().click(function(){storeSortTable("#tiki_sheet' . $index . '",$("#tiki_sheet' . $index . '").html())});
-			});'
+            $(\'.icon-pdf\').parent().click(function(){storeSortTable("#tiki_sheet' . $index . '",$("#tiki_sheet' . $index . '").html())});
+            });'
         );
     }
 

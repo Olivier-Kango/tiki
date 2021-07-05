@@ -32,10 +32,10 @@ class Table_Code_Bind extends Table_Code_Manager
                 //re-binding in some cases since ajax tbody refresh disconnects binding
                 '$(\'' . parent::$tid . '\').tiki_popover();',
                 'if (this.config.pager.endRow - this.config.pager.startRow > 15) {',
-                '	$(\'div#' . parent::$s['pager']['controls']['id']
+                '    $(\'div#' . parent::$s['pager']['controls']['id']
                 . '.ts-pager-bottom\').css(\'display\', \'block\');',
                 '} else {',
-                '	$(\'div#' . parent::$s['pager']['controls']['id']
+                '    $(\'div#' . parent::$s['pager']['controls']['id']
                 . '.ts-pager-bottom\').css(\'display\', \'none\');',
                 '}',
             ];

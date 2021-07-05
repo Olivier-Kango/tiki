@@ -16,7 +16,7 @@ Before you get started, it is a good idea to know:
 
     * Your database schema name, database user name and password
     * Your Apache user and group ID (e.g. www-user and www-data)
-		If not, Tiki will detect
+        If not, Tiki will detect
 
 
 These are notes on how to setup and configure Tiki.
@@ -52,8 +52,8 @@ Step three: create the database
     the database schema name is usually called "tiki"
 
 Be sure to record the following items:
-	- The database schema name
-	- The user name and password that has admin authority in the database.
+    - The database schema name
+    - The user name and password that has admin authority in the database.
 
 
 ------------------------------

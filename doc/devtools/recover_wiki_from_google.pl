@@ -34,9 +34,9 @@ our $dbh = DBI->connect("dbi:mysql:database_name:localhost","root");
 
 # tiki file patterns to be searched, you don't have to touch this
 our @phpfiles = ('source "tiki pagehistory php "',
-		 'source=0 "tiki pagehistory php "'
-#		 ,'tiki-index.php'
-		 );
+         'source=0 "tiki pagehistory php "'
+#         ,'tiki-index.php'
+         );
 
 our $cgi = new CGI::Simple;
 our $ua = LWP::UserAgent->new;
@@ -56,54 +56,54 @@ sub importDump {
     my $getPage = $dbh->prepare("select * from tiki_pages where pageName=?");
     my $insertHistory = $dbh->prepare("insert into tiki_history values (?,?,?,?,?,?,?,?,?)");
     my $updatePage = $dbh->prepare("update tiki_pages set ".
-				   " data=?, ".
-				   " lastModif=?, ".
-				   " comment=?, ".
-				   " version=?, ".
-				   " user=? ".
-				   " where pageName=?");
+                   " data=?, ".
+                   " lastModif=?, ".
+                   " comment=?, ".
+                   " version=?, ".
+                   " user=? ".
+                   " where pageName=?");
 
     foreach my $page (keys %pages) {
-	my $version;
+    my $version;
 
-	if (pageExists($page)) {
+    if (pageExists($page)) {
 
-	    $getPage->execute($page);
-	    my $info = $getPage->fetchrow_hashref;
+        $getPage->execute($page);
+        my $info = $getPage->fetchrow_hashref;
 
-	    $version = $info->{version} + 1;
+        $version = $info->{version} + 1;
 
-	    $insertHistory->execute($page,
-				    $info->{version}, 
-				    0, 
-				    $info->{lastModif},
-				    $info->{description},
-				    $info->{user},
-				    $info->{ip},
-				    $info->{comment},
-				    $info->{data});
-	} else {
-	    $dbh->do("insert into tiki_pages (pageName) values (".$dbh->quote($page).")");
-	    $version = 1;
-	}
-
-	#			   " data=?, ".
-	#			   " description=?, ".
-	#			   " lastModif=?, ".
-	#			   " comment=?, ".
-	#			   " version=?, ".
-	#			   " user=? ".
-	#			   " where pageName=?");#
-
-	my $info = $pages{$page};
-	$updatePage->execute($info->{content},
-			     time(),
-			     'recuperacao do cache do google',
-			     $version,
-			     'admin',
-			     $page);
+        $insertHistory->execute($page,
+                    $info->{version},
+                    0,
+                    $info->{lastModif},
+                    $info->{description},
+                    $info->{user},
+                    $info->{ip},
+                    $info->{comment},
+                    $info->{data});
+    } else {
+        $dbh->do("insert into tiki_pages (pageName) values (".$dbh->quote($page).")");
+        $version = 1;
     }
-       		 
+
+    #               " data=?, ".
+    #               " description=?, ".
+    #               " lastModif=?, ".
+    #               " comment=?, ".
+    #               " version=?, ".
+    #               " user=? ".
+    #               " where pageName=?");#
+
+    my $info = $pages{$page};
+    $updatePage->execute($info->{content},
+                 time(),
+                 'recuperacao do cache do google',
+                 $version,
+                 'admin',
+                 $page);
+    }
+
 }
 
 sub pageExists {
@@ -119,14 +119,14 @@ sub getBestVersions {
 
     my %data;
     foreach my $file (<*>) {
-	my $info = getInfoFromFile($file);
-	
-	if (!defined $data{$info->{page}} ||
-	    $info->{version} == 0 ||
-	    $data{$info->{page}}{version} < $info->{version}) {
-	    
-	    $data{$info->{page}} = $info;
-	}
+    my $info = getInfoFromFile($file);
+
+    if (!defined $data{$info->{page}} ||
+        $info->{version} == 0 ||
+        $data{$info->{page}}{version} < $info->{version}) {
+
+        $data{$info->{page}} = $info;
+    }
     }
 
     return \%data;
@@ -140,13 +140,13 @@ sub getInfoFromFile {
     my ($page, $source) = $cgi->url_decode($file) =~ /page=(.+?)\&.*?source=(\d+)/;
 
     $page && defined $source
-	or return undef;
+    or return undef;
 
     $page =~ s/\%([0-9A-Fa-f]{2})/chr(hex($1))/ge;
 
     undef $/;
     open ARQ, $file
-	or die $!;
+    or die $!;
     my $content = <ARQ>;
     close ARQ;
 
@@ -156,9 +156,9 @@ sub getInfoFromFile {
     $content =~ s|<br />||gs;
 
     return {
-	'page' => $page,
-	'content' => $content,
-	'version' => $source
+    'page' => $page,
+    'content' => $content,
+    'version' => $source
     };    
 }
 
@@ -174,22 +174,22 @@ sub fetch {
     my @queries;
     
     foreach my $page (@pages) {
-	foreach my $phpfile (@phpfiles) {
-	    push @queries, "$page $phpfile";
-	}
+    foreach my $phpfile (@phpfiles) {
+        push @queries, "$page $phpfile";
+    }
     }
     
 
     foreach my $query (@queries) {
-	
-	my $offset = 0;
-	
-	while (my @links = getList($query, $offset)) {
-	    foreach my $link (@links) {
-		retrieveLink($link);
-	    }
-	    $offset += $increment;
-	}
+
+    my $offset = 0;
+
+    while (my @links = getList($query, $offset)) {
+        foreach my $link (@links) {
+        retrieveLink($link);
+        }
+        $offset += $increment;
+    }
     }
 }
 
@@ -199,15 +199,15 @@ sub retrieveLink {
     my ($file) = $link =~ m|$siteurl/(.+)$|;
 
     if (-f $file) {
-	open ARQ, ">>$file.repeated";
-	print ARQ ".";
-	close ARQ;
-	return 1;
+    open ARQ, ">>$file.repeated";
+    print ARQ ".";
+    close ARQ;
+    return 1;
     }
 
     my $response = $ua->get($link);
     $response->is_success
-	or return undef;
+    or return undef;
 
     open ARQ, ">$file";
     print ARQ $response->content;
@@ -222,22 +222,22 @@ sub getList {
 
     my $url = 'http://www.google.com.br/search?q='.$query.'+site:'.$siteurl.'&num=100&hl=pt-BR&lr=&as_qdr=all&filter=0';
     if ($start) {
-	$url .= '&sa=N&start='.$start;
+    $url .= '&sa=N&start='.$start;
     }
 
     my $response = $ua->get($url);
 
     my $content;
     if ($response->is_success) {
-	$content = $response->content;  # or whatever
+    $content = $response->content;  # or whatever
     } else {
-	return 0;
+    return 0;
     }
 
     my @links;
     while (my ($siteUrl) = $content =~ m|href=\"(http://[0-9.]+/search\?q=cache[^\"]+)\"|) {
-	push @links, $siteUrl;
-	$content =~ s|href=\"(http://[0-9.]+/search\?q=cache[^\"]+)\"||;
+    push @links, $siteUrl;
+    $content =~ s|href=\"(http://[0-9.]+/search\?q=cache[^\"]+)\"||;
     }
     
     return @links;

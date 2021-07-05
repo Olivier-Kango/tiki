@@ -87,8 +87,8 @@ class Perms_ResolverFactory_ObjectFactory implements Perms_ResolverFactory
             $bindvars = [];
             $result = $db->fetchAll(
                 "SELECT md5(concat('trackeritem', LOWER(tti.`itemId`))) as `objectId`, op.`groupName`, op.`permName`
-				FROM `tiki_tracker_items` tti, `users_objectpermissions` op
-				WHERE op.`objectType` = 'tracker' AND op.`objectId` = md5(concat('tracker', LOWER(tti.`trackerId`))) AND " .
+                FROM `tiki_tracker_items` tti, `users_objectpermissions` op
+                WHERE op.`objectType` = 'tracker' AND op.`objectId` = md5(concat('tracker', LOWER(tti.`trackerId`))) AND " .
                 $db->in('tti.itemId', array_values($objects), $bindvars),
                 $bindvars
             );
@@ -96,8 +96,8 @@ class Perms_ResolverFactory_ObjectFactory implements Perms_ResolverFactory
             $bindvars = [];
             $result = $db->fetchAll(
                 "SELECT md5(concat('file', LOWER(tf.`fileId`))) as `objectId`, op.`groupName`, op.`permName`
-				FROM `tiki_files` tf, `users_objectpermissions` op
-				WHERE op.`objectType` = 'file gallery' AND op.`objectId` = md5(concat('file gallery', LOWER(tf.`galleryId`))) AND " .
+                FROM `tiki_files` tf, `users_objectpermissions` op
+                WHERE op.`objectType` = 'file gallery' AND op.`objectId` = md5(concat('file gallery', LOWER(tf.`galleryId`))) AND " .
                 $db->in('tf.fileId', array_values($objects), $bindvars),
                 $bindvars
             );
@@ -105,8 +105,8 @@ class Perms_ResolverFactory_ObjectFactory implements Perms_ResolverFactory
             $bindvars = [];
             $result = $db->fetchAll(
                 "SELECT md5(concat('article', LOWER(ta.`articleId`))) as `objectId`, op.`groupName`, op.`permName`
-				FROM `tiki_articles` ta, `users_objectpermissions` op
-				WHERE op.`objectType` = 'topic' AND op.`objectId` = md5(concat('topic', LOWER(ta.`topicId`))) AND " .
+                FROM `tiki_articles` ta, `users_objectpermissions` op
+                WHERE op.`objectType` = 'topic' AND op.`objectId` = md5(concat('topic', LOWER(ta.`topicId`))) AND " .
                 $db->in('ta.articleId', array_values($objects), $bindvars),
                 $bindvars
             );
@@ -114,8 +114,8 @@ class Perms_ResolverFactory_ObjectFactory implements Perms_ResolverFactory
             $bindvars = [];
             $result = $db->fetchAll(
                 "SELECT md5(concat('blog post', LOWER(tbp.`postId`))) as `objectId`, op.`groupName`, op.`permName`
-				FROM `tiki_blog_posts` tbp, `users_objectpermissions` op
-				WHERE op.`objectType` = 'blog' AND op.`objectId` = md5(concat('blog', LOWER(tbp.`blogId`))) AND " .
+                FROM `tiki_blog_posts` tbp, `users_objectpermissions` op
+                WHERE op.`objectType` = 'blog' AND op.`objectId` = md5(concat('blog', LOWER(tbp.`blogId`))) AND " .
                 $db->in('tbp.postId', array_values($objects), $bindvars),
                 $bindvars
             );
@@ -123,8 +123,8 @@ class Perms_ResolverFactory_ObjectFactory implements Perms_ResolverFactory
             $bindvars = [];
             $result = $db->fetchAll(
                 "SELECT md5(concat('thread', LOWER(tc.`threadId`))) as `objectId`, op.`groupName`, op.`permName`
-				FROM `tiki_comments` tc, `users_objectpermissions` op
-				WHERE op.`objectType` = 'forum' AND op.`objectId` = md5(concat('forum', LOWER(tc.`object`))) AND tc.`objectType` = 'forum' AND " .
+                FROM `tiki_comments` tc, `users_objectpermissions` op
+                WHERE op.`objectType` = 'forum' AND op.`objectId` = md5(concat('forum', LOWER(tc.`object`))) AND tc.`objectType` = 'forum' AND " .
                 $db->in('tc.threadId', array_values($objects), $bindvars),
                 $bindvars
             );
@@ -132,8 +132,8 @@ class Perms_ResolverFactory_ObjectFactory implements Perms_ResolverFactory
             $bindvars = [];
             $result = $db->fetchAll(
                 "SELECT md5(concat('event', LOWER(tci.`calitemId`))) as `objectId`, op.`groupName`, op.`permName`
-				FROM `tiki_calendar_items` tci, `users_objectpermissions` op
-				WHERE op.`objectType` = 'calendar' AND op.`objectId` = md5(concat('calendar', LOWER(tci.`calendarId`))) AND " .
+                FROM `tiki_calendar_items` tci, `users_objectpermissions` op
+                WHERE op.`objectType` = 'calendar' AND op.`objectId` = md5(concat('calendar', LOWER(tci.`calendarId`))) AND " .
                 $db->in('tci.calitemId', array_values($objects), $bindvars),
                 $bindvars
             );

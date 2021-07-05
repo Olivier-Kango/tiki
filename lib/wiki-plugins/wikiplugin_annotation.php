@@ -158,21 +158,21 @@ function wikiplugin_annotation($data, $params)
 
         $form = <<<FORM
 <form method="post" action="tiki-wikiplugin_edit.php" class="form save-annotations">
-	<div style="display:none">
-		$ticketHtml
-		<input type="hidden" name="page" value="$page"/>
-		<input type="hidden" name="type" value="annotation"/>
-		<input type="hidden" name="index" value="$uid"/>
-		<input type="hidden" name="message" value="$message"/>
-		<textarea id="$cid-content" name="content"></textarea>
-	</div>
-	<div class="form-group row">
-		<input type="submit" class="btn btn-primary btn-sm" value="$labelSave"/>
-		<label>
-			<input type="checkbox" id="$cid-editable">
-			{$editableStr}
-		</label>
-	</div>
+    <div style="display:none">
+        $ticketHtml
+        <input type="hidden" name="page" value="$page"/>
+        <input type="hidden" name="type" value="annotation"/>
+        <input type="hidden" name="index" value="$uid"/>
+        <input type="hidden" name="message" value="$message"/>
+        <textarea id="$cid-content" name="content"></textarea>
+    </div>
+    <div class="form-group row">
+        <input type="submit" class="btn btn-primary btn-sm" value="$labelSave"/>
+        <label>
+            <input type="checkbox" id="$cid-editable">
+            {$editableStr}
+        </label>
+    </div>
 </form>
 FORM;
     } else {
@@ -196,34 +196,34 @@ FORM;
 
     if ($tiki_p_edit == 'y') {
         $editor_form = <<<EDITORFORM
-		<div class="editor card">
-			<div class="card-body">
-				<form method="post" action="#">
-					<div class="form-group row">
-						<label style="width:100%">
-							<span class="col-sm-3">$labelStr</span>
-							<span class="col-sm-9"><textarea name="label" class="form-control"></textarea></span>
-						</label>
-					</div>
-					<div class="form-group row">
-						<label style="width:100%">
-							<span class="col-sm-3">$linkStr</span>
-							<span class="col-sm-9"><input type="text" name="link" class="form-control"></span>
-						</label>
-					</div>
-					<div class="form-group row">
-						<div class="col-sm-9 offset-sm-3">
-							$ticketHtml
-							<input type="submit" class="btn btn-primary btn-sm" value="$saveStr">
-							<div class="float-right">
-								<a class="btn btn-primary btn-sm minimize" href="#" title="$closeStr">$close</a>
-								<a class="btn btn-primary btn-sm delete" href="#" title="$removeStr">$delete</a>
-							</div>
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
+        <div class="editor card">
+            <div class="card-body">
+                <form method="post" action="#">
+                    <div class="form-group row">
+                        <label style="width:100%">
+                            <span class="col-sm-3">$labelStr</span>
+                            <span class="col-sm-9"><textarea name="label" class="form-control"></textarea></span>
+                        </label>
+                    </div>
+                    <div class="form-group row">
+                        <label style="width:100%">
+                            <span class="col-sm-3">$linkStr</span>
+                            <span class="col-sm-9"><input type="text" name="link" class="form-control"></span>
+                        </label>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-9 offset-sm-3">
+                            $ticketHtml
+                            <input type="submit" class="btn btn-primary btn-sm" value="$saveStr">
+                            <div class="float-right">
+                                <a class="btn btn-primary btn-sm minimize" href="#" title="$closeStr">$close</a>
+                                <a class="btn btn-primary btn-sm delete" href="#" title="$removeStr">$delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
 EDITORFORM;
     } else {
         $editor_form = '';
@@ -237,11 +237,11 @@ EDITORFORM;
 
     return <<<ANNOTATION
 <div class="wp-annotation {$params['class']}">
-	<div id="$cid" style="background:url({$params['src']}); width:{$params['width']}px; height:{$params['height']}px;">
+    <div id="$cid" style="background:url({$params['src']}); width:{$params['width']}px; height:{$params['height']}px;">
 {$editor_form}
-	</div>
-	{$list_div}
-	{$form}
+    </div>
+    {$list_div}
+    {$form}
 </div>
 ANNOTATION;
 }

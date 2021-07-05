@@ -521,8 +521,8 @@ class MultilingualLib extends TikiLib
 
         $this->query(
             "INSERT
-			INTO tiki_pages_translation_bits (`page_id`, `version`,`flags` )
-			VALUES(?, ?, ?)",
+            INTO tiki_pages_translation_bits (`page_id`, `version`,`flags` )
+            VALUES(?, ?, ?)",
             [ (int) $objId, (int) $version, $flags ]
         );
     }
@@ -564,44 +564,44 @@ class MultilingualLib extends TikiLib
         */
         $result = $this->query(
             "SELECT translation_bit_id, original_translation_bit, flags
-			FROM tiki_pages_translation_bits
-			WHERE
-				page_id = ?
-				AND version <= ?
-				AND original_translation_bit IS NULL
-				AND translation_bit_id NOT IN(
-					SELECT original_translation_bit
-					FROM tiki_pages_translation_bits
-					WHERE page_id = ? AND original_translation_bit IS NOT NULL
-				)
-				UNION
-					SELECT translation_bit_id, original_translation_bit, flags
-					FROM tiki_pages_translation_bits
-					WHERE
-						page_id = ?
-						AND version <= ?
-						AND original_translation_bit IS NOT NULL
-						AND original_translation_bit NOT IN(
-							SELECT translation_bit_id
-							FROM tiki_pages_translation_bits
-							WHERE page_id = ?
-						)
-					AND original_translation_bit NOT IN(
-						SELECT original_translation_bit
-						FROM tiki_pages_translation_bits
-						WHERE page_id = ? AND original_translation_bit IS NOT NULL
-				)",
+            FROM tiki_pages_translation_bits
+            WHERE
+                page_id = ?
+                AND version <= ?
+                AND original_translation_bit IS NULL
+                AND translation_bit_id NOT IN(
+                    SELECT original_translation_bit
+                    FROM tiki_pages_translation_bits
+                    WHERE page_id = ? AND original_translation_bit IS NOT NULL
+                )
+                UNION
+                    SELECT translation_bit_id, original_translation_bit, flags
+                    FROM tiki_pages_translation_bits
+                    WHERE
+                        page_id = ?
+                        AND version <= ?
+                        AND original_translation_bit IS NOT NULL
+                        AND original_translation_bit NOT IN(
+                            SELECT translation_bit_id
+                            FROM tiki_pages_translation_bits
+                            WHERE page_id = ?
+                        )
+                    AND original_translation_bit NOT IN(
+                        SELECT original_translation_bit
+                        FROM tiki_pages_translation_bits
+                        WHERE page_id = ? AND original_translation_bit IS NOT NULL
+                )",
             [ $sourceId, $sourceVersion, $targetId, $sourceId, $sourceVersion, $targetId, $targetId ]
         );
 
         $query =
             "INSERT INTO tiki_pages_translation_bits (
-					page_id,
-					version,
-					source_translation_bit,
-					original_translation_bit,
-					flags)
-			VALUES( ?, ?, ?, ?, ? )";
+                    page_id,
+                    version,
+                    source_translation_bit,
+                    original_translation_bit,
+                    flags)
+            VALUES( ?, ?, ?, ?, ? )";
 
         while ($row = $result->fetchRow()) {
             if (empty($row['original_translation_bit'])) {
@@ -656,20 +656,20 @@ class MultilingualLib extends TikiLib
         $conditions = implode(' AND ', $conditions);
         $result = $this->query(
             "SELECT
-				bits.translation_bit_id, bits.page_id
-			FROM
-				tiki_translated_objects a
-				INNER JOIN tiki_translated_objects b ON a.`traId` = b.`traId` AND a.`objId` <> b.`objId`
-				INNER JOIN tiki_pages_translation_bits bits ON b.`objId` = bits.page_id
-				LEFT JOIN tiki_pages_translation_bits self
-				ON bits.`translation_bit_id` = self.`original_translation_bit` AND self.`page_id` = ?
-			WHERE
-				a.`type` = 'wiki page'
-				AND b.`type` = 'wiki page'
-				AND a.`objId` = ?
-				AND bits.`original_translation_bit` IS NULL
-				AND self.`original_translation_bit` IS NULL
-				AND $conditions",
+                bits.translation_bit_id, bits.page_id
+            FROM
+                tiki_translated_objects a
+                INNER JOIN tiki_translated_objects b ON a.`traId` = b.`traId` AND a.`objId` <> b.`objId`
+                INNER JOIN tiki_pages_translation_bits bits ON b.`objId` = bits.page_id
+                LEFT JOIN tiki_pages_translation_bits self
+                ON bits.`translation_bit_id` = self.`original_translation_bit` AND self.`page_id` = ?
+            WHERE
+                a.`type` = 'wiki page'
+                AND b.`type` = 'wiki page'
+                AND a.`objId` = ?
+                AND bits.`original_translation_bit` IS NULL
+                AND self.`original_translation_bit` IS NULL
+                AND $conditions",
             [ $objId, $objId ]
         );
 
@@ -697,15 +697,15 @@ class MultilingualLib extends TikiLib
 
         $result = $this->query(
             "SELECT
-				`pageName` page,
-				lang,"
+                `pageName` page,
+                lang,"
             . $this->subqueryObtainUpdateVersion('pages.page_id', '?') . " last_update,
-					pages.version current_version
-				FROM
-					tiki_pages_translation_bits bits
-					INNER JOIN tiki_pages pages ON pages.page_id = bits.page_id
-				WHERE
-					translation_bit_id = ? OR original_translation_bit = ?",
+                    pages.version current_version
+                FROM
+                    tiki_pages_translation_bits bits
+                    INNER JOIN tiki_pages pages ON pages.page_id = bits.page_id
+                WHERE
+                    translation_bit_id = ? OR original_translation_bit = ?",
             [ $pageIdToUpdate, $translationBit, $translationBit ]
         );
 
@@ -729,17 +729,17 @@ class MultilingualLib extends TikiLib
     {
         $result = $this->query(
             "SELECT DISTINCT
-				target.version as `group`,
-				page.page_id,
-				page.pageName as page,
-				MAX(source.version) as version
-			FROM
-				tiki_pages_translation_bits source
-				INNER JOIN tiki_pages_translation_bits target ON source.translation_bit_id = target.source_translation_bit
-				INNER JOIN tiki_pages page ON source.page_id = page.page_id
-			WHERE
-				target.page_id = ?
-			GROUP BY target.version, page.page_id, page.pageName",
+                target.version as `group`,
+                page.page_id,
+                page.pageName as page,
+                MAX(source.version) as version
+            FROM
+                tiki_pages_translation_bits source
+                INNER JOIN tiki_pages_translation_bits target ON source.translation_bit_id = target.source_translation_bit
+                INNER JOIN tiki_pages page ON source.page_id = page.page_id
+            WHERE
+                target.page_id = ?
+            GROUP BY target.version, page.page_id, page.pageName",
             [ $pageId ]
         );
 
@@ -765,17 +765,17 @@ class MultilingualLib extends TikiLib
     {
         $result = $this->query(
             "SELECT DISTINCT
-				MAX(source.version) as `group`,
-				page.page_id,
-				page.pageName as page,
-				target.version as version
-			FROM
-				tiki_pages_translation_bits source
-				INNER JOIN tiki_pages_translation_bits target ON source.translation_bit_id = target.source_translation_bit
-				INNER JOIN tiki_pages page ON target.page_id = page.page_id
-			WHERE
-				source.page_id = ?
-			GROUP BY page.page_id, target.version, page.pageName",
+                MAX(source.version) as `group`,
+                page.page_id,
+                page.pageName as page,
+                target.version as version
+            FROM
+                tiki_pages_translation_bits source
+                INNER JOIN tiki_pages_translation_bits target ON source.translation_bit_id = target.source_translation_bit
+                INNER JOIN tiki_pages page ON target.page_id = page.page_id
+            WHERE
+                source.page_id = ?
+            GROUP BY page.page_id, target.version, page.pageName",
             [ $pageId ]
         );
 
@@ -813,17 +813,17 @@ class MultilingualLib extends TikiLib
             If the actual version returned is 1, 1 should be returned and not 0.
         */
         return "(
-			SELECT
-				IFNULL( IF(MIN(version) = 1, 0, MIN(version)), 0 ) - 1
-			FROM
-				tiki_pages_translation_bits
-			WHERE
-				page_id = $sourcePage
-				AND IFNULL( original_translation_bit, translation_bit_id ) NOT IN(
-						SELECT IFNULL( original_translation_bit, translation_bit_id )
-						FROM tiki_pages_translation_bits
-						WHERE page_id = $targetPage)
-			)";
+            SELECT
+                IFNULL( IF(MIN(version) = 1, 0, MIN(version)), 0 ) - 1
+            FROM
+                tiki_pages_translation_bits
+            WHERE
+                page_id = $sourcePage
+                AND IFNULL( original_translation_bit, translation_bit_id ) NOT IN(
+                        SELECT IFNULL( original_translation_bit, translation_bit_id )
+                        FROM tiki_pages_translation_bits
+                        WHERE page_id = $targetPage)
+            )";
     }
 
     /**
@@ -835,26 +835,26 @@ class MultilingualLib extends TikiLib
         $pageId = (int) $pageId;
 
         $query = "
-			SELECT DISTINCT
-				page.page_id,
-				page.pageName page,
-				" . $this->subqueryObtainUpdateVersion('a.objId', 'b.objId') . " last_update,
-				page.version current_version,
-				page.lang
-					FROM
-					tiki_translated_objects a
-					INNER JOIN tiki_translated_objects b ON a.traId = b.traId AND a.objId <> b.objId
-					INNER JOIN tiki_pages page ON page.page_id = a.objId
-					INNER JOIN tiki_pages_translation_bits candidate ON candidate.page_id = page.page_id
-				WHERE
-					a.type = 'wiki page'
-					AND b.type = 'wiki page'
-					AND b.objId = ?
-					AND IFNULL( candidate.original_translation_bit, candidate.translation_bit_id ) NOT IN(
-							SELECT IFNULL( original_translation_bit, translation_bit_id )
-							FROM tiki_pages_translation_bits
-							WHERE page_id = b.objId
-					)";
+            SELECT DISTINCT
+                page.page_id,
+                page.pageName page,
+                " . $this->subqueryObtainUpdateVersion('a.objId', 'b.objId') . " last_update,
+                page.version current_version,
+                page.lang
+                    FROM
+                    tiki_translated_objects a
+                    INNER JOIN tiki_translated_objects b ON a.traId = b.traId AND a.objId <> b.objId
+                    INNER JOIN tiki_pages page ON page.page_id = a.objId
+                    INNER JOIN tiki_pages_translation_bits candidate ON candidate.page_id = page.page_id
+                WHERE
+                    a.type = 'wiki page'
+                    AND b.type = 'wiki page'
+                    AND b.objId = ?
+                    AND IFNULL( candidate.original_translation_bit, candidate.translation_bit_id ) NOT IN(
+                            SELECT IFNULL( original_translation_bit, translation_bit_id )
+                            FROM tiki_pages_translation_bits
+                            WHERE page_id = b.objId
+                    )";
         $result = $this->query($query, [ $pageId ]);
 
         $pages = [];
@@ -875,33 +875,33 @@ class MultilingualLib extends TikiLib
 
         $result = $this->query(
             "SELECT DISTINCT
-				page.page_id,
-				page.pageName page,"
+                page.page_id,
+                page.pageName page,"
             . $this->subqueryObtainUpdateVersion('b.objId', 'a.objId')
             . " last_update,
-				page.lang
-			FROM
-				tiki_pages page
-				INNER JOIN tiki_translated_objects a ON a.objId = page.page_id
-				INNER JOIN tiki_translated_objects b ON a.traId = b.traId AND a.objId <> b.objId
-			WHERE
-				a.type = 'wiki page'
-				AND b.type = 'wiki page'
-				AND b.objId = ?
-				AND (
-					SELECT COUNT(*)
-						FROM tiki_pages_translation_bits
-						WHERE page_id = b.objId
-				) > (
-					SELECT COUNT(*)
-					FROM
-						tiki_pages_translation_bits self
-					INNER JOIN tiki_pages_translation_bits candidate
-						ON IFNULL(self.original_translation_bit, self.translation_bit_id)
-						= IFNULL(candidate.original_translation_bit, candidate.translation_bit_id)
-					WHERE
-						self.page_id = b.objId AND candidate.page_id = a.objId
-				)",
+                page.lang
+            FROM
+                tiki_pages page
+                INNER JOIN tiki_translated_objects a ON a.objId = page.page_id
+                INNER JOIN tiki_translated_objects b ON a.traId = b.traId AND a.objId <> b.objId
+            WHERE
+                a.type = 'wiki page'
+                AND b.type = 'wiki page'
+                AND b.objId = ?
+                AND (
+                    SELECT COUNT(*)
+                        FROM tiki_pages_translation_bits
+                        WHERE page_id = b.objId
+                ) > (
+                    SELECT COUNT(*)
+                    FROM
+                        tiki_pages_translation_bits self
+                    INNER JOIN tiki_pages_translation_bits candidate
+                        ON IFNULL(self.original_translation_bit, self.translation_bit_id)
+                        = IFNULL(candidate.original_translation_bit, candidate.translation_bit_id)
+                    WHERE
+                        self.page_id = b.objId AND candidate.page_id = a.objId
+                )",
             [ $pageId ]
         );
 

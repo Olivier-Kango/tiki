@@ -34,8 +34,8 @@ UPDATE `users_permissions` SET `feature_check` = 'feature_workflow' WHERE `type`
 
 -- perms that relate to more than one feature
 UPDATE `users_permissions`
-	SET `feature_check` = 'feature_wiki_comments,feature_blog_comments,feature_blogposts_comments,feature_file_galleries_comments,feature_image_galleries_comments,feature_article_comments,feature_faq_comments,feature_poll_comments,map_comments'
-	WHERE `type` = 'comments' AND `feature_check` IS NULL;
+    SET `feature_check` = 'feature_wiki_comments,feature_blog_comments,feature_blogposts_comments,feature_file_galleries_comments,feature_image_galleries_comments,feature_article_comments,feature_faq_comments,feature_poll_comments,map_comments'
+    WHERE `type` = 'comments' AND `feature_check` IS NULL;
 UPDATE `users_permissions` SET `feature_check` = 'feature_webmail,feature_contacts' WHERE `type` = 'webmail' AND `feature_check` IS NULL;
 UPDATE `users_permissions` SET `feature_check` = 'feature_minichat,feature_live_support' WHERE `type` = 'chat' AND `feature_check` IS NULL;
 

@@ -109,69 +109,69 @@ function wikiplugin_htmlfeedlink($data, $params)
 
     $headerlib->add_jq_onready(
         "if (!$.fn.htmlFeedPopup) {
-			$.fn.htmlFeedPopup = function(s) {
-				$(this).each(function() {
-					$(this)
-						.css('cursor', 'pointer')
-						.hover(function(){
-							$(this).css('background-color', 'yellow');
-						},function(){
-							$(this).css('background-color', '');
-						})
-						.click(function() {
-							$('<div>' +
-								s.description +
-							'</div>')
-								.dialog({
-									title: s.name
-								});
-						});
-				});
-				return this;
-			};
-		}
+            $.fn.htmlFeedPopup = function(s) {
+                $(this).each(function() {
+                    $(this)
+                        .css('cursor', 'pointer')
+                        .hover(function(){
+                            $(this).css('background-color', 'yellow');
+                        },function(){
+                            $(this).css('background-color', '');
+                        })
+                        .click(function() {
+                            $('<div>' +
+                                s.description +
+                            '</div>')
+                                .dialog({
+                                    title: s.name
+                                });
+                        });
+                });
+                return this;
+            };
+        }
 
-		$(document)
-			.off('plugin_htmlfeedlink_ready')
-			.on('plugin_htmlfeedlink_ready', function(e) {
-				var name = $(e.container).find('#param_name input:first');
-				name.hide();
-				var nameSelect = $('<select>')
-					.insertAfter(name)
-					.change(function() {
-						name.val($(this).val()).change();
-					});
+        $(document)
+            .off('plugin_htmlfeedlink_ready')
+            .on('plugin_htmlfeedlink_ready', function(e) {
+                var name = $(e.container).find('#param_name input:first');
+                name.hide();
+                var nameSelect = $('<select>')
+                    .insertAfter(name)
+                    .change(function() {
+                        name.val($(this).val()).change();
+                    });
 
-				var items = " . json_encode($htmlFeed->listItemNames()) . ";
+                var items = " . json_encode($htmlFeed->listItemNames()) . ";
 
-				for(var i = 0; i < items.length; i++) {
-					$('<option />')
-						.val(items[i])
-						.text(items[i])
-						.appendTo(nameSelect);
-				}
-				nameSelect.val(name.val()).change();
-			});
+                for(var i = 0; i < items.length; i++) {
+                    $('<option />')
+                        .val(items[i])
+                        .text(items[i])
+                        .appendTo(nameSelect);
+                }
+                nameSelect.val(name.val()).change();
+            });
 
-		$('.revision').click(function() {
-			$.getJSON('tiki-html_feed.php', {
-				feed: $(this).data('feed'),
-				name: $(this).data('name')
-			}, function(link) {
-				$('<div />')
-					.html(link.description)
-					.dialog({
-						title: link.name,
-						buttons: [{
-							text: 'Accept Update',
-							click: function () {
-								$('#form$htmlFeedLinkI [name=\'content\']').val('~np~' + link.description + '~/np~')
-								$('#form$htmlFeedLinkI').submit();
-							}
-						}]
-					});
-			});
-		});"
+        $('.revision').click(function() {
+            $.getJSON('tiki-html_feed.php', {
+                feed: $(this).data('feed'),
+                name: $(this).data('name')
+            }, function(link) {
+                $('<div />')
+                    .html(link.description)
+                    .dialog({
+                        title: link.name,
+                        buttons: [{
+                            text: 'Accept Update',
+                            click: function () {
+                                $('#form$htmlFeedLinkI [name=\'content\']').val('~np~' + link.description + '~/np~')
+                                $('#form$htmlFeedLinkI').submit();
+                            }
+                        }]
+                    });
+            });
+        });"
     );
 
     $item = $htmlFeed->getItem($name);
@@ -188,25 +188,25 @@ function wikiplugin_htmlfeedlink($data, $params)
                 if ($moderate == 'y') {
                     if ($same == false) {
                         $data .= "~np~<img
-							src='img/icons/flag_blue.png'
-							class='revision'
-							title='Revision Available, click to see'
-							style='cursor: pointer;'
-							data-feed='" . urlencode($feed) . "'
-							data-name='" . urlencode($name) . "'
-							/>
-							<form id='form$htmlFeedLinkI' method='post' action='tiki-wikiplugin_edit.php' style='display: none;'>
-								<input type='hidden' name='page' value='$page'/>
-								<input type='hidden' name='index' value='$htmlFeedLinkI'/>
-								<input type='hidden' name='type' value='htmlfeedlink'/>
-								<input type='hidden' name='params[name]' value='" . htmlspecialchars($name) . "'/>
-								<input type='hidden' name='params[feed]' value='" . htmlspecialchars($feed) . "'/>
-								<input type='hidden' name='params[type]' value='" . htmlspecialchars($type) . "'/>
-								<input type='hidden' name='params[style]' value='" . htmlspecialchars($style) . "'/>
-								<input type='hidden' name='params[date]' value='" . htmlspecialchars($date) . "'/>
-								<input type='hidden' name='content' value='" . htmlspecialchars($data) . "'/>
-							</form>
-							~/np~";
+                            src='img/icons/flag_blue.png'
+                            class='revision'
+                            title='Revision Available, click to see'
+                            style='cursor: pointer;'
+                            data-feed='" . urlencode($feed) . "'
+                            data-name='" . urlencode($name) . "'
+                            />
+                            <form id='form$htmlFeedLinkI' method='post' action='tiki-wikiplugin_edit.php' style='display: none;'>
+                                <input type='hidden' name='page' value='$page'/>
+                                <input type='hidden' name='index' value='$htmlFeedLinkI'/>
+                                <input type='hidden' name='type' value='htmlfeedlink'/>
+                                <input type='hidden' name='params[name]' value='" . htmlspecialchars($name) . "'/>
+                                <input type='hidden' name='params[feed]' value='" . htmlspecialchars($feed) . "'/>
+                                <input type='hidden' name='params[type]' value='" . htmlspecialchars($type) . "'/>
+                                <input type='hidden' name='params[style]' value='" . htmlspecialchars($style) . "'/>
+                                <input type='hidden' name='params[date]' value='" . htmlspecialchars($date) . "'/>
+                                <input type='hidden' name='content' value='" . htmlspecialchars($data) . "'/>
+                            </form>
+                            ~/np~";
                     } else {
                             $data = "~np~" . $item->description . "~/np~";
                     }
@@ -220,7 +220,7 @@ function wikiplugin_htmlfeedlink($data, $params)
             case "popup":
                 $headerlib->add_jq_onready(
                     "$('#backlink')
-						.htmlFeedPopup(" . $link . ");"
+                        .htmlFeedPopup(" . $link . ");"
                 );
                 break;
             case "hover":
@@ -236,7 +236,7 @@ function wikiplugin_htmlfeedlink($data, $params)
         case "highlight":
             $headerlib->add_jq_onready(
                 "$('#htmlFeedLink$htmlFeedLinkI')
-					.css('border', '1px solid red');"
+                    .css('border', '1px solid red');"
             );
             break;
         case "asterisk":
@@ -253,21 +253,21 @@ function wikiplugin_htmlfeedlink($data, $params)
 
     if (strlen($archives) > 0) {
         $result .= "~np~<img src='img/icons/disk_multiple.png' id='viewArchives$htmlFeedLinkI' title='View Archives' name='" . htmlspecialchars($archive->name) . "' style='cursor: pointer;' />
-		<div id='archives$htmlFeedLinkI' style='display: none;' >" . $archives . "</div>~/np~";
+        <div id='archives$htmlFeedLinkI' style='display: none;' >" . $archives . "</div>~/np~";
         $headerlib->add_jq_onready(
             <<<JQ
-			$('#viewArchives$htmlFeedLinkI').click(function() {
-				$('#archives$htmlFeedLinkI')
-					.dialog({title: "Revisions for " + $(this).attr('name')})
-					.find('a').click(function() {
-						$.getJSON($(this).attr('href'), function(item) {
-							$('<div>')
-								.html(item.description)
-								.dialog();
-						});
-						return false;
-					});
-			});
+            $('#viewArchives$htmlFeedLinkI').click(function() {
+                $('#archives$htmlFeedLinkI')
+                    .dialog({title: "Revisions for " + $(this).attr('name')})
+                    .find('a').click(function() {
+                        $.getJSON($(this).attr('href'), function(item) {
+                            $('<div>')
+                                .html(item.description)
+                                .dialog();
+                        });
+                        return false;
+                    });
+            });
 JQ
         );
     }

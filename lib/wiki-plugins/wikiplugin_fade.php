@@ -46,7 +46,7 @@ function wikiplugin_fade_info()
                 'name' => tra('Show Speed'),
                 'filter' => 'alnum',
                 'description' => tr('Speed of animation in milliseconds when showing content (%0200%1 is fast and
-					%0600%1 is slow. %01000%1 equals 1 second).', '<code>', '</code>'),
+                    %0600%1 is slow. %01000%1 equals 1 second).', '<code>', '</code>'),
                 'default' => 400,
                 'since' => '7.0',
                 'accepted' => tr(
@@ -61,7 +61,7 @@ function wikiplugin_fade_info()
                 'name' => tra('Hide Speed'),
                 'filter' => 'alnum',
                 'description' => tr('Speed of animation in milliseconds when hiding content (%0200%1 is fast and
-					%0600%1 is slow. %01000%1 equals 1 second).', '<code>', '</code>'),
+                    %0600%1 is slow. %01000%1 equals 1 second).', '<code>', '</code>'),
                 'default' => 400,
                 'since' => '7.0',
                 'accepted' => tr(
@@ -168,20 +168,20 @@ function wikiplugin_fade($body, $params)
               . "</div>" ;
     } else {
         $jq = '
-				$(document).ready( function() {
-					$(\'#' . $unique_link . '\').click(
-						function() {
-							if ( $(\'#' . $unique . '\').is(":hidden") ) {
-								$(\'#' . $unique . '\').show(\'blind\', {}, \'' . $params['show_speed'] . '\');
-								$(\'#' . $unique_link . '\').addClass(' . $a_class_shown . ').removeClass(' . $a_class_hidden . ');
-							} else {
-								$(\'#' . $unique . '\').hide(\'blind\', {}, \'' . $params['hide_speed'] . '\');
-								$(\'#' . $unique_link . '\').addClass(' . $a_class_hidden . ').removeClass(' . $a_class_shown . ');
-							}
-						}
-					);
-					return false;
-				});';
+                $(document).ready( function() {
+                    $(\'#' . $unique_link . '\').click(
+                        function() {
+                            if ( $(\'#' . $unique . '\').is(":hidden") ) {
+                                $(\'#' . $unique . '\').show(\'blind\', {}, \'' . $params['show_speed'] . '\');
+                                $(\'#' . $unique_link . '\').addClass(' . $a_class_shown . ').removeClass(' . $a_class_hidden . ');
+                            } else {
+                                $(\'#' . $unique . '\').hide(\'blind\', {}, \'' . $params['hide_speed'] . '\');
+                                $(\'#' . $unique_link . '\').addClass(' . $a_class_hidden . ').removeClass(' . $a_class_shown . ');
+                            }
+                        }
+                    );
+                    return false;
+                });';
         $headerlib->add_jq_onready($jq);
     //wrapping in an extra div makes animation smoother
         return ( isset($params['class']) ? "<div class='" . $params['class'] . "'>" : "<div>" )

@@ -141,7 +141,7 @@ function wikiplugin_backlinks_info()
                 'required' => false,
                 'name' => tra('Excluded pages'),
                 'description' => tr('Pipe-separated list of pages to be excluded from the listing, for example:
-					%0HomePage|Sandbox%1', '<code>', '</code>'),
+                    %0HomePage|Sandbox%1', '<code>', '</code>'),
                 'since' => '1',
                 'advanced' => true,
                 'default' => '',

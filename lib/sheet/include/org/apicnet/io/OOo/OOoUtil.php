@@ -2,8 +2,8 @@
 
 //this script may only be included - so its better to die if called directly.
 if (strpos($_SERVER["SCRIPT_NAME"],basename(__FILE__)) !== false) {
-	header("location: index.php");
-	exit;
+    header("location: index.php");
+    exit;
 }
 
 
@@ -38,109 +38,109 @@ APIC::import("org.apicnet.io.CDir");
  **/
 class OOoUtil extends absOOo{
 
-	public $directories = array("Images", "META-INF");
-	public $pictures    = array("gif", "png");
-	public $tmpdir;
-	public $docExist;
+    public $directories = array("Images", "META-INF");
+    public $pictures    = array("gif", "png");
+    public $tmpdir;
+    public $docExist;
 
-	public function __construct(){}
+    public function __construct(){}
 
-	public function isTextDocument() {}
+    public function isTextDocument() {}
 
-	public function isCalcDocument() {}
+    public function isCalcDocument() {}
 
-	public function isContent() {}
+    public function isContent() {}
 
-	public function isMeta() {}
+    public function isMeta() {}
 
-	public function isSettings() {}
-
-
-	public function Ouput(){
-
-	}
-
-	public function Zip($name){
-		$file = new File($this->tmpdir."/".$name, FALSE);
-		if ($file->exists()) {
-			$file->delFile();
-			$file->createFile();
-		}
-
-		$zip  = APIC::LoadClass("org.apicnet.io.archive.CZip");
-		if ($this->docExist) {
-
-			$cdir = new CDir();
-			$cdir->Read( $this->tmpdir."/", "", true, 5 , true, true);
-			$allFiles = array();
-
-			reset( $cdir->aFiles );
-			foreach ($cdir->aFiles as $aFile) {
-				$sFileName = $cdir->FileName($aFile);
-				$sFilePath = $cdir->GetPath($aFile);
-				$allFiles[] = $this->tmpdir."/".$sFilePath.$sFileName;
-			}
-
-			$zip->zip($allFiles, $name);
-		} else {
-			$this -> ErrorTracker(4, "Vous devez d'abord créer un document OpenOffice", 'Zip', __FILE__, __LINE__);
-		}
-	}
-
-	public function unZip($dir, $file){
-		$zip = APIC::LoadClass("org.apicnet.io.archive.CZip");
-		$zip->extract($dir, $file);
-	}
-
-	public function createDirectories(){
-		$this->tmpdir = CACHE_PATH."/OOotmp".rand();
-		mkdir ($this->tmpdir);
-
-		for($i = 0; $i < count($this->directories); $i++){
-			mkdir ($this->tmpdir."/".$this->directories[$i]);
-		}
-	}
-
-	public function delDir($dir){
-		$current_dir = opendir($dir);
-		while($entryname = readdir($current_dir)){
-			if(is_dir("$dir/$entryname") and ($entryname != "." and $entryname!="..")){
-				$this->delDir("${dir}/${entryname}");
-			}elseif($entryname != "." and $entryname!=".."){
-				unlink("${dir}/${entryname}");
-			}
-		}
-		closedir($current_dir);
-		rmdir(${dir});
-	}
-
-	public function convert($img, $format){
-
-	}
+    public function isSettings() {}
 
 
-	public function listFiles(){
-		$cdir = new CDir();
-		$cdir->Read( $this->tmpdir."/", "", true, 5 , true, true);
-		$allFiles = array();
+    public function Ouput(){
 
-		reset( $cdir->aFiles );
-		foreach ($cdir->aFiles as $aFile) {
-			$sFileName = $cdir->FileName($aFile);
-			$sFilePath = $cdir->GetPath($aFile);
-			$allFiles[] = $this->tmpdir."/".$sFilePath.$sFileName;
-		}
+    }
 
-		return $allFiles;
-	}
+    public function Zip($name){
+        $file = new File($this->tmpdir."/".$name, FALSE);
+        if ($file->exists()) {
+            $file->delFile();
+            $file->createFile();
+        }
+
+        $zip  = APIC::LoadClass("org.apicnet.io.archive.CZip");
+        if ($this->docExist) {
+
+            $cdir = new CDir();
+            $cdir->Read( $this->tmpdir."/", "", true, 5 , true, true);
+            $allFiles = array();
+
+            reset( $cdir->aFiles );
+            foreach ($cdir->aFiles as $aFile) {
+                $sFileName = $cdir->FileName($aFile);
+                $sFilePath = $cdir->GetPath($aFile);
+                $allFiles[] = $this->tmpdir."/".$sFilePath.$sFileName;
+            }
+
+            $zip->zip($allFiles, $name);
+        } else {
+            $this -> ErrorTracker(4, "Vous devez d'abord créer un document OpenOffice", 'Zip', __FILE__, __LINE__);
+        }
+    }
+
+    public function unZip($dir, $file){
+        $zip = APIC::LoadClass("org.apicnet.io.archive.CZip");
+        $zip->extract($dir, $file);
+    }
+
+    public function createDirectories(){
+        $this->tmpdir = CACHE_PATH."/OOotmp".rand();
+        mkdir ($this->tmpdir);
+
+        for($i = 0; $i < count($this->directories); $i++){
+            mkdir ($this->tmpdir."/".$this->directories[$i]);
+        }
+    }
+
+    public function delDir($dir){
+        $current_dir = opendir($dir);
+        while($entryname = readdir($current_dir)){
+            if(is_dir("$dir/$entryname") and ($entryname != "." and $entryname!="..")){
+                $this->delDir("${dir}/${entryname}");
+            }elseif($entryname != "." and $entryname!=".."){
+                unlink("${dir}/${entryname}");
+            }
+        }
+        closedir($current_dir);
+        rmdir(${dir});
+    }
+
+    public function convert($img, $format){
+
+    }
+
+
+    public function listFiles(){
+        $cdir = new CDir();
+        $cdir->Read( $this->tmpdir."/", "", true, 5 , true, true);
+        $allFiles = array();
+
+        reset( $cdir->aFiles );
+        foreach ($cdir->aFiles as $aFile) {
+            $sFileName = $cdir->FileName($aFile);
+            $sFilePath = $cdir->GetPath($aFile);
+            $allFiles[] = $this->tmpdir."/".$sFilePath.$sFileName;
+        }
+
+        return $allFiles;
+    }
 
 
 
-	public function isImpressDocument() {}
-	public function isDrawDocument() {}
+    public function isImpressDocument() {}
+    public function isDrawDocument() {}
 
 
-	public function main(){
-		$this->Directories();
-	}
+    public function main(){
+        $this->Directories();
+    }
 }

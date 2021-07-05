@@ -47,7 +47,7 @@ function wikiplugin_slider_info()
                 'name' => tra('Height'),
                 'description' => tr(
                     'Height in pixels or percentage. Default value is complete slider height.
-					If the %0 parameter set to Yes (%1), then don\'t use percent only use pixels.',
+                    If the %0 parameter set to Yes (%1), then don\'t use percent only use pixels.',
                     '<code>expand</code>',
                     '<code>y</code>'
                 ),
@@ -86,7 +86,7 @@ function wikiplugin_slider_info()
                 'required' => false,
                 'name' => tra('Expand'),
                 'description' => tr('Set whether the entire slider expands to fit the parent element. The %0 parameter
-					needs to also be set', '<code>height</code>'),
+                    needs to also be set', '<code>height</code>'),
                 'since' => '8.0',
                 'filter' => 'alpha',
                 'default' => 'n',
@@ -173,7 +173,7 @@ function wikiplugin_slider_info()
                 'required' => false,
                 'name' => tra('Toggle Controls'),
                 'description' => tra('Set whether slide in controls (navigation + play/stop button) on hover and slide
-					change, hide at other times'),
+                    change, hide at other times'),
                 'since' => '8.0',
                 'filter' => 'alpha',
                 'default' => 'n',
@@ -437,60 +437,60 @@ function wikiplugin_slider($data, $params)
 
     $headerlib->add_jq_onready(
         "function formatText(i, p) {
-			var possibleText = $('.tiki-slider-title').eq(i - 1).text();
-			return (possibleText ? possibleText : 'slide_' + i);
-		}
+            var possibleText = $('.tiki-slider-title').eq(i - 1).text();
+            return (possibleText ? possibleText : 'slide_' + i);
+        }
 
-		$('.tiki-slider').anythingSlider({
-			theme               : '$theme',
-			expand              : " . makeBool($expand, false) . ",
-			resizeContents      : " . makeBool($resizecontents, true) . ",
-			showMultiple        : $showmultiple,
-			easing              : 'swing',
+        $('.tiki-slider').anythingSlider({
+            theme               : '$theme',
+            expand              : " . makeBool($expand, false) . ",
+            resizeContents      : " . makeBool($resizecontents, true) . ",
+            showMultiple        : $showmultiple,
+            easing              : 'swing',
 
-			buildArrows         : " . makeBool($buildarrows, true) . ",
-			buildNavigation     : " . makeBool($buildnavigation, true) . ",
-			buildStartStop      : " . makeBool($buildstartstop, true) . ",
+            buildArrows         : " . makeBool($buildarrows, true) . ",
+            buildNavigation     : " . makeBool($buildnavigation, true) . ",
+            buildStartStop      : " . makeBool($buildstartstop, true) . ",
 
-			toggleArrows        : " . makeBool($togglearrows, false) . ",
-			toggleControls      : " . makeBool($togglecontrols, false) . ",
+            toggleArrows        : " . makeBool($togglearrows, false) . ",
+            toggleControls      : " . makeBool($togglecontrols, false) . ",
 
-			startText           : 'Start',
-			stopText            : 'Stop',
-			forwardText         : '»',
-			backText            : '«',
-			tooltipClass        : 'tooltip',
+            startText           : 'Start',
+            stopText            : 'Stop',
+            forwardText         : '»',
+            backText            : '«',
+            tooltipClass        : 'tooltip',
 
-			// Function
-			enableArrows        : " . makeBool($enablearrows, true) . ",
-			enableNavigation    : " . makeBool($enablenavigation, true) . ",
-			enableStartStop     : " . makeBool($enablestartstop, true) . ",
-			enableKeyboard      : " . makeBool($enablekeyboard, true) . ",
+            // Function
+            enableArrows        : " . makeBool($enablearrows, true) . ",
+            enableNavigation    : " . makeBool($enablenavigation, true) . ",
+            enableStartStop     : " . makeBool($enablestartstop, true) . ",
+            enableKeyboard      : " . makeBool($enablekeyboard, true) . ",
 
-			// Navigation
-			startPanel          : 1,
-			changeBy            : 1,
-			hashTags            : " . makeBool($hashtags, true) . ",
+            // Navigation
+            startPanel          : 1,
+            changeBy            : 1,
+            hashTags            : " . makeBool($hashtags, true) . ",
 
-			// Slideshow options
-			autoPlay            : " . makeBool($autoplay, false) . ",
-			autoPlayLocked      : " . makeBool($autoplaylocked, false) . ",
-			autoPlayDelayed     : " . makeBool($autoplaydelayed, false) . ",
-			pauseOnHover        : " . makeBool($pauseonhover, true) . ",
-			stopAtEnd           : " . makeBool($stopatend, false) . ",
-			playRtl             : " . makeBool($playrtl, false) . ",
+            // Slideshow options
+            autoPlay            : " . makeBool($autoplay, false) . ",
+            autoPlayLocked      : " . makeBool($autoplaylocked, false) . ",
+            autoPlayDelayed     : " . makeBool($autoplaydelayed, false) . ",
+            pauseOnHover        : " . makeBool($pauseonhover, true) . ",
+            stopAtEnd           : " . makeBool($stopatend, false) . ",
+            playRtl             : " . makeBool($playrtl, false) . ",
 
-			// Times
-			delay               : $delay,
-			resumeDelay         : 15000,
-			animationTime       : $animationtime,
+            // Times
+            delay               : $delay,
+            resumeDelay         : 15000,
+            animationTime       : $animationtime,
 
-			// Video
-			resumeOnVideoEnd    : " . makeBool($resumeonvideoend, true) . ",
-			addWmodeToObject    : 'opaque',
+            // Video
+            resumeOnVideoEnd    : " . makeBool($resumeonvideoend, true) . ",
+            addWmodeToObject    : 'opaque',
 
-			navigationFormatter: formatText
-		});"
+            navigationFormatter: formatText
+        });"
     );
 
     if (! empty($titles)) {
@@ -508,9 +508,9 @@ function wikiplugin_slider($data, $params)
     $ret = '';
     foreach ($sliderData as $i => $slide) {
         $ret .= "<div>
-			" . (isset($titles[$i]) ? "<span class='tiki-slider-title' style='display: none;'>" . $titles[$i] . "</span>" : "") . "
-			$slide
-		</div>";
+            " . (isset($titles[$i]) ? "<span class='tiki-slider-title' style='display: none;'>" . $titles[$i] . "</span>" : "") . "
+            $slide
+        </div>";
     }
 
     if ($expand == 'y') {
@@ -523,6 +523,6 @@ function wikiplugin_slider($data, $params)
     }
 
     return <<<EOF
-	~np~$result~/np~
+    ~np~$result~/np~
 EOF;
 }

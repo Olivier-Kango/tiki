@@ -30,131 +30,131 @@ APIC::import("org.apicnet.io.OOo.*");
 
 class OOoDoc extends OOoUtil {
 
-	public $meta;
-	public $content;
-	public $setting;
-	public $manifest;
-	public $fileName;
-	public $dirName;
-	public $XMLTYPE = ['Writer', 'Calc', 'Impress', 'Draw'];
-	public $TYPE;
+    public $meta;
+    public $content;
+    public $setting;
+    public $manifest;
+    public $fileName;
+    public $dirName;
+    public $XMLTYPE = ['Writer', 'Calc', 'Impress', 'Draw'];
+    public $TYPE;
 
 
-	public function __construct(){
-		$this->TYPE     = NULL;
-		$this->docExist = FALSE;
-		$this->manifest = NULL;
-		$this->createDirectories();
-	}
+    public function __construct(){
+        $this->TYPE     = NULL;
+        $this->docExist = FALSE;
+        $this->manifest = NULL;
+        $this->createDirectories();
+    }
 
 
-	public function newWriter(){
-		$this->TYPE     = "Writer";
-		$this->docExist = TRUE;
-		$this->meta     = new OOoMeta($this->tmpdir);
-		$this->content  = new OOoWriter($this->tmpdir);
-		
-		$this->manifest = new OOoManifest($this->tmpdir);
-		$this->mimeType = new OOoMime($this->tmpdir, $this->TYPE);
-	}
+    public function newWriter(){
+        $this->TYPE     = "Writer";
+        $this->docExist = TRUE;
+        $this->meta     = new OOoMeta($this->tmpdir);
+        $this->content  = new OOoWriter($this->tmpdir);
 
-	public function newCalc(){
-		$this->TYPE     = "Calc";
-		$this->docExist = TRUE;
-		$this->meta     = new OOoMeta($this->tmpdir);
-	//	$this->style    = new OOoStyle($this->tmpdir);
-		$this->content  = new OOoCalc($this->tmpdir);
-		
-		$this->manifest = new OOoManifest($this->tmpdir);
-		$this->mimeType = new OOoMime($this->tmpdir, $this->TYPE);
-	}
+        $this->manifest = new OOoManifest($this->tmpdir);
+        $this->mimeType = new OOoMime($this->tmpdir, $this->TYPE);
+    }
 
-	public function openWriter($file){
-		$this->TYPE     = "Writer";
-		$allRep         = explode("/", $file);
-		$this->fileName = array_pop($allRep);
-		$this->dirName  = join ("/", $allRep);
+    public function newCalc(){
+        $this->TYPE     = "Calc";
+        $this->docExist = TRUE;
+        $this->meta     = new OOoMeta($this->tmpdir);
+    //    $this->style    = new OOoStyle($this->tmpdir);
+        $this->content  = new OOoCalc($this->tmpdir);
 
-		$this->docExist = TRUE;
-		
-		$this->unZip($this->tmpdir, $file);
-		$this->meta    = new OOoMeta($this->tmpdir);
-		//$this->style    = new OOoStyle($file);
-		//$this->content  = new OOoWriter($file);
-	}
+        $this->manifest = new OOoManifest($this->tmpdir);
+        $this->mimeType = new OOoMime($this->tmpdir, $this->TYPE);
+    }
 
-	public function openCalc($file){
-		$this->TYPE     = "Calc";
-		
-		$allRep         = explode("/", $file);
-		$this->fileName = array_pop($allRep);
-		$this->dirName  = join ("/", $allRep);
+    public function openWriter($file){
+        $this->TYPE     = "Writer";
+        $allRep         = explode("/", $file);
+        $this->fileName = array_pop($allRep);
+        $this->dirName  = join ("/", $allRep);
 
-		$this->docExist = TRUE;
-		
-		$this->unZip($this->tmpdir, $file);
-		$this->meta    = new OOoMeta($this->tmpdir);
-		//$this->style   = new OOoStyle($file);
-		//$this->content = new OOoCalc($file);
-	}
+        $this->docExist = TRUE;
 
-	public function setName($name){
-		$this->fileName  = $name;
-	}
+        $this->unZip($this->tmpdir, $file);
+        $this->meta    = new OOoMeta($this->tmpdir);
+        //$this->style    = new OOoStyle($file);
+        //$this->content  = new OOoWriter($file);
+    }
 
-	public function save(){
-		if ($this->docExist) {
-			$this->meta->setDate();
-			$this->meta->save();
-			
-			$this->content->save();
-			
-			if ($this->manifest != NULL){	
-				$this->manifest->create($this->TYPE);
-				$this->manifest->save();
-			}
-			$mimeType = new OOoMime($this->tmpdir, $this->TYPE);
-			
-			if ($this->fileName != ""){
-				$this->Zip(CACHE_PATH."/".$this->fileName);
-			} else {
-				$this -> ErrorTracker(4, "Vous devez donner un nom a votre fichier", 'save', __FILE__, __LINE__);
-			}
-			
-		} else {
-			$this -> ErrorTracker(4, "Aucun document OpenOffice a été créé", 'save', __FILE__, __LINE__);
-		}
-	}
+    public function openCalc($file){
+        $this->TYPE     = "Calc";
 
-	public function close(){
-		$this->delDir($this->tmpdir);
-	}
+        $allRep         = explode("/", $file);
+        $this->fileName = array_pop($allRep);
+        $this->dirName  = join ("/", $allRep);
 
+        $this->docExist = TRUE;
 
-	public function download(){
-		$OOoFile = new File(CACHE_PATH."/".$this->fileName);
-		if ($OOoFile->exists()) {
-			$df_size = $OOoFile->length();
-			
-			header("Pragma: no-cache");
-			header("Expires: 0");
-			header("Cache-control: private");
-			header("Content-Type: application/vnd.sun.xml.".$this->TYPE);
-			header("Content-Length: ".$df_size);
-			header("Content-Disposition: inline; filename=".$this->fileName);
-			
-			$fp = fopen(CACHE_PATH."/".$this->fileName, 'r');
-			rewind($fp);
-			fpassthru($fp); // ** CORRECT **
-			fclose($fp);
-			
-			return $fp;
-			
-		}
-		return false;
-	}
+        $this->unZip($this->tmpdir, $file);
+        $this->meta    = new OOoMeta($this->tmpdir);
+        //$this->style   = new OOoStyle($file);
+        //$this->content = new OOoCalc($file);
+    }
+
+    public function setName($name){
+        $this->fileName  = $name;
+    }
+
+    public function save(){
+        if ($this->docExist) {
+            $this->meta->setDate();
+            $this->meta->save();
+
+            $this->content->save();
+
+            if ($this->manifest != NULL){
+                $this->manifest->create($this->TYPE);
+                $this->manifest->save();
+            }
+            $mimeType = new OOoMime($this->tmpdir, $this->TYPE);
+
+            if ($this->fileName != ""){
+                $this->Zip(CACHE_PATH."/".$this->fileName);
+            } else {
+                $this -> ErrorTracker(4, "Vous devez donner un nom a votre fichier", 'save', __FILE__, __LINE__);
+            }
+
+        } else {
+            $this -> ErrorTracker(4, "Aucun document OpenOffice a été créé", 'save', __FILE__, __LINE__);
+        }
+    }
+
+    public function close(){
+        $this->delDir($this->tmpdir);
+    }
 
 
-	public function mail(){
-	}
+    public function download(){
+        $OOoFile = new File(CACHE_PATH."/".$this->fileName);
+        if ($OOoFile->exists()) {
+            $df_size = $OOoFile->length();
+
+            header("Pragma: no-cache");
+            header("Expires: 0");
+            header("Cache-control: private");
+            header("Content-Type: application/vnd.sun.xml.".$this->TYPE);
+            header("Content-Length: ".$df_size);
+            header("Content-Disposition: inline; filename=".$this->fileName);
+
+            $fp = fopen(CACHE_PATH."/".$this->fileName, 'r');
+            rewind($fp);
+            fpassthru($fp); // ** CORRECT **
+            fclose($fp);
+
+            return $fp;
+
+        }
+        return false;
+    }
+
+
+    public function mail(){
+    }
 }

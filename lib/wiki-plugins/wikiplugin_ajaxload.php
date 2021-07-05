@@ -35,7 +35,7 @@ function wikiplugin_ajaxload_info()
                 'required' => false,
                 'name' => tra('Selector'),
                 'description' => tr('jQuery selector to retrieve part of the page when using Ajax, for example,
-					%0#page-data%1', '<code>', '</code>'),
+                    %0#page-data%1', '<code>', '</code>'),
                 'filter' => 'none',
                 'default' => '',
                 'since' => '14.1',
@@ -44,7 +44,7 @@ function wikiplugin_ajaxload_info()
                 'required' => false,
                 'name' => tra('Target'),
                 'description' => tra('Where to load the Ajax data into (will create own DIV if not supplied. When using
-					iframe if JavaScript is disabled it will appear where the plugin is in the page.'),
+                    iframe if JavaScript is disabled it will appear where the plugin is in the page.'),
                 'filter' => 'none',
                 'default' => '',
                 'since' => '14.1',
@@ -156,28 +156,28 @@ function wikiplugin_ajaxload($data, $params)
                     $types = $params['absolutelinks'];
                 }
 
-                $js .= '	data = data.replace(/([\s-](?:' . $types . ')=["\'])(.*?)(["\'])/gi, function (match, start, url, end) {
-		return start + (url.indexOf("://") === -1 ? "' . $base . '" : "") + url + end;
-	});';
+                $js .= '    data = data.replace(/([\s-](?:' . $types . ')=["\'])(.*?)(["\'])/gi, function (match, start, url, end) {
+        return start + (url.indexOf("://") === -1 ? "' . $base . '" : "") + url + end;
+    });';
             }
         }
 
         TikiLib::lib('header')->add_jq_onready('
 (function ($) {
-	var $el = $("' . $id . '");
-	$el.tikiModal(tr("Loading..."));
-	$.ajax({
-		url: "' . $params['url'] . '",
-		dataType: "html",
-		method: "GET"
-	}).done(function(data) {
-	  ' . $js . '
-	  ' . $data . '
-	  $el.html(data);
-	}).fail(function() {
-	}).always(function () {
-		$el.tikiModal();
-	});
+    var $el = $("' . $id . '");
+    $el.tikiModal(tr("Loading..."));
+    $.ajax({
+        url: "' . $params['url'] . '",
+        dataType: "html",
+        method: "GET"
+    }).done(function(data) {
+      ' . $js . '
+      ' . $data . '
+      $el.html(data);
+    }).fail(function() {
+    }).always(function () {
+        $el.tikiModal();
+    });
 })(jQuery);');
     } else {        // no js
         $html = "<iframe src=\"{$params['url']}\" id=\"$id\"$attributes></iframe>";

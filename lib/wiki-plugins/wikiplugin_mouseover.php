@@ -74,7 +74,7 @@ function wikiplugin_mouseover_info()
                 'required' => false,
                 'name' => tra('Offset X'),
                 'description' => tr('Shifts the overlay to the right by the specified number of pixels relative to
-					the cursor. Default: %05%1', '<code>', '</code>'),
+                    the cursor. Default: %05%1', '<code>', '</code>'),
                 'since' => '3.0',
                 'filter' => 'int',
                 'default' => 5,
@@ -84,7 +84,7 @@ function wikiplugin_mouseover_info()
                 'required' => false,
                 'name' => tra('Offset Y'),
                 'description' => tr('Shifts the overlay lower by the specified number of pixels relative to the
-					cursor. Default: %00%1', '<code>', '</code>'),
+                    cursor. Default: %00%1', '<code>', '</code>'),
                 'since' => '3.0',
                 'filter' => 'int',
                 'default' => 24,
@@ -277,10 +277,10 @@ function wikiplugin_mouseover($data, $params)
     }
 
     $js = "\$('#$id-link').mouseover(function(event) {
-	var pos  = $(this).position();
-	$(this).closest('td').css('position', 'relative');
-	\$('#$id').css('position', 'absolute').css('left', pos.left + $offsetx + 'px').css('top', pos.top + $offsety + 'px');
-	showJQ('#$id', '$effect', '$speed'); $closeDelayStr });
+    var pos  = $(this).position();
+    $(this).closest('td').css('position', 'relative');
+    \$('#$id').css('position', 'absolute').css('left', pos.left + $offsetx + 'px').css('top', pos.top + $offsety + 'px');
+    showJQ('#$id', '$effect', '$speed'); $closeDelayStr });
 ";
     if ($sticky) {
         $js .= "\$('#$id').click(function(event) { hideJQ('#$id', '$effect', '$speed'); }).css('cursor','pointer');\n";

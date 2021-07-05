@@ -30,7 +30,7 @@ function wikiplugin_galleriffic_info()
                 'required' => false,
                 'name' => tra('Sort Mode'),
                 'description' => tr('Sort by database table field name, ascending (_asc) or descending (_desc). Examples:
-					%0 or %1.', '<code>fileId_asc</code>', '<code>name_desc</code>'),
+                    %0 or %1.', '<code>fileId_asc</code>', '<code>name_desc</code>'),
                 'since' => '8.0',
                 'filter' => 'word',
                 'accepted' => tr(
@@ -172,20 +172,20 @@ function wikiplugin_galleriffic($data, $params)
 
     $jq = <<<JQ
 if (\$('#thumbs').length) {
-	// We only want these styles applied when javascript is enabled
-	\$('div.navigation').css({'width' : '$thumbsWidth', 'float' : 'left'});
-	\$('div.gcontent').css('display', 'block');
-	\$('.thumbs').show();
+    // We only want these styles applied when javascript is enabled
+    \$('div.navigation').css({'width' : '$thumbsWidth', 'float' : 'left'});
+    \$('div.gcontent').css('display', 'block');
+    \$('.thumbs').show();
 
-	// Initially set opacity on thumbs and add
-	// additional styling for hover effect on thumbs
-	var onMouseOutOpacity = 0.67;
-	\$('#thumbs ul.thumbs li').opacityrollover({
-		mouseOutOpacity:   onMouseOutOpacity,
-		mouseOverOpacity:  1.0,
-		fadeSpeed:         'fast',
-		exemptionSelector: '.selected'
-	});
+    // Initially set opacity on thumbs and add
+    // additional styling for hover effect on thumbs
+    var onMouseOutOpacity = 0.67;
+    \$('#thumbs ul.thumbs li').opacityrollover({
+        mouseOutOpacity:   onMouseOutOpacity,
+        mouseOverOpacity:  1.0,
+        fadeSpeed:         'fast',
+        exemptionSelector: '.selected'
+    });
     var gallery = \$('#thumbs').galleriffic({
         delay:                     $delay, // in milliseconds
         numThumbs:                 $numThumbs, // The number of thumbnails to show page
@@ -199,45 +199,45 @@ if (\$('#thumbs').length) {
         loadingContainerSel:       '#loading', // The CSS selector for the element within which should be shown when an image is loading
         renderSSControls:          true, // Specifies whether the slideshow's Play and Pause links should be rendered
         renderNavControls:         true, // Specifies whether the slideshow's Next and Previous links should be rendered
-		playLinkText:              '$playLinkText',
-		pauseLinkText:             '$pauseLinkText',
-		prevLinkText:              '$prevLinkText',
-		nextLinkText:              '$nextLinkText',
-		nextPageLinkText:          '$nextPageLinkText',
-		prevPageLinkText:          '$prevPageLinkText',
+        playLinkText:              '$playLinkText',
+        pauseLinkText:             '$pauseLinkText',
+        prevLinkText:              '$prevLinkText',
+        nextLinkText:              '$nextLinkText',
+        nextPageLinkText:          '$nextPageLinkText',
+        prevPageLinkText:          '$prevPageLinkText',
         enableHistory:             false, // Specifies whether the url's hash and the browser's history cache should update when the current slideshow image changes
         enableKeyboardNavigation:  false, // Specifies whether keyboard navigation is enabled
         autoStart:                 $autoStart, // Specifies whether the slideshow should be playing or paused when the page first loads
         syncTransitions:           false, // Specifies whether the out and in transitions occur simultaneously or distinctly
         defaultTransitionDuration: 1000   // If using the default transitions, specifies the duration of the transitions
     });
-	\$('div.gcontent').css({'width' : '$imgWidth'});
-	\$('div.loader').css({'width' : '$imgWidth', 'height' : '$imgHeight'});
-	\$('div.slideshow a.advance-link').css({'width' : '$imgWidth', 'height' : '$imgHeight', 'line-height' : '$imgHeight'});
-	\$('div.span.image-caption').css({'width' : '$imgWidth'});
-	\$('div.slideshow-container').css({'height' : '$imgHeight'});
+    \$('div.gcontent').css({'width' : '$imgWidth'});
+    \$('div.loader').css({'width' : '$imgWidth', 'height' : '$imgHeight'});
+    \$('div.slideshow a.advance-link').css({'width' : '$imgWidth', 'height' : '$imgHeight', 'line-height' : '$imgHeight'});
+    \$('div.span.image-caption').css({'width' : '$imgWidth'});
+    \$('div.slideshow-container').css({'height' : '$imgHeight'});
 }
 JQ;
 
     $headerlib->add_jq_onready($jq);
     $css = <<<CSS
 div.slideshow-container {
-	height: $imgHeight;
+    height: $imgHeight;
 }
 div.loader {
-	width: $imgWidth;
-	height: $imgHeight;
+    width: $imgWidth;
+    height: $imgHeight;
 }
 div.slideshow a.advance-link {
-	width: $imgWidth;
-	height: $imgHeight;
-	line-height: $imgHeight;
+    width: $imgWidth;
+    height: $imgHeight;
+    line-height: $imgHeight;
 }
 span.image-caption {
-	width: $imgWidth;
+    width: $imgWidth;
 }
 .thumbs {
-	display: none;
+    display: none;
 }
 
 CSS;

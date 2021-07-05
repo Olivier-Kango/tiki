@@ -49,7 +49,7 @@ function wikiplugin_sf_info()
                 'required' => false,
                 'name' => tra('Link title'),
                 'description' => tra('First part of link tooltip identifying the type of tracker item (bug, feature
-					request, patch or support request).'),
+                    request, patch or support request).'),
                 'filter' => 'alpha',
                 'default' => 'Item',
                 'since' => 7.0,

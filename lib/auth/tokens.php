@@ -67,8 +67,8 @@ class AuthTokens
         // Process deletion of temporary users that are created via tokens
         $usersToDelete = $this->db->fetchAll(
             'SELECT tokenId, userPrefix FROM tiki_auth_tokens
-				WHERE (timeout != -1 AND UNIX_TIMESTAMP(creation) + timeout < UNIX_TIMESTAMP())
-				OR `hits` = 0',
+                WHERE (timeout != -1 AND UNIX_TIMESTAMP(creation) + timeout < UNIX_TIMESTAMP())
+                OR `hits` = 0',
             null,
             2000
         );
@@ -82,8 +82,8 @@ class AuthTokens
 
         $this->db->query(
             'DELETE FROM tiki_auth_tokens
-				WHERE (timeout != -1 AND UNIX_TIMESTAMP(creation) + timeout < UNIX_TIMESTAMP())
-				OR `hits` = 0',
+                WHERE (timeout != -1 AND UNIX_TIMESTAMP(creation) + timeout < UNIX_TIMESTAMP())
+                OR `hits` = 0',
             null,
             2000
         );

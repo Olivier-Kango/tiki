@@ -116,10 +116,10 @@ OUT;
 
         $expect = <<<OUT
 <div>~np~<table>
-	<caption>baz: 2</caption>
-	<tr><th>Object</th><th>Type</th></tr>
-	<tr><td>HomePage</td><td>wiki page</td></tr>
-	<tr><td>SomePage</td><td>wiki page</td></tr>
+    <caption>baz: 2</caption>
+    <tr><th>Object</th><th>Type</th></tr>
+    <tr><td>HomePage</td><td>wiki page</td></tr>
+    <tr><td>SomePage</td><td>wiki page</td></tr>
 </table>
 ~/np~</div>
 OUT;
@@ -141,10 +141,10 @@ OUT;
 
         $expect = <<<OUT
 <div>~np~<table>
-	<caption>Count: 2</caption>
-	<tr><th>Object</th><th>Type</th></tr>
-	<tr><td>HomePage</td><td>wiki page</td></tr>
-	<tr><td>SomePage</td><td>wiki page</td></tr>
+    <caption>Count: 2</caption>
+    <tr><th>Object</th><th>Type</th></tr>
+    <tr><td>HomePage</td><td>wiki page</td></tr>
+    <tr><td>SomePage</td><td>wiki page</td></tr>
 </table>
 ~/np~</div>
 OUT;
@@ -167,11 +167,11 @@ OUT;
 
         $expect = <<<OUT
 <div>~np~<table>
-	<caption>Count: 2</caption>
-	<tr><th>Object</th><th>Type</th></tr>
-	<tr><td>~/np~HomePage
+    <caption>Count: 2</caption>
+    <tr><th>Object</th><th>Type</th></tr>
+    <tr><td>~/np~HomePage
 None~np~</td><td>wiki page</td></tr>
-	<tr><td>~/np~SomePage
+    <tr><td>~/np~SomePage
 About~np~</td><td>wiki page</td></tr>
 </table>
 ~/np~</div>
@@ -292,9 +292,9 @@ OUT;
 
         $expect = <<<OUT
 <div>~np~<table>
-	<caption>Count: 1</caption>
-	<tr><th>Object</th><th>Type</th></tr>
-	<tr><td><a href="HomePage" class="" title="HomePage" data-type="wiki page" data-object="HomePage">HomePage</a></td><td>wiki page</td></tr>
+    <caption>Count: 1</caption>
+    <tr><th>Object</th><th>Type</th></tr>
+    <tr><td><a href="HomePage" class="" title="HomePage" data-type="wiki page" data-object="HomePage">HomePage</a></td><td>wiki page</td></tr>
 </table>
 ~/np~</div>
 OUT;

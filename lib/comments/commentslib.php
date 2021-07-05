@@ -44,13 +44,13 @@ class Comments extends TikiLib
         }
 
         $query = "select `forumId`, tfr.`threadId`, tfr.`parentId`,
-			tfr.`reason`, tfr.`user`, `title`, SUBSTRING(`data` FROM 1 FOR 100) as `snippet` from `tiki_forums_reported`
-				tfr,  `tiki_comments` tc where tfr.`threadId` = tc.`threadId`
-				and `forumId`=? $mid order by " .
+            tfr.`reason`, tfr.`user`, `title`, SUBSTRING(`data` FROM 1 FOR 100) as `snippet` from `tiki_forums_reported`
+                tfr,  `tiki_comments` tc where tfr.`threadId` = tc.`threadId`
+                and `forumId`=? $mid order by " .
                 $this->convertSortMode($sort_mode);
         $query_cant = "select count(*) from `tiki_forums_reported` tfr,
-			`tiki_comments` tc where tfr.`threadId` = tc.`threadId` and
-				`forumId`=? $mid";
+            `tiki_comments` tc where tfr.`threadId` = tc.`threadId` and
+                `forumId`=? $mid";
         $ret = $this->fetchAll($query, $bindvars, $maxRecords, $offset);
         $cant = $this->getOne($query_cant, $bindvars);
 
@@ -906,9 +906,9 @@ class Comments extends TikiLib
         $info = $this->build_forum_query($forumId, $offset, $max, $sort_mode, $include_archived, $who, $type, $reply_state, $forum_info);
 
         $query = "select a.`threadId`,a.`object`,a.`objectType`,a.`parentId`,
-			a.`userName`,a.`commentDate`,a.`hits`,a.`type`,a.`points`,
-			a.`votes`,a.`average`,a.`title`,a.`data`,a.`user_ip`,
-			a.`summary`,a.`smiley`,a.`message_id`,a.`in_reply_to`,a.`comment_rating`,a.`locked`, ";
+            a.`userName`,a.`commentDate`,a.`hits`,a.`type`,a.`points`,
+            a.`votes`,a.`average`,a.`title`,a.`data`,a.`user_ip`,
+            a.`summary`,a.`smiley`,a.`message_id`,a.`in_reply_to`,a.`comment_rating`,a.`locked`, ";
         $query .= $info['query'];
 
         $ret = $this->fetchAll($query, $info['bindvars'], $max, $offset);
@@ -920,8 +920,8 @@ class Comments extends TikiLib
                 // last post data is for tiki-view_forum.php.
                 // you can see the title and author of last post
                 $query = "select * from `tiki_comments`
-					where `parentId` = ? and `commentDate` = ?
-					order by `threadId` desc";
+                    where `parentId` = ? and `commentDate` = ?
+                    order by `threadId` desc";
                 $r2 = $this->query($query, [$tid, $res['lastPost']]);
                 $res['lastPostData'] = $r2->fetchRow();
             }
@@ -1033,13 +1033,13 @@ class Comments extends TikiLib
             $this->ifNull("a.`archived`", "'n'") . " as `archived`," .
             $this->ifNull("max(b.`commentDate`)", "a.`commentDate`") . " as `lastPost`," .
             $this->ifNull("a.`type`='s'", 'false') . " as `sticky`, count(distinct b.`threadId`) as `replies` $select
-				from `tiki_comments` a left join `tiki_comments` b
-				on b.`parentId`=a.`threadId` $join
-				where 1 = 1 $where" . ($forumId ? 'AND a.`object`=?' : '')
+                from `tiki_comments` a left join `tiki_comments` b
+                on b.`parentId`=a.`threadId` $join
+                where 1 = 1 $where" . ($forumId ? 'AND a.`object`=?' : '')
                 . (($include_archived) ? '' : ' and (a.`archived` is null or a.`archived`=?)')
                 . " and a.`objectType` = 'forum'
-				and a.`parentId` = ? $time_cond
-				group by a.`threadId`, a.`object`, a.`objectType`, a.`parentId`, a.`userName`, a.`commentDate`, a.`hits`, a.`type`, a.`points`, a.`votes`, a.`average`, a.`title`, a.`data`, a.`user_ip`, a.`summary`, a.`smiley`, a.`message_id`, a.`in_reply_to`, a.`comment_rating`, a.`locked`, a.archived ";
+                and a.`parentId` = ? $time_cond
+                group by a.`threadId`, a.`object`, a.`objectType`, a.`parentId`, a.`userName`, a.`commentDate`, a.`hits`, a.`type`, a.`points`, a.`votes`, a.`average`, a.`title`, a.`data`, a.`user_ip`, a.`summary`, a.`smiley`, a.`message_id`, a.`in_reply_to`, a.`comment_rating`, a.`locked`, a.archived ";
 
         if ($reply_state == 'none') {
             $query .= ' HAVING `replies` = 0 ';
@@ -1646,7 +1646,7 @@ class Comments extends TikiLib
 
         $lastPost = $this->getOne(
             "select max(`commentDate`) from `tiki_comments`,`tiki_forums`
-			where `object` = `forumId` and `objectType` = 'forum' and `forumId` = ?",
+            where `object` = `forumId` and `objectType` = 'forum' and `forumId` = ?",
             [(int) $forumId]
         );
         $query = "update `tiki_forums` set `lastPost`=? where `forumId`=? ";
@@ -2411,15 +2411,15 @@ class Comments extends TikiLib
         }
 
         $query = "select count(*) from `tiki_comments` as tc1 where
-			`objectType`=? and `object`=? and `average` < ? $time_cond $queue_cond";
+            `objectType`=? and `object`=? and `average` < ? $time_cond $queue_cond";
         $below = $this->getOne($query, $bindvars);
 
         if ($find) {
             $findesc = '%' . $find . '%';
 
             $mid = " where tc1.`objectType` = ? and tc1.`object`=? and
-			tc1.`parentId`=? and tc1.`average`>=? and (tc1.`title`
-				like ? or tc1.`data` like ?) ";
+            tc1.`parentId`=? and tc1.`average`>=? and (tc1.`title`
+                like ? or tc1.`data` like ?) ";
             $bind_mid = [$object[0], $object[1], (int) $parentId, (int) $threshold, $findesc, $findesc];
         } else {
             $mid = " where tc1.`objectType` = ? and tc1.`object`=? and tc1.`parentId`=? and tc1.`average`>=? ";
@@ -2452,14 +2452,14 @@ class Comments extends TikiLib
                 $adminFields = ', tc1.`user_ip`';
             }
             $query = "select tc1.`threadId`, tc1.`object`, tc1.`objectType`, tc1.`parentId`, tc1.`userName`, tc1.`commentDate`, tc1.`hits`, tc1.`type`, tc1.`points`, tc1.`votes`, tc1.`average`, tc1.`title`, tc1.`data`, tc1.`summary`, tc1.`smiley`, tc1.`message_id`, tc1.`in_reply_to`, tc1.`comment_rating`, tc1.`approved`, tc1.`locked`$adminFields  from `tiki_comments` as tc1
-				left outer join `tiki_comments` as tc2 on tc1.`in_reply_to` = tc2.`message_id`
-				and tc1.`parentId` = ?
-				and tc2.`parentId` = ?
-				$join
-				$mid
-				and (tc1.`in_reply_to` = ?
-						or (tc2.`in_reply_to` = '' or tc2.`in_reply_to` is null or tc2.`message_id` is null or tc2.`parentId` = 0))
-				$time_cond order by " . $this->convertSortMode($sort_mode) . ", tc1.`threadId`";
+                left outer join `tiki_comments` as tc2 on tc1.`in_reply_to` = tc2.`message_id`
+                and tc1.`parentId` = ?
+                and tc2.`parentId` = ?
+                $join
+                $mid
+                and (tc1.`in_reply_to` = ?
+                        or (tc2.`in_reply_to` = '' or tc2.`in_reply_to` is null or tc2.`message_id` is null or tc2.`parentId` = 0))
+                $time_cond order by " . $this->convertSortMode($sort_mode) . ", tc1.`threadId`";
             $bind_mid_cant = $bind_mid;
             $bind_mid = array_merge([$parentId, $parentId], $bind_mid, [$parent_message_id]);
 

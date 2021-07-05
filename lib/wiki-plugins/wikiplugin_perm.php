@@ -13,7 +13,7 @@ function wikiplugin_perm_info()
         'documentation' => 'PluginPerm',
         'description' => tra('Display content based on permission settings'),
         'body' => tr('Wiki text to display if conditions are met. The body may contain %0{ELSE}%1. Text after the
-			marker will be displayed to users not matching the conditions.', '<code>', '</code>'),
+            marker will be displayed to users not matching the conditions.', '<code>', '</code>'),
         'prefs' => ['wikiplugin_perm'],
         'filter' => 'wikicontent',
         'iconname' => 'permission',

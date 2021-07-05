@@ -20,7 +20,7 @@ function wikiplugin_category_info()
                 'required' => false,
                 'name' => tra('Category IDs'),
                 'description' => tr('List of category IDs separated by "+", for example, %0. Default will use category
-					of the current page.', '<code>1+2+3</code>'),
+                    of the current page.', '<code>1+2+3</code>'),
                 'since' => '1',
                 'filter' => 'digits',
                 'separator' => '+',
@@ -41,7 +41,7 @@ function wikiplugin_category_info()
                 'required' => false,
                 'name' => tra('Sort order'),
                 'description' => tra('Sort ascending or descending based on various attributes (sorted ascending by
-					name by default)'),
+                    name by default)'),
                 'since' => '1',
                 'filter' => 'text',
                 'default' => '',
@@ -77,7 +77,7 @@ function wikiplugin_category_info()
                 'required' => false,
                 'name' => tra('And'),
                 'description' => tr('If set to %0 (Yes), only objects in all of the categories will be shown (default
-					is to show objects in any of the categories)', '<code>y</code>'),
+                    is to show objects in any of the categories)', '<code>y</code>'),
                 'since' => '1',
                 'filter' => 'alpha',
                 'default' => '',
@@ -91,7 +91,7 @@ function wikiplugin_category_info()
                 'required' => false,
                 'name' => tra('Sub-categories'),
                 'description' => tra('Also list objects in sub-categories of the categories given (default is to list
-					sub-category objects)'),
+                    sub-category objects)'),
                 'since' => '4.1',
                 'default' => 'n',
                 'filter' => 'alpha',

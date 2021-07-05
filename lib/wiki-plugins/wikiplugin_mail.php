@@ -58,8 +58,8 @@ function wikiplugin_mail_info()
                 'required' => false,
                 'name' => tra('Recurse Group Users'),
                 'description' => tr('Indicate how many times to recurse to collect the users of a selected group and
-					the users of each included groups. If %00%1 do not recurse, if %01%1, recurse one time, %02%1 for
-					two times....', '<code>', '</code>'),
+                    the users of each included groups. If %00%1 do not recurse, if %01%1, recurse one time, %02%1 for
+                    two times....', '<code>', '</code>'),
                 'since' => '8.0',
                 'filter' => 'int',
                 'default' => '0',

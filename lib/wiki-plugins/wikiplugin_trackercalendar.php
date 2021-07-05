@@ -62,7 +62,7 @@ function wikiplugin_trackercalendar_info()
                 'required' => false,
                 'name' => tra('External Link'),
                 'description' => tra('Follow external link when event item is clicked. Useful for supporting links to
-					pretty tracker supported pages.'),
+                    pretty tracker supported pages.'),
                 'since' => '12.4',
                 'filter' => 'alpha',
                 'default' => 'n',
@@ -85,7 +85,7 @@ function wikiplugin_trackercalendar_info()
                 'required' => false,
                 'name' => tra('Tracker Item Id'),
                 'description' => tr('If Yes (%0y%1) the item id will be passed as %0itemId%1, which can be used
-					by Tracker plugins. Will be passed as %0itemid%1 if No (%0n%1)', '<code>', '</code>'),
+                    by Tracker plugins. Will be passed as %0itemid%1 if No (%0n%1)', '<code>', '</code>'),
                 'since' => '12.4',
                 'filter' => 'alpha',
                 'default' => 'n',
@@ -100,7 +100,7 @@ function wikiplugin_trackercalendar_info()
                 'required' => false,
                 'name' => tra('Add All Fields'),
                 'description' => tr('If Yes (%0y%1)  all fields in the tracker will be added to the URL, not just the
-					itemId', '<code>', '</code>'),
+                    itemId', '<code>', '</code>'),
                 'since' => '12.4',
                 'filter' => 'alpha',
                 'default' => 'y',
@@ -115,7 +115,7 @@ function wikiplugin_trackercalendar_info()
                 'required' => false,
                 'name' => tra('Use Session Storage'),
                 'description' => tr('If Yes (%0y%1) copy all the field values into window.sessionStorage so it can be
-					accessed via JavaScript.', '<code>', '</code>'),
+                    accessed via JavaScript.', '<code>', '</code>'),
                 'since' => '12.4',
                 'filter' => 'alpha',
                 'default' => 'y',
@@ -303,7 +303,7 @@ function wikiplugin_trackercalendar_info()
                 'required' => false,
                 'name' => tra('Default Month'),
                 'description' => tra('Choose the default month (mm, as numeric value) to use for the display. Numeric
-					values here are 1-based, meaning January=1, February=2, etc'),
+                    values here are 1-based, meaning January=1, February=2, etc'),
                 'since' => '12.1',
                 'default' => 0,
                 'filter' => 'int',
@@ -320,7 +320,7 @@ function wikiplugin_trackercalendar_info()
                 'required' => false,
                 'name' => tra('Colormap for coloring'),
                 'description' => tr('Colormap to be used when segmenting the information using the coloring field.
-					Each map is composed of value and color separated with a comma, use pipes to separate multiple colormaps: %0', '<code>1,#6cf|2,#6fc</code>'),
+                    Each map is composed of value and color separated with a comma, use pipes to separate multiple colormaps: %0', '<code>1,#6cf|2,#6fc</code>'),
                 'since' => '18.0',
                 'filter' => 'text',
             ],
@@ -328,8 +328,8 @@ function wikiplugin_trackercalendar_info()
                 'required' => false,
                 'name' => tra('First day of the Week'),
                 'description' => tr('Choose the day that each week begins with, for the tracker calendar display.
-					The value must be a number that represents the day of the week: Sunday=0, Monday=1, Tuesday=2,
-					etc. Default: %0 (Sunday)', '<code>0</code>'),
+                    The value must be a number that represents the day of the week: Sunday=0, Monday=1, Tuesday=2,
+                    etc. Default: %0 (Sunday)', '<code>0</code>'),
                 'since' => '12.1',
                 'default' => 0,
                 'filter' => 'int',

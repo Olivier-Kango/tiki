@@ -748,13 +748,13 @@ class CategLib extends ObjectLib
         $orderClause = $this->convertSortMode($sort_mode);
 
         $common = "
-			FROM
-				tiki_objects
-				LEFT JOIN tiki_category_objects ON objectId = catObjectId
-			WHERE
-				catObjectId IS NULL
-			ORDER BY $orderClause
-			";
+            FROM
+                tiki_objects
+                LEFT JOIN tiki_category_objects ON objectId = catObjectId
+            WHERE
+                catObjectId IS NULL
+            ORDER BY $orderClause
+            ";
 
         $query = "SELECT objectId catObjectId, 0 categId, type, itemId, name, href $common";
         $queryCount = "SELECT COUNT(*) $common";
@@ -773,35 +773,35 @@ class CategLib extends ObjectLib
         // 1st query 'common' element to get objects that are definitely not categorised if they are not in tiki_objects - needs to be modified for wiki pages using the new method
         if ($object_type == "wiki page") {
             $common1 = "
-			FROM tiki_" . $object_table . " 
-			WHERE pageName NOT IN 
-			(SELECT itemId FROM tiki_objects WHERE type='" . $object_type . "')
-			";
+            FROM tiki_" . $object_table . " 
+            WHERE pageName NOT IN 
+            (SELECT itemId FROM tiki_objects WHERE type='" . $object_type . "')
+            ";
         } else {
             $common1 = "
-			FROM tiki_" . $object_table . " 
-			WHERE " . $object_ref . " NOT IN 
-			(SELECT itemId FROM tiki_objects WHERE type='" . $object_type . "')
-			";
+            FROM tiki_" . $object_table . " 
+            WHERE " . $object_ref . " NOT IN 
+            (SELECT itemId FROM tiki_objects WHERE type='" . $object_type . "')
+            ";
         }
 
         // 2nd query 'common' element to get objects that have been categorised before so are in tiki_objects but are no longer categorised plus an additional check that the object is still in the main object table and hasn't been deleted without deleting the entries in the categorisation tables
         if ($object_type == "wiki page") {
             $common2 = "
-			FROM
-				tiki_objects
-				LEFT JOIN tiki_category_objects ON objectId = catObjectId
-			WHERE
-				(catObjectId IS NULL and type='wiki page' and itemId IN (SELECT pageName as itemId FROM tiki_pages))
-			";
+            FROM
+                tiki_objects
+                LEFT JOIN tiki_category_objects ON objectId = catObjectId
+            WHERE
+                (catObjectId IS NULL and type='wiki page' and itemId IN (SELECT pageName as itemId FROM tiki_pages))
+            ";
         } else {
             $common2 = "
-			FROM
-				tiki_objects
-				LEFT JOIN tiki_category_objects ON objectId = catObjectId
-			WHERE
-				(catObjectId IS NULL and type='" . $object_type . "' and itemId IN (SELECT " . $object_ref . " as itemId FROM tiki_" . $object_table . "))
-			";
+            FROM
+                tiki_objects
+                LEFT JOIN tiki_category_objects ON objectId = catObjectId
+            WHERE
+                (catObjectId IS NULL and type='" . $object_type . "' and itemId IN (SELECT " . $object_ref . " as itemId FROM tiki_" . $object_table . "))
+            ";
         }
 
 
@@ -878,12 +878,12 @@ class CategLib extends ObjectLib
         }
         if ($parentId == -1) {
             $query = "select `categId` from `tiki_category_objects` tco, `tiki_categorized_objects` tto, `tiki_objects` o
-				where tco.`catObjectId`=tto.`catObjectId` and o.`objectId`=tto.`catObjectId` and o.`type`=? and `itemId`=?";
+                where tco.`catObjectId`=tto.`catObjectId` and o.`objectId`=tto.`catObjectId` and o.`type`=? and `itemId`=?";
             //settype($itemId,"string"); //itemId is defined as varchar
             $bindvars = ["$type", $itemId];
         } else {
             $query = "select tc.`categId` from `tiki_category_objects` tco, `tiki_categorized_objects` tto, `tiki_objects` o,`tiki_categories` tc
-    		where tco.`catObjectId`=tto.`catObjectId` and o.`objectId`=tto.`catObjectId` and o.`type`=? and `itemId`=? and tc.`parentId` = ? and tc.`categId`=tco.`categId`";
+            where tco.`catObjectId`=tto.`catObjectId` and o.`objectId`=tto.`catObjectId` and o.`type`=? and `itemId`=? and tc.`parentId` = ? and tc.`categId`=tco.`categId`";
             $bindvars = ["$type", $itemId, (int)$parentId];
         }
         $result = $this->query($query, $bindvars);

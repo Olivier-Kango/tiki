@@ -57,7 +57,7 @@ function wikiplugin_googledoc_info()
                 'required' => false,
                 'name' => tra('Size'),
                 'description' => tra('Size of frame. Use instead of width and height. The sizes will fit the Google
-					presentations sizes exactly.'),
+                    presentations sizes exactly.'),
                 'since' => '3.0',
                 'filter' => 'word',
                 'default' => '',

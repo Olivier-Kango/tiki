@@ -1182,74 +1182,74 @@ CREATE TABLE `tiki_group_watches` (
 # Keep track of h5p content entities > Pending in Tiki: Add FileId
 DROP TABLE IF EXISTS `tiki_h5p_contents`;
 CREATE TABLE tiki_h5p_contents (
-	id           INT UNSIGNED NOT NULL AUTO_INCREMENT,
-	file_id			 INT UNSIGNED NOT NULL,	# reference to the file gallery object in tiki_files table
-	created_at   TIMESTAMP    NULL,
-	updated_at   TIMESTAMP    NULL,
-	user_id      INT UNSIGNED NOT NULL,
-	title        VARCHAR(255) NOT NULL,
-	library_id   INT UNSIGNED NOT NULL,
-	parameters   LONGTEXT     NOT NULL,
-	filtered     LONGTEXT     NULL,
-	slug         VARCHAR(127) NOT NULL,
-	embed_type   VARCHAR(127) NOT NULL,
-	disable      INT UNSIGNED NOT NULL DEFAULT 0,
-	content_type VARCHAR(127) NULL,
-	authors      MEDIUMTEXT   NULL,
-	license      VARCHAR(32)  NULL DEFAULT NULL,
-	keywords     TEXT         NULL,
-	description  TEXT         NULL,
-	source       VARCHAR(2083) NULL,
-	year_from    INT UNSIGNED NULL,
-	year_to      INT UNSIGNED NULL,
-	license_version VARCHAR(10) NULL,
-	license_extras  LONGTEXT NULL,
-	author_comments LONGTEXT NULL,
-	changes      MEDIUMTEXT NULL,
-	default_language VARCHAR(32) NULL,
-	a11y_title VARCHAR(255) NULL,
-	PRIMARY KEY (id),
-	UNIQUE KEY `fileId` (`file_id`)
-)	ENGINE = MyISAM;
+    id           INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    file_id             INT UNSIGNED NOT NULL,    # reference to the file gallery object in tiki_files table
+    created_at   TIMESTAMP    NULL,
+    updated_at   TIMESTAMP    NULL,
+    user_id      INT UNSIGNED NOT NULL,
+    title        VARCHAR(255) NOT NULL,
+    library_id   INT UNSIGNED NOT NULL,
+    parameters   LONGTEXT     NOT NULL,
+    filtered     LONGTEXT     NULL,
+    slug         VARCHAR(127) NOT NULL,
+    embed_type   VARCHAR(127) NOT NULL,
+    disable      INT UNSIGNED NOT NULL DEFAULT 0,
+    content_type VARCHAR(127) NULL,
+    authors      MEDIUMTEXT   NULL,
+    license      VARCHAR(32)  NULL DEFAULT NULL,
+    keywords     TEXT         NULL,
+    description  TEXT         NULL,
+    source       VARCHAR(2083) NULL,
+    year_from    INT UNSIGNED NULL,
+    year_to      INT UNSIGNED NULL,
+    license_version VARCHAR(10) NULL,
+    license_extras  LONGTEXT NULL,
+    author_comments LONGTEXT NULL,
+    changes      MEDIUMTEXT NULL,
+    default_language VARCHAR(32) NULL,
+    a11y_title VARCHAR(255) NULL,
+    PRIMARY KEY (id),
+    UNIQUE KEY `fileId` (`file_id`)
+)    ENGINE = MyISAM;
 
 # Keep track of content dependencies
 DROP TABLE IF EXISTS `tiki_h5p_contents_libraries`;
 CREATE TABLE tiki_h5p_contents_libraries (
-	content_id      INT UNSIGNED      NOT NULL,
-	library_id      INT UNSIGNED      NOT NULL,
-	dependency_type VARCHAR(31)       NOT NULL,
-	weight          SMALLINT UNSIGNED NOT NULL DEFAULT 0,
-	drop_css        TINYINT UNSIGNED  NOT NULL,
-	PRIMARY KEY (content_id, library_id, dependency_type)
-)	ENGINE = MyISAM;
+    content_id      INT UNSIGNED      NOT NULL,
+    library_id      INT UNSIGNED      NOT NULL,
+    dependency_type VARCHAR(31)       NOT NULL,
+    weight          SMALLINT UNSIGNED NOT NULL DEFAULT 0,
+    drop_css        TINYINT UNSIGNED  NOT NULL,
+    PRIMARY KEY (content_id, library_id, dependency_type)
+)    ENGINE = MyISAM;
 
 # Keep track of h5p libraries
 DROP TABLE IF EXISTS `tiki_h5p_libraries`;
 CREATE TABLE tiki_h5p_libraries (
-	id               INT UNSIGNED  NOT NULL AUTO_INCREMENT,
-	created_at       TIMESTAMP     NULL,
-	updated_at       TIMESTAMP     NULL,
-	name             VARCHAR(127)  NOT NULL,
-	title            VARCHAR(255)  NOT NULL,
-	major_version    INT UNSIGNED  NOT NULL,
-	minor_version    INT UNSIGNED  NOT NULL,
-	patch_version    INT UNSIGNED  NOT NULL,
-	runnable         INT UNSIGNED  NOT NULL,
-	restricted       INT UNSIGNED  NOT NULL DEFAULT 0,
-	fullscreen       INT UNSIGNED  NOT NULL,
-	embed_types      VARCHAR(255)  NOT NULL,
-	preloaded_js     TEXT          NULL,
-	preloaded_css    TEXT          NULL,
-	drop_library_css TEXT          NULL,
-	semantics        TEXT          NOT NULL,
-	tutorial_url     VARCHAR(1023) NOT NULL,
-	has_icon         INT  UNSIGNED  NOT NULL  DEFAULT '0',
-	metadata_settings TEXT NULL,
-	add_to           TEXT DEFAULT NULL,
-	PRIMARY KEY (id),
-	KEY name_version (name, major_version, minor_version, patch_version),
-	KEY runnable (runnable)
-)	ENGINE = MyISAM;
+    id               INT UNSIGNED  NOT NULL AUTO_INCREMENT,
+    created_at       TIMESTAMP     NULL,
+    updated_at       TIMESTAMP     NULL,
+    name             VARCHAR(127)  NOT NULL,
+    title            VARCHAR(255)  NOT NULL,
+    major_version    INT UNSIGNED  NOT NULL,
+    minor_version    INT UNSIGNED  NOT NULL,
+    patch_version    INT UNSIGNED  NOT NULL,
+    runnable         INT UNSIGNED  NOT NULL,
+    restricted       INT UNSIGNED  NOT NULL DEFAULT 0,
+    fullscreen       INT UNSIGNED  NOT NULL,
+    embed_types      VARCHAR(255)  NOT NULL,
+    preloaded_js     TEXT          NULL,
+    preloaded_css    TEXT          NULL,
+    drop_library_css TEXT          NULL,
+    semantics        TEXT          NOT NULL,
+    tutorial_url     VARCHAR(1023) NOT NULL,
+    has_icon         INT  UNSIGNED  NOT NULL  DEFAULT '0',
+    metadata_settings TEXT NULL,
+    add_to           TEXT DEFAULT NULL,
+    PRIMARY KEY (id),
+    KEY name_version (name, major_version, minor_version, patch_version),
+    KEY runnable (runnable)
+)    ENGINE = MyISAM;
 
 DROP TABLE IF EXISTS `tiki_h5p_libraries_hub_cache`;
 CREATE TABLE tiki_h5p_libraries_hub_cache (
@@ -1282,53 +1282,53 @@ CREATE TABLE tiki_h5p_libraries_hub_cache (
 # Keep track of h5p library dependencies
 DROP TABLE IF EXISTS `tiki_h5p_libraries_libraries`;
 CREATE TABLE tiki_h5p_libraries_libraries (
-	library_id          INT UNSIGNED NOT NULL,
-	required_library_id INT UNSIGNED NOT NULL,
-	dependency_type     VARCHAR(31)  NOT NULL,
-	PRIMARY KEY (library_id, required_library_id)
-)	ENGINE = MyISAM;
+    library_id          INT UNSIGNED NOT NULL,
+    required_library_id INT UNSIGNED NOT NULL,
+    dependency_type     VARCHAR(31)  NOT NULL,
+    PRIMARY KEY (library_id, required_library_id)
+)    ENGINE = MyISAM;
 
 # Keep track of h5p library translations
 DROP TABLE IF EXISTS `tiki_h5p_libraries_languages`;
 CREATE TABLE tiki_h5p_libraries_languages (
-	library_id    INT UNSIGNED NOT NULL,
-	language_code VARCHAR(31)  NOT NULL,
-	translation   TEXT         NOT NULL,
-	PRIMARY KEY (library_id, language_code)
-)	ENGINE = MyISAM;
+    library_id    INT UNSIGNED NOT NULL,
+    language_code VARCHAR(31)  NOT NULL,
+    translation   TEXT         NOT NULL,
+    PRIMARY KEY (library_id, language_code)
+)    ENGINE = MyISAM;
 
 # Keep track of temporary files uploaded in editor before saving content
 DROP TABLE IF EXISTS `tiki_h5p_tmpfiles`;
 CREATE TABLE tiki_h5p_tmpfiles (
-	id         INT UNSIGNED NOT NULL AUTO_INCREMENT,
-	path       VARCHAR(255) NOT NULL,
-	created_at INT UNSIGNED NOT NULL,
-	PRIMARY KEY (id),
-	KEY created_at (created_at),
-	KEY path (path(191))
+    id         INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    path       VARCHAR(255) NOT NULL,
+    created_at INT UNSIGNED NOT NULL,
+    PRIMARY KEY (id),
+    KEY created_at (created_at),
+    KEY path (path(191))
 ) ENGINE = MyISAM;
 
 # Keep track of results (contents >-< users)
 DROP TABLE IF EXISTS `tiki_h5p_results`;
 CREATE TABLE tiki_h5p_results (
-	id         INT UNSIGNED NOT NULL AUTO_INCREMENT,
-	content_id INT UNSIGNED NOT NULL,
-	user_id    INT UNSIGNED NOT NULL,
-	score      INT UNSIGNED NOT NULL,
-	max_score  INT UNSIGNED NOT NULL,
-	opened     INT UNSIGNED NOT NULL,
-	finished   INT UNSIGNED NOT NULL,
-	time       INT UNSIGNED NOT NULL,
-	PRIMARY KEY (id),
-	KEY content_user (content_id, user_id)
-)	ENGINE = MyISAM;
+    id         INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    content_id INT UNSIGNED NOT NULL,
+    user_id    INT UNSIGNED NOT NULL,
+    score      INT UNSIGNED NOT NULL,
+    max_score  INT UNSIGNED NOT NULL,
+    opened     INT UNSIGNED NOT NULL,
+    finished   INT UNSIGNED NOT NULL,
+    time       INT UNSIGNED NOT NULL,
+    PRIMARY KEY (id),
+    KEY content_user (content_id, user_id)
+)    ENGINE = MyISAM;
 
 # Cache table for h5p libraries so we can reuse the existing h5p code for caching
 DROP TABLE IF EXISTS `tiki_h5p_libraries_cachedassets`;
 CREATE TABLE tiki_h5p_libraries_cachedassets (
-	library_id INT UNSIGNED NOT NULL,
-	hash       VARCHAR(64)  NOT NULL,
-	PRIMARY KEY (library_id, hash)
+    library_id INT UNSIGNED NOT NULL,
+    hash       VARCHAR(64)  NOT NULL,
+    PRIMARY KEY (library_id, hash)
 ) ENGINE = MyISAM;
 
 DROP TABLE IF EXISTS `tiki_history`;
@@ -3077,64 +3077,64 @@ CREATE TABLE `tiki_score` (
 
 INSERT INTO `tiki_score` VALUES
 ('tiki.user.login','[
-	{"ruleId":"User logs in","recipientType":"user","recipient":"user","score":"1","validObjectIds":[""],"expiration":""}
+    {"ruleId":"User logs in","recipientType":"user","recipient":"user","score":"1","validObjectIds":[""],"expiration":""}
 ]',''),
 ('tiki.user.view','[
-	{"ruleId":"See other user\'s profile","recipientType":"user","recipient":"user","score":"2","validObjectIds":[""],"expiration":""},
-	{"ruleId":"Have your profile seen","recipientType":"user","recipient":"object","score":"1","validObjectIds":[""],"expiration":""}
+    {"ruleId":"See other user\'s profile","recipientType":"user","recipient":"user","score":"2","validObjectIds":[""],"expiration":""},
+    {"ruleId":"Have your profile seen","recipientType":"user","recipient":"object","score":"1","validObjectIds":[""],"expiration":""}
 ]',''),
 ('tiki.user.friend','[
-	{"ruleId":"Make friends","recipientType":"user","recipient":"user","score":"10","validObjectIds":[""],"expiration":""}
+    {"ruleId":"Make friends","recipientType":"user","recipient":"user","score":"10","validObjectIds":[""],"expiration":""}
 ]',''),
 ('tiki.user.message','[
-	{"ruleId":"Send message","recipientType":"user","recipient":"user","score":"2","validObjectIds":[""],"expiration":""},
-	{"ruleId":"Receive message","recipientType":"user","recipient":"object","score":"1","validObjectIds":[""],"expiration":""}
+    {"ruleId":"Send message","recipientType":"user","recipient":"user","score":"2","validObjectIds":[""],"expiration":""},
+    {"ruleId":"Receive message","recipientType":"user","recipient":"object","score":"1","validObjectIds":[""],"expiration":""}
 ]',''),
 ('tiki.article.create','[
-	{"ruleId":"Publish new article","recipientType":"user","recipient":"user","score":"20","validObjectIds":[""],"expiration":""}
+    {"ruleId":"Publish new article","recipientType":"user","recipient":"user","score":"20","validObjectIds":[""],"expiration":""}
 ]',''),
 ('tiki.article.view','[
-	{"ruleId":"Read an article","recipientType":"user","recipient":"user","score":"2","validObjectIds":[""],"expiration":""},
-	{"ruleId":"Have your article read","recipientType":"user","recipient":"author","score":"1","validObjectIds":[""],"expiration":""}
+    {"ruleId":"Read an article","recipientType":"user","recipient":"user","score":"2","validObjectIds":[""],"expiration":""},
+    {"ruleId":"Have your article read","recipientType":"user","recipient":"author","score":"1","validObjectIds":[""],"expiration":""}
 ]',''),
 ('tiki.filegallery.create','[
-	{"ruleId":"Create new file gallery","recipientType":"user","recipient":"user","score":"10","validObjectIds":[""],"expiration":""}
+    {"ruleId":"Create new file gallery","recipientType":"user","recipient":"user","score":"10","validObjectIds":[""],"expiration":""}
 ]',''),
 ('tiki.file.create','[
-	{"ruleId":"Upload new file to gallery","recipientType":"user","recipient":"user","score":"10","validObjectIds":[""],"expiration":""}
+    {"ruleId":"Upload new file to gallery","recipientType":"user","recipient":"user","score":"10","validObjectIds":[""],"expiration":""}
 ]',''),
 ('tiki.file.download','[
-	{"ruleId":"Download other user\'s file","recipientType":"user","recipient":"user","score":"5","validObjectIds":[""],"expiration":""},
-	{"ruleId":"Have your file downloaded","recipientType":"user","recipient":"owner","score":"5","validObjectIds":[""],"expiration":""}
+    {"ruleId":"Download other user\'s file","recipientType":"user","recipient":"user","score":"5","validObjectIds":[""],"expiration":""},
+    {"ruleId":"Have your file downloaded","recipientType":"user","recipient":"owner","score":"5","validObjectIds":[""],"expiration":""}
 ]',''),
 ('tiki.imagegallery.create','[
-	{"ruleId":"Create new image gallery","recipientType":"user","recipient":"user","score":"10","validObjectIds":[""],"expiration":""}
+    {"ruleId":"Create new image gallery","recipientType":"user","recipient":"user","score":"10","validObjectIds":[""],"expiration":""}
 ]',''),
 ('tiki.image.create','[
-	{"ruleId":"Upload new image to gallery","recipientType":"user","recipient":"user","score":"6","validObjectIds":[""],"expiration":""}
+    {"ruleId":"Upload new image to gallery","recipientType":"user","recipient":"user","score":"6","validObjectIds":[""],"expiration":""}
 ]',''),
 ('tiki.image.view','[
-	{"ruleId":"See other user\'s image","recipientType":"user","recipient":"user","score":"3","validObjectIds":[""],"expiration":""},
-	{"ruleId":"Have your image seen","recipientType":"user","recipient":"owner","score":"1","validObjectIds":[""],"expiration":""}
+    {"ruleId":"See other user\'s image","recipientType":"user","recipient":"user","score":"3","validObjectIds":[""],"expiration":""},
+    {"ruleId":"Have your image seen","recipientType":"user","recipient":"owner","score":"1","validObjectIds":[""],"expiration":""}
 ]',''),
 ('tiki.blog.create','[
-	{"ruleId":"Create new blog","recipientType":"user","recipient":"user","score":"20","validObjectIds":[""],"expiration":""}
+    {"ruleId":"Create new blog","recipientType":"user","recipient":"user","score":"20","validObjectIds":[""],"expiration":""}
 ]',''),
 ('tiki.blogpost.create','[
-	{"ruleId":"Post in a blog","recipientType":"user","recipient":"user","score":"5","validObjectIds":[""],"expiration":""}
+    {"ruleId":"Post in a blog","recipientType":"user","recipient":"user","score":"5","validObjectIds":[""],"expiration":""}
 ]',''),
 ('tiki.blog.view','[
-	{"ruleId":"Read other user\'s blog","recipientType":"user","recipient":"user","score":"2","validObjectIds":[""],"expiration":""},
-	{"ruleId":"Have your blog read","recipientType":"user","recipient":"author","score":"3","validObjectIds":[""],"expiration":""}
+    {"ruleId":"Read other user\'s blog","recipientType":"user","recipient":"user","score":"2","validObjectIds":[""],"expiration":""},
+    {"ruleId":"Have your blog read","recipientType":"user","recipient":"author","score":"3","validObjectIds":[""],"expiration":""}
 ]',''),
 ('tiki.wiki.create','[
-	{"ruleId":"Create a wiki page","recipientType":"user","recipient":"user","score":"10","validObjectIds":[""],"expiration":""}
+    {"ruleId":"Create a wiki page","recipientType":"user","recipient":"user","score":"10","validObjectIds":[""],"expiration":""}
 ]',''),
 ('tiki.wiki.update','[
-	{"ruleId":"Edit an existing wiki page","recipientType":"user","recipient":"user","score":"5","validObjectIds":[""],"expiration":""}
+    {"ruleId":"Edit an existing wiki page","recipientType":"user","recipient":"user","score":"5","validObjectIds":[""],"expiration":""}
 ]',''),
 ('tiki.wiki.attachfile','[
-	{"ruleId":"Attach file to wiki page","recipientType":"user","recipient":"user","score":"3","validObjectIds":[""],"expiration":""}
+    {"ruleId":"Attach file to wiki page","recipientType":"user","recipient":"user","score":"3","validObjectIds":[""],"expiration":""}
 ]','');
 
 DROP TABLE IF EXISTS `tiki_object_scores`;
@@ -3651,7 +3651,7 @@ CREATE TABLE `tiki_payment_received` (
     `payment_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     `amount` DECIMAL(7,2),
     `type` VARCHAR(15),
-	`status` VARCHAR(15) NOT NULL DEFAULT 'paid',
+    `status` VARCHAR(15) NOT NULL DEFAULT 'paid',
     `details` TEXT,
     `userId` int(8),
     PRIMARY KEY(`paymentReceivedId`),
@@ -3699,7 +3699,7 @@ CREATE TABLE `tiki_object_attributes` (
     `itemId` varchar(160) NOT NULL,
     `attribute` varchar(70) NOT NULL,
     `value` varchar(255),
-	`comment` varchar(255),
+    `comment` varchar(255),
     UNIQUE `item_attribute_uq` ( `type`, `itemId`(91), `attribute`(50) ),
     KEY `attribute_lookup_ix` (`attribute`, `value`(121))
 ) ENGINE=MyISAM;
@@ -4065,46 +4065,46 @@ CREATE TABLE `tiki_mail_queue` (
 
 DROP TABLE IF EXISTS `tiki_workspace_templates`;
 CREATE TABLE `tiki_workspace_templates` (
-	`templateId` INT PRIMARY KEY AUTO_INCREMENT,
-	`name` VARCHAR(50),
-	`definition` TEXT,
-	`is_advanced` CHAR(1) NOT NULL DEFAULT 'n'
+    `templateId` INT PRIMARY KEY AUTO_INCREMENT,
+    `name` VARCHAR(50),
+    `definition` TEXT,
+    `is_advanced` CHAR(1) NOT NULL DEFAULT 'n'
 ) ENGINE=MyISAM;
 
 DROP TABLE IF EXISTS `tiki_user_mailin_struct`;
 CREATE TABLE `tiki_user_mailin_struct` (
-	`mailin_struct_id` int(12) NOT NULL auto_increment,
-	`username` varchar(200) NOT NULL,
-	`subj_pattern` varchar(255) NULL,
-	`body_pattern` varchar(255) NULL,
-	`structure_id` int(14) NOT NULL,
-	`page_id` int(14) NULL,
-	`is_active` char(1) NULL DEFAULT 'n',
+    `mailin_struct_id` int(12) NOT NULL auto_increment,
+    `username` varchar(200) NOT NULL,
+    `subj_pattern` varchar(255) NULL,
+    `body_pattern` varchar(255) NULL,
+    `structure_id` int(14) NOT NULL,
+    `page_id` int(14) NULL,
+    `is_active` char(1) NULL DEFAULT 'n',
    PRIMARY KEY (`mailin_struct_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1;
 
 DROP TABLE IF EXISTS `tiki_search_queries`;
 CREATE TABLE `tiki_search_queries` (
-	`queryId` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-	`userId` INT NOT NULL,
-	`lastModif` INT,
-	`label` VARCHAR(100) NOT NULL,
-	`priority` VARCHAR(15) NOT NULL,
-	`query` BLOB,
-	`description` TEXT,
-	INDEX `query_userId` (`userId`),
-	UNIQUE KEY `tiki_user_query_uq` (`userId`, `label`)
+    `queryId` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `userId` INT NOT NULL,
+    `lastModif` INT,
+    `label` VARCHAR(100) NOT NULL,
+    `priority` VARCHAR(15) NOT NULL,
+    `query` BLOB,
+    `description` TEXT,
+    INDEX `query_userId` (`userId`),
+    UNIQUE KEY `tiki_user_query_uq` (`userId`, `label`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1;
 
 DROP TABLE IF EXISTS `tiki_user_monitors`;
 CREATE TABLE `tiki_user_monitors` (
-	`monitorId` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-	`userId` INT NOT NULL,
-	`event` VARCHAR(50) NOT NULL,
-	`priority` VARCHAR(10) NOT NULL,
-	`target` VARCHAR(25) NOT NULL,
-	INDEX `userid_target_ix` (`userId`, `target`),
-	UNIQUE `event_target_uq` (`event`, `target`, `userId`)
+    `monitorId` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `userId` INT NOT NULL,
+    `event` VARCHAR(50) NOT NULL,
+    `priority` VARCHAR(10) NOT NULL,
+    `target` VARCHAR(25) NOT NULL,
+    INDEX `userid_target_ix` (`userId`, `target`),
+    UNIQUE `event_target_uq` (`event`, `target`, `userId`)
 ) ENGINE=MyISAM;
 
 DROP TABLE IF EXISTS `tiki_output`;
@@ -4118,40 +4118,40 @@ CREATE TABLE `tiki_output` (
 
 DROP TABLE IF EXISTS `tiki_goals`;
 CREATE TABLE `tiki_goals` (
-	`goalId` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-	`name` VARCHAR(50) NOT NULL,
-	`type` VARCHAR(10) NOT NULL DEFAULT 'user',
-	`description` TEXT,
-	`enabled` INT NOT NULL DEFAULT 0,
-	`daySpan` INT NOT NULL DEFAULT 14,
-	`from` DATETIME,
-	`to` DATETIME,
-	`eligible` BLOB,
-	`conditions` BLOB,
-	`rewards` BLOB
+    `goalId` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `name` VARCHAR(50) NOT NULL,
+    `type` VARCHAR(10) NOT NULL DEFAULT 'user',
+    `description` TEXT,
+    `enabled` INT NOT NULL DEFAULT 0,
+    `daySpan` INT NOT NULL DEFAULT 14,
+    `from` DATETIME,
+    `to` DATETIME,
+    `eligible` BLOB,
+    `conditions` BLOB,
+    `rewards` BLOB
 ) ENGINE=MyISAM;
 
 DROP TABLE IF EXISTS `tiki_goal_events`;
 CREATE TABLE `tiki_goal_events` (
-	`eventId` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-	`eventDate` INT NOT NULL,
-	`eventType` VARCHAR(50) NOT NULL,
-	`targetType` VARCHAR(50),
-	`targetObject` VARCHAR(255),
-	`user` VARCHAR(200) NOT NULL,
-	`groups` BLOB NOT NULL
+    `eventId` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `eventDate` INT NOT NULL,
+    `eventType` VARCHAR(50) NOT NULL,
+    `targetType` VARCHAR(50),
+    `targetObject` VARCHAR(255),
+    `user` VARCHAR(200) NOT NULL,
+    `groups` BLOB NOT NULL
 ) ENGINE=MyISAM;
 
 DROP TABLE IF EXISTS `tiki_tabular_formats`;
 CREATE TABLE `tiki_tabular_formats` (
-	`tabularId` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-	`trackerId` INT NOT NULL,
-	`name` VARCHAR(255) NOT NULL,
-	`format_descriptor` TEXT,
-	`filter_descriptor` TEXT,
-	`config` TEXT,
-	`odbc_config` TEXT,
-	KEY `tabular_tracker_ix` (`trackerId`)
+    `tabularId` INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `trackerId` INT NOT NULL,
+    `name` VARCHAR(255) NOT NULL,
+    `format_descriptor` TEXT,
+    `filter_descriptor` TEXT,
+    `config` TEXT,
+    `odbc_config` TEXT,
+    KEY `tabular_tracker_ix` (`trackerId`)
 ) ENGINE=MyISAM;
 
 DROP TABLE IF EXISTS `tiki_scheduler`;

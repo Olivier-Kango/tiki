@@ -21,7 +21,7 @@ function wikiplugin_slideshow_info()
                 'required' => false,
                 'name' => tra('Theme'),
                 'description' => tra('The theme you want to use for the slideshow, default will be what you choose from
-					the admin panel under Look and Feel for jQuery UI'),
+                    the admin panel under Look and Feel for jQuery UI'),
                 'filter' => 'text',
                 'default' => 'black',
                 'since' => '19.0',
@@ -271,7 +271,7 @@ function wikiplugin_slideshow($data, $params)
         global $pdfStyles;
         if (isset($params['parallaxBackgroundImage'])) {
             $pdfStyles = '<style>@page,body,div.reveal{background-image-resize:0 !important;
-			background-image:url("' . $params['parallaxBackgroundImage'] . '") !important;}</style>';
+            background-image:url("' . $params['parallaxBackgroundImage'] . '") !important;}</style>';
         }
     }
     $defaults = [];
@@ -309,38 +309,38 @@ function wikiplugin_slideshow($data, $params)
     if ($params['alignImage'] == 'y') {
         $headerlib->add_js('(function(){
 
-			var images = [];
-			$("section table tr").each(function(){
-				var tr=this;
-				var imgsrc="";
-				var minwidth="";
-				
-				if($(this).text().length>20 && window.innerHeight < window.innerWidth){ //checking for text content and screen orientation
-				
-					$(this).find("img").each(function(){
-					
-						if(this.width>200 ){
-							$(tr).find("td").attr("style","vertical-align:top");
-							imgsrc=this.src;
-							minwidth=(this.width)/2; 
-							this.remove();
-							if(minwidth>450){ //to avoid distortion of text, in case of large image
-								minwidth=450;
-							}
-						}
-					});
-					if(imgsrc!="") {
-						var tableData = $("<td style=\"width:50%\"><img src="+imgsrc+" style=\"min-width:"+minwidth+"px;max-height:85%\"></td>");
-						$(this).append(tableData);
-					}
-				}	
-			})
-		})()');
+            var images = [];
+            $("section table tr").each(function(){
+                var tr=this;
+                var imgsrc="";
+                var minwidth="";
+                
+                if($(this).text().length>20 && window.innerHeight < window.innerWidth){ //checking for text content and screen orientation
+                
+                    $(this).find("img").each(function(){
+                    
+                        if(this.width>200 ){
+                            $(tr).find("td").attr("style","vertical-align:top");
+                            imgsrc=this.src;
+                            minwidth=(this.width)/2; 
+                            this.remove();
+                            if(minwidth>450){ //to avoid distortion of text, in case of large image
+                                minwidth=450;
+                            }
+                        }
+                    });
+                    if(imgsrc!="") {
+                        var tableData = $("<td style=\"width:50%\"><img src="+imgsrc+" style=\"min-width:"+minwidth+"px;max-height:85%\"></td>");
+                        $(this).append(tableData);
+                    }
+                }    
+            })
+        })()');
     }
     $headerlib->add_js(
         "Reveal.configure({" . $revealSettings . "});
-	var fragments='" . $params['fragments'] . "';
-	var fragmentClass='" . $params['fragmentClass'] . "';
-	var fragmentHighlightColor='highlight-" . $params['fragmentHighlightColor'] . "';"
+    var fragments='" . $params['fragments'] . "';
+    var fragmentClass='" . $params['fragmentClass'] . "';
+    var fragmentHighlightColor='highlight-" . $params['fragmentHighlightColor'] . "';"
     );
 }

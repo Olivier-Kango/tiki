@@ -1967,17 +1967,17 @@
           <xs:element minOccurs="0" name="FixedValue" type="ns:Money">
             <xs:annotation>
               <xs:documentation>Used with Variable handling charge type of FIXED_VALUE.
-												  Contains the amount to be added to the freight charge.
-												  Contains 2 explicit decimal positions with a total max length of 10 including the decimal.
-					</xs:documentation>
+                                                  Contains the amount to be added to the freight charge.
+                                                  Contains 2 explicit decimal positions with a total max length of 10 including the decimal.
+                    </xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element minOccurs="0" name="PercentValue" type="xs:decimal">
             <xs:annotation>
               <xs:documentation>Used with Variable handling charge types PERCENTAGE_OF_BASE, PERCENTAGE_OF_NET or PERCETAGE_OF_NET_EXCL_TAXES.
-												  Used to calculate the amount to be added to the freight charge.
-												  Contains 2 explicit decimal positions.
-					</xs:documentation>
+                                                  Used to calculate the amount to be added to the freight charge.
+                                                  Contains 2 explicit decimal positions.
+                    </xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>

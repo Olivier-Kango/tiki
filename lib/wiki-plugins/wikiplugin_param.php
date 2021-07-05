@@ -15,7 +15,7 @@ function wikiplugin_param_info()
         'description' => tra('Display content based on URL parameters'),
         'prefs' => [ 'wikiplugin_param' ],
         'body' => tr('Wiki text to display if conditions are met. The body may contain %0{ELSE}%1. Text after the
-			marker will be displayed if conditions are not met.', '<code>', '</code>'),
+            marker will be displayed if conditions are not met.', '<code>', '</code>'),
         'iconname' => 'cog',
         'introduced' => 7,
         'params' => [
@@ -45,7 +45,7 @@ function wikiplugin_param_info()
                 'required' => false,
                 'name' => tra('Value'),
                 'description' => tra('Value to test for. If empty then just tests if the named params are set and not
-					"empty".'),
+                    "empty".'),
                 'since' => '13.1',
                 'filter' => 'text',
             ],

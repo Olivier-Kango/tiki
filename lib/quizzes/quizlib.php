@@ -651,7 +651,7 @@ class QuizLib extends TikiLib
         if ($quizId) {
             // update an existing quiz
             $query = "update `tiki_quizzes` set `name` = ?, `description` = ?, `canRepeat` = ?, `storeResults` = ?,";
-            $query .= "`immediateFeedback` = ?, `showAnswers` = ?,	`shuffleQuestions` = ?, `shuffleAnswers` = ?, ";
+            $query .= "`immediateFeedback` = ?, `showAnswers` = ?,    `shuffleQuestions` = ?, `shuffleAnswers` = ?, ";
             $query .= "`publishDate` = ?, `expireDate` = ?, ";
             $query .= "`questionsPerPage` = ?, `timeLimited` = ?, `timeLimit` =?, `passingperct` = ?  where `quizId` = ?";
             $bindvars = [$name,
@@ -676,7 +676,7 @@ class QuizLib extends TikiLib
             // insert a new quiz
 
             $query  = "insert into `tiki_quizzes`(`name`,`description`,`canRepeat`,`storeResults`,";
-            $query .= "`immediateFeedback`, `showAnswers`,	`shuffleQuestions`, `shuffleAnswers`,";
+            $query .= "`immediateFeedback`, `showAnswers`,    `shuffleQuestions`, `shuffleAnswers`,";
             $query .= "`publishDate`, `expireDate`,";
             $query .= "`questionsPerPage`,`timeLimited`,`timeLimit`,`created`,`taken`,`passingperct`)";
             $query .= " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -993,7 +993,7 @@ class QuizLib extends TikiLib
         if ($quizId) {
             // update an existing quiz
             $query = "update `tiki_quizzes` set `name` = ?, `description` = ?, `canRepeat` = ?, `storeResults` = ?,";
-            $query .= "`immediateFeedback` = ?, `showAnswers` = ?,	`shuffleQuestions` = ?, `shuffleAnswers` = ?, ";
+            $query .= "`immediateFeedback` = ?, `showAnswers` = ?,    `shuffleQuestions` = ?, `shuffleAnswers` = ?, ";
             $query .= "`publishDate` = ?, `expireDate` = ?, ";
             $query .= "`questionsPerPage` = ?, `timeLimited` = ?, `timeLimit` =?  where `quizId` = ?";
             $bindvars = [
@@ -1018,7 +1018,7 @@ class QuizLib extends TikiLib
             // insert a new quiz
 
             $query = "insert into `tiki_quizzes`(`name`,`description`,`canRepeat`,`storeResults`,";
-            $query .= "`immediateFeedback`, `showAnswers`,	`shuffleQuestions`, `shuffleAnswers`,";
+            $query .= "`immediateFeedback`, `showAnswers`,    `shuffleQuestions`, `shuffleAnswers`,";
             $query .= "`publishDate`, `expireDate`,";
             $query .= "`questionsPerPage`,`timeLimited`,`timeLimit`,`created`,`taken`) values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             $bindvars = [$name,

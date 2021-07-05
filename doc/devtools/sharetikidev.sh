@@ -31,36 +31,36 @@ cd $ARCHDIR
 
 mysqldump -e -f --add-drop-table -h$RDBHOST -u$RDBUSER -p$RDBPASS $RDBNAME tiki_pages > $DUMPLIGHT
 mysqldump -e -f --add-drop-table -h$RDBHOST -u$RDBUSER -p$RDBPASS $RDBNAME \
-	tiki_calendar_categories \
-	tiki_calendar_items \
-	tiki_calendar_locations \
-	tiki_calendar_roles \
-	tiki_calendars \
-	tiki_categories \
-	tiki_categorized_objects \
-	tiki_category_objects \
-	tiki_category_sites \
-	tiki_comments \
-	tiki_drawings \
-	tiki_extwiki \
-	tiki_menus  \
-	tiki_menu_options  \
-	tiki_modules  \
-	tiki_pages  \
-	tiki_quicktags  \
-	tiki_related_categories  \
-	tiki_rss_feeds  \
-	tiki_rss_modules  \
-	tiki_structures  \
-	tiki_wiki_attachments  \
-	tiki_tracker_fields \
-	tiki_tracker_item_attachments  \
-	tiki_tracker_item_comments  \
-	tiki_tracker_item_fields  \
-	tiki_tracker_items  \
-	tiki_tracker_options  \
-	tiki_trackers  \
-	> $DUMP
+    tiki_calendar_categories \
+    tiki_calendar_items \
+    tiki_calendar_locations \
+    tiki_calendar_roles \
+    tiki_calendars \
+    tiki_categories \
+    tiki_categorized_objects \
+    tiki_category_objects \
+    tiki_category_sites \
+    tiki_comments \
+    tiki_drawings \
+    tiki_extwiki \
+    tiki_menus  \
+    tiki_menu_options  \
+    tiki_modules  \
+    tiki_pages  \
+    tiki_quicktags  \
+    tiki_related_categories  \
+    tiki_rss_feeds  \
+    tiki_rss_modules  \
+    tiki_structures  \
+    tiki_wiki_attachments  \
+    tiki_tracker_fields \
+    tiki_tracker_item_attachments  \
+    tiki_tracker_item_comments  \
+    tiki_tracker_item_fields  \
+    tiki_tracker_items  \
+    tiki_tracker_options  \
+    tiki_trackers  \
+    > $DUMP
 
 bzip2 $DUMP
 bzip2 $DUMPLIGHT

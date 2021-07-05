@@ -21,7 +21,7 @@ function wikiplugin_events_info()
                 'required' => true,
                 'name' => tra('Calendar IDs'),
                 'description' => tr('ID numbers for the site calendars whose events are to be displayed, separated by
-					vertical bars (%0)', '<code>|</code>'),
+                    vertical bars (%0)', '<code>|</code>'),
                 'since' => '2.0',
                 'default' => '',
                 'filter' => 'text',
@@ -31,7 +31,7 @@ function wikiplugin_events_info()
                 'required' => false,
                 'name' => tra('Maximum Days'),
                 'description' => tr('Events occurring within this number of days in the future from today will be
-					included in the list (unless limited by other parameter settings). Default is %0.', '<code>365</code>'),
+                    included in the list (unless limited by other parameter settings). Default is %0.', '<code>365</code>'),
                 'since' => '2.0',
                 'filter' => 'digits',
                 'default' => 365,
@@ -40,7 +40,7 @@ function wikiplugin_events_info()
                 'required' => false,
                 'name' => tra('Maximum Events'),
                 'description' => tr('Maximum number of events to display. Default is %0. Set to %1 to display all
-					(unless limited by other parameter settings)', '<code>10</code>', '<code>0</code>'),
+                    (unless limited by other parameter settings)', '<code>10</code>', '<code>0</code>'),
                 'since' => '2.0',
                 'default' => 10,
                 'filter' => 'digits',

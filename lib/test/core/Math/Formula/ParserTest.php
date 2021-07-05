@@ -75,11 +75,11 @@ class Math_Formula_ParserTest extends TikiTestCase
         $equivalent = '(score (object type object) (range (mul 3600 60)))';
         $documented = <<<DOC
 (score
-	(comment calculate for a 60 hour range)
-	(object type object)
-	(range (mul
-		(comment 3600 is an hour, times 60)
-		3600 60))
+    (comment calculate for a 60 hour range)
+    (object type object)
+    (range (mul
+        (comment 3600 is an hour, times 60)
+        3600 60))
 )
 DOC;
 
@@ -123,9 +123,9 @@ DOC;
             $element,
             $parser->parse(
                 '(add
-				(default 0)
-				(attribute)
-				)'
+                (default 0)
+                (attribute)
+                )'
             )
         );
     }

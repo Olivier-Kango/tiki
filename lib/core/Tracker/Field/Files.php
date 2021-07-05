@@ -321,11 +321,11 @@ class Tracker_Field_Files extends Tracker_Field_Abstract implements Tracker_Fiel
                 $smarty = TikiLib::lib('smarty');
                 $smarty->loadPlugin('smarty_function_ticket');
                 $context['onclick'] = 'return openElFinderDialog(this, {
-	defaultGalleryId:' . $defaultGalleryId . ',
-	deepGallerySearch: ' . $deepGallerySearch . ',
-	ticket: \'' . smarty_function_ticket(['mode' => 'get'], $smarty) . '\',
-	getFileCallback: function(file,elfinder){ window.handleFinderFile(file,elfinder); },
-	eventOrigin:this
+    defaultGalleryId:' . $defaultGalleryId . ',
+    deepGallerySearch: ' . $deepGallerySearch . ',
+    ticket: \'' . smarty_function_ticket(['mode' => 'get'], $smarty) . '\',
+    getFileCallback: function(file,elfinder){ window.handleFinderFile(file,elfinder); },
+    eventOrigin:this
 });';
             }
             $context['galleryId'] = $defaultGalleryId;
@@ -503,8 +503,8 @@ class Tracker_Field_Files extends Tracker_Field_Abstract implements Tracker_Fiel
                         $ret .= " <a href='tiki-edit_draw.php?fileId=" . $file['fileId']
                             . "' onclick='return $(this).ajaxEditDraw();' class='tips' title='Edit: " . $file['name']
                             . "' data-fileid='" . $file['fileId'] . "' data-galleryid='" . $galleryId . "'>
-							$editicon
-						</a>";
+                            $editicon
+                        </a>";
                     }
 
                     $smarty->loadPlugin('smarty_function_icon');
@@ -516,8 +516,8 @@ class Tracker_Field_Files extends Tracker_Field_Abstract implements Tracker_Fiel
                     ) {
                         $ret .= " <a href='tiki-display.php?fileId=" . $file['fileId']
                             . "' target='_blank' class='tips' title='Preview: " . $file['filename'] . "'>
-							$viewicon
-						</a>";
+                            $viewicon
+                        </a>";
                     } else {
                         $dataAttributes = [];
 
@@ -527,8 +527,8 @@ class Tracker_Field_Files extends Tracker_Field_Abstract implements Tracker_Fiel
 
                         $src = smarty_modifier_sefurl($file['fileId'], 'display');
                         $ret .= " <a href='" . $src . "' target='_blank' class='tips' title='Preview: " . $file['filename'] . "' data-box='box-" . $this->getConfiguration('fieldId') . "' " . implode(' ', $dataAttributes) . ">
-							$viewicon
-						</a>";
+                            $viewicon
+                        </a>";
                     }
 
                     $ret .= '</li>';

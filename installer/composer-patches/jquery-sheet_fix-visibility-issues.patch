@@ -1,5 +1,5 @@
---- a/jquery.sheet.js	2017-01-28 04:40:04.000000000 +0000
-+++ b/jquery.sheet.js	2017-03-28 00:32:33.000000000 +0100
+--- a/jquery.sheet.js    2017-01-28 04:40:04.000000000 +0000
++++ b/jquery.sheet.js    2017-03-28 00:32:33.000000000 +0100
 @@ -7448,7 +7448,7 @@
                                      enclosure = enclosures[j];
                                      enclosure._scrollLeft = enclosure._scrollLeft || enclosure.scrollUI.scrollLeft;

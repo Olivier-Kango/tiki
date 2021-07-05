@@ -24,11 +24,11 @@ if [ "$1" = "off" ]; then
         OLD=.htaccess
         NEW=_htaccess
         ACTION=deactivating
-	COMMAND="mv"
+    COMMAND="mv"
 fi
  
 for i in $(find . -name ${OLD}); do
-	chmod 644 $i
-	echo "${ACTION} `dirname $i`/${NEW}"
-	$COMMAND $i `dirname $i`/${NEW}
+    chmod 644 $i
+    echo "${ACTION} `dirname $i`/${NEW}"
+    $COMMAND $i `dirname $i`/${NEW}
 done

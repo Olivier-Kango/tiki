@@ -75,8 +75,8 @@ function smarty_block_filter($params, $content, $smarty, &$repeat)
 
             $body = <<<BODY
 <label>
-	<input type="checkbox" value="{$c['categId']}"/>
-	{$name}
+    <input type="checkbox" value="{$c['categId']}"/>
+    {$name}
 </label>
 BODY;
 

@@ -137,7 +137,7 @@ function wikiplugin_listpages_info()
                 'required' => false,
                 'name' => tra('Orphan Language'),
                 'description' => tra('Two-letter language code to filter pages listed. Only pages not available in the
-					provided language will be listed.'),
+                    provided language will be listed.'),
                 'since' => '3.0',
                 'filter' => 'alpha',
             ],
@@ -145,15 +145,15 @@ function wikiplugin_listpages_info()
                 'required' => false,
                 'name' => tra('Load Translations'),
                 'description' => tra('User- or pipe-separated list of two-letter language codes for additional languages
-					to display. If the language parameter is not defined, the first element of this list will be used
-					as the primary filter.'),
+                    to display. If the language parameter is not defined, the first element of this list will be used
+                    as the primary filter.'),
                 'since' => '3.0',
             ],
             'translationOrphan' => [
                 'required' => false,
                 'name' => tra('No translation'),
                 'description' => tra('User- or pipe-separated list of two-letter language codes for additional languages
-					to display. List pages with no language or with a missing translation in one of the language'),
+                    to display. List pages with no language or with a missing translation in one of the language'),
                 'since' => '7.0',
             ],
             'exact_match' => [
@@ -199,7 +199,7 @@ function wikiplugin_listpages_info()
                 'required' => false,
                 'name' => tra('Sort'),
                 'description' => tra('Sort ascending or descending on any field in the tiki_pages table. Syntax is
-					field name followed by _asc or _desc. Two examples:')
+                    field name followed by _asc or _desc. Two examples:')
                     . ' <code>lastModif_desc</code> <code>pageName_asc</code>',
                 'since' => '2.0',
                 'filter' => 'text',
@@ -209,7 +209,7 @@ function wikiplugin_listpages_info()
                 'required' => false,
                 'name' => tra('Start'),
                 'description' => tra('When only a portion of the page should be included, specify the marker from which
-					inclusion should start.'),
+                    inclusion should start.'),
                 'since' => '5.0',
                 'default' => '',
             ],
@@ -217,7 +217,7 @@ function wikiplugin_listpages_info()
                 'required' => false,
                 'name' => tra('Stop'),
                 'description' => tra('When only a portion of the page should be included, specify the marker at which
-					inclusion should end.'),
+                    inclusion should end.'),
                 'since' => '5.0',
                 'default' => '',
             ],

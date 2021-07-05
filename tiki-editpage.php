@@ -366,7 +366,7 @@ if ($prefs['feature_warn_on_edit'] === 'y') {
     if ($editpageconflict === 'y' && ! isset($_REQUEST["conflictoverride"])) {
         include_once('lib/smarty_tiki/modifier.userlink.php');
         include_once('lib/smarty_tiki/modifier.username.php');
-        $msg = tr("This page is being edited by %0. Please check with the user before editing the page,	otherwise the changes will be stored as two separate versions in the history and you will have to manually merge them later.", smarty_modifier_username($semUser));
+        $msg = tr("This page is being edited by %0. Please check with the user before editing the page,    otherwise the changes will be stored as two separate versions in the history and you will have to manually merge them later.", smarty_modifier_username($semUser));
         $msg .= '<br /><br /><a href="tiki-editpage.php?page=';
         $msg .= urlencode($page);
         $msg .= '&conflictoverride=y">' . tra('Override lock and carry on with edit') . '</a>';
@@ -1055,13 +1055,13 @@ if (isset($_REQUEST['save']) && $prefs['wiki_mandatory_edit_summary'] === 'y' &&
 if ($prefs['wiki_mandatory_edit_summary'] === 'y') {
     $headerlib->add_jq_onready(
         '$("input[name=save],input[name=minor]").click(function(){
-			if (!$("#comment").val()) {
-				var s = prompt("' . tra('Describe the change you made') . '", "");
-				if (!s) return false;
-				$("#comment").val(s);
-			}
-			return true;
-		})'
+            if (!$("#comment").val()) {
+                var s = prompt("' . tra('Describe the change you made') . '", "");
+                if (!s) return false;
+                $("#comment").val(s);
+            }
+            return true;
+        })'
     );
 }
 

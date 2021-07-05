@@ -65,7 +65,7 @@ function wikiplugin_box_info()
                 'name' => tra('Float Position'),
                 'description' => tr(
                     'Set the alignment for the entire box. For elements with a width of less than 100%, other elements
-					will wrap around it unless the %0 parameter is appropriately set.)',
+                    will wrap around it unless the %0 parameter is appropriately set.)',
                     '<code>clear</code>'
                 ),
                 'since' => '1',

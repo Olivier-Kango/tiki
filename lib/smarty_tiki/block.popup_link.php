@@ -32,20 +32,20 @@ function smarty_block_popup_link($params, $content, $smarty, &$repeat)
                 <<<JS
 \$(document).ready( function() {
 
-	\$('#$block').hide();
+    \$('#$block').hide();
 
-	\$('#$linkId').click( function() {
-		var block = \$('#$block');
-		if ( block.css('display') == 'none' ) {
-			//var coord = \$(this).offset();
-			block.css( 'position', 'absolute' );
-			//block.css( 'left', coord.left);
-			//block.css( 'top', coord.top + \$(this).height() );
-			show( '$block' );
-		} else {
-			hide( '$block' );
-		}
-	});
+    \$('#$linkId').click( function() {
+        var block = \$('#$block');
+        if ( block.css('display') == 'none' ) {
+            //var coord = \$(this).offset();
+            block.css( 'position', 'absolute' );
+            //block.css( 'left', coord.left);
+            //block.css( 'top', coord.top + \$(this).height() );
+            show( '$block' );
+        } else {
+            hide( '$block' );
+        }
+    });
 } );
 JS
             );

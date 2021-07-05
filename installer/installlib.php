@@ -209,28 +209,28 @@ function error_and_exit()
     */
 
     print "<html><body>\n<h2><IMG SRC=\"img/tiki/Tiki_WCG.png\" ALT=\"\" BORDER=0><br /\>
-	<font color='red'>Tiki Installer cannot proceed</font></h2>\n<pre>\n$errors";
+    <font color='red'>Tiki Installer cannot proceed</font></h2>\n<pre>\n$errors";
 
     if (! isWindows()) {
         print "<br /><br />Your options:
 
 
 1- With FTP access:
-	a) Change the permissions (chmod) of the directories to 777.
-	b) Create any missing directories
-	c) <a href='tiki-install.php'>Execute the Tiki installer again</a> (Once you have executed these commands, this message will disappear!)
+    a) Change the permissions (chmod) of the directories to 777.
+    b) Create any missing directories
+    c) <a href='tiki-install.php'>Execute the Tiki installer again</a> (Once you have executed these commands, this message will disappear!)
 
 or
 
 2- With shell (SSH) access, you can run the command below.
 
-	a) To run setup.sh, follow the instructions:
-		\$ cd $tikipath
-		\$ sh setup.sh
+    a) To run setup.sh, follow the instructions:
+        \$ cd $tikipath
+        \$ sh setup.sh
 
-		The script will offer you options depending on your server configuration.
+        The script will offer you options depending on your server configuration.
 
-	b) <a href='tiki-install.php'>Execute the Tiki installer again</a> (Once you have executed these commands, this message will disappear!)
+    b) <a href='tiki-install.php'>Execute the Tiki installer again</a> (Once you have executed these commands, this message will disappear!)
 
 
 <hr>

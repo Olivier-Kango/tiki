@@ -14,7 +14,7 @@ function wikiplugin_perspective_info()
         'description' => tra('Display content based on the user\'s current perspective'),
         'prefs' => [ 'feature_perspective', 'wikiplugin_perspective' ],
         'body' => tr('Wiki text to display if conditions are met. The body may contain %0{ELSE}%1. Text after the
-			marker will be displayed to users not matching the condition.', '<code>', '</code>'),
+            marker will be displayed to users not matching the condition.', '<code>', '</code>'),
         'filter' => 'wikicontent',
         'iconname' => 'view',
         'introduced' => 7.1,
@@ -34,7 +34,7 @@ function wikiplugin_perspective_info()
                 'required' => false,
                 'name' => tra('Denied Perspectives'),
                 'description' => tra('Pipe-separated list of identifiers of perspectives in which the block is not
-					shown.') . tra('Example value:') . ' <code>3|5|8</code>',
+                    shown.') . tra('Example value:') . ' <code>3|5|8</code>',
                 'since' => '7.1',
                 'filter' => 'digits',
                 'separator' => '|',

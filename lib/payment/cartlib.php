@@ -198,13 +198,13 @@ class CartLib
 
         $itemId = $tikilib->fetchAll(
             "SELECT tiki_tracker_item_fields.itemId
-			FROM tiki_tracker_item_fields
-			LEFT JOIN tiki_tracker_fields ON tiki_tracker_fields.fieldId = tiki_tracker_item_fields.fieldId
-			LEFT JOIN tiki_trackers ON tiki_trackers.trackerId = tiki_tracker_fields.trackerId
-			LEFT JOIN tiki_tracker_items ON tiki_tracker_items.itemId = tiki_tracker_item_fields.itemId
-			WHERE tiki_trackers.name = ? AND
-			tiki_tracker_fields.name = ? AND
-			tiki_tracker_item_fields.value = ?",
+            FROM tiki_tracker_item_fields
+            LEFT JOIN tiki_tracker_fields ON tiki_tracker_fields.fieldId = tiki_tracker_item_fields.fieldId
+            LEFT JOIN tiki_trackers ON tiki_trackers.trackerId = tiki_tracker_fields.trackerId
+            LEFT JOIN tiki_tracker_items ON tiki_tracker_items.itemId = tiki_tracker_item_fields.itemId
+            WHERE tiki_trackers.name = ? AND
+            tiki_tracker_fields.name = ? AND
+            tiki_tracker_item_fields.value = ?",
             [$trackerName, $fieldName, $value]
         );
 
@@ -217,13 +217,13 @@ class CartLib
 
         $itemId = $tikilib->getOne(
             "SELECT tiki_tracker_item_fields.itemId
-			FROM tiki_tracker_item_fields
-			LEFT JOIN tiki_tracker_fields ON tiki_tracker_fields.fieldId = tiki_tracker_item_fields.fieldId
-			LEFT JOIN tiki_trackers ON tiki_trackers.trackerId = tiki_tracker_fields.trackerId
-			LEFT JOIN tiki_tracker_items ON tiki_tracker_items.itemId = tiki_tracker_item_fields.itemId
-			WHERE tiki_trackers.name = ? AND
-			tiki_tracker_fields.name = ? AND
-			tiki_tracker_item_fields.value = ?",
+            FROM tiki_tracker_item_fields
+            LEFT JOIN tiki_tracker_fields ON tiki_tracker_fields.fieldId = tiki_tracker_item_fields.fieldId
+            LEFT JOIN tiki_trackers ON tiki_trackers.trackerId = tiki_tracker_fields.trackerId
+            LEFT JOIN tiki_tracker_items ON tiki_tracker_items.itemId = tiki_tracker_item_fields.itemId
+            WHERE tiki_trackers.name = ? AND
+            tiki_tracker_fields.name = ? AND
+            tiki_tracker_item_fields.value = ?",
             [$trackerName, $fieldName, $value]
         );
 
@@ -236,13 +236,13 @@ class CartLib
 
         $value = $tikilib->getOne(
             "SELECT tiki_tracker_item_fields.value
-			FROM tiki_tracker_item_fields
-			LEFT JOIN tiki_tracker_fields ON tiki_tracker_fields.fieldId = tiki_tracker_item_fields.fieldId
-			LEFT JOIN tiki_trackers ON tiki_trackers.trackerId = tiki_tracker_fields.trackerId
-			LEFT JOIN tiki_tracker_items ON tiki_tracker_items.itemId = tiki_tracker_item_fields.itemId
-			WHERE tiki_trackers.name = ? AND
-			tiki_tracker_fields.name = ? AND
-			tiki_tracker_item_fields.itemId = ?",
+            FROM tiki_tracker_item_fields
+            LEFT JOIN tiki_tracker_fields ON tiki_tracker_fields.fieldId = tiki_tracker_item_fields.fieldId
+            LEFT JOIN tiki_trackers ON tiki_trackers.trackerId = tiki_tracker_fields.trackerId
+            LEFT JOIN tiki_tracker_items ON tiki_tracker_items.itemId = tiki_tracker_item_fields.itemId
+            WHERE tiki_trackers.name = ? AND
+            tiki_tracker_fields.name = ? AND
+            tiki_tracker_item_fields.itemId = ?",
             [$trackerName, $fieldName, $itemId]
         );
 
@@ -255,13 +255,13 @@ class CartLib
 
         $result = $tikilib->fetchAll(
             "SELECT tiki_tracker_fields.name, tiki_tracker_item_fields.value
-			FROM tiki_tracker_item_fields
-			LEFT JOIN tiki_tracker_fields ON tiki_tracker_fields.fieldId = tiki_tracker_item_fields.fieldId
-			LEFT JOIN tiki_trackers ON tiki_trackers.trackerId = tiki_tracker_fields.trackerId
-			LEFT JOIN tiki_tracker_items ON tiki_tracker_items.itemId = tiki_tracker_item_fields.itemId
-			WHERE tiki_trackers.name = ? AND
-			tiki_tracker_item_fields.itemId = ? AND
-			tiki_tracker_item_fields.value <> ''",
+            FROM tiki_tracker_item_fields
+            LEFT JOIN tiki_tracker_fields ON tiki_tracker_fields.fieldId = tiki_tracker_item_fields.fieldId
+            LEFT JOIN tiki_trackers ON tiki_trackers.trackerId = tiki_tracker_fields.trackerId
+            LEFT JOIN tiki_tracker_items ON tiki_tracker_items.itemId = tiki_tracker_item_fields.itemId
+            WHERE tiki_trackers.name = ? AND
+            tiki_tracker_item_fields.itemId = ? AND
+            tiki_tracker_item_fields.value <> ''",
             [ $trackerName, $itemId ]
         );
 
@@ -279,15 +279,15 @@ class CartLib
 
         $result = $tikilib->query(
             "UPDATE tiki_tracker_item_fields
-			LEFT JOIN tiki_tracker_fields ON tiki_tracker_fields.fieldId = tiki_tracker_item_fields.fieldId
-			LEFT JOIN tiki_trackers ON tiki_trackers.trackerId = tiki_tracker_fields.trackerId
-			LEFT JOIN tiki_tracker_items ON tiki_tracker_items.itemId = tiki_tracker_item_fields.itemId
+            LEFT JOIN tiki_tracker_fields ON tiki_tracker_fields.fieldId = tiki_tracker_item_fields.fieldId
+            LEFT JOIN tiki_trackers ON tiki_trackers.trackerId = tiki_tracker_fields.trackerId
+            LEFT JOIN tiki_tracker_items ON tiki_tracker_items.itemId = tiki_tracker_item_fields.itemId
 
-			SET tiki_tracker_item_fields.value = ?
+            SET tiki_tracker_item_fields.value = ?
 
-			WHERE tiki_trackers.name = ? AND
-			tiki_tracker_fields.name = ? AND
-			tiki_tracker_item_fields.itemId = ?",
+            WHERE tiki_trackers.name = ? AND
+            tiki_tracker_fields.name = ? AND
+            tiki_tracker_item_fields.itemId = ?",
             [$value, $trackerName, $fieldName, $itemId]
         );
     }

@@ -56,7 +56,7 @@ function wikiplugin_dialog_info()
                 'required' => false,
                 'name' => tra('HTML ID'),
                 'description' => tr('Automatically generated if left empty in the form %0 (must be unique
-					per page)', '<code>wpdialog_XX</code>'),
+                    per page)', '<code>wpdialog_XX</code>'),
                 'since' => '8.0',
                 'filter' => 'text',
                 'default' => '',

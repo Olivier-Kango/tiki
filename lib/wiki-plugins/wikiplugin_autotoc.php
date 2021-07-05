@@ -15,7 +15,7 @@ function wikiplugin_autotoc_info()
                 'required' => true,
                 'name' => tr('Activity'),
                 'description' => tr('By default, the table of contents for the current page will be displayed.
-					Alternate activity may be provided.'),
+                    Alternate activity may be provided.'),
                 'since' => '22.0',
                 'filter' => 'alpha',
                 'default' => 'yes',
@@ -117,7 +117,7 @@ function wikiplugin_autotoc($data, $params)
             $jqueryAutoToc['plugin_autoToc_levels'] = $autoTocLevels;
 
             $js = '
-					var jqueryAutoToc = ' . json_encode($jqueryAutoToc, JSON_UNESCAPED_SLASHES) . "\n";
+                    var jqueryAutoToc = ' . json_encode($jqueryAutoToc, JSON_UNESCAPED_SLASHES) . "\n";
 
             $headerlib->add_js($js);
             if (
@@ -128,90 +128,90 @@ function wikiplugin_autotoc($data, $params)
             }
             if ($autotocPos == 'page') {
                 $headerlib->add_css('
-					#autotoc ul li {
-						list-style: none;
-						position: relative;
-					}
+                    #autotoc ul li {
+                        list-style: none;
+                        position: relative;
+                    }
 
-					#autotoc ul > li > a {
-						display: block;
-						font-size: 15px;
-					}
+                    #autotoc ul > li > a {
+                        display: block;
+                        font-size: 15px;
+                    }
 
-					#autotoc ul > li > a:hover,
-					#autotoc ul > li > a:focus {
-						font-weight: bold;
-						padding-left: 6px;
-						text-decoration: none;
-						background-color: transparent;
-						border-left: 1px solid #0075ff;
-					}');
+                    #autotoc ul > li > a:hover,
+                    #autotoc ul > li > a:focus {
+                        font-weight: bold;
+                        padding-left: 6px;
+                        text-decoration: none;
+                        background-color: transparent;
+                        border-left: 1px solid #0075ff;
+                    }');
 
                 return "<div id='autotoc'></div>";
             } else {
                 $headerlib->add_css('
-					body {
-						position: relative;
-					}
+                    body {
+                        position: relative;
+                    }
 
-					#autotoc .nav > li > a {
-						display: block;
-						padding: 4px 20px;
-						font-size: 13px;
-						font-weight: 500;
-					}
+                    #autotoc .nav > li > a {
+                        display: block;
+                        padding: 4px 20px;
+                        font-size: 13px;
+                        font-weight: 500;
+                    }
 
-					#autotoc .nav > li > a:hover,
-					#autotoc .nav > li > a:focus {
-						padding-left: 19px;
-						text-decoration: none;
-						background-color: transparent;
-						border-left: 1px solid #0075ff;
-					}
+                    #autotoc .nav > li > a:hover,
+                    #autotoc .nav > li > a:focus {
+                        padding-left: 19px;
+                        text-decoration: none;
+                        background-color: transparent;
+                        border-left: 1px solid #0075ff;
+                    }
 
-					#autotoc .nav-link.active,
-					#autotoc .nav-link.active:hover,
-					#autotoc .nav-link.active:focus {
-						padding-left: 30px;
-						font-weight: bold;
-						background-color: transparent;
-						border-left: 2px solid #0075ff;
-					}
+                    #autotoc .nav-link.active,
+                    #autotoc .nav-link.active:hover,
+                    #autotoc .nav-link.active:focus {
+                        padding-left: 30px;
+                        font-weight: bold;
+                        background-color: transparent;
+                        border-left: 2px solid #0075ff;
+                    }
 
-					#autotoc .nav-link + ul {
-						display: none;
-						padding-bottom: 10px;
-					}
+                    #autotoc .nav-link + ul {
+                        display: none;
+                        padding-bottom: 10px;
+                    }
 
-					#autotoc .nav .nav > li > a {
-						padding-top: 1px;
-						padding-bottom: 1px;
-						padding-left: 30px;
-						font-size: 12px;
-						font-weight: normal;
-					}
+                    #autotoc .nav .nav > li > a {
+                        padding-top: 1px;
+                        padding-bottom: 1px;
+                        padding-left: 30px;
+                        font-size: 12px;
+                        font-weight: normal;
+                    }
 
-					#autotoc .nav .nav > li > a:hover,
-					#autotoc .nav .nav > li > a:focus {
-						padding-left: 29px;
-					}
+                    #autotoc .nav .nav > li > a:hover,
+                    #autotoc .nav .nav > li > a:focus {
+                        padding-left: 29px;
+                    }
 
-					#autotoc .nav .nav > li > .active,
-					#autotoc .nav .nav > li > .active:hover,
-					#autotoc .nav .nav > li > .active:focus {
-						padding-left: 28px;
-						font-weight: 500;
-					}
+                    #autotoc .nav .nav > li > .active,
+                    #autotoc .nav .nav > li > .active:hover,
+                    #autotoc .nav .nav > li > .active:focus {
+                        padding-left: 28px;
+                        font-weight: 500;
+                    }
 
-					#autotoc .nav-link.active + ul {
-						display: block;
-					}
+                    #autotoc .nav-link.active + ul {
+                        display: block;
+                    }
 
-					@media screen and (max-width: 991px) {
-						.hidden {
-							display: none!important;
-						}
-					}');
+                    @media screen and (max-width: 991px) {
+                        .hidden {
+                            display: none!important;
+                        }
+                    }');
             }
         }
     }

@@ -93,11 +93,11 @@ class Importer extends Comments
 
             if ($dbType == 'TikiWiki') {
                 $query = 'insert into
-								`tiki_comments` (`objectType`, `object`, `commentDate`,
-								`userName`, `title`, `data`, `votes`, `points`, `hash`,
-								`parentId`, `average`, `hits`, `type`, `summary`, `user_ip`,
-								`message_id`, `in_reply_to`)
-								values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+                                `tiki_comments` (`objectType`, `object`, `commentDate`,
+                                `userName`, `title`, `data`, `votes`, `points`, `hash`,
+                                `parentId`, `average`, `hits`, `type`, `summary`, `user_ip`,
+                                `message_id`, `in_reply_to`)
+                                values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
 
                 $result = $this->query($query, [
                         'forum',

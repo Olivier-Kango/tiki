@@ -8,25 +8,25 @@
 
 usage()
 {
-	echo "Usage: $0 userlogin"
+    echo "Usage: $0 userlogin"
 }
 
 if [[ "$1" = "" ]]
 then
-	usage
-	exit 1
+    usage
+    exit 1
 else
-	USERLOGIN=$1
+    USERLOGIN=$1
 fi
 echo "Re-activate account: $USERLOGIN"
 
 if [[ -f db/local.php ]]
 then
-	LOCALFILE="db/local.php"
-	echo "Detected: $LOCALFILE"
+    LOCALFILE="db/local.php"
+    echo "Detected: $LOCALFILE"
 else
   echo "ERROR: db/local.php file not found"
-	exit 2
+    exit 2
 fi
 
 echo "Using: $LOCALFILE"
@@ -37,7 +37,7 @@ then
   PASS_DETECTED=$(grep "^\$pass_tiki" "$LOCALFILE" | cut -d"'" -f2| tail -n 1);
 else
   echo "ERROR: local.php file not found"
-	usage
+    usage
   exit 1
 fi
 

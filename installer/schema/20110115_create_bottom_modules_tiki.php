@@ -8,7 +8,7 @@
 
 /*
  * Prefs replaced (and removed) by this update:
- * 	feature_site_report
+ *     feature_site_report
  *  feature_site_send_link
  *  feature_tell_a_friend
  *  feature_bot_bar_power_by_tw

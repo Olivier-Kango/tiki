@@ -51,7 +51,7 @@ function smarty_function_modulelist($params, $smarty)
     }
     return <<<OUT
 <$tag class="$class" id="$id"$dir>
-	$content
+    $content
 </$tag>
 OUT;
 }

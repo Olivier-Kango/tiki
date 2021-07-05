@@ -20,7 +20,7 @@ function wikiplugin_objecthits_info()
                 'required' => false,
                 'name' => tra('Object'),
                 'description' => tra('For a wiki page, the page name, for other object types: ID number + ? +
-					object title'),
+                    object title'),
                 'since' => '1',
                 'default' => '',
                 'filter' => 'text',
@@ -30,7 +30,7 @@ function wikiplugin_objecthits_info()
                 'required' => false,
                 'name' => tra('Type'),
                 'description' => tr('Object type, such as wiki, file gallery, file, article, etc. Default is
-					%0wiki%1.', '<code>', '</code>'),
+                    %0wiki%1.', '<code>', '</code>'),
                 'since' => '1',
                 'filter' => 'alpha',
                 'default' => 'wiki',
@@ -39,7 +39,7 @@ function wikiplugin_objecthits_info()
                 'required' => false,
                 'name' => tra('Days'),
                 'description' => tra('Show the number of hits over the past number of days indicated. Default is to
-					show all hits.'),
+                    show all hits.'),
                 'since' => '1',
                 'filter' => 'digits',
                 'default' => 0,

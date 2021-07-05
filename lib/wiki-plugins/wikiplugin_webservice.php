@@ -14,8 +14,8 @@ function wikiplugin_webservice_info()
         'description' => tra('Display remote information exposed in JSON or YAML or SOAP XML'),
         'prefs' => [ 'wikiplugin_webservice' ],
         'body' => tr('Template to apply to the data provided. Template format uses smarty templating engine using
-			double brackets as delimiter. Output must provide wiki syntax. Body can be sent to a parameter instead by
-			using the %0 parameter.', '<code>bodyname</code>'),
+            double brackets as delimiter. Output must provide wiki syntax. Body can be sent to a parameter instead by
+            using the %0 parameter.', '<code>bodyname</code>'),
         'validate' => 'all',
         'iconname' => 'move',
         'introduced' => 3,
@@ -40,7 +40,7 @@ function wikiplugin_webservice_info()
                 'safe' => true,
                 'name' => tra('Template Name'),
                 'description' => tra('For use with registered services, name of the template to be used to display the
-					service output. This parameter will be ignored if a body is provided.'),
+                    service output. This parameter will be ignored if a body is provided.'),
                 'since' => '3.0',
                 'default' => '',
             ],
@@ -50,7 +50,7 @@ function wikiplugin_webservice_info()
                 'safe' => true,
                 'name' => tra('Body as Parameter'),
                 'description' => tra('Name of the argument to send the body as for services with complex input.
-					Named service required for this to be useful.'),
+                    Named service required for this to be useful.'),
                 'since' => '3.0',
                 'default' => '',
             ],

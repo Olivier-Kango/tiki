@@ -411,17 +411,17 @@ function wikiplugin_swiper($data, $params)
     if ($params['autoPlay'] != 'n') {
         $autoplayDelay = $params['autoPlayDelay'] * 1000;
         $autoPlay = 'autoplay: {
-			delay: ' . $autoplayDelay . ',
-		},';
+            delay: ' . $autoplayDelay . ',
+        },';
     } else {
         $autoPlay = '';
     }
     if ($params['pagination'] != 'n') {
         $pagination = 'pagination: {
-			el: \'.swiper-pagination\',
-			clickable: true,
-			type:"' . $params['pagination'] . '"
-			},';
+            el: \'.swiper-pagination\',
+            clickable: true,
+            type:"' . $params['pagination'] . '"
+            },';
         $paginationDiv = "<div class=\"swiper-pagination\"></div>";
     } else {
         $pagination = "";
@@ -434,9 +434,9 @@ function wikiplugin_swiper($data, $params)
     }
     if ($params['navigation'] != 'n') {
         $navigation = 'navigation: {
-				nextEl: \'#swiper' . $uid . '-button-next\',
-				prevEl: \'#swiper' . $uid . '-button-prev\',
-			},';
+                nextEl: \'#swiper' . $uid . '-button-next\',
+                prevEl: \'#swiper' . $uid . '-button-prev\',
+            },';
         $navigationDiv = '<div id="swiper' . $uid . '-button-prev" class="swiper-button-prev"></div><div class="swiper-button-next" id="swiper' . $uid . '-button-next"></div>';
     } else {
         $navigation = "";
@@ -529,30 +529,30 @@ function wikiplugin_swiper($data, $params)
         $thumbnails = ' <div id="gallery-thumbs' . $uid . '" class="swiper-container gallery-thumbs"><div class="swiper-wrapper">' . $slidesHtml . '</div></div>'   ;
         $thumbclass = 'gallery-top';
         $swiperOpts = 'var galleryThumbs' . $uid . ' = new Swiper("#gallery-thumbs' . $uid . '", {spaceBetween: 10,
-			slidesPerView: 3,
-			loopedSlides:1,
-			loop:true,
-			watchSlidesVisibility: true,
-			watchSlidesProgress: true,
-			slideToClickedSlide: true
-		});';
+            slidesPerView: 3,
+            loopedSlides:1,
+            loop:true,
+            watchSlidesVisibility: true,
+            watchSlidesProgress: true,
+            slideToClickedSlide: true
+        });';
         $thumbsSettings = ''; //' thumbs: {swiper: galleryThumbs'.$uid.'},';
         $thumbAfter = 'swiper' . $uid . '.controller.control = galleryThumbs' . $uid . ';galleryThumbs' . $uid . '.controller.control =swiper' . $uid . ';';
     }
     $swiperOpts .= 'var swiper' . $uid . ' = new Swiper("#swiper-container' . $uid . '",{
-			' . $swiperSettings . '
-			init:false,
-			' . $thumbsSettings . '
-			' . $pagination . '
-			keyboard: {
-				enabled: true,
-				onlyInViewport: false,
-			},
-			' . $breakpoints . '
-			' . $autoPlay . '
-			' . $navigation . '
-	 
-			});' . $thumbAfter;
+            ' . $swiperSettings . '
+            init:false,
+            ' . $thumbsSettings . '
+            ' . $pagination . '
+            keyboard: {
+                enabled: true,
+                onlyInViewport: false,
+            },
+            ' . $breakpoints . '
+            ' . $autoPlay . '
+            ' . $navigation . '
+     
+            });' . $thumbAfter;
     if ($params['sliderPosition'] == 'abovetopbar') {
         $headerlib->add_css("#swiper-container" . $uid . "{visibility:hidden;}");
         $swiperOpts .= 'var container=$(".container").first();$("#swiper-container' . $uid . '").insertBefore( container );$("#gallery-thumbs' . $uid . '").insertAfter( "#swiper-container' . $uid . '" );';
@@ -562,8 +562,8 @@ function wikiplugin_swiper($data, $params)
     }
     //delaying initialization till window is fully loaded
     $swiperOpts .= 'setTimeout( function(){
-		$(window).trigger("resize")
-		}, 100); $(window).resize(function(){swiper' . $uid . '.init(); $("#swiper-container' . $uid . '").css("visibility","visible"); });';
+        $(window).trigger("resize")
+        }, 100); $(window).resize(function(){swiper' . $uid . '.init(); $("#swiper-container' . $uid . '").css("visibility","visible"); });';
     $headerlib->add_js(
         '$( document ).ready(function() {' . $swiperOpts . ';$("#swiper-container' . $uid . '").css("max-width",$("#swiper-container' . $uid . '").parent().width());})'
     );

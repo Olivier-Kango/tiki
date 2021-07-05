@@ -1988,7 +1988,7 @@ class convertToTiki9
         if (empty($currentStatus)) {
             //Insert a status record if one doesn't exist
             $this->parserlib->query(
-                'INSERT INTO tiki_db_status ( objectId,	tableName,	status )' .
+                'INSERT INTO tiki_db_status ( objectId,    tableName,    status )' .
                 ' VALUES (?, ?, ?)',
                 [$objectId,     $tableName, $status]
             );

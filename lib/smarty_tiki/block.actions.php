@@ -67,9 +67,9 @@ function smarty_block_actions($params, $content, $smarty, $repeat = false)
     $icon = ! empty($params['icon']) ? $params['icon'] : 'settings';
 
     $return .= '<a
-			class="float-right p-0 m-0 border border-0"
-			title="' . $title . '"
-			href="#"';
+            class="float-right p-0 m-0 border border-0"
+            title="' . $title . '"
+            href="#"';
 
     if ($js) {
         $return .= ' ' . smarty_function_popup(['fullhtml' => '1', 'center' => 'true', 'text' => $content, 'trigger' => 'click'], $smarty);

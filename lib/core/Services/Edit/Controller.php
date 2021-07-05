@@ -177,17 +177,17 @@ class Services_Edit_Controller
                 TikiLib::lib('header')->add_js(
                     '
 function get_new_preview() {
-	$("body").css("opacity", 0.6);
-	location.reload(true);
+    $("body").css("opacity", 0.6);
+    location.reload(true);
 }
 $(window).on("load", function(){
-	if (typeof opener != "undefined") {
-		opener.ajaxPreviewWindow = this;
-	}
+    if (typeof opener != "undefined") {
+        opener.ajaxPreviewWindow = this;
+    }
 }).on("unload", function(){
-	if (typeof opener.ajaxPreviewWindow != "undefined") {
-		opener.ajaxPreviewWindow = null;
-	}
+    if (typeof opener.ajaxPreviewWindow != "undefined") {
+        opener.ajaxPreviewWindow = null;
+    }
 });
 '
                 );

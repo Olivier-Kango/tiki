@@ -36,19 +36,19 @@ class NlLib extends TikiLib
 
         if ($nlId) {
             $query = "update `tiki_newsletters` set `name`=?,
-								`description`=?,
-								`allowUserSub`=?,
-								`allowTxt`=?,
-								`allowAnySub`=?,
-								`unsubMsg`=?,
-								`validateAddr`=?,
-								`frequency`=?,
-								`allowArticleClip`=?,
-								`autoArticleClip`=?,
-								`articleClipRange`=?,
-								`articleClipTypes`=?,
-								`emptyClipBlocksSend`=?
-								where `nlId`=?";
+                                `description`=?,
+                                `allowUserSub`=?,
+                                `allowTxt`=?,
+                                `allowAnySub`=?,
+                                `unsubMsg`=?,
+                                `validateAddr`=?,
+                                `frequency`=?,
+                                `allowArticleClip`=?,
+                                `autoArticleClip`=?,
+                                `articleClipRange`=?,
+                                `articleClipTypes`=?,
+                                `emptyClipBlocksSend`=?
+                                where `nlId`=?";
             $result = $this->query(
                 $query,
                 [
@@ -70,24 +70,24 @@ class NlLib extends TikiLib
             );
         } else {
             $query = "insert into `tiki_newsletters`(
-								`name`,
-								`description`,
-								`created`,
-								`lastSent`,
-								`editions`,
-								`users`,
-								`allowUserSub`,
-								`allowTxt`,
-								`allowAnySub`,
-								`unsubMsg`,
-								`validateAddr`,
-								`frequency`,
-								`author`,
-								`allowArticleClip`,
-								`autoArticleClip`,
-								`articleClipRange`,
-								`articleClipTypes`
-								) ";
+                                `name`,
+                                `description`,
+                                `created`,
+                                `lastSent`,
+                                `editions`,
+                                `users`,
+                                `allowUserSub`,
+                                `allowTxt`,
+                                `allowAnySub`,
+                                `unsubMsg`,
+                                `validateAddr`,
+                                `frequency`,
+                                `author`,
+                                `allowArticleClip`,
+                                `autoArticleClip`,
+                                `articleClipRange`,
+                                `articleClipTypes`
+                                ) ";
             $query .= " values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             $result = $this->query(
                 $query,
@@ -890,10 +890,10 @@ class NlLib extends TikiLib
         }
 
         $query = "select tn.nlId, tn.`name`, tn.`description`, tn.`users`, tn.`editions`, tn.`author`, max(tsn.`sent`) as lastSent 
-		from `tiki_newsletters` tn 
-		left join `tiki_sent_newsletters` tsn on (tn.`nlId` = tsn.`nlId`) $mid 
-		group by tn.`nlId`, tn.`name`, tn.`description`, tn.`users`, tn.`editions`, tn.`author`
-		order by " . $this->convertSortmode("$sort_mode");
+        from `tiki_newsletters` tn 
+        left join `tiki_sent_newsletters` tsn on (tn.`nlId` = tsn.`nlId`) $mid 
+        group by tn.`nlId`, tn.`name`, tn.`description`, tn.`users`, tn.`editions`, tn.`author`
+        order by " . $this->convertSortmode("$sort_mode");
         $result = $this->query($query, $bindvars, $maxRecords, $offset);
         $query_cant = "select count(*) from  `tiki_newsletters` as tn $mid";
         $cant = $this->getOne($query_cant, $bindvars);

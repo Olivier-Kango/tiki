@@ -25,7 +25,7 @@
  *  - _tag: type of HTML tag to use (e.g. 'img', 'input_image'). Defaults to 'img' tag.
  *  - _notag: if set to 'y', will only return the URL (which also handles theme icons).
  *  - _menu_text: if set to 'y', will use the 'title' argument as text after the icon and place the whole
- *						content between div tags with a 'icon_menu' class (not compatible with '_notag' param set to 'y').
+ *                        content between div tags with a 'icon_menu' class (not compatible with '_notag' param set to 'y').
  *  - _menu_icon: if set to 'n', will not show icon image when _menu_text is 'y'.
  *  - _confirm: text to use in a popup requesting the user to confirm its action (yet only available with javascript)
  *  - _defaultdir: directory to use when the _id param does not include the path

@@ -763,25 +763,25 @@ class ArtLib extends TikiLib
             $creator_edit = 'n';
         }
         $query = "update `tiki_article_types` set
-			`use_ratings` = ?,
-			`show_pre_publ` = ?,
-			`show_post_expire` = ?,
-			`heading_only` = ?,
-			`allow_comments` = ?,
-			`comment_can_rate_article` = ?,
-			`show_image` = ?,
-			`show_avatar` = ?,
-			`show_author` = ?,
-			`show_pubdate` = ?,
-			`show_expdate` = ?,
-			`show_reads` = ?,
-			`show_size` = ?,
-			`show_topline` = ?,
-			`show_subtitle` = ?,
-			`show_linkto` = ?,
-			`show_image_caption` = ?,
-			`creator_edit` = ?
-			where `type` = ?";
+            `use_ratings` = ?,
+            `show_pre_publ` = ?,
+            `show_post_expire` = ?,
+            `heading_only` = ?,
+            `allow_comments` = ?,
+            `comment_can_rate_article` = ?,
+            `show_image` = ?,
+            `show_avatar` = ?,
+            `show_author` = ?,
+            `show_pubdate` = ?,
+            `show_expdate` = ?,
+            `show_reads` = ?,
+            `show_size` = ?,
+            `show_topline` = ?,
+            `show_subtitle` = ?,
+            `show_linkto` = ?,
+            `show_image_caption` = ?,
+            `creator_edit` = ?
+            where `type` = ?";
 
         $result = $this->query(
             $query,
@@ -1310,28 +1310,28 @@ class ArtLib extends TikiLib
         $fromSql .= ' inner join `tiki_article_types` on `tiki_articles`.`type` = `tiki_article_types`.`type` ';
 
         $query = "select distinct `tiki_articles`.*,
-			`tiki_article_types`.`use_ratings`,
-			`tiki_article_types`.`show_pre_publ`,
-			`tiki_article_types`.`show_post_expire`,
-			`tiki_article_types`.`heading_only`,
-			`tiki_article_types`.`allow_comments`,
-			`tiki_article_types`.`comment_can_rate_article`,
-			`tiki_article_types`.`show_image`,
-			`tiki_article_types`.`show_avatar`,
-			`tiki_article_types`.`show_author`,
-			`tiki_article_types`.`show_pubdate`,
-			`tiki_article_types`.`show_expdate`,
-			`tiki_article_types`.`show_reads`,
-			`tiki_article_types`.`show_size`,
-			`tiki_article_types`.`show_topline`,
-			`tiki_article_types`.`show_subtitle`,
-			`tiki_article_types`.`show_linkto`,
-			`tiki_article_types`.`show_image_caption`,
-			`tiki_article_types`.`creator_edit`
-			from `tiki_articles`
-			$fromSql
-			$join
-			$mid $mid2 order by " .
+            `tiki_article_types`.`use_ratings`,
+            `tiki_article_types`.`show_pre_publ`,
+            `tiki_article_types`.`show_post_expire`,
+            `tiki_article_types`.`heading_only`,
+            `tiki_article_types`.`allow_comments`,
+            `tiki_article_types`.`comment_can_rate_article`,
+            `tiki_article_types`.`show_image`,
+            `tiki_article_types`.`show_avatar`,
+            `tiki_article_types`.`show_author`,
+            `tiki_article_types`.`show_pubdate`,
+            `tiki_article_types`.`show_expdate`,
+            `tiki_article_types`.`show_reads`,
+            `tiki_article_types`.`show_size`,
+            `tiki_article_types`.`show_topline`,
+            `tiki_article_types`.`show_subtitle`,
+            `tiki_article_types`.`show_linkto`,
+            `tiki_article_types`.`show_image_caption`,
+            `tiki_article_types`.`creator_edit`
+            from `tiki_articles`
+            $fromSql
+            $join
+            $mid $mid2 order by " .
             $this->convertSortMode(
                 $sort_mode,
                 [
@@ -1490,29 +1490,29 @@ class ArtLib extends TikiLib
     {
         global $user, $prefs;
         $query = "select `tiki_articles`.*,
-								`users_users`.`avatarLibName`,
-								`tiki_article_types`.`use_ratings`,
-								`tiki_article_types`.`show_pre_publ`,
-								`tiki_article_types`.`show_post_expire`,
-								`tiki_article_types`.`heading_only`,
-								`tiki_article_types`.`allow_comments`,
-								`tiki_article_types`.`comment_can_rate_article`,
-								`tiki_article_types`.`show_image`,
-								`tiki_article_types`.`show_avatar`,
-								`tiki_article_types`.`show_author`,
-								`tiki_article_types`.`show_pubdate`,
-								`tiki_article_types`.`show_expdate`,
-								`tiki_article_types`.`show_reads`,
-								`tiki_article_types`.`show_size`,
-								`tiki_article_types`.`show_topline`,
-								`tiki_article_types`.`show_subtitle`,
-								`tiki_article_types`.`show_linkto`,
-								`tiki_article_types`.`show_image_caption`,
-								`tiki_article_types`.`creator_edit`
-						from `tiki_articles`
-						left join `tiki_article_types` ON `tiki_articles`.`type` = `tiki_article_types`.`type`
-						left join `users_users` on `tiki_articles`.`author` = `users_users`.`login` 
-						where `tiki_articles`.`articleId`=?"
+                                `users_users`.`avatarLibName`,
+                                `tiki_article_types`.`use_ratings`,
+                                `tiki_article_types`.`show_pre_publ`,
+                                `tiki_article_types`.`show_post_expire`,
+                                `tiki_article_types`.`heading_only`,
+                                `tiki_article_types`.`allow_comments`,
+                                `tiki_article_types`.`comment_can_rate_article`,
+                                `tiki_article_types`.`show_image`,
+                                `tiki_article_types`.`show_avatar`,
+                                `tiki_article_types`.`show_author`,
+                                `tiki_article_types`.`show_pubdate`,
+                                `tiki_article_types`.`show_expdate`,
+                                `tiki_article_types`.`show_reads`,
+                                `tiki_article_types`.`show_size`,
+                                `tiki_article_types`.`show_topline`,
+                                `tiki_article_types`.`show_subtitle`,
+                                `tiki_article_types`.`show_linkto`,
+                                `tiki_article_types`.`show_image_caption`,
+                                `tiki_article_types`.`creator_edit`
+                        from `tiki_articles`
+                        left join `tiki_article_types` ON `tiki_articles`.`type` = `tiki_article_types`.`type`
+                        left join `users_users` on `tiki_articles`.`author` = `users_users`.`login` 
+                        where `tiki_articles`.`articleId`=?"
                         ;
 
         $result = $this->query($query, [(int)$articleId]);

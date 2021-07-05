@@ -64,10 +64,10 @@ function wikiplugin_colorbox_info()
                 'required' => false,
                 'name' => tra('Sort Mode'),
                 'description' => tr('Sort by database table field name, ascending or descending. Examples:
-					%0 or %1.', '<code>fileId_asc</code>', '<code>name_desc</code>'),
+                    %0 or %1.', '<code>fileId_asc</code>', '<code>name_desc</code>'),
                 'filter' => 'word',
                 'accepted' => tr('%0 or %1 with actual database field name in place of
-					%2.', '<code>fieldname_asc</code>', '<code>fieldname_desc</code>', '<code>fieldname</code>'),
+                    %2.', '<code>fieldname_asc</code>', '<code>fieldname_desc</code>', '<code>fieldname</code>'),
                 'default' => 'created_desc',
                 'since' => '5.0'
                 ],

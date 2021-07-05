@@ -19,7 +19,7 @@
  * - drilldown ??
  * - bootstrap : navbar|basic (equates to horiz or vert in old menus)
  * - setSelected=y|n (default=y) processes all menu items to show currently selected item, also sets open states, sectionLevel, toLevel etc
- * 								so menu_cookie, sectionLevel and toLevel will be ignored if this is set to n
+ *                                 so menu_cookie, sectionLevel and toLevel will be ignored if this is set to n
  */
 function smarty_function_menu($params, $smarty)
 {

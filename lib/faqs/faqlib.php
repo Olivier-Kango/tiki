@@ -90,7 +90,7 @@ class FaqLib extends TikiLib
 
         $answer = strip_tags($answer, '<a>');
         $query = "insert into `tiki_suggested_faq_questions`(`faqId`,`question`,`answer`,`user`,`created`)
-			values(?,?,?,?,?)";
+            values(?,?,?,?,?)";
         $result = $this->query($query, [$faqId, $question, $answer, ($user === null) ? '' : $user, $this->now]);
     }
 

@@ -30,7 +30,7 @@ function wikiplugin_vote_info()
                 'required' => true,
                 'name' => tra('Fields'),
                 'description' => tra('Colon-separated list of field IDs to be displayed. If not set all the fields that
-					can be used (except IP, user, system, private fields) are used. Example:') . ' <code>2:4:5</code>',
+                    can be used (except IP, user, system, private fields) are used. Example:') . ' <code>2:4:5</code>',
                 'since' => '2.0',
                 'default' => '',
                 'separator' => ':',
@@ -42,7 +42,7 @@ function wikiplugin_vote_info()
                 'required' => false,
                 'name' => tra('Show Percentage'),
                 'description' => tra('Choose whether to show the percentage of the vote each option received (not
-					shown by default)'),
+                    shown by default)'),
                 'since' => '2.0',
                 'filter' => 'alpha',
                 'default' => 'n',
@@ -56,7 +56,7 @@ function wikiplugin_vote_info()
                 'required' => false,
                 'name' => tra('Show Bar'),
                 'description' => tra('Choose whether to show a bar representing the number of votes each option
-					received (not shown by default)'),
+                    received (not shown by default)'),
                 'since' => '2.0',
                 'filter' => 'alpha',
                 'default' => 'n',
@@ -83,7 +83,7 @@ function wikiplugin_vote_info()
                 'required' => false,
                 'name' => tra('Show Stats After'),
                 'description' => tra('Choose whether to show the voting results only after the date given in the
-					tracker configuration (not set by default)'),
+                    tracker configuration (not set by default)'),
                 'since' => '2.0',
                 'filter' => 'alpha',
                 'default' => '',
@@ -97,7 +97,7 @@ function wikiplugin_vote_info()
                 'required' => false,
                 'name' => tra('Show Creator'),
                 'description' => tra('Choose whether to display the user name of the creator of the voting tracker (not
-					shown by default)'),
+                    shown by default)'),
                 'since' => '2.0',
                 'filter' => 'alpha',
                 'default' => '',
@@ -129,7 +129,7 @@ function wikiplugin_vote_info()
                 'required' => false,
                 'name' => tra('Float'),
                 'description' => tra('Align the plugin on the page, allowing other elements to wrap around it (not set
-					by default)'),
+                    by default)'),
                 'since' => '2.0',
                 'filter' => 'alpha',
                 'default' => '',

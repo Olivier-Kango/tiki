@@ -828,13 +828,13 @@ class DirLib extends TikiLib
         $likestr = implode($how, $like);
         $query = "select distinct tds.`name`, tds.`siteId`, tds.`description`, tds.`url`, tds.`country`, tds.`hits`, ";
         $query .= " tds.`created`, tds.`lastModif` from `tiki_directory_sites` tds, `tiki_category_sites` tcs,
-			`tiki_directory_categories` tdc ";
+            `tiki_directory_categories` tdc ";
         $query .= " where tds.`siteId`=tcs.`siteId` and tcs.`categId`=tdc.`categId` and `isValid`=? and tdc.`categId`=?
-			and $likestr order by " . $this->convertSortMode($sort_mode);
+            and $likestr order by " . $this->convertSortMode($sort_mode);
         $cant = $this->getOne(
             "select count(*) from `tiki_directory_sites` tds,`tiki_category_sites` tcs,`tiki_directory_categories` tdc
-			where tds.`siteId`=tcs.`siteId` and tcs.`categId`=tdc.`categId` and `isValid`=? and tdc.`categId`=?
-			and $likestr",
+            where tds.`siteId`=tcs.`siteId` and tcs.`categId`=tdc.`categId` and `isValid`=? and tdc.`categId`=?
+            and $likestr",
             $bindvars
         );
         $result = $this->query($query, $bindvars, $maxRecords, $offset);

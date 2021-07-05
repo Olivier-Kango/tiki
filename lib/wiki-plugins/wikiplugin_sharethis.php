@@ -21,7 +21,7 @@ function wikiplugin_sharethis_info()
                 'required' => false,
                 'name' => tra('Send Services'),
                 'description' => tr('By default, %0email%1, %0aim%1 and %0sms%1 are available. Input one or two of the
-					services separated by a %0|%1 to limit the choice of send services.', '<code>', '</code>'),
+                    services separated by a %0|%1 to limit the choice of send services.', '<code>', '</code>'),
                 'since' => '3.2',
                 'default' => '',
                 'advanced' => true,
@@ -54,7 +54,7 @@ function wikiplugin_sharethis_info()
                 'required' => false,
                 'name' => tra('Rotate Image'),
                 'description' => tr('A value of %0y%1 (Yes) will cause the button icon to rotate every 3 seconds between
-					a few icons, cycling through twice before stopping.', '<code>', '</code>'),
+                    a few icons, cycling through twice before stopping.', '<code>', '</code>'),
                 'since' => '3.2',
                 'default' => '',
                 'filter' => 'alpha',
@@ -80,7 +80,7 @@ function wikiplugin_sharethis_info()
                 'required' => false,
                 'name' => tra('First Services Shown'),
                 'description' => tr('Input a list of post services (like %0Facebook|Myspace|Digg%1, etc.) separated by a
-					%0|%1 to customize the services that are shown in the opening panel of the widget.', '<code>', '</code>'),
+                    %0|%1 to customize the services that are shown in the opening panel of the widget.', '<code>', '</code>'),
                 'since' => '3.2',
                 'separator' => '|',
                 'filter' => 'word',
@@ -107,7 +107,7 @@ function wikiplugin_sharethis_info()
                 'required' => false,
                 'name' => tra('Header Background'),
                 'description' => tra('HTML color code (not color name) for the background color for the header if an
-					optional header title is used.'),
+                    optional header title is used.'),
                 'since' => '3.0',
                 'advanced' => true,
                 'filter' => 'text',
@@ -220,15 +220,15 @@ function wikiplugin_sharethis($data, $params)
             $iconcode .= '</a>';
         }
         $headerlib->add_js(
-            '	var shared_object = SHARETHIS.addEntry({
-						title: document.title,
-						url: document.location.href
-					});
+            '    var shared_object = SHARETHIS.addEntry({
+                        title: document.title,
+                        url: document.location.href
+                    });
 
-					shared_object.attachButton(document.getElementById("ck_sharethis"));
-					shared_object.attachChicklet("email", document.getElementById("ck_email"));
-					shared_object.attachChicklet("facebook", document.getElementById("ck_facebook"));
-					shared_object.attachChicklet("twitter", document.getElementById("ck_twitter"));'
+                    shared_object.attachButton(document.getElementById("ck_sharethis"));
+                    shared_object.attachChicklet("email", document.getElementById("ck_email"));
+                    shared_object.attachChicklet("facebook", document.getElementById("ck_facebook"));
+                    shared_object.attachChicklet("twitter", document.getElementById("ck_twitter"));'
         );
     }
 

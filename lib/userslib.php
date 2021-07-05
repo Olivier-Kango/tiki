@@ -68,7 +68,7 @@ class UsersLib extends TikiLib
     {
         $objectId = md5($objectType . TikiLib::strtolower($objectId));
 
-        $query = 'delete from `users_objectpermissions`	where `objectId` = ? and `objectType`=?';
+        $query = 'delete from `users_objectpermissions`    where `objectId` = ? and `objectType`=?';
         $bindvars = [$objectId, $objectType];
         if (! empty($groupName)) {
             $query .= ' and `groupName` = ?';
@@ -141,9 +141,9 @@ class UsersLib extends TikiLib
         $objectId = md5($objectType . TikiLib::strtolower($objectId));
 
         $query = "select `permName`, `groupName`
-			from `users_objectpermissions`
-			where `objectId` =? and
-			`objectType` = ?";
+            from `users_objectpermissions`
+            where `objectId` =? and
+            `objectType` = ?";
         $bindvars = [$objectId, $objectType];
         $result = $this->query($query, $bindvars);
         while ($res = $result->fetchRow()) {
@@ -157,9 +157,9 @@ class UsersLib extends TikiLib
         $objectId = md5($objectType . TikiLib::strtolower($objectId));
 
         $query = "select `groupName`, `permName`
-			from `users_objectpermissions`
-			where `objectId` = ? and
-			`objectType` = ?";
+            from `users_objectpermissions`
+            where `objectId` = ? and
+            `objectType` = ?";
         $bindvars = [$objectId, $objectType];
         if (! empty($group)) {
             $query .= ' and `groupName`=?';
@@ -2475,9 +2475,9 @@ class UsersLib extends TikiLib
     public function get_groups_for_permissions()
     {
         $query = "SELECT * from users_groups 
-					where isTplGroup <> 'y' and groupName not in (select groupName 
-					from  tiki_group_inclusion where includeGroup in (SELECT groupName 
-					from users_groups where isTplGroup = 'y')) order by id asc;";
+                    where isTplGroup <> 'y' and groupName not in (select groupName 
+                    from  tiki_group_inclusion where includeGroup in (SELECT groupName 
+                    from users_groups where isTplGroup = 'y')) order by id asc;";
         $ret = $this->fetchAll($query);
         $retval = [];
         $retval['data'] = $ret;
@@ -2488,7 +2488,7 @@ class UsersLib extends TikiLib
     public function get_template_groups_containers()
     {
         $query = "SELECT * from users_groups 
-					where isTplGroup = 'y' order by id asc;";
+                    where isTplGroup = 'y' order by id asc;";
         $ret = $this->fetchAll($query);
         $retval = [];
         $retval['data'] = $ret;
@@ -2499,7 +2499,7 @@ class UsersLib extends TikiLib
     public function get_group_children($groupName)
     {
         $query = "SELECT DISTINCT *  from users_groups as ug
-					where ug.groupName  in (select groupName from  tiki_group_inclusion where includeGroup = ?) order by id asc;";
+                    where ug.groupName  in (select groupName from  tiki_group_inclusion where includeGroup = ?) order by id asc;";
         $ret = $this->fetchAll($query, [$groupName]);
         $retval = [];
         $retval['data'] = $ret;
@@ -2510,7 +2510,7 @@ class UsersLib extends TikiLib
     public function get_group_children_with_permissions($groupName)
     {
         $query = "SELECT DISTINCT ug.*  from users_groups as ug join users_grouppermissions as up on ug.groupName = up.groupName
-					where ug.groupName  in (select groupName from  tiki_group_inclusion where includeGroup = ?) order by id asc;";
+                    where ug.groupName  in (select groupName from  tiki_group_inclusion where includeGroup = ?) order by id asc;";
         $ret = $this->fetchAll($query, [$groupName]);
         $retval = [];
         $retval['data'] = $ret;
@@ -2610,9 +2610,9 @@ class UsersLib extends TikiLib
     {
         return $this->fetchAll("
             SELECT ug.id, ug.groupName FROM `users_groups` ug
-			WHERE
-			ug.isRole = 'y'
-			group by ug.id, ug.GroupName");
+            WHERE
+            ug.isRole = 'y'
+            group by ug.id, ug.GroupName");
     }
 
 
@@ -4309,7 +4309,7 @@ class UsersLib extends TikiLib
                 'type' => 'comments',
                 'admin' => false,
                 'prefs' => ['
-										feature_wiki_comments',
+                                        feature_wiki_comments',
                                         'feature_blogposts_comments',
                                         'feature_file_galleries_comments',
                                         'feature_image_galleries_comments',
@@ -7708,7 +7708,7 @@ class UsersLib extends TikiLib
         if (array_filter($groupIds)) {
             $groupstr = implode(',', $groupIds);
             $query = "SELECT COUNT(DISTINCT `users_usergroups`.`userId`) FROM `users_usergroups`, `users_groups`
-				WHERE `users_usergroups`.`groupName` = `users_groups`.`groupName` AND `users_groups`.`id` IN ($groupstr)";
+                WHERE `users_usergroups`.`groupName` = `users_groups`.`groupName` AND `users_groups`.`id` IN ($groupstr)";
         } else {
             $query = "SELECT COUNT(*) FROM `users_users`";
         }
@@ -7727,14 +7727,14 @@ class UsersLib extends TikiLib
 
         if ($type == 'wiki') {
             $query = 'SELECT u1.`login`, COUNT( p1.`pageName` ) AS quantity
-				FROM `tiki_history` p1
-				INNER JOIN `users_users` u1 ON ( u1.`login` = p1.`user` )
-				INNER JOIN `tiki_history` p2 ON ( p1.`pageName` = p2.`pageName` )
-				INNER JOIN `users_users` u2 ON ( u2.`login` = p2.`user` )
-				WHERE u2.`login` = ? AND u1.`login` <> ?
-				GROUP BY p1.`pageName`, u1.`login` 
-				ORDER BY quantity DESC
-				';
+                FROM `tiki_history` p1
+                INNER JOIN `users_users` u1 ON ( u1.`login` = p1.`user` )
+                INNER JOIN `tiki_history` p2 ON ( p1.`pageName` = p2.`pageName` )
+                INNER JOIN `users_users` u2 ON ( u2.`login` = p2.`user` )
+                WHERE u2.`login` = ? AND u1.`login` <> ?
+                GROUP BY p1.`pageName`, u1.`login` 
+                ORDER BY quantity DESC
+                ';
         } else {
             return [];
         }

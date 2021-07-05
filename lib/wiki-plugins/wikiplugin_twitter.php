@@ -22,8 +22,8 @@ function wikiplugin_twitter_info()
                 'name' => tra('Twitter Path'),
                 'description' => tr(
                     'Depends on the type of timeline (Users, Collections, Favorites or Lists). For a
-					 User, it is the Account Name (like %0twitterdev%1), for Favorites, something like
-					 %0twitterdev/favorites%1. For lists, something like %0twitterdev/lists/listname%1, etc. ',
+                     User, it is the Account Name (like %0twitterdev%1), for Favorites, something like
+                     %0twitterdev/favorites%1. For lists, something like %0twitterdev/lists/listname%1, etc. ',
                     '<code>',
                     '</code>'
                 ),
@@ -43,8 +43,8 @@ function wikiplugin_twitter_info()
                 'required' => false,
                 'name' => tra('Theme'),
                 'description' => tr('Embedded timelines are available in light and dark themes for customization.
-					The light theme is for pages that use a light colored background, while the dark theme is for pages
-					that use a dark colored background. Default is %0light%1.', '<code>', '</code>'),
+                    The light theme is for pages that use a light colored background, while the dark theme is for pages
+                    that use a dark colored background. Default is %0light%1.', '<code>', '</code>'),
                 'since' => '13.1',
                 'filter' => 'alpha',
                 'options' => [
@@ -209,14 +209,14 @@ width='$width'
 data-aria-polite='polite'>Tweets from @$tweet</a>
 <script>
 !function(d,s,id){
-	var js,fjs=d.getElementsByTagName(s)[0];
+    var js,fjs=d.getElementsByTagName(s)[0];
 
-	if(!d.getElementById(id)){
-		js=d.createElement(s);
-		js.id=id;
-		js.src=\"http://platform.twitter.com/widgets.js\";
-		fjs.parentNode.insertBefore(js,fjs);
-	}
+    if(!d.getElementById(id)){
+        js=d.createElement(s);
+        js.id=id;
+        js.src=\"http://platform.twitter.com/widgets.js\";
+        fjs.parentNode.insertBefore(js,fjs);
+    }
 
 }(document,'script','twitter-wjs');
 </script>";

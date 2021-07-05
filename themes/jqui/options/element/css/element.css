@@ -1,6 +1,6 @@
 /* Jqui theme (jqui.css) Element theme option (element.css)
-	for Tiki Wiki CMS/Groupware.
-	Thanks to garkpit for the random name. */
+    for Tiki Wiki CMS/Groupware.
+    Thanks to garkpit for the random name. */
 body {
   color: #333333;
 }
@@ -21,7 +21,7 @@ h1, h2, h3, h4, h5, h6, .pagetitle a {
 }
 
 h3.card-title {
-	color: #363636
+    color: #363636
 }
 
 .btn-primary {
@@ -140,7 +140,7 @@ input[type="submit"].btn-link {
 
 .cssmenu_horiz ul li button.btn-link.link-list,
 .cssmenu_vert ul li button.btn-link.link-list {
-	font-weight: normal;
+    font-weight: normal;
 }
 
 .btn:hover,

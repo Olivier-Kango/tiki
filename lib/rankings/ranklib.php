@@ -201,9 +201,9 @@ class RankLib extends TikiLib
 /*if ($last_replied == false)
 {   */
         $query = "select * from
-			`tiki_comments` a,`tiki_forums` tf where
-			`objectType` = 'forum' and
-			`parentId`=0 $mid order by `commentDate` desc";
+            `tiki_comments` a,`tiki_forums` tf where
+            `objectType` = 'forum' and
+            `parentId`=0 $mid order by `commentDate` desc";
 /*} else {
 $query = "select a.*, tf.*, max(b.`commentDate`) as `lastPost` from
 `tiki_comments` a left join `tiki_comments` b on b.`parentId`=a.`threadId` right join `tiki_forums` tf on "
@@ -608,8 +608,8 @@ $query = "select a.*, tf.*, max(b.`commentDate`) as `lastPost` from
         $mid = '';
         if ($categ) {
             $mid .= " INNER JOIN (`tiki_objects` as tob, `tiki_category_objects` as tco) ON (tp.`pageName` = tob.`itemId` and tob.`objectId` = tco.`catObjectId`)
-				WHERE tob.`type` = 'wiki page'
-				AND (tco.`categId` = ?"
+                WHERE tob.`type` = 'wiki page'
+                AND (tco.`categId` = ?"
             ;
 
             //FIXME

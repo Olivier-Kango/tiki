@@ -290,7 +290,7 @@ function wikiplugin_fluidgrid($data, $params, $pos)
       // $tdnosize  = count of columns without a specified size
         for ($i = 0; $i < $maxcols; $i++) {
             if (isset($tdsize[$i]) && ( trim($tdsize[$i]) != '' )) {
-				$w = (int) trim($tdsize[$i]);
+                $w = (int) trim($tdsize[$i]);
                 if ($w < 1) {
                   // treat 0 as unsized
                     $s_array[$i] = 0 ;

@@ -178,11 +178,11 @@ class Tracker_Field_Duration extends Tracker_Field_Abstract implements Tracker_F
 momentDurationFormatSetup(moment);
 var dpStore = DurationPickerStore();
 dpStore.setInitialDuration({
-	inputId: ' . json_encode($composedFieldId) . ',
-	draft: ' . json_encode($_SESSION['duration_drafts'][$composedFieldId]) . ',
-	value: ' . $value . ',
-	units: ' . json_encode($this->enabledUnits()) . ',
-	chronometer: ' . $this->getOption("chronometer") . '
+    inputId: ' . json_encode($composedFieldId) . ',
+    draft: ' . json_encode($_SESSION['duration_drafts'][$composedFieldId]) . ',
+    value: ' . $value . ',
+    units: ' . json_encode($this->enabledUnits()) . ',
+    chronometer: ' . $this->getOption("chronometer") . '
 });
 dpStore.setInputName(' . json_encode($this->getInsertId()) . ');
 ');

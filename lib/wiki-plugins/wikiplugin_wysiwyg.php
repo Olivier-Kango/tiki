@@ -43,7 +43,7 @@ function wikiplugin_wysiwyg_info()
                 'required' => false,
                 'name' => tra('Use HTML'),
                 'description' => tr('By default, the body (content) of calls to the WYSIWYG plugin is interpreted according to the "Use Wiki syntax in WYSIWYG" (%0wysiwyg_htmltowiki%1) preference. By default, "Use HTML" is considered enabled if "Use Wiki syntax in WYSIWYG" is disabled, and vice versa.
-				 This parameter allows overriding that preference if needed.', '<code>', '</code>'),
+                 This parameter allows overriding that preference if needed.', '<code>', '</code>'),
                 'since' => '14.1',
                 'filter' => 'alpha',
                 'default' => $prefs['wysiwyg_htmltowiki'] == 'y' ? 'n' : 'y',

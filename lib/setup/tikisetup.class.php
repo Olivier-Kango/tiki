@@ -112,23 +112,23 @@ $errors
                 print "Your options:
 
 
-	1- With FTP access:
-		a) Change the permissions (chmod) of the directories to 777.
-		b) Create any missing directories
-		c) <a href='tiki-install.php$install_link'>Execute the Tiki installer again</a> (Once you have executed these commands, this message will disappear!)
+    1- With FTP access:
+        a) Change the permissions (chmod) of the directories to 777.
+        b) Create any missing directories
+        c) <a href='tiki-install.php$install_link'>Execute the Tiki installer again</a> (Once you have executed these commands, this message will disappear!)
 
-	or
+    or
 
-	2- With shell (SSH) access, you can run the command below.
+    2- With shell (SSH) access, you can run the command below.
 
-		a) Run setup.sh and follow the instructions:
-			\$ bash
-			\$ cd $docroot
-			\$ sh setup.sh
+        a) Run setup.sh and follow the instructions:
+            \$ bash
+            \$ cd $docroot
+            \$ sh setup.sh
 
-		The script will offer you options depending on your server configuration.
+        The script will offer you options depending on your server configuration.
 
-		b) <a href='tiki-install.php$install_link'>Execute the Tiki installer again</a> (Once you have executed these commands, this message will disappear!)
+        b) <a href='tiki-install.php$install_link'>Execute the Tiki installer again</a> (Once you have executed these commands, this message will disappear!)
 
 
 <hr>

@@ -1,7 +1,7 @@
 @charset "UTF-8";
 /* $Id$
-	This Tiki Wiki CMS Groupware file contains global design
-	and layout properties. */
+    This Tiki Wiki CMS Groupware file contains global design
+    and layout properties. */
 .topbar {
   margin-bottom: 1.4rem;
 }
@@ -1808,7 +1808,7 @@ td.numeric {
   padding-right: 1px;
 }
 /* Chrome & safari do not break urls or filenames at all. This causes
-	serious display issues within tables with long urls/filenames. */
+    serious display issues within tables with long urls/filenames. */
 td.url {
   word-break: break-all;
 }
@@ -5229,12 +5229,12 @@ h2:hover .heading-link, h3:hover .heading-link, h4:hover .heading-link, h5:hover
 .navbar-nav.sm-vertical:not(.sm-collapsible) a:not(.dropdown-item) .sub-arrow {
   transform: rotate(-90deg);
   /* position: absolute;
-	top: 55%;
-	margin-top: -5px;
-	bottom: auto;
-	left: auto;
-	margin-left: 0;
-	right: 10px; */
+    top: 55%;
+    margin-top: -5px;
+    bottom: auto;
+    left: auto;
+    margin-left: 0;
+    right: 10px; */
 }
 /* Smartmenus navbars (Megamenu static) */
 .mega-menu-static {

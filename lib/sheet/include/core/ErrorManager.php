@@ -71,50 +71,50 @@ class ErrorManager extends APICObject {
      * @param string $alarme
      * @return 
      **/
-	public function __construct($errorManagerSystem = '', $level = '', $escape = '', $file = '', $alarme = ''){
-		$this -> SetErrorSystem($errorManagerSystem);
-		$this -> SetErrorLevel($level);
-		$this -> SetErrorEscape($escape);
-		$this -> SetErrorAlarme($alarme);
-		$this -> SetErrorLog($file);
-		parent::__construct();
-	}
+    public function __construct($errorManagerSystem = '', $level = '', $escape = '', $file = '', $alarme = ''){
+        $this -> SetErrorSystem($errorManagerSystem);
+        $this -> SetErrorLevel($level);
+        $this -> SetErrorEscape($escape);
+        $this -> SetErrorAlarme($alarme);
+        $this -> SetErrorLog($file);
+        parent::__construct();
+    }
 
-	/**
-	 * ErrorManager::SetErrorSystem() : Setting ErrorManager
-	 * 
-	 * @param string $arg
-	 * @return 
-	 **/
-	public function SetErrorSystem($arg = ''){
-		if (defined('ERROR_MANAGER_SYSTEM') && ! $arg) $arg = ERROR_MANAGER_SYSTEM;
+    /**
+     * ErrorManager::SetErrorSystem() : Setting ErrorManager
+     *
+     * @param string $arg
+     * @return
+     **/
+    public function SetErrorSystem($arg = ''){
+        if (defined('ERROR_MANAGER_SYSTEM') && ! $arg) $arg = ERROR_MANAGER_SYSTEM;
         $this -> errorManagerSystem = $arg;
 
         if ($this -> errorManagerSystem != 'off') $this -> errorManagerSystem = true;
         else $this -> errorManagerSystem = false;
-		}
+        }
 
-	public function SetErrorLevel($arg = ''){
-		if (defined('ERROR_MANAGER_LEVEL') && ! $arg) $arg = ERROR_MANAGER_LEVEL;
-		if ($arg) $this -> errorTrackingLevel = $arg;
-		}
+    public function SetErrorLevel($arg = ''){
+        if (defined('ERROR_MANAGER_LEVEL') && ! $arg) $arg = ERROR_MANAGER_LEVEL;
+        if ($arg) $this -> errorTrackingLevel = $arg;
+        }
 
-	public function SetErrorEscape($arg = ''){
-		if (defined('ERROR_MANAGER_ESCAPE') && ! $arg) $arg = ERROR_MANAGER_ESCAPE;
-		if ($arg && ! $this -> SetErrorOut($arg)) $this -> errorEscape = '';
-		}
+    public function SetErrorEscape($arg = ''){
+        if (defined('ERROR_MANAGER_ESCAPE') && ! $arg) $arg = ERROR_MANAGER_ESCAPE;
+        if ($arg && ! $this -> SetErrorOut($arg)) $this -> errorEscape = '';
+        }
 
-	public function SetErrorAlarme($arg = ''){
-    	if (defined('ERROR_MANAGER_ALARME') && ! $arg) $arg = ERROR_MANAGER_ALARME;
-    	if ($arg) $this -> errorAlarme = $arg;
-    	}
+    public function SetErrorAlarme($arg = ''){
+        if (defined('ERROR_MANAGER_ALARME') && ! $arg) $arg = ERROR_MANAGER_ALARME;
+        if ($arg) $this -> errorAlarme = $arg;
+        }
 
-	public function SetErrorLog($arg = ''){
-		if (defined('ERROR_MANAGER_LOG') && ! $arg) $arg = ERROR_MANAGER_LOG;
-		if ($arg) $this -> errorLog = $arg;
-		}
+    public function SetErrorLog($arg = ''){
+        if (defined('ERROR_MANAGER_LOG') && ! $arg) $arg = ERROR_MANAGER_LOG;
+        if ($arg) $this -> errorLog = $arg;
+        }
 
-	public function SetErrorLock($func){
+    public function SetErrorLock($func){
         if (strtolower($func) == 'actived') $func = true;
         if (strtolower($func) == 'desactived') $func = false;
 
@@ -122,7 +122,7 @@ class ErrorManager extends APICObject {
         return true;
         }
 
-	public function SetErrorOut($url){
+    public function SetErrorOut($url){
         if (is_file($url) || strpos($url, 'http://') !== false) {
             $this -> errorEscape = $url;
             return true;
@@ -140,8 +140,8 @@ class ErrorManager extends APICObject {
      * @param string $line
      * @return 
      **/
-	public function ErrorTracker($warning, $message, $func = '', $file = '', $line = ''){
-		$stackError = debug_backtrace();
+    public function ErrorTracker($warning, $message, $func = '', $file = '', $line = ''){
+        $stackError = debug_backtrace();
         switch ($warning){
             case 1:
                 $type = "Low warning";
@@ -170,30 +170,30 @@ class ErrorManager extends APICObject {
         else $pre = "\n<ul>\n\t";
 
         $this -> errorMessage .= "<br>".$type.' N° '.$this -> errorCounter[$warning].' : <i>'.$message.'</i>';
-		
-		
-		for($i=0; $i<sizeof($stackError); $i++){
-			if ($i == 0) {
-			    $this -> errorMessage .= ' dans <b>'.$stackError[$i][file].'</b> à la ligne <b>'.$stackError[$i][line].'</b>';
-				if ($stackError[$i]['class'] != "") $this -> errorMessage .= ' Dans la fonction '.$stackError[$i]['class'].'->'.$stackError[$i+1]['function'].'()';
-				else $this -> errorMessage .= 'Dans la fonction '.$stackError[$i+1]['function'].'()';
-				$this -> errorMessage .= "<br>Fonction et fichier ayant été appellée :".$pre;
-			} else if ($i == sizeof($stackError)-1) {
-				$this -> errorMessage .= '<li><b>'.$stackError[$i][file].'</b> à la ligne <b>'.$stackError[$i][line].'</b>';
-			} else {
-				$this -> errorMessage .= '<li><b>'.$stackError[$i][file].'</b> à la ligne <b>'.$stackError[$i][line].'</b>';
-				if ($stackError[$i]['class'] != "") $this -> errorMessage .= ' Dans la fonction '.$stackError[$i]['class'].'->'.$stackError[$i+1]['function'].'()';
-				else $this -> errorMessage .= 'Dans la fonction '.$stackError[$i+1]['function'].'()';
-			}
-			
-		}
-		 $this -> errorMessage .=  '</ul>';
-		
+
+
+        for($i=0; $i<sizeof($stackError); $i++){
+            if ($i == 0) {
+                $this -> errorMessage .= ' dans <b>'.$stackError[$i][file].'</b> à la ligne <b>'.$stackError[$i][line].'</b>';
+                if ($stackError[$i]['class'] != "") $this -> errorMessage .= ' Dans la fonction '.$stackError[$i]['class'].'->'.$stackError[$i+1]['function'].'()';
+                else $this -> errorMessage .= 'Dans la fonction '.$stackError[$i+1]['function'].'()';
+                $this -> errorMessage .= "<br>Fonction et fichier ayant été appellée :".$pre;
+            } else if ($i == sizeof($stackError)-1) {
+                $this -> errorMessage .= '<li><b>'.$stackError[$i][file].'</b> à la ligne <b>'.$stackError[$i][line].'</b>';
+            } else {
+                $this -> errorMessage .= '<li><b>'.$stackError[$i][file].'</b> à la ligne <b>'.$stackError[$i][line].'</b>';
+                if ($stackError[$i]['class'] != "") $this -> errorMessage .= ' Dans la fonction '.$stackError[$i]['class'].'->'.$stackError[$i+1]['function'].'()';
+                else $this -> errorMessage .= 'Dans la fonction '.$stackError[$i+1]['function'].'()';
+            }
+
+        }
+         $this -> errorMessage .=  '</ul>';
+
         $this -> ErrorChecker();
-	}
+    }
 
 
-	public function ErrorChecker($level = ''){
+    public function ErrorChecker($level = ''){
         if ($level == '') $level = $this -> errorTrackingLevel;
 
         if ($this -> maxErrorReport >= $level) {
@@ -201,23 +201,23 @@ class ErrorManager extends APICObject {
 
             if ($this -> errorManagerSystem) {
 
-				if ($this -> errorAlarme) {
-					$tab = explode(',', $this -> errorAlarme);
-					foreach ($tab as $val) {
-				        if (! preg_match('/^(.+)@(.+)\.(.+)$/s', $val)) {
-				        	$message .= "<p style='color:red;'>Your ERROR_MANAGER_ALARME mails configurations has got a mistake and was disabled.</p>";
-				        	$this -> errorAlarme = '';
-				        	}
-						}
+                if ($this -> errorAlarme) {
+                    $tab = explode(',', $this -> errorAlarme);
+                    foreach ($tab as $val) {
+                        if (! preg_match('/^(.+)@(.+)\.(.+)$/s', $val)) {
+                            $message .= "<p style='color:red;'>Your ERROR_MANAGER_ALARME mails configurations has got a mistake and was disabled.</p>";
+                            $this -> errorAlarme = '';
+                            }
+                        }
 
-					if ($this -> errorAlarme) @mail($this -> errorAlarme, '[ErrorManager][Alarm]', $message);
-	            	}
+                    if ($this -> errorAlarme) @mail($this -> errorAlarme, '[ErrorManager][Alarm]', $message);
+                    }
 
-				if ($this -> errorLog) {
-	                $ouv = @fopen($this -> errorLog, 'a');
-	                @fputs($ouv, strip_tags($message));
-	                @fclose($ouv);
-	            	}
+                if ($this -> errorLog) {
+                    $ouv = @fopen($this -> errorLog, 'a');
+                    @fputs($ouv, strip_tags($message));
+                    @fclose($ouv);
+                    }
 
                 if ($this -> errorEscape) header('location: '.$this -> errorEscape);
                 else {

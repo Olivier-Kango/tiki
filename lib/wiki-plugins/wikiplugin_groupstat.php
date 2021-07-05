@@ -26,7 +26,7 @@ function wikiplugin_groupstat_info()
                 'required' => false,
                 'name' => tra('Percentage of'),
                 'description' => tra('Show percentage out of all users in site, or just those specified in the groups
-					parameter.'),
+                    parameter.'),
                 'since' => '8.0',
                 'default' => 'groups',
                 'options' => [
@@ -38,7 +38,7 @@ function wikiplugin_groupstat_info()
                 'required' => false,
                 'name' => tra('Show Percentage'),
                 'description' => tra('Show the percentage of total users that are members of each group (percentages
-					are shown by default)'),
+                    are shown by default)'),
                 'since' => '4.0',
                 'default' => 'y',
                 'options' => [
@@ -51,7 +51,7 @@ function wikiplugin_groupstat_info()
                 'required' => false,
                 'name' => tra('Show Bar'),
                 'description' => tra('Represent the percentage of total users that are members of each group in a bar
-					graph (default is not to show the bar graph)'),
+                    graph (default is not to show the bar graph)'),
                 'since' => '4.0',
                 'default' => 'n',
                 'options' => [

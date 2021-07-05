@@ -22,8 +22,8 @@ function wikiplugin_avatar_info()
                 'required' => false,
                 'name' => tra('Page'),
                 'description' => tra('The wiki page the profile picture will link to. If empty and the user\'s
-					information is public, then the profile picture will link automatically the that user\'s user
-					information page'),
+                    information is public, then the profile picture will link automatically the that user\'s user
+                    information page'),
                 'since' => '1',
                 'default' => '',
                 'profile_reference' => 'wiki_page',

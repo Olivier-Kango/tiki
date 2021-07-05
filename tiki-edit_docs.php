@@ -127,46 +127,46 @@ if (! $vendorPath) {
         $headerlib->add_jsfile($vendorPath . '/bower-asset/wodo.texteditor/wodotexteditor/wodotexteditor.js');
         $headerlib->add_jq_onready("
 Wodo.createTextEditor('tiki_doc', {
-	allFeaturesEnabled: true
+    allFeaturesEnabled: true
 }, function (err, editor) {
-	if (err) {
-		// something failed unexpectedly, deal with it (here just a simple alert)
-		alert(err);
-		return;
-	}
+    if (err) {
+        // something failed unexpectedly, deal with it (here just a simple alert)
+        alert(err);
+        return;
+    }
 
-	var documentURL = 'tiki-download_file.php?fileId=' + $('#fileId').val();
-	editor.openDocumentFromUrl(documentURL, function(err) {
-		if (err) {
-			// something failed unexpectedly, deal with it (here just a simple alert)
-			alert(\"There was an error on opening the document: \" + err);
-		}
-	});
+    var documentURL = 'tiki-download_file.php?fileId=' + $('#fileId').val();
+    editor.openDocumentFromUrl(documentURL, function(err) {
+        if (err) {
+            // something failed unexpectedly, deal with it (here just a simple alert)
+            alert(\"There was an error on opening the document: \" + err);
+        }
+    });
 
-	$('.saveButton').on('click', function (e) {
-		function saveByteArrayTiki(err, data) {
-			if (err) {
-				alert(err);
-				return;
-			}
+    $('.saveButton').on('click', function (e) {
+        function saveByteArrayTiki(err, data) {
+            if (err) {
+                alert(err);
+                return;
+            }
 
-			var base64 = new core.Base64();
-			data = base64.convertUTF8ArrayToBase64(data);
+            var base64 = new core.Base64();
+            data = base64.convertUTF8ArrayToBase64(data);
 
-			$.tikiModal($savingText);
+            $.tikiModal($savingText);
 
-			$.post('tiki-edit_docs.php', {
-				fileId: $('#fileId').val(),
-				data: data
-			}, function(id) {
-				$.tikiModal();
-				$('#fileId').val(id);
-				editor.setDocumentModified(false);
-			});
-		}
+            $.post('tiki-edit_docs.php', {
+                fileId: $('#fileId').val(),
+                data: data
+            }, function(id) {
+                $.tikiModal();
+                $('#fileId').val(id);
+                editor.setDocumentModified(false);
+            });
+        }
 
-		editor.getDocumentAsByteArray(saveByteArrayTiki);
-	});
+        editor.getDocumentAsByteArray(saveByteArrayTiki);
+    });
 });
 ");
     } else {

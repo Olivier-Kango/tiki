@@ -83,29 +83,29 @@ function wikiplugin_scroll($data, $params)
     $z_width_w = $width_w + 10;
     $z_width = $z_width_w . "px";
     $ret = "~np~<div style=\"background-color:#FFFFDD;width:$width\"><center><a href=\"javascript:movedown()\">Down</a>  <a href=\"javascript:moveup()\">Up</a> 
-	 <a href=\"javascript:stopscroll()\">Stop</a>  <a href=\"javascript:movetop()\">Top</a></center>
-	 </div>
-	 
-	 <SCRIPT language=\"JavaScript1.2\">
-	 
-	 //specify speed of scroll (greater=faster)
-	 var speed=$speed
-	 
-	 iens6=document.all||document.getElementById
-	 ns4=document.layers
-	 
-	 if (iens6){
-	 document.write('<div id=\"container\" style=\"position:relative;width:$width;height:$height;overflow:hidden;border:2px ridge white\">')
-	 document.write('<div id=\"content\" style=\"position:absolute;width:$width;left:0px;top:0px\">')
-	 }
-	 </script>
-	 
-	 <ilayer name=\"nscontainer\" width=width_w height=height_h clip=\"0,0,width_w,height_h\">
-	 <layer name=\"nscontent\" width=width_w height=height_h visibility=hidden>
-	 
-	 <!--INSERT CONTENT HERE-->~/np~
-					$data
-					~np~
+     <a href=\"javascript:stopscroll()\">Stop</a>  <a href=\"javascript:movetop()\">Top</a></center>
+     </div>
+     
+     <SCRIPT language=\"JavaScript1.2\">
+     
+     //specify speed of scroll (greater=faster)
+     var speed=$speed
+     
+     iens6=document.all||document.getElementById
+     ns4=document.layers
+     
+     if (iens6){
+     document.write('<div id=\"container\" style=\"position:relative;width:$width;height:$height;overflow:hidden;border:2px ridge white\">')
+     document.write('<div id=\"content\" style=\"position:absolute;width:$width;left:0px;top:0px\">')
+     }
+     </script>
+     
+     <ilayer name=\"nscontainer\" width=width_w height=height_h clip=\"0,0,width_w,height_h\">
+     <layer name=\"nscontent\" width=width_w height=height_h visibility=hidden>
+     
+     <!--INSERT CONTENT HERE-->~/np~
+                    $data
+                    ~np~
 <!--END CONTENT-->
 </layer>
 </ilayer>

@@ -22,7 +22,7 @@ function wikiplugin_gdgraph_info()
         'tags' => ['basic'],
         'prefs' => ['wikiplugin_gdgraph'],
         'body' => tra('Comma-separated data (x,y) to be graphed. A useful option is to generate this data from a LIST
-			or CUSTOMSEARCH using a .tpl template or trackerlist plugin placed in the body'),
+            or CUSTOMSEARCH using a .tpl template or trackerlist plugin placed in the body'),
         'iconname' => 'chart',
         'format' => 'html',
         'introduced' => tra('14, backported to 12.4'),
@@ -75,10 +75,10 @@ function wikiplugin_gdgraph_info()
                 'required' => false,
                 'name' => tra('Graph Image Height'),
                 'description' => tr('Sets the total height in pixels of the image generated to display the entire graph
-					- if not set and %0 is %1 then the image height will be calculated from the number of x,y pairs,
-					which is useful if the number of x,y pairs is not known eg they are generated using (say) a LIST,
-					CUSTOMSEARCH or trackerlist plugin. The auto height option only works properly if the title is not
-					shown.', '<code>type</code>', '<code>barhoriz</code>'),
+                    - if not set and %0 is %1 then the image height will be calculated from the number of x,y pairs,
+                    which is useful if the number of x,y pairs is not known eg they are generated using (say) a LIST,
+                    CUSTOMSEARCH or trackerlist plugin. The auto height option only works properly if the title is not
+                    shown.', '<code>type</code>', '<code>barhoriz</code>'),
                 'since' => '14.0',
                 'filter' => 'digits',
                 'default' => 0,

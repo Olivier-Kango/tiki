@@ -219,37 +219,37 @@ function smarty_function_treetable($params, $smarty)
         $headerlib->add_jq_onready(
             '
 $("#' . $id . '_openall").click( function () {
-	$this = $(this).tikiModal(" ");
-	var visible = $(this).find(".icon:visible")
-	if ($(visible).hasClass("icon-file-archive-open")) {
+    $this = $(this).tikiModal(" ");
+    var visible = $(this).find(".icon:visible")
+    if ($(visible).hasClass("icon-file-archive-open")) {
 
-		$(".expanded .indenter", "#' . $id . '").eachAsync({
-			delay: 20,
-			bulk: 0,
-			loop: function () {
-				$(this).click();
-			},
-			end: function ()  {
-				$this.tikiModal();
-			}
-		});
-		$(this).find(".icon-file-archive-open").hide();
-		$(this).find(".icon-file-archive").show();
-	} else {
-		$(".collapsed .indenter", "#' . $id . '").eachAsync({
-			delay: 20,
-			bulk: 0,
-			loop: function () {
-				$(this).click();
-			},
-			end: function ()  {
-				$this.tikiModal();
-			}
-		});
-		$(this).find(".icon-file-archive").hide();
-		$(this).find(".icon-file-archive-open").show();
-	}
-	return false;
+        $(".expanded .indenter", "#' . $id . '").eachAsync({
+            delay: 20,
+            bulk: 0,
+            loop: function () {
+                $(this).click();
+            },
+            end: function ()  {
+                $this.tikiModal();
+            }
+        });
+        $(this).find(".icon-file-archive-open").hide();
+        $(this).find(".icon-file-archive").show();
+    } else {
+        $(".collapsed .indenter", "#' . $id . '").eachAsync({
+            delay: 20,
+            bulk: 0,
+            loop: function () {
+                $(this).click();
+            },
+            end: function ()  {
+                $this.tikiModal();
+            }
+        });
+        $(this).find(".icon-file-archive").hide();
+        $(this).find(".icon-file-archive-open").show();
+    }
+    return false;
 });'
         );
     }
@@ -262,12 +262,12 @@ $("#' . $id . '_openall").click( function () {
         $headerlib->add_jq_onready(
             '
 $("#' . $id . '_showSelected").click( function () {
-	if (!$(this).prop("checked")) {
-		$("#treetable_1 tr td.checkBoxCell input:checkbox").parent().parent().show()
-	} else {
-		$("#treetable_1 tr td.checkBoxCell input:checkbox").parent().parent().hide()
-		$("#treetable_1 tr td.checkBoxCell input:checked").parent().parent().show()
-	}
+    if (!$(this).prop("checked")) {
+        $("#treetable_1 tr td.checkBoxCell input:checkbox").parent().parent().show()
+    } else {
+        $("#treetable_1 tr td.checkBoxCell input:checkbox").parent().parent().hide()
+        $("#treetable_1 tr td.checkBoxCell input:checked").parent().parent().show()
+    }
 });'
         );
     }

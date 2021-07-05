@@ -272,42 +272,42 @@ class GoalLib
         switch ($metric) {
             case 'event-count':
                 $metric = '(result-count
-				(filter-date)
-				(filter-target)
-				(filter (content eventType) (field "event_type"))
-				(filter (type "goalevent"))
-			)';
+                (filter-date)
+                (filter-target)
+                (filter (content eventType) (field "event_type"))
+                (filter (type "goalevent"))
+            )';
                 break;
             case 'event-count-unbounded':
                 $metric = '(result-count
-				(filter-target)
-				(filter (content eventType) (field "event_type"))
-				(filter (type "goalevent"))
-			)';
+                (filter-target)
+                (filter (content eventType) (field "event_type"))
+                (filter (type "goalevent"))
+            )';
                 break;
             case 'goal-count':
                 $metric = '(result-count
-				(filter-date)
-				(filter-target)
-				(filter (content "tiki.goal.reached") (field "event_type"))
-				(filter (type "goalevent"))
-				(filter (content (concat "goal:" goalId)) (field "target"))
-			)';
+                (filter-date)
+                (filter-target)
+                (filter (content "tiki.goal.reached") (field "event_type"))
+                (filter (type "goalevent"))
+                (filter (content (concat "goal:" goalId)) (field "target"))
+            )';
                 break;
             case 'goal-count-unbounded':
                 $metric = '(result-count
-				(filter-target)
-				(filter (content "tiki.goal.reached") (field "event_type"))
-				(filter (type "goalevent"))
-				(filter (content (concat "goal:" goalId)) (field "target"))
-			)';
+                (filter-target)
+                (filter (content "tiki.goal.reached") (field "event_type"))
+                (filter (type "goalevent"))
+                (filter (content (concat "goal:" goalId)) (field "target"))
+            )';
                 break;
             case 'has-badge':
                 $metric = '(relation-present
-				(qualifier "tiki.badge.received")
-				(from type (if (equals type "user") user group))
-				(to "trackeritem" trackerItemBadge)
-			)';
+                (qualifier "tiki.badge.received")
+                (from type (if (equals type "user") user group))
+                (to "trackeritem" trackerItemBadge)
+            )';
                 break;
         }
 

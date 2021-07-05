@@ -12,8 +12,8 @@ SED='/bin/sed'
 MYSQL='/usr/bin/mysql'
 
 if [ -z $1 ];then
-	echo "Usage: cleanwatch.sh <email> [multi]"
-	exit 0
+    echo "Usage: cleanwatch.sh <email> [multi]"
+    exit 0
 fi 
 
 MULTI=/${2:-''}

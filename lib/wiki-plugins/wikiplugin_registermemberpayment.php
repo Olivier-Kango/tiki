@@ -27,7 +27,7 @@ function wikiplugin_registermemberpayment_info()
                     'required' => false,
                     'name' => tra('Fixed Periods'),
                     'description' => tra('Give specific periods that can be chosen with a dropdown list.
-						Example:') . " <code>name:value;name:value;value;value;</code>",
+                        Example:') . " <code>name:value;name:value;value;value;</code>",
                     'since' => '9.1',
                     'filter' => 'text',
                     'default' => 'Number of periods:',
@@ -89,13 +89,13 @@ function wikiplugin_registermemberpayment($data, $params, $offset)
             $register = smarty_function_user_registration([], $smarty->getEmptyInternalTemplate());
         } else {
             $register = "<table>
-				<tr class='registerSubmitTr'>
-					<td colspan='2'>
-						<input type='hidden' id='name' value='$user' />
-						<input type='submit' value='" . tr('Submit') . "' class='registerSubmit'/>
-					</td>
-				</tr>
-			</table>";
+                <tr class='registerSubmitTr'>
+                    <td colspan='2'>
+                        <input type='hidden' id='name' value='$user' />
+                        <input type='submit' value='" . tr('Submit') . "' class='registerSubmit'/>
+                    </td>
+                </tr>
+            </table>";
         }
     }
 
@@ -201,7 +201,7 @@ JS
     }
 
     return "~np~
-		<div id='memberPayment$i' style='$paymentStyle'>$memberPayment</div>
-		<div id='memberRegister$i' style='$registerStyle'>$register</div>
-	~/np~";
+        <div id='memberPayment$i' style='$paymentStyle'>$memberPayment</div>
+        <div id='memberRegister$i' style='$registerStyle'>$register</div>
+    ~/np~";
 }

@@ -79,16 +79,16 @@ class Captcha_ReCaptcha30 extends Laminas\Captcha\ReCaptcha
         $api_server = self::API_SERVER;
 
         return <<<EOF
-		<script src="{$api_server}?render={$this->getPubkey()}"></script>
-		<input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response" value="" />
-		<script>
-			grecaptcha.ready(function() {
-				grecaptcha.execute('{$this->getPubkey()}', {action: 'login'})
-				.then(function(token) {
-					document.getElementById('g-recaptcha-response').value=token;
-				});
-			});
-		</script>
+        <script src="{$api_server}?render={$this->getPubkey()}"></script>
+        <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response" value="" />
+        <script>
+            grecaptcha.ready(function() {
+                grecaptcha.execute('{$this->getPubkey()}', {action: 'login'})
+                .then(function(token) {
+                    document.getElementById('g-recaptcha-response').value=token;
+                });
+            });
+        </script>
 EOF;
     }
 
@@ -102,12 +102,12 @@ EOF;
         return <<<EOF
         <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response" value="" />
         <script>
-	            grecaptcha.ready(function() {
-		        grecaptcha.execute('{$this->getPubkey()}', {action: 'login'})
-		        .then(function(token) {
-			         document.getElementById('g-recaptcha-response').value=token;
-		    });
-	       }); 
+                grecaptcha.ready(function() {
+                grecaptcha.execute('{$this->getPubkey()}', {action: 'login'})
+                .then(function(token) {
+                     document.getElementById('g-recaptcha-response').value=token;
+            });
+           }); 
         </script>
 EOF;
     }

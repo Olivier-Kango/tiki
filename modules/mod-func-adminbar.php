@@ -39,55 +39,55 @@ function module_adminbar($mod_reference, $module_params)
 
 
     $headerlib->add_js('$(document).ready(function() {
-			$(function() {
-				$(".js-admin-bar").click(function() {
-					$(\'.js-sliding-panel-admin-bar\').toggleClass("open");
-					$(\'.js-sliding-panel-admin-bar\').toggleClass("invisible");
-					$(\'header.page-header\').toggleClass("has-admin-bar-sliding-panel");
-					$(\'.icon-admin-bar\').toggleClass("open");
-					$(\'body.tiki\').toggleClass("open");
-				});
-			});
-			$(function() {
-				$(".navbar-toggler").click(function() {
-					$(\'.navbar-toggler\').toggleClass("open");
-					$(\'.navbar-toggler\').toggleClass("invisible");
-				});
-			});
+            $(function() {
+                $(".js-admin-bar").click(function() {
+                    $(\'.js-sliding-panel-admin-bar\').toggleClass("open");
+                    $(\'.js-sliding-panel-admin-bar\').toggleClass("invisible");
+                    $(\'header.page-header\').toggleClass("has-admin-bar-sliding-panel");
+                    $(\'.icon-admin-bar\').toggleClass("open");
+                    $(\'body.tiki\').toggleClass("open");
+                });
+            });
+            $(function() {
+                $(".navbar-toggler").click(function() {
+                    $(\'.navbar-toggler\').toggleClass("open");
+                    $(\'.navbar-toggler\').toggleClass("invisible");
+                });
+            });
 
-			var swiper = new Swiper(\'.js-admin-bar-slider\', {
-				slidesPerView: 6,
-				spaceBetween: 15,
-				freeMode: true,
-				pagination: {
-					el: \'.swiper-pagination\',
-					clickable: true,
-				},
-				navigation: {
-					nextEl: \'.swiper-button-next\',
-					prevEl: \'.swiper-button-prev\',
-				},
-				autoplay: false,
-				breakpoints: {
-					1024: {
-						slidesPerView: 6,
-						spaceBetween: 15,
-					},
-					768: {
-						slidesPerView: 4,
-						spaceBetween: 15,
-					},
-					640: {
-						slidesPerView: 2,
-						spaceBetween: 15,
-					},
-					320: {
-						slidesPerView: 2,
-						spaceBetween: 15,
-					}
-				}
-			});
-		});
+            var swiper = new Swiper(\'.js-admin-bar-slider\', {
+                slidesPerView: 6,
+                spaceBetween: 15,
+                freeMode: true,
+                pagination: {
+                    el: \'.swiper-pagination\',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: \'.swiper-button-next\',
+                    prevEl: \'.swiper-button-prev\',
+                },
+                autoplay: false,
+                breakpoints: {
+                    1024: {
+                        slidesPerView: 6,
+                        spaceBetween: 15,
+                    },
+                    768: {
+                        slidesPerView: 4,
+                        spaceBetween: 15,
+                    },
+                    640: {
+                        slidesPerView: 2,
+                        spaceBetween: 15,
+                    },
+                    320: {
+                        slidesPerView: 2,
+                        spaceBetween: 15,
+                    }
+                }
+            });
+        });
 ');
     TikiLib::lib('smarty')->assign('recent_prefs', TikiLib::lib('prefs')->getRecent());
 }

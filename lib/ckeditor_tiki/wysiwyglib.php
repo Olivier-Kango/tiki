@@ -91,10 +91,10 @@ window.CKEDITOR.config.extraPlugins += (window.CKEDITOR.config.extraPlugins ? ",
 window.CKEDITOR.plugins.addExternal( "inlinesave", "' . $tikiroot . 'lib/ckeditor_tiki/plugins/inlinesave/");
 window.CKEDITOR.config.extraPlugins += (window.CKEDITOR.config.extraPlugins ? ",inlinecancel" : "inlinecancel" );
 window.CKEDITOR.plugins.addExternal( "inlinecancel", "' . $tikiroot . 'lib/ckeditor_tiki/plugins/inlinecancel/");
-window.CKEDITOR.config.ajaxSaveRefreshTime = 30 ;			// RefreshTime
+window.CKEDITOR.config.ajaxSaveRefreshTime = 30 ;            // RefreshTime
 window.CKEDITOR.config.contentsLangDirection = ' . (Language::isRTL() ? '"rtl"' : '"ui"') . ';
 // --- plugins
-window.CKEDITOR.config.autoSavePage = "' . addcslashes($pageName, '"') . '";		// unique reference for each page
+window.CKEDITOR.config.autoSavePage = "' . addcslashes($pageName, '"') . '";        // unique reference for each page
 window.CKEDITOR.config.allowedContent = true;
 // --- other configs
 
@@ -108,7 +108,7 @@ window.CKEDITOR.config.toolbar = ' . $cktools . ';
         $headerlib->add_jsfile('lib/ckeditor_tiki/tikilink_dialog.js');
         $headerlib->add_js(
             '//window.CKEDITOR.config.extraPlugins += (window.CKEDITOR.config.extraPlugins ? ",tikiplugin" : "tikiplugin" );
-//			window.CKEDITOR.plugins.addExternal( "tikiplugin", "' . $tikiroot . 'lib/ckeditor_tiki/plugins/tikiplugin/");',
+//            window.CKEDITOR.plugins.addExternal( "tikiplugin", "' . $tikiroot . 'lib/ckeditor_tiki/plugins/tikiplugin/");',
             5
         );
     }
@@ -130,7 +130,7 @@ window.CKEDITOR.config.toolbar = ' . $cktools . ';
             $headerlib->add_jsfile('lib/ckeditor_tiki/tikilink_dialog.js');
             $headerlib->add_js(
                 'window.CKEDITOR.config.extraPlugins += (window.CKEDITOR.config.extraPlugins ? ",tikiplugin" : "tikiplugin" );
-				window.CKEDITOR.plugins.addExternal( "tikiplugin", "' . $tikiroot . 'lib/ckeditor_tiki/plugins/tikiplugin/");',
+                window.CKEDITOR.plugins.addExternal( "tikiplugin", "' . $tikiroot . 'lib/ckeditor_tiki/plugins/tikiplugin/");',
                 5
             );
             $headerlib->add_css('.ui-front {z-index: 9999;}');  // so the plugin edit dialogs show up
@@ -138,7 +138,7 @@ window.CKEDITOR.config.toolbar = ' . $cktools . ';
         if (! $is_html && $full_page) {
             $headerlib->add_js(
                 'window.CKEDITOR.config.extraPlugins += (window.CKEDITOR.config.extraPlugins ? ",tikiwiki" : "tikiwiki" );
-				window.CKEDITOR.plugins.addExternal( "tikiwiki", "' . $tikiroot . 'lib/ckeditor_tiki/plugins/tikiwiki/");',
+                window.CKEDITOR.plugins.addExternal( "tikiwiki", "' . $tikiroot . 'lib/ckeditor_tiki/plugins/tikiwiki/");',
                 5
             );  // before dialog tools init (10)
         }
@@ -150,10 +150,10 @@ window.CKEDITOR.config.toolbar = ' . $cktools . ';
                 '// --- config settings for the autosave plugin ---
 window.CKEDITOR.config.extraPlugins += (window.CKEDITOR.config.extraPlugins ? ",autosave" : "autosave" );
 window.CKEDITOR.plugins.addExternal( "autosave", "' . $tikiroot . 'lib/ckeditor_tiki/plugins/autosave/");
-window.CKEDITOR.config.ajaxAutoSaveRefreshTime = 30 ;			// RefreshTime
+window.CKEDITOR.config.ajaxAutoSaveRefreshTime = 30 ;            // RefreshTime
 window.CKEDITOR.config.contentsLangDirection = ' . (Language::isRTL() ? '"rtl"' : '"ui"') . ';
-window.CKEDITOR.config.ajaxAutoSaveSensitivity = 2 ;			// Sensitivity to key strokes
-register_id("' . $dom_id . '","' . addcslashes($auto_save_referrer, '"') . '");	// Register auto_save so it gets removed on submit
+window.CKEDITOR.config.ajaxAutoSaveSensitivity = 2 ;            // Sensitivity to key strokes
+register_id("' . $dom_id . '","' . addcslashes($auto_save_referrer, '"') . '");    // Register auto_save so it gets removed on submit
 ajaxLoadingShow("' . $dom_id . '");
 ',
                 5
@@ -175,20 +175,20 @@ ajaxLoadingShow("' . $dom_id . '");
 
         // js to initiate the editor
         $ckoptions = '{
-	toolbar: ' . $cktools . ',
-	customConfig: "",
-	autoSaveSelf: "' . addcslashes($auto_save_referrer, '"') . '",		// unique reference for each page set up in ensureReferrer()
-	font_names: "' . trim($prefs['wysiwyg_fonts']) . '",
-	format_tags: "' . $ckeformattags . '",
-	stylesSet: "tikistyles:' . $tikiroot . 'lib/ckeditor_tiki/tikistyles.js",
-	templates_files: ["' . $tikiroot . 'lib/ckeditor_tiki/tikitemplates.js"],
-	skin: "' . ($prefs['wysiwyg_toolbar_skin'] != 'default' ? $prefs['wysiwyg_toolbar_skin'] : 'moono') . '",
-	defaultLanguage: "' . $this->languageMap($prefs['language']) . '",
- 	contentsLangDirection: "' . (Language::isRTL() ? 'rtl' : 'ltr') . '",
-	language: "' . ($prefs['feature_detect_language'] === 'y' ? '' : $this->languageMap($prefs['language'])) . '"
-	' . (empty($params['rows']) ? ',height: "' . (empty($params['height']) ? '400' : $params['height']) . '"' : '') . '
-	, resize_dir: "both"
-	, allowedContent: true
+    toolbar: ' . $cktools . ',
+    customConfig: "",
+    autoSaveSelf: "' . addcslashes($auto_save_referrer, '"') . '",        // unique reference for each page set up in ensureReferrer()
+    font_names: "' . trim($prefs['wysiwyg_fonts']) . '",
+    format_tags: "' . $ckeformattags . '",
+    stylesSet: "tikistyles:' . $tikiroot . 'lib/ckeditor_tiki/tikistyles.js",
+    templates_files: ["' . $tikiroot . 'lib/ckeditor_tiki/tikitemplates.js"],
+    skin: "' . ($prefs['wysiwyg_toolbar_skin'] != 'default' ? $prefs['wysiwyg_toolbar_skin'] : 'moono') . '",
+    defaultLanguage: "' . $this->languageMap($prefs['language']) . '",
+     contentsLangDirection: "' . (Language::isRTL() ? 'rtl' : 'ltr') . '",
+    language: "' . ($prefs['feature_detect_language'] === 'y' ? '' : $this->languageMap($prefs['language'])) . '"
+    ' . (empty($params['rows']) ? ',height: "' . (empty($params['height']) ? '400' : $params['height']) . '"' : '') . '
+    , resize_dir: "both"
+    , allowedContent: true
 }';
 
 //  , extraAllowedContent: {        // TODO one day, currently disabling the "Advanced Content Filter" as tiki plugins are too complex

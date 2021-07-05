@@ -497,14 +497,14 @@ class StructLib extends TikiLib
         $query = "SELECT ts.`parent_id`,tuw.`email`,tuw.`user`, tuw.`event`";
         $query .= " FROM `tiki_structures` ts";
         $query .= " LEFT JOIN (
-			SELECT watchId, user, event, object, title, type, url, email FROM `tiki_user_watches`
-			UNION DISTINCT
-				SELECT watchId, uu.login as user, event, object, title, type, url, uu.email
-				FROM
-					`tiki_group_watches` tgw
-					INNER JOIN users_usergroups ug ON tgw.`group` = ug.groupName
-					INNER JOIN users_users uu ON ug.userId = uu.userId AND uu.email IS NOT NULL AND uu.email <> ''
-			) tuw ON (tuw.`object`=ts.`page_ref_id` AND tuw.`event`=?)";
+            SELECT watchId, user, event, object, title, type, url, email FROM `tiki_user_watches`
+            UNION DISTINCT
+                SELECT watchId, uu.login as user, event, object, title, type, url, uu.email
+                FROM
+                    `tiki_group_watches` tgw
+                    INNER JOIN users_usergroups ug ON tgw.`group` = ug.groupName
+                    INNER JOIN users_users uu ON ug.userId = uu.userId AND uu.email IS NOT NULL AND uu.email <> ''
+            ) tuw ON (tuw.`object`=ts.`page_ref_id` AND tuw.`event`=?)";
         if (empty($page_ref_id)) {
             $query .= " LEFT JOIN `tiki_pages` tp ON ( tp.`page_id`=ts.`page_id`)";
             $query .= " WHERE tp.`pageName`=?";
@@ -605,22 +605,22 @@ class StructLib extends TikiLib
             $args = [ (int) $page_ref_id ];
 
             $query = "
-				SELECT
-					`pos`,
-					`page_ref_id`,
-					`parent_id`,
-					ts.`page_id`,
-					`pageName`,
-					`page_alias`,
-					`structure_id`
-				FROM
-					`tiki_structures` ts
-					LEFT JOIN tiki_translated_objects a ON a.type = 'wiki page' AND a.objId = ts.page_id
-					LEFT JOIN tiki_translated_objects b ON b.type = 'wiki page' AND a.traId = b.traId
-					LEFT JOIN `tiki_pages` tp ON b.`objId` = tp.`page_id` OR ts.page_id = tp.page_id
-				WHERE
-					`page_ref_id` = ?
-				ORDER BY " . $this->build_language_order_clause($args)
+                SELECT
+                    `pos`,
+                    `page_ref_id`,
+                    `parent_id`,
+                    ts.`page_id`,
+                    `pageName`,
+                    `page_alias`,
+                    `structure_id`
+                FROM
+                    `tiki_structures` ts
+                    LEFT JOIN tiki_translated_objects a ON a.type = 'wiki page' AND a.objId = ts.page_id
+                    LEFT JOIN tiki_translated_objects b ON b.type = 'wiki page' AND a.traId = b.traId
+                    LEFT JOIN `tiki_pages` tp ON b.`objId` = tp.`page_id` OR ts.page_id = tp.page_id
+                WHERE
+                    `page_ref_id` = ?
+                ORDER BY " . $this->build_language_order_clause($args)
                 . " LIMIT 1";
 
             $result = $this->query($query, $args);
@@ -649,28 +649,28 @@ class StructLib extends TikiLib
                 $args[] = (int) $id;
             } else {
                 $query = "
-				SELECT
-					`page_ref_id`,
-					`pageName`,
-					`page_alias`,
-					tp.`description`
-				FROM
-					`tiki_structures` ts
-					INNER JOIN tiki_pages tp ON tp.page_id = (
-						SELECT tp.page_id
-						FROM
-							`tiki_pages` tr
-							LEFT JOIN tiki_translated_objects a ON tr.page_id = a.objId AND a.type = 'wiki page'
-							LEFT JOIN tiki_translated_objects b ON b.type = 'wiki page' AND a.traId = b.traId
-							LEFT JOIN tiki_pages tp ON b.objId = tp.page_id OR tr.page_id = tp.page_id
-						WHERE
-							tr.page_id = ts.page_id
-						ORDER BY " . $this->build_language_order_clause($args) . "
-						LIMIT 1
-					)
-				WHERE
-					parent_id = ?
-				order by " . $this->convertSortMode('pos_' . $order);
+                SELECT
+                    `page_ref_id`,
+                    `pageName`,
+                    `page_alias`,
+                    tp.`description`
+                FROM
+                    `tiki_structures` ts
+                    INNER JOIN tiki_pages tp ON tp.page_id = (
+                        SELECT tp.page_id
+                        FROM
+                            `tiki_pages` tr
+                            LEFT JOIN tiki_translated_objects a ON tr.page_id = a.objId AND a.type = 'wiki page'
+                            LEFT JOIN tiki_translated_objects b ON b.type = 'wiki page' AND a.traId = b.traId
+                            LEFT JOIN tiki_pages tp ON b.objId = tp.page_id OR tr.page_id = tp.page_id
+                        WHERE
+                            tr.page_id = ts.page_id
+                        ORDER BY " . $this->build_language_order_clause($args) . "
+                        LIMIT 1
+                    )
+                WHERE
+                    parent_id = ?
+                order by " . $this->convertSortMode('pos_' . $order);
                 $args[] = (int) $id;
             }
             $result = $this->query($query, $args);
@@ -884,16 +884,16 @@ class StructLib extends TikiLib
         }
 
         $query = "
-			SELECT
-				page_ref_id
-			FROM
-				tiki_structures ts
-				INNER JOIN tiki_translated_objects a ON ts.page_id = a.objId AND a.type = 'wiki page'
-				INNER JOIN tiki_translated_objects b ON a.traId = b.traId AND b.type = 'wiki page'
-				INNER JOIN tiki_pages tp ON b.objId = tp.page_id
-			WHERE
-				(parent_id IS NULL or parent_id = 0)
-				AND pageName = ?";
+            SELECT
+                page_ref_id
+            FROM
+                tiki_structures ts
+                INNER JOIN tiki_translated_objects a ON ts.page_id = a.objId AND a.type = 'wiki page'
+                INNER JOIN tiki_translated_objects b ON a.traId = b.traId AND b.type = 'wiki page'
+                INNER JOIN tiki_pages tp ON b.objId = tp.page_id
+            WHERE
+                (parent_id IS NULL or parent_id = 0)
+                AND pageName = ?";
 
         $page_ref_id = $this->getOne($query, [$pageName]);
         return $page_ref_id;
@@ -1049,15 +1049,15 @@ class StructLib extends TikiLib
             $query .= 'where ts.`page_id`=tp.`page_id` and (tp.`pageName`=? OR tp.`pageSlug`=?)';
         } else {
             $query = "
-				SELECT DISTINCT
-					`page_ref_id`
-				FROM
-					tiki_structures ts
-					LEFT JOIN tiki_translated_objects a ON a.objId = ts.page_id AND a.type = 'wiki page'
-					LEFT JOIN tiki_translated_objects b ON a.traId = b.traId AND b.type = 'wiki page'
-					LEFT JOIN tiki_pages tp ON ts.page_id = tp.page_id OR b.objId = tp.page_id
-				WHERE
-					tp.`pageName`=? OR tp.`pageSlug`=?";
+                SELECT DISTINCT
+                    `page_ref_id`
+                FROM
+                    tiki_structures ts
+                    LEFT JOIN tiki_translated_objects a ON a.objId = ts.page_id AND a.type = 'wiki page'
+                    LEFT JOIN tiki_translated_objects b ON a.traId = b.traId AND b.type = 'wiki page'
+                    LEFT JOIN tiki_pages tp ON ts.page_id = tp.page_id OR b.objId = tp.page_id
+                WHERE
+                    tp.`pageName`=? OR tp.`pageSlug`=?";
         }
 
         $result = $this->query($query, [$pageName,$pageName]);
@@ -1177,9 +1177,9 @@ class StructLib extends TikiLib
         }
 
         $query = "select $distinct `page_ref_id`,`structure_id`,`parent_id`,ts.`page_id`,`page_alias`,`pos`,
-			`pageName`,tp.`hits`,`data`,tp.`description`,`lastModif`,`comment`,`version`,
-			`user`,`ip`,`flag`,`points`,`votes`,`cache`,`wiki_cache`,`cache_timestamp`,
-			`pageRank`,`creator`,`page_size` from `tiki_structures` as ts $join_tables $mid order by " . $this->convertSortMode($sort_mode);
+            `pageName`,tp.`hits`,`data`,tp.`description`,`lastModif`,`comment`,`version`,
+            `user`,`ip`,`flag`,`points`,`votes`,`cache`,`wiki_cache`,`cache_timestamp`,
+            `pageRank`,`creator`,`page_size` from `tiki_structures` as ts $join_tables $mid order by " . $this->convertSortMode($sort_mode);
         $query_cant = "select count(*) from `tiki_structures` ts $join_tables $mid";
         $result = $this->query($query, $bindvars, $maxRecords, $offset);
         $cant = $this->getOne($query_cant, $bindvars);

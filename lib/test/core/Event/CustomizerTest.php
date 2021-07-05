@@ -56,10 +56,10 @@ class TikiEventCustomizerTest extends PHPUnit\Framework\TestCase
         $customizer->addRule(
             'tiki.trackeritem.save',
             '(event-trigger custom.event
-			(map
-				(amount (add args.a args.b))
-				(test args.c)
-			))'
+            (map
+                (amount (add args.a args.b))
+                (test args.c)
+            ))'
         );
         $customizer->bind($this->manager, $this->runner);
 
@@ -122,10 +122,10 @@ class TikiEventCustomizerTest extends PHPUnit\Framework\TestCase
         $customizer->addRule(
             'tiki.trackeritem.save',
             '(event-trigger custom.event
-			(map
-				(amount (add args.a args.b))
-				(test args.c)
-			))'
+            (map
+                (amount (add args.a args.b))
+                (test args.c)
+            ))'
         );
         $customizer->bind($this->manager, $this->runner);
 

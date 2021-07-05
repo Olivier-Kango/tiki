@@ -23,8 +23,8 @@ function wikiplugin_files_info()
                 'required' => false,
                 'name' => tra('File Galleries IDs'),
                 'description' => tra('To list only files contained in these file galleries (multiple IDs separated by
-					colon)') . ($prefs['feature_use_fgal_for_user_files'] === 'y' ? '.<br> ' . tr('Or enter a username
-					for user files (hint: enter %0 for current logged-in user).', '<code>{{user}}</code>')
+                    colon)') . ($prefs['feature_use_fgal_for_user_files'] === 'y' ? '.<br> ' . tr('Or enter a username
+                    for user files (hint: enter %0 for current logged-in user).', '<code>{{user}}</code>')
                     : ''),
                 'since' => '3.0',
                 'default' => null,
@@ -35,7 +35,7 @@ function wikiplugin_files_info()
                 'required' => false,
                 'name' => tra('Category ID'),
                 'description' => tra('To restrict files listed to those belonging to one or more categories. Enter a
-					single category or ID or list of them separated by colon'),
+                    single category or ID or list of them separated by colon'),
                 'since' => '3.0',
                 'default' => null,
                 'filter' => 'text',
@@ -47,7 +47,7 @@ function wikiplugin_files_info()
                 'required' => false,
                 'name' => tra('File ID'),
                 'description' => tra('To list only specified files, enter their file IDs separated by colon. If File
-					IDs are specified here then the Gallery ID field above should be empty.'),
+                    IDs are specified here then the Gallery ID field above should be empty.'),
                 'since' => '5.0',
                 'type' => 'fileId',
                 'area' => 'fgal_picker_id',
@@ -61,7 +61,7 @@ function wikiplugin_files_info()
                 'required' => false,
                 'name' => tra('Sort order'),
                 'description' => tr('Order ascending (_asc), descending (_desc) or random based on any field in the
-					file gallery table. Default is %0', '<code>name_asc</code>'),
+                    file gallery table. Default is %0', '<code>name_asc</code>'),
                 'since' => '3.0',
                 'default' => 'name_asc',
                 'filter' => 'text',
@@ -88,7 +88,7 @@ function wikiplugin_files_info()
                 'required' => false,
                 'name' => tra('Show Action'),
                 'description' => tra('Show a column with icons for the various actions the user can take with each file
-					(shown by default)'),
+                    (shown by default)'),
                 'since' => '3.0',
                 'filter' => 'alpha',
                 'default' => 'n',
@@ -131,7 +131,7 @@ function wikiplugin_files_info()
                 'required' => false,
                 'name' => tra('Show Title'),
                 'description' => tra('Show the title of the file gallery (shown by default). Also shown on slide show
-					pop up window if a single galleryId is used.'),
+                    pop up window if a single galleryId is used.'),
                 'filter' => 'alpha',
                 'default' => 'y',
                 'since' => '5.0',
@@ -171,7 +171,7 @@ function wikiplugin_files_info()
                 'required' => false,
                 'name' => tra('Show Name'),
                 'description' => tr('Show the name given to the file upon upload into the file gallery (shown by
-					default). Set to Yes (%0) to show as a caption in a slide show.', '<code>y</code>'),
+                    default). Set to Yes (%0) to show as a caption in a slide show.', '<code>y</code>'),
                 'since' => '3.0',
                 'default' => 'y',
                 'filter' => 'alpha',
@@ -185,7 +185,7 @@ function wikiplugin_files_info()
                 'required' => false,
                 'name' => tra('Show Filename'),
                 'description' => tr('Show each file\'s filename (shown by default except in slide show). Set to Yes
-					(%0) to show as a caption in a slide show.', '<code>y</code>'),
+                    (%0) to show as a caption in a slide show.', '<code>y</code>'),
                 'since' => '3.0',
                 'filter' => 'alpha',
                 'default' => 'y',
@@ -212,7 +212,7 @@ function wikiplugin_files_info()
                 'required' => false,
                 'name' => tra('Show Description'),
                 'description' => tr('Show the description of the file given upon upload into the file gallery (shown
-					by default except in slide show). Set to Yes (%0) to show as a caption in a slide show.', '<code>y</code>'),
+                    by default except in slide show). Set to Yes (%0) to show as a caption in a slide show.', '<code>y</code>'),
                 'since' => '3.0',
                 'filter' => 'alpha',
                 'default' => 'y',
@@ -334,7 +334,7 @@ function wikiplugin_files_info()
                 'required' => false,
                 'name' => tra('Show File Count'),
                 'description' => tra('For galleries included in the list (where the file gallery includes other
-					galleries), show the number of files in each of those galleries (not shown by default)'),
+                    galleries), show the number of files in each of those galleries (not shown by default)'),
                 'since' => '3.0',
                 'filter' => 'alpha',
                 'default' => 'n',

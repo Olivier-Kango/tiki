@@ -152,7 +152,7 @@ class WikiParser_Parsable extends ParserLib
                     "\$(document).ready( function() {
 if ( \$('#$id') ) {
 \$('#$id').click( function(event) {
-	popupPluginForm("
+    popupPluginForm("
                     . json_encode('editwiki')
                     . ', '
                     . json_encode($plugin_name)

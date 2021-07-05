@@ -14,7 +14,7 @@
  * Purpose:  Adjust a string to a certain length if necessary,
  *           optionally splitting in the middle of a word, and
  *           appending the $etc string or padding the string
- *			 using $pad as filler.
+ *             using $pad as filler.
  * -------------------------------------------------------------
  */
 function smarty_modifier_adjust(

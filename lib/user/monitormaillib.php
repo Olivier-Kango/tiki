@@ -77,11 +77,11 @@ class MonitorMailLib
         $condition = $db->in('userId', $sendTo, $bindvars);
 
         $result = $db->fetchAll("
-			SELECT login, email, IFNULL(p.value, ?) language
-			FROM users_users u
-				LEFT JOIN tiki_user_preferences p ON u.login = p.user AND p.prefName = 'language'
-			WHERE $condition
-		", $bindvars);
+            SELECT login, email, IFNULL(p.value, ?) language
+            FROM users_users u
+                LEFT JOIN tiki_user_preferences p ON u.login = p.user AND p.prefName = 'language'
+            WHERE $condition
+        ", $bindvars);
 
         return $result;
     }

@@ -216,47 +216,47 @@ if (! empty($_REQUEST['parse']) && $_REQUEST['parse'] == 'edit') {
 
 $headerlib->add_jq_onready(
     '$.sheet.tikiOptions = $.extend($.sheet.tikiOptions, {
-					menuLeft: $("#sheetMenu").clone().html()
-				});
+                    menuLeft: $("#sheetMenu").clone().html()
+                });
 
-				jST = $("div.tiki_sheet")
-				    .height(window.innerHeight * 0.8)
-					.sheet($.sheet.tikiOptions);
+                jST = $("div.tiki_sheet")
+                    .height(window.innerHeight * 0.8)
+                    .sheet($.sheet.tikiOptions);
 
-				jST.id = "' . ($_REQUEST['sheetId'] * 1) . '";
-				jST.file = "' . ( isset($fileInfo) ? 'true' : 'false' ) . '";
+                jST.id = "' . ($_REQUEST['sheetId'] * 1) . '";
+                jST.file = "' . ( isset($fileInfo) ? 'true' : 'false' ) . '";
 
-				$.sheet.link.setupUI();
-				$.sheet.readyState();
+                $.sheet.link.setupUI();
+                $.sheet.readyState();
 
-				$(window).bind("beforeunload", function() {
-					$($.sheet.instance).each(function() {
-						if (this.isDirty) {
-							return true;
-						}
-					});
-				});
+                $(window).bind("beforeunload", function() {
+                    $($.sheet.instance).each(function() {
+                        if (this.isDirty) {
+                            return true;
+                        }
+                    });
+                });
 
-				$("#edit_button a")
-					.click(function() {
-						$.sheet.manageState(true, "edit");
-						return false;
-					});
+                $("#edit_button a")
+                    .click(function() {
+                        $.sheet.manageState(true, "edit");
+                        return false;
+                    });
 
-				$("#save_button a")
-					.click( function () {
-						$.sheet.saveSheet(function() {
-							$.sheet.manageState(true);
-						});
+                $("#save_button a")
+                    .click( function () {
+                        $.sheet.saveSheet(function() {
+                            $.sheet.manageState(true);
+                        });
 
-						return false;
-					});
+                        return false;
+                    });
 
-				$("#cancel_button")
-					.click(function() {
-						$.sheet.manageState(true);
-						return false;
-					});'
+                $("#cancel_button")
+                    .click(function() {
+                        $.sheet.manageState(true);
+                        return false;
+                    });'
 );
 
 $serviceLib = TikiLib::lib('service');

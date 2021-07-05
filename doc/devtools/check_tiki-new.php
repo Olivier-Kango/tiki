@@ -12,10 +12,10 @@ Tiki monitoring for Nagios/Icinga/Shinken
 Syntax:
 php check_tiki-new.php -u <URL> --user <user> --pass <password>]
 
-	-u		Full URL of your Tiki installation
-			e.g.: http://www.example.com/subdirectory
-	--user		User for HTTP authentication
-	--pass		Password for HTTP authentication
+    -u        Full URL of your Tiki installation
+            e.g.: http://www.example.com/subdirectory
+    --user        User for HTTP authentication
+    --pass        Password for HTTP authentication
 
 EOHELP;
 }

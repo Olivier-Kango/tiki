@@ -217,11 +217,11 @@ class Search_ContentSource_UserSource implements Search_ContentSource_Interface
     {
         $result = $this->db->fetchAll(
             "SELECT usersTrackerId trackerId, itemId
-			FROM
-				users_groups
-				INNER JOIN tiki_tracker_item_fields ON usersFieldId = fieldId
-			WHERE value = ? AND usersTrackerId IS NOT NULL
-			",
+            FROM
+                users_groups
+                INNER JOIN tiki_tracker_item_fields ON usersFieldId = fieldId
+            WHERE value = ? AND usersTrackerId IS NOT NULL
+            ",
             [$user]
         );
 

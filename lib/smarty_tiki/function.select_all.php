@@ -11,12 +11,12 @@
  *
  * params:
  *  - checkbox_names: Values of the 'name' HTML attribute of the checkboxes to check/uncheck, either as an array or as a comma-separated list
- *	- label: text to display on the right side of the checkbox. If empty, no default text is displayed
+ *    - label: text to display on the right side of the checkbox. If empty, no default text is displayed
  *  - hidden_too: switch the hidden checkboxes too (n/y)
  *  - tablesorter: excludes the onclick function if set to 1, since tablesorter handles select all/none functions
- * 					and having both causes conflicts that result in the unselect all to nor work in some cases.
- * 					Used 1 to enable since that is the value of {$ts.enabled} that would typically be used
- * 					to set this parameter in the relevant smarty template
+ *                     and having both causes conflicts that result in the unselect all to nor work in some cases.
+ *                     Used 1 to enable since that is the value of {$ts.enabled} that would typically be used
+ *                     to set this parameter in the relevant smarty template
  */
 function smarty_function_select_all($params, $smarty)
 {

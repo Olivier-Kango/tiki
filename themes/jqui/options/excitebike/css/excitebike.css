@@ -1,5 +1,5 @@
 /* Jqui theme (jqui.css) Excitebike theme option (excitebike.css)
-	Visit http://themes.tiki.org for more information.*/
+    Visit http://themes.tiki.org for more information.*/
 a,
 .popover button.btn-link.link-list {
   color: #e69700;
@@ -15,10 +15,10 @@ button,
 input[type="reset"],
 input[type="submit"],
 .button input {
-	background: url('../../../../../vendor_bundled/vendor/components/jqueryui/themes/excite-bike/images/ui-bg_diagonals-thick_26_2293f7_40x40.png') 50% 50%;
+    background: url('../../../../../vendor_bundled/vendor/components/jqueryui/themes/excite-bike/images/ui-bg_diagonals-thick_26_2293f7_40x40.png') 50% 50%;
 }
 .btn:not(.btn-link) {
-	color: #ffffff;
+    color: #ffffff;
 }
 
 .btn:hover,
@@ -26,27 +26,27 @@ button:hover,
 input[type="reset"]:hover,
 input[type="submit"]:hover,
 .button input:hover {
-	background: url('../../../../../vendor_bundled/vendor/components/jqueryui/themes/excite-bike/images/ui-bg_diagonals-thick_22_1484e6_40x40.png') repeat-x 50% 50%;
+    background: url('../../../../../vendor_bundled/vendor/components/jqueryui/themes/excite-bike/images/ui-bg_diagonals-thick_22_1484e6_40x40.png') repeat-x 50% 50%;
 }
 .btn-link,
 .btn-link:hover {
-	background: none;
-	border: none;
+    background: none;
+    border: none;
 }
 .btn-secondary {
-	border: 3px solid #b5dfb5;
+    border: 3px solid #b5dfb5;
 }
 .btn-success {
-	border: 3px solid #b5dfb5;
+    border: 3px solid #b5dfb5;
 }
 .btn-info {
-	border: 3px solid #c5e9f3;
+    border: 3px solid #c5e9f3;
 }
 .btn-warning {
-	border: 3px solid #f6ce95;
+    border: 3px solid #f6ce95;
 }
 .btn-danger {
-	border: 3px solid #d9534f;
+    border: 3px solid #d9534f;
 }
 .btn-primary {
   color: #ffffff;
@@ -137,20 +137,20 @@ fieldset[disabled] .btn-primary.focus {
 }
 
 .dropdown-menu {
-	background: #e8a119;
+    background: #e8a119;
 }
 .dropdown-item a,
 .dropdown-item button.btn-link.link-list {
-	color: #212529;
+    color: #212529;
 }
 .dropdown-item:hover,
 .dropdown-item:focus,
 .dropdown-item button.btn-link.link-list:hover,
 .dropdown-item button.btn-link.link-list:focus,
 .topbar .cssmenu_horiz li ul li > a:hover {
-	background: #e69700;
-	color: #ffffff;
-	text-decoration: none;
+    background: #e69700;
+    color: #ffffff;
+    text-decoration: none;
 }
 
 input[type="text"],
@@ -174,9 +174,9 @@ body.cke_show_borders {
   background: #e69700 url('../../../../../vendor_bundled/vendor/components/jqueryui/themes/excite-bike/images/ui-bg_diagonals-thick_20_e69700_40x40.png') repeat 50% 50%;
 }
 .card-title {
-	color: #E69700;
-	font-weight: bold;
-	text-align: center;
+    color: #E69700;
+    font-weight: bold;
+    text-align: center;
 }
 
 .topbar .card-heading,
@@ -292,7 +292,7 @@ h1.pagetitle > a:hover {
   color: #e69700;
 }
 .card .dropdown-menu a {
-	color: #fff;
+    color: #fff;
 }
 .card-title {
   font-weight: bold;
@@ -324,9 +324,9 @@ h1.pagetitle > a:hover {
 }
 
 h3.card-heading {
-	color: #E69700;
-	font-weight: bold;
-	text-align: center;
+    color: #E69700;
+    font-weight: bold;
+    text-align: center;
 }
 
 .alert-box {

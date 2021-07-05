@@ -40,7 +40,7 @@ function wikiplugin_customsearch_info()
                 'required' => false,
                 'name' => tra('Search Id'),
                 'description' => tra('A unique identifier to distinguish custom searches for storing of previous search
-					criteria entered by users'),
+                    criteria entered by users'),
                 'since' => '8.0',
                 'filter' => 'alnum',
                 'default' => 0,
@@ -49,7 +49,7 @@ function wikiplugin_customsearch_info()
                 'required' => false,
                 'name' => tra('Search Delay'),
                 'description' => tr('Delay in milliseconds before automatically triggering search after change
-					(%00%1 disables and is the default)', '<code>', '</code>'),
+                    (%00%1 disables and is the default)', '<code>', '</code>'),
                 'since' => '8.0',
                 'filter' => 'digits',
                 'default' => 0,
@@ -58,7 +58,7 @@ function wikiplugin_customsearch_info()
                 'required' => false,
                 'name' => tra('Fade DIV Id'),
                 'description' => tra('The specific ID of the specific div to fade out when AJAX search is in progress,
-					if not set will attempt to fade the whole area or if failing simply show the spinner'),
+                    if not set will attempt to fade the whole area or if failing simply show the spinner'),
                 'since' => '8.0',
                 'filter' => 'text',
                 'default' => '',
@@ -67,7 +67,7 @@ function wikiplugin_customsearch_info()
                 'required' => false,
                 'name' => tra('Recall Last Search'),
                 'description' => tra('In the same session, return users to same search parameters on coming back to the
-					search page after leaving'),
+                    search page after leaving'),
                 'since' => '8.0',
                 'options' => [
                     ['text' => tra(''), 'value' => ''],
@@ -347,75 +347,75 @@ function wikiplugin_customsearch($data, $params)
      */
     $script = "
 var customsearch$id = {
-	options: " . json_encode($options) . ",
-	id: " . json_encode($id) . ",
-	offset: 0,
-	searchdata: {},
-	definition: " . json_encode((string) $definitionKey) . ",
-	autoTimeout: null,
-	add: function (fieldId, filter) {
-		this.searchdata[fieldId] = filter;
-		this.auto();
-	},
-	remove: function (fieldId) {
-		delete this.searchdata[fieldId];
-		this.auto();
-	},
-	load: function () {
-		this._executor(this);
-	},
-	auto: function () {
-	},
-	_executor: delayedExecutor(1000, function (cs) {
-		var selector = '#' + cs.options.searchfadediv;
-		if (cs.options.searchfadediv.length <= 1 && $(selector).length === 0) {
-			selector = '#customsearch_' + cs.id;
-		}
+    options: " . json_encode($options) . ",
+    id: " . json_encode($id) . ",
+    offset: 0,
+    searchdata: {},
+    definition: " . json_encode((string) $definitionKey) . ",
+    autoTimeout: null,
+    add: function (fieldId, filter) {
+        this.searchdata[fieldId] = filter;
+        this.auto();
+    },
+    remove: function (fieldId) {
+        delete this.searchdata[fieldId];
+        this.auto();
+    },
+    load: function () {
+        this._executor(this);
+    },
+    auto: function () {
+    },
+    _executor: delayedExecutor(1000, function (cs) {
+        var selector = '#' + cs.options.searchfadediv;
+        if (cs.options.searchfadediv.length <= 1 && $(selector).length === 0) {
+            selector = '#customsearch_' + cs.id;
+        }
 
-		$(selector).tikiModal(cs.options.searchfadetext);
+        $(selector).tikiModal(cs.options.searchfadetext);
 
-		if ($(cs.options.results).length) {
-			var resultsTop = $(cs.options.results).offset().top;
-			if( resultsTop && $(window).scrollTop() > resultsTop ) {
-				$('html, body').animate({scrollTop: resultsTop + 'px'}, 'fast');
-			}
-		}
-		cs._load(function (data) {
-			$(selector).tikiModal();
-			$(cs.options.results).html(data);
-			$(document).trigger('pageSearchReady');
-		});
-		cs.store_query = '';
-	}),
-	init: function () {
-		var that = this;
-		if (that.options.searchonload) {
-			that.load();
-		}
+        if ($(cs.options.results).length) {
+            var resultsTop = $(cs.options.results).offset().top;
+            if( resultsTop && $(window).scrollTop() > resultsTop ) {
+                $('html, body').animate({scrollTop: resultsTop + 'px'}, 'fast');
+            }
+        }
+        cs._load(function (data) {
+            $(selector).tikiModal();
+            $(cs.options.results).html(data);
+            $(document).trigger('pageSearchReady');
+        });
+        cs.store_query = '';
+    }),
+    init: function () {
+        var that = this;
+        if (that.options.searchonload) {
+            that.load();
+        }
 
-		if (that.options.autosearchdelay) {
-			that.auto = delayedExecutor(that.options.autosearchdelay, function () {
-				if (that.options.requireinput && (!$('#customsearch_$id').find(':text').val() || $('#customsearch_$id').find(':text').val().indexOf('...') > 0)) {
-					return false;
-				}
-				that.load();
-			});
-		}
-	}
+        if (that.options.autosearchdelay) {
+            that.auto = delayedExecutor(that.options.autosearchdelay, function () {
+                if (that.options.requireinput && (!$('#customsearch_$id').find(':text').val() || $('#customsearch_$id').find(':text').val().indexOf('...') > 0)) {
+                    return false;
+                }
+                that.load();
+            });
+        }
+    }
 };
 $('#customsearch_$id').click(function() {
-	customsearch$id.offset = 0;
+    customsearch$id.offset = 0;
 });
 $('#customsearch_$id').submit(function() {
-	if (customsearch$id.options.requireinput && (!$(this).find(':text').val() || $(this).find(':text').val().indexOf('...') > 0)) {
-		alert(tr('Please enter a search query'));
-		return false;
-	}
-	if (customsearch$id.options.origrequireinput != customsearch$id.options.requireinput) {
-		customsearch$id.options.requireinput = customsearch$id.options.origrequireinput;
-	}
-	customsearch$id.load();
-	return false;
+    if (customsearch$id.options.requireinput && (!$(this).find(':text').val() || $(this).find(':text').val().indexOf('...') > 0)) {
+        alert(tr('Please enter a search query'));
+        return false;
+    }
+    if (customsearch$id.options.origrequireinput != customsearch$id.options.requireinput) {
+        customsearch$id.options.requireinput = customsearch$id.options.origrequireinput;
+    }
+    customsearch$id.load();
+    return false;
 });
 
 window.customsearch_$id = customsearch$id;
@@ -541,44 +541,44 @@ window.customsearch_$id = customsearch$id;
     global $page;
     $script .= "$('.icon-pdf').parent().click(function(){storeSortTable('#customsearch_" . $id . "_results',$('#customsearch_" . $id . "_results').html())});
 customsearch$id._load = function (receive) {
-	var datamap = {
-		definition: this.definition,
-		adddata: $.toJSON(this.searchdata),
-		searchid: this.id,
-		offset: customsearch$id.offset,
-		maxRecords: this.maxRecords,
-		store_query: this.store_query,
-		page: " . json_encode($page) . ",
-		recalllastsearch: $recalllastsearch
-	};
-	if (!customsearch$id.options.forcesortmode && $('#customsearch_$id').find(':text').val() && $('#customsearch_$id').find(':text').val().indexOf('...') <= 0) {
-		customsearch$id.sort_mode = 'score_desc';
-	}
-	if (customsearch$id.sort_mode) {
-		// blank sort_mode is not allowed by Tiki input filter
-		datamap.sort_mode = customsearch$id.sort_mode;
-	}
-	$.ajax({
-		type: 'POST',
-		url: $.service('search_customsearch', 'customsearch'),
-		data: datamap,
-		dataType: 'html',
-		success: function(data) {
-			receive(data);
-			$('[data-toggle=\'popover\']').attr('data-html', true);
-			$('[data-toggle=\'popover\']').popover();
-			$callbackScript;
-		},
-		error: function ( jqXHR, textStatus, errorThrown ) {
-			var selector = '#' + customsearch$id.options.searchfadediv;
-			if (customsearch$id.options.searchfadediv.length <= 1 && $(selector).length === 0) {
-				selector = '#customsearch_$id';
-			}
-			$(selector).tikiModal();
+    var datamap = {
+        definition: this.definition,
+        adddata: $.toJSON(this.searchdata),
+        searchid: this.id,
+        offset: customsearch$id.offset,
+        maxRecords: this.maxRecords,
+        store_query: this.store_query,
+        page: " . json_encode($page) . ",
+        recalllastsearch: $recalllastsearch
+    };
+    if (!customsearch$id.options.forcesortmode && $('#customsearch_$id').find(':text').val() && $('#customsearch_$id').find(':text').val().indexOf('...') <= 0) {
+        customsearch$id.sort_mode = 'score_desc';
+    }
+    if (customsearch$id.sort_mode) {
+        // blank sort_mode is not allowed by Tiki input filter
+        datamap.sort_mode = customsearch$id.sort_mode;
+    }
+    $.ajax({
+        type: 'POST',
+        url: $.service('search_customsearch', 'customsearch'),
+        data: datamap,
+        dataType: 'html',
+        success: function(data) {
+            receive(data);
+            $('[data-toggle=\'popover\']').attr('data-html', true);
+            $('[data-toggle=\'popover\']').popover();
+            $callbackScript;
+        },
+        error: function ( jqXHR, textStatus, errorThrown ) {
+            var selector = '#' + customsearch$id.options.searchfadediv;
+            if (customsearch$id.options.searchfadediv.length <= 1 && $(selector).length === 0) {
+                selector = '#customsearch_$id';
+            }
+            $(selector).tikiModal();
 
-			$('#customsearch_$id').showError(jqXHR)
-		}
-	});
+            $('#customsearch_$id').showError(jqXHR)
+        }
+    });
 };
 customsearch$id.sort_mode = " . json_encode($sort_mode) . ";
 customsearch$id.offset = $offset;
@@ -633,45 +633,45 @@ function cs_design_input($id, $fieldname, $fieldid, $arguments, $default, &$scri
     }
     $script .= "
 (function (id, config, fieldname) {
-	var field = $('#' + id);
-	field.change(function() {
+    var field = $('#' + id);
+    field.change(function() {
 
-		var partial = '';
-		var value = $(this).val();
-		if (config['_partial'] == 'y') {
-			// Partial only makes sense for values not empty and for single words
-			if (value != '' && value.indexOf(' ') == -1) {
-				partial = '*';
-			}
-		}
+        var partial = '';
+        var value = $(this).val();
+        if (config['_partial'] == 'y') {
+            // Partial only makes sense for values not empty and for single words
+            if (value != '' && value.indexOf(' ') == -1) {
+                partial = '*';
+            }
+        }
 
-		var filter = {
-			config: config,
-			name: 'input',
-			value: value + partial
-		};
+        var filter = {
+            config: config,
+            name: 'input',
+            value: value + partial
+        };
 
-		if ($(this).is(':checkbox, :radio')) {
-			filter.value = $(this).is(':checked');
-		}
+        if ($(this).is(':checkbox, :radio')) {
+            filter.value = $(this).is(':checked');
+        }
 
-		if ($(this).is(':radio')) {
-			$(this).closest('form').find(':radio')
-				.filter(function () {
-					return $(this).attr('name') == fieldname
-				})
-				.each(function() {
-					customsearch$id.remove($(this).attr('id'));
-				});
-		}
+        if ($(this).is(':radio')) {
+            $(this).closest('form').find(':radio')
+                .filter(function () {
+                    return $(this).attr('name') == fieldname
+                })
+                .each(function() {
+                    customsearch$id.remove($(this).attr('id'));
+                });
+        }
 
-		customsearch$id.add($(this).attr('id'), filter);
-		customsearch$id.offset = 0;
-	});
+        customsearch$id.add($(this).attr('id'), filter);
+        customsearch$id.offset = 0;
+    });
 
-	if (config['default'] || $(field).attr('type') === 'hidden') {
-		field.change();
-	}
+    if (config['default'] || $(field).attr('type') === 'hidden') {
+        field.change();
+    }
 })('$fieldid', " . json_encode($arguments) . ", " . json_encode($fieldname) . ");
 ";
 
@@ -751,7 +751,7 @@ function cs_design_categories($id, $fieldname, $fieldid, $arguments, $default, &
 
             if ($_style == 'radio') {
                 $radioreset = "$('input[type=radio][name=$fieldname]').each(function() {
-	customsearch$id.remove($(this).attr('id'));
+    customsearch$id.remove($(this).attr('id'));
 });"
                 ;
             } else {
@@ -760,17 +760,17 @@ function cs_design_categories($id, $fieldname, $fieldid, $arguments, $default, &
 
             $script .= "
 $('#$fieldid').change(function() {
-	if ($(this).is(':checked')) {
-		var filter = {
-			config : " . json_encode($arguments) . ",
-			name : 'categories',
-			value : $(this).val()
-		}
-		$radioreset
-		customsearch$id.add('$fieldid', filter);
-	} else {
-		customsearch$id.remove('$fieldid', filter);
-	}
+    if ($(this).is(':checked')) {
+        var filter = {
+            config : " . json_encode($arguments) . ",
+            name : 'categories',
+            value : $(this).val()
+        }
+        $radioreset
+        customsearch$id.add('$fieldid', filter);
+    } else {
+        customsearch$id.remove('$fieldid', filter);
+    }
 });
 ";
 
@@ -798,11 +798,11 @@ $('#$fieldid').trigger('change');
         }
         $script .= "
 $('#$fieldid').change(function() {
-	customsearch$id.add('$fieldid', {
-		config: " . json_encode($arguments) . ",
-		name: 'categories',
-		value: $(this).val()
-	});
+    customsearch$id.add('$fieldid', {
+        config: " . json_encode($arguments) . ",
+        name: 'categories',
+        value: $(this).val()
+    });
 });
 ";
 
@@ -889,11 +889,11 @@ function cs_design_select($id, $fieldname, $fieldid, $arguments, $default, &$scr
             $fieldid = 'user_selector_' . $field['fieldId'];
             $script .= "
 $('#$fieldid').change(function() {
-	customsearch$id.add('$fieldid', {
-		config: " . json_encode($arguments) . ",
-		name: 'select',
-		value: $(this).val()
-	});
+    customsearch$id.add('$fieldid', {
+        config: " . json_encode($arguments) . ",
+        name: 'select',
+        value: $(this).val()
+    });
 });
 ";
             return $html;
@@ -923,11 +923,11 @@ $('#$fieldid').change(function() {
 
     $script .= "
 $('#$fieldid').change(function() {
-	customsearch$id.add('$fieldid', {
-		config: " . json_encode($arguments) . ",
-		name: 'select',
-		value: $(this).val()
-	});
+    customsearch$id.add('$fieldid', {
+        config: " . json_encode($arguments) . ",
+        name: 'select',
+        value: $(this).val()
+    });
 });
 ";
 
@@ -1046,17 +1046,17 @@ function cs_design_daterange($id, $fieldname, $fieldid, $arguments, $default, &$
 
     $script .= "
 $('#{$fieldid_from},#{$fieldid_to}').change(function() {
-	updateDateRange_$fieldid();
+    updateDateRange_$fieldid();
 });
 function updateDateRange_$fieldid() {
-	var from = $('#$fieldid_from').val();
-	var to = $('#$fieldid_to').val();
-	var val = (from && to) ? from + ',' + to : '';
-	customsearch$id.add('$fieldid', {
-		config: " . json_encode($arguments) . ",
-		name: 'daterange',
-		value: val
-	});
+    var from = $('#$fieldid_from').val();
+    var to = $('#$fieldid_to').val();
+    var val = (from && to) ? from + ',' + to : '';
+    customsearch$id.add('$fieldid', {
+        config: " . json_encode($arguments) . ",
+        name: 'daterange',
+        value: val
+    });
 }
 updateDateRange_$fieldid();
 ";
@@ -1088,15 +1088,15 @@ function cs_design_distance($id, $fieldname, $fieldid, $arguments, $default, &$s
     }
     $script .= "
 (function (id, config, fieldname) {
-	var fields = $('input[name=$fieldname]');
-	fields.change(function() {
-		var filter = {
-			config: config,
-			name: 'distance',
-			value: fields.map(function () {return $(this).val();}).get().join()
-		};
-		customsearch$id.add($(this).attr('name'), filter);
-	}).change();
+    var fields = $('input[name=$fieldname]');
+    fields.change(function() {
+        var filter = {
+            config: config,
+            name: 'distance',
+            value: fields.map(function () {return $(this).val();}).get().join()
+        };
+        customsearch$id.add($(this).attr('name'), filter);
+    }).change();
 
 })('$fieldid', " . json_encode($arguments) . ", " . json_encode($fieldname) . ");
 ";
@@ -1130,16 +1130,16 @@ function cs_design_store($id, $fieldname, $fieldid, $arguments, $default, &$scri
     $script .= "
 
 $('#$fieldid').click(function() {
-	$(this).serviceDialog({
-		title: $(this).val(),
-		controller: 'search_stored',
-		action: 'select',
-		success: function (data) {
-			customsearch$id.store_query = data.queryId;
-			customsearch$id.load();
-		}
-	});
-	return false;
+    $(this).serviceDialog({
+        title: $(this).val(),
+        controller: 'search_stored',
+        action: 'select',
+        success: function (data) {
+            customsearch$id.store_query = data.queryId;
+            customsearch$id.load();
+        }
+    });
+    return false;
 });
 ";
 

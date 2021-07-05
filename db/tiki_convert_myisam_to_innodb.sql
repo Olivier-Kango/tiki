@@ -3,8 +3,8 @@
 -- Make sure you take a full backup and disable the MySQL fulltext search option if needed in Tiki before running this script
 --
 -- DROP all FULLTEXT indexes
--- 	If you are running MySQL 5.5 or before, InnoDB does not supports fulltext indexes.
---	Then this section should be uncommented
+--     If you are running MySQL 5.5 or before, InnoDB does not supports fulltext indexes.
+--    Then this section should be uncommented
 
 -- ALTER TABLE tiki_articles DROP INDEX ft;
 -- ALTER TABLE tiki_blog_posts DROP INDEX ft;

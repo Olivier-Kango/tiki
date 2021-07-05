@@ -89,27 +89,27 @@ function module_groups_emulation($mod_reference, $module_params)
     $moduleId = $mod_reference['moduleId'];
     if (isset($allGroups) && $showallgroups == 'y') {
         $headerlib->add_js('$(document).ready(function() {
-			$("#module_' . $moduleId . ' #mge-all").hide();
-			$("#module_' . $moduleId . ' #mge-all-legend").click(function(){
-				$("#module_' . $moduleId . ' #mge-all").fadeToggle();
-			});
-		});');
+            $("#module_' . $moduleId . ' #mge-all").hide();
+            $("#module_' . $moduleId . ' #mge-all-legend").click(function(){
+                $("#module_' . $moduleId . ' #mge-all").fadeToggle();
+            });
+        });');
     }
     if ($showyourgroups == 'y') {
         $headerlib->add_js('$(document).ready(function() {
-			$("#module_' . $moduleId . ' #mge-mine").hide();
-			$("#module_' . $moduleId . ' #mge-mine-legend").click(function(){
-				$("#module_' . $moduleId . ' #mge-mine").fadeToggle();
-			});
-		});');
+            $("#module_' . $moduleId . ' #mge-mine").hide();
+            $("#module_' . $moduleId . ' #mge-mine-legend").click(function(){
+                $("#module_' . $moduleId . ' #mge-mine").fadeToggle();
+            });
+        });');
     }
     if ($groups_are_emulated == 'y') {
         $headerlib->add_js('$(document).ready(function() {
-			$("#module_' . $moduleId . ' #mge-emulated").hide();
-			$("#module_' . $moduleId . ' #mge-emulated-legend").click(function(){
-				$("#module_' . $moduleId . ' #mge-emulated").fadeToggle();
-			});
-		});');
+            $("#module_' . $moduleId . ' #mge-emulated").hide();
+            $("#module_' . $moduleId . ' #mge-emulated-legend").click(function(){
+                $("#module_' . $moduleId . ' #mge-emulated").fadeToggle();
+            });
+        });');
     }
 
     $smarty->assign_by_ref('userGroups', $userGroups);

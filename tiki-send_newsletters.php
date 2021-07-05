@@ -86,52 +86,52 @@ $smarty->assign_by_ref('info', $info);
 
 // Display to newsletter txtarea or not depending on the preferences
 $showBoxCheck = "
-	<script type='text/javascript'>
-	<!--
-	function checkNewsletterTxtArea(nlIndex){
-	browser();
-	var allowTxt = new Array();
-	var allowArticleClip = new Array();
-	";
+    <script type='text/javascript'>
+    <!--
+    function checkNewsletterTxtArea(nlIndex){
+    browser();
+    var allowTxt = new Array();
+    var allowArticleClip = new Array();
+    ";
 for ($i = 0, $tmp_count = count($newsletters['data']); $i < $tmp_count; $i++) {
     $showBoxCheck .= "allowTxt[$i] = '" . $newsletters['data'][$i]['allowTxt'] . "';
-	allowArticleClip[$i] = '" . $newsletters['data'][$i]['allowArticleClip'] . "';
-	";
+    allowArticleClip[$i] = '" . $newsletters['data'][$i]['allowArticleClip'] . "';
+    ";
 }
 // allowTxt
-$showBoxCheck .= "	if (document.getElementById('txtcol1').style.display=='none' && allowTxt[nlIndex] == 'y'){";
+$showBoxCheck .= "    if (document.getElementById('txtcol1').style.display=='none' && allowTxt[nlIndex] == 'y'){";
 if (preg_match("/gecko/i", $_SERVER['HTTP_USER_AGENT'])) {
     $showBoxCheck .= "document.getElementById('txtcol1').style.display='table-cell';";
     $showBoxCheck .= "document.getElementById('txtcol2').style.display='table-cell';";
 } else {
-    $showBoxCheck .= "document.getElementById('txtcol1').style.display='inline';	";
+    $showBoxCheck .= "document.getElementById('txtcol1').style.display='inline';    ";
     $showBoxCheck .= "document.getElementById('txtcol2').style.display='inline';";
 };
 $showBoxCheck .= "
-    	}else if (allowTxt[nlIndex] == 'n') {
-	document.getElementById('txtcol1').style.display='none';
-	document.getElementById('txtcol2').style.display='none';
-    	}";
+        }else if (allowTxt[nlIndex] == 'n') {
+    document.getElementById('txtcol1').style.display='none';
+    document.getElementById('txtcol2').style.display='none';
+        }";
 // allowArticleClip
-$showBoxCheck .= "	if (document.getElementById('clipcol1').style.display=='none' && allowArticleClip[nlIndex] == 'y'){";
+$showBoxCheck .= "    if (document.getElementById('clipcol1').style.display=='none' && allowArticleClip[nlIndex] == 'y'){";
 if (preg_match("/gecko/i", $_SERVER['HTTP_USER_AGENT'])) {
     $showBoxCheck .= "document.getElementById('clipcol1').style.display='table-cell';";
     $showBoxCheck .= "document.getElementById('clipcol2').style.display='table-cell';";
 } else {
-    $showBoxCheck .= "document.getElementById('clipcol1').style.display='inline';	";
+    $showBoxCheck .= "document.getElementById('clipcol1').style.display='inline';    ";
     $showBoxCheck .= "document.getElementById('clipcol2').style.display='inline';";
 };
 $showBoxCheck .= "
-    	}else if (allowArticleClip[nlIndex] == 'n') {
-	document.getElementById('clipcol1').style.display='none';
-	document.getElementById('clipcol2').style.display='none';
-    	}";
+        }else if (allowArticleClip[nlIndex] == 'n') {
+    document.getElementById('clipcol1').style.display='none';
+    document.getElementById('clipcol2').style.display='none';
+        }";
 // end of function
 $showBoxCheck .= "
-	}
-	-->
-	</script>
-	";
+    }
+    -->
+    </script>
+    ";
 $smarty->assign('showBoxCheck', $showBoxCheck);
 if (isset($_REQUEST["remove"])) {
     $access->check_authenticity();

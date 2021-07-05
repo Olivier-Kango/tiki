@@ -46,18 +46,18 @@ function smarty_block_accordion_group($params, $content, $smarty, $repeat)
 
     return <<<CONTENT
 <div class="card card-accordian">
-	<div class="card-header">
-		<h4 class="card-title">
-			<a class="accordion-toggle" data-toggle="collapse" href="#$id" aria-expanded="$expanded" aria-controls="$id">
-				$title
-			</a>
-		</h4>
-	</div>
-	<div id="$id" class="collapse $first" data-parent="#$accordion_current_group"" aria-labelledby="$id">
-		<div class="card-body">
-			$content
-		</div>
-	</div>
+    <div class="card-header">
+        <h4 class="card-title">
+            <a class="accordion-toggle" data-toggle="collapse" href="#$id" aria-expanded="$expanded" aria-controls="$id">
+                $title
+            </a>
+        </h4>
+    </div>
+    <div id="$id" class="collapse $first" data-parent="#$accordion_current_group"" aria-labelledby="$id">
+        <div class="card-body">
+            $content
+        </div>
+    </div>
 </div>
 CONTENT;
 }

@@ -40,7 +40,7 @@ function wikiplugin_convene_info(): array
                 'required' => false,
                 'name' => tra('Minimum Votes'),
                 'description' => tra('Minimum number of votes needed to show Add-to-Calendar icon, so that new users do
-					not see a potentially confusing icon before the convene has enough information on it'),
+                    not see a potentially confusing icon before the convene has enough information on it'),
                 'since' => '10.3',
                 'filter' => 'digits',
                 'default' => 3,

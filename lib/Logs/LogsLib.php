@@ -1797,13 +1797,13 @@ class LogsLib extends TikiLib
     public function get_log_count($objectType, $action)
     {
         $query = "SELECT m.user,m.object,m.action
-			FROM tiki_actionlog AS m
-			INNER JOIN (
-			  SELECT MAX(i.lastModif) lastModif, i.user
-			  FROM tiki_actionlog i
-			  where objectType = ?
-			  GROUP BY i.user, i.object
-			) AS j ON (j.lastModif = m.lastModif AND j.user = m.user)";
+            FROM tiki_actionlog AS m
+            INNER JOIN (
+              SELECT MAX(i.lastModif) lastModif, i.user
+              FROM tiki_actionlog i
+              where objectType = ?
+              GROUP BY i.user, i.object
+            ) AS j ON (j.lastModif = m.lastModif AND j.user = m.user)";
         return $this->fetchAll($query, [$objectType]);
     }
 

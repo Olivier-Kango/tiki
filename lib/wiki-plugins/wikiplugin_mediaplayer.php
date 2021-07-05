@@ -45,8 +45,8 @@ function wikiplugin_mediaplayer_info()
                 'required' => false,
                 'name' => tra('MP3 URL'),
                 'description' => tr("Complete URL to the MP3 to include. Examples: %0http://example.org/example.mp3%1
-					for an external file, or for a video file in the site's File Gallery:
-					%0tiki-download_file.php?fileId=2%1 (No need for %0http://%1 in this case)", '<code>', '</code>'),
+                    for an external file, or for a video file in the site's File Gallery:
+                    %0tiki-download_file.php?fileId=2%1 (No need for %0http://%1 in this case)", '<code>', '</code>'),
                 'since' => '3.0',
                 'filter' => 'url',
             ],
@@ -54,9 +54,9 @@ function wikiplugin_mediaplayer_info()
                 'required' => false,
                 'name' => tra('FLV URL'),
                 'description' => tr("Complete URL to the FLV to include. Examples: %0http://example.org/example.flv%1
-					for an external file, or for a video file in the site's File Gallery:
-					%0tiki-download_file.php?fileId=2%1 (the missing %0//%1 is intentional as this is a valid internal
-					link)", '<code>', '</code>'),
+                    for an external file, or for a video file in the site's File Gallery:
+                    %0tiki-download_file.php?fileId=2%1 (the missing %0//%1 is intentional as this is a valid internal
+                    link)", '<code>', '</code>'),
                 'since' => '3.0',
                 'filter' => 'url'
             ],
@@ -66,11 +66,11 @@ function wikiplugin_mediaplayer_info()
                 'required' => false,
                 'name' => tra('URL'),
                 'description' => tra("Complete URL to the media to include, which has the appropriate extension.
-					If your URL doesn't have an extension, use the File type parameter below."),
+                    If your URL doesn't have an extension, use the File type parameter below."),
                 'since' => '6.0',
                 'accepted' => 'asx, asf, avi, mov, mpg, mpeg, mp4, qt, ra, smil, swf, wmv, 3g2, 3gp, aif, aac, au, gsm,
-					mid, midi, mov, m4a, snd, ra, ram, rm, wav, wma, bmp, html, pdf, psd, qif, qtif, qti, tif, tiff,
-					xaml',
+                    mid, midi, mov, m4a, snd, ra, ram, rm, wav, wma, bmp, html, pdf, psd, qif, qtif, qti, tif, tiff,
+                    xaml',
                 'filter' => 'url',
                 'default' => '',
             ],
@@ -80,9 +80,9 @@ function wikiplugin_mediaplayer_info()
                 'required' => false,
                 'name' => tra('File type'),
                 'description' => tr('File type for source URL, e.g. %0mp4%1, %0pdf%1 or %0odp%1. Specify one of the supported file types when
-					the URL of the file is missing the file extension. This is the case for File Gallery files which
-					have a URL such as %0tiki-download_file.php?fileId=4&display%1 or %0display4%1 if you have Clean URLs
-					enabled.', '<code>', '</code>'),
+                    the URL of the file is missing the file extension. This is the case for File Gallery files which
+                    have a URL such as %0tiki-download_file.php?fileId=4&display%1 or %0display4%1 if you have Clean URLs
+                    enabled.', '<code>', '</code>'),
                 'since' => '10.0',
                 'filter' => 'url',
                 'default' => '',
@@ -150,8 +150,8 @@ function wikiplugin_mediaplayer_info()
                 'required' => false,
                 'name' => tra('Flash Window Mode'),
                 'description' => tra('Sets the Window Mode property of the Flash movie. Transparent lets what\'s behind
-					the movie show through and allows the movie to be covered Opaque hides what\'s behind the movie and
-					Window plays the movie in its own window. Default value: ') . '<code>transparent</code>',
+                    the movie show through and allows the movie to be covered Opaque hides what\'s behind the movie and
+                    Window plays the movie in its own window. Default value: ') . '<code>transparent</code>',
                 'since' => '5.0',
                 'filter' => 'word',
                 'options' => [
@@ -278,9 +278,9 @@ function wikiplugin_mediaplayer($data, $params)
         //  Tried with .mp4. Not sure how this will work with other formats, not using QuickTime.
         // See: http://jquery.malsup.com/media/#players for default players for different formats. arildb
         $js .= " params: { 
-				scale: 'aspect'
-				} 
-			} );";
+                scale: 'aspect'
+                } 
+            } );";
 
         if (in_array($params['type'], ['pdf', 'odt', 'ods', 'odp'])) {
             if ($prefs['fgal_pdfjs_feature'] === 'n') {
@@ -302,40 +302,40 @@ function wikiplugin_mediaplayer($data, $params)
 
                 $headerlib = TikiLib::lib('header');
                 $headerlib->add_css("
-					.iframe-container {
-						overflow: hidden;
-						padding-top: 56.25%;
-						position: relative;
-						height: 900px;
-					}
-					
-					.iframe-container iframe {
-						border: 0;
-						height: 100%;
-						left: 0;
-						position: absolute;
-						top: 0;
-						width: 100%;
-					}
-					
-					@media (max-width: 767px) {
-						.iframe-container {
-							height: 500px;
-						} 
-					}
-					
-					@media (min-width: 768px) AND (max-width: 991px) {
-						.iframe-container {
-							height: 600px;
-						}
-					}
-					
-					@media (min-width: 992px) AND (max-width: 1209px){
-						.iframe-container {
-							height: 700px;
-						}
-					}
-				");
+                    .iframe-container {
+                        overflow: hidden;
+                        padding-top: 56.25%;
+                        position: relative;
+                        height: 900px;
+                    }
+                    
+                    .iframe-container iframe {
+                        border: 0;
+                        height: 100%;
+                        left: 0;
+                        position: absolute;
+                        top: 0;
+                        width: 100%;
+                    }
+                    
+                    @media (max-width: 767px) {
+                        .iframe-container {
+                            height: 500px;
+                        } 
+                    }
+                    
+                    @media (min-width: 768px) AND (max-width: 991px) {
+                        .iframe-container {
+                            height: 600px;
+                        }
+                    }
+                    
+                    @media (min-width: 992px) AND (max-width: 1209px){
+                        .iframe-container {
+                            height: 700px;
+                        }
+                    }
+                ");
 
                 $fileId = '';
                 $sourceLink = '';
@@ -371,12 +371,12 @@ function wikiplugin_mediaplayer($data, $params)
                 $js = '
 var found = false;
 $.each(navigator.plugins, function(i, plugins) { // navigator.plugins is unspecified according to https://developer.mozilla.org/fr/docs/Web/API/NavigatorPlugins/plugins . Something other in NavigatorPlugins may be standard. 
-	$.each(plugins, function(i, plugin) {
-		if (plugin.type === "application/pdf") {
-			found = true;
-			return;
-		}
-	});
+    $.each(plugins, function(i, plugin) {
+        if (plugin.type === "application/pdf") {
+            found = true;
+            return;
+        }
+    });
 });
 if (!found) {
     // IE doesnt bother using the plugins array (sometimes?), plus ActiveXObject is hidden now so just try and catch... :(
@@ -389,10 +389,10 @@ if (!found) {
     }
 }
 if (found) {
-	' . $js . '
+    ' . $js . '
 } else {
-	// no pdf plugin
-	$("#' . $id . '").text(tr("Download file:") + " " + "' . $params['src'] . '");
+    // no pdf plugin
+    $("#' . $id . '").text(tr("Download file:") + " " + "' . $params['src'] . '");
 }';
             }
         }
@@ -429,7 +429,7 @@ if (found) {
             $code .= ' width="' . $params['width'] . '"';
         }
         $code .= ' style="max-width: 100%" controls>';
-        $code .= '	<source src="' . $params['src'] . '" type=\'' . $params['type'] . '\'>'; // type can be e.g. 'video/webm; codecs="vp8, vorbis"'
+        $code .= '    <source src="' . $params['src'] . '" type=\'' . $params['type'] . '\'>'; // type can be e.g. 'video/webm; codecs="vp8, vorbis"'
         $code .= '</' . $mediatype . '>';
     } else {
     // else use flash

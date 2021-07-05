@@ -110,89 +110,89 @@ class AdminWizardLookAndFeel extends Wizard
             $headerlib->add_cssfile('themes/base_files/feature_css/admin.css');
             $headerlib->add_js(
                 <<<JS
-				$js
+                $js
 
 \$(document).ready( function() {
 
-	var setupThemeSelects = function (themeDropDown, optionDropDown, showPreview) {
-		// pick up theme drop-down change
-		themeDropDown.change( function() {
-			var ops = theme_options[themeDropDown.val()];
-			var none = true;
-			var current = optionDropDown.val();
-			optionDropDown.empty().attr('disabled',false)
-					.append(\$('<option/>').attr('value','').text($none));
-			if (themeDropDown.val()) {
-				\$.each(ops[1], function(i, val) {
-					optionDropDown.append(\$('<option/>').attr('value',i).text(i));
-					none = false;
-				});
-			}
-			optionDropDown.val(current);
-			if (none) {
-				optionDropDown.attr('disabled',true);
-			}
-			optionDropDown.change();
-			if (jqueryTiki.select2) {
-				optionDropDown.trigger("change.select2");
-			}
-		}).change();
-		optionDropDown.change( function() {
-			if (showPreview !== undefined) {
-				var t = themeDropDown.val();
-				var o = optionDropDown.val();
-				var f = theme_options[t][1][o];
+    var setupThemeSelects = function (themeDropDown, optionDropDown, showPreview) {
+        // pick up theme drop-down change
+        themeDropDown.change( function() {
+            var ops = theme_options[themeDropDown.val()];
+            var none = true;
+            var current = optionDropDown.val();
+            optionDropDown.empty().attr('disabled',false)
+                    .append(\$('<option/>').attr('value','').text($none));
+            if (themeDropDown.val()) {
+                \$.each(ops[1], function(i, val) {
+                    optionDropDown.append(\$('<option/>').attr('value',i).text(i));
+                    none = false;
+                });
+            }
+            optionDropDown.val(current);
+            if (none) {
+                optionDropDown.attr('disabled',true);
+            }
+            optionDropDown.change();
+            if (jqueryTiki.select2) {
+                optionDropDown.trigger("change.select2");
+            }
+        }).change();
+        optionDropDown.change( function() {
+            if (showPreview !== undefined) {
+                var t = themeDropDown.val();
+                var o = optionDropDown.val();
+                var f = theme_options[t][1][o];
 
-				if ( ! f ) {
-					f = theme_options[t][0];
-				}
+                if ( ! f ) {
+                    f = theme_options[t][0];
+                }
 
-				if (f) {
-					\$('#theme_thumb').fadeOut('fast').attr('src', f).fadeIn('fast').animate({'opacity': 1}, 'fast');
-				} else {
-					\$('#theme_thumb').animate({'opacity': 0.3}, 'fast');
-				}
-			}
-		});
-	};
+                if (f) {
+                    \$('#theme_thumb').fadeOut('fast').attr('src', f).fadeIn('fast').animate({'opacity': 1}, 'fast');
+                } else {
+                    \$('#theme_thumb').animate({'opacity': 0.3}, 'fast');
+                }
+            }
+        });
+    };
 
-	setupThemeSelects(\$('#wizardBody select[name=theme]'), \$('#wizardBody select[name=theme_option]'), true);
-	setupThemeSelects(\$('#wizardBody select[name=theme_admin]'), \$('#wizardBody select[name=theme_option_admin]'));
+    setupThemeSelects(\$('#wizardBody select[name=theme]'), \$('#wizardBody select[name=theme_option]'), true);
+    setupThemeSelects(\$('#wizardBody select[name=theme_admin]'), \$('#wizardBody select[name=theme_option_admin]'));
 
-	var setupThemeLayouts = function (themeDropDown, optionDropDown, layoutDropDown) {
-		themeDropDown,optionDropDown.change( function() {
-			var theme_name = themeDropDown.val();
-			if (optionDropDown.val()){
-				theme_name += ":" + optionDropDown.val();
-			}
-			var layouts = theme_layouts[theme_name];
-			var current = layoutDropDown.val();
-			layoutDropDown.empty();
-			//if no theme, it means it's the admin dropdown and is set to site theme. default to site layout
-			if (!theme_name){
-				layoutDropDown.append(\$('<option/>').attr('value','site_layout').text('Site layout'));
-				layoutDropDown.attr('disabled',true);
-				layoutDropDown.val('site_layout');
-			} else {
-				layoutDropDown.attr('disabled',false);
-				\$.each(layouts, function(i, val) {
-					layoutDropDown.append(\$('<option/>').attr('value',i).text(val));
-				});
+    var setupThemeLayouts = function (themeDropDown, optionDropDown, layoutDropDown) {
+        themeDropDown,optionDropDown.change( function() {
+            var theme_name = themeDropDown.val();
+            if (optionDropDown.val()){
+                theme_name += ":" + optionDropDown.val();
+            }
+            var layouts = theme_layouts[theme_name];
+            var current = layoutDropDown.val();
+            layoutDropDown.empty();
+            //if no theme, it means it's the admin dropdown and is set to site theme. default to site layout
+            if (!theme_name){
+                layoutDropDown.append(\$('<option/>').attr('value','site_layout').text('Site layout'));
+                layoutDropDown.attr('disabled',true);
+                layoutDropDown.val('site_layout');
+            } else {
+                layoutDropDown.attr('disabled',false);
+                \$.each(layouts, function(i, val) {
+                    layoutDropDown.append(\$('<option/>').attr('value',i).text(val));
+                });
 
-				//try setting the option to the previously selected option and if no layout matched, set to 'basic'
-				layoutDropDown.val(current);
-				if (!layoutDropDown.val()){
-					layoutDropDown.val('basic');
-				}
-			}
+                //try setting the option to the previously selected option and if no layout matched, set to 'basic'
+                layoutDropDown.val(current);
+                if (!layoutDropDown.val()){
+                    layoutDropDown.val('basic');
+                }
+            }
 
-			layoutDropDown.change();
+            layoutDropDown.change();
 
-		}).change();
-	};
+        }).change();
+    };
 
-	setupThemeLayouts(\$('#wizardBody select[name=theme]'), \$('#wizardBody select[name=theme_option]'), \$('#wizardBody select[name=site_layout]') );
-	setupThemeLayouts(\$('#wizardBody select[name=theme_admin]'), \$('#wizardBody select[name=theme_option_admin]'), \$('#wizardBody select[name=site_layout_admin]') );
+    setupThemeLayouts(\$('#wizardBody select[name=theme]'), \$('#wizardBody select[name=theme_option]'), \$('#wizardBody select[name=site_layout]') );
+    setupThemeLayouts(\$('#wizardBody select[name=theme_admin]'), \$('#wizardBody select[name=theme_option_admin]'), \$('#wizardBody select[name=site_layout_admin]') );
 });
 JS
             );
@@ -292,49 +292,49 @@ JS
 $js
 
 \$(document).ready( function() {
-	var setupStyleSelects = function (styleDropDown, optionDropDown, showPreview) {
-		// pick up theme drop-down change
-		styleDropDown.change( function() {
-			var ops = style_options[styleDropDown.val()];
-			var none = true;
-			var current = optionDropDown.val();
-			optionDropDown.empty().attr('disabled',false)
-					.append(\$('<option/>').attr('value',$none).text($none));
-			if (styleDropDown.val()) {
-				\$.each(ops[1], function(i, val) {
-					optionDropDown.append(\$('<option/>').attr('value',i).text(i.replace(/\.css\$/, '')));
-					none = false;
-				});
-			}
-			optionDropDown.val(current);
-			if (none) {
-				optionDropDown.attr('disabled',true);
-			}
-			optionDropDown.change();
-			if (jqueryTiki.select2) {
-				optionDropDown.trigger("change.select2");
-			}
-		}).change();
-		optionDropDown.change( function() {
-			if (showPreview !== undefined) {
-				var t = styleDropDown.val();
-				var o = optionDropDown.val();
-				var f = style_options[t][1][o];
+    var setupStyleSelects = function (styleDropDown, optionDropDown, showPreview) {
+        // pick up theme drop-down change
+        styleDropDown.change( function() {
+            var ops = style_options[styleDropDown.val()];
+            var none = true;
+            var current = optionDropDown.val();
+            optionDropDown.empty().attr('disabled',false)
+                    .append(\$('<option/>').attr('value',$none).text($none));
+            if (styleDropDown.val()) {
+                \$.each(ops[1], function(i, val) {
+                    optionDropDown.append(\$('<option/>').attr('value',i).text(i.replace(/\.css\$/, '')));
+                    none = false;
+                });
+            }
+            optionDropDown.val(current);
+            if (none) {
+                optionDropDown.attr('disabled',true);
+            }
+            optionDropDown.change();
+            if (jqueryTiki.select2) {
+                optionDropDown.trigger("change.select2");
+            }
+        }).change();
+        optionDropDown.change( function() {
+            if (showPreview !== undefined) {
+                var t = styleDropDown.val();
+                var o = optionDropDown.val();
+                var f = style_options[t][1][o];
 
-				if ( ! f ) {
-					f = style_options[t][0];
-				}
+                if ( ! f ) {
+                    f = style_options[t][0];
+                }
 
-				if (f) {
-					\$('#style_thumb').fadeOut('fast').attr('src', f).fadeIn('fast').animate({'opacity': 1}, 'fast');
-				} else {
-					\$('#style_thumb').animate({'opacity': 0.3}, 'fast');
-				}
-			}
-		});
-	};
-	setupStyleSelects(\$('select[name=style]'), \$('select[name=style_option]'), true);
-	setupStyleSelects(\$('select[name=style_admin]'), \$('select[name=style_admin_option]'));
+                if (f) {
+                    \$('#style_thumb').fadeOut('fast').attr('src', f).fadeIn('fast').animate({'opacity': 1}, 'fast');
+                } else {
+                    \$('#style_thumb').animate({'opacity': 0.3}, 'fast');
+                }
+            }
+        });
+    };
+    setupStyleSelects(\$('select[name=style]'), \$('select[name=style_option]'), true);
+    setupStyleSelects(\$('select[name=style_admin]'), \$('select[name=style_admin_option]'));
 });
 JS
             );

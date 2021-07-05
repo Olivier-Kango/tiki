@@ -98,9 +98,9 @@ class VueJsLib
 import $name from \"$file\";
 
 var vm = new Vue({
-	  render: h => h($name),
-	  data: function () { return $data; },
-	}).\$mount(`#$name`);
+      render: h => h($name),
+      data: function () { return $data; },
+    }).\$mount(`#$name`);
 observeVueApp(vm);
 "
                 );

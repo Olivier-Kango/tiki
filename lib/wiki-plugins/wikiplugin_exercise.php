@@ -112,34 +112,34 @@ function wikiplugin_exercise_process_group($exercises, $scope = '.exercise-input
 
     $js = <<<JS
 $.exerciseGroup = function (exercises, scope) {
-	var shuffle = function(o){
-	for(var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
-		return o;
-	};
-	$.each(exercises, function (k, options) {
-		$(scope + ':not(.done)').filter(':first').each(function (k, container) {
-			var answer = $(container).data('answer'), input;
+    var shuffle = function(o){
+    for(var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+        return o;
+    };
+    $.each(exercises, function (k, options) {
+        $(scope + ':not(.done)').filter(':first').each(function (k, container) {
+            var answer = $(container).data('answer'), input;
 
-			$(container).addClass('done').empty();
-			if (options.length > 0) {
-				input = $('<select><option/></select>');
-				options.push({option: answer, justification: false});
-				options = shuffle(options);
+            $(container).addClass('done').empty();
+            if (options.length > 0) {
+                input = $('<select><option/></select>');
+                options.push({option: answer, justification: false});
+                options = shuffle(options);
 
-				$.each(options, function (k, o) {
-					input.append($('<option/>')
-						.val(o.option)
-						.text(o.option)
-						.data('justification', o.justification ? o.justification : ''));
-				});
-			} else {
-				input = $('<input type="text"/>');
-				input.attr('size', answer.length);
-			}
+                $.each(options, function (k, o) {
+                    input.append($('<option/>')
+                        .val(o.option)
+                        .text(o.option)
+                        .data('justification', o.justification ? o.justification : ''));
+                });
+            } else {
+                input = $('<input type="text"/>');
+                input.attr('size', answer.length);
+            }
 
-			input.appendTo(container);
-		});
-	});
+            input.appendTo(container);
+        });
+    });
 };
 JS;
     $headerlib->add_js($js);
@@ -160,39 +160,39 @@ function wikiplugin_exercise_finalize()
 
     $js = <<<JS
 $.exerciseFinalize = function (random) {
-	$('.exercise-form').filter(':first').removeClass('exercise-form').each(function (k, form) {
-		var label = $('p', form).hide().text(), elements = $('.exercise-input.done:not(.complete)').addClass('complete');
-		$(form).submit(function () {
-			var score = 0, total = 0;
+    $('.exercise-form').filter(':first').removeClass('exercise-form').each(function (k, form) {
+        var label = $('p', form).hide().text(), elements = $('.exercise-input.done:not(.complete)').addClass('complete');
+        $(form).submit(function () {
+            var score = 0, total = 0;
 
-			elements.find('.mark').remove();
+            elements.find('.mark').remove();
 
-			elements.each(function (k, container) {
-				var correct, input, image;
-				total += 1;
-				correct = $(container).data('answer');
-				input = $(':input', container).val();
+            elements.each(function (k, container) {
+                var correct, input, image;
+                total += 1;
+                correct = $(container).data('answer');
+                input = $(':input', container).val();
 
-				image = $('<span class="mark"/>')
-					.appendTo(container);
+                image = $('<span class="mark"/>')
+                    .appendTo(container);
 
-				if (correct.toString() === input) {
-					score += 1;
-					image.append('$checkIcon');
-				} else {
-					image.append('$crossIcon');
+                if (correct.toString() === input) {
+                    score += 1;
+                    image.append('$checkIcon');
+                } else {
+                    image.append('$crossIcon');
 
-					var just = $('option:selected', container).data('justification');
-					if (just) {
-						image.find('img').attr('title', just);
-					}
-				}
-			});
+                    var just = $('option:selected', container).data('justification');
+                    if (just) {
+                        image.find('img').attr('title', just);
+                    }
+                }
+            });
 
-			$('p', form).text(label.replace('~SCORE~', score).replace('~TOTAL~', total)).show();
-			return false;
-		});
-	});
+            $('p', form).text(label.replace('~SCORE~', score).replace('~TOTAL~', total)).show();
+            return false;
+        });
+    });
 };
 JS;
     $headerlib = TikiLib::lib('header');
@@ -204,8 +204,8 @@ JS;
 
     return <<<HTML
 <form class="exercise-form" method="get" action="#">
-	<p>$yourScoreIs</p>
-	<input type="submit" class="btn btn-primary btn-sm" value="$checkYourScore"/>
+    <p>$yourScoreIs</p>
+    <input type="submit" class="btn btn-primary btn-sm" value="$checkYourScore"/>
 </form>
 HTML;
 }

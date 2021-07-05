@@ -61,7 +61,7 @@ function wikiplugin_fancytable_info()
                  'required' => false,
                  'name' => tra('Column Widths'),
                  'description' => tr('Column widths followed by "px" for pixels or "%" for percentages. Each column
-				    separated by %0.', '<code>|</code>'),
+                    separated by %0.', '<code>|</code>'),
                  'default' => '',
                  'since' => '4.1'
              ],

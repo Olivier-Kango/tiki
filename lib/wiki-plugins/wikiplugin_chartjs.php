@@ -152,11 +152,11 @@ function wikiplugin_chartjs($data, $params)
     }
 
     $script = '
-	var chartjs_' . $params['id'] . ' = new Chart("' . $params['id'] . '", {
-		type: "' . $params['type'] . '",
-		data: ' . json_encode($data) . ',
-		options: ' . json_encode($options) . '
-	});
+    var chartjs_' . $params['id'] . ' = new Chart("' . $params['id'] . '", {
+        type: "' . $params['type'] . '",
+        data: ' . json_encode($data) . ',
+        options: ' . json_encode($options) . '
+    });
 ';
 
     $canvas = '<canvas id="' . $params['id'] . '" width="' . $params['width'] . '" height="' . $params['height'] . '"></canvas>';
@@ -172,11 +172,11 @@ function wikiplugin_chartjs($data, $params)
     $html_content = <<<HTML
 <script src="{$base_url}vendor_bundled/vendor/npm-asset/chart.js/dist/Chart.bundle.{$min}js"></script>
 <div>
-	$canvas
+    $canvas
 </div>
 
 <script>
-	$script
+    $script
 </script>
 HTML;
 
@@ -195,7 +195,7 @@ HTML;
 var casper = require('casper').create();
 
 casper.start('{$htmlFile}', function() {
-	this.echo(this.captureBase64('png', 'div'));
+    this.echo(this.captureBase64('png', 'div'));
 });
 
 casper.run();

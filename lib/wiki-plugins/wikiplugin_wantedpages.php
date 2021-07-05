@@ -16,7 +16,7 @@ function wikiplugin_wantedpages_info()
         'description' => tra('Show location of links to pages not yet created'),
         'prefs' => [ 'wikiplugin_wantedpages' ],
         'body' => tr('Custom level regex. A custom filter for wanted pages to be listed (only used when %0). Possible
-			values: a valid regex-expression (PCRE).', '<code>level="custom"</code>'),
+            values: a valid regex-expression (PCRE).', '<code>level="custom"</code>'),
         'iconname' => 'search',
         'introduced' => 1,
         'tags' => [ 'basic' ],
@@ -25,7 +25,7 @@ function wikiplugin_wantedpages_info()
                 'required' => false,
                 'name' => tra('Ignore'),
                 'description' => tra('A wildcard pattern of originating pages to be ignored. (refer to PHP function
-					fnmatch() for details)'),
+                    fnmatch() for details)'),
                 'since' => '1',
                 'accepted' => tra('a valid regex-expression (PCRE)'),
                 'default' => '',
@@ -69,7 +69,7 @@ function wikiplugin_wantedpages_info()
                 'required' => false,
                 'name' => tra('Collect'),
                 'description' => tra('Collect either originating (from) or wanted pages (to) in a cell and display them
-					in the second column.'),
+                    in the second column.'),
                 'since' => '1',
                 'default' => 'from',
                 'filter' => 'alpha',
@@ -98,7 +98,7 @@ function wikiplugin_wantedpages_info()
                 'required' => false,
                 'name' => tra('Table'),
                 'description' => tra('Multiple collected items are separated in distinct table rows (default), or by
-					comma or line break in one cell.'),
+                    comma or line break in one cell.'),
                 'since' => '1',
                 'filter' => 'alpha',
                 'default' => 'sep',
@@ -114,7 +114,7 @@ function wikiplugin_wantedpages_info()
                 'required' => false,
                 'name' => tra('Level'),
                 'description' => tra('Filter the list of wanted pages according to page_regex or custom filter. The
-					default value is the site\'s __current__ page_regex.'),
+                    default value is the site\'s __current__ page_regex.'),
                 'since' => '1',
                 'default' => '',
                 'filter' => 'alpha',

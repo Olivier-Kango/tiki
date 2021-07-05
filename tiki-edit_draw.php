@@ -122,9 +122,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_REQUEST['data'])) {
         if ($isConversion && $prefs['fgal_keep_fileId'] == 'y') {
             $archiveFileId = $tikilib->getOne(
                 'SELECT fileId
-				FROM tiki_files
-				WHERE archiveId = ?
-				ORDER BY lastModif DESC',
+                FROM tiki_files
+                WHERE archiveId = ?
+                ORDER BY lastModif DESC',
                 [$fileId]
             );
 
@@ -211,10 +211,10 @@ if ($fileInfo['filetype'] == $mimetypes["svg"]) {
 
     $data = '<svg width="' . $w . '" height="' . $h
         . '" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-	<g>
-		<title>Layer 1</title>
-		<image x="1" y="1" width="100%" height="100%" id="svg_1" xlink:href="' . $src . '#image"/>
-	</g>
+    <g>
+        <title>Layer 1</title>
+        <image x="1" y="1" width="100%" height="100%" id="svg_1" xlink:href="' . $src . '#image"/>
+    </g>
 </svg>';
 }
 
@@ -252,16 +252,16 @@ $smarty->assign("name", $name);
 $smarty->assign("archive", $archive);
 
 $jsTracking = "$.wikiTrackingDraw = {
-	index: '$index',
-	page: '$page',
-	label: '$label',
-	type: 'draw',
-	content: '',
-	params: {
-		width: '$width',
-		height: '$height',
-		id: '$fileId'
-	}
+    index: '$index',
+    page: '$page',
+    label: '$label',
+    type: 'draw',
+    content: '',
+    params: {
+        width: '$width',
+        height: '$height',
+        id: '$fileId'
+    }
 };";
 
 if (isset($_REQUEST['raw'])) {
@@ -271,26 +271,26 @@ if (isset($_REQUEST['raw'])) {
 
     $jsFunctionality =
         "$('#drawFullscreen')
-		.click(function() {
-			$('#tiki_draw').drawFullscreen();
-		})
-		.click();
+        .click(function() {
+            $('#tiki_draw').drawFullscreen();
+        })
+        .click();
 
-	$('#tiki_draw')
-		.loadDraw({
-			fileId: $('#fileId').val(),
-			galleryId: $('#galleryId').val(),
-			name: $('#fileName').val(),
-			data: $('#fileData').val()
-		})
-		.bind('renamedDraw', function(e, name) {
-			$('#fileName').val(name);
-			$('.pagetitle').text(name);
-		});
+    $('#tiki_draw')
+        .loadDraw({
+            fileId: $('#fileId').val(),
+            galleryId: $('#galleryId').val(),
+            name: $('#fileName').val(),
+            data: $('#fileData').val()
+        })
+        .bind('renamedDraw', function(e, name) {
+            $('#fileName').val(name);
+            $('.pagetitle').text(name);
+        });
 
-	$('#drawBack').click(function() {
-		window.history.back();
-	});";
+    $('#drawBack').click(function() {
+        window.history.back();
+    });";
 }
 
 if (

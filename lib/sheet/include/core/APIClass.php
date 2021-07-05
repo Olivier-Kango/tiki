@@ -50,42 +50,42 @@ APIClassRegistry::register('core.APIC');
  * @access public
  **/
 class APIClass {
-	
-	/**
-	 *	importing a unique class or an entire package
-	 *	@param	string  a class name or a package name
-	 *  @param	string $module nom du module ou trouver la class a charger
-	 *	@return void
-	 *	@access public
-	 */
-	public function import($package, $module=NULL){
-		// already registered ?
-		if (APIClassRegistry::isRegistered($package)){
-			return;
-		}
-		// extracting package name
-		$packagename = APIClassRegistry::extractPackageName($package);
-		$path        = APIClassRegistry::convertToPath($package, $module);
-		if (APIClassRegistry::isPackage($package)){ // filtering php class and running parser
-			if (isset($path) && is_dir($path)){
-				APIClassRegistry::register($package);
-				$handle=opendir($path);
-				while ($file = readdir($handle)) {
-					if ($file!=='.' && $file!=='..' && preg_match('/(\.php)$/i', $file)>0){
-						require_once($path.$file);
-						APIClassRegistry::register($packagename, substr($file,0,strlen($file)-4));
-					}
-				}
-				closedir($handle);
-			}
-		} else if (APIClassRegistry::isClass($package)){// extracting class name
-			$classname = APIClassRegistry::extractClassName($package);
-			// loadclass
-			$path .= '.php';
-			if (isset($path) && is_file($path)){// register
-				APIClassRegistry::register($packagename, $classname);
-				require_once($path);
-			}
-		}
-	} 
+
+    /**
+     *    importing a unique class or an entire package
+     *    @param    string  a class name or a package name
+     *  @param    string $module nom du module ou trouver la class a charger
+     *    @return void
+     *    @access public
+     */
+    public function import($package, $module=NULL){
+        // already registered ?
+        if (APIClassRegistry::isRegistered($package)){
+            return;
+        }
+        // extracting package name
+        $packagename = APIClassRegistry::extractPackageName($package);
+        $path        = APIClassRegistry::convertToPath($package, $module);
+        if (APIClassRegistry::isPackage($package)){ // filtering php class and running parser
+            if (isset($path) && is_dir($path)){
+                APIClassRegistry::register($package);
+                $handle=opendir($path);
+                while ($file = readdir($handle)) {
+                    if ($file!=='.' && $file!=='..' && preg_match('/(\.php)$/i', $file)>0){
+                        require_once($path.$file);
+                        APIClassRegistry::register($packagename, substr($file,0,strlen($file)-4));
+                    }
+                }
+                closedir($handle);
+            }
+        } else if (APIClassRegistry::isClass($package)){// extracting class name
+            $classname = APIClassRegistry::extractClassName($package);
+            // loadclass
+            $path .= '.php';
+            if (isset($path) && is_file($path)){// register
+                APIClassRegistry::register($packagename, $classname);
+                require_once($path);
+            }
+        }
+    }
 }

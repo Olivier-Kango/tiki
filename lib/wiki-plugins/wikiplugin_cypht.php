@@ -356,7 +356,7 @@ function wikiplugin_cypht($data, $params)
     TikiLib::lib('header')->add_css("
 .inline-cypht * { box-sizing: content-box; }
 .inline-cypht { position: relative; }
-	");
+    ");
 
     /* get configuration */
     $config = new Tiki_Hm_Site_Config_File(APP_PATH . 'hm3.rc', $session_prefix, $settings_per_page);

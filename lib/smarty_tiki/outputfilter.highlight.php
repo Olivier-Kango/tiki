@@ -95,11 +95,11 @@ function smarty_outputfilter_highlight($source, $smarty)
     if ($matches[2] != '') {
         $source = preg_replace_callback(
             '~(?:<head>.*</head>                            # head blocks
-		|<div[^>]*nohighlight.*</div><!--nohighlight--> # div with nohightlight
-		|<script[^>]+>.*</script>                       # script blocks
-		|<a[^>]*onmouseover.*onmouseout[^>]*>           # onmouseover (user popup)
-		|<[^>]*>                                        # all html tags
-		|(' . _enlightColor($highlight) . '))~xsiU',
+        |<div[^>]*nohighlight.*</div><!--nohighlight--> # div with nohightlight
+        |<script[^>]+>.*</script>                       # script blocks
+        |<a[^>]*onmouseover.*onmouseout[^>]*>           # onmouseover (user popup)
+        |<[^>]*>                                        # all html tags
+        |(' . _enlightColor($highlight) . '))~xsiU',
             '_enlightColor',
             $matches[2]
         );

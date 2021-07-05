@@ -46,7 +46,7 @@ function wikiplugin_shorten_info()
                 'name' => tra('Show Speed'),
                 'filter' => 'alnum',
                 'description' => tr('Speed of animation in milliseconds when showing content (%0200%1 is fast and
-					%0600%1 is slow. %01000%1 equals 1 second).', '<code>', '</code>'),
+                    %0600%1 is slow. %01000%1 equals 1 second).', '<code>', '</code>'),
                 'default' => 0,
                 'since' => '17',
                 'accepted' => tr(
@@ -61,7 +61,7 @@ function wikiplugin_shorten_info()
                 'name' => tra('Hide Speed'),
                 'filter' => 'alnum',
                 'description' => tr('Speed of animation in milliseconds when hiding content (%0200%1 is fast and
-					%0600%1 is slow. %01000%1 equals 1 second).', '<code>', '</code>'),
+                    %0600%1 is slow. %01000%1 equals 1 second).', '<code>', '</code>'),
                 'default' => 0,
                 'since' => '17',
                 'accepted' => tr(

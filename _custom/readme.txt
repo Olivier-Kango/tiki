@@ -10,22 +10,22 @@ Currently any custom PHP code required for your site can now be added to _custom
 
 For instance, you can add new bindings to events here, e.g. a custom function to run when a tracker item is saved
 
-	// first define your custom event handler function
+    // first define your custom event handler function
 
-	function itemWasSaved($args) {
-		// perform post item save actions here such as:
-		if ($args['trackerId'] === '42') {	// only for tracker #42
-			$status = $args['values']['status'];
-			$oldStatus = $args['old_values']['status'];
-			$itemId = $args['object'];
-			// ... etc
-		}
-	}
+    function itemWasSaved($args) {
+        // perform post item save actions here such as:
+        if ($args['trackerId'] === '42') {    // only for tracker #42
+            $status = $args['values']['status'];
+            $oldStatus = $args['old_values']['status'];
+            $itemId = $args['object'];
+            // ... etc
+        }
+    }
 
-	// then bind your custom function to an event
-	TikiLib::lib('events')->bind('tiki.trackeritem.save', 'itemWasSaved');
+    // then bind your custom function to an event
+    TikiLib::lib('events')->bind('tiki.trackeritem.save', 'itemWasSaved');
 
-	// note: you can find the full list of events in lib/setup/events.php
+    // note: you can find the full list of events in lib/setup/events.php
 
 N.B. this directory and all files within it should NOT be web writable.
 

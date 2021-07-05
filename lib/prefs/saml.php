@@ -150,7 +150,7 @@ function prefs_saml_list()
         'saml_advanced_strict' => [
             'name' => tra('Strict Mode'),
             'description' => tra('Always enable strict mode on production websites. When strict mode is enabled, then Tiki will reject unsigned or unencrypted messages if it expects them to be signed or encrypted.
-			   Also Tiki will reject messages that do not strictly follow the SAML standard: Destination, NameId, Conditions . . . are also validated.'),
+               Also Tiki will reject messages that do not strictly follow the SAML standard: Destination, NameId, Conditions . . . are also validated.'),
             'type' => 'flag',
             'perspective' => false,
             'default' => false,

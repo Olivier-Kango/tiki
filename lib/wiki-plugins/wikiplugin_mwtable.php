@@ -24,7 +24,7 @@ function wikiplugin_mwtable_info()
                 'required' => false,
                 'name' => tra('Fancy'),
                 'description' => tr('Set to true to apply additional formatting to the table (header style, odd/even
-					rows, etc.). Takes precedence over the %0wiki_classes%1 parameter.', '<code>', '</code>'),
+                    rows, etc.). Takes precedence over the %0wiki_classes%1 parameter.', '<code>', '</code>'),
                 'since' => '3.0',
                 'default' => 'false',
                 'filter' => 'word',
@@ -39,7 +39,7 @@ function wikiplugin_mwtable_info()
                 'required' => false,
                 'name' => tra('Wiki Classes'),
                 'description' => tra('Determines whether wiki style classes will be used for the table and cells
-					(used by default)'),
+                    (used by default)'),
                 'since' => '3.0',
                 'default' => 'true',
                 'filter' => 'word',

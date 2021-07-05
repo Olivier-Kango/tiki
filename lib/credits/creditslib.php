@@ -191,8 +191,8 @@ class CreditsLib extends TikiLib
 
         $this->query(
             "UPDATE `tiki_credits`
-			SET `credit_type` = ?, `used_amount` = ?, `total_amount` = ?, `expiration_date` = if (?='',NULL,?), `creation_date` = ?
-			WHERE `creditId` = ?",
+            SET `credit_type` = ?, `used_amount` = ?, `total_amount` = ?, `expiration_date` = if (?='',NULL,?), `creation_date` = ?
+            WHERE `creditId` = ?",
             [$type, $used, $total, $expirationDate, $expirationDate, $validFrom, $creditId]
         );
     }
@@ -224,8 +224,8 @@ class CreditsLib extends TikiLib
 
         $this->query(
             "INSERT INTO `tiki_credits`
-			(`userId`, `credit_type`, `total_amount`, `expiration_date`, `creation_date`)
-			VALUES(?,?,?,if (? = '', NULL, ?),if (?='', NULL, ?))",
+            (`userId`, `credit_type`, `total_amount`, `expiration_date`, `creation_date`)
+            VALUES(?,?,?,if (? = '', NULL, ?),if (?='', NULL, ?))",
             [$userId, $creditType, $amount, $expirationDate, $expirationDate, $validFrom, $validFrom]
         );
 
@@ -279,13 +279,13 @@ class CreditsLib extends TikiLib
         // Expendable credits
         $result = $this->query(
             "SELECT `creditId`, `product_id`, `total_amount` - `used_amount` as available
-			FROM `tiki_credits`
-			WHERE
-			( `expiration_date` > NOW() OR `expiration_date` IS NULL )
-			AND `creation_date` <= NOW()
-			AND `userId` = ?
-			AND `credit_type` = ?
-			ORDER BY if (`expiration_date` IS NULL, 1000000, DATEDIFF(`expiration_date`, NOW())) ASC",
+            FROM `tiki_credits`
+            WHERE
+            ( `expiration_date` > NOW() OR `expiration_date` IS NULL )
+            AND `creation_date` <= NOW()
+            AND `userId` = ?
+            AND `credit_type` = ?
+            ORDER BY if (`expiration_date` IS NULL, 1000000, DATEDIFF(`expiration_date`, NOW())) ASC",
             [$userId, $creditType]
         );
 

@@ -393,8 +393,8 @@ if (ErrorTracking::isJSEnabled()) {
     $headerlib->add_jsfile('vendor_bundled/vendor/npm-asset/sentry--browser/build/bundle.min.js');
     $headerlib->add_js(
         <<<EOF
-		Sentry.init({ dsn: "$dsn" });
-		EOF
+        Sentry.init({ dsn: "$dsn" });
+        EOF
     );
 }
 
@@ -459,20 +459,20 @@ if ($prefs['feature_jquery_zoom'] === 'y') {
     $headerlib->add_jsfile('vendor_bundled/vendor/jquery-plugins/zoom/jquery.zoom.js')
         ->add_css('
 .img_zoom {
-	display:inline-block;
+    display:inline-block;
 }
 .img_zoom:after {
-	content:"";
-	display:block;
-	width:33px;
-	height:33px;
-	position:absolute;
-	top:0;
-	right:0;
-	background:url(vendor_bundled/vendor/jquery-plugins/zoom/icon.png);
+    content:"";
+    display:block;
+    width:33px;
+    height:33px;
+    position:absolute;
+    top:0;
+    right:0;
+    background:url(vendor_bundled/vendor/jquery-plugins/zoom/icon.png);
 }
 .img_zoom img {
-	display:block;
+    display:block;
 }
 ');
 }
@@ -520,8 +520,8 @@ if ($prefs['feature_jquery_ui'] == 'y') {
     $headerlib->add_js('
 var bootstrapButton;
 if (typeof $.fn.button.noConflict === "function") {
-	bootstrapButton = $.fn.button.noConflict() // return $.fn.button to previously assigned value
-	$.fn.bootstrapBtn = bootstrapButton            // give $().bootstrapBtn the Bootstrap functionality
+    bootstrapButton = $.fn.button.noConflict() // return $.fn.button to previously assigned value
+    $.fn.bootstrapBtn = bootstrapButton            // give $().bootstrapBtn the Bootstrap functionality
 }
 ');
 
@@ -706,17 +706,17 @@ if ($prefs['workspace_ui'] == 'y') {
 if ($prefs['feature_sefurl'] != 'y') {
     $headerlib->add_js(
         '$.service = function (controller, action, query) {
-		if (! query) {
-			query = {};
-		}
-		query.controller = controller;
+        if (! query) {
+            query = {};
+        }
+        query.controller = controller;
 
-		if (action) {
-			query.action = action;
-		}
+        if (action) {
+            query.action = action;
+        }
 
-		return "tiki-ajax_services.php?" + $.buildParams(query);
-	};'
+        return "tiki-ajax_services.php?" + $.buildParams(query);
+    };'
     );
 }
 
@@ -754,35 +754,35 @@ if ($prefs['feature_inline_comments'] === 'y' && $prefs['comments_inline_annotat
             ->add_cssfile('vendor_bundled/vendor/openannotation/annotator/annotator.min.css')
             ->add_jq_onready('var annotatorContent = $("#top").annotator({readOnly: ' . ($canPost ? 'false' : 'true') . '});
 annotatorContent.annotator("addPlugin", "Store", {
-	prefix: "tiki-ajax_services.php?controller=annotation&action=",
+    prefix: "tiki-ajax_services.php?controller=annotation&action=",
 
-	urls: {
-		create:  "create",
-		update:  "update&threadId=:id",
-		destroy: "destroy&threadId=:id",
-		search:  "search"
-	},
+    urls: {
+        create:  "create",
+        update:  "update&threadId=:id",
+        destroy: "destroy&threadId=:id",
+        search:  "search"
+    },
 
-	annotationData: {
-		"uri": "' . $objectIdentifier . '"
-	},
+    annotationData: {
+        "uri": "' . $objectIdentifier . '"
+    },
 
-	loadFromSearch: {
-		"limit": 20,
-		"uri": "' . $objectIdentifier . '"
-	},
+    loadFromSearch: {
+        "limit": 20,
+        "uri": "' . $objectIdentifier . '"
+    },
 
-	emulateJSON: true,	// send the data in a form request so we can get it later
-	emulateHTTP: true	// tiki services need GET or POST
+    emulateJSON: true,    // send the data in a form request so we can get it later
+    emulateHTTP: true    // tiki services need GET or POST
 
 });
 annotatorContent.annotator("addPlugin", "Permissions", {
-	user: "' . $user . '",
-	showViewPermissionsCheckbox: false,	// TODO for private comments
-	showEditPermissionsCheckbox: false,
-	userAuthorize: function(action, annotation, user) {
-		return annotation.permissions[action];
-	}
+    user: "' . $user . '",
+    showViewPermissionsCheckbox: false,    // TODO for private comments
+    showEditPermissionsCheckbox: false,
+    userAuthorize: function(action, annotation, user) {
+        return annotation.permissions[action];
+    }
 });
 ');
     }

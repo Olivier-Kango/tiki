@@ -29,7 +29,7 @@ function upgrade_20181127_convert_db_local_to_utf8mb4_tiki($installer)
         $last_matched_charset = "";
         foreach ($contents as $key => $line) {
             // Detect last value and line for client_charset
-            $extract = preg_match("/^[ 	]*[$]client_charset[ ]*=[ ]*['\"](.*)['\"];/", $line, $match);
+            $extract = preg_match("/^[     ]*[$]client_charset[ ]*=[ ]*['\"](.*)['\"];/", $line, $match);
             if (isset($match[1])) {
                 // echo "Match: " . $match[1] . PHP_EOL;
                 $last_matched_line = $key;

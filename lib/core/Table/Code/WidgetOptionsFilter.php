@@ -70,15 +70,15 @@ class Table_Code_WidgetOptionsFilter extends Table_Code_WidgetOptions
                                     }
                                 } elseif (! parent::$ajax) {
                                     $ffunc[] = $colpointer . ' : {
-					\'(empty)\': function( e, n, f, i, $r, c, data ) {
-						if( typeof e === "Object" && typeof n === "Object" && typeof f === "undefined" ) {
-							// v2.22.0 compatibility
-							c = e;
-							data = n;
-						}
-						return ( "" + data.exact ) === "";
-					}
-				}';
+                    \'(empty)\': function( e, n, f, i, $r, c, data ) {
+                        if( typeof e === "Object" && typeof n === "Object" && typeof f === "undefined" ) {
+                            // v2.22.0 compatibility
+                            c = e;
+                            data = n;
+                        }
+                        return ( "" + data.exact ) === "";
+                    }
+                }';
                                     $fsource[] = $colpointer . ' : function( table, column, onlyAvail ) {'
                                         . $this->nt4 . 'var array = $.tablesorter.filter.getOptions(table, column, onlyAvail);'
                                         . $this->nt4 . 'array = array.join(\',\').split(/\s*,\s*/);'

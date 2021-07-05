@@ -97,11 +97,11 @@ class SearchLib extends TikiLib
 
         $sqlFields = sprintf(
             'SELECT DISTINCT
-				%s AS name,
-				' . (isset($h['parsed']) ? '%s' : 'LEFT(%s, 240) AS data') . ',
-				%s AS hits,
-				%s AS lastModif,
-				%s AS pageName'
+                %s AS name,
+                ' . (isset($h['parsed']) ? '%s' : 'LEFT(%s, 240) AS data') . ',
+                %s AS hits,
+                %s AS lastModif,
+                %s AS pageName'
                 . ($h['objectType'] == 'wiki page' ? ',outputType ' : ''),
             $h['name'],
             $h['data'],

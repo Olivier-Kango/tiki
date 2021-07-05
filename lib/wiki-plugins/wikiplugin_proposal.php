@@ -22,7 +22,7 @@ function wikiplugin_proposal_info()
                 'required' => false,
                 'name' => tra('Caption'),
                 'description' => tra('Short description of the proposal to vote on. Will be displayed above the result
-					table.'),
+                    table.'),
                 'since' => '3.0',
                 'filter' => 'text',
                 'default' => '',
@@ -32,7 +32,7 @@ function wikiplugin_proposal_info()
                 'advanced' => true,
                 'name' => tr('Weights'),
                 'description' => tr('Comma-separated list of groups and their associated weight. Default is
-					%0Registered(1)%1 Example:', '<code>', '</code>')
+                    %0Registered(1)%1 Example:', '<code>', '</code>')
                     . ' <code>Reviewer(2.5),User(1),Manager(0.25),Registered(0)</code>',
                 'since' => '10.0',
                 'filter' => 'text',

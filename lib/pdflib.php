@@ -895,9 +895,9 @@ class PdfGenerator
 $(document).ready(function(){
 // jq_onready 0 
 $(".convert-mailto").removeClass("convert-mailto").each(function () {
-				var address = $(this).data("encode-name") + "@" + $(this).data("encode-domain");
-				$(this).attr("href", "mailto:" + address).text(address);
-			});
+                var address = $(this).data("encode-name") + "@" + $(this).data("encode-domain");
+                $(this).attr("href", "mailto:" + address).text(address);
+            });
 });
 //--><!]]>
 </script>', "", $content);

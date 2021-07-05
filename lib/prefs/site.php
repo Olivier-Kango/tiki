@@ -23,7 +23,7 @@ function prefs_site_list()
         'site_closed' => [
             'name' => tra('Close site'),
             'description' => tra('Use this setting to \"close\" the Tiki site (such as for maintenance). Users attempting to access the site will see only a log-in form. Only users with specific permission will be allowed to log in.
-			Use the Message to display to specify the message that visitors will see when attempting to access your site.'),
+            Use the Message to display to specify the message that visitors will see when attempting to access your site.'),
             'type' => 'flag',
             'help' => 'Site-Access#Close_site',
             'perspective' => false,
@@ -266,8 +266,8 @@ function prefs_site_list()
         'site_security_timeout' => [
             'name' => tra('Security timeout'),
             'description' => tr('Sets the expiration of CSRF tickets and related forms. The %0session_lifetime%1
-				preference is used for the default, if set, otherwise the %0session.gc_maxlifetime%1 %0php.ini%1 setting
-				is used, subject to a default maximum of four hours in any case.', '<code>', '</code>'),
+                preference is used for the default, if set, otherwise the %0session.gc_maxlifetime%1 %0php.ini%1 setting
+                is used, subject to a default maximum of four hours in any case.', '<code>', '</code>'),
             'type' => 'text',
             'filter' => 'digits',
             'warning' => tra('Minimum value is 30 seconds to avoid blocking everyone from being able to make any changes, including to this setting'),

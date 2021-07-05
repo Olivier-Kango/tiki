@@ -71,7 +71,7 @@ function wikiplugin_articles_info()
                 'required' => false,
                 'name' => tra('Category ID'),
                 'description' => tra('List of category IDs, separated by "%0". Only articles in all these categories are
-					listed', '<code>|</code>'),
+                    listed', '<code>|</code>'),
                 'filter' => 'digits',
                 'default' => '',
                 'profile_reference' => 'category',
@@ -90,8 +90,8 @@ function wikiplugin_articles_info()
                 'required' => false,
                 'name' => tra('Sort order'),
                 'description' => tr('The column and order of the sort in %0columnName_asc%1 or %0columnName_desc%1 format.
-					Defaults to %0publishDate_desc%1 (other column examples are %0title%1, %0lang%1, %0articleId%1,
-					%0authorName%1 & %0topicName%1). Use "random" to have random items.', '<code>', '</code>'),
+                    Defaults to %0publishDate_desc%1 (other column examples are %0title%1, %0lang%1, %0articleId%1,
+                    %0authorName%1 & %0topicName%1). Use "random" to have random items.', '<code>', '</code>'),
                 'filter' => 'word',
                 'default' => 'publishDate_desc',
                 'since' => '2.0',
@@ -169,7 +169,7 @@ function wikiplugin_articles_info()
                 'required' => false,
                 'name' => tra('Starting Article'),
                 'description' => tra('The article number that the list should start with (starts with first article by
-					default)') . '. ' . tra('This will not work if Pagination is used.'),
+                    default)') . '. ' . tra('This will not work if Pagination is used.'),
                 'filter' => 'int',
                 'since' => '1',
                 'default' => 0,
@@ -194,9 +194,9 @@ function wikiplugin_articles_info()
                 'required' => false,
                 'name' => tra('Period quantity'),
                 'description' => tr('Numeric value to display only last articles published within a user defined
-					time-frame. Used in conjunction with the next parameter "Period unit", this parameter indicates how
-					many of those units are to be considered to define the time frame. If this parameter is set,
-					"Start Date" and "End Date" are ignored.'),
+                    time-frame. Used in conjunction with the next parameter "Period unit", this parameter indicates how
+                    many of those units are to be considered to define the time frame. If this parameter is set,
+                    "Start Date" and "End Date" are ignored.'),
                 'filter' => 'digits',
                 'since' => '1',
                 'default' => '',
@@ -244,7 +244,7 @@ function wikiplugin_articles_info()
                 'required' => false,
                 'name' => tra('Large First Image'),
                 'description' => tr('If set to %0 (Yes), the first image will be displayed with the dimension used to
-					view of the article', '<code>y</code>'),
+                    view of the article', '<code>y</code>'),
                 'filter' => 'alpha',
                 'default' => 'n',
                 'since' => '6.0',
@@ -265,7 +265,7 @@ function wikiplugin_articles_info()
                 'required' => false,
                 'name' => tra('Show actions (buttons and links)'),
                 'description' => tra('Whether to show the buttons and links to do actions on each article (for the
-					actions you have permission to do'),
+                    actions you have permission to do'),
                 'filter' => 'alpha',
                 'default' => 'n',
                 'since' => '6.1',
@@ -279,7 +279,7 @@ function wikiplugin_articles_info()
                 'required' => false,
                 'name' => tra('No translation'),
                 'description' => tra('User- or pipe-separated list of two-letter language codes for additional languages
-					to display. List pages with no language or with a missing translation in one of the language'),
+                    to display. List pages with no language or with a missing translation in one of the language'),
                 'filter' => 'alpha',
                 'separator' => '|',
                 'since' => '1',

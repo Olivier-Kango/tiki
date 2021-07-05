@@ -12,19 +12,19 @@ Tiki monitoring for Nagios/Icinga/Shinken
 Syntax:
 php check_tiki.php -u <URL> [-c <check>] [--bccwarn <percent> --bcccrit <percent>] [--sirwarn <seconds> --sircrit <seconds>] [--user <user> --pass <password>]
 
-	-u	URL of tiki-monitor.php to use
-	-c	Command to execute, one of:
-			bcc
-			db
-			searchindex
-		If left empty, all checks will be performed.
+    -u    URL of tiki-monitor.php to use
+    -c    Command to execute, one of:
+            bcc
+            db
+            searchindex
+        If left empty, all checks will be performed.
 
-	--bccwarn	Byte Code Cache memory warning percentage
-	--bcccrit	Byte Code Cache memory critical percentage
-	--sirwarn	Search Index age warning threshold in seconds
-	--sircrit	Search Index age critical threshold in seconds
-	--user		User for HTTP authentication
-	--pass		Password for HTTP authentication
+    --bccwarn    Byte Code Cache memory warning percentage
+    --bcccrit    Byte Code Cache memory critical percentage
+    --sirwarn    Search Index age warning threshold in seconds
+    --sircrit    Search Index age critical threshold in seconds
+    --user        User for HTTP authentication
+    --pass        Password for HTTP authentication
 
 EOHELP;
 }

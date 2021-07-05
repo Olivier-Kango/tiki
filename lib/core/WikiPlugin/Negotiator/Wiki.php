@@ -477,8 +477,8 @@ class WikiPlugin_Negotiator_Wiki
         $limit = date('Y-m-d H:i:s', time() - 15 * 24 * 3600);
         $result = $tikilib->query(
             "SELECT status, if(status='pending' AND last_update < ?, 'old', '') flag
-			FROM tiki_plugin_security
-			WHERE fingerprint = ?",
+            FROM tiki_plugin_security
+            WHERE fingerprint = ?",
             [ $limit, $this->fingerprint ]
         );
 
@@ -598,22 +598,22 @@ class WikiPlugin_Negotiator_Wiki
 
             $headerlib->add_jq_onready(
                 '$("#' . $id . '")
-					.click( function(event) {'
-                . '		popupPluginForm('
+                    .click( function(event) {'
+                . '        popupPluginForm('
                 . json_encode('editwiki') . ', '
                 . json_encode($this->name) . ', '
                 . json_encode($this->index) . ', '
                 . json_encode($this->page) . ', '
                 . json_encode($this->args) . ', '
                 . json_encode($this->body)
-                . ' 		, event.target'
-                . '	);'
-                . '	return false;'
+                . '         , event.target'
+                . '    );'
+                . '    return false;'
                 . '})'
                 . '.hover(function() {'
-                . ' 	$(this).prev().addClass("ui-state-highlight");'
+                . '     $(this).prev().addClass("ui-state-highlight");'
                 . '}, function() { '
-                . '	$(this).prev().removeClass("ui-state-highlight");'
+                . '    $(this).prev().removeClass("ui-state-highlight");'
                 . '});'
             );
             $smarty->loadPlugin('smarty_function_icon');

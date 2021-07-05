@@ -61,22 +61,22 @@ $cookietab = 1;
 $sheetlib->setup_jquery_sheet();
 $headerlib->add_jq_onready(
     "
-	$.sheet.tikiOptions = $.extend($.sheet.tikiOptions, {
-		editable: false
-	});
+    $.sheet.tikiOptions = $.extend($.sheet.tikiOptions, {
+        editable: false
+    });
 
-	jST = $('div.tiki_sheet')
-		.sheet($.sheet.tikiOptions)
-		.bind('paneScroll', $.sheet.paneScrollLocker)
-		.bind('switchSheet', $.sheet.switchSheetLocker);
+    jST = $('div.tiki_sheet')
+        .sheet($.sheet.tikiOptions)
+        .bind('paneScroll', $.sheet.paneScrollLocker)
+        .bind('switchSheet', $.sheet.switchSheetLocker);
 
-	$.sheet.setValuesForCompareSheet('$sheetIndexes[0]', $('input.compareSheet1'), '$sheetIndexes[1]', $('input.compareSheet2'));
+    $.sheet.setValuesForCompareSheet('$sheetIndexes[0]', $('input.compareSheet1'), '$sheetIndexes[1]', $('input.compareSheet2'));
 
-	$('#go_fullscreen').toggle(function() {
-		$.sheet.dualFullScreenHelper($('#tiki_sheet_container').parent());
-	}, function() {
-		$.sheet.dualFullScreenHelper($('#tiki_sheet_container').parent(), true);
-	});
+    $('#go_fullscreen').toggle(function() {
+        $.sheet.dualFullScreenHelper($('#tiki_sheet_container').parent());
+    }, function() {
+        $.sheet.dualFullScreenHelper($('#tiki_sheet_container').parent(), true);
+    });
 ",
     500
 );

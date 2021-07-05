@@ -14,7 +14,7 @@ function wikiplugin_versions_info()
         'description' => tra('Create tabs for showing alternate versions of content'),
         'prefs' => [ 'wikiplugin_versions' ],
         'body' => tra('Block of text separated by ---(version x)--- markers. Text before the first marker is used by
-			default.'),
+            default.'),
         'iconname' => 'copy',
         'introduced' => 1,
         'tags' => [ 'basic' ],
@@ -36,7 +36,7 @@ function wikiplugin_versions_info()
                 'required' => false,
                 'name' => tra('Title'),
                 'description' => tr('Display the current version name as the title. No title shows when %0nav="y"%1;
-					otherwise shows by default.', '<code>', '</code>'),
+                    otherwise shows by default.', '<code>', '</code>'),
                 'since' => '1',
                 'default' => 'y',
                 'filter' => 'alpha',
@@ -51,7 +51,7 @@ function wikiplugin_versions_info()
                 'required' => false,
                 'name' => tra('Default Label'),
                 'description' => tra('Specifies version label to show when displaying the page for the first time.
-					Default label is \'Default\''),
+                    Default label is \'Default\''),
                 'since' => '1',
                 'default' => tra('Default'),
             ],

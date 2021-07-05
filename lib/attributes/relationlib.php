@@ -325,11 +325,11 @@ class RelationLib extends TikiDb_Bridge
     public function remove_relation_type($relation, $trackerId)
     {
         return $this->query("DELETE FROM tiki_object_relations
-			WHERE relation = ?
-			AND source_type = 'trackeritem'
-			AND source_itemId IN(
-				SELECT itemId FROM tiki_tracker_items WHERE trackerId = ?
-			)", [$relation, $trackerId]);
+            WHERE relation = ?
+            AND source_type = 'trackeritem'
+            AND source_itemId IN(
+                SELECT itemId FROM tiki_tracker_items WHERE trackerId = ?
+            )", [$relation, $trackerId]);
     }
 
     /**

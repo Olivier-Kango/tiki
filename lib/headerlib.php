@@ -1191,9 +1191,9 @@ class HeaderLib
             if (TikiLib::lib('access')->is_xml_http_request()) {
                 $this->add_js('function loadScript() {
 var script = document.createElement("script");
-	script.type = "text/javascript";
-	script.src = "' . $url . '";
-	document.body.appendChild(script);
+    script.type = "text/javascript";
+    script.src = "' . $url . '";
+    document.body.appendChild(script);
 }
 
 window.onload = loadScript;');
@@ -1223,10 +1223,10 @@ window.onload = loadScript;');
 
         $this->add_js(
             '$(".map-container:not(.done)")
-		        .addClass("done")
-		        .visible(function() {
-		            $(this).createMap();
-		    });'
+                .addClass("done")
+                .visible(function() {
+                    $(this).createMap();
+            });'
         );
 
         return $this;

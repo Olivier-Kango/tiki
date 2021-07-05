@@ -16,7 +16,7 @@ function wikiplugin_checkreferer_info()
         'introduced' => 14,
         'iconname' => 'computer',
         'body' => tr('Wiki text to display if conditions are met. The body may contain %0. Text after the marker
-			will be displayed if conditions are not met.', '<code>{ELSE}</code>'),
+            will be displayed if conditions are not met.', '<code>{ELSE}</code>'),
         'params' => [
             'referer_list' => [
                 'required' => true,

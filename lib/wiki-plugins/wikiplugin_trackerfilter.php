@@ -17,7 +17,7 @@ function wikiplugin_trackerfilter_info()
                 'name' => tra('Filters'),
                 'description' => tr(
                     'The list of fields that can be used as filters along with their formats.
-					The field number and format are separated by a %0/%1 and multiple fields are separated by %0:%1.',
+                    The field number and format are separated by a %0/%1 and multiple fields are separated by %0:%1.',
                     '<code>',
                     '</code>'
                 )
@@ -31,7 +31,7 @@ function wikiplugin_trackerfilter_info()
                     . '<br /><code>sqlsearch</code> - ' . tr('advanced search')
                     . '<br /><code>range</code> - ' . tr('range search (from/to)')
                     . '<br /><code>></code>, <code>><</code>, <code>>>=</code>, <code>><=</code> - ' . tr('greater
-						than, less than, greater than or equal, less than or equal.') . '<br />'
+                        than, less than, greater than or equal, less than or equal.') . '<br />'
                     . tr('Example:') . ' <code>2/d:4/r:5:(6:7)/sqlsearch</code>',
                 'since' => '1',
                 'doctype' => 'filter',
@@ -42,7 +42,7 @@ function wikiplugin_trackerfilter_info()
                 'required' => false,
                 'name' => tra('Action'),
                 'description' => tr('Label on the submit button. Default: %0Filter%1. Use a space character to omit the
-					button (for use in datachannels etc)', '<code>', '</code>'),
+                    button (for use in datachannels etc)', '<code>', '</code>'),
                 'since' => '2.0',
                 'doctype' => 'show',
                 'default' => 'Filter'
@@ -80,7 +80,7 @@ function wikiplugin_trackerfilter_info()
                 'required' => false,
                 'name' => tra('No Toggle'),
                 'description' => tr('The toggle button to show/hide filters will not be shown if set to Yes (%0y%1).
-					Default is not to show the toggle (default changed from "n" to "y" in Tiki 20.0).', '<code>', '</code>'),
+                    Default is not to show the toggle (default changed from "n" to "y" in Tiki 20.0).', '<code>', '</code>'),
                 'since' => '6.0',
                 'doctype' => 'show',
                 'filter' => 'alpha',
@@ -231,23 +231,23 @@ function wikiplugin_trackerfilter($data, $params)
      */
     $headerlib->add_jq_onready(
         '$("#form-filter").submit(function(r) { 
-				$(".trackerfilter_loader").show();
-				return true;
-		})'
+                $(".trackerfilter_loader").show();
+                return true;
+        })'
     );
 
     $headerlib->add_jq_onready(
         '/* Maintain state of other trackerfilter plugin forms */
-					$(".trackerfilter form").submit( function () {
-						var current_tracker = this;
-						$(current_tracker).append("<input type=\"hidden\" name=\"tracker_filters[]\" value=\"" + $(current_tracker).serialize() + "\" />")
-						$(".trackerfilter form").each( function() {
-							if (current_tracker !== this && $("input[name=count_item]", this).val() > 0) {
-								$(current_tracker).append("<input type=\"hidden\" name=\"tracker_filters[]\" value=\"" + $(this).serialize() + "\" />")
-							}
-						});
-						return true;
-					});'
+                    $(".trackerfilter form").submit( function () {
+                        var current_tracker = this;
+                        $(current_tracker).append("<input type=\"hidden\" name=\"tracker_filters[]\" value=\"" + $(current_tracker).serialize() + "\" />")
+                        $(".trackerfilter form").each( function() {
+                            if (current_tracker !== this && $("input[name=count_item]", this).val() > 0) {
+                                $(current_tracker).append("<input type=\"hidden\" name=\"tracker_filters[]\" value=\"" + $(this).serialize() + "\" />")
+                            }
+                        });
+                        return true;
+                    });'
     );
     if ($prefs['jquery_select2'] === 'y') {
         $headerlib->add_css('@media (min-width: 768px) { .tiki #col1 .trackerfilter form .table-responsive { overflow-x: visible; overflow-y: visible; }} /* jquery_select2 specific: edit this in wikiplugin_trackerfilter.php */');
@@ -442,11 +442,11 @@ function wikiplugin_trackerfilter($data, $params)
         $first = false;
         $headerlib->add_jq_onready(
             '$("a.prevnext", "#trackerFilter' . $iTrackerFilter . ' + .trackerfilter-result").click( function( e ) {
-				e.preventDefault();
-				$("#trackerFilter' . $iTrackerFilter . ' form")
-				.attr("action", $(this).attr("href"))
-				.submit();
-			} );'
+                e.preventDefault();
+                $("#trackerFilter' . $iTrackerFilter . ' form")
+                .attr("action", $(this).attr("href"))
+                .submit();
+            } );'
         );
     }
 

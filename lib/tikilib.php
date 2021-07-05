@@ -700,10 +700,10 @@ class TikiLib extends TikiDb_Bridge
             $bindvars2 = ["%$find%", "%$find%", "%$find%", "%$find%"];
         }
         $query = "select 'user' as watchtype, `watchId`, `user`, `event`, `object`, `title`, `type`, `url`, `email` from `tiki_user_watches` $mid
-			UNION ALL
-				select 'group' as watchtype, `watchId`, `group`, `event`, `object`, `title`, `type`, `url`, '' as `email`
-				from `tiki_group_watches` $mid2
-			order by " . $this->convertSortMode($sort_mode);
+            UNION ALL
+                select 'group' as watchtype, `watchId`, `group`, `event`, `object`, `title`, `type`, `url`, '' as `email`
+                from `tiki_group_watches` $mid2
+            order by " . $this->convertSortMode($sort_mode);
         $query_cant = 'select count(*) from `tiki_user_watches` ' . $mid;
         $query_cant2 = 'select count(*) from `tiki_group_watches` ' . $mid2;
         $ret = $this->fetchAll($query, array_merge($bindvars1, $bindvars2), $maxRecords, $offset);
@@ -1068,23 +1068,23 @@ class TikiLib extends TikiDb_Bridge
         // Union obtains all users member of groups being watched
         // Distinct union insures there are no duplicates
         $query = "select tuw.`watchId`, tuw.`user`, tuw.`event`, tuw.`object`, tuw.`title`, tuw.`type`, tuw.`url`, tuw.`email`,
-				tup1.`value` as language, tup2.`value` as mailCharset
-			from
-				`tiki_user_watches` tuw
-				left join `tiki_user_preferences` tup1 on (tup1.`user`=tuw.`user` and tup1.`prefName`='language')
-				left join `tiki_user_preferences` tup2 on (tup2.`user`=tuw.`user` and tup2.`prefName`='mailCharset')
-				where $mid
-			UNION DISTINCT
-			select tgw.`watchId`, uu.`login`, tgw.`event`, tgw.`object`, tgw.`title`, tgw.`type`, tgw.`url`, uu.`email`,
-				tup1.`value` as language, tup2.`value` as mailCharset
-			from
-				`tiki_group_watches` tgw
-				inner join `users_usergroups` ug on tgw.`group` = ug.`groupName`
-				inner join `users_users` uu on ug.`userId` = uu.`userId` and uu.`email` is not null and uu.`email` <> ''
-				left join `tiki_user_preferences` tup1 on (tup1.`user`=uu.`login` and tup1.`prefName`='language')
-				left join `tiki_user_preferences` tup2 on (tup2.`user`=uu.`login` and tup2.`prefName`='mailCharset')
-				where $mid
-				";
+                tup1.`value` as language, tup2.`value` as mailCharset
+            from
+                `tiki_user_watches` tuw
+                left join `tiki_user_preferences` tup1 on (tup1.`user`=tuw.`user` and tup1.`prefName`='language')
+                left join `tiki_user_preferences` tup2 on (tup2.`user`=tuw.`user` and tup2.`prefName`='mailCharset')
+                where $mid
+            UNION DISTINCT
+            select tgw.`watchId`, uu.`login`, tgw.`event`, tgw.`object`, tgw.`title`, tgw.`type`, tgw.`url`, uu.`email`,
+                tup1.`value` as language, tup2.`value` as mailCharset
+            from
+                `tiki_group_watches` tgw
+                inner join `users_usergroups` ug on tgw.`group` = ug.`groupName`
+                inner join `users_users` uu on ug.`userId` = uu.`userId` and uu.`email` is not null and uu.`email` <> ''
+                left join `tiki_user_preferences` tup1 on (tup1.`user`=uu.`login` and tup1.`prefName`='language')
+                left join `tiki_user_preferences` tup2 on (tup2.`user`=uu.`login` and tup2.`prefName`='mailCharset')
+                where $mid
+                ";
         $result = $this->fetchAll($query, array_merge($bindvars, $bindvars));
 
         if (count($result) > 0) {
@@ -1401,25 +1401,25 @@ class TikiLib extends TikiDb_Bridge
         if (empty($score_expiry_days)) {
             // score does not expire
             $query = "select `recipientObjectId` as `login`,
-				`pointsBalance` as `score`
-				from `tiki_object_scores` tos
-				where `recipientObjectType`='user'
-				and tos.`id` = (select max(id) from `tiki_object_scores` where `recipientObjectId` = tos.`recipientObjectId` and `recipientObjectType`='user' group by `recipientObjectId`)
-				group by `recipientObjectId`, `pointsBalance` order by `score` desc";
+                `pointsBalance` as `score`
+                from `tiki_object_scores` tos
+                where `recipientObjectType`='user'
+                and tos.`id` = (select max(id) from `tiki_object_scores` where `recipientObjectId` = tos.`recipientObjectId` and `recipientObjectType`='user' group by `recipientObjectId`)
+                group by `recipientObjectId`, `pointsBalance` order by `score` desc";
 
             $result = $this->fetchAll($query, null, $limit, $start);
         } else {
             // score expires
             $query = "select `recipientObjectId` as `login`,
-				`pointsBalance` - ifnull((select `pointsBalance` from `tiki_object_scores`
-					where `recipientObjectId`=tos.`recipientObjectId`
-					and `recipientObjectType`='user'
-					and `date` < UNIX_TIMESTAMP(DATE_SUB(NOW(), INTERVAL ? DAY))
-					order by id desc limit 1), 0) as `score`
-				from `tiki_object_scores` tos
-				where `recipientObjectType`='user'
-				and tos.`id` = (select max(id) from `tiki_object_scores` where `recipientObjectId` = tos.`recipientObjectId` and `recipientObjectType`='user' group by `recipientObjectId`)
-				group by `recipientObjectId`, `pointsBalance` order by `score` desc";
+                `pointsBalance` - ifnull((select `pointsBalance` from `tiki_object_scores`
+                    where `recipientObjectId`=tos.`recipientObjectId`
+                    and `recipientObjectType`='user'
+                    and `date` < UNIX_TIMESTAMP(DATE_SUB(NOW(), INTERVAL ? DAY))
+                    order by id desc limit 1), 0) as `score`
+                from `tiki_object_scores` tos
+                where `recipientObjectType`='user'
+                and tos.`id` = (select max(id) from `tiki_object_scores` where `recipientObjectId` = tos.`recipientObjectId` and `recipientObjectType`='user' group by `recipientObjectId`)
+                group by `recipientObjectId`, `pointsBalance` order by `score` desc";
 
             $result = $this->fetchAll($query, $score_expiry_days, $limit, $start);
         }
@@ -3354,8 +3354,8 @@ class TikiLib extends TikiDb_Bridge
     public function get_top_pages($limit)
     {
         $query = "select `pageName` , `hits`
-			from `tiki_pages`
-			order by `hits` desc";
+            from `tiki_pages`
+            order by `hits` desc";
 
         $result = $this->fetchAll($query, [], $limit);
         $ret = [];
@@ -4837,10 +4837,10 @@ class TikiLib extends TikiDb_Bridge
         }
 
         $query = "INSERT IGNORE INTO `tiki_history`(`pageName`, `version`, `version_minor`, `lastModif`, `user`, `ip`, `comment`, `data`, `description`,`is_html`)
-			SELECT `pageName`, `version`, `version_minor`, `lastModif`, `user`, `ip`, `comment`, `data`, `description`,`is_html`
-			FROM tiki_pages
-			WHERE pageName = ?
-			LIMIT 1";
+            SELECT `pageName`, `version`, `version_minor`, `lastModif`, `user`, `ip`, `comment`, `data`, `description`,`is_html`
+            FROM tiki_pages
+            WHERE pageName = ?
+            LIMIT 1";
 
         $this->query($query, [$pageName]);
 
@@ -4865,8 +4865,8 @@ class TikiLib extends TikiDb_Bridge
         }
 
         $query = "SELECT `version`, `version_minor`, `lastModif`, `user`, `ip`, `comment`, `data`, `description`,`is_html`
-			FROM tiki_history
-			WHERE pageName = ? ";
+            FROM tiki_history
+            WHERE pageName = ? ";
 
         $bindvars = [$pageName];
 
@@ -4880,8 +4880,8 @@ class TikiLib extends TikiDb_Bridge
         $result = $this->query($query, $bindvars, 1);
         if ($res = $result->fetchRow()) {
             $query = "UPDATE `tiki_pages`
-			SET `version` = ?, `version_minor` = ?, `lastModif` = ?, `user` = ?, `ip` = ?, `comment` = ?, `data` = ?, `description` = ?,`is_html` = ?
-			WHERE pageName = ?";
+            SET `version` = ?, `version_minor` = ?, `lastModif` = ?, `user` = ?, `ip` = ?, `comment` = ?, `data` = ?, `description` = ?,`is_html` = ?
+            WHERE pageName = ?";
             $bindvars = [$res['version'], $res['version_minor'], $res['lastModif'], $res['user'], $res['ip'], $res['comment'], $res['data'], $res['description'], $res['is_html'], $pageName];
             $this->query($query, $bindvars);
         }
@@ -5061,9 +5061,9 @@ class TikiLib extends TikiDb_Bridge
     {
         TikiLib::lib('header')->add_jq_onready(
             '$(".convert-mailto").removeClass("convert-mailto").each(function () {
-				var address = $(this).data("encode-name") + "@" + $(this).data("encode-domain");
-				$(this).attr("href", "mailto:" + address).text(address);
-			});'
+                var address = $(this).data("encode-name") + "@" + $(this).data("encode-domain");
+                $(this).attr("href", "mailto:" + address).text(address);
+            });'
         );
         return "<a class=\"convert-mailto\" href=\"mailto:nospam@example.com\" data-encode-name=\"$name\" data-encode-domain=\"$domain\">$name " . tra("at", "", true) . " $domain</a>";
     }

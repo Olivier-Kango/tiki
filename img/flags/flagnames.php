@@ -12,8 +12,8 @@
 
 // This script is only for language translations - so its better to die if called directly.
 if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
-  header("location: index.php");
-	exit;
+    header("location: index.php");
+    exit;
 }
 
 // Here come the dynamically generated strings for img/flags/*.gif

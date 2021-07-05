@@ -31,7 +31,7 @@ function wikiplugin_addrelation_info()
                 'required' => false,
                 'name' => tra('Source Object'),
                 'description' => tr('Object identifier as %0type:itemId%1 to start the relation from, will use the current
-					object if left blank.', '<code>', '</code>'),
+                    object if left blank.', '<code>', '</code>'),
                 'filter' => 'text',
                 'default' => null,
                 'since' => '8.0',
@@ -41,7 +41,7 @@ function wikiplugin_addrelation_info()
                 'required' => false,
                 'name' => tra('Target Object'),
                 'description' => tr('Object identifier as %0type:itemId%1 to end the relation to, will use the current
-					object if left blank.', '<code>', '</code>'),
+                    object if left blank.', '<code>', '</code>'),
                 'filter' => 'text',
                 'default' => null,
                 'since' => '8.0',

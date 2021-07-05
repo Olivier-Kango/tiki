@@ -40,21 +40,21 @@ function createPage($title, $content)
 {
     echo <<<END
 <!DOCTYPE html
-	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<link type="text/css" rel="stylesheet" href="themes/default/css/default.css" />
-		<link type="text/css" rel="stylesheet" href="themes/css/tiki-install.css" />
-		<title>$title</title>
-	</head>
-	<body class="installer-body">
-		<div id="fixedwidth" class="fixedwidth">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link type="text/css" rel="stylesheet" href="themes/default/css/default.css" />
+        <link type="text/css" rel="stylesheet" href="themes/css/tiki-install.css" />
+        <title>$title</title>
+    </head>
+    <body class="installer-body">
+        <div id="fixedwidth" class="fixedwidth">
 
             <header class="header-main">
                 <img alt="Site Logo" src="img/tiki/Tiki_WCG_light.png" class="logo-box" />
-	                <div class="text-box">
+                    <div class="text-box">
                         <div class="heading-text">
                             <h3 class="main-text">$title</h3>
                         </div>
@@ -67,7 +67,7 @@ function createPage($title, $content)
                     </a>
             </header>
         </div>
-	</body>
+    </body>
 </html>
 END;
     die;

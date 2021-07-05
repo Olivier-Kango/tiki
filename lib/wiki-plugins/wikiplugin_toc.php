@@ -20,7 +20,7 @@ function wikiplugin_toc_info()
             'structId' => [
                 'name' => tra('Structure ID'),
                 'description' => tra('By default, structure for the current page will be displayed. Alternate
-					structure may be provided.'),
+                    structure may be provided.'),
                 'since' => '3.0',
                 'required' => false,
                 'filter' => 'digits',
@@ -30,7 +30,7 @@ function wikiplugin_toc_info()
             'pagename' => [
                 'name' => tra('Page Name'),
                 'description' => tra('By default, the table of contents for the current page will be displayed.
-					Alternate page may be provided.'),
+                    Alternate page may be provided.'),
                 'since' => '5.0',
                 'required' => false,
                 'filter' => 'pagename',

@@ -58,18 +58,18 @@ class Services_Comment_Controller
         $paginationOnClick = "
 var \$commentContainer = $(this).parents('.comment-container');
 \$commentContainer
-	.tikiModal(tr('Loading...'))
-	.load(
-		\$.service('comment', 'list'),
-		{type:'$type', objectId:'$objectId', offset: comment_offset},
-		function () {
-			\$('html, body').animate({
-					scrollTop: \$commentContainer.offset().top
-				}, 2000, function () {
-					\$commentContainer.tikiModal();
-				});
-		}
-	);
+    .tikiModal(tr('Loading...'))
+    .load(
+        \$.service('comment', 'list'),
+        {type:'$type', objectId:'$objectId', offset: comment_offset},
+        function () {
+            \$('html, body').animate({
+                    scrollTop: \$commentContainer.offset().top
+                }, 2000, function () {
+                    \$commentContainer.tikiModal();
+                });
+        }
+    );
 return false;";
 
         return [
@@ -844,10 +844,10 @@ return false;";
         TikiLib::lib('header')->add_jq_onready(/** @lang JavaScript */
             '
 $(".comment-post").parents("form").off("submit").submit(ajaxSubmitEventHandler(function (data) {
-	$.closeModal();
-	location.href = location.href.replace(/#.*$/, "");
+    $.closeModal();
+    location.href = location.href.replace(/#.*$/, "");
 }));
-			'
+            '
         );
         return $diffInfo;
     }

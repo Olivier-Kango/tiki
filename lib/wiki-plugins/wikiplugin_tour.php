@@ -197,18 +197,18 @@ function wikiplugin_tour($data, $params)
     if ($params['show_until_dismiss'] != 'n') {
         $headerlib->add_jq_onready('
 $(".tour-tour button[data-role=\'end\']").on("click",function() {
-	setCookieBrowser("' . $cookie_id . '", "y", "tours", new Date(' . $cookie_expiry . '000));
+    setCookieBrowser("' . $cookie_id . '", "y", "tours", new Date(' . $cookie_expiry . '000));
 });
-		', 12);
+        ', 12);
     }
 
     if ($wp_tour['start'] === 'y' && ! $dontStart) {
         $headerlib->add_jq_onready('
 if (tour) {
-	// Start the tour
-	tour.restart();
+    // Start the tour
+    tour.restart();
 } else {
-	console.log("Warning: Tour not initialized, the last step needs to have parameter next set to -1");
+    console.log("Warning: Tour not initialized, the last step needs to have parameter next set to -1");
 }
 ', 13);
     }
@@ -232,9 +232,9 @@ if (tour) {
                     'href' => '#',
                 ], $smarty->getEmptyInternalTemplate());
             $headerlib->add_jq_onready('$("#' . $unique . '_restart").click(function() {
-	tour.goTo(0);
-	tour.restart();
-	return false;
+    tour.goTo(0);
+    tour.restart();
+    return false;
 });', 13);
         }
     }
@@ -247,8 +247,8 @@ if (tour) {
 
     if ($params['next'] == -1 || $params['path']) {
         $js = '
-		$.fn.tooltip.Constructor.Default.whiteList.button.push("data-role");
-		// Instance the tour
+        $.fn.tooltip.Constructor.Default.whiteList.button.push("data-role");
+        // Instance the tour
 tour = new Tour(' . json_encode($wp_tour) . ');
 ';
         $headerlib->add_jq_onready($js, 12);

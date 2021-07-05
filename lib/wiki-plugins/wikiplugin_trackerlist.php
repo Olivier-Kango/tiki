@@ -26,8 +26,8 @@ function wikiplugin_trackerlist_info()
                  'required' => false,
                  'name' => tra('Fields'),
                  'description' => tr('Colon-separated list of field IDs for the fields to be displayed.
-					Example: %02:4:5%1. The field order specified here determines the column order if the %0sort%1
-					parameter is set to %0y%1.', '<code>', '</code>'),
+                    Example: %02:4:5%1. The field order specified here determines the column order if the %0sort%1
+                    parameter is set to %0y%1.', '<code>', '</code>'),
                  'since' => '1',
                  'filter' => 'digits',
                  'separator' => ':',
@@ -40,7 +40,7 @@ function wikiplugin_trackerlist_info()
                  'required' => false,
                  'name' => tra('Sort'),
                  'description' => tr('Display columns in the order listed in the %0fields%1 parameter instead of by
-					field ID (field ID order is used by default', '<code>', '</code>'),
+                    field ID (field ID order is used by default', '<code>', '</code>'),
                  'since' => '2.0',
                  'filter' => 'alpha',
                  'default' => 'n',
@@ -54,7 +54,7 @@ function wikiplugin_trackerlist_info()
                  'required' => false,
                  'name' => tra('Popup'),
                  'description' => tr('Colon-separated list of fields which will display in a tooltip on mouse over.
-					Example: %06:7%1. Setting this parameter implies %0y%1 value for %0sort%1 param.', '<code>', '</code>'),
+                    Example: %06:7%1. Setting this parameter implies %0y%1 value for %0sort%1 param.', '<code>', '</code>'),
                  'since' => '2.0',
                  'filter' => 'digits',
                  'separator' => ':',
@@ -91,7 +91,7 @@ function wikiplugin_trackerlist_info()
                  'required' => false,
                  'name' => tra('Show Links'),
                  'description' => tra('Show links to each tracker item (not shown by default). At least one field needs
-					to be set as Public in order for this to work.'),
+                    to be set as Public in order for this to work.'),
                  'since' => '1',
                  'doctype' => 'show',
                  'filter' => 'alpha',
@@ -135,7 +135,7 @@ function wikiplugin_trackerlist_info()
                  'required' => false,
                  'name' => tra('Show Initials'),
                  'description' => tra('Show an alphabetical index by first letter to assist in navigation (not shown
-					by default)'),
+                    by default)'),
                  'since' => '1',
                  'doctype' => 'show',
                  'filter' => 'alpha',
@@ -267,7 +267,7 @@ function wikiplugin_trackerlist_info()
                  'required' => false,
                  'name' => tra('Sort Mode'),
                  'description' => tra('Sort rows in ascending (_asc) or descending (_desc) order based on field ID,
-					date created or date last modified'),
+                    date created or date last modified'),
                  'accepted' => 'created_asc, created_desc, lastModif_asc, lastModif_desc, f_fieldId_asc, f_filedId_desc '
                      . tr('(replacing %0fieldId%1 with the field ID number, e.g. %0f_3_asc%1)', '<code>', '</code>'),
                  'since' => '1',
@@ -280,8 +280,8 @@ function wikiplugin_trackerlist_info()
                  'name' => tra('Sort Choice'),
                  'description' => tr(
                      'Add a dropdown of sorting choices. Separate each choice with a %0:%1. For each
-					choice, use the format %0value|label%1. See %0sort_mode%1 for value choices. Example with two
-					sorting choices: %0sortchoice="created_desc|Newest first:lastModif_desc|Last modified first"%1',
+                    choice, use the format %0value|label%1. See %0sort_mode%1 for value choices. Example with two
+                    sorting choices: %0sortchoice="created_desc|Newest first:lastModif_desc|Last modified first"%1',
                      '<code>',
                      '</code>'
                  ),
@@ -294,7 +294,7 @@ function wikiplugin_trackerlist_info()
                  'required' => false,
                  'name' => tra('Maximum Items'),
                  'description' => tra('Maximum number of items to display or -1 for all items. Defaults to max records
-					preference, if set. Pagination will not show if all items are shown by setting to -1.'),
+                    preference, if set. Pagination will not show if all items are shown by setting to -1.'),
                  'since' => '1',
                  'doctype' => 'filter',
                  'filter' => 'int',
@@ -368,7 +368,7 @@ function wikiplugin_trackerlist_info()
                  'required' => false,
                  'name' => tra('Filter Value'),
                  'description' => tr('Filter value (or multiple values) that correspond to %0filterfield%1. For better performance, use %0exactvalue%1
-					instead. %2Special search values to match:', '<code>', '</code>', '<br>') . '<br>'
+                    instead. %2Special search values to match:', '<code>', '</code>', '<br>') . '<br>'
                     . '<code>*value</code> - ' . tra('text that ends in "value"') . '<br>'
                     . '<code>value*</code> - ' . tra('text that begins with "value"') . '<br>'
                     . '<code>#user</code> - ' . tra('the current user\'s login name') . '<br>'
@@ -385,7 +385,7 @@ function wikiplugin_trackerlist_info()
                  'required' => false,
                  'name' => tra('Exact Value'),
                  'description' => tr('Exact value (or multiple values) that correspond to %0filterfield%1. %2Special
-					search values to filter by:', '<code>', '</code>', '<br>') . '<br>'
+                    search values to filter by:', '<code>', '</code>', '<br>') . '<br>'
                      . '<code>categories(x)</code> - ' . tra('tracker item is in category with ID x or one its descendants') . '<br>'
                      . '<code>notcategories(x)</code> - ' . tra('tracker item is not in category with ID x or one of its descendants') . '<br>'
                      . '<code>preference(name)</code> - ' . tra('match against the value of a Tiki preference') . '<br>'
@@ -394,11 +394,11 @@ function wikiplugin_trackerlist_info()
                      . '<code>not()</code> - ' . tr('match for non empty values (opposite with %0exactvalue%1="")', '<code>', '</code>') . '<br>'
                      . '<code>or(value1,value2)</code> - ' . tra('match if the field equals "value1" or "value2" (can list more than 2 alternative values)') . '<br>'
                      . '<code>field(x, itemid)</code> - ' . tr('match field with ID x in item with ID itemid.
-						%0field(x)%1 can be used if the %0itemId%1 URL parameter is set', '<code>', '</code>') . '<br>'
+                        %0field(x)%1 can be used if the %0itemId%1 URL parameter is set', '<code>', '</code>') . '<br>'
                      . '<code>notfield(x, itemid)</code> - ' . tr('match if not equal to field with ID x in item with ID itemid
-						%0field(x)%1 can be used if the %0itemId%1 URL parameter is set', '<code>', '</code>') . '<br>'
+                        %0field(x)%1 can be used if the %0itemId%1 URL parameter is set', '<code>', '</code>') . '<br>'
                      . tr('The following comparisons can also be applied to date fields by using date phrases that PHP recognizes
-						(see http://us.php.net/manual/en/function.strtotime.php ):', '<code>', '</code>') . '<br>'
+                        (see http://us.php.net/manual/en/function.strtotime.php ):', '<code>', '</code>') . '<br>'
                      . '<code>less(value)</code> - ' . tra('match if less than "value"') . '<br>'
                      . '<code>greater(value)</code> - ' . tra('match if greater than "value"') . '<br>'
                      . '<code>lessequal(value)</code> - ' . tra('match if less than or equal to "value"') . '<br>'
@@ -414,7 +414,7 @@ function wikiplugin_trackerlist_info()
                  'required' => false,
                  'name' => tra('Checkbox'),
                  'description' => tr('Adds a checkbox on each line to perform an action. Required elements are separated
-					by %0/%1. Those elements are:', '<code>', '</code>') . '<br />'
+                    by %0/%1. Those elements are:', '<code>', '</code>') . '<br />'
                     . '<code>FieldId</code> - ' . tra('the value of this field will be posted to the action') . '<br>'
                     . '<code>PostName</code> - ' . tra('the name of the post') . '<br>'
                     . '<code>Title</code> - ' . tra('the title of the submit button') . '<br>'
@@ -422,9 +422,9 @@ function wikiplugin_trackerlist_info()
                     . '<code>ActionUrl</code> - ' . tra('the file that will be called upon submit') . '<br>'
                     . '<code>Tpl</code> - ' . tra('optional template inserted before the submit button and returned') . '<br>'
                     . '<code>SelectType</code> - ' . tr('Leave empty for multiple select, or use %0dropdown%1 or
-						%0radio%1.', '<code>', '</code>') . '<br>'
+                        %0radio%1.', '<code>', '</code>') . '<br>'
                     . '<code>Embed</code> - ' . tra('Set to %0y%1 if the trackerlist table is embedded inside an existing form.
-						ActionUrl is ignored in this case.', '<code>', '</code>') . '<br>'
+                        ActionUrl is ignored in this case.', '<code>', '</code>') . '<br>'
                     . '<code>Checked</code> - ' . tra('comma-separated list of pre-checked items') . '<br>'
                     . tr(
                         'Format: %0checkbox="FieldId/PostName/Title/Submit/ActionUrl/Tpl/SelectType/Embed/Checked"%1',
@@ -504,7 +504,7 @@ function wikiplugin_trackerlist_info()
                  'required' => false,
                  'name' => tra('Template File'),
                  'description' => tr('Use content of the specified tpl file as template to display the item.
-					Use %0{$f_fieldId}%1 to display a field with ID %0fieldId%1.', '<code>', '</code>'),
+                    Use %0{$f_fieldId}%1 to display a field with ID %0fieldId%1.', '<code>', '</code>'),
                  'since' => '2.0',
                  'advanced' => true,
                  'default' => '',
@@ -513,8 +513,8 @@ function wikiplugin_trackerlist_info()
                  'required' => false,
                  'name' => tra('Wiki Page'),
                  'description' => tr('Use content of the wiki page as template to display the item. The page should
-					have the permission %0tiki_p_use_as_template%1 set, and should only be editable by trusted users
-					such as other site admins', '<code>', '</code>'),
+                    have the permission %0tiki_p_use_as_template%1 set, and should only be editable by trusted users
+                    such as other site admins', '<code>', '</code>'),
                  'since' => '2.0',
                  'filter' => 'pagename',
                  'advanced' => true,
@@ -525,9 +525,9 @@ function wikiplugin_trackerlist_info()
                  'required' => false,
                  'name' => tra('Template Wiki Page'),
                  'description' => tr('Use content of the wiki page as template to display the item but with as little
-					parsing on the content as with a tpl on disk. The page should have the permission
-					%0tiki_p_use_as_template%1 set, and should only be editable by trusted users such as other site
-					admins', '<code>', '</code>'),
+                    parsing on the content as with a tpl on disk. The page should have the permission
+                    %0tiki_p_use_as_template%1 set, and should only be editable by trusted users such as other site
+                    admins', '<code>', '</code>'),
                  'since' => '6.5 & 7.1',
                  'filter' => 'pagename',
                  'advanced' => true,
@@ -582,14 +582,14 @@ function wikiplugin_trackerlist_info()
                         . tra('will link to the item based on its offset value') . '<br>'
                     . '<code>url="<strong>sefurl</strong>"</code> - '
                         . tr('will link to the item using %0itemX%1 (where X is the item ID) for when SEFURL is being
-						used', '<code>', '</code>') . '<br>'
+                        used', '<code>', '</code>') . '<br>'
                     . '<code><strong>vi_tpl</strong></code> - ' . tr('use to show the item without admin buttons and with a back button
-						when using a template (Display > Section Format must be set to "Configured" in the tracker
-						properties). Example:', '<code>', '</code>')
+                        when using a template (Display > Section Format must be set to "Configured" in the tracker
+                        properties). Example:', '<code>', '</code>')
                         . ' <code>url="tiki-view_tracker_item.php?<strong>vi_tpl</strong>=wiki:PageName&itemId"</code><br>'
                     . '<code><strong>ei_tpl</strong></code> - ' . tr('similar to %0vi_tpl%1 except that admin buttons are shown for users
-						with proper permissions when "Restrict non admins to wiki page access only" is set in the
-						tracker properties.', '<code>', '</code>') . '<br>',
+                        with proper permissions when "Restrict non admins to wiki page access only" is set in the
+                        tracker properties.', '<code>', '</code>') . '<br>',
                  'since' => tr(
                      '2.0, 3.0 for %0itemId%1, 11.0 for %0tr_offset%1, 14.0 for %0sefurl%1 and %0vi_tpl%1',
                      '<code>',
@@ -620,8 +620,8 @@ function wikiplugin_trackerlist_info()
                  'required' => false,
                  'name' => tra('List Mode'),
                  'description' => tra('Set output format. Yes (y) displays tracker list view with truncated values
-					(default); No (n) displays in tracker item view; Comma Separated Values (csv) outputs without any
-					HTML formatting.'),
+                    (default); No (n) displays in tracker item view; Comma Separated Values (csv) outputs without any
+                    HTML formatting.'),
                  'since' => '3.0',
                  'filter' => 'alpha',
                  'default' => 'y',
@@ -650,7 +650,7 @@ function wikiplugin_trackerlist_info()
                  'required' => false,
                  'name' => tra('Compute'),
                  'description' => tra('Sum or average all the values of a field and displays it at the bottom of the
-					table.') . ' <code>' . tra('fieldId') . '/sum:' . tra('fieldId') . '/avg</code>',
+                    table.') . ' <code>' . tra('fieldId') . '/sum:' . tra('fieldId') . '/avg</code>',
                  'since' => '3.0',
                  'filter' => 'text',
                  'accepted' => tr('%0, separated by %1', '<code>fieldId/operator</code>', '<code>:</code>'),
@@ -662,7 +662,7 @@ function wikiplugin_trackerlist_info()
                  'required' => false,
                  'name' => tra('Silent'),
                  'description' => tra('Show nothing if no items found (the table header and a \'No records found\'
-				    message is shown by default).'),
+                    message is shown by default).'),
                  'since' => '4.0',
                  'doctype' => 'show',
                  'filter' => 'alpha',
@@ -783,7 +783,7 @@ function wikiplugin_trackerlist_info()
                  'required' => false,
                  'name' => tra('Calendar Field IDs'),
                  'description' => tr('Used to display items in a calendar view. One fieldId if one date, or 2 fieldIds
-					separated with %0:%1 for %0start:end%1', '<code>', '</code>'),
+                    separated with %0:%1 for %0start:end%1', '<code>', '</code>'),
                  'since' => '6.0',
                  'doctype' => 'calendar',
                  'separator' => ':',
@@ -815,7 +815,7 @@ function wikiplugin_trackerlist_info()
                  'required' => false,
                  'name' => tra('Calendar Popup'),
                  'description' => tr('Calendar items will popup, overrides the %0stickypopup%1 parameter if turned off
-					(default is to pop up).', '<code>', '</code>'),
+                    (default is to pop up).', '<code>', '</code>'),
                  'since' => '6.0',
                  'doctype' => 'calendar',
                  'filter' => 'alpha',
@@ -911,7 +911,7 @@ function wikiplugin_trackerlist_info()
                  'required' => false,
                  'name' => tra('Force Compile.'),
                  'description' => tra('Force Smarty to recompile the templates for each tracker item when using a
-				    wiki page as a template. Default=n (best performance)'),
+                    wiki page as a template. Default=n (best performance)'),
                  'since' => '6.0',
                  'filter' => 'alpha',
                  'default' => 'n',
@@ -926,9 +926,9 @@ function wikiplugin_trackerlist_info()
                  'required' => false,
                  'name' => tr('Period quantity'),
                  'description' => tr('Numeric value to display only last tracker items created within a user defined
-				    time-frame. Used in conjunction with the next parameter "Period unit", this parameter indicates how
-				    many of those units are to be considered to define the time frame. Use in conjunction with
-				    %0max=-"1"%1 to list all items (by default %0max%1 is set to %010%1).', '<code>', '</code>'),
+                    time-frame. Used in conjunction with the next parameter "Period unit", this parameter indicates how
+                    many of those units are to be considered to define the time frame. Use in conjunction with
+                    %0max=-"1"%1 to list all items (by default %0max%1 is set to %010%1).', '<code>', '</code>'),
                  'since' => '6.5, <s>7.x</s> & 8.0',
                  'doctype' => 'filter',
                  'filter' => 'int',
@@ -2387,10 +2387,10 @@ function wikiplugin_trackerlist($data, $params)
                     $sheetlib->setup_jquery_sheet();
                     $headerlib->add_jq_onready(
                         '$("div.trackercontainer").sheet($.extend($.sheet.tikiOptions,{
-							editable:false,
-							buildSheet: true,
-							minSize: {rows: 0, cols: 0}
-						}));'
+                            editable:false,
+                            buildSheet: true,
+                            minSize: {rows: 0, cols: 0}
+                        }));'
                     );
 
                     $smarty->assign('displaysheet', 'true');

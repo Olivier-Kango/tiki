@@ -26,39 +26,39 @@ if (!defined $ARGV[0]) {
 
 while (my $line = <>) {
     if ($line =~ m|^RCS file:|) {
-	$line = <>;
+    $line = <>;
 
-	($lastFile) = $line =~ /Working file:\s*(\S+)/;
+    ($lastFile) = $line =~ /Working file:\s*(\S+)/;
     }
 
     $lastFile or next;
 
     if ($line =~ /^description:/) {
-	$line = <>;
+    $line = <>;
 
-	my $msg;
+    my $msg;
 
-	while ($line && $line !~ /^=+$/) {
-	    $msg = '';
+    while ($line && $line !~ /^=+$/) {
+        $msg = '';
 
-	    my $revision = <>;
-	    my $date = <>;
+        my $revision = <>;
+        my $date = <>;
 
-	    if ($revision !~ /^revision/ || $date !~ /^date:/) {
-		die "bug!";
-	    }
+        if ($revision !~ /^revision/ || $date !~ /^date:/) {
+        die "bug!";
+        }
 
-	    $line = <>;
-	    while ($line !~ /^[-=]+$/) {
-		$msg .= $line;
-		$line = <>;
-		if ($line =~ /\[(MOD|ADD|NEW|FIX|ENH)\]/) {
-		    registerMsg($msg);
-		    $msg = '';
-		}
-	    }
-	    registerMsg($msg);
-	}
+        $line = <>;
+        while ($line !~ /^[-=]+$/) {
+        $msg .= $line;
+        $line = <>;
+        if ($line =~ /\[(MOD|ADD|NEW|FIX|ENH)\]/) {
+            registerMsg($msg);
+            $msg = '';
+        }
+        }
+        registerMsg($msg);
+    }
     }
 }
 
@@ -73,26 +73,26 @@ sub registerMsg {
     my $msg = shift;
     chomp $msg;
     if ($msg) {
-	if (!$already{$msg}) {
-	    push @msgs, $msg;
-	    if ($msg =~ /\[(ADD|NEW)\]/) {
-		push @new, $msg;
-	    } elsif ($msg =~ /\[MOD\]/) {
-		push @mod, $msg;
-	    } elsif ($msg =~ /\[FIX\]/) {
-		push @fix, $msg;
-	    } elsif ($msg =~ /\[ENH\]/) {
-		push @enh, $msg;
-	    } else {
-		push @uncateg, $msg;
-	    }
-	    
-	    $files{$msg} = [ $lastFile ];
-	    
-	    $already{$msg} = 1;
-	} else {
-	    push @{$files{$msg}}, $lastFile;
-	}
+    if (!$already{$msg}) {
+        push @msgs, $msg;
+        if ($msg =~ /\[(ADD|NEW)\]/) {
+        push @new, $msg;
+        } elsif ($msg =~ /\[MOD\]/) {
+        push @mod, $msg;
+        } elsif ($msg =~ /\[FIX\]/) {
+        push @fix, $msg;
+        } elsif ($msg =~ /\[ENH\]/) {
+        push @enh, $msg;
+        } else {
+        push @uncateg, $msg;
+        }
+
+        $files{$msg} = [ $lastFile ];
+
+        $already{$msg} = 1;
+    } else {
+        push @{$files{$msg}}, $lastFile;
+    }
     }
 }
 
@@ -104,8 +104,8 @@ sub printMsgs {
     print $title, ":\n";
 
     foreach my $msg (@list) {
-	print $msg, "\n";
-	print '-' x 30, "\n";
+    print $msg, "\n";
+    print '-' x 30, "\n";
     }
     print "\n";
 }

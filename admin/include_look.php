@@ -92,86 +92,86 @@ $js
 
 \$(document).ready( function() {
 
-	var setupThemeSelects = function (themeDropDown, optionDropDown, showPreview) {
-		// pick up theme drop-down change
-		themeDropDown.change( function() {
-			var ops = theme_options[themeDropDown.val()];
-			var none = true;
-			var current = optionDropDown.val();
-			optionDropDown.empty().attr('disabled',false)
-					.append(\$('<option/>').attr('value','').text($none));
-			if (themeDropDown.val()) {
-				\$.each(ops[1], function(i, val) {
-					optionDropDown.append(\$('<option/>').attr('value',i).text(i));
-					none = false;
-				});
-			}
-			optionDropDown.val(current);
-			if (!optionDropDown.val()){
-				optionDropDown.val('');
-			}
+    var setupThemeSelects = function (themeDropDown, optionDropDown, showPreview) {
+        // pick up theme drop-down change
+        themeDropDown.change( function() {
+            var ops = theme_options[themeDropDown.val()];
+            var none = true;
+            var current = optionDropDown.val();
+            optionDropDown.empty().attr('disabled',false)
+                    .append(\$('<option/>').attr('value','').text($none));
+            if (themeDropDown.val()) {
+                \$.each(ops[1], function(i, val) {
+                    optionDropDown.append(\$('<option/>').attr('value',i).text(i));
+                    none = false;
+                });
+            }
+            optionDropDown.val(current);
+            if (!optionDropDown.val()){
+                optionDropDown.val('');
+            }
 
-			if (none) {
-				optionDropDown.attr('disabled',true);
-			}
-			optionDropDown.change();
-			if (jqueryTiki.select2) {
-				optionDropDown.trigger("change:select2");
-			}
-		}).change();
-		optionDropDown.change( function() {
-			if (showPreview !== undefined) {
-				var t = themeDropDown.val();
-				var o = optionDropDown.val();
-				var f = theme_options[t][1][o];
+            if (none) {
+                optionDropDown.attr('disabled',true);
+            }
+            optionDropDown.change();
+            if (jqueryTiki.select2) {
+                optionDropDown.trigger("change:select2");
+            }
+        }).change();
+        optionDropDown.change( function() {
+            if (showPreview !== undefined) {
+                var t = themeDropDown.val();
+                var o = optionDropDown.val();
+                var f = theme_options[t][1][o];
 
-				if ( ! f ) {
-					f = theme_options[t][0];
-				}
+                if ( ! f ) {
+                    f = theme_options[t][0];
+                }
 
-				if (f) {
-					\$('#theme_thumb').fadeOut('fast').attr('src', f).fadeIn('fast').animate({'opacity': 1}, 'fast');
-				} else {
-					\$('#theme_thumb').animate({'opacity': 0.3}, 'fast');
-				}
-			}
-		});
-	};
+                if (f) {
+                    \$('#theme_thumb').fadeOut('fast').attr('src', f).fadeIn('fast').animate({'opacity': 1}, 'fast');
+                } else {
+                    \$('#theme_thumb').animate({'opacity': 0.3}, 'fast');
+                }
+            }
+        });
+    };
 
-	setupThemeSelects(\$('.tab-content select[name=theme]'), \$('.tab-content select[name=theme_option]'), true);
-	setupThemeSelects(\$('.tab-content select[name=theme_admin]'), \$('.tab-content select[name=theme_option_admin]'));
+    setupThemeSelects(\$('.tab-content select[name=theme]'), \$('.tab-content select[name=theme_option]'), true);
+    setupThemeSelects(\$('.tab-content select[name=theme_admin]'), \$('.tab-content select[name=theme_option_admin]'));
 
-	var setupThemeLayouts = function (themeDropDown, optionDropDown, layoutDropDown) {
-		themeDropDown,optionDropDown.change( function() {
-			var theme_name = themeDropDown.val();
-			if (optionDropDown.val()){
-				theme_name += ":" + optionDropDown.val();
-			}
-			var layouts = theme_layouts[theme_name];
-			var current = layoutDropDown.val();
-			layoutDropDown.empty();
-			if (!theme_name){
-				layoutDropDown.append(\$('<option/>').attr('value','').text('Site layout'));
-				layoutDropDown.attr('disabled',true);
-			} else {
-				layoutDropDown.attr('disabled',false);
-				\$.each(layouts, function(i, val) {
-					layoutDropDown.append(\$('<option/>').attr('value',i).text(val));
-				});
+    var setupThemeLayouts = function (themeDropDown, optionDropDown, layoutDropDown) {
+        themeDropDown,optionDropDown.change( function() {
+            var theme_name = themeDropDown.val();
+            if (optionDropDown.val()){
+                theme_name += ":" + optionDropDown.val();
+            }
+            var layouts = theme_layouts[theme_name];
+            var current = layoutDropDown.val();
+            layoutDropDown.empty();
+            if (!theme_name){
+                layoutDropDown.append(\$('<option/>').attr('value','').text('Site layout'));
+                layoutDropDown.attr('disabled',true);
+            } else {
+                layoutDropDown.attr('disabled',false);
+                \$.each(layouts, function(i, val) {
+                    layoutDropDown.append(\$('<option/>').attr('value',i).text(val));
+                });
 
-				//try setting the option to the previously selected option and if no layout matched, set to 'basic'
-				layoutDropDown.val(current);
-				if (!layoutDropDown.val()){
-					layoutDropDown.val('basic');
-				}
-			}
-			layoutDropDown.change();
+                //try setting the option to the previously selected option and if no layout matched, set to 'basic'
+                layoutDropDown.val(current);
+                if (!layoutDropDown.val()){
+                    layoutDropDown.val('basic');
+                }
+            }
+            layoutDropDown.change();
 
-		}).change();
-	};
+        }).change();
+    };
 
-	setupThemeLayouts(\$('.tab-content select[name=theme]'), \$('.tab-content select[name=theme_option]'), \$('.tab-content select[name=site_layout]') );
-	setupThemeLayouts(\$('.tab-content select[name=theme_admin]'), \$('.tab-content select[name=theme_option_admin]'), \$('.tab-content select[name=site_layout_admin]') );
+    setupThemeLayouts(\$('.tab-content select[name=theme]'), \$('.tab-content select[name=theme_option]'), \$('.tab-content select[name=site_layout]') );
+    setupThemeLayouts(\$('.tab-content select[name=theme_admin]'), \$('.tab-content select[name=theme_option_admin]'), \$('.tab-content select[name=site_layout_admin]') );
 });
 JS
     );

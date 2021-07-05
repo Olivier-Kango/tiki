@@ -22,7 +22,7 @@ function wikiplugin_bigbluebutton_info()
                 'required' => true,
                 'name' => tra('Meeting'),
                 'description' => tr('MeetingID for BigBlueButton. This is a 5 digit number, starting with a 7.
-					Ex.: %0 or %1.', '<code>77777</code>', '<code>71111</code>'),
+                    Ex.: %0 or %1.', '<code>77777</code>', '<code>71111</code>'),
                 'since' => '5.0',
                 'filter' => 'text',
                 'default' => '',
@@ -55,7 +55,7 @@ function wikiplugin_bigbluebutton_info()
                 'required' => false,
                 'name' => tra('Voice Bridge'),
                 'description' => tra('Code to enter for phone attendees to join the room. Typically, the same 5 digits
-					of the MeetingID.'),
+                    of the MeetingID.'),
                 'since' => '5.0',
                 'filter' => 'digits',
                 'default' => '',
@@ -72,8 +72,8 @@ function wikiplugin_bigbluebutton_info()
                 'required' => false,
                 'name' => tra('Record'),
                 'description' => tra('The recording starts when the first person enters the room, and ends when the last
-					person leaves. After a period of processing (which depends on the length of the meeting), the
-					recording will be added to the list of all recordings for this room. Requires BBB >= 0.8.'),
+                    person leaves. After a period of processing (which depends on the length of the meeting), the
+                    recording will be added to the list of all recordings for this room. Requires BBB >= 0.8.'),
                 'since' => '5.0',
                 'filter' => 'digits',
                 'default' => 0,

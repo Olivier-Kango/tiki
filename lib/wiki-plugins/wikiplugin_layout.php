@@ -419,51 +419,51 @@ function wikiplugin_layout($data, $params)
 
         $headerlib->add_css(
             '.bgdiv{ 
-			background-image: url(' . $defaultImage . ');
-			transition: background 1s linear;
-			background-color:' . $params["bgcolor"] . ';
-			height: 100%; 
-			min-height: 100%; 
-			position: absolute; 
-			top: 0; 
-			right: 0; 
-			bottom: 0; 
-			width:100%; 
-			z-index:-100; 
-		 }
-		 body{background-image:url(' . $defaultImage . ')}'
+            background-image: url(' . $defaultImage . ');
+            transition: background 1s linear;
+            background-color:' . $params["bgcolor"] . ';
+            height: 100%; 
+            min-height: 100%; 
+            position: absolute; 
+            top: 0; 
+            right: 0; 
+            bottom: 0; 
+            width:100%; 
+            z-index:-100; 
+         }
+         body{background-image:url(' . $defaultImage . ')}'
         );
         $headerlib->add_js(
             'var bgDiv=new Array();
-			var imageArr=new Array(' . $imageArr . ');
-			var image_preload=new Array(); //preloading and appending background images
-			for(i=0; i<imageArr.length; i++) { 
-  				image_preload[i] = new Image();
-  				image_preload[i].src = imageArr[i];
-  				bgDiv[i] = document.createElement("div");
-				$(bgDiv[i]).addClass(\'bgdiv\');
-				$(bgDiv[i]).attr("style","background-image:url(\'" + imageArr[i] + "\')");
-				$(bgDiv[i]).css("z-index",-100+i);
-				$(bgDiv[i]).css("display","none");
-				$("body").append(bgDiv[i]);
-  			}
-			$(document).ready(function() {
-				var position=1;
-				$(bgDiv[0]).fadeIn("slow"); //making first div appear
-				setInterval(function () {
-					if(position!=0) {
-						$(bgDiv[position-1]).fadeOut();
-					}
-					else {
-						$(bgDiv[imageArr.length-1]).fadeOut("slow");
-					}
-					$(bgDiv[position]).fadeIn("2000");
-					position++;
-					if(position==imageArr.length){
-						position=0;
-					}
-				}, ' . $transitionDelay . ');
-			});'
+            var imageArr=new Array(' . $imageArr . ');
+            var image_preload=new Array(); //preloading and appending background images
+            for(i=0; i<imageArr.length; i++) { 
+                  image_preload[i] = new Image();
+                  image_preload[i].src = imageArr[i];
+                  bgDiv[i] = document.createElement("div");
+                $(bgDiv[i]).addClass(\'bgdiv\');
+                $(bgDiv[i]).attr("style","background-image:url(\'" + imageArr[i] + "\')");
+                $(bgDiv[i]).css("z-index",-100+i);
+                $(bgDiv[i]).css("display","none");
+                $("body").append(bgDiv[i]);
+              }
+            $(document).ready(function() {
+                var position=1;
+                $(bgDiv[0]).fadeIn("slow"); //making first div appear
+                setInterval(function () {
+                    if(position!=0) {
+                        $(bgDiv[position-1]).fadeOut();
+                    }
+                    else {
+                        $(bgDiv[imageArr.length-1]).fadeOut("slow");
+                    }
+                    $(bgDiv[position]).fadeIn("2000");
+                    position++;
+                    if(position==imageArr.length){
+                        position=0;
+                    }
+                }, ' . $transitionDelay . ');
+            });'
         );
     }
     if (isset($params['contentbg']) || isset($params['contenttextcolor'])) {

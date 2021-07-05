@@ -9,7 +9,7 @@ if (strpos($_SERVER["SCRIPT_NAME"],basename(__FILE__)) !== false) {
 
 # 
 # PHPZip v1.2 by Sext (sext@neud.net) 2002-11-18
-# 	(Changed: 2003-03-01)
+#     (Changed: 2003-03-01)
 # 
 # Makes zip archive
 #
@@ -21,79 +21,79 @@ APIC::import("org.apicnet.io.File");
 
 class CZip {
 
-	public function __construct(){}
+    public function __construct(){}
 
-	public function Zip($dir, $zipfilename){
-    	if (@function_exists('gzcompress')) {
-			
-			$file = new File($zipfilename, TRUE);
-			if ($file->exists()) {
-				$file->delFile();
-				$file->createFile();
-			}
-			
-			$curdir = getcwd();
-			if (is_array($dir)) {
-					$filelist = $dir;
-			} else {
-				$filelist = $this -> GetFileList($dir);
-			}
-			
-			
-			if ((!empty($dir))&&(!is_array($dir))&&(file_exists($dir))) chdir($dir);
-			else chdir($curdir);
+    public function Zip($dir, $zipfilename){
+        if (@function_exists('gzcompress')) {
 
-			if (count($filelist)>0) {
-				$root = dirname ($filelist[0]);
-				foreach($filelist as $filename) {
-					if (is_file($filename)) {
-						$fd = fopen ($filename, "r");
-						$content = fread ($fd, filesize ($filename));
-						fclose ($fd);
-						
-						
-						if (is_array($dir)) {
-							$dirname  = dirname($filename);
-							$filename = basename($filename);
-							if ($dirname != $root) $filename = str_replace($root."/", "", $dirname)."/".$filename;
-						}
-						
-						$this -> addFile($content, $filename);
-					}
-				}
-				$out = $this -> file();
+            $file = new File($zipfilename, TRUE);
+            if ($file->exists()) {
+                $file->delFile();
+                $file->createFile();
+            }
 
-				chdir($curdir);
-				$fp = fopen($zipfilename, "w");
-				fwrite($fp, $out, strlen($out));
-				fclose($fp);
-			}
-			return 1;
-		} 
-		else return 0;
-	}
+            $curdir = getcwd();
+            if (is_array($dir)) {
+                    $filelist = $dir;
+            } else {
+                $filelist = $this -> GetFileList($dir);
+            }
 
-	public function GetFileList($dir){
-		if (file_exists($dir)) {
-			$args = func_get_args();
-			$pref = $args[1];
-   	
-			$dh = opendir($dir);
-			while($files = readdir($dh)) {
-				if (($files!=".")&&($files!="..")) {
-					if (is_dir($dir.$files)) {
-						$curdir = getcwd();
-						chdir($dir.$files);
-						$file = array_merge($file, $this -> GetFileList("", "$pref$files/"));
-						chdir($curdir);
-					}
-					else $file[]=$pref.$files;
-				}
-			}
-			closedir($dh);
-		}
-		return $file;
-	}
+
+            if ((!empty($dir))&&(!is_array($dir))&&(file_exists($dir))) chdir($dir);
+            else chdir($curdir);
+
+            if (count($filelist)>0) {
+                $root = dirname ($filelist[0]);
+                foreach($filelist as $filename) {
+                    if (is_file($filename)) {
+                        $fd = fopen ($filename, "r");
+                        $content = fread ($fd, filesize ($filename));
+                        fclose ($fd);
+
+
+                        if (is_array($dir)) {
+                            $dirname  = dirname($filename);
+                            $filename = basename($filename);
+                            if ($dirname != $root) $filename = str_replace($root."/", "", $dirname)."/".$filename;
+                        }
+
+                        $this -> addFile($content, $filename);
+                    }
+                }
+                $out = $this -> file();
+
+                chdir($curdir);
+                $fp = fopen($zipfilename, "w");
+                fwrite($fp, $out, strlen($out));
+                fclose($fp);
+            }
+            return 1;
+        }
+        else return 0;
+    }
+
+    public function GetFileList($dir){
+        if (file_exists($dir)) {
+            $args = func_get_args();
+            $pref = $args[1];
+
+            $dh = opendir($dir);
+            while($files = readdir($dh)) {
+                if (($files!=".")&&($files!="..")) {
+                    if (is_dir($dir.$files)) {
+                        $curdir = getcwd();
+                        chdir($dir.$files);
+                        $file = array_merge($file, $this -> GetFileList("", "$pref$files/"));
+                        chdir($curdir);
+                    }
+                    else $file[]=$pref.$files;
+                }
+            }
+            closedir($dh);
+        }
+        return $file;
+    }
 
     public $datasec      = array();
     public $ctrl_dir     = array();
@@ -110,16 +110,16 @@ class CZip {
      *
      * @access private
      */
-	public function unix2DosTime($unixtime = 0) {
+    public function unix2DosTime($unixtime = 0) {
         $timearray = ($unixtime == 0) ? getdate() : getdate($unixtime);
 
         if ($timearray['year'] < 1980) {
-        	$timearray['year']    = 1980;
-        	$timearray['mon']     = 1;
-        	$timearray['mday']    = 1;
-        	$timearray['hours']   = 0;
-        	$timearray['minutes'] = 0;
-        	$timearray['seconds'] = 0;
+            $timearray['year']    = 1980;
+            $timearray['mon']     = 1;
+            $timearray['mday']    = 1;
+            $timearray['hours']   = 0;
+            $timearray['minutes'] = 0;
+            $timearray['seconds'] = 0;
         } // end if
 
         return (($timearray['year'] - 1980) << 25) | ($timearray['mon'] << 21) | ($timearray['mday'] << 16) |
@@ -136,7 +136,7 @@ class CZip {
      *
      * @access public
      */
-	public function addFile($data, $name, $time = 0){
+    public function addFile($data, $name, $time = 0){
         $name     = str_replace('\\', '/', $name);
 
         $dtime    = dechex($this->unix2DosTime($time));
@@ -213,7 +213,7 @@ class CZip {
      *
      * @access public
      */
-	public function file(){
+    public function file(){
         $data    = implode('', $this -> datasec);
         $ctrldir = implode('', $this -> ctrl_dir);
 
@@ -228,40 +228,40 @@ class CZip {
             "\x00\x00";                             // .zip file comment length
     }
 
-	public function createDir($dir){
-		if (preg_match("/(\/$)/i", $dir)) @mkdir (substr($dir, 0, strlen($dir) - 1));
-		else @mkdir ($dir);
-	}
+    public function createDir($dir){
+        if (preg_match("/(\/$)/i", $dir)) @mkdir (substr($dir, 0, strlen($dir) - 1));
+        else @mkdir ($dir);
+    }
 
 
-	public function createFile($file, $data){
-		$file = new File($file, TRUE);
-		if ($file->exists()) {
-			$file->delFile();
-			$file->createFile();
-		}
-		$file->writeData($data);
-	}
+    public function createFile($file, $data){
+        $file = new File($file, TRUE);
+        if ($file->exists()) {
+            $file->delFile();
+            $file->createFile();
+        }
+        $file->writeData($data);
+    }
 
 
-	public function extract($dir, $zipfilename){
-		if (function_exists("zip_open")) {
-			//$dir  = eregi_replace("(\..*$)", "", $zipfilename);
-			$this->createDir($dir);
-			$zip  = zip_open($zipfilename);
-			if ($zip) {
-			   while ($zip_entry = zip_read($zip)) {
-			       if (zip_entry_open($zip, $zip_entry, "r")) {
-			           $buf = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
-					   if (preg_match("/(\/)/i", zip_entry_name($zip_entry))) $this->createDir($dir."/".preg_replace("/\/.*$/", "", zip_entry_name($zip_entry))); 
-					   $this->createFile($dir."/".zip_entry_name($zip_entry), $buf);
-			           zip_entry_close($zip_entry);
-			       }
-			   }
-			   zip_close($zip);
-			}
-		} 
-	}
-	
+    public function extract($dir, $zipfilename){
+        if (function_exists("zip_open")) {
+            //$dir  = eregi_replace("(\..*$)", "", $zipfilename);
+            $this->createDir($dir);
+            $zip  = zip_open($zipfilename);
+            if ($zip) {
+               while ($zip_entry = zip_read($zip)) {
+                   if (zip_entry_open($zip, $zip_entry, "r")) {
+                       $buf = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
+                       if (preg_match("/(\/)/i", zip_entry_name($zip_entry))) $this->createDir($dir."/".preg_replace("/\/.*$/", "", zip_entry_name($zip_entry)));
+                       $this->createFile($dir."/".zip_entry_name($zip_entry), $buf);
+                       zip_entry_close($zip_entry);
+                   }
+               }
+               zip_close($zip);
+            }
+        }
+    }
+
 
 }

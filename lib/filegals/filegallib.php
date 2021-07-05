@@ -2273,7 +2273,7 @@ class FileGalLib extends TikiLib
     public function get_file_by_name($galleryId, $name, $column = 'name')
     {
         $query = "select `fileId`,`path`,`galleryId`,`filename`,`filetype`,`data`,`filesize`,`name`,`description`,
-				`created` from `tiki_files` where `galleryId`=? AND `$column`=? ORDER BY created DESC LIMIT 1";
+                `created` from `tiki_files` where `galleryId`=? AND `$column`=? ORDER BY created DESC LIMIT 1";
         $result = $this->query($query, [(int) $galleryId, $name]);
         $res = $result->fetchRow();
         return $res;

@@ -33,7 +33,7 @@ function smarty_function_interactivetranslation($params, $smarty)
     );
 
     $jq = <<<JS
-	var data = $strings;
+    var data = $strings;
 JS;
 
     $headerlib->add_jq_onready($jq);

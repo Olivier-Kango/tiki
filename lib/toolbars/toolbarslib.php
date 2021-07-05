@@ -483,23 +483,23 @@ abstract class Toolbar
         TikiLib::lib('header')->add_js(
             <<< JS
 if (typeof window.CKEDITOR !== "undefined" && !window.CKEDITOR.plugins.get("{$name}")) {
-	window.CKEDITOR.config.extraPlugins += (window.CKEDITOR.config.extraPlugins ? ',{$name}' : '{$name}' );
-	window.CKEDITOR.plugins.add( '{$name}', {
-		init : function( editor ) {
-			var command = editor.addCommand( '{$name}', new window.CKEDITOR.command( editor , {
-				modes: { wysiwyg:1 },
-				exec: function (editor, data) {
-					{$js}
-				},
-				canUndo: false
-			}));
-			editor.ui.addButton( '{$name}', {
-				label : '{$label}',
-				command : '{$name}',
-				icon: editor.config._TikiRoot + '{$icon}'
-			});
-		}
-	});
+    window.CKEDITOR.config.extraPlugins += (window.CKEDITOR.config.extraPlugins ? ',{$name}' : '{$name}' );
+    window.CKEDITOR.plugins.add( '{$name}', {
+        init : function( editor ) {
+            var command = editor.addCommand( '{$name}', new window.CKEDITOR.command( editor , {
+                modes: { wysiwyg:1 },
+                exec: function (editor, data) {
+                    {$js}
+                },
+                canUndo: false
+            }));
+            editor.ui.addButton( '{$name}', {
+                label : '{$label}',
+                command : '{$name}',
+                icon: editor.config._TikiRoot + '{$icon}'
+            });
+        }
+    });
 }
 JS
             ,
@@ -1192,7 +1192,7 @@ class ToolbarDialog extends Toolbar
                         $prefs['feature_semantic'] == 'y' ? '<label for="tbWLinkRel">' . tra("Semantic relation") . ':</label>' : '',
                         $prefs['feature_semantic'] == 'y' ? '<input type="text" id="tbWLinkRel" class="ui-widget-content ui-corner-all" style="width: 98%" />' : '',
                         '{"open": function () { dialogInternalLinkOpen(area_id); },
-						"buttons": { "' . tra("Cancel") . '": function() { dialogSharedClose(area_id,this); },' .
+                        "buttons": { "' . tra("Cancel") . '": function() { dialogSharedClose(area_id,this); },' .
                                     '"' . tra("Insert") . '": function() { dialogInternalLinkInsert(area_id,this); }}}'
                     ];
 
@@ -1231,7 +1231,7 @@ class ToolbarDialog extends Toolbar
                         $object_selector,
     //                      '<input type="text" id="tbOLinkObjectSelector" class="ui-widget-content ui-corner-all" style="width: 98%" />',
                         '{"open": function () { dialogObjectLinkOpen(area_id); },
-						"buttons": { "' . tra("Cancel") . '": function() { dialogSharedClose(area_id,this); },' .
+                        "buttons": { "' . tra("Cancel") . '": function() { dialogSharedClose(area_id,this); },' .
                                     '"' . tra("Insert") . '": function() { dialogObjectLinkInsert(area_id,this); }}}'
                     ];
 
@@ -1251,7 +1251,7 @@ class ToolbarDialog extends Toolbar
                         $prefs['cachepages'] == 'y' ? '<br /><label for="tbLinkNoCache" style="display:inline;">' . tra("No cache") . ':</label>' : '',
                         $prefs['cachepages'] == 'y' ? '<input type="checkbox" id="tbLinkNoCache" class="ui-widget-content ui-corner-all" />' : '',
                         '{"width": 300, "open": function () { dialogExternalLinkOpen( area_id ) },
-						"buttons": { "' . tra("Cancel") . '": function() { dialogSharedClose(area_id,this); },' .
+                        "buttons": { "' . tra("Cancel") . '": function() { dialogSharedClose(area_id,this); },' .
                                     '"' . tra("Insert") . '": function() { dialogExternalLinkInsert(area_id,this) }}}'
                     ];
                 break;
@@ -1264,7 +1264,7 @@ class ToolbarDialog extends Toolbar
                 $label = tra('Table Builder');
                 $list = [tra('Table Builder'),
                         '{"open": function () { dialogTableOpen(area_id,this); },
-						"width": 320, "buttons": { "' . tra("Cancel") . '": function() { dialogSharedClose(area_id,this); },' .
+                        "width": 320, "buttons": { "' . tra("Cancel") . '": function() { dialogSharedClose(area_id,this); },' .
                                                   '"' . tra("Insert") . '": function() { dialogTableInsert(area_id,this); }}}'
                     ];
                 break;
@@ -1527,37 +1527,37 @@ class ToolbarFileGallery extends Toolbar
         } else {
             TikiLib::lib('header')->add_jq_onready(
                 'window.handleFinderInsertAt = function (file, elfinder, area_id) {
-					$.getJSON($.service("file_finder", "finder"), { cmd: "tikiFileFromHash", hash: file.hash },
-						function (data) {
-							$(window).data("elFinderDialog").dialog("close");
-							$($(window).data("elFinderDialog")).remove();
-							$(window).data("elFinderDialog", null);
-							window.insertAt(area_id, data.wiki_syntax);
-							return false;
-						}
-					);
-				};'
+                    $.getJSON($.service("file_finder", "finder"), { cmd: "tikiFileFromHash", hash: file.hash },
+                        function (data) {
+                            $(window).data("elFinderDialog").dialog("close");
+                            $($(window).data("elFinderDialog")).remove();
+                            $(window).data("elFinderDialog", null);
+                            window.insertAt(area_id, data.wiki_syntax);
+                            return false;
+                        }
+                    );
+                };'
             );
             $smarty->loadPlugin('smarty_function_ticket');
             return '
-			var area_id = (typeof editor === \'undefined\' ?  \'' . $areaId . '\' : editor.name);
-			openElFinderDialog(
-				this,
-				{
-					defaultGalleryId: ' . (empty($prefs['home_file_gallery']) ? $prefs['fgal_root_id'] : $prefs['home_file_gallery']) . ',
-					deepGallerySearch: true,
-					ticket: \'' . smarty_function_ticket(['mode' => 'get'], $smarty) . '\',
-					getFileCallback: function(file,elfinder) {
-							window.handleFinderInsertAt(file,elfinder,area_id);
-						},
-					eventOrigin:this,
-					uploadCallback: function (data) {
-							if (data.data.added.length === 1 && confirm(tr(\'Do you want to use this file in your page?\'))) {
-								window.handleFinderInsertAt(data.data.added[0],window.elFinder,area_id);
-							}
-						}
-				}
-			);';
+            var area_id = (typeof editor === \'undefined\' ?  \'' . $areaId . '\' : editor.name);
+            openElFinderDialog(
+                this,
+                {
+                    defaultGalleryId: ' . (empty($prefs['home_file_gallery']) ? $prefs['fgal_root_id'] : $prefs['home_file_gallery']) . ',
+                    deepGallerySearch: true,
+                    ticket: \'' . smarty_function_ticket(['mode' => 'get'], $smarty) . '\',
+                    getFileCallback: function(file,elfinder) {
+                            window.handleFinderInsertAt(file,elfinder,area_id);
+                        },
+                    eventOrigin:this,
+                    uploadCallback: function (data) {
+                            if (data.data.added.length === 1 && confirm(tr(\'Do you want to use this file in your page?\'))) {
+                                window.handleFinderInsertAt(data.data.added[0],window.elFinder,area_id);
+                            }
+                        }
+                }
+            );';
         }
     }
 
@@ -1832,10 +1832,10 @@ class ToolbarSheet extends Toolbar
                 $label = tra('Save Sheet');
                 $iconname = 'floppy';
                 $syntax = '
-					$("#saveState").hide();
-					$.sheet.saveSheet($.sheet.tikiSheet, function() {
-						$.sheet.manageState($.sheet.tikiSheet, true);
-					});';
+                    $("#saveState").hide();
+                    $.sheet.saveSheet($.sheet.tikiSheet, function() {
+                        $.sheet.manageState($.sheet.tikiSheet, true);
+                    });';
                 break;
             case 'addrow':
                 $label = tra('Add row after selection or to the end if no selection');

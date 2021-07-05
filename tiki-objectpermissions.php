@@ -548,44 +548,44 @@ foreach ($groupNames as $groupName) {
     }
 
     $js .= "\$('input[name=\"perm[$groupName][]\"]').eachAsync({
-	delay: 10,
-	bulk: 0,
+    delay: 10,
+    bulk: 0,
 ";
     if ($i == count($groupNames) - 1) {
         $js .= "end: function () {
-				\$('#perms_busy').hide();
-			},
+                \$('#perms_busy').hide();
+            },
 ";
     }
-    $js .= "loop: function() { 		// each one of this group
+    $js .= "loop: function() {         // each one of this group
 
-	if (\$(this).is(':checked')) {
-		\$('input[value=\"'+\$(this).val()+'\"]').					// other checkboxes of same value (perm)
-			filter('$beneficiaries').								// which inherit from this
-			prop('checked',\$(this).is(':checked')).				// check and disable
-			prop('disabled',\$(this).is(':checked'));
-	}
+    if (\$(this).is(':checked')) {
+        \$('input[value=\"'+\$(this).val()+'\"]').                    // other checkboxes of same value (perm)
+            filter('$beneficiaries').                                // which inherit from this
+            prop('checked',\$(this).is(':checked')).                // check and disable
+            prop('disabled',\$(this).is(':checked'));
+    }
 
-	\$(this).on( 'change', function(e, parent) {	// bind click event
+    \$(this).on( 'change', function(e, parent) {    // bind click event
 
-		if (\$(this).is(':checked')) {
-			\$('input[value=\"'+\$(this).val()+'\"]').			// same...
-				filter('$beneficiaries').each(function() {
-					$(this).
-						prop('checked',true).					// check?
-						prop('disabled',true).					// disable
-						trigger('change', [this]);
-				});
-		} else {
-			\$('input[value=\"'+\$(this).val()+'\"]').			// same...
-				filter('$beneficiaries').each(function() {
-					$(this).
-						prop('checked',false).					// check?
-						prop('disabled',false).					// disable
-						trigger('change', [this]);
-				});
-		}
-	});
+        if (\$(this).is(':checked')) {
+            \$('input[value=\"'+\$(this).val()+'\"]').            // same...
+                filter('$beneficiaries').each(function() {
+                    $(this).
+                        prop('checked',true).                    // check?
+                        prop('disabled',true).                    // disable
+                        trigger('change', [this]);
+                });
+        } else {
+            \$('input[value=\"'+\$(this).val()+'\"]').            // same...
+                filter('$beneficiaries').each(function() {
+                    $(this).
+                        prop('checked',false).                    // check?
+                        prop('disabled',false).                    // disable
+                        trigger('change', [this]);
+                });
+        }
+    });
 }
 });
 
@@ -596,21 +596,21 @@ foreach ($groupNames as $groupName) {
     // add cell colouring helpers
     $js .= '
 $("table.objectperms input[type=checkbox]").change(function () {
-	var $this = $(this);
-	var $parent = $this.parent();
-	if ($this.is(":checked")) {
-		if ($parent.hasClass("removed")) {
-			$parent.removeClass("removed");
-		} else {
-			$parent.addClass("added");
-		}
-	} else {
-		if ($parent.hasClass("added")) {
-			$parent.removeClass("added");
-		} else {
-			$parent.addClass("removed");
-		}
-	}
+    var $this = $(this);
+    var $parent = $this.parent();
+    if ($this.is(":checked")) {
+        if ($parent.hasClass("removed")) {
+            $parent.removeClass("removed");
+        } else {
+            $parent.addClass("added");
+        }
+    } else {
+        if ($parent.hasClass("added")) {
+            $parent.removeClass("added");
+        } else {
+            $parent.addClass("removed");
+        }
+    }
 });
 ';
 
@@ -895,18 +895,18 @@ function get_displayed_permissions()
 var permsAdded = ' . json_encode($permissions_added) . ';
 var permsRemoved = ' . json_encode($permissions_removed) . ';
 for (var group in permsAdded) {
-	if (permsAdded.hasOwnProperty(group)) {
-		for (var i = 0; i < permsAdded[group].length; i++) {
-			 $("input[name=\'perm[" + `group` + "][]\'][value=\'tiki_p_" + permsAdded[group][i] + "\']").parent().addClass("added");
-		}
-	}
+    if (permsAdded.hasOwnProperty(group)) {
+        for (var i = 0; i < permsAdded[group].length; i++) {
+             $("input[name=\'perm[" + `group` + "][]\'][value=\'tiki_p_" + permsAdded[group][i] + "\']").parent().addClass("added");
+        }
+    }
 }
 for (var group in permsRemoved) {
-	if (permsRemoved.hasOwnProperty(group)) {
-		for (var i = 0; i < permsRemoved[group].length; i++) {
-			 $("input[name=\'perm[" + `group` + "][]\'][value=\'tiki_p_" + permsRemoved[group][i] + "\']").parent().addClass("removed");
-		}
-	}
+    if (permsRemoved.hasOwnProperty(group)) {
+        for (var i = 0; i < permsRemoved[group].length; i++) {
+             $("input[name=\'perm[" + `group` + "][]\'][value=\'tiki_p_" + permsRemoved[group][i] + "\']").parent().addClass("removed");
+        }
+    }
 }
 ');
     }

@@ -105,10 +105,10 @@ class TranslationPercentageCommand extends Command
             $output .= "{HTML()} <p class='text-info'>{HTML}{TR()}The total number of strings is different for each language due to unused translations present in the language.php files. {TR}{HTML()}</p> {HTML}";
             $output .= " {HTML()} <h3 class='text-capitalize text-info'>{HTML}{TR()}Global stats : {TR}{HTML()}</h3> {HTML}";
             $output .= " {HTML()} <ul class='list-group col-6 mb-2'>
- 					<li class='list-group-item'><span class='text-success'>{$globalStats['70+']}</span>  {HTML}{TR()} languages with more than {TR}{HTML()}<span class='text-success'> 70%</span> {HTML}{TR()} translated{TR}{HTML()}</li>
- 					<li class='list-group-item'><span class='text-success'>{$globalStats['30+']} </span> {HTML}{TR()} languages with more than {TR}{HTML()}<span class='text-success'> 30%</span> {HTML}{TR()} translated{TR}{HTML()}</li>
- 					<li class='list-group-item'><span class='text-success'>{$globalStats['0+']} </span> {HTML}{TR()} languages with less than {TR}{HTML()}<span class='text-success'> 30%</span>  {HTML}{TR()}translated{TR}{HTML()}</li>
-				</ul>{HTML}";
+                     <li class='list-group-item'><span class='text-success'>{$globalStats['70+']}</span>  {HTML}{TR()} languages with more than {TR}{HTML()}<span class='text-success'> 70%</span> {HTML}{TR()} translated{TR}{HTML()}</li>
+                     <li class='list-group-item'><span class='text-success'>{$globalStats['30+']} </span> {HTML}{TR()} languages with more than {TR}{HTML()}<span class='text-success'> 30%</span> {HTML}{TR()} translated{TR}{HTML()}</li>
+                     <li class='list-group-item'><span class='text-success'>{$globalStats['0+']} </span> {HTML}{TR()} languages with less than {TR}{HTML()}<span class='text-success'> 30%</span>  {HTML}{TR()}translated{TR}{HTML()}</li>
+                </ul>{HTML}";
         }
 
         $output .= "{FANCYTABLE(head=\"Language code (ISO)|English name|Native Name|Completion|Percentage|Number of strings\" sortable=\"y\")}\n";

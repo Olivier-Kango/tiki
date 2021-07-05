@@ -15,8 +15,8 @@
 #   It is used by the main release script (doc/devtools/release.php)
 #   To get the Tiki release HOWTO, try: php doc/devtools/release.php --howto
 #
-#	UPDATE:		this script is no longer used, a php version is now
-# 				incorporated into release.php
+#    UPDATE:        this script is no longer used, a php version is now
+#                 incorporated into release.php
 # ==========================================================================
 #
 
@@ -29,9 +29,9 @@ MODULE="tiki"
 
 if [ -z $2 ]; then
 echo "Usage: tikirelease.sh <release-version> <svn-relative-path>"
-	echo "  <release-version> in separated by dots like in 2.0.RC1"
-	echo "  <svn-relative-path> as in subversion (ex: branches/2.0 , tags/2.0)"
-	exit 0
+    echo "  <release-version> in separated by dots like in 2.0.RC1"
+    echo "  <svn-relative-path> as in subversion (ex: branches/2.0 , tags/2.0)"
+    exit 0
 fi
 
 OLDIR="`pwd`"
@@ -58,10 +58,10 @@ echo "Exporting $SVNROOT/$RELTAG $MODULE-$VER"
 svn export $SVNROOT/$RELTAG $MODULE-$VER
 
 if [ -f $MODULE-$VER/vendor_bundled/composer.json ]; then
-	wget -N http://getcomposer.org/composer.phar >/dev/null 2>&1 || curl -O "http://getcomposer.org/composer.phar"
-	cd $MODULE-$VER
-	php ../composer.phar install -d vendor_bundled --prefer-dist --no-dev 2>&1 | sed '/Warning: Ambiguous class resolution/d'
-	cd ..
+    wget -N http://getcomposer.org/composer.phar >/dev/null 2>&1 || curl -O "http://getcomposer.org/composer.phar"
+    cd $MODULE-$VER
+    php ../composer.phar install -d vendor_bundled --prefer-dist --no-dev 2>&1 | sed '/Warning: Ambiguous class resolution/d'
+    cd ..
 fi
 
 echo "Cleaning up"

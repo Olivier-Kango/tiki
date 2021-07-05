@@ -28,7 +28,7 @@ function wikiplugin_webdocviewer_info()
                 'required' => false,
                 'name' => tra('URL'),
                 'description' => tr('The URL of the file you wish to embed in the viewer. If the file is stored in
-					File Galleries, please use the %0 parameter', '<code>fileId</code>'),
+                    File Galleries, please use the %0 parameter', '<code>fileId</code>'),
                 'since' => '12.0',
                 'filter' => 'url',
             ],

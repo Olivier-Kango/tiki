@@ -87,7 +87,7 @@ function wikiplugin_div_info()
                 'required' => false,
                 'name' => tra('Float Position'),
                 'description' => tr('Set the alignment for the entire element. For elements with a width of less than
-				100%, other elements will wrap around it unless the %0 parameter is appropriately set.', '<code>clear</code>'),
+                100%, other elements will wrap around it unless the %0 parameter is appropriately set.', '<code>clear</code>'),
                 'since' => '1',
                 'filter' => 'alpha',
                 'safe' => true,

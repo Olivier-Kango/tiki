@@ -55,7 +55,7 @@ function wikiplugin_trackertoggle_info()
                 'required' => false,
                 'name' => tra('Item ID'),
                 'description' => tra('Use the field of specific item. The URL param itemId is used if this parameter
-					is not set.'),
+                    is not set.'),
                 'since' => '7.0',
                 'filter' => 'digits',
                 'default' => 0,

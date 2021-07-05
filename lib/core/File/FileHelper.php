@@ -119,40 +119,40 @@ class FileHelper
 
             $headerlib = TikiLib::lib('header');
             $headerlib->add_css("
-				.iframe-container {
-					overflow: hidden;
-					padding-top: 56.25%;
-					position: relative;
-					height: 900px;
-				}
-				
-				.iframe-container iframe {
-					border: 0;
-					height: 100%;
-					left: 0;
-					position: absolute;
-					top: 0;
-					width: 100%;
-				}
-				
-				@media (max-width: 767px) {
-					.iframe-container {
-						height: 500px;
-					} 
-				}
-				
-				@media (min-width: 768px) AND (max-width: 991px) {
-					.iframe-container {
-						height: 600px;
-					}
-				}
-				
-				@media (min-width: 992px) AND (max-width: 1209px) {
-					.iframe-container {
-						height: 700px;
-					}
-				}
-			");
+                .iframe-container {
+                    overflow: hidden;
+                    padding-top: 56.25%;
+                    position: relative;
+                    height: 900px;
+                }
+                
+                .iframe-container iframe {
+                    border: 0;
+                    height: 100%;
+                    left: 0;
+                    position: absolute;
+                    top: 0;
+                    width: 100%;
+                }
+                
+                @media (max-width: 767px) {
+                    .iframe-container {
+                        height: 500px;
+                    } 
+                }
+                
+                @media (min-width: 768px) AND (max-width: 991px) {
+                    .iframe-container {
+                        height: 600px;
+                    }
+                }
+                
+                @media (min-width: 992px) AND (max-width: 1209px) {
+                    .iframe-container {
+                        height: 700px;
+                    }
+                }
+            ");
 
             $template = 'pdf.tpl';
         }

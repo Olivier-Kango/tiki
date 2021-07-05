@@ -65,18 +65,18 @@ function smarty_function_scheduler_params($params, $smarty)
 
                 $infoHtml = <<<HTML
 <a class="tikihelp text-info" title="{$param['name']}: {$description}">
-	{$icon}
+    {$icon}
 </a>
 HTML;
             }
 
             $html .= <<<HTML
 <div class="form-group row" data-task-name="{$params['name']}" style="display:none">
-	<label class="col-sm-2 col-form-label" for="{$inputKey}">{$param['name']}{$required}</label>
-	<div class="col-sm-10">
-		{$input}
-		{$infoHtml}
-	</div>
+    <label class="col-sm-2 col-form-label" for="{$inputKey}">{$param['name']}{$required}</label>
+    <div class="col-sm-10">
+        {$input}
+        {$infoHtml}
+    </div>
 </div>
 HTML;
         }

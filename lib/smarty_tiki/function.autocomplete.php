@@ -11,12 +11,12 @@
  *
  * Params:
  *
- *		element: Required (jQuery selector, and match multiple elements)
- *		type:    Required (defined in tiki-jquery.js -> $.fn.tiki
- *				 currently: pagename|groupname|username|usersandcontacts|userrealname|tag|icon|trackername)
- *		options: Optional further options for autocomplete fn
- *				 see http://docs.jquery.com/Plugins/Autocomplete/autocomplete#url_or_dataoptions
- *				 N.B. Will be wrapped in {} chars here to avoid smarty delimiter difficulties
+ *        element: Required (jQuery selector, and match multiple elements)
+ *        type:    Required (defined in tiki-jquery.js -> $.fn.tiki
+ *                 currently: pagename|groupname|username|usersandcontacts|userrealname|tag|icon|trackername)
+ *        options: Optional further options for autocomplete fn
+ *                 see http://docs.jquery.com/Plugins/Autocomplete/autocomplete#url_or_dataoptions
+ *                 N.B. Will be wrapped in {} chars here to avoid smarty delimiter difficulties
  *
  */
 function smarty_function_autocomplete($params, $smarty)

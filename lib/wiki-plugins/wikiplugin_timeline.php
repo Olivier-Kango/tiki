@@ -22,7 +22,7 @@ function wikiplugin_timeline_info()
                 'required' => false,
                 'name' => tr('Scope'),
                 'description' => tr('Display the event list items represented in the page. (%0all%1, %0center%1, or
-					a custom CSS selector)', '<code>', '</code>'),
+                    a custom CSS selector)', '<code>', '</code>'),
                 'since' => '8.0',
                 'filter' => 'text',
                 'default' => 'center',
@@ -117,11 +117,11 @@ function wikiplugin_timeline($data, $params)
 
     $headerlib->add_jq_onready(
         '// TODO set up datasource - get data from {list} output or calendar events
-					var ttl_eventData = { events: [], dateTimeFormat: ""};
-					setTimeout( function(){
-						ttlInit("ttl_timeline", ttl_eventData,"' . $params['scale1'] . '","' . $params['scale2'] . '");
-					}, 1000);
-					'
+                    var ttl_eventData = { events: [], dateTimeFormat: ""};
+                    setTimeout( function(){
+                        ttlInit("ttl_timeline", ttl_eventData,"' . $params['scale1'] . '","' . $params['scale2'] . '");
+                    }, 1000);
+                    '
     );
     return '<div class="timeline-container" data-marker-filter="' . $scope . '" style="width: ' . $width . '; height: ' . $height . ';"></div>';
 }

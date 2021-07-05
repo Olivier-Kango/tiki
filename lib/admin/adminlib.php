@@ -67,7 +67,7 @@ class AdminLib extends TikiLib
             $bindvars = [$name, $dsn];
             $this->query($query, $bindvars);
             $query = "insert into `tiki_dsn`(`name`,`dsn`)
-                		values(?,?)";
+                        values(?,?)";
             return $this->query($query, $bindvars);
         }
     }

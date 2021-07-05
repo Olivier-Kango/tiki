@@ -292,8 +292,8 @@ ALTER TABLE `tiki_quicktags` ADD INDEX `taglabel` (`taglabel`);
 
 UPDATE `tiki_quicktags` set `tagcategory`='wiki' where `tagcategory` is NULL;
 
-DELETE FROM `tiki_quicktags` WHERE `taglabel`='New wms Metadata' AND `taginsert`='METADATA\r\n		\"wms_name\" \"myname\"\r\n		\"wms_srs\" \"EPSG:4326\"\r\n	\"wms_server_version\" \" \"\r\n	\"wms_layers\" \"mylayers\"\r\n	\"wms_request\" \"myrequest\"\r\n	\"wms_format\" \" \"\r\n	\"wms_time\" \" \"\r\n END' AND `tagicon`='img/icons/admin_metatags.png' AND `tagcategory`='maps';
-INSERT INTO `tiki_quicktags` (taglabel, taginsert, tagicon, tagcategory) VALUES ('New wms Metadata','METADATA\r\n		\"wms_name\" \"myname\"\r\n		\"wms_srs\" \"EPSG:4326\"\r\n	\"wms_server_version\" \" \"\r\n	\"wms_layers\" \"mylayers\"\r\n	\"wms_request\" \"myrequest\"\r\n	\"wms_format\" \" \"\r\n	\"wms_time\" \" \"\r\n END','img/icons/admin_metatags.png', 'maps');
+DELETE FROM `tiki_quicktags` WHERE `taglabel`='New wms Metadata' AND `taginsert`='METADATA\r\n        \"wms_name\" \"myname\"\r\n        \"wms_srs\" \"EPSG:4326\"\r\n    \"wms_server_version\" \" \"\r\n    \"wms_layers\" \"mylayers\"\r\n    \"wms_request\" \"myrequest\"\r\n    \"wms_format\" \" \"\r\n    \"wms_time\" \" \"\r\n END' AND `tagicon`='img/icons/admin_metatags.png' AND `tagcategory`='maps';
+INSERT INTO `tiki_quicktags` (taglabel, taginsert, tagicon, tagcategory) VALUES ('New wms Metadata','METADATA\r\n        \"wms_name\" \"myname\"\r\n        \"wms_srs\" \"EPSG:4326\"\r\n    \"wms_server_version\" \" \"\r\n    \"wms_layers\" \"mylayers\"\r\n    \"wms_request\" \"myrequest\"\r\n    \"wms_format\" \" \"\r\n    \"wms_time\" \" \"\r\n END','img/icons/admin_metatags.png', 'maps');
 DELETE FROM `tiki_quicktags` WHERE `taglabel`='New Class' AND `taginsert`='CLASS\r\n EXPRESSION ()\r\n SYMBOL 0\r\n OUTLINECOLOR\r\n COLOR\r\n  NAME \"myclass\"\r\nEND #end of class' AND `tagicon`='img/icons/mini_triangle.gif' AND `tagcategory`='maps';
 INSERT INTO `tiki_quicktags` (taglabel, taginsert, tagicon, tagcategory) VALUES ('New Class','CLASS\r\n EXPRESSION ()\r\n SYMBOL 0\r\n OUTLINECOLOR\r\n COLOR\r\n  NAME \"myclass\"\r\nEND #end of class','img/icons/mini_triangle.gif', 'maps');
 DELETE FROM `tiki_quicktags` WHERE `taglabel`='New Projection' AND `taginsert`='PROJECTION\r\n \"init=epsg:4326\"\r\nEND' AND `tagicon`='images/ico_mode.gif' AND `tagcategory`='maps';
@@ -739,7 +739,7 @@ INSERT IGNORE INTO tiki_preferences(name,value) VALUES ('default_wiki_diff_style
 ALTER TABLE `tiki_images_data` ADD `etag` varchar(32) default NULL;
 
 INSERT IGNORE INTO tiki_preferences(name,value) VALUES ('https','auto');
-	  
+
 ALTER TABLE `tiki_quicktags` CHANGE `taginsert` `taginsert` TEXT DEFAULT NULL;
 
 alter table tiki_user_modules add parse char(1) default NULL;
@@ -790,8 +790,8 @@ alter table tiki_files add FULLTEXT ft (name, description, search_data);
 
 # added on Nov 02 2004 6:06 PM by as6o for file galleries
 CREATE TABLE tiki_file_handlers (
-	mime_type varchar(64) default NULL,
-	cmd varchar(238) default NULL
+    mime_type varchar(64) default NULL,
+    cmd varchar(238) default NULL
 ) TYPE=MyISAM;
 
 #Dec 08 2004 sylvieg

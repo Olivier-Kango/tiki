@@ -21,7 +21,7 @@ function wikiplugin_youtube_info()
                 'required' => true,
                 'name' => tra('Movie'),
                 'description' => tr('Complete URL to the YouTube video or last part (after %0www.youtube.com/v/%1 and
-					before the first question mark)', '<code>', '</code>'),
+                    before the first question mark)', '<code>', '</code>'),
                 'since' => '2.0',
                 'filter' => 'url',
                 'default' => '',

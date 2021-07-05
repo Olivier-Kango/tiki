@@ -110,7 +110,7 @@ class Reports_UsersTest extends TikiDatabaseTestCase
     {
         $this->db->query(
             "INSERT INTO `tiki_user_reports` (`user`, `interval`, `view`, `type`, `always_email`)
-			VALUES ('newUser', 'weekly', 'detailed', 'html', 1)"
+            VALUES ('newUser', 'weekly', 'detailed', 'html', 1)"
         );
 
         $expectedResult = ['test', 'newUser'];

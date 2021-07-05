@@ -43,12 +43,12 @@ class ProgressBar implements SplObserver
         $percent = (int)($current / $total * 100) . "%";
 
         $scripts = <<<JS
-		<script class="progress_bar_script">
-			var element = parent.document.getElementById("progress_database_status");
-			element.style.width = "{$percent}";
-			var progress_status_element = parent.document.getElementById("progress_database_status_percentage");
-			progress_status_element.innerHTML = "{$percent}";
-		</script>
+        <script class="progress_bar_script">
+            var element = parent.document.getElementById("progress_database_status");
+            element.style.width = "{$percent}";
+            var progress_status_element = parent.document.getElementById("progress_database_status_percentage");
+            progress_status_element.innerHTML = "{$percent}";
+        </script>
 JS;
         echo $scripts;
         flush();
@@ -57,12 +57,12 @@ JS;
     public function updateLabels($targetElement, $content)
     {
         $scripts = <<<JS
-		<script class="progress_bar_script">
-			var element = parent.document.getElementById("{$targetElement}");
-			if(element) {
-				element.innerHTML = "{$content}";
-			}
-		</script>
+        <script class="progress_bar_script">
+            var element = parent.document.getElementById("{$targetElement}");
+            if(element) {
+                element.innerHTML = "{$content}";
+            }
+        </script>
 JS;
         echo $scripts;
         flush();
@@ -99,48 +99,48 @@ JS;
         $progressbar_footer_table_name = "display: inline;";
 
         $page_content = <<<HTML
-		<div style="{$container_layout_style}" id="progressBar">
-				<div class="progressbar" style="{$progressbar_presentation_style} {$container_layout_style}">
-					<div class="progressbar_wrapper" style="{$progressbar_wrapper_style}">
-						<div class="progressbar_header" style="{$progressbar_header}">
-							<img src="img/tiki/Tiki_WCG.png" alt="Tiki Logo" style=""/>
-							<h1 style="{$progressbar_h_style}{$progressbar_h1_style}">Database Installation</h1>
-						</div>
-						<div class="progress_body" style="">
-							<div class="database" style="margin-bottom: 1rem">
-								<h3 style="{$progressbar_h_style}{$progressbar_h3_style}">Table creation status</h3>
-								<div class="progress" style="{$progress_wrapper_style}">
-									<div class="progress-bar progress-bar-striped bg-info" id="progress_database_status" style="{$progress_bar_style_style}{$progress_bar_striped_style}{$progress_bar_bg_info_style}{$progress_bar_animated}"></div>
-								</div>
-								<div class="footer" style="{$progressbar_footer}">
-									<div class="start" style="{$progressbar_footer_start}">0 %</div>
-									<div class="table_name" style="{$progressbar_footer_table_name}"><strong id="table_name" >tiki_database</strong></div>
-									<div class="end" id="progress_database_status_percentage" style="{$progressbar_footer_end}">0 %</div>
-								</div>
-							</div>
-							<div class="patches" id="patches" style="">
-								<h3 style="{$progressbar_h_style}{$progressbar_h3_style}">Patch creation status</h3>
-								<div class="tables_indexing">
-								<p style="{$building_patches_style}">Indexing tables <strong><span id="table_index" style="color:#d44950;">...</span></strong></p>
-								</div> 
-								<div class="building_patches">
-									<p style="{$building_patches_style}">Building patches <strong><span id="build_patch" style="color:#d44950;">...</span></strong></p>
-								</div>
-								<div class="building_scripts">
-								<p style="{$building_patches_style}">Building scripts <strong><span id="build_script" style="color:#d44950;">...</span></strong></p>
-								</div>   
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<script class="progress_bar_script">
-				parent.document.body.style.margin= 0;
-				parent.document.body.style.width = '100vw';
-				parent.document.body.style.height = '100vh';
-				parent.document.body.style.padding= 0;
-				parent.document.body.fontFamily = "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\";";
-			</script>
+        <div style="{$container_layout_style}" id="progressBar">
+                <div class="progressbar" style="{$progressbar_presentation_style} {$container_layout_style}">
+                    <div class="progressbar_wrapper" style="{$progressbar_wrapper_style}">
+                        <div class="progressbar_header" style="{$progressbar_header}">
+                            <img src="img/tiki/Tiki_WCG.png" alt="Tiki Logo" style=""/>
+                            <h1 style="{$progressbar_h_style}{$progressbar_h1_style}">Database Installation</h1>
+                        </div>
+                        <div class="progress_body" style="">
+                            <div class="database" style="margin-bottom: 1rem">
+                                <h3 style="{$progressbar_h_style}{$progressbar_h3_style}">Table creation status</h3>
+                                <div class="progress" style="{$progress_wrapper_style}">
+                                    <div class="progress-bar progress-bar-striped bg-info" id="progress_database_status" style="{$progress_bar_style_style}{$progress_bar_striped_style}{$progress_bar_bg_info_style}{$progress_bar_animated}"></div>
+                                </div>
+                                <div class="footer" style="{$progressbar_footer}">
+                                    <div class="start" style="{$progressbar_footer_start}">0 %</div>
+                                    <div class="table_name" style="{$progressbar_footer_table_name}"><strong id="table_name" >tiki_database</strong></div>
+                                    <div class="end" id="progress_database_status_percentage" style="{$progressbar_footer_end}">0 %</div>
+                                </div>
+                            </div>
+                            <div class="patches" id="patches" style="">
+                                <h3 style="{$progressbar_h_style}{$progressbar_h3_style}">Patch creation status</h3>
+                                <div class="tables_indexing">
+                                <p style="{$building_patches_style}">Indexing tables <strong><span id="table_index" style="color:#d44950;">...</span></strong></p>
+                                </div> 
+                                <div class="building_patches">
+                                    <p style="{$building_patches_style}">Building patches <strong><span id="build_patch" style="color:#d44950;">...</span></strong></p>
+                                </div>
+                                <div class="building_scripts">
+                                <p style="{$building_patches_style}">Building scripts <strong><span id="build_script" style="color:#d44950;">...</span></strong></p>
+                                </div>   
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script class="progress_bar_script">
+                parent.document.body.style.margin= 0;
+                parent.document.body.style.width = '100vw';
+                parent.document.body.style.height = '100vh';
+                parent.document.body.style.padding= 0;
+                parent.document.body.fontFamily = "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\";";
+            </script>
 HTML;
 
         echo $page_content;

@@ -145,7 +145,7 @@ function wikiplugin_googlechart_info()
                 'required' => false,
                 'name' => tra('Float Position'),
                 'description' => tr('Set the alignment for the entire element. For elements with a width of less than
-				100%, other elements will wrap around it unless the %0 parameter is appropriately set.', '<code>clear</code>'),
+                100%, other elements will wrap around it unless the %0 parameter is appropriately set.', '<code>clear</code>'),
                 'since' => '15.0',
                 'filter' => 'alpha',
                 'safe' => true,
@@ -213,19 +213,19 @@ function wikiplugin_googlechart($data, $params)
     $access_token = wikiplugin_googlechart_authenticate($params['credentials']);
 
     $js = '(function (w, d, s, g, js, fs) {
-	g = w.gapi || (w.gapi = {});
-	g.analytics = {
-		q: [], ready: function (f) {
-			this.q.push(f);
-		}
-	};
-	js = d.createElement(s);
-	fs = d.getElementsByTagName(s)[0];
-	js.src = "https://apis.google.com/js/platform.js";
-	fs.parentNode.insertBefore(js, fs);
-	js.onload = function () {
-		g.load("analytics");
-	};
+    g = w.gapi || (w.gapi = {});
+    g.analytics = {
+        q: [], ready: function (f) {
+            this.q.push(f);
+        }
+    };
+    js = d.createElement(s);
+    fs = d.getElementsByTagName(s)[0];
+    js.src = "https://apis.google.com/js/platform.js";
+    fs.parentNode.insertBefore(js, fs);
+    js.onload = function () {
+        g.load("analytics");
+    };
 }(window, document, "script"));';
 
     $headerlib->add_js($js);
@@ -259,37 +259,37 @@ function wikiplugin_googlechart($data, $params)
     $js = "
 gapi.analytics.ready(function () {
 
-	try {
-		/**
-		 * Authorize the user with an access token obtained server side.
-		 */
+    try {
+        /**
+         * Authorize the user with an access token obtained server side.
+         */
 
-		gapi.analytics.auth.authorize({
-			'serverAuth': {
-				'access_token': '$access_token'
-			}
-		});
+        gapi.analytics.auth.authorize({
+            'serverAuth': {
+                'access_token': '$access_token'
+            }
+        });
 
-	} catch (e) {
-		console.log('Chart error: ' + e);
-	}
+    } catch (e) {
+        console.log('Chart error: ' + e);
+    }
 });
 ";
     $headerlib->add_js($js, 15);    // auth can be shared
 
     $js = "
 gapi.analytics.ready(function () {
-	try {
-		var dataChart1 = new gapi.analytics.googleCharts.DataChart({
-			query: {$query},
-			chart: {$chart}
-		});
+    try {
+        var dataChart1 = new gapi.analytics.googleCharts.DataChart({
+            query: {$query},
+            chart: {$chart}
+        });
 
-		dataChart1.execute();
+        dataChart1.execute();
 
-	} catch (e) {
-		console.log('Chart \"$unique\" error: ' + e.message);
-	}
+    } catch (e) {
+        console.log('Chart \"$unique\" error: ' + e.message);
+    }
 });
 ";
 

@@ -182,7 +182,7 @@ class UserModulesLib extends TikiLib
                 $this->query($query, [$res['moduleId'],$user]);
 
                 $query = "insert into `tiki_user_assigned_modules`
-				(`moduleId`, `user`,`name`,`position`,`ord`,`type`) values(?,?,?,?,?,?)";
+                (`moduleId`, `user`,`name`,`position`,`ord`,`type`) values(?,?,?,?,?,?)";
                 $bindvars = [$res['moduleId'], $user,$res['name'],$res['position'],$res['ord'],$res['type']];
                 $result2 = $this->query($query, $bindvars);
             }
@@ -314,7 +314,7 @@ class UserModulesLib extends TikiLib
         while ($res = $result->fetchRow()) {
              $user = $res["user"];
             $query = "insert into `tiki_user_assigned_modules`(`moduleId`, `user`,`name`,`position`,`ord`,`type`)
-			values(?,?,?,?,?,?)";
+            values(?,?,?,?,?,?)";
              $this->query($query, [$moduleId, $user,$name,$position,(int) $order,$type]);
         }
     }

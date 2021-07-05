@@ -32,6 +32,6 @@ cd $ARCHIVEDIR
 
 mysqldump -Q -u $DBUSER -h$DBHOST -p$DBPASS $DBNAME | bzip2 -c > $DUMPFILE
 if [ "$SCPTO" ]; then 
-	scp -C $DUMPFILE $SCPTO
-	rm $DUMPFILE
+    scp -C $DUMPFILE $SCPTO
+    rm $DUMPFILE
 fi

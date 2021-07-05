@@ -37,7 +37,7 @@ function wikiplugin_catorphans_info()
                 'required' => false,
                 'name' => tra('Max'),
                 'description' => tr('Maximum number of items. Use %0 for unlimited. Default is the site admin setting
-					for maximum records.', '<code>-1</code>'),
+                    for maximum records.', '<code>-1</code>'),
                 'since' => '1',
                 'default' => '$prefs[\'maxRecords\']',
                 'filter' => 'int',

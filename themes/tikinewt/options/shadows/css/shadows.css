@@ -1,12 +1,12 @@
 /* $Id$
-	Shadows theme option for Tikinewt theme.
-	Tiki Wiki CMS Groupware.
+    Shadows theme option for Tikinewt theme.
+    Tiki Wiki CMS Groupware.
 */
 
 body,
 body.fullscreen,
 body.fullscreen #col1 {
-	background: #F3F6F9;
+    background: #F3F6F9;
 }
 
 #col1 {
@@ -20,23 +20,23 @@ article,
 .post,
 .table-responsive,
 .tab-content {
-	border: solid #f6f6f6;
+    border: solid #f6f6f6;
     border-width: 1px 0 0 1px;
     background: #fff;
-	padding: 0 8px 9px 0;
+    padding: 0 8px 9px 0;
     -webkit-box-shadow: 4px 4px 4px 0px rgba(210,210,210,1);
     box-shadow: 4px 4px 4px 0px rgba(210,210,210,1);
-/*	margin: 6px !important;*/
+/*    margin: 6px !important;*/
 }
 
 article {
     border-left: none;
-	margin-bottom: 1rem;
+    margin-bottom: 1rem;
 }
 
 .module.card-primary > .card-header {
-	border-bottom: 2px solid #f7f7f7;
-	background: #fff;
+    border-bottom: 2px solid #f7f7f7;
+    background: #fff;
 }
 
 body.fullscreen article,

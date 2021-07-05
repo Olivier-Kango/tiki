@@ -35,7 +35,7 @@
   </limitations>
   <mediaTypes>
     <media type="video">
-	  <provider id="upload" name="upload" code="1">
+      <provider id="upload" name="upload" code="1">
         <authMethodList>
           <authMethod type="1"/>
         </authMethodList>
@@ -73,7 +73,7 @@
   <StartupDefaults>
     <SingleContribution>true</SingleContribution>
     <autoTOUConfirmation>false</autoTOUConfirmation>
-	<enableTOU>false</enableTOU>
+    <enableTOU>false</enableTOU>
     <showLogoImage>false</showLogoImage>
     <NavigationProperties>
       <showCloseButton>true</showCloseButton>

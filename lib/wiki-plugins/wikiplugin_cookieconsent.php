@@ -31,7 +31,7 @@ function wikiplugin_cookieconsent_info()
                 'required' => false,
                 'name' => tra('Containing Element'),
                 'description' => tr('DOM element to contain everything (div, span, etc). The default is %0,
-					set to %1 for no container.', '<code>div</code>', '<code>none</code>'),
+                    set to %1 for no container.', '<code>div</code>', '<code>none</code>'),
                 'since' => '10.0',
                 'default' => 'div',
                 'filter' => 'word',

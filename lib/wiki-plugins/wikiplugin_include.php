@@ -31,7 +31,7 @@ function wikiplugin_include_info()
                 'required' => false,
                 'name' => tr('Start'),
                 'description' => tr('When only a portion of the page should be included, full text of the line after which
-					inclusion should start'),
+                    inclusion should start'),
                 'since' => '1',
                 'default' => '',
             ],
@@ -39,7 +39,7 @@ function wikiplugin_include_info()
                 'required' => false,
                 'name' => tr('Stop'),
                 'description' => tr('When only a portion of the page should be included, full text of the line before which
-					inclusion should end'),
+                    inclusion should end'),
                 'since' => '1',
                 'default' => '',
             ],

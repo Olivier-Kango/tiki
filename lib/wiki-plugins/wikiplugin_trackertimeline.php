@@ -41,7 +41,7 @@ function wikiplugin_trackertimeline_info()
                 'required' => true,
                 'name' => tra('Summary Field'),
                 'description' => tra('Tracker Field ID containing the summary of the item. The summary will be displayed
-					on the timeline when the item is focused.'),
+                    on the timeline when the item is focused.'),
                 'since' => '3.0',
                 'filter' => 'digits',
                 'default' => '',
@@ -53,7 +53,7 @@ function wikiplugin_trackertimeline_info()
                 'required' => true,
                 'name' => tra('Start Date'),
                 'description' => tra('Tracker Field ID containing the element start date. The field must be a
-					datetime/jscalendar field.'),
+                    datetime/jscalendar field.'),
                 'since' => '3.0',
                 'filter' => 'digits',
                 'default' => '',
@@ -65,7 +65,7 @@ function wikiplugin_trackertimeline_info()
                 'required' => true,
                 'name' => tra('End Date'),
                 'description' => tra('Tracker Field ID containing the element end date. The field must be a
-					datetime/jscalendar field.'),
+                    datetime/jscalendar field.'),
                 'since' => '3.0',
                 'filter' => 'digits',
                 'default' => '',
@@ -77,7 +77,7 @@ function wikiplugin_trackertimeline_info()
                 'required' => true,
                 'name' => tra('Element Group'),
                 'description' => tra('Tracker Field ID containing the element\'s group. Elements of a same group are
-					displayed on the same row.'),
+                    displayed on the same row.'),
                 'since' => '3.0',
                 'filter' => 'digits',
                 'default' => '',
@@ -89,7 +89,7 @@ function wikiplugin_trackertimeline_info()
                 'required' => true,
                 'name' => tra('Lower Bound'),
                 'description' => tr('Date from which element should be displayed. Date must be provided in
-					%0YYYY-MM-DD HH:mm:ss%1 format.', '<code>', '</code>'),
+                    %0YYYY-MM-DD HH:mm:ss%1 format.', '<code>', '</code>'),
                 'since' => '3.0',
                 'filter' => 'datetime',
                 'default' => '',
@@ -99,7 +99,7 @@ function wikiplugin_trackertimeline_info()
                 'required' => true,
                 'name' => tra('Upper Bound'),
                 'description' => tr('Date until which element should be displayed. Date must be provided in
-					%0YYYY-MM-DD HH:mm:ss%1 format.', '<code>', '</code>'),
+                    %0YYYY-MM-DD HH:mm:ss%1 format.', '<code>', '</code>'),
                 'since' => '3.0',
                 'filter' => 'datetime',
                 'default' => '',

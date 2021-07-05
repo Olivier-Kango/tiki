@@ -1,16 +1,16 @@
 
 CREATE TABLE IF NOT EXISTS `tiki_rss_items` (
-	`rssItemId` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	`rssId` INT NOT NULL,
-	`guid` VARCHAR(255) NOT NULL,
-	`url` VARCHAR(255) NOT NULL,
-	`publication_date` INT UNSIGNED NOT NULL,
-	`title` VARCHAR(255) NOT NULL,
-	`author` VARCHAR(255),
-	`description` TEXT,
-	`content` TEXT,
-	KEY `tiki_rss_items_rss` (`rssId`),
-	UNIQUE `tiki_rss_items_item` (`rssId`, `guid`)
+    `rssItemId` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `rssId` INT NOT NULL,
+    `guid` VARCHAR(255) NOT NULL,
+    `url` VARCHAR(255) NOT NULL,
+    `publication_date` INT UNSIGNED NOT NULL,
+    `title` VARCHAR(255) NOT NULL,
+    `author` VARCHAR(255),
+    `description` TEXT,
+    `content` TEXT,
+    KEY `tiki_rss_items_rss` (`rssId`),
+    UNIQUE `tiki_rss_items_item` (`rssId`, `guid`)
 ) ENGINE=MyISAM;
 
 ALTER TABLE `tiki_rss_modules` DROP COLUMN `content`;

@@ -20,8 +20,8 @@ function prefs_php_list()
             'name' => tra('PHP libxml extension'),
             'description' => tra(
                 'This extension requires the libxml PHP extension.
-				This means that passing in --enable-libxml is also required, although this is
-				implicitly accomplished because libxml is enabled by default.'
+                This means that passing in --enable-libxml is also required, although this is
+                implicitly accomplished because libxml is enabled by default.'
             ),
             'type' => 'flag',
             'default' => class_exists('DOMDocument') ? 'y' : 'n',
@@ -30,7 +30,7 @@ function prefs_php_list()
             'name' => tra('PHP DateTime'),
             'description' => tra(
                 'DateTime class (and related functions) are enabled
-				by default since PHP 5.2.0.'
+                by default since PHP 5.2.0.'
             ),
             'type' => 'flag',
             'default' => class_exists('DateTime') ? 'y' : 'n',

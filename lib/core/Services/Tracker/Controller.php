@@ -1093,22 +1093,22 @@ class Services_Tracker_Controller
                         'modal' => 1,
                     ], $smarty);
                     TikiLib::lib('header')->add_jq_onready('
-	var lock_link = $(\'<a href="' . $href . '">' . tra('Override lock and carry on with edit') . '</a>\');
-	lock_link.on("click", function(e) {
-		var $link = $(this);
-		e.preventDefault();
-		$.closeModal({
-			done: function() {
-				$.openModal({
-					size: "modal-lg",
-					remote: $link.attr("href"),
-				});
-			}
-		});
-		return false;
-	})
-	$(".modal.fade.show .modal-body").append(lock_link);
-					');
+    var lock_link = $(\'<a href="' . $href . '">' . tra('Override lock and carry on with edit') . '</a>\');
+    lock_link.on("click", function(e) {
+        var $link = $(this);
+        e.preventDefault();
+        $.closeModal({
+            done: function() {
+                $.openModal({
+                    size: "modal-lg",
+                    remote: $link.attr("href"),
+                });
+            }
+        });
+        return false;
+    })
+    $(".modal.fade.show .modal-body").append(lock_link);
+                    ');
                 }
                 throw($e);
             }
@@ -2650,34 +2650,34 @@ class Services_Tracker_Controller
     public function get_validation_options($formId = '')
     {
         $jsString = ',
-		onkeyup: false,
-		errorClass: "invalid-feedback",
-		errorPlacement: function(error,element) {
-			if ($(element).parents(".input-group").length > 0) {
-				error.insertAfter($(element).parents(".input-group").first());
-			} else {
-				error.appendTo($(element).parents().first());
-			}
-		},
-		highlight: function(element) {
-			$(element).addClass("is-invalid");
+        onkeyup: false,
+        errorClass: "invalid-feedback",
+        errorPlacement: function(error,element) {
+            if ($(element).parents(".input-group").length > 0) {
+                error.insertAfter($(element).parents(".input-group").first());
+            } else {
+                error.appendTo($(element).parents().first());
+            }
+        },
+        highlight: function(element) {
+            $(element).addClass("is-invalid");
 
-			// Highlight chosen element if exists
-			$("#" + element.getAttribute("id") + "_chosen").addClass("is-invalid");
-		},
-		unhighlight: function(element) {
-			$(element).removeClass("is-invalid");
+            // Highlight chosen element if exists
+            $("#" + element.getAttribute("id") + "_chosen").addClass("is-invalid");
+        },
+        unhighlight: function(element) {
+            $(element).removeClass("is-invalid");
 
-			// Unhighlight chosen element if exists
-			$("#" + element.getAttribute("id") + "_chosen").removeClass("is-invalid");
-		},
-		ignore: ".ignore"
-		});';
+            // Unhighlight chosen element if exists
+            $("#" + element.getAttribute("id") + "_chosen").removeClass("is-invalid");
+        },
+        ignore: ".ignore"
+        });';
 
         if ($formId) {
             $jsString .= "\n" . '
-				$("' . $formId . '").on("click.validate", ":submit", function(){$("' . $formId . '").find("[name^=other_ins_]").each(function(key, item){$(item).data("tiki_never_visited","")})});
-			';
+                $("' . $formId . '").on("click.validate", ":submit", function(){$("' . $formId . '").find("[name^=other_ins_]").each(function(key, item){$(item).data("tiki_never_visited","")})});
+            ';
         }
 
         return $jsString;

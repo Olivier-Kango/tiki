@@ -370,10 +370,10 @@ ALTER TABLE `tiki_file_galleries` ADD `sort_mode` char(20) default NULL;
 
 # mose 2006-12-03 & Jyhem 2007-06-14
 CREATE TABLE tiki_calendar_options (
-	calendarId int(14) NOT NULL default 0,
-	optionName varchar(120) NOT NULL default '',
-	value varchar(255),
-	PRIMARY KEY (calendarId,optionName)
+    calendarId int(14) NOT NULL default 0,
+    optionName varchar(120) NOT NULL default '',
+    value varchar(255),
+    PRIMARY KEY (calendarId,optionName)
 ) ENGINE=MyISAM ;
 
 update `users_permissions` set type='tiki' where `permName`='tiki_p_view_tiki_calendar' and `type`='calendar';
@@ -722,7 +722,7 @@ ALTER TABLE tiki_modules ADD moduleId int(8) NOT NULL auto_increment FIRST, ADD 
 
 #pkdille 2007-07-25
 #These quicktags where wrong in tiki 1.9.8. They have to be deleted
-DELETE FROM tiki_quicktags WHERE taglabel='New wms Metadata' AND taginsert='METADATA\r\n		\"wms_name\" \"myname\"\r\n		\"wms_srs\" \"EPSG:4326\"\r\n	\"wms_server_version\" \" \"\r\n	\"wms_layers\" \"mylayers\"\r\n	\"wms_request\" \"myrequest\"\r\n	\"wms_format\" \" \"\r\n	\"wms_time\" \" \"\r\n END' AND  tagicon='img/icons/admin_metatags.png' AND tagcategory='maps';
+DELETE FROM tiki_quicktags WHERE taglabel='New wms Metadata' AND taginsert='METADATA\r\n        \"wms_name\" \"myname\"\r\n        \"wms_srs\" \"EPSG:4326\"\r\n    \"wms_server_version\" \" \"\r\n    \"wms_layers\" \"mylayers\"\r\n    \"wms_request\" \"myrequest\"\r\n    \"wms_format\" \" \"\r\n    \"wms_time\" \" \"\r\n END' AND  tagicon='img/icons/admin_metatags.png' AND tagcategory='maps';
 DELETE FROM tiki_quicktags WHERE taglabel='New Class' AND taginsert='CLASS\r\n EXPRESSION ()\r\n SYMBOL 0\r\n OUTLINECOLOR\r\n COLOR\r\n  NAME \"myclass\"\r\nEND #end of class' AND tagicon='img/icons/mini_triangle.gif' AND tagcategory='maps';
 DELETE FROM tiki_quicktags WHERE taglabel='New Query' AND taginsert='#\r\n#Start of query definitions\r\n QUERYMAP\r\n STATUS ON\r\n STYLE HILITE\r\nEND' AND tagicon='img/icons/question.gif' AND tagcategory='maps';
 DELETE FROM tiki_quicktags WHERE taglabel='New Scalebar' AND taginsert='#\r\n#start of scalebar\r\nSCALEBAR\r\n IMAGECOLOR 255 255 255\r\n STYLE 1\r\n SIZE 400 2\r\n COLOR 0 0 0\r\n  UNITS KILOMETERS\r\n INTERVALS 5\r\n STATUS ON\r\nEND' AND tagicon='img/icons/desc_lenght.gif' AND tagcategory='maps';
@@ -1125,9 +1125,9 @@ DELETE FROM tiki_quicktags WHERE taglabel='image' AND taginsert='{img src= width
 INSERT INTO tiki_quicktags (taglabel, taginsert, tagicon, tagcategory) VALUES ('image','{img src= width= height= align= desc= link= }','pics/icons/picture.png','trackers');
 
 # maps
-DELETE FROM tiki_quicktags WHERE taglabel='New wms Metadata' AND taginsert='METADATA\r\n		\"wms_name\" \"myname\"\r\n 	"wms_srs" "EPSG:4326"\r\n 	"wms_server_version" " "\r\n 	"wms_layers" "mylayers"\r\n 	"wms_request" "myrequest"\r\n 	"wms_format" " "\r\n 	"wms_time" " "\r\n END' AND tagicon='img/icons/admin_metatags.png' AND tagcategory='maps';
-DELETE FROM tiki_quicktags WHERE taglabel='New wms Metadata' AND taginsert='METADATA\r\n		\"wms_name\" \"myname\"\r\n 	"wms_srs" "EPSG:4326"\r\n 	"wms_server_version" " "\r\n 	"wms_layers" "mylayers"\r\n 	"wms_request" "myrequest"\r\n 	"wms_format" " "\r\n 	"wms_time" " "\r\n END' AND tagicon='pics/icons/tag_blue_add.png' AND tagcategory='maps';
-INSERT INTO tiki_quicktags (taglabel, taginsert, tagicon, tagcategory) VALUES ('New wms Metadata','METADATA\r\n		\"wms_name\" \"myname\"\r\n 	"wms_srs" "EPSG:4326"\r\n 	"wms_server_version" " "\r\n 	"wms_layers" "mylayers"\r\n 	"wms_request" "myrequest"\r\n 	"wms_format" " "\r\n 	"wms_time" " "\r\n END', 'pics/icons/tag_blue_add.png','maps');
+DELETE FROM tiki_quicktags WHERE taglabel='New wms Metadata' AND taginsert='METADATA\r\n        \"wms_name\" \"myname\"\r\n     "wms_srs" "EPSG:4326"\r\n     "wms_server_version" " "\r\n     "wms_layers" "mylayers"\r\n     "wms_request" "myrequest"\r\n     "wms_format" " "\r\n     "wms_time" " "\r\n END' AND tagicon='img/icons/admin_metatags.png' AND tagcategory='maps';
+DELETE FROM tiki_quicktags WHERE taglabel='New wms Metadata' AND taginsert='METADATA\r\n        \"wms_name\" \"myname\"\r\n     "wms_srs" "EPSG:4326"\r\n     "wms_server_version" " "\r\n     "wms_layers" "mylayers"\r\n     "wms_request" "myrequest"\r\n     "wms_format" " "\r\n     "wms_time" " "\r\n END' AND tagicon='pics/icons/tag_blue_add.png' AND tagcategory='maps';
+INSERT INTO tiki_quicktags (taglabel, taginsert, tagicon, tagcategory) VALUES ('New wms Metadata','METADATA\r\n        \"wms_name\" \"myname\"\r\n     "wms_srs" "EPSG:4326"\r\n     "wms_server_version" " "\r\n     "wms_layers" "mylayers"\r\n     "wms_request" "myrequest"\r\n     "wms_format" " "\r\n     "wms_time" " "\r\n END', 'pics/icons/tag_blue_add.png','maps');
 
 DELETE FROM tiki_quicktags WHERE taglabel='New Class' AND taginsert='CLASS\r\n EXPRESSION ()\r\n SYMBOL 0\r\n OUTLINECOLOR\r\n COLOR\r\n NAME "myclass" \r\nEND #end of class' AND tagicon='img/icons/mini_triangle.gif' AND tagcategory='maps';
 DELETE FROM tiki_quicktags WHERE taglabel='New Class' AND taginsert='CLASS\r\n EXPRESSION ()\r\n SYMBOL 0\r\n OUTLINECOLOR\r\n COLOR\r\n NAME "myclass" \r\nEND #end of class' AND tagicon='pics/icons/application_add.png' AND tagcategory='maps';
@@ -1514,12 +1514,12 @@ INSERT INTO tiki_menu_options (menuId,type,name,url,position,section,perm,groupn
 
 #2008-03-11 lphuberdeau
 CREATE TABLE tiki_pages_changes (
-	page_id int(14),
-	version int(10),
-	segments_added int(10),
-	segments_removed int(10),
-	segments_total int(10),
-	PRIMARY KEY(page_id, version)
+    page_id int(14),
+    version int(10),
+    segments_added int(10),
+    segments_removed int(10),
+    segments_total int(10),
+    PRIMARY KEY(page_id, version)
 );
 
 #2008-03-11 nyloth
@@ -1699,15 +1699,15 @@ INSERT INTO users_permissions (permName, permDesc, level, type) VALUES ('tiki_p_
 
 #2008-06-06 lphuberdeau
 CREATE TABLE tiki_profile_symbols (
-	`domain` VARCHAR(50) NOT NULL,
-	`profile` VARCHAR(50) NOT NULL,
-	`object` VARCHAR(50) NOT NULL,
-	`type` VARCHAR(20) NOT NULL,
-	`value` VARCHAR(50) NOT NULL,
-	`named` ENUM('y','n') NOT NULL,
-	`creation_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	PRIMARY KEY( `domain`, `profile`, `object` ),
-	INDEX(`named`)
+    `domain` VARCHAR(50) NOT NULL,
+    `profile` VARCHAR(50) NOT NULL,
+    `object` VARCHAR(50) NOT NULL,
+    `type` VARCHAR(20) NOT NULL,
+    `value` VARCHAR(50) NOT NULL,
+    `named` ENUM('y','n') NOT NULL,
+    `creation_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY( `domain`, `profile`, `object` ),
+    INDEX(`named`)
 );
 
 

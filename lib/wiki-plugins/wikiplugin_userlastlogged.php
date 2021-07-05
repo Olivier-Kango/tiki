@@ -19,7 +19,7 @@ function wikiplugin_userlastlogged_info()
                 'required' => false,
                 'name' => tra('Username'),
                 'description' => tra('Username to display last login information for. Current user information shown
-					if left blank.'),
+                    if left blank.'),
                 'since' => '13.0',
                 'filter' => 'username',
             ],

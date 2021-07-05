@@ -37,7 +37,7 @@ function wikiplugin_trackeritemcopy_info()
                 'required' => true,
                 'name' => tra('Link Field IDs'),
                 'description' => tr('Fields links that are related to this tracker that you would like to join on,
-					separated by %0:%1', '<code>', '</code>'),
+                    separated by %0:%1', '<code>', '</code>'),
                 'since' => '8.0',
                 'filter' => 'text',
                 'default' => '',
@@ -48,7 +48,7 @@ function wikiplugin_trackeritemcopy_info()
                 'required' => true,
                 'name' => tra('Copy Field IDs'),
                 'description' => tr('Field IDs to copy old value of, separated by %0:%1, joined fields separated by
-					%0|%1', '<code>', '</code>'),
+                    %0|%1', '<code>', '</code>'),
                 'since' => '7.0',
                 'filter' => 'text',
                 'default' => '',
@@ -59,7 +59,7 @@ function wikiplugin_trackeritemcopy_info()
                 'required' => false,
                 'name' => tra('Update Field IDs'),
                 'description' => tr('Field IDs to update with new values specified, separated by %0:%1, joined fields
-					separated by %0|%1', '<code>', '</code>'),
+                    separated by %0|%1', '<code>', '</code>'),
                 'since' => '7.0',
                 'filter' => 'text',
                 'default' => '',
@@ -70,8 +70,8 @@ function wikiplugin_trackeritemcopy_info()
                 'required' => false,
                 'name' => tra('New Values'),
                 'description' => tr('New values to replace for the field IDs specified, separated by %0:%1, joined
-					fields separated by %0|%1. %0randomstring%1 will generate random string; and %0f_xx%1 to use value of
-					field xx of itemId', '<code>', '</code>'),
+                    fields separated by %0|%1. %0randomstring%1 will generate random string; and %0f_xx%1 to use value of
+                    field xx of itemId', '<code>', '</code>'),
                 'since' => '7.0',
                 'filter' => 'text',
                 'default' => '',
@@ -100,7 +100,7 @@ function wikiplugin_trackeritemcopy_info()
                 'name' => tra('Returns array non-interactively'),
                 'advanced' => true,
                 'description' => tr('If Yes (%0y%1), returns array of new information instead of displaying results
-					to screen, used in non-interactive mode', '<code>', '</code>'),
+                    to screen, used in non-interactive mode', '<code>', '</code>'),
                 'since' => '7.0',
                 'filter' => 'text',
                 'default' => '',

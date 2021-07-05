@@ -1522,36 +1522,36 @@ function display_usage()
 {
     echo "Usage: php doc/devtools/release.php [ Options ] <version-number> [ <subrelease> ]
 Examples:
-	php doc/devtools/release.php 2.0 preRC3
-	php doc/devtools/release.php 2.0 RC3
-	php doc/devtools/release.php 2.0
+    php doc/devtools/release.php 2.0 preRC3
+    php doc/devtools/release.php 2.0 RC3
+    php doc/devtools/release.php 2.0
 
 Options:
-	--howto			    : display the Tiki release HOWTO
-	--help			    : display this help
-	--http-proxy=HOST:PORT	: use a http proxy to get copyright data on sourceforge
-	--mirror-uri=URI	: use another repository URI to update the copyrights file (to avoid retrieving data from sourceforge, which is usually slow)
-	--no-commit		        : do not commit any changes back to SVN or GIT
-	--no-check-vcs		    : do not check if there are uncommitted changes on the checkout used for the release
-	--no-check-db		    : do not check database scripts and database upgrades
-	--no-check-php		    : do not check syntax of all PHP files
-	--no-check-php-warnings	: do not display PHP warnings and notices during the PHP syntax check
-	--no-check-smarty	    : do not check syntax of all Smarty templates
-	--no-first-update	    : do not vcs update the checkout used for the release as the first step
-	--no-readme-update	    : do not update the '" . README_FILENAME . "' file
-	--no-lang-update	    : do not update lang/*/language.php files
-	--no-changelog-update	: do not update the '" . CHANGELOG_FILENAME . "' file
-	--no-copyright-update	: do not update the '" . COPYRIGHTS_FILENAME . "' file
-	--no-secdb		        : do not update SecDB footprints
-	--only-secdb		    : only generate a secdb database
-	--no-packaging		    : do not build packages files
-	--no-tagging		    : do not tag the release on the remote vcs repository
-	--force-yes		        : disable the interactive mode (same as replying 'y' to all steps)
-	--debug-packaging	    : display debug output while in packaging step
-	--devmode               : equivalent to no-commit + no-check-vcs + no-first-update
-	--use-git               : use git instead oof snv
+    --howto                : display the Tiki release HOWTO
+    --help                : display this help
+    --http-proxy=HOST:PORT    : use a http proxy to get copyright data on sourceforge
+    --mirror-uri=URI    : use another repository URI to update the copyrights file (to avoid retrieving data from sourceforge, which is usually slow)
+    --no-commit                : do not commit any changes back to SVN or GIT
+    --no-check-vcs            : do not check if there are uncommitted changes on the checkout used for the release
+    --no-check-db            : do not check database scripts and database upgrades
+    --no-check-php            : do not check syntax of all PHP files
+    --no-check-php-warnings    : do not display PHP warnings and notices during the PHP syntax check
+    --no-check-smarty        : do not check syntax of all Smarty templates
+    --no-first-update        : do not vcs update the checkout used for the release as the first step
+    --no-readme-update        : do not update the '" . README_FILENAME . "' file
+    --no-lang-update        : do not update lang/*/language.php files
+    --no-changelog-update    : do not update the '" . CHANGELOG_FILENAME . "' file
+    --no-copyright-update    : do not update the '" . COPYRIGHTS_FILENAME . "' file
+    --no-secdb                : do not update SecDB footprints
+    --only-secdb            : only generate a secdb database
+    --no-packaging            : do not build packages files
+    --no-tagging            : do not tag the release on the remote vcs repository
+    --force-yes                : disable the interactive mode (same as replying 'y' to all steps)
+    --debug-packaging        : display debug output while in packaging step
+    --devmode               : equivalent to no-commit + no-check-vcs + no-first-update
+    --use-git               : use git instead oof snv
 Notes:
-	Subreleases begining with 'pre' will not be tagged.
+    Subreleases begining with 'pre' will not be tagged.
 ";
     die;
 }

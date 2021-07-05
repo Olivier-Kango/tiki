@@ -36,7 +36,7 @@ function wikiplugin_kaltura_info()
                 'required' => false,
                 'name' => tra('Kaltura Entry ID'),
                 'description' => tra('Kaltura ID of the video to be displayed, or leave empty to show a button to allow
-					users to add a new one.'),
+                    users to add a new one.'),
                 'since' => '4.0',
                 'tags' => ['basic'],
                 'area' => 'kaltura_uploader_id',
@@ -146,28 +146,28 @@ function wikiplugin_kaltura($data, $params)
             TikiLib::lib('header')->add_jq_onready(
                 <<<REG
 $("#kaltura_upload_btn$instance a").on("click", function() {
-	$(this).serviceDialog({
-		title: $json_title,
-		width: 710,
-		height: 450,
-		hideButtons: true,
-		success: function (data) {
-			if (data.entries) {
-				$.post('tiki-wikiplugin_edit.php', {
-					content: '',
-					type: 'kaltura',
-					page: {$json_page},
-					index: {$json_instance},
-					params: {
-						id: data.entries[0]
-					}
-				}, function () {
-					document.location.reload();
-				});
-			}
-		}
-	});
-	return false;
+    $(this).serviceDialog({
+        title: $json_title,
+        width: 710,
+        height: 450,
+        hideButtons: true,
+        success: function (data) {
+            if (data.entries) {
+                $.post('tiki-wikiplugin_edit.php', {
+                    content: '',
+                    type: 'kaltura',
+                    page: {$json_page},
+                    index: {$json_instance},
+                    params: {
+                        id: data.entries[0]
+                    }
+                }, function () {
+                    document.location.reload();
+                });
+            }
+        }
+    });
+    return false;
 });
 REG
             );
@@ -253,21 +253,21 @@ REG
 mw.setConfig('Kaltura.LeadWithHTML5', $leadWithHTML5);
 
 kWidget.embed({
-	targetId: 'kaltura_player$instance',
-	wid: '_{$prefs['kaltura_partnerId']}',
-	uiconf_id: '{$params['player_id']}',
-	entry_id: '{$params['id']}',
-	flashvars: { // flashvars allows you to set runtime uiVar configuration overrides.
-		//autoPlay: $autoPlay
-		$playlistAPI
-	},
-	params: { // params allows you to set flash embed params such as wmode, allowFullScreen etc
-		wmode: 'transparent'
-	},
-	readyCallback: function (playerId) {
-		\$ = \$jq;	// restore our jQuery after Kaltura has finished with it
-		console.log('Player:' + playerId + ' is ready ');
-	}
+    targetId: 'kaltura_player$instance',
+    wid: '_{$prefs['kaltura_partnerId']}',
+    uiconf_id: '{$params['player_id']}',
+    entry_id: '{$params['id']}',
+    flashvars: { // flashvars allows you to set runtime uiVar configuration overrides.
+        //autoPlay: $autoPlay
+        $playlistAPI
+    },
+    params: { // params allows you to set flash embed params such as wmode, allowFullScreen etc
+        wmode: 'transparent'
+    },
+    readyCallback: function (playerId) {
+        \$ = \$jq;    // restore our jQuery after Kaltura has finished with it
+        console.log('Player:' + playerId + ' is ready ');
+    }
 });"
             );
         if (is_numeric($params['width'])) {

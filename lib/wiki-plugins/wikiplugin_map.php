@@ -24,7 +24,7 @@ function wikiplugin_map_info()
                 'required' => false,
                 'name' => tra('Scope'),
                 'description' => tr('Display the geolocated items represented in the page (%0all%1, %0center%1, or
-					%0custom%1 as a CSS selector). Default: %0center%1', '<code>', '</code>'),
+                    %0custom%1 as a CSS selector). Default: %0center%1', '<code>', '</code>'),
                 'since' => '8.0',
                 'filter' => 'text',
                 'default' => 'center',
@@ -36,7 +36,7 @@ function wikiplugin_map_info()
                 'since' => '9.0',
                 'filter' => 'word',
                 'accepted' => 'controls, layers, search_location, levels, current_location, scale, streetview,
-					navigation, coordinates, overview',
+                    navigation, coordinates, overview',
                 'separator' => ',',
                 'default' => wp_map_default_controls(),
             ],
@@ -58,7 +58,7 @@ function wikiplugin_map_info()
                 'requied' => false,
                 'name' => tra('Center'),
                 'description' => tr('Format: %0x,y,zoom%1 where %0x%1 is the longitude, and %0y%1 is the latitude.
-					%0zoom%1 is between %00%1 (view Earth) and %019%1.', '<code>', '</code>'),
+                    %0zoom%1 is between %00%1 (view Earth) and %019%1.', '<code>', '</code>'),
                 'since' => '9.0',
                 'filter' => 'text',
             ],
@@ -409,7 +409,7 @@ function wp_map_plugin_searchlayer($body, $args)
     $escapedSuffix = smarty_modifier_escape($suffix);
     return <<<OUT
 <form method="post" action="tiki-searchindex.php" class="search-box onload" style="display: none" data-result-refresh="$refresh" data-result-layer="$escapedLayer" data-result-suffix="$escapedSuffix" data-load-delay="$load_delay"{$popup_config}>
-	<p>$maxRecords$sort_mode$fieldList$filters<input type="submit" class="btn btn-primary btn-sm" /></p>
+    <p>$maxRecords$sort_mode$fieldList$filters<input type="submit" class="btn btn-primary btn-sm" /></p>
 
 </form>
 OUT;
@@ -428,44 +428,44 @@ function wp_map_plugin_colorpicker($body, $args)
         $json = json_encode($colors);
         $methods = <<<METHOD
 function setColor(color) {
-	$(dialog).find('.current')
-		.css('background', color);
-	feature.attributes.color = color;
+    $(dialog).find('.current')
+        .css('background', color);
+    feature.attributes.color = color;
 }
 function init() {
-	$(dialog)
-		.dialog({
-			autoOpen: false,
-			width: 200,
-			title: $(dialog).data('title'),
-			close: function (e) {
-				$.each(container.map.getControlsByClass('OpenLayers.Control.ModifyFeature'), function (k, control) {
-					if (feature && control) {
-						control.unselectFeature(feature);
-					}
-				});
-				$.each(container.map.getControlsByClass('OpenLayers.Control.SelectFeature'), function (k, control) {
-					if (feature && control) {
-						control.unselect(feature);
-					}
-				});
-			}
-		})
-		.append($('<div class="current" style="height: $size;"/>'));
+    $(dialog)
+        .dialog({
+            autoOpen: false,
+            width: 200,
+            title: $(dialog).data('title'),
+            close: function (e) {
+                $.each(container.map.getControlsByClass('OpenLayers.Control.ModifyFeature'), function (k, control) {
+                    if (feature && control) {
+                        control.unselectFeature(feature);
+                    }
+                });
+                $.each(container.map.getControlsByClass('OpenLayers.Control.SelectFeature'), function (k, control) {
+                    if (feature && control) {
+                        control.unselect(feature);
+                    }
+                });
+            }
+        })
+        .append($('<div class="current" style="height: $size;"/>'));
 
-	$.each($json, function (k, color) {
-		$(dialog).append(
-			$('<div style="float: left; width: $size; height: $size;"/>')
-				.css('background', color)
-				.click(function () {
-					setColor(color);
-					vlayer.redraw();
-					if (feature.executor) {
-						feature.executor();
-					}
-				})
-		);
-	});
+    $.each($json, function (k, color) {
+        $(dialog).append(
+            $('<div style="float: left; width: $size; height: $size;"/>')
+                .css('background', color)
+                .click(function () {
+                    setColor(color);
+                    vlayer.redraw();
+                    if (feature.executor) {
+                        feature.executor();
+                    }
+                })
+        );
+    });
 }
 METHOD;
     } else {
@@ -473,37 +473,37 @@ METHOD;
         $headerlib->add_cssfile('vendor_bundled/vendor/jquery-plugins/colorpicker/css/colorpicker.css');
         $methods = <<<METHOD
 function setColor(color) {
-	$(dialog).ColorPickerSetColor(color);
+    $(dialog).ColorPickerSetColor(color);
 }
 function init() {
-	$(dialog)
-		.dialog({
-			autoOpen: false,
-			width: 400,
-			title: $(dialog).data('title'),
-			close: function (e) {
-				$.each(container.map.getControlsByClass('OpenLayers.Control.ModifyFeature'), function (k, control) {
-					if (feature && control) {
-						control.unselectFeature(feature);
-					}
-				});
-				$.each(container.map.getControlsByClass('OpenLayers.Control.SelectFeature'), function (k, control) {
-					if (feature && control) {
-						control.unselect(feature);
-					}
-				});
-			}
-		})
-		.ColorPicker({
-			flat: true,
-			onChange: function (hsb, hex) {
-				feature.attributes.color = '#' + hex;
-				vlayer.redraw();
-				if (feature.executor) {
-					feature.executor();
-				}
-			}
-		});
+    $(dialog)
+        .dialog({
+            autoOpen: false,
+            width: 400,
+            title: $(dialog).data('title'),
+            close: function (e) {
+                $.each(container.map.getControlsByClass('OpenLayers.Control.ModifyFeature'), function (k, control) {
+                    if (feature && control) {
+                        control.unselectFeature(feature);
+                    }
+                });
+                $.each(container.map.getControlsByClass('OpenLayers.Control.SelectFeature'), function (k, control) {
+                    if (feature && control) {
+                        control.unselect(feature);
+                    }
+                });
+            }
+        })
+        .ColorPicker({
+            flat: true,
+            onChange: function (hsb, hex) {
+                feature.attributes.color = '#' + hex;
+                vlayer.redraw();
+                if (feature.executor) {
+                    feature.executor();
+                }
+            }
+        });
 }
 METHOD;
     }
@@ -512,58 +512,58 @@ METHOD;
 
     $full = <<<FULL
 $("#$target").closest('.map-container').bind('initialized', function () {
-	var container = this
-		, vlayer
-		, feature
-		, dialog = '#$target'
-		, defaultRules
-		;
+    var container = this
+        , vlayer
+        , feature
+        , dialog = '#$target'
+        , defaultRules
+        ;
 
-	$methods
+    $methods
 
-	vlayer = container.vectors;
+    vlayer = container.vectors;
 
-	vlayer.events.on({
-		featureselected: function (ev) {
-			var active = false;
+    vlayer.events.on({
+        featureselected: function (ev) {
+            var active = false;
 
-			feature = ev.feature;
+            feature = ev.feature;
 
-			$.each(container.map.getControlsByClass('OpenLayers.Control.ModifyFeature'), function (k, control) {
-				active = active || control.active;
-				if (active) {
-					control.selectFeature(feature);
-				}
-			});
+            $.each(container.map.getControlsByClass('OpenLayers.Control.ModifyFeature'), function (k, control) {
+                active = active || control.active;
+                if (active) {
+                    control.selectFeature(feature);
+                }
+            });
 
-			if (active && feature.attributes.intent !== 'marker') {
-				setColor(feature.attributes.color);
-				vlayer.redraw();
-				$(dialog).dialog('open');
-			}
-		},
-		featureunselected: function (ev) {
-			feature = null;
-			$(dialog).dialog('close');
+            if (active && feature.attributes.intent !== 'marker') {
+                setColor(feature.attributes.color);
+                vlayer.redraw();
+                $(dialog).dialog('open');
+            }
+        },
+        featureunselected: function (ev) {
+            feature = null;
+            $(dialog).dialog('close');
 
-			vlayer.styleMap = container.defaultStyleMap;
-			$.each(container.map.getControlsByClass('OpenLayers.Control.ModifyFeature'), function (k, control) {
-				if (ev.feature && control.active) {
-					control.unselectFeature(ev.feature);
-				}
-			});
-		},
-		beforefeaturemodified: function (ev) {
-			defaultRules = this.styleMap.styles["default"].rules;
-			this.styleMap.styles["default"].rules = [];
-		},
-		afterfeaturemodified: function (ev) {
-			this.styleMap.styles["default"].rules = defaultRules;
-			this.redraw();
-		}
-	});
+            vlayer.styleMap = container.defaultStyleMap;
+            $.each(container.map.getControlsByClass('OpenLayers.Control.ModifyFeature'), function (k, control) {
+                if (ev.feature && control.active) {
+                    control.unselectFeature(ev.feature);
+                }
+            });
+        },
+        beforefeaturemodified: function (ev) {
+            defaultRules = this.styleMap.styles["default"].rules;
+            this.styleMap.styles["default"].rules = [];
+        },
+        afterfeaturemodified: function (ev) {
+            this.styleMap.styles["default"].rules = defaultRules;
+            this.redraw();
+        }
+    });
 
-	init();
+    init();
 });
 FULL;
 

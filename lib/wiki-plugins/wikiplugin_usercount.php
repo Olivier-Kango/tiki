@@ -21,8 +21,8 @@ function wikiplugin_usercount_info()
                 'required' => false,
                 'name' => tra('Groups'),
                 'description' => tra('List of colon separated groups where a consolidated user count for multiple
-					groups is needed. Users in multiple groups are counted only once. If left blank then the behaviour
-					is defined by the body parameter settings.'),
+                    groups is needed. Users in multiple groups are counted only once. If left blank then the behaviour
+                    is defined by the body parameter settings.'),
                 'since' => '14.1',
                 'separator' => ':',
                 'filter' => 'groupname',

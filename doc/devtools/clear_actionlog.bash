@@ -10,23 +10,23 @@
 
 usage()
 {
-	echo "Usage: $0 [path/to/local.php]"
+    echo "Usage: $0 [path/to/local.php]"
 }
 
 if [[ "$1" = "" ]]
 then
-	# If no parameter was given, try to guess
-	if [[ -f db/local.php ]]
-	then
-		LOCALFILE="db/local.php"
-		echo "Detected: $LOCALFILE"
-	else
-		usage
-		exit 1
-	fi
+    # If no parameter was given, try to guess
+    if [[ -f db/local.php ]]
+    then
+        LOCALFILE="db/local.php"
+        echo "Detected: $LOCALFILE"
+    else
+        usage
+        exit 1
+    fi
 else
-	# Use the one provided
-	LOCALFILE="$1"
+    # Use the one provided
+    LOCALFILE="$1"
 fi
 
 echo "Using: $LOCALFILE"
@@ -37,7 +37,7 @@ then
   PASS_DETECTED=$(grep "^\$pass_tiki" "$LOCALFILE" | cut -d"'" -f2| tail -n 1);
 else
   echo "ERROR: local.php file not found"
-	usage
+    usage
   exit 1
 fi
 
@@ -60,13 +60,13 @@ echo "Delete entries older than 1 year? (y/N)"
 read delete
 if [ "$delete" = "y" ]
 then
-	mysql -u "${USER_DETECTED}" --password="${PASS_DETECTED}" "${DB_DETECTED}" -e "DELETE FROM tiki_actionlog WHERE FROM_UNIXTIME(lastModif) < DATE_SUB(NOW(),INTERVAL 1 YEAR) ; "
+    mysql -u "${USER_DETECTED}" --password="${PASS_DETECTED}" "${DB_DETECTED}" -e "DELETE FROM tiki_actionlog WHERE FROM_UNIXTIME(lastModif) < DATE_SUB(NOW(),INTERVAL 1 YEAR) ; "
 else
-	echo "Delete entries older than 2 years? (y/N)"
-	read delete
-	if [ "$delete" = "y" ]
-	then
-		mysql -u "${USER_DETECTED}" --password="${PASS_DETECTED}" "${DB_DETECTED}" -e "DELETE FROM tiki_actionlog WHERE FROM_UNIXTIME(lastModif) < DATE_SUB(NOW(),INTERVAL 2 YEAR) ; "
-	fi
+    echo "Delete entries older than 2 years? (y/N)"
+    read delete
+    if [ "$delete" = "y" ]
+    then
+        mysql -u "${USER_DETECTED}" --password="${PASS_DETECTED}" "${DB_DETECTED}" -e "DELETE FROM tiki_actionlog WHERE FROM_UNIXTIME(lastModif) < DATE_SUB(NOW(),INTERVAL 2 YEAR) ; "
+    fi
 fi
 

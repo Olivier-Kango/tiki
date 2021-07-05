@@ -89,40 +89,40 @@ class Tracker_Field_Header extends Tracker_Field_Abstract implements Tracker_Fie
         if ($inTable) {
             $js = '
 (function() {
-	var processTrackerPageForHeaders = function( $div ) {
-		if ($(".hdrField", $div).length) {	// check
-			var $hdrField = $(".hdrField:first", $div);
-			var level = $hdrField.data("level");
-			var name = $hdrField.data("name");
-			var toggle = $hdrField.data("toggle");
+    var processTrackerPageForHeaders = function( $div ) {
+        if ($(".hdrField", $div).length) {    // check
+            var $hdrField = $(".hdrField:first", $div);
+            var level = $hdrField.data("level");
+            var name = $hdrField.data("name");
+            var toggle = $hdrField.data("toggle");
 
-			$hdr = $("<h" + level + ">").text($.trim(name));
+            $hdr = $("<h" + level + ">").text($.trim(name));
 
-			if (toggle) {
-				var $section = $div.nextUntil(":not(div)");
-				$hdr.click(function(){
-					$section.toggle();
-					var $i = $("i", this);
-					if ($i.hasClass("fa-chevron-right")) {
-						$i.replaceWith("<i class=\"fas fa-chevron-down\"></i>");
-					} else {
-						$i.replaceWith("<i class=\"fas fa-chevron-right\"></i>");
-					}
-				});
-				if (toggle === "c") {
-					$hdr.append("<small> <i class=\"fas fa-chevron-right\"></i></small>");
-					$section.hide();
-				} else {
-					$hdr.append("<small> <i class=\"fas fa-chevron-down\"></i></small>");
-				}
-			}
-			$div.replaceWith($hdr);
-			return false;
-		}
-	}
-	$(".hdrField").parents(".form-group row").each(function() {
-		processTrackerPageForHeaders($(this));
-	});
+            if (toggle) {
+                var $section = $div.nextUntil(":not(div)");
+                $hdr.click(function(){
+                    $section.toggle();
+                    var $i = $("i", this);
+                    if ($i.hasClass("fa-chevron-right")) {
+                        $i.replaceWith("<i class=\"fas fa-chevron-down\"></i>");
+                    } else {
+                        $i.replaceWith("<i class=\"fas fa-chevron-right\"></i>");
+                    }
+                });
+                if (toggle === "c") {
+                    $hdr.append("<small> <i class=\"fas fa-chevron-right\"></i></small>");
+                    $section.hide();
+                } else {
+                    $hdr.append("<small> <i class=\"fas fa-chevron-down\"></i></small>");
+                }
+            }
+            $div.replaceWith($hdr);
+            return false;
+        }
+    }
+    $(".hdrField").parents(".form-group row").each(function() {
+        processTrackerPageForHeaders($(this));
+    });
 })();';
         } else {
             $js = '';   // TODO div mode for plugins or something

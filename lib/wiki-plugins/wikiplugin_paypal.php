@@ -400,9 +400,9 @@ function wikiplugin_paypal($data, $params)
         TikiLib::lib('header')->add_js(
             '
 $(document).on("' . $csearchEvent . '", function () {
-	' . $csearchInit . ' $.getScript("' . $jsfile . '", function() {
-			paypal.minicart.render(' . $miniParamStr . ');
-		});
+    ' . $csearchInit . ' $.getScript("' . $jsfile . '", function() {
+            paypal.minicart.render(' . $miniParamStr . ');
+        });
 });'
         )->add_css('#PPMiniCart {z-index: 1040;}'); // make sure it clears the fixed page-header
     }

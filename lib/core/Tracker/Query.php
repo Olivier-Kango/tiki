@@ -531,51 +531,51 @@ class Tracker_Query
         );
         $tikilib->query(
             "CREATE TEMPORARY TABLE temp_tracker_field_options (
-				trackerIdHere INT,
-				trackerIdThere INT,
-				fieldIdThere INT,
-				fieldIdHere INT,
-				displayFieldIdThere INT,
-				displayFieldIdHere INT,
-				linkToItems INT,
-				type VARCHAR(1),
-				options VARCHAR(50)
-				);"
+                trackerIdHere INT,
+                trackerIdThere INT,
+                fieldIdThere INT,
+                fieldIdHere INT,
+                displayFieldIdThere INT,
+                displayFieldIdHere INT,
+                linkToItems INT,
+                type VARCHAR(1),
+                options VARCHAR(50)
+                );"
         );
         $tikilib->query(
             "INSERT INTO temp_tracker_field_options
-			SELECT
-			tiki_tracker_fields.trackerId,
-			REPLACE(SUBSTRING(
-					SUBSTRING_INDEX(tiki_tracker_fields.options, ',', 1),
-					LENGTH(SUBSTRING_INDEX(tiki_tracker_fields.options, ',', 1 -1)) + 1
-					),
-				',', ''),
-			REPLACE(SUBSTRING(
-						SUBSTRING_INDEX(tiki_tracker_fields.options, ',', 2),
-						LENGTH(SUBSTRING_INDEX(tiki_tracker_fields.options, ',', 2 -1)) + 1
-						),
-					',', ''),
-			REPLACE(SUBSTRING(
-						SUBSTRING_INDEX(tiki_tracker_fields.options, ',', 3),
-						LENGTH(SUBSTRING_INDEX(tiki_tracker_fields.options, ',', 3 -1)) + 1
-						),
-					',', ''),
-			REPLACE(SUBSTRING(
-						SUBSTRING_INDEX(tiki_tracker_fields.options, ',', 4),
-						LENGTH(SUBSTRING_INDEX(tiki_tracker_fields.options, ',', 4 -1)) + 1
-						),
-					',', ''),
-			tiki_tracker_fields.fieldId,
-			REPLACE(SUBSTRING(
-						SUBSTRING_INDEX(tiki_tracker_fields.options, ',', 5),
-						LENGTH(SUBSTRING_INDEX(tiki_tracker_fields.options, ',', 5 -1)) + 1
-						),
-					',', ''),
-			tiki_tracker_fields.type,
-			tiki_tracker_fields.options
-				FROM tiki_tracker_fields
-				WHERE tiki_tracker_fields.type = 'l';"
+            SELECT
+            tiki_tracker_fields.trackerId,
+            REPLACE(SUBSTRING(
+                    SUBSTRING_INDEX(tiki_tracker_fields.options, ',', 1),
+                    LENGTH(SUBSTRING_INDEX(tiki_tracker_fields.options, ',', 1 -1)) + 1
+                    ),
+                ',', ''),
+            REPLACE(SUBSTRING(
+                        SUBSTRING_INDEX(tiki_tracker_fields.options, ',', 2),
+                        LENGTH(SUBSTRING_INDEX(tiki_tracker_fields.options, ',', 2 -1)) + 1
+                        ),
+                    ',', ''),
+            REPLACE(SUBSTRING(
+                        SUBSTRING_INDEX(tiki_tracker_fields.options, ',', 3),
+                        LENGTH(SUBSTRING_INDEX(tiki_tracker_fields.options, ',', 3 -1)) + 1
+                        ),
+                    ',', ''),
+            REPLACE(SUBSTRING(
+                        SUBSTRING_INDEX(tiki_tracker_fields.options, ',', 4),
+                        LENGTH(SUBSTRING_INDEX(tiki_tracker_fields.options, ',', 4 -1)) + 1
+                        ),
+                    ',', ''),
+            tiki_tracker_fields.fieldId,
+            REPLACE(SUBSTRING(
+                        SUBSTRING_INDEX(tiki_tracker_fields.options, ',', 5),
+                        LENGTH(SUBSTRING_INDEX(tiki_tracker_fields.options, ',', 5 -1)) + 1
+                        ),
+                    ',', ''),
+            tiki_tracker_fields.type,
+            tiki_tracker_fields.options
+                FROM tiki_tracker_fields
+                WHERE tiki_tracker_fields.type = 'l';"
         );
         $tikilib->query(
             "SET group_concat_max_len = 4294967295;"
@@ -590,7 +590,7 @@ class Tracker_Query
             foreach ($displayFieldIdsThere as $key => $displayFieldIdThere) {
                 if ($key > 0) {
                     $tikilib->query(
-                        "INSERT INTO temp_tracker_field_options	VALUES (?,?,?,?,?,?,?,?,?)",
+                        "INSERT INTO temp_tracker_field_options    VALUES (?,?,?,?,?,?,?,?,?)",
                         [
                             $row["trackerIdHere"],
                             $row["trackerIdThere"],
@@ -883,62 +883,62 @@ class Tracker_Query
 
         $query =
             "SELECT
-			tiki_tracker_items.status,
-			tiki_tracker_item_fields.itemId,
-			tiki_tracker_fields.trackerId,
-			" . $this->concatStr("tiki_tracker_fields.name") . " AS fieldNames,
-			" . $this->concatStr("tiki_tracker_item_fields.fieldId") . " AS fieldIds,
-			" . $this->concatStr("IFNULL(items_right.value, tiki_tracker_item_fields.value)") . " AS item_values
+            tiki_tracker_items.status,
+            tiki_tracker_item_fields.itemId,
+            tiki_tracker_fields.trackerId,
+            " . $this->concatStr("tiki_tracker_fields.name") . " AS fieldNames,
+            " . $this->concatStr("tiki_tracker_item_fields.fieldId") . " AS fieldIds,
+            " . $this->concatStr("IFNULL(items_right.value, tiki_tracker_item_fields.value)") . " AS item_values
 
-				FROM tiki_tracker_item_fields " . ($isSearch == true ? " AS search_item_fields " : "") . "
+                FROM tiki_tracker_item_fields " . ($isSearch == true ? " AS search_item_fields " : "") . "
 
-				" . ($isSearch == true ? "
-				LEFT JOIN tiki_tracker_item_fields ON
-				search_item_fields.itemId = tiki_tracker_item_fields.itemId
-				" : "" ) . "
-				LEFT JOIN tiki_tracker_fields ON
-				tiki_tracker_fields.fieldId = tiki_tracker_item_fields.fieldId
-				LEFT JOIN tiki_trackers ON
-				tiki_trackers.trackerId = tiki_tracker_fields.trackerId
-				LEFT JOIN tiki_tracker_items ON tiki_tracker_items.itemId = tiki_tracker_item_fields.itemId
-
-
-
-				LEFT JOIN temp_tracker_field_options items_left_display ON
-				items_left_display.displayFieldIdHere = tiki_tracker_item_fields.fieldId
-
-				LEFT JOIN tiki_tracker_item_fields items_left ON (
-						items_left.fieldId = items_left_display.fieldIdHere AND
-						items_left.itemId = tiki_tracker_item_fields.itemId
-						)
-
-				LEFT JOIN tiki_tracker_item_fields items_middle ON (
-						items_middle.value = items_left.value AND
-						items_left_display.fieldIdThere = items_middle.fieldId
-						)
-
-				LEFT JOIN tiki_tracker_item_fields items_right ON (
-						items_right.itemId = items_middle.itemId AND
-						items_right.fieldId = items_left_display.displayFieldIdThere
-						)
+                " . ($isSearch == true ? "
+                LEFT JOIN tiki_tracker_item_fields ON
+                search_item_fields.itemId = tiki_tracker_item_fields.itemId
+                " : "" ) . "
+                LEFT JOIN tiki_tracker_fields ON
+                tiki_tracker_fields.fieldId = tiki_tracker_item_fields.fieldId
+                LEFT JOIN tiki_trackers ON
+                tiki_trackers.trackerId = tiki_tracker_fields.trackerId
+                LEFT JOIN tiki_tracker_items ON tiki_tracker_items.itemId = tiki_tracker_item_fields.itemId
 
 
-				WHERE
-				tiki_trackers.trackerId = ?
 
-				" . (! empty($this->start) ? " AND tiki_tracker_items." . $dateUnit . " > ? " : "") . "
-				" . (! empty($this->end) ? " AND tiki_tracker_items." . $dateUnit . " < ? " : "") . "
-				" . (! empty($this->itemId) ? " AND tiki_tracker_item_fields.itemId = ? " : "") . "
-				" . (! empty($fields_safe) ? $fields_safe : "") . "
-				" . (! empty($status_safe) ? $status_safe : "") . "
+                LEFT JOIN temp_tracker_field_options items_left_display ON
+                items_left_display.displayFieldIdHere = tiki_tracker_item_fields.fieldId
 
-				GROUP BY
-				tiki_tracker_item_fields.itemId
-				" . ($isSearch == true ? ", search_item_fields.fieldId, search_item_fields.itemId " : "" ) . "
-				ORDER BY
-				tiki_tracker_items." . $dateUnit . " " . ($this->desc == true ? 'DESC' : 'ASC') . "
-				" . (! empty($this->limit) ? " LIMIT " . $this->limit : "") . "
-				" . (! empty($this->offset) ? " OFFSET " . $this->offset : "");
+                LEFT JOIN tiki_tracker_item_fields items_left ON (
+                        items_left.fieldId = items_left_display.fieldIdHere AND
+                        items_left.itemId = tiki_tracker_item_fields.itemId
+                        )
+
+                LEFT JOIN tiki_tracker_item_fields items_middle ON (
+                        items_middle.value = items_left.value AND
+                        items_left_display.fieldIdThere = items_middle.fieldId
+                        )
+
+                LEFT JOIN tiki_tracker_item_fields items_right ON (
+                        items_right.itemId = items_middle.itemId AND
+                        items_right.fieldId = items_left_display.displayFieldIdThere
+                        )
+
+
+                WHERE
+                tiki_trackers.trackerId = ?
+
+                " . (! empty($this->start) ? " AND tiki_tracker_items." . $dateUnit . " > ? " : "") . "
+                " . (! empty($this->end) ? " AND tiki_tracker_items." . $dateUnit . " < ? " : "") . "
+                " . (! empty($this->itemId) ? " AND tiki_tracker_item_fields.itemId = ? " : "") . "
+                " . (! empty($fields_safe) ? $fields_safe : "") . "
+                " . (! empty($status_safe) ? $status_safe : "") . "
+
+                GROUP BY
+                tiki_tracker_item_fields.itemId
+                " . ($isSearch == true ? ", search_item_fields.fieldId, search_item_fields.itemId " : "" ) . "
+                ORDER BY
+                tiki_tracker_items." . $dateUnit . " " . ($this->desc == true ? 'DESC' : 'ASC') . "
+                " . (! empty($this->limit) ? " LIMIT " . $this->limit : "") . "
+                " . (! empty($this->offset) ? " OFFSET " . $this->offset : "");
 
         if ($this->debug == true) {
             $result = [$query, $params];

@@ -75,7 +75,7 @@ function wikiplugin_diagram_info()
                 'required' => false,
                 'name' => tr('Gallery Id'),
                 'description' => tr('File Gallery id where the new diagram file will be stored. If this parameter is not present the content of 
-				the file will be placed in the body of the plugin.'),
+                the file will be placed in the body of the plugin.'),
                 'since' => '23.0',
                 'filter' => 'int',
             ],
@@ -229,11 +229,11 @@ function wikiplugin_diagram($data, $params)
                 $data = <<<XML
 <mxGraphModel grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="#ffffff">
   <root>
-	<mxCell id="0"/>
-	<mxCell id="1" parent="0"/>
-	<mxCell id="2" value="" style="shape=image;imageAspect=0;aspect=fixed;verticalLabelPosition=bottom;verticalAlign=top;image={$infoImg['url']};imageBackground=none;movable=0;resizable=0;rotatable=0;deletable=0;editable=0;connectable=0;" parent="1" vertex="1">
-	  <mxGeometry width="{$infoImg['imageSize'][0]}" height="{$infoImg['imageSize'][1]}" as="geometry"/>
-	</mxCell>
+    <mxCell id="0"/>
+    <mxCell id="1" parent="0"/>
+    <mxCell id="2" value="" style="shape=image;imageAspect=0;aspect=fixed;verticalLabelPosition=bottom;verticalAlign=top;image={$infoImg['url']};imageBackground=none;movable=0;resizable=0;rotatable=0;deletable=0;editable=0;connectable=0;" parent="1" vertex="1">
+      <mxGeometry width="{$infoImg['imageSize'][0]}" height="{$infoImg['imageSize'][1]}" as="geometry"/>
+    </mxCell>
   </root>
 </mxGraphModel>
 XML;
@@ -243,32 +243,32 @@ XML;
 
             if (! empty($galHtml)) {
                 $galHtml = <<<EOF
-					$in				
-					<select name="galleryId" class="form-control-sm">
-						$galHtml
-					</select>
-				EOF;
+                    $in                
+                    <select name="galleryId" class="form-control-sm">
+                        $galHtml
+                    </select>
+                EOF;
             } else {
                 $galHtml = <<<EOF
-					<input type="hidden" name="galleryId" value="$galleryId"/>
-				EOF;
+                    <input type="hidden" name="galleryId" value="$galleryId"/>
+                EOF;
             }
 
             return <<<EOF
-		~np~
-		<form id="newDiagram$diagramIndex" method="post" action="tiki-editdiagram.php">
-			<p>
-				<input type="submit" class="btn btn-primary btn-sm" name="label" value="$label" class="newSvgButton" />
-				$galHtml
-				<input type="hidden" name="newDiagram" value="1"/>
-				<input type="hidden" name="page" value="$page"/>
-				<input type="hidden" name="template" value="$template"/>
-				<input type="hidden" name="fileName" value="$fileName"/>
-				<input type="hidden" name="xml" value="$data"/>
-				<input type="hidden" name="index" value="$diagramIndex"/>
-			</p>
-		</form>
-		~/np~
+        ~np~
+        <form id="newDiagram$diagramIndex" method="post" action="tiki-editdiagram.php">
+            <p>
+                <input type="submit" class="btn btn-primary btn-sm" name="label" value="$label" class="newSvgButton" />
+                $galHtml
+                <input type="hidden" name="newDiagram" value="1"/>
+                <input type="hidden" name="page" value="$page"/>
+                <input type="hidden" name="template" value="$template"/>
+                <input type="hidden" name="fileName" value="$fileName"/>
+                <input type="hidden" name="xml" value="$data"/>
+                <input type="hidden" name="index" value="$diagramIndex"/>
+            </p>
+        </form>
+        ~/np~
 EOF;
         }
     }

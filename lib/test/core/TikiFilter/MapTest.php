@@ -14,7 +14,7 @@
 class TikiFilter_MapTest extends TikiTestCase
 {
     /** @var string Test string to use which has a variety of input types */
-    private $standardString = '!“#π$ΣeÑ‘()¿*+,½-./«»2÷≈y:·;{<|=}>~?@ü©	:/g.,:|4h&#Δδ_🍘コン onclick<script>alert(1)</script><b>δ</b><x>';
+    private $standardString = '!“#π$ΣeÑ‘()¿*+,½-./«»2÷≈y:·;{<|=}>~?@ü©    :/g.,:|4h&#Δδ_🍘コン onclick<script>alert(1)</script><b>δ</b><x>';
 
     public function testTikiFiltersExpectedOutput()
     {
@@ -32,30 +32,30 @@ class TikiFilter_MapTest extends TikiTestCase
             'intscommas' => ',2,41',
             'intspipes' => '2||41',
             'alpha' => 'πΣeÑyüghΔδコンonclickscriptalertscriptbδbx',
-            'alphaspace' => 'πΣeÑyü	ghΔδコン onclickscriptalertscriptbδbx',
+            'alphaspace' => 'πΣeÑyü    ghΔδコン onclickscriptalertscriptbδbx',
             'word' => 'e2yg4h_onclickscriptalert1scriptbbx',
-            'wordspace' => 'e2y	g4h_ onclickscriptalert1scriptbbx',
+            'wordspace' => 'e2y    g4h_ onclickscriptalert1scriptbbx',
             'alnum' => 'πΣeÑ½2yüg4hΔδコンonclickscriptalert1scriptbδbx',
             'alnumdash' => 'πΣeÑ½-2yüg4hΔδ_コンonclickscriptalert1scriptbδbx',
-            'alnumspace' => 'πΣeÑ½2yü	g4hΔδコン onclickscriptalert1scriptbδbx',
-            'username' => '!“#π$ΣeÑ‘()¿*+,½-./«»2÷≈y:·;{~?@ü©	:/g.,:|4h&#Δδ_🍘コン onclickalert(1)δ',
-            'groupname' => '!“#π$ΣeÑ‘()¿*+,½-./«»2÷≈y:·;{~?@ü©	:/g.,:|4h&#Δδ_🍘コン onclickalert(1)δ',
-            'pagename' => '!“#π$ΣeÑ‘()¿*+,½-./«»2÷≈y:·;{~?@ü©	:/g.,:|4h&#Δδ_🍘コン onclickalert(1)δ',
-            'topicname' => '!“#π$ΣeÑ‘()¿*+,½-./«»2÷≈y:·;{~?@ü©	:/g.,:|4h&#Δδ_🍘コン onclickalert(1)δ',
-            'themename' => '!“#π$ΣeÑ‘()¿*+,½-./«»2÷≈y:·;{~?@ü©	:/g.,:|4h&#Δδ_🍘コン onclickalert(1)δ',
-            'email' => '!“#π$ΣeÑ‘()¿*+,½-./«»2÷≈y:·;{~?@ü©	:/g.,:|4h&#Δδ_🍘コン onclickalert(1)δ',
-            'url' => '!“#π$ΣeÑ‘()¿*+,½-./«»2÷≈y:·;{~?@ü©	:/g.,:|4h&#Δδ_🍘コン onclickalert(1)δ',
-            'text' => '!“#π$ΣeÑ‘()¿*+,½-./«»2÷≈y:·;{~?@ü©	:/g.,:|4h&#Δδ_🍘コン onclickalert(1)δ',
-            'date' => '!“#π$ΣeÑ‘()¿*+,½-./«»2÷≈y:·;{~?@ü©	:/g.,:|4h&#Δδ_🍘コン onclickalert(1)δ',
-            'time' => '!“#π$ΣeÑ‘()¿*+,½-./«»2÷≈y:·;{~?@ü©	:/g.,:|4h&#Δδ_🍘コン onclickalert(1)δ',
-            'datetime' => '!“#π$ΣeÑ‘()¿*+,½-./«»2÷≈y:·;{~?@ü©	:/g.,:|4h&#Δδ_🍘コン onclickalert(1)δ',
-            'striptags' => '!“#π$ΣeÑ‘()¿*+,½-./«»2÷≈y:·;{~?@ü©	:/g.,:|4h&#Δδ_🍘コン onclickalert(1)δ',
-            'purifier' => '!“#π$ΣeÑ‘()¿*+,½-./«»2÷≈y:·;{&lt;|=}&gt;~?@ü©	:/g.,:|4hΔδ_🍘コン onclick<b>δ</b>',
-            'html' => '!“#π$ΣeÑ‘()¿*+,½-./«»2÷≈y:·;{&lt;|=}&gt;~?@ü©	:/g.,:|4hΔδ_🍘コン onclick<b>δ</b>',
-            'xss' => '!“#π$ΣeÑ‘()¿*+,½-./«»2÷≈y:·;{<|=}>~?@ü©	:/g.,:|4h&#Δδ_🍘コン on<x>click<sc<x>ript>alert(1)</script><b>δ</b><x>',
-            'wikicontent' => '!“#π$ΣeÑ‘()¿*+,½-./«»2÷≈y:·;{<|=}>~?@ü©	:/g.,:|4h&#Δδ_🍘コン on<x>click<sc<x>ript>alert(1)</script><b>δ</b><x>',
-            'rawhtml_unsafe' => '!“#π$ΣeÑ‘()¿*+,½-./«»2÷≈y:·;{<|=}>~?@ü©	:/g.,:|4h&#Δδ_🍘コン onclick<script>alert(1)</script><b>δ</b>',
-            'none' => '!“#π$ΣeÑ‘()¿*+,½-./«»2÷≈y:·;{<|=}>~?@ü©	:/g.,:|4h&#Δδ_🍘コン onclick<script>alert(1)</script><b>δ</b><x>'
+            'alnumspace' => 'πΣeÑ½2yü    g4hΔδコン onclickscriptalert1scriptbδbx',
+            'username' => '!“#π$ΣeÑ‘()¿*+,½-./«»2÷≈y:·;{~?@ü©    :/g.,:|4h&#Δδ_🍘コン onclickalert(1)δ',
+            'groupname' => '!“#π$ΣeÑ‘()¿*+,½-./«»2÷≈y:·;{~?@ü©    :/g.,:|4h&#Δδ_🍘コン onclickalert(1)δ',
+            'pagename' => '!“#π$ΣeÑ‘()¿*+,½-./«»2÷≈y:·;{~?@ü©    :/g.,:|4h&#Δδ_🍘コン onclickalert(1)δ',
+            'topicname' => '!“#π$ΣeÑ‘()¿*+,½-./«»2÷≈y:·;{~?@ü©    :/g.,:|4h&#Δδ_🍘コン onclickalert(1)δ',
+            'themename' => '!“#π$ΣeÑ‘()¿*+,½-./«»2÷≈y:·;{~?@ü©    :/g.,:|4h&#Δδ_🍘コン onclickalert(1)δ',
+            'email' => '!“#π$ΣeÑ‘()¿*+,½-./«»2÷≈y:·;{~?@ü©    :/g.,:|4h&#Δδ_🍘コン onclickalert(1)δ',
+            'url' => '!“#π$ΣeÑ‘()¿*+,½-./«»2÷≈y:·;{~?@ü©    :/g.,:|4h&#Δδ_🍘コン onclickalert(1)δ',
+            'text' => '!“#π$ΣeÑ‘()¿*+,½-./«»2÷≈y:·;{~?@ü©    :/g.,:|4h&#Δδ_🍘コン onclickalert(1)δ',
+            'date' => '!“#π$ΣeÑ‘()¿*+,½-./«»2÷≈y:·;{~?@ü©    :/g.,:|4h&#Δδ_🍘コン onclickalert(1)δ',
+            'time' => '!“#π$ΣeÑ‘()¿*+,½-./«»2÷≈y:·;{~?@ü©    :/g.,:|4h&#Δδ_🍘コン onclickalert(1)δ',
+            'datetime' => '!“#π$ΣeÑ‘()¿*+,½-./«»2÷≈y:·;{~?@ü©    :/g.,:|4h&#Δδ_🍘コン onclickalert(1)δ',
+            'striptags' => '!“#π$ΣeÑ‘()¿*+,½-./«»2÷≈y:·;{~?@ü©    :/g.,:|4h&#Δδ_🍘コン onclickalert(1)δ',
+            'purifier' => '!“#π$ΣeÑ‘()¿*+,½-./«»2÷≈y:·;{&lt;|=}&gt;~?@ü©    :/g.,:|4hΔδ_🍘コン onclick<b>δ</b>',
+            'html' => '!“#π$ΣeÑ‘()¿*+,½-./«»2÷≈y:·;{&lt;|=}&gt;~?@ü©    :/g.,:|4hΔδ_🍘コン onclick<b>δ</b>',
+            'xss' => '!“#π$ΣeÑ‘()¿*+,½-./«»2÷≈y:·;{<|=}>~?@ü©    :/g.,:|4h&#Δδ_🍘コン on<x>click<sc<x>ript>alert(1)</script><b>δ</b><x>',
+            'wikicontent' => '!“#π$ΣeÑ‘()¿*+,½-./«»2÷≈y:·;{<|=}>~?@ü©    :/g.,:|4h&#Δδ_🍘コン on<x>click<sc<x>ript>alert(1)</script><b>δ</b><x>',
+            'rawhtml_unsafe' => '!“#π$ΣeÑ‘()¿*+,½-./«»2÷≈y:·;{<|=}>~?@ü©    :/g.,:|4h&#Δδ_🍘コン onclick<script>alert(1)</script><b>δ</b>',
+            'none' => '!“#π$ΣeÑ‘()¿*+,½-./«»2÷≈y:·;{<|=}>~?@ü©    :/g.,:|4h&#Δδ_🍘コン onclick<script>alert(1)</script><b>δ</b><x>'
             ];
 
         foreach ($standardStringOutputs as $filter => $expected) {

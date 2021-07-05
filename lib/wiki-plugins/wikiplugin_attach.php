@@ -21,7 +21,7 @@ function wikiplugin_attach_info()
                 'required' => false,
                 'name' => tra('Name'),
                 'description' => tra('File name of the attached file to link to. Either name, file, id or num can be
-					used to identify a single attachment'),
+                    used to identify a single attachment'),
                 'since' => '1',
                 'filter' => 'text',
                 'default' => '',
@@ -38,7 +38,7 @@ function wikiplugin_attach_info()
                 'required' => false,
                 'name' => tra('Page'),
                 'description' => tra('Name of the wiki page the file is attached to. If left empty when the plugin is
-					used on a wiki page, this defaults to that wiki page.'),
+                    used on a wiki page, this defaults to that wiki page.'),
                 'since' => '1',
                 'filter' => 'pagename',
                 'default' => '',
@@ -74,7 +74,7 @@ function wikiplugin_attach_info()
                 'required' => false,
                 'name' => tra('Image'),
                 'description' => tr('Indicates that this file is an image, and should be displayed inline using the
-					%0 tag (not set by default)', '<code>img</code>'),
+                    %0 tag (not set by default)', '<code>img</code>'),
                 'since' => '1',
                 'filter' => 'digits',
                 'default' => 0,
@@ -88,7 +88,7 @@ function wikiplugin_attach_info()
                 'required' => false,
                 'name' => tra('Custom Label'),
                 'description' => tr('Makes the text between the %0 tags the link text instead of the file name
-					or description. Only the first attachment will be listed.', '<code>{ATTACH}</code>'),
+                    or description. Only the first attachment will be listed.', '<code>{ATTACH}</code>'),
                 'since' => '1',
                 'filter' => 'digits',
                 'default' => 0,
@@ -102,7 +102,7 @@ function wikiplugin_attach_info()
                 'required' => false,
                 'name' => tra('All'),
                 'description' => tr('Lists links to all attachments for the entire tiki site together with pages they
-					are attached to when set to %0 (Yes)', '<code>1</code>'),
+                    are attached to when set to %0 (Yes)', '<code>1</code>'),
                 'since' => '1',
                 'filter' => 'digits',
                 'default' => 0,
@@ -116,8 +116,8 @@ function wikiplugin_attach_info()
                 'required' => false,
                 'name' => tra('Order Number'),
                 'description' => tra('Identifies the attachment to link to by the order of the attachment in the list
-					of attachments to a page instead of by file name or ID. Either name, file, id or num can be used to
-					identify a single attachment.'),
+                    of attachments to a page instead of by file name or ID. Either name, file, id or num can be used to
+                    identify a single attachment.'),
                 'since' => '1',
                 'default' => '',
             ],
@@ -125,7 +125,7 @@ function wikiplugin_attach_info()
                 'required' => false,
                 'name' => tra('ID'),
                 'description' => tra('Identifies the attachment to link to by id number instead of by file name or order
-					number. Either name, file, id or num can be used to identify a single attachment.'),
+                    number. Either name, file, id or num can be used to identify a single attachment.'),
                 'since' => '1',
                 'accepted' => tra('Attachment name, file, id or num'),
                 'filter' => 'text',
@@ -134,7 +134,7 @@ function wikiplugin_attach_info()
                 'required' => false,
                 'name' => tra('Downloads'),
                 'description' => tr('The alt text that pops up on mouseover will include the number of downloads of the
-					attachment at the end when set to %0 (Yes)', '<code>1</code>'),
+                    attachment at the end when set to %0 (Yes)', '<code>1</code>'),
                 'since' => '1',
                 'filter' => 'digits',
                 'default' => 0,
@@ -148,7 +148,7 @@ function wikiplugin_attach_info()
                 'required' => false,
                 'name' => tra('File Type Icon'),
                 'description' => tr('A file type icon is displayed in front of the attachment link when this is set to
-					%0 (Yes)', '<code>1</code>'),
+                    %0 (Yes)', '<code>1</code>'),
                 'since' => '1',
                 'filter' => 'digits',
                 'default' => 0,

@@ -25,7 +25,7 @@ function wikiplugin_sql_info()
                 'required' => true,
                 'name' => tra('DSN Name'),
                 'description' => tr('DSN name of the database being queried. The DSN name needs to first be defined at
-					%0', '<code>tiki-admin_dsn.php</code>'),
+                    %0', '<code>tiki-admin_dsn.php</code>'),
                 'since' => '1',
                 'default' => ''
             ],

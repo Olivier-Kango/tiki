@@ -185,68 +185,68 @@ class Tracker_Field_DynamicList extends Tracker_Field_Abstract implements Tracke
         TikiLib::lib('header')->add_jq_onready(
             '
 $("body").on("change", "input[name=ins_' . $filterFieldIdHere . '], select[name=ins_' . $filterFieldIdHere . ']", function(e) {
-	$( "select[name=\'' . $insertId . '\']").parent().tikiModal(tr("Loading..."));
-	$.getJSON(
-		"tiki-tracker_http_request.php",
-		{
-			filterFieldIdHere: ' . $filterFieldIdHere . ',
-			trackerIdThere: ' . $trackerIdThere . ',
-			listFieldIdThere: ' . $listFieldIdThere . ',
-			filterFieldIdThere: ' . $filterFieldIdThere . ',
-			statusThere: "' . $statusThere . '",
-			mandatory: "' . $isMandatory . '",
-			insertId: "' . $insertId . '",  // need to pass $insertId in case we have more than one field bound to the same eventsource
-			originalValue:  "' . $originalValue . '",
-			hideBlank: ' . (int)$hideBlank . ',
-			selectMultipleValues: ' . $selectMultipleValues . ',
-			filterFieldValueHere: $(this).val() // We need the field value for the fieldId filterfield for the item $(this).val
-		},
-		
-		// callback
-		function(data, status) {
-			if (data && data.request && data.response) {
-				targetDDL = "select[name=\'" + data.request.insertId + "\']";
-				$ddl = $(targetDDL);
-				$ddl.empty();
-				
-				var v, l;
-				response = data.response;
-				$.each( response, function (i,data) {
-					if (data && data.length > 1) {
-						v = data[0];
-						l = data[1];
-					} else {
-						v = ""
-						l = "";
-					}
-					$ddl.append(
-						$("<option/>")
-							.val(v)
-							.text(l)
-					);
-				}); // each
-					
-				if (data.request.originalValue) {
-					$.each(data.request.originalValue.split(","), function(i,e){
-						$("option[value=\'" + e + "\']", $ddl).prop("selected", true);
-					});
-				}
-			}
+    $( "select[name=\'' . $insertId . '\']").parent().tikiModal(tr("Loading..."));
+    $.getJSON(
+        "tiki-tracker_http_request.php",
+        {
+            filterFieldIdHere: ' . $filterFieldIdHere . ',
+            trackerIdThere: ' . $trackerIdThere . ',
+            listFieldIdThere: ' . $listFieldIdThere . ',
+            filterFieldIdThere: ' . $filterFieldIdThere . ',
+            statusThere: "' . $statusThere . '",
+            mandatory: "' . $isMandatory . '",
+            insertId: "' . $insertId . '",  // need to pass $insertId in case we have more than one field bound to the same eventsource
+            originalValue:  "' . $originalValue . '",
+            hideBlank: ' . (int)$hideBlank . ',
+            selectMultipleValues: ' . $selectMultipleValues . ',
+            filterFieldValueHere: $(this).val() // We need the field value for the fieldId filterfield for the item $(this).val
+        },
+        
+        // callback
+        function(data, status) {
+            if (data && data.request && data.response) {
+                targetDDL = "select[name=\'" + data.request.insertId + "\']";
+                $ddl = $(targetDDL);
+                $ddl.empty();
+                
+                var v, l;
+                response = data.response;
+                $.each( response, function (i,data) {
+                    if (data && data.length > 1) {
+                        v = data[0];
+                        l = data[1];
+                    } else {
+                        v = ""
+                        l = "";
+                    }
+                    $ddl.append(
+                        $("<option/>")
+                            .val(v)
+                            .text(l)
+                    );
+                }); // each
+                    
+                if (data.request.originalValue) {
+                    $.each(data.request.originalValue.split(","), function(i,e){
+                        $("option[value=\'" + e + "\']", $ddl).prop("selected", true);
+                    });
+                }
+            }
 
-			if (jqueryTiki.select2) {
-				$ddl.trigger("change.select2");
-			}
-			$ddl.trigger("change");
-			$ddl.parent().tikiModal();
-		} // callback
-	);  // getJSON
+            if (jqueryTiki.select2) {
+                $ddl.trigger("change.select2");
+            }
+            $ddl.trigger("change");
+            $ddl.parent().tikiModal();
+        } // callback
+    );  // getJSON
 });
 
 if( $("input[name=ins_' . $filterFieldIdHere . '], select[name=ins_' . $filterFieldIdHere . ']").length == 0 ) {
-	// inline edit fix
-	$("<input type=\"hidden\" name=\"ins_' . $filterFieldIdHere . '\">").val(' . json_encode($filterFieldValueHere) . ').insertBefore("select[name=\'' . $insertId . '\']").trigger("change");
+    // inline edit fix
+    $("<input type=\"hidden\" name=\"ins_' . $filterFieldIdHere . '\">").val(' . json_encode($filterFieldValueHere) . ').insertBefore("select[name=\'' . $insertId . '\']").trigger("change");
 }
-		'
+        '
         ); // add_jq_onready
         TikiLib::lib('header')->add_jq_onready('
 $("input[name=ins_' . $filterFieldIdHere . '], select[name=ins_' . $filterFieldIdHere . ']").trigger("change", "initial");

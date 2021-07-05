@@ -298,43 +298,43 @@ class SheetLib extends TikiLib
     public function get_created($sheetId)
     {
         return $this->getOne("
-				SELECT begin
-				FROM tiki_sheet_values
-				WHERE sheetId = ?
-				ORDER BY begin ASC
-			", [ $sheetId ]);
+                SELECT begin
+                FROM tiki_sheet_values
+                WHERE sheetId = ?
+                ORDER BY begin ASC
+            ", [ $sheetId ]);
     }
 
     public function get_sheet_created($sheetId)
     {
         return $this->getOne("
-				SELECT begin
-				FROM tiki_sheet_layout
-				WHERE sheetId = ?
-				ORDER BY begin ASC
-			", [ $sheetId ]);
+                SELECT begin
+                FROM tiki_sheet_layout
+                WHERE sheetId = ?
+                ORDER BY begin ASC
+            ", [ $sheetId ]);
     }
 
     public function get_lastModif($sheetId)
     {
         return $this->getOne("
-				SELECT begin
-				FROM tiki_sheet_values
-				WHERE
-					sheetId = ?
-				ORDER BY end DESC
-			", [ $sheetId ]);
+                SELECT begin
+                FROM tiki_sheet_values
+                WHERE
+                    sheetId = ?
+                ORDER BY end DESC
+            ", [ $sheetId ]);
     }
 
     public function get_sheet_lastModif($sheetId)
     {
         return $this->getOne("
-				SELECT end
-				FROM tiki_sheet_layout
-				WHERE
-					sheetId = ?
-				ORDER BY end DESC
-			", [ $sheetId ]);
+                SELECT end
+                FROM tiki_sheet_layout
+                WHERE
+                    sheetId = ?
+                ORDER BY end DESC
+            ", [ $sheetId ]);
     }
 
     public function remove_sheet($sheetId) // {{{2
@@ -447,14 +447,14 @@ class SheetLib extends TikiLib
     public function sheet_history($sheetId)
     {
         return $this->fetchAll("
-			SELECT DISTINCT
-				`tiki_sheet_values`.`begin` as stamp,
-				`tiki_sheet_values`.`user`,
-				DATE_FORMAT(FROM_UNIXTIME(`tiki_sheet_values`.`begin`), '%M %D %Y %h:%i:%s') as prettystamp
-			FROM `tiki_sheet_values`
-			INNER JOIN `tiki_sheets` ON `tiki_sheets`.`sheetId` = `tiki_sheet_values`.`sheetId`
-			WHERE `tiki_sheets`.`sheetId` = ? OR `tiki_sheets`.`parentSheetId` = ?
-			ORDER BY begin DESC", [ $sheetId, $sheetId ]);
+            SELECT DISTINCT
+                `tiki_sheet_values`.`begin` as stamp,
+                `tiki_sheet_values`.`user`,
+                DATE_FORMAT(FROM_UNIXTIME(`tiki_sheet_values`.`begin`), '%M %D %Y %h:%i:%s') as prettystamp
+            FROM `tiki_sheet_values`
+            INNER JOIN `tiki_sheets` ON `tiki_sheets`.`sheetId` = `tiki_sheet_values`.`sheetId`
+            WHERE `tiki_sheets`.`sheetId` = ? OR `tiki_sheets`.`parentSheetId` = ?
+            ORDER BY begin DESC", [ $sheetId, $sheetId ]);
     }
 
     public function rollback_sheet($id, $readdate = null)
@@ -465,22 +465,22 @@ class SheetLib extends TikiLib
             $now = (int)time();
 
              $this->query("
-				 UPDATE `tiki_sheet_values`
-				 SET `end` = ?
-				 WHERE
-				 	`sheetId` = ? AND
-				 	`end` IS NULL
-			 ", [ $now, $id ]);
+                 UPDATE `tiki_sheet_values`
+                 SET `end` = ?
+                 WHERE
+                     `sheetId` = ? AND
+                     `end` IS NULL
+             ", [ $now, $id ]);
 
              $this->query("
-				 INSERT INTO `tiki_sheet_values` (`sheetId`, `begin`, `rowIndex`, `columnIndex`, `value`, `calculation`, `width`, `height`, `format`, `user`, `style`, `class`, `clonedSheetId`)
-				 SELECT `sheetId`, ?, `rowIndex`, `columnIndex`, `value`, `calculation`, `width`, `height`, `format`, `user`, `style`, `class`, `clonedSheetId`
-				 FROM `tiki_sheet_values`
-				 WHERE
-				 	`sheetId` = ? AND
-				    ? >= `begin` AND
-				    `end` > ?
-			", [ $now, $id, $readdate, $readdate ]);
+                 INSERT INTO `tiki_sheet_values` (`sheetId`, `begin`, `rowIndex`, `columnIndex`, `value`, `calculation`, `width`, `height`, `format`, `user`, `style`, `class`, `clonedSheetId`)
+                 SELECT `sheetId`, ?, `rowIndex`, `columnIndex`, `value`, `calculation`, `width`, `height`, `format`, `user`, `style`, `class`, `clonedSheetId`
+                 FROM `tiki_sheet_values`
+                 WHERE
+                     `sheetId` = ? AND
+                    ? >= `begin` AND
+                    `end` > ?
+            ", [ $now, $id, $readdate, $readdate ]);
         }
 
         if ($prefs['feature_actionlog'] == 'y') {
@@ -509,33 +509,33 @@ class SheetLib extends TikiLib
 
         //clone the parent sheet & get it's id
         $this->query("
-			INSERT INTO `tiki_sheets` (`title`, `description`, `author`, `parentSheetId`, `clonedSheetId`)
-			SELECT CONCAT('CLONED - ', `title`), `description`, ?, ?, `sheetid`
-			FROM `tiki_sheets`
-			WHERE `sheetid` = ?
-		", [ $user, $parentSheetId, $sheetId ]);
+            INSERT INTO `tiki_sheets` (`title`, `description`, `author`, `parentSheetId`, `clonedSheetId`)
+            SELECT CONCAT('CLONED - ', `title`), `description`, ?, ?, `sheetid`
+            FROM `tiki_sheets`
+            WHERE `sheetid` = ?
+        ", [ $user, $parentSheetId, $sheetId ]);
 
         $newSheetId = $this->getOne("SELECT MAX(`sheetId`) FROM `tiki_sheets` WHERE `author` = ?", [ $user ]);
         //clone the sheet layout
         $this->query("
-			INSERT INTO `tiki_sheet_layout` (`sheetId`, `begin`, `end`, `headerRow`, `footerRow`, `className`, `parseValues`, `clonedSheetId`)
-			SELECT ?, `begin`, `end`, `headerRow`, `footerRow`, `className`, `parseValues`, `sheetId`
-			FROM `tiki_sheet_layout`
-			WHERE `sheetid` = ?
-		", [ $newSheetId, $sheetId ]);
+            INSERT INTO `tiki_sheet_layout` (`sheetId`, `begin`, `end`, `headerRow`, `footerRow`, `className`, `parseValues`, `clonedSheetId`)
+            SELECT ?, `begin`, `end`, `headerRow`, `footerRow`, `className`, `parseValues`, `sheetId`
+            FROM `tiki_sheet_layout`
+            WHERE `sheetid` = ?
+        ", [ $newSheetId, $sheetId ]);
 
         //clone sheet's values
         $this->query("
-	      INSERT INTO `tiki_sheet_values` (`sheetId`, `begin`, `end`, `rowIndex`, `columnIndex`, `value`, `calculation`, `width`, `height`, `format`, `user`, `style`, `class`, `clonedSheetId`)
-	      SELECT ?, `begin`, NULL, `rowIndex`, `columnIndex`, `value`, `calculation`, `width`, `height`, `format`, `user`, `style`, `class`, ?
-	      FROM `tiki_sheet_values`
-	    	WHERE
-	        `sheetId` = ? AND
-	        ? >= `begin` AND
-	        (
-	        	`end` IS NULL OR
-	        	`end` > ?
-	        )
+          INSERT INTO `tiki_sheet_values` (`sheetId`, `begin`, `end`, `rowIndex`, `columnIndex`, `value`, `calculation`, `width`, `height`, `format`, `user`, `style`, `class`, `clonedSheetId`)
+          SELECT ?, `begin`, NULL, `rowIndex`, `columnIndex`, `value`, `calculation`, `width`, `height`, `format`, `user`, `style`, `class`, ?
+          FROM `tiki_sheet_values`
+            WHERE
+            `sheetId` = ? AND
+            ? >= `begin` AND
+            (
+                `end` IS NULL OR
+                `end` > ?
+            )
       ", [ $newSheetId, $sheetId, $sheetId, $readdate, $readdate ]);
 
         //clone the children sheets if they exist

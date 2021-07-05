@@ -151,49 +151,49 @@ if ($prefs['javascript_enabled'] == 'y') {  // we have JavaScript
     $headerlib->add_js(
         '
 try {
-	var timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-	setCookie("local_tz", timezone);
+    var timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    setCookie("local_tz", timezone);
 } catch (e) {}
 
 // this is used by tiki-confirm.js checkTimeout, so needs to be always set
 var now = new Date();
 
 if (! timezone) {
-	function inArray(item, array) {
-		for (var i in array) {
-			if (array[i] === item) {
-				return i;
-			}
-		}
-		return false;
-	}
-	var allTimeZoneCodes = ' . json_encode(array_map("strtoupper", $tz)) . ';
-	var now_string = now.toString();
-	var offsethours = - now.getTimezoneOffset() / 60;
-	setCookie("local_tzoffset", offsethours);
-	var m = now_string.match(/[ \(]([A-Z]{3,6})[ \)]?[ \d]*$/);	// try three or more char tz first at the end or just before the year
-	if (!m) {
-		m = now_string.match(/[ \(]([A-Z]{1,6})[ \)]?[ \d]*$/);	// might be a "military" one if not
-	}
-	if (m) {
-		m = m[1];
-	} else {	// IE (sometimes) gives UTC +offset instead of the abbreviation
-		// sadly this workaround will fail for non-whole hour offsets
-		var hours = - now.getTimezoneOffset() / 60;
-		m = "GMT" + (hours > 0 ? "+" : "") + hours;
-	}
-	// Etc/GMT+ is equivalent to GMT-
-	if (m.substring(0,4) == "GMT+") {
-		m = "Etc/GMT-" + m.substring(4);
-		setCookie("local_tz", m);
-	}
-	if (m.substring(0,4) == "GMT-") {
-		m = "Etc/GMT+" + m.substring(4);
-		setCookie("local_tz", m);
-	}
-	if (inArray(m, allTimeZoneCodes)) {
-		setCookie("local_tz", m);
-	}
+    function inArray(item, array) {
+        for (var i in array) {
+            if (array[i] === item) {
+                return i;
+            }
+        }
+        return false;
+    }
+    var allTimeZoneCodes = ' . json_encode(array_map("strtoupper", $tz)) . ';
+    var now_string = now.toString();
+    var offsethours = - now.getTimezoneOffset() / 60;
+    setCookie("local_tzoffset", offsethours);
+    var m = now_string.match(/[ \(]([A-Z]{3,6})[ \)]?[ \d]*$/);    // try three or more char tz first at the end or just before the year
+    if (!m) {
+        m = now_string.match(/[ \(]([A-Z]{1,6})[ \)]?[ \d]*$/);    // might be a "military" one if not
+    }
+    if (m) {
+        m = m[1];
+    } else {    // IE (sometimes) gives UTC +offset instead of the abbreviation
+        // sadly this workaround will fail for non-whole hour offsets
+        var hours = - now.getTimezoneOffset() / 60;
+        m = "GMT" + (hours > 0 ? "+" : "") + hours;
+    }
+    // Etc/GMT+ is equivalent to GMT-
+    if (m.substring(0,4) == "GMT+") {
+        m = "Etc/GMT-" + m.substring(4);
+        setCookie("local_tz", m);
+    }
+    if (m.substring(0,4) == "GMT-") {
+        m = "Etc/GMT+" + m.substring(4);
+        setCookie("local_tz", m);
+    }
+    if (inArray(m, allTimeZoneCodes)) {
+        setCookie("local_tz", m);
+    }
 }
 ',
         2
@@ -284,16 +284,16 @@ var jqueryTiki = ' . json_encode($jqueryTiki, JSON_UNESCAPED_SLASHES) . "\n";
         // add a dummy syntaxHighlighter object as it seems to be used all over the place without checking for the feature
         $js .= '
 var syntaxHighlighter = {
-	ready: function(textarea, settings) { return null; },
-	sync: function(textarea) { return null; },
-	add: function(editor, $input, none, skipResize) { return null; },
-	remove: function($input) { return null; },
-	get: function($input) { return null; },
-	fullscreen: function(textarea) { return null; },
-	find: function(textareaEditor, val) { return null; },
-	searchCursor: [],
-	replace: function(textareaEditor, val, replaceVal) { return null; },
-	insertAt: function(textareaEditor, replaceString, perLine, blockLevel) { return null; }
+    ready: function(textarea, settings) { return null; },
+    sync: function(textarea) { return null; },
+    add: function(editor, $input, none, skipResize) { return null; },
+    remove: function($input) { return null; },
+    get: function($input) { return null; },
+    fullscreen: function(textarea) { return null; },
+    find: function(textareaEditor, val) { return null; },
+    searchCursor: [],
+    replace: function(textareaEditor, val, replaceVal) { return null; },
+    insertAt: function(textareaEditor, replaceString, perLine, blockLevel) { return null; }
 };
 ';
     }
@@ -301,12 +301,12 @@ var syntaxHighlighter = {
     if ($prefs['jquery_ui_modals_draggable'] === 'y') {
         $js .= '
 $(document).on("shown.bs.modal", function (event) {
-	$(event.target).find(".modal-dialog")
-		.css({left: "", top: ""})
-		.draggable({
-			 handle: ".modal-header",
-			 cursor: "grabbing"
-		});
+    $(event.target).find(".modal-dialog")
+        .css({left: "", top: ""})
+        .draggable({
+             handle: ".modal-header",
+             cursor: "grabbing"
+        });
 });
 ';
         $headerlib->add_css('.modal-header {cursor: grab}');
@@ -315,22 +315,22 @@ $(document).on("shown.bs.modal", function (event) {
     if ($prefs['jquery_ui_modals_resizable'] === 'y') {
         $js .= '
 $(document).on("tiki.modal.redraw", function (event) {
-	var $modalContent = $(event.target);
-	if (! $modalContent.is(".modal-content")) {
-		$modalContent = $modalContent.find(".modal-content")
-	}
-	if ($modalContent.is(".ui-resizable")) {
-		$modalContent.resizable( "destroy" );
-	}
-	$modalContent
-		.css({width: "", height: ""})	
-		.resizable({
-			minHeight: 100,
-			minWidth: 200
-		})
-		.find(".modal-body").css({
-			"overflow": "auto"
-		});
+    var $modalContent = $(event.target);
+    if (! $modalContent.is(".modal-content")) {
+        $modalContent = $modalContent.find(".modal-content")
+    }
+    if ($modalContent.is(".ui-resizable")) {
+        $modalContent.resizable( "destroy" );
+    }
+    $modalContent
+        .css({width: "", height: ""})    
+        .resizable({
+            minHeight: 100,
+            minWidth: 200
+        })
+        .find(".modal-body").css({
+            "overflow": "auto"
+        });
 });';
     }
 

@@ -1477,10 +1477,10 @@ class UnifiedSearchLib
         // The excluded indexes are hardcoded on the index table creation query
         $indexesToRestore = TikiDb::get()->fetchAll(
             "SHOW INDEXES
-			FROM $currentIndex
-			WHERE Key_name != 'PRIMARY'
-			AND (Key_name != 'object_type' AND Column_name != 'object_type')
-			AND (Key_name != 'object_type' AND Column_name != 'object_id')"
+            FROM $currentIndex
+            WHERE Key_name != 'PRIMARY'
+            AND (Key_name != 'object_type' AND Column_name != 'object_type')
+            AND (Key_name != 'object_type' AND Column_name != 'object_id')"
         );
 
         return $indexesToRestore;

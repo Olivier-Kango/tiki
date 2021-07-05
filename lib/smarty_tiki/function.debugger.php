@@ -81,15 +81,15 @@ function smarty_function_debugger($params, $smarty)
             $headerlib->add_jq_onready(
                 "
 \$('#debugconsole').draggable({
-	stop: function(event, ui) {
-		var off = \$('#debugconsole').offset();
-   		setCookie('debugconsole_position', off.left + ',' + off.top);
-	}
+    stop: function(event, ui) {
+        var off = \$('#debugconsole').offset();
+           setCookie('debugconsole_position', off.left + ',' + off.top);
+    }
 });
 debugconsole_pos = getCookie('debugconsole_position')
 if (debugconsole_pos) {debugconsole_pos = debugconsole_pos.split(',');}
 if (debugconsole_pos) {
-	\$('#debugconsole').css({'left': debugconsole_pos[0] + 'px', 'top': debugconsole_pos[1] + 'px'});
+    \$('#debugconsole').css({'left': debugconsole_pos[0] + 'px', 'top': debugconsole_pos[1] + 'px'});
 }
 "
             );

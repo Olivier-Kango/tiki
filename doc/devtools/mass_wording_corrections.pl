@@ -47,7 +47,7 @@ use Getopt::Long;
 my $correct_options=GetOptions("help","debug","verbose","ignorecase","caseisenforced");
 
 if($opt_debug){
-	print "Number of args: ".$#ARGV."\n";
+    print "Number of args: ".$#ARGV."\n";
 }
 
 if($opt_help || !$correct_options || ($#ARGV != 1) || ($opt_caseisenforced && (("$ARGV[0]" ne "\L$ARGV[0]") || ( "$ARGV[1]" ne "\u$ARGV[1]" ))) ) {
@@ -95,75 +95,75 @@ uk 1
 
 # We loop on all language files
 while ( my $langfile = <lang/*/language.php> ){
-	print "-- ";
-	my $lang="";
-	my $trycapitalisation=0;
-	if($langfile =~ /lang\/(.*)\/language.php/) {
-		$lang=$1;
-	}else{
-		print "ERROR: could not extract language from $langfile \n";
-		next;
-	}
-	if($opt_verbose){print "$langfile ";}
-	print " ($lang)";
-	if( ($opt_caseisenforced) and ($languages_delicats{$lang} != 1 )){
-		print " capitalisation of translation will be attempted";
-		$trycapitalisation=1;
-	}
-	print "\n";
-	# Looking for '"Word" => "Translation"'
-	my $command="grep '\"$word_correct_escaped\"[ 	]*=>[ 	]*\"[^\"]*\"[ 	]*,.*\$' $langfile | wc -l > /tmp/result.txt";
-	if($opt_debug){print "-> $command\n";}
-	if(system($command)) {
-		print STDERR "Ignore system call failure ($!)\n";
-	}
-	open(RESULT,"/tmp/result.txt") or die("Failed to open /tmp/result.txt ($!)\nRemove file /tmp/result.txt and try again.\n");
-	chomp(my $result = <RESULT>);
-	close(RESULT);
-	if( $result > 0){
-		if($opt_verbose) {print "Nothing to do: translation of '$word_correct' is there already (lines found: $result). ";}
-		print "Nothing done (already translated).\n";
-		next;
-	}
-	if($opt_verbose) {print "Need to add translation of '$word_correct' (lines found: $result)\n";}
-	$command="grep '\"$word_lowercase_escaped\"[ 	]*=>[ 	]*\"[^\"]*\"[ 	]*,.*\$' $langfile | wc -l > /tmp/result.txt";
-	if($opt_debug){print "-> $command\n";}
-	if(system($command)) {
-		print STDERR "Ignore system call failure ($!)\n";
-	}
-	open(RESULT,"/tmp/result.txt") or die("Failed to open /tmp/result.txt ($!)\n");
-	chomp(my $result = <RESULT>);
-	close(RESULT);
-	if( $result == 0){
-		if($opt_verbose) {print STDERR "ERROR: '$word_lowercase' not in translation file (lines found: $result)\n";}
-		print "Nothing done (no previous translation).\n";
-		next;
-		# last;
-	}
-	if($opt_verbose) {print "Need to edit $langfile (lines found: $result)\n";}
-	# here we edit the file
-	my $msg_success = "";
-	if($trycapitalisation==0){
-		$command="perl -pi.bak -e 's/(^(.*)\"($word_lowercase_escaped_perl)\"[ 	]*=>[ 	]*\"([^\"]*)\"[ 	]*,.*\$)/\$1\\n\$2\"$word_correct_escaped\" => \"\$4\",/' $langfile";
-		$msg_success = "Translation added.";
-	}else{
-		if(!$opt_caseisenforced) { # then we assume that no attempt at capitalisation is expected
-			$command="perl -pi.bak -e 's/(^(.*)\"($word_lowercase_escaped_perl)\"[ 	]*=>[ 	]*\"([^\"]*)\"[ 	]*,.*\$)/\$1\\n\$2\"$word_correct_escaped\" => \"\$4\",/' $langfile";
-			$msg_success = "Translation added.";
-		}else{
-			$command="perl -pi.bak -e 's/(^(.*)\"($word_lowercase_escaped_perl)\"[ 	]*=>[ 	]*\"([^\"]*)\"[ 	]*,.*\$)/\$1\\n\$2\"$word_correct_escaped\" => \"\\u\$4\",/' $langfile";
-			$msg_success = "Translation added and capitalized.";
-		}
-	}
-	if($opt_debug){print "-> $command\n";}
-	if(system($command)) {
-		print STDERR "Ignore system call failure ($!)\n";
-	}else{
-		print "$msg_success \n"
-	}
+    print "-- ";
+    my $lang="";
+    my $trycapitalisation=0;
+    if($langfile =~ /lang\/(.*)\/language.php/) {
+        $lang=$1;
+    }else{
+        print "ERROR: could not extract language from $langfile \n";
+        next;
+    }
+    if($opt_verbose){print "$langfile ";}
+    print " ($lang)";
+    if( ($opt_caseisenforced) and ($languages_delicats{$lang} != 1 )){
+        print " capitalisation of translation will be attempted";
+        $trycapitalisation=1;
+    }
+    print "\n";
+    # Looking for '"Word" => "Translation"'
+    my $command="grep '\"$word_correct_escaped\"[     ]*=>[     ]*\"[^\"]*\"[     ]*,.*\$' $langfile | wc -l > /tmp/result.txt";
+    if($opt_debug){print "-> $command\n";}
+    if(system($command)) {
+        print STDERR "Ignore system call failure ($!)\n";
+    }
+    open(RESULT,"/tmp/result.txt") or die("Failed to open /tmp/result.txt ($!)\nRemove file /tmp/result.txt and try again.\n");
+    chomp(my $result = <RESULT>);
+    close(RESULT);
+    if( $result > 0){
+        if($opt_verbose) {print "Nothing to do: translation of '$word_correct' is there already (lines found: $result). ";}
+        print "Nothing done (already translated).\n";
+        next;
+    }
+    if($opt_verbose) {print "Need to add translation of '$word_correct' (lines found: $result)\n";}
+    $command="grep '\"$word_lowercase_escaped\"[     ]*=>[     ]*\"[^\"]*\"[     ]*,.*\$' $langfile | wc -l > /tmp/result.txt";
+    if($opt_debug){print "-> $command\n";}
+    if(system($command)) {
+        print STDERR "Ignore system call failure ($!)\n";
+    }
+    open(RESULT,"/tmp/result.txt") or die("Failed to open /tmp/result.txt ($!)\n");
+    chomp(my $result = <RESULT>);
+    close(RESULT);
+    if( $result == 0){
+        if($opt_verbose) {print STDERR "ERROR: '$word_lowercase' not in translation file (lines found: $result)\n";}
+        print "Nothing done (no previous translation).\n";
+        next;
+        # last;
+    }
+    if($opt_verbose) {print "Need to edit $langfile (lines found: $result)\n";}
+    # here we edit the file
+    my $msg_success = "";
+    if($trycapitalisation==0){
+        $command="perl -pi.bak -e 's/(^(.*)\"($word_lowercase_escaped_perl)\"[     ]*=>[     ]*\"([^\"]*)\"[     ]*,.*\$)/\$1\\n\$2\"$word_correct_escaped\" => \"\$4\",/' $langfile";
+        $msg_success = "Translation added.";
+    }else{
+        if(!$opt_caseisenforced) { # then we assume that no attempt at capitalisation is expected
+            $command="perl -pi.bak -e 's/(^(.*)\"($word_lowercase_escaped_perl)\"[     ]*=>[     ]*\"([^\"]*)\"[     ]*,.*\$)/\$1\\n\$2\"$word_correct_escaped\" => \"\$4\",/' $langfile";
+            $msg_success = "Translation added.";
+        }else{
+            $command="perl -pi.bak -e 's/(^(.*)\"($word_lowercase_escaped_perl)\"[     ]*=>[     ]*\"([^\"]*)\"[     ]*,.*\$)/\$1\\n\$2\"$word_correct_escaped\" => \"\\u\$4\",/' $langfile";
+            $msg_success = "Translation added and capitalized.";
+        }
+    }
+    if($opt_debug){print "-> $command\n";}
+    if(system($command)) {
+        print STDERR "Ignore system call failure ($!)\n";
+    }else{
+        print "$msg_success \n"
+    }
 
-	if($opt_verbose){print "-- file handled --\n\n";}
-	
+    if($opt_verbose){print "-- file handled --\n\n";}
+
 }
 
 exit 0;

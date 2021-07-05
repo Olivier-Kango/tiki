@@ -95,9 +95,9 @@ function smarty_function_currency($params, $smarty)
     $out .= '</div>';
     if ($conversions) {
         $out .= '
-		<div class="d-none currency_output_' . $id . '" style="position:absolute; z-index: 1000;">
-			<div class="modal-content">
-				<div class="modal-body">';
+        <div class="d-none currency_output_' . $id . '" style="position:absolute; z-index: 1000;">
+            <div class="modal-content">
+                <div class="modal-body">';
         foreach ($conversions as $currency => $amount) {
             if ((isset($reloff) and $reloff > 0) and ($allSymbol != 1)) {
                 $format = $part1a . $symbol;
@@ -109,9 +109,9 @@ function smarty_function_currency($params, $smarty)
             $out .= '<br>';
         }
         $out .= '
-				</div>
-			</div>
-		</div>';
+                </div>
+            </div>
+        </div>';
     }
 
     return $out;

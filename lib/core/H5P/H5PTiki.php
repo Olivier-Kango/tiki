@@ -1190,34 +1190,34 @@ WHERE hll.`library_id` = ?',
     {
         $content = TikiDb::get()->query(
             'SELECT hc.id,
-					hc.file_id,
-					hc.title,
-					hc.parameters AS params,
-					hc.filtered,
-					hc.slug AS slug,
-					hc.user_id,
-					hc.embed_type AS embedType,
-					hc.disable,
-					hl.id AS libraryId,
-					hl.name AS libraryName,
-					hl.major_version AS libraryMajorVersion,
-					hl.minor_version AS libraryMinorVersion,
-					hl.embed_types AS libraryEmbedTypes,
-					hl.fullscreen AS libraryFullscreen,
-					hc.authors AS authors,
-					hc.source AS source,
-					hc.year_from AS yearFrom,
-					hc.year_to AS yearTo,
-					hc.license AS license,
-					hc.license_version AS licenseVersion,
-					hc.license_extras AS licenseExtras,
-					hc.author_comments AS authorComments,
-					hc.changes AS changes,
-       				hc.default_language AS defaultLanguage,
-        			hc.a11y_title AS a11yTitle
-			FROM `tiki_h5p_contents` hc
-			JOIN `tiki_h5p_libraries` hl ON hl.id = hc.library_id
-			WHERE hc.id =?',
+                    hc.file_id,
+                    hc.title,
+                    hc.parameters AS params,
+                    hc.filtered,
+                    hc.slug AS slug,
+                    hc.user_id,
+                    hc.embed_type AS embedType,
+                    hc.disable,
+                    hl.id AS libraryId,
+                    hl.name AS libraryName,
+                    hl.major_version AS libraryMajorVersion,
+                    hl.minor_version AS libraryMinorVersion,
+                    hl.embed_types AS libraryEmbedTypes,
+                    hl.fullscreen AS libraryFullscreen,
+                    hc.authors AS authors,
+                    hc.source AS source,
+                    hc.year_from AS yearFrom,
+                    hc.year_to AS yearTo,
+                    hc.license AS license,
+                    hc.license_version AS licenseVersion,
+                    hc.license_extras AS licenseExtras,
+                    hc.author_comments AS authorComments,
+                    hc.changes AS changes,
+                       hc.default_language AS defaultLanguage,
+                    hc.a11y_title AS a11yTitle
+            FROM `tiki_h5p_contents` hc
+            JOIN `tiki_h5p_libraries` hl ON hl.id = hc.library_id
+            WHERE hc.id =?',
             $id
         );
 
@@ -1687,13 +1687,13 @@ GROUP BY l.`name`, l.`major_version`, l.`minor_version`');
              l1.major_version as majorVersion, l1.minor_version as minorVersion,
              l1.patch_version as patchVersion, l1.add_to as addTo,
              l1.preloaded_js as preloadedJs, l1.preloaded_css as preloadedCss
-			   FROM tiki_h5p_libraries AS l1
-			   LEFT JOIN tiki_h5p_libraries AS l2
-				 ON l1.name = l2.name AND
-				   (l1.major_version < l2.major_version OR
-					 (l1.major_version = l2.major_version AND
-					  l1.minor_version < l2.minor_version))
-			   WHERE l1.add_to IS NOT NULL AND l2.name IS NULL"
+               FROM tiki_h5p_libraries AS l1
+               LEFT JOIN tiki_h5p_libraries AS l2
+                 ON l1.name = l2.name AND
+                   (l1.major_version < l2.major_version OR
+                     (l1.major_version = l2.major_version AND
+                      l1.minor_version < l2.minor_version))
+               WHERE l1.add_to IS NOT NULL AND l2.name IS NULL"
         );
 
         return $result->fetchRow();

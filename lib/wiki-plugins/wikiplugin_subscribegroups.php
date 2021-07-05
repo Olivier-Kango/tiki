@@ -31,7 +31,7 @@ function wikiplugin_subscribegroups_info()
                 'required' => false,
                 'name' => tra('Show Subscribe Box'),
                 'description' => tra('Show the subscribe box (shown by default). Will not show if there are no other
-					groups the user may register for.'),
+                    groups the user may register for.'),
                 'since' => '4.0',
                 'filter' => 'alpha',
                 'default' => 'y',
@@ -57,7 +57,7 @@ function wikiplugin_subscribegroups_info()
                 'required' => false,
                 'name' => tra('Show Default'),
                 'description' => tra('Shows which group is the user\'s default group (if any) and allows the user to
-					change his or her default group.'),
+                    change his or her default group.'),
                 'since' => '4.0',
                 'filter' => 'alpha',
                 'default' => 'n',
@@ -105,7 +105,7 @@ function wikiplugin_subscribegroups_info()
                 'required' => false,
                 'name' => tra('Leader Group Name'),
                 'description' => tr('Name of group for leaders of the group, where %0 will be substituted by
-					the group name', '<code>groupName</code>'),
+                    the group name', '<code>groupName</code>'),
                 'since' => '8.0',
                 'default' => '',
             ],
@@ -113,7 +113,7 @@ function wikiplugin_subscribegroups_info()
                 'required' => false,
                 'name' => tra('Pending Users Group Name'),
                 'description' => tr('Name of group for users that are waiting for approval to enter the group, where
-					%0 will be substituted by the group name', '<code>groupName</code>'),
+                    %0 will be substituted by the group name', '<code>groupName</code>'),
                 'since' => '8.0',
                 'default' => '',
             ],
@@ -121,7 +121,7 @@ function wikiplugin_subscribegroups_info()
                 'required' => false,
                 'name' => tra('Group Management Page Name'),
                 'description' => tr('Name of wiki page for group management by leaders, where %0 will be
-					substituted by the group name', '<code>groupName</code>'),
+                    substituted by the group name', '<code>groupName</code>'),
                 'since' => '8.0',
                 'default' => '',
             ],

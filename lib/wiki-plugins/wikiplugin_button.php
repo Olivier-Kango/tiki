@@ -24,7 +24,7 @@ function wikiplugin_button_info()
                 'required' => true,
                 'name' => tra('Url'),
                 'description' => tr('URL to be produced by the button. For Wiki page uses %0 format. You can use wiki argument variables like
-					%1 in it', '<code>((Page Name))</code>', '<code>{{itemId}}</code>'),
+                    %1 in it', '<code>((Page Name))</code>', '<code>{{itemId}}</code>'),
                 'since' => '6.1',
                 'filter' => 'url',
                 'default' => '',
@@ -108,7 +108,7 @@ function wikiplugin_button_info()
                 'required' => false,
                 'name' => tra('Link Relation'),
                 'description' => tr('Enter %0 for colorbox effect (like shadowbox and lightbox) or appropriate
-					syntax for link relation.', '<code>box</code>'),
+                    syntax for link relation.', '<code>box</code>'),
                 'since' => '7.0',
                 'filter' => 'text',
                 'default' => '',
@@ -134,13 +134,13 @@ function wikiplugin_button_info()
                 'name' => tra('Auto Arguments'),
                 'description' => tr(
                     'Comma-separated list of URL arguments that will be kept from %0 (like
-					%1) in addition to those you can specify in the href parameter.',
+                    %1) in addition to those you can specify in the href parameter.',
                     '<code>_REQUEST</code>',
                     '<code>$auto_query_args</code>',
                     '<code>href</code>'
                 )
                     . '<br>' . tr('You can also use %0 to specify that every arguments listed in the
-					global var $auto_query_args has to be kept from URL', '<code>_auto_args="*"</code>'),
+                    global var $auto_query_args has to be kept from URL', '<code>_auto_args="*"</code>'),
                 'since' => '6.1',
                 'filter' => 'text',
                 'default' => '',
@@ -161,7 +161,7 @@ function wikiplugin_button_info()
                 'required' => false,
                 'name' => tra('Flip Hide Text'),
                 'description' => tr('If set to No (%0), will not display a "(Hide)" suffix after the button label
-					when the content is shown', '<code>n</code>'),
+                    when the content is shown', '<code>n</code>'),
                 'since' => '6.1',
                 'filter' => 'alpha',
                 'default' => '',

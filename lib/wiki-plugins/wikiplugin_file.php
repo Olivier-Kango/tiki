@@ -37,8 +37,8 @@ function wikiplugin_file_info()
                 'required' => true,
                 'name' => tra('Name'),
                 'description' => tra('Identify an attachment by entering its file name, which will show as a link to the
-					file. If the page parameter is empty, it must be a file name of an attachment to the page where the
-					plugin is used.'),
+                    file. If the page parameter is empty, it must be a file name of an attachment to the page where the
+                    plugin is used.'),
                 'since' => '3.0',
                 'default' => '',
                 'parentparam' => ['name' => 'type', 'value' => 'attachment'],
@@ -56,7 +56,7 @@ function wikiplugin_file_info()
                 'required' => false,
                 'name' => tra('Page'),
                 'description' => tra('Name of the wiki page the file is attached to. Defaults to the wiki page where the
-					plugin is used if empty.'),
+                    plugin is used if empty.'),
                 'since' => '3.0',
                 'parentparam' => ['name' => 'type', 'value' => 'attachment'],
                 'default' => '',
@@ -108,7 +108,7 @@ function wikiplugin_file_info()
                 'required' => false,
                 'name' => tra('Date'),
                 'description' => tr('For an archive file, the archive created just before this date will be linked to.
-					Special values : %0 and %1.', '<code>PAGE_LAST_MOD</code>', '<code>PAGE_VIEW_DATE</code>'),
+                    Special values : %0 and %1.', '<code>PAGE_LAST_MOD</code>', '<code>PAGE_VIEW_DATE</code>'),
                 'since' => '5.0',
                 'parentparam' => ['name' => 'type', 'value' => 'gallery'],
                 'default' => '',

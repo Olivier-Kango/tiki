@@ -248,7 +248,7 @@ class FreetagLib extends ObjectLib
             $bindvals_t[] = $numTags;
 
             $query_t = 'SELECT o.`objectId`
-						 FROM `tiki_objects` o, `tiki_freetagged_objects` fto, `tiki_freetags` t'
+                         FROM `tiki_objects` o, `tiki_freetagged_objects` fto, `tiki_freetags` t'
                                     . ' WHERE ' . $tag_sql
                                     . ' AND fto.`tagId` = t.`tagId` AND o.`objectId` = fto.`objectId` ' . $mid_t
                                     . ' GROUP BY o.`objectId`'
@@ -1261,7 +1261,7 @@ class FreetagLib extends ObjectLib
             $maxResults = 10;
         }
 
-        $mid = ' oa.objectId <> ob.objectId	AND ob.type = ? AND oa.type = ? AND oa.itemId = ?';
+        $mid = ' oa.objectId <> ob.objectId    AND ob.type = ? AND oa.type = ? AND oa.itemId = ?';
         $bindvals = [$targetType, $type, $objectId];
 
         if ($prefs['feature_multilingual'] == 'y' && $type == 'wiki page' && $targetType == 'wiki page') {

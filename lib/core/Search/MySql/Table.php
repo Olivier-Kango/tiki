@@ -159,12 +159,12 @@ class Search_MySql_Table extends TikiDb_Table
         $table = $this->escapeIdentifier($this->tableName);
         $this->db->query(
             "CREATE TABLE IF NOT EXISTS $table (
-				`id` INT NOT NULL AUTO_INCREMENT,
-				`object_type` VARCHAR(15) NOT NULL,
-				`object_id` VARCHAR(235) NOT NULL,
-				PRIMARY KEY(`id`),
-				INDEX (`object_type`, `object_id`(160))
-			) ENGINE=MyISAM"
+                `id` INT NOT NULL AUTO_INCREMENT,
+                `object_type` VARCHAR(15) NOT NULL,
+                `object_id` VARCHAR(235) NOT NULL,
+                PRIMARY KEY(`id`),
+                INDEX (`object_type`, `object_id`(160))
+            ) ENGINE=MyISAM"
         );
         $this->exists = true;
 

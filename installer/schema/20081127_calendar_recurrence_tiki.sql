@@ -33,14 +33,14 @@ CREATE TABLE IF NOT EXISTS tiki_calendar_recurrence (
 
 # Add reference to recurrence table in calendar items table
 ALTER TABLE `tiki_calendar_items`
-	ADD `recurrenceId` int(14);
+    ADD `recurrenceId` int(14);
 ALTER TABLE tiki_calendar_items
-	ADD CONSTRAINT fk_calitems_recurrence
-		FOREIGN KEY (`recurrenceId`)
-		REFERENCES tiki_calendar_recurrence(`recurrenceId`)
-	ON UPDATE CASCADE	
-	ON DELETE SET NULL;	
+    ADD CONSTRAINT fk_calitems_recurrence
+        FOREIGN KEY (`recurrenceId`)
+        REFERENCES tiki_calendar_recurrence(`recurrenceId`)
+    ON UPDATE CASCADE
+    ON DELETE SET NULL;
 
 # Has a recurrent event been manually changed ?
 ALTER TABLE `tiki_calendar_items`
-	ADD changed tinyint(1) DEFAULT '0';
+    ADD changed tinyint(1) DEFAULT '0';

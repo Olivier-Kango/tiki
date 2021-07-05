@@ -1391,16 +1391,16 @@ class TikiSheetDatabaseHandler extends TikiSheetDataHandler
         $tikilib = TikiLib::lib('tiki');
 
         $result = $tikilib->query("
-			SELECT `rowIndex`, `columnIndex`, `value`, `calculation`, `width`, `height`, `format`, `style`, `class`, `user`
-			FROM `tiki_sheet_values`
-			WHERE
-				`sheetId` = ? AND
-				? >= `begin` AND
-				(
-					`end` IS NULL OR
-					`end` > ?
-				)
-		", [ $this->id, (int)$this->readDate, (int)$this->readDate ]);
+            SELECT `rowIndex`, `columnIndex`, `value`, `calculation`, `width`, `height`, `format`, `style`, `class`, `user`
+            FROM `tiki_sheet_values`
+            WHERE
+                `sheetId` = ? AND
+                ? >= `begin` AND
+                (
+                    `end` IS NULL OR
+                    `end` > ?
+                )
+        ", [ $this->id, (int)$this->readDate, (int)$this->readDate ]);
 
         while ($row = $result->fetchRow()) {
             $sheet->initCell($row['rowIndex'], $row['columnIndex']);
@@ -1416,13 +1416,13 @@ class TikiSheetDatabaseHandler extends TikiSheetDataHandler
 
         // Fetching the layout informations.
         $result2 = $tikilib->query("
-			SELECT `className`, `headerRow`, `footerRow`, `parseValues`, `metadata`
-			FROM `tiki_sheet_layout`
-			WHERE
-				`sheetId` = ? AND
-				? >= `begin` AND
-				( `end` IS NULL OR `end` > ? )
-		", [ $this->id, (int)$this->readDate, (int)$this->readDate ]);
+            SELECT `className`, `headerRow`, `footerRow`, `parseValues`, `metadata`
+            FROM `tiki_sheet_layout`
+            WHERE
+                `sheetId` = ? AND
+                ? >= `begin` AND
+                ( `end` IS NULL OR `end` > ? )
+        ", [ $this->id, (int)$this->readDate, (int)$this->readDate ]);
 
         if ($row = $result2->fetchRow()) {
             $sheet->configureLayout($row['className'], $row['headerRow'], $row['footerRow'], $row['parseValues'], $row['metadata']);
@@ -1929,27 +1929,27 @@ class TikiSheetOutputHandler extends TikiSheetDataHandler
         $this->output = "<table" . $class . $id . $title . $type . ">\n";
 
         if (! is_null($this->heading)) {
-            $this->output .= "	<caption>{$this->heading}</caption>\n";
+            $this->output .= "    <caption>{$this->heading}</caption>\n";
         }
 
         if ($sheet->headerRow > 0 && $beginRow < 0) {
-            $this->output .= "	<thead>\n";
+            $this->output .= "    <thead>\n";
             $this->drawRows($sheet);
-            $this->output .= "	</thead>\n";
+            $this->output .= "    </thead>\n";
         }
 
-        $this->output .= "	<colgroup>\n";
+        $this->output .= "    <colgroup>\n";
         $this->drawCols($sheet);
-        $this->output .= "	</colgroup>\n";
+        $this->output .= "    </colgroup>\n";
 
-        $this->output .= "	<tbody>\n";
+        $this->output .= "    <tbody>\n";
         $this->drawRows($sheet);
-        $this->output .= "	</tbody>\n";
+        $this->output .= "    </tbody>\n";
 
         if ($sheet->footerRow > 0 && $beginRow < 0) {
-            $this->output .= "	<tfoot>\n";
+            $this->output .= "    <tfoot>\n";
             $this->drawRows($sheet);
-            $this->output .= "	</tfoot>\n";
+            $this->output .= "    </tfoot>\n";
         }
 
         $this->output .= "</table>\n";
@@ -2056,13 +2056,13 @@ class TikiSheetOutputHandler extends TikiSheetDataHandler
                         }
                     }
                 }
-                $td .= "			<td" . $append . ">$data</td>\n";
+                $td .= "            <td" . $append . ">$data</td>\n";
             }
 
             if (! empty($td)) {
-                $this->output .= "		<tr style='height: $trHeight;' height='" . str_replace("px", "", $trHeight) . "'>\n";
+                $this->output .= "        <tr style='height: $trHeight;' height='" . str_replace("px", "", $trHeight) . "'>\n";
                 $this->output .= $td;
-                $this->output .= "		</tr>\n";
+                $this->output .= "        </tr>\n";
             }
         }
     }
@@ -2122,21 +2122,21 @@ class TikiSheetLabeledOutputHandler extends TikiSheetDataHandler
     {
         $this->output = "<table class=\"default\">\n";
 
-        $this->output .= "	<thead>\n";
-        $this->output .= "		<tr><th></th>\n";
+        $this->output .= "    <thead>\n";
+        $this->output .= "        <tr><th></th>\n";
 
         $prev = 'A';
         for ($j = 0; $sheet->getColumnCount() > $j; $j++) {
-            $this->output .= "			<th>$prev</th>\n";
+            $this->output .= "            <th>$prev</th>\n";
             $prev = $sheet->increment($prev);
         }
 
-        $this->output .= "		</tr>\n";
-        $this->output .= "	</thead>\n";
+        $this->output .= "        </tr>\n";
+        $this->output .= "    </thead>\n";
 
-        $this->output .= "	<tbody>\n";
+        $this->output .= "    <tbody>\n";
         $this->drawRows($sheet);
-        $this->output .= "	</tbody>\n";
+        $this->output .= "    </tbody>\n";
 
         $this->output .= "</table>\n";
 
@@ -2202,12 +2202,12 @@ class TikiSheetLabeledOutputHandler extends TikiSheetDataHandler
                     $append .= " class='{$class}'";
                 }
 
-                $td .= "			<td$append>$data</td>\n";
+                $td .= "            <td$append>$data</td>\n";
             }
 
-            $tr = "		<tr  style='height: $trHeight;' height='$trHeight'><th>" . ($i + 1) . "</th>\n";
+            $tr = "        <tr  style='height: $trHeight;' height='$trHeight'><th>" . ($i + 1) . "</th>\n";
             $tr .= $td;
-            $tr .= "	</tr>\n";
+            $tr .= "    </tr>\n";
 
             $this->output .= $tr;
         }

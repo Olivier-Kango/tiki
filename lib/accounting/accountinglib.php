@@ -74,7 +74,7 @@ class AccountingLib extends LogsLib
         }
         $query = "INSERT INTO `tiki_acct_book`" .
                 " (`bookName`, `bookClosed`, `bookStartDate`, `bookEndDate`," .
-                "	`bookCurrency`, `bookCurrencyPos`, `bookDecimals`, `bookDecPoint`, `bookThousand`," .
+                "    `bookCurrency`, `bookCurrencyPos`, `bookDecimals`, `bookDecPoint`, `bookThousand`," .
                 " `exportSeparator`, `exportEOL`, `exportQuote`, `bookAutoTax`)" .
                 " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
@@ -269,7 +269,7 @@ class AccountingLib extends LogsLib
         $allcond = $all ? '' : ' AND accountLocked=0';
         $query = "SELECT accountBookId, accountId, accountName, accountNotes, accountBudget, accountLocked, " .
                             " SUM(itemAmount*IF(itemType<0,1,0)) AS debit, SUM(itemAmount*IF(itemType>0,1,0)) AS credit" .
-                            "	FROM tiki_acct_account" .
+                            "    FROM tiki_acct_account" .
                             " LEFT JOIN tiki_acct_journal ON tiki_acct_account.accountBookId=tiki_acct_journal.journalBookId" .
                             " LEFT JOIN tiki_acct_item ON tiki_acct_journal.journalId=tiki_acct_item.itemJournalId" .
                             " AND tiki_acct_account.accountId=tiki_acct_item.itemAccountId" .
@@ -315,7 +315,7 @@ class AccountingLib extends LogsLib
         $query = "SELECT Count(`itemAccountId`) AS posts" .
                             " FROM `tiki_acct_journal`" .
                             " INNER JOIN `tiki_acct_item` ON `tiki_acct_journal`.`journalId`=`tiki_acct_item`.`itemJournalId`" .
-                            "	WHERE `journalBookId`=? and `itemAccountId`=?";
+                            "    WHERE `journalBookId`=? and `itemAccountId`=?";
 
         $res = $this->query($query, [$bookId, $accountId]);
         $posts = $res->fetchRow();
@@ -410,7 +410,7 @@ class AccountingLib extends LogsLib
             return false;
         }
         $query = "UPDATE `tiki_acct_account` SET `accountLocked` = NOT `accountLocked`
-			WHERE `accountBookId`=? AND `accountId`=?";
+            WHERE `accountBookId`=? AND `accountId`=?";
         $res = $this->query($query, [$bookId, $accountId]);
         if ($res === false) {
             return false;
@@ -478,8 +478,8 @@ class AccountingLib extends LogsLib
         }
 
         $query = "UPDATE tiki_acct_account SET accountId=?, accountName=?,
-			accountNotes=?, accountBudget=?, accountLocked=?, accountTax=?
-			WHERE accountBookId=? AND accountId=?";
+            accountNotes=?, accountBudget=?, accountLocked=?, accountTax=?
+            WHERE accountBookId=? AND accountId=?";
 
         $res = $this->query(
             $query,
@@ -618,8 +618,8 @@ class AccountingLib extends LogsLib
         $errors = [];
 
         $query = "INSERT INTO `tiki_acct_journal` (`journalBookId`, `journalDate`, `journalDescription`,
-			`journalCancelled`, `journalTs`)
-				VALUES (?,?,?,0,NOW())";
+            `journalCancelled`, `journalTs`)
+                VALUES (?,?,?,0,NOW())";
         $res = $this->query($query, [$bookId, $date->toString('Y-M-d'), $journalDescription]);
 
         if ($res === false) {
@@ -631,8 +631,8 @@ class AccountingLib extends LogsLib
         $journalId = $this->lastInsertId();
 
         $query = "INSERT INTO `tiki_acct_item` (`itemBookId`, `itemJournalId`, `itemAccountId`, `itemType`,
-			`itemAmount`, `itemText`, `itemTs`)
-				VALUES (?, ?, ?, ?, ?, ?, NOW())";
+            `itemAmount`, `itemText`, `itemTs`)
+                VALUES (?, ?, ?, ?, ?, ?, NOW())";
 
         $res = $this->query($query, [$bookId, $journalId, $debitAccount, -1, $amount, $debitText]);
 
@@ -764,8 +764,8 @@ class AccountingLib extends LogsLib
         }
 
         $query = "INSERT INTO `tiki_acct_journal` (`journalBookId`, `journalDate`, `journalDescription`,
-			`journalCancelled`, `journalTs`)
-				VALUES (?,?,?,0,NOW())";
+            `journalCancelled`, `journalTs`)
+                VALUES (?,?,?,0,NOW())";
         $res = $this->query($query, [$bookId, date_format($journalDate, 'Y-m-d'), $journalDescription]);
 
         if ($res === false) {
@@ -776,8 +776,8 @@ class AccountingLib extends LogsLib
         $journalId = $this->lastInsertId();
 
         $query = "INSERT INTO `tiki_acct_item` (`itemBookId`, `itemJournalId`, `itemAccountId`, `itemType`,
-			`itemAmount`, `itemText`, `itemTs`)
-				VALUES (?, ?, ?, ?, ?, ?, NOW())";
+            `itemAmount`, `itemText`, `itemTs`)
+                VALUES (?, ?, ?, ?, ?, ?, NOW())";
 
         for ($i = 0, $icount_debitAccount = count($debitAccount); $i < $icount_debitAccount; $i++) {
             $a = $this->cleanupAmount($bookId, $debitAmount[$i]);
@@ -1011,8 +1011,8 @@ class AccountingLib extends LogsLib
         $stackId = $this->lastInsertId();
 
         $query = "INSERT INTO `tiki_acct_stackitem` (`stackBookId`, `stackItemStackId`, `stackItemAccountId`, `stackItemType`,
-			`stackItemAmount`, `stackItemText`)
-				VALUES (?, ?, ?, ?, ?, ?)";
+            `stackItemAmount`, `stackItemText`)
+                VALUES (?, ?, ?, ?, ?, ?)";
 
         for ($i = 0, $icount_debitAccount = count($debitAccount); $i < $icount_debitAccount; $i++) {
             $a = $this->cleanupAmount($bookId, $debitAmount[$i]);
@@ -1143,8 +1143,8 @@ class AccountingLib extends LogsLib
         }
 
         $query = "INSERT INTO `tiki_acct_stackitem` (`stackBookId`, `stackItemStackId`, `stackItemAccountId`, `stackItemType`,
-			`stackItemAmount`, `stackItemText`)
-				VALUES (?, ?, ?, ?, ?, ?)";
+            `stackItemAmount`, `stackItemText`)
+                VALUES (?, ?, ?, ?, ?, ?)";
 
         for ($i = 0, $icount_debitAccount = count($debitAccount); $i < $icount_debitAccount; $i++) {
             $a = $this->cleanupAmount($bookId, $debitAmount[$i]);
@@ -1203,8 +1203,8 @@ class AccountingLib extends LogsLib
     public function stackConfirm($bookId, $stackId)
     {
         $query = "INSERT into `tiki_acct_journal` (`journalBookId`, `journalDate`, `journalDescription`,
-			`journalCancelled`, `journalTs`)
-				SELECT ?, `stackDate`, `stackDescription` , 0, NOW() FROM `tiki_acct_stack` WHERE `stackBookId`=? AND `stackId`=?";
+            `journalCancelled`, `journalTs`)
+                SELECT ?, `stackDate`, `stackDescription` , 0, NOW() FROM `tiki_acct_stack` WHERE `stackBookId`=? AND `stackId`=?";
         $res = $this->query($query, [$bookId, $bookId, $stackId]);
         if ($res === false) {
             $errors[] = tra('Booking error confirming stack entry') . $this->ErrorNo() . ": " . $this->ErrorMsg() . "<br /><pre>$query</pre>";
@@ -1212,9 +1212,9 @@ class AccountingLib extends LogsLib
         }
         $journalId = $this->lastInsertId();
         $query = "INSERT INTO `tiki_acct_item` (`itemBookId`, `itemJournalId`, `itemAccountId`, `itemType`,
-			`itemAmount`, `itemText`, `itemTs`)
-				SELECT ?, ?, `stackItemAccountId`, `stackItemType`, `stackItemAmount`, `stackItemText`, NOW()
-				FROM `tiki_acct_stackitem` WHERE `stackBookId`=? AND `stackItemStackId`=?";
+            `itemAmount`, `itemText`, `itemTs`)
+                SELECT ?, ?, `stackItemAccountId`, `stackItemType`, `stackItemAmount`, `stackItemText`, NOW()
+                FROM `tiki_acct_stackitem` WHERE `stackBookId`=? AND `stackItemStackId`=?";
         $res = $this->query($query, [$bookId, $journalId, $bookId, $stackId]);
         if ($res === false) {
             $errors[] = tra('Booking error confirming stack entry') . $this->ErrorNo() . ": " . $this->ErrorMsg() . "<br /><pre>$query</pre>";
@@ -1261,9 +1261,9 @@ class AccountingLib extends LogsLib
     public function getBankAccounts($bookId)
     {
         $query = "SELECT * FROM `tiki_acct_bankaccount` INNER JOIN `tiki_acct_account`
-			ON `tiki_acct_bankaccount`.`bankBookId` = `tiki_acct_account`.`accountBookId` AND
-			`tiki_acct_bankaccount`.`bankAccountId`=`tiki_acct_account`.`accountId`
-			WHERE `tiki_acct_bankaccount`.`bankBookId`=?";
+            ON `tiki_acct_bankaccount`.`bankBookId` = `tiki_acct_account`.`accountBookId` AND
+            `tiki_acct_bankaccount`.`bankAccountId`=`tiki_acct_account`.`accountId`
+            WHERE `tiki_acct_bankaccount`.`bankBookId`=?";
         return $this->fetchAll($query, [$bookId]);
     }
 
@@ -1277,8 +1277,8 @@ class AccountingLib extends LogsLib
     public function getOpenStatements($bookId, $accountId)
     {
         $query = "SELECT * FROM `tiki_acct_statement`
-			WHERE `statementJournalId`=0 AND `statementStackId`=0
-			AND `statementBookId`=? AND `statementAccountId`=?";
+            WHERE `statementJournalId`=0 AND `statementStackId`=0
+            AND `statementBookId`=? AND `statementAccountId`=?";
         return $this->fetchAll($query, [$bookId, $accountId]);
     }
 

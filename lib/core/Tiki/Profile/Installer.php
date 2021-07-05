@@ -89,11 +89,11 @@ class Tiki_Profile_Installer
 
         $db = TikiDb::get();
         $result = $db->fetchAll("
-		SELECT i.objectId, permName
-		FROM users_objectpermissions p
-			INNER JOIN ($sub) i ON i.hash = p.objectId
-		WHERE p.objectType = ? AND p.groupName = ?
-		", [$objectType, $group]);
+        SELECT i.objectId, permName
+        FROM users_objectpermissions p
+            INNER JOIN ($sub) i ON i.hash = p.objectId
+        WHERE p.objectType = ? AND p.groupName = ?
+        ", [$objectType, $group]);
 
         $map = [];
         foreach ($result as $row) {

@@ -13,7 +13,7 @@
  * *****                  INSTRUCTIONS                     ******
  *
  * Move into root of your tiki and open in a browser
- * 		e.g. http://localhost/trunk/convert_tpl_ajax.php
+ *         e.g. http://localhost/trunk/convert_tpl_ajax.php
  *
  * Select a tpl from the drop down and check the "Show replacements" checkbox
  * Copy the resulting source into your favourite text editor and
@@ -137,7 +137,7 @@ $headerlib->add_jq_onready(
 <<<JS
 \$('#page-bar, .navbar, .titletips, h2').hide();
 \$('a.pagetitle').text('$tpl (tpl)').parent().after(
-	\$("$form")
+    \$("$form")
 );
 JS
 );

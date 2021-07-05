@@ -119,16 +119,16 @@ function wikiplugin_subscribenewsletter($data, $params)
 
     if ($prefs['feature_jquery_validation'] === 'y') {
         $js = '
-			$("form[name=wpSubscribeNL]").validate({
-				rules: {
-					wpEmail: {
-						required: true,
-						email: true,
-					},
-				},
-				submitHandler: function(form, event){return process_submit(form, event);}
-			});
-		';
+            $("form[name=wpSubscribeNL]").validate({
+                rules: {
+                    wpEmail: {
+                        required: true,
+                        email: true,
+                    },
+                },
+                submitHandler: function(form, event){return process_submit(form, event);}
+            });
+        ';
         TikiLib::lib('header')->add_jq_onready($js);
     }
 

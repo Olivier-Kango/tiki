@@ -17,7 +17,7 @@
  *     contact = 'false'
  *     multiple = 'false'
  *     editable = $tiki_p_admin
- * 	   allowNone = 'n'
+ *        allowNone = 'n'
  *     realnames = 'y'
  *  }
  *

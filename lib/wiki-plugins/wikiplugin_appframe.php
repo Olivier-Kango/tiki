@@ -131,95 +131,95 @@ function wikiplugin_appframe($data, $params)
     $headerlib->add_js(
         <<<JS
 $(window).resize(function () {
-	var viewportHeight = $(window).height(), appframe = $('#appframe'), footerSize, centerHeader, surplus, target;
+    var viewportHeight = $(window).height(), appframe = $('#appframe'), footerSize, centerHeader, surplus, target;
 
-	if ($absolute) {
-		$('#appframe')
-			.css('position', 'absolute')
-			.css('top', $top)
-			.css('left', 0)
-			.css('bottom', 0)
-			.css('right', 0)
-			;
-	} else {
-		appframe.height(0);
+    if ($absolute) {
+        $('#appframe')
+            .css('position', 'absolute')
+            .css('top', $top)
+            .css('left', 0)
+            .css('bottom', 0)
+            .css('right', 0)
+            ;
+    } else {
+        appframe.height(0);
 
-		centerHeader = $('#appframe').position().top - $('#col1').position().top;
-		surplus = $('#show-errors-button').height();
-		footerSize = $('#footer').height() + $('#col1').height() - centerHeader + surplus;
-		target = viewportHeight - appframe.position().top - footerSize;
+        centerHeader = $('#appframe').position().top - $('#col1').position().top;
+        surplus = $('#show-errors-button').height();
+        footerSize = $('#footer').height() + $('#col1').height() - centerHeader + surplus;
+        target = viewportHeight - appframe.position().top - footerSize;
 
-		var min = $minHeight;
-		if (target < min) {
-			target = min;
-		}
+        var min = $minHeight;
+        if (target < min) {
+            target = min;
+        }
 
-		var max = $maxHeight;
-		if ((max != -1) && (target > max)) {
-			target = max;
-		}
+        var max = $maxHeight;
+        if ((max != -1) && (target > max)) {
+            target = max;
+        }
 
-		appframe.height(target);
-	}
+        appframe.height(target);
+    }
 
-	$('#appframe .tab').each(function () {
-		$(this).data('available-height', $('#appframe').height() - $(this).position().top).addClass('height-size');
-	});
+    $('#appframe .tab').each(function () {
+        $(this).data('available-height', $('#appframe').height() - $(this).position().top).addClass('height-size');
+    });
 
-	$('#appframe .anchor-container')
-		.css('z-index', 1000)
-		.css('position', 'absolute')
-		.css('top', 150)
-		.css('right', 0)
-		;
+    $('#appframe .anchor-container')
+        .css('z-index', 1000)
+        .css('position', 'absolute')
+        .css('top', 150)
+        .css('right', 0)
+        ;
 });
 $('#appframe .tab').parent().each(function () {
-	var tabs = $(this).children('.tab').wrapAll('<div class="tabs" style="height: 100%;"/>');
-	var list = $('<ul/>');
-	tabs.parent().prepend(list);
-	tabs.each(function () {
-		var link = $('<a/>').attr('href', '#' + $(this).attr('id')).text($(this).data('label'));
-		list.append($('<li/>').append(link));
-	});
-	tabs.parent().tabs();
+    var tabs = $(this).children('.tab').wrapAll('<div class="tabs" style="height: 100%;"/>');
+    var list = $('<ul/>');
+    tabs.parent().prepend(list);
+    tabs.each(function () {
+        var link = $('<a/>').attr('href', '#' + $(this).attr('id')).text($(this).data('label'));
+        list.append($('<li/>').append(link));
+    });
+    tabs.parent().tabs();
 });
 $('#appframe .accordion').parent().each(function () {
-	$('.accordion', this).wrapAll('<div/>').parent().accordion({
-		heightStyle: "content"
-	});
+    $('.accordion', this).wrapAll('<div/>').parent().accordion({
+        heightStyle: "content"
+    });
 });
 $('#appframe .anchor').wrapAll('<div/>').parent()
-	.addClass('anchor-container')
-	;
+    .addClass('anchor-container')
+    ;
 
 $('#appframe .anchor').each(function () {
-	var anchor = this;
-	$('.anchor-head, .anchor-content', anchor)
-		.css('text-align', 'right')
-		;
+    var anchor = this;
+    $('.anchor-head, .anchor-content', anchor)
+        .css('text-align', 'right')
+        ;
 
-	$('.anchor-toggle', anchor).click(function () {
-		$('.anchor-head .label', anchor).toggle('fast');
-		$('.anchor-content', anchor).toggle('fast');
-		return false;
-	});
+    $('.anchor-toggle', anchor).click(function () {
+        $('.anchor-head .label', anchor).toggle('fast');
+        $('.anchor-content', anchor).toggle('fast');
+        return false;
+    });
 
-	if (location.hash == "#" + $("img", anchor).attr("alt")) {
-		setTimeout( function() { $('.anchor-toggle', anchor).click(); }, 2000);
-	}
+    if (location.hash == "#" + $("img", anchor).attr("alt")) {
+        setTimeout( function() { $('.anchor-toggle', anchor).click(); }, 2000);
+    }
 });
 
 if ($fullPage) {
-	$('#top').append($('#appframe'));
-	$('#top').children().not($('#appframe')).remove();
+    $('#top').append($('#appframe'));
+    $('#top').children().not($('#appframe')).remove();
 }
 
 if ($fullscreen) {
-	$('.header_outer').hide();
-	$('#topbar_modules').hide();
-	$('#footer').hide();
-	$('#tikifeedback').hide();
-	$('.share').hide();
+    $('.header_outer').hide();
+    $('#topbar_modules').hide();
+    $('#footer').hide();
+    $('#tikifeedback').hide();
+    $('.share').hide();
 }
 
 $(window).resize();
@@ -266,13 +266,13 @@ function wikiplugin_appframe_anchor($data, $params, $start)
 {
     return <<<TAB
 <div id="appanchor-$start" class="anchor">
-	<h3 class="anchor-head">
-		<a class="anchor-toggle" href="#"><img src="{$params->icon->text()}" alt="{$params->label->text()}"/></a>
-		<span class="label" style="display: none;">{$params->label->text()}</span>
-	</h3>
-	<div class="anchor-content" style="display: none;">
-		<div style="text-align: left;">$data</div>
-	</div>
+    <h3 class="anchor-head">
+        <a class="anchor-toggle" href="#"><img src="{$params->icon->text()}" alt="{$params->label->text()}"/></a>
+        <span class="label" style="display: none;">{$params->label->text()}</span>
+    </h3>
+    <div class="anchor-content" style="display: none;">
+        <div style="text-align: left;">$data</div>
+    </div>
 </div>
 TAB;
 }
@@ -345,7 +345,7 @@ function wikiplugin_appframe_module($data, $params, $start)
     return <<<MODULE
 <h4$class>{$label}</h4>
 <div$class>
-	$data
+    $data
 </div>
 MODULE;
 }
@@ -378,7 +378,7 @@ function wikiplugin_appframe_overlay($data, $params, $start)
 
     return <<<OVERLAY
 <div class="overlay {$params->class->word()}" style="position: absolute; z-index: 999; $position">
-	$data
+    $data
 </div>
 OVERLAY;
 }
@@ -387,7 +387,7 @@ function wikiplugin_appframe_hidden($data, $params, $start)
 {
     return <<<OVERLAY
 <div style="display: none;">
-	$data
+    $data
 </div>
 OVERLAY;
 }
@@ -439,11 +439,11 @@ function wikiplugin_appframe_mapcontrol($data, $params, $start)
             break;
         case 'modify_feature':
             $control = 'new OpenLayers.Control.ModifyFeature(vlayer, {
-			mode: OpenLayers.Control.ModifyFeature.DRAG | OpenLayers.Control.ModifyFeature.RESHAPE,
-			standalone: true,
-			virtualStyle: drawStyle,
-			vertexRenderIntent: "vertex"
-		}), new OpenLayers.Control.SelectFeature(vlayer)';
+            mode: OpenLayers.Control.ModifyFeature.DRAG | OpenLayers.Control.ModifyFeature.RESHAPE,
+            standalone: true,
+            virtualStyle: drawStyle,
+            vertexRenderIntent: "vertex"
+        }), new OpenLayers.Control.SelectFeature(vlayer)';
             $label = tr('Select/Modify');
             break;
         case 'draw_polygon':

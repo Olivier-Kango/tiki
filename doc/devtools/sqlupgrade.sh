@@ -22,17 +22,17 @@ MYSQL='/usr/bin/mysql'
 PHP='/usr/bin/php'
 
 if [ ! -x $PHP ]; then
-	# It seems "which" tends to behave in unpredictable and "user-friendly" ways, so use type
-	PHP=$(type -P php)
-	if [ ! -x $PHP ]; then
-		echo "You need PHP command line interpreter."
-		exit 1
-	fi
+    # It seems "which" tends to behave in unpredictable and "user-friendly" ways, so use type
+    PHP=$(type -P php)
+    if [ ! -x $PHP ]; then
+        echo "You need PHP command line interpreter."
+        exit 1
+    fi
 fi
 
 if [ ! -d 'db' ]; then
-	echo "You must launch this script from your (multi)tiki root dir."
-	exit 0
+    echo "You must launch this script from your (multi)tiki root dir."
+    exit 0
 fi
 
 # Update old command 'installer/shell.php' to the newer one 'console.php database:update --site='

@@ -15,7 +15,7 @@
  *
  * -----
  *
- * 				see http://info.tiki.org/HTMLentities for examples of HTML entities
+ *                 see http://info.tiki.org/HTMLentities for examples of HTML entities
  */
 
 

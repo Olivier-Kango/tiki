@@ -1,6 +1,6 @@
 /* $Id$
-	This Tiki Wiki CMS Groupware file contains global design
-	and layout properties. */
+    This Tiki Wiki CMS Groupware file contains global design
+    and layout properties. */
 .searchresults blockquote em,
 .highlight,
 .button.highlight a,
@@ -501,14 +501,14 @@ h3.panel-title {
   padding-left: 1.3em;
 }
 .modcontrols {
-	visibility: hidden;
-	float: right;
+    visibility: hidden;
+    float: right;
 }
 .modcontrols > div > button.btn-link {
-	padding: 0;
+    padding: 0;
 }
 .module:hover .modcontrols {
-	visibility: visible;
+    visibility: visible;
 }
 .box-minichat {
   width: 100%;

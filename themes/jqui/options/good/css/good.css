@@ -1,5 +1,5 @@
 /*  "good" option by jonnyb for Jqui (jqui.css) for Tiki Wiki CMS Groupware.
-	Visit http://themes.tiki.org for more information. */
+    Visit http://themes.tiki.org for more information. */
 body {
   color: #395bb0;
 }
@@ -20,8 +20,8 @@ a:focus,
 .btn-info,
 .btn-warning,
 .btn-danger {
-	color: #fff;
-	background: #395bb0;
+    color: #fff;
+    background: #395bb0;
 }
 
 .btn-primary.disabled,
@@ -30,33 +30,33 @@ a:focus,
 .btn-info.disabled,
 .btn-warning.disabled,
 .btn-danger.disabled{
-	color: #fff;
-	background: #416fcc;
+    color: #fff;
+    background: #416fcc;
 }
 
 .btn-outline,
 .btn-link {
-	background: none;
+    background: none;
 }
 
 .btn-link,
 .btn-link:hover {
-	border: none;
+    border: none;
 }
 .btn-secondary {
-	border: 3px solid #b5dfb5;
+    border: 3px solid #b5dfb5;
 }
 .btn-success {
-	border: 3px solid #b5dfb5;
+    border: 3px solid #b5dfb5;
 }
 .btn-info {
-	border: 3px solid #c5e9f3;
+    border: 3px solid #c5e9f3;
 }
 .btn-warning {
-	border: 3px solid #f6ce95;
+    border: 3px solid #f6ce95;
 }
 .btn-danger {
-	border: 3px solid #d9534f;
+    border: 3px solid #d9534f;
 }
 .btn-primary .badge {
   color: #fff;
@@ -64,12 +64,12 @@ a:focus,
 }
 
 .navbar-dark {
-	background-color: #395bb0;
-	border-color: #2d4789;
+    background-color: #395bb0;
+    border-color: #2d4789;
 }
 
 
-.bg-dark {	background: #395bb0 !important; }
+.bg-dark {    background: #395bb0 !important; }
 
 .topbar,
 .navbar-dark .navbar-nav .nav-link,
@@ -77,16 +77,16 @@ a:focus,
 .card-heading,
 .navbar-dark .navbar-collapse,
 .navbar-dark .navbar-form {
-	background: #395bb0;
-	background-image: none;
-	color: #fff;
+    background: #395bb0;
+    background-image: none;
+    color: #fff;
 }
 .topbar .nav > li > a {
-	border-right: 1px solid #2d4789;
-	font-weight: bold;
+    border-right: 1px solid #2d4789;
+    font-weight: bold;
 }
 .topbar .nav > li:first-of-type > a {
-	border-left: none;
+    border-left: none;
 }
 
 .topbar,
@@ -99,7 +99,7 @@ a:focus,
 .navbar-dark .navbar-text,
 .navbar-dark .navbar-brand,
 .navbar-dark .navbar-nav > li > a {
-	color: #ffffff;
+    color: #ffffff;
 }
 
 .topbar > a:hover,
@@ -202,7 +202,7 @@ input[type="submit"]:hover,
   border-top-right-radius: 2px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
-	color: #fff;
+    color: #fff;
 }
 
 .card-header .card-title {

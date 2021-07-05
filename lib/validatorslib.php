@@ -59,9 +59,9 @@ class Validators
         foreach ($fields_data as $field_value) {
             if ($field_value['type'] == 'b') {
                 $validationjs .= $prefix . $field_value['fieldId'] . '_currency: {required:
-					function(element){
-						return $("#' . $prefix . $field_value['fieldId'] . '").val()!="";
-					},},';
+                    function(element){
+                        return $("#' . $prefix . $field_value['fieldId'] . '").val()!="";
+                    },},';
             }
             if ($field_value['validation'] || $field_value['isMandatory'] == 'y') {
                 if ($field_value['type'] == 'e' || $field_value['type'] == 'M') {
@@ -169,39 +169,39 @@ class Validators
         $validationjs .= '
 focusInvalid: false,
 invalidHandler: function(event, validator) {
-	var errors = validator.numberOfInvalids();
-	if (errors) {
-		var $container = $scroller = $(this).parents(".modal"),
-			offset = 0;
+    var errors = validator.numberOfInvalids();
+    if (errors) {
+        var $container = $scroller = $(this).parents(".modal"),
+            offset = 0;
 
-		if (!$container.length) {
-			$container = $("html");
-			$scroller = $("body");
-			offset = $(".fixed-top").outerHeight() || 0;
-		}
-		var containerScrollTop = $scroller.scrollTop(),
-			$firstError = $(validator.errorList[0].element),
-			$scrollElement = $firstError.parents(".form-group");
+        if (!$container.length) {
+            $container = $("html");
+            $scroller = $("body");
+            offset = $(".fixed-top").outerHeight() || 0;
+        }
+        var containerScrollTop = $scroller.scrollTop(),
+            $firstError = $(validator.errorList[0].element),
+            $scrollElement = $firstError.parents(".form-group");
 
-		if (! $scrollElement.length) {
-			$scrollElement = $firstError;
-		}
+        if (! $scrollElement.length) {
+            $scrollElement = $firstError;
+        }
 
-		if ($firstError.parents(".tab-content").length > 0) {
-			$tab = $firstError.parents(".tab-pane");
-			$(\'a[href="#\' + $tab.attr("id") + \'"]\').tab("show");
-		}
+        if ($firstError.parents(".tab-content").length > 0) {
+            $tab = $firstError.parents(".tab-pane");
+            $(\'a[href="#\' + $tab.attr("id") + \'"]\').tab("show");
+        }
 
-		$container.animate({
-			scrollTop: containerScrollTop + $scrollElement.offset().top - offset - ($(window).height() / 2)
-		}, 1000, function () {
-			if ($firstError.is("select") && jqueryTiki.select2) {
-				$firstError.select2("focus");
-			} else {
-				$firstError.focus();
-			}
-		});
-	}
+        $container.animate({
+            scrollTop: containerScrollTop + $scrollElement.offset().top - offset - ($(window).height() / 2)
+        }, 1000, function () {
+            if ($firstError.is("select") && jqueryTiki.select2) {
+                $firstError.select2("focus");
+            } else {
+                $firstError.focus();
+            }
+        });
+    }
 }
 ';
         if ($custom_handlers) {

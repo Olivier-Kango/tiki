@@ -44,7 +44,7 @@ function wikiplugin_bloglist_info()
                 'required' => false,
                 'name' => tra('Simple List'),
                 'description' => tra('Show simple list of date, title and author (default) or formatted list of blog
-					posts'),
+                    posts'),
                 'default' => 'y',
                 'since' => '3.5',
                 'options' => [
@@ -66,7 +66,7 @@ function wikiplugin_bloglist_info()
                 'required' => false,
                 'name' => tra('Word Boundary'),
                 'description' => tra('If not a simple list and Character Count is non-zero, then marking this as yes will
-					break on word boundaries only.'),
+                    break on word boundaries only.'),
                 'default' => 'y',
                 'since' => '12.0',
                 'options' => [
@@ -79,7 +79,7 @@ function wikiplugin_bloglist_info()
                 'required' => false,
                 'name' => tra('Ellipsis'),
                 'description' => tra('If not a simple list and Character Count is non-zero, then marking this as yes will
-					put ellipsis (...) at end of text (default).'),
+                    put ellipsis (...) at end of text (default).'),
                 'default' => 'y',
                 'since' => '12.0',
                 'options' => [
@@ -93,7 +93,7 @@ function wikiplugin_bloglist_info()
                 'required' => false,
                 'name' => tra('More'),
                 'description' => tra('If not a simple list and Character Count is non-zero, then marking this as yes
-					will put a "More" link to the full entry (default).'),
+                    will put a "More" link to the full entry (default).'),
                 'default' => 'y',
                 'since' => '12.0',
                 'options' => [
@@ -106,7 +106,7 @@ function wikiplugin_bloglist_info()
                 'required' => false,
                 'name' => tra('Show Icons'),
                 'description' => tra('If not a simple list, marking this as no will prevent the "edit" and "print" type
-					icons from displaying (default is to show the icons)'),
+                    icons from displaying (default is to show the icons)'),
                 'default' => 'y',
                 'since' => '12.0',
                 'options' => [

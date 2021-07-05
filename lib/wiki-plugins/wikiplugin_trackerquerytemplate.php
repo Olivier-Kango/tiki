@@ -48,8 +48,8 @@ function wikiplugin_trackerquerytemplate_info()
                 'required' => false,
                 'name' => tra('Tracker'),
                 'description' => tr('Use the tracker name instead of tracker ID in the %0 parameter. Also use the field
-					name instead of field ID in the filter parameters. Set to Yes (%1) to use names (default) or
-					No (%2) to use IDs.', '<code>tracker</code>', '<code>y</code>', '<code>n</code>'),
+                    name instead of field ID in the filter parameters. Set to Yes (%1) to use names (default) or
+                    No (%2) to use IDs.', '<code>tracker</code>', '<code>y</code>', '<code>n</code>'),
                 'since' => '10.0',
                 'default' => 'y',
                 'filter' => 'alpha',
@@ -96,7 +96,7 @@ function wikiplugin_trackerquerytemplate_info()
                 'name' => tra('Like Filters'),
                 'description' => tr(
                     'Apply "like" filters to fields. Format: %0field:value;field:value;field:value%1,
-					where %0field%1 may be the field name or ID depending on the setting for the %0byname%1 parameter.',
+                    where %0field%1 may be the field name or ID depending on the setting for the %0byname%1 parameter.',
                     '<code>',
                     '</code>'
                 ),
@@ -109,7 +109,7 @@ function wikiplugin_trackerquerytemplate_info()
                 'name' => tra('And Filters'),
                 'description' => tr(
                     'Apply "and" filters to fields. Format: %0field:value;field:value;field:value%1,
-					where %0field%1 may be the field name or ID depending on the setting for the %0byname%1 parameter.',
+                    where %0field%1 may be the field name or ID depending on the setting for the %0byname%1 parameter.',
                     '<code>',
                     '</code>'
                 ),
@@ -122,7 +122,7 @@ function wikiplugin_trackerquerytemplate_info()
                 'name' => tra('Or Filters'),
                 'description' => tr(
                     'Apply "or" filters to fields. Format: %0field:value;field:value;field:value%1,
-					where %0field%1 may be the field name or ID depending on the setting for the %0byname%1 parameter.',
+                    where %0field%1 may be the field name or ID depending on the setting for the %0byname%1 parameter.',
                     '<code>',
                     '</code>'
                 ),

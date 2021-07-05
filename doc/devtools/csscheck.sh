@@ -21,10 +21,10 @@
 
 ./stripbraces.pl ../../styles/$1.css \
 | ./stripcomments.pl \
-| sed -e "s/,[ 	]*/\n/g;" \
-| sed -e "s/^[ 	]*//g;" \
-| sed -e "s/[ 	]*$//g;" \
-| egrep -v "^[ 	]*$" \
+| sed -e "s/,[     ]*/\n/g;" \
+| sed -e "s/^[     ]*//g;" \
+| sed -e "s/[     ]*$//g;" \
+| egrep -v "^[     ]*$" \
 | sort \
 | uniq
 

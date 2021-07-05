@@ -97,8 +97,8 @@
         echo '</p>' . $ascii_linebreak;
         echo ' <p><a href="./">permissioncheck</a></p>' . $ascii_linebreak;
         echo ' <p class="block">' . $ascii_linebreak;
-        echo '	Enjoy <a href="https://tiki.org/" target="_blank">Tiki</a> and' . $ascii_linebreak;
-        echo '	<a href="https://tiki.org/tiki-register.php" target="_blank">join the community</a>!' . $ascii_linebreak;
+        echo '    Enjoy <a href="https://tiki.org/" target="_blank">Tiki</a> and' . $ascii_linebreak;
+        echo '    <a href="https://tiki.org/tiki-register.php" target="_blank">join the community</a>!' . $ascii_linebreak;
         echo ' </p>' . $ascii_linebreak;
         echo '</body></html>';
         die;

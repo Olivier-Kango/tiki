@@ -90,7 +90,7 @@ function wikiplugin_remarksbox_info()
             'store_cookie' => [
                 'name' => tr('Remember Dismiss'),
                 'description' => tr('Set whether to remember if the alert is dismissed (not remembered by default).
-					Requires %0id%1 and %0version%1 parameters to be set.', '<code>', '</code>'),
+                    Requires %0id%1 and %0version%1 parameters to be set.', '<code>', '</code>'),
                 'since' => '14.0',
                 'required' => false,
                 'filter' => 'text',
@@ -110,7 +110,7 @@ function wikiplugin_remarksbox_info()
             'version' => [
                 'name' => tr('Version'),
                 'description' => tr('Sets a version for the alert. If new version, the alert should show up again even
-					if it was previously dismissed using the %0store_cookie%1 parameter', '<code>', '</code>'),
+                    if it was previously dismissed using the %0store_cookie%1 parameter', '<code>', '</code>'),
                 'since' => '14.0',
                 'required' => false,
                 'filter' => 'text',

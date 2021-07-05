@@ -17,15 +17,15 @@ function wikiplugin_datachannel_info()
         'body' => tr('List of fields to display. One field per line. Comma delimited: %0', '<code>fieldname,label</code>')
             . '<br /><br />' . tr(
                 'To use values from other forms on the same page as parameters for the data-channel
-			use %0 or %1 can be used where a value is simply listed on the same page where each value has the %2
-			as an html id tag.',
+            use %0 or %1 can be used where a value is simply listed on the same page where each value has the %2
+            as an html id tag.',
                 '<code>fieldname, external=fieldid</code>',
                 '<code>fieldname, external=fieldid,text</code>',
                 '<code>fieldid</code>'
             ) . ' ' . tr('Where %0 is
-			the id (important) of the external input to use, and %1 is the name of the parameter in the
-			data-channel', '<code>fieldid</code>', '<code>fieldname</code>') . ' . ' . tr('To use fixed hidden preset
-			values use %0', '<code>fieldname, hidden=value</code>'),
+            the id (important) of the external input to use, and %1 is the name of the parameter in the
+            data-channel', '<code>fieldid</code>', '<code>fieldname</code>') . ' . ' . tr('To use fixed hidden preset
+            values use %0', '<code>fieldname, hidden=value</code>'),
         'extraparams' => true,
         'iconname' => 'move',
         'introduced' => 4,
@@ -44,8 +44,8 @@ function wikiplugin_datachannel_info()
                 'name' => tra('Return URL'),
                 'description' => tr(
                     'URL to go to after data channel has run. Defaults to current page. Can contain
-					placeholders %0 or %1, where reference matches a profile object ref,
-					allowing to redirect conditionally to a freshly created object.',
+                    placeholders %0 or %1, where reference matches a profile object ref,
+                    allowing to redirect conditionally to a freshly created object.',
                     '<code>~np~%reference%~/np~</code>',
                     '<code>~np~%reference:urlencode%~/np~</code>'
                 ),
@@ -65,7 +65,7 @@ function wikiplugin_datachannel_info()
                 'required' => false,
                 'name' => tra('Do not use returnURI but instead return true quietly'),
                 'description' => tr('If set to %0, will return quietly after data channel has run which would be needed
-					if plugin is used in non-wiki page context.', '<code>y</code>'),
+                    if plugin is used in non-wiki page context.', '<code>y</code>'),
                 'since' => '6.2',
                 'options' => [
                     ['text' => '', 'value' => ''],
@@ -135,7 +135,7 @@ function wikiplugin_datachannel_info()
                 'required' => false,
                 'name' => tra('Debug'),
                 'description' => tra('Be careful, if debug is on, the page will not be refreshed and previous modules
-					can be obsolete (not on by default)'),
+                    can be obsolete (not on by default)'),
                 'since' => '5.0',
                 'default' => 'n',
                 'filter' => 'alpha',
@@ -150,7 +150,7 @@ function wikiplugin_datachannel_info()
                 'required' => false,
                 'name' => tra('Multiple Values'),
                 'description' => tr('Accept arrays of multiple values in the POST. e.g. %0 etc.
-					(multiple values not accepted by default)', '<code>itemId[]=42&itemId=43</code>'),
+                    (multiple values not accepted by default)', '<code>itemId[]=42&itemId=43</code>'),
                 'since' => '6.0',
                 'default' => 'n',
                 'filter' => 'alpha',

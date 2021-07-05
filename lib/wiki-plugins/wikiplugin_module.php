@@ -138,7 +138,7 @@ function wikiplugin_module_info()
                 'required' => false,
                 'name' => tra('Flip'),
                 'description' => tra('Add ability to show/hide the content of the module (default is the site admin
-					setting for modules)'),
+                    setting for modules)'),
                 'since' => '1',
                 'section' => 'appearance',
                 'filter' => 'digits',
@@ -154,7 +154,7 @@ function wikiplugin_module_info()
                 'name' => tra('Title Background'),
                 'description' => tr(
                     'Override the background color for the title (if the title is shown). The value
-					can be a color name (ex: %0bgcolor="blue"%1) or a hexadecimal value (ex: %0bgcolor="#FFEBCD"%1)',
+                    can be a color name (ex: %0bgcolor="blue"%1) or a hexadecimal value (ex: %0bgcolor="#FFEBCD"%1)',
                     '<code>',
                     '</code>'
                 ),
@@ -207,7 +207,7 @@ function wikiplugin_module_info()
             'category' => [
                 'name' => tra('Category'),
                 'description' => tra('Module displayed depending on category. Multiple category ids or names can be
-					separated by semi-colons.'),
+                    separated by semi-colons.'),
                 'since' => '9.0',
                 'section' => 'visibility',
                 'separator' => ';',
@@ -217,7 +217,7 @@ function wikiplugin_module_info()
             'nocategory' => [
                 'name' => tra('No Category'),
                 'description' => tra('Module hidden depending on category. Multiple category ids or names can be
-					separated by semi-colons. This takes precedence over the category parameter above.'),
+                    separated by semi-colons. This takes precedence over the category parameter above.'),
                 'since' => '9.0',
                 'section' => 'visibility',
                 'separator' => ';',
@@ -227,7 +227,7 @@ function wikiplugin_module_info()
             'perspective' => [
                 'name' => tra('Perspective'),
                 'description' => tra('Only display the module if in one of the listed perspective IDs. Semi-colon
-					separated.'),
+                    separated.'),
                 'since' => '9.0',
                 'separator' => ';',
                 'filter' => 'digits',
@@ -237,7 +237,7 @@ function wikiplugin_module_info()
             'lang' => [
                 'name' => tra('Language'),
                 'description' => tra('Module only applicable for the specified languages. Languages are defined as two
-					character language codes. Multiple values can be separated by semi-colons.'),
+                    character language codes. Multiple values can be separated by semi-colons.'),
                 'since' => '9.0',
                 'separator' => ';',
                 'filter' => 'lang',
@@ -247,7 +247,7 @@ function wikiplugin_module_info()
             'section' => [
                 'name' => tra('Section'),
                 'description' => tra('Module only applicable for the specified sections. Multiple values can be
-					separated by semi-colons.'),
+                    separated by semi-colons.'),
                 'since' => '9.0',
                 'separator' => ';',
                 'filter' => 'text',
@@ -257,7 +257,7 @@ function wikiplugin_module_info()
             'page' => [
                 'name' => tra('Page Filter'),
                 'description' => tra('Module only applicable on the specified page names. Multiple values can be
-					separated by semi-colons.'),
+                    separated by semi-colons.'),
                 'since' => '9.0',
                 'separator' => ';',
                 'filter' => 'pagename',
@@ -267,7 +267,7 @@ function wikiplugin_module_info()
             'nopage' => [
                 'name' => tra('No Page'),
                 'description' => tra('Module not applicable on the specified page names. Multiple values can be
-					separated by semi-colons.'),
+                    separated by semi-colons.'),
                 'since' => '9.0',
                 'separator' => ';',
                 'filter' => 'pagename',
@@ -277,8 +277,8 @@ function wikiplugin_module_info()
             'theme' => [
                 'name' => tra('Theme'),
                 'description' => tr('Module enabled or disabled depending on the theme file name (e.g.
-					%0thenews.css%1). Specified themes can be either included or excluded. Theme names prefixed by %0!%1
-					are in the exclusion list. Multiple values can be separated by semi-colons.', '<code>', '</code>'),
+                    %0thenews.css%1). Specified themes can be either included or excluded. Theme names prefixed by %0!%1
+                    are in the exclusion list. Multiple values can be separated by semi-colons.', '<code>', '</code>'),
                 'since' => '9.0',
                 'separator' => ';',
                 'filter' => 'themename',
@@ -288,7 +288,7 @@ function wikiplugin_module_info()
             'creator' => [
                 'name' => tra('Creator'),
                 'description' => tr('Module only available based on the relationship of the user with the wiki page.
-					Either only creators (%0y%1) or only non-creators (%0n%1) will see the module.', '<code>', '</code>'),
+                    Either only creators (%0y%1) or only non-creators (%0n%1) will see the module.', '<code>', '</code>'),
                 'since' => '9.0',
                 'filter' => 'alpha',
                 'section' => 'visibility',
@@ -298,7 +298,7 @@ function wikiplugin_module_info()
                 'name' => tra('Contributor'),
                 'description' => tra(
                     'Module only available based on the relationship of the user with the wiki page.
-					Either only contributors (%0y%1) or only non-contributors (%0n%1) will see the module.',
+                    Either only contributors (%0y%1) or only non-contributors (%0n%1) will see the module.',
                     '<code>',
                     '</code>'
                 ),

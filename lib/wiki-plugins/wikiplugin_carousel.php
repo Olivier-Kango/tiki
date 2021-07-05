@@ -52,11 +52,11 @@ function wikiplugin_carousel_info()
                 'required' => false,
                 'name' => tra('Sort Mode'),
                 'description' => tr('Sort by database table field name, ascending or descending. Examples:
-					%0 or %1.', '<code>fileId_asc</code>', '<code>name_desc</code>'),
+                    %0 or %1.', '<code>fileId_asc</code>', '<code>name_desc</code>'),
                 'since' => '8.0',
                 'filter' => 'word',
                 'accepted' => tr('%0 or %1 with actual database field name in place of
-					%2.', '<code>fieldname_asc</code>', '<code>fieldname_desc</code>', '<code>fieldname</code>'),
+                    %2.', '<code>fieldname_asc</code>', '<code>fieldname_desc</code>', '<code>fieldname</code>'),
                 'default' => 'created_desc',
             ],
             'transitionSpeed' => [
@@ -187,7 +187,7 @@ function wikiplugin_carousel_info()
                 'required' => false,
                 'name' => tra('Thumbnail Font Size'),
                 'description' => tra('Legacy v2 param:') . ' ' . tr('Font size of thumbnail box in CSS units
-					(default %0).', '<code>7em</code>'),
+                    (default %0).', '<code>7em</code>'),
                 'since' => '8.0',
                 'filter' => 'text',
                 'accepted' => tra('CSS units'),
@@ -284,25 +284,25 @@ function wikiplugin_carousel($body, $params)
     if (isset($params['clickable']) && $params['clickable'] == 1) {
         $jq_clickable = '
 function carousel_callback(){
-	$("#' . $uniqueId . ' div.ic_tray div.ic_caption").each(function(){
-		var $this = $(this);
-		//console.log("JML" + $this.text());
-		var source = $this.text();
-		var regexToken = /https?:\/\/[\-\w@:%_\+.~#?,&\/\/=]+/;
-		var matchArray;
-		if ( (matchArray = regexToken.exec( source )) !== null) {
-			//console.log("JJJ" + matchArray[0]);
-			$this.parent().click(function(){
-				window.location = matchArray[0];
-			}).css("cursor", "pointer");
-		};
-	});
+    $("#' . $uniqueId . ' div.ic_tray div.ic_caption").each(function(){
+        var $this = $(this);
+        //console.log("JML" + $this.text());
+        var source = $this.text();
+        var regexToken = /https?:\/\/[\-\w@:%_\+.~#?,&\/\/=]+/;
+        var matchArray;
+        if ( (matchArray = regexToken.exec( source )) !== null) {
+            //console.log("JJJ" + matchArray[0]);
+            $this.parent().click(function(){
+                window.location = matchArray[0];
+            }).css("cursor", "pointer");
+        };
+    });
 };
-	';
+    ';
     } else {
         $jq_clickable = '
 function carousel_callback(){ };
-	';
+    ';
     }
     TikiLib::lib('header')->add_jq_onready($jq_clickable);
 

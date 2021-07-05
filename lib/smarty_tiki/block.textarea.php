@@ -237,50 +237,50 @@ var minutes;
 
 // edit timeout warnings
 function editTimerTick() {
-	editTimeElapsedSoFar++;
+    editTimeElapsedSoFar++;
 
-	var seconds = editTimeoutSeconds - editTimeElapsedSoFar;
-	var edittimeout = \$('#edittimeout');
+    var seconds = editTimeoutSeconds - editTimeElapsedSoFar;
+    var edittimeout = \$('#edittimeout');
 
-	if ( edittimeout && seconds <= 300 ) {
-		if ( ! editTimeoutTipIsDisplayed ) {
-			// ping a lightweight ajax service to keep the session alive
-			$.getJSON(
-				$.service('attribute', 'get'),
-				{attribute: 'tiki.edit.dummy', type: 'dummy', object: 'dummy'},
-				function () {
-					editTimeElapsedSoFar = 0;	// success, reset timer
-				}
-			).fail(function () {
-					// something went wrong, show the warning
-					edittimeout.parents('.alert:first').fadeIn();
-					editTimeoutTipIsDisplayed = true;
-				});
-		}
-		if ( seconds > 0 && seconds % 60 == 0 ) {
-			minutes = seconds / 60;
-			edittimeout.text( minutes );
-		} else if ( seconds <= 0 ) {
-			edittimeout.parents('.alert:first p').text('" . addslashes(tra('Your edit session has expired')) . "');
-		}
-	}
+    if ( edittimeout && seconds <= 300 ) {
+        if ( ! editTimeoutTipIsDisplayed ) {
+            // ping a lightweight ajax service to keep the session alive
+            $.getJSON(
+                $.service('attribute', 'get'),
+                {attribute: 'tiki.edit.dummy', type: 'dummy', object: 'dummy'},
+                function () {
+                    editTimeElapsedSoFar = 0;    // success, reset timer
+                }
+            ).fail(function () {
+                    // something went wrong, show the warning
+                    edittimeout.parents('.alert:first').fadeIn();
+                    editTimeoutTipIsDisplayed = true;
+                });
+        }
+        if ( seconds > 0 && seconds % 60 == 0 ) {
+            minutes = seconds / 60;
+            edittimeout.text( minutes );
+        } else if ( seconds <= 0 ) {
+            edittimeout.parents('.alert:first p').text('" . addslashes(tra('Your edit session has expired')) . "');
+        }
+    }
 
-	if (editTimerWarnings == 0 && seconds <= 60 && editorDirty) {
-		alert('" . addslashes(tra('Your edit session will expire in:')) . ' 1 ' . tra('minute') . '. ' .
+    if (editTimerWarnings == 0 && seconds <= 60 && editorDirty) {
+        alert('" . addslashes(tra('Your edit session will expire in:')) . ' 1 ' . tra('minute') . '. ' .
                 addslashes(tra('You must PREVIEW or SAVE your work now, to avoid losing your edits.')) . "');
-		editTimerWarnings++;
-	} else if (seconds <= 0) {
-		clearInterval(editTimeoutIntervalId);
-		editTimeoutIntervalId = 0;
-		window.status = '" . addslashes(tra('Your edit session has expired')) . "';
-	} else if (seconds <= 300) {		// don't bother until 5 minutes to go
-		window.status = '" . addslashes(tra('Your edit session will expire in:')) . "' + \" \" + minutes + ':' + ((seconds % 60 < 10) ? '0' : '') + (seconds % 60);
-	}
+        editTimerWarnings++;
+    } else if (seconds <= 0) {
+        clearInterval(editTimeoutIntervalId);
+        editTimeoutIntervalId = 0;
+        window.status = '" . addslashes(tra('Your edit session has expired')) . "';
+    } else if (seconds <= 300) {        // don't bother until 5 minutes to go
+        window.status = '" . addslashes(tra('Your edit session will expire in:')) . "' + \" \" + minutes + ':' + ((seconds % 60 < 10) ? '0' : '') + (seconds % 60);
+    }
 }
 
 \$('document').ready( function() {
-	editTimeoutIntervalId = setInterval(editTimerTick, 1000);
-	\$('#edittimeout').parents('.alert:first').hide();
+    editTimeoutIntervalId = setInterval(editTimerTick, 1000);
+    \$('#edittimeout').parents('.alert:first').hide();
 } );
 
 // end edit timeout warnings
@@ -289,39 +289,39 @@ function editTimerTick() {
 
         $js_editconfirm .= "
 \$(window).on('beforeunload', function(e) {
-	if (window.needToConfirm) {
-		if (typeof CKEDITOR === 'object') {
-			for(var ed in CKEDITOR.instances ) {
-				if (CKEDITOR.instances.hasOwnProperty(ed)) {
-					if ( CKEDITOR.instances[ed].checkDirty()) {
-						editorDirty = true;
-					}
-				}
-			}
-		}
-		if (editorDirty) {
-			var msg = '" . addslashes(tra('You are about to leave this page. Changes since your last save may be lost. Are you sure you want to exit this page?')) . "';
-			if (e) {
-				e.returnValue = msg;
-			}
-			return msg;
-		}
-	}
+    if (window.needToConfirm) {
+        if (typeof CKEDITOR === 'object') {
+            for(var ed in CKEDITOR.instances ) {
+                if (CKEDITOR.instances.hasOwnProperty(ed)) {
+                    if ( CKEDITOR.instances[ed].checkDirty()) {
+                        editorDirty = true;
+                    }
+                }
+            }
+        }
+        if (editorDirty) {
+            var msg = '" . addslashes(tra('You are about to leave this page. Changes since your last save may be lost. Are you sure you want to exit this page?')) . "';
+            if (e) {
+                e.returnValue = msg;
+            }
+            return msg;
+        }
+    }
 });
 
 
 \$('document').ready( function() {
-	// attach dirty function to all relevant inputs etc for wiki/newsletters, blog, article and trackers (trackers need {teaxtarea} implementing)
-	if ('$as_id' === 'editwiki' || '$as_id' === 'blogedit' || '$as_id' === 'body' || '$as_id'.indexOf('area_') > -1) {
-		\$(\$('#$as_id').prop('form')).find('input, textarea, select').change( function (event, data) {
-			if (!$(this).is('textarea') && '$as_id'.indexOf('area_') > -1) {	// tracker dynamic list and map inputs get change events on load
-				return;
-			}
-			if (!editorDirty) { editorDirty = true; }
-		});
-	} else {	// modules admin exception, only attach to this textarea, although these should be using _simple mode
-		\$('#$as_id').change( function () { if (!editorDirty) { editorDirty = true; } });
-	}
+    // attach dirty function to all relevant inputs etc for wiki/newsletters, blog, article and trackers (trackers need {teaxtarea} implementing)
+    if ('$as_id' === 'editwiki' || '$as_id' === 'blogedit' || '$as_id' === 'body' || '$as_id'.indexOf('area_') > -1) {
+        \$(\$('#$as_id').prop('form')).find('input, textarea, select').change( function (event, data) {
+            if (!$(this).is('textarea') && '$as_id'.indexOf('area_') > -1) {    // tracker dynamic list and map inputs get change events on load
+                return;
+            }
+            if (!editorDirty) { editorDirty = true; }
+        });
+    } else {    // modules admin exception, only attach to this textarea, although these should be using _simple mode
+        \$('#$as_id').change( function () { if (!editorDirty) { editorDirty = true; } });
+    }
 });
 
 needToConfirm = true;
@@ -331,23 +331,23 @@ editorDirty = " . (isset($_REQUEST["preview"]) && $params['_previewConfirmExit']
         if ($prefs['feature_wysiwyg'] == 'y' && $prefs['wysiwyg_optional'] == 'y') {
             $js_editconfirm .= '
 function switchEditor(mode, form) {
-	window.needToConfirm=false;
-	var w;
-	if (mode=="wysiwyg") {
-		$(form).find("input[name=mode_wysiwyg]").val("y");
-		$(form).find("input[name=wysiwyg]").val("y");
-	} else {
-		$(form).find("input[name=mode_normal]").val("y");
-		$(form).find("input[name=wysiwyg]").val("n");
-	}
-	form.submit();
+    window.needToConfirm=false;
+    var w;
+    if (mode=="wysiwyg") {
+        $(form).find("input[name=mode_wysiwyg]").val("y");
+        $(form).find("input[name=wysiwyg]").val("y");
+    } else {
+        $(form).find("input[name=mode_normal]").val("y");
+        $(form).find("input[name=wysiwyg]").val("n");
+    }
+    form.submit();
 }';
         }
         if ($tiki_p_admin) {
             $js_editconfirm .= '
 function admintoolbar() {
-	window.needToConfirm=false;
-	window.location="tiki-admin_toolbars.php";
+    window.needToConfirm=false;
+    window.location="tiki-admin_toolbars.php";
 }';
         }
 

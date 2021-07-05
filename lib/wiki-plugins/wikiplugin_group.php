@@ -13,7 +13,7 @@ function wikiplugin_group_info()
         'documentation' => 'PluginGroup',
         'description' => tra('Display content based on the user\'s groups or friends'),
         'body' => tr('Wiki text to display if conditions are met. The body may contain %0. Text after the marker
-			will be displayed to users not matching the conditions.', '<code>{ELSE}</code>'),
+            will be displayed to users not matching the conditions.', '<code>{ELSE}</code>'),
         'prefs' => ['wikiplugin_group'],
         'iconname' => 'group',
         'filter' => 'wikicontent',
@@ -24,7 +24,7 @@ function wikiplugin_group_info()
                 'required' => false,
                 'name' => tra('Allowed Groups'),
                 'description' => tra('Pipe separated list of groups allowed to view the block.
-					Example:') . ' <code>Admins|Developers</code>',
+                    Example:') . ' <code>Admins|Developers</code>',
                 'since' => '1',
                 'filter' => 'groupname',
                 'default' => ''
@@ -41,7 +41,7 @@ function wikiplugin_group_info()
                 'required' => false,
                 'name' => tra('Allowed User Friends'),
                 'description' => tra('Pipe separated list of users whose friends are allowed to view the block.
-					Example:') . ' <code>admin|johndoe|foo</code>',
+                    Example:') . ' <code>admin|johndoe|foo</code>',
                 'since' => '4.0',
                 'filter' => 'username',
                 'default' => ''
@@ -50,7 +50,7 @@ function wikiplugin_group_info()
                 'required' => false,
                 'name' => tra('Allowed Groups Pending Membership'),
                 'description' => tra('User allowed to view block if membership payment to join group (or pipe-separated
-					list of groups) is outstanding.'),
+                    list of groups) is outstanding.'),
                 'since' => '13.0',
                 'filter' => 'groupname',
                 'default' => ''
@@ -59,7 +59,7 @@ function wikiplugin_group_info()
                 'required' => false,
                 'name' => tra('Allowed Groups Full Membership'),
                 'description' => tra('User allowed to view block if membership in the group (or pipe-separated list of
-					groups) is not pending.'),
+                    groups) is not pending.'),
                 'since' => '13.0',
                 'filter' => 'groupname',
                 'default' => ''

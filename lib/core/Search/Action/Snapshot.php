@@ -105,16 +105,16 @@ class Search_Action_Snapshot implements Search_Action_Action
     private function snapshot(string $url, string $cssSelector)
     {
         $script = <<<JS
-			var casper = require('casper').create();
-			casper.start('$url', function() {
-			    var html = casper.evaluate(function() {
-					return document.querySelector("$cssSelector").innerHTML;
-				});
-				this.echo(html);
-			});
-			 
-			casper.run();
-		JS;
+            var casper = require('casper').create();
+            casper.start('$url', function() {
+                var html = casper.evaluate(function() {
+                    return document.querySelector("$cssSelector").innerHTML;
+                });
+                this.echo(html);
+            });
+             
+            casper.run();
+        JS;
 
         $runner = new WikiPlugin_Casperjs_Runner();
         $result = $runner->run($script);

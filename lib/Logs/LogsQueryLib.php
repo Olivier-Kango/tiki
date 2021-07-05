@@ -266,40 +266,40 @@ class LogsQueryLib
 
 
         $query = "
-			SELECT
-				" . ($this->groupType == "count" ? " COUNT(actionId) as count " : "") . "
-				" . ($this->groupType == "countByDate" ? " COUNT(actionId) AS count, DATE_FORMAT(FROM_UNIXTIME(lastModif), '%m/%d/%Y') as date " : "")
+            SELECT
+                " . ($this->groupType == "count" ? " COUNT(actionId) as count " : "") . "
+                " . ($this->groupType == "countByDate" ? " COUNT(actionId) AS count, DATE_FORMAT(FROM_UNIXTIME(lastModif), '%m/%d/%Y') as date " : "")
             . "
-				" . (empty($this->groupType) ? " * " : "") . "
-			FROM
-				tiki_actionlog
-			WHERE
-				objectType = ?
-				" . (
+                " . (empty($this->groupType) ? " * " : "") . "
+            FROM
+                tiki_actionlog
+            WHERE
+                objectType = ?
+                " . (
             ! empty($this->id) ? " AND object = ? " : ""
             ) . "
-				" . (
+                " . (
             ! empty($this->action) ? " AND action = ? " : ""
             ) . "
-				" . (
+                " . (
             ! empty($this->start) ? " AND lastModif > ? " : ""
             ) . "
-				" . (
+                " . (
             ! empty($this->end) ? " AND lastModif < ? " : ""
             ) . "
-				" . (
+                " . (
             ! empty($this->client) ? " AND client = ? " : ""
             ) . "
 
-			" . ($this->groupType == "countByDate" ? " GROUP BY DATE_FORMAT(FROM_UNIXTIME(lastModif), '%Y%m%d') " : "") . "
+            " . ($this->groupType == "countByDate" ? " GROUP BY DATE_FORMAT(FROM_UNIXTIME(lastModif), '%Y%m%d') " : "") . "
 
-			ORDER BY lastModif " . ($this->desc == true ? "DESC" : "ASC") . "
+            ORDER BY lastModif " . ($this->desc == true ? "DESC" : "ASC") . "
 
-			" . (! empty($this->limit) ?
+            " . (! empty($this->limit) ?
                 " LIMIT " . $this->limit
                 : ""
             ) . "
-		";
+        ";
 
         $params = [$this->type];
 

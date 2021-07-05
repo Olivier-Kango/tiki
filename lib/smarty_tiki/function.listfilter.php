@@ -80,27 +80,27 @@ function smarty_function_listfilter($params, $smarty)
 
             $headerlib->add_jq_onready(
                 "
-				$(document).bind('editHelpOpened', function() {
-					var text = getTASelection('#" . $editorId . "'),
-					possiblePlugin = text.split(/[ \(}]/)[0];
-					if (possiblePlugin.charAt(0) == '{') { //we have a plugin here
-						possiblePlugin = possiblePlugin.substring(1);
-						$('#$id')
-							.val(possiblePlugin)
-							.trigger('keyup');
+                $(document).bind('editHelpOpened', function() {
+                    var text = getTASelection('#" . $editorId . "'),
+                    possiblePlugin = text.split(/[ \(}]/)[0];
+                    if (possiblePlugin.charAt(0) == '{') { //we have a plugin here
+                        possiblePlugin = possiblePlugin.substring(1);
+                        $('#$id')
+                            .val(possiblePlugin)
+                            .trigger('keyup');
 
-						var parentTabId = '" . $parentTabId . "';
-						if (parentTabId) {
-							$('#help_sections a[href=#$parentTabId]').trigger('click');
-							var pluginTr = $('#plugins_help_table tr').not(':hidden');
+                        var parentTabId = '" . $parentTabId . "';
+                        if (parentTabId) {
+                            $('#help_sections a[href=#$parentTabId]').trigger('click');
+                            var pluginTr = $('#plugins_help_table tr').not(':hidden');
 
-							if (pluginTr.length == 1) {
-								pluginTr.find('a:first').click();
-							}
-						}
-					}
-				});
-			"
+                            if (pluginTr.length == 1) {
+                                pluginTr.find('a:first').click();
+                            }
+                        }
+                    }
+                });
+            "
             );
         }
 
@@ -118,40 +118,40 @@ function smarty_function_listfilter($params, $smarty)
 
         $content = "
 $('#$id').keyup( function() {
-	var criterias = this.value.toLowerCase().split( /\s+/ );
-	$('$selectors').each( function() {
-		var text = $(this).text().toLowerCase();
-		for( i = 0; criterias.length > i; ++i ) {
-			word = criterias[i];
-			if ( word.length > 0 && text.indexOf( word ) == -1 ) {
-				$(this).not('$exclude').hide();	// don't search within excluded elements
-				return;
-			}
-		}
-		$(this).show();
-	} );
+    var criterias = this.value.toLowerCase().split( /\s+/ );
+    $('$selectors').each( function() {
+        var text = $(this).text().toLowerCase();
+        for( i = 0; criterias.length > i; ++i ) {
+            word = criterias[i];
+            if ( word.length > 0 && text.indexOf( word ) == -1 ) {
+                $(this).not('$exclude').hide();    // don't search within excluded elements
+                return;
+            }
+        }
+        $(this).show();
+    } );
 ";
         if (! empty($parentSelector)) {
             $content .= "
-	\$('$parentSelector').show().each( function() {
-		if (\$('{$selectors}[data-tt-parent-id=' + \$(this).data('tt-id') + ']:visible:not(\"$exclude\")').length == 0) {	// excluded things don't count
-			\$(this).hide();
-			\$('{$exclude}[data-tt-parent-id=' + \$(this).data('tt-id') + ']').hide();							// but need hiding if the parent is 'empty'
-		} else {
-			\$(this).removeClass('collapsed').addClass('expanded');
-		}
-	});
+    \$('$parentSelector').show().each( function() {
+        if (\$('{$selectors}[data-tt-parent-id=' + \$(this).data('tt-id') + ']:visible:not(\"$exclude\")').length == 0) {    // excluded things don't count
+            \$(this).hide();
+            \$('{$exclude}[data-tt-parent-id=' + \$(this).data('tt-id') + ']').hide();                            // but need hiding if the parent is 'empty'
+        } else {
+            \$(this).removeClass('collapsed').addClass('expanded');
+        }
+    });
 ";
         }
         $content .= '
-} );	// end keyup
+} );    // end keyup
 ';
         if (! empty($query) && ! empty($_REQUEST[$query])) {
             $content .= "
 setTimeout(function () {
-	if ($('#$id').val() != '') {
-		$('#$id').keyup();
-	}
+    if ($('#$id').val() != '') {
+        $('#$id').keyup();
+    }
 }, 1000);
 ";
         }

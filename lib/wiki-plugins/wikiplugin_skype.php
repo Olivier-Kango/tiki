@@ -16,7 +16,7 @@ function wikiplugin_skype_info()
         'introduced' => 1,
         'prefs' => [ 'wikiplugin_skype' ],
         'body' => tra('Name or number to call or chat with.') . " " . tra("do not forget to check the tools / options/
-			privacy / allow my status to be show on the web"),
+            privacy / allow my status to be show on the web"),
         'params' => [
             'action' => [
                 'required' => false,

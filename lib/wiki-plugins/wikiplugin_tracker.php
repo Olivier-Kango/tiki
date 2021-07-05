@@ -32,7 +32,7 @@ function wikiplugin_tracker_info()
                 'required' => false,
                 'name' => tra('Fields'),
                 'description' => tr('Colon-separated list of field IDs to be displayed in the form as input fields.
-					If empty, all fields will be shown. Example: %0', '<code>2:4:5</code>'),
+                    If empty, all fields will be shown. Example: %0', '<code>2:4:5</code>'),
                 'since' => '1',
                 'default' => '',
                 'separator' => ':',
@@ -44,8 +44,8 @@ function wikiplugin_tracker_info()
                     'required' => false,
                     'name' => tra('Values'),
                     'description' => tr('Colon-separated list of default values corresponding to the %0fields%1 parameter.
-				First value corresponds to first field, second value to second field, etc. Default values can be
-				set by using %0autosavefields%1 and %0autosavevalues%1 as URL parameters.', '<code>', '</code>'),
+                First value corresponds to first field, second value to second field, etc. Default values can be
+                set by using %0autosavefields%1 and %0autosavevalues%1 as URL parameters.', '<code>', '</code>'),
                     'since' => '2.0',
                     'default' => '',
             ],
@@ -54,7 +54,7 @@ function wikiplugin_tracker_info()
                 'name' => tra('Action'),
                 'description' => tr(
                     'Colon-separated labels for form submit buttons. Default is %0Save%1. When set to
-					%0NONE%1, the save button will not appear and values will be saved dynamically.',
+                    %0NONE%1, the save button will not appear and values will be saved dynamically.',
                     '<code>',
                     '</code>'
                 ),
@@ -67,7 +67,7 @@ function wikiplugin_tracker_info()
                 'name' => tra('Action Style'),
                 'description' => tr(
                     'Sets button style classes for action buttons. If multiple buttons have been set
-					in the %0 parameter, the same number of colon-separated styles must be set here. Example:',
+                    in the %0 parameter, the same number of colon-separated styles must be set here. Example:',
                     '<code>action</code>'
                 ) . "<code>btn btn-secondary:btn btn-success:btn btn-primary float-right</code>",
                 'since' => '14.1',
@@ -159,15 +159,15 @@ function wikiplugin_tracker_info()
                 'description' => tr('To send an email once the tracker item has been created. Format: %0from', '<code>')
                         . '|' . tra('to') . '|' . tr('template%0', '</code> ') . tr(
                             'For %0from%1 and %0to%1, use an email address
-						(separate multiple addresses with a comma), a username, a fieldId of a field containing either an email address or a username,
-						a fieldId of a UserSelector or GroupSelector field, or "createdBy" or "lastModifBy" for the item creator or modifier.
-						When username is being used, the email will be sent to the email address of the user on file.
-						When sending to several emails using different template, provide the template name for the message body for each email;
-						I.e., the first template will be used for the first to, the second template if exists will be used
-						for the second from (otherwise the last given template will be used). Each template needs two files, one for the subject one for the body. The subject will be named
-						template_subject.tpl. All the templates must be in the %0templates/mail%1 directory. Example:
-						%0webmaster@my.com|a@my.com,b@my.com|templatea.tpl,templateb.tpl%1 (%0templates/mail/tracker_changed_notification.tpl%1
-						is the default from which you can get inspiration).',
+                        (separate multiple addresses with a comma), a username, a fieldId of a field containing either an email address or a username,
+                        a fieldId of a UserSelector or GroupSelector field, or "createdBy" or "lastModifBy" for the item creator or modifier.
+                        When username is being used, the email will be sent to the email address of the user on file.
+                        When sending to several emails using different template, provide the template name for the message body for each email;
+                        I.e., the first template will be used for the first to, the second template if exists will be used
+                        for the second from (otherwise the last given template will be used). Each template needs two files, one for the subject one for the body. The subject will be named
+                        template_subject.tpl. All the templates must be in the %0templates/mail%1 directory. Example:
+                        %0webmaster@my.com|a@my.com,b@my.com|templatea.tpl,templateb.tpl%1 (%0templates/mail/tracker_changed_notification.tpl%1
+                        is the default from which you can get inspiration).',
                             '<code>',
                             '</code>'
                         ),
@@ -178,7 +178,7 @@ function wikiplugin_tracker_info()
                 'required' => false,
                 'name' => tra('Email Format'),
                 'description' => tra('Choose between values text or html, depending on the syntax in the template file
-					that will be used'),
+                    that will be used'),
                 'since' => '6.1',
                 'default' => 'text',
             ],
@@ -186,7 +186,7 @@ function wikiplugin_tracker_info()
                 'required' => false,
                 'name' => tra('URL'),
                 'description' => tr('URL the user is sent to after the form is submitted. The string %0itemId%1 will
-					be replaced with %0itemId=xx%1 where %0xx%1 is the new (or current) itemId. This parameter can be used in combination with the TABS plugin using %0?cookietab=1&itemId%1 (change the cookietab parameter\'s value depending on the tab you want the user to be sent to).', '<code>', '</code>'),
+                    be replaced with %0itemId=xx%1 where %0xx%1 is the new (or current) itemId. This parameter can be used in combination with the TABS plugin using %0?cookietab=1&itemId%1 (change the cookietab parameter\'s value depending on the tab you want the user to be sent to).', '<code>', '</code>'),
                 'since' => '1',
                 'filter' => 'url',
                 'separator' => ':',
@@ -206,7 +206,7 @@ function wikiplugin_tracker_info()
                 'required' => false,
                 'name' => tra('URL Target'),
                 'description' => tra('Set the target parameter for the url (determines whether target will open in a
-					new page, etc.)'),
+                    new page, etc.)'),
                 'since' => '4.0',
                 'default' => '',
                 'options' => [
@@ -223,7 +223,7 @@ function wikiplugin_tracker_info()
                 'name' => tra('Overwrite'),
                 'description' => tr(
                     'Overwrite current field values of the item with the input values. Does not
-					overwrite wiki pages and does not work when the %0discarditem%1 parameter is set to Yes (%0y%1).',
+                    overwrite wiki pages and does not work when the %0discarditem%1 parameter is set to Yes (%0y%1).',
                     '<code>',
                     '</code>'
                 ),
@@ -241,7 +241,7 @@ function wikiplugin_tracker_info()
                 'required' => false,
                 'name' => tra('Sort'),
                 'description' => tra('Display columns in the order listed in the fields parameter instead of by
-					field ID (field ID order is used by default)'),
+                    field ID (field ID order is used by default)'),
                 'since' => '2.0',
                 'filter' => 'alpha',
                 'default' => 'n',
@@ -255,7 +255,7 @@ function wikiplugin_tracker_info()
                 'required' => false,
                 'name' => tra('Preview'),
                 'description' => tr('To add a preview button with the label set by this parameter. Default:
-					%0Preview%1. Useful to preview the computed fields of an item.', '<code>', '</code>'),
+                    %0Preview%1. Useful to preview the computed fields of an item.', '<code>', '</code>'),
                 'since' => '2.0',
                 'default' => 'Preview',
             ],
@@ -270,10 +270,10 @@ function wikiplugin_tracker_info()
                 'required' => false,
                 'name' => tra('View'),
                 'description' => tr('Determine which items will be affected byt the form. If set to %0user%1 and
-					%0trackerId%1 is not set, then the user tracker associated with the default group will be affected.
-					If %0trackerId%1 is set, then the item associated with the user in that tracker will be affected.
-					 If set to %0page%1, the item associated with that page will be affected (%0trackerId%1 must be
-					 set in this case).', '<code>', '</code>'),
+                    %0trackerId%1 is not set, then the user tracker associated with the default group will be affected.
+                    If %0trackerId%1 is set, then the item associated with the user in that tracker will be affected.
+                     If set to %0page%1, the item associated with that page will be affected (%0trackerId%1 must be
+                     set in this case).', '<code>', '</code>'),
                 'since' => '1',
                 'filter' => 'alpha',
                 'default' => '',
@@ -336,8 +336,8 @@ function wikiplugin_tracker_info()
                 'required' => false,
                 'name' => tra('Transaction name'),
                 'description' => tra('The transaction identifier. This identifier connects the various trackers into a
-					single transaction. Must be unique per transaction. The multiple steps in a single transaction
-					must share the same transaction name.'),
+                    single transaction. Must be unique per transaction. The multiple steps in a single transaction
+                    must share the same transaction name.'),
                 'since' => '15.0',
                 'filter' => 'alpha',
                 'default' => '',
@@ -347,7 +347,7 @@ function wikiplugin_tracker_info()
                 'required' => false,
                 'name' => tra('Transaction Step'),
                 'description' => tr('Transaction step number specifying the order of the transaction steps. The first
-					step must be %0.', '<code>0</code>'),
+                    step must be %0.', '<code>0</code>'),
                 'since' => '15.0',
                 'filter' => 'digits',
                 'default' => '0',
@@ -419,8 +419,8 @@ function wikiplugin_tracker_info()
                 'name' => tra('Template File'),
                 'description' => tr(
                     'Name of the template used to display the tracker items.  In the template, the
-					smarty variable %0{$f_id}%1 will be replaced with the appropriate input tag, with %0id%1 representing
-					the field ID. The form tag and the submit button are generated by Tiki outside the template',
+                    smarty variable %0{$f_id}%1 will be replaced with the appropriate input tag, with %0id%1 representing
+                    the field ID. The form tag and the submit button are generated by Tiki outside the template',
                     '<code>',
                     '</code>'
                 ),
@@ -432,8 +432,8 @@ function wikiplugin_tracker_info()
                 'name' => tra('Wiki'),
                 'description' => tr(
                     'Name of the wiki page containing the template to display the tracker items. This
-					page must have the permission %0tiki_p_use_as_template%1 assigned to the Anonymous group to be used
-					as a template.',
+                    page must have the permission %0tiki_p_use_as_template%1 assigned to the Anonymous group to be used
+                    as a template.',
                     '<code>',
                     '</code>'
                 ),
@@ -460,7 +460,7 @@ function wikiplugin_tracker_info()
                 'required' => false,
                 'name' => tra('Width'),
                 'description' => tra('Specify the width in pixels or percentage of the first column (the labels) in the
-					tracker form.'),
+                    tracker form.'),
                 'since' => '3.0',
                 'default' => '',
                 'accepted' => '## or ##%',
@@ -470,7 +470,7 @@ function wikiplugin_tracker_info()
                 'required' => false,
                 'name' => tra('Autosave Fields'),
                 'description' => tra('Colon-separated list of field IDs to be automatically filled with values upon
-					save.'),
+                    save.'),
                 'since' => '5.0',
                 'filter' => 'digits',
                 'separator' => ':',
@@ -488,11 +488,11 @@ function wikiplugin_tracker_info()
                     '<code>autosavefields</code>'
                 ) . '<br />'
                     . '<code>categories(x)</code> - ' . tr('selects the first child category under a category with ID
-						%0x%1 for use in a category field', '<code>', '</code>') . '<br />'
+                        %0x%1 for use in a category field', '<code>', '</code>') . '<br />'
                     . '<code>category(x)</code> - ' . tr('selects a category with this ID
-						%0x%1 for use in a category field', '<code>', '</code>') . '<br />'
+                        %0x%1 for use in a category field', '<code>', '</code>') . '<br />'
                     . '<code>preference(x)</code> - ' . tr('inserts the value of the preference with %0x%1 being the
-						preference name.', '<code>', '</code>'),
+                        preference name.', '<code>', '</code>'),
                 'since' => '5.0',
                 'filter' => 'text',
                 'separator' => ':',
@@ -504,8 +504,8 @@ function wikiplugin_tracker_info()
                 'name' => tra('Increase-only Fields'),
                 'description' => tr(
                     'Used with the %0  and %1 parameters. Colon-separated list of field IDs being
-					auto-saved where the specified auto-save value will not take effect if it is less than or equal to
-					the current value of the field',
+                    auto-saved where the specified auto-save value will not take effect if it is less than or equal to
+                    the current value of the field',
                     '<code>autosavefields</code>',
                     '<code>autosavevalues</code>'
                 ),
@@ -522,7 +522,7 @@ function wikiplugin_tracker_info()
                 'required' => false,
                 'name' => tra('Registration Fields'),
                 'description' => tra('Add registration fields such as Username and Password for use in registration
-					trackers'),
+                    trackers'),
                 'since' => '6.0',
                 'filter' => 'alpha',
                 'default' => 'n',
@@ -536,7 +536,7 @@ function wikiplugin_tracker_info()
                 'required' => false,
                 'name' => tra('Register to group'),
                 'description' => tra('The user enters this group via the registration (only a single group name
-					is supported)'),
+                    is supported)'),
                 'since' => '15.0',
                 'filter' => 'text',
                 'default' => 'Registered',
@@ -558,7 +558,7 @@ function wikiplugin_tracker_info()
                 'required' => false,
                 'name' => tra('Output To Wiki'),
                 'description' => tra('Output result to a new wiki page with the name taken from the input for the
-					specified fieldId'),
+                    specified fieldId'),
                 'since' => '6.0',
                 'filter' => 'digits',
                 'default' => '',
@@ -571,8 +571,8 @@ function wikiplugin_tracker_info()
                 'required' => false,
                 'name' => tra('Discard After Output'),
                 'description' => tr('Used with %0 - whether to discard the tracker item itself
-					once the wiki page is created, so that, in effect, the tracker is just a vehicle to create form
-					fields to facilitate creating wiki pages.', '<code>outputtowiki</code>'),
+                    once the wiki page is created, so that, in effect, the tracker is just a vehicle to create form
+                    fields to facilitate creating wiki pages.', '<code>outputtowiki</code>'),
                 'since' => '6.0',
                 'filter' => 'alpha',
                 'default' => '',
@@ -588,9 +588,9 @@ function wikiplugin_tracker_info()
                 'name' => tra('Template Page'),
                 'description' => tr(
                     'Name of the wiki page containing the template to format the output to wiki page.
-					Must be set for %0 to work. The template can contain variables to represent fields, for example
-					%1 would result in the value of fieldId 6. Also %2 can be used for the itemId and if you have set
-					%3 to yes, you can use %4 and %5.',
+                    Must be set for %0 to work. The template can contain variables to represent fields, for example
+                    %1 would result in the value of fieldId 6. Also %2 can be used for the itemId and if you have set
+                    %3 to yes, you can use %4 and %5.',
                     '<code>outputtowiki</code>',
                     '<code>{$f_6}</code>',
                     '<code>{$f_itemId}</code>',
@@ -608,7 +608,7 @@ function wikiplugin_tracker_info()
                 'required' => false,
                 'name' => tra('Output Wiki Namespace'),
                 'description' => tra('Name of namespace that is used for the wiki page that is created when outputting
-					to a wiki page.'),
+                    to a wiki page.'),
                 'since' => '13.0',
                 'filter' => 'pagename',
                 'default' => '',
@@ -619,10 +619,10 @@ function wikiplugin_tracker_info()
                 'name' => tra('Store Relation'),
                 'description' => tr(
                     'Store %0 and %1 relation from the created
-					wiki page when outputting to a wiki page. Optionally, (separate feature to be turned on in admin
-					panel) these relations are used to sync page renames with the field specified in %2,
-					and also optionally to redirect page viewing to the tracker item instead (where you can then
-					include the page if needed).',
+                    wiki page when outputting to a wiki page. Optionally, (separate feature to be turned on in admin
+                    panel) these relations are used to sync page renames with the field specified in %2,
+                    and also optionally to redirect page viewing to the tracker item instead (where you can then
+                    include the page if needed).',
                     '<code>tiki.wiki.linkeditem</code>',
                     '<code>tiki.wiki.linkedfield</code>',
                     '<code>outputtowiki</code>'
@@ -641,8 +641,8 @@ function wikiplugin_tracker_info()
                 'required' => false,
                 'name' => tra('Multiple Fill Fields'),
                 'description' => tr('Colon-separated list of field IDs to be filled with multiple values, to create
-					multiple items in one save. If empty, only one item will be created. Only for
-					item creation. Example: %0', '<code>2:4:5</code>'),
+                    multiple items in one save. If empty, only one item will be created. Only for
+                    item creation. Example: %0', '<code>2:4:5</code>'),
                 'since' => '9.0',
                 'default' => '',
                 'separator' => ':',
@@ -655,7 +655,7 @@ function wikiplugin_tracker_info()
                 'required' => false,
                 'name' => tra('Fill Fields Separator'),
                 'description' => tr('Choose separator between fields in each line of the Multiple Fill text area.
-					Default is pipe (%0|%1).', '<code>', '</code>'),
+                    Default is pipe (%0|%1).', '<code>', '</code>'),
                 'since' => '9.0',
                 'default' => '|',
                 'advanced' => true,
@@ -1860,15 +1860,15 @@ function wikiplugin_tracker($data, $params)
                 $customvalidation .= 'email: { ';
                 if ($prefs['user_unique_email'] == 'y') {
                     $customvalidation .= '
-						remote: {
-								url: "validate-ajax.php",
-								type: "post",
-								data: {
-									validator: "uniqueemail",
-									input: function() { return $("#email").val(); }
-								}
-							},
-					';
+                        remote: {
+                                url: "validate-ajax.php",
+                                type: "post",
+                                data: {
+                                    validator: "uniqueemail",
+                                    input: function() { return $("#email").val(); }
+                                }
+                            },
+                    ';
                 }
                 $customvalidation .= 'required: true, ';
                 $customvalidation .= 'email: true }, ';
@@ -1924,18 +1924,18 @@ function wikiplugin_tracker($data, $params)
                 }
                 if ($prefs['useRegisterPasscode'] == 'y') {
                     $customvalidation .= 'passcode: {
-								required: true,
-								remote: {
-									url: "validate-ajax.php",
-									type: "post",
-									data: {
-										validator: "passcode",
-										input: function() {
-											return $("#passcode").val();
-											}
-										}
-									}
-								}, ';
+                                required: true,
+                                remote: {
+                                    url: "validate-ajax.php",
+                                    type: "post",
+                                    data: {
+                                        validator: "passcode",
+                                        input: function() {
+                                            return $("#passcode").val();
+                                            }
+                                        }
+                                    }
+                                }, ';
                     $customvalidation_m .= 'passcode: { required: "' . tra("This field is required") . '"}, ';
                 }
             }
@@ -2258,18 +2258,18 @@ function wikiplugin_tracker($data, $params)
                 . '</label>';
             $back .= <<<FILL
 <div class="col-md-9 tracker_input_value" >
-	<input type="hidden" value="" name="mode_wysiwyg"/>
-	<input type="hidden" value="" name="mode_normal"/>
-	<div class="edit-zone">
-		<textarea id="ins_fill" name="ins_fill" class="wikiedit form-control" data-syntax="" data-codemirror="" onkeyup="" rows="15" ></textarea>
-	</div>
-	<input type="hidden" value="n" name="wysiwyg"/>
-	<div name="ins_fill_desc" class="trackerplugindesc" >
+    <input type="hidden" value="" name="mode_wysiwyg"/>
+    <input type="hidden" value="" name="mode_normal"/>
+    <div class="edit-zone">
+        <textarea id="ins_fill" name="ins_fill" class="wikiedit form-control" data-syntax="" data-codemirror="" onkeyup="" rows="15" ></textarea>
+    </div>
+    <input type="hidden" value="n" name="wysiwyg"/>
+    <div name="ins_fill_desc" class="trackerplugindesc" >
 FILL;
             $back .= sprintf(tra('Each line is a list of %d field values separated with: %s'), $fill_line_cant, htmlspecialchars($fieldsfillseparator));
-            $back .= '	</div>';
-            $back .= '	<div name="ins_fill_desc2" class="trackerplugindesc" >' . htmlspecialchars(implode($fieldsfillseparator, $fieldsfillnames));
-            $back .= '	</div>';
+            $back .= '    </div>';
+            $back .= '    <div name="ins_fill_desc2" class="trackerplugindesc" >' . htmlspecialchars(implode($fieldsfillseparator, $fieldsfillnames));
+            $back .= '    </div>';
             $back .= '</div>';
         }
         if ($prefs['feature_antibot'] == 'y' && (empty($user) || (! empty($user) && isset($_REQUEST['error']) && $_REQUEST['error'] == 'y'))) {

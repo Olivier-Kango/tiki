@@ -1,23 +1,23 @@
 /* $
-	Jqui theme (jqui.css), Haus theme option (haus.css)
-	for Tiki Wiki CMS/Groupware.
-	Thanks to dalhaus.co.uk
-	Visit http://themes.tiki.org for more information.
-	(This file was edited directly, not produced by the Less pre-compiler; there's no haus.less, yet.)
+    Jqui theme (jqui.css), Haus theme option (haus.css)
+    for Tiki Wiki CMS/Groupware.
+    Thanks to dalhaus.co.uk
+    Visit http://themes.tiki.org for more information.
+    (This file was edited directly, not produced by the Less pre-compiler; there's no haus.less, yet.)
 */
 
 #col2 a,
 #col2 a:visited,
 #col3 a,
 #col3 a:visited {
-	color: #666;
+    color: #666;
 }
  
 #col2 a:active,
 #col2 a:hover,
 #col3 a:active,
 #col3 a:hover {
-	color: #888;
+    color: #888;
 }
 
 a,
@@ -26,7 +26,7 @@ a:visited,
 .popover button.btn-link.link-list:visited,
 .dropdown-item button.btn-link.link-list,
 .dropdown-item button.btn-link.link-list:visited {
-	color: #666;
+    color: #666;
 }
 
 a:active,
@@ -35,32 +35,32 @@ a:hover,
 .popover button.btn-link.link-list:hover,
 .dropdown-item button.btn-link.link-list:active,
 .dropdown-item button.btn-link.link-list:hover {
-	color: #aaa;
+    color: #aaa;
 }
 
 #col1 {
-	color: #999;
-	font-size: 120%;
+    color: #999;
+    font-size: 120%;
 }
 
 #top a, #top a:visited {
-	color: #666;
+    color: #666;
 }
  
 #top a:active, #top a:hover {
-	color: #aaa;
+    color: #aaa;
 }
 
 h1,h2,h3,h4,h5,h6, #top .pagetitle a {
-	color: #aaa;
+    color: #aaa;
 }
 
 #top .pagetitle a {
-	color: #888;
+    color: #888;
 }
 
 #top_modules .box-login_box {
-	bottom: -6px;
+    bottom: -6px;
 }
 
 .btn,
@@ -75,8 +75,8 @@ input[type="submit"],
 
 .cssmenu_horiz ul li button.btn-link.link-list,
 .cssmenu_vert ul li button.btn-link.link-list {
-	font-weight: normal;
-	border: none;
+    font-weight: normal;
+    border: none;
 }
 
 .btn:hover,
@@ -88,7 +88,7 @@ input[type="submit"]:hover,
     border: 1px solid #666;
     font-weight: bold;
     color: #212121;
-	background-color: #ea6;
+    background-color: #ea6;
 }
 
 /*.btn-primary {
@@ -98,8 +98,8 @@ input[type="submit"]:hover,
 }*/
 
 .btn-link, .btn-link:hover, .btn-link:focus, .btn-link:active {
-	border-color: transparent;
-	color: #212121;
+    border-color: transparent;
+    color: #212121;
 }
 
 .navbar-light .navbar-nav > li > a,

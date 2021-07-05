@@ -1299,10 +1299,10 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
 
         $tx = $trklib->begin();
         $data = $trklib->fetchAll("SELECT tti.`itemId`, ttif.`value`
-			FROM `tiki_tracker_items` tti, `tiki_tracker_item_fields` ttif
-			WHERE tti.`trackerId` = ?
-				AND tti.`itemId` = ttif.`itemId`
-				AND ttif.`fieldId` = ?", [$trackerId, $fieldId]);
+            FROM `tiki_tracker_items` tti, `tiki_tracker_item_fields` ttif
+            WHERE tti.`trackerId` = ?
+                AND tti.`itemId` = ttif.`itemId`
+                AND ttif.`fieldId` = ?", [$trackerId, $fieldId]);
         foreach ($data as $row) {
             $itemId = $row['itemId'];
             $remoteIds = array_filter(explode(',', trim($row['value'])));

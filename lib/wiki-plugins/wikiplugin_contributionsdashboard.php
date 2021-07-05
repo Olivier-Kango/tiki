@@ -91,33 +91,33 @@ function wikiplugin_contributionsdashboard($data, $params)
 
     $headerlib->add_jq_onready(
         "$.fn.chart = function(s) {
-			s = $.extend({
-				labels: [],
-				data: []
-			}, s);
+            s = $.extend({
+                labels: [],
+                data: []
+            }, s);
 
-			var me = $(this);
-			var r = Raphael(me[0]);
+            var me = $(this);
+            var r = Raphael(me[0]);
 
-			r.g.barchart(10,10, me.width(), me.height(), [s.data])
-				.hover(function () {
-					this.flag = r.g.popup(
-						this.bar.x,
-						this.bar.y,
-						s.labels[$(this.bar.node).index() - 2] + ' - ' + this.bar.value || '0'
-					).insertBefore(this);
-				},function () {
-					this.flag.animate({
-						opacity: 0
-					},
-					300,
-					function () {
-						this.remove();
-					});
-				});
+            r.g.barchart(10,10, me.width(), me.height(), [s.data])
+                .hover(function () {
+                    this.flag = r.g.popup(
+                        this.bar.x,
+                        this.bar.y,
+                        s.labels[$(this.bar.node).index() - 2] + ' - ' + this.bar.value || '0'
+                    ).insertBefore(this);
+                },function () {
+                    this.flag.animate({
+                        opacity: 0
+                    },
+                    300,
+                    function () {
+                        this.remove();
+                    });
+                });
 
-			if (s.label) r.g.label($(this).width() / 2,30, s.label);
-		};"
+            if (s.label) r.g.label($(this).width() / 2,30, s.label);
+        };"
     );
 
     foreach ($types as $type) {
@@ -132,10 +132,10 @@ function wikiplugin_contributionsdashboard($data, $params)
 
             $headerlib->add_jq_onready(
                 "$('#raphaelTrackeritems$i').chart({
-					labels: 	" . json_encode($dates) . ",
-					data:		" . json_encode($data) . ",
-					label:		'Tracker Item Activity Grouped By Date'
-				});"
+                    labels:     " . json_encode($dates) . ",
+                    data:        " . json_encode($data) . ",
+                    label:        'Tracker Item Activity Grouped By Date'
+                });"
             );
 
             $result .= "<div id='raphaelTrackeritems$i' style='width: 100%; height: 400px; display: block;'></div>";
@@ -152,10 +152,10 @@ function wikiplugin_contributionsdashboard($data, $params)
 
             $headerlib->add_jq_onready(
                 "$('#raphaelTrackeritemsUsers$i').chart({
-					labels: 	" . json_encode($users) . ",
-					data:		" . json_encode($hits) . ",
-					label:		'Tracker Item Activity Grouped By Users'
-				});"
+                    labels:     " . json_encode($users) . ",
+                    data:        " . json_encode($hits) . ",
+                    label:        'Tracker Item Activity Grouped By Users'
+                });"
             );
 
             $result .= "<div id='raphaelTrackeritemsUsers$i' style='width: 100%; height: 400px; display: block;'></div>";
@@ -174,10 +174,10 @@ function wikiplugin_contributionsdashboard($data, $params)
 
             $headerlib->add_jq_onready(
                 "$('#raphaelTrackeritemsUsersIP$i').chart({
-					labels: 	" . json_encode($users) . ",
-					data:		" . json_encode($hits) . ",
-					label:		'Tracker Item Activity Grouped By Users & IP Address'
-				});"
+                    labels:     " . json_encode($users) . ",
+                    data:        " . json_encode($hits) . ",
+                    label:        'Tracker Item Activity Grouped By Users & IP Address'
+                });"
             );
 
             $result .= "<div id='raphaelTrackeritemsUsersIP$i' style='width: 100%; height: 400px; display: block;'></div>";
@@ -185,28 +185,28 @@ function wikiplugin_contributionsdashboard($data, $params)
     }
 
     return "
-			<style>
-				.header {
-					font-size: 16px;
-				}
-				.headerHelper {
-					font-size: 12px;
-					float: right;
-					padding: 0px;
-					margin-top: -7px;
-				}
-			</style>
-			<div class='ui-widget ui-widget-content ui-corner-all'>
-				<h3 class='header ui-state-default ui-corner-tl ui-corner-tr' style='margin: 0; padding: 5px;'>
-					" . tr("Contributions Dashboard") . "
-					<form class='headerHelper'>
-						" . tr("Date Range") . "
-						<input type='text' name='raphaelStart$i' id='raphaelStart$i' class='cDashDate' value='" . strftime("%m/%d/%Y", $start) . "' />
-						<input type='text' name='raphaelEnd$i' id='raphaelEnd$i' class='cDashDate' value='" . strftime("%m/%d/%Y", $end) . "' />
-						<input type='hidden' name='refresh' value='1' />
-						<input type='submit' id='raphaelUpdate$i' value='" . tr("Update") . "' />
-					</form>
-				</h3>
-				$result
-			</div>";
+            <style>
+                .header {
+                    font-size: 16px;
+                }
+                .headerHelper {
+                    font-size: 12px;
+                    float: right;
+                    padding: 0px;
+                    margin-top: -7px;
+                }
+            </style>
+            <div class='ui-widget ui-widget-content ui-corner-all'>
+                <h3 class='header ui-state-default ui-corner-tl ui-corner-tr' style='margin: 0; padding: 5px;'>
+                    " . tr("Contributions Dashboard") . "
+                    <form class='headerHelper'>
+                        " . tr("Date Range") . "
+                        <input type='text' name='raphaelStart$i' id='raphaelStart$i' class='cDashDate' value='" . strftime("%m/%d/%Y", $start) . "' />
+                        <input type='text' name='raphaelEnd$i' id='raphaelEnd$i' class='cDashDate' value='" . strftime("%m/%d/%Y", $end) . "' />
+                        <input type='hidden' name='refresh' value='1' />
+                        <input type='submit' id='raphaelUpdate$i' value='" . tr("Update") . "' />
+                    </form>
+                </h3>
+                $result
+            </div>";
 }

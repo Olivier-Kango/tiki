@@ -125,7 +125,7 @@ function wikiplugin_img_info()
                 'required' => false,
                 'name' => tra('Link'),
                 'description' => tr('Causes the image to be a link to this address. Overrides %0thumb%1 unless %0thumb%1 is
-					set to %0mouseover%1 or %0mousesticky%1', '<code>', '</code>'),
+                    set to %0mouseover%1 or %0mousesticky%1', '<code>', '</code>'),
                 'since' => '3.0',
                 'doctype' => 'link',
                 'filter' => 'url',
@@ -135,7 +135,7 @@ function wikiplugin_img_info()
                 'required' => false,
                 'name' => tra('Image Height'),
                 'description' => tr('Height in pixels or percent. Syntax: %0100%1 or %0100px%1 means 100 pixels;
-					%050%%1 means 50 percent. Percent applies when Image Source is set to file galleries images only.', '<code>', '</code>'),
+                    %050%%1 means 50 percent. Percent applies when Image Source is set to file galleries images only.', '<code>', '</code>'),
                 'since' => '3.0',
                 'doctype' => 'size',
                 'filter' => 'text',
@@ -145,7 +145,7 @@ function wikiplugin_img_info()
                 'required' => false,
                 'name' => tra('Image Width'),
                 'description' => tr('Width in pixels or percent. Syntax: %0100%1 or %0100px%1 means 100 pixels;
-					%050%%1 means 50 percent. Percent applies when Image Source is set to file galleries images only.', '<code>', '</code>'),
+                    %050%%1 means 50 percent. Percent applies when Image Source is set to file galleries images only.', '<code>', '</code>'),
                 'since' => '3.0',
                 'doctype' => 'size',
                 'filter' => 'text',
@@ -187,7 +187,7 @@ function wikiplugin_img_info()
                 'required' => false,
                 'name' => tra('Maximum Size'),
                 'description' => tra('Maximum height or width in pixels (largest dimension is scaled). Overrides height
-					and width settings.'),
+                    and width settings.'),
                 'since' => '4.0',
                 'doctype' => 'size',
                 'filter' => 'digits',
@@ -201,8 +201,8 @@ function wikiplugin_img_info()
                 'doctype' => 'text',
                 'filter' => 'text',
                 'description' => tr('Image caption. Use %0name%1 or %0desc%1 or %0namedesc%1 for Tiki name and
-					description properties, %0idesc%1 or %0ititle%1 for metadata from the image itself, otherwise
-					enter your own description.', '<code>', '</code>'),
+                    description properties, %0idesc%1 or %0ititle%1 for metadata from the image itself, otherwise
+                    enter your own description.', '<code>', '</code>'),
                 'default' => '',
             ],
             'alt' => [
@@ -251,10 +251,10 @@ function wikiplugin_img_info()
                 'required' => false,
                 'name' => tra('Sort Mode'),
                 'description' => tr('Sort by database table field name, ascending or descending. Examples:
-					%0 or %1.', '<code>fileId_asc</code>', '<code>name_desc</code>'),
+                    %0 or %1.', '<code>fileId_asc</code>', '<code>name_desc</code>'),
                 'filter' => 'word',
                 'accepted' => tr('%0 or %1 with actual database field name in place of
-					%2.', '<code>fieldname_asc</code>', '<code>fieldname_desc</code>', '<code>fieldname</code>'),
+                    %2.', '<code>fieldname_asc</code>', '<code>fieldname_desc</code>', '<code>fieldname</code>'),
                 'default' => 'created_desc',
                 'since' => '8.0',
                 'doctype' => 'id',
@@ -306,9 +306,9 @@ function wikiplugin_img_info()
                 'required' => false,
                 'name' => tra('Enlarge Button'),
                 'description' => tr('Adds an enlarge button (magnifying glass icon) below the image for use together
-					with %0thumb%1. Follows %0thumb%1 settings unless %0thumb%1 is set to %0mouseover%1 or %0mousesticky%1
-					(or overridden by %0link%1), otherwise button settings are followed, operating as described above
-					for %0thumb%1', '<code>', '</code>'),
+                    with %0thumb%1. Follows %0thumb%1 settings unless %0thumb%1 is set to %0mouseover%1 or %0mousesticky%1
+                    (or overridden by %0link%1), otherwise button settings are followed, operating as described above
+                    for %0thumb%1', '<code>', '</code>'),
                 'since' => '4.0',
                 'doctype' => 'link',
                 'filter' => 'alpha',
@@ -330,7 +330,7 @@ function wikiplugin_img_info()
                 'doctype' => 'link',
                 'filter' => 'text',
                 'description' => tr('Specifies the relationship between the link image and the target. Enter %0 to
-					cause the image to enlarge in a popup when clicked.', '<code>box</code>'),
+                    cause the image to enlarge in a popup when clicked.', '<code>box</code>'),
                 'advanced' => true,
                 'default' => '',
             ],
@@ -383,8 +383,8 @@ function wikiplugin_img_info()
                 'required' => false,
                 'name' => tra('Align Image'),
                 'description' => tr('Aligns the image itself. Overridden by any alignment settings in %0styleimage%1.
-					If %0stylebox%1 or %0desc%1 are also set, then image only aligns inside the box - use %0stylebox%1
-					in this case to align the box on the page.', '<code>', '</code>'),
+                    If %0stylebox%1 or %0desc%1 are also set, then image only aligns inside the box - use %0stylebox%1
+                    in this case to align the box on the page.', '<code>', '</code>'),
                 'since' => '3.0',
                 'doctype' => 'style',
                 'filter' => 'alpha',
@@ -401,7 +401,7 @@ function wikiplugin_img_info()
                 'required' => false,
                 'name' => tra('Image Style'),
                 'description' => tr('Enter %0border%1 to place a dark gray border around the image. Otherwise enter
-					CSS styling syntax for other style effects.', '<code>', '</code>'),
+                    CSS styling syntax for other style effects.', '<code>', '</code>'),
                 'since' => '4.0',
                 'doctype' => 'style',
                 'filter' => 'text',
@@ -412,7 +412,7 @@ function wikiplugin_img_info()
                 'required' => false,
                 'name' => tra('Align Image Block'),
                 'description' => tr('Aligns a block around the image (including the image). Image is no longer inline
-					when this setting is used. Can be overridden by any alignment settings in %0stylebox%1.', '<code>', '</code>'),
+                    when this setting is used. Can be overridden by any alignment settings in %0stylebox%1.', '<code>', '</code>'),
                 'since' => '3.0',
                 'doctype' => 'style',
                 'filter' => 'alpha',
@@ -430,7 +430,7 @@ function wikiplugin_img_info()
                 'name' => tra('Image Block Style'),
                 'filter' => 'text',
                 'description' => tr('Enter %0border%1 to place a dark gray border around the image. Otherwise enter
-					CSS styling syntax for other style effects.', '<code>', '</code>'),
+                    CSS styling syntax for other style effects.', '<code>', '</code>'),
                 'since' => '4.0',
                 'doctype' => 'style',
                 'advanced' => true,
@@ -443,7 +443,7 @@ function wikiplugin_img_info()
                 'doctype' => 'text',
                 'filter' => 'text',
                 'description' => tr('Enter %0right%1 or %0left%1 to align text accordingly. Otherwise enter CSS styling
-					syntax for other style effects.', '<code>', '</code>'),
+                    syntax for other style effects.', '<code>', '</code>'),
                 'advanced' => true,
                 'default' => '',
             ],
@@ -468,7 +468,7 @@ function wikiplugin_img_info()
                 'name' => tra('CSS Class'),
                 'filter' => 'text',
                 'description' => tr('CSS class to apply to the image. %0class="fixedSize"%1 prevents the image from being
-					automatically resized and relocated in Tiki SlideShows', '<code>', '</code>'),
+                    automatically resized and relocated in Tiki SlideShows', '<code>', '</code>'),
                 'since' => '3.0',
                 'doctype' => 'style',
                 'advanced' => true,
@@ -479,8 +479,8 @@ function wikiplugin_img_info()
                 'name' => tra('Link Title'),
                 'filter' => 'text',
                 'description' => tr('This text will appear in a tool tip when the image is moused over. If this is
-					not set, the %0desc%1 setting will be used. Use %0name%1 or %0desc%1 or %0namedesc%1 for Tiki name
-					and description properties', '<code>', '</code>'),
+                    not set, the %0desc%1 setting will be used. Use %0name%1 or %0desc%1 or %0namedesc%1 for Tiki name
+                    and description properties', '<code>', '</code>'),
                 'since' => '3.0',
                 'doctype' => 'text',
                 'advanced' => true,
@@ -528,7 +528,7 @@ function wikiplugin_img_info()
                 'required' => false,
                 'name' => tra('Default Settings'),
                 'description' => tra('Default configuration settings (usually set by admin in the source code or
-					through Plugin Alias).'),
+                    through Plugin Alias).'),
                 'since' => '4.1',
                 'doctype' => 'deprecated',
                 'advanced' => true,
@@ -538,7 +538,7 @@ function wikiplugin_img_info()
                 'required' => false,
                 'name' => tra('Mandatory Setting'),
                 'description' => tra('Mandatory configuration settings (usually set by admin in the source code or
-					through Plugin Alias).'),
+                    through Plugin Alias).'),
                 'since' => '4.1',
                 'doctype' => 'deprecated',
                 'advanced' => true,
@@ -1213,30 +1213,30 @@ function wikiplugin_img($data, $params)
         $imgdata['class'] .= ' lozad';
         $imgdata['data-src'] = true;
         TikiLib::lib('header')->add_css('
-			.lozadFade {
-				animation-name: lozadFade;
-				animation-duration: 1s;
-			}
-			@keyframes lozadFade {
-				from {
-					opacity: 0;
-				}
-				to {
-					opacity: 1;
-				}
-			}
-		');
+            .lozadFade {
+                animation-name: lozadFade;
+                animation-duration: 1s;
+            }
+            @keyframes lozadFade {
+                from {
+                    opacity: 0;
+                }
+                to {
+                    opacity: 1;
+                }
+            }
+        ');
         TikiLib::lib('header')->add_jsfile($lozadJsPath);
         $lozadScript = "
-			lozad('.lozad', {
-				load: function(el) {
-					el.src = el.dataset.src;
-					el.onload = function() {
-						el.classList.add('lozadFade');
-					}
-				}
-			}).observe();
-		";
+            lozad('.lozad', {
+                load: function(el) {
+                    el.src = el.dataset.src;
+                    el.onload = function() {
+                        el.classList.add('lozadFade');
+                    }
+                }
+            }).observe();
+        ";
         TikiLib::lib('header')->add_jq_onready($lozadScript);
     }
 
@@ -1443,18 +1443,18 @@ function wikiplugin_img($data, $params)
 
         if ($imgdata['thumb'] == 'zoombox') {
             $zoomscript = "$(document).bind('cbox_complete', function(){
-								$('.cboxPhoto').wrap('<span class=\"zoom_container\" style=\"display:inline-block\"></span>')
-								.css('display', 'block')
-								.parent()
-								.zoom({
-									on: 'click'
-								});
-								$('.zoom_container').append('<div class=\"zoomIcon\"></div>');
-								$('.zoomIcon').css('position','relative').css('height','20px').css('width','90px').css('top','-20px')
-									.css('background','white').css('padding','3px').css('font-size','14px')
-									.html('Click to zoom');
-								$('#cboxLoadedContent').css('height', 'auto');
-							});";
+                                $('.cboxPhoto').wrap('<span class=\"zoom_container\" style=\"display:inline-block\"></span>')
+                                .css('display', 'block')
+                                .parent()
+                                .zoom({
+                                    on: 'click'
+                                });
+                                $('.zoom_container').append('<div class=\"zoomIcon\"></div>');
+                                $('.zoomIcon').css('position','relative').css('height','20px').css('width','90px').css('top','-20px')
+                                    .css('background','white').css('padding','3px').css('font-size','14px')
+                                    .html('Click to zoom');
+                                $('#cboxLoadedContent').css('height', 'auto');
+                            });";
             TikiLib::lib('header')->add_jq_onready($zoomscript);
         }
         // Set other link-related attributes
@@ -1502,17 +1502,17 @@ function wikiplugin_img($data, $params)
                     . $mouseover . '>' . "\r\t\t" . $replimg . "\r\t" . '</a>';
         if ($imgdata['thumb'] == 'mouseover') {
             $mouseevent = "$('.internal').popover({ 
-						  html : true,
-						  placement :wheretoplace
-						  });
-							function wheretoplace(pop, dom_el) {
-						      var width = window.innerWidth;
-						      if (width<500) return 'bottom';
-						      var left_pos = $(dom_el).offset().left;
-						      if (width - left_pos > 400) return 'right';
-						      return 'left';
-						    }
-							";
+                          html : true,
+                          placement :wheretoplace
+                          });
+                            function wheretoplace(pop, dom_el) {
+                              var width = window.innerWidth;
+                              if (width<500) return 'bottom';
+                              var left_pos = $(dom_el).offset().left;
+                              if (width - left_pos > 400) return 'right';
+                              return 'left';
+                            }
+                            ";
             TikiLib::lib('header')->add_jq_onready($mouseevent);
         }
     }

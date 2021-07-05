@@ -71,7 +71,7 @@ class QuantifyLib extends TikiLib
     {
         $value = $this->getOne(
             "SELECT" .
-            "	tpc.segments_total / ( tpc.segments_total + IFNULL(SUM(valid.segments_added), 0) + IFNULL(SUM(valid.segments_removed),0)/10 )" .
+            "    tpc.segments_total / ( tpc.segments_total + IFNULL(SUM(valid.segments_added), 0) + IFNULL(SUM(valid.segments_removed),0)/10 )" .
             " FROM" .
             " tiki_pages tp" .
             " INNER JOIN tiki_pages_changes tpc ON tp.page_id = tpc.page_id AND tp.version = tpc.version" .

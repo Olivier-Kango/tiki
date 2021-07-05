@@ -189,7 +189,7 @@ class Captcha
                 $id = 1;
                 TikiLib::lib('header')->add_js('
 Recaptcha.create("' . $this->captcha->getPubKey() . '",
-	"captcha' . $id . '",' . $params . '
+    "captcha' . $id . '",' . $params . '
   );
 ', 100);
                 return '<div id="captcha' . $id . '"></div>';

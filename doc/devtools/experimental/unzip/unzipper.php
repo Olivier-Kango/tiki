@@ -34,7 +34,7 @@ function pagebottom()
     $LF = "\n";
     $bottomtext = '<br /><hr>' .
               ' <p class="block">' . $LF .
-              '	Enjoy <a href="https://tiki.org/" target="_blank">Tiki</a> and' . $LF .
+              '    Enjoy <a href="https://tiki.org/" target="_blank">Tiki</a> and' . $LF .
               '        <a href="https://tiki.org/tiki-register.php" target="_blank">join the community</a>!' . $LF .
               ' </p>' . $LF .
               '</body>' . $LF .

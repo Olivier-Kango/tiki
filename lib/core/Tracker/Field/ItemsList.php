@@ -201,30 +201,30 @@ class Tracker_Field_ItemsList extends Tracker_Field_Abstract implements Tracker_
             TikiLib::lib('header')->add_jq_onready(
                 '
 $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . $this->getOption('fieldIdHere') . ']").change(function(e, initial) {
-	if(initial == "initial" && $(this).data("triggered-' . $this->getInsertId() . '")) {
-		return;
-	}
-	$(this).data("triggered-' . $this->getInsertId() . '", true);
-	$.getJSON(
-		"tiki-ajax_services.php",
-		{
-			controller: "tracker",
-			action: "itemslist_output",
-			field: "' . $this->getConfiguration('fieldId') . '",
-			fieldIdHere: "' . $this->getOption('fieldIdHere') . '",
-			value: $(this).val()
-		},
-		function(data, status) {
-			$ddl = $("div[name=' . $this->getInsertId() . ']");
-			$ddl.html(data);
-			if (jqueryTiki.select2) {
-				$ddl.trigger("change.select2");
-			}
-			$ddl.trigger("change");
-		}
-	);
+    if(initial == "initial" && $(this).data("triggered-' . $this->getInsertId() . '")) {
+        return;
+    }
+    $(this).data("triggered-' . $this->getInsertId() . '", true);
+    $.getJSON(
+        "tiki-ajax_services.php",
+        {
+            controller: "tracker",
+            action: "itemslist_output",
+            field: "' . $this->getConfiguration('fieldId') . '",
+            fieldIdHere: "' . $this->getOption('fieldIdHere') . '",
+            value: $(this).val()
+        },
+        function(data, status) {
+            $ddl = $("div[name=' . $this->getInsertId() . ']");
+            $ddl.html(data);
+            if (jqueryTiki.select2) {
+                $ddl.trigger("change.select2");
+            }
+            $ddl.trigger("change");
+        }
+    );
 });
-			'
+            '
             );
             // this is smart enough to attach only once even if multiple fields attach the same code
             TikiLib::lib('header')->add_jq_onready('

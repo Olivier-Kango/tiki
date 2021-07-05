@@ -13,7 +13,7 @@ function wikiplugin_pref_info()
         'documentation' => 'PluginPref',
         'description' => tra('Display content based on global preference settings'),
         'body' => tr('Wiki text to display if conditions are met. The body may contain %0{ELSE}%1. Text after the marker
-			will be displayed if not matching the conditions.', '<code>', '</code>'),
+            will be displayed if not matching the conditions.', '<code>', '</code>'),
         'prefs' => ['wikiplugin_pref'],
         'filter' => 'wikicontent',
         'extraparams' => true,

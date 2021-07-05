@@ -53,7 +53,7 @@ function wikiplugin_trackerstat_info()
                 'required' => false,
                 'name' => tra('Show Percentage'),
                 'description' => tra('Choose whether to show the percentage of the vote each option received (not shown
-					by default)'),
+                    by default)'),
                 'since' => '2.0',
                 'filter' => 'alpha',
                 'default' => 'n',
@@ -67,7 +67,7 @@ function wikiplugin_trackerstat_info()
                 'required' => false,
                 'name' => tra('Show Bar'),
                 'description' => tra('Choose whether to show a bar representing the number of votes each option received
-					(not shown by default)'),
+                    (not shown by default)'),
                 'since' => '2.0',
                 'filter' => 'alpha',
                 'default' => 'n',
@@ -113,7 +113,7 @@ function wikiplugin_trackerstat_info()
                 'name' => tra('Last Modification Date'),
                 'description' => tr(
                     'Show last modification date of a tracker. Set to Yes (%0) to use site setting for
-					the short date format or use PHP\'s format (www.php.net/strftime). Example:',
+                    the short date format or use PHP\'s format (www.php.net/strftime). Example:',
                     '<code>y</code>',
                     '<code>%A %d of %B, %Y</code>'
                 ),

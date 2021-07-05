@@ -18,7 +18,7 @@ function wikiplugin_zotero_info()
             'key' => [
                 'name' => tra('Reference Key'),
                 'description' => tra('Unique reference for the group associated to the site. Can be retrieved from the
-					Zotero Bibliography module.'),
+                    Zotero Bibliography module.'),
                 'required' => false,
                 'since' => '7.0',
                 'filter' => 'alnum',
@@ -26,7 +26,7 @@ function wikiplugin_zotero_info()
             'tag' => [
                 'name' => tra('Reference Tag'),
                 'description' => tra('Uses the first result using the specified tag. Useful when the tag mechanism is
-					coerced into creating unique human memorizable keys.'),
+                    coerced into creating unique human memorizable keys.'),
                 'since' => '7.0',
                 'required' => false,
                 'filter' => 'alnum',
@@ -34,7 +34,7 @@ function wikiplugin_zotero_info()
             'note' => [
                 'name' => tra('Note'),
                 'description' => tra('Append a note to the reference for additional information, like page numbers or
-					other sub-references.'),
+                    other sub-references.'),
                 'since' => '7.0',
                 'required' => false,
                 'filter' => 'text',

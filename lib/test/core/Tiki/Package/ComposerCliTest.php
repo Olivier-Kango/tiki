@@ -17,18 +17,18 @@ class Tiki_Package_ComposerCliTest extends TikiTestCase
 {
 
     public const COMPOSER_JSON_DIST = '{
-	"name": "tiki/tiki-custom",
-	"description": "Tiki Wiki CMS Groupware",
-	"license": "LGPL-2.1",
-	"homepage": "https://tiki.org",
-	"minimum-stability": "stable",
-	"require": {
-	},
-	"config": {
-		"process-timeout": 5000,
-		"bin-dir": "bin",
-		"component-dir": "vendor/components"
-	}
+    "name": "tiki/tiki-custom",
+    "description": "Tiki Wiki CMS Groupware",
+    "license": "LGPL-2.1",
+    "homepage": "https://tiki.org",
+    "minimum-stability": "stable",
+    "require": {
+    },
+    "config": {
+        "process-timeout": 5000,
+        "bin-dir": "bin",
+        "component-dir": "vendor/components"
+    }
 }';
 
     public const SAMPLE_COMPOSER = '{

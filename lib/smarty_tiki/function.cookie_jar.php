@@ -10,7 +10,7 @@
  * smarty_function_cookie_jar: Get a cookie value from the Tiki Cookie Jar
  *
  * params:
- *	- name: Name of the cookie
+ *    - name: Name of the cookie
  */
 function smarty_function_cookie_jar($params, $smarty)
 {

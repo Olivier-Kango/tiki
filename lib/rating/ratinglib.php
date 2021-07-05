@@ -107,8 +107,8 @@ class RatingLib extends TikiDb_Bridge
                     $extra = " , FLOOR( ( UNIX_TIMESTAMP() - `time` ) / $revote )";
                 }
                 $joins[] = '
-					INNER JOIN ( SELECT ' . $connect . '(`time`) `t`, `user` `u` FROM `tiki_user_votings` WHERE ' . implode(' AND ', $where) . ' GROUP BY `user` ' . $extra . ' ) `j`
-						ON `j`.`u` = `uv`.`user` AND `j`.`t` = `uv`.`time`';
+                    INNER JOIN ( SELECT ' . $connect . '(`time`) `t`, `user` `u` FROM `tiki_user_votings` WHERE ' . implode(' AND ', $where) . ' GROUP BY `user` ' . $extra . ' ) `j`
+                        ON `j`.`u` = `uv`.`user` AND `j`.`t` = `uv`.`time`';
                 $bindvars = array_merge($bindvars, $bindvars);
             }
         }
@@ -318,13 +318,13 @@ class RatingLib extends TikiDb_Bridge
 
         $user_votings = $this->fetchAll(
             "SELECT *
-			FROM tiki_user_votings tuv1
-			WHERE id=? AND time = (
-				SELECT max(time)
-				FROM tiki_user_votings tuv2
-				WHERE tuv2.user = tuv1.user AND tuv1.id = tuv2.id
-			)
-			ORDER BY time DESC",
+            FROM tiki_user_votings tuv1
+            WHERE id=? AND time = (
+                SELECT max(time)
+                FROM tiki_user_votings tuv2
+                WHERE tuv2.user = tuv1.user AND tuv1.id = tuv2.id
+            )
+            ORDER BY time DESC",
             [$type . $threadId]
         );
 

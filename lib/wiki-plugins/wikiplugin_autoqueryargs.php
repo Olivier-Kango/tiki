@@ -19,7 +19,7 @@ function wikiplugin_autoqueryargs_info()
                 'required' => false,
                 'name' => tra('Arguments for auto query'),
                 'description' => tra('Colon-separated list of arguments, the values of which will be propagated through
-					any link created below this plugin'),
+                    any link created below this plugin'),
                 'since' => '12.0',
                 'filter' => 'text',
                 'separator' => ':',

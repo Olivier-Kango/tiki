@@ -108,7 +108,7 @@ function wikiplugin_snarf_info()
                 'required' => false,
                 'name' => tra('HTML Content'),
                 'description' => tr('Set to Yes (%0) to display the content as is instead of escaping HTML special
-					characters (not set by default).', '<code>1</code>'),
+                    characters (not set by default).', '<code>1</code>'),
                 'since' => '3.0',
                 'default' => null,
                 'options' => [

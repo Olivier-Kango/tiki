@@ -22,9 +22,9 @@ PATH="${PATH}:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 # local configuration, to be adjusted
 
 # choose a username and a password for htaccess protection
-USER="next"						#
-PASSWORD="next"						#
-CREDENTIALS="${USER}:${PASSWORD}"			#
+USER="next"                        #
+PASSWORD="next"                        #
+CREDENTIALS="${USER}:${PASSWORD}"            #
 
 # adjust this to your Tiki installation
 #PHPINFOURL="https://nextbranding.tiki.org/local/phpinfo.php"
@@ -38,37 +38,37 @@ TMPPATH="/tmp"
 
 # do not change hardcoded data here
 
-THIS_REL_PATH="doc/devtools"				# relative to TIKI_ROOT, which needn't be webservers document root
+THIS_REL_PATH="doc/devtools"                # relative to TIKI_ROOT, which needn't be webservers document root
 
 LOG_PATH="var/log/update"
 LOG_FILENAME="update.log"
 LOG_FILE="${LOG_PATH}/${LOG_FILENAME}"
 
-LOCK_PATH="var/lock"					# not used yet
+LOCK_PATH="var/lock"                    # not used yet
 
-THIS_PWD=`pwd`						# this doesn't mean anything because this script can be started by cronjob or interactive
-THIS_DIRNAME=`dirname $0`				# this is the important information when run by cronjob
-THIS_BASENAME=`basename $0`				# this is additional information, JFTR
-#MYPATHLOG=/opt/tiki.repo/trunk/local/my.log		# debug nonsense
-#echo >> ${MYPATHLOG}					# debug nonsense
-#echo THIS_PWD ${THIS_PWD} >> ${MYPATHLOG}		# debug nonsense
-#echo THIS_DIRNAME ${THIS_DIRNAME} >> ${MYPATHLOG}	# debug nonsense
-#echo THIS_BASENAME ${THIS_BASENAME} >> ${MYPATHLOG}	# debug nonsense
+THIS_PWD=`pwd`                        # this doesn't mean anything because this script can be started by cronjob or interactive
+THIS_DIRNAME=`dirname $0`                # this is the important information when run by cronjob
+THIS_BASENAME=`basename $0`                # this is additional information, JFTR
+#MYPATHLOG=/opt/tiki.repo/trunk/local/my.log        # debug nonsense
+#echo >> ${MYPATHLOG}                    # debug nonsense
+#echo THIS_PWD ${THIS_PWD} >> ${MYPATHLOG}        # debug nonsense
+#echo THIS_DIRNAME ${THIS_DIRNAME} >> ${MYPATHLOG}    # debug nonsense
+#echo THIS_BASENAME ${THIS_BASENAME} >> ${MYPATHLOG}    # debug nonsense
 
-cd ${THIS_DIRNAME}					# now we are in a defined environment
-SCRIPT_DIRNAME=`pwd`					# is this stupid nonsense?
+cd ${THIS_DIRNAME}                    # now we are in a defined environment
+SCRIPT_DIRNAME=`pwd`                    # is this stupid nonsense?
 
 # very important: define the Tiki root environment variable
-cd ../../						# because we know we are in doc/devtools/ -> 2x up
+cd ../../                        # because we know we are in doc/devtools/ -> 2x up
 TIKI_ROOT=`pwd`
 
-#echo new PWD : `pwd` >> ${MYPATHLOG}			# debug nonsense
-#echo --- FIN --- >> ${MYPATHLOG}			# debug nonsense
-#exit 1							# debug nonsense
+#echo new PWD : `pwd` >> ${MYPATHLOG}            # debug nonsense
+#echo --- FIN --- >> ${MYPATHLOG}            # debug nonsense
+#exit 1                            # debug nonsense
 
 # adjust the Tikipath to your needs
-#TIKIPATH="./"						# debug nonsense
-TIKIPATH=${TIKI_ROOT}					# todo: REF , was old variable name convention
+#TIKIPATH="./"                        # debug nonsense
+TIKIPATH=${TIKI_ROOT}                    # todo: REF , was old variable name convention
 
 # keep this hardcoded
 #SCRIPTPATH="${TIKIPATH}/local"

@@ -31,7 +31,7 @@ function wikiplugin_trackeritemfield_info()
                 'required' => false,
                 'name' => tra('Item ID'),
                 'description' => tra('Numeric value representing the item ID. Default is the user tracker item for the
-					current user.'),
+                    current user.'),
                 'since' => '2.0',
                 'filter' => 'digits',
                 'default' => '',
@@ -82,7 +82,7 @@ function wikiplugin_trackeritemfield_info()
                 'required' => false,
                 'name' => tra('Test'),
                 'description' => tr('Set to Yes (%01%1) to test whether a field is empty (if value parameter is empty)
-					or has a value the same as the value parameter.', '<code>', '</code>'),
+                    or has a value the same as the value parameter.', '<code>', '</code>'),
                 'since' => '2.0',
                 'default' => '',
                 'filter' => 'digits',
