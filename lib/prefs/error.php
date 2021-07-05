@@ -28,5 +28,24 @@ function prefs_error_list()
 			],
 			'default' => 2039,	//	E_ALL & ~E_NOTICE
 		],
+		'error_tracking_enabled_php' => [
+			'name' => tra('Track PHP errors'),
+			'description' => tra('Enable integration with error tracking service(ex: Sentry, GlitchTip) for PHP.'),
+			'type' => 'flag',
+			'default' => 'n',
+		],
+		'error_tracking_enabled_js' => [
+			'name' => tra('Track JavaScript errors'),
+			'description' => tra('Enable integration with error tracking service(ex: Sentry, GlitchTip) for JavaScript.'),
+			'type' => 'flag',
+			'default' => 'n',
+		],
+		'error_tracking_dsn' => [
+			'name' => tra('Data Source Name (DSN)'),
+			'description' => tra('DSN used for connect to the error tracking service.'),
+			'type' => 'text',
+			'filter' => 'url',
+			'default' => '',
+		],
 	];
 }

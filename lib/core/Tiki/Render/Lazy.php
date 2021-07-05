@@ -21,10 +21,13 @@ class Tiki_Render_Lazy
 			try {
 				$this->data = call_user_func($this->callback);
 			} catch (Exception $e) {
+				ErrorTracking::captureException($e);
 				$this->data = $e->getMessage();
 			} catch (Error $e) {
+				ErrorTracking::captureException($e);
 				$this->data = $e->getMessage();
 			} catch (Throwable $e) {
+				ErrorTracking::captureException($e);
 				$this->data = $e->getMessage();
 			}
 			$this->callback = null;

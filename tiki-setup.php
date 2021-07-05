@@ -41,11 +41,11 @@ if (! empty($_SERVER['HTTP_PROXY'])) {
 	$_SERVER['HTTP_PROXY_RENAMED'] = $_SERVER['HTTP_PROXY'];
 	unset($_SERVER['HTTP_PROXY']);
 	putenv('HTTP_PROXY');
-	if (!getenv('PHP_PEAR_HTTP_PROXY')) {
+	if (! getenv('PHP_PEAR_HTTP_PROXY')) {
 		putenv('PHP_PEAR_HTTP_PROXY=http://127.0.0.1'); // fake proxy setting to avoid PEAR to use HTTP_PROXY
 	}
 }
-
+require_once('lib/setup/error_tracking.php');
 require_once 'lib/setup/third_party.php';
 // Enable Versioning
 include_once('lib/setup/twversion.class.php');
@@ -383,6 +383,16 @@ if ($prefs['rating_advanced'] == 'y' && $prefs['rating_recalculation'] == 'rando
 	$ratinglib->attempt_refresh();
 }
 
+if (ErrorTracking::isJSEnabled()) {
+	$dsn = ErrorTracking::getDSN();
+	$headerlib->add_jsfile('vendor_bundled/vendor/npm-asset/sentry--browser/build/bundle.min.js');
+	$headerlib->add_js(
+		<<<EOF
+		Sentry.init({ dsn: "$dsn" });
+		EOF
+	);
+}
+
 $headerlib->add_jsfile('lib/tiki-js.js');
 
 // using jquery-migrate-1.3.0.js plugin for tiki 11, still required in tiki 12 LTS to support some 3rd party plugins
@@ -680,8 +690,8 @@ if ($prefs['geo_always_load_openlayers'] == 'y') {
 if ($prefs['xmpp_conversejs_always_load'] === 'y') {
 	require_once 'lib/xmpp/ConverseJS.php';
 	$xmppclient = new ConverseJS();
-	array_map([$headerlib, 'add_jsfile'],  $xmppclient->get_js_dependencies());
-	array_map([$headerlib, 'add_cssfile'],  $xmppclient->get_css_dependencies());
+	array_map([$headerlib, 'add_jsfile'], $xmppclient->get_js_dependencies());
+	array_map([$headerlib, 'add_cssfile'], $xmppclient->get_css_dependencies());
 }
 
 if ($prefs['workspace_ui'] == 'y') {

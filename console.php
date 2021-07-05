@@ -94,6 +94,7 @@ try {
 	$exitCode = $console->run(null, $output);
 } catch (Throwable $e) {
 	$output->writeln('<comment>A error was encountered while running a command</comment>');
+	ErrorTracking::captureException($e);
 	if ($e instanceof Exception) {
 		$console->renderException($e, $output);
 	} else {

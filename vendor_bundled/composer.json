@@ -99,6 +99,7 @@
 		"npm-asset/popper.js": "^1.13.4",
 		"npm-asset/prefixfree": ">=1.0.10",
 		"npm-asset/sass-svg-uri": "^1.0",
+		"npm-asset/sentry--browser": "^6.0",
 		"npm-asset/vue": "^2.6",
 		"npm-asset/zxing--library": ">=0.17.0",
 		"npm-asset/signature_pad": "^2.3.2",
@@ -127,6 +128,7 @@
 		"rubix/ml": "^0.4.0",
 		"sabre/dav": "~4.1.0",
 		"scssphp/scssphp": "^1.0.6",
+		"sentry/sdk": "^3.1",
 		"simile_timeline/simile_timeline": "2.3.0",
 		"smarty/smarty": "^3.1.33",
 		"sorich87/bootstrap-tour": "dev-master",
@@ -181,6 +183,9 @@
 	},
 	"extra": {
 		"patches-file": "../installer/composer-patches/composer-patches.json"
+	},
+	"replace": {
+		"npm-asset/tslib": "*"
 	},
 	"config": {
 		"process-timeout": 5000,

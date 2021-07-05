@@ -213,6 +213,11 @@ function get_default_prefs()
 			// Web Monetization
 			'webmonetization_payment_pointer' => '',
 			'webmonetization_default_paywall_text' => '',
+
+			// Error Tracking
+			'error_tracking_enabled_php' => 'n', //empty string needed to keep preference from setting unexpectedly
+			'error_tracking_enabled_js' => 'n', //empty string needed to keep preference from setting unexpectedly
+			'error_tracking_dsn' => ''
 		]
 	);
 

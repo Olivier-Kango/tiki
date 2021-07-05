@@ -85,6 +85,16 @@
 				</div>
 			</fieldset>
 			<fieldset>
+				<legend>{tr}Error Tracking{/tr}</legend>
+				<div class="adminoptionbox">
+					{preference name=error_tracking_dsn}
+					<div class="adminoptionboxchild">
+						{preference name=error_tracking_enabled_php}
+						{preference name=error_tracking_enabled_js}
+					</div>
+				</div>
+			</fieldset>
+			<fieldset>
 				<legend>{tr}Web Cron{/tr}</legend>
 				<div class="adminoptionbox">
 					{preference name=webcron_enabled}

@@ -53,6 +53,7 @@ $memory_limiter = new Tiki_MemoryLimit('128M'); // Keep in variable to hold scop
 require_once('lib/setup/tikisetup.class.php');
 require_once('lib/tikiticketlib.php');
 require_once('db/tiki-db.php');
+ErrorTracking::init();
 require_once('lib/tikilib.php');
 $tikilib = new TikiLib;
 // Get tiki-setup_base needed preferences in one query
@@ -115,7 +116,7 @@ $prefs = $systemConfiguration->preference->toArray() + $prefs;
 
 // Handle load balancers or reverse proxy (most reliable to do it early on as much code depends on these 2 server vars)
 if ((isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')
-	|| (isset($_SERVER['REQUEST_SCHEME']) && $_SERVER['REQUEST_SCHEME'] == 'https') ) {
+	|| (isset($_SERVER['REQUEST_SCHEME']) && $_SERVER['REQUEST_SCHEME'] == 'https')) {
 		$_SERVER['HTTPS'] = 'on';
 }
 
@@ -150,10 +151,10 @@ if (isset($prefs['session_protected']) && $prefs['session_protected'] == 'y' && 
 }
 
 // set PHP Limits
-if (!empty($prefs['allocate_memory_php_execution'])) {
+if (! empty($prefs['allocate_memory_php_execution'])) {
 	ini_set('memory_limit', $prefs['allocate_memory_php_execution']);
 }
-if (!empty($prefs['allocate_time_php_execution'])) {
+if (! empty($prefs['allocate_time_php_execution'])) {
 	ini_set('max_execution_time', $prefs['allocate_time_php_execution']);
 }
 
@@ -537,7 +538,6 @@ if (isset($_SESSION["$user_cookie_site"])) {
 		}
 	}
 	unset($user_details);
-
 } else {
 	$user = null;
 

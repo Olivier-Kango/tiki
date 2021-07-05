@@ -530,6 +530,9 @@ function tiki_error_handling($errno, $errstr, $errfile, $errline)
 	$back .= "</div>";
 
 	$phpErrors[] = $back;
+
+	$errorAsException = new \ErrorException($type . " ($err[$errno]): " . $errstr, 0, $errno, $errfile, $errline);
+	ErrorTracking::captureException($errorAsException);
 }
 
 // Patch missing $_SERVER['REQUEST_URI'] on IIS6
