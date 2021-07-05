@@ -33,9 +33,12 @@ if ($prefs['useGroupTheme'] == 'y') {
 }
 
 //consider Admin Theme
-if (! empty($prefs['theme_admin']) && ($section === 'admin' || empty($section))) {		// use admin theme if set
+if (! empty($prefs['theme_admin']) && ($section === 'admin' || empty($section))) {        // use admin theme if set
 	$theme_active = $prefs['theme_admin'];
-	$theme_option_active = $prefs['theme_option_admin'];								// and its option
+	$theme_option_active = $prefs['theme_option_admin'];                                // and its option
+}
+if ($prefs['theme_unified_admin_backend'] === 'y') {
+	$prefs['theme_navbar_color_variant'] = $prefs['theme_navbar_color_variant_admin'];
 }
 
 //consider CSS Editor (tiki-edit_css.php)

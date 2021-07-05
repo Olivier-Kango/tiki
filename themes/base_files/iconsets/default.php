@@ -214,7 +214,7 @@ function iconset_default()
 				'id' => 'inbox',
 			],
 			'admin_webservices' => [
-				'id' => 'cog',
+				'id' => 'mouse-pointer',
 			],
 			'admin_wiki' => [
 				'id' => 'file-alt',
@@ -234,6 +234,21 @@ function iconset_default()
 			],
 			'admin_rtc' => [
 				'id' => 'bullhorn',
+			],
+			'admin_section_general' => [
+				'id' => 'tools',
+			],
+			'admin_section_content' => [
+				'id' => 'toolbox',
+			],
+			'admin_section_other' => [
+				'id' => 'flask',
+			],
+			'admin_section_community' => [
+				'id' => 'users-cog',
+			],
+			'admin_section_backend' => [
+				'id' => 'cogs',
 			],
 			'adn' => [
 				'id' => 'adn',

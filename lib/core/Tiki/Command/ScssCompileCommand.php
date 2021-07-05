@@ -129,6 +129,25 @@ class ScssCompileCommand extends Command
 				}
 			}
 
+			$features = "$location/$themename/scss/feature";
+			if (is_dir($features)) {
+				foreach (new \DirectoryIterator($features) as $featureFileInfo) {
+					if ($featureFileInfo->isDot() || $featureFileInfo->isDir()) {
+						continue;
+					}
+					$featureName = $featureFileInfo->getFilename();
+					if (strpos($featureName, '_') === 0) {	// skip includes
+						continue;
+					}
+					$scss_file = "$location/$themename/scss/feature/$featureName";
+					$css_file = "$location/$themename/css/feature/" . str_replace('.scss', '.css', $featureName);
+					$files[] = ['scss' => $scss_file, 'css' => $css_file];
+					if (! is_dir("$location/$themename/css/feature")) {
+						mkdir("$location/$themename/css/feature");
+					}
+				}
+			}
+
 			foreach ($files as $file) {
 				try {
 					$logger->debug(sprintf('Compiling "%s" to "%s"', $file['scss'], $file['css']));

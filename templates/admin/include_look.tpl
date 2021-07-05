@@ -81,8 +81,10 @@
 
 			<legend>{tr}Admin theme{/tr}</legend>
 			<div class="adminoptionbox">
+				{preference name=theme_unified_admin_backend}
 				{preference name=theme_admin}
 				{preference name=theme_option_admin}
+				{preference name=theme_navbar_color_variant_admin}
 			</div>
 			<hr>
 
@@ -131,7 +133,7 @@
 
 			<legend>{tr}Admin pages layout{/tr} (<small>{tr}Admin theme must be selected first{/tr}</small>)</legend>
 			{preference name=site_layout_admin}
-			
+
 			<!--legend>{tr}Fixed vs full width layout{/tr}</legend-->
 			<hr>
 			

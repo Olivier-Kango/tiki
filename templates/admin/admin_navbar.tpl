@@ -1,10 +1,8 @@
-<nav class="navbar-expand-md {if $prefs.theme_navbar_color_variant eq 'dark'}navbar-dark bg-dark {else}navbar-light bg-light{/if} admin-navbar mb-4" role="navigation">
+<nav class="navbar-expand-md{if $prefs.theme_navbar_color_variant eq 'dark'} navbar-dark bg-dark{else} navbar-light bg-light{/if} admin-navbar mb-4" role="navigation">
+	{if $prefs.theme_unified_admin_backend eq 'y'}<a class="navbar-brand" href="./" title="{tr}Back to the home page{/tr}"><img src="img/tiki/tiki-icon-flat.svg" alt="{tr}Tiki logo{/tr}" height="24"></a>{/if}
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#admin-navbar-collapse-1" aria-controls="admin-navbar-collapse-1" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
 	</button>
-{*	<div class="navbar-header"> *}
-
-	{* </div> *}
 	<div class="collapse navbar-collapse" id="admin-navbar-collapse-1">
 		<form method="post" class="form form-inline my-2 my-md-0" role="form" style="min-height: 60px; width: 165px;">
 			<div class="form-check">
@@ -41,7 +39,7 @@
 							{capture name=likeicon}{icon name="thumbs-up"}{/capture}
 							<div class="form-check">
 								<label class="form-check-label">
-									<input type="checkbox" id="connect_feedback_cbx" class="form-check-input" {if !empty($connect_feedback_showing)}checked="checked"{/if}>
+									<input type="checkbox" id="connect_feedback_cbx" class="form-check-input"{if !empty($connect_feedback_showing)} checked="checked"{/if}>
 									{tr}Provide Feedback{/tr}
 									<a href="https://doc.tiki.org/Connect" target="tikihelp" class="tikihelp" title="{tr}Provide Feedback:{/tr}
 										{tr}Once selected, some icon/s will be shown next to all features so that you can provide some on-site feedback about them{/tr}.
@@ -71,7 +69,6 @@
 							};
 							var hide = function (selector) {
 							selector.hide();
-							/*selector.parents('fieldset:not(.tabcontent)').hide();*/
 							};
 
 							var filters = [];
@@ -124,24 +121,26 @@
 			</ul>
 		</form>
 		{include file="admin/admin_navbar_menu.tpl"}
-		<ul class="navbar-nav flex-row d-md-flex mr-2">
-			<li class="nav-item">
-				<form method="post" class="form-inline my-2 my-md-0 ml-auto" role="form">
-					<div class="form-group row mx-0">
-						<input type="hidden" name="filters">
-						<div class="input-group">
-							<input type="text" name="lm_criteria" value="{$lm_criteria|escape}" class="form-control form-control-sm" placeholder="{tr}Search preferences{/tr}...">
-							<div class="input-group-append">
-								<button type="submit" class="btn btn-info btn-sm" {if $indexNeedsRebuilding} class="tips" title="{tr}Configuration search{/tr}|{tr}Note: The search index needs rebuilding, this will take a few minutes.{/tr}"{/if}>{icon name="search"}</button>
+		{if $prefs.theme_unified_admin_backend neq 'y'}
+			<ul class="navbar-nav flex-row d-md-flex mr-2">
+				<li class="nav-item">
+					<form method="post" class="form-inline my-2 my-md-0 ml-auto" role="form">
+						<div class="form-group row mx-0">
+							<input type="hidden" name="filters">
+							<div class="input-group">
+								<input type="text" name="lm_criteria" value="{$lm_criteria|escape}" class="form-control form-control-sm" placeholder="{tr}Search preferences{/tr}...">
+								<div class="input-group-append">
+									<button type="submit" class="btn btn-info btn-sm"{if $indexNeedsRebuilding} class="tips" title="{tr}Configuration search{/tr}|{tr}Note: The search index needs rebuilding, this will take a few minutes.{/tr}"{/if}>{icon name="search"}</button>
+								</div>
 							</div>
 						</div>
-					</div>
-				</form>
-			</li>
-		</ul>
+					</form>
+				</li>
+			</ul>
+		{/if}
 	</div>
-	{if $include != "list_sections"}
-		<div class="adminanchors card"><div class="card-body {if $prefs.theme_navbar_color_variant eq 'dark'}navbar-dark bg-dark {else}navbar-light bg-light{/if}"><ul class="nav navbar-nav">{include file='admin/include_anchors.tpl'}</ul></div></div>
+	{if $include != "list_sections" and $prefs.theme_unified_admin_backend neq 'y'}
+		<div class="adminanchors card"><div class="card-body {if $prefs.theme_navbar_color_variant eq 'dark'}navbar-dark bg-dark{else}navbar-light bg-light{/if}"><ul class="nav navbar-nav">{include file='admin/include_anchors.tpl'}</ul></div></div>
 	{/if}
 </nav>
 

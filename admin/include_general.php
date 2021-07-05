@@ -29,6 +29,4 @@ if (! empty($_POST['testMail']) && $access->checkCsrf()) {
 	}
 }
 
-$engine_type = getCurrentEngine();
-$smarty->assign('db_engine_type', $engine_type);
 $smarty->assign('now', $tikilib->now);

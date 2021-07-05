@@ -29,6 +29,7 @@ class ModLib extends TikiLib
 		'right' => 'right_modules',
 		'pagebottom' => 'pagebottom_modules',
 		'bottom' => 'bottom_modules',
+		'admin' => 'admin_modules',
 	];
 
 	public $cssfiles  = [
@@ -507,6 +508,14 @@ class ModLib extends TikiLib
 	{
 		global $section, $page, $prefs, $user;
 		$tikilib = TikiLib::lib('tiki');
+
+		$topLogin = $module['name'] === 'login_box' && $module['position'] === 'top';
+		$isControlPanel = $section === 'admin' && strpos($_SERVER['PHP_SELF'], 'tiki-admin.php') !== false;
+
+		if ($prefs['theme_unified_admin_backend'] === 'y' && $isControlPanel && $module['position'] !== 'admin' && ! $topLogin) {
+			return false;
+		}
+
 		// Validate preferences
 		$module_info = $this->get_module_info($module['name']);
 		$params = $module['params'];

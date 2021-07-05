@@ -1,0 +1,724 @@
+
+/* The AdminUI "feature" theme for Tiki Wiki CMS Groupware */
+// Core variables and mixins
+$secondary:      #6d35a6;
+
+@import "../../../../vendor_bundled/vendor/twbs/bootstrap/scss/_functions.scss";
+@import "variables"; // Needs to come first, to override defaults.
+@import "../tiki-variables"; // Values/definitions for Tiki variables (outside of Bootstrap variables) such as _tiki-selectors.scss.
+//@import "../tiki-selectors";
+//@import "../bs3-bs4-transition";
+//@import "../external-scripts";
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+
+$darkgrey: 	#2C2C2C;
+$darkergrey: 	#1C1C1C;
+$darkestgrey: 	#0f0f0f;
+$blue: 		#007BFF;
+$lightgrey-dark: #dbdbdb;
+$lightgrey-middle: #e6e6e6;
+$lightgrey:	#F0F0F0;
+$color-light:	rgba(0, 0, 0, 0.5);
+
+.tiki-admin aside.admin-nav .navbar-dark, .tiki-admin .top_modules.navbar-dark-parent {
+	background-color: $darkgrey !important;
+}
+
+.tiki-admin .top_modules.navbar-light-parent, .tiki-admin aside.admin-nav .bg-light {
+	background-color: $lightgrey !important;
+}
+
+.tiki-admin aside.admin-nav .navbar-dark, .tiki-admin .top_modules.navbar-dark-parent, .tiki-admin aside.admin-nav .navbar-light, .tiki-admin .top_modules.navbar-light-parent {
+	font-family: 'Roboto', sans-serif;
+	position: fixed;
+	left: 0;
+	top: 0;
+}
+
+.tiki-admin aside.admin-nav .navbar-light, .tiki-admin aside.admin-nav .navbar-dark {
+	z-index: 9998;
+}
+
+
+.tiki-admin .top_modules.navbar-dark-parent, .tiki-admin .top_modules.navbar-light-parent {
+	z-index: 9999;
+}
+
+.tiki-admin aside.admin-nav {
+	padding: 0 !important;
+}
+
+.tiki-admin .top_modules.navbar-dark-parent, .tiki-admin .top_modules.navbar-light-parent {
+	width: 100%;
+	height: 50px;
+	padding: 0 1.6rem;
+}
+
+.tiki-admin aside.admin-nav .navbar-light, .tiki-admin aside.admin-nav .navbar-dark {
+	height: calc(100% - 50px - 2.3rem);
+	width: 268px !important;
+	overflow-y: auto;
+	overflow-x: hidden;
+	top: 50px;
+}
+
+.tiki-admin aside.admin-nav .narrow .dropdown-item {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+
+.tiki-admin .admin-wrapper .admin-nav {
+	width: 0;
+}
+
+.tiki-admin .col-md-12.side-col-toggle-container {
+	display: none;
+}
+
+/* Admin menu left */
+
+.tiki-admin aside.admin-nav .navbar-light.narrow, .tiki-admin aside.admin-nav .navbar-dark.narrow, .tiki-admin aside.admin-nav .narrow .admin-menu-collapser {
+	width: 60px !important;
+}
+
+.tiki-admin aside.admin-nav .admin-menu-collapser a {
+	width: 50px;
+}
+
+.tiki-admin aside.admin-nav .narrow .admin-menu-collapser a {
+	width: 100%;
+}
+
+.tiki-admin aside.admin-nav .navbar-light.narrow li .icon .icon, .tiki-admin aside.admin-nav .navbar-dark.narrow li .icon .icon {
+	font-size: 1.1rem !important;
+}
+
+.tiki-admin aside.admin-nav .narrow .navbar-nav {
+	margin-top: 0;
+}
+
+.tiki-admin aside.admin-nav .narrow ul {
+	padding: 0;
+}
+
+.tiki-admin aside.admin-nav .narrow .navbar-nav a.nav-link {
+	display: block;
+	text-align: center;
+	padding: 4px 0;
+}
+
+.tiki-admin aside.admin-nav .narrow .sections-header a .icon.icon-home,
+.tiki-admin aside.admin-nav .narrow li, .tiki-admin aside.admin-nav .narrow li .icon .icon {
+	width: 100%;
+}
+
+.tiki-admin aside.admin-nav .navbar-light.narrow .navbar-nav > li:after  {
+	border-bottom: 1px solid $color-light;
+}
+
+.tiki-admin .admin-wrapper .navbar-nav {
+	padding: 0;
+	width: 100%;
+}
+
+.tiki-admin aside.admin-nav ul .nav-item a, .tiki-admin .admin-wrapper .form-inline {
+	padding-left: 1.6rem;
+	padding-right: 1.6rem;
+}
+
+.tiki-admin .admin-nav .navbar-dark .nav-item .right.nav-link.collapse-toggle[aria-expanded="true"] {
+	background-color: $darkestgrey;
+}
+
+.tiki-admin .admin-nav .navbar-dark .nav-item .collapse.show {
+	background-color: $darkergrey;
+}
+
+.tiki-admin .admin-nav .navbar-light .nav-item .right.nav-link.collapse-toggle[aria-expanded="true"] {
+	background-color: $lightgrey-dark;
+}
+
+.tiki-admin .admin-nav .navbar-light .nav-item .collapse.show {
+	background-color: $lightgrey-middle;
+}
+
+.tiki-admin .admin-nav .nav-item .right.nav-link.collapse-toggle {
+	padding-top: .5rem;
+	padding-bottom: .4rem;
+}
+
+.tiki-admin .admin-nav .nav-item .collapse.show, .tiki-admin .admin-nav .nav-item .collapsin, .tiki-admin .admin-nav .nav-item .collapsing {
+	margin-bottom: .4rem;
+}
+
+.tiki-admin .admin-nav .narrow .collapse .dropdown-item.icon span:not(.icon), .tiki-admin .admin-nav .narrow .collapsing .dropdown-item.icon span:not(.icon) {
+	display: none;
+}
+
+.tiki-admin .admin-wrapper .narrow .form-inline {
+	display: none;
+}
+
+.tiki-admin .form-inline .form-group, .tiki-admin .form-inline .form-group .input-group {
+	width: 100%;
+}
+
+.tiki-admin .form-inline .form-group {
+	padding: 1rem 0;
+}
+
+.tiki-admin .dropdown-item {
+	padding: .6rem 1.5rem;
+	line-height: 1;
+}
+
+@media (max-width: 767.5px) {
+
+	.tiki-admin #show-errors-button {
+		margin-left: 75px;
+	}
+	
+	/* Dropdown when open */
+
+	.tiki-admin .top_modules .dropdown-menu, .tiki-admin .navbar-collapse {
+		width: 100%;
+		position: fixed !important;
+		transform: unset !important;
+		margin: 0;
+		left: 0;
+		height: 100%;
+		padding: 1.5rem 0;
+	}
+
+	.tiki-admin .top_modules .bg-dark-parent .dropdown-menu, .tiki-admin .bg-dark .navbar-collapse {
+		background-color: $darkergrey !important;
+	}
+
+	.tiki-admin .top_modules.navbar-light-parent .dropdown-menu, .tiki-admin .bg-light .navbar-collapse {
+		background-color: $lightgrey !important;
+	}
+
+	.tiki-admin .bg-dark .filter-menu .dropdown-menu.show {
+		transform: none !important;
+		will-change: unset !important;
+		top: 2.2rem !important;
+		overflow: scroll;
+		left: -7.3rem !important;
+		max-height: calc(100vh - 3.4rem);
+	}
+
+	.tiki-admin .dropdown-menu .dropdown-title {
+		margin-left: -.9rem;
+	}
+
+	.tiki-admin .top_modules .dropdown-menu {
+		top: 50px !important;
+	}
+
+	.tiki-admin .navbar-collapse {
+		padding-top: 3.5rem;
+		overflow-y: auto;
+	}
+
+	.tiki-admin .dropdown-menu .dropdown-item, .tiki-admin .navbar-collapse .navbar-nav.mr-auto {
+		padding: 0.5rem 3rem;
+	}
+
+	.tiki-admin .filter-menu .dropdown-menu.show .dropdown-item {
+		padding: .5rem 1.8rem;
+	}
+
+	.tiki-admin .dropdown-menu .dropdown-header {
+		padding: .5rem 3rem 0 3rem;
+	}
+
+	.tiki-admin .navbar-dark button[aria-expanded="true"] .navbar-toggler-icon {
+		background-image: url("data:image/svg+xml,%3Csvg%20version%3D%221.1%22%20id%3D%22Ebene_1%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20xmlns%3Axlink%3D%22http%3A%2F%2Fwww.w3.org%2F1999%2Fxlink%22%20x%3D%220px%22%20y%3D%220px%22%0A%09%20viewBox%3D%220%200%2020%2020%22%20style%3D%22enable-background%3Anew%200%200%2020%2020%3B%22%20xml%3Aspace%3D%22preserve%22%3E%0A%3Cstyle%20type%3D%22text%2Fcss%22%3E%0A%09.st0%7Bfill%3A%23FFFFFF%3B%7D%0A%3C%2Fstyle%3E%0A%3Cpath%20class%3D%22st0%22%20d%3D%22M2.1%2C0.7l17%2C17c0.4%2C0.4%2C0.4%2C1%2C0%2C1.4l0%2C0c-0.4%2C0.4-1%2C0.4-1.4%2C0l-17-17c-0.4-0.4-0.4-1%2C0-1.4l0%2C0%0A%09C1.1%2C0.3%2C1.7%2C0.3%2C2.1%2C0.7z%22%2F%3E%0A%3Cpath%20class%3D%22st0%22%20d%3D%22M0.7%2C17.7l17-17c0.4-0.4%2C1-0.4%2C1.4%2C0l0%2C0c0.4%2C0.4%2C0.4%2C1%2C0%2C1.4l-17%2C17c-0.4%2C0.4-1%2C0.4-1.4%2C0l0%2C0%0A%09C0.3%2C18.7%2C0.3%2C18.1%2C0.7%2C17.7z%22%2F%3E%0A%3C%2Fsvg%3E%0A");
+	}
+
+	.tiki-admin .navbar-light button[aria-expanded="true"] .navbar-toggler-icon {
+		background-image: url("data:image/svg+xml,%3Csvg%20id%3D%22Ebene_1%22%20data-name%3D%22Ebene%201%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2019%2019%22%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill%3A%237c7c7d%3B%7D%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cpath%20class%3D%22cls-1%22%20d%3D%22M2.1.7l17%2C17a1%2C1%2C0%2C0%2C1%2C0%2C1.4h0a1%2C1%2C0%2C0%2C1-1.4%2C0L.7%2C2.1A1%2C1%2C0%2C0%2C1%2C.7.7h0A1%2C1%2C0%2C0%2C1%2C2.1.7Z%22%20transform%3D%22translate(-0.4%20-0.4)%22%2F%3E%3Cpath%20class%3D%22cls-1%22%20d%3D%22M.7%2C17.7l17-17a1%2C1%2C0%2C0%2C1%2C1.4%2C0h0a1%2C1%2C0%2C0%2C1%2C0%2C1.4l-17%2C17a1%2C1%2C0%2C0%2C1-1.4%2C0h0A1%2C1%2C0%2C0%2C1%2C.7%2C17.7Z%22%20transform%3D%22translate(-0.4%20-0.4)%22%2F%3E%3C%2Fsvg%3E");
+	}
+
+	.tiki-admin button[aria-expanded="true"] .navbar-toggler-icon {
+		height: 24px;
+	}
+
+	.tiki-admin .admin-navbar button[aria-expanded="true"] {
+		position: fixed;
+	        right: 0;
+		left: unset;
+		z-index: 999;
+		margin-top: .3rem;
+	}
+
+	.tiki-admin .navbar-collapse .navbar-nav.mr-auto li.dropdown {
+		font-size: 1.1rem;
+		margin: 1.2rem 0 !important;
+		width: calc(100vw - 6rem);
+	}
+
+	.tiki-admin .navbar-collapse .navbar-nav.mr-auto li.dropdown > a::after {
+		right: 0;
+		top: .7rem;
+		position: absolute;
+		text-align: right;
+	}
+
+	.tiki-admin .navbar-collapse .navbar-nav.mr-auto .dropdown-menu {
+		position: relative !important;
+		margin: 1rem 0 1rem 0;
+		padding: 0;
+		background-color: transparent;
+		transform: none !important;
+	}
+
+	.tiki-admin .dropdown.mr-1 > .dropdown-menu .dropdown-item {
+		margin: 0 -3rem;
+		width: 100vw;
+	}
+
+	.tiki-admin .navbar-collapse .navbar-nav.mr-auto li.dropdown > a {
+		padding: 0;
+	}
+
+	.tiki-admin .navbar-collapse .form-check label {
+		margin: 0;
+	}
+	
+	.tiki-admin .navbar-collapse .form-inline {
+		position: absolute !important;
+	}
+
+	.tiki-admin .navbar-collapse .form-check {
+		padding-left: .75rem;
+		padding-right: .5rem;
+	}
+
+	.tiki-admin .navbar-collapse .navbar-nav.filter-menu {
+		padding: 0;
+	}
+
+	.tiki-admin .dropdown-divider {
+		border-color: transparent !important;
+	}
+
+	.tiki-admin .top_modules .dropdown-menu, .tiki-admin .navbar-collapse .navbar-nav {
+		left: 0 !important;
+	}
+
+	.tiki-admin .bg-light .dropdown-divider, .tiki-admin .bg-dark .dropdown-divider {
+		margin-left: -3rem;
+		margin-right: -3rem;
+	}
+	
+	.tiki-admin .admin-wrapper .navbar-toggler {
+		top: .4rem !important;
+	}
+
+	.tiki-admin .row.row-middle, .tiki-admin .intertrans.text-center {
+		margin-left: 60px !important;
+	}
+
+	.tiki-admin .filter-menu .nav-item.dropdown {
+		padding: 0 !important;
+	}
+
+	.tiki-admin .admin-wrapper .navbar-expand-md .form-inline {
+		padding-top: 0;
+		margin-top: 0 !important;
+}
+
+	.tiki-admin .admin-nav .form-inline.my-2.my-md-0 .form-group {
+		margin-bottom: 0;
+	}
+
+	.tiki-admin .admin-nav .navbar-nav {
+		margin-top: 0;
+	}
+
+	.tiki-admin .admin-nav .form-inline.my-2.my-md-0 {
+		margin: 0 !important;
+	}
+}
+
+@media (min-width: 768px) {
+	.tiki-admin #show-errors-button {
+		margin-left: 283px;
+	}
+
+	.tiki-admin .admin-content nav.admin-navbar {
+		margin-top: -.35rem;
+	}
+
+	.tiki-admin .filter-menu .nav-item.dropdown {
+		padding-top: .4rem !important;
+	}
+	.tiki-admin .admin-content nav.navbar-expand-md.mb-4 .navbar-brand {
+		height: auto !important;
+	}
+}
+
+
+.tiki-admin .bg-dark .dropdown-item .dropdown-title, .tiki-admin .bg-dark .dropdown-item label, .tiki-admin .navbar-dark .navbar-nav .nav-link, .tiki-admin aside.admin-nav .navbar-dark .navbar-nav .nav-link, .tiki-admin .top_modules.navbar-dark-parent .dropdown-header, .tiki-admin .dropdown-item:hover, .tiki-admin aside.admin-nav .navbar-dark .navbar-nav ul .nav-link:hover, .tiki-admin .top_modules.navbar-dark-parent .dropdown-item, .tiki-admin aside.admin-nav, .tiki-admin aside.admin-nav p, .tiki-admin .top_modules.navbar-dark-parent, .tiki-admin .top_modules.navbar-dark-parent a, .tiki-admin .top_modules.navbar-dark-parent button, .tiki-admin .bg-dark a {
+	color: white;
+}
+
+.tiki-admin .dropdown-menu .dropdown-item:hover a {
+	color: white;
+	text-decoration: none;
+}
+
+.tiki-admin .bg-dark .dropdown-divider, .tiki-admin .bg-dark-parent .dropdown-divider {
+	border-top: .5px solid white !important;
+}
+
+.tiki-admin .bg-light .dropdown-divider, .tiki-admin .bg-light-parent .dropdown-divider {
+	border-top: .5px solid $color-light !important;
+}
+
+.tiki-admin .bg-dark .text-muted {
+	color: rgb(255 255 255 / 40%) !important;
+}
+
+.tiki-admin .bg-light .text-muted {
+	color: rgb(0 0 0 / 25%) !important;
+}
+
+.tiki-admin .dropdown-menu {
+	border: none;
+}
+
+.tiki-admin .bg-light .dropdown-item .dropdown-title, .tiki-admin .bg-light .dropdown-item label, .tiki-admin .navbar-light .navbar-nav .nav-link, .tiki-admin aside.admin-nav .navbar-light .navbar-nav .nav-link, .tiki-admin .top_modules.navbar-light-parent .dropdown-header, .tiki-admin aside.admin-nav .navbar-light .navbar-nav ul .nav-link:hover, .tiki-admin .top_modules.navbar-light-parent .dropdown-item, .tiki-admin .top_modules.navbar-light-parent, .tiki-admin .top_modules.navbar-light-parent a, .tiki-admin .top_modules.navbar-light-parent button, .tiki-admin .bg-light a {
+	color: $color-light;
+}
+
+.tiki-admin .top_modules.navbar-dark-parent .dropdown-item, .tiki-admin aside.admin-nav, .tiki-admin aside.admin-nav p, .tiki-admin .top_modules.navbar-dark-parent, .tiki-admin .top_modules.navbar-dark-parent a, .tiki-admin .top_modules.navbar-dark-parent button, .tiki-admin .top_modules.navbar-light-parent .dropdown-item, .tiki-admin .top_modules.navbar-light-parent, .tiki-admin .top_modules.navbar-light-parent a, .tiki-admin .top_modules.navbar-light-parent button {
+	font-size: .9rem;
+}
+
+.tiki-admin .row.row-middle {
+	margin-top: 6rem;
+}
+
+.tiki-admin .top_modules .nav-link {
+	margin-top: .9rem;
+}
+
+.tiki-admin .top_modules .btn.login_link {
+	margin-top: .8rem;
+}
+
+.tiki-admin .top_modules .nav-link, .tiki-admin .top_modules .btn.login_link {
+	padding: 0 .6rem;
+}
+
+.tiki-admin .top_modules.navbar-dark-parent .dropdown-menu, .tiki-admin .bg-dark-parent .dropdown-item.mb-2.mt-2:hover, .tiki-admin .bg-dark .dropdown-menu.show {
+	background-color: $darkgrey;
+}
+
+.tiki-admin .top_modules.navbar-light-parent .dropdown-menu, .tiki-admin .bg-light-parent .dropdown-item.mb-2.mt-2:hover, .tiki-admin .bg-light .dropdown-menu.show {
+	background-color: $lightgrey;
+}
+
+.tiki-admin .top_modules.navbar-dark-parent .dropdown-menu, .tiki-admin .top_modules.navbar-light-parent .dropdown-menu {
+	border: none;
+	border-radius: unset;
+}
+
+.tiki-admin .top_modules .login-box .dropdown-menu {
+        min-width: unset;
+	right: 0;
+	margin-top: 3.1rem;
+}
+
+.tiki-admin .dropdown-item.active, .tiki-admin .dropdown-item:active, .tiki-admin .dropdown-item:hover, .tiki-admin aside.admin-nav .navbar-dark .navbar-nav ul .nav-link:hover, .tiki-admin aside.admin-nav .navbar-light .navbar-nav ul .nav-link:hover, .tiki-admin .bg-light-parent .dropdown-item.mb-2.mt-2 button, .tiki-admin .dropdown-item:focus {
+	background-color: $blue;
+	color: white !important;
+}
+
+.tiki-admin .btn-link:hover, .tiki-admin .top_modules.navbar-dark-parent .nav-link:hover, .tiki-admin .top_modules.navbar-light-parent .nav-link:hover, .tiki-admin .btn:focus, .tiki-admin .btn.focus {
+	box-shadow: none;
+	text-decoration: none;
+	color: $blue;
+}
+
+.tiki-admin .admin-content nav.navbar-expand-md.mb-4 {
+	padding: 0;
+	display: flex;	
+}
+
+.tiki-admin .admin-content nav.navbar-expand-md.mb-4 .navbar-brand {
+	padding: 0;
+	height: 50px;
+	width: 60px;
+	display: inline-block;
+	margin: 0 !important;
+	background-repeat: no-repeat;
+	background-size: 25px;
+	background-position-y: center;
+	background-position-x: 16px;
+}
+
+.tiki-admin .admin-content nav.navbar-expand-md.mb-4.navbar-light .navbar-brand {
+	background-image: url("data:image/svg+xml,%3Csvg%20id%3D%22svg2%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024.99%2025%22%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill%3A%237c7c7d%3B%7D%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cpath%20class%3D%22cls-1%22%20d%3D%22M23.67%2C8.35l0%2C0a3.79%2C3.79%2C0%2C0%2C0-.4-.3C19.47%2C5.58%2C15.73%2C2.87%2C12.43.52%2C11-.53%2C9.12.08%2C8%2C1.76c-.55.85-1.12%2C1.7-1.68%2C2.54V9.13h4.78v6.37H9.8V10.36H6.34v3.18c0%2C.19%2C0%2C.35%2C0%2C.49a.68.68%2C0%2C0%2C0%2C.11.34.48.48%2C0%2C0%2C0%2C.24.2%2C1%2C1%2C0%2C0%2C0%2C.39.07A3%2C3%2C0%2C0%2C0%2C8%2C14.5H8l.36.9a3.82%2C3.82%2C0%2C0%2C1-.71.21%2C6.15%2C6.15%2C0%2C0%2C1-.73.06%2C2.49%2C2.49%2C0%2C0%2C1-.86-.16%2C1.4%2C1.4%2C0%2C0%2C1-.59-.41A2.3%2C2.3%2C0%2C0%2C1%2C5%2C13.53V10.36H2.11C1.57%2C11.11%2C1%2C11.85.53%2C12.58a2.33%2C2.33%2C0%2C0%2C0-.3.53%2C2.43%2C2.43%2C0%2C0%2C0-.17.52v0h0A3.35%2C3.35%2C0%2C0%2C0%2C1.75%2C17c3.79%2C2.44%2C7.53%2C5.15%2C10.82%2C7.5%2C1.45%2C1.05%2C3.32.44%2C4.42-1.24l6.18-8.92c-.29.39-.57.8-.86%2C1.2h-2.9V10.08H17.27l-1.62%2C1.86%2C2.53%2C3.59H16.57l-2.34-3.23v3.21h-1.3V6.94h1.3v4.86l2.22-2.66h4.31v0h0v5.12l2.43%2C0%2C1.28-1.86A3%2C3%2C0%2C0%2C0%2C23.67%2C8.35Zm-13.2-.14a.64.64%2C0%2C0%2C1%2C0-1.28.64.64%2C0%2C1%2C1%2C0%2C1.28Zm9.63%2C0a.64.64%2C0%2C0%2C1%2C0-1.28.64.64%2C0%2C0%2C1%2C0%2C1.28Z%22%20transform%3D%22translate(0%200)%22%2F%3E%3Cpath%20class%3D%22cls-1%22%20d%3D%22M5%2C6.23c-.69%2C1-1.37%2C2-2%2C2.91H5Z%22%20transform%3D%22translate(0%200)%22%2F%3E%3C%2Fsvg%3E");
+}
+
+.tiki-admin .admin-content nav.navbar-expand-md.mb-4.navbar-dark .navbar-brand {
+	background-image: url("data:image/svg+xml,%3Csvg%20id%3D%22svg2%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024.99%2025%22%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill%3A%23fff%3B%7D%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cpath%20class%3D%22cls-1%22%20d%3D%22M23.67%2C8.35l0%2C0a3.79%2C3.79%2C0%2C0%2C0-.4-.3C19.47%2C5.58%2C15.73%2C2.87%2C12.43.52%2C11-.53%2C9.12.08%2C8%2C1.76c-.55.85-1.12%2C1.7-1.68%2C2.54V9.13h4.78v6.37H9.8V10.36H6.34v3.18c0%2C.19%2C0%2C.35%2C0%2C.49a.68.68%2C0%2C0%2C0%2C.11.34.48.48%2C0%2C0%2C0%2C.24.2%2C1%2C1%2C0%2C0%2C0%2C.39.07A3%2C3%2C0%2C0%2C0%2C8%2C14.5H8l.36.9a3.82%2C3.82%2C0%2C0%2C1-.71.21%2C6.15%2C6.15%2C0%2C0%2C1-.73.06%2C2.49%2C2.49%2C0%2C0%2C1-.86-.16%2C1.4%2C1.4%2C0%2C0%2C1-.59-.41A2.3%2C2.3%2C0%2C0%2C1%2C5%2C13.53V10.36H2.11C1.57%2C11.11%2C1%2C11.85.53%2C12.58a2.33%2C2.33%2C0%2C0%2C0-.3.53%2C2.43%2C2.43%2C0%2C0%2C0-.17.52v0h0A3.35%2C3.35%2C0%2C0%2C0%2C1.75%2C17c3.79%2C2.44%2C7.53%2C5.15%2C10.82%2C7.5%2C1.45%2C1.05%2C3.32.44%2C4.42-1.24l6.18-8.92c-.29.39-.57.8-.86%2C1.2h-2.9V10.08H17.27l-1.62%2C1.86%2C2.53%2C3.59H16.57l-2.34-3.23v3.21h-1.3V6.94h1.3v4.86l2.22-2.66h4.31v0h0v5.12l2.43%2C0%2C1.28-1.86A3%2C3%2C0%2C0%2C0%2C23.67%2C8.35Zm-13.2-.14a.64.64%2C0%2C0%2C1%2C0-1.28.64.64%2C0%2C1%2C1%2C0%2C1.28Zm9.63%2C0a.64.64%2C0%2C0%2C1%2C0-1.28.64.64%2C0%2C0%2C1%2C0%2C1.28Z%22%20transform%3D%22translate(0%200)%22%2F%3E%3Cpath%20class%3D%22cls-1%22%20d%3D%22M5%2C6.23c-.69%2C1-1.37%2C2-2%2C2.91H5Z%22%20transform%3D%22translate(0%200)%22%2F%3E%3C%2Fsvg%3E");
+}
+
+.tiki-admin .admin-content nav.navbar-expand-md.mb-4 img {
+	display: none;
+}
+
+.tiki-admin .box-logo {
+        display: none;
+}
+
+
+.tiki-admin input[type="checkbox"].preffilter-toggle-round:checked + label:before {
+	background-color: #28a745;
+	border-color: #0062cc;
+	color: white;
+}
+
+
+.tiki-admin aside.admin-nav .navbar-light > ul > li > a, .tiki-admin aside.admin-nav .navbar-dark > ul > li > a {
+	font-weight: 500;
+	font-size: 1.1rem;
+}
+
+.tiki-admin aside.admin-nav .navbar-dark .navbar-nav .nav-link, .tiki-admin aside.admin-nav .navbar-light .navbar-nav .nav-link {
+	line-height: 1.6;
+}
+
+.tiki-admin aside.admin-nav li {
+	list-style-type: none;
+}
+
+.tiki-admin aside.admin-nav ul{
+	padding-left: 0 !important;
+}
+
+.tiki-admin aside.admin-nav .sections-header a .icon.icon-home,
+.tiki-admin aside.admin-nav li .icon .icon {
+	margin-right: .5rem;
+	font-size: .9rem;
+}
+
+.tiki-admin aside.admin-nav .bg-dark {
+	background-color: $darkgrey !important;
+}
+
+.tiki-admin aside.admin-nav .navbar-dark .navbar-nav .nav-link, .tiki-admin aside.admin-nav .navbar-light .navbar-nav .nav-link {
+	display: flex;
+	align-items: center;
+}
+
+.tiki-admin aside.admin-nav .admin-menu-collapser {
+	text-align: right;
+	padding: 0;
+}
+
+.tiki-admin aside.admin-nav nav .admin-menu-collapser {
+	background-color: $darkergrey;
+	width: 268px;
+	position: fixed;
+	bottom: 0;
+	height: 2.3rem;
+}
+
+.tiki-admin aside.admin-nav .bg-light .admin-menu-collapser {
+	background-color: $lightgrey-dark;
+}
+
+.tiki-admin aside.admin-nav .narrow ul > li {
+	position: relative;
+}
+
+.tiki-admin aside.admin-nav .narrow ul > li .collapse {
+	padding-left: 0;
+}
+
+.tiki-admin aside.admin-nav .narrow > ul > li > a span:not(.icon) {
+	display: none !important;
+}
+
+.tiki-admin .ui-droppable.modules, .tiki-admin .ui-sortable.modules {
+	min-height: unset !important;
+}
+
+.tiki-admin .form-inline .form-check {
+	padding-right: .5rem;
+}
+
+/* no overflow */
+
+.tiki-admin .container {
+	overflow: hidden;
+}
+
+/* main content */
+
+.tiki-admin .row.row-middle, .tiki-admin .intertrans.text-center {
+	margin-left: 268px;
+}
+
+.tiki-admin.sidebar_collapsed .row.row-middle, .tiki-admin.sidebar_collapsed .intertrans.text-center {
+	margin-left: 60px;
+}
+
+/* Filter */
+
+.tiki-admin .admin-wrapper .navbar-nav.filter-menu {
+	width: auto;
+}
+
+/* Login Button */
+
+.tiki-admin .bg-dark-parent .module.box-login_box button {
+	background-image: url("data:image/svg+xml,%3Csvg%20id%3D%22Ebene_1%22%20data-name%3D%22Ebene%201%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2034%2034%22%3E%3Cdefs%3E%3Cstyle%3E.cls-1%2C.cls-2%7Bfill%3A%23fff%3B%7D.cls-2%7Bstroke%3A%232c2c2c%3B%7D.cls-3%7Bfill%3Anone%3Bstroke%3A%23fff%3Bstroke-width%3A2px%3B%7D%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cpath%20class%3D%22cls-1%22%20d%3D%22M22.86%2C22A4.09%2C4.09%2C0%2C0%2C0%2C23%2C21V20a4%2C4%2C0%2C0%2C0-4-4H13a4%2C4%2C0%2C0%2C0-4%2C4v1a4.09%2C4.09%2C0%2C0%2C0%2C.14%2C1Z%22%20transform%3D%22translate(1%201)%22%2F%3E%3Ccircle%20class%3D%22cls-2%22%20cx%3D%2217%22%20cy%3D%2213%22%20r%3D%224.5%22%2F%3E%3Ccircle%20class%3D%22cls-3%22%20cx%3D%2217%22%20cy%3D%2217%22%20r%3D%2216%22%2F%3E%3C%2Fsvg%3E");
+}
+
+.tiki-admin .bg-light-parent .module.box-login_box button {
+	background-image: url("data:image/svg+xml,%3Csvg%20id%3D%22Ebene_1%22%20data-name%3D%22Ebene%201%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2034%2034%22%3E%3Cdefs%3E%3Cstyle%3E.cls-1%2C.cls-2%7Bfill%3A%237c7c7d%3B%7D.cls-2%7Bstroke%3A%23f8f9fa%3B%7D.cls-3%7Bfill%3Anone%3Bstroke%3A%237c7c7d%3Bstroke-width%3A2px%3B%7D%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cpath%20class%3D%22cls-1%22%20d%3D%22M22.86%2C22A4.09%2C4.09%2C0%2C0%2C0%2C23%2C21V20a4%2C4%2C0%2C0%2C0-4-4H13a4%2C4%2C0%2C0%2C0-4%2C4v1a4.09%2C4.09%2C0%2C0%2C0%2C.14%2C1Z%22%20transform%3D%22translate(1%201)%22%2F%3E%3Ccircle%20class%3D%22cls-2%22%20cx%3D%2217%22%20cy%3D%2213%22%20r%3D%224.5%22%2F%3E%3Ccircle%20class%3D%22cls-3%22%20cx%3D%2217%22%20cy%3D%2217%22%20r%3D%2216%22%2F%3E%3C%2Fsvg%3E");
+}
+
+.tiki-admin .bg-dark-parent .module.box-login_box button, .tiki-admin .bg-light-parent .module.box-login_box button {
+	background-repeat: no-repeat;
+	background-size: 2rem;
+	color: transparent;
+	margin: .5rem .5rem 0 1rem !important;
+	height: 2.1rem;
+	background-position: right;
+	width: 2rem;
+}
+
+.tiki-admin .siteloginbar_popup.dropdown {
+	right: 0;
+	position: fixed;
+}
+
+/* Preference bar */
+
+.tiki-admin .admin-content nav.admin-navbar {
+	background-color: transparent !important;
+	position: fixed;
+	left: 0;
+	font-size: .9rem;
+	padding-left: 7rem;
+	z-index: 9999 !important;
+}
+
+.tiki-admin #col1 {
+	z-index: unset !important;
+}
+
+.tiki-admin .navbar-expand-md .form-inline {
+	width: auto !important;
+	margin-top: -.8rem;
+	position: relative;
+	top: -.2rem;
+}
+
+.tiki-admin .navbar-expand-md .navbar-nav .nav-link {
+	padding: 0 .4rem;
+}
+
+.tiki-admin .admin-wrapper .navbar-toggler {
+	position: absolute;
+	border: none;
+	left: 4rem;
+	top: .8rem;
+										}
+
+.tiki-admin .navbar-dark .navbar-toggler-icon {
+	height: 16px;
+	background-image: url("data:image/svg+xml,%3Csvg%20id%3D%22Ebene_1%22%20data-name%3D%22Ebene%201%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2026%2016%22%3E%3Cdefs%3E%3Cstyle%3E.cls-1%7Bfill%3A%23fff%3B%7D%3C%2Fstyle%3E%3C%2Fdefs%3E%3Cpath%20class%3D%22cls-1%22%20d%3D%22M1%2C0H25a1%2C1%2C0%2C0%2C1%2C1%2C1h0a1%2C1%2C0%2C0%2C1-1%2C1H1A1%2C1%2C0%2C0%2C1%2C0%2C1H0A1%2C1%2C0%2C0%2C1%2C1%2C0Z%22%2F%3E%3Cpath%20class%3D%22cls-1%22%20d%3D%22M1%2C14H25a1%2C1%2C0%2C0%2C1%2C1%2C1h0a1%2C1%2C0%2C0%2C1-1%2C1H1a1%2C1%2C0%2C0%2C1-1-1H0A1%2C1%2C0%2C0%2C1%2C1%2C14Z%22%2F%3E%3Cpath%20class%3D%22cls-1%22%20d%3D%22M1%2C7H25a1%2C1%2C0%2C0%2C1%2C1%2C1h0a1%2C1%2C0%2C0%2C1-1%2C1H1A1%2C1%2C0%2C0%2C1%2C0%2C8H0A1%2C1%2C0%2C0%2C1%2C1%2C7Z%22%2F%3E%3C%2Fsvg%3E");
+}
+
+/* Popovers */
+
+.tiki-admin .popover {
+	z-index: 9999;
+	max-width: 50vw;
+}
+
+/* Toggle interactive translation */
+
+.tiki-admin .form-check.intertrans {
+	margin-top: 50px;
+}
+
+/* scrollbar */
+
+/* width */
+.tiki-admin nav::-webkit-scrollbar {
+	width: 1.2rem;
+}
+
+.tiki-admin nav.navbar-dark::-webkit-scrollbar-track {
+	background-color: $darkgrey;
+}
+
+.tiki-admin nav.navbar-light::-webkit-scrollbar-track {
+	background-color: $lightgrey;
+}
+
+/* Handle */
+.tiki-admin nav.navbar-dark::-webkit-scrollbar-thumb {
+	background: $darkergrey;
+	border: .4rem solid $darkgrey;
+	border-radius: 2rem;
+}
+
+.tiki-admin nav.navbar-light::-webkit-scrollbar-thumb {
+	background: $lightgrey-dark;
+	border: 0.4rem solid $lightgrey;
+	border-radius: 2rem;
+}
+
+/* scrollbar in firefox */
+
+.tiki-admin nav.navbar-dark {
+	scrollbar-color: $darkergrey transparent;
+	scrollbar-width: thin;
+}
+
+.tiki-admin nav.navbar-light {
+	scrollbar-color: $lightgrey-dark transparent;
+	scrollbar-width: thin;
+}
+
+/* keep the basic/advanced filter aligned and the nav menu at the same place */
+.tiki-admin .admin-navbar ul.nav.navbar-nav.mr-auto {
+	position: absolute;
+	left: 295px;
+	width: max-content;
+}
+
+/* little tweak of the position */
+.tiki-admin .admin-content nav.admin-navbar {
+	padding-left: 6rem;
+	top: 0;
+}
+
+/* FIX: make it the same width as the height */
+.tiki-admin .bg-dark-parent .module.box-login_box button, .tiki-admin .bg-light-parent .module.box-login_box button {
+	width: 2.1rem;
+}
+
+.tiki-admin .admin-content {
+	width: 100%;
+}
+
+// admin dashboard modules
+.admin_modules .module.card {
+	flex-grow: 1;
+	min-width: 20%;
+	width: min-content;
+	margin: .5rem;
+}

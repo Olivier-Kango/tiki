@@ -33,7 +33,11 @@ class Services_Search_Controller
 		$unifiedsearchlib = TikiLib::lib('unifiedsearch');
 		$stat = null;
 
-		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+		if ($input->getlaststats->int()) {
+			$stat = $prefs['unified_last_rebuild_stats'];
+
+		} else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			// Apply 'Search index rebuild memory limit' setting if available
 			if (! empty($prefs['allocate_memory_unified_rebuild'])) {
 				$memory_limiter = new Tiki_MemoryLimit($prefs['allocate_memory_unified_rebuild']);
@@ -74,7 +78,7 @@ class Services_Search_Controller
 		list($fallbackEngine, $fallbackEngineName, $fallbackVersion, $fallbackIndex) = $unifiedsearchlib->getFallbackEngineDetails();
 
 		return [
-			'title' => tr('Rebuild Index'),
+			'title' => $input->getlaststats->int() ? '' : tr('Rebuild Index'),
 			'stat' => $stat['default']['counts'],
 			'search_engine' => $engine,
 			'search_version' => $version,

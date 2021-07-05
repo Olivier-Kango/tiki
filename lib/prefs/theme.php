@@ -59,6 +59,14 @@ function prefs_theme_list($partial = false)
 			'default' => '',
 			'tags' => ['basic'],
 		],
+		'theme_unified_admin_backend' => [
+			'name' => tra('Unified Admin Backend'),
+			'type' => 'flag',
+			'help' => 'Themes',
+			'description' => tra('Use modern layout for control panels.'),
+			'default' => 'y',
+			'tags' => ['basic'],
+		],
 		'theme_admin' => [
 			'name' => tra('Admin theme'),
 			'type' => 'list',
@@ -76,6 +84,17 @@ function prefs_theme_list($partial = false)
 			'options' => $theme_options,
 			'default' => '',
 			'tags' => ['basic'],
+		],
+		'theme_navbar_color_variant_admin' => [
+			'name'        => tra('Admin navbar background color'),
+			'type'        => 'radio',
+			'options'     => [
+				'dark'  => tra('Dark'),
+				'light' => tra('Light'),
+			],
+			'help'        => 'Themes',
+			'description' => tra('Select a dark or light navbar (containing horizontal menu, etc.), as styled by the theme.'),
+			'default'     => 'dark',
 		],
 		'theme_option_includes_main' => [
 			'name' => tra('Option theme includes main theme CSS'),
