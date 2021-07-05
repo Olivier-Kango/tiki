@@ -227,14 +227,14 @@
 		},
 		"psr-4": {
 			"Tiki\\": ["../lib/core/Tiki", "../lib/core/"],
-			"Tiki\\Lib\\": "../lib/",
-			"Tiki\\Installer\\": "../installer/"
+			"Tiki\\Lib\\": "../lib/"
 		},
 		"classmap": [
 			"../installer/",
 			"../lib/language/",
 			"../lib/openpgp/",
 			"../lib/rating/formula/",
+			"../lib/setup",
 			"../lib/stats",
 			"../lib/tikidate.php",
 			"../lib/webmail",
