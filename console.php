@@ -134,6 +134,12 @@ if (isset($exceptionToRender)) {
  */
 function custom_error_handler($number, $message, $file, $line) : void
 {
+	if (0 === error_reporting()) {
+		// This error was triggered when evaluating an expression prepended by the at sign (@) error control operator, but since we are in a custom error handler, we have to ignore it manually.
+		// See http://ca3.php.net/manual/en/language.operators.errorcontrol.php#98895 and http://php.net/set_error_handler
+		return;
+	}
+
 	// Determine if this error is one of the enabled ones in php config (php.ini, .htaccess, etc)
 	$error_is_enabled = (bool)($number & (int)ini_get('error_reporting') );
 
