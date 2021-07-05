@@ -290,7 +290,7 @@ function wikiplugin_fluidgrid($data, $params, $pos)
       // $tdnosize  = count of columns without a specified size
         for ($i = 0; $i < $maxcols; $i++) {
             if (isset($tdsize[$i]) && ( trim($tdsize[$i]) != '' )) {
-                $w = trim($tdsize[$i]) ;
+				$w = (int) trim($tdsize[$i]);
                 if ($w < 1) {
                   // treat 0 as unsized
                     $s_array[$i] = 0 ;
@@ -322,7 +322,6 @@ function wikiplugin_fluidgrid($data, $params, $pos)
           // Use the values as specified.
           // Share the remaining space out among the unsized columns
             $remaining = 12 - $tdtotal ;
-            $share     = ceil($remaining / $tdnosize) ;
 
             for ($i = 0; $i < $maxcols; $i++) {
                 if ($s_array[$i] == 0) {
