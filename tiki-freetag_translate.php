@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -30,7 +31,7 @@ $multilinguallib = TikiLib::lib('multilingual');
 
 if ($cat_objId) {
 	$info = $tikilib->get_page_info($cat_objId);
-} elseif (false&&$tiki_p_admin_freetags != 'y') {
+} elseif (false && $tiki_p_admin_freetags != 'y') {
 	// Global tag edit only available to admins
 	$smarty->assign('errortype', 401);
 	$smarty->assign('msg', tra("You do not have the permission that is needed to use this feature"));
@@ -53,10 +54,12 @@ if (isset($_REQUEST['save'])) {
 		}
 	}
 
-	if (isset($_REQUEST['newtag'])
+	if (
+        isset($_REQUEST['newtag'])
 		&& isset($_REQUEST['rootlang'])
 		&& is_array($_REQUEST['newtag'])
-		&& is_array($_REQUEST['rootlang']) ) {
+		&& is_array($_REQUEST['rootlang'])
+    ) {
 		foreach ($_REQUEST['newtag'] as $tagGroup => $list) {
 			if (is_array($list) && array_key_exists($tagGroup, $_REQUEST['rootlang'])) {
 				foreach ($list as $lang => $tag) {
@@ -99,8 +102,10 @@ $used_languages = [];
 foreach ($languages as $l) {
 	$used_languages[$l] = true;
 }
-if (array_key_exists('additional_languages', $_REQUEST)
-	&& is_array($_REQUEST['additional_languages']) ) {
+if (
+    array_key_exists('additional_languages', $_REQUEST)
+	&& is_array($_REQUEST['additional_languages'])
+) {
 	foreach ($_REQUEST['additional_languages'] as $lang) {
 		$used_languages[$lang] = true;
 	}

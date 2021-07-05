@@ -1,4 +1,5 @@
 <?php
+
 $check_if_model_works = false;
 if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) == false) {
 	//echo 'This model works';

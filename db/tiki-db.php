@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -149,7 +150,6 @@ if ($re === false) {
 	}
 	// we are in the installer don't redirect...
 	return;
-
 }
 
 if ($dbversion_tiki == '1.10') {
@@ -270,7 +270,7 @@ if ($db) {
 	$sql_mode = $db->getOne("SELECT @@sql_mode");
 	if (! empty($sql_mode)) {
 		$sql_mode = str_replace(',,', ',', preg_replace('/ONLY_FULL_GROUP_BY/', '', $sql_mode));
-		$db->query("SET @@sql_mode = ".$db->qstr($sql_mode));
+		$db->query("SET @@sql_mode = " . $db->qstr($sql_mode));
 	}
 }
 

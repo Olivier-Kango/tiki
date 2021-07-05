@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -125,7 +127,8 @@ if ($isvalid) {
 		if ($prefs['forgotPass'] === 'y') {
 			$error .= '<br>' . tr(
 				'Or click %0here%1 to reset your password',
-				'<a href="tiki-remind_password.php" class="alert-link">', '</a>'
+				'<a href="tiki-remind_password.php" class="alert-link">',
+                '</a>'
 			);
 		}
 	} elseif ($error == EMAIL_AMBIGUOUS) {

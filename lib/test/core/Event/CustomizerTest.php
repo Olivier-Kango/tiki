@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -13,10 +14,10 @@ class TikiEventCustomizerTest extends PHPUnit\Framework\TestCase
 	private $lastEvent;
 	private $lastArguments;
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		$this->called = 0;
-		$manager = $this->manager = new Tiki_Event_Manager;
+		$manager = $this->manager = new Tiki_Event_Manager();
 		$self = $this;
 		$this->runner = new Math_Formula_Runner(
 			[
@@ -38,7 +39,7 @@ class TikiEventCustomizerTest extends PHPUnit\Framework\TestCase
 	{
 		$this->manager->bind('custom.event', [$this, 'callbackAdd']);
 
-		$customizer = new Tiki_Event_Customizer;
+		$customizer = new Tiki_Event_Customizer();
 		$customizer->addRule('tiki.trackeritem.save', '(event-trigger custom.event)');
 		$customizer->bind($this->manager, $this->runner);
 
@@ -51,7 +52,7 @@ class TikiEventCustomizerTest extends PHPUnit\Framework\TestCase
 	{
 		$this->manager->bind('custom.event', [$this, 'callbackAdd']);
 
-		$customizer = new Tiki_Event_Customizer;
+		$customizer = new Tiki_Event_Customizer();
 		$customizer->addRule(
 			'tiki.trackeritem.save',
 			'(event-trigger custom.event
@@ -76,7 +77,7 @@ class TikiEventCustomizerTest extends PHPUnit\Framework\TestCase
 
 	public function testDirectArgumentRecording()
 	{
-		$customizer = new Tiki_Event_Customizer;
+		$customizer = new Tiki_Event_Customizer();
 		$customizer->addRule('tiki.trackeritem.save', '(event-record event args)');
 		$customizer->bind($this->manager, $this->runner);
 
@@ -95,7 +96,7 @@ class TikiEventCustomizerTest extends PHPUnit\Framework\TestCase
 
 	public function testChainedArgumentRecording()
 	{
-		$customizer = new Tiki_Event_Customizer;
+		$customizer = new Tiki_Event_Customizer();
 		$customizer->addRule('tiki.trackeritem.save', '(event-record event args)');
 		$customizer->bind($this->manager, $this->runner);
 
@@ -116,7 +117,7 @@ class TikiEventCustomizerTest extends PHPUnit\Framework\TestCase
 	public function testCustomEventRecording()
 	{
 
-		$customizer = new Tiki_Event_Customizer;
+		$customizer = new Tiki_Event_Customizer();
 		$customizer->addRule('custom.event', '(event-record event args)');
 		$customizer->addRule(
 			'tiki.trackeritem.save',

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -28,10 +29,11 @@ class Messu extends TikiLib
 		// Prevent duplicates
 		$hash = md5($subject . $body);
 
-		if ($this->getOne(
-			'select count(*) from `messu_sent` where `user`=? and `user_from`=? and `hash`=?',
-			[$user, $from, $hash]
-		)
+		if (
+            $this->getOne(
+                'select count(*) from `messu_sent` where `user`=? and `user_from`=? and `hash`=?',
+                [$user, $from, $hash]
+            )
 		) {
 			return false;
 		}
@@ -88,10 +90,11 @@ class Messu extends TikiLib
 		// Prevent duplicates
 		$hash = md5($subject . $body);
 
-		if ($this->getOne(
-			'select count(*) from `messu_messages` where `user`=? and `user_from`=? and `hash`=?',
-			[$user, $from, $hash]
-		)
+		if (
+            $this->getOne(
+                'select count(*) from `messu_messages` where `user`=? and `user_from`=? and `hash`=?',
+                [$user, $from, $hash]
+            )
 		) {
 			return false;
 		}
@@ -582,15 +585,14 @@ class Messu extends TikiLib
 	 */
 	public function get_archive_source($user, $msgId)
 	{
-		$dbsource ='';
+		$dbsource = '';
 
-		$res= $this->get_message($user, $msgId, 'archive');
+		$res = $this->get_message($user, $msgId, 'archive');
 
-		if($res['user_from']==$user){
+		if ($res['user_from'] == $user) {
 			$dbsource = 'sent';
 		}
 
 		return $dbsource;
 	}
-
 }

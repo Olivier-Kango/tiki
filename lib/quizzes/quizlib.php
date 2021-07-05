@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -645,8 +646,7 @@ class QuizLib extends TikiLib
 	 * @param $passingperct
 	 * @return mixed
 	 */
-	public function replace_quiz($quizId, $name, $description, $canRepeat, $storeResults, $immediateFeedback, $showAnswers,	$shuffleQuestions, $shuffleAnswers, $questionsPerPage, $timeLimited, $timeLimit, $publishDate, $expireDate, $passingperct
-			)
+	public function replace_quiz($quizId, $name, $description, $canRepeat, $storeResults, $immediateFeedback, $showAnswers,	$shuffleQuestions, $shuffleAnswers, $questionsPerPage, $timeLimited, $timeLimit, $publishDate, $expireDate, $passingperct)
 	{
 		if ($quizId) {
 			// update an existing quiz
@@ -971,7 +971,7 @@ class QuizLib extends TikiLib
 	public function quiz_fetch($id)
 	{
 		if ($id == 0) {
-			$quiz = new Quiz;
+			$quiz = new Quiz();
 		} else {
 			echo __FILE__ . " line: " . __LINE__ . " : Need to fetch a quiz from the database" . "<br />";
 		}

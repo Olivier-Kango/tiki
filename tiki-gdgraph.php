@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -21,7 +23,7 @@ $dataxy = json_decode(urldecode($strencxy2));
 // only the barvert and barhoriz types are working at present
 if ($_REQUEST["type"] == 'barvert' || $_REQUEST["type"] == 'barhoriz') {
 	$renderer = new GD_GRenderer($_REQUEST["width"], $_REQUEST["height"]);
-	$graph = new MultibarGraphic;
+	$graph = new MultibarGraphic();
 	$graph->setTitle(tra($_REQUEST["title"]));
 
 	$graph->setData(['x' => $dataxy->xdata, 'y0' => $dataxy->ydata]);
@@ -37,7 +39,7 @@ if ($_REQUEST["type"] == 'barvert' || $_REQUEST["type"] == 'barhoriz') {
 } elseif ($_REQUEST["type"] == 'multiline') {
 	// multiline not working as yet	so shouldn't get here
 	$renderer = new GD_GRenderer($_REQUEST["width"], $_REQUEST["height"]);
-	$graph = new MultilineGraphic;
+	$graph = new MultilineGraphic();
 	$graph->setTitle(tra($_REQUEST["title"]));
 
 	$graph->setData(['x' => $dataxy['xdata'], 'y0' => $dataxy['ydata']]);
@@ -48,7 +50,7 @@ if ($_REQUEST["type"] == 'barvert' || $_REQUEST["type"] == 'barhoriz') {
 } elseif ($_REQUEST["type"] == 'pie') {
 	// pie not working as yet so shouldn't get here
 	$renderer = new GD_GRenderer($_REQUEST["width"], $_REQUEST["height"]);
-	$graph = new PieChartGraphic;
+	$graph = new PieChartGraphic();
 	$graph->setTitle(tra($_REQUEST["title"]));
 
 	$graph->setData(['x' => $dataxy['xdata'], 'y0' => $dataxy['ydata']]);

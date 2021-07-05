@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -84,10 +86,13 @@ if (count($filter)) {
 	//do not list category objects since they cannot be recategorized on this page
 	$resultArray = $result->getArrayCopy();
 	$objectlib = TikiLib::lib('object');
-	foreach($resultArray as $key => $objectInfo) {
-		if ($objectInfo['object_type'] === 'category' || ! in_array($objectInfo['object_type'],
-				TikiLib::lib('object')::get_supported_types()))
-		{
+	foreach ($resultArray as $key => $objectInfo) {
+		if (
+            $objectInfo['object_type'] === 'category' || ! in_array(
+                $objectInfo['object_type'],
+                TikiLib::lib('object')::get_supported_types()
+            )
+        ) {
 			unset($resultArray[$key]);
 		}
 	}

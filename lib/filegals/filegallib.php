@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -15,7 +16,7 @@ class FileGalLib extends TikiLib
 {
 	private $wikiupMoved = [];
 
-	static protected $getGalleriesParentIdsCache = null;
+	protected static $getGalleriesParentIdsCache = null;
 	protected $loadedGalleryDefinitions = [];
 
 	public function isPodCastGallery($galleryId, $gal_info = null)
@@ -576,9 +577,11 @@ class FileGalLib extends TikiLib
 		$fgal_info = array_merge($this->default_file_gallery(), $fgal_info);
 
 		// ensure gallery name is userId for root user gallery
-		if ($prefs['feature_use_fgal_for_user_files'] === 'y' &&
+		if (
+            $prefs['feature_use_fgal_for_user_files'] === 'y' &&
 				$fgal_info['type'] === 'user' &&
-				$fgal_info['parentId'] == $prefs['fgal_root_user_id']) {
+				$fgal_info['parentId'] == $prefs['fgal_root_user_id']
+        ) {
 			$userId = TikiLib::lib('user')->get_user_id($fgal_info['user']);
 
 			if ($userId) {
@@ -1043,7 +1046,7 @@ class FileGalLib extends TikiLib
 		try {
 			$content = $parseApp($wrapper);
 			// clean out any chars not suitable for storing in tiki_file.search_data which is a LONGTEXT column
-			$content = filter_var($content, FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_HIGH|FILTER_FLAG_STRIP_LOW);
+			$content = filter_var($content, FILTER_UNSAFE_RAW, FILTER_FLAG_STRIP_HIGH | FILTER_FLAG_STRIP_LOW);
 		} catch (Exception $e) {
 			Feedback::error(tr('Processing search text from a "%0" file in gallery #%1', $file->filetype, $file->galleryId) . '<br>'
 				. $e->getMessage());
@@ -1071,7 +1074,8 @@ class FileGalLib extends TikiLib
 		return $this->loadedGalleryDefinitions[$galleryId];
 	}
 
-	public function clearLoadedGalleryDefinitions() {
+	public function clearLoadedGalleryDefinitions()
+    {
 		$this->loadedGalleryDefinitions = [];
 	}
 
@@ -2149,7 +2153,7 @@ class FileGalLib extends TikiLib
 				include_once('tiki-sefurl.php');
 				$href = filter_out_sefurl($href);
 				$syntax = str_replace('123', '%fileId%', $href);
-			} else if (! empty($params['insertion_syntax'])) {            // for use in prefs
+			} elseif (! empty($params['insertion_syntax'])) {            // for use in prefs
 				$syntax = $params['insertion_syntax'];
 			}
 		}
@@ -2606,18 +2610,18 @@ class FileGalLib extends TikiLib
 			$result = array_slice($result, $offset == -1 ? 0 : $offset, $maxRecords == -1 ? null : $maxRecords);
 		}
 		$galleryIds = array_map(
-			function($res){
+			function ($res) {
 				return $res['id'];
 			},
-			array_filter($result, function($res) {
+			array_filter($result, function ($res) {
 				return $res['isgal'] == 1;
 			})
 		);
 		$fileIds = array_map(
-			function($res){
+			function ($res) {
 				return $res['id'];
 			},
-			array_filter($result, function($res) {
+			array_filter($result, function ($res) {
 				return $res['isgal'] != 1;
 			})
 		);
@@ -2807,7 +2811,6 @@ class FileGalLib extends TikiLib
 		}
 
 		if ($res !== false) {
-
 			// Use default values if some values are not specified
 			if ($defaultsFallback) {
 				foreach ($defaultValues as $k => $v) {
@@ -2823,7 +2826,8 @@ class FileGalLib extends TikiLib
 		return $res;
 	}
 
-	public function can_upload_to($gal_info) {
+	public function can_upload_to($gal_info)
+    {
 		global $user, $prefs;
 
 		if ($prefs['feature_use_fgal_for_user_files'] !== 'y' || $gal_info['type'] !== 'user') {
@@ -3053,7 +3057,7 @@ class FileGalLib extends TikiLib
 				// Before feature_use_fgal_for_wiki_attachments, the wiki page attachments had a comment field which was stored and displayed.
 				// With feature_use_fgal_for_wiki_attachments, wiki page attachments are normal file gallery files which allow showing and editing the description field, but not the comment field.
 				// The comment field should probably be deprecated but the upload interface still asks for a comment field, so we put it as a description if there is none as well as as a comment.
-				if (isset($prefs['feature_use_fgal_for_wiki_attachments']) && $prefs['feature_use_fgal_for_wiki_attachments'] ='y') {
+				if (isset($prefs['feature_use_fgal_for_wiki_attachments']) && $prefs['feature_use_fgal_for_wiki_attachments'] = 'y') {
 					if (! isset($params['description'][$key])) {
 						$params['description'][$key] = $params['comment'][$key];
 					}
@@ -3215,7 +3219,7 @@ class FileGalLib extends TikiLib
 						} else {
 							$aux['dllink'] = $url_browse . "?fileId=" . $fileId;
 							if ($prefs['javascript_enabled'] == 'y') {
-								if (!empty($_POST['totalSubmissions']) && (int) $_POST['totalSubmissions'] > 1) {
+								if (! empty($_POST['totalSubmissions']) && (int) $_POST['totalSubmissions'] > 1) {
 									if ((int) $_POST['submission'] === (int) $_POST['totalSubmissions']) {
 										Feedback::success(tr('Files uploaded'), true);
 									}
@@ -3333,7 +3337,7 @@ class FileGalLib extends TikiLib
 		}
 		$this->assertUploadedContentIsSafe($data, $name, $gal_info['galleryId']);
 
-		if (!$title) {
+		if (! $title) {
 			$title = $name;
 		}
 
@@ -3360,7 +3364,7 @@ class FileGalLib extends TikiLib
 		}
 		$this->assertUploadedContentIsSafe($data, $name, $gal_info['galleryId']);
 
-		if (!$title) {
+		if (! $title) {
 			$title = $name;
 		}
 
@@ -3394,8 +3398,10 @@ class FileGalLib extends TikiLib
 
 		$type = $finfo->buffer($data) . "\n";
 
-		if (substr($type, 0, 18) == 'application/x-gzip' ||
-			substr($type, 0, 16) == 'application/gzip') {
+		if (
+            substr($type, 0, 18) == 'application/x-gzip' ||
+			substr($type, 0, 16) == 'application/gzip'
+        ) {
 			$data = gzdecode($data);
 			$finfo = new finfo(FILEINFO_MIME);
 			$type = $finfo->buffer($data);
@@ -3770,7 +3776,7 @@ class FileGalLib extends TikiLib
 		global $user;
 		$tikilib = TikiLib::lib('tiki');
 		$mimelib = TikiLib::lib('mime');
-		$argumentParser = new WikiParser_PluginArgumentParser;
+		$argumentParser = new WikiParser_PluginArgumentParser();
 		$files = [];
 		if (strpos($page_info['data'], 'img/wiki_up') === false) {
 			return false;
@@ -3886,7 +3892,7 @@ class FileGalLib extends TikiLib
 	public function extractMetadataJson($file, $ispath = true, $extended = true)
 	{
 		include_once __DIR__ . '/../metadata/metadatalib.php';
-		$metadata = new FileMetadata;
+		$metadata = new FileMetadata();
 		$filemeta = json_encode($metadata->getMetadata($file, $ispath, $extended)->typemeta['best']);
 		return $filemeta;
 	}
@@ -3955,15 +3961,15 @@ class FileGalLib extends TikiLib
 	}
 
 	// Return HTML code to display the hierarchy of sub-galleries when the PluginDiagram {diagram} is used in a wiki page
-	public function getNodes($nodes, $id, $sub='')
+	public function getNodes($nodes, $id, $sub = '')
 	{
-		$htmlnodes="";
+		$htmlnodes = "";
 		foreach ($nodes as $node) {
 			if ($node['parentId'] == $id) {
 				// If the current user has permission to access the gallery, then add gallery to the hierarchy.
-				if($node['perms']['tiki_p_view_file_gallery'] == 'y'){
+				if ($node['perms']['tiki_p_view_file_gallery'] == 'y') {
 					$htmlnodes .= "<option value='" . $node['id'] . "'>" . $sub . '&nbsp;' . htmlentities($node['name']);
-					$htmlnodes .= $this->getNodes($nodes,$node['id'],$sub . '&mdash;');
+					$htmlnodes .= $this->getNodes($nodes, $node['id'], $sub . '&mdash;');
 				}
 			}
 		}

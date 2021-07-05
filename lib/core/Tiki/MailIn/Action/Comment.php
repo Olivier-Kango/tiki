@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -29,13 +30,13 @@ class Comment implements ActionInterface
 
 	public function isEnabled()
 	{
-		$service = new \Services_Comment_Controller;
+		$service = new \Services_Comment_Controller();
 		return $service->isEnabled($this->type, $this->object);
 	}
 
 	public function isAllowed(Account $account, Message $message)
 	{
-		$service = new \Services_Comment_Controller;
+		$service = new \Services_Comment_Controller();
 		return $service->canPost($this->type, $this->object);
 	}
 

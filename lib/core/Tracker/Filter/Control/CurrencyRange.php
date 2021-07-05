@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -50,8 +51,8 @@ class CurrencyRange implements Control
 			$tikilib = \TikiLib::lib('tiki');
 			return tr(
 				'From %0 to %1',
-				$this->from.$this->fromCurrency,
-				$this->to.$this->toCurrency
+				$this->from . $this->fromCurrency,
+				$this->to . $this->toCurrency
 			);
 		} else {
 			return '';

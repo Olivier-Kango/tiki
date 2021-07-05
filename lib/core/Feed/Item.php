@@ -1,4 +1,5 @@
 <?php
+
 class Feed_Item
 {
 	public $origin;

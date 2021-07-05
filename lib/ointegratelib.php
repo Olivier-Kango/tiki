@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -279,7 +280,7 @@ class OIntegrate_Response
 	 */
 	public static function create($data, $schemaVersion, $cacheLength = 300)
 	{
-		$response = new self;
+		$response = new self();
 		$response->version = '1.0';
 		$response->data = $data;
 		$response->schemaVersion = $schemaVersion;
@@ -445,7 +446,7 @@ class OIntegrate_Engine_Smarty implements OIntegrate_Engine
 	public function process($data, $templateFile)
 	{
 		/** @var Smarty_Tiki $smarty */
-		$smarty = new Smarty_Tiki;
+		$smarty = new Smarty_Tiki();
 		$smarty->setTemplateDir(dirname($templateFile));
 
 		if ($this->changeDelimiters) {

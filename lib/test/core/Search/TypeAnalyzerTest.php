@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -41,7 +42,7 @@ class Search_TypeAnalyzerTest extends PHPUnit\Framework\TestCase
 	 */
 	public function testMapping($expectedType, $key, $value)
 	{
-		$analyzer = new Search_Type_Analyzer;
+		$analyzer = new Search_Type_Analyzer();
 
 		$this->assertEquals($expectedType, $analyzer->findType($key, $value));
 	}

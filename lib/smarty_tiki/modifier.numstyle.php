@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -24,7 +25,7 @@
 
 function smarty_modifier_numStyle($num, $type)
 {
-	$style = new StyleType;
+	$style = new StyleType();
 	$num = (int)$num;                     // some basic filtering, using negative or 0 may result in failure, depending on selection
 	if ($num < 1) {
 		return $num;

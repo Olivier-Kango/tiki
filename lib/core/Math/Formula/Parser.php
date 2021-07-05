@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -9,7 +10,7 @@ class Math_Formula_Parser
 {
 	public function parse($string)
 	{
-		$tokenizer = new Math_Formula_Tokenizer;
+		$tokenizer = new Math_Formula_Tokenizer();
 		$tokens = $tokenizer->getTokens($string);
 
 		$element = $this->getElement($tokens);
@@ -21,7 +22,7 @@ class Math_Formula_Parser
 		return $element;
 	}
 
-	private function getElement(& $tokens)
+	private function getElement(&$tokens)
 	{
 		$first = array_shift($tokens);
 

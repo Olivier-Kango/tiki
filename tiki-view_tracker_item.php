@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -212,14 +214,16 @@ if (isset($_REQUEST["find"])) {
 }
 $smarty->assign('find', $find);
 // ************* previous/next **************
-foreach ([
+foreach (
+    [
 	'status',
 	'filterfield',
 	'filtervalue',
 	'initial',
 	'exactvalue',
 	'reloff'
-] as $reqfld) {
+    ] as $reqfld
+) {
 	$trynam = 'try' . $reqfld;
 	if (isset($_REQUEST[$reqfld])) {
 		$$trynam = $_REQUEST[$reqfld];
@@ -506,8 +510,7 @@ if (isset($_REQUEST["save"]) || isset($_REQUEST["save_return"]) || isset($_REQUE
 				]);
 
 			$headerlib->add_jq_onready('$.openModal({ remote:"' . $modalUrl . '"});');
-			}
-
+        }
 	}
 }
 // remove image from an image field
@@ -803,10 +806,12 @@ $smarty->assign('pdf_export', ($prefs['print_pdf_from_url'] != 'none') ? 'y' : '
 $smarty->assign('canView', $itemObject->canView());
 $smarty->assign('canModify', $itemObject->canModify());
 $smarty->assign('canRemove', $itemObject->canRemove());
-$smarty->assign('conflictoverride', !empty($_REQUEST['conflictoverride']));
+$smarty->assign('conflictoverride', ! empty($_REQUEST['conflictoverride']));
 
 if ($itemObject->canModify() && $prefs['tracker_legacy_insert'] == 'y' && $prefs['feature_warn_on_edit'] == 'y' && empty($_REQUEST['conflictoverride'])) {
-	$otherUser = TikiLib::lib('service')->internal('semaphore', 'get_user',
+	$otherUser = TikiLib::lib('service')->internal(
+        'semaphore',
+        'get_user',
 		[
 			'object_id' => $itemId,
 			'object_type' => 'trackeritem',

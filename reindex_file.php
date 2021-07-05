@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -18,7 +20,8 @@ require_once('tiki-setup.php');
 // Reindex the file for search
 if (($id = (int)$_GET['id']) > 0) {
 	// Check feature
-	if ($prefs['feature_file_galleries'] == 'y'
+	if (
+        $prefs['feature_file_galleries'] == 'y'
 		&& $prefs['feature_search'] == 'y'
 		&& $prefs['feature_search_fulltext'] != 'y'
 		&& $prefs['search_refresh_index_mode'] == 'normal'
@@ -35,7 +38,8 @@ if (($id = (int)$_GET['id']) > 0) {
 			// Check perms
 			$tikilib->get_perm_object($info['galleryId'], 'file gallery', $gal_info, true);
 
-			if ($tiki_p_admin_file_galleries == 'y'
+			if (
+                $tiki_p_admin_file_galleries == 'y'
 				|| ( ( empty($fileInfo['lockedby']) || $fileInfo['lockedby'] == $user ) && $tiki_p_edit_gallery_file == 'y' )
 			) { // must be the owner or the locker or have the perms
 				error_reporting(0);

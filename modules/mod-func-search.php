@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -250,8 +251,10 @@ function module_search($mod_reference, $smod_params) 	// modifies $smod_params s
 			break;
 	}
 
-	if (($smod_params['show_search_button'] == 'y' || $smod_params['default_action'] == $smod_params['search_action'])
-			&& $smod_params['show_edit_button'] == 'n' && $smod_params['show_go_button'] == 'n') {
+	if (
+        ($smod_params['show_search_button'] == 'y' || $smod_params['default_action'] == $smod_params['search_action'])
+			&& $smod_params['show_edit_button'] == 'n' && $smod_params['show_go_button'] == 'n'
+    ) {
 		$smod_params['use_autocomplete'] = 'n';
 	}
 

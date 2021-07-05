@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -46,7 +47,8 @@ class ODBCSource implements SourceInterface
 		return $this->schema;
 	}
 
-	public function getRemoteSchema() {
+	public function getRemoteSchema()
+    {
 		$result = [];
 		$schema = $this->odbc_manager->getSchema();
 		foreach ($schema as $row) {
@@ -60,7 +62,8 @@ class ODBCSource implements SourceInterface
 		return $result;
 	}
 
-	public function importSuccess() {
+	public function importSuccess()
+    {
 		$definition = $this->schema->getDefinition();
 		if ($definition->getConfiguration('tabularSyncModifiedField')) {
 			\TikiLib::lib('trk')->replace_tracker_option($definition->getConfiguration('trackerId'), 'tabularSyncLastImport', time());

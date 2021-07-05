@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -29,7 +30,7 @@ require_once('doc/devtools/svntools.php');
 
 echo "\nThis file is now deprecated, use php console.php vcs:fixids instead\n\n";
 
-$xml = new DOMDocument;
+$xml = new DOMDocument();
 $xml->loadXML(shell_exec('svn propget -R svn:keywords --xml'));
 
 // find the offset length of the base pathname

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -51,10 +52,12 @@ if (! empty($_POST['known_hosts']) && $access->checkCsrf()) {
 		if (isset($_POST['known_hosts'][$k]['allowusersregister'])) {
 			$_POST['known_hosts'][$k]['allowusersregister'] = 'y';
 		}
-		if (empty($_POST['known_hosts'][$k]['name'])
+		if (
+            empty($_POST['known_hosts'][$k]['name'])
 			&& empty($_POST['known_hosts'][$k]['key'])
 			&& empty($_POST['known_hosts'][$k]['ip'])
-			&& empty($_POST['known_hosts'][$k]['contact'])) {
+			&& empty($_POST['known_hosts'][$k]['contact'])
+        ) {
 			unset($_POST['known_hosts'][$k]);
 		}
 	}

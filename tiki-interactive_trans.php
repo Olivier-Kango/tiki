@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -29,7 +31,7 @@ if (! empty($_REQUEST['interactive_translation_mode'])) {
  * Save strings translated using interactive translation to database.
  */
 if (isset($_REQUEST['source'], $_REQUEST['trans']) && count($_REQUEST['source']) == count($_REQUEST['trans'])) {
-	$translations = new LanguageTranslations;
+	$translations = new LanguageTranslations();
 
 	foreach ($_REQUEST['trans'] as $k => $translation) {
 		$source = $_REQUEST['source'][$k];

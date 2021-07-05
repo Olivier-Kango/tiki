@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -16,8 +17,8 @@ class Search_Action_Factory
 
 	public function fromMatch($match)
 	{
-		$parser = new WikiParser_PluginArgumentParser;
-		$arrayBuilder = new Search_Formatter_ArrayBuilder;
+		$parser = new WikiParser_PluginArgumentParser();
+		$arrayBuilder = new Search_Formatter_ArrayBuilder();
 		$arguments = $parser->parse($match->getArguments());
 
 		if (! empty($arguments['name'])) {
@@ -53,7 +54,7 @@ class Search_Action_Factory
 	private function buildStep($definition)
 	{
 		if (empty($definition['action'])) {
-			return new Search_Action_UnknownStep;
+			return new Search_Action_UnknownStep();
 		}
 
 		$action = trim($definition['action']);
@@ -69,6 +70,6 @@ class Search_Action_Factory
 			return new Search_Action_UnknownStep($action);
 		}
 
-		return new Search_Action_ActionStep(new $actionClass, $definition);
+		return new Search_Action_ActionStep(new $actionClass(), $definition);
 	}
 }

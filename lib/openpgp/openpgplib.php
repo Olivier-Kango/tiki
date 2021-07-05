@@ -1248,4 +1248,4 @@ class OpenPGPLib
 			return $encrypted_message;
 	}
 }
-$openpgplib = new OpenPGPLib;
+$openpgplib = new OpenPGPLib();

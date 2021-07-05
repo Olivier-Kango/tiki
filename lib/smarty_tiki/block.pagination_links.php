@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -93,10 +94,12 @@ function smarty_block_pagination_links($params, $url, $smarty, &$repeat)
 		$zero_based_maxminus = 1;
 	}
 	$params['_ajax'] = isset($params['_ajax']) ? $params['_ajax'] : 'y';
-	if (isset($params['reloff']) && (
+	if (
+        isset($params['reloff']) && (
 			$params['reloff'] + $params['offset'] >= $params['cant']
 			|| $params['reloff'] + $params['offset'] < $zero_based_min
-		)) {
+		)
+    ) {
 		return '';
 	}
 
@@ -251,7 +254,7 @@ function smarty_block_pagination_links($params, $url, $smarty, &$repeat)
 				} else {
 					$html .= '<li class="page-item">' . $make_prevnext_link(
 						$url . $prev_offset,
-							$params['noimg'] ? tr('Previous') : '«',
+                        $params['noimg'] ? tr('Previous') : '«',
 						$params,
 						'prevnext prev',
 						$prev_offset_val
@@ -268,13 +271,17 @@ function smarty_block_pagination_links($params, $url, $smarty, &$repeat)
 							'current'
 						) . ')</span></span></li>';
 						$last_dots = false;
-					} elseif ($params['usedots'] != 'y' ||
+					} elseif (
+                        $params['usedots'] != 'y' ||
 						($params['usedots'] == 'y' &&
-							($nb_pages <= $max_links
-								|| ($k <= $max_ending_links && $prefs['pagination_firstlast'] != 'n')
-								|| ($k >= $nb_pages - $max_ending_links - 1 && $prefs['pagination_firstlast'] != 'n')
-								|| (abs($page_num - $k)) <= $max_middle_links
-								|| ($prefs['pagination_fastmove_links'] == 'y' && abs($page_num - $k) == ceil(
+							($nb_pages <= $max_links ||
+								($k <= $max_ending_links &&
+                                $prefs['pagination_firstlast'] != 'n') ||
+								($k >= $nb_pages - $max_ending_links - 1 &&
+                                $prefs['pagination_firstlast'] != 'n') ||
+								(abs($page_num - $k)) <= $max_middle_links ||
+								($prefs['pagination_fastmove_links'] == 'y' &&
+                                abs($page_num - $k) == ceil(
 									$nb_pages / 10
 								))
 							)
@@ -309,7 +316,7 @@ function smarty_block_pagination_links($params, $url, $smarty, &$repeat)
 				} else {
 					$html .= '<li class="page-item">' . $make_prevnext_link(
 						$url . $next_offset,
-							$params['noimg'] ? tr('Next') : '»',
+                        $params['noimg'] ? tr('Next') : '»',
 						$params,
 						'prevnext next',
 						$next_offset_val

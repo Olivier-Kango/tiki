@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -643,8 +644,10 @@ class ReconcileExifIptcXmp
 	 */
 	private function checkIptcHash($iptcflat)
 	{
-		if (! isset($iptcflat['iptchashstored']['newval']) || (strlen($iptcflat['iptchashstored']['newval']) > 0
-			&& $iptcflat['iptchashstored']['newval'] == $iptcflat['iptchashcurrent']['newval'])) {
+		if (
+            ! isset($iptcflat['iptchashstored']['newval']) || (strlen($iptcflat['iptchashstored']['newval']) > 0
+			&& $iptcflat['iptchashstored']['newval'] == $iptcflat['iptchashcurrent']['newval'])
+        ) {
 			return true;
 		} else {
 			return false;
@@ -753,7 +756,8 @@ class ReconcileExifIptcXmp
 		if (isset($xmpval)) {
 			 //handle special cases
 			 //XMP has the timezone offset for these fields whereas EXIF does not, so compare times without the offset
-			if ($exifkey == 'DateTimeOriginal' ||
+			if (
+                $exifkey == 'DateTimeOriginal' ||
 					$exifkey == 'DateTimeDigitized' ||
 					$exifkey == 'DateTime' ||
 					$exifkey == 'DateTimeOriginalTime' ||

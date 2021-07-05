@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -84,7 +85,7 @@ class NumericRange implements Control
 			'field' => $this->fieldName,
 			'from' => $this->from,
 			'to' => $this->to,
-			'step' => ($this->decimals > 0 ? 1/pow(10, $this->decimals) : 0),
+			'step' => ($this->decimals > 0 ? 1 / pow(10, $this->decimals) : 0),
 		]);
 		return $smarty->fetch('filter_control/numeric_range.tpl');
 	}

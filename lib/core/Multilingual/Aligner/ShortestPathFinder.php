@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -120,7 +121,8 @@ class Multilingual_Aligner_ShortestPathFinder
 		//		echo "-- updateDistanceAndPrevious: \$obp=$obp\n";
 		foreach ($this->nodes as $currNode) {
 			//			echo "-- updateDistanceAndPrevious: processing \$currNode=$currNode\n";
-			if ((isset($this->map[$obp][$currNode]))
+			if (
+                (isset($this->map[$obp][$currNode]))
 					&&	(! ($this->map[$obp][$currNode] == $this->infiniteDistance) || ($this->map[$obp][$currNode] == 0 ))
 					&&	(($this->distance[$obp] + $this->map[$obp][$currNode]) < $this -> distance[$currNode])
 			) {

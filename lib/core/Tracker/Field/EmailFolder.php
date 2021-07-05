@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -79,14 +80,14 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements Tracker_F
 
 		$galleryId = (int) $this->getOption('galleryId');
 		$galinfo = $filegallib->get_file_gallery($galleryId);
-		if (!$galinfo) {
+		if (! $galinfo) {
 			Feedback::error(tr('Files field: Gallery #%0 not found', $galleryId));
 			return [];
 		}
 
 		$value = $this->getValue();
 		$decoded = json_decode($value, true);
-		if ($decoded !== NULL) {
+		if ($decoded !== null) {
 			$fileIds = $decoded;
 		} else {
 			$fileIds = [
@@ -137,7 +138,7 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements Tracker_F
 		$emails = $this->getConfiguration('emails');
 
 		if ($context['list_mode'] === 'text') {
-			$folderFormatter = function($emails) {
+			$folderFormatter = function ($emails) {
 				return implode(
 					"\n",
 					array_map(
@@ -151,8 +152,8 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements Tracker_F
 			if ($this->getOption('useFolders')) {
 				$result = "";
 				foreach (['inbox', 'sent', 'trash'] as $folder) {
-					if (!empty($emails[$folder])) {
-						$result .= $this->getOption($folder.'Name')."\n";
+					if (! empty($emails[$folder])) {
+						$result .= $this->getOption($folder . 'Name') . "\n";
 						$result .= $folderFormatter($emails[$folder]);
 					}
 				}
@@ -170,7 +171,7 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements Tracker_F
 	function handleSave($value, $oldValue)
 	{
 		$existing = json_decode($oldValue, true);
-		if ($existing === NULL) {
+		if ($existing === null) {
 			$existing = [
 				'inbox' => explode(',', $oldValue)
 			];
@@ -246,14 +247,15 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements Tracker_F
 			->setRenderTransform(function ($value) {
 				return $value;
 			})
-			->setParseIntoTransform(function (& $info, $value) use ($permName) {
+			->setParseIntoTransform(function (&$info, $value) use ($permName) {
 				$info['fields'][$permName] = $value;
 			});
 
 		return $schema;
 	}
 
-	protected function addEmail(&$existing, $file) {
+	protected function addEmail(&$existing, $file)
+    {
 		$filegallib = TikiLib::lib('filegal');
 		$galleryId = (int) $this->getOption('galleryId');
 		$galinfo = $filegallib->get_file_gallery($galleryId);
@@ -263,7 +265,8 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements Tracker_F
 		}
 	}
 
-	protected function deleteEmail(&$existing, $fileId) {
+	protected function deleteEmail(&$existing, $fileId)
+    {
 		foreach ($existing as $folder => $_) {
 			if (($key = array_search($fileId, $existing[$folder])) !== false) {
 				unset($existing[$folder][$key]);

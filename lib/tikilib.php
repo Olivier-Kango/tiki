@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -378,7 +379,7 @@ class TikiLib extends TikiDb_Bridge
 		// Only attempt if document is declared as HTML
 		if (0 === strpos($response->getHeaders()->get('Content-Type'), 'text/html')) {
 			$use_int_errors = libxml_use_internal_errors(true); // suppress errors and warnings due to bad HTML
-			$dom = new DOMDocument;
+			$dom = new DOMDocument();
 			if ($response->getBody() && $dom->loadHTML($response->getBody())) {
 				$frames = $dom->getElementsByTagName('frame');
 
@@ -443,9 +444,10 @@ class TikiLib extends TikiDb_Bridge
 	{
 		// test url :
 		// rewrite url if sloppy # added a case for https urls
-		if ((substr($url, 0, 7) <> "http://") and
+		if (
+            (substr($url, 0, 7) <> "http://") and
 				(substr($url, 0, 8) <> "https://")
-			 ) {
+        ) {
 			$url = "http://" . $url;
 		}
 
@@ -633,8 +635,10 @@ class TikiLib extends TikiDb_Bridge
 			} else {
 				// check ip
 				if (count($ips) == 4) {
-					if (($ips[0] == $res['ip1'] || $res['ip1'] == '*') && ($ips[1] == $res['ip2'] || $res['ip2'] == '*')
-							&& ($ips[2] == $res['ip3'] || $res['ip3'] == '*') && ($ips[3] == $res['ip4'] || $res['ip4'] == '*')) {
+					if (
+                        ($ips[0] == $res['ip1'] || $res['ip1'] == '*') && ($ips[1] == $res['ip2'] || $res['ip2'] == '*')
+							&& ($ips[2] == $res['ip3'] || $res['ip3'] == '*') && ($ips[3] == $res['ip4'] || $res['ip4'] == '*')
+                    ) {
 						return $res['message'];
 					}
 				}
@@ -1022,8 +1026,10 @@ class TikiLib extends TikiDb_Bridge
 				$bindvars[] = $page['objName'];
 			}
 			$mid .= ' and (' . implode(' or ', $mids) . ')';
-		} elseif ($prefs['feature_user_watches_translations'] == 'y'
-			&& $event == 'wiki_page_created' ) {
+		} elseif (
+            $prefs['feature_user_watches_translations'] == 'y'
+			&& $event == 'wiki_page_created'
+        ) {
 			$page_info = $this->get_page_info($object);
 			$mid = "`event`='wiki_page_in_lang_created' and `object`=? and `type`='lang'";
 			$bindvars[] = $page_info['lang'];
@@ -1586,7 +1592,7 @@ class TikiLib extends TikiDb_Bridge
 		}
 
 		if ($data && $mime) {
-			return "data:$mime;base64,".base64_encode($data);
+			return "data:$mime;base64," . base64_encode($data);
 		} else {
 			return '';
 		}
@@ -3393,8 +3399,10 @@ class TikiLib extends TikiDb_Bridge
 		// available in my konqueror... (like ldap://, ldaps://, nfs://, fish://...)
 		// ... seems like it is better to enum that allowed explicitly than all
 		// noncacheable protocols.
-		if (((strstr($url, 'tiki-') || strstr($url, 'messu-')) && $data == '')
-				|| (substr($url, 0, 7) != 'http://' && substr($url, 0, 8) != 'https://')) {
+		if (
+            ((strstr($url, 'tiki-') || strstr($url, 'messu-')) && $data == '')
+				|| (substr($url, 0, 7) != 'http://' && substr($url, 0, 8) != 'https://')
+        ) {
 			return false;
 		}
 		// Request data for URL if nothing given in parameters
@@ -4135,15 +4143,19 @@ class TikiLib extends TikiDb_Bridge
 						$info['type'] = '';
 					}
 				}
-				if ($prefs['feature_use_fgal_for_user_files'] === 'y' &&
-						$info['type'] === 'user' && $info['user'] === $user && $tiki_p_userfiles === 'y') {
-					foreach (['tiki_p_download_files',
+				if (
+                    $prefs['feature_use_fgal_for_user_files'] === 'y' &&
+						$info['type'] === 'user' && $info['user'] === $user && $tiki_p_userfiles === 'y'
+                ) {
+					foreach (
+                        ['tiki_p_download_files',
 									'tiki_p_upload_files',
 									'tiki_p_view_file_gallery',
 									'tiki_p_remove_files',
 									'tiki_p_create_file_galleries',
 									'tiki_p_edit_gallery_file',
-								] as $perm) {
+								] as $perm
+                    ) {
 						$GLOBALS[$perm] = 'y';
 						$smarty->assign($perm, 'y');
 						$ret[$perm] = 'y';
@@ -4422,9 +4434,10 @@ class TikiLib extends TikiDb_Bridge
 		$return = $this->_get_values('tiki_user_preferences', 'prefName', $names, $global_ref, '`user`=?', [$my_user]);
 
 		// Handle special display_timezone values
-		if (isset($user_preferences[$my_user]['display_timezone']) && $user_preferences[$my_user]['display_timezone'] != 'Site' && $user_preferences[$my_user]['display_timezone'] != 'Local'
+		if (
+            isset($user_preferences[$my_user]['display_timezone']) && $user_preferences[$my_user]['display_timezone'] != 'Site' && $user_preferences[$my_user]['display_timezone'] != 'Local'
 				&& ! TikiDate::TimezoneIsValidId($user_preferences[$my_user]['display_timezone'])
-			 ) {
+        ) {
 			unset($user_preferences[$my_user]['display_timezone']);
 		}
 		return $return;
@@ -4948,7 +4961,8 @@ class TikiLib extends TikiDb_Bridge
 	{
 		global $prefs;
 		$pageNameEncode = urlencode($pageName);
-		if (! $skipCache && isset($this->cache_page_info[$pageNameEncode])
+		if (
+            ! $skipCache && isset($this->cache_page_info[$pageNameEncode])
 			&& (! $retrieve_datas || ! empty($this->cache_page_info[$pageNameEncode]['data']))
 		) {
 			return $this->cache_page_info[$pageNameEncode];
@@ -5096,9 +5110,11 @@ class TikiLib extends TikiDb_Bridge
 	public function replace_link($pageFrom, $pageTo, $types = [])
 	{
 		global $prefs;
-		if ($prefs['namespace_enabled'] == 'y' && $prefs['namespace_force_links'] == 'y'
+		if (
+            $prefs['namespace_enabled'] == 'y' && $prefs['namespace_force_links'] == 'y'
 			&& TikiLib::lib('wiki')->get_namespace($pageFrom)
-			&& ! TikiLib::lib('wiki')->get_namespace($pageTo) ) {
+			&& ! TikiLib::lib('wiki')->get_namespace($pageTo)
+        ) {
 				$namespace = TikiLib::lib('wiki')->get_namespace($pageFrom);
 				$pageTo = $namespace . $prefs['namespace_separator'] . $pageTo;
 		}
@@ -5413,7 +5429,7 @@ class TikiLib extends TikiDb_Bridge
 			$data['content'] = implode(' ', $content);
 		}
 
-		$argumentParser = new WikiParser_PluginArgumentParser;
+		$argumentParser = new WikiParser_PluginArgumentParser();
 
 		$matches = WikiParser_PluginMatcher::match($data['content']);
 
@@ -5551,8 +5567,10 @@ class TikiLib extends TikiDb_Bridge
 	{
 		global $prefs, $user_preferences;
 
-		if ($prefs['users_prefs_display_timezone'] == 'Site' ||
-			(isset($user_preferences[$user]['display_timezone']) && $user_preferences[$user]['display_timezone'] == 'Site')) {
+		if (
+            $prefs['users_prefs_display_timezone'] == 'Site' ||
+			(isset($user_preferences[$user]['display_timezone']) && $user_preferences[$user]['display_timezone'] == 'Site')
+        ) {
 			// Stay in the time zone of the server
 			$prefs['display_timezone'] = $prefs['server_timezone'];
 		} elseif (empty($user_preferences[$user]['display_timezone']) || $user_preferences[$user]['display_timezone'] == 'Local') {
@@ -5977,7 +5995,7 @@ class TikiLib extends TikiDb_Bridge
 	 * @param $text
 	 * @return string
 	 */
-	public function read_raw($text, $preserve=false)
+	public function read_raw($text, $preserve = false)
 	{
 		$file = explode("\n", $text);
 		$back = [];
@@ -6583,7 +6601,7 @@ class TikiLib extends TikiDb_Bridge
 			'ჩ' => 'c','ც' => 't','ძ' => 'd','წ' => 't','ჭ' => 'c','ხ' => 'k',
 			'ჯ' => 'j','ჰ' => 'h'
 			);
-		$str = str_replace( array_keys( $transliteration ),array_values( $transliteration ),$str);
+		$str = str_replace(array_keys($transliteration), array_values($transliteration), $str);
 		return $str;
 	}
 
@@ -6752,8 +6770,10 @@ JS;
 	{
 		global $prefs;
 		// if jail is zero, we should allow non-categorized objects to be seen as well, i.e. consider as no jail
-		if (! empty($prefs['feature_categories']) &&  $prefs['feature_categories'] == 'y' &&
-				! empty($prefs['category_jail']) && $prefs['category_jail'] != [0 => 0] ) {
+		if (
+            ! empty($prefs['feature_categories']) &&  $prefs['feature_categories'] == 'y' &&
+				! empty($prefs['category_jail']) && $prefs['category_jail'] != [0 => 0]
+        ) {
 			$expanded = [];
 			if ($descendants) {
 				$categlib = TikiLib::lib('categ');
@@ -7491,7 +7511,8 @@ End:
  * @throws exception        If a file can not be created, an exception will be thrown.
  */
 
-function writeTempFile(?string $data, string $directory = '', bool $system = true, string $prefix = '', string $append = ''): ?string {
+function writeTempFile(?string $data, string $directory = '', bool $system = true, string $prefix = '', string $append = ''): ?string
+{
 	global $prefs;
 	$fileName = '';
 
@@ -7509,7 +7530,7 @@ function writeTempFile(?string $data, string $directory = '', bool $system = tru
 
 	if ($system) {
 		$tmpDir = $prefs['tmpDir'];
-		if (substr($tmpDir, -1) !== '/'){
+		if (substr($tmpDir, -1) !== '/') {
 			$tmpDir = $tmpDir . '/';
 		}
 		if (file_exists($tmpDir . $directory)) {
@@ -7518,7 +7539,7 @@ function writeTempFile(?string $data, string $directory = '', bool $system = tru
 			$dirName = $tmpDir . $directory;
 		}
 		// if the system directory is not writable, then fall back to Tiki tmp directory.
-		if (!is_writable($tmpDir . $directory)){
+		if (! is_writable($tmpDir . $directory)) {
 			unset($dirName);
 		}
 	}
@@ -7530,12 +7551,11 @@ function writeTempFile(?string $data, string $directory = '', bool $system = tru
 			$dirName = 'temp/' . $directory;
 			@file_put_contents('temp/' . $directory . 'index.php', '');
 		} else {
-			throw new Exception ("Can not create temp/$directory directory.");
+			throw new Exception("Can not create temp/$directory directory.");
 		}
 	}
 
 	if (! is_null($data)) {
-
 		do {
 			if (is_callable('random_bytes')) {
 				$fileName = $prefix . bin2hex(random_bytes(16)) . $append;
@@ -7546,7 +7566,7 @@ function writeTempFile(?string $data, string $directory = '', bool $system = tru
 
 
 		if (@file_put_contents($dirName . $fileName, $data) === false) {
-			throw new exception ("Can not write to $dirName$fileName file.");
+			throw new exception("Can not write to $dirName$fileName file.");
 		}
 	}
 	return $dirName . $fileName;

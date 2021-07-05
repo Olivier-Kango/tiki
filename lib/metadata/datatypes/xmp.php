@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -140,15 +141,16 @@ class Xmp
 						}
 					}
 					//convert dates
-					if (array_key_exists(
-						$name,
-						[
+					if (
+                        array_key_exists(
+                            $name,
+                            [
 							'ModifyDate' => '',
 							'DateCreated' => '',
 							'CreateDate' => '',
 							'MetadataDate' => ''
-						]
-					)
+                            ]
+                        )
 					) {
 						$dateObj = new DateTime($xmparray[$group][$name]['newval']);
 						$date = $dateObj->format('Y-m-d  H:i:s  T');
@@ -240,7 +242,8 @@ class Xmp
 						if ($child->nodeType == 1) {
 							//if $child has at least one child that is not a single DOMText field, then send back
 							//through to process children
-							if ($child->childNodes->length > 0
+							if (
+                                $child->childNodes->length > 0
 								&& ! ($child->childNodes->length == 1 && $child->firstChild->nodeType != 1)
 							) {
 								$xmparray[$child->prefix][$child->localName]['rawval']
@@ -325,7 +328,7 @@ class Xmp
 		$ret = '';
 		if ($fieldname == 'ComponentsConfiguration' && isset($value)) {
 			include_once 'lib/metadata/datatypes/exif.php';
-			$exif = new Exif;
+			$exif = new Exif();
 			foreach ($value as $singleval) {
 				$ret .= $exif->specs['EXIF'][$fieldname]['options']['0' . $singleval['rawval']] . ' ';
 			}

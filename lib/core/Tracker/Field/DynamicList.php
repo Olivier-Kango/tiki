@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -525,7 +526,8 @@ $("input[name=ins_' . $filterFieldIdHere . '], select[name=ins_' . $filterFieldI
 				$localValue = $trklib->get_item_value($trackerId, $localValue, $filterFieldIdThere);
 			}
 			// u = user selector, might be mulitple users so need to find multiple values
-			if ($filterFieldHere['type'] == 'u' && ! empty($filterFieldHere['options_map']['multiple'])
+			if (
+                $filterFieldHere['type'] == 'u' && ! empty($filterFieldHere['options_map']['multiple'])
 				&& $localValue
 			) {
 				if (! is_array($localValue)) {

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -14,21 +15,21 @@ class Perms_BaseTest extends TikiTestCase
 {
 	public function testWithoutConfiguration()
 	{
-		Perms::set(new Perms);
+		Perms::set(new Perms());
 		$accessor = Perms::get();
 
-		$expect = new Perms_Accessor;
+		$expect = new Perms_Accessor();
 
 		$this->assertEquals($expect, $accessor);
 	}
 
 	public function testGroupsPropagateToAccessor()
 	{
-		$perms = new Perms;
+		$perms = new Perms();
 		$perms->setGroups(['Registered', 'Administrator']);
 		Perms::set($perms);
 
-		$expect = new Perms_Accessor;
+		$expect = new Perms_Accessor();
 		$expect->setGroups(['Registered', 'Administrator']);
 
 		$this->assertEquals($expect, Perms::get());
@@ -56,7 +57,7 @@ class Perms_BaseTest extends TikiTestCase
 	 */
 	public function testResolverFactoryChaining($context, $expectedResolver)
 	{
-		$perms = new Perms;
+		$perms = new Perms();
 
 		$perms->setResolverFactories(
 			[
@@ -110,7 +111,7 @@ class Perms_BaseTest extends TikiTestCase
 			->method('getResolver')
 			->willReturn(new Perms_Resolver_Default(true));
 
-		$perms = new Perms;
+		$perms = new Perms();
 		$perms->setResolverFactories([$mock,]);
 		Perms::set($perms);
 
@@ -130,7 +131,7 @@ class Perms_BaseTest extends TikiTestCase
 			->method('getResolver')
 			->willReturn(false);
 
-		$perms = new Perms;
+		$perms = new Perms();
 		$perms->setResolverFactories([$mock,]);
 		Perms::set($perms);
 
@@ -160,7 +161,7 @@ class Perms_BaseTest extends TikiTestCase
 			->method('getResolver')
 			->willReturn($defaultResolver);
 
-		$perms = new Perms;
+		$perms = new Perms();
 		$perms->setResolverFactories([$mock1,$mock2]);
 		Perms::set($perms);
 
@@ -177,7 +178,7 @@ class Perms_BaseTest extends TikiTestCase
 		$mockCategory = $this->createMock('Perms_ResolverFactory');
 		$mockGlobal = $this->createMock('Perms_ResolverFactory');
 
-		$perms = new Perms;
+		$perms = new Perms();
 		$perms->setResolverFactories([$mockObject, $mockCategory, $mockGlobal]);
 		Perms::set($perms);
 
@@ -212,7 +213,7 @@ class Perms_BaseTest extends TikiTestCase
 
 	public function testFiltering()
 	{
-		$perms = new Perms;
+		$perms = new Perms();
 		$perms->setResolverFactories(
 			[
 				new Perms_ResolverFactory_TestFactory(
@@ -256,7 +257,7 @@ class Perms_BaseTest extends TikiTestCase
 
 	public function testContextBuilding()
 	{
-		$perms = new Perms;
+		$perms = new Perms();
 		$perms->setResolverFactories(
 			[$mock = $this->createMock('Perms_ResolverFactory')]
 		);
@@ -278,7 +279,7 @@ class Perms_BaseTest extends TikiTestCase
 
 	public function testSkipBulkOnEmptySet()
 	{
-		$perms = new Perms;
+		$perms = new Perms();
 		$perms->setResolverFactories(
 			[$mock = $this->createMock('Perms_ResolverFactory')]
 		);

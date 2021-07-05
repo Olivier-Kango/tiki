@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -16,37 +18,42 @@ $access->check_permission(['tiki_p_admin_contribution']);
 
 if (isset($_REQUEST['setting']) && $access->checkCsrf()) {
 	$result = false;
-	if (isset($_REQUEST['feature_contribution_mandatory'])
-		&& $_REQUEST['feature_contribution_mandatory'] == "on")
-	{
+	if (
+        isset($_REQUEST['feature_contribution_mandatory'])
+		&& $_REQUEST['feature_contribution_mandatory'] == "on"
+    ) {
 		$result = $tikilib->set_preference('feature_contribution_mandatory', 'y');
 	} else {
 		$result = $tikilib->set_preference('feature_contribution_mandatory', 'n');
 	}
-	if (isset($_REQUEST['feature_contribution_mandatory_forum'])
-		&& $_REQUEST['feature_contribution_mandatory_forum'] == "on")
-	{
+	if (
+        isset($_REQUEST['feature_contribution_mandatory_forum'])
+		&& $_REQUEST['feature_contribution_mandatory_forum'] == "on"
+    ) {
 		$result = $tikilib->set_preference('feature_contribution_mandatory_forum', 'y');
 	} else {
 		$result = $tikilib->set_preference('feature_contribution_mandatory_forum', 'n');
 	}
-	if (isset($_REQUEST['feature_contribution_mandatory_comment'])
-		&& $_REQUEST['feature_contribution_mandatory_comment'] == "on")
-	{
+	if (
+        isset($_REQUEST['feature_contribution_mandatory_comment'])
+		&& $_REQUEST['feature_contribution_mandatory_comment'] == "on"
+    ) {
 		$result = $tikilib->set_preference('feature_contribution_mandatory_comment', 'y');
 	} else {
 		$result = $tikilib->set_preference('feature_contribution_mandatory_comment', 'n');
 	}
-	if (isset($_REQUEST['feature_contribution_mandatory_blog'])
-		&& $_REQUEST['feature_contribution_mandatory_blog'] == "on")
-	{
+	if (
+        isset($_REQUEST['feature_contribution_mandatory_blog'])
+		&& $_REQUEST['feature_contribution_mandatory_blog'] == "on"
+    ) {
 		$result = $tikilib->set_preference('feature_contribution_mandatory_blog', 'y');
 	} else {
 		$result = $tikilib->set_preference('feature_contribution_mandatory_blog', 'n');
 	}
-	if (isset($_REQUEST['feature_contribution_display_in_comment'])
-		&& $_REQUEST['feature_contribution_display_in_comment'] == "on")
-	{
+	if (
+        isset($_REQUEST['feature_contribution_display_in_comment'])
+		&& $_REQUEST['feature_contribution_display_in_comment'] == "on"
+    ) {
 		$result = $tikilib->set_preference('feature_contribution_display_in_comment', 'y');
 	} else {
 		$result = $tikilib->set_preference('feature_contribution_display_in_comment', 'n');
@@ -73,11 +80,12 @@ if (isset($_REQUEST['add']) && isset($_REQUEST['new_contribution_name']) && $acc
 		Feedback::error(tr('Contribution not added'));
 	}
 }
-if (isset($_REQUEST['replace'])
+if (
+    isset($_REQUEST['replace'])
 	&& isset($_REQUEST['name'])
 	&& isset($_REQUEST['contributionId'])
-	&& $access->checkCsrf())
-{
+	&& $access->checkCsrf()
+) {
 	$result = $contributionlib->replace_contribution(
 		$_REQUEST['contributionId'],
 		$_REQUEST['name'],

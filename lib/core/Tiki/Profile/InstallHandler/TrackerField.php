@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -184,7 +185,7 @@ class Tiki_Profile_InstallHandler_TrackerField extends Tiki_Profile_InstallHandl
 			}
 		}
 
-		$factory = new Tracker_Field_Factory;
+		$factory = new Tracker_Field_Factory();
 		$fieldInfo = $factory->getFieldInfo($data['type']);
 		if (! is_array($data['options'])) {
 			$options = Tracker_Options::fromString($data['options'], $fieldInfo);
@@ -230,7 +231,7 @@ class Tiki_Profile_InstallHandler_TrackerField extends Tiki_Profile_InstallHandl
 			}
 		}
 
-		$factory = new Tracker_Field_Factory;
+		$factory = new Tracker_Field_Factory();
 		$fieldInfo = $factory->getFieldInfo($field['type']);
 
 		$options = Tracker_Options::fromSerialized($field['options'], $fieldInfo);

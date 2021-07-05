@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Tiki\Lib\core\Tracker\Rule\Operator;
-
 
 use Tiki\Lib\core\Tracker\Rule\Column;
 use Tiki\Lib\core\Tracker\Rule\Type\Type;
@@ -32,9 +30,10 @@ abstract class Operator extends Column
 		return $this->syntax;
 	}
 
-	public function get() {
+	public function get()
+    {
 		/** @var Type $argumentType */
-		$argumentType = new $this->argType;
+		$argumentType = new $this->argType();
 
 		return [
 			'operator_id' => $this->getId(),

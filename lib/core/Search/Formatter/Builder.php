@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -24,7 +25,7 @@ class Search_Formatter_Builder
 
 	public function __construct()
 	{
-		$this->parser = new WikiParser_PluginArgumentParser;
+		$this->parser = new WikiParser_PluginArgumentParser();
 		$this->paginationArguments = [
 			'offset_arg' => 'offset',
 			'max' => 50,
@@ -129,7 +130,11 @@ class Search_Formatter_Builder
 			return;
 		}
 
-		if (in_array($arguments['field'], array_map(function($f){ return $f['field']; }, $this->customFilters))) {
+		if (
+            in_array($arguments['field'], array_map(function ($f) {
+            return $f['field'];
+            }, $this->customFilters))
+        ) {
 			return;
 		}
 
@@ -175,7 +180,7 @@ class Search_Formatter_Builder
 				}
 				$arguments['template'] = $temp;
 			}
-			$abuilder = new Search_Formatter_ArrayBuilder;
+			$abuilder = new Search_Formatter_ArrayBuilder();
 			$outputData = $abuilder->getData($output->getBody());
 			foreach ($this->paginationArguments as $k => $v) {
 				$outputData[$k] = $this->paginationArguments[$k];
@@ -200,7 +205,7 @@ class Search_Formatter_Builder
 		} elseif (isset($arguments['tplwiki'])) {
 			if ($tikilib->page_exists($arguments['tplwiki'])) {
 				$wikitpl = "tplwiki:" . $arguments['tplwiki'];
-				$abuilder = new Search_Formatter_ArrayBuilder;
+				$abuilder = new Search_Formatter_ArrayBuilder();
 				$outputData = $abuilder->getData($output->getBody());
 				foreach ($this->paginationArguments as $k => $v) {
 					$outputData[$k] = $this->paginationArguments[$k];
@@ -241,7 +246,7 @@ class Search_Formatter_Builder
 			return false;
 		}
 		if (! Table_Check::isAjaxCall()) {
-			$ts = new Table_Plugin;
+			$ts = new Table_Plugin();
 			$ts->setSettings(
 				$this->id,
 				isset($args['server']) ? $args['server'] : 'n',

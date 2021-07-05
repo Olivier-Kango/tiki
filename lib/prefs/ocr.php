@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -15,10 +16,10 @@ function prefs_ocr_list()
 	unset($ocrLangs['osd']);
 	$ocrLangs = $langLib->findLanguageNames(['osd']) + $ocrLangs;
 
-	try{
+	try {
 		$tesseractPath = $ocr->whereIsExecutable('tesseract') ?: 'tesseract';
 		$pdfimagesPath = $ocr->whereIsExecutable('pdfimages') ?: 'pdfimages';
-	}catch (Exception $e){
+	} catch (Exception $e) {
 		$tesseractPath = 'tesseract';
 		$pdfimagesPath = 'pdfimages';
 	}

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -15,7 +16,7 @@ class WikiPlugin_TranslationOfTest extends TikiTestCase
 
 	private $page_containing_plugin = "PageToBeCreated";
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		global $user, $prefs;
 		$this->orig_user = $user;
@@ -32,7 +33,7 @@ class WikiPlugin_TranslationOfTest extends TikiTestCase
 		//
 	}
 
-	protected function tearDown() : void
+	protected function tearDown(): void
 	{
 		global $user, $testhelpers;
 

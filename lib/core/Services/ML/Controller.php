@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -426,7 +427,7 @@ class Services_ML_Controller
 		if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			$arg_values = $input->args->array();
 			foreach ($args as $key => $arg) {
-				if (isset($arg_values[$arg['name']]) && !empty($arg_values[$arg['name']])) {
+				if (isset($arg_values[$arg['name']]) && ! empty($arg_values[$arg['name']])) {
 					if (isset($arg_values[$arg['name']]['classes'])) {
 						$args[$key]['value'] = [];
 						foreach ($arg_values[$arg['name']]['classes'] as $layer_key => $layer_class) {
@@ -436,7 +437,7 @@ class Services_ML_Controller
 							}
 						}
 					} elseif ($arg['arg_type'] == 'array') {
-						$args[$key]['value'] =  explode(',', $arg_values[$arg['name']]);
+						$args[$key]['value'] = explode(',', $arg_values[$arg['name']]);
 					} elseif ($arg['input_type'] == 'rubix') {
 						$hydrated = $this->mllib->hydrate_single($arg_values[$arg['name']]['class'], json_decode($arg_values[$arg['name']]['args']));
 						$args[$key]['value'] = json_decode($hydrated['serialized_args'], true);
@@ -450,7 +451,7 @@ class Services_ML_Controller
 						$args[$key]['value'] = $arg_values[$arg['name']];
 					}
 				} else {
-					$args[$key]['value'] =  $arg['default'];
+					$args[$key]['value'] = $arg['default'];
 				}
 			}
 			$payload = [[

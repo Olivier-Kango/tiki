@@ -24,7 +24,7 @@ function tra($s)
 	return $s;
 }
 
-$tikilib = new TikiLib;
+$tikilib = new TikiLib();
 
 $structId = '160';
 

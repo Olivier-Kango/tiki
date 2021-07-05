@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -13,10 +14,10 @@ class Perms_Reflection_PermissionComparatorTest extends TikiTestCase
 {
 	public function testIdenticalSets()
 	{
-		$a = new Perms_Reflection_PermissionSet;
+		$a = new Perms_Reflection_PermissionSet();
 		$a->add('Anonymous', 'view');
 
-		$b = new Perms_Reflection_PermissionSet;
+		$b = new Perms_Reflection_PermissionSet();
 		$b->add('Anonymous', 'view');
 
 		$comparator = new Perms_Reflection_PermissionComparator($a, $b);
@@ -25,10 +26,10 @@ class Perms_Reflection_PermissionComparatorTest extends TikiTestCase
 
 	public function testLeftHasLessPermissions()
 	{
-		$a = new Perms_Reflection_PermissionSet;
+		$a = new Perms_Reflection_PermissionSet();
 		$a->add('Anonymous', 'view');
 
-		$b = new Perms_Reflection_PermissionSet;
+		$b = new Perms_Reflection_PermissionSet();
 		$b->add('Anonymous', 'view');
 		$b->add('Anonymous', 'edit');
 
@@ -38,10 +39,10 @@ class Perms_Reflection_PermissionComparatorTest extends TikiTestCase
 
 	public function testLeftHasLessGroups()
 	{
-		$a = new Perms_Reflection_PermissionSet;
+		$a = new Perms_Reflection_PermissionSet();
 		$a->add('Anonymous', 'view');
 
-		$b = new Perms_Reflection_PermissionSet;
+		$b = new Perms_Reflection_PermissionSet();
 		$b->add('Anonymous', 'view');
 		$b->add('Registered', 'view');
 
@@ -51,11 +52,11 @@ class Perms_Reflection_PermissionComparatorTest extends TikiTestCase
 
 	public function testRightHasLessPermissions()
 	{
-		$a = new Perms_Reflection_PermissionSet;
+		$a = new Perms_Reflection_PermissionSet();
 		$a->add('Anonymous', 'view');
 		$a->add('Anonymous', 'edit');
 
-		$b = new Perms_Reflection_PermissionSet;
+		$b = new Perms_Reflection_PermissionSet();
 		$b->add('Anonymous', 'view');
 
 		$comparator = new Perms_Reflection_PermissionComparator($a, $b);
@@ -64,11 +65,11 @@ class Perms_Reflection_PermissionComparatorTest extends TikiTestCase
 
 	public function testRightHasLessGroups()
 	{
-		$a = new Perms_Reflection_PermissionSet;
+		$a = new Perms_Reflection_PermissionSet();
 		$a->add('Anonymous', 'view');
 		$a->add('Registered', 'view');
 
-		$b = new Perms_Reflection_PermissionSet;
+		$b = new Perms_Reflection_PermissionSet();
 		$b->add('Anonymous', 'view');
 
 		$comparator = new Perms_Reflection_PermissionComparator($a, $b);
@@ -77,12 +78,12 @@ class Perms_Reflection_PermissionComparatorTest extends TikiTestCase
 
 	public function testGetRemovals()
 	{
-		$a = new Perms_Reflection_PermissionSet;
+		$a = new Perms_Reflection_PermissionSet();
 		$a->add('Anonymous', 'view');
 		$a->add('Registered', 'view');
 		$a->add('Registered', 'edit');
 
-		$b = new Perms_Reflection_PermissionSet;
+		$b = new Perms_Reflection_PermissionSet();
 		$b->add('Registered', 'view');
 
 		$comparator = new Perms_Reflection_PermissionComparator($a, $b);
@@ -97,10 +98,10 @@ class Perms_Reflection_PermissionComparatorTest extends TikiTestCase
 
 	public function testGetAdditions()
 	{
-		$a = new Perms_Reflection_PermissionSet;
+		$a = new Perms_Reflection_PermissionSet();
 		$a->add('Anonymous', 'view');
 
-		$b = new Perms_Reflection_PermissionSet;
+		$b = new Perms_Reflection_PermissionSet();
 		$b->add('Anonymous', 'view');
 		$b->add('Registered', 'view');
 		$b->add('Registered', 'edit');
@@ -117,10 +118,10 @@ class Perms_Reflection_PermissionComparatorTest extends TikiTestCase
 
 	public function testIdenticalHasNoDifferences()
 	{
-		$a = new Perms_Reflection_PermissionSet;
+		$a = new Perms_Reflection_PermissionSet();
 		$a->add('Anonymous', 'view');
 
-		$b = new Perms_Reflection_PermissionSet;
+		$b = new Perms_Reflection_PermissionSet();
 		$b->add('Anonymous', 'view');
 
 		$comparator = new Perms_Reflection_PermissionComparator($a, $b);

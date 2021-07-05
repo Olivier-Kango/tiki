@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -91,7 +92,7 @@ window.CKEDITOR.plugins.addExternal( "inlinesave", "' . $tikiroot . 'lib/ckedito
 window.CKEDITOR.config.extraPlugins += (window.CKEDITOR.config.extraPlugins ? ",inlinecancel" : "inlinecancel" );
 window.CKEDITOR.plugins.addExternal( "inlinecancel", "' . $tikiroot . 'lib/ckeditor_tiki/plugins/inlinecancel/");
 window.CKEDITOR.config.ajaxSaveRefreshTime = 30 ;			// RefreshTime
-window.CKEDITOR.config.contentsLangDirection = ' . (Language::isRTL()  ? '"rtl"' : '"ui"') . ';
+window.CKEDITOR.config.contentsLangDirection = ' . (Language::isRTL() ? '"rtl"' : '"ui"') . ';
 // --- plugins
 window.CKEDITOR.config.autoSavePage = "' . addcslashes($pageName, '"') . '";		// unique reference for each page
 window.CKEDITOR.config.allowedContent = true;
@@ -141,8 +142,10 @@ window.CKEDITOR.config.toolbar = ' . $cktools . ';
 				5
 			);	// before dialog tools init (10)
 		}
-		if ($auto_save_referrer && $prefs['feature_ajax'] === 'y' &&
-				$prefs['ajax_autosave'] === 'y' && $params['autosave'] == 'y') {
+		if (
+            $auto_save_referrer && $prefs['feature_ajax'] === 'y' &&
+				$prefs['ajax_autosave'] === 'y' && $params['autosave'] == 'y'
+        ) {
 			$headerlib->add_js(
 				'// --- config settings for the autosave plugin ---
 window.CKEDITOR.config.extraPlugins += (window.CKEDITOR.config.extraPlugins ? ",autosave" : "autosave" );

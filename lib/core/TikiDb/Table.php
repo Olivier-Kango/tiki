@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -265,7 +266,7 @@ class TikiDb_Table
 		$query .= $this->buildConditions($conditions, $bindvars);
 
 		$result = $this->db->fetchAll($query, $bindvars, 1, -1, $this->errorMode);
-		return !empty($result[0][1]);
+		return ! empty($result[0][1]);
 	}
 
 	/**
@@ -500,7 +501,7 @@ class TikiDb_Table
 		return $this->expr($this->db->convertSortMode($sortMode));
 	}
 
-	private function buildDelete(array $conditions, & $bindvars)
+	private function buildDelete(array $conditions, &$bindvars)
 	{
 		$query = "DELETE FROM {$this->escapeIdentifier($this->tableName)}";
 		$query .= $this->buildConditions($conditions, $bindvars);
@@ -508,7 +509,7 @@ class TikiDb_Table
 		return $query;
 	}
 
-	private function buildConditions(array $conditions, & $bindvars)
+	private function buildConditions(array $conditions, &$bindvars)
 	{
 		$query = " WHERE 1=1";
 
@@ -544,7 +545,7 @@ class TikiDb_Table
 		}
 	}
 
-	private function buildUpdate(array $values, array $conditions, & $bindvars)
+	private function buildUpdate(array $values, array $conditions, &$bindvars)
 	{
 		$query = "UPDATE {$this->escapeIdentifier($this->tableName)} SET ";
 
@@ -554,7 +555,7 @@ class TikiDb_Table
 		return $query;
 	}
 
-	private function buildUpdateList($values, & $bindvars)
+	private function buildUpdateList($values, &$bindvars)
 	{
 		$query = '';
 
@@ -572,7 +573,7 @@ class TikiDb_Table
 		return rtrim($query, ' ,');
 	}
 
-	private function buildInsert($values, $ignore, & $bindvars)
+	private function buildInsert($values, $ignore, &$bindvars)
 	{
 		$fieldDefinition = implode(', ', array_map([$this, 'escapeIdentifier'], array_keys($values)));
 		$fieldPlaceholders = rtrim(str_repeat('?, ', count($values)), ' ,');

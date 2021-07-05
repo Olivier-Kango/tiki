@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -130,7 +131,7 @@ function module_shoutbox($mod_reference, $module_params)
 
 		$smarty->assign(
 			'tweet',
-			isset($module_params['tweet']) &&($tikilib->get_user_preference($user, 'twitter_token') != '') ? $module_params['tweet'] : '0'
+			isset($module_params['tweet']) && ($tikilib->get_user_preference($user, 'twitter_token') != '') ? $module_params['tweet'] : '0'
 		);
 
 		$smarty->assign(

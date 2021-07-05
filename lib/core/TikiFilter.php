@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -51,7 +52,7 @@ class TikiFilter
 			case 'int':
 				// Test Return 0
 				// Transforms a scalar phrase into an integer. eg. '-4 is less than 0' returns -4, while '' returns 0
-				return new ToInt;
+				return new ToInt();
 
 			/** Boolean return types **/
 			case 'bool':
@@ -67,7 +68,7 @@ class TikiFilter
 			case 'isodate':
 				// Test Return (null)
 				// may return null
-				return new TikiFilter_IsoDate;
+				return new TikiFilter_IsoDate();
 			case 'isodatetime':
 				// Test Return (null)
 				// may return null
@@ -79,12 +80,12 @@ class TikiFilter
 			case 'attribute_type':
 				// Test Return (false)
 				// may return false
-				return new TikiFilter_AttributeType;
+				return new TikiFilter_AttributeType();
 			case 'lang':
 				// Test Return ""
 				// may return a blank string
 				// Allows values for languages (such as 'en') available on the site
-				return new TikiFilter_Lang;
+				return new TikiFilter_Lang();
 			case 'imgsize':
 				// may return a blank string
 				// Allows digits optionally followed by a space and/or certain size units
@@ -96,14 +97,14 @@ class TikiFilter
 				// Test Return ""
 				// may return blank string on error
 				// If formatted as a absolute url, will return the relative portion, also applies striptags
-				return new TikiFilter_RelativeURL;
+				return new TikiFilter_RelativeURL();
 
 			/** Digit Filters (no Alpha or HTML) String Return Type **/
 			case 'digits':
 				// Test Return "4"
 				// Multilingual digits. May return characters like ½ or 四 (Japanese for 4)
 				// Removes everything except digits eg. ' 12345 to 67890' returns '1234567890', while '-5' returns '5'
-				return new Digits;
+				return new Digits();
 			case 'intscolons':
 				// Test Return "::4"
 				// Removes everything except digits and colons, e.g., for colon-separated ID numbers. No negatives or decimals
@@ -124,7 +125,7 @@ class TikiFilter
 			case 'alpha':
 				// Test Return "ghΔδコンonclickbscript"
 				// Removes all but alphabetic characters. Unicode support.
-				return new TikiFilter_Alpha;
+				return new TikiFilter_Alpha();
 			case 'alphaspace':
 				// Test Return " ghΔ δコン onclickbscript "
 				// Removes all but alphabetic characters and spaces
@@ -142,7 +143,7 @@ class TikiFilter
 			case 'alnum':
 				// Test Return "g4hΔδコンonclickbscript"
 				// Only alphabetic characters and digits. All other characters are suppressed. Unicode support.
-				return new TikiFilter_Alnum;
+				return new TikiFilter_Alnum();
 			case 'alnumdash':
 				// Test Return "g4hΔδ_コンonclickbscript"
 				// Removes everything except alphabetic characters, digits, dashes and underscores. Could be used for
@@ -166,7 +167,7 @@ class TikiFilter
 			case 'striptags':
 				// Test Return " :/g.,:|4h&#Δ δ_🍘コン onclick "
 				// Strips XML and HTML tags
-				return new StripTags;
+				return new StripTags();
 
 			/** HTML Permitted, String Return Type **/
 			case 'purifier':
@@ -177,26 +178,26 @@ class TikiFilter
 			case 'xss':
 				// Test Return " :/g.,:|4h&#Δ δ_🍘コン on<x>click<b><sc<x>ript> "
 				// Leave everything except for potentially malicious HTML
-				return new TikiFilter_PreventXss;
+				return new TikiFilter_PreventXss();
 
 			/** Potentially unsafe filters (XSS permitted) **/
 			case 'wikicontent':
 				// Test Return " :/g.,:|4h&#Δ δ_🍘コン on<x>click<b><sc<x>ript> "
 				// Will not filter anything inside a wiki plugin, so "{DIV()}<script>{DIV}" will return identically.
 				// When not inside a wiki plugin will apply XSS filtering.
-				return new TikiFilter_WikiContent;
+				return new TikiFilter_WikiContent();
 			case 'none':
 				// Test Return " :/g.,:|4h&#Δ δ_🍘コン onclick<b><script> "
 				// Dummy filter to keep value unchanged
-				return new TikiFilter_None;
+				return new TikiFilter_None();
 			case 'rawhtml_unsafe':
 				// Test Return " :/g.,:|4h&#Δ δ_🍘コン onclick<b><script> "
 				// Exotic filter which will remove the '<x>', for values previously "neutered" by the PreventXss filter
-				return new TikiFilter_RawUnsafe;
+				return new TikiFilter_RawUnsafe();
 
 			default:
 				trigger_error('Filter not found: ' . $filter, E_USER_WARNING);
-				return new TikiFilter_PreventXss;
+				return new TikiFilter_PreventXss();
 		}
 	}
 }

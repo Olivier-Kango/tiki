@@ -1,4 +1,5 @@
 <?php
+
 /*
 Check the file gallery directory for consistancy.
 This implies

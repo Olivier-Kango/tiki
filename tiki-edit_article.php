@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -209,7 +211,8 @@ if (! empty($_REQUEST['translationOf'])) {
 }
 
 // Now check permissions to access this page
-if ($tiki_p_admin_cms != 'y'
+if (
+    $tiki_p_admin_cms != 'y'
 			&& ! $tikilib->user_has_perm_on_object($user, $articleId, 'article', 'tiki_p_edit_article')
 			&& ($article_data['author'] != $user
 			|| empty($user)
@@ -622,7 +625,8 @@ if (isset($_REQUEST['save']) && empty($errors)) {
 		$_REQUEST['type'] = '';
 	}
 
-	if ($prefs['feature_multilingual'] == 'y'
+	if (
+        $prefs['feature_multilingual'] == 'y'
 				&& isset($article_data)
 				&& isset($_REQUEST['lang'])
 				&& $article_data['lang'] != $_REQUEST['lang']

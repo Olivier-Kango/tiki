@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -15,9 +16,9 @@ class Perms_CheckSequenceTest extends TikiTestCase
 	private $mockA;
 	private $mockB;
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
-		$perms = new Perms;
+		$perms = new Perms();
 		$perms->setResolverFactories(
 			[
 				new Perms_ResolverFactory_StaticFactory(
@@ -32,7 +33,7 @@ class Perms_CheckSequenceTest extends TikiTestCase
 		$perms->setGroups(['Admins']);
 		$perms->setCheckSequence(
 			[
-				new Perms_Check_Direct,
+				new Perms_Check_Direct(),
 				$this->mockA = $this->createMock('Perms_Check'),
 				$this->mockB = $this->createMock('Perms_Check'),
 			]

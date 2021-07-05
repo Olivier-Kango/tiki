@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -51,7 +52,7 @@ class Pop3 implements SourceInterface
 
 		foreach ($pop as $i => $source) {
 			/* @var $source \Laminas\Mail\Storage\Message */
-			$message = new Message($i, function () use ($i, & $toDelete) {
+			$message = new Message($i, function () use ($i, &$toDelete) {
 				$toDelete[] = $i;
 			});
 			$from = $source->from ?: $source->{'return-path'};
@@ -65,9 +66,9 @@ class Pop3 implements SourceInterface
 			$message->setBody($this->getBody($source, 'text/plain'));
 			$content = '';
 			foreach ($source->getHeaders() as $header) {
-				$content .= $header->toString()."\r\n";
+				$content .= $header->toString() . "\r\n";
 			}
-			$content .= "\r\n".$source->getContent();
+			$content .= "\r\n" . $source->getContent();
 			$message->setContent($content);
 
 			$this->handleAttachments($message, $source);

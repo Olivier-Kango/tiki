@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -82,7 +84,7 @@ function filter_out_sefurl($tpl_output, $type = null, $title = '', $with_next = 
 		if ($prefs['feature_sefurl_title_blog'] == 'y') {
 			$bloglib = TikiLib::lib('blog');
 
-			if (preg_match('/postId=([0-9]+)/', $tpl_output, $matches)|| preg_match('/blogpost([0-9]+)/', $tpl_output, $matches)) {
+			if (preg_match('/postId=([0-9]+)/', $tpl_output, $matches) || preg_match('/blogpost([0-9]+)/', $tpl_output, $matches)) {
 				if (empty($title)) {
 					if ($post_info = $bloglib->get_post($matches[1])) {
 						$title = $post_info['title'];
@@ -104,8 +106,10 @@ function filter_out_sefurl($tpl_output, $type = null, $title = '', $with_next = 
 				$title = $trklib->get_title_sefurl($matches[1]);
 			}
 
-			if ($prefs['feature_sefurl_tracker_prefixalias'] == 'y' && $prefs['tracker_prefixalias_on_links'] == 'y' &&
-					$pagealias = $trklib->get_trackeritem_pagealias($matches[1])) {
+			if (
+                $prefs['feature_sefurl_tracker_prefixalias'] == 'y' && $prefs['tracker_prefixalias_on_links'] == 'y' &&
+					$pagealias = $trklib->get_trackeritem_pagealias($matches[1])
+            ) {
 				$title = '';
 				$tpl_output = "./tiki-index.php?page=" . $pagealias;
 			}
@@ -144,8 +148,10 @@ function filter_out_sefurl($tpl_output, $type = null, $title = '', $with_next = 
 		}
 	}
 	foreach ($sefurl_regex_out as $regex) {
-		if ((empty($type) || $type == $regex['type']) &&
-			preg_match('/tiki-index\.php\?page=[^&]*%2F/', $tpl_output) === 0) {	// slash (%2F here) in sefurl page name causes error 404
+		if (
+            (empty($type) || $type == $regex['type']) &&
+			preg_match('/tiki-index\.php\?page=[^&]*%2F/', $tpl_output) === 0
+        ) {	// slash (%2F here) in sefurl page name causes error 404
 			// if a question mark in pattern, deal with possible additional terms
 			// The '?&' isn't pretty but seems to work.
 			//if ( strpos($regex['left'],'?') !== FALSE ) {

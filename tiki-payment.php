@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -70,13 +72,14 @@ $auto_query_args = [
 	'offset_canceled',
 ];
 
-if (isset($_POST['tiki_credit_pay'])
+if (
+    isset($_POST['tiki_credit_pay'])
 	&& isset($_POST['tiki_credit_amount'])
 	&& isset($_POST['tiki_credit_type'])
 	&& isset($_POST['invoice'])
 ) {
 	require_once 'lib/payment/creditspaylib.php';
-	$userpaycredits = new UserPayCredits;
+	$userpaycredits = new UserPayCredits();
 	$userpaycredits->payAmount($_POST['tiki_credit_type'], $_POST['tiki_credit_amount'], $_POST['invoice']);
 }
 
@@ -94,7 +97,8 @@ if (isset($_GET['tx'])) {
 				$amount = $paypallib->get_amount($paypal_data);
 				$paymentlib->enter_payment($invoice, $amount, 'paypal', $paypal_data);
 			}
-			if (isset($info)
+			if (
+                isset($info)
 				&& $paypallib->is_valid_for_payment($paypal_data, $info, false)
 				&& isset($prefs['payment_paypal_pdt_redirect'])
 				&& $prefs['payment_paypal_pdt_redirect']
@@ -265,7 +269,8 @@ function fetch_payment_list($type)
 	$sort = ! empty($_REQUEST['sort_mode']) ? $_REQUEST['sort_mode'] : null;
 
 	$forUser = '';
-	if (! $globalperms->payment_admin
+	if (
+        ! $globalperms->payment_admin
 		&& (
 			($type == 'outstanding' || $type == 'overdue')
 			&& $prefs['payment_user_only_his_own'] == 'y'

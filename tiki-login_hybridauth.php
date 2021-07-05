@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -28,13 +29,12 @@ use Hybridauth\Storage\Session;
 
 $providerName = '';
 $adapter = null;
-$tikihybridi = null; 
+$tikihybridi = null;
 Util::logclear();
 
 
 
 try {
-
     $storage = new Session();
     $error = false;
 
@@ -42,10 +42,9 @@ try {
     // Event 1: User clicked SIGN-IN link
     //
 	//if (isset($_REQUEST['provider'])) //TODO some say it is not safe?
-	if (isset($_GET['provider']))
-	{
+	if (isset($_GET['provider'])) {
 		$provider = $_GET['provider'];
-        //TODO Validate here provider exists in the $prefs?		
+        //TODO Validate here provider exists in the $prefs?
 		$storage->set('provider', $provider);
 		$tikihybridi = new TikiHybrid($provider);
 
@@ -58,9 +57,8 @@ try {
 	//
     // Event 2: Provider returns via CALLBACK
     //
-    if ($provider = $storage->get('provider'))
-	{
-		LLOG('Provider returns via CALLBACK storage provider:', $provider );
+    if ($provider = $storage->get('provider')) {
+		LLOG('Provider returns via CALLBACK storage provider:', $provider);
 		$tikihybridi->adapter->authenticate();
 
   		$storage->set('provider', null);
@@ -68,17 +66,14 @@ try {
 		$tikihybridi->login();
 		$tikihybridi->adapter->disconnect();
 		$tikihybridi = null;
-
     }
 
 
   LLOG('aris002 COMMON END  /////////////////////////');
-
-
 } catch (Throwable $e) {
     error_log($e->getMessage());
     echo $e->getMessage();
-    Feedback::error('TikiHybrid provider error: '. $e->getMessage());
+    Feedback::error('TikiHybrid provider error: ' . $e->getMessage());
 }
 
 /*

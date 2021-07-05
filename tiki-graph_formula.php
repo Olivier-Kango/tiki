@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -78,7 +80,8 @@ function convert_formula($formula)
 
 $access->check_permission('feature_sheet');
 
-if (! ( is_numeric($_GET['w'])
+if (
+    ! ( is_numeric($_GET['w'])
 	&& is_numeric($_GET['h'])
 	&& is_numeric($_GET['s'])
 	&& $_GET['s'] <= 500 && $_GET['s'] > 0
@@ -103,7 +106,7 @@ switch ($_GET['t']) {
 		die;
 }
 
-$graph = new MultilineGraphic;
+$graph = new MultilineGraphic();
 $graph->setTitle($_GET['title']);
 
 $size = ($_GET['max'] - $_GET['min']) / $_GET['s'];

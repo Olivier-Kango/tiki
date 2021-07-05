@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -192,11 +194,18 @@ if ($editable === 'y') {
 
 	// Get all wiki pages for the dropdown menu
 	$listpages = $tikilib->list_pages(
-		$offset, $prefs['maxRecords'], 'pageName_asc', $find_objects, '', false, true,
-		false, false, $filter
+		$offset,
+        $prefs['maxRecords'],
+        'pageName_asc',
+        $find_objects,
+        '',
+        false,
+        true,
+		false,
+        false,
+        $filter
 	);
 	$smarty->assign_by_ref('listpages', $listpages);
-
 } // end of security hardening
 
 $page_info = $structlib->s_get_page_info($_REQUEST["page_ref_id"]);

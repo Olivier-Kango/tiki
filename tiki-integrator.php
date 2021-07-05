@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -28,9 +30,11 @@ $rep = $integrator->get_repository($repID);
 
 // Check if given file present at configured location
 $file = $integrator->get_rep_file($rep, isset($_REQUEST["file"]) ? $_REQUEST["file"] : '');
-if ((substr($file, 0, 7) != 'http://')
- && (substr($file, 0, 8) != 'https://')
- && ! file_exists($file)) {
+if (
+    (substr($file, 0, 7) != 'http://')
+    && (substr($file, 0, 8) != 'https://')
+    && ! file_exists($file)
+) {
 	if ($tiki_p_admin == 'y') {
 		$smarty->assign('msg', tra("File not found ") . $file);
 	} else {

@@ -5,7 +5,7 @@ function smarty_modifier_forumname($commentid, $retrun_forumid = 'n')
 	global $tikilib;
 	$cachelib = TikiLib::lib('cache');
 	require_once 'lib/comments/commentslib.php';
-	$comments = new Comments;
+	$comments = new Comments();
 
 	if ($retrun_forumid == 'y') {
 		$cacheItem = "retrun_forumid" . $commentid;

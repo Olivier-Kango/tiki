@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -89,7 +90,7 @@ function smarty_block_self_link($params, $content, $smarty, &$repeat = false)
 			}
 
 			$dataAttributes = '';
-			if (!empty($params['data'])) {
+			if (! empty($params['data'])) {
 				parse_str($params['data'], $attrs);
 
 				foreach ($attrs as $attr => $value) {
@@ -141,8 +142,10 @@ function smarty_block_self_link($params, $content, $smarty, &$repeat = false)
 			}
 
 			if (isset($params['_icon']) || isset($params['_icon_name'])) {
-				if (! isset($params['_title']) && $content != '' && (! isset($params['_rel']) ||
-						strpos($params['_rel'], 'box') === false)) {
+				if (
+                    ! isset($params['_title']) && $content != '' && (! isset($params['_rel']) ||
+						strpos($params['_rel'], 'box') === false)
+                ) {
 					$params['_title'] = $content;
 				}
 				$smarty->loadPlugin('smarty_function_icon');

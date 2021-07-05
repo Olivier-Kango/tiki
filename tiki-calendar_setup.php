@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -14,8 +16,8 @@
  * @var int $trunc
  * @var \Smarty_Tiki    $smarty
  * @var \TikiLib    $tikilib
- * 
- * 
+ *
+ *
  */
 
 if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) != false) {
@@ -63,9 +65,11 @@ $focusDay = TikiLib::date_format("%d", $focusdate);
 $focusMonth = TikiLib::date_format("%m", $focusdate);
 $focusYear = TikiLib::date_format("%Y", $focusdate);
 // Validate input
-if ((int)$focusDay <= 0 || ! is_numeric($focusDay) ||
+if (
+    (int)$focusDay <= 0 || ! is_numeric($focusDay) ||
 	(int)$focusMonth <= 0 || ! is_numeric($focusDay) ||
-	(int)$focusYear <= 0 || ! is_numeric($focusDay)) {
+	(int)$focusYear <= 0 || ! is_numeric($focusDay)
+) {
 	$_SESSION['CalendarFocusDate'] = $tikilib->now;
 	$smarty->assign('msg', tra('Invalid date format'));
 	$smarty->display('error.tpl');
@@ -204,7 +208,8 @@ $smarty->assign('viewyear', $focus_year);
 // calculate timespan for sql query
 if ($viewlist == 'list' && $prefs['calendar_list_begins_focus'] == 'y') {
 	$daystart = $focusdate;
-} elseif ($calendarViewMode['casedefault'] == 'month'
+} elseif (
+    $calendarViewMode['casedefault'] == 'month'
 		|| $calendarViewMode['casedefault'] == 'quarter'
 		|| $calendarViewMode['casedefault'] == 'semester'
 ) {
@@ -218,10 +223,12 @@ if ($viewlist == 'list' && $prefs['calendar_list_begins_focus'] == 'y') {
 // viewstart is the beginning of the display, daystart is the beginning of the selected period
 $viewstart = $daystart;
 
-if ($calendarViewMode['casedefault'] == 'month' ||
+if (
+    $calendarViewMode['casedefault'] == 'month' ||
 		$calendarViewMode['casedefault'] == 'quarter' ||
 		$calendarViewMode['casedefault'] == 'semester' ||
-		$calendarViewMode['casedefault'] == 'year' ) {
+		$calendarViewMode['casedefault'] == 'year'
+) {
 	$TmpWeekday = TikiLib::date_format("%w", $viewstart);
 
 	// prepare for select first day of week (Hausi)

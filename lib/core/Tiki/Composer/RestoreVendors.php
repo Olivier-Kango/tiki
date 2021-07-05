@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -24,7 +25,7 @@ class RestoreVendors
 		$repoManager = $composer->getRepositoryManager()->getLocalRepository();
 		$package = $repoManager->findPackages('plotly/plotly.js');
 
-		if (!file_exists($vendors . 'plotly/plotly.js/dist/plotly-basic.min.js') && !empty($package[0])) {
+		if (! file_exists($vendors . 'plotly/plotly.js/dist/plotly-basic.min.js') && ! empty($package[0])) {
 			$repoManager->removePackage($package[0]);
 		}
 	}

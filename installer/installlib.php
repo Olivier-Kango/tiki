@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -369,12 +370,12 @@ function list_disable_accounts()
  */
 function initTikiDB(&$api, &$driver, $host, $user, $pass, $dbname, $client_charset, &$dbTiki)
 {
-	$initializer = new TikiDb_Initializer;
+	$initializer = new TikiDb_Initializer();
 	$initializer->setPreferredConnector($driver);
 	$initializer->setInitializeCallback(
 		function ($db) {
 			$db->setServerType('pdo');
-			$db->setErrorHandler(new InstallerDatabaseErrorHandler);
+			$db->setErrorHandler(new InstallerDatabaseErrorHandler());
 		}
 	);
 

@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -44,7 +46,7 @@ $smarty->assign('page_mode', 'form');
 $smarty->assign('sheetId', $_REQUEST['sheetId']);
 
 // Process the insertion or modification of a gallery here
-$grid = new TikiSheet;
+$grid = new TikiSheet();
 
 $history = $sheetlib->sheet_history($_REQUEST['sheetId']);
 $smarty->assign_by_ref('history', $history);
@@ -80,7 +82,7 @@ if (isset($_REQUEST['encoding'])) {
 	$handlers = TikiSheet::getHandlerList();
 
 	foreach ($handlers as $key => $handler) {
-		$temp = new $handler;
+		$temp = new $handler();
 		if (! $temp->supports(TIKISHEET_SAVE_DATA | TIKISHEET_SAVE_CALC)) {
 			continue;
 		}

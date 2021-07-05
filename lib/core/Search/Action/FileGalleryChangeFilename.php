@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -139,7 +140,7 @@ class Search_Action_FileGalleryChangeFilename implements Search_Action_Action
 
 		if (! $in_place && ($prefs['fgal_keep_fileId'] != 'y')) {
 			// new IDs are generated to for the last version we updated
-			$utilities = new Services_Tracker_Utilities;
+			$utilities = new Services_Tracker_Utilities();
 			$utilities->updateItem(
 				$definition,
 				[
@@ -183,7 +184,7 @@ class Search_Action_FileGalleryChangeFilename implements Search_Action_Action
 		$values = [];
 		foreach ($this->replaceKeys as $search => $dataKey) {
 			list($data, $key) = explode('.', $dataKey);
-			$values[$search] = (isset($dataValues[$data])&&isset($dataValues[$data][$key])) ? $dataValues[$data][$key] : '';
+			$values[$search] = (isset($dataValues[$data]) && isset($dataValues[$data][$key])) ? $dataValues[$data][$key] : '';
 		}
 
 		return str_replace(array_keys($values), array_values($values), $template);

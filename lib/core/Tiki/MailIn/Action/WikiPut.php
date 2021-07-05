@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -108,7 +109,7 @@ class WikiPut implements ActionInterface
 			}
 		}
 
-		$body = $message->getHtmlBody( false);
+		$body = $message->getHtmlBody(false);
 
 		if ($this->canAttach($account, $message) && $account->hasInlineAttach() && $body) {
 			$body = $this->handleInlineImages($page, $body, $message);

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -27,11 +28,11 @@ class XMLHelper
 	{
 		$node = $root->addChild($child->getName(), (string) $child);
 
-		foreach($child->attributes() as $attr => $value) {
+		foreach ($child->attributes() as $attr => $value) {
 			$node->addAttribute($attr, $value);
 		}
 
-		foreach($child->children() as $ch) {
+		foreach ($child->children() as $ch) {
 			self::appendElement($node, $ch);
 		}
 	}

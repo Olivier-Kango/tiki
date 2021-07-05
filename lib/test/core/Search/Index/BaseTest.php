@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -62,9 +63,9 @@ abstract class Search_Index_BaseTest extends PHPUnit\Framework\TestCase
 
 	public function testFieldSpecificSearch()
 	{
-		$off = new Search_Query;
+		$off = new Search_Query();
 		$off->filterContent('description', 'title');
-		$found = new Search_Query;
+		$found = new Search_Query();
 		$found->filterContent('description', 'description');
 
 		$this->assertGreaterThan(0, count($found->search($this->index)));
@@ -215,7 +216,7 @@ abstract class Search_Index_BaseTest extends PHPUnit\Framework\TestCase
 		$arguments = func_get_args();
 		$arguments = array_slice($arguments, 2);
 
-		$query = new Search_Query;
+		$query = new Search_Query();
 		// add something positive  to search as Lucene negative only search returns no results
 		if ($filterMethod === 'filterNotInitial') {
 			$query->filterContent('description');

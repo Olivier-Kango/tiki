@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -30,9 +31,10 @@ class CCLiteLib extends TikiDb_Bridge
 		$this->currencies = unserialize($prefs['payment_cclite_currencies']);
 		$this->merchant_user = $prefs['payment_cclite_merchant_user'];
 
-		if (($prefs['payment_cclite_mode'] == 'test' && $_SERVER['SERVER_ADDR'] != '127.0.0.1' && $_SERVER['SERVER_ADDR'] != '::1') ||
+		if (
+            ($prefs['payment_cclite_mode'] == 'test' && $_SERVER['SERVER_ADDR'] != '127.0.0.1' && $_SERVER['SERVER_ADDR'] != '::1') ||
 					empty($prefs['payment_cclite_test_ip'])
-				) {
+        ) {
 			$ip = $_SERVER['SERVER_ADDR'];
 		} else {
 			// debug SERVER_ADDR for local testing on NAT'ed server

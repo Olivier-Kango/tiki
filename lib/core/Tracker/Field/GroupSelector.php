@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -360,7 +361,8 @@ class Tracker_Field_GroupSelector extends Tracker_Field_Abstract implements Trac
 			->addQuerySource('usergroup_name', 'title')
 			->setRenderTransform(function ($value, $extra) use ($sourceUserGroups, $invertGroupName, $invertGroupId) {
 				$extraUsergroupName = isset($extra['usergroup_name']) ? $extra['usergroup_name'] : '';
-				if (! empty($value)
+				if (
+                    ! empty($value)
 					&&  isset($invertGroupName[$value])
 					&& is_numeric($extraUsergroupName)
 				) {

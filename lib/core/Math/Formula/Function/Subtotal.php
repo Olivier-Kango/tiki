@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -70,7 +71,7 @@ class Math_Formula_Function_Subtotal extends Math_Formula_Function
 					}
 				}
 				foreach ($aggregate as $position => $field) {
-					if (is_string($field) && !isset($values[$field])) {
+					if (is_string($field) && ! isset($values[$field])) {
 						$value = 0;
 					} else {
 						$value = $this->evaluateChild($field, $values);
@@ -86,10 +87,12 @@ class Math_Formula_Function_Subtotal extends Math_Formula_Function
 				$simple = false;
 				if (is_string($formula[$position])) {
 					$function = str_replace(' ', '', ucwords(str_replace('-', ' ', $formula[$position] ?? 'add')));
-					$class = 'Math_Formula_Function_'.$function;
+					$class = 'Math_Formula_Function_' . $function;
 					if (class_exists($class)) {
-						$op = new $class;
-						$out[$group_value][$position] = $op->evaluateTemplate($rows[$position], function($child) { return $child; });
+						$op = new $class();
+						$out[$group_value][$position] = $op->evaluateTemplate($rows[$position], function ($child) {
+ return $child;
+                        });
 						$simple = true;
 					}
 				}
@@ -111,7 +114,7 @@ class Math_Formula_Function_Subtotal extends Math_Formula_Function
 			}
 		}
 
-		return implode($separators[1], array_map(function($row) use ($separators) {
+		return implode($separators[1], array_map(function ($row) use ($separators) {
 			return implode($separators[0], $row);
 		}, $out));
 	}

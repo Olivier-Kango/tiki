@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -100,20 +101,23 @@ class CleanVendorAfterVendorBundledMigration
 
 			$md5checksum = md5($packagesString);
 
-			if (! in_array(
-				$md5checksum,
-				[
+			if (
+                ! in_array(
+                    $md5checksum,
+                    [
 					self::PRE_MIGRATION_OLD_VENDOR_FOLDER_MD5_HASH,
 					self::VENDOR_FOLDER_MD5_HASH_16_X,
 					self::VENDOR_FOLDER_MD5_HASH_15_X,
 					self::VENDOR_FOLDER_MD5_HASH_14_X,
 					self::VENDOR_FOLDER_MD5_HASH_13_X,
 					self::VENDOR_FOLDER_MD5_HASH_12_X,
-				]
-			)) {
+                    ]
+                )
+            ) {
 				// * 2.1) Even if the hash do not match, check if 3 of the tiki bundled packages are installed, if that is the
 				//        case warn the user as it might be a problem and disable autoload
-				if ((file_exists($oldVendorFolder . '/zendframework/zend-config/src/Config.php') //ZF2
+				if (
+                    (file_exists($oldVendorFolder . '/zendframework/zend-config/src/Config.php') //ZF2
 						|| file_exists($oldVendorFolder . '/bombayworks/zendframework1/library/Zend/Config.php')) //ZF1
 					&& (file_exists($oldVendorFolder . '/smarty/smarty/libs/Smarty.class.php') //Smarty
 						|| file_exists($oldVendorFolder . '/smarty/smarty/distribution/libs/Smarty.class.php')) //Smarty
@@ -194,7 +198,8 @@ EOD;
 			if (is_link($filePath)) {
 				$linkDestination = readlink($filePath);
 				$fileRealPath = realpath($filePath);
-				if (strncmp($linkDestination, '../vendor/', strlen('../vendor/')) === 0 // relative link to vendor folder
+				if (
+                    strncmp($linkDestination, '../vendor/', strlen('../vendor/')) === 0 // relative link to vendor folder
 					|| $filePath === false // target don't exists, so link is broken
 					|| strncmp(
 						$fileRealPath,

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -39,7 +40,7 @@ class Perms_ResolverFactory_CategoryFactoryTest extends PHPUnit\Framework\TestCa
 		}
 	}
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		$this->backupTable('users_objectpermissions');
 		$this->backupTable('tiki_objects');
@@ -47,7 +48,7 @@ class Perms_ResolverFactory_CategoryFactoryTest extends PHPUnit\Framework\TestCa
 		$this->backupTable('tiki_tracker_items');
 	}
 
-	protected function tearDown() : void
+	protected function tearDown(): void
 	{
 		$this->restoreTable('users_objectpermissions');
 		$this->restoreTable('tiki_objects');
@@ -79,7 +80,7 @@ class Perms_ResolverFactory_CategoryFactoryTest extends PHPUnit\Framework\TestCa
 
 		$db->query($itemQuery, [12, 1]);
 
-		$factory = new Perms_ResolverFactory_CategoryFactory;
+		$factory = new Perms_ResolverFactory_CategoryFactory();
 
 		$this->assertEquals('category:1:3:4', $factory->getHash(['type' => 'wiki page', 'object' => 'HomePage']));
 		$this->assertEquals('category:2:3', $factory->getHash(['type' => 'wiki page', 'object' => 'Contact']));
@@ -107,7 +108,7 @@ class Perms_ResolverFactory_CategoryFactoryTest extends PHPUnit\Framework\TestCa
 		$db->query($categQuery, [2, 2]);
 		$db->query($categQuery, [3, 2]);
 
-		$factory = new Perms_ResolverFactory_CategoryFactory;
+		$factory = new Perms_ResolverFactory_CategoryFactory();
 		$this->assertEquals('', $factory->getHash(['object' => 'HomePage']));
 	}
 
@@ -128,7 +129,7 @@ class Perms_ResolverFactory_CategoryFactoryTest extends PHPUnit\Framework\TestCa
 		$db->query($categQuery, [2, 2]);
 		$db->query($categQuery, [3, 2]);
 
-		$factory = new Perms_ResolverFactory_CategoryFactory;
+		$factory = new Perms_ResolverFactory_CategoryFactory();
 		$this->assertEquals('', $factory->getHash(['type' => 'wiki page']));
 	}
 
@@ -156,7 +157,7 @@ class Perms_ResolverFactory_CategoryFactoryTest extends PHPUnit\Framework\TestCa
 		$db->query($permQuery, ['Anonymous', 'tiki_p_admin', 4]);
 		$db->query($permQuery, ['Hello', 'tiki_p_view', 2]);
 
-		$factory = new Perms_ResolverFactory_CategoryFactory;
+		$factory = new Perms_ResolverFactory_CategoryFactory();
 
 		$expect = new Perms_Resolver_Static(
 			[
@@ -201,7 +202,7 @@ class Perms_ResolverFactory_CategoryFactoryTest extends PHPUnit\Framework\TestCa
 		$db->query($permQuery, ['Anonymous', 'tiki_p_tracker_admin', 4]);
 		$db->query($permQuery, ['Hello', 'tiki_p_tracker_view', 2]);
 
-		$factory = new Perms_ResolverFactory_CategoryFactory;
+		$factory = new Perms_ResolverFactory_CategoryFactory();
 
 		$expect = new Perms_Resolver_Static(
 			[
@@ -245,7 +246,7 @@ class Perms_ResolverFactory_CategoryFactoryTest extends PHPUnit\Framework\TestCa
 		$db->query($permQuery, ['Anonymous', 'tiki_p_admin', 4]);
 		$db->query($permQuery, ['Hello', 'tiki_p_view', 2]);
 
-		$factory = new Perms_ResolverFactory_CategoryFactory;
+		$factory = new Perms_ResolverFactory_CategoryFactory();
 
 		$this->assertNull($factory->getResolver(['type' => 'wiki page', 'object' => 'HomePage']));
 	}
@@ -271,14 +272,14 @@ class Perms_ResolverFactory_CategoryFactoryTest extends PHPUnit\Framework\TestCa
 		$db->query($permQuery, ['Registered', 'tiki_p_edit', 1]);
 		$db->query($permQuery, ['Anonymous', 'tiki_p_admin', 4]);
 
-		$factory = new Perms_ResolverFactory_CategoryFactory;
+		$factory = new Perms_ResolverFactory_CategoryFactory();
 
 		$this->assertNull($factory->getResolver(['type' => 'wiki page', 'object' => 'Contact']));
 	}
 
 	public function testObtainResolverIncompleteContext()
 	{
-		$factory = new Perms_ResolverFactory_CategoryFactory;
+		$factory = new Perms_ResolverFactory_CategoryFactory();
 
 		$this->assertNull($factory->getResolver(['type' => 'wiki page']));
 		$this->assertNull($factory->getResolver(['object' => 'HomePage']));
@@ -308,7 +309,7 @@ class Perms_ResolverFactory_CategoryFactoryTest extends PHPUnit\Framework\TestCa
 		$db->query($permQuery, ['Anonymous', 'tiki_p_admin', 4]);
 		$db->query($permQuery, ['Hello', 'tiki_p_view', 2]);
 
-		$factory = new Perms_ResolverFactory_CategoryFactory;
+		$factory = new Perms_ResolverFactory_CategoryFactory();
 		$out = $factory->bulk(['type' => 'wiki page'], 'object', ['HomePage', 'UserPageFoobar', 'Hello World']);
 
 		$this->assertEquals(['UserPageFoobar'], $out);
@@ -316,7 +317,7 @@ class Perms_ResolverFactory_CategoryFactoryTest extends PHPUnit\Framework\TestCa
 
 	public function testBulkLoadingWithoutObject()
 	{
-		$factory = new Perms_ResolverFactory_CategoryFactory;
+		$factory = new Perms_ResolverFactory_CategoryFactory();
 		$out = $factory->bulk(['type' => 'wiki page'], 'objectId', ['HomePage', 'UserPageFoobar', 'HelloWorld']);
 
 		$this->assertEquals(['HomePage', 'UserPageFoobar', 'HelloWorld'], $out);
@@ -324,7 +325,7 @@ class Perms_ResolverFactory_CategoryFactoryTest extends PHPUnit\Framework\TestCa
 
 	public function testBulkLoadingWithoutType()
 	{
-		$factory = new Perms_ResolverFactory_CategoryFactory;
+		$factory = new Perms_ResolverFactory_CategoryFactory();
 		$out = $factory->bulk([], 'object', ['HomePage', 'UserPageFoobar', 'HelloWorld']);
 
 		$this->assertEquals(['HomePage', 'UserPageFoobar', 'HelloWorld'], $out);

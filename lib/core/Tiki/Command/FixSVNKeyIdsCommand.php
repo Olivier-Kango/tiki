@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -52,7 +53,7 @@ class FixSVNKeyIdsCommand extends Command
 			exit(1);
 		}
 
-		$xml = new DOMDocument;
+		$xml = new DOMDocument();
 		$raw = shell_exec('svn propget -R svn:keywords --xml  2>&1');
 		$output->writeln($raw, OutputInterface::VERBOSITY_DEBUG);
 		$xml->loadXML($raw);

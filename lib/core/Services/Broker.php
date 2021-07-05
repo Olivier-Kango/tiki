@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -109,7 +110,7 @@ class Services_Broker
 				}
 					if (method_exists($handler, 'setUp')) {
 					$handler->setUp();
-				}
+				    }
 
 				return $handler->$method($request);
 			} else {

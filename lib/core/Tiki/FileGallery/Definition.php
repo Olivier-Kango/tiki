@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -70,12 +71,12 @@ class Definition
 		if ($file->path) {
 			$handler = new Handler\FileSystem($prefs['fgal_use_dir']);
 		} else {
-			$handler = new Handler\Preloaded;
+			$handler = new Handler\Preloaded();
 		}
 
 		$data = $handler->getFileWrapper($file)->getContents();
 		$orig = $file->clone();
-		
+
 		if ($file->replaceContents($data)) {
 			if ($handler->getFileWrapper($file) != $file->getWrapper()) {
 				$handler->delete($orig);

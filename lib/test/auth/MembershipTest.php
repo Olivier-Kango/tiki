@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -12,7 +13,7 @@ class MembershipTest extends TikiTestCase
 
 	protected $userlib;
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		parent::setUp();
 		$cachelib = TikiLib::lib('cache');
@@ -41,7 +42,7 @@ class MembershipTest extends TikiTestCase
 		$this->userlib->assign_user_to_group('membershiptest_b', 'MembershipTest');
 	}
 
-	protected function tearDown() : void
+	protected function tearDown(): void
 	{
 		parent::tearDown();
 		$this->userlib->remove_user('membershiptest_a');

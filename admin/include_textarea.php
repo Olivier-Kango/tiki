@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -28,8 +29,10 @@ if ($prefs['unified_search_textarea_admin'] === 'n' || $prefs['javascript_enable
 	$smarty->assign('plugins', $plugins);
 }
 // TODO don't see where textareasetup is used anywhere
-if (isset($_REQUEST['textareasetup']) && (getCookie('admin_textarea', 'tabs') != '#contentadmin_textarea-3')
-	&& $access->checkCsrf()) {
+if (
+    isset($_REQUEST['textareasetup']) && (getCookie('admin_textarea', 'tabs') != '#contentadmin_textarea-3')
+	&& $access->checkCsrf()
+) {
 	// tab=3 is plugins alias tab (TODO improve)
 	foreach (glob('temp/cache/wikiplugin_*') as $file) {
 		unlink($file);
@@ -67,7 +70,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		WikiPlugin_Negotiator_Wiki_Alias::delete($_POST['alias_delete']);
 		$pluginsAlias = WikiPlugin_Negotiator_Wiki_Alias::getList();
 	}
-	if (! empty($_REQUEST['plugin_alias'] && $access->checkCsrf())
+	if (
+        ! empty($_REQUEST['plugin_alias'] && $access->checkCsrf())
 		&& ! in_array($_POST['plugin_alias'], $pluginsReal)
 		&& (getCookie('admin_textarea', 'tabs') == '#contentadmin_textarea-plugin_alias')
 	) {
@@ -174,7 +178,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	}
 }
 
-if (isset($_REQUEST['plugin_alias'])
+if (
+    isset($_REQUEST['plugin_alias'])
 	&& $pluginInfo = WikiPlugin_Negotiator_Wiki_Alias::info($_REQUEST['plugin_alias'])
 ) {
 	// Add an extra empty parameter to create new ones

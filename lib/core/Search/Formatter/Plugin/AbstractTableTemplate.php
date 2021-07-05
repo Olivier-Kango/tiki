@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -16,7 +17,7 @@ abstract class Search_Formatter_Plugin_AbstractTableTemplate implements Search_F
 
 	public function parseTemplate($template)
 	{
-		$parser = new WikiParser_PluginArgumentParser;
+		$parser = new WikiParser_PluginArgumentParser();
 
 		$matches = WikiParser_PluginMatcher::match($template);
 		foreach ($matches as $match) {

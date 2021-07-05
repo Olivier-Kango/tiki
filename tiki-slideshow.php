@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -31,7 +33,11 @@ $smarty->assign('is_slideshow', 'y');
 // Create the HomePage if it doesn't exist
 if (! $tikilib->page_exists($prefs['wikiHomePage'])) {
 	$tikilib->create_page(
-		$prefs['wikiHomePage'], 0, '', date("U"), 'Tiki initialization'
+		$prefs['wikiHomePage'],
+        0,
+        '',
+        date("U"),
+        'Tiki initialization'
 	);
 }
 
@@ -65,7 +71,8 @@ $tikilib->get_perm_object($page, 'wiki page', $info);
 if ($tiki_p_view != 'y') {
 	$smarty->assign('errortype', 401);
 	$smarty->assign(
-		'msg', tra("Permission denied. You cannot view this page.")
+		'msg',
+        tra("Permission denied. You cannot view this page.")
 	);
 
 	$smarty->display("error_raw.tpl");
@@ -137,7 +144,8 @@ if (isset($_REQUEST['pdf'])) {
 			$access = Tikilib::lib('access');
 			$access->redirect(
 				str_replace(
-					'tiki-slideshow.php?', 'tiki-index.php?',
+					'tiki-slideshow.php?',
+                    'tiki-index.php?',
 					$_SERVER['HTTP_REFERER']
 				)
 			);
@@ -156,7 +164,7 @@ if (isset($_REQUEST['pdf'])) {
 		if ($_REQUEST['printslides']) {
 			$customCSS
 				= "<style type='text/css'>img{max-height:300px;width:auto;} body{font-size:1em} h1{font-size:1.5em;text-transform:none !important;}  section{height:300px;border:1px solid #000;margin-bottom:1%;padding:1%;}</style> ";
-			$pdata = $customCSS .'<pdfsettings printFriendly="y" header="off" footer="off"></pdfsettings>' . $pdata;
+			$pdata = $customCSS . '<pdfsettings printFriendly="y" header="off" footer="off"></pdfsettings>' . $pdata;
 		} else {
 			//getting css
 			$customCSS .= file_get_contents(
@@ -170,13 +178,15 @@ if (isset($_REQUEST['pdf'])) {
 			$pdata = '<pdfsettings header="off" footer="off" margin_top="0" margin_bottom="0" margin_left="0" margin_right="0" printfriendly="n"></pdfsettings><div class="reveal" style="padding:2%">' . $pdata . '</div>';
 
 			$pdata = str_replace(
-				"</section><section", "</section><pagebreak /><section",
-				$pdata.'<style>' .str_replace(array(".reveal {","vertical-align: baseline;"),array(".reveal,.reveal table{ ","vertical-align:top;"),$customCSS) . ' div.reveal, .reveal li{font-size:1.3em;font-weight:normal;line-height:1.5;height:auto !important; } img{max-height:400px;}  .reveal h1 {font-size: 2.8em; text-transform:none !important;} .reveal li ul li {font-size: 0.95em !important;margin: 0em !important;}</style>'
-			).$pdfStyles;
+				"</section><section",
+                "</section><pagebreak /><section",
+				$pdata . '<style>' . str_replace(array(".reveal {","vertical-align: baseline;"), array(".reveal,.reveal table{ ","vertical-align:top;"), $customCSS) . ' div.reveal, .reveal li{font-size:1.3em;font-weight:normal;line-height:1.5;height:auto !important; } img{max-height:400px;}  .reveal h1 {font-size: 2.8em; text-transform:none !important;} .reveal li ul li {font-size: 0.95em !important;margin: 0em !important;}</style>'
+			) . $pdfStyles;
 		}
 
 		$pdf = $generator->getPdf(
-			$filename, $params,
+			$filename,
+            $params,
 			preg_replace('/%u([a-fA-F0-9]{4})/', '&#x\\1;', $pdata)
 		);
 		$length = strlen($pdf);
@@ -214,7 +224,8 @@ $headerlib->add_cssfile(
 	'vendor_bundled/vendor/npm-asset/reveal.js/css/theme/' . $theme . '.css'
 );
 $headerlib->add_css(
-	'.reveal span{font-family: "Font Awesome 5 Free";font-style: normal;font-weight:900} .reveal .controls{z-index:103;}#ss-settings-holder{position:fixed;top:10px;left:0px;width:10%;height:30px;text-align:left;padding-left:15px;cursor:pointer;z-index:102;line-height:1.5rem}#ss-options{position:fixed;top:50px;left:-2000px;width:230px;background-color:rgba(00,00,00,0.8);font-size:1.1rem;line-height:2.2rem;color:#fff;z-index:101;padding: 10px;border-top-right-radius: 25px;border-bottom-right-radius: 25px;} #ss-options a{color:#999} #ss-options a:hover{color:#fff} #page-bar,.icon_edit_section,.editplugin, #show-errors-button, .wikitext, .icon_edit_section, #toc,.heading-link {display:none} .fade:not(.show) { opacity: 1;}@media only screen and (max-width: 786px) {.reveal section div,.reveal span,.reveal p,.reveal blockquote,.reveal pre,.reveal ol,.reveal ul,.reveal article,.reveal section{font-size:500em !important}} @media all and (orientation: portrait){.reveal section div,.reveal span,.reveal p,.reveal blockquote,.reveal pre,.reveal ol,.reveal ul,.reveal article,.reveal section {font-size:135% !important} .reveal p {margin 10px 0 !important;}.reveal li, .reveal li ul li{font-size:130%; !important}} @media all and (orientation: landscape) and (max-width:1024px){.reveal section div,.reveal span,.reveal p,.reveal blockquote,.reveal pre,.reveal ol,.reveal ul,.reveal article,.reveal section{font-size:125% !important}} #reveal-controls span,#listSlides{cursor:pointer;color:#999;padding:0.15em} #reveal-controls span:hover,#listSlides:hover{color:#fff} footer{visibility:hidden}  @media (max-width: 1024px) and (orientation: portrait) {#ss-options {min-width:50% !important; font-size:2rem;line-height:4rem;top:8% !important} #reveal-controls span{font-size:150% !important} .p-2{width:100%;display:block;text-align:center} .form-control{font-size:45px !important; height:5rem !important}  #ss-settings-holder{padding-top:4% !important} #ss-settings-holder span{font-size:300% !important}} .scale-1{transform:scale(0.9);transform-origin:top center} .scale-2{transform:scale(0.8);transform-origin:top center} .scale-3{transform:scale(0.7);transform-origin:top center} .scale-4{transform:scale(0.6);transform-origin:top center} .scale-5{transform:scale(0.5);transform-origin:top center} .scale-6{transform:scale(0.45);transform-origin:top center}');
+    '.reveal span{font-family: "Font Awesome 5 Free";font-style: normal;font-weight:900} .reveal .controls{z-index:103;}#ss-settings-holder{position:fixed;top:10px;left:0px;width:10%;height:30px;text-align:left;padding-left:15px;cursor:pointer;z-index:102;line-height:1.5rem}#ss-options{position:fixed;top:50px;left:-2000px;width:230px;background-color:rgba(00,00,00,0.8);font-size:1.1rem;line-height:2.2rem;color:#fff;z-index:101;padding: 10px;border-top-right-radius: 25px;border-bottom-right-radius: 25px;} #ss-options a{color:#999} #ss-options a:hover{color:#fff} #page-bar,.icon_edit_section,.editplugin, #show-errors-button, .wikitext, .icon_edit_section, #toc,.heading-link {display:none} .fade:not(.show) { opacity: 1;}@media only screen and (max-width: 786px) {.reveal section div,.reveal span,.reveal p,.reveal blockquote,.reveal pre,.reveal ol,.reveal ul,.reveal article,.reveal section{font-size:500em !important}} @media all and (orientation: portrait){.reveal section div,.reveal span,.reveal p,.reveal blockquote,.reveal pre,.reveal ol,.reveal ul,.reveal article,.reveal section {font-size:135% !important} .reveal p {margin 10px 0 !important;}.reveal li, .reveal li ul li{font-size:130%; !important}} @media all and (orientation: landscape) and (max-width:1024px){.reveal section div,.reveal span,.reveal p,.reveal blockquote,.reveal pre,.reveal ol,.reveal ul,.reveal article,.reveal section{font-size:125% !important}} #reveal-controls span,#listSlides{cursor:pointer;color:#999;padding:0.15em} #reveal-controls span:hover,#listSlides:hover{color:#fff} footer{visibility:hidden}  @media (max-width: 1024px) and (orientation: portrait) {#ss-options {min-width:50% !important; font-size:2rem;line-height:4rem;top:8% !important} #reveal-controls span{font-size:150% !important} .p-2{width:100%;display:block;text-align:center} .form-control{font-size:45px !important; height:5rem !important}  #ss-settings-holder{padding-top:4% !important} #ss-settings-holder span{font-size:300% !important}} .scale-1{transform:scale(0.9);transform-origin:top center} .scale-2{transform:scale(0.8);transform-origin:top center} .scale-3{transform:scale(0.7);transform-origin:top center} .scale-4{transform:scale(0.6);transform-origin:top center} .scale-5{transform:scale(0.5);transform-origin:top center} .scale-6{transform:scale(0.45);transform-origin:top center}'
+);
 
 $headerlib->add_jq_onready(
 	'$("<link/>", {rel: "stylesheet",type: "text/css",href: "", id:"themeCSS"}).appendTo("head");
@@ -347,12 +358,13 @@ $headerlib->add_jq_onready(
 			 	});
 			 }
 		});
-		');
+		'
+);
 
 ask_ticket('index-raw');
 
 
-$themesArr=[['black','Black'],
+$themesArr = [['black','Black'],
 			['blood','Blood'],
 			['beige','Beige'],
 			['league','League'],
@@ -365,9 +377,9 @@ $themesArr=[['black','Black'],
 
 $themeOptions = '';
 
-foreach($themesArr as $themeOption){
-	$themeOption[0]==$theme?$selected='selected="selected"':$selected='';
-	$themeOptions.='<option value="'.$themeOption[0].'" '.$selected.'>'.tra($themeOption[1]).'</option>';
+foreach ($themesArr as $themeOption) {
+	$themeOption[0] == $theme ? $selected = 'selected="selected"' : $selected = '';
+	$themeOptions .= '<option value="' . $themeOption[0] . '" ' . $selected . '>' . tra($themeOption[1]) . '</option>';
 }
 
 // disallow robots to index page
@@ -436,15 +448,14 @@ function formatContent($content, $tagArr)
 
 	$headingsTags = preg_split('/<h[123]/', $content);
 	$firstSlide = 0;
-	if(isset($_REQUEST['pdf'])){
-		$headingStart='<div style="border-bottom:0px;" class="ss-heading">';
-		$slideStart='</div><div>';
-		$slideEnd="</div>";
-	}
-	else{
-		$headingStart='<table width="100%" cellpadding="0" cellspace="0"><tr><td colspan="2" style="border-bottom:0px;" class="ss-heading">';
-		$slideStart='</td></tr><tr><td>';
-		$slideEnd="</td></tr></table>";
+	if (isset($_REQUEST['pdf'])) {
+		$headingStart = '<div style="border-bottom:0px;" class="ss-heading">';
+		$slideStart = '</div><div>';
+		$slideEnd = "</div>";
+	} else {
+		$headingStart = '<table width="100%" cellpadding="0" cellspace="0"><tr><td colspan="2" style="border-bottom:0px;" class="ss-heading">';
+		$slideStart = '</td></tr><tr><td>';
+		$slideEnd = "</td></tr></table>";
 	}
 
 	$slideContent = '';
@@ -454,22 +465,24 @@ function formatContent($content, $tagArr)
 			//checking if first slide has pluginSlideShowSlide instance, then concat with main text, otherwise ignore
 			$sectionCheck = strpos($slide, '<sslide');
 			if ($sectionCheck == true) {
-				$slideContent .=str_replace("sslide","section",$slide);
+				$slideContent .= str_replace("sslide", "section", $slide);
 			}
 			$firstSlide = 1;
 		} else {
-			$slideContent .= '<section>'.$headingStart.'<h1' . str_replace(
-					array('</h1>','</h2>', '</h3>'), '</h1>'.$slideStart, $slide
-				) . $slideEnd.'</section>';
+			$slideContent .= '<section>' . $headingStart . '<h1' . str_replace(
+                array('</h1>','</h2>', '</h3>'),
+                '</h1>' . $slideStart,
+                $slide
+            ) . $slideEnd . '</section>';
 		}
-
 	}
 
 	//images alignment left or right
 	//replacment for slideshowslide
 
 	return html_entity_decode(str_replace(
-		array('<sslide', '<sheading','</sheading>'), array($slideEnd.'</section><section', $headingStart.'<h1','</sheading>'.$slideStart),
+		array('<sslide', '<sheading','</sheading>'),
+        array($slideEnd . '</section><section', $headingStart . '<h1','</sheading>' . $slideStart),
 		$slideContent
 	));
 }

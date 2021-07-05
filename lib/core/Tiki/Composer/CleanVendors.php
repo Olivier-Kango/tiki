@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -482,7 +483,7 @@ class CleanVendors
 		);
 
 		// remove entire packages
-		$fs = new FileSystem;
+		$fs = new FileSystem();
 
 		// and cwspear/bootstrap-hover-dropdown includes bootstrap without asking
 		$fs->remove($vendors . 'components/bootstrap');
@@ -512,9 +513,9 @@ class CleanVendors
 	private static function addIndexFiles(string $path): void
 	{
 		$dirs = glob($path . '{,.}*[!.]', GLOB_MARK | GLOB_BRACE | GLOB_ONLYDIR);
-		foreach ($dirs as $dir){
+		foreach ($dirs as $dir) {
 			$file = $dir . 'index.php';
-			if (!file_exists($file)) {
+			if (! file_exists($file)) {
 				file_put_contents($file, '');
 			}
 			self::addIndexFiles($dir);
@@ -528,12 +529,12 @@ class CleanVendors
 	 */
 	private static function removeStandard(string $base): void
 	{
-		$fs = new FileSystem;
+		$fs = new FileSystem();
 		$files = glob($base . '/{,.}*[!.]', GLOB_MARK | GLOB_BRACE);
 		foreach ($files as $file) {
-			if (in_array(strtolower(basename($file)), self::$standardFiles, true)){
+			if (in_array(strtolower(basename($file)), self::$standardFiles, true)) {
 				$fs->remove($file);
-			} elseif (is_dir($file)){
+			} elseif (is_dir($file)) {
 				self::removeStandard($file);
 			}
 		}
@@ -544,7 +545,7 @@ class CleanVendors
 	 * @param string		$base	The base directory(path) to use.
 	 * @param array|string	$files	File/Directory names (omitting the base directory)
 	 */
-	private static function remove(string $base, $files) : void
+	private static function remove(string $base, $files): void
 	{
 		$files = (array)$files;
 
@@ -554,9 +555,9 @@ class CleanVendors
 			foreach ($files as &$file) {
 				$file = str_replace('/', DIRECTORY_SEPARATOR, $file);
 			}
-			unset ($file); // we remove $file after passing by reference to avoid unexpected errors.
+			unset($file); // we remove $file after passing by reference to avoid unexpected errors.
 		}
-		$fs = new FileSystem;
+		$fs = new FileSystem();
 		if (is_dir($base)) {
 			foreach ($files as $file) {
 				$path = $base . DIRECTORY_SEPARATOR . $file;

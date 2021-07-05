@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -210,17 +212,26 @@ if (isset($_REQUEST["removeObject"]) && $access->checkCsrf(true)) {
 		require_once 'lib/search/refresh-functions.php';
 		refresh_index($categorizedObject['type'], $categorizedObject['itemId']);
 		$ucfirstType = ucfirst($categorizedObject['type']);
-		Feedback::success(tr('%0 %1 removed from category %2', $ucfirstType, $categorizedObject['name'],
-			$category['name']));
+		Feedback::success(tr(
+            '%0 %1 removed from category %2',
+            $ucfirstType,
+            $categorizedObject['name'],
+            $category['name']
+        ));
 	} else {
 		$ucfirstType = ucfirst($categorizedObject['type']);
-		Feedback::error(tr('%0 %1 not removed from category %2', $ucfirstType, $categorizedObject['name'],
-			$category['name']));
+		Feedback::error(tr(
+            '%0 %1 not removed from category %2',
+            $ucfirstType,
+            $categorizedObject['name'],
+            $category['name']
+        ));
 	}
 }
-if (isset($_REQUEST["removeCat"]) && $info = $categlib->get_category($_REQUEST['removeCat'])
-		&& $access->checkCsrf(true))
-{
+if (
+    isset($_REQUEST["removeCat"]) && $info = $categlib->get_category($_REQUEST['removeCat'])
+		&& $access->checkCsrf(true)
+) {
 	$access->check_permission('tiki_p_admin_categories', '', 'category', $_REQUEST['removeCat']);
 	$result = $categlib->remove_category($_REQUEST["removeCat"]);
 	if (! empty($result) && $result->numRows()) {
@@ -371,7 +382,7 @@ if (isset($info["tplGroupPattern"])) {
 if ($_REQUEST["parentId"]) {
 	$p_info = $categlib->get_category($_REQUEST["parentId"]);
 	$father = $p_info["parentId"];
-	if (!$p_info){
+	if (! $p_info) {
 		Feedback::error(tr('Invalid category'));
 	}
 	$smarty->assign('categ_name', $p_info['name']);
@@ -462,15 +473,15 @@ foreach ($categories as $category) {
 
 		if ($category['tplGroupContainerId'] > 0) {
 			$catlink .= '
-			 <sup class="tikihelp" data-ori data-original-title="'.tra('Managed by Templated Group').'" data-content="'.tra('Child categories will automatically be generated and managed for children of the selected Templated Groups Container.').'">
+			 <sup class="tikihelp" data-ori data-original-title="' . tra('Managed by Templated Group') . '" data-content="' . tra('Child categories will automatically be generated and managed for children of the selected Templated Groups Container.') . '">
 										T
 									</sup>
 			';
 		}
 
-		if($category['num_roles'] > 0){
+		if ($category['num_roles'] > 0) {
 			$catlink .= '
-			 <sup class="tikihelp" title="'.tra('Apply Role Permissions').'" data-content="'.tra('Roles permissions will automatically be applied to child categories.').'">
+			 <sup class="tikihelp" title="' . tra('Apply Role Permissions') . '" data-content="' . tra('Roles permissions will automatically be applied to child categories.') . '">
 										R
 									</sup>
 			';
@@ -486,9 +497,7 @@ foreach ($categories as $category) {
 				''
 			);
 			$desc .= '<span class="object-count badge badge-pill badge-info">' . $objectcount['cant'] . '</span>';
-
-		} else if ($prefs['feature_search'] === 'y') {	// fall back to unified search if not category_browse_count_objects
-
+		} elseif ($prefs['feature_search'] === 'y') {	// fall back to unified search if not category_browse_count_objects
 			$res = TikiLib::lib('service')->internal(
 				'search',
 				'lookup',
@@ -500,7 +509,8 @@ foreach ($categories as $category) {
 					],
 				]
 			);
-			$desc .= '<span class="object-count badge badge-pill badge-info">' . count($res['resultset']) . '</span>';;
+			$desc .= '<span class="object-count badge badge-pill badge-info">' . count($res['resultset']) . '</span>';
+;
 		}
 
 		$treeNodes[] = [

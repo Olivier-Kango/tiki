@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -134,7 +135,7 @@ function prefs_print_list()
 			'type' => 'textarea',
 			'size' => 5,
 			'default' => '',
-			'shorthint' => tr('HTML / Wiki Syntax / ').tr('Left text') . ' | ' . tr('Center Text') . ' | ' . tr('Right Text')
+			'shorthint' => tr('HTML / Wiki Syntax / ') . tr('Left text') . ' | ' . tr('Center Text') . ' | ' . tr('Right Text')
 		],
 		'print_pdf_mpdf_footer' => [
 			'name' => tra('PDF footer text'),
@@ -143,7 +144,7 @@ function prefs_print_list()
 			'type' => 'textarea',
 			'size' => 5,
 			'default' => '',
-			'shorthint' =>  tr('HTML / Wiki Syntax / ').tr('Left text') . ' | ' . tr('Center Text') . ' | ' . tr('Right Text')
+			'shorthint' => tr('HTML / Wiki Syntax / ') . tr('Left text') . ' | ' . tr('Center Text') . ' | ' . tr('Right Text')
 		],
 		'print_pdf_mpdf_margin_left' => [
 			'name' => tra('Left margin'),

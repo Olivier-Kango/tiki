@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -94,10 +95,10 @@ class Search_ContentSource_UserSource implements Search_ContentSource_Interface
 		$data = [
 			'title' => $typeFactory->sortable($name),
 			'title_unstemmed' => $typeFactory->simpletext($name), // for wildcard searches as wildcard doesn't play well with stemming (e.g. *leslie* doesn't match leslie)
-			'creation_date' => $typeFactory->timestamp($detail['info']['created']),	// same as registration date			
+			'creation_date' => $typeFactory->timestamp($detail['info']['created']),	// same as registration date
 			'date' => $typeFactory->timestamp($detail['info']['created']),
 			'lastlogin_date' => $typeFactory->timestamp($detail['info']['lastLogin']),
-			'currentlogin_date' => $typeFactory->timestamp($detail['info']['currentLogin']),			
+			'currentlogin_date' => $typeFactory->timestamp($detail['info']['currentLogin']),
 
 			'wiki_content' => $typeFactory->wikitext($content),
 

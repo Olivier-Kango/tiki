@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -310,7 +311,8 @@ class Search_Elastic_Index implements Search_Index_Interface, Search_Index_Query
 	 * @param Search_Query $fullQuery The fully formatted query that is to be passed to Elasticsearch
 	 * @param Search_Query $originalQuery The original query which would be used later to retrieve final results
 	 */
-	public function addToMultisearchStack($id, $indices, $fullQuery, $originalQuery) {
+	public function addToMultisearchStack($id, $indices, $fullQuery, $originalQuery)
+    {
 		$this->multisearchStack[] = ['id' => $id, 'fullQuery' => $fullQuery, 'originalQuery' => $originalQuery];
 		$this->multisearchIndices = $indices;
 	}
@@ -319,7 +321,8 @@ class Search_Elastic_Index implements Search_Index_Interface, Search_Index_Query
 	 * @return array Raw results retrieved from Elasticsearch. Not to be confused with final transformed results that
 	 * contains perms and are not cacheable because has source info as PDO objects etc.
 	 */
-	public function triggerMultisearch() {
+	public function triggerMultisearch()
+    {
 		$results = $this->connection->search($this->multisearchIndices, array_column($this->multisearchStack, 'fullQuery'), [], true);
 		$ret = [];
 		foreach ($results as $k => $result) {
@@ -362,7 +365,7 @@ class Search_Elastic_Index implements Search_Index_Interface, Search_Index_Query
 		}
 		/**End of Sorted Search size adjustment (part 1)*/
 
-		if (!empty($resultFromMultisearch)) {
+		if (! empty($resultFromMultisearch)) {
 			// Results already gotten from Multisearch so no need to rebuild query
 			$result = $resultFromMultisearch;
 		} else {
@@ -374,7 +377,7 @@ class Search_Elastic_Index implements Search_Index_Interface, Search_Index_Query
 			$facetPart = $builder->build($query->getFacets());
 
 			if ($this->connection->getVersion() >= 6.0 && $query->getSortOrder()->getField() === Search_Query_Order::FIELD_SCORE) {
-				$builder = new Search_Elastic_RescoreQueryBuilder;
+				$builder = new Search_Elastic_RescoreQueryBuilder();
 				$rescorePart = $builder->build($query->getExpr());
 			} else {
 				$rescorePart = [];
@@ -403,7 +406,7 @@ class Search_Elastic_Index implements Search_Index_Interface, Search_Index_Query
 				if ($this->connection->getIndexStatus($indexName)) {
 					$indices[] = $indexName;
 					if ($this->connection->getVersion() >= 6) {
-						if (!isset($queryPart['query']['dis_max'])) {
+						if (! isset($queryPart['query']['dis_max'])) {
 							$queryPart['query']['dis_max']['queries'] = [
 								$queryPart['query']
 							];
@@ -505,7 +508,7 @@ class Search_Elastic_Index implements Search_Index_Interface, Search_Index_Query
 		$indicesMap = array_combine($indices, $indices);
 
 		$entries = array_map(
-			function ($entry) use (& $indicesMap) {
+			function ($entry) use (&$indicesMap) {
 				$data = (array) $entry->_source;
 
 				if (isset($entry->highlight->contents)) {
@@ -596,7 +599,7 @@ class Search_Elastic_Index implements Search_Index_Interface, Search_Index_Query
 
 	public function getTypeFactory()
 	{
-		return new Search_Elastic_TypeFactory;
+		return new Search_Elastic_TypeFactory();
 	}
 
 	private function createDocumentReader()
@@ -645,7 +648,6 @@ class Search_Elastic_Index implements Search_Index_Interface, Search_Index_Query
 	public function getFieldMapping($field)
 	{
 		if (empty($this->fieldMappings)) {
-
 			$index = $this->index;
 			try {
 				$mappings = $this->connection->rawApi("/$index/_mapping/");
@@ -663,7 +665,7 @@ class Search_Elastic_Index implements Search_Index_Interface, Search_Index_Query
 		if (isset($this->fieldMappings->$field)) {
 			return $this->fieldMappings->$field;
 		}
-		return new stdClass;
+		return new stdClass();
 	}
 
 	public function resolveAlias($indexName)

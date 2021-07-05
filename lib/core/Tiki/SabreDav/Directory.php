@@ -39,7 +39,7 @@ class Directory extends DAV\Collection
 		}
 
 		$results = $this->galleryChildren();
-		foreach($results['data'] as $row) {
+		foreach ($results['data'] as $row) {
 			$children[] = $this->getChildFromDB($row);
 		}
 
@@ -141,7 +141,7 @@ class Directory extends DAV\Collection
 		Utilities::checkDeleteGalleryPermission($this->definition);
 
 		$info = $this->definition->getInfo();
-		
+
 		TikiLib::lib('filegal')->remove_file_gallery($info['galleryId'], $info['galleryId']);
 	}
 

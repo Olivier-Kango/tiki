@@ -10,7 +10,7 @@ $tags = [];
 $versions = [];
 
 $tempDir = $tikiBase . '/temp/satis/';
-if (!file_exists($tempDir)) {
+if (! file_exists($tempDir)) {
 	mkdir($tempDir);
 }
 
@@ -52,20 +52,18 @@ function getPackages($path, &$payload)
 	$types = ['packages', 'packages-dev'];
 
 	foreach ($types as $type) {
-
-		if (!isset($composerLockContents->$type)) {
+		if (! isset($composerLockContents->$type)) {
 			continue;
 		}
 
 		foreach ($composerLockContents->$type as $package) {
-
-			if (!isset($payload['used_packages'][$package->name])) {
+			if (! isset($payload['used_packages'][$package->name])) {
 				$payload['used_packages'][$package->name] = [$package->version];
-			} elseif (!in_array($package->version, $payload['used_packages'][$package->name])) {
+			} elseif (! in_array($package->version, $payload['used_packages'][$package->name])) {
 				$payload['used_packages'][$package->name][] = $package->version;
 			}
 
-			if (!empty($package->dist->url)) {
+			if (! empty($package->dist->url)) {
 				$payload['tiki_composer_site_used_zips'][] = str_replace('https://composer.tiki.org/', '', $package->dist->url);
 			}
 		}
@@ -81,15 +79,15 @@ function getPackages($path, &$payload)
 		$installablePackages = Yaml::parse($installableComposerPackages);
 
 		foreach ($installablePackages as $installablePackage) {
-			if (!isset($payload['used_packages'][$installablePackage['name']])) {
+			if (! isset($payload['used_packages'][$installablePackage['name']])) {
 				$payload['used_packages'][$installablePackage['name']] = [
 					$installablePackage['requiredVersion']
 				];
-			} elseif (!in_array($installablePackage['requiredVersion'], $payload['used_packages'][$installablePackage['name']])) {
+			} elseif (! in_array($installablePackage['requiredVersion'], $payload['used_packages'][$installablePackage['name']])) {
 				$payload['used_packages'][$installablePackage['name']][] = $installablePackage['requiredVersion'];
 			}
 
-			if (!in_array($installablePackage['name'], $payload['tiki_packages_versionless'])) {
+			if (! in_array($installablePackage['name'], $payload['tiki_packages_versionless'])) {
 				$payload['tiki_packages_versionless'][] = $installablePackage['name'];
 			}
 		}
@@ -151,7 +149,7 @@ $used_packages = array_keys($payload['used_packages']);
 $satis = getMasterSatis();
 
 foreach ($satis->require as $package_name => $package_info) {
-	if (!in_array($package_name, $used_packages)) {
+	if (! in_array($package_name, $used_packages)) {
 		unset($satis->require->{$package_name});
 	}
 }
@@ -161,7 +159,7 @@ foreach ($satis->repositories as $key => $repository) {
 		continue;
 	}
 
-	if (!isset($payload['used_packages'][$repository->package->name]) || !in_array($repository->package->version, $payload['used_packages'][$repository->package->name])) {
+	if (! isset($payload['used_packages'][$repository->package->name]) || ! in_array($repository->package->version, $payload['used_packages'][$repository->package->name])) {
 		unset($satis->repositories[$key]);
 	}
 }
@@ -179,7 +177,7 @@ $packages_to_remove_from_site = [];
 $packages_not_in_site = [];
 
 foreach ($site_available_packages as $package) {
-	if (!in_array($package, $payload['tiki_composer_site_used_zips']) && !isVersionless($payload['tiki_packages_versionless'], $package)) {
+	if (! in_array($package, $payload['tiki_composer_site_used_zips']) && ! isVersionless($payload['tiki_packages_versionless'], $package)) {
 		$packages_to_remove_from_site[] = $package;
 	}
 }
@@ -188,7 +186,7 @@ file_put_contents($file, implode("\n", $packages_to_remove_from_site));
 echo 'File created: ' . $file . PHP_EOL;
 
 foreach ($payload['tiki_composer_site_used_zips'] as $package) {
-	if (!in_array($package, $site_available_packages)) {
+	if (! in_array($package, $site_available_packages)) {
 		$packages_not_in_site[] = $package;
 	}
 }

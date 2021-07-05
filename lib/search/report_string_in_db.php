@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -48,7 +49,7 @@ if (! empty($_POST['string_in_db_search'])) {
 			$endsnip = $stringend + 100;
 			$length = ($endsnip - $startsnip);
 			$snippet = substr($row['data'], $startsnip, $length);
-			$snippet = str_replace($_POST['query'],"<span class='highlight'>".$_POST['query']."</span>", $snippet);
+			$snippet = str_replace($_POST['query'], "<span class='highlight'>" . $_POST['query'] . "</span>", $snippet);
 			if ($startsnip > 0) {
 				$snippet = '...' . $snippet;
 			}
@@ -84,7 +85,7 @@ function searchAllDB($search)
 	foreach ($rs as $key => $val) {
 		$vals = array_values($val);
 		$table = $vals[0];
-		if (substr($table, 0, 6) == 'index_' && substr($table,0, 10) !== 'index_pref') {
+		if (substr($table, 0, 6) == 'index_' && substr($table, 0, 10) !== 'index_pref') {
 			continue;
 		}
 		$sql2 = "SHOW COLUMNS FROM `$table`";

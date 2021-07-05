@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -113,9 +114,11 @@ class Comments extends TikiLib
 	public function add_thread_attachment($forum_info, $threadId, &$errors, $name, $type, $size, $inbound_mail = 0, $qId = 0, $fp = '', $data = '')
 	{
 		$perms = Perms::get(['type' => 'thread', 'object' => $threadId]);
-		if (! ($forum_info['att'] == 'att_all'
+		if (
+            ! ($forum_info['att'] == 'att_all'
 				|| ($forum_info['att'] == 'att_admin' && $perms->admin_forum == 'y')
-				|| ($forum_info['att'] == 'att_perm' && $perms->forum_attach == 'y'))) {
+				|| ($forum_info['att'] == 'att_perm' && $perms->forum_attach == 'y'))
+        ) {
 			$smarty = TikiLib::lib('smarty');
 			$smarty->assign('errortype', 401);
 			$smarty->assign('msg', tra('Permission denied'));
@@ -288,7 +291,7 @@ class Comments extends TikiLib
 			switch ($ctype) {
 				case 'text/plain':
 				case 'TEXT/PLAIN':
-					if (! empty($obj->disposition)and $obj->disposition == 'attachment') {
+					if (! empty($obj->disposition) and $obj->disposition == 'attachment') {
 						$names = explode(';', $obj->headers["content-disposition"]);
 
 						$names = explode('=', $names[1]);
@@ -308,7 +311,7 @@ class Comments extends TikiLib
 
 				case 'text/html':
 				case 'TEXT/HTML':
-					if (! empty($obj->disposition)and $obj->disposition == 'attachment') {
+					if (! empty($obj->disposition) and $obj->disposition == 'attachment') {
 						$names = explode(';', $obj->headers["content-disposition"]);
 
 						$names = explode('=', $names[1]);
@@ -948,8 +951,9 @@ class Comments extends TikiLib
 		return $this->getOne($query, $info['bindvars']);
 	}
 
-	private function filter_topic_perms($topics, $forumId = null) {
-		$topic_ids = array_map(function($row){
+	private function filter_topic_perms($topics, $forumId = null)
+    {
+		$topic_ids = array_map(function ($row) {
 			return $row['parentId'] > 0 ? $row['parentId'] : $row['threadId'];
 		}, $topics);
 		$topic_ids = array_unique($topic_ids);
@@ -1353,7 +1357,7 @@ class Comments extends TikiLib
 	 */
 	public function reorder_forum($forumId, $newOrder)
 	{
-		$this->table('tiki_forums')->update(['forumOrder' => $newOrder],['forumId' => $forumId]);
+		$this->table('tiki_forums')->update(['forumOrder' => $newOrder], ['forumId' => $forumId]);
 
 		return true;
 	}
@@ -1412,8 +1416,10 @@ class Comments extends TikiLib
 			$mid = "";
 		}
 
-		if (in_array($sort_mode, ['age_asc', 'age_desc', 'users_asc', 'users_desc', 'posts_per_day_asc',
-			'posts_per_day_desc'])) {
+		if (
+            in_array($sort_mode, ['age_asc', 'age_desc', 'users_asc', 'users_desc', 'posts_per_day_asc',
+			'posts_per_day_desc'])
+        ) {
 			$query_sort_mode = 'name_asc';
 		} else {
 			$query_sort_mode = $sort_mode;
@@ -3863,8 +3869,10 @@ class Comments extends TikiLib
 		}
 		$comments_objectId = 'forum:' . $params['forumId'];
 
-		if (($tiki_p_forum_autoapp != 'y')
-				&& ($forum_info['approval_type'] == 'queue_all' || (! $user && $forum_info['approval_type'] == 'queue_anon'))) {
+		if (
+            ($tiki_p_forum_autoapp != 'y')
+				&& ($forum_info['approval_type'] == 'queue_all' || (! $user && $forum_info['approval_type'] == 'queue_anon'))
+        ) {
 			$threadId = 0;
 			$feedbacks[] = tra('Your message has been queued for approval and will be posted after a moderator approves it.');
 			$qId = $this->replace_queue(
@@ -4300,8 +4308,10 @@ class Comments extends TikiLib
  */
 function compare_replies($ar1, $ar2)
 {
-	if (($ar1['type'] == 's' && $ar2['type'] == 's') ||
-			($ar1['type'] != 's' && $ar2['type'] != 's')) {
+	if (
+        ($ar1['type'] == 's' && $ar2['type'] == 's') ||
+			($ar1['type'] != 's' && $ar2['type'] != 's')
+    ) {
 		return $ar1["replies_info"]["numReplies"] - $ar2["replies_info"]["numReplies"];
 	} else {
 		return $ar1['type'] == 's' ? -1 : 1;
@@ -4315,8 +4325,10 @@ function compare_replies($ar1, $ar2)
  */
 function compare_lastPost($ar1, $ar2)
 {
-	if (($ar1['type'] == 's' && $ar2['type'] == 's') ||
-			($ar1['type'] != 's' && $ar2['type'] != 's')) {
+	if (
+        ($ar1['type'] == 's' && $ar2['type'] == 's') ||
+			($ar1['type'] != 's' && $ar2['type'] != 's')
+    ) {
 		return $ar1["lastPost"] - $ar2["lastPost"];
 	} else {
 		return $ar1['type'] == 's' ? -1 : 1;
@@ -4330,8 +4342,10 @@ function compare_lastPost($ar1, $ar2)
  */
 function r_compare_replies($ar1, $ar2)
 {
-	if (($ar1['type'] == 's' && $ar2['type'] == 's') ||
-			($ar1['type'] != 's' && $ar2['type'] != 's')) {
+	if (
+        ($ar1['type'] == 's' && $ar2['type'] == 's') ||
+			($ar1['type'] != 's' && $ar2['type'] != 's')
+    ) {
 		return $ar2["replies_info"]["numReplies"] - $ar1["replies_info"]["numReplies"];
 	} else {
 		return $ar1['type'] == 's' ? -1 : 1;
@@ -4345,8 +4359,10 @@ function r_compare_replies($ar1, $ar2)
  */
 function r_compare_lastPost($ar1, $ar2)
 {
-	if (($ar1['type'] == 's' && $ar2['type'] == 's') ||
-			($ar1['type'] != 's' && $ar2['type'] != 's')) {
+	if (
+        ($ar1['type'] == 's' && $ar2['type'] == 's') ||
+			($ar1['type'] != 's' && $ar2['type'] != 's')
+    ) {
 		return $ar2["lastPost"] - $ar1["lastPost"];
 	} else {
 		return $ar1['type'] == 's' ? -1 : 1;

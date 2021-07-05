@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -95,10 +97,10 @@ if (php_sapi_name() == 'cli') {
 	}
 }
 
-$getStrings = new Language_GetStrings(new Language_CollectFiles, new Language_WriteFile_Factory, $options);
+$getStrings = new Language_GetStrings(new Language_CollectFiles(), new Language_WriteFile_Factory(), $options);
 
-$getStrings->addFileType(new Language_FileType_Php);
-$getStrings->addFileType(new Language_FileType_Tpl);
+$getStrings->addFileType(new Language_FileType_Php());
+$getStrings->addFileType(new Language_FileType_Tpl());
 
 // skip the following directories
 $getStrings->collectFiles->setExcludeDirs($excludeDirs);

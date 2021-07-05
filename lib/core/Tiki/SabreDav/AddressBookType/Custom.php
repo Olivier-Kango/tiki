@@ -9,7 +9,6 @@
 namespace Tiki\SabreDav\AddressBookType;
 
 use Sabre\CardDAV;
-
 use Tiki\SabreDav\PrincipalBackend;
 use TikiLib;
 
@@ -44,7 +43,7 @@ class Custom implements AddressBookTypeInterface
 				'uri' => $row['uri'],
 				'principaluri' => PrincipalBackend::mapUserToUri($this->user),
 				'{DAV:}displayname' => $row['name'],
-				'{'.CardDAV\Plugin::NS_CARDDAV.'}addressbook-description' => $row['description'],
+				'{' . CardDAV\Plugin::NS_CARDDAV . '}addressbook-description' => $row['description'],
 			];
 		}
 		return $result;
@@ -57,12 +56,12 @@ class Custom implements AddressBookTypeInterface
 		} else {
 			$cards = TikiLib::lib('addressbook')->list_cards($this->addressBookId);
 		}
-		return array_map(function($card) use ($uris) {
+		return array_map(function ($card) use ($uris) {
 			$result = [
 				'id' => $card['addressCardId'],
 				'uri' => $card['uri'],
 				'lastmodified' => $card['lastmodified'],
-				'etag' => '"'.$card['etag'].'"',
+				'etag' => '"' . $card['etag'] . '"',
 				'size' => $card['size'],
 			];
 			if (is_array($uris)) {
@@ -83,7 +82,7 @@ class Custom implements AddressBookTypeInterface
 			'etag' => md5($cardData)
 		];
 		TikiLib::lib('addressbook')->create_card($data);
-		return '"'.$data['etag'].'"';
+		return '"' . $data['etag'] . '"';
 	}
 
 	public function updateCard($cardUri, $cardData)
@@ -95,7 +94,7 @@ class Custom implements AddressBookTypeInterface
 			'etag' => md5($cardData)
 		];
 		TikiLib::lib('addressbook')->update_card($this->addressBookId, $cardUri, $data);
-		return '"'.$data['etag'].'"';
+		return '"' . $data['etag'] . '"';
 	}
 
 	public function deleteCard($cardUri)

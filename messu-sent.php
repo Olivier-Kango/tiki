@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -30,9 +32,10 @@ if (isset($_POST["delete"])) {
 		} else {
 			Feedback::error(tra('No messages were deleted'));
 		}
-	} elseif (!isset($_POST["msg"])) {
+	} elseif (! isset($_POST["msg"])) {
 		Feedback::error(tra('No messages were selected to delete'));
-	}}
+	}
+}
 // Archive messages if the archive button was pressed
 if (isset($_POST["archive"])) {
 	if (isset($_POST["msg"]) && $access->checkCsrf()) {
@@ -53,7 +56,7 @@ if (isset($_POST["archive"])) {
 		} else {
 			Feedback::error(tra('No messages were archived'));
 		}
-	} elseif (!isset($_POST["msg"])) {
+	} elseif (! isset($_POST["msg"])) {
 		Feedback::error(tra('No messages were selected to archive'));
 	}
 }

@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -29,9 +31,10 @@ if (isset($_REQUEST['checked'])) {
 		$mass_ban_ip = implode('|', $checked);
 		header('Location: tiki-admin_banning.php?mass_ban_ip_actionlog=' . $mass_ban_ip);
 		exit;
-	} elseif (isset($_REQUEST['action']) && $_REQUEST['action'] === 'remove' && $tiki_p_admin == 'y'
-		&& $access->checkCsrf(true))
-	{
+	} elseif (
+        isset($_REQUEST['action']) && $_REQUEST['action'] === 'remove' && $tiki_p_admin == 'y'
+		&& $access->checkCsrf(true)
+    ) {
 		$rowsDeleted = 0;
 		foreach ($checked as $action) {
 			$result = $logslib->remove_action($action);
@@ -169,9 +172,9 @@ $smarty->assign_by_ref('actionlogConf', $confs);
 if (! empty($_REQUEST['actionId']) && $tiki_p_admin == 'y') {
 	$action = $logslib->get_info_action($_REQUEST['actionId']);
 	if (empty($action)) {
-		Feedback::error( tra('Must specify actionId'));
+		Feedback::error(tra('Must specify actionId'));
 	} else {
-		if (isset($_POST['saveAction'])&& $access->checkCsrf()) {
+		if (isset($_POST['saveAction']) && $access->checkCsrf()) {
 			if ($prefs['feature_contribution'] == 'y') {
 				if ($contributionlib->update($action, empty($_REQUEST['contributions']) ? '' : $_REQUEST['contributions'])) {
 					$logslib->delete_params($_REQUEST['actionId'], 'contribution');
@@ -185,11 +188,11 @@ if (! empty($_REQUEST['actionId']) && $tiki_p_admin == 'y') {
 					$smarty->assign('error', 'found more than one object that can correspond');
 				}
 			}
-			if (empty($_REQUEST['cat_categories']) && !empty($action['categId'])) {
+			if (empty($_REQUEST['cat_categories']) && ! empty($action['categId'])) {
 				$logslib->update_category($_REQUEST['actionId'], 0);
-			} elseif (!empty($_REQUEST['cat_categories'])) {
+			} elseif (! empty($_REQUEST['cat_categories'])) {
 				$old_categ = $action['categId'];
-				if (!in_array($action['categId'], $_REQUEST['cat_categories'])) {
+				if (! in_array($action['categId'], $_REQUEST['cat_categories'])) {
 					$logslib->update_category($_REQUEST['actionId'], $_REQUEST['cat_categories'][0]);
 				}
 				if (count($_REQUEST['cat_categories']) > 1) {
@@ -224,7 +227,7 @@ if (! empty($_REQUEST['actionId']) && $tiki_p_admin == 'y') {
 				$cont[] = $contribution['contributionId'];
 			}
 			$_REQUEST['contributions'] = $cont;
-			include ('contribution.php');
+			include('contribution.php');
 			$contributions['data'][] = [
 					'contributionId' => 0,
 					'name' => ''
@@ -536,7 +539,7 @@ if (isset($_REQUEST['graph'])) {
 			}
 		} else {
 			$renderer = new GD_GRenderer($widthUser, $height, $ext);
-			$graph = new $graphType;
+			$graph = new $graphType();
 			$graph->setData($series);
 			$graph->setTitle($title);
 			$graph->draw($renderer);
@@ -571,7 +574,7 @@ if (isset($_REQUEST['graph'])) {
 			}
 		} else {
 			$renderer = new GD_GRenderer($widthUser, $height, $ext);
-			$graph = new $graphType;
+			$graph = new $graphType();
 			$graph->setData($series);
 			$graph->setTitle($title);
 			$graph->draw($renderer);
@@ -604,7 +607,7 @@ if (isset($_REQUEST['graph'])) {
 			}
 		} else {
 			$renderer = new GD_GRenderer($widthWeek, $height, $ext);
-			$graph = new $graphType;
+			$graph = new $graphType();
 			unset($series['totalVol']);
 			$graph->setData($series);
 			$graph->setTitle($title);
@@ -638,7 +641,7 @@ if (isset($_REQUEST['graph'])) {
 			}
 		} else {
 			$renderer = new GD_GRenderer($widthWeek, $height, $ext);
-			$graph = new $graphType;
+			$graph = new $graphType();
 			unset($series['totalVol']);
 			$graph->setData($series);
 			$graph->setTitle($title);
@@ -665,7 +668,7 @@ if (isset($_REQUEST['graph'])) {
 			}
 		} else {
 			$renderer = new GD_GRenderer($widthTotal, $height, $ext);
-			$graph = new $graphType;
+			$graph = new $graphType();
 			$graph->setData($series);
 			$graph->setTitle($title);
 			$graph->draw($renderer);
@@ -691,7 +694,7 @@ if (isset($_REQUEST['graph'])) {
 			}
 		} else {
 			$renderer = new GD_GRenderer($widthTotal, $height, $ext);
-			$graph = new $graphType;
+			$graph = new $graphType();
 			$graph->setData($series);
 			$graph->setTitle($title);
 			$graph->draw($renderer);
@@ -720,7 +723,7 @@ if (isset($_REQUEST['graph'])) {
 			}
 		} else {
 			$renderer = new GD_GRenderer($widthGroup, $height, $ext);
-			$graph = new $graphType;
+			$graph = new $graphType();
 			$graph->setData($series);
 			$graph->setTitle($title);
 			$graph->draw($renderer);
@@ -749,7 +752,7 @@ if (isset($_REQUEST['graph'])) {
 			}
 		} else {
 			$renderer = new GD_GRenderer($widthGroup, $height, $ext);
-			$graph = new $graphType;
+			$graph = new $graphType();
 			$graph->setData($series);
 			$graph->setTitle($title);
 			$graph->draw($renderer);
@@ -782,7 +785,6 @@ if (isset($_REQUEST['graph'])) {
 	$smarty->assign('defaultBgcolor', 'whitesmoke');
 	$smarty->assign('defaultLegendBgcolor', 'white');
 	// TODO ImageGalleryRemoval23.x
-
 }
 
 if (empty($_REQUEST)) {

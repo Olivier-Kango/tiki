@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -202,7 +203,7 @@ function wikiplugin_customsearch($data, $params)
 	if (empty($params['wiki']) && empty($params['tpl'])) {
 		$params['tpl'] = 'templates/search_customsearch/default_form.tpl';
 	} elseif (! empty($params['wiki']) && ! TikiLib::lib('tiki')->page_exists($params['wiki'])) {
-		$link = new WikiParser_OutputLink;
+		$link = new WikiParser_OutputLink();
 		$link->setIdentifier($params['wiki']);
 		return tra('Template page not found') . ' ' . $link->getHtml();
 	}
@@ -253,7 +254,7 @@ function wikiplugin_customsearch($data, $params)
 
 	$definitionKey = md5($data);
 	$matches = WikiParser_PluginMatcher::match($data);
-	$query = new Search_Query;
+	$query = new Search_Query();
 	if (! isset($params['searchable_only']) || $params['searchable_only'] == 1) {
 		$query->filterIdentifier('y', 'searchable');
 	}
@@ -278,12 +279,12 @@ function wikiplugin_customsearch($data, $params)
 	$paginationArguments['sort_jsvar'] = "customsearch_$id.sort_mode";
 	$paginationArguments['_onclick'] = "$('#customsearch_$id').submit();return false;";
 
-	$builder = new Search_Formatter_Builder;
+	$builder = new Search_Formatter_Builder();
 	$builder->setId('wpcs-' . $id);
 	$builder->setPaginationArguments($paginationArguments);
 	$builder->setTsOn($tsret['tsOn']);
 
-	$facets = new Search_Query_FacetWikiBuilder;
+	$facets = new Search_Query_FacetWikiBuilder();
 	$facets->apply($matches);
 
 	$cachelib = TikiLib::lib('cache');
@@ -426,7 +427,7 @@ window.customsearch_$id = customsearch$id;
 		$defaultRequest = [];
 	}
 
-	$parser = new WikiParser_PluginArgumentParser;
+	$parser = new WikiParser_PluginArgumentParser();
 	$dr = 0;
 	foreach ($matches as $match) {
 		$name = $match->getName();
@@ -456,24 +457,26 @@ window.customsearch_$id = customsearch$id;
 					$default = $value;
 					unset($defaultRequest[$key]);
 					break;
-				} elseif (! empty($arguments['id']) && (
+				} elseif (
+                    ! empty($arguments['id']) && (
 						! empty($defaultRequest["{$arguments['id']}_from"]) ||
 						! empty($defaultRequest["{$arguments['id']}_to"]) ||
 						! empty($defaultRequest["{$arguments['id']}_gap"])
-					)) {
-
+					)
+                ) {
 					// defaults for date ranges with the id
 					$default = [
 						'from' => $defaultRequest["{$arguments['id']}_from"] ?? '',
 						'to'   => $defaultRequest["{$arguments['id']}_to"] ?? '',
 						'gap'  => $defaultRequest["{$arguments['id']}_gap"] ?? '',
 					];
-				} elseif (! empty($arguments['_field']) && (
+				} elseif (
+                    ! empty($arguments['_field']) && (
 						! empty($defaultRequest["{$arguments['_field']}_from"]) ||
 						! empty($defaultRequest["{$arguments['_field']}_to"]) ||
 						! empty($defaultRequest["{$arguments['_field']}_gap"])
-					)) {
-
+					)
+                ) {
 					// defaults for date ranges with the field name
 					$default = [
 						'from' => $defaultRequest["{$arguments['_field']}_from"] ?? '',
@@ -482,7 +485,6 @@ window.customsearch_$id = customsearch$id;
 					];
 				}
 			}
-
 		} elseif ($recalllastsearch && isset($_SESSION["customsearch_$id"][$fieldid])) {
 			$default = $_SESSION["customsearch_$id"][$fieldid];
 		} elseif (! empty($arguments['_default'])) {
@@ -622,7 +624,7 @@ function cs_design_setbasic($element, $fieldid, $fieldname, $arguments)
 
 function cs_design_input($id, $fieldname, $fieldid, $arguments, $default, &$script)
 {
-	$document = new DOMDocument;
+	$document = new DOMDocument();
 	$element = $document->createElement('input');
 	cs_design_setbasic($element, $fieldid, $fieldname, $arguments);
 
@@ -691,7 +693,7 @@ function cs_design_input($id, $fieldname, $fieldid, $arguments, $default, &$scri
 
 function cs_design_categories($id, $fieldname, $fieldid, $arguments, $default, &$script)
 {
-	$document = new DOMDocument;
+	$document = new DOMDocument();
 	extract($arguments, EXTR_SKIP);
 	if (! isset($_style)) {
 		$_style = 'select';
@@ -824,7 +826,7 @@ $('#$fieldid').trigger('change');
 
 function cs_design_select($id, $fieldname, $fieldid, $arguments, $default, &$script)
 {
-	$document = new DOMDocument;
+	$document = new DOMDocument();
 	$element = $document->createElement('select');
 	cs_design_setbasic($element, $fieldid, $fieldname, $arguments);
 	$document->appendChild($element);
@@ -840,8 +842,10 @@ function cs_design_select($id, $fieldname, $fieldid, $arguments, $default, &$scr
 		$options = [];
 	}
 	// get the options for an ItemLink field - needs _trackerId and _field set in the {select} plugin
-	if (empty($options) && empty($labels) && isset($arguments['_field']) &&
-			strpos($arguments['_field'], 'tracker_field_') === 0 && ! empty($arguments['_trackerId'])) {
+	if (
+        empty($options) && empty($labels) && isset($arguments['_field']) &&
+			strpos($arguments['_field'], 'tracker_field_') === 0 && ! empty($arguments['_trackerId'])
+    ) {
 		$definition = Tracker_Definition::get($arguments['_trackerId']);
 		$field = $definition->getFieldFromPermName(str_replace('tracker_field_', '', $arguments['_field']));
 		$handler = TikiLib::lib('trk')->get_field_handler($field);
@@ -1062,7 +1066,7 @@ updateDateRange_$fieldid();
 
 function cs_design_distance($id, $fieldname, $fieldid, $arguments, $default, &$script)
 {
-	$document = new DOMDocument;
+	$document = new DOMDocument();
 	$distanceElement = $document->createElement('input');
 	if (! empty($arguments['id'])) {
 		$arguments['id'] = $fieldid . '_dist';
@@ -1117,7 +1121,7 @@ function cs_design_store($id, $fieldname, $fieldid, $arguments, $default, &$scri
 		return;
 	}
 
-	$document = new DOMDocument;
+	$document = new DOMDocument();
 	$element = $document->createElement('input');
 	$element->setAttribute('type', 'submit');
 	cs_design_setbasic($element, $fieldid, $fieldname, $arguments);

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -9,13 +10,13 @@ $relationlib = TikiLib::lib('relation');
 
 class RelationTest extends TikiTestCase
 {
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		parent::setUp();
 		TikiDb::get()->query('DELETE FROM `tiki_object_relations` WHERE `relation` LIKE ?', ['tiki.test%']);
 	}
 
-	protected function tearDown() : void
+	protected function tearDown(): void
 	{
 		parent::tearDown();
 		TikiDb::get()->query('DELETE FROM `tiki_object_relations` WHERE `relation` LIKE ?', ['tiki.test%']);
@@ -23,14 +24,14 @@ class RelationTest extends TikiTestCase
 
 	public function testNoRelations(): void
 	{
-		$lib = new RelationLib;
+		$lib = new RelationLib();
 
 		$this->assertEquals([], $lib->get_relations_from('test wiki page', 'HomePage'));
 	}
 
 	public function testAddRelation(): void
 	{
-		$lib = new RelationLib;
+		$lib = new RelationLib();
 		$lib->add_relation('tiki.test.link', 'test wiki page', 'HomePage', 'test wiki page', 'SomePage');
 
 		$this->assertEquals(
@@ -41,7 +42,7 @@ class RelationTest extends TikiTestCase
 
 	public function testDuplicateRelation(): void
 	{
-		$lib = new RelationLib;
+		$lib = new RelationLib();
 		$lib->add_relation('tiki.test.link', 'test wiki page', 'HomePage', 'test wiki page', 'SomePage');
 		$lib->add_relation('tiki.test.link', 'test wiki page', 'HomePage', 'test wiki page', 'SomePage');
 
@@ -53,7 +54,7 @@ class RelationTest extends TikiTestCase
 
 	public function testMultipleResults(): void
 	{
-		$lib = new RelationLib;
+		$lib = new RelationLib();
 		$lib->add_relation('tiki.test.link', 'test wiki page', 'HomePage', 'test wiki page', 'SomePage');
 		$lib->add_relation('tiki.test.link', 'test wiki page', 'HomePage', 'test tracker item', '23');
 		$lib->add_relation('tiki.test.something', 'test wiki page', 'HomePage', 'test tracker item', '23');
@@ -68,7 +69,7 @@ class RelationTest extends TikiTestCase
 
 	public function testFilterByType(): void
 	{
-		$lib = new RelationLib;
+		$lib = new RelationLib();
 		$lib->add_relation('tiki.test.link', 'test wiki page', 'HomePage', 'test wiki page', 'SomePage');
 		$lib->add_relation('tiki.test.link', 'test wiki page', 'HomePage', 'test tracker item', '23');
 		$lib->add_relation('tiki.test.something', 'test wiki page', 'HomePage', 'test tracker item', '23');
@@ -82,7 +83,7 @@ class RelationTest extends TikiTestCase
 
 	public function testRelationNamesChecked(): void
 	{
-		$lib = new RelationLib;
+		$lib = new RelationLib();
 		$lib->add_relation('tiki.link', 'test wiki page', 'HomePage', 'test wiki page', 'SomePage');
 		$lib->add_relation('TIKI . test  . link  ', 'test wiki page', 'HomePage', 'test tracker item', '23');
 
@@ -94,7 +95,7 @@ class RelationTest extends TikiTestCase
 
 	public function testLoadGroupOfRelations(): void
 	{
-		$lib = new RelationLib;
+		$lib = new RelationLib();
 		$lib->add_relation('tiki.test.sem.related', 'test wiki page', 'HomePage', 'test wiki page', 'SomePage');
 		$lib->add_relation('tiki.test.sem.source', 'test wiki page', 'HomePage', 'test external', 'http://wikipedia.org');
 		$lib->add_relation('tiki.test.link', 'test wiki page', 'HomePage', 'test external', 'http://wikipedia.org');
@@ -108,7 +109,7 @@ class RelationTest extends TikiTestCase
 
 	public function testRevert(): void
 	{
-		$lib = new RelationLib;
+		$lib = new RelationLib();
 		$lib->add_relation('tiki.test.sem.related', 'test wiki page', 'HomePage', 'test wiki page', 'SomePage');
 		$lib->add_relation('tiki.test.sem.source', 'test wiki page', 'HomePage', 'test external', 'http://wikipedia.org');
 		$lib->add_relation('tiki.test.link', 'test wiki page', 'HomePage', 'test external', 'http://wikipedia.org');
@@ -123,7 +124,7 @@ class RelationTest extends TikiTestCase
 
 	public function testGetSingle(): void
 	{
-		$lib = new RelationLib;
+		$lib = new RelationLib();
 		$id = $lib->add_relation('tiki.test.sem.related', 'test wiki page', 'HomePage', 'test wiki page', 'SomePage');
 
 		$data = $lib->get_relation($id);
@@ -133,7 +134,7 @@ class RelationTest extends TikiTestCase
 
 	public function testRemoveSingle(): void
 	{
-		$lib = new RelationLib;
+		$lib = new RelationLib();
 		$id = $lib->add_relation('tiki.test.sem.related', 'test wiki page', 'HomePage', 'test wiki page', 'SomePage');
 
 		$lib->remove_relation($id);

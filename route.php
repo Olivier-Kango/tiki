@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -245,7 +246,7 @@ function tiki_route_attempt_custom_route_redirect()
 
 	require_once __DIR__ . '/lib/tikilib.php';
 
-	$tikilib = new TikiLib;
+	$tikilib = new TikiLib();
 	$GLOBALS['tikilib'] = $tikilib;
 
 	$prefereces = [

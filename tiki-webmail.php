@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -41,24 +43,26 @@ for(var i =0; i < sessionStorage.length; i++){
   ');
 }
 
-if (empty($_SESSION['cypht']['preference_name']) || $_SESSION['cypht']['preference_name'] != 'cypht_user_config'
-  || (! empty($_SESSION['cypht']['username']) && $_SESSION['cypht']['username'] != $user)) {
+if (
+    empty($_SESSION['cypht']['preference_name']) || $_SESSION['cypht']['preference_name'] != 'cypht_user_config'
+    || (! empty($_SESSION['cypht']['username']) && $_SESSION['cypht']['username'] != $user)
+) {
   // resetting the session on purpose - could be coming from PluginCypht
   $_SESSION['cypht'] = [];
   $_SESSION['cypht']['preference_name'] = 'cypht_user_config';
 }
 
-define('VENDOR_PATH', $tikipath.'/vendor_bundled/vendor/');
-define('APP_PATH', VENDOR_PATH.'jason-munro/cypht/');
-define('WEB_ROOT', $tikiroot.'vendor_bundled/vendor/jason-munro/cypht/');
+define('VENDOR_PATH', $tikipath . '/vendor_bundled/vendor/');
+define('APP_PATH', VENDOR_PATH . 'jason-munro/cypht/');
+define('WEB_ROOT', $tikiroot . 'vendor_bundled/vendor/jason-munro/cypht/');
 define('DEBUG_MODE', false);
 
 define('CACHE_ID', 'FoHc85ubt5miHBls6eJpOYAohGhDM61Vs%2Fm0BOxZ0N0%3D'); // Cypht uses for asset cache busting but we run the assets through Tiki pipeline, so no need to generate a unique key here
 define('SITE_ID', 'Tiki-Integration');
 
 /* get includes */
-require_once APP_PATH.'lib/framework.php';
-require_once $tikipath.'/lib/cypht/integration/classes.php';
+require_once APP_PATH . 'lib/framework.php';
+require_once $tikipath . '/lib/cypht/integration/classes.php';
 
 if (empty($_SESSION['cypht']['request_key'])) {
   $_SESSION['cypht']['request_key'] = Hm_Crypt::unique_id();
@@ -66,19 +70,19 @@ if (empty($_SESSION['cypht']['request_key'])) {
 $_SESSION['cypht']['username'] = $user;
 
 /* get configuration */
-$config = new Tiki_Hm_Site_Config_File(APP_PATH.'hm3.rc');
+$config = new Tiki_Hm_Site_Config_File(APP_PATH . 'hm3.rc');
 
 /* process the request */
 $dispatcher = new Hm_Dispatch($config);
 
-if(! empty($_SESSION['cypht']['user_data']['debug_mode_setting'])) {
+if (! empty($_SESSION['cypht']['user_data']['debug_mode_setting'])) {
   $msgs = Hm_Debug::get();
   foreach ($msgs as $msg) {
     $logslib->add_log('cypht', $msg);
   }
 }
 
-$smarty->assign('output_data', '<div class="inline-cypht"><input type="hidden" id="hm_page_key" value="'.Hm_Request_Key::generate().'" />'
+$smarty->assign('output_data', '<div class="inline-cypht"><input type="hidden" id="hm_page_key" value="' . Hm_Request_Key::generate() . '" />'
 	. $dispatcher->output
 	. "</div>");
 $smarty->assign('mid', 'tiki-webmail.tpl');
@@ -95,7 +99,7 @@ if (isset($_POST['display']) && $_POST['display'] == 'pdf') {
     }
     if (isset($_POST['list_path'])) {
 			$list_path = $_POST['list_path'];
-    } 
+    }
     if (isset($_POST['header_subject'])) {
       $header_subject = $_POST['header_subject'];
     }
@@ -110,22 +114,22 @@ if (isset($_POST['display']) && $_POST['display'] == 'pdf') {
     }
     if (isset($_POST['msg_text'])) {
 			$msg_text = $_POST['msg_text'];
-    } 
-    $contentpage = createPage($header_subject,$header_date,$header_from,$header_to,$msg_text,$origin);
-    $filename = $header_from.'_'.$header_subject;
-    $params = [ 
+    }
+    $contentpage = createPage($header_subject, $header_date, $header_from, $header_to, $msg_text, $origin);
+    $filename = $header_from . '_' . $header_subject;
+    $params = [
       'page' => 'messsage',
-      'uid'=>$uid,
-      'list_path'=> $list_path
+      'uid' => $uid,
+      'list_path' => $list_path
     ];
     $pdata = '<pdfsettings pagetitle="n" printfriendly="n"></pdfsettings>' . $contentpage;
-		$pdf = $generator->getPdf('tiki-webmail.php',$params,preg_replace('/%u([a-fA-F0-9]{4})/', '&#x\\1;', $pdata));
+		$pdf = $generator->getPdf('tiki-webmail.php', $params, preg_replace('/%u([a-fA-F0-9]{4})/', '&#x\\1;', $pdata));
 		$length = strlen($pdf);
 		header('Cache-Control: private, must-revalidate');
 		header('Pragma: private');
 		header("Content-Description: File Transfer");
-		$filename  = preg_replace('/\W+/u', '_', $filename ); // Replace non words with underscores for valid file names
-		$filename = \TikiLib::lib('tiki')->remove_non_word_characters_and_accents($filename );
+		$filename  = preg_replace('/\W+/u', '_', $filename); // Replace non words with underscores for valid file names
+		$filename = \TikiLib::lib('tiki')->remove_non_word_characters_and_accents($filename);
 		header('Content-disposition: attachment; filename="' . $filename . '.pdf"');
 		header("Content-Type: application/pdf");
 		header("Content-Transfer-Encoding: binary");
@@ -139,7 +143,7 @@ $smarty->display('tiki.tpl');
 /**
  * creates the HTML page to be print.
  */
-function createPage($header_subject,$header_date,$header_from,$header_to,$msg_text)
+function createPage($header_subject, $header_date, $header_from, $header_to, $msg_text)
 {
 	return <<<END
     <<!DOCTYPE html>

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -30,7 +31,7 @@ class Column
 	{
 		$this->permName = $permName;
 		$this->mode = $mode;
-		$this->parseIntoTransform = function (& $info, $value) {
+		$this->parseIntoTransform = function (&$info, $value) {
 		};
 	}
 
@@ -170,7 +171,7 @@ class Column
 		return call_user_func_array($this->renderTransform, func_get_args());
 	}
 
-	public function parseInto(& $info, $value, $extra = null)
+	public function parseInto(&$info, $value, $extra = null)
 	{
 		$c = $this->parseIntoTransform;
 		if (! $this->isReadOnly) {

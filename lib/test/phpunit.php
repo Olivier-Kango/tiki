@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -7,11 +10,11 @@
 // This is a modified version of vendor_bundled/vendor/phpunit/phpunit/phpunit. The
 // reason to this file exists is phpunit seems to have problem when reading relative
 // paths for the parameter `-c` or `--configuration`. This file set the current
-// directory to TIKI_PATH before starting phpunit, and make possible to run 
+// directory to TIKI_PATH before starting phpunit, and make possible to run
 // `composer test -d vendor_bundled` again.
 // https://github.com/sebastianbergmann/phpunit/issues/552
 
-if (!ini_get('date.timezone')) {
+if (! ini_get('date.timezone')) {
     ini_set('date.timezone', 'UTC');
 }
 

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -11,13 +12,13 @@ class Search_GlobalSource_PermissionSourceTest extends PHPUnit\Framework\TestCas
 	private $index;
 	private $perms;
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
-		$perms = new Perms;
+		$perms = new Perms();
 		$perms->setCheckSequence(
 			[
 				$globalAlternate = new Perms_Check_Alternate('admin'),
-				new Perms_Check_Direct,
+				new Perms_Check_Direct(),
 			]
 		);
 		$perms->setResolverFactories(
@@ -34,7 +35,7 @@ class Search_GlobalSource_PermissionSourceTest extends PHPUnit\Framework\TestCas
 			]
 		);
 
-		$index = new Search_Index_Memory;
+		$index = new Search_Index_Memory();
 		$indexer = new Search_Indexer($index);
 
 		$this->indexer = $indexer;

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -24,7 +25,7 @@ class Search_MySql_Table extends TikiDb_Table
 		$table = $this->escapeIdentifier($this->tableName);
 		$this->schemaBuffer = new Search_MySql_QueryBuffer($db, 2000, "ALTER TABLE $table ");
 		$this->dataBuffer = new Search_MySql_QueryBuffer($db, 100, '-- '); // Null Object, replaced later
-		$this->tfTranslator = new Search_MySql_TrackerFieldTranslator;
+		$this->tfTranslator = new Search_MySql_TrackerFieldTranslator();
 	}
 
 	public function __destruct()
@@ -102,7 +103,7 @@ class Search_MySql_Table extends TikiDb_Table
 			if (preg_match('/^tracker_field_/', $fieldName)) {
 				$msg = tr('Field %0 does not exist in the current index. Please check field permanent name and if you have any items in that tracker.', $fieldName);
 				if ($prefs['unified_exclude_nonsearchable_fields'] === 'y') {
-					$msg .= ' '.tr('You have disabled indexing non-searchable tracker fields. Check if this field is marked as searchable.');
+					$msg .= ' ' . tr('You have disabled indexing non-searchable tracker fields. Check if this field is marked as searchable.');
 				}
 			} else {
 				$msg = tr('Field %0 does not exist in the current index. If this is a tracker field, the proper syntax is tracker_field_%0.', $fieldName, $fieldName);

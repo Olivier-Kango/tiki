@@ -4,7 +4,7 @@ class Profile_BuilderTest extends PHPUnit\Framework\TestCase
 {
 	public function testBasicProfile()
 	{
-		$builder = new Services_Workspace_ProfileBuilder;
+		$builder = new Services_Workspace_ProfileBuilder();
 
 		$expect = <<<EXPECT
 {  }
@@ -14,7 +14,7 @@ EXPECT;
 
 	public function testAddObjects()
 	{
-		$builder = new Services_Workspace_ProfileBuilder;
+		$builder = new Services_Workspace_ProfileBuilder();
 		$builder->addObject(
 			'wiki_page',
 			'foo',
@@ -50,7 +50,7 @@ EXPECT;
 
 	public function testGroups()
 	{
-		$builder = new Services_Workspace_ProfileBuilder;
+		$builder = new Services_Workspace_ProfileBuilder();
 		$builder->addGroup('Base', $builder->user('group'));
 		$builder->addGroup('Viewer', $builder->user('group') . ' Viewer', true);
 		$builder->setManagingGroup('Base');
@@ -101,7 +101,7 @@ EXPECT;
 
 	public function testReplaceSimpleSyntax()
 	{
-		$builder = new Services_Workspace_ProfileBuilder;
+		$builder = new Services_Workspace_ProfileBuilder();
 		$builder->addGroup('Base', '{group}');
 		$builder->setManagingGroup('Base');
 
@@ -126,7 +126,7 @@ EXPECT;
 
 	public function testAssignDefaultGroup()
 	{
-		$builder = new Services_Workspace_ProfileBuilder;
+		$builder = new Services_Workspace_ProfileBuilder();
 		$builder->addObject(
 			'wiki_page',
 			'foo',

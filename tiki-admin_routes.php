@@ -17,8 +17,10 @@ $cookietab = 1;
 
 $routeLib = TikiLib::lib('custom_route');
 $controller = new Tiki\CustomRoute\Controller();
-if ((isset($_POST['new_route']) || (isset($_POST['editroute']) && isset($_POST['route'])) && empty($_POST['load_options']))
-	&& $access->checkCsrf()) {
+if (
+    (isset($_POST['new_route']) || (isset($_POST['editroute']) && isset($_POST['route'])) && empty($_POST['load_options']))
+	&& $access->checkCsrf()
+) {
 	// If route saved, it redirects to the routes page, cleaning the add/edit route form.
 	$route = $controller->saveRequest($_POST);
 	$cookietab = 2;

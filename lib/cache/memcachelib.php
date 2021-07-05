@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -171,7 +172,7 @@ class Memcachelib
 		$expiration = ($expiration) ?
 			$expiration : $this->getOption('expiration', 0);
 
-		if (!empty($this->memcache) && method_exists($this->memcache, "set")) {
+		if (! empty($this->memcache) && method_exists($this->memcache, "set")) {
 			return $this->memcache->set($key, $value, $expiration);
 		}
 	}

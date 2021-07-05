@@ -1,5 +1,6 @@
 #!/usr/bin/php
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -17,7 +18,6 @@ use Tiki\Installer\Installer;
  * Initializes Tiki to the greatest capacity available,
  * and sets constants to define what state Tiki is being run in.
  */
-
 
 if (http_response_code() !== false) {
 	die('Only available through command-line.');
@@ -134,7 +134,7 @@ if (isset($exceptionToRender)) {
  *
  * @throws ErrorException When a fatal error is encountered
  */
-function custom_error_handler($number, $message, $file, $line) : void
+function custom_error_handler($number, $message, $file, $line): void
 {
 	if (0 === error_reporting()) {
 		// This error was triggered when evaluating an expression prepended by the at sign (@) error control operator, but since we are in a custom error handler, we have to ignore it manually.

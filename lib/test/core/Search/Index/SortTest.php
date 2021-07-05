@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -42,7 +43,7 @@ abstract class Search_Index_SortTest extends PHPUnit\Framework\TestCase
 	 */
 	public function testOrdering($mode, $expected)
 	{
-		$query = new Search_Query;
+		$query = new Search_Query();
 		$query->filterType('wiki page');
 		$query->setOrder($mode);
 
@@ -53,7 +54,7 @@ abstract class Search_Index_SortTest extends PHPUnit\Framework\TestCase
 
 	public function testWeightImpact()
 	{
-		$query = new Search_Query;
+		$query = new Search_Query();
 		$query->setWeightCalculator(
 			new Search_Query_WeightCalculator_Field(
 				[
@@ -91,7 +92,7 @@ abstract class Search_Index_SortTest extends PHPUnit\Framework\TestCase
 	 */
 	public function testReturnOnly($returnOnlyValue, $expected)
 	{
-		$query = new Search_Query;
+		$query = new Search_Query();
 		$query->filterType('wiki page');
 		$query->setOrder('numeric_field_nasc');
 		$query->setReturnOnlyResultList($returnOnlyValue);

@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -177,9 +179,10 @@ if (isset($_REQUEST['checked'])) {
 		}
 		// Archive comment(s)
 		// Use $_REQUEST and confirmation form because a link can generate this request if js is not enabled
-		if ($_REQUEST['action'] === 'archive' && $prefs['comments_archive'] == 'y'
-			&& $access->checkCsrf())
-		{
+		if (
+            $_REQUEST['action'] === 'archive' && $prefs['comments_archive'] == 'y'
+			&& $access->checkCsrf()
+        ) {
 			$i = 0;
 			foreach ($checked as $id) {
 				$result = $commentslib->archive_thread($id);
@@ -194,9 +197,10 @@ if (isset($_REQUEST['checked'])) {
 			}
 		}
 		// Unarchive comment(s)
-		if ($_REQUEST['action'] === 'unarchive' && $prefs['comments_archive'] == 'y'
-			&& $access->checkCsrf())
-		{
+		if (
+            $_REQUEST['action'] === 'unarchive' && $prefs['comments_archive'] == 'y'
+			&& $access->checkCsrf()
+        ) {
 			$i2 = 0;
 			foreach ($checked as $id) {
 				$result = $commentslib->unarchive_thread($id);
@@ -211,7 +215,7 @@ if (isset($_REQUEST['checked'])) {
 			}
 		}
 	}
-} elseif (!empty($_REQUEST['action'])) {
+} elseif (! empty($_REQUEST['action'])) {
 	Feedback::error(tra('Action not performed since no comments were selected'));
 }
 

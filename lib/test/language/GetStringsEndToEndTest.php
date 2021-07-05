@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -17,7 +18,7 @@ use org\bovigo\vfs\vfsStreamDirectory;
 
 class Language_GetStringsEndToEndTest extends TikiTestCase
 {
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		// setup a mock filesystem with directories and files
 		$root = vfsStream::setup('root');
@@ -59,12 +60,12 @@ class Language_GetStringsEndToEndTest extends TikiTestCase
 	public function testGetStringsEndToEnd(): void
 	{
 		$obj = new Language_GetStrings(
-			new Language_CollectFiles,
-			new Language_WriteFile_Factory,
+			new Language_CollectFiles(),
+			new Language_WriteFile_Factory(),
 			['baseDir' => vfsStream::url('root')]
 		);
-		$obj->addFileType(new Language_FileType_Php);
-		$obj->addFileType(new Language_FileType_Tpl);
+		$obj->addFileType(new Language_FileType_Php());
+		$obj->addFileType(new Language_FileType_Tpl());
 		$obj->run();
 
 		$this->assertEquals(
@@ -87,13 +88,13 @@ class Language_GetStringsEndToEndTest extends TikiTestCase
 		$this->esDir->addChild($langFile);
 
 		$obj = new Language_GetStrings(
-			new Language_CollectFiles,
-			new Language_WriteFile_Factory,
+			new Language_CollectFiles(),
+			new Language_WriteFile_Factory(),
 			['baseDir' => vfsStream::url('root'), 'fileName' => 'language_r.php']
 		);
 
-		$obj->addFileType(new Language_FileType_Php);
-		$obj->addFileType(new Language_FileType_Tpl);
+		$obj->addFileType(new Language_FileType_Php());
+		$obj->addFileType(new Language_FileType_Tpl());
 		$obj->run();
 
 		$this->assertEquals(
@@ -124,12 +125,12 @@ class Language_GetStringsEndToEndTest extends TikiTestCase
 		$this->langDir->addChild($faDir);
 
 		$obj = new Language_GetStrings(
-			new Language_CollectFiles,
-			new Language_WriteFile_Factory,
+			new Language_CollectFiles(),
+			new Language_WriteFile_Factory(),
 			['baseDir' => vfsStream::url('root')]
 		);
-		$obj->addFileType(new Language_FileType_Php);
-		$obj->addFileType(new Language_FileType_Tpl);
+		$obj->addFileType(new Language_FileType_Php());
+		$obj->addFileType(new Language_FileType_Tpl());
 		$obj->run();
 
 		$this->assertEquals(

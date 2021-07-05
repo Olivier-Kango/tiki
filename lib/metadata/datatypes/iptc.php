@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -656,14 +657,18 @@ class Iptc
 		}
 		//these options are more complex and will be handled singly
 		//label depends on another field for these next two
-		if (array_key_exists('1#022', $iptc['iptc']) && $iptc['iptc']['1#022']['newval']
-			!= '00' && array_key_exists('1#020', $iptc['iptc'])) {
+		if (
+            array_key_exists('1#022', $iptc['iptc']) && $iptc['iptc']['1#022']['newval']
+			!= '00' && array_key_exists('1#020', $iptc['iptc'])
+        ) {
 			//haven't tested
 			$iptc['iptc']['1#022']['newval'] =
 				$this->specs['iptc']['1#022']['options'][$iptc['iptc']['1#022']['newval']][$iptc['iptc']['1#020']['newval']];
 		}
-		if (array_key_exists('2#201', $iptc['iptc']) && $iptc['iptc']['2#201']['newval']
-			!= '00' && array_key_exists('2#200', $iptc['iptc'])) {
+		if (
+            array_key_exists('2#201', $iptc['iptc']) && $iptc['iptc']['2#201']['newval']
+			!= '00' && array_key_exists('2#200', $iptc['iptc'])
+        ) {
 			//haven't tested
 			$iptc['iptc']['2#201']['newval'] =
 				$this->specs['iptc']['2#201']['options'][$iptc['iptc']['2#201']['newval']][$iptc['iptc']['2#200']['newval']];

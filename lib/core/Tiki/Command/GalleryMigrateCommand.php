@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -44,7 +45,6 @@ class GalleryMigrateCommand extends Command
 			} else {
 				$output->writeln('<error>' . tr('Something went wrong so please check errors output here or php logs') . '</error>');
 			}
-
 		} else {
 			$output->writeln('<error>' . tr('No files migrated, default file gallery path is not writable.') . '</error>');
 		}

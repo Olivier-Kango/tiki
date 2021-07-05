@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -38,7 +39,7 @@ class Definition
 				$class = substr(basename($file), 0, -4);
 				if ($class !== $group) {
 					$className = '\\Tiki\\Lib\\core\\Tracker\\Rule\\' . $group . '\\' . $class;
-					$object = new $className;
+					$object = new $className();
 					$definition[strtolower($group) . 's'][] = $object;
 				}
 			}
@@ -65,11 +66,11 @@ class Definition
 				function ($object) {
 					/** @var Column $object */
 					return $object->get();
-				}, $objects
+				},
+                $objects
 			);
 		}
 
 		return $out;
 	}
-
 }

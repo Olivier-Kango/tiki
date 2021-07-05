@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -53,7 +54,7 @@ class Tiki_Profile_InstallHandler_Article extends Tiki_Profile_InstallHandler
 
 		$this->replaceReferences($data);
 
-		$dateConverter = new Tiki_Profile_DateConverter;
+		$dateConverter = new Tiki_Profile_DateConverter();
 
 		$id = $artlib->replace_article(
 			$data['title'],
@@ -172,7 +173,8 @@ class Tiki_Profile_InstallHandler_Article extends Tiki_Profile_InstallHandler
 			$artlib = TikiLib::lib('art');
 			$article = $artlib->list_articles(0, -1, 'articleId_desc', $article);
 			$count = isset($article['cant']) ? $article['cant'] : 0;
-			if ($count == 1
+			if (
+                $count == 1
 				&& ! empty($article['data'][0]['articleId'])
 				&& $artlib->remove_article($article['data'][0]['articleId'])
 			) {

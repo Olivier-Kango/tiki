@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -77,8 +79,10 @@ if (empty($galleryId) && isset($_REQUEST['parentId'])) {
 	$gal_info['usedSize'] = 0;
 	$gal_info['maxQuota'] = $filegallib->getQuota($_REQUEST['parentId'], true);
 
-	if ($prefs['feature_use_fgal_for_user_files'] === 'y' &&
-		$parent_gal_info['type'] === 'user' && $parent_gal_info['user'] === $user && $tiki_p_userfiles === 'y') {
+	if (
+        $prefs['feature_use_fgal_for_user_files'] === 'y' &&
+		$parent_gal_info['type'] === 'user' && $parent_gal_info['user'] === $user && $tiki_p_userfiles === 'y'
+    ) {
 		$gal_info['type'] = 'user';
 		$gal_info['user'] = $user;
 	}
@@ -121,8 +125,10 @@ if (empty($galleryId) && isset($_REQUEST['parentId'])) {
 if (($galleryId != 0 || $tiki_p_list_file_galleries != 'y') && ($galleryId == 0 || $tiki_p_view_file_gallery != 'y')) {
 	Feedback::errorPage(['mes' => tr('You do not have permission to view this section'), 'errortype' => 401]);
 }
-if ($prefs['feature_use_fgal_for_user_files'] === 'y' && $gal_info['type'] === 'user' &&
-	$gal_info['visible'] !== 'y' && $gal_info['user'] !== $user && $tiki_p_admin_file_galleries !== 'y') {
+if (
+    $prefs['feature_use_fgal_for_user_files'] === 'y' && $gal_info['type'] === 'user' &&
+	$gal_info['visible'] !== 'y' && $gal_info['user'] !== $user && $tiki_p_admin_file_galleries !== 'y'
+) {
 	Feedback::errorPage(['mes' => tr('You do not have permission to view this gallery'), 'errortype' => 401]);
 }
 
@@ -224,9 +230,10 @@ if (isset($_REQUEST['fgal_actions'])) {
 			}
 		}
 
-		if (isset($_REQUEST['subgal']) && $tiki_p_admin_file_galleries == 'y'
-			&& $access->checkCsrf(true))
-		{
+		if (
+            isset($_REQUEST['subgal']) && $tiki_p_admin_file_galleries == 'y'
+			&& $access->checkCsrf(true)
+        ) {
 			$failedGals = $totalGals = count($_REQUEST['subgal']);
 			foreach (array_values($_REQUEST['subgal']) as $subgal) {
 				$subgalInfo = $filegallib->get_file_gallery_info($subgal);
@@ -283,10 +290,15 @@ if (isset($_REQUEST['fgal_actions'])) {
 				$msg = $failed === 1 ? tr('List view settings not changed for the selected gallery')
 					: tr('List view settings not changed for the %0 selected galleries', $failed);
 			} else {
-				$msg = $failed === 1 ? tr('List view settings reset for %0 galleries and not changed for one gallery',
-					$totalChanged)
-					: tr('List view settings reset for %0 galleries and not changed for %0 galleries', $totalChanged,
-						$failed);
+				$msg = $failed === 1 ? tr(
+                    'List view settings reset for %0 galleries and not changed for one gallery',
+                    $totalChanged
+                )
+					: tr(
+                        'List view settings reset for %0 galleries and not changed for %0 galleries',
+                        $totalChanged,
+                        $failed
+                    );
 			}
 			Feedback::error($msg);
 		}
@@ -317,10 +329,15 @@ if (isset($_REQUEST['fgal_actions'])) {
 						$msg = $failedFiles === 1 ? tr('Metadata refreshed for one file and not refreshed for one file')
 							: tr('Metadata refreshed for one file and not refreshed for %0 files', $failedFiles);
 					} else {
-						$msg = $failedFiles === 1 ? tr('Metadata refreshed for %0 files and not refreshed for one file',
-							$totalRefreshed)
-							: tr('Metadata refreshed for %0 files and not refreshed for %0 files', $totalRefreshed,
-								$failedFiles);
+						$msg = $failedFiles === 1 ? tr(
+                            'Metadata refreshed for %0 files and not refreshed for one file',
+                            $totalRefreshed
+                        )
+							: tr(
+                                'Metadata refreshed for %0 files and not refreshed for %0 files',
+                                $totalRefreshed,
+                                $failedFiles
+                            );
 					}
 					Feedback::error($msg);
 				}
@@ -390,9 +407,10 @@ if (isset($_REQUEST['lock']) && isset($_REQUEST['fileId']) && $_REQUEST['fileId'
 			if ($fileInfo['lockedby'] != $user && $tiki_p_admin_file_galleries != 'y') {
 				$error_msg = sprintf(tr('The file is already locked by %s'), $fileInfo['lockedby']);
 			} else {
-				if ($fileInfo['lockedby'] != $user
-					&& $access->checkCsrf(true))
-				{
+				if (
+                    $fileInfo['lockedby'] != $user
+					&& $access->checkCsrf(true)
+                ) {
 					$filegallib->unlock_file($_REQUEST['fileId']);
 				} elseif ($access->checkCsrf()) {
 					$result = $filegallib->unlock_file($_REQUEST['fileId']);
@@ -458,10 +476,11 @@ if (! empty($_REQUEST['remove']) && $access->checkCsrf(true)) {
 	}
 }
 
-if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'refresh_metadata'
+if (
+    isset($_REQUEST['action']) && $_REQUEST['action'] == 'refresh_metadata'
 	//popup confirm used here because request may be GET
-	&& $access->checkCsrf(true))
-{
+	&& $access->checkCsrf(true)
+) {
 	$result = $filegallib->metadataAction($_REQUEST['fileId'], 'refresh');
 	if ($result && $result->numRows()) {
 		Feedback::success(tr('Metadata refreshed'));
@@ -631,9 +650,9 @@ if (isset($_REQUEST['edit']) && $access->checkCsrf()) {
 		$file->setParam('description', $_REQUEST['fdescription']);
 		$fid = $file->replace($info['data'], $info['filetype'], $_REQUEST['fname'], $info['filename']);
 		if ($fid) {
-			Feedback::success(tr('File properties for %0 edited'. htmlspecialchars($_REQUEST['fname'])));
+			Feedback::success(tr('File properties for %0 edited' . htmlspecialchars($_REQUEST['fname'])));
 		} else {
-			Feedback::error(tr('File properties for %0 not changed'. htmlspecialchars($_REQUEST['fname'])));
+			Feedback::error(tr('File properties for %0 not changed' . htmlspecialchars($_REQUEST['fname'])));
 		}
 		$smarty->assign('edit_mode', 'n');
 	} else {
@@ -825,9 +844,10 @@ if (! empty($_REQUEST['removegal']) && $access->checkCsrf(true)) {
 }
 
 // Update a file comment
-if (isset($_REQUEST['comment']) && $_REQUEST['comment'] != '' && isset($_REQUEST['fileId']) && $_REQUEST['fileId'] > 0
-	&& $access->checkCsrf())
-{
+if (
+    isset($_REQUEST['comment']) && $_REQUEST['comment'] != '' && isset($_REQUEST['fileId']) && $_REQUEST['fileId'] > 0
+	&& $access->checkCsrf()
+) {
 	$msg = '';
 	if (! $fileInfo = $filegallib->get_file_info($_REQUEST['fileId'])) {
 		$msg = tra('Incorrect param');
@@ -1135,7 +1155,7 @@ if ($prefs['feature_user_watches'] == 'y') {
 				} else {
 					Feedback::error(tr('User watch not added'));
 				}
-			} else if ($_REQUEST['watch_action'] == 'remove' && $access->checkCsrf()) {
+			} elseif ($_REQUEST['watch_action'] == 'remove' && $access->checkCsrf()) {
 				$result = $tikilib->remove_user_watch($user, $_REQUEST['watch_event'], $_REQUEST['watch_object'], 'File Gallery');
 				if ($result && $result->numRows()) {
 					Feedback::success(tr('User watch removed'));
@@ -1180,8 +1200,10 @@ $subGalleries = $filegallib->getSubGalleries(
 );
 $smarty->assign('treeRootId', $subGalleries['parentId']);
 
-if ($prefs['fgal_show_explorer'] == 'y' || $prefs['fgal_show_path'] == 'y'
-	|| $_REQUEST['fgal_actions'] === 'movesel_x' || isset($_REQUEST["edit_mode"]) || isset($_REQUEST['dup_mode'])) {
+if (
+    $prefs['fgal_show_explorer'] == 'y' || $prefs['fgal_show_path'] == 'y'
+	|| $_REQUEST['fgal_actions'] === 'movesel_x' || isset($_REQUEST["edit_mode"]) || isset($_REQUEST['dup_mode'])
+) {
 	$gals = [];
 	foreach ($subGalleries['data'] as $gal) {
 		$gals[] = [

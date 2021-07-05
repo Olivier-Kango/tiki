@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -34,11 +35,11 @@ class Reports_Send_EmailBuilder
 			if (! empty($prefs['fallbackBaseUrl'])) {
 				global $base_url;
 			} else {
-				if (! empty($prefs['cookie_domain']))  {
+				if (! empty($prefs['cookie_domain'])) {
 					$base_url = "http://" . $prefs['cookie_domain'] . "/"; // TODO: better handling for https and such
-				} else if (! empty($prefs['sefurl_short_url_base_url']))  {
+				} elseif (! empty($prefs['sefurl_short_url_base_url'])) {
 					$base_url = $prefs['sefurl_short_url_base_url'];
-				} else if (! empty($prefs['connect_site_url']))  {
+				} elseif (! empty($prefs['connect_site_url'])) {
 					$base_url = $prefs['connect_site_url'];
 				} else {
 					$base_url = '';

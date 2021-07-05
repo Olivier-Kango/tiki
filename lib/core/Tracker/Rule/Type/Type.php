@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Tiki\Lib\core\Tracker\Rule\Type;
 
 use Tiki\Lib\core\Tracker\Rule\Column;
@@ -27,7 +26,8 @@ abstract class Type extends Column
 		$operator_ids = array_map(
 			function ($operator) {
 				return $operator->getId();
-			}, $this->operators
+			},
+            $this->operators
 		);
 
 		return [
@@ -36,7 +36,8 @@ abstract class Type extends Column
 		];
 	}
 
-	public function addOperator(Column $type) {
+	public function addOperator(Column $type)
+    {
 		$this->operators[] = $type;
 	}
 

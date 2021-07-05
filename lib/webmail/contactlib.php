@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -38,7 +39,7 @@ class ContactLib extends TikiLib
 		}
 
 		if ($contactIds) {
-			$mid .= " and c.`contactId` in (".implode(',', array_fill(0, count($contactIds), '?')).")";
+			$mid .= " and c.`contactId` in (" . implode(',', array_fill(0, count($contactIds), '?')) . ")";
 			$bindvars = array_merge($bindvars, $contactIds);
 		}
 
@@ -147,7 +148,8 @@ class ContactLib extends TikiLib
 		return $result;
 	}
 
-	public function get_contact_by_uri($uri, $user) {
+	public function get_contact_by_uri($uri, $user)
+    {
 		$query = "select * from `tiki_webmail_contacts` where (`contactId` = ? OR `uri` = ?) AND `user` = ?";
 		$result = $this->query($query, [(int)$uri, $uri, $user]);
 		if (! $result->numRows()) {

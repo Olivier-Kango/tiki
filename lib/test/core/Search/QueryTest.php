@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -9,7 +10,7 @@ class Search_QueryTest extends PHPUnit\Framework\TestCase
 {
 	public function testQueryGlobalText()
 	{
-		$index = new Search_Index_Memory;
+		$index = new Search_Index_Memory();
 		$query = new Search_Query('hello');
 
 		$query->search($index);
@@ -26,7 +27,7 @@ class Search_QueryTest extends PHPUnit\Framework\TestCase
 
 	public function testCompositeQuery()
 	{
-		$index = new Search_Index_Memory;
+		$index = new Search_Index_Memory();
 		$query = new Search_Query('hello world');
 
 		$query->search($index);
@@ -48,7 +49,7 @@ class Search_QueryTest extends PHPUnit\Framework\TestCase
 
 	public function testFilterType()
 	{
-		$index = new Search_Index_Memory;
+		$index = new Search_Index_Memory();
 		$query = new Search_Query('hello');
 		$query->filterType('wiki page');
 
@@ -67,8 +68,8 @@ class Search_QueryTest extends PHPUnit\Framework\TestCase
 
 	public function testFilterCategory()
 	{
-		$index = new Search_Index_Memory;
-		$query = new Search_Query;
+		$index = new Search_Index_Memory();
+		$query = new Search_Query();
 		$query->filterCategory('1 and 2');
 
 		$query->search($index);
@@ -90,8 +91,8 @@ class Search_QueryTest extends PHPUnit\Framework\TestCase
 
 	public function testDeepFilterCategory()
 	{
-		$index = new Search_Index_Memory;
-		$query = new Search_Query;
+		$index = new Search_Index_Memory();
+		$query = new Search_Query();
 		$query->filterCategory('1 and 2', true);
 
 		$query->search($index);
@@ -112,8 +113,8 @@ class Search_QueryTest extends PHPUnit\Framework\TestCase
 
 	public function testFilterLanguage()
 	{
-		$index = new Search_Index_Memory;
-		$query = new Search_Query;
+		$index = new Search_Index_Memory();
+		$query = new Search_Query();
 		$query->filterLanguage('en or fr');
 
 		$query->search($index);
@@ -135,8 +136,8 @@ class Search_QueryTest extends PHPUnit\Framework\TestCase
 
 	public function testDefaultSearchOrder()
 	{
-		$index = new Search_Index_Memory;
-		$query = new Search_Query;
+		$index = new Search_Index_Memory();
+		$query = new Search_Query();
 
 		$query->search($index);
 
@@ -145,8 +146,8 @@ class Search_QueryTest extends PHPUnit\Framework\TestCase
 
 	public function testSpecifiedOrder()
 	{
-		$index = new Search_Index_Memory;
-		$query = new Search_Query;
+		$index = new Search_Index_Memory();
+		$query = new Search_Query();
 
 		$query->setOrder(Search_Query_Order::recentChanges());
 
@@ -157,8 +158,8 @@ class Search_QueryTest extends PHPUnit\Framework\TestCase
 
 	public function testOrderFromString()
 	{
-		$index = new Search_Index_Memory;
-		$query = new Search_Query;
+		$index = new Search_Index_Memory();
+		$query = new Search_Query();
 
 		$query->setOrder('title_asc');
 
@@ -169,8 +170,8 @@ class Search_QueryTest extends PHPUnit\Framework\TestCase
 
 	public function testFilterBasedOnPermissions()
 	{
-		$index = new Search_Index_Memory;
-		$query = new Search_Query;
+		$index = new Search_Index_Memory();
+		$query = new Search_Query();
 		$query->filterPermissions(['Registered', 'Editor', 'Project Lead ABC']);
 
 		$query->search($index);
@@ -192,8 +193,8 @@ class Search_QueryTest extends PHPUnit\Framework\TestCase
 
 	public function testDefaultPagination()
 	{
-		$index = new Search_Index_Memory;
-		$query = new Search_Query;
+		$index = new Search_Index_Memory();
+		$query = new Search_Query();
 
 		$query->search($index);
 
@@ -203,8 +204,8 @@ class Search_QueryTest extends PHPUnit\Framework\TestCase
 
 	public function testSpecifiedPaginationRange()
 	{
-		$index = new Search_Index_Memory;
-		$query = new Search_Query;
+		$index = new Search_Index_Memory();
+		$query = new Search_Query();
 		$query->setRange(60, 30);
 
 		$query->search($index);
@@ -215,8 +216,8 @@ class Search_QueryTest extends PHPUnit\Framework\TestCase
 
 	public function testWithQueryRange()
 	{
-		$index = new Search_Index_Memory;
-		$query = new Search_Query;
+		$index = new Search_Index_Memory();
+		$query = new Search_Query();
 		$query->filterRange(1000, 2000);
 
 		$query->search($index);
@@ -230,8 +231,8 @@ class Search_QueryTest extends PHPUnit\Framework\TestCase
 
 	public function testFilterTags()
 	{
-		$index = new Search_Index_Memory;
-		$query = new Search_Query;
+		$index = new Search_Index_Memory();
+		$query = new Search_Query();
 		$query->filterTags('1 and 2');
 
 		$query->search($index);
@@ -252,8 +253,8 @@ class Search_QueryTest extends PHPUnit\Framework\TestCase
 
 	public function testFilterContentSpanMultipleFields()
 	{
-		$index = new Search_Index_Memory;
-		$query = new Search_Query;
+		$index = new Search_Index_Memory();
+		$query = new Search_Query();
 		$query->filterContent('hello world', ['contents', 'title']);
 
 		$query->search($index);
@@ -284,8 +285,8 @@ class Search_QueryTest extends PHPUnit\Framework\TestCase
 
 	public function testApplyWeight()
 	{
-		$index = new Search_Index_Memory;
-		$query = new Search_Query;
+		$index = new Search_Index_Memory();
+		$query = new Search_Query();
 		$query->setWeightCalculator(
 			new Search_Query_WeightCalculator_Field(
 				[
@@ -320,8 +321,8 @@ class Search_QueryTest extends PHPUnit\Framework\TestCase
 
 	public function testEmptySubQueryIsMainQuery()
 	{
-		$index = new Search_Index_Memory;
-		$query = new Search_Query;
+		$index = new Search_Index_Memory();
+		$query = new Search_Query();
 		$query->getSubQuery(null)
 			->filterContent('hello');
 
@@ -339,8 +340,8 @@ class Search_QueryTest extends PHPUnit\Framework\TestCase
 
 	public function testSubQueryCreatesOrStatement()
 	{
-		$index = new Search_Index_Memory;
-		$query = new Search_Query;
+		$index = new Search_Index_Memory();
+		$query = new Search_Query();
 		$query->getSubQuery('abc')
 			->filterContent('hello');
 		$query->getSubQuery('abc')

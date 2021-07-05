@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -29,8 +30,10 @@ class CartLib
 		}
 
 		if (! empty($params['exchangeorderitemid']) && ! empty($params['exchangetoproductid'])) {
-			if ($input->exchangeorderitemid->int() !== $params['exchangeorderitemid'] ||
-					$input->exchangetoproductid->int() !== $params['exchangetoproductid'] ) {
+			if (
+                $input->exchangeorderitemid->int() !== $params['exchangeorderitemid'] ||
+					$input->exchangetoproductid->int() !== $params['exchangetoproductid']
+            ) {
 				$this->handle_error(tra('Cart: Product exchange mismatch.'));
 				return false;
 			}
@@ -1006,14 +1009,18 @@ class CartLib
 		}
 
 		$this->change_inventory($info['code'], -1 * $info['quantity'], false);
-		if ((isset($info['exchangetoproductid']) && $info['exchangetoproductid'])
-			&& (isset($info['exchangeorderamount']) && $info['exchangeorderamount'])) {
+		if (
+            (isset($info['exchangetoproductid']) && $info['exchangetoproductid'])
+			&& (isset($info['exchangeorderamount']) && $info['exchangeorderamount'])
+        ) {
 			$this->change_inventory($info['exchangetoproductid'], -1 * $info['exchangeorderamount'], false);
 		}
 		if ($total > 0) {
 			$paymentlib->register_behavior($invoice, 'cancel', 'replace_inventory', [ $info['code'], $info['quantity'] ]);
-			if ((isset($info['exchangetoproductid']) && $info['exchangetoproductid'])
-				&& (isset($info['exchangeorderamount']) && $info['exchangeorderamount'])) {
+			if (
+                (isset($info['exchangetoproductid']) && $info['exchangetoproductid'])
+				&& (isset($info['exchangeorderamount']) && $info['exchangeorderamount'])
+            ) {
 				$paymentlib->register_behavior($invoice, 'cancel', 'replace_inventory', [ $info['exchangetoproductid'], $info['exchangeorderamount'] ]);
 			}
 		}

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * brings Smarty functionality into Tiki
  *
@@ -9,6 +10,7 @@
  * @copyright (c) Copyright by authors of the Tiki Wiki CMS Groupware Project. All Rights Reserved. See copyright.txt for details and a complete list of authors.
  * @licence Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
  */
+
 // $Id$
 
 // die if called directly.
@@ -741,7 +743,7 @@ class Smarty_Tiki extends Smarty
 	 * @return array|null
 	 * @throws Exception
 	 */
-	final public function checkWikiPageTemplatePerms(string $page, ?string &$tpl_source) : ?array
+	final public function checkWikiPageTemplatePerms(string $page, ?string &$tpl_source): ?array
 	{
 		global $tikilib;
 
@@ -767,7 +769,7 @@ class Smarty_Tiki extends Smarty
 				$pageLink = '<a href="' . smarty_modifier_sefurl($page) . '" class="alert-link">' . $page . '</a>';
 				if (count($nonAdminEditorGroups) > 1) {
 					$message = 'The %0 groups can edit this template page %1 but are not wiki administrators';
-					$groupString = 	substr_replace($groupString, tr(' and'), strrpos($groupString, ','), 1);
+					$groupString = substr_replace($groupString, tr(' and'), strrpos($groupString, ','), 1);
 				} else {
 					$message = 'The %0 group can edit this template page %1 but is not a wiki administrator';
 				}

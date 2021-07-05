@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -12,7 +13,7 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
 	header('location: index.php');
 	exit;
 }
-$list = new Tiki_Profile_List;
+$list = new Tiki_Profile_List();
 $sources = $list->getSources();
 
 $parserlib = TikiLib::lib('parser');
@@ -42,7 +43,7 @@ if (isset($_POST['forget'], $_POST['pp'], $_POST['pd']) && $access->checkCsrf())
 	set_time_limit(0);
 
 	$transaction = $tikilib->begin();
-	$installer = new Tiki_Profile_Installer;
+	$installer = new Tiki_Profile_Installer();
 	$installer->setUserData($data);
 	$installer->install($profile);
 	$transaction->commit();
@@ -78,7 +79,7 @@ if (isset($_POST['install'], $_POST['pd'], $_POST['pp'])) {
 		}
 	}
 
-	$installer = new Tiki_Profile_Installer;
+	$installer = new Tiki_Profile_Installer();
 	$installer->setUserData($data);
 	$profile = Tiki_Profile::fromNames($_POST['pd'], $_POST['pp']);
 	$dryRun = isset($_POST['dryrun']) ? true : false;
@@ -130,7 +131,7 @@ if (isset($_POST['test'], $_POST['profile_tester'], $_POST['profile_tester_name'
 	$smarty->assign('profile_tester_name', $_POST['profile_tester_name']);
 	$profile = Tiki_Profile::fromString($test_source, $_POST['profile_tester_name']);
 	$profile->removeSymbols();
-	$installer = new Tiki_Profile_Installer;
+	$installer = new Tiki_Profile_Installer();
 	$empty_cache = $_REQUEST['empty_cache'];
 	$smarty->assign('empty_cache', $empty_cache);
 
@@ -150,7 +151,7 @@ if (isset($_POST['test'], $_POST['profile_tester'], $_POST['profile_tester_name'
 }
 // TODO Don't see where this is used
 if (! empty($_POST['pp']) && ! empty($_POST["revertInfo"]) && $access->checkCsrf()) {
-	$installer = new Tiki_Profile_Installer;
+	$installer = new Tiki_Profile_Installer();
 	$domain = ! empty($_POST["revertInfo"]['domain']) ? $_POST["revertInfo"]['domain'] : '';
 	if (! empty($domain)) {
 		$transaction = $tikilib->begin();
@@ -180,7 +181,7 @@ if (isset($_GET['refresh'])) {
 }
 
 if (isset($_GET['getinfo'], $_GET['pd'], $_GET['pp'])) {
-	$installer = new Tiki_Profile_Installer;
+	$installer = new Tiki_Profile_Installer();
 	$profile = Tiki_Profile::fromNames($_GET['pd'], $_GET['pp']);
 	$error = '';
 
@@ -292,7 +293,7 @@ foreach ($sources as $key => $source) {
 
 if ($openSources == count($sources)) {
 	$smarty->assign('openSources', 'all');
-} elseif (($openSources > 0) &&($openSources < count($sources))) {
+} elseif (($openSources > 0) && ($openSources < count($sources))) {
 	$smarty->assign('openSources', 'some');
 } else {
 	$smarty->assign('openSources', 'none');

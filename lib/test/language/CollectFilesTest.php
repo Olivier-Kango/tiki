@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -12,9 +13,9 @@ use org\bovigo\vfs\vfsStreamDirectory;
 
 class Language_CollectFilesTest extends TikiTestCase
 {
-	protected function setUp() : void
+	protected function setUp(): void
 	{
-		$this->obj = new Language_CollectFiles;
+		$this->obj = new Language_CollectFiles();
 
 		// setup a mock filesystem with directories and files
 		$root = vfsStream::setup('root');

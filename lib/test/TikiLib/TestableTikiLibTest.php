@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -9,19 +10,19 @@ class TestableTikiLibTest extends TikiTestCase
 {
 	public function testOverrideLibShouldChangeValueReturnedByLib(): void
 	{
-		$obj = new TestableTikiLib;
+		$obj = new TestableTikiLib();
 
 		$this->assertInstanceOf(TikiLib::class, TikiLib::lib('tiki'));
-		$obj->overrideLibs(['tiki' => new stdClass]);
+		$obj->overrideLibs(['tiki' => new stdClass()]);
 		$this->assertInstanceOf(stdClass::class, TikiLib::lib('tiki'));
 	}
 
 	public function testOverrideLibShouldRestoreDefaultValueAfterObjectDestruction(): void
 	{
-		$obj = new TestableTikiLib;
+		$obj = new TestableTikiLib();
 
 		$this->assertInstanceOf(TikiLib::class, TikiLib::lib('tiki'));
-		$obj->overrideLibs(['tiki' => new stdClass]);
+		$obj->overrideLibs(['tiki' => new stdClass()]);
 		$this->assertInstanceOf(stdClass::class, TikiLib::lib('tiki'));
 
 		unset($obj);
@@ -30,7 +31,7 @@ class TestableTikiLibTest extends TikiTestCase
 
 	public function testOverrideLibShouldWorkWithMockObjects(): void
 	{
-		$obj = new TestableTikiLib;
+		$obj = new TestableTikiLib();
 
 		$calendarlib = $this->createMock(get_class(TikiLib::lib('calendar')));
 		$calendarlib->expects($this->never())->method('get_item');

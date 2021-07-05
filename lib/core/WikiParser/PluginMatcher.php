@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -25,7 +26,7 @@ class WikiParser_PluginMatcher implements Iterator, Countable
 	 */
 	public static function match($text)
 	{
-		$matcher = new self;
+		$matcher = new self();
 		$matcher->text = $text;
 		$matcher->findMatches(0, strlen($text));
 
@@ -54,7 +55,7 @@ class WikiParser_PluginMatcher implements Iterator, Countable
 
 	private function getSubMatcher($start, $end)
 	{
-		$sub = new self;
+		$sub = new self();
 		$sub->level = $this->level + 1;
 		$sub->text = $this->text;
 		$sub->findMatches($start, $end);

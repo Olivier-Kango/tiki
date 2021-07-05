@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -304,15 +305,16 @@ class Tracker_Field_WebService extends Tracker_Field_Abstract
 		return [
 			$baseKey => $typeFactory->multivalue(array_filter($value, 'is_string')),
 			"{$baseKey}_text" => $typeFactory->plaintext(		// ignore nested arrays and remove html for plain text
-					strip_tags(
-						implode(' ', array_filter($value, 'is_string'))
-					)
+                strip_tags(
+                    implode(' ', array_filter($value, 'is_string'))
+                )
 			),
 			"{$baseKey}_json" => $typeFactory->json($value),
 		];
 	}
 
-	public function getProvidedFields() {
+	public function getProvidedFields()
+    {
 		$baseKey = $this->getBaseKey();
 		return [$baseKey, "{$baseKey}_text", "{$baseKey}_json"];
 	}

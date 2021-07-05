@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -77,11 +78,13 @@ class CheckSqlEngine
 		}
 
 		for ($i = 0; $i < $query_count; $i++) {
-			if (! preg_match(
-				'/\s*CREATE\s+(?:TEMPORARY\s+){0,1}TABLE\s*(?:IF\s+NOT\s+EXISTS\s+){0,1}([^\s]+)\s*\(.*\)\s*(.*)[;\s]*/i',
-				str_replace(["\r", "\n"], ['', ' '], $queries[$i]),
-				$matches
-			)) {
+			if (
+                ! preg_match(
+                    '/\s*CREATE\s+(?:TEMPORARY\s+){0,1}TABLE\s*(?:IF\s+NOT\s+EXISTS\s+){0,1}([^\s]+)\s*\(.*\)\s*(.*)[;\s]*/i',
+                    str_replace(["\r", "\n"], ['', ' '], $queries[$i]),
+                    $matches
+                )
+            ) {
 				continue;
 			}
 

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -63,7 +64,8 @@ class Gd extends ImageAbstract
 					$this->data = call_user_func('imagecreatefrom' . $this->format, $this->filename);
 					$this->loaded = true;
 				}
-			} elseif (! empty($this->data) &&
+			} elseif (
+                ! empty($this->data) &&
 				$this->data != 'REFERENCE' &&
 				preg_match('/^[<]svg/', $this->data) == false //In some cases, an svg will be recognized as an alternate picture type, here we simply check the beginning for "<svg" and if it is found, it is an svg
 			) {

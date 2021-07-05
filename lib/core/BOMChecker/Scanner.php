@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -38,7 +39,7 @@ class BOMChecker_Scanner
 			$this->sourceDir = $scanDir;
 		}
 
-		if (is_array($scanExtensions)&&count($scanExtensions)) {
+		if (is_array($scanExtensions) && count($scanExtensions)) {
 			$this->scanExtensions = $scanExtensions;
 		}
 
@@ -96,11 +97,13 @@ class BOMChecker_Scanner
 				$this->checkDir($sourcefilePath);
 			}
 
-			if (! is_file($sourcefilePath)
+			if (
+                ! is_file($sourcefilePath)
 				|| ! in_array($this->getFileExtension($sourcefilePath), $this->scanExtensions)
 				|| ! $this->checkUtf8Bom($sourcefilePath)
 			) {
-				if (in_array($this->getFileExtension($sourcefilePath), $this->scanExtensions)
+				if (
+                    in_array($this->getFileExtension($sourcefilePath), $this->scanExtensions)
 					&& ! $this->checkUtf8Bom($sourcefilePath)
 				) {
 					$this->withoutBomFiles[] = $sourcefilePath;

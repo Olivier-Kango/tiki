@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -43,7 +44,7 @@ if (isset($_POST['createtag']) && $access->checkCsrf()) {
 	Feedback::success(tr('Tag %0 created.', '<em>' . $_POST['newtagname'] . '</em>'));
 }
 
-if (isset($_POST['restoretag'])&& $access->checkCsrf()) {
+if (isset($_POST['restoretag']) && $access->checkCsrf()) {
 	// Check existance
 	if (! $adminlib->tag_exists($_POST['tagname'])) {
 		Feedback::error(tr('Tag %0 not found', '<em>' . $_POST['tagname'] . '</em>'));

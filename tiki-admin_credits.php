@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -146,7 +148,8 @@ if (isset($_REQUEST['userfilter'])) {
 				}
 			}
 
-			if (! empty($_POST['credit_type'])
+			if (
+                ! empty($_POST['credit_type'])
 						&& ! empty($_POST['total_amount'])
 						&& in_array($_POST['credit_type'], array_keys($creditTypes))
 			) {

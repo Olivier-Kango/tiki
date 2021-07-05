@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -28,11 +30,11 @@ $carddavBackend = new CardDAVBackend();
 $tree = array(
     new DAVACL\PrincipalCollection($principalBackend),
     new CardDAV\AddressBookRoot($principalBackend, $carddavBackend)
-);  
+);
 
 // The object tree needs in turn to be passed to the server class
 $server = new DAV\Server($tree);
-$server->setBaseUri($tikiroot.'tiki-carddav.php');
+$server->setBaseUri($tikiroot . 'tiki-carddav.php');
 
 // Authentication plugin
 $authPlugin = new DAV\Auth\Plugin($authBackend);

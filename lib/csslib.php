@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -85,7 +86,8 @@ class cssLib extends TikiLib
 		$available_layouts = $this->list_layouts($theme, $theme_option);
 
 		foreach ($available_layouts as $layoutName => $layoutLabel) {
-			if ($layoutName == 'mobile'
+			if (
+                $layoutName == 'mobile'
 				|| $layoutName == 'layout_plain.tpl'
 				|| $layoutName == 'internal'
 			) {
@@ -123,7 +125,8 @@ class cssLib extends TikiLib
 		while ($file = readdir($handle)) {
 			if ((substr($file, -4, 4) == $extension) and (preg_match('/^[-_a-zA-Z0-9\.]*$/', $file))) {
 				$back[] = "$path/$file";
-			} elseif ($recursive
+			} elseif (
+                $recursive
 								&& $file != '.svn'
 								&& $file != '.'
 								&& $file != '..'

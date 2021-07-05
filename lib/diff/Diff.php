@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Text_Diff
  *
@@ -394,8 +395,10 @@ class Text_Diff_Engine_native
 
 			// Skip matching "snake".
 			$copy = [];
-			while ($xi < $n_from && $yi < $n_to
-				   && ! $this->xchanged[$xi] && ! $this->ychanged[$yi]) {
+			while (
+                $xi < $n_from && $yi < $n_to
+				   && ! $this->xchanged[$xi] && ! $this->ychanged[$yi]
+            ) {
 				$copy[] = $from_lines[$xi++];
 				++$yi;
 			}
@@ -565,15 +568,19 @@ class Text_Diff_Engine_native
 	public function _compareseq($xoff, $xlim, $yoff, $ylim)
 	{
 		/* Slide down the bottom initial diagonal. */
-		while ($xoff < $xlim && $yoff < $ylim
-			   && $this->xv[$xoff] == $this->yv[$yoff]) {
+		while (
+            $xoff < $xlim && $yoff < $ylim
+			   && $this->xv[$xoff] == $this->yv[$yoff]
+        ) {
 			++$xoff;
 			++$yoff;
 		}
 
 		/* Slide up the top initial diagonal. */
-		while ($xlim > $xoff && $ylim > $yoff
-			   && $this->xv[$xlim - 1] == $this->yv[$ylim - 1]) {
+		while (
+            $xlim > $xoff && $ylim > $yoff
+			   && $this->xv[$xlim - 1] == $this->yv[$ylim - 1]
+        ) {
 			--$xlim;
 			--$ylim;
 		}

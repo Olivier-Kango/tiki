@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Tiki typography functions
  *
@@ -77,8 +78,10 @@ function get_typography_parser($lang, $ui_flag)
 {
 	global $prefs;
 
-	if ($prefs['feature_typo_quotes'] != 'y' && $prefs['feature_typo_approximative_quotes'] != 'y' &&
-		$prefs['feature_typo_dashes_and_ellipses'] == 'y' && $prefs['feature_typo_nobreak_spaces'] != 'y') {
+	if (
+        $prefs['feature_typo_quotes'] != 'y' && $prefs['feature_typo_approximative_quotes'] != 'y' &&
+		$prefs['feature_typo_dashes_and_ellipses'] == 'y' && $prefs['feature_typo_nobreak_spaces'] != 'y'
+    ) {
 		// shortcut for when all typography transforms are disabled: don't load the parser or the settings
 		return false;
 	}

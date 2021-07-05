@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -79,7 +80,7 @@ class ocrLib extends TikiLib
 	 * todo 			Find the correct exit code on Windows if the "where" does not find the command.
 	 */
 
-	public function whereIsExecutable(string $executable) : ?string
+	public function whereIsExecutable(string $executable): ?string
 	{
 		if (! is_callable('exec')) {
 			throw new Exception('exec() is not enabled. Could not execute command.');

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -39,7 +40,7 @@ class GlobRecursiveHelper
 	 *
 	 * @return array			An array of all files matched, or an empty array if no files matched
 	 */
-	public function process(string $startDir = '') : array
+	public function process(string $startDir = ''): array
 	{
 
 		$files = glob($startDir . $this->pattern, $this->flags);

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Tiki\Group\Roles;
 
 use TikiDb;
@@ -143,5 +142,4 @@ class RolesLib extends TikiLib
 
 		return $rolesGroupSelected;
 	}
-
 }

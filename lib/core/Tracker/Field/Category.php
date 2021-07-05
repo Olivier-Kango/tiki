@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -155,7 +156,8 @@ class Tracker_Field_Category extends Tracker_Field_Abstract implements Tracker_F
 		return $data;
 	}
 
-	public function addValue($category) {
+	public function addValue($category)
+    {
 		$existing = explode(',', $this->getValue());
 		if (! in_array($category, $existing)) {
 			$existing[] = $category;
@@ -163,9 +165,10 @@ class Tracker_Field_Category extends Tracker_Field_Abstract implements Tracker_F
 		return implode(',', $existing);
 	}
 
-	public function removeValue($category) {
+	public function removeValue($category)
+    {
 		$existing = explode(',', $this->getValue());
-		$existing = array_filter($existing, function($v) use ($category) {
+		$existing = array_filter($existing, function ($v) use ($category) {
 			return $v != $category;
 		});
 		return implode(',', $existing);
@@ -440,7 +443,7 @@ class Tracker_Field_Category extends Tracker_Field_Abstract implements Tracker_F
 						return reset($categories);
 					}
 				})
-				->setParseIntoTransform(function (& $info, $value) use ($permName) {
+				->setParseIntoTransform(function (&$info, $value) use ($permName) {
 					if ($value != '#invalid') {
 						$info['fields'][$permName] = $value;
 					}
@@ -463,7 +466,7 @@ class Tracker_Field_Category extends Tracker_Field_Abstract implements Tracker_F
 						}
 					}
 				})
-				->setParseIntoTransform(function (& $info, $value) use ($permName, $invert) {
+				->setParseIntoTransform(function (&$info, $value) use ($permName, $invert) {
 					if (isset($invert[$value])) {
 						$info['fields'][$permName] = $invert[$value];
 					}
@@ -479,7 +482,7 @@ class Tracker_Field_Category extends Tracker_Field_Abstract implements Tracker_F
 					$categories = $matching($extra);
 					return implode(';', $categories);
 				})
-				->setParseIntoTransform(function (& $info, $value) use ($permName) {
+				->setParseIntoTransform(function (&$info, $value) use ($permName) {
 					$values = explode(';', $value);
 					$values = array_map('trim', $values);
 					$info['fields'][$permName] = implode(',', array_filter($values));
@@ -501,7 +504,7 @@ class Tracker_Field_Category extends Tracker_Field_Abstract implements Tracker_F
 
 					return implode('; ', array_filter($categories));
 				})
-				->setParseIntoTransform(function (& $info, $value) use ($permName, $invert) {
+				->setParseIntoTransform(function (&$info, $value) use ($permName, $invert) {
 					$values = explode(';', $value);
 					$values = array_map('trim', $values);
 					$values = array_map(function ($name) use ($invert) {
@@ -551,7 +554,7 @@ class Tracker_Field_Category extends Tracker_Field_Abstract implements Tracker_F
 
 				return in_array($categId, $categories) ? 'X' : '';
 			})
-			->setParseIntoTransform(function (& $info, $value) use ($permName, $categId) {
+			->setParseIntoTransform(function (&$info, $value) use ($permName, $categId) {
 				if (isset($info['fields'][$permName]) && ! isset($info['fields'][$permName]['incremental'])) {
 					// Looks like an other field took this over
 					// Do nothing
@@ -711,7 +714,7 @@ class Tracker_Field_Category extends Tracker_Field_Abstract implements Tracker_F
 			"{$baseKey}_text"  => $typeFactory->plaintext(implode(' ', $value)),
 		];
 
-		if ($prefs['unified_trackeritem_category_names'] === 'y'){
+		if ($prefs['unified_trackeritem_category_names'] === 'y') {
 			$categories = $this->getApplicableCategories();
 			$names = [];
 			$paths = [];
@@ -723,16 +726,16 @@ class Tracker_Field_Category extends Tracker_Field_Abstract implements Tracker_F
 			}
 			$out["{$baseKey}_names"] = $typeFactory->plaintext(implode(', ', $names));
 			$out["{$baseKey}_paths"] = $typeFactory->plaintext(implode(', ', $paths));
-
 		}
 		return $out;
 	}
 
-	public function getProvidedFields() {
+	public function getProvidedFields()
+    {
 		global $prefs;
 		$baseKey = $this->getBaseKey();
 		$out = [$baseKey, "{$baseKey}_text"];
-		if ($prefs['unified_trackeritem_category_names'] === 'y'){
+		if ($prefs['unified_trackeritem_category_names'] === 'y') {
 			$out[] = "{$baseKey}_names";
 			$out[] = "{$baseKey}_paths";
 		}

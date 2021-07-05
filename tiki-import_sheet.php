@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -36,7 +38,7 @@ $smarty->assign('page_mode', 'form');
 
 // Process the insertion or modification of a gallery here
 
-$grid = new TikiSheet;
+$grid = new TikiSheet();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$smarty->assign('page_mode', 'submit');
@@ -69,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$grid->export($handler);
 
 	ob_start();
-	$handler = new TikiSheetOutputHandler;
+	$handler = new TikiSheetOutputHandler();
 	$grid->export($handler);
 	$smarty->assign("grid_content", ob_get_contents());
 	ob_end_clean();
@@ -81,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	$handlers = TikiSheet::getHandlerList();
 
 	foreach ($handlers as $key => $handler) {
-		$temp = new $handler;
+		$temp = new $handler();
 		if (! $temp->supports(TIKISHEET_LOAD_DATA | TIKISHEET_LOAD_CALC)) {
 			continue;
 		}

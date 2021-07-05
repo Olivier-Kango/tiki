@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -15,7 +16,7 @@ class Perms_Reflection_Global implements Perms_Reflection_Container
 		$this->factory = $factory;
 
 		$db = TikiDb::get();
-		$this->permissions = new Perms_Reflection_PermissionSet;
+		$this->permissions = new Perms_Reflection_PermissionSet();
 
 		$all = $db->fetchAll('SELECT `groupName`, `permName` FROM `users_grouppermissions`');
 		foreach ($all as $row) {

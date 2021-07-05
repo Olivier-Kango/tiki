@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -404,9 +405,11 @@ abstract class Table_Settings_Abstract
 			$this->s['id'] .= $i;
 		}
 		foreach ($this->ids as $type => $elements) {
-			if (isset($this->s[$type]['type'])
+			if (
+                isset($this->s[$type]['type'])
 				&& $this->s[$type]['type'] !== false
-				&& $this->s[$type]['type'] !== 'save') {
+				&& $this->s[$type]['type'] !== 'save'
+            ) {
 				foreach ($elements as $element => $info) {
 					//for multiple elements
 					if (isset($this->s[$type][$element][0])) {
@@ -416,8 +419,10 @@ abstract class Table_Settings_Abstract
 									. htmlspecialchars($elements[$element]['id'] . $key);
 							}
 						}
-					} elseif ((! isset($this->s[$type][$element]) || (isset($this->s[$type][$element])
-						&& $this->s[$type][$element] !== false)) && ! isset($this->s[$type][$element]['id'])) {
+					} elseif (
+                        (! isset($this->s[$type][$element]) || (isset($this->s[$type][$element])
+						&& $this->s[$type][$element] !== false)) && ! isset($this->s[$type][$element]['id'])
+                    ) {
 						$this->s[$type][$element]['id'] = $this->s['id'] . htmlspecialchars($elements[$element]['id']);
 					}
 				}

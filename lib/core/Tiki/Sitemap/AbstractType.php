@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -94,7 +95,7 @@ abstract class AbstractType
 		}
 
 
-		$this->sitemap->links(['name' => $sitemapName], function($map) use (
+		$this->sitemap->links(['name' => $sitemapName], function ($map) use (
 			$entries,
 			$urlTemplate,
 			$idField,
@@ -106,7 +107,6 @@ abstract class AbstractType
 		) {
 
 			foreach ($entries['data'] as $entry) {
-
 				$url = sprintf($urlTemplate, urlencode($entry[$idField]));
 				if (function_exists('filter_out_sefurl')) {
 					$url = filter_out_sefurl($url, $entryType, ($entryType[$titleField] ?? ''));

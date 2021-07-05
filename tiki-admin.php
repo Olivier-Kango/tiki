@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -156,7 +158,8 @@ if ($prefs['feature_system_suggestions'] == 'y' && empty($_POST)) {
 		return;
 	}
 
-	if (! empty($adminLogin)
+	if (
+        ! empty($adminLogin)
 		&& ! isset($_SESSION['suggestions_off_user_id_' . $adminLogin])
 		&& TikiLib::lib('user')->user_is_in_group($user, 'Admins')
 	) {
@@ -208,9 +211,11 @@ if (isset($_POST['pass_blacklist']) && $jitPost->offsetExists('pass_blacklist_fi
 		$passDir = 'lib/pass_blacklists/';
 	}
 	if ($pass_blacklist_file === 'auto') {
-		if ($_POST['min_pass_length'] != $GLOBALS['prefs']['min_pass_length'] ||
+		if (
+            $_POST['min_pass_length'] != $GLOBALS['prefs']['min_pass_length'] ||
 			$_POST['pass_chr_num'] != $GLOBALS['prefs']['pass_chr_num']    ||
-			$_POST['pass_chr_special'] != $GLOBALS['prefs']['pass_chr_special']) {       // if blacklist is auto and an option is changed that could effect the selection
+			$_POST['pass_chr_special'] != $GLOBALS['prefs']['pass_chr_special']
+        ) {       // if blacklist is auto and an option is changed that could effect the selection
 			$prefname = implode('-', $blackL->selectBestBlacklist($_POST['pass_chr_num'], $_POST['pass_chr_special'], $_POST['min_pass_length']));
 			$filename = $passDir . $prefname . '.txt';
 			$tikilib->set_preference('pass_auto_blacklist', $prefname);
@@ -347,9 +352,10 @@ if (isset($_REQUEST['page'])) {
 	//for most admin include page forms, need to redirect as changes to one pref can affect display of others
 	//however other forms that perform actions other than changing preferences should not redirect to avoid infinite loops
 	//for these add a hidden input named redirect with a value of 0
-	if ($access->csrfResult() && (! isset($_POST['redirect']) || $_POST['redirect'] === 1)
-		&& ! isset($_POST['saveblacklist']) && ! isset($_POST['viewblacklist']))
-	{
+	if (
+        $access->csrfResult() && (! isset($_POST['redirect']) || $_POST['redirect'] === 1)
+		&& ! isset($_POST['saveblacklist']) && ! isset($_POST['viewblacklist'])
+    ) {
 		$access->redirect($_SERVER['REQUEST_URI'], '', 200);
 	}
 } else {
@@ -404,14 +410,16 @@ $smarty->assign('trail', $crumbs);
 $smarty->assign('crumb', count($crumbs) - 1);
 
 if (file_exists(__DIR__ . '/vendor/autoload.php')) {
-	if (file_exists(__DIR__ . '/vendor/do_not_clean.txt')
+	if (
+        file_exists(__DIR__ . '/vendor/do_not_clean.txt')
 		|| ! ( // check the existence of critical files denoting a legacy vendor folder
 			(file_exists(__DIR__ . '/vendor/zendframework/zend-config/src/Config.php') //ZF2
 				|| file_exists(__DIR__ . '/vendor/bombayworks/zendframework1/library/Zend/Config.php')) //ZF1
 			&& (file_exists(__DIR__ . '/vendor/smarty/smarty/libs/Smarty.class.php') //Smarty
 				|| file_exists(__DIR__ . '/vendor/smarty/smarty/distribution/libs/Smarty.class.php')) //Smarty
 			&& file_exists(__DIR__ . '/vendor/adodb/adodb/adodb.inc.php') //Adodb
-		)) {
+		)
+    ) {
 		$vendorAutoloadIgnored = false;
 	} else {
 		$vendorAutoloadIgnored = true;
@@ -428,7 +436,7 @@ if (file_exists(__DIR__ . '/vendor/autoload-disabled.php')) {
 
 $smarty->assign('fgal_web_accessible', false);
 if ($prefs['fgal_use_dir'] && $prefs['fgal_use_db'] === 'n') {
-	$smarty->assign('fgal_web_accessible', $access->isFileWebAccessible($prefs['fgal_use_dir']. 'index.php'));
+	$smarty->assign('fgal_web_accessible', $access->isFileWebAccessible($prefs['fgal_use_dir'] . 'index.php'));
 }
 $smarty->assign('vendor_autoload_ignored', $vendorAutoloadIgnored);
 $smarty->assign('vendor_autoload_disabled', $vendorAutoloadDisabled);

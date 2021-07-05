@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -59,7 +60,7 @@ class Search_Formatter_DataSource_Declarative implements Search_Formatter_DataSo
 			}
 
 			if ($this->sourceProvidesValue($contentSource, $missingFields)) {
-				$data = $contentSource->getDocument($object, new Search_Type_Factory_Direct);
+				$data = $contentSource->getDocument($object, new Search_Type_Factory_Direct());
 				$used = $data;
 
 				if (is_int(key($data)) && ! is_null($hash)) {
@@ -96,7 +97,7 @@ class Search_Formatter_DataSource_Declarative implements Search_Formatter_DataSo
 				unset($data[$field]);
 			}
 
-			$data = $globalSource->getData($type, $object, new Search_Type_Factory_Direct, $data);
+			$data = $globalSource->getData($type, $object, new Search_Type_Factory_Direct(), $data);
 
 			return $this->getRaw($data, $missingFields);
 		}

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -702,7 +703,7 @@ function duplicate(array $info, array $params, array $trackerData, string $level
 			$access->redirect($_SERVER['HTTP_REFERER']);
 		}
 
-		$trackerUtilities = new Services_Tracker_Utilities;
+		$trackerUtilities = new Services_Tracker_Utilities();
 		$countDuplicatedItems = 0;
 		$insertedItems = [];
 		$mapFields = [];
@@ -768,7 +769,7 @@ function duplicate(array $info, array $params, array $trackerData, string $level
 
 			if ($tikiPEdit === 'y') {
 				try {
-					$util = new Services_Edit_Utilities;
+					$util = new Services_Edit_Utilities();
 					$util->replacePlugin(new JitFilter([
 						'page' => $page,
 						'message' => tr('Gantt chart plugin updated'),
@@ -862,7 +863,8 @@ function transformDependenciesIndexToIds($depends, $tasks)
 function updateTasks($info, $params, $allResources, $allRoles)
 {
 	$access = TikiLib::lib('access');
-	if (! empty($info)
+	if (
+        ! empty($info)
 		&& $access->checkCsrf()
 		&& ! empty($info['trackerId'])
 		&& (! empty($info['deletedIds']) || ! empty($info['tasks']))

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -24,7 +25,7 @@ class LanguageTranslationsTest extends TikiTestCase
 
 	protected $tikiroot;
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		$this->tikiroot = __DIR__ . '/../../../';
 		$this->lang = 'test_language';
@@ -57,7 +58,7 @@ class LanguageTranslationsTest extends TikiTestCase
 		}
 	}
 
-	protected function tearDown() : void
+	protected function tearDown(): void
 	{
 		if (file_exists($this->langDir . '/language.php')) {
 			unlink($this->langDir . '/language.php');

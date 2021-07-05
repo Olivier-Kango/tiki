@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -173,7 +174,7 @@ TXT;
 			$string .= '/* ' . join(', ', $entry['files']) . " */\n";
 		}
 
-		if ($language == 'en' && !isset($entry['translation']) && preg_match('/(.*)_C\(.*\)$/', $entry['name'], $match)) {
+		if ($language == 'en' && ! isset($entry['translation']) && preg_match('/(.*)_C\(.*\)$/', $entry['name'], $match)) {
 			$entry['translation'] = $match[1];
 		}
 

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -27,11 +28,11 @@ class PdfImagesLib
 	public function setBinaryPath($path = null)
 	{
 		global $prefs;
-		if ($path){
+		if ($path) {
 			$this->binaryPath = escapeshellcmd($path);
-		}elseif (! empty($prefs['ocr_pdfimages_path'])){
+		} elseif (! empty($prefs['ocr_pdfimages_path'])) {
 			$this->binaryPath = escapeshellcmd($prefs['ocr_pdfimages_path']);
-		}else{
+		} else {
 			$this->binaryPath = 'pdfimages';
 		}
 	}
@@ -45,7 +46,7 @@ class PdfImagesLib
 		$output = shell_exec(escapeshellarg($this->binaryPath) . ' -v 2>&1');
 		preg_match('/[\d\.]+/', $output, $version);
 
-		if (!empty($version[0])){
+		if (! empty($version[0])) {
 			$this->version = $version[0];
 		}
 	}
@@ -56,9 +57,10 @@ class PdfImagesLib
 	 *
 	 * @throws Exception If pdf images is not accessible on the local system.
 	 */
-	public function isInstalled(){
+	public function isInstalled()
+    {
 		$this->setVersion();
-		if (!$this->version){
+		if (! $this->version) {
 			throw new Exception('pdfimages binary not found');
 		}
 	}
@@ -84,7 +86,8 @@ class PdfImagesLib
 	 *
 	 * @param $argument string
 	 */
-	public function setArgument($argument){
+	public function setArgument($argument)
+    {
 
 		$this->arguments[] = $argument;
 	}
@@ -97,11 +100,11 @@ class PdfImagesLib
 	 */
 	public function setFilePaths($sourcePDF, $destinationFolder)
 	{
-		if (!is_readable($sourcePDF)){
-			throw new Exception ($this->source . 'not readable');
+		if (! is_readable($sourcePDF)) {
+			throw new Exception($this->source . 'not readable');
 		}
-		if (!is_writable($destinationFolder)){
-			throw new Exception ($this->destination . ' is not writable');
+		if (! is_writable($destinationFolder)) {
+			throw new Exception($this->destination . ' is not writable');
 		}
 
 		$this->source = escapeshellarg($sourcePDF);
@@ -113,20 +116,20 @@ class PdfImagesLib
 	 * The arguments need to be previously set with an instance of PdfImagesLib
 	 * @throws Exception Thrown if pdfimages binary throws an error
 	 */
-		public function run(){
+		public function run()
+        {
 
 		$this->isInstalled();
 
-		if (empty($this->arguments)){
+		if (empty($this->arguments)) {
 			$arguments = ' ';
-		}else{
-			$arguments = ' -' . implode(' -',$this->arguments) . ' ';
+		} else {
+			$arguments = ' -' . implode(' -', $this->arguments) . ' ';
 		}
 
 		$error = shell_exec($this->binaryPath . $arguments . $this->source . ' ' . $this->destination . ' 2>&1');
-		if ($error){
-			throw new Exception ($error);
+		if ($error) {
+			throw new Exception($error);
 		}
-	}
-
+	    }
 }

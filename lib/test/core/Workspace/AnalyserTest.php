@@ -4,7 +4,7 @@ class Profile_AnalyserTest extends PHPUnit\Framework\TestCase
 {
 	public function testReadGroupList()
 	{
-		$builder = new Services_Workspace_ProfileBuilder;
+		$builder = new Services_Workspace_ProfileBuilder();
 		$builder->addGroup('Base', $builder->user('group'));
 		$builder->addGroup('World', $builder->user('group') . ' World', true);
 		$builder->setManagingGroup('Base');
@@ -48,7 +48,7 @@ class Profile_AnalyserTest extends PHPUnit\Framework\TestCase
 
 	public function testGetObjects()
 	{
-		$builder = new Services_Workspace_ProfileBuilder;
+		$builder = new Services_Workspace_ProfileBuilder();
 		$builder->addObject(
 			'wiki_page',
 			'foo',

@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -51,8 +53,10 @@ function guess_new_page_attributes_from_parent_pages($page, $page_info)
 		//
 		$new_page_inherited_attributes =
 			$editlib->get_new_page_attributes_from_parent_pages($page, $page_info);
-		if ($editlib->user_needs_to_specify_language_of_page_to_be_created($page, $page_info)
-			&& isset($new_page_inherited_attributes['lang'])) {
+		if (
+            $editlib->user_needs_to_specify_language_of_page_to_be_created($page, $page_info)
+			&& isset($new_page_inherited_attributes['lang'])
+        ) {
 			//
 			// Language is not set yet, but it COULD be guessed from parent pages.
 			// So, set it.
@@ -207,10 +211,12 @@ if (isset($_REQUEST["current_page_id"]) && empty($info)) {
 	}
 
 	$structure_info = $structlib->s_get_structure_info($_REQUEST['current_page_id']);
-	if (($tiki_p_edit != 'y' && ! $tikilib->user_has_perm_on_object($user, $structure_info["pageName"], 'wiki page', 'tiki_p_edit'))
+	if (
+        ($tiki_p_edit != 'y' && ! $tikilib->user_has_perm_on_object($user, $structure_info["pageName"], 'wiki page', 'tiki_p_edit'))
 		||
 		(($tiki_p_edit_structures != 'y' &&
-			! $tikilib->user_has_perm_on_object($user, $structure_info["pageName"], 'wiki page', 'tiki_p_edit_structures')))) {
+			! $tikilib->user_has_perm_on_object($user, $structure_info["pageName"], 'wiki page', 'tiki_p_edit_structures')))
+    ) {
 		$smarty->assign('errortype', 401);
 		$smarty->assign('msg', tra("You do not have permission to edit this page."));
 		$smarty->display("error.tpl");
@@ -341,7 +347,8 @@ if ($prefs['feature_warn_on_edit'] === 'y') {
 	$u = $user ? $user : 'anonymous';
 	if (! empty($page) && ($page !== 'sandbox' || $page === 'sandbox' && $tiki_p_admin === 'y')) {
 		if (! isset($_REQUEST['save'])) {
-			if ($serviceLib->internal('semaphore', 'is_set', ['object_id' => $page]) &&
+			if (
+                $serviceLib->internal('semaphore', 'is_set', ['object_id' => $page]) &&
 				$serviceLib->internal('semaphore', 'get_user', ['object_id' => $page]) !== $u &&
 				! $serviceLib->internal('semaphore', 'is_set', ['object_id' => 'togetherjs ' . $page])
 			) {
@@ -1017,7 +1024,8 @@ function parse_output(&$obj, &$parts, $i)
 $pageAlias = '';
 $cat_type = 'wiki page';
 $cat_objid = $_REQUEST["page"];
-if (isset($_REQUEST['save'])
+if (
+    isset($_REQUEST['save'])
 	 && $prefs['feature_contribution'] === 'y'
 	 && $prefs['feature_contribution_mandatory'] === 'y'
 	 && (empty($_REQUEST['contributions']) || count($_REQUEST['contributions']) <= 0)
@@ -1027,7 +1035,8 @@ if (isset($_REQUEST['save'])
 } else {
 	$contribution_needed = false;
 }
-if (isset($_REQUEST['save'])
+if (
+    isset($_REQUEST['save'])
 	&& $prefs['feature_categories'] === 'y'
 	&& $prefs['feature_wiki_mandatory_category'] >= 0
 	&& (empty($_REQUEST['cat_categories']) || count($_REQUEST['cat_categories']) <= 0)
@@ -1070,7 +1079,8 @@ if ($prefs['site_layout_per_object'] == 'y') {
 	]);
 }
 
-if (isset($_REQUEST["save"])
+if (
+    isset($_REQUEST["save"])
 		&& (strtolower($_REQUEST['page']) !== 'sandbox' || $tiki_p_admin === 'y')
 		&& ! $category_needed
 		&& ! $contribution_needed
@@ -1115,7 +1125,8 @@ if (isset($_REQUEST["save"])
 	//$edit = $imagegallib->capture_images($edit);
 
 	// add permisions here otherwise return error!
-	if (isset($prefs['wiki_feature_copyrights'])
+	if (
+        isset($prefs['wiki_feature_copyrights'])
 		&& $prefs['wiki_feature_copyrights'] === 'y'
 		&& isset($_REQUEST['copyrightTitle'])
 		&& isset($_REQUEST['copyrightYear'])
@@ -1125,7 +1136,7 @@ if (isset($_REQUEST["save"])
 		&& ! empty($_REQUEST['copyrightTitle'])
 	) {
 		include_once("lib/copyrights/copyrightslib.php");
-		$copyrightslib = new CopyrightsLib;
+		$copyrightslib = new CopyrightsLib();
 		$copyrightYear = $_REQUEST['copyrightYear'];
 		$copyrightTitle = $_REQUEST['copyrightTitle'];
 		$copyrightAuthors = $_REQUEST['copyrightAuthors'];
@@ -1196,7 +1207,7 @@ if (isset($_REQUEST["save"])
 		/*
 		   $tikilib->cache_links($links);
 		 */
-		$minor = (isset($_REQUEST['isminor'])&&$_REQUEST['isminor'] === 'on') ? 1 : 0;
+		$minor = (isset($_REQUEST['isminor']) && $_REQUEST['isminor'] === 'on') ? 1 : 0;
 
 		if ((isset($_REQUEST['hdr']) || (! empty($_REQUEST['pos']) && isset($_REQUEST['cell']))) && $prefs['wiki_edit_section'] === 'y') {
 			if (isset($_REQUEST['hdr'])) {
@@ -1263,7 +1274,6 @@ if (isset($_REQUEST["save"])
 	}
 
 	if ($prefs['object_maintainers_enable'] === 'y') {
-
 		$relationlib = TikiLib::lib('relation');
 		$attributelib = TikiLib::lib('attribute');
 
@@ -1278,10 +1288,9 @@ if (isset($_REQUEST["save"])
 
 		if (! empty($_REQUEST["update_frequency"]) && $_REQUEST["update_frequency"] > 0) {
 			$attributelib -> set_attribute('wiki page', $info['pageName'], 'tiki.object.update_frequency', $_REQUEST["update_frequency"]);
-		} else { // Erase potentially preexisting update frequency 
+		} else { // Erase potentially preexisting update frequency
 			$attributelib -> set_attribute('wiki page', $info['pageName'], 'tiki.object.update_frequency', ''); // param $value === '' means delete
 		}
-
 	}
 
 	include_once("categorize.php");
@@ -1316,8 +1325,10 @@ if (isset($_REQUEST["save"])
 		}
 		// Inherit direct object permissions for pages added to a structure, if the user can edit the structure and the page
 		if (! isset($prefs['feature_wiki_no_inherit_perms_structure']) || $prefs['feature_wiki_no_inherit_perms_structure'] === 'n') {
-			if ($tikilib->user_has_perm_on_object($user, $_REQUEST["page"], 'wiki page', 'tiki_p_edit_structures', 'tiki_p_edit') ||
-				($tikilib->user_has_perm_on_object($user, $_REQUEST["page"], 'wiki page', 'tiki_p_admin_wiki'))) {
+			if (
+                $tikilib->user_has_perm_on_object($user, $_REQUEST["page"], 'wiki page', 'tiki_p_edit_structures', 'tiki_p_edit') ||
+				($tikilib->user_has_perm_on_object($user, $_REQUEST["page"], 'wiki page', 'tiki_p_admin_wiki'))
+            ) {
 				 $userlib->copy_object_permissions($page_info["pageName"], $_REQUEST["page"], 'wiki page');
 			}
 		}
@@ -1583,7 +1594,7 @@ if ($structlib->page_is_in_structure($_REQUEST["page"])) {
 $smarty->assign('edit_page', 'y');
 if ($prefs['wiki_feature_copyrights'] === 'y' && $tiki_p_edit_copyrights === 'y') {
 	include_once('lib/copyrights/copyrightslib.php');
-	$copyrightslib = new CopyrightsLib;
+	$copyrightslib = new CopyrightsLib();
 	$copyrights = $copyrightslib->list_copyrights($_REQUEST["page"]);
 	if ($copyrights['cant']) {
 		$smarty->assign_by_ref('copyrights', $copyrights['data']);
@@ -1613,7 +1624,8 @@ $smarty->assign('pageAutoToc', $wikilib->get_page_auto_toc($page));
 $smarty->assign('page_hide_title', $wikilib->get_page_hide_title($page));
 
 // setup properties tab visibility
-if (($prefs['feature_wiki_templates'] === 'y' && $tiki_p_use_content_templates === 'y') ||
+if (
+    ($prefs['feature_wiki_templates'] === 'y' && $tiki_p_use_content_templates === 'y') ||
 	($prefs['feature_wiki_usrlock'] === 'y' && ($tiki_p_lock === 'y' || $tiki_p_admin_wiki === 'y')) ||
 	($prefs['feature_wiki_replace'] === 'y' && $_SESSION['wysiwyg'] !== 'y') ||
 	($prefs['feature_wiki_allowhtml'] === 'y' && $tiki_p_use_HTML === 'y' && $_SESSION['wysiwyg'] !== 'y') ||
@@ -1635,7 +1647,8 @@ if (($prefs['feature_wiki_templates'] === 'y' && $tiki_p_use_content_templates =
 		$prefs['feature_multilingual'] === 'y' ||
 		$prefs['namespace_enabled'] === 'y' ||
 		$prefs['site_layout_per_object'] === 'y' ||
-		! empty($prefs['geo_locate_wiki']) && $prefs['geo_locate_wiki'] === 'y') {
+		! empty($prefs['geo_locate_wiki']) && $prefs['geo_locate_wiki'] === 'y'
+) {
 	$smarty->assign('showPropertiesTab', 'y');
 }
 

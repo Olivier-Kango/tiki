@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -508,8 +509,10 @@ class Table_Plugin
 					$tsf = Table_Check::parseParam($tsfilters);
 					if (is_array($tsf)) {
 						foreach ($tsf as $col => $filterinfo) {
-							if (isset($filterinfo['type']) && $filterinfo['type'] === 'dropdown'
-								&& ! empty($filterinfo['options'])) {
+							if (
+                                isset($filterinfo['type']) && $filterinfo['type'] === 'dropdown'
+								&& ! empty($filterinfo['options'])
+                            ) {
 								foreach ($filterinfo['options'] as $key => $value) {
 									$filterinfo['options'][$key] = str_replace('=', '|', $value);
 								}

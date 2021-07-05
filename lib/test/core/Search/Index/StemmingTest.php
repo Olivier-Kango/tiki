@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -70,7 +71,7 @@ abstract class Search_Index_StemmingTest extends PHPUnit\Framework\TestCase
 
 	public function testFilterIdentifierExactly()
 	{
-		$query = new Search_Query;
+		$query = new Search_Query();
 		$query->filterType('wikipage?!');
 
 		$this->assertGreaterThan(0, count($query->search($this->index)));
@@ -78,7 +79,7 @@ abstract class Search_Index_StemmingTest extends PHPUnit\Framework\TestCase
 
 	public function testSearchObject()
 	{
-		$query = new Search_Query;
+		$query = new Search_Query();
 		$query->addObject('wikipage?!', 'Comité Wiki');
 
 		$this->assertGreaterThan(0, count($query->search($this->index)));
@@ -92,7 +93,7 @@ abstract class Search_Index_StemmingTest extends PHPUnit\Framework\TestCase
 
 	public function testHebrewString()
 	{
-		$query = new Search_Query;
+		$query = new Search_Query();
 		$query->filterContent('מחשב', 'hebrew');
 		$this->assertCount(1, $query->search($this->index));
 	}

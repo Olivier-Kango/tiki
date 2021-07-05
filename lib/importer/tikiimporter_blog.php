@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -467,7 +468,7 @@ class TikiImporter_Blog extends TikiImporter
 	public function instantiateImporterWiki()
 	{
 		require_once('tikiimporter_wiki.php');
-		$this->importerWiki = new TikiImporter_Wiki;
+		$this->importerWiki = new TikiImporter_Wiki();
 		$this->importerWiki->alreadyExistentPageName = 'appendPrefix';
 		$this->importerWiki->softwareName = $this->softwareName;
 	}

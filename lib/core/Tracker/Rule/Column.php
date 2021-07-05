@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Tiki\Lib\core\Tracker\Rule;
 
 abstract class Column

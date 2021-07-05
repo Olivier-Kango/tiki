@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -9,7 +10,7 @@ TikiLib::lib('cart');
 
 class Payment_CartTest extends TikiTestCase
 {
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		global $prefs;
 		$prefs['feature_sefurl'] = 'n';
@@ -19,7 +20,7 @@ class Payment_CartTest extends TikiTestCase
 		$_SERVER['REQUEST_URI'] = '/tiki-index.php';
 	}
 
-	protected function tearDown() : void
+	protected function tearDown(): void
 	{
 		unset($_SESSION['cart']);
 	}
@@ -365,14 +366,14 @@ T-456|Foobar|1|120.50
 	public function testGetGiftCertificateCodeShouldReturnCodeIfNotNull(): void
 	{
 		$this->markTestSkipped("As of 2013-10-02, this test is broken, and nobody knows how to fix it. Mark as Skipped for now.");
-		$obj = new CartLib;
+		$obj = new CartLib();
 		$code = 123;
 		$this->assertEquals($code, $obj->get_gift_certificate_code($code));
 	}
 
 	public function testGetGiftCertificateCodeShouldReturnValueStoreInSession(): void
 	{
-		$obj = new CartLib;
+		$obj = new CartLib();
 		$code = null;
 		$_SESSION['cart']['tiki-gc']['code'] = 123;
 		$this->assertEquals(123, $obj->get_gift_certificate_code($code));

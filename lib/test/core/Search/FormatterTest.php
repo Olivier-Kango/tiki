@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -321,7 +322,7 @@ OUT;
 			20,
 			10
 		);
-		$resultSet->setHighlightHelper(new Search_FormatterTest_HighlightHelper);
+		$resultSet->setHighlightHelper(new Search_FormatterTest_HighlightHelper());
 
 		$formatter = new Search_Formatter($plugin);
 		$output = $formatter->format($resultSet);

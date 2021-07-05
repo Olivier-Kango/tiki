@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -16,7 +17,7 @@ class Language_FileTest extends TikiTestCase
 
 	protected $filePath;
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		$this->filePath = __DIR__ . '/fixtures/language_to_parse_file.php';
 		$this->obj = new Language_File($this->filePath);

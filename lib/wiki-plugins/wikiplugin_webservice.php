@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -93,7 +94,7 @@ function wikiplugin_webservice($data, $params)
 
 	if (isset($params['url'])) {
 		// When URL is specified, always use the body as template
-		$request = new OIntegrate;
+		$request = new OIntegrate();
 		$response = $request->performRequest($params['url']);
 
 		if (! empty($templateFile)) {

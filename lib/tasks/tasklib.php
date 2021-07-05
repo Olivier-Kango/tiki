@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -308,8 +309,7 @@ class TaskLib extends TikiLib
 	* $show_completed	if on true it shows also the as completed marked tasks
 	* $use_admin_mode	shows all shard tasks also if the user is not in the group to view the task
 	**/
-	public function list_tasks($user, $offset = 0, $maxRecords = -1, $find = null, $sort_mode = 'priority_asc', $show_private = true, $show_submitted = true, $show_received = true, $show_shared = true, $use_show_shared_for_group = false, $show_shared_for_group = null, $show_trash = false, $show_completed = false, $use_admin_mode = false
-	)
+	public function list_tasks($user, $offset = 0, $maxRecords = -1, $find = null, $sort_mode = 'priority_asc', $show_private = true, $show_submitted = true, $show_received = true, $show_shared = true, $use_show_shared_for_group = false, $show_shared_for_group = null, $show_trash = false, $show_completed = false, $use_admin_mode = false)
 	{
 		$list_tasks_start = microtime();
 		$values = [];
@@ -447,4 +447,4 @@ class TaskLib extends TikiLib
 		return $ret;
 	}
 }
-$tasklib = new TaskLib;
+$tasklib = new TaskLib();

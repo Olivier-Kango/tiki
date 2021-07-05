@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -19,7 +20,7 @@ class DeclFilterBaseTest extends TikiTestCase
 			'alpha' => 'alpha123',
 		];
 
-		$filter = new DeclFilter;
+		$filter = new DeclFilter();
 		$filter->addStaticKeyFilters(
 			[
 				'numeric' => 'digits',
@@ -39,7 +40,7 @@ class DeclFilterBaseTest extends TikiTestCase
 			'num_array' => [134, '456', 'abc', '123abc'],
 		];
 
-		$filter = new DeclFilter;
+		$filter = new DeclFilter();
 		$filter->addStaticKeyFiltersForArrays(['num_array' => 'digits',]);
 
 		$data = $filter->filter($data);
@@ -53,7 +54,7 @@ class DeclFilterBaseTest extends TikiTestCase
 
 	public function testDefault()
 	{
-		$filter = new DeclFilter;
+		$filter = new DeclFilter();
 		$filter->addStaticKeyFilters(['hello' => 'digits',]);
 		$filter->addCatchAllFilter('alpha');
 
@@ -70,7 +71,7 @@ class DeclFilterBaseTest extends TikiTestCase
 
 	public function testNoDefault()
 	{
-		$filter = new DeclFilter;
+		$filter = new DeclFilter();
 		$filter->addStaticKeyFilters(['hello' => 'digits',]);
 
 		$data = $filter->filter(

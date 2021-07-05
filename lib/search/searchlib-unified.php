@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -469,7 +470,8 @@ class UnifiedSearchLib
 			$types['sheet'] = tra('sheet');
 		}
 
-		if ($prefs['feature_wiki_comments'] == 'y'
+		if (
+            $prefs['feature_wiki_comments'] == 'y'
 			|| $prefs['feature_article_comments'] == 'y'
 			|| $prefs['feature_poll_comments'] == 'y'
 			|| $prefs['feature_file_galleries_comments'] == 'y'
@@ -571,7 +573,7 @@ class UnifiedSearchLib
 		$this->addSources($indexer, 'indexing');
 
 		if ($prefs['unified_tokenize_version_numbers'] == 'y') {
-			$indexer->addContentFilter(new Search_ContentFilter_VersionNumber);
+			$indexer->addContentFilter(new Search_ContentFilter_VersionNumber());
 		}
 
 		return $indexer;
@@ -602,34 +604,34 @@ class UnifiedSearchLib
 		// Content Sources
 		if (isset($types['trackeritem'])) {
 			$aggregator->addContentSource('trackeritem', new Search_ContentSource_TrackerItemSource($mode));
-			$aggregator->addContentSource('tracker', new Search_ContentSource_TrackerSource);
-			$aggregator->addContentSource('trackerfield', new Search_ContentSource_TrackerFieldSource);
+			$aggregator->addContentSource('tracker', new Search_ContentSource_TrackerSource());
+			$aggregator->addContentSource('trackerfield', new Search_ContentSource_TrackerFieldSource());
 		}
 
 		if (isset($types['forum post'])) {
-			$aggregator->addContentSource('forum post', new Search_ContentSource_ForumPostSource);
-			$aggregator->addContentSource('forum', new Search_ContentSource_ForumSource);
+			$aggregator->addContentSource('forum post', new Search_ContentSource_ForumPostSource());
+			$aggregator->addContentSource('forum', new Search_ContentSource_ForumSource());
 		}
 
 		if (isset($types['blog post'])) {
-			$aggregator->addContentSource('blog post', new Search_ContentSource_BlogPostSource);
+			$aggregator->addContentSource('blog post', new Search_ContentSource_BlogPostSource());
 		}
 
 		if (isset($types['article'])) {
-			$articleSource = new Search_ContentSource_ArticleSource;
+			$articleSource = new Search_ContentSource_ArticleSource();
 			$aggregator->addContentSource('article', $articleSource);
 			$aggregator->addGlobalSource(new Search_GlobalSource_ArticleAttachmentSource($articleSource));
 		}
 
 		if (isset($types['file'])) {
-			$fileSource = new Search_ContentSource_FileSource;
+			$fileSource = new Search_ContentSource_FileSource();
 			$aggregator->addContentSource('file', $fileSource);
-			$aggregator->addContentSource('file gallery', new Search_ContentSource_FileGallerySource);
+			$aggregator->addContentSource('file gallery', new Search_ContentSource_FileGallerySource());
 			$aggregator->addGlobalSource(new Search_GlobalSource_FileAttachmentSource($fileSource));
 		}
 
 		if (isset($types['sheet'])) {
-			$aggregator->addContentSource('sheet', new Search_ContentSource_SheetSource);
+			$aggregator->addContentSource('sheet', new Search_ContentSource_SheetSource());
 		}
 
 		if (isset($types['comment'])) {
@@ -651,7 +653,7 @@ class UnifiedSearchLib
 			}
 
 			$aggregator->addContentSource('comment', new Search_ContentSource_CommentSource($commentTypes));
-			$aggregator->addGlobalSource(new Search_GlobalSource_CommentSource);
+			$aggregator->addGlobalSource(new Search_GlobalSource_CommentSource());
 		}
 
 		if (isset($types['user'])) {
@@ -659,7 +661,7 @@ class UnifiedSearchLib
 		}
 
 		if (isset($types['group'])) {
-			$aggregator->addContentSource('group', new Search_ContentSource_GroupSource);
+			$aggregator->addContentSource('group', new Search_ContentSource_GroupSource());
 		}
 
 		if (isset($types['calendar'])) {
@@ -672,7 +674,7 @@ class UnifiedSearchLib
 		}
 
 		if ($prefs['goal_enabled'] == 'y') {
-			$aggregator->addContentSource('goalevent', new Search_ContentSource_GoalEventSource);
+			$aggregator->addContentSource('goalevent', new Search_ContentSource_GoalEventSource());
 		}
 
 		if ($prefs['feature_webservices'] === 'y') {
@@ -680,41 +682,41 @@ class UnifiedSearchLib
 		}
 
 		if (isset($types['wiki page'])) {
-			$aggregator->addContentSource('wiki page', new Search_ContentSource_WikiSource);
+			$aggregator->addContentSource('wiki page', new Search_ContentSource_WikiSource());
 		}
 
 		// Global Sources
 		if ($prefs['feature_categories'] == 'y') {
-			$aggregator->addGlobalSource(new Search_GlobalSource_CategorySource);
-			$aggregator->addContentSource('category', new Search_ContentSource_CategorySource);
+			$aggregator->addGlobalSource(new Search_GlobalSource_CategorySource());
+			$aggregator->addContentSource('category', new Search_ContentSource_CategorySource());
 		}
 
 		if ($prefs['feature_freetags'] == 'y') {
-			$aggregator->addGlobalSource(new Search_GlobalSource_FreeTagSource);
+			$aggregator->addGlobalSource(new Search_GlobalSource_FreeTagSource());
 		}
 
 		if ($prefs['rating_advanced'] == 'y' && $mode == 'indexing') {
 			$aggregator->addGlobalSource(new Search_GlobalSource_AdvancedRatingSource($prefs['rating_recalculation'] == 'indexing'));
 		}
 
-		$aggregator->addGlobalSource(new Search_GlobalSource_Geolocation);
+		$aggregator->addGlobalSource(new Search_GlobalSource_Geolocation());
 
 		if ($prefs['feature_search_show_visit_count'] === 'y') {
-			$aggregator->addGlobalSource(new Search_GlobalSource_VisitsSource);
+			$aggregator->addGlobalSource(new Search_GlobalSource_VisitsSource());
 		}
 
 		if ($prefs['feature_friends'] === 'y') {
-			$aggregator->addGlobalSource(new Search_GlobalSource_SocialSource);
+			$aggregator->addGlobalSource(new Search_GlobalSource_SocialSource());
 		}
 
 		if ($mode == 'indexing') {
 			$aggregator->addGlobalSource(new Search_GlobalSource_PermissionSource(Perms::getInstance()));
-			$aggregator->addGlobalSource(new Search_GlobalSource_RelationSource);
+			$aggregator->addGlobalSource(new Search_GlobalSource_RelationSource());
 		}
 
-		$aggregator->addGlobalSource(new Search_GlobalSource_TitleInitialSource);
-		$aggregator->addGlobalSource(new Search_GlobalSource_SearchableSource);
-		$aggregator->addGlobalSource(new Search_GlobalSource_UrlSource);
+		$aggregator->addGlobalSource(new Search_GlobalSource_TitleInitialSource());
+		$aggregator->addGlobalSource(new Search_GlobalSource_SearchableSource());
+		$aggregator->addGlobalSource(new Search_GlobalSource_UrlSource());
 	}
 
 	/**
@@ -776,7 +778,7 @@ class UnifiedSearchLib
 		}
 
 
-		return new Search_Index_Memory;
+		return new Search_Index_Memory();
 	}
 
 	/**
@@ -966,7 +968,7 @@ class UnifiedSearchLib
 	{
 		global $prefs;
 
-		$dataSource = new Search_Formatter_DataSource_Declarative;
+		$dataSource = new Search_Formatter_DataSource_Declarative();
 
 		$this->addSources($dataSource, $mode);
 
@@ -1006,7 +1008,7 @@ class UnifiedSearchLib
 
 	public function getProfileExportHelper()
 	{
-		$helper = new Tiki_Profile_Writer_SearchFieldHelper;
+		$helper = new Tiki_Profile_Writer_SearchFieldHelper();
 		$this->addSources($helper, 'indexing'); // Need all fields, so use indexing
 
 		return $helper;
@@ -1075,7 +1077,7 @@ class UnifiedSearchLib
 	public function buildQuery(array $filter, $query = null)
 	{
 		if (! $query) {
-			$query = new Search_Query;
+			$query = new Search_Query();
 			$this->initQuery($query);
 		}
 
@@ -1142,8 +1144,10 @@ class UnifiedSearchLib
 			unset($filter['not_prefix']);
 		}
 
-		if (isset($filter['distance']) && is_array($filter['distance']) &&
-					isset($filter['distance']['distance'], $filter['distance']['lat'], $filter['distance']['lon'])) {
+		if (
+            isset($filter['distance']) && is_array($filter['distance']) &&
+					isset($filter['distance']['distance'], $filter['distance']['lat'], $filter['distance']['lon'])
+        ) {
 			$query->filterDistance($filter['distance']['distance'], $filter['distance']['lat'], $filter['distance']['lon']);
 
 			unset($filter['distance']);
@@ -1257,7 +1261,7 @@ class UnifiedSearchLib
 				});
 		}
 
-		$provider = new Search_FacetProvider;
+		$provider = new Search_FacetProvider();
 		$provider->addFacets($facets);
 		$this->addSources($provider);
 
@@ -1463,8 +1467,10 @@ class UnifiedSearchLib
 		global $prefs;
 
 		$currentIndex = $prefs['unified_mysql_index_current'];
-		if ($prefs['unified_mysql_restore_indexes'] == 'n'
-			|| empty($currentIndex)) {
+		if (
+            $prefs['unified_mysql_restore_indexes'] == 'n'
+			|| empty($currentIndex)
+        ) {
 			return [];
 		}
 

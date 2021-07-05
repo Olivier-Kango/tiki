@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -38,7 +39,7 @@ if (! class_exists('ADOConnection')) {
 
 $ADODB_FETCH_MODE = ADODB_FETCH_ASSOC;
 
-$initializer = new TikiDb_Initializer;
+$initializer = new TikiDb_Initializer();
 $initializer->setPreferredConnector($api_tiki);
 $db = $initializer->getConnection(
 	[
@@ -58,7 +59,7 @@ TikiDb::set($db);
 
 global $tikilib;
 require_once 'lib/tikilib.php';
-$tikilib = new TikiLib;
+$tikilib = new TikiLib();
 
 // update db if needed
 require_once 'lib/init/initlib.php';
@@ -120,7 +121,7 @@ $prefs['feature_typo_approximative_quotes'] = 'n';
 $prefs['feature_typo_dashes_and_ellipses'] = 'n';
 $prefs['feature_typo_smart_nobreak_spaces'] = 'n';
 
-$builder = new Perms_Builder;
+$builder = new Perms_Builder();
 Perms::set($builder->build());
 
 ini_set('display_errors', 'on');

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by JetBrains PhpStorm.
  * User: alaindesilets
@@ -14,14 +15,14 @@ class TikiLibTest extends TikiTestCase
 	private $some_page_name2 = 'SomePage2';
 	private $some_page_name3 = 'SomePage3';
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		global $testhelpers;
 
 		$testhelpers->simulateTikiScriptContext();
 	}
 
-	protected function tearDown() : void
+	protected function tearDown(): void
 	{
 		global $testhelpers;
 

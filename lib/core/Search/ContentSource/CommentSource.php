@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -40,7 +41,7 @@ class Search_ContentSource_CommentSource implements Search_ContentSource_Interfa
 		if ($this->indexer) {
 			$object = $commentslib->get_comment_object($objectId);
 			if ($object) {
-				$this->indexer->errorContext = 'Comment owner '.$object['objectType'] . ' ' . $object['object'];
+				$this->indexer->errorContext = 'Comment owner ' . $object['objectType'] . ' ' . $object['object'];
 			} else {
 				$this->indexer->errorContext = 'Comment owner (can not find object ' . $objectId . ')';
 			}
@@ -138,7 +139,8 @@ class Search_ContentSource_CommentSource implements Search_ContentSource_Interfa
 		}
 	}
 
-	public function setIndexer($indexer) {
+	public function setIndexer($indexer)
+    {
 		$this->indexer = $indexer;
 	}
 }

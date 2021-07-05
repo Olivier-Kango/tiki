@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -391,7 +393,8 @@ if (isset($_POST['chgadmin']) && $access->checkCsrf()) {
 	}
 }
 
-if (isset($_POST['twofactor'])
+if (
+    isset($_POST['twofactor'])
 	&& isset($_POST['tfaSecret'])
 	&& isset($_POST['tfaPin'])
 	&& $access->checkCsrf()
@@ -412,7 +415,8 @@ if (isset($_POST['twofactor'])
 	}
 }
 
-if (isset($_POST['removetwofactor'])
+if (
+    isset($_POST['removetwofactor'])
 	&& $access->checkCsrf()
 ) {
 	$tfaSecret = $userlib->update_2_factor_secret($user, '');

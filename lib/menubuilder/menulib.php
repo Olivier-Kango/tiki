@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -126,8 +127,9 @@ class MenuLib extends TikiLib
 
 		$this->empty_menu_cache($menuId);
 		$result = $this->query($query, $bindvars, -1, -1, TikiDb::ERR_EXCEPTION);
-		if(!$optionId)
+		if (! $optionId) {
 			$optionId = $this->lastInsertId();
+        }
 		return $optionId;
 	}
 
@@ -266,7 +268,7 @@ class MenuLib extends TikiLib
 			return $option;
 		}, $options);
 
-		$treeOut = array_filter($treeOut, function($option) {
+		$treeOut = array_filter($treeOut, function ($option) {
 			return $option['type'] !== '-';
 		});
 

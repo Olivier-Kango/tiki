@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Try to get changes from an elastic search index and perform each wiki page change event
  *
@@ -214,7 +215,7 @@ class ESRescueCommand extends Command
 		$connection = new \Search_Elastic_Connection($this->elasticUri);
 		$esIndex = new \Search_Elastic_Index($connection, $this->indexName);
 
-		$query = new \Search_Query;
+		$query = new \Search_Query();
 		$unifiedsearchlib->initQueryBase($query);
 		//$query = $unifiedsearchlib->buildQuery($filter, $query);	// annoying, can't use type in this as that converts it to object_type, meh
 
@@ -228,7 +229,7 @@ class ESRescueCommand extends Command
 		$query->setRange(0, 1000);
 
 		//  build query for es
-		$builder = new \Search_Elastic_OrderBuilder;
+		$builder = new \Search_Elastic_OrderBuilder();
 		$orderPart = $builder->build($query->getSortOrder());
 
 		$builder = new \Search_Elastic_QueryBuilder($esIndex);
@@ -296,7 +297,7 @@ class ESRescueCommand extends Command
 		$connection = new \Search_Elastic_Connection($this->elasticUri);
 		$esIndex = new \Search_Elastic_Index($connection, $this->indexName);
 
-		$query = new \Search_Query;
+		$query = new \Search_Query();
 		$unifiedsearchlib->initQueryBase($query);
 		//$query = $unifiedsearchlib->buildQuery($filter, $query);	// annoying, can't use type in this as that converts it to object_type, meh
 
@@ -333,8 +334,8 @@ class ESRescueCommand extends Command
 
 // create the application and new console
 
-$console = new Application;
-$console->add(new ESRescueCommand);
+$console = new Application();
+$console->add(new ESRescueCommand());
 $console->setDefaultCommand('rescue');
 
 // run the command

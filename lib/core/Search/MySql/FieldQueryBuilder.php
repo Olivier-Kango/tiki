@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -18,7 +19,7 @@ class Search_MySql_FieldQueryBuilder
 	{
 		$invert = false;
 		$string = $expr->walk(
-			function ($node, $childNodes) use ($factory, & $invert) {
+			function ($node, $childNodes) use ($factory, &$invert) {
 				if ($node instanceof Token) {
 					$string = $node->getValue($factory)->getValue();
 					if (false === strpos($string, ' ')) {

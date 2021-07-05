@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -204,7 +205,7 @@ function smarty_function_object_link_trackeritem($smarty, $object, $title = null
 
 	$smarty->loadPlugin('smarty_function_tracker_item_status_icon');
 	$pre = smarty_function_tracker_item_status_icon(['item' => $item], $smarty);
-	if (!empty($pre)) {
+	if (! empty($pre)) {
 		$pre .= " ";
 	}
 

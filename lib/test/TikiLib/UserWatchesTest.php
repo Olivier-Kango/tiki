@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -10,7 +11,7 @@ class UserWatchesTest extends TikiTestCase
 
 	private $lib;
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		$this->lib = TikiLib::lib('tiki');
 		$this->userWatches = $this->lib->table('tiki_user_watches');
@@ -26,7 +27,7 @@ class UserWatchesTest extends TikiTestCase
 		]);
 	}
 
-	protected function tearDown() : void
+	protected function tearDown(): void
 	{
 		$this->userWatches->deleteMultiple(['user' => 'tester']);
 	}

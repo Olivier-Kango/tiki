@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -46,7 +47,7 @@ class Search_ContentSource_SheetSource implements Search_ContentSource_Interface
 		$loader = new TikiSheetDatabaseHandler($objectId);
 		$writer = new TikiSheetCSVHandler('php://output');
 
-		$grid = new TikiSheet;
+		$grid = new TikiSheet();
 		$grid->import($loader);
 
 		$grid->export($writer);

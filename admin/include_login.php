@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -49,7 +50,7 @@ if (! empty($_REQUEST['refresh_email_group']) && $access->checkCsrf(true)) {
 if (! empty($_REQUEST['resync_tracker']) && $access->checkCsrf(true)) {
 	if (! empty($prefs["user_trackersync_trackers"])) {
 		$nb = ['trackers' => 0, 'items' => 0];
-		$utilities = new Services_Tracker_Utilities;
+		$utilities = new Services_Tracker_Utilities();
 		$trackersync_trackers = unserialize($prefs["user_trackersync_trackers"]);
 		foreach ($trackersync_trackers as $trackersync_id) {
 			$nb['trackers']++;
@@ -68,7 +69,7 @@ $smarty->assign('gd_lib_found', function_exists('gd_info') ? 'y' : 'n');
 
 if ($prefs['feature_antibot'] === 'y' && $prefs['captcha_questions_active'] !== 'y' && $prefs['recaptcha_enabled'] !== 'y') {
 	// check Zend captcha will work
-	$captcha = new Laminas\Captcha\Dumb;
+	$captcha = new Laminas\Captcha\Dumb();
 
 	try {
 		$captchaId = $captcha->getId();	// simple test for missing random generator
@@ -124,14 +125,14 @@ if (isset($_POST['uploadIndex']) && $access->checkCsrf()) {
 		exit;
 	}
 	// else if save blacklist chosen
-	if ($blackL->generatePassList(true)&& $access->checkCsrf()) {
+	if ($blackL->generatePassList(true) && $access->checkCsrf()) {
 		$filename = dirname($_SERVER['SCRIPT_FILENAME']) . '/' . $blackL->generateBlacklistName();
 		$blackL->set_preference('pass_blacklist_file', $blackL->generateBlacklistName(false));
 		$blackL->loadBlacklist($filename);
 	} else {
 		Feedback::error(tr('Unable to Write Password File to Disk'));
 	}
-} elseif (isset($_POST['deleteIndex'])&& $access->checkCsrf(true)) {
+} elseif (isset($_POST['deleteIndex']) && $access->checkCsrf(true)) {
 	$blackL->deletePassIndex();
 }
 

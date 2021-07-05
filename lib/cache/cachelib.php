@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -19,12 +20,12 @@ class Cachelib
 		global $prefs;
 
 		if (isset($prefs['memcache_enabled']) && $prefs['memcache_enabled'] == 'y') {
-			$this->implementation = new CacheLibMemcache;
+			$this->implementation = new CacheLibMemcache();
 		} elseif (isset($prefs['redis_enabled']) && $prefs['redis_enabled'] == 'y') {
 			require_once('lib/cache/redislib.php');
-			$this->implementation = new CacheLibRedis;
+			$this->implementation = new CacheLibRedis();
 		} else {
-			$this->implementation = new CacheLibFileSystem;
+			$this->implementation = new CacheLibFileSystem();
 		}
 	}
 
@@ -157,7 +158,8 @@ class Cachelib
 		}
 
 		while ($file = readdir($all)) {
-			if (substr($file, 0, 1) == "." or
+			if (
+                substr($file, 0, 1) == "." or
 					$file == 'CVS' or
 					$file == '.svn' or
 					$file == "index.php" or
@@ -248,8 +250,10 @@ class Cachelib
 			}
 
 			// Next case is needed to clean also cached data created through mod PluginR
-			if ((isset($prefs['wikiplugin_rr']) && $prefs['wikiplugin_rr'] == 'y') ||
-				(isset($prefs['wikiplugin_r']) && $prefs['wikiplugin_r'] == 'y')) {
+			if (
+                (isset($prefs['wikiplugin_rr']) && $prefs['wikiplugin_rr'] == 'y') ||
+				(isset($prefs['wikiplugin_r']) && $prefs['wikiplugin_r'] == 'y')
+            ) {
 				$extracheck = 'RData';
 			} else {
 				$extracheck = '';
@@ -259,7 +263,8 @@ class Cachelib
 			$unoconvFolders = ['.cache', '.config'];
 
 			while (false !== ($file = readdir($dir))) {
-				if (// .RData case needed to clean also cached data created through mod PluginR
+				if (
+// .RData case needed to clean also cached data created through mod PluginR
 							( substr($file, 0, 1) == "." &&	substr($file, -5) != $extracheck ) or
 							$file == 'CVS' or
 							$file == '.svn' or

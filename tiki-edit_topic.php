@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -27,7 +28,7 @@ if ($topic_info == DB_ERROR) {
 $smarty->assign_by_ref('topic_info', $topic_info);
 $errors = false;
 if (isset($_REQUEST["edittopic"])) {
-	if (isset($_FILES['userfile1'])&&is_uploaded_file($_FILES['userfile1']['tmp_name'])) {
+	if (isset($_FILES['userfile1']) && is_uploaded_file($_FILES['userfile1']['tmp_name'])) {
 		$filegallib = TikiLib::lib('filegal');
 		try {
 			$filegallib->assertUploadedFileIsSafe($_FILES['userfile1']['tmp_name'], $_FILES['userfile1']['name']);

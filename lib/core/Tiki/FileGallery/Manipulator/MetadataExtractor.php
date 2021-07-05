@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -48,7 +49,7 @@ class MetadataExtractor extends Manipulator
 		$file->setParam('lastModifUser', $user);
 
 		$file->setParam('filetype', $filegallib->fixMime($file->filetype, $file->filename));
-		if (!$file->exists() && $prefs['ocr_enable'] === 'y') {
+		if (! $file->exists() && $prefs['ocr_enable'] === 'y') {
 			$ocrLib = Tikilib::lib('ocr');
 			$ocr_state = $ocrLib::OCR_STATUS_SKIP;
 			if ($file->getParam('ocr_state') || $prefs['ocr_every_file'] === 'y') {

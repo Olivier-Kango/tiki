@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Tiki's entry point.
  *
@@ -6,6 +7,7 @@
  * @copyright (c) Copyright by authors of the Tiki Wiki CMS Groupware Project. All Rights Reserved. See copyright.txt for details and a complete list of authors.
  * @licence Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
  */
+
 // $Id$
 
 require_once('check_composer_exists.php');
@@ -199,9 +201,11 @@ if ($prefs['tracker_wikirelation_redirectpage'] == 'y' && ! isset($_REQUEST['adm
 }
 
 // Inline Ckeditor editor
-if ($prefs['wysiwyg_inline_editing'] == 'y' && $page &&
+if (
+    $prefs['wysiwyg_inline_editing'] == 'y' && $page &&
 		(	($tikilib->user_has_perm_on_object($user, $page, 'wiki page', 'edit')) ||
-			($tikilib->user_has_perm_on_object($user, $page, 'wiki page', 'edit_inline')) )) {
+			($tikilib->user_has_perm_on_object($user, $page, 'wiki page', 'edit_inline')) )
+) {
 	TikiLib::lib('wysiwyg')->setUpInlineEditor($page);		// init ckeditor
 } elseif (getCookie('wysiwyg_inline_edit', 'preview')) {
 	setCookieSection('wysiwyg_inline_edit', 0, 'preview');	// kill cookie if pref off or no perms
@@ -262,7 +266,7 @@ if (empty($info)) {
 	// right page to display in this case is one where applying a different slug degeneration to the requested page
 	// will result in a existing page. This will also help search engines to update the right location of a page.
 	$slugManager = TikiLib::lib('slugmanager');
-	foreach( $slugManager->getOptions() as $slugger => $desc) {
+	foreach ($slugManager->getOptions() as $slugger => $desc) {
 		$infoForSlug = $tikilib->get_page_info($slugManager->degenerate($slugger, $originalPageRequested));
 		if ($infoForSlug) {
 			$access->redirect($infoForSlug['pageSlug'], '', 301);
@@ -311,7 +315,8 @@ if (empty($info) && ! ($user && $prefs['feature_wiki_userpage'] == 'y' && strcas
 		die;
 	}
 
-	if ($prefs['feature_wiki_userpage'] == 'y'
+	if (
+        $prefs['feature_wiki_userpage'] == 'y'
 				&& strcasecmp($prefs['feature_wiki_userpage_prefix'], substr($page, 0, strlen($prefs['feature_wiki_userpage_prefix']))) == 0
 	) {
 		$isUserPage = true;
@@ -382,7 +387,8 @@ if (empty($info) && ! ($user && $prefs['feature_wiki_userpage'] == 'y' && strcas
 	}
 }
 
-if (empty($info)
+if (
+    empty($info)
 			&& $user
 			&& $prefs['feature_wiki_userpage'] == 'y'
 			&& ( strcasecmp($prefs['feature_wiki_userpage_prefix'] . $user, $page) == 0
@@ -393,7 +399,8 @@ if (empty($info)
 	die;
 }
 
-if (isset($_REQUEST['switchlang'])
+if (
+    isset($_REQUEST['switchlang'])
 			&& $_REQUEST['switchlang'] == 'y'
 			&& $prefs['feature_multilingual'] == 'y'
 			&& $prefs['feature_sync_language'] == 'y'
@@ -402,7 +409,8 @@ if (isset($_REQUEST['switchlang'])
 ) {
 	header('Location: tiki-switch_lang.php?language=' . $info['lang']);
 	die;
-} elseif ($prefs['feature_multilingual'] == 'y'
+} elseif (
+    $prefs['feature_multilingual'] == 'y'
 			&& $prefs['feature_sync_language'] == 'y'
 			&& ! empty($info['lang'])
 			&& $prefs['language'] != $info['lang']
@@ -422,9 +430,11 @@ if (isset($_REQUEST['switchlang'])
 
 $page = $info['pageName'];
 
-if (! empty($info) && isset($info['data']) &&
+if (
+    ! empty($info) && isset($info['data']) &&
 	($tikilib->user_has_perm_on_object($user, $page, 'wiki page', 'edit') ||
-	$tikilib->user_has_perm_on_object($user, $page, 'wiki page', 'edit_inline'))) {
+	$tikilib->user_has_perm_on_object($user, $page, 'wiki page', 'edit_inline'))
+) {
 	$tikilib->check_duplicate_alias($info['data'], $page);
 }
 //Uncomment if we decide to translate wiki markup. For now we are going
@@ -530,7 +540,8 @@ if (! in_array($page, $_SESSION['breadCrumb'])) {
 $tikilib->add_hit($page);
 
 // Save to notepad if user wants to
-if ($user
+if (
+    $user
 			&& $objectperms->notepad
 			&& $prefs['feature_notepad'] == 'y'
 			&& isset($_REQUEST['savenotepad'])
@@ -581,7 +592,7 @@ if ($prefs['feature_wiki_attachments'] == 'y' && $prefs['feature_use_fgal_for_wi
 	if (isset($_REQUEST['attach']) && ( $objectperms->wiki_admin_attachments || $objectperms->wiki_attach_files )) {
 		check_ticket('index');
 		// Process an attachment here
-		if (isset($_FILES['userfile1'])&&is_uploaded_file($_FILES['userfile1']['tmp_name'])) {
+		if (isset($_FILES['userfile1']) && is_uploaded_file($_FILES['userfile1']['tmp_name'])) {
 			$ret = $tikilib->attach_file(
 				$_FILES['userfile1']['name'],
 				$_FILES['userfile1']['tmp_name'],
@@ -679,7 +690,7 @@ $smarty->assign('pdf_warning', 'n');
 //checking if mPDF package is available
 
 if ($prefs['print_pdf_from_url'] == "mpdf") {
-	if (!class_exists('\\Mpdf\\Mpdf')) {
+	if (! class_exists('\\Mpdf\\Mpdf')) {
 		$smarty->assign('pdf_warning', 'y');
 	}
 }
@@ -773,7 +784,7 @@ function generate_machine_translated_content($pageContent, $pageInfo, $targetLan
  */
 function translate_text($text, $sourceLang, $targetLang)
 {
-	$provider = new Multilingual_MachineTranslation;
+	$provider = new Multilingual_MachineTranslation();
 	$translator = $provider->getHtmlImplementation($sourceLang, $targetLang);
 	$translated = $translator->translateText($text);
 	return $translated;

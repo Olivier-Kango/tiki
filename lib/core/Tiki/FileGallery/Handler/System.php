@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -23,7 +24,7 @@ class System implements HandlerInterface
 				$this->real->setPreserveFilename($prefs['fgal_preserve_filenames'] == 'y');
 			}
 		} else {
-			$this->real = new Preloaded;
+			$this->real = new Preloaded();
 		}
 	}
 
@@ -42,7 +43,8 @@ class System implements HandlerInterface
 		return $this->real->uniquePath($file);
 	}
 
-	public function isWritable() {
+	public function isWritable()
+    {
 		return $this->real->isWritable();
 	}
 }

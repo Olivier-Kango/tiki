@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -76,7 +77,7 @@ function smarty_function_button($params, $smarty)
 	if (isset($params['href']) && preg_match('|^\(\((.+?)\)\)$|', $params['href'], $matches)) {
 		$params['href'] = rawurlencode($matches[1]);
 		$perms = Perms::get(['type' => 'wiki page', 'object' => $matches[1]]);
-		if(! ($perms->view && $perms->wiki_view_ref)) {
+		if (! ($perms->view && $perms->wiki_view_ref)) {
 			$disabled = true;
 			$params['_title'] = tr('You don\'t have permission to view the linked page');
 		}
@@ -161,7 +162,8 @@ function smarty_function_button($params, $smarty)
 		// Remove params that does not start with a '_', since we don't want them to modify the URL except when in auto_query_args
 		if (! isset($params['_keepall']) || $params['_keepall'] != 'y') {
 			foreach ($params as $k => $v) {
-				if ($k[0] != '_'
+				if (
+                    $k[0] != '_'
 					&& $k != 'href'
 					&& $k != 'data'
 					&& (empty($auto_query_args) || ! in_array($k, $auto_query_args))
@@ -200,9 +202,9 @@ function smarty_function_button($params, $smarty)
 		);
 
 		$url = str_replace('+', ' ', str_replace('&amp;', '&', urldecode($_SERVER['REQUEST_URI'])));
-		$dom = new DOMDocument;
+		$dom = new DOMDocument();
 		$dom->loadHTML($html);
-		foreach($dom->getElementsByTagName('a') as $link) {
+		foreach ($dom->getElementsByTagName('a') as $link) {
 			if ($url == $link->getAttribute('href')) {
 				$selected = true;
 				if ($class === null) {
@@ -210,7 +212,6 @@ function smarty_function_button($params, $smarty)
 				}
 			}
 		}
-
 	} else {
 		$params['_disabled'] = 'y';
 		$html = smarty_block_self_link(

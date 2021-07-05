@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -87,7 +88,7 @@ function wikiplugin_footnote($data, $params, $offset, $context)
 	$smarty = TikiLib::lib('smarty');
 
 	// By default, we allow popovers to display the footnote content on mouseover
-	if ( isset($prefs['footnote_popovers']) && $prefs['footnote_popovers'] != 'n' ) {
+	if (isset($prefs['footnote_popovers']) && $prefs['footnote_popovers'] != 'n') {
 		$headerlib = TikiLib::lib('header');
 		$headerlib->add_jsfile('lib/jquery_tiki/tiki-popovers_for_footnotes.js');
 	}

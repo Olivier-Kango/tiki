@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -54,9 +56,10 @@ if ($access->checkCsrf()) {
 	} else {
 		$result[] = $tikilib->set_user_preference($user, 'user_category_watch_editor', 'n');
 	}
-	if (isset($_REQUEST['user_plugin_approval_watch_editor'])
-		&& $_REQUEST['user_plugin_approval_watch_editor'] == true)
-	{
+	if (
+        isset($_REQUEST['user_plugin_approval_watch_editor'])
+		&& $_REQUEST['user_plugin_approval_watch_editor'] == true
+    ) {
 		$result[] = $tikilib->set_user_preference($user, 'user_plugin_approval_watch_editor', 'y');
 	} else {
 		$result[] = $tikilib->set_user_preference($user, 'user_plugin_approval_watch_editor', 'n');

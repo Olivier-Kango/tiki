@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -13,7 +14,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Exception;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
-
 
 class OCRAllCommand extends Command
 {
@@ -34,7 +34,8 @@ class OCRAllCommand extends Command
 			$ocrLib->checkOCRDependencies();
 		} catch (Exception $e) {
 			$output->writeln(
-				'<error>' . $e->getMessage() . '</error>');
+                '<error>' . $e->getMessage() . '</error>'
+            );
 			return;
 		}
 
@@ -49,7 +50,8 @@ class OCRAllCommand extends Command
 			$progress->setOverwrite(false);
 		}
 		$progress->setFormatDefinition(
-			'custom', ' %current%/%max% [%bar%] -- %message%'
+			'custom',
+            ' %current%/%max% [%bar%] -- %message%'
 		);
 		$progress->setFormat('custom');
 		$progress->setMessage('Preparatory checks');

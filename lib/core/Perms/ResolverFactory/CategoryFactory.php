@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -156,7 +157,7 @@ class Perms_ResolverFactory_CategoryFactory implements Perms_ResolverFactory
 				$db->in('items.itemId', array_keys($objects), $bindvars) . " ORDER BY co.`catObjectId`, co.`categId`",
 				$bindvars
 			);
-		} else if ($baseContext['type'] === 'thread' && $this->parent) {
+		} elseif ($baseContext['type'] === 'thread' && $this->parent) {
 			$bindvars = [];
 			$result = $db->fetchAll(
 				"SELECT co.`categId`, items.`threadId` AS itemId FROM `tiki_comments` items
@@ -165,7 +166,7 @@ class Perms_ResolverFactory_CategoryFactory implements Perms_ResolverFactory
 				$db->in('items.threadId', array_keys($objects), $bindvars) . " ORDER BY co.`catObjectId`, co.`categId`",
 				$bindvars
 			);
-		} else if ($baseContext['type'] === 'file' && $this->parent) {
+		} elseif ($baseContext['type'] === 'file' && $this->parent) {
 			$bindvars = [];
 			$result = $db->fetchAll(
 				"SELECT co.`categId`, items.`fileId` AS itemId FROM `tiki_files` items
@@ -174,7 +175,7 @@ class Perms_ResolverFactory_CategoryFactory implements Perms_ResolverFactory
 				$db->in('items.fileId', array_keys($objects), $bindvars) . " ORDER BY co.`catObjectId`, co.`categId`",
 				$bindvars
 			);
-		} else if ($baseContext['type'] === 'calendaritem' && $this->parent) {
+		} elseif ($baseContext['type'] === 'calendaritem' && $this->parent) {
 			$bindvars = [];
 			$result = $db->fetchAll(
 				"SELECT co.`categId`, items.`calitemId` AS itemId FROM `tiki_calendar_items` items
@@ -183,7 +184,7 @@ class Perms_ResolverFactory_CategoryFactory implements Perms_ResolverFactory
 				$db->in('items.calitemId', array_keys($objects), $bindvars) . " ORDER BY co.`catObjectId`, co.`categId`",
 				$bindvars
 			);
-		} else if ($baseContext['type'] === 'blog post' && $this->parent) {
+		} elseif ($baseContext['type'] === 'blog post' && $this->parent) {
 			$bindvars = [];
 			$result = $db->fetchAll(
 				"SELECT co.`categId`, items.`postId` AS itemId FROM `tiki_blog_posts` items
@@ -235,14 +236,13 @@ class Perms_ResolverFactory_CategoryFactory implements Perms_ResolverFactory
 
 		$bindvars = [];
 		$result = $db->fetchAll(
-			'SELECT `objectId`, `groupName`, `permName` FROM `users_objectpermissions` WHERE `objectType` = \'category\' AND ' .  $db->in('objectId', array_keys($objects), $bindvars)
-			.' UNION ALL '
-			.'SELECT md5(CONCAT(\'category\', r.`categId`)), g.`groupName`, p.`permName` FROM `users_objectpermissions` p
+			'SELECT `objectId`, `groupName`, `permName` FROM `users_objectpermissions` WHERE `objectType` = \'category\' AND ' . $db->in('objectId', array_keys($objects), $bindvars)
+			. ' UNION ALL '
+			. 'SELECT md5(CONCAT(\'category\', r.`categId`)), g.`groupName`, p.`permName` FROM `users_objectpermissions` p
 				JOIN tiki_categories_roles r ON p.objectId = md5(CONCAT(\'category\', r.`categRoleId`))
 				JOIN `users_groups` gr ON r.`groupRoleId` = gr.id AND p.groupName = gr.`groupName`
 				JOIN `users_groups` g ON r.`groupId` = g.id
-				WHERE p.`objectType` = \'category\' AND  ' .  $db->in('r.categId', array_values($objects), $bindvars)
-			,
+				WHERE p.`objectType` = \'category\' AND  ' . $db->in('r.categId', array_values($objects), $bindvars),
 			$bindvars
 		);
 

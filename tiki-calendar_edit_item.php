@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -130,7 +132,6 @@ if (! empty($calitemId)) {
 		$_REQUEST['viewcalitemId'] = $calitemId;
 		unset($_REQUEST['calitemId']);
 	}
-
 }
 
 if (isset($_REQUEST['save']) && ! isset($_REQUEST['preview']) && ! isset($_REQUEST['act'])) {
@@ -139,7 +140,7 @@ if (isset($_REQUEST['save']) && ! isset($_REQUEST['preview']) && ! isset($_REQUE
 
 $displayTimezone = TikiLib::lib('tiki')->get_display_timezone();
 $browser_offset = 0 - (int)($_REQUEST['tzoffset'] ?? 0) * 60;
-$server_offset = !isset($_REQUEST['changeCal']) ? TikiDate::tzServerOffset($displayTimezone) : 0;
+$server_offset = ! isset($_REQUEST['changeCal']) ? TikiDate::tzServerOffset($displayTimezone) : 0;
 
 if (isset($_REQUEST['act']) || isset($_REQUEST['preview']) || isset($_REQUEST['changeCal'])) {
 	$save = array_merge($calitem ?? [], $_POST['save']);
@@ -180,7 +181,6 @@ if (isset($_REQUEST['act']) || isset($_REQUEST['preview']) || isset($_REQUEST['c
 		$save['duration'] = max(0, $_REQUEST['duration_Hour'] * 60 * 60 + $_REQUEST['duration_Minute'] * 60);
 		$save['end'] = $save['start'] + $save['duration'];
 	} else {
-
 		$save['end'] = $save['date_end'];
 		$save['duration'] = max(0, $save['end'] - $save['start']);
 	}
@@ -219,9 +219,10 @@ if (isset($_POST['act'])) {
 		$save['user'] = $user;
 	}
 	$newcalid = $save['calendarId'];
-	if ((empty($save['calitemId']) and $caladd["$newcalid"]['tiki_p_add_events'] == 'y') ||
-			(! empty($save['calitemId']) and $caladd["$newcalid"]['tiki_p_change_events'] == 'y')) {
-
+	if (
+        (empty($save['calitemId']) and $caladd["$newcalid"]['tiki_p_add_events'] == 'y') ||
+			(! empty($save['calitemId']) and $caladd["$newcalid"]['tiki_p_change_events'] == 'y')
+    ) {
 		if (empty($save['name'])) {
 			$save['name'] = tra("event without name");
 		}
@@ -287,7 +288,7 @@ if (isset($_POST['act'])) {
 				}
 				// startPeriod does not exist when using the old non-jscalendar time selector with 3 dropdowns
 				if (empty($_POST['startPeriod'])) {
-					$_POST['startPeriod'] = mktime(0,0,0,$_POST['startPeriod_Month'],$_POST['startPeriod_Day'],$_POST['startPeriod_Year']);
+					$_POST['startPeriod'] = mktime(0, 0, 0, $_POST['startPeriod_Month'], $_POST['startPeriod_Day'], $_POST['startPeriod_Year']);
 				}
 				if ($calRecurrence->getId() > 0 && $save['calitemId'] == $calRecurrence->getFirstItemId()) {
 					// modify start period when the first event is updated
@@ -417,9 +418,11 @@ if (isset($_REQUEST["delete"]) and ($_REQUEST["delete"]) and isset($_REQUEST["ca
 	$save['parsed'] = TikiLib::lib('parser')->parse_data($save['description'], ['is_html' => $prefs['calendar_description_is_html'] === 'y']);
 	$save['parsedName'] = TikiLib::lib('parser')->parse_data($save['name']);
 	$id = isset($save['calitemId']) ? $save['calitemId'] : '';
-	$save['recurrenceId'] =  isset($_POST['recurrenceId']) ? $_POST['recurrenceId'] : '';
+	$save['recurrenceId'] = isset($_POST['recurrenceId']) ? $_POST['recurrenceId'] : '';
 	$calitem = $save;
-	$calitem["selected_participants"] = array_map(function($role){ return $role['username']; }, $calitem['participants']);
+	$calitem["selected_participants"] = array_map(function ($role) {
+ return $role['username'];
+    }, $calitem['participants']);
 
 	$recurrence = [
 		'id'	=> $calitem['recurrenceId'],
@@ -502,7 +505,7 @@ if (isset($_REQUEST["delete"]) and ($_REQUEST["delete"]) and isset($_REQUEST["ca
 	);
 	if ($day_start < $now && ($now + (60 * 60)) < $day_end) {
 		$start = $now;
-	} else if ($day_start < $now && isset($_REQUEST['todate'])) {
+	} elseif ($day_start < $now && isset($_REQUEST['todate'])) {
 		// if $now ($_REQUEST['todate']) is before the day start then make the start hour of the event "now"
 		// as it will have been a whole day that was clicked on
 		$start = $tikilib->make_time(

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -14,7 +15,7 @@ class Perms_Check_DirectTest extends TikiTestCase
 {
 	public function testCallForwarded()
 	{
-		$direct = new Perms_Check_Direct;
+		$direct = new Perms_Check_Direct();
 
 		$mock = $this->createMock('Perms_Resolver');
 		$mock->expects($this->once())
@@ -27,7 +28,7 @@ class Perms_Check_DirectTest extends TikiTestCase
 
 	public function testCallForwardedWhenFalseToo()
 	{
-		$direct = new Perms_Check_Direct;
+		$direct = new Perms_Check_Direct();
 
 		$mock = $this->createMock('Perms_Resolver');
 		$mock->expects($this->once())

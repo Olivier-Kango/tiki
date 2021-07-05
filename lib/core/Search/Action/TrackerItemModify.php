@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -165,7 +166,7 @@ class Search_Action_TrackerItemModify implements Search_Action_Action
 		}
 
 		if (empty($add) && empty($remove)) {
-			if(is_string($value)) {
+			if (is_string($value)) {
 				$value = ['ins_' . $fieldInfo['fieldId'] => $value];
 			}
 			$data = $handler->getFieldData($value);

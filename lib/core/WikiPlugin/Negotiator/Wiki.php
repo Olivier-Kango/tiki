@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -41,13 +42,13 @@ class WikiPlugin_Negotiator_Wiki
 	public static $pluginInstances = [];
 	public static $pluginDetails = [];
 
-	public function __construct(& $parser)
+	public function __construct(&$parser)
 	{
 		$this->parser = & $parser;
 		$this->page = & $parser->page;
 		$this->prefs = & $parser->prefs;
 		$this->parserOption = & $parser->option;
-		$this->argParser = new WikiParser_PluginArgumentParser;
+		$this->argParser = new WikiParser_PluginArgumentParser();
 	}
 
 	public function inject($plugin)
@@ -70,14 +71,14 @@ class WikiPlugin_Negotiator_Wiki
 		return false;
 	}
 
-	public function setDetails(& $pluginDetails)
+	public function setDetails(&$pluginDetails)
 	{
 		$this->name = strtolower($pluginDetails['name']);
 		$this->className = 'WikiPlugin_' . $this->name;
 
 		if ($this->zendExists() == true) {
 			if (empty(self::$pluginInstances[$this->className])) {
-				self::$pluginInstances[$this->className] = new $this->className;
+				self::$pluginInstances[$this->className] = new $this->className();
 			}
 			$this->class = self::$pluginInstances[$this->className];
 		} elseif ($this->injectedExists() == true) {
@@ -257,7 +258,8 @@ class WikiPlugin_Negotiator_Wiki
 							break;
 			default:
 				global $tiki_p_plugin_approve, $tiki_p_plugin_preview;
-				if (isset($_SERVER['REQUEST_METHOD'])
+				if (
+                    isset($_SERVER['REQUEST_METHOD'])
 					&& $_SERVER['REQUEST_METHOD'] == 'POST'
 					&& isset($_POST['plugin_fingerprint'])
 					&& $_POST['plugin_fingerprint'] == $this->fingerprint
@@ -274,8 +276,10 @@ class WikiPlugin_Negotiator_Wiki
 						}
 					}
 
-					if ($tiki_p_plugin_preview == 'y'
-						&& isset($_POST['plugin_preview']) ) {
+					if (
+                        $tiki_p_plugin_preview == 'y'
+						&& isset($_POST['plugin_preview'])
+                    ) {
 						return true;
 					}
 				}
@@ -284,7 +288,7 @@ class WikiPlugin_Negotiator_Wiki
 		}
 	}
 
-	public function enabled(& $output)
+	public function enabled(&$output)
 	{
 		if (! $this->info) {
 			return true; // Legacy plugins always execute
@@ -439,7 +443,8 @@ class WikiPlugin_Negotiator_Wiki
 
 			// Remove arguments marked as safe from the fingerprint
 			foreach ($this->info['params'] as $key => $info) {
-				if (isset($validateArgs[$key])
+				if (
+                    isset($validateArgs[$key])
 					&& isset($info['safe'])
 					&& $info['safe']
 				) {
@@ -570,7 +575,8 @@ class WikiPlugin_Negotiator_Wiki
 		$headerlib = TikiLib::lib('header');
 		$smarty = TikiLib::lib('smarty');
 
-		if ($this->isEditable() &&
+		if (
+            $this->isEditable() &&
 			! $this->parser->getOption('preview_mode') &&
 			! $this->parser->getOption('indexing') &&
 			! $this->parser->getOption('print') &&
@@ -579,7 +585,8 @@ class WikiPlugin_Negotiator_Wiki
 		) {
 			$id = 'plugin-edit-' . $this->name . $this->index;
 			$iconDisplayStyle = '';
-			if ($this->prefs['wiki_edit_icons_toggle'] == 'y' &&
+			if (
+                $this->prefs['wiki_edit_icons_toggle'] == 'y' &&
 				(
 					$this->prefs['wiki_edit_plugin'] == 'y' || $this->prefs['wiki_edit_section'] == 'y'
 				)

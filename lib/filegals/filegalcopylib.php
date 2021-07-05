@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -61,7 +62,7 @@ class FilegalCopyLib extends FileGalLib
 	public function copyFile($file, $destinationPath, $move = false)
 	{
 		$file = \Tiki\FileGallery\File::id($file['fileId']);
-		
+
 		$source = $file->getWrapper()->getReadableFile();
 		if (! copy($source, $destinationPath . $file->filename)) {
 			if (! is_writable($destinationPath)) {

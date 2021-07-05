@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -64,7 +65,7 @@ class FederatedSearchLib
 
 	private function addForIndex($query, $indexName, $index)
 	{
-		$sub = new Search_Query;
+		$sub = new Search_Query();
 		foreach ($index->getTransformations() as $trans) {
 			$sub->applyTransform($trans);
 		}

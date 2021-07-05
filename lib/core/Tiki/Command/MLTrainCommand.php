@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -51,7 +52,7 @@ class MLTrainCommand extends Command
 			$mllib->train($model, $test);
 			$output->writeln("Successfully trained model {$model['name']}.");
 		} catch (Exception $e) {
-			$output->writeln("<error>Error while trying to train model ".$model['name'].": ".$e->getMessage()."</error>");
+			$output->writeln("<error>Error while trying to train model " . $model['name'] . ": " . $e->getMessage() . "</error>");
 		}
 	}
 }

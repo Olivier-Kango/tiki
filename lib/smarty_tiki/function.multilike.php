@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -37,14 +38,14 @@ function smarty_function_multilike($params, $smarty)
 		$button['relation'] = $params['relation_prefix'] . "." . $button['id'];
 
 		// check if there is an unselected icon else use default thumbs up open
-		if (! empty ($config['icon_unselected'][$key])) {
+		if (! empty($config['icon_unselected'][$key])) {
 			$button['icon_unselected'] = $config['icon_unselected'][$key];
 		} else {
 			$button['icon_unselected'] = "thumbs-o-up";
 		}
 
 		// check if there is an selected icon else use default thumbs up
-		if (! empty ($config['icon_selected'][$key])) {
+		if (! empty($config['icon_selected'][$key])) {
 			$button['icon_selected'] = $config['icon_selected'][$key];
 		} else {
 			$button['icon_selected'] = "thumbs-up";

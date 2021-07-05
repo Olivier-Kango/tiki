@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -127,15 +128,19 @@ class Tiki_Profile_Object
 			}
 		} elseif (preg_match(Tiki_Profile::SHORT_PATTERN, $value, $parts)) {
 			$ref = $this->profile->convertReference($parts);
-			if ($this->profile->domain == $ref['domain']
-				&& $this->profile->profile == $ref['profile'] ) {
+			if (
+                $this->profile->domain == $ref['domain']
+				&& $this->profile->profile == $ref['profile']
+            ) {
 				$array[] = $ref['object'];
 			}
 		} elseif (preg_match_all(Tiki_Profile::LONG_PATTERN, $value, $parts, PREG_SET_ORDER)) {
 			foreach ($parts as $row) {
 				$ref = $this->profile->convertReference($row);
-				if ($this->profile->domain == $ref['domain']
-				&& $this->profile->profile == $ref['profile'] ) {
+				if (
+                    $this->profile->domain == $ref['domain']
+                    && $this->profile->profile == $ref['profile']
+                ) {
 					$array[] = $ref['object'];
 				}
 			}

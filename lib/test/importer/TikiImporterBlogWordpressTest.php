@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -16,13 +17,13 @@ require_once(__DIR__ . '/../../importer/tikiimporter_blog_wordpress.php');
 class TikiImporter_Blog_Wordpress_Test extends TikiImporter_TestCase
 {
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		date_default_timezone_set('UTC');
-		$this->obj = new TikiImporter_Blog_Wordpress;
+		$this->obj = new TikiImporter_Blog_Wordpress();
 	}
 
-	protected function tearDown() : void
+	protected function tearDown(): void
 	{
 		TikiDb::get()->query('DELETE FROM tiki_pages WHERE pageName = "materia"');
 		TikiDb::get()->query('DELETE FROM tiki_blog_posts WHERE postId = 10');
@@ -116,7 +117,7 @@ class TikiImporter_Blog_Wordpress_Test extends TikiImporter_TestCase
 
 	public function testExtractPermalinks(): void
 	{
-		$this->obj->dom = new DOMDocument;
+		$this->obj->dom = new DOMDocument();
 		$this->obj->dom->load(__DIR__ . '/fixtures/wordpress_sample.xml');
 		$this->obj->blogInfo['link'] = 'http://example.com';
 
@@ -187,7 +188,7 @@ class TikiImporter_Blog_Wordpress_Test extends TikiImporter_TestCase
 		$obj = $this->getMockBuilder('TikiImporter_Blog_Wordpress')
 			->onlyMethods(['extractInfo'])
 			->getMock();
-		$obj->dom = new DOMDocument;
+		$obj->dom = new DOMDocument();
 		$obj->dom->load(__DIR__ . '/fixtures/wordpress_sample.xml');
 		$obj->expects($this->exactly(4))->method('extractInfo')->willReturn([]);
 
@@ -211,7 +212,7 @@ class TikiImporter_Blog_Wordpress_Test extends TikiImporter_TestCase
 			'tikifest', 'tikiwiki', 'tinymce', 'torres del paine', 'transporte', 'trekking', 'tv', 'ubuntu', 'unit tests', 'usp',
 			'vegetarianismo', 'vídeo', 'vulcão', 'vulcão maipo', 'wiki', 'wordpress', 'youtube'];
 
-		$this->obj->dom = new DOMDocument;
+		$this->obj->dom = new DOMDocument();
 		$this->obj->dom->load(__DIR__ . '/fixtures/wordpress_sample.xml');
 
 		$this->assertEquals($expectedResult, $this->obj->extractTags());
@@ -236,7 +237,7 @@ class TikiImporter_Blog_Wordpress_Test extends TikiImporter_TestCase
 			['parent' => 'viagens', 'name' => 'europa', 'description' => ''],
 		];
 
-		$this->obj->dom = new DOMDocument;
+		$this->obj->dom = new DOMDocument();
 		$this->obj->dom->load(__DIR__ . '/fixtures/wordpress_sample.xml');
 
 		$this->assertEquals($expectedResult, $this->obj->extractCategories());
@@ -281,7 +282,7 @@ class TikiImporter_Blog_Wordpress_Test extends TikiImporter_TestCase
 			'hasInternalLinks' => true,
 		];
 
-		$obj->dom = new DOMDocument;
+		$obj->dom = new DOMDocument();
 		$obj->dom->load(__DIR__ . '/fixtures/wordpress_post.xml');
 		$data = $obj->extractInfo($obj->dom->getElementsByTagName('item')->item(0));
 
@@ -336,7 +337,7 @@ class TikiImporter_Blog_Wordpress_Test extends TikiImporter_TestCase
 			],
 		];
 
-		$obj->dom = new DOMDocument;
+		$obj->dom = new DOMDocument();
 		$obj->dom->load(__DIR__ . '/fixtures/wordpress_page.xml');
 		$data = $obj->extractInfo($obj->dom->getElementsByTagName('item')->item(0));
 
@@ -347,7 +348,7 @@ class TikiImporter_Blog_Wordpress_Test extends TikiImporter_TestCase
 
 	public function testExtractCommentShouldReturnFalseForSpamOrTrashOrPingback(): void
 	{
-		$this->obj->dom = new DOMDocument;
+		$this->obj->dom = new DOMDocument();
 		$this->obj->dom->load(__DIR__ . '/fixtures/wordpress_comment_spam.xml');
 
 		// spam
@@ -380,7 +381,7 @@ Estou a disposição para te ajudar com mais informações. Abraços, Rodrigo.',
 			'type' => '',
 		];
 
-		$this->obj->dom = new DOMDocument;
+		$this->obj->dom = new DOMDocument();
 		$this->obj->dom->load(__DIR__ . '/fixtures/wordpress_comment.xml');
 
 		$comment = $this->obj->extractComment($this->obj->dom->getElementsByTagName('comment')->item(0));
@@ -390,7 +391,7 @@ Estou a disposição para te ajudar com mais informações. Abraços, Rodrigo.',
 
 	public function testExtractBlogCreatedDate(): void
 	{
-		$this->obj->dom = new DOMDocument;
+		$this->obj->dom = new DOMDocument();
 		$this->obj->dom->load(__DIR__ . '/fixtures/wordpress_sample.xml');
 
 		$this->assertEquals(1173636811, $this->obj->extractBlogCreatedDate());
@@ -406,7 +407,7 @@ Estou a disposição para te ajudar com mais informações. Abraços, Rodrigo.',
 			'created' => 1173636811,
 		];
 
-		$this->obj->dom = new DOMDocument;
+		$this->obj->dom = new DOMDocument();
 		$this->obj->dom->load(__DIR__ . '/fixtures/wordpress_sample.xml');
 		$this->obj->extractBlogInfo();
 
@@ -415,7 +416,7 @@ Estou a disposição para te ajudar com mais informações. Abraços, Rodrigo.',
 
 	public function testExtractAttachmentsInfo(): void
 	{
-		$this->obj->dom = new DOMDocument;
+		$this->obj->dom = new DOMDocument();
 		$this->obj->dom->load(__DIR__ . '/fixtures/wordpress_attachments.xml');
 
 		$expectedResult = [
@@ -492,7 +493,7 @@ Estou a disposição para te ajudar com mais informações. Abraços, Rodrigo.',
 			->getMock();
 		$file->expects($this->exactly(0))->method('replace')->willReturn(1);
 
-		$this->obj->dom = new DOMDocument;
+		$this->obj->dom = new DOMDocument();
 		$this->obj->downloadAttachments();
 
 		$output = ob_get_clean();
@@ -532,7 +533,7 @@ Estou a disposição para te ajudar com mais informações. Abraços, Rodrigo.',
 			->getMock();
 		$obj->expects($this->once())->method('getHttpClient')->willReturn($client);
 		$obj->expects($this->once())->method('createFileGallery')->willReturn(1);
-		$obj->dom = new DOMDocument;
+		$obj->dom = new DOMDocument();
 		$obj->dom->load(__DIR__ . '/fixtures/wordpress_attachments.xml');
 
 		$obj->downloadAttachments();
@@ -614,7 +615,7 @@ Estou a disposição para te ajudar com mais informações. Abraços, Rodrigo.',
 			->getMock();
 		$obj->expects($this->once())->method('createFileGallery')->willReturn(1);
 		$obj->expects($this->once())->method('getHttpClient')->willReturn($client);
-		$obj->dom = new DOMDocument;
+		$obj->dom = new DOMDocument();
 		$obj->dom->load(__DIR__ . '/fixtures/wordpress_attachments.xml');
 
 		$obj->downloadAttachments();
@@ -650,7 +651,7 @@ Estou a disposição para te ajudar com mais informações. Abraços, Rodrigo.',
 			->getMock();
 		$obj->expects($this->once())->method('createFileGallery')->willReturn(1);
 		$obj->expects($this->once())->method('getHttpClient')->willReturn($client);
-		$obj->dom = new DOMDocument;
+		$obj->dom = new DOMDocument();
 		$obj->dom->load(__DIR__ . '/fixtures/wordpress_attachments.xml');
 
 		$obj->downloadAttachments();
@@ -715,7 +716,7 @@ Estou a disposição para te ajudar com mais informações. Abraços, Rodrigo.',
 
 	public function testValidateInput(): void
 	{
-		$this->obj->dom = new DOMDocument;
+		$this->obj->dom = new DOMDocument();
 		$this->obj->dom->load(__DIR__ . '/fixtures/wordpress_sample.xml');
 		$this->assertTrue($this->obj->validateInput());
 	}
@@ -724,7 +725,7 @@ Estou a disposição para te ajudar com mais informações. Abraços, Rodrigo.',
 	{
 		$this->expectException('DOMException');
 
-		$this->obj->dom = new DOMDocument;
+		$this->obj->dom = new DOMDocument();
 		$this->obj->dom->load(__DIR__ . '/fixtures/wordpress_invalid.xml');
 		$this->obj->validateInput();
 	}
@@ -733,7 +734,7 @@ Estou a disposição para te ajudar com mais informações. Abraços, Rodrigo.',
 	{
 		$this->expectException('DOMException');
 
-		$this->obj->dom = new DOMDocument;
+		$this->obj->dom = new DOMDocument();
 		$this->obj->dom->load(__DIR__ . '/fixtures/mediawiki_sample.xml');
 		$this->obj->validateInput();
 	}

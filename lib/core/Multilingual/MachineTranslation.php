@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -14,7 +15,7 @@ class Multilingual_MachineTranslation
 
 	public static function force($implementation)
 	{
-		$self = new self;
+		$self = new self();
 		$self->implementation = $implementation;
 
 		return $self;
@@ -100,7 +101,7 @@ class Multilingual_MachineTranslation
 				break;
 			case 'null':
 			default:
-				return new Multilingual_MachineTranslation_Null;
+				return new Multilingual_MachineTranslation_Null();
 		}
 
 		return new Multilingual_MachineTranslation_Cache($handler, $source . $target);

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -41,7 +42,7 @@ class TikiVersionTest extends PHPUnit\Framework\TestCase
 
 	public function testVerifyLatestVersion()
 	{
-		$checker = new Tiki_Version_Checker;
+		$checker = new Tiki_Version_Checker();
 		$checker->setCycle('regular');
 		$checker->setVersion('9.0');
 
@@ -62,7 +63,7 @@ O;
 
 	public function testVerifyPastSupportedVersion()
 	{
-		$checker = new Tiki_Version_Checker;
+		$checker = new Tiki_Version_Checker();
 		$checker->setCycle('regular');
 		$checker->setVersion('8.4');
 
@@ -87,7 +88,7 @@ O;
 
 	public function testVerifyMinorUpdate()
 	{
-		$checker = new Tiki_Version_Checker;
+		$checker = new Tiki_Version_Checker();
 		$checker->setCycle('regular');
 		$checker->setVersion('8.2');
 
@@ -113,7 +114,7 @@ O;
 
 	public function testVerifyUpgradePrerelease()
 	{
-		$checker = new Tiki_Version_Checker;
+		$checker = new Tiki_Version_Checker();
 		$checker->setCycle('regular');
 		$checker->setVersion('8.4beta3');
 
@@ -139,7 +140,7 @@ O;
 
 	public function testUpgradeFromUnsupportedVersion()
 	{
-		$checker = new Tiki_Version_Checker;
+		$checker = new Tiki_Version_Checker();
 		$checker->setCycle('regular');
 		$checker->setVersion('4.3');
 
@@ -164,7 +165,7 @@ O;
 
 	public function testCurrentVersionMoreRecent()
 	{
-		$checker = new Tiki_Version_Checker;
+		$checker = new Tiki_Version_Checker();
 		$checker->setCycle('regular');
 		$checker->setVersion('10.0');
 

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -37,7 +38,7 @@ class Tiki_Webservice
 			return null;
 		}
 
-		$ws = new self;
+		$ws = new self();
 		$ws->name = strtolower($name);
 
 		return $ws;
@@ -58,7 +59,7 @@ class Tiki_Webservice
 		);
 
 		while ($row = $result->fetchRow()) {
-			$service = new self;
+			$service = new self();
 
 			$service->name = $name;
 			$service->url = $row['url'];
@@ -234,7 +235,7 @@ class Tiki_Webservice
 						$builtBody = str_replace("%$name%", urlencode($value), $builtBody);
 					}
 
-					$ointegrate = new OIntegrate;
+					$ointegrate = new OIntegrate();
 					$ointegrate->addAcceptTemplate('smarty', 'tikiwiki');
 					$ointegrate->addAcceptTemplate('smarty', 'html');
 					$ointegrate->addAcceptTemplate('javascript', 'html');
@@ -265,7 +266,7 @@ class Tiki_Webservice
 			return;
 		}
 
-		$template = new Tiki_Webservice_Template;
+		$template = new Tiki_Webservice_Template();
 		$template->webservice = $this;
 		$template->name = strtolower($name);
 
@@ -300,7 +301,7 @@ class Tiki_Webservice
 		);
 
 		while ($row = $result->fetchRow()) {
-			$template = new Tiki_Webservice_Template;
+			$template = new Tiki_Webservice_Template();
 			$template->webservice = $this;
 			$template->name = $row['template'];
 			$template->lastModif = $row['last_modif'];
@@ -333,7 +334,7 @@ class Tiki_Webservice
 		);
 
 		while ($row = $result->fetchRow()) {
-			$template = new Tiki_Webservice_Template;
+			$template = new Tiki_Webservice_Template();
 			$template->webservice = $this;
 			$template->name = $name;
 			$template->lastModif = $row['last_modif'];

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -9,7 +10,7 @@ class Search_MySql_LargeDatasetTest extends PHPUnit\Framework\TestCase
 {
 	protected $index;
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		$this->index = $this->getIndex();
 		$this->index->destroy();
@@ -20,7 +21,7 @@ class Search_MySql_LargeDatasetTest extends PHPUnit\Framework\TestCase
 		return new Search_MySql_Index(TikiDb::get(), 'test_index');
 	}
 
-	protected function tearDown() : void
+	protected function tearDown(): void
 	{
 		if ($this->index) {
 			$this->index->destroy();
@@ -54,7 +55,7 @@ class Search_MySql_LargeDatasetTest extends PHPUnit\Framework\TestCase
 			'object_id' => $typeFactory->identifier('test'),
 		];
 
-		$query = new Search_Query;
+		$query = new Search_Query();
 		for ($i = 0; 3000 > $i; ++$i) {
 			$document['field_' . $i] = $typeFactory->sortable('test');
 			$query->filterInitial('test', 'field_' . $i);

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -169,7 +170,7 @@ class TikiDate
 		$dt = DateTime::createFromFormat('U', $timestamp);
 		$tz = new DateTimeZone($tz);
 		$dt->setTimezone($tz);
-		$dt->setTime(0,0,0);
+		$dt->setTime(0, 0, 0);
 		return $dt->getTimestamp();
 	}
 
@@ -269,7 +270,7 @@ class TikiDate
 	public function setDate($date, $tz_id = null)
 	{
 		if (is_numeric($date)) {
-			$this->date = new DateTime('@'.$date);
+			$this->date = new DateTime('@' . $date);
 		} else {
 			$this->date = new DateTime($date, $tz_id ? $this->getTZByID($tz_id) : null);
 		}
@@ -290,7 +291,8 @@ class TikiDate
 		$this->date->setTime($hour, $minute, $second);
 	}
 
-	public function getTZByID($tz_id) {
+	public function getTZByID($tz_id)
+    {
 		global $prefs;
 		if (! self::TimezoneIsValidId($tz_id) && (! empty($prefs['timezone_offset']) || $prefs['timezone_offset'] == 0)) {	// timezone_offset in seconds
 			$tz_id = timezone_name_from_abbr($tz_id, $prefs['timezone_offset']);
@@ -431,7 +433,8 @@ class TikiDate
 	 * This does not rely on an ever-expanding blacklist TikiDate::$deprecated_tz
 	 * Therefore it should not break every time the OS updates the TZ list
 	 */
-	public static function isKnownTimezoneID($tzid) {
+	public static function isKnownTimezoneID($tzid)
+    {
 		if (empty($tzid)) {
 			return false;
 		}

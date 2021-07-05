@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -63,7 +64,7 @@ class Feedback
 		if (! empty($feedback['errortype'])) {
 			$smarty->assign('errortype', $feedback['errortype']);
 		}
-		$smarty->display(!empty($feedback['tpl']) ? $feedback['tpl'] : 'error.tpl');
+		$smarty->display(! empty($feedback['tpl']) ? $feedback['tpl'] : 'error.tpl');
 		die;
 	}
 
@@ -259,7 +260,8 @@ class Feedback
 	 * @param \Symfony\Component\Console\Output\OutputInterface $output
 	 * @param bool $cron
 	 */
-	public static function printToConsole($output, $cron = false) {
+	public static function printToConsole($output, $cron = false)
+    {
 
 		if ($output->isQuiet()) {
 			return;
@@ -285,7 +287,7 @@ class Feedback
 							continue;
 						}
 						$type = 'info';
-					} else if ($type === 'warning') {
+					} elseif ($type === 'warning') {
 						if (! $output->isVerbose()) {
 							continue;
 						}
@@ -307,7 +309,8 @@ class Feedback
 	 * @param \Laminas\Log\Logger $log
 	 * @param bool $clear - remove existing entries from the local storage after sending to log file
 	 */
-	public static function printToLog($log, $clear = false) {
+	public static function printToLog($log, $clear = false)
+    {
 		$errors = \Feedback::get();
 		if (is_array($errors)) {
 			foreach ($errors as $type => $message) {
@@ -351,7 +354,7 @@ class Feedback
 	 */
 	public static function removeIf(callable $comparableFunction)
 	{
-		if (!isset($_SESSION['tikifeedback'])) {
+		if (! isset($_SESSION['tikifeedback'])) {
 			return;
 		}
 

@@ -1,8 +1,8 @@
 <?php
+
 use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Signer\Rsa\Sha256 as RSASHA256;
 use Lcobucci\JWT\Signer\Hmac\Sha256 as HMACSHA256;
-
 use League\OAuth2\Server\CryptKey;
 use League\OAuth2\Server\Entities\AccessTokenEntityInterface;
 use League\OAuth2\Server\Entities\Traits\AccessTokenTrait;
@@ -11,7 +11,9 @@ use League\OAuth2\Server\Entities\Traits\TokenEntityTrait;
 
 class AccessTokenEntity implements AccessTokenEntityInterface
 {
-	use AccessTokenTrait, TokenEntityTrait, EntityTrait;
+	use AccessTokenTrait;
+    use TokenEntityTrait;
+    use EntityTrait;
 
 	public function convertToJWT(CryptKey $privateKey = null)
 	{

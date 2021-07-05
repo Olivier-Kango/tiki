@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -19,14 +21,16 @@ if (! empty($_REQUEST['submit'])) {
 	$trackers = $trklib->list_trackers();
 	$trackers = array_combine(
 		array_map(
-			function($tracker) {
+			function ($tracker) {
 				return $tracker['trackerId'];
-			}, $trackers['data']
+			},
+            $trackers['data']
 		),
 		array_map(
-			function($tracker) {
+			function ($tracker) {
 				return $tracker['name'];
-			}, $trackers['data']
+			},
+            $trackers['data']
 		)
 	);
 
@@ -35,7 +39,7 @@ if (! empty($_REQUEST['submit'])) {
 		$result = $trklib->list_tracker_fields($trackerId);
 		$fields = array_merge($fields, $result['data']);
 	}
-	$permanentNames = array_map(function($field) {
+	$permanentNames = array_map(function ($field) {
 		return $field['permName'];
 	}, $fields);
 

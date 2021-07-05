@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -154,8 +155,8 @@ class VCSUpdateCommand extends Command
 
 	protected function dbUpdate(OutputInterface $output)
 	{
-		$console = new Application;
-		$console->add(new UpdateCommand);
+		$console = new Application();
+		$console->add(new UpdateCommand());
 		$console->setAutoExit(false);
 		$console->setDefaultCommand('database:update');
 		$input = null;
@@ -373,10 +374,10 @@ class VCSUpdateCommand extends Command
 			$max -= 5;
 		} else {
 			if ($input->getOption('no-secdb')) {
-				$max --;
+				$max--;
 			}
 			if ($input->getOption('no-reindex')) {
-				$max --;
+				$max--;
 			}
 		}
 

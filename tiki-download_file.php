@@ -1,14 +1,16 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
-use \Tiki\File\PDFHelper;
+use Tiki\File\PDFHelper;
 use Tiki\Lib\Image\Image;
 
 $force_no_compression = true;
@@ -403,8 +405,10 @@ if ($convertToPdf) {
 }
 
 $mimelib = TikiLib::lib('mime');
-if (empty($info['filetype']) || $info['filetype'] == 'application/x-octetstream'
-			|| $info['filetype'] == 'application/octet-stream' || $info['filetype'] == 'unknown') {
+if (
+    empty($info['filetype']) || $info['filetype'] == 'application/x-octetstream'
+			|| $info['filetype'] == 'application/octet-stream' || $info['filetype'] == 'unknown'
+) {
 	$info['filetype'] = $mimelib->from_path($info['filename'], $filepath);
 } elseif (isset($_GET['thumbnail']) && (strpos($info['filetype'], 'image') === false || ($content_changed && strpos($info['filetype'], 'image/svg') === false))) {	// use thumb format
 	$info['filetype'] = $mimelib->from_content($info['filename'], $content);

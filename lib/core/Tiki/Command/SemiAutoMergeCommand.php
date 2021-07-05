@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -33,13 +34,13 @@ class SemiAutoMergeCommand extends Command
 			);
 	}
 
-	protected function execute(InputInterface $input, OutputInterface $output) : void
+	protected function execute(InputInterface $input, OutputInterface $output): void
 	{
 		$output->writeln("Verifying...");
 
-		$TWV = new TWVersion;
+		$TWV = new TWVersion();
 
-		if ($TWV->branch !== 'trunk'){
+		if ($TWV->branch !== 'trunk') {
 			$output->writeln('<error>Must be in trunk to merge</error>');
 			exit(1);
 		}
@@ -68,12 +69,12 @@ class SemiAutoMergeCommand extends Command
 		// Do merge
 		$output->writeln('Merging...');
 
-		$this->branch = 'branches/' . ((int)$TWV->getBaseVersion()-1) . '.x';
+		$this->branch = 'branches/' . ((int)$TWV->getBaseVersion() - 1) . '.x';
 		// we find the last merge and then advance by one to know where we must merge from
 		try {
 		    $output->writeln('Finding last merge', $output::VERBOSITY_DEBUG);
 			$mergeFrom = $this->findLastMerge();
-			$mergeFrom ++;
+			$mergeFrom++;
 		} catch (Exception $e) {
 			$output->writeln($e->getMessage());
 			exit(1);
@@ -104,11 +105,11 @@ class SemiAutoMergeCommand extends Command
 		$commitTags = [];
 
 		foreach ($logFile as $log) {
-			if (strpos($log['msg'],'[bp/r') === false) {
+			if (strpos($log['msg'], '[bp/r') === false) {
 				$authors[] = $log['author'];
 				$commitMessages[] = '(' . $log['author'] . ') ' . trim($log['msg']);
 				preg_match_all('/\[[A-Z]{2,3}\]/', $log['msg'], $matches);
-				foreach ($matches[0] as $match){
+				foreach ($matches[0] as $match) {
 					if (! in_array($match, $commitTags, false)) {
 						$commitTags[] = $match;
 					}
@@ -130,7 +131,7 @@ class SemiAutoMergeCommand extends Command
 		$lastRevision = '';
 		$separator = '';
 
-		if ($commitCount > 1 ) {
+		if ($commitCount > 1) {
 			$authors = array_unique($authors);
 			$authors = implode(', ', $authors) . "\n";
 			$separator = ':';
@@ -143,7 +144,7 @@ class SemiAutoMergeCommand extends Command
 
 		$firstRevision = $logFile[0]['@attributes']['revision'];
 
-		$command = 'svn merge '. escapeshellarg('^/' . $this->branch) . " -r $mergeFrom:HEAD";
+		$command = 'svn merge ' . escapeshellarg('^/' . $this->branch) . " -r $mergeFrom:HEAD";
 		$output->writeln($command, $output::VERBOSITY_DEBUG);
 		passthru($command);
 
@@ -159,7 +160,6 @@ class SemiAutoMergeCommand extends Command
 
 		$output->writeln('<info>Please verify local copy now. All changes in the working copy will be committed.</info>');
 		$this->commitChanges($input, $output);
-
 	}
 
 	/**
@@ -180,7 +180,6 @@ class SemiAutoMergeCommand extends Command
 		$bundles = ['yes', 'no'];
 		if ($ignore) {
 			$bundles[] = 'ignore';
-
 		}
 
 		$options = implode('|', $bundles);
@@ -241,7 +240,7 @@ class SemiAutoMergeCommand extends Command
 				}
 				$c++;
 				if ($c > 100000) {
-					Throw New Exception("[MRG] or [BRANCH] message for '$this->branch' not found in 1000000 lines of logs, something has gone wrong...");
+					throw new Exception("[MRG] or [BRANCH] message for '$this->branch' not found in 1000000 lines of logs, something has gone wrong...");
 				}
 			}
 
@@ -249,7 +248,7 @@ class SemiAutoMergeCommand extends Command
 			proc_close($process);
 			if (! $rev) {
 				if ($c > 100000) {
-					exit (1);
+					exit(1);
 				}
 				throw new Exception('Could not find last revision.');
 			}

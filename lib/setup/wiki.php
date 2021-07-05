@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -20,7 +21,8 @@ if ($prefs['wiki_page_regex'] == 'strict') {
 }
 
 // find out the page name if url=tiki-index_x.php (can be needed in module)
-if (strstr($_SERVER['SCRIPT_NAME'], 'tiki-index.php')
+if (
+    strstr($_SERVER['SCRIPT_NAME'], 'tiki-index.php')
 		|| strstr($_SERVER['SCRIPT_NAME'], 'tiki-index_p.php')
 		|| strstr($_SERVER['SCRIPT_NAME'], 'tiki-index_raw.php')
 ) {
@@ -30,7 +32,8 @@ if (strstr($_SERVER['SCRIPT_NAME'], 'tiki-index.php')
 		$check = true;
 	}
 
-	if ($prefs['feature_multilingual'] == 'y'
+	if (
+        $prefs['feature_multilingual'] == 'y'
 			&& (isset($_REQUEST['page']) || isset($_REQUEST['page_ref_id']) || isset($_REQUEST['page_id']))
 	) { // perhaps we have to go to an another page
 		$multilinguallib = TikiLib::lib('multilingual');

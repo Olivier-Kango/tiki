@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -134,7 +135,7 @@ function wikiplugin_slideshowslide_info()
 				'name' => tra('Transition Speed'),
 				'description' => tra('Transition Speed'),
 				'filter' => 'word',
-				'default' =>'',
+				'default' => '',
 				'since' => '19.0',
 				'options' => [
 					['text' => 'Default', 'value' => ''],
@@ -164,7 +165,7 @@ function wikiplugin_slideshowslide_info()
 
 function wikiplugin_slideshowslide($data, $params)
 {
-	if(strstr($_SERVER['PHP_SELF'],'tiki-slideshow.php')=='') {
+	if (strstr($_SERVER['PHP_SELF'], 'tiki-slideshow.php') == '') {
 		return $data;
 	}
 	$defaults = [];
@@ -172,45 +173,43 @@ function wikiplugin_slideshowslide($data, $params)
 	foreach ($plugininfo['params'] as $key => $param) {
 		$defaults["$key"] = $param['default'];
 		//separating digits filter parameters
-		if($param['filter']=="digits") {
-			$slideshowslideDigitsParams[]=$key;
+		if ($param['filter'] == "digits") {
+			$slideshowslideDigitsParams[] = $key;
 		}
 	}
 	$params = array_merge($defaults, $params);
-	$slideShowSlideParams=array("data-background-color"=>'bgColor',"data-background-image"=>'backgroundUrl',"data-background-size"=>'parallaxBackgroundSize',"data-background-horizontal"=>'parallaxBackgroundHorizontal',"data-background-vertical"=>'parallaxBackgroundVertical',"data-background-video"=>'backgroundVideoUrl',"data-background-transitionspeed"=>'transitionSpeed',"data-background-transition"=>'backgroundTransition');
+	$slideShowSlideParams = array("data-background-color" => 'bgColor',"data-background-image" => 'backgroundUrl',"data-background-size" => 'parallaxBackgroundSize',"data-background-horizontal" => 'parallaxBackgroundHorizontal',"data-background-vertical" => 'parallaxBackgroundVertical',"data-background-video" => 'backgroundVideoUrl',"data-background-transitionspeed" => 'transitionSpeed',"data-background-transition" => 'backgroundTransition');
 	$slideSettings = '';
-	foreach($slideShowSlideParams as $key=>$param) {
-		if($params[$param]){ 
-			$slideSettings.=$key;
-			if(!in_array($param,$slideshowslideDigitsParams)) {
-				$slideSettings.="='".$params[$param]."' ";
-			}
-			else {
-				$slideSettings.="='".$params[$param]."' ";
+	foreach ($slideShowSlideParams as $key => $param) {
+		if ($params[$param]) {
+			$slideSettings .= $key;
+			if (! in_array($param, $slideshowslideDigitsParams)) {
+				$slideSettings .= "='" . $params[$param] . "' ";
+			} else {
+				$slideSettings .= "='" . $params[$param] . "' ";
 			}
 		}
 	}
-	$slideSettings =str_replace(array("'y'","'n'"),array("'true'","'false'"),$slideSettings);
-	$transitionIn = (isset($params['transitionIn']) ? $params['transitionIn']."-in" : '');
-	$transitionOut = (isset($params['transitionOut']) ? $params['transitionOut']."-out" : '');
-	if($transitionIn  || $transitionOut) {
-		$slideSettings.="data-transition=\"".$transitionIn." ".$transitionOut."\"";
+	$slideSettings = str_replace(array("'y'","'n'"), array("'true'","'false'"), $slideSettings);
+	$transitionIn = (isset($params['transitionIn']) ? $params['transitionIn'] . "-in" : '');
+	$transitionOut = (isset($params['transitionOut']) ? $params['transitionOut'] . "-out" : '');
+	if ($transitionIn  || $transitionOut) {
+		$slideSettings .= "data-transition=\"" . $transitionIn . " " . $transitionOut . "\"";
 	}
-	if($params['videoMuted']=='y') {
-		$slideSettings.=" data-background-video-muted";
+	if ($params['videoMuted'] == 'y') {
+		$slideSettings .= " data-background-video-muted";
 	}
-	if($params['videoLoop']=='y') {
-		$slideSettings.=" data-background-video-loop";
+	if ($params['videoLoop'] == 'y') {
+		$slideSettings .= " data-background-video-loop";
 	}
-	if($params['textColor']) {
-		$textColorStyle='style="color:'.$params['textColor'].'"';
+	if ($params['textColor']) {
+		$textColorStyle = 'style="color:' . $params['textColor'] . '"';
 	}
-	if(isset($_REQUEST['pdf'])){
-		$slideEnd="</div>";
-	}
-	else{
-		$slideEnd="</td></tr></table>";
+	if (isset($_REQUEST['pdf'])) {
+		$slideEnd = "</div>";
+	} else {
+		$slideEnd = "</td></tr></table>";
 	}
 
-	return "<sslide id= data-plugin-slide ".$slideSettings." ".$textColorStyle.">".html_entity_decode(TikiLib::lib('parser')->parse_data(trim($data), ['is_html' => true, 'parse_wiki' => true])).$slideEnd.'</sslide>';
+	return "<sslide id= data-plugin-slide " . $slideSettings . " " . $textColorStyle . ">" . html_entity_decode(TikiLib::lib('parser')->parse_data(trim($data), ['is_html' => true, 'parse_wiki' => true])) . $slideEnd . '</sslide>';
 }

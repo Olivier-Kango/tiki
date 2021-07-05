@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -145,7 +147,7 @@ if ($user && isset($_REQUEST['watch_event']) && $access->checkCsrf(true)) {
 		} else {
 			$tikilib->remove_user_watch($user, $_POST['watch_event'], $_POST['watch_object'], 'blog');
 		}
-	}
+}
 	$smarty->assign('user_watching_blog', 'n');
 	if ($user && $tikilib->user_watches($user, 'blog_post', $_REQUEST['blogId'], 'blog')) {
 		$smarty->assign('user_watching_blog', 'y');

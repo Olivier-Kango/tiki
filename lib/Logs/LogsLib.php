@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -9,6 +10,7 @@ namespace Tiki\Lib\Logs;
 
 use Feedback;
 use TikiLib;
+
 use function count;
 use function sort;
 use function tr;
@@ -144,8 +146,18 @@ class LogsLib extends TikiLib
 		}
 	}
 
-	public function add_action($action, $object, $objectType = 'wiki page', $param = '', $who = '', $ip = '', $client = '', $date = '',
-		$contributions = '', $hash = '', $log = ''
+	public function add_action(
+        $action,
+        $object,
+        $objectType = 'wiki page',
+        $param = '',
+        $who = '',
+        $ip = '',
+        $client = '',
+        $date = '',
+		$contributions = '',
+        $hash = '',
+        $log = ''
 	) {
 		global $user, $prefs;
 
@@ -403,8 +415,18 @@ class LogsLib extends TikiLib
 		return explode('_', str_replace('0', ' ', $conf));
 	}
 
-	public function list_actions($action = '', $objectType = '', $user = '', $offset = 0, $maxRecords = -1, $sort_mode = 'lastModif_desc', $find = '',
-		$start = 0, $end = 0, $categId = '', $all = false
+	public function list_actions(
+        $action = '',
+        $objectType = '',
+        $user = '',
+        $offset = 0,
+        $maxRecords = -1,
+        $sort_mode = 'lastModif_desc',
+        $find = '',
+		$start = 0,
+        $end = 0,
+        $categId = '',
+        $all = false
 	) {
 		global $prefs, $section;
 		$tikilib = TikiLib::lib('tiki');
@@ -505,7 +527,8 @@ class LogsLib extends TikiLib
 		$ret = [];
 
 		while ($res = $result->fetchRow()) {
-			if ($prefs['feature_contribution'] == 'y'
+			if (
+                $prefs['feature_contribution'] == 'y'
 				&& ($res['action'] == 'Created' || $res['action'] == 'Updated' || $res['action'] == 'Posted'
 					|| $res['action'] == 'Replied')
 			) {
@@ -708,7 +731,8 @@ class LogsLib extends TikiLib
 		$tikilib = TikiLib::lib('tiki');
 		$statGroups = [];
 		foreach ($actions as $action) {
-			if (! empty($previousAction) && $action['lastModif'] == $previousAction['lastModif'] && $action['user'] == $previousAction['user']
+			if (
+                ! empty($previousAction) && $action['lastModif'] == $previousAction['lastModif'] && $action['user'] == $previousAction['user']
 				&& $action['object'] == $previousAction['object']
 				&& $action['objectType'] == $previousAction['objectType']
 			) {
@@ -860,7 +884,8 @@ class LogsLib extends TikiLib
 				$action['action'] = 'login';
 			}
 
-			if ($action['user'] == ''
+			if (
+                $action['user'] == ''
 				|| ! ($bytes = $this->get_volume_action($action))
 			) {
 				continue;
@@ -926,7 +951,8 @@ class LogsLib extends TikiLib
 				$action['action'] = 'login';
 			}
 
-			$key = $action['categId'] . '/' . $action['user'];;
+			$key = $action['categId'] . '/' . $action['user'];
+;
 
 			if (! array_key_exists($key, $stats)) {
 				$stats[$key]['category'] = $categNames[$action['categId']];
@@ -1105,7 +1131,8 @@ class LogsLib extends TikiLib
 		}
 		foreach ($actions as $action) {
 			if (isset($action['contributions'])) {
-				if (! empty($previousAction)
+				if (
+                    ! empty($previousAction)
 					&& $action['lastModif'] == $previousAction['lastModif']
 					&& $action['user'] == $previousAction['user']
 					&& $action['object'] == $previousAction['object']
@@ -1173,7 +1200,8 @@ class LogsLib extends TikiLib
 			}
 
 			if (isset($action['contributions'])) {
-				if (! empty($previousAction)
+				if (
+                    ! empty($previousAction)
 					&& $action['lastModif'] == $previousAction['lastModif']
 					&& $action['object'] == $previousAction['object']
 					&& $action['objectType'] == $previousAction['objectType']
@@ -1217,7 +1245,8 @@ class LogsLib extends TikiLib
 		}
 		ksort($tab);
 
-		return ['data' => $tab, 'nbCols' => count($tab)];;
+		return ['data' => $tab, 'nbCols' => count($tab)];
+;
 	}
 
 	public function get_colors($nb)
@@ -1324,7 +1353,8 @@ class LogsLib extends TikiLib
 		foreach ($contributions['data'] as $contribution) {
 			$ret['label'][] = utf8_decode($contribution['name']);
 			for ($ix = 0; $ix < $contributionStat['nbCols']; ++$ix) {
-				if (empty($contributionStat['data'][$contribution['contributionId']])
+				if (
+                    empty($contributionStat['data'][$contribution['contributionId']])
 					|| empty($contributionStat['data'][$contribution['contributionId']]['stat'][$ix])
 				) {
 					$ret["y$iy"][] = 0;
@@ -1527,7 +1557,6 @@ class LogsLib extends TikiLib
 	{
 		// TODO ImageGalleryRemoval23.x replace with file gallery if still needed
 		Feedback::warning(tr('Logs lib `insert_image` image gallery functionality needs to be replace with file gallery equivalent'));
-
 	}
 
 	public function get_more_info($actions, $categNames = [])
@@ -1643,7 +1672,6 @@ class LogsLib extends TikiLib
 						case 'file gallery':
 							$action['link'] = 'tiki-list_file_gallery.php?galleryId=' . $action['object'] . $matches[2];
 							break;
-
 					}
 
 					break;

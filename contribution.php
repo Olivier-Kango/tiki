@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -25,7 +27,7 @@ if ($prefs['feature_contribution'] == 'y') {
 	$contributionlib = TikiLib::lib('contribution');
 	$contributions = $contributionlib->list_contributions();
 	if (! empty($_REQUEST['contributions'])) {
-		for ($i = $contributions['cant'] - 1; $i >= 0; -- $i) {
+		for ($i = $contributions['cant'] - 1; $i >= 0; --$i) {
 			if (in_array($contributions['data'][$i]['contributionId'], $_REQUEST['contributions'])) {
 				$contributions['data'][$i]['selected'] = 'y';
 				$oneSelected = 'y';
@@ -36,7 +38,7 @@ if ($prefs['feature_contribution'] == 'y') {
 		$assignedContributions = $contributionlib->get_assigned_contributions($contributionItemId, 'comment');
 		if (! empty($assignedContributions)) {
 			foreach ($assignedContributions as $a) {
-				for ($i = $contributions['cant'] - 1; $i >= 0; -- $i) {
+				for ($i = $contributions['cant'] - 1; $i >= 0; --$i) {
 					if ($a['contributionId'] == $contributions['data'][$i]['contributionId']) {
 						$contributions['data'][$i]['selected'] = 'y';
 						$oneSelected = 'y';

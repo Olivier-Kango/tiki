@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -33,8 +35,10 @@ $show_columns = array_fill_keys(array_keys($modules), 'n');
 
 $modnames = [];
 foreach ($modules as $zone => & $moduleList) {
-	if ($prefs['feature_fullscreen'] != 'y' || empty($_SESSION['fullscreen']) || $_SESSION['fullscreen'] != 'y' ||
-			strpos($zone, 'page') === 0) {	// pagetop and pagebottom zones appear in fullscreen
+	if (
+        $prefs['feature_fullscreen'] != 'y' || empty($_SESSION['fullscreen']) || $_SESSION['fullscreen'] != 'y' ||
+			strpos($zone, 'page') === 0
+    ) {	// pagetop and pagebottom zones appear in fullscreen
 		foreach ($moduleList as & $mod_reference) {
 			$show_columns[$zone] = 'y';
 

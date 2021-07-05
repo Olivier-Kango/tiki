@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -21,7 +22,7 @@ class allTikiPhpFilesTest extends TestCase
 		$this->phpFiles = (new GlobRecursiveHelper('*.php'))->process();
 	}
 
-	public function testOutputBeforePhpTags() : void
+	public function testOutputBeforePhpTags(): void
 	{
 		foreach ($this->phpFiles as $fileName) {
 			$handle = fopen($fileName, 'r');

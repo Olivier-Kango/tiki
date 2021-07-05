@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -881,8 +882,10 @@ class elFinderVolumeTikiFiles extends elFinderVolumeDriver
 		$galleryId = $this->pathToId($path);
 		$gal_info = TikiLib::lib('filegal')->get_file_gallery_info($galleryId);
 		$perms = TikiLib::lib('tiki')->get_perm_object($galleryId, 'file gallery', $gal_info);
-		if ($perms['tiki_p_admin_file_galleries'] === 'y' ||
-				($gal_info['type'] === 'user' && $perms['tiki_p_create_file_galleries'])) {		// users can create and remove their own gals only
+		if (
+            $perms['tiki_p_admin_file_galleries'] === 'y' ||
+				($gal_info['type'] === 'user' && $perms['tiki_p_create_file_galleries'])
+        ) {		// users can create and remove their own gals only
 			$result = $this->filegallib->remove_file_gallery($this->pathToId($path), $this->pathToId($path));
 			return $result && $result->numRows();
 		} else {

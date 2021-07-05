@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -260,7 +262,8 @@ $headerlib->add_jq_onready(
 $serviceLib = TikiLib::lib('service');
 $smarty->assign('semUser', '');
 if ($prefs['feature_warn_on_edit'] == 'y') {
-	if ($serviceLib->internal('semaphore', 'is_set', ['object_id' => $_REQUEST['sheetId'], 'object_type' => 'sheet']) &&
+	if (
+        $serviceLib->internal('semaphore', 'is_set', ['object_id' => $_REQUEST['sheetId'], 'object_type' => 'sheet']) &&
 		($semUser = $serviceLib->internal('semaphore', 'get_user', ['object_id' => $_REQUEST['sheetId'], 'object_type' => 'sheet'])) !== $user
 	) {
 		$editconflict = 'y';

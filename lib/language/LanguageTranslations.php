@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -113,7 +114,7 @@ class LanguageTranslations extends TikiDb_Bridge
 		}
 
 		//don't change anything if the language is english
-		if ($this->lang == 'en'){
+		if ($this->lang == 'en') {
 			return;
 		}
 
@@ -245,7 +246,7 @@ class LanguageTranslations extends TikiDb_Bridge
 
 			fclose($f);
 
-			if ($delete_db){
+			if ($delete_db) {
 				$this->deleteTranslations($generalOnly);
 			}
 
@@ -254,7 +255,7 @@ class LanguageTranslations extends TikiDb_Bridge
 			throw new Exception(sprintf(tra('Error: unable to write to lang/%s/language.php'), $this->lang));
 		}
 	}
-	public function writeOneLanguageToFile($source, $translated, $generalOnly = false, $delete_lang_db=true )
+	public function writeOneLanguageToFile($source, $translated, $generalOnly = false, $delete_lang_db = true)
 	{
 		set_time_limit(0);
 
@@ -303,10 +304,9 @@ class LanguageTranslations extends TikiDb_Bridge
 			}
 
 			fclose($f);
-			if ($delete_lang_db){
+			if ($delete_lang_db) {
 				$this->deleteTranslations($generalOnly);
 			}
-
 		} else {
 			throw new Exception(sprintf(tra('Error: unable to write to lang/%s/language.php'), $this->lang));
 		}
@@ -371,7 +371,6 @@ class LanguageTranslations extends TikiDb_Bridge
 	}
 
 	protected function _getAllDbTranslation(
-
 		$originalTranslations = false
 	) {
 

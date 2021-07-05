@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -66,7 +67,7 @@ class Search_ContentSource_TrackerItemSource implements Search_ContentSource_Int
 
 		foreach (self::getIndexableHandlers($definition, $item) as $handler) {
 			if ($this->indexer) {
-				$this->indexer->errorContext = 'Field '.$handler->getConfiguration('fieldId') . ' / ' . $handler->getConfiguration('name');
+				$this->indexer->errorContext = 'Field ' . $handler->getConfiguration('fieldId') . ' / ' . $handler->getConfiguration('name');
 			}
 
 			$documentPart = $handler->getDocumentPart($typeFactory, $this->mode);
@@ -227,7 +228,7 @@ class Search_ContentSource_TrackerItemSource implements Search_ContentSource_Int
 			$handlers = array_merge($handlers, self::getHandlersMatching('Search_FacetProvider_Interface', $definition, []));
 		}
 
-		$source = new Search_FacetProvider;
+		$source = new Search_FacetProvider();
 		$source->addFacets([
 			Search_Query_Facet_Term::fromField('tracker_id')
 				->setLabel(tr('Tracker'))
@@ -256,7 +257,8 @@ class Search_ContentSource_TrackerItemSource implements Search_ContentSource_Int
 		return $source->getFacets();
 	}
 
-	public function setIndexer($indexer) {
+	public function setIndexer($indexer)
+    {
 		$this->indexer = $indexer;
 	}
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Run phpunit tests, and report only those tests that STARTED failing
  * or were fixed since the last baseline run.

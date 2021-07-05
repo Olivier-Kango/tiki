@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -96,7 +97,8 @@ class PackageUpdateCommand extends Command
 		$all = $input->getOption('all');
 		$packageKey = $input->getArgument('package');
 
-		if (! empty($packageKey)
+		if (
+            ! empty($packageKey)
 			&& ! in_array($packageKey, array_column($updatablePackages, 'key'))
 		) {
 			$output->writeln(

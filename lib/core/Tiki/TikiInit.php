@@ -17,8 +17,10 @@ use Tiki\Package\ExtensionManager as PackageExtensionManager;
 use TikiCachedContainer;
 use TikiDb;
 use TWVersion;
+
 use function file_put_contents;
 use function iconv;
+
 use const TIKI_PATH;
 
 /**
@@ -46,20 +48,22 @@ class TikiInit
         $TWV = new TWVersion();
         $version = $TWV->getVersion();
 
-        $cache = TIKI_PATH.'/temp/cache/container.php';
+        $cache = TIKI_PATH . '/temp/cache/container.php';
         if (is_readable($cache)) {
             require_once $cache;
 
-            if (!class_exists('TikiCachedContainer')) {
+            if (! class_exists('TikiCachedContainer')) {
                 // mangled or otherwise invalid container
                 unlink($cache);
             } else {
-                $container = new TikiCachedContainer;
+                $container = new TikiCachedContainer();
 
                 /* If the server moved or was upgraded, the container must be recreated */
-                if (TIKI_PATH == $container->getParameter('kernel.root_dir') &&
+                if (
+                    TIKI_PATH == $container->getParameter('kernel.root_dir') &&
                     $container->hasParameter('tiki.version') &&                    // no version before 15.0
-                    $container->getParameter('tiki.version') === $version) {
+                    $container->getParameter('tiki.version') === $version
+                ) {
                     if (TikiDb::get()) {
                         $container->set('tiki.lib.db', TikiDb::get());
                     }
@@ -72,13 +76,13 @@ class TikiInit
             }
         }
 
-        $path = TIKI_PATH.'/db/config';
-        $container = new ContainerBuilder;
-        $container->addCompilerPass(new \Tiki\MailIn\Provider\CompilerPass);
-        $container->addCompilerPass(new \Tiki\Recommendation\Engine\CompilerPass);
-        $container->addCompilerPass(new \Tiki\Wiki\SlugManager\CompilerPass);
-        $container->addCompilerPass(new \Search\Federated\CompilerPass);
-        $container->addCompilerPass(new \Tracker\CompilerPass);
+        $path = TIKI_PATH . '/db/config';
+        $container = new ContainerBuilder();
+        $container->addCompilerPass(new \Tiki\MailIn\Provider\CompilerPass());
+        $container->addCompilerPass(new \Tiki\Recommendation\Engine\CompilerPass());
+        $container->addCompilerPass(new \Tiki\Wiki\SlugManager\CompilerPass());
+        $container->addCompilerPass(new \Search\Federated\CompilerPass());
+        $container->addCompilerPass(new \Tracker\CompilerPass());
 
         $container->setParameter('kernel.root_dir', TIKI_PATH);
         $container->setParameter('tiki.version', $version);
@@ -131,7 +135,7 @@ class TikiInit
     public function os()
     {
         static $os;
-        if (!isset($os)) {
+        if (! isset($os)) {
             if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
                 $os = 'windows';
             } else {
@@ -149,7 +153,7 @@ class TikiInit
     public static function isWindows()
     {
         static $windows;
-        if (!isset($windows)) {
+        if (! isset($windows)) {
             $windows = strtoupper(substr(PHP_OS, 0, 3)) == 'WIN';
         }
 
@@ -187,9 +191,9 @@ class TikiInit
     public static function is__writable($path)
     {
         if ($path[strlen($path) - 1] == '/') { // recursively return a temporary file path
-            return self::is__writable($path.uniqid(mt_rand()).'.tmp');
+            return self::is__writable($path . uniqid(mt_rand()) . '.tmp');
         } elseif (is_dir($path)) {
-            return self::is__writable($path.'/'.uniqid(mt_rand()).'.tmp');
+            return self::is__writable($path . '/' . uniqid(mt_rand()) . '.tmp');
         }
         // check tmp file for read/write capabilities
         $rm = file_exists($path);
@@ -198,7 +202,7 @@ class TikiInit
             return false;
         }
         fclose($f);
-        if (!$rm) {
+        if (! $rm) {
             unlink($path);
         }
 
@@ -216,9 +220,9 @@ class TikiInit
         $include_path = ini_get('include_path');
         $paths = explode(PATH_SEPARATOR, $include_path);
 
-        if ($include_path && !in_array($path, $paths)) {
-            $include_path = $path.PATH_SEPARATOR.$include_path;
-        } elseif (!$include_path) {
+        if ($include_path && ! in_array($path, $paths)) {
+            $include_path = $path . PATH_SEPARATOR . $include_path;
+        } elseif (! $include_path) {
             $include_path = $path;
         }
 
@@ -235,9 +239,9 @@ class TikiInit
         $include_path = ini_get('include_path');
         $paths = explode(PATH_SEPARATOR, $include_path);
 
-        if ($include_path && !in_array($path, $paths)) {
-            $include_path .= PATH_SEPARATOR.$path;
-        } elseif (!$include_path) {
+        if ($include_path && ! in_array($path, $paths)) {
+            $include_path .= PATH_SEPARATOR . $path;
+        } elseif (! $include_path) {
             $include_path = $path;
         }
 
@@ -253,8 +257,9 @@ class TikiInit
      */
     public static function to_utf8($string)
     {
-        if (preg_match(
-            '%^(?:
+        if (
+            preg_match(
+                '%^(?:
 	  		   [\x09\x0A\x0D\x20-\x7E]            # ASCII
    		 | [\xC2-\xDF][\x80-\xBF]             # non-overlong 2-byte
 		    | \xE0[\xA0-\xBF][\x80-\xBF]         # excluding overlongs
@@ -264,8 +269,8 @@ class TikiInit
 			 | [\xF1-\xF3][\x80-\xBF]{3}          # planes 4-15
 		    | \xF4[\x80-\x8F][\x80-\xBF]{2}      # plane 16
 			)*$%xs',
-            $string
-        )
+                $string
+            )
         ) {
             return $string;
         } else {
@@ -283,7 +288,7 @@ class TikiInit
         static $IIS;
 
         // Sample value Microsoft-IIS/7.5
-        if (!isset($IIS) && isset($_SERVER['SERVER_SOFTWARE'])) {
+        if (! isset($IIS) && isset($_SERVER['SERVER_SOFTWARE'])) {
             $IIS = substr($_SERVER['SERVER_SOFTWARE'], 0, 13) == 'Microsoft-IIS';
         }
 
@@ -352,31 +357,31 @@ class TikiInit
 
         */
 
-        if (!isset($local_php) or !is_file($local_php)) {
+        if (! isset($local_php) or ! is_file($local_php)) {
             $local_php = 'db/local.php';
         } else {
             $local_php = preg_replace(['/\.\./', '/^db\//'], ['', ''], $local_php);
         }
         $tikidomain = '';
         if (is_file('db/virtuals.inc')) {
-            if (isset($_SERVER['TIKI_VIRTUAL']) and is_file('db/'.$_SERVER['TIKI_VIRTUAL'].'/local.php')) {
+            if (isset($_SERVER['TIKI_VIRTUAL']) and is_file('db/' . $_SERVER['TIKI_VIRTUAL'] . '/local.php')) {
                 $tikidomain = $_SERVER['TIKI_VIRTUAL'];
-            } elseif (isset($_SERVER['SERVER_NAME']) and is_file('db/'.$_SERVER['SERVER_NAME'].'/local.php')) {
+            } elseif (isset($_SERVER['SERVER_NAME']) and is_file('db/' . $_SERVER['SERVER_NAME'] . '/local.php')) {
                 $tikidomain = $_SERVER['SERVER_NAME'];
-            } elseif (isset($_REQUEST['multi']) && is_file('db/'.$_REQUEST['multi'].'/local.php')) {
+            } elseif (isset($_REQUEST['multi']) && is_file('db/' . $_REQUEST['multi'] . '/local.php')) {
                 $tikidomain = $_REQUEST['multi'];
             } elseif (isset($_SERVER['HTTP_HOST'])) {
-                if (is_file('db/'.$_SERVER['HTTP_HOST'].'/local.php')) {
+                if (is_file('db/' . $_SERVER['HTTP_HOST'] . '/local.php')) {
                     $tikidomain = $_SERVER['HTTP_HOST'];
-                } elseif (is_file('db/'.preg_replace('/^www\./', '', $_SERVER['HTTP_HOST']).'/local.php')) {
+                } elseif (is_file('db/' . preg_replace('/^www\./', '', $_SERVER['HTTP_HOST']) . '/local.php')) {
                     $tikidomain = preg_replace('/^www\./', '', $_SERVER['HTTP_HOST']);
                 }
             }
-            if (!empty($tikidomain)) {
+            if (! empty($tikidomain)) {
                 $local_php = "db/$tikidomain/local.php";
             }
         }
-        $tikidomainslash = (!empty($tikidomain) ? $tikidomain.'/' : '');
+        $tikidomainslash = (! empty($tikidomain) ? $tikidomain . '/' : '');
 
         $default_api_tiki = $api_tiki;
         $api_tiki = '';
@@ -395,11 +400,13 @@ class TikiInit
             }
         }
 
-        if ($connectionString && preg_match(
+        if (
+            $connectionString && preg_match(
                 '/^Database=(?P<dbs>.+);Data Source=(?P<host>.+);User Id=(?P<user>.+);Password=(?P<pass>.+)$/',
                 $connectionString,
                 $parts
-            )) {
+            )
+        ) {
             $parts['charset'] = 'utf8';
             $parts['socket'] = null;
 

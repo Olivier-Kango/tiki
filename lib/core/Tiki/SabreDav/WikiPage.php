@@ -21,7 +21,7 @@ class WikiPage extends DAV\File
 	{
 		$name = preg_replace('#^/#', '', $path);
 		$this->page = TikiLib::lib('tiki')->get_page_info($name);
-		if (!$this->page) {
+		if (! $this->page) {
 			throw new DAV\Exception\NotFound(tr('The wiki page with name: ' . $name . ' could not be found'));
 		}
 	}

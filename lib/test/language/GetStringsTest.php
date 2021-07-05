@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -27,7 +28,7 @@ class Language_GetStringsTest extends TikiTestCase
 	private $writeFileFactory;
 	private $writeFile;
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		$this->baseDir = __DIR__ . '/../../../';
 		$this->collectFiles = $this->createMock('Language_CollectFiles');
@@ -90,7 +91,7 @@ class Language_GetStringsTest extends TikiTestCase
 
 	public function testCollectStringsWithFileTypePhp(): void
 	{
-		$this->obj->addFileType(new Language_FileType_Php);
+		$this->obj->addFileType(new Language_FileType_Php());
 		$strings = $this->obj->collectStrings(__DIR__ . '/fixtures/test_collecting_strings.php');
 
 		$expectedResult = ['%0 enabled', '%0 disabled', 'Features', 'Enable/disable Tiki features here, but configure them elsewhere',
@@ -115,13 +116,13 @@ class Language_GetStringsTest extends TikiTestCase
 		))->method('doubleQuoted')->willReturn([0 => '', 1 => '']);
 
 		$this->obj->addFileType($php);
-		$this->obj->addFileType(new Language_FileType_Tpl);
+		$this->obj->addFileType(new Language_FileType_Tpl());
 		$this->obj->collectStrings(__DIR__ . '/fixtures/test_collecting_strings.php');
 	}
 
 	public function testCollectStringsWithFileTypeTpl(): void
 	{
-		$this->obj->addFileType(new Language_FileType_Tpl);
+		$this->obj->addFileType(new Language_FileType_Tpl());
 		$strings = $this->obj->collectStrings(__DIR__ . '/fixtures/test_collecting_strings.tpl');
 
 		$expectedResult = ['Bytecode Cache', 'Using <strong>%0</strong>.These stats affect all PHP applications running on the server.',
@@ -136,7 +137,7 @@ class Language_GetStringsTest extends TikiTestCase
 
 	public function testCollectStringShouldNotConsiderEmptyCallsToTra(): void
 	{
-		$this->obj->addFileType(new Language_FileType_Php);
+		$this->obj->addFileType(new Language_FileType_Php());
 
 		$fileName = 'file1.php';
 

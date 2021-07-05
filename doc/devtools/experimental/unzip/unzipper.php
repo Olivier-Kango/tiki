@@ -244,7 +244,7 @@ if (isset($_POST['unzip'])) {
 */
 	if ($unzip and (file_exists($unzip_name))) {
 		//	system("unzip $unzip_name");
-		$zip = new ZipArchive;
+		$zip = new ZipArchive();
 		$res = $zip->open("$unzip_name");
 		if ($res === true) {
 			$zip->extractTo('./');

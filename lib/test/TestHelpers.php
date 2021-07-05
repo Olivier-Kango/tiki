@@ -1,4 +1,5 @@
 <?php
+
 /**
  *
  * This class can be used to initialize Tiki to given start conditiosn for testing purposes.
@@ -21,7 +22,7 @@ class TestHelpers
 	{
 		global $tikilib;
 
-		$tikilib = new TikiLib;
+		$tikilib = new TikiLib();
 	}
 
 	public function simulateTikiScriptContext($script_uri = 'tiki-index.php', $logged_on_as_user = 'some_user', $host = 'localhost')

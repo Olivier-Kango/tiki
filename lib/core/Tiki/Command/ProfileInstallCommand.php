@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -61,7 +62,7 @@ class ProfileInstallCommand extends Command
 		}
 
 		$profileData = $profile->getData();
-		if (! empty( $profileData['error'])) {
+		if (! empty($profileData['error'])) {
 			$output->writeln('<error>' . tr('There were some errors while trying to load the profile definition') . '</error>');
 			$output->writeln('<error>' . $profileData['error'] . '</error>');
 			return;
@@ -74,7 +75,7 @@ class ProfileInstallCommand extends Command
 
 		$tikilib = \TikiLib::lib('tiki');
 
-		$installer = new \Tiki_Profile_Installer;
+		$installer = new \Tiki_Profile_Installer();
 		$isInstalled = $installer->isInstalled($profile);
 
 		if ($isInstalled && $force) {

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright 2002-2019 by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -21,7 +22,7 @@ class CacheLibRedis
 		if (empty($this->redis)) {
 			$this->redis = new Redis();
 			$success = $this->redis->pconnect($prefs["redis_host"], $prefs["redis_port"], $prefs["redis_timeout"]);
-			if (!$success) {
+			if (! $success) {
 				throw new Exception('Unable to connect to Redis.');
 			}
 			if ($prefs['redis_prefix']) {
@@ -36,12 +37,14 @@ class CacheLibRedis
 		$this->redis->close();
 	}
 
-	private function getKey($key, $type) {
+	private function getKey($key, $type)
+    {
 		$key = $type . md5($key);
 		return $key;
 	}
 
-	private function findKeys($pattern) {
+	private function findKeys($pattern)
+    {
 		global $prefs;
 		$keys = $this->redis->keys($pattern);
 		if ($prefs['redis_prefix']) {
@@ -86,7 +89,8 @@ class CacheLibRedis
 		return $this->redis->del($keys);
 	}
 
-	public function flush() {
+	public function flush()
+    {
 		global $prefs;
 		if ($prefs['redis_prefix']) {
 			$keys = $this->findKeys('*');

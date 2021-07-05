@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -12,7 +13,7 @@ class Tiki_Event_Customizer_RuleSet
 
 	public function __construct()
 	{
-		$this->parser = new Math_Formula_Parser;
+		$this->parser = new Math_Formula_Parser();
 	}
 
 	public function addRule($function)

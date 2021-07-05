@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -104,18 +106,24 @@ $qpp = [
 	3,
 	4
 ];
-for ($i = 5; $i < 50;
-$i += 5) {
+for (
+    $i = 5; $i < 50;
+    $i += 5
+) {
 	$qpp[] = $i;
 }
 $hrs = [];
-for ($i = 0; $i < 10;
-$i++) {
+for (
+    $i = 0; $i < 10;
+    $i++
+) {
 	$hrs[] = $i;
 }
 $mins = [];
-for ($i = 1; $i < 120;
-$i++) {
+for (
+    $i = 1; $i < 120;
+    $i++
+) {
 	$mins[] = $i;
 }
 $smarty->assign('qpp', $qpp);

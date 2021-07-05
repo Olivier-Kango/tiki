@@ -26,7 +26,7 @@ class AclPlugin extends DAVACL\Plugin
      */
     public function checkPrivileges($uri, $privileges, $recursion = self::R_PARENT, $throwExceptions = true)
     {
-        
+
         return true;
     }
 }

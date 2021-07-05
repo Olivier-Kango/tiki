@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -213,7 +214,7 @@ function wikiplugin_div($content, $params)
 	$cl   = (isset($clear) && ($clear == 'left' || $clear == 'right' || $clear == 'both' || $clear == 'none')) ? " clear: $clear;" : '';
 
 	if (! empty($params['data'])) {
-		parse_str($params['data'],$attrs);
+		parse_str($params['data'], $attrs);
 		$dt = ' ';
 		foreach ($attrs as $attr => $value) {
 			$dt .= " data-$attr=\"$value\"";
@@ -222,7 +223,7 @@ function wikiplugin_div($content, $params)
 		$dt = '';
 	}
 	if (! empty($params['aria'])) {
-		parse_str($params['aria'],$attrs);
+		parse_str($params['aria'], $attrs);
 		$ar = ' ';
 		foreach ($attrs as $attr => $value) {
 			$ar .= " aria-$attr=\"$value\"";

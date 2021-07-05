@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -13,9 +14,9 @@ class Reports_SendTest extends TikiTestCase
 
 	protected $dt;
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
-		$this->dt = new DateTime;
+		$this->dt = new DateTime();
 		$this->dt->setTimestamp(strtotime('2012-03-27 15:55:16'));
 
 		$this->mail = $this->createMock('TikiMail');

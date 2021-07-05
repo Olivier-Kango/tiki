@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -61,7 +62,7 @@ class Search_Query_FacetWikiBuilder
 				if ($facet['type'] === 'date_histogram' && ! is_a($real, '\Search_Query_Facet_DateHistogram')) {
 					// tracker date fields return a generic "Term" facet but the plugin should choose range of histogram
 					$real = Search_Query_Facet_DateHistogram::fromField($real->getField())->setLabel($real->getLabel());
-				} else if ($facet['type'] === 'date_range' && ! is_a($real, '\Search_Query_Facet_DateRange')) {
+				} elseif ($facet['type'] === 'date_range' && ! is_a($real, '\Search_Query_Facet_DateRange')) {
 					// same for date range
 					$real = Search_Query_Facet_DateRange::fromField($real->getField())->setLabel($real->getLabel());
 				}
@@ -90,7 +91,7 @@ class Search_Query_FacetWikiBuilder
 							$range = explode(',', $range);
 							if (count($range) > 2) {
 								$real->addRange($range[1], $range[0], $range[2]);
-							} else if (count($range) > 1) {
+							} elseif (count($range) > 1) {
 								$real->addRange($range[1], $range[0]);
 							}
 						}

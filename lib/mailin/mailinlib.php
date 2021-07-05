@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -144,7 +145,7 @@ class MailinLib extends TikiDb_Bridge
 		}
 
 		// if account is Store Mail in Tracker
-		if($type == 'tracker') {
+		if ($type == 'tracker') {
 			$attachments = $tracker_attachments;
 		} else {
 			$trackerId = null;
@@ -153,7 +154,7 @@ class MailinLib extends TikiDb_Bridge
 		$preferences_ = json_decode($preferences);
 		// check the links
 		if ($preferences_->error || count($preferences_->links) == 0 || $trackerId == 0) {
-			$preferences = NULL;
+			$preferences = null;
 		}
 
 		$data = [
@@ -262,7 +263,8 @@ class MailinLib extends TikiDb_Bridge
 	 *
 	 * @return string
 	 */
-	public function checkPackage() {
+	public function checkPackage()
+    {
 		$status = "n";
 		if (file_exists('vendor_bundled/vendor/philippemarcmeyer/fieldslinker/')) {
 			$status = "y";

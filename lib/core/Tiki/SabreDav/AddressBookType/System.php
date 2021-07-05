@@ -11,7 +11,6 @@ namespace Tiki\SabreDav\AddressBookType;
 use Sabre\CardDAV;
 use Sabre\DAV;
 use Sabre\VObject;
-
 use Tiki\SabreDav\PrincipalBackend;
 use TikiLib;
 
@@ -19,48 +18,53 @@ class System implements AddressBookTypeInterface
 {
 	private $user;
 
-	public function __construct($user, $addressBookId = null) {
+	public function __construct($user, $addressBookId = null)
+    {
 		$this->user = $user;
 	}
 
-	public function isEnabled() {
+	public function isEnabled()
+    {
 		$users = TikiLib::lib('user')->list_all_users();
-		return !empty($users);
+		return ! empty($users);
 	}
 
-	public function isReadOnly() {
+	public function isReadOnly()
+    {
 		return true;
 	}
 
-	public function getAddressBooks() {
+	public function getAddressBooks()
+    {
 		return [[
 			'id' => "system.{$this->user}",
 			'uri' => 'system',
 			'principaluri' => PrincipalBackend::mapUserToUri($this->user),
 			'{DAV:}displayname' => 'System Users',
-			'{'.CardDAV\Plugin::NS_CARDDAV.'}addressbook-description' => 'Tiki system users.',
+			'{' . CardDAV\Plugin::NS_CARDDAV . '}addressbook-description' => 'Tiki system users.',
 		]];
 	}
 
-	public function getCards($uris = null) {
+	public function getCards($uris = null)
+    {
 		if (is_array($uris)) {
-			$uris = array_map(function($uri){
+			$uris = array_map(function ($uri) {
 				return str_replace('.vcf', '', $uri);
 			}, $uris);
 			$users = TikiLib::lib('user')->get_users();
-			$users['data'] = array_filter($users['data'], function($userInfo) use ($uris) {
+			$users['data'] = array_filter($users['data'], function ($userInfo) use ($uris) {
 				return in_array($userInfo['login'], $uris);
 			});
 		} else {
 			$users = TikiLib::lib('user')->get_users();
 		}
-		return array_map(function($userInfo) use ($uris) {
+		return array_map(function ($userInfo) use ($uris) {
 			$data = $this->constructCardData($userInfo);
 			$result = [
 					'id' => $userInfo['login'],
-					'uri' => $userInfo['login'].'.vcf',
+					'uri' => $userInfo['login'] . '.vcf',
 					'lastmodified' => time(),
-					'etag' => '"'.md5($data).'"',
+					'etag' => '"' . md5($data) . '"',
 					'size' => strlen($data),
 			];
 			if (is_array($uris)) {
@@ -70,19 +74,23 @@ class System implements AddressBookTypeInterface
 		}, $users['data']);
 	}
 
-	public function createCard($cardUri, $cardData) {
+	public function createCard($cardUri, $cardData)
+    {
 		throw new DAV\Exception\Forbidden("Address book is read-only.");
 	}
 
-	public function updateCard($cardUri, $cardData) {
+	public function updateCard($cardUri, $cardData)
+    {
 		throw new DAV\Exception\Forbidden("Address book is read-only.");
 	}
 
-	public function deleteCard($cardUri) {
+	public function deleteCard($cardUri)
+    {
 		throw new DAV\Exception\Forbidden("Address book is read-only.");
 	}
 
-	private function constructCardData($userInfo) {
+	private function constructCardData($userInfo)
+    {
 		global $url_host;
 		$tikilib = TikiLib::lib('tiki');
 		$user = $userInfo['login'];

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -17,11 +18,11 @@ require_once('lib/socnets/Util.php');
 use TikiLib\Socnets\Util\Util;
 
 
-function LLOG($msg, $msg2='')
+function LLOG($msg, $msg2 = '')
 {
-  if ($msg2 === '') 
+  if ($msg2 === '') {
     Util::log($msg);
-  else
-    Util::log2($msg, $msg2);
-
+  } else {
+Util::log2($msg, $msg2);
+  }
 }

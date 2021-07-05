@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -14,8 +16,9 @@ include_once("tiki-setup.php");
 
 //Enable Two-Factor Auth Input
 $twoFactorForm = 'n';
-if(isset($_REQUEST["twoFactorForm"]))
+if (isset($_REQUEST["twoFactorForm"])) {
 	$twoFactorForm = 'y';
+}
 $smarty->assign('twoFactorForm', $twoFactorForm);
 
 if ($prefs['login_autologin'] == 'y' && $prefs['login_autologin_redirectlogin'] == 'y' && ! empty($prefs['login_autologin_redirectlogin_url'])) {

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -6,6 +7,7 @@
 // $Id$
 
 use Symfony\Component\Yaml\Yaml;
+
 /**
  * TikiAccessLib
  *
@@ -336,8 +338,7 @@ class TikiAccessLib extends TikiLib
 		$unsetTicket = true,
 		$ticket = '',
 		$error = 'session'
-	)
-	{
+	) {
 		global $prefs;
 		if ($prefs['pwa_feature'] == 'y') {
 			return true;
@@ -368,13 +369,14 @@ class TikiAccessLib extends TikiLib
 			$ticket = '';
 		}
 		//send requests requiring confirmation to confirmation form
-		if (($getNoConfirm === false && ! $this->requestIsPost())
+		if (
+            ($getNoConfirm === false && ! $this->requestIsPost())
 			|| ($postConfirm && (empty($_POST['confirmForm']) || $_POST['confirmForm'] !== 'y'))
-		)
-		{
+		) {
 			$this->confirmRedirect($confirmText, $error);
 			//perform check if action post or required confirmation post
-		} elseif ((! $postConfirm && ($this->isActionPost() || $getNoConfirm === true))
+		} elseif (
+            (! $postConfirm && ($this->isActionPost() || $getNoConfirm === true))
 			|| ($postConfirm && ! empty($_POST['confirmForm']) && $_POST['confirmForm'] === 'y')
 		) {
 			//return true if check already performed - e.g., multiple checks on tiki-login.php for same request
@@ -507,7 +509,7 @@ class TikiAccessLib extends TikiLib
 			$this->ticket = urldecode($this->ticket);
 		}
 		//check that request ticket matches server ticket
-		if ($this->ticket && !empty($_SESSION['tickets'][$this->ticket])) {
+		if ($this->ticket && ! empty($_SESSION['tickets'][$this->ticket])) {
 			//check that ticket has not expired
 			global $prefs;
 			$maxTime = $prefs['site_security_timeout'];
@@ -521,7 +523,7 @@ class TikiAccessLib extends TikiLib
 				$msg = tr('The security ticket matches but is expired.');
 				$ticketAgeSeconds = $requestTime - $ticketTime;
 				$ticketAgeMinutes = $ticketAgeSeconds < 60 ? '' : ' (' . round($ticketAgeSeconds / 60, 1)
-					. ' ' . tr('minutes'). ')';
+					. ' ' . tr('minutes') . ')';
 				$this->logMsg = $msg . PHP_EOL . '  ' . tr('Age of security ticket:') . ' '
 					. $ticketAgeSeconds . ' ' . tr('seconds') . $ticketAgeMinutes;
 				$this->userMsg = ' ' . $msg . ' ' . tr('Reload the page.');
@@ -642,7 +644,7 @@ class TikiAccessLib extends TikiLib
 	 */
 	public function isActionPost()
 	{
-		return ($this->requestIsPost() && !empty($_POST['ticket']));
+		return ($this->requestIsPost() && ! empty($_POST['ticket']));
 	}
 
 	/**
@@ -692,23 +694,21 @@ class TikiAccessLib extends TikiLib
 	{
 		global $prefs;
 		error_log(PHP_EOL
-			. '**** '. tr('Start CSRF error from') . $_SERVER['SERVER_NAME'] . ' *****' . PHP_EOL
+			. '**** ' . tr('Start CSRF error from') . $_SERVER['SERVER_NAME'] . ' *****' . PHP_EOL
 			. '  ' . $msg . PHP_EOL
-			. '  site_security_timeout' .  tr('preference:') . $prefs['site_security_timeout']
+			. '  site_security_timeout' . tr('preference:') . $prefs['site_security_timeout']
 			. tr('seconds') . '(' . $prefs['site_security_timeout'] / 60 . ' minutes)' . PHP_EOL
 			. '  SCRIPT_NAME: ' . $_SERVER['SCRIPT_NAME'] . PHP_EOL
 			. '  REQUEST_URI: ' . $_SERVER['REQUEST_URI'] . PHP_EOL
 			. '  HTTP_ORIGIN: ' . $_SERVER['HTTP_ORIGIN'] . PHP_EOL
 			. '  HTTP_REFERER: ' . $_SERVER['HTTP_REFERER'] . PHP_EOL
-			. '  REQUEST_METHOD: ' . $_SERVER['REQUEST_METHOD'] . PHP_EOL
-		);
+			. '  REQUEST_METHOD: ' . $_SERVER['REQUEST_METHOD'] . PHP_EOL);
 		$get = count($_GET) ? json_encode($_GET, JSON_PRETTY_PRINT) : tr('empty');
 		$post = count($_POST) ? json_encode($_POST, JSON_PRETTY_PRINT) : tr('empty');
 		error_log(PHP_EOL
 			. '  $_GET: ' . $get . PHP_EOL
 			. '  $_POST: ' . $post . PHP_EOL
-			. '**** ' . tr('End CSRF error from')  . $_SERVER['SERVER_NAME'] . ' *****'
-		);
+			. '**** ' . tr('End CSRF error from') . $_SERVER['SERVER_NAME'] . ' *****');
 	}
 
 
@@ -755,7 +755,7 @@ class TikiAccessLib extends TikiLib
 			} else {
 				$check = false;
 			}
-		} elseif (!empty($_POST['confirmForm']) && $_POST['confirmForm'] === 'y') {
+		} elseif (! empty($_POST['confirmForm']) && $_POST['confirmForm'] === 'y') {
 			$check = $this->checkCsrf();
 		}
 		if (! $check) {
@@ -789,9 +789,11 @@ class TikiAccessLib extends TikiLib
 		$smarty = TikiLib::lib('smarty');
 
 		// Don't redirect when calls are made for web services
-		if ($enableRedirect && $prefs['feature_redirect_on_error'] == 'y' && ! $this->is_machine_request()
+		if (
+            $enableRedirect && $prefs['feature_redirect_on_error'] == 'y' && ! $this->is_machine_request()
 				&& $tikiroot . $prefs['tikiIndex'] != $_SERVER['PHP_SELF']
-				&& ( $page != $userlib->get_user_default_homepage($user) || $page === '' ) ) {
+				&& ( $page != $userlib->get_user_default_homepage($user) || $page === '' )
+        ) {
 			$this->redirect($prefs['tikiIndex']);
 		}
 
@@ -845,7 +847,8 @@ class TikiAccessLib extends TikiLib
 			$smarty->assign('detail', $detail);
 			$smarty->display('error-ajax.tpl');
 		} else {
-			if (($errortype == 401 || $errortype == 403) &&
+			if (
+                ($errortype == 401 || $errortype == 403) &&
 						empty($user) &&
 						($prefs['permission_denied_login_box'] == 'y' || ! empty($prefs['permission_denied_url']))
 			) {
@@ -1329,21 +1332,21 @@ class TikiAccessLib extends TikiLib
 	 *
 	 * @return bool|null Return true upon file access success, false upon failure, and null if the file does not exist.
 	 */
-	public function isFileWebAccessible(string $filename): ? bool {
+	public function isFileWebAccessible(string $filename): ?bool
+    {
 		global $tikipath, $base_url_http, $base_url_https;
 		// if the directory is within the Tiki root, then remove the prefixed Tiki root
-		if (0 === strpos ($filename, $tikipath)) {
+		if (0 === strpos($filename, $tikipath)) {
 			$filename = substr($filename, strlen($tikipath));
 		}
 
 		// if the file does not exist, then don't bother proceeding further
-		if (!file_exists($filename)) {
+		if (! file_exists($filename)) {
 			return null;
 		}
 		// if the file is outside the Tiki Root
-		if ($filename[0] === '/' ) {
+		if ($filename[0] === '/') {
 			return false;
-
 		}
 
 		// now load try accessing the file and check for a 200 (ok) or 300 (moved)

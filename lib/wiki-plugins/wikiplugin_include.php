@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -287,7 +288,7 @@ function wikiplugin_include($dataIn, $params)
 	}
 
 	if (isset($params['max_chars_included']) && mb_strlen($text) > $params['max_chars_included']) {
-		$text = substr($text, 0 , $params['max_chars_included']) . '…';
+		$text = substr($text, 0, $params['max_chars_included']) . '…';
 	}
 
 	$parserlib = TikiLib::lib('parser');
@@ -311,7 +312,8 @@ function wikiplugin_include($dataIn, $params)
 			$tip = tr('Include Plugin') . ' | ' . tr('This section is included, click if you want to customize the content.');
 
 			$id = 'wikiplugin-include-' . $includeId;
-			if (! isset($_GET['replaceby'])
+			if (
+                ! isset($_GET['replaceby'])
 				|| (isset($_GET['replaceby']) && (int) $_GET['replaceby'] != $includeId)
 				&& (empty($_REQUEST['display']) || $_REQUEST['display'] != 'pdf')
 			) {
@@ -342,7 +344,7 @@ function wikiplugin_include($dataIn, $params)
 		$text = $fragment->parse($options);
 		$parserlib->setOptions($old_options);
 	} else {
-		if (!empty($_REQUEST['page'])) {
+		if (! empty($_REQUEST['page'])) {
 			$options['page'] = $_REQUEST['page'];
 		}
 		$parserlib->setOptions();

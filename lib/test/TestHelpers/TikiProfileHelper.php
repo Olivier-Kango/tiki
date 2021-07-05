@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -27,7 +28,7 @@ class TikiProfileHelper
 			throw new Exception('Some of the named object references in the profile are invalid');
 		}
 
-		$installer = new Tiki_Profile_Installer;
+		$installer = new Tiki_Profile_Installer();
 		$result = $installer->install($profile, 'all', false);
 
 		if (! $result) {

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -19,7 +20,7 @@ class Search_MySql_Index implements Search_Index_Interface
 		$this->index_name = $index;
 		$this->table = new Search_MySql_Table($db, $index);
 		$this->builder = new Search_MySql_QueryBuilder($db);
-		$this->tfTranslator = new Search_MySql_TrackerFieldTranslator;
+		$this->tfTranslator = new Search_MySql_TrackerFieldTranslator();
 	}
 
 	public function destroy()
@@ -53,7 +54,8 @@ class Search_MySql_Index implements Search_Index_Interface
 	{
 		$value = $data->getValue();
 
-		if (($data instanceof Search_Type_Whole
+		if (
+            ($data instanceof Search_Type_Whole
 				|| $data instanceof Search_Type_PlainShortText
 				|| $data instanceof Search_Type_PlainText
 				|| $data instanceof Search_Type_MultivalueText)
@@ -206,9 +208,9 @@ class Search_MySql_Index implements Search_Index_Interface
 	private function getWords($expr)
 	{
 		$words = [];
-		$factory = new Search_Type_Factory_Direct;
+		$factory = new Search_Type_Factory_Direct();
 		$expr->walk(
-			function ($node) use (& $words, $factory) {
+			function ($node) use (&$words, $factory) {
 				if ($node instanceof Search_Expr_Token && $node->getField() !== 'searchable') {
 					$word = $node->getValue($factory)->getValue();
 					if (is_string($word) && ! in_array($word, $words)) {
@@ -223,7 +225,7 @@ class Search_MySql_Index implements Search_Index_Interface
 
 	public function getTypeFactory()
 	{
-		return new Search_MySql_TypeFactory;
+		return new Search_MySql_TypeFactory();
 	}
 
 	public function getFieldsCount()

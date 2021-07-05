@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Tiki\Lib\core\Tracker\Rule\Target;
-
 
 use Tiki\Lib\core\Tracker\Rule\Column;
 use Tiki\Lib\core\Tracker\Rule\Type;
@@ -14,9 +12,10 @@ abstract class Target extends Column
 		parent::__construct($label, $type);
 	}
 
-	public function get() {
+	public function get()
+    {
 		/** @var Type\Type $argumentType */
-		$argumentType = new $this->argumentType;
+		$argumentType = new $this->argumentType();
 		return [
 			'operator_id' => $this->getId(),
 			'label' => $this->label,

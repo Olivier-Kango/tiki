@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -303,7 +304,7 @@ class Tracker_Field_TextArea extends Tracker_Field_Text
 				->setLabel($name)
 				->addQuerySource('text', "{$baseKey}_raw")
 				->setRenderTransform($plain(null))
-				->setParseIntoTransform(function (& $info, $value) use ($permName) {
+				->setParseIntoTransform(function (&$info, $value) use ($permName) {
 					$info['fields'][$permName] = $value;
 				})
 				;
@@ -312,7 +313,7 @@ class Tracker_Field_TextArea extends Tracker_Field_Text
 				->setLabel($name)
 				->addQuerySource('text', "{$baseKey}_raw")
 				->setRenderTransform($render(null))
-				->setParseIntoTransform(function (& $info, $value) use ($permName) {
+				->setParseIntoTransform(function (&$info, $value) use ($permName) {
 					$info['fields'][$permName] = TikiLib::lib('edit')->parseToWiki($value);
 				});
 		} else {
@@ -348,7 +349,7 @@ class Tracker_Field_TextArea extends Tracker_Field_Text
 					->addIncompatibility($permName, 'current-raw')
 					->addIncompatibility($permName, $lang)
 					->setRenderTransform($plain($lang))
-					->setParseIntoTransform(function (& $info, $value) use ($permName, $lang) {
+					->setParseIntoTransform(function (&$info, $value) use ($permName, $lang) {
 						$info['fields'][$permName][$lang] = $value;
 					})
 					;

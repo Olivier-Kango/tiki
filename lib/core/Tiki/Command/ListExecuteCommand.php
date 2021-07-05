@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -74,7 +75,7 @@ class ListExecuteCommand extends Command
 
 		// Let's check if the plugin is approved
 		if (! empty($matches)) {
-			$argumentParser = new WikiParser_PluginArgumentParser;
+			$argumentParser = new WikiParser_PluginArgumentParser();
 			$parserLib = TikiLib::lib('parser');
 
 			foreach ($matches as $match) {

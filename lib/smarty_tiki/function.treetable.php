@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -349,7 +350,7 @@ $("#' . $id . '_showSelected").click( function () {
 					$html .= '<tr data-tt-id="subHeader_' . $rowCounter . '" data-tt-parent-id="' . $tt_parent_id . '" class="subHeader' . $childRowClass . '">';
 					if (! empty($_checkbox)) {
 						for ($i = 0, $icount_checkbox = count($_checkbox); $i < $icount_checkbox; $i++) {
-							$html .= '<td class="checkBoxHeader"><span class="checkBoxLabel tips" title=":' . htmlspecialchars(tra($_checkboxTitles[$i])). '">';
+							$html .= '<td class="checkBoxHeader"><span class="checkBoxLabel tips" title=":' . htmlspecialchars(tra($_checkboxTitles[$i])) . '">';
 							$html .= empty($_checkboxTitles) ? '' : htmlspecialchars(tra($_checkboxTitles[$i]));
 							$html .= '</span></td>';
 						}

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -1242,7 +1243,8 @@ class WikiLib extends TikiLib
 			return true;
 		}
 
-		if ($prefs['feature_wiki_userpage'] == 'y'
+		if (
+            $prefs['feature_wiki_userpage'] == 'y'
 			&& ! empty($user)
 			&& strcasecmp($prefs['feature_wiki_userpage_prefix'], substr($page, 0, strlen($prefs['feature_wiki_userpage_prefix']))) == 0
 		) {
@@ -1251,7 +1253,8 @@ class WikiLib extends TikiLib
 			}
 		}
 
-		if ($prefs['feature_wiki_userpage'] == 'y'
+		if (
+            $prefs['feature_wiki_userpage'] == 'y'
 			&& strcasecmp(substr($page, 0, strlen($prefs['feature_wiki_userpage_prefix'])), $prefs['feature_wiki_userpage_prefix']) == 0
 			and strcasecmp($page, $prefs['feature_wiki_userpage_prefix'] . $user) != 0
 		) {
@@ -1678,7 +1681,8 @@ class WikiLib extends TikiLib
 	{
 		global $prefs;
 
-		if ($pageName
+		if (
+            $pageName
 			&& $prefs['namespace_enabled'] == 'y'
 			&& $prefs['namespace_separator']
 		) {
@@ -1702,7 +1706,8 @@ class WikiLib extends TikiLib
 	{
 		global $prefs;
 
-		if ($pageName
+		if (
+            $pageName
 			&& $prefs['namespace_enabled'] == 'y'
 			&& $prefs['namespace_separator']
 		) {
@@ -1753,9 +1758,11 @@ class WikiLib extends TikiLib
 		$headerlib = TikiLib::lib('header');
 
 		$currPage = isset($_REQUEST['page']) ? $_REQUEST['page'] : '';
-		if (! empty($currPage) &&
+		if (
+            ! empty($currPage) &&
 			(strstr($_SERVER["SCRIPT_NAME"], "tiki-editpage.php") === false) &&
-			(strstr($_SERVER["SCRIPT_NAME"], 'tiki-pagehistory.php') === false)) {
+			(strstr($_SERVER["SCRIPT_NAME"], 'tiki-pagehistory.php') === false)
+        ) {
 			// Determine the auto TOC setting
 			if ($prefs['wiki_auto_toc'] === 'y') {
 				$isAutoTocActive = $this->get_page_auto_toc($currPage);

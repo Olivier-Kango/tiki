@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -57,7 +58,7 @@ class TikiImporterFirstChild extends TikiImporter
 
 class TikiImporterSecondChild extends TikiImporter
 {
-	public static function importOptions() : array
+	public static function importOptions(): array
 	{
 		return [
 			['name' => 'otherName'],

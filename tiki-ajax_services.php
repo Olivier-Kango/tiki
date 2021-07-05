@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -207,9 +209,11 @@ function read_icon_dir($dir, &$icons, $max, $query)
 	$fp = opendir($dir);
 	while (false !== ($f = readdir($fp))) {
 		preg_match('/^([^\.].*)\..*$/', $f, $m);
-		if (count($m) > 0 && count($icons) < $max &&
+		if (
+            count($m) > 0 && count($icons) < $max &&
 				stripos($m[1], $query) !== false &&
-				! in_array($dir . '/' . $f, $icons)) {
+				! in_array($dir . '/' . $f, $icons)
+        ) {
 			$icons[] = $dir . '/' . $f;
 		}
 	}

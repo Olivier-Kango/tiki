@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -15,9 +16,9 @@ if ($tiki_p_access_closed_site != 'y' and ! isset($bypass_siteclose_check)) {
 	if (empty($error_login)) {
 		$error_login = '';
 	} else {
-		$error_login = '&login_error='.urlencode($error_login);
+		$error_login = '&login_error=' . urlencode($error_login);
 	}
-	$url = $base_url . 'tiki-error_simple.php?title=' . urlencode('' . $prefs['site_closed_title']). '&error=' . urlencode('' . $prefs['site_closed_msg']).$error_login;
+	$url = $base_url . 'tiki-error_simple.php?title=' . urlencode('' . $prefs['site_closed_title']) . '&error=' . urlencode('' . $prefs['site_closed_msg']) . $error_login;
 	header('Location: ' . $url);
 	exit;
 }

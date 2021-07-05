@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -15,14 +16,14 @@ class EditLib_ParseToWiki_TextTest extends TikiTestCase
 
 	private $el; // the EditLib
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		TikiLib::lib('edit');
 		$this->el = new EditLib();
 	}
 
 
-	protected function tearDown() : void
+	protected function tearDown(): void
 	{
 		global $prefs;
 		// restore preference default state

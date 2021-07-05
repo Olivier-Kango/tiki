@@ -1,5 +1,6 @@
 #!/usr/bin/php
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -161,8 +162,8 @@ class SvnUpCommand extends Command
 
 	protected function dbUpdate(OutputInterface $output)
 	{
-		$console = new Application;
-		$console->add(new UpdateCommand);
+		$console = new Application();
+		$console->add(new UpdateCommand());
 		$console->setAutoExit(false);
 		$console->setDefaultCommand('database:update');
 		$input = null;
@@ -242,10 +243,10 @@ class SvnUpCommand extends Command
 			$max -= 5;
 		} else {
 			if ($input->getOption('no-secdb')) {
-				$max --;
+				$max--;
 			}
 			if ($input->getOption('no-reindex')) {
-				$max --;
+				$max--;
 			}
 		}
 
@@ -440,8 +441,8 @@ class SvnUpCommand extends Command
 }
 
 // create the application and new console
-$console = new Application;
-$console->add(new SvnUpCommand);
+$console = new Application();
+$console->add(new SvnUpCommand());
 $console->setDefaultCommand('svnup');
 try {
 	$console->run();

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -23,7 +24,7 @@ class Search_Elastic_QueryBuilder
 
 	public function __construct(Search_Elastic_Index $index = null)
 	{
-		$this->factory = new Search_Elastic_TypeFactory;
+		$this->factory = new Search_Elastic_TypeFactory();
 		$this->documentReader = function ($type, $object) {
 			return null;
 		};
@@ -87,7 +88,7 @@ class Search_Elastic_QueryBuilder
 
 			$inner = array_filter(
 				$inner,
-				function ($part) use (& $not) {
+				function ($part) use (&$not) {
 					// Only merge in the single-part NOT
 					if (isset($part['bool']['must_not']) && count($part['bool']) == 1) {
 						$not = array_merge($not, $part['bool']['must_not']);
@@ -212,7 +213,7 @@ class Search_Elastic_QueryBuilder
 		$value = $value->getValue();
 		if ($node->getType() === 'timestamp') {
 			return $value;
-		}else {
+		} else {
 			return mb_strtolower($value);
 		}
 	}
@@ -220,7 +221,7 @@ class Search_Elastic_QueryBuilder
 	private function handleToken($node)
 	{
 		$value = $node->getValue($this->factory)->getValue();
-		$mapping = $this->index ? $this->index->getFieldMapping($node->getField()) : new stdClass;
+		$mapping = $this->index ? $this->index->getFieldMapping($node->getField()) : new stdClass();
 		if ($value === '') {
 			if (isset($mapping->type) && $mapping->type === 'date') {
 				return [
@@ -299,12 +300,12 @@ class Search_Elastic_QueryBuilder
 	{
 		global $prefs;
 		$field = $node->getField();
-		$mapping = $this->index ? $this->index->getFieldMapping($field) : new stdClass;
+		$mapping = $this->index ? $this->index->getFieldMapping($field) : new stdClass();
 		if ((empty($mapping) || empty((array)$mapping)) && $prefs['search_error_missing_field'] === 'y') {
 			if (preg_match('/^tracker_field_/', $field)) {
 				$msg = tr('Field %0 does not exist in the current index. Please check field permanent name and if you have any items in that tracker.', $field);
 				if ($prefs['unified_exclude_nonsearchable_fields'] === 'y') {
-					$msg .= ' '.tr('You have disabled indexing non-searchable tracker fields. Check if this field is marked as searchable.');
+					$msg .= ' ' . tr('You have disabled indexing non-searchable tracker fields. Check if this field is marked as searchable.');
 				}
 			} else {
 				$msg = tr('Field %0 does not exist in the current index. If this is a tracker field, the proper syntax is tracker_field_%0.', $field, $field);

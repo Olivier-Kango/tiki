@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -120,7 +122,7 @@ if (isset($_REQUEST['display']) && $_REQUEST['display'] == 'pdf') {
 		// One can override the default file name and title with the filename URL parameter
 		if (isset($_REQUEST['filename'])) {
 			$page = $_REQUEST['filename'];
-		} 
+		}
 		$pdf = $generator->getPdf('tiki-print.php', ['page' => $page], $pdata);
 		$length = strlen($pdf);
 		header('Cache-Control: private, must-revalidate');

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -159,8 +160,10 @@ class CheckSchemaSqlDrop
 			for ($i = 0; $i < sizeof($queries) - 1; $i++) {
 				$curQuery = $queries[$i];
 				$nextQuery = $queries[$i + 1];
-				if (strpos($curQuery, "DROP TABLE IF EXISTS") !== false
-					&& substr($nextQuery, 0, 2) === (PHP_EOL . PHP_EOL)) {
+				if (
+                    strpos($curQuery, "DROP TABLE IF EXISTS") !== false
+					&& substr($nextQuery, 0, 2) === (PHP_EOL . PHP_EOL)
+                ) {
 					$queries[++$i] = substr($nextQuery, 1);
 				}
 			}

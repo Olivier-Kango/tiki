@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -70,7 +71,7 @@ class Tracker_Field_Freetags extends Tracker_Field_Abstract implements Tracker_F
 
 			$data['value'] = $this->getValue();
 
-			$langutil = new Services_Language_Utilities;
+			$langutil = new Services_Language_Utilities();
 			$itemLang = null;
 			if ($this->getItemId()) {
 				try {
@@ -95,25 +96,27 @@ class Tracker_Field_Freetags extends Tracker_Field_Abstract implements Tracker_F
 		return $data;
 	}
 
-	public function addValue($value) {
+	public function addValue($value)
+    {
 		$freetaglib = TikiLib::lib('freetag');
 		$tags = $freetaglib->_parse_tag($this->getValue());
 		if (! in_array($value, $tags)) {
 			$tags[] = $value;
 		}
-		return implode(' ', array_map(function($t){
-			return strstr($t, ' ') ? '"'.$t.'"' : $t;
+		return implode(' ', array_map(function ($t) {
+			return strstr($t, ' ') ? '"' . $t . '"' : $t;
 		}, $tags));
 	}
 
-	public function removeValue($value) {
+	public function removeValue($value)
+    {
 		$freetaglib = TikiLib::lib('freetag');
 		$tags = $freetaglib->_parse_tag($this->getValue());
-		$tags = array_filter($tags, function($t) use ($value) {
+		$tags = array_filter($tags, function ($t) use ($value) {
 			return $t != $value;
 		});
-		return implode(' ', array_map(function($t){
-			return strstr($t, ' ') ? '"'.$t.'"' : $t;
+		return implode(' ', array_map(function ($t) {
+			return strstr($t, ' ') ? '"' . $t . '"' : $t;
 		}, $tags));
 	}
 
@@ -154,7 +157,7 @@ class Tracker_Field_Freetags extends Tracker_Field_Abstract implements Tracker_F
 			->setRenderTransform(function ($value) {
 				return $value;
 			})
-			->setParseIntoTransform(function (& $info, $value) use ($permName) {
+			->setParseIntoTransform(function (&$info, $value) use ($permName) {
 				$info['fields'][$permName] = $value;
 			});
 

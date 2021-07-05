@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -68,10 +69,10 @@ class Tiki_Profile_InstallHandler_Goal extends Tiki_Profile_InstallHandler
 			unset($data['goalId']);
 			unset($data['daySpan']);
 
-			array_walk($data['conditions'], function (& $condition) use ($writer) {
+			array_walk($data['conditions'], function (&$condition) use ($writer) {
 				self::handleParameters($writer, $condition);
 			});
-			array_walk($data['rewards'], function (& $reward) use ($writer) {
+			array_walk($data['rewards'], function (&$reward) use ($writer) {
 				self::handleParameters($writer, $reward);
 			});
 
@@ -86,7 +87,7 @@ class Tiki_Profile_InstallHandler_Goal extends Tiki_Profile_InstallHandler
 		}
 	}
 
-	private static function handleParameters($writer, & $data)
+	private static function handleParameters($writer, &$data)
 	{
 		if (! empty($data['trackerItemBadge'])) {
 			$data['trackerItemBadge'] = $writer->getReference('trackeritem', $data['trackerItemBadge']);

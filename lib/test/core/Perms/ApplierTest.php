@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -14,12 +15,12 @@ class Perms_ApplierTest extends TikiTestCase
 {
 	public function testApplyFromNothing()
 	{
-		$global = new Perms_Reflection_PermissionSet;
+		$global = new Perms_Reflection_PermissionSet();
 		$global->add('Anonymous', 'view');
 
-		$object = new Perms_Reflection_PermissionSet;
+		$object = new Perms_Reflection_PermissionSet();
 
-		$newSet = new Perms_Reflection_PermissionSet;
+		$newSet = new Perms_Reflection_PermissionSet();
 		$newSet->add('Registered', 'view');
 		$newSet->add('Registered', 'edit');
 
@@ -37,21 +38,21 @@ class Perms_ApplierTest extends TikiTestCase
 			->method('add')
 			->with($this->equalTo('Registered'), $this->equalTo('edit'));
 
-		$applier = new Perms_Applier;
+		$applier = new Perms_Applier();
 		$applier->addObject($target);
 		$applier->apply($newSet);
 	}
 
 	public function testFromExistingSet()
 	{
-		$global = new Perms_Reflection_PermissionSet;
+		$global = new Perms_Reflection_PermissionSet();
 		$global->add('Anonymous', 'view');
 
-		$object = new Perms_Reflection_PermissionSet;
+		$object = new Perms_Reflection_PermissionSet();
 		$object->add('Registered', 'view');
 		$object->add('Registered', 'edit');
 
-		$newSet = new Perms_Reflection_PermissionSet;
+		$newSet = new Perms_Reflection_PermissionSet();
 		$newSet->add('Registered', 'view');
 		$newSet->add('Editor', 'edit');
 		$newSet->add('Editor', 'view_history');
@@ -73,21 +74,21 @@ class Perms_ApplierTest extends TikiTestCase
 			->method('remove')
 			->with($this->equalTo('Registered'), $this->equalTo('edit'));
 
-		$applier = new Perms_Applier;
+		$applier = new Perms_Applier();
 		$applier->addObject($target);
 		$applier->apply($newSet);
 	}
 
 	public function testAsParent()
 	{
-		$global = new Perms_Reflection_PermissionSet;
+		$global = new Perms_Reflection_PermissionSet();
 		$global->add('Anonymous', 'view');
 
-		$object = new Perms_Reflection_PermissionSet;
+		$object = new Perms_Reflection_PermissionSet();
 		$object->add('Registered', 'view');
 		$object->add('Registered', 'edit');
 
-		$newSet = new Perms_Reflection_PermissionSet;
+		$newSet = new Perms_Reflection_PermissionSet();
 		$newSet->add('Anonymous', 'view');
 
 		$target = $this->createMock('Perms_Reflection_Container');
@@ -104,17 +105,17 @@ class Perms_ApplierTest extends TikiTestCase
 			->method('remove')
 			->with($this->equalTo('Registered'), $this->equalTo('edit'));
 
-		$applier = new Perms_Applier;
+		$applier = new Perms_Applier();
 		$applier->addObject($target);
 		$applier->apply($newSet);
 	}
 
 	public function testParentNotAvailable()
 	{
-		$global = new Perms_Reflection_PermissionSet;
+		$global = new Perms_Reflection_PermissionSet();
 		$global->add('Anonymous', 'view');
 
-		$newSet = new Perms_Reflection_PermissionSet;
+		$newSet = new Perms_Reflection_PermissionSet();
 		$newSet->add('Anonymous', 'view');
 		$newSet->add('Registered', 'edit');
 
@@ -129,17 +130,17 @@ class Perms_ApplierTest extends TikiTestCase
 			->method('add')
 			->with($this->equalTo('Registered'), $this->equalTo('edit'));
 
-		$applier = new Perms_Applier;
+		$applier = new Perms_Applier();
 		$applier->addObject($target);
 		$applier->apply($newSet);
 	}
 
 	public function testMultipleTargets()
 	{
-		$global = new Perms_Reflection_PermissionSet;
+		$global = new Perms_Reflection_PermissionSet();
 		$global->add('Anonymous', 'view');
 
-		$newSet = new Perms_Reflection_PermissionSet;
+		$newSet = new Perms_Reflection_PermissionSet();
 		$newSet->add('Anonymous', 'view');
 		$newSet->add('Registered', 'edit');
 
@@ -157,7 +158,7 @@ class Perms_ApplierTest extends TikiTestCase
 		$target2 = $this->createMock('Perms_Reflection_Container');
 		$target2->expects($this->at(0))
 			->method('getDirectPermissions')
-			->willReturn(new Perms_Reflection_PermissionSet);
+			->willReturn(new Perms_Reflection_PermissionSet());
 		$target2->expects($this->at(1))
 			->method('getParentPermissions')
 			->willReturn(null);
@@ -168,7 +169,7 @@ class Perms_ApplierTest extends TikiTestCase
 			->method('add')
 			->with($this->equalTo('Registered'), $this->equalTo('edit'));
 
-		$applier = new Perms_Applier;
+		$applier = new Perms_Applier();
 		$applier->addObject($target1);
 		$applier->addObject($target2);
 		$applier->apply($newSet);
@@ -176,7 +177,7 @@ class Perms_ApplierTest extends TikiTestCase
 
 	public function testRestrictChangedPermissions()
 	{
-		$before = new Perms_Reflection_PermissionSet;
+		$before = new Perms_Reflection_PermissionSet();
 		$before->add('Admin', 'admin');
 		$before->add('Registered', 'edit');
 		$before->add('Registered', 'view');
@@ -187,18 +188,18 @@ class Perms_ApplierTest extends TikiTestCase
 			->willReturn($before);
 		$target->expects($this->once())
 			->method('getParentPermissions')
-			->willReturn(new Perms_Reflection_PermissionSet);
+			->willReturn(new Perms_Reflection_PermissionSet());
 		$target->expects($this->once())
 			->method('add')
 			->with($this->equalTo('Registered'), $this->equalTo('view_history'));
 
-		$newSet = new Perms_Reflection_PermissionSet;
+		$newSet = new Perms_Reflection_PermissionSet();
 		$newSet->add('Registered', 'edit');
 		$newSet->add('Registered', 'view');
 		$newSet->add('Registered', 'view_history');
 		$newSet->add('Registered', 'admin');
 
-		$applier = new Perms_Applier;
+		$applier = new Perms_Applier();
 		$applier->addObject($target);
 		$applier->restrictPermissions(['view', 'view_history', 'edit']);
 		$applier->apply($newSet);
@@ -206,15 +207,15 @@ class Perms_ApplierTest extends TikiTestCase
 
 	public function testNoRevertToParentWithRestrictions()
 	{
-		$current = new Perms_Reflection_PermissionSet;
+		$current = new Perms_Reflection_PermissionSet();
 		$current->add('Anonymous', 'view');
 
-		$parent = new Perms_Reflection_PermissionSet;
+		$parent = new Perms_Reflection_PermissionSet();
 		$parent->add('Anonymous', 'view');
 		$parent->add('Registered', 'edit');
 		$parent->add('Admins', 'admin');
 
-		$newSet = new Perms_Reflection_PermissionSet;
+		$newSet = new Perms_Reflection_PermissionSet();
 		$newSet->add('Anonymous', 'view');
 		$newSet->add('Registered', 'edit');
 		$newSet->add('Admins', 'admin');
@@ -230,7 +231,7 @@ class Perms_ApplierTest extends TikiTestCase
 			->method('add')
 			->with($this->equalTo('Registered'), $this->equalTo('edit'));
 
-		$applier = new Perms_Applier;
+		$applier = new Perms_Applier();
 		$applier->addObject($target);
 		$applier->restrictPermissions(['view', 'edit']);
 		$applier->apply($newSet);
@@ -238,15 +239,15 @@ class Perms_ApplierTest extends TikiTestCase
 
 	public function testRevertIfWithinBounds()
 	{
-		$current = new Perms_Reflection_PermissionSet;
+		$current = new Perms_Reflection_PermissionSet();
 		$current->add('Anonymous', 'view');
 
-		$parent = new Perms_Reflection_PermissionSet;
+		$parent = new Perms_Reflection_PermissionSet();
 		$parent->add('Anonymous', 'view');
 		$parent->add('Registered', 'edit');
 		$parent->add('Admins', 'admin');
 
-		$newSet = new Perms_Reflection_PermissionSet;
+		$newSet = new Perms_Reflection_PermissionSet();
 		$newSet->add('Anonymous', 'view');
 		$newSet->add('Registered', 'edit');
 		$newSet->add('Admins', 'admin');
@@ -262,7 +263,7 @@ class Perms_ApplierTest extends TikiTestCase
 			->method('remove')
 			->with($this->equalTo('Anonymous'), $this->equalTo('view'));
 
-		$applier = new Perms_Applier;
+		$applier = new Perms_Applier();
 		$applier->addObject($target);
 		$applier->restrictPermissions(['view', 'edit', 'admin']);
 		$applier->apply($newSet);

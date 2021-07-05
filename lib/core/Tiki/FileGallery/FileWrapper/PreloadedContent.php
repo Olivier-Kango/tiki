@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -53,19 +54,23 @@ class PreloadedContent implements WrapperInterface
 		return md5($this->data);
 	}
 
-	public function getSize() {
+	public function getSize()
+    {
 		return function_exists('mb_strlen') ? mb_strlen($this->data, '8bit') : strlen($this->data);
 	}
 
-	public function isFileLocal() {
+	public function isFileLocal()
+    {
 		return false;
 	}
 
-	public function replaceContents($data) {
+	public function replaceContents($data)
+    {
 		$this->data = $data;
 	}
 
-	public function getStorableContent() {
+	public function getStorableContent()
+    {
 		return [
 			'data' => $this->data,
 			'path' => null,

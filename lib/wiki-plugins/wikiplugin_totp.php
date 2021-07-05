@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -54,13 +55,22 @@ function wikiplugin_totp($data, $params)
 	global $user, $page;
 
 	$sourcePerm = TikiLib::lib('tiki')->user_has_perm_on_object(
-		$user, $page, 'wiki page', 'tiki_p_wiki_view_source'
+		$user,
+        $page,
+        'wiki page',
+        'tiki_p_wiki_view_source'
 	);
 	$editPerm = TikiLib::lib('tiki')->user_has_perm_on_object(
-		$user, $page, 'wiki page', 'tiki_p_edit'
+		$user,
+        $page,
+        'wiki page',
+        'tiki_p_edit'
 	);
 	$viewPerm = TikiLib::lib('tiki')->user_has_perm_on_object(
-		$user, $page, 'wiki page', 'tiki_p_view'
+		$user,
+        $page,
+        'wiki page',
+        'tiki_p_view'
 	);
 	if (! $viewPerm) {
 		return;
@@ -92,7 +102,11 @@ function wikiplugin_totp($data, $params)
 		];
 		$data = array_merge($defaults, $_REQUEST);
 		addTOTPPlugin(
-			$page, $user, $data['secret'], $data['period'], $data['issuer']
+			$page,
+            $user,
+            $data['secret'],
+            $data['period'],
+            $data['issuer']
 		);
 		echo json_encode([]);
 		die;
@@ -166,7 +180,9 @@ function addTOTPPlugin($pageName, $user, $secret, $interval, $issuer)
 {
 
 	$widget = sprintf(
-		'{totp secret="%s" interval="%s" issuer="%s"}', $secret, $interval,
+		'{totp secret="%s" interval="%s" issuer="%s"}',
+        $secret,
+        $interval,
 		$issuer
 	);
 
@@ -190,12 +206,17 @@ function addTOTPPlugin($pageName, $user, $secret, $interval, $issuer)
 				return $widget;
 			}
 			return $item;
-		}, $noparsed['data']
+		},
+        $noparsed['data']
 	);
 
 	$parserlib->plugins_replace($data, $noparsed);
 	$tikilib->update_page(
-		$pageName, $data, tra('TOTP added'), $user, $tikilib->get_ip_address()
+		$pageName,
+        $data,
+        tra('TOTP added'),
+        $user,
+        $tikilib->get_ip_address()
 	);
 
 	return true;

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -172,9 +173,11 @@ if ((isset($_POST['new_scheduler']) || (isset($_POST['editscheduler']) && isset(
 		$smarty->assign_by_ref('numOfLogs', $numOfLogs);
 
 		// Check if last run is still running and can be stopped.
-		if (! empty($schedulerRuns[0]) &&
+		if (
+            ! empty($schedulerRuns[0]) &&
 			$schedulerRuns[0]['status'] == 'running' &&
-			$schedulerRuns[0]['start_time'] + 600 < time()) {
+			$schedulerRuns[0]['start_time'] + 600 < time()
+        ) {
 			// If the task is running for more than 10min, maybe it's stucked.
 			$schedulerRuns[0]['can_stop'] = true;
 		}

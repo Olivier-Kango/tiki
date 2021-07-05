@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -75,14 +76,16 @@ class IsraelPostLib
 			$entered = false;
 			foreach ($response->ORDERS as $order) {
 				if ($order->STATUS == 2) { // Order approved
-					if (! in_array($order->ORDERID, $existingOrders) // Order not already entered
+					if (
+                        ! in_array($order->ORDERID, $existingOrders) // Order not already entered
 						&& $order->CURRENCY_CODE == $payment['currency'] // Same currency - we do not deal with conversions
 					) {
 						$this->payment->enter_payment($paymentId, $order->TOTAL_PAID, 'israelpost', (array) $order);
 						$entered = true;
 					}
 				} elseif ($order->STATUS == 5) { // Pre-auth
-					if (! in_array($order->AUTHORISAT, $existingAuth) // Order not already entered
+					if (
+                        ! in_array($order->AUTHORISAT, $existingAuth) // Order not already entered
 						&& $order->CURRENCY_CODE == $payment['currency'] // Same currency - we do not deal with conversions
 					) {
 						$this->payment->enter_authorization($paymentId, 'israelpost', 3, (array) $order);

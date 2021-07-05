@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -11,12 +12,12 @@ class Reports_Send_EmailBuilderTest extends TikiTestCase
 
 	protected $tikilib;
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		$this->tikilib = $this->getMockBuilder('TikiLib')->getMock();
 		$this->factory = $this->createMock('Reports_Send_EmailBuilder_Factory');
 
-		$this->obj = new Reports_Send_EmailBuilder($this->tikilib, new Reports_Send_EmailBuilder_Factory);
+		$this->obj = new Reports_Send_EmailBuilder($this->tikilib, new Reports_Send_EmailBuilder_Factory());
 
 		$this->defaultReportPreferences = ['type' => 'plain', 'view' => 'detailed'];
 	}
@@ -36,7 +37,7 @@ class Reports_Send_EmailBuilderTest extends TikiTestCase
 			->method('get_item')
 			->willReturn(['name' => 'Calendar item name']);
 
-		$tikilib = new TestableTikiLib;
+		$tikilib = new TestableTikiLib();
 		$tikilib->overrideLibs(['calendar' => $calendarlib]);
 
 		$this->defaultReportPreferences['view'] = 'detailed';
@@ -74,7 +75,7 @@ class Reports_Send_EmailBuilderTest extends TikiTestCase
 			->method('get_isMain_value')
 			->willReturn('Tracker item name');
 
-		$tikilib = new TestableTikiLib;
+		$tikilib = new TestableTikiLib();
 		$tikilib->overrideLibs(['trk' => $trklib]);
 
 		$this->defaultReportPreferences['view'] = 'detailed';

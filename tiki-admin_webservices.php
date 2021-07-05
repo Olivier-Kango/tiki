@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -28,7 +30,7 @@ if (! empty($_REQUEST['name'])) {
 if (! empty($webservice)) {
 	$storedTemplates = $webservice->getTemplates();
 } else {
-	$webservice = new Tiki_Webservice;
+	$webservice = new Tiki_Webservice();
 	$storedTemplates = [];
 }
 
@@ -54,7 +56,8 @@ if (! isset($_REQUEST['params'])) {
 	$_REQUEST['params'] = [];
 }
 
-if (! isset($_REQUEST['parse']) &&
+if (
+    ! isset($_REQUEST['parse']) &&
 		$response = $webservice->performRequest(
 			$_REQUEST['params'],
 			false,

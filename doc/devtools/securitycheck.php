@@ -452,8 +452,10 @@ function access_check_call($file, $type) // {{{
 	foreach ($tokens as $key => $token) {
 		if (is_array($token)) {
 			if ($token[0] == T_VARIABLE && $token[1] == '$access') {
-				if ($tokens[$key + 1][0] == T_OBJECT_OPERATOR
-					&& $tokens[$key + 2][0] == T_STRING && $tokens[$key + 2][1] == $type) {
+				if (
+                    $tokens[$key + 1][0] == T_OBJECT_OPERATOR
+					&& $tokens[$key + 2][0] == T_STRING && $tokens[$key + 2][1] == $type
+                ) {
 					$checks = array_merge($checks, access_checks($tokens, $key + 2));
 				}
 			}
@@ -607,7 +609,8 @@ foreach ($files as $key => $dummy) {
 			perform_noweb_check($file);
 			perform_tikisetup_check($file);
 
-			if (! $file['noweb']
+			if (
+                ! $file['noweb']
 				&& ! $file['includeonly']
 				&& ! count($file['features']) && ! count($file['permissions'])
 			) {

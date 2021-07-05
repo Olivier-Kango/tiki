@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -16,7 +17,7 @@ class Tiki_Formula_Function_ResultCount extends Math_Formula_Function
 		}
 
 		$searchlib = TikiLib::lib('unifiedsearch');
-		$query = new Search_Query;
+		$query = new Search_Query();
 		// These are absolute counts, so exclude jail and permission checks
 		$searchlib->initQueryBase($query, false);
 		$builder = new Search_Query_WikiBuilder($query);

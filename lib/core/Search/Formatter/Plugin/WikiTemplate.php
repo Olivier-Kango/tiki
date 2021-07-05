@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -28,7 +29,7 @@ class Search_Formatter_Plugin_WikiTemplate implements Search_Formatter_Plugin_In
 
 	public function getFields()
 	{
-		$parser = new WikiParser_PluginArgumentParser;
+		$parser = new WikiParser_PluginArgumentParser();
 
 		$fields = [];
 		foreach ($this->template as $match) {
@@ -55,7 +56,7 @@ class Search_Formatter_Plugin_WikiTemplate implements Search_Formatter_Plugin_In
 
 			if ($name === 'display') {
 				$match->replaceWith((string) $this->processDisplay($valueFormatter, $match->getBody(), $match->getArguments()));
-			} else if ($name === 'calc') {
+			} elseif ($name === 'calc') {
 				$match->replaceWith((string) $this->processCalc($valueFormatter, $match));
 			}
 		}
@@ -74,7 +75,7 @@ class Search_Formatter_Plugin_WikiTemplate implements Search_Formatter_Plugin_In
 
 	private function processDisplay($valueFormatter, $body, $arguments)
 	{
-		$parser = new WikiParser_PluginArgumentParser;
+		$parser = new WikiParser_PluginArgumentParser();
 		$arguments = $parser->parse($arguments);
 
 		$name = $arguments['name'];
@@ -98,7 +99,8 @@ class Search_Formatter_Plugin_WikiTemplate implements Search_Formatter_Plugin_In
 	 *
 	 * @return mixed
 	 */
-	private function processCalc($valueFormatter, $match) {
+	private function processCalc($valueFormatter, $match)
+    {
 		$runner = new Math_Formula_Runner(
 			[
 				'Math_Formula_Function_' => '',

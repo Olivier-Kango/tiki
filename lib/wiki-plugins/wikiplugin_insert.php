@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -26,7 +27,7 @@ function wikiplugin_insert_rewrite($data, $params, $context)
 	$trackerIds = $tikilib->get_preference('tracker_insert_allowed', [], true);
 
 	foreach ($trackerIds as $trackerId) {
-		$utilities = new Services_Tracker_Utilities;
+		$utilities = new Services_Tracker_Utilities();
 		$item = Tracker_Item::newItem($trackerId);
 
 		if (! $item->canModify()) {

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -335,9 +336,11 @@ class PdfGenerator
 		$pdfPages = $this->getPDFPages($html, $pdfSettings);
 		$cssStyles = str_replace([".tiki","opacity: 0;","page-break-inside: avoid;"], ["","fill: #fff;opacity:0.3;stroke:black","page-break-inside: auto;"], '<style>' . $basecss . $themecss . $printcss . $pageCSS . $extcss . $this->bootstrapReplace() . $prefs["header_custom_css"] . '</style>'); //adding css styles with first page content
 		//PDF import templates will not work if background color is set, need to replace in css
-		if (array_filter(array_column($pdfPages, 'pageContent'), function ($var) {
+		if (
+            array_filter(array_column($pdfPages, 'pageContent'), function ($var) {
 			return preg_match("/\bpdfinclude\b/i", $var);
-		})) {
+            })
+        ) {
 			$cssStyles = str_replace(["background-color: #fff;","background:#fff;"], "background:none", $cssStyles);
 		}
 		//cover page checking
@@ -930,11 +933,12 @@ $(".convert-mailto").removeClass("convert-mailto").each(function () {
 				if ($hyperlinkSetting != "off") {
 					// Check if there is a url in the text
 					$linkSup = $doc->createElement("sup");
-					if (preg_match(
-						"/(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/",
-						$anchor->getAttribute('href'),
-						$url
-					)
+					if (
+                        preg_match(
+                            "/(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/",
+                            $anchor->getAttribute('href'),
+                            $url
+                        )
 					) {
 						$linkAn = $doc->createElement(
 							"hyperanchor",

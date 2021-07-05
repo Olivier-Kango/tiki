@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -13,7 +14,7 @@ class TestRunnerWithBaselineTest extends PHPUnit\Framework\TestCase
 	public $runner;
 	private $old_cmdline = null;
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		global $argv;
 
@@ -26,7 +27,7 @@ class TestRunnerWithBaselineTest extends PHPUnit\Framework\TestCase
 		$this->old_cmdline = $argv;
 	}
 
-	protected function tearDown() : void
+	protected function tearDown(): void
 	{
 		$argv = $this->old_cmdline;
 	}
@@ -40,7 +41,7 @@ class TestRunnerWithBaselineTest extends PHPUnit\Framework\TestCase
 	 * @param $exp_pass
 	 * @param $message
 	 */
-	public function testProcessPhpunitLogData($log_data, $exp_failures, $exp_errors, $exp_pass, $message) : void
+	public function testProcessPhpunitLogData($log_data, $exp_failures, $exp_errors, $exp_pass, $message): void
 	{
 		$issues = $this->runner->processPhpunitLogData($log_data);
 		$this->assertEquals(
@@ -62,7 +63,7 @@ class TestRunnerWithBaselineTest extends PHPUnit\Framework\TestCase
 		);
 	}
 
-	public function dataProviderProcessPhpunitLogData() : array
+	public function dataProviderProcessPhpunitLogData(): array
 	{
 		return
 			[
@@ -130,7 +131,7 @@ class TestRunnerWithBaselineTest extends PHPUnit\Framework\TestCase
 	 * @param $exp_differences
 	 * @param $message
 	 */
-	public function testCompareTwoTestRuns($baseline_issues, $current_issues, $exp_differences, $message) : void
+	public function testCompareTwoTestRuns($baseline_issues, $current_issues, $exp_differences, $message): void
 	{
 		$got_differences = $this->runner->compareTwoTestRuns($baseline_issues, $current_issues);
 		$this->assertEquals(
@@ -140,7 +141,7 @@ class TestRunnerWithBaselineTest extends PHPUnit\Framework\TestCase
 		);
 	}
 
-	public function dataProviderCompareTwoTestRuns() : array
+	public function dataProviderCompareTwoTestRuns(): array
 	{
 		return
 			[

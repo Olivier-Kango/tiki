@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -16,7 +17,7 @@ class ModifierDurationTest extends TikiTestCase
 
 	protected $inputs = [];
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		$this->inputs = [6, 60, 66, 300, 2700, 3600, 4140, 5400, 7200, 43200, 86400, 172800, 178200];
 	}

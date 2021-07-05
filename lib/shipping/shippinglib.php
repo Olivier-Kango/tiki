@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -12,7 +13,7 @@ interface ShippingProvider
 
 abstract class CustomShippingProvider implements ShippingProvider
 {
-	public abstract function getName();
+	abstract public function getName();
 }
 
 class ShippingLib
@@ -90,7 +91,7 @@ class ShippingLib
 		if (is_readable($file)) {
 			require_once $file;
 			if (class_exists($className) && method_exists($className, 'getName')) {
-				$provider = new $className;
+				$provider = new $className();
 				return $provider;
 			}
 		}

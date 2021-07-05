@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -40,15 +41,18 @@ class PhysicalFile implements WrapperInterface
 		}
 	}
 
-	public function getSize() {
+	public function getSize()
+    {
 		return filesize($this->fullPath());
 	}
 
-	public function isFileLocal() {
+	public function isFileLocal()
+    {
 		return true;
 	}
 
-	public function replaceContents($data) {
+	public function replaceContents($data)
+    {
 		$dest = $this->fullPath();
 		$baseDir = dirname($dest);
 
@@ -67,7 +71,8 @@ class PhysicalFile implements WrapperInterface
 		}
 	}
 
-	public function getStorableContent() {
+	public function getStorableContent()
+    {
 		return [
 			'data' => null,
 			'path' => $this->path,
@@ -76,7 +81,8 @@ class PhysicalFile implements WrapperInterface
 		];
 	}
 
-	private function fullPath() {
+	private function fullPath()
+    {
 		return $this->basePath . '/' . $this->path;
 	}
 }

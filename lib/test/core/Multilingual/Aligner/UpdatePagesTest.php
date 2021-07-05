@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -35,7 +36,7 @@ class Multilingual_Aligner_UpdatePagesTest extends TikiTestCase
 	private $extra_target_sentence = "Cette phrase a été ajoutée du côté source.";
 	private $mt_extra_target_sentence = "This sentence was added on the target side.";
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		$this->updater = new Multilingual_Aligner_UpdatePages();
 		$this->updater->alignments = new Multilingual_Aligner_SentenceAlignments();

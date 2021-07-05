@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -254,18 +255,17 @@ class MonitorLib
 
 	public function directNotification($priority, $userId, $event, $args)
 	{
-		if ($userId==0 && isset($args['groupname'])) {
+		if ($userId == 0 && isset($args['groupname'])) {
 			$this->queue[$args['EVENT_ID']] = [
 				'event' => $event,
 				'arguments' => $args,
 				'events' => [],
 				'force' => [
-					'priority' => $priority."grp",
+					'priority' => $priority . "grp",
 					'userId' => TikiDb::get()->table('users_groups')->fetchOne('id', ['groupName' => $args['groupname']]),
 				],
 			];
-		}
-		elseif ($userId > 0) {
+		} elseif ($userId > 0) {
 			$this->queue[$args['EVENT_ID']] = [
 				'event' => $event,
 				'arguments' => $args,

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -16,9 +17,10 @@ function smarty_prefilter_log_tpl($source, $smarty)
 	$resource = $smarty->template_resource;
 
 	// Refrain from logging for some templates
-	if (strpos($resource, 'eval:') === 0 || // Evaluated templates
+	if (
+        strpos($resource, 'eval:') === 0 || // Evaluated templates
 			strpos($resource, 'mail/') !== false // email tpls
-			) {
+    ) {
 		return $source;
 	}
 

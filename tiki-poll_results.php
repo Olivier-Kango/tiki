@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -43,11 +45,12 @@ if (isset($_REQUEST['which_date'])) {
 } else {
 	$which_date = '';
 }
-if ($tiki_p_admin == 'y'
+if (
+    $tiki_p_admin == 'y'
 	&& ! empty($_REQUEST['deletevote'])
 	&& ! empty($_REQUEST['optionId'])
-	&& $access->checkCsrf(true))
-{
+	&& $access->checkCsrf(true)
+) {
 	$result = $polllib->delete_vote($_REQUEST['pollId'], $_REQUEST['user'], $_REQUEST['ip'], $_REQUEST['optionId']);
 	if ($result && $result->numRows()) {
 		Feedback::success(tr('Vote deleted'));

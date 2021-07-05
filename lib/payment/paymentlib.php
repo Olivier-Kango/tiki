@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -247,7 +248,8 @@ class PaymentLib extends TikiDb_Bridge
 
 			// Add token if feature is activated (need prefs
 			global $user;
-			if ($prefs['auth_token_access'] == 'y' &&
+			if (
+                $prefs['auth_token_access'] == 'y' &&
 					(! $user || isset($_SESSION['forceanon']) &&
 					$_SESSION['forceanon'] == 'y' &&
 					! Perms::get('payment', $info['paymentRequestId'])->manual_payment)
@@ -494,7 +496,7 @@ class PaymentLib extends TikiDb_Bridge
 		}
 	}
 
-	private function addFilterSort(array $filter, $sort, array & $bindvars)
+	private function addFilterSort(array $filter, $sort, array &$bindvars)
 	{
 		$ret = '';
 		if (! empty($filter)) {

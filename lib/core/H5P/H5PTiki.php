@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -57,7 +58,7 @@ class H5P_H5PTiki implements H5PFrameworkInterface
 			$path = self::$h5p_path . "/" . $dir;
 			if (! is_dir($path)) {
 				mkdir($path);
-			} elseif(! is_writable($path)) {
+			} elseif (! is_writable($path)) {
 				\Feedback::error(tr("H5P directory is not writable: %0", $path));
 			}
 		}
@@ -160,7 +161,7 @@ class H5P_H5PTiki implements H5PFrameworkInterface
 	 *
 	 * @return string The content (response body). null if something went wrong
 	 */
-	public function fetchExternalData($url, $data = null, $blocking = true, $stream = null, $fullData = FALSE, $headers = array(), $files = array(), $method = 'POST')
+	public function fetchExternalData($url, $data = null, $blocking = true, $stream = null, $fullData = false, $headers = array(), $files = array(), $method = 'POST')
 	{
 		$handle = curl_init($url);
 
@@ -1589,7 +1590,6 @@ GROUP BY l.`name`, l.`major_version`, l.`minor_version`');
 
 			case H5PPermission::INSTALL_RECOMMENDED:
 				return Perms::get()->h5p_admin;
-
 		}
 		return false;
 	}
@@ -1708,7 +1708,7 @@ GROUP BY l.`name`, l.`major_version`, l.`minor_version`');
 	 */
 	public function getLibraryConfig($libraries = null)
 	{
-		return defined('H5P_LIBRARY_CONFIG') ? H5P_LIBRARY_CONFIG : NULL;
+		return defined('H5P_LIBRARY_CONFIG') ? H5P_LIBRARY_CONFIG : null;
 	}
 
 	/**
@@ -1721,16 +1721,16 @@ GROUP BY l.`name`, l.`major_version`, l.`minor_version`');
 	public function libraryHasUpgrade($library)
 	{
 		return ! empty(
-		TikiDb::get()->query(
-			'SELECT `id` FROM `tiki_h5p_libraries` WHERE `name` = ?
+            TikiDb::get()->query(
+                'SELECT `id` FROM `tiki_h5p_libraries` WHERE `name` = ?
 AND (`major_version` > ? OR (`major_version` = ? AND `minor_version` > ?)) LIMIT 1',
-			[
+                [
 				$library['machineName'],
 				$library['majorVersion'],
 				$library['majorVersion'],
 				$library['minorVersion'],
-			]
-		)
+                ]
+            )
 		);
 	}
 

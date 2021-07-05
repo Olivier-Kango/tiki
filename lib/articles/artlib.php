@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -653,8 +654,7 @@ class ArtLib extends TikiLib
 		return true;
 	}
 
-	public function edit_type( $type, $use_ratings, $show_pre_publ, $show_post_expire, $heading_only, $allow_comments, $comment_can_rate_article, $show_image, $show_avatar, $show_author, $show_pubdate, $show_expdate, $show_reads, $show_size, $show_topline, $show_subtitle, $show_linkto, $show_image_caption, $creator_edit
-										)
+	public function edit_type($type, $use_ratings, $show_pre_publ, $show_post_expire, $heading_only, $allow_comments, $comment_can_rate_article, $show_image, $show_avatar, $show_author, $show_pubdate, $show_expdate, $show_reads, $show_size, $show_topline, $show_subtitle, $show_linkto, $show_image_caption, $creator_edit)
 	{
 		if ($use_ratings == 'on') {
 			$use_ratings = 'y';
@@ -1124,7 +1124,7 @@ class ArtLib extends TikiLib
 		return $id;
 	}
 
-	public function list_articles( $offset = 0, $maxRecords = -1, $sort_mode = 'publishDate_desc', $find = '', $date_min = 0, $date_max = 0, $user = false, $type = '', $topicId = '', $visible_only = 'y', $topic = '', $categId = '', $creator = '', $group = '', $lang = '', $min_rating = '', $max_rating = '', $override_dates = false, $ispublished = '', $filter = '')
+	public function list_articles($offset = 0, $maxRecords = -1, $sort_mode = 'publishDate_desc', $find = '', $date_min = 0, $date_max = 0, $user = false, $type = '', $topicId = '', $visible_only = 'y', $topic = '', $categId = '', $creator = '', $group = '', $lang = '', $min_rating = '', $max_rating = '', $override_dates = false, $ispublished = '', $filter = '')
 	{
 
 		global $user, $prefs;
@@ -1354,9 +1354,10 @@ class ArtLib extends TikiLib
 		$cant = $this->getOne($query_cant, $bindvars);
 		$ret = [];
 		$articleIds = array_map(
-			function($res){
+			function ($res) {
 				return $res['articleId'];
-			}, $result
+			},
+            $result
 		);
 		Perms::bulk(['type' => 'article'], 'object', $articleIds);
 		foreach ($result as $res) {
@@ -1694,4 +1695,4 @@ class ArtLib extends TikiLib
 	}
 }
 
-$artlib = new ArtLib;
+$artlib = new ArtLib();

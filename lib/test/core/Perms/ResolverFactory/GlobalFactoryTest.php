@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -14,7 +15,7 @@ class Perms_ResolverFactory_GlobalFactoryTest extends PHPUnit\Framework\TestCase
 {
 	private $tableData = [];
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		$db = TikiDb::get();
 
@@ -26,7 +27,7 @@ class Perms_ResolverFactory_GlobalFactoryTest extends PHPUnit\Framework\TestCase
 		$db->query('DELETE FROM users_grouppermissions');
 	}
 
-	protected function tearDown() : void
+	protected function tearDown(): void
 	{
 		$db = TikiDb::get();
 
@@ -39,7 +40,7 @@ class Perms_ResolverFactory_GlobalFactoryTest extends PHPUnit\Framework\TestCase
 
 	public function testHashIsConstant()
 	{
-		$factory = new Perms_ResolverFactory_GlobalFactory;
+		$factory = new Perms_ResolverFactory_GlobalFactory();
 
 		$this->assertEquals('global', $factory->getHash([]));
 		$this->assertEquals('global', $factory->getHash(['type' => 'wiki page', 'object' => 'HomePage']));
@@ -62,7 +63,7 @@ class Perms_ResolverFactory_GlobalFactoryTest extends PHPUnit\Framework\TestCase
 			]
 		);
 
-		$factory = new Perms_ResolverFactory_GlobalFactory;
+		$factory = new Perms_ResolverFactory_GlobalFactory();
 		$this->assertEquals($expect, $factory->getResolver([]));
 	}
 }

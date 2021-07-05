@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -38,8 +39,10 @@ class Language_MergeFiles
 		$toUpdate = [];
 
 		foreach ($targetStrings as $key => $string) {
-			if (isset($sourceStrings[$key]) && $sourceStrings[$key]['translated'] === true
-				&& (! isset($string['translation']) || $sourceStrings[$key]['translation'] != $string['translation'])) {
+			if (
+                isset($sourceStrings[$key]) && $sourceStrings[$key]['translated'] === true
+				&& (! isset($string['translation']) || $sourceStrings[$key]['translation'] != $string['translation'])
+            ) {
 				$toUpdate[$key] = $sourceStrings[$key]['translation'];
 			}
 		}
@@ -56,8 +59,10 @@ class Language_MergeFiles
 			foreach ($lines as $line) {
 				$matches = [];
 
-				if (preg_match('|^/?/?\s*\"(.*)\"\s*\=\>\s*\"(.*)\"\s*\,\s*$|', $line, $matches)
-					&& isset($toUpdate[$matches[1]])) {
+				if (
+                    preg_match('|^/?/?\s*\"(.*)\"\s*\=\>\s*\"(.*)\"\s*\,\s*$|', $line, $matches)
+					&& isset($toUpdate[$matches[1]])
+                ) {
 					fwrite($handle, "\"{$matches[1]}\" => \"{$toUpdate[$matches[1]]}\",\n");
 				} else {
 					fwrite($handle, $line);

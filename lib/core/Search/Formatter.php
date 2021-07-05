@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -132,8 +133,8 @@ class Search_Formatter
 				if ($key == 0) {
 					$filters[] = $filter;
 				} else {
-					$last = &$filters[count($filters)-1];
-					$last->setLabel($last->getLabel().', '.$filter->getLabel());
+					$last = &$filters[count($filters) - 1];
+					$last->setLabel($last->getLabel() . ', ' . $filter->getLabel());
 				}
 			}
 		}
@@ -163,7 +164,7 @@ class Search_Formatter
 				$filters[$key] = $val;
 			}
 		}
-		$url .= '?'.http_build_query($filters);
+		$url .= '?' . http_build_query($filters);
 
 		if ($fields) {
 			$smarty = TikiLib::lib('smarty');

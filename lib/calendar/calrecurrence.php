@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -98,7 +99,8 @@ class CalRecurrence extends TikiLib
 		}
 	}
 
-	public function updateDetails($data) {
+	public function updateDetails($data)
+    {
 		$this->setCalendarId($data['calendarId']);
 		$this->setStart(\DateTime::createFromFormat('U', $data['start'])->setTimezone(new \DateTimeZone('UTC'))->format('Hi'));
 		$this->setEnd(\DateTime::createFromFormat('U', $data['end'])->setTimezone(new \DateTimeZone('UTC'))->format('Hi'));
@@ -169,8 +171,10 @@ class CalRecurrence extends TikiLib
 			return false;
 		}
 		// should have valid start and end date
-		if (! ($this->isAllday())
-			 && (! ($this->getStart() >= 0) || ! ($this->getEnd() >= 0) || ($this->getStart() > 2359) || ($this->getEnd() > 2359) || ($this->getStart() > $this->getEnd()))) {
+		if (
+            ! ($this->isAllday())
+			 && (! ($this->getStart() >= 0) || ! ($this->getEnd() >= 0) || ($this->getStart() > 2359) || ($this->getEnd() > 2359) || ($this->getStart() > $this->getEnd()))
+        ) {
 			return false;
 		}
 		// should be recurrent on "some" basis
@@ -178,15 +182,18 @@ class CalRecurrence extends TikiLib
 			return false;
 		}
 		// recurrence should be correctly defined
-		if (($this->isWeekly() && (is_null($this->getWeekday()) || $this->getWeekday() > 6 || $this->getWeekday() < 0 || $this->getWeekday() == ''))
+		if (
+            ($this->isWeekly() && (is_null($this->getWeekday()) || $this->getWeekday() > 6 || $this->getWeekday() < 0 || $this->getWeekday() == ''))
 			|| ($this->isMonthly() && (is_null($this->getDayOfMonth()) || $this->getDayOfMonth() > 31 || $this->getDayOfMonth() < 1 || $this->getDayOfMonth() == ''))
 			|| ($this->isYearly() && (is_null($this->getDateOfYear()) || $this->getDateOfYear() > 1231 || $this->getDateOfYear() < 0101 || $this->getDateOfYear() == ''))
-			 ) {
+        ) {
 			return false;
 		}
 		// recurrence period should be defined
-		if ((is_null($this->getNbRecurrences()) || ($this->getNbRecurrences() == '') || ($this->getNbRecurrences() == 0))
-			&& (is_null($this->getEndPeriod()) || ($this->getEndPeriod() == '') || ($this->getEndPeriod() < $this->getStartPeriod())) ) {
+		if (
+            (is_null($this->getNbRecurrences()) || ($this->getNbRecurrences() == '') || ($this->getNbRecurrences() == 0))
+			&& (is_null($this->getEndPeriod()) || ($this->getEndPeriod() == '') || ($this->getEndPeriod() < $this->getStartPeriod()))
+        ) {
 			return false;
 		}
 		//
@@ -400,7 +407,7 @@ class CalRecurrence extends TikiLib
 		if (! $changedFields) {
 			return;
 		}
-		
+
 		$query = "SELECT calitemId,calendarId, start, end, allday, locationId, categoryId, nlId, priority, status, url, lang, name, description, "
 				 . "user, created, lastModif, changed, recurrenceStart "
 				 . "FROM tiki_calendar_items WHERE recurrenceId = ? ORDER BY start";
@@ -486,7 +493,8 @@ class CalRecurrence extends TikiLib
 	/**
 	 * Update individual events in a recurring event series that were manually tweaked in clients.
 	 */
-	public function updateOverrides($events) {
+	public function updateOverrides($events)
+    {
 		global $user;
 
 		$query = "SELECT calitemId,calendarId, start, end, allday, locationId, categoryId, nlId, priority, status, url, lang, name, description, "
@@ -634,11 +642,13 @@ class CalRecurrence extends TikiLib
 		return $result;
 	}
 
-	public function fillUid($uid) {
+	public function fillUid($uid)
+    {
 		$this->query("update `tiki_calendar_recurrence` set `uid` = ? where `recurrenceId` = ?", [$uid, $this->getId()]);
 	}
 
-	public function getFirstItemId() {
+	public function getFirstItemId()
+    {
 		$query = "SELECT calitemId FROM `tiki_calendar_items` WHERE recurrenceId = ? ORDER BY calitemId";
 		$result = $this->query($query, [(int)$this->getId()]);
 		if ($row = $result->fetchRow()) {
@@ -647,7 +657,8 @@ class CalRecurrence extends TikiLib
 		return null;
 	}
 
-	public function constructVCalendar() {
+	public function constructVCalendar()
+    {
 		static $calendar_timezones = [];
 		if (isset($calendar_timezones[$this->getCalendarId()])) {
 			$timezone = $calendar_timezones[$this->getCalendarId()];
@@ -673,7 +684,7 @@ class CalRecurrence extends TikiLib
 		$dtend = DateTime::createFromFormat('U', $this->getStartPeriod() + $endOffset);
 		$dtend->setTimezone($dtzone);
 		$dtend->setTimestamp($dtend->getTimestamp() + $dtend->getOffset());
-		
+
 		$data = [
 			'CREATED' => DateTime::createFromFormat('U', $this->getCreated() ?? 0)->format('Ymd\THis\Z'),
 			'DTSTAMP' => DateTime::createFromFormat('U', $this->getLastModif() ?? 0)->format('Ymd\THis\Z'),
@@ -704,21 +715,21 @@ class CalRecurrence extends TikiLib
 
 		$weekdays = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
 		if ($this->isWeekly()) {
-			$rrule = 'FREQ=WEEKLY;BYDAY='.$weekdays[$this->getWeekday()];
+			$rrule = 'FREQ=WEEKLY;BYDAY=' . $weekdays[$this->getWeekday()];
 		} elseif ($this->isMonthly()) {
-			$rrule = 'FREQ=MONTHLY;BYMONTHDAY='.$this->getDayOfMonth();
+			$rrule = 'FREQ=MONTHLY;BYMONTHDAY=' . $this->getDayOfMonth();
 		} elseif ($this->isYearly()) {
 			$doy = $this->getDateOfYear();
 			$day = substr($doy, -2);
-			$month = substr($doy, 0, strlen($doy)-2);
-			$rrule = 'FREQ=YEARLY;BYMONTH='.$month.';BYMONTHDAY='.$day;
+			$month = substr($doy, 0, strlen($doy) - 2);
+			$rrule = 'FREQ=YEARLY;BYMONTH=' . $month . ';BYMONTHDAY=' . $day;
 		} else {
 			$rrule = 'FREQ=DAILY';
 		}
 		if ($this->getNbRecurrences() > 0) {
-			$rrule .= ';COUNT='.$this->getNbRecurrences();
+			$rrule .= ';COUNT=' . $this->getNbRecurrences();
 		} else {
-			$rrule .= ';UNTIL='.DateTime::createFromFormat('U', $this->getEndPeriod())->format('Ymd\THis\Z');
+			$rrule .= ';UNTIL=' . DateTime::createFromFormat('U', $this->getEndPeriod())->format('Ymd\THis\Z');
 		}
 		$data['RRULE'] = $rrule;
 

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -20,7 +21,7 @@ class AbsoluteToRelativeLinkTest extends TestCase
 	public const DEMO_TEXT = 'Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh,' .
 	' ut fermentum massa justo sit amet risus ##### Fermentum Fringilla Dapibus.';
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		global $base_url, $base_url_http, $base_url_https, $prefs, $page_regex;
 

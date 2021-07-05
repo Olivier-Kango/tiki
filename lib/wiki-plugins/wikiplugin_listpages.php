@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -458,7 +459,7 @@ function wikiplugin_listpages($data, $params)
 	$smarty->assign("pagination", $pagination);
 	if ($pagination == 'y') {
 		// Show only x=$MaxRecords number of page entries on this page.
-		for ($x = $offset_pagination; $x < ($offset_pagination + $GLOBALS['maxRecords']) && $x < count($listpages['data']); $x ++) {
+		for ($x = $offset_pagination; $x < ($offset_pagination + $GLOBALS['maxRecords']) && $x < count($listpages['data']); $x++) {
 			$listpages_for_use[] = $listpages['data'][$x];
 		}
 		$smarty->assign_by_ref('listpages', $listpages_for_use);

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -26,7 +27,7 @@ class Tiki_Profile_Writer_Queue
 	{
 		array_walk(
 			$this->entries,
-			function (& $entry) use ($writer) {
+			function (&$entry) use ($writer) {
 				$timestamp = $writer->getInclusionTimestamp($entry['type'], $entry['object']);
 				$entry['stored'] = $timestamp;
 				$entry['status'] = $timestamp ? 'MODIFIED' : 'NEW';
@@ -108,7 +109,7 @@ class Tiki_Profile_Writer_Queue
 
 		array_walk(
 			$entries,
-			function (& $entry) {
+			function (&$entry) {
 				$entry['timestamp'] = date('Y-m-d H:i:s (D)', $entry['timestamp']);
 			},
 			$entries

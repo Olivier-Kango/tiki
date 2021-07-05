@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -172,7 +173,8 @@ class Tracker_Field_UserSelector extends Tracker_Field_Abstract implements Track
 		return $data;
 	}
 
-	public function addValue($user) {
+	public function addValue($user)
+    {
 		$value = $this->getValue();
 		if ($value) {
 			$users = TikiLib::lib('trk')->parse_user_field($value);
@@ -185,14 +187,15 @@ class Tracker_Field_UserSelector extends Tracker_Field_Abstract implements Track
 		return TikiLib::lib('tiki')->str_putcsv($users);
 	}
 
-	public function removeValue($user) {
+	public function removeValue($user)
+    {
 		$value = $this->getValue();
 		if ($value) {
 			$users = TikiLib::lib('trk')->parse_user_field($value);
 		} else {
 			$users = [];
 		}
-		$users = array_filter($users, function($u) use ($user) {
+		$users = array_filter($users, function ($u) use ($user) {
 			return $u != $user;
 		});
 		return TikiLib::lib('tiki')->str_putcsv($users);
@@ -406,7 +409,8 @@ class Tracker_Field_UserSelector extends Tracker_Field_Abstract implements Track
 		];
 	}
 
-	public function getProvidedFields() {
+	public function getProvidedFields()
+    {
 		$baseKey = $this->getBaseKey();
 		return [$baseKey, "{$baseKey}_text", "{$baseKey}_unstemmed"];
 	}
@@ -578,7 +582,7 @@ class Tracker_Field_UserSelector extends Tracker_Field_Abstract implements Track
 			->setRenderTransform(function ($value) {
 				return $value;
 			})
-			->setParseIntoTransform(function (& $info, $value) use ($permName) {
+			->setParseIntoTransform(function (&$info, $value) use ($permName) {
 				$info['fields'][$permName] = $value;
 			})
 			;
@@ -654,7 +658,7 @@ class Tracker_Field_UserSelector extends Tracker_Field_Abstract implements Track
 							if ($v === '-Blank (no data)-') {
 								$sub->filterIdentifier('', $baseKey . '_text');
 							} elseif ($v) {
-								$sub->filterMultivalue('"'.((string) $v).'"', $baseKey);
+								$sub->filterMultivalue('"' . ((string) $v) . '"', $baseKey);
 							}
 						}
 					}

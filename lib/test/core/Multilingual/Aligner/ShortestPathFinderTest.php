@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -18,7 +19,7 @@ class Multilingual_Aligner_ShortestPathFinderTest extends TikiTestCase
 	//    These tests illustrate how to use this class.
 	////////////////////////////////////////////////////////////////
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		$distances_matrix[0][1] = 11;
 		$distances_matrix[0][2] = 23;

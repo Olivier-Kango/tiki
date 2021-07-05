@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -14,7 +15,7 @@ class CategoryManipulatorTest extends TikiTestCase
 {
 	public function testSimpleManipulation()
 	{
-		$perms = new Perms;
+		$perms = new Perms();
 		$perms->setResolverFactories(
 			[
 				new Perms_ResolverFactory_StaticFactory('root', new Perms_Resolver_Default(true)),
@@ -34,7 +35,7 @@ class CategoryManipulatorTest extends TikiTestCase
 
 	public function testManipulationWithoutSpecifyingManaged()
 	{
-		$perms = new Perms;
+		$perms = new Perms();
 		$perms->setResolverFactories(
 			[
 				new Perms_ResolverFactory_StaticFactory('root', new Perms_Resolver_Default(true)),
@@ -53,7 +54,7 @@ class CategoryManipulatorTest extends TikiTestCase
 
 	public function testLimitationOnRange()
 	{
-		$perms = new Perms;
+		$perms = new Perms();
 		$perms->setResolverFactories(
 			[
 				new Perms_ResolverFactory_StaticFactory('root', new Perms_Resolver_Default(true)),
@@ -73,7 +74,7 @@ class CategoryManipulatorTest extends TikiTestCase
 
 	public function testNotAllowedToModifyObject()
 	{
-		$perms = new Perms;
+		$perms = new Perms();
 		$perms->setResolverFactories(
 			[
 				new Perms_ResolverFactory_TestFactory(
@@ -97,7 +98,7 @@ class CategoryManipulatorTest extends TikiTestCase
 
 	public function testCannotAddAny()
 	{
-		$perms = new Perms;
+		$perms = new Perms();
 		$perms->setResolverFactories(
 			[
 				new Perms_ResolverFactory_TestFactory(
@@ -121,7 +122,7 @@ class CategoryManipulatorTest extends TikiTestCase
 
 	public function testCannotRemoveAny()
 	{
-		$perms = new Perms;
+		$perms = new Perms();
 		$perms->setResolverFactories(
 			[
 				new Perms_ResolverFactory_TestFactory(
@@ -145,7 +146,7 @@ class CategoryManipulatorTest extends TikiTestCase
 
 	public function testDefaultSet()
 	{
-		$perms = new Perms;
+		$perms = new Perms();
 		$perms->setResolverFactories(
 			[
 				new Perms_ResolverFactory_StaticFactory('root', new Perms_Resolver_Default(true)),
@@ -168,7 +169,7 @@ class CategoryManipulatorTest extends TikiTestCase
 
 	public function testConstraintAppliesBeyondPermissions()
 	{
-		$perms = new Perms;
+		$perms = new Perms();
 		$perms->setResolverFactories(
 			[
 				new Perms_ResolverFactory_TestFactory(
@@ -197,7 +198,7 @@ class CategoryManipulatorTest extends TikiTestCase
 
 	public function testUnmanagedFilter()
 	{
-		$perms = new Perms;
+		$perms = new Perms();
 		$perms->setResolverFactories(
 			[
 				new Perms_ResolverFactory_StaticFactory('root', new Perms_Resolver_Default(true)),
@@ -217,7 +218,7 @@ class CategoryManipulatorTest extends TikiTestCase
 
 	public function testSkipPermissionChecks()
 	{
-		$perms = new Perms;
+		$perms = new Perms();
 		$perms->setResolverFactories(
 			[
 				new Perms_ResolverFactory_StaticFactory('root', new Perms_Resolver_Default(false)),

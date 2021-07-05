@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -87,7 +88,7 @@ class Tiki_Profile_InstallHandler_Webmail extends Tiki_Profile_InstallHandler
 			'draft_fattId' => $data['fattId'],
 			'draft_smtp' => $smtp_id,
 		];
-		$draft_id = count($drafts)-1;
+		$draft_id = count($drafts) - 1;
 		$_SESSION['cypht']['compose_drafts'] = $drafts;
 		$_SESSION['cypht']['pageaftersend'] = $data['pageaftersend'];
 

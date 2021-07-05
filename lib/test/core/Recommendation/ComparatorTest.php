@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -13,7 +14,7 @@ class ComparatorTest extends TestCase
 {
 	public function testNoEngines()
 	{
-		$engineSet = new EngineSet;
+		$engineSet = new EngineSet();
 		$comparator = new Comparator($engineSet);
 
 		$input = new Input\UserInput('bob');
@@ -23,7 +24,7 @@ class ComparatorTest extends TestCase
 
 	public function testSingleEngine()
 	{
-		$engineSet = new EngineSet;
+		$engineSet = new EngineSet();
 		$engineSet->register('test-a', new Engine\FakeEngine([
 			['type' => 'wiki page', 'object' => 'Content A'],
 			['type' => 'wiki page', 'object' => 'Content B'],
@@ -41,7 +42,7 @@ class ComparatorTest extends TestCase
 
 	public function testMultipleEngine()
 	{
-		$engineSet = new EngineSet;
+		$engineSet = new EngineSet();
 		$engineSet->register('test-a', new Engine\FakeEngine([
 			['type' => 'wiki page', 'object' => 'Content A'],
 		]));
@@ -62,7 +63,7 @@ class ComparatorTest extends TestCase
 
 	public function testEngineProvidesDebugInformation()
 	{
-		$engineSet = new EngineSet;
+		$engineSet = new EngineSet();
 		$engineSet->register('test-a', new Engine\FakeEngine([
 			['type' => 'wiki page', 'object' => 'Content A'],
 			new Debug\SourceDocument('wiki page', 'Content Z'),

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -52,7 +53,7 @@ function smarty_modifier_money_format($number, $local, $currency, $format = '%(#
 
 	if (! empty($currency)) {
 		$locale['int_curr_symbol'] = $currency;
-		$fmt = new NumberFormatter(locale_get_default()."@currency=$currency", NumberFormatter::CURRENCY);
+		$fmt = new NumberFormatter(locale_get_default() . "@currency=$currency", NumberFormatter::CURRENCY);
 		$locale['currency_symbol'] = $fmt->getSymbol(NumberFormatter::CURRENCY_SYMBOL);
 	}
 

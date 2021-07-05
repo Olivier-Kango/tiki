@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -388,10 +389,10 @@ class Faker extends FakerProviderBase
 			}
 			for ($i = 0; $i < $num; $i++) {
 				do {
-					$index = rand(0, $count-1);
-				} while(in_array($index, $passed));
+					$index = rand(0, $count - 1);
+				} while (in_array($index, $passed));
 				$res = $result['result'][$index];
-				$value[] = $res['object_type'].":".$res['object_id'];
+				$value[] = $res['object_type'] . ":" . $res['object_id'];
 				$passed[] = $index;
 			}
 			return implode("\n", $value);

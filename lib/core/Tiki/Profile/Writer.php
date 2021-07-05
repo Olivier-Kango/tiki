@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -174,7 +175,7 @@ class Tiki_Profile_Writer
 				if (is_array($this->data['objects'])) {
 					array_walk_recursive(
 						$this->data['objects'],
-						function (& $entry) use ($token, $replacement) {
+						function (&$entry) use ($token, $replacement) {
 							if (is_string($entry)) {
 								$entry = str_replace($token, $replacement, $entry);
 							}
@@ -184,7 +185,7 @@ class Tiki_Profile_Writer
 				if (is_array($this->data['permissions'])) {
 					array_walk_recursive(
 						$this->data['permissions'],
-						function (& $entry) use ($token, $replacement) {
+						function (&$entry) use ($token, $replacement) {
 							if (is_string($entry)) {
 								$entry = str_replace($token, $replacement, $entry);
 							}
@@ -358,7 +359,8 @@ class Tiki_Profile_Writer
 	}
 	public function quoteString(&$data, $key)
 	{
-		if (strtolower($data) == 'yes' || strtolower($data) == 'no'
+		if (
+            strtolower($data) == 'yes' || strtolower($data) == 'no'
 			|| strpos($data, '{') !== false || strpos($data, '[') !== false
 		) {
 			if (strpos($data, '"') === false) {
@@ -374,7 +376,7 @@ class Tiki_Profile_Writer
 	{
 		array_walk(
 			$this->data['objects'],
-			function (& $entry) {
+			function (&$entry) {
 				unset($entry['_id']);
 				unset($entry['_timestamp']);
 			}

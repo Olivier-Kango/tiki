@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -162,9 +163,11 @@ if (is_file('db/virtuals.inc')) {
 	$virtuals = false;
 }
 
-$serverFilter = new DeclFilter;
-if (( isset($prefs['tiki_allow_trust_input']) && $prefs['tiki_allow_trust_input'] ) !== 'y'
-	|| $tiki_p_trust_input != 'y') {
+$serverFilter = new DeclFilter();
+if (
+    ( isset($prefs['tiki_allow_trust_input']) && $prefs['tiki_allow_trust_input'] ) !== 'y'
+	|| $tiki_p_trust_input != 'y'
+) {
 	$serverFilter->addStaticKeyFilters(
 		[
 			'TIKI_VIRTUAL' => 'striptags',
@@ -340,7 +343,7 @@ if (file_exists($local)) {
 	}
 } elseif ($dbcon) {
 	$installer = Installer::getInstance();
-	TikiDb::get()->setErrorHandler(new \Tiki\Installer\InstallerDatabaseErrorHandler);
+	TikiDb::get()->setErrorHandler(new \Tiki\Installer\InstallerDatabaseErrorHandler());
 } else {
 	// If there is no local.php we check if there is a db/preconfiguration.php preconfiguration file with database connection values which we can prefill the installer with
 	if (file_exists($preconfiguration)) {
@@ -374,7 +377,8 @@ if ($admin_acc == 'n') {
 // We won't update database info unless we can't connect to the database.
 // We won't reset the db connection if there is an admin account set
 // and the admin is not logged
-if ((
+if (
+    (
 		! $dbcon
 		|| (
 			isset($_POST['resetdb'])
@@ -400,9 +404,11 @@ if ((
 			$client_charset = '';
 		}
 
-		if (! empty($_POST['create_new_user'])
+		if (
+            ! empty($_POST['create_new_user'])
 			&& ! empty($_POST['root_user'])
-			&& ! empty($_POST['root_pass'])) {
+			&& ! empty($_POST['root_pass'])
+        ) {
 			$dbcon = initTikiDB(
 				$api_tiki,
 				$_POST['db'],
@@ -427,9 +433,11 @@ if ((
 		}
 
 		if ($dbcon) {
-			if (! empty($_POST['create_new_user'])
+			if (
+                ! empty($_POST['create_new_user'])
 				&& ! empty($_POST['root_user'])
-				&& ! empty($_POST['root_pass'])) {
+				&& ! empty($_POST['root_pass'])
+            ) {
 				createTikiDBUser($dbTiki, $_POST['host'], $_POST['user'], $_POST['pass'], $_POST['name']);
 			}
 			write_local_php($_POST['db'], $_POST['host'], $_POST['user'], $_POST['pass'], $_POST['name'], $client_charset);
@@ -503,7 +511,8 @@ $smarty->assign('dbdone', 'n');
 $smarty->assign('logged', $logged);
 
 // Installation steps
-if ($dbcon
+if (
+    $dbcon
 	&& isset($_SESSION["install-logged-$multi"])
 	&& $_SESSION["install-logged-$multi"] == 'y'
 ) {
@@ -523,7 +532,7 @@ if ($dbcon
 		$smarty->assign('dbdone', 'y');
 		$install_type = 'scratch';
 		require_once 'lib/tikilib.php';
-		$tikilib = new TikiLib;
+		$tikilib = new TikiLib();
 		$userlib = TikiLib::lib('user');
 		$tikidate = TikiLib::lib('tikidate');
 	}

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -127,7 +128,7 @@ class MonitorMailLib
 		global $prefs;
 
 		require_once 'lib/webmail/tikimaillib.php';
-		$mail = new TikiMail;
+		$mail = new TikiMail();
 		$mail->setSubject($title);
 		$mail->setHtml($html);
 

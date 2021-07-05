@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -28,7 +29,7 @@ function wikiplugin_fitnesse_info()
 function wikiplugin_fitnesse($data, $params)
 {
 	$runner = Tracker_Field_Math::getRunner();
-	$mock = new FixtureMockTrackerField;
+	$mock = new FixtureMockTrackerField();
 	$runner->mockFunction('tracker-field', $mock);
 
 	$fixtures = [
@@ -39,7 +40,7 @@ function wikiplugin_fitnesse($data, $params)
 	];
 
 	$matches = WikiParser_PluginMatcher::match($data);
-	$argParser = new WikiParser_PluginArgumentParser;
+	$argParser = new WikiParser_PluginArgumentParser();
 
 	foreach ($matches as $table) {
 		$fixture = $table->getName();

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -147,8 +148,10 @@ function module_users_list($module_params)
 		if (isset($module_params['params']['avatar']) && $module_params['params']['avatar'] == 'y') {
 			$users['data'][$i]['avatar'] = $tikilib->get_user_avatar($my_user);
 		}
-		if ((isset($module_params['params']['realName']) && $module_params['params']['realName'] == 'y')
-			|| (isset($module_params['params']['login']) && $module_params['params']['login'] == 'y')) {
+		if (
+            (isset($module_params['params']['realName']) && $module_params['params']['realName'] == 'y')
+			|| (isset($module_params['params']['login']) && $module_params['params']['login'] == 'y')
+        ) {
 			$users['data'][$i]['info_public'] = $tikilib->get_user_preference($my_user, 'user_information', 'public') != 'private' ? 'y' : 'n';
 		}
 		if (isset($module_params['params']['userPage']) && $module_params['params']['userPage'] == 'y') {

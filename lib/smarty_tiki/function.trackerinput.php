@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -12,7 +13,7 @@ function smarty_function_trackerinput($params, $smarty)
 	$field = $params['field'];
 	if (isset($params['item'])) {
 		$item = $params['item'];
-	} elseif (!empty($params['itemId'])) {
+	} elseif (! empty($params['itemId'])) {
 		$item = $trklib->get_item_info($params['itemId']);
 	} else {
 		$item = [];
@@ -36,12 +37,12 @@ function smarty_function_trackerinput($params, $smarty)
 			} catch (Tiki\Encryption\Exception $e) {
 				$field['value'] = '';
 				$info = tr('Field data is encrypted using key "%0" but where was an error decrypting the data: %1', $key->get('name'), $e->getMessage());
-				$info .= ' '.$key->manualEntry();
+				$info .= ' ' . $key->manualEntry();
 			}
 			$handler = $trklib->get_field_handler($field, $item);
 			$field = array_merge($field, $handler->getFieldData());
 			$handler = $trklib->get_field_handler($field, $item);
-			$info = '<div class="description form-text">'.$info.'</div>';
+			$info = '<div class="description form-text">' . $info . '</div>';
 		}
 
 		$desc = '';

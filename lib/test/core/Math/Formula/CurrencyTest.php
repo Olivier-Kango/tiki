@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -14,7 +15,7 @@ class Math_Formula_CurrencyTest extends TikiTestCase
 		'CAD' => 1.308020
 	];
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		$currency1 = new Math_Formula_Currency(100, 'USD', $this->rates);
 		$this->currency2 = new Math_Formula_Currency(100, 'CAD', $this->rates);

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -82,7 +83,7 @@ function wikiplugin_wysiwyg($data, $params)
 
 	if (TikiLib::lib('tiki')->user_has_perm_on_object($user, $sourcepage, 'wiki page', 'tiki_p_edit')) {
 		$class = "wp_wysiwyg";
-		$exec_key = $class . '_' . ++ $execution;
+		$exec_key = $class . '_' . ++$execution;
 		$style = " style='min-width:{$params['width']};min-height:{$params['height']}'";
 
 		$params['section'] = empty($params['section']) ? 'wysiwyg_plugin' : $params['section'];

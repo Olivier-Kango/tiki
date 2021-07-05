@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -31,7 +33,7 @@ $section = 'search';
 require_once('tiki-setup.php');
 require_once('lib/search/searchlib-mysql.php');
 $auto_query_args = ['highlight', 'where', 'initial', 'maxRecords', 'sort_mode', 'find', 'searchLang', 'words', 'boolean', 'categId' ];
-$searchlib = new SearchLib;
+$searchlib = new SearchLib();
 $access->check_feature('feature_search_fulltext');
 $access->check_permission('tiki_p_search');
 
@@ -213,7 +215,7 @@ if (($where == 'wikis' || $where == 'articles') && $prefs['feature_multilingual'
 if (isset($results['data']) && is_array($results['data'])) {
 	array_walk(
 		$results['data'],
-		function (& $entry) {
+		function (&$entry) {
 			if (strpos($entry['href'], '?') !== false) {
 				$entry['href'] .= '&highlight=' . rawurlencode($_REQUEST['words']);
 			} else {

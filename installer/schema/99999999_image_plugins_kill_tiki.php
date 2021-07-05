@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -27,7 +28,7 @@ function upgrade_99999999_image_plugins_kill_tiki($installer)
 
 	require_once('db/tiki-db.php');
 
-	$tikilib = new TikiLib;
+	$tikilib = new TikiLib();
 
 	// ******************************** THUMB plugin
 	$plugstring = <<<PLUGINTEXT
@@ -119,7 +120,7 @@ objects:
 {CODE}
 PLUGINTEXT;
 
-	$profile_installer = new Tiki_Profile_Installer;
+	$profile_installer = new Tiki_Profile_Installer();
 	$profile = Tiki_Profile::fromString($plugstring, 'THUMB');
 	$profile->removeSymbols();
 	$profile_installer->install($profile);
@@ -344,7 +345,7 @@ objects:
 {CODE}
 PLUGINTEXT;
 
-	$profile_installer = new Tiki_Profile_Installer;
+	$profile_installer = new Tiki_Profile_Installer();
 	$profile = Tiki_Profile::fromString($plugstring, 'IMAGE');
 	$profile->removeSymbols();
 	$profile_installer->install($profile);
@@ -378,7 +379,7 @@ objects:
 {CODE}
 PLUGINTEXT;
 
-	$profile_installer = new Tiki_Profile_Installer;
+	$profile_installer = new Tiki_Profile_Installer();
 	$profile = Tiki_Profile::fromString($plugstring, 'PICTURE');
 	$profile->removeSymbols();
 	$profile_installer->install($profile);

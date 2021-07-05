@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -275,9 +276,11 @@ function wikiplugin_memberpayment($data, $params, $offset)
 			$smarty->assign('wp_member_anniversary_day', $ann_day);
 			if ($params['currentuser'] == 'y') {
 				$extend_until_info = $userlib->get_extend_until_info($user, $params['group']);
-				if (! empty($extend_until_info['ratio_prorated_first_period'])
+				if (
+                    ! empty($extend_until_info['ratio_prorated_first_period'])
 					&& $extend_until_info['ratio_prorated_first_period'] > 0
-					&& $extend_until_info['ratio_prorated_first_period'] < 1) {
+					&& $extend_until_info['ratio_prorated_first_period'] < 1
+                ) {
 					$smarty->assign('wp_member_prorated', round($extend_until_info['ratio_prorated_first_period']
 						* $params['price'], 2));
 				}
@@ -288,9 +291,11 @@ function wikiplugin_memberpayment($data, $params, $offset)
 
 		// setup free period display
 		if (! empty($params['freeperiods'])) {
-			if (isset($extendinfo['ratio_prorated_first_period'])
+			if (
+                isset($extendinfo['ratio_prorated_first_period'])
 				&& $extendinfo['ratio_prorated_first_period'] > 0
-				&& $extendinfo['ratio_prorated_first_period'] < 1) {
+				&& $extendinfo['ratio_prorated_first_period'] < 1
+            ) {
 				$smarty->assign('wp_member_freeperiods', $params['freeperiods'] - 1);
 				$smarty->assign('wp_member_freeprorated', 1);
 			} else {
@@ -338,8 +343,10 @@ function wikiplugin_memberpayment($data, $params, $offset)
 			}
 			if ($prefs['payment_system'] == 'paypal' && $oneuser) {
 				$rounded = round($periods);
-				if (($ppinterval == 'Y' && $rounded <= 5) || ($ppinterval == 'M' && $rounded <= 24)
-					|| ($ppinterval == 'D' && $rounded <= 90)) {
+				if (
+                    ($ppinterval == 'Y' && $rounded <= 5) || ($ppinterval == 'M' && $rounded <= 24)
+					|| ($ppinterval == 'D' && $rounded <= 90)
+                ) {
 					$smarty->assign('wp_member_subscribeok', 'y');
 					if (isset($ppunits)) {
 						$smarty->assign('wp_member_periodset', $ppunits);
@@ -379,14 +386,18 @@ function wikiplugin_memberpayment($data, $params, $offset)
 				foreach ($users as $u) {
 					$extendinfo = $userlib->get_extend_until_info($u, $params['group'], $periods);
 					$extendinfo['freeperiods'] = $freeperiods;
-					if (! empty($extendinfo['ratio_prorated_first_period'])
+					if (
+                        ! empty($extendinfo['ratio_prorated_first_period'])
 						&& $extendinfo['ratio_prorated_first_period'] > 0
-						&& $extendinfo['ratio_prorated_first_period'] < 1) {
+						&& $extendinfo['ratio_prorated_first_period'] < 1
+                    ) {
 						$smarty->assign('wp_member_prorated', round($extendinfo['ratio_prorated_first_period']
 							* $params['price'], 2));
 					}
-					if ($extendinfo['freeperiods'] > 0 && $extendinfo['ratio_prorated_first_period'] < 1
-						&& $extendinfo['ratio_prorated_first_period'] > 0) {
+					if (
+                        $extendinfo['freeperiods'] > 0 && $extendinfo['ratio_prorated_first_period'] < 1
+						&& $extendinfo['ratio_prorated_first_period'] > 0
+                    ) {
 						$extendinfo['ratio'] = $extendinfo['ratio'] - $extendinfo['ratio_prorated_first_period'];
 						$extendinfo['freeperiods']--;
 					}

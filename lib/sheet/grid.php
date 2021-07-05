@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -668,7 +669,7 @@ class TikiSheet
 	 */
 	public function setFormat($format)
 	{
-		if (empty($format) || ! method_exists(new TikiSheetDataFormat, $format)) {
+		if (empty($format) || ! method_exists(new TikiSheetDataFormat(), $format)) {
 			$format = null;
 		}
 		$this->cellInfo[$this->usedRow][$this->usedCol]['format'] = $format;
@@ -1442,7 +1443,7 @@ class TikiSheetDatabaseHandler extends TikiSheetDataHandler
 		$tikilib = TikiLib::lib('tiki');
 
 		// Load the current database state {{{3
-		$current = new TikiSheet;
+		$current = new TikiSheet();
 		$handler = new TikiSheetDatabaseHandler($this->id, null, $this->metadata);
 		$current->import($handler);
 
@@ -1632,7 +1633,7 @@ class TikiSheetExcelHandler extends TikiSheetDataHandler
 	// _save
 	public function _save(&$sheet)
 	{
-		$book = new Spreadsheet_Excel_Writer;
+		$book = new Spreadsheet_Excel_Writer();
 
 		header("Content-type: application/vnd.ms-excel");
 		header("Content-Disposition: attachment; filename=export.xls");
@@ -1904,7 +1905,8 @@ class TikiSheetOutputHandler extends TikiSheetDataHandler
 		$beginCol = $sheet->getRangeBeginCol();
 		$endCol = $sheet->getRangeEndCol();
 
-		if ($beginRow > -1 &&
+		if (
+            $beginRow > -1 &&
 			$beginRow == $endRow - 1 &&
 			$beginCol == $endCol - 1
 		) {

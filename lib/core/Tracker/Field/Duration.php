@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -168,7 +169,7 @@ class Tracker_Field_Duration extends Tracker_Field_Abstract implements Tracker_F
 		$headerlib->add_jsfile('vendor_bundled/vendor/npm-asset/moment-duration-format/lib/moment-duration-format.js');
 		$headerlib->add_jsfile('lib/vue/duration/store.js');
 		$value = $this->getValue();
-		if (!$value) {
+		if (! $value) {
 			$value = 0;
 		}
 		$composedFieldId = $this->getComposedId($params);
@@ -177,13 +178,13 @@ class Tracker_Field_Duration extends Tracker_Field_Abstract implements Tracker_F
 momentDurationFormatSetup(moment);
 var dpStore = DurationPickerStore();
 dpStore.setInitialDuration({
-	inputId: '.json_encode($composedFieldId).',
-	draft: '.json_encode($_SESSION['duration_drafts'][$composedFieldId]).',
-	value: '.$value.',
-	units: '.json_encode($this->enabledUnits()).',
-	chronometer: '.$this->getOption("chronometer").'
+	inputId: ' . json_encode($composedFieldId) . ',
+	draft: ' . json_encode($_SESSION['duration_drafts'][$composedFieldId]) . ',
+	value: ' . $value . ',
+	units: ' . json_encode($this->enabledUnits()) . ',
+	chronometer: ' . $this->getOption("chronometer") . '
 });
-dpStore.setInputName('.json_encode($this->getInsertId()).');
+dpStore.setInputName(' . json_encode($this->getInsertId()) . ');
 ');
 
 		$vuejslib = TikiLib::lib('vuejs');
@@ -207,7 +208,7 @@ dpStore.setInputName('.json_encode($this->getInsertId()).');
 
 		$out = [
 			$baseKey => $typeFactory->numeric($this->getValueInSeconds()),
-			$baseKey.'_text' => $typeFactory->sortable($this->humanize()),
+			$baseKey . '_text' => $typeFactory->sortable($this->humanize()),
 		];
 
 		return $out;
@@ -234,7 +235,8 @@ dpStore.setInputName('.json_encode($this->getInsertId()).');
 		return $info;
 	}
 
-	public function getComposedId($params) {
+	public function getComposedId($params)
+    {
 		if (! $params['field']['fieldId'] || ! $params['field']['trackerId'] || ! $params['itemId']) {
 			return null;
 		} else {
@@ -252,16 +254,18 @@ dpStore.setInputName('.json_encode($this->getInsertId()).');
 		// TODO
 	}
 
-	public static function getSortModeSql() {
+	public static function getSortModeSql()
+    {
 		$parts = [];
 		$factors = self::getFactors();
 		foreach ($factors as $unit => $multiplier) {
-			$parts[] = 'COALESCE(sttif.`value`->>"$.'.$unit.'", 0) * '.$multiplier;
+			$parts[] = 'COALESCE(sttif.`value`->>"$.' . $unit . '", 0) * ' . $multiplier;
 		}
-		return 'IF(JSON_VALID(sttif.`value`), '.implode('+', $parts).', 0)';
+		return 'IF(JSON_VALID(sttif.`value`), ' . implode('+', $parts) . ', 0)';
 	}
 
-	public static function getFactors() {
+	public static function getFactors()
+    {
 		return [
 			'seconds' => 1,
 			'minutes' => 60,
@@ -273,7 +277,8 @@ dpStore.setInputName('.json_encode($this->getInsertId()).');
 		];
 	}
 
-	private function denormalize() {
+	private function denormalize()
+    {
 		$value = json_decode($this->getValue(), true);
 		if (! is_array($value)) {
 			$value = [];
@@ -281,18 +286,20 @@ dpStore.setInputName('.json_encode($this->getInsertId()).');
 		return $value;
 	}
 
-	private function humanize() {
+	private function humanize()
+    {
 		$value = $this->denormalize();
 
 		$output = '';
 		foreach ($value as $unit => $amount) {
-			$output .= ($output ? ', ' : '')."$amount $unit";
+			$output .= ($output ? ', ' : '') . "$amount $unit";
 		}
 
 		return $output;
 	}
 
-	private function getValueInSeconds() {
+	private function getValueInSeconds()
+    {
 		$factors = self::getFactors();
 
 		$value = 0;
@@ -307,12 +314,13 @@ dpStore.setInputName('.json_encode($this->getInsertId()).');
 		return $value;
 	}
 
-	private function enabledUnits() {
+	private function enabledUnits()
+    {
 		return array_reverse(
 			array_values(
 				array_filter(
 					array_keys(self::getFactors()),
-					function($unit) {
+					function ($unit) {
 						return $this->getOption($unit);
 					}
 				)

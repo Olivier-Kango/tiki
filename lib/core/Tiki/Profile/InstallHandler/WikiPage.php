@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -57,9 +58,11 @@ class Tiki_Profile_InstallHandler_WikiPage extends Tiki_Profile_InstallHandler
 		if (array_key_exists('mode', $data)) {
 			$this->mode = $data['mode'];
 		}
-		if ($this->lang
+		if (
+            $this->lang
 			&& array_key_exists('translations', $data)
-			&& is_array($data['translations']) ) {
+			&& is_array($data['translations'])
+        ) {
 			$this->translations = $data['translations'];
 		}
 		if (array_key_exists('structure', $data)) {
@@ -188,10 +191,23 @@ class Tiki_Profile_InstallHandler_WikiPage extends Tiki_Profile_InstallHandler
 				$this->message = tra('Created by profile installer');
 			}
 			if (! isset($this->structure)) {	// if we're adding the page to a structure then don't create it first here
-				if (! $tikilib->create_page(
-					$finalName, 0, $this->content, time(), $this->message, 'admin', '0.0.0.0',
-					$this->description, $this->lang, $is_html, $hash, $this->wysiwyg, $this->wiki_authors_style
-				)) {
+				if (
+                    ! $tikilib->create_page(
+                        $finalName,
+                        0,
+                        $this->content,
+                        time(),
+                        $this->message,
+                        'admin',
+                        '0.0.0.0',
+                        $this->description,
+                        $this->lang,
+                        $is_html,
+                        $hash,
+                        $this->wysiwyg,
+                        $this->wiki_authors_style
+                    )
+                ) {
 					return null;
 				}
 			}
@@ -203,7 +219,7 @@ class Tiki_Profile_InstallHandler_WikiPage extends Tiki_Profile_InstallHandler
 			}
 			if (isset($info['is_html'])) {
 				$is_html = $info['is_html'];
-			} else if ($this->wysiwyg === 'y') {
+			} elseif ($this->wysiwyg === 'y') {
 				$is_html = ($prefs['wysiwyg_htmltowiki'] !== 'y');
 			}
 
@@ -299,7 +315,7 @@ class Tiki_Profile_InstallHandler_WikiPage extends Tiki_Profile_InstallHandler
 		}
 
 		if ($prefs['profile_autoapprove_wikiplugins'] == 'y') {
-			$argumentParser = new \WikiParser_PluginArgumentParser;
+			$argumentParser = new \WikiParser_PluginArgumentParser();
 			$matches = \WikiParser_PluginMatcher::match($this->content);
 			$parserlib = \TikiLib::lib('parser');
 			foreach ($matches as $match) {

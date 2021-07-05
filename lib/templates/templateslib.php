@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -31,7 +32,7 @@ class TemplatesLib extends TikiLib
 		$bindvars = array($section);
 
 		if ($find) {
-			$findesc = '%'.$find.'%';
+			$findesc = '%' . $find . '%';
 			$mid = " and (`content` like ?)";
 			$bindvars[] = $findesc;
 		} else {
@@ -39,9 +40,9 @@ class TemplatesLib extends TikiLib
 		}
 
 		$query = "select `name` ,`created`,tcts.`templateId` from `tiki_content_templates` tct, `tiki_content_templates_sections` tcts ";
-		$query.= " where tcts.`templateId`=tct.`templateId` and `section`=? $mid order by " . $this->convertSortMode($sort_mode);
+		$query .= " where tcts.`templateId`=tct.`templateId` and `section`=? $mid order by " . $this->convertSortMode($sort_mode);
 		$query_cant = "select count(*) from `tiki_content_templates` tct, `tiki_content_templates_sections` tcts ";
-		$query_cant.= "where tcts.`templateId`=tct.`templateId` and `section`=? $mid";
+		$query_cant .= "where tcts.`templateId`=tct.`templateId` and `section`=? $mid";
 		$result = $this->query($query, $bindvars, $maxRecords, $offset);
 		$cant = $this->getOne($query_cant, $bindvars);
 		$ret = array();
@@ -82,14 +83,14 @@ class TemplatesLib extends TikiLib
 		$query = "select * from `tiki_content_templates` where `templateId`=?";
 		$result = $this->query($query, array((int) $templateId));
 
-		if (!$result->numRows()) {
+		if (! $result->numRows()) {
 			return false;
 		}
 
 		$res = $result->fetchRow();
 
-		if ( $res['template_type'] == 'page' ) {
-			if ( substr($res['content'], 0, 5) == 'page:' ) {
+		if ($res['template_type'] == 'page') {
+			if (substr($res['content'], 0, 5) == 'page:') {
 				$res['page_name'] = substr($res['content'], 5);
 				$res['content'] = $this->get_template_from_page($res['page_name'], $lang);
 			}
@@ -112,25 +113,25 @@ class TemplatesLib extends TikiLib
 	{
 		$res = $this->get_template($templateId, $lang);
 
-		if ( !$res ) {
+		if (! $res) {
 			return false;
 		}
 
-		switch ( $format ) {
+		switch ($format) {
 			case 'yaml':
 				$content =
-				"{CODE(caption=>YAML)}objects:\n".
-				" -\n".
-				"  type: file_gallery\n".
-				"  data:\n".
-				"   ". implode("\n   ", explode("\n", $res['content'])) .
+				"{CODE(caption=>YAML)}objects:\n" .
+				" -\n" .
+				"  type: file_gallery\n" .
+				"  data:\n" .
+				"   " . implode("\n   ", explode("\n", $res['content'])) .
 				"{CODE}";
 
 				$profile = Tiki_Profile::fromString($content, $res['name']);
 				$installer = new Tiki_Profile_Installer();
 				$objects = $profile->getObjects();
 
-				if ( isset($objects[0]) ) {
+				if (isset($objects[0])) {
 					$data = $installer->getInstallHandler($objects[0])->getData();
 					unset($data['galleryId'], $data['parentId'], $data['name'], $data['user']);
 					$res['content'] = $data;
@@ -150,15 +151,15 @@ class TemplatesLib extends TikiLib
 	 * @return string
 	 * @throws Exception
 	 */
-    private function get_template_from_page( $page, $lang )
+    private function get_template_from_page($page, $lang)
 	{
 		global $prefs;
 		$info = $this->get_page_info($page);
 
-		if ( $prefs['feature_multilingual'] == 'y' ) {
+		if ($prefs['feature_multilingual'] == 'y') {
 			$multilinguallib = TikiLib::lib('multilingual');
 
-			if ( $lang && $info['lang'] && $lang != $info['lang'] ) {
+			if ($lang && $info['lang'] && $lang != $info['lang']) {
 				$bestLangPageId = $multilinguallib->selectLangObj('wiki page', $info['page_id'], $lang);
 
 				if ($info['page_id'] != $bestLangPageId) {
@@ -167,7 +168,7 @@ class TemplatesLib extends TikiLib
 			}
 		}
 
-		if ( $info ) {
+		if ($info) {
 			return TikiLib::htmldecode($info['data']);
 		}
 	}
@@ -203,11 +204,9 @@ class TemplatesLib extends TikiLib
 		$categlib = TikiLib::lib('categ');
 
 		while ($res = $result->fetchRow()) {
-
 			$perms = Perms::get(array('type' => 'template', 'object' => $res["templateId"]));
 
 			if ($perms->use_content_templates) {
-
 				$query2 = "select `section` from `tiki_content_templates_sections` where `templateId`=?";
 				$result2 = $this->query($query2, array((int)$res["templateId"]));
 				$sections = array();
@@ -349,4 +348,4 @@ class TemplatesLib extends TikiLib
 		return $result;
 	}
 }
-$templateslib = new TemplatesLib;
+$templateslib = new TemplatesLib();

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -14,7 +15,7 @@ class JitFilterAccessTest extends TikiTestCase
 {
 	private $array;
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		$this->array = [
 			'foo' => 'bar',
@@ -28,7 +29,7 @@ class JitFilterAccessTest extends TikiTestCase
 		$this->array = new JitFilter($this->array);
 	}
 
-	protected function tearDown() : void
+	protected function tearDown(): void
 	{
 		$this->array = null;
 	}
@@ -75,7 +76,7 @@ class JitFilterAccessTest extends TikiTestCase
 	public function testAsArraySplit()
 	{
 		$test = new JitFilter(['foo' => '1|2a|3']);
-		$test->setDefaultFilter(new Laminas\Filter\Digits);
+		$test->setDefaultFilter(new Laminas\Filter\Digits());
 
 		$this->assertEquals(['1', '2', '3'], $test->asArray('foo', '|'));
 	}
@@ -107,7 +108,7 @@ class JitFilterAccessTest extends TikiTestCase
 
 	public function testGetSingleWithoutPresetGeneric()
 	{
-		$this->assertEquals('BAR', $this->array->foo->filter(new Laminas\Filter\StringToUpper));
+		$this->assertEquals('BAR', $this->array->foo->filter(new Laminas\Filter\StringToUpper()));
 	}
 
 	public function testGetSinfleWithoutPresetNamed()
@@ -117,7 +118,7 @@ class JitFilterAccessTest extends TikiTestCase
 
 	public function testGetStructuredWithoutPresetGeneric()
 	{
-		$filtered = $this->array->baz->filter(new Laminas\Filter\StringToUpper);
+		$filtered = $this->array->baz->filter(new Laminas\Filter\StringToUpper());
 		$this->assertEquals(['HELLO', 'WORLD'], $filtered);
 	}
 

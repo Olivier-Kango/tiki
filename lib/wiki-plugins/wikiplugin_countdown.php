@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -227,8 +228,10 @@ function wikiplugin_countdown($data, $params)
 		} else {
 			$days = $diff['days'];
 		}
-		if ((($timediff < 0 && $diff['invert'] == 1) || ($timediff > 0 && $diff['invert'] == 0))
-			&& isset($caldays) && $caldays == 'y' && $show_hours === false) {
+		if (
+            (($timediff < 0 && $diff['invert'] == 1) || ($timediff > 0 && $diff['invert'] == 0))
+			&& isset($caldays) && $caldays == 'y' && $show_hours === false
+        ) {
 			$int = is_int($days);
 			$diff['caldays'] = $days + 1;
 		} else {

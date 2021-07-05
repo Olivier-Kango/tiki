@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -48,21 +49,21 @@ abstract class Toolbar
 		} elseif ($tag = ToolbarDialog::fromName($tagName)) {
 			return $tag;
 		} elseif ($tagName == 'fullscreen') {
-			return new ToolbarFullscreen;
+			return new ToolbarFullscreen();
 		} elseif ($tagName == 'tikiimage') {
-			return new ToolbarFileGallery;
+			return new ToolbarFileGallery();
 		} elseif ($tagName == 'tikifile') {
-			return new ToolbarFileGalleryFile;
+			return new ToolbarFileGalleryFile();
 		} elseif ($tagName == 'help') {
-			return new ToolbarHelptool;
+			return new ToolbarHelptool();
 		} elseif ($tagName == 'switcheditor') {
-			return new ToolbarSwitchEditor;
+			return new ToolbarSwitchEditor();
 		} elseif ($tagName == 'admintoolbar') {
-			return new ToolbarAdmin;
+			return new ToolbarAdmin();
 		} elseif ($tagName == '-') {
-			return new ToolbarSeparator;
+			return new ToolbarSeparator();
 		} elseif ($tagName == '|') {
-			return new ToolbarSpacer;
+			return new ToolbarSpacer();
 		}
 	}
 
@@ -335,7 +336,7 @@ abstract class Toolbar
 		return $tag;
 	}
 
-	public abstract function getWikiHtml($areaId);
+	abstract public function getWikiHtml($areaId);
 
 	public function isAccessible()
 	{
@@ -462,8 +463,10 @@ abstract class Toolbar
 			$params['_icon'] = $this->icon;
 		}
 
-		if (strpos($class, 'qt-plugin') !== false && ($this->iconname == 'plugin'
-				|| $this->icon == 'img/icons/plugin.png')) {
+		if (
+            strpos($class, 'qt-plugin') !== false && ($this->iconname == 'plugin'
+				|| $this->icon == 'img/icons/plugin.png')
+        ) {
 			$params['_menu_text'] = 'y';
 			$params['_menu_icon'] = 'y';
 		}
@@ -770,7 +773,7 @@ class ToolbarInline extends Toolbar
 				return;
 		}
 
-		$tag = new self;
+		$tag = new self();
 		$tag->setLabel($label)
 			->setWysiwygToken($wysiwyg)
 			->setIconName(! empty($iconname) ? $iconname : 'help')
@@ -887,7 +890,7 @@ class ToolbarBlock extends ToolbarInline // Will change in the future
 				return;
 		}
 
-		$tag = new self;
+		$tag = new self();
 		$tag->setLabel($label)
 			->setWysiwygToken($wysiwyg)
 			->setIconName(! empty($iconname) ? $iconname : 'help')
@@ -942,7 +945,7 @@ class ToolbarLineBased extends ToolbarInline // Will change in the future
 				return null;
 		}
 
-		$tag = new self;
+		$tag = new self();
 		$tag->setLabel($label)
 			->setWysiwygToken($wysiwyg)
 			->setIconName(! empty($iconname) ? $iconname : 'help')
@@ -1062,7 +1065,7 @@ class ToolbarPicker extends Toolbar
 				return;
 		}
 
-		$tag = new self;
+		$tag = new self();
 		$tag->setWysiwygToken($wysiwyg)
 			->setLabel($label)
 			->setIconName(! empty($iconname) ? $iconname : 'help')
@@ -1312,7 +1315,7 @@ class ToolbarDialog extends Toolbar
 				return;
 		}
 
-		$tag = new self;
+		$tag = new self();
 		$tag->name = $tagName;
 		$tag->setWysiwygToken($wysiwyg)
 			->setLabel($label)
@@ -1721,7 +1724,7 @@ class ToolbarWikiplugin extends Toolbar
 		if (substr($name, 0, 11) == 'wikiplugin_') {
 			$name = substr($name, 11);
 			if ($info = $parserlib->plugin_info($name)) {
-				$tag = new self;
+				$tag = new self();
 				$tag->setLabel(str_ireplace('wikiplugin_', '', $info['name']))
 					->setWysiwygToken(str_replace(' ', '_', $info['name']))
 					->setPluginName($name)
@@ -1927,7 +1930,7 @@ class ToolbarSheet extends Toolbar
 				return;
 		}
 
-		$tag = new self;
+		$tag = new self();
 		$tag->setLabel($label)
 			->setSyntax($syntax)
 			->setType('Sheet');
@@ -2003,7 +2006,7 @@ class ToolbarsList
 	{
 		global $toolbarPickerIndex;
 		$toolbarPickerIndex = -1;
-		$list = new self;
+		$list = new self();
 		$list->wysiwyg = (isset($params['_wysiwyg']) && $params['_wysiwyg'] === 'y');
 		$list->is_html = ! empty($params['_is_html']);
 
@@ -2060,8 +2063,10 @@ class ToolbarsList
 						$group = [];
 					}
 				} else {
-					if (( $tag = Toolbar::getTag($tagName, $this->wysiwyg, $this->is_html) )
-						&& $tag->isAccessible() ) {
+					if (
+                        ( $tag = Toolbar::getTag($tagName, $this->wysiwyg, $this->is_html) )
+						&& $tag->isAccessible()
+                    ) {
 						$group[] = $tag;
 					}
 				}

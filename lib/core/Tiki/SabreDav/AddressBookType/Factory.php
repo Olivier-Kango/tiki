@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -8,7 +9,6 @@
 namespace Tiki\SabreDav\AddressBookType;
 
 use Sabre\CardDAV;
-
 use TikiLib;
 
 class Factory
@@ -37,7 +37,7 @@ class Factory
 				throw new DAV\Exception\Forbidden("You don't have permission to access or modify this address book.");
 			}
 		}
-		switch($type) {
+		switch ($type) {
 			case 'webmail':
 				return new Webmail($user);
 			case 'system':

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -152,7 +153,7 @@ function has_uncommited_changes($localPath)
 {
 	$localPath = escapeshellarg($localPath);
 
-	$dom = new DOMDocument;
+	$dom = new DOMDocument();
 	$dom->loadXML(`svn status --xml $localPath`);
 
 	$xp = new DOMXPath($dom);
@@ -174,7 +175,7 @@ function files_differ($localPath)
 {
 	$localPath = escapeshellarg($localPath);
 
-	$dom = new DOMDocument;
+	$dom = new DOMDocument();
 	$dom->loadXML(`svn status --xml $localPath`);
 	$entries = [];
 
@@ -199,7 +200,7 @@ function get_conflicts($localPath)
 {
 	$localPath = escapeshellarg($localPath);
 
-	$dom = new DOMDocument;
+	$dom = new DOMDocument();
 	$dom->loadXML(`svn status --xml $localPath`);
 
 	$xp = new DOMXPath($dom);

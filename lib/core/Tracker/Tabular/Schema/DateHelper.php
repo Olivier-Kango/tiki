@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -29,7 +30,7 @@ class DateHelper
 
 				return $this->convertToUnix($value);
 			},
-			function (& $info, $value) use ($permName) {
+			function (&$info, $value) use ($permName) {
 				$info['fields'][$permName] = $value;
 			}
 		);
@@ -48,10 +49,10 @@ class DateHelper
 				$unix = $this->convertToUnix($value);
 				return date($format, $unix);
 			},
-			function (& $info, $value) use ($permName, $format) {
+			function (&$info, $value) use ($permName, $format) {
 				$date = date_create_from_format($format, $value);
 				if (! $date) {
-					$date = date_create_from_format($format.'.v', $value);
+					$date = date_create_from_format($format . '.v', $value);
 				}
 				if ($date) {
 					$info['fields'][$permName] = $date->getTimestamp();

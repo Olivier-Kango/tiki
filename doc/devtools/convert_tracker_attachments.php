@@ -67,7 +67,7 @@ function convertAttachments($trackerId, $fieldId, $galleryId = 0, $remove = fals
 	global $prefs;
 
 	$trklib = TikiLib::lib('trk');
-	$trackerUtilities = new Services_Tracker_Utilities;
+	$trackerUtilities = new Services_Tracker_Utilities();
 	$definition = Tracker_Definition::get($trackerId);
 
 	// Check if tracker and fieldId are valid
@@ -89,7 +89,7 @@ function convertAttachments($trackerId, $fieldId, $galleryId = 0, $remove = fals
 
 // Check if its a valid file gallery
 	try {
-		$fileUtilities = new Services_File_Utilities;
+		$fileUtilities = new Services_File_Utilities();
 		$galInfo = $fileUtilities->checkTargetGallery($galleryId);
 	} catch (Services_Exception $e) {
 		echo "Error: {$e->getMessage()}\n";

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -24,7 +25,7 @@ class Tiki_Event_Customizer
 	private function getRuleSet($eventName)
 	{
 		if (! isset($this->ruleSets[$eventName])) {
-			$this->ruleSets[$eventName] = new Tiki_Event_Customizer_RuleSet;
+			$this->ruleSets[$eventName] = new Tiki_Event_Customizer_RuleSet();
 		}
 
 		return $this->ruleSets[$eventName];

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -769,11 +770,13 @@ class TrackerLib extends TikiLib
 		$lastHeader = -1;
 		$elemSinceLastHeader = 0;
 		foreach ($fields as $key => $trac) {
-			if (! (empty($trac['value']) && empty($trac['cat'])
+			if (
+                ! (empty($trac['value']) && empty($trac['cat'])
 					&& empty($trac['links']) && $trac['type'] != 's'
 					&& $trac['type'] != 'STARS' && $trac['type'] != 'h'
 					&& $trac['type'] != 'l' && $trac['type'] != 'W')
-					&& ! ($trac['options_array'][0] == 'password' && $trac['type'] == 'p')) {
+					&& ! ($trac['options_array'][0] == 'password' && $trac['type'] == 'p')
+            ) {
 				if ($trac['type'] == 'h') {
 					if ($lastHeader > 0 && $elemSinceLastHeader == 0) {
 						$fields[$lastHeader]['field_is_empty'] = true;
@@ -895,14 +898,16 @@ class TrackerLib extends TikiLib
 				$myfield = $definition->getField($field);
 
 				$myfield['value'] = $this->get_item_value(
-					$trackerId, $itemId, $field
+					$trackerId,
+                    $itemId,
+                    $field
 				);
 				if (! isset($item['itemId'])) {
 					$item['itemId'] = $itemId;
 				}
 				$value = trim($this->field_render_value(
-					['field' => $myfield, 'process' => 'y', 'list_mode' => $list_mode, 'item' => $item])
-				);
+                    ['field' => $myfield, 'process' => 'y', 'list_mode' => $list_mode, 'item' => $item]
+                ));
 
 				if ($format) {
 					$values[] = $value;
@@ -1652,14 +1657,18 @@ class TrackerLib extends TikiLib
 				$ownershipData = [];
 				$table = $this->itemFields();
 				$rows = $table->fetchAll(['itemId', 'fieldId', 'value'], [
-					'itemId' => $table->in(array_map(function($row){ return $row['itemId']; }, $ret1)),
+					'itemId' => $table->in(array_map(function ($row) {
+ return $row['itemId'];
+                    }, $ret1)),
 					'fieldId' => $table->in($ownershipFields)
 				]);
 				foreach ($rows as $row) {
 					$ownershipData[$row['itemId']][$row['fieldId']] = $this->parse_user_field($row['value']);
 				}
 				$rows = $table->fetchAll(['itemId', 'fieldId', 'value'], [
-					'itemId' => $table->in(array_map(function($row){ return $row['itemId']; }, $ret1)),
+					'itemId' => $table->in(array_map(function ($row) {
+ return $row['itemId'];
+                    }, $ret1)),
 					'fieldId' => $table->in($groupOwnershipFields)
 				]);
 				foreach ($rows as $row) {
@@ -2052,9 +2061,10 @@ class TrackerLib extends TikiLib
 						} else {
 							$new_value = $value;
 						}
-						if ($old_value != $new_value && ! empty($itemId) &&
+						if (
+                            $old_value != $new_value && ! empty($itemId) &&
 								$array['type'] !== 'W' // not for webservices
-								) {
+                        ) {
 							$this->log($version, $itemId, $array['fieldId'], $old_value);
 						}
 					}
@@ -2065,7 +2075,7 @@ class TrackerLib extends TikiLib
 		}
 
 		// delete empty actionlog version to prevent history date overlap
-		if ($version > 0 && $this->last_log_version($itemId)+1 == $version) {
+		if ($version > 0 && $this->last_log_version($itemId) + 1 == $version) {
 			$logslib->delete_action('Updated', $itemId, 'trackeritem', $version);
 		}
 
@@ -2154,7 +2164,7 @@ class TrackerLib extends TikiLib
 			} catch (Tiki\Encryption\Exception $e) {
 				Feedback::error(tr('Field "%0" is encrypted using key "%1" but where was an error enrypting the data: %2', $field['name'], $key->get('name'), $e->getMessage()));
 			}
-			$info = '<div class="description form-text">'.$info.'</div>';
+			$info = '<div class="description form-text">' . $info . '</div>';
 		}
 
 		$conditions = [
@@ -2260,7 +2270,7 @@ class TrackerLib extends TikiLib
 		}
 
 		// mandatory fields check
-		$utilities = new \Services_Tracker_Utilities;
+		$utilities = new \Services_Tracker_Utilities();
 		$definition = Tracker_Definition::get($trackerId);
 		$line = 0;
 		$errors = [];
@@ -2560,7 +2570,7 @@ class TrackerLib extends TikiLib
 		// Check if can view field otherwise exclude it
 		$item = Tracker_Item::newItem($trackerId);
 		foreach ($fields['data'] as $k => $field) {
-			if (!$item->canViewField($field['fieldId'])) {
+			if (! $item->canViewField($field['fieldId'])) {
 				unset($fields['data'][$k]);
 			}
 		}
@@ -2698,18 +2708,20 @@ class TrackerLib extends TikiLib
 		global $prefs;
 		$mandatory_fields = [];
 		$erroneous_values = [];
-		if (isset($ins_fields)&&isset($ins_fields['data'])) {
+		if (isset($ins_fields) && isset($ins_fields['data'])) {
 			foreach ($ins_fields['data'] as $f) {
-				if ($f['type'] == 'b' && ! empty($f['value'])){
+				if ($f['type'] == 'b' && ! empty($f['value'])) {
 					if (is_numeric($f['value'])) {
-						$f['name']= $f['name'].' Currency';
+						$f['name'] = $f['name'] . ' Currency';
 						$mandatory_fields[] = $f;
 					}
 				}
 				if ($f['type'] == 'f' && $f['isMandatory'] != 'y' && empty($f['value'])) {
 					$ins_id = 'ins_' . $f['fieldId'];
-					if (! empty($_REQUEST[$ins_id . 'Month']) || ! empty($_REQUEST[$ins_id . 'Day']) || ! empty($_REQUEST[$ins_id . 'Year']) ||
-								! empty($_REQUEST[$ins_id . 'Hour']) || ! empty($_REQUEST[$ins_id . 'Minute'])) {
+					if (
+                        ! empty($_REQUEST[$ins_id . 'Month']) || ! empty($_REQUEST[$ins_id . 'Day']) || ! empty($_REQUEST[$ins_id . 'Year']) ||
+								! empty($_REQUEST[$ins_id . 'Hour']) || ! empty($_REQUEST[$ins_id . 'Minute'])
+                    ) {
 						$erroneous_values[] = $f;
 					}
 				}
@@ -2725,7 +2737,7 @@ class TrackerLib extends TikiLib
 							foreach ($f['lingualvalue'] as $val) {
 								foreach ($multi_languages as $num => $tmplang) {
 									//Check if trad is empty
-									if (! isset($val['lang']) ||! isset($val['value']) ||(($val['lang'] == $tmplang) && strlen($val['value']) == 0)) {
+									if (! isset($val['lang']) || ! isset($val['value']) || (($val['lang'] == $tmplang) && strlen($val['value']) == 0)) {
 										$mandatory_fields[] = $f;
 									}
 								}
@@ -2760,7 +2772,7 @@ class TrackerLib extends TikiLib
 					switch ($f['type']) {
 						// IP address (only for IPv4)
 						case 'I':
-							$validator = new Laminas\Validator\Ip;
+							$validator = new Laminas\Validator\Ip();
 							if (! $validator->isValid($f['value'])) {
 								$erroneous_values[] = $f;
 							}
@@ -2998,7 +3010,7 @@ class TrackerLib extends TikiLib
 		$fields = [];
 		$child = $this->findLinkedItems(
 			$itemId,
-			function ($field, $handler) use ($trackerId, & $fields) {
+			function ($field, $handler) use ($trackerId, &$fields) {
 				if (! $handler->cascadeDelete($trackerId)) {
 					$fields[] = $field['fieldId'];
 					return true;
@@ -3106,7 +3118,7 @@ class TrackerLib extends TikiLib
 		$result = $fieldsTable->fetchAll($fieldsTable->all(), $conditions, $maxRecords, $offset, $fieldsTable->sortMode($sort_mode));
 		$cant = $fieldsTable->fetchCount($conditions);
 
-		$factory = new Tracker_Field_Factory;
+		$factory = new Tracker_Field_Factory();
 		foreach ($result as & $res) {
 			$typeInfo = $factory->getFieldInfo($res['type']);
 			$options = Tracker_Options::fromSerialized($res['options'], $typeInfo);
@@ -3637,7 +3649,7 @@ class TrackerLib extends TikiLib
 			$res = $this->fields()->fetchFullRow(['permName' => $fieldIdOrPermName]);
 		}
 		if ($res) {
-			$factory = new Tracker_Field_Factory;
+			$factory = new Tracker_Field_Factory();
 			$options = Tracker_Options::fromSerialized($res['options'], $factory->getFieldInfo($res['type']));
 			$res['options_array'] = $options->buildOptionsArray();
 			$res['itemChoices'] = ! empty($res['itemChoices']) ? unserialize($res['itemChoices']) : [];
@@ -3869,7 +3881,8 @@ class TrackerLib extends TikiLib
 	 *
 	 * @return string title to append to the end of a sefurl
 	 */
-	public function get_title_sefurl($itemId) {
+	public function get_title_sefurl($itemId)
+    {
 		global $prefs;
 
 		$trackerId = $this->get_tracker_for_item($itemId);
@@ -4321,7 +4334,7 @@ class TrackerLib extends TikiLib
 		$query = "select ttif.`value`, ttf.`options` from `tiki_tracker_fields` ttf, `tiki_tracker_item_fields` ttif";
 		$query .= " where ttif.`itemId`=? and ttf.`type`=? and ttf.`fieldId`=ttif.`fieldId`";
 		$ret = $this->fetchAll($query, [$itemId, $typeField]);
-		$factory = new Tracker_Field_Factory;
+		$factory = new Tracker_Field_Factory();
 		$typeInfo = $factory->getFieldInfo($typeField);
 		foreach ($ret as &$res) {
 			$options = Tracker_Options::fromSerialized($res['options'], $typeInfo);
@@ -4363,9 +4376,11 @@ class TrackerLib extends TikiLib
 			$res = $this->get_item_values_by_type($itemId, 'm');
 			if (is_array($res)) {
 				foreach ($res as $f) {
-					if ((isset($f['options_map']['watchopen']) && $f['options_map']['watchopen'] == 'o' && $status == 'o')
+					if (
+                        (isset($f['options_map']['watchopen']) && $f['options_map']['watchopen'] == 'o' && $status == 'o')
 						|| (isset($f['options_map']['watchpending']) && $f['options_map']['watchpending'] == 'p' && $status == 'p')
-						|| (isset($f['options_map']['watchclosed']) && $f['options_map']['watchclosed'] == 'c' && $status == 'c')) {
+						|| (isset($f['options_map']['watchclosed']) && $f['options_map']['watchclosed'] == 'c' && $status == 'c')
+                    ) {
 						$emails[] = ['email' => $f['value'], 'user' => '', 'language' => $prefs['language'], 'mailCharset' => $prefs['users_prefs_mailCharset'], 'action' => 'status'];
 					}
 				}
@@ -4501,8 +4516,10 @@ class TrackerLib extends TikiLib
 			// determine if field has changed
 			$relatedfields = $relationlib->get_object_ids_with_relations_from('wiki page', $pageName, 'tiki.wiki.linkedfield');
 			foreach ($relatedfields as $fieldId) {
-				if (isset($args['values'][$fieldId]) and isset($args['old_values'][$fieldId])
-					&& $args['values'][$fieldId] != $args['old_values'][$fieldId] ) {
+				if (
+                    isset($args['values'][$fieldId]) and isset($args['old_values'][$fieldId])
+					&& $args['values'][$fieldId] != $args['old_values'][$fieldId]
+                ) {
 					if ($wikilib->get_namespace($args['values'][$fieldId])) {
 						$newname = $args['values'][$fieldId];
 					} elseif ($namespace = $wikilib->get_namespace($pageName)) {
@@ -4546,8 +4563,10 @@ class TrackerLib extends TikiLib
 				$field = $definition->getField($fieldId);
 				if ($field['options_map']['syncwikipagename'] != 'n') {
 					$nameFieldId = $field['options_map']['fieldIdForPagename'];
-					if (! empty($values[$nameFieldId]) && ! empty($old_values[$nameFieldId]) && ! empty($old_values[$fieldId])
-						&& $values[$nameFieldId] != $old_values[$nameFieldId] ) {
+					if (
+                        ! empty($values[$nameFieldId]) && ! empty($old_values[$nameFieldId]) && ! empty($old_values[$fieldId])
+						&& $values[$nameFieldId] != $old_values[$nameFieldId]
+                    ) {
 						if ($namespace = $wikilib->get_namespace($old_values[$fieldId])) {
 							$newname = $namespace . $prefs['namespace_separator'] . $wikilib->get_without_namespace($values[$nameFieldId]);
 						} else {
@@ -4587,10 +4606,10 @@ class TrackerLib extends TikiLib
 
 		$tikilib = TikiLib::lib('tiki');
 		$value = '';
-		$monthIsNull = empty($input[$ins_id . 'Month']) || $input[$ins_id . 'Month'] == null || $input[$ins_id . 'Month'] == 'null'|| $input[$ins_id . 'Month'] == '';
+		$monthIsNull = empty($input[$ins_id . 'Month']) || $input[$ins_id . 'Month'] == null || $input[$ins_id . 'Month'] == 'null' || $input[$ins_id . 'Month'] == '';
 		$dayIsNull = empty($input[$ins_id . 'Day']) || $input[$ins_id . 'Day'] == null || $input[$ins_id . 'Day'] == 'null' || $input[$ins_id . 'Day'] == '';
 		$yearIsNull = empty($input[$ins_id . 'Year']) || $input[$ins_id . 'Year'] == null || $input[$ins_id . 'Year'] == 'null' || $input[$ins_id . 'Year'] == '';
-		$hourIsNull = ! isset($input[$ins_id . 'Hour']) || $input[$ins_id . 'Hour'] == null || $input[$ins_id . 'Hour'] == 'null' || $input[$ins_id . 'Hour'] == ''|| $input[$ins_id . 'Hour'] == ' ';
+		$hourIsNull = ! isset($input[$ins_id . 'Hour']) || $input[$ins_id . 'Hour'] == null || $input[$ins_id . 'Hour'] == 'null' || $input[$ins_id . 'Hour'] == '' || $input[$ins_id . 'Hour'] == ' ';
 		$minuteIsNull = empty($input[$ins_id . 'Minute']) || $input[$ins_id . 'Minute'] == null || $input[$ins_id . 'Minute'] == 'null' || $input[$ins_id . 'Minute'] == '' || $input[$ins_id . 'Minute'] == ' ';
 		if ($format == 'd') {
 			if ($monthIsNull || $dayIsNull || $yearIsNull) {
@@ -5057,7 +5076,7 @@ class TrackerLib extends TikiLib
 		$query = 'select ttif.*, ttf.`type`, ttf.`options` from `tiki_tracker_item_fields` ttif left join `tiki_tracker_fields` ttf on (ttif.`fieldId` = ttf.`fieldId`) where `itemId`=?';
 		$result = $this->fetchAll($query, [$from]);
 		$clean = [];
-		$factory = new Tracker_Field_Factory;
+		$factory = new Tracker_Field_Factory();
 		foreach ($result as $res) {
 			$typeInfo = $factory->getFieldInfo($res['type']);
 			$options = Tracker_Options::fromSerialized($res['options'], $typeInfo);
@@ -5065,8 +5084,10 @@ class TrackerLib extends TikiLib
 
 			if ($prefs['feature_categories'] == 'y' && $res['type'] == 'e') {
 				//category
-				if ((! empty($except) && in_array($res['fieldId'], $except))
-					|| (! empty($only) && ! in_array($res['fieldId'], $only))) {
+				if (
+                    (! empty($except) && in_array($res['fieldId'], $except))
+					|| (! empty($only) && ! in_array($res['fieldId'], $only))
+                ) {
 					// take away the categories from $cats
 					if (ctype_digit($res['options_array'][0]) && $res['options_array'][0] > 0) {
 						$filter = ['identifier' => $res['options_array'][0], 'type' => 'children'];
@@ -5082,10 +5103,11 @@ class TrackerLib extends TikiLib
 				}
 			}
 
-			if ((! empty($except) && in_array($res['fieldId'], $except))
+			if (
+                (! empty($except) && in_array($res['fieldId'], $except))
 				|| (! empty($only) && ! in_array($res['fieldId'], $only))
 				|| ($res['type'] == 'q')
-				) {
+            ) {
 				continue;
 			}
 			if (! empty($is_new) && in_array($res['type'], ['u', 'g', 'I']) && ($res['options_array'][0] == 1 || $res['options_array'][0] == 2)) {
@@ -5164,8 +5186,10 @@ class TrackerLib extends TikiLib
 				$overs = [];
 				foreach ($items as $item) {
 					$endDay = TikiLib::make_time(23, 59, 59, $day['month'], $day['day'], $day['year']);
-					if ((count($fieldIds) == 1 && $item['field_values'][$iStart]['value'] >= $day['date'] && $item['field_values'][$iStart]['value'] <= $endDay)
-						|| (count($fieldIds) > 1 && $item['field_values'][$iStart]['value'] <= $endDay && $item['field_values'][$iEnd]['value'] >= $day['date'])) {
+					if (
+                        (count($fieldIds) == 1 && $item['field_values'][$iStart]['value'] >= $day['date'] && $item['field_values'][$iStart]['value'] <= $endDay)
+						|| (count($fieldIds) > 1 && $item['field_values'][$iStart]['value'] <= $endDay && $item['field_values'][$iEnd]['value'] >= $day['date'])
+                    ) {
 							$cell[$i][$j]['items'][] = $item;
 							$overs[] = preg_replace('|(<br /> *)*$|m', '', $item['over']);
 					}
@@ -5555,7 +5579,7 @@ class TrackerLib extends TikiLib
 
 			$handler = $this->get_field_handler($field);
 			if ($handler) {
-				$userOk = (!$watcher || $watcher === 'admin');
+				$userOk = (! $watcher || $watcher === 'admin');
 				if (! $userOk && is_array($field['visibleBy']) && ! empty($field['visibleBy'])) {
 					foreach ($field['visibleBy'] as $group) {
 						$userOk = $userslib->user_is_in_group($watcher, $group);
@@ -6089,7 +6113,7 @@ class TrackerLib extends TikiLib
 				} catch (Tiki\Encryption\Exception $e) {
 					$field['value'] = $item[$field['fieldId']] = '';
 					$r = tr('Field data is encrypted using key "%0" but where was an error decrypting the data: %1', $key->get('name'), $e->getMessage());
-					$r .= ' '.$key->manualEntry();
+					$r .= ' ' . $key->manualEntry();
 				}
 				$handler = $this->get_field_handler($field, $item);
 				$field = array_merge($field, $handler->getFieldData());
@@ -6123,7 +6147,7 @@ class TrackerLib extends TikiLib
 
 			if (! is_null($r)) {
 				// already rendered (decryption error)
-			}	elseif (! empty($params['editable']) && $params['field']['type'] !== 'STARS') {
+			} elseif (! empty($params['editable']) && $params['field']['type'] !== 'STARS') {
 				if ($params['editable'] === true) {
 					// Some callers pass true/false instead of an actual mode, default to block
 					$params['editable'] = 'block';
@@ -6460,7 +6484,8 @@ class TrackerLib extends TikiLib
 	 * @param $date
 	 * @return array of exchange rates
 	 */
-	public function exchange_rates($trackerId, $date) {
+	public function exchange_rates($trackerId, $date)
+    {
 		if (is_numeric($date)) {
 			$date = date('Y-m-d', $date);
 		} elseif (! empty($date)) {
@@ -6492,18 +6517,18 @@ class TrackerLib extends TikiLib
 		foreach ($fields as $field) {
 			switch ($field['type']) {
 				case 't':
-					if (!$currencyField) {
+					if (! $currencyField) {
 						$currencyField = $field;
 					}
 					break;
 				case 'f':
 				case 'j':
-					if (!$dateField) {
+					if (! $dateField) {
 						$dateField = $field;
 					}
 					break;
 				case 'n':
-					if (!$rateField) {
+					if (! $rateField) {
 						$rateField = $field;
 					}
 					break;
@@ -6512,13 +6537,15 @@ class TrackerLib extends TikiLib
 		if ($currencyField && $dateField && $rateField) {
 			$currencies = $this->list_tracker_field_values($trackerId, $currencyField['fieldId']);
 			foreach ($currencies as $currency) {
-				$rates[$date][$currency] = $this->getOne('SELECT ttif3.value as rate FROM tiki_tracker_items tti
+				$rates[$date][$currency] = $this->getOne(
+                    'SELECT ttif3.value as rate FROM tiki_tracker_items tti
 					LEFT JOIN tiki_tracker_item_fields ttif1 ON tti.itemId = ttif1.itemId AND ttif1.fieldId = ?
 					LEFT JOIN tiki_tracker_item_fields ttif2 ON tti.itemId = ttif2.itemId AND ttif2.fieldId = ?
 					LEFT JOIN tiki_tracker_item_fields ttif3 ON tti.itemId = ttif3.itemId AND ttif3.fieldId = ?
 					WHERE tti.trackerId = ? AND ttif1.value = ? AND DATE_FORMAT(FROM_UNIXTIME(ttif2.value), \'%Y-%m-%d\') <= ?
 					ORDER BY ttif2.value DESC',
-					[$currencyField['fieldId'], $dateField['fieldId'], $rateField['fieldId'], $trackerId, $currency, $date]);
+                    [$currencyField['fieldId'], $dateField['fieldId'], $rateField['fieldId'], $trackerId, $currency, $date]
+                );
 			}
 		}
 		return $rates[$date];

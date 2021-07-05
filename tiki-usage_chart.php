@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -21,7 +23,7 @@ $statslib = TikiLib::lib('stats');
 if (isset($_REQUEST["type"])) {
 	if ($_REQUEST["type"] == "daily") {
 		$renderer = new GD_GRenderer(450, 400);
-		$graph = new MultibarGraphic;
+		$graph = new MultibarGraphic();
 		$data = $statslib->get_daily_usage_chart_data();
 		$graph->setTitle(tra('Daily Usage'));
 		$graph->setData(['x' => $data['xdata'], 'y0' => $data['ydata']]);
@@ -31,7 +33,7 @@ if (isset($_REQUEST["type"])) {
 	}
 } else {
 	$renderer = new GD_GRenderer(450, 300);
-	$graph = new MultibarGraphic;
+	$graph = new MultibarGraphic();
 	$data = $tikilib->get_usage_chart_data();
 	$graph->setTitle(tra('Usage'));
 	$graph->setData(['x' => $data['xdata'], 'y0' => $data['ydata']]);

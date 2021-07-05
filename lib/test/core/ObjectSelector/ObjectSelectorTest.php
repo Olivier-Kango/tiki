@@ -1,4 +1,5 @@
 <?php
+
 namespace Test\ObjectSelector;
 
 use PHPUnit\Framework\TestCase;
@@ -12,7 +13,7 @@ class ObjectSelectorTest extends TestCase
 
 	private $calls = [];
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		$this->selector = new Selector($this);
 	}

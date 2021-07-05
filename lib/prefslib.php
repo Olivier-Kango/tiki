@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -869,7 +870,7 @@ class PreferencesLib
 	private function _getFlagValue($info, $data)
 	{
 		$name = $info['preference'];
-		if (isset($data[$name])&& ! empty($data[$name]) && $data[$name] != 'n') {
+		if (isset($data[$name]) && ! empty($data[$name]) && $data[$name] != 'n') {
 			$ret = 'y';
 		} else {
 			$ret = 'n';
@@ -929,7 +930,7 @@ class PreferencesLib
 
 		if (isset($info['filter']) && $filter = TikiFilter::get($info['filter'])) {
 			if (is_array($value)) {
-				$value =  array_map([ $filter, 'filter' ], $value);
+				$value = array_map([ $filter, 'filter' ], $value);
 			} else {
 				$value = $filter->filter($value);
 			}
@@ -1030,15 +1031,23 @@ class PreferencesLib
 					case 'min':
 						if ($value < $constraint) {
 							$value = $constraint;
-							Feedback::warning(tr('%0 set to minimum of %1 instead of submitted value of %2',
-								$info['preference'], $constraint, $original));
+							Feedback::warning(tr(
+                                '%0 set to minimum of %1 instead of submitted value of %2',
+                                $info['preference'],
+                                $constraint,
+                                $original
+                            ));
 						}
 						break;
 					case 'max':
 						if ($value > $constraint) {
 							$value = $constraint;
-							Feedback::warning(tr('%0 set to maximum of %1 instead of submitted value of %2',
-								$info['preference'], $constraint, $original));
+							Feedback::warning(tr(
+                                '%0 set to maximum of %1 instead of submitted value of %2',
+                                $info['preference'],
+                                $constraint,
+                                $original
+                            ));
 						}
 						break;
 				}
@@ -1340,7 +1349,7 @@ class PreferencesLib
 	{
 		$hiddenPreferences = [];
 
-		if(! empty($preferences)) {
+		if (! empty($preferences)) {
 			foreach ($preferences as $preference) {
 				$preferenceDetails = $this->getPreference($preference['name']);
 

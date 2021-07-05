@@ -1,4 +1,5 @@
 <?php
+
 include dirname(__DIR__) . '/entities/ClientEntity.php';
 use League\OAuth2\Server\Repositories\ClientRepositoryInterface;
 
@@ -147,7 +148,7 @@ class ClientRepository implements ClientRepositoryInterface
 
 		if (empty($entity->getRedirectUri())) {
 			$errors['redirect_uri'] = tra('Redirect URI cannot be empty');
-		} else if (! filter_var($entity->getRedirectUri(), FILTER_VALIDATE_URL)) {
+		} elseif (! filter_var($entity->getRedirectUri(), FILTER_VALIDATE_URL)) {
 			$errors['redirect_uri'] = tra('Invalid URL for redirect URI');
 		}
 

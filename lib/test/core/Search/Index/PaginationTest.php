@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -23,7 +24,7 @@ abstract class Search_Index_PaginationTest extends PHPUnit\Framework\TestCase
 	{
 		$this->addDocuments($count);
 
-		$query = new Search_Query;
+		$query = new Search_Query();
 		$query->setOrder('object_id_nasc');
 		$query->filterType('article');
 		$query->setRange($from, $perPage);

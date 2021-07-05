@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -26,7 +27,8 @@ function smarty_function_payment($params, $smarty)
 
 	// Unpaid payments can be seen by anyone as long as they know the number
 	// Just like your bank account, anyone can drop money in it.
-	if ($info &&
+	if (
+        $info &&
 		$objectperms->payment_view &&
 		(
 			(
@@ -88,7 +90,7 @@ function smarty_function_payment($params, $smarty)
 			}
 		} elseif ($prefs['payment_system'] == 'tikicredits') {
 			require_once 'lib/payment/creditspaylib.php';
-			$userpaycredits = new UserPayCredits;
+			$userpaycredits = new UserPayCredits();
 			$userpaycredits->setPrice($info['amount_remaining']);
 			$smarty->assign('userpaycredits', $userpaycredits->credits);
 		}

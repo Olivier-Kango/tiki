@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -24,8 +25,10 @@ function wikiplugin_annotation_info()
 				'required' => true,
 				'name' => tra('Location'),
 				'description' => ($prefs['feature_sefurl'] === 'y') ?
-					tr('Absolute URL to the image, relative path from Tiki site root or an image from the file gallery %0',
-						'<code>display1</code>') : tra('Absolute URL to the image or relative path from Tiki site root.'),
+					tr(
+                        'Absolute URL to the image, relative path from Tiki site root or an image from the file gallery %0',
+                        '<code>display1</code>'
+                    ) : tra('Absolute URL to the image or relative path from Tiki site root.'),
 				'filter' => 'url',
 				'default' => '',
 				'since' => '3.0',

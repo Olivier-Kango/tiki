@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -66,9 +67,11 @@ class EditLib
 		if (isset($_REQUEST['lang']) && $_REQUEST['lang'] != '') {
 			return false;
 		}
-		if ($new_page_inherited_attributes != null &&
+		if (
+            $new_page_inherited_attributes != null &&
 			isset($new_page_inherited_attributes['lang']) &&
-			$new_page_inherited_attributes['lang'] != '') {
+			$new_page_inherited_attributes['lang'] != ''
+        ) {
 			return false;
 		}
 
@@ -89,12 +92,16 @@ class EditLib
 		if ($prefs['feature_multilingual'] != 'y') {
 			return false;
 		}
-		if (isset($_REQUEST['translationOf'])
-			&& ! empty($_REQUEST['translationOf'])) {
+		if (
+            isset($_REQUEST['translationOf'])
+			&& ! empty($_REQUEST['translationOf'])
+        ) {
 			return true;
 		}
-		if (isset($_REQUEST['is_new_translation'])
-			&& $_REQUEST['is_new_translation'] == 'y') {
+		if (
+            isset($_REQUEST['is_new_translation'])
+			&& $_REQUEST['is_new_translation'] == 'y'
+        ) {
 			return true;
 		}
 		return false;
@@ -166,8 +173,10 @@ class EditLib
 
 	public function aTranslationWasSavedAs($complete_or_partial)
 	{
-		if (! $this->isTranslationMode() ||
-			! isset($_REQUEST['save'])) {
+		if (
+            ! $this->isTranslationMode() ||
+			! isset($_REQUEST['save'])
+        ) {
 			return false;
 		}
 
@@ -1396,20 +1405,19 @@ class EditLib
 	 *
 	 * @throws Exception
 	 */
-	final public function process_mentions(array $arguments) : void
+	final public function process_mentions(array $arguments): void
 	{
 		global $prefs;
 
 		// Notify users/usergroups
 		if ($prefs['feature_notify_users_mention'] === 'y' && $prefs['feature_tag_users'] === 'y') {
-
 			if ($arguments['type'] === 'wiki page') {
 				$oldData = $arguments['old_data'] ?? '';
 				$newData = $arguments['data'] ?? '';
-			} else if ($arguments['type'] === 'trackeritem' && isset($arguments['values_by_permname'])) {
+			} elseif ($arguments['type'] === 'trackeritem' && isset($arguments['values_by_permname'])) {
 				$oldData = implode("\n", array_values(array_diff($arguments['old_values_by_permname'], $arguments['values_by_permname'])));
 				$newData = implode("\n", array_values(array_diff($arguments['values_by_permname'], $arguments['old_values_by_permname'])));
-			} else if (isset($arguments['content'])) {	//  'forum post', 'blog post', comments
+			} elseif (isset($arguments['content'])) {	//  'forum post', 'blog post', comments
 				$oldData = '';
 				$newData = $arguments['content'] ?? '';
 			} else {
@@ -1471,7 +1479,10 @@ class EditLib
 										];
 
 										Tiki\Notifications\Email::sendMentionNotification(
-											'mention_notification_subject.tpl', 'mention_notification.tpl', $emailData, [$userInfo]
+											'mention_notification_subject.tpl',
+                                            'mention_notification.tpl',
+                                            $emailData,
+                                            [$userInfo]
 										);
 										$notifiedUsers[] = $mentionedUser;
 									}

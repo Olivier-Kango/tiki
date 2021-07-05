@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -15,8 +16,10 @@ class Multilingual_Aligner_SentenceSegmentor
 	  // Concatenate each sentence with the separator that follows it.
 		while ($ii < count($sentences_and_separators)) {
 			$this_sentence = $sentences_and_separators[$ii];
-			if (strcmp("", $this_sentence) == 0 &&
-			 $ii == count($sentences_and_separators) - 1) {
+			if (
+                strcmp("", $this_sentence) == 0 &&
+                $ii == count($sentences_and_separators) - 1
+            ) {
 							// There may be an empty constituent left after last sentence separator
 				// Ignore it.
 				break;

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -45,7 +46,7 @@ class IncludeProfile extends ObjectWriter
 
 		$writer = $this->getProfileWriter($input);
 
-		$finder = new \Tiki_Profile_Writer_ProfileFinder;
+		$finder = new \Tiki_Profile_Writer_ProfileFinder();
 		$symbols = $finder->getSymbols($repository, $profile);
 
 		foreach ($symbols as $entry) {

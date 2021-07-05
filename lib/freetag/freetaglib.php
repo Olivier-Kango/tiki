@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -344,7 +345,7 @@ class FreetagLib extends ObjectLib
 				}
 				$ret[] = $row;
 			} else {
-				-- $cant;
+				--$cant;
 			}
 		}
 		return ['data' => $ret, 'cant' => $cant];
@@ -599,14 +600,17 @@ class FreetagLib extends ObjectLib
 
 	public function safe_tag($user, $itemId, $type, $tag, $lang = null)
 	{
-		if (! isset($itemId) || ! isset($type) || ! isset($tag) ||
-				empty($itemId) || empty($type) || empty($tag)) {
+		if (
+            ! isset($itemId) || ! isset($type) || ! isset($tag) ||
+				empty($itemId) || empty($type) || empty($tag)
+        ) {
 			throw new Exception('Missing safe_tag argument.');
 		}
 
 		// To be sure that the tag lenght is correct.
 		// If multibyte string functions are available, it's preferable to use them.
-		if ((function_exists('mb_strlen') && (mb_strlen($tag) >= $this->_MAX_TAG_LENGTH))
+		if (
+            (function_exists('mb_strlen') && (mb_strlen($tag) >= $this->_MAX_TAG_LENGTH))
 				|| (strlen($tag) >= $this->_MAX_TAG_LENGTH)
 		) {
 			return false;
@@ -706,8 +710,10 @@ class FreetagLib extends ObjectLib
 	 */
 	public function delete_object_tag($itemId, $type, $tag, $user = false)
 	{
-		if (! isset($itemId) || ! isset($type) || ! isset($tag) ||
-				empty($itemId) || empty($type) || empty($tag)) {
+		if (
+            ! isset($itemId) || ! isset($type) || ! isset($tag) ||
+				empty($itemId) || empty($type) || empty($tag)
+        ) {
 			die('delete_object_tag argument missing');
 			return false;
 		}
@@ -747,8 +753,10 @@ class FreetagLib extends ObjectLib
 	 */
 	public function delete_all_object_tags_for_user($user, $itemId, $type)
 	{
-		if (! isset($user) || ! isset($itemId) || ! isset($type)
-				|| empty($user) || empty($itemId) || empty($type)) {
+		if (
+            ! isset($user) || ! isset($itemId) || ! isset($type)
+				|| empty($user) || empty($itemId) || empty($type)
+        ) {
 			die('delete_all_object_tags_for_user argument missing');
 			return false;
 		}
@@ -935,7 +943,7 @@ class FreetagLib extends ObjectLib
 	{
 		// first check for lang of object
 		if (! $lang) {
-			$langutil = new Services_Language_Utilities;
+			$langutil = new Services_Language_Utilities();
 			try {
 				$lang = $langutil->getLanguage($type, $itemId);
 			} catch (Services_Exception $e) {

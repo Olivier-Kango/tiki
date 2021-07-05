@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -206,7 +207,7 @@ class Tracker_Field_Wiki extends Tracker_Field_Text implements Tracker_Field_Exp
 			if (! empty($requestData[$insForPagenameField])) {
 				$page_name = $requestData[$insForPagenameField];	// from tabular import replace
 				$itemId = isset($requestData['itemId']) ? $requestData['itemId'] : 0;
-			} else if (! empty($requestData['itemId'])) {
+			} elseif (! empty($requestData['itemId'])) {
 				$itemData = $this->getItemData();					// calculated field types like auto-increment need rendering
 				$definition = $this->getTrackerDefinition();
 				$factory = $definition->getFieldFactory();
@@ -366,7 +367,7 @@ class Tracker_Field_Wiki extends Tracker_Field_Text implements Tracker_Field_Exp
 					"{$baseKey}_raw" => $typeFactory->plainmediumtext($info['data']),
 					"{$baseKey}_creation_date" => $typeFactory->timestamp($info['created']),
 					"{$baseKey}_modification_date" => $typeFactory->timestamp($info['lastModif']),
-					"{$baseKey}_freshness_days" =>  $typeFactory->numeric($freshness_days),
+					"{$baseKey}_freshness_days" => $typeFactory->numeric($freshness_days),
 				];
 			}
 		}
@@ -445,7 +446,7 @@ class Tracker_Field_Wiki extends Tracker_Field_Text implements Tracker_Field_Exp
 			->setRenderTransform(function ($value) {
 				return $value;
 			})
-			->setParseIntoTransform(function (& $info, $value) use ($permName) {
+			->setParseIntoTransform(function (&$info, $value) use ($permName) {
 				$info['fields'][$permName] = $value;
 			});
 
@@ -453,7 +454,7 @@ class Tracker_Field_Wiki extends Tracker_Field_Text implements Tracker_Field_Exp
 			->setLabel($name)
 			->addQuerySource('text', "{$baseKey}_raw")
 			->setRenderTransform($plain())
-			->setParseIntoTransform(function (& $info, $value) use ($permName, $fieldForPagename, $insertId) {
+			->setParseIntoTransform(function (&$info, $value) use ($permName, $fieldForPagename, $insertId) {
 				$data = $this->getFieldData([
 					$insertId => $value,
 					'ins_' . $fieldForPagename['fieldId'] => $info['fields'][$fieldForPagename['permName']],
@@ -467,7 +468,7 @@ class Tracker_Field_Wiki extends Tracker_Field_Text implements Tracker_Field_Exp
 			->setLabel($name)
 			->addQuerySource('text', "{$baseKey}_raw")
 			->setRenderTransform($render())
-			->setParseIntoTransform(function (& $info, $value) use ($permName, $fieldForPagename, $insertId) {
+			->setParseIntoTransform(function (&$info, $value) use ($permName, $fieldForPagename, $insertId) {
 				$data = $this->getFieldData([
 					$this->getInsertId() => TikiLib::lib('edit')->parseToWiki($value),
 					'ins_' . $fieldForPagename['fieldId'] => $info['fields'][$fieldForPagename['permName']],

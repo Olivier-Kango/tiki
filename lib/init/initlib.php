@@ -47,14 +47,16 @@ if (file_exists(__DIR__ . '/../../vendor/autoload.php')) {
 	// We check for some core libraries (ZendFramework, Smarty and Adodb), if they are all present in the
 	// vendor folder we will consider that there is a old vendor folder, and skip loading the autoload.php unless
 	// there is a file called do_not_clean.txt inside the vendor folder (we will only check the file exists)
-	if (file_exists(__DIR__ . '/../../vendor/do_not_clean.txt')
+	if (
+        file_exists(__DIR__ . '/../../vendor/do_not_clean.txt')
 		|| ! ( // check the existence of critical files denoting a legacy vendor folder
 			(file_exists(__DIR__ . '/../../vendor/zendframework/zend-config/src/Config.php') //ZF2
 				|| file_exists(__DIR__ . '/../../vendor/bombayworks/zendframework1/library/Zend/Config.php')) //ZF1
 			&& (file_exists(__DIR__ . '/../../vendor/smarty/smarty/libs/Smarty.class.php') //Smarty
 				|| file_exists(__DIR__ . '/../../vendor/smarty/smarty/distribution/libs/Smarty.class.php')) //Smarty
 			&& file_exists(__DIR__ . '/../../vendor/adodb/adodb/adodb.inc.php') //Adodb
-		)) {
+		)
+    ) {
 		$autoloader = require_once __DIR__ . '/../../vendor/autoload.php';
 		// Autoload extension packages libs
 		foreach (\Tiki\Package\ExtensionManager::getEnabledPackageExtensions(false) as $package) {

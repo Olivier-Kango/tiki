@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -93,7 +94,7 @@ class Tracker_Options
 							// one word quoted. ex: "bananas" or option1="bananas"
 							if (preg_match('/^(").*\1$|^.*=(").*\2$/', trim($item))) {
 								array_push($optionItems, $item);
-							} else if (strpos($item, '"') !== false) {
+							} elseif (strpos($item, '"') !== false) {
 								if ($commaItem == '') {
 									$commaItem = $item;
 								} else {

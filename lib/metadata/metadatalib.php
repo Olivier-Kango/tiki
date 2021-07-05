@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -104,7 +105,7 @@ class FileMetadata
 		//process basic info
 		if (is_array($this->basicraw)) {
 			require_once(__DIR__ . '/../metadata/datatypes/basicinfo.php');
-			$basic = new BasicInfo;
+			$basic = new BasicInfo();
 			$this->basicinfo = $basic->processRawData($this->basicraw);
 		}
 

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -19,7 +20,7 @@ class Reports_Send_EmailBuilder_Factory
 								str_replace(' ', '', ucwords(str_replace('_', ' ', $eventName)));
 
 		if (class_exists($className)) {
-			return new $className;
+			return new $className();
 		} else {
 			throw new Exception("There is no class to handle the event $eventName.");
 		}

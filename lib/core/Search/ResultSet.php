@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -125,22 +126,24 @@ class Search_ResultSet extends ArrayObject implements JsonSerializable
 			// Build the content string based on heuristics
 			$text = '';
 			foreach ($content as $key => $value) {
-				if ($key != 'object_type' // Skip internal values
-				 && $key != 'object_id'
-				 && $key != 'parent_object_type'
-				 && $key != 'parent_object_id'
-				 && $key != 'relevance'
-				 && $key != 'score'
-				 && $key != 'url'
-				 && $key != 'title'
-				 && $key != 'title_initial'
-				 && $key != 'title_firstword'
-				 && $key != 'description'
-				 && ! empty($value) // Skip empty
-				 && ! is_array($value) // Skip arrays, multivalues fields are not human readable
-				 && ! preg_match('/token[a-z]{8,}/', $value)	// tokens
-				 && ! preg_match('/\d{4}-\d{2}-\d{2} \d{2}\:\d{2}\:\d{2}/', $value)	// dates
-				 && ! preg_match('/^[\w-]+$/', $value)) { // Skip anything that looks like a single token
+				if (
+                    $key != 'object_type' // Skip internal values
+                    && $key != 'object_id'
+                    && $key != 'parent_object_type'
+                    && $key != 'parent_object_id'
+                    && $key != 'relevance'
+                    && $key != 'score'
+                    && $key != 'url'
+                    && $key != 'title'
+                    && $key != 'title_initial'
+                    && $key != 'title_firstword'
+                    && $key != 'description'
+                    && ! empty($value) // Skip empty
+                    && ! is_array($value) // Skip arrays, multivalues fields are not human readable
+                    && ! preg_match('/token[a-z]{8,}/', $value)	// tokens
+                    && ! preg_match('/\d{4}-\d{2}-\d{2} \d{2}\:\d{2}\:\d{2}/', $value)	// dates
+                    && ! preg_match('/^[\w-]+$/', $value)
+                ) { // Skip anything that looks like a single token
 					$text .= "\n$value";
 				}
 			}

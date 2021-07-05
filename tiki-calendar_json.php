@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -159,7 +161,8 @@ foreach ($listevents as $event) {
 		'title'       => $event['name'],
 		'extendedProps' => [
 			'description' => ! empty($event["description"]) ? $parserLib->parse_data(
-				$event["description"], ['is_html' => $prefs['calendar_description_is_html'] === 'y']
+				$event["description"],
+                ['is_html' => $prefs['calendar_description_is_html'] === 'y']
 			) : "",
 		],
 		'url'         => $url,

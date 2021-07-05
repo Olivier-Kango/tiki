@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -246,7 +247,8 @@ class WikiPluginPluginManager extends PluginsLib
 				foreach ($infoPlugin['params'] as $paramname => $paraminfo) {
 					unset($sep, $septext);
 					//check is paramtype filter is set
-					if (empty($params['paramtype'])
+					if (
+                        empty($params['paramtype'])
 						|| ((empty($paraminfo['doctype']) && ! empty($params['paramtype']) && $params['paramtype'] === 'none')
 						|| (! empty($paraminfo['doctype']) && $params['paramtype'] == $paraminfo['doctype']))
 					) {
@@ -260,8 +262,10 @@ class WikiPluginPluginManager extends PluginsLib
 						} else {
 							$rows .= '<code>' . $paramname . '</code>' ;
 						}
-						if (isset($params['showparamtype']) && $params['showparamtype'] === 'y'
-							&& ! empty($paraminfo['doctype'])) {
+						if (
+                            isset($params['showparamtype']) && $params['showparamtype'] === 'y'
+							&& ! empty($paraminfo['doctype'])
+                        ) {
 							$rows .= '<br /><small>(' . $paraminfo['doctype'] . ')</small>';
 						}
 						$rows .= '</td>';

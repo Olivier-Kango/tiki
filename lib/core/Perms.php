@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -128,7 +129,7 @@ class Perms
 		if (self::$instance) {
 			return self::$instance->getAccessor($context);
 		} else {
-			$accessor = new Perms_Accessor;
+			$accessor = new Perms_Accessor();
 			$accessor->setContext($context);
 
 			return $accessor;
@@ -137,7 +138,7 @@ class Perms
 
 	public function getAccessor(array $context = [])
 	{
-		$accessor = new Perms_Accessor;
+		$accessor = new Perms_Accessor();
 		$accessor->setContext($context);
 
 		$accessor->setPrefix($this->prefix);
@@ -380,8 +381,9 @@ class Perms
 		}
 	}
 
-	public static function parentType($type) {
-		switch($type) {
+	public static function parentType($type)
+    {
+		switch ($type) {
 			case 'trackeritem':
 				return 'tracker';
 			case 'file':

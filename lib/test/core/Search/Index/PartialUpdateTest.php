@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -48,7 +49,7 @@ abstract class Search_Index_PartialUpdateTest extends PHPUnit\Framework\TestCase
 			]
 		);
 
-		$query = new Search_Query;
+		$query = new Search_Query();
 		$query->filterType('wiki page');
 
 		$result = $query->search($index);

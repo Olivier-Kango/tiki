@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -31,7 +32,7 @@ class Tiki_Profile_Writer_Helper
 	{
 		$tikilib = TikiLib::lib('tiki');
 		$parserlib = TikiLib::lib('parser');
-		$argumentParser = new WikiParser_PluginArgumentParser;
+		$argumentParser = new WikiParser_PluginArgumentParser();
 		$matches = WikiParser_PluginMatcher::match($content);
 
 		// Handle known parameters for plugins
@@ -154,7 +155,7 @@ class Tiki_Profile_Writer_Helper
 		$searchlib = TikiLib::lib('unifiedsearch');
 		$dataSource = $searchlib->getProfileExportHelper();
 
-		$argumentParser = new WikiParser_PluginArgumentParser;
+		$argumentParser = new WikiParser_PluginArgumentParser();
 		$matches = WikiParser_PluginMatcher::match($content);
 
 		$justReplaced = false;
@@ -187,7 +188,7 @@ class Tiki_Profile_Writer_Helper
 	{
 		$searchlib = TikiLib::lib('unifiedsearch');
 
-		$argumentParser = new WikiParser_PluginArgumentParser;
+		$argumentParser = new WikiParser_PluginArgumentParser();
 		$matches = WikiParser_PluginMatcher::match($content);
 
 		$justReplaced = false;

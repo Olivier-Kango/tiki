@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -185,7 +186,7 @@ class Services_OAuthServer_Controller
 					$repo->delete($client);
 					$response_code = 200;
 					$response_content = true;
-				} else if (empty($validation_errors)) {
+				} elseif (empty($validation_errors)) {
 					$repo->update($client);
 					$response_code = 200;
 					$response_content = $client->toArray();
@@ -197,7 +198,7 @@ class Services_OAuthServer_Controller
 				$response_code = 404;
 				$response_content = ['error' => 'Client not found'];
 			}
-		} else if ($params['delete'] !== '1' && empty($validation_errors)) {
+		} elseif ($params['delete'] !== '1' && empty($validation_errors)) {
 			$client->setClientId($repo::generateSecret(32));
 			$client->setClientSecret($repo::generateSecret(64));
 			$repo->create($client);

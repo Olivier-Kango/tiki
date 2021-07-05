@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -108,7 +110,7 @@ try {
 
 			for ($i = 0; $i < $kmixlist->totalCount; $i++) {
 				$kmixlist->objects[$i]->createdAt = date('d M Y h:i A', $kmixlist->objects[$i]->createdAt);
-				$domdoc = new DOMDocument;
+				$domdoc = new DOMDocument();
 				$domdoc->loadXML($kmixlist->objects[$i]->dataContent);
 				$xpath = new DOMXpath($domdoc);
 				$elements = $xpath->query('/xml/MetaData/PuserId');

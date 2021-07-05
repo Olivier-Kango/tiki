@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -17,7 +18,8 @@ class ODBCManager
 		$this->config = $config;
 	}
 
-	public function getSchema() {
+	public function getSchema()
+    {
 		$result = [];
 		$this->handleErrors();
 		$conn = $this->getConnection();
@@ -29,7 +31,8 @@ class ODBCManager
 		return $result;
 	}
 
-	public function iterate($fields, $modifiedField = null, $lastImport = null) {
+	public function iterate($fields, $modifiedField = null, $lastImport = null)
+    {
 		$this->handleErrors();
 		$conn = $this->getConnection();
 		$select = implode('", "', $fields);
@@ -47,7 +50,8 @@ class ODBCManager
 		$this->stopErrorHandler();
 	}
 
-	public function replace($pk, $id, $row) {
+	public function replace($pk, $id, $row)
+    {
 		$this->handleErrors();
 		$conn = $this->getConnection();
 		if ($id) {
@@ -61,9 +65,13 @@ class ODBCManager
 		}
 		if ($exists) {
 			foreach (array_chunk($row, 50, true) as $chunk) {
-				$sql = "UPDATE {$this->config['table']} SET ".implode(', ', array_map(function($k) { return "\"{$k}\" = ?"; }, array_keys($chunk)))." WHERE \"{$pk}\" = ?";
+				$sql = "UPDATE {$this->config['table']} SET " . implode(', ', array_map(function ($k) {
+ return "\"{$k}\" = ?";
+                }, array_keys($chunk))) . " WHERE \"{$pk}\" = ?";
 				$rs = odbc_prepare($conn, $sql);
-				$params = array_map(function($v){ return empty($v) && $v !== '0' ? null : $v; }, array_values($chunk));
+				$params = array_map(function ($v) {
+ return empty($v) && $v !== '0' ? null : $v;
+                }, array_values($chunk));
 				$params[] = $id;
 				odbc_execute($rs, $params);
 				if (odbc_error()) {
@@ -76,7 +84,7 @@ class ODBCManager
 			$result = odbc_fetch_array($rs);
 		} else {
 			$row = array_filter($row);
-			$sql = "INSERT INTO {$this->config['table']}(\"".implode('", "', array_keys($row))."\") VALUES (".implode(", ", array_fill(0, count(array_keys($row)), '?')).")";
+			$sql = "INSERT INTO {$this->config['table']}(\"" . implode('", "', array_keys($row)) . "\") VALUES (" . implode(", ", array_fill(0, count(array_keys($row)), '?')) . ")";
 			$rs = odbc_prepare($conn, $sql);
 			odbc_execute($rs, array_values($row));
 			if (odbc_error()) {
@@ -91,16 +99,23 @@ class ODBCManager
 		return $result;
 	}
 
-	public function replaceWithoutPK($existing, $row) {
+	public function replaceWithoutPK($existing, $row)
+    {
 		if (empty($existing)) {
 			return $row;
 		}
 		$this->handleErrors();
 		$conn = $this->getConnection();
 		foreach (array_chunk($row, 50, true) as $chunk) {
-			$sql = "UPDATE {$this->config['table']} SET ".implode(', ', array_map(function($k) { return "\"{$k}\" = ?"; }, array_keys($chunk)))." WHERE ".implode(' AND ', array_map(function($k, $v) { return empty($v) ? "\"{$k} IS NULL\"" : "\"{$k}\" = ?"; }, array_keys($existing), $existing));
+			$sql = "UPDATE {$this->config['table']} SET " . implode(', ', array_map(function ($k) {
+ return "\"{$k}\" = ?";
+            }, array_keys($chunk))) . " WHERE " . implode(' AND ', array_map(function ($k, $v) {
+ return empty($v) ? "\"{$k} IS NULL\"" : "\"{$k}\" = ?";
+            }, array_keys($existing), $existing));
 			$rs = odbc_prepare($conn, $sql);
-			$params = array_map(function($v){ return empty($v) && $v !== '0' ? null : $v; }, array_values($chunk));
+			$params = array_map(function ($v) {
+ return empty($v) && $v !== '0' ? null : $v;
+            }, array_values($chunk));
 			$params = array_merge($params, array_filter(array_values($existing)));
 			odbc_execute($rs, $params);
 			if (odbc_error()) {
@@ -110,7 +125,9 @@ class ODBCManager
 		foreach ($row as $k => $v) {
 			$existing[$k] = $v;
 		}
-		$sql = "SELECT * FROM {$this->config['table']} WHERE ".implode(' AND ', array_map(function($k, $v) { return empty($v) ? "\"{$k} IS NULL\"" : "\"{$k}\" = ?"; }, array_keys($existing), $existing));
+		$sql = "SELECT * FROM {$this->config['table']} WHERE " . implode(' AND ', array_map(function ($k, $v) {
+ return empty($v) ? "\"{$k} IS NULL\"" : "\"{$k}\" = ?";
+        }, array_keys($existing), $existing));
 		$rs = odbc_prepare($conn, $sql);
 		$params = array_filter(array_values($existing));
 		odbc_execute($rs, $params);
@@ -119,7 +136,8 @@ class ODBCManager
 		return $result;
 	}
 
-	public function delete($pk, $id) {
+	public function delete($pk, $id)
+    {
 		$this->handleErrors();
 		$conn = $this->getConnection();
 		$sql = "DELETE FROM {$this->config['table']} WHERE \"{$pk}\" = ?";
@@ -131,11 +149,13 @@ class ODBCManager
 		$this->stopErrorHandler();
 	}
 
-	private function getConnection() {
+	private function getConnection()
+    {
 		return odbc_connect($this->config['dsn'], $this->config['user'], $this->config['password']);
 	}
 
-	private function getCatalog() {
+	private function getCatalog()
+    {
 		if (preg_match('/Database=(.*);/i', $this->config['dsn'], $m)) {
 			return $m[1];
 		} else {
@@ -143,13 +163,15 @@ class ODBCManager
 		}
 	}
 
-	private function handleErrors() {
-		$this->orig_handler = set_error_handler(function($errno, $errstr, $errfile, $errline) {
+	private function handleErrors()
+    {
+		$this->orig_handler = set_error_handler(function ($errno, $errstr, $errfile, $errline) {
 			$this->errors[] = $errstr;
 		});
 	}
 
-	private function stopErrorHandler() {
+	private function stopErrorHandler()
+    {
 		set_error_handler($this->orig_handler);
 		if ($this->errors) {
 			throw new \Exception(implode(' ', $this->errors));

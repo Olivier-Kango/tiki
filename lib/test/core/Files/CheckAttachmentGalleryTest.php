@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -22,7 +23,7 @@ class CheckAttachmentGalleryTest extends TestCase
 	protected $files_dir;
 	protected $default_file_content = 'this is a test';
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		global $prefs;
 
@@ -32,7 +33,7 @@ class CheckAttachmentGalleryTest extends TestCase
 		$this->removeAttachmentsFromDb();
 	}
 
-	protected function tearDown() : void
+	protected function tearDown(): void
 	{
 		$this->removeAttachmentsFromDb();
 	}

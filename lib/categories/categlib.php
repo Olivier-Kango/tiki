@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -36,12 +37,14 @@ class CategLib extends ObjectLib
 		}
 	}
 
-	public function set_current_object_categories($type, $objectId) {
+	public function set_current_object_categories($type, $objectId)
+    {
 		$this->currentObjectCategories = $this->get_object_categories($type, $objectId);
 	}
 
 
-	public function get_current_object_categories() {
+	public function get_current_object_categories()
+    {
 		return $this->currentObjectCategories;
 	}
 
@@ -311,7 +314,7 @@ class CategLib extends ObjectLib
 			}
 
 			if ($category) {
-				$category['name'] = $category['name'].' (Archived)';
+				$category['name'] = $category['name'] . ' (Archived)';
 				$userlib = TikiLib::lib('user');
 				$oldCateg = $this->get_category_by_name($category['name'], 0);
 				if ($oldCateg != null) {
@@ -333,13 +336,13 @@ class CategLib extends ObjectLib
 		$query = "select * from `tiki_categories` where tplGroupContainerId = ?";
 		$categories = TikiLib::lib('attribute')->find_objects_with('tiki.category.templatedgroupid', $groupId);
 		$bindvars = [$groupId];
-		if(count($categories) > 0){
-			$categories = array_map(function ($item){
+		if (count($categories) > 0) {
+			$categories = array_map(function ($item) {
 				return $item["itemId"];
 			}, $categories);
 
 			$db = TikiDb::get();
-			$query .= " OR ".$db->in('categId', array_values($categories), $bindvars);
+			$query .= " OR " . $db->in('categId', array_values($categories), $bindvars);
 		}
 
 		return $this->query($query, $bindvars)->result;

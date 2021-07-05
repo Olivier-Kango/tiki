@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -196,7 +197,7 @@ function wikiplugin_file($data, $params)
 		if (empty($data)) { // to avoid problem with parsing
 			$data = empty($file_info['name']) ? $file_info['filename'] : $file_info['name'];
 		}
-		if ( isset($params['browserdisplay']) && $params['browserdisplay'] == 'y' ) {
+		if (isset($params['browserdisplay']) && $params['browserdisplay'] == 'y') {
 			if (isset($params['showicon']) && $params['showicon'] == "y") {
 				return "{img src=tiki-download_file.php?fileId=$fileId&amp;thumbnail=y link=tiki-download_file.php?fileId=$fileId&display=y styleimage=max-width:32px;max-height:36px thumb=y responsive='n'} " . "<a class='wiki' href='tiki-download_file.php?fileId=$fileId&display=y' target='_blank' >" . $data . "</a>";
 			} else {

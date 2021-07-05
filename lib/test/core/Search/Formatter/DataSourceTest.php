@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -11,7 +12,7 @@ class Search_Formatter_DataSourceTest extends PHPUnit\Framework\TestCase
 	private $categorySource;
 	private $permissionSource;
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		$this->wikiSource = new Search_ContentSource_Static(
 			['Test' => ['description' => 'ABC'],],
@@ -33,7 +34,7 @@ class Search_Formatter_DataSourceTest extends PHPUnit\Framework\TestCase
 
 	public function testObtainInformationFromContentSource()
 	{
-		$source = new Search_Formatter_DataSource_Declarative;
+		$source = new Search_Formatter_DataSource_Declarative();
 		$source->addContentSource('wiki page', $this->wikiSource);
 
 		$this->assertEquals(['description' => 'ABC'], $source->getData(['object_type' => 'wiki page', 'object_id' => 'Test'], 'description'));
@@ -41,7 +42,7 @@ class Search_Formatter_DataSourceTest extends PHPUnit\Framework\TestCase
 
 	public function testRequestedValueNotProvided()
 	{
-		$source = new Search_Formatter_DataSource_Declarative;
+		$source = new Search_Formatter_DataSource_Declarative();
 		$source->addContentSource('wiki page', $this->wikiSource);
 
 		$this->assertEquals([], $source->getData(['object_type' => 'wiki page', 'object_id' => 'Test'], 'title'));
@@ -49,7 +50,7 @@ class Search_Formatter_DataSourceTest extends PHPUnit\Framework\TestCase
 
 	public function testValueFromGlobal()
 	{
-		$source = new Search_Formatter_DataSource_Declarative;
+		$source = new Search_Formatter_DataSource_Declarative();
 		$source->addGlobalSource($this->categorySource);
 		$source->addGlobalSource($this->permissionSource);
 
@@ -59,7 +60,7 @@ class Search_Formatter_DataSourceTest extends PHPUnit\Framework\TestCase
 
 	public function testContentSourceNotAvailable()
 	{
-		$source = new Search_Formatter_DataSource_Declarative;
+		$source = new Search_Formatter_DataSource_Declarative();
 		$this->assertEquals([], $source->getData(['object_type' => 'wiki page', 'object_id' => 'Test'], 'title'));
 	}
 }

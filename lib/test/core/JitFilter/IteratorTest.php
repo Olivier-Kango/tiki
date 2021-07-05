@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -14,7 +15,7 @@ class JitFilterIteratorTest extends TikiTestCase
 {
 	private $array;
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		$this->array = [
 			'foo' => 'bar',
@@ -26,10 +27,10 @@ class JitFilterIteratorTest extends TikiTestCase
 		];
 
 		$this->array = new JitFilter($this->array);
-		$this->array->setDefaultFilter(new Laminas\Filter\StringToUpper);
+		$this->array->setDefaultFilter(new Laminas\Filter\StringToUpper());
 	}
 
-	protected function tearDown() : void
+	protected function tearDown(): void
 	{
 		$this->array = null;
 	}

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -363,7 +364,7 @@ class ImageAbstract
 			}
 		}
 		if (! is_object($this->metadata) || get_class($this->metadata) != 'FileMetadata') {
-			$metadata = new FileMetadata;
+			$metadata = new FileMetadata();
 			$this->metadata = $metadata->getMetadata($filename, $ispath, $extended);
 		}
 		return $this->metadata;

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -10,7 +11,7 @@ class AccountingLibTest extends PHPUnit\Framework\TestCase
 	/** @var TestHelpers */
 	protected $testHelpers;
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		require_once(__DIR__ . '/../../TestHelpers.php');
 		$this->testHelpers = new TestHelpers();
@@ -18,7 +19,7 @@ class AccountingLibTest extends PHPUnit\Framework\TestCase
 		$this->testHelpers->simulateTikiScriptContext('tiki-accounting_books.php', 'admin');
 	}
 
-	protected function tearDown() : void
+	protected function tearDown(): void
 	{
 		$this->testHelpers->stopSimulatingTikiScriptContext();
 	}

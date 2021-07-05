@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -38,9 +39,10 @@ class ImageTransformer extends Manipulator
 
 		$exif = [];
 
-		if (extension_loaded('exif') && extension_loaded('gd') &&
-				($this->file->filetype === 'image/jpeg' || $this->file->filetype === 'image/tiff')) {
-
+		if (
+            extension_loaded('exif') && extension_loaded('gd') &&
+				($this->file->filetype === 'image/jpeg' || $this->file->filetype === 'image/tiff')
+        ) {
 			$exif = exif_read_data($work_file);
 		}
 

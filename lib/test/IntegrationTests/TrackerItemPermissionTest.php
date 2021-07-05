@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -15,7 +16,7 @@ class TrackerItemPermissionTest extends TikiTestCase
 	protected static $old_pref;
 	protected static $old_user;
 
-	public static function setUpBeforeClass() : void
+	public static function setUpBeforeClass(): void
 	{
 		global $prefs;
 		self::$old_pref = $prefs['feature_trackers'];
@@ -68,7 +69,7 @@ class TrackerItemPermissionTest extends TikiTestCase
 				'y',
 				$field['isHidden'],
 				$field['isMandatory'],
-				($i+1) * 10,
+				($i + 1) * 10,
 				'',
 				'',
 				'',
@@ -94,14 +95,14 @@ class TrackerItemPermissionTest extends TikiTestCase
 		self::$trklib->replace_item(self::$trackerId, 0, ['data' => $fields], 'o');
 
 		TikiDb::get()->query("INSERT INTO `users_grouppermissions` VALUES('Registered', 'tiki_p_view_trackers', '')");
-		$builder = new Perms_Builder;
+		$builder = new Perms_Builder();
 		Perms::set($builder->build());
 
 		self::$unifiedlib = TikiLib::lib('unifiedsearch');
 		self::$unifiedlib->rebuild();
 	}
 
-	public static function tearDownAfterClass() : void
+	public static function tearDownAfterClass(): void
 	{
 		global $prefs;
 		$prefs['feature_trackers'] = self::$old_pref;
@@ -109,12 +110,12 @@ class TrackerItemPermissionTest extends TikiTestCase
 		parent::tearDown();
 		self::$trklib->remove_tracker(self::$trackerId);
 
-		if (!empty($prefs['unified_mysql_index_current'])) {
+		if (! empty($prefs['unified_mysql_index_current'])) {
 			TikiDb::get()->query("DROP TABLE `{$prefs['unified_mysql_index_current']}`");
 		}
 
 		TikiDb::get()->query("DELETE FROM `users_grouppermissions` WHERE `groupName` = 'Registered' AND `permName` = 'tiki_p_view_trackers'");
-		$builder = new Perms_Builder;
+		$builder = new Perms_Builder();
 		Perms::set($builder->build());
 	}
 

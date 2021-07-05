@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -36,7 +37,7 @@ class Search_IndexerTest extends PHPUnit\Framework\TestCase
 			'wiki_page_name' => 'plaintext',
 		];
 
-		$index = new Search_Index_Memory;
+		$index = new Search_Index_Memory();
 		$indexer = new Search_Indexer($index);
 		$indexer->addContentSource('wiki page', new Search_ContentSource_Static($data, $typeMap));
 		$indexer->rebuild();
@@ -78,7 +79,7 @@ class Search_IndexerTest extends PHPUnit\Framework\TestCase
 
 		$forumSource = new Search_ContentSource_Static($data, $typeMap);
 
-		$index = new Search_Index_Memory;
+		$index = new Search_Index_Memory();
 		$indexer = new Search_Indexer($index);
 		$indexer->addContentSource('wiki page', $wikiSource);
 		$indexer->addContentSource('forum post', $forumSource);
@@ -107,7 +108,7 @@ class Search_IndexerTest extends PHPUnit\Framework\TestCase
 			['categories' => 'multivalue']
 		);
 
-		$index = new Search_Index_Memory;
+		$index = new Search_Index_Memory();
 		$indexer = new Search_Indexer($index);
 		$indexer->addContentSource('wiki page', $contentSource);
 		$indexer->addGlobalSource($globalSource);
@@ -131,7 +132,7 @@ class Search_IndexerTest extends PHPUnit\Framework\TestCase
 			['freetags_text' => 'plaintext']
 		);
 
-		$index = new Search_Index_Memory;
+		$index = new Search_Index_Memory();
 		$indexer = new Search_Indexer($index);
 		$indexer->addContentSource('wiki page', $contentSource);
 		$indexer->addGlobalSource($globalSource);
@@ -158,7 +159,7 @@ class Search_IndexerTest extends PHPUnit\Framework\TestCase
 			['title' => 'plaintext']
 		);
 
-		$index = new Search_Index_Memory;
+		$index = new Search_Index_Memory();
 		$indexer = new Search_Indexer($index);
 		$indexer->addContentSource('wiki page', $contentSource);
 		$stats = $indexer->rebuild();
@@ -179,7 +180,7 @@ class Search_IndexerTest extends PHPUnit\Framework\TestCase
 			['_title' => 'plaintext']
 		);
 
-		$index = new Search_Index_Memory;
+		$index = new Search_Index_Memory();
 		$indexer = new Search_Indexer($index);
 		$indexer->addContentSource('wiki page', $contentSource);
 		$stats = $indexer->rebuild();

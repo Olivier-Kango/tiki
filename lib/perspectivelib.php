@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -31,14 +32,14 @@ class PerspectiveLib
 	{
 		$perspectiveId = null;
 
-		if(empty($user)) {
+		if (empty($user)) {
 			return $perspectiveId;
 		}
-	
+
 		$sql = "SELECT value FROM tiki_user_preferences WHERE prefName='perspective_preferred' AND user=?";
 		$perspectiveId = TikiDb::get()->getOne($sql, [$user]);
 
-		if(is_numeric($perspectiveId)) {
+		if (is_numeric($perspectiveId)) {
 			return (int) $perspectiveId;
 		}
 
@@ -62,7 +63,7 @@ class PerspectiveLib
 			$perspectiveId = (int) $_SESSION['current_perspective'];
 		}
 
-		if($perspectiveId) {
+		if ($perspectiveId) {
 			return $perspectiveId;
 		}
 
@@ -213,7 +214,7 @@ class PerspectiveLib
 
 		$preferred_perspective = $this->get_preferred_perspective($user);
 
-		if (empty($perspective) && !$preferred_perspective) {
+		if (empty($perspective) && ! $preferred_perspective) {
 			unset($_SESSION['current_perspective']);
 			unset($_SESSION['current_perspective_name']);
 		} else {
@@ -228,7 +229,7 @@ class PerspectiveLib
 				foreach ($this->get_domain_map() as $domain => $persp) {
 					$domainFound = $domainFound || (isset($_SERVER['HTTP_HOST']) && $domain == $_SERVER['HTTP_HOST']);
 					if ($persp == $perspective) {
-						if(isset($_SERVER['HTTP_HOST']) && $domain != $_SERVER['HTTP_HOST']) {
+						if (isset($_SERVER['HTTP_HOST']) && $domain != $_SERVER['HTTP_HOST']) {
 							$path = $tikiroot;
 							if ($by_area && ! empty($_SERVER['REQUEST_URI'])) {
 								$path = $_SERVER['REQUEST_URI'];
@@ -274,7 +275,7 @@ class PerspectiveLib
 	 * @param $info
 	 * @param $perms
 	 */
-	private function write_permissions(& $info, $perms)
+	private function write_permissions(&$info, $perms)
 	{
 		$info['can_edit'] = $perms->perspective_edit;
 		$info['can_remove'] = $perms->perspective_admin;

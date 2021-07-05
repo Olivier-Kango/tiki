@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -113,7 +115,7 @@ if (isset($_REQUEST["add"]) && $access->checkCsrf()) {
 		foreach ($_REQUEST['cat_categories'] as $cat) {
 			if ($cat > 0) {
 				$result = $tikilib->add_user_watch($user, 'new_in_category', $cat, 'category', "tiki-browse_category.php?parentId=$cat");
-				$errors += $result ? 0: 1;
+				$errors += $result ? 0 : 1;
 			} else {
 				$tikilib->remove_user_watch($user, 'new_in_category', '*');
 				/** @var  TikiDb_Pdo_Result|TikiDb_Adodb_Result $result */

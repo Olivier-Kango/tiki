@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -44,7 +45,7 @@ function wikiplugin_archivebuilder($data, $params)
 			'page-as-pdf' => 'wikiplugin_archivebuilder_pagetopdf',
 		];
 
-		$archive = new ZipArchive;
+		$archive = new ZipArchive();
 		$archive->open($file = tempnam('temp/', 'archive') . '.zip', ZipArchive::CREATE | ZipArchive::OVERWRITE);
 
 		foreach (array_filter(explode("\n", trim($data))) as $line) {
@@ -196,7 +197,7 @@ function wikiplugin_archivebuilder_pagetopdf($file, $pageName)
 	}
 
 	require_once 'lib/pdflib.php';
-	$generator = new PdfGenerator;
+	$generator = new PdfGenerator();
 	if (! empty($generator->error)) {
 		Feedback::error($generator->error);
 		$access = Tikilib::lib('access');

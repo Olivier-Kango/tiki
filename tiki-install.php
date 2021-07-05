@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Tiki's Installation script.
  *
@@ -8,6 +9,7 @@
  * @copyright (c) Copyright by authors of the Tiki Wiki CMS Groupware Project. All Rights Reserved. See copyright.txt for details and a complete list of authors.
  * @licence Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
  */
+
 // $Id$
 
 use Tiki\TikiInit;
@@ -55,13 +57,13 @@ if (file_exists($lockFile)) {
 							<p class="under-text">As a security precaution, the Tiki Installer has been disabled. To re-enable the installer:</p>
 								<ol class="installer-ordered-list-style">
 									<li class="installer-ordered-list"><p>Use your file manager application to find the directory where you have unpacked your Tiki and remove the <span class="text-danger font-weight-bold">lock</span> file which was created in the <span class="text-danger font-weight-bold">db</span> folder.</p></li>
-									<li class="installer-ordered-list"><p>Re-run <strong ><a class="text-yellow-inst" href="tiki-install.php'  . (empty($tikidomain) ? '' : "?multi=$tikidomain") . '" title="Tiki Installer">tiki-install.php' . (empty($tikidomain) ? '' : "?multi=$tikidomain") . '</a></strong>.</p></li>
+									<li class="installer-ordered-list"><p>Re-run <strong ><a class="text-yellow-inst" href="tiki-install.php' . (empty($tikidomain) ? '' : "?multi=$tikidomain") . '" title="Tiki Installer">tiki-install.php' . (empty($tikidomain) ? '' : "?multi=$tikidomain") . '</a></strong>.</p></li>
 								</ol>
 							';
 	createPage($title, $content);
 }
 
-if (!empty($db) && ! $db->getOne("SELECT COUNT(*) FROM `information_schema`.`character_sets` WHERE `character_set_name` = 'utf8mb4';")) {
+if (! empty($db) && ! $db->getOne("SELECT COUNT(*) FROM `information_schema`.`character_sets` WHERE `character_set_name` = 'utf8mb4';")) {
 	die(tr('Your database does not support the utf8mb4 character set required in Tiki19 and above. You need to upgrade your mysql or mariadb installation.'));
 }
 

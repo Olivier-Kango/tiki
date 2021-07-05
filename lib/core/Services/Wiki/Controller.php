@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -521,7 +522,7 @@ class Services_Wiki_Controller
 				} else {
 					$msg = tr('Lock the following pages?');
 				}
-				$ret =  $util->confirm($msg, tra('Lock'));
+				$ret = $util->confirm($msg, tra('Lock'));
 				if ($countUnfiltered > count($util->items)) {
 					$ret['FORWARD']['help'] = tr('Excludes selected pages already locked or for which you lack permission to lock.');
 				}
@@ -618,7 +619,7 @@ class Services_Wiki_Controller
 				} else {
 					$msg = tr('Unlock the following pages?');
 				}
-				$ret =  $util->confirm($msg, tra('Unlock'));
+				$ret = $util->confirm($msg, tra('Unlock'));
 				if ($countUnfiltered > count($util->items)) {
 					$ret['FORWARD']['help'] = tr('Excludes selected pages already unlocked or for which you lack permission to unlock.');
 				}

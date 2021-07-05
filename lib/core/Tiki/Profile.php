@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -170,7 +171,7 @@ class Tiki_Profile
 
 	public static function fromUrl($url)
 	{
-		$profile = new self;
+		$profile = new self();
 		$profile->transport = new Tiki_Profile_Transport_Repository($url);
 
 		if ($profile->analyseMeta($url)) {
@@ -230,11 +231,11 @@ class Tiki_Profile
 		$wikilib = TikiLib::lib('wiki');
 		$parserlib = TikiLib::lib('parser');
 
-		$profile = new self;
+		$profile = new self();
 		$profile->domain = 'tiki://local';
 		$profile->profile = $pageName;
 		$profile->pageUrl = $wikilib->sefurl($pageName);
-		$profile->transport = new Tiki_Profile_Transport_Local;
+		$profile->transport = new Tiki_Profile_Transport_Local();
 
 		if ($info = $tikilib->get_page_info($pageName)) {
 			$content = html_entity_decode($info['data']);
@@ -249,11 +250,11 @@ class Tiki_Profile
 
 	public static function fromString($string, $name = '')
 	{
-		$profile = new self;
+		$profile = new self();
 		$profile->domain = 'tiki://local';
 		$profile->profile = $name;
 		$profile->pageUrl = $name;
-		$profile->transport = new Tiki_Profile_Transport_Local;
+		$profile->transport = new Tiki_Profile_Transport_Local();
 
 		$content = html_entity_decode($string);
 		$profile->loadYaml($content);
@@ -272,7 +273,7 @@ class Tiki_Profile
 			$path = substr($path, strlen($tikiRoot));
 		}
 
-		$profile = new self;
+		$profile = new self();
 		$profile->domain = "file://$path";
 		$profile->profile = $name;
 		$profile->pageUrl = $name;
@@ -361,12 +362,14 @@ class Tiki_Profile
 		$this->data = [];
 
 		$matches = WikiParser_PluginMatcher::match($content);
-		$parser = new WikiParser_PluginArgumentParser;
+		$parser = new WikiParser_PluginArgumentParser();
 
 		foreach ($matches as $match) {
 			$arguments = $parser->parse($match->getArguments());
-			if (($match->getName() == 'code' && isset($arguments['caption']) && strtoupper($arguments['caption']) == 'YAML' )
-				|| $match->getName() == 'profile' ) {
+			if (
+                ($match->getName() == 'code' && isset($arguments['caption']) && strtoupper($arguments['caption']) == 'YAML' )
+				|| $match->getName() == 'profile'
+            ) {
 				$yaml = $match->getBody();
 
 				try {

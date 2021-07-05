@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -76,7 +77,7 @@ class FlaggedRevisionLib extends TikiDb_Bridge
 		return $first['comment'];
 	}
 
-	private function get_version_query($pageName, $flag, $value, & $query, & $bindvars, $fields = 'th.*')
+	private function get_version_query($pageName, $flag, $value, &$query, &$bindvars, $fields = 'th.*')
 	{
 		// NOTE : These are out variables
 		$query = 'SELECT ' . $fields . ' FROM `tiki_history` th INNER JOIN `tiki_object_attributes` toa ON toa.`itemId` = `historyId` AND toa.`type` = ? WHERE toa.attribute = ? AND toa.value = ? AND th.pageName = ? ORDER BY `th`.`version` DESC';

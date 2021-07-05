@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -125,7 +126,8 @@ class Captcha_Questions extends Laminas\Captcha\AbstractWord
 			return false;
 		}
 
-		if (! (preg_match('#^/.*/[imsxADSUXJu]*$#', $word) && preg_match($word, $input)) &&    // regex answer?
+		if (
+            ! (preg_match('#^/.*/[imsxADSUXJu]*$#', $word) && preg_match($word, $input)) &&    // regex answer?
 			$input !== $word
 		) {
 			$this->error(self::BAD_CAPTCHA);

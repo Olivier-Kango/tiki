@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -27,7 +28,7 @@ class Math_Formula_Function_Currency extends Math_Formula_Function
 			$this->error(tra('Missing currency field.'));
 		}
 
-		$factory = new Tracker_Field_Factory;
+		$factory = new Tracker_Field_Factory();
 		$options = Tracker_Options::fromSerialized($field['options'], $factory->getFieldInfo($field['type']));
 
 		if (! empty($element[3])) {

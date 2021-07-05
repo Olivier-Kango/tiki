@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -7,7 +8,7 @@
 
 function wikiplugin_trackerlist_info()
 {
-	$ts = new Table_Plugin;
+	$ts = new Table_Plugin();
 	$ts->createParams();
 	$tsparams = $ts->params;
 	$params = array_merge(
@@ -1218,19 +1219,23 @@ function wikiplugin_trackerlist($data, $params)
 					//handle status filter
 					if ($adjustCol === -1 && $col === 0 && in_array($ajaxfilter, ['o','p','c'])) {
 						$status = $ajaxfilter;
-					} elseif ($showcomments != 'n'
+					} elseif (
+                        $showcomments != 'n'
 						and $tracker_info['useComments'] == 'y'
 						and ($tracker_info['showComments'] == 'y' || $tracker_info['showLastComment'] == 'y')
 						and $perms['tiki_p_tracker_view_comments'] != 'n'
-						and $col == count($listfields) - $adjustCol + ($showcreated == 'y') + ($showlastmodif == 'y') + ($showlastmodifby == 'y')) {
+						and $col == count($listfields) - $adjustCol + ($showcreated == 'y') + ($showlastmodif == 'y') + ($showlastmodifby == 'y')
+                    ) {
 						$filter['comment'] = $ajaxfilter;
 					/*
 					 * handle date filter - these are always one filter, in the form of:
 					 * from: >=1427389832000; to: <=1427389832000; both from and to: 1427389832000 - 1427880000000
 					 * which is unix timestamp in milliseconds
 					 */
-					} elseif (($isCreated = $showcreated == 'y' && $col == count($listfields) - $adjustCol)
-						|| ($showlastmodif == 'y' && $col == count($listfields) - $adjustCol + ($showcreated == 'y'))) {
+					} elseif (
+                        ($isCreated = $showcreated == 'y' && $col == count($listfields) - $adjustCol)
+						|| ($showlastmodif == 'y' && $col == count($listfields) - $adjustCol + ($showcreated == 'y'))
+                    ) {
 						$filteredField = $isCreated ? 'created' : 'lastModif';
 						$datefilter = explode(' - ', $ajaxfilter);
 						//a range (from and to filters) will have 2 items in the array
@@ -1863,7 +1868,7 @@ function wikiplugin_trackerlist($data, $params)
 			if (! is_array($listfields)) {
 				$listfields = explode(':', $listfields);
 			}
-			if ((in_array($allfields["data"][$i]['fieldId'], $listfields) or in_array($allfields["data"][$i]['fieldId'], $popupfields))and $allfields["data"][$i]['isPublic'] == 'y') {
+			if ((in_array($allfields["data"][$i]['fieldId'], $listfields) or in_array($allfields["data"][$i]['fieldId'], $popupfields)) and $allfields["data"][$i]['isPublic'] == 'y') {
 				$passfields["{$allfields["data"][$i]['fieldId']}"] = $allfields["data"][$i];
 			}
 			if (isset($check['fieldId']) && $allfields["data"][$i]['fieldId'] == $check['fieldId']) {
@@ -1878,8 +1883,10 @@ function wikiplugin_trackerlist($data, $params)
 				$filtervalue = $_REQUEST['page'];
 				$exactvalue = [];
 			}
-			if ($definition->isEnabled('useRatings')
-					and $allfields["data"][$i]['type'] == 's' and $allfields["data"][$i]['name'] == 'Rating') {
+			if (
+                $definition->isEnabled('useRatings')
+					and $allfields["data"][$i]['type'] == 's' and $allfields["data"][$i]['name'] == 'Rating'
+            ) {
 				$newItemRateField = $allfields["data"][$i]['fieldId'];
 			}
 		}
@@ -1902,8 +1909,8 @@ function wikiplugin_trackerlist($data, $params)
 		$smarty->assign_by_ref('listfields', $listfields);
 		$smarty->assign_by_ref('popupfields', $popupfields);
 		if (! empty($filterfield)) {
-			$filterfield_flatten = array_filter($filterfield, function($f) {
-				return !is_array($f);
+			$filterfield_flatten = array_filter($filterfield, function ($f) {
+				return ! is_array($f);
 			});
 			$urlquery['filterfield'] = is_array($filtervalue) ? implode(':', $filterfield_flatten) : $filterfield_flatten;
 			if (! is_array($filtervalue)) {
@@ -2021,7 +2028,7 @@ function wikiplugin_trackerlist($data, $params)
 			$catfilternotvalue = [];
 			if (! empty($filterfield)) {
 				foreach ($filterfield as $k => $ff) {
-					if(! empty($ff['usersearch'])) {
+					if (! empty($ff['usersearch'])) {
 						continue;
 					}
 					$filterfieldinfo = $trklib->get_tracker_field($ff);
@@ -2110,7 +2117,7 @@ function wikiplugin_trackerlist($data, $params)
 					}
 				}
 				$ts_id = 'wptrackerlist' . $trackerId . '-' . $iTRACKERLIST;
-				$ts = new Table_Plugin;
+				$ts = new Table_Plugin();
 				$ts->setSettings(
 					$ts_id,
 					isset($server) ? $server : null,

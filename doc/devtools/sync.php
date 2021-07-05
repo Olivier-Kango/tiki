@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -18,7 +19,7 @@ require_once("db/tiki-db.php");
 require_once("lib/tikilib.php");
 $userlib = TikiLib::lib('user');
 
-$tikilib = new TikiLib;
+$tikilib = new TikiLib();
 
 $users = $userlib->get_group_users('CC');
 

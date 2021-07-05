@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -578,7 +579,8 @@ function build_packages($releaseVersion)
 		echo $shellout . "\n";
 	}
 
-	if (strpos($shellout, 'Fatal error:') !== false ||
+	if (
+        strpos($shellout, 'Fatal error:') !== false ||
 		strpos($shellout, 'Installation failed,') !== false ||
 		// symfony/dependency-injection comes in quite late in the list and is required - sometimes no error is reported even though it didn't work
 		strpos($shellout, 'symfony/dependency-injection') === false
@@ -1340,8 +1342,10 @@ EOS;
 				// Quickfix to keep old dates which may be different due to which time zone is used
 				if (isset($oldContributors[$author]['First Commit'])) {
 					$infos['First Commit'] = $oldContributors[$author]['First Commit'];
-					if (isset($oldContributors[$author]['Number of Commits']) && isset($oldContributors[$author]['Number of Commits'])
-						&& isset($infos['Number of Commits'])  && $oldContributors[$author]['Number of Commits'] == $infos['Number of Commits']) {
+					if (
+                        isset($oldContributors[$author]['Number of Commits']) && isset($oldContributors[$author]['Number of Commits'])
+						&& isset($infos['Number of Commits'])  && $oldContributors[$author]['Number of Commits'] == $infos['Number of Commits']
+                    ) {
 						$infos['Last Commit'] = $oldContributors[$author]['Last Commit'];
 					}
 				}

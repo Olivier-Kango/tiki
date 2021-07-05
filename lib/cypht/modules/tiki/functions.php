@@ -6,7 +6,9 @@
  * @subpackage tiki
  */
 
-if (!defined('DEBUG_MODE')) { die(); }
+if (! defined('DEBUG_MODE')) {
+die();
+}
 
 /**
  * Retrive a Tiki-stored mail message and convert to a parsed mime message
@@ -15,8 +17,9 @@ if (!defined('DEBUG_MODE')) { die(); }
  * @param string $msg_uid message uid
  * @return array
  */
-if (!hm_exists('tiki_parse_message')) {
-function tiki_parse_message($list_path, $msg_uid) {
+if (! hm_exists('tiki_parse_message')) {
+function tiki_parse_message($list_path, $msg_uid)
+{
     $trk = TikiLib::lib('trk');
     $path = str_replace('tracker_folder_', '', $list_path);
     list ($itemId, $fieldId) = explode('_', $path);
@@ -76,7 +79,8 @@ function tiki_parse_message($list_path, $msg_uid) {
     $email['next'] = $next;
 
     return $email;
-}}
+}
+}
 
 /**
  * Convert MimePart message parts to IMAP-compatible BODYSTRUCTURE
@@ -85,8 +89,9 @@ function tiki_parse_message($list_path, $msg_uid) {
  * @param string $part_num the mime message part number
  * @return array
  */
-if (!hm_exists('tiki_mime_part_to_bodystructure')) {
-function tiki_mime_part_to_bodystructure($part, $part_num = '0') {
+if (! hm_exists('tiki_mime_part_to_bodystructure')) {
+function tiki_mime_part_to_bodystructure($part, $part_num = '0')
+{
     $content_type = explode('/', $part->getContentType());
     $header = $part->getHeader('Content-Type');
     $attributes = [];
@@ -124,12 +129,13 @@ function tiki_mime_part_to_bodystructure($part, $part_num = '0') {
     if ($part->getChildCount() > 0) {
         $result[$part_num]['subs'] = [];
         foreach ($part->getChildParts() as $i => $subpart) {
-            $subpart_num = $part_num.'.'.($i+1);
+            $subpart_num = $part_num . '.' . ($i + 1);
             $result[$part_num]['subs'] = array_merge($result[$part_num]['subs'], tiki_mime_part_to_bodystructure($subpart, $subpart_num));
         }
     }
     return $result;
-}}
+}
+}
 
 /**
  * Retrieve mime part based off part number
@@ -138,8 +144,9 @@ function tiki_mime_part_to_bodystructure($part, $part_num = '0') {
  * @param string $part_num the mime message part number
  * @return ZBateson\MailMimeParser\Message\Part\MimePart
  */
-if (!hm_exists('tiki_get_mime_part')) {
-function tiki_get_mime_part($part, $part_num = '0') {
+if (! hm_exists('tiki_get_mime_part')) {
+function tiki_get_mime_part($part, $part_num = '0')
+{
     $part_num = explode('.', $part_num);
     array_shift($part_num);
     if (empty($part_num)) {
@@ -147,12 +154,13 @@ function tiki_get_mime_part($part, $part_num = '0') {
     }
     $part_num = array_values($part_num);
     foreach ($part->getChildParts() as $i => $subpart) {
-        if ($part_num[0]-1 == $i) {
+        if ($part_num[0] - 1 == $i) {
             return tiki_get_mime_part($subpart, implode('.', $part_num));
         }
     }
     return null;
-}}
+}
+}
 
 
 /**
@@ -161,8 +169,9 @@ function tiki_get_mime_part($part, $part_num = '0') {
  * @param ZBateson\MailMimeParser\Message\Part\MimePart $message the mime message part
  * @param string $txt HTML
  */
-if (!hm_exists('tiki_add_attached_images')) {
-function tiki_add_attached_images($message, $txt) {
+if (! hm_exists('tiki_add_attached_images')) {
+function tiki_add_attached_images($message, $txt)
+{
     if (preg_match_all("/src=('|\"|)cid:([^\s'\"]+)/", $txt, $matches)) {
         $cids = array_pop($matches);
         foreach ($cids as $id) {
@@ -170,11 +179,12 @@ function tiki_add_attached_images($message, $txt) {
             if (substr($part->getContentType(), 0, 5) != 'image') {
                 continue;
             }
-            $txt = str_replace('cid:'.$id, 'data:'.$part->getContentType().';base64,'.base64_encode($part->getContent()), $txt);
+            $txt = str_replace('cid:' . $id, 'data:' . $part->getContentType() . ';base64,' . base64_encode($part->getContent()), $txt);
         }
     }
     return $txt;
-}}
+}
+}
 
 /**
  * Copy/Move messages from Tiki to an IMAP server
@@ -185,15 +195,16 @@ function tiki_add_attached_images($message, $txt) {
  * @param object $hm_cache cache interface
  * @return boolean result
  */
-if (!hm_exists('tiki_move_to_imap_server')) {
-function tiki_move_to_imap_server($email, $action, $dest_path, $hm_cache) {
+if (! hm_exists('tiki_move_to_imap_server')) {
+function tiki_move_to_imap_server($email, $action, $dest_path, $hm_cache)
+{
     $cache = Hm_IMAP_List::get_cache($hm_cache, $dest_path[1]);
     $dest_imap = Hm_IMAP_List::connect($dest_path[1], $cache);
     if ($dest_imap) {
         $file = Tiki\FileGallery\File::id($email['fileId']);
         $msg = $file->getContents();
         if ($dest_imap->append_start(hex2bin($dest_path[2]), strlen($msg), true)) {
-            $dest_imap->append_feed($msg."\r\n");
+            $dest_imap->append_feed($msg . "\r\n");
             if ($dest_imap->append_end()) {
                 if ($action == 'move') {
                     $trk = TikiLib::lib('trk');
@@ -213,4 +224,5 @@ function tiki_move_to_imap_server($email, $action, $dest_path, $hm_cache) {
         }
     }
     return false;
-}}
+}
+}

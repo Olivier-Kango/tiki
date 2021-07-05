@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -67,8 +69,9 @@ if (isset($_REQUEST["action"])) {
 		if ($_REQUEST["action"] == 'assign' && $access->checkCsrf()) {
 			if (! $userlib->group_exists($_REQUEST["group"])) {
 				Feedback::error(tr('Invalid group'));
-			} elseif ($tiki_p_admin_users == 'y'
-				||($tiki_p_admin_users == 'y' && array_key_exists($_REQUEST["group"], $groups))
+			} elseif (
+                $tiki_p_admin_users == 'y'
+				|| ($tiki_p_admin_users == 'y' && array_key_exists($_REQUEST["group"], $groups))
 			) {
 				$result = $userlib->assign_user_to_group($_REQUEST["assign_user"], $_REQUEST["group"]);
 				if ($result && $result->numRows()) {
@@ -86,8 +89,10 @@ if (isset($_REQUEST["action"])) {
 					));
 				}
 			}
-		} elseif ($_REQUEST["action"] == 'removegroup' && ($tiki_p_admin == 'y' && $access->checkCsrf()
-				|| ($tiki_p_admin_users == 'y' && array_key_exists($_REQUEST["group"], $groups) && $access->checkCsrf()))) {
+		} elseif (
+            $_REQUEST["action"] == 'removegroup' && ($tiki_p_admin == 'y' && $access->checkCsrf()
+				|| ($tiki_p_admin_users == 'y' && array_key_exists($_REQUEST["group"], $groups) && $access->checkCsrf()))
+        ) {
 			$result = $userlib->remove_user_from_group($_REQUEST["assign_user"], $_REQUEST["group"]);
 			if ($result && $result->numRows()) {
 				Feedback::success(tr(

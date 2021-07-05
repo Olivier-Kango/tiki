@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -106,8 +107,10 @@ class Multilingual_Aligner_BilingualAligner
 			$l2_n_matches
 		);
 
-		if (strcmp($node_to_extend, $new_node) != 0 &&
-				! in_array($new_node, $this->nodes_at_next_level)) {
+		if (
+            strcmp($node_to_extend, $new_node) != 0 &&
+				! in_array($new_node, $this->nodes_at_next_level)
+        ) {
 			//		print "-- _match_current_l1_and_l2_sentences: adding '$new_node' to list of nodes to expand at next iteration\n";
 
 			array_push($this->nodes_at_next_level, $new_node);
@@ -139,7 +142,8 @@ class Multilingual_Aligner_BilingualAligner
 			$l2_n_skips
 		);
 
-		if (strcmp($node_to_extend, $new_node) != 0
+		if (
+            strcmp($node_to_extend, $new_node) != 0
 				&& ! in_array($new_node, $this->nodes_at_next_level)
 		) {
 			array_push($this->nodes_at_next_level, $new_node);

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -361,8 +362,10 @@ function wikiplugin_paypal($data, $params)
 	} else {
 		$returnUrl = $base_uri;
 	}
-	if (strpos($returnUrl, 'tiki-ajax_services.php') !== false ||
-			(isset($_REQUEST['controller']) && $_REQUEST['controller'] === 'search_customsearch')) {
+	if (
+        strpos($returnUrl, 'tiki-ajax_services.php') !== false ||
+			(isset($_REQUEST['controller']) && $_REQUEST['controller'] === 'search_customsearch')
+    ) {
 		$csearchEvent = 'pageSearchReady';
 		if (! empty($_SERVER['HTTP_REFERER'])) {
 			$returnUrl = $_SERVER['HTTP_REFERER'];

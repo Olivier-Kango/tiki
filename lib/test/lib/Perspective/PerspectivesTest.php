@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -11,6 +12,7 @@ use Symfony\Component\DomCrawler\Crawler;
 use Tiki\Test\TestHelpers\TikiDbHelper;
 use Tiki\Test\TestHelpers\TikiProfileHelper;
 use Tiki\Test\TestHelpers\WebClientHelper;
+
 use function foo\func;
 
 /**
@@ -18,7 +20,7 @@ use function foo\func;
  */
 class PerspectivesTest extends PerspectivesNavigationBaseTestCase
 {
-	public static function setUpBeforeClass() : void
+	public static function setUpBeforeClass(): void
 	{
 		parent::setUpBeforeClass();
 

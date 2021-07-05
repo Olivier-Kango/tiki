@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -157,14 +158,16 @@ class mime
 					}
 					$encoding = isset($content_transfer_encoding) ? $content_transfer_encoding['value'] : '7bit';
 					$back['body'] = $this->decodeBody($body, $encoding);
-					if (array_key_exists('ctype_parameters', $back)
+					if (
+                        array_key_exists('ctype_parameters', $back)
 							and isset($back['ctype_parameters'])
 							and $back['ctype_parameters']
 							and (! isset($back['ctype_parameters']['charset']) or strtolower($back['ctype_parameters']['charset']) == 'iso-8858-1')
 							and function_exists('utf8_encode')
 					) {
 						$back[$type][] = utf8_encode($back['body']);
-					} elseif (array_key_exists('ctype_parameters', $back)
+					} elseif (
+                        array_key_exists('ctype_parameters', $back)
 										and isset($back['ctype_parameters'])
 										and $back['ctype_parameters']
 										and strtolower($back['ctype_parameters']['charset']) != 'utf-8'

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -114,7 +115,7 @@ class Installer extends TikiDb_Bridge implements SplSubject
 
 		$this->assureDefaultCharSetIsAlignedWithTikiSchema();
 
-		$TWV = new TWVersion;
+		$TWV = new TWVersion();
 		$dbversion_tiki = $TWV->version;
 
 		// If a Mysql data file exists, use that. Very fast
@@ -248,7 +249,7 @@ class Installer extends TikiDb_Bridge implements SplSubject
 
 		$tx = $this->begin();
 
-		$installer = new Tiki_Profile_Installer;
+		$installer = new Tiki_Profile_Installer();
 		$ret = $installer->install($profile);
 
 		$tx->commit();
@@ -569,8 +570,10 @@ class Installer extends TikiDb_Bridge implements SplSubject
 			return;
 		}
 
-		if ($databaseInfo['DEFAULT_CHARACTER_SET_NAME'] === $tableInfo['CHARACTER_SET_NAME']
-			&& $databaseInfo['DEFAULT_COLLATION_NAME'] === $tableInfo['COLLATION_NAME']) {
+		if (
+            $databaseInfo['DEFAULT_CHARACTER_SET_NAME'] === $tableInfo['CHARACTER_SET_NAME']
+			&& $databaseInfo['DEFAULT_COLLATION_NAME'] === $tableInfo['COLLATION_NAME']
+        ) {
 			// all OK, charset and collation are aligned
 			return;
 		}

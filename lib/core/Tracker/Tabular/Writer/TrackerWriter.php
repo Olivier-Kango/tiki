@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -15,7 +16,7 @@ class TrackerWriter
 
 	public function write(\Tracker\Tabular\Source\SourceInterface $source)
 	{
-		$utilities = new \Services_Tracker_Utilities;
+		$utilities = new \Services_Tracker_Utilities();
 		$schema = $source->getSchema();
 		$bulkImport = $schema->useBulkImport();
 
@@ -38,7 +39,7 @@ class TrackerWriter
 				$info = [
 					'itemId' => false,
 					'fields' => [],
-					'skip_sync' => $source instanceOf \Tracker\Tabular\Source\ODBCSource,
+					'skip_sync' => $source instanceof \Tracker\Tabular\Source\ODBCSource,
 				];
 
 				foreach ($columns as $column) {

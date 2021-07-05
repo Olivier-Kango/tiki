@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -154,7 +155,7 @@ class File
 	 */
 	public function getParamsForDB()
 	{
-		return array_filter($this->param, function($key){
+		return array_filter($this->param, function ($key) {
 			return $key != 'backlinkPerms';
 		}, ARRAY_FILTER_USE_KEY);
 	}
@@ -210,7 +211,7 @@ class File
 			$this->setParam('ocr_state', $jitRequest->ocr_state->int());
 		}
 
-		if ($data && !$this->replaceContents($data)) {
+		if ($data && ! $this->replaceContents($data)) {
 			// Do not replace with empty file as could be updating properties only
 			return false;
 		}
@@ -234,7 +235,7 @@ class File
 	public function replaceQuick($data)
 	{
 		global $user;
-		if (!$this->replaceContents($data)) {
+		if (! $this->replaceContents($data)) {
 			return false;
 		}
 		$this->setParam('lastModifUser', $user);

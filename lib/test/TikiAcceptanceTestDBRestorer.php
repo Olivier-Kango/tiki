@@ -1,4 +1,7 @@
-<?php /** @noinspection ALL */
+<?php
+
+/** @noinspection ALL */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -71,7 +74,7 @@ abstract class TikiAcceptanceTestDBRestorer
 
 	//This method can be called to create any dump file from a db.
 	//Useful for creating dumps for diffent test db configurations
-	abstract public  function createDumpFile($dump_file);
+	abstract public function createDumpFile($dump_file);
 
 	public function setMysqlDataDir()
 	{
@@ -149,8 +152,10 @@ class TikiAcceptanceTestDBRestorerSQLDumps extends TikiAcceptanceTestDBRestorer
 
 	public function checkIfDumpAndSchemaStartFilesExist($dump_file)
 	{
-		if (checkIfDumpExists($dump_file) &&
-				checkIfDumpExists($dump_file . "_" . $this->tiki_schema_file_start)) {
+		if (
+            checkIfDumpExists($dump_file) &&
+				checkIfDumpExists($dump_file . "_" . $this->tiki_schema_file_start)
+        ) {
 			return true;
 		}
 	}

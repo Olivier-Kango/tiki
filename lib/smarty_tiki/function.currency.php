@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -42,7 +43,7 @@ function smarty_function_currency($params, $smarty)
 
 		// convert amount to default currency before converting to other currencies
 		$defaultAmount = $amount;
-		if ($sourceCurrency != $defaultCurrency && !empty($rates[$sourceCurrency])) {
+		if ($sourceCurrency != $defaultCurrency && ! empty($rates[$sourceCurrency])) {
 			$defaultAmount = (float)$defaultAmount / (float)$rates[$sourceCurrency];
 			$conversions[$defaultCurrency] = $defaultAmount;
 		}
@@ -60,9 +61,9 @@ function smarty_function_currency($params, $smarty)
 	$smarty->loadPlugin('smarty_modifier_money_format');
 	$id = uniqid();
 
-	$out = '<div style="display:inline" id="currency_output_'.$id.'" class="currency_output">';
+	$out = '<div style="display:inline" id="currency_output_' . $id . '" class="currency_output">';
 	if ($prepend) {
-		$out .= '<span class="formunit">'.smarty_modifier_escape($prepend).'</span>';
+		$out .= '<span class="formunit">' . smarty_modifier_escape($prepend) . '</span>';
 	}
 	if (empty($locale)) {
 		$locale = 'en_US';
@@ -82,27 +83,27 @@ function smarty_function_currency($params, $smarty)
 		$part1b = '%(#10';
 	}
 	if ((isset($reloff) and $reloff > 0) and ($allSymbol != 1)) {
-		$format = $part1a.$symbol;
+		$format = $part1a . $symbol;
 		$out .= smarty_modifier_money_format($amount, $locale, $currency, $format, 0);
 	} else {
-		$format = $part1b.$symbol;
+		$format = $part1b . $symbol;
 		$out .= smarty_modifier_money_format($amount, $locale, $currency, $format, 1);
 	}
 	if ($append) {
-		$out .= '<span class="formunit">'.smarty_modifier_escape($append).'</span>';
+		$out .= '<span class="formunit">' . smarty_modifier_escape($append) . '</span>';
 	}
 	$out .= '</div>';
 	if ($conversions) {
 		$out .= '
-		<div class="d-none currency_output_'.$id.'" style="position:absolute; z-index: 1000;">
+		<div class="d-none currency_output_' . $id . '" style="position:absolute; z-index: 1000;">
 			<div class="modal-content">
 				<div class="modal-body">';
 		foreach ($conversions as $currency => $amount) {
 			if ((isset($reloff) and $reloff > 0) and ($allSymbol != 1)) {
-				$format = $part1a.$symbol;
+				$format = $part1a . $symbol;
 				$out .= smarty_modifier_money_format($amount, $locale, $currency, $format, 0);
 			} else {
-				$format = $part1b.$symbol;
+				$format = $part1b . $symbol;
 				$out .= smarty_modifier_money_format($amount, $locale, $currency, $format, 1);
 			}
 			$out .= '<br>';

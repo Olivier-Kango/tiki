@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -142,7 +143,7 @@ class Tracker_Field_AutoIncrement extends Tracker_Field_Abstract implements Trac
 			->setRenderTransform(function ($value) {
 				return $value;
 			})
-			->setParseIntoTransform(function (& $info, $value) use ($permName) {
+			->setParseIntoTransform(function (&$info, $value) use ($permName) {
 				$info['fields'][$permName] = $value;
 			})
 			;
@@ -152,12 +153,12 @@ class Tracker_Field_AutoIncrement extends Tracker_Field_Abstract implements Trac
 			->setRenderTransform(function ($value) use ($prepend, $append) {
 				return $prepend . $value . $append;
 			})
-			->setParseIntoTransform(function (& $info, $value) use ($permName, $prepend, $append) {
+			->setParseIntoTransform(function (&$info, $value) use ($permName, $prepend, $append) {
 				if (substr($value, 0, strlen($prepend)) === $prepend) {
 					$value = substr($value, strlen($prepend));
 				}
-				if (substr($value, 0-strlen($append)) === $append) {
-					$value = substr($value, 0, 0-strlen($append));
+				if (substr($value, 0 - strlen($append)) === $append) {
+					$value = substr($value, 0, 0 - strlen($append));
 				}
 				$info['fields'][$permName] = $value;
 			})
@@ -203,7 +204,8 @@ class Tracker_Field_AutoIncrement extends Tracker_Field_Abstract implements Trac
 		return $out;
 	}
 
-	public function getProvidedFields() {
+	public function getProvidedFields()
+    {
 		$baseKey = $this->getBaseKey();
 		return [$baseKey, "{$baseKey}_text"];
 	}

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -202,7 +203,7 @@ class BigBlueButtonLib
 		$response = $client->send();
 		$document = $response->getBody();
 
-		$dom = new DOMDocument;
+		$dom = new DOMDocument();
 		$dom->loadXML($document);
 
 		$values = $this->grabValues($dom->documentElement);
@@ -327,7 +328,7 @@ class BigBlueButtonLib
 		$url = $this->buildUrl($action, $parameters);
 
 		if ($result = $tikilib->httprequest($url)) {
-			$dom = new DOMDocument;
+			$dom = new DOMDocument();
 			if ($dom->loadXML($result)) {
 				$nodes = $dom->getElementsByTagName('returncode');
 

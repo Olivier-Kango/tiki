@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -22,7 +24,8 @@ if (isset($_REQUEST["confirm_subscription"])) {
 	$conf = $nllib->confirm_subscription($_REQUEST["confirm_subscription"]);
 	if ($conf) {
 		Feedback::success(
-			tr('Subscription confirmed for newsletter %0 (%1)',
+			tr(
+                'Subscription confirmed for newsletter %0 (%1)',
 				htmlspecialchars($conf['name']),
 				htmlspecialchars($conf['description'])
 			)
@@ -36,7 +39,8 @@ if (isset($_REQUEST["unsubscribe"])) {
 	$conf = $nllib->unsubscribe($_REQUEST["unsubscribe"]);
 	if ($conf) {
 		Feedback::success(
-			tr('You have been unsubscribed from newsletter %0',
+			tr(
+                'You have been unsubscribed from newsletter %0',
 				htmlspecialchars($conf['name'])
 			)
 		);
@@ -45,9 +49,10 @@ if (isset($_REQUEST["unsubscribe"])) {
 		Feedback::error(tr('Your request to unsubscribe failed'));
 	}
 }
-if (! $user && $tiki_p_subscribe_newsletters != 'y' && ! isset($_REQUEST["confirm_subscription"])
-	&& ! isset($_REQUEST["unsubscribe"]))
-{
+if (
+    ! $user && $tiki_p_subscribe_newsletters != 'y' && ! isset($_REQUEST["confirm_subscription"])
+	&& ! isset($_REQUEST["unsubscribe"])
+) {
 	Feedback::errorPage(tr('You must be logged in to subscribe to newsletters'));
 }
 if (! isset($_REQUEST["nlId"])) {
@@ -68,7 +73,7 @@ if ($user) {
 }
 $smarty->assign('email', $user_email);
 if ($tiki_p_subscribe_newsletters == 'y') {
-	if (isset($_REQUEST["subscribe"]) && $access->checkCsrf() ) {
+	if (isset($_REQUEST["subscribe"]) && $access->checkCsrf()) {
 		if (empty($user) && $prefs['feature_antibot'] == 'y' && ! $captchalib->validate()) {
 			Feedback::errorPage(['mes' => $captchalib->getErrors(), 'errortype' => 'no_redirect_login']);
 		}

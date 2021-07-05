@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -64,7 +65,7 @@ class Finalize extends ObjectWriter
 			);
 			$output->writeln("<error>Some of the remaining objects are unknown:\n$objects\n\nConsider adding them to the profile or use --force to write them directly (profile may not work in all environments).\n</error>");
 
-			$profileFinder = new \Tiki_Profile_Writer_ProfileFinder;
+			$profileFinder = new \Tiki_Profile_Writer_ProfileFinder();
 			foreach ($remaining as $entry) {
 				$profileFinder->lookup($entry['type'], $entry['id']);
 			}

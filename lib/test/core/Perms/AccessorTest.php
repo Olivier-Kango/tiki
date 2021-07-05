@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -16,7 +17,7 @@ class Perms_AccessorTest extends TikiTestCase
 	{
 		$resolver = new Perms_Resolver_Default(true);
 
-		$accessor = new Perms_Accessor;
+		$accessor = new Perms_Accessor();
 		$accessor->setResolver($resolver);
 
 		$this->assertSame($resolver, $accessor->getResolver());
@@ -24,7 +25,7 @@ class Perms_AccessorTest extends TikiTestCase
 
 	public function testGetSetGroups()
 	{
-		$accessor = new Perms_Accessor;
+		$accessor = new Perms_Accessor();
 		$accessor->setGroups(['Test']);
 
 		$this->assertEquals(['Test'], $accessor->getGroups());
@@ -32,7 +33,7 @@ class Perms_AccessorTest extends TikiTestCase
 
 	public function testGetSetPrefix()
 	{
-		$accessor = new Perms_Accessor;
+		$accessor = new Perms_Accessor();
 		$accessor->setPrefix('hello_');
 
 		$this->assertEquals('hello_', $accessor->getPrefix());
@@ -40,7 +41,7 @@ class Perms_AccessorTest extends TikiTestCase
 
 	public function testGetSetContext()
 	{
-		$accessor = new Perms_Accessor;
+		$accessor = new Perms_Accessor();
 		$accessor->setContext(['type' => 'wiki page', 'object' => 'HomePage']);
 
 		$this->assertEquals(['type' => 'wiki page', 'object' => 'HomePage'], $accessor->getContext());
@@ -48,28 +49,28 @@ class Perms_AccessorTest extends TikiTestCase
 
 	public function testGetDefaultGroups()
 	{
-		$accessor = new Perms_Accessor;
+		$accessor = new Perms_Accessor();
 
 		$this->assertEquals([], $accessor->getGroups());
 	}
 
 	public function testDefaultPrefix()
 	{
-		$accessor = new Perms_Accessor;
+		$accessor = new Perms_Accessor();
 
 		$this->assertEquals('', $accessor->getPrefix());
 	}
 
 	public function testCheckPermissionWithoutResolver()
 	{
-		$accessor = new Perms_Accessor;
+		$accessor = new Perms_Accessor();
 
 		$this->assertFalse($accessor->view);
 	}
 
 	public function testCheckPermissionWithResolver()
 	{
-		$accessor = new Perms_Accessor;
+		$accessor = new Perms_Accessor();
 
 		$accessor->setResolver(
 			new Perms_Resolver_Static(['Anonymous' => ['view', 'edit'],])
@@ -86,7 +87,7 @@ class Perms_AccessorTest extends TikiTestCase
 
 	public function testReadWithPrefix()
 	{
-		$accessor = new Perms_Accessor;
+		$accessor = new Perms_Accessor();
 		$accessor->setGroups(['Anonymous']);
 		$accessor->setPrefix('tiki_p_');
 
@@ -101,7 +102,7 @@ class Perms_AccessorTest extends TikiTestCase
 
 	public function testGlobalize()
 	{
-		$accessor = new Perms_Accessor;
+		$accessor = new Perms_Accessor();
 		$accessor->setPrefix('tiki_p_');
 		$accessor->setGroups(['Anonymous']);
 
@@ -119,7 +120,7 @@ class Perms_AccessorTest extends TikiTestCase
 
 	public function testArrayAccess()
 	{
-		$accessor = new Perms_Accessor;
+		$accessor = new Perms_Accessor();
 		$accessor->setGroups(['Anonymous']);
 		$accessor->setPrefix('tiki_p_');
 
@@ -136,7 +137,7 @@ class Perms_AccessorTest extends TikiTestCase
 
 	public function testApplicableGroupsInsideAccessor()
 	{
-		$accessor = new Perms_Accessor;
+		$accessor = new Perms_Accessor();
 		$static = new Perms_Resolver_Static(
 			[
 				'Anonymous' => ['view'],
@@ -151,7 +152,7 @@ class Perms_AccessorTest extends TikiTestCase
 
 	public function testApplicableGroupsThroughCheckSequence()
 	{
-		$accessor = new Perms_Accessor;
+		$accessor = new Perms_Accessor();
 		$static = new Perms_Resolver_Static(
 			[
 				'Anonymous' => ['view'],
@@ -167,7 +168,7 @@ class Perms_AccessorTest extends TikiTestCase
 		$accessor->setCheckSequence(
 			[
 				$g = new Perms_Check_Alternate('admin'),
-				new Perms_Check_Direct,
+				new Perms_Check_Direct(),
 			]
 		);
 

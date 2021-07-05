@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -211,7 +212,7 @@ class WikiRenderer
 		}
 
 		if ($prefs['feature_machine_translation'] == 'y' && $prefs['lang_machine_translate_wiki'] == 'y' && ! empty($this->info['lang'])) {
-			$provider = new Multilingual_MachineTranslation;
+			$provider = new Multilingual_MachineTranslation();
 			$langsCandidatesForMachineTranslation = $provider->getAvailableLanguages($this->trads);
 			$this->smartyassign('langsCandidatesForMachineTranslation', $langsCandidatesForMachineTranslation);
 		}

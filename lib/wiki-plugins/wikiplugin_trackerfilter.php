@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -329,8 +330,10 @@ function wikiplugin_trackerfilter($data, $params)
 			return $filters;
 		}
 	}
-	if (($displayList == 'y' || isset($_REQUEST['filter']) || isset($_REQUEST["tr_offset$iTrackerFilter"]) || isset($_REQUEST['tr_sort_mode'])) &&
-				(! isset($_REQUEST['iTrackerFilter']) || $_REQUEST['iTrackerFilter'] == $iTrackerFilter)) {
+	if (
+        ($displayList == 'y' || isset($_REQUEST['filter']) || isset($_REQUEST["tr_offset$iTrackerFilter"]) || isset($_REQUEST['tr_sort_mode'])) &&
+				(! isset($_REQUEST['iTrackerFilter']) || $_REQUEST['iTrackerFilter'] == $iTrackerFilter)
+    ) {
 		$ffs = [];
 		$values = [];
 		$exactValues = [];
@@ -630,7 +633,7 @@ function wikiplugin_trackerFilter_get_filters($trackerId = 0, array $listfields 
 	$iField = 0;
 	foreach ($listfields as $fieldId) {
 		if ($fieldId == 'status' || $fieldId == 'Status') {
-			$filter = ['name' => $fieldId, 'fieldId' => 'status', 'format' => 'd', 'opts' => [['id' => 'o', 'name' => 'open', 'selected' => (! empty($_REQUEST['f_status'])&& $_REQUEST['f_status'] == 'o') ? 'y' : 'n'], ['id' => 'p', 'name' => 'pending', 'selected' => (! empty($_REQUEST['f_status'])&& $_REQUEST['f_status'] == 'p') ? 'y' : 'n'], ['id' => 'c', 'name' => 'closed', 'selected' => (! empty($_REQUEST['f_status'])&& $_REQUEST['f_status'] == 'c') ? 'y' : 'n']]];
+			$filter = ['name' => $fieldId, 'fieldId' => 'status', 'format' => 'd', 'opts' => [['id' => 'o', 'name' => 'open', 'selected' => (! empty($_REQUEST['f_status']) && $_REQUEST['f_status'] == 'o') ? 'y' : 'n'], ['id' => 'p', 'name' => 'pending', 'selected' => (! empty($_REQUEST['f_status']) && $_REQUEST['f_status'] == 'p') ? 'y' : 'n'], ['id' => 'c', 'name' => 'closed', 'selected' => (! empty($_REQUEST['f_status']) && $_REQUEST['f_status'] == 'c') ? 'y' : 'n']]];
 			$filters[] = $filter;
 			continue;
 		}
@@ -847,7 +850,7 @@ function wikiplugin_trackerFilter_get_filters($trackerId = 0, array $listfields 
 
 					$opts = [];
 					$opts['field_filter'] = $filter;
-					$opts['field_selection'] = isset($_REQUEST['f_'.$fieldId]) ? $_REQUEST['f_'.$fieldId] : '';
+					$opts['field_selection'] = isset($_REQUEST['f_' . $fieldId]) ? $_REQUEST['f_' . $fieldId] : '';
 					$opts['field_format'] = $format;
 					$opts['other_options'][] = wikiplugin_trackerFilter_add_empty_option($fieldId);
 
@@ -861,12 +864,14 @@ function wikiplugin_trackerFilter_get_filters($trackerId = 0, array $listfields 
 						foreach ($list1 as $id => $option) {
 							$opt['id'] = $id;
 							$opt['name'] = html_entity_decode($option); // this will be escaped by smarty but already escaped from ItemLink
-							if (! empty($_REQUEST['f_' . $fieldId]) &&
+							if (
+                                ! empty($_REQUEST['f_' . $fieldId]) &&
 								((! is_array($_REQUEST['f_' . $fieldId]) &&
 										urldecode($_REQUEST['f_' . $fieldId]) == $id) ||
 									(is_array($_REQUEST['f_' . $fieldId]) &&
 										in_array($id, $_REQUEST['f_' . $fieldId]))
-								)) {
+								)
+                            ) {
 								$opt['selected'] = 'y';
 								$selected = true;
 							} else {

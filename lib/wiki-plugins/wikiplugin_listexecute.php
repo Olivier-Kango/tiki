@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -37,7 +38,7 @@ function wikiplugin_listexecute($data, $params)
 
 	$actions = [];
 
-	$factory = new Search_Action_Factory;
+	$factory = new Search_Action_Factory();
 	$factory->register(
 		[
 			'change_status' => 'Search_Action_ChangeStatusAction',
@@ -52,7 +53,7 @@ function wikiplugin_listexecute($data, $params)
 		]
 	);
 
-	$query = new Search_Query;
+	$query = new Search_Query();
 	$unifiedsearchlib->initQuery($query);
 
 	$matches = WikiParser_PluginMatcher::match($data);
@@ -124,7 +125,7 @@ function wikiplugin_listexecute($data, $params)
 	$resultBuilder->apply($matches);
 
 	$dataSource = $unifiedsearchlib->getDataSource();
-	$builder = new Search_Formatter_Builder;
+	$builder = new Search_Formatter_Builder();
 	$builder->setPaginationArguments($paginationArguments);
 	$builder->setActions($actions);
 	$builder->setId('wplistexecute-' . $iListExecute);
@@ -193,7 +194,7 @@ function wikiplugin_listexecute($data, $params)
 		} elseif (isset($actions[$action])) {
 			TikiLib::setExternalContext(true);
 
-			$reportSource = new Search_Action_ReportingTransform;
+			$reportSource = new Search_Action_ReportingTransform();
 
 			$tx = TikiDb::get()->begin();
 

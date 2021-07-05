@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -14,7 +15,7 @@ require_once(__DIR__ . '/../../importer/tikiimporter_blog.php');
 class TikiImporter_Blog_Test extends TikiImporter_TestCase
 {
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		$this->obj = new TikiImporter_Blog();
 	}

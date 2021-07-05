@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -128,7 +129,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
 			$this->checkRequirementsForAttachments();
 		}
 
-		$this->dom = new DOMDocument;
+		$this->dom = new DOMDocument();
 
 		if (! $this->dom->load($filePath)) {
 			throw new DOMException(tra('There was an error while loading the XML file. Probably the XML file is malformed. Some versions of WordPress generate a malformed XML file. See the Tiki Importer documentation for more information.'));
@@ -545,7 +546,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
 	public function parseYoutubeEmbedded($content)
 	{
 		$newcontent = $content;
-		$dom = new DOMDocument;
+		$dom = new DOMDocument();
 		$dom->loadHTML($content);
 
 		$tags = $dom->getElementsByTagName('iframe');
@@ -613,7 +614,7 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
 					case 'content:encoded':
 						$data['content'] = (string) $this->parseContent($node->textContent);
 						//parse html content
-						if(class_exists('EditLib')) {
+						if (class_exists('EditLib')) {
 							$editlib = new EditLib();
 							$content = $data['content'];
 							$content = $this->replaceParagraphWithLineBreak($content);
@@ -815,9 +816,11 @@ class TikiImporter_Blog_Wordpress extends TikiImporter_Blog
 		$comment = [];
 
 		// if comment is marked as spam, trash or pigback we ignore it
-		if ($commentNode->getElementsByTagName('comment_approved')->item(0)->textContent == 'spam'
+		if (
+            $commentNode->getElementsByTagName('comment_approved')->item(0)->textContent == 'spam'
 			|| $commentNode->getElementsByTagName('comment_approved')->item(0)->textContent == 'trash'
-			|| $commentNode->getElementsByTagName('comment_type')->item(0)->textContent == 'pingback') {
+			|| $commentNode->getElementsByTagName('comment_type')->item(0)->textContent == 'pingback'
+        ) {
 			return false;
 		}
 

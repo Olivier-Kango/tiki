@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -9,17 +10,17 @@ require_once('lib/test/TikiDatabaseTestCase.php');
 
 class Reports_EndToEndTest extends TikiDatabaseTestCase
 {
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		$this->markTestSkipped('Strangely enough, this loads two different classes if TikiMail');
-		$this->dt = new DateTime;
+		$this->dt = new DateTime();
 		$this->dt->setTimestamp(strtotime('2012-03-27 15:55:16'));
 
 		$this->mail = $this->createMock('TikiMail');
 
 		$this->tikilib = $this->createMock('TikiLib');
 
-		$this->overrideLibs = new TestableTikiLib;
+		$this->overrideLibs = new TestableTikiLib();
 		$this->overrideLibs->overrideLibs(['calendar' => $this->createMock('MockCalendarLib')]);
 
 		$tikiPrefs = ['short_date_format' => '%Y-%m-%d'];

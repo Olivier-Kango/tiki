@@ -13,7 +13,7 @@ abstract class Search_Index_NumericTest extends PHPUnit\Framework\TestCase
 				'object_id' => $typeFactory->identifier('HomePage'),
 				'contents' => $typeFactory->plaintext('module 7, 2.5.3')->filter(
 					[
-						new Search_ContentFilter_VersionNumber,
+						new Search_ContentFilter_VersionNumber(),
 					]
 				),
 			]
@@ -42,7 +42,7 @@ abstract class Search_Index_NumericTest extends PHPUnit\Framework\TestCase
 
 	private function assertResultCount($count, $argument)
 	{
-		$query = new Search_Query;
+		$query = new Search_Query();
 		$query->filterContent($argument);
 
 		$this->assertCount($count, $query->search($this->index));

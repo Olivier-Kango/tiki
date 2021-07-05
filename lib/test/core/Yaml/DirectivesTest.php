@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -19,7 +20,7 @@ class DirectivesTest extends TestCase
 	protected $directives;
 	protected $fixtures;
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		$this->fixtures = __DIR__ . '/Fixtures/';
 		$this->directives = new Directives(null, $this->fixtures);

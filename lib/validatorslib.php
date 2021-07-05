@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -56,10 +57,10 @@ class Validators
 	{
 		$validationjs = 'rules: { ';
 		foreach ($fields_data as $field_value) {
-			if ($field_value['type'] == 'b'){
+			if ($field_value['type'] == 'b') {
 				$validationjs .= $prefix . $field_value['fieldId'] . '_currency: {required:
 					function(element){
-						return $("#'.$prefix . $field_value['fieldId'] .'").val()!="";
+						return $("#' . $prefix . $field_value['fieldId'] . '").val()!="";
 					},},';
 			}
 			if ($field_value['validation'] || $field_value['isMandatory'] == 'y') {
@@ -138,11 +139,11 @@ class Validators
 		$validationjs .= '}, ';
 		$validationjs .= 'messages: { ';
 		foreach ($fields_data as $field_value) {
-			if ($field_value['type'] == 'b'){
-				if ($field_value['validationMessage']){
+			if ($field_value['type'] == 'b') {
+				if ($field_value['validationMessage']) {
 					$validationjs .= $prefix . $field_value['fieldId'] . '_currency: "' . tra($field_value['validationMessage']) . '",';
-				}else{
-					$validationjs .= $prefix . $field_value['fieldId'] . '_currency: "'. tra('This field is required') . '",';
+				} else {
+					$validationjs .= $prefix . $field_value['fieldId'] . '_currency: "' . tra('This field is required') . '",';
 				}
 			}
 			if ($field_value['validationMessage'] && $field_value['isMandatory'] == 'y') {

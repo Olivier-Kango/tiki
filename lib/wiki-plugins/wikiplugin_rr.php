@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -382,7 +383,8 @@ function wikiplugin_rr($data, $params)
 
 	if ($dbversion_tiki >= 7.0) {
 		// quick fix for 7.1RC1 - might find a better one soon... (jb).  Thanks jonnyb!
-		if (stripos($data, '&lt;') !== false ||
+		if (
+            stripos($data, '&lt;') !== false ||
 					stripos($data, '&gt;') !== false ||
 					stripos($data, '&quot;') !== false
 		) {	// add more bad entities here

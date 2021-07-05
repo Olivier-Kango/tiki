@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -55,7 +57,7 @@ require_once('lib/tikiticketlib.php');
 require_once('db/tiki-db.php');
 ErrorTracking::init();
 require_once('lib/tikilib.php');
-$tikilib = new TikiLib;
+$tikilib = new TikiLib();
 // Get tiki-setup_base needed preferences in one query
 $prefs = [];
 $needed_prefs = [
@@ -115,9 +117,12 @@ global $systemConfiguration;
 $prefs = $systemConfiguration->preference->toArray() + $prefs;
 
 // Handle load balancers or reverse proxy (most reliable to do it early on as much code depends on these 2 server vars)
-if ((isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')
-	|| (isset($_SERVER['REQUEST_SCHEME']) && $_SERVER['REQUEST_SCHEME'] == 'https')) {
-		$_SERVER['HTTPS'] = 'on';
+
+if (
+    (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https')
+    || (isset($_SERVER['REQUEST_SCHEME']) && $_SERVER['REQUEST_SCHEME'] == 'https')
+) {
+	$_SERVER['HTTPS'] = 'on';
 }
 
 if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') {
@@ -541,8 +546,10 @@ if (isset($_SESSION["$user_cookie_site"])) {
 } else {
 	$user = null;
 
-	if (isset($prefs['login_http_basic']) && $prefs['login_http_basic'] === 'always' ||
-		(isset($prefs['login_http_basic']) && $prefs['login_http_basic'] === 'ssl' && isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')) {
+	if (
+        isset($prefs['login_http_basic']) && $prefs['login_http_basic'] === 'always' ||
+		(isset($prefs['login_http_basic']) && $prefs['login_http_basic'] === 'ssl' && isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
+    ) {
 		// Authenticate if the credentials are present, do nothing otherwise
 		if (! empty($_SERVER['REDIRECT_HTTP_AUTHORIZATION'])) {
 			$_SERVER['HTTP_AUTHORIZATION'] = $_SERVER['REDIRECT_HTTP_AUTHORIZATION'];
@@ -607,7 +614,7 @@ if ($prefs['feature_perspective'] === 'y') {
 
 require_once('lib/setup/perms.php');
 
-$serverFilter = new DeclFilter;
+$serverFilter = new DeclFilter();
 if (( isset($prefs['tiki_allow_trust_input']) && $prefs['tiki_allow_trust_input'] ) !== 'y' || $tiki_p_trust_input != 'y') {
 	$serverFilter->addStaticKeyFilters(['QUERY_STRING' => 'xss', 'REQUEST_URI' => 'url', 'PHP_SELF' => 'url',]);
 }

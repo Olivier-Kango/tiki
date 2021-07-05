@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -65,8 +67,10 @@ $smarty->assign('id', $objId);
 
 include_once 'categorize_list.php';
 
-if (isset($_REQUEST['langpage']) && ! empty($_REQUEST['langpage']) && $_REQUEST['langpage'] != "NULL"
-				&& $langpage != $_REQUEST['langpage']) { // update the language
+if (
+    isset($_REQUEST['langpage']) && ! empty($_REQUEST['langpage']) && $_REQUEST['langpage'] != "NULL"
+				&& $langpage != $_REQUEST['langpage']
+) { // update the language
 	$error = $multilinguallib->updateObjectLang($type, $objId, $_REQUEST['langpage']);
 	if ($error) {
 		$smarty->assign('error', $error);

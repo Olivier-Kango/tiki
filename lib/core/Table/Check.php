@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -86,8 +87,10 @@ class Table_Check
 	 */
 	public static function isFilterOrSort()
 	{
-		if (self::isAjaxCall() && ((! empty($_REQUEST['filter']) && is_array($_REQUEST['filter'])
-				|| (! empty($_REQUEST['sort']) && is_array($_REQUEST['sort']))))) {
+		if (
+            self::isAjaxCall() && ((! empty($_REQUEST['filter']) && is_array($_REQUEST['filter'])
+				|| (! empty($_REQUEST['sort']) && is_array($_REQUEST['sort']))))
+        ) {
 			return true;
 		} else {
 			return false;

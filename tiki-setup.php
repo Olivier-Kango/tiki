@@ -1,4 +1,5 @@
 <?php
+
 /**
  * contains the hooks for Tiki's internal functionality.
  *
@@ -8,6 +9,7 @@
  * @copyright (c) Copyright by authors of the Tiki Wiki CMS Groupware Project. All Rights Reserved. See copyright.txt for details and a complete list of authors.
  * @licence Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
  */
+
 // $Id$
 
 // die if called directly.
@@ -214,8 +216,10 @@ if ($prefs['feature_sefurl'] == 'y' && ! defined('TIKI_CONSOLE')) {
 }
 
 if (! empty($varcheck_errors)) {
-	if (isset($_SERVER['HTTP_X_REQUESTED_WITH'])
-		&& $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest') {
+	if (
+        isset($_SERVER['HTTP_X_REQUESTED_WITH'])
+		&& $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'
+    ) {
 		Feedback::error($varcheck_errors, true);
 		exit(1);
 	} else {
@@ -738,8 +742,10 @@ if ($prefs['feature_inline_comments'] === 'y' && $prefs['comments_inline_annotat
 	}
 	$commentController = new Services_Comment_Controller();
 
-	if ($commentController->isEnabled($object['type'], $object['object']) &&
-		$commentController->canView($object['type'], $object['object'])) {
+	if (
+        $commentController->isEnabled($object['type'], $object['object']) &&
+		$commentController->canView($object['type'], $object['object'])
+    ) {
 		$canPost = $commentController->canPost($object['type'], $object['object']);
 		$objectIdentifier = urlencode($object['type']) . ':' . urlencode($object['object']);    // spoof a URI from type and id
 

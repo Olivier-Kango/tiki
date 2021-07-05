@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -16,7 +17,7 @@ class Tiki_Profile_ChannelList
 
 	public static function fromConfiguration($string)
 	{
-		$list = new self;
+		$list = new self();
 
 		$string = str_replace("\r", '', $string);
 		$lines = explode("\n", $string);

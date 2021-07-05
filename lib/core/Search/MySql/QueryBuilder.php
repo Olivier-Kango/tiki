@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -25,9 +26,9 @@ class Search_MySql_QueryBuilder
 	public function __construct($db)
 	{
 		$this->db = $db;
-		$this->factory = new Search_MySql_TypeFactory;
-		$this->fieldBuilder = new Search_MySql_FieldQueryBuilder;
-		$this->tfTranslator = new Search_MySql_TrackerFieldTranslator;
+		$this->factory = new Search_MySql_TypeFactory();
+		$this->fieldBuilder = new Search_MySql_FieldQueryBuilder();
+		$this->tfTranslator = new Search_MySql_TrackerFieldTranslator();
 	}
 
 	public function build(Search_Expr_Interface $expr)
@@ -121,7 +122,7 @@ class Search_MySql_QueryBuilder
 	{
 		$fields = [];
 		$node->walk(
-			function ($node) use (& $fields) {
+			function ($node) use (&$fields) {
 				if (method_exists($node, 'getField')) {
 					$fields[$node->getField()] = true;
 				}
@@ -135,7 +136,7 @@ class Search_MySql_QueryBuilder
 	{
 		$fullText = true;
 		$node->walk(
-			function ($node) use (& $fullText) {
+			function ($node) use (&$fullText) {
 				if ($fullText && method_exists($node, 'getType')) {
 					$type = $node->getType();
 					if ($type != 'sortable' && $type != 'wikitext' && $type != 'plaintext' && $type != 'multivalue') {

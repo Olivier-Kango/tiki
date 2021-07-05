@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -254,7 +255,8 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
 		return $data;
 	}
 
-	public function addValue($value) {
+	public function addValue($value)
+    {
 		$existing = explode(',', $this->getValue());
 		if (! in_array($value, $existing)) {
 			$existing[] = $value;
@@ -262,9 +264,10 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
 		return implode(',', $existing);
 	}
 
-	public function removeValue($value) {
+	public function removeValue($value)
+    {
 		$existing = explode(',', $this->getValue());
-		$existing = array_filter($existing, function($v) use ($value) {
+		$existing = array_filter($existing, function ($v) use ($value) {
 			return $v != $value;
 		});
 		return implode(',', $existing);
@@ -459,7 +462,7 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
 			return '';
 		}
 		if ($displayFieldsListArray) {
-			array_walk($displayFieldsListArray, function (& $field) use ($definition) {
+			array_walk($displayFieldsListArray, function (&$field) use ($definition) {
 				$fieldArray = $definition->getField($field);
 				if (! $fieldArray) {
 					$message = tr('ItemLink: Field %0 not found for field "%1"', $field, $this->getConfiguration('permName'));
@@ -741,7 +744,7 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
 						$parts,
 						$status,
 						' ',
-						$context['list_mode']??'',
+						$context['list_mode'] ?? '',
 						! $this->getOption('linkToItem'),
 						$this->getOption('displayFieldsListFormat'),
 						$item
@@ -1005,11 +1008,13 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
 		if ($definition) {
 			foreach (array_filter($option) as $fieldId) {
 				$field = $definition->getField($fieldId);
-				if (!$field) {
+				if (! $field) {
 					Feedback::error(tr('ItemLink field "%0": displayFieldsList field ID #%1 not found', $this->getConfiguration('permName'), $fieldId));
-				} else if ($field['isPublic'] == 'y' && ($field['isHidden'] == 'n' || $field['isHidden'] == 'c' || $field['isHidden'] == 'p' || $field['isHidden'] == 'a' || $tiki_p_admin_trackers == 'y')
+				} elseif (
+                    $field['isPublic'] == 'y' && ($field['isHidden'] == 'n' || $field['isHidden'] == 'c' || $field['isHidden'] == 'p' || $field['isHidden'] == 'a' || $tiki_p_admin_trackers == 'y')
 					&& $field['type'] != 'x' && $field['type'] != 'h' && ($field['type'] != 'p' || $field['options_array'][0] != 'password')
-					&& (empty($field['visibleBy']) or array_intersect(TikiLib::lib('tiki')->get_user_groups($user), $field['visibleBy']) || $tiki_p_admin_trackers == 'y')) {
+					&& (empty($field['visibleBy']) or array_intersect(TikiLib::lib('tiki')->get_user_groups($user), $field['visibleBy']) || $tiki_p_admin_trackers == 'y')
+                ) {
 					$fields[] = $fieldId;
 				}
 			}
@@ -1049,12 +1054,12 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
 				->setRenderTransform(function ($value) {
 					return $value;
 				})
-				->setParseIntoTransform(function (& $info, $value) use ($permName) {
+				->setParseIntoTransform(function (&$info, $value) use ($permName) {
 					$info['fields'][$permName] = $value;
 				})
 				;
 
-			$fullLookup = new Tracker\Tabular\Schema\CachedLookupHelper;
+			$fullLookup = new Tracker\Tabular\Schema\CachedLookupHelper();
 			$fullLookup->setLookup(function ($value) {
 				return $this->getItemLabel($value);
 			});
@@ -1089,7 +1094,7 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
 							return $simpleField->get($value);
 						}
 					})
-					->setParseIntoTransform(function (& $info, $value) use ($permName, $invertField) {
+					->setParseIntoTransform(function (&$info, $value) use ($permName, $invertField) {
 						if ($id = $invertField->get($value)) {
 							$info['fields'][$permName] = $id;
 						}
@@ -1124,7 +1129,7 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
 							return $this->getItemLabel($value, ['list_mode' => 'csv']);
 						}
 					})
-					->setParseIntoTransform(function (& $info, $value, $extra = null) use ($permName, $remoteSchema) {
+					->setParseIntoTransform(function (&$info, $value, $extra = null) use ($permName, $remoteSchema) {
 						if ($extra) {
 							$remoteItem = [];
 							foreach ($remoteSchema->getColumns() as $column) {
@@ -1332,7 +1337,7 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
 	{
 		$trackerId = $this->getOption('trackerId');
 		$definition = Tracker_Definition::get($trackerId);
-		$utilities = new Services_Tracker_Utilities;
+		$utilities = new Services_Tracker_Utilities();
 		$result = [];
 
 		$predefined = TikiLib::lib('trk')->get_all_item_id($trackerId, $this->getOption('preSelectFieldThere'), '*');

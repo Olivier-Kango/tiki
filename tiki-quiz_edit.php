@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -130,7 +132,7 @@ function quiz_data_load()
 if (isset($_REQUEST["save"])) {
 	check_ticket('edit-quiz-question');
 	$quiz_data = quiz_data_load();
-	$quizNew = new Quiz;
+	$quizNew = new Quiz();
 	$quizNew->data_load($quiz_data);
 	// if the id is 0, use just save the new data
 	// otherwise we compare the data to what was there before.

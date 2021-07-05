@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -114,9 +115,11 @@ function wikiplugin_diagram($data, $params)
 		$params['fileId'] = $template;
 	}
 
-	if (empty($params['fileId'])
+	if (
+        empty($params['fileId'])
 		&& isset($params['compressXml'])
-		&& in_array($params['compressXml'], ['false', '0'])) {
+		&& in_array($params['compressXml'], ['false', '0'])
+    ) {
 			$compressXml = false;
 			$compressXmlParam = true;
 	}

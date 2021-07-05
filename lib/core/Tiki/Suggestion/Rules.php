@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -28,7 +29,7 @@ class Rules
 		$suggestionMessages = [];
 		$rules = $this->getRules();
 		foreach ($rules as $rule) {
-			$object = new $rule;
+			$object = new $rule();
 			$suggestionParser = call_user_func_array([$object, 'parser'], []);
 
 			if (! empty($suggestionParser)) {

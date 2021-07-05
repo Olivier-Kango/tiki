@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -31,8 +32,10 @@ class AdminWizardTextArea extends Wizard
 		$showPage = true;
 
 		// Mark that Wysiwyg HTML mode is used
-		if ((isset($prefs['feature_wysiwyg']) && $prefs['feature_wysiwyg'] === 'y') &&
-			(! isset($prefs['wysiwyg_htmltowiki']) || $prefs['wysiwyg_htmltowiki'] === 'n')) {
+		if (
+            (isset($prefs['feature_wysiwyg']) && $prefs['feature_wysiwyg'] === 'y') &&
+			(! isset($prefs['wysiwyg_htmltowiki']) || $prefs['wysiwyg_htmltowiki'] === 'n')
+        ) {
 			$smarty->assign('isHtmlMode', true);
 		} else {
 			$smarty->assign('isHtmlMode', false);

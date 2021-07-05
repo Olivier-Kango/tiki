@@ -93,9 +93,11 @@ function wikiplugin_autotoc($data, $params)
 	$headerlib = TikiLib::lib('header');
 
 	$currPage = isset($_REQUEST['page']) ? $_REQUEST['page'] : '';
-	if (! empty($currPage) &&
+	if (
+        ! empty($currPage) &&
 		(strstr($_SERVER["SCRIPT_NAME"], "tiki-editpage.php") === false) &&
-		(strstr($_SERVER["SCRIPT_NAME"], 'tiki-pagehistory.php') === false)) {
+		(strstr($_SERVER["SCRIPT_NAME"], 'tiki-pagehistory.php') === false)
+    ) {
 		if (! isset($params['activity'])) {
 			return ("<b>Missing activity parameter for plugin</b><br/>");
 		}
@@ -118,8 +120,10 @@ function wikiplugin_autotoc($data, $params)
 					var jqueryAutoToc = ' . json_encode($jqueryAutoToc, JSON_UNESCAPED_SLASHES) . "\n";
 
 			$headerlib->add_js($js);
-			if ($prefs['wiki_auto_toc'] !== 'y'
-			|| $prefs['wiki_toc_default'] !== 'on') {
+			if (
+                $prefs['wiki_auto_toc'] !== 'y'
+                || $prefs['wiki_toc_default'] !== 'on'
+            ) {
 				$headerlib->add_jsfile('lib/jquery_tiki/autoToc.js');
 			}
 			if ($autotocPos == 'page') {

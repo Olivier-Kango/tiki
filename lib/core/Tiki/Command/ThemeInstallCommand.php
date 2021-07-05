@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -70,7 +71,7 @@ class ThemeInstallCommand extends Command
 		$uniqueHash = 'ThemeZipTmp_' . uniqid('', true) . rand(0, PHP_INT_MAX);
 		$sourceFolder = $tikiRootFolder . '/temp/' . $uniqueHash ;
 		try {
-			$zip = new ZipArchive;
+			$zip = new ZipArchive();
 			$zip->open($file);
 			$zip->extractTo($sourceFolder);
 			$zip->close();

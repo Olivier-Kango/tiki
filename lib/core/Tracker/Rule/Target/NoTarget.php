@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Tiki\Lib\core\Tracker\Rule\Target;
-
 
 use Tiki\Lib\core\Tracker\Rule\Type\Nothing;
 

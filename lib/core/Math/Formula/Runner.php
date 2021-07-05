@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -127,7 +128,7 @@ class Math_Formula_Runner
 	private function getElement($element)
 	{
 		if (is_string($element)) {
-			$parser = new Math_Formula_Parser;
+			$parser = new Math_Formula_Parser();
 			$element = $parser->parse($element);
 		}
 
@@ -154,7 +155,7 @@ class Math_Formula_Runner
 	private function getPrefixFactory($prefix)
 	{
 		return function ($functionName) use ($prefix) {
-			$filter = new Laminas\Filter\Word\DashToCamelCase;
+			$filter = new Laminas\Filter\Word\DashToCamelCase();
 
 			// Workaround Deprecated errors showing from Zend lib
 			if (error_reporting() & E_DEPRECATED) {
@@ -171,7 +172,7 @@ class Math_Formula_Runner
 			$class = $prefix . $ucname;
 
 			if (class_exists($class)) {
-				return new $class;
+				return new $class();
 			}
 		};
 	}

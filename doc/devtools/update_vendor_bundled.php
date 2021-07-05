@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -42,7 +43,7 @@ if ($initial_md5 !== $final_md5) {
 	if (! empty($jsonContent->packages)) {
 		$errors = [];
 		foreach ($jsonContent->packages as $package) {
-			if(! empty($package->type) && $package->type === "metapackage") {
+			if (! empty($package->type) && $package->type === "metapackage") {
 				continue; // metapackage is a empty package and does not have dist.url
 			}
 			if (strrpos($package->dist->url, 'https://composer.tiki.org') !== 0) {

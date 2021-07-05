@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -35,8 +37,7 @@ if ($_REQUEST['menuId']) {
 }
 $smarty->assign_by_ref('info', $info);
 
-if (isset($_REQUEST['remove']) && $access->checkCsrf(true))
-{
+if (isset($_REQUEST['remove']) && $access->checkCsrf(true)) {
 	$menulib->remove_menu($_REQUEST['remove']);
 }
 
@@ -62,9 +63,10 @@ if (isset($_REQUEST['save']) && $access->checkCsrf()) {
 	);
 }
 
-if (isset($_REQUEST['reset'])
-	&& $access->checkCsrf(true))
-{
+if (
+    isset($_REQUEST['reset'])
+	&& $access->checkCsrf(true)
+) {
 	$menulib->reset_app_menu();
 }
 

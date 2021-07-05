@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -137,7 +138,7 @@ function wikiplugin_list($data, $params)
 	if ($user) {
 		$cacheName = md5($data);
 	} else {
-		$cacheName = md5($data."loggedout");
+		$cacheName = md5($data . "loggedout");
 	}
 	if (isset($params['cacheexpiry'])) {
 		$cacheExpiry = $params['cacheexpiry'];
@@ -157,7 +158,7 @@ function wikiplugin_list($data, $params)
 				return tra("Error: {MULTISEARCH(id=x)} requires use of Elasticsearch as the engine.");
 			}
 			$args = $argParser->parse($match->getArguments());
-			if (!isset($args['id'])) {
+			if (! isset($args['id'])) {
 				return tra("Error: {MULTISEARCH(id=x)} needs an ID to be specified.");
 			}
 			$tosearch[$args['id']] = $match->getBody();
@@ -165,16 +166,16 @@ function wikiplugin_list($data, $params)
 		}
 		if ($match->getName() == 'list' || $match->getName() == 'pagination') {
 			$args = $argParser->parse($match->getArguments());
-			if (!empty($args['offset_arg'])) {
+			if (! empty($args['offset_arg'])) {
 				// Update cacheName by offset arg to have different cache for each page of paginated list
 				$offset_arg = $args['offset_arg'];
 			}
 		}
 	}
-	if (!empty($_REQUEST[$offset_arg])) {
+	if (! empty($_REQUEST[$offset_arg])) {
 		$cacheName .= '_' . $args['offset_arg'] . '=' . $_REQUEST[$offset_arg];
 	}
-	if (!$multisearch) {
+	if (! $multisearch) {
 		$tosearch = [ $data ];
 	}
 
@@ -231,7 +232,7 @@ function wikiplugin_list($data, $params)
 				}
 			}
 			// Handle each query. If not multisearch will just be one.
-			$query = new Search_Query;
+			$query = new Search_Query();
 			if (! isset($params['searchable_only']) || $params['searchable_only'] == 1) {
 				$query->filterIdentifier('y', 'searchable');
 			}
@@ -244,7 +245,7 @@ function wikiplugin_list($data, $params)
 			$builder->apply($matches);
 			$tsret = $builder->applyTablesorter($matches);
 			if (! empty($tsret['max']) || ! empty($_GET['numrows'])) {
-				$max = !empty($_GET['numrows']) ? $_GET['numrows'] : $tsret['max'];
+				$max = ! empty($_GET['numrows']) ? $_GET['numrows'] : $tsret['max'];
 				$builder->wpquery_pagination_max($query, $max);
 			}
 			$paginationArguments = $builder->getPaginationArguments();
@@ -288,7 +289,7 @@ function wikiplugin_list($data, $params)
 	$resultBuilder->setPaginationArguments($paginationArguments);
 	$resultBuilder->apply($matches);
 
-	$builder = new Search_Formatter_Builder;
+	$builder = new Search_Formatter_Builder();
 	$builder->setPaginationArguments($paginationArguments);
 	$builder->setId('wplist-' . $i);
 	$builder->setCount($result->count());
@@ -301,7 +302,7 @@ function wikiplugin_list($data, $params)
 
 	$result->setTsOn($tsret['tsOn']);
 
-	if (!empty($params['resultCallback']) && is_callable($params['resultCallback'])) {
+	if (! empty($params['resultCallback']) && is_callable($params['resultCallback'])) {
 		return $params['resultCallback']($formatter->getPopulatedList($result), $formatter);
 	}
 

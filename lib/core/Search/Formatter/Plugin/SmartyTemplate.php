@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -45,7 +46,7 @@ class Search_Formatter_Plugin_SmartyTemplate implements Search_Formatter_Plugin_
 
 	public function renderEntries(Search_ResultSet $entries)
 	{
-		$smarty = new Smarty_Tiki;
+		$smarty = new Smarty_Tiki();
 
 		if ($this->changeDelimiters) {
 			$smarty->left_delimiter = '{{';

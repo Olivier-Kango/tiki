@@ -1,4 +1,5 @@
 <?php
+
 require_once TIKI_PATH . '/lib/auth/tokens.php';
 include dirname(__DIR__) . '/entities/AccessTokenEntity.php';
 

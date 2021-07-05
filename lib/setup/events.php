@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -375,7 +376,7 @@ function tiki_setup_events()
 	$events->bind('tiki.calendaritem.save', ['Tiki\SabreDav\Utilities', 'handleITip']);
 
 
-	$events->bind('tiki.view', function ($data){
+	$events->bind('tiki.view', function ($data) {
 		TikiLib::lib('categ')->set_current_object_categories($data["type"], $data["object"]);
 	});
 
@@ -384,7 +385,7 @@ function tiki_setup_events()
 
 	if (function_exists('fastcgi_finish_request')) {
 		// If available, try to send everything to the user at this point
-		$events->bindPriority(-10, 'tiki.process.shutdown', function() {
+		$events->bindPriority(-10, 'tiki.process.shutdown', function () {
 			fastcgi_finish_request();
 		});
 	}

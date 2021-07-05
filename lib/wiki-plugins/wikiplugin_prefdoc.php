@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -137,7 +138,7 @@ class PrefsDoc extends TWVersion
 				$count--;
 			}
 			$this->genPrefVersion("storage/prefsdoc/$version-$tabName.json");
-			$key ++;
+			$key++;
 			if (isset($this->state->files->{$tabName}[$key])) {
 				$this->docTable .= '/////';
 			}
@@ -281,11 +282,11 @@ class PrefsDoc extends TWVersion
 		if (! empty($param->tags)) {
 			foreach ($param->tags as $tag) {
 				if ($tag === 'deprecated') {
-					if (!$param->warning) {
+					if (! $param->warning) {
 						$param->warning = 'Will be removed in an upcoming version of Tiki.';
 					}
 					$this->prefDescription .= ' <span class="fas fa-broom text-warning" title="Deprecated: ' . $param->warning . '"></span>';
-					unset ($param->warning);
+					unset($param->warning);
 				}
 			}
 		}

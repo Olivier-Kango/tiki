@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -23,7 +24,7 @@ class MLModelTest extends TikiTestCase
 		'The permissions used on categories were confusing and lacked the customizability expected in TikiWiki.',
 	];
 
-	public static function setUpBeforeClass() : void
+	public static function setUpBeforeClass(): void
 	{
 		global $prefs;
 		self::$old_prefs = $prefs;
@@ -85,7 +86,7 @@ class MLModelTest extends TikiTestCase
 		$perms->setGroups(['Admins']);
 	}
 
-	public static function tearDownAfterClass() : void
+	public static function tearDownAfterClass(): void
 	{
 		global $prefs;
 		$prefs['feature_trackers'] = self::$old_prefs['feature_trackers'];
@@ -95,7 +96,7 @@ class MLModelTest extends TikiTestCase
 		self::$trklib->remove_tracker(self::$trackerId);
 		self::$mllib->delete_model(self::$mlt['mlmId']);
 
-		$builder = new Perms_Builder;
+		$builder = new Perms_Builder();
 		Perms::set($builder->build());
 	}
 
@@ -135,7 +136,7 @@ class MLModelTest extends TikiTestCase
 
 		$itemObject = Tracker_Item::newItem(self::$mlt['sourceTrackerId']);
 		$processedFields = $itemObject->prepareInput(new JitFilter([
-			'ins_'.self::$mlt['trackerFields'][0] => 'homogeneous interface and libraries',
+			'ins_' . self::$mlt['trackerFields'][0] => 'homogeneous interface and libraries',
 		]));
 
 		$results = self::$mllib->probaSample(self::$mlt, $processedFields);

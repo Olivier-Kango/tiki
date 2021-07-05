@@ -8,8 +8,8 @@
 
 namespace Tiki\CustomRoute;
 
-use \Feedback;
-use \TikiLib;
+use Feedback;
+use TikiLib;
 
 /**
  * Custom Route controller

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -22,7 +23,7 @@ class DeclFilterConfigureTest extends TikiTestCase
 			['staticKeyFiltersForArrays' => [
 				'foo' => 'digits',
 			]],
-			['catchAllFilter' => new Laminas\Filter\StringToUpper],
+			['catchAllFilter' => new Laminas\Filter\StringToUpper()],
 		];
 
 		$filter = DeclFilter::fromConfiguration($configuration);
@@ -53,7 +54,7 @@ class DeclFilterConfigureTest extends TikiTestCase
 	{
 		$this->expectError();
 		$configuration = [
-			['catchAllFilter' => new Laminas\Filter\StringToUpper],
+			['catchAllFilter' => new Laminas\Filter\StringToUpper()],
 		];
 
 		$filter = DeclFilter::fromConfiguration($configuration, ['catchAllFilter']);
@@ -73,7 +74,7 @@ class DeclFilterConfigureTest extends TikiTestCase
 	{
 		$configuration = [
 			['staticKeyUnset' => ['hello', 'world']],
-			['catchAllFilter' => new Laminas\Filter\StringToUpper],
+			['catchAllFilter' => new Laminas\Filter\StringToUpper()],
 		];
 
 		$filter = DeclFilter::fromConfiguration($configuration);

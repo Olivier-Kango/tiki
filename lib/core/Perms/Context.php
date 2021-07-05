@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -60,7 +61,8 @@ class Perms_Context
 		}
 	}
 
-	public function activatePermanently() {
+	public function activatePermanently()
+    {
 		global $user, $globalperms;
 		$perms = Perms::getInstance();
 		$smarty = TikiLib::lib('smarty');

@@ -12,7 +12,7 @@ class Search extends Api
 	{
 		foreach ($sources as $source) {
 			try {
-				self::$sources[] = new $source->class;
+				self::$sources[] = new $source->class();
 			} catch (\Exception $e) {
 				error_log($e->getMessage());
 			}

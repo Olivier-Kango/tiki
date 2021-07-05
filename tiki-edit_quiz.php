@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -214,8 +215,10 @@ for ($i = 0; $i < $temp_max; $i++) {
 			$channels["data"][$i]["individual_tiki_p_view_user_stats"] = 'n';
 		}
 
-		if ($tiki_p_admin
-			== 'y' || $userlib->object_has_permission($user, $channels["data"][$i]["quizId"], 'quiz', 'tiki_p_admin_quizzes')) {
+		if (
+            $tiki_p_admin
+			== 'y' || $userlib->object_has_permission($user, $channels["data"][$i]["quizId"], 'quiz', 'tiki_p_admin_quizzes')
+        ) {
 			$channels["data"][$i]["individual_tiki_p_take_quiz"] = 'y';
 
 			$channels["data"][$i]["individual_tiki_p_view_quiz_stats"] = 'y';

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -261,7 +262,8 @@ class NlLib extends TikiLib
 			if (( $res['isUser'] == 'n' )) {
 				   $res['email'] = strtolower($res['email']);
 			};
-			if (( $res['included'] != 'y' || $res['valid'] == 'x' ) && ((
+			if (
+                ( $res['included'] != 'y' || $res['valid'] == 'x' ) && ((
 					$res['valid'] != 'n' && ( $res['isUser'] != 'g' || $res['valid'] == 'x' ) )
 					|| ( $res['isUser'] == 'g' && in_array($res['email'], $group_users) )
 				)
@@ -1548,11 +1550,31 @@ class NlLib extends TikiLib
 		$users = $this->get_all_subscribers($nl_info['nlId'], $nl_info['unsubMsg'] == 'y');
 
 		if (empty($info['editionId'])) {
-			$info['editionId'] = $this->replace_edition($nl_info['nlId'], $info['subject'], $info['data'], 0, 0, true,
-				$info['datatxt'], $info['files'], $info['wysiwyg'], $info['is_html']);
+			$info['editionId'] = $this->replace_edition(
+                $nl_info['nlId'],
+                $info['subject'],
+                $info['data'],
+                0,
+                0,
+                true,
+                $info['datatxt'],
+                $info['files'],
+                $info['wysiwyg'],
+                $info['is_html']
+            );
 		} else {
-			$this->replace_edition($nl_info['nlId'], $info['subject'], $info['data'], 0, $info['editionId'], true,
-				$info['datatxt'], $info['files'], $info['wysiwyg'], $info['is_html']);
+			$this->replace_edition(
+                $nl_info['nlId'],
+                $info['subject'],
+                $info['data'],
+                0,
+                $info['editionId'],
+                true,
+                $info['datatxt'],
+                $info['files'],
+                $info['wysiwyg'],
+                $info['is_html']
+            );
 		}
 
 		if (isset($info['begin'])) {
@@ -1576,8 +1598,11 @@ class NlLib extends TikiLib
 			if ($userEmail == '') {
 				$userEmail = $userlib->get_user_by_email($email);
 			}
-			$language = ! $userEmail ? $prefs['site_language'] : $tikilib->get_user_preference($userEmail, "language",
-				$prefs['site_language']);
+			$language = ! $userEmail ? $prefs['site_language'] : $tikilib->get_user_preference(
+                $userEmail,
+                "language",
+                $prefs['site_language']
+            );
 
 			if (preg_match('/([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+/', $email)) {
 				if (in_array($email, $remaining)) {
@@ -1636,8 +1661,13 @@ class NlLib extends TikiLib
 
 			if ($csrfCheck) {
 				try {
-					$zmail = $this->get_edition_mail($info['editionId'], $us, $info['is_html'], $info['replyto'],
-						$info['sendfrom']);
+					$zmail = $this->get_edition_mail(
+                        $info['editionId'],
+                        $us,
+                        $info['is_html'],
+                        $info['replyto'],
+                        $info['sendfrom']
+                    );
 					if (! $zmail) {
 						continue;
 					}
@@ -1793,4 +1823,4 @@ class NlLib extends TikiLib
 	}
 }
 
-$nllib = new NlLib;
+$nllib = new NlLib();

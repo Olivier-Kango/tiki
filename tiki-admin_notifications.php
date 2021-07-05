@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -43,7 +45,7 @@ $watches = $notificationlib->get_global_watch_types();
 
 $save = true;
 $login = '';
-if (isset($_REQUEST["add"]) && $access->checkCsrf() ) {
+if (isset($_REQUEST["add"]) && $access->checkCsrf()) {
 	if (! empty($_REQUEST['login'])) {
 		if ($userlib->user_exists($_REQUEST['login'])) {
 			$login = $_REQUEST['login'];
@@ -84,11 +86,12 @@ if (isset($_REQUEST["removeevent"]) && isset($_REQUEST['removetype']) && $access
 		Feedback::error('Mail notification event not deleted');
 	}
 }
-if (isset($_REQUEST['action'])
+if (
+    isset($_REQUEST['action'])
 	&& $_REQUEST['action'] == 'delete'
 	&& isset($_REQUEST['checked'])
-	&& $access->checkCsrf(true))
-{
+	&& $access->checkCsrf(true)
+) {
 	$i = 0;
 	$i = 0;
 	foreach ($_REQUEST['checked'] as $id) {

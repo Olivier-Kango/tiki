@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -36,11 +38,12 @@ $globalperms = Perms::get();
 
 if (isset($info['user']) && $info['user'] == $user) {
 } elseif (! empty($itemUsers) && in_array($user, $itemUsers)) {
-} elseif ((isset($itemInfo['status']) and $itemInfo['status'] == 'p' && ! $itemPerms->view_trackers_pending)
+} elseif (
+    (isset($itemInfo['status']) and $itemInfo['status'] == 'p' && ! $itemPerms->view_trackers_pending)
 	||  (isset($itemInfo['status']) and $itemInfo['status'] == 'c' && ! $itemPerms->view_trackers_closed)
 	||  (! $globalperms->admin_trackers && ! $itemPerms->view_trackers)
 	||  (! $globalperms->admin_trackers && ! $itemPerms->tracker_view_attachments)
-	) {
+) {
 	$smarty->assign('errortype', 401);
 	$smarty->assign('msg', tra('Permission denied'));
 	$smarty->display('error.tpl');

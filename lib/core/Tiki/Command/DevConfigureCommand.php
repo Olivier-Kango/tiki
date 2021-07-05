@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -57,7 +58,6 @@ class DevConfigureCommand extends Command
 					'<info>Done: Composer dev files installed</info>'
 				);
 			}
-
 		} else {
 			$output->writeln(
 				'<info>Done: Composer dev files already installed</info>'
@@ -69,7 +69,8 @@ class DevConfigureCommand extends Command
 			$output->writeln(
 				'<info>Done: phplint was already callable via "php phplint" in the project root</info>'
 			);
-		} elseif (symlink('vendor_bundled/vendor/overtrue/phplint/bin/phplint', 'phplint')
+		} elseif (
+            symlink('vendor_bundled/vendor/overtrue/phplint/bin/phplint', 'phplint')
 		) {
 			$output->writeln(
 				'<info>Done: phplint is now callable via "php phplint" in the project root</info>'
@@ -205,7 +206,7 @@ EOT;
 	 * @return bool true on success, false on failure.
 	 */
 
-	private function databaseConnect() : bool
+	private function databaseConnect(): bool
 	{
 		if (! (include 'lib/test/local.php')) {
 			return false;

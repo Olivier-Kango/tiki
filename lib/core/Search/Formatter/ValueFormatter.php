@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -8,8 +9,8 @@
 class Search_Formatter_ValueFormatter
 {
 	private $valueSet;
-	static private $pageTitle = '';
-	static private $pageDescription = '';
+	private static $pageTitle = '';
+	private static $pageDescription = '';
 
 	public function __construct($valueSet)
 	{

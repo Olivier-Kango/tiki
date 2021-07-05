@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -557,10 +558,12 @@ class SheetLib extends TikiLib
 	public function clone_layout($sheetId, $className, $headerRow, $footerRow, $parseValues = 'n') // {{{2
 	{
 		if ($row = $this->get_sheet_layout($sheetId)) {
-			if ($row[ 'className' ] == $className
-			 && $row[ 'headerRow' ] == $headerRow
-			 && $row[ 'footerRow' ] == $footerRow
-			 && $row[ 'parseValues' ] == $parseValues ) {
+			if (
+                $row[ 'className' ] == $className
+                && $row[ 'headerRow' ] == $headerRow
+                && $row[ 'footerRow' ] == $footerRow
+                && $row[ 'parseValues' ] == $parseValues
+            ) {
 				return true; // No changes have to be made
 			}
 		}

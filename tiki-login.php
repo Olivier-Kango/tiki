@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -63,8 +65,10 @@ if ($prefs['session_silent'] == 'y') {
 if (! isset($_SESSION['loginfrom']) && isset($_SERVER['HTTP_REFERER']) && ! preg_match('|/login|', $_SERVER['HTTP_REFERER']) && ! preg_match('|logout|', $_SERVER['HTTP_REFERER'])) {
 	$_SESSION['loginfrom'] = $_SERVER['HTTP_REFERER'];
 	if (! preg_match('/^http/', $_SESSION['loginfrom'])) {
-		if ($_SESSION['loginfrom'] [
-			0] == '/') {
+		if (
+            $_SESSION['loginfrom'] [
+			0] == '/'
+        ) {
 			$_SESSION['loginfrom'] = $url_scheme . '://' . $url_host . (($url_port != '') ? ":$url_port" : '') . $_SESSION['loginfrom'];
 		} else {
 			$_SESSION['loginfrom'] = $base_url . $_SESSION['loginfrom'];
@@ -124,8 +128,10 @@ if (isset($_REQUEST["$twoFactorForm"])) {
 $smarty->assign('twoFactorForm', $twoFactorForm);
 
 // Go through the intertiki process
-if (isset($_REQUEST['intertiki']) and in_array($_REQUEST['intertiki'], array_keys($prefs['interlist']))
-	&& $access->checkCsrf(null, null, null, null, null, 'page')) {
+if (
+    isset($_REQUEST['intertiki']) and in_array($_REQUEST['intertiki'], array_keys($prefs['interlist']))
+	&& $access->checkCsrf(null, null, null, null, null, 'page')
+) {
 	$rpcauth = $userlib->intervalidate($prefs['interlist'][$_REQUEST['intertiki']], $requestedUser, $pass, ! empty($prefs['feature_intertiki_mymaster']) ? true : false);
 	if (! $rpcauth) {
 		$logslib->add_log('login', 'intertiki : ' . $requestedUser . '@' . $_REQUEST['intertiki'] . ': Failed');
@@ -342,7 +348,7 @@ if ($isvalid && ($isOpenIdValid || $access->checkCsrf(null, null, null, null, nu
 
 		// When logging into a multi-lingual Tiki, $_SESSION['loginfrom'] contains the main-language page, and not the translated one
 		//	This only applies if feature_best_language and only seems to affect SEFURL
-		if (($prefs['feature_best_language'] == 'y')&&($prefs['feature_sefurl'] == 'y')) {
+		if (($prefs['feature_best_language'] == 'y') && ($prefs['feature_sefurl'] == 'y')) {
 			// If the URL contains the 'main' home page, remove the page name and let Tiki choose the correct home page upon reload
 			$homePageUrl = urlencode($prefs['wikiHomePage']);
 			if (strpos($url, 'page=' . $homePageUrl) !== false) {
@@ -426,11 +432,13 @@ if ($isvalid && ($isOpenIdValid || $access->checkCsrf(null, null, null, null, nu
 				//       ... so we also need to check against : homepage + '?page=' + default wiki pagename
 				//
 				include_once('tiki-sefurl.php');
-				if ($url == '' || preg_match('/(tiki-register|tiki-login_validate|tiki-login_scr)\.php/', $url) || $prefs['limitedGoGroupHome'] == 'n'
+				if (
+                    $url == '' || preg_match('/(tiki-register|tiki-login_validate|tiki-login_scr)\.php/', $url) || $prefs['limitedGoGroupHome'] == 'n'
 					|| $url == $prefs['site_tikiIndex'] || $url_path == $prefs['site_tikiIndex'] || basename($url_path) == $prefs['site_tikiIndex']
 					|| ($anonymous_homepage != '' && ($url == $anonymous_homepage || $url_path == $anonymous_homepage || basename($url_path) == $anonymous_homepage))
 					|| filter_out_sefurl($anonymous_homepage) == basename($url_path)
-					|| ($tikiIndex_full != '' && ( basename($url_path) == $tikiIndex_full || basename($url_path) == filter_out_sefurl($tikiIndex_full) ))) {
+					|| ($tikiIndex_full != '' && ( basename($url_path) == $tikiIndex_full || basename($url_path) == filter_out_sefurl($tikiIndex_full) ))
+                ) {
 					$groupHome = $userlib->get_user_default_homepage($user);
 					if ($groupHome != '') {
 						$url = (preg_match('/^(\/|https?:)/', $groupHome)) ? $groupHome : filter_out_sefurl('tiki-index.php?page=' . urlencode($groupHome));
@@ -512,8 +520,10 @@ if ($isvalid && ($isOpenIdValid || $access->checkCsrf(null, null, null, null, nu
 	$module_params['show_forgot'] = ($prefs['forgotPass'] == 'y' && $prefs['change_password'] == 'y') ? 'y' : 'n';
 	$module_params['show_register'] = ($prefs['allowRegister'] === 'y') ? 'y' : 'n';
 	$smarty->assign('module_params', $module_params);
-	if (($error == PASSWORD_INCORRECT || $error == TWO_FA_INCORRECT)
-		&& ($prefs['unsuccessful_logins'] >= 0 || $prefs['unsuccessful_logins_invalid'] >= 0)) {
+	if (
+        ($error == PASSWORD_INCORRECT || $error == TWO_FA_INCORRECT)
+		&& ($prefs['unsuccessful_logins'] >= 0 || $prefs['unsuccessful_logins_invalid'] >= 0)
+    ) {
 		$nb_bad_logins = $userlib->unsuccessful_logins($requestedUser);
 		$nb_bad_logins++ ;
 		$userlib->set_unsuccessful_logins($requestedUser, $nb_bad_logins);

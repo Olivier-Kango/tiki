@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -87,7 +88,7 @@ class Utilities
         break;
       }
     }
-    if (!$componentType) {
+    if (! $componentType) {
       throw new \Sabre\DAV\Exception\BadRequest('Calendar objects must have a VJOURNAL, VEVENT or VTODO component');
     }
 
@@ -98,8 +99,8 @@ class Utilities
       'uid'            => $uid,
     ];
     $result = array_merge(
-      $result,
-      self::getDenormalizedDataFromComponent($component, $timezone)
+        $result,
+        self::getDenormalizedDataFromComponent($component, $timezone)
     );
 
     // check for individual instances changed in recurring events
@@ -133,7 +134,7 @@ class Utilities
         $endDate = clone $component->DTSTART->getDateTime();
         $endDate = $endDate->add(VObject\DateTimeParser::parse($component->DURATION->getValue()));
         $lastOccurence = $endDate->getTimeStamp();
-      } elseif (!$component->DTSTART->hasTime()) {
+      } elseif (! $component->DTSTART->hasTime()) {
         $endDate = clone $component->DTSTART->getDateTime();
         $endDate = $endDate->modify('+1 day');
         $lastOccurence = $endDate->getTimeStamp();
@@ -141,7 +142,7 @@ class Utilities
         $lastOccurence = $firstOccurence;
       }
       if (isset($component->RRULE)) {
-        $rec = new \CalRecurrence;
+        $rec = new \CalRecurrence();
         $parts = $component->RRULE->getParts();
         switch ($parts['FREQ']) {
           case "WEEKLY":
@@ -155,7 +156,7 @@ class Utilities
             $rec->setWeekday($weekday);
             $rec->setMonthly(false);
             $rec->setYearly(false);
-            break;
+              break;
           case "MONTHLY":
             if (isset($parts['BYMONTHDAY'])) {
               $monthday = $parts['BYMONTHDAY'];
@@ -166,7 +167,7 @@ class Utilities
             $rec->setMonthly(true);
             $rec->setDayOfMonth($parts['BYMONTHDAY']);
             $rec->setYearly(false);
-            break;
+              break;
           case "YEARLY":
             if (isset($parts['BYMONTH'])) {
               $month = $parts['BYMONTH'];
@@ -182,7 +183,7 @@ class Utilities
             $rec->setMonthly(false);
             $rec->setYearly(true);
             $rec->setDateOfYear(str_pad($month, 2, '0', STR_PAD_LEFT) . str_pad($monthday, 2, '0', STR_PAD_LEFT));
-            break;
+              break;
         }
         $rec->setStartPeriod(\TikiDate::getStartDay($firstOccurence, $timezone));
         if (isset($parts['COUNT'])) {
@@ -198,8 +199,12 @@ class Utilities
       }
 
       // Ensure Occurence values are positive
-      if ($firstOccurence < 0) $firstOccurence = 0;
-      if ($lastOccurence < 0) $lastOccurence = 0;
+      if ($firstOccurence < 0) {
+$firstOccurence = 0;
+      }
+      if ($lastOccurence < 0) {
+$lastOccurence = 0;
+      }
     }
 
     $result = [
@@ -267,7 +272,7 @@ class Utilities
         $email = preg_replace("/MAILTO:\s*/i", "", (string)$attendee);
         $user = TikiLib::lib('user')->get_user_by_email($email);
         $participant = [
-          'username' => !empty($user) ? $user : $email,
+          'username' => ! empty($user) ? $user : $email,
           'email' => $email,
         ];
         $role = self::reverseMapAttendeeRole((string)$attendee['ROLE']);
@@ -298,11 +303,11 @@ class Utilities
   {
     switch ($event_status) {
       case '0':
-        return 'TENTATIVE';
+          return 'TENTATIVE';
       case '1':
-        return 'CONFIRMED';
+          return 'CONFIRMED';
       case '2':
-        return 'CANCELLED';
+          return 'CANCELLED';
     }
     return '';
   }
@@ -311,11 +316,11 @@ class Utilities
   {
     switch ($event_status) {
       case 'TENTATIVE':
-        return '0';
+          return '0';
       case 'CONFIRMED':
-        return '1';
+          return '1';
       case 'CANCELLED':
-        return '2';
+          return '2';
     }
     return '';
   }
@@ -324,13 +329,13 @@ class Utilities
   {
     switch ($role) {
       case '0':
-        return 'CHAIR';
+          return 'CHAIR';
       case '1':
-        return 'REQ-PARTICIPANT';
+          return 'REQ-PARTICIPANT';
       case '2':
-        return 'OPT-PARTICIPANT';
+          return 'OPT-PARTICIPANT';
       case '3':
-        return 'NON-PARTICIPANT';
+          return 'NON-PARTICIPANT';
     }
     return '';
   }
@@ -339,13 +344,13 @@ class Utilities
   {
     switch ($role) {
       case 'CHAIR':
-        return '0';
+          return '0';
       case 'REQ-PARTICIPANT':
-        return '1';
+          return '1';
       case 'OPT-PARTICIPANT':
-        return '2';
+          return '2';
       case 'NON-PARTICIPANT':
-        return '3';
+          return '3';
     }
     return '';
   }
@@ -428,22 +433,22 @@ class Utilities
     }
     foreach ($organizers as $user) {
       $vevent->add(
-        'ORGANIZER',
-        TikiLib::lib('user')->get_user_email($user),
-        [
+          'ORGANIZER',
+          TikiLib::lib('user')->get_user_email($user),
+          [
           'CN' => TikiLib::lib('tiki')->get_user_preference($user, 'realName'),
-        ]
+          ]
       );
     }
     foreach ($participants as $par) {
       $vevent->add(
-        'ATTENDEE',
-        $par['email'],
-        [
+          'ATTENDEE',
+          $par['email'],
+          [
           'CN' => TikiLib::lib('tiki')->get_user_preference($par['username'], 'realName'),
           'ROLE' => Utilities::mapAttendeeRole($par['role']),
           'PARTSTAT' => $par['partstat'],
-        ]
+          ]
       );
     }
 
@@ -478,9 +483,9 @@ class Utilities
     }
     $broker = new VObject\ITip\Broker();
     $messages = $broker->parseEvent(
-      $vcalendar,
-      TikiLib::lib('user')->get_user_email($args['user']),
-      $old_vcalendar
+        $vcalendar,
+        TikiLib::lib('user')->get_user_email($args['user']),
+        $old_vcalendar
     );
     foreach ($messages as $message) {
       if (! $message->significantChange) {
@@ -494,19 +499,19 @@ class Utilities
       $recipient = $recipient_name ? "$recipient_name <$recipient_email>" : $recipient_email;
       switch ($message->method) {
         case 'REQUEST':
-          $subject = "Event Invitation: ".$message->message->VEVENT->SUMMARY->getValue();
+          $subject = "Event Invitation: " . $message->message->VEVENT->SUMMARY->getValue();
           $body = "You have been invited to the following event:";
-          break;
+            break;
         case 'CANCEL':
-          $subject = "Event Canceled: ".$message->message->VEVENT->SUMMARY->getValue();
+          $subject = "Event Canceled: " . $message->message->VEVENT->SUMMARY->getValue();
           $body = "The following event has been canceled:";
-          break;
+            break;
         case 'REPLY':
-          $subject = "Re: invitation to ".$message->message->VEVENT->SUMMARY->getValue();
+          $subject = "Re: invitation to " . $message->message->VEVENT->SUMMARY->getValue();
           $body = "$sender has updated their participation status in the following event:";
-          break;
+            break;
         default:
-          throw new Exception("Unsupported ITip method: ".$message->method);
+            throw new Exception("Unsupported ITip method: " . $message->method);
       }
       $attendees = [];
       foreach ($message->message->VEVENT->ATTENDEE as $attendee) {
@@ -521,15 +526,15 @@ class Utilities
 
 *{$message->message->VEVENT->SUMMARY->getValue()}*
 
-When: ".TikiLib::lib('tiki')->get_long_datetime($message->message->VEVENT->DTSTART->getDateTime()->getTimeStamp())." - ".TikiLib::lib('tiki')->get_long_datetime($message->message->VEVENT->DTEND->getDateTime()->getTimeStamp())."
+When: " . TikiLib::lib('tiki')->get_long_datetime($message->message->VEVENT->DTSTART->getDateTime()->getTimeStamp()) . " - " . TikiLib::lib('tiki')->get_long_datetime($message->message->VEVENT->DTEND->getDateTime()->getTimeStamp()) . "
 
-Invitees: ".implode(",\n", $attendees);
+Invitees: " . implode(",\n", $attendees);
       // TODO: IMip messages are using configured Tiki SMTP server for now, but we might want to use cypht SMTP server for the sender user in order to get the replies back in cypht and be able to update participant statuses.
       // The other way would be via Mail-in to calendars and a reply-to address configured as a mail-in source.
       $mail = new TikiMail($args['user'], $sender_email, $sender_name);
       $mail->setSubject($subject);
       $mail->setText($body);
-      $mail->addPart($message->message->serialize(), 'text/calendar; method='.$message->method.'; name=event.ics');
+      $mail->addPart($message->message->serialize(), 'text/calendar; method=' . $message->method . '; name=event.ics');
       $mail->send([$recipient]);
     }
   }

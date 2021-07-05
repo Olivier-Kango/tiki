@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -16,7 +17,7 @@ use Tiki\FileGallery\SaveHandler;
 
 class Tiki_FileGallery_Manipulator_SaveHandlerTest extends TikiTestCase
 {
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		global $prefs;
 		$this->oldPrefs = $prefs;
@@ -27,7 +28,7 @@ class Tiki_FileGallery_Manipulator_SaveHandlerTest extends TikiTestCase
 		$this->cleanup();
 	}
 
-	protected function tearDown() : void
+	protected function tearDown(): void
 	{
 		global $prefs;
 		$prefs = $this->oldPrefs;

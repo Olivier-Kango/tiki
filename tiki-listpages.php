@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -35,7 +37,8 @@ if ($prefs['gmap_page_list'] == 'y') {
 	$smarty->assign('gmapbuttons', false);
 }
 
-if (isset($_REQUEST['mapview'])
+if (
+    isset($_REQUEST['mapview'])
 		&& $_REQUEST['mapview'] == 'y'
 		&& ! isset($_REQUEST['searchmap'])
 		&& ! isset($_REQUEST['searchlist'])
@@ -45,7 +48,8 @@ if (isset($_REQUEST['mapview'])
 	$smarty->assign('mapview', true);
 }
 
-if (isset($_REQUEST['mapview'])
+if (
+    isset($_REQUEST['mapview'])
 			&& $_REQUEST['mapview'] == 'n'
 			&& ! isset($_REQUEST['searchmap'])
 			&& ! isset($_REQUEST['searchlist'])
@@ -177,14 +181,16 @@ if (! empty($multiprint_pages)) {
 		}
 	}
 
-	if ((! empty($_REQUEST['page_orphans']) && $_REQUEST['page_orphans'] == 'y')
+	if (
+        (! empty($_REQUEST['page_orphans']) && $_REQUEST['page_orphans'] == 'y')
 			|| (isset($_REQUEST['findfilter_orphan']) && $_REQUEST['findfilter_orphan'] == 'page_orphans')
 	) {
 		$listpages_orphans = true;
 	}
 
 	if ($prefs['feature_listorphanPages'] == 'y') {
-		if ((! empty($_REQUEST['page_orphans']) && $_REQUEST['page_orphans'] == 'y')
+		if (
+            (! empty($_REQUEST['page_orphans']) && $_REQUEST['page_orphans'] == 'y')
 				|| (isset($_REQUEST['findfilter_orphan']) && $_REQUEST['findfilter_orphan'] == 'page_orphans')
 		) {
 			$filter_values['orphan'] = 'page_orphans';
@@ -192,14 +198,16 @@ if (! empty($multiprint_pages)) {
 		$filters['orphan']['page_orphans'] = tra('Orphan pages');
 	}
 	if ($prefs['feature_wiki_structure'] == 'y') {
-		if ((! empty($_REQUEST['structure_orphans']) && $_REQUEST['structure_orphans'] == 'y')
+		if (
+            (! empty($_REQUEST['structure_orphans']) && $_REQUEST['structure_orphans'] == 'y')
 				|| (isset($_REQUEST['findfilter_orphan']) && $_REQUEST['findfilter_orphan'] == 'structure_orphans')
 		) {
 			$filter['structure_orphans'] = true;
 		}
 
 		if ($prefs['feature_listorphanStructure'] == 'y') {
-			if ((! empty($_REQUEST['structure_orphans']) && $_REQUEST['structure_orphans'] == 'y')
+			if (
+                (! empty($_REQUEST['structure_orphans']) && $_REQUEST['structure_orphans'] == 'y')
 					|| (isset($_REQUEST['findfilter_orphan']) && $_REQUEST['findfilter_orphan'] == 'structure_orphans')
 			) {
 				$filter_values['orphan'] = 'structure_orphans';
@@ -441,10 +449,10 @@ if (! empty($multiprint_pages)) {
 				}
 			}
 
-			if (isset( $_REQUEST['exclude_page'])){
+			if (isset($_REQUEST['exclude_page'])) {
 				$exclude = $_REQUEST['exclude_page'];
 				$exclude = explode(",", $exclude);
-				foreach ($exclude as $excl){
+				foreach ($exclude as $excl) {
 					if (($key = array_search($excl, $pages)) !== false) {
 						unset($pages[$key]);
 					}
@@ -524,7 +532,7 @@ function possibly_look_for_page_aliases($query)
 		$semanticlib = TikiLib::lib('semantic');
 		$aliases = $semanticlib->getAliasContaining($query, false, $lang);
 
-		if(! empty($aliases)) {
+		if (! empty($aliases)) {
 			foreach ($aliases as &$alias) {
 				$alias['parsedAlias'] = TikiLib::lib('slugmanager')->generate($prefs['wiki_url_scheme'], $alias['toPage'], $prefs['url_only_ascii'] === 'y', true);
 			}

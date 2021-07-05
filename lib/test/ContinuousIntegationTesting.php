@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This script can be used to implement continuous integration testing.
  *

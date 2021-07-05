@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -49,8 +50,10 @@ class ScormLib
 
 		$file = \Tiki\FileGallery\File::id($args['object']);
 
-		if ($this->isZipFile($args)
-			&& $zip = $this->getZipFile($file)) {
+		if (
+            $this->isZipFile($args)
+			&& $zip = $this->getZipFile($file)
+        ) {
 			if ($manifest = $this->getScormManifest($zip)) {
 				$metadata = $this->getMetadata($manifest);
 			}
@@ -78,7 +81,7 @@ class ScormLib
 			return null;
 		}
 
-		$zip = new ZipArchive;
+		$zip = new ZipArchive();
 
 		$filepath = $file->getWrapper()->getReadableFile();
 
@@ -94,7 +97,7 @@ class ScormLib
 
 	private function getMetadata($manifest)
 	{
-		$dom = new DOMDocument;
+		$dom = new DOMDocument();
 		$dom->loadXML($manifest);
 
 		$metadata = [];
@@ -128,7 +131,7 @@ class ScormLib
 		$definition = $this->getScormTracker();
 		$fields = $this->buildFields($definition, $metadata, $additional);
 
-		$utilities = new Services_Tracker_Utilities;
+		$utilities = new Services_Tracker_Utilities();
 		$utilities->insertItem(
 			$definition,
 			[
@@ -143,7 +146,7 @@ class ScormLib
 		$definition = $this->getScormTracker();
 		$fields = $this->buildFields($definition, $metadata, $additional);
 
-		$utilities = new Services_Tracker_Utilities;
+		$utilities = new Services_Tracker_Utilities();
 		$utilities->updateItem(
 			$definition,
 			[

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -70,11 +71,13 @@ class Tracker_Field_Action implements Tracker_Field_Interface
 		return null;
 	}
 
-	public function addValue($value) {
+	public function addValue($value)
+    {
 		return null;
 	}
 
-	public function removeValue($value) {
+	public function removeValue($value)
+    {
 		return null;
 	}
 }

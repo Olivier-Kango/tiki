@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -45,10 +46,12 @@ function module_switch_theme($mod_reference, &$module_params)
 		$css_theme = '';
 	}
 
-	if (! empty($tc_theme) ||
+	if (
+        ! empty($tc_theme) ||
 		! empty($group_theme) ||
 		(($section === 'admin' || empty($section)) && ! empty($prefs['theme_admin'])) ||
-		! empty($css_theme)) {
+		! empty($css_theme)
+    ) {
 		$info_title = tra('Not allowed here') . ':' .
 			tra('Displayed theme') . ': ' . $prefs['theme'] . (! empty($prefs['theme_option']) ? '/' . $prefs['theme_option'] : '');
 

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -148,14 +149,14 @@ class TikiImporter_Wiki_Test extends TikiImporter_TestCase
 class TikiImporter_Wiki_InsertPage_Test extends TikiImporter_TestCase
 {
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		require_once(__DIR__ . '/fixtures/mediawiki_page_as_array.php');
 		global $tikilib;
 		$tikilib = $this->getMockBuilder('TikiLib')
 		   ->onlyMethods(['create_page', 'update_page', 'page_exists', 'remove_all_versions'])
 		   ->getMock();
-		$this->obj = new TikiImporter_Wiki_Mediawiki;
+		$this->obj = new TikiImporter_Wiki_Mediawiki();
 		$this->obj->revisionsNumber = 0;
 	}
 

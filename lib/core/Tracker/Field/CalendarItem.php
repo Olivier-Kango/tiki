@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -99,7 +100,7 @@ class Tracker_Field_CalendarItem extends Tracker_Field_JsCalendar
 				return [
 					'value' => $value,
 				];
-			} else if ($setCalitemId === '') {		// event detached
+			} elseif ($setCalitemId === '') {		// event detached
 				$this->removeCalendarItemId();
 				return [
 					'value' => $value,
@@ -115,11 +116,9 @@ class Tracker_Field_CalendarItem extends Tracker_Field_JsCalendar
 
 			$itemId = $this->getItemId();
 			if ($itemId) {
-
 				$trackerId = $this->getConfiguration('trackerId');
 
 				if (! $event) {	// new calendar item please
-
 					$data = [
 						'calendarId' => $calendarId,
 						'start'      => $value,
@@ -144,7 +143,7 @@ class Tracker_Field_CalendarItem extends Tracker_Field_JsCalendar
 
 					$calitemId = $this->calendarLib->set_item($user, 0, $data);
 					$this->setCalendarItemId($calitemId);
-				} else if ($event['start'] != $value) {
+				} elseif ($event['start'] != $value) {
 					$value = (int) $event['start'];
 				}
 			}
@@ -277,7 +276,9 @@ class Tracker_Field_CalendarItem extends Tracker_Field_JsCalendar
 	private function setCalendarItemId($calitemId)
 	{
 		$this->attributeLib->set_attribute(
-			'trackeritem', $this->getItemId(), 'tiki.calendar.item',
+			'trackeritem',
+            $this->getItemId(),
+            'tiki.calendar.item',
 			$calitemId
 		);
 	}

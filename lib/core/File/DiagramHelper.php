@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -34,7 +35,8 @@ class DiagramHelper
 		$fileIdentifier = md5($diagramContent);
 		$content = $cachelib->getCached($fileIdentifier, 'diagram');
 
-		if (! $content
+		if (
+            ! $content
 			&& $prefs['fgal_use_casperjs_to_export_images'] === 'y'
 			&& class_exists('CasperJsInstaller\Installer')
 		) {
@@ -131,7 +133,7 @@ class DiagramHelper
 	 * @param $diagramHash
 	 * @return string
 	 */
-	public static function inflate(string $diagramHash) : string
+	public static function inflate(string $diagramHash): string
 	{
 		return gzinflate(base64_decode((string) $diagramHash));
 	}
@@ -141,7 +143,7 @@ class DiagramHelper
 	 * @param \SimpleXMLElement $diagram_xml
 	 * @return string
 	 */
-	public static function deflate(\SimpleXMLElement $diagram_xml) : string
+	public static function deflate(\SimpleXMLElement $diagram_xml): string
 	{
 		$headlessXML = str_replace("<?xml version=\"1.0\"?>\n", '', $diagram_xml->asXml());
 		return base64_encode(gzdeflate($headlessXML));
@@ -153,7 +155,7 @@ class DiagramHelper
 	 * @return string
 	 * @throws \Exception
 	 */
-	public static function parseDiagramWikiSyntax($rootDiagram) : string
+	public static function parseDiagramWikiSyntax($rootDiagram): string
 	{
 		if (is_string($rootDiagram)) {
 			$decoded = self::inflate($rootDiagram);
@@ -183,7 +185,7 @@ class DiagramHelper
 							$populatedListContent = $result;
 						};
 
-						$argumentParser = new WikiParser_PluginArgumentParser;
+						$argumentParser = new WikiParser_PluginArgumentParser();
 						$listPluginArguments = $argumentParser->parse($plugin->getArguments());
 
 						if (! isset($listPluginArguments['diagram-repeat'])) {
@@ -235,7 +237,7 @@ class DiagramHelper
 	 * @param $geometryAttributes
 	 * @return \SimpleXMLElement
 	 */
-	private static function generateMxCell(array $cellAttributes, array $geometryAttributes) : \SimpleXMLElement
+	private static function generateMxCell(array $cellAttributes, array $geometryAttributes): \SimpleXMLElement
 	{
 		$mxCell = simplexml_load_string("<mxCell><mxGeometry></mxGeometry></mxCell>");
 
@@ -330,7 +332,7 @@ EOF;
 		$logsLib = TikiLib::lib('logs');
 		$serviceEndpoint = $prefs['fgal_drawio_service_endpoint'];
 
-		if (empty($serviceEndpoint) || filter_var($serviceEndpoint, FILTER_VALIDATE_URL) === FALSE) {
+		if (empty($serviceEndpoint) || filter_var($serviceEndpoint, FILTER_VALIDATE_URL) === false) {
 			$logsLib->add_log('diagram export', tr('Invalid value for fgal_drawio_service_endpoint preference. Not a valid URL.'));
 			return null;
 		}

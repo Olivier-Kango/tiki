@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -92,13 +93,13 @@ class Multilingual_Aligner_UpdateSentences
 			$val = preg_replace('#</span>#', '', $val);
 			$new_val = explode('<br />', $val);
 			foreach ($new_val as $nn) {
-				if ($val != ""&&$val[0] == "-") {
+				if ($val != "" && $val[0] == "-") {
 					if ($num == 0) {
 						$sentences_new[] = trim($nn);
 					} else {
 						$sentences_new[] = "-" . trim($nn);
 					}
-				} elseif ($val != ""&&$val[0] == "+") {
+				} elseif ($val != "" && $val[0] == "+") {
 					if ($num == 0) {
 						$sentences_new[] = trim($nn);
 					} else {
@@ -414,7 +415,7 @@ class Multilingual_Aligner_UpdateSentences
 	{
 		if (strlen($string) == 0 && strlen($pat) == 0) {
 			return 0;
-		} elseif (strlen($string) == 0 ||strlen($pat) == 0) {
+		} elseif (strlen($string) == 0 || strlen($pat) == 0) {
 			return -1;
 		}
 		$start = 0;

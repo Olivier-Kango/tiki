@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -57,10 +58,12 @@ if ($prefs['javascript_assume_enabled'] === 'y') {
 	$plus_one_year = ($tikilib->now + 365 * 24 * 3600) * 1000;		// ms
 	$headerlib->add_js("setCookieBrowser('javascript_enabled', '{$plus_one_year}', '', new Date({$plus_one_year}));", 0);		// setCookieBrowser does not use the tiki_cookie_jar
 
-	if (strpos($_SERVER['PHP_SELF'], 'tiki-download') === false &&
+	if (
+        strpos($_SERVER['PHP_SELF'], 'tiki-download') === false &&
 			strpos($_SERVER['PHP_SELF'], 'tiki-ajax_services.php') === false &&
 			strpos($_SERVER['PHP_SELF'], 'tiki-login.php') === false &&
-			strpos($_SERVER['PHP_SELF'], 'tiki-install.php') === false) {
+			strpos($_SERVER['PHP_SELF'], 'tiki-install.php') === false
+    ) {
 		$javascript_enabled_detect++;
 		setCookieSection('javascript_enabled_detect', $javascript_enabled_detect, '', $plus_one_year / 1000);
 	}
@@ -257,7 +260,7 @@ if (! timezone) {
 	$jqueryTiki['numericFieldScroll'] = $prefs['unified_numeric_field_scroll'];
 	$jqueryTiki['object_selector_events'] = $prefs['tiki_object_selector_events'] === 'y' ? true : false;
 	//set at 4 hours if empty
-	$jqueryTiki['securityTimeout'] = !empty($prefs['site_security_timeout']) ? $prefs['site_security_timeout']
+	$jqueryTiki['securityTimeout'] = ! empty($prefs['site_security_timeout']) ? $prefs['site_security_timeout']
 		: TikiLib::lib('access')->getDefaultTimeout();
 
 	if (empty($object)) {

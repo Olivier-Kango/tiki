@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -113,7 +115,8 @@ if ((isset($_REQUEST["save"]) || isset($_REQUEST["add"])) && $access->checkCsrf(
 			if ($optionSuccess) {
 				$msg = $optionSuccess === 1
 					? tr('Poll saved with one option added or changed (including only changing the option position)')
-					: tr('Poll saved with %0 options added or changed (including only changing the option position)',
+					: tr(
+                        'Poll saved with %0 options added or changed (including only changing the option position)',
 						$optionSuccess
 					);
 				Feedback::success($msg);
@@ -132,11 +135,12 @@ if ((isset($_REQUEST["save"]) || isset($_REQUEST["add"])) && $access->checkCsrf(
 	$cat_href = "tiki-poll_results.php?pollId=" . $cat_objid;
 	include_once("categorize.php");
 }
-if (isset($_REQUEST['addPoll'])
+if (
+    isset($_REQUEST['addPoll'])
 	&& ! empty($_REQUEST['poll_template'])
 	&& ! empty($_REQUEST['pages'])
-	&& $access->checkCsrf())
-{
+	&& $access->checkCsrf()
+) {
 	$wikilib = TikiLib::lib('wiki');
 	$categlib = TikiLib::lib('categ');
 	$cat_type = 'wiki page';

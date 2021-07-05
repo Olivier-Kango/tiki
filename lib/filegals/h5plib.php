@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -6,6 +7,7 @@
 // $Id$
 
 use Tiki\FileGallery\File as TikiFile;
+
 class H5PLib
 {
 	/**
@@ -191,7 +193,7 @@ class H5PLib
 		file_put_contents($dest, $file->getContents());
 
 		/** @var ZipArchive $zip */
-		$zip = new ZipArchive;
+		$zip = new ZipArchive();
 		$interface = H5P_H5PTiki::get_h5p_instance('interface');
 
 		$filepath = $interface->getUploadedH5pPath($dest);
@@ -281,7 +283,7 @@ class H5PLib
 		];
 		self::$settings['loadedJs'] = [];
 		self::$settings['loadedCss'] = [];
-		$TWV = new TWVersion;
+		$TWV = new TWVersion();
 		$cache_buster = '?ver=' . $TWV->version;
 
 		$lib_url = 'vendor_bundled/vendor/h5p/h5p-core/';
@@ -510,7 +512,7 @@ class H5PLib
 		$url = $tikiroot . $editorpath;
 
 		// Make sure files are reloaded for new versions
-		$TWV = new TWVersion;
+		$TWV = new TWVersion();
 		$cachebuster = '?ver=' . $TWV->version;
 
 		// Add editor styles

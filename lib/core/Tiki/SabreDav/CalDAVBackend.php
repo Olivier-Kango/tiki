@@ -13,7 +13,6 @@ use Sabre\DAV;
 use Sabre\DAV\Exception\Forbidden;
 use Sabre\DAV\Xml\Element\Sharee;
 use Sabre\VObject;
-
 use TikiLib;
 use Perms;
 
@@ -22,12 +21,12 @@ use Perms;
  *
  * This backend is used to store calendar-data in a Tiki MySQL database
  */
-class CalDAVBackend extends CalDAV\Backend\AbstractBackend
-    implements
-        CalDAV\Backend\SyncSupport,
-        CalDAV\Backend\SubscriptionSupport,
-        CalDAV\Backend\SchedulingSupport,
-        CalDAV\Backend\SharingSupport {
+class CalDAVBackend extends CalDAV\Backend\AbstractBackend implements
+    CalDAV\Backend\SyncSupport,
+    CalDAV\Backend\SubscriptionSupport,
+    CalDAV\Backend\SchedulingSupport,
+    CalDAV\Backend\SharingSupport
+{
 
     /**
      * We need to specify a max date, because we need to stop *somewhere*
@@ -175,7 +174,7 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend
 
     protected function getCalendarUri($calendarId)
     {
-        return 'calendar-'.$calendarId;
+        return 'calendar-' . $calendarId;
     }
 
     protected function getCalendarObjectUri($row_or_rec)
@@ -184,13 +183,13 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend
             if (! empty($row_or_rec['uri'])) {
                 return $row_or_rec['uri'];
             } else {
-                return 'calendar-object-'.$row_or_rec['calitemId'];
+                return 'calendar-object-' . $row_or_rec['calitemId'];
             }
         } else {
             if ($row_or_rec->getUri()) {
                 return $row_or_rec->getUri();
             } else {
-                return 'calendar-object-r'.$row_or_rec->getId();
+                return 'calendar-object-r' . $row_or_rec->getId();
             }
         }
     }
@@ -216,11 +215,11 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend
         $options = [];
 
         $sccs = '{urn:ietf:params:xml:ns:caldav}supported-calendar-component-set';
-        if (!isset($properties[$sccs])) {
+        if (! isset($properties[$sccs])) {
             // Default value
             $options['components'] = 'VEVENT,VTODO';
         } else {
-            if (!($properties[$sccs] instanceof CalDAV\Xml\Property\SupportedCalendarComponentSet)) {
+            if (! ($properties[$sccs] instanceof CalDAV\Xml\Property\SupportedCalendarComponentSet)) {
                 throw new DAV\Exception('The ' . $sccs . ' property must be of type: \Sabre\CalDAV\Xml\Property\SupportedCalendarComponentSet');
             }
             $options['components'] = implode(',', $properties[$sccs]->getValue());
@@ -235,7 +234,7 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend
 
         foreach ($this->propertyMap as $xmlName => $dbName) {
             if (isset($properties[$xmlName])) {
-                switch($dbName) {
+                switch ($dbName) {
                     case 'name':
                         $name = $properties[$xmlName];
                         break;
@@ -274,7 +273,7 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend
      */
     public function updateCalendar($calendarId, \Sabre\DAV\PropPatch $propPatch)
     {
-        if (!is_array($calendarId)) {
+        if (! is_array($calendarId)) {
             throw new \InvalidArgumentException('The value passed to $calendarId is expected to be an array with a calendarId and an instanceId');
         }
         list($calendarId, $instanceId) = $calendarId;
@@ -286,19 +285,18 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend
         $supportedProperties = array_keys($this->propertyMap);
         $supportedProperties[] = '{' . CalDAV\Plugin::NS_CALDAV . '}schedule-calendar-transp';
 
-        $propPatch->handle($supportedProperties, function($mutations) use ($calendarId, $instanceId) {
+        $propPatch->handle($supportedProperties, function ($mutations) use ($calendarId, $instanceId) {
             $calendar = TikiLib::lib('calendar')->get_calendar($calendarId);
             $user = $calendar['user'];
             $name = $calendar['name'];
             $description = $calendar['description'];
             $options = [];
             foreach ($mutations as $propertyName => $propertyValue) {
-
                 switch ($propertyName) {
-                    case '{' . CalDAV\Plugin::NS_CALDAV . '}schedule-calendar-transp' :
+                    case '{' . CalDAV\Plugin::NS_CALDAV . '}schedule-calendar-transp':
                         $options['transparent'] = $propertyValue->getValue();
                         break;
-                    default :
+                    default:
                         $fieldName = $this->propertyMap[$propertyName];
                         switch ($fieldName) {
                             case 'name':
@@ -312,7 +310,6 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend
                         }
                         break;
                 }
-
             }
             TikiLib::lib('calendar')->set_calendar($calendarId, $user, $name, $description, [], $options, $instanceId);
             TikiLib::lib('calendar')->add_change($calendarId, "", 2);
@@ -329,7 +326,7 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend
      */
     public function deleteCalendar($calendarId)
     {
-        if (!is_array($calendarId)) {
+        if (! is_array($calendarId)) {
             throw new \InvalidArgumentException('The value passed to $calendarId is expected to be an array with a calendarId and an instanceId');
         }
         list($calendarId, $instanceId) = $calendarId;
@@ -369,7 +366,7 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend
                 $perms = Perms::get('calendar', $calendarId);
             }
             if (! $perms->$tiki_permission) {
-                throw new DAV\Exception\Forbidden(tra('Permission denied') . ": " . 'tiki_p_'.$tiki_permission);
+                throw new DAV\Exception\Forbidden(tra('Permission denied') . ": " . 'tiki_p_' . $tiki_permission);
             }
         }
     }
@@ -407,7 +404,7 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend
      */
     public function getCalendarObjects($calendarId)
     {
-        if (!is_array($calendarId)) {
+        if (! is_array($calendarId)) {
             throw new \InvalidArgumentException('The value passed to $calendarId is expected to be an array with a calendarId and an instanceId');
         }
         list($calendarId, $instanceId) = $calendarId;
@@ -439,7 +436,7 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend
             $rec = new \CalRecurrence($recurrenceId);
             $calendardata = $this->constructRecurringCalendarData($rec);
             $result[] = [
-                'id'           => 'r'.$rec->getId(),
+                'id'           => 'r' . $rec->getId(),
                 'uri'          => $this->getCalendarObjectUri($rec),
                 'lastmodified' => (int)$rec->getLastModif(),
                 'etag'         => '"' . md5($calendardata) . '"',
@@ -468,7 +465,7 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend
      */
     public function getCalendarObject($calendarId, $objectUri)
     {
-        if (!is_array($calendarId)) {
+        if (! is_array($calendarId)) {
             throw new \InvalidArgumentException('The value passed to $calendarId is expected to be an array with a calendarId and an instanceId');
         }
         list($calendarId, $instanceId) = $calendarId;
@@ -499,7 +496,7 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend
         }
 
         return [
-            'id'           => $rec ? 'r'.$rec->getId() : $row['calitemId'],
+            'id'           => $rec ? 'r' . $rec->getId() : $row['calitemId'],
             'uri'          => $this->getCalendarObjectUri($rec ?? $row),
             'lastmodified' => (int)$row['lastModif'],
             'etag'         => '"' . md5($calendardata) . '"',
@@ -523,7 +520,7 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend
      */
     public function getMultipleCalendarObjects($calendarId, array $uris)
     {
-        if (!is_array($calendarId)) {
+        if (! is_array($calendarId)) {
             throw new \InvalidArgumentException('The value passed to $calendarId is expected to be an array with a calendarId and an instanceId');
         }
         list($calendarId, $instanceId) = $calendarId;
@@ -532,7 +529,7 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend
 
         $result = [];
         foreach (array_chunk($uris, 900) as $chunk) {
-            $itemIdsOrUris = array_map(function($uri){
+            $itemIdsOrUris = array_map(function ($uri) {
                 return str_replace("calendar-object-", "", $uri);
             }, $chunk);
             $objects = TikiLib::lib('calendar')->get_events($calendarId, $itemIdsOrUris);
@@ -559,7 +556,7 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend
                 $rec = new \CalRecurrence($recurrenceId);
                 $calendardata = $this->constructRecurringCalendarData($rec);
                 $result[] = [
-                    'id'           => 'r'.$rec->getId(),
+                    'id'           => 'r' . $rec->getId(),
                     'uri'          => $this->getCalendarObjectUri($rec),
                     'lastmodified' => (int)$rec->getLastModif(),
                     'etag'         => '"' . md5($calendardata) . '"',
@@ -594,7 +591,7 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend
     {
         global $user;
 
-        if (!is_array($calendarId)) {
+        if (! is_array($calendarId)) {
             throw new \InvalidArgumentException('The value passed to $calendarId is expected to be an array with a calendarId and an instanceId');
         }
         list($calendarId, $instanceId) = $calendarId;
@@ -609,16 +606,16 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend
         $data['uri'] = $objectUri;
 
         if ($data['rec']) {
-            if(empty($data['priority'])) {
+            if (empty($data['priority'])) {
                 $data['priority'] = 0;
             }
-            if(is_null($data['status'])) {
+            if (is_null($data['status'])) {
                 $data['status'] = 1;
             }
-            if(empty($data['lang'])) {
+            if (empty($data['lang'])) {
                 $data['lang'] = 'en';
             }
-            if(empty($data['nlId'])) {
+            if (empty($data['nlId'])) {
                 $data['nlId'] = 0;
             }
             $data['user'] = $user;
@@ -655,7 +652,7 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend
     {
         global $user;
 
-        if (!is_array($calendarId)) {
+        if (! is_array($calendarId)) {
             throw new \InvalidArgumentException('The value passed to $calendarId is expected to be an array with a calendarId and an instanceId');
         }
         list($calendarId, $instanceId) = $calendarId;
@@ -692,7 +689,6 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend
         }
 
         return '"' . $data['etag'] . '"';
-
     }
 
     /**
@@ -708,7 +704,7 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend
     {
         global $user;
 
-        if (!is_array($calendarId)) {
+        if (! is_array($calendarId)) {
             throw new \InvalidArgumentException('The value passed to $calendarId is expected to be an array with a calendarId and an instanceId');
         }
         list($calendarId, $instanceId) = $calendarId;
@@ -787,7 +783,7 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend
         $result = [];
         $calendardata = $this->constructRecurringCalendarData($rec);
         $result[] = [
-            'id'           => 'r'.$rec->getId(),
+            'id'           => 'r' . $rec->getId(),
             'uri'          => $this->getCalendarObjectUri($rec),
             'lastmodified' => (int)$rec->getLastModif(),
             'etag'         => '"' . md5($calendardata) . '"',
@@ -863,7 +859,7 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend
      */
     public function calendarQuery($calendarId, array $filters)
     {
-        if (!is_array($calendarId)) {
+        if (! is_array($calendarId)) {
             throw new \InvalidArgumentException('The value passed to $calendarId is expected to be an array with a calendarId and an instanceId');
         }
         list($calendarId, $instanceId) = $calendarId;
@@ -875,16 +871,16 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend
         $timeRange = null;
 
         // if no filters were specified, we don't need to filter after a query
-        if (!$filters['prop-filters'] && !$filters['comp-filters']) {
+        if (! $filters['prop-filters'] && ! $filters['comp-filters']) {
             $requirePostFilter = false;
         }
 
         // Figuring out if there's a component filter
-        if (count($filters['comp-filters']) > 0 && !$filters['comp-filters'][0]['is-not-defined']) {
+        if (count($filters['comp-filters']) > 0 && ! $filters['comp-filters'][0]['is-not-defined']) {
             $componentType = $filters['comp-filters'][0]['name'];
 
             // Checking if we need post-filters
-            if (!$filters['prop-filters'] && !$filters['comp-filters'][0]['comp-filters'] && !$filters['comp-filters'][0]['time-range'] && !$filters['comp-filters'][0]['prop-filters']) {
+            if (! $filters['prop-filters'] && ! $filters['comp-filters'][0]['comp-filters'] && ! $filters['comp-filters'][0]['time-range'] && ! $filters['comp-filters'][0]['prop-filters']) {
                 $requirePostFilter = false;
             }
             // There was a time-range filter
@@ -893,11 +889,10 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend
 
                 // If start time OR the end time is not specified, we can do a
                 // 100% accurate mysql query.
-                if (!$filters['prop-filters'] && !$filters['comp-filters'][0]['comp-filters'] && !$filters['comp-filters'][0]['prop-filters'] && (!$timeRange['start'] || !$timeRange['end'])) {
+                if (! $filters['prop-filters'] && ! $filters['comp-filters'][0]['comp-filters'] && ! $filters['comp-filters'][0]['prop-filters'] && (! $timeRange['start'] || ! $timeRange['end'])) {
                     $requirePostFilter = false;
                 }
             }
-
         }
 
         if ($timeRange && $timeRange['start']) {
@@ -918,7 +913,7 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend
             foreach ($filtered as $key => $row) {
                 $row['calendarid'] = [$calendarId, $instanceId];
                 $row['uri'] = $this->getCalendarObjectUri($row);
-                if (!$this->validateFilterForObject($row, $filters)) {
+                if (! $this->validateFilterForObject($row, $filters)) {
                     unset($filtered[$key]);
                 }
             }
@@ -1036,7 +1031,7 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend
      */
     public function getChangesForCalendar($calendarId, $syncToken, $syncLevel, $limit = null)
     {
-        if (!is_array($calendarId)) {
+        if (! is_array($calendarId)) {
             throw new \InvalidArgumentException('The value passed to $calendarId is expected to be an array with a calendarId and an instanceId');
         }
         list($calendarId, $instanceId) = $calendarId;
@@ -1062,24 +1057,22 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend
 
             $recurrences = [];
             foreach ($filtered as $row) {
-
                 if ($row['recurrenceId']) {
                     $recurrences[] = $row['recurrenceId'];
                     continue;
                 }
 
                 switch ($row['operation']) {
-                    case 1 :
+                    case 1:
                         $result['added'][] = $this->getCalendarObjectUri($row);
                         break;
-                    case 2 :
+                    case 2:
                         $result['modified'][] = $this->getCalendarObjectUri($row);
                         break;
-                    case 3 :
+                    case 3:
                         $result['deleted'][] = $this->getCalendarObjectUri($row);
                         break;
                 }
-
             }
 
             foreach ($recurrences as $recurrenceId) {
@@ -1090,7 +1083,7 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend
             // No synctoken supplied, this is the initial sync.
             $events = TikiLib::lib('calendar')->get_events($calendarid);
             $filtered = Perms::filter([ 'type' => 'event' ], 'object', $events, [ 'object' => 'calitemId' ], 'view_events');
-            
+
             $recurrences = [];
             foreach ($filtered as $row) {
                 if ($row['recurrenceId']) {
@@ -1099,7 +1092,7 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend
                     $result['added'][] = $this->getCalendarObjectUri($row);
                 }
             }
-            
+
             $recurrences = array_unique($recurrences);
             foreach ($recurrences as $recurrenceId) {
                 $rec = new \CalRecurrence($recurrenceId);
@@ -1158,7 +1151,7 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend
             ];
 
             foreach ($this->subscriptionPropertyMap as $xmlName => $dbName) {
-                if (!is_null($row[$dbName])) {
+                if (! is_null($row[$dbName])) {
                     $subscription[$xmlName] = $row[$dbName];
                 }
             }
@@ -1185,7 +1178,7 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend
         $user = PrincipalBackend::mapUriToUser($principalUri);
         $calendar = $this->mapCalendarUriToCalendar($uri);
 
-        if (!isset($properties['{http://calendarserver.org/ns/}source'])) {
+        if (! isset($properties['{http://calendarserver.org/ns/}source'])) {
             throw new Forbidden('The {http://calendarserver.org/ns/}source property is required when creating subscriptions');
         }
 
@@ -1227,19 +1220,17 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend
         $supportedProperties = array_keys($this->subscriptionPropertyMap);
         $supportedProperties[] = '{http://calendarserver.org/ns/}source';
 
-        $propPatch->handle($supportedProperties, function($mutations) use ($subscriptionId) {
+        $propPatch->handle($supportedProperties, function ($mutations) use ($subscriptionId) {
 
             $newValues = [];
 
             foreach ($mutations as $propertyName => $propertyValue) {
-
                 if ($propertyName === '{http://calendarserver.org/ns/}source') {
                     $newValues['source'] = $propertyValue->getHref();
                 } else {
                     $fieldName = $this->subscriptionPropertyMap[$propertyName];
                     $newValues[$fieldName] = $propertyValue;
                 }
-
             }
 
             TikiLib::lib('calendar')->update_subscription($subscriptionId, $newValues);
@@ -1280,7 +1271,9 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend
 
         $row = TikiLib::lib('calendar')->get_scheduling_object($user, $objectUri);
 
-        if (!$row) return null;
+        if (! $row) {
+return null;
+        }
 
         return [
             'uri'          => $row['uri'],
@@ -1358,7 +1351,7 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend
      */
     public function updateInvites($calendarId, array $sharees)
     {
-        if (!is_array($calendarId)) {
+        if (! is_array($calendarId)) {
             throw new \InvalidArgumentException('The value passed to $calendarId is expected to be an array with a calendarId and an instanceId');
         }
         $currentInvites = $this->getInvites($calendarId);
@@ -1436,7 +1429,7 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend
      */
     public function getInvites($calendarId)
     {
-        if (!is_array($calendarId)) {
+        if (! is_array($calendarId)) {
             throw new \InvalidArgumentException('The value passed to getInvites() is expected to be an array with a calendarId and an instanceId');
         }
         list($calendarId, $instanceId) = $calendarId;
@@ -1451,7 +1444,7 @@ class CalDAVBackend extends CalDAV\Backend\AbstractBackend
                 /// Everyone is always immediately accepted, for now.
                 'inviteStatus' => (int)$row['share_invites_tatus'],
                 'properties'   =>
-                    !empty($row['share_name'])
+                    ! empty($row['share_name'])
                     ? ['{DAV:}displayname' => $row['share_name']]
                     : [],
                 'principal' => PrincipalBackend::mapUserToUri($row['user']),

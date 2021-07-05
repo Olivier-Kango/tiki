@@ -39,7 +39,7 @@ class Tracker implements ActionInterface
 	{
 		$user = $message->getAssociatedUser();
 		$perms = TikiLib::lib('tiki')->get_user_permission_accessor($user, 'tracker', $this->tracker);
-		if(! $perms->tiki_p_view_trackers || ! $perms->tiki_p_create_tracker_items){
+		if (! $perms->tiki_p_view_trackers || ! $perms->tiki_p_create_tracker_items) {
 			return false;
 		}
 		return true;
@@ -187,12 +187,12 @@ class Tracker implements ActionInterface
 			$trackerId = $this->createTracker($from);
 
 			// create tracker fields
-			$permNames=[];
-			foreach ($data as $fieldData){
+			$permNames = [];
+			foreach ($data as $fieldData) {
 				$fieldData['trackerId'] = $trackerId;
 				$fieldId = $trackerUtilities->createField($fieldData);
 				// build permNames table
-				$permNames[]= 'f_' . $fieldId;
+				$permNames[] = 'f_' . $fieldId;
 			}
 
 			$definition = $this->getDefinition($trackerId);
@@ -201,7 +201,7 @@ class Tracker implements ActionInterface
 			$itemFiles = $this->uploadAttachments($account, $message);
 
 			if ($this->canAttach() && $account->hasAutoAttach()) {
-				$i=0;
+				$i = 0;
 				foreach ($message->getAttachments() as $att) {
 					// upload each attachment
 					$id = $this->attachFile($gal_info, $att, $message->getAssociatedUser());
@@ -217,8 +217,8 @@ class Tracker implements ActionInterface
 			$datasItem[] = $itemFiles;
 			$toItem = [];
 			// construct final table
-			for ($i=0; $i < sizeof($permNames); $i++) {
-				$toItem[$permNames[$i]]= $datasItem[$i];
+			for ($i = 0; $i < sizeof($permNames); $i++) {
+				$toItem[$permNames[$i]] = $datasItem[$i];
 			}
 			$itemId = $trackerUtilities->insertItem(
 				$definition,
@@ -240,8 +240,8 @@ class Tracker implements ActionInterface
 
 			$toItem = [];
 			// construct final table
-			for ($i=0; $i < sizeof($preFields); $i++) {
-				for ($j=0; $j < sizeof($preferences) ; $j++) { 
+			for ($i = 0; $i < sizeof($preFields); $i++) {
+				for ($j = 0; $j < sizeof($preferences); $j++) {
 					if ($preFields[$i] == $preferences[$j]['from']) {
 						$toItem[$preferences[$j]['to']] = $datasItem[$i];
 					}
@@ -287,12 +287,13 @@ class Tracker implements ActionInterface
 	}
 
 	// upload incoming mail files
-	private function uploadAttachments($account, $message) {
+	private function uploadAttachments($account, $message)
+    {
 		global $prefs;
 		$filegallib = TikiLib::lib('filegal');
 		$galleryId = $prefs['fgal_root_id']; // defalut file gallery
 			$gal_info = $filegallib->get_file_gallery($galleryId);
-			if(! $gal_info) {
+			if (! $gal_info) {
 				$galInfo = [
 					'galleryId' => '',
 					'parentId' => $galleryId,
@@ -306,9 +307,9 @@ class Tracker implements ActionInterface
 				$gal_info = $filegallib->get_file_gallery($galleryId);
 			}
 
-			$itemFiles='';
+			$itemFiles = '';
 			if ($this->canAttach() && $account->hasAutoAttach()) {
-				$i=0;
+				$i = 0;
 				foreach ($message->getAttachments() as $att) {
 					// upload each attachment
 					$id = $this->attachFile($gal_info, $att, $message->getAssociatedUser());

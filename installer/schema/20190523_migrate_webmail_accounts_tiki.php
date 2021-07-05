@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -55,7 +56,7 @@ function upgrade_20190523_migrate_webmail_accounts_tiki($installer)
 	}
 
 	$tikilib = TikiLib::lib('tiki');
-	$tikilib = new TikiLib;
+	$tikilib = new TikiLib();
 	foreach ($users as $user) {
 		$data = $tikilib->get_user_preference($user, 'cypht_user_config');
 		if ($data) {

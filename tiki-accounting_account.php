@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -9,17 +11,17 @@
 // $Id$
 
 /***
- * 
+ *
  * @var \TikiAccessLib  $access
- * 
+ *
  * @var \AccountingLib  $accountinglib
- * 
- * 
+ *
+ *
  * @var \Smarty_Tiki    $smarty
- * 
+ *
  * Define the current section
  * @var string $section
- */ 
+ */
 
 
 
@@ -60,8 +62,10 @@ if ($_REQUEST['action'] != 'new' and ! isset($_REQUEST['accountId'])) {
 
 $smarty->assign('action', $_REQUEST['action']);
 if ($_REQUEST['action'] == '' or $_REQUEST['action'] == 'view') {
-	if (! ($globalperms->acct_view or $objectperms->acct_view or
-		  $globalperms->acct_book or $objectperms->acct_book)) {
+	if (
+        ! ($globalperms->acct_view or $objectperms->acct_view or
+		  $globalperms->acct_book or $objectperms->acct_book)
+    ) {
 		$smarty->assign('msg', tra("You do not have the rights to view this account"));
 		$smarty->display("error.tpl");
 		die;
@@ -84,12 +88,11 @@ if (! empty($_REQUEST['action'])) {
      * Account Notes
      * @var Ambiguous $notes
      */
-	$notes = !empty($_POST['accountNotes']) ? $_POST['accountNotes'] : '';
+	$notes = ! empty($_POST['accountNotes']) ? $_POST['accountNotes'] : '';
 	switch ($_REQUEST['action']) {
 		case 'edit':
 			$template = "tiki-accounting_account_form.tpl";
-			if (isset($_POST['accountName']) && $access->checkCsrf())
-			{
+			if (isset($_POST['accountName']) && $access->checkCsrf()) {
 				if (! isset($_POST['newAccountId'])) {
 					$_POST['newAccountId'] = $accountId;
 				}
@@ -108,8 +111,11 @@ if (! empty($_REQUEST['action'])) {
 				} else {
 					$smarty->assign('action', 'view');
 					$template = "tiki-accounting_account_view.tpl";
-					Feedback::success(tr('%0 account in book %1 modified',
-						htmlspecialchars($_POST['accountName']), $bookId));
+					Feedback::success(tr(
+                        '%0 account in book %1 modified',
+                        htmlspecialchars($_POST['accountName']),
+                        $bookId
+                    ));
 				}
 			}
 			$account = $accountinglib->getAccount($bookId, $accountId, true);
@@ -132,8 +138,11 @@ if (! empty($_REQUEST['action'])) {
 				} else {
 					$smarty->assign('action', 'view');
 					$template = "tiki-accounting_account_view.tpl";
-					Feedback::success(tr('%0 account created for book %1', $_POST['accountName'],
-						$bookId));
+					Feedback::success(tr(
+                        '%0 account created for book %1',
+                        $_POST['accountName'],
+                        $bookId
+                    ));
 				}
 				$account = [
 					'accountBookId' => $bookId,
@@ -173,15 +182,17 @@ if (! empty($_REQUEST['action'])) {
 		case 'delete':
 			$account = $accountinglib->getAccount($bookId, $accountId, true);
 			$smarty->assign('account', $account);
-			if ($access->checkCsrf(true))
-			{
+			if ($access->checkCsrf(true)) {
 				$result = $accountinglib->deleteAccount($bookId, $accountId);
 			} else {
 				$result = false;
 			}
 			if ($result === true) {
-				Feedback::success(tr('%0 account deleted from book %1', $account['accountName'],
-					$bookId));
+				Feedback::success(tr(
+                    '%0 account deleted from book %1',
+                    $account['accountName'],
+                    $bookId
+                ));
 				$template = "tiki-accounting.tpl";
 			} else {
 				Feedback::error(['mes' => $result]);

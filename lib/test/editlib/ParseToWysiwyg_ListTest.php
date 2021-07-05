@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -14,7 +15,7 @@ class EditLib_ParseToWysiwyg_ListTest extends TikiTestCase
 
 	private $el; // the EditLib
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 
 		TikiLib::lib('edit');
@@ -24,7 +25,7 @@ class EditLib_ParseToWysiwyg_ListTest extends TikiTestCase
 	}
 
 
-	protected function tearDown() : void
+	protected function tearDown(): void
 	{
 	}
 

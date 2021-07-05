@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -15,7 +16,7 @@ class Tiki_Command_ProfileExport_TrackerItemTest extends TikiTestCase
 {
 	protected $writer;
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		// create a sample writer that will never write to disk (save is mocked)
 		$this->writer = $this->getMockBuilder(Tiki_Profile_Writer::class)

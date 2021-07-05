@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -76,7 +77,8 @@ if (isset($prefs['feature_port_rewriting']) && $prefs['feature_port_rewriting'] 
 //    This is useful in certain cases.
 //    For example, this allow to have full HTTPS when using an entrance proxy that will use HTTPS connection with the client browser, but use an HTTP only connection to the server that hosts tikiwiki.
 if (! $reverse_proxy) {
-	if (// we have an https request
+	if (
+// we have an https request
 			( isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == 'on' )
 			// https_port is NOT set and request 443
 			|| ( $prefs['https_port'] == '' && isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443 )

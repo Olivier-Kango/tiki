@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -203,8 +204,10 @@ class TikiIntegrator
 	{
 		// Is repository path absolute? (start from www root ('/'))
 		$p = '';
-		if ((substr($rep["path"], 0, 7) == 'http://')
-		 || (substr($rep["path"], 0, 8) == 'https://')) {
+		if (
+            (substr($rep["path"], 0, 7) == 'http://')
+            || (substr($rep["path"], 0, 8) == 'https://')
+        ) {
 			// It is remote repository -- just copy configured path
 			$p = $rep["path"];
 		} elseif (substr($rep["path"], 0, 1) == '/') {
@@ -326,8 +329,10 @@ class TikiIntegrator
 		$rep = $this->get_repository($repID);
 
 		// If smth found in cache return it... else try to get it by usual way.
-		if ($data != '' && isset($data["data"]) && ($data["data"] != '')
-		 && ($rep["expiration"] > 0 ? (time() - $data["refresh"]) < $rep["expiration"] : true)) {
+		if (
+            $data != '' && isset($data["data"]) && ($data["data"] != '')
+            && ($rep["expiration"] > 0 ? (time() - $data["refresh"]) < $rep["expiration"] : true)
+        ) {
 			return $data["data"];
 		}
 

@@ -4,7 +4,7 @@ class Search_Elastic_MoreLikeThisTest extends PHPUnit\Framework\TestCase
 {
 	private $index;
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		$elasticSearchHost = empty(getenv('ELASTICSEARCH_HOST')) ? 'localhost' : getenv('ELASTICSEARCH_HOST');
 		$connection = new Search_Elastic_Connection('http://' . $elasticSearchHost . ':9200');
@@ -21,7 +21,7 @@ class Search_Elastic_MoreLikeThisTest extends PHPUnit\Framework\TestCase
 		$this->populate($this->index);
 	}
 
-	protected function tearDown() : void
+	protected function tearDown(): void
 	{
 		if ($this->index) {
 			$this->index->destroy();
@@ -73,7 +73,7 @@ class Search_Elastic_MoreLikeThisTest extends PHPUnit\Framework\TestCase
 
 	public function testObtainSimilarDocument()
 	{
-		$query = new Search_Query;
+		$query = new Search_Query();
 		$query->filterSimilar('wiki page', 12);
 
 		$results = $query->search($this->index);
@@ -83,7 +83,7 @@ class Search_Elastic_MoreLikeThisTest extends PHPUnit\Framework\TestCase
 
 	public function testDocumentTooDifferent()
 	{
-		$query = new Search_Query;
+		$query = new Search_Query();
 		$query->filterSimilar('wiki page', 'X');
 
 		$results = $query->search($this->index);

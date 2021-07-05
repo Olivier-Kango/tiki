@@ -11,14 +11,14 @@ class SlugManagerTest extends TestCase
 {
 	private $manager;
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
-		$this->manager = new SlugManager;
+		$this->manager = new SlugManager();
 		$this->manager->setValidationCallback(function () {
 			return false;
 		});
-		$this->manager->addGenerator(new UrlencodeGenerator);
-		$this->manager->addGenerator(new UnderscoreGenerator);
+		$this->manager->addGenerator(new UrlencodeGenerator());
+		$this->manager->addGenerator(new UnderscoreGenerator());
 	}
 
 	public function testGenerateSimple()
@@ -37,7 +37,7 @@ class SlugManagerTest extends TestCase
 
 	public function testDuplicateAddsSuffix()
 	{
-		$tracker = new SlugManager\InMemoryTracker;
+		$tracker = new SlugManager\InMemoryTracker();
 		$tracker->add('Hello_World');
 		$this->manager->setValidationCallback($tracker);
 
@@ -63,7 +63,7 @@ class SlugManagerTest extends TestCase
 	{
 		$manager = clone $this->manager;
 
-		$tracker = new SlugManager\InMemoryTracker;
+		$tracker = new SlugManager\InMemoryTracker();
 		$tracker->add('Hello_World');
 		$manager->setValidationCallback($tracker);
 
@@ -77,16 +77,16 @@ class SlugManagerTest extends TestCase
 	public function generatorCases()
 	{
 		return [
-			[new UrlencodeGenerator, 'Hello', 'Hello', null],
-			[new UrlencodeGenerator, 'Hello+World', 'Hello World', null],
-			[new UrlencodeGenerator, 'Hello+World2', 'Hello World', 2],
-			[new UrlencodeGenerator, 'Hello+World3', 'Hello World', 3],
-			[new UnderscoreGenerator, 'Hello', 'Hello', null],
-			[new UnderscoreGenerator, 'Hello_World', 'Hello World', null],
-			[new UnderscoreGenerator, 'Hello_World_2', 'Hello World', 2],
-			[new UnderscoreGenerator, 'Hello_World_3', 'Hello World', 3],
-			[new UnderscoreGenerator, 'Hello_World', 'Hello   World', null],
-			[new UnderscoreGenerator, 'Hello_World', '  Hello   World  ', null],
+			[new UrlencodeGenerator(), 'Hello', 'Hello', null],
+			[new UrlencodeGenerator(), 'Hello+World', 'Hello World', null],
+			[new UrlencodeGenerator(), 'Hello+World2', 'Hello World', 2],
+			[new UrlencodeGenerator(), 'Hello+World3', 'Hello World', 3],
+			[new UnderscoreGenerator(), 'Hello', 'Hello', null],
+			[new UnderscoreGenerator(), 'Hello_World', 'Hello World', null],
+			[new UnderscoreGenerator(), 'Hello_World_2', 'Hello World', 2],
+			[new UnderscoreGenerator(), 'Hello_World_3', 'Hello World', 3],
+			[new UnderscoreGenerator(), 'Hello_World', 'Hello   World', null],
+			[new UnderscoreGenerator(), 'Hello_World', '  Hello   World  ', null],
 		];
 	}
 }

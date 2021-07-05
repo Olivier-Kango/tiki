@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -14,7 +15,7 @@
  * Purpose:  Fetches a template from a wiki page but parsing as little as with tpl's on disk
  * -------------------------------------------------------------
  */
-function smarty_resource_tplwiki_source(string $page, ?string &$tpl_source, Smarty_Tiki $smarty) : bool
+function smarty_resource_tplwiki_source(string $page, ?string &$tpl_source, Smarty_Tiki $smarty): bool
 {
 
 	$info = $smarty->checkWikiPageTemplatePerms($page, $tpl_source);

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Used by Tiki's InterTiki feature
  *
@@ -6,6 +7,7 @@
  * @copyright (c) Copyright by authors of the Tiki Wiki CMS Groupware Project. All Rights Reserved. See copyright.txt for details and a complete list of authors.
  * @licence LGPL-2.1. See license.txt for details.
  */
+
 // $Id$
 
 $version = '0.2';
@@ -342,7 +344,8 @@ function get_registration_prefs($params)
 		return new XML_RPC_Response(0, 101, $msg);
 	}
 
-	if (! isset($prefs['known_hosts'][$key]['allowusersregister'])
+	if (
+        ! isset($prefs['known_hosts'][$key]['allowusersregister'])
 				|| ($prefs['known_hosts'][$key]['allowusersregister'] != 'y')
 	) {
 		return new XML_RPC_Response(0, 101, 'Users are not allowed to register via intertiki on this master.');
@@ -378,7 +381,8 @@ function register_user($params)
 		return new XML_RPC_Response(0, 101, $msg);
 	}
 
-	if (! isset($prefs['known_hosts'][$key]['allowusersregister'])
+	if (
+        ! isset($prefs['known_hosts'][$key]['allowusersregister'])
 			|| ($prefs['known_hosts'][$key]['allowusersregister'] != 'y')
 	) {
 		return new XML_RPC_Response(0, 101, 'Users are not allowed to register via intertiki on this master.');

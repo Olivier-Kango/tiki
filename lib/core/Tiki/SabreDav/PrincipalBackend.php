@@ -12,7 +12,6 @@ use Sabre\DAV;
 use Sabre\DAV\MkCol;
 use Sabre\DAVACL;
 use Sabre\Uri;
-
 use TikiLib;
 use Perms;
 
@@ -94,7 +93,6 @@ class PrincipalBackend extends DAVACL\PrincipalBackend\AbstractBackend implement
         }
 
         return $principals;
-
     }
 
     /**
@@ -128,7 +126,6 @@ class PrincipalBackend extends DAVACL\PrincipalBackend\AbstractBackend implement
         ];
 
         return $principal;
-
     }
 
     /**
@@ -195,22 +192,22 @@ class PrincipalBackend extends DAVACL\PrincipalBackend\AbstractBackend implement
         $values = [];
         foreach ($searchProperties as $property => $value) {
             switch ($property) {
-                case '{DAV:}displayname' :
+                case '{DAV:}displayname':
                     $results['by_name'] = TikiLib::lib('user')->get_users(0, -1, 'login_asc', $value);
                     $results['by_name'] = array_column($results['by_name'], 'login');
                     break;
-                case '{http://sabredav.org/ns}email-address' :
+                case '{http://sabredav.org/ns}email-address':
                     $results['by_email'] = TikiLib::lib('user')->get_users(0, -1, 'login_asc', '', '', false, '', $value);
                     $results['by_email'] = array_column($results['by_email'], 'login');
                     break;
-                default :
+                default:
                     // Unsupported property
                     return [];
             }
         }
 
         if ($test == 'anyof') {
-            $results = array_unique($results['by_name']+$results['by_email']);
+            $results = array_unique($results['by_name'] + $results['by_email']);
         } else {
             $results = array_intersect($results['by_name'], $results['by_email']);
         }
@@ -255,7 +252,7 @@ class PrincipalBackend extends DAVACL\PrincipalBackend\AbstractBackend implement
         }
 
         $uri = null;
-        switch ($scheme){
+        switch ($scheme) {
             case "mailto":
                 $user = TikiLib::lib('user')->get_user_by_email($value);
                 if ($user) {
@@ -343,6 +340,6 @@ class PrincipalBackend extends DAVACL\PrincipalBackend\AbstractBackend implement
 
     public static function mapUserToUri($user)
     {
-        return 'principals/'.$user;
+        return 'principals/' . $user;
     }
 }

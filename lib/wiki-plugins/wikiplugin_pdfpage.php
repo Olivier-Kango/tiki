@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -169,8 +170,8 @@ function wikiplugin_pdfpage_info()
 
 function wikiplugin_pdfpage($data, $params)
 {
-	$data=TikiLib::lib('parser')->parse_data($data, ['is_html' => true, 'parse_wiki' => true]);
-	if(strstr($_GET['display'],'pdf')=='') {
+	$data = TikiLib::lib('parser')->parse_data($data, ['is_html' => true, 'parse_wiki' => true]);
+	if (strstr($_GET['display'], 'pdf') == '') {
 		return $data;
 	}
 	//included globals to check mpdf selection as pdf generation engine

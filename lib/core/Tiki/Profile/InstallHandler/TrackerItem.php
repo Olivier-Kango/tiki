@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -161,10 +162,13 @@ class Tiki_Profile_InstallHandler_TrackerItem extends Tiki_Profile_InstallHandle
 					$feedbackFn = 'warning';
 				}
 
-				call_user_func(['Feedback', $feedbackFn],
+				call_user_func(
+                    ['Feedback', $feedbackFn],
 					tr(
 						'Field "%0" in Tracker %1 has no value for itemId %2',
-						$valueItems['permName'], $valueItems['trackerId'], $item['itemId']
+						$valueItems['permName'],
+                        $valueItems['trackerId'],
+                        $item['itemId']
 					)
 				);
 			}

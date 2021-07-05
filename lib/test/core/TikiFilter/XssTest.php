@@ -9,7 +9,7 @@ class TikiFilter_XssTest extends TikiTestCase
 {
 	public function testSimple()
 	{
-		$filter = new TikiFilter_PreventXss;
+		$filter = new TikiFilter_PreventXss();
 
 		$this->assertEquals(
 			'<a href="http://example.com" on<x>click="alert(\'XSS\')">Example</a>',

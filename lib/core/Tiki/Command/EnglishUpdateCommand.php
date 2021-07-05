@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -253,7 +254,7 @@ class EnglishUpdateCommand extends Command
 		// set what regex to use depending on file type.
 		if ($file === 'php') {
 			$regex = '/\Wtra?\s*\(\s*([\'"])(.+?)\1\s*[\),]/';
-			$php = new Language_FileType_Php;
+			$php = new Language_FileType_Php();
 		} else {
 			$regex = '/\{(t)r(?:\s+[^\}]*)?\}(.+?)\{\/tr\}/';
 		}

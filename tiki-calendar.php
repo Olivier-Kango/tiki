@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -113,12 +115,12 @@ $smarty->assign('now', $tikilib->now);
 
 // set up list of groups
 $use_default_calendars = false;
-if (isset($_REQUEST["calIds"])and is_array($_REQUEST["calIds"])and count($_REQUEST["calIds"])) {
+if (isset($_REQUEST["calIds"]) and is_array($_REQUEST["calIds"]) and count($_REQUEST["calIds"])) {
 	$_SESSION['CalendarViewGroups'] = array_intersect($_REQUEST["calIds"], $listcals);
 	if (! empty($user)) {
 		$tikilib->set_user_preference($user, 'default_calendars', serialize($_SESSION['CalendarViewGroups']));
 	}
-} elseif (isset($_REQUEST["calIds"])and ! is_array($_REQUEST["calIds"])) {
+} elseif (isset($_REQUEST["calIds"]) and ! is_array($_REQUEST["calIds"])) {
 	$_SESSION['CalendarViewGroups'] = array_intersect([$_REQUEST["calIds"]], $listcals);
 	if (! empty($user)) {
 		$tikilib->set_user_preference($user, 'default_calendars', serialize($_SESSION['CalendarViewGroups']));
@@ -130,7 +132,7 @@ if (isset($_REQUEST["calIds"])and is_array($_REQUEST["calIds"])and count($_REQUE
 	}
 } elseif (! isset($_SESSION['CalendarViewGroups']) || ! empty($_REQUEST['allCals'])) {
 	$use_default_calendars = true;
-} elseif (isset($_REQUEST["refresh"])and ! isset($_REQUEST["calIds"])) {
+} elseif (isset($_REQUEST["refresh"]) and ! isset($_REQUEST["calIds"])) {
 	$_SESSION['CalendarViewGroups'] = [];
 } elseif (! empty($user) || ! isset($_SESSION['CalendarViewGroups'])) {
 	$use_default_calendars = true;
@@ -698,10 +700,11 @@ if ($calendarViewMode['casedefault'] == 'day') {
 					$hrows[$aDay][$anHour][$i]['duree'] = $eventHoraires[$aDay][$hrows[$aDay][$anHour][$i]['calitemId']]['duree'] * 24;
 					$hrows[$aDay][$anHour][$i]['left'] = $hrows[$aDay][$anHour][$i]['left'] + $concurrencies[$aDay][$hrows[$aDay][$anHour][$i]['calitemId']]['offset'];
 
-					if ($concurrencies[$aDay][$hrows[$aDay][$anHour][$i]['calitemId']]['value'] != 1
+					if (
+                        $concurrencies[$aDay][$hrows[$aDay][$anHour][$i]['calitemId']]['value'] != 1
 							&& $hrows[$aDay][$anHour][$i]['width'] > 0
 							&& $concurrencies[$aDay][$hrows[$aDay][$anHour][$i]['calitemId']]['value'] > 0
-						 ) {
+                    ) {
 						$hrows[$aDay][$anHour][$i]['width'] = $hrows[$aDay][$anHour][$i]['width'] / $concurrencies[$aDay][$hrows[$aDay][$anHour][$i]['calitemId']]['value'];
 					} else {
 						$hrows[$aDay][$anHour][$i]['width'] = $zoom * 12.8;

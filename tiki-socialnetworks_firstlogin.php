@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -40,10 +42,12 @@ if (isset($_REQUEST["localinfosubmit"])) {
 		$smarty->assign('msg', tra('Username and email are mandatory'));
 	} elseif ($user !== $_REQUEST['name'] && $userlib->user_exists($_REQUEST['name'])) {
 		$smarty->assign('msg', tra('User already exists'));
-	} elseif (! preg_match(
-		'/^[_a-z0-9\.\-]+@[_a-z0-9\.\-]+\.[a-z]{2,4}$/i',
-		($prefs['login_is_email'] !== 'y') ? $_REQUEST['email'] : $_REQUEST['name']
-	)) {
+	} elseif (
+        ! preg_match(
+            '/^[_a-z0-9\.\-]+@[_a-z0-9\.\-]+\.[a-z]{2,4}$/i',
+            ($prefs['login_is_email'] !== 'y') ? $_REQUEST['email'] : $_REQUEST['name']
+        )
+    ) {
 		$smarty->assign('msg', tra('The email address is invalid'));
 	} else {
 		$tikilib->set_user_preference($user, 'socialnetworks_user_firstlogin', 'n');

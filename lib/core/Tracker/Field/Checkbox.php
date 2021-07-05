@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -120,7 +121,7 @@ class Tracker_Field_Checkbox extends Tracker_Field_Abstract implements Tracker_F
 			->setRenderTransform(function ($value) {
 				return $value;
 			})
-			->setParseIntoTransform(function (& $info, $value) use ($permName) {
+			->setParseIntoTransform(function (&$info, $value) use ($permName) {
 				$info['fields'][$permName] = $value;
 			})
 			;
@@ -130,7 +131,7 @@ class Tracker_Field_Checkbox extends Tracker_Field_Abstract implements Tracker_F
 			->setRenderTransform(function ($value) {
 				return ('y' === $value) ? 'X' : '';
 			})
-			->setParseIntoTransform(function (& $info, $value) use ($permName) {
+			->setParseIntoTransform(function (&$info, $value) use ($permName) {
 				$value = trim($value);
 				$info['fields'][$permName] = empty($value) ? 'n' : 'y';
 			})

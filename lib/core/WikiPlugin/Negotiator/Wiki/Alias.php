@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -127,7 +128,7 @@ class WikiPlugin_Negotiator_Wiki_Alias
 		}
 	}
 
-	public static function findImplementation(& $implementation, & $data, & $args)
+	public static function findImplementation(&$implementation, &$data, &$args)
 	{
 		if ($info = self::info($implementation)) {
 			$implementation = $info['implementation'];
@@ -137,7 +138,7 @@ class WikiPlugin_Negotiator_Wiki_Alias
 				if (! empty($info['body']['input'])) {
 					if (($info['body']['input'] == 'ignore' ) || empty($data)) {
 						$data = isset($info['body']['default']) ? $info['body']['default'] : '';
-					} else if (strpos($info['body']['default'], '%body%') !== false) {
+					} elseif (strpos($info['body']['default'], '%body%') !== false) {
 						// replace the string %body% with the provided body text if not ignoring user input
 						$rules = [
 							'body' => [

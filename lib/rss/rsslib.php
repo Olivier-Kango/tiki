@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -152,8 +153,7 @@ class RSSLib extends TikiDb_Bridge
 	 *
 	 * @return array the generated feed
 	 */
-	public function generate_feed($section, $uniqueid, $feed_version, $changes, $itemurl, $urlparam, $id, $title, $titleId, $desc, $descId, $dateId, $authorId, $fromcache = false
-			)
+	public function generate_feed($section, $uniqueid, $feed_version, $changes, $itemurl, $urlparam, $id, $title, $titleId, $desc, $descId, $dateId, $authorId, $fromcache = false)
 	{
 		global $tiki_p_admin, $prefs;
 		$userlib = TikiLib::lib('user');

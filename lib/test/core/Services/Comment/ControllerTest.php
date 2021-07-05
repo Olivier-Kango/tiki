@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -9,7 +10,7 @@ class Services_Comment_ControllerTest extends PHPUnit\Framework\TestCase
 {
 	protected $subject;
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		global $prefs, $user;
 		$user = '';
@@ -20,7 +21,7 @@ class Services_Comment_ControllerTest extends PHPUnit\Framework\TestCase
 		$prefs['login_is_email'] = 'y';
 		$_SERVER["SERVER_NAME"] = 'test.example.org';
 
-		$perms = new Perms;
+		$perms = new Perms();
 		$perms->setResolverFactories(
 			[
 				new Perms_ResolverFactory_StaticFactory('root', new Perms_Resolver_Default(true)),
@@ -28,7 +29,7 @@ class Services_Comment_ControllerTest extends PHPUnit\Framework\TestCase
 		);
 		Perms::set($perms);
 
-		$this->subject = new Services_Comment_Controller;
+		$this->subject = new Services_Comment_Controller();
 	}
 
 	public function testPostSimpleComment()

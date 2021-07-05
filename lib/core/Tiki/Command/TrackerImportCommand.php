@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -69,7 +70,7 @@ class TrackerImportCommand extends Command
 
 		// this will throw exceptions and not return if there's a problem
 		$source = new \Tracker\Tabular\Source\CsvSource($schema, $fileName);
-		$writer = new \Tracker\Tabular\Writer\TrackerWriter;
+		$writer = new \Tracker\Tabular\Writer\TrackerWriter();
 		$writer->write($source);
 
 		\Feedback::printToConsole($output);

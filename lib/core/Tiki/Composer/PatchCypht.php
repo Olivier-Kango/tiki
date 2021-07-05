@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -23,17 +24,17 @@ class PatchCypht
 			$vendors .= DIRECTORY_SEPARATOR;
 		}
 
-		$fs = new FileSystem;
+		$fs = new FileSystem();
 		umask(0);
 
 		// setup stock version with missing files
-		copy($cypht.'hm3.ini', $vendors.'jason-munro/cypht/hm3.ini');
-		$tiki_module = $vendors.'jason-munro/cypht/modules/tiki';
+		copy($cypht . 'hm3.ini', $vendors . 'jason-munro/cypht/hm3.ini');
+		$tiki_module = $vendors . 'jason-munro/cypht/modules/tiki';
 		if (! is_dir($tiki_module)) {
 			mkdir($tiki_module, 0755);
 		}
-		$fs->copy($cypht.'modules/tiki', $tiki_module);
-		chdir($cypht.'../../');
+		$fs->copy($cypht . 'modules/tiki', $tiki_module);
+		chdir($cypht . '../../');
 
 		// generate storage dirs
 		if (! is_dir('temp/cypht')) {
@@ -52,16 +53,16 @@ class PatchCypht
 		}
 
 		// copy site.js and site.css
-		copy($vendors.'jason-munro/cypht/site/site.js', $cypht.'site.js');
-		copy($vendors.'jason-munro/cypht/site/site.css', $cypht.'site.css');
+		copy($vendors . 'jason-munro/cypht/site/site.js', $cypht . 'site.js');
+		copy($vendors . 'jason-munro/cypht/site/site.css', $cypht . 'site.css');
 
 		// js custom pacthes
-		$js = file_get_contents($cypht.'site.js');
+		$js = file_get_contents($cypht . 'site.js');
 		$js = str_replace("url: ''", "url: 'tiki-ajax_services.php?controller=cypht&action=ajax&'+window.location.search.substr(1)", $js);
 		$js = str_replace("xhr.open('POST', window.location.href)", "xhr.open('POST', 'tiki-ajax_services.php?controller=cypht&action=ajax&'+window.location.search.substr(1))", $js);
 		$js = str_replace("xhr.open('POST', '', true);", "xhr.open('POST', 'tiki-ajax_services.php?controller=cypht&action=ajax&'+window.location.search.substr(1), true);", $js);
 		$js = str_replace("var ajax = new Hm_Ajax_Request", "var ajax = new tiki_Hm_Ajax_Request", $js);
 		$js = preg_replace("#^.*/\* swipe event handler \*/#s", "", $js);
-		file_put_contents($cypht.'site.js', $js);
+		file_put_contents($cypht . 'site.js', $js);
 	}
 }

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -35,7 +36,7 @@ class UserUnlockCommand extends Command
 			);
 	}
 
-	private function _unlock_users ($identifiers)
+	private function _unlock_users($identifiers)
 	{
 		$userlib = \TikiLib::lib('user');
 
@@ -50,12 +51,10 @@ class UserUnlockCommand extends Command
 			if (empty($user)) {
 				$row['result'] = 'error';
 				$row['message'] = 'user not found';
-			}
-			elseif (empty($user['valid']) && empty($user['waiting'])) {
+			} elseif (empty($user['valid']) && empty($user['waiting'])) {
 				$row['result'] = 'success';
 				$row['message'] = 'user already unlocked';
-			}
-			else {
+			} else {
 				$userlib->confirm_user($user['login']);
 				$row['result'] = 'success';
 				$row['message'] = 'user unlocked';
@@ -76,8 +75,7 @@ class UserUnlockCommand extends Command
 
 		if ($format === 'json') {
 			$output->write(json_encode($result, JSON_PRETTY_PRINT));
-		}
-		else {
+		} else {
 			$header = array_keys($result[0]);
 			$result = array_map('array_values', $result);
 

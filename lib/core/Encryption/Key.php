@@ -40,7 +40,7 @@ class Key
 		$crypt->initSeed($key);
 		try {
 			return $crypt->encryptData($data);
-		} catch(\Exception $e) {
+		} catch (\Exception $e) {
 			throw new KeyException($e->getMessage());
 		}
 	}
@@ -52,7 +52,7 @@ class Key
 		$crypt->initSeed($key);
 		try {
 			return $crypt->decryptData($data);
-		} catch(\Exception $e) {
+		} catch (\Exception $e) {
 			throw new KeyException($e->getMessage());
 		}
 	}
@@ -75,6 +75,6 @@ class Key
 		$smarty = TikiLib::lib('smarty');
 		$smarty->loadPlugin('smarty_function_bootstrap_modal');
 		$href = smarty_function_bootstrap_modal(['controller' => 'encryption', 'action' => 'enter_key', 'keyId' => $this->encryption_key['keyId']], $smarty);
-		return '<a href="'.$href.'" class="encryption-key-entry">'.tr('Try with a manually entered key.').'</a>';
+		return '<a href="' . $href . '" class="encryption-key-entry">' . tr('Try with a manually entered key.') . '</a>';
 	}
 }

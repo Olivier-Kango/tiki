@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -55,8 +57,7 @@ if (! empty($_GET['itemId'])) {
 			if (empty($field_option[$hist['fieldId']])) {
 				if ($hist['fieldId'] > 0) {
 					$field_option[$hist['fieldId']] = $trklib->get_tracker_field($hist['fieldId']);
-				}
-				else {
+				} else {
 					$field_option[$hist['fieldId']] = [	// fake field to do the diff on
 						'type' => 't',
 						'name' => tr('Status'),
@@ -70,8 +71,7 @@ if (! empty($_GET['itemId'])) {
 		$smarty->assign('diff_style', $diff_style);
 		$smarty->assign_by_ref('item_info', $item_info);
 		$smarty->assign_by_ref('field_option', $field_option);
-	}
-	else {
+	} else {
 		$smarty->assign('errortype', 401);
 		$smarty->assign('msg', tra('This tracker item either has been deleted or is not found.'));
 		$smarty->display('error.tpl');

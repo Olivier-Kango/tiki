@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -40,7 +41,8 @@ abstract class Math_Formula_Function
 		throw new Math_Formula_Exception($message);
 	}
 
-	protected function firstOrApplicator(&$elements) {
+	protected function firstOrApplicator(&$elements)
+    {
 		foreach ($elements as $key => $element) {
 			if ($element instanceof Math_Formula_Applicator) {
 				array_splice($elements, $key, 1);

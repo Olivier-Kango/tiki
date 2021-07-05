@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -58,8 +59,7 @@ class AccountingLib extends LogsLib
 	 * @param	string	$bookAutoTax
 	 * @return	int/string					bookId on success, error message otherwise
 	 */
-	public function createBook($bookName, $bookClosed = 'n', $bookStartDate, $bookEndDate, $bookCurrency, $bookCurrencyPos = -1, $bookDecimals, $bookDecPoint, $bookThousand, $exportSeparator, $exportEOL, $exportQuote, $bookAutoTax = 'y'
-			)
+	public function createBook($bookName, $bookClosed = 'n', $bookStartDate, $bookEndDate, $bookCurrency, $bookCurrencyPos = -1, $bookDecimals, $bookDecPoint, $bookThousand, $exportSeparator, $exportEOL, $exportQuote, $bookAutoTax = 'y')
 	{
 		global $user;
 		$userlib = TikiLib::lib('user');

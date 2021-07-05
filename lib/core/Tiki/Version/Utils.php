@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -18,7 +19,7 @@ class Tiki_Version_Utils
 	{
 		$tikilib = TikiLib::lib('tiki');
 
-		$checker = new Tiki_Version_Checker;
+		$checker = new Tiki_Version_Checker();
 		$checker->setVersion(Tiki_Version_Version::get($version));
 		$checker->setCycle($tikilib->get_preference('tiki_release_cycle'));
 

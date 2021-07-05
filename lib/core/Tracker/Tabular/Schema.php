@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -381,7 +382,7 @@ class Schema
 				->setRenderTransform(function ($value, $extra) {
 					return $extra['itemId'];
 				})
-					->setParseIntoTransform(function (& $info, $value) {
+					->setParseIntoTransform(function (&$info, $value) {
 						$info['itemId'] = (int) $value;
 					})
 					;
@@ -399,7 +400,7 @@ class Schema
 					->setRenderTransform(function ($value, $extra) {
 						return $extra['status'];
 					})
-					->setParseIntoTransform(function (& $info, $value) {
+					->setParseIntoTransform(function (&$info, $value) {
 						$info['status'] = $value;
 					})
 					;
@@ -409,7 +410,7 @@ class Schema
 					->setRenderTransform(function ($value, $extra) use ($types) {
 						return $types[$extra['status']]['name'];
 					})
-					->setParseIntoTransform(function (& $info, $value) use ($invert) {
+					->setParseIntoTransform(function (&$info, $value) use ($invert) {
 						$info['status'] = $invert[$value];
 					})
 					;

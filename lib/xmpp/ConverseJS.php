@@ -178,7 +178,7 @@ class ConverseJS
 		$output = '';
 
 		if ($prefs['xmpp_conversejs_always_load'] !== 'y') {
-			array_map([TikiLib::lib('header'), 'add_jsfile'],  $this->get_js_dependencies());
+			array_map([TikiLib::lib('header'), 'add_jsfile'], $this->get_js_dependencies());
 
 			$output .= PHP_EOL . ';(function() {';
 			$output .= PHP_EOL . '    var link;';

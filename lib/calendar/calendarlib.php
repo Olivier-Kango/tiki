@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -134,7 +135,7 @@ class CalendarLib extends TikiLib
 			$query = "update `tiki_calendar_instances` set `name`=?, `description`=?, `transparent`=?, `timezone`=?, `order`=?, `color`=? where `calendarInstanceId`=?";
 			$bindvars = [$name,$description, @$options['transparent'], @$options['timezone'], @$options['order'], @$options['custombgcolor'], $instanceId];
 			$result = $this->query($query, $bindvars);
-		}	elseif ($calendarId > 0) {
+		} elseif ($calendarId > 0) {
 			// modification of a calendar
 			$finalEvent = 'tiki.calendar.update';
 			$query = "update `tiki_calendars` set `name`=?, `user`=?, `description`=?, ";
@@ -150,7 +151,7 @@ class CalendarLib extends TikiLib
 			// merge existing options in case passed array does not contain the full list (e.g. caldav integration)
 			$res = $this->query("select `optionName`,`value` from `tiki_calendar_options` where `calendarId`=?", [(int)$calendarId]);
 			while ($r = $res->fetchRow()) {
-				if (!isset($options[$r['optionName']])) {
+				if (! isset($options[$r['optionName']])) {
 					$options[$r['optionName']] = $r['optionName'] == 'viewdays' ? unserialize($r['value']) : $r['value'];
 				}
 			}
@@ -527,7 +528,9 @@ class CalendarLib extends TikiLib
 				}
 			}
 			$res["participants"] = $ppl;
-			$res["selected_participants"] = array_map(function($role){ return $role['username']; }, $ppl);
+			$res["selected_participants"] = array_map(function ($role) {
+ return $role['username'];
+            }, $ppl);
 			$res["organizers"] = $org;
 			$res['date_start'] = (int)$res['start'];
 			$res['date_end'] = (int)$res['end'];
@@ -705,7 +708,6 @@ class CalendarLib extends TikiLib
 			foreach ($trackerItemsIds as $trackerItemId) {
 				refresh_index('trackeritem', $trackerItemId);
 			}
-
 		} else {
 			$finalEvent = 'tiki.calendaritem.create';
 			$new = true;
@@ -765,7 +767,7 @@ class CalendarLib extends TikiLib
 			'user' => $GLOBALS['user'],
 			'bulk_import' => $isBulk,
 			'old_data' => $oldData,
-			'process_itip' => !empty($data['process_itip'])
+			'process_itip' => ! empty($data['process_itip'])
 		]);
 
 		return $calitemId;
@@ -1007,7 +1009,7 @@ class CalendarLib extends TikiLib
 			}
 
 			if ($d['participants']) {
-				$d['participants'] = array_map(function($part){
+				$d['participants'] = array_map(function ($part) {
 					$part = explode(':', $part);
 					if (count($part) > 1) {
 						$part = [
@@ -1134,7 +1136,7 @@ class CalendarLib extends TikiLib
 			}
 		}
 		if (count($itemIds) > 0) {
-			$cond .= " and i.calitemId in (".implode(',', array_fill(0, count($itemIds), '?')).")";
+			$cond .= " and i.calitemId in (" . implode(',', array_fill(0, count($itemIds), '?')) . ")";
 			$bindvars = array_merge($bindvars, $itemIds);
 		}
 		$condition = '';
@@ -1182,20 +1184,20 @@ class CalendarLib extends TikiLib
 		$bindvars = [$calendarId];
 
 		if (count($itemIdsOrUris) > 0) {
-			$recurrences = array_filter($itemIdsOrUris, function($uri) {
+			$recurrences = array_filter($itemIdsOrUris, function ($uri) {
 				return substr($uri, 0, 1) == 'r';
 			});
 			$itemIdsOrUris = array_diff($itemIdsOrUris, $recurrences);
 			if (! $itemIdsOrUris) {
 				$itemIdsOrUris[] = '';
 			}
-			$recurrences = array_map(function($uri){
+			$recurrences = array_map(function ($uri) {
 				return substr($uri, 1);
 			}, $recurrences);
 			if (! $recurrences) {
 				$recurrences[] = '';
 			}
-			$cond .= " and (i.calitemId in (".implode(',', array_fill(0, count($itemIdsOrUris), '?')).") or i.uri in (".implode(',', array_fill(0, count($itemIdsOrUris), '?')).") or i.recurrenceId in (".implode(',', array_fill(0, count($recurrences), '?')).") or r.uri in (".implode(',', array_fill(0, count($itemIdsOrUris), '?'))."))";
+			$cond .= " and (i.calitemId in (" . implode(',', array_fill(0, count($itemIdsOrUris), '?')) . ") or i.uri in (" . implode(',', array_fill(0, count($itemIdsOrUris), '?')) . ") or i.recurrenceId in (" . implode(',', array_fill(0, count($recurrences), '?')) . ") or r.uri in (" . implode(',', array_fill(0, count($itemIdsOrUris), '?')) . "))";
 			$bindvars = array_merge($bindvars, $itemIdsOrUris, $itemIdsOrUris, $recurrences, $itemIdsOrUris);
 		}
 
@@ -1239,7 +1241,8 @@ class CalendarLib extends TikiLib
 		return $this->fetchAll($query, $bindvars);
 	}
 
-	public function find_by_uid($user, $uid) {
+	public function find_by_uid($user, $uid)
+    {
 		$query = "select i.`calendarId`, i.`calitemId`, i.`uri`, i.`recurrenceId` from `tiki_calendar_items` i left join `tiki_calendars` c on i.`calendarId` = c.`calendarId` left join `tiki_calendar_recurrence` r on i.`recurrenceId` = r.`recurrenceId` where (i.`uid` = ? or r.uid = ?)";
 		$bindvars = [$uid, $uid];
 		if ($user) {
@@ -1762,7 +1765,8 @@ class CalendarLib extends TikiLib
 	 * @param $username
 	 * @param $partstat - ACCEPTED, TENTATIVE, DECLINED
 	 */
-	public function update_partstat($calitemId, $username, $partstat) {
+	public function update_partstat($calitemId, $username, $partstat)
+    {
 		return $this->query("update `tiki_calendar_roles` SET `partstat` = ? where calitemId = ? and username = ?", [$partstat, $calitemId, $username]);
 	}
 
@@ -1788,7 +1792,7 @@ class CalendarLib extends TikiLib
 		$this->query('replace into tiki_calendar_options(calendarId, optionName, value) values(?, ?, ?)', [
 			$calendarId,
 			'synctoken',
-			$options['synctoken']+1,
+			$options['synctoken'] + 1,
 		]);
 	}
 
@@ -1811,7 +1815,8 @@ class CalendarLib extends TikiLib
 		return $this->fetchAll($query, $bindvars, $maxRecords);
 	}
 
-	public function fill_uid($calitemId, $uid) {
+	public function fill_uid($calitemId, $uid)
+    {
 		$this->query("update `tiki_calendar_items` set `uid` = ? where `calitemId` = ?", [$uid, $calitemId]);
 	}
 
@@ -1835,7 +1840,7 @@ class CalendarLib extends TikiLib
 
 	public function create_calendar_instance($data)
 	{
-		$query = 'insert into `tiki_calendar_instances` (`'.implode('`, `', array_keys($data)).'`) values ('.implode(",", array_fill(0, count($data), "?")).')';
+		$query = 'insert into `tiki_calendar_instances` (`' . implode('`, `', array_keys($data)) . '`) values (' . implode(",", array_fill(0, count($data), "?")) . ')';
 		$bindvars = array_values($data);
 		$this->query($query, $bindvars);
 		return $this->lastInsertId();
@@ -1843,7 +1848,7 @@ class CalendarLib extends TikiLib
 
 	public function update_calendar_instance($calendarId, $share_href, $data)
 	{
-		$query = 'update `tiki_calendar_instances` set '.implode(' = ?, ', array_keys($data)).' = ? where calendarId = ? and share_href = ?';
+		$query = 'update `tiki_calendar_instances` set ' . implode(' = ?, ', array_keys($data)) . ' = ? where calendarId = ? and share_href = ?';
 		$bindvars = array_values($data) + [$calendarId, $share_href];
 		return $this->query($query, $bindvars);
 	}
@@ -1871,7 +1876,7 @@ class CalendarLib extends TikiLib
 	public function create_subscription($data)
 	{
 		$data['lastmodif'] = time();
-		$query = 'insert into `tiki_calendar_subscriptions` (`'.implode('`, `', array_keys($data)).'`) values ('.implode(",", array_fill(0, count($data), "?")).')';
+		$query = 'insert into `tiki_calendar_subscriptions` (`' . implode('`, `', array_keys($data)) . '`) values (' . implode(",", array_fill(0, count($data), "?")) . ')';
 		$bindvars = array_values($data);
 		$this->query($query, $bindvars);
 		return $this->lastInsertId();
@@ -1880,7 +1885,7 @@ class CalendarLib extends TikiLib
 	public function update_subscription($subscriptionId, $data)
 	{
 		$data['lastmodif'] = time();
-		$query = 'update `tiki_calendar_subscriptions` set '.implode(' = ?, ', array_keys($data)).' = ? where subscriptionId = ?';
+		$query = 'update `tiki_calendar_subscriptions` set ' . implode(' = ?, ', array_keys($data)) . ' = ? where subscriptionId = ?';
 		$bindvars = array_values($data) + [$subscriptionId];
 		return $this->query($query, $bindvars);
 	}
@@ -1913,7 +1918,7 @@ class CalendarLib extends TikiLib
 		return $this->query('delete from `tiki_calendar_scheduling_objects` where user = ? and uri = ?', [$user, $uri]);
 	}
 
-	public function create_scheduling_object($user, $uri, $data) 
+	public function create_scheduling_object($user, $uri, $data)
 	{
 		$query = "insert into `tiki_calendar_scheduling_objects` (user, calendardata, uri, lastmodif, etag, size) values (?, ?, ?, ?, ?, ?)";
 		$bindvars = [$user, $data, $uri, time(), md5($data), strlen($data)];

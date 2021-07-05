@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -52,7 +53,8 @@ class EmailParser extends Manipulator
 		return $result;
 	}
 
-	protected function getRawAddress($header) {
+	protected function getRawAddress($header)
+    {
 		if ($header) {
 			if (function_exists('mb_decode_mimeheader')) {
 				return mb_decode_mimeheader($header->getRawValue());

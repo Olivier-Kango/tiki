@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -273,7 +274,7 @@ function wikiplugin_map($data, $params)
 			->add_cssfile('vendor_bundled/vendor/walkermatt/ol-layerswitcher/src/ol-layerswitcher.css')
 			->add_jsfile('vendor_bundled/vendor/walkermatt/ol-layerswitcher/dist/ol-layerswitcher.js')
 		;
-	} else if ($params['library'] === 'ol2' && $prefs['geo_openlayers_version'] === 'ol3') {
+	} elseif ($params['library'] === 'ol2' && $prefs['geo_openlayers_version'] === 'ol3') {
 		TikiLib::lib('header')
 			->drop_cssfile('vendor_bundled/vendor/openlayers/openlayers/ol.css')
 			->drop_jsfile('lib/jquery_tiki/tiki-maps-ol3.js')
@@ -291,7 +292,7 @@ function wikiplugin_map($data, $params)
 	$output = "<div class=\"map-container\" data-marker-filter=\"$scope\" data-map-controls=\"$controls\" data-popup-style=\"$popupStyle\"" .
 		" data-cluster=\"$cluster\" style=\"width: $width; height: $height;\" $center $tooltips $clusterFillColor $clusterTextColor $tilesets $clusterHover>";
 
-	$argumentParser = new WikiParser_PluginArgumentParser;
+	$argumentParser = new WikiParser_PluginArgumentParser();
 	$matches = WikiParser_PluginMatcher::match($data);
 	foreach ($matches as $match) {
 		$name = $match->getName();

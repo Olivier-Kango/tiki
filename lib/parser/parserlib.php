@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -160,8 +161,10 @@ class ParserLib extends TikiDb_Bridge
 	// This function removed the protection of html entities so that they are rendered as expected by the viewer
 	public function unprotectSpecialChars($data, $is_html = false)
 	{
-		if (( $is_html != false || ( isset($this->option['is_html']) && $this->option['is_html']))
-			|| $this->option['ck_editor']) {
+		if (
+            ( $is_html != false || ( isset($this->option['is_html']) && $this->option['is_html']))
+			|| $this->option['ck_editor']
+        ) {
 			foreach ($this->specialChars as $key => $specialChar) {
 				$data = str_replace($key, $specialChar['html'], $data);
 			}
@@ -254,7 +257,8 @@ class ParserLib extends TikiDb_Bridge
 		$plugins = [];
 		preg_match_all($matcher, $data, $tmp, PREG_SET_ORDER);
 		foreach ($tmp as $p) {
-			if (in_array(TikiLib::strtolower($p[0]), $matcher_fake)
+			if (
+                in_array(TikiLib::strtolower($p[0]), $matcher_fake)
 				|| ( isset($p[1]) && ( in_array($p[1], $matcher_fake) || $this->plugin_exists($p[1]) ) )
 				|| ( isset($p[2]) && ( in_array($p[2], $matcher_fake) || $this->plugin_exists($p[2]) ) )
 			) {
@@ -350,7 +354,7 @@ class ParserLib extends TikiDb_Bridge
 	//*
 	public function plugin_split_args($params_string)
 	{
-		$parser = new WikiParser_PluginArgumentParser;
+		$parser = new WikiParser_PluginArgumentParser();
 
 		return $parser->parse($params_string);
 	}
@@ -381,7 +385,7 @@ class ParserLib extends TikiDb_Bridge
 		return (new WikiParser_Parsable(''))->parse_first($data, $preparsed, $noparsed, $real_start_diff);
 	}
 
-	protected function strip_unparsed_block(& $data, & $noparsed, $protect = false)
+	protected function strip_unparsed_block(&$data, &$noparsed, $protect = false)
 	{
 		$tikilib = TikiLib::lib('tiki');
 
@@ -515,7 +519,7 @@ class ParserLib extends TikiDb_Bridge
 			require_once($path);
 
 			$namespace = $extensionPackage->getBaseNamespace();
-			if (!empty($namespace)) {
+			if (! empty($namespace)) {
 				$namespace .= '\\PackagePlugins\\';
 			}
 			$functionname = $namespace . $args['plugin'] . "_info";
@@ -559,7 +563,7 @@ class ParserLib extends TikiDb_Bridge
 	}
 
 	//*
-	public function plugin_enabled($name, & $output)
+	public function plugin_enabled($name, &$output)
 	{
 		if (! $meta = $this->plugin_info($name)) {
 			return true; // Legacy plugins always execute
@@ -645,7 +649,8 @@ class ParserLib extends TikiDb_Bridge
 			return 'rejected';
 		} else {
 			global $tiki_p_plugin_approve, $tiki_p_plugin_preview, $user;
-			if (isset($_SERVER['REQUEST_METHOD'])
+			if (
+                isset($_SERVER['REQUEST_METHOD'])
 				&& $_SERVER['REQUEST_METHOD'] == 'POST'
 				&& isset($_POST['plugin_fingerprint'])
 				&& $_POST['plugin_fingerprint'] == $fingerprint
@@ -664,8 +669,10 @@ class ParserLib extends TikiDb_Bridge
 					}
 				}
 
-				if ($tiki_p_plugin_preview == 'y'
-					&& isset($_POST['plugin_preview']) ) {
+				if (
+                    $tiki_p_plugin_preview == 'y'
+					&& isset($_POST['plugin_preview'])
+                ) {
 					return true;
 				}
 			}
@@ -823,7 +830,8 @@ class ParserLib extends TikiDb_Bridge
 
 			// Remove arguments marked as safe from the fingerprint
 			foreach ($meta['params'] as $key => $info) {
-				if (isset($validateArgs[$key])
+				if (
+                    isset($validateArgs[$key])
 					&& isset($info['safe'])
 					&& $info['safe']
 				) {
@@ -896,7 +904,7 @@ class ParserLib extends TikiDb_Bridge
 		$plugin_nest_level = 0;
 		foreach ($stack as $st) {
 			if ($st['function'] === 'parse_first') {
-				$plugin_nest_level ++;
+				$plugin_nest_level++;
 				if ($plugin_nest_level > 1) {
 					return '';
 				}
@@ -966,7 +974,7 @@ class ParserLib extends TikiDb_Bridge
 	public function find_plugins($data, $name = null)
 	{
 		$parserlib = TikiLib::lib('parser');
-		$argumentParser = new WikiParser_PluginArgumentParser;
+		$argumentParser = new WikiParser_PluginArgumentParser();
 		$matches = WikiParser_PluginMatcher::match($data);
 		$occurrences = [];
 		foreach ($matches as $match) {
@@ -990,7 +998,7 @@ class ParserLib extends TikiDb_Bridge
 	{
 		$parserlib = TikiLib::lib('parser');
 
-		$argumentParser = new WikiParser_PluginArgumentParser;
+		$argumentParser = new WikiParser_PluginArgumentParser();
 
 		$matches = WikiParser_PluginMatcher::match($data);
 
@@ -1024,7 +1032,7 @@ class ParserLib extends TikiDb_Bridge
 	}
 
 	//*
-	protected function plugin_apply_filters($name, & $data, & $args)
+	protected function plugin_apply_filters($name, &$data, &$args)
 	{
 		$tikilib = TikiLib::lib('tiki');
 
@@ -2175,7 +2183,7 @@ class ParserLib extends TikiDb_Bridge
 				// Now build 2 divs
 				$id = 'dyn_' . $dvar;
 
-				if (isset($tiki_p_edit_dynvar)&& $tiki_p_edit_dynvar == 'y') {
+				if (isset($tiki_p_edit_dynvar) && $tiki_p_edit_dynvar == 'y') {
 					$span1 = "<span style='display:inline;' id='dyn_" . $dvar . "_display'><a class='dynavar' onclick='javascript:toggle_dynamic_var(\"$dvar\");' title='" . tra('Click to edit dynamic variable', '', true) . ": $dvar'>$value</a></span>";
 					$span2 = "<span style='display:none;' id='dyn_" . $dvar . "_edit'><input type='text' class='input-sm' name='dyn_" . $dvar . "' value='" . $value . "' />" . '<input type="submit" class="btn btn-primary btn-sm" name="_dyn_update" value="' . tra('Update variable', '', true) . '"/></span>';
 				} else {
@@ -2375,8 +2383,10 @@ class ParserLib extends TikiDb_Bridge
 			$inScript -= substr_count($lineInLowerCase, "</script>");
 
 			// If the first character is ' ' and we are not in pre then we are in pre
-			if ($prefs['feature_wiki_monosp'] == 'y' && substr($line, 0, 1) == ' ' /* The first character is a space (' '). */
-				&& $inTable == 0 && $inPre == 0 && $inComment == 0 && ! $this->option['is_html']) {
+			if (
+                $prefs['feature_wiki_monosp'] == 'y' && substr($line, 0, 1) == ' ' /* The first character is a space (' '). */
+				&& $inTable == 0 && $inPre == 0 && $inComment == 0 && ! $this->option['is_html']
+            ) {
 				// Close open paragraph and lists, but not div's
 				$this->close_blocks($data, $in_paragraph, $listbeg, $divdepth, 1, 1, 0);
 
@@ -2630,9 +2640,11 @@ class ParserLib extends TikiDb_Bridge
 										];
 						//}
 						global $tiki_p_edit, $section;
-						if ($prefs['wiki_edit_section'] === 'y' && $section === 'wiki page' && $tiki_p_edit === 'y' &&
+						if (
+                            $prefs['wiki_edit_section'] === 'y' && $section === 'wiki page' && $tiki_p_edit === 'y' &&
 								( $prefs['wiki_edit_section_level'] == 0 || $hdrlevel <= $prefs['wiki_edit_section_level']) &&
-								(empty($this->option['print']) || ! $this->option['print']) && ! $this->option['suppress_icons'] ) {
+								(empty($this->option['print']) || ! $this->option['print']) && ! $this->option['suppress_icons']
+                        ) {
 							$smarty = TikiLib::lib('smarty');
 							include_once('lib/smarty_tiki/function.icon.php');
 
@@ -2699,10 +2711,12 @@ class ParserLib extends TikiDb_Bridge
 						 *
 						 * @since Version 1.9
 						 */
-						if ($inTable == 0 && $inPre == 0 && $inComment == 0 && $inTOC == 0 &&  $inScript == 0
+						if (
+                            $inTable == 0 && $inPre == 0 && $inComment == 0 && $inTOC == 0 &&  $inScript == 0
 								// Don't put newlines at comments' end!
 								&& strpos($line, "-->") !== (strlen($line) - 3)
-								&& $this->option['process_wiki_paragraphs']) {
+								&& $this->option['process_wiki_paragraphs']
+                        ) {
 							$tline = trim(str_replace('&nbsp;', '', $this->unprotectSpecialChars($line, true)));
 
 							if ($prefs['feature_wiki_paragraph_formatting'] == 'y') {
@@ -2962,8 +2976,10 @@ class ParserLib extends TikiDb_Bridge
 		}
 		$data = $new_data . $data;
 		// Add icon to edit the text before the first section (if there is some)
-		if ($prefs['wiki_edit_section'] === 'y' && isset($section) && $section === 'wiki page' && $tiki_p_edit === 'y' && (empty($this->option['print']) ||
-				! $this->option['print'])  && strpos($data, '<div class="icon_edit_section">') != 0 && ! $this->option['suppress_icons']) {
+		if (
+            $prefs['wiki_edit_section'] === 'y' && isset($section) && $section === 'wiki page' && $tiki_p_edit === 'y' && (empty($this->option['print']) ||
+				! $this->option['print'])  && strpos($data, '<div class="icon_edit_section">') != 0 && ! $this->option['suppress_icons']
+        ) {
 			$smarty = TikiLib::lib('smarty');
 			include_once('lib/smarty_tiki/function.icon.php');
 			$button = '<div class="icon_edit_section"><a title="' . tra('Edit Section') . '" href="tiki-editpage.php?';
@@ -3008,9 +3024,11 @@ class ParserLib extends TikiDb_Bridge
 		// HTML entities encoding breaks page lookup
 		$pageLink = html_entity_decode($pageLink, ENT_COMPAT, 'UTF-8');
 
-		if ($prefs['namespace_enabled'] == 'y' && $prefs['namespace_force_links'] == 'y'
+		if (
+            $prefs['namespace_enabled'] == 'y' && $prefs['namespace_force_links'] == 'y'
 			&& $wikilib->get_namespace($this->option['page'])
-			&& ! $wikilib->get_namespace($pageLink) ) {
+			&& ! $wikilib->get_namespace($pageLink)
+        ) {
 				$pageLink = $wikilib->get_namespace($this->option['page']) . $prefs['namespace_separator'] . $pageLink;
 		}
 
@@ -3026,13 +3044,13 @@ class ParserLib extends TikiDb_Bridge
 			$reltype = $extra['reltype'];
 		}
 		if (array_key_exists('plural', $extra)) {
-			$processPlural = (boolean) $extra['plural'];
+			$processPlural = (bool) $extra['plural'];
 		}
 		if (array_key_exists('anchor', $extra)) {
 			$anchor = $extra['anchor'];
 		}
 
-		$link = new WikiParser_OutputLink;
+		$link = new WikiParser_OutputLink();
 		$link->setIdentifier($pageLink);
 		$link->setNamespace($this->option['namespace'], $prefs['namespace_separator']);
 		$link->setQualifier($reltype);

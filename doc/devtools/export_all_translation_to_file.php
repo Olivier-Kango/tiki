@@ -1,10 +1,12 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: Alexandre
  * Date: 2/22/2019
  * Time: 12:28 PM
  */
+
 //die("REMOVE THIS LINE TO USE THE SCRIPT.\n");
 
 //if (! isset($argv[1])) {

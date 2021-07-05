@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -9,7 +10,7 @@ class Perms_BuilderTest extends PHPUnit\Framework\TestCase
 {
 	public function testDefaultBuilder()
 	{
-		$builder = new Perms_Builder;
+		$builder = new Perms_Builder();
 		$perms = $builder->build();
 
 		$expect = $this->getExpect();
@@ -18,7 +19,7 @@ class Perms_BuilderTest extends PHPUnit\Framework\TestCase
 
 	public function testBuildAdminPermissionMap()
 	{
-		$builder = new Perms_Builder;
+		$builder = new Perms_Builder();
 		$perms = $builder
 			->withCategories(true)
 			->build();
@@ -29,7 +30,7 @@ class Perms_BuilderTest extends PHPUnit\Framework\TestCase
 
 	public function testAdminIndirects()
 	{
-		$builder = new Perms_Builder;
+		$builder = new Perms_Builder();
 		$perms = $builder->withDefinitions(
 			[
 				[
@@ -57,7 +58,7 @@ class Perms_BuilderTest extends PHPUnit\Framework\TestCase
 
 	public function testGlobalChecksOnly()
 	{
-		$builder = new Perms_Builder;
+		$builder = new Perms_Builder();
 
 		$perms = $builder->withDefinitions(
 			[
@@ -82,14 +83,14 @@ class Perms_BuilderTest extends PHPUnit\Framework\TestCase
 
 	private function getExpect($categories = false, $indirectMap = [], $globals = [])
 	{
-		$expect = new Perms;
+		$expect = new Perms();
 		$expect->setPrefix('tiki_p_');
 
 		$expect->setCheckSequence(
 			[
 				$globalAdminCheck = new Perms_Check_Alternate('admin'),
 				$fixedResolverCheck = new Perms_Check_Fixed($globals),
-				new Perms_Check_Direct,
+				new Perms_Check_Direct(),
 				new Perms_Check_Indirect($indirectMap),
 			]
 		);
@@ -98,11 +99,11 @@ class Perms_BuilderTest extends PHPUnit\Framework\TestCase
 			array_values(
 				array_filter(
 					[
-						new Perms_ResolverFactory_ObjectFactory,
-						$categories ? new Perms_ResolverFactory_CategoryFactory : null,
+						new Perms_ResolverFactory_ObjectFactory(),
+						$categories ? new Perms_ResolverFactory_CategoryFactory() : null,
 						new Perms_ResolverFactory_ObjectFactory('parent'),
 						$categories ? new Perms_ResolverFactory_CategoryFactory('parent') : null,
-						new Perms_ResolverFactory_GlobalFactory,
+						new Perms_ResolverFactory_GlobalFactory(),
 					]
 				)
 			)

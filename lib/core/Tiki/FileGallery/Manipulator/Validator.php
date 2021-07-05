@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -49,7 +50,7 @@ class Validator extends Manipulator
     global $prefs;
 
     $filesTable = TikiLib::lib('filegal')->table('tiki_files');
-    
+
     if ($prefs['fgal_allow_duplicates'] !== 'y') {
       $conditions = [
         'hash' => $this->file->hash,

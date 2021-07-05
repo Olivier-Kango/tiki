@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -165,7 +166,7 @@ class AlchemyLib
 	 */
 	public static function hintMimeTypeByFilePath($filePath, $mimeType)
 	{
-		if (!self::isLibraryAvailable()) {
+		if (! self::isLibraryAvailable()) {
 			return;
 		}
 
@@ -180,7 +181,7 @@ class AlchemyLib
 	 */
 	public static function getMimeTypeGuesserInstance()
 	{
-		if ( null === self::$mimeTypeGuesserInstance ) {
+		if (null === self::$mimeTypeGuesserInstance) {
 			self::$mimeTypeGuesserInstance = new Guesser();
 			MimeTypeGuesser::getInstance()->register(self::$mimeTypeGuesserInstance);
 		}

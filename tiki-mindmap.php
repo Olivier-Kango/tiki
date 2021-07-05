@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -19,7 +21,7 @@ if (! file_exists('files/visorFreemind.swf')) {
 }
 if (isset($_REQUEST['export'])) { // {{{
 	// Output the page relations in WikiMindMap format (derived from Freemind)
-	$dom = new DOMDocument;
+	$dom = new DOMDocument();
 	$dom->appendChild($root = $dom->createElement('map'));
 	$root->setAttribute('version', '0.8.0');
 	/**

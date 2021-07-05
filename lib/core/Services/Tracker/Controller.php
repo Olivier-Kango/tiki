@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -799,7 +800,7 @@ class Services_Tracker_Controller
 				}
 			}
 		}
-		
+
 		return [
 			'title' => tr('Duplicate Item'),
 			'trackerId' => $trackerId,
@@ -2146,7 +2147,7 @@ class Services_Tracker_Controller
 		$fields = $definition->getFields();
 		$item = Tracker_Item::newItem($trackerId);
 		foreach ($fields as $k => $field) {
-			if (!$item->canViewField($field['fieldId'])) {
+			if (! $item->canViewField($field['fieldId'])) {
 				unset($fields[$k]);
 			}
 		}

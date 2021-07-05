@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -18,14 +19,14 @@ class Search_Elastic_QueryBuilderTest extends PHPUnit\Framework\TestCase
 {
 	protected $prefErrorMissingField;
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		global $prefs;
 		$this->prefErrorMissingField = $prefs['search_error_missing_field'];
 		$prefs['search_error_missing_field'] = 'n';
 	}
 
-	protected function tearDown() : void
+	protected function tearDown(): void
 	{
 		global $prefs;
 		$prefs['search_error_missing_field'] = $this->prefErrorMissingField;
@@ -33,7 +34,7 @@ class Search_Elastic_QueryBuilderTest extends PHPUnit\Framework\TestCase
 
 	public function testSimpleQuery()
 	{
-		$builder = new QueryBuilder;
+		$builder = new QueryBuilder();
 
 		$query = $builder->build(new Token('Hello', 'plaintext', 'contents', 1.5));
 
@@ -49,7 +50,7 @@ class Search_Elastic_QueryBuilderTest extends PHPUnit\Framework\TestCase
 
 	public function testQueryWithSinglePart()
 	{
-		$builder = new QueryBuilder;
+		$builder = new QueryBuilder();
 
 		$query = $builder->build(
 			new AndX(
@@ -71,7 +72,7 @@ class Search_Elastic_QueryBuilderTest extends PHPUnit\Framework\TestCase
 
 	public function testBuildOrQuery()
 	{
-		$builder = new QueryBuilder;
+		$builder = new QueryBuilder();
 
 		$query = $builder->build(
 			new OrX(
@@ -106,7 +107,7 @@ class Search_Elastic_QueryBuilderTest extends PHPUnit\Framework\TestCase
 
 	public function testAndQuery()
 	{
-		$builder = new QueryBuilder;
+		$builder = new QueryBuilder();
 
 		$query = $builder->build(
 			new AndX(
@@ -140,7 +141,7 @@ class Search_Elastic_QueryBuilderTest extends PHPUnit\Framework\TestCase
 
 	public function testNotBuild()
 	{
-		$builder = new QueryBuilder;
+		$builder = new QueryBuilder();
 
 		$query = $builder->build(
 			new NotX(
@@ -166,7 +167,7 @@ class Search_Elastic_QueryBuilderTest extends PHPUnit\Framework\TestCase
 
 	public function testFlattenNot()
 	{
-		$builder = new QueryBuilder;
+		$builder = new QueryBuilder();
 
 		$query = $builder->build(
 			new AndX(
@@ -208,7 +209,7 @@ class Search_Elastic_QueryBuilderTest extends PHPUnit\Framework\TestCase
 
 	public function testFilterWithIdentifier()
 	{
-		$builder = new QueryBuilder;
+		$builder = new QueryBuilder();
 
 		$query = $builder->build(new Token('Some entry', 'identifier', 'username', 1.5));
 
@@ -227,7 +228,7 @@ class Search_Elastic_QueryBuilderTest extends PHPUnit\Framework\TestCase
 
 	public function testRangeFilter()
 	{
-		$builder = new QueryBuilder;
+		$builder = new QueryBuilder();
 
 		$query = $builder->build(new Range('Hello', 'World', 'plaintext', 'title', 1.5));
 
@@ -247,7 +248,7 @@ class Search_Elastic_QueryBuilderTest extends PHPUnit\Framework\TestCase
 
 	public function testInitialMatchFilter()
 	{
-		$builder = new QueryBuilder;
+		$builder = new QueryBuilder();
 
 		$query = $builder->build(new Initial('Hello', 'plaintext', 'title', 1.5));
 
@@ -266,7 +267,7 @@ class Search_Elastic_QueryBuilderTest extends PHPUnit\Framework\TestCase
 
 	public function testFlattenOr()
 	{
-		$builder = new QueryBuilder;
+		$builder = new QueryBuilder();
 
 		$query = $builder->build(
 			new OrX(
@@ -311,7 +312,7 @@ class Search_Elastic_QueryBuilderTest extends PHPUnit\Framework\TestCase
 
 	public function testFlattenAnd()
 	{
-		$builder = new QueryBuilder;
+		$builder = new QueryBuilder();
 
 		$query = $builder->build(
 			new AndX(
@@ -378,7 +379,7 @@ class Search_Elastic_QueryBuilderTest extends PHPUnit\Framework\TestCase
 
 	public function testFlattenSingledOutOr()
 	{
-		$builder = new QueryBuilder;
+		$builder = new QueryBuilder();
 
 		$query = $builder->build(
 			new AndX(
@@ -425,7 +426,7 @@ class Search_Elastic_QueryBuilderTest extends PHPUnit\Framework\TestCase
 
 	public function testFlattenSingledOutAnd()
 	{
-		$builder = new QueryBuilder;
+		$builder = new QueryBuilder();
 
 		$query = $builder->build(
 			new AndX(
@@ -471,7 +472,7 @@ class Search_Elastic_QueryBuilderTest extends PHPUnit\Framework\TestCase
 
 	public function testMoreLikeThisQuery()
 	{
-		$builder = new QueryBuilder;
+		$builder = new QueryBuilder();
 		$builder->setDocumentReader(
 			function ($type, $object) {
 				return [
@@ -504,7 +505,7 @@ class Search_Elastic_QueryBuilderTest extends PHPUnit\Framework\TestCase
 
 	public function testMoreLikeThisThroughAbstraction()
 	{
-		$builder = new QueryBuilder;
+		$builder = new QueryBuilder();
 		$builder->setDocumentReader(
 			function ($type, $object) {
 				return [
@@ -515,7 +516,7 @@ class Search_Elastic_QueryBuilderTest extends PHPUnit\Framework\TestCase
 			}
 		);
 
-		$q = new Search_Query;
+		$q = new Search_Query();
 		$q->filterSimilar('wiki page', 'A');
 
 		$query = $builder->build($q->getExpr());
@@ -558,7 +559,7 @@ class Search_Elastic_QueryBuilderTest extends PHPUnit\Framework\TestCase
 
 	public function testEmptyString()
 	{
-		$builder = new QueryBuilder;
+		$builder = new QueryBuilder();
 
 		$query = $builder->build(new Token('', 'identifier', 'contents'));
 
@@ -580,7 +581,7 @@ class Search_Elastic_QueryBuilderTest extends PHPUnit\Framework\TestCase
 
 	public function testEmptyStringWithAnd()
 	{
-		$builder = new QueryBuilder;
+		$builder = new QueryBuilder();
 
 		$query = $builder->build(
 			new AndX(
@@ -616,7 +617,7 @@ class Search_Elastic_QueryBuilderTest extends PHPUnit\Framework\TestCase
 
 	public function testEmptyStringWithOr()
 	{
-		$builder = new QueryBuilder;
+		$builder = new QueryBuilder();
 
 		$query = $builder->build(
 			new OrX(
@@ -657,7 +658,7 @@ class Search_Elastic_QueryBuilderTest extends PHPUnit\Framework\TestCase
 
 	public function testEmptyStringWithNot()
 	{
-		$builder = new QueryBuilder;
+		$builder = new QueryBuilder();
 
 		$query = $builder->build(
 			new AndX(
@@ -693,7 +694,7 @@ class Search_Elastic_QueryBuilderTest extends PHPUnit\Framework\TestCase
 
 	public function testNonEmptyString()
 	{
-		$builder = new QueryBuilder;
+		$builder = new QueryBuilder();
 
 		$query = $builder->build(
 			new NotX(
@@ -719,7 +720,7 @@ class Search_Elastic_QueryBuilderTest extends PHPUnit\Framework\TestCase
 
 	public function testNonEmptyStringWithAnd()
 	{
-		$builder = new QueryBuilder;
+		$builder = new QueryBuilder();
 
 		$query = $builder->build(
 			new AndX(
@@ -755,7 +756,7 @@ class Search_Elastic_QueryBuilderTest extends PHPUnit\Framework\TestCase
 
 	public function testNonEmptyStringWithNot()
 	{
-		$builder = new QueryBuilder;
+		$builder = new QueryBuilder();
 
 		$query = $builder->build(
 			new AndX(

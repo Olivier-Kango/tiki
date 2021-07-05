@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -197,7 +198,7 @@ function wikiplugin_convene($data, $params): string
 		$dateLabels[$stamp] = [];
 		if ($params['dateformat'] === "long") {
 			$dateLabels[$stamp]['formatted'] = $tikilib->get_long_datetime($stamp);
-		} else if ($params['dateformat'] === 'other') {
+		} elseif ($params['dateformat'] === 'other') {
 			$format = $params['dateformatother'];
 			if (strpos($format, '%') === 0) {	// assuming a strftime format starts with %
 				$dateLabels[$stamp]['formatted'] = TikiLib::date_format($format, $stamp);
@@ -205,7 +206,7 @@ function wikiplugin_convene($data, $params): string
 				$dateLabels[$stamp]['formatted'] = TikiLib::date_format2($format, $stamp);
 			}
 		} else {
-			$dateLabels[$stamp]['formatted'] =  $tikilib->get_short_datetime($stamp);
+			$dateLabels[$stamp]['formatted'] = $tikilib->get_short_datetime($stamp);
 		}
 		$dateLabels[$stamp]['gmdate'] = tr('UTC date time: %0', gmdate($gmformat, $stamp));
 	}
@@ -267,9 +268,9 @@ function wikiplugin_convene($data, $params): string
 	$canEdit = $perms->edit;
 	if ($params['adminperms'] !== 'y') {
 		$canAdmin = $canEdit;
-	} else if ($currentObject['type'] === 'wiki page') {
+	} elseif ($currentObject['type'] === 'wiki page') {
 		$canAdmin = $perms->admin_wiki;
-	} else if ($currentObject['type'] === 'trackeritem') {
+	} elseif ($currentObject['type'] === 'trackeritem') {
 		$canAdmin = $perms->admin_trackers;
 	} else {
 		$canAdmin = $perms->admin;	// global for other object types

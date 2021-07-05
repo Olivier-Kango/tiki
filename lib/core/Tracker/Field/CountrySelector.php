@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -163,7 +164,7 @@ class Tracker_Field_CountrySelector extends Tracker_Field_Abstract implements Tr
 			->setRenderTransform(function ($value) {
 				return $value;
 			})
-			->setParseIntoTransform(function (& $info, $value) use ($permName) {
+			->setParseIntoTransform(function (&$info, $value) use ($permName) {
 				$info['fields'][$permName] = $value;
 			})
 			;
@@ -176,7 +177,7 @@ class Tracker_Field_CountrySelector extends Tracker_Field_Abstract implements Tr
 					return $possibilities[$value];
 				}
 			})
-			->setParseIntoTransform(function (& $info, $value) use ($permName, $invert) {
+			->setParseIntoTransform(function (&$info, $value) use ($permName, $invert) {
 				if (isset($invert[$value])) {
 					$info['fields'][$permName] = $invert[$value];
 				}

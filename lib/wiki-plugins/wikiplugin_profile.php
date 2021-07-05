@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -55,7 +56,7 @@ function wikiplugin_profile($data, $params)
 	$profile = Tiki_Profile::fromNames($params['domain'], $params['name']);
 
 	if ($profile) {
-		$installer = new Tiki_Profile_Installer;
+		$installer = new Tiki_Profile_Installer();
 
 		try {
 			if ($installer->isInstalled($profile)) {

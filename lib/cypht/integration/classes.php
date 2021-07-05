@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -11,36 +12,41 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
 	exit;
 }
 
-class Tiki_Hm_Output_HTTP {
-	public function send_response($response, $input=array()) {
+class Tiki_Hm_Output_HTTP
+{
+	public function send_response($response, $input = array())
+    {
 		if (array_key_exists('http_headers', $input)) {
 			return $this->output_content($response, $input['http_headers']);
-		}
-		else {
+		} else {
 			return $this->output_content($response, array());
 		}
 	}
 
-	protected function output_headers($headers) {
+	protected function output_headers($headers)
+    {
 		foreach ($headers as $name => $value) {
-			Hm_Functions::header($name.': '.$value);
+			Hm_Functions::header($name . ': ' . $value);
 		}
 	}
 
-	protected function output_content($content, $headers=array()) {
+	protected function output_content($content, $headers = array())
+    {
 		$this->output_headers($headers);
 		return $content;
 	}
 }
 
-class Tiki_Hm_Custom_Session extends Hm_Session {
+class Tiki_Hm_Custom_Session extends Hm_Session
+{
 
 	/**
 	 * check for an active session or an attempt to start one
 	 * @param object $request request object
 	 * @return bool
 	 */
-	public function check($request) {
+	public function check($request)
+    {
 		$this->active = session_status() == PHP_SESSION_ACTIVE;
 		return $this->is_active();
 	}
@@ -50,7 +56,8 @@ class Tiki_Hm_Custom_Session extends Hm_Session {
 	 * @param object $request request details
 	 * @return void
 	 */
-	public function start($request, $existing_session=false) {
+	public function start($request, $existing_session = false)
+    {
 		// Tiki handles this
 		return;
 	}
@@ -61,7 +68,8 @@ class Tiki_Hm_Custom_Session extends Hm_Session {
 	 * @param string $pass password
 	 * @return bool true if the authentication was successful
 	 */
-	public function auth($user, $pass) {
+	public function auth($user, $pass)
+    {
 		$userlib = TikiLib::lib('user');
 		list($isvalid, $user) = $userlib->validate_user($user, $pass);
 		return $isvalid;
@@ -73,11 +81,11 @@ class Tiki_Hm_Custom_Session extends Hm_Session {
 	 * @param mixed $default value to return if $name is not found
 	 * @return mixed the value if found, otherwise $defaultHm_Auth
 	 */
-	public function get($name, $default=false, $user=false) {
+	public function get($name, $default = false, $user = false)
+    {
 		if ($user) {
 			return array_key_exists($this->session_prefix(), $_SESSION) && array_key_exists('user_data', $_SESSION[$this->session_prefix()]) && array_key_exists($name, $_SESSION[$this->session_prefix()]['user_data']) ? $_SESSION[$this->session_prefix()]['user_data'][$name] : $default;
-		}
-		else {
+		} else {
 			return array_key_exists($this->session_prefix(), $_SESSION) && array_key_exists($name, $_SESSION[$this->session_prefix()]) ? $_SESSION[$this->session_prefix()][$name] : $default;
 		}
 	}
@@ -88,11 +96,11 @@ class Tiki_Hm_Custom_Session extends Hm_Session {
 	 * @param string $value the value to save
 	 * @return void
 	 */
-	public function set($name, $value, $user=false) {
+	public function set($name, $value, $user = false)
+    {
 		if ($user) {
 			$_SESSION[$this->session_prefix()]['user_data'][$name] = $value;
-		}
-		else {
+		} else {
 			$_SESSION[$this->session_prefix()][$name] = $value;
 		}
 	}
@@ -102,7 +110,8 @@ class Tiki_Hm_Custom_Session extends Hm_Session {
 	 * @param string $name name of value to delete
 	 * @return void
 	 */
-	public function del($name) {
+	public function del($name)
+    {
 		if (array_key_exists($this->session_prefix(), $_SESSION) && array_key_exists($name, $_SESSION[$this->session_prefix()])) {
 			unset($_SESSION[$this->session_prefix()][$name]);
 		}
@@ -113,7 +122,8 @@ class Tiki_Hm_Custom_Session extends Hm_Session {
 	 * does not destroy it
 	 * @return void
 	 */
-	public function end() {
+	public function end()
+    {
 		$this->active = false;
 		return true;
 	}
@@ -123,7 +133,8 @@ class Tiki_Hm_Custom_Session extends Hm_Session {
 	 * @param object $request request details
 	 * @return void
 	 */
-	public function destroy($request) {
+	public function destroy($request)
+    {
 		if (function_exists('delete_uploaded_files')) {
 			delete_uploaded_files($this);
 		}
@@ -135,7 +146,8 @@ class Tiki_Hm_Custom_Session extends Hm_Session {
 	 * Dump current session contents
 	 * @return array
 	 */
-	public function dump() {
+	public function dump()
+    {
 		if (array_key_exists($this->session_prefix(), $_SESSION)) {
 			return $_SESSION[$this->session_prefix()];
 		} else {
@@ -143,7 +155,8 @@ class Tiki_Hm_Custom_Session extends Hm_Session {
 		}
 	}
 
-	public function close_early() {
+	public function close_early()
+    {
 		// noop;
 	}
 
@@ -153,7 +166,8 @@ class Tiki_Hm_Custom_Session extends Hm_Session {
 	 * so tiki-index can load the correct wiki page. Cypht reuses page param
 	 * for its internal uses.
 	 */
-	public function dedup_page_links($output) {
+	public function dedup_page_links($output)
+    {
 		global $prefs;
 		if ($prefs['feature_sefurl'] === 'y') {
 			return $output;
@@ -161,25 +175,28 @@ class Tiki_Hm_Custom_Session extends Hm_Session {
 		if (! $this->get('page_id')) {
 			return $output;
 		}
-		$output = str_replace("?page=", "?page_id=".$this->get('page_id')."&page=", $output);
-		$output = str_replace('<input type="hidden" name="page" value=', '<input type="hidden" name="page_id" value="'.$this->get('page_id').'"><input type="hidden" name="page" value=', $output);
-		$output = str_replace('<input type=\\"hidden\\" name=\\"page\\" value=', '<input type=\\"hidden\\" name=\\"page_id\\" value=\\"'.$this->get('page_id').'\\"><input type=\\"hidden\\" name=\\"page\\" value=', $output);
+		$output = str_replace("?page=", "?page_id=" . $this->get('page_id') . "&page=", $output);
+		$output = str_replace('<input type="hidden" name="page" value=', '<input type="hidden" name="page_id" value="' . $this->get('page_id') . '"><input type="hidden" name="page" value=', $output);
+		$output = str_replace('<input type=\\"hidden\\" name=\\"page\\" value=', '<input type=\\"hidden\\" name=\\"page_id\\" value=\\"' . $this->get('page_id') . '\\"><input type=\\"hidden\\" name=\\"page\\" value=', $output);
 		return $output;
 	}
 
-	protected function session_prefix() {
+	protected function session_prefix()
+    {
 		return $this->site_config->get('session_prefix') ?? 'cypht';
 	}
 }
 
-class Tiki_Hm_Site_Config_File extends Hm_Site_Config_File {
+class Tiki_Hm_Site_Config_File extends Hm_Site_Config_File
+{
 	public $settings_per_page;
 	/**
 	 * Load data based on source
 	 * Overrides default configuration for Tiki integration
 	 * @param string $source source location for site configuration
 	 */
-	public function __construct($source, $session_prefix = 'cypht', $settings_per_page = false) {
+	public function __construct($source, $session_prefix = 'cypht', $settings_per_page = false)
+    {
 		global $user;
 		parent::__construct($source);
 		// override
@@ -204,12 +221,12 @@ class Tiki_Hm_Site_Config_File extends Hm_Site_Config_File {
 			unset($output_modules[$page]['header_end']);
 			unset($output_modules[$page]['content_start']);
 			unset($output_modules[$page]['content_end']);
-			if( isset($output_modules[$page]['header_css']) ) {
+			if (isset($output_modules[$page]['header_css'])) {
 				unset($output_modules[$page]['header_css']);
 				$headerlib->add_cssfile('lib/cypht/site.css');
 				$headerlib->add_cssfile('lib/cypht/modules/tiki/site.css');
 			}
-			if( isset($output_modules[$page]['page_js']) ) {
+			if (isset($output_modules[$page]['page_js'])) {
 				unset($output_modules[$page]['page_js']);
 				$headerlib->add_jsfile('lib/cypht/jquery.touch.js', true);
 				$headerlib->add_jsfile('lib/cypht/site.js', true);
@@ -271,7 +288,7 @@ class Tiki_Hm_Site_Config_File extends Hm_Site_Config_File {
 		}
 
 		if (isset($_SESSION[$session_prefix]['user_data']['gmail_client_id_setting'])) {
-			$oauth2['gmail']['client_id'] =  $_SESSION[$session_prefix]['user_data']['gmail_client_id_setting'];
+			$oauth2['gmail']['client_id'] = $_SESSION[$session_prefix]['user_data']['gmail_client_id_setting'];
 		}
 
 		if (isset($_SESSION[$session_prefix]['user_data']['gmail_client_secret_setting'])) {
@@ -319,22 +336,22 @@ class Tiki_Hm_Site_Config_File extends Hm_Site_Config_File {
 		}
 
 		if (isset($_SESSION[$session_prefix]['user_data']['tiki_enable_oauth2_over_imap_setting']) && $_SESSION[$session_prefix]['user_data']['tiki_enable_oauth2_over_imap_setting'] == 1) {
-			$this->set('oauth2.ini',$oauth2);
-			if(isset($_SESSION[$session_prefix]['user_data']['tiki_enable_gmail_contacts_module_setting']) && $_SESSION[$session_prefix]['user_data']['tiki_enable_gmail_contacts_module_setting'] == 1){
-				array_push($this->config['modules'],'gmail_contacts');
+			$this->set('oauth2.ini', $oauth2);
+			if (isset($_SESSION[$session_prefix]['user_data']['tiki_enable_gmail_contacts_module_setting']) && $_SESSION[$session_prefix]['user_data']['tiki_enable_gmail_contacts_module_setting'] == 1) {
+				array_push($this->config['modules'], 'gmail_contacts');
 				$gmail_contact = array(
 					'load_gmail_contacts' => array(
 						'0' => 'gmail_contacts',
 						'1' => 1
 					)
 				);
-				array_push($this->config['handler_modules']['contacts'],$gmail_contact);
-			}else{
+				array_push($this->config['handler_modules']['contacts'], $gmail_contact);
+			} else {
 				unset($this->config['modules']['gmail_contacts']);
-				unset($this->config['handler_modules']['contacts']['load_gmail_contacts']);	
+				unset($this->config['handler_modules']['contacts']['load_gmail_contacts']);
 			}
-		}else{
-			if(isset($this->config['oauth2.ini'])){
+		} else {
+			if (isset($this->config['oauth2.ini'])) {
 				$this->del('oauth2.ini');
 			}
 		}
@@ -346,7 +363,8 @@ class Tiki_Hm_Site_Config_File extends Hm_Site_Config_File {
  * Store settings in Tiki user preferences and load them from there.
  * Ignore encryption and decryption of the settings due to missing password key when loading.
  */
-class Tiki_Hm_User_Config extends Hm_Config {
+class Tiki_Hm_User_Config extends Hm_Config
+{
 	/* username */
 	private $username;
 	private $site_config;
@@ -355,7 +373,8 @@ class Tiki_Hm_User_Config extends Hm_Config {
 	 * Load site configuration
 	 * @param object $config site config
 	 */
-	public function __construct($config) {
+	public function __construct($config)
+    {
 		$this->config = array_merge($this->config, $config->user_defaults);
 		$this->site_config = $config;
 	}
@@ -366,7 +385,8 @@ class Tiki_Hm_User_Config extends Hm_Config {
 	 * @param string $key key to decrypt the user data (not used)
 	 * @return void
 	 */
-	public function load($username, $key = null) {
+	public function load($username, $key = null)
+    {
 		$this->username = $username;
 		$session_prefix = $this->site_config->get('session_prefix');
 		$data = TikiLib::lib('tiki')->get_user_preference($username, $_SESSION[$session_prefix]['preference_name']);
@@ -377,7 +397,7 @@ class Tiki_Hm_User_Config extends Hm_Config {
 		}
 		// merge imap/smtp servers config with session as plugin cypht might be overriding these
 		foreach (['imap_servers', 'smtp_servers'] as $key) {
-			if(! empty($_SESSION[$session_prefix]['user_data'][$key])) {
+			if (! empty($_SESSION[$session_prefix]['user_data'][$key])) {
 				if (empty($this->config[$key])) {
 					$this->config[$key] = [];
 				}
@@ -406,7 +426,8 @@ class Tiki_Hm_User_Config extends Hm_Config {
 	 * @param string $username
 	 * @return void
 	 */
-	public function reload($data, $username=false) {
+	public function reload($data, $username = false)
+    {
 		$this->username = $username;
 		$this->config = $data;
 		$this->set_tz();
@@ -418,7 +439,8 @@ class Tiki_Hm_User_Config extends Hm_Config {
 	 * @param string $key encryption key (not used)
 	 * @return void
 	 */
-	public function save($username = null, $key = null) {
+	public function save($username = null, $key = null)
+    {
 		if ($this->get('skip_saving_on_set', false)) {
 			return;
 		}
@@ -430,7 +452,7 @@ class Tiki_Hm_User_Config extends Hm_Config {
 		ksort($this->config);
 		$data = json_encode($this->config);
 		if ($this->site_config->settings_per_page) {
-			$util = new Services_Edit_Utilities;
+			$util = new Services_Edit_Utilities();
 			$util->replacePlugin(new JitFilter([
 				'page' => $this->site_config->settings_per_page,
 				'message' => "Auto-saving Cypht settings.",
@@ -450,7 +472,8 @@ class Tiki_Hm_User_Config extends Hm_Config {
 	 * @param string $value config value
 	 * @return void
 	 */
-	public function set($name, $value) {
+	public function set($name, $value)
+    {
 		$this->config[$name] = $value;
 		$this->save($this->username);
 	}

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -244,11 +245,11 @@ function wikiplugin_cypht($data, $params)
 	}
 
 	if (TikiLib::lib('wiki')->get_page_by_slug($_GET['page']) == $page && $prefs['feature_sefurl'] !== 'y') {
-		TikiLib::lib('access')->redirect('tiki-index.php?page_id='.$tikilib->get_page_id_from_name($page));
+		TikiLib::lib('access')->redirect('tiki-index.php?page_id=' . $tikilib->get_page_id_from_name($page));
 	}
 
 	static $called = false;
-	if( $called ) {
+	if ($called) {
 		return tr("Only one cypht plugin per page can be used.");
 	}
 	$called = true;
@@ -291,9 +292,9 @@ function wikiplugin_cypht($data, $params)
 	}
 
 	$settings_per_page = false;
-	if( $params['use_global_settings'] !== 'y' ) {
-		$preference_name = substr('cypht_user_config_'.$page, 0, 40);
-		$session_prefix = substr('cypht_'.$page, 0, 20);
+	if ($params['use_global_settings'] !== 'y') {
+		$preference_name = substr('cypht_user_config_' . $page, 0, 40);
+		$session_prefix = substr('cypht_' . $page, 0, 20);
 		if ($params['use_global_settings'] === 'nw') {
 			$settings_per_page = $page;
 		}
@@ -302,8 +303,10 @@ function wikiplugin_cypht($data, $params)
 		$session_prefix = 'cypht';
 	}
 
-	if (empty($_SESSION[$session_prefix]['preference_name']) || $_SESSION[$session_prefix]['preference_name'] != $preference_name
-		|| (! empty($_SESSION[$session_prefix]['username']) && $_SESSION[$session_prefix]['username'] != $user)) {
+	if (
+        empty($_SESSION[$session_prefix]['preference_name']) || $_SESSION[$session_prefix]['preference_name'] != $preference_name
+		|| (! empty($_SESSION[$session_prefix]['username']) && $_SESSION[$session_prefix]['username'] != $user)
+    ) {
 		// resetting the session on purpose - could be coming from tiki-webmail
 		$_SESSION[$session_prefix] = [];
 	}
@@ -333,17 +336,17 @@ function wikiplugin_cypht($data, $params)
 
 	$_SESSION[$session_prefix]['page_id'] = $tikilib->get_page_id_from_name($page);
 
-	define('VENDOR_PATH', $tikipath.'/vendor_bundled/vendor/');
-	define('APP_PATH', VENDOR_PATH.'jason-munro/cypht/');
-	define('WEB_ROOT', $tikiroot.'vendor_bundled/vendor/jason-munro/cypht/');
+	define('VENDOR_PATH', $tikipath . '/vendor_bundled/vendor/');
+	define('APP_PATH', VENDOR_PATH . 'jason-munro/cypht/');
+	define('WEB_ROOT', $tikiroot . 'vendor_bundled/vendor/jason-munro/cypht/');
 	define('DEBUG_MODE', false);
 
 	define('CACHE_ID', 'FoHc85ubt5miHBls6eJpOYAohGhDM61Vs%2Fm0BOxZ0N0%3D'); // Cypht uses for asset cache busting but we run the assets through Tiki pipeline, so no need to generate a unique key here
 	define('SITE_ID', 'Tiki-Integration');
 
 	/* get includes */
-	require_once APP_PATH.'lib/framework.php';
-	require_once $tikipath.'/lib/cypht/integration/classes.php';
+	require_once APP_PATH . 'lib/framework.php';
+	require_once $tikipath . '/lib/cypht/integration/classes.php';
 
 	if (empty($_SESSION[$session_prefix]['request_key'])) {
 		$_SESSION[$session_prefix]['request_key'] = Hm_Crypt::unique_id();
@@ -356,10 +359,10 @@ function wikiplugin_cypht($data, $params)
 	");
 
 	/* get configuration */
-	$config = new Tiki_Hm_Site_Config_File(APP_PATH.'hm3.rc', $session_prefix, $settings_per_page);
+	$config = new Tiki_Hm_Site_Config_File(APP_PATH . 'hm3.rc', $session_prefix, $settings_per_page);
 
 	// merge existing configuration with plugin params for smtp/imap servers
-	if(! empty($params['imap_server']) && ! empty($params['imap_username']) && ! empty($params['imap_password'])) {
+	if (! empty($params['imap_server']) && ! empty($params['imap_username']) && ! empty($params['imap_password'])) {
 		$attributes = array(
 			'name' => empty($params['imap_name']) ? $params['imap_username'] : $params['imap_name'],
 			'server' => $params['imap_server'],
@@ -420,7 +423,7 @@ function wikiplugin_cypht($data, $params)
 	/* process the request */
 	$dispatcher = new Hm_Dispatch($config);
 
-	if(! empty($_SESSION[$session_prefix]['user_data']['debug_mode_setting'])) {
+	if (! empty($_SESSION[$session_prefix]['user_data']['debug_mode_setting'])) {
 		$msgs = Hm_Debug::get();
 		foreach ($msgs as $msg) {
 			$logslib->add_log('cypht', $msg);
@@ -431,8 +434,8 @@ function wikiplugin_cypht($data, $params)
 	$headerlib->add_js($js);
 
 	return '<div class="inline-cypht">'
-		. '<input type="hidden" id="hm_page_key" value="'.Hm_Request_Key::generate().'" />'
-		. '<input type="hidden" id="hm_session_prefix" value="'.htmlentities($session_prefix).'" />'
+		. '<input type="hidden" id="hm_page_key" value="' . Hm_Request_Key::generate() . '" />'
+		. '<input type="hidden" id="hm_session_prefix" value="' . htmlentities($session_prefix) . '" />'
 		. $dispatcher->session->dedup_page_links($dispatcher->output)
 		. "</div>";
 }

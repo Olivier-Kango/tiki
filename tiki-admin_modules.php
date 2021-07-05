@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -130,10 +132,13 @@ if (! empty($_REQUEST['unassign']) && $access->checkCsrf()) {
 		Feedback::error(tr('Module not unassigned'));
 	}
 }
-$addonMsg =  ' ' . tr('Displayed order may not change if other modules now have the same order rank.').
+$addonMsg = ' ' . tr('Displayed order may not change if other modules now have the same order rank.') .
 $addonMsg .= $userHasAssignedModules ? ' '
-	. tr('Also, displayed order may not change for you since you have assigned a custom order for modules %0here%1',
-		'<a href="tiki-user_assigned_modules.php">', '</a>') : '';
+	. tr(
+        'Also, displayed order may not change for you since you have assigned a custom order for modules %0here%1',
+        '<a href="tiki-user_assigned_modules.php">',
+        '</a>'
+    ) : '';
 
 if (! empty($_REQUEST['modup']) && $access->checkCsrf()) {
 	$result = $modlib->module_up($_POST['modup']);
@@ -172,8 +177,11 @@ if (! empty($_REQUEST['module-order']) && $access->checkCsrf()) {
 	} else {
 		$msg = tr('Standard display of modules not reordered or moved.');
 		$msg .= $userHasAssignedModules ? ' '
-			. tr('If you receive this error after attempting more than once to move a module, it may be because the standard display has already been changed but it is not visible to you because you have assigned a custom order for modules %0here%1.',
-				'<a href="tiki-user_assigned_modules.php">', '</a>') : '';
+			. tr(
+                'If you receive this error after attempting more than once to move a module, it may be because the standard display has already been changed but it is not visible to you because you have assigned a custom order for modules %0here%1.',
+                '<a href="tiki-user_assigned_modules.php">',
+                '</a>'
+            ) : '';
 		Feedback::error($msg);
 	}
 }
@@ -523,7 +531,7 @@ if ($prefs['feature_jquery_validation'] === 'y') {
 				'required' => true,
 				'remote' => [
 					'url' => 'validate-ajax.php',
-					'type' =>  'post',
+					'type' => 'post',
 					'data' => [
 						'validator' => 'smarty',
 						'input' => 'inputFunction',

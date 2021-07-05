@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -232,7 +233,7 @@ class UserPrefsLib extends TikiLib
 				$u2lon = $user2[$i]["value"];
 			}
 		}
-		if (isset($u1lat) && isset($u1lon) &&isset($u2lat) && isset($u2lon)) {
+		if (isset($u1lat) && isset($u1lon) && isset($u2lat) && isset($u2lon)) {
 			$distance = $this->distance($u1lat, $u1lon, $u2lat, $u2lon);
 			return (round($distance, 2));
 		} else {

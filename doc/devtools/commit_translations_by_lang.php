@@ -66,7 +66,7 @@ if (has_uncommited_changes("./lang")) {
 	$description_merge = array();
 	$title_merge = "[TRA] Automatic Merge request of translations contributed to http://i18n.tiki.org";
 	foreach ($user_translations as $all_translations) {
-		if (empty($all_translations['user'])){
+		if (empty($all_translations['user'])) {
 			$all_translations['user'] = 'Anonymous';
 		}
 		$commit_description = "Automatic commit of $all_translations[lang] translation contributed by $all_translations[user] to http://i18n.tiki.org";
@@ -76,7 +76,6 @@ if (has_uncommited_changes("./lang")) {
 	}
 	$description_merge = implode(" , ", $description_merge);
 	push_create_merge_request($title_merge, $description_merge, "master");
-
 } else {
 	echo "There is no translation to commit";
 }

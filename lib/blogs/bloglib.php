@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -619,7 +620,8 @@ class BlogLib extends TikiDb_Bridge
 				If blog is configured with 'Allow other user to post in this blog', then also if user has tiki_p_blog_post or is owner of this blog
 
 			Basically, if the user can post to the post's blog. */
-			if (! (
+			if (
+                ! (
 					$tiki_p_blog_admin == 'y'
 					|| (isset($blog_data["public"]) && $blog_data["public"] == 'y' && ($tiki_p_blog_post == 'y' || $ownsblog == 'y'))
 				)
@@ -726,11 +728,13 @@ class BlogLib extends TikiDb_Bridge
 			// Private posts can be accessed on the following conditions:
 			// user has tiki_p_admin or tiki_p_blog_admin or has written the post
 			// If blog is configured with 'Allow other user to post in this blog', then also if user has tiki_p_blog_post or is owner of this blog
-			if (($res['priv'] != 'y')
+			if (
+                ($res['priv'] != 'y')
 					or ($tiki_p_admin == 'y' )
 					or ($tiki_p_blog_admin == 'y')
 					or ( ($res["public"] == 'y') && ($user && $user == $res["user"]) )
-					or ( ($res["public"] == 'y') && ($tiki_p_blog_post == 'y') ) ) {
+					or ( ($res["public"] == 'y') && ($tiki_p_blog_post == 'y') )
+            ) {
 				$ret[] = $res;
 			}
 		}

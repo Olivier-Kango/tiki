@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -42,33 +43,34 @@ function smarty_function_profilesymbolvalue($params, $smarty)
 		return '';
 	}
 
-	if (!empty($params['ref'])) {
+	if (! empty($params['ref'])) {
 		$ref = $params['ref'];
 	} else {
 		$ref = $params['reference'];
 	}
 
-	if (!empty($params['profile'])) {
+	if (! empty($params['profile'])) {
 		$profile = $params['profile'];
 	} else {
 		$profile = '';
 	}
 
-	if (!empty($params['domain'])) {
+	if (! empty($params['domain'])) {
 		$domain = $params['domain'];
 	} else {
 		$domain = '';
 	}
 
-	if (empty($domain) &&
-		!empty($params['package']) &&
-		\Tiki\Package\ExtensionManager::isExtensionEnabled($params['package'])) {
-
+	if (
+        empty($domain) &&
+		! empty($params['package']) &&
+		\Tiki\Package\ExtensionManager::isExtensionEnabled($params['package'])
+    ) {
 		$extension = \Tiki\Package\ExtensionManager::get($params['package']);
 		$domain = 'file://' . $extension->getPath() . '/profiles';
 	}
 
-	if (!isset($params['cache']) || $params['cache'] != 'n') {
+	if (! isset($params['cache']) || $params['cache'] != 'n') {
 		$cachelib = TikiLib::lib('cache');
 		$cacheType = 'profilesymbolval';
 		$cacheName = $ref . '-' . $profile . '-' . $domain;
@@ -86,7 +88,7 @@ function smarty_function_profilesymbolvalue($params, $smarty)
 	}
 
 	if ($result) {
-		if (!isset($params['cache']) || $params['cache'] != 'n') {
+		if (! isset($params['cache']) || $params['cache'] != 'n') {
 			$cachelib->cacheItem($cacheName, $result, $cacheType);
 		}
 		return $result;

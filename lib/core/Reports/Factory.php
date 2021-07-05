@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -20,11 +21,11 @@ class Reports_Factory
 		$db = TikiDb::get();
 
 		if (is_null($dt)) {
-			$dt = new DateTime;
+			$dt = new DateTime();
 		}
 
 		if (is_null($tm)) {
-			$tm = new TikiMail;
+			$tm = new TikiMail();
 		}
 
 		if (is_null($tikilib)) {
@@ -53,7 +54,7 @@ class Reports_Factory
 				global $prefs;
 				return new Reports_Send($dt, $tm, Reports_Factory::build('Reports_Send_EmailBuilder', $dt, $tm, $tikilib), $tikiPrefs);
 			case 'Reports_Send_EmailBuilder':
-				return new Reports_Send_EmailBuilder($tikilib, new Reports_Send_EmailBuilder_Factory);
+				return new Reports_Send_EmailBuilder($tikilib, new Reports_Send_EmailBuilder_Factory());
 			default:
 				throw new Exception("Unknown class $className");
 		}

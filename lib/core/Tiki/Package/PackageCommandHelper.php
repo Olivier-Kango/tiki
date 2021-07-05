@@ -199,7 +199,8 @@ class PackageCommandHelper
 		$updatablePackages = [];
 
 		foreach ($installedComposerPackages as $installedComposerPackage) {
-			if (! empty($installedComposerPackage['key'])
+			if (
+                ! empty($installedComposerPackage['key'])
 				&& ! empty($installedComposerPackage['installed'])
 				&& ! empty($installedComposerPackage['upgradeVersion'])
 			) {

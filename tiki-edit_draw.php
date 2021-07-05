@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -53,13 +55,15 @@ if (! empty($fileInfo['archiveId']) && $fileInfo['archiveId'] > 0) {
 
 $gal_info = $filegallib->get_file_gallery($_REQUEST['galleryId']);
 
-if (! (
+if (
+    ! (
 		($fileInfo['filetype'] == $mimetypes["svg"]) ||
 		($fileInfo['filetype'] == $mimetypes["gif"]) ||
 		($fileInfo['filetype'] == $mimetypes["jpg"]) ||
 		($fileInfo['filetype'] == $mimetypes["png"]) ||
 		($fileInfo['filetype'] == $mimetypes["tiff"])
-	) && $_REQUEST['fileId'] > 0) {
+	) && $_REQUEST['fileId'] > 0
+) {
 	$smarty->assign('msg', tr("Wrong file type, expected %0", $mimetypes["svg"]));
 	$smarty->display("error.tpl");
 	die;
@@ -106,9 +110,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_REQUEST['data'])) {
 	$fileId = '';
 	$isConversion = $fileInfo['filetype'] != $mimetypes["svg"];
 
-	if (empty($_REQUEST["fileId"]) == false && $_REQUEST["fileId"] > 0 &&
-		($prefs['feature_draw_separate_base_image'] !== 'y' || ! $isConversion)) {
-		
+	if (
+        empty($_REQUEST["fileId"]) == false && $_REQUEST["fileId"] > 0 &&
+		($prefs['feature_draw_separate_base_image'] !== 'y' || ! $isConversion)
+    ) {
 		//existing file
 		$file = Tiki\FileGallery\File::id($_REQUEST['fileId']);
 		$fileId = $file->replace($_REQUEST['data'], $type, $_REQUEST['name'], $_REQUEST['name'] . ".svg");
@@ -288,7 +293,8 @@ if (isset($_REQUEST['raw'])) {
 	});";
 }
 
-if (isset($_REQUEST['index']) &&
+if (
+    isset($_REQUEST['index']) &&
 	isset($_REQUEST['page']) &&
 	isset($_REQUEST['label'])
 ) {

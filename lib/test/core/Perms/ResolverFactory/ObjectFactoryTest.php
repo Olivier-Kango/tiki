@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -39,7 +40,7 @@ class Perms_ResolverFactory_ObjectFactoryTest extends PHPUnit\Framework\TestCase
 		}
 	}
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		$this->backupTable('users_objectpermissions');
 		$this->backupTable('tiki_tracker_items');
@@ -50,7 +51,7 @@ class Perms_ResolverFactory_ObjectFactoryTest extends PHPUnit\Framework\TestCase
 		$this->backupTable('tiki_calendar_items');
 	}
 
-	protected function tearDown() : void
+	protected function tearDown(): void
 	{
 		$this->restoreTable('users_objectpermissions');
 		$this->restoreTable('tiki_tracker_items');
@@ -63,7 +64,7 @@ class Perms_ResolverFactory_ObjectFactoryTest extends PHPUnit\Framework\TestCase
 
 	public function testHash()
 	{
-		$factory = new Perms_ResolverFactory_ObjectFactory;
+		$factory = new Perms_ResolverFactory_ObjectFactory();
 
 		$this->assertEquals('object:wiki page:homepage', $factory->getHash(['type' => 'wiki page', 'object' => 'HomePage']));
 	}
@@ -84,13 +85,13 @@ class Perms_ResolverFactory_ObjectFactoryTest extends PHPUnit\Framework\TestCase
 
 	public function testHashMissingType()
 	{
-		$factory = new Perms_ResolverFactory_ObjectFactory;
+		$factory = new Perms_ResolverFactory_ObjectFactory();
 		$this->assertEquals('', $factory->getHash(['object' => 'HomePage']));
 	}
 
 	public function testHashMissingObject()
 	{
-		$factory = new Perms_ResolverFactory_ObjectFactory;
+		$factory = new Perms_ResolverFactory_ObjectFactory();
 		$this->assertEquals('', $factory->getHash(['type' => 'wiki page']));
 	}
 
@@ -109,7 +110,7 @@ class Perms_ResolverFactory_ObjectFactoryTest extends PHPUnit\Framework\TestCase
 			$db->query('INSERT INTO users_objectpermissions (groupName, permName, objectType, objectId) VALUES(?,?,?,?)', array_values($row));
 		}
 
-		$factory = new Perms_ResolverFactory_ObjectFactory;
+		$factory = new Perms_ResolverFactory_ObjectFactory();
 
 		$expect = new Perms_Resolver_Static(
 			[
@@ -310,7 +311,7 @@ class Perms_ResolverFactory_ObjectFactoryTest extends PHPUnit\Framework\TestCase
 			$db->query('INSERT INTO users_objectpermissions (groupName, permName, objectType, objectId) VALUES(?,?,?,?)', array_values($row));
 		}
 
-		$factory = new Perms_ResolverFactory_ObjectFactory;
+		$factory = new Perms_ResolverFactory_ObjectFactory();
 
 		$this->assertNull($factory->getResolver(['type' => 'blog', 'object' => '234']));
 	}
@@ -337,7 +338,7 @@ class Perms_ResolverFactory_ObjectFactoryTest extends PHPUnit\Framework\TestCase
 
 	public function testObtainResolverIncompleteContext()
 	{
-		$factory = new Perms_ResolverFactory_ObjectFactory;
+		$factory = new Perms_ResolverFactory_ObjectFactory();
 
 		$this->assertNull($factory->getResolver(['type' => 'wiki page']));
 		$this->assertNull($factory->getResolver(['object' => 'HomePage']));
@@ -359,7 +360,7 @@ class Perms_ResolverFactory_ObjectFactoryTest extends PHPUnit\Framework\TestCase
 			$db->query('INSERT INTO users_objectpermissions (groupName, permName, objectType, objectId) VALUES(?,?,?,?)', array_values($row));
 		}
 
-		$factory = new Perms_ResolverFactory_ObjectFactory;
+		$factory = new Perms_ResolverFactory_ObjectFactory();
 		$out = $factory->bulk(['type' => 'wiki page'], 'object', ['HomePage', 'UserPageFoobar', 'HelloWorld']);
 
 		$this->assertEquals(['HelloWorld'], $out);
@@ -367,7 +368,7 @@ class Perms_ResolverFactory_ObjectFactoryTest extends PHPUnit\Framework\TestCase
 
 	public function testBulkLoadingWithoutObject()
 	{
-		$factory = new Perms_ResolverFactory_ObjectFactory;
+		$factory = new Perms_ResolverFactory_ObjectFactory();
 		$out = $factory->bulk(['type' => 'wiki page'], 'objectId', ['HomePage', 'UserPageFoobar', 'HelloWorld']);
 
 		$this->assertEquals(['HomePage', 'UserPageFoobar', 'HelloWorld'], $out);
@@ -375,7 +376,7 @@ class Perms_ResolverFactory_ObjectFactoryTest extends PHPUnit\Framework\TestCase
 
 	public function testBulkLoadingWithoutType()
 	{
-		$factory = new Perms_ResolverFactory_ObjectFactory;
+		$factory = new Perms_ResolverFactory_ObjectFactory();
 		$out = $factory->bulk([], 'object', ['HomePage', 'UserPageFoobar', 'HelloWorld']);
 
 		$this->assertEquals(['HomePage', 'UserPageFoobar', 'HelloWorld'], $out);

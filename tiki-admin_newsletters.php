@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -59,7 +61,7 @@ if ($_REQUEST["nlId"]) {
 	$update = "y";
 }
 $smarty->assign('info', $info);
-if (isset($_REQUEST["remove"]) && $access->checkCsrf(true) ) {
+if (isset($_REQUEST["remove"]) && $access->checkCsrf(true)) {
 	$result = $nllib->remove_newsletter($_REQUEST["remove"]);
 	if ($result && $result->numRows()) {
 		Feedback::success(tr('Newsletter removed'));

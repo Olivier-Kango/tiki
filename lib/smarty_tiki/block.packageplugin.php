@@ -8,7 +8,7 @@ function smarty_block_packageplugin($params, $content, $smarty)
 		return tra("Please specify the name of the package and the wiki plugin.");
 	}
 
-	if (!$extensionPackage = \Tiki\Package\ExtensionManager::get($params['package'])) {
+	if (! $extensionPackage = \Tiki\Package\ExtensionManager::get($params['package'])) {
 		return tr('Package %0 is not enabled', $params['package']);
 	}
 
@@ -21,7 +21,7 @@ function smarty_block_packageplugin($params, $content, $smarty)
 	require_once($path);
 
 	$namespace = $extensionPackage->getBaseNamespace();
-	if (!empty($namespace)) {
+	if (! empty($namespace)) {
 		$namespace .= '\\PackagePlugins\\';
 	}
 	$functionname = $namespace . $params['plugin'];

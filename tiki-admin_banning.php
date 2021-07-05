@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -16,9 +18,9 @@ $access->check_permission('tiki_p_admin_banning');
 $auto_query_args = [ 'banId' ];
 
 if (isset($_REQUEST['del'])) {
-	if (!isset($_REQUEST['delsec'])) {
+	if (! isset($_REQUEST['delsec'])) {
 		Feedback::error(tra('No rule selected for deletion. No deletions were performed.'));
-	} elseif($access->checkCsrf(true)) {
+	} elseif ($access->checkCsrf(true)) {
 		$items = array_keys($_POST['delsec']);
 		$resultRowsDeleted = 0;
 		foreach ($items as $sec) {
@@ -49,12 +51,13 @@ if (isset($_POST["import"]) && isset($_FILES["fileCSV"]) && $access->checkCsrf()
 if (isset($_POST['save']) && $access->checkCsrf()) {
 	if ($_POST['mode'] === 'user' && empty($_POST['userreg'])) {
 		Feedback::error(tra("Not saved:") . ' ' . tra("Username pattern empty"));
-	} elseif ($_POST['mode'] === 'ip'
+	} elseif (
+        $_POST['mode'] === 'ip'
 		&& $_POST['ip1'] == 255
 		&& $_POST['ip2'] == 255
 		&& $_POST['ip3'] == 255
-		&& $_POST['ip4'] == 255)
-	{
+		&& $_POST['ip4'] == 255
+    ) {
 		Feedback::error(tra("Not saved:") . ' ' . tra("Default IP pattern still set"));
 	} else {
 		$_POST['use_dates'] = isset($_POST['use_dates']) ? 'y' : 'n';
@@ -143,12 +146,12 @@ if (isset($_POST['save']) && $access->checkCsrf()) {
 			];
 			Feedback::success($feedback);
 		} elseif ($replaced > 0 && $resultRows < $replacedCount) {
-			if (!$resultRows) {
+			if (! $resultRows) {
 				$msg = tra('No changes were made to the following selected banning rules:');
 			} else {
 				$msg = tr('Only %0 of the selected banning rules shown below were added or changed', $resultRows);
 			}
-			if (!empty($msg)) {
+			if (! empty($msg)) {
 				$feedback = [
 					'tpl' => 'action',
 					'mes' => $msg,

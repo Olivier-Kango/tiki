@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -15,7 +16,7 @@ class EditLib_ParseToWiki_LinkTest extends TikiTestCase
 	private $el; // the EditLib
 	private $ext1 = 'test_ext1'; // name of the external Wiki 1
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		TikiLib::lib('edit');
 		$this->el = new EditLib();
@@ -24,7 +25,7 @@ class EditLib_ParseToWiki_LinkTest extends TikiTestCase
 	/**
 	 * remove the external Wikis defined in the tests
 	 */
-	protected function tearDown() : void
+	protected function tearDown(): void
 	{
 		global $tikilib;
 
@@ -130,7 +131,6 @@ class EditLib_ParseToWiki_LinkTest extends TikiTestCase
 		$out = $this->el->parseToWiki($inData);
 		$out = preg_replace('/\n/', '\n', $out); // fix LF encoding for comparison
 		$this->assertEquals($ex, $out);
-
 	}
 
 

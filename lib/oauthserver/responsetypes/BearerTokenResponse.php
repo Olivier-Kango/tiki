@@ -1,4 +1,5 @@
 <?php
+
 /**
  * OAuth 2.0 Bearer Token Response.
  *

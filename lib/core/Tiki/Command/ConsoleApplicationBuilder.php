@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -77,37 +78,37 @@ class ConsoleApplicationBuilder
 			'condition'	=> 'checkVendorsLoaded',
 			'actions'	=> [UnavailableException::CHECK_DEFAULT => self::ACTION_NOT_PUBLISHED,],
 			'commands'	=> [
-				new ConfigureCommand,
-				new InstallerLockCommand,
-				new ScssCompileCommand,
-				new EnglishUpdateCommand,
-				new VCSUpdateCommand,
-				new FixBOMandUnixCommand,
-				new GetStringsCommand,
+				new ConfigureCommand(),
+				new InstallerLockCommand(),
+				new ScssCompileCommand(),
+				new EnglishUpdateCommand(),
+				new VCSUpdateCommand(),
+				new FixBOMandUnixCommand(),
+				new GetStringsCommand(),
 				],
 			],[
 			'condition'	=> 'checkIsVCS',
 			'actions'	=> [UnavailableException::CHECK_DEFAULT => self::ACTION_NOT_CALLABLE],
 			'commands'	=> [
-				new VCSUpdateCommand,
-				new FixSVNKeyIdsCommand,
-				new SemiAutoMergeCommand,
-				new DevConfigureCommand,
+				new VCSUpdateCommand(),
+				new FixSVNKeyIdsCommand(),
+				new SemiAutoMergeCommand(),
+				new DevConfigureCommand(),
 				],
 			],[
 			'condition'	=> 'checkIsDevMode',
 			'actions'	=> [UnavailableException::CHECK_DEFAULT => self::ACTION_NOT_PUBLISHED,],
 			'commands'	=> [
-				new DevFixStyleCommand,
-				new DevUnInstallCommand,
+				new DevFixStyleCommand(),
+				new DevUnInstallCommand(),
 				],
 			],[
 			'condition'	=> 'checkIsDbRunning',
 			'actions'	=> [UnavailableException::CHECK_DEFAULT => self::ACTION_NOT_AVAILABLE,],
 			'commands'	=> [
-					new InstallCommand,
-					new MultiTikiListCommand,
-					new MultiTikiMoveCommand,
+					new InstallCommand(),
+					new MultiTikiListCommand(),
+					new MultiTikiMoveCommand(),
 				],
 			],[
 			'condition'	=> 'checkIsDatabaseInstalled',
@@ -116,16 +117,16 @@ class ConsoleApplicationBuilder
 					UnavailableException::CHECK_DEFAULT => self::ACTION_NOT_AVAILABLE,
 				],
 			'commands'	=> [
-				new CacheClearCommand,
-				new CacheGenerateCommand,
-				new BackupDBCommand,
-				new BackupFilesCommand,
-				new ProfileBaselineCommand,
-				new PluginApproveRunCommand,
-				new PluginListRunCommand,
-				new PluginRefreshRunCommand,
-				new PatchCommand,
-				new UpdateCommand,
+				new CacheClearCommand(),
+				new CacheGenerateCommand(),
+				new BackupDBCommand(),
+				new BackupFilesCommand(),
+				new ProfileBaselineCommand(),
+				new PluginApproveRunCommand(),
+				new PluginListRunCommand(),
+				new PluginRefreshRunCommand(),
+				new PatchCommand(),
+				new UpdateCommand(),
 				],
 			],[
 			'condition'	=> 'checkTikiSetupComplete',
@@ -134,10 +135,10 @@ class ConsoleApplicationBuilder
 				UnavailableException::CHECK_DEFAULT => self::ACTION_NOT_AVAILABLE,
 			],
 			'commands'	=> [
-				new PreferencesGetCommand,
-				new PreferencesSetCommand,
-				new PreferencesDeleteCommand,
-				new PreferencesExportCommand,
+				new PreferencesGetCommand(),
+				new PreferencesSetCommand(),
+				new PreferencesDeleteCommand(),
+				new PreferencesExportCommand(),
 				],
 			],[
 			'condition'	=> 'checkDatabaseUpToDate',
@@ -146,58 +147,58 @@ class ConsoleApplicationBuilder
 				UnavailableException::CHECK_DEFAULT => self::ACTION_NOT_AVAILABLE,
 				],
 			'commands'	=> [
-				new PackageDisableCommand,
-				new PackageEnableCommand,
-				new DailyReportSendCommand,
-				new FakerCommentsCommand,
-				new FakerTrackerCommand,
-				new GalleryMigrateCommand,
-				new GoalCheckCommand,
-				new FilesBatchuploadCommand,
-				new FilesCheckCommand,
-				new FilesCopyCommand,
-				new FilesDeleteoldCommand,
-				new FilesIndexCommand,
-				new FilesMoveCommand,
-				new IndexRebuildCommand,
-				new IndexOptimizeCommand,
-				new IndexCatchUpCommand,
-				new ListExecuteCommand,
-				new MailInPollCommand,
-				new MailQueueSendCommand,
-				new NotificationDigestCommand,
-				new ObjectsNotifyMaintainersCommand,
-				new PackageClearCacheCommand,
-				new PackageInstallCommand,
-				new PackageListCommand,
-				new PackageRemoveCommand,
-				new PackageUpdateCommand,
-				new ProfileForgetCommand,
-				new ProfileInstallCommand,
-				new ProfileExport\Init,
-				new RecommendationBatchCommand,
-				new RefreshRssCommand,
-				new RssClearCacheCommand,
-				new SchedulerRunCommand,
-				new ThemeInstallCommand,
-				new ThemeRemoveCommand,
-				new ThemeUpdateCommand,
-				new SchedulerHealCommand,
-				new TrackerExportCommand,
-				new TrackerImportCommand,
-				new TrackerRecalcCommand,
-				new SitemapGenerateCommand,
-				new TikiInfoCommand,
-				new TrackerClearCommand,
-				new AdminIndexRebuildCommand,
-				new UserCreateCommand,
-				new UserUnlockCommand,
-				new UsersListCommand,
-				new UsersPasswordCommand,
-				new StatsCommand,
-				new MLTrainCommand,
-				new TranslationExportCommand,
-				new TranslationPercentageCommand,
+				new PackageDisableCommand(),
+				new PackageEnableCommand(),
+				new DailyReportSendCommand(),
+				new FakerCommentsCommand(),
+				new FakerTrackerCommand(),
+				new GalleryMigrateCommand(),
+				new GoalCheckCommand(),
+				new FilesBatchuploadCommand(),
+				new FilesCheckCommand(),
+				new FilesCopyCommand(),
+				new FilesDeleteoldCommand(),
+				new FilesIndexCommand(),
+				new FilesMoveCommand(),
+				new IndexRebuildCommand(),
+				new IndexOptimizeCommand(),
+				new IndexCatchUpCommand(),
+				new ListExecuteCommand(),
+				new MailInPollCommand(),
+				new MailQueueSendCommand(),
+				new NotificationDigestCommand(),
+				new ObjectsNotifyMaintainersCommand(),
+				new PackageClearCacheCommand(),
+				new PackageInstallCommand(),
+				new PackageListCommand(),
+				new PackageRemoveCommand(),
+				new PackageUpdateCommand(),
+				new ProfileForgetCommand(),
+				new ProfileInstallCommand(),
+				new ProfileExport\Init(),
+				new RecommendationBatchCommand(),
+				new RefreshRssCommand(),
+				new RssClearCacheCommand(),
+				new SchedulerRunCommand(),
+				new ThemeInstallCommand(),
+				new ThemeRemoveCommand(),
+				new ThemeUpdateCommand(),
+				new SchedulerHealCommand(),
+				new TrackerExportCommand(),
+				new TrackerImportCommand(),
+				new TrackerRecalcCommand(),
+				new SitemapGenerateCommand(),
+				new TikiInfoCommand(),
+				new TrackerClearCommand(),
+				new AdminIndexRebuildCommand(),
+				new UserCreateCommand(),
+				new UserUnlockCommand(),
+				new UsersListCommand(),
+				new UsersPasswordCommand(),
+				new StatsCommand(),
+				new MLTrainCommand(),
+				new TranslationExportCommand(),
+				new TranslationPercentageCommand(),
 				],
 			],[
 			'condition'	=> 'checkIsOCRAvailable',
@@ -207,10 +208,10 @@ class ConsoleApplicationBuilder
 				UnavailableException::CHECK_DEFAULT => self::ACTION_NOT_PUBLISHED,
 				],
 			'commands'	=> [
-				new OCRFileCommand,
-				new OCRAllCommand,
-				new OCRStatusCommand,
-				new OCRSetCommand,
+				new OCRFileCommand(),
+				new OCRAllCommand(),
+				new OCRStatusCommand(),
+				new OCRSetCommand(),
 				],
 			],[
 			'condition'	=> 'checkProfileInfoExists',
@@ -220,32 +221,32 @@ class ConsoleApplicationBuilder
 				UnavailableException::CHECK_DEFAULT => self::ACTION_NOT_PUBLISHED,
 				],
 			'commands'	=> [
-				new ProfileExport\ActivityRuleSet,
-				new ProfileExport\ActivityStreamRule,
-				new ProfileExport\Article,
-				new ProfileExport\ArticleTopic,
-				new ProfileExport\ArticleType,
-				new ProfileExport\AllModules,
-				new ProfileExport\Calendar,
-				new ProfileExport\Category,
-				new ProfileExport\FileGallery,
-				new ProfileExport\Forum,
-				new ProfileExport\Goal,
-				new ProfileExport\GoalSet,
-				new ProfileExport\Group,
-				new ProfileExport\IncludeProfile,
-				new ProfileExport\Menu,
-				new ProfileExport\Module,
-				new ProfileExport\Preference,
-				new ProfileExport\RatingConfig,
-				new ProfileExport\RatingConfigSet,
-				new ProfileExport\RecentChanges,
-				new ProfileExport\Rss,
-				new ProfileExport\Tracker,
-				new ProfileExport\TrackerField,
-				new ProfileExport\TrackerItem,
-				new ProfileExport\WikiPage,
-				new ProfileExport\Finalize,
+				new ProfileExport\ActivityRuleSet(),
+				new ProfileExport\ActivityStreamRule(),
+				new ProfileExport\Article(),
+				new ProfileExport\ArticleTopic(),
+				new ProfileExport\ArticleType(),
+				new ProfileExport\AllModules(),
+				new ProfileExport\Calendar(),
+				new ProfileExport\Category(),
+				new ProfileExport\FileGallery(),
+				new ProfileExport\Forum(),
+				new ProfileExport\Goal(),
+				new ProfileExport\GoalSet(),
+				new ProfileExport\Group(),
+				new ProfileExport\IncludeProfile(),
+				new ProfileExport\Menu(),
+				new ProfileExport\Module(),
+				new ProfileExport\Preference(),
+				new ProfileExport\RatingConfig(),
+				new ProfileExport\RatingConfigSet(),
+				new ProfileExport\RecentChanges(),
+				new ProfileExport\Rss(),
+				new ProfileExport\Tracker(),
+				new ProfileExport\TrackerField(),
+				new ProfileExport\TrackerItem(),
+				new ProfileExport\WikiPage(),
+				new ProfileExport\Finalize(),
 				],
 			],[
 			'condition'	=> 'checkForLocalRedactDb',
@@ -254,7 +255,7 @@ class ConsoleApplicationBuilder
 				UnavailableException::CHECK_INSTALLED => self::ACTION_NOT_AVAILABLE,
 				UnavailableException::CHECK_DEFAULT => self::ACTION_NOT_PUBLISHED,
 				],
-			'commands' => [new RedactDBCommand,],
+			'commands' => [new RedactDBCommand(),],
 			],[
 			'condition'	=> 'checkIsDevModeAndDatabase',
 			'actions'	=> [
@@ -263,7 +264,7 @@ class ConsoleApplicationBuilder
 				UnavailableException::CHECK_DEFAULT => self::ACTION_NOT_AVAILABLE,
 				],
 			'commands'	=> [
-				new VendorSecurityCommand,
+				new VendorSecurityCommand(),
 				],
 			]];
 	}
@@ -310,7 +311,7 @@ class ConsoleApplicationBuilder
 	 *
 	 * @return void
 	 */
-	protected function checkVendorsLoaded() : void
+	protected function checkVendorsLoaded(): void
 	{
 	}
 
@@ -319,7 +320,7 @@ class ConsoleApplicationBuilder
 	 *
 	 * @throws CommandUnavailableException When SVN or GIT is not available.
 	 */
-	protected function checkIsVCS() : void
+	protected function checkIsVCS(): void
 	{
 		if (! (is_dir('.svn') || is_dir('.git'))) {
 			throw new UnavailableException(
@@ -334,7 +335,7 @@ class ConsoleApplicationBuilder
 	 *
 	 * @throws CommandUnavailableException If development files are not installed.
 	 */
-	protected function checkIsDevMode() : void
+	protected function checkIsDevMode(): void
 	{
 		$this->checkIsVCS();
 
@@ -352,7 +353,7 @@ class ConsoleApplicationBuilder
 	 *
 	 * @throws CommandUnavailableException When Tiki is not installed, or complete database failure
 	 */
-	protected function checkIsDbRunning() : void
+	protected function checkIsDbRunning(): void
 	{
 		if (! DB_RUNNING) {
 			throw new UnavailableException(
@@ -368,7 +369,7 @@ class ConsoleApplicationBuilder
 	 *
 	 * @throws CommandUnavailableException When the database can not be initialized.
 	 */
-	protected function checkIsDatabaseInstalled() : void
+	protected function checkIsDatabaseInstalled(): void
 	{
 		// we want to provide the right feedback, so lets check pre-requirements first.
 		$this->checkIsDbRunning();
@@ -387,7 +388,7 @@ class ConsoleApplicationBuilder
 	 *
 	 * @throws CommandUnavailableException When tiki-setup.php did not complete. (core database errors)
 	 */
-	protected function checkTikiSetupComplete() : void
+	protected function checkTikiSetupComplete(): void
 	{
 		$this->checkIsDatabaseInstalled();
 		if (! DB_TIKI_SETUP) {
@@ -405,7 +406,7 @@ class ConsoleApplicationBuilder
 	 *
 	 * @throws CommandUnavailableException When the Tiki database needs updating. (feature specific database errors)
 	 */
-	protected function checkDatabaseUpToDate() : void
+	protected function checkDatabaseUpToDate(): void
 	{
 		// we want to provide the right feedback, so lets check pre-requirements first.
 		$this->checkTikiSetupComplete();
@@ -423,7 +424,7 @@ class ConsoleApplicationBuilder
 	 *
 	 * @throws CommandUnavailableException if the info.ini file is not present
 	 */
-	protected function checkProfileInfoExists() : void
+	protected function checkProfileInfoExists(): void
 	{
 		if (! file_exists(TIKI_PATH . '/profiles/info.ini')) {
 			throw new UnavailableException('The /profiles/info.ini file does not exist', 311);
@@ -436,7 +437,7 @@ class ConsoleApplicationBuilder
 	 *
 	 * @throws CommandUnavailableException
 	 */
-	protected function checkForLocalRedactDb() : void
+	protected function checkForLocalRedactDb(): void
 	{
 		if (! isset($_SERVER['TIKI_VIRTUAL']) || $_SERVER['TIKI_VIRTUAL'] !== 'redact' || ! is_file(TIKI_PATH . '/db/redact/local.php')) {
 			throw new UnavailableException('The /profiles/info.ini file does not exist', 312);
@@ -449,7 +450,7 @@ class ConsoleApplicationBuilder
 	 *
 	 * @throws CommandUnavailableException if OCR is unavailable
 	 */
-	protected function checkIsOCRAvailable() : void
+	protected function checkIsOCRAvailable(): void
 	{
 
 		// we check if the database is running first so we can safely check preferences
@@ -467,7 +468,7 @@ class ConsoleApplicationBuilder
 	 *
 	 * @throws CommandUnavailableException
 	 */
-	protected function checkIsDevModeAndDatabase() : void
+	protected function checkIsDevModeAndDatabase(): void
 	{
 		$this->checkIsDevMode();
 		$this->checkIsDatabaseInstalled();
@@ -482,14 +483,14 @@ class ConsoleApplicationBuilder
 	 * @param boolean $returnLastInstance
 	 * @return Application
 	 */
-	public function create(bool $returnLastInstance = false) : Application
+	public function create(bool $returnLastInstance = false): Application
 	{
 		if ($returnLastInstance && self::$lastInstance instanceof self) {
 			return self::$lastInstance;
 		}
 
 		/** @var Application Console application that commands are added to, and finally returned. */
-		$console = new Application;
+		$console = new Application();
 		$console->setAutoExit(false);
 		$console->setName('Tiki Console Tool');
 

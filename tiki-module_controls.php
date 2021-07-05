@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -61,7 +63,6 @@ foreach ($actions as $action => $settings) {
 		} else {
 			Feedback::error($settings['error']);
 		}
-
 	}
 	// Remove module movemet paramaters from an URL
 	// \todo What if 'mc_xxx' arg was not at the end? (if smbd fix URL by hands...)

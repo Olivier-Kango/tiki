@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -190,12 +192,12 @@ if (empty($_REQUEST['returnUrl'])) {
 if ($isUpload) {
 	// multiple form submissions are possible but the same ticket is in each form if JS is enabled,
 	// so save ticket info from first submission
-	if ((int) $_POST['submission'] === 1 && ! empty($_POST['totalSubmissions']) && (int) $_POST['totalSubmissions'] > 1)
-	{
+	if ((int) $_POST['submission'] === 1 && ! empty($_POST['totalSubmissions']) && (int) $_POST['totalSubmissions'] > 1) {
 		$_SESSION['tickets']['repeatTicket']['ticket'] = $_POST['ticket'];
 		$_SESSION['tickets']['repeatTicket']['time'] = $_SESSION['tickets'][$_POST['ticket']];
 	}
-	if (((int) $_POST['submission'] === 1 && $access->checkCsrf())
+	if (
+        ((int) $_POST['submission'] === 1 && $access->checkCsrf())
 		// for subsequent submissions check ticket against saved ticket info from first submission
 		|| ((int) $_POST['submission'] > 1
 			&& (int) $_POST['submission'] <= (int) $_POST['totalSubmissions']
@@ -249,7 +251,7 @@ if ($isUpload) {
 			}
 		}
 
-		if (! empty($prefs['ocr_enable']) && $prefs['ocr_enable'] === 'y' && empty($_POST['ocr_state'][0])){
+		if (! empty($prefs['ocr_enable']) && $prefs['ocr_enable'] === 'y' && empty($_POST['ocr_state'][0])) {
 			$uploadParams['ocr_state'][0] = null;
 		}
 		if ($fileInfo = $filegallib->actionHandler('uploadFile', $uploadParams)) {

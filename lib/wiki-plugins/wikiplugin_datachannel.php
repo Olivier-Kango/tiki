@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -240,9 +241,11 @@ function wikiplugin_datachannel($data, $params)
 	$config = Tiki_Profile_ChannelList::fromConfiguration($prefs['profile_channels']);
 	if ($config->canExecuteChannels([ $params['channel'] ], $groups, true)) {
 		$smarty->assign('datachannel_execution', $executionId);
-		if (isset($_POST['datachannel_execution'])
+		if (
+            isset($_POST['datachannel_execution'])
 			&& $_POST['datachannel_execution'] == $executionId
-			&& $config->canExecuteChannels([ $params['channel'] ], $groups) ) {
+			&& $config->canExecuteChannels([ $params['channel'] ], $groups)
+        ) {
 			$input = array_intersect_key($_POST, $inputfields);
 
 			$trimAndMapArraysAsYaml = function ($element) {
@@ -337,7 +340,7 @@ function wikiplugin_datachannel($data, $params)
 				$profile->removeSymbols();
 
 				Tiki_Profile::useUnicityPrefix(uniqid());
-				$installer = new Tiki_Profile_Installer;
+				$installer = new Tiki_Profile_Installer();
 				//TODO: What is the following line for? Future feature to limit capabilities of data channels?
 				//$installer->limitGlobalPreferences( array() );
 				// jb tiki6: looks like if set to an empty array it would prevent any prefs being set

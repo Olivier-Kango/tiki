@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -535,7 +536,7 @@ class WikiDiff
 	public function reverse($from_lines)
 	{
 		$x = 0;
-		$rev = new WikiDiff;
+		$rev = new WikiDiff();
 
 		for (reset($this->edits), $currentedits = current($this->edits); $edit = $currentedits; next($this->edits)) {
 			if (is_array($edit)) { // Was an add, turn it into a delete.
@@ -578,7 +579,7 @@ class WikiDiff
 		reset($this->edits);
 		reset($that->edits);
 
-		$comp = new WikiDiff;
+		$comp = new WikiDiff();
 		$left = current($this->edits);
 		$right = current($that->edits);
 

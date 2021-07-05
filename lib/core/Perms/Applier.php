@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -38,7 +39,7 @@ class Perms_Applier
 			$comparator = new Perms_Reflection_PermissionComparator($set, $parent);
 
 			if ($comparator->equal() && $this->isPossible($current, $set)) {
-				$null = new Perms_Reflection_PermissionSet;
+				$null = new Perms_Reflection_PermissionSet();
 
 				$this->realApply($object, $current, $null);
 				return;

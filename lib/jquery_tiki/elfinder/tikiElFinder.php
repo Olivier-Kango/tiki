@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -22,8 +23,10 @@ class tikiElFinder extends elFinder
 		$newDesc = $args['content'];
 		$error = [self::ERROR_UNKNOWN, '#' . $target];
 
-		if (($volume = $this->volume($target)) == false
-			|| ($file = $volume->file($target)) == false) {
+		if (
+            ($volume = $this->volume($target)) == false
+			|| ($file = $volume->file($target)) == false
+        ) {
 			return ['error' => $this->error($error, self::ERROR_FILE_NOT_FOUND)];
 		}
 

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -40,7 +41,7 @@ class CommandUnavailableException extends Exception
 	 * Error for when the Database is out of sync, (it needs to be updated)
 	 * @see ConsoleApplicationBuilder::checkDatabaseUpToDate()
 	 */
-	
+
 	public const CHECK_UPDATED = 204;
 	/**
 	 * Dummy error code denoting a default value.

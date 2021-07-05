@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -75,21 +76,21 @@ class SaveHandler
 
     $archives = $this->file->galleryDefinition()->getInfo()['archives'];
     $fileId = $this->file->fileId;
-      
+
     if ($archives == -1) {
       //if no archives allowed by user, then replace certain original file information with
       //information from the validated draft
       $this->filesTable->update($this->file->getParamsForDB(), ['fileId' => (int) $fileId]);
 
       TikiLib::events()->trigger(
-        'tiki.file.update',
-        [
+          'tiki.file.update',
+          [
           'type' => 'file',
           'object' => $this->file->fileId,
           'galleryId' => $this->file->galleryId,
           'initialFileId' => $this->file->fileId,
           'filetype' => $this->file->filetype,
-        ]
+          ]
       );
     } else {
       //if archives are allowed, the validated draft becomes an archive copy with some db info
@@ -105,7 +106,7 @@ class SaveHandler
     $file = $this->file;
 
     $initialFileId = (int)$file->param['fileId'];
-    $sendWatches = TRUE;
+    $sendWatches = true;
 
     // Edge case: If one is migrating files from image galleries to file galleries, the file exists but has no fileId yet and needs to be inserted.
     // This is detected with $initialFileId == 0
@@ -116,13 +117,13 @@ class SaveHandler
       $fileId = $this->filesTable->insert($file->getParamsForDB());
       if ($initialFileId == 0) {
         // In case of a migration from image galleries to file galleries, don't send out a huge number of useless emails.
-        $sendWatches = FALSE;
+        $sendWatches = false;
       }
     }
 
     if ($prefs['feature_actionlog'] == 'y') {
       $logslib = TikiLib::lib('logs');
-      $logslib->add_action('Uploaded', $file->galleryId, 'file gallery', "fileId=$fileId&amp;add=".$file->filesize);
+      $logslib->add_action('Uploaded', $file->galleryId, 'file gallery', "fileId=$fileId&amp;add=" . $file->filesize);
     }
 
     //Watches
@@ -204,8 +205,8 @@ class SaveHandler
     }
     if ($prefs['fgal_keep_fileId'] != 'y') {
       $this->filesTable->updateMultiple(
-        ['archiveId' => $idNew, 'search_data' => '', 'user' => $file->user, 'lockedby' => null],
-        ['anyOf' => $this->filesTable->expr('(`archiveId` = ? OR `fileId` = ?)', [$origFileId, $origFileId])]
+          ['archiveId' => $idNew, 'search_data' => '', 'user' => $file->user, 'lockedby' => null],
+          ['anyOf' => $this->filesTable->expr('(`archiveId` = ? OR `fileId` = ?)', [$origFileId, $origFileId])]
       );
     }
 

@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -53,11 +55,13 @@ if (! empty($_REQUEST['reply']) || ! empty($_REQUEST['replyall'])) {
 	$_REQUEST['subject'] = tra("Re:") . preg_replace('/^(' . tra('Re:') . ')+/', '', $_REQUEST['subject']);
 	$smarty->assign('reply', 'y');
 }
-foreach ([
+foreach (
+    [
 	'to',
 	'cc',
 	'bcc'
-			  ] as $dest) {
+			  ] as $dest
+) {
 	if (is_array($_REQUEST[$dest])) {
 		$sep = strstr(implode('', $_REQUEST[$dest]), ',') === false ? ', ' : '; ';
 		$_REQUEST[$dest] = implode($sep, $_REQUEST[$dest]);
@@ -75,7 +79,7 @@ $smarty->assign('sent', 0);
 if ((isset($_POST['send']) && $access->checkCsrf()) || isset($_POST['preview'])) {
 	$message = [];
 	$users = [];
-	if (!empty($_POST['subject']) || !empty($_POST['body'])) {
+	if (! empty($_POST['subject']) || ! empty($_POST['body'])) {
 		// Parse the to, cc and bcc fields into an array
 		$arr_to = preg_split('/\s*(?<!\\\)[;,]\s*/', $_POST['to']);
 		$arr_cc = preg_split('/\s*(?<!\\\)[;,]\s*/', $_POST['cc']);
@@ -97,13 +101,13 @@ if ((isset($_POST['send']) && $access->checkCsrf()) || isset($_POST['preview']))
 						if (($messulib->count_messages($a_user) < $prefs['messu_mailbox_size']) || ($prefs['messu_mailbox_size'] == 0)) {
 							$users[] = $a_user;
 						} else {
-							$message[]= sprintf(tra("User %s can not receive messages, mailbox is full"), $a_user);
+							$message[] = sprintf(tra("User %s can not receive messages, mailbox is full"), $a_user);
 						}
 					} else {
-						$message[]= sprintf(tra("User %s can not receive messages"), $a_user);
+						$message[] = sprintf(tra("User %s can not receive messages"), $a_user);
 					}
 				} else {
-					$message[]= sprintf(tra("Invalid user: %s"), $a_user);
+					$message[] = sprintf(tra("Invalid user: %s"), $a_user);
 				}
 			}
 		}
@@ -117,13 +121,13 @@ if ((isset($_POST['send']) && $access->checkCsrf()) || isset($_POST['preview']))
 						if (($messulib->count_messages($a_user) < $prefs['messu_mailbox_size']) || ($prefs['messu_mailbox_size'] == 0)) {
 							$users[] = $a_user;
 						} else {
-							$message[]= sprintf(tra("User %s can not receive messages, mailbox is full"), $a_user);
+							$message[] = sprintf(tra("User %s can not receive messages, mailbox is full"), $a_user);
 						}
 					} else {
-						$message[]= sprintf(tra("User %s can not receive messages"), $a_user);
+						$message[] = sprintf(tra("User %s can not receive messages"), $a_user);
 					}
 				} else {
-					$message[]= sprintf(tra("Invalid user: %s"), $a_user);
+					$message[] = sprintf(tra("Invalid user: %s"), $a_user);
 				}
 			}
 		}
@@ -137,13 +141,13 @@ if ((isset($_POST['send']) && $access->checkCsrf()) || isset($_POST['preview']))
 						if (($messulib->count_messages($a_user) < $prefs['messu_mailbox_size']) || ($prefs['messu_mailbox_size'] == 0)) {
 							$users[] = $a_user;
 						} else {
-							$message[]= sprintf(tra("User %s can not receive messages, mailbox is full"), $a_user);
+							$message[] = sprintf(tra("User %s can not receive messages, mailbox is full"), $a_user);
 						}
 					} else {
-						$message[]= sprintf(tra("User %s can not receive messages"), $a_user);
+						$message[] = sprintf(tra("User %s can not receive messages"), $a_user);
 					}
 				} else {
-					$message[]= sprintf(tra("Invalid user: %s"), $a_user);
+					$message[] = sprintf(tra("Invalid user: %s"), $a_user);
 				}
 			}
 		}
@@ -239,8 +243,16 @@ if ((isset($_POST['send']) && $access->checkCsrf()) || isset($_POST['preview']))
 						$messulib->mark_replied($a_user, $_REQUEST['replyto_hash']);
 					}
 					$smarty->assign('sent', 1);
-					$messulib->save_sent_message($user, $user, $_REQUEST['to'], $_REQUEST['cc'], $_REQUEST['subject'],
-						$_REQUEST['body'], $_REQUEST['priority'], $_REQUEST['replyto_hash']);
+					$messulib->save_sent_message(
+                        $user,
+                        $user,
+                        $_REQUEST['to'],
+                        $_REQUEST['cc'],
+                        $_REQUEST['subject'],
+                        $_REQUEST['body'],
+                        $_REQUEST['priority'],
+                        $_REQUEST['replyto_hash']
+                    );
 					if ($prefs['feature_actionlog'] == 'y') {
 						if (isset($_REQUEST['reply']) && $_REQUEST['reply'] == 'y') {
 							$logslib->add_action('Replied', '', 'message', 'add=' . $tikilib->strlen_quoted($_REQUEST['body']));

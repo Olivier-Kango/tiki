@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -9,13 +10,13 @@ class Services_Encryption_ControllerTest extends PHPUnit\Framework\TestCase
 {
 	protected $subject;
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		global $prefs, $user;
 		$user = '';
 		$prefs['feature_user_encryption'] = 'y';
 
-		$perms = new Perms;
+		$perms = new Perms();
 		$perms->setResolverFactories(
 			[
 				new Perms_ResolverFactory_StaticFactory('root', new Perms_Resolver_Default(true)),
@@ -23,7 +24,7 @@ class Services_Encryption_ControllerTest extends PHPUnit\Framework\TestCase
 		);
 		Perms::set($perms);
 
-		$this->subject = new Services_Encryption_Controller;
+		$this->subject = new Services_Encryption_Controller();
 		$this->subject->setUp();
 	}
 
@@ -65,7 +66,7 @@ class Services_Encryption_ControllerTest extends PHPUnit\Framework\TestCase
 		$result = $this->subject->action_save_key($input);
 		$prefs = TikiLib::lib('tiki')->table('tiki_user_preferences')->fetchAll(
 			['user', 'value'],
-			['prefName' => 'pe.sk.'.$result['keyId']],
+			['prefName' => 'pe.sk.' . $result['keyId']],
 			-1,
 			-1,
 			'user'
@@ -82,10 +83,10 @@ class Services_Encryption_ControllerTest extends PHPUnit\Framework\TestCase
 
 	public function testEncryptSharedKeyAfterUserLogin()
 	{
-		$this->shareKeyWithUser(function($result) {
+		$this->shareKeyWithUser(function ($result) {
 			$prefs = TikiLib::lib('tiki')->table('tiki_user_preferences')->fetchAll(
 				['user', 'value'],
-				['prefName' => TikiLib::lib('tiki')->table('tiki_user_preferences')->expr('$$ LIKE ?', ['d%.sk.'.$result['keyId']])]
+				['prefName' => TikiLib::lib('tiki')->table('tiki_user_preferences')->expr('$$ LIKE ?', ['d%.sk.' . $result['keyId']])]
 			);
 			$this->assertEquals(1, count($prefs));
 			$this->assertEquals('user1', $prefs[0]['user']);
@@ -95,7 +96,7 @@ class Services_Encryption_ControllerTest extends PHPUnit\Framework\TestCase
 
 	public function testRetrieveSharedSecretStoredEncrypted()
 	{
-		$this->shareKeyWithUser(function($result) {
+		$this->shareKeyWithUser(function ($result) {
 			$share = $this->subject->action_get_share_for_key(new JitFilter(['keyId' => $result['keyId']]));
 			$this->assertEquals($result['shares'][0], $share);
 		});
@@ -103,7 +104,7 @@ class Services_Encryption_ControllerTest extends PHPUnit\Framework\TestCase
 
 	public function testRetrieveActualKeyStoredEncrypted()
 	{
-		$this->shareKeyWithUser(function($result) {
+		$this->shareKeyWithUser(function ($result) {
 			$key = $this->subject->action_decrypt_key(new JitFilter(['keyId' => $result['keyId']]));
 			$this->assertEquals($result['key'], $key);
 		});
@@ -111,7 +112,7 @@ class Services_Encryption_ControllerTest extends PHPUnit\Framework\TestCase
 
 	public function testFailDecryptionWhenMissingSharedKey()
 	{
-		$this->shareKeyWithUser(function($result) {
+		$this->shareKeyWithUser(function ($result) {
 			unset($_SESSION['cryptphrase']);
 			$this->expectException(Services_Exception_Denied::class);
 			$this->expectExceptionMessage('key not found');
@@ -121,7 +122,7 @@ class Services_Encryption_ControllerTest extends PHPUnit\Framework\TestCase
 
 	public function testDecryptWithSuppliedSharedKey()
 	{
-		$this->shareKeyWithUser(function($result) {
+		$this->shareKeyWithUser(function ($result) {
 			unset($_SESSION['cryptphrase']);
 			$key = $this->subject->action_decrypt_key(new JitFilter([
 				'keyId' => $result['keyId'],

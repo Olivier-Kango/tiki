@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -49,7 +50,8 @@ class JisonParser_Phraser_Handler extends JisonParser_Phraser
 
 		for ($i = 0, $end = count($this->indexes); $i < $end; $i++) {
 			if (empty($this->indexes[$i]['ended'])) {
-				if ($this->currentWord >= $this->indexes[$i]['start']
+				if (
+                    $this->currentWord >= $this->indexes[$i]['start']
 						&& $this->currentWord <= $this->indexes[$i]['end']
 				) {
 					$word = '<span class="phrase phrase' . $i . (! empty($this->cssClassMiddle) ? ' ' . $this->cssClassMiddle . ' ' . $this->cssClassMiddle . $i : '') . '" style="border: none;">' . $word . '</span>';

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -28,7 +29,7 @@ class Search_Formatter_Plugin_ReportTemplate implements Search_Formatter_Plugin_
 
 	public function getFields()
 	{
-		$parser = new WikiParser_PluginArgumentParser;
+		$parser = new WikiParser_PluginArgumentParser();
 
 		$fields = [];
 		foreach ($this->template as $match) {

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -35,8 +36,10 @@ class WikiPlugin_Helper
 			$availableGroups = explode(',', $prefs['groups']);
 			$validGroups = array_intersect($userGroups, $availableGroups);
 
-			if (($prefs['group_option'] == 'included' && empty($validGroups)) ||
-				($prefs['group_option'] == 'excluded' && ! empty($validGroups))) {
+			if (
+                ($prefs['group_option'] == 'included' && empty($validGroups)) ||
+				($prefs['group_option'] == 'excluded' && ! empty($validGroups))
+            ) {
 				return false;
 			}
 		}

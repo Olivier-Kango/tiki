@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -79,7 +80,7 @@ class Search_Elastic_BulkOperation
 	{
 		$index = [
 			'_index' => $index,
-			'_id' => $type.'-'.$id,
+			'_id' => $type . '-' . $id,
 		];
 		if (! empty($this->mapping_type)) {
 			$index['_type'] = $this->mapping_type;

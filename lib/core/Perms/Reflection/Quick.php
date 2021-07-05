@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -22,7 +23,7 @@ class Perms_Reflection_Quick
 
 	public function getPermissions(Perms_Reflection_PermissionSet $current, array $groupMap)
 	{
-		$out = new Perms_Reflection_PermissionSet;
+		$out = new Perms_Reflection_PermissionSet();
 
 		foreach ($groupMap as $group => $quick) {
 			$this->addPermissions($out, $current, $group, $quick);
@@ -88,8 +89,10 @@ class Perms_Reflection_Quick
 		foreach (array_keys($this->configured) as $name) {
 			$candidate = $this->getTypePermissions($name);
 
-			if (count(array_diff($candidate, $permissions)) == 0
-				&& count(array_diff($permissions, $candidate)) == 0 ) {
+			if (
+                count(array_diff($candidate, $permissions)) == 0
+				&& count(array_diff($permissions, $candidate)) == 0
+            ) {
 				return $name;
 			}
 		}

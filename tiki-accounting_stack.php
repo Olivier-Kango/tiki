@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -19,7 +21,7 @@
  *
  * Define the current section
  * @var string $section
- */ 
+ */
 
 $section = 'accounting';
 require_once('tiki-setup.php');
@@ -112,14 +114,16 @@ if (isset($_POST['action'])) {
 			}
 			$stackId = 0; //success means we can create a new entry
 		}
-	} elseif ($_POST['action'] == 'delete'
-		&& $access->checkCsrf(true))
-	{
+	} elseif (
+        $_POST['action'] == 'delete'
+		&& $access->checkCsrf(true)
+    ) {
 		$result = $accountinglib->stackDelete($bookId, $stackId);
 		$stackId = 0;
-	} elseif ($_POST['action'] == 'confirm'
-		&& $access->checkCsrf(true))
-	{
+	} elseif (
+        $_POST['action'] == 'confirm'
+		&& $access->checkCsrf(true)
+    ) {
 		$result = $accountinglib->stackConfirm($bookId, $stackId);
 		$stackId = 0;
 	} else {
@@ -177,7 +181,7 @@ if (is_array($result)) {
 		$smarty->assign('creditAmount', $creditAmount);
 		$smarty->assign('debitText', $debitText);
 		$smarty->assign('creditText', $creditText);
-		if (!empty($_POST['action'])) {
+		if (! empty($_POST['action'])) {
 			if ($_POST['action'] == 'book') {
 				Feedback::success(tr('Stack %0 successfully modified in book %1', $stackId, $book['bookName']));
 			} elseif ($_POST['action'] == 'delete') {
@@ -185,7 +189,7 @@ if (is_array($result)) {
 			}
 		}
 	} else {
-		if (!empty($_POST['action'])) {
+		if (! empty($_POST['action'])) {
 			if ($_POST['action'] == 'book') {
 				Feedback::success(tr('Stack %0 recorded in book %1', $result, $book['bookName']));
 			} elseif ($_POST['action'] == 'delete') {

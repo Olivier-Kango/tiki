@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -39,11 +41,12 @@ $tikilib->get_perm_object($_REQUEST['nlId'], 'newsletter');
 
 $access->check_permission('tiki_p_admin_newsletters');
 
-if (isset($_REQUEST['action'])
+if (
+    isset($_REQUEST['action'])
 	&& $_REQUEST['action'] === 'delsel_x'
 	&& isset($_REQUEST['checked'])
-	&& $access->checkCsrf(true))
-{
+	&& $access->checkCsrf(true)
+) {
 	$i = 0;
 	foreach ($_REQUEST['checked'] as $check) {
 		$result = $nllib->remove_newsletter_subscription_code($check);
@@ -60,7 +63,7 @@ if (isset($_REQUEST['action'])
 }
 
 $smarty->assign('nl_info', $info);
-if (isset($_REQUEST["remove"]) && $access->checkCsrf(true) ) {
+if (isset($_REQUEST["remove"]) && $access->checkCsrf(true)) {
 	$result = false;
 	if (isset($_REQUEST["email"])) {
 		$result = $nllib->remove_newsletter_subscription($_REQUEST["remove"], $_REQUEST["email"], "n");
@@ -152,7 +155,10 @@ if (isset($_REQUEST["add"]) && $access->checkCsrf()) {
 	}
 	if (isset($_REQUEST['group']) && $_REQUEST['group'] != "") {
 		$result = $nllib->add_group_users(
-			$_REQUEST["nlId"], $_REQUEST['group'], $confirmEmail, $addEmail
+			$_REQUEST["nlId"],
+            $_REQUEST['group'],
+            $confirmEmail,
+            $addEmail
 		);
 		if ($result) {
 			$successCount++;
@@ -172,10 +178,11 @@ if (isset($_REQUEST["add"]) && $access->checkCsrf()) {
 		Feedback::success(tr('Subscription added'));
 	}
 
-if (((isset($_REQUEST["addbatch"]) && isset($_FILES['batch_subscription']))
+if (
+    ((isset($_REQUEST["addbatch"]) && isset($_FILES['batch_subscription']))
 		|| (isset($_REQUEST['importPage']) && ! empty($_REQUEST['wikiPageName']))
-		|| (isset($_REQUEST['tracker']))) && $tiki_p_batch_subscribe_email == 'y' && $tiki_p_subscribe_email == 'y')
-{
+		|| (isset($_REQUEST['tracker']))) && $tiki_p_batch_subscribe_email == 'y' && $tiki_p_subscribe_email == 'y'
+) {
 	$success = '';
 	$error = '';
 	$successCount = 0;
@@ -244,9 +251,10 @@ if (isset($_REQUEST["addgroup"]) && isset($_REQUEST['group']) && $_REQUEST['grou
 	}
 }
 
-if (isset($_REQUEST["addincluded"]) && isset($_REQUEST['included']) && $_REQUEST['included'] != ""
-	&& $access->checkCsrf())
-{
+if (
+    isset($_REQUEST["addincluded"]) && isset($_REQUEST['included']) && $_REQUEST['included'] != ""
+	&& $access->checkCsrf()
+) {
 	$result = $nllib->add_included($_REQUEST["nlId"], $_REQUEST['included']);
 	if ($result) {
 		Feedback::success(tr('Subscribers added'));
@@ -264,8 +272,10 @@ if (isset($_REQUEST["addPage"]) && ! empty($_REQUEST['wikiPageName']) && $access
 	}
 }
 
-if (isset($_REQUEST["addPage"]) || isset($_REQUEST["addPage"]) || isset($_REQUEST["addincluded"]) ||
-		isset($_REQUEST["addgroup"]) || isset($_REQUEST["addbatch"]) || isset($_REQUEST["add"])) {
+if (
+    isset($_REQUEST["addPage"]) || isset($_REQUEST["addPage"]) || isset($_REQUEST["addincluded"]) ||
+		isset($_REQUEST["addgroup"]) || isset($_REQUEST["addbatch"]) || isset($_REQUEST["add"])
+) {
 	$cookietab = 1;
 }
 

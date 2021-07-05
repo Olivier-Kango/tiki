@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -190,8 +191,8 @@ function wikiplugin_mediaplayer($data, $params)
 		$access->check_feature('feature_jquery_media');
 	}
 	//checking if pdf generation request
-	if (in_array($params['type'], ['pdf']) && strstr($_GET['display'],'pdf')!='') {
-		return "<pdfpage>.<pdfinclude src='".TikiLib::lib('access')->absoluteUrl($params['src'])."' /></pdfpage>";
+	if (in_array($params['type'], ['pdf']) && strstr($_GET['display'], 'pdf') != '') {
+		return "<pdfpage>.<pdfinclude src='" . TikiLib::lib('access')->absoluteUrl($params['src']) . "' /></pdfpage>";
 	}
 	$defaults_mp3 = [
 		'width' => 200,
@@ -263,9 +264,11 @@ function wikiplugin_mediaplayer($data, $params)
 				continue;
 			}
 
-			if (is_numeric($value) == false &&
+			if (
+                is_numeric($value) == false &&
 				strtolower($value) != 'true' &&
-				strtolower($value) != 'false') {
+				strtolower($value) != 'false'
+            ) {
 				$value = "\"" . $value . "\"";
 			}
 
@@ -280,8 +283,8 @@ function wikiplugin_mediaplayer($data, $params)
 			} );";
 
 		if (in_array($params['type'], ['pdf', 'odt', 'ods', 'odp'])) {
-			if ($prefs['fgal_pdfjs_feature'] === 'n'){
-				return "<p>".tr('PDF.js feature is disabled. If you do not have permission to enable, ask the site administrator.')."</p>";
+			if ($prefs['fgal_pdfjs_feature'] === 'n') {
+				return "<p>" . tr('PDF.js feature is disabled. If you do not have permission to enable, ask the site administrator.') . "</p>";
 			}
 			if ($prefs['fgal_pdfjs_feature'] === 'y') {
 				$smarty = TikiLib::lib('smarty');

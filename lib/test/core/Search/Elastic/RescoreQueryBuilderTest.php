@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -20,7 +21,7 @@ class Search_Elastic_RescoreQueryBuilderTest extends PHPUnit\Framework\TestCase
 {
 	public function testSimpleQuery()
 	{
-		$builder = new QueryBuilder;
+		$builder = new QueryBuilder();
 
 		$query = $builder->build(new ExplicitPhrase('Hello', 'plaintext', 'contents', 1.5));
 
@@ -41,7 +42,7 @@ class Search_Elastic_RescoreQueryBuilderTest extends PHPUnit\Framework\TestCase
 
 	public function testQueryWithSinglePart()
 	{
-		$builder = new QueryBuilder;
+		$builder = new QueryBuilder();
 
 		$query = $builder->build(
 			new AndX(
@@ -63,7 +64,7 @@ class Search_Elastic_RescoreQueryBuilderTest extends PHPUnit\Framework\TestCase
 
 	public function testBuildImplicitQuery()
 	{
-		$builder = new QueryBuilder;
+		$builder = new QueryBuilder();
 
 		$query = $builder->build(
 			new ImplicitPhrase(
@@ -86,7 +87,7 @@ class Search_Elastic_RescoreQueryBuilderTest extends PHPUnit\Framework\TestCase
 
 	public function testBuildOrQuery()
 	{
-		$builder = new QueryBuilder;
+		$builder = new QueryBuilder();
 
 		$query = $builder->build(
 			new OrX(
@@ -112,7 +113,7 @@ class Search_Elastic_RescoreQueryBuilderTest extends PHPUnit\Framework\TestCase
 
 	public function testBuildAndQuery()
 	{
-		$builder = new QueryBuilder;
+		$builder = new QueryBuilder();
 
 		$query = $builder->build(
 			new AndX(
@@ -140,7 +141,7 @@ class Search_Elastic_RescoreQueryBuilderTest extends PHPUnit\Framework\TestCase
 
 	public function testBuildNotQuery()
 	{
-		$builder = new QueryBuilder;
+		$builder = new QueryBuilder();
 
 		$query = $builder->build(
 			new NotX(
@@ -157,7 +158,7 @@ class Search_Elastic_RescoreQueryBuilderTest extends PHPUnit\Framework\TestCase
 
 	public function testFilterWithIdentifier()
 	{
-		$builder = new QueryBuilder;
+		$builder = new QueryBuilder();
 
 		$query = $builder->build(new Token('Some entry', 'identifier', 'username', 1.5));
 
@@ -170,7 +171,7 @@ class Search_Elastic_RescoreQueryBuilderTest extends PHPUnit\Framework\TestCase
 
 	public function testRangeFilter()
 	{
-		$builder = new QueryBuilder;
+		$builder = new QueryBuilder();
 
 		$query = $builder->build(new Range('Hello', 'World', 'plaintext', 'title', 1.5));
 
@@ -183,7 +184,7 @@ class Search_Elastic_RescoreQueryBuilderTest extends PHPUnit\Framework\TestCase
 
 	public function testInitialMatchFilter()
 	{
-		$builder = new QueryBuilder;
+		$builder = new QueryBuilder();
 
 		$query = $builder->build(new Initial('Hello', 'plaintext', 'title', 1.5));
 
@@ -196,7 +197,7 @@ class Search_Elastic_RescoreQueryBuilderTest extends PHPUnit\Framework\TestCase
 
 	public function testMoreLikeThisQuery()
 	{
-		$builder = new QueryBuilder;
+		$builder = new QueryBuilder();
 		$builder->setDocumentReader(
 			function ($type, $object) {
 				return [

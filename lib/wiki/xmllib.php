@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -44,7 +45,7 @@ class XmlLib extends TikiLib
 			return false;
 		}
 
-		$this->zip = new ZipArchive;
+		$this->zip = new ZipArchive();
 
 		if (! $this->zip->open($zipFile, ZIPARCHIVE::CREATE | ZIPARCHIVE::OVERWRITE)) {
 			$this->errors[] = 'The file cannot be opened';
@@ -136,7 +137,8 @@ class XmlLib extends TikiLib
 		}
 		$images = [];
 
-		if ($prefs['feature_wiki_pictures'] == 'y'
+		if (
+            $prefs['feature_wiki_pictures'] == 'y'
 				&& $this->config['images']
 				&& preg_match_all('/\{img\s*\(?([^\}]+)\)?\s*\}/i', $info['data'], $matches)
 		) {
@@ -152,9 +154,7 @@ class XmlLib extends TikiLib
 						return false;
 					}
 				} elseif (! empty($args['src']) && preg_match('|show_image.php\?(.*)|', $args['src'], $m)) {
-
 					// TODO ImageGalleryRemoval23.x - replace with tiki.file.imageid fileId
-
 				} elseif (! empty($args['src']) && preg_match('|tiki-download_file.php\?(.*)|', $args['src'], $m)) {
 					if (($i = strpos($args['src'], 'tiki-download_file.php')) > 0) {
 						$path = $_SERVER['HTTP_HOST'] . $tikiroot . substr($args['src'], $i);
@@ -473,7 +473,7 @@ class XmlLib extends TikiLib
 		return true;
 	}
 }
-$xmllib = new XmlLib;
+$xmllib = new XmlLib();
 
 class page_Parser extends XML_Parser
 {

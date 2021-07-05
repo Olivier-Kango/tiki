@@ -42,7 +42,7 @@ class Search_Formatter_Transform_FieldPermissionEnforcer
 			}
 		}
 
-		if (!empty($entry['field_permissions'])) {
+		if (! empty($entry['field_permissions'])) {
 			$fieldPermissions = json_decode($entry['field_permissions'], true);
 			if (empty($fieldPermissions)) {
 				return $entry;

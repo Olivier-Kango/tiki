@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -51,9 +52,10 @@ foreach ($preferredLanguages as $l) {
 	}
 }
 
-if (array_key_exists('additional_languages', $_POST) && is_array($_POST['additional_languages'])
-	&& $access->checkCsrf())
-{
+if (
+    array_key_exists('additional_languages', $_POST) && is_array($_POST['additional_languages'])
+	&& $access->checkCsrf()
+) {
 	foreach ($_POST['additional_languages'] as $lang) {
 		if ($lang != $defaultLanguage) {
 			$usedLanguages[$lang] = true;

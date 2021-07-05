@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -258,19 +259,19 @@ function wikiplugin_slideshow_info()
 
 function wikiplugin_slideshow($data, $params)
 {
-	if(strstr($_SERVER['PHP_SELF'],'tiki-slideshow.php')=='') {
+	if (strstr($_SERVER['PHP_SELF'], 'tiki-slideshow.php') == '') {
 		if (strstr($_SERVER['PHP_SELF'], 'tiki-index.php')) {
 			return '<a class="btn btn-primary hidden-print" data-role="button" data-inline="true" title="Start Slideshow" href="./tiki-slideshow.php?page='
-				. $_REQUEST['page'] . '">'.tr('Start Slideshow Presentation').'</a>';
+				. $_REQUEST['page'] . '">' . tr('Start Slideshow Presentation') . '</a>';
 		}
 		return;
 	}
 
-	if(! empty($_REQUEST['pdf'])){
+	if (! empty($_REQUEST['pdf'])) {
 		global $pdfStyles;
-		if(isset($params['parallaxBackgroundImage'])) {
-			$pdfStyles='<style>@page,body,div.reveal{background-image-resize:0 !important;
-			background-image:url("'.$params['parallaxBackgroundImage'].'") !important;}</style>';
+		if (isset($params['parallaxBackgroundImage'])) {
+			$pdfStyles = '<style>@page,body,div.reveal{background-image-resize:0 !important;
+			background-image:url("' . $params['parallaxBackgroundImage'] . '") !important;}</style>';
 		}
 	}
     $defaults = [];
@@ -278,15 +279,15 @@ function wikiplugin_slideshow($data, $params)
     foreach ($plugininfo['params'] as $key => $param) {
         $defaults["$key"] = $param['default'];
         //separating digits filter parameters
-        if(isset($param['filter']) && $param['filter'] === "digits") {
-            $slideshowDigitsParams[]=$key;
+        if (isset($param['filter']) && $param['filter'] === "digits") {
+            $slideshowDigitsParams[] = $key;
         }
     }
     $params = array_merge($defaults, $params);
 
-    $revealParams=array('parallaxBackgroundImage','parallaxBackgroundSize','parallaxBackgroundHorizontal','parallaxBackgroundVertical','slideSeconds','transition','transitionSpeed','backgroundTransition','controls','controlsLayout','controlsBackArrows','progress','slideNumber','autoSlide','autoSlideStoppable');
+    $revealParams = array('parallaxBackgroundImage','parallaxBackgroundSize','parallaxBackgroundHorizontal','parallaxBackgroundVertical','slideSeconds','transition','transitionSpeed','backgroundTransition','controls','controlsLayout','controlsBackArrows','progress','slideNumber','autoSlide','autoSlideStoppable');
     $revealSettings = '';
-    foreach($revealParams as $revealParam) {
+    foreach ($revealParams as $revealParam) {
 		if (isset($params[$revealParam])) {
 			$revealSettings .= $revealParam . ":";
 			if (! in_array($revealParam, $slideshowDigitsParams)) {
@@ -296,16 +297,16 @@ function wikiplugin_slideshow($data, $params)
 			}
 		}
     }
-    $revealSettings =str_replace(array("'y'","'n'"),array("true","false"),$revealSettings);
-    $revealSettings.='viewDistance:3,display:"block",hash:true';
+    $revealSettings = str_replace(array("'y'","'n'"), array("true","false"), $revealSettings);
+    $revealSettings .= 'viewDistance:3,display:"block",hash:true';
 	$headerlib = TikiLib::lib('header');
-	if(!isset($_REQUEST['theme'])) {
-		$headerlib->add_cssfile('vendor_bundled/vendor/npm-asset/reveal.js/css/theme/'.$params['theme'].'.css',1);
+	if (! isset($_REQUEST['theme'])) {
+		$headerlib->add_cssfile('vendor_bundled/vendor/npm-asset/reveal.js/css/theme/' . $params['theme'] . '.css', 1);
 		$headerlib->add_js(
-			'$( "#showtheme" ).val( "'.$params['theme'].'" );'
+			'$( "#showtheme" ).val( "' . $params['theme'] . '" );'
 		);
 	}
-	if($params['alignImage']=='y'){
+	if ($params['alignImage'] == 'y') {
 		$headerlib->add_js('(function(){
 
 			var images = [];
@@ -337,9 +338,9 @@ function wikiplugin_slideshow($data, $params)
 		})()');
 	}
 	$headerlib->add_js(
-	"Reveal.configure({".$revealSettings."});
-	var fragments='".$params['fragments']."';
-	var fragmentClass='".$params['fragmentClass']."';
-	var fragmentHighlightColor='highlight-".$params['fragmentHighlightColor']."';"
+        "Reveal.configure({" . $revealSettings . "});
+	var fragments='" . $params['fragments'] . "';
+	var fragmentClass='" . $params['fragmentClass'] . "';
+	var fragmentHighlightColor='highlight-" . $params['fragmentHighlightColor'] . "';"
 	);
 }

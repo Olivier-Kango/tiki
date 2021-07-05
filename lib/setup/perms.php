@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -107,7 +108,7 @@ $allperms = $userlib->get_enabled_permissions();
 
 Perms_Context::setPermissionList($allperms);
 
-$builder = new Perms_Builder;
+$builder = new Perms_Builder();
 $perms = $builder
 	->withCategories($prefs['feature_categories'] == 'y')
 	->withDefinitions($allperms)

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -147,8 +148,10 @@ function wikiplugin_subscribenewsletter($data, $params)
 		} elseif (! $user && ! validate_email($_REQUEST['wpEmail'], $prefs['validateEmail'])) {
 			$wpError = tra('Invalid Email');
 			$subscribeEmail = $_REQUEST['wpEmail'];
-		} elseif (($user && $nllib->newsletter_subscribe($nlId, $user, 'y', 'n'))
-			|| (! $user && $nllib->newsletter_subscribe($nlId, $_REQUEST['wpEmail'], 'n', $info['validateAddr']))) {
+		} elseif (
+            ($user && $nllib->newsletter_subscribe($nlId, $user, 'y', 'n'))
+			|| (! $user && $nllib->newsletter_subscribe($nlId, $_REQUEST['wpEmail'], 'n', $info['validateAddr']))
+        ) {
 			$wpSubscribe = 'y';
 			$smarty->assign('subscribeThanks', empty($thanks) ? $data : $thanks);
 		} else {
@@ -159,7 +162,7 @@ function wikiplugin_subscribenewsletter($data, $params)
 	$smarty->assign_by_ref('wpError', $wpError);
 	$smarty->assign('subscribeEmail', $subscribeEmail);
 	$smarty->assign('subcribeMessage', empty($button) ? $data : $button);
-	$smarty->assign('inmodule', !empty($inmodule) ? "moduleSubscribeNL" : "");
+	$smarty->assign('inmodule', ! empty($inmodule) ? "moduleSubscribeNL" : "");
 	$smarty->assign_by_ref('subscribeInfo', $info);
 	$smarty->assign('useCaptcha', $useCaptcha);
 	$res = $smarty->fetch('wiki-plugins/wikiplugin_subscribenewsletter.tpl');

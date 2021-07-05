@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -22,7 +23,7 @@ class ItemTest extends TestCase
 
 	protected static $items = [];
 
-	public static function tearDownAfterClass() : void
+	public static function tearDownAfterClass(): void
 	{
 		$schedlib = TikiLib::lib('scheduler');
 

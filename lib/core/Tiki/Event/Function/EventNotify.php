@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -25,10 +26,9 @@ class Tiki_Event_Function_EventNotify extends Math_Formula_Function
 		$userpath = $this->evaluateChild($element[3]);
 
 		// set notification to group in one entry instead of one entry per user in the group
-		if ($userpath=="groupmember") {
+		if ($userpath == "groupmember") {
 			$monitorlib->directNotification($priority, 0, $event, $arguments);
-		}
-		else {
+		} else {
 			$users = $this->getUsers($userpath, $arguments);
 			/*goes through all returned users to send a direct notification*/
 			foreach ($users as $user) {

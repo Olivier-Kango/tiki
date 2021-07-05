@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -364,7 +365,7 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
 			->setRenderTransform(function ($value) {
 				return implode(';', $value);
 			})
-			->setParseIntoTransform(function (& $info, $value) use ($permName) {
+			->setParseIntoTransform(function (&$info, $value) use ($permName) {
 				$info['fields'][$permName] = $value;
 			});
 
@@ -389,7 +390,7 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
 				$labels = $this->getItemLabels($value, ['list_mode' => 'csv']);
 				return implode(';', $labels);
 			})
-			->setParseIntoTransform(function (& $info, $value) use ($permName) {
+			->setParseIntoTransform(function (&$info, $value) use ($permName) {
 				$info['fields'][$permName] = $value;
 			});
 
@@ -416,18 +417,21 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
 		$itemsThereLookup->setInit(
 			function ($count) use ($tiki_tracker_items, $trackerIdThere) {
 				return $tiki_tracker_items->fetchMap(
-					'itemId', 'status',
+					'itemId',
+                    'status',
 					[
 						'trackerId' => $trackerIdThere,
 					],
-					$count, 0
+					$count,
+                    0
 				);
 			}
 		);
 		$itemsThereLookup->setLookup(
 			function ($value) use ($tiki_tracker_items, $trackerIdThere) {
 				return $tiki_tracker_items->fetchOne(
-					'itemId', [
+					'itemId',
+                    [
 						'trackerId' => $trackerIdThere,
 						'itemId'    => $value,
 					]
@@ -437,7 +441,7 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
 
 		$attributelib = TikiLib::lib('attribute');
 		$unifiedsearchlib = TikiLib::lib('unifiedsearch');
-		$trackerUtilities = new Services_Tracker_Utilities;
+		$trackerUtilities = new Services_Tracker_Utilities();
 
 		$schema->addNew($permName, 'multi-json')
 			->setLabel($name)
@@ -481,22 +485,19 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
 				}
 			)
 			->setParseIntoTransform(
-				function (& $info, $value) use ($permName, $trackerUtilities, $trackerThere, $itemsThereLookup, $attributelib, $fieldThere, $schema) {
+				function (&$info, $value) use ($permName, $trackerUtilities, $trackerThere, $itemsThereLookup, $attributelib, $fieldThere, $schema) {
 					static $newItemsThereCreated = [];
 
 					$data = json_decode($value, true);
 
 					if ($data && is_array($data)) {
-
 						foreach ($data as $row) {
 							if (! empty($row['itemId'])) {
-
 								// check the old itemId as an attribute to avoid repeat imports
 								$attr = $attributelib->find_objects_with('tiki.trackeritem.olditemid', $row['itemId']);
 
 								// not done this time?
 								if (! isset($newItemsThereCreated[$row['itemId']])) {
-
 									if (! isset($row['created']) && ! empty($row['creation_date'])) {
 										$row['created'] = $row['creation_date'];	// convert from index to database field name
 									}
@@ -525,7 +526,6 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
 
 									// no item with this itemId and we didn't create it before? so let's make one!
 									if (! $itemsThereLookup->get($row['itemId']) && empty($attr)) {
-
 										// needs to be done after the new main item has been created
 										if (! isset($info['postprocess'])) {
 											$info['postprocess'] = [];
@@ -548,18 +548,18 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
 													'tiki.trackeritem.olditemid',
 													$itemData['itemId']
 												);
-
 											} else {
 												Feedback::error(
 													tr(
 														'Creating replacement linked item for itemId %0 for ItemsList field "%1" import failed on item #%2',
-														$itemData['itemId'], $this->getConfiguration('permName'), $this->getItemId()
+														$itemData['itemId'],
+                                                        $this->getConfiguration('permName'),
+                                                        $this->getItemId()
 													)
 												);
 											}
 										};
-
-									} else if ($itemsThereLookup->get($row['itemId'])) {    // linked item exists, so update it
+									} elseif ($itemsThereLookup->get($row['itemId'])) {    // linked item exists, so update it
 										$item = Tracker_Item::fromInfo($row);
 										$itemData = $item->getData();
 										$result = $trackerUtilities->updateItem($trackerThere, $itemData);
@@ -567,14 +567,14 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
 											Feedback::error(
 												tr(
 													'Updating linked item for itemId %0 for ItemsList field "%1" import failed on item #%2',
-													$itemData['itemId'], $this->getConfiguration('permName'), $this->getItemId()
+													$itemData['itemId'],
+                                                    $this->getConfiguration('permName'),
+                                                    $this->getItemId()
 												)
 											);
 										}
 									}
-
 								}
-
 							}
 						}
 					}
@@ -705,7 +705,8 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
 				$localValue = $trklib->get_item_value($trackerId, $localValue, $filterFieldIdThere);
 			}
 			// u = user selector, might be mulitple users so need to find multiple values
-			if ($filterFieldHere['type'] == 'u' && ! empty($filterFieldHere['options_map']['multiple'])
+			if (
+                $filterFieldHere['type'] == 'u' && ! empty($filterFieldHere['options_map']['multiple'])
 				&& $localValue
 			) {
 				if (! is_array($localValue)) {
@@ -798,7 +799,7 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
 	 */
 	public function getItemValues()
 	{
-		$cache_key = $this->getItemId().'-'.$this->getFieldId();
+		$cache_key = $this->getItemId() . '-' . $this->getFieldId();
 		if (isset(self::$itemValuesLocalCache[$cache_key])) {
 			return self::$itemValuesLocalCache[$cache_key];
 		}

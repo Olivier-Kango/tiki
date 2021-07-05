@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -9,7 +10,7 @@ class Math_Formula_RunnerTest extends TikiTestCase
 {
 	private $runner;
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		$this->runner = new Math_Formula_Runner(
 			[
@@ -29,7 +30,7 @@ class Math_Formula_RunnerTest extends TikiTestCase
 
 	public function testSimpleOperationPreparsed()
 	{
-		$parser = new Math_Formula_Parser;
+		$parser = new Math_Formula_Parser();
 		$element = $parser->parse('(mul (add 1 2) test)');
 
 		$this->runner->setFormula($element);

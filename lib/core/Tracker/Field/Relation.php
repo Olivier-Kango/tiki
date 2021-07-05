@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -128,7 +129,8 @@ class Tracker_Field_Relation extends Tracker_Field_Abstract
 		];
 	}
 
-	public function addValue($value) {
+	public function addValue($value)
+    {
 		$existing = explode("\n", $this->getValue());
 		if (! in_array($value, $existing)) {
 			$existing[] = $value;
@@ -136,9 +138,10 @@ class Tracker_Field_Relation extends Tracker_Field_Abstract
 		return implode("\n", $existing);
 	}
 
-	public function removeValue($value) {
+	public function removeValue($value)
+    {
 		$existing = explode("\n", $this->getValue());
-		$existing = array_filter($existing, function($v) use ($value) {
+		$existing = array_filter($existing, function ($v) use ($value) {
 			return $v != $value;
 		});
 		return implode("\n", $existing);
@@ -158,9 +161,11 @@ class Tracker_Field_Relation extends Tracker_Field_Abstract
 
 		$filter = $this->buildFilter();
 
-		if (isset($filter['tracker_id']) &&
+		if (
+            isset($filter['tracker_id']) &&
 				$this->getConfiguration('trackerId') == $filter['tracker_id'] &&
-				! isset($filter['object_id']) && $this->getItemId()) {
+				! isset($filter['object_id']) && $this->getItemId()
+        ) {
 			$filter['object_id'] = 'NOT ' . $this->getItemId();	// exclude this item if we are related to the same tracker_id
 		}
 
@@ -244,7 +249,7 @@ class Tracker_Field_Relation extends Tracker_Field_Abstract
 					continue;
 				}
 				$item = Tracker_Item::fromId($object);
-				if ($item && !$item->canView()) {
+				if ($item && ! $item->canView()) {
 					unset($relations[$key]);
 				}
 			}
@@ -375,7 +380,7 @@ class Tracker_Field_Relation extends Tracker_Field_Abstract
 
 		TikiLib::events()->bind('tiki.trackeritem.save', function ($args) use ($itemId, $target) {
 			if ($args['type'] == 'trackeritem' && $args['object'] == $itemId) {
-				$utilities = new Services_Tracker_Utilities;
+				$utilities = new Services_Tracker_Utilities();
 
 				foreach ($target as $key) {
 					if (in_array($key, self::$refreshedTargets)) {
@@ -518,15 +523,15 @@ class Tracker_Field_Relation extends Tracker_Field_Abstract
 		if ($mode !== 'formatting') {
 			foreach ($data['relations'] as $identifier) {
 				list($type, $object) = explode(':', $identifier);
-				if (isset($cache[$type.$object.$format])) {
+				if (isset($cache[$type . $object . $format])) {
 					// prevent circular-reference calls to objectlib->get_title method as getDocumentPart is used to populate the
 					// search results with field values which is called in get_title itself
 					// only happens for bi-directional tracker item relation
-					$labels[] = $cache[$type.$object.$format];
+					$labels[] = $cache[$type . $object . $format];
 					continue;
 				}
 				$label = $objectLib->get_title($type, $object, $format);
-				$cache[$type.$object.$format] = $label;
+				$cache[$type . $object . $format] = $label;
 				$labels[] = $label;
 			}
 		}
@@ -543,7 +548,7 @@ class Tracker_Field_Relation extends Tracker_Field_Abstract
 			$text .= $labels[$i];
 			if ($i === $count - 2) {
 				$text .= ' ' . tr('and') . ' ';
-			} else if ($i < $count - 1) {
+			} elseif ($i < $count - 1) {
 				$text .= ', ';
 			}
 		}
@@ -584,7 +589,7 @@ class Tracker_Field_Relation extends Tracker_Field_Abstract
 		$itemsValues = [];
 
 		$data = $this->getFieldData();
-		$objects = array_map(function($row) {
+		$objects = array_map(function ($row) {
 			list($object_type, $object_id) = explode(':', $row);
 			return compact('object_type', 'object_id');
 		}, $data['relations']);

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -35,7 +36,7 @@ class Multilingual_Aligner_BilingualAlignerTest extends TikiTestCase
 	//       created as above.
 	////////////////////////////////////////////////////////////////
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		$this->aligner = new Multilingual_Aligner_BilingualAligner();
 	}

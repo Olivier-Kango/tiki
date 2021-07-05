@@ -20,7 +20,7 @@ class Search_Elastic_PrefilterTest extends PHPUnit\Framework\TestCase
 	{
 		global $prefs;
 
-		foreach(static::$restorePrefs as $pref => $value) {
+		foreach (static::$restorePrefs as $pref => $value) {
 			$prefs[$pref] = $value;
 		}
 	}

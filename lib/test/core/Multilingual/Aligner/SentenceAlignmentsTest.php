@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -18,7 +19,7 @@ class Multilingual_Aligner_SentenceAlignmentsTest extends TikiTestCase
 		$this->fail("remember to reactivate all tests in SentenceAlignments");
 	}
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		$this->alignments = new Multilingual_Aligner_SentenceAlignments();
 	}

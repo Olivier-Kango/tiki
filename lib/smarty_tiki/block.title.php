@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -96,7 +97,7 @@ function smarty_block_title($params, $content, $template, &$repeat)
 		if ($tiki_p_admin == 'y' && $params['admpage'] != '') {
 			$html .= '<a class="tips btn btn-link" href="tiki-admin.php?page=' ;
 
-			$html .= $params['admpage'] . '#'. ($params['help']) .'" title="' . htmlspecialchars($content) . '|' . tra('Settings') . '">'
+			$html .= $params['admpage'] . '#' . ($params['help']) . '" title="' . htmlspecialchars($content) . '|' . tra('Settings') . '">'
 			. smarty_function_icon(['name' => 'settings'], $template)
 			. "</a>\n";
 		}

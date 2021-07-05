@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -36,8 +37,7 @@ class Services_Search_Controller
 
 		if ($input->getlaststats->int()) {
 			$stat = $prefs['unified_last_rebuild_stats'];
-
-		} else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+		} elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			// Apply 'Search index rebuild memory limit' setting if available
 			if (! empty($prefs['allocate_memory_unified_rebuild'])) {
 				$memory_limiter = new Tiki_MemoryLimit($prefs['allocate_memory_unified_rebuild']);
@@ -175,8 +175,8 @@ class Services_Search_Controller
 										$item[$key . "_names"] ??
 										$item[$key . "_text"] ??
 										implode(',', $item[$key]);
-								} elseif (!empty($item[$key.'_text'])) {
-									$value = $item[$key.'_text'];
+								} elseif (! empty($item[$key . '_text'])) {
+									$value = $item[$key . '_text'];
 								}
 								return $value;
 							}

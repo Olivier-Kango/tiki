@@ -1,4 +1,5 @@
 <?php
+
 # Portable PHP password hashing framework.
 # Modified by Steve Streeting to be compatible with phpBB3 hashes ($H$ instead of $P$)
 #

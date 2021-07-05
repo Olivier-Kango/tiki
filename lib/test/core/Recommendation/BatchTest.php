@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -16,7 +17,7 @@ class BatchTest extends TestCase implements Store\StoreInterface
 	private $storeCalls = [];
 	private $checkCallback;
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		$this->checkCallback = function ($input, $recomendation) {
 			return false;
@@ -25,7 +26,7 @@ class BatchTest extends TestCase implements Store\StoreInterface
 
 	public function testNoEngines()
 	{
-		$engineSet = new EngineSet;
+		$engineSet = new EngineSet();
 
 		$this->inputs = [new U('a'), new U('B')];
 		$batch = new BatchProcessor($this, $engineSet);
@@ -36,7 +37,7 @@ class BatchTest extends TestCase implements Store\StoreInterface
 
 	public function testNoInput()
 	{
-		$engineSet = new EngineSet;
+		$engineSet = new EngineSet();
 		$engineSet->register('test-a', new Engine\FakeEngine([
 			['type' => 'wiki page', 'object' => 'Content A'],
 			['type' => 'wiki page', 'object' => 'Content B'],
@@ -51,7 +52,7 @@ class BatchTest extends TestCase implements Store\StoreInterface
 
 	public function testNoRecommendations()
 	{
-		$engineSet = new EngineSet;
+		$engineSet = new EngineSet();
 		$engineSet->register('test-a', new Engine\FakeEngine([
 		]));
 
@@ -64,7 +65,7 @@ class BatchTest extends TestCase implements Store\StoreInterface
 
 	public function testProcessOne()
 	{
-		$engineSet = new EngineSet;
+		$engineSet = new EngineSet();
 		$engineSet->register('test-a', new Engine\FakeEngine([
 			['type' => 'wiki page', 'object' => 'Content A'],
 			['type' => 'wiki page', 'object' => 'Content B'],
@@ -90,7 +91,7 @@ class BatchTest extends TestCase implements Store\StoreInterface
 			return $i++ == 0;
 		};
 
-		$engineSet = new EngineSet;
+		$engineSet = new EngineSet();
 		$engineSet->register('test-a', new Engine\FakeEngine([
 			['type' => 'wiki page', 'object' => 'Content A'],
 			['type' => 'wiki page', 'object' => 'Content B'],
@@ -113,7 +114,7 @@ class BatchTest extends TestCase implements Store\StoreInterface
 
 	public function testBatchIgnoresDebugInformation()
 	{
-		$engineSet = new EngineSet;
+		$engineSet = new EngineSet();
 		$engineSet->register('test-a', new Engine\FakeEngine([
 			new Debug\SourceDocument('wiki page', 'Content A'),
 			['type' => 'wiki page', 'object' => 'Content B'],

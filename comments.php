@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -79,14 +81,14 @@ $comments_aux = [];
 if (isset($_REQUEST['comzone'])) {
 	$comments_show = 'n';
 	$comzone_state = $_REQUEST['comzone'];
-	if ($comzone_state == 'show'||$comzone_state == 'o') {
+	if ($comzone_state == 'show' || $comzone_state == 'o') {
 		$comments_show = 'y';
-		if (! isset($_COOKIE['comzone'])||$_COOKIE['comzone'] == 'c') {
+		if (! isset($_COOKIE['comzone']) || $_COOKIE['comzone'] == 'c') {
 			setcookie('comzone', 'o');
 		}
 	}
-	if ($comzone_state == 'hide'||$comzone_state == 'c') {
-		if (! isset($_COOKIE['comzone'])||$_COOKIE['comzone'] == 'o') {
+	if ($comzone_state == 'hide' || $comzone_state == 'c') {
+		if (! isset($_COOKIE['comzone']) || $_COOKIE['comzone'] == 'o') {
 			setcookie('comzone', 'c');
 		}
 	}
@@ -172,8 +174,10 @@ if (! isset($comments_objectId)) {
 
 $feedbacks = [];
 $errors = [];
-if (isset($_REQUEST['comments_objectId']) && $_REQUEST['comments_objectId'] == $comments_objectId
-	&& (isset($_REQUEST['comments_postComment']) || isset($_REQUEST['comments_postComment_anonymous']) )) {
+if (
+    isset($_REQUEST['comments_objectId']) && $_REQUEST['comments_objectId'] == $comments_objectId
+	&& (isset($_REQUEST['comments_postComment']) || isset($_REQUEST['comments_postComment_anonymous']) )
+) {
 	$forum_info = $commentslib->get_forum($_REQUEST['forumId']);
 	$threadId = $commentslib->post_in_forum($forum_info, $_REQUEST, $feedbacks, $errors);
 	if (! empty($threadId) && empty($errors)) {
@@ -421,10 +425,12 @@ $smarty->assign('comments_coms', $comments_coms["data"]);
 
 // Grab the parent comment to show.  -rlpowell
 $parent_com = '';
-if (isset($_REQUEST["comments_parentId"])
+if (
+    isset($_REQUEST["comments_parentId"])
 		&& $_REQUEST["comments_parentId"] > 0
 		&& $tiki_p_forum_post == 'y'
-		&& (isset($_REQUEST['comments_previewComment']) || isset($_REQUEST['post_reply']))) {
+		&& (isset($_REQUEST['comments_previewComment']) || isset($_REQUEST['post_reply']))
+) {
 	$parent_com = $commentslib->get_comment($_REQUEST['comments_parentId']);
 }
 $smarty->assign_by_ref('parent_com', $parent_com);

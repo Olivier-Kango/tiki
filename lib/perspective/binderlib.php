@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -115,7 +116,8 @@ class AreasLib extends CategLib
 						// guess the domain, as we would end up in an endless redirect loop
 						foreach ($perspectivelib->get_domain_map() as $domain => $persp) {
 							if (isset($_SERVER['HTTP_HOST']) && $domain == $_SERVER['HTTP_HOST']) {
-								if (! empty($prefs['multidomain_default_not_categorized'])
+								if (
+                                    ! empty($prefs['multidomain_default_not_categorized'])
 									&& ! in_array($prefs['multidomain_default_not_categorized'], array_keys($perspectivelib->get_domain_map()))
 								) {
 									$saveHttpHost = $_SERVER['HTTP_HOST'];

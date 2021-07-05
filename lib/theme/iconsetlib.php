@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -170,7 +171,7 @@ class Iconset
 			return [
 				'id' => $name,
 			];
-		} else if (preg_match('/-o[^A-z]*/', $name, $match) && isset($this->styles['outline'])) {
+		} elseif (preg_match('/-o[^A-z]*/', $name, $match) && isset($this->styles['outline'])) {
 			// keep support for outline style icons with -o in the name, e.g. thumbs-o-up
 			return [
 				'id' => preg_replace('/-o([^A-z]*)/', '$1', $name),
@@ -226,7 +227,7 @@ class Iconset
 		if ($icon = $this->getIcon($name)) {
 			$tag = isset($icon['tag']) ? $icon['tag'] : $this->tag;
 			$prepend = isset($icon['prepend']) ? $icon['prepend'] : (isset($this->styles[$style]['prepend']) ? $this->styles[$style]['prepend'] : $this->prepend);
-			$append  = isset($icon['append'])  ? $icon['append']  : (isset($this->styles[$style]['append'])  ? $this->styles[$style]['append']  : $this->append);
+			$append  = isset($icon['append']) ? $icon['append'] : (isset($this->styles[$style]['append']) ? $this->styles[$style]['append'] : $this->append);
 			$icon_class = isset($icon['class']) ? $icon['class'] : '';
 			$custom_class = isset($params['iclass']) ? $params->iclass->striptags() : '';
 			$title = isset($params['ititle']) ? 'title="' . $params->ititle->striptags() . '"' : '';

@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -22,9 +24,9 @@ if (isset($_REQUEST['user']) && isset($_REQUEST['pass']) && $access->checkCsrf()
 		$msg = tr('User %0 validated by the admin', htmlspecialchars($_REQUEST['user']));
 		Feedback::success($msg);
 		$redirect = '';
-		if (!empty($_SERVER['HTTP_REFERER'])) {
+		if (! empty($_SERVER['HTTP_REFERER'])) {
 			$referer = parse_url($_SERVER['HTTP_REFERER']);
-			if (!empty($referer['path'])) {
+			if (! empty($referer['path'])) {
 				$redirect = isset($referer['query']) ? $referer['path'] . '?' . $referer['query'] : $referer['path'];
 			}
 		}

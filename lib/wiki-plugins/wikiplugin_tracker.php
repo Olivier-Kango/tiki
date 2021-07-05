@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -773,7 +774,8 @@ function wikiplugin_tracker($data, $params)
 				tr('You need to choose transactionFinalStep (y/n).')
 			);
 		}
-		if ((empty($transactionPreviousURL) && ! empty($transactionPreviousLabel))
+		if (
+            (empty($transactionPreviousURL) && ! empty($transactionPreviousLabel))
 			|| (! empty($transactionPreviousURL)
 				&& empty($transactionPreviousLabel))
 		) {
@@ -791,11 +793,13 @@ function wikiplugin_tracker($data, $params)
 		if (! isset($_SESSION[$transactionName]['transactionStep'])) {
 			$_SESSION[$transactionName]['transactionStep'] = 0;
 		}
-		if (! empty($_REQUEST['itemId'])
+		if (
+            ! empty($_REQUEST['itemId'])
 			&& ! (isset($_REQUEST['ok'])
 				&& $thisIsThePlugin)
 		) {    // not if item has been saved
-			if (! empty($_SESSION[$transactionName]['itemId'])
+			if (
+                ! empty($_SESSION[$transactionName]['itemId'])
 				&& $_SESSION[$transactionName]['itemId'] != $_REQUEST['itemId']
 			) {
 				// changed itemId since last transaction edit - so clear session values
@@ -1032,8 +1036,10 @@ function wikiplugin_tracker($data, $params)
 			}
 			foreach ($definition->getFields() as $field) {
 				// User and group on autoassign create/modify
-				if (($user || $registration == 'y' || (isset($transactionName) && isset($_SESSION[$transactionName]) && isset($_SESSION[$transactionName]['registrationName'])))
-				   && ($field['type'] == 'u' || $field['type'] == 'g')) {
+				if (
+                    ($user || $registration == 'y' || (isset($transactionName) && isset($_SESSION[$transactionName]) && isset($_SESSION[$transactionName]['registrationName'])))
+                    && ($field['type'] == 'u' || $field['type'] == 'g')
+                ) {
 					$autoassign = $field['options_map']['autoassign'];
 					if ($autoassign == 1 || $autoassign == 2) {
 						if ($user) {
@@ -1183,9 +1189,9 @@ function wikiplugin_tracker($data, $params)
 						$_REQUEST["$fields_prefix$f"] = str_replace($matches[0], $_SESSION[$transactionName][$traStep]['request'][$traStepInsField], $autosavevalues[$i]);
 					} elseif ($ff['type'] == 'e') {
 						$_REQUEST["$fields_prefix$f"][] = $autosavevalues[$i];
-					} elseif ($ff['type'] == 't' && substr($autosavevalues[$i],0,7) == 'GENPASS') {
-						$passlength = substr($autosavevalues[$i],7);
-						if (!empty($passlength)) {
+					} elseif ($ff['type'] == 't' && substr($autosavevalues[$i], 0, 7) == 'GENPASS') {
+						$passlength = substr($autosavevalues[$i], 7);
+						if (! empty($passlength)) {
 							$tmppref = $prefs['min_pass_length'];
 							$prefs['min_pass_length'] = (int)$passlength;
 							$_REQUEST["$fields_prefix$f"] = $userlib->genPass();
@@ -1230,9 +1236,11 @@ function wikiplugin_tracker($data, $params)
 				$ins_fields["data"][] = ['fieldId' => $embeddedId, 'value' => $_REQUEST['page']];
 			}
 
-			if (isset($userField)
-			  && ( ($registration == 'y' && isset($_REQUEST['name']))
-				|| (isset($transactionName) && isset($_SESSION[$transactionName]) && isset($_SESSION[$transactionName]['registrationName'])) )) {
+			if (
+                isset($userField)
+                && ( ($registration == 'y' && isset($_REQUEST['name']))
+				|| (isset($transactionName) && isset($_SESSION[$transactionName]) && isset($_SESSION[$transactionName]['registrationName'])) )
+            ) {
 				$userFieldDef = $definition->getField($userField);
 				if (isset($_REQUEST['name'])) {
 					$userFieldDef['value'] = $_REQUEST['name'];
@@ -1322,12 +1330,14 @@ function wikiplugin_tracker($data, $params)
 					unset($outputtowiki);
 				}
 			}
-			if (count($field_errors['err_mandatory']) == 0  && count($field_errors['err_value']) == 0
+			if (
+                count($field_errors['err_mandatory']) == 0  && count($field_errors['err_value']) == 0
 				&& empty($field_errors['err_antibot']) && empty($field_errors['err_outputwiki'])
-				&& ! isset($_REQUEST['tr_preview'])) {
+				&& ! isset($_REQUEST['tr_preview'])
+            ) {
 				if (isset($_REQUEST['status'])) {
 					$status = $_REQUEST['status'];
-				} elseif (isset($newstatus) && ($newstatus == 'o' || $newstatus == 'c'|| $newstatus == 'p')) {
+				} elseif (isset($newstatus) && ($newstatus == 'o' || $newstatus == 'c' || $newstatus == 'p')) {
 					$status = $newstatus;
 				} elseif (empty($itemId) && isset($tracker['newItemStatus'])) {
 					$status = $tracker['newItemStatus'];
@@ -1796,8 +1806,10 @@ function wikiplugin_tracker($data, $params)
 				Feedback::error($msg);
 			}
 
-			if ($registration && ! empty($userField) && isset($_REQUEST['name'])
-				&& $_REQUEST['name'] === $userField['value'] && $_REQUEST['name'] === $user) {
+			if (
+                $registration && ! empty($userField) && isset($_REQUEST['name'])
+				&& $_REQUEST['name'] === $userField['value'] && $_REQUEST['name'] === $user
+            ) {
 				// if in registration and creating a user tracker item for the new user
 				// remove the user if they did not complete the tracker correctly
 				$userlib->remove_user($userField['value']);
@@ -2266,11 +2278,12 @@ FILL;
 
 		$smarty->assign('showmandatory', $showmandatory);
 
-		if ($prefs['feature_antibot'] == 'y' && empty($user)
+		if (
+            $prefs['feature_antibot'] == 'y' && empty($user)
 			&& (! isset($transactionStep) || $transactionStep == 0)
 			&& $params['formtag'] != 'n'
 			&& ($registration != 'y' || $prefs["user_register_prettytracker"] != 'y')
-			) {
+        ) {
 			// in_tracker session var checking is for tiki-register.php
 			$smarty->assign('antibot_table', empty($wiki) && empty($tpl) ? 'n' : 'y');
 			$captchalib = TikiLib::lib('captcha');

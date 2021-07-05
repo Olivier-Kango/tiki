@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -48,7 +49,7 @@ class EncryptionLib extends TikiDb_Bridge
 		$this->encryption_keys->delete(['keyId' => $keyId]);
 
 		$userPreferences = $this->table('tiki_user_preferences', false);
-		$userPreferences->deleteMultiple(['prefName' => $userPreferences->expr('$$ LIKE ?', ['%.sk.'.$keyId])]);
+		$userPreferences->deleteMultiple(['prefName' => $userPreferences->expr('$$ LIKE ?', ['%.sk.' . $keyId])]);
 
 		return true;
 	}

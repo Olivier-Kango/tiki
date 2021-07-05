@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -24,7 +25,7 @@ class DeclFilter implements \Laminas\Filter\FilterInterface
 	 */
 	public static function fromConfiguration(array $configuration, array $reject = [])
 	{
-		$filter = new self;
+		$filter = new self();
 
 		foreach ($configuration as $key => $list) {
 			if (is_array($list) && is_numeric($key)) {
@@ -32,9 +33,10 @@ class DeclFilter implements \Laminas\Filter\FilterInterface
 					$real = 'add' . ucfirst($method);
 
 					// Accept all methods beginning with 'add' except those that are disallowed
-					if (method_exists($filter, $real)
+					if (
+                        method_exists($filter, $real)
 						&& ! in_array($method, $reject)
-						) {
+                    ) {
 						$filter->$real($argument);
 					} else {
 						trigger_error('Disallowed filtering rule: ' . $method, E_USER_WARNING);

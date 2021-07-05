@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -86,7 +87,7 @@ class DevFixStyleCommand extends Command
 		}
 
 		$totalFiles = count($files);
-		$totalFiles --;						// We reduce by one to sync the numbers with the array key values
+		$totalFiles--;						// We reduce by one to sync the numbers with the array key values
 		$progress = new ProgressBar($output, count($files));
 		if ($output->getVerbosity() >= OutputInterface::VERBOSITY_VERBOSE) {
 			$progress->setOverwrite(false);
@@ -123,7 +124,7 @@ class DevFixStyleCommand extends Command
 		 *
 		 * @return int The processID of the process that has finished, 0 otherwise.
 		 */
-		$processHasFinished = static function (array &$processes) : int {
+		$processHasFinished = static function (array &$processes): int {
 			foreach ($processes as $processId => $process) {
 				if (! $process->isRunning()) {
 					return $processId;

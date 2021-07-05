@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -609,7 +610,7 @@ class CheckSchemaUpgrade
 		];
 		$GLOBALS['argv'] = $fakeArgv;
 
-		$dbdiff = new DBDiff\DBDiff;
+		$dbdiff = new DBDiff\DBDiff();
 
 		$errorLevel = error_reporting();
 		ob_start();
@@ -660,8 +661,10 @@ class CheckSchemaUpgrade
 			$parts,
 			function ($item) {
 				/** @noinspection SyntaxError */
-				if (strncmp($item, 'DELETE FROM `tiki_preferences`', 30) === 0
-					|| strncmp($item, 'INSERT INTO `tiki_preferences`', 30) === 0) {
+				if (
+                    strncmp($item, 'DELETE FROM `tiki_preferences`', 30) === 0
+					|| strncmp($item, 'INSERT INTO `tiki_preferences`', 30) === 0
+                ) {
 					return false;
 				}
 				return true;

@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -20,8 +22,10 @@ $accounts = $mailinlib->list_mailin_accounts(0, -1, 'account_asc', '');
 $smarty->assign('accounts', $accounts['data']);
 
 if (isset($_REQUEST['mailin_autocheck'])) {
-	if ($_REQUEST['mailin_autocheck'] == 'y' && ! (preg_match('/[0-9]+/', $_REQUEST['mailin_autocheckFreq'])
-			&& $_REQUEST['mailin_autocheckFreq'] > 0)) {
+	if (
+        $_REQUEST['mailin_autocheck'] == 'y' && ! (preg_match('/[0-9]+/', $_REQUEST['mailin_autocheckFreq'])
+			&& $_REQUEST['mailin_autocheckFreq'] > 0)
+    ) {
 		Feedback::warning(tra('Frequency should be a positive integer!'));
 	} else {
 		$tikilib->set_preference('mailin_autocheck', $_REQUEST['mailin_autocheck']);

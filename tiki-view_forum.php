@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -155,11 +157,13 @@ $comments_objectId = $comments_prefix_var . $_REQUEST["$comments_object_var"];
 // Process a post form here
 $smarty->assign('warning', 'n');
 
-if ($tiki_p_forum_post_topic == 'n'
+if (
+    $tiki_p_forum_post_topic == 'n'
 			&& isset($_REQUEST['comments_postComment'])
 			&& isset($_REQUEST['comments_title'])
 			&& $_REQUEST['forumId'] == $prefs['wiki_forum_id']
-			&& $tikilib->page_exists($_REQUEST['comments_title'])) {
+			&& $tikilib->page_exists($_REQUEST['comments_title'])
+) {
 	$tiki_p_forum_post_topic = 'y';
 }
 
@@ -218,7 +222,8 @@ if ($user) {
 }
 
 if (isset($_REQUEST['comments_remove']) && isset($_REQUEST['comments_threadId'])) {
-	if ($tiki_p_admin_forum == 'y'
+	if (
+        $tiki_p_admin_forum == 'y'
 			|| ($commentslib->user_can_edit_post($user, $_REQUEST['comments_threadId']) && $tiki_p_forum_post_topic == 'y')
 	) {
 		$access->check_authenticity(tra('Are you sure you want to remove that topic?'));
@@ -426,9 +431,11 @@ if ($tiki_p_admin_forum == 'y' || $prefs['feature_forum_quickjump'] == 'y') {
 	$temp_max = count($all_forums['data']);
 	for ($i = 0; $i < $temp_max; $i++) {
 		if ($userlib->object_has_one_permission($all_forums['data'][$i]['forumId'], 'forum')) {
-			if ($tiki_p_admin == 'y'
+			if (
+                $tiki_p_admin == 'y'
 						|| $userlib->object_has_permission($user, $all_forums['data'][$i]['forumId'], 'forum', 'tiki_p_admin_forum')
-						|| $userlib->object_has_permission($user, $all_forums['data'][$i]['forumId'], 'forum', 'tiki_p_forum_read')) {
+						|| $userlib->object_has_permission($user, $all_forums['data'][$i]['forumId'], 'forum', 'tiki_p_forum_read')
+            ) {
 				$all_forums['data'][$i]['can_read'] = 'y';
 			} else {
 				$all_forums['data'][$i]['can_read'] = 'n';

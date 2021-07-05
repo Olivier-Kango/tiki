@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -59,9 +61,11 @@ if (! empty($_REQUEST['show']) && $_REQUEST['show'] == 'view') {
 } elseif (! empty($_REQUEST['show']) && $_REQUEST['show'] == 'mod') {
 	$cookietab = '2';
 } elseif (empty($_REQUEST['cookietab'])) {
-	if ((isset($tracker_info['writerCanModify']) && $tracker_info['writerCanModify'] == 'y' && $user) or
+	if (
+        (isset($tracker_info['writerCanModify']) && $tracker_info['writerCanModify'] == 'y' && $user) or
 		(isset($tracker_info['userCanSeeOwn']) && $tracker_info['userCanSeeOwn'] == 'y' && $user) or
-		(isset($tracker_info['groupCanSeeOwn']) && $tracker_info['groupCanSeeOwn'] == 'y' && $user)) {
+		(isset($tracker_info['groupCanSeeOwn']) && $tracker_info['groupCanSeeOwn'] == 'y' && $user)
+    ) {
 		$cookietab = '1';
 	} elseif (! ($tiki_p_view_trackers == 'y' || $tiki_p_admin == 'y' || $tiki_p_admin_trackers == 'y') && $tiki_p_create_tracker_items == 'y') {
 		$cookietab = "2";
@@ -173,7 +177,7 @@ if (count($status_types) == 0) {
 $filterFields = ['isSearchable' => 'y', 'isTblVisible' => 'y', 'type' => ['q','u','g','I','C','n','j','f']];
 $sort_field = 0;
 if (! isset($_REQUEST["sort_mode"])) {
-	if (!empty($tracker_info['defaultOrderKey'])) {
+	if (! empty($tracker_info['defaultOrderKey'])) {
 		if ($tracker_info['defaultOrderKey'] == - 1) {
 			$sort_mode = 'lastModif';
 		} elseif ($tracker_info['defaultOrderKey'] == - 2) {
@@ -309,7 +313,6 @@ if (! empty($_REQUEST['remove'])) {
 	$smarty->loadPlugin('smarty_modifier_sefurl');
 	// redirect to the tracker item list of the last item deleted
 	$access->redirect(smarty_modifier_sefurl($item_info['trackerId'], 'tracker'));
-
 } elseif (isset($_REQUEST['batchaction']) and ($_REQUEST['batchaction'] == 'o' || $_REQUEST['batchaction'] == 'p' || $_REQUEST['batchaction'] == 'c')) {
 	check_ticket('view-trackers');
 	$transaction = $tikilib->begin();

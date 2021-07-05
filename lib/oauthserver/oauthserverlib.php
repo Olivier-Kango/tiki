@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -20,8 +21,8 @@ include __DIR__ . '/repositories/ScopeRepository.php';
 include __DIR__ . '/responsetypes/BearerTokenResponse.php';
 include __DIR__ . '/server/AuthorizationServer.php';
 
-use \League\OAuth2\Server\Grant\AuthCodeGrant;
-use \League\OAuth2\Server\Grant\ImplicitGrant;
+use League\OAuth2\Server\Grant\AuthCodeGrant;
+use League\OAuth2\Server\Grant\ImplicitGrant;
 
 class OAuthServerLib extends \TikiLib
 {

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -69,7 +70,7 @@ class Services_Diagram_Controller
 	{
 		$payload = [];
 
-		if (!empty($input->ticketsAmount->int())) {
+		if (! empty($input->ticketsAmount->int())) {
 			$payload['new_tickets'] = [];
 			$accesslib = TikiLib::lib('access');
 

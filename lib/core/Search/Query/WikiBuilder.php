@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -366,7 +367,7 @@ class Search_Query_WikiBuilder
 			} else {
 				Feedback::error(tr('The similar filter object reference not parsed: %0', $arguments['similar']));
 			}
-		} else if (empty($arguments['similar']) || $arguments['similar'] === 'this') {
+		} elseif (empty($arguments['similar']) || $arguments['similar'] === 'this') {
 			$object = current_object();
 		}
 
@@ -411,8 +412,8 @@ class Search_Query_WikiBuilder
 		} elseif ($value === 'script') {
 			if (isset($arguments['source'])) {
 				$arguments['order'] = isset($arguments['order']) ? $arguments['order'] : 'asc';
-				$arguments['lang']  = isset($arguments['lang']) ? $arguments['lang']  : 'painless';
-				$arguments['type']  = isset($arguments['type']) ? $arguments['type']  : 'number';
+				$arguments['lang']  = isset($arguments['lang']) ? $arguments['lang'] : 'painless';
+				$arguments['type']  = isset($arguments['type']) ? $arguments['type'] : 'number';
 
 				unset($arguments['mode']);
 
@@ -472,7 +473,7 @@ class Search_Query_WikiBuilder
 		}
 		foreach ($indices as $indexName => $index) {
 			$foreignQuery = clone $query;
-			if ($indexFilter && !in_array($indexName, $indexFilter)) {
+			if ($indexFilter && ! in_array($indexName, $indexFilter)) {
 				continue;
 			}
 			foreach ($index->getTransformations() as $trans) {

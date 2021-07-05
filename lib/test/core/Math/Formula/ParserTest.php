@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -9,7 +10,7 @@ class Math_Formula_ParserTest extends TikiTestCase
 {
 	public function testEmptyElement()
 	{
-		$parser = new Math_Formula_Parser;
+		$parser = new Math_Formula_Parser();
 
 		$element = new Math_Formula_Element('score');
 
@@ -18,7 +19,7 @@ class Math_Formula_ParserTest extends TikiTestCase
 
 	public function testWithArguments()
 	{
-		$parser = new Math_Formula_Parser;
+		$parser = new Math_Formula_Parser();
 
 		$element = new Math_Formula_Element('object', ['input-type', 'input-object-id']);
 		$this->assertEquals($element, $parser->parse('(object input-type input-object-id)'));
@@ -26,7 +27,7 @@ class Math_Formula_ParserTest extends TikiTestCase
 
 	public function testNesting()
 	{
-		$parser = new Math_Formula_Parser;
+		$parser = new Math_Formula_Parser();
 
 		$element = new Math_Formula_Element(
 			'score',
@@ -38,7 +39,7 @@ class Math_Formula_ParserTest extends TikiTestCase
 
 	public function testMultipleElements()
 	{
-		$parser = new Math_Formula_Parser;
+		$parser = new Math_Formula_Parser();
 
 		$element = new Math_Formula_Element(
 			'score',
@@ -53,7 +54,7 @@ class Math_Formula_ParserTest extends TikiTestCase
 
 	public function testMultipleNesting()
 	{
-		$parser = new Math_Formula_Parser;
+		$parser = new Math_Formula_Parser();
 
 		$element = new Math_Formula_Element(
 			'score',
@@ -82,13 +83,13 @@ class Math_Formula_ParserTest extends TikiTestCase
 )
 DOC;
 
-		$parser = new Math_Formula_Parser;
+		$parser = new Math_Formula_Parser();
 		$this->assertEquals($parser->parse($equivalent), $parser->parse($documented));
 	}
 
 	public function testWithString()
 	{
-		$parser = new Math_Formula_Parser;
+		$parser = new Math_Formula_Parser();
 
 		$element = new Math_Formula_Element(
 			'score',
@@ -109,7 +110,7 @@ DOC;
 
 	public function testWithZero()
 	{
-		$parser = new Math_Formula_Parser;
+		$parser = new Math_Formula_Parser();
 		$element = new Math_Formula_Element(
 			'add',
 			[
@@ -149,7 +150,7 @@ DOC;
 	public function testBadParse($string)
 	{
 		$this->expectException(Math_Formula_Parser_Exception::class);
-		$parser = new Math_Formula_Parser;
+		$parser = new Math_Formula_Parser();
 
 		$parser->parse($string);
 	}

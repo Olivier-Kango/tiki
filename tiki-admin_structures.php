@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -53,7 +55,7 @@ if ($tiki_p_edit_structures == 'y') {
 	if (isset($_REQUEST['zip']) && $tiki_p_admin == 'y') {
 		check_ticket('admin-structures');
 		include_once('lib/wiki/xmllib.php');
-		$xmllib = new XmlLib;
+		$xmllib = new XmlLib();
 		$zipFile = 'dump/xml.zip';
 		$config['debug'] = false;
 		if ($xmllib->export_pages(null, $_REQUEST['zip'], $zipFile, $config)) {

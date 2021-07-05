@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -120,9 +121,9 @@ function wikiplugin_layout_info()
 				'default'     => 'n',
 				'since'       => '19.0',
 				'options'     => [
-					['text' => 'repeat', 'value' =>'repeat'],
-					['text' => 'cover', 'value' =>'cover'],
-					['text' => 'no repeat ', 'value' =>'norepeat'],
+					['text' => 'repeat', 'value' => 'repeat'],
+					['text' => 'cover', 'value' => 'cover'],
+					['text' => 'no repeat ', 'value' => 'norepeat'],
 				],
 			],
 
@@ -343,15 +344,18 @@ function wikiplugin_layout($data, $params)
 	}
 
 	if (isset($params['bgimage'])) {
-		$backgroundOption="background-size:cover";
-		if($params['bgrepeat']){
-			if($params['bgrepeat']=="repeat"){$backgroundOption="background-repeat:repeat";}
-			elseif($params['bgrepeat']=="norepeat"){$backgroundOption="background-repeat:no-repeat;background-position:center center;";}
+		$backgroundOption = "background-size:cover";
+		if ($params['bgrepeat']) {
+			if ($params['bgrepeat'] == "repeat") {
+$backgroundOption = "background-repeat:repeat";
+            } elseif ($params['bgrepeat'] == "norepeat") {
+$backgroundOption = "background-repeat:no-repeat;background-position:center center;";
+            }
 		}
 
 		$headerlib->add_css(
 			"body{background-image:  url(" . $params["bgimage"]
-			. ");".$backgroundOption."}"
+			. ");" . $backgroundOption . "}"
 		);
 	}
 	if ($params['fullwidth'] == 'y') {
@@ -359,15 +363,15 @@ function wikiplugin_layout($data, $params)
 			'$(".container.container-std").addClass("container-fluid").removeClass("container");'
 		);
 	}
-	if (isset($params['contentwidth'])
+	if (
+        isset($params['contentwidth'])
 		|| isset($params['topmargin']) || isset($params['contentradius']) || isset($params['contentboxshadow'])
 	) {
 		$headerlib->add_css(
 			"#row-middle{width:" . $params["contentwidth"]
 			. " !important;margin:auto;margin-top:" . $params['topmargin']
-			. ";min-width:380px;border-radius:".$params['contentradius'].";box-shadow:".$params['contentboxshadow']."} #col1{min-width:380px;margin:auto}"
+			. ";min-width:380px;border-radius:" . $params['contentradius'] . ";box-shadow:" . $params['contentboxshadow'] . "} #col1{min-width:380px;margin:auto}"
 		);
-
 	}
 	if (isset($params['headerwidth'])) {
 		$headerlib->add_css(
@@ -417,7 +421,7 @@ function wikiplugin_layout($data, $params)
 			'.bgdiv{ 
 			background-image: url(' . $defaultImage . ');
 			transition: background 1s linear;
-			background-color:'.$params["bgcolor"].';
+			background-color:' . $params["bgcolor"] . ';
 			height: 100%; 
 			min-height: 100%; 
 			position: absolute; 
@@ -427,7 +431,7 @@ function wikiplugin_layout($data, $params)
 			width:100%; 
 			z-index:-100; 
 		 }
-		 body{background-image:url('.$defaultImage.')}'
+		 body{background-image:url(' . $defaultImage . ')}'
 		);
 		$headerlib->add_js(
 			'var bgDiv=new Array();

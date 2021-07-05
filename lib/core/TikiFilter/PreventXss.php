@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -148,12 +149,13 @@ class TikiFilter_PreventXss implements Laminas\Filter\FilterInterface
 		}
 
 		// keep replacing as long as the previous round replaced something
-		while ($this->RemoveXSSchars($val)
+		while (
+            $this->RemoveXSSchars($val)
 			|| $this->RemoveXSSregexp($ra_as_tag_only, $val, '(\<|\[\\\\xC0\]\[\\\\xBC\])\??')
 			|| $this->RemoveXSSregexp($ra_as_attribute, $val, '[\s\/"\']')
 			|| $this->RemoveXSSregexp($ra_as_content, $val, '[\.\\\\+\*\?\[\^\]\$\(\)\{\}\=\!\<\|\:;\-\/`#"\']', '(?!\s*[a-z0-9])', true)
 			|| $this->RemoveXSSregexp($ra_javascript, $val, '', ':', true)
-	///		|| RemoveXSSregexp($ra_style, $val, '[^a-z0-9]', '=') // Commented as it has been considered as a bit too aggressive
+            ///		|| RemoveXSSregexp($ra_style, $val, '[^a-z0-9]', '=') // Commented as it has been considered as a bit too aggressive
 		) {
 		}
 

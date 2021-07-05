@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -65,7 +66,7 @@ class RecentChanges extends ObjectWriter
 			'lastModif_asc'
 		);
 
-		$queue = new \Tiki_Profile_Writer_Queue;
+		$queue = new \Tiki_Profile_Writer_Queue();
 		foreach ($actions as $action) {
 			$queue->add($action);
 		}
@@ -81,7 +82,7 @@ class RecentChanges extends ObjectWriter
 		}
 
 		$queue->filterIncluded($writer);
-		$queue->filterInstalled(new \Tiki_Profile_Writer_ProfileFinder);
+		$queue->filterInstalled(new \Tiki_Profile_Writer_ProfileFinder());
 
 		$output->writeln((string) $queue);
 	}

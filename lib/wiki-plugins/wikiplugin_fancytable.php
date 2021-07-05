@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -9,7 +10,7 @@ function wikiplugin_fancytable_info()
 {
 	$tsOn = Table_Check::isEnabled();
 	if ($tsOn === true) {
-		$ts = new Table_Plugin;
+		$ts = new Table_Plugin();
 		$ts->createParams();
 		$tsparams = $ts->params;
 		unset($tsparams['server']);
@@ -124,7 +125,7 @@ function wikiplugin_fancytable($data, $params)
 
 	if ((isset($sortable) && $sortable != 'n')) {
 		if (Table_Check::isEnabled()) {
-			$ts = new Table_Plugin;
+			$ts = new Table_Plugin();
 			$ts->setSettings(
 				'wpfancytable' . $iFancytable,
 				'n',
@@ -473,8 +474,10 @@ function postprocess_section(&$data, &$tagremove, &$pluginremove)
 {
 	//first restore tag strings
 	$parserlib = TikiLib::lib('parser');
-	if (isset($tagremove['key']) and count($tagremove['key'])
-		and count($tagremove['key']) == count($tagremove['data'])) {
+	if (
+        isset($tagremove['key']) and count($tagremove['key'])
+		and count($tagremove['key']) == count($tagremove['data'])
+    ) {
 		$data = str_replace($tagremove['key'], $tagremove['data'], $data);
 	}
 	//then restore plugin strings

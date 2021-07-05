@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -253,10 +254,11 @@ class ModLib extends TikiLib
 			$section_initial = $section_map[$zone];
 			foreach ($contents as $index => $moduleId) {
 				if ($moduleId) {
-					if ($all_modules[$zone][$index]['moduleId'] != $moduleId
+					if (
+                        $all_modules[$zone][$index]['moduleId'] != $moduleId
 						|| ($all_modules[$zone][$index]['ord'] != $index + 1
-						|| $all_modules[$zone][$index]['position'] != $section_initial))
-					{
+						|| $all_modules[$zone][$index]['position'] != $section_initial)
+                    ) {
 						$bindvars = [
 							$index + 1,
 							$section_initial,
@@ -381,8 +383,10 @@ class ModLib extends TikiLib
 			$user_groups = [ 'Anonymous' ];
 		}
 		$pass = 'y';
-		if ($tiki_p_admin == 'y' && $prefs['modhideanonadmin'] == 'y' && $module_info['groups'] == serialize(['Anonymous']) &&
-				strpos($_SERVER["SCRIPT_NAME"], 'tiki-admin_modules.php') === false) {
+		if (
+            $tiki_p_admin == 'y' && $prefs['modhideanonadmin'] == 'y' && $module_info['groups'] == serialize(['Anonymous']) &&
+				strpos($_SERVER["SCRIPT_NAME"], 'tiki-admin_modules.php') === false
+        ) {
 			$pass = 'n';
 		} elseif ($tiki_p_admin != 'y' && $prefs['modallgroups'] != 'y') {
 			if ($module_info['groups']) {
@@ -773,12 +777,14 @@ class ModLib extends TikiLib
 
 		if (! empty($prefs['module_file'])) {
 			$out = array_merge($out, $this->read_module_file($prefs['module_file']));
-		} elseif ($prefs['user_assigned_modules'] == 'y'
+		} elseif (
+            $prefs['user_assigned_modules'] == 'y'
 			//need to use Perms class instead of $tiki_p_configure_modules global as the global is null
 			//for some reason when feature_modulecontrols is not set
 			&& Perms::get()->configure_modules
 			&& $user
-			&& $usermoduleslib->user_has_assigned_modules($user) ) {
+			&& $usermoduleslib->user_has_assigned_modules($user)
+        ) {
 			foreach ($module_zones as $zone => $zone_name) {
 				$out[$zone_name] = $usermoduleslib->get_assigned_modules_user($user, $zone);
 			}
@@ -1141,8 +1147,10 @@ class ModLib extends TikiLib
 
 				$tpl_module_style = empty($mod_reference['module_style']) ? '' : $mod_reference['module_style'];
 
-				if ($tiki_p_admin == 'y' && $this->is_admin_mode() && (! $this->filter_active_module($mod_reference) ||
-							$prefs['modhideanonadmin'] == 'y' && (empty($mod_reference['groups']) || $mod_reference['groups'] == serialize(['Anonymous'])))) {
+				if (
+                    $tiki_p_admin == 'y' && $this->is_admin_mode() && (! $this->filter_active_module($mod_reference) ||
+							$prefs['modhideanonadmin'] == 'y' && (empty($mod_reference['groups']) || $mod_reference['groups'] == serialize(['Anonymous'])))
+                ) {
 					$tpl_module_style .= 'opacity: 0.5;';
 				}
 				if (isset($module_params['overflow']) && $module_params['overflow'] === 'y') {
@@ -1311,7 +1319,7 @@ class ModLib extends TikiLib
 	 * @param $input
 	 * @param $params
 	 */
-	public function dispatchValues($input, & $params)
+	public function dispatchValues($input, &$params)
 	{
 		if (is_string($input)) {
 			parse_str($input, $module_params);

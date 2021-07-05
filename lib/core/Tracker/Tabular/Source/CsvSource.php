@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -14,7 +15,7 @@ class CsvSource implements SourceInterface
 
 	public function __construct(\Tracker\Tabular\Schema $schema, $fileName, $delimiter = ',')
 	{
-		ini_set('auto_detect_line_endings',true);
+		ini_set('auto_detect_line_endings', true);
 		$this->schema = $schema->getPlainOutputSchema();
 		$this->file = new \SplFileObject($fileName, 'r');
 		$this->file->setCsvControl($delimiter);

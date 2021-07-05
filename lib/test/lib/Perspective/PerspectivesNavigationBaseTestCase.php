@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -27,7 +28,7 @@ class PerspectivesNavigationBaseTestCase extends TestCase
 	 */
 	public const FIXTURE_SITE = 'tiki-a.localdomain';
 
-	public static function setUpBeforeClass() : void
+	public static function setUpBeforeClass(): void
 	{
 		if (! getenv('TIKI_TEST_HOST') || ! getenv('TIKI_TEST_HOST_A') || ! getenv('TIKI_TEST_HOST_B')) {
 			self::markTestSkipped(

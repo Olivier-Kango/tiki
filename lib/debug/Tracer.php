@@ -1,4 +1,5 @@
 <?php
+
   //
   // Simple class for printing traces to a file.
   //
@@ -56,8 +57,10 @@ class Tracer
 
 	public function trace($trace_id, $message)
 	{
-		if ($this->traces_are_on && $this->trace_file_path != null &&
-			in_array($trace_id, $this->tiki_trace_active_ids)) {
+		if (
+            $this->traces_are_on && $this->trace_file_path != null &&
+			in_array($trace_id, $this->tiki_trace_active_ids)
+        ) {
 			file_put_contents($this->trace_file_path, "-- $trace_id: $message\n", FILE_APPEND);
 		}
 	}

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -93,8 +94,8 @@ class Tiki_Profile_InstallHandler_Tracker extends Tiki_Profile_InstallHandler
 	{
 		// Also used by TrackerOption
 		return [
-			'restrict_start' => new Tiki_Profile_DateConverter,
-			'restrict_end' => new Tiki_Profile_DateConverter,
+			'restrict_start' => new Tiki_Profile_DateConverter(),
+			'restrict_end' => new Tiki_Profile_DateConverter(),
 			'sort_default_field' => new Tiki_Profile_ValueMapConverter([ 'modification' => -1, 'creation' => -2, 'item' => -3 ]),
 			'list_default_status' => new Tiki_Profile_ValueMapConverter([ 'open' => 'o', 'pending' => 'p', 'closed' => 'c' ]),
 			'default_status' => new Tiki_Profile_ValueMapConverter([ 'open' => 'o', 'pending' => 'p', 'closed' => 'c' ]),

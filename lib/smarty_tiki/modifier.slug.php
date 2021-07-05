@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -47,10 +48,12 @@ function smarty_modifier_slug($string, $length = 70, $mixedCase = false, $breakW
 	$slugManager = TikiLib::lib('slugmanager');
 	// when used as a modifier in a smarty template (e.g. {$row.title|slug})
 	// we don't want the -2 at the end if a wiki page also exists, so disable the validator fn
-	$slugManager->setValidationCallback(function () {return false;});
+	$slugManager->setValidationCallback(function () {
+return false;
+    });
 	$str = $slugManager->generate($prefs['wiki_url_scheme'], $string, $asciiOnly);
 
-	if (!$asciiOnly) {
+	if (! $asciiOnly) {
 		$str = urlencode($str);
 	}
 	return $str;

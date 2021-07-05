@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -309,9 +310,11 @@ LIMIT 1;';
 		}
 
 		foreach ($fileIndex as $file) {
-			if ($file[0] == $chrnum &&       // first qualify the options
+			if (
+                $file[0] == $chrnum &&       // first qualify the options
 				$file[1] == $special &&
-				$file[2] <= $length ) {
+				$file[2] <= $length
+            ) {
 				$count = 2;
 				while ($count < 5) {         // then pick the best option
 					if ($file[$count] >= $bestFile[$count]) {

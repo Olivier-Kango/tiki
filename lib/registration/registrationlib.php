@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -242,7 +243,8 @@ class RegistrationLib extends TikiLib
 
 			// VALIDATE NAME HERE
 			$n = strtolower($registration['name']);
-			if ($n == 'admin'
+			if (
+                $n == 'admin'
 					|| $n == 'anonymous'
 					|| $n == 'registered'
 					|| $n == strtolower(tra('Anonymous'))
@@ -293,10 +295,11 @@ class RegistrationLib extends TikiLib
 				}
 			}
 
-			if (count($this->merged_prefs['choosable_groups']) > 0
+			if (
+                count($this->merged_prefs['choosable_groups']) > 0
 					&& $this->merged_prefs['mandatoryChoiceGroups']
-					&& (empty($registration['chosenGroup']) ||
-						$userlib->get_registrationChoice($registration['chosenGroup']) !== 'y')
+					&& (empty($registration['chosenGroup'])
+						|| $userlib->get_registrationChoice($registration['chosenGroup']) !== 'y')
 			) {
 				$errors[] = new RegistrationError('chosenGroup', tra('You must choose a group'));
 			}
@@ -345,7 +348,8 @@ class RegistrationLib extends TikiLib
 			}
 		}
 
-		if ($this->merged_prefs['validateUsers'] == 'y'
+		if (
+            $this->merged_prefs['validateUsers'] == 'y'
 				|| (isset($this->merged_prefs['validateRegistration'])
 						&& $this->merged_prefs['validateRegistration'] == 'y')
 		) {

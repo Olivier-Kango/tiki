@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -16,12 +17,12 @@ class EmailTest extends TestCase
 {
 	protected static $objects = [];
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		$_SERVER["SERVER_NAME"] = 'test.example.org';
 	}
 
-	public static function tearDownAfterClass() : void
+	public static function tearDownAfterClass(): void
 	{
 		$commentslib = TikiLib::lib('comments');
 		foreach (self::$objects['comments'] as $commentId) {

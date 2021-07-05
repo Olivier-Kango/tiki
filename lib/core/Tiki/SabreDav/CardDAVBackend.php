@@ -10,7 +10,6 @@ namespace Tiki\SabreDav;
 
 use Sabre\CardDAV;
 use Sabre\DAV;
-
 use TikiLib;
 use Perms;
 
@@ -46,7 +45,7 @@ class CardDAVBackend extends CardDAV\Backend\AbstractBackend
         $addressBookTypes = AddressBookType\Factory::all($user);
 
         foreach ($addressBookTypes as $abt) {
-            if (!$abt->isEnabled()) {
+            if (! $abt->isEnabled()) {
                 continue;
             }
             foreach ($abt->getAddressBooks() as $ab) {
@@ -77,13 +76,13 @@ class CardDAVBackend extends CardDAV\Backend\AbstractBackend
         global $user;
         $addressBook = AddressBookType\Factory::fromId($addressBookId, $user);
 
-        if (! $addressBook instanceOf AddressBookType\Custom) {
+        if (! $addressBook instanceof AddressBookType\Custom) {
             throw new DAV\Exception\Forbidden("Address book properties are read-only.");
         }
 
         $supportedProperties = [
             '{DAV:}displayname',
-            '{'.CardDAV\Plugin::NS_CARDDAV.'}addressbook-description',
+            '{' . CardDAV\Plugin::NS_CARDDAV . '}addressbook-description',
         ];
 
         $propPatch->handle($supportedProperties, function ($mutations) use ($addressBookId) {
@@ -93,7 +92,7 @@ class CardDAVBackend extends CardDAV\Backend\AbstractBackend
                     case '{DAV:}displayname':
                         $updates['name'] = $newValue;
                         break;
-                    case '{'.CardDAV\Plugin::NS_CARDDAV.'}addressbook-description':
+                    case '{' . CardDAV\Plugin::NS_CARDDAV . '}addressbook-description':
                         $updates['description'] = $newValue;
                         break;
                 }
@@ -134,11 +133,11 @@ class CardDAVBackend extends CardDAV\Backend\AbstractBackend
                 case '{DAV:}displayname':
                     $values['name'] = $newValue;
                     break;
-                case '{'.CardDAV\Plugin::NS_CARDDAV.'}addressbook-description':
+                case '{' . CardDAV\Plugin::NS_CARDDAV . '}addressbook-description':
                     $values['description'] = $newValue;
                     break;
                 default:
-                    throw new DAV\Exception\BadRequest('Unknown property: '.$property);
+                    throw new DAV\Exception\BadRequest('Unknown property: ' . $property);
             }
         }
 
@@ -155,7 +154,7 @@ class CardDAVBackend extends CardDAV\Backend\AbstractBackend
         global $user;
         $addressBook = AddressBookType\Factory::fromId($addressBookId, $user);
 
-        if (! $addressBook instanceOf AddressBookType\Custom) {
+        if (! $addressBook instanceof AddressBookType\Custom) {
             throw new DAV\Exception\Forbidden("Address book cannot be deleted.");
         }
 

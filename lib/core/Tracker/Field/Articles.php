@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -71,7 +72,8 @@ class Tracker_Field_Articles extends Tracker_Field_Abstract
 		];
 	}
 
-	public function addValue($articleId) {
+	public function addValue($articleId)
+    {
 		$existing = explode(',', $this->getValue());
 		if (! in_array($articleId, $existing)) {
 			$existing[] = $articleId;
@@ -79,9 +81,10 @@ class Tracker_Field_Articles extends Tracker_Field_Abstract
 		return implode(',', $existing);
 	}
 
-	public function removeValue($articleId) {
+	public function removeValue($articleId)
+    {
 		$existing = explode(',', $this->getValue());
-		$existing = array_filter($existing, function($v) use ($articleId) {
+		$existing = array_filter($existing, function ($v) use ($articleId) {
 			return $v != $articleId;
 		});
 		return implode(',', $existing);

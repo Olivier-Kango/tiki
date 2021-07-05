@@ -1,4 +1,5 @@
 <?php
+
 // $Id$
 
 /**
@@ -162,7 +163,8 @@ function smarty_function_html_select_time($params, $smarty)
 		}
 		if (in_array($minute, $minutes) == false) {
 			for ($i = 0, $for_max = count($minutes); $i < $for_max; $i++) {
-				if ((int) $minute > (int) $minutes[$i] &&
+				if (
+                    (int) $minute > (int) $minutes[$i] &&
 					(
 						(int) $minute < (int) $minutes[$i + 1] ||
 						empty($minutes[$i + 1])

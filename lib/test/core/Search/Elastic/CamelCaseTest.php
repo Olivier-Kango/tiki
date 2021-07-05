@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -9,7 +10,7 @@ class Search_Elastic_CamelCaseTest extends PHPUnit\Framework\TestCase
 {
 	private $connection;
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		$elasticSearchHost = empty(getenv('ELASTICSEARCH_HOST')) ? 'localhost' : getenv('ELASTICSEARCH_HOST');
 		$connection = new Search_Elastic_Connection('http://' . $elasticSearchHost . ':9200');
@@ -34,7 +35,7 @@ class Search_Elastic_CamelCaseTest extends PHPUnit\Framework\TestCase
 			'title' => $typeFactory->plaintext('CamelCase Words'),
 		]);
 
-		$query = new Search_Query;
+		$query = new Search_Query();
 		$query->filterContent('Camel AND Words', 'title');
 		$this->assertGreaterThan(0, count($query->search($index)));
 	}
@@ -51,7 +52,7 @@ class Search_Elastic_CamelCaseTest extends PHPUnit\Framework\TestCase
 			'title' => $typeFactory->plaintext('CamelCase Words'),
 		]);
 
-		$query = new Search_Query;
+		$query = new Search_Query();
 		$query->filterContent('Camels AND Word', 'title');
 		$this->assertGreaterThan(0, count($query->search($index)));
 	}
@@ -67,7 +68,7 @@ class Search_Elastic_CamelCaseTest extends PHPUnit\Framework\TestCase
 			'title' => $typeFactory->plaintext('CamelCase Words'),
 		]);
 
-		$query = new Search_Query;
+		$query = new Search_Query();
 		$query->filterContent('Camel AND Word', 'title');
 		$this->assertCount(0, $query->search($index));
 	}

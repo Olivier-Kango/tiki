@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -18,7 +19,7 @@ function smarty_function_tracker_item_status_icon($params, $smarty)
 	if (! is_object($item)) {
 		$item = Tracker_Item::fromId($item);
 	}
-		
+
 	if (! empty($prefs['tracker_status_in_objectlink'])) {
 		$show_status = $prefs['tracker_status_in_objectlink'];
 	} else {

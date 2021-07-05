@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -476,7 +477,7 @@ function wikiplugin_pivottable($data, $params)
 			unset($validConfig);
 		}
 
-		$query = new Search_Query;
+		$query = new Search_Query();
 		$query->filterType('trackeritem');
 		$query->filterContent(implode(' OR ', $trackerIds), 'tracker_id');
 
@@ -517,9 +518,11 @@ function wikiplugin_pivottable($data, $params)
 			if ($match->getName() == 'display' || $match->getName() == 'column') {
 				$columnsListed = true;
 			} elseif ($match->getName() == 'derivedattribute') {
-				if (preg_match('/name="([^"]+)"/', $match->getArguments(), $match_name)
+				if (
+                    preg_match('/name="([^"]+)"/', $match->getArguments(), $match_name)
 					&& preg_match('/function="([^"]+)"/', $match->getArguments(), $match_function)
-					&& preg_match('/parameters="([^"]*)"/', $match->getArguments(), $match_parameters)) {
+					&& preg_match('/parameters="([^"]*)"/', $match->getArguments(), $match_parameters)
+                ) {
 					$derivedattr_name = $match_name[1];
 					$function_name = $match_function[1];
 					$function_params = explode(':', $match_parameters[1]);
@@ -533,7 +536,7 @@ function wikiplugin_pivottable($data, $params)
 					$derivedAttributes[] = sprintf('"%s": %s(%s)', $derivedattr_name, $function_name, $function_params);
 				}
 			} elseif ($match->getName() == 'split') {
-				$parser = new WikiParser_PluginArgumentParser;
+				$parser = new WikiParser_PluginArgumentParser();
 				$arguments = $parser->parse($match->getArguments());
 				if (! isset($arguments['field'])) {
 					return WikiParser_PluginOutput::userError(tr('Split wiki modifier should specify a field.'));
@@ -551,8 +554,10 @@ function wikiplugin_pivottable($data, $params)
 			$plugin = new Search_Formatter_Plugin_ArrayTemplate($data);
 			$usedFields = array_keys($plugin->getFields());
 			foreach ($fields as $key => $field) {
-				if (! in_array('tracker_field_' . $field['permName'], $usedFields)
-					&& ! in_array($field['permName'], $usedFields) ) {
+				if (
+                    ! in_array('tracker_field_' . $field['permName'], $usedFields)
+					&& ! in_array($field['permName'], $usedFields)
+                ) {
 					unset($fields[$key]);
 				}
 			}
@@ -577,7 +582,7 @@ function wikiplugin_pivottable($data, $params)
 
 	if ($dataType === "activitystream") {
 		$unifiedsearchlib = TikiLib::lib('unifiedsearch');
-		$query = new Search_Query;
+		$query = new Search_Query();
 		$unifiedsearchlib->initQuery($query);
 		$query->filterType('activity');
 
@@ -680,7 +685,7 @@ function wikiplugin_pivottable($data, $params)
 		}
 	}
 
-	$builder = new Search_Formatter_Builder;
+	$builder = new Search_Formatter_Builder();
 	$builder->setId('wppivottable-' . $id);
 	$builder->setCount($result->count());
 	$builder->apply($matches);
@@ -718,7 +723,7 @@ function wikiplugin_pivottable($data, $params)
 		}
 		$separator = $arguments['separator'];
 		$key = 0;
-		while($key < count($pivotData)) {
+		while ($key < count($pivotData)) {
 			$row = $pivotData[$key];
 			if (! isset($row[$field])) {
 				$key++;
@@ -729,7 +734,7 @@ function wikiplugin_pivottable($data, $params)
 				$key++;
 				continue;
 			}
-			$replacement = array_map(function($value) use ($row, $field) {
+			$replacement = array_map(function ($value) use ($row, $field) {
 				return array_merge($row, [$field => ltrim($value)]);
 			}, $splitted);
 			array_splice($pivotData, $key, 1, $replacement);
@@ -952,11 +957,12 @@ function wikiplugin_pivottable($data, $params)
 	return $out;
 }
 
-function wikiplugin_pivottable_field_from_definitions($permName, $definitions, $default = null) {
+function wikiplugin_pivottable_field_from_definitions($permName, $definitions, $default = null)
+{
 	foreach ($definitions as $definition) {
 		if ($field = $definition->getFieldFromPermName($permName)) {
 			if (count($definitions) > 1) {
-				$field['name'] = $definition->getConfiguration('name').' - '.$field['name'];
+				$field['name'] = $definition->getConfiguration('name') . ' - ' . $field['name'];
 			}
 			return $field;
 		}

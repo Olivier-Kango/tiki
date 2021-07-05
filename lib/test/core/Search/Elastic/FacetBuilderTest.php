@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -9,13 +10,13 @@ class Search_Elastic_FacetBuilderTest extends PHPUnit\Framework\TestCase
 {
 	public function testBuildNoFacet()
 	{
-		$builder = new Search_Elastic_FacetBuilder;
+		$builder = new Search_Elastic_FacetBuilder();
 		$this->assertEquals([], $builder->build([]));
 	}
 
 	public function testBuildSingleFacet()
 	{
-		$builder = new Search_Elastic_FacetBuilder;
+		$builder = new Search_Elastic_FacetBuilder();
 		$this->assertEquals(
 			[
 				'facets' => [

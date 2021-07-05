@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -9,13 +10,13 @@ $attributelib = TikiLib::lib('attribute');
 
 class AttributeTest extends TikiTestCase
 {
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		parent::setUp();
 		TikiDb::get()->query('DELETE FROM `tiki_object_attributes` WHERE `attribute` LIKE ?', ['tiki.test%']);
 	}
 
-	protected function tearDown() : void
+	protected function tearDown(): void
 	{
 		parent::tearDown();
 		TikiDb::get()->query('DELETE FROM `tiki_object_attributes` WHERE `attribute` LIKE ?', ['tiki.test%']);
@@ -23,14 +24,14 @@ class AttributeTest extends TikiTestCase
 
 	public function testNoAttributes(): void
 	{
-		$lib = new AttributeLib;
+		$lib = new AttributeLib();
 
 		$this->assertEquals([], $lib->get_attributes('test', 'HelloWorld'));
 	}
 
 	public function testSetAttributes(): void
 	{
-		$lib = new AttributeLib;
+		$lib = new AttributeLib();
 		$lib->set_attribute('test', 'HelloWorld', 'tiki.test.abc', 121.22);
 		$lib->set_attribute('test', 'HelloWorld', 'tiki.test.def', 111);
 		$lib->set_attribute('test', 'Hello', 'tiki.test.ghi', 'no');
@@ -44,7 +45,7 @@ class AttributeTest extends TikiTestCase
 
 	public function testReplaceValue(): void
 	{
-		$lib = new AttributeLib;
+		$lib = new AttributeLib();
 		$this->assertTrue($lib->set_attribute('test', 'HelloWorld', 'tiki.test.abc', 121.22));
 		$this->assertTrue($lib->set_attribute('test', 'HelloWorld', 'tiki.test.abc', 'replaced'));
 
@@ -56,7 +57,7 @@ class AttributeTest extends TikiTestCase
 
 	public function testEnforceFormat(): void
 	{
-		$lib = new AttributeLib;
+		$lib = new AttributeLib();
 		$this->assertFalse($lib->set_attribute('test', 'HelloWorld', 'tiki.test', 121.22));
 
 		$this->assertEquals([], $lib->get_attributes('test', 'HelloWorld'));
@@ -64,7 +65,7 @@ class AttributeTest extends TikiTestCase
 
 	public function testLowecase(): void
 	{
-		$lib = new AttributeLib;
+		$lib = new AttributeLib();
 		$this->assertTrue($lib->set_attribute('test', 'HelloWorld', 'tiki.TEST.aaa', 121.22));
 
 		$this->assertEquals(
@@ -75,7 +76,7 @@ class AttributeTest extends TikiTestCase
 
 	public function testFilterUndesired(): void
 	{
-		$lib = new AttributeLib;
+		$lib = new AttributeLib();
 		$this->assertTrue($lib->set_attribute('test', 'HelloWorld', 'tiki . test . aaa55bBb', 121.22));
 
 		$this->assertEquals(
@@ -86,7 +87,7 @@ class AttributeTest extends TikiTestCase
 
 	public function testRemoveEmpty(): void
 	{
-		$lib = new AttributeLib;
+		$lib = new AttributeLib();
 		$lib->set_attribute('test', 'HelloWorld', 'tiki.test.abc', 121.22);
 		$lib->set_attribute('test', 'HelloWorld', 'tiki.test.abc', '');
 

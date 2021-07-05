@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -13,13 +14,13 @@ class EngineSetTest extends TestCase
 {
 	public function testNoEngines()
 	{
-		$engineSet = new EngineSet;
+		$engineSet = new EngineSet();
 		$this->assertEquals(0, $engineSet->getCount());
 	}
 
 	public function testMultipleEngines()
 	{
-		$engineSet = new EngineSet;
+		$engineSet = new EngineSet();
 		$engineSet->register('a', new Engine\FakeEngine([]));
 		$engineSet->register('b', new Engine\FakeEngine([]));
 		$this->assertEquals(2, $engineSet->getCount());
@@ -27,7 +28,7 @@ class EngineSetTest extends TestCase
 
 	public function testMultipleWeightedEngines()
 	{
-		$engineSet = new EngineSet;
+		$engineSet = new EngineSet();
 		$engineSet->registerWeighted('a', 1, new Engine\FakeEngine([]));
 		$engineSet->registerWeighted('b', 2, new Engine\FakeEngine([]));
 		$this->assertEquals(2, $engineSet->getCount());
@@ -35,7 +36,7 @@ class EngineSetTest extends TestCase
 
 	public function testDuplicateNames()
 	{
-		$engineSet = new EngineSet;
+		$engineSet = new EngineSet();
 		$engineSet->register('a', new Engine\FakeEngine([]));
 		$engineSet->register('a', new Engine\FakeEngine([]));
 		$this->assertEquals(1, $engineSet->getCount());
@@ -51,7 +52,7 @@ class EngineSetTest extends TestCase
 			spl_object_hash($b) => 0,
 		];
 
-		$engineSet = new EngineSet;
+		$engineSet = new EngineSet();
 		$engineSet->register('a', $a);
 		$engineSet->register('b', $b);
 
@@ -79,7 +80,7 @@ class EngineSetTest extends TestCase
 			spl_object_hash($b) => 0,
 		];
 
-		$engineSet = new EngineSet;
+		$engineSet = new EngineSet();
 		$engineSet->registerWeighted('a', 4, $a);
 		$engineSet->registerWeighted('b', 1, $b);
 

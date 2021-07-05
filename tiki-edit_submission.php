@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -180,7 +182,8 @@ if (isset($_REQUEST['allowhtml'])) {
 	$smarty->assign('allowhtml', ($_SESSION['wysiwyg'] === 'y' && $prefs['wysiwyg_htmltowiki'] !== 'y') ? 'y' : 'n');
 }
 
-if ((isset($_REQUEST["save"]) || isset($_REQUEST["submitarticle"]))
+if (
+    (isset($_REQUEST["save"]) || isset($_REQUEST["submitarticle"]))
 			&& empty($user)
 			&& $prefs['feature_antibot'] == 'y'
 			&& ! $captchalib->validate()

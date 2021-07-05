@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -199,7 +201,8 @@ if (isset($_REQUEST['send'])) {
 			$adresses = checkAddresses($_REQUEST['addresses'], false);
 
 			require_once 'lib/auth/tokens.php';
-			if ($prefs['share_can_choose_how_much_time_access']
+			if (
+                $prefs['share_can_choose_how_much_time_access']
 				&& isset($_REQUEST['how_much_time_access'])
 				&& is_numeric($_REQUEST['how_much_time_access'])
 				&& $_REQUEST['how_much_time_access'] >= 1
@@ -224,7 +227,7 @@ if (isset($_REQUEST['send'])) {
 						// if preference share_contact_add_non_existant_contact the add auomaticly to contact
 						if ($prefs['share_contact_add_non_existant_contact'] == 'y' && $prefs['feature_contacts'] == 'y') {
 							// check if email exist for at least one contact in
-							if (!$contactlib->exist_contact($adresse, $user)) {
+							if (! $contactlib->exist_contact($adresse, $user)) {
 								$contacts = [['email' => $adresse]];
 								$contactlib->add_contacts($contacts, $user);
 							}
@@ -242,8 +245,6 @@ if (isset($_REQUEST['send'])) {
 						$tikilib->add_user_watch($user, 'auth_token_called', $detailtoken['tokenId'], 'security', tra('Token called'), $data);
 					}
 				}
-
-
 			} else {
 				if ($share_access_rights) {
 					$tokenlib = AuthTokens::build($prefs);
@@ -255,11 +256,11 @@ if (isset($_REQUEST['send'])) {
 
 			$smarty->assign_by_ref('email', $_REQUEST['email']);
 
-			if (!empty($_REQUEST['addresses'])) {
+			if (! empty($_REQUEST['addresses'])) {
 				$smarty->assign('addresses', $_REQUEST['addresses']);
 			}
 
-			if (!empty($_REQUEST['name'])) {
+			if (! empty($_REQUEST['name'])) {
 				$smarty->assign('name', $_REQUEST['name']);
 			}
 			$emailSent = sendMail($_REQUEST['email'], $_REQUEST['addresses'], $subject, $tokenlist);
@@ -324,20 +325,20 @@ if (isset($_REQUEST['send'])) {
 		$smarty->assign('back_url', $_REQUEST['back_url']);
 
 		// Display a nice message when no email/tweet/fb/forum/message is selected
-		if (empty($errors)
-			&& ((!isset($_REQUEST['do_email']) || $_REQUEST['do_email'] == 0)
-			&& (!isset($_REQUEST['do_tweet']) || $_REQUEST['do_tweet'] == 0)
-			&& (!isset($_REQUEST['do_fb']) || $_REQUEST['do_fb'] == 0)
-			&& (!isset($_REQUEST['do_message']) || $_REQUEST['do_message'] == 0)
-			&& (!isset($_REQUEST['do_forum']) || $_REQUEST['do_forum'] == 0))) {
+		if (
+            empty($errors)
+			&& ((! isset($_REQUEST['do_email']) || $_REQUEST['do_email'] == 0)
+			&& (! isset($_REQUEST['do_tweet']) || $_REQUEST['do_tweet'] == 0)
+			&& (! isset($_REQUEST['do_fb']) || $_REQUEST['do_fb'] == 0)
+			&& (! isset($_REQUEST['do_message']) || $_REQUEST['do_message'] == 0)
+			&& (! isset($_REQUEST['do_forum']) || $_REQUEST['do_forum'] == 0))
+        ) {
 			$errors[] = tra('No channel selected for share');
 		}
-
 	}
-	if(! empty($errors)){
+	if (! empty($errors)) {
 		$smarty->assign_by_ref('errors', $errors);
 	}
-
 } else {
 	$smarty->assign_by_ref('name', $user);
 	$smarty->assign('email', $userlib->get_user_email($user));

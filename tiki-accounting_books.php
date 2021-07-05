@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -9,17 +11,17 @@
 // $Id$
 
 /***
- * 
+ *
  * @var \TikiAccessLib  $access
- * 
+ *
  * @var \AccountingLib  $accountinglib
- * 
- * 
+ *
+ *
  * @var \Smarty_Tiki    $smarty
- * 
+ *
  * Define the current section
  * @var string $section
- */ 
+ */
 
 $section = 'accounting';
 require_once('tiki-setup.php');
@@ -58,7 +60,7 @@ if (! empty($_REQUEST['action'])) {
 		case 'create':
 			if (! $globalperms->acct_create_book) {
 				Feedback::error(tra('You do not have permission to create a book'));
-			} elseif($access->checkCsrf()) {
+			} elseif ($access->checkCsrf()) {
 				$bookId = $accountinglib->createBook(
 					$_POST['bookName'],
 					'n',

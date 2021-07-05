@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -138,7 +140,7 @@ if (isset($_REQUEST['title'])) {
 	$grid->import($handler);
 
 	$graph = $_REQUEST['graphic'];
-	$graph = new $graph;
+	$graph = new $graph();
 
 	// Create Output
 	$series = [];
@@ -181,7 +183,7 @@ if (isset($_REQUEST['title'])) {
 } else {
 	if (isset($_GET['graphic']) && in_array($_GET['graphic'], $valid_graphs)) {
 		$graph = $_GET['graphic'];
-		$g = new $graph;
+		$g = new $graph();
 		$series = [];
 		foreach (array_keys($g->getRequiredSeries()) as $s) {
 			if ($s == 'y0') {

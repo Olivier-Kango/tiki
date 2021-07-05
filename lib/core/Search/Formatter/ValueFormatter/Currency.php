@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -46,7 +47,7 @@ class Search_Formatter_ValueFormatter_Currency extends Search_Formatter_ValueFor
 		if (! is_object($tracker)) {
 			return $value;
 		}
-		
+
 		if ($this->currency_field) {
 			$field = preg_replace('/^tracker_field_/', '', $this->currency_field);
 		} else {
@@ -63,7 +64,7 @@ class Search_Formatter_ValueFormatter_Currency extends Search_Formatter_ValueFor
 				}
 			}
 		}
-		if (!$field || $field['type'] != 'b') {
+		if (! $field || $field['type'] != 'b') {
 			return 'Field is not a Currency tracker field.';
 		}
 
@@ -72,7 +73,7 @@ class Search_Formatter_ValueFormatter_Currency extends Search_Formatter_ValueFor
 		}
 		if (! $this->date) {
 			$this->date = date('Y-m-d');
-		} elseif(is_int($this->date)) {
+		} elseif (is_int($this->date)) {
 			$this->date = date('Y-m-d', $this->date);
 		} else {
 			$this->date = date('Y-m-d', strtotime($this->date));
@@ -100,7 +101,8 @@ class Search_Formatter_ValueFormatter_Currency extends Search_Formatter_ValueFor
 
 		if ($this->amount_only) {
 			TikiLib::lib('smarty')->loadPlugin('smarty_modifier_number_format');
-			return '~np~' . smarty_modifier_number_format($amount, 2, '.', '') . '~/np~';;
+			return '~np~' . smarty_modifier_number_format($amount, 2, '.', '') . '~/np~';
+;
 		} else {
 			TikiLib::lib('smarty')->loadPlugin('smarty_function_currency');
 			return smarty_function_currency(

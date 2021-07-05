@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -352,7 +353,6 @@ function wikiplugin_trackertimeline($data, $params)
 					if (is_numeric($image)) {
 						// a fileId
 						$image = smarty_modifier_sefurl($image, 'thumbnail');
-
 					}
 					$event['image'] = $image;
 				}

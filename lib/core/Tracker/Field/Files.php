@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -195,7 +196,7 @@ class Tracker_Field_Files extends Tracker_Field_Abstract implements Tracker_Fiel
 
 		$galleryId = (int) $this->getOption('galleryId');
 		$count = (int) $this->getOption('count');
-		$deepGallerySearch = (boolean) $this->getOption('deepGallerySearch');
+		$deepGallerySearch = (bool) $this->getOption('deepGallerySearch');
 
 		// to use the user's userfiles gallery enter the fgal_root_user_id which is often (but not always) 2
 		$galleryId = $filegallib->check_user_file_gallery($galleryId);
@@ -254,7 +255,7 @@ class Tracker_Field_Files extends Tracker_Field_Abstract implements Tracker_Fiel
 		}
 
 		$galinfo = $filegallib->get_file_gallery($galleryId);
-		if (!$galinfo) {
+		if (! $galinfo) {
 			Feedback::error(tr('Files field: Gallery #%0 not found', $galleryId));
 			return [];
 		}
@@ -302,7 +303,7 @@ class Tracker_Field_Files extends Tracker_Field_Abstract implements Tracker_Fiel
 
 		$context['canBrowse'] = false;
 
-		if ($prefs['fgal_tracker_existing_search'] == 'y' && $this->getOption('browseGallery') != 'n' ) {
+		if ($prefs['fgal_tracker_existing_search'] == 'y' && $this->getOption('browseGallery') != 'n') {
 			if ($this->getOption('browseGalleryId')) {
 				$defaultGalleryId = $this->getOption('browseGalleryId');
 			} elseif ($this->getOption('galleryId')) {
@@ -488,7 +489,8 @@ class Tracker_Field_Files extends Tracker_Field_Abstract implements Tracker_Fiel
 
 					$globalperms = Perms::get([ 'type' => 'file gallery', 'object' => $galleryId ]);
 
-					if ($prefs['feature_draw'] == 'y' &&
+					if (
+                        $prefs['feature_draw'] == 'y' &&
 						$globalperms->upload_files == 'y' &&
 						($file['filetype'] == $mimetypes["svg"] ||
 						$file['filetype'] == $mimetypes["gif"] ||
@@ -508,7 +510,8 @@ class Tracker_Field_Files extends Tracker_Field_Abstract implements Tracker_Fiel
 					$smarty->loadPlugin('smarty_function_icon');
 					$viewicon = smarty_function_icon(['name' => 'view'], $smarty->getEmptyInternalTemplate());
 
-					if ($prefs['fgal_pdfjs_feature'] == 'y' &&
+					if (
+                        $prefs['fgal_pdfjs_feature'] == 'y' &&
 						($file['filetype'] == $mimetypes["pdf"] || (PDFHelper::canConvertToPDF($file['filetype']) && $prefs['fgal_convert_documents_pdf'] == 'y'))
 					) {
 						$ret .= " <a href='tiki-display.php?fileId=" . $file['fileId']
@@ -661,7 +664,7 @@ class Tracker_Field_Files extends Tracker_Field_Abstract implements Tracker_Fiel
 		foreach ($removedFileInfos as $file) {
 			$url = smarty_modifier_sefurl($file['fileId'], 'file');
 			$result .= smarty_modifier_iconify($url, $file['filetype'], $file['fileId'], 1);
-			$result .= ' <a href="' . $url . '">' . smarty_modifier_escape($file['name']) .'</a><br>';
+			$result .= ' <a href="' . $url . '">' . smarty_modifier_escape($file['name']) . '</a><br>';
 		}
 
 		$result .= '</del></td><td class="diffadded">+</td><td class="diffadded"><ins class="diffchar inserted">';
@@ -669,7 +672,7 @@ class Tracker_Field_Files extends Tracker_Field_Abstract implements Tracker_Fiel
 		foreach ($addedFileInfos as $file) {
 			$url = smarty_modifier_sefurl($file['fileId'], 'file');
 			$result .= smarty_modifier_iconify($url, $file['filetype'], $file['fileId'], 1);
-			$result .= ' <a href="' . $url . '">' . smarty_modifier_escape($file['name']) .'</a><br>';
+			$result .= ' <a href="' . $url . '">' . smarty_modifier_escape($file['name']) . '</a><br>';
 		}
 
 		$result .= '</ins></td></tr></table>';
@@ -756,8 +759,8 @@ class Tracker_Field_Files extends Tracker_Field_Abstract implements Tracker_Fiel
 		} elseif (strstr($sortOrder, 'name')) {
 			$sep = strrpos($sortOrder, '_');
 			$field = substr($sortOrder, 0, $sep);
-			$dir = substr($sortOrder, $sep+1);
-			$sortArray = array_map(function($file) use ($field) {
+			$dir = substr($sortOrder, $sep + 1);
+			$sortArray = array_map(function ($file) use ($field) {
 				return isset($file[$field]) ? $file[$field] : '';
 			}, $out);
 			natsort($sortArray);
@@ -890,7 +893,7 @@ class Tracker_Field_Files extends Tracker_Field_Abstract implements Tracker_Fiel
 			->setRenderTransform(function ($value) {
 				return $value;
 			})
-			->setParseIntoTransform(function (& $info, $value) use ($permName) {
+			->setParseIntoTransform(function (&$info, $value) use ($permName) {
 				$info['fields'][$permName] = $value;
 			});
 

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -7,7 +8,7 @@
 
 namespace Tiki\Modules;
 
-use \TikiLib;
+use TikiLib;
 
 /**
  * Class responsible for all modules permission logic
@@ -152,8 +153,9 @@ class Permissions
 		return null;
 	}
 
-	protected function findPermType($objectType) {
-		switch($objectType) {
+	protected function findPermType($objectType)
+    {
+		switch ($objectType) {
 			case 'wiki page':
 				return 'wiki';
 			case 'file gallery':

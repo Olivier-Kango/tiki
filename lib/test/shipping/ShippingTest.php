@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -12,7 +13,7 @@ class ShippingTest extends TikiTestCase implements ShippingProvider
 	private $to;
 	private $packages;
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		$this->from = null;
 		$this->to = null;
@@ -21,14 +22,14 @@ class ShippingTest extends TikiTestCase implements ShippingProvider
 
 	public function testWithoutProvider(): void
 	{
-		$lib = new ShippingLib;
+		$lib = new ShippingLib();
 
 		$this->assertEquals([], $lib->getRates(['zip' => '12345'], ['zip' => '23456'], [['weight' => 5]]));
 	}
 
 	public function testCountryPreserved(): void
 	{
-		$lib = new ShippingLib;
+		$lib = new ShippingLib();
 		$lib->addProvider($this);
 
 		$lib->getRates(['zip' => '12345', 'country' => 'FR'], ['zip' => '23456'], [['weight' => 5]]);
@@ -38,7 +39,7 @@ class ShippingTest extends TikiTestCase implements ShippingProvider
 
 	public function testCountryCompleted(): void
 	{
-		$lib = new ShippingLib;
+		$lib = new ShippingLib();
 		$lib->addProvider($this);
 
 		$lib->getRates(['zip' => '12345'], ['zip' => 'A1B 2C3'], [['weight' => 5]]);
@@ -49,7 +50,7 @@ class ShippingTest extends TikiTestCase implements ShippingProvider
 
 	public function testZipUpperCased(): void
 	{
-		$lib = new ShippingLib;
+		$lib = new ShippingLib();
 		$lib->addProvider($this);
 
 		$lib->getRates(['zip' => '12345'], ['zip' => 'a1b 2c3'], [['weight' => 5]]);
@@ -60,7 +61,7 @@ class ShippingTest extends TikiTestCase implements ShippingProvider
 
 	public function testUnknownFormat(): void
 	{
-		$lib = new ShippingLib;
+		$lib = new ShippingLib();
 		$lib->addProvider($this);
 
 		$lib->getRates(['zip' => '12345678900X'], ['zip' => 'A1B 2C3'], [['weight' => 5]]);
@@ -70,7 +71,7 @@ class ShippingTest extends TikiTestCase implements ShippingProvider
 
 	public function testPackageExpansion(): void
 	{
-		$lib = new ShippingLib;
+		$lib = new ShippingLib();
 		$lib->addProvider($this);
 
 		$lib->getRates(['zip' => '12345678900X'], ['zip' => 'A1B 2C3'], [['weight' => 5, 'count' => 2], ['weight' => 10]]);

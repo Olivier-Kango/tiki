@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -22,36 +23,35 @@ use Hybridauth\Exception\Exception;
 use Hybridauth\Hybridauth;
 use Hybridauth\HttpClient;
 
-use \TikiLib;
-use \Feedback;
+use TikiLib;
+use Feedback;
 use Tracker_Definition;
 use Services_Tracker_Utilities;
 use Tiki\Lib\Logs\LogsLib;
 
 
-class TikiHybrid  extends LogsLib
+class TikiHybrid extends LogsLib
 {
 	//TODO when for strings assign null or when ''? or don't need anything?
-	protected static string $socPreffix='socnets_';
+	protected static string $socPreffix = 'socnets_';
 	protected string $namedpreffix = '';
 	protected string $providerName = '';
 	public $adapter = null;
 
-	public  $logger = null;
+	public $logger = null;
 	public static string $logpath = '/var/log/httpd/errors/tikihybrid.log';
 
 
 	public function __construct($providerName)
 	{
-		try
-		{
+		try {
 			global $prefs;
 			$this -> providerName = $providerName;
 			self::$socPreffix = PrefsGen::getSocPreffix();
 			$this->namedprefix = self::$socPreffix . $providerName;
-			Util::log2('tikiHybrid  constructor namedprefix:', $this -> namedprefix );
+			Util::log2('tikiHybrid  constructor namedprefix:', $this -> namedprefix);
 
-	
+
 			//we need to use Guzzle due to errors with curl!
 			$guzzle = new HttpClient\Guzzle(null, [
 			     'verify' => false # Set to false to disable SSL certificate verification
@@ -60,17 +60,17 @@ class TikiHybrid  extends LogsLib
 			//$this->logger = new Logger\Logger(true, self::$logpath);
 
 			//Feedback::warning(Util::getLogFile());
-    
 
-		if ( !$this->isRegistered()) {
+
+		if (! $this->isRegistered()) {
 			Feedback::error(tr('TikiHybrid __construct: this site is not registered with ' . $this->$providerName));
 			// do we need to land on tiki-admin.php?
 			header('Location: tiki-index.php');
 //			header('Location: tiki-admin.php'); //?page=socialnetworks');
 			die();
 		}
-		
-		
+
+
 		$this -> config =
 			[
 			'callback' => PrefsGen::getPrefsSocLoginBaseUrl() . $providerName,
@@ -85,18 +85,16 @@ class TikiHybrid  extends LogsLib
 
 	//	LLOG('tikiHybrid  constructor config:', $this -> config );
 
-		$adapterClass = '\\Hybridauth\\Provider\\' . $providerName; 
+		$adapterClass = '\\Hybridauth\\Provider\\' . $providerName;
 
 		$this -> adapter = new $adapterClass($this -> config, $guzzle);
-	
+
 		//$this->hybridauth = new Hybridauth($confhybrid, $guzzle, null, $this->logger );
 		//	LLOG('tikiHybrid  constructed :)' );
-
-		}
-		catch (Throwable $e) {
+		} catch (Throwable $e) {
 			error_log($e->getMessage());
 			//echo TikiHybrid construct error:' . $e->getMessage();
-			Feedback::error('TikiHybrid construct error: '. $e->getMessage());
+			Feedback::error('TikiHybrid construct error: ' . $e->getMessage());
 		}
 	}
 
@@ -111,7 +109,6 @@ class TikiHybrid  extends LogsLib
 
 
 		try {
-
 			$tokens = $this->adapter->getAccessToken();
 			$accessToken = $tokens['access_token'];
 			$userProfile = $this->adapter->getUserProfile();
@@ -122,7 +119,7 @@ class TikiHybrid  extends LogsLib
 		//	LLOG('login email=', $email);
 		//	LLOG('login tokens=', $tokens);
 		//	LLOG('login accessToken=', $accessToken);
-	
+
 			//TODO remove after tests!!!
 			//Feedback::note("socnet_id : " . $socnet_id);
 			//Feedback::note("namedprefix : " . $namedprefix);
@@ -131,7 +128,7 @@ class TikiHybrid  extends LogsLib
 				//TODO do we need to test this here? Can someone suddenly dissable login even if
 				//we checked this at the begining?
 				if ($prefs[$this->namedprefix . '_loginEnabled'] != 'y') {
-					Feedback::error( tra('Login to this site using ' . $this->providerName . ' is disabled. Contact admin.'));
+					Feedback::error(tra('Login to this site using ' . $this->providerName . ' is disabled. Contact admin.'));
 					return false;
 				}
 //this one is slow. It would be good to make it faster. Need to find out how.
@@ -141,23 +138,17 @@ $local_user = $this -> getOne("select `user` from `tiki_user_preferences` where 
 			//	Feedback::note('local_user: '. $local_user);
 
 
-				if ($local_user)
-				{
+				if ($local_user) {
 					$user = $local_user;
-				}
-				elseif ($prefs[$this->namedprefix . '_autocreateuser'] === 'y')
-				{
+				} elseif ($prefs[$this->namedprefix . '_autocreateuser'] === 'y') {
 					//Feedback::error( tra('Creating new users is disabled for ' . $providerName ));
 					$local_user = $this->createUser($userProfile);
 				}
 
-				if ($local_user)
-				{
+				if ($local_user) {
 					$user = $local_user;
-				}
-				else
-				{
-					Feedback::error( tra('You need to link your local account to ' . $this->providerName . '  before you can login using it'));
+				} else {
+					Feedback::error(tra('You need to link your local account to ' . $this->providerName . '  before you can login using it'));
 					header('Location: tiki-index.php');
 					die;
 				}
@@ -173,12 +164,12 @@ $local_user = $this -> getOne("select `user` from `tiki_user_preferences` where 
 				$photoURL = strtok($userProfile->photoURL, '?') . '?access_token=' . $accessToken;
 				//	LLOG('login photoURL=' . $photoURL);
 				//	LLOG('createUser start accesToken=' , $accessToken);
-		
+
 				$avatarlib = TikiLib::lib('avatar');
 				$avatarlib->set_avatar_from_url($photoURL, $user);
-		
 
-				Feedback::note('Welcome, '. $userProfile->firstName . ' ' . $userProfile->lastName .'!' );
+
+				Feedback::note('Welcome, ' . $userProfile->firstName . ' ' . $userProfile->lastName . '!');
 				//TODO save visitors page and to land there?
 				header('Location: tiki-index.php');
 				die;
@@ -186,12 +177,9 @@ $local_user = $this -> getOne("select `user` from `tiki_user_preferences` where 
 				$this->set_user_preference($user, $this->namedprefix . '_id', $userId);
 				$this->set_user_preference($user, $this->namedprefix . '_token', $accessToken);
 			}
-
-
 		} catch (Throwable $e) {
-			Feedback::error('TikiHybrid login error: '. $e->getMessage());
+			Feedback::error('TikiHybrid login error: ' . $e->getMessage());
 		}
-
 	}
 
 	/**
@@ -201,7 +189,7 @@ $local_user = $this -> getOne("select `user` from `tiki_user_preferences` where 
  */
 private function isRegistered()
 {
-	//if ($name === "" or not in the list?) 
+	//if ($name === "" or not in the list?)
 	//TODO add "is enabled"? and maybe is there a better test?
 	global $prefs;
 	return ($prefs[$this -> namedprefix . '_app_id'] != '' && $prefs[$this -> namedprefix . '_app_secret'] != '');
@@ -215,13 +203,12 @@ private function isRegistered()
 	 */
 	//TODO save newly created users token!
 	 private function createUser($userProfile)
-	{
+     {
 		global $prefs, $user;
 		$userlib = TikiLib::lib('user');
 
 
-		if ($prefs[$this->namedprefix . '_autocreateuser'] != 'y')
-		{
+		if ($prefs[$this->namedprefix . '_autocreateuser'] != 'y') {
 			Feedback::error(tr('TikiHybrid is not allowed to create a new user with your ' . $this->providerName . ' account. Please contact administrator.'));
 			return $user;
 		}
@@ -246,22 +233,20 @@ private function isRegistered()
 
 	//	LLOG('createUser autoUser=',  $autoUser);
 
-		if ($autoUser)
+		if ($autoUser) {
 			$user = $userlib->add_user($autoUser, $randompass, $email);
-		else
-			$user = $userlib->add_user($autoPrefixedId, $randompass, $email);
+		} else {
+$user = $userlib->add_user($autoPrefixedId, $randompass, $email);
+        }
 
 //			Feedback::error(tr('TikiHybrid is asked to link your account with: ' . $providerName . ' But it is not implemented yet in Tiki.'));
 
 
-		if (!$user)
-		{
+		if (! $user) {
 			$err_msg = tr('TikiHybrid unable to create a new user:' . $user . ' with your ' . $this->providerName . ' account. You might already have an account and need to link. But it is not implemented yet.');
 			//error_log($err_msg);
 			Feedback::error($err_msg);
-		}
-		else
-		{
+		} else {
 			Feedback::note('TikiHybrid from ' . $this->providerName . ' has created a new user: ' . $user);
 		}
 
@@ -271,8 +256,7 @@ private function isRegistered()
 		$userField = $ret['usersFieldId'];
 		$isAutoNames = $prefs[$this->namedprefix . '_autocreate_names'];
 
-		if ($prefs[$this->namedprefix . '_autocreate_user_trackeritem'] === 'y' && $userTracker && $userField)
-		{
+		if ($prefs[$this->namedprefix . '_autocreate_user_trackeritem'] === 'y' && $userTracker && $userField) {
 			$definition = Tracker_Definition::get($userTracker);
 			$utilities = new Services_Tracker_Utilities();
 			$fields = ['ins_' . $userField => $user];
@@ -280,8 +264,8 @@ private function isRegistered()
 			//tracker items
 			$autoNames = ''; //[2,3]; //??
 
-			if ( $isAutoNames === 'y' ) {
-				$names = array_map('trim', explode(',', $autoNames) );
+			if ($isAutoNames === 'y') {
+				$names = array_map('trim', explode(',', $autoNames));
 				$fields['ins_' . $names[0]] = $firstName;
 				$fields['ins_' . $names[1]] = $lastName;
 			}
@@ -296,7 +280,7 @@ private function isRegistered()
 			);
 		}
 
-		$this->set_user_preference($user, 'realName', $firstName. ' ' . $lastName);
+		$this->set_user_preference($user, 'realName', $firstName . ' ' . $lastName);
 
 //		if ($prefs['socialnetworks_facebook_firstloginpopup'] == 'y') {
 //			$this->set_user_preference($user, 'socialnetworks_user_firstlogin', 'y');
@@ -307,7 +291,7 @@ private function isRegistered()
 //	}
 
 		return $user;
-	}
+	 }
 
 
 
@@ -316,13 +300,10 @@ private function isRegistered()
 	public function checkConnectedAdapters()
 	{
 		$adapters = $this->hybridauth->getConnectedAdapters();
-		if ($adapters)
-		{
-			Feedback::warning('TikiHybrid has connected adapters: ' . count($adapters) );
-		}
-		else
-			Feedback::warning('TikiHybrid has NO connected adapters.');
+		if ($adapters) {
+			Feedback::warning('TikiHybrid has connected adapters: ' . count($adapters));
+		} else {
+Feedback::warning('TikiHybrid has NO connected adapters.');
+        }
 	}
-
-
 }

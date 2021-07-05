@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -72,7 +73,7 @@ class MachineLearningLib extends TikiDb_Bridge
 				'serialized_args' => null
 			];
 		}
-		$ref = new ReflectionClass('Rubix\ML\\'.$class);
+		$ref = new ReflectionClass('Rubix\ML\\' . $class);
 		$instance_args = [];
 		if ($args) {
 			foreach ($args as $arg) {
@@ -221,7 +222,8 @@ class MachineLearningLib extends TikiDb_Bridge
 		return $result;
 	}
 
-	public function isRegressor($model) {
+	public function isRegressor($model)
+    {
 		$estimator = $this->getTrainedModel($model);
 		return $estimator->type() == Rubix\ML\EstimatorType::regressor();
 	}

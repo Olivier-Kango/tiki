@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -21,7 +23,8 @@ $access->check_feature('feature_view_tpl');
 
 // you have to have the perm view and edit to continue:
 	  // if view perm is set: continue
-if (($tiki_p_view_templates != 'y') ||
+if (
+    ($tiki_p_view_templates != 'y') ||
 	  // if edit perm is set: continue, else quit if user tries save/delete
 	  ($tiki_p_edit_templates != 'y' &&
 		(isset($_REQUEST["save"]) ||
@@ -29,7 +32,7 @@ if (($tiki_p_view_templates != 'y') ||
 		 isset($_REQUEST['delete'])
 		)
 	  )
-	) {
+) {
 	$smarty->assign('errortype', 401);
 	$smarty->assign('msg', tra("You don't have permission to use this feature"));
 

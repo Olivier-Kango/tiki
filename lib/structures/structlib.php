@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -274,8 +275,19 @@ class StructLib extends TikiLib
 		$newpagebody .= isset($options['content']) ? $options['content'] : '';
 
 		$created = $this->create_page(
-			$name, 0, $newpagebody, $this->now, $creator_msg, $creator, $ip_source, $description,
-			$lang, $is_html, $hash, $wysiwyg, $wiki_authors_style
+			$name,
+            0,
+            $newpagebody,
+            $this->now,
+            $creator_msg,
+            $creator,
+            $ip_source,
+            $description,
+			$lang,
+            $is_html,
+            $hash,
+            $wysiwyg,
+            $wiki_authors_style
 		);
 
 		if (! empty($parent_id) || $created || ! $this->page_is_in_structure($name)) {
@@ -463,8 +475,10 @@ class StructLib extends TikiLib
 		}
 		$structure_path[] = $page_info;
 		foreach ($structure_path as $key => $value) {
-			if ($prefs['namespace_indicator_in_structure'] === 'y' && ! empty($prefs['namespace_separator'])
-				&& strpos($value['pageName'], $prefs['namespace_separator']) !== false) {
+			if (
+                $prefs['namespace_indicator_in_structure'] === 'y' && ! empty($prefs['namespace_separator'])
+				&& strpos($value['pageName'], $prefs['namespace_separator']) !== false
+            ) {
 					$arr = explode($prefs['namespace_separator'], $value['pageName']);
 					$structure_path[$key]['stripped_pageName'] = end($arr);
 			} else {
@@ -666,10 +680,12 @@ class StructLib extends TikiLib
 					continue;
 				}
 
-				if ($prefs['namespace_indicator_in_structure'] === 'y'
+				if (
+                    $prefs['namespace_indicator_in_structure'] === 'y'
 					&& ! empty($prefs['namespace_separator'])
 					&& ! empty($res['pageName'])
-					&& strpos($res['pageName'], $prefs['namespace_separator']) !== false) {
+					&& strpos($res['pageName'], $prefs['namespace_separator']) !== false
+                ) {
 					$arr = explode($prefs['namespace_separator'], $res['pageName']);
 					$res['short_pageName'] = end($arr);
 				} else {

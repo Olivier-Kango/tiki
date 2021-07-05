@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This checks that composer was installed and otherwise displays a web-friendly error page
  *

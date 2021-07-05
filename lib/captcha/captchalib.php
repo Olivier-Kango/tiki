@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -47,9 +48,9 @@ class Captcha
 		if (empty($type)) {
 			if ($prefs['recaptcha_enabled'] == 'y' && ! empty($prefs['recaptcha_privkey']) && ! empty($prefs['recaptcha_pubkey'])) {
 				if ($prefs['recaptcha_version'] == '2') {
-					$type = 'recaptcha20'; 
-				} elseif ( $prefs['recaptcha_version'] == '3') {
-					$type = 'recaptcha30'; 
+					$type = 'recaptcha20';
+				} elseif ($prefs['recaptcha_version'] == '3') {
+					$type = 'recaptcha30';
 				} else {
 					$type = 'recaptcha';
 				}
@@ -131,7 +132,7 @@ class Captcha
 			include_once('lib/captcha/Captcha_Questions.php');
 			$this->captcha = new Captcha_Questions($questions);
 		} else {		// implied $type==='dumb'
-			$this->captcha = new Laminas\Captcha\Dumb;
+			$this->captcha = new Laminas\Captcha\Dumb();
 			$this->captcha->setWordlen($prefs['captcha_wordLen']);
 			$this->captcha->setLabel(tra('Please type this word backwards'));
 			$this->type = 'dumb';
@@ -231,7 +232,6 @@ Recaptcha.create("' . $this->captcha->getPubKey() . '",
 			ini_set('arg_separator.output', $oldVal);
 			return $result;
 		} else {
-
 			if (isset($input['captcha'])) {
 				$captchaInput = $input['captcha'];
 			} else {

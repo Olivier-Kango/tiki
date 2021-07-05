@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -16,7 +17,7 @@ class WikiParser_PluginParserTest extends TikiTestCase
 	public function testNothingToParse()
 	{
 		$data = 'Hello world this is a simple test';
-		$parser = new WikiParser_PluginParser;
+		$parser = new WikiParser_PluginParser();
 
 		$this->assertEquals($data, $parser->parse($data));
 	}
@@ -34,7 +35,7 @@ class WikiParser_PluginParserTest extends TikiTestCase
 
 		$data = 'This is a {TEST(hello=world)}Hello{TEST} without any changes';
 
-		$parser = new WikiParser_PluginParser;
+		$parser = new WikiParser_PluginParser();
 		$parser->setPluginRunner($this->createMock('WikiParser_PluginRunner'));
 		$parser->setArgumentParser($mock);
 		$parser->parse($data);
@@ -43,7 +44,7 @@ class WikiParser_PluginParserTest extends TikiTestCase
 	public function testPluginWithoutRunner()
 	{
 		$data = 'This is a {TEST(hello=world)}Hello{TEST} without any changes';
-		$parser = new WikiParser_PluginParser;
+		$parser = new WikiParser_PluginParser();
 
 		$this->assertEquals($data, $parser->parse($data));
 	}
@@ -65,9 +66,9 @@ class WikiParser_PluginParserTest extends TikiTestCase
 			->willReturn('test');
 
 		$data = 'This is a {TEST(hello=world)}Hello{TEST} and will change';
-		$parser = new WikiParser_PluginParser;
+		$parser = new WikiParser_PluginParser();
 		$parser->setPluginRunner($mock);
-		$parser->setArgumentParser(new WikiParser_PluginArgumentParser);
+		$parser->setArgumentParser(new WikiParser_PluginArgumentParser());
 		$this->assertEquals('This is a test and will change', $parser->parse($data));
 	}
 
@@ -88,9 +89,9 @@ class WikiParser_PluginParserTest extends TikiTestCase
 			->willReturn('test');
 
 		$data = 'This is a {test hello=world} and will change';
-		$parser = new WikiParser_PluginParser;
+		$parser = new WikiParser_PluginParser();
 		$parser->setPluginRunner($mock);
-		$parser->setArgumentParser(new WikiParser_PluginArgumentParser);
+		$parser->setArgumentParser(new WikiParser_PluginArgumentParser());
 		$this->assertEquals('This is a test and will change', $parser->parse($data));
 	}
 
@@ -111,9 +112,9 @@ class WikiParser_PluginParserTest extends TikiTestCase
 			->willReturn('test');
 
 		$data = 'This is a {test} and will change';
-		$parser = new WikiParser_PluginParser;
+		$parser = new WikiParser_PluginParser();
 		$parser->setPluginRunner($mock);
-		$parser->setArgumentParser(new WikiParser_PluginArgumentParser);
+		$parser->setArgumentParser(new WikiParser_PluginArgumentParser());
 		$this->assertEquals('This is a test and will change', $parser->parse($data));
 	}
 
@@ -130,9 +131,9 @@ class WikiParser_PluginParserTest extends TikiTestCase
 			->willReturn('return');
 
 		$data = '~np~ {a} ~/np~ {b} ~np~ {c} ~/np~';
-		$parser = new WikiParser_PluginParser;
+		$parser = new WikiParser_PluginParser();
 		$parser->setPluginRunner($mock);
-		$parser->setArgumentParser(new WikiParser_PluginArgumentParser);
+		$parser->setArgumentParser(new WikiParser_PluginArgumentParser());
 		$this->assertEquals('~np~ {a} ~/np~ return ~np~ {c} ~/np~', $parser->parse($data));
 	}
 
@@ -149,9 +150,9 @@ class WikiParser_PluginParserTest extends TikiTestCase
 			->willReturn('no plugin');
 
 		$data = '{A()} {b} {A}';
-		$parser = new WikiParser_PluginParser;
+		$parser = new WikiParser_PluginParser();
 		$parser->setPluginRunner($mock);
-		$parser->setArgumentParser(new WikiParser_PluginArgumentParser);
+		$parser->setArgumentParser(new WikiParser_PluginArgumentParser());
 		$this->assertEquals('no plugin', $parser->parse($data));
 	}
 
@@ -166,9 +167,9 @@ class WikiParser_PluginParserTest extends TikiTestCase
 			->method('run')
 			->willReturnOnConsecutiveCalls('__{b}__', 'hello');
 
-		$parser = new WikiParser_PluginParser;
+		$parser = new WikiParser_PluginParser();
 		$parser->setPluginRunner($mock);
-		$parser->setArgumentParser(new WikiParser_PluginArgumentParser);
+		$parser->setArgumentParser(new WikiParser_PluginArgumentParser());
 		$this->assertEquals('before __hello__ after', $parser->parse('before {a} after'));
 	}
 
@@ -183,9 +184,9 @@ class WikiParser_PluginParserTest extends TikiTestCase
 			->method('run')
 			->willReturnOnConsecutiveCalls('__{b}__', 'hello');
 
-		$parser = new WikiParser_PluginParser;
+		$parser = new WikiParser_PluginParser();
 		$parser->setPluginRunner($mock);
-		$parser->setArgumentParser(new WikiParser_PluginArgumentParser);
+		$parser->setArgumentParser(new WikiParser_PluginArgumentParser());
 		$this->assertEquals('__hello__', $parser->parse('{A()} {b} {A}'));
 	}
 
@@ -200,9 +201,9 @@ class WikiParser_PluginParserTest extends TikiTestCase
 			->method('run')
 			->willReturn('~np~{b}~/np~');
 
-		$parser = new WikiParser_PluginParser;
+		$parser = new WikiParser_PluginParser();
 		$parser->setPluginRunner($mock);
-		$parser->setArgumentParser(new WikiParser_PluginArgumentParser);
+		$parser->setArgumentParser(new WikiParser_PluginArgumentParser());
 		$parser->parse('{a}');
 	}
 }

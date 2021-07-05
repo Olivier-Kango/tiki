@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -199,7 +201,7 @@ function tiki_searchindex_get_results($filter, $postfilter, $offset, $maxRecords
 
 	$unifiedsearchlib = TikiLib::lib('unifiedsearch');
 
-	$query = new Search_Query;
+	$query = new Search_Query();
 	$unifiedsearchlib->initQueryBase($query);
 	$query = $unifiedsearchlib->buildQuery($filter, $query);
 	$query->filterContent('y', 'searchable');
@@ -253,7 +255,7 @@ function tiki_searchindex_get_results($filter, $postfilter, $offset, $maxRecords
 					if (key_exists($label, $duplicateLabels)) {
 						// it's almost always tracker fields that are duplicated, so just them for now
 						if (strpos($name, 'tracker_field_') === 0) {
-							$field =TikiLib::lib('trk')->get_tracker_field(substr($name, 14));
+							$field = TikiLib::lib('trk')->get_tracker_field(substr($name, 14));
 							$definition = \Tracker_Definition::get($field['trackerId']);
 							$facet->setLabel($label . ' (' . $definition->getConfiguration('name') . ')');
 						}
@@ -308,4 +310,3 @@ function tiki_searchindex_get_excluded_facets()
 		]
 	);
 }
-

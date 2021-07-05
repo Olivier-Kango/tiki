@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -67,7 +68,9 @@ class Tracker_Field_UserGroups extends Tracker_Field_Abstract implements Tracker
 					function ($fieldId) use ($trackerId, $itemId, $trackerlib) {
 						$owners = $trackerlib->get_item_value($trackerId, $itemId, $fieldId);
 						return $trackerlib->parse_user_field($owners);
-					}, $fields);
+                    },
+                    $fields
+                );
 
 				$itemUsers = call_user_func_array('array_merge', $itemUsers);
 			}
@@ -170,7 +173,7 @@ class Tracker_Field_UserGroups extends Tracker_Field_Abstract implements Tracker
 				if ($value === '-Blank (no data)-') {
 					$query->filterIdentifier('', $baseKey . '_text');
 				} elseif ($value) {
-					$query->filterMultivalue('"'.((string) $value).'"', $baseKey);
+					$query->filterMultivalue('"' . ((string) $value) . '"', $baseKey);
 				}
 			});
 
@@ -187,7 +190,7 @@ class Tracker_Field_UserGroups extends Tracker_Field_Abstract implements Tracker
 						if ($v === '-Blank (no data)-') {
 							$sub->filterIdentifier('', $baseKey . '_text');
 						} elseif ($v) {
-							$sub->filterMultivalue('"'.((string) $v).'"', $baseKey);
+							$sub->filterMultivalue('"' . ((string) $v) . '"', $baseKey);
 						}
 					}
 				}

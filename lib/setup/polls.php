@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -34,14 +35,16 @@ if (isset($_REQUEST['pollVote']) && ! empty($_REQUEST['polls_pollId'])) {
 				$smarty->assign_by_ref('polls_optionId', $_REQUEST['polls_optionId']);
 			} else {
 				$previous_vote = $polllib->get_user_vote('poll' . $_REQUEST['polls_pollId'], $user);
-				if ($tikilib->register_user_vote($user,
-					'poll' . $_REQUEST['polls_pollId'],
-					$_REQUEST['polls_optionId'],
-					[],
-					$prefs['feature_poll_revote'] == 'y'
-					)
-					&& $access->checkCsrf())
-				{
+				if (
+                    $tikilib->register_user_vote(
+                        $user,
+                        'poll' . $_REQUEST['polls_pollId'],
+                        $_REQUEST['polls_optionId'],
+                        [],
+                        $prefs['feature_poll_revote'] == 'y'
+                    )
+					&& $access->checkCsrf()
+                ) {
 					$result = $polllib->poll_vote($user, $_REQUEST['polls_pollId'], $_REQUEST['polls_optionId'], $previous_vote);
 					if ($result) {
 						if ($result === true) {

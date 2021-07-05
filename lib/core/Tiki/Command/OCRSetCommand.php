@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -27,41 +28,49 @@ class OCRSetCommand extends Command
 			->addArgument(
 				'Queue or Skip',
 				InputArgument::REQUIRED,
-				'Do you want to Queue the files for OCR processing, or mark the files to be skipped. Valid options = (q queue s skip).')
+                'Do you want to Queue the files for OCR processing, or mark the files to be skipped. Valid options = (q queue s skip).'
+            )
 			->addArgument(
 				'File ID',
 				InputArgument::OPTIONAL,
-				'Specify a file id, or a range to filter or omit to match all. eg. (12 or 90:92)')
+                'Specify a file id, or a range to filter or omit to match all. eg. (12 or 90:92)'
+            )
 			->addOption(
 				'stalled',
 				's',
 				InputOption::VALUE_NONE,
-				'Filter files so only stalled files are updated')
+                'Filter files so only stalled files are updated'
+            )
 			->addOption(
 				'finished',
 				'f',
 				InputOption::VALUE_NONE,
-				'Filter only files that are already finished to be updated')
+                'Filter only files that are already finished to be updated'
+            )
 			->addOption(
 				'processing',
 				'p',
 				InputOption::VALUE_NONE,
-				'Filter only files that are currently being processed to be updated')
+                'Filter only files that are currently being processed to be updated'
+            )
 			->addOption(
 				'queued',
 				'u',
 				InputOption::VALUE_NONE,
-				'Filter only files that are queued for OCR to be updated.')
+                'Filter only files that are queued for OCR to be updated.'
+            )
 			->addOption(
 				'refrained',
 				'r',
 				InputOption::VALUE_NONE,
-				'Filter only files not marked for OCR processing to be updated')
+                'Filter only files not marked for OCR processing to be updated'
+            )
 			->addOption(
 				'no-confirm',
 				'c',
 				InputOption::VALUE_NONE,
-				'Prompts to confirm updating files will be skipped. Useful for automated tasks.');
+                'Prompts to confirm updating files will be skipped. Useful for automated tasks.'
+            );
 	}
 
 	protected function execute(InputInterface $input, OutputInterface $output)

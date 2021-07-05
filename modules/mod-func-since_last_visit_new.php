@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -111,7 +112,8 @@ function module_since_last_visit_new($mod_reference, $params = null)
 		$params = [];
 	}
 
-	if ((empty($params['calendar_focus']) || $params['calendar_focus'] != 'ignore')
+	if (
+        (empty($params['calendar_focus']) || $params['calendar_focus'] != 'ignore')
 			&& strpos($_SERVER['SCRIPT_NAME'], 'tiki-calendar.php') !== false
 			&& ! empty($_REQUEST['todate'])
 	) {

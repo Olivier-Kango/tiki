@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -92,7 +94,7 @@ if ($_REQUEST['objectType'] == 'wiki') {
 $objectFactory = Perms_Reflection_Factory::getDefaultFactory();
 $currentObject = $objectFactory->get($_REQUEST['objectType'], $_REQUEST['objectId'], $_REQUEST['parentId']);
 
-$permissionApplier = new Perms_Applier;
+$permissionApplier = new Perms_Applier();
 $permissionApplier->addObject($currentObject);
 
 if ($restrictions = perms_get_restrictions()) {
@@ -118,11 +120,11 @@ if ($_REQUEST['objectType'] == 'wiki page') {
 	$cachelib->empty_type_cache('structure_');
 }
 
-if ($_REQUEST['objectType'] == 'category' ) {
+if ($_REQUEST['objectType'] == 'category') {
 	$categlib = TikiLib::lib('categ');
 	$categ = $categlib->get_category($_REQUEST['objectId']);
 	$groupRole = false;
-	if(isset($_REQUEST['propagate_category'])) {
+	if (isset($_REQUEST['propagate_category'])) {
 		$descendants = $categlib->get_category_descendants($_REQUEST['objectId']);
 		foreach ($descendants as $child) {
 			$o = $objectFactory->get($_REQUEST['objectType'], $child, $_REQUEST['objectId']);
@@ -130,11 +132,9 @@ if ($_REQUEST['objectType'] == 'category' ) {
 		}
 	}
 	$templatedGroupId = TikiLib::lib('attribute')->get_attribute("category", $_REQUEST['objectId'], "tiki.category.templatedgroupid");
-	if($categ["parentId"] > 0 && $templatedGroupId){
-
+	if ($categ["parentId"] > 0 && $templatedGroupId) {
 		$roles = TikiLib::lib("roles")->getAvailableCategoriesRolesIds($categ["parentId"]);
 		$groupRole = ! empty($roles);
-
 	}
 	$smarty->assign('groupRole', $groupRole);
 }
@@ -307,7 +307,7 @@ if (isset($_REQUEST['assign']) && ! isset($_REQUEST['quick_perms']) && $access->
 }
 
 if (isset($_REQUEST['remove']) && $access->checkCsrf(true)) {
-	$newPermissions = new Perms_Reflection_PermissionSet;
+	$newPermissions = new Perms_Reflection_PermissionSet();
 	$permissionApplier->apply($newPermissions);
 }
 
@@ -333,7 +333,7 @@ if (! empty($_SESSION['perms_clipboard'])) {
 		$access->check_authenticity(tra('Are you sure you want to paste the copied permissions into this object?'));
 		unset($_SESSION['perms_clipboard']);
 
-		$set = new Perms_Reflection_PermissionSet;
+		$set = new Perms_Reflection_PermissionSet();
 
 		if (isset($perms_clipboard['perms'])) {
 			foreach ($perms_clipboard['perms'] as $group => $gperms) {
@@ -356,7 +356,7 @@ $displayedPermissions = get_displayed_permissions();
 if ($prefs['feature_quick_object_perms'] == 'y') {
 	$qperms = quickperms_get_data();
 	$smarty->assign('quickperms', $qperms);
-	$quickperms = new Perms_Reflection_Quick;
+	$quickperms = new Perms_Reflection_Quick();
 
 	foreach ($qperms as $type => $data) {
 		$quickperms->configure($type, $data['data']);
@@ -505,7 +505,8 @@ foreach ($candidates['data'] as $perm) {
 		$pref_feature = true;
 	}
 
-	if (($feature_filter === false || in_array($perm['type'], $feature_filter))
+	if (
+        ($feature_filter === false || in_array($perm['type'], $feature_filter))
 				&& ($restrictions === false || in_array($perm['permName'], $restrictions))
 				&& $pref_feature
 	) {
@@ -837,7 +838,7 @@ function get_displayed_permissions()
 	$displayedPermissions = $currentObject->getDirectPermissions();
 	$globPerms = $objectFactory->get('global', null)->getDirectPermissions();	// global perms
 
-	$comparator = new Perms_Reflection_PermissionComparator($displayedPermissions, new Perms_Reflection_PermissionSet);
+	$comparator = new Perms_Reflection_PermissionComparator($displayedPermissions, new Perms_Reflection_PermissionSet());
 
 	$smarty->assign('permissions_displayed', 'direct');
 	if ($comparator->equal()) {

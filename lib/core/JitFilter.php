@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -161,9 +162,11 @@ class JitFilter implements ArrayAccess, Iterator, Countable
 	public function replaceFilters($filters)
 	{
 		foreach ($filters as $key => $values) {
-			if (is_array($values)
+			if (
+                is_array($values)
 				&& $this->offsetExists($key)
-				&& $this->offsetGet($key) instanceof self) {
+				&& $this->offsetGet($key) instanceof self
+            ) {
 				$this->offsetGet($key)->replaceFilters($values);
 			} else {
 				$this->replaceFilter($key, $values);

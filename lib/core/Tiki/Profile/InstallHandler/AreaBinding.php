@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -40,8 +41,8 @@ class Tiki_Profile_InstallHandler_AreaBinding extends Tiki_Profile_InstallHandle
 		$this->replaceReferences($data);
 
 		$extraData = [];
-		foreach(['exclusive', 'share_common', 'enabled'] as $key) {
-			if (!empty($data[$key])){
+		foreach (['exclusive', 'share_common', 'enabled'] as $key) {
+			if (! empty($data[$key])) {
 				$extraData[$key] = $data[$key];
 			}
 		}

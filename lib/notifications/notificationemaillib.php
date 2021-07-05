@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -111,8 +112,10 @@ function sendForumEmailNotification(
 		$nots = [];
 		$users = [];
 		foreach ($nots_raw as $n) {
-			if ($n['user'] != $author
-					&& ! in_array($n['user'], $users)) {
+			if (
+                $n['user'] != $author
+					&& ! in_array($n['user'], $users)
+            ) {
 				// make sure user receive only one notification even if he is monitoring both the topic and thread
 				$n['language'] = $tikilib->get_user_preference($n['user'], "language", $defaultLanguage);
 				$nots[] = $n;
@@ -825,16 +828,18 @@ function sendCommentNotification($type, $id, $title, $content, $commentId, $anon
 		if (! empty($watches2)) {
 			// make sure we add unique email addresses to send the notification to
 			foreach ($watches2 as $userWatch) {
-				if (! in_array($userWatch['email'], array_map(function ($w) {
+				if (
+                    ! in_array($userWatch['email'], array_map(function ($w) {
 					return $w['email'];
-				}, $watches))) {
+                    }, $watches))
+                ) {
 					$watches[] = $userWatch;
 				}
 			}
 		}
 	}
 
-	if ($type != 'wiki'|| $prefs['wiki_watch_editor'] != 'y') {
+	if ($type != 'wiki' || $prefs['wiki_watch_editor'] != 'y') {
 		for ($i = count($watches) - 1; $i >= 0; --$i) {
 			if ($watches[$i]['user'] == $user) {
 				unset($watches[$i]);

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -14,7 +15,7 @@ class Language_MergeFilesTest extends TikiTestCase
 {
 	protected $obj;
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		$root = vfsStream::setup('root');
 		$this->sourceFile = new vfsStreamFile('language_source.php');

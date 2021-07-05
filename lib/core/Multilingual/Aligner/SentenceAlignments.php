@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -10,6 +11,7 @@
  * linguistic versions of a same document. For example, English
  * sentences with their corresponding French sentences.
  */
+
 include_once "SentenceSegmentor.php";
 
 class Multilingual_Aligner_SentenceAlignments
@@ -359,8 +361,10 @@ class Multilingual_Aligner_SentenceAlignments
 
 		for ($i = 0; $endmatch <= $lasts; $endmatch++, $start++) {
 			if ($string[$endmatch] == $pat[$lastp]) {
-				for ($j = 0, $i = $start; $j < $lastp && $string[$i] == $pat[$j];
-				$i++,$j++) {
+				for (
+                    $j = 0, $i = $start; $j < $lastp && $string[$i] == $pat[$j];
+                    $i++,$j++
+                ) {
 				}
 			}
 			if ($j == $lastp) {

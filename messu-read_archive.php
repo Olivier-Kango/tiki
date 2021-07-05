@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -23,7 +25,7 @@ if ((! isset($_REQUEST['msgId']) || $_REQUEST['msgId'] == 0) && empty($_POST['ms
 }
 
 
-if (isset($_POST['action'])&& $access->checkCsrf()) {
+if (isset($_POST['action']) && $access->checkCsrf()) {
 	$messulib->flag_message($user, $_POST['msgId'], $_POST['action'], $_POST['actionval'], 'archive');
 }
 if (isset($_POST['msgdel']) && $access->checkCsrf(true)) {

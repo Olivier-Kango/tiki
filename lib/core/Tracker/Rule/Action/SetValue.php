@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Tiki\Lib\core\Tracker\Rule\Action;
-
 
 use Tiki\Lib\core\Tracker\Rule\Type\Field;
 use Tiki\Lib\core\Tracker\Rule\Type\Text;

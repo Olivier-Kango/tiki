@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -78,8 +80,10 @@ if (isset($_REQUEST['comments']) && $_REQUEST['comments'] == 'on') {
 }
 
 foreach ($sections as $skey => $sval) {
-	if (isset($prefs['toolbar_' . $skey . ($comments ? '_comments' : '') . 'modified'])
-		&& $prefs['toolbar_' . $skey . ($comments ? '_comments' : '') . 'modified'] == 'y') {
+	if (
+        isset($prefs['toolbar_' . $skey . ($comments ? '_comments' : '') . 'modified'])
+		&& $prefs['toolbar_' . $skey . ($comments ? '_comments' : '') . 'modified'] == 'y'
+    ) {
 		$sections[$skey] = $sval . ' *';
 	}
 }

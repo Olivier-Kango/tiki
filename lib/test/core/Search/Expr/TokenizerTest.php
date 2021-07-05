@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -9,9 +10,9 @@ class Search_Expr_TokenizerTest extends PHPUnit\Framework\TestCase
 {
 	private $tokenizer;
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
-		$this->tokenizer = new Search_Expr_Tokenizer;
+		$this->tokenizer = new Search_Expr_Tokenizer();
 	}
 
 	public function testSingleWord()

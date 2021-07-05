@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -132,9 +133,11 @@ ORDER BY `title`'
 			foreach ($libraries as $key => $existingLibrary) {
 				if ($library['name'] === $existingLibrary->name) {
 					// Found library with same name, check versions
-					if (( $library['majorVersion'] === $existingLibrary->majorVersion &&
+					if (
+                        ( $library['majorVersion'] === $existingLibrary->majorVersion &&
 								 $library['minorVersion'] > $existingLibrary->minorVersion ) ||
-							 ( $library['majorVersion'] > $existingLibrary->majorVersion ) ) {
+							 ( $library['majorVersion'] > $existingLibrary->majorVersion )
+                    ) {
 						// This is a newer version
 						$existingLibrary->isOld = true;
 					} else {
@@ -256,7 +259,8 @@ ORDER BY `title`'
 	 *
 	 * @return array List of possible language codes
 	 */
-	public function getAvailableLanguages($machineName, $majorVersion, $minorVersion) {
+	public function getAvailableLanguages($machineName, $majorVersion, $minorVersion)
+    {
 
 		$results = TikiDb::get()->query(
 			'SELECT hll.language_code

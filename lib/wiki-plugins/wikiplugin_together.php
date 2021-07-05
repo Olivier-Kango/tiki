@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -48,7 +49,7 @@ function wikiplugin_together($data, $params)
 	}
 	TikiLib::lib('header')->add_jq_onready('
 if(! window.startTogetherJS) {
-	'.(! empty($params['serverurl']) ? "window.TogetherJSConfig_hubBase = ".json_encode($params['serverurl']).";\n" : '').'
+	' . (! empty($params['serverurl']) ? "window.TogetherJSConfig_hubBase = " . json_encode($params['serverurl']) . ";\n" : '') . '
 	window.TogetherJSConfig_on_ready = function() {
 		if(m = window.location.href.match(/tiki-editpage.php\?page=([^&#]+)/)) {
 			var session = TogetherJS.require("session");

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -61,8 +62,10 @@ if (! isset($_REQUEST['show'])) { //defaults
 		$showpopups = 0;
 	}
 	$escape = 0;
-	if (isset($prefs['feature_source']) and $prefs['feature_source'] == 'y' and
-		isset($tiki_p_wiki_view_source) and $tiki_p_wiki_view_source == 'y') {
+	if (
+        isset($prefs['feature_source']) and $prefs['feature_source'] == 'y' and
+		isset($tiki_p_wiki_view_source) and $tiki_p_wiki_view_source == 'y'
+    ) {
 		if (isset($_REQUEST['escape'])) {
 			$escape = $_REQUEST['escape'];
 		}

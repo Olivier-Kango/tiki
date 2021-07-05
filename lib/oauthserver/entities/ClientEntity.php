@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 use League\OAuth2\Server\Entities\ClientEntityInterface;
 use League\OAuth2\Server\Entities\Traits\ClientTrait;
@@ -10,10 +10,12 @@ use League\OAuth2\Server\Entities\Traits\EntityTrait;
  */
 class ClientEntity implements ClientEntityInterface
 {
-	use EntityTrait, ClientTrait;
+	use EntityTrait;
+    use ClientTrait;
+
 	const TABLE = 'tiki_oauthserver_clients';
 
-	public function __construct($data=array())
+	public function __construct($data = array())
 	{
 		$data = array_merge([
 			'id'    => 0,
@@ -41,7 +43,8 @@ class ClientEntity implements ClientEntityInterface
 		return $this;
 	}
 
-	public function getId(){
+	public function getId()
+    {
 		return $this->id;
 	}
 
@@ -50,7 +53,8 @@ class ClientEntity implements ClientEntityInterface
 		return $this->setClientId($client_id);
 	}
 
-	public function getIdentifier(){
+	public function getIdentifier()
+    {
 		return $this->getClientId();
 	}
 
@@ -60,7 +64,8 @@ class ClientEntity implements ClientEntityInterface
 		return $this;
 	}
 
-	public function getName(){
+	public function getName()
+    {
 		return $this->name;
 	}
 
@@ -70,7 +75,8 @@ class ClientEntity implements ClientEntityInterface
 		return $this;
 	}
 
-	public function getClientId(){
+	public function getClientId()
+    {
 		return $this->client_id;
 	}
 
@@ -80,7 +86,8 @@ class ClientEntity implements ClientEntityInterface
 		return $this;
 	}
 
-	public function getClientSecret(){
+	public function getClientSecret()
+    {
 		return $this->client_secret;
 	}
 

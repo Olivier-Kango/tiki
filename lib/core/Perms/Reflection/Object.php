@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -35,7 +36,7 @@ class Perms_Reflection_Object implements Perms_Reflection_Container
 	public function getDirectPermissions()
 	{
 		$userlib = TikiLib::lib('user');
-		$set = new Perms_Reflection_PermissionSet;
+		$set = new Perms_Reflection_PermissionSet();
 
 		$permissions = $userlib->get_object_permissions($this->object, $this->type);
 		foreach ($permissions as $row) {
@@ -66,7 +67,7 @@ class Perms_Reflection_Object implements Perms_Reflection_Container
 	{
 		$categories = $this->getCategories();
 
-		$set = new Perms_Reflection_PermissionSet;
+		$set = new Perms_Reflection_PermissionSet();
 		$count = 0;
 		foreach ($categories as $category) {
 			$category = $this->factory->get('category', $category);

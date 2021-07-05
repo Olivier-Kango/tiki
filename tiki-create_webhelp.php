@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -29,7 +31,7 @@ function copys($source, $dest)
 	$h = @dir($source);
 	while (@($entry = $h->read()) !== false) {
 		if (($entry != '.') && ($entry != '..')) {
-			if (is_dir("$source/$entry")&&$dest !== "$source/$entry") {
+			if (is_dir("$source/$entry") && $dest !== "$source/$entry") {
 				copys("$source/$entry", "$dest/$entry");
 			} else {
 				@copy("$source/$entry", "$dest/$entry");

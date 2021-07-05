@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -93,8 +95,10 @@ if (isset($_REQUEST['clear']) && $access->checkCsrf()) {
 		['rssId' => $_REQUEST['clear']]
 	);
 	if ($count == 0) {
-		Feedback::note(tr('No cached items to clear for external feed ID %0.',
-			htmlspecialchars($_REQUEST['clear'])));
+		Feedback::note(tr(
+            'No cached items to clear for external feed ID %0.',
+            htmlspecialchars($_REQUEST['clear'])
+        ));
 	} else {
 		$result = $rsslib->clear_rss_cache($_REQUEST['clear']);
 		if ($result && $result->numRows()) {

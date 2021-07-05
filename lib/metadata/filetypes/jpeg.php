@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -49,7 +50,7 @@ class Jpeg extends ImageFile
 		//interpret and add tags
 		if ($metadata['exifraw']) {
 			require_once('lib/metadata/datatypes/exif.php');
-			$exif = new Exif;
+			$exif = new Exif();
 			$metadata['exif'] = $exif->processRawData($metadata['exifraw']);
 			//add EXIF to combined metadata array that is not reconciled
 			$metadata['combined']['exif'] = $metadata['exif'];
@@ -74,7 +75,7 @@ class Jpeg extends ImageFile
 			}
 			//process raw data
 			require_once('lib/metadata/datatypes/iptc.php');
-			$iptc = new Iptc;
+			$iptc = new Iptc();
 			$metadata['iptc'] = $iptc->processRawData($metadata['iptcraw']);
 			//add IPTC to combined metadata array that is not reconciled
 			$metadata['combined']['iptc'] = $metadata['iptc'];
@@ -114,10 +115,12 @@ class Jpeg extends ImageFile
 				];
 			}
 
-			if (! isset($metadata['iptc']['digest']['iptchashstored']['newval']) ||
-				(strlen($metadata['iptc']['digest']['iptchashstored']['newval']) > 0
-					&& $metadata['iptc']['digest']['iptchashstored']['newval'] ==
-						$metadata['iptc']['digest']['iptchashcurrent']['newval'])) {
+			if (
+                ! isset($metadata['iptc']['digest']['iptchashstored']['newval']) ||
+				(strlen($metadata['iptc']['digest']['iptchashstored']['newval']) > 0 &&
+					$metadata['iptc']['digest']['iptchashstored']['newval'] ==
+						$metadata['iptc']['digest']['iptchashcurrent']['newval'])
+            ) {
 				if (isset($metadata['iptc']['digest']['iptchashstored']['newval'])) {
 					$metadata['iptc']['digest']['match']['newval'] = '';
 					//place text in suffix so it can be translated
@@ -152,7 +155,7 @@ class Jpeg extends ImageFile
 		//get raw xmp DOM, convert to an array add tags and interpret
 		if (! empty($metaObj->content)) {
 			require_once('lib/metadata/datatypes/xmp.php');
-			$xmp = new Xmp;
+			$xmp = new Xmp();
 			$metadata['xmpraw'] = $xmp->getXmp($metaObj->content, $metaObj->basicraw['type']);
 			$metadata['xmp'] = $xmp->processRawData($metadata['xmpraw']);
 		} else {
@@ -166,7 +169,7 @@ class Jpeg extends ImageFile
 
 		//Reconcile extended metadata in accordance with the Metadata Working Group standards
 		require_once('lib/metadata/reconcile.php');
-		$rec = new ReconcileExifIptcXmp;
+		$rec = new ReconcileExifIptcXmp();
 		$metadata['reconciled'] = $rec->reconcileAllMeta($metadata);
 
 		//Add basic info

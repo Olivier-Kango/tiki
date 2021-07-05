@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -261,7 +262,7 @@ class BanLib extends TikiLib
 			$banId = $this->getOne("select max(`banId`) from `tiki_banning` where `created`=?", [$this->now]);
 		}
 
-		$oldSections = TikiDb::get()->table('tiki_banning_sections')->fetchColumn('section',['banId' => $banId]);
+		$oldSections = TikiDb::get()->table('tiki_banning_sections')->fetchColumn('section', ['banId' => $banId]);
 		$query = "delete from `tiki_banning_sections` where `banId`=?";
 		$this->query($query, [$banId]);
 
@@ -270,7 +271,7 @@ class BanLib extends TikiLib
 
 			$resultSections = $this->query($query, [$banId, $section]);
 		}
-		$newSections = TikiDb::get()->table('tiki_banning_sections')->fetchColumn('section',['banId' => $banId]);
+		$newSections = TikiDb::get()->table('tiki_banning_sections')->fetchColumn('section', ['banId' => $banId]);
 
 		if (isset($resultInsert)) {
 			$result = $resultInsert;
@@ -295,4 +296,4 @@ class BanLib extends TikiLib
 	}
 }
 
-$banlib = new BanLib;
+$banlib = new BanLib();

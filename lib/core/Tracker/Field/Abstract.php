@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -61,7 +62,8 @@ abstract class Tracker_Field_Abstract implements Tracker_Field_Interface, Tracke
 		$this->trackerDefinition = $trackerDefinition;
 	}
 
-	public function getFieldDefinition() {
+	public function getFieldDefinition()
+    {
 		return $this->definition;
 	}
 
@@ -232,7 +234,7 @@ abstract class Tracker_Field_Abstract implements Tracker_Field_Interface, Tracke
 	{
 		$name = $this->getConfiguration('name');
 		$hidden = $this->getConfiguration('isHidden', 'n');
-		$is_visible = $hidden === 'n'|| $hidden === 'r';	// not hidden or only hidden from rss feeds
+		$is_visible = $hidden === 'n' || $hidden === 'r';	// not hidden or only hidden from rss feeds
 
 		if (! $is_visible) {
 			return '';
@@ -280,9 +282,10 @@ abstract class Tracker_Field_Abstract implements Tracker_Field_Interface, Tracke
 
 		$status = $this->getData('status');
 
-		if ($this->getConfiguration('isMain', 'n') == 'y'
+		if (
+            $this->getConfiguration('isMain', 'n') == 'y'
 			&& ($itemObject->canView()	|| $itemObject->getPerm('comment_tracker_items'))
-			) {
+        ) {
 			return (bool) $this->getItemId();
 		}
 
@@ -555,14 +558,16 @@ abstract class Tracker_Field_Abstract implements Tracker_Field_Interface, Tracke
 	/**
 	 * Default implementation is to replace the value
 	 */
-	public function addValue($value) {
+	public function addValue($value)
+    {
 		return $value;
 	}
 
 	/**
 	 * Default implementation is to remove the value
 	 */
-	public function removeValue($value) {
+	public function removeValue($value)
+    {
 		return '';
 	}
 }

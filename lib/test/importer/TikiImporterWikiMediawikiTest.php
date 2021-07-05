@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -15,9 +16,9 @@ require_once(__DIR__ . '/../../tikilib.php');
 class TikiImporter_Wiki_Mediawiki_Test extends TikiImporter_TestCase
 {
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
-		$this->obj = new TikiImporter_Wiki_Mediawiki;
+		$this->obj = new TikiImporter_Wiki_Mediawiki();
 	}
 
 	public function testImport(): void
@@ -105,7 +106,7 @@ class TikiImporter_Wiki_Mediawiki_Test extends TikiImporter_TestCase
 	{
 		$this->markTestSkipped('2016-09-26 Skipped as the underlying PEAR is out of date.');
 
-		$this->obj->dom = new DOMDocument;
+		$this->obj->dom = new DOMDocument();
 		$this->obj->dom->load(__DIR__ . '/fixtures/mediawiki_sample.xml');
 		$this->obj->configureParser();
 		$this->assertInstanceOf(Text_Wiki_Mediawiki::class, $this->obj->parser);
@@ -113,18 +114,18 @@ class TikiImporter_Wiki_Mediawiki_Test extends TikiImporter_TestCase
 
 	public function testValidateInput(): void
 	{
-		$this->obj->dom = new DOMDocument;
+		$this->obj->dom = new DOMDocument();
 		$this->obj->dom->load(__DIR__ . '/fixtures/mediawiki_sample.xml');
 		$this->assertTrue($this->obj->validateInput());
 
-				$this->obj->dom = new DOMDocument;
+				$this->obj->dom = new DOMDocument();
 		$this->obj->dom->load(__DIR__ . '/fixtures/mediawiki_sample_v0.4.xml');
 		$this->assertTrue($this->obj->validateInput());
 	}
 
 	public function testValidateInputShouldRaiseExceptionForUnsupportedXmlFileVersion(): void
 	{
-		$this->obj->dom = new DOMDocument;
+		$this->obj->dom = new DOMDocument();
 		$this->obj->dom->load(__DIR__ . '/fixtures/mediawiki_sample_v0.2.xml');
 		$this->expectException('DOMException');
 		$this->obj->validateInput();
@@ -132,7 +133,7 @@ class TikiImporter_Wiki_Mediawiki_Test extends TikiImporter_TestCase
 
 	public function testValidateInputShouldRaiseExceptionForInvalidXmlFile(): void
 	{
-		$this->obj->dom = new DOMDocument;
+		$this->obj->dom = new DOMDocument();
 		$this->obj->dom->load(__DIR__ . '/fixtures/mediawiki_invalid.xml');
 		$this->expectException('DOMException');
 		$this->obj->validateInput();
@@ -140,7 +141,7 @@ class TikiImporter_Wiki_Mediawiki_Test extends TikiImporter_TestCase
 
 	public function testValidateInputShouldRaiseExceptionForWordpressFile(): void
 	{
-		$this->obj->dom = new DOMDocument;
+		$this->obj->dom = new DOMDocument();
 		$this->obj->dom->load(__DIR__ . '/fixtures/wordpress_sample.xml');
 		$this->expectException('DOMException');
 		$this->obj->validateInput();
@@ -154,7 +155,7 @@ class TikiImporter_Wiki_Mediawiki_Test extends TikiImporter_TestCase
 			->addMethods(['downloadAttachment'])
 			->onlyMethods(['extractInfo'])
 			->getMock();
-		$obj->dom = new DOMDocument;
+		$obj->dom = new DOMDocument();
 		$obj->dom->load(__DIR__ . '/fixtures/mediawiki_sample.xml');
 		$obj->expects($this->exactly(4))->method('extractInfo')->willReturn([]);
 
@@ -173,7 +174,7 @@ class TikiImporter_Wiki_Mediawiki_Test extends TikiImporter_TestCase
 		$obj->expects($this->exactly(4))->method('extractInfo')->willthrowException(new ImporterParserException(''));
 		$obj->expects($this->exactly(5))->method('saveAndDisplayLog')->willReturn('');
 
-		$obj->dom = new DOMDocument;
+		$obj->dom = new DOMDocument();
 		$obj->dom->load(__DIR__ . '/fixtures/mediawiki_sample.xml');
 
 		$this->assertEquals([], $obj->parseData());
@@ -187,7 +188,7 @@ class TikiImporter_Wiki_Mediawiki_Test extends TikiImporter_TestCase
 		$obj->expects($this->exactly(4))->method('extractInfo')->willReturn([]);
 		$obj->importAttachments = true;
 
-		$obj->dom = new DOMDocument;
+		$obj->dom = new DOMDocument();
 		$obj->dom->load(__DIR__ . '/fixtures/mediawiki_sample.xml');
 		$this->assertCount(4, $obj->parseData());
 	}
@@ -209,7 +210,7 @@ class TikiImporter_Wiki_Mediawiki_Test extends TikiImporter_TestCase
 			$i--;
 		}
 
-		$this->obj->dom = new DOMDocument;
+		$this->obj->dom = new DOMDocument();
 		$this->obj->dom->load(__DIR__ . '/fixtures/mediawiki_sample.xml');
 		$this->obj->downloadAttachments();
 
@@ -232,7 +233,7 @@ class TikiImporter_Wiki_Mediawiki_Test extends TikiImporter_TestCase
 		ob_start();
 
 		$this->obj->attachmentsDestDir = __DIR__ . '/fixtures/';
-		$this->obj->dom = new DOMDocument;
+		$this->obj->dom = new DOMDocument();
 		$this->obj->dom->load(__DIR__ . '/fixtures/mediawiki_sample.xml');
 		$attachments = ['test.jpg', 'test2.jpg'];
 
@@ -256,7 +257,7 @@ class TikiImporter_Wiki_Mediawiki_Test extends TikiImporter_TestCase
 	{
 		ob_start();
 
-		$this->obj->dom = new DOMDocument;
+		$this->obj->dom = new DOMDocument();
 		$this->obj->downloadAttachments();
 
 		$output = ob_get_clean();
@@ -268,7 +269,7 @@ class TikiImporter_Wiki_Mediawiki_Test extends TikiImporter_TestCase
 		ob_start();
 
 		$this->obj->attachmentsDestDir = __DIR__ . '/fixtures/';
-		$this->obj->dom = new DOMDocument;
+		$this->obj->dom = new DOMDocument();
 		$this->obj->dom->load(__DIR__ . '/fixtures/mediawiki_invalid_upload.xml');
 		$this->obj->downloadAttachments();
 
@@ -280,7 +281,7 @@ class TikiImporter_Wiki_Mediawiki_Test extends TikiImporter_TestCase
 	{
 		ob_start();
 
-		$dom = new DOMDocument;
+		$dom = new DOMDocument();
 		$dom->load(__DIR__ . '/fixtures/mediawiki_page.xml');
 		$expectedNames = ['Redes de ensino', 'Academia Colarossi'];
 
@@ -307,7 +308,7 @@ class TikiImporter_Wiki_Mediawiki_Test extends TikiImporter_TestCase
 	{
 		ob_start();
 
-		$dom = new DOMDocument;
+		$dom = new DOMDocument();
 		$dom->load(__DIR__ . '/fixtures/mediawiki_page.xml');
 		$expectedNames = ['Redes de ensino', 'Academia Colarossi'];
 		$expectedCalls = [5, 2];
@@ -336,7 +337,7 @@ class TikiImporter_Wiki_Mediawiki_Test extends TikiImporter_TestCase
 	{
 		ob_start();
 
-		$dom = new DOMDocument;
+		$dom = new DOMDocument();
 		$dom->load(__DIR__ . '/fixtures/mediawiki_page.xml');
 		$expectedNames = ['Redes de ensino', 'Academia Colarossi'];
 		$expectedCalls = [8, 2];
@@ -365,7 +366,7 @@ class TikiImporter_Wiki_Mediawiki_Test extends TikiImporter_TestCase
 	{
 		ob_start();
 
-		$dom = new DOMDocument;
+		$dom = new DOMDocument();
 		$dom->load(__DIR__ . '/fixtures/mediawiki_page.xml');
 		$expectedNames = ['Redes de ensino', 'Academia Colarossi'];
 		$expectedCalls = [8, 2];
@@ -398,9 +399,9 @@ class TikiImporter_Wiki_Mediawiki_Test extends TikiImporter_TestCase
 			->onlyMethods(['extractRevision'])
 			->getMock();
 		$obj->revisionsNumber = 0;
-		$obj->expects($this->exactly(10))->method('extractRevision')->willReturnOnConsecutiveCalls([], [], $this->throwException(new ImporterParserException));
+		$obj->expects($this->exactly(10))->method('extractRevision')->willReturnOnConsecutiveCalls([], [], $this->throwException(new ImporterParserException()));
 
-		$dom = new DOMDocument;
+		$dom = new DOMDocument();
 		$dom->load(__DIR__ . '/fixtures/mediawiki_page.xml');
 		$pages = $dom->getElementsByTagName('page');
 
@@ -418,10 +419,10 @@ class TikiImporter_Wiki_Mediawiki_Test extends TikiImporter_TestCase
 			->onlyMethods(['extractRevision', 'saveAndDisplayLog'])
 			->getMock();
 		$obj->revisionsNumber = 0;
-		$obj->expects($this->exactly(8))->method('extractRevision')->willThrowException(new ImporterParserException);
+		$obj->expects($this->exactly(8))->method('extractRevision')->willThrowException(new ImporterParserException());
 		$obj->expects($this->exactly(8))->method('saveAndDisplayLog')->willReturn('');
 
-		$dom = new DOMDocument;
+		$dom = new DOMDocument();
 		$dom->load(__DIR__ . '/fixtures/mediawiki_page.xml');
 		$pages = $dom->getElementsByTagName('page');
 
@@ -433,7 +434,7 @@ class TikiImporter_Wiki_Mediawiki_Test extends TikiImporter_TestCase
 
 	public function testExtractRevision(): void
 	{
-		$dom = new DOMDocument;
+		$dom = new DOMDocument();
 		$dom->load(__DIR__ . '/fixtures/mediawiki_revision.xml');
 		$expectedResult = [
 			['minor' => false, 'lastModif' => 1139119907, 'ip' => '201.6.123.86', 'user' => 'anonymous', 'comment' => 'fim da tradução', 'data' => 'Some text'],
@@ -464,7 +465,7 @@ class TikiImporter_Wiki_Mediawiki_Test extends TikiImporter_TestCase
 		$obj->expects($this->once())->method('convertMarkup')->willReturn(new PEAR_Error('some message'));
 		$obj->expects($this->once())->method('extractContributor')->willReturn([]);
 
-		$dom = new DOMDocument;
+		$dom = new DOMDocument();
 		$dom->load(__DIR__ . '/fixtures/mediawiki_revision_invalid_syntax.xml');
 		$revisions = $dom->getElementsByTagName('revision');
 
@@ -476,7 +477,7 @@ class TikiImporter_Wiki_Mediawiki_Test extends TikiImporter_TestCase
 
 	public function testExtractContributor(): void
 	{
-		$dom = new DOMDocument;
+		$dom = new DOMDocument();
 		$dom->load(__DIR__ . '/fixtures/mediawiki_contributor.xml');
 		$expectedResult = [
 			['user' => 'SomeUserName', 'ip' => '0.0.0.0'],
@@ -499,7 +500,7 @@ class TikiImporter_Wiki_Mediawiki_Test extends TikiImporter_TestCase
 	{
 		$this->markTestSkipped('2016-09-26 Skipped as the underlying PEAR is out of date.');
 
-		$this->obj->dom = new DOMDocument;
+		$this->obj->dom = new DOMDocument();
 		$this->obj->configureParser();
 		$mediawikiText = '[[someWikiLink]]';
 		$expectedResult = "((someWikiLink))\n\n";
@@ -513,7 +514,7 @@ class TikiImporter_Wiki_Mediawiki_Test extends TikiImporter_TestCase
 	{
 		$this->markTestSkipped('2016-09-26 Skipped as the underlying PEAR is out of date.');
 
-		$this->obj->dom = new DOMDocument;
+		$this->obj->dom = new DOMDocument();
 		$this->obj->configureParser();
 		$mediawikiText = '';
 		$this->assertNull($this->obj->convertMarkup($mediawikiText));

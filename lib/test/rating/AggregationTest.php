@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -9,7 +10,7 @@ class Rating_AggregationTest extends TikiTestCase
 	protected $ratingDefaultOptions;
 	protected $ratingAllowMultipleVotes;
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		global $user, $testhelpers, $prefs;
 
@@ -20,7 +21,7 @@ class Rating_AggregationTest extends TikiTestCase
 		$tikilib = $this->createMock('TikiLib');
 		$tikilib->method('get_ip_address')->willReturn('127.0.0.1');
 
-		$testableTikiLib = new TestableTikiLib;
+		$testableTikiLib = new TestableTikiLib();
 		$testableTikiLib->overrideLibs(['tiki' => $tikilib]);
 
 		parent::setUp();
@@ -34,7 +35,7 @@ class Rating_AggregationTest extends TikiTestCase
 		$prefs['rating_allow_multi_votes'] = 'y';
 	}
 
-	protected function tearDown() : void
+	protected function tearDown(): void
 	{
 		global $testhelpers, $user, $prefs;
 		$user = null;
@@ -48,7 +49,7 @@ class Rating_AggregationTest extends TikiTestCase
 
 	public function testGetGlobalSum(): void
 	{
-		$lib = new RatingLib;
+		$lib = new RatingLib();
 		$lib->record_user_vote('abc', 'test', 111, 4, time() - 3000);
 		$lib->record_user_vote('abc', 'test', 111, 2, time() - 2000);
 		$lib->record_user_vote('abc', 'test', 112, 3, time() - 1000);
@@ -62,7 +63,7 @@ class Rating_AggregationTest extends TikiTestCase
 		global $prefs;
 		$prefs['rating_allow_multi_votes'] = '';
 
-		$lib = new RatingLib;
+		$lib = new RatingLib();
 		$lib->record_user_vote('abc', 'test', 111, 4, time() - 3000); // overridden
 		$lib->record_user_vote('abc', 'test', 111, 2, time() - 2000);
 		$lib->record_user_vote('abc', 'test', 112, 3, time() - 1000);
@@ -73,21 +74,21 @@ class Rating_AggregationTest extends TikiTestCase
 
 	public function testSumWithNoData(): void
 	{
-		$lib = new RatingLib;
+		$lib = new RatingLib();
 
 		$this->assertEquals(0.0, $lib->collect('test', 111, 'sum'));
 	}
 
 	public function testAverageWithNoData(): void
 	{
-		$lib = new RatingLib;
+		$lib = new RatingLib();
 
 		$this->assertEquals(0.0, $lib->collect('test', 111, 'avg'));
 	}
 
 	public function testGetGlobalAverage(): void
 	{
-		$lib = new RatingLib;
+		$lib = new RatingLib();
 		$lib->record_user_vote('abc', 'test', 111, 5, time() - 3000);
 		$lib->record_user_vote('abc', 'test', 111, 2, time() - 2000);
 		$lib->record_user_vote('abc', 'test', 112, 3, time() - 1000);
@@ -101,7 +102,7 @@ class Rating_AggregationTest extends TikiTestCase
 		global $prefs;
 		$prefs['rating_allow_multi_votes'] = '';
 
-		$lib = new RatingLib;
+		$lib = new RatingLib();
 		$lib->record_user_vote('abc', 'test', 111, 5, time() - 3000); // overridden
 		$lib->record_user_vote('abc', 'test', 111, 2, time() - 2000);
 		$lib->record_user_vote('abc', 'test', 112, 3, time() - 1000);
@@ -112,7 +113,7 @@ class Rating_AggregationTest extends TikiTestCase
 
 	public function testBadAggregateFunction(): void
 	{
-		$lib = new RatingLib;
+		$lib = new RatingLib();
 		$lib->record_user_vote('abc', 'test', 111, 5, time() - 3000);
 		$lib->record_user_vote('abc', 'test', 111, 2, time() - 2000);
 		$lib->record_user_vote('abc', 'test', 112, 3, time() - 1000);
@@ -123,7 +124,7 @@ class Rating_AggregationTest extends TikiTestCase
 
 	public function testTimeRangeLimiter(): void
 	{
-		$lib = new RatingLib;
+		$lib = new RatingLib();
 		$lib->record_user_vote('abc', 'test', 111, 5, time() - 3000);
 		$lib->record_user_vote('abc', 'test', 111, 2, time() - 2000);
 		$lib->record_user_vote('abc', 'test', 112, 3, time() - 1000);
@@ -134,7 +135,7 @@ class Rating_AggregationTest extends TikiTestCase
 
 	public function testIgnoreAnonymous(): void
 	{
-		$lib = new RatingLib;
+		$lib = new RatingLib();
 		$lib->record_user_vote('abc', 'test', 111, 5, time() - 3000);
 		$lib->record_user_vote('abc', 'test', 111, 2, time() - 2000);
 		$lib->record_user_vote('abc', 'test', 111, 3, time() - 1000);
@@ -148,7 +149,7 @@ class Rating_AggregationTest extends TikiTestCase
 		global $prefs;
 		$prefs['rating_allow_multi_votes'] = '';
 
-		$lib = new RatingLib;
+		$lib = new RatingLib();
 		$lib->record_user_vote('abc', 'test', 111, 5, time() - 3000); // overridden
 		$lib->record_user_vote('abc', 'test', 111, 2, time() - 2000); // overridden
 		$lib->record_user_vote('abc', 'test', 111, 3, time() - 1000);
@@ -159,7 +160,7 @@ class Rating_AggregationTest extends TikiTestCase
 
 	public function testKeepLatest(): void
 	{
-		$lib = new RatingLib;
+		$lib = new RatingLib();
 		$lib->record_user_vote('abc', 'test', 111, 5, time() - 3000);
 		$lib->record_user_vote('abc', 'test', 111, 2, time() - 2000);
 		$lib->record_user_vote('abc', 'test', 111, 3, time() - 1500);
@@ -174,7 +175,7 @@ class Rating_AggregationTest extends TikiTestCase
 
 	public function testKeepOldest(): void
 	{
-		$lib = new RatingLib;
+		$lib = new RatingLib();
 		$lib->record_user_vote('abc', 'test', 111, 5, time() - 3000);
 		$lib->record_user_vote('abc', 'test', 111, 2, time() - 2000);
 		$lib->record_user_vote('abc', 'test', 111, 3, time() - 1000);
@@ -192,7 +193,7 @@ class Rating_AggregationTest extends TikiTestCase
 		global $prefs;
 		$prefs['rating_allow_multi_votes'] = '';
 
-		$lib = new RatingLib;
+		$lib = new RatingLib();
 		$lib->record_user_vote('abc', 'test', 111, 5, time() - 3000); // overridden
 		$lib->record_user_vote('abc', 'test', 111, 2, time() - 2000); // overridden
 		$lib->record_user_vote('abc', 'test', 111, 3, time() - 1000);
@@ -207,7 +208,7 @@ class Rating_AggregationTest extends TikiTestCase
 
 	public function testConsiderPerPeriod(): void
 	{
-		$lib = new RatingLib;
+		$lib = new RatingLib();
 		$lib->record_user_vote('abc', 'test', 111, 5, time() - 3000); // kept
 		$lib->record_user_vote('abc', 'test', 111, 2, time() - 2000); // kept
 		$lib->record_user_vote('abc', 'test', 111, 3, time() - 1000);
@@ -227,7 +228,7 @@ class Rating_AggregationTest extends TikiTestCase
 		global $prefs;
 		$prefs['rating_allow_multi_votes'] = '';
 
-		$lib = new RatingLib;
+		$lib = new RatingLib();
 		$lib->record_user_vote('abc', 'test', 111, 5, time() - 3000); // overridden
 		$lib->record_user_vote('abc', 'test', 111, 2, time() - 2000); // overridden
 		$lib->record_user_vote('abc', 'test', 111, 3, time() - 1000); //kept

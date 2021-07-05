@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -86,8 +88,10 @@ $tikilib->add_hit($page);
 
 $smarty->assign('page_user', $info['user']);
 
-if (($tiki_p_admin_wiki == 'y')
-	|| ($user and ($user == $info['user']) and ($tiki_p_lock == 'y') and ($prefs['feature_wiki_usrlock'] == 'y'))) {
+if (
+    ($tiki_p_admin_wiki == 'y')
+	|| ($user and ($user == $info['user']) and ($tiki_p_lock == 'y') and ($prefs['feature_wiki_usrlock'] == 'y'))
+) {
 	if (isset($_REQUEST["action"])) {
 		check_ticket('index-p');
 		if ($_REQUEST["action"] == 'unlock') {

@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -19,7 +20,7 @@ class Perms_Builder
 		$alternateCheck = new Perms_Check_Alternate('admin');
 		$fixedCheck = new Perms_Check_Fixed($this->globalOnlyPermissions);
 
-		$perms = new Perms;
+		$perms = new Perms();
 		$perms->setPrefix($this->prefix);
 		$perms->setCheckSequence($this->getSequence($alternateCheck, $fixedCheck));
 		$perms->setResolverFactories($this->getFactories());
@@ -73,7 +74,7 @@ class Perms_Builder
 	{
 		$args = func_get_args();
 
-		$args[] = new Perms_Check_Direct;
+		$args[] = new Perms_Check_Direct();
 		$args[] = new Perms_Check_Indirect($this->adminPermissionMap);
 
 		return $args;
@@ -82,11 +83,11 @@ class Perms_Builder
 	private function getFactories()
 	{
 		$factories = [
-			new Perms_ResolverFactory_ObjectFactory
+			new Perms_ResolverFactory_ObjectFactory()
 		];
 
 		if ($this->categories) {
-			$factories[] = new Perms_ResolverFactory_CategoryFactory;
+			$factories[] = new Perms_ResolverFactory_CategoryFactory();
 		}
 
 		$factories[] = new Perms_ResolverFactory_ObjectFactory('parent');
@@ -95,7 +96,7 @@ class Perms_Builder
 			$factories[] = new Perms_ResolverFactory_CategoryFactory('parent');
 		}
 
-		$factories[] = new Perms_ResolverFactory_GlobalFactory;
+		$factories[] = new Perms_ResolverFactory_GlobalFactory();
 
 		return $factories;
 	}

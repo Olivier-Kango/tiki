@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -185,9 +187,10 @@ if (isset($_REQUEST["save"]) && $access->checkCsrf()) {
 
 	$cookietab = 1;
 }
-if (! empty($_REQUEST['duplicate']) && ! empty($_REQUEST['duplicate_name']) && ! empty($_REQUEST['duplicate_forumId'])
-	&& $access->checkCsrf())
-{
+if (
+    ! empty($_REQUEST['duplicate']) && ! empty($_REQUEST['duplicate_name']) && ! empty($_REQUEST['duplicate_forumId'])
+	&& $access->checkCsrf()
+) {
 	$newForumId = $commentslib->duplicate_forum(
 		$_REQUEST['duplicate_forumId'],
 		$_REQUEST['duplicate_name'],
@@ -311,10 +314,10 @@ if (isset($_REQUEST['numrows'])) {
 } else {
 	$maxRecords = $prefs['maxRecords'];
 }
-$channels = $commentslib->list_forums($offset, $maxRecords, $sort_mode, $find,$_REQUEST['parentId']);
-if($_REQUEST['parentId'] > 0) {
+$channels = $commentslib->list_forums($offset, $maxRecords, $sort_mode, $find, $_REQUEST['parentId']);
+if ($_REQUEST['parentId'] > 0) {
 	$forumParent = $commentslib->get_forum($_REQUEST['parentId']);
-	$smarty->assign('parent',$forumParent);
+	$smarty->assign('parent', $forumParent);
 }
 $max = count($channels["data"]);
 for ($i = 0; $i < $max; $i++) {

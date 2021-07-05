@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -121,7 +122,7 @@ class Tracker_Field_Currency extends Tracker_Field_Abstract implements Tracker_F
 		$ins_id = $this->getInsertId();
 		if (isset($requestData[$ins_id])) {
 			$amount = $requestData[$ins_id];
-			$currency = $requestData[$ins_id.'_currency'] ?? '';
+			$currency = $requestData[$ins_id . '_currency'] ?? '';
 		} elseif (preg_match('/^([-\d\.]*)([A-Za-z]*)?$/', $this->getValue(), $m)) {
 			$amount = $m[1];
 			$currency = $m[2];
@@ -138,7 +139,7 @@ class Tracker_Field_Currency extends Tracker_Field_Abstract implements Tracker_F
 		}
 
 		return [
-			'value' => $amount.$currency,
+			'value' => $amount . $currency,
 			'amount' => $amount,
 			'currency' => $currency,
 			'date' => $date,
@@ -160,11 +161,11 @@ class Tracker_Field_Currency extends Tracker_Field_Abstract implements Tracker_F
 		}
 		$smarty = TikiLib::lib('smarty');
 		$smarty->loadPlugin('smarty_modifier_money_format');
-		if (!empty($context['reloff']) && $this->getOption('all_symbol') != 1) {
-			$format = $part1a.$symbol;
+		if (! empty($context['reloff']) && $this->getOption('all_symbol') != 1) {
+			$format = $part1a . $symbol;
 			return smarty_modifier_money_format($data['amount'], $locale, $currency, $format, 0);
 		} else {
-			$format = $part1b.$symbol;
+			$format = $part1b . $symbol;
 			return smarty_modifier_money_format($data['amount'], $locale, $currency, $format, 1);
 		}
 	}
@@ -213,7 +214,8 @@ class Tracker_Field_Currency extends Tracker_Field_Abstract implements Tracker_F
 		return $out;
 	}
 
-	public function getProvidedFields() {
+	public function getProvidedFields()
+    {
 		$baseKey = $this->getBaseKey();
 		return [$baseKey, "{$baseKey}_base"];
 	}
@@ -243,7 +245,7 @@ class Tracker_Field_Currency extends Tracker_Field_Abstract implements Tracker_F
 			->setRenderTransform(function ($value) {
 				return $value;
 			})
-			->setParseIntoTransform(function (& $info, $value) use ($permName) {
+			->setParseIntoTransform(function (&$info, $value) use ($permName) {
 				$info['fields'][$permName] = $value;
 			})
 			;
@@ -279,7 +281,8 @@ class Tracker_Field_Currency extends Tracker_Field_Abstract implements Tracker_F
 		return $filters;
 	}
 
-	private function getAvailableCurrencies() {
+	private function getAvailableCurrencies()
+    {
 		$data = [];
 
 		$trk = TikiLib::lib('trk');
@@ -291,14 +294,15 @@ class Tracker_Field_Currency extends Tracker_Field_Abstract implements Tracker_F
 				$data['currencies'] = $trk->list_tracker_field_values($currencyTracker, $fieldId);
 				sort($data['currencies']);
 			} else {
-				$data['error'] = 'Missing Currency field in tracker '.$currencyTracker;
+				$data['error'] = 'Missing Currency field in tracker ' . $currencyTracker;
 			}
 		}
 
 		return $data;
 	}
 
-	private function convertToDefaultCurrency($data) {
+	private function convertToDefaultCurrency($data)
+    {
 		$trk = TikiLib::lib('trk');
 		$currencyTracker = $this->getOption('currencyTracker');
 

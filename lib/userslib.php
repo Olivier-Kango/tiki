@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -204,8 +205,10 @@ class UsersLib extends TikiLib
 	{
 		$objectId = md5($objectType . TikiLib::strtolower($objectId));
 
-		if (! isset($this->userobjectperm_cache) || ! is_array($this->userobjectperm_cache)
-			|| ! isset($this->userobjectperm_cache[$objectId])) {
+		if (
+            ! isset($this->userobjectperm_cache) || ! is_array($this->userobjectperm_cache)
+			|| ! isset($this->userobjectperm_cache[$objectId])
+        ) {
 			// i think, we really dont need the "and `objectType`=?" because the objectId should be unique due to the md5()
 			$query = 'select count(*) from `users_objectpermissions` where `objectId`=? and `objectType`=?';
 			$this->userobjectperm_cache[$objectId] = $this->getOne($query, [$objectId, $objectType]);
@@ -482,7 +485,8 @@ class UsersLib extends TikiLib
 		// if we are using tiki auth or if we're using an alternative auth except for admin
 
 		// todo: bad hack. better search for a more general solution here
-		if ((! $auth_ldap && ! $auth_pam && ! $auth_cas && ! $auth_shib&& ! $auth_saml && ! $auth_phpbb)
+		if (
+            (! $auth_ldap && ! $auth_pam && ! $auth_cas && ! $auth_shib && ! $auth_saml && ! $auth_phpbb)
 				|| (
 						( ($auth_ldap && $skip_admin)
 							|| ($auth_shib && $shib_skip_admin)
@@ -493,7 +497,7 @@ class UsersLib extends TikiLib
 						)
 						&& $user == 'admin')
 				|| ($auth_ldap && ($prefs['auth_ldap_permit_tiki_users'] == 'y' && $userTiki))
-			) {
+        ) {
 			// if the user verified ok, log them in
 			if ($userTiki) {//user validated in tiki, update lastlogin and be done
 				if ($auth_ldap) {
@@ -727,9 +731,10 @@ class UsersLib extends TikiLib
 			}
 		} elseif ($auth_saml) {
 			// next see if we need to check SAML
-			if (isset($_SESSION['samlUserdata']) && ! empty($_SESSION['samlUserdata']) ||
+			if (
+                isset($_SESSION['samlUserdata']) && ! empty($_SESSION['samlUserdata']) ||
 				isset($_SESSION['samlNameId']) && ! empty($_SESSION['samlNameId'])
-				) {
+            ) {
 				$saml_username = $saml_email = '';
 				$saml_groups = [];
 
@@ -1033,7 +1038,8 @@ class UsersLib extends TikiLib
 		//  - WebDAV requests
 		//  - Javascript/AJAX requests
 		//
-		if (( isset($webdav_access) && $webdav_access === true )
+		if (
+            ( isset($webdav_access) && $webdav_access === true )
 			|| ( isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest' )
 		) {
 			return true;
@@ -1063,7 +1069,8 @@ class UsersLib extends TikiLib
 		//   - the request is not a POST ( which does not keep its params with CAS redirections )
 		//   - either the CAS validation timed out or the validation process has not ended within 5 seconds which often means that the redirection to the CAS server failed
 		//
-		if (php_sapi_name() !== 'cli'
+		if (
+            php_sapi_name() !== 'cli'
 			&& (isset($_SESSION[$user_cookie_site]) || $prefs['cas_autologin'] == 'y')
 			&& basename($_SERVER['SCRIPT_NAME']) != 'tiki-login.php'
 			&& basename($_SERVER['SCRIPT_NAME']) != 'tiki-logout.php'
@@ -1146,7 +1153,7 @@ class UsersLib extends TikiLib
 	{
 		global $prefs, $base_url;
 
-		if ($prefs['auth_method'] != 'saml'||! class_exists('\OneLogin\Saml2\Auth')) {
+		if ($prefs['auth_method'] != 'saml' || ! class_exists('\OneLogin\Saml2\Auth')) {
 			return;
 		}
 
@@ -1618,7 +1625,8 @@ class UsersLib extends TikiLib
 				if ($isSetLdapPreferenceValue) {
 					// Ldap attributes can (by default) have multiple values, check if the current user preference is one of
 					// the values of the attribute, in that case keep the same value
-					if (is_array($ldapPreferenceValue)
+					if (
+                        is_array($ldapPreferenceValue)
 						&& $userPreferenceValue
 						&& in_array($userPreferenceValue, $ldapPreferenceValue)
 					) {
@@ -1902,13 +1910,13 @@ class UsersLib extends TikiLib
 
 		// check for account flags
 		if ($res['waiting'] === 'u') {				// if account is in validation mode.
-			if (!empty($pass) && $pass === $res['valid']) { 			// if user successfully provides code from email
+			if (! empty($pass) && $pass === $res['valid']) { 			// if user successfully provides code from email
 				return [USER_VALID, $user];
 			} else {
 				return [ACCOUNT_WAITING_USER, $user];  // if code validation fails, (or user tries to log in before verifying)
 			}
 		} elseif ($res['waiting'] === 'a') {         // if account needs administrator validation
-			if (!empty($res['valid']) && $pass === $res['valid']) { 			// if admin successfully validates account
+			if (! empty($res['valid']) && $pass === $res['valid']) { 			// if admin successfully validates account
 				return [USER_VALID, $user];
 			} else {
 				return [ACCOUNT_DISABLED, $user];
@@ -2842,7 +2850,7 @@ class UsersLib extends TikiLib
 				'select ttif.itemId, ttif.fieldId, ttif.value from `tiki_tracker_item_fields` ttif' .
 				' left join `tiki_tracker_fields` ttf on ttif.fieldId = ttf.fieldId' .
 				' where ttif.value LIKE ? and ttf.type = ? and ttf.options NOT LIKE ?',
-				['%'.$from.'%', 'u', '"multiple":0']
+				['%' . $from . '%', 'u', '"multiple":0']
 			);
 			while ($res = $result->fetchRow()) {
 				$values = TikiLib::lib('trk')->parse_user_field($res['value']);
@@ -2892,8 +2900,8 @@ class UsersLib extends TikiLib
 		if (isset($info['id'])) {
 			TikiLib::lib('categ')->detach_managed_category($info['id']);
 
-			TikiLib::lib('attribute')->delete_objects_with( 'tiki.category.templatedgroupid', $info['id']);
-			TikiLib::lib('attribute')->delete_objects_with( 'tiki.menu.templatedgroupid', $info['id']);
+			TikiLib::lib('attribute')->delete_objects_with('tiki.category.templatedgroupid', $info['id']);
+			TikiLib::lib('attribute')->delete_objects_with('tiki.menu.templatedgroupid', $info['id']);
 		}
 
 		TikiLib::events()->trigger('tiki.group.delete', [
@@ -3518,7 +3526,7 @@ class UsersLib extends TikiLib
 			}, array_filter($oldGroups, function ($item) {
 				return $item["isTplGroup"] == "y";
 			}));
-			if (!empty($parentGroupsIds)) {
+			if (! empty($parentGroupsIds)) {
 				TikiLib::lib('categ')->detach_managed_category($info["id"], $parentGroupsIds);
 			}
 
@@ -6846,7 +6854,8 @@ class UsersLib extends TikiLib
 
 		$user = trim($user);
 
-		if ($this->user_exists($user)
+		if (
+            $this->user_exists($user)
 				|| empty($user)
 				|| (! empty($prefs['username_pattern']) && ! preg_match($prefs['username_pattern'], $user))
 				|| strtolower($user) == 'anonymous'
@@ -7067,7 +7076,8 @@ class UsersLib extends TikiLib
 	public function get_admin_email()
 	{
 		global $user, $prefs, $tikilib;
-		if (( ! isset($user) && isset($prefs['contact_anon']) && $prefs['contact_anon'] == 'y' ) ||
+		if (
+            ( ! isset($user) && isset($prefs['contact_anon']) && $prefs['contact_anon'] == 'y' ) ||
 				( isset($user) && $user != '' && isset($prefs['feature_contact']) && $prefs['feature_contact'] == 'y' )
 		) {
 			return isset($prefs['sender_email']) ? $prefs['sender_email'] : $this->get_user_email($prefs['contact_user']);
@@ -7463,7 +7473,7 @@ class UsersLib extends TikiLib
 		$cachelib = TikiLib::lib('cache');
 
 		$tx = TikiDb::get()->begin();
-		
+
 		$data = [
 			'groupName' => $group,
 			'groupDesc' => $desc,
@@ -7571,17 +7581,34 @@ class UsersLib extends TikiLib
 	{
 		// Limited editing only, for users with the tiki_p_edit_grouplimitedinfo perm
 		$groupInfo = $this->get_groupId_info($id);
-		if (!$groupInfo)
+		if (! $groupInfo) {
 			return false;
+        }
 		$includeGroups = $this->get_included_groups($groupInfo["groupName"]);
 
-		$this->change_group($groupInfo["groupName"], $name, $description
-			, $groupInfo["groupHome"], $groupInfo["usersTrackerId"], $groupInfo["groupTrackerId"]
-			, $groupInfo["groupTrackerId"], $groupInfo["groupFieldId"], $groupInfo["registrationUsersFieldIds"]
-			, $groupInfo["userChoice"], $groupInfo["groupDefCat"], $groupInfo["groupTheme"]
-			, $groupInfo["isExternal"], $groupInfo["expireAfter"], $groupInfo["emailPattern"]
-			, $groupInfo["anniversary"], $groupInfo["prorateInterval"], $groupInfo["groupColor"]
-			, $groupInfo["isRole"], $groupInfo["isTplGroup"], $includeGroups);
+		$this->change_group(
+            $groupInfo["groupName"],
+            $name,
+            $description,
+            $groupInfo["groupHome"],
+            $groupInfo["usersTrackerId"],
+            $groupInfo["groupTrackerId"],
+            $groupInfo["groupTrackerId"],
+            $groupInfo["groupFieldId"],
+            $groupInfo["registrationUsersFieldIds"],
+            $groupInfo["userChoice"],
+            $groupInfo["groupDefCat"],
+            $groupInfo["groupTheme"],
+            $groupInfo["isExternal"],
+            $groupInfo["expireAfter"],
+            $groupInfo["emailPattern"],
+            $groupInfo["anniversary"],
+            $groupInfo["prorateInterval"],
+            $groupInfo["groupColor"],
+            $groupInfo["isRole"],
+            $groupInfo["isTplGroup"],
+            $includeGroups
+        );
 		return true;
 	}
 
@@ -7676,7 +7703,7 @@ class UsersLib extends TikiLib
 	 *
 	 * @return int
 	 */
-	public function count_users_by_groupIds(array $groupIds):int
+	public function count_users_by_groupIds(array $groupIds): int
 	{
 		if (array_filter($groupIds)) {
 			$groupstr = implode(',', $groupIds);
@@ -8290,8 +8317,10 @@ class UsersLib extends TikiLib
 				$ann_day = substr($info['anniversary'], 2, 2);
 				$startyear = $startlocal->format('Y');
 				//increment the year if past the annual anniversary
-				if ($startlocal->format('m') > $ann_month || ($startlocal->format('m') == $ann_month
-						&& $startlocal->format('d') >= $ann_day)) {
+				if (
+                    $startlocal->format('m') > $ann_month || ($startlocal->format('m') == $ann_month
+						&& $startlocal->format('d') >= $ann_day)
+                ) {
 					$startyear++;
 				}
 				//first extension is always to next anniversary
@@ -8364,8 +8393,10 @@ class UsersLib extends TikiLib
 			if ($prorateInterval == 'year' && strlen($info['anniversary']) == 4) {
 				$ratio = $interval->y;
 				$ratio += $interval->m > 0 || $interval->d > 0 ? 1 : 0;
-			} elseif ($prorateInterval == 'month'
-				|| ($prorateInterval == 'year' && strlen($info['anniversary']) == 2)) {
+			} elseif (
+                $prorateInterval == 'month'
+				|| ($prorateInterval == 'year' && strlen($info['anniversary']) == 2)
+            ) {
 				$round = $interval->d > 0 ? 1 : 0;
 				$ratio = (($interval->y * 12) + $interval->m + $round);
 				if (strlen($info['anniversary']) == 4) {
@@ -8693,7 +8724,7 @@ class UsersLib extends TikiLib
 		global $prefs;
 		if ($prefs['auth_token_preserve_tempusers'] == 'y') {
 			$this->remove_user_from_all_groups($uname);
-		} else if ($this->user_exists($uname)) {
+		} elseif ($this->user_exists($uname)) {
 			$this->remove_user($uname);
 		}
 	}

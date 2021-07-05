@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -387,18 +389,39 @@ if (empty($txt) && ! empty($_REQUEST["data"])) {
 }
 // TODO - can't see where resendEditionId is used
 if (! empty($_REQUEST['resendEditionId'])) {
-	if (($info = $nllib->get_edition($_REQUEST['resendEditionId'])) !== false && $info['nlId'] == $_REQUEST['nlId']
-		&& ($_REQUEST['editionId'] = $nllib->replace_edition($info['nlId'], $info['subject'], $info['data'], 0, 0,
-			false, $info['datatxt'], $info['files'], $info['wysiwyg'], $info['is_html'])))
-	{
+	if (
+        ($info = $nllib->get_edition($_REQUEST['resendEditionId'])) !== false && $info['nlId'] == $_REQUEST['nlId']
+		&& ($_REQUEST['editionId'] = $nllib->replace_edition(
+            $info['nlId'],
+            $info['subject'],
+            $info['data'],
+            0,
+            0,
+            false,
+            $info['datatxt'],
+            $info['files'],
+            $info['wysiwyg'],
+            $info['is_html']
+        ))
+    ) {
 		$_REQUEST['data'] = $info['data'];
 		$_REQUEST['subject'] = $info['subject'];
 		$_REQUEST['datatxt'] = $info['datatxt'];
 		$_REQUEST['wysiwyg'] = $info['wysiwyg'];
 		$_REQUEST['is_html'] = $info['is_html'];
 		$_REQUEST['dataparsed'] = $info['data'];
-		$_REQUEST['editionId'] = $nllib->replace_edition($nl_info['nlId'], $info['subject'], $info['data'], 0, 0, false,
-			$info['datatxt'], $info['files'], $info['wysiwyg'], $info['is_html']);
+		$_REQUEST['editionId'] = $nllib->replace_edition(
+            $nl_info['nlId'],
+            $info['subject'],
+            $info['data'],
+            0,
+            0,
+            false,
+            $info['datatxt'],
+            $info['files'],
+            $info['wysiwyg'],
+            $info['is_html']
+        );
 		$resend = 'y';
 	} else {
 		Feedback::errorPage(tr('Incorrect parameter'));
@@ -418,9 +441,10 @@ if (isset($_REQUEST["send"]) && $_REQUEST["nlId"] && $prefs['newsletter_throttle
 		$unsetTicket = true;
 	}
 }
-if ((isset($_REQUEST["send"]) && ! empty($_REQUEST["sendingUniqId"]) || $resend == 'y')
-	&& $csrfCheck = $access->checkCsrf(null, null, null, $unsetTicket))
-{
+if (
+    (isset($_REQUEST["send"]) && ! empty($_REQUEST["sendingUniqId"]) || $resend == 'y')
+	&& $csrfCheck = $access->checkCsrf(null, null, null, $unsetTicket)
+) {
 	@set_time_limit(0);
 
 	if ($resend != 'y') {

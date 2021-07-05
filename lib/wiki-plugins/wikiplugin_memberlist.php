@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -151,7 +152,7 @@ function wikiplugin_memberlist($data, $params)
 	$userlib = TikiLib::lib('user');
 	$smarty = TikiLib::lib('smarty');
 	static $execution = 0;
-	$exec_key = 'memberlist-execution-' . ++ $execution;
+	$exec_key = 'memberlist-execution-' . ++$execution;
 
 	if (! isset($params['groups'])) {
 		return "^Missing group list^";

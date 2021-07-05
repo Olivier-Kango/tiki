@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -130,8 +131,10 @@ function prefs_search_list()
 		'search_date_facets_interval' => [
 			'name' => tra('Date histogram aggregations interval'),
 			'description' => tr('Default interval for date histogram aggregations.') . '<br>' .
-				tr('Use "year, quarter, month, week, day, hour, minute, second" or Elasticsearch Time units as descibed here %0',
-					'https://www.elastic.co/guide/en/elasticsearch/reference/5.6/common-options.html#time-units'),
+				tr(
+                    'Use "year, quarter, month, week, day, hour, minute, second" or Elasticsearch Time units as descibed here %0',
+                    'https://www.elastic.co/guide/en/elasticsearch/reference/5.6/common-options.html#time-units'
+                ),
 			'type' => 'text',
 			'default' => 'year',
 			'dependencies' => [
@@ -141,8 +144,10 @@ function prefs_search_list()
 		'search_date_facets_ranges' => [
 			'name' => tra('Date range aggregations ranges'),
 			'description' => tr('Default ranges for date range aggregations.') . '<br>' .
-				tr('Comma separated ranges, one per line using Elasticsearch Time date math as descibed here %0',
-					'https://www.elastic.co/guide/en/elasticsearch/reference/5.6/common-options.html#date-math'),
+				tr(
+                    'Comma separated ranges, one per line using Elasticsearch Time date math as descibed here %0',
+                    'https://www.elastic.co/guide/en/elasticsearch/reference/5.6/common-options.html#date-math'
+                ),
 			'type' => 'textarea',
 			'default' => "
 now-2y/y,now-1y/y,Last Year

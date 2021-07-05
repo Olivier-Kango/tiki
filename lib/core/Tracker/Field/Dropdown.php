@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -128,7 +129,8 @@ class Tracker_Field_Dropdown extends Tracker_Field_Abstract implements Tracker_F
 		];
 	}
 
-	public function addValue($value) {
+	public function addValue($value)
+    {
 		$existing = explode(',', $this->getValue());
 		if (! in_array($value, $existing)) {
 			$existing[] = $value;
@@ -136,9 +138,10 @@ class Tracker_Field_Dropdown extends Tracker_Field_Abstract implements Tracker_F
 		return implode(',', $existing);
 	}
 
-	public function removeValue($value) {
+	public function removeValue($value)
+    {
 		$existing = explode(',', $this->getValue());
-		$existing = array_filter($existing, function($v) use ($value) {
+		$existing = array_filter($existing, function ($v) use ($value) {
 			return $v != $value;
 		});
 		return implode(',', $existing);
@@ -301,7 +304,7 @@ class Tracker_Field_Dropdown extends Tracker_Field_Abstract implements Tracker_F
 			->setRenderTransform(function ($value) {
 				return $value;
 			})
-			->setParseIntoTransform(function (& $info, $value) use ($permName) {
+			->setParseIntoTransform(function (&$info, $value) use ($permName) {
 				$info['fields'][$permName] = $value;
 			})
 			;
@@ -313,16 +316,16 @@ class Tracker_Field_Dropdown extends Tracker_Field_Abstract implements Tracker_F
 			->setRenderTransform(function ($value, $extra) use ($possibilities, $withOther) {
 				if (isset($possibilities[$value])) {
 					return $possibilities[$value];
-				} else if ($withOther) {
+				} elseif ($withOther) {
 					return $value;
 				} else {
 					return '';	// TODO something better?
 				}
 			})
-			->setParseIntoTransform(function (& $info, $value) use ($permName, $invert, $withOther) {
+			->setParseIntoTransform(function (&$info, $value) use ($permName, $invert, $withOther) {
 				if (isset($invert[$value])) {
 					$info['fields'][$permName] = $invert[$value];
-				} else if ($withOther) {
+				} elseif ($withOther) {
 					$info['fields'][$permName] = $value;
 				}
 			})

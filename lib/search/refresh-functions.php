@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -138,7 +139,7 @@ function random_refresh_index_blogs()
  */
 function random_refresh_index_comments($times = 1)
 {
-	for ($i = 1; $i <= $times; $i ++) {
+	for ($i = 1; $i <= $times; $i++) {
 		refresh_index('comments', -1);
 	}
 }

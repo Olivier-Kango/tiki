@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -9,7 +10,7 @@ class WikiParser_OutputLinkTest extends TikiTestCase
 {
 	private $info;
 
-	protected function setUp() : void
+	protected function setUp(): void
 	{
 		$this->info = [];
 	}
@@ -17,7 +18,7 @@ class WikiParser_OutputLinkTest extends TikiTestCase
 	public function testCreateLink()
 	{
 		// ((Test)) on missing page
-		$link = new WikiParser_OutputLink;
+		$link = new WikiParser_OutputLink();
 		$link->setIdentifier('Test');
 
 		$this->assertLinkIs('<a href="tiki-editpage.php?page=Test" title="Create page: Test" class="wiki wikinew text-danger tips">Test</a>', $link->getHtml());
@@ -26,7 +27,7 @@ class WikiParser_OutputLinkTest extends TikiTestCase
 	public function testCreateLinkWithLanguage()
 	{
 		// ((Test)) on missing page, with multilingual specified
-		$link = new WikiParser_OutputLink;
+		$link = new WikiParser_OutputLink();
 		$link->setIdentifier('Test');
 		$link->setLanguage('fr');
 
@@ -36,7 +37,7 @@ class WikiParser_OutputLinkTest extends TikiTestCase
 	public function testCreateLinkWithDescription()
 	{
 		// ((Test|Hello World))
-		$link = new WikiParser_OutputLink;
+		$link = new WikiParser_OutputLink();
 		$link->setIdentifier('Test');
 		$link->setDescription('Hello World');
 
@@ -46,7 +47,7 @@ class WikiParser_OutputLinkTest extends TikiTestCase
 	public function testCreateLinkWithRelationType()
 	{
 		// (real(Test))
-		$link = new WikiParser_OutputLink;
+		$link = new WikiParser_OutputLink();
 		$link->setIdentifier('Test');
 		$link->setQualifier('real');
 
@@ -57,7 +58,7 @@ class WikiParser_OutputLinkTest extends TikiTestCase
 	{
 		// If page name exceeds 158 characters, it must be trimmed.
 		// Link will be to trimmed page while displayed text will be full name
-		$link = new WikiParser_OutputLink;
+		$link = new WikiParser_OutputLink();
 		$link->setIdentifier('TestWithAVeryBigNameThatExceedsTheColumnSizeOfTheDatabaseTestWithAVeryBigNameThatExceedsTheColumnSizeOfTheDatabaseTestWithAVeryBigNameThatExceedsTheColumnSizeOfTheDatabaseTestWithAVeryBigNameThatExceedsTheColumnSizeOfTheDatabase');
 
 		$this->assertLinkIs('<a href="tiki-editpage.php?page=TestWithAVeryBigNameThatExceedsTheColumnSizeOfTheDatabaseTestWithAVeryBigNameThatExceedsTheColumnSizeOfTheDatabaseTestWithAVeryBigNameThatExceedsTheColumnSize" title="Create page: TestWithAVeryBigNameThatExceedsTheColumnSizeOfTheDatabaseTestWithAVeryBigNameThatExceedsTheColumnSizeOfTheDatabaseTestWithAVeryBigNameThatExceedsTheColumnSize" class="wiki wikinew text-danger tips">TestWithAVeryBigNameThatExceedsTheColumnSizeOfTheDatabaseTestWithAVeryBigNameThatExceedsTheColumnSizeOfTheDatabaseTestWithAVeryBigNameThatExceedsTheColumnSizeOfTheDatabaseTestWithAVeryBigNameThatExceedsTheColumnSizeOfTheDatabase</a>', $link->getHtml());
@@ -73,7 +74,7 @@ class WikiParser_OutputLinkTest extends TikiTestCase
 			'lastModif' => 1234567890,
 		];
 
-		$link = new WikiParser_OutputLink;
+		$link = new WikiParser_OutputLink();
 		$link->setIdentifier('TestWithAVeryBigNameThatExceedsTheColumnSizeOfTheDatabaseTestWithAVeryBigNameThatExceedsTheColumnSizeOfTheDatabaseTestWithAVeryBigNameThatExceedsTheColumnSizeTHISMUSTBETRIMMED');
 		$link->setWikiLookup([$this, 'getPageInfo']);
 		$link->setWikiLinkBuilder([$this, 'getWikiLink']);
@@ -89,7 +90,7 @@ class WikiParser_OutputLinkTest extends TikiTestCase
 			'lastModif' => 1234567890,
 		];
 
-		$link = new WikiParser_OutputLink;
+		$link = new WikiParser_OutputLink();
 		$link->setIdentifier('Test');
 		$link->setWikiLookup([$this, 'getPageInfo']);
 		$link->setWikiLinkBuilder([$this, 'getWikiLink']);
@@ -105,7 +106,7 @@ class WikiParser_OutputLinkTest extends TikiTestCase
 			'lastModif' => 1234567890,
 		];
 
-		$link = new WikiParser_OutputLink;
+		$link = new WikiParser_OutputLink();
 		$link->setIdentifier('Test');
 		$link->setWikiLookup([$this, 'getPageInfo']);
 		$link->setWikiLinkBuilder([$this, 'getWikiLink']);
@@ -121,7 +122,7 @@ class WikiParser_OutputLinkTest extends TikiTestCase
 			'lastModif' => 1234567890,
 		];
 
-		$link = new WikiParser_OutputLink;
+		$link = new WikiParser_OutputLink();
 		$link->setIdentifier('Test');
 		$link->setQualifier('abc');
 		$link->setWikiLookup([$this, 'getPageInfo']);
@@ -132,7 +133,7 @@ class WikiParser_OutputLinkTest extends TikiTestCase
 
 	public function testUndefinedExternalLink()
 	{
-		$link = new WikiParser_OutputLink;
+		$link = new WikiParser_OutputLink();
 		$link->setIdentifier('out:Test');
 		$link->setWikiLookup([$this, 'getPageInfo']);
 		$link->setWikiLinkBuilder([$this, 'getWikiLink']);
@@ -142,7 +143,7 @@ class WikiParser_OutputLinkTest extends TikiTestCase
 
 	public function testWithDefinedExternal()
 	{
-		$link = new WikiParser_OutputLink;
+		$link = new WikiParser_OutputLink();
 		$link->setIdentifier('out:Test');
 		$link->setExternals(
 			[
@@ -156,7 +157,7 @@ class WikiParser_OutputLinkTest extends TikiTestCase
 
 	public function testWithDefinedExternalAndDescription()
 	{
-		$link = new WikiParser_OutputLink;
+		$link = new WikiParser_OutputLink();
 		$link->setIdentifier('out:Test');
 		$link->setDescription('ABC');
 		$link->setExternals(
@@ -178,7 +179,7 @@ class WikiParser_OutputLinkTest extends TikiTestCase
 			'lastModif' => 1234567890,
 		];
 
-		$link = new WikiParser_OutputLink;
+		$link = new WikiParser_OutputLink();
 		$link->setIdentifier('Policies');
 		$link->setWikiLookup([$this, 'getPageInfo']);
 		$link->setWikiLinkBuilder([$this, 'getWikiLink']);
@@ -190,7 +191,7 @@ class WikiParser_OutputLinkTest extends TikiTestCase
 	public function testRenderCreateLinkWithNamespace()
 	{
 		// ((Test)) within a page in HelloWorld namespace
-		$link = new WikiParser_OutputLink;
+		$link = new WikiParser_OutputLink();
 		$link->setNamespace('HelloWorld', '_');
 		$link->setIdentifier('Test');
 
@@ -210,7 +211,7 @@ class WikiParser_OutputLinkTest extends TikiTestCase
 		];
 
 		// ((Test)) within a page in HelloWorld namespace
-		$link = new WikiParser_OutputLink;
+		$link = new WikiParser_OutputLink();
 		$link->setWikiLookup([$this, 'getPageInfo']);
 		$link->setNamespace('HelloWorld', '_');
 		$link->setIdentifier('Test');
@@ -231,7 +232,7 @@ class WikiParser_OutputLinkTest extends TikiTestCase
 		];
 
 		// ((Test)) within a page in HelloWorld namespace
-		$link = new WikiParser_OutputLink;
+		$link = new WikiParser_OutputLink();
 		$link->setWikiLookup([$this, 'getPageInfo']);
 		$link->setNamespace('Foobar', '_');
 		$link->setIdentifier('HelloWorld_Test');
@@ -252,7 +253,7 @@ class WikiParser_OutputLinkTest extends TikiTestCase
 		];
 
 		// ((Test)) within a page in HelloWorld namespace
-		$link = new WikiParser_OutputLink;
+		$link = new WikiParser_OutputLink();
 		$link->setWikiLookup([$this, 'getPageInfo']);
 		$link->setNamespace('Foobar', '_');
 		$link->setIdentifier('Abc_Def_HelloWorld_Test');

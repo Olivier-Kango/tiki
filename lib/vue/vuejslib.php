@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -37,16 +38,17 @@ class VueJsLib
 		foreach ($errors as $error) {
 			// template and ui-predicate tags are expected, so ignore them...
 			/* @var $error LibXMLError */
-			if (! in_array(
-				$error->message,
-				[
+			if (
+                ! in_array(
+                    $error->message,
+                    [
 					"Tag template invalid\n",
 					"Tag ui-predicate invalid\n",
 					"Tag trackerrules invalid\n",
 					"Tag durationpickeramount invalid\n",
 					"Tag durationpickermodal invalid\n",
-				]
-			)
+                    ]
+                )
 			) {
 				trigger_error($error->message);
 			}
@@ -323,7 +325,8 @@ observeVueApp(vm);
 		}
 		$field['ins_id'] = $insPrefix . $field['fieldId'];
 
-		if ($field['type'] === 'r' && $field['options_map']['selectMultipleValues']    // ItemLink
+		if (
+            $field['type'] === 'r' && $field['options_map']['selectMultipleValues']    // ItemLink
 			||
 			$field['type'] === 'w' && $field['options_map']['selectMultipleValues']   // DynamicItemsList
 		) {
