@@ -5,19 +5,19 @@
 </template>
 
 <script>
-	import TrackerRules from "./vue_TrackerRules.js";
+    import TrackerRules from "./vue_TrackerRules.js";
 
-	export default {
-		name: "TrackerRulesApp",
-		components: {
-			trackerrules: TrackerRules
-		},
-		data: function () { return {
-			fieldId: this.$parent.fieldId,
-			fieldType: this.$parent.fieldType,
-			rules: this.$parent.rules,
-			targetFields: this.$parent.targetFields,
-			definitiion: this.$parent.definitiion,
-		}; }
-	};
+    export default {
+        name: "TrackerRulesApp",
+        components: {
+            trackerrules: TrackerRules
+        },
+        data: function () { return {
+            fieldId: this.$parent.fieldId,
+            fieldType: this.$parent.fieldType,
+            rules: this.$parent.rules,
+            targetFields: this.$parent.targetFields,
+            definitiion: this.$parent.definitiion,
+        }; }
+    };
 </script>

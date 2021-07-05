@@ -2,9 +2,9 @@
 </template>
 
 <script>
-	export default {
-		name: 'nothing-argument',
-		methods: {},
-		props: {}
-	}
+    export default {
+        name: 'nothing-argument',
+        methods: {},
+        props: {}
+    }
 </script>
