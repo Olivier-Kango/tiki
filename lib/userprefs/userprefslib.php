@@ -117,7 +117,7 @@ class UserPrefsLib extends TikiLib
 			return 'img/noavatar.png';
 		}
 		$filename = pathinfo($info['avatarName']);
-		if (! empty($filename['extension']) && $mimetypes[$filename['extension']] == $type) {
+		if (! empty($filename['extension']) && $mimetypes[strtolower($filename['extension'])] == $type) {
 			$ext = $filename['extension'];
 		} else {
 			$ext = array_search($type, $mimetypes);

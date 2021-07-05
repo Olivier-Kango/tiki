@@ -35,12 +35,14 @@ function prefs_webmonetization_list()
 			'description' => tra('Payment pointer to stream the payments.'),
 			'type' => 'text',
 			'tags' => ['experimental'],
+			'default' => '',
 		],
 		'webmonetization_default_paywall_text' => [
 			'name' => tra('Default paywall text'),
 			'description' => tra('Default text to be used in web monetized content paywall.'),
 			'type' => 'textarea',
 			'tags' => ['experimental'],
+			'default' => '',
 		],
 	];
 }
