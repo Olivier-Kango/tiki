@@ -52,8 +52,8 @@ class TWVersion
         $this->branch   = 'trunk';
 
         // Set everything else, including defaults.
-        $this->version  = '23.0vcs';
-        $this->star     = 'Corona Borealis';
+        $this->version  = '24.0vcs';
+        $this->star     = 'TBA';
         $this->releases = [];
 
         // Check for Subversion or not
@@ -123,6 +123,7 @@ class TWVersion
                 31 => 'Tarazed',         // 20.x
                 32 => 'UY Scuti',        // 21.x
                 33 => 'Corona Borealis', // 22.x
+                34 => 'Wasat',           // 23.x
         ];
     }
 
