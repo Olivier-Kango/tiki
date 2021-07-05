@@ -38,8 +38,8 @@ test = { mode: function () {}, indentation: function() {} }
                     (
                         $prefs['tiki_minify_javascript'] !== 'y' ||
                         (
-                            strpos($jsFile, 'powershell.js') === false      // FIXME temporary workaound for errors in codemirror 5.19.0
- &&                    strpos($jsFile, 'swift.js') === false        // FIXME temporary workaound for errors in codemirror 5.19.0
+                            // FIXME temporary workaound for errors in codemirror 5.19.0
+                            strpos($jsFile, 'powershell.js') === false && strpos($jsFile, 'swift.js') === false
                         )
                     )
                 ) {

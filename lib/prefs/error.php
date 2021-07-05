@@ -29,7 +29,7 @@ function prefs_error_list()
                 2039 => tra('Report all PHP errors except notices'),
                 1    => tra('According to the PHP configuration'),
             ],
-            'default'     => 2039,    //	E_ALL & ~E_NOTICE
+            'default'     => 2039,    //    E_ALL & ~E_NOTICE
         ],
         'error_tracking_enabled_php' => [
             'name'        => tra('Track PHP errors'),

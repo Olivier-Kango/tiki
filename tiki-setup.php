@@ -389,13 +389,13 @@ if ($prefs['rating_advanced'] == 'y' && $prefs['rating_recalculation'] == 'rando
 }
 
 if (ErrorTracking::isJSEnabled()) {
-	$dsn = ErrorTracking::getDSN();
-	$headerlib->add_jsfile('vendor_bundled/vendor/npm-asset/sentry--browser/build/bundle.min.js');
-	$headerlib->add_js(
-		<<<EOF
+    $dsn = ErrorTracking::getDSN();
+    $headerlib->add_jsfile('vendor_bundled/vendor/npm-asset/sentry--browser/build/bundle.min.js');
+    $headerlib->add_js(
+        <<<EOF
 		Sentry.init({ dsn: "$dsn" });
 		EOF
-	);
+    );
 }
 
 $headerlib->add_jsfile('lib/tiki-js.js');
