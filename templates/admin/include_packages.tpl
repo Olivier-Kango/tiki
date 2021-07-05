@@ -17,15 +17,15 @@
 {/if}
 
 {if isset($composer_installed_errors)}
-	{remarksbox type="warning" title="{tr}Composer errors{/tr}"}
+    {remarksbox type="warning" title="{tr}Composer errors{/tr}"}
 
-	{tr}Composer returned some errors:{/tr}<br />
+    {tr}Composer returned some errors:{/tr}<br />
         <pre>{$composer_installed_errors}</pre>
-	{/remarksbox}
+    {/remarksbox}
 {/if}
 
 {if not empty($composer_environment_warning)}
-	{remarksbox type="warning" title="{tr}Issues with composer environment{/tr}"}
+    {remarksbox type="warning" title="{tr}Issues with composer environment{/tr}"}
 
         <p>{tr}Issues with composer environment:{/tr}</p>
         <ul>
@@ -34,7 +34,7 @@
             {/foreach}
         </ul>
         <p>{tr _0='<code>sh setup.sh fix</code>' _1='<a href="https://doc.tiki.org/Packages" class="alert-link">doc.tiki.org/Packages</a>'}Run %0 from a shell to try to fix this, see %1 for more info.{/tr}</p>
-	{/remarksbox}
+    {/remarksbox}
 {/if}
 
 {if isset($extensions_output)}

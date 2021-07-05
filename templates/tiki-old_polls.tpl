@@ -16,26 +16,26 @@
 <td class="date">{$listpages[changes].publishDate|tiki_short_datetime}</td>
 <td class="text">{$listpages[changes].votes}</td>
 <td class="action">
-	{actions}
-		{strip}
-			<action>
-				<a href="tiki-poll_results.php?pollId={$listpages[changes].pollId}">
-					{icon name='chart' _menu_text='y' _menu_icon='y' alt="{tr}Results{/tr}"}
-				</a>
-			</action>
-			{if $tiki_p_vote_poll ne 'n'}
-				<action>
-					<a href="tiki-poll_form.php?pollId={$listpages[changes].pollId}">
-						{icon name='ok' _menu_text='y' _menu_icon='y' alt="{tr}Vote{/tr}"}
-					</a>
-				</action>
-			{/if}
-		{/strip}
-	{/actions}
+    {actions}
+        {strip}
+            <action>
+                <a href="tiki-poll_results.php?pollId={$listpages[changes].pollId}">
+                    {icon name='chart' _menu_text='y' _menu_icon='y' alt="{tr}Results{/tr}"}
+                </a>
+            </action>
+            {if $tiki_p_vote_poll ne 'n'}
+                <action>
+                    <a href="tiki-poll_form.php?pollId={$listpages[changes].pollId}">
+                        {icon name='ok' _menu_text='y' _menu_icon='y' alt="{tr}Vote{/tr}"}
+                    </a>
+                </action>
+            {/if}
+        {/strip}
+    {/actions}
 </td>
 </tr>
 {sectionelse}
-	{norecords _colspan=4}
+    {norecords _colspan=4}
 {/section}
 </table>
 </div>

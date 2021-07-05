@@ -3,33 +3,33 @@
 {title}{tr}Available Repositories{/tr}{/title}
 
 {if $tiki_p_admin eq 'y'}
-	<div class="t_navbar">
-		{button href="tiki-admin_integrator.php" class="btn btn-primary" _text="{tr}Configure Repositories{/tr}"}
-	</div>
+    <div class="t_navbar">
+        {button href="tiki-admin_integrator.php" class="btn btn-primary" _text="{tr}Configure Repositories{/tr}"}
+    </div>
 {/if}
 
 
 {* Table with list of repositories (if array is not empty) *}
 {if count($repositories) gt 0}
-	<div class="table-responsive">
-		<table class="table" id="integrator-repositories">
-			<tr>
-				<th>{tr}Name{/tr}</th>
-				<th>{tr}Description{/tr}</th>
-			</tr>
+    <div class="table-responsive">
+        <table class="table" id="integrator-repositories">
+            <tr>
+                <th>{tr}Name{/tr}</th>
+                <th>{tr}Description{/tr}</th>
+            </tr>
 
-			{section name=rep loop=$repositories}
-				<tr>
-					<td class="text">
-						<a href="tiki-integrator.php?repID={$repositories[rep].repID|escape}">
-							{$repositories[rep].name}
-						</a>
-					</td>
-					<td class="text">{$repositories[rep].description}</td>
-				</tr>
-			{/section}
-		</table>
-	</div>
+            {section name=rep loop=$repositories}
+                <tr>
+                    <td class="text">
+                        <a href="tiki-integrator.php?repID={$repositories[rep].repID|escape}">
+                            {$repositories[rep].name}
+                        </a>
+                    </td>
+                    <td class="text">{$repositories[rep].description}</td>
+                </tr>
+            {/section}
+        </table>
+    </div>
 {else}
 
 {* Here should be panel (let it be style 'info-panel') with info

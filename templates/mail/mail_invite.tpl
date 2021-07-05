@@ -1,10 +1,10 @@
 {* $Id$ *}{tr}You are invited by:{/tr} {$prefs.mail_template_custom_text}{$user|username}
 {if !empty($groups)}
-	{tr}You join this group:{/tr}
-	{foreach from=$groups item=group}
-		{$group.groupName|escape}{if $group.groupDescription} ({$group.groupDescription|escape}){/if}
+    {tr}You join this group:{/tr}
+    {foreach from=$groups item=group}
+        {$group.groupName|escape}{if $group.groupDescription} ({$group.groupDescription|escape}){/if}
 
-	{/foreach}
+    {/foreach}
 {/if}
 {if $message}
 ---------------------------

@@ -2,7 +2,7 @@
 <div class="wikitext">{$info.parsed}</div>
 <div id="comment-container-{$info.page_id|escape}" data-target="{service controller=commnet action=list type="wiki page" objectId=$info.pageName}"></div>
 {jq}
-	var id = '#comment-container-{{$info.page_id}}';
-	$(id).comment_load($(id).data('target'));
-	$(document).ajaxComplete(function(){$(id).tiki_popover();});
+    var id = '#comment-container-{{$info.page_id}}';
+    $(id).comment_load($(id).data('target'));
+    $(document).ajaxComplete(function(){$(id).tiki_popover();});
 {/jq}

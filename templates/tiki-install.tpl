@@ -562,10 +562,10 @@
                             <p><span class="text-success">{icon name="ok"}
                                     {if isset($smarty.post.update)}
                                         <strong>{tr}Upgrade operations executed successfully:{/tr}</strong>
-						{else}
-								<strong>{tr}Installation operations executed successfully:{/tr}</strong>
+                        {else}
+                                <strong>{tr}Installation operations executed successfully:{/tr}</strong>
                                     {/if}
-						</span>
+                        </span>
                                 {$installer->queries.successful|@count} {tr}SQL queries.{/tr}</p>
                         {else}
                             <p>{icon name="ok"} <span class="text-warning"><strong>{tr}Database was left unchanged.{/tr}</strong></span></p>
@@ -582,7 +582,7 @@
 
                             <p><span class="text-danger">{icon name="error"} <strong>{tr}Operations failed:{/tr}</strong> {$installer->queries.failed|@count} {tr}SQL queries.{/tr}
                                     <a href="javascript:sql_failed()">{tr}Display details.{/tr}</a>
-							<div id="sql_failed_log" style="display:none">
+                            <div id="sql_failed_log" style="display:none">
                             <p><span class="text-warning">{tr}During an upgrade, it is normal to have SQL failures resulting with <strong>Table already exists</strong> messages.{/tr}</span></p>
                             {assign var='patch' value=''}
                             {foreach from=$installer->queries.failed item=item}
@@ -596,11 +596,11 @@
                             </p>
                             {assign var='patch' value=$item[2]}
                             <textarea rows="6" cols="80">
-									{/if}
+                                    {/if}
                                 {$item[0]}
                                 {$item[1]}
                                 {/foreach}
-								</textarea>
+                                </textarea>
                             <p>If you think that the errors of a patch can be ignored, please check the checkbox associated to it before clicking on continue.</p>
                             <p>{select_all checkbox_names='validPatches[]' label="{tr}Check all errors{/tr}"}</p>
                     </div>
@@ -637,8 +637,8 @@
                                     </label>
                                     <input class="form-control" type="text" size="40" name="browsertitle" id="browsertitle" value="{if $prefs.browsertitle}{$prefs.browsertitle|escape}{else}{tr}My Tiki{/tr}{/if}">
                                     <span class="form-text">
-										{tr}This will appear in the browser title bar.{/tr}
-									</span>
+                                        {tr}This will appear in the browser title bar.{/tr}
+                                    </span>
                                 </div>
                                 <div class="form-group row mx-0">
                                     <label class="col-form-label" for="sender_email">
@@ -646,8 +646,8 @@
                                     </label>
                                     <input type="text" class="form-control" size="40" name="sender_email" id="sender_email" value="{$prefs.sender_email|escape}" placeholder="{tr}tiki@example.com{/tr}">
                                     <span class="form-text">
-										{tr}Email sent by your site will use this address.{/tr}
-									</span>
+                                        {tr}Email sent by your site will use this address.{/tr}
+                                    </span>
                                 </div>
                                 <div class="p-3">
                                     <details>
@@ -735,8 +735,8 @@
                                     </label>
                                     <input type="text" class="form-control" size="40" name="admin_email" id="admin_email" value="{if isset($admin_email)}{$admin_email}{/if}" placeholder="{tr}admin@example.com{/tr}">
                                     <span class="form-text">
-										{tr}This is the email address for your administrator account.{/tr}
-									</span>
+                                        {tr}This is the email address for your administrator account.{/tr}
+                                    </span>
                                 </div>
                             </fieldset>
                             {if not empty($htaccess_options)}
@@ -757,8 +757,8 @@
                                             {/foreach}
                                         </select>
                                         <span class="form-text">
-											{tr}Select how to set up your htaccess file.{/tr}
-										</span>
+                                            {tr}Select how to set up your htaccess file.{/tr}
+                                        </span>
                                     </div>
                                 </fieldset>
                             {/if}

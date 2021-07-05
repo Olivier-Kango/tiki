@@ -11,16 +11,16 @@ window.parent.location = 'tiki-index.php';
 {$name = ($prefs.login_is_email eq 'y' and $userinfo.login neq 'admin') ? {$userinfo.email|escape} : {$userinfo.login|escape} }
 {jq}
 $("#name").val("{{$name}}")
-	.rules("add", {
-		remote: {
-			url: "validate-ajax.php",
-			type: "post",
-			data: {
-				validator: "username",
-				input: function() { if ($("#name").val() !== "{{$name}}") { return $("#name").val();} else { return false; } }
-			}
-		}
-	});
+    .rules("add", {
+        remote: {
+            url: "validate-ajax.php",
+            type: "post",
+            data: {
+                validator: "username",
+                input: function() { if ($("#name").val() !== "{{$name}}") { return $("#name").val();} else { return false; } }
+            }
+        }
+    });
 $("#email").val("{{$userinfo.email|escape}}");
 {/jq}
 {if $msg}<p><strong>{$msg|escape}</strong></p>{/if}
@@ -32,34 +32,34 @@ $("#email").val("{{$userinfo.email|escape}}");
 {include file="register-groupchoice.tpl"}
 {if $msg}<p>{$msg|escape}</p>{/if}
 <div class="form-group row">
-	<label class="col-form-label col-sm-3"></label>
-	<div class="col-sm-7">
-		<input type="submit" class="btn btn-primary" name="localinfosubmit" value="{tr}Submit{/tr}">
-	</div>
+    <label class="col-form-label col-sm-3"></label>
+    <div class="col-sm-7">
+        <input type="submit" class="btn btn-primary" name="localinfosubmit" value="{tr}Submit{/tr}">
+    </div>
 </div>
 </form>
 
 <h4>{tr}Do you already have a local account for this site?{/tr}</h4>
 <p>{tr}Login to link to it using the following form instead{/tr}</p>
 <form action="tiki-socialnetworks_firstlogin.php" method="post" name="RegForm2" class="form-horizontal">
-	<div class="form-group row">
-		<label class="col-form-label col-sm-3">{tr}Login:{/tr}</label>
-		<div class="col-sm-7">
-			<input type="text" name="userlogin" class="form-control">
-		</div>
-	</div>
-	<div class="form-group row">
-		<label class="col-form-label col-sm-3">{tr}Password:{/tr}</label>
-		<div class="col-sm-7">
-			<input type="password" name="userpass" class="form-control">
-		</div>
-	</div>
-	<div class="form-group row">
-		<label class="col-form-label col-sm-3"></label>
-		<div class="col-sm-7">
-			<input type="submit" class="btn btn-primary" name="linkaccount" value="{tr}Link to Existing Account{/tr}">
-		</div>
-	</div>
+    <div class="form-group row">
+        <label class="col-form-label col-sm-3">{tr}Login:{/tr}</label>
+        <div class="col-sm-7">
+            <input type="text" name="userlogin" class="form-control">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-form-label col-sm-3">{tr}Password:{/tr}</label>
+        <div class="col-sm-7">
+            <input type="password" name="userpass" class="form-control">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-form-label col-sm-3"></label>
+        <div class="col-sm-7">
+            <input type="submit" class="btn btn-primary" name="linkaccount" value="{tr}Link to Existing Account{/tr}">
+        </div>
+    </div>
 </form>
 
 {/if}

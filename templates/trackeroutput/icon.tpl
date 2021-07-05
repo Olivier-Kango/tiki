@@ -1,3 +1,3 @@
 {if $field.value}
-	<img src="{$field.value|escape}">
+    <img src="{$field.value|escape}">
 {/if}

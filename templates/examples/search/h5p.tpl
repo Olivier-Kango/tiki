@@ -23,23 +23,23 @@ Example wiki syntax (using the tracker from https://profiles.tiki.org/Tracker_as
 
 
 {if not empty($column.field)}
-	{$column = [$column]}{* if there is only one column then it will not be in an array *}
+    {$column = [$column]}{* if there is only one column then it will not be in an array *}
 {/if}
 {$data = []}
 
 {foreach from=$results item=row}
-	{$datarow = []}
-	{foreach from=$column item=col}
-		{if !empty($row[$col.field])}
-			{$value = $row[$col.field]|nonp}
-			{$decoded = $value|json_decode}
-			{if $decoded !== null}
-				{$value = $decoded}
-			{/if}
-			{$datarow[$col.label] = $value}
-		{/if}
-	{/foreach}
-	{$data[] = $datarow}
+    {$datarow = []}
+    {foreach from=$column item=col}
+        {if !empty($row[$col.field])}
+            {$value = $row[$col.field]|nonp}
+            {$decoded = $value|json_decode}
+            {if $decoded !== null}
+                {$value = $decoded}
+            {/if}
+            {$datarow[$col.label] = $value}
+        {/if}
+    {/foreach}
+    {$data[] = $datarow}
 {/foreach}
 {$output = [$settings.type => [$settings.param => $data]]}
 

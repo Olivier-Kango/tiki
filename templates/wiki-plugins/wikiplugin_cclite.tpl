@@ -1,3 +1,3 @@
 <div class="pluginCcliteDiv">
-	{$wp_cclite_result}
+    {$wp_cclite_result}
 </div>

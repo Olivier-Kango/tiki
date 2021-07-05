@@ -9,9 +9,9 @@
 <tr>
 {if $show_count eq 'y'}<td class="{cycle advance=false}">{$val.count}</td>{/if}
 <td class="{cycle advance=false}{if $val.me} highlight{/if}">
-	{if $show_link eq 'y'}<a href="tiki-view_tracker.php?{$val.href}">{/if}
-	{$val.value}
-	{if $show_link eq 'y'}</a>{/if}
+    {if $show_link eq 'y'}<a href="tiki-view_tracker.php?{$val.href}">{/if}
+    {$val.value}
+    {if $show_link eq 'y'}</a>{/if}
 </td>
 {if $show_percent eq 'y'}<td class="{cycle advance=false}">%{$val.average|string_format:"%.2f"}</td>{/if}
 {if $show_bar eq 'y'}<td class="{cycle advance=false}">{quotabar length=$val.average}</td>{/if}

@@ -1,8 +1,8 @@
 <b>List of returned objects</b>
 <ol>
-	{foreach from=$results item=result}
-		<li> <a href="{$result.url}" >{$result.title}</a>
-	{/foreach}
+    {foreach from=$results item=result}
+        <li> <a href="{$result.url}" >{$result.title}</a>
+    {/foreach}
 </ol>
 
 {wiki}

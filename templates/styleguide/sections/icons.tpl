@@ -26,7 +26,7 @@
                 <p class="picker" data-selector=".icons .sample span" data-element="background-color">
                     <label for="tc-icon-bg-color">Background:</label>
                     <input id="tc-icon-bg-color" data-selector=".icons .sample span" data-element="background-color" type="text">
-    				<span class="input-group-addon"><i></i></span>
+                    <span class="input-group-addon"><i></i></span>
                 </p>
                 <p class="picker" data-selector=".icons .sample span" data-element="color">
                     <label for="tc-icon-color">Foreground:</label>

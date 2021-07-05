@@ -4,8 +4,8 @@
 
 <div style="display: inline">{tr _0=$position _1=$count}%0 out of %1 users.{/tr}&nbsp;</div>
 <div style="display: inline-block">
-	<div style="display: inline">&nbsp;{$score}</div>
-	<div style="display: inline">&nbsp;{$user|userlink}</div>
+    <div style="display: inline">&nbsp;{$score}</div>
+    <div style="display: inline">&nbsp;{$user|userlink}</div>
 </div>
 
 

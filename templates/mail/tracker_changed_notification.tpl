@@ -3,7 +3,7 @@
 {else}{$mail_action}
 
 {tr}View the {$prefs.mail_template_custom_text}tracker item at:{/tr}
-	{$mail_machine_raw}/{$mail_itemId|sefurl:'trackeritem'}
+    {$mail_machine_raw}/{$mail_itemId|sefurl:'trackeritem'}
 {/if}
 
 {if $mail_action eq 'deleted'}
@@ -29,6 +29,6 @@ Status: {$mail_field_status}
 {* {$mail_data|replace:"\n\n":"\n"|replace:":\n":": "} to reduce the number of line *}
 
 {if isset($mail_attId)}
-	{tr}Download the file at:{/tr} {$mail_machine_raw}/tiki-download_item_attachment.php?attId={$mail_attId}
+    {tr}Download the file at:{/tr} {$mail_machine_raw}/tiki-download_item_attachment.php?attId={$mail_attId}
 {/if}
 

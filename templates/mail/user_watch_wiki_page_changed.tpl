@@ -21,8 +21,8 @@
 {/if}
 
 {if $watchId}
-	{tr}If you don't want to receive these notifications follow this link:{/tr}
-	{$mail_machine_raw}/tiki-user_watches.php?id={$watchId}
+    {tr}If you don't want to receive these notifications follow this link:{/tr}
+    {$mail_machine_raw}/tiki-user_watches.php?id={$watchId}
 {/if}
 
 ***********************************************************
