@@ -1247,37 +1247,45 @@ class TrackerLib extends TikiLib
                     . ')';
                 // Do we need a numerical sort on the field ?
                 $field = $this->get_tracker_field($asort_mode);
-                switch ($field['type']) {
-                    case 'C':
-                    case '*':
-                    case 'q':
-                    case 'n':
-                    case 'f':   // DateTime
-                    case 'j':   // JsCalendar
-                    case 'CAL': // CalendarItem
-                        $numsort = true;
-                        break;
-                    case 'DUR':
-                        $csort_mode = Tracker_Field_Duration::getSortModeSql();
-                        break;
-                    case 'l':
-                        // Do nothing, value is dynamic and thus cannot be sorted on
-                        $csort_mode = 1;
-                        $csort_tables = '';
-                        break;
-                    case 'r':
-                        $link_field = (int)$field['fieldId'];
-                        $remote_field = (int)$field['options_array'][1];
-                        $sort_tables = '
-                            LEFT JOIN `tiki_tracker_item_fields` itemlink ON tti.itemId = itemlink.itemId AND itemlink.fieldId = ' . $link_field . '
-                            LEFT JOIN `tiki_tracker_item_fields` sttif ON itemlink.value = sttif.itemId AND sttif.fieldId = ' . $remote_field . '
-                        ';
-                        break;
-                    case 's':
-//                      if ($field['name'] == 'Rating' || $field['name'] == tra('Rating')) { // No need to have that string, isn't it? Admins can replace for a more suited string in their use case
+
+                if ($field) {
+                    switch ($field['type']) {
+                        case 'C':
+                        case '*':
+                        case 'q':
+                        case 'n':
+                        case 'f':   // DateTime
+                        case 'j':   // JsCalendar
+                        case 'CAL': // CalendarItem
                             $numsort = true;
-//                      }
-                        break;
+                            break;
+                        case 'DUR':
+                            $csort_mode = Tracker_Field_Duration::getSortModeSql();
+                            break;
+                        case 'l':
+                            // Do nothing, value is dynamic and thus cannot be sorted on
+                            $csort_mode = 1;
+                            $csort_tables = '';
+                            break;
+                        case 'r':
+                            $link_field = (int)$field['fieldId'];
+                            $remote_field = (int)$field['options_array'][1];
+                            $sort_tables = '
+                                LEFT JOIN `tiki_tracker_item_fields` itemlink ON tti.itemId = itemlink.itemId AND itemlink.fieldId = ' . $link_field . '
+                                LEFT JOIN `tiki_tracker_item_fields` sttif ON itemlink.value = sttif.itemId AND sttif.fieldId = ' . $remote_field . '
+                            ';
+                            break;
+                        case 's':
+    //                      if ($field['name'] == 'Rating' || $field['name'] == tra('Rating')) { // No need to have that string, isn't it? Admins can replace for a more suited string in their use case
+                            $numsort = true;
+    //                      }
+                            break;
+                    }
+                } else {
+                    // don't sort of the field doesn't exist
+                    $csort_mode = 1;
+                    $corder = 'asc';
+                    $sort_tables = '';
                 }
             } else {
                 list($csort_mode, $corder) = preg_split('/_/', $sort_mode);

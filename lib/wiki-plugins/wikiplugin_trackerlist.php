@@ -1625,7 +1625,7 @@ function wikiplugin_trackerlist($data, $params)
         if (isset($_REQUEST["tr_sort_mode$iTRACKERLIST"])) {
             $sort_mode = $_REQUEST["tr_sort_mode$iTRACKERLIST"];
         } elseif (! isset($sort_mode)) {
-            if (! empty($tracker_info['defaultOrderKey'])) {
+            if (! empty($tracker_info['defaultOrderKey']) && is_numeric($tracker_info['defaultOrderKey'])) {
                 if ($tracker_info['defaultOrderKey'] == -1) {
                     $sort_mode = 'lastModif';
                 } elseif ($tracker_info['defaultOrderKey'] == -2) {
