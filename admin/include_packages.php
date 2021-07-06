@@ -23,31 +23,31 @@ $composerManagerBundled = new ComposerManager($tikipath, $tikipath . DIRECTORY_S
 $composerManagerCustom = new ComposerManager($tikipath, $tikipath . DIRECTORY_SEPARATOR . 'vendor_custom');
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if ($_POST['auto-fix-missing-packages'] && $access->checkCsrf()) {
+    if (! empty($_POST['auto-fix-missing-packages']) && $access->checkCsrf()) {
         $smarty->assign('composer_output', $composerManager->fixMissing());
     }
-    if ($_POST['auto-install-package'] && $access->checkCsrf()) {
+    if (! empty($_POST['auto-install-package']) && $access->checkCsrf()) {
         $smarty->assign('composer_output', $composerManager->installPackage($_POST['auto-install-package']));
     }
-    if ($_POST['auto-update-package'] && $access->checkCsrf()) {
+    if (! empty($_POST['auto-update-package']) && $access->checkCsrf()) {
         $smarty->assign('composer_output', $composerManager->updatePackage($_POST['auto-update-package']));
     }
-    if ($_POST['auto-remove-package'] && $access->checkCsrf()) {
+    if (! empty($_POST['auto-remove-package']) && $access->checkCsrf()) {
         $smarty->assign('composer_output', $composerManager->removePackage($_POST['auto-remove-package']));
     }
-    if ($_POST['enable-extension-package'] && $access->checkCsrf()) {
+    if (! empty($_POST['enable-extension-package']) && $access->checkCsrf()) {
         $packageName = $_POST['enable-extension-package'];
         $packagePath = ExtensionManager::locatePackage($packageName);
         $status = ExtensionManager::enableExtension($packageName, $packagePath);
         $smarty->assign('extensions_status', $status);
         $smarty->assign('extensions_output', implode(PHP_EOL, ExtensionManager::getMessages()));
     }
-    if ($_POST['disable-extension-package'] && $access->checkCsrf()) {
+    if (! empty($_POST['disable-extension-package']) && $access->checkCsrf()) {
         $status = ExtensionManager::disableExtension($_POST['disable-extension-package']);
         $smarty->assign('extensions_status', $status);
         $smarty->assign('extensions_output', implode(PHP_EOL, ExtensionManager::getMessages()));
     }
-    if ($_POST['auto-run-diagnostics'] && $access->checkCsrf()) {
+    if (! empty($_POST['auto-run-diagnostics']) && $access->checkCsrf()) {
         if (! $composerManager->composerIsAvailable()) {
             $smarty->assign('diagnostic_composer_location', '');
             $smarty->assign('diagnostic_composer_output', '');
@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $smarty->assign('diagnostic_composer_location', $composerManager->composerPath());
             $smarty->assign('diagnostic_composer_output', $composerManager->getComposer()->execDiagnose());
         }
-        if ($_POST['remove-composer-locker']) {
+        if (! empty($_POST['remove-composer-locker'])) {
             $path = $tikipath . DIRECTORY_SEPARATOR . 'composer.lock';
             if (file_exists($path)) {
                 if (is_writable($path)) {
@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $smarty->assign('composer_management_success', tr('composer.lock file do not exists'));
             }
         }
-        if ($_POST['clean-vendor-folder']) {
+        if (! empty($_POST['clean-vendor-folder'])) {
             $dir = $tikipath . DIRECTORY_SEPARATOR . 'vendor/';
             if (file_exists($dir)) {
                 if (is_writable($dir)) {
@@ -95,7 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }
         }
     }
-    if ($_POST['install-composer']) {
+    if (! empty($_POST['install-composer'])) {
         $composerWrapper = new ComposerCli($tikipath);
         list($composerResult, $composerResultMessage) = $composerWrapper->installComposer();
         if ($composerResult) {
@@ -104,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $smarty->assign('composer_management_error', $composerResultMessage);
         }
     }
-    if ($_POST['update-composer']) {
+    if (! empty($_POST['update-composer'])) {
         $composerWrapper = new ComposerCli($tikipath);
         list($composerResult, $composerResultMessage) = $composerWrapper->updateComposer();
         if ($composerResult) {
