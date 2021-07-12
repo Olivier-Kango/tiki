@@ -27,7 +27,7 @@ class TrackerExportCommand extends Command
             )
             ->addArgument(
                 'filename',
-                InputArgument::REQUIRED,
+                InputArgument::OPTIONAL,
                 'Location (full path) and/or a CSV file name to export'
             );
     }
@@ -66,7 +66,15 @@ class TrackerExportCommand extends Command
 
         // this will throw exceptions and not return if there's a problem
         $source = new \Tracker\Tabular\Source\TrackerSource($schema, $tracker);
-        $writer = new \Tracker\Tabular\Writer\CsvWriter($fileName);
+
+        if (! empty($fileName)) {
+            $writer = new \Tracker\Tabular\Writer\CsvWriter($fileName);
+        } elseif (! empty($info['odbc_config'])) {
+            $writer = new \Tracker\Tabular\Writer\ODBCWriter($info['odbc_config']);
+        } else {
+            throw new \Exception(tr('Tracker Export: No filename or remote tabular synchronization settings provided.'));
+        }
+
         $writer->write($source);
 
         \Feedback::printToConsole($output);
