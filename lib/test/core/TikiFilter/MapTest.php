@@ -26,7 +26,7 @@ class TikiFilter_MapTest extends TikiTestCase
             'iso8601' => null,
             'attribute_type' => 'e-.2yg.4h_onclickscriptalert1scriptbbx',
             'lang' => '',
-            'relativeurl' => '%21%E2%80%9C#%CF%80$%CE%A3e%C3%91%E2%80%98()%C2%BF*+,%C2%BD-./%C2%AB%C2%BB2%C3%B7%E2%89%88y:%C2%B7;%7B~?@%C3%BC%C2%A9%09:/g.,:%7C4h&%23%CE%94%CE%B4_%F0%9F%8D%98%E3%82%B3%E3%83%B3%20onclickalert(1)%CE%B4',
+            'relativeurl' => '%21%E2%80%9C#%CF%80$%CE%A3e%C3%91%E2%80%98()%C2%BF*+,%C2%BD-./%C2%AB%C2%BB2%C3%B7%E2%89%88y:%C2%B7;%7B~?@%C3%BC%C2%A9%20%20%20%20:/g.,:%7C4h&%23%CE%94%CE%B4_%F0%9F%8D%98%E3%82%B3%E3%83%B3%20onclickalert(1)%CE%B4',
             'digits' => '241',
             'intscolons' => '2:::41',
             'intscommas' => ',2,41',
