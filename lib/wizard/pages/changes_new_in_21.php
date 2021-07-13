@@ -15,7 +15,7 @@ class ChangesWizardNewIn21 extends Wizard
 {
     public function pageTitle()
     {
-        return tra('New in Tiki 21');
+        return tra('New in Tiki 21 (LTS)');
     }
 
     public function isEditable()
