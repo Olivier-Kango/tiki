@@ -236,6 +236,9 @@ function iconset_default()
             'admin_rtc' => [
                 'id' => 'bullhorn',
             ],
+            'admin_wizard' => [
+                'id' => 'magic',
+            ],
             'admin_section_general' => [
                 'id' => 'tools',
             ],
