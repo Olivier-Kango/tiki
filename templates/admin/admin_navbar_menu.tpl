@@ -147,8 +147,6 @@
             {if $tiki_p_plugin_approve eq "y"}
                 <a class="dropdown-item" href="tiki-plugins.php">{tr}Plugin Approval{/tr}</a>
             {/if}
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="tiki-mods.php">{tr}Mods{/tr}</a>
         </ul>
     </li>
     <li class="nav-item dropdown mr-1">
