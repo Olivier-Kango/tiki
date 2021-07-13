@@ -1,5 +1,13 @@
-{if $prefs.feature_page_title eq 'y' && !$is_slideshow eq 'y'}<h1><a href="tiki-backlinks.php?page={$page|escape:url}" title="{tr}backlinks to{/tr} {$page|escape}">{$page|escape}</a></h1><div class="wikitext">{/if}
-{$parsed}
+{strip}
+    {if $prefs.feature_page_title eq 'y' and (not isset($hide_page_header) or not $hide_page_header)}
+        <h1>
+            <a href="tiki-backlinks.php?page={$page|escape:url}" title="{tr}backlinks to{/tr} {$page|escape}">{$page|escape}</a>
+        </h1>
+    {/if}
+    {if !$is_slideshow eq 'y'}
+        <div class="wikitext">
+    {/if}
+{/strip}{$parsed}
 {if !$is_slideshow eq 'y'}
     </div>
 {/if}
@@ -41,7 +49,6 @@
         {include file='tiki-page_bar.tpl'}
     {/if}
 {/if}
-<style>
-[hidden] {
-    display: block !important; 
-}</style>
+{if $is_slideshow eq 'y'}
+<style>[hidden] {ldelim}display: block !important;{rdelim}</style>
+{/if}

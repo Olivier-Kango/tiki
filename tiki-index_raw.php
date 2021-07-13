@@ -112,6 +112,9 @@ include_once('tiki-section_options.php');
 $pageRenderer->runSetups();
 ask_ticket('index-raw');
 
+// Process page display options
+$wikilib->processPageDisplayOptions();
+
 // Display the Index Template
 
 // If the url has the param "download", ask the browser to download it (instead of displaying it)
@@ -129,6 +132,10 @@ if (isset($_REQUEST['download']) && $_REQUEST['download'] !== 'n') {
         header("Content-type: text/plain; charset=utf-8");
     }
     header("Content-Disposition: attachment; filename=\"$filename\"");
+}
+
+if (isset($_REQUEST['xml'])) {
+    header("Content-type: application/xml; charset=utf-8");
 }
 
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');
