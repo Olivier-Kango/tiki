@@ -2016,7 +2016,7 @@ class TikiLib extends TikiDb_Bridge
         $bindvars = ['forum', 0];
 
         $query = 'select `threadId`, `forumId` from `tiki_comments`,`tiki_forums`'
-              . " where `object`=`forumId` and `objectType`=? and `parentId`=? order by " . $this->convertSortMode('commentDate_desc');
+              . " where `object`=`forumId` and `objectType`=? and `tiki_comments`.`parentId`=? order by " . $this->convertSortMode('commentDate_desc');
         $result = $this->fetchAll($query, $bindvars, $maxRecords * 3, 0); // Load a little more, for permission filters
         $res = $ret = $retids = [];
         $n = 0;
