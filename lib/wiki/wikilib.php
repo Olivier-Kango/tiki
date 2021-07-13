@@ -1825,6 +1825,7 @@ class WikiLib extends TikiLib
                     }
                 }
                 if ($isHideTitle) {
+                    TikiLib::lib('smarty')->assign('hide_page_header', true);
                     $headerlib->add_css('.pagetitle {display: none;}');
                     $headerlib->add_css('.titletop {display: none;}');
                 }
