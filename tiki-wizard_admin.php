@@ -130,6 +130,9 @@ if ($useDefaultPrefs) {
     $pages[] = new ChangesWizardNewIn17();
 */
 
+    require_once('lib/wizard/pages/changes_new_in_24.php');
+    $pages[] = new ChangesWizardNewIn24();
+
     require_once('lib/wizard/pages/changes_new_in_23.php');
     $pages[] = new ChangesWizardNewIn23();
 
@@ -138,15 +141,6 @@ if ($useDefaultPrefs) {
 
     require_once('lib/wizard/pages/changes_new_in_21.php');
     $pages[] = new ChangesWizardNewIn21();
-
-    require_once('lib/wizard/pages/changes_new_in_20.php');
-    $pages[] = new ChangesWizardNewIn20();
-
-    require_once('lib/wizard/pages/changes_new_in_19.php');
-    $pages[] = new ChangesWizardNewIn19();
-
-    require_once('lib/wizard/pages/changes_new_in_18.php');
-    $pages[] = new ChangesWizardNewIn18();
 
     require_once('lib/wizard/pages/changes_doc_page_iframe.php');
     $pages[] = new ChangesWizardDocPageIframe();
