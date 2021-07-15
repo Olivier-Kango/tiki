@@ -30,7 +30,7 @@
             </div>
             <div class="form-group row mx-0">
                 <label for="permName">{tr}Permanent Name{/tr}</label>
-                <input class="form-control" type="text" name="permName" id="permName" value="{$info.permName|escape}" required="required">
+                <input class="form-control" type="text" name="permName" id="permName" value="{$info.permName|escape}">
                 {tr}Required for Advanced Shopping Cart and some other tracker features, do not change this unless you are sure.{/tr}
             </div>
             {jq}$("#name").change(function() {
@@ -552,10 +552,11 @@
                     </select>
                 </div>
                 <div class="form-group row depends" data-on="tabularSync">
-                    <label for="tabularSyncModifiedField">{tr}Last revision/modification field{/tr}
-                    <a class="tikihelp text-info" title="{tr}Field selection{/tr}: {tr}Choose one of the tracker fields if remote items update its value every time a change happens. This will ensure only updated items get synchronized when importing from remote source.{/tr}">
-                        {icon name=information}
-                    </a>
+                    <label for="tabularSyncModifiedField">
+                        {tr}Last revision/modification field{/tr}
+                        <a class="tikihelp text-info" title="{tr}Field selection{/tr}: {tr}Choose one of the tracker fields if remote items update its value every time a change happens. This will ensure only updated items get synchronized when importing from remote source.{/tr}">
+                            {icon name=information}
+                        </a>
                     </label>
                     {object_selector type=trackerfield tracker_id=$info.trackerId _simplevalue=$info.tabularSyncModifiedField _simplename="tabularSyncModifiedField"}
                 </div>
