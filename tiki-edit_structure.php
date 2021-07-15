@@ -68,6 +68,9 @@ $alert_in_st = [];
 $alert_to_remove_cats = [];
 $alert_to_remove_extra_cats = [];
 
+// needed here for filtering later in the search results
+$subtree = $structlib->get_subtree($structure_info["page_ref_id"]);
+
 // start security hardened section
 if ($editable === 'y') {
     $smarty->assign('remove', 'n');
@@ -205,6 +208,19 @@ if ($editable === 'y') {
         false,
         $filter
     );
+
+    if ($prefs['page_n_times_in_a_structure'] === 'n') {
+        // pages can appear only once in a structure so filter them out
+        $listpages['data'] = array_filter($listpages['data'], function ($item) use ($subtree) {
+            foreach ($subtree as $sub) {
+                if ($item['pageName'] === $sub['pageName']) {
+                    return false;
+                }
+            }
+            return true;
+        });
+    }
+
     $smarty->assign_by_ref('listpages', $listpages);
 } // end of security hardening
 
@@ -227,7 +243,6 @@ $structures_filtered = array_filter($structures['data'], function ($struct) {
 });
 $smarty->assign_by_ref('structures', $structures_filtered);
 
-$subtree = $structlib->get_subtree($structure_info["page_ref_id"]);
 foreach ($subtree as $i => $s) { // dammed recursivite - acn not do a left join
     if ($tikilib->user_watches($user, 'structure_changed', $s['page_ref_id'], 'structure')) {
         $subtree[$i]['event'] = true;
