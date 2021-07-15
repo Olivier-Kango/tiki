@@ -5,15 +5,18 @@
         </a>
         {permission name=tabular_export type=tabular object=$tabularId}
             <div class="btn-group">
-                <button type="button" class="btn btn-primary" href="{bootstrap_modal controller=tabular action=filter tabularId=$tabularId target=export _params=$baseArguments}">
+                <button type="button" class="btn btn-primary" href="{service controller=tabular action=export_full_csv tabularId=$tabularId}">
                     {icon name=export} {tr}Export{/tr}
                 </button>
-                <a class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="sr-only">Toggle Dropdown</span>
-                </a>
+                </button>
                 <div class="dropdown-menu pl-3">
-                    <a type="button" class="btn btn-primary" href="{service controller=tabular action=export_full_csv tabularId=$tabularId}">
-                        {icon name=export} {tr}Export Full{/tr}
+                    <a class="dropdown-item" href="{bootstrap_modal controller=tabular action=filter tabularId=$tabularId target=export _params=$baseArguments}">
+                        {icon name=export} {tr}Export Partial{/tr}
+                    </a>
+                    <a class="dropdown-item" href="tiki-searchindex.php?tabularId=1&amp;filter~tracker_id={$tabularId}">
+                        {icon name=export} {tr}Export Custom{/tr}
                     </a>
                 </div>
             </div>
