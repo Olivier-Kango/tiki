@@ -736,7 +736,12 @@ class Services_Tracker_TabularController
                 $permName = $field['permName'];
                 try {
                     $local = $schema->getFieldSchema($permName);
-                    $columns = $local->getColumns();
+                    if ($local) {
+                        $columns = $local->getColumns();
+                    } else {
+                        Feedback::warning(tr('Field %0 does not support export.'));
+                        continue;
+                    }
                 } catch (Exception $e) {
                     Feedback::warning($e->getMessage());
                     continue;
