@@ -255,7 +255,13 @@ class Schema
             }
         }
 
-        throw new Exception\ModeNotSupported($permName, $mode);
+        // mode missing, try the first one
+        $column = $this->columns[0];
+
+        if ($column->getField() == $permName) {
+            \Feedback::error(tr('Field mode not found: "%0" for field %1. Replaced with "%2"', $mode, $permName, $column->getMode()));
+            return $column;
+        }
     }
 
     public function addNew($permName, $mode)
