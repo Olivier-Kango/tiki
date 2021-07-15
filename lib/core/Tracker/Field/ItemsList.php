@@ -405,11 +405,15 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
         $trackerIdThere = $this->getOption('trackerId');
         $trackerThere = Tracker_Definition::get($trackerIdThere);
         $fieldThere = $trackerThere->getField($fieldIdThere);
-        $queryFieldName = "tracker_field_{$fieldThere['permName']}";
-
-        if ($fieldHere['type'] === 'r' && $fieldThere['type'] !== 'r') {
-            $extraFieldName .= '_text';
+        if ($fieldThere) {
+            $queryFieldName = "tracker_field_{$fieldThere['permName']}";
+            if ($fieldHere['type'] === 'r' && $fieldThere['type'] !== 'r') {
+                $extraFieldName .= '_text';
+            }
+        } else {
+            $queryFieldName = '';
         }
+
 
         // cache the other tracker's items to test when importing
         $itemsThereLookup = new Tracker\Tabular\Schema\CachedLookupHelper();
