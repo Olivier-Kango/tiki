@@ -33,7 +33,9 @@
                 {include file='antibot.tpl'}
             {/if}
             <div class="submit">
-                <input type="button" class="btn btn-primary previewItemBtn" title="{tr}Preview your changes.{/tr}" name="preview" value="{tr}Preview{/tr}">
+                {if $skip_preview neq 'y'}
+                    <input type="button" class="btn btn-primary previewItemBtn" title="{tr}Preview your changes.{/tr}" name="preview" value="{tr}Preview{/tr}">
+                {/if}
                 <input type="hidden" name="trackerId" value="{$trackerId|escape}">
                 <input
                     type="submit"
