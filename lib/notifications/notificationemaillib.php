@@ -699,6 +699,7 @@ function sendCategoryEmailNotification($values)
             $mail = new TikiMail();
             $nots_send[$not['user']] = true;
             $mail->setUser($not['user']);
+            $mail_data = '';
 
             if ($action == 'category created') {
                 $mail_subject = $smarty->fetchLang($not['language'], "mail/user_watch_category_created_subject.tpl");
@@ -707,33 +708,38 @@ function sendCategoryEmailNotification($values)
                 $mail_subject = $smarty->fetchLang($not['language'], "mail/user_watch_category_removed_subject.tpl");
                 $mail_data = $smarty->fetchLang($not['language'], "mail/user_watch_category_removed.tpl");
             } elseif ($action == 'category updated') {
-                $mail_subject = $smarty->fetchLang($not['language'], "mail/user_watch_category_updated_subject.tpl");
 
                 $smarty->assign('oldCategoryName', $oldCategoryName);
                 $smarty->assign('oldCategoryPath', $oldCategoryPath);
                 $smarty->assign('oldDescription', $oldDescription);
                 $smarty->assign('oldParentId', $oldParentId);
                 $smarty->assign('oldParentName', $oldParentName);
+
+                $mail_subject = $smarty->fetchLang($not['language'], "mail/user_watch_category_updated_subject.tpl");
                 $mail_data = $smarty->fetchLang($not['language'], "mail/user_watch_category_updated.tpl");
             } elseif ($action == 'object entered category') {
-                $mail_subject = $smarty->fetchLang($not['language'], "mail/user_watch_object_entered_category_subject.tpl");
 
                 $smarty->assign('objectName', $objectName);
                 $smarty->assign('objectType', $objectType);
                 $smarty->assign('objectUrl', $objectUrl);
+
+                $mail_subject = $smarty->fetchLang($not['language'], "mail/user_watch_object_entered_category_subject.tpl");
                 $mail_data = $smarty->fetchLang($not['language'], "mail/user_watch_object_entered_category.tpl");
             } elseif ($action == 'object leaved category') {
-                $mail_subject = $smarty->fetchLang($not['language'], "mail/user_watch_object_leaved_category_subject.tpl");
 
                 $smarty->assign('objectName', $objectName);
                 $smarty->assign('objectType', $objectType);
                 $smarty->assign('objectUrl', $objectUrl);
+
+                $mail_subject = $smarty->fetchLang($not['language'], "mail/user_watch_object_leaved_category_subject.tpl");
                 $mail_data = $smarty->fetchLang($not['language'], "mail/user_watch_object_leaved_category.tpl");
             }
 
-            $mail->setSubject($mail_subject);
-            $mail->setText($mail_data);
-            $mail->send([$not['email']]);
+            if ($mail_data) {
+                $mail->setSubject($mail_subject);
+                $mail->setText($mail_data);
+                $mail->send([$not['email']]);
+            }
         }
     }
 }
