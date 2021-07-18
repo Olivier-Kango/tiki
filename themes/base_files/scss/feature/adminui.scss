@@ -415,11 +415,11 @@ $color-light:    rgba(0, 0, 0, 0.5);
     padding: 0 .6rem;
 }
 
-.tiki-admin .top_modules.navbar-dark-parent .dropdown-menu, .tiki-admin .bg-dark-parent .dropdown-item.mb-2.mt-2:hover, .tiki-admin .bg-dark .dropdown-menu.show {
+.tiki-admin .top_modules.navbar-dark-parent .dropdown-menu, .tiki-admin .bg-dark-parent .dropdown-item.mb-2.mt-2:hover, .tiki-admin .bg-dark .dropdown-menu {
     background-color: $darkgrey;
 }
 
-.tiki-admin .top_modules.navbar-light-parent .dropdown-menu, .tiki-admin .bg-light-parent .dropdown-item.mb-2.mt-2:hover, .tiki-admin .bg-light .dropdown-menu.show {
+.tiki-admin .top_modules.navbar-light-parent .dropdown-menu, .tiki-admin .bg-light-parent .dropdown-item.mb-2.mt-2:hover, .tiki-admin .bg-light .dropdown-menu {
     background-color: $lightgrey;
 }
 
