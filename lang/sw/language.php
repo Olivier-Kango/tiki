@@ -2367,6 +2367,7 @@ $lang_current = array(
 // "Field ID from this tracker to compare the value against and validate it is not after that timestamp" => "Field ID from this tracker to compare the value against and validate it is not after that timestamp",
 // "Date Picker Field: \"%0\" is not a valid internal date value" => "Date Picker Field: \"%0\" is not a valid internal date value",
 "%0 cannot be before %1" => "%0 haiwezi kuwa kabla %1",
+"\"%0\" cannot be before \"%1\"" => "%0 haiwezi kuwa kabla %1",
 // "%0 cannot be after %1" => "%0 cannot be after %1",
 "Kaltura Video" => "Kaltura Video",
 // "Display a series of attached Kaltura videos" => "Display a series of attached Kaltura videos",
