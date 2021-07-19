@@ -40,6 +40,7 @@ nav.fixed-top {
 }
 .bg-dark {
   background-color: #a59705 !important;
+  color: rgba(255, 255, 255, 0.75);
 }
 .layout_basic #topbar_modules, .layout_basic #topbar.bg-dark, .layout_basic #topbar.bg-light, .layout_basic .topbar .bg-light, .layout_basic .topbar .bg-dark {
   background: #a59705 !important;
