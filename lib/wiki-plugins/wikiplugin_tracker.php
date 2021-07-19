@@ -1802,6 +1802,9 @@ function wikiplugin_tracker($data, $params)
                 $msg = tra('Following fields are incorrect');
                 foreach ($field_errors['err_value'] as $err) {
                     $msg .= '<br>&nbsp;&nbsp;&nbsp;&nbsp;' . $err['name'];
+                    if (! empty($err['errorMsg'])) {
+                        $msg .= ' (' . $err['errorMsg'] . ')';
+                    }
                 }
                 Feedback::error($msg);
             }
