@@ -92,7 +92,7 @@ function wikiplugin_include_info()
                 'name' => tr('Edit Icon'),
                 'description' => tr('Option to show the edit icon for the included page (shown by default). Depends on the "edit icons" settings.'),
                 'since' => '12.1',
-                'default' => 'y',
+                'default' => '',
                 'filter' => 'alpha',
                 'options' => [
                     ['text' => '', 'value' => ''],
@@ -125,7 +125,7 @@ function wikiplugin_include_info()
                 'required' => false,
                 'name' => tr('Replace Include Icon'),
                 'description' => tr('Option to show the replace page icon, for the included page to be replaced by original wiki text. Depends on the "edit icons" settings.'),
-                'default' => 'y',
+                'default' => '',
                 'filter' => 'alpha',
                 'options' => [
                     ['text' => '', 'value' => ''],
@@ -159,9 +159,9 @@ function wikiplugin_include($dataIn, $params)
     $params = array_merge([
         'nopage_text' => '',
         'pagedenied_text' => '',
-        'page_edit_icon' => 'y',
+        'page_edit_icon' => $prefs['wiki_edit_plugin'],
         'parse_included_page' => 'n',
-        'page_replace_icon' => 'y',
+        'page_replace_icon' => $prefs['wiki_edit_plugin'],
         'pagenotapproved_text' => tr('There are no approved versions of this page.'),
     ], $params);
     extract($params, EXTR_SKIP);
