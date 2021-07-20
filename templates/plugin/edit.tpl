@@ -158,10 +158,7 @@ $("#picker_{{$name|escape}}").parent().click(function () {
                                 modal: 1
                             }),
                             function () {
-                                $(this).tikiModal().parents(".modal").trigger("tiki.modal.redraw");
-                                if (jqueryTiki.select2) {
-                                    $(this).applySelect2();
-                                }
+                                $(this).tikiModal();
                                 popupPluginForm("{{$area_id}}","{{$type}}",{{$index}},"{{$pageName|escape:javascript}}",{{$pluginArgsJSON}},"{{$bodyContent|escape:javascript}}",{{$edit_icon}}, selectedMod);
                             }
                         ).tikiModal(tr("Loading..."));

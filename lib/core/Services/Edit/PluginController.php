@@ -108,7 +108,7 @@ class Services_Edit_PluginController
         $parserlib = TikiLib::lib('parser');
 
         $area_id = $input->area_id->alnumdash();
-        $type = $input->type->word();
+        $type = strtolower($input->type->word());
         $index = $input->index->int();
         $page = $input->page->pagename();
         $pluginArgs = $input->asArray('pluginArgs');
