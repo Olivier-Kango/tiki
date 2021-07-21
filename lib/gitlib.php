@@ -35,13 +35,19 @@ class GitLib extends TikiLib
     public function detect_git_binary()
     {
         $php_os = strtoupper(PHP_OS);
+        $env = $_ENV;
+
+        if (!is_array($env) || empty($env['PATH'])) {
+            $env = ['PATH' => getenv('PATH')];
+        }
 
         if ($php_os === 'LINUX') {
             ob_start();
-            $process = new Process('which git');
+            $process = new Process('which git', null, $env);
             $process->run();
             $git = trim($process->getOutput());
             ob_end_clean();
+
             if (! $process->getErrorOutput() && $git) {
                 $this->bin = $git;
                 return $git;
