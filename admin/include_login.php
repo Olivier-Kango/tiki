@@ -15,29 +15,32 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
 if (empty($_REQUEST['registration_choices'])) {
     $_REQUEST['registration_choices'] = [];
 }
-$listgroups = $userlib->get_groups(0, -1, 'groupName_asc', '', '', 'n');
-$in = [];
-$out = [];
-foreach ($listgroups['data'] as $gr) {
-    if ($gr['groupName'] == 'Anonymous') {
-        continue;
+
+if ($access->isActionPost() && $access->checkCsrf()) {
+    $listgroups = $userlib->get_groups(0, -1, 'groupName_asc', '', '', 'n');
+    $in = [];
+    $out = [];
+    foreach ($listgroups['data'] as $gr) {
+        if ($gr['groupName'] == 'Anonymous') {
+            continue;
+        }
+        if ($gr['registrationChoice'] == 'y' && ! in_array($gr['groupName'], $_REQUEST['registration_choices'])) {
+            // deselect
+            $out[] = $gr['groupName'];
+        } elseif ($gr['registrationChoice'] != 'y' && in_array($gr['groupName'], $_REQUEST['registration_choices'])) {
+            //select
+            $in[] = $gr['groupName'];
+        }
     }
-    if ($gr['registrationChoice'] == 'y' && ! in_array($gr['groupName'], $_REQUEST['registration_choices'])) {
-        // deselect
-        $out[] = $gr['groupName'];
-    } elseif ($gr['registrationChoice'] != 'y' && in_array($gr['groupName'], $_REQUEST['registration_choices'])) {
-        //select
-        $in[] = $gr['groupName'];
+    if (count($in)) {
+        $userlib->set_registrationChoice($in, 'y');
     }
-}
-if (count($in) && $access->checkCsrf()) {
-    $userlib->set_registrationChoice($in, 'y');
-}
-if (count($out) && $access->checkCsrf()) {
-    $userlib->set_registrationChoice($out, null);
-}
-if ((count($in) || count($out))  && $access->checkCsrf()) {
-    add_feedback('registration_choices', tra('registration choices'), 2);
+    if (count($out)) {
+        $userlib->set_registrationChoice($out, null);
+    }
+    if ((count($in) || count($out))) {
+        add_feedback('registration_choices', tra('registration choices'), 2);
+    }
 }
 if (! empty($_REQUEST['refresh_email_group']) && $access->checkCsrf(true)) {
     $nb = $userlib->refresh_set_email_group();
