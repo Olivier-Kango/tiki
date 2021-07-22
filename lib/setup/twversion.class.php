@@ -49,10 +49,10 @@ class TWVersion
 
     public function __construct()
     {
-        $this->branch   = 'stable';
+        $this->branch   = 'unstable';
 
         // Set everything else, including defaults.
-        $this->version  = '23.0vcs';
+        $this->version  = '23.0alpha';
         $this->star     = 'Wasat';
         $this->releases = [];
 
@@ -351,6 +351,7 @@ class TWVersion
                 '22.0RC1',
                 '22.0',
                 '22.1',
+                '23.0alpha',
             ];
     }
 
