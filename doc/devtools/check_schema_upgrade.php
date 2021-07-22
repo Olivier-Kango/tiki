@@ -585,6 +585,9 @@ class CheckSchemaUpgrade
         $dbConnection->exec("ALTER TABLE `tiki_sefurl_regex_out` AUTO_INCREMENT = 1");
         $dbConnection->exec("INSERT INTO `tiki_sefurl_regex_out` SELECT * FROM `tiki_sefurl_regex_out_tmp`");
         $dbConnection->exec("DROP TABLE `tiki_sefurl_regex_out_tmp`");
+
+        // normalize the DB entries to use 4 spaces instead of tabs (after the migration from tabs to spaces)
+        $dbConnection->exec("UPDATE `tiki_score` SET data = REPLACE(data, '	{', '    {')");
     }
 
     /**
