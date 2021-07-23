@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "47e6b0eacc5f5af53faeb0edd64d1d8a",
+    "content-hash": "f6edc80afcc7db702d73e91d267c21fe",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -10923,16 +10923,6 @@
             "time": "2015-06-04T15:41:05+00:00"
         },
         {
-            "name": "zendframework/zendsearch",
-            "version": "dev-tiki",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/zendframework/zendsearch/zendframework-zendsearch-dev-tiki.zip",
-                "shasum": "8652e57681fd3e00512d47abf49334dd8ca72cda"
-            },
-            "type": "library"
-        },
-        {
             "name": "zendframework/zendservice-akismet",
             "version": "2.0.2",
             "source": {
@@ -13154,7 +13144,6 @@
         "rubix/extras": 10,
         "sorich87/bootstrap-tour": 20,
         "teqneers/shamir": 20,
-        "zendframework/zendsearch": 20,
         "gidkom/php-openfire-restapi": 20,
         "montefuscolo/xmpp": 20,
         "bafs/testify": 20
