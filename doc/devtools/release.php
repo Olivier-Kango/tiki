@@ -53,7 +53,7 @@ if (! ($options = get_options()) || $options['help']) {
 }
 
 $vcs = 'svn';
-if ($options['use-git']) {
+if ($options['use-git'] || is_dir(ROOT . '/.git')) {
     $vcs = 'git';
 }
 
@@ -148,7 +148,7 @@ if (! $options['no-readme-update'] && important_step("Update '" . README_FILENAM
 }
 
 if (! $options['no-lang-update'] && important_step("Update language files")) {
-    passthru("$phpCommand get_strings.php");
+    passthru("$phpCommand console.php translation:getstrings");
     $removeFiles = glob('lang/*/language.php.old');
     foreach ($removeFiles as $rf) {
         unlink($rf);
@@ -746,6 +746,9 @@ function check_smarty_syntax(&$error_msg)
 
     $templates_dir = TIKI_PATH . '/templates';
 
+    // tell TikiDb we don't need the database
+    define('DB_TIKI_SETUP', 0);
+
     $errors_found = false;
     $entries = [];
     get_files_list($templates_dir, $entries, '/\.tpl$/');
@@ -767,6 +770,7 @@ function check_smarty_syntax(&$error_msg)
         }
     }
     restore_error_handler();
+    @define('DB_TIKI_SETUP', 1);    // suppress notice about redefining a constant TODO better
 
     echo "\n";
 
@@ -862,7 +866,7 @@ function check_database_files_and_upgrade($mainversion, &$error_msg)
     if (empty($pipeline)) {
         echo color('Could not retrieve pipeline information for branch ' . $branchToCheck . "\n", 'red');
         echo color(
-            'You can check manually using ' . $gitlabRepo . '/pipelines/?scope=branches&format=json' . "\n",
+            'You can check manually using ' . $gitlabRepo . '/pipelines/?scope=branches&format=json&ref=' . $branchToCheck . "\n",
             'yellow'
         );
         $error_msg .= 'Information about the CI pipeline could not be retrieved' . "\n";
@@ -922,7 +926,7 @@ function check_database_files_and_upgrade($mainversion, &$error_msg)
  */
 function gitlabGetLastFinishedPipelineByBranch($repoUrl, $branch, $page = 1)
 {
-    $lastPipelineByBranch = $repoUrl . '/pipelines/?scope=finished&format=json&per_page=' . PIPELINES_FETCH_AMOUNT . '&page=' . $page;
+    $lastPipelineByBranch = $repoUrl . '/pipelines/?scope=finished&format=json&per_page=' . PIPELINES_FETCH_AMOUNT . '&page=' . $page . '&ref=' . $branch;
 
     if (getenv('TEST_GITLAB_PIPELINE')) {
         $lastPipelineByBranch = getenv('TEST_GITLAB_PIPELINE'); // to allow fake the answer while testing
@@ -930,6 +934,10 @@ function gitlabGetLastFinishedPipelineByBranch($repoUrl, $branch, $page = 1)
 
     $content = file_get_contents($lastPipelineByBranch);
     $jsonContent = json_decode($content, true);
+    if (! empty($jsonContent) && empty($jsonContent['pipelines'])) {
+        return [];
+    }
+
     if (empty($jsonContent)) {
         return false;
     }
@@ -1023,6 +1031,7 @@ function get_options()
         'only-secdb' => false,
         'devmode' => false,
         'use-git' => false,
+        'skip' => 0,
     ];
 
     // Environment variables provide default values for parameter options. e.g. export TIKI_NO_SECDB=true
@@ -1056,6 +1065,11 @@ function get_options()
             } elseif (substr($arg, 2, 15) == 'mirror-uri=') {
                 if (($uri = substr($arg, 17)) != '') {
                     $options[substr($arg, 2, 14)] = $uri;
+                }
+            } elseif (strpos($arg, '=') !== false) {
+                $parts = explode('=', substr($arg, 2));
+                if (isset($options[$parts[0]])) {
+                    $options[$parts[0]] = $parts[1];
                 }
             } else {
                 error("Unknown option $arg. Try using --help option.\n");
@@ -1097,6 +1111,11 @@ function important_step($msg, $increment_step = true, $commit_msg = false)
     // Increment step number if needed
     if ($increment_step) {
         $step++;
+    }
+
+    if ($step <= $options['skip']) {
+        print "Skipping step $step\n";
+        return false;
     }
 
     if ($commit_msg && $options['no-commit']) {
@@ -1527,29 +1546,30 @@ Examples:
     php doc/devtools/release.php 2.0
 
 Options:
-    --howto                : display the Tiki release HOWTO
-    --help                : display this help
+    --howto                   : display the Tiki release HOWTO
+    --help                    : display this help
     --http-proxy=HOST:PORT    : use a http proxy to get copyright data on sourceforge
-    --mirror-uri=URI    : use another repository URI to update the copyrights file (to avoid retrieving data from sourceforge, which is usually slow)
-    --no-commit                : do not commit any changes back to SVN or GIT
+    --mirror-uri=URI          : use another repository URI to update the copyrights file (to avoid retrieving data from sourceforge, which is usually slow)
+    --no-commit               : do not commit any changes back to SVN or GIT
     --no-check-vcs            : do not check if there are uncommitted changes on the checkout used for the release
-    --no-check-db            : do not check database scripts and database upgrades
+    --no-check-db             : do not check database scripts and database upgrades
     --no-check-php            : do not check syntax of all PHP files
-    --no-check-php-warnings    : do not display PHP warnings and notices during the PHP syntax check
-    --no-check-smarty        : do not check syntax of all Smarty templates
-    --no-first-update        : do not vcs update the checkout used for the release as the first step
+    --no-check-php-warnings   : do not display PHP warnings and notices during the PHP syntax check
+    --no-check-smarty         : do not check syntax of all Smarty templates
+    --no-first-update         : do not vcs update the checkout used for the release as the first step
     --no-readme-update        : do not update the '" . README_FILENAME . "' file
-    --no-lang-update        : do not update lang/*/language.php files
-    --no-changelog-update    : do not update the '" . CHANGELOG_FILENAME . "' file
-    --no-copyright-update    : do not update the '" . COPYRIGHTS_FILENAME . "' file
+    --no-lang-update          : do not update lang/*/language.php files
+    --no-changelog-update     : do not update the '" . CHANGELOG_FILENAME . "' file
+    --no-copyright-update     : do not update the '" . COPYRIGHTS_FILENAME . "' file
     --no-secdb                : do not update SecDB footprints
-    --only-secdb            : only generate a secdb database
+    --only-secdb              : only generate a secdb database
     --no-packaging            : do not build packages files
-    --no-tagging            : do not tag the release on the remote vcs repository
-    --force-yes                : disable the interactive mode (same as replying 'y' to all steps)
-    --debug-packaging        : display debug output while in packaging step
-    --devmode               : equivalent to no-commit + no-check-vcs + no-first-update
-    --use-git               : use git instead oof snv
+    --no-tagging              : do not tag the release on the remote vcs repository
+    --force-yes               : disable the interactive mode (same as replying 'y' to all steps)
+    --debug-packaging         : display debug output while in packaging step
+    --devmode                 : equivalent to no-commit + no-check-vcs + no-first-update
+    --skip=0                  : number of steps to skip when debugging (for use with -- devmode)
+    --use-git                 : use git instead of snv (git working copy automatically detected)
 Notes:
     Subreleases begining with 'pre' will not be tagged.
 ";
