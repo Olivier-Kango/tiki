@@ -34,11 +34,6 @@
                 "php": "^5.5.9 || ^7.0 || ^8.0"
             },
             "type": "library",
-            "extra": {
-                "patches_applied": {
-                    "Remove the check for ADOdb Extension": "../installer/composer-patches/adodb-php__remove-the-check-if-the-adodb-php_ext-is-enabled.patch"
-                }
-            },
             "autoload": {
                 "files": [
                     "adodb.inc.php"
@@ -162,27 +157,27 @@
         },
         {
             "name": "amphp/amp",
-            "version": "v2.5.2",
+            "version": "v2.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/amphp/amp.git",
-                "reference": "efca2b32a7580087adb8aabbff6be1dc1bb924a9"
+                "reference": "caa95edeb1ca1bf7532e9118ede4a3c3126408cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/amphp/amp/amphp-amp-efca2b32a7580087adb8aabbff6be1dc1bb924a9-zip-8fe6e6.zip",
-                "reference": "efca2b32a7580087adb8aabbff6be1dc1bb924a9",
-                "shasum": "cf31dbaea3eb222fc55373b64d9ff6b6352817c3"
+                "url": "https://composer.tiki.org/dist/amphp/amp/amphp-amp-caa95edeb1ca1bf7532e9118ede4a3c3126408cc-zip-db2506.zip",
+                "reference": "caa95edeb1ca1bf7532e9118ede4a3c3126408cc",
+                "shasum": "23afe067ca5c026c6862377111c8e397264c8882"
             },
             "require": {
-                "php": ">=7"
+                "php": ">=7.1"
             },
             "require-dev": {
                 "amphp/php-cs-fixer-config": "dev-master",
                 "amphp/phpunit-util": "^1",
                 "ext-json": "*",
                 "jetbrains/phpstorm-stubs": "^2019.3",
-                "phpunit/phpunit": "^6.0.9 | ^7",
+                "phpunit/phpunit": "^7 | ^8 | ^9",
                 "psalm/phar": "^3.11@dev",
                 "react/promise": "^2"
             },
@@ -236,7 +231,7 @@
                 "non-blocking",
                 "promise"
             ],
-            "time": "2021-01-10T17:06:37+00:00"
+            "time": "2021-07-16T20:06:06+00:00"
         },
         {
             "name": "amphp/byte-stream",
@@ -650,7 +645,7 @@
             "version": "5.15.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/FortAwesome/Font-Awesome.git",
+                "url": "git@github.com:FortAwesome/Font-Awesome.git",
                 "reference": "d79d85c3fad85ad1885e87ed558f4afd6fce8289"
             },
             "dist": {
@@ -1350,61 +1345,6 @@
                 "zikula"
             ],
             "time": "2021-04-28T06:42:17+00:00"
-        },
-        {
-            "name": "composer/package-versions-deprecated",
-            "version": "1.11.99.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/composer/package-versions-deprecated.git",
-                "reference": "c6522afe5540d5fc46675043d3ed5a45a740b27c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/composer/package-versions-deprecated/composer-package-versions-deprecated-c6522afe5540d5fc46675043d3ed5a45a740b27c-zip-640afc.zip",
-                "reference": "c6522afe5540d5fc46675043d3ed5a45a740b27c",
-                "shasum": "33871848a444019cb28dba86afb9dd2f87837690"
-            },
-            "require": {
-                "composer-plugin-api": "^1.1.0 || ^2.0",
-                "php": "^7 || ^8"
-            },
-            "replace": {
-                "ocramius/package-versions": "1.11.99"
-            },
-            "require-dev": {
-                "composer/composer": "^1.9.3 || ^2.0@dev",
-                "ext-zip": "^1.13",
-                "phpunit/phpunit": "^6.5 || ^7"
-            },
-            "type": "composer-plugin",
-            "extra": {
-                "class": "PackageVersions\\Installer",
-                "branch-alias": {
-                    "dev-master": "1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "PackageVersions\\": "src/PackageVersions"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Marco Pivetta",
-                    "email": "ocramius@gmail.com"
-                },
-                {
-                    "name": "Jordi Boggiano",
-                    "email": "j.boggiano@seld.be"
-                }
-            ],
-            "description": "Composer plugin that provides efficient querying for installed package versions (no runtime IO)",
-            "time": "2021-05-24T07:46:03+00:00"
         },
         {
             "name": "composer/semver",
@@ -2198,13 +2138,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/h5p/h5p-editor-php-library.git",
-                "reference": "67a3c62dc65754405241d7b931d4e424f0e38d0b"
+                "reference": "fb641b09cebf29872a82d6034769c07efb46faa9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/h5p/h5p-editor/h5p-h5p-editor-67a3c62dc65754405241d7b931d4e424f0e38d0b-zip-48e569.zip",
-                "reference": "67a3c62dc65754405241d7b931d4e424f0e38d0b",
-                "shasum": "5f236bc70369d464f48627784a30acccd1005559"
+                "url": "https://composer.tiki.org/dist/h5p/h5p-editor/h5p-h5p-editor-fb641b09cebf29872a82d6034769c07efb46faa9-zip-5308c3.zip",
+                "reference": "fb641b09cebf29872a82d6034769c07efb46faa9",
+                "shasum": "c3911a4b475fd5fc4ac83e642d9ae57b35b2599c"
             },
             "require": {
                 "php": ">=5.3.0"
@@ -2247,7 +2187,7 @@
                 "interactive",
                 "quiz"
             ],
-            "time": "2021-07-01T07:22:21+00:00"
+            "time": "2021-07-20T07:59:59+00:00"
         },
         {
             "name": "hesammousavi/bootstrap-v4-rtl",
@@ -2283,28 +2223,32 @@
         },
         {
             "name": "http-interop/http-factory-guzzle",
-            "version": "1.0.0",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/http-interop/http-factory-guzzle.git",
-                "reference": "34861658efb9899a6618cef03de46e2a52c80fc0"
+                "reference": "8f06e92b95405216b237521cc64c804dd44c4a81"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/http-interop/http-factory-guzzle/http-interop-http-factory-guzzle-34861658efb9899a6618cef03de46e2a52c80fc0-zip-5cab74.zip",
-                "reference": "34861658efb9899a6618cef03de46e2a52c80fc0",
-                "shasum": "f414b6e168d7d56eba8522c04d07af76be100fe7"
+                "url": "https://composer.tiki.org/dist/http-interop/http-factory-guzzle/http-interop-http-factory-guzzle-8f06e92b95405216b237521cc64c804dd44c4a81-zip-a5d4ab.zip",
+                "reference": "8f06e92b95405216b237521cc64c804dd44c4a81",
+                "shasum": "eccdaa65cf8d087e52584b69d2b2270e7f33d609"
             },
             "require": {
-                "guzzlehttp/psr7": "^1.4.2",
+                "guzzlehttp/psr7": "^1.7||^2.0",
+                "php": ">=7.3",
                 "psr/http-factory": "^1.0"
             },
             "provide": {
                 "psr/http-factory-implementation": "^1.0"
             },
             "require-dev": {
-                "http-interop/http-factory-tests": "^0.5",
-                "phpunit/phpunit": "^6.5"
+                "http-interop/http-factory-tests": "^0.9",
+                "phpunit/phpunit": "^9.5"
+            },
+            "suggest": {
+                "guzzlehttp/psr7": "Includes an HTTP factory starting in version 2.0"
             },
             "type": "library",
             "autoload": {
@@ -2329,7 +2273,7 @@
                 "psr-17",
                 "psr-7"
             ],
-            "time": "2018-07-31T19:32:56+00:00"
+            "time": "2021-07-21T13:50:14+00:00"
         },
         {
             "name": "hybridauth/hybridauth",
@@ -2487,13 +2431,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jasonmunro/cypht.git",
-                "reference": "4d1decd58eb79a73a4dd15649fa8aad4e5c04458"
+                "reference": "9bfa9e8a15eeb5d4ae7d07aeffef16af13127042"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-4d1decd58eb79a73a4dd15649fa8aad4e5c04458-zip-9c1188.zip",
-                "reference": "4d1decd58eb79a73a4dd15649fa8aad4e5c04458",
-                "shasum": "e0956c163313b0dfcba9a52183a0fc5ff76bfb45"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-9bfa9e8a15eeb5d4ae7d07aeffef16af13127042-zip-e49fe5.zip",
+                "reference": "9bfa9e8a15eeb5d4ae7d07aeffef16af13127042",
+                "shasum": "fafa7dc3aa06fba0dead1943e77806ef4587b338"
             },
             "require": {
                 "christian-riesen/base32": "^1.3.2",
@@ -2542,28 +2486,32 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2021-07-02T00:48:55+00:00"
+            "time": "2021-07-20T21:53:58+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
-            "version": "1.6.0",
+            "version": "2.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Jean85/pretty-package-versions.git",
-                "reference": "1e0104b46f045868f11942aea058cd7186d6c303"
+                "reference": "694492c653c518456af2805f04eec445b997ed1f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jean85/pretty-package-versions/jean85-pretty-package-versions-1e0104b46f045868f11942aea058cd7186d6c303-zip-db64d4.zip",
-                "reference": "1e0104b46f045868f11942aea058cd7186d6c303",
-                "shasum": "304dbe8f3386fe5e69af181061b62d4486be80e5"
+                "url": "https://composer.tiki.org/dist/jean85/pretty-package-versions/jean85-pretty-package-versions-694492c653c518456af2805f04eec445b997ed1f-zip-c3ff83.zip",
+                "reference": "694492c653c518456af2805f04eec445b997ed1f",
+                "shasum": "37d05f0831edea78acce516e032964122ee2b37b"
             },
             "require": {
-                "composer/package-versions-deprecated": "^1.8.0",
-                "php": "^7.0|^8.0"
+                "composer-runtime-api": "^2.0.0",
+                "php": "^7.1|^8.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^6.0|^8.5|^9.2"
+                "friendsofphp/php-cs-fixer": "^2.17",
+                "jean85/composer-provided-replaced-stub-package": "^1.0",
+                "phpstan/phpstan": "^0.12.66",
+                "phpunit/phpunit": "^7.5|^8.5|^9.4",
+                "vimeo/psalm": "^4.3"
             },
             "type": "library",
             "extra": {
@@ -2586,14 +2534,14 @@
                     "email": "alessandro.lai85@gmail.com"
                 }
             ],
-            "description": "A wrapper for ocramius/package-versions to get pretty versions strings",
+            "description": "A library to get pretty versions strings of installed dependencies",
             "keywords": [
                 "composer",
                 "package",
                 "release",
                 "versions"
             ],
-            "time": "2021-02-04T16:20:16+00:00"
+            "time": "2021-05-26T08:46:42+00:00"
         },
         {
             "name": "jquery-form/form",
@@ -2723,12 +2671,7 @@
                 "url": "https://composer.tiki.org/dist/jquery-plugins/jquery-validation/jquery-plugins-jquery-validation-1.13.1.zip",
                 "shasum": "e3c6fde072893b67c25f4079e3c722bc480a07a9"
             },
-            "type": "library",
-            "extra": {
-                "patches_applied": {
-                    "Fix remote validation unhighlights": "../installer/composer-patches/jquery-validator_fix-remote-validation-unhighlights.patch"
-                }
-            }
+            "type": "library"
         },
         {
             "name": "jquery-plugins/media",
@@ -2808,12 +2751,7 @@
                 "url": "https://composer.tiki.org/dist/jquery/jquery-sheet/jquery-jquery-sheet-3.1.zip",
                 "shasum": "f795b13ceb1e95281cd575e92c7666bd6b15ca90"
             },
-            "type": "library",
-            "extra": {
-                "patches_applied": {
-                    "Fix visibility issues": "../installer/composer-patches/jquery-sheet_fix-visibility-issues.patch"
-                }
-            }
+            "type": "library"
         },
         {
             "name": "jquery/jquery-timepicker-addon",
@@ -2959,17 +2897,17 @@
         },
         {
             "name": "laminas/laminas-code",
-            "version": "4.4.0",
+            "version": "4.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-code.git",
-                "reference": "2b0bb59ade31a045fd3ff0097dc558bb896f6596"
+                "reference": "54251ab2b16c41c6980387839496b235f5f6e10b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-code/laminas-laminas-code-2b0bb59ade31a045fd3ff0097dc558bb896f6596-zip-23811f.zip",
-                "reference": "2b0bb59ade31a045fd3ff0097dc558bb896f6596",
-                "shasum": "5ae1888bd779c929aeee54b0401088d1feb0d00c"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-code/laminas-laminas-code-54251ab2b16c41c6980387839496b235f5f6e10b-zip-51e0a4.zip",
+                "reference": "54251ab2b16c41c6980387839496b235f5f6e10b",
+                "shasum": "64d3e0b546005e3387c25ece3e68de8c9f985952"
             },
             "require": {
                 "php": "^7.4 || ~8.0.0"
@@ -3008,7 +2946,7 @@
                 "laminas",
                 "laminasframework"
             ],
-            "time": "2021-06-17T13:39:43+00:00"
+            "time": "2021-07-09T11:58:40+00:00"
         },
         {
             "name": "laminas/laminas-config",
@@ -4406,17 +4344,17 @@
         },
         {
             "name": "laminas/laminas-validator",
-            "version": "2.14.4",
+            "version": "2.14.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-validator.git",
-                "reference": "e370c4695db1c81e6dfad38d8c4dbdb37b23d776"
+                "reference": "4680bc4241cb5b3ff78954c421fe43105ca413b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-validator/laminas-laminas-validator-e370c4695db1c81e6dfad38d8c4dbdb37b23d776-zip-9e81c2.zip",
-                "reference": "e370c4695db1c81e6dfad38d8c4dbdb37b23d776",
-                "shasum": "9c7a0fdb48bfd217a7d56c9de51ee88e0a913195"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-validator/laminas-laminas-validator-4680bc4241cb5b3ff78954c421fe43105ca413b7-zip-4e0e7f.zip",
+                "reference": "4680bc4241cb5b3ff78954c421fe43105ca413b7",
+                "shasum": "8344f2e1667f4e03782cde96683b5b9cddf3dee6"
             },
             "require": {
                 "container-interop/container-interop": "^1.1",
@@ -4429,7 +4367,7 @@
             },
             "require-dev": {
                 "laminas/laminas-cache": "^2.6.1",
-                "laminas/laminas-coding-standard": "~1.0.0",
+                "laminas/laminas-coding-standard": "~2.2.1",
                 "laminas/laminas-config": "^2.6",
                 "laminas/laminas-db": "^2.7",
                 "laminas/laminas-filter": "^2.6",
@@ -4480,7 +4418,7 @@
                 "laminas",
                 "validator"
             ],
-            "time": "2021-01-24T20:45:49+00:00"
+            "time": "2021-07-14T13:59:23+00:00"
         },
         {
             "name": "laminas/laminas-zendframework-bridge",
@@ -4597,17 +4535,17 @@
         },
         {
             "name": "league/commonmark",
-            "version": "1.6.5",
+            "version": "1.6.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
-                "reference": "44ffd8d3c4a9133e4bd0548622b09c55af39db5f"
+                "reference": "c4228d11e30d7493c6836d20872f9582d8ba6dcf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/league/commonmark/league-commonmark-44ffd8d3c4a9133e4bd0548622b09c55af39db5f-zip-9beece.zip",
-                "reference": "44ffd8d3c4a9133e4bd0548622b09c55af39db5f",
-                "shasum": "29e8ef448c542cf64a80ef7e0344a79f7b941dc8"
+                "url": "https://composer.tiki.org/dist/league/commonmark/league-commonmark-c4228d11e30d7493c6836d20872f9582d8ba6dcf-zip-87ae10.zip",
+                "reference": "c4228d11e30d7493c6836d20872f9582d8ba6dcf",
+                "shasum": "0691f24ded4f1759793abe99faea860891d5ccec"
             },
             "require": {
                 "ext-mbstring": "*",
@@ -4662,7 +4600,7 @@
                 "md",
                 "parser"
             ],
-            "time": "2021-06-26T11:57:13+00:00"
+            "time": "2021-07-17T17:13:23+00:00"
         },
         {
             "name": "league/event",
@@ -5688,11 +5626,6 @@
                 "shasum": "b9e18185886bfb2cfe4fdd41b34ca1b4a98e05bc"
             },
             "type": "npm-asset",
-            "extra": {
-                "patches_applied": {
-                    "Remove native javascript for bootstrap": "../installer/composer-patches/jcbrand-conversejs_remove-native-javascript-for-bootstrap.patch"
-                }
-            },
             "license": [
                 "MPL-2.0"
             ]
@@ -5761,11 +5694,11 @@
         },
         {
             "name": "npm-asset/html2canvas",
-            "version": "1.0.0-RC.7",
+            "version": "1.0.0",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/html2canvas/npm-asset-html2canvas-1.0.0-RC.7.zip",
-                "shasum": "6eb7a3b67f44c94a1df9737941bb4a69aba4bf31"
+                "url": "https://composer.tiki.org/dist/npm-asset/html2canvas/npm-asset-html2canvas-1.0.0.zip",
+                "shasum": "64df811a2db5df0834fe69b0d9cfd68f9bb0780b"
             },
             "require": {
                 "npm-asset/css-line-break": "1.1.1"
@@ -5989,10 +5922,10 @@
         },
         {
             "name": "npm-asset/sortablejs",
-            "version": "1.13.0",
+            "version": "1.14.0",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/sortablejs/-/sortablejs-1.13.0.tgz"
+                "url": "https://registry.npmjs.org/sortablejs/-/sortablejs-1.14.0.tgz"
             },
             "type": "npm-asset",
             "license": [
@@ -6040,11 +5973,11 @@
         },
         {
             "name": "npm-asset/zxing--library",
-            "version": "0.18.5",
+            "version": "0.18.6",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/zxing--library/npm-asset-zxing--library-0.18.5.zip",
-                "shasum": "1b6dbda2ace0efdaf8349e339452fab00483c2ad"
+                "url": "https://composer.tiki.org/dist/npm-asset/zxing--library/npm-asset-zxing--library-0.18.6.zip",
+                "shasum": "b627e66ef0a178da9a3992c36a49b1f80c9eebb0"
             },
             "require": {
                 "npm-asset/ts-custom-error": ">=3.0.0,<4.0.0",
@@ -6301,17 +6234,17 @@
         },
         {
             "name": "pear/archive_tar",
-            "version": "1.4.13",
+            "version": "1.4.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pear/Archive_Tar.git",
-                "reference": "2b87b41178cc6d4ad3cba678a46a1cae49786011"
+                "reference": "4d761c5334c790e45ef3245f0864b8955c562caa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/pear/archive_tar/pear-archive_tar-2b87b41178cc6d4ad3cba678a46a1cae49786011-zip-7fc3ca.zip",
-                "reference": "2b87b41178cc6d4ad3cba678a46a1cae49786011",
-                "shasum": "8a20a7efdf5c1fb46c88b7115456e08a5c781e3f"
+                "url": "https://composer.tiki.org/dist/pear/archive_tar/pear-archive_tar-4d761c5334c790e45ef3245f0864b8955c562caa-zip-612e25.zip",
+                "reference": "4d761c5334c790e45ef3245f0864b8955c562caa",
+                "shasum": "27c4ba66b348bb7f7759c69b479885ee96162ffa"
             },
             "require": {
                 "pear/pear-core-minimal": "^1.10.0alpha2",
@@ -6363,7 +6296,7 @@
                 "archive",
                 "tar"
             ],
-            "time": "2021-02-16T10:50:50+00:00"
+            "time": "2021-07-20T13:53:39+00:00"
         },
         {
             "name": "pear/console_getopt",
@@ -6670,13 +6603,7 @@
                 "url": "https://composer.tiki.org/dist/pear/text_wiki_mediawiki/pear-text_wiki_mediawiki-0.2.0.zip",
                 "shasum": "8e7ab56efd4d446887b601bcfa70ecb2cd495c4d"
             },
-            "type": "library",
-            "extra": {
-                "patches_applied": {
-                    "Removed deprecated syntax in PHP7": "../installer/composer-patches/text_wiki_mediawiki__php7fixes.patch",
-                    "Renamed method to avoid collision with func from parent class": "../installer/composer-patches/text_wiki_mediawiki__func_collision.patch"
-                }
-            }
+            "type": "library"
         },
         {
             "name": "pear/xml_parser",
@@ -6744,12 +6671,7 @@
                 "url": "https://composer.tiki.org/dist/pear/xml_rpc/pear-xml_rpc-1.5.5.zip",
                 "shasum": "964aa71c2d9d6b1757e957137c4794e75fbc4253"
             },
-            "type": "library",
-            "extra": {
-                "patches_applied": {
-                    "Add support for PHP7": "../installer/composer-patches/pear_xml_rpc-php7-patch-RELEASE_1_5_5.patch"
-                }
-            }
+            "type": "library"
         },
         {
             "name": "pear/xml_util",
@@ -7323,17 +7245,17 @@
         },
         {
             "name": "plotly/plotly.js",
-            "version": "v1.58.4",
+            "version": "v1.58.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/plotly/plotly.js.git",
-                "reference": "bae378a79bfce17463aed0f70402e4b9cf50ca3c"
+                "reference": "23fb7faa6c1785d039d9bd4ca2a34a1c72bb7ce9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/plotly/plotly-js/plotly-plotly-js-bae378a79bfce17463aed0f70402e4b9cf50ca3c-zip-aae186.zip",
-                "reference": "bae378a79bfce17463aed0f70402e4b9cf50ca3c",
-                "shasum": "a4976839b8ca12e57c4ff3c78e3799cc87ffcac1"
+                "url": "https://composer.tiki.org/dist/plotly/plotly-js/plotly-plotly-js-23fb7faa6c1785d039d9bd4ca2a34a1c72bb7ce9-zip-798257.zip",
+                "reference": "23fb7faa6c1785d039d9bd4ca2a34a1c72bb7ce9",
+                "shasum": "3722c240ab7c85be11a5f542803f5d211a543b79"
             },
             "type": "library",
             "notification-url": "https://packagist.org/downloads/",
@@ -7355,7 +7277,7 @@
                 "plotting",
                 "visualization"
             ],
-            "time": "2020-12-21T18:55:19+00:00"
+            "time": "2021-07-06T18:12:07+00:00"
         },
         {
             "name": "pragmarx/google2fa",
@@ -8510,17 +8432,17 @@
         },
         {
             "name": "scssphp/scssphp",
-            "version": "v1.5.2",
+            "version": "v1.6.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/scssphp/scssphp.git",
-                "reference": "6fe16f169f55f5e793474fb210aac0a4481619e5"
+                "reference": "b83594e2323c5d6e80785df3f91b9d1d32aad530"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/scssphp/scssphp/scssphp-scssphp-6fe16f169f55f5e793474fb210aac0a4481619e5-zip-6e662b.zip",
-                "reference": "6fe16f169f55f5e793474fb210aac0a4481619e5",
-                "shasum": "41c36c0cd0afcf45b42576872e26a213a834f977"
+                "url": "https://composer.tiki.org/dist/scssphp/scssphp/scssphp-scssphp-b83594e2323c5d6e80785df3f91b9d1d32aad530-zip-d8eb5b.zip",
+                "reference": "b83594e2323c5d6e80785df3f91b9d1d32aad530",
+                "shasum": "7b373f6f4e8f6cf60febca123c8d6b95c20735f2"
             },
             "require": {
                 "ext-ctype": "*",
@@ -8575,7 +8497,7 @@
                 "scss",
                 "stylesheet"
             ],
-            "time": "2021-05-18T00:05:58+00:00"
+            "time": "2021-07-02T16:28:10+00:00"
         },
         {
             "name": "sentry/sdk",
@@ -8611,23 +8533,23 @@
         },
         {
             "name": "sentry/sentry",
-            "version": "3.3.1",
+            "version": "3.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/getsentry/sentry-php.git",
-                "reference": "fafef24c1bc242e614a1afd9533d5dcb7e9c42fe"
+                "reference": "3d733139a3ba2d1d3a8011580e3acf0ba1d0dc9b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/sentry/sentry/sentry-sentry-fafef24c1bc242e614a1afd9533d5dcb7e9c42fe-zip-d6e7a1.zip",
-                "reference": "fafef24c1bc242e614a1afd9533d5dcb7e9c42fe",
-                "shasum": "22354a0ee4cf6e6673093b1433bc276470ff03fa"
+                "url": "https://composer.tiki.org/dist/sentry/sentry/sentry-sentry-3d733139a3ba2d1d3a8011580e3acf0ba1d0dc9b-zip-b9d7c9.zip",
+                "reference": "3d733139a3ba2d1d3a8011580e3acf0ba1d0dc9b",
+                "shasum": "c897fee361338dedb4059230ecf0371cb45b2502"
             },
             "require": {
                 "ext-json": "*",
                 "ext-mbstring": "*",
                 "guzzlehttp/promises": "^1.4",
-                "guzzlehttp/psr7": "^1.7",
+                "guzzlehttp/psr7": "^1.7|^2.0",
                 "jean85/pretty-package-versions": "^1.5|^2.0.1",
                 "php": "^7.2|^8.0",
                 "php-http/async-client-implementation": "^1.0",
@@ -8637,7 +8559,7 @@
                 "php-http/message": "^1.5",
                 "psr/http-factory": "^1.0",
                 "psr/http-message-implementation": "^1.0",
-                "psr/log": "^1.0",
+                "psr/log": "^1.0|^2.0|^3.0",
                 "symfony/options-resolver": "^3.4.43|^4.4.11|^5.0.11",
                 "symfony/polyfill-php80": "^1.17",
                 "symfony/polyfill-uuid": "^1.13.1"
@@ -8697,7 +8619,7 @@
                 "logging",
                 "sentry"
             ],
-            "time": "2021-06-19T11:37:25+00:00"
+            "time": "2021-07-19T08:09:34+00:00"
         },
         {
             "name": "simile_timeline/simile_timeline",
@@ -10751,30 +10673,27 @@
         },
         {
             "name": "zbateson/mail-mime-parser",
-            "version": "1.3.1",
+            "version": "1.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zbateson/mail-mime-parser.git",
-                "reference": "706964d904798b8c22d63f62f0ec5f5bc84e30d9"
+                "reference": "8eb590750772849189c7fa30ed52bcdcd2c9d1ef"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zbateson/mail-mime-parser/zipball/706964d904798b8c22d63f62f0ec5f5bc84e30d9",
-                "reference": "706964d904798b8c22d63f62f0ec5f5bc84e30d9",
+                "url": "https://api.github.com/repos/zbateson/mail-mime-parser/zipball/8eb590750772849189c7fa30ed52bcdcd2c9d1ef",
+                "reference": "8eb590750772849189c7fa30ed52bcdcd2c9d1ef",
                 "shasum": ""
             },
             "require": {
-                "guzzlehttp/psr7": "^1.0",
+                "guzzlehttp/psr7": "^1.7.0|^2.0",
                 "php": ">=5.4",
                 "zbateson/mb-wrapper": "^1.0.1",
-                "zbateson/stream-decorators": "^1.0.4"
+                "zbateson/stream-decorators": "^1.0.6"
             },
             "require-dev": {
-                "jms/serializer": "^1.1",
                 "mikey179/vfsstream": "^1.6.0",
-                "phing/phing": "^2.15.0",
-                "phpdocumentor/phpdocumentor": "^2.9.0",
-                "phpunit/phpunit": "^4.8 || ^5.7 || ^6.5 || ^7.5"
+                "sanmai/phpunit-legacy-adapter": "^6.3 || ^8"
             },
             "suggest": {
                 "ext-iconv": "For best support/performance",
@@ -10822,7 +10741,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-12-02T21:55:45+00:00"
+            "time": "2021-07-08T19:06:28+00:00"
         },
         {
             "name": "zbateson/mb-wrapper",
@@ -10893,25 +10812,25 @@
         },
         {
             "name": "zbateson/stream-decorators",
-            "version": "1.0.4",
+            "version": "1.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zbateson/stream-decorators.git",
-                "reference": "6f54738dfecc65e1d5bfb855035836748083a6dd"
+                "reference": "3403c4323bd1cd15fe54348b031b26b064c706af"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zbateson/stream-decorators/zipball/6f54738dfecc65e1d5bfb855035836748083a6dd",
-                "reference": "6f54738dfecc65e1d5bfb855035836748083a6dd",
+                "url": "https://api.github.com/repos/zbateson/stream-decorators/zipball/3403c4323bd1cd15fe54348b031b26b064c706af",
+                "reference": "3403c4323bd1cd15fe54348b031b26b064c706af",
                 "shasum": ""
             },
             "require": {
-                "guzzlehttp/psr7": "^1.0.0",
+                "guzzlehttp/psr7": "^1.7.0|^2.0",
                 "php": ">=5.4",
                 "zbateson/mb-wrapper": "^1.0.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.8 || ^5.7 || ^6.5 || ^7.5"
+                "sanmai/phpunit-legacy-adapter": "^6.3 || ^8"
             },
             "type": "library",
             "autoload": {
@@ -10942,7 +10861,7 @@
             ],
             "support": {
                 "issues": "https://github.com/zbateson/stream-decorators/issues",
-                "source": "https://github.com/zbateson/stream-decorators/tree/master"
+                "source": "https://github.com/zbateson/stream-decorators/tree/1.0.6"
             },
             "funding": [
                 {
@@ -10950,7 +10869,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-08-10T18:59:43+00:00"
+            "time": "2021-07-08T19:01:59+00:00"
         },
         {
             "name": "zendframework/zend-version",
@@ -11314,17 +11233,17 @@
         },
         {
             "name": "mikey179/vfsstream",
-            "version": "v1.6.8",
+            "version": "v1.6.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bovigo/vfsStream.git",
-                "reference": "231c73783ebb7dd9ec77916c10037eff5a2b6efe"
+                "reference": "2257e326dc3d0f50e55d0a90f71e37899f029718"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/mikey179/vfsstream/mikey179-vfsstream-231c73783ebb7dd9ec77916c10037eff5a2b6efe-zip-46716f.zip",
-                "reference": "231c73783ebb7dd9ec77916c10037eff5a2b6efe",
-                "shasum": "5409a18622f980b810831ddce218ae784c3f8e4e"
+                "url": "https://composer.tiki.org/dist/mikey179/vfsstream/mikey179-vfsstream-2257e326dc3d0f50e55d0a90f71e37899f029718-zip-146b16.zip",
+                "reference": "2257e326dc3d0f50e55d0a90f71e37899f029718",
+                "shasum": "355bca6c548a78089e0b32e78311b67db4567bc9"
             },
             "require": {
                 "php": ">=5.3.0"
@@ -11356,7 +11275,7 @@
             ],
             "description": "Virtual file system to mock the real file system in unit tests.",
             "homepage": "http://vfs.bovigo.org/",
-            "time": "2019-10-30T15:31:00+00:00"
+            "time": "2021-07-16T08:08:02+00:00"
         },
         {
             "name": "myclabs/deep-copy",
@@ -11510,17 +11429,17 @@
         },
         {
             "name": "phar-io/manifest",
-            "version": "2.0.1",
+            "version": "2.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phar-io/manifest.git",
-                "reference": "85265efd3af7ba3ca4b2a2c34dbfc5788dd29133"
+                "reference": "97803eca37d319dfa7826cc2437fc020857acb53"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phar-io/manifest/phar-io-manifest-85265efd3af7ba3ca4b2a2c34dbfc5788dd29133-zip-e9d1de.zip",
-                "reference": "85265efd3af7ba3ca4b2a2c34dbfc5788dd29133",
-                "shasum": "261379e7eb8a29e1ad3cdd249bf2c1f1265bf364"
+                "url": "https://composer.tiki.org/dist/phar-io/manifest/phar-io-manifest-97803eca37d319dfa7826cc2437fc020857acb53-zip-e0869d.zip",
+                "reference": "97803eca37d319dfa7826cc2437fc020857acb53",
+                "shasum": "2ece1651df07ceb1a4cd121c17cb928b423d4232"
             },
             "require": {
                 "ext-dom": "*",
@@ -11562,7 +11481,7 @@
                 }
             ],
             "description": "Component for reading phar.io manifest information from a PHP Archive (PHAR)",
-            "time": "2020-06-27T14:33:11+00:00"
+            "time": "2021-07-20T11:28:43+00:00"
         },
         {
             "name": "phar-io/version",
@@ -11943,17 +11862,17 @@
         },
         {
             "name": "phpunit/php-file-iterator",
-            "version": "2.0.3",
+            "version": "2.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-file-iterator.git",
-                "reference": "4b49fb70f067272b659ef0174ff9ca40fdaa6357"
+                "reference": "28af674ff175d0768a5a978e6de83f697d4a7f05"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpunit/php-file-iterator/phpunit-php-file-iterator-4b49fb70f067272b659ef0174ff9ca40fdaa6357-zip-0922d5.zip",
-                "reference": "4b49fb70f067272b659ef0174ff9ca40fdaa6357",
-                "shasum": "01b93fad45325209b8a1283c9da6541d42ddceb5"
+                "url": "https://composer.tiki.org/dist/phpunit/php-file-iterator/phpunit-php-file-iterator-28af674ff175d0768a5a978e6de83f697d4a7f05-zip-badb74.zip",
+                "reference": "28af674ff175d0768a5a978e6de83f697d4a7f05",
+                "shasum": "9d8ada32f7ded58c9a95535cfda7cb75f4b88dde"
             },
             "require": {
                 "php": ">=7.1"
@@ -11989,7 +11908,7 @@
                 "filesystem",
                 "iterator"
             ],
-            "time": "2020-11-30T08:25:21+00:00"
+            "time": "2021-07-19T06:46:01+00:00"
         },
         {
             "name": "phpunit/php-text-template",
@@ -12133,17 +12052,17 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "8.5.17",
+            "version": "8.5.18",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "79067856d85421c56d413bd238d4e2cd6b0e54da"
+                "reference": "bd5fc77c869e8dd65040dacbad170f074c13796c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/phpunit/phpunit/phpunit-phpunit-79067856d85421c56d413bd238d4e2cd6b0e54da-zip-e24719.zip",
-                "reference": "79067856d85421c56d413bd238d4e2cd6b0e54da",
-                "shasum": "fc0486264601794916aca6d1249fb75ceec3ad49"
+                "url": "https://composer.tiki.org/dist/phpunit/phpunit/phpunit-phpunit-bd5fc77c869e8dd65040dacbad170f074c13796c-zip-7129f5.zip",
+                "reference": "bd5fc77c869e8dd65040dacbad170f074c13796c",
+                "shasum": "3304760cc9398d739b80b214ce7ed5edf2013b6c"
             },
             "require": {
                 "doctrine/instantiator": "^1.3.1",
@@ -12212,7 +12131,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2021-06-23T05:12:43+00:00"
+            "time": "2021-07-19T06:13:17+00:00"
         },
         {
             "name": "phpunit/phpunit-selenium",
@@ -12812,6 +12731,7 @@
             ],
             "description": "Provides a list of PHP built-in functions that operate on resources",
             "homepage": "https://www.github.com/sebastianbergmann/resource-operations",
+            "abandoned": true,
             "time": "2020-11-30T07:30:19+00:00"
         },
         {
@@ -13260,5 +13180,5 @@
         "ext-soap": "0",
         "php": "7.4"
     },
-    "plugin-api-version": "1.1.0"
+    "plugin-api-version": "2.1.0"
 }
