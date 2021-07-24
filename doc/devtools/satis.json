@@ -2019,6 +2019,7 @@
         "nicolaskruchten/pivottable": ">=v2.7.0",
         "nolimits4web/swiper": ">=4.2",
         "npm-asset/blueimp-file-upload": "^9.28",
+        "npm-asset/boomerangjs": "^1.687",
         "npm-asset/chart.js": "^2.7.0",
         "npm-asset/chartjs-color-string": ">=0.5.0",
         "npm-asset/chartjs-color": ">=2.2.0",
