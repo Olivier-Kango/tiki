@@ -9791,7 +9791,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 .siteloginbar_poppedup .list-unstyled li {
   background: none !important;
 }
-.topbar > * {
+.topbar_modules > * {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 }

@@ -9854,7 +9854,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 .tiki-webmail .moduletitle, .tiki-cypht .moduletitle, .mobile.tiki-cypht .moduletitle, .inline-cypht .moduletitle {
   color: #2FA4E7 !important;
 }
-.topbar > * {
+.topbar_modules > * {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 }
