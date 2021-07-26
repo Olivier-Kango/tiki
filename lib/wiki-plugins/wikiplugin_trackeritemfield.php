@@ -139,7 +139,7 @@ function wikiplugin_trackeritemfield($data, $params)
         $itemId = $trklib->get_user_item($trackerId, $tracker_info);
     }
 
-    if ((! empty($itemId) && $memoItemId == $itemId) || (empty($itemId) && ! empty($memoItemId))) {
+    if ((! empty($itemId) && $memoItemId == $itemId) || (empty($itemId) && ! empty($memoItemId) && ! empty($memoItemObject))) {
         $itemId = $memoItemId;
         if (empty($memoTrackerId)) {
             return tra('Incorrect param');
@@ -273,10 +273,16 @@ function wikiplugin_trackeritemfield($data, $params)
             } else {
                 $field['value'] = $val;
                 if (empty($info)) {
-                    $info = [];
+                    if (! empty($memoItemObject)) {
+                        $info = $memoItemObject->getData();
+                    } else {
+                        $info = [];
+                    }
                 }
-                $handler = $trklib->get_field_handler($field, $info);   // gets the handler to blend back the value into the definitions array
-                $out = $handler->renderOutput(['showlinks' => 'n']);
+                $handler = $trklib->get_field_handler($field, $info);
+                $field = array_merge($field, $handler->getFieldData());     // some fields (such as DropDown and Category need this)
+                $handler = $trklib->get_field_handler($field, $info);
+                $out = $handler->renderOutput(['list_mode' => 'csv']);
 
                 return $out;
             }
