@@ -10793,7 +10793,7 @@ input[type="checkbox"], .checkbox input[type="checkbox"], .checkbox-inline input
 .form-check-input {
   margin-top: 0;
 }
-.topbar > * {
+.topbar_modules > * {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 }

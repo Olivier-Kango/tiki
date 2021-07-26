@@ -9831,7 +9831,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 .cssmenu_vert li ul, .cssmenu_horiz li ul, .cssmenu_horiz ul li button.btn-link.link-list, .cssmenu_vert ul li button.btn-link.link-list {
   font-size: 15px;
 }
-.topbar > * {
+.topbar_modules > * {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 }
