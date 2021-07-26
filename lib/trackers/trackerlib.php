@@ -2665,7 +2665,13 @@ class TrackerLib extends TikiLib
 		global $prefs;
 		$mandatory_fields = [];
 		$erroneous_values = [];
-		if (isset($ins_fields)&&isset($ins_fields['data'])) {
+		if (isset($ins_fields) && isset($ins_fields['data'])) {
+
+			$fields = [];   // make a copy of $ins_fields['data'] where the field id is the array key
+			foreach ($ins_fields['data'] as $f) {
+				$fields[$f['fieldId']] = $f;
+			}
+
 			foreach ($ins_fields['data'] as $f) {
 				if ($f['type'] == 'b' && ! empty($f['value'])){
 					if (is_numeric($f['value'])) {
@@ -2776,7 +2782,7 @@ class TrackerLib extends TikiLib
 
 					$handler = $this->get_field_handler($f, $this->get_item_info($itemId));
 					if (method_exists($handler, 'isValid')) {
-						$validationResponse = $handler->isValid($ins_fields['data']);
+                        $validationResponse = $handler->isValid($fields);
 						if ($validationResponse !== true) {
 							if (! empty($f['validationMessage'])) {
 								$f['errorMsg'] = $f['validationMessage'];

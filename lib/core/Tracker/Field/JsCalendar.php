@@ -142,7 +142,7 @@ class Tracker_Field_JsCalendar extends Tracker_Field_DateTime
 				$notBeforeTimestamp = strtotime($notBeforeTimestamp);
 			}
 			if (! $notBeforeTimestamp || $this->getValue() < $notBeforeTimestamp) {
-				return tr('%0 cannot be before %1', $this->getConfiguration('name'), $ins_fields_data[$notBefore]['name']);
+				return tr('"%0" cannot be before "%1"', $this->getConfiguration('name'), $ins_fields_data[$notBefore]['name']);
 			}
 		}
 
@@ -152,7 +152,7 @@ class Tracker_Field_JsCalendar extends Tracker_Field_DateTime
 				$notAfterTimestamp = strtotime($notAfterTimestamp);
 			}
 			if (! $notAfterTimestamp || $this->getValue() > $notAfterTimestamp) {
-				return tr('%0 cannot be after %1', $this->getConfiguration('name'), $ins_fields_data[$notAfter]['name']);
+				return tr('"%0" cannot be after "%1"', $this->getConfiguration('name'), $ins_fields_data[$notAfter]['name']);
 			}
 		}
 
