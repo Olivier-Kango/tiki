@@ -34,7 +34,7 @@ if ($prefs['feature_file_galleries'] == 'y' && $prefs['file_galleries_redirect_f
         TikiLib::lib('access')->redirect($newUrl);
 
     } else {
-        Feedback::error(tr('File info not found for migrated image gasllery file %0', $_REQUEST["id"]));
+        Feedback::error(tr('File info not found for migrated image gallery file #%0', $_REQUEST["id"]));
     }
 } else if ($tiki_p_admin === 'y') {
     Feedback::error(tr('Image Galleries have been removed. Run the migration script: `php console.php gallery:migrate`'));
