@@ -94,6 +94,12 @@ function wikiplugin_list($data, $params)
     static $i;
     $i++;
 
+    $listId = 'wplist-' . $i;
+
+    if (!empty($_REQUEST['download']) && $listId != $_REQUEST['listId'] ) {
+        return;
+    }
+
     if (! isset($params['cache'])) {
         if ($prefs['unified_list_cache_default_on'] == 'y') {
             $params['cache'] = 'y';
