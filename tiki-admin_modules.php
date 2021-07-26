@@ -132,8 +132,8 @@ if (! empty($_REQUEST['unassign']) && $access->checkCsrf()) {
         Feedback::error(tr('Module not unassigned'));
     }
 }
-$addonMsg = ' ' . tr('Displayed order may not change if other modules now have the same order rank.') .
-$addonMsg .= $userHasAssignedModules ? ' '
+$addonMsg = ' ' . tr('Displayed order may not change if other modules now have the same order rank.')
+    . $userHasAssignedModules ? ' '
     . tr(
         'Also, displayed order may not change for you since you have assigned a custom order for modules %0here%1',
         '<a href="tiki-user_assigned_modules.php">',
