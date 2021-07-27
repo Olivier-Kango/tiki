@@ -306,6 +306,7 @@ function wikiplugin_cypht($data, $params)
     if (
         empty($_SESSION[$session_prefix]['preference_name']) || $_SESSION[$session_prefix]['preference_name'] != $preference_name
         || (! empty($_SESSION[$session_prefix]['username']) && $_SESSION[$session_prefix]['username'] != $user)
+        || !empty($_REQUEST['clear_cache'])
     ) {
         // resetting the session on purpose - could be coming from tiki-webmail
         $_SESSION[$session_prefix] = [];
