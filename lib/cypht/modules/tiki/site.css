@@ -584,4 +584,10 @@ letter-spacing: unset;
   justify-content: flex-start;
   align-content: center;
 }
+.folder_list .clear_cache {
+  font-size: 80%;
+  padding-top: 10px;
+  float: right;
+  margin-left: 5px;
+}
 /*# sourceMappingURL=site.css.map */
