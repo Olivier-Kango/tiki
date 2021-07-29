@@ -2796,6 +2796,7 @@ class FileGalLib extends TikiLib
         ];
     }
 
+    // beware: this method does not return false/empty array if file gallery is missing even when defaultsFallback is off
     public function get_file_gallery($id = -1, $defaultsFallback = true)
     {
         static $defaultValues = null;

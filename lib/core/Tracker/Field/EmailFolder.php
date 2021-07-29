@@ -79,9 +79,9 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements Tracker_F
         $filegallib = TikiLib::lib('filegal');
 
         $galleryId = (int) $this->getOption('galleryId');
-        $galinfo = $filegallib->get_file_gallery($galleryId);
-        if (! $galinfo) {
-            Feedback::error(tr('Files field: Gallery #%0 not found', $galleryId));
+        $galinfo = $filegallib->get_file_gallery($galleryId, false);
+        if (! $galinfo || empty($galinfo['galleryId'])) {
+            Feedback::error(tr('%0 field: Gallery #%1 not found', $this->getConfiguration('name'), $galleryId));
             return [];
         }
 
@@ -258,7 +258,11 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements Tracker_F
     {
         $filegallib = TikiLib::lib('filegal');
         $galleryId = (int) $this->getOption('galleryId');
-        $galinfo = $filegallib->get_file_gallery($galleryId);
+        $galinfo = $filegallib->get_file_gallery($galleryId, false);
+        if (! $galinfo || empty($galinfo['galleryId'])) {
+            Feedback::error(tr('%0 field: Gallery #%1 not found', $this->getConfiguration('name'), $galleryId));
+            return;
+        }
         $fileId = $filegallib->upload_single_file($galinfo, $file['name'], $file['size'], $file['type'], $file['content']);
         if ($fileId) {
             $existing[] = $fileId;
