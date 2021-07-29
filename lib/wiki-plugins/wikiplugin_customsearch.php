@@ -688,7 +688,7 @@ function cs_design_input($id, $fieldname, $fieldid, $arguments, $default, &$scri
     }
 
     $document->appendChild($element);
-    return $document->saveHTML();
+    return html_entity_decode($document->saveHTML());
 }
 
 function cs_design_categories($id, $fieldname, $fieldid, $arguments, $default, &$script)
