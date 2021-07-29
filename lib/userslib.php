@@ -62,6 +62,8 @@ class UsersLib extends TikiLib
         $this->groupperm_cache = [[]];
         $this->groupinclude_cache = [];
         $this->get_object_permissions_for_user_cache = [];
+        $this->userobjectperm_cache =  TikiLib::lib('cache')->getSerialized('userobjectperm_cache', 'userobjectperm') ?? [];
+
     }
 
     public function assign_object_permission($groupName, $objectId, $objectType, $permName)
@@ -212,6 +214,7 @@ class UsersLib extends TikiLib
             // i think, we really dont need the "and `objectType`=?" because the objectId should be unique due to the md5()
             $query = 'select count(*) from `users_objectpermissions` where `objectId`=? and `objectType`=?';
             $this->userobjectperm_cache[$objectId] = $this->getOne($query, [$objectId, $objectType]);
+            TikiLib::lib('cache')->cacheItem('userobjectperm_cache', serialize($this->userobjectperm_cache), 'userobjectperm');
         }
 
         return $this->userobjectperm_cache[$objectId];

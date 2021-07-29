@@ -405,6 +405,17 @@ $smarty->loadPlugin('smarty_function_icon');
 $smarty->loadPlugin('smarty_function_popup');
 $smarty->loadPlugin('smarty_function_permission_link');
 $smarty->loadPlugin('smarty_function_ticket');
+
+$fetchCountIcon = smarty_function_icon(
+    [
+        'name'       => 'cloud-download-alt',
+        '_menu_text' => 'n',
+        '_menu_icon' => 'n',
+        'alt'        => tra('Fetch count'),
+    ],
+    $smarty->getEmptyInternalTemplate()
+);
+
 foreach ($categories as $category) {
     $perms = Perms::get(['type' => 'category', 'object' => $category['categId']]);
     if ($perms->admin_categories) {
@@ -498,19 +509,34 @@ foreach ($categories as $category) {
             );
             $desc .= '<span class="object-count badge badge-pill badge-info">' . $objectcount['cant'] . '</span>';
         } elseif ($prefs['feature_search'] === 'y') {   // fall back to unified search if not category_browse_count_objects
-            $res = TikiLib::lib('service')->internal(
-                'search',
-                'lookup',
-                [
-                    'filter' => [
-                        'categories' => $category['categId'],
-                        'object_type'     => 'not activity and not category',
-                        'searchable'      => 'y',
-                    ],
-                ]
-            );
-            $desc .= '<span class="object-count badge badge-pill badge-info">' . count($res['resultset']) . '</span>';
-            ;
+
+            $desc .= '<a class="object-count badge badge-pill badge-info" data-categid="' . $category['categId'] . '">' .
+                $fetchCountIcon . '</a>';
+
+            $headerlib->add_jq_onready(
+                /** @lang JavaScript */
+                '$(".object-count").click(function () {
+                    let $this = $(this).tikiModal("*");
+                    $.getJSON(
+                        $.service("search", "lookup"),
+                        {
+                        	filter: {
+                                deep_categories: $this.data("categid"),
+                                object_type: "not activity and not category",
+                                searchable: "y"
+                            },
+                            maxRecords: 1
+                        }).done(function (data) {
+                        	$this.text(data.resultset.count).tikiModal();
+                        	// now click all the child category badges
+                        	$this.parent().find("ul .object-count").eachAsync({
+                                bulk: 10,
+                                delay: 500,
+                                loop: function() { $(this).click(); }
+                            });
+                        });
+                });
+            ');
         }
 
         $treeNodes[] = [
