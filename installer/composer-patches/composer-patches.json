@@ -19,9 +19,6 @@
     "pear/xml_rpc": {
       "Add support for PHP7": "../installer/composer-patches/pear_xml_rpc-php7-patch-RELEASE_1_5_5.patch"
     },
-    "phpunit/phpunit": {
-        "Remove Match Interface for PHP8": "../installer/composer-patches/phpunit-phpunit_remove_match_interface_usage.patch"
-    },
     "npm-asset/converse.js": {
       "Remove native javascript for bootstrap": "../installer/composer-patches/jcbrand-conversejs_remove-native-javascript-for-bootstrap.patch"
     }
