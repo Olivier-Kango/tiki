@@ -1569,7 +1569,7 @@ class ParserLib extends TikiDb_Bridge
 
                 $pattern = "/(?<!\[)\[$link2\|([^\]\|]+)\|([^\]]+)\]/";
                 $data = preg_replace_callback($pattern, function ($matches) use ($class, $target, $link, $rel, $ext_icon) {
-                    return "<a $class $target href=\"$link\" rel=\"$rel\" data-box=\"" . str_replace('"', '%22', $matches[1]) . "\">{$matches[1]}</a>$ext_icon";
+                    return "<a $class $target href=\"$link\" rel=\"$rel\" data-box=\"" . str_replace('"', '%22', $matches[2]) . "\">{$matches[1]}</a>$ext_icon";
                 }, $data);
                 $pattern = "/(?<!\[)\[$link2\|([^\]\|]+)([^\]])*\]/";
                 $data = preg_replace($pattern, "<a $class $target href=\"$link\" rel=\"$rel\">$1</a>$ext_icon", $data);
