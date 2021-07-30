@@ -265,7 +265,7 @@ class EditLib_ParseToWysiwyg_LinkTest extends TikiTestCase
          */
         $inData
             = '[http://www.tiki.org#Tiki_News_|News of the Tiki Wiki CMS Groupware|box]';
-        $ex = '<a class="wiki external" target="_blank" href="http://www.tiki.org#Tiki_News_" rel="external" data-box="News of the Tiki Wiki CMS Groupware">News of the Tiki Wiki CMS Groupware</a>';
+        $ex = '<a class="wiki external" target="_blank" href="http://www.tiki.org#Tiki_News_" rel="external" data-box="box">News of the Tiki Wiki CMS Groupware</a>';
         $out = trim($this->el->parseToWysiwyg($inData));
         $this->assertStringContainsString($ex, $out);
 
@@ -303,7 +303,7 @@ class EditLib_ParseToWysiwyg_LinkTest extends TikiTestCase
         $inData
             = '[http://www.youtube.com/v/KBewVCducWw&autoplay=1|You Tube video in their flash player|box]'; // additional nocache does not work
         $ex
-            = '<a class="wiki external" target="_blank" href="http://www.youtube.com/v/KBewVCducWw&autoplay=1" rel="external" data-box="You Tube video in their flash player">You Tube video in their flash player</a>';
+            = '<a class="wiki external" target="_blank" href="http://www.youtube.com/v/KBewVCducWw&autoplay=1" rel="external" data-box="box">You Tube video in their flash player</a>';
         $out = trim($this->el->parseToWysiwyg($inData));
         $this->assertStringContainsString($ex, $out);
     }
