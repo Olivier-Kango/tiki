@@ -1,9 +1,9 @@
 diff --git dist/converse.js dist/converse.js
-index e705ba1..b4fd402 100644
+index 072ebf1..7ebef4d 100644
 --- dist/converse.js
 +++ dist/converse.js
-@@ -17084,1710 +17084,16 @@ module.exports = keys;
-                 __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+@@ -17098,1710 +17098,16 @@ module.exports = keys;
+ 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
    } else { var bsn; }
  })(this, function () {
 -  /* Native Javascript for Bootstrap 4 | Internal Utility Functions
@@ -1721,12 +1721,5 @@ index e705ba1..b4fd402 100644
 +    Tooltip: bootstrap.Tooltip
 +   };
  });
- /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(11)))
+ /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(12)))
  
-@@ -104334,4 +102640,4 @@ converse.initialize = function (settings, callback) {
- 
- /***/ })
- /******/ ]);
--//# sourceMappingURL=converse.js.map
-\ No newline at end of file
-+//# sourceMappingURL=converse.js.map
