@@ -585,6 +585,7 @@ $lang_current = array(
 // "go back to this crumb" => "go back to this crumb",
 "Administration:" => "Beheer:",
 "Cache file %0 is not writable" => "Kan niet schrijven naar cache bestand %0",
+"Cache file %0 is not writable (%1)" => "Kan niet schrijven naar cache bestand %0",
 "All day" => "Hele dag",
 "First day of week: Sunday (its ID is 0) - Translators, you need to localize this string!" => "Eerste dag van de week: zondag (ID is 0)!",
 "Sunday" => "zondag",

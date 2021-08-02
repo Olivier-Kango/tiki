@@ -585,6 +585,7 @@ $lang_current = array(
 "go back to this crumb" => "revenir à ce point du fil d'Ariane",
 "Administration" => "Administration",
 "Cache file %0 is not writable" => "Le fichier cache %0 n'est pas autorisé en écriture",
+"Cache file %0 is not writable (%1)" => "Le fichier cache %0 n'est pas autorisé en écriture",
 "All day" => "Journée entière",
 "First day of week: Sunday (its ID is 0) - Translators, you need to localize this string!" => "Premier jour de la semaine : Lundi (son ID est 1) ",
 "Sunday" => "Dimanche",
