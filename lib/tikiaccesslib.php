@@ -668,7 +668,7 @@ class TikiAccessLib extends TikiLib
             // Display the confirmation in the main tiki.tpl template
             $smarty = TikiLib::lib('smarty');
             if (empty($smarty->getTemplateVars('confirmaction'))) {
-                $smarty->assign('confirmaction', $_SERVER['PHP_SELF']);
+                $smarty->assign('confirmaction', $_SERVER['REQUEST_URI'] ?? $_SERVER['PHP_SELF']);
             }
             $smarty->assign('post', $_REQUEST);
             $smarty->assign('print_page', 'n');
