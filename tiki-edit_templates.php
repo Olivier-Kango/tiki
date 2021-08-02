@@ -61,7 +61,7 @@ $relativeDirectories = ['', 'mail/', 'map/', 'modules/', 'styles/' . str_replace
 
 // do editing stuff only if you have the permission to:
 if ($tiki_p_edit_templates == 'y') {
-    if ((isset($_REQUEST["save"]) || isset($_REQUEST['saveTheme'])) && ! empty($_REQUEST['template'])) {
+    if ((isset($_REQUEST["save"]) || isset($_REQUEST['saveTheme'])) && ! empty($_REQUEST['template']) && $access->checkCsrf(true)) {
         $access->check_feature('feature_edit_templates');
         check_ticket('edit-templates');
         if (isset($_REQUEST['saveTheme'])) {
