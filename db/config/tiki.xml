@@ -410,6 +410,8 @@
 
         <service id="tiki.lib.roles" class="Tiki\Group\Roles\RolesLib" />
 
+        <service id="tiki.lib.ilpinvoicepayment" class="Tiki\Lib\Payment\ILPInvoicePaymentLib" />
+
         <!--
              Below are sample configurations you can include in a custom.xml file with the same structure as this one.
         -->

@@ -8,6 +8,18 @@
 
 function prefs_payment_list()
 {
+    global $prefs;
+    $availablePaymentSystems =  [
+        'paypal' => tra('PayPal'),
+        'israelpost' => tra('Israel Post Payment Module'),
+        'cclite' => tra('Cclite'),
+        'tikicredits' => tra('Tiki User Credits'),
+    ];
+    $ilpLib = TikiLib::lib('ilpinvoicepayment');
+    if ($ilpLib->isEnabled() || ( ! empty($prefs['payment_system']) && $prefs['payment_system'] === 'ilp')) {
+        $availablePaymentSystems['ilp'] = tra('Inter Ledger Protocol');
+    }
+
     return [
         'payment_feature' => [
             'name' => tra('Payment'),
@@ -24,12 +36,7 @@ function prefs_payment_list()
             'description' => tra('Currently a choice between PayPal, and Cclite (in development), or Tiki User Credits.'),
             'hint' => tra('PayPal: see PayPal.com - Cclite: Community currency'),
             'type' => 'list',
-            'options' => [
-                'paypal' => tra('PayPal'),
-                'israelpost' => tra('Israel Post Payment Module'),
-                'cclite' => tra('Cclite'),
-                'tikicredits' => tra('Tiki User Credits'),
-            ],
+            'options' => $availablePaymentSystems,
             'dependencies' => [ 'payment_feature' ],
             'default' => 'paypal',
         ],
@@ -533,5 +540,36 @@ function prefs_payment_list()
             'filter' => 'text',
             'default' => '',
         ],
+        'payment_ilp_base_url' => [
+            'name' => tra('ILP server base url'),
+            'description' => tra('Inter Ledger Protocol invoice server base url.'),
+            'type' => 'text',
+            'filter' => 'text',
+            'default' => '',
+            'tags' => ['experimental'],
+        ],
+        'payment_ilp_token' => [
+            'name' => tra('ILP bearer token'),
+            'description' => tra('Bearer token of ILP invoice server.'),
+            'type' => 'text',
+            'filter' => 'text',
+            'default' => '',
+            'tags' => ['experimental'],
+        ],
+        'payment_ilp_ssl' => [
+            'name' => tra('Enforce SSL'),
+            'description' => tra('Enforce SSL connecting  to ILP server.'),
+            'type' => 'flag',
+            'default' => 'n',
+            'tags' => ['experimental'],
+        ],
+        'payment_ilp_scale' => [
+            'name' => tra('ILP Asset scale'),
+            'description' => tra('Scale of amount denoted in assetCode.'),
+            'type' => 'text',
+            'filter' => 'digit',
+            'default' => '9',
+            'tags' => ['experimental'],
+        ]
     ];
 }

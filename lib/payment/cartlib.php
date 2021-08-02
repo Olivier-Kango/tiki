@@ -839,6 +839,14 @@ class CartLib
                 }
             }
         }
+
+        if ($prefs['payment_system'] == 'ilp') {
+            $ilpinvoicepayment = TikiLib::lib('ilpinvoicepayment');
+            if ($ilpinvoicepayment->isEnabled() && isset($invoice)) {
+                $ilpinvoicepayment->createInvoice($invoice, $user, $total);
+            }
+        }
+
         // Handle anonymous user (not logged in) shopping that require only email
         if (! $user || isset($_SESSION['forceanon']) && $_SESSION['forceanon'] == 'y') {
             if (! empty($_SESSION['shopperinfo'])) { // should also check for pref that this anonymous shopping feature is on

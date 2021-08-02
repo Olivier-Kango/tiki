@@ -222,6 +222,22 @@
                         </div>
                     </form>
                 {/if}
+                {if $prefs.payment_system eq 'ilp'
+                    and isset($prefs.payment_ilp_base_url)
+                    and !empty($payment_info.ilp_invoice_url)
+                }
+                <legend style="font-style: italic; padding-top: 20px; margin-bottom: 0px">{tr}Pay with Inter Ledger Protocol{/tr}</legend>
+                    <p class="alert alert-info">Use the ILP pointer to process the payment. Refresh the this page after complete the payment.</p>
+                    </span><input type="text" class="form-control" value="{$payment_info.ilp_invoice_url}">
+                    <br>
+                    {permission name=payment_admin}
+                    <form id="ilp-check" action="{query _type='relative'}" method="post">
+                        <input type="hidden" name="invoice" value="{$payment_info.paymentRequestId|escape}">
+                        <input type="hidden" name="check_payment" value="{$payment_info.paymentRequestId|escape}">
+                        <input class="btn btn-primary" type="submit" value="{tr}Check Payment{/tr}">
+                    </form>
+                    {/permission}
+                {/if}
             </fieldset>
 
             {if !empty($prefs.payment_manual)}

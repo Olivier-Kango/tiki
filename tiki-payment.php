@@ -10,6 +10,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
+global $prefs, $user;
 // Data sent by the IPN must be left unharmed
 if (isset($_GET['ipn'])) {
     $ipn_data = $_POST;
@@ -54,6 +55,8 @@ $inputConfiguration = [
             'filter_payer' => 'text',
             'st' => 'text',
             'tx' => 'text',
+            'callback' => 'text',
+            'check_payment' => 'digits',
         ],
         'staticKeyFiltersForArrays' => ['cart' => 'digits',],    // params for cart module
         'catchAllUnset' => null,
@@ -81,6 +84,32 @@ if (
     require_once 'lib/payment/creditspaylib.php';
     $userpaycredits = new UserPayCredits();
     $userpaycredits->payAmount($_POST['tiki_credit_type'], $_POST['tiki_credit_amount'], $_POST['invoice']);
+}
+
+if (!empty($_REQUEST['callback']) && $_REQUEST['callback'] === 'ilp'
+    && !empty($prefs['payment_system']) && $prefs['payment_system'] == 'ilp') {
+    $headers = apache_request_headers();
+    $invoiceInformation = json_decode(file_get_contents('php://input'), true);
+    $ILPInvoicePayment = TikiLib::lib('ilpinvoicepayment');
+    if (
+        $ILPInvoicePayment->isEnabled() && isset($headers['Authorization']) && $headers['Authorization'] == 'Bearer ' . $prefs['payment_ilp_token']
+        && isset($invoiceInformation['balance'])
+        && isset($invoiceInformation['amount'])
+        && isset($invoiceInformation['pointer'])
+    ) {
+        if ($ILPInvoicePayment->checkPaymentPointer($invoiceInformation['pointer'])) {
+            echo "Payment confirmed.";
+        } else {
+            echo "Payment not confirmed";
+        }
+        exit;
+    }
+}
+if (isset($_REQUEST['invoice']) && isset($_POST['check_payment']) && $prefs['payment_system'] == 'ilp') {
+    $ilpinvoicepayment = TikiLib::lib('ilpinvoicepayment');
+    if ($ilpinvoicepayment->isEnabled() && $_POST['check_payment']) {
+        $ilpinvoicepayment->checkPayment($_REQUEST['invoice']);
+    }
 }
 
 if (isset($_GET['tx'])) {

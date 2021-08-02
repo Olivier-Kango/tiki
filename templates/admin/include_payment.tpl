@@ -53,6 +53,18 @@
                             {preference name=payment_invoice_prefix}
                         </div>
                     {/accordion_group}
+                    {accordion_group title="{tr}Inter Ledger Protocol payment module{/tr}"}
+                        <div class="admin payment">
+                            {remarksbox title="{tr}Experimental{/tr}" type="warning" icon="bricks"}
+                            {tr}Inter Ledger Protocol payment is currently experimental, you need to toggle the experimental settings to be able to use{/tr}
+                            {tr}You will need to set the URL and Token to be able to setup as payment method{/tr}
+                            {/remarksbox}
+                            {preference name=payment_ilp_base_url}
+                            {preference name=payment_ilp_token}
+                            {preference name=payment_ilp_ssl}
+                            {preference name=payment_ilp_scale}
+                        </div>
+                    {/accordion_group}
                     {accordion_group title="{tr}Israel Post payment module{/tr}"}
                         <div class="admin payment">
                             {preference name=payment_israelpost_environment}

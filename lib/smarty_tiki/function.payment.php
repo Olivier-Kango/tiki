@@ -95,6 +95,10 @@ function smarty_function_payment($params, $smarty)
             $smarty->assign('userpaycredits', $userpaycredits->credits);
         }
 
+        $ilpinvoicepayment = TikiLib::lib('ilpinvoicepayment');
+        if ($prefs['payment_system'] == 'ilp' && $ilpinvoicepayment->isEnabled()) {
+            $info['ilp_invoice_url'] = $ilpinvoicepayment ->getPointer($invoice);
+        }
 
         $info['fullview'] = $objectperms->payment_view || $theguy;
 
