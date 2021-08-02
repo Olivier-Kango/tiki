@@ -46,7 +46,7 @@ class Search_Action_Delete implements Search_Action_Action
                 throw new Search_Action_Exception(tr('Tracker item %0 not found.', $object_id));
             }
         } elseif ($object_type == 'file') {
-            $info = $filegallib->get_file_info($fileId);
+            $info = $filegallib->get_file_info($object_id);
             if (! $info) {
                 throw new Search_Action_Exception(tr('Cannot find file to delete: %0.', $object_id));
             }
@@ -60,7 +60,7 @@ class Search_Action_Delete implements Search_Action_Action
         global $access;
         if (substr(php_sapi_name(), 0, 3) !== 'cli') {
             // TODO: this probably needs to be handled in accesslib itself
-            $access->check_authenticity(tr('Are you sure you want to permanently delete this object?'));
+            $access->checkCsrfForm(tr('Are you sure you want to permanently delete these objects?'));
         }
 
         $object_type = $data->object_type->text();
