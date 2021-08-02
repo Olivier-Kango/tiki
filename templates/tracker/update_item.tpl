@@ -39,7 +39,7 @@
             {trackerfields trackerId=$trackerId fields=$fields status=$status itemId=$itemId format=$format editItemPretty=$editItemPretty}
             <div class="submit">
                 {if $skip_preview neq 'y'}
-                    <input type="button" class="btn btn-info previewItemBtn" title="{tr}Preview your changes.{/tr}" name="preview" value="{tr}Preview{/tr}">
+                    <input type="button" class="btn btn-secondary previewItemBtn" title="{tr}Preview your changes.{/tr}" name="preview" value="{tr}Preview{/tr}">
                 {/if}
                 {if not empty($saveAndComment) and $saveAndComment neq 'n'}
                     <input type="hidden" name="saveAndComment" id="saveAndComment" value="">

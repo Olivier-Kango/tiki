@@ -34,7 +34,7 @@
             {/if}
             <div class="submit">
                 {if $skip_preview neq 'y'}
-                    <input type="button" class="btn btn-primary previewItemBtn" title="{tr}Preview your changes.{/tr}" name="preview" value="{tr}Preview{/tr}">
+                    <input type="button" class="btn btn-secondary previewItemBtn" title="{tr}Preview your changes.{/tr}" name="preview" value="{tr}Preview{/tr}">
                 {/if}
                 <input type="hidden" name="trackerId" value="{$trackerId|escape}">
                 <input
