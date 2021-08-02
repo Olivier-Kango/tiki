@@ -409,7 +409,7 @@ $smarty->loadPlugin('smarty_modifier_escape');
 
 $fetchCountIcon = smarty_function_icon(
     [
-        'name'       => 'cloud-download-alt',
+        'name'       => 'calculator',
         '_menu_text' => 'n',
         '_menu_icon' => 'n',
         'alt'        => tra('Fetch count'),
