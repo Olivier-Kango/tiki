@@ -430,7 +430,12 @@ if (! empty($filepath) and ! $content_changed) {
     header("Accept-Ranges: bytes");
     if (empty($_SERVER['HTTP_RANGE'])) {
         header('Content-Length: ' . $filesize);
-        readfile($filepath);
+        if (strpos($info['filetype'], 'text/') === false) {
+            readfile($filepath);
+        } else {
+            $content = file_get_contents($filepath);
+            echo htmlspecialchars($content);
+        }
     } else {
         // support media range requests here, e.g. bytes=524288-524288 bytes=0- or bytes=0-1 etc
         $range = preg_split('/[=-]/', $_SERVER['HTTP_RANGE']);
@@ -464,5 +469,9 @@ if (! empty($filepath) and ! $content_changed) {
     } else {
         header('Content-Length: ' . strlen($content));
     }
-    echo "$content";
+    if (strpos($info['filetype'], 'text/') === false) {
+        echo "$content";
+    } else {
+        echo htmlspecialchars($content);
+    }
 }
