@@ -405,6 +405,7 @@ $smarty->loadPlugin('smarty_function_icon');
 $smarty->loadPlugin('smarty_function_popup');
 $smarty->loadPlugin('smarty_function_permission_link');
 $smarty->loadPlugin('smarty_function_ticket');
+$smarty->loadPlugin('smarty_modifier_escape');
 
 $fetchCountIcon = smarty_function_icon(
     [
@@ -480,7 +481,7 @@ foreach ($categories as $category) {
 
 
         $catlink = '<a class="catname" href="tiki-admin_categories.php?parentId=' . $category["categId"] .
-            '&cookietab=3" style="margin-left:5px">' . htmlspecialchars($category['name']) . '</a> ';
+            '&cookietab=3" style="margin-left:5px">' . smarty_modifier_escape($category['name']) . '</a> ';
 
         if ($category['tplGroupContainerId'] > 0) {
             $catlink .= '
@@ -498,7 +499,7 @@ foreach ($categories as $category) {
             ';
         }
 
-        $desc = '<small>' . $category['description'] . '</small>';
+        $desc = '<small>' . smarty_modifier_escape($category['description']) . '</small>';
 
         if ($prefs['category_browse_count_objects'] === 'y') {
             $objectcount = $categlib->list_category_objects(
