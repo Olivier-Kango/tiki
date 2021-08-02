@@ -2172,6 +2172,10 @@ class FileGalLib extends TikiLib
         // and no syntax set, return default
         if (empty($syntax)) {
             $syntax = '{img fileId="%fileId%" thumb="box"}';    // should be a pref
+
+            if (! empty($fileinfo['filetype']) && preg_match('/video\/*/', $fileinfo['filetype'])) {
+                $syntax = '{mediaplayer src="display%fileId%"}';
+            }
         }
 
         if ($fileinfo) {    // if fileinfo provided then process it now
