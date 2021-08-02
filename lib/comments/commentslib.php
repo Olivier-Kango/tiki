@@ -618,19 +618,28 @@ class Comments extends TikiLib
                                 if ($part['disposition'] == 'attachment') {
                                     if (! empty($part['d_parameters']['filename'])) {
                                         $part_name = $part['d_parameters']['filename'];
-                                    } elseif (preg_match('/filename=([^;]*)/', $part['d_parameters']['atend'], $mm)) {      // not sure what this is but it seems to have the filename in it
+                                    } elseif (preg_match(
+                                        '/filename=([^;]*)/', $part['d_parameters']['atend'], $mm
+                                    )
+                                    ) {      // not sure what this is but it seems to have the filename in it
                                         $part_name = $mm[1];
                                     } else {
                                         $part_name = "Unnamed File";
                                     }
-                                    $this->add_thread_attachment($forum_info, $threadId, $errors, $part_name, $part['type'], strlen($part['body']), 1, '', '', $part['body']);
+                                    $this->add_thread_attachment(
+                                        $forum_info, $threadId, $errors, $part_name, $part['type'], strlen($part['body']), 1, '', '', $part['body']
+                                    );
                                 } elseif ($part['disposition'] == 'inline') {
                                     if (! empty($part['parts'])) {
                                         foreach ($part['parts'] as $p) {
-                                            $this->add_thread_attachment($forum_info, $threadId, $errors, '-', $p['type'], strlen($p['body']), 1, '', '', $p['body']);
+                                            $this->add_thread_attachment(
+                                                $forum_info, $threadId, $errors, '-', $p['type'], strlen($p['body']), 1, '', '', $p['body']
+                                            );
                                         }
                                     } elseif (! empty($part['body'])) {
-                                        $this->add_thread_attachment($forum_info, $threadId, $errors, '-', $part['type'], strlen($part['body']), 1, '', '', $part['body']);
+                                        $this->add_thread_attachment(
+                                            $forum_info, $threadId, $errors, '-', $part['type'], strlen($part['body']), 1, '', '', $part['body']
+                                        );
                                     }
                                 }
                             }
@@ -655,6 +664,10 @@ class Comments extends TikiLib
                         $parentId
                     );
                 }
+                $pop3->deleteMsg($i);
+            } catch (TikiDb_Exception_DuplicateEntry $e) {
+                // the message already exists in the forum (e.g. for some reason the message was not deleted before)
+                // mark the message to be deleted and keep processing
                 $pop3->deleteMsg($i);
             } catch (Exception $e) {
                 Feedback::error(tr('Adding email %0 to the forum failed due to "%1"', $title, $e->getMessage()));
