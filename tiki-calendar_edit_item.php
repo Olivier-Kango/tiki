@@ -130,7 +130,7 @@ if (isset($_REQUEST['save']) && ! isset($_REQUEST['preview']) && ! isset($_REQUE
 
 $displayTimezone = TikiLib::lib('tiki')->get_display_timezone();
 if (isset($_REQUEST['act']) || isset($_REQUEST['preview']) || isset($_REQUEST['changeCal'])) {
-    $save = new JitFilter(array_merge($calitem ?? [], $_POST['save']));
+	$save = new JitFilter(array_merge(empty($calitem) ? [] : $calitem, $_POST['save']));
 	$save['allday'] = empty($_POST['allday']) ? 0 : 1;
 
 	if(!isset($save['date_start']) && !isset($save['date_end'])) {
