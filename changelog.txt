@@ -37,11 +37,3 @@ Version 23.0
 ------------------
 
 ----------------------------------------------
-Version 22.1
-<http://doc.tiki.org/Tiki22>
-------------------
-
-----------------------------------------------
-Changelog for Tiki version 22.1, or older, available at:
-https://sourceforge.net/p/tikiwiki/code/HEAD/tree/tags/22.1/changelog.txt
-
