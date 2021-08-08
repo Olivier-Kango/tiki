@@ -110,6 +110,7 @@ class Perms
     private $checkSequence = null;
 
     private $hashes = [];
+    private $filterCache = [];
 
     /**
      * Provides a new accessor configured with the global settings and
@@ -212,6 +213,8 @@ class Perms
      * loading of the permissions on all objects in the dataset and then
      * filter the dataset with a single permission.
      *
+     * Filters are now cached on the instance level due to performance issues.
+     *
      * @param $baseContext array The part of the context common to all
      *                           objects.
      * @param $bulkKey string The key added for each of the objects in bulk
@@ -223,14 +226,23 @@ class Perms
      */
     public static function filter(array $baseContext, $bulkKey, array $data, array $contextMap, $permission)
     {
-        self::bulk($baseContext, $bulkKey, $data, $contextMap[$bulkKey]);
+        $cacheKey = md5(serialize($baseContext) . serialize($bulkKey) . serialize($contextMap) . $permission);
 
+        if (isset(self::$instance->filterCache[$cacheKey])) {
+            return self::$instance->filterCache[$cacheKey];
+        }
+
+        self::bulk($baseContext, $bulkKey, $data, $contextMap[$bulkKey]);
         $valid = [];
 
         foreach ($data as $entry) {
             if (self::hasPerm($baseContext, $contextMap, $entry, $permission)) {
                 $valid[] = $entry;
             }
+        }
+
+        if (! isset(self::$instance->filterCache[$cacheKey])) {
+            self::$instance->filterCache[$cacheKey] = $valid;
         }
 
         return $valid;
