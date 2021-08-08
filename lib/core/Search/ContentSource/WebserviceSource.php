@@ -128,11 +128,11 @@ class Search_ContentSource_WebserviceSource implements Search_ContentSource_Inte
 
         if (is_array($output['mapping'])) {
             foreach ($output['mapping'] as $topObject => $topValue) {
-                if (is_array($output['data'][$topObject])) {
+                if (isset($output['data'][$topObject]) && is_array($output['data'][$topObject])) {
                     $dataObject = $output['data'][$topObject];
                 } else {
                     foreach ($output['data'] as $item) {
-                        if (is_array($item[$topObject])) {
+                        if (isset($item[$topObject]) && is_array($item[$topObject])) {
                             $dataObject = $item[$topObject];
                             break;
                         }

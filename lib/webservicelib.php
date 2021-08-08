@@ -249,6 +249,8 @@ class Tiki_Webservice
                     } catch (Exception $e) {
                         Feedback::error(tr('Webservice error on %0 request "%1"', $this->wstype, $this->url)
                         . '<br>' . $e->getMessage());
+
+                        $response = null;
                     }
 
                     return $response;
