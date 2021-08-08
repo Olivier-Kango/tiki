@@ -112,7 +112,7 @@ class Search_ContentSource_CommentSource implements Search_ContentSource_Interfa
 			'title' => true,
 			'date' => true,
 
-			'comment_content' => false,
+            'comment_content' => true,
 		];
 	}
 
