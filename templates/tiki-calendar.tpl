@@ -254,6 +254,13 @@ $("#filtercal").submit(function () {
 						}
 					}
 				},
+                eventDataTransform: function(event) {
+                    if (event.allDay) {
+                        // show all day events as including the end date day
+                        event.end = moment(event.end).add(1, 'days').format('YYYY-MM-DD HH:mm:SSZ')
+                    }
+                    return event;
+                },
 				eventDidMount: function(arg) {
 					var event = arg.event;
 					var element = $(arg.el);
@@ -282,7 +289,7 @@ $("#filtercal").submit(function () {
 						if (textColor == '#') {
 							textColor = defaultTextColor;
 						}
-						$(element).parent('.fc-daygrid-event-harness').attr('style', 'background-color: ' + backgroundColor + '; border: 1px solid ' + textColor);
+                        $(element).attr('style', 'background-color: ' + backgroundColor + '; border: 1px solid ' + textColor);
 						$(element).children('.fc-event-time').attr('style', 'color: ' + textColor);
 						$(element).children('.fc-event-title').attr('style', 'color: ' + textColor);
 					}
@@ -327,7 +334,7 @@ $("#filtercal").submit(function () {
 				eventResize: function(info) {
 					$.post($.service('calendar', 'resize'), {
 						calitemId: info.event.id,
-						delta: info.delta
+                        delta: info.endDelta
 					});
 				},
 				eventDrop: function(info) {
