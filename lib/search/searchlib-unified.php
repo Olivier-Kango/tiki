@@ -41,7 +41,7 @@ class UnifiedSearchLib
             $this->batchToken = null;
             $previousLoopCount = null;
             while (($loopCount = $this->getQueueCount()) > 0) {
-                if ($previousLoopCount !== null && $previousLoopCount >= $loopCount) {
+                if ($previousLoopCount !== null && $previousLoopCount <= $loopCount) {
                     break; // avoid to be blocked in loops if messages can not be processed
                 }
                 $previousLoopCount = $loopCount;
