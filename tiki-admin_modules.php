@@ -539,8 +539,8 @@ if ($prefs['feature_jquery_validation'] === 'y') {
                     ],
                 ],
             ],
-            'submitHandler' => 'submitHandlerFunction',
         ],
+        'submitHandler' => 'submitHandlerFunction',
     ];
     $validationjs = '$("form[name=editusr]").validate(' . json_encode($rules) . ')';
     $validationjs = str_replace('"inputFunction"', 'function() { return $("#um_data").val(); }', $validationjs);
