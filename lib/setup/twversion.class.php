@@ -52,7 +52,7 @@ class TWVersion
         $this->branch   = 'unstable';
 
         // Set everything else, including defaults.
-        $this->version  = '23.0vcs';
+        $this->version  = '23.0RC1';
         $this->star     = 'Wasat';
         $this->releases = [];
 
@@ -353,6 +353,7 @@ class TWVersion
                 '22.1',
                 '23.0alpha',
                 '23.0beta',
+                '23.0RC1',
             ];
     }
 
