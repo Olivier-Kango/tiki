@@ -844,7 +844,7 @@ class Tracker_Field_Files extends Tracker_Field_Abstract implements Tracker_Fiel
             }
 
             $out = [
-                $baseKey => $typeFactory->identifier($value),
+                $baseKey => $typeFactory->sortable($value),
                 "{$baseKey}_names" => $typeFactory->multivalue($names),
                 "{$baseKey}_filenames" => $typeFactory->multivalue($fileNames),
                 "{$baseKey}_filetypes" => $typeFactory->multivalue($fileTypes),
