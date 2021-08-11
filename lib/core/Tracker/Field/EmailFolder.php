@@ -100,7 +100,13 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements Tracker_F
         foreach ($fileIds as $folder => $files) {
             $emails[$folder] = [];
             foreach ($files as $fileId) {
+                if (empty($fileId)) {
+                    continue;
+                }
                 $file_object = Tiki\FileGallery\File::id($fileId);
+                if (! $file_object->exists()) {
+                    continue;
+                }
                 $parsed_fields = (new Tiki\FileGallery\Manipulator\EmailParser($file_object))->run();
                 $parsed_fields['fileId'] = $fileId;
                 $parsed_fields['trackerId'] = $this->getTrackerDefinition()->getConfiguration('trackerId');
@@ -173,7 +179,7 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements Tracker_F
         $existing = json_decode($oldValue, true);
         if ($existing === null) {
             $existing = [
-                'inbox' => explode(',', $oldValue)
+                'inbox' => array_filter(explode(',', $oldValue))
             ];
         }
         if (isset($value['new'])) {
@@ -192,6 +198,10 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements Tracker_F
         $value = $this->getValue();
         $baseKey = $this->getBaseKey();
         $emails = $this->getConfiguration('emails');
+        if (! is_array($emails)) {
+            $data = $this->getFieldData();
+            $emails = $data['emails'];
+        }
 
         $subjects = [];
         $dates = [];
