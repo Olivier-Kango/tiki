@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "604d60f56da47bb37288345045f80ac0",
+    "content-hash": "35046051079febc21cb30e91d2a265b2",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -937,17 +937,17 @@
         },
         {
             "name": "cweagans/composer-patches",
-            "version": "1.7.0",
+            "version": "1.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cweagans/composer-patches.git",
-                "reference": "ae02121445ad75f4eaff800cc532b5e6233e2ddf"
+                "reference": "9888dcc74993c030b75f3dd548bb5e20cdbd740c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/cweagans/composer-patches/cweagans-composer-patches-ae02121445ad75f4eaff800cc532b5e6233e2ddf-zip-1e1e1b.zip",
-                "reference": "ae02121445ad75f4eaff800cc532b5e6233e2ddf",
-                "shasum": "5b819e22682be870276aaaa9d295b6a76b89f2a3"
+                "url": "https://composer.tiki.org/dist/cweagans/composer-patches/cweagans-composer-patches-9888dcc74993c030b75f3dd548bb5e20cdbd740c-zip-939f81.zip",
+                "reference": "9888dcc74993c030b75f3dd548bb5e20cdbd740c",
+                "shasum": "b3106b7189841e0f67691342368fc3f61c166432"
             },
             "require": {
                 "composer-plugin-api": "^1.0 || ^2.0",
@@ -977,7 +977,7 @@
                 }
             ],
             "description": "Provides a way to patch Composer packages.",
-            "time": "2020-09-30T17:56:20+00:00"
+            "time": "2021-06-08T15:12:46+00:00"
         },
         {
             "name": "cwspear/bootstrap-hover-dropdown",
