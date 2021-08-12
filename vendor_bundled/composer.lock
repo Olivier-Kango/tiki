@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f6edc80afcc7db702d73e91d267c21fe",
+    "content-hash": "2a8bccf6146909828f963ae58c3a3f49",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
