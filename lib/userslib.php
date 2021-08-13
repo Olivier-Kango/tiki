@@ -2824,9 +2824,11 @@ class UsersLib extends TikiLib
             $this->query('update `messu_messages` set `user`=? where `user`=?', [$to, $from]);
             $this->query('update `messu_messages` set `user_from`=? where `user_from`=?', [$to, $from]);
             $this->query('update `tiki_newsletter_subscriptions` set `email`=? where `email`=? and `isUser`=?', [$to, $from, 'y']);
-            $this->query('update `tiki_object_relations` set `source_itemId`=? where source_type="user" and `source_itemId`=?', [$to, $from]);
-            $this->query('update `tiki_object_relations` set `target_itemId`=? where target_type="user" and `target_itemId`=?', [$to, $from]);
+            $this->query("update `tiki_object_relations` set `source_itemId`=? where source_type='user' and `source_itemId`=?", [$to, $from]);
+            $this->query("update `tiki_object_relations` set `target_itemId`=? where target_type='user' and `target_itemId`=?", [$to, $from]);
             $this->query('update `tiki_freetagged_objects` set `user`=? where `user`=?', [$to, $from]);
+            $this->query('update `tiki_object_scores` set `triggerUser`=? where `triggerUser`=?', [$to, $from]);
+            $this->query("update `tiki_object_scores` set `recipientObjectId`=? where `recipientObjectType`='user' and `recipientObjectId`=?", [$to, $from]);
 
             $this->query(
                 'update `tiki_tracker_item_fields`ttif' .
