@@ -246,11 +246,6 @@ if ($prefs['feature_userPreferences'] == 'y' && isset($_POST["new_prefs"]) && $a
     } else {
         $tikilib->set_user_preference($userwatch, 'mytiki_blogs', 'n');
     }
-    if (isset($_POST['mytiki_gals']) && $_POST['mytiki_gals'] == 'on') {
-        $tikilib->set_user_preference($userwatch, 'mytiki_gals', 'y');
-    } else {
-        $tikilib->set_user_preference($userwatch, 'mytiki_gals', 'n');
-    }
     if (isset($_POST['mytiki_msgs']) && $_POST['mytiki_msgs'] == 'on') {
         $tikilib->set_user_preference($userwatch, 'mytiki_msgs', 'y');
     } else {
@@ -498,7 +493,6 @@ $smarty->assign('location', $location);
 
 $tikilib->get_user_preference($userwatch, 'mytiki_pages', 'y');
 $tikilib->get_user_preference($userwatch, 'mytiki_blogs', 'y');
-$tikilib->get_user_preference($userwatch, 'mytiki_gals', 'y');
 $tikilib->get_user_preference($userwatch, 'mytiki_items', 'y');
 $tikilib->get_user_preference($userwatch, 'mytiki_msgs', 'y');
 $tikilib->get_user_preference($userwatch, 'mytiki_tasks', 'y');

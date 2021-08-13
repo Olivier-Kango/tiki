@@ -23,7 +23,6 @@
                         <legend>{tr}My Account Items{/tr}</legend>
                         {preference name=users_prefs_mytiki_pages}
                         {preference name=users_prefs_mytiki_blogs}
-                        {preference name=users_prefs_mytiki_gals}
                         {preference name=users_prefs_mytiki_msgs}
                         {preference name=users_prefs_mytiki_tasks}
                         {preference name=users_prefs_mytiki_forum_topics}
