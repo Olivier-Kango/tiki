@@ -5,18 +5,18 @@ function wikiplugin_autotoc_info()
     return [
         'name' => tra('Automatic Table of Contents'),
         'documentation' => 'PluginAutoToc',
-        'description' => tra('Display a Table Of Contents in wiki pages'),
+        'description' => tra('Display a Table Of Contents in a wiki page'),
         'prefs' => [ 'wikiplugin_autotoc'],
         'iconname' => 'list-numbered',
-        'introduced' => 22.0,
+        'introduced' => 23.0,
         'lateParse' => true,
+        'tags' => [ 'experimental' ],
         'params' => [
             'activity' => [
                 'required' => true,
                 'name' => tr('Activity'),
-                'description' => tr('By default, the table of contents for the current page will be displayed.
-                    Alternate activity may be provided.'),
-                'since' => '22.0',
+                'description' => tr('Determine if the Table Of Contents will appear in the active page or not.'),
+                'since' => '23.0',
                 'filter' => 'alpha',
                 'default' => 'yes',
                 'options' => [
@@ -27,8 +27,8 @@ function wikiplugin_autotoc_info()
             'align' => [
                 'required' => false,
                 'name' => tra('Align'),
-                'description' => tr('Position of the table of contents, either right, left, page ("right" is the default and "page" will display the table of contents where it is placed in the wiki page.).'),
-                'since' => '22.0',
+                'description' => tr('Position of the Table Of Contents, either right, left, page ("right" is the default and "page" will display the table of contents where it is placed in the wiki page.).'),
+                'since' => '23.0',
                 'filter' => 'alpha',
                 'default' => 'right',
                 'options' => [
@@ -40,8 +40,8 @@ function wikiplugin_autotoc_info()
             'levels' => [
                 'required' => false,
                 'name' => tra('Levels'),
-                'description' => tr('Specify which levels you want to see in the toc. Levels are integers (1 to 6) separated with colon. Example: <code>levels="1:2:3"</code>.'),
-                'since' => '22.0',
+                'description' => tr('Specify which levels you want to see in the TOC. Levels are integers (1 to 6) separated with colon. Example : <code>levels="1:2:3"</code> to show only level 1, 2 and 3 headers.'),
+                'since' => '23.0',
                 'filter' => 'text',
                 'default' => '',
                 'separator' => ':',
@@ -50,15 +50,15 @@ function wikiplugin_autotoc_info()
                 'required' => false,
                 'name' => tra('Offset'),
                 'description' => tra('Offset of Table Of Contents. Offset default value is 15'),
-                'since' => '22.0',
+                'since' => '23.0',
                 'filter' => 'int',
                 'default' => 15,
             ],
             'mode' => [
                 'required' => false,
                 'name' => tra('Mode'),
-                'description' => tr('Change the display of the table of contents for wiki pages to inline.'),
-                'since' => '22.0',
+                'description' => tr('Change the display of the Table Of Contents for wiki pages to inline.'),
+                'since' => '23.0',
                 'filter' => 'alpha',
                 'default' => 'off',
                 'options' => [
@@ -70,7 +70,7 @@ function wikiplugin_autotoc_info()
                 'required' => false,
                 'name' => tra('Title'),
                 'description' => tra('Title for the Table Of Contents'),
-                'since' => '22.0',
+                'since' => '23.0',
                 'default' => tra(''),
             ],
         ]
