@@ -139,7 +139,7 @@ if (isset($_REQUEST['save']) && ! isset($_REQUEST['preview']) && ! isset($_REQUE
 
 $displayTimezone = TikiLib::lib('tiki')->get_display_timezone();
 if (isset($_REQUEST['act']) || isset($_REQUEST['preview']) || isset($_REQUEST['changeCal'])) {
-	$save = $_POST['save'];
+    $save = new JitFilter(array_merge($calitem ?? [], $_POST['save']));
 	$save['allday'] = empty($_POST['allday']) ? 0 : 1;
 
 	if (! isset($save['date_start']) && ! isset($save['date_end'])) {
@@ -150,8 +150,12 @@ if (isset($_REQUEST['act']) || isset($_REQUEST['preview']) || isset($_REQUEST['c
 		echo date('Y-m-d H:i', $save['end']);
 	}
 
+    if (! empty($save['name'])) {
+        $save['name'] = $save->name->string();
+    }
+
 	if (! empty($save['description'])) {
-		$save['description'] = $tikilib->convertAbsoluteLinksToRelative($save['description']);
+        $save['description'] = $tikilib->convertAbsoluteLinksToRelative($save->description->html());
 	}
 
 	// Take care of timestamps dates coming from jscalendar
@@ -321,7 +325,7 @@ if (isset($_POST['act'])) {
 				if (isset($_POST['saveas'])) {
 					$save['calitemId'] = 0;
 				}
-				$calitemId = $calendarlib->set_item($user, $save['calitemId'], $save);
+                $calitemId = $calendarlib->set_item($user, $save['calitemId'], $save->asArray());
 				// Save the ip at the log for the addition of new calendar items
 				if ($prefs['feature_actionlog'] == 'y' && empty($save['calitemId']) && $caladd["$newcalid"]['tiki_p_add_events']) {
 					$logslib->add_action('Created', 'event ' . $calitemId . ' in calendar ' . $save['calendarId'], 'calendar event');
@@ -416,9 +420,11 @@ if (isset($_REQUEST["delete"]) and ($_REQUEST["delete"]) and isset($_REQUEST["ca
 	$save['parsed'] = TikiLib::lib('parser')->parse_data($save['description'], ['is_html' => $prefs['calendar_description_is_html'] === 'y']);
 	$save['parsedName'] = TikiLib::lib('parser')->parse_data($save['name']);
 	$id = isset($save['calitemId']) ? $save['calitemId'] : '';
-	$save['recurrenceId'] =  isset($_POST['recurrenceId']) ? $_POST['recurrenceId'] : '';
-	$calitem = $save;
-	$calitem["selected_participants"] = array_map(function($role){ return $role['username']; }, $calitem['participants']);
+    $save['recurrenceId'] = isset($_POST['recurrenceId']) ? $_POST['recurrenceId'] : '';
+    $calitem = $save->asArray();
+    $calitem["selected_participants"] = array_map(function ($role) {
+        return $role['username'];
+    }, $calitem['participants']);
 
 	$recurrence = [
 		'id'	=> $calitem['recurrenceId'],
