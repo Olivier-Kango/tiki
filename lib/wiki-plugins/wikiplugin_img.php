@@ -1405,7 +1405,9 @@ function wikiplugin_img($data, $params)
         $mouseover = '';
         if (! empty($imgdata['link'])) {
             $link = $imgdata['link'];
-            $imgtarget = " target='_blank' ";
+            if (! empty($imgdata['thumb']) && $imgdata['thumb'] === 'y') {
+              $imgtarget = " target='_blank' ";
+            }
         } elseif ((($imgdata['thumb'] == 'browse') || ($imgdata['thumb'] == 'browsepopup')) && ! empty($imgdata['id'])) {
             $link = 'tiki-browse_image.php?imageId=' . $imgdata['id'];
         } elseif ($javaset == 'true') {
