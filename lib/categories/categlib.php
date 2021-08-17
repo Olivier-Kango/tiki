@@ -188,6 +188,10 @@ class CategLib extends ObjectLib
         $oldParentId = $oldCategory['parentId'];
         $oldParentName = $this->get_category_name($oldParentId);
 
+        $data = new JitFilter(['name' => $name, 'description' => $description]);
+        $name = $data->name->string();
+        $description = $data->description->html();
+
         if ((strcasecmp($oldCategoryName, $name) !== 0 || $oldParentId != $parentId) && $this->exist_child_category($parentId, $name)) {
             throw new Exception(tr('A category named %0 already exists in %1.', $name, $this->get_category_name($parentId)));
         }
@@ -254,6 +258,10 @@ class CategLib extends ObjectLib
             throw new Exception(tr('A category named %0 already exists in %1.', $name, $this->get_category_name($parentId)));
         }
         $cachelib = TikiLib::lib('cache');
+
+        $data = new JitFilter(['name' => $name, 'description' => $description]);
+        $name = $data->name->string();
+        $description = $data->description->html();
 
         // Make sure the description fits the column width
         // TODO: remove length constraint then remove this. See "Quiet truncation of data in database" thread on the development list
