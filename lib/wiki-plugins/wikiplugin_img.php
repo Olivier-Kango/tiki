@@ -1427,7 +1427,9 @@ function wikiplugin_img($data, $params)
 		$mouseover = '';
 		if (! empty($imgdata['link'])) {
 			$link = $imgdata['link'];
-			$imgtarget = " target='_blank' ";
+			if (! empty($imgdata['thumb']) && $imgdata['thumb'] === 'y') {
+				$imgtarget = " target='_blank' ";
+			}
 		} elseif ((($imgdata['thumb'] == 'browse') || ($imgdata['thumb'] == 'browsepopup')) && ! empty($imgdata['id'])) {
 			$link = 'tiki-browse_image.php?imageId=' . $imgdata['id'];
 		} elseif ($javaset == 'true') {
@@ -1697,9 +1699,9 @@ function wikiplugin_img($data, $params)
 			} else {
 				$styleboxplus = $alignbox . ' max-width: 100%; width:' . $boxwidth . 'px;';
 			}
-		} elseif (! empty($imgdata['button']) || ! empty($imgdata['desc']) || ! empty($imgdata['metadata'])) {		
+		} elseif (! empty($imgdata['button']) || ! empty($imgdata['desc']) || ! empty($imgdata['metadata'])) {
 			if ($boxwidth === 2) {
-				$styleboxplus = ' max-width: 100%; width: auto;';			
+				$styleboxplus = ' max-width: 100%; width: auto;';
 			} else {
 				$styleboxplus = ' max-width: 100%; width: '.$boxwidth.'px;';
 			}
