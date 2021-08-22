@@ -1914,7 +1914,7 @@
         "itsjavi/bootstrap-colorpicker": ">=2.5.1",
         "j0k3r/php-readability": "^1.1.10",
         "jasig/phpcas": ">=1.3",
-        "jason-munro/cypht": "dev-master",
+        "jason-munro/cypht": ">=1.3.0",
         "jcbrand/converse.js": ">=v3.0.1 <=4.2.0",
         "jerome-breton/casperjs-installer": "dev-master",
         "jquery-form/form": ">=3.51",
