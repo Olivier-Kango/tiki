@@ -468,9 +468,9 @@ class ComposerCli
             return false;
         }
 
-        $exe = ['--no-ansi', '--no-dev', '--prefer-dist', 'update', '-d', $this->workingPath, 'nothing'];
+        $exe = ['--no-ansi', '--no-dev', '--prefer-dist', 'update', '-d', $this->workingPath, '--lock'];
         if (is_dir($tikipath . 'vendor_bundled/vendor/phpunit')) {
-            $exe = ['--no-ansi', '--prefer-dist', 'update', '-d', $this->workingPath, 'nothing'];
+            $exe = ['--no-ansi', '--prefer-dist', 'update', '-d', $this->workingPath, '--lock'];
         }
 
         list($output, $errors) = $this->execComposer($exe);
