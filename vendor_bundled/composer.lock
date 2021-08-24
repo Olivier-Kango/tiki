@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "35046051079febc21cb30e91d2a265b2",
+    "content-hash": "a7e4dbf7d9de8d3b313fca21bc964c85",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -703,136 +703,6 @@
             "time": "2016-09-16T05:47:55+00:00"
         },
         {
-            "name": "composer/installers",
-            "version": "v1.10.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/composer/installers.git",
-                "reference": "1a0357fccad9d1cc1ea0c9a05b8847fbccccb78d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/composer/installers/composer-installers-1a0357fccad9d1cc1ea0c9a05b8847fbccccb78d-zip-357f62.zip",
-                "reference": "1a0357fccad9d1cc1ea0c9a05b8847fbccccb78d",
-                "shasum": "12406910487c8a317ebb077bfbf3d7f2f51e0ea7"
-            },
-            "require": {
-                "composer-plugin-api": "^1.0 || ^2.0"
-            },
-            "replace": {
-                "roundcube/plugin-installer": "*",
-                "shama/baton": "*"
-            },
-            "require-dev": {
-                "composer/composer": "1.6.* || ^2.0",
-                "composer/semver": "^1 || ^3",
-                "phpstan/phpstan": "^0.12.55",
-                "phpstan/phpstan-phpunit": "^0.12.16",
-                "symfony/phpunit-bridge": "^4.2 || ^5",
-                "symfony/process": "^2.3"
-            },
-            "type": "composer-plugin",
-            "extra": {
-                "class": "Composer\\Installers\\Plugin",
-                "branch-alias": {
-                    "dev-main": "1.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Composer\\Installers\\": "src/Composer/Installers"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Kyle Robinson Young",
-                    "email": "kyle@dontkry.com",
-                    "homepage": "https://github.com/shama"
-                }
-            ],
-            "description": "A multi-framework Composer library installer",
-            "homepage": "https://composer.github.io/installers/",
-            "keywords": [
-                "Craft",
-                "Dolibarr",
-                "Eliasis",
-                "Hurad",
-                "ImageCMS",
-                "Kanboard",
-                "Lan Management System",
-                "MODX Evo",
-                "MantisBT",
-                "Mautic",
-                "Maya",
-                "OXID",
-                "Plentymarkets",
-                "Porto",
-                "RadPHP",
-                "SMF",
-                "Starbug",
-                "Thelia",
-                "Whmcs",
-                "WolfCMS",
-                "agl",
-                "aimeos",
-                "annotatecms",
-                "attogram",
-                "bitrix",
-                "cakephp",
-                "chef",
-                "cockpit",
-                "codeigniter",
-                "concrete5",
-                "croogo",
-                "dokuwiki",
-                "drupal",
-                "eZ Platform",
-                "elgg",
-                "expressionengine",
-                "fuelphp",
-                "grav",
-                "installer",
-                "itop",
-                "joomla",
-                "known",
-                "kohana",
-                "laravel",
-                "lavalite",
-                "lithium",
-                "magento",
-                "majima",
-                "mako",
-                "mediawiki",
-                "modulework",
-                "modx",
-                "moodle",
-                "osclass",
-                "phpbb",
-                "piwik",
-                "ppi",
-                "processwire",
-                "puppet",
-                "pxcms",
-                "reindex",
-                "roundcube",
-                "shopware",
-                "silverstripe",
-                "sydes",
-                "sylius",
-                "symfony",
-                "typo3",
-                "wordpress",
-                "yawik",
-                "zend",
-                "zikula"
-            ],
-            "time": "2021-01-14T11:07:16+00:00"
-        },
-        {
             "name": "composer/semver",
             "version": "1.7.2",
             "source": {
@@ -1373,67 +1243,6 @@
                 "html"
             ],
             "time": "2020-06-29T00:56:53+00:00"
-        },
-        {
-            "name": "fullcalendar/fullcalendar",
-            "version": "v3.10.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/fullcalendar/fullcalendar.git",
-                "reference": "ac0971e6864e65708f408bd074a7d10d4cae479d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/fullcalendar/fullcalendar/fullcalendar-fullcalendar-ac0971e6864e65708f408bd074a7d10d4cae479d-zip-fa5981.zip",
-                "reference": "ac0971e6864e65708f408bd074a7d10d4cae479d",
-                "shasum": "5efc1ca677c4ecf0a9f45c8bb878b760233259b8"
-            },
-            "require": {
-                "components/jquery": "2 - 3",
-                "moment/moment": "^2.20.1",
-                "robloach/component-installer": "*"
-            },
-            "type": "component",
-            "extra": {
-                "component": {
-                    "scripts": [
-                        "dist/fullcalendar.js"
-                    ],
-                    "styles": [
-                        "dist/fullcalendar.css"
-                    ],
-                    "files": [
-                        "dist/fullcalendar.min.js",
-                        "dist/fullcalendar.min.css",
-                        "dist/fullcalendar.print.css",
-                        "dist/fullcalendar.print.min.css",
-                        "dist/gcal.js",
-                        "dist/gcal.min.js",
-                        "dist/locale-all.js",
-                        "dist/locale/*.js"
-                    ]
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Adam Shaw",
-                    "email": "arshaw@arshaw.com",
-                    "homepage": "http://arshaw.com/"
-                }
-            ],
-            "description": "Full-sized drag & drop event calendar",
-            "homepage": "https://fullcalendar.io/",
-            "keywords": [
-                "calendar",
-                "event",
-                "full-sized",
-                "jquery-plugin"
-            ],
-            "time": "2020-05-19T03:38:54+00:00"
         },
         {
             "name": "gidkom/php-openfire-restapi",
@@ -1987,17 +1796,17 @@
         },
         {
             "name": "jason-munro/cypht",
-            "version": "dev-master",
+            "version": "v1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jasonmunro/cypht.git",
-                "reference": "1abd5b1224ffe7cdf60b5c9765ae67dd4d86de2f"
+                "reference": "023e1d437771f281592d63a21efdd5bf6a712d9c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-1abd5b1224ffe7cdf60b5c9765ae67dd4d86de2f-zip-fe7440.zip",
-                "reference": "1abd5b1224ffe7cdf60b5c9765ae67dd4d86de2f",
-                "shasum": "da95c2d513dd01d72e8e86a16603f11e150fa68b"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-023e1d437771f281592d63a21efdd5bf6a712d9c-zip-d43358.zip",
+                "reference": "023e1d437771f281592d63a21efdd5bf6a712d9c",
+                "shasum": "105dd13b2a79307c231aa353c753c7a61e6f050b"
             },
             "require": {
                 "christian-riesen/base32": "^1.3.2",
@@ -2008,7 +1817,7 @@
                 "ext-mbstring": "*",
                 "ext-openssl": "*",
                 "ext-session": "*",
-                "ezyang/htmlpurifier": "^4.10.0",
+                "ezyang/htmlpurifier": "^4.13.0",
                 "paragonie/random_compat": "^2.0.18",
                 "php": ">=5.4"
             },
@@ -2041,13 +1850,12 @@
                 "jmap",
                 "news-reader",
                 "php",
-                "pop3",
                 "rss",
                 "smtp",
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2021-01-20T17:02:57+00:00"
+            "time": "2021-07-07T20:33:43+00:00"
         },
         {
             "name": "jquery-form/form",
@@ -2362,83 +2170,6 @@
                 "video platform"
             ],
             "time": "2017-07-18T08:14:36+00:00"
-        },
-        {
-            "name": "kriswallsmith/assetic",
-            "version": "v1.4.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/kriswallsmith/assetic.git",
-                "reference": "e911c437dbdf006a8f62c2f59b15b2d69a5e0aa1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/kriswallsmith/assetic/kriswallsmith-assetic-e911c437dbdf006a8f62c2f59b15b2d69a5e0aa1-zip-5b3422.zip",
-                "reference": "e911c437dbdf006a8f62c2f59b15b2d69a5e0aa1",
-                "shasum": "33e3acdb5b45cbe7e60ac6e9c15f832b256576ce"
-            },
-            "require": {
-                "php": ">=5.3.1",
-                "symfony/process": "~2.1|~3.0"
-            },
-            "conflict": {
-                "twig/twig": "<1.27"
-            },
-            "require-dev": {
-                "leafo/lessphp": "^0.3.7",
-                "leafo/scssphp": "~0.1",
-                "meenie/javascript-packer": "^1.1",
-                "mrclay/minify": "<2.3",
-                "natxet/cssmin": "3.0.4",
-                "patchwork/jsqueeze": "~1.0|~2.0",
-                "phpunit/phpunit": "~4.8 || ^5.6",
-                "psr/log": "~1.0",
-                "ptachoire/cssembed": "~1.0",
-                "symfony/phpunit-bridge": "~2.7|~3.0",
-                "twig/twig": "~1.23|~2.0",
-                "yfix/packager": "dev-master"
-            },
-            "suggest": {
-                "leafo/lessphp": "Assetic provides the integration with the lessphp LESS compiler",
-                "leafo/scssphp": "Assetic provides the integration with the scssphp SCSS compiler",
-                "leafo/scssphp-compass": "Assetic provides the integration with the SCSS compass plugin",
-                "patchwork/jsqueeze": "Assetic provides the integration with the JSqueeze JavaScript compressor",
-                "ptachoire/cssembed": "Assetic provides the integration with phpcssembed to embed data uris",
-                "twig/twig": "Assetic provides the integration with the Twig templating engine"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.4-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Assetic": "src/"
-                },
-                "files": [
-                    "src/functions.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Kris Wallsmith",
-                    "email": "kris.wallsmith@gmail.com",
-                    "homepage": "http://kriswallsmith.net/"
-                }
-            ],
-            "description": "Asset Management for PHP",
-            "homepage": "https://github.com/kriswallsmith/assetic",
-            "keywords": [
-                "assets",
-                "compression",
-                "minification"
-            ],
-            "time": "2016-11-11T18:43:20+00:00"
         },
         {
             "name": "laminas/laminas-captcha",
@@ -4669,60 +4400,6 @@
             "time": "2016-12-13T01:01:17+00:00"
         },
         {
-            "name": "moment/moment",
-            "version": "2.29.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/moment/moment.git",
-                "reference": "b7ec8e2ec068e03de4f832f28362675bb9e02261"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/moment/moment/moment-moment-b7ec8e2ec068e03de4f832f28362675bb9e02261-zip-0389b6.zip",
-                "reference": "b7ec8e2ec068e03de4f832f28362675bb9e02261",
-                "shasum": "dc95d772558f0f196ae6ba32c301b93482ff8304"
-            },
-            "require": {
-                "oomphinc/composer-installers-extender": "*"
-            },
-            "type": "component",
-            "extra": {
-                "component": {
-                    "scripts": [
-                        "moment.js"
-                    ],
-                    "files": [
-                        "min/*.js",
-                        "locale/*.js"
-                    ]
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Tim Wood",
-                    "email": "washwithcare@gmail.com"
-                }
-            ],
-            "description": "Parse, validate, manipulate, and display dates in JavaScript.",
-            "homepage": "https://github.com/moment/moment",
-            "keywords": [
-                "date",
-                "ender",
-                "format",
-                "i18n",
-                "l10n",
-                "moment",
-                "parse",
-                "time",
-                "validate"
-            ],
-            "time": "2020-10-06T11:13:21+00:00"
-        },
-        {
             "name": "montefuscolo/xmpp",
             "version": "dev-master",
             "source": {
@@ -5258,59 +4935,6 @@
             "license": [
                 "MIT"
             ]
-        },
-        {
-            "name": "oomphinc/composer-installers-extender",
-            "version": "2.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/oomphinc/composer-installers-extender.git",
-                "reference": "8d3fe38a1723e0e91076920c8bb946b1696e28ca"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/oomphinc/composer-installers-extender/oomphinc-composer-installers-extender-8d3fe38a1723e0e91076920c8bb946b1696e28ca-zip-aaaf7e.zip",
-                "reference": "8d3fe38a1723e0e91076920c8bb946b1696e28ca",
-                "shasum": "fff51ed7642aadc7b422968cca713b519cf95432"
-            },
-            "require": {
-                "composer-plugin-api": "^1.1 || ^2.0",
-                "composer/installers": "^1.0",
-                "php": ">=7.1"
-            },
-            "require-dev": {
-                "composer/composer": "^2.0",
-                "phpunit/phpunit": "^7.2",
-                "squizlabs/php_codesniffer": "^3.3"
-            },
-            "type": "composer-plugin",
-            "extra": {
-                "class": "OomphInc\\ComposerInstallersExtender\\Plugin"
-            },
-            "autoload": {
-                "psr-4": {
-                    "OomphInc\\ComposerInstallersExtender\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Stephen Beemsterboer",
-                    "email": "stephen@oomphinc.com",
-                    "homepage": "https://github.com/balbuf"
-                },
-                {
-                    "name": "Nathan Dentzau",
-                    "email": "nate@oomphinc.com",
-                    "homepage": "http://oomph.is/ndentzau"
-                }
-            ],
-            "description": "Extend the composer/installers plugin to accept any arbitrary package type.",
-            "homepage": "http://www.oomphinc.com/",
-            "time": "2020-08-11T21:06:11+00:00"
         },
         {
             "name": "openannotation/annotator",
@@ -6109,42 +5733,6 @@
             "type": "library"
         },
         {
-            "name": "plotly/plotly.js",
-            "version": "v1.58.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/plotly/plotly.js.git",
-                "reference": "bae378a79bfce17463aed0f70402e4b9cf50ca3c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/plotly/plotly-js/plotly-plotly-js-bae378a79bfce17463aed0f70402e4b9cf50ca3c-zip-aae186.zip",
-                "reference": "bae378a79bfce17463aed0f70402e4b9cf50ca3c",
-                "shasum": "a4976839b8ca12e57c4ff3c78e3799cc87ffcac1"
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Plotly, Inc.",
-                    "email": "sales@plotly.com"
-                }
-            ],
-            "description": "The open source javascript graphing library that powers plotly",
-            "homepage": "https://plotly.com/javascript/",
-            "keywords": [
-                "data",
-                "graphing",
-                "plotly",
-                "plotting",
-                "visualization"
-            ],
-            "time": "2020-12-21T18:55:19+00:00"
-        },
-        {
             "name": "pragmarx/google2fa",
             "version": "v7.0.0",
             "source": {
@@ -6468,55 +6056,6 @@
                 "jquery"
             ],
             "time": "2019-10-09T11:41:48+00:00"
-        },
-        {
-            "name": "robloach/component-installer",
-            "version": "0.2.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/RobLoach/component-installer.git",
-                "reference": "908a859aa7c4949ba9ad67091e67bac10b66d3d7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/robloach/component-installer/robloach-component-installer-908a859aa7c4949ba9ad67091e67bac10b66d3d7-zip-343382.zip",
-                "reference": "908a859aa7c4949ba9ad67091e67bac10b66d3d7",
-                "shasum": "393701b38d2d24dc33c101fec6e01c5221070ac9"
-            },
-            "require": {
-                "composer-plugin-api": "^1.0",
-                "kriswallsmith/assetic": "1.*",
-                "php": ">=5.3.2"
-            },
-            "require-dev": {
-                "composer/composer": "1.*@alpha",
-                "phpunit/phpunit": "4.*"
-            },
-            "type": "composer-plugin",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                },
-                "class": "ComponentInstaller\\ComponentInstallerPlugin"
-            },
-            "autoload": {
-                "psr-0": {
-                    "ComponentInstaller": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Rob Loach",
-                    "homepage": "http://robloach.net"
-                }
-            ],
-            "description": "Allows installation of Components via Composer.",
-            "abandoned": "oomphinc/composer-installers-extender",
-            "time": "2015-08-10T12:35:38+00:00"
         },
         {
             "name": "sabre/dav",
@@ -10361,7 +9900,6 @@
         "candy-chat/xmpp-prebind-php": 20,
         "erusev/parsedown": 10,
         "hesammousavi/bootstrap-v4-rtl": 20,
-        "jason-munro/cypht": 20,
         "npm-asset/html2canvas": 5,
         "sorich87/bootstrap-tour": 20,
         "zendframework/zendsearch": 20,
@@ -10390,5 +9928,5 @@
         "ext-soap": "0",
         "php": "7.2.5"
     },
-    "plugin-api-version": "1.1.0"
+    "plugin-api-version": "2.1.0"
 }
