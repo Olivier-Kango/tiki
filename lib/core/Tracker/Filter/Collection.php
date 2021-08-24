@@ -88,14 +88,18 @@ class Collection
     public function loadFilterDescriptor($descriptor)
     {
         foreach ($descriptor as $filter) {
-            $fil = $this->addFilter($filter['field'], $filter['mode']);
+            try {
+                $fil = $this->addFilter($filter['field'], $filter['mode']);
 
-            if (! empty($filter['position'])) {
-                $fil->setPosition($filter['position']);
-            }
+                if (! empty($filter['position'])) {
+                    $fil->setPosition($filter['position']);
+                }
 
-            if (! empty($filter['label'])) {
-                $fil->setLabel($filter['label']);
+                if (! empty($filter['label'])) {
+                    $fil->setLabel($filter['label']);
+                }
+            } catch (Exception\FieldNotFound $e) {
+                \Feedback::error($e->getMessage()); // TODO make error message appear when exporting
             }
         }
     }
