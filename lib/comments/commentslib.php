@@ -591,73 +591,87 @@ class Comments extends TikiLib
                 }
             }
 
-            // post
-            $threadId = $this->post_new_comment(
-                'forum:' . $forumId,
-                $parentId,
-                $userName,
-                $title,
-                $body,
-                $message_id,
-                $in_reply_to,
-                'n',
-                '',
-                '',
-                '',
-                $anonName,
-                $postDate
-            );
-
-            $this->register_forum_post($forumId, $parentId);
-
-            // Process attachments
-            if (array_key_exists('parts', $output) && count($output['parts']) > 1) {
-                $forum_info = $this->get_forum($forumId);
-                if ($forum_info['att'] != 'att_no') {
-                    $errors = [];
-                    foreach ($output['parts'] as $part) {
-                        if (array_key_exists('disposition', $part)) {
-                            if ($part['disposition'] == 'attachment') {
-                                if (! empty($part['d_parameters']['filename'])) {
-                                    $part_name = $part['d_parameters']['filename'];
-                                } elseif (preg_match('/filename=([^;]*)/', $part['d_parameters']['atend'], $mm)) {      // not sure what this is but it seems to have the filename in it
-                                    $part_name = $mm[1];
-                                } else {
-                                    $part_name = "Unnamed File";
-                                }
-                                $this->add_thread_attachment($forum_info, $threadId, $errors, $part_name, $part['type'], strlen($part['body']), 1, '', '', $part['body']);
-                            } elseif ($part['disposition'] == 'inline') {
-                                if (! empty($part['parts'])) {
-                                    foreach ($part['parts'] as $p) {
-                                        $this->add_thread_attachment($forum_info, $threadId, $errors, '-', $p['type'], strlen($p['body']), 1, '', '', $p['body']);
+            try {
+                // post
+                $threadId = $this->post_new_comment(
+                    'forum:' . $forumId,
+                    $parentId,
+                    $userName,
+                    $title,
+                    $body,
+                    $message_id,
+                    $in_reply_to,
+                    'n',
+                    '',
+                    '',
+                    '',
+                    $anonName,
+                    $postDate
+                );
+                $this->register_forum_post($forumId, $parentId);// Process attachments
+                if (array_key_exists('parts', $output) && count($output['parts']) > 1) {
+                    $forum_info = $this->get_forum($forumId);
+                    if ($forum_info['att'] != 'att_no') {
+                        $errors = [];
+                        foreach ($output['parts'] as $part) {
+                            if (array_key_exists('disposition', $part)) {
+                                if ($part['disposition'] == 'attachment') {
+                                    if (! empty($part['d_parameters']['filename'])) {
+                                        $part_name = $part['d_parameters']['filename'];
+                                    } elseif (preg_match(
+                                        '/filename=([^;]*)/', $part['d_parameters']['atend'], $mm
+                                    )
+                                    ) {      // not sure what this is but it seems to have the filename in it
+                                        $part_name = $mm[1];
+                                    } else {
+                                        $part_name = "Unnamed File";
                                     }
-                                } elseif (! empty($part['body'])) {
-                                    $this->add_thread_attachment($forum_info, $threadId, $errors, '-', $part['type'], strlen($part['body']), 1, '', '', $part['body']);
+                                    $this->add_thread_attachment(
+                                        $forum_info, $threadId, $errors, $part_name, $part['type'], strlen($part['body']), 1, '', '', $part['body']
+                                    );
+                                } elseif ($part['disposition'] == 'inline') {
+                                    if (! empty($part['parts'])) {
+                                        foreach ($part['parts'] as $p) {
+                                            $this->add_thread_attachment(
+                                                $forum_info, $threadId, $errors, '-', $p['type'], strlen($p['body']), 1, '', '', $p['body']
+                                            );
+                                        }
+                                    } elseif (! empty($part['body'])) {
+                                        $this->add_thread_attachment(
+                                            $forum_info, $threadId, $errors, '-', $part['type'], strlen($part['body']), 1, '', '', $part['body']
+                                        );
+                                    }
                                 }
                             }
                         }
                     }
                 }
-            }
 
-            // Deal with mail notifications.
-            if (array_key_exists('outbound_mails_reply_link', $info) && $info['outbound_mails_for_inbound_mails'] == 'y') {
-                include_once('lib/notifications/notificationemaillib.php');
-                sendForumEmailNotification(
-                    'forum_post_thread',
-                    $info['forumId'],
-                    $info,
-                    $title,
-                    $body,
-                    $userName,
-                    $title,
-                    $message_id,
-                    $in_reply_to,
-                    $threadId,
-                    $parentId
-                );
+                // Deal with mail notifications.
+                if (array_key_exists('outbound_mails_reply_link', $info) && $info['outbound_mails_for_inbound_mails'] == 'y') {
+                    include_once('lib/notifications/notificationemaillib.php');
+                    sendForumEmailNotification(
+                        'forum_post_thread',
+                        $info['forumId'],
+                        $info,
+                        $title,
+                        $body,
+                        $userName,
+                        $title,
+                        $message_id,
+                        $in_reply_to,
+                        $threadId,
+                        $parentId
+                    );
+                }
+                $pop3->deleteMsg($i);
+            } catch (TikiDb_Exception_DuplicateEntry $e) {
+                // the message already exists in the forum (e.g. for some reason the message was not deleted before)
+                // mark the message to be deleted and keep processing
+                $pop3->deleteMsg($i);
+            } catch (Exception $e) {
+                Feedback::error(tr('Adding email %0 to the forum failed due to "%1"', $title, $e->getMessage()));
             }
-            $pop3->deleteMsg($i);
         }
         $pop3->disconnect();
 

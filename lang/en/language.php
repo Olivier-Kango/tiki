@@ -584,6 +584,7 @@ $lang = array(
 // "go back to this crumb" => "go back to this crumb",
 // "Administration" => "Administration",
 // "Cache file %0 is not writable" => "Cache file %0 is not writable",
+"Cache file %0 is not writable (%1)" => "Cache file %0 is not writable",
 // "All day" => "All day",
 // "First day of week: Sunday (its ID is 0) - Translators, you need to localize this string" => "First day of week: Sunday (its ID is 0) - Translators, you need to localize this string",
 // "Sunday" => "Sunday",

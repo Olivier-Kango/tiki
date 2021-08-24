@@ -18,6 +18,6 @@
 </div>
 <div class="modal-footer">
     {block name=buttons}
-        <button type="button" class="btn btn-secondary btn-dismiss" data-dismiss="modal">{tr}Close{/tr}</button>
+        <button type="button" class="btn btn-link" data-dismiss="modal">{tr}Close{/tr}</button>
     {/block}
 </div>

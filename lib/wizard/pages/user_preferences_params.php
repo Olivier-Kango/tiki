@@ -63,8 +63,6 @@ class UserWizardPreferencesParams extends Wizard
         $smarty->assign('mytiki_pages', $mytiki_pages);
         $mytiki_blogs = $tikilib->get_user_preference($userwatch, 'mytiki_blogs', 'y');
         $smarty->assign('mytiki_blogs', $mytiki_blogs);
-        $mytiki_gals = $tikilib->get_user_preference($userwatch, 'mytiki_gals', 'y');
-        $smarty->assign('mytiki_gals', $mytiki_gals);
         $mytiki_items = $tikilib->get_user_preference($userwatch, 'mytiki_items', 'y');
         $smarty->assign('mytiki_items', $mytiki_items);
         $mytiki_msgs = $tikilib->get_user_preference($userwatch, 'mytiki_msgs', 'y');
@@ -295,11 +293,6 @@ class UserWizardPreferencesParams extends Wizard
             $tikilib->set_user_preference($userwatch, 'mytiki_blogs', 'y');
         } else {
             $tikilib->set_user_preference($userwatch, 'mytiki_blogs', 'n');
-        }
-        if (isset($_REQUEST['mytiki_gals']) && $_REQUEST['mytiki_gals'] == 'on') {
-            $tikilib->set_user_preference($userwatch, 'mytiki_gals', 'y');
-        } else {
-            $tikilib->set_user_preference($userwatch, 'mytiki_gals', 'n');
         }
         if (isset($_REQUEST['mytiki_msgs']) && $_REQUEST['mytiki_msgs'] == 'on') {
             $tikilib->set_user_preference($userwatch, 'mytiki_msgs', 'y');

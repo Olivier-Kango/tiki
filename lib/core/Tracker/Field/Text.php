@@ -397,6 +397,15 @@ class Tracker_Field_Text extends Tracker_Field_Abstract implements Tracker_Field
                 ->addIncompatibility($permName, 'default')
                 ->setRenderTransform($renderLink(null))
                 ;
+            $schema->addNew($permName, 'binary')
+                ->setLabel($name)
+                ->setRenderTransform(function ($value) {
+                    return hex2bin($value);
+                })
+                ->setParseIntoTransform(function (&$info, $value) use ($permName) {
+                    $info['fields'][$permName] = bin2hex($value);
+                })
+                ;
         } else {
             $lang = $prefs['language'];
             $schema->addNew($permName, 'current')

@@ -1200,6 +1200,7 @@ class TrackerLib extends TikiLib
         $corder = '';
         $trackerId = (int) $trackerId;
         $numsort = false;
+        $prefSort = false;
 
         $mid = ' WHERE tti.`trackerId` = ? ';
         $bindvars = [$trackerId];
@@ -1279,6 +1280,9 @@ class TrackerLib extends TikiLib
     //                      if ($field['name'] == 'Rating' || $field['name'] == tra('Rating')) { // No need to have that string, isn't it? Admins can replace for a more suited string in their use case
                             $numsort = true;
     //                      }
+                            break;
+                        case 'p':
+                            $prefSort = true;
                             break;
                     }
                 } else {
@@ -1773,6 +1777,11 @@ class TrackerLib extends TikiLib
         } // while
 
 // End loop to get the required number of items if permissions / filters are in use
+
+        if ($prefSort) {
+            $corder === 'desc' ? krsort($ret) : ksort($ret);
+        }
+
         $retval = [];
         $retval['data'] = array_values($ret);
         $retval['cant'] = $cant;
