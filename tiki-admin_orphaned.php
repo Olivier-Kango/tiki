@@ -17,22 +17,22 @@ $access->check_permission('tiki_p_admin');
 if (! empty($_REQUEST['submit'])) {
     $smarty->assign('searched', true);
 
-	$trklib = TikiLib::lib('trk');
-	$trackers = $trklib->list_trackers();
-	$trackers = array_combine(
-		array_map(
-			function ($tracker) {
-				return $tracker['trackerId'];
-			},
-			$trackers['data']
-		),
-		array_map(
-			function ($tracker) {
-				return $tracker['name'];
-			},
+    $trklib = TikiLib::lib('trk');
+    $trackers = $trklib->list_trackers();
+    $trackers = array_combine(
+        array_map(
+            function ($tracker) {
+                return $tracker['trackerId'];
+            },
             $trackers['data']
-		)
-	);
+        ),
+        array_map(
+            function ($tracker) {
+                return $tracker['name'];
+            },
+            $trackers['data']
+        )
+    );
 
     $fields = [];
     foreach ($trackers as $trackerId => $trackerName) {
