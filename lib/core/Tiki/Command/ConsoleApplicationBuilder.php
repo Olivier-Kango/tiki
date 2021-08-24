@@ -87,15 +87,6 @@ class ConsoleApplicationBuilder
                 new GetStringsCommand(),
                 ],
             ],[
-            'condition' => 'checkIsVCS',
-            'actions'   => [UnavailableException::CHECK_DEFAULT => self::ACTION_NOT_CALLABLE],
-            'commands'  => [
-                new VCSUpdateCommand(),
-                new FixSVNKeyIdsCommand(),
-                new SemiAutoMergeCommand(),
-                new DevConfigureCommand(),
-                ],
-            ],[
             'condition' => 'checkIsDevMode',
             'actions'   => [UnavailableException::CHECK_DEFAULT => self::ACTION_NOT_PUBLISHED,],
             'commands'  => [
@@ -265,6 +256,15 @@ class ConsoleApplicationBuilder
                 ],
             'commands'  => [
                 new VendorSecurityCommand(),
+                ],
+            ],[
+            'condition' => 'checkIsVCS',
+            'actions'   => [UnavailableException::CHECK_DEFAULT => self::ACTION_NOT_CALLABLE],
+            'commands'  => [
+                new VCSUpdateCommand(),
+                new FixSVNKeyIdsCommand(),
+                new SemiAutoMergeCommand(),
+                new DevConfigureCommand(),
                 ],
             ]];
     }
