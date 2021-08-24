@@ -102,10 +102,42 @@ if (! empty($_REQUEST['submit'])) {
         }
     }
 
+    if (! empty($_REQUEST['search']) && in_array('tabular_tracker_fields', $_REQUEST['search'])) {
+        $smarty->assign('tabular_tracker_fields_checked', true);
+        $lib = TikiLib::lib('tabular');
+        $tabularList = $lib->getList();
+
+        foreach ($tabularList as $tabular) {
+            $tabularId = $tabular['tabularId'];
+            $tabularName = $tabular['tabularName'];
+            $info = $lib->getInfo($tabularId);
+            $trackerId = $info['trackerId'];
+            foreach ($info['format_descriptor'] as $item) {
+                if (in_array($item['field'], ['itemId', 'status'])) {
+                    continue;
+                }
+                $trkFieldsMatch = array_filter($fields, function ($field) use ($item, $trackerId) {
+                    return $field['trackerId'] == $trackerId && $field['permName'] == $item['field'];
+                });
+                if (empty($trkFieldsMatch)) {
+                    $results[] = [
+                        'tabularId' => $tabularId,
+                        'tabularName' => $tabularName,
+                        'trackerId' => $trackerId,
+                        'trackerName' => $trackers[$trackerId],
+                        'permanentName' => $item['field'],
+                    ];
+                }
+            }
+        }
+    }
+
+
     $smarty->assign('results', $results);
 } else {
     $smarty->assign('wiki_pages_checked', true);
     $smarty->assign('tracker_fields_checked', true);
+    $smarty->assign('tabular_tracker_fields_checked', true);
 }
 
 // Display the template
