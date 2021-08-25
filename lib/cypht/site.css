@@ -389,13 +389,16 @@ div.unseen, .unseen .subject { font-weight: 700; }
 .mobile .part_desc, .mobile .part_size { margin-left: 25px; }
 .mobile .unflag_send_div { float: right; clear: right; margin-top: 10px; }
 #archive_val { padding-left: 20px; }
-.compose_page { width: 100%; height: 100%; min-height: 400px; background-color: #fff; width: 100%; }
+
+.attached_image { margin-right: 20px; margin-bottom: 20px; height: 200px; }
+.attached_image_box { display: flex; flex-wrap: wrap; border-top: solid 1px #ddd; padding-top: 20px; padding-left: 20px; width: 100%; padding-bottom: 40px; }.compose_page { width: 100%; height: 100%; min-height: 400px; background-color: #fff; width: 100%; }
 .compose_form { position: relative; display: block; padding: 20px; width: 80%; padding-left: 30px; padding-bottom: 0px; }
 .compose_bcc, .compose_cc, .compose_subject, .compose_to { padding: 5px; margin: 5px; width: 100%; }
 /*.compose_to { width: calc(100% - 25px); }*/
 .toggle_recipients { background-color: #fff; position: absolute; padding-left: 5px; right: 9px; top: 28px; font-size: 120%; }
 .compose_body { width: 100%; min-height: 300px; padding: 5px; margin: 5px; }
 .smtp_send { cursor: pointer; color: #666; font-size: 125%; padding: 10px; margin-top: 10px; }
+.smtp_send_archive { cursor: pointer; color: #666; font-size: 125%; padding: 10px; margin-top: 10px; margin-left: 10px; }
 .smtp_section { display: none; }
 .smtp_server_setup .content_title { cursor: pointer; }
 .compose_server, .compose_server option { width: 100%; padding: 5px; margin: 5px; }

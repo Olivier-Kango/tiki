@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "68188b174bb629ef3a3c5d61fae85447",
+    "content-hash": "e07b5e6daf271d70b275cd45656c7b02",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -1883,17 +1883,17 @@
         },
         {
             "name": "jason-munro/cypht",
-            "version": "dev-master",
+            "version": "v1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jasonmunro/cypht.git",
-                "reference": "f58c192045e1396fca6f4f7c215a242b24af0a65"
+                "reference": "023e1d437771f281592d63a21efdd5bf6a712d9c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-f58c192045e1396fca6f4f7c215a242b24af0a65-zip-0e12b1.zip",
-                "reference": "f58c192045e1396fca6f4f7c215a242b24af0a65",
-                "shasum": "db7506a6044fabf4ac901380389666644e6eff21"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-023e1d437771f281592d63a21efdd5bf6a712d9c-zip-d43358.zip",
+                "reference": "023e1d437771f281592d63a21efdd5bf6a712d9c",
+                "shasum": "105dd13b2a79307c231aa353c753c7a61e6f050b"
             },
             "require": {
                 "christian-riesen/base32": "^1.3.2",
@@ -1904,7 +1904,7 @@
                 "ext-mbstring": "*",
                 "ext-openssl": "*",
                 "ext-session": "*",
-                "ezyang/htmlpurifier": "^4.10.0",
+                "ezyang/htmlpurifier": "^4.13.0",
                 "paragonie/random_compat": "^2.0.18",
                 "php": ">=5.4"
             },
@@ -1937,13 +1937,12 @@
                 "jmap",
                 "news-reader",
                 "php",
-                "pop3",
                 "rss",
                 "smtp",
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2021-01-20T17:02:57+00:00"
+            "time": "2021-07-07T20:33:43+00:00"
         },
         {
             "name": "jquery-form/form",
