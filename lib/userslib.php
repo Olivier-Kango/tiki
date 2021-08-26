@@ -8766,6 +8766,27 @@ class UsersLib extends TikiLib
         }
         return array_values(array_unique($users));
     }
+
+    /**
+     * Check if current user session was made from a remote instance
+     *
+     * @return bool
+     */
+    public function isAutologin(): bool
+    {
+        return ! empty($_SESSION['autologin_base_url']);
+    }
+
+    /**
+     * Standard error message when user is autologin performing admin actions
+     * that require password.
+     * 
+     * @return string
+     */
+    public function getAutologinAdminActionError(): string
+    {
+        return tr('This action can\'t be performed while remote session is being used. To allow this action, the preference "Require admin users to enter their password for some critical actions" must be disabled.');
+    }
 }
 
 

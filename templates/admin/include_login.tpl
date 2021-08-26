@@ -209,6 +209,11 @@
         {tab name="{tr}Remote Tiki Autologin{/tr}"}
             <br>
             <fieldset>
+                {if $prefs.login_autologin eq 'y' and $prefs.users_admin_actions_require_validation eq 'y'}
+                    {remarksbox type="warning" title="{tr}Warning{/tr}" close="n"}
+                        {tr}Admin actions that require password won't work for users while in remote session. To allow those actions, the preference “Require admin users to enter their password for some critical actions” must be disabled.{/tr}
+                    {/remarksbox}
+                {/if}
                 {preference name=login_autologin}
                 {preference name=login_autologin_user}
                 {preference name=login_autologin_group}

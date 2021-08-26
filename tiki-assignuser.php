@@ -38,6 +38,9 @@ if (isset($_REQUEST["action"])) {
     $canProcess = true;
 
     if ($prefs['users_admin_actions_require_validation'] == 'y') {
+        if ($userlib->isAutologin()) {
+            Feedback::error($userlib->getAutologinAdminActionError());
+        }
         if (empty($_POST['confirmpassword'])) {
             Feedback::error(tr('Password confirmation is required perform this group operation'));
             $canProcess = false;
