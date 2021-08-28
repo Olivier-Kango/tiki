@@ -264,7 +264,7 @@ XML;
                 <input type="hidden" name="page" value="$page"/>
                 <input type="hidden" name="template" value="$template"/>
                 <input type="hidden" name="fileName" value="$fileName"/>
-                <input type="hidden" name="xml" value="$data"/>
+                <input type="hidden" name="xml" value='$data'/>
                 <input type="hidden" name="index" value="$diagramIndex"/>
             </p>
         </form>

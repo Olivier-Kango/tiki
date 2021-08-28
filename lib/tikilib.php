@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
+use Tiki\File\DiagramHelper;
 use Tiki\TikiInit;
 
 require_once(__DIR__ . '/../lib/debug/Tracer.php');
@@ -5345,7 +5346,23 @@ class TikiLib extends TikiDb_Bridge
                 $old = $histlib->get_version($pageName, $old_version);
                 $foo = parse_url($_SERVER["REQUEST_URI"]);
                 $machine = self::httpPrefix(true) . dirname($foo["path"]);
-                $diff = diff2($old["data"], $edit_data, "unidiff"); // TODO: Only compute if we have at least one notification to send
+
+                $oldPagePlugins = WikiParser_PluginMatcher::match($old["data"]);
+                $editedPagePlugins = WikiParser_PluginMatcher::match($edit_data);
+
+                // Diagram data can be too big to diff, convert the content to md5 that will help to check for differences
+                $replacedOldPagePlugins = DiagramHelper::md5WikiPluginDiagramContent($oldPagePlugins);
+                $replacedEditedPagePlugins = DiagramHelper::md5WikiPluginDiagramContent($editedPagePlugins);
+
+                $oldPagePlugins->rewind();
+                $editedPagePlugins->rewind();
+
+                $parsedOldPage = $oldPagePlugins->getText();
+                $parsedNewPage = $editedPagePlugins->getText();
+
+                TikiLib::lib('smarty')->assign('has_md5_content_diagrams', $replacedOldPagePlugins || $replacedUpdatedPagePlugins);
+
+                $diff = diff2($parsedOldPage, $parsedNewPage, "unidiff"); // TODO: Only compute if we have at least one notification to send
                 sendWikiEmailNotification('wiki_page_changed', $pageName, $edit_user, $edit_comment, $old_version, $edit_data, $machine, $diff, $edit_minor, $hash['contributions'], 0, 0, $lang);
             }
         }
