@@ -93,7 +93,7 @@ BODY;
         // }}}
     }
 
-    if ($prefs['feature_freetags'] == 'y') {
+    if ($prefs['feature_freetags'] == 'y' && $prefs['search_show_tag_filter'] == 'y') {
         $freetaglib = TikiLib::lib('freetag');
 
         $smarty->assign('filter_tags', $filter->tags->wordspace());
