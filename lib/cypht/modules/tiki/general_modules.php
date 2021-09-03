@@ -345,7 +345,7 @@ class Hm_Output_filter_message_headers_mpdf extends Hm_Output_Module
             $pdf_link = ' <a class="hlink" id="print_pdf" href="#"> ' . $this->trans('PDF') . ' </a>';
             array_push($headersplited, $pdf_link, $last);
             $headers = implode("|", $headersplited);
-            $this->out('msg_headers', $headers);
+            $this->out('msg_headers', $headers, false);
         }
     }
 }
