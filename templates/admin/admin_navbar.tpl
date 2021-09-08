@@ -1,4 +1,4 @@
-<nav class="navbar-expand-md{if $prefs.theme_navbar_color_variant eq 'dark'} navbar-dark bg-dark{else} navbar-light bg-light{/if} admin-navbar mb-4" role="navigation">
+<nav class="navbar-expand-md navbar-{$navbar_color_variant} bg-{$navbar_color_variant} admin-navbar mb-4" role="navigation">
     {if $prefs.theme_unified_admin_backend eq 'y'}<a class="navbar-brand" href="./" title="{tr}Back to the home page{/tr}"><img src="img/tiki/tiki-icon-flat.svg" alt="{tr}Tiki logo{/tr}" height="24"></a>{/if}
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#admin-navbar-collapse-1" aria-controls="admin-navbar-collapse-1" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -140,7 +140,7 @@
         {/if}
     </div>
     {if $include != "list_sections" and $prefs.theme_unified_admin_backend neq 'y'}
-        <div class="adminanchors card"><div class="card-body {if $prefs.theme_navbar_color_variant eq 'dark'}navbar-dark bg-dark{else}navbar-light bg-light{/if}"><ul class="nav navbar-nav">{include file='admin/include_anchors.tpl'}</ul></div></div>
+        <div class="adminanchors card"><div class="card-body navbar-{$navbar_color_variant} bg-{$navbar_color_variant}"><ul class="nav navbar-nav">{include file='admin/include_anchors.tpl'}</ul></div></div>
     {/if}
 </nav>
 

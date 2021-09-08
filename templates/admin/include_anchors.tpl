@@ -1,5 +1,5 @@
 {if $prefs.theme_unified_admin_backend eq 'y'}
-    <nav class="{if $prefs.theme_navbar_color_variant eq 'dark'}navbar-dark bg-dark{else}navbar-light bg-light{/if}
+    <nav class="navbar-{$navbar_color_variant} bg-{$navbar_color_variant}
              d-flex align-items-start flex-column{if not empty($smarty.cookies.sidebar_collapsed)} narrow{/if}" role="navigation">
         <ul class="nav navbar-nav mb-auto" id="admin-menu">
             <li class="nav-item">

@@ -39,7 +39,9 @@ if (! empty($prefs['theme_admin']) && ($section === 'admin' || empty($section)))
     $theme_option_active = $prefs['theme_option_admin'];                                // and its option
 }
 if ($prefs['theme_unified_admin_backend'] === 'y' && strpos($_SERVER['PHP_SELF'], 'tiki-admin.php') !== false) {
-    $prefs['theme_navbar_color_variant'] = $prefs['theme_navbar_color_variant_admin'];
+    $smarty->assign('navbar_color_variant', $prefs['theme_navbar_color_variant_admin']);
+} else {
+    $smarty->assign('navbar_color_variant', $prefs['theme_navbar_color_variant']);
 }
 
 //consider CSS Editor (tiki-edit_css.php)
