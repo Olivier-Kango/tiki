@@ -64,13 +64,13 @@ class Tracker_Field_Url extends Tracker_Field_Abstract implements Tracker_Field_
     public function renderOutput($context = [])
     {
         $smarty = TikiLib::lib('smarty');
+        $smarty->loadPlugin('smarty_function_object_link');
 
         $url = $this->getConfiguration('value');
 
         if (empty($url) || $context['list_mode'] == 'csv' || $this->getOption('linkToURL') == 1) {
             return $url;
         } elseif ($this->getOption('linkToURL') == 2) { // Site title as link
-            $smarty->loadPlugin('smarty_function_object_link');
             return smarty_function_object_link(
                 [
                     'type' => 'external',
@@ -79,11 +79,6 @@ class Tracker_Field_Url extends Tracker_Field_Abstract implements Tracker_Field_
                 $smarty->getEmptyInternalTemplate()
             );
         } elseif ($this->getOption('linkToURL') == 0) { // URL as link
-            $parsedUrl = trim(str_replace('<br />', '', TikiLib::lib('parser')->parse_data($url)));
-            if ($parsedUrl != $url) {
-                return $parsedUrl;
-            }
-            $smarty->loadPlugin('smarty_function_object_link');
             return smarty_function_object_link(
                 [
                     'type' => 'external',
@@ -93,7 +88,6 @@ class Tracker_Field_Url extends Tracker_Field_Abstract implements Tracker_Field_
                 $smarty->getEmptyInternalTemplate()
             );
         } elseif ($this->getOption('linkToURL') == 3) { // URL + site title
-            $smarty->loadPlugin('smarty_function_object_link');
             return smarty_function_object_link(
                 [
                     'type' => 'external_extended',
@@ -102,7 +96,6 @@ class Tracker_Field_Url extends Tracker_Field_Abstract implements Tracker_Field_
                 $smarty->getEmptyInternalTemplate()
             );
         } elseif ($this->getOption('linkToURL') == 4) { // URL as link
-            $smarty->loadPlugin('smarty_function_object_link');
             return smarty_function_object_link(
                 [
                     'type' => 'external',
