@@ -33,7 +33,7 @@ class ODBCSource implements SourceInterface
         $fields = [];
         foreach ($this->schema->getColumns() as $column) {
             $fields[] = $column->getRemoteField();
-            if ($modifiedField && $modifiedField['permName'] == $column->getField()) {
+            if ($modifiedField && is_array($modifiedField) && $modifiedField['permName'] == $column->getField()) {
                 $modifiedField = $column->getRemoteField();
             }
         }

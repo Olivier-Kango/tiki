@@ -19,7 +19,7 @@ class TrackerImportCommand extends Command
     {
         $this
             ->setName('tracker:import')
-            ->setDescription('Import a CSV file into a tracker using a tracker tabular format')
+            ->setDescription('Import a CSV file into a tracker using a tracker tabular format or initiate an ODBC import')
             ->addArgument(
                 'tabularId',
                 InputArgument::REQUIRED,
@@ -27,8 +27,8 @@ class TrackerImportCommand extends Command
             )
             ->addArgument(
                 'filename',
-                InputArgument::REQUIRED,
-                'Location of CSV file to import'
+                InputArgument::OPTIONAL,
+                'Location of CSV file to import (not used if tabular is ODBC-configured)'
             );
     }
 
@@ -43,11 +43,6 @@ class TrackerImportCommand extends Command
         $perms = \Perms::get('tabular', $info['tabularId']);
         if (! $info || ! $perms->tabular_import) {
             throw new \Exception('Tracker Import: Tabular Format not found');
-        }
-
-        $fileName = $input->getArgument('filename');
-        if (! file_exists($fileName)) {
-            throw new \Exception('Tracker Import: File not found');
         }
 
         // from \Services_Tracker_TabularController::getSchema TODO refactor?
@@ -68,10 +63,21 @@ class TrackerImportCommand extends Command
             throw new \Exception(tr('Primary Key required'));
         }
 
-        // this will throw exceptions and not return if there's a problem
-        $source = new \Tracker\Tabular\Source\CsvSource($schema, $fileName);
-        $writer = new \Tracker\Tabular\Writer\TrackerWriter();
-        $writer->write($source);
+        if ($info['odbc_config']) {
+            $source = new \Tracker\Tabular\Source\ODBCSource($schema, $info['odbc_config']);
+            $writer = new \Tracker\Tabular\Writer\TrackerWriter();
+            $writer->write($source);
+        } else {
+            $fileName = $input->getArgument('filename');
+            if (! file_exists($fileName)) {
+                throw new \Exception('Tracker Import: File not found');
+            }
+
+            // this will throw exceptions and not return if there's a problem
+            $source = new \Tracker\Tabular\Source\CsvSource($schema, $fileName);
+            $writer = new \Tracker\Tabular\Writer\TrackerWriter();
+            $writer->write($source);
+        }
 
         \Feedback::printToConsole($output);
 
