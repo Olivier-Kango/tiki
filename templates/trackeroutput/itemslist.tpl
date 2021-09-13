@@ -29,7 +29,7 @@
         <li class="d-flex justify-content-start">
             <a class="float-left" href="{bootstrap_modal controller=tracker action=insert_item trackerId=$field.options_map.trackerId forced=$forcedParam}">{icon name='create' _menu_text='y' _menu_icon='y' ititle="{$data.addItemText}" alt="{$data.addItemText}"}</a>
         </li>
-       {/if}
+    {/if}
 </ul>
 {elseif $data.num eq 1}
 {strip}
@@ -53,4 +53,13 @@
         &nbsp;&nbsp;<a href="{bootstrap_modal controller=tracker action=insert_item trackerId=$field.options_map.trackerId forced=$forcedParam}">{icon name='create' _menu_icon='y' ititle="{$data.addItemText}" alt="{$data.addItemText}"}</a>
     {/if}
 {/strip}
+{else}
+    {if $data.addItemText}
+    <ul class="arrowLinks">
+        {$forcedParam[$data.otherFieldPermName]=$data.parentItemId}
+        <li class="d-flex justify-content-start">
+            <a class="float-left" href="{bootstrap_modal controller=tracker action=insert_item trackerId=$field.options_map.trackerId forced=$forcedParam}">{icon name='create' _menu_text='y' _menu_icon='y' ititle="{$data.addItemText}" alt="{$data.addItemText}"}</a>
+        </li>
+    </ul>
+    {/if}
 {/if}
