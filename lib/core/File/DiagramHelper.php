@@ -251,6 +251,7 @@ class DiagramHelper
             $current = $parser->current();
 
             if ($parser->current()->getName() !== self::WIKI_SYNTAX_DIAGRAM_PLUGIN || empty($parser->current()->getBody())) {
+                $parser->next();
                 continue;
             }
 
