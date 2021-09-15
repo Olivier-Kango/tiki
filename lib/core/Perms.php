@@ -226,7 +226,7 @@ class Perms
      */
     public static function filter(array $baseContext, $bulkKey, array $data, array $contextMap, $permission)
     {
-        $cacheKey = md5(serialize($baseContext) . serialize($bulkKey) . serialize($contextMap) . $permission);
+        $cacheKey = md5(serialize($baseContext) . serialize($bulkKey) . serialize($data) . serialize($contextMap) . $permission);
 
         if (isset(self::$instance->filterCache[$cacheKey])) {
             return self::$instance->filterCache[$cacheKey];
