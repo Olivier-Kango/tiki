@@ -274,21 +274,25 @@ class StructLib extends TikiLib
         }
         $newpagebody .= isset($options['content']) ? $options['content'] : '';
 
-        $created = $this->create_page(
-            $name,
-            0,
-            $newpagebody,
-            $this->now,
-            $creator_msg,
-            $creator,
-            $ip_source,
-            $description,
-            $lang,
-            $is_html,
-            $hash,
-            $wysiwyg,
-            $wiki_authors_style
-        );
+        $created = $this->page_exists($name);
+        // If page exists
+        if (! $created) {
+            $created = $this->create_page(
+                $name,
+                0,
+                $newpagebody,
+                $this->now,
+                $creator_msg,
+                $creator,
+                $ip_source,
+                $description,
+                $lang,
+                $is_html,
+                $hash,
+                $wysiwyg,
+                $wiki_authors_style
+            );
+        }
 
         if (! empty($parent_id) || $created || ! $this->page_is_in_structure($name)) {
             // if were not trying to add a duplicate structure head
