@@ -122,6 +122,10 @@ class Manager
             Feedback::error(tr("Tracker remote synchronization configured with a tabular format that does not exist."));
             return;
         }
+        if (empty($tabular['odbc_config']['sync_deletes'])) {
+            return;
+        }
+
         $schema = $this->getSchema($definition, $tabular);
         foreach ($schema->getColumns() as $column) {
             if ($column->isPrimaryKey()) {

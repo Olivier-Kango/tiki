@@ -558,7 +558,21 @@
                             {icon name=information}
                         </a>
                     </label>
-                    {object_selector type=trackerfield tracker_id=$info.trackerId _simplevalue=$info.tabularSyncModifiedField _simplename="tabularSyncModifiedField"}
+                    <div style="width: 100%">
+                        {object_selector type=trackerfield tracker_id=$info.trackerId _simplevalue=$info.tabularSyncModifiedField _simplename="tabularSyncModifiedField"}
+                    </div>
+                </div>
+                <div class="form-group row depends" data-on="tabularSyncModifiedField">
+                    <label for="tabularSyncLastImport">
+                        {tr}Last import time{/tr}
+                        <a class="tikihelp text-info" title="{tr}Time entry{/tr}: {tr}This tracks the last date/time when this tracker was synchronized with remote source. Subsequent tabular imports will only fetch content newer than this date. Reset to something in the past if you want to re-import.{/tr}">
+                            {icon name=information}
+                        </a>
+                    </label>
+                    <div style="width: 100%">
+                        {if empty($info.tabularSyncLastImport)}{assign var="tabularSyncLastImport" value="0"}{else}{assign var="tabularSyncLastImport" value=$info.tabularSyncLastImport}{/if}
+                        {jscalendar id="tabularSyncLastImport" date=$tabularSyncLastImport fieldname="tabularSyncLastImport" showtime='y' isutc=0}
+                    </div>
                 </div>
             {/accordion_group}
         {/if}
