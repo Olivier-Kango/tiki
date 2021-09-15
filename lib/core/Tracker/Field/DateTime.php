@@ -124,7 +124,11 @@ class Tracker_Field_DateTime extends Tracker_Field_Abstract implements Tracker_F
 
         if ($value) {
             if (isset($context['list_mode']) && $context['list_mode'] == 'csv') {
-                return $tikilib->get_short_datetime($value);
+                if ($this->getOption('datetime') == 'd') {
+                    return $tikilib->get_short_date($value);
+                } else {
+                    return $tikilib->get_short_datetime($value);
+                }
             }
 
             if ($prefs['jquery_timeago'] === 'y' && $this->getOption('useTimeAgo')) {
