@@ -188,6 +188,9 @@ function wikiplugin_trackeritemfield($data, $params)
                 // testing for something
                 return $dataelse;
             }
+        } elseif(empty($info)) {
+            // item not found, nothing to show
+            return '';
         }
 
         $itemObject = Tracker_Item::fromInfo($info);
