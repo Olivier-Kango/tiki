@@ -51,6 +51,15 @@
                         <input class="form-control" type="text" name="odbc[table]" value="{$odbc_config.table|escape}">
                     </div>
                 </div>
+                <div class="form-group row">
+                    <label class="col-form-label col-sm-2 offset-sm-1">{tr}Sync deletes{/tr}</label>
+                    <div class="col-sm-9">
+                        <input class="form-check-input" type="checkbox" name="odbc[sync_deletes]" {if $odbc_config.sync_deletes}checked{/if} value="1">
+                        <a class="tikihelp text-warning" title="{tr}Synchronization{/tr}: {tr}Deleting a tracker item or clearing the local tracker will also erase items remotely. Use with care!{/tr}">
+                            {icon name=warning}
+                        </a>
+                    </div>
+                </div>
             </div>
             {/if}
             <div class="form-group row">
