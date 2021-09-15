@@ -456,6 +456,10 @@ window.customsearch_$id = customsearch$id;
 					$default = $value;
 					unset($defaultRequest[$key]);
 					break;
+				} elseif (! empty($arguments['_group']) && $key === $arguments['_group'] && $arguments['type'] === 'radio' && $arguments['_value'] === $value) {
+					$default = $value;
+					unset($defaultRequest[$key]);
+					break;
 				} elseif (! empty($arguments['id']) && (
 						! empty($defaultRequest["{$arguments['id']}_from"]) ||
 						! empty($defaultRequest["{$arguments['id']}_to"]) ||
@@ -463,23 +467,15 @@ window.customsearch_$id = customsearch$id;
 					)) {
 
 					// defaults for date ranges with the id
-					$default = [
-						'from' => $defaultRequest["{$arguments['id']}_from"] ?? '',
-						'to'   => $defaultRequest["{$arguments['id']}_to"] ?? '',
-						'gap'  => $defaultRequest["{$arguments['id']}_gap"] ?? '',
-					];
+					$default = csGetRangeDefaults($defaultRequest, $arguments['id']);
 				} elseif (! empty($arguments['_field']) && (
 						! empty($defaultRequest["{$arguments['_field']}_from"]) ||
 						! empty($defaultRequest["{$arguments['_field']}_to"]) ||
-						! empty($defaultRequest["{$arguments['_field']}_gap"])
-					)) {
+						! empty($defaultRequest["{$arguments['_field']}_gap"]))
+				) {
 
 					// defaults for date ranges with the field name
-					$default = [
-						'from' => $defaultRequest["{$arguments['_field']}_from"] ?? '',
-						'to'   => $defaultRequest["{$arguments['_field']}_to"] ?? '',
-						'gap'  => $defaultRequest["{$arguments['_field']}_gap"] ?? '',
-					];
+					$default = csGetRangeDefaults($defaultRequest, $arguments['_field']);
 				}
 			}
 
@@ -609,6 +605,29 @@ $(document).trigger('formSearchReady');
 	}
 }
 
+/**
+ * @param array  $defaultRequest The default array passed from the URL
+ * @param string $key            Current id or fieldname being processed
+ *
+ * @return string[]
+ */
+function csGetRangeDefaults(array &$defaultRequest, string $key): array
+{
+	$default = [];
+
+	foreach (['from', 'to', 'gap'] as $str) {
+		if (isset($defaultRequest["{$key}_{$str}"])) {
+			$default[$str] = $defaultRequest["{$key}_{$str}"];
+			if (is_numeric($default[$str])) {
+				$default['from'] = strtotime($default[$str]);
+			}
+			unset($defaultRequest["{$key}_{$str}"]);
+		}
+	}
+
+	return $default;
+}
+
 function cs_design_setbasic($element, $fieldid, $fieldname, $arguments)
 {
 	$element->setAttribute('id', $fieldid);
@@ -678,7 +697,9 @@ function cs_design_input($id, $fieldname, $fieldid, $arguments, $default, &$scri
 	$type = $arguments->type->word();
 
 	if ($default && $type != "hidden") {
-		if ((string) $default != 'n' && ($type == 'checkbox' || $type == 'radio')) {
+        if ((string) $default != 'n' && $type == 'checkbox') {
+            $element->setAttribute('checked', 'checked');
+        } else if ($type == 'radio' && (string) $default === $arguments->_value->text()) {
 			$element->setAttribute('checked', 'checked');
 		} else {
 			$element->setAttribute('value', $default);
