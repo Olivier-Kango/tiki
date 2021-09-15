@@ -15,7 +15,14 @@
                     </div>
                 </form>
             </li>
-            <li class="nav-item sections-header mt-2"><a href="tiki-admin.php" class="tips right nav-link" title="{tr}Control Panels Dashboard{/tr}|{tr}Go back to or reload the Control Panels / Administration Dashboard{/tr}">{icon name='home' iclass='fa-fw'}<span>{tr}Control Panels{/tr}</span></a></li>
+            {if not empty($smarty.request.page)}
+                <li class="nav-item sections-header mt-2">
+                    <a href="tiki-admin.php" class="tips right nav-link" title="{tr}Control Panels{/tr}|{tr}Go back to or reload the Control Panels / Administration Dashboard{/tr}">
+                        {icon name='home' iclass='fa-fw'}
+                        <span>{tr}Admin Dashboard{/tr}</span>
+                    </a>
+                </li>
+            {/if}
             {foreach $admin_icons as $section => $secInfo}
                 <li class="nav-item">
                     <a href="#" class="tips right nav-link icon collapse-toggle" data-toggle="collapse" data-target="#collapse{$section}"
