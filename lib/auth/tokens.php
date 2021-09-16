@@ -62,6 +62,22 @@ class AuthTokens
         return $this->table->fetchAll([], $conditions, -1, -1, ['creation' => 'asc']);
     }
 
+    /**
+     * @param int $limit The maximum number of tokens to delete
+     *
+     * @return mixed
+     */
+    public function deleteExpired(int $limit = -1)
+    {
+        return $this->db->query(
+            'DELETE FROM tiki_auth_tokens
+                WHERE (timeout != -1 AND UNIX_TIMESTAMP(creation) + timeout < UNIX_TIMESTAMP())
+                OR `hits` = 0',
+            null,
+            $limit,
+        );
+    }
+
     public function getGroups($token, $entry, $parameters)
     {
         // Process deletion of temporary users that are created via tokens
@@ -80,13 +96,7 @@ class AuthTokens
             }
         }
 
-        $this->db->query(
-            'DELETE FROM tiki_auth_tokens
-                WHERE (timeout != -1 AND UNIX_TIMESTAMP(creation) + timeout < UNIX_TIMESTAMP())
-                OR `hits` = 0',
-            null,
-            2000
-        );
+        $this->deleteExpired(2000);
 
         $data = $this->db->query(
             'SELECT tokenId, entry, parameters, `groups`, email, createUser, userPrefix FROM tiki_auth_tokens WHERE token = ? AND token = ' . self::SCHEME,
