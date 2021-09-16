@@ -848,11 +848,11 @@ class PdfGenerator
             $faCodes = file_get_contents('lib/pdf/fontdata/fa-codes.json');
             $jfo = json_decode($faCodes, true);
             for ($i = 0; $i < $fadivs->length; $i++) {
-                  $fadiv = $fadivs->item($i);
-                  $faClass = explode(" ", str_replace(["fa ","-"], "", $fadiv->getAttribute('class')));
+                $fadiv = $fadivs->item($i);
+                $faClass = explode(" ", str_replace(["fa ","-"], "", $fadiv->getAttribute('class')));
                 foreach ($faClass as $class) {
-                    if ($jfo[$class][codeValue]) {
-                        $faCode = $doc->createElement('span', " " . $jfo[$class][codeValue]);
+                    if (!empty($jfo[$class]['codeValue'])) {
+                        $faCode = $doc->createElement('span', " " . $jfo[$class]['codeValue']);
                         $faCode->setAttribute("style", "font-family: FontAwesome;float:left;padding-left:5px" . $fadiv->getAttribute('style'));
                         //span with fontawesome code inserted before fa div
                         $faCode->setAttribute("class", $fadiv->getAttribute('class'));
