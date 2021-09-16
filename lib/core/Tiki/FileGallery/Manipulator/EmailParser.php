@@ -30,6 +30,7 @@ class EmailParser extends Manipulator
         }
 
         $result = [
+            'source_id' => $message->getHeaderValue('X-Tiki-Source'),
             'message_id' => $message->getHeaderValue('Message-ID'),
             'subject' => $message->getHeaderValue('Subject'),
             'body' => $message->getContent(),
