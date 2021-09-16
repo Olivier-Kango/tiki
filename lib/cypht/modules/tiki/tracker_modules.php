@@ -162,6 +162,10 @@ class Hm_Handler_move_to_tracker extends Hm_Handler_Module
             return;
         }
 
+        if ($this->session->get('page_id')) {
+            $msg = "X-Tiki-Source: ".$this->session->get('page_id')."\r\n".$msg;
+        }
+
         $field['value'] = [
             'new' => [
                 'name' => ! empty($headers['Message-ID']) ? $headers['Message-ID'] : $headers['Subject'],

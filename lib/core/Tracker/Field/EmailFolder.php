@@ -112,6 +112,24 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements Tracker_F
                 $parsed_fields['trackerId'] = $this->getTrackerDefinition()->getConfiguration('trackerId');
                 $parsed_fields['itemId'] = $this->getItemId();
                 $parsed_fields['fieldId'] = $this->getConfiguration('fieldId');
+                $view_path = 'tiki-webmail.php';
+                if (! empty($parsed_fields['source_id'])) {
+                    $page_info = TikiLib::lib('tiki')->get_page_info_from_id($parsed_fields['source_id']);
+                    if ($page_info && stristr($page_info['data'], "cypht")) {
+                        TikiLib::lib('smarty')->loadPlugin('smarty_modifier_sefurl');
+                        $view_path = smarty_modifier_sefurl($page_info['pageName']);
+                        if (preg_match("/tiki-index\.php\?page=.*/", $view_path)) {
+                            $view_path = "tiki-index.php?page_id=".$parsed_fields['source_id'];
+                        }
+                    }
+                }
+                if (strstr($view_path, '?')) {
+                    $view_path .= '&';
+                } else {
+                    $view_path .= '?';
+                }
+                $view_path .= "page=message&uid=".$parsed_fields['fileId']."&list_path=tracker_folder_".$parsed_fields['itemId']."_".$parsed_fields['fieldId']."&list_parent=tracker_".$parsed_fields['trackerId'];
+                $parsed_fields['view_path'] = $view_path;
                 $emails[$folder][] = $parsed_fields;
             }
         }

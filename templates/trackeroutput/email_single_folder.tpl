@@ -18,7 +18,7 @@
         {/if}
       </td>
       <td>{$email.recipient|escape}</td>
-      <td><a href="tiki-webmail.php?page=message&amp;uid={$email.fileId}&amp;list_path=tracker_folder_{$email.itemId}_{$email.fieldId}&amp;list_parent=tracker_{$email.trackerId}">{if $email.subject}{$email.subject|escape}{else}{tr}(None){/tr}{/if}</a></td>
+      <td><a href="{$email.view_path}">{if $email.subject}{$email.subject|escape}{else}{tr}(None){/tr}{/if}</a></td>
       <td>{$email.date|tiki_short_datetime}</td>
     </tr>
   {/foreach}
