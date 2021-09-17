@@ -3214,25 +3214,20 @@ class BenchmarkPhp
     {
         $timeStart = microtime(true);
 
-        $mathFunctions = array(
-            "abs",
-            "acos",
-            "asin",
-            "atan",
-            "bindec",
-            "floor",
-            "exp",
-            "sin",
-            "tan",
-            "pi",
-            "is_finite",
-            "is_nan",
-            "sqrt",
-        );
         for ($i = 0; $i < $count; $i++) {
-            foreach ($mathFunctions as $function) {
-                call_user_func_array($function, array($i));
-            }
+            sin($i);
+            asin($i);
+            cos($i);
+            acos($i);
+            tan($i);
+            atan($i);
+            abs($i);
+            floor($i);
+            exp($i);
+            is_finite($i);
+            is_nan($i);
+            sqrt($i);
+            log10($i);
         }
         $result['benchmark']['math'] = self::timer_diff($timeStart);
     }
@@ -3245,26 +3240,21 @@ class BenchmarkPhp
     protected static function test_string(&$result, $count = 400000)
     {
         $timeStart = microtime(true);
-        $stringFunctions = array(
-            "addslashes",
-            "chunk_split",
-            "metaphone",
-            "strip_tags",
-            "md5",
-            "sha1",
-            "strtoupper",
-            "strtolower",
-            "strrev",
-            "strlen",
-            "soundex",
-            "ord",
-        );
 
         $string = 'the quick brown fox jumps over the lazy dog';
         for ($i = 0; $i < $count; $i++) {
-            foreach ($stringFunctions as $function) {
-                call_user_func_array($function, array($string));
-            }
+            addslashes($string);
+            chunk_split($string);
+            metaphone($string);
+            strip_tags($string);
+            md5($string);
+            sha1($string);
+            strtoupper($string);
+            strtolower($string);
+            strrev($string);
+            strlen($string);
+            soundex($string);
+            ord($string);
         }
         $result['benchmark']['string'] = self::timer_diff($timeStart);
     }
