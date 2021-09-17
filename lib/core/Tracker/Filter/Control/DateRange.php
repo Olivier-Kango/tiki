@@ -23,6 +23,16 @@ class DateRange implements Control
     {
         $this->from = $input->{$this->fieldName . '_from'}->int() ?: '';
         $this->to = $input->{$this->fieldName . '_to'}->int() ?: '';
+
+        if ($tzoffset = $input->tzoffset->int()) {
+            $browser_offset = (int)$tzoffset * 60;
+            if ($this->from) {
+                $this->from = $this->from - $browser_offset;
+            }
+            if ($this->to) {
+                $this->to = $this->to - $browser_offset;
+            }
+        }
     }
 
     public function getQueryArguments()
