@@ -57,18 +57,6 @@ class Search_GlobalSource_PermissionSource implements Search_GlobalSource_Interf
             $groups = array_merge($groups, $this->getAllowedGroups($accessor, $viewPermission));
         }
 
-        if (isset($data['parent_view_permission'], $data['parent_object_id'], $data['parent_object_type'])) {
-            $viewPermission = is_object($data['parent_view_permission']) ? $data['parent_view_permission']->getValue() : $data['parent_view_permission'];
-            $accessor = $this->perms->getAccessor(
-                [
-                    'type' => $data['parent_object_type']->getValue(),
-                    'object' => $data['parent_object_id']->getValue(),
-                ]
-            );
-
-            $groups = array_merge($groups, $this->getAllowedGroups($accessor, $viewPermission));
-        }
-
         // Used for comments - must see the parent view permission in addition to a global permission to view comments
         if (isset($data['global_view_permission'])) {
             $globalPermission = $data['global_view_permission'];
