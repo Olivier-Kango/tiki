@@ -23,6 +23,7 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
  */
 class Table_Settings_TikiForums extends Table_Settings_Standard
 {
+
 	protected $ts = [
 		'ajax' => [
 			'url' => [
@@ -37,8 +38,7 @@ class Table_Settings_TikiForums extends Table_Settings_Standard
 					'ajax' => 'name',
 				],
 				'filter' => [
-					'type' => 'text',
-					'ajax' => 'find',
+                    'type' => false,
 				],
 				'priority' => 'critical',
 			],
@@ -102,4 +102,23 @@ class Table_Settings_TikiForums extends Table_Settings_Standard
 			],
 		],
 	];
+
+	/**
+	 * @param array $ts
+	 */
+	public function __construct(array $ts)
+	{
+		global $prefs;
+
+		if ($prefs['feature_forums_name_search'] === 'y') {
+			$this->ts['columns']['#name']['filter'] = [
+				'type'        => 'text',
+				'placeholder' => 'Filter forum names',
+				'ajax'        => 'find',
+			];
+		}
+
+		parent::__construct($ts);
+	}
+
 }
