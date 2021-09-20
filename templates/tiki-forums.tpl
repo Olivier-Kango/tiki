@@ -57,6 +57,28 @@
                 {/if}
             {/if}
         {/if}
+    {elseif $prefs.feature_forums_search eq 'y' and $prefs.feature_search eq 'y'}{* and $ts.enabled *}
+        <div class="row mb-4 mx-0">
+            <div class="col-12">
+                <form class="form" method="get" role="form" action="{if $prefs.feature_search_fulltext neq 'y'}tiki-searchindex.php{else}tiki-searchresults.php{/if}">
+                    <div class="form-group row">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    {icon name="search"}
+                                </span>
+                            </div>
+                            <input name="filter~content" type="text" class="form-control" placeholder="{tr}Find{/tr}...">
+                            <div class="input-group-append">
+                                <input type="hidden" name="where" value="forums">
+                                <input type="hidden" name="filter~type" value="forum post">
+                                <input type="submit" class="wikiaction btn btn-info" name="search" value="{tr}Search in content{/tr}">
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     {/if}
 {/if}
 <div id="{$ts.tableid}-div" class="{if $js}table-responsive{/if} ts-wrapperdiv" {if $ts.enabled}style="visibility:hidden;"{/if}> {*the table-responsive class cuts off dropdown menus *}
