@@ -137,6 +137,11 @@ add_handler('ajax_tiki_delete_message', 'message_list_type', true, 'core');
 add_handler('ajax_tiki_delete_message', 'tracker_message_list_type', true);
 add_handler('ajax_tiki_delete_message', 'close_session_early', true, 'core');
 add_handler('ajax_tiki_delete_message', 'tiki_delete_message', true);
+setup_base_ajax_page('ajax_tiki_archive_message', 'core');
+add_handler('ajax_tiki_archive_message', 'message_list_type', true, 'core');
+add_handler('ajax_tiki_archive_message', 'tracker_message_list_type', true);
+add_handler('ajax_tiki_archive_message', 'close_session_early', true, 'core');
+add_handler('ajax_tiki_archive_message', 'tiki_archive_message', true);
 setup_base_ajax_page('ajax_tiki_move_copy_action', 'core');
 add_handler('ajax_tiki_move_copy_action', 'load_imap_servers_from_config', true, 'imap');
 add_handler('ajax_tiki_move_copy_action', 'imap_oauth2_token_check', true, 'imap');
@@ -158,6 +163,7 @@ return array(
     'ajax_move_to_tracker',
     'ajax_tiki_message_content',
     'ajax_tiki_delete_message',
+    'ajax_tiki_archive_message',
     'ajax_tiki_move_copy_action',
   ),
   'allowed_get' => array(
@@ -172,6 +178,9 @@ return array(
     'msg_prev_subject' => array(FILTER_SANITIZE_STRING, false),
     'msg_next_link' => array(FILTER_SANITIZE_STRING, false),
     'msg_next_subject' => array(FILTER_SANITIZE_STRING, false),
+    'delete_error' => array(FILTER_VALIDATE_BOOLEAN, false),
+    'archive_error' => array(FILTER_VALIDATE_BOOLEAN, false),
+    'show_archive' => array(FILTER_VALIDATE_BOOLEAN, false),
   ),
   'allowed_post' => array(
     'imap_server_id' => FILTER_VALIDATE_INT,
