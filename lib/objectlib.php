@@ -585,6 +585,7 @@ class ObjectLib extends TikiLib
                 $info = TikiLib::lib('calendar')->get_calendar($id);
                 return $info['name'];
             case 'calendar event':
+            case 'calendaritem':
                 $info = TikiLib::lib('calendar')->get_item($id);
                 return $info['name'];
         }
