@@ -303,7 +303,7 @@ $("#filtercal").submit(function () {
                     if (event.url) {
                         $.ajax({
                             dataType: 'html',
-                            url: event.url + '&fullcalendar=y&isModal=1',
+                            url: event.url + '&fullcalendar=y&modal=1',
                             success: function(data){
                                 var $dialog = $('#calendar_dialog').remove();
                                 $('#calendar_dialog_content', $dialog).html(data);
@@ -319,7 +319,7 @@ $("#filtercal").submit(function () {
                 dateClick: function(info) {
                     $.ajax({
                         dataType: 'html',
-                        url: 'tiki-calendar_edit_item.php?fullcalendar=y&todate=' + info.date.toUnix() + '&tzoffset=' + (new Date()).getTimezoneOffset() + '&isModal=1',
+                        url: 'tiki-calendar_edit_item.php?fullcalendar=y&todate=' + info.date.toUnix() + '&tzoffset=' + (new Date()).getTimezoneOffset() + '&modal=1',
                         success: function(data) {
                             var $dialog = $('#calendar_dialog').remove();
                             $('#calendar_dialog_content', $dialog ).html(data);

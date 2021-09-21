@@ -230,17 +230,20 @@ class Tracker_Field_CalendarItem extends Tracker_Field_JsCalendar
         $perms = Perms::get([ 'type' => 'calendar', 'object' => $event['calendarId']]);
 
         if ($perms->change_events) {
+            $itemId = $this->getItemId();
+            if (! $itemId) {
+                $itemId = 0;
+            }
             if ($event) {
-                $editUrl = 'tiki-calendar_edit_item.php?fullcalendar=y&isModal=1&trackerItemId=' . $this->getItemId() . '&calitemId=' . $event['calitemId'];
+                $editUrl = 'tiki-calendar_edit_item.php?fullcalendar=y&modal=1&trackerItemId=' . $itemId . '&calitemId=' . $event['calitemId'];
             } else {
-                $editUrl = 'tiki-calendar_edit_item.php?fullcalendar=y&isModal=1&trackerItemId=' . $this->getItemId() . '&calendarId=' . $this->getOption('calendarId');
+                $editUrl = 'tiki-calendar_edit_item.php?fullcalendar=y&modal=1&trackerItemId=' . $itemId . '&calendarId=' . $this->getOption('calendarId');
             }
             $headerlib = TikiLib::lib('header');
 
             $headerlib->add_js_config('window.CKEDITOR_BASEPATH = "' . $tikiroot . 'vendor_bundled/vendor/ckeditor/ckeditor/";')
                 ->add_jsfile('vendor_bundled/vendor/ckeditor/ckeditor/ckeditor.js', true)
                 ->add_js('window.dialogData = [];', 1);
-            // ->add_js('window.CKEDITOR.config._TikiRoot = "' . $tikiroot . '";', 1);
         } else {
             $editUrl = '';
         }

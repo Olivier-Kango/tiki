@@ -1,6 +1,6 @@
 {title admpage="calendar"}{tr}Calendar event : {/tr}{$calitem.name|escape}{/title}
 
-{if isset($smarty.get.isModal) && $smarty.get.isModal}
+{if isset($smarty.get.modal) && $smarty.get.modal}
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 class="modal-title"></h4>
@@ -8,7 +8,7 @@
 {/if}
 <form action="{$myurl|escape}" method="post" name="f" id="editcalitem" class="no-ajax">
     <div class="modal-body">
-        {if !$smarty.get.isModal}
+        {if !$smarty.get.modal}
             <div class="t_navbar mb-4">
                 {if $tiki_p_view_calendar eq 'y'}
                     {button href="tiki-calendar.php" _type="link" _text="{tr}View Calendars{/tr}" _icon_name="view"}
