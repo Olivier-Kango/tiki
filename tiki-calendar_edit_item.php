@@ -80,7 +80,7 @@ foreach ($rawcals["data"] as $cal_data) {
         $cal_data["tiki_p_change_events"] = $calperms->change_events ? "y" : "n";
     }
     $caladd["$cal_id"] = $cal_data;
-    if ($cal_data['tiki_p_add_events'] == 'y' && empty($calID)) {
+    if ($cal_data['tiki_p_add_events'] == 'y') {
         $calID = $cal_id;
         $addable[] = $calID;
     }
