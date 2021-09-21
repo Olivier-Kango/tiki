@@ -2,10 +2,10 @@
     {if $data.count eq 0}
         {tr}Emails can be copied or moved here via the Webmail interface.{/tr}
     {elseif $field.options_map.useFolders}
-        {foreach from=$data.emails key=folder item=emails}
-            <div><a href="#" class="email-folder-switcher" data-folder="{$folder}">{$field.options_map["{$folder}Name"]}</a></div>
-            <div class="email-folder-contents folder-{$folder}" style="display: none">
-                {include file='trackeroutput/email_single_folder.tpl' emails=$emails}
+        {foreach from=$data.folders key=folder item=folderName}
+            <div><a href="#" class="email-folder-switcher" data-folder="{$folder}">{$folderName} ({$data.emails[$folder]|count})</a></div>
+            <div class="email-folder-contents folder-{$folder}" style="display: {if in_array($folder, $data.opened)}block{else}none{/if}">
+                {include file='trackeroutput/email_single_folder.tpl' emails=$data.emails[$folder]}
             </div>
         {/foreach}
         {jq}

@@ -37,7 +37,6 @@ if (! hm_exists('tiki_parse_message')) {
         }
         $item[$field['fieldId']] = $trk->get_item_value(null, $item['itemId'], $field['fieldId']);
 
-        $definition = Tracker_Definition::get($field['trackerId']);
         $handler = $trk->get_field_handler($field, $item);
         $data = $handler->getFieldData();
 
@@ -61,6 +60,7 @@ if (! hm_exists('tiki_parse_message')) {
                 }
             }
             if ($email) {
+                $email['show_archive'] = $handler->getOption('useFolders') && $folder != 'archive';
                 break;
             }
         }

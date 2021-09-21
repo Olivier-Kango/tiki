@@ -30,7 +30,7 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements Tracker_F
                     ],
                     'useFolders' => [
                         'name' => tr('Use Folders'),
-                        'description' => tr('Use separate folders like Inbox, Sent, Trash.'),
+                        'description' => tr('Use separate folders like Inbox, Sent, Trash, Archive.'),
                         'filter' => 'int',
                         'options' => [
                             0 => tr('No'),
@@ -62,6 +62,36 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements Tracker_F
                         'description' => tr('Name of the Trash folder.'),
                         'filter' => 'text',
                         'default' => 'Trash',
+                        'depends' => [
+                            'field' => 'useFolders',
+                            'value' => '1'
+                        ],
+                    ],
+                    'archiveName' => [
+                        'name' => tr('Archive Name'),
+                        'description' => tr('Name of the Archive folder.'),
+                        'filter' => 'text',
+                        'default' => 'Archive',
+                        'depends' => [
+                            'field' => 'useFolders',
+                            'value' => '1'
+                        ],
+                    ],
+                    'customFolders' => [
+                        'name' => tr('Custom Folders'),
+                        'description' => tr('Comma separated list of additional folders to use.'),
+                        'filter' => 'text',
+                        'default' => '',
+                        'depends' => [
+                            'field' => 'useFolders',
+                            'value' => '1'
+                        ],
+                    ],
+                    'openedFolders' => [
+                        'name' => tr('Opened Folders'),
+                        'description' => tr('Comma separated list of folders to show opened by default.'),
+                        'filter' => 'text',
+                        'default' => '',
                         'depends' => [
                             'field' => 'useFolders',
                             'value' => '1'
@@ -175,9 +205,9 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements Tracker_F
             };
             if ($this->getOption('useFolders')) {
                 $result = "";
-                foreach (['inbox', 'sent', 'trash'] as $folder) {
+                foreach ($this->getFolders() as $folder => $folderName) {
                     if (! empty($emails[$folder])) {
-                        $result .= $this->getOption($folder . 'Name') . "\n";
+                        $result .= $folderName . "\n";
                         $result .= $folderFormatter($emails[$folder]);
                     }
                 }
@@ -189,6 +219,8 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements Tracker_F
         return $this->renderTemplate('trackeroutput/email_folder.tpl', $context, [
             'emails' => $emails,
             'count' => $this->getConfiguration('count'),
+            'folders' => $this->getFolders(),
+            'opened' => array_map(function($folder) { return $this->folderHandle($folder); }, preg_split('/\s*,\s*/', $this->getOption('openedFolders'))),
         ]);
     }
 
@@ -206,7 +238,9 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements Tracker_F
                 $this->addEmail($existing[$folder], $value['new']);
             }
         } elseif (isset($value['delete'])) {
-            $this->deleteEmail($existing, $value['delete']);
+            $this->deleteEmail($existing, $value['delete'], $value['skip_trash'] ?? false);
+        } elseif (isset($value['archive'])) {
+            $this->archiveEmail($existing, $value['archive']);
         }
         return parent::handleSave(json_encode($existing), $oldValue);
     }
@@ -282,6 +316,22 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements Tracker_F
         return $schema;
     }
 
+    public function getFolders() {
+        $folders = [
+            'inbox' => $this->getOption('inboxName'),
+            'sent' => $this->getOption('sentName'),
+            'trash' => $this->getOption('trashName'),
+            'archive' => $this->getOption('archiveName'),
+        ];
+        $custom = preg_split('/\s*,\s*/', $this->getOption('customFolders'));
+        $handles = array_map(function($folder){ return $this->folderHandle($folder); }, $custom);
+        return array_merge($folders, array_combine($handles, $custom));
+    }
+
+    protected function folderHandle($folderName) {
+        return preg_replace("/[^a-z0-9]+/", "", strtolower($folderName));
+    }
+
     protected function addEmail(&$existing, $file)
     {
         $filegallib = TikiLib::lib('filegal');
@@ -297,13 +347,13 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements Tracker_F
         }
     }
 
-    protected function deleteEmail(&$existing, $fileId)
+    protected function deleteEmail(&$existing, $fileId, $skip_trash = false)
     {
         foreach ($existing as $folder => $_) {
             if (($key = array_search($fileId, $existing[$folder])) !== false) {
                 unset($existing[$folder][$key]);
                 $existing[$folder] = array_values($existing[$folder]);
-                if ($this->getOption('useFolders') && $folder != 'trash') {
+                if ($this->getOption('useFolders') && $folder != 'trash' && $folder != 'archive' && !$skip_trash) {
                     $existing['trash'][] = $fileId;
                 } else {
                     $filegallib = TikiLib::lib('filegal');
@@ -312,6 +362,22 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements Tracker_F
                         $filegallib->remove_file($info);
                     }
                 }
+                break;
+            }
+        }
+    }
+
+    protected function archiveEmail(&$existing, $fileId)
+    {
+        if (! $this->getOption('useFolders')) {
+            Feedback::error(tr('%0 field: not configured to use folders but message was tried to be archived.', $this->getConfiguration('name')));
+            return;
+        }
+        foreach ($existing as $folder => $_) {
+            if (($key = array_search($fileId, $existing[$folder])) !== false) {
+                unset($existing[$folder][$key]);
+                $existing[$folder] = array_values($existing[$folder]);
+                $existing['archive'][] = $fileId;
                 break;
             }
         }
