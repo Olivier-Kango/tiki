@@ -98,7 +98,7 @@ function prefs_cookie_list()
         'cookie_consent_mode' => [
             'name' => tra('Cookie consent mode'),
             'description' => tra('Appearance of consent dialog'),
-            'hint' => tra('Dialog style requires feature_jquery_ui'),
+            'hint' => tra(''),
             'type' => 'list',
             'options' => [
                 '' => tra('Plain'),
