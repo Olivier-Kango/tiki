@@ -98,6 +98,9 @@ class Hm_Handler_move_to_tracker extends Hm_Handler_Module
             $msg = rtrim($msg) . "\r\n";
 
             $headers = $imap->get_message_headers($form['imap_msg_uid']);
+            if (! empty($headers['Flags'])) {
+                $msg = "Flags: ".$headers['Flags']."\r\n".$msg;
+            }
 
             // ensure file was saved before removing it from remote mailbox
             TikiLib::events()->bind('tiki.trackeritem.update', function ($args) {
@@ -116,6 +119,12 @@ class Hm_Handler_move_to_tracker extends Hm_Handler_Module
             if (! $email) {
                 Hm_Msgs::add('ERRMessage could not be loaded');
                 return;
+            }
+            if (isset($form['folder']) && $form['folder'] != 'archive') {
+                tiki_flag_message($email['fileId'], 'remove', 'archive');
+            }
+            if (isset($form['folder']) && $form['folder'] != 'trash') {
+                tiki_flag_message($email['fileId'], 'remove', 'deleted');
             }
             $file = Tiki\FileGallery\File::id($email['fileId']);
             $msg = $file->getContents();
@@ -251,6 +260,9 @@ class Hm_Handler_tiki_delete_message extends Hm_Handler_Module
     {
         list($success, $form) = $this->process_form(array('imap_msg_uid', 'list_path'));
         if ($success) {
+            tiki_flag_message($form['imap_msg_uid'], 'add', 'deleted');
+            tiki_flag_message($form['imap_msg_uid'], 'remove', 'archive');
+
             $path = str_replace('tracker_folder_', '', $form['list_path']);
             list ($itemId, $fieldId) = explode('_', $path);
             $trk = TikiLib::lib('trk');
@@ -291,6 +303,9 @@ class Hm_Handler_tiki_archive_message extends Hm_Handler_Module
     {
         list($success, $form) = $this->process_form(array('imap_msg_uid', 'list_path'));
         if ($success) {
+            tiki_flag_message($form['imap_msg_uid'], 'add', 'archive');
+            tiki_flag_message($form['imap_msg_uid'], 'remove', 'deleted');
+
             $path = str_replace('tracker_folder_', '', $form['list_path']);
             list ($itemId, $fieldId) = explode('_', $path);
             $trk = TikiLib::lib('trk');
@@ -314,6 +329,49 @@ class Hm_Handler_tiki_archive_message extends Hm_Handler_Module
             ]);
             Hm_Msgs::add('Message archived');
             $this->out('archive_error', false);
+        }
+    }
+}
+
+/**
+ * Flag a message
+ * @subpackage tiki/handler
+ */
+class Hm_Handler_flag_tiki_message extends Hm_Handler_Module {
+    /**
+     * Use IMAP to flag the selected message uid
+     */
+    public function process() {
+        list($success, $form) = $this->process_form(array('imap_msg_uid', 'list_path'));
+        if ($success) {
+            $email = tiki_parse_message($form['list_path'], $form['imap_msg_uid']);
+            if (! $email) {
+                return;
+            }
+            $flag_state = tiki_toggle_flag_message($email['fileId'], 'flagged');
+            $this->out('flag_state', $flag_state);
+            $this->out('show_archive', $email['show_archive']);
+        }
+    }
+}
+
+/**
+ * Perform an action against a Tiki stored message
+ * @subpackage imap/handler
+ */
+class Hm_Handler_tiki_message_action extends Hm_Handler_Module {
+    public function process() {
+        list($success, $form) = $this->process_form(array('action_type', 'imap_msg_uid', 'list_path'));
+        if ($success) {
+            $email = tiki_parse_message($form['list_path'], $form['imap_msg_uid']);
+            if (! $email) {
+                return;
+            }
+            switch ($form['action_type']) {
+                case 'unread':
+                    tiki_flag_message($email['fileId'], 'remove', 'seen');
+                    break;
+            }
         }
     }
 }
@@ -346,6 +404,8 @@ class Hm_Handler_tiki_message_content extends Hm_Handler_Module
         if (! $email) {
             return;
         }
+
+        tiki_flag_message($email['fileId'], 'add', 'seen');
 
         $message = $email['message_raw'];
 
@@ -548,10 +608,10 @@ class Hm_Output_add_move_to_trackers extends Hm_Output_Module
 }
 
 /**
- * Forward prev/next links to the frontend
+ * Forward handler vars to the frontend
  * @subpackage tiki/output
  */
-class Hm_Output_add_prev_next_links extends Hm_Output_Module
+class Hm_Output_forward_variables extends Hm_Output_Module
 {
     protected function output()
     {
@@ -560,6 +620,7 @@ class Hm_Output_add_prev_next_links extends Hm_Output_Module
         $this->out('msg_next_link', $this->get('msg_next_link'));
         $this->out('msg_next_subject', $this->get('msg_next_subject'));
         $this->out('show_archive', $this->get('show_archive'));
+        $this->out('flag_state', $this->get('flag_state'));
     }
 }
 
