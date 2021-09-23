@@ -570,6 +570,9 @@ body {
 .inline-cypht input, .inline-cypht option, .inline-cypht select {
   padding: 5px 10px;
 }
+.inline-cypht .select2-container {
+  width: auto !important;
+}
 .inline-cypht .btn-outline-secondary:hover {
   text-decoration: none;
 }
