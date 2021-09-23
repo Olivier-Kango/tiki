@@ -4337,7 +4337,7 @@ class TikiLib extends TikiDb_Bridge
      * @param null $bindvars
      * @return bool
      */
-    public function _get_values($table, $field_name, $var_names = null, &$global_ref, $query_cond = '', $bindvars = null)
+    public function _get_values($table, $field_name, $var_names = null, &$global_ref = [], $query_cond = '', $bindvars = null)
     {
         if (empty($table) || empty($field_name)) {
             return false;

@@ -4688,7 +4688,7 @@ class TrackerLib extends TikiLib
     /* get the fields from the pretty tracker template
          * return a list of fieldIds
          */
-    public function get_pretty_fieldIds($resource, $type = 'wiki', &$prettyModifier, $trackerId = 0)
+    public function get_pretty_fieldIds($resource, $type = 'wiki', &$prettyModifier = [], $trackerId = 0)
     {
         $tikilib = TikiLib::lib('tiki');
         $smarty = TikiLib::lib('smarty');

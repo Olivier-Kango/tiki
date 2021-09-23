@@ -79,7 +79,7 @@ class AttributeLib extends TikiDb_Bridge
             return false;
         }
 
-        if ($value == '') {
+        if ($value === '') {
             $this->attributes->delete(
                 [
                     'type' => $type,
