@@ -226,3 +226,60 @@ if (! hm_exists('tiki_move_to_imap_server')) {
         return false;
     }
 }
+
+/**
+ * Toggle a flag from a Tiki-stored message
+ * @subpackage tiki/functions
+ * @param array $fileId Tiki-stored message file ID
+ * @param string $flag the flag to toggle
+ * @return string the current flag state
+ */
+if (! hm_exists('tiki_toggle_flag_message')) {
+    function tiki_toggle_flag_message($fileId, $flag)
+    {
+        $file = Tiki\FileGallery\File::id($fileId);
+        if (! preg_match("/Flags: (.*?)\r\n/", $file->getContents(), $matches)) {
+            return '';
+        }
+        $flags = $matches[1];
+        if (stristr($flags, $flag)) {
+            return tiki_flag_message($fileId, 'remove', $flag);
+        } else {
+            return tiki_flag_message($fileId, 'add', $flag);
+        }
+    }
+}
+
+
+/**
+ * Add or remove a flag from a Tiki-stored message
+ * @subpackage tiki/functions
+ * @param array $fileId Tiki-stored message file ID
+ * @param string $action action type, add or remove
+ * @param string $flag the flag to add or remove
+ * @return string the current flag state
+ */
+if (! hm_exists('tiki_flag_message')) {
+    function tiki_flag_message($fileId, $action, $flag)
+    {
+        $file = Tiki\FileGallery\File::id($fileId);
+        if (! preg_match("/Flags: (.*?)\r\n/", $file->getContents(), $matches)) {
+            return '';
+        }
+        $flags = $matches[1];
+        if ($action == 'remove') {
+            $flags = preg_replace('/\\\?'.ucfirst($flag).'/', '', $flags);
+            $state = 'un'.$flag;
+        } elseif (! stristr($flags, $flag)) {
+            $flags .= ' \\'.ucfirst($flag);
+            $state = $flag;
+        }
+        $flags = preg_replace("/\s{2,}/", ' ', trim($flags));
+        $raw = preg_replace("/Flags:.*?\r\n/", "Flags: $flags\r\n", $file->getContents(), -1, $cnt);
+        if ($cnt == 0) {
+            $raw = "Flags: $flags\r\n".$raw;
+        }
+        $file->replaceQuick($raw);
+        return $state;
+    }
+}

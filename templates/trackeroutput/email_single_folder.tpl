@@ -5,11 +5,12 @@
     <th>{tr}Recipient{/tr}</th>
     <th>{tr}Subject{/tr}</th>
     <th>{tr}Date{/tr}</th>
+    <th>{tr}Flags{/tr}</th>
   </tr>
   </thead>
   <tbody>
   {foreach from=$emails item=email}
-    <tr>
+    <tr {if !$email.flags['seen']} style="font-weight: bold"{/if}>
       <td>
         {if $email.sender}
           {$email.sender|escape}
@@ -20,6 +21,13 @@
       <td>{$email.recipient|escape}</td>
       <td><a href="{$email.view_path}">{if $email.subject}{$email.subject|escape}{else}{tr}(None){/tr}{/if}</a></td>
       <td>{$email.date|tiki_short_datetime}</td>
+      <td>
+        {foreach from=$email.flags key=flag item=flagName}
+          {if $flag neq 'seen'}
+            {$flagName|substr:0:1}
+          {/if}
+        {/foreach}
+      </td>
     </tr>
   {/foreach}
   </tbody>
