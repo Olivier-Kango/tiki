@@ -3642,9 +3642,6 @@ div.form-group label.error {
   position: relative !important;
   float: right;
 }
-.inline-cypht .select2-container {
-  margin-bottom: 10px;
-}
 .tiki .anythingSlider, .tiki .anythingWindow, .tiki .anythingBase, .tiki .anythingBase > .card {
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
