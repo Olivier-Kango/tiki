@@ -361,7 +361,7 @@
                     {preference name=wiki_list_name}
                     {preference name=wiki_list_id}
                     <div class="adminoptionbox clearfix">
-                        {tr}Select which items to display when listing pages:{/tr}
+                        {tr}Select which items to display when listing pages and backlinks:{/tr}
                     </div>
                     {preference name=wiki_list_sortorder}
                     <div class="adminoptionboxchild">
