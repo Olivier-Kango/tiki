@@ -1455,7 +1455,7 @@ class EditLib
                 // strip out html to get the plain url and title?
                 if (preg_match('/<a.* href=["\'](.*?)["\'].*>(.*?)<\/a>/', $objectUrl, $matches)) {
                     $objectUrl = $matches[1];
-                    $title = $matches[2];
+                    $title = html_entity_decode($matches[2], ENT_QUOTES);
                 }
 
                 foreach (array_filter($sections) as $sec) {

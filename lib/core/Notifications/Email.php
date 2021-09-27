@@ -107,10 +107,11 @@ class Email
 
         $foo = parse_url($_SERVER['REQUEST_URI']);
         $machine = $tikilib->httpPrefix(true) . dirname($foo['path']);
+        $machine = $machine . (substr($machine, -1) === '/' ? '' : '/');
 
         $smarty->assign('siteName', $info['siteName']);
         $smarty->assign('mentionedBy', $info['mentionedBy']);
-        $smarty->assign('url', $machine . '/' . $info['url']);
+        $smarty->assign('url', $machine . $info['url']);
         $smarty->assign('type', $info['type']);
         $smarty->assign('objectTitle', $info['title']);
 
