@@ -99,8 +99,6 @@ class Search_ContentSource_TrackerItemSource implements Search_ContentSource_Int
                 'tracker_id' => $typeFactory->identifier($item['trackerId']),
 
                 'view_permission' => $typeFactory->identifier($permNeeded),
-
-                'parent_view_permission' => $typeFactory->identifier($permNeeded),
                 'parent_object_id' => $typeFactory->identifier($item['trackerId']),
                 'parent_object_type' => $typeFactory->identifier('tracker'),
 
@@ -143,7 +141,7 @@ class Search_ContentSource_TrackerItemSource implements Search_ContentSource_Int
             'tracker_status',
             'tracker_id',
 
-            'parent_view_permission',
+            'view_permission',
             'parent_object_id',
             'parent_object_type',
         ];

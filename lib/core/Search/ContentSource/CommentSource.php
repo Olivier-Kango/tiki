@@ -73,8 +73,7 @@ class Search_ContentSource_CommentSource implements Search_ContentSource_Interfa
 
             'parent_object_type' => $typeFactory->identifier($comment['objectType']),
             'parent_object_id' => $typeFactory->identifier($comment['object']),
-            'parent_view_permission' => $typeFactory->identifier($this->getParentPermissionForType($comment['objectType'])),
-
+            'view_permission' => $typeFactory->identifier($this->getParentPermissionForType($comment['objectType'])),
             'global_view_permission' => $typeFactory->identifier('tiki_p_read_comments'),
 
             'url' => $typeFactory->identifier($url),
@@ -113,11 +112,10 @@ class Search_ContentSource_CommentSource implements Search_ContentSource_Interfa
 
             'comment_content',
             'parent_thread_id',
-
-            'parent_view_permission',
             'parent_object_id',
             'parent_object_type',
 
+            'view_permission',
             'global_view_permission',
         ];
     }

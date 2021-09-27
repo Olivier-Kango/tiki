@@ -170,7 +170,8 @@ class Perms_ResolverFactory_CategoryFactory implements Perms_ResolverFactory
             $bindvars = [];
             $result = $db->fetchAll(
                 "SELECT co.`categId`, items.`fileId` AS itemId FROM `tiki_files` items
-                INNER JOIN `tiki_objects` o ON items.`galleryId` = o.`itemId` AND o.`type` = 'file gallery'
+                INNER JOIN `tiki_file_galleries` fg ON items.`galleryId` = fg.`galleryId`
+                INNER JOIN `tiki_objects` o ON (items.`galleryId` = o.`itemId` or fg.`parentId` = o.`itemId`) AND o.`type` = 'file gallery'
                 INNER JOIN `tiki_category_objects` co ON co.`catObjectId` = o.`objectId` WHERE " .
                 $db->in('items.fileId', array_keys($objects), $bindvars) . " ORDER BY co.`catObjectId`, co.`categId`",
                 $bindvars
