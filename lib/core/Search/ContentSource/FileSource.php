@@ -71,7 +71,7 @@ class Search_ContentSource_FileSource implements Search_ContentSource_Interface,
 
 			'parent_object_type' => $typeFactory->identifier('file gallery'),
 			'parent_object_id' => $typeFactory->identifier($file['galleryId']),
-			'parent_view_permission' => $typeFactory->identifier('tiki_p_download_files'),
+			'view_permission' => $typeFactory->identifier('tiki_p_download_files'),
 		];
 
 		return $data;
@@ -98,7 +98,7 @@ class Search_ContentSource_FileSource implements Search_ContentSource_Interface,
 			'file_content',
 			'ocr_content',
 
-			'parent_view_permission',
+			'view_permission',
 			'parent_object_id',
 			'parent_object_type',
 		];
