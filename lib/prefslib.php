@@ -1078,7 +1078,7 @@ class PreferencesLib
                 if (! in_array($pref, $this->system_modified) && ! in_array($pref, $this->system_info)) {   // prefs modified by the system and with system info etc
                     $preferenceInformation = $this->getPreference($pref);
                     $modified[$pref] = [
-                        'current' => ['serial' => $value, 'expanded' => $preferenceInformation['value']],
+                        'current' => ['serial' => $value, 'expanded' => $preferenceInformation['value'] ?? ''],
                     ];
                     if (isset($defaults[$pref])) {
                         $modified[$pref]['default'] = $defaults[$pref];

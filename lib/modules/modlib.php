@@ -1496,7 +1496,7 @@ class ModLib extends TikiLib
                 $modtogo['data']['groups'] = unserialize($module['groups']);
                 $modtogo['data']['order'] = $module['ord'];
 
-                $modtogo['data']['position'] = str_replace('_modules', '', $this->module_zones[$module['position']]);
+                $modtogo['data']['position'] = str_replace('_modules', '', $this->module_zones[$module['position']] ?? '');
 
                 if ($this->is_user_module($module['name'])) {
                     $um = $this->get_user_module($module['name']);
