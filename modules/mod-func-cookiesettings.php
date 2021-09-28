@@ -14,7 +14,7 @@ function module_cookiesettings_info()
 {
     return [
         'name'        => tra('Cookie Consent Settings'),
-        'description' => tra('Alkows users to change their cookie consent preferences.'),
+        'description' => tra('Allows users to change their cookie consent preferences.'),
         'prefs'       => ['cookie_consent_feature'],
         'params'      => [
             'mode'      => [
