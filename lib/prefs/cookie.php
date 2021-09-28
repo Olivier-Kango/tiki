@@ -51,6 +51,9 @@ function prefs_cookie_list()
             'size' => 35,
             'default' => 'tiki_cookies_accepted',
             'tags' => ['experimental'],
+            'dependencies' => [
+                'cookie_consent_feature',
+            ],
         ],
         'cookie_consent_expires' => [
             'name' => tra('Cookie consent expiration'),
@@ -60,6 +63,9 @@ function prefs_cookie_list()
             'units' => tra('days'),
             'default' => 365,
             'tags' => ['experimental'],
+            'dependencies' => [
+                'cookie_consent_feature',
+            ],
         ],
         'cookie_consent_description' => [
             'name' => tra('Cookie consent text'),
@@ -69,6 +75,9 @@ function prefs_cookie_list()
             'size' => 6,
             'default' => tra('This website would like to place cookies on your computer to improve the quality of your experience of the site. To find out more about the cookies, see our ((privacy notice)).'),
             'tags' => ['experimental'],
+            'dependencies' => [
+                'cookie_consent_feature',
+            ],
         ],
         'cookie_consent_question' => [
             'name' => tra('Cookie consent question'),
@@ -78,6 +87,9 @@ function prefs_cookie_list()
             'size' => 35,
             'default' => tra('I accept cookies from this site.'),
             'tags' => ['experimental'],
+            'dependencies' => [
+                'cookie_consent_feature',
+            ],
         ],
         'cookie_consent_button' => [
             'name' => tra('Cookie consent button'),
@@ -86,6 +98,9 @@ function prefs_cookie_list()
             'size' => 35,
             'default' => tra('Continue'),
             'tags' => ['experimental'],
+            'dependencies' => [
+                'cookie_consent_feature',
+            ],
         ],
         'cookie_consent_alert' => [
             'name' => tra('Cookie consent alert'),
@@ -94,9 +109,12 @@ function prefs_cookie_list()
             'size' => 35,
             'default' => tra('Sorry, cookie consent required'),
             'tags' => ['experimental'],
+            'dependencies' => [
+                'cookie_consent_feature',
+            ],
         ],
         'cookie_consent_mode' => [
-            'name' => tra('Cookie consent mode'),
+            'name' => tra('Cookie consent display mode'),
             'description' => tra('Appearance of consent dialog'),
             'hint' => tra(''),
             'type' => 'list',
@@ -107,6 +125,9 @@ function prefs_cookie_list()
             ],
             'default' => '',
             'tags' => ['experimental'],
+            'dependencies' => [
+                'cookie_consent_feature',
+            ],
         ],
         'cookie_consent_dom_id' => [
             'name' => tra('Cookie consent dialog ID'),
@@ -115,6 +136,9 @@ function prefs_cookie_list()
             'size' => 35,
             'default' => 'cookie_consent_div',
             'tags' => ['experimental'],
+            'dependencies' => [
+                'cookie_consent_feature',
+            ],
         ],
         'cookie_consent_disable' => [
             'name' => tra('Cookie consent disabled'),
@@ -122,6 +146,21 @@ function prefs_cookie_list()
             'type' => 'flag',
             'default' => 'n',
             'tags' => ['experimental'],
+            'dependencies' => [
+                'cookie_consent_feature',
+            ],
+        ],
+        'cookie_consent_analytics' => [
+            'name' => tra('Cookie consent for analytics'),
+            'description' => tra('Make it possible for users to opt in to essential cookies, such as "remember login", "timezone" etc without opting in to third party cookies such as those for Google Analytics and other external services.'),
+            'hint' => tra('Makes the checkbox opt in to accept "non-essential" cookies'),
+            'type' => 'flag',
+            'default' => 'n',
+            'tags' => ['experimental'],
+            'dependencies' => [
+                'cookie_consent_feature',
+                'cookie_consent_question',
+            ],
         ],
         'cookie_refresh_rememberme' => [
             'name' => tr('Refresh the remember-me cookie expiration'),

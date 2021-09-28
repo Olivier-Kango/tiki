@@ -58,7 +58,7 @@ function wikiplugin_cookieconsent_info()
 
 function wikiplugin_cookieconsent($body, $params)
 {
-    global $prefs, $feature_no_cookie;
+    global $prefs, $feature_no_cookie_analytics;
 
     if ($prefs['cookie_consent_feature'] !== 'y') {
         return $body;
@@ -74,7 +74,7 @@ function wikiplugin_cookieconsent($body, $params)
 
     $class = $params['element_class'];
 
-    if ($feature_no_cookie) {
+    if ($feature_no_cookie_analytics) {
         $body = $params['no_consent_message'];
         $class .= ($class ? ' ' : '') . $params['no_consent_class'];
     }

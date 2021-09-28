@@ -241,6 +241,7 @@ if (! timezone) {
     $jqueryTiki['structurePageRepeat'] = $prefs['page_n_times_in_a_structure'] === 'y' ? true : false;
     $jqueryTiki['mobile'] = $prefs['mobile_mode'] === 'y' ? true : false;
     $jqueryTiki['no_cookie'] = false;
+    $jqueryTiki['cookie_consent_analytics'] = $prefs['cookie_consent_analytics'] === 'y' ? true : false;
     $jqueryTiki['language'] = $prefs['language'];
     $jqueryTiki['useInlineComment'] = $prefs['feature_inline_comments'] === 'y' ? true : false;
     $jqueryTiki['useInlineAnnotations'] = $prefs['comments_inline_annotator'] === 'y' ? true : false;

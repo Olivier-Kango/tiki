@@ -45,7 +45,7 @@ function wikiplugin_googleanalytics_info()
 
 function wikiplugin_googleanalytics($data, $params)
 {
-    global $feature_no_cookie, $prefs;  // set according to cookie_consent_feature pref in tiki-setup.php
+    global $feature_no_cookie_analytics, $prefs;  // set according to cookie_consent_feature pref in tiki-setup.php
 
     $showCode = WikiPlugin_Helper::showAnalyticsCode($params);
     if (! $showCode) {
@@ -55,7 +55,7 @@ function wikiplugin_googleanalytics($data, $params)
     if (empty($params['account'])) {
         return tra('Missing parameter');
     }
-    if ($feature_no_cookie) {
+    if ($feature_no_cookie_analytics) {
         return '';
     }
     $account = htmlspecialchars($params['account'], ENT_QUOTES);
