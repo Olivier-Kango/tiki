@@ -156,7 +156,13 @@ require_once('lib/setup/theme.php');
 /* Cookie consent setup, has to be after the JS decision and wiki setup */
 
 $cookie_consent_html = '';
-if ($prefs['cookie_consent_feature'] === 'y' && strpos($_SERVER['PHP_SELF'], 'tiki-cookie-jar.php') === false && http_response_code() !== false) {
+if (
+    $prefs['cookie_consent_feature'] === 'y' &&
+    (
+        strpos($_SERVER['PHP_SELF'], 'tiki-cookie-jar.php') === false && http_response_code() !== false ||
+        $jitRequest->offsetExists('cookie_consent')
+    )
+) {
     if (! empty($_REQUEST['cookie_consent_checkbox']) || $prefs['site_closed'] === 'y') {
         // js disabled
         setCookieSection($prefs['cookie_consent_name'], 'y');   // set both real cookie and tiki_cookie_jar
@@ -164,15 +170,17 @@ if ($prefs['cookie_consent_feature'] === 'y' && strpos($_SERVER['PHP_SELF'], 'ti
         setCookieSection($prefs['cookie_consent_name'], 'y');
     }
     $cookie_consent = getCookie($prefs['cookie_consent_name']);
-    if (empty($cookie_consent)) {
-        if ($prefs['javascript_enabled'] !== 'y') {
-            $prefs['cookie_consent_mode'] = '';
-        } else {
-            $headerlib->add_js('jqueryTiki.no_cookie = true; jqueryTiki.cookie_consent_alert = "' . addslashes($prefs['cookie_consent_alert']) . '";');
-        }
-        foreach ($_COOKIE as $k => $v) {
-            if (strpos($k, session_name()) === false) {
-                setcookie($k, '', time() - 3600);        // unset any previously existing cookies except the session
+    if (empty($cookie_consent) || $jitRequest->offsetExists('cookie_consent')) {
+        if (! $jitRequest->offsetExists('cookie_consent')) {
+            if ($prefs['javascript_enabled'] !== 'y') {
+                $prefs['cookie_consent_mode'] = '';
+            } else {
+                $headerlib->add_js('jqueryTiki.no_cookie = true; jqueryTiki.cookie_consent_alert = "' . addslashes($prefs['cookie_consent_alert']) . '";');
+            }
+            foreach ($_COOKIE as $k => $v) {
+                if (strpos($k, session_name()) === false && strpos($k, 'javascript_enabled') === false) {
+                    setcookie($k, '', time() - 3600);        // unset any previously existing cookies except the session and js detect
+                }
             }
         }
         $cookie_consent_html = $smarty->fetch('cookie_consent.tpl');
@@ -182,6 +190,17 @@ if ($prefs['cookie_consent_feature'] === 'y' && strpos($_SERVER['PHP_SELF'], 'ti
             setcookie($prefs['cookie_consent_name'], 'y', $cookie_consent / 1000);
         }
         $feature_no_cookie = false;
+
+        if ($prefs['cookie_consent_analytics'] === 'y') {
+            $analytics = getCookie($prefs['cookie_consent_name'] . '_analytics');
+            if (is_numeric($analytics)) {   // has been set server-side, so user is opting in to analytics
+                setcookie($prefs['cookie_consent_name'] . '_analytics', 'y', $analytics / 1000);
+                $feature_no_cookie_analytics = false;
+            } else if (empty($analytics)) {
+                setcookie($prefs['cookie_consent_name'] . '_analytics', 'n', 24 * 60 * 60 * $prefs['cookie_consent_expires']);
+                $feature_no_cookie_analytics = true;
+            }
+        }
     }
 }
 $smarty->assign('cookie_consent_html', $cookie_consent_html);

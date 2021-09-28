@@ -183,6 +183,39 @@ form[name=editpageform] .form-group .tab-content .alert-warning {
 //    font-weight: bold;
 }
 
+// cookie settings module
+.box-cookiesettings {
+    position: fixed;
+}
+
+.box-cookiesettings.none {
+    position: unset;
+}
+
+.box-cookiesettings.topleft {
+    left: 0;
+    top: 0;
+    border-bottom-right-radius: $border-radius;
+}
+
+.box-cookiesettings.topright {
+    right: 0;
+    top: 0;
+    border-bottom-left-radius: $border-radius;
+}
+
+.box-cookiesettings.bottomleft {
+    left: 0;
+    bottom: 0;
+    border-top-right-radius: $border-radius;
+}
+
+.box-cookiesettings.bottomright {
+    right: 0;
+    bottom: 0;
+    border-top-left-radius: $border-radius;
+}
+
 // print mode only - to make sure print templates will use and print on seamless white bg color
 // html#print {
 //     background: #ffffff;
