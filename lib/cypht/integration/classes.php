@@ -452,14 +452,17 @@ class Tiki_Hm_User_Config extends Hm_Config
         ksort($this->config);
         $data = json_encode($this->config);
         if ($this->site_config->settings_per_page) {
-            $util = new Services_Edit_Utilities();
-            $util->replacePlugin(new JitFilter([
-                'page' => $this->site_config->settings_per_page,
-                'message' => "Auto-saving Cypht settings.",
-                'type' => 'cypht',
-                'content' => $data,
-                'index' => 1
-            ]), false);
+            $original_plugin_data = $_SESSION[$this->site_config->get('session_prefix')]['plugin_data'] ?? '';
+            if ($original_plugin_data != $data) {
+                $util = new Services_Edit_Utilities();
+                $util->replacePlugin(new JitFilter([
+                    'page' => $this->site_config->settings_per_page,
+                    'message' => "Auto-saving Cypht settings.",
+                    'type' => 'cypht',
+                    'content' => $data,
+                    'index' => 1
+                ]), false);
+            }
         } else {
             TikiLib::lib('tiki')->set_user_preference($username, $_SESSION[$this->site_config->get('session_prefix')]['preference_name'], $data);
         }

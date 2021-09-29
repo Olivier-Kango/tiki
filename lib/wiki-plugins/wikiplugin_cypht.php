@@ -331,6 +331,7 @@ function wikiplugin_cypht($data, $params)
     if ($settings_per_page) {
         if ($data) {
             $_SESSION[$session_prefix]['user_data'] = json_decode($data, true);
+            $_SESSION[$session_prefix]['plugin_data'] = $data;
         } else {
             $data = TikiLib::lib('tiki')->get_user_preference('%', $preference_name);
             $_SESSION[$session_prefix]['user_data'] = json_decode($data, true);
