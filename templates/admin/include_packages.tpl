@@ -175,9 +175,9 @@
                             <p><strong>{tr}Install the missing packages.{/tr}</strong></p>
                         {/if}
                         <p>{tr}You can install the missing packages by issuing the command{/tr}
-                        <code>composer --no-dev --prefer-dist update --lock</code>.
+                        <code>composer --no-dev --prefer-dist update</code>.
                         {tr}Below is an example of how to do this in a Linux-like operating system:{/tr} <br>
-                        <code>php temp/composer.phar --no-dev --prefer-dist update --lock</code></p>
+                        <code>php temp/composer.phar --no-dev --prefer-dist update</code></p>
                     </td>
                 </tr>
             {/if}
