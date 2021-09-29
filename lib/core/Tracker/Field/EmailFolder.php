@@ -97,6 +97,12 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements Tracker_F
                             'value' => '1'
                         ],
                     ],
+                    'composePage' => [
+                        'name' => tr('Compose Page'),
+                        'description' => tr('Name of the wiki page where compose button will direct to. Leave empty for default Webmail page.'),
+                        'filter' => 'text',
+                        'default' => '',
+                    ],
                 ],
             ],
         ];
@@ -216,11 +222,28 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements Tracker_F
             }
         }
 
+        if ($compose_page = $this->getOption('composePage')) {
+            TikiLib::lib('smarty')->loadPlugin('smarty_modifier_sefurl');
+            $compose_path = smarty_modifier_sefurl($compose_page);
+            if (preg_match("/tiki-index\.php\?page=.*/", $compose_path)) {
+                $compose_path = "tiki-index.php?page_id=".TikiLib::lib('tiki')->get_page_id_from_name($compose_page);
+            }
+        } else {
+            $compose_path = "tiki-webmail.php";
+        }
+        if (strstr($compose_path, '?')) {
+            $compose_path .= '&';
+        } else {
+            $compose_path .= '?';
+        }
+        $compose_path .= "page=compose&list_path=tracker_folder_".$this->getItemId()."_".$this->getConfiguration('fieldId')."&list_parent=tracker_".$this->getTrackerDefinition()->getConfiguration('trackerId');
+
         return $this->renderTemplate('trackeroutput/email_folder.tpl', $context, [
             'emails' => $emails,
             'count' => $this->getConfiguration('count'),
             'folders' => $this->getFolders(),
             'opened' => array_map(function($folder) { return $this->folderHandle($folder); }, preg_split('/\s*,\s*/', $this->getOption('openedFolders'))),
+            'compose_path' => $compose_path,
         ]);
     }
 
