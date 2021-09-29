@@ -1,4 +1,5 @@
 <div id="display_f{$field.fieldId|escape}" class="email-folder-field display_f{$field.fieldId|escape}">
+    <a href="{$data.compose_path}">{tr}Compose{/tr}</a>
     {if $data.count eq 0}
         {tr}Emails can be copied or moved here via the Webmail interface.{/tr}
     {elseif $field.options_map.useFolders}

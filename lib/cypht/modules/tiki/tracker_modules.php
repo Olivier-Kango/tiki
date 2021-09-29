@@ -48,7 +48,7 @@ class Hm_Handler_tracker_message_list_type extends Hm_Handler_Module
 }
 
 /**
- * Check for tracker item link redirect
+ * Check for tracker item link redirect on message list page
  * @subpackage tiki/handler
  */
 class Hm_Handler_check_path_redirect extends Hm_Handler_Module
@@ -58,7 +58,28 @@ class Hm_Handler_check_path_redirect extends Hm_Handler_Module
         global $smarty;
         $smarty->loadPlugin('smarty_modifier_sefurl');
         $path = $this->request->get['list_path'];
-        if (preg_match("/tracker_folder_(\d+)_(\d+)/", $this->request->get['list_path'], $m)) {
+        if (preg_match("/tracker_folder_(\d+)_(\d+)/", $path, $m)) {
+            $url = smarty_modifier_sefurl($m[1], 'trackeritem');
+            Hm_Dispatch::page_redirect($url);
+        }
+    }
+}
+
+/**
+ * Check for tracker item link redirect after compose msg is sent
+ * @subpackage tiki/handler
+ */
+class Hm_Handler_check_path_redirect_after_sent extends Hm_Handler_Module
+{
+    public function process()
+    {
+        global $smarty;
+        $smarty->loadPlugin('smarty_modifier_sefurl');
+        if (!$this->get('msg_sent')) {
+            return;
+        }
+        $path = $this->request->post['compose_msg_path'];
+        if (preg_match("/tracker_folder_(\d+)_(\d+)/", $path, $m)) {
             $url = smarty_modifier_sefurl($m[1], 'trackeritem');
             Hm_Dispatch::page_redirect($url);
         }
