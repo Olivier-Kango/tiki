@@ -364,7 +364,7 @@
                                     <legend>{tr}Database user{/tr}</legend>
                                     <p>{tr}Enter a database user with administrator permission for the Tiki database.{/tr}</p>
                                     <div style="padding:5px;">
-                                        <label class="col-form-label" for="user">{tr}User name:{/tr}</label> <input type="text" class="form-control" id="user" name="user" value="{if (isset($smarty.request.user))}{$smarty.request.user|escape:"html"}{elseif isset($preconfiguser)}{$preconfiguser|escape:"html"}{/if}" maxlength="16" placeholder="{tr}Database username{/tr}">
+                                        <label class="col-form-label" for="user">{tr}User name:{/tr}</label> <input type="text" class="form-control" id="user" name="user" value="{if (isset($smarty.request.user))}{$smarty.request.user|escape:"html"}{elseif isset($preconfiguser)}{$preconfiguser|escape:"html"}{/if}" maxlength="80" placeholder="{tr}Database username{/tr}">
                                     </div>
 
                                     <div style="padding:5px;">

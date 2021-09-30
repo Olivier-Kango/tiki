@@ -391,7 +391,7 @@ if (
         )
     ) && isset($_POST['dbinfo'])
 ) {
-    if (! empty($_POST['user']) && strlen($_POST['user']) > 16) {
+    if (! empty($_POST['user']) && strlen($_POST['user']) > 80) {
         $dbcon = false;
         Feedback::error(tra('Invalid database user.'));
     } elseif (empty($_POST['name'])) {
