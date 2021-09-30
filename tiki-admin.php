@@ -282,8 +282,6 @@ if (isset($_REQUEST['lm_criteria'])) {
     $smarty->assign('lm_searchresults', '');
 }
 
-$smarty->assign('indexNeedsRebuilding', $prefslib->indexNeedsRebuilding());
-
 if (isset($_REQUEST['prefrebuild'])) {
     $prefslib->rebuildIndex();
     header('Location: ' . $base_url . 'tiki-admin.php');
@@ -445,8 +443,51 @@ include_once('installer/installlib.php');
 $installer = Installer::getInstance();
 $smarty->assign('db_requires_update', $installer->requiresUpdate());
 $smarty->assign('installer_not_locked', $installer->checkInstallerLocked());
-$smarty->assign('search_index_outdated', \TikiLib::lib('unifiedsearch')->isOutdated());
-
 $smarty->assign('db_engine_type', getCurrentEngine());
+
+$unifiedsearch = \TikiLib::lib('unifiedsearch');
+$smarty->assign('search_index_outdated', $unifiedsearch->isOutdated());
+
+if (! $unifiedsearch->rebuildInProgress()) {
+    $searchIndex = [
+        'error' => false,
+        'feedback' => ''
+    ];
+
+    $lastLogItems = [];
+
+    if ($prefs['unified_engine'] === 'elastic') {
+        $searchIndex = $unifiedsearch->checkElasticsearch();
+        $removeIndexErrorsCallback = function ($item) {
+            if ($item['type'] == 'error') {
+                foreach ($item['mes'] as $me) {
+                    if (strpos($me, 'stream_socket_client') !== false) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        };
+        Feedback::removeIf($removeIndexErrorsCallback);
+    }
+
+    if ($prefs['unified_engine'] === 'mysql') {
+        $searchIndex = $unifiedsearch->checkMySql();
+    }
+
+    if (! $searchIndex['error']) {
+        $indexNeedsRebuilding = $prefslib->indexNeedsRebuilding();
+        if ($indexNeedsRebuilding) {
+            $searchIndex['error'] = true;
+        }
+    }
+
+    if ($searchIndex['error']) {
+        $lastLogItems = $unifiedsearch->getLogItems(5, $needle = 'ERR');
+    }
+
+    $smarty->assign('searchIndex', $searchIndex);
+    $smarty->assign('lastLogItems', $lastLogItems);
+}
 
 $smarty->display('tiki.tpl');
