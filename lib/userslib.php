@@ -7116,6 +7116,16 @@ class UsersLib extends TikiLib
         $this->query($query, $vars);
     }
 
+    /**
+     * Delete expired cookie tokens
+     *
+     * @return mixed
+     */
+    public function deleteExpiredCookies()
+    {
+        return $this->query('DELETE FROM `tiki_user_login_cookies` WHERE UNIX_TIMESTAMP(expiration) < UNIX_TIMESTAMP()');
+    }
+
     public function get_cookie_check()
     {
         // generate random string but remove fullstops as they are used as the delimiter
