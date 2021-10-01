@@ -695,7 +695,7 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
                 $itemId = $this->getItemId();
                 $localValue = $trklib->get_item_value($trackerId, $itemId, $filterFieldIdHere);
             }
-            if (! $filterFieldThere && $filterFieldHere && ( $filterFieldHere['type'] === 'r' || $filterFieldHere['type'] === 'w' ) && $localValue) {
+            if (! $filterFieldThere && $filterFieldHere && ( $filterFieldHere['type'] === 'r' || $filterFieldHere['type'] === 'w' || $filterFieldHere['type'] === 'math' ) && $localValue) {
                 // itemlink/dynamic item list field in this tracker pointing directly to an item in the other tracker
                 return [$localValue];
             }
