@@ -12,13 +12,7 @@ class Services_RecordRtc_Controller
 {
     public function setUp()
     {
-        global $prefs;
-
-        $recordRtcVendor = VendorHelper::getAvailableVendorPath('recordrtc', 'npm-asset/recordrtc/RecordRTC.js');
-
-        if ($prefs['fgal_use_record_rtc_screen'] != 'y' || empty($recordRtcVendor)) {
-            throw new Services_Exception_Disabled('fgal_use_record_rtc_screen');
-        }
+        Services_Exception_Disabled::check('fgal_use_record_rtc_screen');
     }
 
     public function action_upload($input)
