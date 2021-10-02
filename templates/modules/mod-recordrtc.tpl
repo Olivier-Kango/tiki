@@ -1,7 +1,6 @@
 {if $show_recordrtc_module === true}
     {tikimodule error=$module_error title=$tpl_module_title name="recordrtc" flip=$module_params.flip decorations=$module_params.decorations nobox=$module_params.nobox notitle=$module_params.notitle}
         {if empty($module_error)}
-        <form class="form">
             <div class="form-group row">
                 <input id="record-name" class="form-control" type="text" value="" placeholder="Record name">
             </div>
@@ -27,7 +26,6 @@
                     <span class="icon fa fa-upload"></span> {tr}Upload Record{/tr}
                 </button>
             </div>
-        </form>
         {/if}
     {/tikimodule}
 {/if}
