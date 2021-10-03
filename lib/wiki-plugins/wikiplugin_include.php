@@ -190,8 +190,8 @@ function wikiplugin_include($dataIn, $params)
     if (isset($start)) {
         $fragmentIdentifier .= "/$start";
     }
-    if (isset($end)) {
-        $fragmentIdentifier .= "/$end";
+    if (isset($stop)) {
+        $fragmentIdentifier .= "/$stop";
     }
 
     if (isset($numberOfInclusions[$fragmentIdentifier])) {
