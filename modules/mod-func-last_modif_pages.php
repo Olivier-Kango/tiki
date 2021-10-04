@@ -33,6 +33,23 @@ function module_last_modif_pages_info()
                     'name' => tra('Show Namespace'),
                     'description' => tra('Show namespace prefix in page names.') . ' ( y / n )',    // Do not translate y/n
                     'default' => 'y'
+            ],
+            'date' => [
+                'name' => tra('Date'),
+                'description' => tra('If set to "y", show page edit dates.') . ' ( y / n )',
+            ],
+            'user' => [
+                'name' => tra('User'),
+                'description' => tra('If set to "y", show who edited the pages.') . ' ( y / n )',
+            ],
+            'comment' => [
+                'name' => tra('Comment'),
+                'description' => tra('If set to "y", show the descriptions of the change made on the pages.') . ' ( y / n )',
+            ],
+            'maxcomment' => [
+                'name' => tra('Maximum Length for comments'),
+                'description' => tra('Maximum number of characters in comments allowed before truncating.'),
+                'filter' => 'int'
             ]
         ],
         'common_params' => ['nonums', 'rows']
@@ -54,4 +71,14 @@ function module_last_modif_pages($mod_reference, $module_params)
     $smarty->assign('absurl', isset($module_params["absurl"]) ? $module_params["absurl"] : 'n');
     $smarty->assign('url', isset($module_params["url"]) ? $module_params["url"] : 'tiki-lastchanges.php');
     $smarty->assign('namespaceoption', isset($module_params['show_namespace']) ? $module_params['show_namespace'] : 'n');
+    $smarty->assign('date', isset($module_params["date"]) ? $module_params["date"] : 'n');
+    $smarty->assign('user', isset($module_params["user"]) ? $module_params["user"] : 'n');
+    $smarty->assign('comment', isset($module_params["comment"]) ? $module_params["comment"] : 'n');
+    $smarty->assign('maxcomment', isset($module_params["maxcomment"]) ? $module_params["maxcomment"] : 0);
+    // if one of the parameters exist and equal to "y"
+    if ((isset($module_params["date"]) && ($module_params["date"] == 'y')) || (isset($module_params["user"]) && ($module_params["user"] == 'y')) || (isset($module_params["comment"]) && ($module_params["comment"] == 'y'))) {
+        $smarty->assign('modLastModifTable', 'y');
+    } else {
+        $smarty->assign('modLastModifTable', 'n');
+    }
 }
