@@ -43,6 +43,10 @@ class Reports_Manager
             $userReportPreferences = $this->reportsUsers->get($user);
             $userData = $this->userlib->get_user_info($user);
 
+            if (! $userData) {
+                continue;
+            }
+
             // if email address isn't set, do nothing but clear the cache
             if (! empty($userData['email'])) {
                 $cache = $this->reportsCache->get($user);
@@ -71,7 +75,6 @@ class Reports_Manager
     }
 
     /**
-     * @see Reports_Users::save()
      * @param string $user
      * @param string $interval
      * @param string $view
