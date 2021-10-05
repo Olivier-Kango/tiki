@@ -119,7 +119,7 @@
                         {if isset($col.mode) && $col.mode eq 'raw'}
                             {if !empty($row[$col.field])}{$row[$col.field]}{/if}
                         {else}
-                            {if !empty($row[$col.field])}{$row[$col.field]}{/if}
+                            {if !empty($row[$col.field])}{$row[$col.field]|escape}{/if}
                         {/if}
                     </td>
                 {/foreach}
