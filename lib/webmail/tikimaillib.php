@@ -292,7 +292,17 @@ class TikiMail
             $title = 'mail';
         } else {
             try {
+
+                $email_body = $this->mail->getBody();
+                if($prefs['email_footer'])
+                {
+                    $email_footer = "\r\n\n\n".$prefs['email_footer'];
+                    $new_body = $email_body.$email_footer;
+                    $this->mail->setBody($new_body);
+                }
+                
                 tiki_send_email($this->mail);
+
                 $title = 'mail';
                 $error = '';
             } catch (Laminas\Mail\Exception\ExceptionInterface $e) {
