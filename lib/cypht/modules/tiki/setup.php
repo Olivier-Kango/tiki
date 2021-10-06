@@ -115,7 +115,8 @@ add_output('settings', 'enable_gmail_contacts_module_setting', true, 'tiki', 'en
 add_handler('message', 'tracker_message_list_type', true, 'core', 'message_list_type', 'after');
 add_handler('message', 'tiki_download_message', true, 'core', 'message_list_type', 'after');
 add_handler('message_list', 'check_path_redirect', true, 'core', 'load_user_data', 'after');
-add_handler('compose', 'tiki_save_sent', true, 'smtp', 'process_compose_form_submit', 'after');
+add_handler('compose', 'tiki_mark_as_answered', true, 'smtp', 'process_compose_form_submit', 'after');
+add_handler('compose', 'tiki_save_sent', true, 'smtp', 'tiki_mark_as_answered', 'after');
 add_handler('compose', 'check_path_redirect_after_sent', true, 'smtp', 'tiki_save_sent', 'after');
 add_output('ajax_imap_message_content', 'add_move_to_trackers', true, 'imap', 'filter_message_headers', 'after');
 setup_base_ajax_page('ajax_move_to_tracker', 'core');
