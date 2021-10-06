@@ -24,7 +24,7 @@
       <td>
         {foreach from=$email.flags key=flag item=flagName}
           {if $flag neq 'seen'}
-            {$flagName|substr:0:1}
+            <span title="{$flagName}">{$flagName|substr:0:1}</span>
           {/if}
         {/foreach}
       </td>

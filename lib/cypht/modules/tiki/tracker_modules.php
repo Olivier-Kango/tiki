@@ -221,6 +221,29 @@ class Hm_Handler_move_to_tracker extends Hm_Handler_Module
 }
 
 /**
+ * Marks a Tiki-stored message as answered
+ * @subpackage tiki/handler
+ */
+class Hm_Handler_tiki_mark_as_answered extends Hm_Handler_Module
+{
+    public function process()
+    {
+        if (! $this->get('msg_sent')) {
+            return;
+        }
+
+        $path = $this->request->post['compose_msg_path'];
+        if (! strstr($path, 'tracker_folder_')) {
+            return;
+        }
+
+        $uid = $this->request->post['compose_msg_uid'];
+        Hm_Msgs::add('Uid - '.$uid);
+        tiki_flag_message($uid, 'add', 'answered');
+    }
+}
+
+/**
  * Save a sent message to EmailFolder field
  * @subpackage tiki/handler
  */
