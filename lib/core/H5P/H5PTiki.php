@@ -46,7 +46,7 @@ class H5P_H5PTiki implements H5PFrameworkInterface
 
         global $tikidomainslash;
 
-        self::$h5p_path = $tikidomainslash . 'storage/public/h5p';
+        self::$h5p_path =  "storage/{$tikidomainslash}public/h5p";
 
         if (! is_writable(self::$h5p_path)) {
             \Feedback::error(tr("H5P directory is not writable: %0", self::$h5p_path));
