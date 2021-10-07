@@ -920,7 +920,8 @@ class TrackerLib extends TikiLib
             }
             if ($format) {
                 // use the underlying translation function to replace the %0 etc placeholders (and translate if necessary)
-                $res = tra($format, '', false, $values);
+                // and preserve spaces in the format string
+                $res = tra(str_replace(' ', '&nbsp;', $format), '', false, $values);
             }
             if ($strip_tags) {
                 $res = strip_tags($res);
