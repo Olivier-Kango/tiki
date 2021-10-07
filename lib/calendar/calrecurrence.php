@@ -33,7 +33,7 @@ class CalRecurrence extends TikiLib
     private $name;
     private $description;
     private $weekly;
-    private $weekday;
+    private $weekdays;
     private $monthly;
     private $dayOfMonth;
     private $yearly;
@@ -63,7 +63,7 @@ class CalRecurrence extends TikiLib
     public function load()
     {
         if ($this->getId() > 0) {
-            $query = "SELECT calendarId, start, end, allday, locationId, categoryId, nlId, priority, status, url, lang, name, description, weekly, weekday, monthly, dayOfMonth,"
+            $query = "SELECT calendarId, start, end, allday, locationId, categoryId, nlId, priority, status, url, lang, name, description, weekly, weekdays, monthly, dayOfMonth,"
                      . "yearly, dateOfYear, nbRecurrences, startPeriod, endPeriod, user, created, lastModif, uri, uid FROM tiki_calendar_recurrence "
                      . "WHERE recurrenceId = ?";
             $result = $this->query($query, [(int)$this->getId()]);
@@ -82,7 +82,7 @@ class CalRecurrence extends TikiLib
                 $this->setName($row['name']);
                 $this->setDescription($row['description']);
                 $this->setWeekly($row['weekly'] == 1);
-                $this->setWeekday($row['weekday']);
+                $this->setWeekdays($row['weekdays']);
                 $this->setMonthly($row['monthly'] == 1);
                 $this->setDayOfMonth($row['dayOfMonth']);
                 $this->setYearly($row['yearly'] == 1);
@@ -182,8 +182,12 @@ class CalRecurrence extends TikiLib
             return false;
         }
         // recurrence should be correctly defined
+        $weekdays = explode(',', $this->getWeekdays());
+        $weekdays = array_filter($weekdays, function ($day) {
+            return in_array($day, ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA']);
+        });
         if (
-            ($this->isWeekly() && (is_null($this->getWeekday()) || $this->getWeekday() > 6 || $this->getWeekday() < 0 || $this->getWeekday() == ''))
+            ($this->isWeekly() && empty($weekdays))
             || ($this->isMonthly() && (is_null($this->getDayOfMonth()) || $this->getDayOfMonth() > 31 || $this->getDayOfMonth() < 1 || $this->getDayOfMonth() == ''))
             || ($this->isYearly() && (is_null($this->getDateOfYear()) || $this->getDateOfYear() > 1231 || $this->getDateOfYear() < 0101 || $this->getDateOfYear() == ''))
         ) {
@@ -255,7 +259,7 @@ class CalRecurrence extends TikiLib
     private function create()
     {
         $query = "INSERT INTO tiki_calendar_recurrence (calendarId, start, end, allday, locationId, categoryId, nlId, priority, status, url, lang, name, description, "
-                 . "weekly, weekday, monthly, dayOfMonth,yearly, dateOfYear, nbRecurrences, startPeriod, endPeriod, user, created, lastModif, uri, uid) "
+                 . "weekly, weekdays, monthly, dayOfMonth,yearly, dateOfYear, nbRecurrences, startPeriod, endPeriod, user, created, lastModif, uri, uid) "
                  . "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         $now = $this->now;
         $bindvars = [
@@ -273,7 +277,7 @@ class CalRecurrence extends TikiLib
                         $this->getName(),
                         $this->getDescription(),
                         $this->isWeekly() ? 1 : 0,
-                        $this->getWeekday(),
+                        $this->getWeekdays(),
                         $this->isMonthly() ? 1 : 0,
                         $this->getDayOfMonth(),
                         $this->isYearly() ? 1 : 0,
@@ -306,7 +310,7 @@ class CalRecurrence extends TikiLib
     private function update($updateManuallyChangedEvents = false)
     {
         $query = "UPDATE tiki_calendar_recurrence SET calendarId = ?, start = ?, end = ?, allday = ?, locationId = ?, categoryId = ?, nlId = ?, priority = ?, status = ?, "
-                 . "url = ?, lang = ?, name = ?, description = ?, weekly = ?, weekday = ?, monthly = ?, dayOfMonth = ?, yearly = ?, dateOfYear = ?, nbRecurrences = ?, "
+                 . "url = ?, lang = ?, name = ?, description = ?, weekly = ?, weekdays = ?, monthly = ?, dayOfMonth = ?, yearly = ?, dateOfYear = ?, nbRecurrences = ?, "
                  . "startPeriod = ?, endPeriod = ?, user = ?, lastModif = ?, uri = ?, uid = ? WHERE recurrenceId = ?";
         $now = time();
         $bindvars = [
@@ -324,7 +328,7 @@ class CalRecurrence extends TikiLib
                         $this->getName(),
                         $this->getDescription(),
                         $this->isWeekly() ? 1 : 0,
-                        $this->getWeekday(),
+                        $this->getWeekdays(),
                         $this->isMonthly() ? 1 : 0,
                         $this->getDayOfMonth(),
                         $this->isYearly() ? 1 : 0,
@@ -361,8 +365,8 @@ class CalRecurrence extends TikiLib
         if (! $end) {
             $end = strtotime(Tiki\SabreDav\CalDAVBackend::MAX_DATE);
         }
-
-        $expanded = $vcalendar->expand(DateTime::createFromFormat('U', $start), DateTime::createFromFormat('U', $end));
+        $timezone = $vcalendar->VEVENT->DTSTART->getDateTime()->getTimezone();
+        $expanded = $vcalendar->expand(DateTime::createFromFormat('U', $start), DateTime::createFromFormat('U', $end), $timezone);
         $tx = TikiDb::get()->begin();
         foreach ($expanded->VEVENT as $vevent) {
             $data = [
@@ -560,8 +564,8 @@ class CalRecurrence extends TikiLib
         if ($this->getDescription() != $oldRec->getDescription()) {
             $result[] = "description";
         }
-        if ($this->isWeekly() && ($this->getWeekday() != $oldRec->getWeekday())) {
-            $result[] = "_weekday";
+        if ($this->isWeekly() && ($this->getWeekdays() != $oldRec->getWeekdays())) {
+            $result[] = "_weekdays";
         }
         if ($this->isMonthly() && ($this->getDayOfMonth() != $oldRec->getDayOfMonth())) {
             $result[] = "_dayOfMonth";
@@ -627,8 +631,8 @@ class CalRecurrence extends TikiLib
             $result[] = "_end";
         }
         if ($oldRec->isWeekly()) {
-            if (TikiLib::date_format2('w', $evt['start']) != $oldRec->getWeekday()) {
-                $result[] = "_weekday";
+            if (TikiLib::date_format2('w', $evt['start']) != $oldRec->getWeekdays()) {
+                $result[] = "_weekdays";
             }
         } elseif ($oldRec->isMonthly()) {
             if (TikiLib::date_format2('d', $evt['start']) != $oldRec->getDayOfMonth()) {
@@ -715,7 +719,7 @@ class CalRecurrence extends TikiLib
 
         $weekdays = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
         if ($this->isWeekly()) {
-            $rrule = 'FREQ=WEEKLY;BYDAY=' . $weekdays[$this->getWeekday()];
+            $rrule = 'FREQ=WEEKLY;BYDAY=' . $this->getWeekdays();
         } elseif ($this->isMonthly()) {
             $rrule = 'FREQ=MONTHLY;BYMONTHDAY=' . $this->getDayOfMonth();
         } elseif ($this->isYearly()) {
@@ -751,21 +755,21 @@ class CalRecurrence extends TikiLib
     public function toArray()
     {
         return [
-        'id' => $this->getId(),
-        'weekly' => $this->isWeekly(),
-        'weekday' => $this->getWeekday(),
-        'monthly' => $this->isMonthly(),
-        'dayOfMonth' => $this->getDayOfMonth(),
-        'yearly' => $this->isYearly(),
-        'dateOfYear' => $this->getDateOfYear(),
-        'dateOfYear_month' => floor($this->getDateOfYear() / 100),
-        'dateOfYear_day' => $this->getDateOfYear() - 100 * floor($this->getDateOfYear() / 100),
-        'nbRecurrences' => $this->getNbRecurrences(),
-        'startPeriod' => $this->getStartPeriod(),
-        'endPeriod' => $this->getEndPeriod(),
-        'user' => $this->getUser(),
-        'created' => $this->getCreated(),
-        'lastModif' => $this->getLastModif()
+            'id' => $this->getId(),
+            'weekly' => $this->isWeekly(),
+            'weekdays' => explode(',', $this->getWeekdays()),
+            'monthly' => $this->isMonthly(),
+            'dayOfMonth' => $this->getDayOfMonth(),
+            'yearly' => $this->isYearly(),
+            'dateOfYear' => $this->getDateOfYear(),
+            'dateOfYear_month' => floor($this->getDateOfYear() / 100),
+            'dateOfYear_day' => $this->getDateOfYear() - 100 * floor($this->getDateOfYear() / 100),
+            'nbRecurrences' => $this->getNbRecurrences(),
+            'startPeriod' => $this->getStartPeriod(),
+            'endPeriod' => $this->getEndPeriod(),
+            'user' => $this->getUser(),
+            'created' => $this->getCreated(),
+            'lastModif' => $this->getLastModif()
         ];
     }
 
@@ -964,17 +968,17 @@ class CalRecurrence extends TikiLib
         $this->weekly = $value;
     }
 
-    public function getWeekday()
+    public function getWeekdays()
     {
-        return $this->weekday;
+        return $this->weekdays;
     }
 
     /**
      * @param $value
      */
-    public function setWeekday($value)
+    public function setWeekdays($value)
     {
-        $this->weekday = $value;
+        $this->weekdays = $value;
     }
 
     public function isMonthly()

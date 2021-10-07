@@ -205,27 +205,26 @@
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">{tr}Each{/tr}</span>
                                             </div>
-                                            <select name="weekday" class="form-control">
-                                                <option value="0" {if $recurrence.weekday eq '0'} selected="selected" {/if} >
+                                            <select name="weekdays[]" class="form-control" multiple>
+                                                <option value="SU"{if in_array('SU', $recurrence.weekdays)} selected="selected" {/if}>
                                                     {tr}Sunday{/tr}
                                                 </option>
-                                                <option value="1"
-                                                        {if $recurrence.weekday eq '1'} selected="selected" {/if} >
+                                                <option value="MO"{if in_array('MO', $recurrence.weekdays)} selected="selected" {/if}>
                                                     {tr}Monday{/tr}
                                                 </option>
-                                                <option value="2" {if $recurrence.weekday eq '2'} selected="selected" {/if} >
+                                                <option value="TU" {if in_array('TU', $recurrence.weekdays)} selected="selected" {/if}>
                                                     {tr}Tuesday{/tr}
                                                 </option>
-                                                <option value="3" {if $recurrence.weekday eq '3'} selected="selected" {/if} >
+                                                <option value="WE" {if in_array('WE', $recurrence.weekdays)} selected="selected" {/if}>
                                                     {tr}Wednesday{/tr}
                                                 </option>
-                                                <option value="4" {if $recurrence.weekday eq '4'} selected="selected" {/if} >
+                                                <option value="TH" {if in_array('TH', $recurrence.weekdays)} selected="selected" {/if}>
                                                     {tr}Thursday{/tr}
                                                 </option>
-                                                <option value="5" {if $recurrence.weekday eq '5'} selected="selected" {/if} >
+                                                <option value="FR" {if in_array('FR', $recurrence.weekdays)} selected="selected" {/if}>
                                                     {tr}Friday{/tr}
                                                 </option>
-                                                <option value="6" {if $recurrence.weekday eq '6'} selected="selected" {/if} >
+                                                <option value="SA" {if in_array('SA', $recurrence.weekdays)} selected="selected" {/if}>
                                                     {tr}Saturday{/tr}
                                                 </option>
                                             </select>
@@ -398,7 +397,15 @@
                                             {$recurrence.nbRecurrences} {tr}times{/tr},&nbsp;
                                         {/if}
                                         {if $recurrence.weekly}
-                                            {tr}on{/tr}&nbsp;{tr}{$daysnames[$recurrence.weekday]}s{/tr},
+                                            {tr}on{/tr}&nbsp
+                                            {foreach $recurrence.weekdays as $day}{strip}
+                                                {if $day@iteration eq $day@total}
+                                                    &nbsp;{tr}and{/tr}&nbsp;
+                                                {elseif not $day@last and not $day@first}
+                                                    ,&nbsp;
+                                                {/if}
+                                                {tr}{$daysnames[$day]}s{/tr}
+                                            {/strip}{/foreach}
                                         {elseif $recurrence.monthly}
                                             {tr}on{/tr}&nbsp;{$recurrence.dayOfMonth} {tr}of every month{/tr}
                                         {else}

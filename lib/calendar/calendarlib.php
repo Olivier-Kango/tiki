@@ -1520,7 +1520,7 @@ class CalendarLib extends TikiLib
         $daysnames_abr = [];
         if ($firstDayofWeek == 0) {
             $daysnames[] = tra('Sunday');
-            $daysnames_abr[] = tra('Su');
+            $daysnames_abr[] = tra('SU');
         }
         array_push(
             $daysnames,
@@ -1533,16 +1533,16 @@ class CalendarLib extends TikiLib
         );
         array_push(
             $daysnames_abr,
-            tra('Mo'),
-            tra('Tu'),
-            tra('We'),
-            tra('Th'),
-            tra('Fr'),
-            tra('Sa')
+            tra('MO'),
+            tra('TU'),
+            tra('WE'),
+            tra('TH'),
+            tra('FR'),
+            tra('SA')
         );
         if ($firstDayofWeek != 0) {
             $daysnames[] = tra('Sunday');
-            $daysnames_abr[] = tra('Su');
+            $daysnames_abr[] = tra('SU');
         }
     }
 
