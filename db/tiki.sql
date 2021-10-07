@@ -396,7 +396,7 @@ CREATE TABLE `tiki_calendar_recurrence` (
   `name` varchar(255) NOT NULL default '',
   `description` blob,
   `weekly` tinyint(1) default '0',
-  `weekday` tinyint(1),
+  `weekdays` VARCHAR(20) DEFAULT NULL,
   `monthly` tinyint(1) default '0',
   `dayOfMonth` int(2),
   `yearly` tinyint(1) default '0',
