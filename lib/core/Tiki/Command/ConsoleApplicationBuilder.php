@@ -267,6 +267,14 @@ class ConsoleApplicationBuilder
                 new SemiAutoMergeCommand(),
                 new DevConfigureCommand(),
                 ],
+            ],[
+            'condition' => 'checkIsPerformanceMonitoringActive',
+            'actions'   => [
+                UnavailableException::CHECK_DEFAULT => self::ACTION_NOT_PUBLISHED,
+                ],
+            'commands'  => [
+                new PerformanceCheckCommand(),
+                ],
             ]];
     }
 
@@ -473,6 +481,23 @@ class ConsoleApplicationBuilder
     {
         $this->checkIsDevMode();
         $this->checkIsDatabaseInstalled();
+    }
+
+    /**
+     * Check if Tiki performance monitoring is active
+     *
+     * @throws CommandUnavailableException
+     */
+    protected function checkIsPerformanceMonitoringActive(): void
+    {
+        $this->checkIsDatabaseInstalled();
+        global $prefs;
+
+        if (! empty($prefs['tiki_monitor_performance']) && $prefs['tiki_monitor_performance'] !== 'y') {
+            throw new UnavailableException('You need to enable your Monitor Tiki Performance preference before continuing.', 313);
+        }
+
+        $this->checkDatabaseUpToDate();
     }
 
     /**

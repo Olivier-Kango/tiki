@@ -115,3 +115,11 @@ if (confirm("A problem occurred while detecting JavaScript on this page, click o
         });
     </script>
 {/if}
+
+{if $prefs.tiki_monitor_performance eq 'y'}
+	<script type="text/javascript">
+		BOOMR.init({
+			beacon_url: "{service controller='performance' action='beacon'}"
+		});
+	</script>
+{/if}

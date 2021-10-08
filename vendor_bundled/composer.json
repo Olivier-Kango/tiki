@@ -91,6 +91,7 @@
         "nicolaskruchten/pivottable": "^2.20.0",
         "nolimits4web/swiper": "^4.2",
         "npm-asset/blueimp-file-upload": "^9.28",
+        "npm-asset/boomerangjs": "^1.687",
         "npm-asset/chart.js": "^2.7.0",
         "npm-asset/fullcalendar": "^5.3.2",
         "npm-asset/fullcalendar--moment": "^5.5",
