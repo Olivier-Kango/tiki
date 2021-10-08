@@ -101,7 +101,7 @@ function tiki_error_handling($errno, $errstr, $errfile, $errline)
 {
     global $prefs, $phpErrors;
 
-    if (0 === error_reporting()) {
+    if (0 === (error_reporting() & $errno)) {
         // This error was triggered when evaluating an expression prepended by the at sign (@) error control operator, but since we are in a custom error handler, we have to ignore it manually.
         // See http://ca3.php.net/manual/en/language.operators.errorcontrol.php#98895 and http://php.net/set_error_handler
         return;
