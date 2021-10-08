@@ -515,7 +515,7 @@ function wikiplugin_trackerfilter_build_trackerlist_filter($input, $formats, &$f
                 } else {
                     $ffs[] = $fieldId;
                 }
-                if (isset($formats[$fieldId]) && ($formats[$fieldId] == 't' || $formats[$fieldId] == 'm' || $formats[$fieldId] == 'i')) {
+                if (isset($formats[$fieldId]) && ($formats[$fieldId] == 't' || $formats[$fieldId] == 'i')) {
                     $exactValues[] = '';
                     $values[] = ($formats[$fieldId] == 'i') ? "$val%" : $val;
                 } else {

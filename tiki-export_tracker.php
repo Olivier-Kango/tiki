@@ -84,7 +84,7 @@ foreach ($_REQUEST as $key => $val) {
     if (substr($key, 0, 2) == 'f_' && ! empty($val) && (! is_array($val) || ! empty($val[0]))) {
         $fieldId = substr($key, 2);
         $filterFields[] = $fieldId;
-        if (isset($_REQUEST["x_$fieldId"]) && ($_REQUEST["x_$fieldId"] == 't' || $_REQUEST["x_$fieldId"] == 'm')) {
+        if (isset($_REQUEST["x_$fieldId"]) && $_REQUEST["x_$fieldId"] == 't') {
             $exactValues[] = '';
             if (is_array($val)) {
                 $values[] = $val;
@@ -92,7 +92,11 @@ foreach ($_REQUEST as $key => $val) {
                 $values[] = urldecode($val);
             }
         } else {
-            $exactValues[] = urldecode($val);
+            if (is_array($val)) {
+                $exactValues[] = $val;
+            } else {
+                $exactValues[] = urldecode($val);
+            }
             $values[] = '';
         }
     }
