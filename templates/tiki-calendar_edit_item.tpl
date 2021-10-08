@@ -7,6 +7,7 @@
     </div>
 {/if}
 <form action="{$myurl|escape}" method="post" name="f" id="editcalitem" class="no-ajax">
+    <fieldset class="tabcontent">
     <div class="modal-body">
         {if !$smarty.get.modal}
             <div class="t_navbar mb-4">
@@ -595,6 +596,10 @@
                     </div>
                 </div> <!-- / .form-group -->
             {/if}
+
+            <!-- Form group global categorization -->
+            {include file='categorize.tpl'}
+
             <div class="form-group row" style="display:{if $calendar.customcategories eq 'y'}block{else}none{/if};" id="calcat">
                 <label class="col-form-label col-sm-3">
                     {tr}Classification{/tr}
@@ -837,4 +842,5 @@
             </div>
         </div>
     {/if}
+    </fieldset>
 </form>

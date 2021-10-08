@@ -16,6 +16,7 @@ require_once('tiki-setup.php');
 $access->check_feature('feature_calendar');
 
 $calendarlib = TikiLib::lib('calendar');
+$categlib = TikiLib::lib('categ');
 include_once('lib/newsletters/nllib.php');
 if ($prefs['feature_groupalert'] == 'y') {
     $groupalertlib = TikiLib::lib('groupalert');
@@ -342,6 +343,16 @@ if (isset($_POST['act'])) {
                 if ($prefs['feature_groupalert'] == 'y') {
                     $groupalertlib->Notify($_REQUEST['listtoalert'], "tiki-calendar_edit_item.php?viewcalitemId=" . $calitemId);
                 }
+
+                if ($prefs['feature_categories'] == 'y') {
+                    $cat_type = 'calendaritem';
+                    $cat_objid = $calitemId;
+                    $cat_desc = $save['description'];
+                    $cat_name = $save['name'];
+                    $cat_href = "tiki-calendar_edit_item.php?calitemId=".$calitemId;
+                    include_once("categorize.php");
+                }
+
                 $access->redirect($redirectUrl);
                 die;
             }
@@ -634,6 +645,21 @@ if ($prefs['feature_theme_control'] == 'y') {
 }
 
 $headerlib->add_cssfile('themes/base_files/feature_css/calendar.css', 20);
+
+if ($prefs['feature_categories'] == 'y') {
+    $cat_type = 'calendaritem';
+    $cat_objid = $_REQUEST['viewcalitemId'] ? $_REQUEST['viewcalitemId'] : ($_REQUEST['calitemId'] ? $_REQUEST['calitemId'] : 0);
+    include_once("categorize_list.php");
+    $cs = $categlib->get_object_categories('calendaritem', $cat_objid);
+    if (! empty($cs)) {
+        for ($i = count($categories) - 1; $i >= 0; --$i) {
+            if (in_array($categories[$i]['categId'], $cs)) {
+                $categories[$i]['incat'] = 'y';
+            }
+        }
+    }
+}
+
 
 $smarty->assign('referer', empty($_SERVER['HTTP_REFERER']) || strpos($_SERVER['HTTP_REFERER'], 'tiki-calendar_edit_item.php') !== false ? 'tiki-calendar.php' : $_SERVER['HTTP_REFERER']);
 $smarty->assign('myurl', 'tiki-calendar_edit_item.php');
