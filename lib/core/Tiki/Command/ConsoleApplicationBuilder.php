@@ -187,6 +187,7 @@ class ConsoleApplicationBuilder
                 new UsersListCommand(),
                 new UsersPasswordCommand(),
                 new TokensClearCommand(),
+                new CookiesClearCommand(),
                 new StatsCommand(),
                 new MLTrainCommand(),
                 new TranslationExportCommand(),
