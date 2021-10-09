@@ -1994,6 +1994,7 @@
         "laminas/laminas-validator": "^2.13",
         "laminas/laminas-oauth": "~2.0",
         "laminas/laminas-recaptcha": "~3.2",
+        "laminas/laminas-text": "^2.8",
         "laminas/laminas-twitter": "~2.1",
         "lcobucci/jwt": "^3.2.2",
         "leafo/scssphp": ">=0.6.7",
