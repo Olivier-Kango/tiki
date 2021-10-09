@@ -473,7 +473,7 @@ tiki-package:
     - find . -type d -exec chmod 0755 {} \;
     # pack
     - cd ..
-    - tar -pczf tiki-${CI_COMMIT_REF_SLUG}.tar.gz tiki-${CI_COMMIT_REF_SLUG} --exclude *.DS_Store
+    - tar --exclude *.DS_Store -pczf tiki-${CI_COMMIT_REF_SLUG}.tar.gz tiki-${CI_COMMIT_REF_SLUG}
   cache:
     key:
       prefix: "composer"
