@@ -655,7 +655,7 @@ composer()
     # http://dev.tiki.org/item4721
     PHP_OPTION="--version"
     REQUIRED_PHP_VERSION=74 # minimal version PHP 7.4 but no decimal seperator, no floating point data
-    MAX_PHP_VERSION=74      # maximum version PHP 7.4 as we can't support php8 yet
+    MAX_PHP_VERSION=80      # maximum version PHP 7.4 as we can't support php8 yet
     #${PHPCLI} ${PHP_OPTION}
     LOCAL_PHP_VERSION=`"${PHPCLI}" ${PHP_OPTION} | ${GREP} ^PHP | ${CUT} -c5,7`
     #echo ${LOCAL_PHP_VERSION}

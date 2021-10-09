@@ -12,6 +12,7 @@
 
         {tab name="{tr}Performance{/tr}"}
             <br>
+            {preference name=tiki_monitor_performance}
             {preference name=tiki_minify_javascript}
             <div class="adminoptionboxchild" id="tiki_minify_javascript_childcontainer">
                 {preference name=tiki_minify_late_js_files}

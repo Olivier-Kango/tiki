@@ -116,6 +116,19 @@ phplint:
     - composer
   allow_failure: false
 
+phplint80:
+  stage: lint
+  image: rjsmelo/ubuntu-php:8.0-qa
+  script:
+    - RUN_COMMAND_FILTER='\.php$'
+    - RUN_COMMAND="php vendor_bundled/vendor/overtrue/phplint/bin/phplint -n"
+    - *run_command_on_files_changed
+  dependencies:
+    - composer
+  needs:
+    - composer
+  allow_failure: false
+
 smarty-lint:
   stage: lint
   image: ${BASE_QA_IMAGE}
@@ -426,6 +439,11 @@ tiki-sniffs:
 unit-tests-74:
   <<: *template-unit-tests
   image: rjsmelo/ubuntu-php:7.4-qa
+
+unit-tests-80:
+  <<: *template-unit-tests
+  image: rjsmelo/ubuntu-php:8.0-qa
+
 
 #
 # Package this Tiki build

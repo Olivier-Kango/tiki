@@ -55,10 +55,14 @@ function wikiplugin_font_info()
                 'name' => tra('Font Size'),
                 'since' => '8.0',
                 'default' => '',
-                'filter' => 'digits',
+                'filter' => 'text',
                 'description' => tr(
-                    'Define the size of the font in pixels (enter %0 to get a font of 12px)',
-                    '<code>12</code>'
+                    'The size of the font. This can be pixels, percentage or ' .
+                    'any other specification that is supported by the HTML/CSS ' .
+                    'standard. See <a href="https://www.w3.org/TR/CSS2/fonts.html' .
+                    '#propdef-font-size">here</a> for details. The "px" suffix ' .
+                    'can be omitted. For instance, use <code>size=15</code> or ' .
+                    '<code>size=15px</code> for a font size of 15 pixels.'
                 ), // 'px' is compatible with the CKE UI
             ],
         ],
@@ -80,9 +84,13 @@ function wikiplugin_font($data, $params)
     $family = isset($params['family']) ? strtolower($params['family']) : '';
     $size = isset($params['size']) ? $params['size'] : '';
 
-    $style  = '';
-    $style .= ($family and in_array($family, $all_fonts)) ? "font-family: $family;" : '';
-    $style .= ((int)$size and $size > 0) ? ("font-size: $size" . "px;") : '';
+    if ((string)(int)$size == $size and $size > 0) {
+        $size .= "px";
+    }
+
+	$style  = '';
+	$style .= ($family and in_array($family, $all_fonts)) ? "font-family: $family; " : '';
+	$style .= (isset($params['size']) ? "font-size: $size;" : '');
 
     if ($style) {
         return "<$tag style=\"$style\">$data</$tag>";

@@ -22,7 +22,7 @@ class TrackerItemPermissionTest extends TikiTestCase
         self::$old_pref = $prefs['feature_trackers'];
         $prefs['feature_trackers'] = 'y';
 
-        parent::setUp();
+        parent::setUpBeforeClass();
         self::$trklib = TikiLib::lib('trk');
 
         // create tracker and couple of fields
@@ -107,7 +107,7 @@ class TrackerItemPermissionTest extends TikiTestCase
         global $prefs;
         $prefs['feature_trackers'] = self::$old_pref;
 
-        parent::tearDown();
+        parent::tearDownAfterClass();
         self::$trklib->remove_tracker(self::$trackerId);
 
         if (! empty($prefs['unified_mysql_index_current'])) {

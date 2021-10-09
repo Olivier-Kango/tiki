@@ -34,7 +34,7 @@
         {/if}
         <div class="container{if $smarty.session.fullscreen eq 'y'}-fluid{/if} container-std middle" id="middle">
             {if $smarty.session.fullscreen ne 'y'}
-            <div class="row topbar mx-0 {if $prefs.theme_navbar_color_variant eq 'dark'}navbar-dark bg-dark {else}navbar-light bg-light{/if}" id="topbar">
+            <div class="row topbar mx-0 navbar-{$navbar_color_variant} bg-{$navbar_color_variant}" id="topbar">
                 {modulelist zone=topbar class='topbar_modules d-flex justify-content-between w-100'}
             </div>
             {/if}
@@ -158,7 +158,7 @@
             </div>
         </footer>
 
-        <nav class="navbar navbar-expand-md {if $prefs.theme_navbar_color_variant eq 'dark'}navbar-dark bg-dark {else}navbar-light bg-light{/if} fixed-top">
+        <nav class="navbar navbar-expand-md navbar-{$navbar_color_variant} bg-{$navbar_color_variant} fixed-top">
         <div class="container{if $smarty.session.fullscreen eq 'y'}-fluid{/if} container-std d-flex justify-content-between in-navbar">
             <a class="navbar-brand" href="./">
                 {if $prefs.sitelogo_icon}<img src="{$prefs.sitelogo_icon}" alt="{$prefs.sitetitle|escape}">{/if}

@@ -12,6 +12,7 @@ class ODBCSource implements SourceInterface
 {
     private $schema;
     private $odbc_manager;
+    private $last_import_time;
 
     public function __construct(\Tracker\Tabular\Schema $schema, array $odbc_config)
     {
@@ -33,10 +34,11 @@ class ODBCSource implements SourceInterface
         $fields = [];
         foreach ($this->schema->getColumns() as $column) {
             $fields[] = $column->getRemoteField();
-            if ($modifiedField && $modifiedField['permName'] == $column->getField()) {
+            if ($modifiedField && is_array($modifiedField) && $modifiedField['permName'] == $column->getField()) {
                 $modifiedField = $column->getRemoteField();
             }
         }
+        $this->last_import_time = time();
         foreach ($this->odbc_manager->iterate($fields, $modifiedField, $lastImport) as $row) {
             yield new ODBCSourceEntry($row);
         }
@@ -66,7 +68,7 @@ class ODBCSource implements SourceInterface
     {
         $definition = $this->schema->getDefinition();
         if ($definition->getConfiguration('tabularSyncModifiedField')) {
-            \TikiLib::lib('trk')->replace_tracker_option($definition->getConfiguration('trackerId'), 'tabularSyncLastImport', time());
+            \TikiLib::lib('trk')->replace_tracker_option($definition->getConfiguration('trackerId'), 'tabularSyncLastImport', $this->last_import_time);
         }
     }
 }

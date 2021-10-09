@@ -147,13 +147,12 @@ class Utilities
                 switch ($parts['FREQ']) {
                     case "WEEKLY":
                         if (isset($parts['BYDAY'])) {
-                            $weekdays = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
-                            $weekday = array_search($parts['BYDAY'], $weekdays);
+                            $weekdays = $parts['BYDAY'];
                         } else {
-                            $weekday = $component->DTSTART->getDateTime()->format('w');
+                            $weekdays = substr($component->DTSTART->getDateTime()->format('D'), 0, 2);
                         }
                         $rec->setWeekly(true);
-                        $rec->setWeekday($weekday);
+                        $rec->setWeekdays(strtoupper($weekdays));
                         $rec->setMonthly(false);
                         $rec->setYearly(false);
                         break;

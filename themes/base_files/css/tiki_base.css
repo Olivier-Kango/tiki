@@ -1001,6 +1001,32 @@ address, blockquote, dd, dl, dt, h1, h2, h3, h4, h5, h6, li, nav, noscript, ol, 
   font-style: normal;
   font-size: 1.1em;
 }
+.box-cookiesettings {
+  position: fixed;
+}
+.box-cookiesettings.none {
+  position: unset;
+}
+.box-cookiesettings.topleft {
+  left: 0;
+  top: 0;
+  border-bottom-right-radius: 0.25rem;
+}
+.box-cookiesettings.topright {
+  right: 0;
+  top: 0;
+  border-bottom-left-radius: 0.25rem;
+}
+.box-cookiesettings.bottomleft {
+  left: 0;
+  bottom: 0;
+  border-top-right-radius: 0.25rem;
+}
+.box-cookiesettings.bottomright {
+  right: 0;
+  bottom: 0;
+  border-top-left-radius: 0.25rem;
+}
 body.db_error {
   background: none;
 }
@@ -3641,9 +3667,6 @@ div.form-group label.error {
 .select2-container--bootstrap4 .select2-selection--multiple .select2-selection__clear {
   position: relative !important;
   float: right;
-}
-.inline-cypht .select2-container {
-  margin-bottom: 10px;
 }
 .tiki .anythingSlider, .tiki .anythingWindow, .tiki .anythingBase, .tiki .anythingBase > .card {
   -webkit-box-sizing: content-box;

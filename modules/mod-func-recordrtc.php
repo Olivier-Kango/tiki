@@ -37,7 +37,11 @@ function module_recordrtc($mod_reference, $smod_params)     // modifies $smod_pa
     global $prefs, $user;
 
     $smarty->assign('show_recordrtc_module', true);
-    if (! isset($user)) {
+    if (
+        ! isset($user) ||
+        // getDisplayMedia is not supported on mobile devices (check https://caniuse.com/?search=getDisplayMedia)
+        preg_match("/(iphone|ipod|ipad|android|blackberry|webos|opera mini)/i", $_SERVER['HTTP_USER_AGENT'])
+    ) {
         $smarty->assign('show_recordrtc_module', false);
         return;
     }

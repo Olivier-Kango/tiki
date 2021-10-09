@@ -1,5 +1,5 @@
 {if $prefs.theme_unified_admin_backend eq 'y'}
-    <nav class="{if $prefs.theme_navbar_color_variant eq 'dark'}navbar-dark bg-dark{else}navbar-light bg-light{/if}
+    <nav class="navbar-{$navbar_color_variant} bg-{$navbar_color_variant}
              d-flex align-items-start flex-column{if not empty($smarty.cookies.sidebar_collapsed)} narrow{/if}" role="navigation">
         <ul class="nav navbar-nav mb-auto" id="admin-menu">
             <li class="nav-item">
@@ -15,7 +15,14 @@
                     </div>
                 </form>
             </li>
-            <li class="nav-item sections-header mt-2"><a href="tiki-admin.php" class="tips right nav-link" title="{tr}Control Panels Dashboard{/tr}|{tr}Go back to or reload the Control Panels / Administration Dashboard{/tr}">{icon name='home' iclass='fa-fw'}<span>{tr}Control Panels{/tr}</span></a></li>
+            {if not empty($smarty.request.page)}
+                <li class="nav-item sections-header mt-2">
+                    <a href="tiki-admin.php" class="tips right nav-link" title="{tr}Control Panels{/tr}|{tr}Go back to or reload the Control Panels / Administration Dashboard{/tr}">
+                        {icon name='home' iclass='fa-fw'}
+                        <span>{tr}Admin Dashboard{/tr}</span>
+                    </a>
+                </li>
+            {/if}
             {foreach $admin_icons as $section => $secInfo}
                 <li class="nav-item">
                     <a href="#" class="tips right nav-link icon collapse-toggle" data-toggle="collapse" data-target="#collapse{$section}"

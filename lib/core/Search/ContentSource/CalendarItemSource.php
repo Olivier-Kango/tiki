@@ -76,10 +76,8 @@ class Search_ContentSource_CalendarItemSource implements Search_ContentSource_In
             // TODO index recurrences too here?
 
             'view_permission' => $typeFactory->identifier('tiki_p_view_events'),
-
             'parent_object_type' => $typeFactory->identifier('calendar'),
             'parent_object_id' => $typeFactory->identifier($item['calendarId']),
-            'parent_view_permission' => $typeFactory->identifier('tiki_p_view_calendar'),
 
             'trackeritems' => $typeFactory->multivalue($trackerItems),
 
@@ -109,7 +107,6 @@ class Search_ContentSource_CalendarItemSource implements Search_ContentSource_In
             'recurrence_id',
 
             'view_permission',
-            'parent_view_permission',
             'parent_object_id',
             'parent_object_type',
 

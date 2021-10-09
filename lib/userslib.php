@@ -7116,6 +7116,16 @@ class UsersLib extends TikiLib
         $this->query($query, $vars);
     }
 
+    /**
+     * Delete expired cookie tokens
+     *
+     * @return mixed
+     */
+    public function deleteExpiredCookies()
+    {
+        return $this->query('DELETE FROM `tiki_user_login_cookies` WHERE UNIX_TIMESTAMP(expiration) < UNIX_TIMESTAMP()');
+    }
+
     public function get_cookie_check()
     {
         // generate random string but remove fullstops as they are used as the delimiter
@@ -8765,6 +8775,27 @@ class UsersLib extends TikiLib
             }
         }
         return array_values(array_unique($users));
+    }
+
+    /**
+     * Check if current user session was made from a remote instance
+     *
+     * @return bool
+     */
+    public function isAutologin(): bool
+    {
+        return ! empty($_SESSION['autologin_base_url']);
+    }
+
+    /**
+     * Standard error message when user is autologin performing admin actions
+     * that require password.
+     * 
+     * @return string
+     */
+    public function getAutologinAdminActionError(): string
+    {
+        return tr('This action can\'t be performed while remote session is being used. To allow this action, the preference "Require admin users to enter their password for some critical actions" must be disabled.');
     }
 }
 

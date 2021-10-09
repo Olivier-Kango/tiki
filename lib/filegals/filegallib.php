@@ -1884,7 +1884,7 @@ class FileGalLib extends TikiLib
     }
     /* move files to file system
      * return '' if ok otherwise error message */
-    public function moveFiles($to = 'to_fs', &$feedbacks)
+    public function moveFiles($to = 'to_fs', &$feedbacks = [])
     {
         $files = $this->table('tiki_files');
 
@@ -1898,7 +1898,7 @@ class FileGalLib extends TikiLib
 
         $nb = 0;
         foreach ($result as $fileId) {
-            if (($errors = $this->moveFile($to, $fileId)) != '') {
+            if (($errors = $this->moveFile($fileId, $to)) != '') {
                 $feedbacks[] = "$msg $nb";
                 return $errors;
             }
@@ -1907,7 +1907,7 @@ class FileGalLib extends TikiLib
         $feedbacks[] = "$msg $nb";
         return '';
     }
-    public function moveFile($to = 'to_fs', $file_id)
+    public function moveFile($file_id, $to = 'to_fs')
     {
         global $prefs;
         $files = $this->table('tiki_files');

@@ -96,7 +96,7 @@ class Search_MySql_QueryBuilder
             } else {
                 $value = $this->getQuoted($node);
                 $this->requireIndex($node->getField(), 'index', $node->getWeight());
-                return "`{$this->tfTranslator->shortenize($node->getField())}` = $value";
+                return "(`{$this->tfTranslator->shortenize($node->getField())}` = $value AND `{$this->tfTranslator->shortenize($node->getField())}` IS NOT NULL)";
             }
         } elseif ($node instanceof Initial) {
             $value = $this->getQuoted($node, '%');

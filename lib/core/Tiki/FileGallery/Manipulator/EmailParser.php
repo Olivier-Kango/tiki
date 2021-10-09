@@ -30,6 +30,7 @@ class EmailParser extends Manipulator
         }
 
         $result = [
+            'source_id' => $message->getHeaderValue('X-Tiki-Source'),
             'message_id' => $message->getHeaderValue('Message-ID'),
             'subject' => $message->getHeaderValue('Subject'),
             'body' => $message->getContent(),
@@ -41,6 +42,7 @@ class EmailParser extends Manipulator
             'plaintext' => $message->getTextContent(),
             'html' => $message->getHtmlContent(),
             'message_raw' => $message,
+            'flags' => [],
         ];
 
         $date = $message->getHeader('Date');
@@ -48,6 +50,11 @@ class EmailParser extends Manipulator
             $result['date'] = $date->getDateTime()->getTimestamp();
         } else {
             $result['date'] = '';
+        }
+
+        $flags = explode(' ', str_replace('\\', '', (string)$message->getHeaderValue('Flags')));
+        foreach ($flags as $flag) {
+            $result['flags'][strtolower($flag)] = $flag;
         }
 
         return $result;

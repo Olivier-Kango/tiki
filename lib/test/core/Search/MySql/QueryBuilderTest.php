@@ -180,7 +180,7 @@ class Search_MySql_QueryBuilderTest extends PHPUnit\Framework\TestCase
             new Token('Hello', 'identifier', 'object_id', 1.5)
         );
 
-        $this->assertEquals("NOT (`object_id` = 'Hello')", $this->builder->build($expr));
+        $this->assertEquals("NOT ((`object_id` = 'Hello' AND `object_id` IS NOT NULL))", $this->builder->build($expr));
         $this->assertEquals(
             [
                 ['field' => 'object_id', 'type' => 'index', 'weight' => 1.5],
@@ -212,7 +212,7 @@ class Search_MySql_QueryBuilderTest extends PHPUnit\Framework\TestCase
     {
         $expr = new Token('Some entry', 'identifier', 'username', 1.5);
 
-        $this->assertEquals("`username` = 'Some entry'", $this->builder->build($expr));
+        $this->assertEquals("(`username` = 'Some entry' AND `username` IS NOT NULL)", $this->builder->build($expr));
         $this->assertEquals(
             [
                 ['field' => 'username', 'type' => 'index', 'weight' => 1.5],
@@ -358,7 +358,7 @@ class Search_MySql_QueryBuilderTest extends PHPUnit\Framework\TestCase
             ]
         );
 
-        $this->assertEquals("(`object_id` = 'Hello')", $this->builder->build($expr));
+        $this->assertEquals("((`object_id` = 'Hello' AND `object_id` IS NOT NULL))", $this->builder->build($expr));
         $this->assertEquals(
             [
                 ['field' => 'object_id', 'type' => 'index', 'weight' => 1.5],

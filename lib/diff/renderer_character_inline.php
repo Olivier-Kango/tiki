@@ -53,7 +53,7 @@ class Text_Diff_Renderer_character_inline extends Tiki_Text_Diff_Renderer
         return str_replace("<br />", "↵<br />", join("", $lines));
     }
 
-    protected function _lines($type, $lines, $prefix = '')
+    protected function _lines($lines, $prefix = '', $suffix = '', $type = '')
     {
         if ($type == 'context') {
             $this->diff .= join("", $lines);
@@ -81,7 +81,7 @@ class Text_Diff_Renderer_character_inline extends Tiki_Text_Diff_Renderer
 
     protected function _context($lines)
     {
-        $this->_lines('context', $lines);
+        $this->_lines($lines, '', '', 'context');
     }
 
     protected function _added($lines, $changemode = false)
@@ -94,9 +94,9 @@ class Text_Diff_Renderer_character_inline extends Tiki_Text_Diff_Renderer
         }
 
         if ($changemode) {
-            $this->_lines('change-added', $lines, '+');
+            $this->_lines($lines, '+', '', 'change-added');
         } else {
-            $this->_lines('added', $lines, '+');
+            $this->_lines($lines, '+', '', 'added');
         }
     }
 
@@ -110,15 +110,15 @@ class Text_Diff_Renderer_character_inline extends Tiki_Text_Diff_Renderer
         }
 
         if ($changemode) {
-            $this->_lines('change-deleted', $lines, '-');
+            $this->_lines($lines, '-', '', 'change-deleted');
         } else {
-            $this->_lines('deleted', $lines, '-');
+            $this->_lines($lines, '-', '', 'deleted');
         }
     }
 
     protected function _changed($orig, $final)
     {
         $this->change = 'changed';
-        $this->_lines('changed', [$orig, $final], '*');
+        $this->_lines([$orig, $final], '*', '', 'changed');
     }
 }

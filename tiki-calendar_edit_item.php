@@ -22,9 +22,9 @@ if ($prefs['feature_groupalert'] == 'y') {
 }
 $auto_query_args = ['calitemId', 'viewcalitemId'];
 
-$daysnames = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-$daysnames_abr = ["Su","Mo","Tu","We","Th","Fr","Sa"];
-$monthnames = ["","January","February","March","April","May","June","July","August","September","October","November","December"];
+$daysnames = ['SU' => 'Sunday','MO' => 'Monday','TU' => 'Tuesday','WE' => 'Wednesday','TH' => 'Thursday','FR' => 'Friday','SA' => 'Saturday'];
+$daysnames_abr = array_keys($daysnames);
+$monthnames = ["",'January','February','March','April','May','June','July','August','September','October','November','December'];
 $smarty->assign('daysnames', $daysnames);
 $smarty->assign('daysnames_abr', $daysnames_abr);
 $smarty->assign('monthnames', $monthnames);
@@ -35,7 +35,7 @@ $hour_minmax = '';
 $recurrence = [
     'id'                => '',
     'weekly'            => '',
-    'weekday'           => '',
+    'weekdays'          => [],
     'monthly'           => '',
     'dayOfMonth'        => '',
     'yearly'            => '',
@@ -80,7 +80,7 @@ foreach ($rawcals["data"] as $cal_data) {
         $cal_data["tiki_p_change_events"] = $calperms->change_events ? "y" : "n";
     }
     $caladd["$cal_id"] = $cal_data;
-    if ($cal_data['tiki_p_add_events'] == 'y' && empty($calID)) {
+    if ($cal_data['tiki_p_add_events'] == 'y') {
         $calID = $cal_id;
         $addable[] = $calID;
     }
@@ -273,7 +273,7 @@ if (isset($_POST['act'])) {
                 switch ($_POST['recurrenceType']) {
                     case "weekly":
                         $calRecurrence->setWeekly(true);
-                        $calRecurrence->setWeekday($_POST['weekday']);
+                        $calRecurrence->setWeekdays(implode(',', $_POST['weekdays']));
                         $calRecurrence->setMonthly(false);
                         $calRecurrence->setYearly(false);
                         break;
@@ -303,7 +303,11 @@ if (isset($_POST['act'])) {
                 if ($_POST['endType'] == "dt") {
                     $calRecurrence->setEndPeriod($_POST['endPeriod']);
                 } else {
-                    $calRecurrence->setNbRecurrences(empty($_POST['nbRecurrences']) ? null : $_POST['nbRecurrences']);
+                    $nbRecurrences = $_POST['nbRecurrences'] ?? 1;
+                    if ($_POST['recurrenceType'] === 'weekly') {
+                        $nbRecurrences = $nbRecurrences * count($_POST['weekdays']);
+                    }
+                    $calRecurrence->setNbRecurrences($nbRecurrences);
                 }
                 $calRecurrence->setUser($save['user']);
                 $calRecurrence->save(! empty($_POST['affect']) && $_POST['affect'] === 'all');
@@ -431,7 +435,7 @@ if (isset($_REQUEST["delete"]) and ($_REQUEST["delete"]) and isset($_REQUEST["ca
     $recurrence = [
         'id'    => $calitem['recurrenceId'],
         'weekly' => isset($_POST['recurrenceType']) && $_POST['recurrenceType'] == 'weekly',
-        'weekday' => isset($_POST['weekday']) ? $_POST['weekday'] : '',
+        'weekdays' => isset($_POST['weekdays']) ? $_POST['weekdays'] : '',
         'monthly' => isset($_POST['recurrenceType']) && $_POST['recurrenceType'] == 'monthly',
         'dayOfMonth' => isset($_POST['dayOfMonth']) ? $_POST['dayOfMonth'] : '',
         'yearly' => isset($_POST['recurrenceType']) && $_POST['recurrenceType'] == 'yearly',
@@ -636,8 +640,10 @@ $smarty->assign('myurl', 'tiki-calendar_edit_item.php');
 $smarty->assign('id', $id);
 $smarty->assign('hour_minmax', $hour_minmax);
 if (isset($calitem['recurrenceId']) && $calitem['recurrenceId'] > 0) {
-    $cr = new CalRecurrence($calitem['recurrenceId']);
-    $smarty->assign('recurrence', $cr->toArray());
+    if (! isset($_REQUEST['preview'])) {
+        $cr = new CalRecurrence($calitem['recurrenceId']);
+        $smarty->assign('recurrence', $cr->toArray());
+    }
     $recurranceNumChangedEvents = TikiDb::get()->table('tiki_calendar_items')->fetchCount([
         'recurrenceId' => $calitem['recurrenceId'],
         'changed' => 1,

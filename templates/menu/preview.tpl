@@ -13,7 +13,7 @@
         </div>
         <div class="card-body clearfix">
             {if $preview_type eq 'horiz'}
-                <nav class="navbar navbar-expand-lg {if $prefs.theme_navbar_color_variant eq 'dark'}navbar-dark bg-dark {else}navbar-light bg-light{/if}" role="navigation">
+                <nav class="navbar navbar-expand-lg navbar-{$navbar_color_variant} bg-{$navbar_color_variant}" role="navigation">
             {/if}
                     {menu id=$menuId type=$preview_type css=$preview_css bootstrap=$preview_bootstrap}
             {if $preview_type eq 'horiz'}

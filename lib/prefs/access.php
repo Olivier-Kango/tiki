@@ -10,7 +10,7 @@ function prefs_access_list()
 {
     return [
         'access_control_allow_origin' => [
-            'name' => tra('Access-Control-Allow-Origin'),
+            'name' => 'Access-Control-Allow-Origin',
             'description' => tra('Domains allowed to make "CORS" (Cross-Origin Resource Sharing or Cross-Domain Ajax) requests from this server.'),
             'type' => 'textarea',
             'hint' => tra('One URI per line, for example, "http://www.example.com" or "*" for any site'),

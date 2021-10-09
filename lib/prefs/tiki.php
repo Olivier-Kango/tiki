@@ -40,6 +40,12 @@ function prefs_tiki_list()
             ],
             'help' => 'Version+Lifecycle',
         ],
+        'tiki_monitor_performance' => [
+            'name' => tra('Monitor Tiki Performance'),
+            'description' => tra('Register multiple parameters related to tiki\'s performance'),
+            'type' => 'flag',
+            'default' => 'n'
+        ],
         'tiki_minify_javascript' => [
             'name' => tra('Minify JavaScript'),
             'description' => tra('Compress JavaScript files used in the page into a single file to be distributed statically. Changes to JavaScript files will require cache to be cleared. Uses http://code.google.com/p/minify/'),

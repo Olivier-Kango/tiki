@@ -1,6 +1,6 @@
 {title admpage="calendar"}{tr}Calendar event : {/tr}{$calitem.name|escape}{/title}
 
-{if isset($smarty.get.isModal) && $smarty.get.isModal}
+{if isset($smarty.get.modal) && $smarty.get.modal}
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 class="modal-title"></h4>
@@ -8,7 +8,7 @@
 {/if}
 <form action="{$myurl|escape}" method="post" name="f" id="editcalitem" class="no-ajax">
     <div class="modal-body">
-        {if !$smarty.get.isModal}
+        {if !$smarty.get.modal}
             <div class="t_navbar mb-4">
                 {if $tiki_p_view_calendar eq 'y'}
                     {button href="tiki-calendar.php" _type="link" _text="{tr}View Calendars{/tr}" _icon_name="view"}
@@ -200,32 +200,31 @@
                                     </label>
                                 {/if}
                                 {if $recurrence.id eq 0 or $recurrence.weekly}
-                                    <div class="form-group row">
-                                        <div class="col-sm-6 input-group">
+                                    <div class="form-group px-5">
+                                        <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text">{tr}Each{/tr}</span>
                                             </div>
-                                            <select name="weekday" class="form-control">
-                                                <option value="0" {if $recurrence.weekday eq '0'} selected="selected" {/if} >
+                                            <select name="weekdays[]" class="form-control" multiple>
+                                                <option value="SU"{if in_array('SU', $recurrence.weekdays)} selected="selected" {/if}>
                                                     {tr}Sunday{/tr}
                                                 </option>
-                                                <option value="1"
-                                                        {if $recurrence.weekday eq '1'} selected="selected" {/if} >
+                                                <option value="MO"{if in_array('MO', $recurrence.weekdays)} selected="selected" {/if}>
                                                     {tr}Monday{/tr}
                                                 </option>
-                                                <option value="2" {if $recurrence.weekday eq '2'} selected="selected" {/if} >
+                                                <option value="TU" {if in_array('TU', $recurrence.weekdays)} selected="selected" {/if}>
                                                     {tr}Tuesday{/tr}
                                                 </option>
-                                                <option value="3" {if $recurrence.weekday eq '3'} selected="selected" {/if} >
+                                                <option value="WE" {if in_array('WE', $recurrence.weekdays)} selected="selected" {/if}>
                                                     {tr}Wednesday{/tr}
                                                 </option>
-                                                <option value="4" {if $recurrence.weekday eq '4'} selected="selected" {/if} >
+                                                <option value="TH" {if in_array('TH', $recurrence.weekdays)} selected="selected" {/if}>
                                                     {tr}Thursday{/tr}
                                                 </option>
-                                                <option value="5" {if $recurrence.weekday eq '5'} selected="selected" {/if} >
+                                                <option value="FR" {if in_array('FR', $recurrence.weekdays)} selected="selected" {/if}>
                                                     {tr}Friday{/tr}
                                                 </option>
-                                                <option value="6" {if $recurrence.weekday eq '6'} selected="selected" {/if} >
+                                                <option value="SA" {if in_array('SA', $recurrence.weekdays)} selected="selected" {/if}>
                                                     {tr}Saturday{/tr}
                                                 </option>
                                             </select>
@@ -247,9 +246,9 @@
                                     </label>
                                 {/if}
                                 {if $recurrence.id eq 0 or $recurrence.monthly}
-                                <div class="form-group row">
-                                    <div class="offset-sm-1 col-sm-4 input-group">
-                                        <span class="input-group-append">{tr}Each{/tr}</span>
+                                <div class="form-group px-5">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend"><span class="input-group-text">{tr}Each{/tr}</span></div>
                                         <select name="dayOfMonth" class="form-control">
                                             {section name=k start=1 loop=32}
                                                 <option value="{$smarty.section.k.index}" {if $recurrence.dayOfMonth eq $smarty.section.k.index} selected="selected" {/if} >
@@ -260,7 +259,7 @@
                                                 </option>
                                             {/section}
                                         </select>
-                                        <span class="input-group-append">{tr}of the month{/tr}</span>
+                                        <div class="input-group-append"><span class="input-group-text">{tr}of the month{/tr}</span></div>
                                     </div>
                                     <hr/>
                                 </div>
@@ -278,61 +277,61 @@
                                     <br>
                                 {/if}
                                 {if $recurrence.id eq 0 or $recurrence.yearly}
-                                <div class="form-group row">
-                                    <div class="offset-sm-1 col-sm-4 input-group">
-                                        <span class="input-group-append">{tr}Each{/tr}</span>
-                                        <select name="dateOfYear_day" class="form-control" onChange="checkDateOfYear(this.options[this.selectedIndex].value,document.forms['f'].elements['dateOfYear_month'].options[document.forms['f'].elements['dateOfYear_month'].selectedIndex].value);">
-                                            {section name=k start=1 loop=32}
-                                                <option value="{$smarty.section.k.index}" {if $recurrence.dateOfYear_day eq $smarty.section.k.index} selected="selected" {/if} >
-                                                    {if $smarty.section.k.index lt 10}
-                                                        0
-                                                    {/if}
-                                                    {$smarty.section.k.index}
+                                    <div class="form-group px-5">
+                                        <div class="input-group">
+                                            <div class="input-group-prepend"><span class="input-group-text">{tr}Each{/tr}</span></div>
+                                            <select name="dateOfYear_day" class="form-control" onChange="checkDateOfYear(this.options[this.selectedIndex].value,document.forms['f'].elements['dateOfYear_month'].options[document.forms['f'].elements['dateOfYear_month'].selectedIndex].value);">
+                                                {section name=k start=1 loop=32}
+                                                    <option value="{$smarty.section.k.index}" {if $recurrence.dateOfYear_day eq $smarty.section.k.index} selected="selected" {/if} >
+                                                        {if $smarty.section.k.index lt 10}
+                                                            0
+                                                        {/if}
+                                                        {$smarty.section.k.index}
+                                                    </option>
+                                                {/section}
+                                            </select>
+                                            <div class="input-group-append"><span class="input-group-text">{tr}of{/tr}</span></div>
+                                            <select name="dateOfYear_month" class="form-control" onChange="checkDateOfYear(document.forms['f'].elements['dateOfYear_day'].options[document.forms['f'].elements['dateOfYear_day'].selectedIndex].value,this.options[this.selectedIndex].value);">
+                                                <option value="1" {if $recurrence.dateOfYear_month eq '1'} selected="selected" {/if}>
+                                                    {tr}January{/tr}
                                                 </option>
-                                            {/section}
-                                        </select>
-                                        <span class="input-group-append">{tr}of{/tr}</span>
-                                        <select name="dateOfYear_month" class="form-control" onChange="checkDateOfYear(document.forms['f'].elements['dateOfYear_day'].options[document.forms['f'].elements['dateOfYear_day'].selectedIndex].value,this.options[this.selectedIndex].value);">
-                                            <option value="1" {if $recurrence.dateOfYear_month eq '1'} selected="selected" {/if} >
-                                                {tr}January{/tr}
-                                            </option>
-                                            <option value="2" {if $recurrence.dateOfYear_month eq '2'} selected="selected" {/if} >
-                                                {tr}February{/tr}
-                                            </option>
-                                            <option value="3" {if $recurrence.dateOfYear_month eq '3'} selected="selected" {/if} >
-                                                {tr}March{/tr}
-                                            </option>
-                                            <option value="4" {if $recurrence.dateOfYear_month eq '4'} selected="selected" {/if} >
-                                                {tr}April{/tr}
-                                            </option>
-                                            <option value="5" {if $recurrence.dateOfYear_month eq '5'} selected="selected" {/if} >
-                                                {tr}May{/tr}
-                                            </option>
-                                            <option value="6" {if $recurrence.dateOfYear_month eq '6'} selected="selected" {/if} >
-                                                {tr}June{/tr}
-                                            </option>
-                                            <option value="7" {if $recurrence.dateOfYear_month eq '7'} selected="selected" {/if} >
-                                                {tr}July{/tr}
-                                            </option>
-                                            <option value="8" {if $recurrence.dateOfYear_month eq '8'} selected="selected" {/if} >
-                                                {tr}August{/tr}
-                                            </option>
-                                            <option value="9" {if $recurrence.dateOfYear_month eq '9'} selected="selected" {/if} >
-                                                {tr}September{/tr}
-                                            </option>
-                                            <option value="10" {if $recurrence.dateOfYear_month eq '10'} selected="selected" {/if} >
-                                                {tr}October{/tr}</option>
-                                            <option value="11" {if $recurrence.dateOfYear_month eq '11'} selected="selected" {/if} >
-                                                {tr}November{/tr}
-                                            </option>
-                                            <option value="12" {if $recurrence.dateOfYear_month eq '12'} selected="selected" {/if} >
-                                                {tr}December{/tr}
-                                            </option>
-                                        </select>
+                                                <option value="2" {if $recurrence.dateOfYear_month eq '2'} selected="selected" {/if}>
+                                                    {tr}February{/tr}
+                                                </option>
+                                                <option value="3" {if $recurrence.dateOfYear_month eq '3'} selected="selected" {/if}>
+                                                    {tr}March{/tr}
+                                                </option>
+                                                <option value="4" {if $recurrence.dateOfYear_month eq '4'} selected="selected" {/if}>
+                                                    {tr}April{/tr}
+                                                </option>
+                                                <option value="5" {if $recurrence.dateOfYear_month eq '5'} selected="selected" {/if}>
+                                                    {tr}May{/tr}
+                                                </option>
+                                                <option value="6" {if $recurrence.dateOfYear_month eq '6'} selected="selected" {/if}>
+                                                    {tr}June{/tr}
+                                                </option>
+                                                <option value="7" {if $recurrence.dateOfYear_month eq '7'} selected="selected" {/if}>
+                                                    {tr}July{/tr}
+                                                </option>
+                                                <option value="8" {if $recurrence.dateOfYear_month eq '8'} selected="selected" {/if}>
+                                                    {tr}August{/tr}
+                                                </option>
+                                                <option value="9" {if $recurrence.dateOfYear_month eq '9'} selected="selected" {/if}>
+                                                    {tr}September{/tr}
+                                                </option>
+                                                <option value="10" {if $recurrence.dateOfYear_month eq '10'} selected="selected" {/if}>
+                                                    {tr}October{/tr}</option>
+                                                <option value="11" {if $recurrence.dateOfYear_month eq '11'} selected="selected" {/if}>
+                                                    {tr}November{/tr}
+                                                </option>
+                                                <option value="12" {if $recurrence.dateOfYear_month eq '12'} selected="selected" {/if}>
+                                                    {tr}December{/tr}
+                                                </option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <div id="errorDateOfYear" class="text-danger offset-sm-1"></div>
-                                <hr>
+                                    <div id="errorDateOfYear" class="text-danger offset-sm-1"></div>
+                                    <hr>
                                 {/if}
                                 {if $recurrence.id gt 0}
                                     <input type="hidden" name="startPeriod" value="{$recurrence.startPeriod}">
@@ -345,7 +344,7 @@
                                         {tr}ending after{/tr} {$recurrence.nbRecurrences} {tr}events{/tr}
                                     {/if}.
                                 {else}
-                                    {tr}Start period{/tr}<br>
+                                    {tr}Start date{/tr}<br>
                                     {if $prefs.feature_jscalendar eq 'y' and $prefs.javascript_enabled eq 'y'}
                                         <div class="offset-sm-1 col-sm-6 input-group">
                                             {if empty($recurrence.startPeriod)}{$startPeriod = $calitem.start}{else}{$startPeriod = $recurrence.startPeriod}{/if}
@@ -356,19 +355,23 @@
                                             {html_select_date prefix="startPeriod_" time=$recurrence.startPeriod field_order=$prefs.display_field_order start_year=$prefs.calendar_start_year end_year=$prefs.calendar_end_year}
                                         </div>
                                     {/if}
-                                    <br><br><hr/>
-                                    {tr}End Period{/tr}<br><br>
-                                    <input type="radio" id="id_endTypeNb" name="endType" value="nb" {if $recurrence.nbRecurrences or $calitem.calitemId eq 0 or empty($recurrence.id)} checked="checked" {/if} >
+                                    <hr/>
+                                    <input type="radio" id="id_endTypeNb" name="endType" value="nb" {if $recurrence.nbRecurrences or $calitem.calitemId eq 0 or empty($recurrence.id)} checked="checked" {/if}>
                                     <label for="id_endTypeNb">
                                         &nbsp;{tr}End after{/tr}
                                     </label>
                                     <div class="offset-sm-1 col-sm-6 input-group">
-                                        <input type="text" name="nbRecurrences" size="3" class="form-control" style="z-index: 0"
+                                        <input type="number" min="1" name="nbRecurrences" size="3" class="form-control" style="z-index: 0"
                                                value="{if $recurrence.nbRecurrences gt 0}{$recurrence.nbRecurrences}{else}1{/if}">
-                                        <span class="input-group-addon">{if $recurrence.nbRecurrences gt 1}{tr}occurrences{/tr}{else}{tr}occurrence{/tr}{/if}</span>
+
+                                        <div class="input-group-append mr-4">
+                                            <span class="input-group-text">
+                                                {if $recurrence.nbRecurrences gt 1}{tr}occurrences{/tr}{else}{tr}occurrence{/tr}{/if}
+                                            </span>
+                                        </div>
                                     </div>
                                     <br>
-                                    <input type="radio" id="id_endTypeDt" name="endType" value="dt" {if $recurrence.endPeriod gt 0} checked="checked" {/if} >
+                                    <input type="radio" id="id_endTypeDt" name="endType" value="dt" {if $recurrence.endPeriod gt 0} checked="checked" {/if}>
                                     <label for="id_endTypeDt">
                                         &nbsp;{tr}End before{/tr}
                                     </label><br>
@@ -394,7 +397,15 @@
                                             {$recurrence.nbRecurrences} {tr}times{/tr},&nbsp;
                                         {/if}
                                         {if $recurrence.weekly}
-                                            {tr}on{/tr}&nbsp;{tr}{$daysnames[$recurrence.weekday]}s{/tr},
+                                            {tr}on{/tr}&nbsp
+                                            {foreach $recurrence.weekdays as $day}{strip}
+                                                {if $day@iteration eq $day@total}
+                                                    &nbsp;{tr}and{/tr}&nbsp;
+                                                {elseif not $day@last and not $day@first}
+                                                    ,&nbsp;
+                                                {/if}
+                                                {tr}{$daysnames[$day]}s{/tr}
+                                            {/strip}{/foreach}
                                         {elseif $recurrence.monthly}
                                             {tr}on{/tr}&nbsp;{$recurrence.dayOfMonth} {tr}of every month{/tr}
                                         {else}
@@ -553,7 +564,7 @@
                         </div>
                         <div class="statusbox {if $calitem.status eq 2}status2{/if}">
                             {if $edit}
-                                <input id="status2" type="radio" name="save[status]" value="2" {if $calitem.status eq 2} checked="checked" {/if} >
+                                <input id="status2" type="radio" name="save[status]" value="2" {if $calitem.status eq 2} checked="checked" {/if}>
                                 <label for="status2">
                                     {tr}Cancelled{/tr}
                                 </label>
@@ -571,7 +582,7 @@
                         {if $edit}
                             <select name="save[priority]" style="background-color:#{$listprioritycolors[$calitem.priority]};" onchange="this.style.bacgroundColor='#'+this.selectedIndex.value;" class="form-control">
                                 {foreach item=it from=$listpriorities}
-                                    <option value="{$it}" style="background-color:#{$listprioritycolors[$it]};" {if $calitem.priority eq $it} selected="selected" {/if} >
+                                    <option value="{$it}" style="background-color:#{$listprioritycolors[$it]};" {if $calitem.priority eq $it} selected="selected" {/if}>
                                         {$it}
                                     </option>
                                 {/foreach}
@@ -595,7 +606,7 @@
                                 <option value="">
                                 </option>
                                 {foreach item=it from=$listcats}
-                                    <option value="{$it.categoryId}" {if $calitem.categoryId eq $it.categoryId} selected="selected" {/if} >
+                                    <option value="{$it.categoryId}" {if $calitem.categoryId eq $it.categoryId} selected="selected" {/if}>
                                         {$it.name|escape}
                                     </option>
                                 {/foreach}
@@ -619,7 +630,7 @@
                                 <option value="">
                                 </option>
                                 {foreach item=it from=$listlocs}
-                                    <option value="{$it.locationId}" {if $calitem.locationId eq $it.locationId} selected="selected" {/if} >
+                                    <option value="{$it.locationId}" {if $calitem.locationId eq $it.locationId} selected="selected" {/if}>
                                         {$it.name|escape}
                                     </option>
                                 {/foreach}
@@ -656,7 +667,7 @@
                             <option value="">
                             </option>
                             {foreach item=it from=$listlanguages}
-                                <option value="{$it.value}" {if $calitem.lang eq $it.value} selected="selected" {/if} >
+                                <option value="{$it.value}" {if $calitem.lang eq $it.value} selected="selected" {/if}>
                                     {$it.name}
                                 </option>
                             {/foreach}

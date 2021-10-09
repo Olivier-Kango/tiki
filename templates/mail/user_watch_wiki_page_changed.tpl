@@ -27,6 +27,9 @@
 
 ***********************************************************
 {if $mail_diffdata}{tr}The changes in this version follow below, followed after by the current full page text.{/tr}
+{if $has_md5_content_diagrams}
+{tr}Diagram plugin content was replaced with MD5 hash for version comparison.{/tr}
+{/if}
 ***********************************************************
 
 {section name=ix loop=$mail_diffdata}

@@ -52,7 +52,6 @@ class Search_ContentSource_BlogPostSource implements Search_ContentSource_Interf
             'parent_object_type' => $typeFactory->identifier('blog'),
             'parent_object_id' => $typeFactory->identifier($post['blogId']),
             'view_permission' => $typeFactory->identifier('tiki_p_read_blog'),
-            'parent_view_permission' => $typeFactory->identifier('tiki_p_read_blog'),
         ];
 
         return $data;
@@ -73,7 +72,6 @@ class Search_ContentSource_BlogPostSource implements Search_ContentSource_Interf
             'blog_content',
 
             'view_permission',
-            'parent_view_permission',
             'parent_object_id',
             'parent_object_type',
         ];

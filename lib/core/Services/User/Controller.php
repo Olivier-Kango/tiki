@@ -112,7 +112,7 @@ class Services_User_Controller
      */
     public function action_info($input)
     {
-        global $prefs, $user;
+        global $prefs;
 
         $tikilib = TikiLib::lib('tiki');
         $sociallib = TikiLib::lib('social');
@@ -451,6 +451,7 @@ class Services_User_Controller
         global $prefs;
         Services_Exception_Denied::checkGlobal('admin_users');
         $util = new Services_Utilities();
+        $userlib = TikiLib::lib('user');
         //first pass - show confirm modal popup
         if ($util->notConfirmPost()) {
             $util->setVars($input, $this->filters, 'checked');
@@ -465,6 +466,9 @@ class Services_User_Controller
                 $extraFields = [];
 
                 if ($prefs['users_admin_actions_require_validation'] == 'y') {
+                    if ($userlib->isAutologin()) {
+                        Services_Utilities::modalException($userlib->getAutologinAdminActionError());
+                    }
                     $extraFields = [
                         [
                             'label' => tr('Please confirm this operation by typing your password'),
@@ -528,7 +532,9 @@ class Services_User_Controller
         //after confirm submit - perform action and return success feedback
         } elseif ($util->checkCsrf()) {
             if ($prefs['users_admin_actions_require_validation'] == 'y') {
-                $userlib = TikiLib::lib('user');
+                if ($userlib->isAutologin()) {
+                    Services_Utilities::modalException($userlib->getAutologinAdminActionError());
+                }
                 $pass = $input->offsetGet('confirmpassword');
                 $user = isset($_SESSION['u_info']['login']) ? $_SESSION['u_info']['login'] : '';
                 $ret = $userlib->validate_user($user, $pass);

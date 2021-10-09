@@ -920,7 +920,8 @@ class TrackerLib extends TikiLib
             }
             if ($format) {
                 // use the underlying translation function to replace the %0 etc placeholders (and translate if necessary)
-                $res = tra($format, '', false, $values);
+                // and preserve spaces in the format string
+                $res = tra(str_replace(' ', '&nbsp;', $format), '', false, $values);
             }
             if ($strip_tags) {
                 $res = strip_tags($res);
@@ -1350,7 +1351,23 @@ class TrackerLib extends TikiLib
                     }
                 }
 
-                if ($filter['type'] == 'e' && $prefs['feature_categories'] == 'y' && (! empty($ev) || ! empty($fv))) {
+                if ($filter['type'] == 'p' && (! empty($fv) || ! empty($ev))) {
+                    $definition = Tracker_Definition::get($trackerId);
+                    $userFieldId = $definition->getUserField();
+                    $prefName = '';
+                    $trackerFieldOptions = $this->getOne('SELECT `options` FROM `tiki_tracker_fields` WHERE fieldId = ?', $ff);
+                    if ($trackerFieldOptions && $trackerFieldOptions = json_decode($trackerFieldOptions)) {
+                        $prefName = $trackerFieldOptions->type ?? '';
+                    }
+
+                    if ($userFieldId && $prefName) {
+                        $cat_table .= " INNER JOIN `tiki_tracker_item_fields` uttif$i ON (uttif$i.`itemId` = tti.`itemId` AND uttif$i.`fieldId` = $userFieldId)";
+                        $cat_table .= " INNER JOIN `tiki_user_preferences` tup$i ON (tup$i.user = uttif$i.`value`)";
+                        $mid .= " AND tup$i.prefName = ? AND tup$i.value like ?";
+                        $bindvars[] = $prefName;
+                        $bindvars[] = $ev ?: "%$fv%";
+                    }
+                } elseif ($filter['type'] == 'e' && $prefs['feature_categories'] == 'y' && (! empty($ev) || ! empty($fv))) {
                     //category
 
                     $value = empty($fv) ? $ev : $fv;
@@ -4672,7 +4689,7 @@ class TrackerLib extends TikiLib
     /* get the fields from the pretty tracker template
          * return a list of fieldIds
          */
-    public function get_pretty_fieldIds($resource, $type = 'wiki', &$prettyModifier, $trackerId = 0)
+    public function get_pretty_fieldIds($resource, $type = 'wiki', &$prettyModifier = [], $trackerId = 0)
     {
         $tikilib = TikiLib::lib('tiki');
         $smarty = TikiLib::lib('smarty');

@@ -73,6 +73,13 @@
                 "GANTT_WEEK_SHORT":"w."
             };
         }
+        function print_chart() {
+            var printContents = document.getElementsByClassName("gdfWrapper");    
+            var originalContents = document.body.innerHTML;      
+            document.body.innerHTML = printContents[0].innerHTML;     
+            window.print();
+            window.location.reload()
+        }
     </script>
 {literal}
     <div id="gantEditorTemplates" style="display:none;">
@@ -100,7 +107,7 @@
                 <button onclick="$('#workSpace').trigger('zoomMinus.gantt'); return false;" class="button textual icon " title="zoom out"><span class="teamworkIcon">)</span></button>
                 <button onclick="$('#workSpace').trigger('zoomPlus.gantt');return false;" class="button textual icon " title="zoom in"><span class="teamworkIcon">(</span></button>
                 <span class="ganttButtonSeparator"></span>
-                <button onclick="print();return false;" class="button textual icon " title="Print"><span class="teamworkIcon">p</span></button>
+                <button onclick="print_chart();return false;" class="button textual icon " title="Print"><span class="teamworkIcon">p</span></button>
                 <span class="ganttButtonSeparator"></span>
                 <button onclick="ge.gantt.showCriticalPath=!ge.gantt.showCriticalPath; ge.redraw();return false;" class="button textual icon requireCanSeeCriticalPath" title="CRITICAL_PATH"><span class="teamworkIcon">&pound;</span></button>
                 <span class="ganttButtonSeparator requireCanSeeCriticalPath"></span>

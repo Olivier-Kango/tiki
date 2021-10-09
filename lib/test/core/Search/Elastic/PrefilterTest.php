@@ -49,7 +49,6 @@ class Search_Elastic_PrefilterTest extends PHPUnit\Framework\TestCase
 
     /**
      * Test Non-working ElasticSearch without MySQL fallback
-     * We need to ensure that the prefilter is not set and there's an error message within
      * @throws Exception
      */
     public function testPrefilterWithoutFallback()
@@ -63,13 +62,5 @@ class Search_Elastic_PrefilterTest extends PHPUnit\Framework\TestCase
         $unifiedsearchlib = TikiLib::lib('unifiedsearch');
         $datasource = $unifiedsearchlib->getDataSource();
         $this->assertNull($datasource->getPrefilter());
-
-        $feedbackMessages = [];
-
-        foreach ($_SESSION['tikifeedback'] as $feedbackMessages) {
-            $feedbackMessages[] = reset($feedbackMessages['mes']);
-        }
-
-        $this->assertContains(tr("The main search engine is not working properly and the fallback is also not set.<br>Search engine results might not be properly displayed."), $feedbackMessages);
     }
 }

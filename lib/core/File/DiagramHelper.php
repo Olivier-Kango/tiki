@@ -8,12 +8,14 @@
 
 namespace Tiki\File;
 
+use Feedback;
 use Tiki\FileGallery\File as TikiFile;
 use Tiki\FileGallery\File;
 use Tiki\Package\VendorHelper;
 use Tiki\Process\Process;
 use TikiLib;
 use WikiParser_PluginArgumentParser;
+use WikiParser_PluginMatcher;
 
 class DiagramHelper
 {
@@ -22,6 +24,7 @@ class DiagramHelper
 
     const WIKI_SYNTAX_DEFAULT_DIAGRAM_MXCELL_REPEAT = 'vertical';
     const WIKI_SYNTAX_DEFAULT_DIAGRAM_MXCELL_OFFSET = '10';
+    const WIKI_SYNTAX_DIAGRAM_PLUGIN = 'diagram';
 
     /**
      * Get diagram as image given a file ID or diagram contents.
@@ -73,8 +76,12 @@ class DiagramHelper
 
             $rawXmlContent = $file->getContents();
         }
-
         $diagramRoot = simplexml_load_string($rawXmlContent);
+
+        if ($diagramRoot === false && ! empty($identifier)) {
+            Feedback::error(tr('The provided diagram XML is not valid. Please check and validate the diagram structure.'));
+        }
+
         $diagrams = [];
 
         foreach ($diagramRoot->diagram as $diagram) {
@@ -229,6 +236,33 @@ class DiagramHelper
         }
 
         return self::deflate($rootDiagram);
+    }
+
+    /**
+     * Converts a diagram plugin inner content to md5 (useful when performing diffs)
+     * @param WikiParser_PluginMatcher $parser
+     * @return bool returns true if any content was changed
+     */
+    public static function md5WikiPluginDiagramContent(WikiParser_PluginMatcher &$parser): bool
+    {
+        $hasChanges = false;
+        $parser->rewind();
+        while ($parser->valid()) {
+            $current = $parser->current();
+
+            if ($parser->current()->getName() !== self::WIKI_SYNTAX_DIAGRAM_PLUGIN || empty($parser->current()->getBody())) {
+                $parser->next();
+                continue;
+            }
+
+            $bodyHash = tr('diagram content hash - %0', md5($current->getBody()));
+            $current->replaceWithPlugin(self::WIKI_SYNTAX_DIAGRAM_PLUGIN, $current->getArguments(), $bodyHash);
+
+            $hasChanges = true;
+            $parser->next();
+        }
+
+        return $hasChanges;
     }
 
     /**

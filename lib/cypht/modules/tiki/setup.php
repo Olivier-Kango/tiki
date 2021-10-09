@@ -115,7 +115,9 @@ add_output('settings', 'enable_gmail_contacts_module_setting', true, 'tiki', 'en
 add_handler('message', 'tracker_message_list_type', true, 'core', 'message_list_type', 'after');
 add_handler('message', 'tiki_download_message', true, 'core', 'message_list_type', 'after');
 add_handler('message_list', 'check_path_redirect', true, 'core', 'load_user_data', 'after');
-add_handler('compose', 'tiki_save_sent', true, 'smtp', 'process_compose_form_submit', 'after');
+add_handler('compose', 'tiki_mark_as_answered', true, 'smtp', 'process_compose_form_submit', 'after');
+add_handler('compose', 'tiki_save_sent', true, 'smtp', 'tiki_mark_as_answered', 'after');
+add_handler('compose', 'check_path_redirect_after_sent', true, 'smtp', 'tiki_save_sent', 'after');
 add_output('ajax_imap_message_content', 'add_move_to_trackers', true, 'imap', 'filter_message_headers', 'after');
 setup_base_ajax_page('ajax_move_to_tracker', 'core');
 add_handler('ajax_move_to_tracker', 'load_imap_servers_from_config', true, 'imap');
@@ -130,20 +132,30 @@ add_handler('ajax_tiki_message_content', 'close_session_early', true, 'core');
 add_output('ajax_tiki_message_content', 'filter_message_headers', true, 'imap');
 add_output('ajax_tiki_message_content', 'filter_message_body', true, 'imap');
 add_output('ajax_tiki_message_content', 'filter_message_struct', true, 'imap');
-add_output('ajax_tiki_message_content', 'add_prev_next_links', true);
+add_output('ajax_tiki_message_content', 'forward_variables', true);
 add_output('ajax_tiki_message_content', 'add_move_to_trackers', true);
 setup_base_ajax_page('ajax_tiki_delete_message', 'core');
 add_handler('ajax_tiki_delete_message', 'message_list_type', true, 'core');
 add_handler('ajax_tiki_delete_message', 'tracker_message_list_type', true);
 add_handler('ajax_tiki_delete_message', 'close_session_early', true, 'core');
 add_handler('ajax_tiki_delete_message', 'tiki_delete_message', true);
+setup_base_ajax_page('ajax_tiki_archive_message', 'core');
+add_handler('ajax_tiki_archive_message', 'message_list_type', true, 'core');
+add_handler('ajax_tiki_archive_message', 'tracker_message_list_type', true);
+add_handler('ajax_tiki_archive_message', 'close_session_early', true, 'core');
+add_handler('ajax_tiki_archive_message', 'tiki_archive_message', true);
 setup_base_ajax_page('ajax_tiki_move_copy_action', 'core');
 add_handler('ajax_tiki_move_copy_action', 'load_imap_servers_from_config', true, 'imap');
 add_handler('ajax_tiki_move_copy_action', 'imap_oauth2_token_check', true, 'imap');
 add_handler('ajax_tiki_move_copy_action', 'tiki_process_move', true);
 add_handler('ajax_tiki_move_copy_action', 'save_imap_cache', true, 'imap');
 add_handler('ajax_tiki_move_copy_action', 'close_session_early', true, 'core');
-
+setup_base_ajax_page('ajax_tiki_flag_message', 'core');
+add_handler('ajax_tiki_flag_message', 'close_session_early',  true, 'core');
+add_handler('ajax_tiki_flag_message', 'flag_tiki_message', true);
+add_output('ajax_tiki_flag_message', 'forward_variables', true);
+setup_base_ajax_page('ajax_tiki_message_action', 'core');
+add_handler('ajax_tiki_message_action', 'tiki_message_action', true);
 
 return array(
   'allowed_pages' => array(
@@ -158,7 +170,10 @@ return array(
     'ajax_move_to_tracker',
     'ajax_tiki_message_content',
     'ajax_tiki_delete_message',
+    'ajax_tiki_archive_message',
     'ajax_tiki_move_copy_action',
+    'ajax_tiki_flag_message',
+    'ajax_tiki_message_action',
   ),
   'allowed_get' => array(
     'tiki_download_message' => FILTER_VALIDATE_BOOLEAN,
@@ -172,6 +187,10 @@ return array(
     'msg_prev_subject' => array(FILTER_SANITIZE_STRING, false),
     'msg_next_link' => array(FILTER_SANITIZE_STRING, false),
     'msg_next_subject' => array(FILTER_SANITIZE_STRING, false),
+    'delete_error' => array(FILTER_VALIDATE_BOOLEAN, false),
+    'archive_error' => array(FILTER_VALIDATE_BOOLEAN, false),
+    'show_archive' => array(FILTER_VALIDATE_BOOLEAN, false),
+    'flag_state' => array(FILTER_SANITIZE_STRING, false),
   ),
   'allowed_post' => array(
     'imap_server_id' => FILTER_VALIDATE_INT,
@@ -204,5 +223,6 @@ return array(
     'imap_move_ids' => FILTER_SANITIZE_STRING,
     'imap_move_to' => FILTER_SANITIZE_STRING,
     'imap_move_action' => FILTER_SANITIZE_STRING,
+    'action_type' => FILTER_SANITIZE_STRING,
   )
 );

@@ -544,7 +544,6 @@ function wikiplugin_pivottable($data, $params)
                 if (! isset($arguments['separator'])) {
                     $arguments['separator'] = ',';
                 }
-                $arguments['field'] = str_replace('tracker_field_', '', $arguments['field']);
                 $splittedAttributes[] = $arguments;
             }
         }
@@ -721,7 +720,7 @@ function wikiplugin_pivottable($data, $params)
         } else {
             $field = $field['name'];
         }
-        $separator = $arguments['separator'];
+        $separator = str_replace("~nl~", "\n", $arguments['separator']);
         $key = 0;
         while ($key < count($pivotData)) {
             $row = $pivotData[$key];
@@ -734,9 +733,27 @@ function wikiplugin_pivottable($data, $params)
                 $key++;
                 continue;
             }
-            $replacement = array_map(function ($value) use ($row, $field) {
-                return array_merge($row, [$field => ltrim($value)]);
-            }, $splitted);
+            if (isset($arguments['replace_fields'], $arguments['value_separator'])) {
+                $replacement = [];
+                foreach ($splitted as $split_value) {
+                    $replaced_row = $row;
+                    $values = explode($arguments['value_separator'], $split_value);
+                    foreach (preg_split('/\s*,\s*/', $arguments['replace_fields']) as $replacement_key => $replacement_field) {
+                        $real_field = wikiplugin_pivottable_field_from_definitions($replacement_field, $definitions);
+                        if (! empty($real_field)) {
+                            $replacement_field = $real_field['name'];
+                        }
+                        if (isset($replaced_row[$replacement_field])) {
+                            $replaced_row[$replacement_field] = $values[$replacement_key];
+                        }
+                    }
+                    $replacement[] = $replaced_row;
+                }
+            } else {
+                $replacement = array_map(function ($value) use ($row, $field) {
+                    return array_merge($row, [$field => ltrim($value)]);
+                }, $splitted);
+            }
             array_splice($pivotData, $key, 1, $replacement);
             $key += count($replacement);
         }
@@ -960,7 +977,7 @@ function wikiplugin_pivottable($data, $params)
 function wikiplugin_pivottable_field_from_definitions($permName, $definitions, $default = null)
 {
     foreach ($definitions as $definition) {
-        if ($field = $definition->getFieldFromPermName($permName)) {
+        if ($field = $definition->getFieldFromPermName(str_replace('tracker_field_', '', $permName))) {
             if (count($definitions) > 1) {
                 $field['name'] = $definition->getConfiguration('name') . ' - ' . $field['name'];
             }

@@ -395,10 +395,10 @@ class Services_Group_Controller
         global $prefs;
         Services_Exception_Denied::checkGlobal('admin');
         $util = new Services_Utilities();
+        $userlib = TikiLib::lib('user');
         //first pass - show confirm modal popup
         if ($util->notConfirmPost()) {
             $util->setVars($input, $this->filters, 'user');
-            $userlib = TikiLib::lib('user');
             $group = $userlib->get_group_info($input['group']);
             if ($group["isRole"] == "y") {
                 Services_Utilities::modalException(tra('Role groups can\'t have users.'));
@@ -413,6 +413,9 @@ class Services_Group_Controller
                 $extra = [];
 
                 if ($prefs['users_admin_actions_require_validation'] == 'y') {
+                    if ($userlib->isAutologin()) {
+                        Services_Utilities::modalException($userlib->getAutologinAdminActionError());
+                    }
                     $extra['fields'] = [
                         [
                             'label' => tr('Please confirm this operation by typing your password'),
@@ -434,9 +437,10 @@ class Services_Group_Controller
             }
             //after confirm submit - perform action and return success feedback
         } elseif ($util->checkCsrf()) {
-            $userlib = TikiLib::lib('user');
-
             if ($prefs['users_admin_actions_require_validation'] == 'y') {
+                if ($userlib->isAutologin()) {
+                    Services_Utilities::modalException($userlib->getAutologinAdminActionError());
+                }
                 $pass = $input->offsetGet('confirmpassword');
                 $user = isset($_SESSION['u_info']['login']) ? $_SESSION['u_info']['login'] : '';
                 $ret = $userlib->validate_user($user, $pass);
@@ -485,6 +489,7 @@ class Services_Group_Controller
         global $prefs;
         Services_Exception_Denied::checkGlobal('admin');
         $util = new Services_Utilities();
+        $userlib = TikiLib::lib('user');
         //first pass - show confirm modal popup
         if ($util->notConfirmPost()) {
             $util->setVars($input, $this->filters, 'user');
@@ -498,6 +503,9 @@ class Services_Group_Controller
                 $extra = [];
 
                 if ($prefs['users_admin_actions_require_validation'] == 'y') {
+                    if ($userlib->isAutologin()) {
+                        Services_Utilities::modalException($userlib->getAutologinAdminActionError());
+                    }
                     $extra['fields'] = [
                         [
                             'label' => tr('Please confirm this operation by typing your password'),
@@ -519,9 +527,10 @@ class Services_Group_Controller
             }
             //after confirm submit - perform action and return success feedback
         } elseif ($util->checkCsrf()) {
-            $userlib = TikiLib::lib('user');
-
             if ($prefs['users_admin_actions_require_validation'] == 'y') {
+                if ($userlib->isAutologin()) {
+                    Services_Utilities::modalException($userlib->getAutologinAdminActionError());
+                }
                 $pass = $input->offsetGet('confirmpassword');
                 $user = isset($_SESSION['u_info']['login']) ? $_SESSION['u_info']['login'] : '';
                 $ret = $userlib->validate_user($user, $pass);
@@ -570,6 +579,7 @@ class Services_Group_Controller
         global $prefs;
         Services_Exception_Denied::checkGlobal('admin');
         $util = new Services_Utilities();
+        $userlib = TikiLib::lib('user');
         //first pass - show confirm modal popup
         if ($util->notConfirmPost()) {
             $util->setVars($input, $this->filters, 'user');
@@ -583,6 +593,9 @@ class Services_Group_Controller
                 $extra = [];
 
                 if ($prefs['users_admin_actions_require_validation'] == 'y') {
+                    if ($userlib->isAutologin()) {
+                        Services_Utilities::modalException($userlib->getAutologinAdminActionError());
+                    }
                     $extra['fields'] = [
                         [
                             'label' => tr('Please confirm this operation by typing your password'),
@@ -601,7 +614,6 @@ class Services_Group_Controller
             //after confirm submit - perform action and return success feedback
         } elseif ($util->checkCsrf()) {
             $util->setVars($input, $this->filters, 'items');
-            $userlib = TikiLib::lib('user');
             $logslib = TikiLib::lib('logs');
             foreach ($util->items as $user) {
                 $userlib->unban_user_from_group($user, $util->extra['group']);
@@ -609,6 +621,9 @@ class Services_Group_Controller
             }
 
             if ($prefs['users_admin_actions_require_validation'] == 'y') {
+                if ($userlib->isAutologin()) {
+                    Services_Utilities::modalException($userlib->getAutologinAdminActionError());
+                }
                 $pass = $input->offsetGet('confirmpassword');
                 $user = isset($_SESSION['u_info']['login']) ? $_SESSION['u_info']['login'] : '';
                 $ret = $userlib->validate_user($user, $pass);

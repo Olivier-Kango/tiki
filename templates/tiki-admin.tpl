@@ -65,6 +65,51 @@
                 {/remarksbox}
             {/if}
 
+            {if $searchIndex['error']}
+                {remarksbox type="error" title="{tr}Search index failure{/tr}"}
+                    {if !$searchIndex['connectionError']}
+                        {tr}Please proceed to <a class="alert-link" href="{bootstrap_modal controller=search action=rebuild}">{tr}rebuild Index{/tr}</a>.{/tr}
+                        {tr}If you have shell (SSH) access, you can also use the following, on the command line, from the root of your Tiki installation:{/tr}
+                        <kbd>php console.php{if not empty($tikidomain)} --site={$tikidomain|replace:'/':''}{/if} index:rebuild</kbd>
+                    {else if $prefs.unified_elastic_mysql_search_fallback eq 'n'}
+                        {tr}The main search engine is not working properly and the fallback is also not set.</br>
+                            Search engine results might not be properly displayed.{/tr}
+                    {/if}
+
+                    {if !empty($searchIndex['feedback'])}
+                        {$searchIndex['feedback']}
+                        <br />
+                    {/if}
+
+                    {if !empty($lastLogItems)}
+                        <div class="h6 mt-3">
+                            <a class="collapse-toggle" data-toggle="collapse" href="#last-error-search-log">
+                                {tr}Check last logs{/tr} <span class="icon icon-caret-down fas fa-caret-down"></span>
+                            </a>
+                        </div>
+                        <div id="last-error-search-log" class="collapse">
+                            {foreach from=$lastLogItems key=type item=um}
+                                {if !empty($lastLogItems[$type])}
+                                    <h6>{$type}</h6>
+                                    <p>{tr}Log file:{/tr} {$lastLogItems[$type]['file']}</p>
+                                    <ul>
+                                        {foreach from=$lastLogItems[$type]['logs'] item=um}
+                                            <li>{$um}</li>
+                                        {/foreach}
+                                    </ul>
+                                {/if}
+                            {/foreach}
+                        </div>
+                    {/if}
+                {/remarksbox}
+
+                {if $prefs['unified_engine'] == 'elastic' && $prefs.unified_elastic_mysql_search_fallback eq 'y'}
+                    {remarksbox type="warning" title="{tr}Search index fallback in use{/tr}" close="y"}
+                        {tr}Unable to connect to the main search index, MySQL full-text search used,
+                            the search results might not be accurate{/tr}
+                    {/remarksbox}
+                {/if}
+            {/if}
         </div>
 
         {if $upgrade_messages|count}

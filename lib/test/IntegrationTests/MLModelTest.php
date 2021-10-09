@@ -31,7 +31,7 @@ class MLModelTest extends TikiTestCase
         $prefs['feature_trackers'] = 'y';
         $prefs['feature_machine_learning'] = 'y';
 
-        parent::setUp();
+        parent::setUpBeforeClass();
         self::$trklib = TikiLib::lib('trk');
         self::$mllib = TikiLib::lib('ml');
 
@@ -92,7 +92,7 @@ class MLModelTest extends TikiTestCase
         $prefs['feature_trackers'] = self::$old_prefs['feature_trackers'];
         $prefs['feature_machine_learning'] = self::$old_prefs['feature_machine_learning'];
 
-        parent::tearDown();
+        parent::tearDownAfterClass();
         self::$trklib->remove_tracker(self::$trackerId);
         self::$mllib->delete_model(self::$mlt['mlmId']);
 

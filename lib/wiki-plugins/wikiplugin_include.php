@@ -190,8 +190,8 @@ function wikiplugin_include($dataIn, $params)
     if (isset($start)) {
         $fragmentIdentifier .= "/$start";
     }
-    if (isset($end)) {
-        $fragmentIdentifier .= "/$end";
+    if (isset($stop)) {
+        $fragmentIdentifier .= "/$stop";
     }
 
     if (isset($numberOfInclusions[$fragmentIdentifier])) {
@@ -322,7 +322,7 @@ function wikiplugin_include($dataIn, $params)
                     'page' => $returnto,
                     'ticket' => smarty_function_ticket(['mode' => 'get'], $smarty),
                 ];
-                $text .= '<a id="' . $id . '" class="editplugin wikiplugin-include-replace" href="javascript:void(1)" data-info=\'' . json_encode($confirmData) . '\'">' .
+                $text .= '<a id="' . $id . '" class="editplugin wikiplugin-include-replace" href="javascript:void(1)" data-info=\'' . json_encode($confirmData) . '\'>' .
                     smarty_function_icon(['name' => 'exchange', 'iclass' => 'tips', 'ititle' => $tip], $smarty->getEmptyInternalTemplate()) . '</a>';
             }
 

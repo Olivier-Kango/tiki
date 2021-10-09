@@ -5,8 +5,7 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
-use Laminas\Log\Logger;
-use Laminas\Log\Writer\Stream;
+use Tiki\TikiInit;
 
 /**
  *
@@ -503,10 +502,51 @@ class UnifiedSearchLib
         return $types;
     }
 
+    /**
+     * Read log files
+     *
+     * @param int $num Number of items to return
+     * @param string $needle Search for a string
+     * @param bool $reverse Reverse the results to return the first or the last lines
+     * @return array
+     */
+    public function getLogItems($num = -1, $needle = '', $reverse = false)
+    {
+        $files['web'] = $this->getLogFilename(1);
+        $files['console'] = $this->getLogFilename(2);
+        $resultLines = [];
+        foreach ($files as $type => $filename) {
+            $count = 1;
+            $handle = fopen($filename, "r");
+            if ($handle) {
+                $resultLines[$type]['logs'] = [];
+                $resultLines[$type]['file'] = $filename;
+                while (($line = fgets($handle)) !== false) {
+                    $pos = strpos($line, $needle);
+                    if (empty($needle) || $pos !== false) {
+                        array_push($resultLines[$type]['logs'], $line);
+                    }
+                    $count++;
+                }
+                fclose($handle);
+            }
+            if (! empty($resultLines[$type]['logs'])) {
+                if ($reverse) {
+                    $resultLines[$type]['logs'] = array_reverse($resultLines[$type]['logs']);
+                }
+                if ($num > -1) {
+                    $resultLines[$type]['logs'] = array_slice($resultLines[$type]['logs'], -$num);
+                }
+            } else {
+                unset($resultLines[$type]);
+            }
+        }
+
+        return $resultLines;
+    }
 
     public function getLastLogItem()
     {
-        global $prefs;
         $files['web'] = $this->getLogFilename(1);
         $files['console'] = $this->getLogFilename(2);
         foreach ($files as $type => $file) {
@@ -755,7 +795,6 @@ class UnifiedSearchLib
 
             if ($prefs['unified_elastic_mysql_search_fallback'] === 'y') {
                 $fallbackMySQL = true;
-                Feedback::warning(['mes' => tr('Unable to connect to the main search index, MySQL full-text search used, the search results might not be accurate')]);
                 $prefs['unified_incremental_update'] = 'n';
             }
         }
@@ -772,11 +811,7 @@ class UnifiedSearchLib
         // Do nothing, provide a fake index.
         if ($tiki_p_admin != 'y') {
             Feedback::error(tr('Contact the site administrator. The index needs rebuilding.'));
-        } else {
-            Feedback::error('<a title="' . tr("Rebuild search index") . '" href="tiki-admin.php?page=search&rebuild=now">'
-                . tr("Click here to rebuild index") . '</a>');
         }
-
 
         return new Search_Index_Memory();
     }
@@ -997,8 +1032,6 @@ class UnifiedSearchLib
                             return (new Search_MySql_Prefilter())->get($fields, $entry);
                         }
                     );
-                } else {
-                    Feedback::warning(tr("The main search engine is not working properly and the fallback is also not set.<br>Search engine results might not be properly displayed."));
                 }
             }
         }
@@ -1484,5 +1517,75 @@ class UnifiedSearchLib
         );
 
         return $indexesToRestore;
+    }
+
+    /**
+     * Check Elasticsearch service
+     *
+     * @return array
+     */
+    public function checkElasticsearch()
+    {
+        global $prefs;
+        $searchIndex = [
+            'error'           => false,
+            'feedback'        => '',
+            'connectionError' => false,
+        ];
+
+        if ($prefs['unified_engine'] !== 'elastic') {
+            return $searchIndex;
+        }
+
+        $connection = $this->getElasticConnection(false);
+        $connectionStatus = $connection->getStatus();
+        if ($connectionStatus->status !== 200) {
+            $searchIndex = [
+                'error'           => true,
+                'feedback'        => $connectionStatus->error ?? '',
+                'connectionError' => true,
+            ];
+        }
+
+        return $searchIndex;
+    }
+
+    /**
+     * Check MySQL index
+     *
+     * @return array
+     */
+    public function checkMySql()
+    {
+        global $prefs, $dbs_tiki;
+
+        $searchIndex = [
+            'error'    => false,
+            'feedback' => '',
+        ];
+
+        if ($prefs['unified_engine'] !== 'mysql') {
+            return $searchIndex;
+        }
+
+        $local_php = TikiInit::getCredentialsFile();
+        if (file_exists($local_php)) {
+            include($local_php);
+        }
+
+        $result = TikiDb::get()->fetchMap(
+            'SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = ? AND TABLE_NAME LIKE ?;',
+            [$dbs_tiki, 'index_%']
+        );
+
+        if (! array_key_exists($prefs['unified_mysql_index_current'], $result)) {
+            $feedback = tra('MySql Search index table not found.');
+            $searchIndex = [
+                'error'    => true,
+                'feedback' => $feedback,
+            ];
+        }
+
+        return $searchIndex;
     }
 }

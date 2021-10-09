@@ -37,6 +37,8 @@ class WikiPluginBackLinks extends PluginsLib
 
     function run($data, $params)
     {
+        //To be able to read prefs
+        global $prefs;
         $wikilib = TikiLib::lib('wiki');
         $exclude = isset($params['exclude']) ? $params['exclude'] : [];
         $params = $this->getParams($params, true);
@@ -85,7 +87,11 @@ class WikiPluginBackLinks extends PluginsLib
         if (! $aBackRequest) {
             return tra("No pages link to") . " (($page))";
         } else {
-            $aPages = $this->list_pages(0, -1, 'pageName_asc', $aBackRequest);
+            //Sorting backlinks by page list pref
+            $sort_mode = $prefs['wiki_list_sortorder'];
+            $sort_mode.='_';
+            $sort_mode.=$prefs['wiki_list_sortdirection'];
+            $aPages = $this->list_pages(0, -1, $sort_mode, $aBackRequest);
         }
         //
         /////////////////////////////////

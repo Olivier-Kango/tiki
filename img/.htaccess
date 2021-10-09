@@ -10,7 +10,7 @@
     </IfModule>
 </FilesMatch>
 
-<FilesMatch "\.(jpe?g|png|svg|gif)$">
+<FilesMatch "(?i)\.(jpe?g|png|svg|gif)$">
     <IfModule mod_authz_core.c>
         Require all granted
     </IfModule>
