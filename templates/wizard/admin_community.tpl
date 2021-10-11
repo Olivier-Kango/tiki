@@ -24,7 +24,7 @@
             <br>
             <em>
                 {tr}Add a <b>User and Registration tracker</b>{/tr}
-                <a href="http://doc.tiki.org/User+Tracker" target="tikihelp" class="tikihelp" title="{tr}User and Registration tracker: You can use trackers to collect additional information for users during registration or even later once they are registered users.{/tr}
+                <a href="http://doc.tiki.org/User-Tracker" target="tikihelp" class="tikihelp" title="{tr}User and Registration tracker: You can use trackers to collect additional information for users during registration or even later once they are registered users.{/tr}
                     {tr}Some uses of this type of tracker could be{/tr}
                     <ul>
                         <li>{tr}To collect user information (such as mailing address or phone number){/tr}</li>
@@ -92,11 +92,11 @@
                         {preference name=social_network_type}
                     </div>
 
-                    <em>{tr}See also{/tr} "{tr}Community{/tr} <a href="tiki-admin.php?page=community&cookietab=2" target="_blank">{tr}admin panel{/tr}</a> > {tr}Social Network{/tr} > {tr}Friendship and Followers{/tr}" &amp; <a href="https://doc.tiki.org/Friendship+Network" target="_blank">{tr}in doc.tiki.org{/tr}</a></em>.
+                    <em>{tr}See also{/tr} "{tr}Community{/tr} <a href="tiki-admin.php?page=community&cookietab=2" target="_blank">{tr}admin panel{/tr}</a> > {tr}Social Network{/tr} > {tr}Friendship and Followers{/tr}" &amp; <a href="https://doc.tiki.org/Friendship-Network" target="_blank">{tr}in doc.tiki.org{/tr}</a></em>.
 <br><br>
                     {preference name=feature_socialnetworks}
 
-                    <em>{tr}See also{/tr} {tr}Social networks{/tr} <a href="tiki-admin.php?page=socialnetworks&amp;cookietab=1" target="_blank">{tr}admin panel{/tr}</a> &amp; <a href="https://doc.tiki.org/Social+Networks" target="_blank">{tr}in doc.tiki.org{/tr}</a></em>
+                    <em>{tr}See also{/tr} {tr}Social networks{/tr} <a href="tiki-admin.php?page=socialnetworks&amp;cookietab=1" target="_blank">{tr}admin panel{/tr}</a> &amp; <a href="https://doc.tiki.org/Social-Networks" target="_blank">{tr}in doc.tiki.org{/tr}</a></em>
                 </div>
             </div>
         </fieldset>

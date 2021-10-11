@@ -86,7 +86,7 @@ function prefs_global_list($partial = false)
         'helpurl' => [
             'name' => tra('Help URL'),
             'description' => tra('The default help system may not be complete. You can contribute to the Tiki documentation, which is a community-edited wiki.'),
-            'help' => 'Welcome+Authors',
+            'help' => 'Welcome-Authors',
             'type' => 'text',
             'size' => '50',
             'dependencies' => [
@@ -155,7 +155,7 @@ function prefs_global_list($partial = false)
             'type' => 'flag',
             'description' => tr('Any setting for the Groups parameter will be ignored and the module will be displayed to all users.'),
             'default' => 'n',
-            'help' => 'Module+Setttings+Parameters',
+            'help' => 'Module-Setttings-Parameters',
         ],
         'modseparateanon' => [
             'name' => tra('Hide anonymous-only modules from registered users'),
@@ -308,7 +308,7 @@ function prefs_global_list($partial = false)
             'name' => tra('Use a tracker to collect more user information'),
             'description' => tra('Display a tracker form for the user to complete as part of the registration process. This tracker will receive and store additional information about each user.'),
             'type' => 'flag',
-            'help' => 'User+Tracker',
+            'help' => 'User-Tracker',
             'dependencies' => [
                 'feature_trackers',
             ],
@@ -318,7 +318,7 @@ function prefs_global_list($partial = false)
         'groupTracker' => [
             'name' => tra('Use tracker to collect more group information'),
             'type' => 'flag',
-            'help' => 'Group+Tracker',
+            'help' => 'Group-Tracker',
             'dependencies' => [
                 'feature_trackers',
             ],

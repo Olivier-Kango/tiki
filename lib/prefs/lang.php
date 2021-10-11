@@ -13,7 +13,7 @@ function prefs_lang_list()
             'name' => tra('Use database for translation'),
             'description' => tra('Use the database to store the translated strings and allow using interactive translation'),
             'type' => 'flag',
-            'help' => 'Translating+Tiki+interface',
+            'help' => 'Translating-Tiki-interface',
             'default' => 'n',
             'hint' => tr('Edit, export and import languages'),
         ],

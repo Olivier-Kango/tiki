@@ -55,7 +55,7 @@
                     {tr}Alternatively, you may use the <b>Configuration Wizard</b>.{/tr}
                     {tr}This will guide you through the most common preference settings in order to customize your site.{/tr}
                     {tr}You will easily be able to configure options like: languages, date and time, user login, theme, website title and logo, etc.{/tr}
-                    <a href="http://doc.tiki.org/Admin+Wizard" target="tikihelp" class="tikihelp text-info" title="{tr}Configuration Wizard{/tr}:
+                    <a href="http://doc.tiki.org/Admin-Wizard" target="tikihelp" class="tikihelp text-info" title="{tr}Configuration Wizard{/tr}:
                         {tr}Use this wizard if none of the <b>Configuration Profiles</b> look like a good starting point, or if you need to customize your site further{/tr}"
                     >
                         {icon name="help"}

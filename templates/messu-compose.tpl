@@ -19,7 +19,7 @@
 <form action="messu-compose.php" method="post" role="form">
     <div class="form-group row">
         <label class="col-sm-2 col-form-label" for="mess-composeto">{tr}To{/tr}
-            {help url="Inter-User+Messages#Composing_messages" desc="{tr}To: Multiple addresses can be separated with a semicolon (';') or comma (','){/tr}"}
+            {help url="Inter-User-Messages#Composing_messages" desc="{tr}To: Multiple addresses can be separated with a semicolon (';') or comma (','){/tr}"}
         </label>
         <div class="col-sm-10">
             <input type="text" class="username form-control" name="to" id="mess-composeto" value="{$to|escape}">
@@ -29,7 +29,7 @@
     </div>
     <div class="form-group row">
         <label class="col-sm-2 col-form-label" for="mess-composecc">{tr}CC{/tr}
-            {help url="Inter-User+Messages#Composing_messages" desc="{tr}CC: Multiple addresses can be separated with a semicolon (';') or comma (','){/tr}"}
+            {help url="Inter-User-Messages#Composing_messages" desc="{tr}CC: Multiple addresses can be separated with a semicolon (';') or comma (','){/tr}"}
         </label>
         <div class="col-sm-10">
             <input type="text" class="username form-control" name="cc" id="mess-composecc" value="{$cc|escape}">
@@ -37,7 +37,7 @@
     </div>
     <div class="form-group row">
         <label class="col-sm-2 col-form-label" for="mess-composebcc">{tr}BCC{/tr}
-            {help url="Inter-User+Messages#Composing_messages" desc="{tr}BCC: Multiple addresses can be separated with a semicolon (';') or comma (','){/tr}"}
+            {help url="Inter-User-Messages#Composing_messages" desc="{tr}BCC: Multiple addresses can be separated with a semicolon (';') or comma (','){/tr}"}
         </label>
         <div class="col-sm-10">
             <input type="text" class="form-control username" name="bcc" id="mess-composebcc" value="{$bcc|escape}">
@@ -73,12 +73,12 @@
             <label for="replytome" class="ml-2">
                 <input type="checkbox" name="replytome" id="replytome">
                 {tr}Reply-to my email{/tr}
-                {help url="User+Information" desc="{tr}Reply-to my email{/tr}{tr}The user will be able to reply to you directly via email.{/tr}"}
+                {help url="User-Information" desc="{tr}Reply-to my email{/tr}{tr}The user will be able to reply to you directly via email.{/tr}"}
             </label>
             <label for="bccme" class="ml-2">
                 <input type="checkbox" name="bccme" id="bccme">
                 {tr}Send me a copy{/tr}
-                {help url="User+Information" desc="{tr}Send me a copy:{/tr}{tr}You will be sent a copy of this email.{/tr}"}
+                {help url="User-Information" desc="{tr}Send me a copy:{/tr}{tr}You will be sent a copy of this email.{/tr}"}
             </label>
         </div>
     </div>

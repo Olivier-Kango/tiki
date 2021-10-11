@@ -58,7 +58,7 @@
             <ul>
                 <li>
                     {tr}Add a <em>User and Registration tracker</em>{/tr}
-                    <a href="http://doc.tiki.org/User+Tracker" target="tikihelp" class="tikihelp" title="{tr}User and Registration tracker: You can use trackers to collect additional information for users during registration or even later once they are registered users.{/tr}
+                    <a href="http://doc.tiki.org/User-Tracker" target="tikihelp" class="tikihelp" title="{tr}User and Registration tracker: You can use trackers to collect additional information for users during registration or even later once they are registered users.{/tr}
                         {tr}Some uses of this type of tracker could be{/tr}
                         <ul>
                             <li>{tr}To collect user information (such as mailing address or phone number){/tr}</li>

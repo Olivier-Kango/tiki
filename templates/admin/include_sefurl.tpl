@@ -13,7 +13,7 @@
         {if $httpd eq 'IIS' and !$IIS_UrlRewriteModule}
             {remarksbox type="warning" title="{tr}Warning{/tr}"}
                 {tr}SEFURL requires the <strong>URL Rewrite module</strong> for IIS. You do not seem to have this module installed.{/tr}
-                {tr}Please see <a class="alert-link" href="http://doc.tiki.org/Windows+Server+Install">Windows Server Install</a> on tiki.org for more information.{/tr}
+                {tr}Please see <a class="alert-link" href="http://doc.tiki.org/Windows-Server-Install">Windows Server Install</a> on tiki.org for more information.{/tr}
             {/remarksbox}
         {else}
             {if $configurationFile eq 'missing'}

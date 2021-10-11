@@ -137,7 +137,7 @@ function simple_set_value($feature, $pref = '', $isMultiple = false)
     TikiLib::lib('cache')->invalidate('allperms');
 }
 
-$crumbs[] = new Breadcrumb(tra('Control Panels'), tra('Sections'), 'tiki-admin.php', 'Admin+Home', tra('Help on Configuration Sections', '', true));
+$crumbs[] = new Breadcrumb(tra('Control Panels'), tra('Sections'), 'tiki-admin.php', 'Admin-Home', tra('Help on Configuration Sections', '', true));
 // Default values for AdminHome
 $admintitle = tra('Admin Dashboard');
 $helpUrl = 'Admin-Home';

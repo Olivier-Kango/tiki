@@ -298,7 +298,7 @@
                             </div>
                         {/if}
                         <div id="installer_3_new_db_form"{if $dbcon eq 'y'} style="display:none;"{/if}>
-                            <p>{tr}Use this page to create a new database connection, or use the <a href="https://doc.tiki.org/Manual+Installation" target="_blank" title="manual installation">manual installation process</a>.{/tr} <a href="https://doc.tiki.org/Manual+Installation" target="_blank" title="{tr}Help{/tr}">{icon name="help"}</a></p>
+                            <p>{tr}Use this page to create a new database connection, or use the <a href="https://doc.tiki.org/Manual-Installation" target="_blank" title="manual installation">manual installation process</a>.{/tr} <a href="https://doc.tiki.org/Manual-Installation" target="_blank" title="{tr}Help{/tr}">{icon name="help"}</a></p>
                             <form action="tiki-install.php" method="post" role="form">
                                 <input type="hidden" name="install_step" value="4">
                                 {if $multi}
@@ -419,7 +419,7 @@
                                     <p>{tr}Highly recommended for new installations. However, if you are upgrading or migrating a previous tiki database, you are recommended to uncheck this box{/tr}.</p>
                                     <input type="checkbox" name="force_utf8" id="force_utf8" value="y" checked="checked">
                                     <label class="col-form-label" for="force_utf8">{tr}Always force connection to use UTF-8{/tr}</label>
-                                    <p><a href="https://doc.tiki.org/Understanding+Encoding" onclick="window.open(this.href); return false;">{tr}More information{/tr}</a></p>
+                                    <p><a href="https://doc.tiki.org/Understanding-Encoding" onclick="window.open(this.href); return false;">{tr}More information{/tr}</a></p>
                                 </fieldset>
                                 <div class="form-group row text-center">
                                     <input type="submit" class="btn btn-info" name="dbinfo" value="{tr}Continue{/tr}">
@@ -451,7 +451,7 @@
                             {else}
                                 {tr _0=$database_charset}<p>Your database encoding is <strong>not</strong> in UTF-8mb4.</p><p>Current encoding is <em>%0</em>. The languages that will be available for content on the site will be limited. If you plan on using languages not covered by the character set, you should re-create or alter the database so the default encoding is <em>utf8mb4</em>.</p>{/tr}
                             {/if}
-                                <p><a href="https://doc.tiki.org/Understanding+Encoding" class="alert-link">{tr}More information{/tr}</a></p>
+                                <p><a href="https://doc.tiki.org/Understanding-Encoding" class="alert-link">{tr}More information{/tr}</a></p>
                                 <form method="post" action="" role="form">
                                     <fieldset>
                                         <legend>{tr}Character Set Conversion{/tr}</legend>
@@ -624,12 +624,12 @@
                         <div class="clearfix">
                             <p>{tr}Complete these fields to configure common, general settings for your site.{/tr} {tr}The information you enter here can be changed later.{/tr}</p>
                             {remarksbox type=info title="{tr}Tip{/tr}" close="n"}
-                            {tr}Refer to the <a href="https://doc.tiki.org/Admin+home" target="_blank" class="alert-link">documentation</a> for complete information on these, and other, settings.{/tr}
+                            {tr}Refer to the <a href="https://doc.tiki.org/Admin-home" target="_blank" class="alert-link">documentation</a> for complete information on these, and other, settings.{/tr}
                             {/remarksbox}
                             <br>
                             <fieldset>
                                 <legend>
-                                    {tr}General{/tr} <a href="https://doc.tiki.org/general+admin" target="_blank" title="{tr}Help{/tr}">{icon name="help"}</a>
+                                    {tr}General{/tr} <a href="https://doc.tiki.org/general-admin" target="_blank" title="{tr}Help{/tr}">{icon name="help"}</a>
                                 </legend>
                                 <div class="form-group row mx-0">
                                     <label class="col-form-label" for="browsertitle">
@@ -652,7 +652,7 @@
                                 <div class="p-3">
                                     <details>
                                         <summary><label>{tr}Network Proxy?{/tr}</label> {tr}Toggle section display{/tr}</summary>
-                                        <div class="mx-3"><label for="use_proxy">{tr}Use proxy{/tr}</label> <input type="checkbox" name="use_proxy" id="use_proxy"{if $prefs.use_proxy eq 'y'} checked="checked"{/if}><a href="https://doc.tiki.org/General+Settings" target="_blank" title="{tr}Help{/tr}">{icon name="help"}</a></div>
+                                        <div class="mx-3"><label for="use_proxy">{tr}Use proxy{/tr}</label> <input type="checkbox" name="use_proxy" id="use_proxy"{if $prefs.use_proxy eq 'y'} checked="checked"{/if}><a href="https://doc.tiki.org/General-Settings" target="_blank" title="{tr}Help{/tr}">{icon name="help"}</a></div>
                                         <div class="mx-3"><label for="proxy_host">{tr}Proxy host name{/tr}</label><input type="text" class="form-control" size="40" name="proxy_host" id="proxy_host" value="{$prefs.proxy_host|escape}"></div>
                                         <div class="mx-3"><label for="proxy_port">{tr}Port{/tr}</label><input type="text" class="form-control" size="40" name="proxy_port" id="proxy_port" value="{$prefs.proxy_port|escape}"></div>
                                         <div class="mx-3"><label for="proxy_user">{tr}Proxy username{/tr}</label><input type="text" class="form-control" size="40" name="proxy_user" id="proxy_user" value="{$prefs.proxy_user|escape}"></div>
@@ -663,7 +663,7 @@
                             <br>
                             <fieldset>
                                 <legend>{tr}Secure Log in{/tr}
-                                    <a href="https://doc.tiki.org/login+config" target="_blank" title="{tr}Help{/tr}">
+                                    <a href="https://doc.tiki.org/login-config" target="_blank" title="{tr}Help{/tr}">
                                         {icon name="help"}
                                     </a>
                                 </legend>
@@ -821,7 +821,7 @@
                                 {tr}Once basic parameters will be set, you will always be able to gain full control of the options using the Control Panels. Note: basic preferences will be displayed by default after a new install.{/tr}</p>
 
                             <p class="mb-4">{tr}You can modify the default filter choice at your own convenience to also display Advanced, Experimental or Unavailable preferences in Control Panels.{/tr}
-                                {tr}You'll find the <a class='alert-link' target='tikihelp' href='https://doc.tiki.org/Preference+Filters'>Preference Filter</a> at the top of the Navigation Bar in the <a class='alert-link' target='tikihelp' href='https://doc.tiki.org/Control+Panels'>Control Panels</a> by clicking on the funnel icon ({icon name='filter'}) or use the search box provided.{/tr}<br />
+                                {tr}You'll find the <a class='alert-link' target='tikihelp' href='https://doc.tiki.org/Preference-Filters'>Preference Filter</a> at the top of the Navigation Bar in the <a class='alert-link' target='tikihelp' href='https://doc.tiki.org/Control-Panels'>Control Panels</a> by clicking on the funnel icon ({icon name='filter'}) or use the search box provided.{/tr}<br />
 
                             <h4>{icon name="hdd"} {tr}Storing your uploaded files{/tr}</h4>
                             <p>{tr}To ease the install process and first access, Tiki saves your uploaded files (office documents, images, pdf, etc. attached to wiki pages, forum posts, tracker items, file galleries, ...) by default in its database.{/tr}

@@ -6,7 +6,7 @@
 <h3>{tr}Wiki Syntax{/tr}</h3>
 {if $prefs.feature_help eq 'y'}
     {remarksbox type="info" title="{tr}More information{/tr}"}
-        <a href="{$prefs.helpurl}Wiki+Page+Editor" target="tikihelp" class="tikihelp alert-link" title="{tr}Wiki Page Editor:{/tr} {tr}More help on editing wiki pages{/tr}">
+        <a href="{$prefs.helpurl}Wiki-Page-Editor" target="tikihelp" class="tikihelp alert-link" title="{tr}Wiki Page Editor:{/tr} {tr}More help on editing wiki pages{/tr}">
             {tr}Wiki Page Editor{/tr}
         </a>
         {tr}and{/tr}

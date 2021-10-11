@@ -21,7 +21,7 @@ class Tracker_Field_WebService extends Tracker_Field_Abstract
                 'name' => tr('Webservice'),
                 'description' => tr('Display the result of a registered webservice call.'),
                 'readonly' => true,
-                'help' => 'Webservice+tracker+field',
+                'help' => 'Webservice-tracker-field',
                 'prefs' => ['trackerfield_webservice', 'feature_webservices'],
                 'tags' => ['advanced'],
                 'default' => 'n',

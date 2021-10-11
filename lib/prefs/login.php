@@ -81,7 +81,7 @@ function prefs_login_list()
             'description' => tr('Used with autologin_remotetiki in the redirect plugin'),
             'type' => 'flag',
             'default' => 'n',
-            'help' => 'Remote+Tiki+Autologin',
+            'help' => 'Remote-Tiki-Autologin',
             'tags' => ['advanced'],
             'dependencies' => [
                 'login_autologin_user',

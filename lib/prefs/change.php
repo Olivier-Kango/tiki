@@ -30,7 +30,7 @@ function prefs_change_list()
             'name' => tra('Users can change their password'),
             'description' => tra('Registered users can change their password from their User Preferences page. If not, passwords can be changed only by the admin.'),
             'type' => 'flag',
-            'help' => 'User+Preferences',
+            'help' => 'User-Preferences',
             'default' => 'y',
             'tags' => ['basic'],
         ],

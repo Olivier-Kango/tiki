@@ -110,7 +110,7 @@
                     <div class="adminoptionboxchild" id="feature_messages_childcontainer">
                         <legend>
                             {tr}User messages{/tr}
-                            {help url="Inter-User+Messages"}
+                            {help url="Inter-User-Messages"}
                         </legend>
                         {preference name=users_prefs_mess_maxRecords}
                         {preference name=users_prefs_allowMsgs}

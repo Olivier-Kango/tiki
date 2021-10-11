@@ -17,7 +17,7 @@
                     <br>
                     {tr}This profile allows you to request more details in the registration process or in the User Wizard, as well as to provide more custom information to your users{/tr}.
                     <br/>
-                    <a href="https://doc.tiki.org/User+Tracker" target="tikihelp" class="tikihelp" title="{tr}User & Registration Tracker{/tr}:
+                    <a href="https://doc.tiki.org/User-Tracker" target="tikihelp" class="tikihelp" title="{tr}User & Registration Tracker{/tr}:
                         {tr}It includes:{/tr}
                         <ul>
                             <li>{tr}A long list of predefined usual fields, to choose from{/tr}</li>
@@ -75,7 +75,7 @@
                     <br>
                     {tr}This profile creates two linked trackers. One that allow pre-selecting the items in a drop down list based on the items in a previous drop down field. And a second tracker that holds the options displayed in the drop down fields.{/tr}
                     <br/>
-                    <a href="https://doc.tiki.org/Dynamic+items+list" target="tikihelp" class="tikihelp" title="{tr}Dynamic Items List{/tr}:
+                    <a href="https://doc.tiki.org/Dynamic-items-list" target="tikihelp" class="tikihelp" title="{tr}Dynamic Items List{/tr}:
                         {tr}More details{/tr}:
                         <ul>
                             <li>{tr}Useful for Geographic data (State, Country/Province, ...){/tr}</li>

@@ -29,7 +29,7 @@ if ($prefs['theme_unified_admin_backend'] === 'y') {
                 'features' => [
                     'title'       => tr('Features'),
                     'description' => tr('Switches for major features'),
-                    'help'        => 'Features Admin',
+                    'help'        => 'Features-Admin',
                 ],
                 'wizard' => [
                     'title'       => tr('Wizards'),
@@ -85,7 +85,7 @@ if ($prefs['theme_unified_admin_backend'] === 'y') {
                     'title'       => tr('Wiki'),
                     'disabled'    => $prefs['feature_wiki'] != 'y',
                     'description' => tr('Wiki page settings and features'),
-                    'help'        => 'Wiki Config',
+                    'help'        => 'Wiki-Config',
                 ],
                 'textarea'  => [
                     'title'       => tr('Editing and Plugins'),
@@ -349,7 +349,7 @@ if ($prefs['theme_unified_admin_backend'] === 'y') {
         "features" => [
             'title' => tr('Features'),
             'description' => tr('Switches for major features'),
-            'help' => 'Features Admin',
+            'help' => 'Features-Admin',
         ],
         "login" => [
             'title' => tr('Log in'),
