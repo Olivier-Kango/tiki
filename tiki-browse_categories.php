@@ -27,10 +27,12 @@ if (! isset($_REQUEST['parentId'])) {
     $access->check_permission('tiki_p_view_category');
 } else {
     $access->check_permission('tiki_p_view_category', '', 'category', $_REQUEST['parentId']);
+    $cookietab = 2;
 }
 $smarty->assign('parentId', $_REQUEST['parentId']);
 if (isset($_REQUEST['maxRecords']) && ($_REQUEST['maxRecords'] >= 1 || $_REQUEST['maxRecords'] == -1)) {
     $maxRecords = $_REQUEST['maxRecords'];
+    $cookietab = 2;
 } else {
     $maxRecords = $prefs['maxRecords'];
 }
@@ -39,6 +41,7 @@ if (! isset($_REQUEST['sort_mode'])) {
     $sort_mode = 'name_asc';
 } else {
     $sort_mode = $_REQUEST['sort_mode'];
+    $cookietab = 2;
 }
 $smarty->assign_by_ref('sort_mode', $sort_mode);
 
@@ -46,6 +49,7 @@ if (! isset($_REQUEST['offset'])) {
     $offset = 0;
 } else {
     $offset = $_REQUEST['offset'];
+    $cookietab = 2;
 }
 $smarty->assign_by_ref('offset', $offset);
 
@@ -53,11 +57,13 @@ if (! isset($_REQUEST['type'])) {
     $type = '';
 } else {
     $type = $_REQUEST['type'];
+    $cookietab = 2;
 }
 $smarty->assign('type', $type);
 
 if (isset($_REQUEST['find'])) {
     $find = $_REQUEST['find'];
+    $cookietab = 2;
 } else {
     $find = '';
 }
@@ -66,6 +72,7 @@ $smarty->assign('find', $find);
 if (isset($_REQUEST['deep']) && $_REQUEST['deep'] == 'on') {
     $deep = 'on';
     $smarty->assign('deep', 'on');
+    $cookietab = 1;
 } else {
     $deep = 'off';
     $smarty->assign('deep', 'off');
