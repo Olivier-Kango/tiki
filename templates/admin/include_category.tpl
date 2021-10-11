@@ -86,7 +86,6 @@
 
         {preference name=feature_wiki_mandatory_category}
         {preference name=feature_blog_mandatory_category}
-        {preference name=feature_image_gallery_mandatory_category}
         {preference name=unified_add_to_categ_search}
 
 
