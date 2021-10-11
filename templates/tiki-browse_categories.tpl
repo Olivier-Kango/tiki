@@ -135,62 +135,69 @@
         {/foreach}
         {$eyes_curr}
     </div>
-
-    {if $parentId ne '0'}
-        <div>
-            <a class="catname tips" href="tiki-browse_categories.php?parentId={$father|escape:"url"}&amp;deep={$deep|escape:"url"}&amp;type={$type|escape:"url"}" title=":{tr}Up one level{/tr}">
-                ..
-            </a>
-        </div>
-    {/if}
 {/if}
 
-<div class="cattree">{$tree}</div>
-<div class="catobj">
-    {if $cant_pages > 0}
-        <div class="table-responsive">
-            <table class="table">
-                <tr>
-                    <th>
-                        {tr}Name{/tr}
-                    </th>
-                    <th>
-                        {tr}Type{/tr}
-                    </th>
-                    {if $deep eq 'on'}
-                        <th>
-                            {tr}Category{/tr}
-                        </th>
-                    {/if}
-                </tr>
+{if $cant_pages > 0}
+    {tabset name='browse-categories'}
+        {tab name="{tr}Categories{/tr}"}
+            {if $parentId ne '0'}
+                <div class="pl-3">
+                    <a class="catname tips" href="tiki-browse_categories.php?parentId={$father|escape:"url"}&amp;deep={$deep|escape:"url"}&amp;type={$type|escape:"url"}" title=":{tr}Up one level{/tr}">
+                        {icon name='level-up'}
+                    </a>
+                </div>
+            {/if}
+            <div class="cattree">{$tree}</div>
+        {/tab}
+        {tab name="{tr}Objects{/tr}"}
+            <div class="catobj">
+                <div class="table-responsive">
+                    <table class="table">
+                        <tr>
+                            <th>
+                                {tr}Name{/tr}
+                            </th>
+                            <th>
+                                {tr}Type{/tr}
+                            </th>
+                            {if $deep eq 'on'}
+                                <th>
+                                    {tr}Category{/tr}
+                                </th>
+                            {/if}
+                        </tr>
 
-                {section name=ix loop=$objects}
-                    <tr>
-                        <td class="text">
-                            <a class="catname" href="{if empty($objects[ix].sefurl)}{$objects[ix].href}{else}{$objects[ix].sefurl}{/if}">
-                                {$objects[ix].name|escape|default:'&nbsp;'}
-                            </a>
-                            {if $objects[ix].type ne 'blog post'}<div class="subcomment">{$objects[ix].description|escape|nl2br}</div>{/if}
-                        </td>
-                        <td class="text">
-                            {tr}{$objects[ix].type|replace:"wiki page":"wiki"|replace:"trackeritem":"tracker item"}{/tr}
-                        </td>
-                        {if $deep eq 'on'}
-                            <td class="text">
-                                {$objects[ix].categName|tr_if|escape}
-                            </td>
-                        {/if}
-                    </tr>
-                {sectionelse}
-                    {if $deep eq 'on'}
-                        {norecords _colspan=3}
-                    {else}
-                        {norecords _colspan=2}
-                    {/if}
-                {/section}
-            </table>
-        </div>
-    {/if}
-</div>
+                        {section name=ix loop=$objects}
+                            <tr>
+                                <td class="text">
+                                    <a class="catname" href="{if empty($objects[ix].sefurl)}{$objects[ix].href}{else}{$objects[ix].sefurl}{/if}">
+                                        {$objects[ix].name|escape|default:'&nbsp;'}
+                                    </a>
+                                    {if $objects[ix].type ne 'blog post'}<div class="subcomment">{$objects[ix].description|escape|nl2br}</div>{/if}
+                                </td>
+                                <td class="text">
+                                    {tr}{$objects[ix].type|replace:"wiki page":"wiki"|replace:"trackeritem":"tracker item"}{/tr}
+                                </td>
+                                {if $deep eq 'on'}
+                                    <td class="text">
+                                        {$objects[ix].categName|tr_if|escape}
+                                    </td>
+                                {/if}
+                            </tr>
+                        {sectionelse}
+                            {if $deep eq 'on'}
+                                {norecords _colspan=3}
+                            {else}
+                                {norecords _colspan=2}
+                            {/if}
+                        {/section}
+                    </table>
+                </div>
+            </div>
 
-{pagination_links cant=$cant_pages step=$maxRecords offset=$offset}{/pagination_links}
+            {pagination_links cant=$cant_pages step=$maxRecords offset=$offset}{/pagination_links}
+        {/tab}
+    {/tabset}
+{else}
+    <div class="cattree">{$tree}</div>
+{/if}
