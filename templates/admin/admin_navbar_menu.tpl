@@ -182,15 +182,18 @@
             {if $prefs.feature_referer_stats eq "y" and $tiki_p_view_referer_stats eq "y"}
                 <a class="dropdown-item" href="tiki-referer_stats.php">{tr}Referer Statistics{/tr}</a>
             {/if}
+            {if $prefs.feature_trackers eq "y" and $tiki_p_admin eq "y"}
+                <a class="dropdown-item" href="tiki-admin_orphaned.php">{tr}Orphaned Field Names{/tr}</a>
+            {/if}
+            {if $prefs.feature_trackers eq "y" and $tiki_p_admin eq "y"}
+                <a class="dropdown-item" href="tiki-pluginlist_experiment.php">{tr}Plugin List Test{/tr}</a>
+            {/if}
             {if $prefs.feature_search_stats eq "y" and $tiki_p_admin eq "y"}
                 <a class="dropdown-item" href="tiki-search_stats.php">{tr}Search Statistics{/tr}</a>
             {/if}
             <a class="dropdown-item" href="tiki-admin_security.php">{tr}Security Admin{/tr}</a>
             <a class="dropdown-item" href="tiki-check.php">{tr}Server Check{/tr}</a>
             <a class="dropdown-item" href="tiki-admin_sync.php">{tr}Synchronize Dev{/tr}</a>
-            {if $prefs.feature_trackers eq "y" and $tiki_p_admin eq "y"}
-                <a class="dropdown-item" href="tiki-admin_orphaned.php">{tr}Orphaned Field Names{/tr}</a>
-            {/if}
             {if $tiki_p_clean_cache eq "y"}
                 <a class="dropdown-item" href="tiki-admin_system.php">{tr}System Cache{/tr}</a>
             {/if}
