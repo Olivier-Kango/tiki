@@ -50,7 +50,8 @@ class Services_Tracker_CalendarController
 			}
 		}
 
-		$query->filterRange($from, $to, [$start, $end]);
+		$query->filterRange(0, $to, $start);
+		$query->filterRange($from, $to + 1000*365*86400, $end);
 		$query->setRange(0, $prefs['unified_lucene_max_result']);
 
 		if ($body = $input->filters->none()) {
