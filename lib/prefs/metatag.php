@@ -47,7 +47,7 @@ function prefs_metatag_list()
         ],
         'metatag_pagedesc' => [
             'name' => tra('Page description'),
-            'description' => tra('Use each page description as a meta tag for that page.'),
+            'description' => tra('Use each page description as the title meta tag for that page.'),
             'type' => 'flag',
             'default' => 'n',
         ],
