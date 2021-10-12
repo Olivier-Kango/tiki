@@ -54,7 +54,8 @@ class Services_Tracker_CalendarController
 			}
 		}
 
-		$query->filterRange($from, $to, [$start, $end]);
+		$query->filterRange(0, $to, $start);
+		$query->filterRange($from, $to + 1000*365*86400, $end);
 		$maxRecords = $input->maxRecords->int() ?: null;
 		$query->setRange(0, $maxRecords);
 
