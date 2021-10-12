@@ -391,7 +391,25 @@ class elFinderVolumeTikiFiles extends elFinderVolumeDriver
      **/
     protected function _dirname($path)
     {
-        return ($stat = $this->stat($path)) ? ($stat['phash'] ? $this->decode($stat['phash']) : $this->root) : false;
+        $parent = '';
+
+        if (! empty($this->cache[$path])) {
+            $parent = $this->decode($this->cache[$path]['phash']);
+        } else {
+            $ar = explode('_', $path);
+            if (count($ar) === 2 && $ar[0] === 'd') {
+                if (! empty($this->cache[$ar[1]])) {
+                    if (! empty($this->cache[$ar[1]]['phash'])) {
+                        $parent = $this->decode($this->cache[$ar[1]]['phash']);
+                    }
+                } else {
+                    // not cached, get from database just in case
+                    $info = $this->filegallib->get_file_gallery_info($ar[1]);
+                    $parent = $info['parentId'];
+                }
+            }
+        }
+        return $parent;
     }
 
     /**

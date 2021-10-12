@@ -154,6 +154,8 @@ if ($galleryId === "1") {
     $smarty->assign_by_ref('name', $gal_info['name']);
 }
 $smarty->assign_by_ref('galleryId', $galleryId);
+// for elFinder so far
+$smarty->assign('volumeId', $filegallib->getGallerySpecialRoot($galleryId));
 $smarty->assign('reindex_file_id', -1);
 if (isset($_REQUEST['view'])) {
     $view = $_REQUEST['view'];
