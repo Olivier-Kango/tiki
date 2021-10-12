@@ -213,11 +213,12 @@ function wikiplugin_convene($data, $params): string
     //end votes summed together
 
 
-    //start find top vote stamp
-    $topVoteStamp = 0;
+    //start find top vote stamps
+    $topVoteStamps = [];
+    $topVotes = max($votes);
     foreach ($votes as $stamp => $vote) {
-        if ($topVoteStamp === 0 || $vote > $votes[$topVoteStamp]) {
-            $topVoteStamp = $stamp;
+        if ($vote === $topVotes) {
+            $topVoteStamps[] = $stamp;
         }
     }
     //end find top vote stamp
@@ -293,7 +294,7 @@ function wikiplugin_convene($data, $params): string
     $smarty->assign('dateLabels', $dateLabels);
     $smarty->assign('rows', $rows);
     $smarty->assign('votes', $votes);
-    $smarty->assign('topVoteStamp', $topVoteStamp);
+    $smarty->assign('topVoteStamps', $topVoteStamps);
     $smarty->assign('params', $params);
 
     $conveneData = json_encode($params);
