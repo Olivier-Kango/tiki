@@ -343,6 +343,7 @@
 
 var elfoptions = initElFinder({
     defaultGalleryId: {{$galleryId}},
+    defaultVolumeId: {{$volumeId}},
     deepGallerySearch:1,
     requestType: 'post',
     getFileCallback: function(file,elfinder) { window.handleFinderFile(file,elfinder); },
