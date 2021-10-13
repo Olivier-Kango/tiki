@@ -2,6 +2,17 @@
     var pivotData{{$pivottable.index}} = {{$pivottable.data|json_encode}};
     $('#output_{{$pivottable.id}}').each(function () {
         var pivotLocale = $.pivotUtilities.locales[{{$lang|json_encode}}];
+        $.each($.pivotUtilities.subtotal_renderers, function(name, renderer) {
+            $.pivotUtilities.subtotal_renderers[name] = function(pvtData, opts) {
+                var result = renderer(pvtData, opts);
+                $(result).find('th.pvtRowLabel.pvtRowSubtotal').each(function(i, el) {
+                    if (! $(el).text()) {
+                        $(el).text('{tr}Subtotal{/tr}');
+                    }
+                });
+                return result;
+            }
+        });
         var renderers = $.extend(pivotLocale ? pivotLocale.renderers : $.pivotUtilities.renderers, $.pivotUtilities.plotly_renderers, $.pivotUtilities.subtotal_renderers);
         var opts = {
             renderers: renderers,
@@ -63,15 +74,19 @@
             opts.menuLimit = {{$pivottable.menuLimit|json_encode}};
         }
         if( {{$pivottable.aggregateDetails|json_encode}} ) {
+            var clickCB = function(e, value, filters, pivotData){
+                var details = [];
+                pivotData.forEachMatchingRecord(filters, function(record){
+                    details.push(record.pivotLink);
+                });
+                feedback(details.join("<br>\n"), 'info', true);
+            }
             opts.aggregateDetails = {{$pivottable.aggregateDetails|json_encode}};
             opts.aggregateDetailsFormat = {{$pivottable.aggregateDetailsFormat|json_encode}};
             opts.rendererOptions.table = {
-                clickCallback: function(e, value, filters, pivotData){
-                    var details = [];
-                    pivotData.forEachMatchingRecord(filters, function(record){
-                        details.push(record.pivotLink);
-                    });
-                    feedback(details.join("<br>\n"), 'info', true);
+                clickCallback: clickCB,
+                eventHandlers: {
+                    "click": clickCB
                 }
             };
         }
