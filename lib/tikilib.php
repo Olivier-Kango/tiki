@@ -5854,7 +5854,7 @@ class TikiLib extends TikiDb_Bridge
 	 */
 	function get_short_date($timestamp, $user = false)
 	{
-		return $this->date_format($this->get_short_date_format(), (int) $timestamp, $user);
+		return $this->date_format($this->get_short_date_format(), $timestamp, $user);
 	}
 
 	/**
