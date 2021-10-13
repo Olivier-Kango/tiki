@@ -27,7 +27,7 @@
     </div> {* div.content *}
 </div> {* div.wikitopline *}
 
-{if !isset($versioned) and $print_page ne 'y' and (!isset($hide_page_header) or !$hide_page_header)}
+{if !isset($versioned) and $print_page ne 'y'}
     <div class="wikiactions_wrapper clearfix">
     {strip}
         <div class="wikiactions float-sm-right mb-2">
