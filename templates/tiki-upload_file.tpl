@@ -197,7 +197,7 @@
                         <div class="input-group col-sm-4">
                             <input type="text" name="image_max_size_x" id="image_max_size_x" value="{$gal_info["image_max_size_x"]}" class="form-control text-right">
                             <div class="input-group-append">
-                                <span class="input-group-text"> px</span>
+                                <span class="input-group-text"> {tr}pixel{/tr}</span>
                             </div>
                         </div>
                         <span class="form-text">{tr}If an image is wider than this, it will be resized. Attention: In this case, the original image will be lost. (0=unlimited){/tr}</span>
@@ -209,7 +209,7 @@
                         <div class="input-group col-sm-4">
                             <input type="text" name="image_max_size_y" id="image_max_size_y" value="{$gal_info["image_max_size_y"]}" class="form-control text-right">
                             <div class="input-group-append">
-                                <span class="input-group-text"> px</span>
+                                <span class="input-group-text"> {tr}pixel{/tr}</span>
                             </div>
                         </div>
                         <span class="form-text">{tr}If an image is higher than this, it will be resized. Attention: In this case, the original image will be lost. (0=unlimited){/tr}</span>

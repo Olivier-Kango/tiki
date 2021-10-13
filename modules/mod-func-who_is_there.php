@@ -25,7 +25,7 @@ function module_who_is_there_info()
         'params' => [
             'content' => [
                 'name' => tra('List Type'),
-                'description' => tra('Display the number of users logged in, the list of users logged in, or both.') . " " . tr('Possible values: "count", "list" or "both". Default value: "both"')
+                'description' => tra('Display the number of users logged in, the list of users logged in, or both.') . " " . tra('Possible values: "count", "list" or "both". Default value: "both"')
             ],
             'cluster' => [
                 'name' => tra('Cluster Mode'),

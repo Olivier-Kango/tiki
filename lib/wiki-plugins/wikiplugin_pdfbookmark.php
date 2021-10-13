@@ -9,7 +9,7 @@
 function wikiplugin_pdfbookmark_info()
 {
             return [
-                'name' => 'PluginPDF Bookmark',
+                'name' => tra('PluginPDF Bookmark'),
                 'documentation' => 'PluginPDFBookmark',
                 'description' => tra('Manual bookmark entry for a PDF file'),
                 'tags' => [ 'advanced' ],

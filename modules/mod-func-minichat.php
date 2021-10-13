@@ -18,7 +18,7 @@ function module_minichat_info()
         'params' => [
             'channels' => [
                 'name' => tra('Channels'),
-                'description' => tra('List of chat channels. Channel names are separated by a comma (",").') . ' ' . tra('Example value:') . ' english,french. ' . tra('By default, a single channel named "default" exists.'),
+                'description' => tra('List of chat channels. Channel names are separated by a comma (",").') . ' ' . tra('Example value') . ': '. tra('english').','.tra('french').'. ' . tra('By default, a single channel named "default" exists.'),
                 'filter' => 'striptags'
             ]
         ],

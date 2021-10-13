@@ -37,7 +37,7 @@ function module_last_category_objects_info()
             ],
             'type' => [
                 'name' => tra('Object type filter'),
-                'description' => tra('Type of the objects to list. Example values:') . ' *, wiki page, article, faq, blog, image gallery, image, file gallery, tracker, trackerItem, quiz, poll, survey, sheet. ' . tra('Default value:') . ' wiki page',
+                'description' => tra('Type of the objects to list. Example values:') . ' *, '.tra('wiki page').', '.tra('article').', '.tra('faq').', blog, image, '.tra('file gallery').', '.tra('tracker').', ',tra('trackerItem').', '.tra('quiz').', '.tra('poll').', '.tra('survey').', '.tra('sheet').'. ' . tra('Default value:') . tra(' wiki page'),
                 'filter' => 'striptags',
             ]
         ],

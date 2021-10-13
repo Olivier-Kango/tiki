@@ -78,11 +78,11 @@
             <p style="overflow-wrap: break-word">{tr}Last line of log file (web):{/tr} <strong>{$lastLogItemWeb|escape}</strong></p>
             <p style="overflow-wrap: break-word">{tr}Last line of log file (console):{/tr} <strong>{$lastLogItemConsole|escape}</strong></p>
 
-            <p>Common failures include:</p>
+            <p>{tr}Common failures include{/tr}:</p>
             <ul>
-                <li><strong>{tr}Not enough memory.{/tr}</strong> Larger sites require more memory to re-index.</li>
-                <li><strong>{tr}Time limit too short.{/tr}</strong> It may be required to run the rebuild through the command line.</li>
-                <li><strong>{tr}High resource usage.{/tr}</strong> Some plugins in your pages may cause excessive load. Blacklisting some plugins during indexing can help.</li>
+                <li><strong>{tr}Not enough memory.{/tr}</strong> {tr}Larger sites require more memory to re-index{/tr}.</li>
+                <li><strong>{tr}Time limit too short.{/tr}</strong> {tr}It may be required to run the rebuild through the command line{/tr}.</li>
+                <li><strong>{tr}High resource usage.{/tr}</strong> {tr}Some plugins in your pages may cause excessive load. Blacklisting some plugins during indexing can help{/tr}.</li>
             </ul>
         {/remarksbox}
 

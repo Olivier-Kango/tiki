@@ -127,7 +127,7 @@
     {/jq}
 {/tikimodule}
 {else}
-    {remarksbox type=warning title="Module misconfigured"}
+    {remarksbox type=warning title="{tr}Module misconfigured{/tr}"}
         {tr}No acceptable field to store the feature was found in the specified tracker.{/tr}
     {/remarksbox}
 {/if}

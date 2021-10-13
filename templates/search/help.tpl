@@ -25,7 +25,7 @@
             <ul>
                 <li>{tr}objects that include both tokenized terms{/tr}</li>
                 <li>{tr}objects that include the term<strong>wiki</strong>{/tr}</li>
-                <li>{tr}objects that include the term<strong>forum</strong>{/tr} or <strong>forums</strong></li>
+                <li>{tr}objects that include the term<strong>forum</strong>{/tr} {tr}or{/tr} <strong>{tr}forums{/tr}</strong></li>
             </ul>
 
             <h4>{tr}Boolean operators{/tr}</h4>

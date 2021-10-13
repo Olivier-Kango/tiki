@@ -78,12 +78,12 @@ function module_share_info()
             ],
             'facebook_verb' => [
                 'name' => tra('Facebook: Verb'),
-                'description' => tra('Verb to display in button') . ' (like/recommend)',
+                'description' => tra('Verb to display in button') . ' ('.tra('like').'/'.tra('recommend').')',
                 'filter' => 'word',
             ],
             'facebook_colorscheme' => [
                 'name' => tra('Facebook: Colors'),
-                'description' => tra('Color scheme') . ' (light/dark)',
+                'description' => tra('Color scheme') . ' ('.tra('light').'/'.tra('dark').')',
                 'filter' => 'word',
             ],
             'facebook_font' => [

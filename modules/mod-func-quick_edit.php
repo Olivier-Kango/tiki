@@ -28,7 +28,7 @@ function module_quick_edit_info()
                 'description' => tra('If set to a template identifier, the specified template is used for creating new Wiki pages.') . ' ' . tra('Not set by default.')
             ],
             'action' => [
-                'name' => 'FORM ACTION',
+                'name' => tra('FORM ACTION'),
                 'description' => tra('If set, send the form to the given location (relative to Tiki\'s root) for processing.') . ' ' . tra('Default:') . ' tiki-editpage.php'
             ],
             'submit' => [
