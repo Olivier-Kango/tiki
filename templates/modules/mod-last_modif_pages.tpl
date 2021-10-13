@@ -82,22 +82,22 @@
 		<a class="linkmodule" style="margin-left: 20px" href="{$url}">...{tr}more{/tr}</a>
 	{else}
 		{modules_list list=$modLastModif nonums=$nonums}
-			{section name=ix loop=$modLastModif}
+			{foreach $modLastModif as $page}
 			<li>
 				<a class="linkmodule"
 					{if $absurl eq 'y'}
-						href="{$base_url}tiki-index.php?page={$modLastModif[ix].pageName|escape:"url"}"
+						href="{$base_url}tiki-index.php?page={$page.pageName|escape:"url"}"
 					{else}
-						href="{$modLastModif[ix].pageName|sefurl}"
+						href="{$page.pageName|sefurl}"
 					{/if}
 					{* jquery_timeago doesn't work in a title atribute *}
 					{if $prefs.jquery_timeago eq 'y'}{$sameday='n'}{else}{$sameday=$prefs.tiki_same_day_time_only}{/if}
-					title="{$modLastModif[ix].lastModif|tiki_short_datetime:'':'n'}{if $prefs.wiki_authors_style ne 'lastmodif'}, {tr}by{/tr} {$modLastModif[ix].user|username}{/if}{if (strlen($modLastModif[ix].pageName) > $maxlen) && ($maxlen > 0)}, {$modLastModif[ix].pageName|escape}{/if}"
+					title="{$page.lastModif|tiki_short_datetime:'':'n'}{if $prefs.wiki_authors_style ne 'lastmodif'}, {tr}by{/tr} {$page.user|username}{/if}{if (strlen($page.pageName) > $maxlen) && ($maxlen > 0)}, {$page.pageName|escape}{/if}"
 				>
 
 					{if $maxlen > 0}{* 0 is default value for maxlen eq to 'no truncate' *}
 						{if $namespaceoption eq 'n'}
-							{$data=$prefs.namespace_separator|explode:$modLastModif[ix].pageName}
+							{$data=$prefs.namespace_separator|explode:$page.pageName}
 							{if empty($data['1'])}
 								{$pagename=$data['0']}
 							{else}
@@ -105,16 +105,16 @@
 							{/if}
 							{$pagename|escape|truncate:$maxlen:"...":true}
 						{else}
-							{$data=$prefs.namespace_separator|explode:$modLastModif[ix].pageName}
+							{$data=$prefs.namespace_separator|explode:$page.pageName}
 							{if sizeof($data) == 1}
-								{$pagename=$modLastModif[ix].pageName|escape}
+								{$pagename=$page.pageName|escape}
 							{else}
-								{$pagename=$modLastModif[ix]|escape}
+								{$pagename=$page|escape}
 							{/if}
 							{$pagename|truncate:$maxlen:"...":true}
 						{/if}
 					{else}
-						{$data=$prefs.namespace_separator|explode:$modLastModif[ix].pageName}
+						{$data=$prefs.namespace_separator|explode:$page.pageName}
 						{if $namespaceoption eq 'n'}
 							{if empty($data['1'])}
 								{$data['0']}
@@ -122,13 +122,13 @@
 								{$data['1']}
 								{/if}
 						{else}
-							{$modLastModif[ix].pageName|escape}
+							{$page.pageName|escape}
 						{/if}
 					{/if}
 
 				</a>
 			</li>
-			{/section}
+			{/foreach}
 		{/modules_list}
 		<a class="linkmodule" style="margin-left: 20px" href="{$url}">...{tr}more{/tr}</a>
 	{/if}
