@@ -2090,8 +2090,14 @@ class TrackerLib extends TikiLib
                     if ($old_value != $value) {
                         if ($is_date) {
                             $dformat = $prefs['short_date_format'] . ' ' . $prefs['short_time_format'];
-                            $old_value = $this->date_format($dformat, (int) $old_value);
-                            $new_value = $this->date_format($dformat, (int) $value);
+                            if (! empty($old_value)) {
+                                $old_value = $this->date_format($dformat, (int) $old_value);
+                            }
+                            if (! empty($new_value)) {
+                                $new_value = $this->date_format($dformat, (int) $value);
+                            } else {
+                                $new_value = $value;
+                            }
                         } else {
                             $new_value = $value;
                         }
