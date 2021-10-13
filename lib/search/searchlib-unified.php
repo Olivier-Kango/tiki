@@ -430,6 +430,14 @@ class UnifiedSearchLib
     }
 
     /**
+     * Invalidate the indices cache
+     */
+    public function invalidateIndicesCache()
+    {
+        $this->indices = [];
+    }
+
+    /**
      * @return array
      */
     public function getSupportedTypes()

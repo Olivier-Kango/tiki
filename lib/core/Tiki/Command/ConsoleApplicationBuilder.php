@@ -154,6 +154,7 @@ class ConsoleApplicationBuilder
                 new IndexRebuildCommand(),
                 new IndexOptimizeCommand(),
                 new IndexCatchUpCommand(),
+                new IndexCompareEnginesCommand(),
                 new ListExecuteCommand(),
                 new MailInPollCommand(),
                 new MailQueueSendCommand(),
