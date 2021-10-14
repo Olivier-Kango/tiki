@@ -1,0 +1,14 @@
+/* example customisation for h5p timeline
+ *
+ * just make the navigation bar at the bottom blue for now to show we're here
+ * add .h5p-content before the normal definitions to override the defaults
+ */
+
+
+.h5p-content .vco-timeline .vco-navigation .timenav-background {
+    background-color: #00f
+}
+
+.h5p-content .vco-timeline .vco-navigation .timenav-background .timenav-interval-background {
+    background-color: #eef
+}

@@ -243,9 +243,7 @@ class H5PLib
             // Get assets for this content
             $preloaded_dependencies = $core->loadContentDependencies($content['id'], 'preloaded');
             $files = $core->getDependenciesFiles($preloaded_dependencies);
-
-            // TODO maybe?
-            //$this->alter_assets($files, $preloaded_dependencies, $embed);
+            $this->alter_assets($files, $preloaded_dependencies, $embed);
 
             if ($embed === 'div') {
                 $this->enqueueAssets($files);
@@ -263,6 +261,55 @@ class H5PLib
             return '<div class="h5p-content" data-content-id="' . $content['id'] . '"></div>';
         } else {
             return '<div class="h5p-iframe-wrapper"><iframe id="h5p-iframe-' . $content['id'] . '" class="h5p-iframe" data-content-id="' . $content['id'] . '" style="height:1px" src="about:blank" frameBorder="0" scrolling="no"></iframe></div>';
+        }
+    }
+
+    /**
+     * Add the js and css files specified in the prefs
+     *
+     * @param array $dependencies
+     * @param array $files scripts & styles
+     * @param string $embed type
+     */
+    public function alter_assets(&$files, &$dependencies, $embed)
+    {
+        global $prefs, $base_url;
+
+        // refactor dependency list
+        $libraries = [];
+        foreach ($dependencies as $dependency) {
+            $libraries[$dependency['machineName']] = [
+                'majorVersion' => $dependency['majorVersion'],
+                'minorVersion' => $dependency['minorVersion'],
+            ];
+        }
+
+        $prefsMap = [
+            'h5p_custom_js_files' => 'scripts',
+            'h5p_custom_css_files' => 'styles',
+        ];
+
+        foreach ($prefsMap as $pref => $type) {
+            if (! empty($prefs[$pref])) {
+                $additions = explode("\n", $prefs[$pref]);
+                foreach ($additions as & $line) {
+                    $line = explode(',', $line);
+                }
+                foreach ($additions as $addition) {
+                    if ($addition[0] === '*' || isset($libraries[$addition[0]])) {
+                        $version = $addition[2] ?? '1.0.0';
+                        $filepath = $addition[1];
+                        if (strpos(parse_url($filepath, PHP_URL_PATH), '/') !== 0) {
+                            // relative path needs to be absolute to tiki base
+                            $filepath = $base_url . $filepath;
+                        }
+                        $files[$type][] = (object) [
+                            'path'    => $filepath,
+                            'version' => "?ver=$version",    // Cache buster
+                        ];
+                    }
+                }
+            }
         }
     }
 

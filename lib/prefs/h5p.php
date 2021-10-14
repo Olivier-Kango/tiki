@@ -190,5 +190,23 @@ function prefs_h5p_list($partial = false)
             'default' => 'n',
             'warning' => tra('Experimental'),
         ],
+        'h5p_custom_js_files' => [
+            'name' => tra('Custom H5P Javascript Files'),
+            'description' => tra('Comma-separated: library or "*" for all, path to the file and optional version number, one per line.'),
+            'perspective' => false,
+            'type' => 'textarea',
+            'size' => 4,
+            'hint' => tra('For example: H5P.Timeline,themes/js/h5p-custom-example.js,1.00'),
+            'default' => '',
+        ],
+        'h5p_custom_css_files' => [
+            'name' => tra('Custom H5P CSS Files'),
+            'description' => tra('Comma-separated library or "*" for all, path to the file and optional version number, one per line.'),
+            'perspective' => false,
+            'type' => 'textarea',
+            'size' => 4,
+            'hint' => tra('For example: H5P.Timeline,themes/css/h5p-custom-example.css,1.00'),
+            'default' => '',
+        ],
     ];
 }
