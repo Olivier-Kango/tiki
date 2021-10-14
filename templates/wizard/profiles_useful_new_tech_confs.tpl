@@ -45,7 +45,7 @@
                 <br>
                 {tr}This profile allows to display a sticky note (a "post-it") in your tiki site{/tr}.
                 <br/>
-                <a href="http://doc.tiki.org/Custom+Code+HowTo+-+Post-It+Notes" target="tikihelp" class="tikihelp" title="{tr}Post-it Sticky Note{/tr}:
+                <a href="http://doc.tiki.org/Custom-Code-HowTo-Post-It-Notes" target="tikihelp" class="tikihelp" title="{tr}Post-it Sticky Note{/tr}:
                         {tr}More details{/tr}:
                         <ul>
                             <li>{tr}You can move it to another location{/tr}</li>

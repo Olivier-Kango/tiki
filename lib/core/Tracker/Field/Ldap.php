@@ -21,7 +21,7 @@ class Tracker_Field_Ldap extends Tracker_Field_Abstract
                 'name' => tr('LDAP'),
                 'description' => tr('Display a field value from a specific user in LDAP'),
                 'readonly' => true,
-                'help' => 'LDAP Tracker Field',
+                'help' => 'LDAP-Tracker-Field',
                 'prefs' => ['trackerfield_ldap'],
                 'tags' => ['advanced'],
                 'default' => 'n',

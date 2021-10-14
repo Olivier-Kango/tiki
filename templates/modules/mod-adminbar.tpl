@@ -5,22 +5,22 @@
 "general" => [
 'title' => tra('General'),
 'description' => tra('Global site configuration, date formats, etc.'),
-'help' => 'General Admin'
+'help' => 'General-Admin'
 ],
 "features" => [
 'title' => tra('Features'),
 'description' => tra('Switches for major features'),
-'help' => 'Features Admin'
+'help' => 'Features-Admin'
 ],
 "login" => [
 'title' => tra('Log in'),
 'description' => tra('User registration, remember me cookie settings and authentication methods'),
-'help' => 'Login Config'
+'help' => 'Login-Config'
 ],
 "user" => [
 'title' => tra('User Settings'),
 'description' => tra('User related preferences like info and picture, features, messages and notification, files, etc'),
-'help' => 'User Settings'
+'help' => 'User-Settings'
 ],
 "profiles" => [
 'title' => tra('Profiles'),
@@ -30,12 +30,12 @@
 "look" => [
 'title' => tra('Look & Feel'),
 'description' => tra('Theme selection, layout settings and UI effect controls'),
-'help' => 'Look and Feel'
+'help' => 'Look-and-Feel'
 ],
 "textarea" => [
 'title' => tra('Editing & Plugins'),
 'description' => tra('Text editing settings applicable to many areas. Plugin activation and plugin alias management'),
-'help' => 'Text area'
+'help' => 'Text-area'
 ],
 "module" => [
 'title' => tra('Modules'),
@@ -55,7 +55,7 @@
 "print" => [
 'title' => tra('Print Settings'),
 'description' => tra('Settings and features for print versions and pdf generation'),
-'help' => 'Print Setting-Admin'
+'help' => 'Print-Setting-Admin'
 ],
 "packages" => [
 'title' => tra('Packages'),

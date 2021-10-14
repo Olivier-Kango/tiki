@@ -230,7 +230,7 @@ function prefs_wiki_list($partial = false)
             'name' => tra('Dynamic variables'),
             'description' => tra('Global snippets of text that can be included in wiki pages and edited in place.'),
             'type' => 'list',
-            'help' => 'Dynamic+Variable',
+            'help' => 'Dynamic-Variable',
             'options' => [
                 'disable' => tra('Disabled'),
                 'single' => tra('Single (%varname%)'),
@@ -668,7 +668,7 @@ function prefs_wiki_list($partial = false)
             'name' => tra('Redirect pages using these prefix-alias semantic links'),
             'description' => tra('Comma-separated list of page name prefixes for pages that will be redirected to other pages with a semantic link'),
             'type' => 'text',
-            'help' => 'Semantic+Alias',
+            'help' => 'Semantic-Alias',
             'size' => '30',
             'dependencies' => [
                 'feature_wiki_1like_redirection',
@@ -692,7 +692,7 @@ function prefs_wiki_list($partial = false)
             'name' => tr('Wiki auto-toc'),
             'description' => tr('Automatic table of contents generation for wiki pages. The generated table of contents will display as a fixed-position aside next to the page contents. This setting can be toggled per page, in the page properties.'),
             'type' => 'flag',
-            'help' => 'Auto TOC',
+            'help' => 'Auto-TOC',
             'default' => 'n',
             'keywords' => 'autotoc',
         ],

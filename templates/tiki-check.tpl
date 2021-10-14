@@ -424,7 +424,7 @@
 {/if}
 
 <h2 class="showhide_heading" id="File_Gallery_Search_Indexing">{tr}File Gallery Search Indexing{/tr}<a href="#File_Gallery_Search_Indexing" class="heading-link"><span class="icon icon-link fas fa-link "></span></a></h2>
-{icon name='help' href='https://doc.tiki.org/Search+within+files'} <em>{tr _0='<a href="https://doc.tiki.org/Search+within+files">' _1='</a>'}More information %0 here %1{/tr}</em>
+{icon name='help' href='https://doc.tiki.org/Search-within-files'} <em>{tr _0='<a href="https://doc.tiki.org/Search-within-files">' _1='</a>'}More information %0 here %1{/tr}</em>
 {if $prefs.fgal_enable_auto_indexing eq 'y'}
     {if $security.shell_exec.setting eq 'Disabled'}
         {remarksbox type='error' title='{tr}Command Missing{/tr}' close='n'}

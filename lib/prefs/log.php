@@ -14,7 +14,7 @@ function prefs_log_list()
             'description' => tra('A line of type mail will be included in the System Log with the destination address and subject of each email sent.'),
             'type' => 'flag',
             'warning' => tra('May impact performance'),
-            'help' => 'System+Log',
+            'help' => 'System-Log',
             'default' => 'n',
         ],
         'log_tpl' => [

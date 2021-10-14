@@ -18,7 +18,7 @@ class Tracker_Field_EmailFolder extends Tracker_Field_Files implements Tracker_F
                 'description' => tr('Associate email messages with tracker items.'),
                 'prefs' => ['trackerfield_email_folder', 'feature_file_galleries'],
                 'tags' => ['advanced'],
-                'help' => 'Email Folder Tracker Field',
+                'help' => 'Email-Folder-Tracker-Field',
                 'default' => 'y',
                 'params' => [
                     'galleryId' => [

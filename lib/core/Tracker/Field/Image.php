@@ -23,7 +23,7 @@ class Tracker_Field_Image extends Tracker_Field_File
             'i' => [
                 'name' => tr('Image'),
                 'description' => tr('Deprecated in favor of the Files field.'),
-                'help' => 'Image Tracker Field',
+                'help' => 'Image-Tracker-Field',
                 'prefs' => ['trackerfield_image'],
                 'tags' => ['deprecated'],
                 'warning' => tra('Deprecated in favor of the Files field.'),

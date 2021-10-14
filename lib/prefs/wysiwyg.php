@@ -89,7 +89,7 @@ function prefs_wysiwyg_list()
         'wysiwyg_inline_editing' => [
             'name' => tra('Inline WYSIWYG editor'),
             'description' => tra('Seamless inline editing. Uses CKEditor 4. Inline editing enables editing pages without a context switch. The editor is embedded in the wiki page. When used on pages in wiki format, a conversion from HTML to wiki format is required'),
-            'help' => 'Wiki Inline Editing',
+            'help' => 'Wiki-Inline-Editing',
             'type' => 'flag',
             'default' => 'n',
             'dependencies' => [

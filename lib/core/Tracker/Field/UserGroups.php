@@ -20,7 +20,7 @@ class Tracker_Field_UserGroups extends Tracker_Field_Abstract implements Tracker
             'usergroups' => [
                 'name' => tr('User Groups'),
                 'description' => tr('Display the list of groups for the user associated with the tracker items.'),
-                'help' => 'User Groups',
+                'help' => 'User-Groups',
                 'prefs' => ['trackerfield_usergroups'],
                 'tags' => ['advanced'],
                 'default' => 'n',

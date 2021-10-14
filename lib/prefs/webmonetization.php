@@ -13,7 +13,7 @@ function prefs_webmonetization_list()
             'name' => tra('Enable Web Monetization'),
             'description' => tra('Enable Web Monetization showing a message in page header.'),
             'type' => 'flag',
-            'help' => 'Web+Monetization',
+            'help' => 'Web-Monetization',
             'tags' => ['experimental'],
             'default' => 'n',
         ],

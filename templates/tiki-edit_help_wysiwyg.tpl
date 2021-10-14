@@ -6,7 +6,7 @@
 <div class="help_section">
 {if $prefs.feature_help eq 'y'}
 <p>{tr}For more information, please see{/tr}
-    <a href="{$prefs.helpurl}Wysiwyg+Editor" target="tikihelp" class="tikihelp" title="{tr}WYSIWYG Editor:{/tr} {tr}More help on WYSIWYG editing{/tr}">
+    <a href="{$prefs.helpurl}Wysiwyg-Editor" target="tikihelp" class="tikihelp" title="{tr}WYSIWYG Editor:{/tr} {tr}More help on WYSIWYG editing{/tr}">
         {tr}WYSIWYG Editor{/tr} {icon name='help' style="vertical-align:middle"}
     </a>
 </p>

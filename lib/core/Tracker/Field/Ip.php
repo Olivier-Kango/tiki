@@ -19,7 +19,7 @@ class Tracker_Field_Ip extends Tracker_Field_Abstract implements Tracker_Field_S
             'I' => [
                 'name' => tr('IP Selector'),
                 'description' => tr('IP address input field'),
-                'help' => 'IP selector',
+                'help' => 'IP-selector',
                 'prefs' => ['trackerfield_ipaddress'],
                 'tags' => ['basic'],
                 'default' => 'n',

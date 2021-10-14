@@ -14,7 +14,7 @@ function prefs_pwa_list()
         'pwa_feature' => [
             'name' => tra('Progressive Web Application Mode'),
             'description' => tra('Allow Tiki to be used offline and be installed in a mobile device.'),
-            'help' => 'Enable Progressive Web Application Mode',
+            'help' => 'Enable-Progressive-Web-Application-Mode',
             'warning' => tra('Experimental feature.<br>Only Wiki pages and Trackers are available offline for now.'),
             'type' => 'flag',
             'tags' => ['experimental'],

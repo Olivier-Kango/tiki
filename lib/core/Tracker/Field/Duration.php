@@ -20,7 +20,7 @@ class Tracker_Field_Duration extends Tracker_Field_Abstract implements Tracker_F
             'DUR' => [
                 'name' => tr('Duration'),
                 'description' => tr('Provide a convenient way to enter time duration in different units. It is highly advisable to turn Vue.js integration on for a better user interface.'),
-                'help' => 'Duration Tracker Field',
+                'help' => 'Duration-Tracker-Field',
                 'prefs' => ['trackerfield_duration'],
                 'tags' => ['basic'],
                 'default' => 'y',

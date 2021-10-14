@@ -13,7 +13,7 @@ function prefs_lowercase_list()
             'name' => tra('Force lowercase'),
             'description' => tra('Automatically convert all alphabetic characters in the username to lowercase letters. For example <b>JohnDoe</b> becomes <b>johndoe</b>.'),
             'type' => 'flag',
-            'help' => 'Login+Config#Case_Sensitivity',
+            'help' => 'Login-Config#Case_Sensitivity',
             'default' => 'n',
         ],
     ];

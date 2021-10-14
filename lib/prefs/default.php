@@ -97,7 +97,7 @@ function prefs_default_list()
             'name'         => tra('Group transition sets default'),
             'description'  => tra("Sets the group transitioned to as the user's default group."),
             'type'         => 'flag',
-            'help'         => 'Group+Transitions',
+            'help'         => 'Group-Transitions',
             'default'      => 'n',
             'dependencies' => ['feature_group_transition'],
         ],

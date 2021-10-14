@@ -13,7 +13,7 @@ function prefs_auth_list()
             'name' => tra('Authentication method'),
             'description' => tra('Tiki supports several authentication methods. The default method is to use the internal user database.'),
             'type' => 'list',
-            'help' => 'External+Authentication',
+            'help' => 'External-Authentication',
             'perspective' => false,
             'options' => [
                 'tiki' => tra('Tiki'),
@@ -32,7 +32,7 @@ function prefs_auth_list()
         'auth_token_access' => [
             'name' => tra('Token access'),
             'description' => tra('With the presentation of a token, allow access to the content with elevated rights. The primary use of this authentication method is to grant temporary access to content to an external service.'),
-            'help' => 'Token+Access',
+            'help' => 'Token-Access',
             'perspective' => false,
             'type' => 'flag',
             'default' => 'n',

@@ -21,7 +21,7 @@ class Tracker_Field_Header extends Tracker_Field_Abstract implements Tracker_Fie
                 'name' => tr('Header'),
                 'description' => tr('Display a heading between fields to delimit a section and allow visual folding of the fields.'),
                 'readonly' => true,
-                'help' => 'Header Tracker Field',
+                'help' => 'Header-Tracker-Field',
                 'prefs' => ['trackerfield_header'],
                 'tags' => ['basic'],
                 'default' => 'y',

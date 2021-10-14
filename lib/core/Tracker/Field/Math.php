@@ -22,7 +22,7 @@ class Tracker_Field_Math extends Tracker_Field_Abstract implements Tracker_Field
             'math' => [
                 'name' => tr('Mathematical Calculation'),
                 'description' => tr('Perform a calculation upon saving the item based on other fields within the same item.'),
-                'help' => 'Mathematical Calculation Field',
+                'help' => 'Mathematical-Calculation-Field',
                 'prefs' => ['trackerfield_math'],
                 'tags' => ['advanced'],
                 'default' => 'n',

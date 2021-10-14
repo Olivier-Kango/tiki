@@ -22,7 +22,7 @@ class Tracker_Field_DynamicList extends Tracker_Field_Abstract implements Tracke
             'w' => [
                 'name' => tra('Dynamic Items List'),
                 'description' => tra('Dynamically update a selection list based on linked data from another tracker.'),
-                'help' => 'Dynamic items list',
+                'help' => 'Dynamic-items-list',
                 'prefs' => ['trackerfield_dynamiclist'],
                 'tags' => ['advanced'],
                 'default' => 'n',

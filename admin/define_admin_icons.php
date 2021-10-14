@@ -24,7 +24,7 @@ if ($prefs['theme_unified_admin_backend'] === 'y') {
                 'general'  => [
                     'title'       => tr('General Settings'),
                     'description' => tr('Global site configuration, date formats, etc.'),
-                    'help'        => 'General Admin',
+                    'help'        => 'General-Admin',
                 ],
                 'features' => [
                     'title'       => tr('Features'),
@@ -34,18 +34,18 @@ if ($prefs['theme_unified_admin_backend'] === 'y') {
                 'wizard' => [
                     'title'       => tr('Wizards'),
                     'description' => tr('Wizards to help you set up your site'),
-                    'help'        => 'Admin Wizards',
+                    'help'        => 'Admin-Wizards',
                     'url'         => 'tiki-wizard_admin.php',
                 ],
                 'look'     => [
                     'title'       => tr('Look & Feel'),
                     'description' => tr('Theme selection, layout settings and UI effect controls'),
-                    'help'        => 'Look and Feel',
+                    'help'        => 'Look-and-Feel',
                 ],
                 'login'       => [
                     'title'       => tr('Registration & Log in'),
                     'description' => tr('User registration, remember me cookie settings and authentication methods'),
-                    'help'        => 'Login Config',
+                    'help'        => 'Login-Config',
                 ],
                 'module'   => [
                     'title'       => tr('Modules'),
@@ -90,7 +90,7 @@ if ($prefs['theme_unified_admin_backend'] === 'y') {
                 'textarea'  => [
                     'title'       => tr('Editing and Plugins'),
                     'description' => tr('Text editing settings applicable to many areas. Plugin activation and plugin alias management'),
-                    'help'        => 'Text area',
+                    'help'        => 'Text-area',
                 ],
                 'wysiwyg'   => [
                     'title'       => tr('Wysiwyg'),
@@ -102,7 +102,7 @@ if ($prefs['theme_unified_admin_backend'] === 'y') {
                     'title'       => tr('File Galleries'),
                     'disabled'    => $prefs['feature_file_galleries'] != 'y',
                     'description' => tr('Defaults and configuration for file galleries'),
-                    'help'        => 'File Gallery',
+                    'help'        => 'File-Gallery',
                 ],
                 'blogs'    => [
                     'title'       => tr('Blogs'),
@@ -149,7 +149,7 @@ if ($prefs['theme_unified_admin_backend'] === 'y') {
                 'metatags'    => [
                     'title'       => tr('Meta Tags'),
                     'description' => tr('Information to include in the header of each page'),
-                    'help'        => 'Meta Tags',
+                    'help'        => 'Meta-Tags',
                 ],
                 'workspace' => [
                     'title'       => tr('Workspaces'),
@@ -184,17 +184,17 @@ if ($prefs['theme_unified_admin_backend'] === 'y') {
                 'print'     => [
                     'title'       => tr('Print Settings'),
                     'description' => tr('Settings and features for print versions and pdf generation'),
-                    'help'        => 'Print Setting-Admin',
+                    'help'        => 'Print-Setting-Admin',
                 ],
                 'semantic'  => [
                     'title'       => tr('Semantic Links'),
                     'disabled'    => $prefs['feature_semantic'] != 'y',
                     'description' => tr('Manage semantic wiki links'),
-                    'help'        => 'Semantic Admin',
+                    'help'        => 'Semantic-Admin',
                 ],
                 'rss'       => [
                     'title'       => tr('Feeds'),
-                    'help'        => 'Feeds User',
+                    'help'        => 'Feeds-User',
                     'description' => tr('Outgoing RSS feed setup'),
                 ],
                 'ads'       => [
@@ -277,13 +277,13 @@ if ($prefs['theme_unified_admin_backend'] === 'y') {
                     'title'       => tr('Social networks'),
                     'disabled'    => $prefs['feature_socialnetworks'] != 'y',
                     'description' => tr('Configure social networks integration'),
-                    'help'        => 'Social Networks',
+                    'help'        => 'Social-Networks',
                 ],
                 'messages'       => [
                     'title'       => tr('Messages'),
                     'disabled'    => $prefs['feature_messages'] != 'y',
                     'description' => tr('Message settings'),
-                    'help'        => 'Inter-User Messages',
+                    'help'        => 'Inter-User-Messages',
                 ],
                 'connect'     => [
                     'title'       => tr('Connect'),
@@ -344,7 +344,7 @@ if ($prefs['theme_unified_admin_backend'] === 'y') {
         "general" => [
             'title' => tr('General'),
             'description' => tr('Global site configuration, date formats, etc.'),
-            'help' => 'General Admin',
+            'help' => 'General-Admin',
         ],
         "features" => [
             'title' => tr('Features'),
@@ -354,12 +354,12 @@ if ($prefs['theme_unified_admin_backend'] === 'y') {
         "login" => [
             'title' => tr('Log in'),
             'description' => tr('User registration, remember me cookie settings and authentication methods'),
-            'help' => 'Login Config',
+            'help' => 'Login-Config',
         ],
         "user" => [
             'title' => tr('User Settings'),
             'description' => tr('User related preferences like info and picture, features, messages and notification, files, etc'),
-            'help' => 'User Settings',
+            'help' => 'User-Settings',
         ],
         "profiles" => [
             'title' => tr('Profiles'),
@@ -369,12 +369,12 @@ if ($prefs['theme_unified_admin_backend'] === 'y') {
         "look" => [
             'title' => tr('Look & Feel'),
             'description' => tr('Theme selection, layout settings and UI effect controls'),
-            'help' => 'Look and Feel',
+            'help' => 'Look-and-Feel',
         ],
         "textarea" => [
             'title' => tr('Editing and Plugins'),
             'description' => tr('Text editing settings applicable to many areas. Plugin activation and plugin alias management'),
-            'help' => 'Text area',
+            'help' => 'Text-area',
         ],
         "module" => [
             'title' => tr('Modules'),
@@ -387,9 +387,9 @@ if ($prefs['theme_unified_admin_backend'] === 'y') {
             'help' => 'i18n',
         ],
         "metatags" => [
-            'title' => tr('Meta Tags'),
+            'title' => tr('Meta-Tags'),
             'description' => tr('Information to include in the header of each page'),
-            'help' => 'Meta Tags',
+            'help' => 'Meta-Tags',
         ],
         "maps" => [
             'title' => tr('Maps'),
@@ -446,7 +446,7 @@ if ($prefs['theme_unified_admin_backend'] === 'y') {
             'title' => tr('Wiki'),
             'disabled' => $prefs['feature_wiki'] != 'y',
             'description' => tr('Wiki page settings and features'),
-            'help' => 'Wiki Config',
+            'help' => 'Wiki-Config',
         ],
         "fgal" => [
             'title' => tr('File Galleries'),
@@ -536,7 +536,7 @@ if ($prefs['theme_unified_admin_backend'] === 'y') {
             'title' => tr('Messages'),
             'disabled' => $prefs['feature_messages'] != 'y',
             'description' => tr('Message settings'),
-            'help' => 'Inter-User Messages',
+            'help' => 'Inter-User-Messages',
         ],
         "webmail" => [
             'title' => tr('Webmail'),
@@ -567,7 +567,7 @@ if ($prefs['theme_unified_admin_backend'] === 'y') {
             'title' => tr('Semantic Links'),
             'disabled' => $prefs['feature_semantic'] != 'y',
             'description' => tr('Manage semantic wiki links'),
-            'help' => 'Semantic Admin',
+            'help' => 'Semantic-Admin',
         ],
         "webservices" => [
             'title' => tr('Webservices'),
@@ -597,7 +597,7 @@ if ($prefs['theme_unified_admin_backend'] === 'y') {
             'title' => tr('Social networks'),
             'disabled' => $prefs['feature_socialnetworks'] != 'y',
             'description' => tr('Configure social networks integration'),
-            'help' => 'Social Networks',
+            'help' => 'Social-Networks',
         ],
         "community" => [
             'title' => tr('Community'),
@@ -619,7 +619,7 @@ if ($prefs['theme_unified_admin_backend'] === 'y') {
         "print" => [
             'title' => tr('Print Settings'),
             'description' => tr('Settings and features for print versions and pdf generation'),
-            'help' => 'Print Setting-Admin',
+            'help' => 'Print-Setting-Admin',
         ],
         "packages" => [
             'title' => tr('Packages'),

@@ -23,7 +23,7 @@ class Tracker_Field_Articles extends Tracker_Field_Abstract
                 'description' => tr('Attach articles to the tracker item.'),
                 'prefs' => ['trackerfield_articles', 'feature_articles'],
                 'tags' => ['advanced'],
-                'help' => 'Articles Tracker Field',
+                'help' => 'Articles-Tracker-Field',
                 'default' => 'n',
                 'params' => [
                     'topicId' => [

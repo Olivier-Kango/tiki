@@ -15,7 +15,7 @@ class Tracker_Field_Rating extends Tracker_Field_Abstract
                 'name' => tr('Rating'),
                 'description' => tr('A rating of the tracker item. Permissions involved: %0', 'tracker_vote_ratings, tracker_revote_ratings, tracker_view_ratings'),
                 'readonly' => true,
-                'help' => 'Rating Tracker Field',
+                'help' => 'Rating-Tracker-Field',
                 'prefs' => ['trackerfield_rating'],
                 'tags' => ['advanced'],
                 'default' => 'n',

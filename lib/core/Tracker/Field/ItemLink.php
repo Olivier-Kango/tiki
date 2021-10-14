@@ -25,7 +25,7 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
             'r' => [
                 'name' => tr('Item Link'),
                 'description' => tr('Link to another item, similar to a foreign key'),
-                'help' => 'Items List and Item Link Tracker Fields',
+                'help' => 'Items-List-and-Item-Link-Tracker-Fields',
                 'prefs' => ['trackerfield_itemlink'],
                 'tags' => ['advanced'],
                 'default' => 'y',

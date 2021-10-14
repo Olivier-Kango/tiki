@@ -13,7 +13,7 @@ function prefs_rating_list()
             'name' => tra('Advanced Rating'),
             'description' => tra('In an advanced rating system, the options and calculation method can be configured.'),
             'type' => 'flag',
-            'help' => 'Advanced+Rating',
+            'help' => 'Advanced-Rating',
             'default' => 'n',
             'admin' => 'rating',
             'tags' => ['advanced'],

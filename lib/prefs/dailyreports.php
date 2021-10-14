@@ -14,7 +14,7 @@ function prefs_dailyreports_list()
             'description' => tra('Determines if daily reports will be automatically enabled for new users.'),
             'type' => 'flag',
             'default' => 'n',
-            'help' => 'Daily+Reports',
+            'help' => 'Daily-Reports',
             'tags' => ['basic','tiki reporting feature'],
         ],
     ];

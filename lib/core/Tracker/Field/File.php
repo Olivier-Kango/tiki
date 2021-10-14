@@ -20,7 +20,7 @@ class Tracker_Field_File extends Tracker_Field_Abstract
             'A' => [
                 'name' => tr('Attachment'),
                 'description' => tr('Deprecated in favor of the Files field.'),
-                'help' => 'Attachment Field',
+                'help' => 'Attachment-Field',
                 'prefs' => ['trackerfield_file'],
                 'tags' => ['deprecated'],
                 'warning' => tra('Deprecated in favor of the Files field.'),

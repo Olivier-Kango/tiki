@@ -50,7 +50,7 @@ function prefs_allocate_list()
             $out['allocate_memory_' . $name] = [
                 'name' => tr('%0 memory limit', $info['label']),
                 'description' => tr('Temporarily adjust the memory limit to use during %0. Depending on the volume of data, some large operations require more memory. Increasing it locally, per operation, allows to keep a lower memory limit globally. Keep in mind that memory usage is still limited to what is available on the server.', $info['label']),
-                'help' => 'Memory+Limit',
+                'help' => 'Memory-Limit',
                 'type' => 'text',
                 'default' => '',
                 'shorthint' => tr('for example: 256M'),
@@ -68,7 +68,7 @@ function prefs_allocate_list()
             $out['allocate_time_' . $name] = [
                 'name' => tr('%0 time limit', $info['label']),
                 'description' => tr('Temporarily adjust the time limit to use during %0. Depending on the volume of data, some requests may take longer. Increase the time limit locally to resolve the issue. Use reasonable values.', $info['label']),
-                'help' => 'Time+Limit',
+                'help' => 'Time-Limit',
                 'type' => 'text',
                 'default' => '',
                 'units' => tr('seconds'),

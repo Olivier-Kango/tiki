@@ -14,7 +14,7 @@ function prefs_categories_list()
             'description' => tra('When enabled, the $objectCategoryIds variable is set to the identifiers of the categories of the object being viewed. This allows showing alternate content depending on the categories of the current object, but reduces performance.'),
             'type' => 'flag',
             'perspective' => false,
-            'help' => 'http://themes.tiki.org/Template+Tricks',
+            'help' => 'http://themes.tiki.org/Template-Tricks',
             'dependencies' => [
                 'feature_categories',
             ],

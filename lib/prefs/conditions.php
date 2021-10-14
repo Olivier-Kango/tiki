@@ -13,7 +13,7 @@ function prefs_conditions_list()
             'name' => tr('Terms and Conditions'),
             'description' => tr('Automatically present a terms of use page to be accepted by users accessing the site.'),
             'dependencies' => ['feature_wiki'],
-            'help' => 'Terms+and+Conditions',
+            'help' => 'Terms-and-Conditions',
             'type' => 'flag',
             'default' => 'n',
         ],

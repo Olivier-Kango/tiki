@@ -21,7 +21,7 @@ class Tracker_Field_StaticText extends Tracker_Field_Abstract implements Tracker
                 'name' => tr('Static Text'),
                 'description' => tr('Display the field description as static text to present notes or additional instructions.'),
                 'readonly' => true,
-                'help' => 'Static Text Tracker Field',
+                'help' => 'Static-Text-Tracker-Field',
                 'prefs' => ['trackerfield_statictext'],
                 'tags' => ['basic'],
                 'default' => 'y',

@@ -184,7 +184,7 @@ function prefs_site_list()
             'description' => tr('Changes the template for the overall site layout'),
             'type' => 'list',
             'default' => 'basic',
-            'help' => 'Site Layout',
+            'help' => 'Site-Layout',
             'tags' => ['advanced'],
             'options' => $available_layouts,
         ],

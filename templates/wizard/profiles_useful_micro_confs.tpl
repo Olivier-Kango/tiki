@@ -17,7 +17,7 @@
                     <br/>
                     {tr}This profile sets up a side module with a menu based on a wiki page in the right hand-side column.{/tr}
                     <br/>
-                    <a href="https://doc.tiki.org/Module+menupage" target="tikihelp" class="tikihelp" title="{tr}Menu on Wiki page{/tr}:
+                    <a href="https://doc.tiki.org/Module-menupage" target="tikihelp" class="tikihelp" title="{tr}Menu on Wiki page{/tr}:
                         {tr}With this profile you can:{/tr}
                         <ul>
                             <li>{tr}use wiki syntax to edit it{/tr}</li>
@@ -76,7 +76,7 @@
                     <br/>
                     {tr}This profile allows Tiki content translation, and sets up modules to change language and to display links to page translations with their percentage of completion.{/tr}
                     <br/>
-                    <a href="https://doc.tiki.org/Multilingual+Wiki" target="tikihelp" class="tikihelp" title="{tr}Multilingual Wiki{/tr}:
+                    <a href="https://doc.tiki.org/Multilingual-Wiki" target="tikihelp" class="tikihelp" title="{tr}Multilingual Wiki{/tr}:
                         {tr}The enabled features comprise:{/tr}
                         <ul>
                             <li>{tr}Multilingual{/tr}, {tr}Translation assistant{/tr}, {tr}Urgent translation notifications{/tr}</li>

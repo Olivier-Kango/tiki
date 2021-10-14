@@ -24,7 +24,7 @@ class Tracker_Field_Relation extends Tracker_Field_Abstract
                 'prefs' => ['trackerfield_relation'],
                 'tags' => ['advanced'],
                 'default' => 'n',
-                'help' => 'Relations Tracker Field',
+                'help' => 'Relations-Tracker-Field',
                 'params' => [
                     'relation' => [
                         'name' => tr('Relation'),

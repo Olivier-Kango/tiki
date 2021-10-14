@@ -13,7 +13,7 @@ function prefs_recaptcha_list()
             'name' => tra('Use reCAPTCHA'),
             'description' => tra('Use reCAPTCHA, a specialized captcha service, instead of default CAPTCHA'),
             'hint' => tra('You will need to register at [http://www.google.com/recaptcha]'),
-            'help' => 'Spam+protection',
+            'help' => 'Spam-protection',
             'type' => 'flag',
             'default' => 'n',
         ],

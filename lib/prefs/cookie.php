@@ -40,7 +40,7 @@ function prefs_cookie_list()
             'description' => tra('Ask permission of the user before setting any cookies, and comply with the response.'),
             'hint' => tra('Complies with EU Privacy and Electronic Communications Regulations.'),
             'type' => 'flag',
-            'help' => 'Cookie+Consent',
+            'help' => 'Cookie-Consent',
             'default' => 'n',
             'tags' => ['experimental'],
         ],

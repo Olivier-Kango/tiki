@@ -14,7 +14,7 @@ function prefs_module_list()
             'description' => tra('Activate zone for modules such as site logo, log-in form, etc. (page header)'),
             'type' => 'list',
             'keywords' => tra('sidebar'),
-            'help' => 'Users+Flip+Columns',
+            'help' => 'Users-Flip-Columns',
             'options' => [
                 'y' => tra('Only if one or more modules are assigned'),
                 'fixed' => tra('Always'),
@@ -28,7 +28,7 @@ function prefs_module_list()
             'description' => tra('Activate zone for modules such as horizontal menu (navbar), search form, page-wide content, etc.'),
             'type' => 'list',
             'keywords' => tra('topbar'),
-            'help' => 'Users+Flip+Columns',
+            'help' => 'Users-Flip-Columns',
             'options' => [
                 'y' => tra('Only if one or more modules are assigned'),
                 'fixed' => tra('Always'),
@@ -42,7 +42,7 @@ function prefs_module_list()
             'description' => tra('Activate zone for modules such as breadcrumbs, banners, share icons, etc'),
             'type' => 'list',
             'keywords' => tra('sidebar'),
-            'help' => 'Users+Flip+Columns',
+            'help' => 'Users-Flip-Columns',
             'options' => [
                 'y' => tra('Only if one or more modules are assigned'),
                 'fixed' => tra('Always'),
@@ -56,7 +56,7 @@ function prefs_module_list()
             'description' => tra('Activate zone for modules such as "powered by" and "rss list" (page footer)'),
             'type' => 'list',
             'keywords' => tra('sidebar'),
-            'help' => 'Users+Flip+Columns',
+            'help' => 'Users-Flip-Columns',
             'options' => [
                 'y' => tra('Only if one or more modules are assigned'),
                 'fixed' => tra('Always'),
@@ -70,7 +70,7 @@ function prefs_module_list()
             'description' => tra('Activate zone for modules at the bottom of the main column of each page'),
             'type' => 'list',
             'keywords' => tra('sidebar'),
-            'help' => 'Users+Flip+Columns',
+            'help' => 'Users-Flip-Columns',
             'options' => [
                 'y' => tra('Only if one or more modules are assigned'),
                 'fixed' => tra('Always'),

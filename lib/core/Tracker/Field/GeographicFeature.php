@@ -20,7 +20,7 @@ class Tracker_Field_GeographicFeature extends Tracker_Field_Abstract implements 
             'GF' => [
                 'name' => tr('Geographic Feature'),
                 'description' => tr('Store a geographic feature on a map, allowing paths (LineString) and boundaries (Polygon) to be drawn on a map and saved.'),
-                'help' => 'Geographic feature Tracker Field',
+                'help' => 'Geographic-Feature-Tracker-Field',
                 'prefs' => ['trackerfield_geographicfeature'],
                 'tags' => ['advanced'],
                 'default' => 'n',

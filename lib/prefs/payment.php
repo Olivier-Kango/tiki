@@ -374,7 +374,7 @@ function prefs_payment_list()
         'payment_cart_anonymous' => [
             'name' => tra('Allow anonymous shopping'),
             'description' => tra('Allow shopping by anonymous users and record the orders in trackers.'),
-            'help' => 'Shopping Cart',
+            'help' => 'Shopping-Cart',
             'dependencies' => [ 'auth_token_access', 'payment_cart_anonshopper_profile', 'payment_cart_anonorders_profile', 'payment_cart_anonorderitems_profile', 'payment_cart_anon_reviewpage', 'payment_cart_anon_group' ],
             'type' => 'flag',
             'default' => 'n',
@@ -415,7 +415,7 @@ function prefs_payment_list()
         'payment_cart_associatedevent' => [
             'name' => tra('Enable association of product orders'),
             'description' => tra('Enable association of products with events (or projects, etc.).'),
-            'help' => 'Shopping Cart',
+            'help' => 'Shopping-Cart',
             'dependencies' => [ 'payment_cart_orders', 'payment_cart_associated_event_fieldname', 'payment_cart_event_tracker', 'payment_cart_event_tracker_name', 'payment_cart_eventstart_fieldname', 'payment_cart_eventend_fieldname' ],
             'type' => 'flag',
             'default' => 'n',
@@ -449,7 +449,7 @@ function prefs_payment_list()
         ],
         'payment_cart_exchange' => [
             'name' => tra('Allow exchange of products'),
-            'help' => 'Shopping Cart',
+            'help' => 'Shopping-Cart',
             'dependencies' => [ 'payment_cart_orderitems_tracker', 'payment_cart_product_tracker', 'payment_cart_product_classid_fieldname', 'payment_cart_productclasses_tracker_name' ],
             'type' => 'flag',
             'default' => '',
@@ -465,7 +465,7 @@ function prefs_payment_list()
         ],
         'payment_cart_giftcerts' => [
             'name' => tra('Gift certificates'),
-            'help' => 'Shopping Cart',
+            'help' => 'Shopping-Cart',
             'dependencies' => [ 'payment_cart_giftcert_tracker', 'payment_cart_giftcert_tracker_name', 'payment_cart_giftcerttemplate_fieldname', 'payment_cart_product_classid_fieldname', 'payment_cart_productclasses_tracker_name' ],
             'type' => 'flag',
             'default' => 'n',

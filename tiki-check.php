@@ -1457,13 +1457,13 @@ if ($connection || ! $standalone) {
         $mysql_properties['max_allowed_packet'] = array(
             'fitness' => tra('good'),
             'setting' => $max_allowed_packet . 'M',
-            'message' => tra('The max_allowed_packet setting is at') . ' ' . $max_allowed_packet . 'M. ' . tra('Quite large files can be uploaded, but keep in mind to set the script timeouts accordingly.') . ' ' . tra('This limits the size of binary files that can be uploaded to Tiki, when storing files in the database. Please see: <a href="http://doc.tiki.org/File+Storage">file storage</a>.')
+            'message' => tra('The max_allowed_packet setting is at') . ' ' . $max_allowed_packet . 'M. ' . tra('Quite large files can be uploaded, but keep in mind to set the script timeouts accordingly.') . ' ' . tra('This limits the size of binary files that can be uploaded to Tiki, when storing files in the database. Please see: <a href="http://doc.tiki.org/File-Storage">file storage</a>.')
         );
     } else {
         $mysql_properties['max_allowed_packet'] = array(
             'fitness' => tra('unsure'),
             'setting' => $max_allowed_packet . 'M',
-            'message' => tra('The max_allowed_packet setting is at') . ' ' . $max_allowed_packet . 'M. ' . tra('This is not a bad amount, but be sure the level is high enough to accommodate the needs of the site.') . ' ' . tra('This limits the size of binary files that can be uploaded to Tiki, when storing files in the database. Please see: <a href="http://doc.tiki.org/File+Storage">file storage</a>.')
+            'message' => tra('The max_allowed_packet setting is at') . ' ' . $max_allowed_packet . 'M. ' . tra('This is not a bad amount, but be sure the level is high enough to accommodate the needs of the site.') . ' ' . tra('This limits the size of binary files that can be uploaded to Tiki, when storing files in the database. Please see: <a href="http://doc.tiki.org/File-Storage">file storage</a>.')
         );
     }
 
@@ -1501,7 +1501,7 @@ if ($connection || ! $standalone) {
                 $mysql_properties[$value['Variable_name']] = array(
                     'fitness' => tra('unsure'),
                     'setting' => $value['Value'],
-                    'message' => tra('On a fresh install everything should be set to utf8mb4 to avoid unexpected results. For further information please see <a href="http://doc.tiki.org/Understanding+Encoding">Understanding Encoding</a>.')
+                    'message' => tra('On a fresh install everything should be set to utf8mb4 to avoid unexpected results. For further information please see <a href="http://doc.tiki.org/Understanding-Encoding">Understanding Encoding</a>.')
                 );
             }
         }
@@ -1521,7 +1521,7 @@ if ($connection || ! $standalone) {
             $mysql_properties[$value['Variable_name']] = array(
                 'fitness' => tra('unsure'),
                 'setting' => $value['Value'],
-                'message' => tra('On a fresh install everything should be set to utf8mb4 or utf8 to avoid unexpected results. For further information please see <a href="http://doc.tiki.org/Understanding+Encoding">Understanding Encoding</a>.')
+                'message' => tra('On a fresh install everything should be set to utf8mb4 or utf8 to avoid unexpected results. For further information please see <a href="http://doc.tiki.org/Understanding-Encoding">Understanding Encoding</a>.')
             );
         }
     }
@@ -1541,7 +1541,7 @@ if ($connection || ! $standalone) {
                 $mysql_properties[$value['Variable_name']] = array(
                     'fitness' => tra('unsure'),
                     'setting' => $value['Value'],
-                    'message' => tra('On a fresh install everything should be set to utf8mb4 to avoid unexpected results. utf8mb4_unicode_ci is the default collation for Tiki. For further information please see <a href="http://doc.tiki.org/Understanding+Encoding">Understanding Encoding</a>.')
+                    'message' => tra('On a fresh install everything should be set to utf8mb4 to avoid unexpected results. utf8mb4_unicode_ci is the default collation for Tiki. For further information please see <a href="http://doc.tiki.org/Understanding-Encoding">Understanding Encoding</a>.')
                 );
             }
         }
@@ -2228,8 +2228,8 @@ $fcts = array(
          ),
          array(
             'function' => 'parse_ini_file',
-            'risky' => tra('It is probably an urban myth that this is dangerous. Tiki team will reconsider this check, but be warned.') . ' ' . tra('It is required for the <a href="http://doc.tiki.org/System+Configuration" target="_blank">System Configuration</a> feature.'),
-            'safe' => tra('It is probably an urban myth that this is dangerous. Tiki team will reconsider this check, but be warned.') . ' ' . tra('It is required for the <a href="http://doc.tiki.org/System+Configuration" target="_blank">System Configuration</a> feature.'),
+            'risky' => tra('It is probably an urban myth that this is dangerous. Tiki team will reconsider this check, but be warned.') . ' ' . tra('It is required for the <a href="http://doc.tiki.org/System-Configuration" target="_blank">System Configuration</a> feature.'),
+            'safe' => tra('It is probably an urban myth that this is dangerous. Tiki team will reconsider this check, but be warned.') . ' ' . tra('It is required for the <a href="http://doc.tiki.org/System-Configuration" target="_blank">System Configuration</a> feature.'),
          )
     );
 
@@ -2836,7 +2836,7 @@ if ($standalone && ! $nagios) {
     renderTable($mysql_variables, 'wrap');
 
     $render .= '<h2>File Gallery Search Indexing</h2>';
-    $render .= '<em>More info <a href="https://doc.tiki.org/Search+within+files">here</a></em>
+    $render .= '<em>More info <a href="https://doc.tiki.org/Search-within-files">here</a></em>
     ';
     renderTable($file_handlers);
 

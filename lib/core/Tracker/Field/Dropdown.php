@@ -20,7 +20,7 @@ class Tracker_Field_Dropdown extends Tracker_Field_Abstract implements Tracker_F
             'd' => [
                 'name' => tr('Dropdown'),
                 'description' => tr('Allow users to select only from a specified set of options'),
-                'help' => 'Drop Down - Radio Tracker Field',
+                'help' => 'Drop-Down---Radio-Tracker-Field',
                 'prefs' => ['trackerfield_dropdown'],
                 'tags' => ['basic'],
                 'default' => 'y',
@@ -38,7 +38,7 @@ class Tracker_Field_Dropdown extends Tracker_Field_Abstract implements Tracker_F
             'D' => [
                 'name' => tr('Dropdown selector with "Other" field'),
                 'description' => tr('Allow users to select from a specified set of options or to enter an alternate option'),
-                'help' => 'Drop Down - Radio Tracker Field',
+                'help' => 'Drop-Down---Radio-Tracker-Field',
                 'prefs' => ['trackerfield_dropdownother'],
                 'tags' => ['basic'],
                 'default' => 'n',
@@ -56,7 +56,7 @@ class Tracker_Field_Dropdown extends Tracker_Field_Abstract implements Tracker_F
             'R' => [
                 'name' => tr('Radio Buttons'),
                 'description' => tr('Allow users to select only from a specified set of options'),
-                'help' => 'Drop Down - Radio Tracker Field',
+                'help' => 'Drop-Down---Radio-Tracker-Field',
                 'prefs' => ['trackerfield_radio'],
                 'tags' => ['basic'],
                 'default' => 'y',
@@ -74,7 +74,7 @@ class Tracker_Field_Dropdown extends Tracker_Field_Abstract implements Tracker_F
             'M' => [
                 'name' => tr('Multiselect'),
                 'description' => tr('Allow a user to select multiple values from a specified set of options'),
-                'help' => 'Multiselect Tracker Field',
+                'help' => 'Multiselect-Tracker-Field',
                 'prefs' => ['trackerfield_multiselect'],
                 'tags' => ['basic'],
                 'default' => 'y',
