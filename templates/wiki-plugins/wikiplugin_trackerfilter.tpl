@@ -46,9 +46,9 @@
                 {foreach from=$filters item=filter}
                     {if !isset($line) || $line ne 'y'}<tr>{/if}
                     <td class="tracker_filter_label">
-                        {if $indrop ne 'y' or ($filter.format ne 'd' and $filter.format ne 'm')}<label for="f_{$filter.fieldId}">{$filter.name|tr_if}</label>{/if}
+                        {if $indrop ne 'y' or ($filter.format ne 'd' and $filter.format ne 'm')}<label for="f_{$filter.fieldId}">{$filter.name|tr_if}:&nbsp;</label>{/if}
                         {if $showFieldId eq 'y'} -- {$filter.fieldId}{/if}
-                        {if !isset($line) || $line ne 'y'}</td><td class="tracker_filter_input tracker_field{$filter.fieldId}">{elseif $indrop ne 'y' or ($filter.format ne 'd' and $filter.format ne 'm')}:{/if}
+                        {if !isset($line) || $line ne 'y'}</td><td class="tracker_filter_input tracker_field{$filter.fieldId}">{elseif $indrop ne 'y' or ($filter.format ne 'd' and $filter.format ne 'm')}{/if}
     {*------drop-down, multiple *}
                         {if $filter.format eq 'd' or $filter.format eq 'm'}
                             <select id="f_{$filter.fieldId}" name="f_{$filter.fieldId}{if $filter.format eq "m"}[]{/if}" {if $filter.format eq "m"} size="5" multiple="multiple"{/if} class="form-control">
@@ -176,8 +176,8 @@
                         {if !empty($export_action)}
                             <input class="button submit btn btn-primary" type="submit" name="export_filter" value="{tr}{$export_action}{/tr}">
                         {elseif $action and $action neq " "}
-                            <input class="button submit btn btn-primary" type="submit" name="filter" value="{if empty($action)}{tr}Filter{/tr}{else}{tr}{$action}{/tr}{/if}">
-                            <input class="button submit btn btn-primary" type="submit" name="reset_filter" value="{tr}Reset{/tr}">
+                            <input class="button submit btn btn-primary mr-1 mb-1" type="submit" name="filter" value="{if empty($action)}{tr}Filter{/tr}{else}{tr}{$action}{/tr}{/if}">
+                            <input class="button submit btn btn-primary mr-1 mb-1" type="submit" name="reset_filter" value="{tr}Reset{/tr}">
                         {else}
                             &nbsp;
                         {/if}
