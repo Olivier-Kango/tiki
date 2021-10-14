@@ -49,6 +49,10 @@
                         return ( Date.parse(a) || 0 ) - ( Date.parse(b) || 0 );
                     }
                 }
+                var attributesOrder = {{$pivottable.attributesOrder|json_encode}};
+                if (attributesOrder[attr]) {
+                    return $.pivotUtilities.sortAs(attributesOrder[attr]);
+                }
             },
 
             {{if $pivottable.heatmapParams}}
