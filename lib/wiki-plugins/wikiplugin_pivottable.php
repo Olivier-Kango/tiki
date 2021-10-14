@@ -512,6 +512,7 @@ function wikiplugin_pivottable($data, $params)
 		$columnsListed = false;
 		$derivedAttributes = [];
 		$splittedAttributes = [];
+		$attributesOrder = [];
 
 		foreach ($matches as $match) {
 			if ($match->getName() == 'display' || $match->getName() == 'column') {
@@ -543,6 +544,22 @@ function wikiplugin_pivottable($data, $params)
 				}
 				$arguments['field'] = str_replace('tracker_field_', '', $arguments['field']);
 				$splittedAttributes[] = $arguments;
+			} elseif ($match->getName() == 'attributesort') {
+				$parser = new WikiParser_PluginArgumentParser();
+				$arguments = $parser->parse($match->getArguments());
+				if (! isset($arguments['field'])) {
+					return WikiParser_PluginOutput::userError(tr('Attributesort wiki modifier should specify a field.'));
+				}
+				if (! isset($arguments['order'])) {
+					return WikiParser_PluginOutput::userError(tr('Attributesort wiki modifier should specify an order.'));
+				}
+				$field = wikiplugin_pivottable_field_from_definitions($arguments['field'], $definitions);
+				if (empty($field)) {
+					$field = $arguments['field'];
+				} else {
+					$field = $field['name'];
+				}
+				$attributesOrder[$field] = str_getcsv($arguments['order']);
 			}
 		}
 
@@ -936,6 +953,7 @@ function wikiplugin_pivottable($data, $params)
 		'menuLimit' => empty($params['menuLimit']) ? null : $params['menuLimit'],
 		'aggregateDetails' => implode(':', $params['aggregateDetails']),
 		'aggregateDetailsFormat' => $params['aggregateDetailsFormat'] ?? null,
+		'attributesOrder' => $attributesOrder,
 		'highlight' => $highlight,
 		'highlightMine' => empty($params['highlightMine']) ? null : $params['highlightMine'],
 		'highlightGroup' => empty($params['highlightGroup']) ? null : $params['highlightGroup'],
