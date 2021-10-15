@@ -746,11 +746,11 @@ function wikiplugin_pivottable($data, $params)
                 continue;
             }
             $splitted = explode($separator, $row[$field]);
-            if (count($splitted) == 1) {
-                $key++;
-                continue;
-            }
             if (isset($arguments['replace_fields'], $arguments['value_separator'])) {
+                if (count($splitted) == 1 && empty($splitted[0])) {
+                    $key++;
+                    continue;
+                }
                 $replacement = [];
                 foreach ($splitted as $split_value) {
                     $replaced_row = $row;
@@ -767,6 +767,10 @@ function wikiplugin_pivottable($data, $params)
                     $replacement[] = $replaced_row;
                 }
             } else {
+                if (count($splitted) == 1) {
+                    $key++;
+                    continue;
+                }
                 $replacement = array_map(function ($value) use ($row, $field) {
                     return array_merge($row, [$field => ltrim($value)]);
                 }, $splitted);
