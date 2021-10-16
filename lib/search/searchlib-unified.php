@@ -394,7 +394,7 @@ class UnifiedSearchLib
         global $prefs, $tikidomain;
         $mapping = [
             'elastic' => [
-                'data' => $prefs['unified_elastic_index_prefix'] . 'main',
+                'data' => $prefs['unified_elastic_index_current'],
                 'preference' => $prefs['unified_elastic_index_prefix'] . 'pref_' . $prefs['language'],
             ],
             'mysql' => [

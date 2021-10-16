@@ -476,7 +476,7 @@ if (! $unifiedsearch->rebuildInProgress()) {
     }
 
     if (! $searchIndex['error']) {
-        $indexNeedsRebuilding = $prefslib->indexNeedsRebuilding();
+        $indexNeedsRebuilding = $unifiedsearch->getIndex()->exists();
         if ($indexNeedsRebuilding) {
             $searchIndex['error'] = true;
         }
