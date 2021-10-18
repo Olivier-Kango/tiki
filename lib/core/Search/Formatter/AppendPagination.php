@@ -49,7 +49,7 @@ class Search_Formatter_AppendPagination implements Search_Formatter_Plugin_Inter
             $filters[$key] = $val;
         }
         foreach ($_POST as $key => $val) {
-            if (substr($key, 0, 3) == 'tf_') {
+            if (substr($key, 0, 3) == 'tf_' || $key == 'tzoffset') {
                 $filters[$key] = $val;
             }
         }
