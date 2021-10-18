@@ -316,6 +316,9 @@ EOF;
         $data = '<mxfile>' . implode('', $diagrams) . '</mxfile>';
     }
 
+    $slidePage=explode("/",$_SERVER['PHP_SELF']);
+    $slidePage=end($slidePage);
+
     $smarty = TikiLib::lib('smarty');
     $smarty->assign('index', $diagramIndex);
     $smarty->assign('data', $diagrams);
@@ -331,6 +334,7 @@ EOF;
     $smarty->assign('page_name', $pageName);
     $smarty->assign('compressXml', $compressXml);
     $smarty->assign('compressXmlParam', $compressXmlParam);
+    $smarty->assign('slide_psge', $slidePage);
 
     return '~np~' . $smarty->fetch('wiki-plugins/wikiplugin_diagram.tpl') . '~/np~';
 }

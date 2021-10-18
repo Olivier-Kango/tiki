@@ -4,7 +4,9 @@
     {if $allow_edit}
         <div class="text-right">
             {if $file_id and $template ne $file_id }
-                <a class="btn btn-link" target="_blank" href="tiki-editdiagram.php?fileId={$file_id}">{icon name="pencil"} Edit diagram</a>
+                {if $slide_page ne 'tiki-slideshow.php'}
+                    <a class="btn btn-link" target="_blank" href="tiki-editdiagram.php?fileId={$file_id}">{icon name="pencil"} Edit diagram</a>
+                {/if}
             {else}
             <form id="edit-diagram-{$index}" target="_blank" action="tiki-editdiagram.php" method="post">
                     <input type="hidden" value="{$graph_data_base64}" name="xml">
