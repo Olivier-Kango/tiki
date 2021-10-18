@@ -18,7 +18,15 @@ class Math_Formula_Function_Equals extends Math_Formula_Function
 
         foreach ($element as $child) {
             $component = $this->evaluateChild($child);
-            if ($component != $reference) {
+            if ($reference instanceof Math_Formula_Applicator) {
+                if (! $reference->equals($component)) {
+                    return false;
+                }
+            } elseif ($component instanceof Math_Formula_Applicator) {
+                if (! $component->equals($reference)) {
+                    return false;
+                }
+            } elseif ($component != $reference) {
                 return false;
             }
         }
