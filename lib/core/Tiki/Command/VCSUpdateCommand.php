@@ -555,7 +555,6 @@ class VCSUpdateCommand extends Command
         }
 
         $shellCom = sprintf("%s sh setup.sh %s -n fix", $composerHome, $setupParams);
-        $this->execCommand($shellCom);
         $raw = $this->execCommand($shellCom . ' 2>&1');
         $this->OutputErrors($logger, $raw, 'Problem running setup.sh', $errors, ! $input->getOption('no-db'));
 
