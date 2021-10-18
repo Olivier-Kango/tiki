@@ -5,9 +5,9 @@
         </a>
         {permission name=tabular_export type=tabular object=$tabularId}
             <div class="btn-group">
-                <button type="button" class="btn btn-primary" href="{service controller=tabular action=export_full_csv tabularId=$tabularId}">
+                <a type="button" class="btn btn-primary" href="{service controller=tabular action=export_full_csv tabularId=$tabularId}">
                     {icon name=export} {tr}Export{/tr}
-                </button>
+                </a>
                 <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="sr-only">Toggle Dropdown</span>
                 </button>
