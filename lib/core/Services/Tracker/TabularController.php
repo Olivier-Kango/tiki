@@ -120,6 +120,8 @@ class Services_Tracker_TabularController
 
         $schema = $this->getSchema($info, $prefill, $prefill_odbc);
 
+        $encodings = mb_list_encodings();
+
         return [
             'title' => tr('Edit Format: %0', $info['name']),
             'tabularId' => $info['tabularId'],
@@ -130,6 +132,7 @@ class Services_Tracker_TabularController
             'schema' => $schema,
             'filterCollection' => $schema->getFilterCollection(),
             'has_odbc' => function_exists('odbc_connect'),
+            'encodings' => $encodings,
         ];
     }
 
@@ -277,7 +280,7 @@ class Services_Tracker_TabularController
             ];
         } else {
             $name = TikiLib::lib('tiki')->remove_non_word_characters_and_accents($info['name']);
-            $writer = new \Tracker\Tabular\Writer\CsvWriter('php://output');
+            $writer = new \Tracker\Tabular\Writer\CsvWriter('php://output', $schema->getEncoding());
             $writer->sendHeaders($name . '_export_full.csv');
 
             TikiLib::lib('tiki')->allocate_extra(
@@ -415,7 +418,7 @@ class Services_Tracker_TabularController
         $done = false;
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && is_uploaded_file($_FILES['file']['tmp_name'])) {
-            $source = new \Tracker\Tabular\Source\CsvSource($schema, $_FILES['file']['tmp_name']);
+            $source = new \Tracker\Tabular\Source\CsvSource($schema, $_FILES['file']['tmp_name'], ',', $schema->getEncoding());
             $writer = new \Tracker\Tabular\Writer\TrackerWriter();
             $done = $writer->write($source);
 

@@ -10,16 +10,22 @@ namespace Tracker\Tabular\Writer;
 
 class CsvWriter
 {
-    private $file;
+    private \SplFileObject $file;
+    private string $encoding;
 
-    public function __construct($outputFile)
+    public function __construct(string $outputFile, string $encoding = '')
     {
         $this->file = new \SplFileObject($outputFile, 'w');
+        $this->encoding = $encoding;
     }
 
-    public function sendHeaders($filename = 'tiki-tracker-tabular-export.csv')
+    public function sendHeaders(string $filename = 'tiki-tracker-tabular-export.csv'): void
     {
-        header('Content-Type: text/csv; charset=utf8');
+        $encoding = $this->encoding;
+        if (empty($encoding)) {
+            $encoding = 'utf-8';
+        }
+        header("Content-Type: text/csv; charset=$encoding");
         header("Content-Disposition:attachment;filename=$filename");
     }
 
@@ -32,7 +38,7 @@ class CsvWriter
         $columns = $schema->getColumns();
         $headers = [];
         foreach ($columns as $column) {
-            $headers[] = $column->getEncodedHeader();
+            $headers[] = $this->encode($column->getEncodedHeader());
         }
         $this->file->fputcsv($headers);
 
@@ -40,10 +46,19 @@ class CsvWriter
             $row = [];
 
             foreach ($columns as $column) {
-                $row[] = $entry->render($column);
+                $row[] = $this->encode($entry->render($column));
             }
 
             $this->file->fputcsv($row);
+        }
+    }
+
+    private function encode(string $str): string
+    {
+        if ($this->encoding) {
+            return mb_convert_encoding($str, $this->encoding, 'UTF-8');
+        } else {
+            return $str;
         }
     }
 }

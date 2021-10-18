@@ -327,10 +327,25 @@
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input" name="config[skip_unmodified]" value="1" {if $config['skip_unmodified']} checked {/if}>
                         <label class="form-check-label">{tr}Skip Unmodified{/tr}</label>
-                        <a class="tikihelp text-info" title="{tr}Skip Unmodified{/tr}: {tr}Will not re-import items that have not changed.{/tr}">
-                            {icon name=information}
-                        </a>
                     </div>
+                </div>
+                <label class="col-sm-2 offset-sm-2 mt-2">
+                    {tr}CSV Encoding{/tr}
+                    <a class="tikihelp text-info" title="{tr}Encoding{/tr}: {tr}Excel will often expect 'Windows-1252' encoding{/tr}">
+                        {icon name=information}
+                    </a>
+                </label>
+                <div class="col-sm-3">
+                    <select class="form-control" name="config[encoding]">
+                        <option value=""{if empty($config['encoding']) or $config['encoding'] eq 'UTF-8'} selected="selected"{/if}>
+                            {tr}Default (UTF-8){/tr}
+                        </option>
+                        {foreach $encodings as $encoding}
+                            <option value="{$encoding}"{if $config['encoding'] eq $encoding} selected="selected"{/if}>
+                                {$encoding}
+                            </option>
+                        {/foreach}
+                    </select>
                 </div>
             </div>
             <div class="form-group row submit">

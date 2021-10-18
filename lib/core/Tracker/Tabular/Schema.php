@@ -95,6 +95,7 @@ class Schema
             'import_transaction' => 0,
             'bulk_import' => 0,
             'skip_unmodified' => 0,
+            'encoding' => '',
         ], $config);
 
         $this->config = $config;
@@ -123,6 +124,11 @@ class Schema
     public function isSkipUnmodified()
     {
         return $this->config['skip_unmodified'];
+    }
+
+    public function getEncoding()
+    {
+        return $this->config['encoding'];
     }
 
     public function loadFormatDescriptor($descriptor)
