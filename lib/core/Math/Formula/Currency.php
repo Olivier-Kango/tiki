@@ -143,6 +143,13 @@ class Math_Formula_Currency implements Math_Formula_Applicator
         return (float)$this->amount > (float)$amount;
     }
 
+    public function equals($another)
+    {
+        $amount = $this->convertAnother($another);
+        $epsilon = 0.000000001;
+        return abs((float)$this->amount - (float)$amount) < $epsilon;
+    }
+
     public function isEmpty()
     {
         return empty($this->amount);
