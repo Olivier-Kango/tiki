@@ -70,7 +70,9 @@
                             <tr>
                                 <th>{tr}Field{/tr}</th>
                                 <th>{tr}Mode{/tr}</th>
-                                <th><abbr title="{tr}Remote Field{/tr}">{tr}RF{/tr}</abbr></th>
+                                {if $has_odbc}
+                                    <th><abbr title="{tr}Remote Field{/tr}">{tr}RF{/tr}</abbr></th>
+                                {/if}
                                 <th><abbr title="{tr}Primary Key{/tr}">{tr}PK{/tr}</abbr></th>
                                 <th><abbr title="{tr}Unique Key{/tr}">{tr}UK{/tr}</abbr></th>
                                 <th><abbr title="{tr}Read-Only{/tr}">{tr}RO{/tr}</abbr></th>
@@ -101,11 +103,13 @@
                                     </div>
                                 </td>
                                 <td><span class="field">Field Name</span>:<span class="mode">Mode</span></td>
-                                <td>
-                                    <div class="input-group input-group-sm">
-                                        <input class="remote-field from-control" type="text" name="remoteField" size="5">
-                                    </div>
-                                </td>
+                                {if $has_odbc}
+                                    <td>
+                                        <div class="input-group input-group-sm">
+                                            <input class="remote-field form-control" type="text" name="remoteField" size="5">
+                                        </div>
+                                    </td>
+                                {/if}
                                 <td><input class="primary" type="radio" name="pk"></td>
                                 <td><input class="unique-key" type="checkbox"></td>
                                 <td><input class="read-only" type="checkbox"></td>
