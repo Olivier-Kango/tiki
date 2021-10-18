@@ -142,7 +142,7 @@ function smarty_function_jscalendar($params, $smarty)
     $html = '<input type="hidden" id="' . $params['id'] . '"' . $name . ' value="' . $params['date'] . '" class="isDatepicker">';
     $html .= '<input type="hidden" name="tzoffset" value="">';
     $headerlib->add_jq_onready('$("input[name=tzoffset]").val((new Date()).getTimezoneOffset());');
-    if (isset($params['isutc']) && $params['isutc']) {
+    if (isset($params['isutc']) && $params['isutc'] && intval($params['date']) > 0) {
         $headerlib->add_jq_onready('$("#' . $params['id'] . '").val(' . (int)$params['date'] . ' + (new Date()).getTimezoneOffset()*60);');
     }
     $html .= '<input type="text" class="form-control isDatepicker" id="' . $params['id'] . '_dptxt" value="">'; // text version of datepicker date
@@ -167,7 +167,7 @@ function smarty_function_jscalendar($params, $smarty)
     if (! isset($params['showtime']) || $params['showtime'] === 'n') {
         $command = 'datepicker';
         $js_val = empty($params['date']) ? '""' : '$.datepicker.formatDate( "' .
-            $prefs['short_date_format_js'] . '", new Date(' . $params['date'] . '* 1000 + ' . (isset($params['isutc']) && $params['isutc'] ? '(new Date()).getTimezoneOffset()*60*1000' : '0') . '))';
+            $prefs['short_date_format_js'] . '", new Date(' . $params['date'] . '* 1000 + ' . (isset($params['isutc']) && $params['isutc'] && intval($params['date']) > 0 ? '(new Date()).getTimezoneOffset()*60*1000' : '0') . '))';
         $headerlib->add_jq_onready(
             '$("#' . $params['id'] . '_dptxt").val(' . $js_val . ').tiki("' .
             $command . '", "jscalendar", ' . $datepicker_options . ');'
