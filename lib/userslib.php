@@ -265,7 +265,7 @@ class UsersLib extends TikiLib
         $userInfo = $this->get_user_info($user);
         if ($prefs['login_multiple_forbidden'] === 'y') {
             $this->delete_user_cookie($userInfo['userId']);
-        } else {
+        } else if (! empty($_COOKIE[$user_cookie_site])) {
             $secret = explode('.', $_COOKIE[$user_cookie_site]);
             $this->delete_user_cookie($userInfo['userId'], $secret[0]);
         }

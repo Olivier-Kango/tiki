@@ -50,8 +50,17 @@ function prefs_site_list()
             'default' => tra('Site is closed for maintenance; please come back later.'),
             'tags' => ['basic'],
         ],
+        'site_busy_title' => [
+            'name' => tra('Site Busy Title'),
+            'type' => 'text',
+            'perspective' => false,
+            'dependencies' => [
+                'use_load_threshold',
+            ],
+            'default' => tra('Server too busy'),
+        ],
         'site_busy_msg' => [
-            'name' => tra('Message'),
+            'name' => tra('Site Busy Message'),
             'type' => 'text',
             'perspective' => false,
             'dependencies' => [
