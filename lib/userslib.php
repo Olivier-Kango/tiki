@@ -396,7 +396,15 @@ class UsersLib extends TikiLib
 
     // For each auth method, validate user in auth, if valid, verify tiki user exists and create if necessary (as configured)
     // Once complete, update_lastlogin and return result, username and login message.
-    public function validate_user($user, $pass, $validate_phase = false, $twoFactorCode = null)
+    /**
+    * Validate a user
+    * @param user: username
+    * @param pass: password
+    * @param twoFactorCode: ???
+    * @param validate_phase: If true, user followed the link from validation email after creation of account
+    * @param for_login: If true, we are validating user for login purpose. If false, we are only checking that user is valid (for check of current password for example)
+    */
+    public function validate_user($user, $pass, $validate_phase = false, $twoFactorCode = null, $for_login = true)
     {
         global $prefs;
 
@@ -455,7 +463,7 @@ class UsersLib extends TikiLib
         }
 
         // If preference login_multiple_forbidden is set, don't let user login if already logged in
-        if ($result == USER_VALID && $prefs['login_multiple_forbidden'] == 'y' && $user != 'admin') {
+        if ($result == USER_VALID && $prefs['login_multiple_forbidden'] == 'y' && $for_login == true && $user != 'admin') {
             $tikilib = TikiLib::lib('tiki');
             $grabSessionOnAlreadyLoggedIn = ! empty($prefs['login_grab_session']) ? $prefs['login_grab_session'] : 'n';
             if ($grabSessionOnAlreadyLoggedIn === 'y') {
