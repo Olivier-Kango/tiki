@@ -1365,4 +1365,77 @@ class TikiAccessLib extends TikiLib
         // if all else has failed, conclude that the file is not accessible
         return false;
     }
+
+    /**
+     * @param string $mode closed|busy
+     *
+     * @return void
+     */
+    public function showSiteClosed($mode) {
+        global $prefs, $error_login;
+
+        switch ($mode) {
+            case 'busy':
+                $title = $prefs['site_busy_title'];
+                $error = $prefs['site_busy_msg'];
+                $prefs['site_closed'] = 'y';    // tell the rest of tiki we're closed
+
+                break;
+            case 'closed':
+            default:
+                $title = $prefs['site_closed_title'];
+                $error = $prefs['site_closed_msg'];
+        }
+
+        if ($prefs['twoFactorAuth'] === 'y' && $error_login === tra('Invalid two-factor code ')) {
+            $twoFactorAuthCode = '<div class="pass form-group row mx-0 clearfix">
+    <label for="login-2fa">Two-factor Authenticator Code</label>
+    <input type="text" name="twoFactorAuthCode" autocomplete="off" class="form-control" id="login-2fa">
+</div>
+';
+            $error_login = '';
+        } else {
+            $twoFactorAuthCode = '';
+        }
+
+        $style_alert = '' . $error_login != '' ? 'alert alert-danger' : '';
+        $style_alert_btn = '' . $error_login != '' ? '' : 'display:none';
+
+        $this->setTicket();
+
+        $login = '<form class="form-detail" id="myform" action="tiki-login.php?page=tikiIndex" method="post">
+                   <div class="form-row">
+                       <label>User</label>
+                       <input type="text" name="user" id="your_email" class="input-text" required>
+                   </div>
+                   ' . $twoFactorAuthCode . '
+                   <div class="form-row form-row-1">
+                       <label for="password">Password</label>
+                       <input type="password" name="pass" id="password" class="input-text" required>
+                   </div>
+                   <div class="' . $style_alert . '" role="alert">' . $error_login . '
+                       <button type="button" class="close" style="' . $style_alert_btn . '" data-dismiss="alert" aria-label="Close">
+                           <span aria-hidden="true">&times;</span>
+                       </button>
+                   </div>
+                   <div class="form-row-last">
+                       <input type="hidden" class="ticket" name="ticket" value="' . $this->ticket . '" />
+                       <input type="hidden" name="confirmForm" value="y" />
+                       <input type="submit" name="login" value="Log in" class="register">
+                   </div>
+       </form>';
+
+        if (file_exists('themes/base_files/other/site_closed_local.html')) {
+            $html = file_get_contents('themes/base_files/other/site_closed_local.html');
+        } else {
+            $html = file_get_contents('themes/base_files/other/site_closed.html');
+        }
+
+        $html = str_replace('{error}', $error, $html);
+        $html = str_replace('{title}', $title, $html);
+        $html = str_replace('{login}', $login, $html);
+        header("HTTP/1.0 503 Service Unavailable");
+
+        die($html);
+    }
 }

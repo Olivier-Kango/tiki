@@ -286,6 +286,7 @@
                 {preference name=use_load_threshold}
                 <div class="adminoptionboxchild" id="use_load_threshold_childcontainer">
                     {preference name=load_threshold}
+                    {preference name=site_busy_title}
                     {preference name=site_busy_msg}
                 </div>
             </fieldset>
