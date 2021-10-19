@@ -327,7 +327,7 @@ if (isset($_REQUEST['chgadmin']) && $access->checkOrigin()) {
 				}
 			}
 		} else {
-			list($ok, $userwatch, $error) = $userlib->validate_user($userwatch, $pass);
+			list($ok, $userwatch, $error) = $userlib->validate_user($userwatch, $pass, false, null, false);
 		}
 		if (! $ok) {
 			$smarty->assign('msg', tra("Invalid password. Your current password is required to change administrative information"));
