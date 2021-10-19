@@ -221,6 +221,7 @@
 			{preference name=use_load_threshold}
 			<div class="adminoptionboxchild" id="use_load_threshold_childcontainer">
 				{preference name=load_threshold}
+                {preference name=site_busy_title}
 				{preference name=site_busy_msg}
 			</div>
 
@@ -385,7 +386,7 @@
 					{/if}
 					<fieldset id="encryption_general">
 						<legend>
-							{tr}General information{/tr} 
+							{tr}General information{/tr}
 						</legend>
 						<div class="form-group row">
 							<label class="col-form-label col-sm-4" for="name">
