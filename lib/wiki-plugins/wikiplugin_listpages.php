@@ -52,6 +52,19 @@ function wikiplugin_listpages_info()
                     ['text' => tra('No'), 'value' => 'n']
                 ]
             ],
+            'showNameAndDescriptionOnly' => [
+                'required' => false,
+                'name' => tra('Show Name And Description Only'),
+                'description' => tra('Show only the page names and descriptions'),
+                'since' => '24.0',
+                'filter' => 'alpha',
+                'default' => '',
+                'options' => [
+                    ['text' => '', 'value' => ''],
+                    ['text' => tra('Yes'), 'value' => 'y'],
+                    ['text' => tra('No'), 'value' => 'n']
+                ]
+            ],
             'categId' => [
                 'required' => false,
                 'name' => tra('Category Filter'),
@@ -468,8 +481,18 @@ function wikiplugin_listpages($data, $params)
     } else {
         $smarty->assign_by_ref('listpages', $listpages['data']);
     }
+
+    // Display an error message if the $showNameAndDescriptionOnly and $showNameOnly options are all entered at the same time
+    if (isset($showNameAndDescriptionOnly) && $showNameAndDescriptionOnly == 'y' && isset($showNameOnly) && $showNameOnly == 'y'){
+        $smarty->assign('msg', tra("You cannot specify the showNameOnly and showNameAndDescriptionOnly options simultaneously, You must choose one of them."));
+        $smarty->display("error.tpl");
+        die;
+    }
+
     if (isset($showNameOnly) && $showNameOnly == 'y') {
         $ret = $smarty->fetch('wiki-plugins/wikiplugin_listpagenames.tpl');
+    } elseif(isset($showNameAndDescriptionOnly) && $showNameAndDescriptionOnly == 'y'){
+        $ret = $smarty->fetch('wiki-plugins/wikiplugin_listpage_namesanddescription.tpl');
     } else {
         $ret = $smarty->fetch('tiki-listpages_content.tpl');
     }
