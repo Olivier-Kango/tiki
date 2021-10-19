@@ -239,9 +239,8 @@ $(".collapse-toggle", ".siteloginbar_popup .dropdown-menu").click(function () {
         </div>
         {if $module_params.show_two_factor_auth eq 'y' and $prefs.twoFactorAuth eq 'y'}
         <div class="pass form-group row mx-0 clearfix">
-            <label for="login-pass_{$module_logo_instance}">{tr}Two-factor Authenticator Code:{/tr}</label>
+            <label for="login-2fa_{$module_logo_instance}">{tr}Two-factor Authenticator Code:{/tr}</label>
             <input type="text" name="twoFactorAuthCode" autocomplete="off" class="form-control" id="login-2fa_{$module_logo_instance}">
-
         </div>
         {/if}
         {if $prefs.rememberme ne 'disabled' and (empty($module_params.remember) or $module_params.remember neq 'n')}
