@@ -263,7 +263,7 @@ class UsersLib extends TikiLib
 		$userInfo = $this->get_user_info($user);
 		if ($prefs['login_multiple_forbidden'] === 'y') {
 			$this->delete_user_cookie($userInfo['userId']);
-		} else {
+		} else if (! empty($_COOKIE[$user_cookie_site])) {
 			$secret = explode('.', $_COOKIE[$user_cookie_site]);
 			$this->delete_user_cookie($userInfo['userId'], $secret[0]);
 		}
@@ -394,9 +394,9 @@ class UsersLib extends TikiLib
 
 	// For each auth method, validate user in auth, if valid, verify tiki user exists and create if necessary (as configured)
 	// Once complete, update_lastlogin and return result, username and login message.
-	/** 
+	/**
 	* Validate a user
-	* @param user: username                                                                                                           |     * @param user: username                                                                                                           
+	* @param user: username                                                                                                           |     * @param user: username
 	* @param pass: password
 	* @param twoFactorCode: ???
 	* @param validate_phase: If true, user followed the link from validation email after creation of account
@@ -7521,7 +7521,7 @@ class UsersLib extends TikiLib
 		$cachelib = TikiLib::lib('cache');
 
 		$tx = TikiDb::get()->begin();
-		
+
 		$data = [
 			'groupName' => $group,
 			'groupDesc' => $desc,
