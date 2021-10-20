@@ -1111,53 +1111,6 @@ CREATE TABLE `tiki_forums_reported` (
   PRIMARY KEY (`threadId`, `forumId`, `parentId`, `user`(182))
 ) ENGINE=MyISAM;
 
-DROP TABLE IF EXISTS `tiki_galleries`;
-CREATE TABLE `tiki_galleries` (
-  `galleryId` int(14) NOT NULL auto_increment,
-  `name` varchar(80) NOT NULL default '',
-  `description` text,
-  `created` int(14) default NULL,
-  `lastModif` int(14) default NULL,
-  `visible` char(1) default NULL,
-  `geographic` char(1) default NULL,
-  `theme` varchar(60) default NULL,
-  `user` varchar(200) default '',
-  `hits` int(14) default NULL,
-  `maxRows` int(10) default NULL,
-  `rowImages` int(10) default NULL,
-  `thumbSizeX` int(10) default NULL,
-  `thumbSizeY` int(10) default NULL,
-  `public` char(1) default NULL,
-  `sortorder` varchar(20) NOT NULL default 'created',
-  `sortdirection` varchar(4) NOT NULL default 'desc',
-  `galleryimage` varchar(20) NOT NULL default 'first',
-  `parentgallery` int(14) NOT NULL default -1,
-  `showname` char(1) NOT NULL default 'y',
-  `showimageid` char(1) NOT NULL default 'n',
-  `showdescription` char(1) NOT NULL default 'n',
-  `showcreated` char(1) NOT NULL default 'n',
-  `showuser` char(1) NOT NULL default 'n',
-  `showhits` char(1) NOT NULL default 'y',
-  `showxysize` char(1) NOT NULL default 'y',
-  `showfilesize` char(1) NOT NULL default 'n',
-  `showfilename` char(1) NOT NULL default 'n',
-  `defaultscale` varchar(10) NOT NULL DEFAULT 'o',
-  `showcategories` char(1) NOT NULL default 'n',
-  PRIMARY KEY (`galleryId`),
-  KEY `name` (name),
-  KEY `description` (description(191)),
-  KEY `hits` (hits),
-  KEY `parentgallery` (parentgallery),
-  KEY `visibleUser` (visible, user(190))
-) ENGINE=MyISAM AUTO_INCREMENT=1 ;
-
-DROP TABLE IF EXISTS `tiki_galleries_scales`;
-CREATE TABLE `tiki_galleries_scales` (
-  `galleryId` int(14) NOT NULL default '0',
-  `scale` int(11) NOT NULL default '0',
-  PRIMARY KEY (`galleryId`,`scale`)
-) ENGINE=MyISAM;
-
 DROP TABLE IF EXISTS `tiki_group_inclusion`;
 CREATE TABLE `tiki_group_inclusion` (
   `groupName` varchar(255) NOT NULL default '',
