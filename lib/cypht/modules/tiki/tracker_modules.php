@@ -292,6 +292,55 @@ class Hm_Handler_tiki_save_sent extends Hm_Handler_Module
 }
 
 /**
+ * Archive a replied message
+ * @subpackage tiki/handler
+ */
+class Hm_Handler_tiki_archive_replied extends Hm_Handler_Module
+{
+    public function process()
+    {
+        if (empty($this->request->post['tiki_archive_replied'])) {
+            return;
+        }
+
+        $path = $this->request->post['compose_msg_path'];
+        if (! strstr($path, 'tracker_folder_')) {
+            return;
+        }
+        $msg_uid = $this->request->post['compose_msg_uid'];
+        if (! $msg_uid) {
+            return;
+        }
+
+        tiki_flag_message($msg_uid, 'add', 'archive');
+        tiki_flag_message($msg_uid, 'remove', 'deleted');
+
+        $path = str_replace('tracker_folder_', '', $path);
+        list ($itemId, $fieldId) = explode('_', $path);
+
+        $trk = TikiLib::lib('trk');
+        $item = $trk->get_item_info($itemId);
+        if (! $item) {
+            Hm_Msgs::add('ERRTracker item not found');
+            return;
+        }
+
+        $field = $trk->get_field_info($fieldId);
+        if (! $field) {
+            Hm_Msgs::add('ERRTracker field not found');
+            return;
+        }
+
+        $field['value'] = [
+            'archive' => $msg_uid
+        ];
+        $trk->replace_item($item['trackerId'], $item['itemId'], [
+            'data' => [$field]
+        ]);
+    }
+}
+
+/**
  * Delete a message
  * @subpackage tiki/handler
  */

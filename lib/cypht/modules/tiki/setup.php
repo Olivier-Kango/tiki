@@ -117,7 +117,8 @@ add_handler('message', 'tiki_download_message', true, 'core', 'message_list_type
 add_handler('message_list', 'check_path_redirect', true, 'core', 'load_user_data', 'after');
 add_handler('compose', 'tiki_mark_as_answered', true, 'smtp', 'process_compose_form_submit', 'after');
 add_handler('compose', 'tiki_save_sent', true, 'smtp', 'tiki_mark_as_answered', 'after');
-add_handler('compose', 'check_path_redirect_after_sent', true, 'smtp', 'tiki_save_sent', 'after');
+add_handler('compose', 'tiki_archive_replied', true, 'smtp', 'tiki_save_sent', 'after');
+add_handler('compose', 'check_path_redirect_after_sent', true, 'smtp', 'tiki_archive_replied', 'after');
 add_output('ajax_imap_message_content', 'add_move_to_trackers', true, 'imap', 'filter_message_headers', 'after');
 setup_base_ajax_page('ajax_move_to_tracker', 'core');
 add_handler('ajax_move_to_tracker', 'load_imap_servers_from_config', true, 'imap');
@@ -224,5 +225,6 @@ return array(
     'imap_move_to' => FILTER_SANITIZE_STRING,
     'imap_move_action' => FILTER_SANITIZE_STRING,
     'action_type' => FILTER_SANITIZE_STRING,
+    'tiki_archive_replied' => FILTER_VALIDATE_INT,
   )
 );
