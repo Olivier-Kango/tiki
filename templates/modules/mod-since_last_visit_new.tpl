@@ -33,10 +33,6 @@
                                             {icon name="folder-open" size=1 ititle="{tr}File Galleries{/tr}"}
                                         {elseif $pos eq "files"}
                                             {icon name="file-o" size=1 ititle="{tr}Files{/tr}"}
-                                        {elseif $pos eq "imageGalleries"}
-                                            {icon name="file-image-o" size=1 ititle="{tr}Image Galleries{/tr}"}
-                                        {elseif $pos eq "images"}
-                                            {icon name="file-image-o" size=1 ititle="{tr}Images{/tr}"}
                                         {elseif $pos eq "polls"}
                                             {icon name="tasks" size=1 ititle="{tr}Poll{/tr}"}
                                         {elseif $pos eq "pages"}

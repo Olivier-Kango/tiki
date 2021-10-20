@@ -31,10 +31,6 @@ if ($comzone == 'show') {
         $prefs['show_comzone'] = 'y';
     }
 
-    if (strstr($_SERVER['REQUEST_URI'], 'tiki-browse_gallery') and $prefs['feature_image_galleries_comments'] == 'y') {
-        $prefs['show_comzone'] = 'y';
-    }
-
     if (strstr($_SERVER['REQUEST_URI'], 'tiki-list_file_gallery') and $prefs['feature_file_galleries_comments'] == 'y') {
         $prefs['show_comzone'] = 'y';
     }

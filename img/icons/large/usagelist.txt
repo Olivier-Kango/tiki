@@ -5,7 +5,6 @@ tiki-admin-include-anchors.tpl  img/icons/large/boot.png        Features
 tiki-admin-include-anchors.tpl  img/icons/large/icon-configuration.png        General
 tiki-admin-include-anchors.tpl  img/icons/large/stock_quit.png        Login
 tiki-admin-include-anchors.tpl  img/icons/large/wikipages.png        Wiki
-tiki-admin-include-anchors.tpl  img/icons/large/stock_select-color.png        Image Galleries
 tiki-admin-include-anchors.tpl  img/icons/large/stock_bold.png        Articles
 tiki-admin-include-anchors.tpl  img/icons/large/blogs.png        Blogs
 tiki-admin-include-anchors.tpl  img/icons/large/stock_index.png        Forums
@@ -33,7 +32,6 @@ tiki-admin-include-list-sections.tpl  img/icons/large/boot48x48.png        Featu
 tiki-admin-include-list-sections.tpl  img/icons/large/icon-configuration48x48.png        General
 tiki-admin-include-list-sections.tpl  img/icons/large/stock_quit48x48.png        Login
 tiki-admin-include-list-sections.tpl  img/icons/large/wikipages48x48.png        Wiki
-tiki-admin-include-list-sections.tpl  img/icons/large/stock_select-color48x48.png        Image Galleries
 tiki-admin-include-list-sections.tpl  img/icons/large/stock_bold48x48.png        Articles
 tiki-admin-include-list-sections.tpl  img/icons/large/blogs48x48.png        Blogs
 tiki-admin-include-list-sections.tpl  img/icons/large/stock_index48x48.png        Forums

@@ -30,7 +30,6 @@ function activated_features()
         'forums',
         'wiki',
         'trackers',
-        'galleries'
     ];
 
     foreach ($features as $feature) {

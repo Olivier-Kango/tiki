@@ -938,7 +938,7 @@ class ModLib extends TikiLib
                 ],
                 'section' => [
                     'name' => tra('Section'),
-                    'description' => tra('Module is displayed only in the specified sections. Separate multiple sections by semi-colons. Choose from: blogs; calendar; categories; cms (for "articles"); contacts; directory; faqs; featured_links; file_galleries; forums; galleries (for "image galleries"); gmaps; html_pages; maps; mytiki; newsletters; poll; quizzes; surveys; trackers; user_messages; webmail; wiki page'),
+                    'description' => tra('Module is displayed only in the specified sections. Separate multiple sections by semi-colons. Choose from: blogs; calendar; categories; cms (for "articles"); contacts; directory; faqs; featured_links; file_galleries; forums; gmaps; html_pages; maps; mytiki; newsletters; poll; quizzes; surveys; trackers; user_messages; webmail; wiki page'),
                     'separator' => ';',
                     'filter' => 'striptags',
                     'section' => 'visibility',

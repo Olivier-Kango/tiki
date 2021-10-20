@@ -207,7 +207,7 @@
         {tab name="{tr}User Contribution{/tr}"}
             <div class="card">
                 <div class="card-body">
-                    {if ($user_pages|@count > 0) or ($user_galleries|@count > 0) or ($user_blogs|@count > 0) or ($user_blog_posts|@count > 0) or ($user_articles|@count > 0) or ($user_forum_comments|@count > 0) or ($user_forum_topics|@count > 0) or ($user_items|@count > 0)}
+                    {if ($user_pages|@count > 0) or ($user_blogs|@count > 0) or ($user_blog_posts|@count > 0) or ($user_articles|@count > 0) or ($user_forum_comments|@count > 0) or ($user_forum_topics|@count > 0) or ($user_items|@count > 0)}
                         <h2 class="text-center">{tr}User{/tr} {$userinfo.login|userlink}</h2>
                         <p><em>{tr}has contributed to the following content{/tr}…</em></p>
                     {else}
@@ -223,21 +223,6 @@
                                     <div>
                                         <a class="link" title="{tr}View:{/tr} {$user_pages[ix].pageName|escape}" href="tiki-index.php?page={$user_pages[ix].pageName|escape:"url"}">
                                             {$user_pages[ix].pageName|truncate:40:"(...)"|escape}
-                                        </a>
-                                    </div>
-                                </div>
-                            {/section}
-                        </div>
-                    {/if}
-                    {if $user_galleries|@count > 0}
-                        <h3>{tr}Image Galleries{/tr}</h3>
-                        <div class="table normal">
-
-                            {section name=ix loop=$user_galleries}
-                                <div>
-                                    <div>
-                                        <a class="link" href="{$user_galleries[ix].galleryId|sefurl:gallery}">
-                                            {$user_galleries[ix].name|escape}
                                         </a>
                                     </div>
                                 </div>

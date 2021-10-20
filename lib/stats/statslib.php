@@ -95,22 +95,6 @@ class StatsLib extends TikiLib
     /**
      * @return array
      */
-    public function image_gal_stats()
-    {
-        $stats = [];
-        $stats["galleries"] = $this->getOne("select count(*) from `tiki_galleries`", []);
-        $stats["images"] = $this->getOne("select count(*) from `tiki_images`", []);
-        $stats["ipg"] = ($stats["galleries"] ? $stats["images"] / $stats["galleries"] : 0);
-        $stats["size"] = $this->getOne("select sum(`filesize`) from `tiki_images_data` where `type`=?", ['o']);
-        $stats["bpi"] = ($stats["images"] ? $stats["size"] / $stats["images"] : 0);
-        $stats["size"] = $stats["size"] / 1000000;
-        $stats["visits"] = $this->getOne("select sum(`hits`) from `tiki_galleries`", []);
-        return $stats;
-    }
-
-    /**
-     * @return array
-     */
     public function file_gal_stats()
     {
         $stats = [];

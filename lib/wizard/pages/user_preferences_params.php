@@ -108,8 +108,6 @@ class UserWizardPreferencesParams extends Wizard
         $bloglib = TikiLib::lib('blog');
         $user_blogs = $bloglib->list_user_blogs($userwatch, false);
         $smarty->assign_by_ref('user_blogs', $user_blogs);
-        $user_galleries = $tikilib->get_user_galleries($userwatch, -1);
-        $smarty->assign_by_ref('user_galleries', $user_galleries);
         $user_items = TikiLib::lib('trk')->get_user_items($userwatch);
         $smarty->assign_by_ref('user_items', $user_items);
         $scramblingMethods = ["n", "strtr", "unicode", "x", 'y']; // email_isPublic utilizes 'n'

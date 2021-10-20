@@ -1376,42 +1376,6 @@ CREATE TABLE `tiki_html_pages_dynamic_zones` (
   PRIMARY KEY (`pageName`,`zone`)
 ) ENGINE=MyISAM;
 
-DROP TABLE IF EXISTS `tiki_images`;
-CREATE TABLE `tiki_images` (
-  `imageId` int(14) NOT NULL auto_increment,
-  `galleryId` int(14) NOT NULL default '0',
-  `name` varchar(200) NOT NULL default '',
-  `description` text,
-  `lon` float default NULL,
-  `lat` float default NULL,
-  `created` int(14) default NULL,
-  `user` varchar(200) default '',
-  `hits` int(14) default NULL,
-  `path` varchar(255) default NULL,
-  PRIMARY KEY (`imageId`),
-  KEY `name` (name(191)),
-  KEY `description` (description(191)),
-  KEY `hits` (hits),
-  KEY `ti_gId` (`galleryId`),
-  KEY `ti_cr` (created),
-  KEY `ti_us` (user(191))
-) ENGINE=MyISAM AUTO_INCREMENT=1 ;
-
-DROP TABLE IF EXISTS `tiki_images_data`;
-CREATE TABLE `tiki_images_data` (
-  `imageId` int(14) NOT NULL default '0',
-  `xsize` int(8) NOT NULL default '0',
-  `ysize` int(8) NOT NULL default '0',
-  `type` char(1) NOT NULL default '',
-  `filesize` int(14) default NULL,
-  `filetype` varchar(80) default NULL,
-  `filename` varchar(80) default NULL,
-  `data` longblob,
-  `etag` varchar(32) default NULL,
-  PRIMARY KEY (`imageId`,`xsize`,`ysize`,`type`),
-  KEY `t_i_d_it` (`imageId`,type)
-) ENGINE=MyISAM;
-
 DROP TABLE IF EXISTS `tiki_language`;
 CREATE TABLE `tiki_language` (
   `id` int(14) NOT NULL auto_increment,
@@ -1491,7 +1455,6 @@ CREATE TABLE `tiki_live_support_modules` (
 
 INSERT INTO tiki_live_support_modules(name) VALUES('wiki');
 INSERT INTO tiki_live_support_modules(name) VALUES('forums');
-INSERT INTO tiki_live_support_modules(name) VALUES('image galleries');
 INSERT INTO tiki_live_support_modules(name) VALUES('file galleries');
 INSERT INTO tiki_live_support_modules(name) VALUES('directory');
 
@@ -1798,7 +1761,6 @@ INSERT INTO `tiki_menu_options` (`menuId`, `type`, `name`, `url`, `position`, `s
 INSERT INTO `tiki_menu_options` (`menuId`, `type`, `name`, `url`, `position`, `section`, `perm`, `groupname`, `userlevel`) VALUES (42,'o','Comments','tiki-list_comments.php',1260,'feature_wiki_comments','tiki_p_admin','',0);
 INSERT INTO `tiki_menu_options` (`menuId`, `type`, `name`, `url`, `position`, `section`, `perm`, `groupname`, `userlevel`) VALUES (42,'o','Comments','tiki-list_comments.php',1260,'feature_article_comments','tiki_p_admin','',0);
 INSERT INTO `tiki_menu_options` (`menuId`, `type`, `name`, `url`, `position`, `section`, `perm`, `groupname`, `userlevel`) VALUES (42,'o','Comments','tiki-list_comments.php',1260,'feature_file_galleries_comments','tiki_p_admin','',0);
-INSERT INTO `tiki_menu_options` (`menuId`, `type`, `name`, `url`, `position`, `section`, `perm`, `groupname`, `userlevel`) VALUES (42,'o','Comments','tiki-list_comments.php',1260,'feature_image_galleries_comments','tiki_p_admin','',0);
 INSERT INTO `tiki_menu_options` (`menuId`, `type`, `name`, `url`, `position`, `section`, `perm`, `groupname`, `userlevel`) VALUES (42,'o','Comments','tiki-list_comments.php',1260,'feature_poll_comments','tiki_p_admin','',0);
 INSERT INTO `tiki_menu_options` (`menuId`, `type`, `name`, `url`, `position`, `section`, `perm`, `groupname`, `userlevel`) VALUES (42,'o','Comments','tiki-list_comments.php',1260,'feature_faq_comments','tiki_p_admin','',0);
 INSERT INTO `tiki_menu_options` (`menuId`, `type`, `name`, `url`, `position`, `section`, `perm`, `groupname`, `userlevel`) VALUES (42,'o','Contribution','tiki-admin_contribution.php',1265,'feature_contribution','tiki_p_admin_contribution','',0);
@@ -3108,16 +3070,6 @@ INSERT INTO `tiki_score` VALUES
     {"ruleId":"Download other user\'s file","recipientType":"user","recipient":"user","score":"5","validObjectIds":[""],"expiration":""},
     {"ruleId":"Have your file downloaded","recipientType":"user","recipient":"owner","score":"5","validObjectIds":[""],"expiration":""}
 ]',''),
-('tiki.imagegallery.create','[
-    {"ruleId":"Create new image gallery","recipientType":"user","recipient":"user","score":"10","validObjectIds":[""],"expiration":""}
-]',''),
-('tiki.image.create','[
-    {"ruleId":"Upload new image to gallery","recipientType":"user","recipient":"user","score":"6","validObjectIds":[""],"expiration":""}
-]',''),
-('tiki.image.view','[
-    {"ruleId":"See other user\'s image","recipientType":"user","recipient":"user","score":"3","validObjectIds":[""],"expiration":""},
-    {"ruleId":"Have your image seen","recipientType":"user","recipient":"owner","score":"1","validObjectIds":[""],"expiration":""}
-]',''),
 ('tiki.blog.create','[
     {"ruleId":"Create new blog","recipientType":"user","recipient":"user","score":"20","validObjectIds":[""],"expiration":""}
 ]',''),
@@ -3199,9 +3151,7 @@ INSERT IGNORE INTO tiki_actionlog_conf(action, `objectType`, status) VALUES ('Po
 INSERT IGNORE INTO tiki_actionlog_conf(action, `objectType`, status) VALUES ('Replied', 'forum', 'n');
 INSERT IGNORE INTO tiki_actionlog_conf(action, `objectType`, status) VALUES ('Updated', 'forum', 'n');
 INSERT IGNORE INTO tiki_actionlog_conf(action, `objectType`, status) VALUES ('Viewed', 'file gallery', 'n');
-INSERT IGNORE INTO tiki_actionlog_conf(action, `objectType`, status) VALUES ('Viewed', 'image gallery', 'n');
 INSERT IGNORE INTO tiki_actionlog_conf(action, `objectType`, status) VALUES ('Uploaded', 'file gallery', 'n');
-INSERT IGNORE INTO tiki_actionlog_conf(action, `objectType`, status) VALUES ('Uploaded', 'image gallery', 'n');
 INSERT IGNORE INTO tiki_actionlog_conf(action, `objectType`, status) VALUES ('%', 'category', 'n');
 INSERT IGNORE INTO tiki_actionlog_conf(action, `objectType`, status) VALUES ('login', 'system', 'y');
 INSERT IGNORE INTO tiki_actionlog_conf(action, `objectType`, status) VALUES ('Posted', 'message', 'n');
@@ -3508,7 +3458,6 @@ UPDATE tiki_menu_options SET icon = 'icon-configuration48x48' WHERE name = 'Sett
 UPDATE tiki_menu_options SET icon = 'xfce4-appfinder48x48' WHERE name = 'Search';
 UPDATE tiki_menu_options SET icon = 'wikipages48x48' WHERE name = 'Wiki';
 UPDATE tiki_menu_options SET icon = 'blogs48x48' WHERE name = 'Blogs';
-UPDATE tiki_menu_options SET icon = 'stock_select-color48x48' WHERE name = 'Image Galleries';
 UPDATE tiki_menu_options SET icon = 'file-manager48x48' WHERE name = 'File Galleries';
 UPDATE tiki_menu_options SET icon = 'stock_bold48x48' WHERE name = 'Articles';
 UPDATE tiki_menu_options SET icon = 'stock_index48x48' WHERE name = 'Forums';

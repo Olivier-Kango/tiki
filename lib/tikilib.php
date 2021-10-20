@@ -1215,9 +1215,6 @@ class TikiLib extends TikiDb_Bridge
                     case 'article_submitted':
                         $objectType = "topic";
                         break;
-                    case 'image_gallery_changed':
-                        $objectType = "image gallery";
-                        break;
                     case 'tracker_modified':
                         $objectType = "tracker";
                         break;
@@ -3988,9 +3985,6 @@ class TikiLib extends TikiDb_Bridge
             case 'tracker':
             case 'trackeritem':
                 return 'trackers';
-            case 'image gallery':
-            case 'image':
-                return 'image galleries';
             case 'file gallery':
             case 'file':
                 return 'file galleries';
@@ -4911,27 +4905,6 @@ class TikiLib extends TikiDb_Bridge
     public function get_user_pages($user, $max, $who = 'user')
     {
         return $this->table('tiki_pages')->fetchAll(['pageName'], [$who => $user], $max);
-    }
-
-    /**
-     * @param $user
-     * @param $max
-     * @return array
-     */
-    public function get_user_galleries($user, $max)
-    {
-        $query = "select `name` ,`galleryId`  from `tiki_galleries` where `user`=? order by `name` asc";
-
-        $result = $this->fetchAll($query, [$user], $max);
-        $ret = [];
-
-        foreach ($result as $res) {
-            //FIXME Perm::filter ?
-            if ($this->user_has_perm_on_object($user, $res['galleryId'], 'image gallery', 'tiki_p_view_image_gallery')) {
-                $ret[] = $res;
-            }
-        }
-        return $ret;
     }
 
     /**

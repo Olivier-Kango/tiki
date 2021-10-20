@@ -26,7 +26,7 @@ Prefix: /var/www/html
 Vendor: The Tikiwiki Community
 
 %description
-Tikiwiki is an open source CMS/Groupware web application which provides a full Wiki environment, as well as Articles, Sections/Categories, User/Group Management (including optional LDAP), Polls and Quizzes, File and Image Galleries, Forums, Weblogs, Calendars, Chat and much more.
+Tikiwiki is an open source CMS/Groupware web application which provides a full Wiki environment, as well as Articles, Sections/Categories, User/Group Management (including optional LDAP), Polls and Quizzes, File Galleries, Forums, Weblogs, Calendars, Chat and much more.
 
 %prep
 

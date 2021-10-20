@@ -623,8 +623,6 @@ return false;";
                 }
 
                 return true;
-            case 'image gallery':
-                return $prefs['feature_image_galleries_comments'] == 'y';
             case 'file gallery':
                 return $prefs['feature_file_galleries_comments'] == 'y';
             case 'poll':

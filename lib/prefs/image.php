@@ -15,21 +15,5 @@ function prefs_image_list()
             'type' => 'flag',
             'default' => 'y',
         ],
-        'image_galleries_comments_per_page' => [
-            'name' => tra('Default number of comments per page'),
-            'type' => 'text',
-            'units' => tra('comments'),
-            'default' => 10,
-        ],
-        'image_galleries_comments_default_order' => [
-            'name' => tra('Default order of comments'),
-            'type' => 'list',
-            'options' => [
-                'commentDate_desc' => tra('Newest first'),
-                'commentDate_asc' => tra('Oldest first'),
-                'points_desc' => tra('Points'),
-            ],
-            'default' => 'points_desc',
-        ],
     ];
 }

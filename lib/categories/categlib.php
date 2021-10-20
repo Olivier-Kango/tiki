@@ -1395,7 +1395,6 @@ class CategLib extends ObjectLib
             "faq" => "FAQs",
             "file gallery" => "File Galleries",
             "forum" => "Forums",
-            "image gallery" => "Image Galleries",
             "newsletter" => "Newsletters",
             "poll" => "Polls",
             "quiz" => "Quizzes",

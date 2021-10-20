@@ -93,9 +93,6 @@ function refresh_index_convert_type($object_type)
         case 'trackers': //case 'tracker':
             return 'tracker'; // FIXME : Unchecked
 
-        case 'galleries': // case 'imggal':
-            return 'image gallery'; // FIXME : Unchecked
-
         default:
             return $object_type;
     }
@@ -116,10 +113,6 @@ function random_refresh_filegal()
 function random_refresh_img()
 {
     refresh_index('images', -1);
-}
-function random_refresh_imggals()
-{
-    refresh_index('galleries', -1);
 }
 function random_refresh_index_articles()
 {
@@ -202,11 +195,6 @@ function refresh_index_files()
 function refresh_index_forums()
 {
     refresh_index('forums');
-}
-function refresh_index_galleries()
-{
-    refresh_index('galleries');
-    refresh_index('images');
 }
 function refresh_index_trackers()
 {

@@ -14,7 +14,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Tiki\Files\CheckAttachmentGallery;
 use Tiki\Files\CheckFileGallery;
-use Tiki\Files\CheckImageGallery;
 
 /**
  * Command to check the status of the files in File and Image Gallery
@@ -42,24 +41,6 @@ class FilesCheckCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $perms = \Perms::get();
-        if (! $perms->view_image_gallery) {
-            global $user;
-            $output->writeln('<info>== ' . tr('Image Gallery') . ' ==</info>');
-            $output->writeln('<error>' . tr('Checking for image gallery files skipped!') . '</error>');
-            $output->writeln(
-                '<info>'
-                . tr('The user (%0) do not have at least the "view_image_gallery" permission, please select other user using the "--as-user" parameter', $user)
-                . '</info>'
-            );
-        } else {
-            $checkImageGallery = new CheckImageGallery();
-            $result = $checkImageGallery->analyse();
-            $this->printResults($output, $result, tr('Image Gallery'));
-        }
-
-        $output->writeln('');
-
         $checkFileGallery = new CheckFileGallery();
         $result = $checkFileGallery->analyse();
         $this->printResults($output, $result, tr('File Gallery'));

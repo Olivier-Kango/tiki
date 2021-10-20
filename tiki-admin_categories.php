@@ -693,7 +693,6 @@ if ($prefs['feature_search'] !== 'y' || $prefs['unified_add_to_categ_search'] !=
 
     $maximum = 0;
     admin_categ_assign($maximum, 'objects', $objects);
-    admin_categ_assign($maximum, 'galleries', $galleries);
     admin_categ_assign($maximum, 'file_galleries', $file_galleries);
     admin_categ_assign($maximum, 'forums', $forums);
     admin_categ_assign($maximum, 'polls', $polls);
