@@ -348,6 +348,18 @@ class Tracker_Field_Relation extends Tracker_Field_Abstract
             return;
         }
         if ($params['relation'] != $this->getOption(self::OPT_RELATION)) {
+            // check if this is the only place where the old relation name is used
+            $relation_fields = TikiLib::lib('trk')->get_fields_by_type('REL');
+            foreach ($relation_fields as $field) {
+                if ($field['fieldId'] == $this->getConfiguration('fieldId')) {
+                    continue;
+                }
+                $handler = TikiLib::lib('trk')->get_field_handler($field);
+                if ($handler && $handler->getOption(self::OPT_RELATION) == $this->getOption(self::OPT_RELATION)) {
+                    // another field using the same relation means we cannot auto-update relation name
+                    return;
+                }
+            }
             $relationlib = TikiLib::lib('relation');
             $relationlib->update_relation($this->getOption(self::OPT_RELATION), $params['relation']);
         }
