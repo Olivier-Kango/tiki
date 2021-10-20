@@ -33,11 +33,12 @@
                     {if $prefs['feature_display_my_to_others'] eq 'y'}
                         <ul class="list-group profile-navigation">
                             <a id="tab_show_user" data-target="#tab_user" href="#" class="tab_option list-group-item active">{tr}User Information{/tr}</a>
-                            {if $prefs['feature_wiki'] eq 'y'}<a id="tab_show_wikis" data-target="#tab_wikis" href="#" class="tab_option list-group-item">{tr}Wikis{/tr}</a>{/if}
+                            {if $prefs['feature_wiki'] eq 'y'}<a id="tab_show_wikis" data-target="#tab_wikis" href="#" class="tab_option list-group-item">{tr}Wiki Pages{/tr}</a>{/if}
                             {if $prefs['feature_blogs'] eq 'y'}<a id="tab_show_blogs" data-target="#tab_blogs" href="#" class="tab_option list-group-item">{tr}Blogs{/tr}</a>{/if}
                             {if $prefs['feature_trackers'] eq 'y'}<a id="tab_show_trackers" data-target="#tab_trackers" href="#" class="tab_option list-group-item">{tr}Trackers{/tr}</a>{/if}
                             {if $prefs['feature_articles'] eq 'y'}<a id="tab_show_articles" data-target="#tab_articles" href="#" class="tab_option list-group-item">{tr}Articles{/tr}</a>{/if}
                             {if $prefs['feature_forums'] eq 'y'}<a id="tab_show_forums" data-target="#tab_forums" href="#" class="tab_option list-group-item">{tr}Forum Threads{/tr}</a>{/if}
+                            {if $prefs['feature_file_galleries'] eq 'y'}<a id="tab_show_galleries" data-target="#tab_files" href="#" class="tab_option list-group-item">{tr}Files{/tr}</a>{/if}
                         </ul>
                     {/if}
                 </div>
@@ -176,15 +177,15 @@
                     </div>
 
                     {* Galleries Tab *}
-                    <div id="tab_galleries" class="profile-tab-content collapse">
-                        <h2>{tr}Wiki Pages{/tr}</h2>
-                        <p>{tr}This user has contributed to the following wiki pages{/tr}:</p>
+                    <div id="tab_files" class="profile-tab-content collapse">
+                        <h2>{tr}Files{/tr}</h2>
+                        <p>{tr}This user has contributed to the following files{/tr}:</p>
                         <div class="card">
                             <div class="card-body">
                                 {wikiplugin _name="list"}
                                 {literal}
                                     {filter type="file"}
-                                    {filter exact="{/literal}{$userwatch}{literal}" field="contributors"}
+                                    {filter multivalue="{/literal}{$userwatch}{literal}" field="contributors"}
                                     {ALTERNATE()}{tr}This user has not contributed any blog posts yet{/tr}.{ALTERNATE}
                                 {/literal}
                                 {/wikiplugin}
