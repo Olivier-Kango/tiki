@@ -109,27 +109,32 @@ $("#picker_{{$name|escape}}").parent().click(function () {
     <div id="plugin_params">
         <form action="{service controller='plugin' action='edit'}" method="post">
             {ticket mode='confirm'}
-            {foreach $info.params as $name => $param}
-                <div class="form-group row {if $param.advanced} advanced{/if}" id="param_{$name|escape}">
-                    {plugin_edit_row param=$param name=$name info=$info pluginArgs=$pluginArgs}
-                </div>
-            {/foreach}
-            {if not empty($info.advancedParams)}
-                {button _text='Advanced' _onclick="$('.form-group.advanced.default').toggle('fast'); return false;" _class='btn btn-sm mb-4'}
-                {foreach $info.advancedParams as $name => $param}
-                    <div class="form-group advanced row default" style="display: none;">
+            {if not empty($info.params)}
+                {foreach $info.params as $name => $param}
+                    <div class="form-group row {if $param.advanced} advanced{/if}" id="param_{$name|escape}">
                         {plugin_edit_row param=$param name=$name info=$info pluginArgs=$pluginArgs}
                     </div>
                 {/foreach}
-            {/if}
+                {if not empty($info.advancedParams)}
+                    {button _text='Advanced' _onclick="$('.form-group.advanced.default').toggle('fast'); return false;" _class='btn btn-sm mb-4'}
+                    {foreach $info.advancedParams as $name => $param}
+                        <div class="form-group advanced row default" style="display: none;">
+                            {plugin_edit_row param=$param name=$name info=$info pluginArgs=$pluginArgs}
+                        </div>
+                    {/foreach}
+                {/if}
 
-            <div class="form-group row"{if empty($info.body)} style="display:none"{/if}>
-                <label for="content" class="col-sm-3">{tr}Body{/tr}</label>
-                <div class="col-sm-9">
-                    <textarea name="content" id="content" class="form-control" rows="12">{$bodyContent|escape}</textarea>
-                    <div class="description">{$info.body}</div>
+                <div class="form-group row"{if empty($info.body)} style="display:none"{/if}>
+                    <label for="content" class="col-sm-3">{tr}Body{/tr}</label>
+                    <div class="col-sm-9">
+                        <textarea name="content" id="content" class="form-control" rows="12">{$bodyContent|escape}</textarea>
+                        <div class="description">{$info.body}</div>
+                    </div>
                 </div>
-            </div>
+            {else}
+                {tr}This plugin has no parameters, just click on Save{/tr}
+            {/if}
+            
 
             <div class="submit">
                 <input type="hidden" name="page" value="{$pageName|escape}">

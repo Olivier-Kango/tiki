@@ -21854,6 +21854,7 @@ $lang_current = array(
 "Close this dialog" => "Fermer cette boîte de dialogue",
 "Reload now (discards changes)" => "Recharger maintenant (annule les modifications)",
 "Leave blank to search using currently active groups" => "Laisser vide pour rechercher en utilisant les groupes actuellement actifs",
+"This plugin has no parameters, just click on Save" => "Ce plugiciel n'a pas de paramètre, cliquez simplement sur Enregistrer",
 
 
 
