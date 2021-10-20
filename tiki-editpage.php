@@ -154,6 +154,13 @@ if (strlen($_REQUEST["page"]) > $max_pagename_length) {
 
 $page = $_REQUEST["page"];
 
+$max_pagedescription_length = 200;
+if (strlen($_REQUEST["description"]) > $max_pagedescription_length) {
+    $smarty->assign('msg', tra("The description of the page should not exceed 200 characters."));
+    $smarty->display("error.tpl");
+    die;
+}
+
 // Copy namespace from structure parent page
 if ($prefs['namespace_enabled'] === 'y') {
     if (isset($_REQUEST['current_page_id'])) {

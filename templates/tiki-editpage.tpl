@@ -490,7 +490,15 @@
                                     <label for="" class="col-md-4 col-form-label">{tr}Description{/tr}</label>
                                 {/if}
                                 <div class="col-md-8">
-                                    <input class="form-control" type="text" id="description" name="description" value="{$description|escape}">
+                                    <input class="form-control" type="text" id="description" name="description" maxlength="200" value="{$description|escape}">
+                                    {jq}
+                                        $("#description").keyup(function () {
+                                            var length = $(this).val().length;
+                                            if(length == 200) {
+                                                alert("You have reached the number of characters allowed (200 max) for the description field");
+                                            }
+                                        });
+                                    {/jq}
                                 </div>
                             </div>
                         {/if}
