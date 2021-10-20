@@ -559,6 +559,18 @@ class CheckSchemaUpgrade
         // remove messages from action log (are not part of the schema)
         $dbConnection->exec("DELETE FROM `tiki_actionlog`");
 
+
+        // image gallery data was removed from tiki.sql, but preserving data in upgrades just in case, so ignore the differences
+        $dbConnection->exec("DROP TABLE `tiki_images`");
+        $dbConnection->exec("DROP TABLE `tiki_images_data`");
+        $dbConnection->exec("DROP TABLE `tiki_galleries`");
+        $dbConnection->exec("DROP TABLE `tiki_galleries_scales`");
+        $dbConnection->exec("DELETE FROM `tiki_live_support_modules` WHERE `name` = 'image galleries'");
+        $dbConnection->exec("DELETE FROM `tiki_actionlog_conf` WHERE `objectType` = 'image gallery'");
+        $dbConnection->exec("DELETE FROM `tiki_score` WHERE `event` LIKE 'tiki.image%'");
+        $dbConnection->exec("DELETE FROM `tiki_menu_options` WHERE `name` = 'Image Galleries'");
+        $dbConnection->exec("DELETE FROM `tiki_menu_options` WHERE `perm` = 'feature_image_galleries_comments'");
+
         // reload tiki_menu_options in the upgraded tiki to account for the case where an old entry is removed
         $dbConnection->exec("CREATE TABLE  `tiki_menu_options_tmp` AS SELECT * FROM `tiki_menu_options` ORDER BY menuId,type,name,url,position");
         $dbConnection->exec("ALTER TABLE `tiki_menu_options_tmp` CHANGE COLUMN optionId optionId int NULL");
