@@ -475,11 +475,8 @@ if (! $unifiedsearch->rebuildInProgress()) {
         $searchIndex = $unifiedsearch->checkMySql();
     }
 
-    if (! $searchIndex['error']) {
-        $indexNeedsRebuilding = $unifiedsearch->getIndex()->exists();
-        if ($indexNeedsRebuilding) {
-            $searchIndex['error'] = true;
-        }
+    if (! $searchIndex['error'] && ! $unifiedsearch->getIndex()->exists()) {
+        $searchIndex['error'] = true;
     }
 
     if ($searchIndex['error']) {
