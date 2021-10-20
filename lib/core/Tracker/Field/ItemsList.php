@@ -787,6 +787,7 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
 						$itemValues[$field['permName']] = '';
 					}
 				}
+				$itemValues['itemId'] = $itemId;
 			}
 			$itemsValues[] = $itemValues;
 		}
