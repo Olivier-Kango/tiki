@@ -137,10 +137,17 @@ class FileGalLib extends TikiLib
 
         $attributelib = TikiLib::lib('attribute');
 
-        $tikiGalleries = TikiDb::get()->table('tiki_galleries');
-        $tikiGalleriesScales = TikiDb::get()->table('tiki_galleries_scales');
-        $tikiImages = TikiDb::get()->table('tiki_images');
-        $tikiImagesData = TikiDb::get()->table('tiki_images_data');
+        // the tables should have been renamed in installer/schema/20211020_mark_image_gallery_tables_as_unused_tiki.sql but let's check
+        $tables = TikiDb::get()->listTables();
+        if (! in_array('tiki_galleries', $tables) && in_array('zzz_unused_tiki_galleries', $tables)) {
+            $zzz = "zzz_unused_";
+        } else {
+            $zzz = '';
+        }
+        $tikiGalleries = TikiDb::get()->table("{$zzz}tiki_galleries");
+        $tikiGalleriesScales = TikiDb::get()->table("{$zzz}tiki_galleries_scales");
+        $tikiImages = TikiDb::get()->table("{$zzz}tiki_images");
+        $tikiImagesData = TikiDb::get()->table("{$zzz}tiki_images_data");
 
         $galleryIdMap = [];
         $rootFileGalleryId = 0;
