@@ -127,7 +127,7 @@ function prefs_tracker_list()
 		],
 		'tracker_force_fill' => [
 			'name' => tr('Require users to fill in tracker information.'),
-			'description' => tr("Require users to fill in a tracker form if not done already by prompting them with a modal dialog  "),
+			'description' => tr("Require users to fill in a tracker form if not done already by prompting them with a modal dialog"),
 			'help' => 'Force+Fill+Tracker',
 			'type' => 'flag',
 			'tags' => ['advanced'],
