@@ -321,8 +321,12 @@
 
                     {if $tiki_p_admin_trackers eq 'y'}
                         <div class="form-group row">
-                            <div class="input-group col-sm-6">
+                            <div class="input-group col-sm-7">
                                 <select name="batchaction" class="form-control">
+
+                                    <option value="no_action" selected="selected">
+                                     {tr}Select the action to be performed with checked{/tr}...
+                                    </option>
                                     <option value="delete">{tr}Delete Selected{/tr}</option>
                                     {if $tracker_info.showStatus eq 'y' or ($tracker_info.showStatusAdminOnly eq 'y' and $tiki_p_admin_trackers eq 'y')}
                                         <option value="c">{tr}Close{/tr}</option>
