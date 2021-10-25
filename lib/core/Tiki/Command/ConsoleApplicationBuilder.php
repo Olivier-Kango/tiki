@@ -279,22 +279,6 @@ class ConsoleApplicationBuilder
             ]];
     }
 
-    /**
-     * get all registered commands
-     * @return array
-     */
-    public static function getRegisteredCommands()
-    {
-        $registeredCommands = [];
-        foreach (self::registeredCommands() as list('condition' => $condition, 'commands' => $commands)) {
-            foreach ($commands as $command) {
-                $registeredCommands[$condition][$command->getName()] = $command->getName();
-            }
-        }
-
-        return $registeredCommands;
-    }
-
     /*
      * 1. State Checks (100x)
      *    These do not require Tiki being installed or settings being loaded.

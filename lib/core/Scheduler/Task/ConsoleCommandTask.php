@@ -7,7 +7,7 @@
 // $Id$
 
 use Symfony\Component\Console\Input\ArgvInput;
-use Tiki\Command\ConsoleApplicationBuilder;
+
 
 class Scheduler_Task_ConsoleCommandTask extends Scheduler_Task_CommandTask
 {
@@ -21,7 +21,7 @@ class Scheduler_Task_ConsoleCommandTask extends Scheduler_Task_CommandTask
 
         $this->logger->debug(sprintf(tra('Executing console command: %s'), $params['console_command']));
 
-        $consoleParams = 'console.php ' . $params['console_command'] . ' ' . ($params['console_param'] ?? '');
+	$consoleParams = 'console.php ' . $params['console_command'];
         $args = $this->parseConsoleParams($consoleParams);
 
         $commandName = $args[1];
@@ -60,23 +60,11 @@ class Scheduler_Task_ConsoleCommandTask extends Scheduler_Task_CommandTask
 
     public function getParams()
     {
-        $allSubCommands = [];
-        $registeredCommands = ConsoleApplicationBuilder::getRegisteredCommands();
-        foreach ($registeredCommands as $key => $subCommands) {
-            $allSubCommands = array_merge($allSubCommands, $subCommands);
-        }
-        ksort($allSubCommands);
-
         return [
             'console_command' => [
                 'name' => tra('Console command'),
-                'type' => 'select',
-                'required' => true,
-                'options' => $allSubCommands,
-            ],
-            'console_param' => [
-                'name' => tra('Console param'),
                 'type' => 'textarea',
+                'required' => true,
             ],
         ];
     }
