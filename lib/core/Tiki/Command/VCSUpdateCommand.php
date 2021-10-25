@@ -627,7 +627,9 @@ class VCSUpdateCommand extends Command
         }
 
         $progress->finish();
-        echo "\n";
+        if ($output->getVerbosity() > OutputInterface::VERBOSITY_QUIET) {
+            $output->writeln('');
+        }
     }
 
     /**
