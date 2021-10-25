@@ -3,7 +3,9 @@
 
 <div class="t_navbar mb-4">
     <a href="tiki-sqllog.php" class="btn btn-link" title="{tr}Log SQL{/tr}">{icon name="pencil"} {tr}Log SQL{/tr}</a>
-    <a href="tiki-admin_actionlog.php#Report" class="btn btn-link" title="{tr}Export through Action Log{/tr}">{icon name="upload"} {tr}Export through Action Log{/tr}</a>
+    {if $prefs.feature_actionlog == 'y'}
+        <a href="tiki-admin_actionlog.php#Report" class="btn btn-link" title="{tr}Export through Action Log{/tr}">{icon name="upload"} {tr}Export through Action Log{/tr}</a>
+    {/if}
 {*    {button class="btn btn-primary" _text="{tr}Log SQL{/tr}" href="tiki-sqllog.php"}
     {button class="btn btn-primary" _text="{tr}Export through Action Log{/tr}" href="tiki-admin_actionlog.php#Report"}
 *}</div>
