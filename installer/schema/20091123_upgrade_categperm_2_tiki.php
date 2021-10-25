@@ -22,8 +22,6 @@ function upgrade_20091123_upgrade_categperm_2_tiki($installer)
     // $edit describes what was supposed to be given by tiki_p_edit_categorized
     // this time use a subset of it to assign tiki_p_modify_object_categories
 
-    global $installer;
-
     $query = "SELECT `name`, `value` FROM `tiki_preferences` WHERE `name`='feature_categories'";
     @$result = $installer->query($query);
 
