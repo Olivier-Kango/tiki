@@ -238,10 +238,11 @@ if (! hm_exists('tiki_toggle_flag_message')) {
     function tiki_toggle_flag_message($fileId, $flag)
     {
         $file = Tiki\FileGallery\File::id($fileId);
-        if (! preg_match("/Flags: (.*?)\r\n/", $file->getContents(), $matches)) {
-            return '';
+        if (preg_match("/Flags: (.*?)\r\n/", $file->getContents(), $matches)) {
+            $flags = $matches[1];
+        } else {
+            $flags = '';
         }
-        $flags = $matches[1];
         if (stristr($flags, $flag)) {
             return tiki_flag_message($fileId, 'remove', $flag);
         } else {
@@ -263,10 +264,11 @@ if (! hm_exists('tiki_flag_message')) {
     function tiki_flag_message($fileId, $action, $flag)
     {
         $file = Tiki\FileGallery\File::id($fileId);
-        if (! preg_match("/Flags: (.*?)\r\n/", $file->getContents(), $matches)) {
-            return '';
+        if (preg_match("/Flags: (.*?)\r\n/", $file->getContents(), $matches)) {
+            $flags = $matches[1];
+        } else {
+            $flags = '';
         }
-        $flags = $matches[1];
         if ($action == 'remove') {
             $flags = preg_replace('/\\\?'.ucfirst($flag).'/', '', $flags);
             $state = 'un'.$flag;
