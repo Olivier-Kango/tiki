@@ -65,7 +65,7 @@ add_handler('compose', 'add_file_attachment', true, 'smtp', 'load_smtp_servers_f
 /* message page calendar invitation hooks */
 add_handler('ajax_imap_message_content', 'check_calendar_invitations_imap', true, 'imap', 'imap_message_content', 'after');
 add_output('ajax_imap_message_content', 'add_rsvp_actions', true, 'imap', 'filter_message_headers', 'after');
-add_output('ajax_imap_message_content', 'filter_message_headers_mpdf', true, 'imap', 'filter_message_headers', 'after');
+add_output('ajax_imap_message_content', 'filter_message_headers_mpdf', true, 'imap', 'add_rsvp_actions', 'after');
 
 /* message page rsvp actions to an event */
 setup_base_ajax_page('ajax_rsvp_action', 'core');
@@ -131,6 +131,7 @@ setup_base_ajax_page('ajax_tiki_message_content', 'core');
 add_handler('ajax_tiki_message_content', 'tiki_message_content', true);
 add_handler('ajax_tiki_message_content', 'close_session_early', true, 'core');
 add_output('ajax_tiki_message_content', 'filter_message_headers', true, 'imap');
+add_output('ajax_tiki_message_content', 'filter_message_headers_mpdf', true);
 add_output('ajax_tiki_message_content', 'filter_message_body', true, 'imap');
 add_output('ajax_tiki_message_content', 'filter_message_struct', true, 'imap');
 add_output('ajax_tiki_message_content', 'forward_variables', true);
