@@ -480,4 +480,20 @@ class Tiki_Hm_User_Config extends Hm_Config
         $this->config[$name] = $value;
         $this->save($this->username);
     }
+
+    /**
+     * Clear state variables in server list like 'object' and 'connected'.
+     * Pass the rest of the cleanup to parent.
+     */
+    public function filter_servers() {
+        foreach ($this->config as $key => $vals) {
+            if (in_array($key, ['pop3_servers', 'imap_servers', 'smtp_servers'])) {
+                foreach ($vals as $index => $server) {
+                    $this->config[$key][$index]['object'] = false;
+                    $this->config[$key][$index]['connected'] = false;
+                }
+            }
+        }
+        return parent::filter_servers();
+    }
 }
