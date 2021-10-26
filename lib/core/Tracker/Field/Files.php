@@ -681,7 +681,9 @@ class Tracker_Field_Files extends Tracker_Field_Abstract implements Tracker_Fiel
         foreach ($addedFileInfos as $file) {
             $url = smarty_modifier_sefurl($file['fileId'], 'file');
             $result .= smarty_modifier_iconify($url, $file['filetype'], $file['fileId'], 1);
-            $result .= ' <a href="' . $url . '">' . smarty_modifier_escape($file['name']) . '</a><br>';
+            $result .= ' <a href="' . $url . '">' . smarty_modifier_escape($file['name']) . '</a>';
+            $result .= ' <a href="' . $url . '&amp;display" target="_blank" class="tips cboxElement" title="Preview" data-content="'.smarty_modifier_escape($file['name']).'" data-box="box-3" data-original-title="Preview">';
+            $result .= '<span class="icon icon-view fas fa-search-plus"></span></a><br/>';
         }
 
         $result .= '</ins></td></tr></table>';
