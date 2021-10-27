@@ -1506,7 +1506,7 @@ function prefs_feature_list($partial = false)
         ],
         'feature_listorphanPages' => [
             'name' => tra('Orphan pages'),
-            'description' => tra('Allow listing of \"orphan pages\" (pages not linked to from another page).'),
+            'description' => tra('Allow listing of "orphan pages" (pages not linked to from another page).'),
             'type' => 'flag',
             'view' => 'tiki-orphan_pages.php',
             'default' => 'n',
@@ -2043,7 +2043,7 @@ function prefs_feature_list($partial = false)
         ],
         'feature_jquery_zoom' => [
             'name' => tra('jQuery zoom'),
-            'description' => tra('Enables zoom in images on mouseover or click. Used in Plugin Img with the parameter \"thumb=zoombox\"'),
+            'description' => tra('Enables zoom in images on mouseover or click. Used in Plugin Img with the parameter "thumb=zoombox"'),
             'type' => 'flag',
             'help' => 'PluginImg#Zoombox',
             'default' => 'n',
@@ -2159,7 +2159,7 @@ function prefs_feature_list($partial = false)
         ],
         'feature_wikiwords' => [
             'name' => tra('WikiWords'),
-            'description' => tra('Automatically convert \"CamelCase\" words into wiki links.'),
+            'description' => tra('Automatically convert "CamelCase" words into wiki links.'),
             'type' => 'flag',
             'default' => 'n',
         ],
@@ -2899,7 +2899,7 @@ function prefs_feature_list($partial = false)
         ],
         'feature_typo_quotes' => [
             'name' => tra('Smart “curly” quotes'),
-            'description' => tra('Convert \"straight\" quotes to “curly” ones, also convert ’ apostrophe and ‘single’ quotes'),
+            'description' => tra('Convert "straight" quotes to “curly” ones, also convert ’ apostrophe and ‘single’ quotes'),
             'type' => 'flag',
             'tags' => ['basic'],
             'default' => 'n',
@@ -2918,7 +2918,7 @@ function prefs_feature_list($partial = false)
         ],
         'feature_typo_dashes_and_ellipses' => [
             'name' => tra('Smart em-dash and ellipsis'),
-            'description' => tra('Convert double hyphen \-- to em-dash — and three consecutive dots\... to typographic ellipsis character…'),
+            'description' => tra('Convert double hyphen -- to em-dash — and three consecutive dots ... to typographic ellipsis character…'),
             'type' => 'flag',
             'tags' => ['basic'],
             'default' => 'n',
