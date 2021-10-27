@@ -46,7 +46,7 @@ class Search_GlobalSource_RelationSource implements Search_GlobalSource_Interfac
         $types = [];
 
         $relation_objects_to_index = [];
-        if ($prefs['unified_engine'] == 'elastic') { // only index full objects in elasticsearch
+        if ($prefs['unified_engine'] == 'elastic' && ! empty($prefs['unified_relation_object_indexing'])) { // only index full objects in elasticsearch
             $relation_objects_to_index = array_map('trim', explode(',', $prefs['unified_relation_object_indexing']));
         }
 
