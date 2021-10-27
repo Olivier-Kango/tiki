@@ -409,7 +409,11 @@ class Table_Plugin
         $totalrows = null,
         $tstotals = null,
         $tstotalformat = null,
-        $tstotaloptions = null
+        $tstotaloptions = null,
+        $showProcessing = 'y',
+        $ignoreCase = 'y',
+        $sortLocaleCompare = 'y'
+
     ) {
         $s = [];
 
@@ -647,6 +651,11 @@ class Table_Plugin
                 }
             }
         }
+
+        // misc options
+        $s['showProcessing']    = $showProcessing    ?? 'y';
+        $s['ignoreCase']        = $ignoreCase        ?? 'y';
+        $s['sortLocaleCompare'] = $sortLocaleCompare ?? 'y';
 
         $this->settings = $s;
     }

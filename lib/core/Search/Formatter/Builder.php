@@ -261,7 +261,10 @@ class Search_Formatter_Builder
                 $this->count,
                 isset($args['tstotals']) ? $args['tstotals'] : null,
                 isset($args['tstotalformat']) ? $args['tstotalformat'] : null,
-                isset($args['tstotaloptions']) ? $args['tstotaloptions'] : null
+                isset($args['tstotaloptions']) ? $args['tstotaloptions'] : null,
+                isset($args['showProcessing']) ? $args['showProcessing'] : null,
+                isset($args['ignoreCase']) ? $args['ignoreCase'] : null,
+                isset($args['sortLocaleCompare']) ? $args['sortLocaleCompare'] : null
             );
             if (is_array($ts->settings)) {
                 $ts->settings['ajax']['offset'] = 'offset';
