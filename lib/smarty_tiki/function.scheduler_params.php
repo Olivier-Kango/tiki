@@ -42,17 +42,7 @@ function smarty_function_scheduler_params($params, $smarty)
                     $input = '<textarea rows="3" id="' . $inputKey . '" class="form-control" name="' . $inputKey . '"">' . $escapedParam . '</textarea>';
                     break;
                 case 'select':
-                    if (isset($param['options'])) {
-                        $input = '<select id="' . $inputKey . '" class="form-control" name="' . $inputKey . '">';
-                        foreach ($param['options'] as $optionKey => $optionValue) {
-                            if ($escapedParam == $optionValue) {
-                                $input .= '<option value="' . $optionKey . '" selected>' . $optionValue . '</option>';
-                            } else {
-                                $input .= '<option value="' . $optionKey . '">' . $optionValue . '</option>';
-                            }
-                        }
-                        $input .= '</select>';
-                    }
+                    //@todo implement
                     break;
             }
 
