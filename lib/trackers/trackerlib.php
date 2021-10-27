@@ -1659,7 +1659,7 @@ class TrackerLib extends TikiLib
 
 			foreach ($ret1 as $res) {
 				$mem = TikiLib::lib('tiki')->get_memory_avail();
-				if ($mem < 1048576 * 10) {	// Less than 10MB left?
+                if ($mem > 0 && $mem < 1048576 * 10) {  // Less than 10MB left?
 					// post an error even though it doesn't get displayed when using export as the output goes into the output file
 					Feedback::error(tr('Tracker list_items ran out of memory after %0 items.', count($ret)));
 					break;
