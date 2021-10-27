@@ -568,9 +568,9 @@ class CheckSchemaUpgrade
         $dbConnection->exec("DELETE FROM `tiki_menu_options` WHERE `perm` = 'feature_image_galleries_comments'");
 
         // reload tiki_live_support_modules in the upgraded tiki to account for the case where an old entry is removed
-        $dbConnection->exec("CREATE TABLE  `tiki_live_support_modules_tmp` AS SELECT * FROM `tiki_live_support_modules` ORDER BY modId");
-        $dbConnection->exec("ALTER TABLE `tiki_live_support_modules_tmp` CHANGE COLUMN optionId optionId int NULL");
-        $dbConnection->exec("UPDATE  `tiki_live_support_modules_tmp` SET optionId=NULL");
+        $dbConnection->exec("CREATE TABLE  `tiki_live_support_modules_tmp` AS SELECT * FROM `tiki_live_support_modules` ORDER BY `modId`");
+        $dbConnection->exec("ALTER TABLE `tiki_live_support_modules_tmp` CHANGE COLUMN `modId` `modId` int NULL");
+        $dbConnection->exec("UPDATE  `tiki_live_support_modules_tmp` SET `modId`=NULL");
         $dbConnection->exec("DELETE FROM `tiki_live_support_modules`");
         $dbConnection->exec("ALTER TABLE `tiki_live_support_modules` AUTO_INCREMENT = 1");
         $dbConnection->exec("INSERT INTO `tiki_live_support_modules` SELECT * FROM `tiki_live_support_modulestmp`");
