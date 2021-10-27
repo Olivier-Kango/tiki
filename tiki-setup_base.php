@@ -428,7 +428,7 @@ function varcheck(&$array, $category)
                 // Variable allowed to be empty?
                 if ('+' == substr($vartype[$rq], 0, 1)) {
                     if ($rv == "") {
-                        $return[] = tra("Notice: this variable may not be empty:") . ' <font color="red">$' . $category . '["' . $rq . '"]</font>';
+                        // $return[] = tra("Notice: this variable may not be empty:") . ' <font color="red">$' . $category . '["' . $rq . '"]</font>';
                         continue;
                     }
                     $has_sign = true;

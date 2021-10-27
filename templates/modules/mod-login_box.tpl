@@ -29,6 +29,15 @@ if (jqueryTiki.no_cookie) {
         });
     });
 }
+$("#switchbox-{{$module_logo_instance}} .submit").click( function () {
+    if ($("#login-switchuser_{{$module_logo_instance}}").val()) {
+        confirmPopup('{tr}Switch user?{/tr}')
+        return true;
+    } else {
+        $("#login-switchuser_{{$module_logo_instance}}").focus();
+        return false;
+    }
+});
 {/jq}
 {if !isset($tpl_module_title)}{* Left for performance, since tiki-login_scr.php includes this template directly. *}
     {assign var=tpl_module_title value="{tr}Log in{/tr}"}
@@ -64,7 +73,7 @@ if (jqueryTiki.no_cookie) {
                     </fieldset>
                 </form>
             {elseif $tiki_p_admin eq 'y'}
-                <form action="{$login_module.login_url|escape}" method="post"{if $prefs.desactive_login_autocomplete eq 'y'} autocomplete="off"{/if}>
+                <form action="{$login_module.login_url|escape}" method="post"{if $prefs.desactive_login_autocomplete eq 'y'} autocomplete="off"{/if} id="switchbox-{$module_logo_instance}">
                     {ticket}
                     <fieldset>
                         <legend>{tr}Switch User{/tr}</legend>
@@ -96,9 +105,8 @@ if (jqueryTiki.no_cookie) {
                         <div class="text-center">
                             <button
                                 type="submit"
-                                class="btn btn-primary"
+                                class="btn btn-primary submit"
                                 name="actsu"
-                                onclick="confirmPopup('{tr}Switch user?{/tr}')"
                             >
                                 {tr}Switch{/tr}
                             </button>
