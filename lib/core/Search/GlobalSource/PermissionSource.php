@@ -91,11 +91,17 @@ class Search_GlobalSource_PermissionSource implements Search_GlobalSource_Interf
 
     private function filterWithGlobalPermission($groups, $permission)
     {
+        static $inclusions = [];
+        $tikilib = TikiLib::lib('tiki');
+
         $out = [];
         $accessor = $this->perms->getAccessor();
 
         foreach ($groups as $group) {
-            $accessor->setGroups([$group]);
+            if (! isset($inclusions[$group])) {
+                $inclusions[$group] = $tikilib->get_included_groups($group);
+            }
+            $accessor->setGroups(array_merge([$group], $inclusions[$group]));
 
             if ($accessor->$permission) {
                 $out[] = $group;
