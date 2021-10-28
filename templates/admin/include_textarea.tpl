@@ -246,16 +246,22 @@
                                 <tr>
                                     <th></th>
                                     <th>{tr}Plugin Alias{/tr}</th>
+                                    <th>{tr}Base{/tr}</th>
                                     <th>{tr}Edit{/tr}</th>
                                     <th>{tr}Delete{/tr}</th>
                                 </tr>
-                                {foreach $plugins_alias as $name}
+                                {foreach $plugins_alias as $name => $pluginInfo}
                                     <tr>
                                         <td>
                                             <input type="checkbox" name="enabled[]" value="{$name|escape}" {if $prefs['wikiplugin_'|cat:$name] eq 'y'}checked="checked"{/if}>
                                         </td>
                                         <td>
-                                            <a href="tiki-admin.php?page=textarea&amp;plugin_alias={$name|escape}">{$name|escape}</a>
+                                            <a href="tiki-admin.php?page=textarea&amp;plugin_alias={$name|escape}" title="{$pluginInfo.description.name|escape} ({$name|escape})|{$pluginInfo.description.description|escape}" class="tips">
+                                                {$pluginInfo.description.name|escape}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            {$pluginInfo.implementation|escape}
                                         </td>
                                         <td>
                                             {icon name='pencil' href='tiki-admin.php?page=textarea&plugin_alias='|cat:$name|escape}
