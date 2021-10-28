@@ -241,6 +241,11 @@ class Search_Query_WikiBuilder
 
     public function wpquery_filter_range($query, $value, array $arguments)
     {
+        if (empty($arguments['from']) && empty($arguments['to']) &&  empty($arguments['gap'])) {
+            // allows for use in plugin aliases and searches where we want results from all dates
+            return;
+        }
+
         if (isset($arguments['from']) && ! is_numeric($arguments['from'])) {
             $time = strtotime($arguments['from']);
             if (! $time) {
