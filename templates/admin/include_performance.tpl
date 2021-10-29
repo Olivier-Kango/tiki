@@ -39,6 +39,7 @@
             {preference name=tiki_cachecontrol_session}
             {preference name=smarty_compilation}
             {preference name=users_serve_avatar_static}
+            {preference name=allowImageLazyLoad }
 
             <fieldset>
                 <legend>{tr}PHP settings{/tr}</legend>
