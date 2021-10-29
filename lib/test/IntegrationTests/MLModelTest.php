@@ -75,6 +75,7 @@ class MLModelTest extends TikiTestCase
         $mlmId = self::$mllib->set_model(null, [
             'name' => 'MLT',
             'sourceTrackerId' => self::$trackerId,
+            'labelField' => 'itemId',
             'trackerFields' => [$fields[0]['fieldId']],
             'payload' => self::$mllib->predefined('MLT')
         ]);
@@ -102,8 +103,6 @@ class MLModelTest extends TikiTestCase
 
     public function testTrain(): void
     {
-        $this->markTestSkipped('Skipping test - 2021-06-04 - needs fixing.');
-
         self::$mllib->train(self::$mlt);
         self::$mllib->ensureModelTrained(self::$mlt);
         $cachedModel = TikiLib::lib('cache')->getCached(self::$mlt['mlmId'], 'mlmodel');
@@ -112,8 +111,6 @@ class MLModelTest extends TikiTestCase
 
     public function testTrainOnEmptyDataset(): void
     {
-        $this->markTestSkipped('Skipping test - 2021-06-04 - needs fixing.');
-
         self::$mllib->set_model(self::$mlt['mlmId'], [
             'trackerFields' => '',
         ]);
@@ -130,8 +127,6 @@ class MLModelTest extends TikiTestCase
 
     public function testModelUse(): void
     {
-        $this->markTestSkipped('Skipping test - 2021-06-04 - needs fixing.');
-
         self::$mllib->train(self::$mlt);
 
         $itemObject = Tracker_Item::newItem(self::$mlt['sourceTrackerId']);
