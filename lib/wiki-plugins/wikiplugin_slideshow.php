@@ -6,6 +6,8 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
+use Tiki\File\SlideshowHelper;
+
 function wikiplugin_slideshow_info()
 {
     return [
@@ -274,31 +276,10 @@ function wikiplugin_slideshow($data, $params)
             background-image:url("' . $params['parallaxBackgroundImage'] . '") !important;}</style>';
         }
     }
-    $defaults = [];
-    $plugininfo = wikiplugin_slideshow_info();
-    foreach ($plugininfo['params'] as $key => $param) {
-        $defaults["$key"] = $param['default'];
-        //separating digits filter parameters
-        if (isset($param['filter']) && $param['filter'] === "digits") {
-            $slideshowDigitsParams[] = $key;
-        }
-    }
-    $params = array_merge($defaults, $params);
 
-    $revealParams = array('parallaxBackgroundImage','parallaxBackgroundSize','parallaxBackgroundHorizontal','parallaxBackgroundVertical','slideSeconds','transition','transitionSpeed','backgroundTransition','controls','controlsLayout','controlsBackArrows','progress','slideNumber','autoSlide','autoSlideStoppable');
-    $revealSettings = '';
-    foreach ($revealParams as $revealParam) {
-        if (isset($params[$revealParam])) {
-            $revealSettings .= $revealParam . ":";
-            if (! in_array($revealParam, $slideshowDigitsParams)) {
-                $revealSettings .= "'" . $params[$revealParam] . "',";
-            } else {
-                $revealSettings .= $params[$revealParam] . ",";
-            }
-        }
-    }
-    $revealSettings = str_replace(array("'y'","'n'"), array("true","false"), $revealSettings);
-    $revealSettings .= 'viewDistance:3,display:"block",hash:true';
+    $params = array_merge(SlideshowHelper::getDefaultPluginValues(), $params);
+    $revealSettings = SlideshowHelper::getRevealSettingsAsString($params);
+
     $headerlib = TikiLib::lib('header');
     if (! isset($_REQUEST['theme'])) {
         $headerlib->add_cssfile('vendor_bundled/vendor/npm-asset/reveal.js/css/theme/' . $params['theme'] . '.css', 1);
@@ -337,10 +318,11 @@ function wikiplugin_slideshow($data, $params)
             })
         })()');
     }
+
     $headerlib->add_js(
         "Reveal.configure({" . $revealSettings . "});
-    var fragments='" . $params['fragments'] . "';
-    var fragmentClass='" . $params['fragmentClass'] . "';
-    var fragmentHighlightColor='highlight-" . $params['fragmentHighlightColor'] . "';"
+     var fragments='" . $params['fragments'] . "';
+     var fragmentClass='" . $params['fragmentClass'] . "';
+     var fragmentHighlightColor='highlight-" . $params['fragmentHighlightColor'] . "';"
     );
 }

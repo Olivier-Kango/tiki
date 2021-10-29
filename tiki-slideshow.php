@@ -9,12 +9,17 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
-global $pdfStyles;
+use Tiki\File\SlideshowHelper;
+
+global $pdfStyles, $prefs, $tiki_p_view;
 $section = 'wiki page';
 require_once('tiki-setup.php');
 $tikilib = TikiLib::lib('tiki');
 $structlib = TikiLib::lib('struct');
 $wikilib = TikiLib::lib('wiki');
+$access = TikiLib::lib('access');
+$headerlib = TikiLib::lib('header');
+$smarty = TikiLib::lib('smarty');
 
 $headerlib->add_js(
     "var fragments='y';
@@ -167,7 +172,7 @@ if (isset($_REQUEST['pdf'])) {
             $pdata = $customCSS . '<pdfsettings printFriendly="y" header="off" footer="off"></pdfsettings>' . $pdata;
         } else {
             //getting css
-            $customCSS .= file_get_contents(
+            $customCSS = file_get_contents(
                 'vendor_bundled/vendor/npm-asset/reveal.js/css/reveal.css'
             );
             $customCSS .= file_get_contents(
@@ -180,7 +185,7 @@ if (isset($_REQUEST['pdf'])) {
             $pdata = str_replace(
                 "</section><section",
                 "</section><pagebreak /><section",
-                $pdata . '<style>' . str_replace(array(".reveal {","vertical-align: baseline;"), array(".reveal,.reveal table{ ","vertical-align:top;"), $customCSS) . ' div.reveal, .reveal li{font-size:1.3em;font-weight:normal;line-height:1.5;height:auto !important; } img{max-height:400px;}  .reveal h1 {font-size: 2.8em; text-transform:none !important;} .reveal li ul li {font-size: 0.95em !important;margin: 0em !important;}</style>'
+                $pdata . '<style>' . str_replace([".reveal {","vertical-align: baseline;"], [".reveal,.reveal table{ ","vertical-align:top;"], $customCSS) . ' div.reveal, .reveal li{font-size:1.3em;font-weight:normal;line-height:1.5;height:auto !important; } img{max-height:400px;}  .reveal h1 {font-size: 2.8em; text-transform:none !important;} .reveal li ul li {font-size: 0.95em !important;margin: 0em !important;}</style>'
             ) . $pdfStyles;
         }
 
@@ -361,6 +366,16 @@ $headerlib->add_jq_onready(
         '
 );
 
+if (empty($parserlib->getPlugins($info["data"], ['slideshow']))) {
+    // If {slideshow} is not in the page, inject necessary Reveal related configurations
+    $params = array_merge(SlideshowHelper::getDefaultPluginValues(), $_GET);
+    $revealSettings = SlideshowHelper::getRevealSettingsAsString($params);
+
+    $headerlib->add_js(
+        "Reveal.configure({" . $revealSettings . "});"
+    );
+}
+
 ask_ticket('index-raw');
 
 
@@ -470,7 +485,7 @@ function formatContent($content, $tagArr)
             $firstSlide = 1;
         } else {
             $slideContent .= '<section>' . $headingStart . '<h1' . str_replace(
-                array('</h1>','</h2>', '</h3>'),
+                ['</h1>','</h2>', '</h3>'],
                 '</h1>' . $slideStart,
                 $slide
             ) . $slideEnd . '</section>';
@@ -481,8 +496,8 @@ function formatContent($content, $tagArr)
     //replacment for slideshowslide
 
     return html_entity_decode(str_replace(
-        array('<sslide', '<sheading','</sheading>'),
-        array($slideEnd . '</section><section', $headingStart . '<h1','</sheading>' . $slideStart),
+        ['<sslide', '<sheading','</sheading>'],
+        [$slideEnd . '</section><section', $headingStart . '<h1','</sheading>' . $slideStart],
         $slideContent
     ));
 }
