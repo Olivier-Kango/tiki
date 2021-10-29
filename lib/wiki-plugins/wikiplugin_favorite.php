@@ -53,8 +53,8 @@ function wikiplugin_favorite($data, $params)
         $objectType = $params['objectType'];
         $objectId = $params['objectId'];
     }
-    $smarty->assign('wikiplugin_favorite_objectId', urlencode($objectId));
-    $smarty->assign('wikiplugin_favorite_objectType', urlencode($objectType));
+    $smarty->assign('wikiplugin_favorite_objectId', $objectId);
+    $smarty->assign('wikiplugin_favorite_objectType', $objectType);
     $ret = $smarty->fetch('wiki-plugins/wikiplugin_favorite.tpl');
     return $ret;
 }
