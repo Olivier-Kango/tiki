@@ -197,7 +197,7 @@
             </div>
             <div class="form-group row submit">
                 <div class="col-sm-10 offset-sm-2">
-                    <input type="submit" class="btn btn-primary" value="{tr}Update{/tr}">
+                    <input type="submit" class="btn btn-primary" value="{tr}Update{/tr}" onclick="$(window).off('beforeunload');return true;">
                 </div>
             </div>
             <div class="form-group row">
@@ -285,7 +285,7 @@
             </div>
             <div class="form-group row submit">
                 <div class="col-sm-10 offset-sm-2">
-                    <input type="submit" class="btn btn-primary" value="{tr}Update{/tr}">
+                    <input type="submit" class="btn btn-primary" value="{tr}Update{/tr}" onclick="$(window).off('beforeunload');return true;">
                 </div>
             </div>
             <div class="form-group row mb-4">
@@ -354,7 +354,7 @@
             </div>
             <div class="form-group row submit">
                 <div class="col-sm-10 offset-sm-2">
-                    <input type="submit" class="btn btn-primary" value="{tr}Update{/tr}">
+                    <input type="submit" class="btn btn-primary" value="{tr}Update{/tr}" onclick="$(window).off('beforeunload');return true;">
                 </div>
             </div>
         </form>
