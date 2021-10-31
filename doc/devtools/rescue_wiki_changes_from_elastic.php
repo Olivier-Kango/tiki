@@ -35,7 +35,7 @@ class ESRescueCommand extends Command
     {
         $this
             ->setName('rescue')
-            ->setDescription("Rescues wiki changes from the activity stream in an elasticsearch index\nExample usage: php doc/devtools/rescue_wiki_changes_from_elastic.php rescue -u http://elastic.example.com:9200/ -i mytiki_main")
+            ->setDescription("Rescues wiki changes from the activity stream in an Elasticsearch index\nExample usage: php doc/devtools/rescue_wiki_changes_from_elastic.php rescue -u http://elastic.example.com:9200/ -i mytiki_main")
             ->addOption(
                 'elasticuri',
                 'u',
