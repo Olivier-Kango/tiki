@@ -1381,7 +1381,7 @@ class ParserLib extends TikiDb_Bridge
      */
     public function parse_data_plugin($data, $inlineFirstP = false, $optionsOverride = [])
     {
-        $options['is_html'] = ($GLOBALS['prefs']['feature_wiki_allowhtml'] === 'y' && $GLOBALS['info']['is_html'] == true) ? true : false;
+        $options['is_html'] = ($GLOBALS['prefs']['feature_wiki_allowhtml'] === 'y' && isset($GLOBALS['info']['is_html']) && $GLOBALS['info']['is_html'] == true) ? true : false;
 
         foreach ($optionsOverride as $name => $value) {
             $options[$name] = $value;
