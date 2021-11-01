@@ -75,7 +75,8 @@
             });
         }
 
-        if (location ) {
+        // not ready for OpenLayers3+
+        if (location && typeof ol === "undefined") {
             var map = $(form).closest('.tab, #appframe, body').find('.map-container')[0];
             $(':submit', form).hide();
             $(map).one('initialized', function () {

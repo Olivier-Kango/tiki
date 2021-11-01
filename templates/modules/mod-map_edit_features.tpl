@@ -60,39 +60,40 @@
                 var format = new OpenLayers.Format.GeoJSON;
                 form.find('.feature-content').val(format.write(activeFeature));
             }
-            vlayer.events.on({
-                featureadded: function (event) {
-                    var format = new OpenLayers.Format.GeoJSON;
+            {{if $prefs.geo_openlayers_version eq 'ol2'}}
+                vlayer.events.on({
+                    featureadded: function (event) {
+                        var format = new OpenLayers.Format.GeoJSON;
 
-                    if (! event.feature.attributes.itemId && event.feature.attributes.intent !== 'marker') {
-                        if (activeFeature) {
-                            vlayer.removeFeatures([activeFeature]);
-                            activeFeature = null;
+                        if (! event.feature.attributes.itemId && event.feature.attributes.intent !== 'marker') {
+                            if (activeFeature) {
+                                vlayer.removeFeatures([activeFeature]);
+                                activeFeature = null;
+                            }
+
+                            activeFeature = event.feature;
+                            saveFeature();
+                            form.submit();
                         }
-
-                        activeFeature = event.feature;
-                        saveFeature();
-                        form.submit();
+                    },
+                    featuremodified: function (event) {
+                        if (event.feature === activeFeature) {
+                            saveFeature();
+                        }
                     }
-                },
-                featuremodified: function (event) {
-                    if (event.feature === activeFeature) {
-                        saveFeature();
-                    }
-                }
-            });
-
-            {{if $edit_features.standardControls}}
-                modify = new OpenLayers.Control.ModifyFeature(vlayer, {
-                    mode: OpenLayers.Control.ModifyFeature.DRAG | OpenLayers.Control.ModifyFeature.RESHAPE,
                 });
-                toolbar = new OpenLayers.Control.EditingToolbar(vlayer);
-                toolbar.addControls([modify]);
+                {{if $edit_features.standardControls}}
+                    modify = new OpenLayers.Control.ModifyFeature(vlayer, {
+                        mode: OpenLayers.Control.ModifyFeature.DRAG | OpenLayers.Control.ModifyFeature.RESHAPE,
+                    });
+                    toolbar = new OpenLayers.Control.EditingToolbar(vlayer);
+                    toolbar.addControls([modify]);
 
-                map.modeManager.addMode({
-                    name: 'Draw',
-                    controls: [ toolbar ]
-                });
+                    map.modeManager.addMode({
+                        name: 'Draw',
+                        controls: [ toolbar ]
+                    });
+                {{/if}}
             {{/if}}
 
             form.bind('insert', function (e, data) {

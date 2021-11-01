@@ -519,51 +519,54 @@ $("#$target").closest('.map-container').bind('initialized', function () {
         , defaultRules
         ;
 
-    $methods
+    // not ready for OpenLayers3+
+    if (typeof ol === "undefined") {
+        $methods
+    
+        vlayer = container.vectors;
 
-    vlayer = container.vectors;
-
-    vlayer.events.on({
-        featureselected: function (ev) {
-            var active = false;
-
-            feature = ev.feature;
-
-            $.each(container.map.getControlsByClass('OpenLayers.Control.ModifyFeature'), function (k, control) {
-                active = active || control.active;
-                if (active) {
-                    control.selectFeature(feature);
+        vlayer.events.on({
+            featureselected: function (ev) {
+                var active = false;
+    
+                feature = ev.feature;
+    
+                $.each(container.map.getControlsByClass('OpenLayers.Control.ModifyFeature'), function (k, control) {
+                    active = active || control.active;
+                    if (active) {
+                        control.selectFeature(feature);
+                    }
+                });
+    
+                if (active && feature.attributes.intent !== 'marker') {
+                    setColor(feature.attributes.color);
+                    vlayer.redraw();
+                    $(dialog).dialog('open');
                 }
-            });
-
-            if (active && feature.attributes.intent !== 'marker') {
-                setColor(feature.attributes.color);
-                vlayer.redraw();
-                $(dialog).dialog('open');
+            },
+            featureunselected: function (ev) {
+                feature = null;
+                $(dialog).dialog('close');
+    
+                vlayer.styleMap = container.defaultStyleMap;
+                $.each(container.map.getControlsByClass('OpenLayers.Control.ModifyFeature'), function (k, control) {
+                    if (ev.feature && control.active) {
+                        control.unselectFeature(ev.feature);
+                    }
+                });
+            },
+            beforefeaturemodified: function (ev) {
+                defaultRules = this.styleMap.styles["default"].rules;
+                this.styleMap.styles["default"].rules = [];
+            },
+            afterfeaturemodified: function (ev) {
+                this.styleMap.styles["default"].rules = defaultRules;
+                this.redraw();
             }
-        },
-        featureunselected: function (ev) {
-            feature = null;
-            $(dialog).dialog('close');
+        });
 
-            vlayer.styleMap = container.defaultStyleMap;
-            $.each(container.map.getControlsByClass('OpenLayers.Control.ModifyFeature'), function (k, control) {
-                if (ev.feature && control.active) {
-                    control.unselectFeature(ev.feature);
-                }
-            });
-        },
-        beforefeaturemodified: function (ev) {
-            defaultRules = this.styleMap.styles["default"].rules;
-            this.styleMap.styles["default"].rules = [];
-        },
-        afterfeaturemodified: function (ev) {
-            this.styleMap.styles["default"].rules = defaultRules;
-            this.redraw();
-        }
-    });
-
-    init();
+        init();
+    }
 });
 FULL;
 

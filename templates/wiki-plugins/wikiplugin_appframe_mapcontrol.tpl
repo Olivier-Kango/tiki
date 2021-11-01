@@ -29,7 +29,7 @@ $('#appframe .map-container').bind('initialized', function () {
             controls.push({{$mapcontrol.control}});
         {{/if}}
 
-        {{if $mapcontrol.navigation}}
+        {{if $mapcontrol.navigation and $prefs.geo_openlayers_version eq 'ol2'}}
             controls.push(new OpenLayers.Control.NavToolbar());
         {{/if}}
 
