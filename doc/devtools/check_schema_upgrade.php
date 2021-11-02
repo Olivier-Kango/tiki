@@ -565,7 +565,7 @@ class CheckSchemaUpgrade
         $dbConnection->exec("DELETE FROM `tiki_actionlog_conf` WHERE `objectType` = 'image gallery'");
         $dbConnection->exec("DELETE FROM `tiki_score` WHERE `event` LIKE 'tiki.image%'");
         $dbConnection->exec("DELETE FROM `tiki_menu_options` WHERE `name` = 'Image Galleries'");
-        $dbConnection->exec("DELETE FROM `tiki_menu_options` WHERE `perm` = 'feature_image_galleries_comments'");
+        $dbConnection->exec("DELETE FROM `tiki_menu_options` WHERE `section` = 'feature_image_galleries_comments'");
 
         // reload tiki_live_support_modules in the upgraded tiki to account for the case where an old entry is removed
         $dbConnection->exec("CREATE TABLE  `tiki_live_support_modules_tmp` AS SELECT * FROM `tiki_live_support_modules` ORDER BY `modId`");
