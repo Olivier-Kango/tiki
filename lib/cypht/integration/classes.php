@@ -389,7 +389,11 @@ class Tiki_Hm_User_Config extends Hm_Config
     {
         $this->username = $username;
         $session_prefix = $this->site_config->get('session_prefix');
-        $data = TikiLib::lib('tiki')->get_user_preference($username, $_SESSION[$session_prefix]['preference_name']);
+        if ($this->site_config->settings_per_page) {
+            $data = $_SESSION[$session_prefix]['plugin_data'] ?? TikiLib::lib('tiki')->get_user_preference('%', $_SESSION[$session_prefix]['preference_name']);
+        } else {
+            $data = TikiLib::lib('tiki')->get_user_preference($username, $_SESSION[$session_prefix]['preference_name']);
+        }
         if ($data) {
             $data = $this->decode($data);
             $this->config = array_merge($this->config, $data);
@@ -421,7 +425,9 @@ class Tiki_Hm_User_Config extends Hm_Config
     }
 
     /**
-     * Reload from outside input
+     * Reload from outside input - done upon load_user_data handler executed in Cypht.
+     * This loads user confirm from session but also saves to persistent storage
+     * as Tiki-Cypht does not warn user about unsaved settings when logging out...
      * @param array $data new user data
      * @param string $username
      * @return void
@@ -431,6 +437,16 @@ class Tiki_Hm_User_Config extends Hm_Config
         $this->username = $username;
         $this->config = $data;
         $this->set_tz();
+        if ($username) {
+            $temp_config = new Tiki_Hm_User_Config($this->site_config);
+            $temp_config->load($username);
+            $existing = $temp_config->dump();
+            ksort($existing);
+            ksort($data);
+            if (json_encode($existing) != json_encode($data)) {
+                $this->save($username);
+            }
+        }
     }
 
     /**
