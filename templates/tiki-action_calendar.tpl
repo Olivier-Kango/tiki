@@ -38,8 +38,6 @@
 
 {if $viewlist eq 'list'}
 {include file='tiki-calendar_listmode.tpl'}
-{else}
-{include file='tiki-calendar_calmode.tpl'}
 {/if}
 
 </div>
