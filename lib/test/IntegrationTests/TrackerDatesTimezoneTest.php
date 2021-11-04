@@ -116,6 +116,8 @@ class TrackerDatesTimezoneTest extends TikiTestCase
             TikiDb::get()->query("DROP TABLE `{$prefs['unified_mysql_index_current']}`");
         }
 
+        self::$unifiedlib->invalidateIndicesCache();
+
         $prefs = self::$old_prefs;
         date_default_timezone_set(self::$old_tz);
 

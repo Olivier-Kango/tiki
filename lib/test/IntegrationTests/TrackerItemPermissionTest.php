@@ -114,6 +114,8 @@ class TrackerItemPermissionTest extends TikiTestCase
             TikiDb::get()->query("DROP TABLE `{$prefs['unified_mysql_index_current']}`");
         }
 
+        self::$unifiedlib->invalidateIndicesCache();
+
         TikiDb::get()->query("DELETE FROM `users_grouppermissions` WHERE `groupName` = 'Registered' AND `permName` = 'tiki_p_view_trackers'");
         $builder = new Perms_Builder();
         Perms::set($builder->build());
