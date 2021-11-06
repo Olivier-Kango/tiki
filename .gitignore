@@ -83,3 +83,4 @@ permissioncheck/.htaccess
 /.phpunit.result.cache
 /.phplint.yml
 /phplint
+/lib/vue-mf/*/package-lock.json
