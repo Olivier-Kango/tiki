@@ -232,24 +232,25 @@
         <script type="text/javascript" src="https://ws.sharethis.com/button/sharethis.js#type=website&amp;buttonText=&amp;onmouseover=false&amp;send_services=aim"></script>
     {/if}
 {/if}
-<meta name="importmap-type" content="systemjs-importmap" />
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/import-map-overrides/dist/import-map-overrides.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/systemjs/dist/system.js"></script>
-<script type="text/javascript" defer src="https://cdn.jsdelivr.net/npm/systemjs/dist/extras/amd.js"></script>
+{if $prefs.vuejs_enable eq 'y'}
+    <meta name="importmap-type" content="systemjs-importmap" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/import-map-overrides/dist/import-map-overrides.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/systemjs/dist/system.js"></script>
+    <script type="text/javascript" defer src="https://cdn.jsdelivr.net/npm/systemjs/dist/extras/amd.js"></script>
 
-<script type="systemjs-importmap">
-    {
-        "imports": {
-            "@vue-mf/root-config": "/storage/public/vue/vue-mf-root-config.min.js",
-            "@vue-mf/kanban": "/storage/public/vue/kanban/vue-mf-kanban.min.js"
+    <script type="systemjs-importmap">
+        {
+            "imports": {
+                "@vue-mf/root-config": "/storage/public/vue/vue-mf-root-config.min.js",
+                "@vue-mf/kanban": "/storage/public/vue/kanban/vue-mf-kanban.min.js"
+            }
         }
-    }
-</script>
+    </script>
 
-<script>
-    System.import('@vue-mf/root-config');
-</script>
-
+    <script>
+        System.import('@vue-mf/root-config');
+    </script>
+{/if}
 <!--[if lt IE 9]>{* according to http://remysharp.com/2009/01/07/html5-enabling-script/ *}
     <script src="vendor_bundled/vendor/afarkas/html5shiv/dist/html5shiv.min.js" type="text/javascript"></script>
 <![endif]-->
