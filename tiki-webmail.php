@@ -124,6 +124,7 @@ if (isset($_POST['display']) && $_POST['display'] == 'pdf') {
         'list_path' => $list_path
         ];
         $pdata = '<pdfsettings pagetitle="n" printfriendly="n"></pdfsettings>' . $contentpage;
+
         $pdf = $generator->getPdf('tiki-webmail.php', $params, preg_replace('/%u([a-fA-F0-9]{4})/', '&#x\\1;', $pdata));
         $length = strlen($pdf);
         header('Cache-Control: private, must-revalidate');
@@ -167,7 +168,7 @@ function createPage($header_subject, $header_date, $header_from, $header_to, $ms
   </style>
 </head>
 <body class="tiki tiki-webmail tiki-cypht" >
-  <main class="content_cell" style="display: table-cell; padding: 35px;">
+  <main class="content_cell" style="display: table-cell; padding: 35px 35px 0px 35px; margin-bottom: 35px;">
     <div class="msg_text">
       <table>
         <colgroup>
