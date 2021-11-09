@@ -241,8 +241,8 @@
     <script type="systemjs-importmap">
         {
             "imports": {
-                "@vue-mf/root-config": "/storage/public/vue/vue-mf-root-config.min.js",
-                "@vue-mf/kanban": "/storage/public/vue/kanban/vue-mf-kanban.min.js"
+                "@vue-mf/root-config": "/storage/public/vue-mf/root-config/vue-mf-root-config.min.js",
+                "@vue-mf/kanban": "/storage/public/vue-mf/kanban/vue-mf-kanban.min.js"
             }
         }
     </script>
