@@ -46,7 +46,7 @@ class CsvWriter
             $row = [];
 
             foreach ($columns as $column) {
-                $row[] = $this->encode($entry->render($column));
+                $row[] = $this->encode($entry->render($column, false));
             }
 
             $this->file->fputcsv($row);

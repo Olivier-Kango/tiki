@@ -46,6 +46,11 @@ class Column
         return $this;
     }
 
+    public function getRemoteFields()
+    {
+        return preg_split('/\s*,\s*/', $this->remoteField);
+    }
+
     public function getRemoteField()
     {
         return $this->remoteField;

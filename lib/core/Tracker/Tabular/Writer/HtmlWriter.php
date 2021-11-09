@@ -23,7 +23,7 @@ class HtmlWriter
 
         foreach ($source->getEntries() as $entry) {
             yield array_map(function ($column) use ($entry) {
-                return $entry->render($column);
+                return $entry->render($column, false);
             }, $columns);
         }
     }

@@ -17,10 +17,10 @@ class CsvSourceEntry implements SourceEntryInterface
         $this->data = $data;
     }
 
-    public function render(\Tracker\Tabular\Schema\Column $column)
+    public function render(\Tracker\Tabular\Schema\Column $column, $allow_multiple)
     {
         $entry = $this->data[spl_object_hash($column)];
-        return $column->render($entry);
+        return $column->render($entry, ['allow_multiple' => $allow_multiple]);
     }
 
     public function parseInto(&$info, $column)

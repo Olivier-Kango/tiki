@@ -28,7 +28,16 @@ class ODBCWriter
             $pk = null;
             $id = null;
             foreach ($columns as $column) {
-                $row[$column->getRemoteField()] = $entry->render($column);
+                $rendered = $entry->render($column, true);
+                if (is_array($rendered)) {
+                    foreach ($column->getRemoteFields() as $key => $remoteField) {
+                        if (isset($rendered[$key])) {
+                            $row[$remoteField] = $rendered[$key];
+                        }
+                    }
+                } else {
+                    $row[$column->getRemoteField()] = $rendered;
+                }
                 if ($column->isPrimaryKey()) {
                     $pk = $column->getRemoteField();
                     $id = $row[$pk];
@@ -76,7 +85,7 @@ class ODBCWriter
             if (! isset($entry[$column->getField()]) && ! $column->isPrimaryKey()) {
                 continue;
             }
-            $row[$column->getRemoteField()] = $column->render($entry[$column->getField()], ['itemId' => $item_id]);
+            $this->renderMultiple($column, $entry[$column->getField()], ['itemId' => $item_id], $row);
             if ($column->isPrimaryKey()) {
                 $pk = $column->getRemoteField();
                 $id = $row[$pk];
@@ -92,23 +101,21 @@ class ODBCWriter
             $existing = [];
             foreach ($columns as $column) {
                 if (isset($old_values[$column->getField()])) {
-                    $existing[$column->getRemoteField()] = $column->render($old_values[$column->getField()], ['itemId' => $item_id]);
+                    $this->renderMultiple($column, $old_values[$column->getField()], ['itemId' => $item_id], $existing);
                 }
             }
             $result = $this->odbc_manager->replaceWithoutPK($existing, $row);
         }
 
         // map back the remote values to local field values
+        $entry = new ODBCSourceEntry($result);
         $mapped = [];
         foreach ($columns as $column) {
             $permName = $column->getField();
-            $remoteField = $column->getRemoteField();
-            if (isset($result[$remoteField])) {
-                $info = [];
-                $column->parseInto($info, $result[$remoteField]);
-                if (isset($info['fields'][$permName])) {
-                    $mapped[$permName] = $info['fields'][$permName];
-                }
+            $info = [];
+            $entry->parseInto($info, $column);
+            if (isset($info['fields'][$permName]) && ! is_null($info['fields'][$permName])) {
+                $mapped[$permName] = $info['fields'][$permName];
             }
         }
         return $mapped;
@@ -117,5 +124,20 @@ class ODBCWriter
     public function delete($pk, $id)
     {
         return $this->odbc_manager->delete($pk, $id);
+    }
+
+    protected function renderMultiple($column, $value, $extra, &$row)
+    {
+        $extra['allow_multiple'] = true;
+        $rendered = $column->render($value, $extra);
+        if (is_array($rendered)) {
+            foreach ($column->getRemoteFields() as $key => $remoteField) {
+                if (isset($rendered[$key])) {
+                    $row[$remoteField] = $rendered[$key];
+                }
+            }
+        } else {
+            $row[$column->getRemoteField()] = $rendered;
+        }
     }
 }
