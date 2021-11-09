@@ -114,8 +114,8 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
     );
 
     TikiLib::lib('header')
-        ->add_jsfile('storage/public/vue/vue-mf-root-config.min.js')
-        ->add_jsfile('storage/public/vue/kanban/vue-mf-kanban.min.js')
+        ->add_jsfile('storage/public/vue-mf/root-config/vue-mf-root-config.min.js')
+        ->add_jsfile('storage/public/vue-mf/kanban/vue-mf-kanban.min.js')
     ;
 
 

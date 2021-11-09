@@ -1,5 +1,16 @@
-<div id="{$kanbanData.id|escape}" class="wp-kanban"></div>
+<div id="single-spa-application:@vue-mf/kanban-{$kanbanData.id|escape}" class="wp-kanban"></div>
+
 {jq}
-//    init vue kanban here?
-//    $("#{{$kanbanData.id|escape}}").setupKanban({{$kanbanData|json_encode}});
+    window.registerApplication({
+        name: "@vue-mf/kanban-{{$kanbanData.id|escape}}",
+        app: () => System.import("@vue-mf/kanban"),
+        activeWhen: (location) => {
+            let condition = true;
+            return condition;
+        },
+        // Custom data
+        customProps: {
+            kanbanData: {{$kanbanData|json_encode}},
+        },
+    });
 {/jq}
