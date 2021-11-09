@@ -24,7 +24,7 @@ class TrackerSourceEntry implements SourceEntryInterface
         ];
     }
 
-    public function render(\Tracker\Tabular\Schema\Column $column)
+    public function render(\Tracker\Tabular\Schema\Column $column, $allow_multiple)
     {
         $field = $column->getField();
         if (isset($this->data['fields'][$field])) {
@@ -32,6 +32,6 @@ class TrackerSourceEntry implements SourceEntryInterface
         } else {
             $value = null;
         }
-        return $column->render($value, $this->extra);
+        return $column->render($value, array_merge($this->extra, ['allow_multiple' => $allow_multiple]));
     }
 }

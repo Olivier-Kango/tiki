@@ -108,7 +108,7 @@ class Tracker_Field_Currency extends Tracker_Field_Abstract implements Tracker_F
                         'filter' => 'int',
                         'legacy_index' => 9,
                         'profile_reference' => 'tracker_field',
-                        'parent' => 'currencyTracker',
+                        'parent' => 'input[name=trackerId]',
                         'parentkey' => 'tracker_id',
                         'sort_order' => 'position_nasc',
                     ],
@@ -242,11 +242,28 @@ class Tracker_Field_Currency extends Tracker_Field_Abstract implements Tracker_F
         $permName = $this->getConfiguration('permName');
         $schema->addNew($permName, 'default')
             ->setLabel($this->getConfiguration('name'))
-            ->setRenderTransform(function ($value) {
-                return $value;
+            ->setRenderTransform(function ($value, $extra) {
+                if (is_array($value)) {
+                    list ($amount, $currency) = $value;
+                } elseif (preg_match('/^([-\d\.]*)([A-Za-z]*)?$/', $value, $m)) {
+                    $amount = $m[1];
+                    $currency = $m[2];
+                } else {
+                    $amount = $value;
+                    $currency = '';
+                }
+                if (! empty($extra['allow_multiple'])) {
+                    return [$amount, $currency];
+                } else {
+                    return $amount.$currency;
+                }
             })
             ->setParseIntoTransform(function (&$info, $value) use ($permName) {
-                $info['fields'][$permName] = $value;
+                if (is_array($value)) {
+                    $info['fields'][$permName] = implode('', $value);
+                } else {
+                    $info['fields'][$permName] = $value;
+                }
             })
             ;
 

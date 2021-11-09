@@ -17,7 +17,7 @@ class QuerySourceEntry implements SourceEntryInterface
         $this->data = $data;
     }
 
-    public function render(\Tracker\Tabular\Schema\Column $column)
+    public function render(\Tracker\Tabular\Schema\Column $column, $allow_multiple)
     {
         $field = $column->getField();
         $key = 'tracker_field_' . $field;
@@ -35,6 +35,6 @@ class QuerySourceEntry implements SourceEntryInterface
             }
         }
 
-        return $column->render($value, $extra);
+        return $column->render($value, array_merge($extra, ['allow_multiple' => $allow_multiple]));
     }
 }
