@@ -280,12 +280,12 @@ class TrackerDatesTimezoneTest extends TikiTestCase
             'test_date_legacy' => '2021-06-01',
             'test_datetime_legacy' => '2021-06-01 10:00',
             'test_date' => '2021-05-31',
-            'test_datetime' => '2021-06-01 04:30',
+            'test_datetime' => ['2021-06-01 04:30', '2021-06-01 05:30'], // daylight provides event more difference
         ], [
             'test_date_legacy' => '2021-06-01',
             'test_datetime_legacy' => '2021-06-01 14:00:00',
             'test_date' => '2021-05-31',
-            'test_datetime' => '2021-06-01 08:30:00',
+            'test_datetime' => ['2021-06-01 08:30:00', '2021-06-01 09:30:00'], // daylight provides event more difference
         ], -180);
     }
 
@@ -478,10 +478,13 @@ class TrackerDatesTimezoneTest extends TikiTestCase
     {
         $itemId = $this->createItem($input, $tzoffset);
         $values = $this->getItemValues($itemId);
-        $this->assertEquals($output['test_date_legacy'], $values['test_date_legacy']);
-        $this->assertEquals($output['test_datetime_legacy'], $values['test_datetime_legacy']);
-        $this->assertEquals($output['test_date'], $values['test_date']);
-        $this->assertEquals($output['test_datetime'], $values['test_datetime']);
+        foreach (['test_date_legacy', 'test_datetime_legacy', 'test_date', 'test_datetime'] as $field) {
+            if (is_array($output[$field])) {
+                $this->assertContains($values[$field], $output[$field], "Field: $field");
+            } else {
+                $this->assertEquals($output[$field], $values[$field], "Field: $field");
+            }
+        }
 
         require_once('lib/search/refresh-functions.php');
         refresh_index('trackeritem', $itemId);
@@ -493,10 +496,13 @@ class TrackerDatesTimezoneTest extends TikiTestCase
         $result = $query->search(self::$unifiedlib->getIndex());
         $resultArray = $result->getArrayCopy();
 
-        $this->assertEquals($index['test_date_legacy'], $resultArray[0]['tracker_field_test_date_legacy']);
-        $this->assertEquals($index['test_datetime_legacy'], $resultArray[0]['tracker_field_test_datetime_legacy']);
-        $this->assertEquals($index['test_date'], $resultArray[0]['tracker_field_test_date']);
-        $this->assertEquals($index['test_datetime'], $resultArray[0]['tracker_field_test_datetime']);
+        foreach (['test_date_legacy', 'test_datetime_legacy', 'test_date', 'test_datetime'] as $field) {
+            if (is_array($index[$field])) {
+                $this->assertContains($resultArray[0]['tracker_field_'.$field], $index[$field], "Field: $field");
+            } else {
+                $this->assertEquals($index[$field], $resultArray[0]['tracker_field_'.$field], "Field: $field");
+            }
+        }
     }
 
     private function createItem($fieldValues, $tzoffset = null)
