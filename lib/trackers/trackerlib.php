@@ -2117,6 +2117,7 @@ class TrackerLib extends TikiLib
                 $value = $job['handler']->handleFinalSave($data);
                 $data[$job['field']['permName']] = $value;
                 $this->modify_field($currentItemId, $job['field']['fieldId'], $value);
+                $fil[$job['field']['fieldId']] = $value;
             }
         }
 
