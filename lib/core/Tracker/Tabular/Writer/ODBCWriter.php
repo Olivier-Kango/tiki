@@ -8,6 +8,8 @@
 
 namespace Tracker\Tabular\Writer;
 
+use Tracker\Tabular\Source\ODBCSourceEntry;
+
 class ODBCWriter
 {
     private $odbc_manager;
