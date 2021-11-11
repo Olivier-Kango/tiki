@@ -174,7 +174,8 @@
             <div class="form-group row clearfix">
                 <label class="col-form-label col-md-4">{tr}Publish Date{/tr}</label>
                 <div class="col-md-8">
-                    {html_select_date prefix="publish_" time=$publishDate start_year="-10" end_year="+10" field_order=$prefs.display_field_order}
+                    {html_select_date prefix="publish_" time=$publishDate start_year=$prefs.article_start_year end_year=$prefs.article_end_year field_order=$prefs.display_field_order}
+                    <a href="tiki-admin.php?page=articles#year_dropdown">redefine the interval of the year</a><br/>
                     {icon name="time" ititle="{tr}Time{/tr}"}
                     {html_select_time prefix="publish_" time=$publishDate display_seconds=false use_24_hours=$use_24hr_clock}
                     <span dir="ltr">{$siteTimeZone}</span>
@@ -183,7 +184,7 @@
             <div class="form-group row clearfix">
                 <label class="col-form-label col-md-4">{tr}Expiration Date{/tr}</label>
                 <div class="col-md-8">
-                    {html_select_date prefix="expire_" time=$expireDate start_year="-10" end_year="+10" field_order=$prefs.display_field_order}
+                    {html_select_date prefix="expire_" time=$expireDate start_year=$prefs.article_start_year end_year=$prefs.article_end_year field_order=$prefs.display_field_order}
                     {icon name="time" ititle="{tr}Time{/tr}"}
                     <span dir="ltr">
                         {html_select_time prefix="expire_" time=$expireDate display_seconds=false use_24_hours=$use_24hr_clock}
