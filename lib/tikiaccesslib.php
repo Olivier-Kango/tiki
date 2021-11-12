@@ -343,6 +343,9 @@ class TikiAccessLib extends TikiLib
         if ($prefs['pwa_feature'] == 'y') {
             return true;
         }
+        if (TIKI_API) {
+            return true;
+        }
 
         // allow null value to equate to default for skipped parameters
         if ($postConfirm === null) {
@@ -1162,6 +1165,10 @@ class TikiAccessLib extends TikiLib
      */
     public static function get_accept_types($acceptFeed = false)
     {
+        if (TIKI_API) {
+            return ['json' => 'application/json'];
+        }
+
         $accept = explode(',', $_SERVER['HTTP_ACCEPT']);
 
         if (isset($_REQUEST['httpaccept'])) {
@@ -1385,6 +1392,11 @@ class TikiAccessLib extends TikiLib
             default:
                 $title = $prefs['site_closed_title'];
                 $error = $prefs['site_closed_msg'];
+        }
+
+        if (TIKI_API) {
+            $this->output_serialized(['error' => $error, 'title' => $title]);
+            die;
         }
 
         if ($prefs['twoFactorAuth'] === 'y' && $error_login === tra('Invalid two-factor code ')) {

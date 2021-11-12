@@ -166,6 +166,23 @@ function tiki_route($path)
         }
     );
 
+    tiki_route_attempt(
+        '|^api/(\w+)/?(\w+)?$|',
+        'tiki-api.php',
+        function ($parts) {
+            if (empty($parts[2])) {
+                return [
+                    'controller' => $parts[1],
+                ];
+            } else {
+                return [
+                    'controller' => $parts[1],
+                    'action' => $parts[2],
+                ];
+            }
+        }
+    );
+
     if (false !== $dot = strrpos($path, '.')) {
         // Prevent things that look like filenames from being considered for wiki page names
         $extension = substr($path, $dot + 1);

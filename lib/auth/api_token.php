@@ -1,0 +1,76 @@
+<?php
+
+// (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
+//
+// All Rights Reserved. See copyright.txt for details and a complete list of authors.
+// Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+// $Id$
+
+/**
+ * MachineLearningLib
+ *
+ * @uses TikiLib
+ */
+class ApiToken extends TikiLib
+{
+    private $table;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->table = $this->table('tiki_api_tokens');
+    }
+
+    public function getTokens($conditions = [])
+    {
+        return $this->table->fetchAll([], $conditions, -1, -1, ['tokenId' => 'asc']);
+    }
+
+    public function getToken($tokenId)
+    {
+        return $this->table->fetchFullRow(['tokenId' => (int) $tokenId]);
+    }
+
+    public function createToken($token)
+    {
+        $token['token'] = $this->generate($token['user'], microtime());
+        $token['created'] = $this->now;
+        $token['lastModif'] = $this->now;
+        $tokenId = $this->table->insert($token);
+        return $this->getToken($tokenId);
+    }
+
+    public function updateToken($tokenId, $token)
+    {
+        $token['lastModif'] = $this->now;
+        $this->table->update($token, ['tokenId' => $tokenId]);
+        return $this->getToken($tokenId);
+    }
+
+    public function deleteToken($tokenId)
+    {
+        return $this->table->delete(['tokenId' => $tokenId]);
+    }
+
+    public function validToken($token)
+    {
+        $token = $this->table->fetchFullRow(['token' => $token]);
+        if (! $token) {
+            return false;
+        }
+        if (! empty($token['expireAfter']) && $token['expireAfter'] < $this->now) {
+            return false;
+        }
+        return $token;
+    }
+
+    public function hit($token)
+    {
+        $this->table->update(['hits' => $token['hits']+1], ['tokenId' => $token['tokenId']]);
+    }
+
+    private function generate($prefix = '', $suffix = '')
+    {
+        return hash('sha256', $prefix.uniqid().$suffix);
+    }
+}

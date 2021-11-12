@@ -263,29 +263,31 @@ if (isset($_SERVER["REQUEST_URI"])) {
         try {
             Laminas\Session\Container::getDefaultManager()->start();
 
-            /* This portion may seem strange, but it is an extra validation against session
-             * collisions. An extra cookie is set with an additional random value. When loading
-             * the session, it makes sure the extra cookie matches the one in the session. Otherwise
-             * it destroys the session and reloads the page for the user.
-             *
-             * Effectively, in the occurence of a collision, both users are kicked out.
-             * This is an extremely rare occurence that is hard to reproduce by nature.
-             */
-            if (isset($_SESSION['extra_validation'])) {
-                $cookie = isset($_COOKIE[$extra_cookie_name]) ? $_COOKIE[$extra_cookie_name] : null;
+            if (! TIKI_API) {
+                /* This portion may seem strange, but it is an extra validation against session
+                 * collisions. An extra cookie is set with an additional random value. When loading
+                 * the session, it makes sure the extra cookie matches the one in the session. Otherwise
+                 * it destroys the session and reloads the page for the user.
+                 *
+                 * Effectively, in the occurence of a collision, both users are kicked out.
+                 * This is an extremely rare occurence that is hard to reproduce by nature.
+                 */
+                if (isset($_SESSION['extra_validation'])) {
+                    $cookie = isset($_COOKIE[$extra_cookie_name]) ? $_COOKIE[$extra_cookie_name] : null;
 
-                if ($cookie !== $_SESSION['extra_validation']) {
-                    TikiLib::lib('logs')->add_log('system', 'session cookie validation failed');
+                    if ($cookie !== $_SESSION['extra_validation']) {
+                        TikiLib::lib('logs')->add_log('system', 'session cookie validation failed');
 
-                    Laminas\Session\Container::getDefaultManager()->destroy();
-                    header('Location: ' . $_SERVER['REQUEST_URI']);
-                    exit;
+                        Laminas\Session\Container::getDefaultManager()->destroy();
+                        header('Location: ' . $_SERVER['REQUEST_URI']);
+                        exit;
+                    }
+                } else {
+                    $sequence = $tikilib->generate_unique_sequence(16);
+                    $_SESSION['extra_validation'] = $sequence;
+                    setcookie($extra_cookie_name, $sequence, time() + 365 * 24 * 3600, ini_get('session.cookie_path'), null, null, true);
+                    unset($sequence);
                 }
-            } else {
-                $sequence = $tikilib->generate_unique_sequence(16);
-                $_SESSION['extra_validation'] = $sequence;
-                setcookie($extra_cookie_name, $sequence, time() + 365 * 24 * 3600, ini_get('session.cookie_path'), null, null, true);
-                unset($sequence);
             }
         } catch (Laminas\Session\Exception\ExceptionInterface $e) {
             // Ignore
@@ -468,120 +470,141 @@ if (! empty($base_uri) && is_object($smarty)) {
     $smarty->assign('base_uri', $base_uri);
 }
 
-// in the case of tikis on same domain we have to distinguish the realm
-// changed cookie and session variable name by a name made with browsertitle
-$cookie_site = preg_replace("/[^a-zA-Z0-9]/", "", $prefs['cookie_name']);
-$user_cookie_site = 'tiki-user-' . $cookie_site;
-// if remember me is enabled, check for cookie where auth hash is stored
-// user gets logged in as the first user in the db with a matching hash
-if (($prefs['rememberme'] != 'disabled') and (isset($_COOKIE["$user_cookie_site"])) and (! isset($user) and ! isset($_SESSION["$user_cookie_site"]))) {
-    if ($prefs['feature_intertiki'] == 'y' and ! empty($prefs['feature_intertiki_mymaster']) and $prefs['feature_intertiki_sharedcookie'] == 'y') {
-        $rpcauth = $userlib->get_remote_user_by_cookie($_COOKIE["$user_cookie_site"]);
-        if (is_object($rpcauth)) {
-            $response_value = $rpcauth->value();
-            if (is_object($response_value)) {
-                $user = $response_value->scalarval();
-            }
-        }
-    } else {
-        if ($userId = $userlib->get_user_by_cookie($_COOKIE["$user_cookie_site"])) {
-            $userInfo = $userlib->get_userid_info($userId);
-            $user = $userInfo['login'];
-        }
-    }
-    if (isset($user) && $user) {
-        $_SESSION["$user_cookie_site"] = $user;
-        if ($prefs['cookie_refresh_rememberme'] === 'y') {
-            if (empty($userId)) {    // for intertiki
-                $userId = $userlib->get_user_id($user);
-            }
-            $secret = $userlib->create_user_cookie($userId);
-            setcookie($user_cookie_site, $secret . '.' . $userId, $tikilib->now + $prefs['remembertime'], $prefs['feature_intertiki_sharedcookie'] == 'y' ? '/' : $prefs['cookie_path'], $prefs['cookie_domain']);
-            $logslib->add_log('login', 'refreshed a cookie for ' . $prefs['remembertime'] . ' seconds');
+if (! empty($_SERVER['REDIRECT_HTTP_AUTHORIZATION'])) {
+    $_SERVER['HTTP_AUTHORIZATION'] = $_SERVER['REDIRECT_HTTP_AUTHORIZATION'];
+}
+if (function_exists('apache_request_headers')) {
+    $headers = apache_request_headers();
+    foreach ($headers as $header => $value) {
+        if (ucwords($header) === 'Authorization' && !empty($value)) {
+            $_SERVER['HTTP_AUTHORIZATION'] = trim($value);
         }
     }
 }
 
-// if the auth method is 'web site', look for the username in $_SERVER
-if (($prefs['auth_method'] == 'ws') and (isset($_SERVER['REMOTE_USER']))) {
-    if ($userlib->user_exists($_SERVER['REMOTE_USER'])) {
-        $user = $_SERVER['REMOTE_USER'];
-        $_SESSION["$user_cookie_site"] = $user;
-    } elseif ($userlib->user_exists(str_replace("\\\\", "\\", $_SERVER['REMOTE_USER']))) {
-        // Check for the domain\username with just one backslash
-        $user = str_replace("\\\\", "\\", $_SERVER['REMOTE_USER']);
-        $_SESSION["$user_cookie_site"] = $user;
-    } elseif ($userlib->user_exists(substr($_SERVER['REMOTE_USER'], strpos($_SERVER['REMOTE_USER'], "\\") + 2))) {
-        // Check for the username without the domain name
-        $user = substr($_SERVER['REMOTE_USER'], strpos($_SERVER['REMOTE_USER'], "\\") + 2);
-        $_SESSION["$user_cookie_site"] = $user;
-    } elseif ($prefs['auth_ws_create_tiki'] == 'y') {
-        $user = $_SERVER['REMOTE_USER'];
-        if ($userlib->add_user($_SERVER['REMOTE_USER'], '', '')) {
+
+if (TIKI_API) {
+    // API authentication supports only Bearer token authentication scheme for now
+    if (! empty($_SERVER['HTTP_AUTHORIZATION']) && preg_match('/Bearer\s+(.*)/i', $_SERVER['HTTP_AUTHORIZATION'], $m)) {
+        $token = TikiLib::lib('api_token')->validToken($m[1]);
+        if ($token && !empty($token['user'])) {
+            $user = $token['user'];
+            TikiLib::lib('api_token')->hit($token);
+        }
+    }
+} else {
+    // in the case of tikis on same domain we have to distinguish the realm
+    // changed cookie and session variable name by a name made with browsertitle
+    $cookie_site = preg_replace("/[^a-zA-Z0-9]/", "", $prefs['cookie_name']);
+    $user_cookie_site = 'tiki-user-' . $cookie_site;
+    // if remember me is enabled, check for cookie where auth hash is stored
+    // user gets logged in as the first user in the db with a matching hash
+    if (($prefs['rememberme'] != 'disabled') and (isset($_COOKIE["$user_cookie_site"])) and (! isset($user) and ! isset($_SESSION["$user_cookie_site"]))) {
+        if ($prefs['feature_intertiki'] == 'y' and ! empty($prefs['feature_intertiki_mymaster']) and $prefs['feature_intertiki_sharedcookie'] == 'y') {
+            $rpcauth = $userlib->get_remote_user_by_cookie($_COOKIE["$user_cookie_site"]);
+            if (is_object($rpcauth)) {
+                $response_value = $rpcauth->value();
+                if (is_object($response_value)) {
+                    $user = $response_value->scalarval();
+                }
+            }
+        } else {
+            if ($userId = $userlib->get_user_by_cookie($_COOKIE["$user_cookie_site"])) {
+                $userInfo = $userlib->get_userid_info($userId);
+                $user = $userInfo['login'];
+            }
+        }
+        if (isset($user) && $user) {
+            $_SESSION["$user_cookie_site"] = $user;
+            if ($prefs['cookie_refresh_rememberme'] === 'y') {
+                if (empty($userId)) {    // for intertiki
+                    $userId = $userlib->get_user_id($user);
+                }
+                $secret = $userlib->create_user_cookie($userId);
+                setcookie($user_cookie_site, $secret . '.' . $userId, $tikilib->now + $prefs['remembertime'], $prefs['feature_intertiki_sharedcookie'] == 'y' ? '/' : $prefs['cookie_path'], $prefs['cookie_domain']);
+                $logslib->add_log('login', 'refreshed a cookie for ' . $prefs['remembertime'] . ' seconds');
+            }
+        }
+    }
+
+    // if the auth method is 'web site', look for the username in $_SERVER
+    if (($prefs['auth_method'] == 'ws') and (isset($_SERVER['REMOTE_USER']))) {
+        if ($userlib->user_exists($_SERVER['REMOTE_USER'])) {
             $user = $_SERVER['REMOTE_USER'];
             $_SESSION["$user_cookie_site"] = $user;
-        }
-    }
-    if (! empty($_SESSION["$user_cookie_site"])) {
-        $userlib->update_lastlogin($user);
-    }
-}
-// Check for Shibboleth Login
-if ($prefs['auth_method'] == 'shib' and isset($_SERVER['REMOTE_USER'])) {
-    // Validate the user (if not created create it)
-    if ($userlib->validate_user($_SERVER['REMOTE_USER'], "")) {
-        $_SESSION["$user_cookie_site"] = $_SERVER['REMOTE_USER'];
-    }
-}
-
-$userlib->check_cas_authentication($user_cookie_site);
-
-$userlib->check_saml_authentication($user_cookie_site);
-
-// if the username is already saved in the session, pull it from there
-if (isset($_SESSION["$user_cookie_site"])) {
-    $user = $_SESSION["$user_cookie_site"];
-    // There could be a case where the session contains a user that doesn't exists in this tiki
-    // or that has never used the login step in this tiki.
-    // Example : If using the same PHP SESSION cookies for more than one tiki.
-    $user_details = $userlib->get_user_details($user);
-    if (! is_array($user_details) || ! is_array($user_details['info']) || (int) $user_details['info']['lastLogin'] <= 0) {
-        $cachelib = TikiLib::lib('cache');
-        $cachelib->invalidate('user_details_' . $user);
-        $user_details = $userlib->get_user_details($user);
-        if (! is_array($user_details) || ! is_array($user_details['info'])) {
-            $user = null;
-        }
-    }
-    unset($user_details);
-} else {
-    $user = null;
-
-    if (
-        isset($prefs['login_http_basic']) && $prefs['login_http_basic'] === 'always' ||
-        (isset($prefs['login_http_basic']) && $prefs['login_http_basic'] === 'ssl' && isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
-    ) {
-        // Authenticate if the credentials are present, do nothing otherwise
-        if (! empty($_SERVER['REDIRECT_HTTP_AUTHORIZATION'])) {
-            $_SERVER['HTTP_AUTHORIZATION'] = $_SERVER['REDIRECT_HTTP_AUTHORIZATION'];
-        }
-        if (! empty($_SERVER['HTTP_AUTHORIZATION'])) {
-            $ha = base64_decode(substr($_SERVER['HTTP_AUTHORIZATION'], 6));
-            $ha = explode(':', $ha, 2);
-
-            if (count($ha) == 2) {
-                list($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']) = $ha;
+        } elseif ($userlib->user_exists(str_replace("\\\\", "\\", $_SERVER['REMOTE_USER']))) {
+            // Check for the domain\username with just one backslash
+            $user = str_replace("\\\\", "\\", $_SERVER['REMOTE_USER']);
+            $_SESSION["$user_cookie_site"] = $user;
+        } elseif ($userlib->user_exists(substr($_SERVER['REMOTE_USER'], strpos($_SERVER['REMOTE_USER'], "\\") + 2))) {
+            // Check for the username without the domain name
+            $user = substr($_SERVER['REMOTE_USER'], strpos($_SERVER['REMOTE_USER'], "\\") + 2);
+            $_SESSION["$user_cookie_site"] = $user;
+        } elseif ($prefs['auth_ws_create_tiki'] == 'y') {
+            $user = $_SERVER['REMOTE_USER'];
+            if ($userlib->add_user($_SERVER['REMOTE_USER'], '', '')) {
+                $user = $_SERVER['REMOTE_USER'];
+                $_SESSION["$user_cookie_site"] = $user;
             }
         }
-        if (isset($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'])) {
-            $validate = $userlib->validate_user($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']);
-            if ($validate[0]) {
-                $user = $validate[1];
-                $userlib->confirm_user($user);
-            } else {
-                header('WWW-Authenticate: Basic realm="' . $tikidomain . '"');
-                header('HTTP/1.0 401 Unauthorized');
-                exit(1);
+        if (! empty($_SESSION["$user_cookie_site"])) {
+            $userlib->update_lastlogin($user);
+        }
+    }
+    // Check for Shibboleth Login
+    if ($prefs['auth_method'] == 'shib' and isset($_SERVER['REMOTE_USER'])) {
+        // Validate the user (if not created create it)
+        if ($userlib->validate_user($_SERVER['REMOTE_USER'], "")) {
+            $_SESSION["$user_cookie_site"] = $_SERVER['REMOTE_USER'];
+        }
+    }
+
+    $userlib->check_cas_authentication($user_cookie_site);
+
+    $userlib->check_saml_authentication($user_cookie_site);
+
+    // if the username is already saved in the session, pull it from there
+    if (isset($_SESSION["$user_cookie_site"])) {
+        $user = $_SESSION["$user_cookie_site"];
+        // There could be a case where the session contains a user that doesn't exists in this tiki
+        // or that has never used the login step in this tiki.
+        // Example : If using the same PHP SESSION cookies for more than one tiki.
+        $user_details = $userlib->get_user_details($user);
+        if (! is_array($user_details) || ! is_array($user_details['info']) || (int) $user_details['info']['lastLogin'] <= 0) {
+            $cachelib = TikiLib::lib('cache');
+            $cachelib->invalidate('user_details_' . $user);
+            $user_details = $userlib->get_user_details($user);
+            if (! is_array($user_details) || ! is_array($user_details['info'])) {
+                $user = null;
+            }
+        }
+        unset($user_details);
+    } else {
+        $user = null;
+
+        if (
+            isset($prefs['login_http_basic']) && $prefs['login_http_basic'] === 'always' ||
+            (isset($prefs['login_http_basic']) && $prefs['login_http_basic'] === 'ssl' && isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on')
+        ) {
+            // Authenticate if the credentials are present, do nothing otherwise
+            if (! empty($_SERVER['HTTP_AUTHORIZATION'])) {
+                $ha = base64_decode(substr($_SERVER['HTTP_AUTHORIZATION'], 6));
+                $ha = explode(':', $ha, 2);
+
+                if (count($ha) == 2) {
+                    list($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']) = $ha;
+                }
+            }
+            if (isset($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'])) {
+                $validate = $userlib->validate_user($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']);
+                if ($validate[0]) {
+                    $user = $validate[1];
+                    $userlib->confirm_user($user);
+                } else {
+                    header('WWW-Authenticate: Basic realm="' . $tikidomain . '"');
+                    header('HTTP/1.0 401 Unauthorized');
+                    exit(1);
+                }
             }
         }
     }

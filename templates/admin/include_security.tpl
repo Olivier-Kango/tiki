@@ -477,8 +477,18 @@
                         </div><br>
                         {/if}
                     </fieldset>
-                    {/tab}
+                {/tab}
             {/tabset}
+        {/tab}
+        {tab name="{tr}API{/tr}" key="api"}
+            <br>
+            {remarksbox type="tip" title="{tr}Tip{/tr}"}
+                {tr}Enable API access and manage authentication tokens here.{/tr}
+            {/remarksbox}
+            {preference name=auth_api_tokens}
+            <div class="adminoptionboxchild" id="auth_api_tokens_childcontainer">
+                {service_inline controller=api_token action=list}
+            </div>
         {/tab}
     {/tabset}
     {include file='admin/include_apply_bottom.tpl'}

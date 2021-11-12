@@ -72,6 +72,10 @@ function setCookieSection($name, $value, $section = '', $expire = null, $path = 
 {
     global $feature_no_cookie;
 
+    if (TIKI_API) {
+        return;
+    }
+
     if ($section) {
         $valSection = getCookie($section);
         $name2 = '@' . $name . ':';

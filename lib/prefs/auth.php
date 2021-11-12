@@ -469,6 +469,14 @@ function prefs_auth_list()
             'perspective' => false,
             'default' => 'n',
         ],
+        'auth_api_tokens' => [
+            'name' => tra('API access'),
+            'description' => tra('Enable access to Tiki API via definition of API tokens.'),
+            'help' => 'API',
+            'perspective' => false,
+            'type' => 'flag',
+            'default' => 'n',
+        ],
     ];
 
     global $prefs;

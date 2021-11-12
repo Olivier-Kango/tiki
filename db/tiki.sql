@@ -151,6 +151,19 @@ CREATE TABLE `tiki_address_cards` (
     INDEX(`addressBookId`, `uri`)
 ) ENGINE=MyISAM;
 
+DROP TABLE IF EXISTS `tiki_api_tokens`;
+CREATE TABLE `tiki_api_tokens` (
+  `tokenId` int(11) NOT NULL AUTO_INCREMENT,
+  `user` varchar(200) NOT NULL,
+  `token` varchar(100) NOT NULL,
+  `created` int NOT NULL,
+  `lastModif` int NOT NULL,
+  `expireAfter` int NULL,
+  `hits` int NOT NULL default 0,
+  PRIMARY KEY (`tokenId`),
+  KEY `token` (`token`)
+) ENGINE=MyISAM;
+
 DROP TABLE IF EXISTS `tiki_articles`;
 CREATE TABLE `tiki_articles` (
   `articleId` int(8) NOT NULL auto_increment,
