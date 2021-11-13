@@ -267,6 +267,7 @@ class PdfGenerator
         $this->_getImages($html, $tempImgArr);
         $defaults = new \Mpdf\Config\ConfigVariables();
         $defaultVariables = $defaults->getDefaults();
+
         $mpdfConfig = [
             'fontDir' => array_merge([TIKI_PATH . '/lib/pdf/fontdata/fontttf/'], $defaultVariables['fontDir']),
             'mode' => 'utf8',
@@ -530,6 +531,11 @@ class PdfGenerator
         $orientation = ! empty($params['orientation']) ? $params['orientation'] : $prefs['print_pdf_mpdf_orientation'];
         $pdfSettings['orientation'] = $orientation != '' ? $orientation : 'P';
         $pdfSettings['pagesize'] = $prefs['print_pdf_mpdf_pagesize'] != '' ? $prefs['print_pdf_mpdf_pagesize'] : 'Letter';
+
+       if(in_array($pdfSettings['pagesize'], ['Tabloid/Ledger', 'Tabloid-Ledger'])){
+            $pdfSettings['pagesize'] = 'Tabloid';
+        }
+
         //custom size needs to be passed for Tabloid
         if ($prefs['print_pdf_mpdf_size'] == "Tabloid") {
             $pdfSettings['pagesize'] = [279,432];
@@ -611,6 +617,10 @@ class PdfGenerator
                 if ($pages[$setting] == "") {
                     $pages[$setting] = $value;
                 }
+            }
+
+            if(in_array($pages['pagesize'], ['Tabloid/Ledger', 'Tabloid-Ledger'])){
+                $pages['pagesize'] = 'Tabloid';
             }
 
             if ($pages['pagesize'] == "Tabloid") {
