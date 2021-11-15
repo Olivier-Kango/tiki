@@ -192,6 +192,7 @@ function prefs_feature_list($partial = false)
             'help' => 'Newsletters',
             'type' => 'flag',
             'default' => 'n',
+            'keywords' => 'newsletter',
             'module' => 'newsletter',
             'tags' => ['basic'],
             'view' => 'tiki-newsletters.php',
@@ -928,7 +929,9 @@ function prefs_feature_list($partial = false)
         'feature_groupalert' => [
             'name' => tra('Group alert'),
             'help' => 'Group-Alert',
+            'description' => tra('With this feature you can choose the user in the group to be alerted about some changes in the Tiki site: Calendar items, Tracker changes, Tracker item changes, File gallery changes'),
             'type' => 'flag',
+            'tags' => ['deprecated'],
             'default' => 'n',
         ],
         'feature_integrator' => [
@@ -940,9 +943,11 @@ function prefs_feature_list($partial = false)
             'view' => 'tiki-list_integrator_repositories.php',
         ],
         'feature_xmlrpc' => [
-            'name' => tra('XMLRPC API'),
+            'name' => tra('Edit Blogs with XMLRPC API'),
+            'description' => tra('Tiki implements the XML-RPC API of wBlogger. This API is used by several Windows applications that can be used to manage weblogs. Any application implementing the wBlogger XML-RPC API can be used to edit Tiki blogs.'),
             'help' => 'Xmlrpc',
             'type' => 'flag',
+            'tags' => ['deprecated'],
             'default' => 'n',
         ],
         'feature_debug_console' => [

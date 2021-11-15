@@ -299,12 +299,12 @@ class ocrLib extends TikiLib
         if (! empty($prefs['ocr_file_level']) && $prefs['ocr_file_level'] === 'y') {
             $langs = json_decode($this->table('tiki_files')->fetchOne('ocr_lang', ['fileId' => $fileId]));
         }
-        // if no file level languages we look for gallery level language prefrences
+        // if no file level languages we look for gallery level language preferences
         if (empty($langs)) {
             $galId = $db->fetchOne('galleryId', ['fileId' => $fileId]);
             $db = $this->table('tiki_file_galleries');
             $langs = json_decode($db->fetchOne('ocr_lang', ['galleryId' => $galId]));
-            // if gallery does not have prefrences, we take a look at the master gallery for direction.
+            // if gallery does not have preferences, we take a look at the master gallery for direction.
             if (empty($langs && $galId !== 1)) {
                 $langs = json_decode($db->fetchOne('ocr_lang', ['galleryId' => 1]));
             }

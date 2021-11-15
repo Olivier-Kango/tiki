@@ -143,7 +143,6 @@ function prefs_user_list($partial = false)
         'user_register_prettytracker' => [
             'name' => tra('Use pretty trackers for registration form'),
             'help' => 'User-Tracker',
-            'description' => tra('Use pretty trackers for registration form'),
             'type' => 'flag',
             'dependencies' => [
                 'userTracker',
