@@ -43,6 +43,7 @@ ALTER TABLE `tiki_actionlog_params` ENGINE=InnoDB;
 ALTER TABLE `tiki_activity_stream` ENGINE=InnoDB;
 ALTER TABLE `tiki_activity_stream_mapping` ENGINE=InnoDB;
 ALTER TABLE `tiki_activity_stream_rules` ENGINE=InnoDB;
+ALTER TABLE `tiki_api_tokens` ENGINE=InnoDB;
 ALTER TABLE `tiki_areas` ENGINE=InnoDB;
 ALTER TABLE `tiki_article_types` ENGINE=InnoDB;
 ALTER TABLE `tiki_articles` ENGINE=InnoDB;
