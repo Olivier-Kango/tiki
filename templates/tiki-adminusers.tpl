@@ -646,7 +646,7 @@
 
         {* ---------------------- tab with upload -------------------- *}
         {tab name="{tr}Import{/tr}"}
-            <h2>{tr}Batch upload (CSV file){/tr}</h2>
+            <h2>{tr}Batch upload (CSV file){/tr}{help url="Users"}</h2>
 
             <form action="tiki-adminusers.php" method="post" enctype="multipart/form-data">
                 {ticket}
@@ -685,7 +685,7 @@
                         <div class="form-check">
                             <label class="form-check-label">
                                 <input class="form-check-input" type="checkbox" name="overwriteGroup">
-                                {tr}Overwrite groups{/tr}
+                                {tr}Overwrite groups{/tr}{help url="Users"  desc="{tr}Select this if you want the groups to be overwritten{/tr}"}
                             </label>
                         </div>
                     </div>
@@ -695,7 +695,7 @@
                         <div class="form-check">
                             <label class="form-check-label">
                                 <input class="form-check-input" type="checkbox" name="createGroup">
-                                {tr}Create groups{/tr}
+                                {tr}Create groups{/tr}{help url="Users" desc="{tr}Select this if you want the new groups indicated in the csv file to be created{/tr}"}
                             </label>
                         </div>
                     </div>
@@ -706,7 +706,7 @@
                             <div class="form-check">
                                 <label class="form-check-label">
                                     <input class="form-check-input" type="checkbox" name="forcePasswordChange">
-                                    {tr}The user must change his or her password the first time they log in{/tr}
+                                    {tr}The user must change his or her password the first time they log in{/tr}{help url="Users" desc="{tr}Select this if you want to force the user to change their passwords the first time that they log in to Tiki site{/tr}"}
                                 </label>
                             </div>
                         </div>
@@ -717,7 +717,7 @@
                         <div class="form-check">
                             <label class="form-check-label">
                                 <input class="form-check-input" type="checkbox" name="notification">
-                                {tr}Send an email to the user to enable him or her to validate their account.{/tr}
+                                {tr}Send an email to the user to enable him or her to validate their account.{/tr}{help url="Users" desc="{tr}Select this if you want to require users to validate first their email account prior to their first login.{/tr}"}
                             </label>
                         </div>
                     </div>
