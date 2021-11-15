@@ -39,7 +39,7 @@ class Services_RemoteController
     private function getClient($action, $postArguments = [])
     {
         $tikilib = TikiLib::lib('tiki');
-        $client = $tikilib->get_http_client($this->url . '/tiki-ajax_services.php');
+        $client = $tikilib->get_http_client($this->url . '/tiki-api.php');
         $client->setParameterGet(
             [
                 'controller' => $this->controller,
@@ -54,10 +54,12 @@ class Services_RemoteController
     private function getJson($action, $postArguments = [])
     {
         $client = $this->getClient($action, $postArguments);
-        $client->setHeaders(['Accept' => 'application/json']);
         $client->setMethod(Laminas\Http\Request::METHOD_POST);
-        $response = $client->send();
 
+        $headers = $client->getRequest()->getHeaders();
+        $headers->addHeaders(['Accept' => 'application/json']);
+
+        $response = $client->send();
         if (! $response->isSuccess()) {
             $body = json_decode($response->getBody());
             throw new Services_Exception(tr('Remote service inaccessible (%0), error: "%1"', $response->getStatusCode(), $body->message), 400);

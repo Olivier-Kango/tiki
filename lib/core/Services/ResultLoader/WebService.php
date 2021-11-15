@@ -32,11 +32,12 @@ class Services_ResultLoader_WebService
                 ]
             )
         );
-        $this->client->setHeaders(['Accept' => 'application/json']);
-
         $this->client->setMethod(Laminas\Http\Request::METHOD_POST);
-        $response = $this->client->send();
 
+        $headers = $this->client->getRequest()->getHeaders();
+        $headers->addHeaders(['Accept' => 'application/json']);
+
+        $response = $this->client->send();
         if (! $response->isSuccess()) {
             $body = json_decode($response->getBody());
             throw new Services_Exception(tr('Remote service inaccessible (%0), error: "%1"', $response->getStatusCode(), $body->message), 400);
