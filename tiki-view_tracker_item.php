@@ -11,6 +11,12 @@
 // $Id$
 
 $section = 'trackers';
+
+if (!is_numeric($_REQUEST["trackerId"])) {
+    $params = explode("-", $_REQUEST['trackerId']);
+    $_REQUEST["trackerId"] = $_GET['trackerId'] = $params[0];
+} 
+
 require_once('tiki-setup.php');
 
 $access->check_feature('feature_trackers');
