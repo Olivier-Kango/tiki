@@ -176,6 +176,10 @@
                     <option value=''></option>
                     {html_options options=$schedulerTasks selected=$schedulerinfo.task}
                 </select>
+                <div id="console_doc">
+                    <label>{tr}Documentation : {/tr}</label>
+                    <a target="blank" href="https://doc.tiki.org/Console">https://doc.tiki.org/Console</a>
+                </div>
             </div>
         </div>
 
@@ -217,6 +221,7 @@
                 </div>
             </div>
         </div>
+        
         <div class="form-group row">
             <div class="col-sm-10 offset-sm-3">
                 {if isset($schedulerinfo.id) && $schedulerinfo.id}
@@ -228,6 +233,8 @@
                 {/if}
             </div>
         </div>
+
+        
 
     </form>
 {/tab}
@@ -286,11 +293,17 @@
 {jq}
     var selectedSchedulerTask = $('select[name="scheduler_task"]').val();
     $('div [data-task-name="'+selectedSchedulerTask+'"]').show();
+    $('#console_doc').hide();
 
     $('select[name="scheduler_task"]').on('change', function() {
         var taskName = this.value;
         $('div [data-task-name]:not([data-task-name="'+taskName+'"])').hide();
         $('div [data-task-name="'+taskName+'"]').show();
+        if (taskName == "ConsoleCommandTask") {
+            $('#console_doc').show();
+        } else {
+            $('#console_doc').hide();
+        }
     });
 
     $('form[name="RegForm"]').validate({
