@@ -1899,7 +1899,7 @@
         "drmonty/smartmenus": ">=1.1.0",
         "enygma/expose": "^3.0",
         "erusev/parsedown": "1.8.0-beta-5",
-        "melbahja/seo": "^1.0",
+        "melbahja/seo": ">=2.0.0",
         "ezyang/htmlpurifier": ">=4.5.0",
         "fabpot/goutte": "^3.3",
         "fortawesome/font-awesome": "4.5.0||~4.7.0",
