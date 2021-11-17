@@ -75,6 +75,16 @@ if (! $skip) {
     if ($prefs['auth_token_access'] != 'y' || ! $is_token_access) {
         // Check permissions except if the user comes with a valid Token
 
+        $hasBacklinks = $filegallib->getFileBacklinks($info['fileId']);
+        $hasOnlyPrivateBacklinks = $filegallib->hasOnlyPrivateBacklinks($info['fileId']);
+
+        if ($hasBacklinks && !$hasOnlyPrivateBacklinks) {
+            $canDownloadThroughBacklink = true;
+        } else {
+            $canDownloadThroughBacklink = false;
+        }
+
+        // Only private backlinks - refuse access even if they can download files in the current gallery
         if ($tiki_p_admin_file_galleries != 'y' && $info['backlinkPerms'] == 'y' && $filegallib->hasOnlyPrivateBacklinks($info['fileId'])) {
             if (! $user && $prefs['permission_denied_login_box'] === 'y' && empty($_SESSION['loginfrom'])) {
                 $_SESSION['loginfrom'] = $_SERVER['HTTP_REFERER'];
@@ -82,7 +92,8 @@ if (! $skip) {
             $access->display_error('', tra('Permission denied'), 401);
         }
 
-        if (! $zip && $tiki_p_admin_file_galleries != 'y' && ! $userlib->user_has_perm_on_object($user, $info['fileId'], 'file', 'tiki_p_download_files')) {
+        // Refuse access if can't download in current gallery and doesn't have a viewable backlink
+        if (! $zip && $tiki_p_admin_file_galleries != 'y' && ! $userlib->user_has_perm_on_object($user, $info['fileId'], 'file', 'tiki_p_download_files') && !$canDownloadThroughBacklink) {
             if (! $user && $prefs['permission_denied_login_box'] === 'y' && empty($_SESSION['loginfrom'])) {
                 $_SESSION['loginfrom'] = $_SERVER['HTTP_REFERER'];
             }
