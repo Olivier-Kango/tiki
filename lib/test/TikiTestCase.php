@@ -21,4 +21,21 @@ use PHPUnit\Framework\TestCase;
 abstract class TikiTestCase extends TestCase
 {
     protected $backupGlobals = false;
+
+    protected function ensureDefaultGalleryExists() {
+        $filegallib = TikiLib::lib('filegal');
+        $info = $filegallib->get_file_gallery_info(1);
+        if (! $info) {
+            if (! isset($GLOBALS['user'])) {
+                $GLOBALS['user'] = '';
+            }
+            $galleryId = $filegallib->replace_file_gallery(
+                [
+                    'name' => 'Default Gallery',
+                    'description' => 'Default Gallery',
+                ]
+            );
+            $filegallib->query("UPDATE tiki_file_galleries SET galleryId = 1 WHERE galleryId     = ?", [$galleryId]);
+        }
+    }
 }

@@ -23,6 +23,7 @@ class Tiki_FileGallery_DefinitionTest extends TikiTestCase
         $this->oldPrefs = $prefs;
         parent::setUp();
         TikiLib::lib('filegal')->clearLoadedGalleryDefinitions();
+        $this->ensureDefaultGalleryExists();
     }
 
     protected function tearDown(): void

@@ -20,6 +20,8 @@ class Tiki_FileGallery_Manipulator_ImageTransformerTest extends TikiTestCase
     {
         global $prefs;
 
+        $this->ensureDefaultGalleryExists();
+
         $old_pref = $prefs['fgal_use_db'];
         $prefs['fgal_use_db'] = 'y';
 

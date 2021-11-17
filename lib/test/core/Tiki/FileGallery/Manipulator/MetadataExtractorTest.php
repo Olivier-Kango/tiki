@@ -27,6 +27,7 @@ class Tiki_FileGallery_Manipulator_MetadataExtractorTest extends TikiTestCase
         $this->file = new File(['filename' => 'testdata.png', 'filetype' => 'image/png', 'data' => $data]);
 
         parent::setUp();
+        $this->ensureDefaultGalleryExists();
     }
 
     protected function tearDown(): void

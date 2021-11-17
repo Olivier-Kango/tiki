@@ -21,6 +21,7 @@ class TikiImporter_Blog_Wordpress_Test extends TikiImporter_TestCase
     {
         date_default_timezone_set('UTC');
         $this->obj = new TikiImporter_Blog_Wordpress();
+        $this->ensureDefaultGalleryExists();
     }
 
     protected function tearDown(): void

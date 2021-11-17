@@ -54,6 +54,7 @@ class CheckFileGalleryTest extends TestCase
 
         // setup defaults for preferences
         $prefs['feature_file_galleries'] = 'y';
+        $prefs['fgal_root_id'] = -1;
         $prefs['fgal_use_db'] = 'y';
         $prefs['fgal_use_dir'] = $this->filesDir;
         $prefs['fgal_podcast_dir'] = $this->podcastDir;
@@ -62,9 +63,7 @@ class CheckFileGalleryTest extends TestCase
         /** @var FileGalLib $fileGalleryLib */
         $fileGalleryLib = TikiLib::lib('filegal');
         $fileGalleryLib->table('tiki_files')->deleteMultiple([]);
-        $fileGalleryLib->table('tiki_file_galleries')->deleteMultiple(
-            ['parentId' => $fileGalleryLib->table('tiki_files')->greaterThan(0)]
-        );
+        $fileGalleryLib->table('tiki_file_galleries')->deleteMultiple([]);
         $fileGalleryLib->cleanGalleriesParentIdsCache();
 
         $this->galleryId = $fileGalleryLib->replace_file_gallery(
