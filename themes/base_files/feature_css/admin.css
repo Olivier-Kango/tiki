@@ -454,3 +454,6 @@
         padding: 0 0 1em;
     }
 }
+.resize-vertical{
+    resize: vertical;
+}
