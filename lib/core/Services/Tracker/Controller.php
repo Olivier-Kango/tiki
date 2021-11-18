@@ -961,6 +961,10 @@ class Services_Tracker_Controller
                     }
                 }
 
+                // send a new ticket back to allow subsequent new items
+                $util->setTicket();
+                $item['nextTicket'] = $util->getTicket();
+
                 return $item;
             } else {
                 throw new Services_Exception(tr('Tracker item could not be created.'), 400);
