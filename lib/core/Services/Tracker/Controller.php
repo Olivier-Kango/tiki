@@ -782,7 +782,7 @@ class Services_Tracker_Controller
 				}
 			}
 		}
-		
+
 		return [
 			'title' => tr('Duplicate Item'),
 			'trackerId' => $trackerId,
@@ -943,6 +943,10 @@ class Services_Tracker_Controller
 						Feedback::success(tr('New tracker item %0 successfully created.', $itemId));
 					}
 				}
+
+				// send a new ticket back to allow subsequent new items
+				$util->setTicket();
+				$item['nextTicket'] = $util->getTicket();
 
 				return $item;
 			} else {
