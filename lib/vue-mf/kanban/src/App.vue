@@ -5,10 +5,16 @@ import HelloWorld from './components/HelloWorld.vue'
 </script>
 
 <template>
-    <img alt="Vue logo" src="./logo.png" />
-    <HelloWorld msg="Kanban Vue 3 + Vite" />
+    <div>
+        <img alt="Vue logo" src="./logo.png" />
+        <h1 :class="[$style.greeting]">Hello Tiki</h1>
+        <HelloWorld msg="Kanban Vue 3 + Vite" />
+    </div>
 </template>
 
-<style>
-
+<style module>
+    .greeting {
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+    }
 </style>

@@ -1,5 +1,5 @@
 {
-  "name": "kanban",
+  "name": "styleguide",
   "version": "0.0.1",
   "scripts": {
     "dev": "vite",
@@ -8,10 +8,6 @@
     "serve": "vite preview",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix src",
     "format": "prettier .  --write"
-  },
-  "dependencies": {
-    "single-spa-vue": "^2.5.1",
-    "vue": "^3.2.22"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^1.9.3",
@@ -24,5 +20,6 @@
     "eslint-plugin-vue": "^8.0.3",
     "prettier": "^2.4.1",
     "vite": "^2.6.4"
-  }
+  },
+  "dependencies": {}
 }

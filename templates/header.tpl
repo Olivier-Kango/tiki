@@ -234,21 +234,24 @@
 {/if}
 {if $prefs.vuejs_enable eq 'y'}
     <meta name="importmap-type" content="systemjs-importmap" />
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/import-map-overrides/dist/import-map-overrides.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/systemjs/dist/system.js"></script>
-    <script type="text/javascript" defer src="https://cdn.jsdelivr.net/npm/systemjs/dist/extras/amd.js"></script>
-
     <script type="systemjs-importmap">
         {
             "imports": {
+                "vue": "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.22/vue.runtime.global.js",
+                "@vue-mf/styleguide": "/storage/public/vue-mf/styleguide/vue-mf-styleguide.min.js",
                 "@vue-mf/root-config": "/storage/public/vue-mf/root-config/vue-mf-root-config.min.js",
                 "@vue-mf/kanban": "/storage/public/vue-mf/kanban/vue-mf-kanban.min.js"
             }
         }
     </script>
-
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/import-map-overrides/dist/import-map-overrides.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/systemjs/dist/system.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.22/vue.runtime.global.js"></script>
+    {* How to load Vue 3 (race conditions issue solved): https://github.com/systemjs/systemjs/issues/2272#issuecomment-744636282 *}
     <script>
-        System.import('@vue-mf/root-config');
+        System.set(System.resolve('vue'), window.Vue);
+        System.import("@vue-mf/root-config");
+        window.Vue = undefined;
     </script>
 {/if}
 <!--[if lt IE 9]>{* according to http://remysharp.com/2009/01/07/html5-enabling-script/ *}
