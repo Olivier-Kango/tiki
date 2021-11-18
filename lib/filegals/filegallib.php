@@ -1782,16 +1782,16 @@ class FileGalLib extends TikiLib
                 $fileIds[] = $fileId;
             }
         }
-        if (preg_match_all('/\[(.+)\]/Umi', $data, $matches)) {
-            foreach ($matches as $match) {
-                if (isset($match[1]) && $fileId = $this->getLinkFileId($match[1])) {
+        if (preg_match_all('/\[(.+)\]/Umi', $data, $matches, PREG_PATTERN_ORDER)) {
+            foreach ($matches[1] as $match) {
+                if ($fileId = $this->getLinkFileId($match)) {
                     $fileIds[] = $fileId;
                 }
             }
         }
-        if (preg_match_all('/<a[^>]*href=(\'|\")?([^>*])/Umi', $data, $matches)) {
-            foreach ($matches as $match) {
-                if (isset($match[2]) && $fileId = $this->getLinkFileId($match[2])) {
+        if (preg_match_all('/<a[^>]*href=(\'|\")?([^>*])/Umi', $data, $matches, PREG_PATTERN_ORDER)) {
+            foreach ($matches[2] as $match) {
+                if ($fileId = $this->getLinkFileId($match)) {
                     $fileIds[] = $fileId;
                 }
             }
@@ -1819,6 +1819,10 @@ class FileGalLib extends TikiLib
         }
         if (isset($args['data'])) {
             $content[] = $args['data'];
+        }
+        if (! isset($args['values']) && ! isset($args['data'])) {
+            // skip events that don't provide enough content
+            return;
         }
         $content = implode(' ', $content);
 
