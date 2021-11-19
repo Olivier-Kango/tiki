@@ -105,6 +105,7 @@ class Search_MySql_Table extends TikiDb_Table
                 if ($prefs['unified_exclude_nonsearchable_fields'] === 'y') {
                     $msg .= ' ' . tr('You have disabled indexing non-searchable tracker fields. Check if this field is marked as searchable.');
                 }
+                $prefs['error_in_query'] = 'y';
             } else {
                 $msg = tr('Field %0 does not exist in the current index. If this is a tracker field, the proper syntax is tracker_field_%0.', $fieldName, $fieldName);
             }
