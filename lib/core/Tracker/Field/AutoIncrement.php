@@ -108,6 +108,8 @@ class Tracker_Field_AutoIncrement extends Tracker_Field_Abstract implements Trac
 
 	function handleSave($value, $oldValue)
 	{
+		global $prefs;
+
 		$value = false;
 		if ($this->getOption('itemId') == 'itemId') {
 			$value = $this->getItemId();
@@ -116,7 +118,11 @@ class Tracker_Field_AutoIncrement extends Tracker_Field_Abstract implements Trac
 			if (! $value) {
 				$value = $this->getOption('start', 1);
 			} else {
-				$value += 1;
+				if ($prefs['tracker_autoincrement_resettable'] == 'y') {
+					$value = max($value + 1,$this->getOption('start', 1));
+				} else {
+					$value += 1;
+				}
 			}
 		}
 
