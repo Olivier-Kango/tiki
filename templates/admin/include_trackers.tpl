@@ -57,6 +57,7 @@
                 {preference name=tracker_change_field_type}
                 {preference name=tracker_field_rules}
                 {preference name=unified_numeric_field_scroll}
+                {preference name=tracker_autoincrement_resettable}
             </fieldset>
 
             <fieldset class="admin">
