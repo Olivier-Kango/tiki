@@ -109,6 +109,8 @@ class Tracker_Field_AutoIncrement extends Tracker_Field_Abstract implements Trac
 
     public function handleSave($value, $oldValue)
     {
+        global $prefs;
+
         if ($this->getTrackerDefinition()->getConfiguration('tabularSync') && $value) {
             // remote source should be able to insert auto-increment values
             return ['value' => $value];
@@ -121,7 +123,11 @@ class Tracker_Field_AutoIncrement extends Tracker_Field_Abstract implements Trac
             if (! $value) {
                 $value = $this->getOption('start', 1);
             } else {
-                $value += 1;
+                if ($prefs['tracker_autoincrement_resettable'] == 'y') {
+                    $value = max($value + 1,$this->getOption('start', 1));
+                } else {
+                    $value += 1;
+                }
             }
         }
 

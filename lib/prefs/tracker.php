@@ -219,5 +219,13 @@ function prefs_tracker_list()
             'tags' => [ 'experimental' ],
             'warning' => tra('Experimental new feature, expect some issues.'),
         ],
+        'tracker_autoincrement_resettable' => [
+            'name' => tr('Allow autoincrement fields start value to be reset to a new value'),
+            'description' => tr('In some use cases like sequential numbers that begin by the current year, e.g. 20210001, the autoincrement value may have to be annually reset. In this case, just update the start value in the field definition.'),
+            'type' => 'flag',
+            'default' => 'n',
+            'tags' => ['experimental'],
+            'warning' => tra('Use with care, potential for data loss.'),
+        ]
     ];
 }
