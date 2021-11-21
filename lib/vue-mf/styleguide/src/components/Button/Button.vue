@@ -3,8 +3,8 @@
         <span><slot /></span>
     </button>
 </template>
-<script>
 
+<script>
 export default {
     name: 'Button',
     props: {
@@ -16,6 +16,7 @@ export default {
     }
 }
 </script>
+
 <style scoped>
 
 </style>

@@ -11,7 +11,8 @@
   },
   "dependencies": {
     "single-spa-vue": "^2.5.1",
-    "vue": "^3.2.22"
+    "vue": "^3.2.22",
+    "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^1.9.3",
@@ -23,6 +24,7 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-vue": "^8.0.3",
     "prettier": "^2.4.1",
+    "sass": "^1.43.4",
     "vite": "^2.6.4"
   }
 }
