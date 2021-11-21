@@ -117,7 +117,7 @@
                 && $tiki_p_read_comments eq 'y'}
 
                         {* Auto display comments if display by default preference is set *}
-                        {if $prefs.wiki_comments_displayed_default eq 'y'}
+                        {if $prefs.wiki_comments_displayed_default eq 'y' && $show_slideshow eq 'n'}
                         {jq}{literal}
                             var id = '#comment-container';
                             $(id).comment_load('tiki-ajax_services.php?controller=comment&action=list&type=wiki+page&objectId={/literal}{$page|escape:url}{literal}#comment-container');
