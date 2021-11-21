@@ -38,7 +38,7 @@ function wikiplugin_addtocart_info()
             'producttype' => [
                 'required' => false,
                 'name' => tra('Product Type'),
-                'description' => tra('The product type that is being sold, which will affect fulfillment, for example, standard product, gift certificate, event ticket'),
+                'description' => tra('The product type that is being sold, which will affect fulfillment, for example, standard product, event ticket'),
                 'filter' => 'text',
                 'default' => '',
                 'since' => '7.0',
@@ -46,7 +46,7 @@ function wikiplugin_addtocart_info()
             'productclass' => [
                 'required' => false,
                 'name' => tra('Product Class'),
-                'description' => tra('The class the product belongs to. Can be used to limit how gift cards are used'),
+                'description' => tra('The class the product belongs to'),
                 'filter' => 'text',
                 'default' => '',
                 'since' => '7.0',
@@ -54,7 +54,7 @@ function wikiplugin_addtocart_info()
             'productbundle' => [
                 'required' => false,
                 'name' => tra('Product Bundle'),
-                'description' => tra('The bundle the product belongs to. Can be used to limit how gift cards are used, will automatically add other products in the same class to the cart'),
+                'description' => tra('The bundle the product belongs to. Will automatically add other products in the same class to the cart'),
                 'filter' => 'text',
                 'default' => '',
                 'since' => '7.0',
@@ -62,7 +62,7 @@ function wikiplugin_addtocart_info()
             'bundleclass' => [
                 'required' => false,
                 'name' => tra('Bundle Class'),
-                'description' => tra('The class the bundle belongs to. Can be used to limit how gift cards are used'),
+                'description' => tra('The class the bundle belongs to'),
                 'filter' => 'text',
                 'default' => '',
                 'since' => '7.0',
@@ -143,19 +143,6 @@ function wikiplugin_addtocart_info()
                 'filter' => 'url',
                 'default' => '',
                 'since' => '7.0',
-            ],
-            'giftcertificate' => [
-                'required' => false,
-                'name' => tra('Gift certificate'),
-                'description' => tra('Allows user to add gift certificate from the product view'),
-                'filter' => 'alpha',
-                'default' => 'n',
-                'since' => '7.0',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'y'],
-                    ['text' => tra('No'), 'value' => 'n']
-                ],
             ],
             'exchangeorderitemid' => [
                 'required' => false,
@@ -293,7 +280,7 @@ function wikiplugin_addtocart($data, $params)
             $tikilib = TikiLib::lib('tiki');
 
             if ($addedOk && $params['autocheckout'] == 'y' && empty($previous_cart_content)) {
-                $invoice = $cartlib->request_payment();
+                $invoice = $cartlib->requestPayment();
                 if ($invoice) {
                     $paymenturl = 'tiki-payment.php?invoice=' . (int)$invoice;
                     $paymenturl = $tikilib->httpPrefix(true) . $tikiroot . $paymenturl;

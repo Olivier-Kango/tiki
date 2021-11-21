@@ -67,29 +67,12 @@
     {if $module_params.showCount eq 'y'}
         <p class="item_count">{tr _0=$cart_count}Cart contains <span>%0</span> items{/tr}</p>
     {/if}
-    {if not empty($cart_weight)}
+    {if $module_params.showWeight eq 'y' and not empty($cart_weight)}
         <p class="cart_weight">{tr _0=$cart_weight _1=$module_params.weightUnit}Total weight %0 %1{/tr}</p>
         <input type="hidden" name="cart_weight" value="{$cart_weight}">
     {/if}
 
     <form method="post" action=""{if $module_params.ajax eq 'y'} class="mod-cart-checkout-form"{$json_data}{/if}>
-        {if $has_gift_certificate}
-            <div class="gift_certificate">
-                {if $gift_certificate_redeem_code && $gift_certificate_amount}
-                    <p>
-                        {tr}Gift Certificate:{/tr} {$gift_certificate_redeem_code}<br>
-                        {tr}Value{/tr}
-                        : {$gift_certificate_mode_symbol_before}{$gift_certificate_amount}{$gift_certificate_mode_symbol_after}
-                    </p>
-                {/if}
-                {if $gift_certificate_redeem_code}
-                    <input type="submit" class="btn btn-warning btn-sm" name="remove_gift_certificate" value="{tr}Remove Gift Certificate{/tr}">
-                {else}
-                    Code: <input type="text" name="gift_certificate_redeem_code" style="width: 70px;">
-                    <input type="submit" class="btn btn-primary btn-sm" name="add_gift_certificate" value="{tr}Add Gift Certificate{/tr}">
-                {/if}
-            </div>
-        {/if}
         <p>{tr}Total:{/tr} <strong>{$cart_total|escape} {$prefs.payment_currency|escape}</strong></p>
 
         <input type="submit" class="btn btn-primary btn-sm" name="checkout" value="{tr}Check-out{/tr}">

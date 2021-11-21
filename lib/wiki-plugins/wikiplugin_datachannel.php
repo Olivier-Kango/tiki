@@ -322,7 +322,7 @@ function wikiplugin_datachannel($data, $params)
                     $posts[$key] = $post;
                     $desc .= '/' . $post;
                 }
-                $id = $paymentlib->request_payment($desc, $params['price'], $prefs['payment_default_delay']);
+                $id = $paymentlib->requestPayment($desc, $params['price'], $prefs['payment_default_delay']);
                 $paymentlib->register_behavior($id, 'complete', 'execute_datachannel', [ $data, $params, $posts, $executionId ]);
                 require_once 'lib/smarty_tiki/function.payment.php';
 
