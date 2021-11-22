@@ -23,7 +23,7 @@ $inputConfiguration = [[
 	'staticKeyFiltersForArrays' => [
 		'lm_preference' => 'xss',
 	],
-	'catchAllUnset' => null,
+	'addCatchAllFilter' => 'xss',
 ]];
 
 require 'tiki-setup.php';
