@@ -903,9 +903,10 @@ class UnifiedSearchLib
                             $info[tr('Node %0', $node->name)] = tr('Using %0 bytes, since %1', number_format($node->jvm->mem->heap_used_in_bytes), date('Y-m-d H:i:s', $node->jvm->timestamp / 1000));
                         }
 
-                        if (! empty($prefs['unified_field_count'])) {
-                            $info[tr('Field Count Tried on Last Rebuild')] = $prefs['unified_field_count'];
-                            if ($prefs['unified_field_count'] > $prefs['unified_elastic_field_limit']) {
+                        $field_count_on_last_rebuild = $prefs['unified_total_fields'] ?? $prefs['unified_field_count'] ?? null;
+                        if (! is_null($field_count_on_last_rebuild)) {
+                            $info[tr('Field Count Tried on Last Rebuild')] = $field_count_on_last_rebuild;
+                            if ($field_count_on_last_rebuild > $prefs['unified_elastic_field_limit']) {
                                 $info[tr('Warning')] = tr('Field limit setting is lower than Tiki needs to store in the index!');
                             }
                         }
