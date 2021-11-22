@@ -12,6 +12,12 @@ if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
     exit;
 }
 
+if ($_REQUEST['test_closed'] === 'y') {
+    TikiLib::lib('access')->showSiteClosed('closed');
+} else if ($_REQUEST['test_busy'] === 'y') {
+    TikiLib::lib('access')->showSiteClosed('busy');
+}
+
 TikiLib::lib('smarty')->assign('sodium_available', extension_loaded('sodium'));
 TikiLib::lib('smarty')->assign('openssl_available', extension_loaded('openssl'));
 

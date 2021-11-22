@@ -214,7 +214,7 @@
                 {preference name=site_closed_title}
                 {preference name=site_closed_msg}
                 <div class="col-sm-8 offset-sm-4">
-                    {button _text='{tr}Test site closed message{/tr}' href="tiki-error_simple.php?title={$prefs.site_closed_title}&error="|cat:$prefs.site_closed_msg _class='btn-sm' _type='info'}
+                    {button _text='{tr}Test site closed message{/tr}' href="tiki-admin.php?page=security&test_closed=y" _class='btn-sm' _type='info'}
                 </div>
             </div>
 
@@ -223,6 +223,9 @@
                 {preference name=load_threshold}
                 {preference name=site_busy_title}
                 {preference name=site_busy_msg}
+                <div class="col-sm-8 offset-sm-4">
+                    {button _text='{tr}Test site busy message{/tr}' href="tiki-admin.php?page=security&test_busy=y" _class='btn-sm' _type='info'}
+                </div>
             </div>
 
             {preference name=ids_enabled}
