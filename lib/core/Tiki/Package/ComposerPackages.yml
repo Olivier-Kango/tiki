@@ -55,7 +55,6 @@ GoogleApiClient:
   name: google/apiclient
   requiredBy:
     - wikiplugin_googlechart
-    - wikiplugin_youtube
   requiredVersion: ^2.2.2
 Lozad:
   licence: MIT
