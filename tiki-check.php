@@ -1876,6 +1876,12 @@ if (! $standalone) {
 
     $packagesToCheck = array(
         array(
+            'name' => 'jerome-breton/casperjs-installer',
+            'commands' => array(
+                'python'
+            ),
+        ),
+        array(
             'name' => 'media-alchemyst/media-alchemyst',
             'preferences' => array(
                 'alchemy_ffmpeg_path' => array(
@@ -1929,7 +1935,18 @@ if (! $standalone) {
     foreach ($installedLibs as $installedPackage) {
         $key = array_search($installedPackage['name'], array_column($packagesToCheck, 'name'));
         if ($key !== false) {
-            $warnings = checkPreferences($packagesToCheck[$key]['preferences']);
+            $warnings = array();
+            if (isset($packagesToCheck[$key]['preferences'])) {
+                $warnings = array_merge($warnings, checkPreferences($packagesToCheck[$key]['preferences']));
+            }
+            if (isset($packagesToCheck[$key]['commands'])) {
+                foreach($packagesToCheck[$key]['commands'] as $command) {
+                    if (! commandIsAvailable($command)) {
+                        $warnings[] = tr("Command '%0' not found, check if it is installed and available.", $command);
+                    }
+                }
+            }
+
             checkPackageWarnings($warnings, $installedPackage);
 
             $packageInfo = array(
