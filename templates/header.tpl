@@ -238,9 +238,9 @@
         {
             "imports": {
                 "vue": "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.22/vue.runtime.global.js",
-                "@vue-mf/styleguide": "/storage/public/vue-mf/styleguide/vue-mf-styleguide.min.js",
-                "@vue-mf/root-config": "/storage/public/vue-mf/root-config/vue-mf-root-config.min.js",
-                "@vue-mf/kanban": "/storage/public/vue-mf/kanban/vue-mf-kanban.min.js"
+                "@vue-mf/styleguide": "storage/public/vue-mf/styleguide/vue-mf-styleguide.min.js",
+                "@vue-mf/root-config": "storage/public/vue-mf/root-config/vue-mf-root-config.min.js",
+                "@vue-mf/kanban": "storage/public/vue-mf/kanban/vue-mf-kanban.min.js"
             }
         }
     </script>
