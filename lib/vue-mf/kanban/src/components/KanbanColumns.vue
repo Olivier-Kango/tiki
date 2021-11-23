@@ -1,11 +1,12 @@
 <script setup>
-import { ref } from 'vue'
-import KanbanCard from './KanbanCard.vue'
-import { Card } from '@vue-mf/styleguide'
+import { ref, computed } from 'vue'
+import KanbanColumn from './KanbanColumn.vue'
+import KanbanCards from './KanbanCards.vue'
 import draggable from 'vuedraggable/src/vuedraggable'
+import store from '../store'
 
 const props = defineProps({
-    cards: {
+    columns: {
         type: Array,
         default() {
             return []
@@ -13,27 +14,29 @@ const props = defineProps({
     }
 });
 
-const draggableCards = ref(props.cards)
+const draggableColumns = ref(props.columns)
 const dragging = ref(false)
 
 const startDragging = () => dragging.value = true
 const endDragging = () => dragging.value = false
+
+const getCards = computed(() => ids => store.getters.getCards(ids))
 </script>
 
 <template>
     <draggable
-        v-model="draggableCards"
-        group="cards"
+        v-model="draggableColumns"
+        group="columns"
         item-key="id"
-        class="list-group"
+        class="d-flex align-items-start"
         ghost-class="ghost"
         @start="startDragging"
         @end="endDragging"
     >
         <template #item="{ element }">
-            <KanbanCard>
-                <Card>{{ element.title }}</Card>
-            </KanbanCard>
+            <KanbanColumn :title="element.title">
+                <KanbanCards :cards="getCards(element.cards)"></KanbanCards>
+            </KanbanColumn>
         </template>
     </draggable>
 </template>
