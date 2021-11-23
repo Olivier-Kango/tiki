@@ -165,6 +165,7 @@ class TikiFilter
             case 'time':
             case 'datetime':
             case 'striptags':
+            case 'string':
                 // Test Return " :/g.,:|4h&#Δ δ_🍘コン onclick "
                 // Strips XML and HTML tags
                 return new StripTags();
