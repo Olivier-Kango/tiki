@@ -1122,7 +1122,7 @@ letter-spacing: unset;
     padding-top: unset;
   }
 }
-.msg_move_to{
+.msg_move_to {
   display: flex;
   flex-flow: row wrap;
   justify-content: flex-start;
@@ -1133,5 +1133,13 @@ letter-spacing: unset;
   padding-top: 10px;
   float: right;
   margin-left: 5px;
+}
+
+.data-loader {
+  display: flex;
+  background-color: rgba(0, 0, 0, 0.5);  
+  -webkit-background-color: rgba(0, 0, 0, 0.5); 
+  width: 81%; 
+  height: 88.5%;
 }
 /*# sourceMappingURL=site.css.map */
