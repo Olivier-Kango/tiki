@@ -44,7 +44,8 @@ function prefs_tiki_list()
             'name' => tra('Monitor Tiki Performance'),
             'description' => tra('Register multiple parameters related to tiki\'s performance'),
             'type' => 'flag',
-            'default' => 'n'
+            'default' => 'n',
+            'admin' => 'tiki-performance_stats.php',
         ],
         'tiki_minify_javascript' => [
             'name' => tra('Minify JavaScript'),
