@@ -1195,11 +1195,11 @@ class Services_Tracker_Controller
                     Feedback::sendHeaders();
                 }
             } else {
+                $item = $this->utilities->getItem($trackerId, $itemId);
                 if ($result && $suppressFeedback !== true) {
                     if ($input->ajax->bool()) {
                         $trackerinfo = $definition->getInformation();
                         $trackername = tr($trackerinfo['name']);
-                        $item = $this->utilities->getItem($trackerId, $itemId);
                         $itemtitle = $this->utilities->getTitle($definition, $item);
                         $msg = tr('%0: Updated "%1"', $trackername, $itemtitle) . " [" . TikiLib::lib('tiki')->get_long_time(TikiLib::lib('tiki')->now) . "]";
                         Feedback::success($msg);
@@ -1231,7 +1231,16 @@ class Services_Tracker_Controller
                 //return to page
                 if (! $redirect) {
                     $referer = Services_Utilities::noJsPath();
-                    return Services_Utilities::refresh($referer);
+
+                    // Return item data and refresh info
+                    $return = Services_Utilities::refresh($referer);
+                    $return = array_merge($return, $item);
+                    // send a new ticket back to allow subsequent updates
+                    $util = new Services_Utilities();
+                    $util->setTicket();
+                    $return['nextTicket'] = $util->getTicket();
+
+                    return $return;
                 } else {
                     return Services_Utilities::redirect($redirect);
                 }
