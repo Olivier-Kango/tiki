@@ -6570,6 +6570,7 @@ class TrackerLib extends TikiLib
                     break;
                 case 'f':
                 case 'j':
+                case 'math':
                     if (! $dateField) {
                         $dateField = $field;
                     }

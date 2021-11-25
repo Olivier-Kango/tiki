@@ -306,7 +306,18 @@ class Tracker_Field_Currency extends Tracker_Field_Abstract implements Tracker_F
         $currencyTracker = $this->getOption('currencyTracker');
 
         if ($currencyTracker) {
-            $fieldId = $trk->get_field_by_name($currencyTracker, 'Currency');
+            $fieldId = null;
+            $definition = Tracker_Definition::get($currencyTracker);
+            if (! empty($definition)) {
+                $fields = $definition->getFields();
+                foreach ($fields as $field) {
+                    switch ($field['type']) {
+                        case 't':
+                            $fieldId = $field['fieldId'];
+                            break;
+                    }
+                }
+            }
             if ($fieldId) {
                 $data['currencies'] = $trk->list_tracker_field_values($currencyTracker, $fieldId);
                 sort($data['currencies']);
