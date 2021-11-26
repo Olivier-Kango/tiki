@@ -1,3 +1,8 @@
+<script>
+export default {
+    name: 'KanbanColumn'
+}
+</script>
 <script setup>
 import { ref } from 'vue'
 
