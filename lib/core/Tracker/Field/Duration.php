@@ -291,12 +291,10 @@ dpStore.setInputName(' . json_encode($this->getInsertId()) . ');
         $value = $this->denormalize();
 
         $output = '';
-        $replacement = '';
         foreach ($value as $unit => $amount) {
             // Remove s char if value is < 2
             if($amount < 2) {
-                $nbstr = strlen($unit);
-                $unit = substr($unit, 0, -1).$replacement;
+                $unit = substr($unit, 0, -1);
             }
             $output .= ($output ? ', ' : '') . "$amount ".tra($unit);
         }
