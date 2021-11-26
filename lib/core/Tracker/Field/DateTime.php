@@ -97,6 +97,11 @@ class Tracker_Field_DateTime extends Tracker_Field_Abstract implements Tracker_F
             if (empty($data['value']) && (! empty($requestData[$ins_id . 'Month']) || ! empty($requestData[$ins_id . 'Day']) || ! empty($requestData[$ins_id . 'Year']) || ! empty($requestData[$ins_id . 'Hour']) || ! empty($requestData[$ins_id . 'Minute']))) {
                 $data['error'] = 'y';
             }
+            if ($data['value'] && $this->getOption('datetime') == 'd') {
+                // dates convert to 12am UTC
+                $server_offset = TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $data['value']);
+                $data['value'] += $server_offset;
+            }
         }
 
         return $data;
@@ -123,6 +128,10 @@ class Tracker_Field_DateTime extends Tracker_Field_Abstract implements Tracker_F
         $value = $this->getConfiguration('value');
 
         if ($value) {
+            if ($this->getOption('datetime') === 'd') {
+                // offset the UTC-stored timestamp of the date by current display timezone, so we actually display the correct date entered by user
+                $value -= TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone());
+            }
             if (isset($context['list_mode']) && $context['list_mode'] == 'csv') {
                 if ($this->getOption('datetime') == 'd') {
                     return $tikilib->get_short_date($value);

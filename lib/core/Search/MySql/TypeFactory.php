@@ -26,15 +26,10 @@ class Search_MySql_TypeFactory implements Search_Type_Factory_Interface
     public function timestamp($value, $dateOnly = false)
     {
         if (is_numeric($value)) {
+            // dates and times are stored in GMT
             if ($dateOnly) {
-                // dates are stored as formatted strings in Tiki timezone to prevent date shifts when timezones differ
-                $oldTz = date_default_timezone_get();
-                date_default_timezone_set(TikiLib::lib('tiki')->get_display_timezone());
-                $date = date('Y-m-d', $value);
-                date_default_timezone_set($oldTz);
-                return new Search_Type_Timestamp($date, true);
+                return new Search_Type_Timestamp(gmdate('Y-m-d', $value), true);
             } else {
-                // dates with times are stored in GMT
                 return new Search_Type_Timestamp(gmdate('Y-m-d H:i:s', $value));
             }
         } else {

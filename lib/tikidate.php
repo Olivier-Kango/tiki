@@ -155,13 +155,16 @@ class TikiDate
         return $tz;
     }
 
-    public static function tzServerOffset($display_tz = null)
+    public static function tzServerOffset($display_tz = null, $reference_point = 'now')
     {
         if (! $display_tz) {
             $display_tz = 'UTC';
         }
         $tz = new DateTimeZone($display_tz);
-        $d = new DateTime('now', $tz);
+        if (is_numeric($reference_point)) {
+            $reference_point = '@' . (string)$reference_point;
+        }
+        $d = new DateTime($reference_point, $tz);
         return $tz->getOffset($d);
     }
 
@@ -474,6 +477,22 @@ class TikiDate
         }
 
         return $ids;
+    }
+
+    public static function shiftToNearestGMT($timestamp)
+    {
+        $hour = date('G', $timestamp);
+        $minute = date('i', $timestamp);
+
+        $hours = intval($hour) + $minute/60;
+        if ($hours > 12) {
+            $hours = 24 - $hours;
+            $timestamp += $hours * 3600;
+        } else {
+            $timestamp -= $hours * 3600;
+        }
+
+        return $timestamp;
     }
 }
 

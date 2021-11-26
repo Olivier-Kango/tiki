@@ -87,11 +87,12 @@ class Tracker_Field_JsCalendar extends Tracker_Field_DateTime
 
         // if local browser offset is submitted, convert timestamp to server-based timezone
         if (isset($requestData['tzoffset']) && $value && isset($requestData[$ins_id])) {
-            $browser_offset = 0 - (int)$requestData['tzoffset'] * 60;
-
-            $server_offset = TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone());
-
-            $value = $value - $server_offset + $browser_offset;
+            $browser_offset = (int)$requestData['tzoffset'] * 60;
+            $value -= $browser_offset;
+        }
+        if ($value && isset($requestData[$ins_id]) && $this->getOption('datetime') !== 'd') {
+            $server_offset = TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $value);
+            $value -= $server_offset;
         }
 
         return [
@@ -125,7 +126,9 @@ class Tracker_Field_JsCalendar extends Tracker_Field_DateTime
 
         if ($params['date']) {
             // convert to UTC to display it properly for browser based timezone
-            $params['date'] += TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone());
+            if ($this->getOption('datetime') !== 'd') {
+                $params['date'] += TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $params['date']);
+            }
             $params['isutc'] = true;
         }
 
