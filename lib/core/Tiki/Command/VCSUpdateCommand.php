@@ -241,6 +241,11 @@ class VCSUpdateCommand extends Command
      */
     protected function gitUpdate(string $commitHash = '', string $conflict = 'abort', $commit = true)
     {
+
+        if ($commitHash == 'HEAD') {
+            $commitHash = $this->getGitFollowUpBranch();
+        }
+
         // Git merge is better than pull, which allows to specify a commit hash (useful on lag)
         $command = 'git merge';
         $command .= ($conflict !== 'abort') ? ' -X ' . $conflict : '';
@@ -482,12 +487,7 @@ class VCSUpdateCommand extends Command
             // Git does not support dry-run
             $raw = $this->gitUpdate($rev, $conflict, false);
 
-            // Revert merge changes, to keep the repository unchanged
-            if (! preg_match('/Already up to date/', $raw)) {
-                $this->execCommand("git merge --abort 2>&1");
-            }
-
-            if (preg_match('/Automatic merge failed/', $raw)) {
+            if (preg_match('/(Automatic merge failed|Aborting$)/', $raw)) {
                 $progress->setMessage('Working copy currently conflicted. Update Aborted.');
                 if ($email) {
                     mail($email, 'Git update aborted', wordwrap('Working copy currency conflicted. Update Aborted. ' . __FILE__, 70, "\r\n"));
@@ -501,6 +501,11 @@ class VCSUpdateCommand extends Command
                 }
                 $progress->advance();
                 die("\n");
+            }
+
+            // Revert merge changes, to keep the repository unchanged
+            if (! preg_match('/Already up[- ]to[- ]date/', $raw)) {
+                $this->execCommand("git merge --abort 2>&1");
             }
         }
 
