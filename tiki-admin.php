@@ -272,7 +272,7 @@ if (isset($_REQUEST['lm_criteria'])) {
         $results = array_slice($results, 0, 50);
         $results = $prefslib->unsetHiddenPreferences($results);
         $smarty->assign('lm_searchresults', $results);
-    } catch (ZendSearch\Lucene\Exception\ExceptionInterface $e) {
+    } catch (\Exception $e) {
         Feedback::warning(['mes' => $e->getMessage(), 'title' => tr('Search error')]);
         $smarty->assign('lm_criteria', '');
         $smarty->assign('lm_searchresults', '');
