@@ -869,21 +869,6 @@ class FileGalLib extends TikiLib
                 return function (FileWrapper $wrapper) {
                     return $wrapper->getContents();
                 };
-            case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
-                return function (FileWrapper $wrapper) {
-                    $document = ZendSearch\Lucene\Document\Docx::loadDocxFile($wrapper->getReadableFile(), true);
-                    return $document->getField('body')->getUtf8Value();
-                };
-            case 'application/vnd.openxmlformats-officedocument.presentationml.presentation':
-                return function (FileWrapper $wrapper) {
-                    $document = ZendSearch\Lucene\Document\Pptx::loadPptxFile($wrapper->getReadableFile(), true);
-                    return $document->getField('body')->getUtf8Value();
-                };
-            case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
-                return function (FileWrapper $wrapper) {
-                    $document = ZendSearch\Lucene\Document\Xlsx::loadXlsxFile($wrapper->getReadableFile(), true);
-                    return $document->getField('body')->getUtf8Value();
-                };
             case 'application/pdf':
                 return function (FileWrapper $wrapper) {
                     include_once "vendor_bundled/vendor/christian-vigh-phpclasses/PdfToText/PdfToText.phpclass";

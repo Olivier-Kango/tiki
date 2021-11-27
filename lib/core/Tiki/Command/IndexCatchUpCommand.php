@@ -42,7 +42,7 @@ class IndexCatchUpCommand extends Command
             $count = $unifiedsearchlib->getQueueCount();
 
             $output->writeln('Processing completed. Amount remaining: ' . $count);
-        } catch (ZendSearch\Lucene\Exception\ExceptionInterface $e) {
+        } catch (\Exception $e) {
             $msg = tr('Search index could not be updated: %0', $e->getMessage());
             \Feedback::error($msg);
         }

@@ -225,8 +225,7 @@
             "Type": "../lib/core/",
             "WikiParser": "../lib/core/",
             "WikiPlugin": "../lib/core/",
-            "Text": "vendor/pear/text_wiki_mediawiki/",
-            "ZendSearch": "vendor/zendframework/zendsearch/library/"
+            "Text": "vendor/pear/text_wiki_mediawiki/"
         },
         "psr-4": {
             "Tiki\\": [

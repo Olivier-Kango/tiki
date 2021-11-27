@@ -28,7 +28,7 @@ function refresh_index($object_type, $object_id = null, $process = true)
             if ($process) {
                 $unifiedsearchlib->processUpdateQueue();
             }
-        } catch (ZendSearch\Lucene\Exception\ExceptionInterface $e) {
+        } catch (\Exception $e) {
             $message = $e->getMessage();
             if (empty($message)) {
                 $message = tra('Try rebuilding or optimizing the index on the search admin page');
