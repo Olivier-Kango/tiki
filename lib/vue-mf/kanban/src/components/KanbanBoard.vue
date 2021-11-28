@@ -7,6 +7,7 @@ export default {
 import { computed } from 'vue'
 import KanbanRow from './KanbanRow.vue'
 import KanbanColumns from './KanbanColumns.vue'
+import ButtonAddColumn from './Buttons/ButtonAddColumn.vue'
 import store from '../store'
 
 const getAllRows = computed(() => store.getters.getAllRows)
@@ -15,6 +16,7 @@ const getAllRows = computed(() => store.getters.getAllRows)
 <template>
     <KanbanRow v-for="row in getAllRows" :title="row.title">
         <KanbanColumns :rowId="row.id" :columnIds="row.columns"></KanbanColumns>
+        <ButtonAddColumn :rowId="row.id"></ButtonAddColumn>
     </KanbanRow>
 </template>
 

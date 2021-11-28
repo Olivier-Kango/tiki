@@ -4,12 +4,15 @@ export default {
 }
 </script>
 <script setup>
-import { ref } from 'vue'
+import ButtonAddCard from './Buttons/ButtonAddCard.vue'
 
 defineProps({
     title: {
         type: String,
         default: ''
+    },
+    columnId: {
+        type: Number
     }
 });
 </script>
@@ -18,6 +21,7 @@ defineProps({
     <div class="kanban-column">
         <h6 v-if="title">{{title}}</h6>
         <slot/>
+        <ButtonAddCard :columnId="columnId"></ButtonAddCard>
     </div>
 </template>
 
@@ -27,7 +31,7 @@ defineProps({
         width: 20rem;
         padding: 10px;
         margin: 0 5px;
-        background-color: #f3f4fa;
+        background-color: rgba(243, 244, 250, 1);
         border-radius: 6px;
     }
 </style>

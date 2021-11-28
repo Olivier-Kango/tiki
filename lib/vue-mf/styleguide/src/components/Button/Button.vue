@@ -1,5 +1,5 @@
 <template>
-    <button type="button" :class="`btn btn-${variant}`">
+    <button type="button" :class="['btn', `btn-${variant}`, {'btn-sm': sm}]">
         <span><slot /></span>
     </button>
 </template>
@@ -13,6 +13,9 @@ export default {
             required: false,
             default: 'primary',
         },
+        sm: {
+            type: Boolean
+        }
     }
 }
 </script>

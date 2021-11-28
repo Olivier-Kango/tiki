@@ -65,7 +65,7 @@ const handleChange = (event) => {
         @end="endDragging"
     >
         <template #item="{ element }">
-            <KanbanColumn :title="element.title">
+            <KanbanColumn :columnId="element.id" :title="element.title">
                 <KanbanCards :columnId="element.id" :cardIds="element.cards" ></KanbanCards>
             </KanbanColumn>
         </template>
