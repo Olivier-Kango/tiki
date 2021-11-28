@@ -34,7 +34,6 @@ function tiki_route($path)
         'blogs' => 'tiki-list_blogs.php',
         'calendar' => 'tiki-calendar.php',
         'categories' => 'tiki-browse_categories.php',
-        'chat' => 'tiki-chat.php',
         'contact' => 'tiki-contact.php',
         'directories' => 'tiki-directory_browse.php',
         'faqs' => 'tiki-list_faqs.php',
