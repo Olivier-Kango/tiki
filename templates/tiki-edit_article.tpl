@@ -282,11 +282,18 @@
             <h2>{tr}Advanced{/tr}</h2>
             {if $prefs.feature_multilingual eq 'y' and empty($translationOf)}
                 <div class="form-group row clearfix">
-                    <label for="translationOf" class="col-form-label col-md-4">
+                    <label for="translationOf" class="col-form-label col-md-8">
                         {tr}Attach existing article ID as translation{/tr}
                     </label>
-                    <div class="col-md-2">
-                        <input name="translationOf" id="translationOf" type="text" class="form-control"{if !empty($translations[1].objId)}value="{$translations[1].objId|escape}"{/if}>
+                    <div class="col-md-8">
+                        <select id='translationOf' name="translationOf" class="form-control">
+                            <option></option>
+                            {foreach $articles as $row}
+                                {if $row['articleId'] neq $articleId}
+                                    <option value="{$row['articleId']|escape}" {if $translations[1].objId eq $row['articleId']}selected="selected"{/if}>{tr}{$row['title']|escape|truncate:70:"..."}{/tr}</option>
+                                {/if}
+                            {/foreach}
+                        </select>
                     </div>
                 </div>
             {/if}
