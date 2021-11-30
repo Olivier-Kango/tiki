@@ -136,7 +136,7 @@
                 <b>{tr}Search{/tr}</b>:
             </div>
             <div class="description offset-sm-1">
-                {tr}Elastic search only{/tr}
+                {tr}Elasticsearch only{/tr}
             </div>
             <div class="offset-sm-1 col-sm-11">
                 {preference name="unified_elastic_possessive_stemmer"}

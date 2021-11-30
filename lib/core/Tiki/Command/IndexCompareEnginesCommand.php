@@ -86,12 +86,12 @@ Only plugins that use the unified search results are verified.'
         $elasticStatus = $unifiedSearchLib->checkElasticsearch();
 
         if ($elasticStatus['error']) {
-            $io->error('ElasticSearch Error' . PHP_EOL . $elasticStatus['feedback']);
+            $io->error('Elasticsearch Error' . PHP_EOL . $elasticStatus['feedback']);
             exit(1);
         }
 
         if (! $reindex && ! $unifiedSearchLib->getIndex()->exists()) {
-            $io->error('ElasticSearch index not found. Use --reindex to rebuild the index.');
+            $io->error('Elasticsearch index not found. Use --reindex to rebuild the index.');
             exit(1);
         }
 

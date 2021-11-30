@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Try to get changes from an elastic search index and perform each wiki page change event
+ * Try to get changes from an Elasticsearch index and perform each wiki page change event
  *
  * $Id$
  */
@@ -40,7 +40,7 @@ class ESRescueCommand extends Command
                 'elasticuri',
                 'u',
                 InputOption::VALUE_OPTIONAL,
-                'Elastic search URI',
+                'Elasticsearch URI',
                 'http://localhost:9200/'
             )
             ->addOption(

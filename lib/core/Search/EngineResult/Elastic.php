@@ -15,7 +15,7 @@ class Search_EngineResult_Elastic implements Search_EngineResult_Interface
     }
 
     /**
-     * Count the amount of fields used by the elastic search engine
+     * Count the amount of fields used by the Elasticsearch engine
      * @return int
      */
     public function getEngineFieldsCount()

@@ -26,7 +26,7 @@ class Search_Elastic_PrefilterTest extends PHPUnit\Framework\TestCase
     }
 
     /**
-     * Test Non-working ElasticSearch using MySQL fallback
+     * Test Non-working Elasticsearch using MySQL fallback
      * We need to ensure that the MySQL prefilter is working properly
      * @throws Exception
      */
@@ -48,7 +48,7 @@ class Search_Elastic_PrefilterTest extends PHPUnit\Framework\TestCase
     }
 
     /**
-     * Test Non-working ElasticSearch without MySQL fallback
+     * Test Non-working Elasticsearch without MySQL fallback
      * @throws Exception
      */
     public function testPrefilterWithoutFallback()
