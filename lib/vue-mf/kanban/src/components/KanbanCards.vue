@@ -58,11 +58,14 @@ const handleChange = (event) => {
         :list="getCards"
         group="cards"
         item-key="id"
-        class="list-group"
-        ghost-class="ghost"
+        class="container-cards"
+        chosenClass="chosen-card"
+        ghostClass="ghost-card"
+        dragClass="dragging-card"
         @change="handleChange"
         @start="startDragging"
         @end="endDragging"
+        :forceFallback="true"
     >
         <template #item="{ element }">
             <KanbanCard>
@@ -73,4 +76,32 @@ const handleChange = (event) => {
 </template>
 
 <style lang="scss" scoped>
+.container-cards {
+    position: relative;
+}
+
+.dragging-card {
+    opacity: 1 !important;
+
+    .card {
+        cursor: pointer;
+        transform: rotate(4deg);
+    }
+}
+
+.ghost-card {
+    position: relative;
+
+    .card {
+        &::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            background-color: #e8e9f3;
+            border-radius: 8px;
+        }
+    }
+}
 </style>

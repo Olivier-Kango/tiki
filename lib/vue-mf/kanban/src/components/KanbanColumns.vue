@@ -58,19 +58,43 @@ const handleChange = (event) => {
         :list="getColumns"
         group="columns"
         item-key="id"
-        class="d-flex align-items-start"
-        ghost-class="ghost"
+        class="container-columns"
+        chosenClass="chosen-column"
+        ghostClass="ghost-column"
+        dragClass="dragging-column"
         @change="handleChange"
         @start="startDragging"
         @end="endDragging"
+        :forceFallback="true"
     >
         <template #item="{ element }">
             <KanbanColumn :columnId="element.id" :title="element.title">
-                <KanbanCards :columnId="element.id" :cardIds="element.cards" ></KanbanCards>
+                <KanbanCards :columnId="element.id" :cardIds="element.cards"></KanbanCards>
             </KanbanColumn>
         </template>
     </draggable>
 </template>
 
 <style lang="scss" scoped>
+.container-columns {
+    display: flex;
+    align-items: start;
+}
+.dragging-column {
+    cursor: pointer;
+    transform: rotate(4deg);
+    opacity: 1 !important;
+}
+
+.ghost-column {
+    .container-cards::after {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        background-color: #e8e9f3;
+        border-radius: 8px;
+    }
+}
 </style>
