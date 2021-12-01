@@ -1069,7 +1069,11 @@ class TrackerLib extends TikiLib
         foreach ($ret as $res) {
             $itemId = $res['itemId'];
             $field['value'] = $res['value'];
-            $rendered = $this->field_render_value(['field' => $field, 'process' => 'y']);
+            $rendered = $this->field_render_value([
+                'field' => $field,
+                'process' => 'y',
+                'smarty_assign' => 'n',
+            ]);
             $ret2[$itemId] = trim(strip_tags($rendered), " \t\n\r\0\x0B\xC2\xA0");
         }
         return $ret2;
@@ -6098,6 +6102,7 @@ class TrackerLib extends TikiLib
      *        'process' => 'y'              // renders the value using the correct field handler
      *        'oldValue' => ''              // renders the new and old values using \Tracker_Field_Abstract::renderDiff
      *        'list_mode' => ''             // i.e. 'y', 'cvs' or 'text' will be used in \Tracker_Field_Abstract::renderOutput
+     *        'smarty_assign' => 'y'        // set to n to not assign the value to the $f_fieldId smarty value for pretty trackers
      * )
      * </pre>
      * @return string - rendered value (with html ?). i.e from $r = $handler->renderInput($context), renderOutput or renderDiff
@@ -6241,9 +6246,11 @@ class TrackerLib extends TikiLib
                 $r = $handler->renderOutput($context);
             }
 
-            TikiLib::lib('smarty')->assign("f_$fieldId", $r);
-            $fieldPermName = $field['permName'];
-            TikiLib::lib('smarty')->assign("f_$fieldPermName", $r);
+            if (empty($params['smarty_assign']) || $params['smarty_assign'] !== 'n') {
+                TikiLib::lib('smarty')->assign("f_$fieldId", $r);
+                $fieldPermName = $field['permName'];
+                TikiLib::lib('smarty')->assign("f_$fieldPermName", $r);
+            }
             return $r;
         }
     }
