@@ -6532,14 +6532,19 @@ class TrackerLib extends TikiLib
     }
 
     /**
-     * Given a currency exchange rate tracker and a date,
+     * Given a configured system tracker with currency exchange rates and a date,
      * return all available currency rates valid for that time.
-     * @param $trackerId the currency tracker
      * @param $date
      * @return array of exchange rates
      */
-    public function exchange_rates($trackerId, $date)
+    public function exchange_rates($date)
     {
+        global $prefs;
+
+        if ($prefs['tracker_system_currency'] != 'y') {
+            return [];
+        }
+
         if (is_numeric($date)) {
             $date = date('Y-m-d', $date);
         } elseif (! empty($date)) {
@@ -6547,50 +6552,20 @@ class TrackerLib extends TikiLib
         } else {
             $date = date('Y-m-d');
         }
+
         static $rates = [];
         if (isset($rates[$date])) {
             return $rates[$date];
         }
+
         $rates[$date] = [];
-        $currencyField = $dateField = $rateField = null;
-        if (empty($trackerId)) {
-            // TODO: consider using system trackers here
-            $rates_trackers = $this->list_trackers(0, -1, 'trackerId_asc', 'exchange rate');
-            if (! empty($rates_trackers['data'])) {
-                $trackerId = $rates_trackers['data'][0]['trackerId'];
-            }
-        }
-        if (empty($trackerId)) {
-            return $rates[$date];
-        }
-        $definition = Tracker_Definition::get($trackerId);
-        if (empty($definition)) {
-            return $rates[$date];
-        }
-        $fields = $definition->getFields();
-        foreach ($fields as $field) {
-            switch ($field['type']) {
-                case 't':
-                    if (! $currencyField) {
-                        $currencyField = $field;
-                    }
-                    break;
-                case 'f':
-                case 'j':
-                case 'math':
-                    if (! $dateField) {
-                        $dateField = $field;
-                    }
-                    break;
-                case 'n':
-                    if (! $rateField) {
-                        $rateField = $field;
-                    }
-                    break;
-            }
-        }
-        if ($currencyField && $dateField && $rateField) {
-            $currencies = $this->list_tracker_field_values($trackerId, $currencyField['fieldId']);
+        $trackerId = $prefs['tracker_system_currency_tracker'];
+        $currencyField = $prefs['tracker_system_currency_currency'];
+        $dateField = $prefs['tracker_system_currency_date'];
+        $rateField = $prefs['tracker_system_currency_rate'];
+
+        if ($trackerId && $currencyField && $dateField && $rateField) {
+            $currencies = $this->list_tracker_field_values($trackerId, $currencyField);
             foreach ($currencies as $currency) {
                 $rates[$date][$currency] = $this->getOne(
                     'SELECT ttif3.value as rate FROM tiki_tracker_items tti
@@ -6599,8 +6574,11 @@ class TrackerLib extends TikiLib
                     LEFT JOIN tiki_tracker_item_fields ttif3 ON tti.itemId = ttif3.itemId AND ttif3.fieldId = ?
                     WHERE tti.trackerId = ? AND ttif1.value = ? AND DATE_FORMAT(FROM_UNIXTIME(ttif2.value), \'%Y-%m-%d\') <= ?
                     ORDER BY ttif2.value DESC',
-                    [$currencyField['fieldId'], $dateField['fieldId'], $rateField['fieldId'], $trackerId, $currency, $date]
+                    [$currencyField, $dateField, $rateField, $trackerId, $currency, $date]
                 );
+                if ($prefs['tracker_system_currency_direction'] == 'reverse' && $rates[$date][$currency]) {
+                    $rates[$date][$currency] = 1 / $rates[$date][$currency];
+                }
             }
         }
         return $rates[$date];

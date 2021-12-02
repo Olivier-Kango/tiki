@@ -43,7 +43,6 @@ class Math_Formula_Function_Currency extends Math_Formula_Function
             [
                 'amount' => $amount,
                 'sourceCurrency' => $currency,
-                'exchangeRatesTrackerId' => $options->getParam('currencyTracker'),
                 'date' => $date,
                 'prepend' => $options->getParam('prepend'),
                 'append' => $options->getParam('append'),

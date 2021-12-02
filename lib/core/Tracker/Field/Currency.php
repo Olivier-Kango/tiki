@@ -19,7 +19,7 @@ class Tracker_Field_Currency extends Tracker_Field_Abstract implements Tracker_F
         return [
             'b' => [
                 'name' => tr('Currency'),
-                'description' => tr('Provide a one-line field for numeric input only. Prepended or appended values may be alphanumeric.'),
+                'description' => tr('Provide a single field to enter numeric amount and choose a currency. Prepended or appended values may be alphanumeric.'),
                 'help' => 'Currency-Amount-Tracker-Field',
                 'prefs' => ['trackerfield_currency'],
                 'tags' => ['basic'],
@@ -95,18 +95,11 @@ class Tracker_Field_Currency extends Tracker_Field_Abstract implements Tracker_F
                         ],
                         'legacy_index' => 7,
                     ],
-                    'currencyTracker' => [
-                        'name' => tr('Currency Tracker'),
-                        'description' => tr('Tracker containing available currencies and exchange rates.'),
-                        'filter' => 'int',
-                        'legacy_index' => 8,
-                        'profile_reference' => 'tracker',
-                    ],
                     'dateFieldId' => [
                         'name' => tr('Date Field ID'),
                         'description' => tr('Currency conversions will be performed based on a date in another field in this tracker rather than the current date. This is usually the date of the transaction.'),
                         'filter' => 'int',
-                        'legacy_index' => 9,
+                        'legacy_index' => 8,
                         'profile_reference' => 'tracker_field',
                         'parent' => 'input[name=trackerId]',
                         'parentkey' => 'tracker_id',
@@ -181,7 +174,6 @@ class Tracker_Field_Currency extends Tracker_Field_Abstract implements Tracker_F
             [
                 'amount' => $data['amount'],
                 'sourceCurrency' => $data['currency'],
-                'exchangeRatesTrackerId' => $this->getOption('currencyTracker'),
                 'date' => $data['date'],
                 'prepend' => $this->getOption('prepend'),
                 'append' => $this->getOption('append'),
@@ -300,30 +292,19 @@ class Tracker_Field_Currency extends Tracker_Field_Abstract implements Tracker_F
 
     private function getAvailableCurrencies()
     {
+        global $prefs;
         $data = [];
 
         $trk = TikiLib::lib('trk');
-        $currencyTracker = $this->getOption('currencyTracker');
-
-        if ($currencyTracker) {
-            $fieldId = null;
-            $definition = Tracker_Definition::get($currencyTracker);
-            if (! empty($definition)) {
-                $fields = $definition->getFields();
-                foreach ($fields as $field) {
-                    switch ($field['type']) {
-                        case 't':
-                            $fieldId = $field['fieldId'];
-                            break;
-                    }
-                }
-            }
-            if ($fieldId) {
-                $data['currencies'] = $trk->list_tracker_field_values($currencyTracker, $fieldId);
-                sort($data['currencies']);
-            } else {
-                $data['error'] = 'Missing Currency field in tracker ' . $currencyTracker;
-            }
+        if ($prefs['tracker_system_currency'] != 'y') {
+            $data['error'] = tr('Currency system tracker not enabled.');
+        } elseif (! $prefs['tracker_system_currency_tracker']) {
+            $data['error'] = tr('Currency system tracker not configured: missing tracker selection.');
+        } elseif (! $prefs['tracker_system_currency_currency']) {
+            $data['error'] = tr('Currency system tracker not configured: missing currency field.');
+        } else {
+            $data['currencies'] = $trk->list_tracker_field_values($prefs['tracker_system_currency_tracker'], $prefs['tracker_system_currency_currency']);
+            sort($data['currencies']);
         }
 
         return $data;
@@ -332,20 +313,14 @@ class Tracker_Field_Currency extends Tracker_Field_Abstract implements Tracker_F
     private function convertToDefaultCurrency($data)
     {
         $trk = TikiLib::lib('trk');
-        $currencyTracker = $this->getOption('currencyTracker');
+        $rates = $trk->exchange_rates($data['date']);
 
-        if (! empty($currencyTracker)) {
-            $rates = $trk->exchange_rates($currencyTracker, $data['date']);
-
-            $defaultCurrency = array_search(1, $rates);
-            if (empty($defaultCurrency)) {
-                $defaultCurrency = 'USD';
-            }
-
-            $currency = new Math_Formula_Currency($data['amount'], $data['currency'], $rates);
-            return $currency->convertTo($defaultCurrency)->getAmount();
-        } else {
-            return 0;
+        $defaultCurrency = array_search(1, $rates);
+        if (empty($defaultCurrency)) {
+            $defaultCurrency = 'USD';
         }
+
+        $currency = new Math_Formula_Currency($data['amount'], $data['currency'], $rates);
+        return $currency->convertTo($defaultCurrency)->getAmount();
     }
 }

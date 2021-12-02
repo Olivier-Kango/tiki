@@ -226,6 +226,71 @@ function prefs_tracker_list()
             'default' => 'n',
             'tags' => ['experimental'],
             'warning' => tra('Use with care, potential for data loss.'),
-        ]
+        ],
+        'tracker_system_currency' => [
+            'name' => tr('Exchange rates tracker'),
+            'description' => tr('Allow defining a specific tracker to hold the exchange rates for currency calculations. You should manually create a tracker with at least 3 fields to hold Currency, Rate and Date.'),
+            'type' => 'flag',
+            'dependencies' => [
+                'trackerfield_currency',
+            ],
+            'default' => 'n',
+        ],
+        'tracker_system_currency_tracker' => [
+            'name' => tr('Choose tracker'),
+            'description' => tr('Choose which tracker will store the currency conversion rates used for currency calculations.'),
+            'type' => 'text',
+            'dependencies' => [
+                'tracker_system_currency',
+            ],
+            'default' => '',
+            'profile_reference' => 'tracker',
+        ],
+        'tracker_system_currency_rate' => [
+            'name' => tr('Rate field'),
+            'description' => tr('Choose the field that stores the exchange rate in the system currency tracker.'),
+            'type' => 'text',
+            'dependencies' => [
+                'tracker_system_currency',
+            ],
+            'default' => '',
+            'parent' => 'input[name=tracker_system_currency_tracker]',
+            'parentkey' => 'tracker_id',
+            'profile_reference' => 'tracker_field',
+        ],
+        'tracker_system_currency_currency' => [
+            'name' => tr('Currency field'),
+            'description' => tr('Choose the field that stores the currency in the system currency tracker.'),
+            'type' => 'text',
+            'dependencies' => [
+                'tracker_system_currency',
+            ],
+            'default' => '',
+            'parent' => 'input[name=tracker_system_currency_tracker]',
+            'parentkey' => 'tracker_id',
+            'profile_reference' => 'tracker_field',
+        ],
+        'tracker_system_currency_date' => [
+            'name' => tr('Date field'),
+            'description' => tr('Choose the field that stores the exchange rate date in the system currency tracker.'),
+            'type' => 'text',
+            'dependencies' => [
+                'tracker_system_currency',
+            ],
+            'default' => '',
+            'parent' => 'input[name=tracker_system_currency_tracker]',
+            'parentkey' => 'tracker_id',
+            'profile_reference' => 'tracker_field',
+        ],
+        'tracker_system_currency_direction' => [
+            'name' => tr('Rate direction'),
+            'description' => tr('Stright means Base currency is equal to Target multiplied by the exchange rate. Reverse means Base is equal to Target divided by the exchange rate. In both cases, the Base currency should have an exchange rate of 1.00'),
+            'type' => 'list',
+            'options' => [
+                'stright' => tr('Stright (Target/Base)'),
+                'reverse' => tr('Reverse (Base/Target)'),
+            ],
+            'default' => 'stright',
+        ],
     ];
 }

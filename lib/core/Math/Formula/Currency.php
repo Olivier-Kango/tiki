@@ -28,7 +28,7 @@ class Math_Formula_Currency implements Math_Formula_Applicator
     public static function fromCurrencyField($handler)
     {
         $data = $handler->getFieldData();
-        $rates = TikiLib::lib('trk')->exchange_rates($handler->getOption('currencyTracker'), $data['date']);
+        $rates = TikiLib::lib('trk')->exchange_rates($data['date']);
         return new self($data['amount'], $data['currency'], $rates);
     }
 
@@ -41,7 +41,7 @@ class Math_Formula_Currency implements Math_Formula_Applicator
     public static function tryFromString($currency)
     {
         if (preg_match("/^(-?\d+(\.\d+)?)([A-Z]{3})$/i", $currency, $m)) {
-            $rates = TikiLib::lib('trk')->exchange_rates(null, null);
+            $rates = TikiLib::lib('trk')->exchange_rates(null);
             return new self($m[1], $m[3], $rates);
         } else {
             return $currency;

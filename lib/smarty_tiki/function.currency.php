@@ -29,28 +29,26 @@ function smarty_function_currency($params, $smarty)
     }
 
     $conversions = [];
-    if (! empty($exchangeRatesTrackerId)) {
-        $rates = $trk->exchange_rates($exchangeRatesTrackerId, $date);
+    $rates = $trk->exchange_rates($date);
 
-        $defaultCurrency = array_search(1, $rates);
-        if (empty($defaultCurrency)) {
-            $defaultCurrency = 'USD';
-        }
+    $defaultCurrency = array_search(1, $rates);
+    if (empty($defaultCurrency)) {
+        $defaultCurrency = 'USD';
+    }
 
-        if (empty($sourceCurrency)) {
-            $sourceCurrency = $defaultCurrency;
-        }
+    if (empty($sourceCurrency)) {
+        $sourceCurrency = $defaultCurrency;
+    }
 
-        // convert amount to default currency before converting to other currencies
-        $defaultAmount = $amount;
-        if ($sourceCurrency != $defaultCurrency && ! empty($rates[$sourceCurrency])) {
-            $defaultAmount = (float)$defaultAmount / (float)$rates[$sourceCurrency];
-            $conversions[$defaultCurrency] = $defaultAmount;
-        }
-        foreach ($rates as $currency => $rate) {
-            if ($currency != $sourceCurrency) {
-                $conversions[$currency] = (float)$rate * (float)$defaultAmount;
-            }
+    // convert amount to default currency before converting to other currencies
+    $defaultAmount = $amount;
+    if ($sourceCurrency != $defaultCurrency && ! empty($rates[$sourceCurrency])) {
+        $defaultAmount = (float)$defaultAmount / (float)$rates[$sourceCurrency];
+        $conversions[$defaultCurrency] = $defaultAmount;
+    }
+    foreach ($rates as $currency => $rate) {
+        if ($currency != $sourceCurrency) {
+            $conversions[$currency] = (float)$rate * (float)$defaultAmount;
         }
     }
 
