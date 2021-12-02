@@ -85,11 +85,10 @@ class Search_Formatter_ValueFormatter_Currency extends Search_Formatter_ValueFor
             return $value;
         }
 
-        $currencyTracker = $handler->getOption('currencyTracker');
         $data = $handler->getFieldData();
 
         if ($this->target_currency) {
-            $rates = TikiLib::lib('trk')->exchange_rates($currencyTracker, $this->date);
+            $rates = TikiLib::lib('trk')->exchange_rates($this->date);
             $currencyObj = new Math_Formula_Currency($data['amount'], $data['currency'], $rates);
             $currencyObj = $currencyObj->convertTo($this->target_currency);
             $amount = $currencyObj->getAmount();
@@ -109,7 +108,6 @@ class Search_Formatter_ValueFormatter_Currency extends Search_Formatter_ValueFor
                 [
                 'amount' => $amount,
                 'sourceCurrency' => $currency,
-                'exchangeRatesTrackerId' => $currencyTracker,
                 'date' => $this->date,
                 'prepend' => $handler->getOption('prepend'),
                 'append' => $handler->getOption('append'),

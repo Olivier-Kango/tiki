@@ -84,6 +84,17 @@
                 {preference name=tracker_force_tracker_fields}
                 {preference name=user_force_avatar_upload}
             </fieldset>
+            <fieldset class="admin">
+                <legend>{tr}System trackers{/tr}</legend>
+                {preference name=tracker_system_currency}
+                <div class="adminoptionboxchild" id="tracker_system_currency_childcontainer">
+                    {preference name=tracker_system_currency_tracker}
+                    {preference name=tracker_system_currency_rate}
+                    {preference name=tracker_system_currency_currency}
+                    {preference name=tracker_system_currency_date}
+                    {preference name=tracker_system_currency_direction}
+                </div>
+            </fieldset>
         {/tab}
 
         {tab name="{tr}Plugins{/tr}"}
