@@ -278,7 +278,7 @@ function prefs_tracker_list()
                 'tracker_system_currency',
             ],
             'default' => '',
-            'parent' => 'input[name=tracker_system_currency_tracker]',
+            'parent' => '[name=tracker_system_currency_tracker]',
             'parentkey' => 'tracker_id',
             'profile_reference' => 'tracker_field',
         ],
