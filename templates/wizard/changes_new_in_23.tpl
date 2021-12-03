@@ -23,6 +23,7 @@
             <legend>{tr}New Features{/tr}</legend>
             {preference name='feature_machine_learning'}
             {preference name='feature_socialnetworks'}
+            {preference name='theme_unified_admin_backend'}
             <fieldset class="mb-3 w-100 clearfix featurelist">
                 <legend>{tr}New Wiki Plugins{/tr}</legend>
                 {preference name=wikiplugin_autotoc}
@@ -73,7 +74,6 @@
                 </div>
                 <div class="offset-sm-1 col-sm-11">
                     {tr}Three new themes have been added — Morph, Quartz, and Vapor.{/tr}
-                    {tr}A new Unified Admin Backend UI / Theme was added for improved usability for new tiki site admins.{/tr}
                     <a href="https://doc.tiki.org/Tiki23#Themes">{tr}More Information{/tr}...</a><br/><br/>
                 </div>
             </div>
