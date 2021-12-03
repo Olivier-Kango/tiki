@@ -55,6 +55,7 @@ function wikiplugin_list_info()
                 'options' => [
                     ['text' => tra('Yes'), 'value' => 'y'],
                     ['text' => tra('No'), 'value' => 'n'],
+                    ['text' => tra('Yes (even for admins)'), 'value' => 'a'],
                 ]
             ],
             'cacheexpiry' => [
@@ -116,6 +117,11 @@ function wikiplugin_list($data, $params)
                 break;
             }
         }
+    }
+
+    // cache = a means cache even for admins
+    if ($params['cache'] == 'a') {
+        $params['cache'] = 'y';
     }
 
     if (! isset($params['gui'])) {
