@@ -215,6 +215,8 @@ class PluginsLibUtil
             foreach ($aInfo as $iInfo => $sHeader) {
                 if ($sHeader == 'paraminfo') {
                     $sHeader = tra('Parameter Info');
+                } else if ($sHeader == 'sourcecode') {
+                    $sHeader = tra('Source Code');
                 }
                 $sOutput .= "\n\t\t" . '<th class="heading"' . $sStyle . '>' . ucfirst(tra($sHeader)) . '</th>';
             }

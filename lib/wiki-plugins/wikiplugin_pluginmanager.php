@@ -49,6 +49,9 @@ class WikiPluginPluginManager extends PluginsLib
         if (empty($helpurl)) {
             $helpurl = 'http://doc.tiki.org/';
         }
+        if(empty($sourceurl)) {
+            $sourceurl = 'https://gitlab.com/tikiwiki/tiki/-/blob/master/lib/wiki-plugins/';
+        }
 
         $params = $this->getParams($params);
         extract($params, EXTR_SKIP);
@@ -167,6 +170,13 @@ class WikiPluginPluginManager extends PluginsLib
                         $aData[$sPlugin]['description'] = ' --- ';
                     }
                 }
+                if (in_array('sourcecode', $info)) {
+                    if ($numparams > 1) {
+                        $aData[$sPlugin]['sourcecode']['onekey'] = '[' . $sourceurl.$sPluginFile . '|'.tra('Go to the source code').']';
+                    } else {
+                        $aData[$sPlugin]['sourcecode'] = '[' . $sourceurl.$sPluginFile . '|'.tra('Go to the source code').']';
+                    }
+                }
                 if (in_array('parameters', $info)) {
                     if ($numparams > 0) {
                         if ($aPrincipalField['field'] == 'plugin' && ! in_array('options', $info) && $numparams > 1) {
@@ -244,6 +254,7 @@ class WikiPluginPluginManager extends PluginsLib
                     $body = ['(body of plugin)' => ['description' => $infoPlugin['body']]];
                     $infoPlugin['params'] = array_merge($body, $infoPlugin['params']);
                 }
+                $count = 1;
                 foreach ($infoPlugin['params'] as $paramname => $paraminfo) {
                     unset($sep, $septext);
                     //check is paramtype filter is set
@@ -333,7 +344,16 @@ class WikiPluginPluginManager extends PluginsLib
                             $header .= $headbegin . tra('Since') . '</th>';
                         }
                         $since = ! empty($paraminfo['since']) ? $paraminfo['since'] : '';
+                        //Since column
+                        if ($rowCounter == 1) {
+                            $header .= $headbegin . tra('Source Code') . '</th>';
+                        }
+                        $sourcecode = $sourceurl.$aPlugins[0];
                         $rows .= $cellbegin . $since . '</td>';
+                        if($count == 1) {
+                            $rows .= $cellbegin . '[' . $sourcecode . '|'.tra('Go to the source code').'] </td>';
+                            $count++;
+                        }
                         $rows .= "\n\t" . '</tr>';
                         $rowCounter++;
                     }
@@ -396,6 +416,7 @@ function wikiplugin_pluginmanager_info()
                 'options' => [
                     ['text' => '', 'value' => ''],
                     ['text' => tra('Description'), 'value' => 'description'],
+                    ['text' => tra('Description and Source Code'), 'value' => 'description|sourcecode'],
                     ['text' => tra('Description and Parameters'), 'value' => 'description|parameters'],
                     ['text' => tra('Description & Parameter Info'), 'value' => 'description|paraminfo'],
                     ['text' => tra('Parameters & Parameter Info'), 'value' => 'parameters|paraminfo'],
