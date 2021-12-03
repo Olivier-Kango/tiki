@@ -523,7 +523,7 @@
                     <div class="col-sm-9">
                         {if $edit}
                             {strip}
-                                {textarea name="save[description]" id="editwiki" cols=40 rows=10}
+                                {textarea name="save[description]" id="editwiki" cols=40 rows=10 _preview=$prefs.ajax_edit_previews}
                                     {$calitem.description}
                                 {/textarea}
                             {/strip}

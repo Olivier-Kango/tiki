@@ -247,7 +247,7 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-12">
-                        {textarea class="form-control" name='data' id='editwiki'}{$info.data}{/textarea}
+                        {textarea class="form-control" name='data' id='editwiki' _preview=$prefs.ajax_edit_previews}{$info.data}{/textarea}
                     </div>
                 </div>
                 <div class="form-group form-inline">

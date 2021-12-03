@@ -38,14 +38,14 @@
             <div class="form-group mx-0">
                 <label for="subheading">{tr}Heading{/tr}</label>
                 {if $types.$type.heading_only eq 'y'}
-                    {textarea name="heading" rows="5" class="form-control" id="subheading"}{$heading}{/textarea}
+                    {textarea name="heading" rows="5" class="form-control" id="subheading" _preview=$prefs.ajax_edit_previews}{$heading}{/textarea}
                 {else}
-                    {textarea _simple="y" name="heading" class="form-control" rows="5" id="subheading" comments="y"}{$heading}{/textarea}
+                    {textarea _simple="y" name="heading" class="form-control" rows="5" id="subheading" comments="y" _preview=$prefs.ajax_edit_previews}{$heading}{/textarea}
                 {/if}
             </div>
             <div id='heading_only' class="form-group mx-0" {if $types.$type.heading_only eq 'y'}style="display: none;"{/if}>
                 <label for="body">{tr}Body{/tr}</label>
-                {textarea name="body" id="body"}{$body}{/textarea}
+                {textarea name="body" id="body" _preview=$prefs.ajax_edit_previews}{$body}{/textarea}
             </div>
             {if $tiki_p_use_HTML eq 'y'}
                 {if $smarty.session.wysiwyg neq 'y'}

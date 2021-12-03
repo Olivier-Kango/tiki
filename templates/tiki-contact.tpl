@@ -37,7 +37,7 @@
         <div class="form-group row">
             <label for="body" class="col-sm-3 col-form-label">{tr}Message:{/tr}</label>
             <div class="col-sm-9">
-                {textarea rows="20" name="body" id="body" class="form-control" _simple='y' _toolbars='n'}{$body|escape}{/textarea}
+                {textarea rows="20" name="body" id="body" class="form-control" _simple='y' _toolbars='n' _preview=$prefs.ajax_edit_previews}{$body|escape}{/textarea}
             </div>
         </div>
         {if $prefs.feature_antibot eq 'y' && $user eq ''}

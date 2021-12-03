@@ -190,7 +190,7 @@
                             {tr}Reproduce the changes highlighted on the left using the editor below{/tr}.
                         </div>
                     {/if}
-                    {textarea codemirror='true' syntax='tiki'}{$pagedata}{/textarea}
+                    {textarea codemirror='true' syntax='tiki' _preview=$prefs.ajax_edit_previews}{$pagedata}{/textarea}
                         {if $prefs.wiki_freetags_edit_position eq 'edit'}
                             {if $prefs.feature_freetags eq 'y' and $tiki_p_freetags_tag eq 'y'}
                                 <fieldset>

@@ -93,7 +93,7 @@
                         {tr}Body{/tr}
                     </label>
                     <div class="col-sm-10">
-                        {textarea rows="6" cols="60" class="form-control" name="data"}{$msg_info.data}{/textarea}
+                        {textarea rows="6" cols="60" class="form-control" name="data" _preview=$prefs.ajax_edit_previews}{$msg_info.data}{/textarea}
                     </div>
                 </div>
             </div>
