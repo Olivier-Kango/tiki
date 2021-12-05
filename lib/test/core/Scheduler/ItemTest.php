@@ -246,7 +246,13 @@ class ItemTest extends TestCase
         $schedulerStub->user_run_now = 1;
         $schedulerStub->run_time = '0 * * * *'; // Every hour
         $time = strtotime($delay . ' minutes ago');
-        $expectedTime = $time - ($time % 3600) + ($delay * 60); // We want the hour on 0 minutes
+        $adjustToTheHour = ($time % 3600);
+        if ($adjustToTheHour < 60) {
+            // If matches the exact running time
+            // then the previous run was 1h before
+            $adjustToTheHour += 3600;
+        }
+        $expectedTime = $time - $adjustToTheHour + ($delay * 60); // We want the hour on 0 minutes
         $runDate = $schedulerStub->getPreviousRunDate();
 
         $this->assertEquals($expectedTime, $runDate);
