@@ -18,7 +18,7 @@
     <div class="form-group row">
         <label class="col-sm-3 col-form-label">{tr}Data{/tr}</label>
         <div class="col-sm-7">
-            {textarea rows="20" cols="80" name="data" _simple="y" class="form-control" _preview=$prefs.ajax_edit_previews}{$info.data}{/textarea}
+            {textarea rows="20" cols="80" name="data" _simple="y" class="form-control"}{$info.data}{/textarea}
         </div>
     </div>
     <div class="form-group row">

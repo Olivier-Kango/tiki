@@ -229,7 +229,7 @@
                             {$use_wysiwyg='n'}
                             {$is_html = 'n'}
                         {/if}
-                        {textarea id="editwiki" name="content" switcheditor="y" _class="form-control" _wysiwyg=$use_wysiwyg _is_html=$is_html section=$toolbar_section _preview=$prefs.ajax_edit_previews}{$info.content}{/textarea}
+                        {textarea id="editwiki" name="content" switcheditor="y" _class="form-control" _wysiwyg=$use_wysiwyg _is_html=$is_html section=$toolbar_section}{$info.content}{/textarea}
                     </div>
                 </div>
                 <div class="form-group text-center">

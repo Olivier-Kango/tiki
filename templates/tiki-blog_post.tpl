@@ -68,14 +68,14 @@
             <div class="form-group row">
                 <div class="col-md-12">
                     <label class="col-form-label" for="post_excerpt">{tr}Excerpt{/tr}</label>
-                    {textarea id="post_excerpt" class="form-control wikiedit" name="excerpt" rows="3" _preview=$prefs.ajax_edit_previews}{if isset($post_info.excerpt)}{$post_info.excerpt}{/if}{/textarea}
+                    {textarea id="post_excerpt" class="form-control wikiedit" name="excerpt" rows="3"}{if isset($post_info.excerpt)}{$post_info.excerpt}{/if}{/textarea}
                 </div>
             </div>
         {/if}
         <div class="form-group row">
             <div class="col-md-12">
                 <label class="col-form-label" for="blogedit">{tr}Body{/tr}</label>
-                {textarea id='blogedit' class="form-control wikiedit" name="data" _preview=$prefs.ajax_edit_previews}{if isset($data)}{$data}{/if}{/textarea}
+                {textarea id='blogedit' class="form-control wikiedit" name="data"}{if isset($data)}{$data}{/if}{/textarea}
             </div>
         </div>
         {if $postId > 0 && $wysiwyg ne 'y'}

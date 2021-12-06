@@ -220,16 +220,16 @@
         <label class="col-sm-3 col-form-label">{tr}Heading{/tr}</label>
         <div class="col-sm-7">
             {if $types.$type.heading_only eq 'y'}
-                {textarea name="heading" rows="5" cols="80" Height="200px" id="subheading" class="form-control" _preview=$prefs.ajax_edit_previews}{$heading}{/textarea}
+                {textarea name="heading" rows="5" cols="80" Height="200px" id="subheading" class="form-control"}{$heading}{/textarea}
             {else}
-                {textarea _simple="y" name="heading" rows="5" cols="95" Height="200px" id="subheading" comments="y" _preview=$prefs.ajax_edit_previews}{$heading}{/textarea}
+                {textarea _simple="y" name="heading" rows="5" cols="95" Height="200px" id="subheading" comments="y"}{$heading}{/textarea}
             {/if}
         </div>
     </div>
     <div class="form-group row" id='heading_only' {if $types.$type.heading_only eq 'y'}style="display: none;"{/if}>
         <label class="col-sm-3 col-form-label">{tr}Body{/tr}</label>
         <div class="col-sm-7">
-            {textarea name="body" id="body" _preview=$prefs.ajax_edit_previews}{$body}{/textarea}
+            {textarea name="body" id="body"}{$body}{/textarea}
         </div>
     </div>
     <div class="form-group row" id='show_pubdate' {if $types.$type.show_pubdate eq 'y' || $types.$type.show_pre_publ ne 'y'}style="display:;"{else}style="display:none;"{/if}>

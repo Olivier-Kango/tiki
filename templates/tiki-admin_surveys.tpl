@@ -112,7 +112,7 @@
             <div class="form-group row">
                 <label for="description" class="col-sm-2 col-form-label">{tr}Description{/tr}</label>
                 <div class="col-sm-10">
-                    {textarea name="description" rows="6" id="description" class="form-control" _toolbars='y' _simple='y' comments='y' _preview=$prefs.ajax_edit_previews}{$info.description}{/textarea}
+                    {textarea name="description" rows="6" id="description" class="form-control" _toolbars='y' _simple='y' comments='y'}{$info.description}{/textarea}
                 </div>
             </div>
             <div class="mb-4">
