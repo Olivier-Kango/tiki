@@ -1507,7 +1507,8 @@ li.archivedate {
   margin-top: 10px;
 }
 .modules > .module .sitelogo img, .sitetitles {
-  margin-left: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
   margin-bottom: 15px;
 }
 .box-logo > div > .sitelogo + .sitetitles {
@@ -2269,46 +2270,6 @@ dl.note-list {
   .comment .media.comment .userlink {
     display: block;
   }
-}
-.oddthumb {
-  border-collapse: collapse;
-}
-.eventhumb {
-  border-collapse: collapse;
-}
-.eventhumb img {
-  margin-left: 6px;
-  margin-right: 6px;
-}
-#browse_image {
-  width: 100%;
-}
-img.athumb {
-  margin: auto;
-}
-.showimage {
-  margin: 5px 0;
-  width: 100%;
-  text-align: center;
-  padding: 6px;
-}
-.imgaldescr {
-  margin: 10px;
-}
-.sorttitle {
-  margin-left: 10px;
-}
-p.norecords {
-  font-weight: bold;
-}
-.imagetitle {
-  font-weight: bold;
-  font-size: 200%;
-}
-#random_image {
-  text-align: center;
-  overflow: hidden;
-  margin: 1em auto;
 }
 body.filegal_popup #tiki-center {
   margin: 0 1em;
@@ -3396,6 +3357,9 @@ table.objectperms thead th {
     width: auto;
   }
 }
+.resize-vertical {
+  resize: vertical;
+}
 form.simple label.error {
   padding: 4px 0 0 20px;
   margin-left: 0.5em;
@@ -3667,6 +3631,9 @@ div.form-group label.error {
 .select2-container--bootstrap4 .select2-selection--multiple .select2-selection__clear {
   position: relative !important;
   float: right;
+}
+.inline-cypht .select2-container {
+  margin-bottom: 10px;
 }
 .tiki .anythingSlider, .tiki .anythingWindow, .tiki .anythingBase, .tiki .anythingBase > .card {
   -webkit-box-sizing: content-box;
