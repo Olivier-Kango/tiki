@@ -28,6 +28,7 @@ function smarty_function_wikidiff($params, $smarty)
         'object_type' => 'wiki page',       // string object type, wiki page if empty
         'oldver' => '',                     // int|string   required version or date string (uses strtotime)
         'newver' => '',                     // int|string   version or date string, latest if empty  (uses strtotime)
+        'curver' => '',                   // string  by default is yes to display the current version of the page
         'diff_style' => '',                 // string       one of the options for default_wiki_diff_style pref
         'show_version_info' => false,       // bool         hide the h2 heading "Comparing version X with version Y"
     ];
@@ -65,13 +66,18 @@ function smarty_function_wikidiff($params, $smarty)
             $newver = $params['newver'];
         }
 
+        if($params['curver'] && $params['curver'] == 'y'){
+            $time = strtotime("now");
+            $curver = $histlib->get_version_by_time($params['object_id'], $time);
+        } else {
+            $curver = 0;
+        }
         $smarty->assign('hide_version_info', ! $params['show_version_info']);
         $smarty->assign('hide_example_wikidiff_plugin_syntax', true);
 
-        histlib_helper_setup_diff($params['object_id'], $oldver, $newver, $params['diff_style']);
+        histlib_helper_setup_diff($params['object_id'], $oldver, $newver, $params['diff_style'],$curver);
 
         $html = $smarty->fetch('pagehistory.tpl');
-
         return $html;
     } else {
         // TODO for other types, e.g. tracker items

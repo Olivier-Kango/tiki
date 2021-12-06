@@ -21,6 +21,9 @@
     <h2>{tr}Preview of version:{/tr} {$preview}
         {if $info.version eq $preview}<small><small>{tr}(current){/tr}</small></small>{/if}
     </h2>
+    {if $curver.version ne $preview && $object_curver eq 1}
+        {self_link _script="tiki-pagehistory.php" page=$page preview=$curver.version|escape:'url' _title="{tr}Go to current version{/tr}"}{tr}Go to current version{/tr}{/self_link}
+    {/if}
     {if $info.version ne $preview and $tiki_p_rollback eq 'y'}
         <div class="navbar">
             {self_link _script="tiki-rollback.php" page=$page version=$preview _title="{tr}Roll back{/tr}"}{tr}Roll back to this version{/tr}{/self_link}
@@ -107,6 +110,12 @@
             </div>
         </form>
     {/remarksbox}
+{/if}
+
+{if !$preview}
+    {if $curver.version ne $preview && $object_curver eq 1}
+        {self_link _script="tiki-pagehistory.php" page=$page preview=$curver.version|escape:'url' _title="{tr}Go to current version{/tr}"}{tr}Go to current version{/tr}{/self_link}
+    {/if}
 {/if}
 
 {include file='pagehistory.tpl'}

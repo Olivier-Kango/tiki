@@ -56,6 +56,18 @@ function wikiplugin_wikidiff_info()
                 'filter' => 'text',
                 'default' => '',
             ],
+            'curver' => [
+                'required' => false,
+                'name' => tra('show current version link'),
+                'description' => tra('show the link of the current version to help go back to the current version of the page') ,
+                'filter' => 'text',
+                'default' => 'y',
+                'since' => '23',
+                'options' => [
+                    ['text' => tra('Yes'), 'value' => 'y'],
+                    ['text' => tra('No'), 'value' => 'n']
+                ]
+            ],
             'diff_style' => [
                 'required' => false,
                 'name' => tra('Diff Style'),

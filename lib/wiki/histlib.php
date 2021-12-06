@@ -1167,7 +1167,7 @@ class Document
 }
 
 
-function histlib_helper_setup_diff($page, $oldver, $newver, $diff_style = '')
+function histlib_helper_setup_diff($page, $oldver, $newver, $diff_style = '',$current_ver=0)
 {
     global $prefs;
     $smarty = TikiLib::lib('smarty');
@@ -1205,6 +1205,20 @@ function histlib_helper_setup_diff($page, $oldver, $newver, $diff_style = '')
             $smarty->assign_by_ref('new', $new);
         }
     }
+    //
+    if ($current_ver == 0 || $current_ver >= $info["version"]) {
+        $curver =& $info;
+        $response=extractDataWikiDiff($info);
+        $smarty->assign_by_ref('object_curver', $response);
+        $smarty->assign_by_ref('curver', $info);
+    } else {
+        if ($exists) {
+            $curver = $histlib->get_page_from_history($page, $current_ver, true);
+            $response=extractDataWikiDiff($curver);
+            $smarty->assign_by_ref('object_curver', $response);
+            $smarty->assign_by_ref('curver', $curver);
+        }
+    }
 
     $oldver_mod = $oldver;
     if ($oldver == 0) {
@@ -1226,13 +1240,11 @@ function histlib_helper_setup_diff($page, $oldver, $newver, $diff_style = '')
         $aux["version"] = $res["version"];
         $diff_summaries[] = $aux;
     }
-
     $smarty->assign('diff_summaries', $diff_summaries);
 
     if (empty($diff_style) || $diff_style == "old") {
         $diff_style = $prefs['default_wiki_diff_style'];
     }
-
     $smarty->assign('diff_style', $diff_style);
     $parserlib = TikiLib::lib('parser');
     if ($diff_style == "sideview") {
@@ -1273,4 +1285,11 @@ function histlib_strip_irrelevant($data)
 {
     $data = preg_replace("/<(h1|h2|h3|h4|h5|h6|h7)\s+([^\\\\>]+)>/i", '<$1>', $data);
     return $data;
+}
+
+function extractDataWikiDiff(array $curver){
+    if(isset($curver["data"])){
+        $pattern = '/curver="y"/i';
+        return preg_match($pattern, $curver["data"]);
+    }
 }
