@@ -23,9 +23,11 @@
             <legend>{tr}New Features{/tr}</legend>
             {preference name='feature_machine_learning'}
             {preference name='feature_socialnetworks'}
+            {preference name='theme_unified_admin_backend'}
             <fieldset class="mb-3 w-100 clearfix featurelist">
                 <legend>{tr}New Wiki Plugins{/tr}</legend>
                 {preference name=wikiplugin_autotoc}
+                {preference name=wikiplugin_qr}
                 {preference name=wikiplugin_signature}
             </fieldset>
         </fieldset>
@@ -63,6 +65,10 @@
                 <div class="offset-sm-1 col-sm-11">
                     {tr}Open Database Connectivity (ODBC) support added to Tracker Tabular.{/tr}
                     <a href="https://doc.tiki.org/ODBC">{tr}More Information{/tr}...</a><br/><br/>
+                </div>
+                <div class="offset-sm-1 col-sm-11">
+                    {tr}System Trackers.{/tr}
+                    <a href="https://doc.tiki.org/System-Trackers">{tr}More Information{/tr}...</a><br/><br/>
                 </div>
             </div>
             <div class="adminoption form-group row">
