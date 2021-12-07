@@ -1753,6 +1753,25 @@ class FileGalLib extends TikiLib
         }
         return true;
     }
+
+    /**
+     * Finds out of a file is backlinked from a tracker item that is viewable by the current user.
+     * This is useful if user doesn't have permissions to download files in the corresponding file
+     * gallery but still can view the file through the tracker item.
+     */
+    public function isBacklinkedFromAViewableTrackerItem($fileId) {
+        $objects = $this->getFileBacklinks($fileId);
+        foreach ($objects as $object) {
+            if ($object['type'] == 'trackeritem') {
+                $item = Tracker_Item::fromId($object['itemId']);
+                if ($item->canView()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     // sync the backlinks used by a text of an object
     public function syncFileBacklinks($data, $context)
     {

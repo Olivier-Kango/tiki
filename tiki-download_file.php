@@ -82,7 +82,7 @@ if (! $skip) {
             $access->display_error('', tra('Permission denied'), 401);
         }
 
-        if (! $zip && $tiki_p_admin_file_galleries != 'y' && ! $userlib->user_has_perm_on_object($user, $info['fileId'], 'file', 'tiki_p_download_files')) {
+        if (! $zip && $tiki_p_admin_file_galleries != 'y' && ! $userlib->user_has_perm_on_object($user, $info['fileId'], 'file', 'tiki_p_download_files') && ! $filegallib->isBacklinkedFromAViewableTrackerItem($info['fileId'])) {
             if (! $user && $prefs['permission_denied_login_box'] === 'y' && empty($_SESSION['loginfrom'])) {
                 $_SESSION['loginfrom'] = $_SERVER['HTTP_REFERER'];
             }
