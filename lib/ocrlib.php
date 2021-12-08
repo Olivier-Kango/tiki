@@ -86,28 +86,20 @@ class ocrLib extends TikiLib
             throw new Exception('exec() is not enabled. Could not execute command.');
         }
         $executable = escapeshellarg($executable);
-        $return = 1;
-        if (function_exists('exec')) {
-            exec('type -p ' . $executable . ' 2>&1', $output, $return);
-        }
-        if ($return === 1) {                // if "type" did not find the command on the system
-            return null;
-        } elseif ($return !== 0) {
-            unset($output);
-            exec('where ' . $executable . ' 2>&1', $output, $return); // windows command
-        } elseif ($return !== 0) {
-            unset($output);
-            exec('which ' . $executable . ' 2>&1', $output, $return); // alternative unix command but relies on $PATH
-            if ($return === 1) {            // if "which" did not find the command on the system
-                return null;
+
+        $possibleCommands = [
+            'type -p ' . $executable . ' 2>&1',
+            'where ' . $executable . ' 2>&1',
+            'which ' . $executable . ' 2>&1'
+        ];
+        foreach ($possibleCommands as $cmd) {
+            exec($cmd, $output, $return);
+            if ($return === 0) {
+                return $output;
             }
-        } elseif ($return !== 0) {
-            throw new Exception('There was no suitable system command found. Could not execute command');
         }
-        if (empty($output[0])) {                // if for some reason there was no output, return null
-            return null;
-        }
-        return $output[0];
+
+        return null;
     }
 
     /**
@@ -156,10 +148,9 @@ class ocrLib extends TikiLib
             return false;
         }
 
-        $tesseract = $this->newTesseract();
-        $errors = new FriendlyErrors();
-
         try {
+            $tesseract = $this->newTesseract();
+            $errors = new FriendlyErrors();
             $errors::checkTesseractPresence($tesseract->command->executable);
         } catch (Exception $e) {
             return false;
@@ -177,10 +168,12 @@ class ocrLib extends TikiLib
         if (! class_exists('thiagoalessio\TesseractOCR\TesseractOCR')) {
             return '';
         }
-        $tesseract = $this->newTesseract();
+
         if ($this->checkTesseractInstalled()) {
+            $tesseract = $this->newTesseract();
             return $tesseract->command->getTesseractVersion();
         }
+
         return '';
     }
 
@@ -205,11 +198,12 @@ class ocrLib extends TikiLib
         if (! class_exists('thiagoalessio\TesseractOCR\TesseractOCR')) {
             return [];
         }
-        $tesseract = $this->newTesseract();
 
         if (! $this->checkTesseractInstalled()) {
             return [];
         }
+
+        $tesseract = $this->newTesseract();
 
         return $tesseract->command->getAvailableLanguages();
     }
