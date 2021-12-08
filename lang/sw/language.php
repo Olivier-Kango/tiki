@@ -17530,7 +17530,7 @@ $lang_current = array(
 "Approve current revision" => "Thibitisha marekebisho ya sasa",
 // "Reject current revision" => "Reject current revision",
 "You are currently viewing the approved version of the page" => "Sasa unaona toleo la kupitishwa la ukurasa",
-"You can also view the {self_link latest=1}latest version{/self_link}" => "Unaweza pia kuona {latest_link latest = 1} toleo {/self_link}",
+"You can also view the {self_link latest=1}latest version{/self_link}" => "Unaweza pia kuona {self_link latest = 1} toleo {/self_link}",
 "View the {self_link latest=1}latest version{/self_link}" => "Angalia {self_link latest = 1} toleo la hivi karibuni {/self_link}",
 "Forum Importer" => "Forum Kuingiza",
 "Import from a Local SQL File" => "Ingiza kutoka faili ya SQL ya ndani",
