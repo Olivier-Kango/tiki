@@ -55,7 +55,13 @@ class DateHelper
                     $date = date_create_from_format($format . '.v', $value);
                 }
                 if ($date) {
-                    $info['fields'][$permName] = $date->getTimestamp();
+                    $timestamp = $date->getTimestamp();
+                } else {
+                    // TODO: use gmt when we merge timezone changes for tracker date fields
+                    $timestamp = strtotime($value);
+                }
+                if ($timestamp) {
+                    $info['fields'][$permName] = $timestamp;
                 }
             }
         );
