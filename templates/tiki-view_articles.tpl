@@ -1,13 +1,11 @@
 {if !isset($actions) or $actions eq "y"}
-    {if $prefs.art_home_title ne ''}
-        {title help="Articles" admpage="articles"}
+        {title help="View Articles" admpage="articles"}
             {if $prefs.art_home_title eq 'topic' and !empty($topic)}
                 {tr}{$topic|escape}{/tr}
             {elseif $prefs.art_home_title eq 'type' and !empty($type)}
                 {tr}{$type|escape}{/tr}
-            {else}{tr}Articles{/tr}{/if}
+            {else}{tr}View Articles{/tr}{/if}
         {/title}
-    {/if}
     {if $headerLinks eq "y"}
         <div class="t_navbar mb-4">
             {if $tiki_p_edit_article eq 'y' or $tiki_p_admin eq 'y' or $tiki_p_admin_cms eq 'y'}
@@ -304,7 +302,7 @@
 {if !isset($actions) or $actions eq "y"}
     {if $tiki_p_edit_article eq 'y' or $tiki_p_admin eq 'y' or $tiki_p_admin_cms eq 'y'}
         <br/><a href="tiki-edit_article.php{if (isset($topicId) && !empty($topicId)) or (isset($type) && !empty($type))}?{/if}{if isset($topicId) && !empty($topicId) and is_numeric($topicId)}topicId={$topicId|escape}{/if}{if isset($type) && !empty($type)}&type={$type|escape}{/if}" class="alert-link">
-            {icon name="create"} {tr}New article{/tr}
+            {icon name="create"} {tr}New Article{/tr}
         </a>
     {/if}
     {if $prefs.feature_submissions == 'y' && $tiki_p_edit_submission == "y" && $tiki_p_edit_article neq 'y' && $tiki_p_admin neq 'y' && $tiki_p_admin_cms neq 'y'}
