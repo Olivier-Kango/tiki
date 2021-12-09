@@ -107,7 +107,7 @@
         "npm-asset/signature_pad": "^2.3.2",
         "openannotation/annotator": ">=1.2.10",
         "openid/php-openid": "2.2.2",
-        "openlayers/openlayers": "^6.5",
+        "openlayers/openlayers": "^6.9",
         "walkermatt/ol-layerswitcher": ">=3.3.0",
         "paragonie/random_compat": "^2.0",
         "pclzip/pclzip": "^2.8",
