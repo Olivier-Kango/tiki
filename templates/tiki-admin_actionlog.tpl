@@ -1,5 +1,7 @@
 {* $Id$ *}
 
+{$headerlib->add_jsfile("lib/jquery_tiki/tiki-admin_actionlog.js")}
+
 {title help="Action log"}{tr}Action Log{/tr}{/title}
 
 {tabset name="admin_actionlog"}
@@ -811,11 +813,27 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <tr>
+                                {if $tiki_p_admin eq 'y'}
+                                    <td class="checkbox-cell">
+                                        <div class="form-check all_recorded">
+                                            <input type="checkbox" class="form-check-input" id="select_all_recorded" />
+                                        </div>
+                                    </td>
+                                {/if}
+                                <td class="checkbox-cell">
+                                    <div class="form-check ">
+                                        <input type="checkbox" class="form-check-input" id="select_all_reported" >
+                                    </div>
+                                </td>
+                                <td class="text-center">{tr}All{/tr}</td>
+                                <td class="text-center">{tr}All{/tr}</td>
+                            </tr>
                             {foreach from=$action_log_conf_selected item=actionlog}
                                 <tr>
                                     {if $tiki_p_admin eq 'y'}
-                                        <td class="checkbox-cell">
-                                            <div class="form-check">
+                                        <td class="checkbox-cell " id>
+                                            <div class="form-check all_recorded">
                                                 <input type="checkbox" class="form-check-input" name="{$actionlog.code}"
                                                 {if $actionlog.status eq 'y' or $actionlog.status eq 'v'}checked="checked"{/if}>
                                             </div>
@@ -823,7 +841,7 @@
                                     {/if}
                                     {if $tiki_p_admin eq 'y' or $actionlog.status eq 'y' or $actionlog.status eq 'v'}
                                         <td class="checkbox-cell">
-                                            <div class="form-check">
+                                            <div class="form-check all_reported">
                                                 <input type="checkbox" class="form-check-input" name="v_{$actionlog.code}"
                                                 {if $actionlog.status eq 'v'}checked="checked"{/if}>
                                             </div>
