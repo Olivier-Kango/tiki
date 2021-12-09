@@ -93,9 +93,10 @@ class ocrLib extends TikiLib
             'which ' . $executable . ' 2>&1'
         ];
         foreach ($possibleCommands as $cmd) {
+            $output = $return = null;
             exec($cmd, $output, $return);
             if ($return === 0) {
-                return $output;
+                return array_shift($output);
             }
         }
 
