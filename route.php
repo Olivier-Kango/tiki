@@ -167,19 +167,12 @@ function tiki_route($path)
     );
 
     tiki_route_attempt(
-        '|^api/(\w+)/?(\w+)?$|',
+        '|^api/(.*)$|',
         'tiki-api.php',
         function ($parts) {
-            if (empty($parts[2])) {
-                return [
-                    'controller' => $parts[1],
-                ];
-            } else {
-                return [
-                    'controller' => $parts[1],
-                    'action' => $parts[2],
-                ];
-            }
+            return [
+                'route' => $parts[1],
+            ];
         }
     );
 

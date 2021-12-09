@@ -145,6 +145,7 @@
         "symfony/dependency-injection": "^3.2.6",
         "symfony/finder": "^4.2",
         "symfony/process": "^3.2.6",
+        "symfony/routing": "^3.2.6",
         "symfony/yaml": "^3.2.6",
         "teqneers/shamir": "dev-master",
         "tijsverkoyen/css-to-inline-styles": "^2.2.0",

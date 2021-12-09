@@ -614,10 +614,7 @@ class Services_Tracker_Controller
 
     public function action_list_trackers($input)
     {
-        if (! Perms::get()->admin_trackers) {
-            throw new Services_Exception_Denied(tr('Reserved for tracker administrators'));
-        }
-
+        // Return the ones user is allowed to view
         $trklib = TikiLib::lib('trk');
         return $trklib->list_trackers();
     }
