@@ -762,6 +762,17 @@
         {
             "type": "package",
             "package": {
+                "name": "openlayers/openlayers",
+                "version": "6.9.0",
+                "dist": {
+                    "url": "https://github.com/openlayers/openlayers/releases/download/v6.9.0/v6.9.0-dist.zip",
+                    "type": "zip"
+                }
+            }
+        },
+        {
+            "type": "package",
+            "package": {
                 "name": "walkermatt/ol-layerswitcher",
                 "version": "3.3.0",
                 "dist": {
