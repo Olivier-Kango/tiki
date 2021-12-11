@@ -538,35 +538,35 @@
             {if $calendar.customstatus ne 'n'}
                 <div class="form-group row">
                     <label class="col-form-label col-sm-3">{tr}Status{/tr}</label>
-                    <div class="col-sm-9">
-                        <div class="statusbox {if $calitem.status eq 0}status0{/if}">
+                    <div class="col-sm-9 btn-group btn-group-toggle"  data-toggle="buttons">
+                        <div class="statusbox">
                             {if $edit}
-                                <input id="status0" type="radio" name="save[status]" value="0"
-                                {if (!empty($calitem) and $calitem.status eq 0) or (empty($calitem) and $calendar.defaulteventstatus eq 0)}
-                                    checked="checked"
-                                {/if}
-                                >
-                                <label for="status0">
+                                <label class="btn btn-primary active">
+                                    <input type="radio" name="save[status]" value="0" autocomplete="off"
+                                        {if (!empty($calitem) and $calitem.status eq 0) or (empty($calitem) and $calendar.defaulteventstatus eq 0)}
+                                            checked="checked"
+                                        {/if}
+                                    >
                                     {tr}Tentative{/tr}
                                 </label>
                             {else}
                                 {tr}Tentative{/tr}
                             {/if}
                         </div>
-                        <div class="statusbox    {if $calitem.status eq 1}status1{/if}">
+                        <div class="statusbox">
                             {if $edit}
-                                <input id="status1" type="radio" name="save[status]" value="1" {if $calitem.status eq 1} checked="checked" {/if} >
-                                <label for="status1">
+                                <label class="btn btn-primary active">
+                                    <input  type="radio" name="save[status]" value="1" {if $calitem.status eq 1} checked="checked" {/if} >
                                     {tr}Confirmed{/tr}
                                 </label>
                             {else}
                                 {tr}Confirmed{/tr}
                             {/if}
                         </div>
-                        <div class="statusbox {if $calitem.status eq 2}status2{/if}">
+                        <div class="statusbox">
                             {if $edit}
-                                <input id="status2" type="radio" name="save[status]" value="2" {if $calitem.status eq 2} checked="checked" {/if}>
-                                <label for="status2">
+                                <label class="btn btn-primary active">
+                                    <input id="status2" type="radio" name="save[status]" value="2" {if $calitem.status eq 2} checked="checked" {/if} >
                                     {tr}Cancelled{/tr}
                                 </label>
                             {else}
@@ -574,6 +574,7 @@
                             {/if}
                         </div>
                     </div>
+
                 </div> <!-- / .form-group -->
             {/if}
             {if $calendar.custompriorities eq 'y'}
@@ -651,7 +652,7 @@
                 </div>
             </div> <!-- / .form-group -->
             {if $calendar.customurl ne 'n'}
-                <div class="form-group row">
+                <div class="form-group row" style="display:{if $calendar.customcategories eq 'y'}block{else}none{/if};">
                     <label class="col-form-label col-sm-3">{tr}URL{/tr}</label>
                     <div class="col-sm-9">
                         {if $edit}
