@@ -15,7 +15,7 @@ if (! empty($_POST['compressXmlParam']) && ! empty($_POST['compressXml']) && $_P
     $compressXml = false;
 }
 
-$galleryId = isset($_REQUEST['galleryId']) ? $_REQUEST['galleryId'] : 0;
+$galleryId = $_REQUEST['galleryId'] ? $_REQUEST['galleryId'] : 0;
 $backLocation = '';
 
 if ($xmlContent) {
