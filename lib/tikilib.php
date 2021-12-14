@@ -5191,10 +5191,6 @@ class TikiLib extends TikiDb_Bridge
             $saveLastModif = $this->now;
         }
 
-        if (empty($lang)) {
-            $lang = $info['lang'];
-        }
-
         $queryData = [
             'description' => $edit_description,
             'data' => $edit_data,
