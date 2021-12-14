@@ -10,9 +10,13 @@ function prefs_wikiplugin_list($partial = false)
 {
     $parserlib = TikiLib::lib('parser');
 
-    // Note that most of the plugins controlled by the following preferences will be disabled by another feature check. For example, PluginCalendar depends not only on wikiplugin_calendar, but also on feature_calendar.
-    // There is inefficiency in this data structure and the calls to in_array() below.
-    // PHP 7 TODO: Once we require PHP 7+, this native array should be replaced with Ds\Set.
+    // Note that most of the plugins controlled by the following preferences will be disabled by
+    // another feature check. For example, PluginCalendar depends not only on wikiplugin_calendar,
+    // but also on feature_calendar. There is inefficiency in this data structure and the calls to
+    // in_array() below. PHP 7 TODO: Once we require PHP 7+, this native array should be replaced
+    // with Ds\Set.
+
+    // List of the plugins which are enabled by default.
     $defaultPlugins = [
         'article',
         'articles',
@@ -42,6 +46,7 @@ function prefs_wikiplugin_list($partial = false)
         'group',
         'html',
         'img',
+        'indent',
         'include',
         'invite',
         'kaltura',
