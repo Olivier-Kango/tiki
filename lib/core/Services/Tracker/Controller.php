@@ -1813,7 +1813,7 @@ class Services_Tracker_Controller
             throw new Services_Exception_NotFound();
         }
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && $confirm) {
+        if (($_SERVER['REQUEST_METHOD'] === 'POST' || $_SERVER['REQUEST_METHOD'] === 'DELETE') && $confirm) {
             $this->utilities->removeTracker($trackerId);
 
             return [

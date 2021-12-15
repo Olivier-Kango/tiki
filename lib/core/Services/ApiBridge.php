@@ -38,8 +38,14 @@ class Services_ApiBridge
             }
         }
         $this->jitRequest = new JitFilter($request);
-        $broker = TikiLib::lib('service')->getBroker();
-        $broker->process($route['controller'], $route['action'], $this->jitRequest);
+        if ($route['_route'] == 'home') {
+            $this->renderDocs();
+        } elseif ($route['_route'] == 'docs') {
+            $this->renderDocsYaml();
+        } else {
+            $broker = TikiLib::lib('service')->getBroker();
+            $broker->process($route['controller'], $route['action'], $this->jitRequest);
+        }
     }
 
     protected function parseRoute()
@@ -70,12 +76,30 @@ class Services_ApiBridge
     protected function prepareRoutes()
     {
         $routes = new RouteCollection();
+        $routes->add('home', (new Route(''))->setMethods(['GET']));
+        $routes->add('docs', (new Route('docs.yaml', ['_format' => 'yaml']))->setMethods(['GET']));
         $routes->add('trackers', (new Route('trackers', ['controller' => 'tracker', 'action' => 'list_trackers']))->setMethods(['GET']));
         $routes->add('trackers-create', (new Route('trackers', ['controller' => 'tracker', 'action' => 'replace', 'confirm' => 1]))->setMethods(['POST']));
         $routes->add('trackers-view', (new Route('trackers/{trackerId}', ['controller' => 'tracker', 'action' => 'list_items', 'offset' => -1, 'maxRecords' => -1]))->setMethods(['GET']));
         $routes->add('trackers-update', (new Route('trackers/{trackerId}', ['controller' => 'tracker', 'action' => 'replace', 'confirm' => 1]))->setMethods(['POST']));
-        $routes->add('trackers-delete', (new Route('trackers/{trackerId}', ['controller' => 'tracker', 'action' => 'remove', 'confirm' => 1]))->setMethods(['POST']));
+        $routes->add('trackers-delete', (new Route('trackers/{trackerId}', ['controller' => 'tracker', 'action' => 'remove', 'confirm' => 1]))->setMethods(['DELETE']));
         $routes->add('trackeritems-view', (new Route('tracker-item/{id}', ['controller' => 'tracker', 'action' => 'view']))->setMethods(['GET']));
         return $routes;
+    }
+
+    protected function renderDocs()
+    {
+        global $base_url;
+        $smarty = TikiLib::lib('smarty');
+        $smarty->assign('asset_path', $base_url . 'vendor_bundled/vendor/swagger-api/swagger-ui/dist/');
+        echo $smarty->fetch('api/docs.tpl');
+    }
+
+    protected function renderDocsYaml()
+    {
+        global $base_url, $tikipath;
+        $docs = file_get_contents($tikipath.'templates/api/docs.yaml');
+        $docs = str_replace('{server-url}', $base_url.'api/', $docs);
+        echo $docs;
     }
 }

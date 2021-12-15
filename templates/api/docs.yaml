@@ -1,0 +1,428 @@
+---
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Tiki API
+  description: This is the default Tiki API allowing programmable access to the Tiki system.
+  termsOfService: https://tiki.org/terms-of-service
+  contact:
+    name: Tiki Developers
+    email: tikiwiki-devel@lists.sourceforge.net
+    url: https://tiki.org/Contact-Us
+  license:
+    name: LGPL 2.1
+    url: http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html
+externalDocs:
+  description: Tiki documentation
+  url: https://doc.tiki.org/Documentation
+servers:
+  - url: {server-url}
+security:
+  - bearerAuth: []
+paths:
+  /trackers:
+    get:
+      description: Get all trackers that target user can see along with their configuration details.
+      responses:
+        '200':
+          description: tracker response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  list:
+                    type: object
+                    description: List of tracker IDs and names
+                    example: |
+                      {"9": "Tracker 9", "15": "Tracker 15"}
+                  data:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        trackerId:
+                          type: integer
+                        name:
+                          type: string
+                        description:
+                          type: string
+                        descriptionIsParsed:
+                          $ref: '#/components/schemas/TikiBoolean'
+                        created:
+                          type: integer
+                        lastModif:
+                          type: integer
+                        items:
+                          type: integer
+                          description: Tracker items count
+                  cant:
+                    type: integer
+                    description: Trackers count
+    post:
+      description: Create a new tracker.
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Tracker'
+      responses:
+        '200':
+          description: tracker response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  trackerId:
+                    type: integer
+                  info:
+                    type: object
+        '403':
+          description: forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /trackers/{trackerId}:
+    get:
+      description: Retrieve items in a tracker.
+      parameters:
+        - name: trackerId
+          in: path
+          description: Tracker ID
+          required: true
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          description: Start offset for the number of records to return.
+          schema:
+            type: integer
+        - name: maxRecords
+          in: query
+          description: Maximum number of records to return.
+          schema:
+            type: integer
+        - name: modifiedSince
+          in: query
+          description: Return only records newer than the specified timestamp.
+          schema:
+            type: integer
+        - name: status
+          in: query
+          description: Return only records with specific status.
+          schema:
+            type: string
+        - name: format
+          in: query
+          description: Specify 'raw' to return raw item values without any field processing.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: tracker items response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  trackerId:
+                    type: integer
+                  offset:
+                    type: integer
+                  maxRecords:
+                    type: integer
+                  result:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        itemdId:
+                          type: integer
+                        status:
+                          type: string
+                        fields:
+                          type: object
+                          example: |
+                            {"field1PermName": "value", "field2PermName": "value"}
+        '403':
+          description: forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      description: Update a tracker.
+      parameters:
+        - name: trackerId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Tracker'
+      responses:
+        '200':
+          description: tracker response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  trackerId:
+                    type: integer
+                  info:
+                    type: object
+        '403':
+          description: forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      description: Remove a tracker.
+      parameters:
+        - name: trackerId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: tracker response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  trackerId:
+                    type: integer
+                  info:
+                    type: object
+        '403':
+          description: forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /tracker-item/{id}:
+    get:
+      description: Retrieve a tracker item
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: tracker item response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  title:
+                    type: string
+                  itemId:
+                    type: integer
+                  trackerId:
+                    type: integer
+                  fields:
+                    type: object
+                    description: TODO definition
+                  canModify:
+                    type: boolean
+                  item_info:
+                    $ref: '#/components/schemas/TrackerItem'
+                  info:
+                    $ref: '#/components/schemas/TrackerItem'
+        '403':
+          description: forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Obtain bearer token keys from your Tiki admin Security page.
+  schemas:
+    Error:
+      type: object
+      required:
+        - code
+        - errortitle
+        - message
+      properties:
+        code:
+          type: integer
+        errortitle:
+          type: string
+        message:
+          type: string
+    TikiBoolean:
+      type: string
+      enum:
+        - y
+        - n
+    Tracker:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        descriptionIsParsed:
+          type: integer
+        fieldPrefix:
+          type: string
+        permName:
+          type: string
+        showStatus:
+          type: integer
+        showStatusAdminOnly:
+          type: integer
+        showCreated:
+          type: integer
+        showCreatedView:
+          type: integer
+        showCreatedBy:
+          type: integer
+        showCreatedFormat:
+          type: string
+        showLastModif:
+          type: integer
+        showLastModifView:
+          type: integer
+        showLastModifBy:
+          type: integer
+        showLastModifFormat:
+          type: string
+        defaultOrderKey:
+          type: integer
+        defaultOrderDir:
+          type: string
+        doNotShowEmptyField:
+          type: integer
+        showPopup:
+          type: string
+        defaultStatus:
+          type: array
+        newItemStatus:
+          type: string
+        modItemStatus:
+          type: string
+        outboundEmail:
+          type: string
+        simpleEmail:
+          type: integer
+        userCanSeeOwn:
+          type: integer
+        groupCanSeeOwn:
+          type: integer
+        writerCanModify:
+          type: integer
+        writerCanRemove:
+          type: integer
+        userCanTakeOwnership:
+          type: integer
+        oneUserItem:
+          type: integer
+        writerGroupCanModify:
+          type: integer
+        writerGroupCanRemove:
+          type: integer
+        useRatings:
+          type: integer
+        showRatings:
+          type: integer
+        ratingOptions:
+          type: string
+        useComments:
+          type: integer
+        showComments:
+          type: integer
+        showLastComment:
+          type: integer
+        saveAndComment:
+          type: integer
+        useAttachments:
+          type: integer
+        showAttachments:
+          type: integer
+        orderAttachments:
+          type: array
+        start:
+          type: integer
+        end:
+          type: integer
+        autoCreateGroup:
+          type: integer
+        autoCreateGroupInc:
+          type: string
+        autoAssignCreatorGroup:
+          type: integer
+        autoAssignCreatorGroupDefault:
+          type: integer
+        autoAssignGroupItem:
+          type: integer
+        autoCopyGroup:
+          type: integer
+        viewItemPretty:
+          type: string
+        editItemPretty:
+          type: string
+        autoCreateCategories:
+          type: integer
+        publishRSS:
+          type: integer
+        sectionFormat:
+          type: string
+        adminOnlyViewEditItem:
+          type: integer
+        logo:
+          type: string
+        useFormClasses:
+          type: integer
+        formClasses:
+          type: string
+        tabularSync:
+          type: integer
+        tabularSyncModifiedField:
+          type: integer
+        tabularSyncLastImport:
+          type: integer
+    TrackerItem:
+      type: object
+      properties:
+        itemId:
+          type: integer
+        trackerId:
+          type: integer
+        created:
+          type: integer
+        createdBy:
+          type: string
+        status:
+          type: string
+        lastModif:
+          type: integer
+        lastModifBy:
+          type: string
