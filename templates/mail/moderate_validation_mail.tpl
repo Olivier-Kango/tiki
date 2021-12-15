@@ -16,6 +16,7 @@
 {/if}
 
 {tr}To validate that {$prefs.mail_template_custom_text}account, please follow the link:{/tr}
+
 {$validation_url}
 
 {tr}Assign to a group:{/tr} {$assignuser_url}
