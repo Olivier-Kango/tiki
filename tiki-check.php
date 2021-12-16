@@ -89,15 +89,15 @@ if (file_exists('./db/local.php') && file_exists('./templates/tiki-check.tpl')) 
             $morestyle = "overflow-wrap: anywhere;";
         }
         if (is_array($var)) {
-            $render .= '<table style="border:2px solid grey;' . $morestyle . '">';
+            $render .= '<table class="table table-bordered" style="' . $morestyle . '"><thead>';
             foreach ($var as $key => $value) {
-                $render .= '<tr style="border:1px solid">';
-                $render .= '<td style="border:1px black;padding:5px;white-space:nowrap;">';
+                $render .= '<tr>';
+                $render .= '<th>Property : ';
                 $render .= $key;
-                $render .= "</td>";
+                $render .= "</th></thead>";
                 $iNbCol = 0;
                 foreach ($var[$key] as $key2 => $value2) {
-                    $render .= '<td style="border:1px solid;';
+                    $render .= '<tbody><td data-th="'. $key2 .' : "';
                     if ($iNbCol != count(array_keys($var[$key])) - 1) {
                         $render .= 'text-align: center;white-space:nowrap;';
                     }
@@ -117,7 +117,7 @@ if (file_exists('./db/local.php') && file_exists('./templates/tiki-check.tpl')) 
                 }
                 $render .= '</tr>';
             }
-            $render .= '</table>';
+            $render .= '</tbody></table>';
         } else {
             $render .= 'Nothing to display.';
         }
@@ -254,10 +254,21 @@ if ($standalone && ! $locked) {
 <h2>Database credentials</h2>
 Couldn't connect to database, please provide valid credentials.
 <form method="post" action="{$_SERVER['SCRIPT_NAME']}">
-    <p><label for="dbhost">Database host</label>: <input type="text" id="dbhost" name="dbhost" value="localhost" /></p>
-    <p><label for="dbuser">Database username</label>: <input type="text" id="dbuser" name="dbuser" /></p>
-    <p><label for="dbpass">Database password</label>: <input type="password" id="dbpass" name="dbpass" /></p>
-    <p><input type="submit" class="btn btn-primary btn-sm" value=" Connect " /></p>
+    <div class="form-group">
+        <label for="dbhost">Database host</label>
+        <input class="form-control" type="text" id="dbhost" name="dbhost" value="localhost" />
+    </div>
+    <div class="form-group">
+        <label for="dbuser">Database username</label>
+        <input class="form-control" type="text" id="dbuser" name="dbuser" />
+    </div>
+    <div class="form-group">
+        <label for="dbpass">Database password</label>
+        <input class="form-control" type="password" id="dbpass" name="dbpass" />
+    </div>
+    <div class="form-group">
+    <input type="submit" class="btn btn-primary btn-sm" value=" Connect " />
+    </div>
 </form>
 DBC;
     } else {
@@ -3479,8 +3490,43 @@ function createPage($title, $content)
             .bad, .risky { background-color: #bd362f;}
             .good, .safe { background-color: #5bb75b;}
             .info {background-color: #2f96b4;}
-//            h1 { border-bottom: 1px solid #DADADA; color: #7e7363; }
-        </style>
+           .sitetitle, h1, h2, h3, h4, h5 { 
+            font-family: BlinkMacSystemFont,"Segoe UI", Roboto, sans-serif;
+           }
+        
+table {
+  border-spacing: 0;
+}
+
+td,
+th {
+  padding: 0.5em;
+}
+
+th {
+  font-weight: bold;
+  text-align: left;
+}
+
+td > div {
+  float: right;
+}
+
+@media only screen and (max-width: 40em) {
+  thead th:not(:first-child) {
+    display: none;
+  }
+  td, th {
+    display: block;
+    clear: both;
+  }
+  td[data-th]:before {
+    content: attr(data-th);
+    float: left;
+  }
+}
+}
+</style>
     </head>
     <body class="tiki_wiki ">
     <div id="fixedwidth" >

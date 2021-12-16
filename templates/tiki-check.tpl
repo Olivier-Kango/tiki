@@ -6,29 +6,32 @@
 <input class="registerSubmit btn btn-primary" type="submit" name="acknowledge" value="{tr}Acknowledge (OK){/tr}">
 <div class="table-responsive">
     <table class="table table-striped table-hover">
+        <thead>
         <tr>
-            <th>{tr}Property{/tr}</th>
+            <th>{tr}Properties{/tr}</th>
             <th>{tr}Value{/tr}</th>
             <th>{tr}Tiki Fitness{/tr}</th>
             <th class="tips" title="{tr}Acknowledge{/tr}">{tr}OK{/tr}</th>
             <th>{tr}Explanation{/tr}</th>
         </tr>
-
+        </thead>
+        <tbody>
         {foreach from=$mysql_properties key=key item=item}
             <tr>
-                <td class="text">{$key}</td>
-                <td class="text">{$item.setting}</td>
-                <td class="text">
+                <th class="text">Property : {$key}</th>
+                <td data-th="{tr}Value : {/tr}" class="text">{$item.setting}</td>
+                <td data-th="{tr}Tiki Fitness : {/tr}" class="text">
                     <span class="text-{$fmap[$item.fitness]['class']}">
                         {icon name="{$fmap[$item.fitness]['icon']}"} {$item.fitness}
                     </span>
                 </td>
-                <td class="text"><input type="checkbox" name="{$key}" {if $item.fitness eq 'good'}disabled{/if} {if $item.ack}checked{/if} /></td>
-                <td class="text">{$item.message}</td>
+                <td data-th="{tr}OK : {/tr}" class="text"><input type="checkbox" name="{$key}" {if $item.fitness eq 'good'}disabled{/if} {if $item.ack}checked{/if} /></td>
+                <td data-th="{tr}Explanation : {/tr}" class="text">{$item.message}</td>
             </tr>
         {foreachelse}
             {norecords _colspan=4}
         {/foreach}
+        </tbody>
     </table>
 </div>
 
@@ -39,20 +42,23 @@
 <h2 class="showhide_heading" id="MySQL_crashed_Tables">{tr}MySQL crashed Tables{/tr}<a href="#MySQL_crashed_Tables" class="heading-link"><span class="icon icon-link fas fa-link "></span></a></h2>
 {remarksbox type="note" title="{tr}Be careful{/tr}"}{tr}The following list is just a very quick look at SHOW TABLE STATUS that tells you, if tables have been marked as crashed. If you are experiencing database problems you should still run CHECK TABLE or myisamchk to make sure{/tr}.{/remarksbox}
 <div class="table-responsive">
-    <table class="table">
+    <table class="table table-striped table-hover">
+        <thead>
         <tr>
             <th>{tr}Table{/tr}</th>
             <th>{tr}Comment{/tr}</th>
         </tr>
-
+        </thead>
+        <tbody>
         {foreach from=$mysql_crashed_tables key=key item=item}
             <tr>
-                <td class="text">{$key}</td>
-                <td class="text">{$item.Comment}</td>
+                <th class="text">Table name : {$key}</th>
+                <td data-th="{tr}Comment : {/tr}" class="text">{$item.Comment}</td>
             </tr>
         {foreachelse}
             {norecords _colspan=2}
         {/foreach}
+        </tbody>
     </table>
 </div>
 
@@ -176,47 +182,53 @@
 <h2 class="showhide_heading" id="Server_Information">{tr}Server Information{/tr}<a href="#Server_Information" class="heading-link"><span class="icon icon-link fas fa-link "></span></a></h2>
 <div class="table-responsive">
     <table class="table">
+        <thead>
         <tr>
-            <th>{tr}Property{/tr}</th>
+            <th>{tr}Properties{/tr}</th>
             <th>{tr}Value{/tr}</th>
         </tr>
-
+        </thead>
+        <tbody>
         {foreach from=$server_information key=key item=item}
             <tr>
-                <td class="text">{$key}</td>
-                <td class="text">{$item.value}</td>
+                <th class="text">Property : {$key}</th>
+                <td data-th="{tr}Value : {/tr}" class="text">{$item.value}</td>
             </tr>
         {foreachelse}
             {norecords _colspan=2}
         {/foreach}
+        </tbody>
     </table>
 </div>
 <h2 class="showhide_heading" id="Server_Properties">{tr}Server Properties{/tr}<a href="#Server_Properties" class="heading-link"><span class="icon icon-link fas fa-link "></span></a></h2>
 <div class="table-responsive">
     <table class="table">
+        <thead>
         <tr>
-            <th>{tr}Property{/tr}</th>
+            <th>{tr}Properties{/tr}</th>
             <th>{tr}Value{/tr}</th>
             <th>{tr}Tiki Fitness{/tr}</th>
             <th class="tips" title="{tr}Acknowledge{/tr}">{tr}OK{/tr}</th>
             <th>{tr}Explanation{/tr}</th>
         </tr>
-
+</thead>
+        <tbody>
         {foreach from=$server_properties key=key item=item}
             <tr>
-                <td class="text">{$key}</td>
-                <td class="text">{$item.setting}</td>
-                <td class="text">
+                <th class="text">Property : {$key}</th>
+                <td data-th="{tr}Value : {/tr}" class="text">{$item.setting}</td>
+                <td data-th="{tr}Tiki Fitness : {/tr}" class="text">
                     <span class="text-{$fmap[$item.fitness]['class']}">
                         {icon name="{$fmap[$item.fitness]['icon']}"} {$item.fitness}
                     </span>
                 </td>
-                <td class="test"><input type="checkbox" name="{$key}" {if $item.fitness eq 'good'}disabled{/if} {if $item.ack}checked{/if} /></td>
-                <td class="text">{$item.message}</td>
+                <td data-th="{tr}OK : {/tr}" class="test"><input type="checkbox" name="{$key}" {if $item.fitness eq 'good'}disabled{/if} {if $item.ack}checked{/if} /></td>
+                <td  data-th="{tr}Explanation : {/tr}" class="text">{$item.message}</td>
             </tr>
         {foreachelse}
             {norecords _colspan=4}
         {/foreach}
+        </tbody>
     </table>
 </div>
 
@@ -225,23 +237,25 @@
 {if count($dirs)}
     <div class="table-responsive">
         <table class="table">
+            <thead>
             <tr>
-                <th>{tr}Directory{/tr}</th>
+                <th>{tr}Directories{/tr}</th>
                 <th>{tr}Fitness{/tr}</th>
                 <th>{tr}Explanation{/tr}</th>
             </tr>
-
+</thead>
+        <tbody>
             {foreach from=$dirs item=d key=k}
                 <tr>
-                    <td class="text">{$d|escape}</td>
-                    <td class="text">
+                    <th class="text">Directory : {$d|escape}</th>
+                    <td data-th="{tr}Fitness : {/tr}" class="text">
                         {if $dirsWritable[$k]}
                             {icon name='ok' iclass='text-success'}
                         {else}
                             {icon name='remove' iclass='text-danger'}
                         {/if}
                     </td>
-                    <td>
+                    <td data-th="{tr}Explanation : {/tr}" >
                         {if $dirsWritable[$k]}
                             {tr}Directory is writeable{/tr}.
                         {else}
@@ -250,6 +264,7 @@
                     </td>
                 </tr>
             {/foreach}
+             </tbody>
         </table>
     </div>
 {/if}
@@ -258,29 +273,32 @@
 {if $apache_properties}
     <div class="table-responsive">
         <table class="table">
-            <tr>
-                <th>{tr}Property{/tr}</th>
-                <th>{tr}Value{/tr}</th>
-                <th>{tr}Tiki Fitness{/tr}</th>
-                <th class="tips" title="{tr}Acknowledge{/tr}">{tr}OK{/tr}</th>
-                <th>{tr}Explanation{/tr}</th>
-            </tr>
-
+            <thead>
+        <tr>
+            <th>{tr}Properties{/tr}</th>
+            <th>{tr}Value{/tr}</th>
+            <th>{tr}Tiki Fitness{/tr}</th>
+            <th class="tips" title="{tr}Acknowledge{/tr}">{tr}OK{/tr}</th>
+            <th>{tr}Explanation{/tr}</th>
+        </tr>
+        </thead>
+<tbody>
             {foreach from=$apache_properties key=key item=item}
                 <tr>
-                    <td class="text">{$key}</td>
-                    <td class="text">{$item.setting}</td>
-                    <td class="text">
+                    <th class="text">Property : {$key}</th>
+                    <td data-th="{tr}Value : {/tr}" class="text">{$item.setting}</td>
+                    <td data-th="{tr}Tiki Fitness : {/tr}" class="text">
                     <span class="text-{$fmap[$item.fitness]['class']}">
                         {icon name="{$fmap[$item.fitness]['icon']}"} {$item.fitness}
                     </span>
                     </td>
-                    <td class="test"><input type="checkbox" name="{$key}" {if $item.fitness eq 'good'}disabled{/if} {if $item.ack}checked{/if} /></td>
-                    <td class="text">{$item.message}</td>
+                    <td data-th="{tr}OK : {/tr}" class="test"><input type="checkbox" name="{$key}" {if $item.fitness eq 'good'}disabled{/if} {if $item.ack}checked{/if} /></td>
+                    <td data-th="{tr}Explanation : {/tr}" class="text">{$item.message}</td>
                 </tr>
             {foreachelse}
                 {norecords _colspan=4}
             {/foreach}
+            </tbody>
         </table>
     </div>
 {else}
@@ -291,29 +309,32 @@
 {if $iis_properties}
     <div class="table-responsive">
         <table class="table">
-            <tr>
-                <th>{tr}Property{/tr}</th>
-                <th>{tr}Value{/tr}</th>
-                <th>{tr}Tiki Fitness{/tr}</th>
-                <th class="tips" title="{tr}Acknowledge{/tr}">{tr}OK{/tr}</th>
-                <th>{tr}Explanation{/tr}</th>
-            </tr>
-
+            <thead>
+        <tr>
+            <th>{tr}Properties{/tr}</th>
+            <th>{tr}Value{/tr}</th>
+            <th>{tr}Tiki Fitness{/tr}</th>
+            <th class="tips" title="{tr}Acknowledge{/tr}">{tr}OK{/tr}</th>
+            <th>{tr}Explanation{/tr}</th>
+        </tr>
+        </thead>
+<tbody>
             {foreach from=$iis_properties key=key item=item}
                 <tr>
-                    <td class="text">{$key}</td>
-                    <td class="text">{$item.setting}</td>
-                    <td class="text">
+                    <th class="text">Property : {$key}</th>
+                    <td data-th="{tr}Value : {/tr}" class="text">{$item.setting}</td>
+                    <td data-th="{tr}Tiki Fitness : {/tr}" class="text">
                     <span class="text-{$fmap[$item.fitness]['class']}">
                         {icon name="{$fmap[$item.fitness]['icon']}"} {$item.fitness}
                     </span>
                     </td>
-                    <td class="test"><input type="checkbox" name="{$key}" {if $item.fitness eq 'good'}disabled{/if} {if $item.ack}checked{/if} /></td>
-                    <td class="text">{$item.message}</td>
+                    <td data-th="{tr}OK : {/tr}" class="test"><input type="checkbox" name="{$key}" {if $item.fitness eq 'good'}disabled{/if} {if $item.ack}checked{/if} /></td>
+                    <td data-th="{tr}Explanation : {/tr}" class="text">{$item.message}</td>
                 </tr>
             {foreachelse}
                 {norecords _colspan=4}
             {/foreach}
+            </tbody>
         </table>
     </div>
 {else}
@@ -323,29 +344,32 @@
 <h2 class="showhide_heading" id="PHP_scripting_language_properties">{tr}PHP scripting language properties{/tr}<a href="#PHP_scripting_language_properties" class="heading-link"><span class="icon icon-link fas fa-link "></span></a></h2>
 <div class="table-responsive">
     <table class="table">
+        <thead>
         <tr>
-            <th>{tr}Property{/tr}</th>
+            <th>{tr}Properties{/tr}</th>
             <th>{tr}Value{/tr}</th>
             <th>{tr}Tiki Fitness{/tr}</th>
             <th class="tips" title="{tr}Acknowledge{/tr}">{tr}OK{/tr}</th>
             <th>{tr}Explanation{/tr}</th>
         </tr>
-
+        </thead>
+<tbody>
         {foreach from=$php_properties key=key item=item}
-            <tr>
-                <td class="text">{$key}</td>
-                <td class="text">{$item.setting}</td>
-                <td class="text">
+<tr>
+                    <th class="text">Property : {$key}</th>
+                    <td data-th="{tr}Value : {/tr}" class="text">{$item.setting}</td>
+                    <td data-th="{tr}Tiki Fitness : {/tr}" class="text">
                     <span class="text-{$fmap[$item.fitness]['class']}">
                         {icon name="{$fmap[$item.fitness]['icon']}"} {$item.fitness}
                     </span>
-                </td>
-                <td class="test"><input type="checkbox" name="{$key}" {if $item.fitness eq 'good'}disabled{/if} {if $item.ack}checked{/if} /></td>
-                <td class="text">{$item.message}</td>
-            </tr>
+                    </td>
+                    <td data-th="{tr}OK : {/tr}" class="test"><input type="checkbox" name="{$key}" {if $item.fitness eq 'good'}disabled{/if} {if $item.ack}checked{/if} /></td>
+                    <td data-th="{tr}Explanation : {/tr}" class="text">{$item.message}</td>
+                </tr>
         {foreachelse}
             {norecords _colspan=4}
         {/foreach}
+        <tbody>
     </table>
 </div>
 
@@ -369,30 +393,32 @@
 <h2 class="showhide_heading" id="PHP_scripting_language_properties">{tr}PHP scripting language properties{/tr}<a href="#PHP_scripting_language_properties" class="heading-link"><span class="icon icon-link fas fa-link "></span></a></h2>
 {tr}To check the file integrity of your Tiki installation, go to <a href="tiki-admin_security.php">Admin->Security</a>{/tr}.
 <div class="table-responsive">
-    <table class="table">
+    <table class="table"><thead>
         <tr>
-            <th>{tr}Property{/tr}</th>
+            <th>{tr}Properties{/tr}</th>
             <th>{tr}Value{/tr}</th>
             <th>{tr}Tiki Fitness{/tr}</th>
             <th class="tips" title="{tr}Acknowledge{/tr}">{tr}OK{/tr}</th>
             <th>{tr}Explanation{/tr}</th>
-        </tr>
+        </tr></thead>
+        <tbody>
 
         {foreach from=$security key=key item=item}
             <tr>
-                <td class="text">{$key}</td>
-                <td class="text">{$item.setting}</td>
-                <td class="text">
+                    <th class="text">Property : {$key}</th>
+                    <td data-th="{tr}Value : {/tr}" class="text">{$item.setting}</td>
+                    <td data-th="{tr}Tiki Fitness : {/tr}" class="text">
                     <span class="text-{$fmap[$item.fitness]['class']}">
                         {icon name="{$fmap[$item.fitness]['icon']}"} {$item.fitness}
                     </span>
-                </td>
-                <td class="test"><input type="checkbox" name="{$key}" {if $item.fitness eq 'safe'}disabled{/if} {if $item.ack}checked{/if} /></td>
-                <td class="text">{$item.message}</td>
-            </tr>
+                    </td>
+                    <td data-th="{tr}OK : {/tr}" class="test"><input type="checkbox" name="{$key}" {if $item.fitness eq 'good'}disabled{/if} {if $item.ack}checked{/if} /></td>
+                    <td data-th="{tr}Explanation : {/tr}" class="text">{$item.message}</td>
+                </tr>
         {foreachelse}
             {norecords _colspan=4}
         {/foreach}
+        </tbody>
     </table>
 </div>
 </form>
@@ -424,7 +450,7 @@
 {/if}
 
 <h2 class="showhide_heading" id="File_Gallery_Search_Indexing">{tr}File Gallery Search Indexing{/tr}<a href="#File_Gallery_Search_Indexing" class="heading-link"><span class="icon icon-link fas fa-link "></span></a></h2>
-{icon name='help' href='https://doc.tiki.org/Search-within-files'} <em>{tr _0='<a href="https://doc.tiki.org/Search-within-files">' _1='</a>'}More information %0 here %1{/tr}</em>
+{icon name='help' href='https://doc.tiki.org/Search+within+files'} <em>{tr _0='<a href="https://doc.tiki.org/Search+within+files">' _1='</a>'}More information %0 here %1{/tr}</em>
 {if $prefs.fgal_enable_auto_indexing eq 'y'}
     {if $security.shell_exec.setting eq 'Disabled'}
         {remarksbox type='error' title='{tr}Command Missing{/tr}' close='n'}
@@ -433,26 +459,28 @@
     {/if}
     <div class="table-responsive">
         <table class="table">
+            <thead>
             <tr>
-                <th>{tr}Mimetype{/tr}</th>
+                <th>{tr}MIME types{/tr}</th>
                 <th>{tr}Tiki Fitness{/tr}</th>
                 <th>{tr}Explanation{/tr}</th>
-            </tr>
+            </tr></thead>
+        <tbody>
 
             {foreach from=$file_handlers key=key item=item}
                 <tr>
-                    <td class="text">{$key}</td>
-                    <td class="text">
+                    <th class="text">Mime type : {$key}</th>
+                    <td data-th="{tr}Tiki Fitness : {/tr}" lass="text">
                         <span class="text-{$fmap[$item.fitness]['class']}">
                             {icon name="{$fmap[$item.fitness]['icon']}"} {$item.fitness}
                         </span>
                     </td>
-                    <td class="text">{$item.message|escape}</td>
+                    <td data-th="{tr}Explanation : {/tr}" class="text">{$item.message|escape}</td>
                 </tr>
             {foreachelse}
                 {norecords _colspan=3}
             {/foreach}
-        </table>
+        </tbody></table>
     </div>
 {else}
     {remarksbox type='info' title='{tr}Feature disabled{/tr}' close='n'}
@@ -462,20 +490,21 @@
 
 <h2 class="showhide_heading" id="MySQL_Variable_Information">{tr}MySQL Variable Information{/tr}<a href="#MySQL_Variable_Information" class="heading-link"><span class="icon icon-link fas fa-link "></span></a></h2>
 <div class="table-responsive">
-    <table class="table">
+    <table class="table table-striped table-hover"><thead>
         <tr>
-            <th>{tr}Property{/tr}</th>
+            <th>{tr}Properties{/tr}</th>
             <th>{tr}Value{/tr}</th>
-        </tr>
+        </tr></thead>
+        <tbody>
 
         {foreach from=$mysql_variables key=key item=item}
             <tr>
-                <td class="text">{$key}</td>
-                <td class="text" style="overflow-wrap: anywhere;" >{$item.value|escape}</td>
+                <th class="text">Property : {$key}</th>
+                <td data-th="{tr}Value : {/tr}" class="text">{$item.value|escape}</td>
             </tr>
         {foreachelse}
             {norecords _colspan=2}
-        {/foreach}
+        {/foreach}</tbody>
     </table>
 </div>
 
@@ -489,17 +518,19 @@
     <br />
     <div class="table-responsive">
         <table class="table table-striped table-hover">
+             <thead>
             <tr>
-                <th>{tr}Property{/tr}</th>
+                <th>{tr}Properties{/tr}</th>
                 <th>{tr}Seconds{/tr}</th>
-            </tr>
+            </tr></thead>
+        <tbody>
 
             {foreach from=$benchmark key=key item=item}
                 <tr>
-                    <td class="text">{$key}</td>
-                    <td class="text">{$item.value}</td>
+                    <th class="text">Property : {$key}</th>
+                    <td data-th="{tr}Seconds : {/tr}" class="text">{$item.value}</td>
                 </tr>
-            {/foreach}
+            {/foreach}</tbody>
         </table>
     </div>
 {/if}
@@ -529,46 +560,48 @@
 {if trim_capable}
     <h3>Server Instance</h3>
     <div class="table-responsive">
-        <table class="table">
+        <table class="table table-striped"><thead>
             <tr>
                 <th>{tr}Requirements{/tr}</th>
                 <th>{tr}Status{/tr}</th>
                 <th>{tr}Message{/tr}</th>
-            </tr>
+            </tr></thead>
+        <tbody>
             {foreach from=$trim_server_requirements key=key item=item}
                 <tr>
-                    <td class="text">{$key}</td>
-                    <td class="text">
+                    <th class="text">Requirement : {$key}</th>
+                    <td data-th="{tr}Status : {/tr}" class="text">
                     <span class="text-{$fmap[$item.fitness]['class']}">
                         {icon name="{$fmap[$item.fitness]['icon']}"} {$item.fitness}
                     </span>
                     </td>
-                    <td class="text">{$item.message}</td>
+                    <td data-th="{tr}Explanation : {/tr}" class="text">{$item.message}</td>
                 </tr>
             {/foreach}
-        </table>
+        </tbody></table>
     </div>
 
     <h3>Client Instance</h3>
     <div class="table-responsive">
-        <table class="table">
+        <table class="table table-striped"><thead>
             <tr>
                 <th>{tr}Requirements{/tr}</th>
                 <th>{tr}Status{/tr}</th>
                 <th>{tr}Message{/tr}</th>
-            </tr>
+            </tr></thead>
+        <tbody>
             {foreach from=$trim_client_requirements key=key item=item}
                 <tr>
-                    <td class="text">{$key}</td>
-                    <td class="text">
+                    <th class="text">Requirement : {$key}</th>
+                    <td data-th="{tr}Status : {/tr}" class="text">
                     <span class="text-{$fmap[$item.fitness]['class']}">
                         {icon name="{$fmap[$item.fitness]['icon']}"} {$item.fitness}
                     </span>
                     </td>
-                    <td class="text">{$item.message}</td>
+                    <td data-th="{tr}Explanation : {/tr}" class="text">{$item.message}</td>
                 </tr>
             {/foreach}
-        </table>
+        </tbody></table>
     </div>
 {else}
     {remarksbox type='error' title='{tr}OS not supported{/tr}' close='n'}
@@ -578,17 +611,18 @@
 
 <h2 class="showhide_heading" id="User_Data_Encryption">{tr}User Data Encryption{/tr}<a href="#User_Data_Encryption" class="heading-link"><span class="icon icon-link fas fa-link "></span></a></h2>
 <div class="table-responsive">
-    <table class="table">
+    <table class="table"><thead>
         <tr>
             <th>{tr}Encryption Method{/tr}</th>
             <th>{tr}Encrypted Preferences{/tr}</th>
             <th>{tr}Message{/tr}</th>
-        </tr>
+        </tr></thead>
+        <tbody>
         {foreach from=$user_encryption_stats key=method item=stats}
             <tr>
-                <td class="text">{$method}</td>
-                <td class="text">{$stats}</td>
-                <td class="text">
+                <th class="text"> Encryption Method : {$method}</th>
+                <td data-th="{tr}Encrypted Preferences : {/tr}" class="text">{$stats}</td>
+                <td data-th="{tr}Message : {/tr}" class="text">
                     {if ($method eq 'MCrypt' or $method eq 'OpenSSL') and $stats > 0}
                         <p>{tr _0=$method}If %0 library gets removed, non-converted user encrypted data can no longer be decrypted. The data is
                             thus lost and must be re-entered.{/tr}</p>
@@ -598,29 +632,29 @@
         {foreachelse}
             {norecords _colspan=2}
         {/foreach}
-    </table>
+    </tbody></table>
 </div>
 
 <h2 class="showhide_heading" id="Tiki_Packages">{tr}Tiki Packages{/tr}<a href="#Tiki_Packages" class="heading-link"><span class="icon icon-link fas fa-link "></span></a></h2>
 <div class="table-responsive">
-    <table class="table">
+    <table class="table"><thead>
         <tr>
             <th>{tr}Requirements{/tr}</th>
             <th>{tr}Status{/tr}</th>
             <th>{tr}Message{/tr}</th>
-        </tr>
+        </tr></thead><tbody>
         {foreach from=$composer_checks key=key item=item}
-            <tr>
-                <td class="text">{$key}</td>
-                <td class="text">
-                <span class="text-{$fmap[$item.fitness]['class']}">
-                    {icon name="{$fmap[$item.fitness]['icon']}"} {$item.fitness}
-                </span>
-                </td>
-                <td class="text">{$item.message}</td>
-            </tr>
-        {/foreach}
-    </table>
+                <tr>
+                    <th class="text">Requirement : {$key}</th>
+                    <td data-th="{tr}Status : {/tr}" class="text">
+                    <span class="text-{$fmap[$item.fitness]['class']}">
+                        {icon name="{$fmap[$item.fitness]['icon']}"} {$item.fitness}
+                    </span>
+                    </td>
+                    <td data-th="{tr}Message : {/tr}" class="text">{$item.message}</td>
+                </tr>
+            {/foreach}
+    </tbody></table>
 </div>
 
 {if ! $composer_available}
@@ -630,23 +664,23 @@
 {/if}
 <div class="table-responsive">
     <table class="table">
-        <tr>
+        <thead><tr>
             <th>{tr}Package Name{/tr}</th>
             <th>{tr}Version{/tr}</th>
             <th>{tr}Status{/tr}</th>
             <th>{tr}Message{/tr}</th>
         </tr>
-
+</thead><tbody>
         {foreach from=$packages key=key item=item}
             <tr>
-                <td class="text">{$item.name}</td>
-                <td class="text">{$item.version}</td>
-                <td class="text">
+                <th class="text">Package name : {$item.name}</th>
+                <td data-th="{tr}Version : {/tr}" class="text">{$item.version}</td>
+                <td data-th="{tr}Status : {/tr}" class="text">
                     <span class="text-{$fmap[$item.status]['class']}">
                         {icon name="{$fmap[$item.status]['icon']}"} {$item.status}
                     </span>
                 </td>
-                <td class="text">
+                <td data-th="{tr}Message : {/tr}" class="text">
                     {foreach from=$item.message key=message_key item=message}
                         {$message}<br/>
                     {/foreach}
@@ -655,31 +689,65 @@
         {foreachelse}
             {norecords _colspan=4}
         {/foreach}
-    </table>
+   </tbody> </table>
 </div>
 
 
 <h2 class="showhide_heading" id="OCR_Status">{tr}OCR Status{/tr}<a href="#OCR_Status" class="heading-link"><span class="icon icon-link fas fa-link "></span></a></h2>
 <div class="table-responsive">
-    <table class="table">
+    <table class="table"><thead>
         <tr>
             <th>{tr}Requirements{/tr}</th>
             <th>{tr}Version{/tr}</th>
             <th>{tr}Status{/tr}</th>
             <th>{tr}Message{/tr}</th>
         </tr>
-
+</thead><tbody>
         {foreach from=$ocr key=key item=item}
             <tr>
-                <td class="text">{$item.name}</td>
-                <td class="text">{$item.version}</td>
-                <td class="text">
+                <th class="text">Requirement : {$item.name}</th>
+                <td data-th="{tr}Version : {/tr}" class="text">{$item.version}</td>
+                <td data-th="{tr}Status : {/tr}" data-th="{tr}Version : {/tr}" class="text">
                     <span class="text-{$fmap[$item.status]['class']}">
                         {icon name="{$fmap[$item.status]['icon']}"} {$item.status}
                     </span>
                 </td>
-                <td class="text">{$item.message}</td>
+                <td data-th="{tr}Message : {/tr}" class="text">{$item.message}</td>
             </tr>
         {/foreach}
-    </table>
+   </tbody> </table>
+    
+{*Additional table style*}
+<style type="text/css">
+{literal}
+table {
+  border-spacing: 0;
+}
+td,th {
+  padding: 0.5em;
+}
+
+th {
+  font-weight: bold;
+  text-align: left;
+}
+td > div {
+  float: right;
+}
+/* fold columns into rows when we have mobile screens. */
+@media only screen and (max-width: 40em) {
+  thead th:not(:first-child) {
+    display: none;
+  }
+  td, th {
+    display: block;
+    clear: both;
+  }
+  td[data-th]:before {
+    content: attr(data-th);
+    float: left;
+  }}
+{/literal}
+</style>
 </div>
+
