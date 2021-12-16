@@ -7,6 +7,7 @@
 // $Id$
 
 use Tiki\File\PDFHelper;
+use Tiki\Package\ComposerManager;
 
 class Tracker_Field_Files extends Tracker_Field_Abstract implements Tracker_Field_Exportable
 {
@@ -346,6 +347,9 @@ class Tracker_Field_Files extends Tracker_Field_Abstract implements Tracker_Fiel
     {
         global $prefs;
         global $mimetypes;
+        global $tikipath;
+        
+
         include('lib/mime/mimetypes.php');
         $galleryId = (int)$this->getOption('galleryId');
 
@@ -475,6 +479,10 @@ class Tracker_Field_Files extends Tracker_Field_Abstract implements Tracker_Fiel
                 $smarty = TikiLib::lib('smarty');
                 $smarty->loadPlugin('smarty_function_object_link');
                 $smarty->loadPlugin('smarty_modifier_iconify');
+
+                $composerManager = new ComposerManager($tikipath);
+                $pdfjsIsInstalled = $composerManager->isInstalled("npm-asset/pdfjs-dist-viewer-min");
+
                 $ret = '<ol class="tracker-item-files">';
 
                 foreach ($this->getConfiguration('files') as $fileId => $file) {
@@ -510,14 +518,15 @@ class Tracker_Field_Files extends Tracker_Field_Abstract implements Tracker_Fiel
                     $smarty->loadPlugin('smarty_function_icon');
                     $viewicon = smarty_function_icon(['name' => 'view'], $smarty->getEmptyInternalTemplate());
 
-                    if (
-                        $prefs['fgal_pdfjs_feature'] == 'y' &&
-                        ($file['filetype'] == $mimetypes["pdf"] || (PDFHelper::canConvertToPDF($file['filetype']) && $prefs['fgal_convert_documents_pdf'] == 'y'))
-                    ) {
-                        $ret .= " <a href='tiki-display.php?fileId=" . $file['fileId']
-                            . "' target='_blank' class='tips' title='Preview: " . $file['filename'] . "'>
-                            $viewicon
-                        </a>";
+                    if ($file['filetype'] == $mimetypes["pdf"] || (PDFHelper::canConvertToPDF($file['filetype']) && $prefs['fgal_convert_documents_pdf'] == 'y')) {
+
+                        if ($pdfjsIsInstalled && $prefs['fgal_pdfjs_feature'] == 'y') {
+                            $ret .= " <a href='tiki-display.php?fileId=" . $file['fileId']
+                                . "' target='_blank' class='tips' title='Preview: " . $file['filename'] . "'>
+                                $viewicon
+                            </a>";
+                        }
+                        
                     } else {
                         $dataAttributes = [];
 
