@@ -131,6 +131,13 @@ if (isset($_REQUEST['showLastModif'])) {
 }
 $smarty->assign_by_ref('showLastModif', $showLastModif);
 
+if (isset($_REQUEST['showLastModifBy'])) {
+    $showLastModifBy = $_REQUEST['showLastModifBy'] == 'on' ? 'y' : 'n';
+} else {
+    $showLastModifBy = 'n';
+}
+$smarty->assign_by_ref('showLastModifBy', $showLastModifBy);
+
 if (isset($_REQUEST['parse'])) {
     $parse = $_REQUEST['parse'] == 'on' ? 'y' : 'n';
 } else {

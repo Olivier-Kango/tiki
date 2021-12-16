@@ -201,6 +201,11 @@
                                         {self_link _sort_arg='sort_mode' _sort_field='lastModif'}{tr}Last modified{/tr}{/self_link}
                                     </th>
                                 {/if}
+                                {if $tracker_info.showLastModifBy eq 'y'}
+                                    <th class="auto">
+                                        {self_link _sort_arg='sort_mode' _sort_field='lastModifby'}{tr}Last modifier{/tr}{/self_link}
+                                    </th>
+                                {/if}
                                 {if $tracker_info.useComments eq 'y' and ($tracker_info.showComments eq 'y' || $tracker_info.showLastComment eq 'y') and $tiki_p_tracker_view_comments ne 'n'}
                                     <th{if $tracker_info.showLastComment ne 'y'} style="width:5%"{/if}>{tr}Comments{/tr}</th>
                                 {/if}
@@ -251,6 +256,11 @@
                                     {/if}
                                     {if $tracker_info.showLastModif eq 'y'}
                                         <td class="date">{if $tracker_info.showLastModifFormat}{$items[user].lastModif|tiki_date_format:$tracker_info.showLastModifFormat}{else}{$items[user].lastModif|tiki_short_datetime}{/if}</td>
+                                    {/if}
+                                    {if $tracker_info.showLastModifBy eq 'y'}
+                                        <td class="date">
+                                            {if empty($items[user].lastModifBy)}Unknown{else}{$items[user].lastModifBy|username}{/if}
+                                        </td>
                                     {/if}
                                     {if $tracker_info.useComments eq 'y' and ($tracker_info.showComments eq 'y' or $tracker_info.showLastComment eq 'y') and $tiki_p_tracker_view_comments ne 'n'}
                                         <td style="text-align:center;">{if $tracker_info.showComments eq 'y'}{$items[user].comments}{/if}{if $tracker_info.showComments eq 'y' and $tracker_info.showLastComment eq 'y'}<br>{/if}{if $tracker_info.showLastComment eq 'y' and !empty($items[user].lastComment)}{$items[user].lastComment.userName|escape}-{$items[user].lastComment.commentDate|tiki_short_date}{/if}</td>
