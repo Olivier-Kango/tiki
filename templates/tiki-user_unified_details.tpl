@@ -161,8 +161,8 @@
 
                     {* Blogs Tab *}
                     <div id="tab_blogs" class="profile-tab-content collapse">
-                        <h2>{tr}Wiki Pages{/tr}</h2>
-                        <p>{tr}This user has contributed to the following wiki pages{/tr}:</p>
+                        <h2>{tr}Blogs{/tr}</h2>
+                        <p>{tr}This user has contributed to the following blogs{/tr}:</p>
                         <div class="card">
                             <div class="card-body">
                                 {wikiplugin _name="list"}
