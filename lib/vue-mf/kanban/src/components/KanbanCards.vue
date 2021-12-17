@@ -4,7 +4,7 @@ export default {
 }
 </script>
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, defineEmits } from 'vue'
 import KanbanCard from './KanbanCard.vue'
 import { Card } from '@vue-mf/styleguide'
 import draggable from 'vuedraggable/src/vuedraggable'
@@ -20,7 +20,9 @@ const props = defineProps({
     columnId: {
         type: Number
     }
-});
+})
+
+const emit = defineEmits(['editCard'])
 
 const dragging = ref(false)
 
@@ -69,7 +71,7 @@ const handleChange = (event) => {
     >
         <template #item="{ element }">
             <KanbanCard>
-                <Card>{{ element.title }}</Card>
+                <Card @click="emit('editCard', element)">{{ element.title }}</Card>
             </KanbanCard>
         </template>
     </draggable>

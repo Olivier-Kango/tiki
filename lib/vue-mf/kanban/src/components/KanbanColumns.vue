@@ -7,7 +7,9 @@ export default {
 import { ref, computed } from 'vue'
 import KanbanColumn from './KanbanColumn.vue'
 import KanbanCards from './KanbanCards.vue'
+import FormEditCard from './Forms/FormEditCard.vue'
 import draggable from 'vuedraggable/src/vuedraggable'
+import { VueFinalModal } from 'vue-final-modal'
 import store from '../store'
 
 const props = defineProps({
@@ -23,6 +25,8 @@ const props = defineProps({
 });
 
 const dragging = ref(false)
+const showModal = ref(false)
+const card = ref(false)
 
 const getColumns = computed(() => store.getters.getColumns(props.columnIds))
 
@@ -51,6 +55,17 @@ const handleChange = (event) => {
         })
     }
 }
+
+const handleEditCard = (element) => {
+    card.value = element
+    showModal.value = true
+}
+const handleClickOutside = () => {
+    showModal.value = false
+}
+const handleModalClosed = () => {
+    showModal.value = false
+}
 </script>
 
 <template>
@@ -69,10 +84,19 @@ const handleChange = (event) => {
     >
         <template #item="{ element }">
             <KanbanColumn :columnId="element.id" :title="element.title">
-                <KanbanCards :columnId="element.id" :cardIds="element.cards"></KanbanCards>
+                <KanbanCards :columnId="element.id" :cardIds="element.cards" @editCard="handleEditCard"></KanbanCards>
             </KanbanColumn>
         </template>
     </draggable>
+    <vue-final-modal
+        v-model="showModal"
+        classes="modal-container"
+        content-class="modal-content"
+        @click-outside="handleClickOutside"
+        @closed="handleModalClosed"
+    >
+        <FormEditCard :title="card.title" :desc="card.desc"></FormEditCard>
+    </vue-final-modal>
 </template>
 
 <style lang="scss" scoped>
@@ -96,5 +120,25 @@ const handleChange = (event) => {
         background-color: #e8e9f3;
         border-radius: 8px;
     }
+}
+
+:deep(.modal-container) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+:deep(.modal-content) {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin: 0 1rem;
+  padding: 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.25rem;
+  background: #fff;
+}
+.modal__title {
+  font-size: 1.5rem;
+  font-weight: 700;
 }
 </style>
