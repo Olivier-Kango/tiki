@@ -81,7 +81,9 @@
             var clickCB = function(e, value, filters, pivotData){
                 var details = [];
                 pivotData.forEachMatchingRecord(filters, function(record){
-                    details.push(record.pivotLink);
+                    if (record.pivotLink) {
+                        details.push(record.pivotLink);
+                    }
                 });
                 feedback(details.join("<br>\n"), 'info', true);
             }
