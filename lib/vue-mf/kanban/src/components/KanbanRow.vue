@@ -17,7 +17,11 @@ defineProps({
 <template>
     <div class="kanban-row">
         <div v-if="title" class="kanban-row-title">{{title}}</div>
-        <slot/>
+        <PerfectScrollbar>
+            <div class="d-flex">
+                <slot/>
+            </div>
+        </PerfectScrollbar>
     </div>
 </template>
 

@@ -23,8 +23,8 @@ const handleClose = () => {
 </script>
 
 <template>
-    <div>
-        <Button v-if="!showForm" class="w-100" variant="default" sm @click="showForm = true">
+    <div class="button-container">
+        <Button v-if="!showForm" variant="default" sm @click="showForm = true">
             <i class="fas fa-plus"></i>
             <span class="ml-2">Add another list</span>
         </Button>
@@ -33,6 +33,10 @@ const handleClose = () => {
 </template>
 
 <style lang="scss" scoped>
+    .button-container {
+        width: 18rem;
+        min-width: 18rem;
+    }
     .btn-default {
         // background-color: rgba(228, 230, 240, 0.658);
         &:hover {

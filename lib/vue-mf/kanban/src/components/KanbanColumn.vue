@@ -4,6 +4,7 @@ export default {
 }
 </script>
 <script setup>
+import { Button } from '@vue-mf/styleguide'
 import ButtonAddCard from './Buttons/ButtonAddCard.vue'
 
 defineProps({
@@ -19,7 +20,12 @@ defineProps({
 
 <template>
     <div class="kanban-column">
-        <h6 v-if="title">{{title}}</h6>
+        <div class="d-flex justify-content-between align-items-center mb-1">
+            <h6 class="drag-handle-column flex-grow-1 mb-0" v-if="title">{{title}}</h6>
+            <Button class="d-inline-block ml-2" variant="default" sm>
+                <i class="fas fa-ellipsis-h"></i>
+            </Button>
+        </div>
         <slot/>
         <ButtonAddCard :columnId="columnId"></ButtonAddCard>
     </div>
@@ -28,7 +34,8 @@ defineProps({
 <style lang="scss" scoped>
     .kanban-column {
         display: inline-block;
-        width: 20rem;
+        min-width: 18rem;
+        width: 18rem;
         padding: 10px;
         margin: 0 5px;
         background-color: rgba(243, 244, 250, 1);

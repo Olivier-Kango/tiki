@@ -13,6 +13,7 @@
     "single-spa-vue": "^2.5.1",
     "vue": "^3.2.22",
     "vue-final-modal": "^3.4.3",
+    "vue3-perfect-scrollbar": "^1.5.5",
     "vuedraggable": "^4.1.0",
     "vuex": "^4.0.2"
   },

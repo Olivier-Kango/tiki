@@ -77,6 +77,7 @@ const handleModalClosed = () => {
         chosenClass="chosen-column"
         ghostClass="ghost-column"
         dragClass="dragging-column"
+        handle=".drag-handle-column"
         @change="handleChange"
         @start="startDragging"
         @end="endDragging"
@@ -103,6 +104,7 @@ const handleModalClosed = () => {
 .container-columns {
     display: flex;
     align-items: start;
+    margin-bottom: 20px;
 }
 .dragging-column {
     cursor: pointer;

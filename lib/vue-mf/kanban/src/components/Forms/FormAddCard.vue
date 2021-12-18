@@ -45,6 +45,9 @@ const handleAddCard = () => {
 </template>
 
 <style lang="scss" scoped>
+:deep(.card-body) {
+    padding: 0;
+}
 .btn-default {
     // background-color: rgba(228, 230, 240, 0.658);
     &:hover {
