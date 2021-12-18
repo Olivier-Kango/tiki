@@ -216,7 +216,7 @@
                                                 {actions}
                                                     {strip}
                                                         <action>
-                                                            <a href="{bootstrap_modal controller=user action=manage_groups checked=$username all_groups=$all_groups offset=$offset sort_mode=$sort_mode numrows=$numrows}">
+                                                            <a href="{bootstrap_modal controller=user action=manage_groups checked=$username offset=$offset sort_mode=$sort_mode numrows=$numrows}">
                                                                 {icon name="group" _menu_text='y' _menu_icon='y' alt="{tr}Add or remove from a group{/tr}"}
                                                             </a>
                                                         </action>
