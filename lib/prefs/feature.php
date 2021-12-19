@@ -489,7 +489,7 @@ function prefs_feature_list($partial = false)
         ],
         'feature_comments_send_author_name' => [
             'name' => tra('Add author name in From email header'),
-            'description' => tra('Add the name of the comment author in the email header "From", making the email look like sent from  "John Doe <noreply@example.com>"'),
+            'description' => tra("Add the name of the comment author in the email header \"From\", making the email look like sent from  \"John Doe &lt;noreply@example.com&gt;\""),
             'help' => 'Comments',
             'type' => 'flag',
             'default' => 'n',
