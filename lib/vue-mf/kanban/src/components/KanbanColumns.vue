@@ -5,6 +5,7 @@ export default {
 </script>
 <script setup>
 import { ref, computed } from 'vue'
+import { Dropdown, Button } from '@vue-mf/styleguide'
 import KanbanColumn from './KanbanColumn.vue'
 import KanbanCards from './KanbanCards.vue'
 import FormEditCard from './Forms/FormEditCard.vue'
@@ -27,6 +28,7 @@ const props = defineProps({
 const dragging = ref(false)
 const showModal = ref(false)
 const card = ref(false)
+const date = ref(false)
 
 const getColumns = computed(() => store.getters.getColumns(props.columnIds))
 
@@ -84,7 +86,7 @@ const handleModalClosed = () => {
         :forceFallback="true"
     >
         <template #item="{ element }">
-            <KanbanColumn :columnId="element.id" :title="element.title">
+            <KanbanColumn :columnId="element.id" :title="element.title" :limit="element.limit" :total="element.cards.length">
                 <KanbanCards :columnId="element.id" :cardIds="element.cards" @editCard="handleEditCard"></KanbanCards>
             </KanbanColumn>
         </template>
@@ -96,7 +98,27 @@ const handleModalClosed = () => {
         @click-outside="handleClickOutside"
         @closed="handleModalClosed"
     >
-        <FormEditCard :title="card.title" :desc="card.desc"></FormEditCard>
+        <div class="d-flex">
+            <div class="w-75">
+                <FormEditCard :title="card.title" :desc="card.desc"></FormEditCard>
+            </div>
+            <div class="w-25">
+                <div>
+                    <Dropdown class="d-block ml-2" variant="default" sm>
+                        <template v-slot:dropdown-button>
+                            <i class="far fa-calendar-alt mr-2"></i>Date picker
+                        </template>
+                        <template v-slot:dropdown-menu>
+                            <div class="p-2">
+                                <DatePicker class="mb-2" v-model="date" />
+                                <Button sm>Save</Button>
+                                <Button variant="default" sm>Cancel</Button>
+                            </div>
+                        </template>
+                    </Dropdown>
+                </div>
+            </div>
+        </div>
     </vue-final-modal>
 </template>
 

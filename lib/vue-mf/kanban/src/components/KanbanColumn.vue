@@ -4,13 +4,19 @@ export default {
 }
 </script>
 <script setup>
-import { Button } from '@vue-mf/styleguide'
+import { Dropdown } from '@vue-mf/styleguide'
 import ButtonAddCard from './Buttons/ButtonAddCard.vue'
 
 defineProps({
     title: {
         type: String,
         default: ''
+    },
+    limit: {
+        type: Number
+    },
+    total: {
+        type: Number
     },
     columnId: {
         type: Number
@@ -21,10 +27,16 @@ defineProps({
 <template>
     <div class="kanban-column">
         <div class="d-flex justify-content-between align-items-center mb-1">
-            <h6 class="drag-handle-column flex-grow-1 mb-0" v-if="title">{{title}}</h6>
-            <Button class="d-inline-block ml-2" variant="default" sm>
-                <i class="fas fa-ellipsis-h"></i>
-            </Button>
+            <h6 class="drag-handle-column flex-grow-1 mb-0" v-if="title">{{title}} {{total}}/{{limit}}</h6>
+            <Dropdown class="d-inline-block ml-2" variant="default" sm>
+                <template v-slot:dropdown-button>
+                    <i class="fas fa-ellipsis-h"></i>
+                </template>
+                <template v-slot:dropdown-menu>
+                    <span class="dropdown-item-text">List actions</span>
+                    <div class="dropdown-divider"></div>
+                </template>
+            </Dropdown>
         </div>
         <slot/>
         <ButtonAddCard :columnId="columnId"></ButtonAddCard>

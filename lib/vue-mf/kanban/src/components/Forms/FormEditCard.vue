@@ -45,7 +45,8 @@ const handleCancel = () => {
 </script>
 
 <template>
-    <h3 @input="handleTitleInput" contenteditable="true">{{ title }}</h3>
+    <h4 @input="handleTitleInput" contenteditable="true">{{ title }}</h4>
+    <h6>Description</h6>
     <p v-if="!editDesc" @click="handleEditDesc">{{ desc }}</p>
     <div v-if="editDesc">
         <textarea class="form-control mb-2" name="" id="" rows="5">{{ desc }}</textarea>
