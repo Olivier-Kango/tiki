@@ -1623,6 +1623,10 @@ class TrackerLib extends TikiLib
         if ($csort_mode == '`created`') {
             $csort_mode = 'tti.created';
         }
+        if ($corder == 'nasc' || $corder == 'ndesc') {
+            $numsort = true;
+            $corder = substr($corder, 1);
+        }
         $query = 'SELECT tti.*'
                 . ', ' . ( ($numsort) ? "cast(max($csort_mode) as decimal)" : "max($csort_mode)") . ' as `sortvalue`'
             . ' FROM ' . $base_tables . $sort_tables . $cat_table
