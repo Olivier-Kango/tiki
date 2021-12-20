@@ -591,6 +591,7 @@ $lang_current = array(
 "Created" => "Créé",
 "Uploaded" => "Envoyé",
 "Last modified" => "Modifié",
+"Last modifier" => "Dernier Modificateur",
 "Uploaded by" => "Téléchargé par",
 "Creator" => "Créateur",
 "Last modified by" => "Dernière modification par",
