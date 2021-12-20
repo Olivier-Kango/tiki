@@ -274,7 +274,9 @@ function compare_import_versions($a1, $a2)
 
 $serviceLib = TikiLib::lib('service');
 if (isset($_REQUEST['cancel_edit'])) {
-    $serviceLib->internal('semaphore', 'unset', ['object_id' => $page]);
+    if ($prefs['feature_warn_on_edit'] === 'y') {
+        $serviceLib->internal('semaphore', 'unset', ['object_id' => $page]);
+    }
     if (! empty($_REQUEST['returnto'])) {
         if (isURL($_REQUEST['returnto'])) {
             $url = $_REQUEST['returnto'];
