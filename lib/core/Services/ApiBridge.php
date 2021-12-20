@@ -83,6 +83,9 @@ class Services_ApiBridge
         $routes->add('trackers-view', (new Route('trackers/{trackerId}', ['controller' => 'tracker', 'action' => 'list_items', 'offset' => -1, 'maxRecords' => -1]))->setMethods(['GET']));
         $routes->add('trackers-update', (new Route('trackers/{trackerId}', ['controller' => 'tracker', 'action' => 'replace', 'confirm' => 1]))->setMethods(['POST']));
         $routes->add('trackers-delete', (new Route('trackers/{trackerId}', ['controller' => 'tracker', 'action' => 'remove', 'confirm' => 1]))->setMethods(['DELETE']));
+        $routes->add('trackerfields', (new Route('trackers/{trackerId}/fields', ['controller' => 'tracker', 'action' => 'list_fields']))->setMethods(['GET']));
+        $routes->add('trackerfields-create', (new Route('trackers/{trackerId}/fields', ['controller' => 'tracker', 'action' => 'add_field']))->setMethods(['POST']));
+        $routes->add('trackerfields-update', (new Route('trackers/{trackerId}/fields/{fieldId}', ['controller' => 'tracker', 'action' => 'edit_field']))->setMethods(['POST']));
         $routes->add('trackeritems-view', (new Route('tracker-item/{id}', ['controller' => 'tracker', 'action' => 'view']))->setMethods(['GET']));
         return $routes;
     }
