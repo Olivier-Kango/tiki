@@ -147,10 +147,10 @@ if (empty($_REQUEST["page"])) {
 //  However, wiki_rename_page stores a page in the format: $tmpName = "~".$newName."~";
 //  So, actual max page name length is 160 - 2 = 158
 //  Strip excess characters (silently) and proceed.
-$max_pagename_length = 160;
+$max_pagename_length = 158;
 if (strlen($_REQUEST["page"]) > $max_pagename_length) {
     //$_REQUEST["page"] = substr($_REQUEST["page"], 0, $max_pagename_length);
-    $smarty->assign('msg', tra(tr("You have exceeded the number of characters allowed (160 max) for the page name field")));
+    $smarty->assign('msg', tra(tr("You have exceeded the number of characters allowed (158 max) for the page name field")));
     $smarty->display("error.tpl");
     die;
 }

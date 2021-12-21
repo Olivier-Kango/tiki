@@ -49,8 +49,8 @@
                             {jq}
                                 $("input[name=page]").keyup(function () {
                                     var length = $(this).val().length;
-                                    if(length > 160) {
-                                        alert("You have reached the number of characters allowed (160 max) for the page name field");
+                                    if(length > 158) {
+                                        alert("You have reached the number of characters allowed (158 max) for the page name field");
                                     }
                                 });
                             {/jq}
