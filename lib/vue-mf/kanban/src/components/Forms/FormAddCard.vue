@@ -4,9 +4,10 @@ export default {
 }
 </script>
 <script setup>
-import { ref } from 'vue'
+import { ref, watchEffect } from 'vue'
 import { Button, Card } from '@vue-mf/styleguide'
 import KanbanCard from '../KanbanCard.vue'
+import autosize from 'autosize'
 import store from '../../store'
 
 const props = defineProps({
@@ -17,6 +18,11 @@ const props = defineProps({
 const emit = defineEmits(['close'])
 
 const title = ref('')
+const textarea = ref(null)
+
+watchEffect(() => {
+    autosize(textarea.value)
+})
 
 const handleAddCard = () => {
     store.dispatch('addNewCard', {
@@ -31,6 +37,7 @@ const handleAddCard = () => {
     <KanbanCard>
         <Card>
             <textarea
+                ref="textarea"
                 v-model="title"
                 class="form-control"
                 rows="3"

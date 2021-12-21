@@ -4,12 +4,13 @@ export default {
 }
 </script>
 <script setup>
-import { ref } from 'vue'
+import { ref, watchEffect } from 'vue'
 import { Button } from '@vue-mf/styleguide'
 import store from '../../store'
+import autosize from 'autosize'
 
 const props = defineProps({
-    columnId: {
+    id: {
         type: Number
     },
     title: {
@@ -22,21 +23,33 @@ const props = defineProps({
 })
 
 const editDesc = ref(false)
+const description = ref('')
+const textarea = ref(null)
 
-// const handleSaveCard = () => {
-//     store.dispatch('addNewCard', {
-//         title: title.value,
-//         columnId: props.columnId
-//     })
-// }
+watchEffect(() => {
+    description.value = props.desc
+    autosize(textarea.value)
+})
+
 const handleTitleInput = event => {
-    // TODO: Save new title
-    console.log(event.target.textContent)
+    store.dispatch('editCardField', {
+        id: props.id,
+        field: 'title',
+        data: event.target.textContent
+    })
+}
+const handleDescriptionInput = event => {
+    description.value = event.target.value
 }
 const handleEditDesc = () => {
     editDesc.value = true
 }
 const handleSaveDesc = () => {
+    store.dispatch('editCardField', {
+        id: props.id,
+        field: 'desc',
+        data: description.value
+    })
     editDesc.value = false
 }
 const handleCancel = () => {
@@ -45,13 +58,13 @@ const handleCancel = () => {
 </script>
 
 <template>
-    <h4 @input="handleTitleInput" contenteditable="true">{{ title }}</h4>
+    <h4><span @input="handleTitleInput" contenteditable="true">{{ title }}</span></h4>
     <h6>Description</h6>
-    <p v-if="!editDesc" @click="handleEditDesc">{{ desc }}</p>
+    <p v-if="!editDesc" @click="handleEditDesc">{{ description }}</p>
     <div v-if="editDesc">
-        <textarea class="form-control mb-2" name="" id="" rows="5">{{ desc }}</textarea>
+        <textarea ref="textarea" @input="handleDescriptionInput" class="form-control mb-2" name="" id="">{{ description }}</textarea>
         <div>
-            <Button class="d-inline-block" sm @click="handleSaveDesc">Save card</Button>
+            <Button class="d-inline-block" sm @click="handleSaveDesc">Save</Button>
             <Button class="d-inline-block ml-2" variant="default" sm @click="handleCancel">
                 <i class="fas fa-times"></i>
             </Button>

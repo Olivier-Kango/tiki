@@ -46,7 +46,7 @@ const handleAddColumn = () => {
 
 <style lang="scss" scoped>
 :deep(.card-body) {
-    padding: 0;
+    padding: 3px;
 }
 .btn-default {
     // background-color: rgba(228, 230, 240, 0.658);

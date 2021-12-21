@@ -98,9 +98,9 @@ const handleModalClosed = () => {
         @click-outside="handleClickOutside"
         @closed="handleModalClosed"
     >
-        <div class="d-flex">
+        <div v-if="showModal" class="d-flex">
             <div class="w-75">
-                <FormEditCard :title="card.title" :desc="card.desc"></FormEditCard>
+                <FormEditCard :id="card.id" :title="card.title" :desc="card.desc"></FormEditCard>
             </div>
             <div class="w-25">
                 <div>

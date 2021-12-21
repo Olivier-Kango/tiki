@@ -4,19 +4,32 @@ export default {
 }
 </script>
 <script setup>
-import { ref } from 'vue'
+import store from '../store'
 
-defineProps({
+const props = defineProps({
     title: {
         type: String,
         default: ''
+    },
+    rowId: {
+        type: Number
     }
 });
+
+const handleTitleInput = event => {
+    store.dispatch('editRowField', {
+        id: props.rowId,
+        field: 'title',
+        data: event.target.textContent
+    })
+}
 </script>
 
 <template>
     <div class="kanban-row">
-        <div v-if="title" class="kanban-row-title">{{title}}</div>
+        <div v-if="title" class="kanban-row-title">
+            <span @input="handleTitleInput" contenteditable="true">{{title}}</span>
+        </div>
         <PerfectScrollbar>
             <div class="d-flex">
                 <slot/>

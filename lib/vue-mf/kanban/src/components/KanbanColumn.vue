@@ -6,8 +6,9 @@ export default {
 <script setup>
 import { Dropdown } from '@vue-mf/styleguide'
 import ButtonAddCard from './Buttons/ButtonAddCard.vue'
+import store from '../store'
 
-defineProps({
+const props = defineProps({
     title: {
         type: String,
         default: ''
@@ -22,12 +23,23 @@ defineProps({
         type: Number
     }
 });
+
+const handleTitleInput = event => {
+    store.dispatch('editColumnField', {
+        id: props.columnId,
+        field: 'title',
+        data: event.target.textContent
+    })
+}
 </script>
 
 <template>
     <div class="kanban-column">
         <div class="d-flex justify-content-between align-items-center mb-1">
-            <h6 class="drag-handle-column flex-grow-1 mb-0" v-if="title">{{title}} {{total}}/{{limit}}</h6>
+            <h6 class="drag-handle-column flex-grow-1 mb-0" v-if="title">
+                <span class="mr-2" @input="handleTitleInput" contenteditable="true">{{title}}</span>
+                <span>{{total}}/{{limit}}</span>
+            </h6>
             <Dropdown class="d-inline-block ml-2" variant="default" sm>
                 <template v-slot:dropdown-button>
                     <i class="fas fa-ellipsis-h"></i>

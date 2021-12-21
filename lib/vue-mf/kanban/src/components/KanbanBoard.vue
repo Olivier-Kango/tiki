@@ -14,7 +14,7 @@ const getAllRows = computed(() => store.getters.getAllRows)
 </script>
 
 <template>
-    <KanbanRow v-for="row in getAllRows" :title="row.title">
+    <KanbanRow v-for="row in getAllRows" :title="row.title" :rowId="row.id">
         <KanbanColumns :rowId="row.id" :columnIds="row.columns"></KanbanColumns>
         <ButtonAddColumn :rowId="row.id"></ButtonAddColumn>
     </KanbanRow>
