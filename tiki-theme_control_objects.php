@@ -39,7 +39,7 @@ $themes = $themelib->list_themes_and_options();
 $smarty->assign('themes', $themes);
 
 $find_objects = '';
-$objectypes = ['image gallery', 'file gallery', 'forum', 'blog', 'wiki page', 'html page', 'faq', 'quiz', 'article'];
+$objectypes = ['file gallery', 'forum', 'blog', 'wiki page', 'html page', 'faq', 'quiz', 'article'];
 $smarty->assign('objectypes', $objectypes);
 if (empty($_REQUEST['type'])) {
     $_REQUEST['type'] = 'wiki page';
