@@ -2258,7 +2258,7 @@ class TikiLib extends TikiDb_Bridge
         setcookie(md5("tiki_wiki_poll_$id"), $ip, time() + 60 * 60 * 24 * 300);
         if (! $user) {
             if ($prefs['ip_can_be_checked'] == 'y') {
-                $userVotings->delete(['ip' => $ip, 'id' => $id, 'user' => '']);
+                $userVotings->delete(['ip' => $ip, 'id' => $id]);
                 if ($optionId !== false && $optionId != 'NULL') {
                     $userVotings->insert(
                         [
@@ -2271,6 +2271,7 @@ class TikiLib extends TikiDb_Bridge
                     );
                 }
             } elseif (isset($_COOKIE[md5("tiki_wiki_poll_$id")])) {
+                Feedback::error(tr('You need to enable ip_can_be_checked feature before to change vote as anonymous. If you can\'t, please contact the administrator'));
                 return false;
             } elseif ($optionId !== false && $optionId != 'NULL') {
                 $userVotings->insert(
@@ -2319,7 +2320,8 @@ class TikiLib extends TikiDb_Bridge
             $vote = $this->getOne("select `optionId` from `tiki_user_votings` where `user` = ? and `id` = ? order by `time` desc", [ $user, $id]);
         }
         if ($vote == null && $prefs['ip_can_be_checked'] == 'y') {
-            $vote = $this->getOne("select `optionId` from `tiki_user_votings` where `ip` = ? and `id` = ? order by `time` desc", [ $user, $id]);
+            $ip = $this->get_ip_address();
+            $vote = $this->getOne("select `optionId` from `tiki_user_votings` where `ip` = ? and `id` = ? order by `time` desc", [ $ip, $id]);
         }
         return $vote;
     }
