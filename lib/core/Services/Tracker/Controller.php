@@ -32,7 +32,13 @@ class Services_Tracker_Controller
 
     public function action_view($input)
     {
-        $item = Tracker_Item::fromId($input->id->int());
+        if ($input->id->int()) {
+            $item = Tracker_Item::fromId($input->id->int());
+        } elseif ($input->itemId->int()) {
+            $item = Tracker_Item::fromId($input->itemId->int());
+        } else {
+            $item = null;
+        }
 
         if (! $item) {
             throw new Services_Exception_NotFound(tr('Item not found'));
@@ -437,6 +443,16 @@ class Services_Tracker_Controller
                 'encryptionKeyId' => $input->encryption_key_id->int(),
             ];
 
+            $submitted_keys = $input->keys();
+            if (in_array('position', $submitted_keys)) {
+                $data['position'] = $input->position->int();
+            }
+            foreach (['isTblVisible', 'isMain', 'isSearchable', 'isPublic', 'isMandatory'] as $key) {
+                if (in_array($key, $submitted_keys)) {
+                    $data[$key] = $input->$key->int() ? 'y' : 'n';
+                }
+            }
+
             $this->utilities->updateField(
                 $trackerId,
                 $fieldId,
@@ -516,7 +532,7 @@ class Services_Tracker_Controller
             }
         }
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && $input->confirm->int()) {
+        if (($_SERVER['REQUEST_METHOD'] === 'POST' || $_SERVER['REQUEST_METHOD'] === 'DELETE') && $input->confirm->int()) {
             $trklib = TikiLib::lib('trk');
             $tx = TikiDb::get()->begin();
             foreach ($fields as $fieldId) {
@@ -1781,7 +1797,7 @@ class Services_Tracker_Controller
 
         $uncascaded = $trklib->findUncascadedDeletes($itemId, $trackerId);
 
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST' || $_SERVER['REQUEST_METHOD'] == 'DELETE') {
             $this->utilities->removeItemAndReferences($definition, $itemObject, $uncascaded, $input->replacement->int() ?: '');
 
             Feedback::success(tr('Tracker item %0 has been successfully deleted.', $itemId));

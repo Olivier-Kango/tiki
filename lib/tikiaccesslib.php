@@ -647,7 +647,11 @@ class TikiAccessLib extends TikiLib
      */
     public function isActionPost()
     {
-        return ($this->requestIsPost() && ! empty($_POST['ticket']));
+        if (TIKI_API) {
+            return $this->requestIsPost();
+        } else {
+            return ($this->requestIsPost() && ! empty($_POST['ticket']));
+        }
     }
 
     /**

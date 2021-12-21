@@ -211,6 +211,138 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /trackers/{trackerId}/clear:
+    post:
+      description: Remove all items from a tracker
+      parameters:
+        - name: trackerId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: tracker clear response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  trackerId:
+                    type: integer
+        '403':
+          description: forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /trackers/{trackerId}/duplicate:
+    post:
+      description: Duplicates a tracker
+      parameters:
+        - name: trackerId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+                - name
+              properties:
+                name:
+                  type: string
+                dupCateg:
+                  type: integer
+                dupPerms:
+                  type: integer
+      responses:
+        '200':
+          description: tracker duplicate response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  trackerId:
+                    type: integer
+                  name:
+                    type: string
+        '403':
+          description: forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /trackers/{trackerId}/dump:
+    get:
+      description: Dump all tracker items in a csv format
+      parameters:
+        - name: trackerId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: tracker dump response
+          content:
+            text/csv: {}
+        '403':
+          description: forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /trackers/{trackerId}/export:
+    get:
+      description: Export the tracker YAML profile
+      parameters:
+        - name: trackerId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: tracker export response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  trackerId:
+                    type: integer
+                  yaml:
+                    type: string
+        '403':
+          description: forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /trackers/{trackerId}/fields:
     get:
       description: Retrieve all fields of a tracker
@@ -292,21 +424,63 @@ paths:
               schema:
                 type: object
                 properties:
-                  field:
-                    type: object
-                    description: TODO
-                  info:
-                    type: object
-                    description: TODO
-                  options:
-                    type: object
-                    description: TODO
+                  trackerId:
+                    type: integer
+                  fieldId:
+                    type: integer
+                  name:
+                    type: string
+                  permName:
+                    type: string
+                  type:
+                    type: string
                   types:
                     type: object
-                    description: TODO
+                  description:
+                    type: string
+                  descriptionIsParsed:
+                    type: string
+                  fieldPrefix:
+                    type: string
+        '403':
+          description: forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      description: Delete one or more tracker fields
+      parameters:
+        - name: trackerId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: fields[]
+          in: query
+          required: true
+          schema:
+            type: array
+            items:
+              type: integer
+      responses:
+        '200':
+          description: tracker field delete response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  trackerId:
+                    type: integer
                   fields:
                     type: object
-                    description: TODO
         '403':
           description: forbidden
           content:
@@ -357,6 +531,18 @@ paths:
                     type: string
                 type:
                   type: string
+                position:
+                  type: integer
+                isTblVisible:
+                  type: integer
+                isMain:
+                  type: integer
+                isSearchable:
+                  type: integer
+                isPublic:
+                  type: integer
+                isMandatory:
+                  type: integer
                 validation_type:
                   type: string
                 validation_parameter:
@@ -418,11 +604,72 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /tracker-item/{id}:
+  /trackers/{trackerId}/items:
+    post:
+      description: Create a tracker item
+      parameters:
+        - name: trackerId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              description: Should contain an object of the field values with either field permanent names as keys or ins_FID keys.
+      responses:
+        '200':
+          description: tracker item response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  trackerId:
+                    type: integer
+                  trackerName:
+                    type: string
+                  itemId:
+                    type: integer
+                  fields:
+                    type: object
+                  forced:
+                    type: object
+                  trackerLogo:
+                    type: string
+                  status:
+                    type: string
+                  format:
+                    type: string
+                  editItemPretty:
+                    type: string
+                  next:
+                    type: string
+        '403':
+          description: forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /trackers/{trackerId}/items/{itemId}:
     get:
       description: Retrieve a tracker item
       parameters:
-        - name: id
+        - name: trackerId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: itemId
           in: path
           required: true
           schema:
@@ -450,6 +697,189 @@ paths:
                     $ref: '#/components/schemas/TrackerItem'
                   info:
                     $ref: '#/components/schemas/TrackerItem'
+        '403':
+          description: forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      description: Update a tracker item
+      parameters:
+        - name: trackerId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: itemId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              description: Should contain an object of the field values with either field permanent names as keys or ins_FID keys.
+      responses:
+        '200':
+          description: tracker item response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  trackerId:
+                    type: integer
+                  itemId:
+                    type: integer
+                  fields:
+                    type: object
+                  forced:
+                    type: object
+                  status:
+                    type: string
+                  format:
+                    type: string
+                  editItemPretty:
+                    type: string
+                  redirect:
+                    type: string
+        '403':
+          description: forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      description: Delete a tracker item
+      parameters:
+        - name: trackerId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: itemId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: delete tracker item response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  trackerId:
+                    type: integer
+                  itemId:
+                    type: integer
+                  affectedCount:
+                    type: integer
+        '403':
+          description: forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /trackers/{trackerId}/items/{itemId}/clone:
+    post:
+      description: Clone a tracker item
+      parameters:
+        - name: trackerId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: itemId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: cloned item
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  trackerId:
+                    type: integer
+                  itemId:
+                    type: integer
+                  created:
+                    type: integer
+                  data:
+                    type: object
+                  fields:
+                    type: object
+                  forced:
+                    type: object
+        '403':
+          description: forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /trackers/{trackerId}/items/{itemId}/status:
+    post:
+      description: Update the status of a tracker item
+      parameters:
+        - name: trackerId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: itemId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
         '403':
           description: forbidden
           content:

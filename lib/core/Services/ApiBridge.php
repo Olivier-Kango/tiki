@@ -35,6 +35,9 @@ class Services_ApiBridge
         foreach ($route as $key => $value) {
             if (! in_array($key, ['controller', 'action', '_route']) && ! isset($request[$key])) {
                 $request[$key] = $value;
+                if ($key == 'confirmForm') {
+                    $_POST[$key] = $value;
+                }
             }
         }
         $this->jitRequest = new JitFilter($request);
@@ -83,10 +86,20 @@ class Services_ApiBridge
         $routes->add('trackers-view', (new Route('trackers/{trackerId}', ['controller' => 'tracker', 'action' => 'list_items', 'offset' => -1, 'maxRecords' => -1]))->setMethods(['GET']));
         $routes->add('trackers-update', (new Route('trackers/{trackerId}', ['controller' => 'tracker', 'action' => 'replace', 'confirm' => 1]))->setMethods(['POST']));
         $routes->add('trackers-delete', (new Route('trackers/{trackerId}', ['controller' => 'tracker', 'action' => 'remove', 'confirm' => 1]))->setMethods(['DELETE']));
+        $routes->add('trackers-clear', (new Route('trackers/{trackerId}/clear', ['controller' => 'tracker', 'action' => 'clear', 'confirmForm' => 'y']))->setMethods(['POST']));
+        $routes->add('trackers-duplicate', (new Route('trackers/{trackerId}/duplicate', ['controller' => 'tracker', 'action' => 'duplicate', 'confirm' => 1]))->setMethods(['POST']));
+        $routes->add('trackers-dump', (new Route('trackers/{trackerId}/dump', ['controller' => 'tracker', 'action' => 'dump_items']))->setMethods(['GET']));
+        $routes->add('trackers-export', (new Route('trackers/{trackerId}/export', ['controller' => 'tracker', 'action' => 'export_profile']))->setMethods(['GET']));
         $routes->add('trackerfields', (new Route('trackers/{trackerId}/fields', ['controller' => 'tracker', 'action' => 'list_fields']))->setMethods(['GET']));
         $routes->add('trackerfields-create', (new Route('trackers/{trackerId}/fields', ['controller' => 'tracker', 'action' => 'add_field']))->setMethods(['POST']));
         $routes->add('trackerfields-update', (new Route('trackers/{trackerId}/fields/{fieldId}', ['controller' => 'tracker', 'action' => 'edit_field']))->setMethods(['POST']));
-        $routes->add('trackeritems-view', (new Route('tracker-item/{id}', ['controller' => 'tracker', 'action' => 'view']))->setMethods(['GET']));
+        $routes->add('trackerfields-delete', (new Route('trackers/{trackerId}/fields', ['controller' => 'tracker', 'action' => 'remove_fields', 'confirm' => 1]))->setMethods(['DELETE']));
+        $routes->add('trackeritems-view', (new Route('trackers/{trackerId}/items/{itemId}', ['controller' => 'tracker', 'action' => 'view']))->setMethods(['GET']));
+        $routes->add('trackeritems-clone', (new Route('trackers/{trackerId}/items/{itemId}/clone', ['controller' => 'tracker', 'action' => 'clone_item']))->setMethods(['POST']));
+        $routes->add('trackeritems-create', (new Route('trackers/{trackerId}/items', ['controller' => 'tracker', 'action' => 'insert_item']))->setMethods(['POST']));
+        $routes->add('trackeritems-update', (new Route('trackers/{trackerId}/items/{itemId}', ['controller' => 'tracker', 'action' => 'update_item']))->setMethods(['POST']));
+        $routes->add('trackeritems-delete', (new Route('trackers/{trackerId}/items/{itemId}', ['controller' => 'tracker', 'action' => 'remove_item']))->setMethods(['DELETE']));
+        $routes->add('trackeritems-status', (new Route('trackers/{trackerId}/items/{itemId}/status', ['controller' => 'tracker', 'action' => 'update_item_status', 'confirm' => 1]))->setMethods(['POST']));
         return $routes;
     }
 
