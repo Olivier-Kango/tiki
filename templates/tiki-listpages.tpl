@@ -46,6 +46,14 @@
                         <label class="col-form-label col-sm-3">{tr}Insert name of the page you wish to create{/tr}</label>
                         <div class="col-sm-9">
                             <input class="form-control" id="pagename" type="text" name="page">
+                            {jq}
+                                $("input[name=page]").keyup(function () {
+                                    var length = $(this).val().length;
+                                    if(length > 160) {
+                                        alert("You have reached the number of characters allowed (160 max) for the page name field");
+                                    }
+                                });
+                            {/jq}
                         </div>
                     </div>
                     {if $prefs.namespace_enabled == 'y' && $prefs.namespace_default}
