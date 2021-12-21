@@ -8,7 +8,7 @@
 
 {if $prefs.feature_tabs neq 'y' and $user and $prefs.feature_messages eq 'y' and $tiki_p_messages eq 'y' and $allowMsgs eq 'y'}
     <div class="t_navbar">
-        {button href="#message" class="btn btn-primary" _text="{tr}Send me a message{/tr}"}
+        {button href="#message" class="btn btn-primary" _text="{tr}Send a message{/tr}"}
     </div>
 {/if}
 
@@ -350,12 +350,12 @@
     {/if}
 
     {if $user and $prefs.feature_messages eq 'y' and $tiki_p_messages eq 'y' and $allowMsgs eq 'y'}
-        {tab name="{tr}Send Me A Message{/tr}"}
+        {tab name="{tr}Send a message{/tr}"}
             <div id="message">
                 {if $sent}
                     {$message}
                 {else}
-                    <h2 class="text-center">{tr}Send me a message !{/tr}</h2>
+                    <h2 class="text-center">{tr}Send a message!{/tr} </h2>
                     <form method="post" action="tiki-user_information.php" name="f">
                         {ticket}
                         <input type="hidden" name="to" value="{$userwatch|escape}">
