@@ -2508,7 +2508,7 @@ function prefs_feature_list($partial = false)
         ],
         'feature_use_three_colon_centertag' => [
             'name' => tra('Center text using ::: instead of ::'),
-            'description' => tr('Useful to avoid conflicts with C++ scope operators or default namespace separator.'),
+            'hint' => tr('Useful to avoid conflicts with C++ scope operators or default namespace separator'),
             'type' => 'flag',
             'default' => 'n',
         ],
