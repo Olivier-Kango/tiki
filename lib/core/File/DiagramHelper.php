@@ -378,19 +378,20 @@ EOF;
             'xml'       => $rawXml,
         ]);
 
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "POST");
-        curl_setopt($curl, CURLOPT_URL, $serviceEndpoint);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, self::FETCH_IMAGE_CONTENTS_TIMEOUT);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $jsonPayload);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, [
-            'Content-Type: application/json',
-            'Content-Length: ' . strlen($jsonPayload)
+        $client = \TikiLib::lib('tiki')->get_http_client($serviceEndpoint, [
+            'timeout' => self::FETCH_IMAGE_CONTENTS_TIMEOUT
         ]);
 
-        $contents = curl_exec($curl);
-        $statusCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        $client->setRawBody($jsonPayload);
+        $client->setMethod(\Laminas\Http\Request::METHOD_POST);
+        $client->setHeaders([
+            'Content-Type: application/json',
+            'Content-Length: ' . strlen($jsonPayload),
+        ]);
+
+        $response = $client->send();
+
+        $statusCode = $response->getStatusCode();
 
         // In case of bad requests or server issues (HTTP 4xx and 5xx)
         if (empty($statusCode) || $statusCode >= 400) {
@@ -401,6 +402,6 @@ EOF;
             return null;
         }
 
-        return $contents;
+        return $response->getBody();
     }
 }
