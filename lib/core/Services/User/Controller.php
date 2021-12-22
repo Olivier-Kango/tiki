@@ -448,7 +448,7 @@ class Services_User_Controller
      */
     public function action_manage_groups($input)
     {
-        global $prefs;
+        global $user, $prefs;
         Services_Exception_Denied::checkGlobal('admin_users');
         $util = new Services_Utilities();
         $userlib = TikiLib::lib('user');
@@ -498,9 +498,31 @@ class Services_User_Controller
                 //selected users to be added or removed from selected groups groups
                 } else {
                     $all_groups = $this->lib->list_regular_groups();
+                    $isAdmin = false;
+                    $userGroups = $userlib->get_user_info($user)['groups'];
+                    $selectedUserGroups = TikiLib::lib('tiki')->get_user_groups($util->items[0]);
+
                     $groupsNames = [];
-                    foreach ($all_groups as $group) {
-                        $groupsNames[] = $group["groupName"];
+                    foreach($userGroups as $group_in) {
+                        if($group_in == 'Admins') {
+                            $isAdmin = true;
+                        }
+                    }
+                    if($isAdmin) {
+                        foreach ($all_groups as $group) {
+                            $groupsNames[] = $group["groupName"];
+                        }
+                    } else {
+                        $groupsToCheck = array_unique(array_merge($userGroups, $selectedUserGroups));
+                        foreach ($all_groups as $group) {
+                            foreach($groupsToCheck as $group_in)
+                            {
+                                if($group["groupName"] == $group_in)
+                                {
+                                    $groupsNames[] = $group["groupName"];
+                                }
+                            }
+                        }
                     }
                     $countgrps = count($all_groups) < 21 ? count($all_groups) : 20;
                     if ($util->itemsCount == 1) {
