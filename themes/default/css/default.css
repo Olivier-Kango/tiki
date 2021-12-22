@@ -9775,3 +9775,17 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
     opacity: 1;
   }
 }
+@media screen and (min-width: 1024px)
+{
+  .min-width-customized
+  {
+    width: 55%;
+  }
+}
+@media screen and (max-width: 1024px)
+{
+  .min-width-customized
+  {
+    width: 100%;
+  }
+}

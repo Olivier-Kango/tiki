@@ -331,7 +331,7 @@
 
                     {if $tiki_p_admin_trackers eq 'y'}
                         <div class="form-group row">
-                            <div class="input-group col-sm-7">
+                            <div class="input-group min-width-customized">
                                 <option value="no_action" selected="selected">
                                     {tr}Select the action to be performed with checked{/tr}...
                                 </option>
