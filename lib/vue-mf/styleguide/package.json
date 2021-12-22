@@ -23,6 +23,7 @@
     "vite": "^2.6.4"
   },
   "dependencies": {
+    "@popperjs/core": "^2.11.0",
     "click-outside-vue3": "^4.0.1"
   }
 }

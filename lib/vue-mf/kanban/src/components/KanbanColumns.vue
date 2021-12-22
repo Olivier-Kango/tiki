@@ -93,8 +93,8 @@ const handleModalClosed = () => {
     </draggable>
     <vue-final-modal
         v-model="showModal"
-        classes="modal-container"
-        content-class="modal-content"
+        classes="f-modal-container"
+        content-class="f-modal-content"
         @click-outside="handleClickOutside"
         @closed="handleModalClosed"
     >
@@ -146,15 +146,16 @@ const handleModalClosed = () => {
     }
 }
 
-:deep(.modal-container) {
+:deep(.f-modal-container) {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-:deep(.modal-content) {
+:deep(.f-modal-content) {
   display: flex;
   flex-direction: column;
-  width: 50%;
+  max-width: 960px;
+  width: 100%;
   margin: 0 1rem;
   padding: 1rem;
   border: 1px solid #e2e8f0;
