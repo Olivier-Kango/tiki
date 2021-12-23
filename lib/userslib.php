@@ -2326,6 +2326,17 @@ class UsersLib extends TikiLib
             $res['age'] = $this->now - $res['registrationDate'];
             $res['user_information'] = $this->get_user_preference($user, 'user_information', 'public');
             $res['editable'] = $this->user_can_be_edited($user);
+
+            if (TIKI_API) {
+                // TODO: handle this as part of the API output serialization module
+                $res['avatar'] = $this->get_user_avatar_inline($res);
+                unset($res['avatarName']);
+                unset($res['avatarSize']);
+                unset($res['avatarType']);
+                unset($res['avatarFileType']);
+                unset($res['avatarData']);
+                unset($res['avatarLibName']);
+            }
         }
 
         $retval = [];

@@ -275,15 +275,15 @@ class Services_Tracker_SyncController
             return $cache[$serviceUrl];
         }
 
-        $controller = new Services_RemoteController($serviceUrl, 'tracker');
-        $data = $controller->list_trackers();
+        $client = new Services_ApiClient($serviceUrl);
+        $data = $client->get($client->route('trackers'));
         return $cache[$serviceUrl] = $data;
     }
 
     private function getRemoteTrackerFieldExport($serviceUrl, $trackerId)
     {
-        $controller = new Services_RemoteController($serviceUrl, 'tracker');
-        $export = $controller->export_fields(['trackerId' => $trackerId]);
+        $client = new Services_ApiClient($serviceUrl);
+        $export = $client->get($client->route('trackerfields-export', ['trackerId' => $trackerId]));
 
         return TikiLib::lib('tiki')->read_raw($export['export']);
     }
@@ -309,25 +309,19 @@ class Services_Tracker_SyncController
 
     private function getRemoteItems($syncInfo, array $conditions = [])
     {
-        $controller = new Services_RemoteController($syncInfo['provider'], 'tracker');
-        return $controller->getResultLoader(
-            'list_items',
-            array_merge($conditions, ['trackerId' => $syncInfo['source'], 'format' => 'raw']),
-            'offset',
-            'maxRecords',
-            'result'
-        );
+        $client = new Services_ApiClient($syncInfo['provider']);
+        $route = $client->route('trackers-view', ['trackerId' => $syncInfo['source']]);
+        return $client->getResultLoader($route, array_merge($conditions, ['format' => 'raw']));
     }
 
     private function insertRemoteItem($remoteDefinition, $definition, $item)
     {
         $syncInfo = $definition->getSyncInformation();
 
-        $item['trackerId'] = $syncInfo['source'];
         $item['fields'] = $this->exportFields($item['fields'], $remoteDefinition, $definition);
 
-        $controller = new Services_RemoteController($syncInfo['provider'], 'tracker');
-        $data = $controller->insert_item($item);
+        $client = new Services_ApiClient($syncInfo['provider']);
+        $data = $client->post($client->route('trackeritems-create', ['trackerId' => $syncInfo['source']]), $item);
 
         if (isset($data['itemId']) && $data['itemId']) {
             return $data['itemId'];
@@ -338,13 +332,10 @@ class Services_Tracker_SyncController
     {
         $syncInfo = $definition->getSyncInformation();
 
-        $item['itemId'] = $item['fields']['syncSource'];
-        $item['trackerId'] = $syncInfo['source'];
-
         $item['fields'] = $this->exportFields($item['fields'], $remoteDefinition, $definition);
 
-        $controller = new Services_RemoteController($syncInfo['provider'], 'tracker');
-        $controller->update_item($item);
+        $client = new Services_ApiClient($syncInfo['provider']);
+        $client->post($client->route('trackeritems-update', ['trackerId' => $syncInfo['source'], 'itemId' => $item['fields']['syncSource']]), $item);
     }
 
     private function exportFields($fields, $remoteDefinition, $definition)
@@ -382,8 +373,8 @@ class Services_Tracker_SyncController
 
     private function getRemoteTranslations($syncInfo, $type, $remoteSource)
     {
-        $controller = new Services_RemoteController($syncInfo['provider'], 'translation');
-        $data = $controller->manage(['type' => $type, 'source' => $remoteSource]);
+        $client = new Services_ApiClient($syncInfo['provider']);
+        $data = $client->get($client->route('translations', ['type' => $type, 'source' => $remoteSource]));
 
         $out = [];
 

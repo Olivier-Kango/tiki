@@ -848,22 +848,22 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
 
     public function importRemoteField(array $info, array $syncInfo)
     {
-        $sourceOptions = explode(',', $info['options']);
-        $trackerId = isset($sourceOptions[0]) ? (int) $sourceOptions[0] : 0;
-        $fieldId = isset($sourceOptions[1]) ? (int) $sourceOptions[1] : 0;
-        $status = isset($sourceOptions[4]) ? (int) $sourceOptions[4] : 'opc';
+        $sourceOptions = Tracker_Options::fromSerialized($info['options'], $info);
+        $trackerId = $sourceOptions->getParam('trackerId', 0);
+        $fieldId = $sourceOptions->getParam('fieldId', 0);
+        $status = $sourceOptions->getParam('status', 'opc');
 
         $info['type'] = 'd';
-        $info['options'] = $this->getRemoteItemLinks($syncInfo, $trackerId, $fieldId, $status);
+        $info['options'] = json_encode(['options' => $this->getRemoteItemLinks($syncInfo, $trackerId, $fieldId, $status)]);
 
         return $info;
     }
 
     private function getRemoteItemLinks($syncInfo, $trackerId, $fieldId, $status)
     {
-        $controller = new Services_RemoteController($syncInfo['provider'], 'tracker');
-        $items = $controller->getResultLoader('list_items', ['trackerId' => $trackerId, 'status' => $status]);
-        $result = $controller->edit_field(['trackerId' => $trackerId, 'fieldId' => $fieldId]);
+        $client = new Services_ApiClient($syncInfo['provider']);
+        $items = $client->getResultLoader($client->route('trackers-view', ['trackerId' => $trackerId]), ['status' => $status]);
+        $result = $client->post($client->route('trackerfields-update', ['trackerId' => $trackerId, 'fieldId' => $fieldId]));
 
         $permName = $result['field']['permName'];
         if (empty($permName)) {
@@ -875,7 +875,7 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
             $parts[] = $item['itemId'] . '=' . $item['fields'][$permName];
         }
 
-        return implode(',', $parts);
+        return $parts;
     }
 
     private function getPreselection($linkValue = false)

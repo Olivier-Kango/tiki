@@ -32,13 +32,16 @@ class Services_Category_Controller
 
         $parentId = $input->parentId->int();
         $descends = $input->descends->int();
-
-        if (! $parentId) {
-            throw new Services_Exception_MissingValue('parentId');
+        $type = $input->type->text();
+        if ($type != 'roots' && $type != 'all') {
+            $type = $descends ? 'descendants' : 'children';
+            if (! $parentId) {
+                throw new Services_Exception_MissingValue('parentId');
+            }
         }
 
         $categlib = TikiLib::lib('categ');
-        return $categlib->getCategories(['identifier' => $parentId, 'type' => $descends ? 'descendants' : 'children']);
+        return $categlib->getCategories(['identifier' => $parentId, 'type' => $type]);
     }
 
     public function action_categorize($input)

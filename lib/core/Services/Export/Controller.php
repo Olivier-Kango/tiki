@@ -16,25 +16,9 @@ class Services_Export_Controller
      */
     public function action_sync_content($input)
     {
-        global $user;
-
-        $userlib = TikiLib::lib('user');
-        list($isvalid, $user) = $userlib->validate_user($input->user->text(), $input->password->text());
-
-        if (! $isvalid) {
-            return [
-                'error' => 'Specified user credentials are invalid.'
-            ];
-        }
-
-        // enforce permissions of the incoming user and their groups
-        $_permissionContext = new Perms_Context($user);
-
         $perms = Perms::get();
         if (! $perms->admin) {
-            return [
-                'error' => 'Specified user is not an administrator.'
-            ];
+            throw new Services_Exception(tr('Admin access required.'), 403);
         }
 
         return [

@@ -9,6 +9,7 @@
 use Symfony\Component\Routing\Exception\ExceptionInterface;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
+use Symfony\Component\Routing\Generator\UrlGenerator;
 use Symfony\Component\Routing\Matcher\UrlMatcher;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\Route;
@@ -21,7 +22,7 @@ class Services_ApiBridge
     protected $routes;
     protected $context;
 
-    public function __construct(JitFilter $jitRequest)
+    public function __construct(JitFilter $jitRequest = null)
     {
         $this->jitRequest = $jitRequest;
         $this->routes = $this->prepareRoutes();
@@ -49,6 +50,18 @@ class Services_ApiBridge
             $broker = TikiLib::lib('service')->getBroker();
             $broker->process($route['controller'], $route['action'], $this->jitRequest);
         }
+    }
+
+    public function getRoutes()
+    {
+        return $this->routes;
+    }
+
+    public function generateRoute($name, $args = [])
+    {
+        $generator = new UrlGenerator($this->routes, $this->context);
+        $relative_path = $generator->generate($name, $args, UrlGenerator::RELATIVE_PATH);
+        return preg_replace('/^(\.\.\/)*/', '', $relative_path);
     }
 
     protected function parseRoute()
@@ -81,6 +94,8 @@ class Services_ApiBridge
         $routes = new RouteCollection();
         $routes->add('home', (new Route(''))->setMethods(['GET']));
         $routes->add('docs', (new Route('docs.yaml', ['_format' => 'yaml']))->setMethods(['GET']));
+        $routes->add('categories', (new Route('categories', ['controller' => 'category', 'action' => 'list_categories']))->setMethods(['GET']));
+        $routes->add('export-sync', (new Route('export/sync', ['controller' => 'export', 'action' => 'sync_content']))->setMethods(['GET']));
         $routes->add('trackers', (new Route('trackers', ['controller' => 'tracker', 'action' => 'list_trackers']))->setMethods(['GET']));
         $routes->add('trackers-create', (new Route('trackers', ['controller' => 'tracker', 'action' => 'replace', 'confirm' => 1]))->setMethods(['POST']));
         $routes->add('trackers-view', (new Route('trackers/{trackerId}', ['controller' => 'tracker', 'action' => 'list_items', 'offset' => -1, 'maxRecords' => -1]))->setMethods(['GET']));
@@ -94,12 +109,18 @@ class Services_ApiBridge
         $routes->add('trackerfields-create', (new Route('trackers/{trackerId}/fields', ['controller' => 'tracker', 'action' => 'add_field']))->setMethods(['POST']));
         $routes->add('trackerfields-update', (new Route('trackers/{trackerId}/fields/{fieldId}', ['controller' => 'tracker', 'action' => 'edit_field']))->setMethods(['POST']));
         $routes->add('trackerfields-delete', (new Route('trackers/{trackerId}/fields', ['controller' => 'tracker', 'action' => 'remove_fields', 'confirm' => 1]))->setMethods(['DELETE']));
+        $routes->add('trackerfields-export', (new Route('trackers/{trackerId}/fields/export', ['controller' => 'tracker', 'action' => 'export_fields']))->setMethods(['GET']));
         $routes->add('trackeritems-view', (new Route('trackers/{trackerId}/items/{itemId}', ['controller' => 'tracker', 'action' => 'view']))->setMethods(['GET']));
         $routes->add('trackeritems-clone', (new Route('trackers/{trackerId}/items/{itemId}/clone', ['controller' => 'tracker', 'action' => 'clone_item']))->setMethods(['POST']));
         $routes->add('trackeritems-create', (new Route('trackers/{trackerId}/items', ['controller' => 'tracker', 'action' => 'insert_item']))->setMethods(['POST']));
         $routes->add('trackeritems-update', (new Route('trackers/{trackerId}/items/{itemId}', ['controller' => 'tracker', 'action' => 'update_item']))->setMethods(['POST']));
         $routes->add('trackeritems-delete', (new Route('trackers/{trackerId}/items/{itemId}', ['controller' => 'tracker', 'action' => 'remove_item']))->setMethods(['DELETE']));
         $routes->add('trackeritems-status', (new Route('trackers/{trackerId}/items/{itemId}/status', ['controller' => 'tracker', 'action' => 'update_item_status', 'confirm' => 1]))->setMethods(['POST']));
+        $routes->add('translations', (new Route('translations/{type}/{source}', ['controller' => 'translation', 'action' => 'manage']))->setMethods(['GET']));
+        $routes->add('translations-attach', (new Route('translations/{type}/{source}/attach', ['controller' => 'translation', 'action' => 'attach']))->setMethods(['POST']));
+        $routes->add('translations-detach', (new Route('translations/{type}/{source}/detach', ['controller' => 'translation', 'action' => 'detach', 'confirm' => 1]))->setMethods(['POST']));
+        $routes->add('translate', (new Route('translate', ['controller' => 'translation', 'action' => 'translate']))->setMethods(['POST']));
+        $routes->add('users', (new Route('users', ['controller' => 'user', 'action' => 'list_users', 'offset' => 0, 'maxRecords' => -1]))->setMethods(['GET']));
         return $routes;
     }
 

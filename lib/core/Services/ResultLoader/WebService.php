@@ -23,16 +23,27 @@ class Services_ResultLoader_WebService
 
     public function __invoke($offset, $count)
     {
-        $this->client->setParameterPost(
-            array_merge(
-                $this->client->getRequest()->getPost()->getArrayCopy(),
-                [
-                    $this->offsetKey => $offset,
-                    $this->countKey  => $count,
-                ]
-            )
-        );
-        $this->client->setMethod(Laminas\Http\Request::METHOD_POST);
+        if ($this->client->getMethod() == 'GET') {
+            $this->client->setParameterGet(
+                array_merge(
+                    $this->client->getRequest()->getQuery()->getArrayCopy(),
+                    [
+                        $this->offsetKey => $offset,
+                        $this->countKey  => $count,
+                    ]
+                )
+            );
+        } else {
+            $this->client->setParameterPost(
+                array_merge(
+                    $this->client->getRequest()->getPost()->getArrayCopy(),
+                    [
+                        $this->offsetKey => $offset,
+                        $this->countKey  => $count,
+                    ]
+                )
+            );
+        }
 
         $headers = $this->client->getRequest()->getHeaders();
         $headers->addHeaders(['Accept' => 'application/json']);

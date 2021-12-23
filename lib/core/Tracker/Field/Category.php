@@ -359,12 +359,12 @@ class Tracker_Field_Category extends Tracker_Field_Abstract implements Tracker_F
 
     public function importRemoteField(array $info, array $syncInfo)
     {
-        $sourceOptions = explode(',', $info['options']);
-        $parentId = isset($sourceOptions[0]) ? (int) $sourceOptions[0] : 0;
-        $fieldType = isset($sourceOptions[1]) ? $sourceOptions[1] : 'd';
-        $desc = isset($sourceOptions[3]) ? (int) $sourceOptions[3] : 0;
+        $sourceOptions = Tracker_Options::fromSerialized($info['options'], $info);
+        $parentId = $sourceOptions->getParam('parentId', 0);
+        $fieldType = $sourceOptions->getParam('inputtype', 'd');
+        $desc = $sourceOptions->getParam('descendants', 0);
 
-        $info['options'] = $this->getRemoteCategoriesAsOptions($syncInfo, $parentId, $desc);
+        $info['options'] = json_encode(['options' => $this->getRemoteCategoriesAsOptions($syncInfo, $parentId, $desc)]);
 
         if ($fieldType == 'm' || $fieldType == 'checkbox') {
             $info['type'] = 'M';
@@ -377,20 +377,25 @@ class Tracker_Field_Category extends Tracker_Field_Abstract implements Tracker_F
 
     private function getRemoteCategoriesAsOptions($syncInfo, $parentId, $descending)
     {
-        $controller = new Services_RemoteController($syncInfo['provider'], 'category');
-        $categories = $controller->list_categories(
-            [
+        $client = new Services_ApiClient($syncInfo['provider']);
+        if ($parentId) {
+            $args = [
                 'parentId' => $parentId,
-                'descends' => $descending,
-            ]
-        );
+                'descends' => $descending
+            ];
+        } else {
+            $args = [
+                'type' => $descending ? 'all' : 'roots'
+            ];
+        }
+        $categories = $client->get($client->route('categories'), $args);
 
         $parts = [];
         foreach ($categories as $categ) {
             $parts[] = $categ['categId'] . '=' . $categ['name'];
         }
 
-        return implode(',', $parts);
+        return $parts;
     }
 
     public function getTabularSchema()

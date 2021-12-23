@@ -352,13 +352,8 @@ class Tracker_Field_UserSelector extends Tracker_Field_Abstract implements Track
         $groupIds = array_filter($groupIds);
         $groupIds = array_map('intval', $groupIds);
 
-        $controller = new Services_RemoteController($syncInfo['provider'], 'user');
-        $users = $controller->getResultLoader(
-            'list_users',
-            [
-                'groupIds' => $groupIds,
-            ]
-        );
+        $client = new Services_ApiClient($syncInfo['provider']);
+        $users = $client->getResultLoader($client->route('users'), ['groupIds' => $groupIds]);
 
         $list = [];
         foreach ($users as $user) {
@@ -367,7 +362,7 @@ class Tracker_Field_UserSelector extends Tracker_Field_Abstract implements Track
 
         if (count($list)) {
             $info['type'] = 'd';
-            $info['options'] = implode(',', $list);
+            $info['options'] = json_encode(['options' => $list]);
         } else {
             $info['type'] = 't';
             $info['options'] = '';

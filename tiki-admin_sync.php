@@ -16,11 +16,9 @@ $access->check_permission('tiki_p_admin');
 
 if (! empty($_REQUEST['submit'])) {
     try {
-        $controller = new Services_RemoteController($_REQUEST['url'], 'export');
-        $response = $controller->sync_content(['user' => $_REQUEST['user'], 'password' => $_REQUEST['password']]);
-        if (! empty($response['error'])) {
-            throw new Exception($response['error']);
-        }
+        $client = new Services_ApiClient($_REQUEST['url']);
+        $response = $client->get($client->route('export-sync'));
+
         $remote_content = $response['data'];
 
         $export_controller = new Services_Export_Controller();
@@ -32,7 +30,7 @@ if (! empty($_REQUEST['submit'])) {
             $diff = '<tr><td colspan="4">The diff is empty.</td></tr>';
         }
         $smarty->assign('diff', $diff);
-    } catch (Exception $e) {
+    } catch (Services_Exception $e) {
         Feedback::error($e->getMessage(), '');
     }
 }

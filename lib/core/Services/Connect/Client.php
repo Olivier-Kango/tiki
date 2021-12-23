@@ -21,6 +21,8 @@ class Services_Connect_Client
         }
 
         $this->connectlib = TikiLib::lib('connect');
+        // TODO: move Connect/Server to API
+        throw new Server_Exception(tr('Not implemented'), 501);
         $this->remote = new Services_RemoteController($prefs['connect_server'], 'connect_server');
     }
 
