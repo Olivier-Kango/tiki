@@ -158,7 +158,7 @@ function prefs_forum_list()
         ],
         'forum_inbound_mail_ignores_perms' => [
             'name' => tr('Allow inbound email posts from anyone'),
-            'description' => tr('Allow posts from non-users in forums using inbound posts from a specified email address.'),
+            'description' => tr('Allow messages from non-users in the forums using incoming messages from any email address.'),
             'type' => 'flag',
             'default' => 'n',
         ],
