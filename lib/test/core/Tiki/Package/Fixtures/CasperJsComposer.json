@@ -3,7 +3,8 @@
     "config": {
         "process-timeout": 5000,
         "bin-dir": "bin",
-        "component-dir": "vendor/components"
+        "component-dir": "vendor/components",
+        "prepend-autoloader": false
     },
     "repositories": [
         {
