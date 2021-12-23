@@ -4,6 +4,9 @@ export default {
 }
 </script>
 <script setup>
+import { ref } from 'vue'
+import { Form, Field } from 'vee-validate'
+import { useToast } from "vue-toastification"
 import store from '../store'
 
 const props = defineProps({
@@ -16,23 +19,47 @@ const props = defineProps({
     }
 });
 
-const handleTitleInput = event => {
+const showEditField = ref(false)
+const toast = useToast()
+
+const handleTitleChange = event => {
+    showEditField.value = false
+
+    if (event.target.value.length < 1) {
+        toast.error(`This field must be at least 1 character`)
+        return
+    }
+
     store.dispatch('editRowField', {
         id: props.rowId,
         field: 'title',
-        data: event.target.textContent
+        data: event.target.value
     })
+}
+
+const handleEditClick = event => {
+    showEditField.value = true
 }
 </script>
 
 <template>
     <div class="kanban-row">
-        <div v-if="title" class="kanban-row-title">
-            <span @input="handleTitleInput" contenteditable="true">{{title}}</span>
+        <div class="kanban-row-title">
+            <span v-if="!showEditField" @click="handleEditClick">{{ title }}</span>
+            <Form v-if="showEditField">
+                <Field
+                    v-focus
+                    :value="title"
+                    @blur="handleTitleChange"
+                    name="rowTitle"
+                    type="text"
+                    :rules="{ minLength: 1 }"
+                />
+            </Form>
         </div>
         <PerfectScrollbar>
             <div class="d-flex">
-                <slot/>
+                <slot />
             </div>
         </PerfectScrollbar>
     </div>
@@ -52,5 +79,4 @@ const handleTitleInput = event => {
         text-align: center;
     }
 }
-
 </style>

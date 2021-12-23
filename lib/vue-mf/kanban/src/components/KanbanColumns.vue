@@ -109,7 +109,7 @@ const handleModalClosed = () => {
                             <i class="far fa-calendar-alt mr-2"></i>Date picker
                         </template>
                         <template v-slot:dropdown-menu>
-                            <div class="p-2">
+                            <div class="p-2" style="min-width: 270px">
                                 <DatePicker class="mb-2" v-model="date" />
                                 <Button sm>Save</Button>
                                 <Button variant="default" sm>Cancel</Button>
