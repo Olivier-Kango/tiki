@@ -203,7 +203,7 @@ if (isset($_REQUEST['um_update']) && $access->checkCsrf()) {
     $smarty->assign_by_ref('um_data', $_REQUEST['um_data']);
     $smarty->assign_by_ref('um_parse', $_REQUEST['um_parse']);
 
-    $result = $modlib->replace_user_module($_REQUEST['um_name'], $_REQUEST['um_title'], $_REQUEST['um_data'], $_REQUEST['um_parse']);
+    $result = $modlib->replace_user_module( ( $_POST['um_tgt_module'] ?? null ), $_REQUEST['um_name'], $_REQUEST['um_title'], $_REQUEST['um_data'], $_REQUEST['um_parse']);
     if ($result && $result->numRows()) {
         $msg = $_REQUEST['um_update'] == tr('Create') ? tr('Custom module created') : tr('Custom module modified');
         Feedback::success($msg);
