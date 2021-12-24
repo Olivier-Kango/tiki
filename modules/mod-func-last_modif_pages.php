@@ -42,6 +42,10 @@ function module_last_modif_pages_info()
                 'name' => tra('User'),
                 'description' => tra('If set to "y", show who edited the pages.') . ' ( y / n )',
             ],
+            'action' => [
+                'name' => tra('Action'),
+                'description' => tra('If set to "y", show action performed on the pages.') . ' ( y / n )',
+            ],
             'comment' => [
                 'name' => tra('Comment'),
                 'description' => tra('If set to "y", show the descriptions of the change made on the pages.') . ' ( y / n )',
@@ -64,7 +68,8 @@ function module_last_modif_pages($mod_reference, $module_params)
 {
     $tikilib = TikiLib::lib('tiki');
     $smarty = TikiLib::lib('smarty');
-    $ranking = $tikilib->list_pages(0, $mod_reference['rows'], 'lastModif_desc', '', '', true, false, false, false, '', false, 'y');
+    $histlib = TikiLib::lib('hist');
+    $ranking = $histlib->get_last_changes(0, 0, $mod_reference['rows'], 'lastModif_desc', '', true);
 
     $smarty->assign('modLastModif', $ranking["data"]);
     $smarty->assign('maxlen', isset($module_params["maxlen"]) ? $module_params["maxlen"] : 0);
@@ -73,10 +78,11 @@ function module_last_modif_pages($mod_reference, $module_params)
     $smarty->assign('namespaceoption', isset($module_params['show_namespace']) ? $module_params['show_namespace'] : 'n');
     $smarty->assign('date', isset($module_params["date"]) ? $module_params["date"] : 'n');
     $smarty->assign('user', isset($module_params["user"]) ? $module_params["user"] : 'n');
+    $smarty->assign('action', isset($module_params["action"]) ? $module_params["action"] : 'n');
     $smarty->assign('comment', isset($module_params["comment"]) ? $module_params["comment"] : 'n');
     $smarty->assign('maxcomment', isset($module_params["maxcomment"]) ? $module_params["maxcomment"] : 0);
     // if one of the parameters exist and equal to "y"
-    if ((isset($module_params["date"]) && ($module_params["date"] == 'y')) || (isset($module_params["user"]) && ($module_params["user"] == 'y')) || (isset($module_params["comment"]) && ($module_params["comment"] == 'y'))) {
+    if ((isset($module_params["date"]) && ($module_params["date"] == 'y')) || (isset($module_params["user"]) && ($module_params["user"] == 'y')) || (isset($module_params["action"]) && ($module_params["action"] == 'y')) || (isset($module_params["comment"]) && ($module_params["comment"] == 'y'))) {
         $smarty->assign('modLastModifTable', 'y');
     } else {
         $smarty->assign('modLastModifTable', 'n');

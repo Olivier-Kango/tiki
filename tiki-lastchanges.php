@@ -45,7 +45,7 @@ if (! isset($_REQUEST["offset"])) {
 $smarty->assign_by_ref('offset', $offset);
 // Get a list of last changes to the Wiki database
 $more = 0;
-$lastchanges = $histlib->get_last_changes($days, $offset, $maxRecords, $sort_mode, $findwhat);
+$lastchanges = $histlib->get_last_changes($days, $offset, $maxRecords, $sort_mode, $findwhat, false);
 $smarty->assign_by_ref('cant_records', $lastchanges["cant"]);
 // If there're more records then assign next_offset
 $cant_pages = ceil($lastchanges["cant"] / $maxRecords);

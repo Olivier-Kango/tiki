@@ -7,6 +7,7 @@
                 <tr>
                     {if $date eq 'y'}<th>{tr}Date{/tr}</th>{/if}
                     <th>{tr}Page{/tr}</th>
+                    {if $action eq 'y'}<th>{tr}Action{/tr}</th>{/if}
                     {if $user eq 'y'}<th>{tr}User{/tr}</th>{/if}
                     {if $comment eq 'y'}<th>{tr}Comment{/tr}</th>{/if}
                 </tr>
@@ -62,6 +63,10 @@
                                 {/if}
                             </a>
                         </td>
+
+                        {if $action eq 'y'}
+                            <td>{$modLastModif[ix].action}</td>
+                        {/if}
 
                         {if $user eq 'y'}
                             <td>{$modLastModif[ix].user|username}</td>
