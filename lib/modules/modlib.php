@@ -1095,7 +1095,7 @@ class ModLib extends TikiLib
                             'type' => 'warning',
                             'title' => tr('Failed to execute "%0" module', $mod_reference['name']),
                         ],
-                        tr('Missing dependencies'),
+                        tr('Required features: '.$mod_reference['name'].'. If you do not have permission to activate these features, ask the site administrator.'),
                         $smarty,
                         $repeat
                     );
