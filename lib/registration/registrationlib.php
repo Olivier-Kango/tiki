@@ -257,24 +257,27 @@ class RegistrationLib extends TikiLib
                 $errors[] = new RegistrationError('name', tra('Username is too long'));
             }
 
-            if ($this->merged_prefs['lowercase_username'] == 'y' && $validateName) {
-                if (preg_match('/[[:upper:]]/', $registration['name'])) {
-                    $errors[] = new RegistrationError('name', tra('Username cannot contain uppercase letters'));
+            if ($prefs['login_is_email'] != 'y') {
+                if ($this->merged_prefs['lowercase_username'] == 'y' && $validateName) {
+                    if (preg_match('/[[:upper:]]/', $registration['name'])) {
+                        $errors[] = new RegistrationError('name', tra('Username cannot contain uppercase letters'));
+                    }
                 }
-            }
+    
+                if (strlen($registration['name']) < $this->merged_prefs['min_username_length'] && $validateName) {
+                    $errors[] = new RegistrationError(
+                        'name',
+                        tr("Username must be at least %0 characters long", $this->merged_prefs['min_username_length'])
+                    );
+                }
+    
+                if (strlen($registration['name']) > $this->merged_prefs['max_username_length'] && $validateName) {
+                    $errors[] = new RegistrationError(
+                        'name',
+                        tr("Username cannot contain more than %0 characters", $this->merged_prefs['max_username_length'])
+                    );
+                }
 
-            if (strlen($registration['name']) < $this->merged_prefs['min_username_length'] && $validateName) {
-                $errors[] = new RegistrationError(
-                    'name',
-                    tr("Username must be at least %0 characters long", $this->merged_prefs['min_username_length'])
-                );
-            }
-
-            if (strlen($registration['name']) > $this->merged_prefs['max_username_length'] && $validateName) {
-                $errors[] = new RegistrationError(
-                    'name',
-                    tr("Username cannot contain more than %0 characters", $this->merged_prefs['max_username_length'])
-                );
             }
 
             $newPass = $registration['pass'] ? $registration['pass'] : $registration['genepass'];
