@@ -6,9 +6,122 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
+use Tiki\Package\VendorHelper;
+
 function prefs_zend_list()
 {
+    $emailOptions = [
+        'sendmail' => tra('Sendmail'),
+        'smtp' => tra('SMTP'),
+        'file' => tra('File (debug)'),
+    ];
+
+    $isAwsSdkInstalled = VendorHelper::getAvailableVendorPath('AwsSDK', 'aws/aws-sdk-php/src/Credentials/Credentials.php') !== false;
+    if ($isAwsSdkInstalled) {
+        $emailOptions = array_merge($emailOptions, ['amazonSes' => tra('Amazon SES')]);
+    }
+    $slmMailOptions = [
+        'elasticEmail' => tra('Elastic Email'),
+        'mailgun' => tra('Mailgun'),
+        'mandrill' => tra('Mandrill'),
+        'postage' => tra('Postage'),
+        'postmark' => tra('Postmark'),
+        'sendGrid' => tra('SendGrid'),
+        'sparkPost' => tra('SparkPost')
+    ];
+    $emailOptions = array_merge($emailOptions, $slmMailOptions);
+
     return [
+        'zend_mail_amazon_ses_key' => [
+            'name' => tra('Amazon SES Key'),
+            'type' => 'text',
+            'perspective' => false,
+            'default' => '',
+        ],
+        'zend_mail_amazon_ses_secret' => [
+            'name' => tra('Amazon SES Secret'),
+            'type' => 'text',
+            'perspective' => false,
+            'default' => '',
+        ],
+        'zend_mail_amazon_ses_region' => [
+            'name' => tra('Amazon SES Region'),
+            'type' => 'text',
+            'perspective' => false,
+            'default' => '',
+        ],
+        'zend_mail_amazon_ses_version' => [
+            'name' => tra('Amazon SES version'),
+            'type' => 'text',
+            'perspective' => false,
+            'default' => '',
+        ],
+        'zend_mail_elastic_email_username' => [
+            'name' => tra('Elastic Email Username'),
+            'type' => 'text',
+            'perspective' => false,
+            'default' => '',
+        ],
+        'zend_mail_elastic_email_key' => [
+            'name' => tra('Elastic Email Key'),
+            'type' => 'text',
+            'perspective' => false,
+            'default' => '',
+        ],
+        'zend_mail_mailgun_domain' => [
+            'name' => tra('Mailgun Domain'),
+            'type' => 'text',
+            'perspective' => false,
+            'default' => '',
+        ],
+        'zend_mail_mailgun_key' => [
+            'name' => tra('Mailgun Key'),
+            'type' => 'text',
+            'perspective' => false,
+            'default' => '',
+        ],
+        'zend_mail_mailgun_api_endpoint' => [
+            'name' => tra('Mailgun API Endpoint'),
+            'type' => 'text',
+            'perspective' => false,
+            'default' => '',
+        ],
+        'zend_mail_mandrill_key' => [
+            'name' => tra('Mandrill Key'),
+            'type' => 'text',
+            'perspective' => false,
+            'default' => '',
+        ],
+        'zend_mail_postage_key' => [
+            'name' => tra('Postage Key'),
+            'type' => 'text',
+            'perspective' => false,
+            'default' => '',
+        ],
+        'zend_mail_postmark_key' => [
+            'name' => tra('Postmark Key'),
+            'type' => 'text',
+            'perspective' => false,
+            'default' => '',
+        ],
+        'zend_mail_send_grid_username' => [
+            'name' => tra('SendGrid Username'),
+            'type' => 'text',
+            'perspective' => false,
+            'default' => '',
+        ],
+        'zend_mail_send_grid_key' => [
+            'name' => tra('SendGrid Key'),
+            'type' => 'text',
+            'perspective' => false,
+            'default' => '',
+        ],
+        'zend_mail_spark_post_key' => [
+            'name' => tra('SparkPost Key'),
+            'type' => 'text',
+            'perspective' => false,
+            'default' => '',
+        ],
         'zend_mail_smtp_server' => [
             'name' => tra('SMTP server'),
             'type' => 'text',
@@ -54,11 +167,7 @@ function prefs_zend_list()
             'name' => tra('Mail sender'),
             'description' => tra('Specify if Tiki should use Sendmail(the PHP mail() function), SMTP or File (Debug) (to debug email sending by means of storing emails as files on disk at ./temp/Mail_yyyymmddhhmmss_randomstring.tmp ) to send mail notifications.'),
             'type' => 'list',
-            'options' => [
-                'sendmail' => tra('Sendmail'),
-                'smtp' => tra('SMTP'),
-                'file' => tra('File (debug)'),
-            ],
+            'options' => $emailOptions,
             'default' => 'sendmail',
         ],
         'zend_mail_smtp_auth' => [

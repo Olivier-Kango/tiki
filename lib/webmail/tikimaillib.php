@@ -10,6 +10,9 @@
  * set some default params (mainly utf8 as tiki is utf8) + use the mailCharset pref from a user
  */
 
+use Laminas\Mail\Exception\ExceptionInterface as ZendMailException;
+use SlmMail\Exception\ExceptionInterface as SlmMailException;
+
 class TikiMail
 {
     /**
@@ -292,20 +295,18 @@ class TikiMail
             $title = 'mail';
         } else {
             try {
-
                 $email_body = $this->mail->getBody();
-                if($prefs['email_footer'])
-                {
-                    $email_footer = "\r\n\n\n".$prefs['email_footer'];
-                    $new_body = $email_body.$email_footer;
+                if ($prefs['email_footer']) {
+                    $email_footer = "\r\n\n\n" . $prefs['email_footer'];
+                    $new_body = $email_body . $email_footer;
                     $this->mail->setBody($new_body);
                 }
-                
+
                 tiki_send_email($this->mail);
 
                 $title = 'mail';
                 $error = '';
-            } catch (Laminas\Mail\Exception\ExceptionInterface $e) {
+            } catch (ZendMailException | SlmMailException $e) {
                 $title = 'mail error';
                 $error = $e->getMessage();
                 $this->errors[] = $error;

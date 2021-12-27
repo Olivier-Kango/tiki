@@ -8,10 +8,10 @@
 
 namespace Tiki\Command;
 
+use Laminas\Mail\Exception\ExceptionInterface as ZendMailException;
+use SlmMail\Exception\ExceptionInterface as SlmMailException;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 error_reporting(E_ALL);
@@ -45,7 +45,7 @@ class MailQueueSendCommand extends Command
                 try {
                     tiki_send_email($mail);
                     $title = 'mail';
-                } catch (\Laminas\Mail\Exception\ExceptionInterface $e) {
+                } catch (ZendMailException | SlmMailException $e) {
                     $title = 'mail error';
                     $error = $e->getMessage();
                 }

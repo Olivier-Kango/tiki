@@ -21,6 +21,17 @@
  * http://www.faqs.org/rfcs/rfc2047.html
  */
 
+use Laminas\Mail\Transport\TransportInterface;
+use SlmMail\Service\ElasticEmailService;
+use SlmMail\Service\MailgunService;
+use SlmMail\Service\MailServiceInterface;
+use SlmMail\Service\MandrillService;
+use SlmMail\Service\PostageService;
+use SlmMail\Service\PostmarkService;
+use SlmMail\Service\SendGridService;
+use SlmMail\Service\SesService;
+use SlmMail\Service\SparkPostService;
+
 $charset = 'utf-8'; // What charset we do use in Tiki
 $in_str = '';
 
@@ -66,7 +77,43 @@ function tiki_mail_setup()
 
     global $tiki_maillib__zend_mail_default_transport;
     global $prefs;
-    if ($prefs['zend_mail_handler'] == 'smtp') {
+
+    if ($prefs['zend_mail_handler'] === 'amazonSes') {
+        $credentials = new \Aws\Credentials\Credentials(
+            $prefs['zend_mail_amazon_ses_key'],
+            $prefs['zend_mail_amazon_ses_secret']
+        );
+        $sesClient = new \Aws\Ses\SesClient([
+            'credentials' => $credentials,
+            'region' => $prefs['zend_mail_amazon_ses_region'],
+            'version' => $prefs['zend_mail_amazon_ses_version']
+        ]);
+        $transport = new SesService($sesClient);
+    } elseif ($prefs['zend_mail_handler'] === 'elasticEmail') {
+        $transport = new ElasticEmailService(
+            $prefs['zend_mail_elastic_email_username'],
+            $prefs['zend_mail_elastic_email_key']
+        );
+    } elseif ($prefs['zend_mail_handler'] === 'mailgun') {
+        $transport = new MailgunService(
+            $prefs['zend_mail_mailgun_domain'],
+            $prefs['zend_mail_mailgun_key'],
+            $prefs['zend_mail_mailgun_api_endpoint']
+        );
+    } elseif ($prefs['zend_mail_handler'] === 'mandrill') {
+        $transport = new MandrillService($prefs['zend_mail_mandrill_key']);
+    } elseif ($prefs['zend_mail_handler'] === 'postage') {
+        $transport = new PostageService($prefs['zend_mail_postage_key']);
+    } elseif ($prefs['zend_mail_handler'] === 'postmark') {
+        $transport = new PostmarkService($prefs['zend_mail_postmark_key']);
+    } elseif ($prefs['zend_mail_handler'] === 'sendGrid') {
+        $transport = new SendGridService(
+            $prefs['zend_mail_send_grid_username'],
+            $prefs['zend_mail_send_grid_key']
+        );
+    } elseif ($prefs['zend_mail_handler'] === 'sparkPost') {
+        $transport = new SparkPostService($prefs['zend_mail_spark_post_key']);
+    } elseif ($prefs['zend_mail_handler'] === 'smtp') {
         $options = [
             'host' => $prefs['zend_mail_smtp_server']
         ];
@@ -98,7 +145,7 @@ function tiki_mail_setup()
         }
         $transportOptions = new Laminas\Mail\Transport\SmtpOptions($options);
         $transport->setOptions($transportOptions);
-    } elseif ($prefs['zend_mail_handler'] == 'file') {
+    } elseif ($prefs['zend_mail_handler'] === 'file') {
         $transport = new Laminas\Mail\Transport\File();
         $transportOptions = new Laminas\Mail\Transport\FileOptions(
             [
@@ -109,7 +156,7 @@ function tiki_mail_setup()
             ]
         );
         $transport->setOptions($transportOptions);
-    } elseif ($prefs['zend_mail_handler'] == 'sendmail' && ! empty($prefs['sender_email'])) {
+    } elseif ($prefs['zend_mail_handler'] === 'sendmail' && ! empty($prefs['sender_email'])) {
         // from http://framework.zend.com/manual/1.12/en/zend.mail.introduction.html#zend.mail.introduction.sendmail
         $transport = new Laminas\Mail\Transport\Sendmail('-f' . $prefs['sender_email']);
     } else {
@@ -180,15 +227,13 @@ function tiki_send_email($email)
 {
     global $prefs;
 
-    tiki_mail_setup();
-
     if (! empty($prefs['zend_mail_redirect'])) {
         $email->setTo($prefs['zend_mail_redirect']);
         $email->setCc([]);
         $email->setBcc([]);
     }
 
-    /* @var $tiki_maillib__zend_mail_default_transport Laminas\Mail\Transport\TransportInterface */
+    /* @var $tiki_maillib__zend_mail_default_transport TransportInterface|MailServiceInterface */
     global $tiki_maillib__zend_mail_default_transport;
 
     $tiki_maillib__zend_mail_default_transport->send($email);

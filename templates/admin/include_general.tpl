@@ -35,6 +35,37 @@
                 {preference name=mail_crlf}
                 {preference name=mail_apply_css}
                 {preference name=zend_mail_handler}
+                <div class="adminoptionboxchild zend_mail_handler_childcontainer amazonSes">
+                    {preference name=zend_mail_amazon_ses_key}
+                    {preference name=zend_mail_amazon_ses_secret}
+                    {preference name=zend_mail_amazon_ses_region}
+                    {preference name=zend_mail_amazon_ses_version}
+                </div>
+                <div class="adminoptionboxchild zend_mail_handler_childcontainer elasticEmail">
+                    {preference name=zend_mail_elastic_email_username}
+                    {preference name=zend_mail_elastic_email_key}
+                </div>
+                <div class="adminoptionboxchild zend_mail_handler_childcontainer mailgun">
+                    {preference name=zend_mail_mailgun_domain}
+                    {preference name=zend_mail_mailgun_key}
+                    {preference name=zend_mail_mailgun_api_endpoint}
+                </div>
+                <div class="adminoptionboxchild zend_mail_handler_childcontainer mandrill">
+                    {preference name=zend_mail_mandrill_key}
+                </div>
+                <div class="adminoptionboxchild zend_mail_handler_childcontainer postage">
+                    {preference name=zend_mail_postage_key}
+                </div>
+                <div class="adminoptionboxchild zend_mail_handler_childcontainer postmark">
+                    {preference name=zend_mail_postmark_key}
+                </div>
+                <div class="adminoptionboxchild zend_mail_handler_childcontainer sendGrid">
+                    {preference name=zend_mail_send_grid_username}
+                    {preference name=zend_mail_send_grid_key}
+                </div>
+                <div class="adminoptionboxchild zend_mail_handler_childcontainer sparkPost">
+                    {preference name=zend_mail_spark_post_key}
+                </div>
                 <div class="adminoptionboxchild zend_mail_handler_childcontainer smtp">
                     {preference name=zend_mail_smtp_server}
                     {preference name=zend_mail_smtp_auth}

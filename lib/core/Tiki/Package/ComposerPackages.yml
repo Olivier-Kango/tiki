@@ -94,6 +94,14 @@ PHPSaml:
   requiredBy:
     - saml_auth_enabled
   requiredVersion: ^3.2.1
+AwsSDK:
+  licence: Apache-2.0
+  licenceUrl: "https://github.com/aws/aws-sdk-php/blob/master/LICENSE"
+  name: aws/aws-sdk-php
+  requiredBy:
+    - "zend_mail_smtp_server"
+    - "Amazon SES mail sender"
+  requiredVersion: ^3.208
 TesseractOCR:
   licence: MIT
   licenceUrl: "https://github.com/thiagoalessio/tesseract-ocr-for-php/blob/master/MIT-LICENSE"

@@ -14,6 +14,9 @@ if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
 
 include_once('lib/webmail/tikimaillib.php');
 
+use Laminas\Mail\Exception\ExceptionInterface as ZendMailException;
+use SlmMail\Exception\ExceptionInterface as SlmMailException;
+
 class NlLib extends TikiLib
 {
     public function replace_newsletter(
@@ -518,7 +521,7 @@ class NlLib extends TikiLib
                 tiki_send_email($zmail);
 
                 return true;
-            } catch (Laminas\Mail\Exception\ExceptionInterface $e) {
+            } catch (ZendMailException | SlmMailException $e) {
                 return false;
             }
         } else {
@@ -625,7 +628,7 @@ class NlLib extends TikiLib
             tiki_send_email($zmail);
 
             return $this->get_newsletter($res["nlId"]);
-        } catch (Laminas\Mail\Exception\ExceptionInterface $e) {
+        } catch (ZendMailException | SlmMailException $e) {
             return false;
         }
     }
@@ -716,7 +719,7 @@ class NlLib extends TikiLib
 
             try {
                 tiki_send_email($zmail);
-            } catch (Laminas\Mail\Exception\ExceptionInterface $e) {
+            } catch (ZendMailException | SlmMailException $e) {
             }
         }
         /*$this->update_users($res["nlId"]);*/
@@ -1680,7 +1683,7 @@ class NlLib extends TikiLib
                     }
                     $this->delete_edition_subscriber($info['editionId'], $us);
                     $logStatus = 'OK';
-                } catch (Laminas\Mail\Exception\ExceptionInterface $e) {
+                } catch (ZendMailException | SlmMailException $e) {
                     if ($browser) {
                         print '<div class="confirmation">' . ' Total emails sent: ' . count($sent)
                             . tr(' after error in sending to') . ' <b>' . $email . '</b>: <span class="text-danger">'

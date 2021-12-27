@@ -5,6 +5,8 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
+use Laminas\Mail\Exception\ExceptionInterface as ZendMailException;
+use SlmMail\Exception\ExceptionInterface as SlmMailException;
 
 function wikiplugin_tracker_info()
 {
@@ -1582,7 +1584,7 @@ function wikiplugin_tracker($data, $params)
                                     $mail->send($ueo);
                                     $sentMails[] = $ueo . $tplKey;
                                     $title = 'mail';
-                                } catch (Laminas\Mail\Exception\ExceptionInterface $e) {
+                                } catch (ZendMailException | SlmMailException $e) {
                                     $title = 'mail error';
                                 }
                                 if ($title == 'mail error') {
