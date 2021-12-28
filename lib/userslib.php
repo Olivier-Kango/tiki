@@ -6943,7 +6943,7 @@ class UsersLib extends TikiLib
                     $this->assign_user_to_group($user, $grp);
                 }
             } else {
-                $this->assign_user_to_group($user, 'Registered');
+                $this->assign_user_to_group($user, $groups);
             }
         }
 
