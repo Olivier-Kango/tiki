@@ -108,7 +108,11 @@
                                         href="{$slvn_item.list[ix].href|escape}"
                                         title="{$slvn_item.list[ix].title|escape|replace:'&amp;':'&'}"
                                     >
-                                        {if $slvn_item.list[ix].label == ''}-{else}{$slvn_item.list[ix].label|escape}{/if}
+                                        {if $slvn_item.list[ix].label == ''}-{else}{$slvn_item.list[ix].label|escape}
+                                            {if $slvn_item.list[ix].count_comment and $slvn_item.list[ix].count_comment > 1}
+                                                <span class="badge badge-primary">{$slvn_item.list[ix].count_comment|escape}</span>
+                                            {/if}
+                                        {/if}
                                     </a>
                                 </li>
                             {/section}

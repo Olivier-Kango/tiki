@@ -227,12 +227,15 @@ function module_since_last_visit_new($mod_reference, $params = null)
     if ($prefs['feature_forums'] == 'y') {
         $ret['items']['posts']['label'] = tra('new posts');
         $ret['items']['posts']['cname'] = 'slvn_posts_menu';
-        $query = 'select `posts`.`object`,`posts`.`objectType`,`posts`.`title`,`posts`.`commentDate`,' .
-                            ' `posts`.`userName`,`posts`.`threadId`, `posts`.`parentId`,`topics`.`title` `topic_title`' .
-                            ' from `tiki_comments` `posts`' .
-                            ' left join `tiki_comments` `topics` ON `posts`.`parentId` = `topics`.`threadId`' .
-                            " where `posts`.`commentDate`>? and `posts`.`objectType` = 'forum'" .
-                            ' order by `posts`.`commentDate` desc';
+
+        $query = "SELECT `selected_post`.`threadId`, `selected_post`.`object`, `selected_post`.`objectType`, `selected_post`.`title`, `selected_post`.`commentDate`, `selected_post`.`parentId`, `topics`.`title` `topic_title`, `count_comment` FROM (".
+            " SELECT `selected_posts`.title, `selected_posts`.`commentDate`, `selected_posts`.`parentId`, count(`selected_posts`.`parentId`) `count_comment`,".
+            " `selected_posts`.`object`,`selected_posts`.`objectType`, `selected_posts`.`threadId`".
+            " FROM `tiki_comments` `selected_posts`".
+            " where `selected_posts`.`commentDate`>? and `selected_posts`.`objectType` = 'forum'".
+            " GROUP BY `selected_posts`.`parentId` DESC) as selected_post".
+            ' left join `tiki_comments` `topics` ON `selected_post`.`parentId` = `topics`.`threadId`' .
+            " ORDER BY commentDate DESC";
 
         $result = $tikilib->query($query, [(int) $last], $resultCount);
 
@@ -247,11 +250,12 @@ function module_since_last_visit_new($mod_reference, $params = null)
                     $ret['items']['posts']['list'][$count]['href'] .= $res['threadId'];
                 }
                 $ret['items']['posts']['list'][$count]['title'] = $tikilib->get_short_datetime($res['commentDate']) . ' ' . tra('by') . ' ' . smarty_modifier_username($res['userName']);
-                if ($res['parentId'] == 0 || $prefs['forum_reply_notitle'] != 'y') {
+                if ($res['parentId'] == 0 || $prefs['forum_reply_notitle'] != 'y' || $res['title'] != '') {
                     $ret['items']['posts']['list'][$count]['label'] = $res['title'];
                 } else {
                     $ret['items']['posts']['list'][$count]['label'] = $res['topic_title'];
                 }
+                $ret['items']['posts']['list'][$count]['count_comment'] = $res['count_comment'];
                 ++$count;
             }
         }
