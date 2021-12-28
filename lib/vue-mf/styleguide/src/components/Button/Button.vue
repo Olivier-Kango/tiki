@@ -1,6 +1,6 @@
 <template>
     <button type="button" :class="['btn', `btn-${variant}`, {'btn-sm': sm}]">
-        <span><slot /></span>
+        <slot />
     </button>
 </template>
 
