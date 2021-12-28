@@ -234,7 +234,7 @@
         {if $watches}
             <div class="form-group text-center">
                 {tr}Perform action with checked:{/tr}
-                <input type="submit" class="btn btn-danger btn-sm" name="delete" value="{tr}Delete{/tr}">
+                <input type="submit" class="btn btn-danger btn-sm" name="delete" value="{tr}Delete{/tr}" onclick="confirmPopup('{tr}Delete Watches?{/tr}', '{ticket mode=get}')">
             </div>
         {/if}
     </form>

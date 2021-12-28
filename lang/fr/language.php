@@ -14628,6 +14628,7 @@ $lang_current = array(
 "Open in WebDAV" => "Ouvrir dans WebDAV",
 "Share a link to this file" => "Partager un lien vers ce fichier",
 "Delete file" => "Supprimer le fichier",
+"Delete Watches" => "Supprimer Surveillances",
 "Click here to use the file" => "Cliquer Ici pour Insérer en Syntaxe Wiki",
 "The checkbox is disabled because this preference is disabled globally" => "La case est grisée car la fonctionnalité est désactivée de manière globale",
 // "Please enable the preference globally first" => "Please enable the preference globally first",
