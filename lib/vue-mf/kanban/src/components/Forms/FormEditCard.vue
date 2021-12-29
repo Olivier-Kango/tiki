@@ -9,7 +9,6 @@ import { Form, Field } from 'vee-validate'
 import { useToast } from "vue-toastification"
 import { Button } from '@vue-mf/styleguide'
 import store from '../../store'
-import autosize from 'autosize'
 
 const props = defineProps({
     id: {
@@ -32,10 +31,9 @@ const textarea = ref(null)
 
 watchEffect(() => {
     description.value = props.desc
-    autosize(textarea.value)
 })
 
-const handleTitleChange = event => {
+const handleTitleBlur = event => {
     showEditField.value = false
 
     if (event.target.value.length < 1) {
@@ -76,17 +74,19 @@ const handleCancel = () => {
 <template>
     <h4>
         <div v-if="!showEditField" @click="handleEditClick">{{ title }}</div>
-        <Form v-if="showEditField">
-            <Field
-                class="w-100"
-                v-focus
-                :value="title"
-                @blur="handleTitleChange"
-                name="rowTitle"
-                type="text"
-                :rules="{ minLength: 1 }"
-            />
-        </Form>
+        <Field
+            class="w-100"
+            v-if="showEditField"
+            v-focus
+            v-autosize
+            as="textarea"
+            rows="1"
+            :value="title"
+            @blur="handleTitleBlur"
+            name="cardTitle"
+            type="text"
+            :rules="{ minLength: 1 }"
+        />
     </h4>
     <h6>Description</h6>
     <p v-if="!editDesc" @click="handleEditDesc">
@@ -94,7 +94,7 @@ const handleCancel = () => {
         {{ description }}
     </p>
     <div v-if="editDesc">
-        <textarea ref="textarea" @input="handleDescriptionInput" class="form-control mb-2" name="" id="">{{ description }}</textarea>
+        <textarea v-autosize v-focus @input="handleDescriptionInput" class="form-control mb-2" name="" id="">{{ description }}</textarea>
         <div>
             <Button class="d-inline-block" sm @click="handleSaveDesc">Save</Button>
             <Button class="d-inline-block ml-2" variant="default" sm @click="handleCancel">

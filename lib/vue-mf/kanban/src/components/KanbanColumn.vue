@@ -5,7 +5,7 @@ export default {
 </script>
 <script setup>
 import { ref } from 'vue'
-import { Form, Field } from 'vee-validate'
+import { Field } from 'vee-validate'
 import { useToast } from "vue-toastification"
 import { Dropdown } from '@vue-mf/styleguide'
 import ButtonAddCard from './Buttons/ButtonAddCard.vue'
@@ -30,7 +30,7 @@ const props = defineProps({
 const showEditField = ref(false)
 const toast = useToast()
 
-const handleTitleChange = event => {
+const handleTitleBlur = event => {
     showEditField.value = false
 
     if (event.target.value.length < 1) {
@@ -55,17 +55,19 @@ const handleEditClick = event => {
         <div class="d-flex justify-content-between align-items-center mb-1">
             <h6 :class="{'drag-handle-column': !showEditField}" class="d-flex flex-grow-1 mb-0" v-if="title">
                 <span v-if="!showEditField" class="mr-2 flex-grow-1" @click="handleEditClick">{{ title }}</span>
-                <Form v-if="showEditField" class="flex-grow-1">
-                    <Field
-                        v-focus
-                        :value="title"
-                        @blur="handleTitleChange"
-                        name="rowTitle"
-                        type="text"
-                        :rules="{ minLength: 1 }"
-                    />
-                </Form>
-
+                <Field
+                    class="flex-grow-1 mr-1"
+                    v-if="showEditField"
+                    v-focus
+                    v-autosize
+                    as="textarea"
+                    rows="1"
+                    :value="title"
+                    @blur="handleTitleBlur"
+                    name="rowTitle"
+                    type="text"
+                    :rules="{ minLength: 1 }"
+                />
                 <span>{{ total }}/{{ limit }}</span>
             </h6>
             <Dropdown class="d-inline-block ml-2" variant="default" sm>
@@ -73,8 +75,10 @@ const handleEditClick = event => {
                     <i class="fas fa-ellipsis-h"></i>
                 </template>
                 <template v-slot:dropdown-menu>
-                    <span class="dropdown-item-text">List actions</span>
-                    <div class="dropdown-divider"></div>
+                    <div class="px-2">
+                        <span class="dropdown-item-text">List actions</span>
+                        <div class="dropdown-divider"></div>
+                    </div>
                 </template>
             </Dropdown>
         </div>

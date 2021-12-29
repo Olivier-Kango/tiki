@@ -4,7 +4,7 @@ export default {
 }
 </script>
 <script setup>
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { Sidebar } from '@vue-mf/styleguide'
 import KanbanBoard from './components/KanbanBoard.vue'
 import Sidemenu from './components/Sidemenu/Sidemenu.vue'

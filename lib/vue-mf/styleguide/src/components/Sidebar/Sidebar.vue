@@ -55,7 +55,6 @@ export default {
 .sidebar-content {
     height: 100%;
     // border-right: 1px solid #e5e4e4;
-    overflow: hidden;
 }
 
 .sidebar-small, .sidebar-small .sidebar-content {
