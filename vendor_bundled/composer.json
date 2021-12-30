@@ -195,7 +195,12 @@
             "ext-soap": "0",
             "php": "7.4"
         },
-        "secure-http": false
+        "secure-http": false,
+        "allow-plugins": {
+            "composer/installers": true,
+            "oomphinc/composer-installers-extender": true,
+            "cweagans/composer-patches": true
+        }
     },
     "autoload": {
         "psr-0": {
