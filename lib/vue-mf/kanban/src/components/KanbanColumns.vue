@@ -7,6 +7,7 @@ export default {
 import { ref, computed } from 'vue'
 import { Dropdown, Button } from '@vue-mf/styleguide'
 import KanbanColumn from './KanbanColumn.vue'
+import ButtonAddColumn from './Buttons/ButtonAddColumn.vue'
 import KanbanCards from './KanbanCards.vue'
 import FormEditCard from './Forms/FormEditCard.vue'
 import draggable from 'vuedraggable/src/vuedraggable'
@@ -89,6 +90,9 @@ const handleModalClosed = () => {
             <KanbanColumn :columnId="element.id" :title="element.title" :limit="element.limit" :total="element.cards.length">
                 <KanbanCards :columnId="element.id" :cardIds="element.cards" @editCard="handleEditCard"></KanbanCards>
             </KanbanColumn>
+        </template>
+        <template #footer>
+            <ButtonAddColumn :rowId="rowId"></ButtonAddColumn>
         </template>
     </draggable>
     <vue-final-modal

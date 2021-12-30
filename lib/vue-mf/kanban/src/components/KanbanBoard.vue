@@ -10,7 +10,6 @@ import { useToast } from "vue-toastification"
 import { Button } from '@vue-mf/styleguide'
 import KanbanRow from './KanbanRow.vue'
 import KanbanColumns from './KanbanColumns.vue'
-import ButtonAddColumn from './Buttons/ButtonAddColumn.vue'
 import store from '../store'
 
 const props = defineProps({
@@ -69,7 +68,7 @@ const handleAddRow = event => {
                     :rules="{ minLength: 1 }"
                 />
             </a>
-            <Button sm variant="light" @click="handleAddRow">Add row <i class="fas fa-plus"></i></Button>
+            <Button sm variant="light" @click="handleAddRow">Add swimlane<i class="fas fa-plus ml-1"></i></Button>
         </nav>
         <KanbanRow
             v-for="(row, index) in store.getters.getRows(board.rows)"
@@ -80,7 +79,6 @@ const handleAddRow = event => {
             :index="index"
         >
             <KanbanColumns :rowId="row.id" :columnIds="row.columns"></KanbanColumns>
-            <ButtonAddColumn :rowId="row.id"></ButtonAddColumn>
         </KanbanRow>
     </div>
 </template>
