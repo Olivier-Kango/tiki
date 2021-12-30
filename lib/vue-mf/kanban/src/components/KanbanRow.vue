@@ -5,6 +5,7 @@ export default {
 </script>
 <script setup>
 import { ref } from 'vue'
+import { Button } from '@vue-mf/styleguide'
 import { Form, Field } from 'vee-validate'
 import { useToast } from "vue-toastification"
 import store from '../store'
@@ -14,9 +15,15 @@ const props = defineProps({
         type: String,
         default: ''
     },
+    boardId: {
+        type: Number
+    },
     rowId: {
         type: Number
-    }
+    },
+    index: {
+        type: Number
+    },
 });
 
 const showEditField = ref(false)
@@ -40,6 +47,20 @@ const handleTitleChange = event => {
 const handleEditClick = event => {
     showEditField.value = true
 }
+
+const handleMoveDown = event => {
+    store.dispatch('moveRowForth', {
+        boardId: props.boardId,
+        oldIndex: props.index
+    })
+}
+
+const handleMoveUp = event => {
+    store.dispatch('moveRowBack', {
+        boardId: props.boardId,
+        oldIndex: props.index
+    })
+}
 </script>
 
 <template>
@@ -56,6 +77,10 @@ const handleEditClick = event => {
                     :rules="{ minLength: 1 }"
                 />
             </Form>
+            <div class="kanban-row-controls">
+                <Button class="mr-1 py-0 px-1" sm variant="light" @click="handleMoveDown"><i class="fas fa-chevron-down"></i></Button>
+                <Button class="py-0 px-1" sm variant="light" @click="handleMoveUp"><i class="fas fa-chevron-up"></i></Button>
+            </div>
         </div>
         <PerfectScrollbar>
             <div class="d-flex">
@@ -72,11 +97,29 @@ const handleEditClick = event => {
     flex-wrap: wrap;
     margin-bottom: 10px;
     .kanban-row-title {
+        position: relative;
         width: 100%;
         margin: 5px;
         background-color: #f3f4fa;
         border-radius: 6px;
         text-align: center;
+
+        &:hover {
+            .kanban-row-controls {
+                display: block;
+            }
+        }
+
+        .kanban-row-controls {
+            display: none;
+            position: absolute;
+            top: 0;
+            right: 0;
+
+            button {
+                vertical-align: baseline;
+            }
+        }
     }
 }
 </style>

@@ -72,9 +72,12 @@ const handleAddRow = event => {
             <Button sm variant="light" @click="handleAddRow">Add row <i class="fas fa-plus"></i></Button>
         </nav>
         <KanbanRow
-            v-for="row in store.getters.getRows(board.rows)"
+            v-for="(row, index) in store.getters.getRows(board.rows)"
+            :key="row.title"
             :title="row.title"
+            :boardId="id"
             :rowId="row.id"
+            :index="index"
         >
             <KanbanColumns :rowId="row.id" :columnIds="row.columns"></KanbanColumns>
             <ButtonAddColumn :rowId="row.id"></ButtonAddColumn>
