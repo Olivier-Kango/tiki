@@ -51,10 +51,10 @@ const handleAddRow = event => {
 </script>
 
 <template>
-    <div class="kanban-container">
-        <nav class="navbar navbar-light bg-light rounded-lg mx-2">
-            <a class="navbar-brand" href="#" @click="handleEditClick">
-                <span v-if="!showEditField">{{ board.title }}</span>
+    <div class="kanban-container" :style="{backgroundImage: board.imageUrl ? `url(${board.imageUrl})` : 'none'}">
+        <nav class="navbar navbar-light rounded-lg" :class="{'bg-color-transparent': board.imageUrl, 'bg-light': !board.imageUrl}">
+            <div @click="handleEditClick">
+                <span v-if="!showEditField" style="font-size: 1.15rem">{{ board.title }}</span>
                 <Field
                     v-if="showEditField"
                     v-focus
@@ -67,13 +67,14 @@ const handleAddRow = event => {
                     type="text"
                     :rules="{ minLength: 1 }"
                 />
-            </a>
+            </div>
             <Button sm variant="light" @click="handleAddRow">Add swimlane<i class="fas fa-plus ml-1"></i></Button>
         </nav>
         <KanbanRow
             v-for="(row, index) in store.getters.getRows(board.rows)"
             :key="row.title"
             :title="row.title"
+            :transparentTitleBg="board.imageUrl ? true : false"
             :boardId="id"
             :rowId="row.id"
             :index="index"
@@ -84,4 +85,12 @@ const handleAddRow = event => {
 </template>
 
 <style lang="scss" scoped>
+.kanban-container {
+    padding-top: 5px;
+    background-size: cover;
+}
+.navbar {
+    padding: 0rem 1rem;
+    margin: 0 5px;
+}
 </style>

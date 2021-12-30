@@ -15,6 +15,10 @@ const props = defineProps({
         type: String,
         default: ''
     },
+    transparentTitleBg: {
+        type: Boolean,
+        default: false
+    },
     boardId: {
         type: Number
     },
@@ -65,7 +69,7 @@ const handleMoveUp = event => {
 
 <template>
     <div class="kanban-row">
-        <div class="kanban-row-title">
+        <div class="kanban-row-title" :class="{'bg-color-transparent': transparentTitleBg}">
             <span v-if="!showEditField" @click="handleEditClick">{{ title }}</span>
             <Form v-if="showEditField">
                 <Field
@@ -96,12 +100,14 @@ const handleMoveUp = event => {
     align-items: flex-start;
     flex-wrap: wrap;
     margin-bottom: 10px;
+
     .kanban-row-title {
         position: relative;
         width: 100%;
         margin: 5px;
         background-color: #f3f4fa;
         border-radius: 6px;
+        font-weight: 500;
         text-align: center;
 
         &:hover {
