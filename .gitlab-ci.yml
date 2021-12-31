@@ -509,7 +509,6 @@ sensiolabs-vendor-security-check:
     - composer require mpdf/mpdf ^8.0.0 --no-progress
     - composer require xorti/mxgraph-editor ^3.9.12.2 --no-progress
     - composer require tikiwiki/diagram ^10 --no-progress
-    - composer require onelogin/php-saml ^2.10 --no-progress
     - composer require thiagoalessio/tesseract_ocr ^2.7.0 --no-progress
     - composer require mathjax/mathjax ^2.7 --no-progress
     - composer require media-alchemyst/media-alchemyst ^0.5.1 --no-progress

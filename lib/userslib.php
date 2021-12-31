@@ -753,9 +753,9 @@ class UsersLib extends TikiLib
                     $saml_username = $_SESSION['samlNameId'];
                     $saml_email = $saml_username;
                 } else {
-                    $usernameMapping = isset($prefs['saml_attrmap_username']) ? $prefs['saml_attrmap_username'] : '';
-                    $emailMapping = isset($prefs['saml_attrmap_mail']) ? $prefs['saml_attrmap_mail'] : '';
-                    $groupMapping = isset($prefs['saml_attrmap_group']) ? $prefs['saml_attrmap_group'] : '';
+                    $usernameMapping = $prefs['saml_attrmap_username'] ?? '';
+                    $emailMapping = $prefs['saml_attrmap_mail'] ?? '';
+                    $groupMapping = $prefs['saml_attrmap_group'] ?? '';
 
                     if (! empty($usernameMapping) && isset($_SESSION['samlUserdata'][$usernameMapping]) && ! empty($_SESSION['samlUserdata'][$usernameMapping][0])) {
                         $saml_username = $_SESSION['samlUserdata'][$usernameMapping][0];
@@ -785,12 +785,12 @@ class UsersLib extends TikiLib
                     // Code SAML Custom role here
                 }
 
-                $matcher = isset($prefs['saml_option_account_matcher']) ? $prefs['saml_option_account_matcher'] : 'email';
+                $matcher = $prefs['saml_option_account_matcher'] ?? 'email';
 
                 if ($matcher == 'email') {
                     if (empty($saml_email)) {
                         Feedback::error(tra("The email could not be retrieved from the IdP and is required"));
-                        return [false, $username, SERVER_ERROR];
+                        return [false, $user, SERVER_ERROR];
                     } else {
                         $username = $this->get_user_by_email($saml_email);
                         if ($this->user_exists($username)) {
@@ -806,7 +806,7 @@ class UsersLib extends TikiLib
                 } else {
                     if (empty($saml_username)) {
                         Feedback::error(tra("The username could not be retrieved from the IdP and is required"));
-                        return [false, $username, SERVER_ERROR];
+                        return [false, $user, SERVER_ERROR];
                     } else {
                         $username = $saml_username;
                         if ($this->user_exists($saml_username)) {
@@ -1162,7 +1162,7 @@ class UsersLib extends TikiLib
      */
     public function check_saml_authentication($user_cookie_site)
     {
-        global $prefs, $base_url;
+        global $prefs;
 
         if ($prefs['auth_method'] != 'saml' || ! class_exists('\OneLogin\Saml2\Auth')) {
             return;
@@ -1176,7 +1176,7 @@ class UsersLib extends TikiLib
             $saml_instance->login();
         } elseif (array_key_exists('saml_metadata', $_REQUEST)) {
             $samlSettingsInfo = $this->get_saml_settings();
-            $saml_settings = new OneLogin_Saml2_Settings($samlSettingsInfo, true);
+            $saml_settings = new Saml2\Settings($samlSettingsInfo, true);
             $metadata = $saml_settings->getSPMetadata();
             $errors = $saml_settings->validateMetadata($metadata);
             if (empty($errors)) {
@@ -1184,9 +1184,9 @@ class UsersLib extends TikiLib
                 echo $metadata;
                 exit();
             } else {
-                throw new OneLogin_Saml2_Error(
+                throw new \OneLogin\Saml2\Error(
                     'Invalid SP metadata: ' . implode(', ', $errors),
-                    OneLogin_Saml2_Error::METADATA_SP_INVALID
+                    OneLogin\Saml2\Error::METADATA_SP_INVALID
                 );
             }
         } elseif (array_key_exists('saml_acs', $_REQUEST)) {
@@ -1249,13 +1249,12 @@ class UsersLib extends TikiLib
      */
     public function get_saml_auth()
     {
-        $samlSettingsInfo = $this->get_saml_settings();
-
         if (! class_exists('\OneLogin\Saml2\Auth')) {
             return;
         }
 
         try {
+            $samlSettingsInfo = $this->get_saml_settings();
             $auth = new Saml2\Auth($samlSettingsInfo);
         } catch (Exception $e) {
             print_r("There is a problem with the SAML settings, review them: " . $e->getMessage());
@@ -1274,8 +1273,8 @@ class UsersLib extends TikiLib
         global $base_url;
 
         $samlSettingsInfo = [
-            'strict' => isset($prefs['saml_advanced_strict']) && $prefs['saml_advanced_strict'] == 'y' ? true : false,
-            'debug' => isset($prefs['saml_advanced_debug']) && $prefs['saml_advanced_debug'] == 'y' ? true : false,
+            'strict' => isset($prefs['saml_advanced_strict']) && $prefs['saml_advanced_strict'] == 'y',
+            'debug' => isset($prefs['saml_advanced_debug']) && $prefs['saml_advanced_debug'] == 'y',
             'sp' => [
                 'entityId' => (! empty($prefs['saml_advanced_sp_entity_id']) ? $prefs['saml_advanced_sp_entity_id'] : 'php-saml'),
                 'assertionConsumerService' => [
@@ -1285,31 +1284,31 @@ class UsersLib extends TikiLib
                     'url' => $base_url . 'tiki-login.php?saml_sls'
                 ],
                 'NameIDFormat' => (! empty($prefs['saml_advanced_nameidformat']) ? $prefs['saml_advanced_nameidformat'] : 'urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified'),
-                'x509cert' => isset($prefs['saml_advanced_sp_x509cert']) ? $prefs['saml_advanced_sp_x509cert'] : '',
-                'privateKey' => isset($prefs['saml_advanced_sp_privatekey']) ? $prefs['saml_advanced_sp_privatekey'] : '',
+                'x509cert' => $prefs['saml_advanced_sp_x509cert'] ?? '',
+                'privateKey' => $prefs['saml_advanced_sp_privatekey'] ?? '',
             ],
             'idp' => [
-                'entityId' => isset($prefs['saml_idp_entityid']) ? $prefs['saml_idp_entityid'] : '',
+                'entityId' => $prefs['saml_idp_entityid'] ?? '',
                 'singleSignOnService' => [
-                    'url' => isset($prefs['saml_idp_sso']) ? $prefs['saml_idp_sso'] : '',
+                    'url' => $prefs['saml_idp_sso'] ?? '',
                 ],
                 'singleLogoutService' => [
-                    'url' => isset($prefs['saml_idp_slo']) ? $prefs['saml_idp_slo'] : '',
+                    'url' => $prefs['saml_idp_slo'] ?? '',
                 ],
-                'x509cert' => isset($prefs['saml_idp_x509cert']) ? $prefs['saml_idp_x509cert'] : '',
-                'lowercaseUrlencoding' => isset($prefs['saml_advanced_idp_lowercase_url_encoding']) && $prefs['saml_advanced_idp_lowercase_url_encoding'] == 'y' ? true : false,
+                'x509cert' => $prefs['saml_idp_x509cert'] ?? '',
+                'lowercaseUrlencoding' => isset($prefs['saml_advanced_idp_lowercase_url_encoding']) && $prefs['saml_advanced_idp_lowercase_url_encoding'] == 'y',
             ],
             'security' => [
-                'signMetadata' => isset($prefs['saml_advanced_metadata_signed']) && $prefs['saml_advanced_metadata_signed'] == 'y' ? true : false,
-                'nameIdEncrypted' => isset($prefs['saml_advanced_nameid_encrypted']) && $prefs['saml_advanced_nameid_encrypted'] == 'y' ? true : false,
-                'authnRequestsSigned' => isset($prefs['saml_advanced_authn_request_signed']) && $prefs['saml_advanced_authn_request_signed'] == 'y' ? true : false,
-                'logoutRequestSigned' => isset($prefs['saml_advanced_logout_request_signed']) && $prefs['saml_advanced_logout_request_signed'] == 'y' ? true : false,
-                'logoutResponseSigned' => isset($prefs['saml_advanced_logout_response_signed']) && $prefs['saml_advanced_logout_response_signed'] == 'y' ? true : false,
-                'wantMessagesSigned' => isset($prefs['saml_advanced_want_message_signed']) && $prefs['saml_advanced_want_message_signed'] == 'y' ? true : false,
-                'wantAssertionsSigned' => isset($prefs['saml_advanced_want_assertion_signed']) && $prefs['saml_advanced_want_assertion_signed'] == 'y' ? true : false,
-                'wantAssertionsEncrypted' => isset($prefs['saml_advanced_want_assertion_encrypted']) && $prefs['saml_advanced_want_assertion_encrypted'] == 'y' ? true : false,
+                'signMetadata' => isset($prefs['saml_advanced_metadata_signed']) && $prefs['saml_advanced_metadata_signed'] == 'y',
+                'nameIdEncrypted' => isset($prefs['saml_advanced_nameid_encrypted']) && $prefs['saml_advanced_nameid_encrypted'] == 'y',
+                'authnRequestsSigned' => isset($prefs['saml_advanced_authn_request_signed']) && $prefs['saml_advanced_authn_request_signed'] == 'y',
+                'logoutRequestSigned' => isset($prefs['saml_advanced_logout_request_signed']) && $prefs['saml_advanced_logout_request_signed'] == 'y',
+                'logoutResponseSigned' => isset($prefs['saml_advanced_logout_response_signed']) && $prefs['saml_advanced_logout_response_signed'] == 'y',
+                'wantMessagesSigned' => isset($prefs['saml_advanced_want_message_signed']) && $prefs['saml_advanced_want_message_signed'] == 'y',
+                'wantAssertionsSigned' => isset($prefs['saml_advanced_want_assertion_signed']) && $prefs['saml_advanced_want_assertion_signed'] == 'y',
+                'wantAssertionsEncrypted' => isset($prefs['saml_advanced_want_assertion_encrypted']) && $prefs['saml_advanced_want_assertion_encrypted'] == 'y',
                 'requestedAuthnContext' => isset($prefs['saml_advanced_requestedauthncontext']) && $prefs['saml_advanced_requestedauthncontext'],
-                'signatureAlgorithm' => isset($prefs['saml_advanced_sign_algorithm']) ? $prefs['saml_advanced_sign_algorithm'] : 'http://www.w3.org/2000/09/xmldsig#rsa-sha1',
+                'signatureAlgorithm' => $prefs['saml_advanced_sign_algorithm'] ?? 'http://www.w3.org/2000/09/xmldsig#rsa-sha1',
             ]
         ];
         return $samlSettingsInfo;

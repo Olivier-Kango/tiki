@@ -13,7 +13,6 @@ function prefs_saml_list()
             'type' => 'flag',
             'perspective' => false,
             'default' => 'n',
-            'packages_required' => ['onelogin/php-saml' => 'OneLogin_Saml2_Auth'],
         ],
         'saml_idp_entityid' => [
             'name' => tra('IdP Entity Id'),

@@ -94,6 +94,9 @@ diagram:
     - "wikiplugin_diagram"
   requiredVersion: ^12.5.1
 PHPSaml:
+  state: deprecated
+  actions:
+    - remove
   licence: MIT
   licenceUrl: "https://github.com/onelogin/php-saml/blob/master/LICENSE"
   name: onelogin/php-saml
