@@ -140,6 +140,7 @@ class PackageUpdateCommand extends Command
             $this->output,
             $packagesInfo
         );
+        PackageCommandHelper::listDeprecatedAndReplacedPackages($this->output, $packages);
         $validator = function ($answer) use ($packages) {
             return PackageCommandHelper::validatePackageSelection(
                 $answer,

@@ -13,14 +13,20 @@ namespace Tiki\Package;
  */
 class ComposerPackage
 {
-    protected $key;
-    protected $name;
-    protected $requiredVersion;
-    protected $licence;
-    protected $licenceUrl;
-    protected $requiredBy;
-    protected $scripts;
-    protected $actions;
+    const STATE_ACTIVE = 'active';
+    const STATE_DEPRECATED = 'deprecated';
+    const STATE_REPLACED = 'replaced';
+
+    protected string $state;
+    protected string $key;
+    protected string $name;
+    protected string $requiredVersion;
+    protected string $licence;
+    protected string $licenceUrl;
+    protected array $requiredBy;
+    protected array $replacedBy;
+    protected array $scripts;
+    protected array $actions;
 
     /**
      * Sets the information related with this package, intended to be used in the constructor of the child class
@@ -31,19 +37,33 @@ class ComposerPackage
      * @param string $licence
      * @param string $licenceUrl
      * @param array $requiredBy
+     * @param array $replacedBy
      * @param array $scripts
      * @param array $actions
+     * @param string $state
      */
-    public function __construct($key, $name, $requiredVersion, $licence, $licenceUrl, $requiredBy, $scripts = [], $actions = [])
-    {
+    public function __construct(
+        string $key,
+        string $name,
+        string $requiredVersion,
+        string $licence,
+        string $licenceUrl,
+        array $requiredBy,
+        array $replacedBy = [],
+        array $scripts = [],
+        array $actions = [],
+        string $state = self::STATE_ACTIVE
+    ) {
         $this->key = $key;
         $this->name = $name;
         $this->requiredVersion = $requiredVersion;
         $this->licence = $licence;
         $this->licenceUrl = $licenceUrl;
         $this->requiredBy = $requiredBy;
+        $this->replacedBy = $replacedBy;
         $this->scripts = $scripts;
         $this->actions = $actions;
+        $this->state = $state;
     }
 
     /**
@@ -60,8 +80,10 @@ class ComposerPackage
             'licence' => $this->licence,
             'licenceUrl' => $this->licenceUrl,
             'requiredBy' => $this->requiredBy,
+            'replacedBy' => $this->replacedBy,
             'scripts' => $this->scripts,
             'actions' => $this->actions,
+            'state' => $this->state,
         ];
     }
 
@@ -144,5 +166,25 @@ class ComposerPackage
     public function getRequiredBy()
     {
         return $this->requiredBy;
+    }
+
+    /**
+     * Returns the state of the package
+     *
+     * @return string
+     */
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    /**
+     * Returns the list of package(s) that replaced this package
+     *
+     * @return array
+     */
+    public function getReplacedBy()
+    {
+        return $this->replacedBy;
     }
 }

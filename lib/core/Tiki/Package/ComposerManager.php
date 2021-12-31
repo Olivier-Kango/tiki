@@ -157,6 +157,8 @@ class ComposerManager
                     $package['licence'] = $packageListLookup[$packageName]['licence'];
                     $package['licenceUrl'] = $packageListLookup[$packageName]['licenceUrl'];
                     $package['requiredBy'] = $packageListLookup[$packageName]['requiredBy'];
+                    $package['state'] = $packageListLookup[$packageName]['state'];
+                    $package['replacedBy'] = $packageListLookup[$packageName]['replacedBy'];
                 } else {
                     $package['key'] = '';
                 }
@@ -410,21 +412,17 @@ class ComposerManager
         foreach ($yamlContent as $key => $fileInfo) {
             try {
                 if ($fileInfo) {
-                    if (! isset($fileInfo['scripts'])) {
-                        $fileInfo['scripts'] = [];
-                    }
-                    if (! isset($fileInfo['actions'])) {
-                        $fileInfo['actions'] = [];
-                    }
                     $externalPackage = new ComposerPackage(
                         $key,
                         $fileInfo['name'],
                         $fileInfo['requiredVersion'],
                         $fileInfo['licence'],
                         $fileInfo['licenceUrl'],
-                        $fileInfo['requiredBy'],
-                        $fileInfo['scripts'],
-                        $fileInfo['actions']
+                        $fileInfo['requiredBy'] ?? [],
+                        $fileInfo['replacedBy'] ?? [],
+                        $fileInfo['scripts'] ?? [],
+                        $fileInfo['actions'] ?? [],
+                        $fileInfo['state'] ?? ComposerPackage::STATE_ACTIVE,
                     );
                     if ($packageAction == 'search' && $key == $packageKey) {
                         return $externalPackage;

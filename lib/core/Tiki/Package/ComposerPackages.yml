@@ -35,6 +35,9 @@ FullCalendarSchedulerDeprecated:
   requiredBy:
     - "wikiplugin_trackercalendar"
   requiredVersion: ^1.9
+  state: deprecated
+  replacedBy:
+    - npm-asset/fullcalendar-scheduler
 FullCalendarScheduler:
   licence: GPLv3
   licenceUrl: "https://fullcalendar.io/scheduler/license/"
@@ -78,8 +81,11 @@ mxGraph:
   licenceUrl: "https://github.com/jgraph/mxgraph/blob/master/README.md"
   name: xorti/mxgraph-editor
   requiredBy:
-  - "wikiplugin_diagram"
+    - "wikiplugin_diagram"
   requiredVersion: ^3.9.12.2
+  state: replaced
+  replacedBy:
+    - tikiwiki/diagram
 diagram:
   licence: Apache-2.0
   licenceUrl: "https://gitlab.com/tikiwiki/diagram/blob/master/README.md"
@@ -107,7 +113,7 @@ TesseractOCR:
   licenceUrl: "https://github.com/thiagoalessio/tesseract-ocr-for-php/blob/master/MIT-LICENSE"
   name: thiagoalessio/tesseract_ocr
   requiredBy:
-  - ocr_enable
+    - ocr_enable
   requiredVersion: ^2.7.3
   # Be sure to update TESSERACT_BINARY_VERSION in ocrlib.php if the requirements have changed.
 MathJax:

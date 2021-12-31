@@ -13,6 +13,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Tiki\Package\ComposerManager;
+use Tiki\Package\ComposerPackage;
 use Tiki\Package\PackageCommandHelper;
 
 class PackageListCommand extends Command
@@ -53,6 +54,7 @@ class PackageListCommand extends Command
                     $installedPackagesInfo = PackageCommandHelper::getInstalledPackagesInfo($installedComposerPackages);
                     $output->writeln(tr('Packages Installed'));
                     PackageCommandHelper::renderInstalledPackagesTable($output, $installedPackagesInfo);
+                    PackageCommandHelper::listDeprecatedAndReplacedPackages($output, $installedComposerPackages);
                 }
             }
 

@@ -2,6 +2,7 @@
 
 namespace Tiki\Package;
 
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Helper\Table;
 
@@ -209,5 +210,30 @@ class PackageCommandHelper
         }
 
         return $updatablePackages;
+    }
+
+    public static function listDeprecatedAndReplacedPackages(OutputInterface $output, $packagesInfo)
+    {
+        foreach ($packagesInfo as $package) {
+            $state = $package['state'] ?? ComposerPackage::STATE_ACTIVE;
+
+            if ($state == ComposerPackage::STATE_ACTIVE) {
+                continue;
+            }
+
+            $packageName = $package['name'];
+            $message = '';
+
+            if ($state == ComposerPackage::STATE_REPLACED) {
+                $replacedBy = implode(',', $package['replacedBy'] ?? []);
+                $message = tr('%0 was replaced by %1', $packageName, $replacedBy);
+            }
+
+            if ($state == ComposerPackage::STATE_DEPRECATED) {
+                $message = tr('%0 is now deprecated and should be removed', $packageName);
+            }
+
+            $output->writeln('<comment>' . $message . '</comment>');
+        }
     }
 }

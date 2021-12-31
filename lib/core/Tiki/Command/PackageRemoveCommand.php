@@ -74,6 +74,9 @@ class PackageRemoveCommand extends Command
 
                         $output->writeln(tr('Packages that can be removed'));
                         PackageCommandHelper::renderInstalledPackagesTable($output, $removablePackagesInfo);
+                        PackageCommandHelper::listDeprecatedAndReplacedPackages($output, $removablePackages);
+
+                        $io->newLine();
 
                         $helper = $this->getHelper('question');
                         $question = PackageCommandHelper::getQuestion('Which package do you want to remove', null, '?');
