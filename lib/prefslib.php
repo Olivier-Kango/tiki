@@ -532,7 +532,13 @@ class PreferencesLib
 
     public function formatPreference($pref, $data)
     {
-        if (false !== $info = $this->getPreference($pref)) {
+        $info = $this->getPreference($pref);
+
+        if (false !== $info) {
+            if (empty($info['type'])) {
+                $info['type'] = 'text';
+                Feedback::error(tr('Preference %0 has no type set', $pref));
+            }
             $function = '_get' . ucfirst($info['type']) . 'Value';
             $value = $this->$function($info, $data);
             return $value;

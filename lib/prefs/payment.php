@@ -422,6 +422,7 @@ function prefs_payment_list()
         'payment_cart_order_weight_field' => [
             'name' => tra('Order weight field'),
             'description' => tra('Payment system order weight field in grammes'),
+            'type' => 'text',
             'default' => 0,
             'profile_reference' => 'tracker_field',
             'parent' => 'input[name=payment_cart_order_tracker]',
