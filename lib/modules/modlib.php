@@ -508,9 +508,11 @@ class ModLib extends TikiLib
         $tikilib = TikiLib::lib('tiki');
 
         $topLogin = $module['name'] === 'login_box' && $module['position'] === 'top';
+        $topQA= $module['name'] === 'quickadmin' && $module['position'] === 'top';
+        $footer = $module['position'] === 'bottom';
         $isControlPanel = $section === 'admin' && strpos($_SERVER['PHP_SELF'], 'tiki-admin.php') !== false;
 
-        if ($prefs['theme_unified_admin_backend'] === 'y' && $isControlPanel && $module['position'] !== 'admin' && ! $topLogin) {
+        if ($prefs['theme_unified_admin_backend'] === 'y' && $isControlPanel && $module['position'] !== 'admin' && ! $topLogin && ! $footer && ! $topQA) {
             return false;
         }
 
