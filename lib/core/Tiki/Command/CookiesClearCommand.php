@@ -17,7 +17,7 @@ class CookiesClearCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('cookies:clear')
+            ->setName('users:remove-cookies')
             ->setDescription('Remove expired cookies');
     }
 
