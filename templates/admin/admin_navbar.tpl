@@ -1,5 +1,15 @@
 <nav class="navbar-expand-md navbar-{$navbar_color_variant} bg-{$navbar_color_variant} admin-navbar mb-4" role="navigation">
-    {if $prefs.theme_unified_admin_backend eq 'y'}<a class="navbar-brand" href="./" title="{tr}Back to the home page{/tr}"><img src="img/tiki/tiki-icon-flat.svg" alt="{tr}Tiki logo{/tr}" height="24"></a>{/if}
+    {if $prefs.theme_unified_admin_backend eq 'y'}
+        <a class="navbar-brand" href="./" title="{tr}Back to the home page{/tr}">
+            {if $prefs.sitelogo_icon}
+                <img src="{$prefs.sitelogo_icon}" alt="{if $prefs.sitetitle}{$prefs.sitetitle|escape}{else}{tr}Site logo{/tr}{/if}">
+            {elseif $navbar_color_variant eq 'light'}
+                <img src="img/tiki/tiki-icon-flat-black.png" alt="{tr}Tiki logo{/tr}" height="24">
+            {else}
+                <img src="img/tiki/tiki-icon-flat-white.png" alt="{tr}Tiki logo{/tr}" height="24">
+            {/if}
+        </a>
+    {/if}
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#admin-navbar-collapse-1" aria-controls="admin-navbar-collapse-1" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
