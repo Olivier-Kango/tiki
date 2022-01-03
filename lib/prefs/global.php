@@ -387,7 +387,7 @@ function prefs_global_list($partial = false)
             'description' => tra('Customize Browser title for the custom homepage'),
             'type' => 'text',
             'size' => 50,
-            'default' => 'Homepage',
+            'default' => tra('Homepage'),
             'tags' => ['basic'],
             'dependencies' => [
                 'useUrlIndex',
