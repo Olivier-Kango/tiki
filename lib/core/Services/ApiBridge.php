@@ -95,6 +95,10 @@ class Services_ApiBridge
         $routes->add('home', (new Route(''))->setMethods(['GET']));
         $routes->add('docs', (new Route('docs.yaml', ['_format' => 'yaml']))->setMethods(['GET']));
         $routes->add('categories', (new Route('categories', ['controller' => 'category', 'action' => 'list_categories']))->setMethods(['GET']));
+        $routes->add('connect-new', (new Route('connect/new', ['controller' => 'connect_server', 'action' => 'new']))->setMethods(['POST']));
+        $routes->add('connect-confirm', (new Route('connect/confirm', ['controller' => 'connect_server', 'action' => 'confirm']))->setMethods(['POST']));
+        $routes->add('connect-receive', (new Route('connect/receive', ['controller' => 'connect_server', 'action' => 'receive']))->setMethods(['POST']));
+        $routes->add('connect-cancel', (new Route('connect/cancel', ['controller' => 'connect_server', 'action' => 'cancel']))->setMethods(['POST']));
         $routes->add('export-sync', (new Route('export/sync', ['controller' => 'export', 'action' => 'sync_content']))->setMethods(['GET']));
         $routes->add('trackers', (new Route('trackers', ['controller' => 'tracker', 'action' => 'list_trackers']))->setMethods(['GET']));
         $routes->add('trackers-create', (new Route('trackers', ['controller' => 'tracker', 'action' => 'replace', 'confirm' => 1]))->setMethods(['POST']));

@@ -21,9 +21,7 @@ class Services_Connect_Client
         }
 
         $this->connectlib = TikiLib::lib('connect');
-        // TODO: move Connect/Server to API
-        throw new Server_Exception(tr('Not implemented'), 501);
-        $this->remote = new Services_RemoteController($prefs['connect_server'], 'connect_server');
+        $this->remote = new Services_ApiClient($prefs['connect_server']);
     }
 
     public function action_vote($input)
@@ -88,7 +86,7 @@ class Services_Connect_Client
             $pending = $this->connectlib->getPendingGuid();
 
             if (empty($pending)) {
-                $data = $this->remote->new();
+                $data = $this->remote->post($this->remote->route('connect-new'));
 
                 if ($data && $data['status'] === 'pending' && ! empty($data['guid'])) {
                     $this->connectlib->recordConnection($data['status'], $data['guid']);
@@ -99,11 +97,12 @@ class Services_Connect_Client
                     ];
                 }
             } else {
-                $data = $this->remote->confirm(
+                $data = $this->remote->post(
+                    $this->remote->route('connect-confirm'),
                     [
                         'connect_data' => [
                             'guid' => $pending,
-                            'captcha' => $input->captcha->filter(),
+                            'captcha' => $input->captcha->text(),
                         ]
                     ]
                 );
@@ -127,7 +126,7 @@ class Services_Connect_Client
             $odata['guid'] = $prefs['connect_guid'];
 
 
-            $data = $this->remote->receive([ 'connect_data' => $odata ]);
+            $data = $this->remote->post($this->remote->route('connect-receive'), [ 'connect_data' => $odata ]);
 
             if ($data && $data['status'] === 'received') {
                 $status = 'sent';
@@ -145,7 +144,7 @@ class Services_Connect_Client
         $guid = $input->guid->text();
         if ($guid) {
             $this->connectlib->removeGuid($guid);
-            $r = $this->remote->cancel(['connect_data' => ['guid' => $guid]]);
+            $r = $this->remote->post($this->remote->route('connect-cancel'), ['connect_data' => ['guid' => $guid]]);
         }
         return ['guid' => $guid];
     }

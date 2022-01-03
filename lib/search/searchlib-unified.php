@@ -396,10 +396,12 @@ class UnifiedSearchLib
             'elastic' => [
                 'data' => $prefs['unified_elastic_index_current'],
                 'preference' => $prefs['unified_elastic_index_prefix'] . 'pref_' . $prefs['language'],
+                'connect' => $prefs['unified_elastic_index_prefix'] . 'connect',
             ],
             'mysql' => [
                 'data' => $prefs['unified_mysql_index_current'],
                 'preference' => 'index_' . 'pref_' . $prefs['language'],
+                'connect' => 'index_connect',
             ],
         ];
 

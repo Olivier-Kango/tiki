@@ -16,54 +16,30 @@ class Tiki_Connect_Server extends Tiki_Connect_Abstract
         $this->indexFile = 'temp/connect_server-index';
     }
 
-    public function getMatchingConnections($criteria)
+    public function getMatchingConnections($criteria, $maxRecords = 25, $sort = '')
     {
         $index = $this->getIndex();
 
-        ZendSearch\Lucene\Search\Query\Wildcard::setMinPrefixLength(0);
-        ZendSearch\Lucene\Lucene::setResultSetLimit(25);    // TODO during dev
+        $query = new Search_Query($criteria);
+        $query->setCount($maxRecords);
 
-        $results = $index->find($criteria);
+        if ($sort) {
+            $query->setOrder($sort);
+        }
+
+        $results = $query->search($index);
 
         $ret = [];
         foreach ($results as $hit) {
             $res = [];
-            $res['created'] = $hit->created;
-            try {
-                $res['title'] = $hit->title;
-            } catch (ZendSearch\Lucene\Exception\ExceptionInterface $e) {
-                $res['title'] = '';
-            }
-            try {
-                $res['url'] = $hit->url;
-            } catch (ZendSearch\Lucene\Exception\ExceptionInterface $e) {
-                $res['url'] = '';
-            }
-            try {
-                $res['keywords'] = $hit->keywords;
-            } catch (ZendSearch\Lucene\Exception\ExceptionInterface $e) {
-                $res['keywords'] = '';
-            }
-            try {
-                $res['language'] = $hit->language;
-            } catch (ZendSearch\Lucene\Exception\ExceptionInterface $e) {
-                $res['language'] = '';
-            }
-            try {
-                $res['geo_lat'] = $hit->geo_lat;
-            } catch (ZendSearch\Lucene\Exception\ExceptionInterface $e) {
-                $res['geo_lat'] = '';
-            }
-            try {
-                $res['geo_lon'] = $hit->geo_lon;
-            } catch (ZendSearch\Lucene\Exception\ExceptionInterface $e) {
-                $res['geo_lon'] = '';
-            }
-            try {
-                $res['geo_zoom'] = $hit->geo_zoom;
-            } catch (ZendSearch\Lucene\Exception\ExceptionInterface $e) {
-                $res['geo_zoom'] = '';
-            }
+            $res['created'] = $hit['created'];
+            $res['title'] = @$hit['title'];
+            $res['url'] = @$hit['url'];
+            $res['keywords'] = @$hit['keywords'];
+            $res['language'] = @$hit['language'];
+            $res['geo_lat'] = @$hit['geo_lat'];
+            $res['geo_lon'] = @$hit['geo_lon'];
+            $res['geo_zoom'] = @$hit['geo_zoom'];
 
             $res['class'] = 'tablename';
             $res['metadata'] = '';
@@ -91,81 +67,85 @@ class Tiki_Connect_Server extends Tiki_Connect_Abstract
 
     private function getIndex($rebuld = false)
     {
+        $index = TikiLib::lib('unifiedsearch')->getIndex('connect');
 
-        if ($rebuld || $this->indexNeedsRebuilding()) {
-            $index = ZendSearch\Lucene\Lucene::create($this->indexFile);
+        if ($rebuild || ! $index->exists()) {
+            $typeFactory = $index->getTypeFactory();
 
             foreach ($this->getReceivedDataLatest() as $connection) {
                 $data = json_decode($connection['data'], true);
 
                 if ($data) {
-                    $doc = $this->indexConnection($connection['created'], $data);
+                    $doc = $this->indexConnection($typeFactory, $connection['created'], $data);
                     $index->addDocument($doc);
                 }
             }
 
             $index->optimize();
-            return $index;
         }
 
-        return ZendSearch\Lucene\Lucene::open($this->indexFile);
+        return $index;
     }
 
-    public function indexNeedsRebuilding()
+    private function indexConnection($typeFactory, $created, $data)
     {
-        return ! file_exists($this->indexFile);
-    }
-
-    private function indexConnection($created, $data)
-    {
-        $doc = new ZendSearch\Lucene\Document();
-        $doc->addField(ZendSearch\Lucene\Document\Field::Keyword('created', $created));
-        $doc->addField(ZendSearch\Lucene\Document\Field::Text('version', $data['version']));
+        $doc = [
+            'created' => $typeFactory->timestamp($created),
+            'version' => $typeFactory->plaintext($data['version']),
+        ];
 
         if (! empty($data['site'])) {
             if (! empty($data['site']['connect_site_title'])) {
-                $doc->addField(ZendSearch\Lucene\Document\Field::Text('title', $data['site']['connect_site_title']));
+                $doc['title'] = $typeFactory->plaintext($data['site']['connect_site_title']);
             }
             if (! empty($data['site']['connect_site_url'])) {
-                $doc->addField(ZendSearch\Lucene\Document\Field::Keyword('url', $data['site']['connect_site_url']));
+                $doc['url'] = $typeFactory->plaintext($data['site']['connect_site_url']);
             }
             if (! empty($data['site']['connect_site_email'])) {
-                $doc->addField(ZendSearch\Lucene\Document\Field::Keyword('email', $data['site']['connect_site_email']));    // hmm
+                $doc['email'] = $typeFactory->plaintext($data['site']['connect_site_email']);
             }
             if (! empty($data['site']['connect_site_keywords'])) {
-                $doc->addField(ZendSearch\Lucene\Document\Field::Text('keywords', $data['site']['connect_site_keywords']));
+                $doc['keywords'] = $typeFactory->plaintext($data['site']['connect_site_keywords']);
             }
             if (! empty($data['site']['connect_site_location'])) {
                 $loc = TikiLib::lib('geo')->parse_coordinates($data['site']['connect_site_location']);
                 if (count($loc) > 1) {
-                    $doc->addField(ZendSearch\Lucene\Document\Field::Keyword('geo_lat', $loc['lat']));
-                    $doc->addField(ZendSearch\Lucene\Document\Field::Keyword('geo_lon', $loc['lon']));
+                    $doc['geo_lat'] = $typeFactory->numeric($loc['lat']);
+                    $doc['geo_lon'] = $typeFactory->numeric($loc['lon']);
                     if (count($loc) > 2) {
-                        $doc->addField(ZendSearch\Lucene\Document\Field::Keyword('geo_zoom', $loc['zoom']));
+                        $doc['geo_zoom'] = $typeFactory->numeric($loc['zoom']);
                     }
                 }
             }
         } else {
-            $doc->addField(ZendSearch\Lucene\Document\Field::Text('title', tra('Anonymous')));
+            $doc['title'] = $typeFactory->plaintext(tra('Anonymous'));
         }
         if (! empty($data['tables'])) {
-            $doc->addField(ZendSearch\Lucene\Document\Field::UnIndexed('tables', serialize($data['tables'])));
+            $doc['tables'] = $typeFactory->plaintext(serialize($data['tables']));
         }
         if (! empty($data['prefs'])) {
-            $doc->addField(ZendSearch\Lucene\Document\Field::UnIndexed('prefs', serialize($data['prefs'])));
+            $doc['prefs'] = $typeFactory->plaintext(serialize($data['prefs']));
             if (! empty($data['prefs']['language'])) {
                 $langLib = TikiLib::lib('language');
                 $languages = $langLib->get_language_map();
-                $doc->addField(ZendSearch\Lucene\Document\Field::Text('language', $languages[$data['prefs']['language']]));
+                $doc['language'] = $typeFactory->plaintext($languages[$data['prefs']['language']]);
             }
         }
         if (! empty($data['server'])) {
-            $doc->addField(ZendSearch\Lucene\Document\Field::UnIndexed('server', serialize($data['server'])));
+            $doc['server'] = $typeFactory->plaintext(serialize($data['server']));
         }
         if (! empty($data['votes'])) {
-            $doc->addField(ZendSearch\Lucene\Document\Field::UnIndexed('votes', serialize($data['votes'])));
+            $doc['votes'] = $typeFactory->plaintext(serialize($data['votes']));
         }
 
+        $contents = $doc['created']->getValue() . ' ' . $doc['title']->getValue();
+        if (isset($doc['language'])) {
+            $contents .= ' ' . $doc['language']->getValue();
+        }
+        if (isset($doc['keywords'])) {
+            $contents .= ' ' . $doc['keywords']->getValue();
+        }
+        $doc['contents'] = $typeFactory->plaintext($contents);
 
         return $doc;
     }
@@ -173,8 +153,12 @@ class Tiki_Connect_Server extends Tiki_Connect_Abstract
     public function recordConnection($status, $guid, $data = '', $server = false)
     {
         $created = parent::recordConnection($status, $guid, $data, $server);
-
-        $this->indexConnection($created, $data);
+        if ($server) {
+            $index = TikiLib::lib('unifiedsearch')->getIndex('connect');
+            $typeFactory = $index->getTypeFactory();
+            $doc = $this->indexConnection($typeFactory, $created, $data);
+            $index->addDocument($doc);
+        }
     }
 
 
