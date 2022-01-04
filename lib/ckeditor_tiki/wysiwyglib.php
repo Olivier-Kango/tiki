@@ -129,11 +129,15 @@ window.CKEDITOR.config.toolbar = ' . $cktools . ';
         if ($full_page) {
             $headerlib->add_jsfile('lib/ckeditor_tiki/tikilink_dialog.js');
             $headerlib->add_js(
-                'window.CKEDITOR.config.extraPlugins += (window.CKEDITOR.config.extraPlugins ? ",tikiplugin" : "tikiplugin" );
+                'window.CKEDITOR.config.extraPlugins += (window.CKEDITOR.config.extraPlugins ? ",tikiplugin,autocomplete,textmatch" : "tikiplugin,autocomplete,textmatch" );
                 window.CKEDITOR.plugins.addExternal( "tikiplugin", "' . $tikiroot . 'lib/ckeditor_tiki/plugins/tikiplugin/");',
                 5
             );
             $headerlib->add_css('.ui-front {z-index: 9999;}');  // so the plugin edit dialogs show up
+
+            if ($prefs['feature_smileys'] === 'y') {
+                $headerlib->add_js('window.CKEDITOR.config.extraPlugins += (window.CKEDITOR.config.extraPlugins ? ",emoji" : "emoji" );', 5);
+            }
         }
         if (! $is_html && $full_page) {
             $headerlib->add_js(
