@@ -989,7 +989,7 @@ class ToolbarPicker extends Toolbar
                 $list = array_combine($list, $list);
                 break;
             case 'smiley':
-                $wysiwyg = 'Smiley';
+                $wysiwyg = 'Emoji';
                 $label = tra('Smileys');
                 $iconname = 'smile';
                 $rawList = [ 'biggrin', 'confused', 'cool', 'cry', 'eek', 'evil', 'exclaim', 'frown', 'idea', 'lol', 'mad', 'mrgreen', 'neutral', 'question', 'razz', 'redface', 'rolleyes', 'sad', 'smile', 'surprised', 'twisted', 'wink', 'arrow', 'santa' ];
@@ -1100,6 +1100,7 @@ class ToolbarPicker extends Toolbar
             case 'BGColor':
             case 'TextColor':
             case 'SpecialChar':
+            case 'Emoji':
                 return $this->wysiwyg;
                 break;
             default:
