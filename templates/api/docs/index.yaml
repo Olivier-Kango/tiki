@@ -1,0 +1,66 @@
+---
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Tiki API
+  description: This is the default Tiki API allowing programmable access to the Tiki system.
+  termsOfService: https://tiki.org/terms-of-service
+  contact:
+    name: Tiki Developers
+    email: tikiwiki-devel@lists.sourceforge.net
+    url: https://tiki.org/Contact-Us
+  license:
+    name: LGPL 2.1
+    url: http://www.gnu.org/licenses/old-licenses/lgpl-2.1.html
+externalDocs:
+  description: Tiki documentation
+  url: https://doc.tiki.org/Documentation
+servers:
+  - url: {server-url}
+security:
+  - bearerAuth: []
+paths:
+  /categories:
+    $ref: paths-categories.yaml
+  /trackers:
+    $ref: paths-trackers-index.yaml
+  /trackers/{trackerId}:
+    $ref: paths-trackers-entity.yaml
+  /trackers/{trackerId}/clear:
+    $ref: paths-trackers-clear.yaml
+  /trackers/{trackerId}/duplicate:
+    $ref: paths-trackers-duplicate.yaml
+  /trackers/{trackerId}/dump:
+    $ref: paths-trackers-dump.yaml
+  /trackers/{trackerId}/export:
+    $ref: paths-trackers-export.yaml
+  /trackers/{trackerId}/fields:
+    $ref: paths-trackers-fields-index.yaml
+  /trackers/{trackerId}/fields/{fieldId}:
+    $ref: paths-trackers-fields-entity.yaml
+  /trackers/{trackerId}/fields/export:
+    $ref: paths-trackers-fields-export.yaml
+  /trackers/{trackerId}/items:
+    $ref: paths-trackers-items-index.yaml
+  /trackers/{trackerId}/items/{itemId}:
+    $ref: paths-trackers-items-entity.yaml
+  /trackers/{trackerId}/items/{itemId}/clone:
+    $ref: paths-trackers-items-clone.yaml
+  /trackers/{trackerId}/items/{itemId}/status:
+    $ref: paths-trackers-items-status.yaml
+  /translations/{type}/{source}:
+    $ref: paths-translations-index.yaml
+  /translations/{type}/{source}/attach:
+    $ref: paths-translations-attach.yaml
+  /translations/{type}/{source}/detach:
+    $ref: paths-translations-detach.yaml
+  /translate:
+    $ref: paths-translate.yaml
+  /users:
+    $ref: paths-users-index.yaml
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Obtain bearer token keys from your Tiki admin Security page.

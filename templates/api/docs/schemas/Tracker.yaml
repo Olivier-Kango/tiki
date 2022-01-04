@@ -1,0 +1,129 @@
+---
+type: object
+required:
+  - name
+properties:
+  name:
+    type: string
+  description:
+    type: string
+  descriptionIsParsed:
+    type: integer
+  fieldPrefix:
+    type: string
+  permName:
+    type: string
+  showStatus:
+    type: integer
+  showStatusAdminOnly:
+    type: integer
+  showCreated:
+    type: integer
+  showCreatedView:
+    type: integer
+  showCreatedBy:
+    type: integer
+  showCreatedFormat:
+    type: string
+  showLastModif:
+    type: integer
+  showLastModifView:
+    type: integer
+  showLastModifBy:
+    type: integer
+  showLastModifFormat:
+    type: string
+  defaultOrderKey:
+    type: integer
+  defaultOrderDir:
+    type: string
+  doNotShowEmptyField:
+    type: integer
+  showPopup:
+    type: string
+  defaultStatus:
+    type: array
+  newItemStatus:
+    type: string
+  modItemStatus:
+    type: string
+  outboundEmail:
+    type: string
+  simpleEmail:
+    type: integer
+  userCanSeeOwn:
+    type: integer
+  groupCanSeeOwn:
+    type: integer
+  writerCanModify:
+    type: integer
+  writerCanRemove:
+    type: integer
+  userCanTakeOwnership:
+    type: integer
+  oneUserItem:
+    type: integer
+  writerGroupCanModify:
+    type: integer
+  writerGroupCanRemove:
+    type: integer
+  useRatings:
+    type: integer
+  showRatings:
+    type: integer
+  ratingOptions:
+    type: string
+  useComments:
+    type: integer
+  showComments:
+    type: integer
+  showLastComment:
+    type: integer
+  saveAndComment:
+    type: integer
+  useAttachments:
+    type: integer
+  showAttachments:
+    type: integer
+  orderAttachments:
+    type: array
+  start:
+    type: integer
+  end:
+    type: integer
+  autoCreateGroup:
+    type: integer
+  autoCreateGroupInc:
+    type: string
+  autoAssignCreatorGroup:
+    type: integer
+  autoAssignCreatorGroupDefault:
+    type: integer
+  autoAssignGroupItem:
+    type: integer
+  autoCopyGroup:
+    type: integer
+  viewItemPretty:
+    type: string
+  editItemPretty:
+    type: string
+  autoCreateCategories:
+    type: integer
+  publishRSS:
+    type: integer
+  sectionFormat:
+    type: string
+  adminOnlyViewEditItem:
+    type: integer
+  logo:
+    type: string
+  useFormClasses:
+    type: integer
+  formClasses:
+    type: string
+  tabularSync:
+    type: integer
+  tabularSyncModifiedField:
+    type: integer
+  tabularSyncLastImport:
+    type: integer

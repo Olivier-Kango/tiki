@@ -1,0 +1,150 @@
+---
+get:
+  description: Retrieve all fields of a tracker
+  parameters:
+    - name: trackerId
+      in: path
+      required: true
+      schema:
+        type: integer
+  responses:
+    '200':
+      description: tracker fields
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              fields:
+                type: array
+                items:
+                  type: object
+                  description: Field definition
+              types:
+                type: object
+                description: All field types supported by the system
+              duplicates:
+                type: array
+                items:
+                  type: object
+                  description: List of fields with conflicting permanent names
+    '403':
+      description: forbidden
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Error.yaml
+    '404':
+      description: not found
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Error.yaml
+post:
+  description: Create a tracker field
+  parameters:
+    - name: trackerId
+      in: path
+      required: true
+      schema:
+        type: integer
+  requestBody:
+    required: true
+    content:
+      application/x-www-form-urlencoded:
+        schema:
+          type: object
+          required:
+            - name
+            - permName
+            - type
+          properties:
+            name:
+              type: string
+            permName:
+              type: string
+            description:
+              type: string
+            description_parse:
+              type: integer
+            type:
+              type: string
+            adminOnly:
+              type: boolean
+  responses:
+    '200':
+      description: tracker field response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              trackerId:
+                type: integer
+              fieldId:
+                type: integer
+              name:
+                type: string
+              permName:
+                type: string
+              type:
+                type: string
+              types:
+                type: object
+              description:
+                type: string
+              descriptionIsParsed:
+                type: string
+              fieldPrefix:
+                type: string
+    '403':
+      description: forbidden
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Error.yaml
+    '404':
+      description: not found
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Error.yaml
+delete:
+  description: Delete one or more tracker fields
+  parameters:
+    - name: trackerId
+      in: path
+      required: true
+      schema:
+        type: integer
+    - name: fields[]
+      in: query
+      required: true
+      schema:
+        type: array
+        items:
+          type: integer
+  responses:
+    '200':
+      description: tracker field delete response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              trackerId:
+                type: integer
+              fields:
+                type: object
+    '403':
+      description: forbidden
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Error.yaml
+    '404':
+      description: not found
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Error.yaml

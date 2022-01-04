@@ -93,7 +93,7 @@ class Services_ApiBridge
     {
         $routes = new RouteCollection();
         $routes->add('home', (new Route(''))->setMethods(['GET']));
-        $routes->add('docs', (new Route('docs.yaml', ['_format' => 'yaml']))->setMethods(['GET']));
+        $routes->add('docs', (new Route('docs/{path}.yaml', ['_format' => 'yaml']))->setMethods(['GET']));
         $routes->add('categories', (new Route('categories', ['controller' => 'category', 'action' => 'list_categories']))->setMethods(['GET']));
         $routes->add('connect-new', (new Route('connect/new', ['controller' => 'connect_server', 'action' => 'new']))->setMethods(['POST']));
         $routes->add('connect-confirm', (new Route('connect/confirm', ['controller' => 'connect_server', 'action' => 'confirm']))->setMethods(['POST']));
@@ -139,8 +139,16 @@ class Services_ApiBridge
     protected function renderDocsYaml()
     {
         global $base_url, $tikipath;
-        $docs = file_get_contents($tikipath.'templates/api/docs.yaml');
-        $docs = str_replace('{server-url}', $base_url.'api/', $docs);
-        echo $docs;
+        $path = $this->jitRequest->path->xss();
+        $base = $tikipath . 'templates/api/docs';
+        $real = realpath($base . '/' . str_replace('-', '/', $path) . '.yaml');
+        if (empty($path) || !strstr(dirname($real), $base)) {
+            $real = $base . '/index.yaml';
+        }
+        if (is_file($real)) {
+            $docs = file_get_contents($real);
+            $docs = str_replace('{server-url}', $base_url.'api/', $docs);
+            echo $docs;
+        }
     }
 }

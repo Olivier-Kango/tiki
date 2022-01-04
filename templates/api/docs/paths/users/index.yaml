@@ -1,0 +1,36 @@
+---
+get:
+  description: Get all users
+  parameters:
+    - name: groupIds
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: integer
+    - name: offset
+      in: query
+      required: false
+      schema:
+        type: integer
+    - name: maxRecords
+      in: query
+      required: false
+      schema:
+        type: integer
+  responses:
+    '200':
+      description: users response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              result:
+                type: array
+                items:
+                  type: object
+                  descripton: TODO - document
+              count:
+                type: integer

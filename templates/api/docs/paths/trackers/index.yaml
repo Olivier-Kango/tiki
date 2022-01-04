@@ -1,0 +1,65 @@
+---
+get:
+  description: Get all trackers that target user can see along with their configuration details.
+  responses:
+    '200':
+      description: tracker response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              list:
+                type: object
+                description: List of tracker IDs and names
+                example: |
+                  {"9": "Tracker 9", "15": "Tracker 15"}
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    trackerId:
+                      type: integer
+                    name:
+                      type: string
+                    description:
+                      type: string
+                    descriptionIsParsed:
+                      $ref: schemas-TikiBoolean.yaml
+                    created:
+                      type: integer
+                    lastModif:
+                      type: integer
+                    items:
+                      type: integer
+                      description: Tracker items count
+              cant:
+                type: integer
+                description: Trackers count
+post:
+  description: Create a new tracker.
+  requestBody:
+    required: true
+    content:
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: schemas-Tracker.yaml
+  responses:
+    '200':
+      description: tracker response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              trackerId:
+                type: integer
+              info:
+                type: object
+    '403':
+      description: forbidden
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Error.yaml

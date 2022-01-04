@@ -1,0 +1,34 @@
+---
+post:
+  description: Machine translation of an object
+  requestBody:
+    required: true
+    content:
+      application/x-www-form-urlencoded:
+        schema:
+          type: object
+          required:
+            - content
+          properties:
+            content:
+              type: string
+            lang:
+              type: string
+  responses:
+    '200':
+      description: translate response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              content:
+                type: string
+              target:
+                type: string
+    '403':
+      description: forbidden
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Error.yaml

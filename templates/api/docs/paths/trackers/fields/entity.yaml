@@ -1,0 +1,111 @@
+---
+post:
+  description: Update a tracker field
+  parameters:
+    - name: trackerId
+      in: path
+      required: true
+      schema:
+        type: integer
+    - name: fieldId
+      in: path
+      required: true
+      schema:
+        type: integer
+  requestBody:
+    required: true
+    content:
+      application/x-www-form-urlencoded:
+        schema:
+          type: object
+          required:
+            - name
+            - permName
+          properties:
+            name:
+              type: string
+            permName:
+              type: string
+            description:
+              type: string
+            description_parse:
+              type: integer
+            option[]:
+              type: array
+              items:
+                type: string
+            type:
+              type: string
+            position:
+              type: integer
+            isTblVisible:
+              type: integer
+            isMain:
+              type: integer
+            isSearchable:
+              type: integer
+            isPublic:
+              type: integer
+            isMandatory:
+              type: integer
+            validation_type:
+              type: string
+            validation_parameter:
+              type: string
+            validation_message:
+              type: string
+            multilingual:
+              type: integer
+            visible_by:
+              type: string
+              description: Comma-separated list of groups with permission to see this field
+            editable_by:
+              type: string
+              description: Comma-separated list of groups with permission to see this field
+            visibility:
+              type: string
+            error_message:
+              type: string
+            conditions:
+              type: string
+            actions:
+              type: string
+            else:
+              type: string
+            encryption_key_id:
+              type: integer
+  responses:
+    '200':
+      description: tracker field response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              field:
+                type: object
+                description: TODO
+              info:
+                type: object
+                description: TODO
+              options:
+                type: object
+                description: TODO
+              types:
+                type: object
+                description: TODO
+              fields:
+                type: object
+                description: TODO
+    '403':
+      description: forbidden
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Error.yaml
+    '404':
+      description: not found
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Error.yaml

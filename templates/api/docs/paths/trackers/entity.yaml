@@ -1,0 +1,126 @@
+---
+get:
+  description: Retrieve items in a tracker.
+  parameters:
+    - name: trackerId
+      in: path
+      description: Tracker ID
+      required: true
+      schema:
+        type: integer
+    - name: offset
+      in: query
+      description: Start offset for the number of records to return.
+      schema:
+        type: integer
+    - name: maxRecords
+      in: query
+      description: Maximum number of records to return.
+      schema:
+        type: integer
+    - name: modifiedSince
+      in: query
+      description: Return only records newer than the specified timestamp.
+      schema:
+        type: integer
+    - name: status
+      in: query
+      description: Return only records with specific status.
+      schema:
+        type: string
+    - name: format
+      in: query
+      description: Specify 'raw' to return raw item values without any field processing.
+      schema:
+        type: string
+  responses:
+    '200':
+      description: tracker items response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              trackerId:
+                type: integer
+              offset:
+                type: integer
+              maxRecords:
+                type: integer
+              result:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    itemdId:
+                      type: integer
+                    status:
+                      type: string
+                    fields:
+                      type: object
+                      example: |
+                        {"field1PermName": "value", "field2PermName": "value"}
+    '403':
+      description: forbidden
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Error.yaml
+post:
+  description: Update a tracker.
+  parameters:
+    - name: trackerId
+      in: path
+      required: true
+      schema:
+        type: integer
+  requestBody:
+    required: true
+    content:
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: schemas-Tracker.yaml
+  responses:
+    '200':
+      description: tracker response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              trackerId:
+                type: integer
+              info:
+                type: object
+    '403':
+      description: forbidden
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Error.yaml
+delete:
+  description: Remove a tracker.
+  parameters:
+    - name: trackerId
+      in: path
+      required: true
+      schema:
+        type: integer
+  responses:
+    '200':
+      description: tracker response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              trackerId:
+                type: integer
+              info:
+                type: object
+    '403':
+      description: forbidden
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Error.yaml

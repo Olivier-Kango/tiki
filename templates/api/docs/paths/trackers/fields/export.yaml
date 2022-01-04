@@ -1,0 +1,42 @@
+---
+get:
+  description: Export tracker fields
+  parameters:
+    - name: trackerId
+      in: path
+      required: true
+      schema:
+        type: integer
+    - name: fields
+      in: query
+      required: false
+      schema:
+        type: array
+        items:
+          type: integer
+  responses:
+    '200':
+      description: tracker fields export
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              trackerId:
+                type: integer
+              fields:
+                type: object
+              export:
+                type: string
+    '403':
+      description: forbidden
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Error.yaml
+    '404':
+      description: not found
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Error.yaml

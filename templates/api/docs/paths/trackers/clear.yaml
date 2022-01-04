@@ -1,0 +1,31 @@
+---
+post:
+  description: Remove all items from a tracker
+  parameters:
+    - name: trackerId
+      in: path
+      required: true
+      schema:
+        type: integer
+  responses:
+    '200':
+      description: tracker clear response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              trackerId:
+                type: integer
+    '403':
+      description: forbidden
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Error.yaml
+    '404':
+      description: not found
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Error.yaml

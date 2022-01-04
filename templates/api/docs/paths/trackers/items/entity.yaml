@@ -1,0 +1,144 @@
+---
+get:
+  description: Retrieve a tracker item
+  parameters:
+    - name: trackerId
+      in: path
+      required: true
+      schema:
+        type: integer
+    - name: itemId
+      in: path
+      required: true
+      schema:
+        type: integer
+  responses:
+    '200':
+      description: tracker item response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+              itemId:
+                type: integer
+              trackerId:
+                type: integer
+              fields:
+                type: object
+                description: TODO definition
+              canModify:
+                type: boolean
+              item_info:
+                $ref: schemas-TrackerItem.yaml
+              info:
+                $ref: schemas-TrackerItem.yaml
+    '403':
+      description: forbidden
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Error.yaml
+    '404':
+      description: not found
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Error.yaml
+post:
+  description: Update a tracker item
+  parameters:
+    - name: trackerId
+      in: path
+      required: true
+      schema:
+        type: integer
+    - name: itemId
+      in: path
+      required: true
+      schema:
+        type: integer
+  requestBody:
+    required: true
+    content:
+      application/x-www-form-urlencoded:
+        schema:
+          type: object
+          description: Should contain an object of the field values with either field permanent names as keys or ins_FID keys.
+  responses:
+    '200':
+      description: tracker item response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              trackerId:
+                type: integer
+              itemId:
+                type: integer
+              fields:
+                type: object
+              forced:
+                type: object
+              status:
+                type: string
+              format:
+                type: string
+              editItemPretty:
+                type: string
+              redirect:
+                type: string
+    '403':
+      description: forbidden
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Error.yaml
+    '404':
+      description: not found
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Error.yaml
+delete:
+  description: Delete a tracker item
+  parameters:
+    - name: trackerId
+      in: path
+      required: true
+      schema:
+        type: integer
+    - name: itemId
+      in: path
+      required: true
+      schema:
+        type: integer
+  responses:
+    '200':
+      description: delete tracker item response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              trackerId:
+                type: integer
+              itemId:
+                type: integer
+              affectedCount:
+                type: integer
+    '403':
+      description: forbidden
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Error.yaml
+    '404':
+      description: not found
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Error.yaml

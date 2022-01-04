@@ -1,0 +1,48 @@
+---
+post:
+  description: Duplicates a tracker
+  parameters:
+    - name: trackerId
+      in: path
+      required: true
+      schema:
+        type: integer
+  requestBody:
+    required: true
+    content:
+      application/x-www-form-urlencoded:
+        schema:
+          type: object
+          required:
+            - name
+          properties:
+            name:
+              type: string
+            dupCateg:
+              type: integer
+            dupPerms:
+              type: integer
+  responses:
+    '200':
+      description: tracker duplicate response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              trackerId:
+                type: integer
+              name:
+                type: string
+    '403':
+      description: forbidden
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Error.yaml
+    '404':
+      description: not found
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Error.yaml
