@@ -71,9 +71,13 @@ class Services_User_Controller
      */
     public function action_register($input)
     {
-        global $https_mode, $prefs;
+        global $https_mode, $prefs, $user;
         if (! $https_mode && $prefs['https_login'] == 'required') {
             return ['result' => json_encode([tr("secure connection required")])];
+        }
+
+        if (TIKI_API) {
+            Services_Exception_Denied::checkAuth();
         }
 
         $name = $input->name->text();
@@ -99,6 +103,10 @@ class Services_User_Controller
             ]
         );
 
+        if (TIKI_API && empty($regResult)) {
+            $regResult = tra('User account created but pending confirmation.');
+        }
+
         return [
             'result' => $regResult,
         ];
@@ -112,7 +120,7 @@ class Services_User_Controller
      */
     public function action_info($input)
     {
-        global $prefs;
+        global $prefs, $user;
 
         $tikilib = TikiLib::lib('tiki');
         $sociallib = TikiLib::lib('social');
@@ -390,8 +398,12 @@ class Services_User_Controller
                     return Services_Utilities::redirect($url);
                 //refresh page
                 } else {
-                    Feedback::success($feedback);
-                    return Services_Utilities::refresh($util->extra['referer']);
+                    if (TIKI_API) {
+                        return ['feedback' => $feedback];
+                    } else {
+                        Feedback::success($feedback);
+                        return Services_Utilities::refresh($util->extra['referer']);
+                    }
                 }
             }
         }

@@ -34,3 +34,37 @@ get:
                   descripton: TODO - document
               count:
                 type: integer
+post:
+  description: Register/create a user
+  requestBody:
+    required: true
+    content:
+      application/x-www-form-urlencoded:
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+            pass:
+              type: string
+            passAgain:
+              type: string
+            email:
+              type: string
+  responses:
+    '200':
+      description: user registration response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              result:
+                type: object
+                description: Contains success message or error messages concerning user validation.
+    '403':
+      description: forbidden
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Error.yaml

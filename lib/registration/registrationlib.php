@@ -227,7 +227,7 @@ class RegistrationLib extends TikiLib
 
             // novalidation is set to yes if a user confirms his email is correct after tiki fails to validate it
             $novalidation = isset($_REQUEST['novalidation']) ? $registration['novalidation'] : '';
-            if ($novalidation != 'yes' and ($registration['pass'] != $registration['passAgain']) and ! isset($_SESSION['openid_url'])) {
+            if ($novalidation != 'yes' and ($registration['pass'] != $registration['passAgain']) and ! isset($_SESSION['openid_url']) && ! TIKI_API) {
                 $errors[] = new RegistrationError('passAgain', tra("The passwords don't match"));
             }
 
@@ -235,7 +235,7 @@ class RegistrationLib extends TikiLib
                 $errors[] = new RegistrationError('name', tra('User already exists'));
             }
 
-            if (! $from_intertiki && $prefs['feature_antibot'] == 'y') {
+            if (! $from_intertiki && $prefs['feature_antibot'] == 'y' && ! TIKI_API) {
                 if (! $captchalib->validate($registration)) {
                     $errors[] = new RegistrationError('antibotcode', $captchalib->getErrors());
                 }

@@ -1,0 +1,48 @@
+---
+get:
+  description: Retrieve user information
+  parameters:
+    - name: username
+      in: path
+      description: Username/Login/Email
+      required: true
+      schema:
+        type: string
+  responses:
+    '200':
+      description: user info response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                description: Error message if information isn't visible.
+              fullname:
+                type: string
+              gender:
+                type: string
+              starHtml:
+                type: string
+              country:
+                type: string
+              distance:
+                type: string
+              email:
+                type: string
+              lastSeen:
+                type: integer
+              avatarHtml:
+                type: string
+              shared_groups:
+                type: string
+              friendship:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                    label:
+                      type: string

@@ -1,0 +1,39 @@
+post:
+  description: Remove users
+  requestBody:
+    required: true
+    content:
+      application/x-www-form-urlencoded:
+        schema:
+          type: object
+          properties:
+            items:
+              type: array
+              items:
+                type: string
+            remove_pages:
+              type: boolean
+              description: Remove user's wiki page
+            remove_items:
+              type: boolean
+              description: Remove user's tracker items
+            remove_files:
+              type: boolean
+              description: Remove user's uploaded files
+  responses:
+    '200':
+      description: remove users response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              feedback:
+                type: object
+                description: Contains success message or error messages concerning user validation.
+    '403':
+      description: forbidden
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Error.yaml

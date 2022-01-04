@@ -58,6 +58,10 @@ paths:
     $ref: paths-translate.yaml
   /users:
     $ref: paths-users-index.yaml
+  /users/{username}:
+    $ref: paths-users-entity.yaml
+  /users/delete:
+    $ref: paths-users-delete.yaml
 components:
   securitySchemes:
     bearerAuth:

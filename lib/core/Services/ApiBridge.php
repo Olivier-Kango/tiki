@@ -125,6 +125,9 @@ class Services_ApiBridge
         $routes->add('translations-detach', (new Route('translations/{type}/{source}/detach', ['controller' => 'translation', 'action' => 'detach', 'confirm' => 1]))->setMethods(['POST']));
         $routes->add('translate', (new Route('translate', ['controller' => 'translation', 'action' => 'translate']))->setMethods(['POST']));
         $routes->add('users', (new Route('users', ['controller' => 'user', 'action' => 'list_users', 'offset' => 0, 'maxRecords' => -1]))->setMethods(['GET']));
+        $routes->add('users-register', (new Route('users', ['controller' => 'user', 'action' => 'register']))->setMethods(['POST']));
+        $routes->add('users-info', (new Route('users/{username}', ['controller' => 'user', 'action' => 'info']))->setMethods(['GET']));
+        $routes->add('users-delete', (new Route('users/delete', ['controller' => 'user', 'action' => 'remove_users', 'confirmForm' => 'y']))->setMethods(['POST']));
         return $routes;
     }
 
