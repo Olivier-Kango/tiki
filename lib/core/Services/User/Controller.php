@@ -565,7 +565,7 @@ class Services_User_Controller
             }
         //after confirm submit - perform action and return success feedback
         } elseif ($util->checkCsrf()) {
-            if ($prefs['users_admin_actions_require_validation'] == 'y') {
+            if ($prefs['users_admin_actions_require_validation'] == 'y' && ! TIKI_API) {
                 if ($userlib->isAutologin()) {
                     Services_Utilities::modalException($userlib->getAutologinAdminActionError());
                 }
@@ -609,7 +609,11 @@ class Services_User_Controller
                                     $logmsg = sprintf(tra('%s %s assigned to %s %s.'), tra('user'), $assign_user, tra('group'), $group);
                                     $logslib->add_log('adminusers', $logmsg, $user);
                                 } else {
-                                    Feedback::error(['mes' => tra('An error occurred. The group assignment failed.')]);
+                                    $msg = tra('An error occurred. The group assignment failed.');
+                                    if (TIKI_API) {
+                                        throw new Services_Exception($msg);
+                                    }
+                                    Feedback::error(['mes' => $msg]);
                                     return Services_Utilities::closeModal($util->extra['referer']);
                                 }
                             } elseif ($add_remove === 'remove') {
@@ -624,6 +628,9 @@ class Services_User_Controller
                                 $logslib->add_log('adminusers', $logmsg, $user);
                             }
                         } else {
+                            if (TIKI_API) {
+                                throw new Services_Exception_Denied;
+                            }
                             Feedback::error(['mes' => tra('Permission denied')]);
                             return Services_Utilities::closeModal($util->extra['referer']);
                         }
@@ -656,6 +663,9 @@ class Services_User_Controller
                     'toMsg' => $toMsg,
                     'toList' => $groups,
                 ];
+                if (TIKI_API) {
+                    return ['feedback' => $feedback];
+                }
                 Feedback::success($feedback);
                 //return to page
                 if (! empty($util->extra['anchor'])) {
@@ -664,7 +674,11 @@ class Services_User_Controller
                     return Services_Utilities::refresh($util->extra['referer']);
                 }
             } else {
-                Feedback::error(['mes' => tra('No groups were selected. Please select one or more groups.')]);
+                $msg = tra('No groups were selected. Please select one or more groups.');
+                if (TIKI_API) {
+                    throw new Services_Exception($msg);
+                }
+                Feedback::error(['mes' => $msg]);
                 return Services_Utilities::closeModal($util->extra['referer']);
             }
         }
@@ -791,11 +805,18 @@ class Services_User_Controller
             $tikilib = TikiLib::lib('tiki');
             $pageinfo = $tikilib->get_page_info($wikiTpl);
             if (! $pageinfo) {
+                if (TIKI_API) {
+                    throw new Services_Exception_NotFound;
+                }
                 Feedback::error(tra('Page not found'));
                 return Services_Utilities::closeModal($util->extra['referer']);
             }
             if (empty($pageinfo['description'])) {
-                Feedback::error(tra('The page does not have a description, which is mandatory to perform this action.'));
+                $msg = tra('The page does not have a description, which is mandatory to perform this action.');
+                if (TIKI_API) {
+                    throw new Services_Exception($msg);
+                }
+                Feedback::error($msg);
                 return Services_Utilities::closeModal($util->extra['referer']);
             }
             $bcc = $input['bcc'];
@@ -823,7 +844,11 @@ class Services_User_Controller
                 $mail->setSubject($pageinfo['description']);
                 $text = $smarty->fetch('wiki:' . $wikiTpl);
                 if (empty($text)) {
-                    Feedback::error(tra('The template page has no text or the text cannot be extracted.'));
+                    $msg = tra('The template page has no text or the text cannot be extracted.');
+                    if (TIKI_API) {
+                        throw new Services_Exception($msg);
+                    }
+                    Feedback::error($msg);
                     return Services_Utilities::closeModal($util->extra['referer']);
                 }
                 $mail->setHtml($text);
@@ -832,6 +857,9 @@ class Services_User_Controller
                     if (Perms::get()->admin) {
                         $mailerrors = print_r($mail->errors, true);
                         $errormsg .= $mailerrors;
+                    }
+                    if (TIKI_API) {
+                        throw new Services_Exception($errormsg);
                     }
                     Feedback::error($errormsg);
                     return Services_Utilities::closeModal($util->extra['referer']);
@@ -856,6 +884,9 @@ class Services_User_Controller
                 'items' => $util->items,
                 'toMsg' => $toMsg,
             ];
+            if (TIKI_API) {
+                return ['feedback' => $feedback];
+            }
             Feedback::success($feedback);
             //return to page
             return Services_Utilities::refresh($util->extra['referer']);
@@ -867,8 +898,16 @@ class Services_User_Controller
         global $user;
         $userlib = TikiLib::lib('user');
         $referer = Services_Utilities::noJsPath();
+        if (TIKI_API) {
+            $userwatch = $input->to->text();
+        } else {
+            $userwatch = $input->userwatch->text();
+        }
         //ensures a user was selected to send a message to.
-        if (empty($input->userwatch->text())) {
+        if (empty($userwatch)) {
+            if (TIKI_API) {
+                throw new Services_Exception_NotFound;
+            }
             Feedback::error(tra('No user was selected.'));
             return Services_Utilities::closeModal($referer);
         }
@@ -884,12 +923,16 @@ class Services_User_Controller
                 empty($input->subject->text()) &&
                 empty($input->body->text())
             ) {
-                Feedback::error(tra('Message not sent - no subject or body.'));
+                $msg = tra('Message not sent - no subject or body.');
+                if (TIKI_API) {
+                    throw new Services_Exception($msg);
+                }
+                Feedback::error($msg);
             } else {
                 //if message is successfully sent
                 if (
                     TikiLib::lib('message')->post_message(
-                        $input->userwatch->text(),
+                        $userwatch,
                         $user,
                         $input->to->text(),
                         '',
@@ -903,18 +946,25 @@ class Services_User_Controller
                 ) {
                     $message = tr(
                         'Your message was successfully sent to %0,',
-                        $userlib->clean_user($input->userwatch->text())
+                        $userlib->clean_user($userwatch)
                     );
+                    if (TIKI_API) {
+                        return ['feedback' => $message];
+                    }
                     Feedback::success($message);
                 } else {
-                    Feedback::error(tra('An error occurred, please check your mail settings and try again.'));
+                    $msg = tra('An error occurred, please check your mail settings and try again.');
+                    if (TIKI_API) {
+                        throw new Services_Exception($msg);
+                    }
+                    Feedback::error($msg);
                 }
             }
             return Services_Utilities::closeModal($referer);
         } else {
             return [
                 'title' => tra("Send Me a Message"),
-                'userwatch' => $input->userwatch->text(),
+                'userwatch' => $userwatch,
                 'priority' => $priority,
                 'referer' => $referer
             ];
@@ -935,7 +985,11 @@ class Services_User_Controller
             $unread = $input->unread->bool();
         }
         $messagelib = TikiLib::lib("message");
-        return (int) $messagelib->count_messages($user, 'messages', $unread, $sinceDate);
+        $count = (int) $messagelib->count_messages($user, 'messages', $unread, $sinceDate);
+        if (TIKI_API) {
+            return ['count' => $count];
+        }
+        return $count;
     }
 
     public function action_invite_tempuser($input)

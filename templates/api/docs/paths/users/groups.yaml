@@ -1,0 +1,42 @@
+post:
+  description: Manage user groups
+  requestBody:
+    required: true
+    content:
+      application/x-www-form-urlencoded:
+        schema:
+          type: object
+          properties:
+            items:
+              type: array
+              items:
+                type: string
+                description: username
+            add_remove:
+              type: string
+              enum:
+                - add
+                - remove
+            checked_groups:
+              type: array
+              items:
+                type: string
+            default_group:
+              type: string
+  responses:
+    '200':
+      description: manage user groups response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              feedback:
+                type: object
+                description: Contains results of the operation
+    '403':
+      description: forbidden
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Error.yaml

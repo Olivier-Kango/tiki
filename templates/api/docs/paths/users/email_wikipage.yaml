@@ -1,0 +1,36 @@
+post:
+  description: Email a wiki page to one or more users
+  requestBody:
+    required: true
+    content:
+      application/x-www-form-urlencoded:
+        schema:
+          type: object
+          properties:
+            items:
+              type: array
+              items:
+                type: string
+                description: username
+            wikiTpl:
+              type: string
+              description: Page name/slug/identifier
+            bcc:
+              type: string
+  responses:
+    '200':
+      description: email wiki page response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              feedback:
+                type: object
+                description: Contains results of the operation
+    '403':
+      description: forbidden
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Error.yaml

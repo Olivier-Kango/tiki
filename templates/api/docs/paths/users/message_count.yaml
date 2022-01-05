@@ -1,0 +1,25 @@
+get:
+  description: Get received messages conut
+  parameters:
+    - name: sinceDate
+      in: query
+      description: Messages after this timestamp
+      required: false
+      schema:
+        type: integer
+    - name: unread
+      in: query
+      description: Retrieve only unread messages
+      required: false
+      schema:
+        type: boolean
+  responses:
+    '200':
+      description: message count response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              count:
+                type: integer

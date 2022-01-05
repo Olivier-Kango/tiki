@@ -128,6 +128,10 @@ class Services_ApiBridge
         $routes->add('users-register', (new Route('users', ['controller' => 'user', 'action' => 'register']))->setMethods(['POST']));
         $routes->add('users-info', (new Route('users/{username}', ['controller' => 'user', 'action' => 'info']))->setMethods(['GET']));
         $routes->add('users-delete', (new Route('users/delete', ['controller' => 'user', 'action' => 'remove_users', 'confirmForm' => 'y']))->setMethods(['POST']));
+        $routes->add('users-groups', (new Route('users/groups', ['controller' => 'user', 'action' => 'manage_groups', 'confirmForm' => 'y']))->setMethods(['POST']));
+        $routes->add('users-email-wikipage', (new Route('users/email-wikipage', ['controller' => 'user', 'action' => 'email_wikipage', 'confirmForm' => 'y']))->setMethods(['POST']));
+        $routes->add('users-send-message', (new Route('users/send-message', ['controller' => 'user', 'action' => 'send_message', 'confirmForm' => 'y']))->setMethods(['POST']));
+        $routes->add('users-message-count', (new Route('message-count', ['controller' => 'user', 'action' => 'get_message_count']))->setMethods(['GET']));
         return $routes;
     }
 

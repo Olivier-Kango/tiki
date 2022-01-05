@@ -62,6 +62,14 @@ paths:
     $ref: paths-users-entity.yaml
   /users/delete:
     $ref: paths-users-delete.yaml
+  /users/groups:
+    $ref: paths-users-groups.yaml
+  /users/email-wikipage:
+    $ref: paths-users-email_wikipage.yaml
+  /users/send-message:
+    $ref: paths-users-send_message.yaml
+  /message-count:
+    $ref: paths-users-message_count.yaml
 components:
   securitySchemes:
     bearerAuth:
