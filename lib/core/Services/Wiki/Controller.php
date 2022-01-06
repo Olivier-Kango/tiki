@@ -40,6 +40,28 @@ class Services_Wiki_Controller
     }
 
     /**
+     * Returns all accessible wiki pages
+     * @param $input
+     * @return array
+     */
+    public function action_pages($input)
+    {
+        return TikiLib::lib('tiki')->list_pages(
+            $input->offset->int(),
+            $input->maxRecords->int() ? $input->maxRecords->int() : -1,
+            $input->sortMode->text(),
+            $input->find->text(),
+            $input->initial->text(),
+            $input->exactMatch->text(),
+            false,
+            true,
+            $input->onlyOrphans->text() == 'y',
+            $input->filter->asArray(),
+            $input->onlyCant->text() == 'y'
+        );
+    }
+
+    /**
      * @param $input
      * @return array
      * @throws Services_Exception_NotFound
@@ -54,6 +76,147 @@ class Services_Wiki_Controller
         $canBeRefreshed = false;
         $data = TikiLib::lib('wiki')->get_parse($page, $canBeRefreshed);
         return ['data' => $data];
+    }
+
+    /**
+     * Creates or updates a wiki page
+     * @param $input
+     * @return array
+     * @throws Services_Exception
+     */
+    public function action_create_update_page($input)
+    {
+        global $user, $prefs, $tiki_p_edit;
+        require_once('lib/debug/Tracer.php');
+
+        $tikilib = TikiLib::lib('tiki');
+
+        if ($input->create->int()) {
+            $page = $input->pageName->pagename();
+            if (empty($page)) {
+                throw new Services_Exception(tr('Page name is required.'));
+            }
+            $perms = Perms::get();
+            if (! $perms->edit) {
+                throw new Services_Exception_Denied;
+            }
+        } else {
+            $page = $input->page->pagename();
+            $info = $tikilib->get_page_info($page);
+            if (! $info) {
+                throw new Services_Exception_NotFound;
+            }
+            $tikilib->get_perm_object($page, 'wiki page', $info, true);
+            if ($tiki_p_edit !== 'y') {
+                throw new Services_Exception_Denied;
+            }
+        }
+
+        $max_pagename_length = TikiLib::lib('wiki')->max_pagename_length();
+        if (strlen($page) > $max_pagename_length) {
+            throw new Services_Exception(tr('Page name maximum length of %0 exceeded.', $max_pagename_length));
+        }
+
+        $data = $tikilib->convertAbsoluteLinksToRelative($input->data->text());
+
+        if ($input->create->int()) {
+            $result = $tikilib->create_page(
+                $page,
+                0,
+                $data,
+                $tikilib->now,
+                $input->comment->text(),
+                $user,
+                $tikilib->get_ip_address(),
+                $input->description->text(),
+                $input->lang->text(),
+                $input->is_html->int(),
+                [
+                    'lock_it' => $input->lock_it->text(),
+                    'comments_enabled' => $input->comments_enabled->text(),
+                ],
+                null,
+                $input->wiki_authors_style->text()
+            );
+        } else {
+            $result = $tikilib->update_page(
+                $page,
+                $data,
+                $input->comment->text(),
+                $user,
+                $tikilib->get_ip_address(),
+                $input->description->text(),
+                $input->is_minor->text() === 'y',
+                $input->lang->text(),
+                $input->is_html->int(),
+                [
+                    'lock_it' => $input->lock_it->text(),
+                    'comments_enabled' => $input->comments_enabled->text(),
+                ],
+                null,
+                null,
+                $input->wiki_authors_style->text()
+            );
+        }
+
+        $info = $tikilib->get_page_info($page, true, true);
+
+        if ($info === false || $result === false) {
+            $errors = Feedback::errorMessages();
+            if ($errors) {
+                throw new Services_Exception(implode(' ', $errors));
+            }
+        }
+
+        if ($prefs['feature_multilingual'] === 'y') {
+            $multilinguallib = TikiLib::lib('multilingual');
+
+            // TODO: needs testing
+            $translationOf = $input->translationOf->text();
+            if (! empty($info['pageLang']) && ! empty($translationOf)) {
+                $infoSource = $tikilib->get_page_info($translationOf);
+                if ($infoSource) {
+                    if (! $exists) {
+                        $multilinguallib->insertTranslation('wiki page', $infoSource['page_id'], $infoSource['lang'], $info['page_id'], $info['pageLang']);
+                    }
+                    $tikilib->cache_page_info = [];
+                    if ($input->translationComplete()->text() === 'n') {
+                        $multilinguallib->addTranslationInProgressFlags($info['page_id'], $infoSource['lang']);
+                    } else {
+                        $multilinguallib->propagateTranslationBits(
+                            'wiki page',
+                            $infoSource['page_id'],
+                            $info['page_id'],
+                            $infoSource['version'],
+                            $info['version']
+                        );
+                        $multilinguallib->deleteTranslationInProgressFlags($info['page_id'], $infoSource['lang']);
+                    }
+                }
+            } else {
+                $multilinguallib->createTranslationBit('wiki page', $info['page_id'], $info['version']);
+            }
+        }
+
+        if (! empty($prefs['geo_locate_wiki']) && $prefs['geo_locate_wiki'] == 'y' && $input->geolocation->text()) {
+            TikiLib::lib('geo')->set_coordinates('wiki page', $page, $input->geolocation->text());
+        }
+
+        if (isset($input['page_auto_toc'])) {
+            $isAutoTocActive = $input->page_auto_toc->text() === 'y' ? 1 : null;
+            TikiLib::lib('wiki')->set_page_auto_toc($page, $isAutoTocActive);
+        }
+
+        if ($prefs['wiki_page_hide_title'] == 'y' && isset($input['page_hide_title'])) {
+            $isHideTitle = $input->page_hide_title->text() === 'y' ? 1 : null;;
+            TikiLib::lib('wiki')->set_page_hide_title($page, $isHideTitle);
+        }
+
+        if ($prefs['namespace_enabled'] == 'y' && isset($input['explicit_namespace'])) {
+            TikiLib::lib('wiki')->set_explicit_namespace($page, $input->explicit_namespace->text());
+        }
+
+        return ['info' => $info];
     }
 
     /**

@@ -1,0 +1,36 @@
+post:
+  description: Remove page versions
+  parameters:
+    - name: page
+      in: path
+      description: Page name
+      required: true
+      schema:
+        type: string
+  requestBody:
+    required: true
+    content:
+      application/x-www-form-urlencoded:
+        schema:
+          type: object
+          properties:
+            items:
+              type: array
+              items:
+                type: string
+  responses:
+    '200':
+      description: remove page versions response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              feedback:
+                type: object
+    '403':
+      description: forbidden
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Error.yaml

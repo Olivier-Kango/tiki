@@ -1,0 +1,87 @@
+---
+type: object
+properties:
+  data:
+    type: array
+    items:
+      page_id:
+        type: integer
+      pageName:
+        type: string
+      pageSlug:
+        type: string
+      hits:
+        type: integer
+      data:
+        type: string
+        description: raw content
+      description:
+        type: string
+      lastModif:
+        type: integer
+      comment:
+        type: string
+      version:
+        type: integer
+      version_minor:
+        type: integer
+      user:
+        type: string
+      ip:
+        type: string
+      flag:
+        type: string
+        enum:
+          - locked
+          - unlocked
+      points:
+        type: integer
+      votes:
+        type: integer
+      cache:
+        type: string
+      wiki_cache:
+        type: string
+      cache_timestamp:
+        type: integer
+      pageRank:
+        type: float
+      creator:
+        type: string
+      len:
+        type: integer
+        description: page size
+      lang:
+        type: string
+      lockedby:
+        type: string
+      is_html:
+        type: integer
+      created:
+        type: integer
+      wysiwyg:
+        $ref: schemas-TikiBoolean.yaml
+      wiki_authors_style:
+        type: string
+      comments_enabled:
+        $ref: schemas-TikiBoolean.yaml
+      keywords:
+        type: string
+      perms:
+        type: object
+      versions:
+        type: integer
+      links:
+        type: integer
+      backlinks:
+        type: integer
+      categpath:
+        type: array
+        items:
+          type: string
+      categname:
+        type: array
+        items:
+          type: string
+  cant:
+    type: integer

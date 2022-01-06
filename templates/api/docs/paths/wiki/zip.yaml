@@ -1,0 +1,33 @@
+post:
+  description: Zip pages
+  requestBody:
+    required: true
+    content:
+      application/x-www-form-urlencoded:
+        schema:
+          type: object
+          properties:
+            items:
+              type: array
+              items:
+                type: string
+  responses:
+    '200':
+      description: zip pages response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              feedback:
+                type: object
+                description: If any errors occur while zipping the pages
+              url:
+                type: string
+                description: The location of the zip file
+    '403':
+      description: forbidden
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Error.yaml

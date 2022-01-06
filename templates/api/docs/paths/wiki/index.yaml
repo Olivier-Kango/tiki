@@ -1,0 +1,75 @@
+---
+get:
+  description: Retrieve wiki pages
+  parameters:
+    - name: offset
+      in: query
+      required: false
+      schema:
+        type: integer
+    - name: maxRecords
+      in: query
+      required: false
+      schema:
+        type: integer
+    - name: find
+      in: query
+      required: false
+      schema:
+        type: string
+    - name: initial
+      in: query
+      required: false
+      schema:
+        type: string
+    - name: exactMatch
+      in: query
+      required: false
+      schema:
+        type: string
+    - name: onlyOrphans
+      in: query
+      required: false
+      schema:
+        $ref: schemas-TikiBoolean.yaml
+    - name: filter
+      in: query
+      required: false
+      schema:
+        type: object
+    - name: onlyCant
+      in: query
+      required: false
+      schema:
+        $ref: schemas-TikiBoolean.yaml
+  responses:
+    '200':
+      description: wiki page list
+      content:
+        application/json:
+          schema:
+            $ref: schemas-WikiPageResponse.yaml
+post:
+  description: Create a wiki page
+  requestBody:
+    required: true
+    content:
+      application/x-www-form-urlencoded:
+        schema:
+          $ref: schemas-WikiPageRequest.yaml
+  responses:
+    '200':
+      description: wiki page response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              info:
+                type: object
+    '403':
+      description: forbidden
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Error.yaml

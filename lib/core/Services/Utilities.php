@@ -100,6 +100,9 @@ class Services_Utilities
      */
     public static function refresh($referer = false, $strip = '')
     {
+        if (TIKI_API) {
+            return ['feedback' => Feedback::get()];
+        }
         //no javascript
         if (! empty($referer)) {
             $referer = new JitFilter(['referer' => $referer]);

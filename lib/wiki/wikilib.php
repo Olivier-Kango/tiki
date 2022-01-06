@@ -19,6 +19,12 @@ if (! defined('PLUGINS_DIR')) {
 
 class WikiLib extends TikiLib
 {
+    public function max_pagename_length() {
+        // The max pagename length is 160 characters ( tiki_pages.pageName varchar(160) ).
+        //  However, wiki_rename_page stores a page in the format: $tmpName = "~".$newName."~";
+        //  So, actual max page name length is 160 - 2 = 158
+        return 158;
+    }
 
     //Special parsing for multipage articles
     public function get_number_of_pages($data)

@@ -349,6 +349,37 @@ class Feedback
     }
 
     /**
+     * Get an array of error or warning messages only.
+     */
+    public static function errorMessages()
+    {
+        $messages = [];
+        $errors = \Feedback::get();
+        if (is_array($errors)) {
+            foreach ($errors as $type => $message) {
+                if (is_array($message)) {
+                    if (is_array($message[0]) && ! empty($message[0]['mes'])) {
+                        $out = '';
+                        foreach ($message as $msg) {
+                            $type = $msg['type'];
+                            $out .= str_replace('<br />', "\n", $msg['mes'][0]) . "\n";
+                        }
+                        $message = $out;
+                    } elseif (! empty($message['mes'])) {
+                        $message = str_replace('<br />', "\n", $message['mes']);
+                    }
+                    if ($type == 'error' || $type == 'warning') {
+                        $messages[] = $message;
+                    }
+                } else {
+                    $messages[] = $message;
+                }
+            }
+        }
+        return $messages;
+    }
+
+    /**
      * Remove a specific message from feedback
      * @param callable $comparableFunction $item as param and should return a boolean
      */

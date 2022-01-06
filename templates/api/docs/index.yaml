@@ -70,6 +70,22 @@ paths:
     $ref: paths-users-send_message.yaml
   /message-count:
     $ref: paths-users-message_count.yaml
+  /wiki:
+    $ref: paths-wiki-index.yaml
+  /wiki/page/{page}:
+    $ref: paths-wiki-entity.yaml
+  /wiki/page/{page}/delete:
+    $ref: paths-wiki-version_delete.yaml
+  /wiki/delete:
+    $ref: paths-wiki-delete.yaml
+  /wiki/title:
+    $ref: paths-wiki-title.yaml
+  /wiki/lock:
+    $ref: paths-wiki-lock.yaml
+  /wiki/unlock:
+    $ref: paths-wiki-unlock.yaml
+  /wiki/zip:
+    $ref: paths-wiki-zip.yaml
 components:
   securitySchemes:
     bearerAuth:
