@@ -1,7 +1,7 @@
 {assign var=hasPopup value='n'}
 {capture name=popup}
     <div class="card">
-        <table class="table table-bordered item">
+        <table class="table table-bordered table-responsive item">
             {foreach from=$popupFields|default:null item=field}
                 {if $field.isPublic eq 'y'
                 and ($field.isHidden eq 'n' or $field.isHidden eq 'c' or $field.isHidden eq 'p' or $field.isHidden eq 'a' or $tiki_p_admin_trackers eq 'y' or $tiki_p_admin eq 'y')
