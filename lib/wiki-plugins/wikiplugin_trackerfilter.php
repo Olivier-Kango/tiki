@@ -508,6 +508,10 @@ function wikiplugin_trackerfilter_build_trackerlist_filter($input, $formats, &$f
                         $input['ins_' . $fieldId] = $val;
                         $data = $handler->getFieldData($input);
                         $val = $data['value'];
+                        if ($handler->getOption('datetime') == 'd' && $m[1] == 'to') {
+                            // end date inclusive if date-only field
+                            $val += 3600 * 24 - 1;
+                        }
                     }
                 }
                 if (! is_numeric($fieldId)) { // composite filter

@@ -25,7 +25,7 @@ function upgrade_20211126_timezone_date_update_tiki(Installer $installer): bool
     $result = $installer->query("SELECT fieldId, options FROM tiki_tracker_fields WHERE type in ('j', 'f')");
     while ($row = $result->fetchRow()) {
         $options = json_decode($row['options']);
-        if ($options && $options->datetime == 'd') {
+        if ($options && isset($options->datetime) && $options->datetime == 'd') {
             $date_fields[] = $row['fieldId'];
         }
     }
