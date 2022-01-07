@@ -1253,6 +1253,17 @@ class CalendarLib extends TikiLib
         return $result->fetchRow();
     }
 
+    public function get_participant_by_event_uid($uid)
+    {
+        $query = "select i.`calitemId`,i.`username`,i.`role`,i.`partstat` from `tiki_calendar_roles` i join `tiki_calendar_items` c on i.`calitemId` = c.`calitemId` where c.`uid` = ?";
+        $bindvars = [$uid];
+        $result = $this->fetchAll($query, $bindvars);
+
+        return $result;
+    }
+
+    
+
     /**
      * @param $maxrows
      * @param null $calendarId

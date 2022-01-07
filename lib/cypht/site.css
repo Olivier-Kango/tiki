@@ -1135,3 +1135,10 @@ letter-spacing: unset;
   margin-left: 5px;
 }
 /*# sourceMappingURL=site.css.map */
+.event_participant_status_updated {
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 3px 3px 3px 3px;
+  color: #059;
+  background-color: #BEF;
+}
