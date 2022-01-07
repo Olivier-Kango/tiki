@@ -324,6 +324,9 @@ class PdfGenerator
         $themecss = file_get_contents($themecss) . 'b,strong{font-weight:bold !important;}';
         $extcss = file_get_contents('vendor/jquery/jquery-sheet/jquery.sheet.css');
 
+        //this CSS Overrides bootstrap 4 grid definitions (mPDF doesn't support Bootstrap 4)
+        $customGrid = file_get_contents('themes/base_files/css/custom_grid_pdf.css');
+
         //checking if print friendly option is enabled, then attach print css otherwise theme styles will be retained by theme css
         if ($pdfSettings['print_pdf_mpdf_printfriendly'] == 'y') {
             $printcss = file_get_contents('themes/base_files/css/printpdf.css'); // external css
@@ -335,7 +338,7 @@ class PdfGenerator
         }
 
         $pdfPages = $this->getPDFPages($html, $pdfSettings);
-        $cssStyles = str_replace([".tiki","opacity: 0;","page-break-inside: avoid;"], ["","fill: #fff;opacity:0.3;stroke:black","page-break-inside: auto;"], '<style>' . $basecss . $themecss . $printcss . $pageCSS . $extcss . $this->bootstrapReplace() . $prefs["header_custom_css"] . '</style>'); //adding css styles with first page content
+        $cssStyles = str_replace([".tiki","opacity: 0;","page-break-inside: avoid;"], ["","fill: #fff;opacity:0.3;stroke:black","page-break-inside: auto;"], '<style>' . $basecss . $themecss . $printcss . $customGrid . $extcss . $this->bootstrapReplace() . $prefs["header_custom_css"] . '</style>'); //adding css styles with first page content
         //PDF import templates will not work if background color is set, need to replace in css
         if (
             array_filter(array_column($pdfPages, 'pageContent'), function ($var) {
