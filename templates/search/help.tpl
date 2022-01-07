@@ -24,8 +24,8 @@
             </p>
             <ul>
                 <li>{tr}objects that include both tokenized terms{/tr}</li>
-                <li>{tr}objects that include the term<strong>wiki</strong>{/tr}</li>
-                <li>{tr}objects that include the term<strong>forum</strong>{/tr} {tr}or{/tr} <strong>{tr}forums{/tr}</strong></li>
+                <li>{tr}objects that include the term <strong>wiki</strong>{/tr}</li>
+                <li>{tr}objects that include the term <strong>forum</strong>{/tr} or <strong>forums</strong></li>
             </ul>
 
             <h4>{tr}Boolean operators{/tr}</h4>
@@ -35,30 +35,10 @@
 
             <h4>{tr}Grouping terms{/tr}</h4>
             <p>{tr}Use parenthesis ( ) to group terms into subexpressions.{/tr}&nbsp;
-                {tr}Example:
-                    <strong>wiki and (forum blog)</strong>
-                    will find objects that contain
-                    <strong>wiki</strong>
-                    and
-                    <strong>forum</strong>
-                    or that contain
-                    <strong>wiki</strong>
-                    and
-                    <strong>blog</strong>
-                    in any order.{/tr}</p>
-
+                {tr}Example: <strong>wiki and (forum blog)</strong> twill find objects that contain <strong>wiki</strong> and <strong>forum</strong> or that contain <strong>wiki</strong> and <strong>blog</strong> in any order.{/tr}</p>
             <h4>{tr}Finding phrases{/tr}</h4>
-            <p>{tr}Use double quotes ( <kbd>"
-                "</kbd> ) around a phrase to find terms in the exact order, next to each other.{/tr}&nbsp;
-                {tr}Example:
-                    <kbd>"Alex Bell"</kbd>
-                    will not find
-                    <strong>Bell Alex</strong>
-                    or
-                    <strong>Alex G. Bell</strong>
-                    but
-                    <strong>Alex Bells</strong>
-                    . {/tr}</p>
+            <p>{tr}Use double quotes ( <kbd>" "</kbd> ) around a phrase to find terms in the exact order, next to each other.{/tr}&nbsp;
+                {tr}Example: <kbd>"Alex Bell"</kbd> will not find <strong>Bell Alex</strong> or <strong>Alex G. Bell</strong> but <strong>Alex Bells</strong>.{/tr}</p>
 
         </div>
     {/strip}
