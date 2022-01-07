@@ -1,0 +1,5 @@
+---
+type: array
+items:
+  type: string
+  description: "Tiki object use format Type:ID where type is trackeritem, page, etc. and ID is the object identifier based on type."

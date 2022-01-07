@@ -21,7 +21,13 @@ security:
   - bearerAuth: []
 paths:
   /categories:
-    $ref: paths-categories.yaml
+    $ref: paths-categories-index.yaml
+  /categories/{categId}:
+    $ref: paths-categories-entity.yaml
+  /categorize:
+    $ref: paths-categories-categorize.yaml
+  /uncategorize:
+    $ref: paths-categories-uncategorize.yaml
   /trackers:
     $ref: paths-trackers-index.yaml
   /trackers/{trackerId}:

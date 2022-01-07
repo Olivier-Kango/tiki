@@ -1,0 +1,63 @@
+---
+post:
+  description: Update a category.
+  parameters:
+    - name: categId
+      in: path
+      required: true
+      schema:
+        type: integer
+  requestBody:
+    required: true
+    content:
+      application/x-www-form-urlencoded:
+        schema:
+          type: object
+          properties:
+            parentId:
+              type: integer
+            name:
+              type: string
+            description:
+              type: string
+            tplGroupContainerId:
+              type: integer,
+            tplGroupPattern:
+              type: string
+            parentPerms:
+              type: boolean
+              description: Copy parent category permissions to the category (useful when moving a category to another parent)
+  responses:
+    '200':
+      description: update category response
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Category.yaml
+    '403':
+      description: forbidden
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Error.yaml
+delete:
+  description: Remove a category.
+  parameters:
+    - name: categId
+      in: path
+      required: true
+      schema:
+        type: integer
+  responses:
+    '200':
+      description: remove category response
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Category.yaml
+    '403':
+      description: forbidden
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Error.yaml

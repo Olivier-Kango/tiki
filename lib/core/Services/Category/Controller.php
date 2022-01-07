@@ -44,6 +44,104 @@ class Services_Category_Controller
         return $categlib->getCategories(['identifier' => $parentId, 'type' => $type]);
     }
 
+    public function action_create($input)
+    {
+        $parentId = $input->parentId->int();
+        if ($parentId) {
+            $perms = Perms::get('category', $parentId);
+        } else {
+            $perms = Perms::get();
+        }
+        if (! $perms->admin_categories) {
+            throw new Services_Exception_Denied;
+        }
+        $categlib = TikiLib::lib('categ');
+        try {
+            $newcategId = $categlib->add_category(
+                $parentId,
+                $input->name->text(),
+                $input->description->text(),
+                $input->tplGroupContainerId->int(),
+                $input->tplGroupPattern->text()
+            );
+            if ($input->parentPerms->boolean()) {
+                TikiLib::lib('user')->copy_object_permissions($parentId, $newcategId, 'category');
+                Perms::getInstance()->clear();
+            }
+            return $categlib->get_category($newcategId);
+        } catch (Exception $e) {
+            throw new Services_Exception($e->getMessage());
+        }
+    }
+
+    public function action_update($input)
+    {
+        $categlib = TikiLib::lib('categ');
+
+        $categId = $input->categId->int();
+        $parentId = $input->parentId->int();
+
+        $category = $categlib->get_category($categId);
+        if (! $category) {
+            throw new Services_Exception_NotFound;
+        }
+
+        $perms = Perms::get('category', $categId);
+        if (! $perms->admin_categories) {
+            throw new Services_Exception_Denied;
+        }
+
+        if ($parentId) {
+            $perms = Perms::get('category', $parentId);
+            if (! $perms->admin_categories) {
+                throw new Services_Exception_Denied;
+            }
+        } else {
+            $parentId = $category['parentId'];
+        }
+
+        try {
+            $categlib->update_category(
+                $categId,
+                $input->name->text() ?: $category['name'],
+                $input->description->text() ?: $category['description'],
+                $parentId,
+                $input->tplGroupContainerId->int() ?: $category['tplGroupContainerId'],
+                $input->tplGroupPattern->text() ?: $category['tplGroupPattern']
+            );
+            if ($input->parentPerms->boolean()) {
+                TikiLib::lib('user')->remove_object_permission('', $categId, 'category', '');
+                TikiLib::lib('user')->copy_object_permissions($parentId, $categId, 'category');
+            }
+            return $categlib->get_category($categId);
+        } catch (Exception $e) {
+            throw new Services_Exception($e->getMessage());
+        }
+    }
+
+    public function action_remove($input)
+    {
+        $categlib = TikiLib::lib('categ');
+        $categId = $input->categId->int();
+
+        $category = $categlib->get_category($categId);
+        if (! $category) {
+            throw new Services_Exception_NotFound;
+        }
+
+        $perms = Perms::get('category', $categId);
+        if (! $perms->admin_categories) {
+            throw new Services_Exception_Denied;
+        }
+
+        $result = $categlib->remove_category($categId);
+        if (! empty($result) && $result->numRows()) {
+            return $category;
+        } else {
+            throw new Services_Exception(tr('Could not deleted requested category.'));
+        }
+    }
+
     public function action_categorize($input)
     {
         $categId = $input->categId->int();

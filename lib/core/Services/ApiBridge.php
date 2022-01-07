@@ -95,6 +95,11 @@ class Services_ApiBridge
         $routes->add('home', (new Route(''))->setMethods(['GET']));
         $routes->add('docs', (new Route('docs/{path}.yaml', ['_format' => 'yaml']))->setMethods(['GET']));
         $routes->add('categories', (new Route('categories', ['controller' => 'category', 'action' => 'list_categories']))->setMethods(['GET']));
+        $routes->add('categories-create', (new Route('categories', ['controller' => 'category', 'action' => 'create']))->setMethods(['POST']));
+        $routes->add('categories-update', (new Route('categories/{categId}', ['controller' => 'category', 'action' => 'update']))->setMethods(['POST']));
+        $routes->add('categories-delete', (new Route('categories/{categId}', ['controller' => 'category', 'action' => 'remove']))->setMethods(['DELETE']));
+        $routes->add('categorize', (new Route('categorize', ['controller' => 'category', 'action' => 'categorize']))->setMethods(['POST']));
+        $routes->add('uncategorize', (new Route('uncategorize', ['controller' => 'category', 'action' => 'uncategorize']))->setMethods(['POST']));
         $routes->add('connect-new', (new Route('connect/new', ['controller' => 'connect_server', 'action' => 'new']))->setMethods(['POST']));
         $routes->add('connect-confirm', (new Route('connect/confirm', ['controller' => 'connect_server', 'action' => 'confirm']))->setMethods(['POST']));
         $routes->add('connect-receive', (new Route('connect/receive', ['controller' => 'connect_server', 'action' => 'receive']))->setMethods(['POST']));

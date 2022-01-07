@@ -1,0 +1,37 @@
+---
+type: object
+properties:
+  categId:
+    type: integer
+  name:
+    type: string
+  description:
+    type: string
+  parentId:
+    type: integer
+  rootId:
+    type: integer
+  hits:
+    type: integer
+  tplGroupContainerId:
+    type: integer,
+  tplGroupPattern:
+    type: string
+  num_roles:
+    type: integer
+  objects:
+    type: integer
+  children:
+    type: array
+    items:
+      type: integer
+  descendants:
+    type: array
+    items:
+      type: integer
+  tepath:
+    type: object
+  categpath:
+    type: string
+  relativePathString:
+    type: string

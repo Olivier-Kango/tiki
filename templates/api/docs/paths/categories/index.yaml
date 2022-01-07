@@ -1,0 +1,69 @@
+---
+get:
+  description: Get all categories
+  parameters:
+    - name: parentId
+      in: query
+      required: false
+      schema:
+        type: integer
+    - name: descends
+      in: query
+      required: false
+      schema:
+        type: integer
+    - name: type
+      in: query
+      required: false
+      description: "'roots' return root level categories, 'all' return all categories, everything else return descendants of a category"
+      schema:
+        type: string
+  responses:
+    '200':
+      description: categories response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              result:
+                type: array
+                items:
+                  $ref: schemas-Category.yaml
+post:
+  description: Create a new category
+  requestBody:
+    required: true
+    content:
+      application/x-www-form-urlencoded:
+        schema:
+          type: object
+          required:
+            - name
+          properties:
+            parentId:
+              type: integer
+            name:
+              type: string
+            description:
+              type: string
+            tplGroupContainerId:
+              type: integer,
+            tplGroupPattern:
+              type: string
+            parentPerms:
+              type: boolean
+              description: Copy parent category permissions to the newly created category
+  responses:
+    '200':
+      description: create category response
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Category.yaml
+    '403':
+      description: forbidden
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Error.yaml
