@@ -18,15 +18,15 @@
         <tbody>
         {foreach from=$mysql_properties key=key item=item}
             <tr>
-                <th class="text">Property : {$key}</th>
-                <td data-th="{tr}Value : {/tr}" class="text">{$item.setting}</td>
-                <td data-th="{tr}Tiki Fitness : {/tr}" class="text">
+                <th class="text"><span class="only-on-mobile">{tr}Property:{/tr}</span>&nbsp;{$key}</th>
+                <td data-th="{tr}Value:{/tr}" class="text">&nbsp;{$item.setting}</td>
+                <td data-th="{tr}Tiki Fitness:{/tr}" class="text">&nbsp;
                     <span class="text-{$fmap[$item.fitness]['class']}">
-                        {icon name="{$fmap[$item.fitness]['icon']}"} {$item.fitness}
+                        {icon name="{$fmap[$item.fitness]['icon']}"}&nbsp;{$item.fitness}
                     </span>
                 </td>
-                <td data-th="{tr}OK : {/tr}" class="text"><input type="checkbox" name="{$key}" {if $item.fitness eq 'good'}disabled{/if} {if $item.ack}checked{/if} /></td>
-                <td data-th="{tr}Explanation : {/tr}" class="text">{$item.message}</td>
+                <td data-th="{tr}OK:{/tr}" class="text">&nbsp;<input type="checkbox" name="{$key}" {if $item.fitness eq 'good'}disabled{/if} {if $item.ack}checked{/if} /></td>
+                <td data-th="{tr}Explanation:{/tr}" class="text">&nbsp;{$item.message}</td>
             </tr>
         {foreachelse}
             {norecords _colspan=4}
@@ -52,8 +52,8 @@
         <tbody>
         {foreach from=$mysql_crashed_tables key=key item=item}
             <tr>
-                <th class="text">Table name : {$key}</th>
-                <td data-th="{tr}Comment : {/tr}" class="text">{$item.Comment}</td>
+                <th class="text">Table name: {$key}</th>
+                <td data-th="{tr}Comment:{/tr}" class="text">&nbsp;{$item.Comment}</td>
             </tr>
         {foreachelse}
             {norecords _colspan=2}
@@ -191,8 +191,8 @@
         <tbody>
         {foreach from=$server_information key=key item=item}
             <tr>
-                <th class="text">Property : {$key}</th>
-                <td data-th="{tr}Value : {/tr}" class="text">{$item.value}</td>
+                <th class="text"><span class="only-on-mobile">{tr}Property:{/tr}</span>&nbsp;{$key}</th>
+                <td data-th="{tr}Value:{/tr}" class="text">&nbsp;{$item.value}</td>
             </tr>
         {foreachelse}
             {norecords _colspan=2}
@@ -215,15 +215,15 @@
         <tbody>
         {foreach from=$server_properties key=key item=item}
             <tr>
-                <th class="text">Property : {$key}</th>
-                <td data-th="{tr}Value : {/tr}" class="text">{$item.setting}</td>
-                <td data-th="{tr}Tiki Fitness : {/tr}" class="text">
+                <th class="text"><span class="only-on-mobile">{tr}Property:{/tr}</span>&nbsp;{$key}</th>
+                <td data-th="{tr}Value:{/tr}" class="text">&nbsp;{$item.setting}</td>
+                <td data-th="{tr}Tiki Fitness:{/tr}" class="text">&nbsp;
                     <span class="text-{$fmap[$item.fitness]['class']}">
-                        {icon name="{$fmap[$item.fitness]['icon']}"} {$item.fitness}
+                        {icon name="{$fmap[$item.fitness]['icon']}"}&nbsp;{$item.fitness}
                     </span>
                 </td>
-                <td data-th="{tr}OK : {/tr}" class="test"><input type="checkbox" name="{$key}" {if $item.fitness eq 'good'}disabled{/if} {if $item.ack}checked{/if} /></td>
-                <td  data-th="{tr}Explanation : {/tr}" class="text">{$item.message}</td>
+                <td data-th="{tr}OK:{/tr}" class="test">&nbsp;<input type="checkbox" name="{$key}" {if $item.fitness eq 'good'}disabled{/if} {if $item.ack}checked{/if} /></td>
+                <td data-th="{tr}Explanation:{/tr}" class="text">&nbsp;{$item.message}</td>
             </tr>
         {foreachelse}
             {norecords _colspan=4}
@@ -247,15 +247,15 @@
         <tbody>
             {foreach from=$dirs item=d key=k}
                 <tr>
-                    <th class="text">Directory : {$d|escape}</th>
-                    <td data-th="{tr}Fitness : {/tr}" class="text">
+                    <th class="text">Directory: {$d|escape}</th>
+                    <td data-th="{tr}Fitness:{/tr}" class="text">&nbsp;
                         {if $dirsWritable[$k]}
                             {icon name='ok' iclass='text-success'}
                         {else}
                             {icon name='remove' iclass='text-danger'}
                         {/if}
                     </td>
-                    <td data-th="{tr}Explanation : {/tr}" >
+                    <td data-th="{tr}Explanation:{/tr} " >
                         {if $dirsWritable[$k]}
                             {tr}Directory is writeable{/tr}.
                         {else}
@@ -285,15 +285,15 @@
 <tbody>
             {foreach from=$apache_properties key=key item=item}
                 <tr>
-                    <th class="text">Property : {$key}</th>
-                    <td data-th="{tr}Value : {/tr}" class="text">{$item.setting}</td>
-                    <td data-th="{tr}Tiki Fitness : {/tr}" class="text">
+                    <th class="text"><span class="only-on-mobile">{tr}Property:{/tr}</span>&nbsp;{$key}</th>
+                    <td data-th="{tr}Value:{/tr}" class="text">{$item.setting}</td>
+                    <td data-th="{tr}Tiki Fitness:{/tr}" class="text">
                     <span class="text-{$fmap[$item.fitness]['class']}">
-                        {icon name="{$fmap[$item.fitness]['icon']}"} {$item.fitness}
+                        {icon name="{$fmap[$item.fitness]['icon']}"}&nbsp;{$item.fitness}
                     </span>
                     </td>
-                    <td data-th="{tr}OK : {/tr}" class="test"><input type="checkbox" name="{$key}" {if $item.fitness eq 'good'}disabled{/if} {if $item.ack}checked{/if} /></td>
-                    <td data-th="{tr}Explanation : {/tr}" class="text">{$item.message}</td>
+                    <td data-th="{tr}OK:{/tr}" class="test">&nbsp;<input type="checkbox" name="{$key}" {if $item.fitness eq 'good'}disabled{/if} {if $item.ack}checked{/if} /></td>
+                    <td data-th="{tr}Explanation:{/tr}" class="text">&nbsp;{$item.message}</td>
                 </tr>
             {foreachelse}
                 {norecords _colspan=4}
@@ -321,15 +321,15 @@
 <tbody>
             {foreach from=$iis_properties key=key item=item}
                 <tr>
-                    <th class="text">Property : {$key}</th>
-                    <td data-th="{tr}Value : {/tr}" class="text">{$item.setting}</td>
-                    <td data-th="{tr}Tiki Fitness : {/tr}" class="text">
+                    <th class="text"><span class="only-on-mobile">{tr}Property:{/tr}</span>&nbsp;{$key}</th>
+                    <td data-th="{tr}Value:{/tr}" class="text">&nbsp;{$item.setting}</td>
+                    <td data-th="{tr}Tiki Fitness:{/tr}" class="text">&nbsp;
                     <span class="text-{$fmap[$item.fitness]['class']}">
-                        {icon name="{$fmap[$item.fitness]['icon']}"} {$item.fitness}
+                        {icon name="{$fmap[$item.fitness]['icon']}"}&nbsp;{$item.fitness}
                     </span>
                     </td>
-                    <td data-th="{tr}OK : {/tr}" class="test"><input type="checkbox" name="{$key}" {if $item.fitness eq 'good'}disabled{/if} {if $item.ack}checked{/if} /></td>
-                    <td data-th="{tr}Explanation : {/tr}" class="text">{$item.message}</td>
+                    <td data-th="{tr}OK:{/tr}" class="test">&nbsp;<input type="checkbox" name="{$key}" {if $item.fitness eq 'good'}disabled{/if} {if $item.ack}checked{/if} /></td>
+                    <td data-th="{tr}Explanation:{/tr}" class="text">&nbsp;{$item.message}</td>
                 </tr>
             {foreachelse}
                 {norecords _colspan=4}
@@ -356,15 +356,15 @@
 <tbody>
         {foreach from=$php_properties key=key item=item}
 <tr>
-                    <th class="text">Property : {$key}</th>
-                    <td data-th="{tr}Value : {/tr}" class="text">{$item.setting}</td>
-                    <td data-th="{tr}Tiki Fitness : {/tr}" class="text">
+                    <th class="text"><span class="only-on-mobile">{tr}Property:{/tr}</span>&nbsp;{$key}</th>
+                    <td data-th="{tr}Value:{/tr}" class="text">&nbsp;{$item.setting}</td>
+                    <td data-th="{tr}Tiki Fitness:{/tr}" class="text">&nbsp;
                     <span class="text-{$fmap[$item.fitness]['class']}">
-                        {icon name="{$fmap[$item.fitness]['icon']}"} {$item.fitness}
+                        {icon name="{$fmap[$item.fitness]['icon']}"}&nbsp;{$item.fitness}
                     </span>
                     </td>
-                    <td data-th="{tr}OK : {/tr}" class="test"><input type="checkbox" name="{$key}" {if $item.fitness eq 'good'}disabled{/if} {if $item.ack}checked{/if} /></td>
-                    <td data-th="{tr}Explanation : {/tr}" class="text">{$item.message}</td>
+                    <td data-th="{tr}OK:{/tr}" class="test">&nbsp;<input type="checkbox" name="{$key}" {if $item.fitness eq 'good'}disabled{/if} {if $item.ack}checked{/if} /></td>
+                    <td data-th="{tr}Explanation:{/tr}" class="text">&nbsp;{$item.message}</td>
                 </tr>
         {foreachelse}
             {norecords _colspan=4}
@@ -405,15 +405,15 @@
 
         {foreach from=$security key=key item=item}
             <tr>
-                    <th class="text">Property : {$key}</th>
-                    <td data-th="{tr}Value : {/tr}" class="text">{$item.setting}</td>
-                    <td data-th="{tr}Tiki Fitness : {/tr}" class="text">
+                    <th class="text"><span class="only-on-mobile">{tr}Property:{/tr}</span>&nbsp;{$key}</th>
+                    <td data-th="{tr}Value:{/tr}" class="text">&nbsp;{$item.setting}</td>
+                    <td data-th="{tr}Tiki Fitness:{/tr}" class="text">&nbsp;
                     <span class="text-{$fmap[$item.fitness]['class']}">
-                        {icon name="{$fmap[$item.fitness]['icon']}"} {$item.fitness}
+                        {icon name="{$fmap[$item.fitness]['icon']}"}&nbsp;{$item.fitness}
                     </span>
                     </td>
-                    <td data-th="{tr}OK : {/tr}" class="test"><input type="checkbox" name="{$key}" {if $item.fitness eq 'good'}disabled{/if} {if $item.ack}checked{/if} /></td>
-                    <td data-th="{tr}Explanation : {/tr}" class="text">{$item.message}</td>
+                    <td data-th="{tr}OK:{/tr}" class="test">&nbsp;<input type="checkbox" name="{$key}" {if $item.fitness eq 'good'}disabled{/if} {if $item.ack}checked{/if} /></td>
+                    <td data-th="{tr}Explanation:{/tr}" class="text">&nbsp;{$item.message}</td>
                 </tr>
         {foreachelse}
             {norecords _colspan=4}
@@ -469,13 +469,13 @@
 
             {foreach from=$file_handlers key=key item=item}
                 <tr>
-                    <th class="text">Mime type : {$key}</th>
-                    <td data-th="{tr}Tiki Fitness : {/tr}" lass="text">
+                    <th class="text">Mime type: {$key}</th>
+                    <td data-th="{tr}Tiki Fitness:{/tr} " lass="text">
                         <span class="text-{$fmap[$item.fitness]['class']}">
-                            {icon name="{$fmap[$item.fitness]['icon']}"} {$item.fitness}
+                            {icon name="{$fmap[$item.fitness]['icon']}"}&nbsp;{$item.fitness}
                         </span>
                     </td>
-                    <td data-th="{tr}Explanation : {/tr}" class="text">{$item.message|escape}</td>
+                    <td data-th="{tr}Explanation:{/tr}" class="text">&nbsp;{$item.message|escape}</td>
                 </tr>
             {foreachelse}
                 {norecords _colspan=3}
@@ -499,8 +499,8 @@
 
         {foreach from=$mysql_variables key=key item=item}
             <tr>
-                <th class="text">Property : {$key}</th>
-                <td data-th="{tr}Value : {/tr}" class="text">{$item.value|escape}</td>
+                <th class="text"><span class="only-on-mobile">{tr}Property:{/tr}</span>&nbsp;{$key}</th>
+                <td data-th="{tr}Value:{/tr}" class="text">&nbsp;{$item.value|escape}</td>
             </tr>
         {foreachelse}
             {norecords _colspan=2}
@@ -527,8 +527,8 @@
 
             {foreach from=$benchmark key=key item=item}
                 <tr>
-                    <th class="text">Property : {$key}</th>
-                    <td data-th="{tr}Seconds : {/tr}" class="text">{$item.value}</td>
+                    <th class="text"><span class="only-on-mobile">{tr}Property:{/tr}</span>&nbsp;{$key}</th>
+                    <td data-th="{tr}Seconds:{/tr}" class="text">&nbsp;{$item.value}</td>
                 </tr>
             {/foreach}</tbody>
         </table>
@@ -569,13 +569,13 @@
         <tbody>
             {foreach from=$trim_server_requirements key=key item=item}
                 <tr>
-                    <th class="text">Requirement : {$key}</th>
-                    <td data-th="{tr}Status : {/tr}" class="text">
+                    <th class="text">Requirement: {$key}</th>
+                    <td data-th="{tr}Status:{/tr}" class="text">&nbsp;
                     <span class="text-{$fmap[$item.fitness]['class']}">
-                        {icon name="{$fmap[$item.fitness]['icon']}"} {$item.fitness}
+                        {icon name="{$fmap[$item.fitness]['icon']}"}&nbsp;{$item.fitness}
                     </span>
                     </td>
-                    <td data-th="{tr}Explanation : {/tr}" class="text">{$item.message}</td>
+                    <td data-th="{tr}Explanation:{/tr}" class="text">&nbsp;{$item.message}</td>
                 </tr>
             {/foreach}
         </tbody></table>
@@ -592,13 +592,13 @@
         <tbody>
             {foreach from=$trim_client_requirements key=key item=item}
                 <tr>
-                    <th class="text">Requirement : {$key}</th>
-                    <td data-th="{tr}Status : {/tr}" class="text">
+                    <th class="text">Requirement: {$key}</th>
+                    <td data-th="{tr}Status:{/tr}" class="text">&nbsp;
                     <span class="text-{$fmap[$item.fitness]['class']}">
-                        {icon name="{$fmap[$item.fitness]['icon']}"} {$item.fitness}
+                        {icon name="{$fmap[$item.fitness]['icon']}"}&nbsp;{$item.fitness}
                     </span>
                     </td>
-                    <td data-th="{tr}Explanation : {/tr}" class="text">{$item.message}</td>
+                    <td data-th="{tr}Explanation:{/tr}" class="text">&nbsp;{$item.message}</td>
                 </tr>
             {/foreach}
         </tbody></table>
@@ -620,9 +620,9 @@
         <tbody>
         {foreach from=$user_encryption_stats key=method item=stats}
             <tr>
-                <th class="text"> Encryption Method : {$method}</th>
-                <td data-th="{tr}Encrypted Preferences : {/tr}" class="text">{$stats}</td>
-                <td data-th="{tr}Message : {/tr}" class="text">
+                <th class="text"> Encryption Method: {$method}</th>
+                <td data-th="{tr}Encrypted Preferences:{/tr}" class="text">&nbsp;{$stats}</td>
+                <td data-th="{tr}Message:{/tr}" class="text">&nbsp;
                     {if ($method eq 'MCrypt' or $method eq 'OpenSSL') and $stats > 0}
                         <p>{tr _0=$method}If %0 library gets removed, non-converted user encrypted data can no longer be decrypted. The data is
                             thus lost and must be re-entered.{/tr}</p>
@@ -645,13 +645,13 @@
         </tr></thead><tbody>
         {foreach from=$composer_checks key=key item=item}
                 <tr>
-                    <th class="text">Requirement : {$key}</th>
-                    <td data-th="{tr}Status : {/tr}" class="text">
+                    <th class="text">Requirement: {$key}</th>
+                    <td data-th="{tr}Status:{/tr}" class="text">&nbsp;
                     <span class="text-{$fmap[$item.fitness]['class']}">
-                        {icon name="{$fmap[$item.fitness]['icon']}"} {$item.fitness}
+                        {icon name="{$fmap[$item.fitness]['icon']}"}&nbsp;{$item.fitness}
                     </span>
                     </td>
-                    <td data-th="{tr}Message : {/tr}" class="text">{$item.message}</td>
+                    <td data-th="{tr}Message:{/tr}" class="text">&nbsp;{$item.message}</td>
                 </tr>
             {/foreach}
     </tbody></table>
@@ -673,14 +673,14 @@
 </thead><tbody>
         {foreach from=$packages key=key item=item}
             <tr>
-                <th class="text">Package name : {$item.name}</th>
-                <td data-th="{tr}Version : {/tr}" class="text">{$item.version}</td>
-                <td data-th="{tr}Status : {/tr}" class="text">
+                <th class="text">Package name: {$item.name}</th>
+                <td data-th="{tr}Version:{/tr}" class="text">&nbsp;{$item.version}</td>
+                <td data-th="{tr}Status:{/tr}" class="text">&nbsp;
                     <span class="text-{$fmap[$item.status]['class']}">
                         {icon name="{$fmap[$item.status]['icon']}"} {$item.status}
                     </span>
                 </td>
-                <td data-th="{tr}Message : {/tr}" class="text">
+                <td data-th="{tr}Message:{/tr}" class="text">&nbsp;
                     {foreach from=$item.message key=message_key item=message}
                         {$message}<br/>
                     {/foreach}
@@ -705,14 +705,14 @@
 </thead><tbody>
         {foreach from=$ocr key=key item=item}
             <tr>
-                <th class="text">Requirement : {$item.name}</th>
-                <td data-th="{tr}Version : {/tr}" class="text">{$item.version}</td>
-                <td data-th="{tr}Status : {/tr}" data-th="{tr}Version : {/tr}" class="text">
+                <th class="text">Requirement: {$item.name}</th>
+                <td data-th="{tr}Version:{/tr}" class="text">&nbsp;{$item.version}</td>
+                <td data-th="{tr}Status:{/tr} " data-th="{tr}Version : {/tr}" class="text">
                     <span class="text-{$fmap[$item.status]['class']}">
                         {icon name="{$fmap[$item.status]['icon']}"} {$item.status}
                     </span>
                 </td>
-                <td data-th="{tr}Message : {/tr}" class="text">{$item.message}</td>
+                <td data-th="{tr}Message:{/tr}" class="text">&nbsp;{$item.message}</td>
             </tr>
         {/foreach}
    </tbody> </table>
@@ -734,6 +734,10 @@ th {
 td > div {
   float: right;
 }
+.only-on-mobile{
+    display:none;
+}
+
 /* fold columns into rows when we have mobile screens. */
 @media only screen and (max-width: 40em) {
   thead th:not(:first-child) {
@@ -746,8 +750,13 @@ td > div {
   td[data-th]:before {
     content: attr(data-th);
     float: left;
-  }}
+  }.only-on-mobile{
+    display:inline!important;
+}
+    
+}
+  
+
 {/literal}
 </style>
 </div>
-

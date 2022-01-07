@@ -92,12 +92,12 @@ if (file_exists('./db/local.php') && file_exists('./templates/tiki-check.tpl')) 
             $render .= '<table class="table table-bordered" style="' . $morestyle . '"><thead>';
             foreach ($var as $key => $value) {
                 $render .= '<tr>';
-                $render .= '<th>Property : ';
+                $render .= '<th> <span class="visible-on-mobile">Property:&nbsp;</span>';
                 $render .= $key;
                 $render .= "</th></thead>";
                 $iNbCol = 0;
                 foreach ($var[$key] as $key2 => $value2) {
-                    $render .= '<tbody><td data-th="'. $key2 .' : "';
+                    $render .= '<tbody><td data-th="'. $key2 .':&nbsp;" style="';
                     if ($iNbCol != count(array_keys($var[$key])) - 1) {
                         $render .= 'text-align: center;white-space:nowrap;';
                     }
@@ -254,7 +254,7 @@ if ($standalone && ! $locked) {
 <h2>Database credentials</h2>
 Couldn't connect to database, please provide valid credentials.
 <form method="post" action="{$_SERVER['SCRIPT_NAME']}">
-    <div class="form-group">
+    <div class="containerform-group">
         <label for="dbhost">Database host</label>
         <input class="form-control" type="text" id="dbhost" name="dbhost" value="localhost" />
     </div>
@@ -2793,8 +2793,8 @@ if ($standalone && ! $nagios) {
             renderTable($mail);
         } else {
             $render .= '<form method="post" action="' . $_SERVER['SCRIPT_NAME'] . '">';
-            $render .= '<p><label for="e-mail">e-mail address to send test mail to</label>: <input type="text" id="email_test_to" name="email_test_to" /></p>';
-            $render .= '<p><input type="submit" class="btn btn-primary btn-sm" value=" Send e-mail " /></p>';
+            $render .= '<div class="form-group"><label for="e-mail">e-mail address to send test mail to</label>: <input type="text"  class="form-control" id="email_test_to" name="email_test_to" /></div>';
+            $render .= '<div class="form-group"><input type="submit" class="btn btn-primary btn-sm" value=" Send e-mail " /></div>';
             $render .= '<p><input type="hidden" id="dbhost" name="dbhost" value="';
             if (isset($_POST['dbhost'])) {
                 $render .= htmlentities(strip_tags($_POST['dbhost']));
@@ -3472,7 +3472,7 @@ function createPage($title, $content)
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <link type="text/css" rel="stylesheet" href="//dev.tiki.org/vendor/twitter/bootstrap/dist/css/bootstrap.css" />
+        <link type="text/css" rel="stylesheet" href="//dev.tiki.org/vendor_bundled/vendor/twbs/bootstrap/dist/css/bootstrap.css" />
         <title>$title</title>
         <style type="text/css">
             table { border-collapse: collapse;}
@@ -3512,6 +3512,11 @@ td > div {
   float: right;
 }
 
+.visible-on-mobile{
+    visibility:hidden;
+    display:none;
+}
+
 @media only screen and (max-width: 40em) {
   thead th:not(:first-child) {
     display: none;
@@ -3524,11 +3529,16 @@ td > div {
     content: attr(data-th);
     float: left;
   }
+  .visible-on-mobile{
+    visibility:visible;
+    display:inline;
 }
 }
+
 </style>
     </head>
     <body class="tiki_wiki ">
+    <div class="container" >
     <div id="fixedwidth" >
         <div class="header_outer">
             <div class="header_container">
@@ -3572,7 +3582,7 @@ END;
         </div>
     </div>
 </footer>
-</div>
+</div></div>
     </body>
 </html>
 END;
