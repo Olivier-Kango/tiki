@@ -19,7 +19,7 @@ class PatchCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('patch')
+            ->setName('database:patch')
             ->setDescription('Apply a specific database schema patch')
             ->addArgument('name', InputArgument::REQUIRED, 'Name of the patch applied')
             ->addOption(
