@@ -527,6 +527,32 @@ class Tracker_Field_Files extends Tracker_Field_Abstract implements Tracker_Fiel
                             </a>";
                         }
                         
+                    } elseif ($file['filetype'] == $mimetypes['mp3'] || $file['filetype'] == $mimetypes['oga']) {
+                        global $base_url;
+                        $src = smarty_modifier_sefurl($file['fileId'], 'display');
+                        $fileurl = $base_url . $src;
+
+                        //Audio preview modal
+                        $audiomodal = '
+                            <div class="modal fade" id="audioModal" tabindex="-1" role="dialog"  aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                                <audio controls style="width : 100%">
+                                                    <source src="'.$fileurl.'" type="audio/mpeg">
+                                                </audio>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>';
+
+                        $ret .= $audiomodal . " <a type='button' href='' title='preview' data-toggle='modal' data-backdrop='false' data-target='#audioModal' >
+                            $viewicon
+                        </a>";
+
                     } else {
                         $dataAttributes = [];
 
