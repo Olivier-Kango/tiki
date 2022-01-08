@@ -73,6 +73,7 @@ $smarty->assign_by_ref('maxRecords', $maxRecords);
 $list = $logslib->list_logs('', '', $offset, $maxRecords, $sort_mode, $find);
 $smarty->assign_by_ref('cant', $list['cant']);
 $smarty->assign('list', $list['data']);
+$smarty->assign('api_tiki', $api_tiki);
 $urlquery['sort_mode'] = $sort_mode;
 $urlquery['find'] = $find;
 $smarty->assign_by_ref('urlquery', $urlquery);
