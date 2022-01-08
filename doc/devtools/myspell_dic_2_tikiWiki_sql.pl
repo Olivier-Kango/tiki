@@ -126,7 +126,7 @@ sub parseAff{
     elsif($currentLine=~'PFX'){
         # we have a prefix line ahead
         # we don't have a documentation on this!!!
-        print "\nATTENTION: a preffix was found, but they are not supported, please note that your resulting '.sql' dictionary WILL NOT BE COMPLETE\n If you find documentation on this please note the authors of this code.\n"
+        print "\nATTENTION: a prefix was found, but they are not supported, please note that your resulting '.sql' dictionary WILL NOT BE COMPLETE\n If you find documentation on this please note the authors of this code.\n"
     }
     else{
         if($currentLine=~'SET'||$currentLine=~'TRY'){
