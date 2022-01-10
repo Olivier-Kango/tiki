@@ -1,5 +1,5 @@
 get:
-  description: Get received messages conut
+  description: Get received messages count
   parameters:
     - name: sinceDate
       in: query

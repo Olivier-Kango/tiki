@@ -7,7 +7,7 @@
 // $Id$
 
 /**
- * MachineLearningLib
+ * ApiToken library for access and modification of API tokens
  *
  * @uses TikiLib
  */

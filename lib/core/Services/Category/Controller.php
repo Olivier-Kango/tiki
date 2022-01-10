@@ -138,7 +138,7 @@ class Services_Category_Controller
         if (! empty($result) && $result->numRows()) {
             return $category;
         } else {
-            throw new Services_Exception(tr('Could not deleted requested category.'));
+            throw new Services_Exception(tr('Could not delete requested category.'));
         }
     }
 

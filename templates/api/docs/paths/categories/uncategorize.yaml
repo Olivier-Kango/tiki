@@ -1,5 +1,5 @@
 post:
-  description: Unategorize one or more objects from a specific category
+  description: Uncategorize one or more objects from a specific category
   requestBody:
     required: true
     content:
