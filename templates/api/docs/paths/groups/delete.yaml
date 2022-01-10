@@ -1,6 +1,6 @@
 ---
 post:
-  description: Lock pages
+  description: Remove groups
   requestBody:
     required: true
     content:
@@ -14,7 +14,7 @@ post:
                 type: string
   responses:
     '200':
-      description: lock pages response
+      description: remove groups response
       content:
         application/json:
           schema:
@@ -22,9 +22,3 @@ post:
             properties:
               feedback:
                 type: object
-    '403':
-      description: forbidden
-      content:
-        application/json:
-          schema:
-            $ref: schemas-Error.yaml

@@ -1,0 +1,22 @@
+---
+post:
+  description: Process incremental index queue update
+  parameters:
+    - name: batch
+      in: query
+      required: true
+      description: How many records to process
+      schema:
+        type: integer
+  responses:
+    '200':
+      description: process queue result
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              queue_count:
+                type: integer
+              batch:
+                type: integer

@@ -1,0 +1,158 @@
+---
+get:
+  description: Retrieve groups
+  parameters:
+    - name: offset
+      in: query
+      required: false
+      schema:
+        type: integer
+    - name: maxRecords
+      in: query
+      required: false
+      schema:
+        type: integer
+    - name: find
+      in: query
+      required: false
+      schema:
+        type: string
+    - name: initial
+      in: query
+      required: false
+      schema:
+        type: string
+  responses:
+    '200':
+      description: group list
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    groupName:
+                      type: string
+                    groupDesc:
+                      type: string
+                    groupHome:
+                      type: string
+                    usersTrackerId:
+                      type: integer
+                    groupTrackerId:
+                      type: integer
+                    usersFieldId:
+                      type: integer
+                    registrationChoice:
+                      $ref: schemas-TikiBoolean.yaml
+                    registrationUsersFieldIds:
+                      type: string
+                    userChoice:
+                      $ref: schemas-TikiBoolean.yaml
+                    groupDefCat:
+                      type: integer
+                    groupTheme:
+                      type: string
+                    groupColor:
+                      type: string
+                    isExternal:
+                      $ref: schemas-TikiBoolean.yaml
+                    expireAfterIndex:
+                      type: integer
+                    emailPattern:
+                      type: string
+                    anniversary:
+                      type: string
+                    prorateInterval:
+                      type: string
+                    isRole:
+                      $ref: schemas-TikiBoolean.yaml
+                    isTplGroup:
+                      $ref: schemas-TikiBoolean.yaml
+                    perms:
+                      type: array
+                      items:
+                        type: string
+                    permcant:
+                      type: integer
+                    included:
+                      type: array
+                      items:
+                        type: string
+                    included_direct:
+                      type: array
+                      items:
+                        type: string
+              cant:
+                type: integer
+post:
+  description: Create a group
+  requestBody:
+    required: true
+    content:
+      application/x-www-form-urlencoded:
+        schema:
+          type: object
+          properties:
+            name:
+              type: string
+            desc:
+              type: string
+            home:
+              type: string
+            userstracker:
+              type: integer
+            groupstracker:
+              type: integer
+            registrationUsersFieldIds:
+              type: string
+            userChoice:
+              $ref: schemas-TikiBoolean.yaml
+            defcat:
+              type: integer
+            theme:
+              type: string
+            usersfield:
+              type: integer
+            groupfield:
+              type: integer
+            expireAfter:
+              type: integer
+            emailPattern:
+              type: string
+            anniversary:
+              type: string
+            prorateInterval:
+              type: string
+            color:
+              type: string
+            isRole:
+              $ref: schemas-TikiBoolean.yaml
+            isTplGroup:
+              $ref: schemas-TikiBoolean.yaml
+            include_groups:
+              type: array
+              items:
+                type: string
+  responses:
+    '200':
+      description: create group response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              feedback:
+                type: object
+    '403':
+      description: forbidden
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Error.yaml

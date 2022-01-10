@@ -1,0 +1,47 @@
+---
+get:
+  description: Perform a lookup in the search index
+  parameters:
+    - name: filter
+      in: query
+      required: true
+      description: Filter index fields and content
+      schema:
+        type: object
+    - name: format
+      in: query
+      required: false
+      description: "Format of the results, e.g. {object_id} {title}"
+      schema:
+        type: string
+    - name: sort_order
+      in: query
+      required: false
+      schema:
+        type: string
+    - name: offset
+      in: query
+      required: false
+      schema:
+        type: integer
+    - name: maxRecords
+      in: query
+      required: false
+      schema:
+        type: integer
+  responses:
+    '200':
+      description: search result
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              resultset:
+                type: object
+    '405':
+      description: not available
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Error.yaml

@@ -48,6 +48,23 @@ class Services_Group_Controller
     }
 
     /**
+     * List all groups
+     * @return array
+     * @throws Services_Exception_Denied
+     */
+    public function action_list($input)
+    {
+        Services_Exception_Denied::checkGlobal('admin');
+        return TikiLib::lib('user')->get_groups(
+            $input->offset->int(),
+            $input->maxRecords->int() ? $input->maxRecords->int() : -1,
+            $input->sortMode->text(),
+            $input->find->text(),
+            $input->initial->text()
+        );
+    }
+
+    /**
      * Admin groups "perform with checked" and list item action to remove selected groups
      *
      * @param $input
@@ -437,7 +454,7 @@ class Services_Group_Controller
             }
             //after confirm submit - perform action and return success feedback
         } elseif ($util->checkCsrf()) {
-            if ($prefs['users_admin_actions_require_validation'] == 'y') {
+            if ($prefs['users_admin_actions_require_validation'] == 'y' && ! TIKI_API) {
                 if ($userlib->isAutologin()) {
                     Services_Utilities::modalException($userlib->getAutologinAdminActionError());
                 }
@@ -527,7 +544,7 @@ class Services_Group_Controller
             }
             //after confirm submit - perform action and return success feedback
         } elseif ($util->checkCsrf()) {
-            if ($prefs['users_admin_actions_require_validation'] == 'y') {
+            if ($prefs['users_admin_actions_require_validation'] == 'y' && ! TIKI_API) {
                 if ($userlib->isAutologin()) {
                     Services_Utilities::modalException($userlib->getAutologinAdminActionError());
                 }

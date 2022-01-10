@@ -1,0 +1,133 @@
+---
+get:
+  description: Get all comments
+  parameters:
+    - name: type
+      in: query
+      required: true
+      description: Object type to get comments from
+      schema:
+        type: string
+    - name: objectId
+      in: query
+      required: true
+      schema:
+        type: string
+    - name: offset
+      in: query
+      required: false
+      schema:
+        type: integer
+    - name: maxRecords
+      in: query
+      required: false
+      schema:
+        type: integer
+  responses:
+    '200':
+      description: comments response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              comments:
+                type: array
+                items:
+                  $ref: schemas-Comment.yaml
+              type:
+                type: string
+              objectId:
+                type: string
+              parentId:
+                type: integer
+              cant:
+                type: integer
+              offset:
+                type: integer
+              maxRecords:
+                type: integer
+              sortMode:
+                type: string
+              allow_post:
+                type: boolean
+              allow_remove:
+                type: boolean
+              allow_lock:
+                type: boolean
+              allow_unlock:
+                type: boolean
+              allow_archive:
+                type: boolean
+              allow_moderate:
+                type: boolean
+              allow_vote:
+                type: boolean
+    '403':
+      description: forbidden
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Error.yaml
+post:
+  description: Create a new comment.
+  requestBody:
+    required: true
+    content:
+      application/x-www-form-urlencoded:
+        schema:
+          type: object
+          required:
+            - type
+            - objectId
+          properties:
+            type:
+              type: string
+            objectId:
+              type: integer
+            parentId:
+              type: integer
+            version:
+              type: integer
+            title:
+              type: string
+            data:
+              type: string
+            watch:
+              $ref: schemas-TikiBoolean.yaml
+            anonymous_name:
+              type: string
+            anonymous_email:
+              type: string
+            anonymous_website:
+              type: string
+  responses:
+    '200':
+      description: create comment response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              threadId:
+                type: integer
+              parentId:
+                type: integer
+              type:
+                type: string
+              objectId:
+                type: string
+              feedback:
+                type: array
+                items:
+                  type: string
+              errors:
+                type: array
+                items:
+                  type: string
+    '403':
+      description: forbidden
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Error.yaml

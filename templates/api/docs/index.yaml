@@ -28,6 +28,38 @@ paths:
     $ref: paths-categories-categorize.yaml
   /uncategorize:
     $ref: paths-categories-uncategorize.yaml
+  /comments:
+    $ref: paths-comments-index.yaml
+  /comments/{threadId}:
+    $ref: paths-comments-entity.yaml
+  /comments/lock:
+    $ref: paths-comments-lock.yaml
+  /comments/unlock:
+    $ref: paths-comments-unlock.yaml
+  /comments/{threadId}/approve:
+    $ref: paths-comments-approve.yaml
+  /comments/{threadId}/reject:
+    $ref: paths-comments-reject.yaml
+  /comments/{threadId}/archive:
+    $ref: paths-comments-archive.yaml
+  /comments/{threadId}/unarchive:
+    $ref: paths-comments-unarchive.yaml
+  /groups:
+    $ref: paths-groups-index.yaml
+  /groups/{olgroup}:
+    $ref: paths-groups-entity.yaml
+  /groups/add_users:
+    $ref: paths-groups-add_users.yaml
+  /groups/ban_users:
+    $ref: paths-groups-ban_users.yaml
+  /groups/delete:
+    $ref: paths-groups-delete.yaml
+  /search/lookup:
+    $ref: paths-search-lookup.yaml
+  /search/process-queue:
+    $ref: paths-search-process_queue.yaml
+  /search/rebuild:
+    $ref: paths-search-rebuild.yaml
   /trackers:
     $ref: paths-trackers-index.yaml
   /trackers/{trackerId}:

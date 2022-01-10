@@ -1,6 +1,5 @@
----
 post:
-  description: Lock pages
+  description: Lock comment thread
   requestBody:
     required: true
     content:
@@ -8,20 +7,26 @@ post:
         schema:
           type: object
           properties:
-            items:
-              type: array
-              items:
-                type: string
+            type:
+              type: string
+            objectId:
+              type: string
   responses:
     '200':
-      description: lock pages response
+      description: lock response
       content:
         application/json:
           schema:
             type: object
             properties:
-              feedback:
-                type: object
+              title:
+                type: string
+              type:
+                type: string
+              objectId:
+                type: string
+              status:
+                type: string
     '403':
       description: forbidden
       content:

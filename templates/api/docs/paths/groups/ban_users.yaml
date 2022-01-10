@@ -1,20 +1,24 @@
 ---
 post:
-  description: Lock pages
+  description: Ban users from group
   requestBody:
     required: true
     content:
       application/x-www-form-urlencoded:
         schema:
           type: object
+          required:
+            - group
           properties:
+            group:
+              type: string
             items:
               type: array
               items:
                 type: string
   responses:
     '200':
-      description: lock pages response
+      description: ban users response
       content:
         application/json:
           schema:
@@ -22,9 +26,3 @@ post:
             properties:
               feedback:
                 type: object
-    '403':
-      description: forbidden
-      content:
-        application/json:
-          schema:
-            $ref: schemas-Error.yaml
