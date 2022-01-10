@@ -19,8 +19,6 @@
 
 function wikiplugin_kanban_info(): array
 {
-    global $prefs;
-
     return [
         'name' => tr('Kanban'),
         'description' => tr(''),
@@ -38,18 +36,34 @@ function wikiplugin_kanban_info(): array
                 'filter' => 'int',
                 'profile_reference' => 'tracker',
             ],
+            'title' => [
+                'name' => tr('Title Field'),
+                'description' => tr('Title text on each card.'),
+                'hint' => tr('e.g. "kanbanTitle"'),
+                'since' => '24.0',
+                'required' => true,
+                'filter' => 'word',
+            ],
+            'description' => [
+                'name' => tr('Card description'),
+                'description' => tr(''),
+                'hint' => tr('e.g. "kanbanDescription"'),
+                'since' => '24.0',
+                'required' => false,
+                'filter' => 'word',
+            ],
             'xaxis' => [
                 'name' => tr('X Axis Field'),
-                'description' => tr('Usually a status category like "Wishes", "Work" and "Done".'),
-                'hint' => tr('e.g. "tracker_field_taskStatus"'),
+                'description' => tr('The columns, usually a dropdown list with options such as "Wishes", "Work" and "Done".'),
+                'hint' => tr('e.g. "kanbanColumns"'),
                 'since' => '24.0',
                 'required' => true,
                 'filter' => 'word',
             ],
             'yaxis' => [
                 'name' => tr('Y Axis Field'),
-                'description' => tr('Could be date or a numeric (sortable) field'),
-                'hint' => tr('e.g. "date"'),
+                'description' => tr('Sort order for cards within a cell, could be date or a numeric (sortable) field'),
+                'hint' => tr('e.g. "kanbanOrder"'),
                 'since' => '24.0',
                 'required' => true,
                 'filter' => 'word',
@@ -57,7 +71,7 @@ function wikiplugin_kanban_info(): array
             'swimlane' => [
                 'name' => tr('Swimlane Field'),
                 'description' => tr('Defines the "rows" or "swimlanes". Can be any list type field'),
-                'hint' => tr('e.g. "tracker_field_taskProject'),
+                'hint' => tr('e.g. "kanbanSwimlanes'),
                 'since' => '24.0',
                 'required' => false,
                 'filter' => 'word',
@@ -66,10 +80,8 @@ function wikiplugin_kanban_info(): array
     ];
 }
 
-function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
+function wikiplugin_kanban(string $fieldData, array $params): WikiParser_PluginOutput
 {
-    global $prefs;
-
     static $id = 0;
 
     //set defaults
@@ -82,15 +94,16 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
 
     $jit = new JitFilter($params);
     $definition = Tracker_Definition::get($jit->trackerId->int());
-    $itemObject = Tracker_Item::newItem($jit->trackerId->int());
 
     if (! $definition) {
         return WikiParser_PluginOutput::userError(tr('Tracker not found.'));
     }
 
+    // for perms later
+    $itemObject = Tracker_Item::newItem($jit->trackerId->int());
+
     $xaxisField    = $definition->getFieldFromPermName($jit->xaxis->word());
     $yaxisField    = $definition->getFieldFromPermName($jit->yaxis->word());
-    $swimlaneField = $definition->getFieldFromPermName($jit->swimlane->word());
 
     if (! $xaxisField || ! $yaxisField) {
         return WikiParser_PluginOutput::userError(tr('Fields not found.'));
@@ -98,6 +111,34 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
 
     $utilities = new Services_Tracker_Utilities();
     $items = $utilities->getItems(['trackerId' => $jit->trackerId->int()]);
+
+    $swimlaneField = $definition->getFieldFromPermName($jit->swimlane->word());
+
+    $fieldFactory = $definition->getFieldFactory();
+
+    $columnsHandler = $fieldFactory->getHandler($xaxisField);
+    $fieldData = $columnsHandler->getFieldData();
+    $columns = [];
+
+    if ($columnsHandler->getConfiguration('type') === 'd') {
+        $columns = $fieldData['possiblities'];
+    } elseif ($columnsHandler->getConfiguration('type') === 'e') {
+        foreach ($fieldData['list'] as $categ) {
+            $columns[$categ['categId']] = $categ['name'];
+        }
+    }
+
+    $swimlanesHandler = $fieldFactory->getHandler($swimlaneField);
+    $fieldData = $swimlanesHandler->getFieldData();
+    $swimlanes = [];
+
+    if ($swimlanesHandler->getConfiguration('type') === 'd') {
+        $swimlanes = $fieldData['possiblities'];
+    } elseif ($swimlanesHandler->getConfiguration('type') === 'e') {
+        foreach ($fieldData['list'] as $categ) {
+            $swimlanes[$categ['categId']] = $categ['name'];
+        }
+    }
 
 
     $smarty = TikiLib::lib('smarty');
@@ -109,7 +150,11 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
             'xaxisField' => $jit->xaxis->word(),
             'yaxisField' => $jit->yaxis->word(),
             'swimlaneField' => $jit->swimlane->word(),
+            'titleField' => $jit->title->word(),
+            'descriptionField' => $jit->description->word(),
             'items' => $items,
+            'columns' => $columns,
+            'swimlanes' => $swimlanes,
         ]
     );
 
