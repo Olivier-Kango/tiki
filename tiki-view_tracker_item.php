@@ -12,7 +12,7 @@
 
 $section = 'trackers';
 
-if (!is_numeric($_REQUEST["trackerId"])) {
+if (isset($_REQUEST["trackerId"]) && !is_numeric($_REQUEST["trackerId"])) {
     $params = explode("-", $_REQUEST['trackerId']);
     $_REQUEST["trackerId"] = $_GET['trackerId'] = $params[0];
 } 
