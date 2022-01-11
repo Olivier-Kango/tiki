@@ -386,7 +386,7 @@
             <div class="adminoptionbox clearfix">
                 <fieldset class="mb-3 w-100">
                     <legend>{tr}Database dumps and restores{/tr}</legend>
-                    {tr}Create database archives of wiki pages for restoring at a later date{/tr}.
+                    {tr}Create database archives of wiki pages for restoring at a later date.{/tr}
                     <div class="form-group row">
                         <label for="tagname" class="col-form-label col-sm-4">{tr}Name for dump{/tr}</label>
                         <div class="col-sm-4">

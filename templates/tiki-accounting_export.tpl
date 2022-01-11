@@ -21,7 +21,7 @@
                 <label>{tr}Quote character for text{/tr}</label>
                 <input type="text" name="quote" id="quote" value="{$book.exportQuote|escape:'attr'}"><br>
                 <input type="submit" class="btn btn-primary btn-sm" name="submit" value="{tr}Export as CSV{/tr}" onclick="this.form.target='_blank';return true;">
-                {button href="tiki-accounting.php?bookId=$bookId" _text="Back to book page"}
+                {button href="tiki-accounting.php?bookId=$bookId" _text="{tr}Back to book page{/tr}"}
         </fieldset>
     </form>
 </div>

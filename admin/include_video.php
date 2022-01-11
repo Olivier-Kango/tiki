@@ -30,9 +30,9 @@ if ($prefs['feature_kaltura'] === 'y') {
             $playerList = $kalturaadminlib->getPlayersUiConfs();
         }
         if ($kcwDefault) {
-            $kcwText = "<div class='adminoptionbox'>KCW Configuration ID: $kcwDefault (automatically configured)</div>";
+            $kcwText = "<div class='adminoptionbox'>{tr} KCW Configuration ID:{/tr} $kcwDefault {tr}(automatically configured){/tr}</div>";
         } else {
-            $kcwText = "<div class='adminoptionbox'>Unable to retrieve configuration from Kaltura. Please reload page after setting up the Kaltura Partner Settings section</div>";
+            $kcwText = "<div class='adminoptionbox'>{tr}Unable to retrieve configuration from Kaltura. Please reload page after setting up the Kaltura Partner Settings section{/tr}</div>";
         }
         // TODO make way to override this for certain sites...
         if ($kcwDefault != $prefs['kaltura_kcwUIConf']) {
@@ -48,12 +48,12 @@ if ($prefs['feature_kaltura'] === 'y') {
             $tikilib->set_preference('kaltura_kdpEditUIConf', $prefs['kaltura_kdpUIConf']);
         }
     } else {
-        $kcwText = "<div class='adminoptionbox error'>Unable to retrieve configuration from Kaltura. Please reload page after setting up the Kaltura Partner Settings section</div>";
-        $kplayerlist = "<div class='adminoptionbox error'>Unable to retrieve list of valid player IDs. Please reload page after setting up the Kaltura Partner Settings section</div>";
+        $kcwText = "<div class='adminoptionbox error'>{tr}Unable to retrieve configuration from Kaltura. Please reload page after setting up the Kaltura Partner Settings section{/tr}</div>";
+        $kplayerlist = "<div class='adminoptionbox error'>{tr}Unable to retrieve list of valid player IDs. Please reload page after setting up the Kaltura Partner Settings section{/tr}</div>";
     }
 } else {
-    $kcwText = "<div class='adminoptionbox error'>Kaltura feature disabled</div>";
-    $kplayerlist = "<div class='adminoptionbox error'>Kaltura feature disabled</div>";
+    $kcwText = "<div class='adminoptionbox error'>{tr}Kaltura feature disabled{/tr}</div>";
+    $kplayerlist = "<div class='adminoptionbox error'>{tr}Kaltura feature disabled{/tr}</div>";
 }
 $smarty->assign('kcwText', $kcwText);
 $smarty->assign('kplayerlist', $kplayerlist);

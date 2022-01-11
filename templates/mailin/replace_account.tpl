@@ -193,7 +193,7 @@
                         </label>
                     </div>
                 {else}
-                    <a href="tiki-admin.php?page=wiki&cookietab=2&highlight=feature_wiki_attachments">Activate attachments</a>
+                    <a href="tiki-admin.php?page=wiki&cookietab=2&highlight=feature_wiki_attachments">{tr}Activate attachments{/tr}</a>
                 {/if}
             </div>
         </div>
@@ -207,7 +207,7 @@
                         </label>
                     </div>
                 {else}
-                    <a href="tiki-admin.php?page=trackers#content_admin1-3">Enable Files Tracker Field</a>
+                    <a href="tiki-admin.php?page=trackers#content_admin1-3">{tr}Enable Files Tracker Field{/tr}</a>
                 {/if}
             </div>
         </div>
@@ -224,7 +224,7 @@
                         </div>
                     </div>
                 {else}
-                    <a href="tiki-admin.php?page=wiki&cookietab=1&highlight=feature_wiki">Activate wiki</a>
+                    <a href="tiki-admin.php?page=wiki&cookietab=1&highlight=feature_wiki">{tr}Activate wiki{/tr}</a>
                 {/if}
             </div>
         </div>
@@ -241,7 +241,7 @@
                         </div>
                     </div>
                 {else}
-                    <a href="tiki-admin.php?page=wiki&cookietab=2&highlight=feature_wiki_attachments">Activate attachments</a>
+                    <a href="tiki-admin.php?page=wiki&cookietab=2&highlight=feature_wiki_attachments">{tr}Activate attachments{/tr}</a>
                 {/if}
             </div>
         </div>
@@ -271,7 +271,7 @@
                     {object_selector type='category' _simplename='categoryId' _simpleid='categoryId' _simplevalue=$info.categoryId|escape}
                     <div class="form-text">{tr}Only affects wiki-put, when creating a new wiki page{/tr}</div>
                 {else}
-                    <a href="tiki-admin.php?page=features&highlight=feature_categories">Activate categories</a>
+                    <a href="tiki-admin.php?page=features&highlight=feature_categories">{tr}Activate categories{/tr}</a>
                 {/if}
             </div>
         </div>
@@ -282,7 +282,7 @@
                     <input type="text" name="namespace" value="{$info.namespace|escape}" class="form-control">
                     <div class="form-text">{tr}Only affects wiki-put, when creating a new wiki page{/tr}</div>
                 {else}
-                    <a href="tiki-admin.php?page=wiki&cookietab=2&highlight=namespace_enabled">Activate namespaces</a>
+                    <a href="tiki-admin.php?page=wiki&cookietab=2&highlight=namespace_enabled">{tr}Activate namespaces{/tr}</a>
                 {/if}
             </div>
         </div>

@@ -27,7 +27,7 @@ function prefs_pass_list()
             'default' => 'auto',
             'filter' => 'striptags',
             'options' => array_merge(
-                ['auto' => 'Automatically select blacklist'],
+                ['auto' => tra('Automatically select blacklist')],
                 $blackL->genIndexedBlacks()
             )
         ],

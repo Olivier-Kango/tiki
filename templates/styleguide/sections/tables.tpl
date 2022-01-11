@@ -1,14 +1,14 @@
 <div class="tables">
-    <h2>Tables</h2>
+    <h2>{tr}Tables{/tr}</h2>
     <div class="row">
         <div class="col-sm-8 col-md-9">
-            <p>Striped table</p>
+            <p>{tr}Striped table{/tr}</p>
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th>Version</th>
-                        <th>Star</th>
-                        <th>Year</th>
+                        <th>{tr}Version{/tr}</th>
+                        <th>{tr}Star{/tr}</th>
+                        <th>{tr}Year{/tr}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -59,7 +59,7 @@
                     <span class="input-group-addon"><i></i></span>
                 </p>
                 <p class="picker" data-selector="table tr" data-element="color">
-                    <label for="tc-table-color">Text color:</label>
+                    <label for="tc-table-color">{tr}Text color{/tr}:</label>
                     <input id="tc-table-color" data-selector="table tr" data-element="color" type="text">
                     <span class="input-group-addon"><i></i></span>
                 </p>
@@ -69,13 +69,13 @@
 
     <div class="row">
         <div class="col-sm-8 col-md-9">
-            <p>Bordered table</p>
+            <p>{tr}Bordered table{/tr}</p>
             <table class="table table-bordered">
                 <thead>
                     <tr>
-                        <th class="tb">Site</th>
-                        <th class="tb">Name</th>
-                        <th class="tb">Purpose</th>
+                        <th class="tb">{tr}Site{/tr}</th>
+                        <th class="tb">{tr}Name{/tr}</th>
+                        <th class="tb">{tr}Purpose{/tr}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -111,16 +111,16 @@
         <div class="col-sm-4 col-md-3">
             <div class="input">
                 <p class="picker" data-selector=".table-bordered tr" data-element="background-color">
-                    <label for="tc-bordered-bgcolor">Background:</label>
+                    <label for="tc-bordered-bgcolor">{tr}Background{/tr}:</label>
                     <input id="tc-bordered-bgcolor" data-selector=".table-bordered tr" data-element="background-color" data-var="@table-bg" type="text">
                     <span class="input-group-addon"><i></i></span>
                 </p>
                 <p>
-                    <label for="tc-cells-border">Border:</label>
+                    <label for="tc-cells-border">{tr}Border{/tr}:</label>
                     <input id="tc-cells-border" class="nocolor" data-selector=".table-bordered .tb" data-element="border" type="text">
                 </p>
                 <p>
-                    <label for="tc-cells-padding">Padding:</label>
+                    <label for="tc-cells-padding">{tr}Padding{/tr}:</label>
                     <input id="tc-cells-padding" class="nocolor" data-selector=".table > tbody > tr > td" data-element="padding" type="text">
                 </p>
             </div>

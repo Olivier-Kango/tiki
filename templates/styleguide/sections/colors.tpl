@@ -6,7 +6,7 @@
         {else}
             {$header_selector = '.page-header,.topbar'}
         {/if}
-        <p class="regular">Header</p>
+        <p class="regular">{tr}Header{/tr}</p>
         <p class="picker" data-selector="{$header_selector}" data-element="background-color">
             <span class="input-group-addon"><i></i></span>
             <input id="tc-header-color" data-selector="{$header_selector}" data-element="background-color" type="text">
@@ -14,7 +14,7 @@
     </div>
 
     <div class="input">
-        <p class="regular">Body</p>
+        <p class="regular">{tr}Body{/tr}</p>
         <p class="picker" data-selector="body" data-element="background-color">
             <span class="input-group-addon"><i></i></span>
             <input id="tc-body-color" data-selector="body" data-element="background-color" data-var="@body-bg" type="text">
@@ -22,7 +22,7 @@
     </div>
 
     <div class="input">
-        <p class="regular">Footer</p>
+        <p class="regular">{tr}Footer{/tr}</p>
         <p class="picker" data-selector="footer" data-element="background-color">
             <span class="input-group-addon"><i></i></span>
             <input id="tc-footer-color" data-selector="footer" data-element="background-color" type="text">
@@ -30,7 +30,7 @@
     </div>
 
     <div class="input">
-        <p class="regular">Text</p>
+        <p class="regular">{tr}Text{/tr}</p>
         <p class="picker" data-selector="body" data-element="color">
             <span class="input-group-addon"><i></i></span>
             <input id="tc-text-color" data-selector="body" data-element="color" data-var="@text-color" type="text">
@@ -38,14 +38,14 @@
     </div>
 
     <div class="input">
-        <p class="regular">Links</p>
+        <p class="regular">{tr}Links{/tr}</p>
         <p class="picker" data-selector="a" data-element="color">
             <span class="input-group-addon"><i></i></span>
             <input id="tc-link-color" data-selector="a" data-element="color" data-var="@link-color" type="text">
         </p>
     </div>
 
-    <p>Sample Text</p>
+    <p>{tr}Sample Text{/tr}</p>
     <p>In mauris integer etiam aliquet integer duis rhoncus <a href="#">ultricies cras</a> in habitasse ac sociis
         porttitor placerat ac porttitor, in ac. A, tristique <a href="#">dapibus mauris</a>, vut et porta? Enim, porta
         penatibus, augue egestas aliquam eu velit placerat, sociis hac et, pulvinar <a href="#">tincidunt amet</a> ut

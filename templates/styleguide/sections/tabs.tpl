@@ -1,5 +1,5 @@
 <div class="tabs">
-    <h2>Tabs</h2>
+    <h2>{tr}Tabs{/tr}</h2>
     <div class="row">
         <div class="col-sm-8 col-md-9">
             {tabset name='tc-tabs'}
@@ -41,16 +41,16 @@
         <div class="col-sm-4 col-md-3">
             <div class="input">
                 <p class="picker" data-selector=".nav-tabs > li:not(.active) > a" data-element="color">
-                    <label for="tc-tab-color">Tab text color:</label>
+                    <label for="tc-tab-color">{tr}Tab text color{/tr}:</label>
                     <input id="tc-tab-color" data-selector=".nav-tabs > li:not(.active) > a" data-element="color" type="text">
                     <span class="input-group-addon"><i></i></span>
                 </p>
                 <p>
-                    <label for="tc-tab-margin">Tab margin:</label>
+                    <label for="tc-tab-margin">{tr}Tab margin{/tr}:</label>
                     <input id="tc-tab-margin" class="nocolor" data-selector=".nav-tabs > li > a" data-element="margin-right" type="text">
                 </p>
                 <p>
-                    <label for="tc-tab-padding">Text padding:</label>
+                    <label for="tc-tab-padding">{tr}Text padding{/tr}:</label>
                     <input id="tc-tab-padding" class="nocolor" data-selector=".tab-content" data-element="padding" type="text">
                 </p>
             </div>

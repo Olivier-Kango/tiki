@@ -13,7 +13,7 @@
             <legend><strong>{tr}Tiki news{/tr}</strong></legend>
             <p>
                 {tr}Embedded RSS feed from info.tiki.org TODO, meanwhile{/tr}
-                {button href="https://tiki.org/tiki-articles_rss.php?ver=2" _text="Add RSS"}
+                {button href="https://tiki.org/tiki-articles_rss.php?ver=2" _text="{tr}Add RSS{/tr}"}
             </p>
             <p>
                 {tr}Tiki Newsletter{/tr} {button _text="{tr}Subscribe{/tr}" href="https://tiki.org/tiki-admin_newsletter_subscriptions.php?nlId=6&info=1"}

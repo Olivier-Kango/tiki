@@ -15,7 +15,7 @@
             <dt class="col-sm-3">{tr}Budget{/tr}</dt><dd class="col-sm-9">{if $book.bookCurrencyPos==-1}{$book.bookCurrency} {/if}{$account.accountBudget|number_format:$book.bookDecimals:$book.bookDecPoint:$book.bookThousand}{if $book.bookCurrencyPos==1} {$book.bookCurrency}{/if}</dd>
             <dt class="col-sm-3">{tr}Locked{/tr}</dt><dd class="col-sm-9">{if $account.accountLocked==1}{tr}Yes{/tr}{else}{tr}No{/tr}{/if}</dd>
         </dl>
-        {button href="tiki-accounting.php?bookId=$bookId" _text="Back to book page"}
+        {button href="tiki-accounting.php?bookId=$bookId" _text="{tr}Back to book page{/tr}"}
         {if $tiki_p_acct_manage_accounts=='y'}
             <button type="submit" class="btn btn-primary btn-sm" name="action" value="edit">
                 {tr}Edit this account{/tr}

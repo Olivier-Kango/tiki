@@ -148,8 +148,8 @@ for ($i = 1; $i < 100; $i++) {
 $smarty->assign('positions', $positions);
 
 $questionTypes = [];
-$questionTypes['o'] = 'Optional';
-$questionTypes['f'] = 'Optional + File';
+$questionTypes['o'] = tr('Optional');
+$questionTypes['f'] = tr('Optional + File');
 
 $smarty->assign('questionTypes', $questionTypes);
 

@@ -758,12 +758,12 @@
                 {$temp_users_enabled = false}
             {/if}
             {if $temp_users_enabled}
-                {remarksbox type="info" title="Temporary Users"}
+                {remarksbox type="info" title="{tr}Temporary Users{/tr}"}
                     <p>{tr}Temporary users cannot login the usual way but instead do so via an autologin URL that is associated with a token.{/tr} {tr}An email will be sent out to invited users containing this URL. You will receive a copy of the email yourself.{/tr}</p>
                     <p>{tr}These temporary users will be deleted (but can be set to be preserved in Admin Tokens) once the validity period is over. Normally, these users should have read-only access. Nevertheless, if you are allowing these users to submit information, e.g. fill in a tracker form, make sure to ask for their information again in those forms.{/tr}</p>
                     <p>{tr}Please do not assign temporary users to Groups that can access any security sensitive information, since access to these accounts is relatively easy to obtain, for example by intercepting or otherwise getting access to these emails.{/tr}</p>
                 {/remarksbox}
-                {remarksbox type="info" title="Revoking Access"}
+                {remarksbox type="info" title="{tr}Revoking Access{/tr}"}
                     {tr}To revoke access before validity expires or to review who has access, please see:{/tr} <a href="tiki-admin_tokens.php" class="alert-link">{tr}Admin Tokens{/tr}</a>
                 {/remarksbox}
                 <form name="tempuser" id="tempuser" method="post" action="{service controller=user action=invite_tempuser}">

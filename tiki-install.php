@@ -22,7 +22,7 @@ if (! isset($title)) {
     $title = 'Tiki Installer';
 }
 if (! isset($content)) {
-    $content = 'No content specified. Something went wrong.<br/>Please tell your administrator.<br/>If you are the administrator, you may want to check for / file a bug report.';
+    $content = '{tr}No content specified. Something went wrong.<br/>Please tell your administrator.<br/>If you are the administrator, you may want to check for / file a bug report.{/tr}';
 }
 if (! isset($dberror)) {
     $dberror = false;
@@ -36,7 +36,7 @@ ini_set('display_errors', 1);
 
 if (version_compare(PHP_VERSION, MIN_PHP_VERSION, '<')) {
     $title = 'PHP ' . MIN_PHP_VERSION . ' is required';
-    $content = '<p>Please contact your system administrator ( if you are not the one ;) ). Your version: ' . PHP_VERSION . ' <br /> <br /> ' . '</p>';
+    $content = '<p>{tr}Please contact your system administrator ( if you are not the one ;) ). Your version: {/tr}' . PHP_VERSION . ' <br /> <br /> ' . '</p>';
     createPage($title, $content);
 }
 
@@ -54,10 +54,10 @@ if (file_exists($lockFile)) {
     $title = 'Tiki Installer Disabled';
     $td = empty($tikidomain) ? '' : '/' . $tikidomain;
     $content = '
-                            <p class="under-text">As a security precaution, the Tiki Installer has been disabled. To re-enable the installer:</p>
+                            <p class="under-text">{tr}As a security precaution, the Tiki Installer has been disabled. To re-enable the installer:{/tr}</p>
                                 <ol class="installer-ordered-list-style">
-                                    <li class="installer-ordered-list"><p>Use your file manager application to find the directory where you have unpacked your Tiki and remove the <span class="text-danger font-weight-bold">lock</span> file which was created in the <span class="text-danger font-weight-bold">db</span> folder.</p></li>
-                                    <li class="installer-ordered-list"><p>Re-run <strong ><a class="text-yellow-inst" href="tiki-install.php' . (empty($tikidomain) ? '' : "?multi=$tikidomain") . '" title="Tiki Installer">tiki-install.php' . (empty($tikidomain) ? '' : "?multi=$tikidomain") . '</a></strong>.</p></li>
+                                    <li class="installer-ordered-list"><p>{tr}Use your file manager application to find the directory where you have unpacked your Tiki and remove the <span class="text-danger font-weight-bold">lock</span> file which was created in the <span class="text-danger font-weight-bold">db</span> folder.{/tr}</p></li>
+                                    <li class="installer-ordered-list"><p>{tr}Re-run{/tr} <strong ><a class="text-yellow-inst" href="tiki-install.php' . (empty($tikidomain) ? '' : "?multi=$tikidomain") . '" title="Tiki Installer">tiki-install.php' . (empty($tikidomain) ? '' : "?multi=$tikidomain") . '</a></strong>.</p></li>
                                 </ol>
                             ';
     createPage($title, $content);
@@ -119,16 +119,16 @@ if (isset($_SESSION['accessible'])) {
 } else {
     // Installer knows db details but no login details were received for this script.
     // Thus, display a form.
-    $title = 'Tiki Installer Security Precaution';
+    $title = tr('Tiki Installer Security Precaution');
     $content = '
-                            <p class="text-info mt-lg-3 mx-3">You are attempting to run the Tiki Installer. For your protection, this installer can be used only by a site administrator.To verify that you are a site administrator, enter your <strong><em>database</em></strong> credentials (database username and password) here.</p>
+                            <p class="text-info mt-lg-3 mx-3">{tr}You are attempting to run the Tiki Installer. For your protection, this installer can be used only by a site administrator.To verify that you are a site administrator, enter your <strong><em>database</em></strong> credentials (database username and password) here.{/tr}</p>
 
-                            <p class="text-info mx-3">If you have forgotten your database credentials, find the directory where you have unpacked your Tiki and have a look inside the <strong class="text-yellow-inst">db</strong> folder into the <strong class="text-yellow-inst">local.php</strong> file.</p>
+                            <p class="text-info mx-3">{tr}If you have forgotten your database credentials, find the directory where you have unpacked your Tiki and have a look inside the <strong class="text-yellow-inst">db</strong> folder into the <strong class="text-yellow-inst">local.php</strong> file.{/tr}</p>
                             <form method="post" action="tiki-install.php" class="text-center">
                                 <input type="hidden" name="enterinstall" value="1">
-                                <p><label for="dbuser" class="sr-only">Database username</label> <input type="text" id="dbuser" name="dbuser" class="col-6 offset-3 form-control text-center" placeholder="Database username"/></p>
-                                <p><label for="dbpass" class="sr-only">Database password</label> <input type="password" id="dbpass" name="dbpass" class="col-6 offset-3 form-control text-center" placeholder="Database password"/></p>
-                                <p><input type="submit" class="btn btn-primary" value=" Validate and Continue " /></p>
+                                <p><label for="dbuser" class="sr-only">{tr}Database username{/tr}</label> <input type="text" id="dbuser" name="dbuser" class="col-6 offset-3 form-control text-center" placeholder="{tr}Database username{/tr}"/></p>
+                                <p><label for="dbpass" class="sr-only">{tr}Database password{/tr}</label> <input type="password" id="dbpass" name="dbpass" class="col-6 offset-3 form-control text-center" placeholder="{tr}Database password{/tr}"/></p>
+                                <p><input type="submit" class="btn btn-primary" value=" {tr}Validate and Continue {/tr}" /></p>
                             </form>
                             <p>&nbsp;</p>';
     createPage($title, $content);
