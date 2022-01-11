@@ -121,7 +121,7 @@ function wikiplugin_kanban(string $fieldData, array $params): WikiParser_PluginO
     $columns = [];
 
     if ($columnsHandler->getConfiguration('type') === 'd') {
-        $columns = $fieldData['possiblities'];
+        $columns = $fieldData['possibilities'];
     } elseif ($columnsHandler->getConfiguration('type') === 'e') {
         foreach ($fieldData['list'] as $categ) {
             $columns[$categ['categId']] = $categ['name'];
@@ -133,7 +133,7 @@ function wikiplugin_kanban(string $fieldData, array $params): WikiParser_PluginO
     $swimlanes = [];
 
     if ($swimlanesHandler->getConfiguration('type') === 'd') {
-        $swimlanes = $fieldData['possiblities'];
+        $swimlanes = $fieldData['possibilities'];
     } elseif ($swimlanesHandler->getConfiguration('type') === 'e') {
         foreach ($fieldData['list'] as $categ) {
             $swimlanes[$categ['categId']] = $categ['name'];
