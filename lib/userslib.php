@@ -6941,8 +6941,9 @@ class UsersLib extends TikiLib
                 foreach ($groups as $grp) {
                     $this->assign_user_to_group($user, $grp);
                 }
+                $this->assign_user_to_group($user, 'Registered');
             } else {
-                $this->assign_user_to_group($user, $groups);
+                $this->assign_user_to_groups($user, array_merge('Registered', $groups));
             }
         }
 
