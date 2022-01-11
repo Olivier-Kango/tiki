@@ -724,6 +724,9 @@ class PdfGenerator
 
     public function _parseHTML(&$html)
     {
+        //Replace all word separators as this is already fixed with CSS 
+        $html = str_replace(["<wbr>", "<wbr/>"], "", $html);
+
         $doc = new DOMDocument();
         $doc->loadHTML(mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8'));
 
