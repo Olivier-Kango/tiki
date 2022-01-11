@@ -12,7 +12,7 @@ function wikiplugin_paymentlist_info()
         'name' => tra('Payment List'),
         'documentation' => 'PluginPaymentlist',
         'description' => tra('Show details of payments. The payments considered may be restrained by user or date.'),
-        'prefs' => [ 'wikiplugin_payment', 'payment_feature' ],
+        'prefs' => [ 'wikiplugin_paymentlist', 'payment_feature' ],
         'iconname' => 'money',
         'introduced' => 16.2,
         'format' => 'html',
