@@ -26,6 +26,8 @@ paths:
     $ref: paths-oauth-authorize.yaml
   /oauth/access_token:
     $ref: paths-oauth-access_token.yaml
+  /version:
+    $ref: paths-version.yaml
   /categories:
     $ref: paths-categories-index.yaml
   /categories/{categId}:

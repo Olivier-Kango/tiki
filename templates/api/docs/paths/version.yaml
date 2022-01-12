@@ -1,0 +1,13 @@
+---
+get:
+  description: Get current Tiki API version
+  responses:
+    '200':
+      description: version response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              version:
+                type: string

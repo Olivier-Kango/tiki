@@ -46,6 +46,8 @@ class Services_ApiBridge
             $this->renderDocs();
         } elseif ($route['_route'] == 'docs') {
             $this->renderDocsYaml();
+        } elseif ($route['_route'] == 'version') {
+            $this->renderVersion();
         } else {
             $broker = TikiLib::lib('service')->getBroker();
             $broker->process($route['controller'], $route['action'], $this->jitRequest);
@@ -94,6 +96,7 @@ class Services_ApiBridge
         $routes = new RouteCollection();
         $routes->add('home', (new Route(''))->setMethods(['GET']));
         $routes->add('docs', (new Route('docs/{path}.yaml', ['_format' => 'yaml']))->setMethods(['GET']));
+        $routes->add('version', (new Route('version'))->setMethods(['GET']));
         $routes->add('oauth-public-key', (new Route('oauth/public-key', ['controller' => 'oauthserver', 'action' => 'public_key']))->setMethods(['GET']));
         $routes->add('oauth-authorize', (new Route('oauth/authorize', ['controller' => 'oauthserver', 'action' => 'authorize']))->setMethods(['GET']));
         $routes->add('oauth-access_token', (new Route('oauth/access_token', ['controller' => 'oauthserver', 'action' => 'access_token']))->setMethods(['GET', 'POST']));
@@ -194,5 +197,11 @@ class Services_ApiBridge
             $docs = str_replace('{server-url}', $base_url.'api/', $docs);
             echo $docs;
         }
+    }
+
+    protected function renderVersion()
+    {
+        global $TWV;
+        echo json_encode(['version' => $TWV->version]);
     }
 }
