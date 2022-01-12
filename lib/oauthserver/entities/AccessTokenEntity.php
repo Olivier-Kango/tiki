@@ -1,6 +1,7 @@
 <?php
 
 use Lcobucci\JWT\Builder;
+use Lcobucci\JWT\Signer\Key;
 use Lcobucci\JWT\Signer\Rsa\Sha256 as RSASHA256;
 use Lcobucci\JWT\Signer\Hmac\Sha256 as HMACSHA256;
 use League\OAuth2\Server\CryptKey;

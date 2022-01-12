@@ -5,10 +5,12 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
-include dirname(__DIR__) . '/entities/RefreshTokenEntity.php';
+
+include_once dirname(__DIR__) . '/entities/RefreshTokenEntity.php';
 
 use League\OAuth2\Server\Repositories\RefreshTokenRepositoryInterface;
 use League\OAuth2\Server\Entities\RefreshTokenEntityInterface;
+use League\OAuth2\Server\Exception\UniqueTokenIdentifierConstraintViolationException;
 
 class RefreshTokenRepository implements RefreshTokenRepositoryInterface
 {
@@ -19,14 +21,31 @@ class RefreshTokenRepository implements RefreshTokenRepositoryInterface
 
     public function isRefreshTokenRevoked($tokenId)
     {
-        return false;
+        return ! TikiLib::lib('api_token')->validToken($tokenId);
     }
 
-    public function persistNewRefreshToken(RefreshTokenEntityInterface $code)
+    public function persistNewRefreshToken(RefreshTokenEntityInterface $refreshTokenEntity)
     {
+        try {
+            $accessTokenEntity = $refreshTokenEntity->getAccessToken();
+            $token = TikiLib::lib('api_token')->createToken([
+                'type' => 'oauth_refresh',
+                'token' => $refreshTokenEntity->getIdentifier(),
+                'label' => 'OAuth client ' . $accessTokenEntity->getClient()->getIdentifier(),
+                'user' => $accessTokenEntity->getUserIdentifier(),
+                'expireAfter' => $refreshTokenEntity->getExpiryDateTime()->getTimestamp(),
+            ]);
+        } catch (ApiTokenException $e) {
+            throw new UniqueTokenIdentifierConstraintViolationException($e->getMessage());
+        }
+
+        $refreshTokenEntity->setIdentifier($token['token']);
+        return $refreshTokenEntity;
     }
 
     public function revokeRefreshToken($tokenId)
     {
+        TikiLib::lib('api_token')->deleteToken($tokenId);
+        return $this;
     }
 }

@@ -23,6 +23,7 @@ class ClientEntity implements ClientEntityInterface
             'client_id'     => '',
             'client_secret' => '',
             'redirect_uri'  => '',
+            'user'          => '',
         ], $data);
 
         $this->setId($data['id']);
@@ -30,6 +31,7 @@ class ClientEntity implements ClientEntityInterface
         $this->setClientId($data['client_id']);
         $this->setClientSecret($data['client_secret']);
         $this->setRedirectUri($data['redirect_uri']);
+        $this->setUser($data['user']);
     }
 
     public static function build($data)
@@ -102,6 +104,17 @@ class ClientEntity implements ClientEntityInterface
         return $this->redirect_uri;
     }
 
+    public function setUser($user)
+    {
+        $this->user = $user;
+        return $this;
+    }
+
+    public function getUser()
+    {
+        return $this->user;
+    }
+
     public function toArray()
     {
         return array(
@@ -110,6 +123,7 @@ class ClientEntity implements ClientEntityInterface
             'client_id'     => $this->getClientId(),
             'client_secret' => $this->getClientSecret(),
             'redirect_uri'  => $this->getRedirectUri(),
+            'user'          => $this->getUser(),
         );
     }
 

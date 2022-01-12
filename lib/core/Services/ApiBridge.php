@@ -94,6 +94,9 @@ class Services_ApiBridge
         $routes = new RouteCollection();
         $routes->add('home', (new Route(''))->setMethods(['GET']));
         $routes->add('docs', (new Route('docs/{path}.yaml', ['_format' => 'yaml']))->setMethods(['GET']));
+        $routes->add('oauth-public-key', (new Route('oauth/public-key', ['controller' => 'oauthserver', 'action' => 'public_key']))->setMethods(['GET']));
+        $routes->add('oauth-authorize', (new Route('oauth/authorize', ['controller' => 'oauthserver', 'action' => 'authorize']))->setMethods(['GET']));
+        $routes->add('oauth-access_token', (new Route('oauth/access_token', ['controller' => 'oauthserver', 'action' => 'access_token']))->setMethods(['GET', 'POST']));
         $routes->add('categories', (new Route('categories', ['controller' => 'category', 'action' => 'list_categories']))->setMethods(['GET']));
         $routes->add('categories-create', (new Route('categories', ['controller' => 'category', 'action' => 'create']))->setMethods(['POST']));
         $routes->add('categories-update', (new Route('categories/{categId}', ['controller' => 'category', 'action' => 'update']))->setMethods(['POST']));

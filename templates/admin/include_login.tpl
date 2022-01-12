@@ -570,6 +570,8 @@
         {tab name="{tr}OAuth Server Settings{/tr}"}
             <fieldset>
                 {preference name=oauthserver_encryption_key}
+                {preference name=oauthserver_public_key}
+                {preference name=oauthserver_private_key}
             </fieldset>
         {/tab}
         {tab name="{tr}OpenId Connect{/tr}"}

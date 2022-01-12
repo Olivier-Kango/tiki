@@ -1,57 +1,64 @@
 <?php
 
-require_once TIKI_PATH . '/lib/auth/tokens.php';
-include dirname(__DIR__) . '/entities/AccessTokenEntity.php';
+// (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
+//
+// All Rights Reserved. See copyright.txt for details and a complete list of authors.
+// Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+// $Id$
+
+include_once dirname(__DIR__) . '/entities/AccessTokenEntity.php';
 
 use League\OAuth2\Server\Entities\AccessTokenEntityInterface;
 use League\OAuth2\Server\Entities\ClientEntityInterface;
+use League\OAuth2\Server\Exception\UniqueTokenIdentifierConstraintViolationException;
 use League\OAuth2\Server\Repositories\AccessTokenRepositoryInterface;
 
 class AccessTokenRepository implements AccessTokenRepositoryInterface
 {
     public function persistNewAccessToken(AccessTokenEntityInterface $accessTokenEntity)
     {
-        $lib = new AuthTokens(TikiDb::get(), array());
-        $tokenIdentifier = $lib->createToken(
-            'OAuth client ' . $accessTokenEntity->getClient()->getIdentifier(),
-            [
-                'user'   => $accessTokenEntity->getUserIdentifier(),
-                'client' => $accessTokenEntity->getClient()->getIdentifier(),
-                'scopes' => $accessTokenEntity->getScopes(),
-            ],  // parameters
-            [], // groups
-            [
-                'userPrefix' => $accessTokenEntity->getUserIdentifier()
-            ]
-        );
+        try {
+            $token = TikiLib::lib('api_token')->createToken([
+                'type' => 'oauth_access',
+                'token' => $accessTokenEntity->getIdentifier(),
+                'label' => 'OAuth client ' . $accessTokenEntity->getClient()->getIdentifier(),
+                'user' => $accessTokenEntity->getUserIdentifier() ?? $accessTokenEntity->getClient()->getUser(),
+                'expireAfter' => $accessTokenEntity->getExpiryDateTime()->getTimestamp(),
+                'parameters' => json_encode([
+                    'user'   => $accessTokenEntity->getUserIdentifier(),
+                    'client' => $accessTokenEntity->getClient()->getIdentifier(),
+                    'scopes' => $accessTokenEntity->getScopes(),
+                ]),
+            ]);
+        } catch (ApiTokenException $e) {
+            throw new UniqueTokenIdentifierConstraintViolationException($e->getMessage());
+        }
 
-        $accessTokenEntity->setIdentifier($tokenIdentifier);
+        $accessTokenEntity->setIdentifier($token['token']);
         return $accessTokenEntity;
     }
 
-    public function revokeAccessToken($tokenId)
+    public function revokeAccessToken($token)
     {
-        $lib = new AuthTokens(TikiDb::get(), array());
-        $lib->deleteToken($tokenId);
+        TikiLib::lib('api_token')->deleteToken($token);
         return $this;
     }
 
-    public function isAccessTokenRevoked($tokenId)
+    public function isAccessTokenRevoked($token)
     {
-        return false; // Access token hasn't been revoked
+        return ! TikiLib::lib('api_token')->validToken($token);
     }
 
     public function get($token)
     {
-        $lib = new AuthTokens(TikiDb::get(), array());
-        $client_repo = new ClientRepository(TikiDb::get());
-
-        $token = $lib->getToken($token);
+        $token = TikiLib::lib('api_token')->getToken($token);
         if (empty($token)) {
             return null;
         }
 
         $parameters = json_decode($token['parameters'], true);
+
+        $client_repo = new ClientRepository(TikiDb::get());
         $client = $client_repo->get($parameters['client']);
 
         if (empty($client)) {
@@ -60,10 +67,8 @@ class AccessTokenRepository implements AccessTokenRepositoryInterface
 
         $entity = new AccessTokenEntity();
         $entity->setIdentifier($token['token']);
-        $entity->setExpiryDateTime(new \DateTime(
-            strtotime($token['token']) + (int)$token['timeout']
-        ));
-        $entity->setUserIdentifier($token['userPrefix']);
+        $entity->setExpiryDateTime(new \DateTime($token['expireAfter']));
+        $entity->setUserIdentifier($token['user']);
         $entity->setClient($client);
 
         return $entity;
@@ -79,6 +84,6 @@ class AccessTokenRepository implements AccessTokenRepositoryInterface
         }
 
         $accessToken->setUserIdentifier($userIdentifier);
-        return $this->persistNewAccessToken($accessToken);
+        return $accessToken;
     }
 }

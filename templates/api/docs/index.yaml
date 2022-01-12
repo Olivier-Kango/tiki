@@ -20,6 +20,12 @@ servers:
 security:
   - bearerAuth: []
 paths:
+  /oauth/public-key:
+    $ref: paths-oauth-public_key.yaml
+  /oauth/authorize:
+    $ref: paths-oauth-authorize.yaml
+  /oauth/access_token:
+    $ref: paths-oauth-access_token.yaml
   /categories:
     $ref: paths-categories-index.yaml
   /categories/{categId}:
@@ -129,4 +135,4 @@ components:
     bearerAuth:
       type: http
       scheme: bearer
-      description: Obtain bearer token keys from your Tiki admin Security page.
+      description: Obtain bearer token keys either in your Tiki admin Security page by manually creating them or setting up Tiki OAuth 2.0 server that generates JWT tokens to authenticated clients.

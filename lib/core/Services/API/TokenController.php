@@ -24,7 +24,7 @@ class Services_API_TokenController
 
     public function action_list()
     {
-        $tokens = $this->lib->getTokens();
+        $tokens = $this->lib->getTokens(['type' => 'manual']);
         return [
             'title' => '',
             'tokens' => $tokens,
@@ -54,6 +54,7 @@ class Services_API_TokenController
         }
 
         $token = $this->lib->createToken([
+            'type' => 'manual',
             'user' => $user,
             'expireAfter' => $expireAfter,
         ]);

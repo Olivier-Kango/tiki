@@ -1,6 +1,13 @@
 <?php
 
-include dirname(__DIR__) . '/entities/ClientEntity.php';
+// (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
+//
+// All Rights Reserved. See copyright.txt for details and a complete list of authors.
+// Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
+// $Id$
+
+include_once dirname(__DIR__) . '/entities/ClientEntity.php';
+
 use League\OAuth2\Server\Repositories\ClientRepositoryInterface;
 
 class ClientRepository implements ClientRepositoryInterface
@@ -50,7 +57,7 @@ class ClientRepository implements ClientRepositoryInterface
             throw new Exception(tra('Cannot save invalid client'));
         }
 
-        $sql = 'UPDATE `%s` SET name=?, client_id=?, client_secret=?, redirect_uri=? WHERE id=?';
+        $sql = 'UPDATE `%s` SET name=?, client_id=?, client_secret=?, redirect_uri=?, user=? WHERE id=?';
         $sql = sprintf($sql, self::TABLE);
 
         $query = $this->database->query($sql, [
@@ -58,6 +65,7 @@ class ClientRepository implements ClientRepositoryInterface
             $entity->getClientId(),
             $entity->getClientSecret(),
             $entity->getRedirectUri(),
+            $entity->getUser(),
             $entity->getId()
         ]);
 
@@ -70,14 +78,15 @@ class ClientRepository implements ClientRepositoryInterface
             throw new Exception(tra('Cannot save invalid client'));
         }
 
-        $sql = 'INSERT INTO `%s`(name, client_id, client_secret, redirect_uri) VALUES(?, ?, ?, ?)';
+        $sql = 'INSERT INTO `%s`(name, client_id, client_secret, redirect_uri, user) VALUES(?, ?, ?, ?, ?)';
         $sql = sprintf($sql, self::TABLE);
 
         $query = $this->database->query($sql, [
             $entity->getName(),
             $entity->getClientId(),
             $entity->getClientSecret(),
-            $entity->getRedirectUri()
+            $entity->getRedirectUri(),
+            $entity->getUser()
         ]);
 
         $id = (int) $this->database->lastInsertId();

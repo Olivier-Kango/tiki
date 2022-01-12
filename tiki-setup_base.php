@@ -486,7 +486,17 @@ if (function_exists('apache_request_headers')) {
 if (TIKI_API) {
     // API authentication supports only Bearer token authentication scheme for now
     if (! empty($_SERVER['HTTP_AUTHORIZATION']) && preg_match('/Bearer\s+(.*)/i', $_SERVER['HTTP_AUTHORIZATION'], $m)) {
+        // check manually created tokens
         $token = TikiLib::lib('api_token')->validToken($m[1]);
+        if (! $token) {
+            // check OAuth server JWT token
+            $req = new JitFilter(array_merge($_GET, $_POST));
+            $req->setDefaultFilter('xss');
+            $token = TikiLib::lib('oauthserver')->checkAuthToken($req);
+            if ($token) {
+                $token = TikiLib::lib('api_token')->validToken($token);
+            }
+        }
         if ($token && !empty($token['user'])) {
             $user = $token['user'];
             TikiLib::lib('api_token')->hit($token);

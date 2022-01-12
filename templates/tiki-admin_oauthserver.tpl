@@ -12,6 +12,7 @@
         entityClientId=""
         entityClientSecret=""
         entityRedirectUri=""
+        entityUser=""
     }
     <form {if $htmlId}id="$htmlId"{/if} action="{$client_modify_url}" method="POST" class="js-oauth-client">
         <div class="row">
@@ -39,6 +40,7 @@
                     value="{$entityClientId}"
                     />
             </div>
+
             <div class="form-group col-sm-12 form-group-client_secret">
                 <label for="oauth-client_secret">{tr}Client_secret{/tr}</label>
                 <input type="text" class="form-control"
@@ -54,6 +56,14 @@
                     name="redirect_uri"
                     value="{$entityRedirectUri}"
                     />
+            </div>
+
+            <div class="form-group col-sm-12 form-group-user">
+                <label for="user_selector_oauth_server">{tr}User{/tr}</label>
+                <a class="tikihelp text-info" title="{tr}User:{/tr} {tr}When remote machine authenticates using the client secret, which user should the related access token act like?{/tr}">
+                    {icon name=information}
+                </a>
+                {user_selector id="user_selector_oauth_server" realnames="n" user=$entityUser}
             </div>
             <div class="col-sm-12">
                 <div class="btn-group float-right">
@@ -75,6 +85,7 @@
             entityClientId="{$entity->getClientId()}"
             entityClientSecret="{$entity->getClientSecret()}"
             entityRedirectUri="{$entity->getRedirectUri()}"
+            entityUser="{$entity->getUser()}"
         }
     {/foreach}
 

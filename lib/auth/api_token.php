@@ -7,7 +7,7 @@
 // $Id$
 
 /**
- * ApiToken library for access and modification of API tokens
+ * ApiToken library for access and modification of API tokens and OAuth tokens
  *
  * @uses TikiLib
  */
@@ -28,12 +28,21 @@ class ApiToken extends TikiLib
 
     public function getToken($tokenId)
     {
-        return $this->table->fetchFullRow(['tokenId' => (int) $tokenId]);
+        if (is_numeric($tokenId)) {
+            return $this->table->fetchFullRow(['tokenId' => (int) $tokenId]);
+        } else {
+            return $this->table->fetchFullRow(['token' => $tokenId]);
+        }
     }
 
     public function createToken($token)
     {
-        $token['token'] = $this->generate($token['user'], microtime());
+        if (empty($token['token'])) {
+            $token['token'] = $this->generate($token['user'], microtime());
+        }
+        if ($this->getToken($token['token'])) {
+            throw new ApiTokenException(tr('Access token already exists.'));
+        }
         $token['created'] = $this->now;
         $token['lastModif'] = $this->now;
         $tokenId = $this->table->insert($token);
@@ -49,7 +58,11 @@ class ApiToken extends TikiLib
 
     public function deleteToken($tokenId)
     {
-        return $this->table->delete(['tokenId' => $tokenId]);
+        if (is_numeric($tokenId)) {
+            return $this->table->delete(['tokenId' => $tokenId]);
+        } else {
+            return $this->table->delete(['token' => $tokenId]);
+        }
     }
 
     public function validToken($token)
@@ -74,3 +87,5 @@ class ApiToken extends TikiLib
         return hash('sha256', $prefix.uniqid().$suffix);
     }
 }
+
+class ApiTokenException extends Exception {}

@@ -6,15 +6,13 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
-include TIKI_PATH . '/lib/auth/tokens.php';
-include TIKI_PATH . '/lib/oauthserver/helpers.php';
-include TIKI_PATH . '/lib/core/Services/OAuthServer/JsonResponse.php';
+use Services_OAuthServer_JsonResponse as JsonResponse;
 
 class Services_OAuthServer_Controller
 {
     public function setUp()
     {
-        Services_Exception_Disabled::check('auth_token_access');
+        $this->utilities = new Services_OAuthServer_Utilities;
     }
 
     /*
@@ -22,15 +20,15 @@ class Services_OAuthServer_Controller
      */
 
     /**
-     * It return an access_token in Implicit Grant flow or an authorization
-     * code for other grants. The authorizations code should be use to get
-     * the access token in action_access_token method.
+     * It return an access_token in Implicit Grant or Client Credentials Grant flows
+     * or an authorization code for other grants. The authorization code can be
+     * exchanged for an access token using action_access_token method.
      *
      * On AuthCode grant method, it may throw an exception in case
      * of wrong CSRF token.
      *
-     * Other flows different than ImplicitGrant and AuthCodeGrant are not yet
-     * supported and will raise an exception.
+     * Other flows different than ImplicitGrant, AuthCodeGrant, RefreshTokenGrant,
+     * and ClientCredentialsGrant are not supported and will raise an exception.
      *
      * @param JitFilter $request
      * @return void
@@ -47,6 +45,8 @@ class Services_OAuthServer_Controller
         if ($params['response_type'] === 'code') {
             if (empty($user)) {
                 $params['action'] = 'consent';
+                $params['controller'] = 'oauthserver';
+                TikiLib::setExternalContext(true);
                 $consent_url = $servicelib->getUrl($params);
                 $accesslib->redirect($consent_url);
                 exit;
@@ -69,7 +69,7 @@ class Services_OAuthServer_Controller
         }
 
         $params = $request->getStored();
-        $request = Helpers::tiki2Psr7Request($request);
+        $request = $this->utilities->tiki2Psr7Request($request);
 
         $authRequest = $server->validateAuthorizationRequest($request);
         $authRequest->setUser($userEntity);
@@ -78,7 +78,7 @@ class Services_OAuthServer_Controller
 
         $response = new JsonResponse();
         $response = $server->completeAuthorizationRequest($authRequest, $response);
-        Helpers::processPsr7Response($response);
+        $this->utilities->processPsr7Response($response);
     }
 
     public function action_access_token($request)
@@ -87,12 +87,12 @@ class Services_OAuthServer_Controller
         $oauthserverlib = TikiLib::lib('oauthserver');
         $oauthserverlib->determineServerGrant();
 
-        $request = Helpers::tiki2Psr7Request($request);
+        $request = $this->utilities->tiki2Psr7Request($request);
         $response = new JsonResponse();
 
         $server = $oauthserverlib->getServer();
         $server->respondToAccessTokenRequest($request, $response);
-        Helpers::processPsr7Response($response);
+        $this->utilities->processPsr7Response($response);
     }
 
     public function action_consent($request)
@@ -162,13 +162,13 @@ class Services_OAuthServer_Controller
     public function action_client_modify($request)
     {
         $access = TikiLib::lib('access');
-        $request = Helpers::tiki2Psr7Request($request);
+        $request = $this->utilities->tiki2Psr7Request($request);
         $access->check_permission('tiki_p_admin');
         $params = array('delete' => null);
 
         if ($request->getMethod() !== 'POST') {
             $response = new JsonResponse(405, [], '');
-            return Helpers::processPsr7Response($response);
+            return $this->utilities->processPsr7Response($response);
         }
 
         $oauthserverlib = TikiLib::lib('oauthserver');
@@ -210,22 +210,20 @@ class Services_OAuthServer_Controller
         }
 
         $response = new JsonResponse($response_code, [], $response_content);
-        return Helpers::processPsr7Response($response);
+        return $this->utilities->processPsr7Response($response);
     }
 
     public function action_check($request)
     {
-        global $prefs;
-        $request = Helpers::tiki2Psr7Request($request);
+        $request = $this->utilities->tiki2Psr7Request($request);
         $params = $request->getQueryParams();
         $oauthserverlib = TikiLib::lib('oauthserver');
 
         if ($request->getMethod() !== 'GET') {
             $response = new JsonResponse(405, [], '');
-            return Helpers::processPsr7Response($response);
+            return $this->utilities->processPsr7Response($response);
         }
 
-        $tokenlib = AuthTokens::build($prefs);
         $authorization = $request->getHeaderLine('Authorization') ?: '';
         $authorization = preg_split('/  */', $authorization);
 
@@ -236,7 +234,7 @@ class Services_OAuthServer_Controller
 
         if (! $valid) {
             $response = new JsonResponse(400, [], 'Missing content');
-            return Helpers::processPsr7Response($response);
+            return $this->utilities->processPsr7Response($response);
         }
 
         list($client_id, $client_secret) = explode(':', $authorization);
@@ -245,7 +243,7 @@ class Services_OAuthServer_Controller
 
         if (! $client || $client->getClientSecret() !== trim($client_secret)) {
             $response = new JsonResponse(403, [], 'Invalid client');
-            return Helpers::processPsr7Response($response);
+            return $this->utilities->processPsr7Response($response);
         }
 
         $repo = $oauthserverlib->getAccessTokenRepository();
@@ -257,10 +255,16 @@ class Services_OAuthServer_Controller
 
         if (! $valid) {
             $response = new JsonResponse(403, [], 'Invalid token');
-            return Helpers::processPsr7Response($response);
+            return $this->utilities->processPsr7Response($response);
         }
 
         $response = new JsonResponse(200, [], 'ok');
-        return Helpers::processPsr7Response($response);
+        return $this->utilities->processPsr7Response($response);
+    }
+
+    public function action_public_key()
+    {
+        global $prefs;
+        return ['key' => TikiLib::lib('oauthserver')->getPublicKey()];
     }
 }

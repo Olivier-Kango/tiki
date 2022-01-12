@@ -10,9 +10,9 @@ use GuzzleHttp\Psr7\getallheaders;
 use GuzzleHttp\Psr7\LazyOpenStream;
 use GuzzleHttp\Psr7\ServerRequest;
 
-class Helpers
+class Services_OAuthServer_Utilities
 {
-    public static function tiki2Psr7Request($tikireq)
+    public function tiki2Psr7Request($tikireq)
     {
         $method = isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'GET';
         $headers = getallheaders();
@@ -25,12 +25,12 @@ class Helpers
 
         return $serverRequest
             ->withCookieParams($_COOKIE)
-            ->withQueryParams($tikireq->getStored())
-            ->withParsedBody($tikireq->getStored())
+            ->withQueryParams($tikireq->asArray())
+            ->withParsedBody($tikireq->asArray())
             ->withUploadedFiles(ServerRequest::normalizeFiles($_FILES));
     }
 
-    public static function processPsr7Response($response)
+    public function processPsr7Response($response)
     {
         $statusLine = sprintf(
             'HTTP/%s %s %s',

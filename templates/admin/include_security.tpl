@@ -483,7 +483,7 @@
         {tab name="{tr}API{/tr}" key="api"}
             <br>
             {remarksbox type="tip" title="{tr}Tip{/tr}"}
-                {tr}Enable API access and manage authentication tokens here.{/tr}
+                {tr}Enable API access and manage authentication tokens here. In addition, you can use Tiki as an OAuth 2.0 server, <a href="tiki-admin.php?page=login#contentadmin_login-12">configure here</a> and <a href="tiki-admin_oauthserver.php">manage clients here</a>.{/tr}
             {/remarksbox}
             {preference name=auth_api_tokens}
             <div class="adminoptionboxchild" id="auth_api_tokens_childcontainer">

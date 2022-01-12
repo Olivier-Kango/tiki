@@ -154,8 +154,11 @@ CREATE TABLE `tiki_address_cards` (
 DROP TABLE IF EXISTS `tiki_api_tokens`;
 CREATE TABLE `tiki_api_tokens` (
   `tokenId` int(11) NOT NULL AUTO_INCREMENT,
+  `type` VARCHAR(100) NOT NULL DEFAULT 'manual',
   `user` varchar(200) NOT NULL,
   `token` varchar(100) NOT NULL,
+  `label` VARCHAR(191) NULL DEFAULT NULL,
+  `parameters` TEXT NULL DEFAULT NULL,
   `created` int NOT NULL,
   `lastModif` int NOT NULL,
   `expireAfter` int NULL,
@@ -4104,6 +4107,7 @@ CREATE TABLE `tiki_oauthserver_clients` (
     `client_id` VARCHAR(128) UNIQUE NOT NULL DEFAULT '',
     `client_secret` VARCHAR(255) NOT NULL DEFAULT '',
     `redirect_uri` VARCHAR(255) NOT NULL DEFAULT '',
+    `user` VARCHAR(200) NULL DEFAULT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1;
 

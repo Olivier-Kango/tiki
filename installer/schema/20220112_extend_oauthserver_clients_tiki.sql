@@ -1,0 +1,1 @@
+ALTER TABLE `tiki_oauthserver_clients` ADD `user` VARCHAR(200) NULL DEFAULT NULL;
