@@ -17,6 +17,9 @@ const props = defineProps({
             return []
         }
     },
+    rowId: {
+        type: Number
+    },
     columnId: {
         type: Number
     }
@@ -37,18 +40,21 @@ const handleChange = (event) => {
             oldIndex: event.moved.oldIndex,
             newIndex: event.moved.newIndex,
             element: event.moved.element,
+            rowId: props.rowId,
             columnId: props.columnId
         })
     } else if (event.added) {
         store.dispatch('addCard', {
             newIndex: event.added.newIndex,
             element: event.added.element,
+            rowId: props.rowId,
             columnId: props.columnId
         })
     } else if (event.removed) {
         store.dispatch('removeCard', {
             oldIndex: event.removed.oldIndex,
             element: event.removed.element,
+            rowId: props.rowId,
             columnId: props.columnId
         })
     }
@@ -60,7 +66,7 @@ const handleChange = (event) => {
         :list="getCards"
         group="cards"
         item-key="id"
-        class="container-cards"
+        class="container-cards h-100"
         chosenClass="chosen-card"
         ghostClass="ghost-card"
         dragClass="dragging-card"

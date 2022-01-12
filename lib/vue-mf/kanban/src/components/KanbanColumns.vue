@@ -7,7 +7,6 @@ export default {
 import { ref, computed } from 'vue'
 import { Dropdown, Button } from '@vue-mf/styleguide'
 import KanbanColumn from './KanbanColumn.vue'
-import ButtonAddColumn from './Buttons/ButtonAddColumn.vue'
 import KanbanCards from './KanbanCards.vue'
 import FormEditCard from './Forms/FormEditCard.vue'
 import draggable from 'vuedraggable/src/vuedraggable'
@@ -23,6 +22,9 @@ const props = defineProps({
     },
     rowId: {
         type: Number
+    },
+    rowIndex: {
+        type: Number
     }
 });
 
@@ -32,6 +34,7 @@ const card = ref(false)
 const date = ref(false)
 
 const getColumns = computed(() => store.getters.getColumns(props.columnIds))
+const getCols = computed(() => store.getters.getCols)
 
 const startDragging = () => dragging.value = true
 const endDragging = () => dragging.value = false
@@ -86,13 +89,10 @@ const handleModalClosed = () => {
         @end="endDragging"
         :forceFallback="true"
     >
-        <template #item="{ element }">
-            <KanbanColumn :columnId="element.id" :title="element.title" :limit="element.limit" :total="element.cards.length">
-                <KanbanCards :columnId="element.id" :cardIds="element.cards" @editCard="handleEditCard"></KanbanCards>
+        <template #item="{ element, index }">
+            <KanbanColumn :columnHeader="rowIndex === 0" :columnId="element.id" :colId="getCols[index].id" :title="getCols[index].title" :limit="getCols[index].limit" :total="element.cards.length">
+                <KanbanCards :columnId="element.id" :rowId="rowId" :cardIds="element.cards" @editCard="handleEditCard"></KanbanCards>
             </KanbanColumn>
-        </template>
-        <template #footer>
-            <ButtonAddColumn :rowId="rowId"></ButtonAddColumn>
         </template>
     </draggable>
     <vue-final-modal
@@ -129,7 +129,7 @@ const handleModalClosed = () => {
 <style lang="scss" scoped>
 .container-columns {
     display: flex;
-    align-items: start;
+    // align-items: start;
     margin-bottom: 20px;
 }
 .dragging-column {

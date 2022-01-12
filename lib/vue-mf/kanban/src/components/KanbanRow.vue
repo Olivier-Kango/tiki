@@ -101,6 +101,10 @@ const handleMoveUp = event => {
     flex-wrap: wrap;
     margin-bottom: 10px;
 
+    // &:nth-child(2) .kanban-column {
+    //     color: red;
+    // }
+
     .kanban-row-title {
         position: relative;
         width: 100%;

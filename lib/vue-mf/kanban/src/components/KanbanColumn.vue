@@ -22,8 +22,15 @@ const props = defineProps({
     total: {
         type: Number
     },
+    colId: {
+        type: Number
+    },
     columnId: {
         type: Number
+    },
+    columnHeader: {
+        type: Boolean,
+        default: false
     }
 });
 
@@ -39,7 +46,7 @@ const handleTitleBlur = event => {
     }
 
     store.dispatch('editColumnField', {
-        id: props.columnId,
+        id: props.colId,
         field: 'title',
         data: event.target.value
     })
@@ -52,7 +59,7 @@ const handleEditClick = event => {
 
 <template>
     <div class="kanban-column">
-        <div class="d-flex justify-content-between align-items-center mb-1">
+        <div v-if="columnHeader" class="d-flex justify-content-between align-items-center mb-1">
             <h6 :class="{'drag-handle-column': !showEditField}" class="d-flex flex-grow-1 mb-0" v-if="title">
                 <span v-if="!showEditField" class="mr-2 flex-grow-1" @click="handleEditClick">{{ title }}</span>
                 <Field
@@ -82,14 +89,19 @@ const handleEditClick = event => {
                 </template>
             </Dropdown>
         </div>
-        <slot />
-        <ButtonAddCard :columnId="columnId"></ButtonAddCard>
+        <div class="flex-grow-1">
+            <slot />
+        </div>
+        <div>
+            <ButtonAddCard :columnId="columnId"></ButtonAddCard>
+        </div>
     </div>
 </template>
 
 <style lang="scss" scoped>
 .kanban-column {
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
     min-width: 18rem;
     width: 18rem;
     padding: 10px;

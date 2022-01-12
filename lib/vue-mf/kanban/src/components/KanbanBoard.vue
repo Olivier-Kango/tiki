@@ -9,6 +9,7 @@ import { Field } from 'vee-validate'
 import { useToast } from "vue-toastification"
 import { Button } from '@vue-mf/styleguide'
 import KanbanRow from './KanbanRow.vue'
+import ButtonAddColumn from './Buttons/ButtonAddColumn.vue'
 import KanbanColumns from './KanbanColumns.vue'
 import store from '../store'
 
@@ -79,7 +80,8 @@ const handleAddRow = event => {
             :rowId="row.id"
             :index="index"
         >
-            <KanbanColumns :rowId="row.id" :columnIds="row.columns"></KanbanColumns>
+            <KanbanColumns :rowId="row.id" :rowIndex="index" :columnIds="row.columns"></KanbanColumns>
+            <ButtonAddColumn v-if="index === 0" :rowId="row.id"></ButtonAddColumn>
         </KanbanRow>
     </div>
 </template>
