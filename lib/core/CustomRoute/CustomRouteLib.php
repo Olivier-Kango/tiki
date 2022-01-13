@@ -54,6 +54,19 @@ class CustomRouteLib extends TikiLib
     public function setRoute($type, $from, $redirect, $description, $active, $shortUrl, $id)
     {
 
+        if ($type === Item::TYPE_TRACKER_FIELD &&
+                (preg_match('/^[0-z\\\\]/', $from) || preg_match('/[0-z\\\\]$/', $from))) {
+
+            // $from for TYPE_TRACKER_FIELD routes gets evaluated as a preg_match pattern so must have non alphanum delimiters
+            if (strpos($from, '|') === false) {
+                $from = "|$from|";
+            } elseif (strpos($from, '/') === false) {
+                $from = "/$from/";
+            } else {
+                $from = "@$from@";
+            }
+        }
+
         $values = [
             'type' => $type,
             'from' => $from,
