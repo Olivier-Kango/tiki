@@ -75,7 +75,7 @@ function tiki_route($path)
     tiki_route_attempt('/^event(\d+)(\-.*)?$/', 'tiki-calendar_edit_item.php', tiki_route_single(1, 'viewcalitemId'));
 
     tiki_route_attempt(
-        '|^cal(\d[\d,]*)$|',
+        '|^cal(\d+[\d,]*)(\-.*)?$|',
         'tiki-calendar.php',
         function ($parts) {
             $ids = explode(',', $parts[1]);
