@@ -166,7 +166,7 @@ class OAuthServerLib extends \TikiLib
 
     public function checkAuthToken($request)
     {
-        $util = new Services_OAuthServer_Utilities;
+        $util = new Services_OAuthServer_Utilities();
         $request = $util->tiki2Psr7Request($request);
         $server = new ResourceServer(
             $this->getAccessTokenRepository(),
@@ -176,7 +176,7 @@ class OAuthServerLib extends \TikiLib
             $request = $server->validateAuthenticatedRequest($request);
             return $request->getAttribute('oauth_access_token_id');
         } catch (OAuthServerException $e) {
-            TikiLib::lib('access')->display_error(null, $e->getMessage().' '.$e->getHint(), 403);
+            TikiLib::lib('access')->display_error(null, $e->getMessage() . ' ' . $e->getHint(), 403);
         }
     }
 

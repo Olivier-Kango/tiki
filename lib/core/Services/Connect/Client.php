@@ -8,7 +8,6 @@
 
 class Services_Connect_Client
 {
-
     private $connectlib;
     private $remote;
 

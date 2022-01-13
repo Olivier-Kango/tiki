@@ -476,7 +476,7 @@ if (! empty($_SERVER['REDIRECT_HTTP_AUTHORIZATION'])) {
 if (function_exists('apache_request_headers')) {
     $headers = apache_request_headers();
     foreach ($headers as $header => $value) {
-        if (ucwords($header) === 'Authorization' && !empty($value)) {
+        if (ucwords($header) === 'Authorization' && ! empty($value)) {
             $_SERVER['HTTP_AUTHORIZATION'] = trim($value);
         }
     }
@@ -497,7 +497,7 @@ if (TIKI_API) {
                 $token = TikiLib::lib('api_token')->validToken($token);
             }
         }
-        if ($token && !empty($token['user'])) {
+        if ($token && ! empty($token['user'])) {
             $user = $token['user'];
             TikiLib::lib('api_token')->hit($token);
         }

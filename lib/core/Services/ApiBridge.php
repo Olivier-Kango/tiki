@@ -15,7 +15,6 @@ use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
 
-
 class Services_ApiBridge
 {
     protected $jitRequest;
@@ -71,7 +70,7 @@ class Services_ApiBridge
         try {
             $route = $this->jitRequest->route->none();
             $matcher = new UrlMatcher($this->routes, $this->context);
-            return $matcher->match('/'.$route);
+            return $matcher->match('/' . $route);
         } catch (ResourceNotFoundException $e) {
             TikiLib::lib('access')->display_error('API', $e->getMessage(), 404);
         } catch (RouteNotFoundException $e) {
@@ -189,12 +188,12 @@ class Services_ApiBridge
         $path = $this->jitRequest->path->xss();
         $base = $tikipath . 'templates/api/docs';
         $real = realpath($base . '/' . str_replace('-', '/', $path) . '.yaml');
-        if (empty($path) || !strstr(dirname($real), $base)) {
+        if (empty($path) || ! strstr(dirname($real), $base)) {
             $real = $base . '/index.yaml';
         }
         if (is_file($real)) {
             $docs = file_get_contents($real);
-            $docs = str_replace('{server-url}', $base_url.'api/', $docs);
+            $docs = str_replace('{server-url}', $base_url . 'api/', $docs);
             echo $docs;
         }
     }

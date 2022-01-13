@@ -44,9 +44,9 @@ class Services_API_TokenController
         $user = $this->get_user_from_input($input);
         $expireAfter = $input->expireAfter->int();
 
-        $util = new Services_Utilities;
+        $util = new Services_Utilities();
         if (! $util->isActionPost()) {
-            throw new Services_Exception_Denied;
+            throw new Services_Exception_Denied();
         }
 
         if (empty($user)) {
@@ -81,9 +81,9 @@ class Services_API_TokenController
         $user = $this->get_user_from_input($input);
         $expireAfter = $input->expireAfter->int();
 
-        $util = new Services_Utilities;
+        $util = new Services_Utilities();
         if (! $util->isActionPost()) {
-            throw new Services_Exception_Denied;
+            throw new Services_Exception_Denied();
         }
 
         if (empty($token)) {

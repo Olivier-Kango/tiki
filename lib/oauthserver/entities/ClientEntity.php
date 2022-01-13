@@ -15,7 +15,7 @@ class ClientEntity implements ClientEntityInterface
 
     const TABLE = 'tiki_oauthserver_clients';
 
-    public function __construct($data = array())
+    public function __construct($data = [])
     {
         $data = array_merge([
             'id'    => 0,
@@ -117,14 +117,14 @@ class ClientEntity implements ClientEntityInterface
 
     public function toArray()
     {
-        return array(
+        return [
             'id'            => $this->getId(),
             'name'          => $this->getName(),
             'client_id'     => $this->getClientId(),
             'client_secret' => $this->getClientSecret(),
             'redirect_uri'  => $this->getRedirectUri(),
             'user'          => $this->getUser(),
-        );
+        ];
     }
 
     public function toJson()

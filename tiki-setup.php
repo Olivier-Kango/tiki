@@ -203,7 +203,7 @@ if (! TIKI_API) {
                 if (is_numeric($analytics)) {   // has been set server-side, so user is opting in to analytics
                     setcookie($prefs['cookie_consent_name'] . '_analytics', 'y', $analytics / 1000);
                     $feature_no_cookie_analytics = false;
-                } else if (empty($analytics)) {
+                } elseif (empty($analytics)) {
                     setcookie($prefs['cookie_consent_name'] . '_analytics', 'n', 24 * 60 * 60 * $prefs['cookie_consent_expires']);
                     $feature_no_cookie_analytics = true;
                 }

@@ -79,13 +79,15 @@ class ApiToken extends TikiLib
 
     public function hit($token)
     {
-        $this->table->update(['hits' => $token['hits']+1], ['tokenId' => $token['tokenId']]);
+        $this->table->update(['hits' => $token['hits'] + 1], ['tokenId' => $token['tokenId']]);
     }
 
     private function generate($prefix = '', $suffix = '')
     {
-        return hash('sha256', $prefix.uniqid().$suffix);
+        return hash('sha256', $prefix . uniqid() . $suffix);
     }
 }
 
-class ApiTokenException extends Exception {}
+class ApiTokenException extends Exception
+{
+}

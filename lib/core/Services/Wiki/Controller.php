@@ -8,7 +8,6 @@
 
 class Services_Wiki_Controller
 {
-
     /**
      * Filters for $input->replaceFilters() used in the Services_Utilities()->setVars method
      *
@@ -98,17 +97,17 @@ class Services_Wiki_Controller
             }
             $perms = Perms::get();
             if (! $perms->edit) {
-                throw new Services_Exception_Denied;
+                throw new Services_Exception_Denied();
             }
         } else {
             $page = $input->page->pagename();
             $info = $tikilib->get_page_info($page);
             if (! $info) {
-                throw new Services_Exception_NotFound;
+                throw new Services_Exception_NotFound();
             }
             $tikilib->get_perm_object($page, 'wiki page', $info, true);
             if ($tiki_p_edit !== 'y') {
-                throw new Services_Exception_Denied;
+                throw new Services_Exception_Denied();
             }
         }
 
@@ -208,7 +207,7 @@ class Services_Wiki_Controller
         }
 
         if ($prefs['wiki_page_hide_title'] == 'y' && isset($input['page_hide_title'])) {
-            $isHideTitle = $input->page_hide_title->text() === 'y' ? 1 : null;;
+            $isHideTitle = $input->page_hide_title->text() === 'y' ? 1 : null;
             TikiLib::lib('wiki')->set_page_hide_title($page, $isHideTitle);
         }
 

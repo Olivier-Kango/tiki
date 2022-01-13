@@ -62,8 +62,7 @@ class UsersLib extends TikiLib
         $this->groupperm_cache = [[]];
         $this->groupinclude_cache = [];
         $this->get_object_permissions_for_user_cache = [];
-        $this->userobjectperm_cache =  TikiLib::lib('cache')->getSerialized('userobjectperm_cache', 'userobjectperm') ?? [];
-
+        $this->userobjectperm_cache = TikiLib::lib('cache')->getSerialized('userobjectperm_cache', 'userobjectperm') ?? [];
     }
 
     public function assign_object_permission($groupName, $objectId, $objectType, $permName)
@@ -8804,7 +8803,7 @@ class UsersLib extends TikiLib
     /**
      * Standard error message when user is autologin performing admin actions
      * that require password.
-     * 
+     *
      * @return string
      */
     public function getAutologinAdminActionError(): string

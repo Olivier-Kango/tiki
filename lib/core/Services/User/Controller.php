@@ -8,7 +8,6 @@
 
 class Services_User_Controller
 {
-
     /**
      * @var UsersLib
      */
@@ -515,22 +514,20 @@ class Services_User_Controller
                     $selectedUserGroups = TikiLib::lib('tiki')->get_user_groups($util->items[0]);
 
                     $groupsNames = [];
-                    foreach($userGroups as $group_in) {
-                        if($group_in == 'Admins') {
+                    foreach ($userGroups as $group_in) {
+                        if ($group_in == 'Admins') {
                             $isAdmin = true;
                         }
                     }
-                    if($isAdmin) {
+                    if ($isAdmin) {
                         foreach ($all_groups as $group) {
                             $groupsNames[] = $group["groupName"];
                         }
                     } else {
                         $groupsToCheck = array_unique(array_merge($userGroups, $selectedUserGroups));
                         foreach ($all_groups as $group) {
-                            foreach($groupsToCheck as $group_in)
-                            {
-                                if($group["groupName"] == $group_in)
-                                {
+                            foreach ($groupsToCheck as $group_in) {
+                                if ($group["groupName"] == $group_in) {
                                     $groupsNames[] = $group["groupName"];
                                 }
                             }
@@ -629,7 +626,7 @@ class Services_User_Controller
                             }
                         } else {
                             if (TIKI_API) {
-                                throw new Services_Exception_Denied;
+                                throw new Services_Exception_Denied();
                             }
                             Feedback::error(['mes' => tra('Permission denied')]);
                             return Services_Utilities::closeModal($util->extra['referer']);
@@ -806,7 +803,7 @@ class Services_User_Controller
             $pageinfo = $tikilib->get_page_info($wikiTpl);
             if (! $pageinfo) {
                 if (TIKI_API) {
-                    throw new Services_Exception_NotFound;
+                    throw new Services_Exception_NotFound();
                 }
                 Feedback::error(tra('Page not found'));
                 return Services_Utilities::closeModal($util->extra['referer']);
@@ -906,7 +903,7 @@ class Services_User_Controller
         //ensures a user was selected to send a message to.
         if (empty($userwatch)) {
             if (TIKI_API) {
-                throw new Services_Exception_NotFound;
+                throw new Services_Exception_NotFound();
             }
             Feedback::error(tra('No user was selected.'));
             return Services_Utilities::closeModal($referer);

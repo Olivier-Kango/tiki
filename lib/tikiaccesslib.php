@@ -1382,7 +1382,8 @@ class TikiAccessLib extends TikiLib
      *
      * @return void
      */
-    public function showSiteClosed($mode) {
+    public function showSiteClosed($mode)
+    {
         global $prefs, $error_login;
 
         switch ($mode) {

@@ -53,7 +53,7 @@ class Services_Category_Controller
             $perms = Perms::get();
         }
         if (! $perms->admin_categories) {
-            throw new Services_Exception_Denied;
+            throw new Services_Exception_Denied();
         }
         $categlib = TikiLib::lib('categ');
         try {
@@ -83,18 +83,18 @@ class Services_Category_Controller
 
         $category = $categlib->get_category($categId);
         if (! $category) {
-            throw new Services_Exception_NotFound;
+            throw new Services_Exception_NotFound();
         }
 
         $perms = Perms::get('category', $categId);
         if (! $perms->admin_categories) {
-            throw new Services_Exception_Denied;
+            throw new Services_Exception_Denied();
         }
 
         if ($parentId) {
             $perms = Perms::get('category', $parentId);
             if (! $perms->admin_categories) {
-                throw new Services_Exception_Denied;
+                throw new Services_Exception_Denied();
             }
         } else {
             $parentId = $category['parentId'];
@@ -126,12 +126,12 @@ class Services_Category_Controller
 
         $category = $categlib->get_category($categId);
         if (! $category) {
-            throw new Services_Exception_NotFound;
+            throw new Services_Exception_NotFound();
         }
 
         $perms = Perms::get('category', $categId);
         if (! $perms->admin_categories) {
-            throw new Services_Exception_Denied;
+            throw new Services_Exception_Denied();
         }
 
         $result = $categlib->remove_category($categId);

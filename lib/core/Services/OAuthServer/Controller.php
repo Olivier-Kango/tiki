@@ -12,7 +12,7 @@ class Services_OAuthServer_Controller
 {
     public function setUp()
     {
-        $this->utilities = new Services_OAuthServer_Utilities;
+        $this->utilities = new Services_OAuthServer_Utilities();
     }
 
     /*

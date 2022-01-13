@@ -27,7 +27,7 @@ class ClientRepository implements ClientRepositoryInterface
 
     public function list()
     {
-        $result = array();
+        $result = [];
         $sql = $this->database->query('SELECT * FROM ' . self::TABLE);
 
         if ($sql && $sql->result) {

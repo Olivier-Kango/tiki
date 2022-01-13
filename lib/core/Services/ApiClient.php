@@ -14,7 +14,7 @@ class Services_ApiClient
     public function __construct($url)
     {
         $this->url = $url;
-        $this->apiBridge = new Services_ApiBridge;
+        $this->apiBridge = new Services_ApiBridge();
     }
 
     public function __call($method, $args)
@@ -45,15 +45,16 @@ class Services_ApiClient
         );
     }
 
-    public function route($name, $args = []) {
+    public function route($name, $args = [])
+    {
         return $this->apiBridge->generateRoute($name, $args);
     }
 
     private function getClient($method, $endpoint, $arguments)
     {
         $tikilib = TikiLib::lib('tiki');
-        $client = $tikilib->get_http_client($this->url . '/tiki-api.php?route='.$endpoint);
-        switch($method) {
+        $client = $tikilib->get_http_client($this->url . '/tiki-api.php?route=' . $endpoint);
+        switch ($method) {
             case 'get':
                 $client->setMethod(Laminas\Http\Request::METHOD_GET);
                 $client->setParameterGet($arguments);
