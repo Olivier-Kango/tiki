@@ -83,7 +83,15 @@ class ODBCManager
             odbc_execute($rs, [$id]);
             $result = odbc_fetch_array($rs);
         } else {
-            $row = array_filter($row);
+            $row = array_filter($row, function($val) {
+                if (is_bool($val) || is_int($val) || is_float($val)) {
+                    return true;
+                }
+                if (! empty($val) || $val === "0") {
+                    return true;
+                }
+                return false;
+            });
             $sql = "INSERT INTO {$this->config['table']}(\"" . implode('", "', array_keys($row)) . "\") VALUES (" . implode(", ", array_fill(0, count(array_keys($row)), '?')) . ")";
             $rs = odbc_prepare($conn, $sql);
             odbc_execute($rs, array_values($row));
