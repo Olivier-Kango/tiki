@@ -19,7 +19,6 @@
                 {preference name=metatag_keywords}
                 {preference name=metatag_freetags}
                 {preference name=metatag_threadtitle}
-                {preference name=metatag_imagetitle}
                 {preference name=metatag_description}
                 {preference name=metatag_pagedesc}
                 {preference name=metatag_author}
