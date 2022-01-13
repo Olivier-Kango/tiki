@@ -13,16 +13,34 @@
 
     {tabset name="admin_metatags"}
         {tab name="{tr}Meta tags{/tr}"}
-            <br>
+            <fieldset>
+                <legend>{tr}General{/tr}</legend>
+                    <div class="adminoptionbox">
+                        {preference name=metatag_keywords}
+                        {preference name=metatag_freetags}
+                        {preference name=metatag_threadtitle}
+                        {preference name=metatag_description}
+                        {preference name=metatag_pagedesc}
+                        {preference name=metatag_author}
+                    </div>
+            </fieldset>
 
-            <div class="adminoptionbox">
-                {preference name=metatag_keywords}
-                {preference name=metatag_freetags}
-                {preference name=metatag_threadtitle}
-                {preference name=metatag_description}
-                {preference name=metatag_pagedesc}
-                {preference name=metatag_author}
-            </div>
+            <fieldset>
+                <legend>{tr}Twitter{/tr}</legend>
+                <br>
+                <div class="adminoptionbox">
+                    {preference name=socialnetworks_twitter_site_name}
+                    {preference name=socialnetworks_twitter_site_image}
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>{tr}Facebook{/tr}</legend>
+                <br>
+                <div class="adminoptionbox">
+                    {preference name=socialnetworks_facebook_site_name}
+                    {preference name=socialnetworks_facebook_site_image}
+                </div>
+            </fieldset>
         {/tab}
 
         {tab name="{tr}Geo Metatags{/tr}"}
