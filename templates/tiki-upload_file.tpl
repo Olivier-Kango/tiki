@@ -117,7 +117,7 @@
         {if $user eq $fileInfo.lockedby}
             {tr}You locked the file{/tr}
         {else}
-            {tr}The file has been locked by {$fileInfo.lockedby}{/tr}
+            {tr _0=$fileInfo.lockedby}The file has been locked by %0{/tr}
         {/if}
     {/remarksbox}
 {/if}
