@@ -59,8 +59,8 @@ const handleEditClick = event => {
 
 <template>
     <div class="kanban-column">
-        <div v-if="columnHeader" class="d-flex justify-content-between align-items-center mb-1">
-            <h6 :class="{'drag-handle-column': !showEditField}" class="d-flex flex-grow-1 mb-0" v-if="title">
+        <div v-if="columnHeader" class="kanban-column-header drag-handle-column mb-1">
+            <h6 class="d-flex flex-grow-1 mb-0">
                 <span v-if="!showEditField" class="mr-2 flex-grow-1" @click="handleEditClick">{{ title }}</span>
                 <Field
                     class="flex-grow-1 mr-1"
@@ -108,5 +108,11 @@ const handleEditClick = event => {
     margin: 0 5px;
     background-color: rgba(243, 244, 250, 1);
     border-radius: 6px;
+
+    .kanban-column-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 }
 </style>

@@ -4,7 +4,7 @@ export default {
 }
 </script>
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onBeforeMount } from 'vue'
 import { Sidebar } from '@vue-mf/styleguide'
 import KanbanBoard from './components/KanbanBoard.vue'
 import Sidemenu from './components/Sidemenu/Sidemenu.vue'
@@ -16,7 +16,7 @@ const props = defineProps({
     }
 })
 
-onMounted(() => {
+onBeforeMount(() => {
     // store.dispatch('initRows', props.customProps.kanbanData)
     store.dispatch('initCells', props.customProps.kanbanData)
     console.log(props.customProps)
