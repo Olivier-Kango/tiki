@@ -1,0 +1,1 @@
+ALTER TABLE `tiki_links` ADD `lastModif` INT(14) NOT NULL AFTER `topage`;

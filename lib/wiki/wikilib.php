@@ -1351,7 +1351,11 @@ class WikiLib extends TikiLib
     public function get_backlinks($page)
     {
         global $prefs;
-        $query = "select `fromPage` from `tiki_links` where `toPage` = ?";
+        // First lastModif values of $page's backlinks for sorting purposes
+        $wikilib = TikiLib::lib('wiki');
+        $wikilib->getBacklinkLastModif($page);
+        // Then return them for display purposes
+        $query = "select `fromPage` from `tiki_links` where `toPage` = ? order by lastmodif desc";
         $result = $this->query($query, [ $page ]);
         $ret = [];
 
@@ -1393,6 +1397,31 @@ class WikiLib extends TikiLib
         }
 
         return $ret;
+    }
+
+    //Set the last modified item (wiki page or tracker item)
+    public function getBacklinkLastModif($page)
+    {
+        $trackerlib = self::lib('trk');        
+        $tikilib = self::lib('tiki');
+        $lastModif = 'lastModif';
+        $query = "select `fromPage` from `tiki_links` where `toPage` = ?";
+        $result = $tikilib->query($query, [ $page ]);
+
+        //Query to update 'tiki_links' with lastModif
+        $updateQuery = "UPDATE `tiki_links` SET `lastModif` =? WHERE `frompage` =? AND `topage` =?";
+
+        while ($res = $result->fetchRow()) {
+            $frompage = $res['fromPage'];
+            if (substr($frompage, 0, 11) != 'objectlink:') {
+                $wikiLastModif = (int) $tikilib->get_page_info($frompage)[$lastModif];
+                $tikilib->query($updateQuery, [ $wikiLastModif, $frompage, $page ]);
+            } else {
+                $itemId = (int) (substr($frompage,28,1));
+                $trackerItemLastModif = (int) $trackerlib->get_tracker_item($itemId)[$lastModif];
+                $tikilib->query($updateQuery, [ $trackerItemLastModif , $frompage, $page ]);
+            }
+        }
     }
 
     public function get_parent_pages($child_page)

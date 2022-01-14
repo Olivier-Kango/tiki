@@ -1373,6 +1373,7 @@ DROP TABLE IF EXISTS `tiki_links`;
 CREATE TABLE `tiki_links` (
   `fromPage` varchar(160) NOT NULL default '',
   `toPage` varchar(160) NOT NULL default '',
+  `lastModif` int(14) NOT NULL,
   PRIMARY KEY (`fromPage`(96),`toPage`(95)),
   KEY `toPage` (`toPage`)
 ) ENGINE=MyISAM;

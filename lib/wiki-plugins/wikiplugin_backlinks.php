@@ -34,6 +34,47 @@ class WikiPluginBackLinks extends PluginsLib
     {
         return preg_replace("/[Revision: $]/", '', "\$Revision: 1.17 $");
     }
+     
+    function get_backlink_from_tracker_item($trackerObjectId)
+    {
+        $ids = explode(":", $trackerObjectId);
+        $itemId = (int)$ids[0];
+        $trackerId = (int)$ids[1];
+        //Get item value from the ids
+        $trackerlib = TikiLib::lib('trk');
+        $fieldId = $this->get_item_field_id($itemId);
+        $trackerItemPageName = ((int)($trackerlib->get_item_value($trackerId, $itemId, $fieldId))) ? "Item ".
+            $itemId : $trackerlib->get_item_value($trackerId, $itemId, $fieldId);
+        //Format the backlink
+        $trackerHref = $_SERVER['SERVER_ NAME'];
+        $trackerHref.= "/tiki-view_tracker_item.php?itemId=".$itemId;
+        $backlink = "<a href=".$trackerHref.">";
+        $backlink .= $trackerItemPageName. "</a>";
+        
+        return $backlink;
+    }
+    
+    function get_item_field_id($itemId)
+    {
+        global $tikilib;
+        $query = "SELECT `fieldId` FROM `tiki_tracker_item_fields` WHERE `itemId` = ? ORDER BY `fieldId` ASC LIMIT 1";
+        $res = $tikilib->query($query, [ $itemId ]);
+        $fieldId = (int) $res->result[0]['fieldId'];
+        return $fieldId;
+    }
+
+    function list_backlinks_from_tracker_items($itemsLinks)
+    {
+        $head = '<table class="table table-striped table-hover">
+        <thead><tr><td scope="col" class="heading">'.
+        tra("Tracker items").'</td></tr></thead><tbody>';
+         $foot = '</tbody></table>';
+         $body = "";
+         foreach($itemsLinks as $itemlink){
+             $body .= '<tr><td>'.$itemlink.'</td></tr>';
+         }
+         return $head . $body . $foot;
+    }
 
     function run($data, $params)
     {
@@ -75,10 +116,24 @@ class WikiPluginBackLinks extends PluginsLib
         //
 
         $aBackRequest = [];
+        //To get and count all the backlinks
+        //from trackers
+        $tBackRequest = [];
+        $counttbi = 0;
         $aBackLinks = $wikilib->get_backlinks($page);
         foreach ($aBackLinks as $backlink) {
-            if ($backlink['type'] == 'wiki page' && ! in_array($backlink["objectId"], $exclude)) {
-                $aBackRequest[] = $backlink["objectId"];
+            if (
+                $backlink['type'] == 'wiki page' 
+                || $backlink['type'] == 'trackeritemfield' 
+                && ! in_array($backlink["objectId"], $exclude)
+                ) {
+                if ($backlink['type'] == 'trackeritemfield') {
+                    $tBackRequest[] = $this->get_backlink_from_tracker_item($backlink["objectId"]);
+                    $counttbi += 1;
+                } else {
+                    //Case they are wiki pages
+                    $aBackRequest[] = $backlink["objectId"];
+                }
             }
         }
         if (isset($include_self) && $include_self) {
@@ -89,8 +144,8 @@ class WikiPluginBackLinks extends PluginsLib
         } else {
             //Sorting backlinks by page list pref
             $sort_mode = $prefs['wiki_list_sortorder'];
-            $sort_mode.='_';
-            $sort_mode.=$prefs['wiki_list_sortdirection'];
+            $sort_mode .= '_';
+            $sort_mode .= $prefs['wiki_list_sortdirection'];
             $aPages = $this->list_pages(0, -1, $sort_mode, $aBackRequest);
         }
         //
@@ -102,13 +157,24 @@ class WikiPluginBackLinks extends PluginsLib
             // Create header
             $count = $aPages["cant"];
             if ($count == 1) {
-                $sOutput  .= tra("One page links to") . " (($page))";
+                $sOutput .= tra("One page links to") . " (($page))";
             } else {
-                $sOutput = "$count " . tra("pages link to") . " (($page))";
+                $sOutput = "$count ".tra("pages link to")." (($page))";
             }
-            $sOutput  .= "\n";
+            $sOutput .= "\n";
         }
-        $sOutput  .= PluginsLibUtil::createTable($aPages["data"], $info);
+        $sOutput.= PluginsLibUtil::createTable($aPages["data"], $info);
+        //If any backlink in a tracker item field
+        if ($counttbi > 0) {
+            // Create header for tracker items
+            if ($counttbi == 1) {
+                $sOutput .= tra("One tracker item links to") . " (($page))";
+            } else {
+                $sOutput.= "$counttbi " . tra("tracker items link to") . " (($page))";
+            }
+            $sOutput .= "<br/>";
+        $sOutput .= $this->list_backlinks_from_tracker_items($tBackRequest);
+        }
         return $sOutput;
     }
 }
@@ -118,7 +184,7 @@ function wikiplugin_backlinks_info()
     return [
         'name' => tra('Backlinks'),
         'documentation' => 'PluginBacklinks',
-        'description' => tra('List all pages that link to a particular page'),
+        'description' => tra('List all pages and tracker items that link to a particular page'),
         'prefs' => [ 'feature_wiki', 'wikiplugin_backlinks' ],
         'iconname' => 'backlink',
         'introduced' => 1,
