@@ -12,6 +12,7 @@
 
 // application to display an image from the database with
 // option to resize the image dynamically creating a thumbnail on the fly.
+require_once('tiki-setup.php');
 if (! isset($_REQUEST["id"])) {
     die;
 }
@@ -24,7 +25,7 @@ if ($tikidomain) {
 
 $bannercachefile = "$defaultCache/banner.$id";
 
-require_once('tiki-setup.php');
+
 
 $access->check_feature('feature_banners');
 
