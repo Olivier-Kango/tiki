@@ -37,6 +37,10 @@ class ApiToken extends TikiLib
 
     public function createToken($token)
     {
+        $this->table->deleteMultiple([
+            'type' => $this->table->expr("$$ != 'manual'"),
+            'expireAfter' => $this->table->expr("$$ < NOW()")
+        ]);
         if (empty($token['token'])) {
             $token['token'] = $this->generate($token['user'], microtime());
         }

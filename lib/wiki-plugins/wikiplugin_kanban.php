@@ -5,8 +5,8 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
 /*
- * Draft syntax
- {KANBAN(xaxis="tracker_field_type" yaxis="date" swimlane="tracker_field_category")}
+ * Draft syntax - filters support, TODO - output block
+ {KANBAN(trackerId=123 xaxis="tracker_field_type" yaxis="date" swimlane="tracker_field_category")}
    {filter type="trackeritem"}
    {filter field="tracker_id" content="42"}
    {OUTPUT()}
@@ -80,9 +80,14 @@ function wikiplugin_kanban_info(): array
     ];
 }
 
-function wikiplugin_kanban(string $fieldData, array $params): WikiParser_PluginOutput
+function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
 {
+    global $user, $prefs;
     static $id = 0;
+
+    if ($prefs['auth_api_tokens'] !== 'y') {
+        return WikiParser_PluginOutput::userError(tr('Security -> API access is disabled but Kanban plugin needs it.'));
+    }
 
     //set defaults
     $plugininfo = wikiplugin_kanban_info();
@@ -99,62 +104,105 @@ function wikiplugin_kanban(string $fieldData, array $params): WikiParser_PluginO
         return WikiParser_PluginOutput::userError(tr('Tracker not found.'));
     }
 
-    // for perms later
-    $itemObject = Tracker_Item::newItem($jit->trackerId->int());
+    $fields = [
+        'title' => $jit->title->word(),
+        'description' => $jit->description->word(),
+        'xaxis' => $jit->xaxis->word(),
+        'yaxis' => $jit->yaxis->word(),
+        'swimlane' => $jit->swimlane->word(),
+    ];
 
-    $xaxisField    = $definition->getFieldFromPermName($jit->xaxis->word());
-    $yaxisField    = $definition->getFieldFromPermName($jit->yaxis->word());
-
-    if (! $xaxisField || ! $yaxisField) {
-        return WikiParser_PluginOutput::userError(tr('Fields not found.'));
+    foreach ($fields as $key => $field) {
+        $field = $definition->getFieldFromPermName($field);
+        if (! $field) {
+            return WikiParser_PluginOutput::userError(tra('Field not found: %0', $key));
+        }
+        $fields[$key] = $field;
     }
-
-    $utilities = new Services_Tracker_Utilities();
-    $items = $utilities->getItems(['trackerId' => $jit->trackerId->int()]);
-
-    $swimlaneField = $definition->getFieldFromPermName($jit->swimlane->word());
 
     $fieldFactory = $definition->getFieldFactory();
 
-    $columnsHandler = $fieldFactory->getHandler($xaxisField);
-    $fieldData = $columnsHandler->getFieldData();
-    $columns = [];
+    $columnsHandler = $fieldFactory->getHandler($fields['xaxis']);
+    $columns = wikiplugin_kanban_format_list($columnsHandler);
 
-    if ($columnsHandler->getConfiguration('type') === 'd') {
-        $columns = $fieldData['possibilities'];
-    } elseif ($columnsHandler->getConfiguration('type') === 'e') {
-        foreach ($fieldData['list'] as $categ) {
-            $columns[$categ['categId']] = $categ['name'];
-        }
+    $swimlanesHandler = $fieldFactory->getHandler($fields['swimlane']);
+    $swimlanes = wikiplugin_kanban_format_list($swimlanesHandler);
+
+    $query = new Search_Query();
+    $query->filterType('trackeritem');
+    $query->filterContent((string)$jit->trackerId->int(), 'tracker_id');
+
+    $unifiedsearchlib = TikiLib::lib('unifiedsearch');
+    $unifiedsearchlib->initQuery($query);
+
+    $matches = WikiParser_PluginMatcher::match($data);
+
+    $builder = new Search_Query_WikiBuilder($query);
+    $builder->apply($matches);
+
+    if (! $index = $unifiedsearchlib->getIndex()) {
+        return WikiParser_PluginOutput::userError(tr('Unified search index not found.'));
     }
 
-    $swimlanesHandler = $fieldFactory->getHandler($swimlaneField);
-    $fieldData = $swimlanesHandler->getFieldData();
-    $swimlanes = [];
-
-    if ($swimlanesHandler->getConfiguration('type') === 'd') {
-        $swimlanes = $fieldData['possibilities'];
-    } elseif ($swimlanesHandler->getConfiguration('type') === 'e') {
-        foreach ($fieldData['list'] as $categ) {
-            $swimlanes[$categ['categId']] = $categ['name'];
+    // TODO: support OUTPUT blocks and field formatting
+    $items = [];
+    foreach ($query->scroll($index) as $row) {
+        $swimlane = $row['tracker_field_'.$fields['swimlane']['permName']];
+        if (is_array($swimlane)) {
+            $swimlane = array_shift($swimlane);
         }
+        foreach ($swimlanes as $sw) {
+            if ($swimlane == $sw['id'] || $swimlane == $sw['title']) {
+                $swimlane = $sw['id'];
+                break;
+            }
+        }
+        $column = $row['tracker_field_'.$fields['xaxis']['permName']];
+        if (is_array($column)) {
+            $column = array_shift($column);
+        }
+        $found = false;
+        foreach ($columns as $col) {
+            if ($column == $col['id'] || $column == $col['title']) {
+                $found = true;
+                $column = $col['id'];
+                break;
+            }
+        }
+        if (! $found) {
+            continue;
+        }
+        $items[] = [
+            'id' => $row['object_id'],
+            'title' => $row['tracker_field_'.$fields['title']['permName']],
+            'description' => $row['tracker_field_'.$fields['description']['permName']],
+            'row' => $swimlane,
+            'column' => $column,
+            'sortOrder' => $row['tracker_field_'.$fields['yaxis']['permName']],
+        ];
     }
 
+    $token = TikiLib::lib('api_token')->createToken([
+        'type' => 'kanban',
+        'user' => $user,
+        'expireAfter' => strtotime("+1 hour"),
+    ]);
 
     $smarty = TikiLib::lib('smarty');
     $smarty->assign(
         'kanbanData',
         [
             'id' => 'kanban' . ++$id,
+            'accessToken' => $token['token'],
             'trackerId' => $jit->trackerId->int(),
             'xaxisField' => $jit->xaxis->word(),
             'yaxisField' => $jit->yaxis->word(),
             'swimlaneField' => $jit->swimlane->word(),
             'titleField' => $jit->title->word(),
             'descriptionField' => $jit->description->word(),
-            'items' => $items,
             'columns' => $columns,
-            'swimlanes' => $swimlanes,
+            'rows' => $swimlanes,
+            'cards' => $items,
         ]
     );
 
@@ -165,4 +213,29 @@ function wikiplugin_kanban(string $fieldData, array $params): WikiParser_PluginO
 
 
     return WikiParser_PluginOutput::html($smarty->fetch('wiki-plugins/wikiplugin_kanban.tpl'));
+}
+
+
+function wikiplugin_kanban_format_list($handler)
+{
+    $fieldData = $handler->getFieldData();
+    $list = $formatted = [];
+    if ($handler->getConfiguration('type') === 'd') {
+        $list = $fieldData['possibilities'];
+    } elseif ($handler->getConfiguration('type') === 'e') {
+        foreach ($fieldData['list'] as $categ) {
+            $list[$categ['categId']] = $categ['name'];
+        }
+    }
+    $non_numeric_keys = array_filter(array_keys($list), function($key) {
+        return ! is_numeric($key);
+    });
+    $realKey = 1;
+    foreach($list as $key => $val) {
+        if ($non_numeric_keys) {
+            $key = $realKey++;
+        }
+        $formatted[] = ['id' => $key, 'title' => $val];
+    }
+    return $formatted;
 }
