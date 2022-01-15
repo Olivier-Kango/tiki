@@ -2687,11 +2687,13 @@ class ParserLib extends TikiDb_Bridge
 
                         $style = $do_center ? ' style="text-align: center;"' : '';
 
-                        if ($prefs['wiki_heading_links'] === 'y') {
-                            $smarty = TikiLib::lib('smarty');
-                            $smarty->loadPlugin('smarty_function_icon');
-                            $headingLink = '<a href="#' . $thisid . '" class="heading-link">' . smarty_function_icon(['name' => 'link'], $smarty->getEmptyInternalTemplate()) . '</a>';
-                        } else {
+						//var_dump($prefs['wiki_heading_links']); die;
+
+                        if ($prefs['wiki_heading_links'] !== 'n' && ($prefs['wiki_heading_links'] >= $hdrlevel || $prefs['wiki_heading_links'] === 'y' )) {
+							$smarty = TikiLib::lib('smarty');
+							$smarty->loadPlugin('smarty_function_icon');
+							$headingLink = '<a href="#' . $thisid . '" class="heading-link">' . smarty_function_icon(['name' => 'link'], $smarty->getEmptyInternalTemplate()) . '</a>';
+						} else {
                             $headingLink = '';
                         }
 
