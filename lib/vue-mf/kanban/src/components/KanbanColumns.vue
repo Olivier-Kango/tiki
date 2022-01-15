@@ -104,7 +104,7 @@ const handleModalClosed = () => {
     >
         <div v-if="showModal" class="d-flex">
             <div class="w-75">
-                <FormEditCard :id="card.id" :title="card.title" :desc="card.desc"></FormEditCard>
+                <FormEditCard :id="card.id" :title="card.title" :desc="card.description"></FormEditCard>
             </div>
             <div class="w-25">
                 <div>
