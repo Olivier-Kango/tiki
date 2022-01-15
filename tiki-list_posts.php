@@ -24,7 +24,7 @@ if (isset($_REQUEST['checked'])) {
     $checked = is_array($_REQUEST['checked']) ? $_REQUEST['checked'] : [$_REQUEST['checked']];
     // Delete post(s)
     if (isset($_REQUEST['remove']) || isset($_REQUEST['remove_x'])) {
-        $access->check_authenticity(tra('Delete posts'));
+        $access->checkCsrf(tra('Delete posts'));
         foreach ($checked as $id) {
             $bloglib->remove_post($id);
         }

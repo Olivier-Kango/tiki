@@ -339,7 +339,7 @@ if (isset($tracker_info['adminOnlyViewEditItem']) && $tracker_info['adminOnlyVie
 include_once('tiki-sefurl.php');
 
 if (isset($_REQUEST["remove"]) && $itemObject->canRemove()) {
-    $access->check_authenticity(tr('Are you sure you want to permanently delete this item?'));
+    $access->checkCsrf(tr('Are you sure you want to permanently delete this item?'));
     $trklib->remove_tracker_item($_REQUEST["remove"]);
     $access->redirect(filter_out_sefurl('tiki-view_tracker.php?trackerId=' . $trackerId));
 }
@@ -360,7 +360,7 @@ if (! empty($_REQUEST['moveto'])) {
 if (isset($_REQUEST["removeattach"])) {
     $owner = $trklib->get_item_attachment_owner($_REQUEST["removeattach"]);
     if (($user && ($owner == $user)) || ($tiki_p_admin_trackers == 'y')) {
-        $access->check_authenticity(tra('Are you sure you want to remove this attachment?'));
+        $access->checkCsrf(tra('Are you sure you want to remove this attachment?'));
         $trklib->remove_item_attachment($_REQUEST["removeattach"]);
     }
 }

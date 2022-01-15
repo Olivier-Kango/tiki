@@ -106,7 +106,7 @@ if (isset($_REQUEST['report']) && $tiki_p_forums_report == 'y') {
 if ($tiki_p_admin_forum == 'y') {
     //don't see where this is used on tiki-view_forum.tpl - it is used on tiki-view_forum_thread.tpl
     if (isset($_REQUEST['remove_attachment'])) {
-        $access->check_authenticity(tra('Are you sure you want to remove that attachment?'));
+        $access->checkCsrf(tra('Are you sure you want to remove that attachment?'));
         $commentslib->remove_thread_attachment($_REQUEST['remove_attachment']);
     }
     //locking the entire forum is not fully implemented - only threads can be locked currently

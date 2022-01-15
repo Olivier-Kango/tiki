@@ -125,7 +125,7 @@ if (isset($_REQUEST["edit"])) {
 }
 if (isset($_REQUEST["removesheet"])) {
     $access->check_permission('tiki_p_edit_sheet');
-    $access->check_authenticity(tra("Are you sure you want to delete this spreadsheet?"));
+    $access->checkCsrf(tra("Are you sure you want to delete this spreadsheet?"));
     $sheetlib->remove_sheet($_REQUEST["sheetId"]);
     header("Location: tiki-sheets.php");
 }

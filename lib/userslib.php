@@ -6731,7 +6731,7 @@ class UsersLib extends TikiLib
         if ($this->is_user_banned_from_group($user, $group)) {
             $msg = tr('User "%0" is banned from the group "%1".', $user, $group);
             if ($tiki_p_admin === 'y') {
-                $access->check_authenticity($msg . ' ' . tra('Do you want to unban them and continue?'));
+                $access->checkCsrf($msg . ' ' . tra('Do you want to unban them and continue?'));
                 $this->unban_user_from_group($user, $group);
             } else {
                 $access->display_error($page, $msg);

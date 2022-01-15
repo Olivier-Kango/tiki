@@ -44,7 +44,7 @@ $tikilib->get_perm_object($page, 'wiki page', $info);
 $access->check_permission(['tiki_p_rollback', 'tiki_p_edit']);
 
 if (isset($_REQUEST["rollback"])) {
-    $access->check_authenticity(tr('Are you sure you want to roll back "%0" to version #%1?', $page, $version));
+    $access->checkCsrf(tr('Are you sure you want to roll back "%0" to version #%1?', $page, $version));
 
     $comment = $_REQUEST["comment"];
     $histlib->use_version($page, $version, $comment);

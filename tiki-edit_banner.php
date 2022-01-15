@@ -124,7 +124,7 @@ if (isset($_REQUEST["bannerId"]) && $_REQUEST["bannerId"] > 0) {
 }
 
 if (isset($_REQUEST["removeZone"])) {
-    $access->check_authenticity();
+    $access->checkCsrf(tra("Do you want to delete this zone")." ?");
     $bannerlib->banner_remove_zone($_REQUEST["removeZone"]);
 }
 

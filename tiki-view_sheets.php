@@ -108,7 +108,7 @@ if (isset($_REQUEST['s']) && ! empty($_REQUEST['s'])) { //save
         $smarty->assign('msg', tra('Permission denied'));
         die;
     }
-    $access->check_authenticity(tra('Are you sure you want to clone this spreadsheet?'));
+    $access->checkCsrf(tra('Are you sure you want to clone this spreadsheet?'));
     $id = $sheetlib->clone_sheet($_REQUEST['sheetId'], $_REQUEST['readdate']);
     if ($id) {
         header('Location: tiki-view_sheets.php?sheetId=' . $id);

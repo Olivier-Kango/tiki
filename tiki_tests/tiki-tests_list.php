@@ -27,7 +27,7 @@ $smarty->assign('curl', extension_loaded("curl"));
 function delete_test($file)
 {
     $access = TikiLib::lib('access');
-    $access->check_authenticity(tra("You are about to delete a TikiTest file. Do you want to continue ?"));
+    $access->checkCsrf(tra("You are about to delete a TikiTest file. Do you want to continue ?"));
     // Clean the filename
     $file = basename($file);
     if (file_exists("tiki_tests/tests/$file")) {

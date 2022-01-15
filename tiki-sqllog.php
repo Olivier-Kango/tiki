@@ -47,7 +47,7 @@ if (! $result->numRows()) {
 //  die;
 //}
 if (isset($_REQUEST['clean'])) {
-    $access->check_authenticity(tra('Clean the sql logs'));
+    $access->checkCsrf(tra('Clean the sql logs'));
     $logslib->clean_logsql();
 }
 $auto_query_args = ['offset', 'numrows', 'find', 'sort_mode'];

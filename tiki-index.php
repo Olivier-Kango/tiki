@@ -553,7 +553,7 @@ if (
 // Process an undo here
 if (isset($_REQUEST['undo'])) {
     if ($pageRenderer->canUndo()) {
-        $access->check_authenticity(tra('Are you sure you want to undo the last change?'));
+        $access->checkCsrf(tra('Are you sure you want to undo the last change?'));
 
         $historylib = TikiLib::lib('hist');
         $last = $historylib->get_page_latest_version($page);

@@ -82,7 +82,7 @@ if (
     $smarty->assign('templates', $templates);
     $smarty->assign('response', $response);
     if (isset($_REQUEST['deletetemplate']) && $webservice->getTemplate($_REQUEST['deletetemplate'])) {
-        $access->check_authenticity(tr('Are you sure you want to delete the template "%0"?', $_REQUEST['deletetemplate']));
+        $access->checkCsrf(tr('Are you sure you want to delete the template "%0"?', $_REQUEST['deletetemplate']));
         $webservice->removeTemplate($_REQUEST['deletetemplate']);
         unset($storedTemplates[$_REQUEST['deletetemplate']]);
     }

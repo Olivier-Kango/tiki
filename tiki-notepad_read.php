@@ -22,7 +22,7 @@ if (! isset($_REQUEST["noteId"])) {
     die;
 }
 if (isset($_REQUEST["remove"])) {
-    $access->check_authenticity(tra('Are you sure you want to delete this note?'));
+    $access->checkCsrf(tra('Are you sure you want to delete this note?'));
     $notepadlib->remove_note($user, $_REQUEST['noteId']);
     header('location: tiki-notepad_list.php');
     die;
