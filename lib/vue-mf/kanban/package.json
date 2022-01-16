@@ -12,6 +12,8 @@
   "dependencies": {
     "@popperjs/core": "^2.11.0",
     "autosize": "^5.0.1",
+    "axios": "^0.24.0",
+    "qs": "^6.10.3",
     "single-spa-vue": "^2.5.1",
     "v-calendar": "^3.0.0-alpha.6",
     "vee-validate": "^4.5.7",

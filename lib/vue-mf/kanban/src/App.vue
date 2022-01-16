@@ -37,7 +37,7 @@ onBeforeMount(() => {
     //     {id: 5, column: 1, row: 2, sortOrder: 1, title: 'Create a new activity for Sugarizer', description: 'Some card description'},
     //     {id: 6, column: 1, row: 2, sortOrder: 2, title: 'Agora-web Display election detail during voting', description: 'Some card description'}
     // ]
-    store.dispatch('initKanban', props.customProps.kanbanData)
+    store.dispatch('initBoard', props.customProps.kanbanData)
     // console.log(props.customProps.kanbanData)
 })
 

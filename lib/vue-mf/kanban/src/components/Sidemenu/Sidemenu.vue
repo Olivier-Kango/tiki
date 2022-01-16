@@ -6,19 +6,26 @@ export default {
 <script setup>
 import { ref, computed } from 'vue'
 import { Field } from 'vee-validate'
+import { useToast } from "vue-toastification"
 import { Button, Dropdown } from '@vue-mf/styleguide'
+import kanban from '../../api/kanban'
 import store from '../../store'
 
 const emit = defineEmits(['boardId'])
 
+const toast = useToast()
 const title = ref('New board')
 
 const boards = computed(() => store.getters.getAllBoards)
 
-const handleAddBoard = event => {
-    store.dispatch('addBoard', {
-        title: title.value
-    })
+const handleInitBoard = event => {
+    kanban.createBoard({title: title.value})
+        .then(res => {
+            store.dispatch('initBoard', res.data)
+        })
+        .catch(err => {
+            toast.error(`Error: can't create board!`)
+        })
 }
 </script>
 
@@ -43,7 +50,7 @@ const handleAddBoard = event => {
                             :rules="{ minLength: 1 }"
                         />
 
-                        <Button class="w-100" @click="handleAddBoard">Create</Button>
+                        <Button class="w-100" @click="handleInitBoard">Create</Button>
                     </div>
                 </template>
             </Dropdown>
