@@ -503,6 +503,8 @@ if (TIKI_API) {
         } else {
             $user = null;
         }
+    } else {
+        $user = null;
     }
 } else {
     // in the case of tikis on same domain we have to distinguish the realm
