@@ -7,7 +7,9 @@ export default {
 import { ref, watchEffect } from 'vue'
 import { Button, Card } from '@vue-mf/styleguide'
 import KanbanCard from '../KanbanCard.vue'
+import { useToast } from "vue-toastification"
 import autosize from 'autosize'
+import kanban from '../../api/kanban'
 import store from '../../store'
 
 const props = defineProps({
@@ -17,6 +19,8 @@ const props = defineProps({
 })
 const emit = defineEmits(['close'])
 
+const toast = useToast()
+const trackerId = ref(store.getters.getTrackerId)
 const title = ref('')
 const textarea = ref(null)
 
@@ -25,6 +29,16 @@ watchEffect(() => {
 })
 
 const handleAddCard = () => {
+    kanban.createItem({ trackerId: trackerId.value }, { fields: { ktaskName: title.value } })
+        .then(res => {
+            toast.success(`Success! Item created.`)
+        })
+        .catch(err => {
+            const { code, errortitle, message } = err.response.data
+            const msg = `Code: ${code} - ${message}`
+            toast.error(msg)
+        })
+
     store.dispatch('addNewCard', {
         title: title.value,
         columnId: props.columnId

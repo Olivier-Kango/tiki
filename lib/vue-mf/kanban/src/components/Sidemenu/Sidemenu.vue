@@ -24,7 +24,9 @@ const handleInitBoard = event => {
             store.dispatch('initBoard', res.data)
         })
         .catch(err => {
-            toast.error(`Error: can't create board!`)
+            const { code, errortitle, message } = err.response.data
+            const msg = `Code: ${code} - ${message}`
+            toast.error(msg)
         })
 }
 </script>

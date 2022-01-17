@@ -5,9 +5,10 @@ export default {
 </script>
 <script setup>
 import { ref, watchEffect } from 'vue'
-import { Form, Field } from 'vee-validate'
+import { Field } from 'vee-validate'
 import { useToast } from "vue-toastification"
 import { Button } from '@vue-mf/styleguide'
+import kanban from '../../api/kanban'
 import store from '../../store'
 
 const props = defineProps({
@@ -23,6 +24,7 @@ const props = defineProps({
     }
 })
 
+const trackerId = ref(store.getters.getTrackerId)
 const showEditField = ref(false)
 const toast = useToast()
 const editDesc = ref(false)
@@ -40,6 +42,16 @@ const handleTitleBlur = event => {
         toast.error(`This field must be at least 1 character`)
         return
     }
+
+    kanban.setItem({ trackerId: trackerId.value, itemId: props.id }, { title: event.target.value })
+        .then(res => {
+            toast.success(`Success! Title saved.`)
+        })
+        .catch(err => {
+            const { code, errortitle, message } = err.response.data
+            const msg = `Code: ${code} - ${message}`
+            toast.error(msg)
+        })
 
     store.dispatch('editCardField', {
         id: props.id,
@@ -59,6 +71,13 @@ const handleEditDesc = () => {
     editDesc.value = true
 }
 const handleSaveDesc = () => {
+    kanban.setItem({ trackerId: trackerId.value, itemId: props.id }, { description: description.value })
+        .then(res => {
+            toast.success(`Success! Description saved.`)
+        })
+        .catch(err => {
+            toast.error(`Error: can't save item!`)
+        })
     store.dispatch('editCardField', {
         id: props.id,
         field: 'desc',

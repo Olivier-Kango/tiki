@@ -38,7 +38,7 @@ onBeforeMount(() => {
     //     {id: 6, column: 1, row: 2, sortOrder: 2, title: 'Agora-web Display election detail during voting', description: 'Some card description'}
     // ]
     store.dispatch('initBoard', props.customProps.kanbanData)
-    // console.log(props.customProps.kanbanData)
+    console.log(props.customProps.kanbanData)
 })
 
 const boardId = ref(props.customProps.kanbanData.trackerId)
