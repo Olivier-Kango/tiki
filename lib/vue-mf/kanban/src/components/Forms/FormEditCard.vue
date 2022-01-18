@@ -53,6 +53,7 @@ const handleTitleBlur = event => {
             toast.success(`Success! Title saved.`)
         })
         .catch(err => {
+            if (!err.response) toast.error('Error: title not saved')
             const { code, errortitle, message } = err.response.data
             const msg = `Code: ${code} - ${message}`
             toast.error(msg)
@@ -76,12 +77,19 @@ const handleEditDesc = () => {
     editDesc.value = true
 }
 const handleSaveDesc = () => {
-    kanban.setItem({ trackerId: trackerId.value, itemId: props.id }, { description: description.value })
+    kanban.setItem(
+            { trackerId: trackerId.value, itemId: props.id },
+            {
+                [store.getters.getDescriptionField]: description.value }
+            )
         .then(res => {
             toast.success(`Success! Description saved.`)
         })
         .catch(err => {
-            toast.error(`Error: can't save item!`)
+            if (!err.response) toast.error('Error: description not saved')
+            const { code, errortitle, message } = err.response.data
+            const msg = `Code: ${code} - ${message}`
+            toast.error(msg)
         })
     store.dispatch('editCardField', {
         id: props.id,
