@@ -25,6 +25,8 @@ const props = defineProps({
     colId: {
         type: Number
     },
+    rowValue: [Number, String],
+    columnValue: [Number, String],
     columnId: {
         type: Number
     },
@@ -93,7 +95,7 @@ const handleEditClick = event => {
             <slot />
         </div>
         <div>
-            <ButtonAddCard :columnId="columnId"></ButtonAddCard>
+            <ButtonAddCard :columnId="columnId" :rowValue="rowValue" :columnValue="columnValue"></ButtonAddCard>
         </div>
     </div>
 </template>

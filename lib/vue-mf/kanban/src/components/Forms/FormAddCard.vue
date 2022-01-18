@@ -15,7 +15,9 @@ import store from '../../store'
 const props = defineProps({
     columnId: {
         type: Number
-    }
+    },
+    rowValue: [String, Number],
+    columnValue: [String, Number],
 })
 const emit = defineEmits(['close'])
 
@@ -32,9 +34,10 @@ const handleAddCard = () => {
     kanban.createItem(
         { trackerId: trackerId.value },
         { fields: {
-            [store.getters.getTitleField]: title.value,
-            ['ktaskColumn']: 'To Do',
-            [store.getters.getSwimlaneField]: 'Crawl' }
+                [store.getters.getTitleField]: title.value,
+                [store.getters.getSwimlaneField]: props.rowValue,
+                [store.getters.getXaxisField]: props.columnValue
+            },
         }
     )
         .then(res => {

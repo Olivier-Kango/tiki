@@ -23,6 +23,7 @@ const props = defineProps({
     rowId: {
         type: Number
     },
+    rowValue: [Number, String],
     rowIndex: {
         type: Number
     }
@@ -90,8 +91,8 @@ const handleModalClosed = () => {
         :forceFallback="true"
     >
         <template #item="{ element, index }">
-            <KanbanColumn :columnHeader="rowIndex === 0" :columnId="element.id" :colId="getCols[index].id" :title="getCols[index].title" :limit="getCols[index].limit" :total="element.cards.length">
-                <KanbanCards :columnId="element.id" :rowId="rowId" :cardIds="element.cards" @editCard="handleEditCard"></KanbanCards>
+            <KanbanColumn :columnHeader="rowIndex === 0" :columnId="element.id" :columnValue="getCols[index].value" :rowValue="rowValue" :colId="getCols[index].id" :title="getCols[index].title" :limit="getCols[index].wip" :total="element.cards.length">
+                <KanbanCards :columnId="element.id" :rowId="rowId" :columnValue="getCols[index].value" :rowValue="rowValue" :cardIds="element.cards" @editCard="handleEditCard"></KanbanCards>
             </KanbanColumn>
         </template>
     </draggable>

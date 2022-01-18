@@ -8,6 +8,8 @@ import { ref, computed } from 'vue'
 import KanbanCard from './KanbanCard.vue'
 import { Card } from '@vue-mf/styleguide'
 import draggable from 'vuedraggable/src/vuedraggable'
+import { useToast } from "vue-toastification"
+import kanban from '../api/kanban'
 import store from '../store'
 
 const props = defineProps({
@@ -20,6 +22,8 @@ const props = defineProps({
     rowId: {
         type: Number
     },
+    rowValue: [Number, String],
+    columnValue: [Number, String],
     columnId: {
         type: Number
     }
@@ -27,6 +31,7 @@ const props = defineProps({
 
 const emit = defineEmits(['editCard'])
 
+const toast = useToast()
 const dragging = ref(false)
 
 const getCards = computed(() => store.getters.getCards(props.cardIds))
@@ -44,6 +49,7 @@ const handleChange = (event) => {
             columnId: props.columnId
         })
     } else if (event.added) {
+        setItem(event.added.element.id)
         store.dispatch('addCard', {
             newIndex: event.added.newIndex,
             element: event.added.element,
@@ -58,6 +64,26 @@ const handleChange = (event) => {
             columnId: props.columnId
         })
     }
+}
+
+const setItem = (itemId) => {
+    kanban.setItem(
+        { trackerId: store.getters.getTrackerId, itemId: itemId },
+        { fields: {
+                [store.getters.getSwimlaneField]: props.rowValue,
+                [store.getters.getXaxisField]: props.columnValue
+            },
+        }
+    )
+    .then(res => {
+        toast.success(`Success! Item moved.`)
+    })
+    .catch(err => {
+        if (!err.response) return
+        const { code, errortitle, message } = err.response.data
+        const msg = `Code: ${code} - ${message}`
+        toast.error(msg)
+    })
 }
 </script>
 

@@ -25,6 +25,7 @@ const props = defineProps({
     rowId: {
         type: Number
     },
+    rowValue: [String, Number],
     index: {
         type: Number
     },

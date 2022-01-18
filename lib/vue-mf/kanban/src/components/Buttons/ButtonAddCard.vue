@@ -11,7 +11,9 @@ import FormAddCard from '../Forms/FormAddCard.vue'
 defineProps({
     columnId: {
         type: Number
-    }
+    },
+    rowValue: [String, Number],
+    columnValue: [String, Number],
 });
 
 const showForm = ref(false)
@@ -27,7 +29,7 @@ const handleClose = () => {
         <i class="fas fa-plus"></i>
         <span class="ml-2">Add a card</span>
     </Button>
-    <FormAddCard v-if="showForm" :columnId="columnId" @close="handleClose"></FormAddCard>
+    <FormAddCard v-if="showForm" :columnId="columnId" :rowValue="rowValue" :columnValue="columnValue"  @close="handleClose"></FormAddCard>
 </template>
 
 <style lang="scss" scoped>

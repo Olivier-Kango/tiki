@@ -43,7 +43,12 @@ const handleTitleBlur = event => {
         return
     }
 
-    kanban.setItem({ trackerId: trackerId.value, itemId: props.id }, { title: event.target.value })
+    kanban.setItem(
+            { trackerId: trackerId.value, itemId: props.id },
+            {
+                [store.getters.getTitleField]: event.target.value
+            }
+        )
         .then(res => {
             toast.success(`Success! Title saved.`)
         })
