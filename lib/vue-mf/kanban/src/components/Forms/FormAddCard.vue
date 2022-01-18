@@ -29,7 +29,14 @@ watchEffect(() => {
 })
 
 const handleAddCard = () => {
-    kanban.createItem({ trackerId: trackerId.value }, { fields: { ktaskName: title.value } })
+    kanban.createItem(
+        { trackerId: trackerId.value },
+        { fields: {
+            [store.getters.getTitleField]: title.value,
+            ['ktaskColumn']: 'To Do',
+            [store.getters.getSwimlaneField]: 'Crawl' }
+        }
+    )
         .then(res => {
             toast.success(`Success! Item created.`)
         })
