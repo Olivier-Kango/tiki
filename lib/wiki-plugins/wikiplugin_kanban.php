@@ -4,19 +4,13 @@
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
-/*
- * Draft syntax - filters support, TODO - output block
- {KANBAN(trackerId=123 xaxis="tracker_field_type" yaxis="date" swimlane="tracker_field_category")}
-   {filter type="trackeritem"}
-   {filter field="tracker_id" content="42"}
-   {OUTPUT()}
-     {display name="title" format="objectlink"}
-     ''{display name="date"}''
-     {display name="tracker_field_type" format="trackerrender"}
-   {OUTPUT}
- {KANBAN}
+/**
+ * Current syntax - filters and display formatting support
+ * {KANBAN(trackerId=9 title=taskTask description=taskDescription xaxis=taskResolutionStatus yaxis=taskPriority swimlane=taskJob wip=5,3,10)}
+ *   {filter field="tracker_field_taskPriority" editable="content"}
+ *   {display name="tracker_field_taskTask" format="objectlink"}
+ * {KANBAN}
  */
-
 function wikiplugin_kanban_info(): array
 {
     return [
@@ -30,7 +24,7 @@ function wikiplugin_kanban_info(): array
             'trackerId' => [
                 'name' => tr('Tracker ID'),
                 'description' => tr('Tracker to search from'),
-                'since' => '10.0',
+                'since' => '24.0',
                 'required' => false,
                 'default' => 0,
                 'filter' => 'int',
@@ -75,6 +69,13 @@ function wikiplugin_kanban_info(): array
                 'since' => '24.0',
                 'required' => false,
                 'filter' => 'word',
+            ],
+            'wip' => [
+                'name' => tr('WiP Limit'),
+                'description' => tr('Work in progress limit is a comma-separated list of numbers defining the WiP limits for every column. If you need a single limit for the whole board, specify just one number here.'),
+                'since' => '24.0',
+                'required' => false,
+                'filter' => 'text',
             ],
         ],
     ];
@@ -125,6 +126,18 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
     $columnsHandler = $fieldFactory->getHandler($fields['xaxis']);
     $columns = wikiplugin_kanban_format_list($columnsHandler);
 
+    $wip = $jit->wip->text();
+    if (is_numeric($wip)) {
+        $wip = array_fill(0, count($columns), $wip);
+    } else {
+        $wip = preg_split('/\s*,\s*/', trim($wip));
+    }
+    if ($wip) {
+        foreach ($columns as $key => $column) {
+            $columns[$key]['wip'] = intval($wip[$key] ?? 1);
+        }
+    }
+
     $swimlanesHandler = $fieldFactory->getHandler($fields['swimlane']);
     $swimlanes = wikiplugin_kanban_format_list($swimlanesHandler);
 
@@ -144,10 +157,46 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
         return WikiParser_PluginOutput::userError(tr('Unified search index not found.'));
     }
 
-    // TODO: support OUTPUT blocks and field formatting
-    $items = [];
+    $result = [];
     foreach ($query->scroll($index) as $row) {
-        $swimlane = $row['tracker_field_'.$fields['swimlane']['permName']];
+        $result[] = $row;
+    }
+
+    $result = Search_ResultSet::create($result);
+    $result->setId('wpkanban-' . $id);
+
+    $resultBuilder = new Search_ResultSet_WikiBuilder($result);
+    $resultBuilder->apply($matches);
+
+    $data .= '{display name="object_id"}';
+    $plugin = new Search_Formatter_Plugin_ArrayTemplate($data);
+    $usedFields = array_keys($plugin->getFields());
+    foreach ($fields as $key => $field) {
+        if (! in_array('tracker_field_' . $field['permName'], $usedFields) && ! in_array($field['permName'], $usedFields)) {
+            if ($field['type'] == 'e') {
+                $data .= '{display name="tracker_field_' . $field['permName'] . '" format="categorylist" singleList="y" separator=" "}';
+            } else {
+                $data .= '{display name="tracker_field_' . $field['permName'] . '" default=" "}';
+            }
+        }
+    }
+    $fields['object_id'] = ['permName' => 'object_id'];
+    $plugin = new Search_Formatter_Plugin_ArrayTemplate($data);
+    $plugin->setFieldPermNames($fields);
+
+    $builder = new Search_Formatter_Builder();
+    $builder->setId('wpkanban-' . $id);
+    $builder->setCount($result->count());
+    $builder->apply($matches);
+    $builder->setFormatterPlugin($plugin);
+
+    $formatter = $builder->getFormatter();
+    $entries = $formatter->getPopulatedList($result, false);
+    $entries = $plugin->renderEntries($entries);
+
+    $items = [];
+    foreach ($entries as $row) {
+        $swimlane = $row[$fields['swimlane']['permName']];
         if (is_array($swimlane)) {
             $swimlane = array_shift($swimlane);
         }
@@ -157,7 +206,7 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
                 break;
             }
         }
-        $column = $row['tracker_field_'.$fields['xaxis']['permName']];
+        $column = $row[$fields['xaxis']['permName']];
         if (is_array($column)) {
             $column = array_shift($column);
         }
@@ -174,11 +223,11 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
         }
         $items[] = [
             'id' => $row['object_id'],
-            'title' => $row['tracker_field_'.$fields['title']['permName']],
-            'description' => $row['tracker_field_'.$fields['description']['permName']],
+            'title' => $row[$fields['title']['permName']],
+            'description' => $row[$fields['description']['permName']],
             'row' => $swimlane,
             'column' => $column,
-            'sortOrder' => $row['tracker_field_'.$fields['yaxis']['permName']],
+            'sortOrder' => $row[$fields['yaxis']['permName']],
         ];
     }
 
@@ -211,8 +260,11 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
         ->add_jsfile('storage/public/vue-mf/kanban/vue-mf-kanban.min.js')
     ;
 
+    $out = str_replace(['~np~', '~/np~'], '', $formatter->renderFilters());
 
-    return WikiParser_PluginOutput::html($smarty->fetch('wiki-plugins/wikiplugin_kanban.tpl'));
+    $out .= $smarty->fetch('wiki-plugins/wikiplugin_kanban.tpl');
+
+    return WikiParser_PluginOutput::html($out);
 }
 
 
