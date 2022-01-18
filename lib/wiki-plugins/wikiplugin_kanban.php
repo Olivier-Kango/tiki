@@ -129,7 +129,7 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
     $wip = $jit->wip->text();
     if (is_numeric($wip)) {
         $wip = array_fill(0, count($columns), $wip);
-    } else {
+    } elseif ($wip) {
         $wip = preg_split('/\s*,\s*/', trim($wip));
     }
     if ($wip) {
@@ -285,9 +285,11 @@ function wikiplugin_kanban_format_list($handler)
     $realKey = 1;
     foreach($list as $key => $val) {
         if ($non_numeric_keys) {
-            $key = $realKey++;
+            $id = $realKey++;
+        } else {
+            $id = $key;
         }
-        $formatted[] = ['id' => $key, 'title' => $val];
+        $formatted[] = ['id' => $id, 'title' => $val, 'value' => $key];
     }
     return $formatted;
 }
