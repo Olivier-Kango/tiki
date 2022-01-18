@@ -12,9 +12,7 @@ import kanban from '../../api/kanban'
 import store from '../../store'
 
 const props = defineProps({
-    id: {
-        type: Number
-    },
+    id: [Number, String],
     title: {
         type: String
     },
