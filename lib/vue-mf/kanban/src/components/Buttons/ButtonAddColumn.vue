@@ -23,7 +23,7 @@ const handleClose = () => {
 </script>
 
 <template>
-    <div class="button-container">
+    <div v-if="false" class="button-container">
         <Button v-if="!showForm" variant="light" sm @click="showForm = true">
             <i class="fas fa-plus"></i>
             <span class="ml-2">Add another list</span>

@@ -35,7 +35,7 @@ const handleInitBoard = event => {
     <div class="p-2 d-flex flex-column">
         <div class="d-flex justify-content-between align-items-center mb-2">
             <p class="mb-0">Your boards</p>
-            <Dropdown class="d-inline-block ml-2" variant="default" sm>
+            <Dropdown v-if="false" class="d-inline-block ml-2" variant="default" sm>
                 <template v-slot:dropdown-button>
                     <i class="fas fa-plus"></i>
                 </template>

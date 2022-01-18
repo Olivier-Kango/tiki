@@ -69,7 +69,7 @@ const handleAddRow = event => {
                     :rules="{ minLength: 1 }"
                 />
             </div>
-            <Button sm variant="light" @click="handleAddRow"><i class="fas fa-plus mr-1"></i>Add swimlane</Button>
+            <Button v-if="false" sm variant="light" @click="handleAddRow"><i class="fas fa-plus mr-1"></i>Add swimlane</Button>
         </nav>
         <KanbanRow
             v-for="(row, index) in store.getters.getRows(board.rows)"
