@@ -147,7 +147,7 @@ return false;";
 
             if (empty($user)) {
                 if (empty($anonymous_name)) {
-                    $errors['anonymous_name'] = tr('Pseudonym must be specified');
+                    $errors['anonymous_name'] = tr('Name must be specified');
                 }
             }
 
