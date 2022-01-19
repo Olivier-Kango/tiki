@@ -42,7 +42,7 @@ class ApiToken extends TikiLib
             'expireAfter' => $this->table->expr("$$ < NOW()")
         ]);
         if (empty($token['token'])) {
-            $token['token'] = $this->generate($token['user'], microtime());
+            $token['token'] = $this->generate((string)$token['user'], microtime());
         }
         if ($this->getToken($token['token'])) {
             throw new ApiTokenException(tr('Access token already exists.'));

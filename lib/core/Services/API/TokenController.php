@@ -49,10 +49,6 @@ class Services_API_TokenController
             throw new Services_Exception_Denied();
         }
 
-        if (empty($user)) {
-            throw new Services_Exception_MissingValue('user');
-        }
-
         $token = $this->lib->createToken([
             'type' => 'manual',
             'user' => $user,
@@ -90,10 +86,6 @@ class Services_API_TokenController
             throw new Services_Exception_NotFound();
         }
 
-        if (empty($user)) {
-            throw new Services_Exception_MissingValue('user');
-        }
-
         $token = $this->lib->updateToken($token['tokenId'], [
             'user' => $user,
             'expireAfter' => $expireAfter,
@@ -116,6 +108,6 @@ class Services_API_TokenController
     private function get_user_from_input($input)
     {
         $users = TikiLib::lib('user')->extract_users($input->user->text(), false);
-        return $users[0] ?? '';
+        return $users[0] ?? null;
     }
 }
