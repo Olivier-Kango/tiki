@@ -390,14 +390,16 @@
                                 !($field_value.type eq 's' and $field_value.name eq 'Rating')
                         }
                             <div class="form-group row">
-                                <label class="col-sm-3 {if $field_value.type eq 'h'}h{$field_value.options_map.level}{else}col-form-label{/if}">
-                                        {if $field_value.isMandatory eq 'y'}
-                                            {$field_value.name|tra} <strong class='mandatory_star text-danger tips' title=":{tr}This field is mandatory{/tr}">*</strong>
-                                        {else}
-                                            {$field_value.name|tra}
-                                        {/if}
-                                </label>
-                                <div class="col-sm-8">
+                                {if empty($field_value.options_map.labelasplaceholder)}
+                                    <label class="col-sm-3 {if $field_value.type eq 'h'}h{$field_value.options_map.level}{else}col-form-label{/if}">
+                                            {if $field_value.isMandatory eq 'y'}
+                                                {$field_value.name|tra} <strong class='mandatory_star text-danger tips' title=":{tr}This field is mandatory{/tr}">*</strong>
+                                            {else}
+                                                {$field_value.name|tra}
+                                            {/if}
+                                    </label>
+                                {/if}
+                                <div class="col-sm-{if empty($field_value.options_map.labelasplaceholder)}8{else}12{/if}">
                                     {trackerinput field=$field_value inTable=formcolor showDescription=y}
                                 </div>
                             </div>

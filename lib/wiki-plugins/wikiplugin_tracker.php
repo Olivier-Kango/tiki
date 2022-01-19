@@ -2183,43 +2183,58 @@ function wikiplugin_tracker($data, $params)
                         $back .= " width='" . $colwidth . "'";
                     }
 
-                    // If on a different row the label should use all available width
-                    $back .= '><label class="';
-                    if ($isTextOnSameRow) {
-                        $back .= $labelclass;
-                        if ($f['type'] == 'h') {
-                            $back .= ' h' . $f['options_map']['level'];
+                    $back .= '>';
+                    // From here start the content of a row per field returned
+                    // If placeholder is not enable we continue else we skip samerow as it is not needed
+                    if (empty($f['options_map']['labelasplaceholder'])) {
+                        // If on a different row the label should use all available width
+                        $back .= '<label class="';
+                        if ($isTextOnSameRow) {
+                            $back .= $labelclass;
+                            if ($f['type'] == 'h') {
+                                $back .= ' h' . $f['options_map']['level'];
+                            } else {
+                                $back .= ' col-form-label';
+                            }
                         } else {
-                            $back .= ' col-form-label';
+                            $back .= 'col-md-12';
                         }
-                    } else {
-                        $back .= 'col-md-12';
-                    }
-                    $back .= '" for="' . $f['ins_id'] . '">' . wikiplugin_tracker_name($f['fieldId'], tra($f['name']), $field_errors);
+                        $back .= '" for="' . $f['ins_id'] . '">' . wikiplugin_tracker_name($f['fieldId'], tra($f['name']), $field_errors);
 
-                    if ($showmandatory == 'y' and $f['isMandatory'] == 'y') {
-                        $back .= " <strong class='mandatory_star text-danger tips' title=':" . tra('This field is mandatory') . "' >*</strong> ";
-                    }
+                        if ($showmandatory == 'y' and $f['isMandatory'] == 'y') {
+                            $back .= " <strong class='mandatory_star text-danger tips' title=':" . tra('This field is mandatory') . "' >*</strong> ";
+                        }
                         $back .= '</label>';
                         // If use different lines, add a line break.
                         // Otherwise a new column
-                    if (! $isTextOnSameRow) {
-                        $back .= "<br/>";
+                        if (! $f['options_map']['labelasplaceholder']) {
+                            if (! $isTextOnSameRow) {
+                                $back .= "<br/>";
+                            } else {
+                                $back .= '<div class="' . $inputclass . ' tracker_input_value tracker_field' . $f['fieldId'] . '">';
+                            }
+                        }
+                        $back .= $renderedField;
                     } else {
-                        $back .= '<div class="' . $inputclass . ' tracker_input_value tracker_field' . $f['fieldId'] . '">';
+                        $back .= '<div class="col-form-label col-md-12' . ' tracker_input_value tracker_field' . $f['fieldId'];
+                        $back .= '">';
+                        $back .= $renderedField;
+                        // Not sure about the error line found at line 2177, should it be replaced somewhere to indicate the field name in case of error ?
+                        // .wikiplugin_tracker_name($f['fieldId'], tra($f['name']), $field_errors);
+                        $back .= '</div>'; // chibaguy added /divs
                     }
-
-                    $back .= $renderedField;
-                    $back .= '</div>'; // chibaguy added /divs
 
                     if ($f['type'] === 'j') {
                         $datepicker = true;
                     }
 
-                    if ($isTextOnSameRow) {
-                        $back .= '</div>';
+                    if (! $f['options_map']['labelasplaceholder']) {
+                        if ($isTextOnSameRow) {
+                            $back .= '</div>';
+                        }
                     }
                 }
+                $back .= '</div>'; // We close the form-group row
 
                 if ($f['type'] != 'S' && empty($tpl) && empty($wiki)) {
                     if ($showfieldsdesc == 'y' && $f['description']) {

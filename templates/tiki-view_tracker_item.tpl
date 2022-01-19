@@ -284,6 +284,7 @@
 
                             {foreach from=$ins_fields key=ix item=cur_field}
                                 <div class="form-group row">
+									{if ($cur_field.type eq 't' && $cur_field.options_map.labelasplaceholder == 0)}
                                     <label class="col-sm-3 {if $cur_field.type eq 'h'}h{$cur_field.options_map.level}{else}col-form-label{/if}">
                                         {$cur_field.name|tra|escape}
                                         {if $cur_field.isMandatory eq 'y'}
@@ -291,9 +292,13 @@
                                         {/if}
                                     </label>
                                     <div class="col-sm-9">
+										{else}
+										<div class="col-sm-12">
+											{/if}
                                         {trackerinput field=$cur_field item=$item_info inTable=formcolor showDescription=y}
+                                        </div>
                                     </div>
-                                </div>
+								</div>
                             {/foreach}
 
                         {else}

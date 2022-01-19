@@ -1,11 +1,24 @@
 {if $field.isMultilingual ne 'y'}
-    <div{if $field.options_map.prepend or $field.options_map.append} class="input-group"{/if}>
+    <div{if $field.options_map.prepend or $field.options_map.append or $field.options_map.labelasplaceholder} class="input-group"{/if}>
         {if $field.options_map.prepend}
             <span class="input-group-append">
                 <span class="input-group-text">{$field.options_map.prepend}</span>
             </span>
         {/if}
-        <input type="text" class="form-control" id="{$field.ins_id|replace:'[':'_'|replace:']':''}" name="{$field.ins_id}" {if $field.options_map.size}size="{$field.options_map.size}"{/if} {if $field.options_map.max}maxlength="{$field.options_map.max}"{/if} value="{$field.value|default:$field.defaultvalue|escape}">
+        <input type="text" class="form-control {if $field.options_map.labelasplaceholder}labelasplaceholder{/if}"
+                id="{$field.ins_id|replace:'[':'_'|replace:']':''}" name="{$field.ins_id}"
+                value="{$field.value|default:$field.defaultvalue|escape}"
+                {if $field.options_map.labelasplaceholder}placeholder="{$field.name}"{/if}
+                {if $field.options_map.size}size="{$field.options_map.size}"{/if}
+                {if $field.options_map.max}maxlength="{$field.options_map.max}"{/if}
+        >
+        {if $field.type eq 't' and $field.options_map.labelasplaceholder and $field.isMandatory eq 'y'}
+            <span class="input-group-append">
+                <span class="input-group-text">
+                    <strong class='mandatory_star text-danger tips' title=":{tr}This field is mandatory{/tr}" style="font-size: 100%">{icon name='asterisk'}</strong>
+                </span>
+            </span>
+        {/if}
         {if $field.options_map.append}
             <span class="input-group-append">
                 <span class="input-group-text">{$field.options_map.append}</span>
@@ -18,7 +31,7 @@
     </div>
 {else}
     {foreach from=$field.lingualvalue item=ling name=multi}
-        <label for="{$ling.id|escape}">{$ling.lang|langname}</label>
+        {if !$field.options_map.labelasplaceholder}<label for="{$ling.id|escape}">{$ling.lang|langname}</label>{/if}
         <div{if $field.options_map.prepend or $field.options_map.append} class="input-group"{/if}>
             {if !empty($field.options_map.prepend)}
                 <span class="input-group-append">
@@ -26,8 +39,12 @@
                 </span>
             {/if}
 
-            <input type="text" id="{$ling.id|escape}" name="{$field.ins_id}[{$ling.lang}]" value="{$ling.value|escape}" class="form-control"
-                {if $field.options_map.size}size="{$field.options_map.size}"{/if} {if $field.options_map.max}maxlength="{$field.options_map.max}"{/if}> {*@@ missing value*}
+            <input type="text" id="{$ling.id|escape}" name="{$field.ins_id}[{$ling.lang}]" value="{$ling.value|escape}"
+                class="form-control{if $field.options_map.labelasplaceholder} labelasplaceholder mb-2{/if}"
+                {if $field.options_map.labelasplaceholder} placeholder="{tr}{$field.name}{/tr} - {$ling.lang|langname}"{/if}
+                {if $field.options_map.size}size="{$field.options_map.size}"{/if}
+                {if $field.options_map.max}maxlength="{$field.options_map.max}"{/if}
+            >
 
             {if $field.options_map.append}
                 <span class="input-group-append">
