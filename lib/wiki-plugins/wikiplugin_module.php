@@ -204,6 +204,14 @@ function wikiplugin_module_info()
                 'accepted' => tra('Valid CSS class'),
                 'advanced' => true,
             ],
+            'device' => [
+                'name' => tra('Display on device'),
+                'description' => tra('On which device the module must be displayed, by default it is displayed on all currencies.'),
+                'since' => '24',
+                'section' => 'visibility',
+                'separator' => ';',
+                'advanced' => true
+            ],
             'category' => [
                 'name' => tra('Category'),
                 'description' => tra('Module displayed depending on category. Multiple category ids or names can be

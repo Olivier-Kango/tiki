@@ -38,17 +38,54 @@ function smarty_function_modulelist($params, $smarty)
 
     $content = '';
     $key = $zone . '_modules';
+
     if (isset($moduleZones[$key]) && is_array($moduleZones[$key])) {
         $content = implode(
             '',
             array_map(
                 function ($module) {
-                    return (isset($module['data']) ? $module['data'] : '');
+                    $devices = $module["params"]["device"];
+                    $moduleContent = (isset($module['data']) ? $module['data'] : '');
+
+                    if(isset($devices) && is_array($devices) && !empty($devices)) {
+                        $device_classes =  '';
+
+                        if(!in_array('TABLET', $devices)){
+                            $device_classes .= ' no_display_on_tablet';
+                        }
+
+                        if(!in_array('MOBILE', $devices)){
+                            $device_classes .= ' no_display_on_mobile';
+                        }
+
+                        if(!in_array('LAPTOP', $devices)){
+                            $device_classes .= ' no_display_on_laptop';
+                        }
+
+                        if(!in_array('DESKTOP', $devices)){
+                            $device_classes .= ' no_display_on_desktop';
+                        }
+
+                        if(!in_array('PRINT', $devices)){
+                            $device_classes .= ' no_display_on_print';
+                        }
+
+                        
+                        $dom = new DOMDocument;
+                        $dom->loadHTML($moduleContent);
+                        $divs = $dom->getElementsByTagName('div');
+
+                        $divs[0]->setAttribute('class', $divs[0]->getAttribute('class') .' '. $device_classes);
+
+                        $moduleContent = $dom->saveHTML();
+                    }
+                    return $moduleContent;
                 },
                 $moduleZones[$key]
             )
         );
     }
+
     return <<<OUT
 <$tag class="$class" id="$id"$dir>
     $content

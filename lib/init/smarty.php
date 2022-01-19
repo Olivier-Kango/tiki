@@ -99,6 +99,7 @@ class Tiki_Security_Policy extends Smarty_Security
             'ucwords',
             'urlencode',
             'var_dump',
+            'strstr',
         ], $modifiers);
 
         $this->php_functions = array_merge(['isset',

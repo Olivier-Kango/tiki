@@ -3,7 +3,7 @@
     <div class="col-sm-8">
         <select class="form-control resize-vertical" name="{$p.preference|escape}[]" id="{$p.id|escape}" multiple="multiple" >
             {foreach from=$p.options key=value item=label}
-                <option value="{$value|escape}"{if in_array($value, $p.value)} selected="selected"{/if} {$p.params}>{$label|escape}</option>
+                <option value="{$value|escape}"{if is_array($p.value) and in_array($value, $p.value)} selected="selected"{/if} {$p.params}>{$label|escape}</option>
             {/foreach}
         </select>
         {include file="prefs/shared.tpl"}
