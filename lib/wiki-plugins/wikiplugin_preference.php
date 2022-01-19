@@ -50,7 +50,7 @@ function wikiplugin_preference($data, $params)
     $currentpage = $params['currentpage'];
     $pageSlug = $wikilib->get_slug_by_page($currentpage);
 
-    if ($_GET['page'] != $pageSlug || ! $name) {
+    if (!isset($_GET['page']) || $_GET['page'] != $pageSlug || ! $name) {
         return;
     }
 

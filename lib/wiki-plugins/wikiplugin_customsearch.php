@@ -227,7 +227,7 @@ function wikiplugin_customsearch($data, $params)
     $defaults = [];
     $plugininfo = wikiplugin_customsearch_info();
     foreach ($plugininfo['params'] as $key => $param) {
-        $defaults["$key"] = $param['default'];
+        $defaults["$key"] = $param['default'] ?? null;
     }
     $params = array_merge($defaults, $params);
 
@@ -421,7 +421,7 @@ $('#customsearch_$id').submit(function() {
 window.customsearch_$id = customsearch$id;
 ";
 
-    if (is_array($_REQUEST['default'])) {
+    if (isset($_REQUEST['default']) && is_array($_REQUEST['default'])) {
         $defaultRequest = $_REQUEST['default'];
     } else {
         $defaultRequest = [];

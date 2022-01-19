@@ -95,7 +95,7 @@ class Search_Formatter_Builder
             $formatter->setAlternateOutput($this->alternateOutput);
         } else {
             $formatter->setAlternateOutput('^' . tra('No results for query.') . '^');
-            if($prefs['error_in_query'] && $prefs['error_in_query'] == 'y') {
+            if(isset($prefs['error_in_query']) && $prefs['error_in_query'] == 'y') {
                 $formatter->setAlternateOutput('^' . tra('There is a query error in the sort control block, please correct it to find results.') . '^');
             }
         }

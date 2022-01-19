@@ -167,7 +167,7 @@ class Search_Formatter_ValueFormatter_Categorylist extends Search_Formatter_Valu
             $showCat = true;
         }
         foreach ($categoryPath as $key => $val) {
-            if (in_array($key, $this->requiredParents)) {
+            if (is_array($this->requiredParents) && in_array($key, $this->requiredParents)) {
                 $showCat = true;
             }
         }
