@@ -2207,12 +2207,10 @@ function wikiplugin_tracker($data, $params)
                         $back .= '</label>';
                         // If use different lines, add a line break.
                         // Otherwise a new column
-                        if (! $f['options_map']['labelasplaceholder']) {
-                            if (! $isTextOnSameRow) {
-                                $back .= "<br/>";
-                            } else {
-                                $back .= '<div class="' . $inputclass . ' tracker_input_value tracker_field' . $f['fieldId'] . '">';
-                            }
+                        if (! $isTextOnSameRow) {
+                            $back .= "<br/>";
+                        } else {
+                            $back .= '<div class="' . $inputclass . ' tracker_input_value tracker_field' . $f['fieldId'] . '">';
                         }
                         $back .= $renderedField;
                     } else {
@@ -2228,7 +2226,7 @@ function wikiplugin_tracker($data, $params)
                         $datepicker = true;
                     }
 
-                    if (! $f['options_map']['labelasplaceholder']) {
+                    if (empty($f['options_map']['labelasplaceholder'])) {
                         if ($isTextOnSameRow) {
                             $back .= '</div>';
                         }

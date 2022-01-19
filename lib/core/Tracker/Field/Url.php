@@ -45,6 +45,17 @@ class Tracker_Field_Url extends Tracker_Field_Abstract implements Tracker_Field_
                         'filter' => 'text',
                         'default' => '',
                     ],
+                    'labelasplaceholder' => [
+                        'name' => tr('Use label as placeholder'),
+                        'description' => tr('Display the field name as a placeholder in the input field instead of separate label.'),
+                        'deprecated' => false,
+                        'filter' => 'int',
+                        'default' => 0,
+                        'options' => [
+                            0 => tr('No'),
+                            1 => tr('Yes'),
+                        ],
+                    ],
                 ],
             ],
         ];

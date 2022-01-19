@@ -9,7 +9,7 @@
 {$jscal = 0}
 {foreach from=$fields item=field}
     <div class="form-group">
-        {if $field.type eq 't' and empty($field.options_map.labelasplaceholder)}
+        {if empty($field.options_map.labelasplaceholder)}
             <label for="trackerinput_{$field.fieldId|escape}" {if $field.type eq 'h'}class="h{$field.options_map.level}"{/if}>
                 {$field.name|tra|escape}
                 {if $field.isMandatory eq 'y'}

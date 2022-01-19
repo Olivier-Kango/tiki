@@ -12,7 +12,7 @@
                 {if $field.options_map.size}size="{$field.options_map.size}"{/if}
                 {if $field.options_map.max}maxlength="{$field.options_map.max}"{/if}
         >
-        {if $field.type eq 't' and $field.options_map.labelasplaceholder and $field.isMandatory eq 'y'}
+        {if $field.options_map.labelasplaceholder and $field.isMandatory eq 'y'}
             <span class="input-group-append">
                 <span class="input-group-text">
                     <strong class='mandatory_star text-danger tips' title=":{tr}This field is mandatory{/tr}" style="font-size: 100%">{icon name='asterisk'}</strong>
