@@ -406,17 +406,27 @@ class CalRecurrence extends TikiLib
     public function updateEvents($updateManuallyChangedEvents, $oldRec)
     {
         global $user;
+        global $prefs;
 
-        $changedFields = $this->compareFields($oldRec);
-        if (! $changedFields) {
-            return;
-        }
+        
 
         $query = "SELECT calitemId,calendarId, start, end, allday, locationId, categoryId, nlId, priority, status, url, lang, name, description, "
                  . "user, created, lastModif, changed, recurrenceStart "
                  . "FROM tiki_calendar_items WHERE recurrenceId = ? ORDER BY start";
         $bindvars = [(int)$this->getId()];
         $existing = $this->fetchAll($query, $bindvars);
+
+        $changedFields = $this->compareFields($oldRec);
+        if (! $changedFields) {
+            if ($prefs['feature_categories'] == 'y') {
+                $tx = TikiDb::get()->begin();
+                foreach ($existing as $eventItem) {
+                    TikiLib::lib('calendar')->update_item_categories($eventItem['calitemId'], $_REQUEST['cat_managed'], $_REQUEST['cat_categories'], $eventItem['name'], $eventItem['description']);
+                }
+                $tx->commit();
+            }
+            return;
+        }
 
         $vcalendar = $oldRec->constructVCalendar();
         $start = $vcalendar->VEVENT->DTSTART->getDateTime()->getTimeStamp();
