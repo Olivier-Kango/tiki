@@ -558,7 +558,7 @@
 {tr}For more detailed information about Tiki Manager please check <a href="https://doc.tiki.org/Manager">doc.tiki.org</a>{/tr}.
 
 {if trim_capable}
-    <h3>Server Instance</h3>
+    <h3>{tr}Server Instance{/tr}</h3>
     <div class="table-responsive">
         <table class="table table-striped"><thead>
             <tr>
@@ -581,7 +581,7 @@
         </tbody></table>
     </div>
 
-    <h3>Client Instance</h3>
+    <h3>{tr}Client Instance{/tr}</h3>
     <div class="table-responsive">
         <table class="table table-striped"><thead>
             <tr>
