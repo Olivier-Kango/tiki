@@ -284,10 +284,10 @@ function prefs_tracker_list()
         ],
         'tracker_system_currency_direction' => [
             'name' => tr('Rate direction'),
-            'description' => tr('Stright means Base currency is equal to Target multiplied by the exchange rate. Reverse means Base is equal to Target divided by the exchange rate. In both cases, the Base currency should have an exchange rate of 1.00'),
+            'description' => tr('Straight means Base currency is equal to Target multiplied by the exchange rate. Reverse means Base is equal to Target divided by the exchange rate. In both cases, the Base currency should have an exchange rate of 1.00'),
             'type' => 'list',
             'options' => [
-                'stright' => tr('Stright (Target/Base)'),
+                'straight' => tr('Straight (Target/Base)'),
                 'reverse' => tr('Reverse (Base/Target)'),
             ],
             'default' => 'stright',
