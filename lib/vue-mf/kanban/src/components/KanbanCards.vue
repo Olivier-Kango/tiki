@@ -119,6 +119,7 @@ const setItem = (itemId, newIndex) => {
 <style lang="scss" scoped>
 .container-cards {
     position: relative;
+    max-height: 800px;
 }
 
 .dragging-card {
