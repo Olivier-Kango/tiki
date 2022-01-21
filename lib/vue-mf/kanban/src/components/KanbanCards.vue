@@ -73,7 +73,7 @@ const setItem = (itemId, newIndex) => {
         { fields: {
                 [store.getters.getSwimlaneField]: props.rowValue,
                 [store.getters.getXaxisField]: props.columnValue,
-                [store.getters.getSortOrderField]: newIndex
+                [store.getters.getYaxisField]: newIndex
             },
         }
     )

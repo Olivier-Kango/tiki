@@ -42,11 +42,12 @@ const handleTitleBlur = event => {
     }
 
     kanban.setItem(
-            { trackerId: trackerId.value, itemId: props.id },
-            {
+        { trackerId: trackerId.value, itemId: props.id },
+        { fields: {
                 [store.getters.getTitleField]: event.target.value
             }
-        )
+        }
+    )
         .then(res => {
             toast.success(`Success! Title saved.`)
         })
@@ -76,10 +77,12 @@ const handleEditDesc = () => {
 }
 const handleSaveDesc = () => {
     kanban.setItem(
-            { trackerId: trackerId.value, itemId: props.id },
-            {
-                [store.getters.getDescriptionField]: description.value }
-            )
+        { trackerId: trackerId.value, itemId: props.id },
+        { fields: {
+                [store.getters.getDescriptionField]: description.value
+            }
+        }
+    )
         .then(res => {
             toast.success(`Success! Description saved.`)
         })

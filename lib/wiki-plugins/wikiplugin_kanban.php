@@ -77,13 +77,6 @@ function wikiplugin_kanban_info(): array
                 'required' => false,
                 'filter' => 'text',
             ],
-            'sortorder' => [
-                'name' => tr('Sort order'),
-                'description' => tr('Determines the order of the item in the kanban cell.'),
-                'since' => '24.0',
-                'required' => false,
-                'filter' => 'text',
-            ],
         ],
     ];
 }
@@ -118,7 +111,6 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
         'xaxis' => $jit->xaxis->word(),
         'yaxis' => $jit->yaxis->word(),
         'swimlane' => $jit->swimlane->word(),
-        'sortorder' => $jit->sortorder->word(),
     ];
 
     foreach ($fields as $key => $field) {
@@ -235,7 +227,7 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
             'description' => $row[$fields['description']['permName']],
             'row' => $swimlane,
             'column' => $column,
-            'sortOrder' => $row[$fields['sortorder']['permName']],
+            'sortOrder' => $row[$fields['yaxis']['permName']],
         ];
     }
 
@@ -260,7 +252,6 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
             'columns' => $columns,
             'rows' => $swimlanes,
             'cards' => $items,
-            'sortorderField' => $jit->sortorder->word()
         ]
     );
 
