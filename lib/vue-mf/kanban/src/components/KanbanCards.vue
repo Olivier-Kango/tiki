@@ -41,7 +41,6 @@ const endDragging = () => dragging.value = false
 
 const handleChange = (event) => {
     if (event.moved) {
-        setItem(event.moved.element.id, event.moved.newIndex)
         store.dispatch('moveCard', {
             oldIndex: event.moved.oldIndex,
             newIndex: event.moved.newIndex,
@@ -50,7 +49,6 @@ const handleChange = (event) => {
             columnId: props.columnId
         })
     } else if (event.added) {
-        setItem(event.added.element.id, event.added.newIndex)
         store.dispatch('addCard', {
             newIndex: event.added.newIndex,
             element: event.added.element,
@@ -65,6 +63,13 @@ const handleChange = (event) => {
             columnId: props.columnId
         })
     }
+    setItems(store.getters.getColumn(props.columnId).cards)
+}
+
+const setItems = ids => {
+    ids.forEach((id, index) => {
+        setItem(id, index)
+    })
 }
 
 const setItem = (itemId, newIndex) => {
@@ -78,7 +83,7 @@ const setItem = (itemId, newIndex) => {
         }
     )
     .then(res => {
-        toast.success(`Success! Item moved.`)
+        // toast.success(`Success! Item moved.`)
     })
     .catch(err => {
         if (!err.response) return
