@@ -71,7 +71,7 @@ const handleMoveUp = event => {
 <template>
     <div class="kanban-row">
         <div class="kanban-row-title" :class="{'bg-color-transparent': transparentTitleBg}">
-            <span v-if="!showEditField" @click="handleEditClick">{{ title }}</span>
+            <span v-if="!showEditField" class="pl-3" @click="handleEditClick">{{ title }}</span>
             <Form v-if="showEditField">
                 <Field
                     v-focus
@@ -82,24 +82,22 @@ const handleMoveUp = event => {
                     :rules="{ minLength: 1 }"
                 />
             </Form>
-            <div class="kanban-row-controls">
+            <div class="kanban-row-controls pl-2">
                 <Button class="mr-1 py-0 px-1" sm variant="light" @click="handleMoveDown"><i class="fas fa-chevron-down"></i></Button>
                 <Button class="py-0 px-1" sm variant="light" @click="handleMoveUp"><i class="fas fa-chevron-up"></i></Button>
             </div>
         </div>
-        <PerfectScrollbar>
-            <div class="d-flex">
-                <slot />
-            </div>
-        </PerfectScrollbar>
+        <div>
+            <slot />
+        </div>
     </div>
 </template>
 
 <style lang="scss" scoped>
 .kanban-row {
-    display: flex;
-    align-items: flex-start;
-    flex-wrap: wrap;
+    // display: flex;
+    // align-items: flex-start;
+    // flex-wrap: wrap;
     margin-bottom: 10px;
 
     // &:nth-child(2) .kanban-column {
@@ -107,13 +105,13 @@ const handleMoveUp = event => {
     // }
 
     .kanban-row-title {
-        position: relative;
+        display: flex;
+        justify-content: flex-start;
         width: 100%;
         margin: 5px;
         background-color: #f3f4fa;
         border-radius: 6px;
         font-weight: 500;
-        text-align: center;
 
         &:hover {
             .kanban-row-controls {
@@ -123,9 +121,6 @@ const handleMoveUp = event => {
 
         .kanban-row-controls {
             display: none;
-            position: absolute;
-            top: 0;
-            right: 0;
 
             button {
                 vertical-align: baseline;

@@ -41,6 +41,7 @@ const endDragging = () => dragging.value = false
 
 const handleChange = (event) => {
     if (event.moved) {
+        setItem(event.moved.element.id, event.moved.newIndex)
         store.dispatch('moveCard', {
             oldIndex: event.moved.oldIndex,
             newIndex: event.moved.newIndex,
@@ -49,7 +50,7 @@ const handleChange = (event) => {
             columnId: props.columnId
         })
     } else if (event.added) {
-        setItem(event.added.element.id)
+        setItem(event.added.element.id, event.added.newIndex)
         store.dispatch('addCard', {
             newIndex: event.added.newIndex,
             element: event.added.element,
@@ -66,12 +67,13 @@ const handleChange = (event) => {
     }
 }
 
-const setItem = (itemId) => {
+const setItem = (itemId, newIndex) => {
     kanban.setItem(
         { trackerId: store.getters.getTrackerId, itemId: itemId },
         { fields: {
                 [store.getters.getSwimlaneField]: props.rowValue,
-                [store.getters.getXaxisField]: props.columnValue
+                [store.getters.getXaxisField]: props.columnValue,
+                [store.getters.getSortOrderField]: newIndex
             },
         }
     )

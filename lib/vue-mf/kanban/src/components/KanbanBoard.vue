@@ -52,7 +52,7 @@ const handleAddRow = event => {
 </script>
 
 <template>
-    <div class="kanban-container" :style="{backgroundImage: board.imageUrl ? `url(${board.imageUrl})` : 'none'}">
+    <div>
         <nav class="navbar navbar-light rounded-lg" :class="{'bg-color-transparent': board.imageUrl, 'bg-light': !board.imageUrl}">
             <div @click="handleEditClick">
                 <span v-if="!showEditField" style="font-size: 1.15rem">{{ board.title }}</span>
@@ -71,19 +71,23 @@ const handleAddRow = event => {
             </div>
             <Button v-if="false" sm variant="light" @click="handleAddRow"><i class="fas fa-plus mr-1"></i>Add swimlane</Button>
         </nav>
-        <KanbanRow
-            v-for="(row, index) in store.getters.getRows(board.rows)"
-            :key="row.title"
-            :title="row.title"
-            :transparentTitleBg="board.imageUrl ? true : false"
-            :boardId="id"
-            :rowId="row.id"
-            :rowValue="row.value"
-            :index="index"
-        >
-            <KanbanColumns :rowId="row.id" :rowIndex="index" :rowValue="row.value" :columnIds="row.columns"></KanbanColumns>
-            <ButtonAddColumn v-if="index === 0" :rowId="row.id"></ButtonAddColumn>
-        </KanbanRow>
+        <PerfectScrollbar>
+            <div class="kanban-container" :style="{backgroundImage: board.imageUrl ? `url(${board.imageUrl})` : 'none'}">
+                <KanbanRow
+                    v-for="(row, index) in store.getters.getRows(board.rows)"
+                    :key="row.title"
+                    :title="row.title"
+                    :transparentTitleBg="board.imageUrl ? true : false"
+                    :boardId="id"
+                    :rowId="row.id"
+                    :rowValue="row.value"
+                    :index="index"
+                >
+                    <KanbanColumns :rowId="row.id" :rowIndex="index" :rowValue="row.value" :columnIds="row.columns"></KanbanColumns>
+                    <ButtonAddColumn v-if="index === 0" :rowId="row.id"></ButtonAddColumn>
+                </KanbanRow>
+            </div>
+        </PerfectScrollbar>
     </div>
 </template>
 
