@@ -143,6 +143,7 @@ function prefs_user_list($partial = false)
         'user_register_prettytracker' => [
             'name' => tra('Use pretty trackers for registration form'),
             'help' => 'User-Tracker',
+            'description' => 'Allows a site manager to design forms using registration fields and have the results of each field displayed in customizable way on a Wiki page or Smarty template.',
             'type' => 'flag',
             'dependencies' => [
                 'userTracker',
