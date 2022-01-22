@@ -176,6 +176,8 @@ class Search_Formatter_Builder
                 $arguments['template'] = __DIR__ . '/../../../../templates/search/list/count.tpl';
             } elseif ($arguments['template'] == 'debug') {
                 $arguments['template'] = __DIR__ . '/../../../../templates/search/list/debug.tpl';
+            } elseif ($arguments['template'] == 'json') {
+                $arguments['template'] = __DIR__ . '/../../../../templates/search/list/json_encode.tpl';
             } elseif (! file_exists($arguments['template'])) {
                 $temp = $smarty->get_filename($arguments['template']);
                 if (empty($temp)) { //if get_filename cannot find template, return error
