@@ -290,7 +290,7 @@ function prefs_tracker_list()
                 'straight' => tr('Straight (Target/Base)'),
                 'reverse' => tr('Reverse (Base/Target)'),
             ],
-            'default' => 'stright',
+            'default' => 'straight',
         ],
     ];
 }
