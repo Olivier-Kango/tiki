@@ -94,7 +94,7 @@ const handleSaveDesc = () => {
         })
     store.dispatch('editCardField', {
         id: props.id,
-        field: 'desc',
+        field: 'description',
         data: description.value
     })
     editDesc.value = false
