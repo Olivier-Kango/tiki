@@ -15,7 +15,7 @@ lang = {
     "Weak" : "Faible",
     "Very Weak" : "Très faible",
     "Strength" : "Robustesse",
-    "Valid User Name" : "Nom utilisateur valide",
+    "Valid User Name" : "Nom d'utilisateur valide",
     "Passwords match" : "Les mots de passe concordent",
     "Valid Email" : "Adresse courriel valide",
     "Close" : "Fermer",
