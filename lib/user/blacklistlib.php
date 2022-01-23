@@ -266,9 +266,7 @@ LIMIT 1;';
             $passwords = "('" . implode("'),('", $passwords) . "')";
 
             $tikiDb = new TikiDb_Bridge();
-            $query = 'DROP TABLE IF EXISTS tiki_password_blacklist;';
-            $tikiDb->query($query, []);
-            $query = 'CREATE TABLE `tiki_password_blacklist` ( `password` VARCHAR(30) NOT NULL , PRIMARY KEY (`password`) USING HASH)';
+            $query = "TRUNCATE TABLE tiki_password_blacklist";
             $tikiDb->query($query, []);
 
             $query = "INSERT INTO tiki_password_blacklist (password) VALUES $passwords";
