@@ -4,7 +4,7 @@ export default {
 }
 </script>
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { Field } from 'vee-validate'
 import { useToast } from "vue-toastification"
 import { Dropdown } from '@vue-mf/styleguide'
@@ -38,6 +38,8 @@ const props = defineProps({
 
 const showEditField = ref(false)
 const toast = useToast()
+
+const isLimitExceeded = computed(() => props.total > props.limit)
 
 const handleTitleBlur = event => {
     showEditField.value = false
@@ -77,7 +79,7 @@ const handleEditClick = event => {
                     type="text"
                     :rules="{ minLength: 1 }"
                 />
-                <span>{{ total }}/{{ limit }}</span>
+                <span class="rounded p-1" :class="{'bg-danger text-light': isLimitExceeded}">{{ total }}/{{ limit }}</span>
             </h6>
             <Dropdown class="d-inline-block ml-2" variant="default" sm>
                 <template v-slot:dropdown-button>
