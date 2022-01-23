@@ -53,7 +53,7 @@ const handleAddRow = event => {
 
 <template>
     <div>
-        <nav class="navbar navbar-light rounded-lg" :class="{'bg-color-transparent': board.imageUrl, 'bg-light': !board.imageUrl}">
+        <nav class="navbar navbar-light rounded-lg bg-color-grey" :class="{'bg-color-transparent': board.imageUrl, 'bg-light': !board.imageUrl}">
             <div @click="handleEditClick">
                 <span v-if="!showEditField" style="font-size: 1.15rem">{{ board.title }}</span>
                 <Field

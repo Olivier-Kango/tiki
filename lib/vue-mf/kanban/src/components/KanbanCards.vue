@@ -110,7 +110,20 @@ const setItem = (itemId, newIndex) => {
     >
         <template #item="{ element }">
             <KanbanCard>
-                <Card @click="emit('editCard', element)">{{ element.title }}</Card>
+                <Card @click="emit('editCard', element)">
+                    <div v-if="false">
+                        <span class="badge badge-light">Priority badge</span>
+                    </div>
+                    <div>
+                        {{ element.title }}
+                    </div>
+                    <div v-if="false" class="d-flex justify-content-end">
+                        <div class="kanban-avatar">
+                            <span>NA</span>
+                            <!-- <img src="..." class="rounded-circle" alt="..."> -->
+                        </div>
+                    </div>
+                </Card>
             </KanbanCard>
         </template>
     </draggable>
