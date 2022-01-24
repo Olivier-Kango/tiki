@@ -501,7 +501,8 @@ class Tracker_Field_ItemLink extends Tracker_Field_Abstract implements Tracker_F
 
         if ($prefs['unified_trackerfield_keys'] === 'fieldId') {
             return $fieldArray['fieldId'];
-        } elseif ($fieldArray['type'] == 'r' || $fieldArray['type'] == 'w') {
+        } elseif ($fieldArray['type'] == 'r' || $fieldArray['type'] == 'w' || $fieldArray['type'] == 'l') {
+            // TODO categories etc
             return $fieldArray['permName'] . '_text';
         } else {
             return $fieldArray['permName'];
