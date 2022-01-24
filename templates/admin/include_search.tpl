@@ -90,6 +90,12 @@
                         {preference name="unified_mysql_restore_indexes"}
                     </div>
 
+                    <div class="adminoptionboxchild unified_engine_childcontainer manticore">
+                        {preference name="unified_manticore_url"}
+                        {preference name="unified_manticore_index_prefix"}
+                        {preference name="unified_manticore_index_current"}
+                    </div>
+
                     {preference name="unified_search_default_operator"}
                     {preference name=unified_excluded_categories}
                     {preference name=unified_excluded_plugins}

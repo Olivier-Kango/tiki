@@ -145,6 +145,8 @@ class UnifiedSearchLib
         } elseif ($prefs['unified_engine'] == 'mysql') {
             $lockName = TikiLib::lib('tiki')->get_preference('unified_mysql_index_rebuilding');
             return empty($lockName) ? false : TikiDb::get()->isLocked($lockName);
+        } elseif ($prefs['unified_engine'] == 'manticore') {
+            // TODO: see how to check if index is being rebuild: temp manticore index, locking or another way?
         }
 
         return false;
@@ -202,8 +204,24 @@ class UnifiedSearchLib
                     }
                 );
                 break;
+            case 'manticore':
+                $client = $this->getManticoreClient();
+                $indexName = $prefs['unified_manticore_index_prefix'] . '_' . uniqid();
+                $index = new Search_Manticore_Index($client, $indexName);
+                $engineResults = new Search_EngineResult_Manticore($index);
+
+                TikiLib::events()->bind(
+                    'tiki.process.shutdown',
+                    function () use ($indexName, $index) {
+                        global $prefs;
+                        if ($prefs['unified_manticore_index_current'] !== $indexName) {
+                            $index->destroy();
+                        }
+                    }
+                );
+                break;
             default:
-                Feedback::error(tr('Unsupported index type "%0". Needs to be one of "mysql" or "elastic". Try resaving the Search Control Panel', $prefs['unified_engine']));
+                Feedback::error(tr('Unsupported index type "%0". Needs to be one of "mysql", "elastic" or "manticore". Try resaving the Search Control Panel', $prefs['unified_engine']));
                 return [];
         }
 
@@ -286,6 +304,11 @@ class UnifiedSearchLib
                     $tikilib->set_preference('unified_mysql_index_current', $indexName);
                     TikiDb::get()->releaseLock($indexName);
 
+                    break;
+                case 'manticore':
+                    // Obtain the old index and destroy it after permanently replacing it.
+                    $oldIndex = $this->getIndex('data', false);
+                    $tikilib->set_preference('unified_manticore_index_current', $indexName);
                     break;
             }
 
@@ -371,6 +394,12 @@ class UnifiedSearchLib
                 $version = $tikilib->getMySQLVersion();
                 $index = $prefs['unified_mysql_index_current'];
                 break;
+            case 'manticore':
+                $manticore = new \Search_Manticore_Connection($prefs['unified_manticore_url']);
+                $engine = 'Manticore';
+                $version = $manticore->getVersion();
+                $index = $prefs['unified_manticore_index_current'];
+                break;
             default:
                 $engine = '';
                 $version = '';
@@ -402,6 +431,11 @@ class UnifiedSearchLib
                 'data' => $prefs['unified_mysql_index_current'],
                 'preference' => 'index_' . 'pref_' . $prefs['language'],
                 'connect' => 'index_connect',
+            ],
+            'manticore' => [
+                'data' => $prefs['unified_manticore_index_current'],
+                'preference' => $prefs['unified_manticore_index_prefix'] . 'pref_' . $prefs['language'],
+                'connect' => $prefs['unified_manticore_index_prefix'] . 'connect',
             ],
         ];
 
@@ -818,6 +852,16 @@ class UnifiedSearchLib
             return $index;
         }
 
+        if ($engine == 'manticore' && $index = $this->getIndexLocation($indexType)) {
+            $client = $this->getManticoreClient();
+            $index = new Search_Manticore_Index($client, $index);
+
+            if ($useCache) {
+                $this->indices[$indexType] = $index;
+            }
+            return $index;
+        }
+
         // Do nothing, provide a fake index.
         if ($tiki_p_admin != 'y') {
             Feedback::error(tr('Contact the site administrator. The index needs rebuilding.'));
@@ -922,6 +966,9 @@ class UnifiedSearchLib
                 }
 
                 return $info;
+            case 'manticore':
+                // TODO: use META stats
+                return [];
             default:
                 return [];
         }
@@ -1006,6 +1053,23 @@ class UnifiedSearchLib
         return $connection;
     }
 
+    private function getManticoreClient()
+    {
+        global $prefs;
+        static $clients = [];
+
+        $target = $prefs['unified_manticore_url'];
+
+        if (! empty($clients[$target])) {
+            return $clients[$target];
+        }
+
+        $client = new Search_Mancitore_Client($target);
+
+        $clients[$target] = $client;
+        return $client;
+    }
+
     /**
      * @param string $mode
      * @return Search_Formatter_DataSource_Interface
@@ -1031,6 +1095,15 @@ class UnifiedSearchLib
                 if ($connection->getStatus()->status === 200) {
                     $dataSource->setPrefilter(function ($fields, $entry) {
                         return (new Search_Elastic_Prefilter())->get($fields, $entry);
+                    });
+                }
+            } elseif ($prefs['unified_engine'] === 'manticore') {
+                $client = $this->getManticoreClient();
+                $status = $client->getStatus();
+
+                if ($status['status'] === 200) {
+                    $dataSource->setPrefilter(function ($fields, $entry) {
+                        return (new Search_Manticore_Prefilter())->get($fields, $entry);
                     });
                 }
             }
@@ -1472,6 +1545,9 @@ class UnifiedSearchLib
             case 'mysql':
                 $logName .= '_mysql_' . TikiDb::get()->getOne('SELECT DATABASE()');
                 break;
+            case 'manticore':
+                $logName .= '_manticore_' . rtrim($prefs['unified_manticore_index_prefix'], '_');
+                break;
         }
         if ($rebuildType == 2) {
             $logName .= '_console';
@@ -1594,6 +1670,37 @@ class UnifiedSearchLib
             $searchIndex = [
                 'error'    => true,
                 'feedback' => $feedback,
+            ];
+        }
+
+        return $searchIndex;
+    }
+
+    /**
+     * Check Manticore service
+     *
+     * @return array
+     */
+    public function checkManticore()
+    {
+        global $prefs;
+        $searchIndex = [
+            'error'           => false,
+            'feedback'        => '',
+            'connectionError' => false,
+        ];
+
+        if ($prefs['unified_engine'] !== 'manticore') {
+            return $searchIndex;
+        }
+
+        $client = $this->getManticoreClient);
+        $connectionStatus = $client->getStatus();
+        if ($connectionStatus['status'] !== 200) {
+            $searchIndex = [
+                'error'           => true,
+                'feedback'        => $connectionStatus->error ?? '',
+                'connectionError' => true,
             ];
         }
 
