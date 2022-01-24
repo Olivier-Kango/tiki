@@ -42,7 +42,7 @@ class Tracker_Field_Currency extends Tracker_Field_Abstract implements Tracker_F
                         'name' => tr('Display Size'),
                         'description' => tr('Visible size of the field, in characters. Does not affect the numeric length.'),
                         'filter' => 'int',
-                        'default' => 7,
+                        'default' => 15,
                         'legacy_index' => 1,
                     ],
                     'prepend' => [
