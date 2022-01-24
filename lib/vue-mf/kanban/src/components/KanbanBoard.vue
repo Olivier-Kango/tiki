@@ -83,7 +83,7 @@ const handleAddRow = event => {
                     :rowValue="row.value"
                     :index="index"
                 >
-                    <KanbanColumns :rowId="row.id" :rowIndex="index" :rowValue="row.value" :columnIds="row.columns"></KanbanColumns>
+                    <KanbanColumns :rowId="row.id" :rowIndex="index" :rowValue="row.value" :cellIds="row.cells"></KanbanColumns>
                     <ButtonAddColumn v-if="index === 0" :rowId="row.id"></ButtonAddColumn>
                 </KanbanRow>
             </div>

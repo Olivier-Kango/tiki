@@ -27,7 +27,7 @@ const props = defineProps({
     },
     rowValue: [Number, String],
     columnValue: [Number, String],
-    columnId: {
+    cellId: {
         type: Number
     },
     columnHeader: {
@@ -63,7 +63,7 @@ const handleEditClick = event => {
 
 <template>
     <div class="kanban-column">
-        <div v-if="columnHeader" class="kanban-column-header drag-handle-column mb-1">
+        <div v-if="columnHeader" class="kanban-column-header drag-handle-cell mb-1">
             <h6 class="d-flex flex-grow-1 mb-0">
                 <span v-if="!showEditField" class="mr-2 flex-grow-1" @click="handleEditClick">{{ title }}</span>
                 <Field
@@ -97,7 +97,7 @@ const handleEditClick = event => {
             <slot />
         </div>
         <div>
-            <ButtonAddCard :columnId="columnId" :rowValue="rowValue" :columnValue="columnValue"></ButtonAddCard>
+            <ButtonAddCard :cellId="cellId" :rowValue="rowValue" :columnValue="columnValue"></ButtonAddCard>
         </div>
     </div>
 </template>

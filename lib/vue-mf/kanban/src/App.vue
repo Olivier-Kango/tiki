@@ -17,13 +17,13 @@ const props = defineProps({
 })
 
 onBeforeMount(() => {
+    console.log(props.customProps.kanbanData)
     // Removes duplicate ids
     const cardsAllIds = props.customProps.kanbanData.cards.map(card => card.id)
     props.customProps.kanbanData.cards = [...new Set(cardsAllIds)].map(id => {
         return props.customProps.kanbanData.cards.find(card => card.id === id)
     })
     store.dispatch('initBoard', props.customProps.kanbanData)
-    // console.log(props.customProps.kanbanData)
 })
 
 const boardId = ref(props.customProps.kanbanData.trackerId)

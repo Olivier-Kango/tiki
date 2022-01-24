@@ -24,7 +24,7 @@ const props = defineProps({
     },
     rowValue: [Number, String],
     columnValue: [Number, String],
-    columnId: {
+    cellId: {
         type: Number
     }
 })
@@ -46,24 +46,24 @@ const handleChange = (event) => {
             newIndex: event.moved.newIndex,
             element: event.moved.element,
             rowId: props.rowId,
-            columnId: props.columnId
+            cellId: props.cellId
         })
     } else if (event.added) {
         store.dispatch('addCard', {
             newIndex: event.added.newIndex,
             element: event.added.element,
             rowId: props.rowId,
-            columnId: props.columnId
+            cellId: props.cellId
         })
     } else if (event.removed) {
         store.dispatch('removeCard', {
             oldIndex: event.removed.oldIndex,
             element: event.removed.element,
             rowId: props.rowId,
-            columnId: props.columnId
+            cellId: props.cellId
         })
     }
-    setItems(store.getters.getColumn(props.columnId).cards)
+    setItems(store.getters.getCell(props.cellId).cards)
 }
 
 const setItems = ids => {

@@ -13,7 +13,7 @@ import kanban from '../../api/kanban'
 import store from '../../store'
 
 const props = defineProps({
-    columnId: {
+    cellId: {
         type: Number
     },
     rowValue: [String, Number],
@@ -51,7 +51,7 @@ const handleAddCard = () => {
 
     store.dispatch('addNewCard', {
         title: title.value,
-        columnId: props.columnId
+        cellId: props.cellId
     })
     emit('close')
 }
