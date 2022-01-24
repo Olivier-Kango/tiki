@@ -4067,7 +4067,7 @@ INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES('./mod
 INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES('./modules/mod-func-last_file_galleries.php', 'af963a8b129c5d3caede9dda957efcbc', '24.0alpha');
 INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES('./modules/mod-func-last_files.php', '62fc09658dd641975322eac201bfce06', '24.0alpha');
 INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES('./modules/mod-func-last_modif_events.php', '300c1c6088fd704559d4648410ca197d', '24.0alpha');
-INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES('./modules/mod-func-last_modif_pages.php', 'a1c4967e6e35828bd541af4c96ad0ac6', '24.0alpha');
+INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES('./modules/mod-func-last_modif_pages.php', 'c844e37a346c5efee2edd2a8a6ce7095', '24.0alpha');
 INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES('./modules/mod-func-last_modified_blogs.php', '0685cde5484563bfaf52026ea37d656b', '24.0alpha');
 INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES('./modules/mod-func-last_podcasts.php', 'fb0e27b4af2149b8a28904f0bffe1e3f', '24.0alpha');
 INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES('./modules/mod-func-last_submissions.php', 'a443dd4b5a582921886417d0b9bc7aef', '24.0alpha');
@@ -4692,7 +4692,7 @@ INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES('./tem
 INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES('./templates/modules/mod-last_file_galleries.tpl', 'a0b324e9086cc7f7be0c6ded33fcb56f', '24.0alpha');
 INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES('./templates/modules/mod-last_files.tpl', '76da96f94170aa50686e8b40d3105f82', '24.0alpha');
 INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES('./templates/modules/mod-last_modif_events.tpl', 'f9c55f2e17b6060b846acb37c4accd7f', '24.0alpha');
-INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES('./templates/modules/mod-last_modif_pages.tpl', '141fbdc49c94443a75d34a941efa3220', '24.0alpha');
+INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES('./templates/modules/mod-last_modif_pages.tpl', '397e6e6e40c3544c455b00f2defd5036', '24.0alpha');
 INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES('./templates/modules/mod-last_modified_blogs.tpl', '7cd4b047578bc3d48493e088403f5997', '24.0alpha');
 INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES('./templates/modules/mod-last_podcasts.tpl', '34650c5521e709d42b69c1b613a4c08a', '24.0alpha');
 INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES('./templates/modules/mod-last_submissions.tpl', '332076a9e6401b77454b2a3c07768f22', '24.0alpha');
@@ -12364,7 +12364,7 @@ INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES('./ven
 INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES('./vendor_bundled/vendor/composer/autoload_static.php', '29c329d647aea0dd376cdbfd97d5f49a', '24.0alpha');
 INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES('./vendor_bundled/vendor/composer/include_paths.php', '89be8d948d35482d25ea94940347476d', '24.0alpha');
 INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES('./vendor_bundled/vendor/composer/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '24.0alpha');
-INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES('./vendor_bundled/vendor/composer/installed.php', 'ac4198809344fac8fd7914fa0b9de779', '24.0alpha');
+INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES('./vendor_bundled/vendor/composer/installed.php', 'db8bd2a3bfb36c6cc5355cffac6b1c1f', '24.0alpha');
 INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES('./vendor_bundled/vendor/composer/installers/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '24.0alpha');
 INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES('./vendor_bundled/vendor/composer/installers/src/Composer/Installers/AglInstaller.php', '7ef5b54fd29c23dca26c2a9edf0dd98c', '24.0alpha');
 INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES('./vendor_bundled/vendor/composer/installers/src/Composer/Installers/AkauntingInstaller.php', '55a1a83b0b08b68e9f691ab804bac655', '24.0alpha');
@@ -14025,7 +14025,7 @@ INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES('./ven
 INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES('./vendor_bundled/vendor/jason-munro/cypht/scripts/update_password.php', '1ad725f5ace973c4a33b88802b017db1', '24.0alpha');
 INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES('./vendor_bundled/vendor/jason-munro/cypht/site.css', 'bcdbdb807b0c8b8e9af0591b021d4a6c', '24.0alpha');
 INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES('./vendor_bundled/vendor/jason-munro/cypht/site.js', '10b0c7b413e3fd310ca7e1ec8a53ea65', '24.0alpha');
-INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES('./vendor_bundled/vendor/jason-munro/cypht/site/index.php', '308dae306330e0042fc3a72df7e7b494', '24.0alpha');
+INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES('./vendor_bundled/vendor/jason-munro/cypht/site/index.php', '97f133a7c313fd9d237ff5e8c8d140a4', '24.0alpha');
 INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES('./vendor_bundled/vendor/jason-munro/cypht/site/modules/core/assets/fonts/Behdad/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '24.0alpha');
 INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES('./vendor_bundled/vendor/jason-munro/cypht/site/modules/core/assets/fonts/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '24.0alpha');
 INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES('./vendor_bundled/vendor/jason-munro/cypht/site/modules/core/assets/index.php', 'd41d8cd98f00b204e9800998ecf8427e', '24.0alpha');
