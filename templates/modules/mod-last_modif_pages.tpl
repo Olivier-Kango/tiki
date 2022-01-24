@@ -7,7 +7,7 @@
 				<tr>
 					{if $date eq 'y'}<th>{tr}Date{/tr}</th>{/if}
 					<th>{tr}Page{/tr}</th>
-					{if $user eq 'y'}<th>{tr}User{/tr}</th>{/if}
+					{if $modif_user eq 'y'}<th>{tr}User{/tr}</th>{/if}
 					{if $action eq 'y'}<th>{tr}Action{/tr}</th>{/if}
 					{if $comment eq 'y'}<th>{tr}Comment{/tr}</th>{/if}
 				</tr>
@@ -68,7 +68,7 @@
 							<td>{tr}{$page.action}{/tr}</td>
 						{/if}
 
-						{if $user eq 'y'}
+						{if $modif_user eq 'y'}
 							<td>{$page.user|username}</td>
 						{/if}
 
