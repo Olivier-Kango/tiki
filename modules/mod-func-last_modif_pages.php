@@ -77,7 +77,7 @@ function module_last_modif_pages($mod_reference, $module_params)
     $smarty->assign('url', isset($module_params["url"]) ? $module_params["url"] : 'tiki-lastchanges.php');
     $smarty->assign('namespaceoption', isset($module_params['show_namespace']) ? $module_params['show_namespace'] : 'n');
     $smarty->assign('date', isset($module_params["date"]) ? $module_params["date"] : 'n');
-    $smarty->assign('user', isset($module_params["user"]) ? $module_params["user"] : 'n');
+    $smarty->assign('modif_user', isset($module_params["user"]) ? $module_params["user"] : 'n');
     $smarty->assign('action', isset($module_params["action"]) ? $module_params["action"] : 'n');
     $smarty->assign('comment', isset($module_params["comment"]) ? $module_params["comment"] : 'n');
     $smarty->assign('maxcomment', isset($module_params["maxcomment"]) ? $module_params["maxcomment"] : 0);

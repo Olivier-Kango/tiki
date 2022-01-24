@@ -68,7 +68,7 @@
                             <td>{$page.action}</td>
                         {/if}
 
-                        {if $user eq 'y'}
+                        {if $modif_user eq 'y'}
                             <td>{$page.user|username}</td>
                         {/if}
 
