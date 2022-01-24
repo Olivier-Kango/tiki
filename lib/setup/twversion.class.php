@@ -52,7 +52,7 @@ class TWVersion
         $this->branch   = 'unstable';
 
         // Set everything else, including defaults.
-        $this->version  = '24.0alpha';
+        $this->version  = '24.0vcs';
         $this->star     = 'TBA';
         $this->releases = [];
 
