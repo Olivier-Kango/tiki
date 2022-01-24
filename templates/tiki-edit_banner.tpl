@@ -179,7 +179,7 @@
                 {if $hasImage eq 'y'}
                 <label class="col-sm-4 col-form-label">{tr}Current Image{/tr}</label>
                 <div class="col-sm-7">
-                    {$imageName}: <img src="banner_image.php?id={$bannerId}" alt="{tr}Current Image{/tr}">
+                    {$imageName}: <img class="img-fluid" src="banner_image.php?id={$bannerId}" alt="{tr}Current Image{/tr}">
                 </div>
                 {/if}
             </div>

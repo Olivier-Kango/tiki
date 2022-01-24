@@ -19,16 +19,18 @@ if (! isset($_REQUEST["id"])) {
 
 $id = (int) $_REQUEST['id'];
 $defaultCache = 'temp/public';
-if ($tikidomain) {
-    $defaultCache .= "/$tikidomain";
-}
-
-$bannercachefile = "$defaultCache/banner.$id";
 
 
 
 $access->check_feature('feature_banners');
 
+$bannercachefile = $prefs['tmpDir'];
+
+if ($tikidomain) {
+    $bannercachefile .= "/$tikidomain";
+}
+
+$bannercachefile .= "/banner." . (int)$_REQUEST["id"];
 
 if (is_file($bannercachefile) and (! isset($_REQUEST["reload"]))) {
     $size = getimagesize($bannercachefile);
