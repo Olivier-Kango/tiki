@@ -16,7 +16,11 @@
 
 
 <div class="plugin-desc" style="margin-left:30px">
-    {$plugin.description}
+    {if $plugin.description eq ''}
+        {tr}No description available{/tr}
+    {else}
+        {$plugin.description}
+    {/if}
 </div>
 
 {if $prefs.javascript_enabled eq 'y'}
