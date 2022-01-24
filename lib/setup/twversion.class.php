@@ -49,10 +49,10 @@ class TWVersion
 
     public function __construct()
     {
-        $this->branch   = 'stable';
+        $this->branch   = 'unstable';
 
         // Set everything else, including defaults.
-        $this->version  = '24.0vcs';
+        $this->version  = '24.0alpha';
         $this->star     = 'TBA';
         $this->releases = [];
 
@@ -124,6 +124,7 @@ class TWVersion
                 32 => 'UY Scuti',        // 21.x
                 33 => 'Corona Borealis', // 22.x
                 34 => 'Wasat',           // 23.x
+                35 => 'TBD',             // 24.x // Too Bad we still Don't have a star
         ];
     }
 
@@ -355,6 +356,7 @@ class TWVersion
                 '23.0beta',
                 '23.0RC1',
                 '23.0',
+                '24.0alpha',
             ];
     }
 
