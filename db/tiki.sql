@@ -4120,4 +4120,10 @@ CREATE TABLE `tiki_performance` (
     PRIMARY KEY (`id`)
 ) ENGINE=MyISAM;
 
+DROP TABLE IF EXISTS `tiki_password_blacklist`;
+CREATE TABLE `tiki_password_blacklist` (
+    `password` VARCHAR(30) NOT NULL,
+    PRIMARY KEY (`password`) USING HASH
+) ENGINE=MyISAM;
+
 SET FOREIGN_KEY_CHECKS = 1;
