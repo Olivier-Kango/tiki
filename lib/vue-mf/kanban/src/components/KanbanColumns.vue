@@ -89,6 +89,7 @@ const handleModalClosed = () => {
         @start="startDragging"
         @end="endDragging"
         :forceFallback="true"
+        :animation="200"
     >
         <template #item="{ element, index }">
             <KanbanColumn :columnHeader="rowIndex === 0" :columnId="element.id" :columnValue="getCols[index].value" :rowValue="rowValue" :colId="getCols[index].id" :title="getCols[index].title" :limit="getCols[index].wip" :total="store.getters.getCardsByCol(index).length">

@@ -107,6 +107,7 @@ const setItem = (itemId, newIndex) => {
         @start="startDragging"
         @end="endDragging"
         :forceFallback="true"
+        :animation="150"
     >
         <template #item="{ element }">
             <KanbanCard>
