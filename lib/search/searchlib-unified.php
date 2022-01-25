@@ -206,7 +206,7 @@ class UnifiedSearchLib
                 break;
             case 'manticore':
                 $client = $this->getManticoreClient();
-                $indexName = $prefs['unified_manticore_index_prefix'] . '_' . uniqid();
+                $indexName = $prefs['unified_manticore_index_prefix'] . 'main_' . uniqid();
                 $index = new Search_Manticore_Index($client, $indexName);
                 $engineResults = new Search_EngineResult_Manticore($index);
 
@@ -214,7 +214,7 @@ class UnifiedSearchLib
                     'tiki.process.shutdown',
                     function () use ($indexName, $index) {
                         global $prefs;
-                        if ($prefs['unified_manticore_index_current'] !== $indexName) {
+                        if (!empty($prefs['unified_manticore_index_current']) && $prefs['unified_manticore_index_current'] !== $indexName) {
                             $index->destroy();
                         }
                     }
@@ -395,10 +395,10 @@ class UnifiedSearchLib
                 $index = $prefs['unified_mysql_index_current'];
                 break;
             case 'manticore':
-                $manticore = new \Search_Manticore_Connection($prefs['unified_manticore_url']);
+                $manticore = new \Search_Manticore_Client($prefs['unified_manticore_url']);
                 $engine = 'Manticore';
                 $version = $manticore->getVersion();
-                $index = $prefs['unified_manticore_index_current'];
+                $index = $prefs['unified_manticore_index_current'] ?? '';
                 break;
             default:
                 $engine = '';
@@ -433,7 +433,7 @@ class UnifiedSearchLib
                 'connect' => 'index_connect',
             ],
             'manticore' => [
-                'data' => $prefs['unified_manticore_index_current'],
+                'data' => $prefs['unified_manticore_index_current'] ?? '',
                 'preference' => $prefs['unified_manticore_index_prefix'] . 'pref_' . $prefs['language'],
                 'connect' => $prefs['unified_manticore_index_prefix'] . 'connect',
             ],
@@ -1064,7 +1064,7 @@ class UnifiedSearchLib
             return $clients[$target];
         }
 
-        $client = new Search_Mancitore_Client($target);
+        $client = new Search_Manticore_Client($target);
 
         $clients[$target] = $client;
         return $client;
@@ -1694,7 +1694,7 @@ class UnifiedSearchLib
             return $searchIndex;
         }
 
-        $client = $this->getManticoreClient);
+        $client = $this->getManticoreClient();
         $connectionStatus = $client->getStatus();
         if ($connectionStatus['status'] !== 200) {
             $searchIndex = [

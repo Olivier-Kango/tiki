@@ -38,17 +38,19 @@ class Search_Manticore_Client
     public function getStatus()
     {
         try {
+            $status = ['status' => 0];
             $result = $this->client->sql([
-                'query' => 'SHOW STATUS'
+                'mode' => 'raw',
+                'body' => [
+                    'query' => 'SHOW STATUS',
+                ],
             ]);
-
-            if ($result) {
-                $result['status'] = 200;
-            } else {
-                $result = ['status' => 0];
+            if (! empty($result['data'])) {
+                foreach ($result['data'] as $row) {
+                    $status[$row['Counter']] = $row['Value'];
+                }
             }
-
-            return $result;
+            return $status;
         } catch (ManticoreException $e) {
             return [
                 'status' => 0,
@@ -57,13 +59,19 @@ class Search_Manticore_Client
         }
     }
 
+    public function getVersion()
+    {
+        $status = $this->getStatus();
+        return $status['version'] ?? 0;
+    }
+
     public function getIndexStatus($index = '')
     {
         try {
             $index = $this->client->index($index);
             return $index->status();
         } catch (ManticoreException $e) {
-            throw new Search_Manticore_Exception($e);
+            throw new Search_Manticore_ClientException($e);
         }
     }
 
@@ -71,9 +79,12 @@ class Search_Manticore_Client
     {
         try {
             $index = $this->client->index($index);
-            $index->create($definition, $settings, $silent);
+            $response = $index->create($definition, $settings, $silent);
+            if (! empty($response['error'])) {
+                throw new Search_Manticore_Exception($response['error']);
+            }
         } catch (ManticoreException $e) {
-            throw new Search_Manticore_Exception($e);
+            throw new Search_Manticore_ClientException($e);
         }
     }
 
@@ -81,9 +92,9 @@ class Search_Manticore_Client
     {
         try {
             $index = $this->client->index($index);
-            return $index->drop();
+            return $index->drop(true);
         } catch (ManticoreException $e) {
-            throw new Search_Manticore_Exception($e);
+            throw new Search_Manticore_ClientException($e);
         }
     }
 
@@ -92,20 +103,22 @@ class Search_Manticore_Client
         try {
             $index = $this->client->index($index);
             $result = $index->describe();
-            if (empty($result['error']) && !empty($result['data'])) {
-                $mapping = [];
-                foreach ($result['data'] as $row) {
-                    $mapping[$row['Field']] = [
-                        'type' => $row['Type'],
-                        'options' => explode(' ', $row['Properties'])
-                    ];
-                }
-                return $mapping;
-            } else {
-                return [];
-            }
         } catch (ManticoreException $e) {
-            throw new Search_Manticore_Exception($e);
+            $result = [
+                'error' => $e->getMessage()
+            ];
+        }
+        if (empty($result['error']) && !empty($result['data'])) {
+            $mapping = [];
+            foreach ($result['data'] as $row) {
+                $mapping[$row['Field']] = [
+                    'type' => $row['Type'],
+                    'options' => explode(' ', $row['Properties'])
+                ];
+            }
+            return $mapping;
+        } else {
+            return [];
         }
     }
 
@@ -115,7 +128,7 @@ class Search_Manticore_Client
             $index = $this->client->index($index);
             return $index->alter($operation, $field, $type);
         } catch (ManticoreException $e) {
-            throw new Search_Manticore_Exception($e);
+            throw new Search_Manticore_ClientException($e);
         }
     }
 
@@ -125,31 +138,36 @@ class Search_Manticore_Client
             $index = $this->client->index($index);
             return $index->search($query);
         } catch (ManticoreException $e) {
-            throw new Search_Manticore_Exception($e);
+            throw new Search_Manticore_ClientException($e);
         }
     }
 
-    public function storeQuery($index, $query)
+    public function storeQuery($index, $query, $name)
     {
         try {
             return $this->client->pq()->doc([
                 'index' => $index,
-                'body' => $query
+                'body' => [
+                    'query' => $query,
+                    'tags' => [$name],
+                ]
             ]);
         } catch (ManticoreException $e) {
-            throw new Search_Manticore_Exception($e);
+            throw new Search_Manticore_ClientException($e);
         }
     }
 
-    public function unstoreQuery($index, $query)
+    public function unstoreQuery($index, $name)
     {
         try {
             return $this->client->pq()->deleteByQuery([
                 'index' => $index,
-                'body' => $query
+                'body' => [
+                    'tags' => [$name],
+                ]
             ]);
         } catch (ManticoreException $e) {
-            throw new Search_Manticore_Exception($e);
+            throw new Search_Manticore_ClientException($e);
         }
     }
 
@@ -167,7 +185,7 @@ class Search_Manticore_Client
                 ],
             ]);
         } catch (ManticoreException $e) {
-            throw new Search_Manticore_Exception($e);
+            throw new Search_Manticore_ClientException($e);
         }
     }
 
@@ -177,7 +195,7 @@ class Search_Manticore_Client
             $index = $this->client->index($index);
             return $index->addDocument($data);
         } catch (ManticoreException $e) {
-            throw new Search_Manticore_Exception($e);
+            throw new Search_Manticore_ClientException($e);
         }
     }
 
@@ -190,7 +208,7 @@ class Search_Manticore_Client
                 'object_id' => $id,
             ]);
         } catch (ManticoreException $e) {
-            throw new Search_Manticore_Exception($e);
+            throw new Search_Manticore_ClientException($e);
         }
     }
 
@@ -211,7 +229,7 @@ class Search_Manticore_Client
             $result = new ResultSet($this->client->search($params, true));
             return $result->current();
         } catch (ManticoreException $e) {
-            throw new Search_Manticore_Exception($e);
+            throw new Search_Manticore_ClientException($e);
         }
     }
 

@@ -6,7 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
-class Search_Type_MultivalueNumber implements Search_Type_Interface
+class Search_Type_MultivalueJson implements Search_Type_Interface
 {
     private $values;
 
@@ -22,8 +22,15 @@ class Search_Type_MultivalueNumber implements Search_Type_Interface
 
     public function getValue()
     {
-        return array_map(function($val) {
-            return hexdec(md5($val));
-        }, $this->values);
+        $strings = [];
+        foreach ($this->values as $val) {
+            $val = md5($val);
+            $raw = 'token' . $val;
+
+            // Must strip numbers to prevent tokenization
+            $strings[] = strtr($raw, '1234567890', 'pqrtuvwxyz');
+        }
+
+        return json_encode($strings);
     }
 }

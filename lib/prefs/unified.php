@@ -267,7 +267,7 @@ function prefs_unified_list()
         ],
         'unified_manticore_url' => [
             'name' => tra('Manticore URL'),
-            'description' => tra('URL of the Mancitore search server'),
+            'description' => tra('URL of the Manticore search server'),
             'type' => 'text',
             'filter' => 'url',
             'default' => 'http://localhost:9308',
@@ -282,7 +282,7 @@ function prefs_unified_list()
             'size' => 10,
         ],
         'unified_manticore_index_current' => [
-            'name' => tra('Mancitore current index'),
+            'name' => tra('Manticore current index'),
             'description' => tra('A new set of indexes are created upon rebuilding, and the old ones are then destroyed. This setting enables seeing the currently active index prefix.'),
             'hint' => tra('Do not change this value unless you know what you are doing.'),
             'type' => 'text',

@@ -25,7 +25,7 @@ class Search_Manticore_TypeFactory implements Search_Type_Factory_Interface
 
     public function timestamp($value, $dateOnly = false)
     {
-        return new Search_Type_DateTime($value, $dateOnly);
+        return new Search_Type_Timestamp($value, $dateOnly);
     }
 
     public function identifier($value)
@@ -40,7 +40,7 @@ class Search_Manticore_TypeFactory implements Search_Type_Factory_Interface
 
     public function multivalue($values)
     {
-        return new Search_Type_MultivalueNumber(array_values((array) $values));
+        return new Search_Type_MultivalueJson(array_values((array) $values));
     }
 
     public function object($value)

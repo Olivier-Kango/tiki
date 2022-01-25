@@ -54,7 +54,7 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
 
         $data = array_map(
             function ($entry) {
-                return $entry->getValue();
+                return $entry->getValue() ?? "";
             },
             $data
         );
@@ -74,9 +74,9 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
                     return [
                         "type" => "string",
                     ];
-                } elseif ($entry instanceof Search_Type_MultivalueNumber) {
+                } elseif ($entry instanceof Search_Type_MultivalueJson) {
                     return [
-                        "type" => "multi64",
+                        "type" => "json",
                     ];
                 } elseif ($entry instanceof Search_Type_Object) {
                     return [
@@ -121,12 +121,13 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
     private function getIndexSettings()
     {
         global $prefs;
-        $stopwords_file = tempnam(realpath("temp"), 'manticore-stopwords');
-        file_put_contents($file, implode("\n", explode(",", $prefs[''])));
+
+        $stopwords_file = realpath("temp").'/manticore-stopwords';
+        file_put_contents($stopwords_file, implode("\n", $prefs['unified_stopwords']));
 
         $settings = [
             'stopwords' => $stopwords_file,
-            'morphology' => $prefs['unified_manticore_morphology'],
+            'morphology' => $prefs['unified_manticore_morphology'] ?? '',
             // TODO: see what other options to support https://manual.manticoresearch.com/Creating_an_index/Local_indexes/Plain_and_real-time_index_settings#Natural-language-processing-specific-settings
         ];
 
@@ -136,6 +137,11 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
     public function optimize()
     {
         $this->client->optimize($this->index);
+    }
+
+    public function endUpdate()
+    {
+        $this->optimize();
     }
 
     public function invalidateMultiple(array $objectList)
@@ -246,7 +252,7 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
         return $this->client->percolate($this->index, $document);
     }
 
-    public function store(Search_Expr_Interface $expr)
+    public function store($name, Search_Expr_Interface $expr)
     {
         $search = $this->initSearch();
         $decorator = new Search_Manticore_QueryDecorator($search, $this);
@@ -254,12 +260,12 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
         $decorator->decorate($expr);
 
         $doc = $search->compile();
-        $this->connection->storeQuery($this->index, $doc);
+        $this->client->storeQuery($this->index, $doc, $name);
     }
 
-    public function unstore($query)
+    public function unstore($name)
     {
-        $this->connection->unstoreQuery($this->index, $query);
+        $this->connection->unstoreQuery($this->index, $name);
     }
 
     public function setFacetCount($count)
@@ -273,5 +279,10 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
             return $this->providedMappings[$field];
         }
         return new stdClass();
+    }
+
+    public function getFieldMappings()
+    {
+        return $this->providedMappings;
     }
 }

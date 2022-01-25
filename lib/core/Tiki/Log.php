@@ -89,7 +89,15 @@ class Tiki_Log extends AbstractLogger
             return;
         }
 
+        $msg = sprintf("[%s] %s", strtoupper(tra($level)), $message);
+        if ($context) {
+            if (count($context) == 1 && isset($context[0])) {
+                $msg .= ' ' . $context[0];
+            } else {
+                $msg .= ' ' . print_r($context, 1);
+            }
+        }
         $logslib = TikiLib::lib('logs');
-        $logslib->add_log($this->type, sprintf("[%s] %s", strtoupper(tra($level)), $message));
+        $logslib->add_log($this->type, $msg);
     }
 }
