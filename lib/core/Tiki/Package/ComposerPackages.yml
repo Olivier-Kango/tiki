@@ -35,7 +35,7 @@ FullCalendarSchedulerDeprecated:
   requiredBy:
     - "wikiplugin_trackercalendar"
   requiredVersion: ^1.9
-  state: deprecated
+  state: replaced
   replacedBy:
     - npm-asset/fullcalendar-scheduler
 FullCalendarScheduler:

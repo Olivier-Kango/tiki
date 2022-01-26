@@ -15,6 +15,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Tiki\Package\ComposerManager;
+use Tiki\Package\ComposerPackage;
 use Tiki\Package\PackageCommandHelper;
 
 class PackageUpdateCommand extends Command
@@ -46,6 +47,12 @@ class PackageUpdateCommand extends Command
                 'a',
                 InputOption::VALUE_NONE,
                 tr('Update all packages')
+            )
+            ->addOption(
+                'handle-deprecated',
+                null,
+                InputOption::VALUE_NONE,
+                tr('Handle deprecated packages')
             );
     }
 
@@ -73,23 +80,21 @@ class PackageUpdateCommand extends Command
         if ($installedPackages === false) {
             $output->writeln(
                 '<comment>' .
-                tr(
-                    'No packages found in composer.json in the root of the project.'
-                ) .
+                tr('No packages found in composer.json in the root of the project.') .
                 '</comment>'
             );
             return;
         }
 
-        $updatablePackages = PackageCommandHelper::getUpdatablePackages(
-            $installedPackages
-        );
+        $handleDeprecated = $input->getOption('handle-deprecated');
+        if ($handleDeprecated) {
+            $this->handleDeprecatedPackages();
+        }
+
+        $updatablePackages = PackageCommandHelper::getUpdatablePackages($installedPackages);
 
         if (empty($updatablePackages)) {
-            $output->writeln(
-                '<comment>' . tr('No packages available to be updated.')
-                . '</comment>'
-            );
+            $output->writeln('<comment>' . tr('No packages available to be updated.') . '</comment>');
             return;
         }
 
@@ -101,11 +106,7 @@ class PackageUpdateCommand extends Command
             ! empty($packageKey)
             && ! in_array($packageKey, array_column($updatablePackages, 'key'))
         ) {
-            $output->writeln(
-                '<error>' .
-                tr('Package `%0` not available for update.', $packageKey) .
-                '</error>'
-            );
+            $output->writeln('<error>' . tr('Package `%0` not available for update.', $packageKey) . '</error>');
             return;
         }
 
@@ -119,9 +120,7 @@ class PackageUpdateCommand extends Command
         } elseif ($packageKey) {
             $packagesToUpdate[] = $packageKey;
         } else {
-            $packagesToUpdate = $this->promptPackageUpdate(
-                $updatablePackages
-            );
+            $packagesToUpdate = $this->promptPackageUpdate($updatablePackages);
         }
 
         foreach ($packagesToUpdate as $package) {
@@ -152,6 +151,8 @@ class PackageUpdateCommand extends Command
             null,
             $validator
         );
+
+        return $packagesToUpdate;
     }
 
     /**
@@ -172,14 +173,63 @@ class PackageUpdateCommand extends Command
             $this->io->writeln($result);
         }
 
-        $message = '<info>' . tr('Package `%0` was updated', $package)
-            . '</info>';
+        $message = '<info>' . tr('Package `%0` was updated', $package) . '</info>';
 
         if ($error) {
-            $message = '<error>' .
-                tr('Failed to update package `%0`', $package) . '</error>';
+            $message = '<error>' . tr('Failed to update package `%0`', $package) . '</error>';
         }
 
         $this->io->writeln($message);
+    }
+
+    /**
+     * Replaces packages with their replacements or removes if deprecated
+     */
+    protected function handleDeprecatedPackages()
+    {
+        $availablePackages = [];
+        foreach ($this->composerManager->getAvailable(false) as $package) {
+            $packageName = $package['name'];
+            $availablePackages[$packageName] = $package;
+        }
+
+        $installedPackages = $this->composerManager->getInstalled();
+
+        $composer = $this->composerManager->getComposer();
+        $composerJson = $composer->getComposerConfigOrDefault();
+
+        foreach ($installedPackages as $package) {
+            $packageState = $package['state'] ?? ComposerPackage::STATE_ACTIVE;
+
+            if ($packageState == ComposerPackage::STATE_ACTIVE) {
+                continue;
+            }
+
+            if ($packageState == ComposerPackage::STATE_REPLACED) {
+                $replacePackages = $package['replacedBy'] ?? [];
+                array_walk($replacePackages, function ($replacePackageName) use (&$composerJson, $composer, $availablePackages) {
+
+                    $package = $availablePackages[$replacePackageName] ?? null;
+
+                    if (! $package) {
+                        return;
+                    }
+
+                    $composerJson = $composer->addComposerPackageToJson(
+                        $composerJson,
+                        $package['name'],
+                        $package['requiredVersion'],
+                        $package['scripts']
+                    );
+                });
+            }
+
+            unset($composerJson['require'][$package['name']]);
+        }
+
+        $fileContent = json_encode($composerJson, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+        file_put_contents($composer->getComposerConfigFilePath(), $fileContent);
+
+        $this->output->writeln($this->composerManager->fixMissing());
     }
 }
