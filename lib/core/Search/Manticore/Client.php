@@ -122,7 +122,7 @@ class Search_Manticore_Client
         }
     }
 
-    public function alter($operation, $field, $type)
+    public function alter($index, $operation, $field, $type)
     {
         try {
             $index = $this->client->index($index);

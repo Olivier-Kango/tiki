@@ -45,12 +45,12 @@ class Search_Manticore_TypeFactory implements Search_Type_Factory_Interface
 
     public function object($value)
     {
-        return new Search_Type_Object($value);
+        return new Search_Type_JsonEncoded($value);
     }
 
     public function nested($value)
     {
-        return new Search_Type_Nested($value);
+        return new Search_Type_JsonEncoded($value);
     }
 
     public function geopoint($value)
@@ -70,6 +70,6 @@ class Search_Manticore_TypeFactory implements Search_Type_Factory_Interface
 
     public function json($value)
     {
-        return new Search_Type_Json($value);
+        return new Search_Type_JsonEncoded($value);
     }
 }

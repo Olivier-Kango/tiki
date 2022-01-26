@@ -78,15 +78,7 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
                     return [
                         "type" => "json",
                     ];
-                } elseif ($entry instanceof Search_Type_Object) {
-                    return [
-                        "type" => "json",
-                    ];
-                } elseif ($entry instanceof Search_Type_Json) {
-                    return [
-                        "type" => "json",
-                    ];
-                } elseif ($entry instanceof Search_Type_Nested) {
+                } elseif ($entry instanceof Search_Type_JsonEncoded) {
                     return [
                         "type" => "json",
                     ];
@@ -111,8 +103,8 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
             $this->client->createIndex($this->index, $mapping, $this->getIndexSettings());
             $this->providedMappings = $mapping;
         } else {
-            foreach(array_diff($mapping, $this->providedMappings) as $field => $type) {
-                $this->client->alter('add', $field, $type);
+            foreach($mapping as $field => $type) {
+                $this->client->alter($this->index,'add', $field, $type['type']);
             }
             $this->providedMappings = array_merge($this->providedMappings, $mapping);
         }
