@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "01f560ebee3f2b08a55c5d9942b91f1e",
+    "content-hash": "6e31bb62f485cbeb5d626f8b92f21f4a",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -5711,6 +5711,18 @@
             ]
         },
         {
+            "name": "npm-asset/cookie",
+            "version": "0.4.1",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/cookie/-/cookie-0.4.1.tgz"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
             "name": "npm-asset/credit-card-regex",
             "version": "2.0.0",
             "dist": {
@@ -5811,6 +5823,21 @@
             },
             "require": {
                 "npm-asset/css-line-break": "2.0.1"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/import-map-overrides",
+            "version": "2.4.2",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/import-map-overrides/-/import-map-overrides-2.4.2.tgz"
+            },
+            "require": {
+                "npm-asset/cookie": ">=0.4.1,<0.5.0"
             },
             "type": "npm-asset",
             "license": [
@@ -6065,6 +6092,18 @@
             "type": "npm-asset",
             "license": [
                 "SEE LICENSE IN LICENSE"
+            ]
+        },
+        {
+            "name": "npm-asset/systemjs",
+            "version": "6.12.1",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/systemjs/-/systemjs-6.12.1.tgz"
+            },
+            "type": "npm-asset",
+            "license": [
+                "MIT"
             ]
         },
         {
@@ -13715,5 +13754,5 @@
         "ext-soap": "0",
         "php": "7.4"
     },
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.0.0"
 }
