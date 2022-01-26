@@ -48,6 +48,8 @@ const handleChange = (event) => {
             rowId: props.rowId,
             cellId: props.cellId
         })
+        let sortOrder = store.getters.getCard(event.moved.element.id).sortOrder
+        setItem(event.moved.element.id, sortOrder)
     } else if (event.added) {
         store.dispatch('addCard', {
             newIndex: event.added.newIndex,
@@ -55,6 +57,8 @@ const handleChange = (event) => {
             rowId: props.rowId,
             cellId: props.cellId
         })
+        let sortOrder = store.getters.getCard(event.added.element.id).sortOrder
+        setItem(event.added.element.id, sortOrder)
     } else if (event.removed) {
         store.dispatch('removeCard', {
             oldIndex: event.removed.oldIndex,
@@ -63,7 +67,7 @@ const handleChange = (event) => {
             cellId: props.cellId
         })
     }
-    setItems(store.getters.getCell(props.cellId).cards)
+    // setItems(store.getters.getCell(props.cellId).cards)
 }
 
 const setItems = ids => {

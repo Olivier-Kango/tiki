@@ -31,12 +31,18 @@ watchEffect(() => {
 })
 
 const handleAddCard = () => {
+    let sortOrder = 0
+    let cardIds = store.getters.getCell(props.cellId).cards
+    let lastCard = store.getters.getCard(cardIds[cardIds.length - 1])
+    if (lastCard) sortOrder = parseFloat(lastCard.sortOrder) + 1
+
     kanban.createItem(
         { trackerId: trackerId.value },
         { fields: {
                 [store.getters.getTitleField]: title.value,
                 [store.getters.getSwimlaneField]: props.rowValue,
-                [store.getters.getXaxisField]: props.columnValue
+                [store.getters.getXaxisField]: props.columnValue,
+                [store.getters.getYaxisField]: sortOrder
             },
         }
     )
@@ -51,7 +57,8 @@ const handleAddCard = () => {
 
     store.dispatch('addNewCard', {
         title: title.value,
-        cellId: props.cellId
+        cellId: props.cellId,
+        sortOrder: sortOrder
     })
     emit('close')
 }
