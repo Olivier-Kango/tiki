@@ -33,7 +33,7 @@ watchEffect(() => {
 
 const handleAddCard = () => {
     loading.value = true
-    let sortOrder = 0
+    let sortOrder = 1
     let cardIds = store.getters.getCell(props.cellId).cards
     let lastCard = store.getters.getCard(cardIds[cardIds.length - 1])
     if (lastCard) sortOrder = parseFloat(lastCard.sortOrder) + 1
