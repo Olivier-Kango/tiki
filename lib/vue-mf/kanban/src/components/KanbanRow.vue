@@ -106,7 +106,7 @@ const handleMoveUp = event => {
 
     .kanban-row-title {
         display: flex;
-        justify-content: flex-start;
+        justify-content: center;
         width: 100%;
         margin: 5px;
         background-color: #f3f4fa;

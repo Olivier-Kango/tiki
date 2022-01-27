@@ -30,13 +30,13 @@ const props = defineProps({
     cellId: {
         type: Number
     },
-    columnHeader: {
-        type: Boolean,
-        default: false
+    rowIndex: {
+        type: Number
     }
 });
 
 const showEditField = ref(false)
+const pureColor = ref('#f3f4fa')
 const toast = useToast()
 
 const isLimitExceeded = computed(() => props.total > props.limit)
@@ -63,7 +63,7 @@ const handleEditClick = event => {
 
 <template>
     <div class="kanban-column">
-        <div v-if="columnHeader" class="kanban-column-header drag-handle-cell mb-1">
+        <div class="kanban-column-header drag-handle-cell mb-2" :style="{'background-color': pureColor}">
             <h6 class="d-flex flex-grow-1 mb-0">
                 <span v-if="!showEditField" class="mr-2 flex-grow-1" @click="handleEditClick">{{ title }}</span>
                 <Field
@@ -81,7 +81,7 @@ const handleEditClick = event => {
                 />
                 <span class="rounded p-1" :class="{'bg-danger text-light': isLimitExceeded}">{{ total }}/{{ limit }}</span>
             </h6>
-            <Dropdown class="d-inline-block ml-2" variant="default" sm>
+            <Dropdown v-if="rowIndex === 0" class="d-inline-block ml-2" variant="default" sm>
                 <template v-slot:dropdown-button>
                     <i class="fas fa-ellipsis-h"></i>
                 </template>
@@ -89,6 +89,7 @@ const handleEditClick = event => {
                     <div class="px-2">
                         <span class="dropdown-item-text">List actions</span>
                         <div class="dropdown-divider"></div>
+                        <ColorPicker v-model:pureColor="pureColor" />
                     </div>
                 </template>
             </Dropdown>
@@ -117,6 +118,13 @@ const handleEditClick = event => {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        padding: 5px 5px 5px 10px;
+        border-radius: 6px;
+        background: #dbe0ff;
+
+        h6 span {
+            font-size: 1.05rem;
+        }
     }
 }
 </style>
