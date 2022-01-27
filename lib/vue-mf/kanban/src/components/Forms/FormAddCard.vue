@@ -25,12 +25,14 @@ const toast = useToast()
 const trackerId = ref(store.getters.getTrackerId)
 const title = ref('')
 const textarea = ref(null)
+const loading = ref(false)
 
 watchEffect(() => {
     autosize(textarea.value)
 })
 
 const handleAddCard = () => {
+    loading.value = true
     let sortOrder = 0
     let cardIds = store.getters.getCell(props.cellId).cards
     let lastCard = store.getters.getCard(cardIds[cardIds.length - 1])
@@ -47,20 +49,23 @@ const handleAddCard = () => {
         }
     )
         .then(res => {
-            toast.success(`Success! Item created.`)
+            loading.value = false
+            emit('close')
+            store.dispatch('addNewCard', {
+                id: res.data.itemId,
+                title: title.value,
+                cellId: props.cellId,
+                row: props.rowValue,
+                column: props.columnValue,
+                sortOrder: sortOrder,
+            })
+            toast.success(`${res.status} ${res.statusText}! Item created.`)
         })
         .catch(err => {
             const { code, errortitle, message } = err.response.data
             const msg = `Code: ${code} - ${message}`
             toast.error(msg)
         })
-
-    store.dispatch('addNewCard', {
-        title: title.value,
-        cellId: props.cellId,
-        sortOrder: sortOrder
-    })
-    emit('close')
 }
 </script>
 
@@ -76,7 +81,10 @@ const handleAddCard = () => {
             >{{ title }}</textarea>
         </Card>
     </KanbanCard>
-    <Button sm @click="handleAddCard">Add card</Button>
+    <Button sm @click="handleAddCard">
+        Add card
+        <i v-if="loading" class="fas fa-spinner fa-spin"></i>
+    </Button>
     <Button class="ml-2" variant="default" sm @click="$emit('close')">
         <i class="fas fa-times"></i>
     </Button>
