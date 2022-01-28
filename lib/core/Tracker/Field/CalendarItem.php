@@ -65,7 +65,7 @@ class Tracker_Field_CalendarItem extends Tracker_Field_JsCalendar
         $this->attributeLib = TikiLib::lib('attribute');
         $this->calendarLib = TikiLib::lib('calendar');
 
-        if ($fieldInfo['options_map']['calendarId']) {
+        if (isset($fieldInfo['options_map']['calendarId'])) {
             TikiLib::lib('relation')->add_relation(
                 'tiki.calendar.attach',
                 'tracker',

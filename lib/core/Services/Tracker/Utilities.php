@@ -320,7 +320,7 @@ class Services_Tracker_Utilities
             $info = $trklib->get_field_info($fieldId);
             $handler = $trklib->get_field_handler($info, $item);
             $data = $handler->getFieldData();
-            $out[$name] = $data['value'];
+            $out[$name] = $data['value'] ?? '';
         }
 
         return $out;
