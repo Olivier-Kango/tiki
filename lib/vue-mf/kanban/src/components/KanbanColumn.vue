@@ -36,7 +36,6 @@ const props = defineProps({
 });
 
 const showEditField = ref(false)
-const pureColor = ref('#f3f4fa')
 const toast = useToast()
 
 const isLimitExceeded = computed(() => props.total > props.limit)
@@ -56,6 +55,14 @@ const handleTitleBlur = event => {
     })
 }
 
+const handleColorChange = (colorValue) => {
+    store.dispatch('editColumnField', {
+        id: props.colId,
+        field: 'color',
+        data: colorValue
+    })
+}
+
 const handleEditClick = event => {
     showEditField.value = true
 }
@@ -63,7 +70,7 @@ const handleEditClick = event => {
 
 <template>
     <div class="kanban-column">
-        <div class="kanban-column-header drag-handle-cell mb-2" :style="{'background-color': pureColor}">
+        <div class="kanban-column-header drag-handle-cell mb-2" :style="{'background-color': store.getters.getColColor(props.colId)}">
             <h6 class="d-flex flex-grow-1 mb-0">
                 <span v-if="!showEditField" class="mr-2 flex-grow-1" @click="handleEditClick">{{ title }}</span>
                 <Field
@@ -89,7 +96,7 @@ const handleEditClick = event => {
                     <div class="px-2">
                         <span class="dropdown-item-text">List actions</span>
                         <div class="dropdown-divider"></div>
-                        <ColorPicker v-model:pureColor="pureColor" />
+                        <ColorPicker :pureColor="store.getters.getColColor(props.colId)" useType="pure" format="hex" @pureColorChange="handleColorChange" />
                     </div>
                 </template>
             </Dropdown>
@@ -109,6 +116,7 @@ const handleEditClick = event => {
     flex-direction: column;
     min-width: 18rem;
     width: 18rem;
+    flex-grow: 1;
     padding: 10px;
     margin: 0 5px;
     background-color: rgba(243, 244, 250, 1);

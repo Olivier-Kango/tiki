@@ -109,7 +109,7 @@ const handleMoveUp = event => {
         justify-content: center;
         width: 100%;
         margin: 5px;
-        background-color: #f3f4fa;
+        background-color: #dbe0ff;
         border-radius: 6px;
         font-weight: 500;
 
