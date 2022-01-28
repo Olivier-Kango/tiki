@@ -71,7 +71,7 @@ const handleMoveUp = event => {
 <template>
     <div class="kanban-row">
         <div class="kanban-row-title" :class="{'bg-color-transparent': transparentTitleBg}">
-            <span v-if="!showEditField" class="pl-3" @click="handleEditClick">{{ title }}</span>
+            <span v-if="!showEditField" class="pl-3">{{ title }}</span>
             <Form v-if="showEditField">
                 <Field
                     v-focus
@@ -82,7 +82,7 @@ const handleMoveUp = event => {
                     :rules="{ minLength: 1 }"
                 />
             </Form>
-            <div class="kanban-row-controls pl-2">
+            <div v-if="false" class="kanban-row-controls pl-2">
                 <Button class="mr-1 py-0 px-1" sm variant="light" @click="handleMoveDown"><i class="fas fa-chevron-down"></i></Button>
                 <Button class="py-0 px-1" sm variant="light" @click="handleMoveUp"><i class="fas fa-chevron-up"></i></Button>
             </div>
@@ -107,7 +107,6 @@ const handleMoveUp = event => {
     .kanban-row-title {
         display: flex;
         justify-content: center;
-        width: 100%;
         margin: 5px;
         background-color: #dbe0ff;
         border-radius: 6px;

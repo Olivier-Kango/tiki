@@ -103,7 +103,7 @@ const setItem = (itemId, newIndex) => {
         :list="getCards"
         group="cards"
         item-key="id"
-        class="container-cards h-100"
+        class="container-cards"
         chosenClass="chosen-card"
         ghostClass="ghost-card"
         dragClass="dragging-card"
@@ -136,6 +136,7 @@ const setItem = (itemId, newIndex) => {
 
 <style lang="scss" scoped>
 .container-cards {
+    flex-grow: 1;
     position: relative;
     max-height: 800px;
 }

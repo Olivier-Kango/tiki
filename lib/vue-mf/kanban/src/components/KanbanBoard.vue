@@ -54,7 +54,7 @@ const handleAddRow = event => {
 <template>
     <div>
         <nav class="navbar navbar-light rounded-lg bg-color-grey" :class="{'bg-color-transparent': board.imageUrl, 'bg-light': !board.imageUrl}">
-            <div @click="handleEditClick">
+            <div>
                 <span v-if="!showEditField" style="font-size: 1.15rem">{{ board.title }}</span>
                 <Field
                     v-if="showEditField"
@@ -71,7 +71,7 @@ const handleAddRow = event => {
             </div>
             <Button v-if="false" sm variant="light" @click="handleAddRow"><i class="fas fa-plus mr-1"></i>Add swimlane</Button>
         </nav>
-        <PerfectScrollbar>
+        <PerfectScrollbar class="d-flex">
             <div class="kanban-container" :style="{backgroundImage: board.imageUrl ? `url(${board.imageUrl})` : 'none'}">
                 <KanbanRow
                     v-for="(row, index) in store.getters.getRows(board.rows)"
@@ -93,6 +93,7 @@ const handleAddRow = event => {
 
 <style lang="scss" scoped>
 .kanban-container {
+    flex-grow: 1;
     padding-top: 5px;
     background-size: cover;
 }

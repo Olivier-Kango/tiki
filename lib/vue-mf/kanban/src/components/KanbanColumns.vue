@@ -93,7 +93,7 @@ const handleModalClosed = () => {
     >
         <template #item="{ element, index }">
             <KanbanColumn :rowIndex="rowIndex" :colIndex="index" :cellId="element.id" :columnValue="getCols[index].value" :rowValue="rowValue" :colId="getCols[index].id" :title="getCols[index].title" :limit="getCols[index].wip" :total="store.getters.getCardsByCol(index).length">
-                <PerfectScrollbar class="h-100">
+                <PerfectScrollbar class="d-flex h-100">
                     <KanbanCards :cellId="element.id" :rowId="rowId" :columnValue="getCols[index].value" :rowValue="rowValue" :cardIds="element.cards" @editCard="handleEditCard"></KanbanCards>
                 </PerfectScrollbar>
             </KanbanColumn>

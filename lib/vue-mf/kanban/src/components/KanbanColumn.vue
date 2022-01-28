@@ -72,10 +72,10 @@ const handleEditClick = event => {
 </script>
 
 <template>
-    <div class="kanban-column">
+    <div class="kanban-column" :class="{'border border-danger': isLimitExceeded}">
         <div class="kanban-column-header mb-2" :style="{'background-color': store.getters.getColColor(props.colId)}">
-            <h6 class="d-flex flex-grow-1 mb-0" :class="{'drag-handle-cell': rowIndex === 0}">
-                <span v-if="!showEditField" class="mr-2 flex-grow-1" @click="handleEditClick">{{ title }}</span>
+            <h6 class="d-flex flex-grow-1 align-items-center mb-0" :class="{'drag-handle-cell': false}">
+                <span v-if="!showEditField" class="mr-2 flex-grow-1">{{ title }}</span>
                 <Field
                     class="flex-grow-1 mr-1"
                     v-if="showEditField"
