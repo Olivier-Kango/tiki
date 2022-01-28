@@ -32,6 +32,9 @@ const props = defineProps({
     },
     rowIndex: {
         type: Number
+    },
+    colIndex: {
+        type: Number
     }
 });
 
@@ -104,7 +107,7 @@ const handleEditClick = event => {
         <div class="flex-grow-1">
             <slot />
         </div>
-        <div>
+        <div v-if="colIndex === 0">
             <ButtonAddCard :cellId="cellId" :rowValue="rowValue" :columnValue="columnValue"></ButtonAddCard>
         </div>
     </div>
