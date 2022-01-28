@@ -92,18 +92,13 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
                     ];
                 } else {
                     return [
-                        "type" => "string",
+                        "type" => "text",
+                        "options" => ["indexed", "attribute"]
                     ];
                 }
             },
             array_diff_key($data, $this->providedMappings)
         );
-        if (isset($mapping['contents'])) {
-            $mapping['contents'] = [
-                "type" => "text",
-                "options" => ["indexed", "attribute"]
-            ];
-        }
         if (empty($this->providedMappings)) {
             $this->client->createIndex($this->index, $mapping, $this->getIndexSettings());
             $this->providedMappings = $mapping;

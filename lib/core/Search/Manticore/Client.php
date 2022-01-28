@@ -26,7 +26,9 @@ class Search_Manticore_Client
             'transport' => $parsed['scheme'] == 'https' ? 'Https' : 'Http',
             'scheme' => $parsed['scheme'],
             'host' => $parsed['host'],
-            'port' => $parsed['port']
+            'port' => $parsed['port'],
+            'timeout' => 10,
+            'connection_timeout' => 5,
         ];
         try {
             $this->client = new \Manticoresearch\Client($config, new Tiki_Log('Manticore', \Psr\Log\LogLevel::WARNING));
