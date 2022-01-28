@@ -50,6 +50,7 @@ function wikiplugin_listexecute($data, $params)
             'filegal_change_filename' => 'Search_Action_FileGalleryChangeFilename',
             'filegal_image_overlay' => 'Search_Action_FileGalleryImageOverlay',
             'snapshot' => 'Search_Action_Snapshot',
+            'user_group_modify' => 'Search_Action_UserGroupModify',
         ]
     );
 

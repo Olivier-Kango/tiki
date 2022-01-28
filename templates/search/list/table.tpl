@@ -132,7 +132,7 @@
     </table>
 </div>
 {if $actions}
-    <div class="row w-100">
+    <div class="row w-100 list_execute_actions">
         <div class="col-sm-1">
             <input type="submit" class="btn btn-primary btn-sm" title="{tr}Apply Changes{/tr}" id="submit_form_{$id}" disabled value="{tr}Apply{/tr}">
         </div>
@@ -193,10 +193,10 @@
                     }
                 ).show();
             } else if( params ) {
-                $(this).siblings('input[name=list_input]').show();
+                $(this).closest('.list_execute_actions').find('input[name=list_input]').show();
                 $("#list_input_container_{{$id}}").hide();
             } else {
-                $(this).siblings('input[name=list_input]').hide();
+                $(this).closest('.list_execute_actions').find('input[name=list_input]').hide();
                 $("#list_input_container_{{$id}}").hide();
             }
         });
