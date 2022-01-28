@@ -146,7 +146,7 @@ function wikiplugin_colorbox($data, $params)
         if (empty($params['sort_mode'])) {
             $params['sort_mode'] = 'created_desc';
         }
-        $filter = empty($params['fileId']) ? [] : ['fileId' => $params['fileId']];
+        $filter = empty($params['fileId']) ? ['fileId' => []] : ['fileId' => $params['fileId']];
         if (! is_array($filter['fileId'])) {
             $filter['fileId'] = explode(':', $filter['fileId']);
         }

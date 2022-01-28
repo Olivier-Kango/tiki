@@ -267,7 +267,6 @@ class PdfGenerator
         $this->_getImages($html, $tempImgArr);
         $defaults = new \Mpdf\Config\ConfigVariables();
         $defaultVariables = $defaults->getDefaults();
-
         $mpdfConfig = [
             'fontDir' => array_merge([TIKI_PATH . '/lib/pdf/fontdata/fontttf/'], $defaultVariables['fontDir']),
             'mode' => 'utf8',
@@ -338,7 +337,7 @@ class PdfGenerator
         }
 
         $pdfPages = $this->getPDFPages($html, $pdfSettings);
-        $cssStyles = str_replace([".tiki","opacity: 0;","page-break-inside: avoid;"], ["","fill: #fff;opacity:0.3;stroke:black","page-break-inside: auto;"], '<style>' . $basecss . $themecss . $printcss . $customGrid . $extcss . $this->bootstrapReplace() . $prefs["header_custom_css"] . '</style>'); //adding css styles with first page content
+        $cssStyles = str_replace([".tiki","opacity: 0;","page-break-inside: avoid;"], ["","fill: #fff;opacity:0.3;stroke:black","page-break-inside: auto;"], '<style>' . $basecss . $themecss . $printcss . $pageCSS . $extcss . $this->bootstrapReplace() . $prefs["header_custom_css"] . '</style>'); //adding css styles with first page content
         //PDF import templates will not work if background color is set, need to replace in css
         if (
             array_filter(array_column($pdfPages, 'pageContent'), function ($var) {
@@ -489,6 +488,9 @@ class PdfGenerator
                     if ($pdfPage['background'] != '') {
                         $bgColor = "background: linear-gradient(top, " . $pdfPage['background'] . ", " . $pdfPage['background'] . ");";
                     }
+
+                    $pdfPage['pageContent'] = $this->getHtmlLayout($pdfPage['pageContent']);
+
                     $mpdf->WriteHTML('<html><body class="' . $bodycss . '" style="margin:0px;padding:0px;">' . $cssStyles);
                     $pagesTotal += floor(strlen($pdfPage['pageContent']) / 3000);
                     //checking if page content is less than mPDF character limit, otherwise split it and loop to writeHTML
@@ -510,6 +512,133 @@ class PdfGenerator
         $tempFile = fopen("temp/public/pdffile_" . session_id() . ".txt", "w");
         fwrite($tempFile, ($pagesTotal * 30));
         return $mpdf->Output('', 'S');                  // Return as a string
+    }
+
+    public function getHtmlLayout($pageContent) {
+        require_once('tiki-setup.php');
+
+        $modlib = TikiLib::lib('mod');
+
+        include_once('tiki-module_controls.php');
+        global $prefs, $user;
+
+        clearstatcache();
+        
+        preg_match_all('#\"(.*?)\"#', $prefs['print_pdf_modules'], $match);
+        $modules_to_print = array_map(
+            function ($item) {
+                return str_replace('"','', $item);
+            },
+            $match[0]
+        );
+        $modules_to_print_contents = [];
+
+        $modules = $modlib->get_modules_for_user($user);
+
+        $modnames = [];
+
+        foreach ($modules_to_print as $module_key) {
+            $content = '';
+            
+            if (isset($modules[$module_key]) && is_array($modules[$module_key])) {
+                foreach ($modules[$module_key] as & $mod_reference) {
+                    $ref = (array) $mod_reference;
+                    $mod_reference['data'] = new Tiki_Render_Lazy(
+                        function () use ($ref) {
+                            $modlib = TikiLib::lib('mod');
+                            return $modlib->execute_module($ref);
+                        }
+                    );
+                    $modnames[$ref['name']] = '';
+                }
+
+                $content = implode(
+                    '',
+                    array_map(
+                        function ($module) {
+                            return (isset($module['data']) ? $module['data'] : '');
+                        },
+                        $modules[$module_key]
+                    )
+                );
+            }
+
+            $dir = '';
+            if (Language::isRTL()) {
+                $dir = ' dir="rtl"';
+            }
+
+            $modules_to_print_contents[$module_key] = <<<OUT
+            <div class="modules" id="$module_key" $dir>
+                $content
+            </div>
+            OUT;
+        }
+
+        $htmlLayout["staringPart"] = '';
+        $htmlLayout["endingPart"] = '';
+
+        if($modules_to_print_contents['top_modules']){
+            $htmlLayout["staringPart"] = $htmlLayout["staringPart"]. '<div class="col-xs-12">' . $modules_to_print_contents['top_modules']. '</div>';
+        }
+        if($modules_to_print_contents['topbar_modules']){
+            $htmlLayout["staringPart"] = $htmlLayout["staringPart"]. '<div class="col-xs-12">' . $modules_to_print_contents['topbar_modules']. '</div>';
+        }
+
+        $htmlLayout["staringPart"] = $htmlLayout["staringPart"]. '<div class="row">';
+
+        if($modules_to_print_contents['left_modules'] || $modules_to_print_contents['right_modules']){
+            $sideColumn = 'col-xs-4';
+
+            if ($modules_to_print_contents['left_modules'] && $modules_to_print_contents['right_modules']){
+                $sideColumn = 'col-xs-2';
+            }
+
+            if($modules_to_print_contents['left_modules']){
+                $htmlLayout["staringPart"] = $htmlLayout["staringPart"]. '<div class="'.$sideColumn.'">' . $modules_to_print_contents['left_modules']. '</div>';
+            }
+
+            $htmlLayout["staringPart"] = $htmlLayout["staringPart"]. '<div class="col-xs-8">';
+
+            if($modules_to_print_contents['pagetop_modules']){
+                $htmlLayout["staringPart"] = $htmlLayout["staringPart"]. '<div>' . $modules_to_print_contents['pagetop_modules']. '</div>';
+            }
+
+            if($modules_to_print_contents['pagebottom_modules']){
+                $htmlLayout["endingPart"] = $htmlLayout["endingPart"]. '<div>' . $modules_to_print_contents['pagebottom_modules']. '</div>';
+            }
+
+            $htmlLayout["endingPart"] = $htmlLayout["endingPart"]. '</div>';
+
+            if($modules_to_print_contents['right_modules']){
+                $htmlLayout["endingPart"] = $htmlLayout["endingPart"]. '<div class="'.$sideColumn.'">' . $modules_to_print_contents['right_modules']. '</div>';
+            }
+            
+        } else{
+            if($modules_to_print_contents['pagetop_modules']){
+                $htmlLayout["staringPart"] = $htmlLayout["staringPart"]. '<div class="col-xs-12">' . $modules_to_print_contents['pagetop_modules']. '</div>';
+            }
+            if($modules_to_print_contents['pagebottom_modules']){
+                $htmlLayout["endingPart"] = $htmlLayout["endingPart"]. '<div class="col-xs-12">' . $modules_to_print_contents['pagebottom_modules']. '</div>';
+            }
+        }
+
+        $htmlLayout["endingPart"] = $htmlLayout["endingPart"]. '</div>';
+
+
+        //check if Module contains navbar and force display (when printing nav is by default display none)
+        if (str_contains($htmlLayout["staringPart"], '<nav') || str_contains($htmlLayout["endingPart"], '<nav')) {
+            $pageContent = str_replace("<body>", "<style>.navbar {display: block;}</style><body>", $pageContent);
+        }
+
+        if($modules_to_print_contents['bottom_modules']){
+            $htmlLayout["endingPart"] = $htmlLayout["endingPart"]. '<div class="col-xs-12">' . $modules_to_print_contents['bottom_modules']. '</div>';
+        }
+
+        $pageContent = str_replace("<body>", "<body style='margin:0px;padding:0px;'>".$htmlLayout["staringPart"], $pageContent);
+        $pageContent = str_replace("</body>", $htmlLayout["endingPart"]."</body>", $pageContent);
+
+        return $pageContent;
     }
 
     public function getPDFSettings($html, $prefs, $params)
@@ -535,7 +664,7 @@ class PdfGenerator
         $pdfSettings['orientation'] = $orientation != '' ? $orientation : 'P';
         $pdfSettings['pagesize'] = $prefs['print_pdf_mpdf_pagesize'] != '' ? $prefs['print_pdf_mpdf_pagesize'] : 'Letter';
 
-       if(in_array($pdfSettings['pagesize'], ['Tabloid/Ledger', 'Tabloid-Ledger'])){
+        if(in_array($pdfSettings['pagesize'], ['Tabloid/Ledger', 'Tabloid-Ledger'])){
             $pdfSettings['pagesize'] = 'Tabloid';
         }
 

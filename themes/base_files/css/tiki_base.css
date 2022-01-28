@@ -5312,4 +5312,39 @@ h2:hover .heading-link, h3:hover .heading-link, h4:hover .heading-link, h5:hover
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
 }
+
+/* phones, 600px and down */
+@media only screen and (max-width: 480px) {
+  .no_display_on_mobile {
+    display: none !important
+  }
+}
+
+/* tablets and large phones, 480px and up) */
+@media only screen and (min-width: 480px) and (max-width: 768px){
+  .no_display_on_tablet{
+    display: none !important;
+  }
+} 
+
+
+/* laptops 768px and up) */
+@media only screen and (min-width: 768px) and (max-width: 1024px){
+  .no_display_on_laptop{
+    display: none !important;
+  }
+} 
+
+/* desktops, 992px and up) */
+@media only screen and (min-width: 1024px) {
+  .no_display_on_desktop {
+    display: none !important
+  }
+}
+
+@media print {
+  .no_display_on_print {
+    display: none !important
+  }
+}
 /* End of file */

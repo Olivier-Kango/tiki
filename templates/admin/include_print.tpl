@@ -50,6 +50,8 @@
         {preference name=allocate_memory_print_pdf}
         {preference name=allocate_time_print_pdf}
         {preference name=feature_slideshow_pdfexport}
+
+        {preference name=print_pdf_modules}
     </fieldset>
 
     <fieldset>

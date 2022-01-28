@@ -155,7 +155,7 @@ DROP TABLE IF EXISTS `tiki_api_tokens`;
 CREATE TABLE `tiki_api_tokens` (
   `tokenId` int(11) NOT NULL AUTO_INCREMENT,
   `type` VARCHAR(100) NOT NULL DEFAULT 'manual',
-  `user` varchar(200) NOT NULL,
+  `user` varchar(200) NULL DEFAULT NULL,
   `token` varchar(100) NOT NULL,
   `label` VARCHAR(191) NULL DEFAULT NULL,
   `parameters` TEXT NULL DEFAULT NULL,

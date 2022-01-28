@@ -900,6 +900,15 @@ class ModLib extends TikiLib
                     'filter' => 'alpha',
                     'section' => 'appearance',
                 ],
+                'device' => [
+                    'name' => tra('Display on device'),
+                    'description' => tra('On which device the module must be displayed, by default it is displayed on all devices.'),
+                    'since' => '24',
+                    'section' => 'visibility',
+                    'separator' => ';',
+                    'advanced' => true,
+                    'set_value_as_array' => true,
+                ],
                 'category' => [
                     'name' => tra('Category'),
                     'description' => tra('Module displayed depending on category. Separate multiple category IDs or names by semi-colons.'),
@@ -1331,7 +1340,11 @@ class ModLib extends TikiLib
         foreach ($params as $name => & $inner) {
             if (isset($module_params[$name])) {
                 if (isset($inner['separator'])) {
-                    $inner['value'] = implode($inner['separator'], (array) $module_params[$name]);
+                    if(isset($inner['set_value_as_array'])){
+                        $inner['value'] = (array) $module_params[$name];
+                    }else{
+                        $inner['value'] = implode($inner['separator'], (array) $module_params[$name]);
+                    }
                 } else {
                     $inner['value'] = $module_params[$name];
                 }
@@ -1368,7 +1381,7 @@ class ModLib extends TikiLib
             }
 
             if (isset($params[$name]) && $params[$name] !== '') {
-                if (isset($def['separator']) && strpos($params[$name], $def['separator']) !== false) {
+                if (isset($def['separator']) && !is_array($params[$name]) && strpos($params[$name], $def['separator']) !== false) {
                     $parts = explode($def['separator'], $params[$name]);
 
                     if ($filter) {

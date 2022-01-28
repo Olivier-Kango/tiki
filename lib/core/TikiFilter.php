@@ -12,6 +12,7 @@ use Laminas\Filter\FilterInterface;
 use Laminas\Filter\PregReplace;
 use Laminas\Filter\StripTags;
 use Laminas\Filter\ToInt;
+use Laminas\Filter\ToFloat;
 
 /**
  * Class TikiFilter
@@ -53,6 +54,10 @@ class TikiFilter
                 // Test Return 0
                 // Transforms a scalar phrase into an integer. eg. '-4 is less than 0' returns -4, while '' returns 0
                 return new ToInt();
+
+	    /** Float return types **/
+	    case 'float':
+                return new ToFloat();
 
             /** Boolean return types **/
             case 'bool':
@@ -166,6 +171,7 @@ class TikiFilter
             case 'datetime':
             case 'striptags':
             case 'string':
+            case 'password':
                 // Test Return " :/g.,:|4h&#Δ δ_🍘コン onclick "
                 // Strips XML and HTML tags
                 return new StripTags();

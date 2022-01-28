@@ -57,7 +57,7 @@ if (isset($prefs['wiki_feature_copyrights']) && $prefs['wiki_feature_copyrights'
     // insert license if wiki copyrights enabled
     $license_info = $tikilib->get_page_info($prefs['wikiLicensePage']);
     $tikilib->add_hit($prefs['wikiLicensePage']);
-    $info["data"] = $info["data"] . "\n<HR>\n" . $license_info["data"];
+    $info["data"] = $info["data"] . "\n<hr>\n" . $license_info["data"];
     $_REQUEST['copyrightpage'] = $page;
 }
 // Verify lock status

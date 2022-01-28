@@ -284,16 +284,18 @@
 
                             {foreach from=$ins_fields key=ix item=cur_field}
                                 <div class="form-group row">
-                                    <label class="col-sm-3 {if $cur_field.type eq 'h'}h{$cur_field.options_map.level}{else}col-form-label{/if}">
-                                        {$cur_field.name|tra|escape}
-                                        {if $cur_field.isMandatory eq 'y'}
-                                            <strong class='mandatory_star text-danger tips' title=":{tr}This field is mandatory{/tr}">*</strong>
-                                        {/if}
-                                    </label>
-                                    <div class="col-sm-9">
+									{if empty($cur_field.options_map.labelasplaceholder)}
+                                        <label class="col-sm-3 {if $cur_field.type eq 'h'}h{$cur_field.options_map.level}{else}col-form-label{/if}">
+                                            {$cur_field.name|tra|escape}
+                                            {if $cur_field.isMandatory eq 'y'}
+                                                <strong class='mandatory_star text-danger tips' title=":{tr}This field is mandatory{/tr}">*</strong>
+                                            {/if}
+                                        </label>
+                                    {/if}
+                                    <div class="col-sm-{if empty($cur_field.options_map.labelasplaceholder)}9{else}12">
                                         {trackerinput field=$cur_field item=$item_info inTable=formcolor showDescription=y}
                                     </div>
-                                </div>
+								</div>
                             {/foreach}
 
                         {else}

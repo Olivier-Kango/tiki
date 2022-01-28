@@ -94,7 +94,7 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
     $plugininfo = wikiplugin_kanban_info();
     $defaults = [];
     foreach ($plugininfo['params'] as $key => $param) {
-        $defaults[$key] = $param['default'];
+        $defaults[$key] = $param['default'] ?? null;
     }
     $params = array_merge($defaults, $params);
 

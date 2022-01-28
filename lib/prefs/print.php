@@ -8,6 +8,17 @@
 
 function prefs_print_list()
 {
+    $modules = [
+        'top_modules' => 'Top modules',
+        'topbar_modules' => 'Topbar modules',
+        'pagetop_modules' => 'Pagetop modules',
+        'left_modules' => 'Left modules',
+        'right_modules' => 'Right modules',
+        'pagebottom_modules' => 'Pagebottom modules',
+        'bottom_modules' => 'Bottom modules',
+        'admin_modules' => 'Admin modules',
+    ];
+
     return [
         'print_pdf_from_url' => [
             'name' => tra('PDF from URL'),
@@ -308,6 +319,17 @@ function prefs_print_list()
                 'feature_wiki',
             ],
             'default' => 'n',
+        ],
+        'print_pdf_modules' =>
+        [
+            'name' => 'Print modules',
+            'description' => 'Modules to show on when print a page',
+            'type' => 'multilist',
+            'options' => $modules,
+            'default' => [],
+            'dependencies' => [
+                'feature_wiki_print',
+            ],
         ],
         'print_original_url_wiki' => [
             'name' => tra('Print original wiki URL'),

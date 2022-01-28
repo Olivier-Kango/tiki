@@ -445,7 +445,7 @@ function wikiplugin_trackercalendar($data, $params)
     $plugininfo = wikiplugin_trackercalendar_info();
     $defaults = [];
     foreach ($plugininfo['params'] as $key => $param) {
-        $defaults[$key] = $param['default'];
+        $defaults[$key] = $param['default'] ?? null;
     }
     $params = array_merge($defaults, $params);
 

@@ -191,7 +191,7 @@ function wikiplugin_mediaplayer($data, $params)
         $access->check_feature('feature_jquery_media');
     }
     //checking if pdf generation request
-    if (in_array($params['type'], ['pdf']) && strstr($_GET['display'], 'pdf') != '') {
+    if (in_array($params['type'], ['pdf']) && isset($_GET['display']) && strstr($_GET['display'], 'pdf') != '') {
         return "<pdfpage>.<pdfinclude src='" . TikiLib::lib('access')->absoluteUrl($params['src']) . "' /></pdfpage>";
     }
     $defaults_mp3 = [

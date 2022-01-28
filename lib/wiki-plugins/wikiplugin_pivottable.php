@@ -499,7 +499,7 @@ function wikiplugin_pivottable($data, $params)
         }
 
         $result = [];
-        if (empty($params['displayBeforeFilter']) || $params['displayBeforeFilter'] !== 'n' || $_SERVER['REQUEST_METHOD'] == 'POST') {
+        if (empty($params['displayBeforeFilter']) || $params['displayBeforeFilter'] !== 'n' || (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST')) {
             foreach ($query->scroll($index) as $row) {
                 $result[] = $row;
             }
@@ -851,7 +851,7 @@ function wikiplugin_pivottable($data, $params)
         }
         foreach ($pivotData as &$row) {
             $arr = array_map(function ($field) use ($row) {
-                return $row[$field];
+                return $row[$field] ?? '';
             }, $aggregateDetails);
             if (! empty($params['aggregateDetailsFormat'])) {
                 $title = tra($params['aggregateDetailsFormat'], '', false, $arr);

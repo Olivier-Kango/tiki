@@ -99,6 +99,7 @@ class Tiki_Security_Policy extends Smarty_Security
             'ucwords',
             'urlencode',
             'var_dump',
+            'strstr',
         ], $modifiers);
 
         $this->php_functions = array_merge(['isset',
@@ -758,9 +759,11 @@ class Smarty_Tiki extends Smarty
         if ($perms->admin_wiki) {
             $loaded = $perms->getResolver()->dump();
             $nonAdminEditorGroups = [];
-            foreach ($loaded['perms']['edit'] as $editorGroup) {
-                if ($editorGroup !== 'Admins' && ! in_array($editorGroup, $loaded['perms']['admin_wiki'])) {
-                    $nonAdminEditorGroups[] = $editorGroup;
+            if (is_array($loaded['perms']['edit'])) {
+                foreach ($loaded['perms']['edit'] as $editorGroup) {
+                    if ($editorGroup !== 'Admins' && is_array($loaded['perms']['admin_wiki']) && ! in_array($editorGroup, $loaded['perms']['admin_wiki'])) {
+                        $nonAdminEditorGroups[] = $editorGroup;
+                    }
                 }
             }
             if ($nonAdminEditorGroups) {

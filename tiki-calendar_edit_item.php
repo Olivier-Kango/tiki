@@ -344,15 +344,6 @@ if (isset($_POST['act'])) {
                     $groupalertlib->Notify($_REQUEST['listtoalert'], "tiki-calendar_edit_item.php?viewcalitemId=" . $calitemId);
                 }
 
-                if ($prefs['feature_categories'] == 'y') {
-                    $cat_type = 'calendaritem';
-                    $cat_objid = $calitemId;
-                    $cat_desc = $save['description'];
-                    $cat_name = $save['name'];
-                    $cat_href = "tiki-calendar_edit_item.php?calitemId=".$calitemId;
-                    include_once("categorize.php");
-                }
-
                 $access->redirect($redirectUrl);
                 die;
             }

@@ -1,0 +1,1 @@
+ALTER TABLE `tiki_api_tokens` CHANGE `user` `user` VARCHAR(200) NULL DEFAULT NULL;
