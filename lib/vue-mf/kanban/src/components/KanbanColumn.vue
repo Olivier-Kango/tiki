@@ -73,8 +73,8 @@ const handleEditClick = event => {
 
 <template>
     <div class="kanban-column">
-        <div class="kanban-column-header drag-handle-cell mb-2" :style="{'background-color': store.getters.getColColor(props.colId)}">
-            <h6 class="d-flex flex-grow-1 mb-0">
+        <div class="kanban-column-header mb-2" :style="{'background-color': store.getters.getColColor(props.colId)}">
+            <h6 class="d-flex flex-grow-1 mb-0" :class="{'drag-handle-cell': rowIndex === 0}">
                 <span v-if="!showEditField" class="mr-2 flex-grow-1" @click="handleEditClick">{{ title }}</span>
                 <Field
                     class="flex-grow-1 mr-1"
