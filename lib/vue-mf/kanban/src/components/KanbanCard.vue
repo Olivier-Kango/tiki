@@ -23,5 +23,9 @@ export default {
             border-radius: 8px;
             box-shadow: 0px 3px 20px -12px #b5b6ba;
         }
+
+        .card-body {
+            padding: 0.85rem;
+        }
     }
 </style>

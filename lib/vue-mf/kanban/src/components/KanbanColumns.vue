@@ -14,7 +14,7 @@ import { VueFinalModal } from 'vue-final-modal'
 import store from '../store'
 
 const props = defineProps({
-    columnIds: {
+    cellIds: {
         type: Array,
         default() {
             return []
@@ -34,7 +34,7 @@ const showModal = ref(false)
 const card = ref(false)
 const date = ref(false)
 
-const getColumns = computed(() => store.getters.getColumns(props.columnIds))
+const getCells = computed(() => store.getters.getCells(props.cellIds))
 const getCols = computed(() => store.getters.getCols)
 
 const startDragging = () => dragging.value = true
@@ -49,13 +49,13 @@ const handleChange = (event) => {
             rowId: props.rowId
         })
     } else if (event.added) {
-        store.dispatch('addColumn', {
+        store.dispatch('addCell', {
             newIndex: event.added.newIndex,
             element: event.added.element,
             rowId: props.rowId
         })
     } else if (event.removed) {
-        store.dispatch('removeColumn', {
+        store.dispatch('removeCell', {
             oldIndex: event.removed.oldIndex,
             element: event.removed.element,
             rowId: props.rowId
@@ -77,22 +77,25 @@ const handleModalClosed = () => {
 
 <template>
     <draggable
-        :list="getColumns"
-        group="columns"
+        :list="getCells"
+        group="cells"
         item-key="id"
-        class="container-columns"
-        chosenClass="chosen-column"
-        ghostClass="ghost-column"
-        dragClass="dragging-column"
-        handle=".drag-handle-column"
+        class="container-cells"
+        chosenClass="chosen-cell"
+        ghostClass="ghost-cell"
+        dragClass="dragging-cell"
+        handle=".drag-handle-cell"
         @change="handleChange"
         @start="startDragging"
         @end="endDragging"
         :forceFallback="true"
+        :animation="200"
     >
         <template #item="{ element, index }">
-            <KanbanColumn :columnHeader="rowIndex === 0" :columnId="element.id" :columnValue="getCols[index].value" :rowValue="rowValue" :colId="getCols[index].id" :title="getCols[index].title" :limit="getCols[index].wip" :total="element.cards.length">
-                <KanbanCards :columnId="element.id" :rowId="rowId" :columnValue="getCols[index].value" :rowValue="rowValue" :cardIds="element.cards" @editCard="handleEditCard"></KanbanCards>
+            <KanbanColumn :rowIndex="rowIndex" :colIndex="index" :cellId="element.id" :columnValue="getCols[index].value" :rowValue="rowValue" :colId="getCols[index].id" :title="getCols[index].title" :limit="getCols[index].wip" :total="store.getters.getCardsByCol(index).length">
+                <PerfectScrollbar class="d-flex h-100">
+                    <KanbanCards :cellId="element.id" :rowId="rowId" :columnValue="getCols[index].value" :rowValue="rowValue" :cardIds="element.cards" @editCard="handleEditCard"></KanbanCards>
+                </PerfectScrollbar>
             </KanbanColumn>
         </template>
     </draggable>
@@ -128,18 +131,18 @@ const handleModalClosed = () => {
 </template>
 
 <style lang="scss" scoped>
-.container-columns {
+.container-cells {
     display: flex;
     // align-items: start;
     margin-bottom: 20px;
 }
-.dragging-column {
+.dragging-cell {
     cursor: pointer;
     transform: rotate(4deg);
     opacity: 1 !important;
 }
 
-.ghost-column {
+.ghost-cell {
     .container-cards::after {
         content: "";
         position: absolute;

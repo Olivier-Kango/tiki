@@ -9,7 +9,7 @@ import { Button } from '@vue-mf/styleguide'
 import FormAddCard from '../Forms/FormAddCard.vue'
 
 defineProps({
-    columnId: {
+    cellId: {
         type: Number
     },
     rowValue: [String, Number],
@@ -29,7 +29,7 @@ const handleClose = () => {
         <i class="fas fa-plus"></i>
         <span class="ml-2">Add a card</span>
     </Button>
-    <FormAddCard v-if="showForm" :columnId="columnId" :rowValue="rowValue" :columnValue="columnValue"  @close="handleClose"></FormAddCard>
+    <FormAddCard v-if="showForm" :cellId="cellId" :rowValue="rowValue" :columnValue="columnValue"  @close="handleClose"></FormAddCard>
 </template>
 
 <style lang="scss" scoped>
