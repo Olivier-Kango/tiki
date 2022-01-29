@@ -116,7 +116,11 @@ if (isset($_POST['display']) && $_POST['display'] == 'pdf') {
         if (isset($_POST['msg_text'])) {
             $msg_text = $_POST['msg_text'];
         }
-        $contentpage = createPage($header_subject, $header_date, $header_from, $header_to, $msg_text, $origin);
+        if (isset($_POST['header_cc'])){
+           $header_cc = $_POST['header_cc'];
+        }
+        
+        $contentpage = createPage($header_subject, $header_date, $header_from, $header_to, $msg_text, $origin, $header_cc);
         $filename = $header_from . '_' . $header_subject;
         $params = [
         'page' => 'messsage',
@@ -145,7 +149,7 @@ $smarty->display('tiki.tpl');
 /**
  * creates the HTML page to be print.
  */
-function createPage($header_subject, $header_date, $header_from, $header_to, $msg_text)
+function createPage($header_subject, $header_date, $header_from, $header_to, $msg_text, $origin, $header_cc)
 {
     return <<<END
     <<!DOCTYPE html>
@@ -219,6 +223,10 @@ function createPage($header_subject, $header_date, $header_from, $header_to, $ms
           <tr class="header_to">
             <th>To</th>
             <td>$header_to</td>
+          </tr>
+          <tr class="header_to">
+            <th>Cc</th>
+            <td>$header_cc</td>
           </tr>
           <tr>
             <td class="header_space" colspan="2"></td>
