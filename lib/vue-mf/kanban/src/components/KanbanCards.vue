@@ -24,7 +24,7 @@ const props = defineProps({
     },
     rowValue: [Number, String],
     columnValue: [Number, String],
-    columnId: {
+    cellId: {
         type: Number
     }
 })
@@ -46,37 +46,48 @@ const handleChange = (event) => {
             newIndex: event.moved.newIndex,
             element: event.moved.element,
             rowId: props.rowId,
-            columnId: props.columnId
+            cellId: props.cellId
         })
+        let sortOrder = store.getters.getCard(event.moved.element.id).sortOrder
+        setItem(event.moved.element.id, sortOrder)
     } else if (event.added) {
-        setItem(event.added.element.id)
         store.dispatch('addCard', {
             newIndex: event.added.newIndex,
             element: event.added.element,
             rowId: props.rowId,
-            columnId: props.columnId
+            cellId: props.cellId
         })
+        let sortOrder = store.getters.getCard(event.added.element.id).sortOrder
+        setItem(event.added.element.id, sortOrder)
     } else if (event.removed) {
         store.dispatch('removeCard', {
             oldIndex: event.removed.oldIndex,
             element: event.removed.element,
             rowId: props.rowId,
-            columnId: props.columnId
+            cellId: props.cellId
         })
     }
+    // setItems(store.getters.getCell(props.cellId).cards)
 }
 
-const setItem = (itemId) => {
+const setItems = ids => {
+    ids.forEach((id, index) => {
+        setItem(id, index)
+    })
+}
+
+const setItem = (itemId, newIndex) => {
     kanban.setItem(
         { trackerId: store.getters.getTrackerId, itemId: itemId },
         { fields: {
                 [store.getters.getSwimlaneField]: props.rowValue,
-                [store.getters.getXaxisField]: props.columnValue
+                [store.getters.getXaxisField]: props.columnValue,
+                [store.getters.getYaxisField]: newIndex
             },
         }
     )
     .then(res => {
-        toast.success(`Success! Item moved.`)
+        // toast.success(`Success! Item moved.`)
     })
     .catch(err => {
         if (!err.response) return
@@ -92,7 +103,7 @@ const setItem = (itemId) => {
         :list="getCards"
         group="cards"
         item-key="id"
-        class="container-cards h-100"
+        class="container-cards"
         chosenClass="chosen-card"
         ghostClass="ghost-card"
         dragClass="dragging-card"
@@ -100,10 +111,24 @@ const setItem = (itemId) => {
         @start="startDragging"
         @end="endDragging"
         :forceFallback="true"
+        :animation="150"
     >
         <template #item="{ element }">
             <KanbanCard>
-                <Card @click="emit('editCard', element)">{{ element.title }}</Card>
+                <Card @click="emit('editCard', element)">
+                    <div>
+                        <span class="badge badge-light">{{ element.sortOrder }}</span>
+                    </div>
+                    <div>
+                        {{ element.title }}
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <div class="kanban-avatar">
+                            <span>NA</span>
+                            <!-- <img src="..." class="rounded-circle" alt="..."> -->
+                        </div>
+                    </div>
+                </Card>
             </KanbanCard>
         </template>
     </draggable>
@@ -111,7 +136,9 @@ const setItem = (itemId) => {
 
 <style lang="scss" scoped>
 .container-cards {
+    flex-grow: 1;
     position: relative;
+    max-height: 800px;
 }
 
 .dragging-card {

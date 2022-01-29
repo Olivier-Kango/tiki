@@ -237,16 +237,16 @@
     <script type="systemjs-importmap">
         {
             "imports": {
-                "vue": "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.22/vue.runtime.global.js",
+                "vue": "{$tikiroot}lib/vue/lib/vue.runtime.global.prod.js",
                 "@vue-mf/styleguide": "{$tikiroot}storage/public/vue-mf/styleguide/vue-mf-styleguide.min.js",
                 "@vue-mf/root-config": "{$tikiroot}storage/public/vue-mf/root-config/vue-mf-root-config.min.js",
                 "@vue-mf/kanban": "{$tikiroot}storage/public/vue-mf/kanban/vue-mf-kanban.min.js"
             }
         }
     </script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/import-map-overrides/dist/import-map-overrides.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/systemjs/dist/system.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.22/vue.runtime.global.js"></script>
+    <script type="text/javascript" src="vendor_bundled/vendor/npm-asset/import-map-overrides/dist/import-map-overrides.js"></script>
+    <script type="text/javascript" src="vendor_bundled/vendor/npm-asset/systemjs/dist/system.min.js"></script>
+    <script type="text/javascript" src="lib/vue/lib/vue.runtime.global.prod.js"></script>
     {* How to load Vue 3 (race conditions issue solved): https://github.com/systemjs/systemjs/issues/2272#issuecomment-744636282 *}
     <script>
         System.set(System.resolve('vue'), window.Vue);
