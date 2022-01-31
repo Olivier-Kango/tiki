@@ -268,8 +268,8 @@ composer-lock:
   after_script:
     - echo "SHOW CREATE DATABASE tikiold" | mysql -u root --password=$MYSQL_ROOT_PASSWORD -h mysql
     - echo "SHOW CREATE DATABASE tikinew" | mysql -u root --password=$MYSQL_ROOT_PASSWORD -h mysql
-    - mysqldump -u root --password=$MYSQL_ROOT_PASSWORD -h mysql tikiold > tikiold.sql
-    - mysqldump -u root --password=$MYSQL_ROOT_PASSWORD -h mysql tikinew > tikinew.sql
+    - mysqldump --column-statistics=0 -u root --password=$MYSQL_ROOT_PASSWORD -h mysql tikiold > tikiold.sql
+    - mysqldump --column-statistics=0 -u root --password=$MYSQL_ROOT_PASSWORD -h mysql tikinew > tikinew.sql
   dependencies:
     - composer
     - composer-dbdiff
@@ -381,8 +381,8 @@ sql-engine-conversion:
   after_script:
     - echo "SHOW CREATE DATABASE tikiold" | mysql -u root --password=$MYSQL_ROOT_PASSWORD -h mysql
     - echo "SHOW CREATE DATABASE tikinew" | mysql -u root --password=$MYSQL_ROOT_PASSWORD -h mysql
-    - mysqldump -u root --password=$MYSQL_ROOT_PASSWORD -h mysql tikiold > tikiold.sql
-    - mysqldump -u root --password=$MYSQL_ROOT_PASSWORD -h mysql tikinew > tikinew.sql
+    - mysqldump --column-statistics=0 -u root --password=$MYSQL_ROOT_PASSWORD -h mysql tikiold > tikiold.sql
+    - mysqldump --column-statistics=0 -u root --password=$MYSQL_ROOT_PASSWORD -h mysql tikinew > tikinew.sql
   dependencies:
     - composer
     - composer-dbdiff
