@@ -190,14 +190,15 @@ if (empty($_REQUEST['returnUrl'])) {
 
 // Process an upload here
 if ($isUpload) {
+    $shortLivedTokens = ($prefs['site_short_lived_csrf_tokens'] ?? 'n') === 'y';
     // multiple form submissions are possible but the same ticket is in each form if JS is enabled,
     // so save ticket info from first submission
-    if ((int) $_POST['submission'] === 1 && ! empty($_POST['totalSubmissions']) && (int) $_POST['totalSubmissions'] > 1) {
+    if ($shortLivedTokens && (int) $_POST['submission'] === 1 && ! empty($_POST['totalSubmissions']) && (int) $_POST['totalSubmissions'] > 1) {
         $_SESSION['tickets']['repeatTicket']['ticket'] = $_POST['ticket'];
         $_SESSION['tickets']['repeatTicket']['time'] = $_SESSION['tickets'][$_POST['ticket']];
     }
     if (
-        ((int) $_POST['submission'] === 1 && $access->checkCsrf())
+        ((! $shortLivedTokens || (int) $_POST['submission'] === 1) && $access->checkCsrf())
         // for subsequent submissions check ticket against saved ticket info from first submission
         || ((int) $_POST['submission'] > 1
             && (int) $_POST['submission'] <= (int) $_POST['totalSubmissions']
@@ -210,7 +211,7 @@ if ($isUpload) {
             - $prefs['site_security_timeout']
         )
     ) {
-        if (! empty($_POST['totalSubmissions']) && (int) $_POST['submission'] === (int) $_POST['totalSubmissions']) {
+        if ($shortLivedTokens && ! empty($_POST['totalSubmissions']) && (int) $_POST['submission'] === (int) $_POST['totalSubmissions']) {
             unset($_SESSION['tickets']['repeatTicket']);
         }
         $optionalRequestParams = [

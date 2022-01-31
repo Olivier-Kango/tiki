@@ -120,7 +120,10 @@
                 <div class="adminoptionbox">
                     {tr}Use these options to protect against cross-site request forgeries (CSRF){/tr}.
                 </div>
-                {preference name=site_security_timeout}
+                {preference name=site_short_lived_csrf_tokens}
+                <div class="adminoptionboxchild" id="site_short_lived_csrf_tokens_childcontainer">
+                    {preference name=site_security_timeout}
+                </div>
                 {preference name=feature_ticketlib}
             </fieldset>
             <br/>
