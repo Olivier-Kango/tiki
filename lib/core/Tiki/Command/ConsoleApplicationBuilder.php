@@ -576,6 +576,8 @@ class ConsoleApplicationBuilder
             }
         }
 
+        \TikiLib::events()->trigger('tiki.commands.register', ['console' => $console]);
+
         self::$lastInstance = $console;
 
         return $console;

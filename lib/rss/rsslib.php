@@ -11,12 +11,21 @@ class RSSLib extends TikiDb_Bridge
     private $items;
     private $feeds;
     private $modules;
+    private bool $updateArticles = true;
 
     public function __construct()
     {
         $this->items = $this->table('tiki_rss_items');
         $this->feeds = $this->table('tiki_rss_feeds');
         $this->modules = $this->table('tiki_rss_modules');
+    }
+
+    public function enableUpdateArticles() {
+        $this->updateArticles = true;
+    }
+
+    public function disableUpdateArticles() {
+        $this->updateArticles = false;
     }
 
     // ------------------------------------
@@ -484,6 +493,7 @@ class RSSLib extends TikiDb_Bridge
     /**
      * @param      $feeds
      * @param bool $force
+     * @param bool $updateArticles
      *
      * @return array
      * @throws Exception
@@ -500,14 +510,17 @@ class RSSLib extends TikiDb_Bridge
 
         $result = $this->modules->fetchAll(['rssId', 'url', 'actions'], $conditions);
         $feedResult['feeds'] = count($result);
-        $entryReturn = ['feed' => 0, 'articles' => 0];
+        $entryReturn = ['feed' => 0, 'articles' => 0, 'feedData' => []];
         foreach ($result as $row) {
             $entryResult = $this->update_feed($row['rssId'], $row['url'], $row['actions']);
             if (! empty($entryResult['feed'])) {
                 $entryReturn['feed'] += $entryResult['feed'];
             }
-            if (! empty($entryResult['articles'])) {
+            if ($this->updateArticles && ! empty($entryResult['articles'])) {
                 $entryReturn['articles'] += $entryResult['articles'];
+            }
+            if (! empty($entryResult['feedData'])) {
+                $entryReturn['feedData'] = array_merge($entryReturn['feedData'], $entryResult['feedData']);
             }
         }
         $feedResult['entries'] = $entryReturn;
@@ -519,7 +532,7 @@ class RSSLib extends TikiDb_Bridge
      * @param $url
      * @param $actions
      *
-     * @return int[]
+     * @return array
      * @throws Exception
      */
     private function update_feed($rssId, $url, $actions)
@@ -538,7 +551,7 @@ class RSSLib extends TikiDb_Bridge
         );
 
         $guidFilter = TikiFilter::get('url');
-        $success = ['feed' => 0, 'articles' => 0];
+        $success = ['feed' => 0, 'articles' => 0, 'feedData' => []];
         try {
             $content = $tikilib->httprequest($url);
             $feed = Laminas\Feed\Reader\Reader::importString($content);
@@ -564,6 +577,7 @@ class RSSLib extends TikiDb_Bridge
                 ],
             ['rssId' => $rssId,]
         );
+        $DOM = new DOMDocument();
         foreach ($feed as $entry) { // TODO: optimize. Atom entries have an 'updated' element which can be used to only update updated entries
             $guid = $guidFilter->filter($entry->getId());
 
@@ -587,6 +601,7 @@ class RSSLib extends TikiDb_Bridge
                     'content' => $entry->getContent(),
                     'author' => $authors ? implode(', ', $authors->getValues()) : '',
                     'categories' => $categories ? json_encode($categories->getValues()) : json_encode([]),
+                    'language' => TikiFilter::get('striptags')->filter($feed->getLanguage()),
                 ]
             );
 
@@ -597,6 +612,23 @@ class RSSLib extends TikiDb_Bridge
                 global $tikilib;
                 $data['publication_date'] = $tikilib->now;
             }
+
+            $htmlContent = $entry->getContent();
+            @$DOM->loadHTML($htmlContent);
+            $rows = $DOM->getElementsByTagName('tr');
+            foreach ($rows as $row) {
+                $cols = $row->getElementsByTagName('td');
+                if (isset($cols[0]) && $cols[1]) {
+                    $data[str_replace(' ', '', $cols[0]->textContent)] = $cols[1]->textContent;
+                }
+            }
+
+            array_push($success['feedData'], $data);
+
+            if (! $this->updateArticles) {
+                continue;
+            }
+
             $count = $this->items->fetchCount(['rssId' => $rssId, 'guid' => $guid]);
             if (0 == $count) {
                 $result = $this->insert_item($rssId, $data, $actions);
