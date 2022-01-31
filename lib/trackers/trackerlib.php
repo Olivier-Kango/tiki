@@ -2118,7 +2118,9 @@ class TrackerLib extends TikiLib
         if (count($final)) {
             $data = [];
             foreach ($fil as $fieldId => $value) {
-                $data[$permNames[$fieldId]] = $value;
+                if (isset($permNames[$fieldId])) {
+                    $data[$permNames[$fieldId]] = $value;
+                }
             }
 
             foreach ($final as $job) {
