@@ -291,7 +291,7 @@ class TikiAccessLib extends TikiLib
     }
 
     /**
-     * CSRF protection - set the ticket on the server and as a smarty template variable
+     * CSRF protection - set the ticket on the server/cookie and as a smarty template variable
      *
      * Called by the smarty function {ticket}, which should be placed in all forms with actions that change the
      * database
@@ -299,10 +299,91 @@ class TikiAccessLib extends TikiLib
      */
     public function setTicket()
     {
-        $this->ticket = TikiLib::lib('tiki')->generate_unique_sequence(32, true);
-        $_SESSION['tickets'][$this->ticket] = time();
+        global $prefs;
+
+        $setCookie = false;
+
+        if (($prefs['site_short_lived_csrf_tokens'] ?? 'n') === 'y') {
+            $this->ticket = TikiLib::lib('tiki')->generate_unique_sequence(32, true);
+            $_SESSION['tickets'][$this->ticket] = time();
+        } else {
+            $this->ticket = $_SESSION['CSRF_TOKEN'] ?? null;
+            if (! $this->ticket) { // Check the cookie
+                $this->ticket = $_SESSION['CSRF_TOKEN'] = $this->retrieveTicketFromCookie(); // return ticket or null
+            }
+            if (! $this->ticket) {
+                $this->ticket = $_SESSION['CSRF_TOKEN'] = TikiLib::lib('tiki')->generate_unique_sequence(32, true);
+                $setCookie = true;
+            }
+        }
+
+        if ($setCookie || ! getcookie(session_name() . '_CSRF')) {
+            $this->setTicketInCookie();
+        }
+
         Tikilib::lib('smarty')->assign('ticket', $this->ticket);
     }
+
+    /**
+     * Encrypt the CSRF ticket value
+     *
+     * @return string
+     */
+    protected function encryptCsrfTicket(string $value): string
+    {
+        $key = TikiLib::lib('tiki')->get_site_hash();
+        $key = str_pad(substr($key, 0, SODIUM_CRYPTO_AEAD_XCHACHA20POLY1305_IETF_KEYBYTES), SODIUM_CRYPTO_AEAD_XCHACHA20POLY1305_IETF_KEYBYTES);
+        $nonce = random_bytes(SODIUM_CRYPTO_AEAD_XCHACHA20POLY1305_IETF_NPUBBYTES);
+
+        return base64_encode($nonce . sodium_crypto_aead_xchacha20poly1305_ietf_encrypt($value, '', $nonce, $key));
+    }
+
+    /**
+     * Decrypt the CSRF ticket value
+     *
+     * @return string|false
+     */
+    protected function decryptCsrfTicket(string $value)
+    {
+        $key = TikiLib::lib('tiki')->get_site_hash();
+        $key = str_pad(substr($key, 0, SODIUM_CRYPTO_AEAD_XCHACHA20POLY1305_IETF_KEYBYTES), SODIUM_CRYPTO_AEAD_XCHACHA20POLY1305_IETF_KEYBYTES);
+        $value = base64_decode($value);
+        $nonce = substr($value, 0, SODIUM_CRYPTO_AEAD_XCHACHA20POLY1305_IETF_NPUBBYTES);
+        $cipherText = substr($value, SODIUM_CRYPTO_AEAD_XCHACHA20POLY1305_IETF_NPUBBYTES);
+
+        return sodium_crypto_aead_xchacha20poly1305_ietf_decrypt($cipherText, '', $nonce, $key);
+    }
+
+    /**
+     * @return false|string
+     */
+    protected function retrieveTicketFromCookie()
+    {
+        $cookie = getcookie(session_name() . '_CSRF');
+
+        if (! $cookie) {
+            return false;
+        }
+
+        return $this->decryptCsrfTicket($cookie);
+    }
+
+    /**
+     * @return void
+     */
+    protected function setTicketInCookie()
+    {
+        if (php_sapi_name() == 'cli') {
+            return;
+        }
+
+        // Encrypt ticket
+        $cipherTicket = $this->encryptCsrfTicket($this->ticket);
+
+        // you can set even if is the same value
+        setcookie(session_name() . '_CSRF', $cipherTicket, 0, '', '', false, true);
+    }
+
 
     /**
      * @param bool|string $postConfirm    Whether a confirmation is needed before performing a POST action. Generally,
@@ -511,8 +592,13 @@ class TikiAccessLib extends TikiLib
         if (strpos($this->ticket, '%') !== false) {
             $this->ticket = urldecode($this->ticket);
         }
-        //check that request ticket matches server ticket
-        if ($this->ticket && ! empty($_SESSION['tickets'][$this->ticket])) {
+
+        global $prefs;
+
+        if ($this->ticket && ($prefs['site_short_lived_csrf_tokens'] ?? 'n') !== 'y' && ($this->ticket === $_SESSION['CSRF_TOKEN'] ?? $this->retrieveTicketFromCookie())) {
+            $this->ticketMatch = true;
+        } elseif ($this->ticket && ! empty($_SESSION['tickets'][$this->ticket])) {
+            //check that request ticket matches server ticket
             //check that ticket has not expired
             global $prefs;
             $maxTime = $prefs['site_security_timeout'];

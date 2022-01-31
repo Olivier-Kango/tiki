@@ -272,6 +272,14 @@ function prefs_site_list()
                 'wikiplugin_piwik',
             ],
         ],
+        'site_short_lived_csrf_tokens' => [
+            'name' => tra('Use short lived CSRF tokens'),
+            'description' => tra("CSRF tokens generated will be valid for one use only and will have a limited life span"),
+            'warning' => tra('Changing the CSRF tokens to be short lived may lead to an increase of errors on submitting information when the users take a long time to finish an operation or the session is lost.'),
+            'type' => 'flag',
+            'default' => 'n',
+            'tags' => ['advanced'],
+        ],
         'site_security_timeout' => [
             'name' => tra('Security timeout'),
             'description' => tr('Sets the expiration of CSRF tickets and related forms. The %0session_lifetime%1
@@ -284,8 +292,11 @@ function prefs_site_list()
             'constraints' => [
                 'min' => 30
             ],
-            'tags' => ['basic'],
+            'tags' => ['advanced'],
             'default' => TikiLib::lib('access')->getDefaultTimeout(),
+            'dependencies' => [
+                'site_short_lived_csrf_tokens',
+            ],
         ],
     ];
 }
