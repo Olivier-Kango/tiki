@@ -316,3 +316,4 @@ ALTER TABLE `tiki_calendar_scheduling_objects` ENGINE=InnoDB;
 ALTER TABLE `tiki_address_books` ENGINE = InnoDB;
 ALTER TABLE `tiki_address_cards` ENGINE = InnoDB;
 ALTER TABLE `tiki_performance` ENGINE = InnoDB;
+ALTER TABLE `tiki_password_blacklist` ENGINE = InnoDB;
