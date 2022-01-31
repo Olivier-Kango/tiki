@@ -48,6 +48,9 @@ lang = {
     "Page only allowed once in a structure" : "Page autorisée une seule fois dans une structure",
     "Upload" : "Envoyer",
     "Clear" : "Vider",
+    "Select an Option" : "Sélectionnez une option",
+    "Select Some Options" : "Sélectionnez quelques options",
+    "No results match" : "Aucun résultat ne correspond",
     // remember the IE does not support ending comma on last item
     "Bogus entry" : "Entrée erronnée"
 };
