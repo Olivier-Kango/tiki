@@ -716,7 +716,7 @@ class PreferencesLib
 
     /**
      * @param bool $fallback Rebuild fallback search index
-     * @return Search_Index_Interface|\ZendSearch\Lucene\SearchIndexInterface|null
+     * @return Search_Index_Interface|null
      * @throws Exception
      */
     public function rebuildIndex($fallback = false)
