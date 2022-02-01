@@ -97,15 +97,16 @@ class Validators
                     $validationjs .= 'type: "post", ';
                     $validationjs .= 'data: { ';
                     $validationjs .= 'validator: "' . $field_value['validation'] . '", ';
+                    global $jitRequest;
+                    if ($jitRequest->itemId->int()) {
+                        $current_id = $jitRequest->itemId->int();
+                    } else {
+                        $current_id = 0;
+                    }
                     if ($field_value['validation'] == 'distinct' && empty($field_value['validationParam'])) {
-                        global $jitRequest;
-
-                        if ($jitRequest->itemId->int()) {
-                            $current_id = $jitRequest->itemId->int();
-                        } else {
-                            $current_id = 0;
-                        }
                         $validationjs .= 'parameter: "trackerId=' . $field_value['trackerId'] . '&fieldId=' . $field_value['fieldId'] . '&itemId=' . $current_id . '", ';
+                    } elseif ($field_value['validation'] == 'remotelock') {
+                        $validationjs .= 'parameter: "trackerId=' . $field_value['trackerId'] . '&itemId=' . $current_id . '", ';
                     } else {
                         $validationjs .= 'parameter: "' . addslashes($field_value['validationParam']) . '", ';
                     }

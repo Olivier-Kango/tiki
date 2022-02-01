@@ -90,7 +90,7 @@ class Manager
         }
         $tabular = $this->getInfo($tabularId);
         if (empty($tabular['tabularId'])) {
-            Feedback::error(tr("Tracker remote synchronization configured with a tabular format that does not exist."));
+            \Feedback::error(tr("Tracker remote synchronization configured with a tabular format that does not exist."));
             return;
         }
         $trklib = \TikiLib::lib('trk');
@@ -121,7 +121,7 @@ class Manager
         }
         $tabular = $this->getInfo($tabularId);
         if (empty($tabular['tabularId'])) {
-            Feedback::error(tr("Tracker remote synchronization configured with a tabular format that does not exist."));
+            \Feedback::error(tr("Tracker remote synchronization configured with a tabular format that does not exist."));
             return;
         }
         if (empty($tabular['odbc_config']['sync_deletes'])) {
@@ -150,5 +150,45 @@ class Manager
         $schema->loadConfig($tabular['config']);
 
         return $schema;
+    }
+
+    public function validateRemoteUnchanged($trackerId, $itemId)
+    {
+        $definition = \Tracker_Definition::get($trackerId);
+        if (! $definition) {
+            \Feedback::error(tr("Tracker not found: %0", $trackerId));
+            return true;
+        }
+
+        $tabularId = $definition->getConfiguration('tabularSync', 0);
+        if (! $tabularId) {
+            \Feedback::error(tr("Tracker not congfigured for remote synchronization: %0", $trackerId));
+            return true;
+        }
+
+        $tabular = $this->getInfo($tabularId);
+        if (empty($tabular['tabularId'])) {
+            \Feedback::error(tr("Tabular not found: %0", $tabularId));
+            return true;
+        }
+
+        $schema = $this->getSchema($definition, $tabular);
+        $item = \Tracker_Item::fromId($itemId);
+        $item = $item->getData();
+        $item = $item['fields'];
+
+        $writer = new Writer\ODBCWriter($tabular['odbc_config']);
+        $diff = $writer->compareRemote($schema, $itemId, $item);
+
+        foreach ($diff as $field => $value) {
+            $field = $definition->getFieldFromPermName($field);
+            \TikiLib::lib('trk')->modify_field($itemId, $field['fieldId'], $value);
+        }
+
+        if ($diff) {
+            return tr("Remote item has changed since your last page load. Overwriting remote data is disabled. You can copy your changes to a safe place, reload the entry and make the changes again. Here's the difference: %0", print_r($diff, 1));
+        } else {
+            return true;
+        }
     }
 }
