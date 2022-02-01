@@ -54,19 +54,25 @@
                                 </div>
                             </td>
                             {foreach $row as $stamp => $vote}
-                                {if $vote eq 1}
+                                {if $vote gt 0}
                                     {$class = 'convene-ok text-center alert-success'}
                                     {$icon = 'ok'}
-                                {elseif $vote eq -1}
+                                {elseif $vote lt 0}
                                     {$class = 'convene-no text-center alert-danger'}
                                     {$icon = 'remove'}
                                 {else}
                                     {$class = 'convene-unconfirmed text-center alert-light'}
                                     {$icon = 'help'}
                                 {/if}
-                                <td class='align-middle {$class}'>
-                                    {icon name=$icon size=2}
-                                    <input type='hidden' name='dates_{$stamp}_{$voter}' value='{$vote}' class='conveneUserVote' data-voter="{$voter}" data-date="{$stamp}">
+
+                                {if $comments[$stamp][$voter] eq ""}
+                                    {$voteComment = "{tr}No Comment{/tr}"}
+                                {else}
+                                    {$voteComment = "{tr}Comment{/tr} : "|cat:$comments[$stamp][$voter]}
+                                {/if}
+                                <td class='align-middle flex-align-center {$class}'>
+                                    {icon name=$icon size=2 iclass='tips' ititle="{tr}Vote value{/tr} $vote:$voteComment "  }
+                                    <input type='hidden' name='dates_{$stamp}_{$voter}' value='{$vote}' class='conveneUserVote' data-voter="{$voter}" data-date="{$stamp}" data-comment="{$comments[$stamp][$voter]}">
                                 </td>
                             {/foreach}
                         </tr>

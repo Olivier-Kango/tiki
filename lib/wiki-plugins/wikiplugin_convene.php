@@ -6,6 +6,8 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
+use function Sabre\Uri\split;
+
 function wikiplugin_convene_info(): array
 {
     return [
@@ -122,6 +124,16 @@ function wikiplugin_convene_info(): array
                 'filter' => 'text',
                 'default' => '',
             ],
+            'voteoptions' => [
+                'required' => false,
+                'name' => tra('Vote options'),
+                'description' => tra('Comma-separated for personalized set of vote options'),
+                'since' => '24.0',
+                'filter' => 'text',
+                'default' => default_voteoptions(),
+                'separator' => ',',
+                'accepted' => tr('-1=Not OK,-0.5=No but...,0=Unconfirmed,0.5=OK but...,1=OK'),
+            ],
         ]
     ];
 }
@@ -139,8 +151,24 @@ function wikiplugin_convene($data, $params): string
     $smarty->loadPlugin('smarty_modifier_userlink');
     $smarty->loadPlugin('smarty_modifier_avatarize');
 
+    if (! isset($params['voteoptions'])) {
+        $params['voteoptions'] = default_voteoptions();
+    }
+
+    if (! is_array($params['voteoptions'])) {
+        $params['voteoptions'] = explode(',', $params['voteoptions']);
+    }
+
     //in case there is any feedback from a previous ajax action since this plugin does not refresh the page upon edit
     Feedback::sendHeaders();
+
+    //Test if vote options are numeric value
+    foreach ($params['voteoptions'] as $voteoption) {
+        $optionvalue = explode('=', $voteoption);
+        if (!is_numeric($optionvalue[0])) {
+            Feedback::error(tr('Plugin convene: one or more of your option values must be numeric values'));
+        }
+    }
 
     static $convenePluginIndex = 0;
     ++$convenePluginIndex;
@@ -156,7 +184,9 @@ function wikiplugin_convene($data, $params): string
     $params['index'] = $convenePluginIndex;
     $params['id'] = empty($params['id']) ? 'pluginConvene' . $convenePluginIndex : $params['id'];
 
-    $dataArray = json_decode($data, true);
+    $dataArrays = json_decode($data, true);
+    $dataArray = $dataArrays[0]; // Default data votes
+    $dataArrayComments = $dataArrays[1]; //Data comments
 
     if (! is_array($dataArray)) {
         //start flat static text to prepared array
@@ -193,7 +223,7 @@ function wikiplugin_convene($data, $params): string
             if (empty($votes[$stamp])) {
                 $votes[$stamp] = 0;
             }
-            $votes[$stamp] += (int)$vote;
+            $votes[$stamp] += $vote;
         }
         $dateLabels[$stamp] = [];
         if ($params['dateformat'] === "long") {
@@ -296,6 +326,7 @@ function wikiplugin_convene($data, $params): string
     $smarty->assign('votes', $votes);
     $smarty->assign('topVoteStamps', $topVoteStamps);
     $smarty->assign('params', $params);
+    $smarty->assign('comments', $dataArrayComments);
 
     $conveneData = json_encode($params);
 
@@ -303,4 +334,9 @@ function wikiplugin_convene($data, $params): string
                 ->add_js("\$('#{$params['id']}').setupConvene($conveneData)");
 
     return $smarty->fetch('wiki-plugins/wikiplugin_convene.tpl');
+}
+
+function default_voteoptions()
+{
+    return '-1=Not OK,0=Unconfirmed,1=OK';
 }
