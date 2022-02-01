@@ -99,7 +99,7 @@ function wikiplugin_proposal_get_counts($data)
     foreach ($voteData as $entry) {
         $entry = trim($entry);
         if (preg_match("/^(([\+\-]1)|0)(~(\d+(\.\d+)?))?\s+(\w+)/", $entry, $parts)) {
-            list( $full, $vote, $null, $null, $weight, $null, $voter ) = $parts;
+            list( , $vote, , , $weight, , $voter ) = $parts;
             if (strlen($weight) == 0) {
                 $weight = 1;
             } else {
