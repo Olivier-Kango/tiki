@@ -488,20 +488,25 @@ class Services_Tracker_Controller
             }
         });
 
+        $validation_types = [
+            '' => tr('None'),
+            'captcha' => tr('CAPTCHA'),
+            'distinct' => tr('Distinct'),
+            'pagename' => tr('Page Name'),
+            'password' => tr('Password'),
+            'regex' => tr('Regular Expression (Pattern)'),
+            'username' => tr('Username'),
+        ];
+        if ($definition->getConfiguration('tabularSync', false)) {
+            $validation_types['remotelock'] = tr('Remote Lock');
+        }
+
         return [
             'title' => tr('Edit') . " " . tr('%0', $field['name']),
             'field' => $field,
             'info' => $typeInfo,
             'options' => $this->utilities->parseOptions($field['options'], $typeInfo),
-            'validation_types' => [
-                '' => tr('None'),
-                'captcha' => tr('CAPTCHA'),
-                'distinct' => tr('Distinct'),
-                'pagename' => tr('Page Name'),
-                'password' => tr('Password'),
-                'regex' => tr('Regular Expression (Pattern)'),
-                'username' => tr('Username'),
-            ],
+            'validation_types' => $validation_types,
             'types' => $types,
             'permNameMaxAllowedSize' => Tracker_Item::PERM_NAME_MAX_ALLOWED_SIZE,
             'fields' => $definition->getFields(),

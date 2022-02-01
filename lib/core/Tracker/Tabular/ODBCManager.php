@@ -31,6 +31,28 @@ class ODBCManager
         return $result;
     }
 
+    public function fetch($row, $pk = null, $id = null)
+    {
+        $this->handleErrors();
+        $conn = $this->getConnection();
+        if ($pk) {
+            $sql = "SELECT * FROM {$this->config['table']} WHERE \"{$pk}\" = ?";
+            $rs = odbc_prepare($conn, $sql);
+            odbc_execute($rs, [$id]);
+            $result = odbc_fetch_array($rs);
+        } else {
+            $sql = "SELECT * FROM {$this->config['table']} WHERE " . implode(' AND ', array_map(function ($k, $v) {
+                return empty($v) ? "\"{$k} IS NULL\"" : "\"{$k}\" = ?";
+            }, array_keys($row), $row));
+            $rs = odbc_prepare($conn, $sql);
+            $params = array_filter(array_values($row));
+            odbc_execute($rs, $params);
+            $result = odbc_fetch_array($rs);
+        }
+        $this->stopErrorHandler();
+        return $result;
+    }
+
     public function iterate($fields, $modifiedField = null, $lastImport = null)
     {
         $this->handleErrors();
