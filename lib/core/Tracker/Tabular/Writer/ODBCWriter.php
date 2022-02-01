@@ -123,6 +123,56 @@ class ODBCWriter
         return $mapped;
     }
 
+    public function compareRemote(\Tracker\Tabular\Schema $schema, int $item_id, array $item)
+    {
+        $schema->validate();
+        $columns = $schema->getColumns();
+
+        $row = [];
+        $pk = null;
+        $id = null;
+        foreach ($columns as $column) {
+            if (! isset($item[$column->getField()]) && ! $column->isPrimaryKey()) {
+                continue;
+            }
+            $this->renderMultiple($column, $item[$column->getField()], ['itemId' => $item_id], $row);
+            if ($column->isPrimaryKey()) {
+                $pk = $column->getRemoteField();
+                $id = $row[$pk];
+                if ($schema->isPrimaryKeyAutoIncrement()) {
+                    unset($row[$pk]);
+                }
+            }
+        }
+
+        $result = $this->odbc_manager->fetch($row, $pk, $id);
+
+        // map back the remote values to local field values
+        $entry = new ODBCSourceEntry($result);
+        $mapped = [];
+        foreach ($columns as $column) {
+            $permName = $column->getField();
+            $info = [];
+            $entry->parseInto($info, $column);
+            if (isset($info['fields'][$permName]) && ! is_null($info['fields'][$permName])) {
+                $mapped[$permName] = $info['fields'][$permName];
+            }
+        }
+
+        $diff = [];
+        foreach ($mapped as $field => $value) {
+            if (! isset($item[$field])) {
+                continue;
+            }
+            if ($item[$field] == $value) {
+                continue;
+            }
+            $diff[$field] = $value;
+        }
+
+        return $diff;
+    }
+
     public function delete($pk, $id)
     {
         return $this->odbc_manager->delete($pk, $id);
