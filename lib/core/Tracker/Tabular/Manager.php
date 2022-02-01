@@ -95,16 +95,20 @@ class Manager
         }
         $trklib = \TikiLib::lib('trk');
         $schema = $this->getSchema($definition, $tabular);
-        # TODO: handle errors and missing connection to remote source
-        $writer = new Writer\ODBCWriter($tabular['odbc_config']);
-        $remote = $writer->sync($schema, $args['object'], $args['old_values_by_permname'], $args['values_by_permname']);
-        foreach ($remote as $field => $value) {
-            if (isset($args['values_by_permname'][$field])) {
-                if ($value != $args['values_by_permname'][$field]) {
-                    $field = $definition->getFieldFromPermName($field);
-                    $trklib->modify_field($args['object'], $field['fieldId'], $value);
+
+        try {
+            $writer = new Writer\ODBCWriter($tabular['odbc_config']);
+            $remote = $writer->sync($schema, $args['object'], $args['old_values_by_permname'], $args['values_by_permname']);
+            foreach ($remote as $field => $value) {
+                if (isset($args['values_by_permname'][$field])) {
+                    if ($value != $args['values_by_permname'][$field]) {
+                        $field = $definition->getFieldFromPermName($field);
+                        $trklib->modify_field($args['object'], $field['fieldId'], $value);
+                    }
                 }
             }
+        } catch (\Exception $e) {
+            \Feedback::error(tr("Failed synchronizing local changes with remote data source. Please try making these changes again later or make the same changes remotely. Error: %0", $e->getMessage()));
         }
     }
 
@@ -134,8 +138,12 @@ class Manager
                 $field = $definition->getFieldFromPermName($column->getField());
                 $id = $args['values'][$field['fieldId']] ?: null;
                 if ($id) {
-                    $writer = new Writer\ODBCWriter($tabular['odbc_config']);
-                    $writer->delete($column->getRemoteField(), $id);
+                    try {
+                        $writer = new Writer\ODBCWriter($tabular['odbc_config']);
+                        $writer->delete($column->getRemoteField(), $id);
+                    } catch (\Exception $e) {
+                        \Feedback::error(tr("Failed synchronizing local item delete with remote data source. Remote item might get reimported. Please try deleting again later or delete the item remotely. Error: %0", $e->getMessage()));
+                    }
                     break;
                 }
             }
@@ -177,18 +185,22 @@ class Manager
         $item = $item->getData();
         $item = $item['fields'];
 
-        $writer = new Writer\ODBCWriter($tabular['odbc_config']);
-        $diff = $writer->compareRemote($schema, $itemId, $item);
+        try {
+            $writer = new Writer\ODBCWriter($tabular['odbc_config']);
+            $diff = $writer->compareRemote($schema, $itemId, $item);
 
-        foreach ($diff as $field => $value) {
-            $field = $definition->getFieldFromPermName($field);
-            \TikiLib::lib('trk')->modify_field($itemId, $field['fieldId'], $value);
-        }
+            foreach ($diff as $field => $value) {
+                $field = $definition->getFieldFromPermName($field);
+                \TikiLib::lib('trk')->modify_field($itemId, $field['fieldId'], $value);
+            }
 
-        if ($diff) {
-            return tr("Remote item has changed since your last page load. Overwriting remote data is disabled. You can copy your changes to a safe place, reload the entry and make the changes again. Here's the difference: %0", print_r($diff, 1));
-        } else {
-            return true;
+            if ($diff) {
+                return tr("Remote item has changed since your last page load. Overwriting remote data is disabled. You can copy your changes to a safe place, reload the entry and make the changes again. Here's the difference: %0", print_r($diff, 1));
+            } else {
+                return true;
+            }
+        } catch (\Exception $e) {
+            return tr("Failed ensuring remote item is up to date with local data. Please check remote server connectivity and try again. Error: %0", $e->getMessage());
         }
     }
 }
