@@ -10,7 +10,7 @@ class Search_Manticore_PdoClient
 {
     protected $pdo;
 
-    public function __construct($dsn)
+    public function __construct($dsn, $port)
     {
         $dsn = rtrim($dsn, '/');
         $parsed = parse_url($dsn);
@@ -18,9 +18,11 @@ class Search_Manticore_PdoClient
             throw new Search_Manticore_Exception(tr("Malformed Manticore connection url: %0", $this->dsn));
         }
 
-        $dsn = "mysql:host=".$parsed['host'].";port=".$parsed['port'];
+        $dsn = "mysql:host=".$parsed['host'].";port=".$port;
 
         $this->pdo = new PDO($dsn);
+        $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     }
 
     public function getStatus()
@@ -44,8 +46,8 @@ class Search_Manticore_PdoClient
 
     public function getIndexStatus($index = '')
     {
-        $stmt = $this->pdo->prepare("SHOW INDEX $index STATUS");
-        return $stmt->execute();
+        $stmt = $this->pdo->query("SHOW INDEX $index STATUS");
+        return $stmt->fetch();
     }
 
     public function createIndex($index, $definition, $settings = [], $silent = false)
@@ -74,20 +76,21 @@ class Search_Manticore_PdoClient
 
     public function describe($index)
     {
-        $stmt = $this->pdo->prepare("DESC $index");
-        $result = $stmt->execute();
-        if (empty($result['error']) && !empty($result['data'])) {
-            $mapping = [];
-            foreach ($result['data'] as $row) {
-                $mapping[$row['Field']] = [
-                    'type' => $row['Type'],
-                    'options' => explode(' ', $row['Properties'])
-                ];
-            }
-            return $mapping;
-        } else {
+        try {
+            $stmt = $this->pdo->query("DESC $index");
+            $result = $stmt->fetchAll();
+        } catch(PDOException $e) {
+            // describe might be used to check if index exists, so suppress not found error here
             return [];
         }
+        $mapping = [];
+        foreach ($result as $row) {
+            $mapping[$row['Field']] = [
+                'type' => $row['Type'],
+                'options' => explode(' ', $row['Properties'])
+            ];
+        }
+        return $mapping;
     }
 
     public function alter($index, $operation, $field, $type)
@@ -99,27 +102,6 @@ class Search_Manticore_PdoClient
         }
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([]);
-    }
-
-    public function search($index, $query)
-    {
-        // TODO
-        return [];
-    }
-
-    public function storeQuery($index, $query, $name)
-    {
-        // TODO
-    }
-
-    public function unstoreQuery($index, $name)
-    {
-        // TODO
-    }
-
-    public function percolate($index, $document)
-    {
-        // TODO
     }
 
     public function index($index, array $data)
@@ -137,8 +119,8 @@ class Search_Manticore_PdoClient
     public function document($index, $type, $id)
     {
         $stmt = $this->pdo->prepare("SELECT * FROM $index WHERE object_type = :object_type AND object_id = :object_id");;
-        $result = $stmt->execute(['object_type' => $type, 'object_id' => $id]);
-        return new ResultSet($result);
+        $stmt->execute(['object_type' => $type, 'object_id' => $id]);
+        return new ResultSet($stmt->fetch());
     }
 
     public function optimize()

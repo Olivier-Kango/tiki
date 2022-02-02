@@ -92,6 +92,8 @@
 
                     <div class="adminoptionboxchild unified_engine_childcontainer manticore">
                         {preference name="unified_manticore_url"}
+                        {preference name="unified_manticore_http_port"}
+                        {preference name="unified_manticore_mysql_port"}
                         {preference name="unified_manticore_index_prefix"}
                         {preference name="unified_manticore_index_current"}
                     </div>

@@ -205,9 +205,8 @@ class UnifiedSearchLib
                 );
                 break;
             case 'manticore':
-                $client = $this->getManticoreClient();
                 $indexName = $prefs['unified_manticore_index_prefix'] . 'main_' . uniqid();
-                $index = new Search_Manticore_Index($client, $indexName);
+                $index = new Search_Manticore_Index($this->getManticoreClient('http'), $this->getManticoreClient('mysql'), $indexName);
                 $engineResults = new Search_EngineResult_Manticore($index);
 
                 TikiLib::events()->bind(
@@ -395,7 +394,7 @@ class UnifiedSearchLib
                 $index = $prefs['unified_mysql_index_current'];
                 break;
             case 'manticore':
-                $manticore = new \Search_Manticore_Client($prefs['unified_manticore_url']);
+                $manticore = $this->getManticoreClient();
                 $engine = 'Manticore';
                 $version = $manticore->getVersion();
                 $index = $prefs['unified_manticore_index_current'] ?? '';
@@ -853,8 +852,7 @@ class UnifiedSearchLib
         }
 
         if ($engine == 'manticore' && $index = $this->getIndexLocation($indexType)) {
-            $client = $this->getManticoreClient();
-            $index = new Search_Manticore_Index($client, $index);
+            $index = new Search_Manticore_Index($this->getManticoreClient('http'), $this->getManticoreClient('mysql'), $index);
 
             if ($useCache) {
                 $this->indices[$indexType] = $index;
@@ -1053,20 +1051,29 @@ class UnifiedSearchLib
         return $connection;
     }
 
-    private function getManticoreClient()
+    private function getManticoreClient($type = 'http')
     {
         global $prefs;
         static $clients = [];
 
         $target = $prefs['unified_manticore_url'];
 
-        if (! empty($clients[$target])) {
-            return $clients[$target];
+        if (! empty($clients[$target.$type])) {
+            return $clients[$target.$type];
         }
 
-        $client = new Search_Manticore_Client($target);
+        switch ($type) {
+            case "http":
+                $client = new Search_Manticore_Client($target, $prefs['unified_manticore_http_port']);
+                break;
+            case "mysql":
+                $client = new Search_Manticore_PdoClient($target, $prefs['unified_manticore_mysql_port']);
+                break;
+            default:
+                throw new Exception(tr('Invalid Manticore Search client type: %0', $type));
+        }
 
-        $clients[$target] = $client;
+        $clients[$target.$type] = $client;
         return $client;
     }
 

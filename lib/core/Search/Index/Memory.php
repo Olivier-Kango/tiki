@@ -36,6 +36,11 @@ class Search_Index_Memory implements Search_Index_Interface
         return new Search_ResultSet([], 0, $resultStart, $resultCount);
     }
 
+    public function scroll(Search_Query_Interface $query)
+    {
+        // noop
+    }
+
     public function getTypeFactory()
     {
         return new Search_MySql_TypeFactory();

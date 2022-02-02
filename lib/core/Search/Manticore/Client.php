@@ -13,7 +13,7 @@ class Search_Manticore_Client
     protected $dsn;
     protected $client;
 
-    public function __construct($dsn)
+    public function __construct($dsn, $port)
     {
         $this->dsn = rtrim($dsn, '/');
 
@@ -26,7 +26,7 @@ class Search_Manticore_Client
             'transport' => $parsed['scheme'] == 'https' ? 'Https' : 'Http',
             'scheme' => $parsed['scheme'],
             'host' => $parsed['host'],
-            'port' => $parsed['port'],
+            'port' => $port,
             'timeout' => 10,
             'connection_timeout' => 5,
         ];

@@ -9,6 +9,7 @@
 class Search_Manticore_Index implements Search_Index_Interface, Search_Index_QueryRepository
 {
     private $client;
+    private $pdo_client;
     private $index;
     private $providedMappings = [];
 
@@ -17,22 +18,23 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
     private $multisearchIndices;
     private $multisearchStack;
 
-    public function __construct(Search_Manticore_Client $client, $index)
+    public function __construct(Search_Manticore_Client $client, Search_Manticore_PdoClient $pdo_client, $index)
     {
         $this->client = $client;
+        $this->pdo_client = $pdo_client;
         $this->index = $index;
-        $this->providedMappings = $this->client->describe($index);
+        $this->providedMappings = $this->pdo_client->describe($index);
     }
 
     public function destroy()
     {
-        $this->client->deleteIndex($this->index);
+        $this->pdo_client->deleteIndex($this->index);
         return true;
     }
 
     public function exists()
     {
-        $indexStatus = $this->client->getIndexStatus($this->index);
+        $indexStatus = $this->pdo_client->getIndexStatus($this->index);
 
         if (empty($indexStatus) || ! empty($indexStatus['error'])) {
             return false;
@@ -43,7 +45,7 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
 
     public function addDocument(array $data)
     {
-        $this->client->index($this->index, $this->generateDocument($data));
+        $this->pdo_client->index($this->index, $this->generateDocument($data));
     }
 
     private function generateDocument(array $data)
@@ -100,11 +102,11 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
             array_diff_key($data, $this->providedMappings)
         );
         if (empty($this->providedMappings)) {
-            $this->client->createIndex($this->index, $mapping, $this->getIndexSettings());
+            $this->pdo_client->createIndex($this->index, $mapping, $this->getIndexSettings());
             $this->providedMappings = $mapping;
         } else {
             foreach($mapping as $field => $type) {
-                $this->client->alter($this->index,'add', $field, $type['type']);
+                $this->pdo_client->alter($this->index,'add', $field, $type['type']);
             }
             $this->providedMappings = array_merge($this->providedMappings, $mapping);
         }
@@ -128,7 +130,7 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
 
     public function optimize()
     {
-        $this->client->optimize($this->index);
+        $this->pdo_client->optimize($this->index);
     }
 
     public function endUpdate()
@@ -139,14 +141,14 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
     public function invalidateMultiple(array $objectList)
     {
         foreach ($objectList as $object) {
-            $this->client->unindex($this->index, $object['object_type'], $object['object_id']);
+            $this->pdo_client->unindex($this->index, $object['object_type'], $object['object_id']);
         }
     }
 
     public function initSearch()
     {
         $search = new \Manticoresearch\Search($this->client->getClient());
-        $search->setIndex($this->client->getIndex($this->index));
+        $search->setIndex($this->index);
         return $search;
     }
 
@@ -167,7 +169,7 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
         $decorator->decorate($query->getExpr());
 
         $decorator = new Search_Manticore_OrderDecorator($search, $this);
-        $decorator->decorate($query->getSrotOrder());
+        $decorator->decorate($query->getSortOrder());
 
         $decorator = new Search_Manticore_FacetDecorator($search, $this, $this->facetCount);
         $decorator->decorate($query->getFacets());
@@ -183,14 +185,12 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
             ->limit($resultCount)
             ->get();
 
-        $entries = array_map(
-            function ($entry) {
-                $data = (array) $entry->getData();
-                $data['score'] = round($data['_score'], 2);
-                return $data;
-            },
-            $result
-        );
+        $entries = [];
+        foreach ($result as $entry) {
+            $data = (array) $entry->getData();
+            $data['score'] = round($data['_score'], 2);
+            $entries[] = $data;
+        }
 
         $resultSet = new Search_ResultSet($entries, $result->getTotal(), $resultStart, $resultCount);
         // TODO: highlights
@@ -222,9 +222,9 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
 
     private function createDocumentReader()
     {
-        $client = $this->client;
+        $pdo_client = $this->pdo_client;
         $index = $this->index;
-        return function ($type, $object) use ($client, $index) {
+        return function ($type, $object) use ($pdo_client, $index) {
             static $previous, $content;
 
             $now = "$index~$type~$object";
@@ -233,7 +233,7 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
             }
 
             $previous = $now;
-            $content = (array) $client->document($index, $type, $object);
+            $content = (array) $pdo_client->document($index, $type, $object);
             return $content;
         };
     }
@@ -257,7 +257,7 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
 
     public function unstore($name)
     {
-        $this->connection->unstoreQuery($this->index, $name);
+        $this->client->unstoreQuery($this->index, $name);
     }
 
     public function setFacetCount($count)
@@ -270,7 +270,7 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
         if (array_key_exists($field, $this->providedMappings)) {
             return $this->providedMappings[$field];
         }
-        return new stdClass();
+        return [];
     }
 
     public function getFieldMappings()

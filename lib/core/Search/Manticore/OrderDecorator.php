@@ -8,7 +8,7 @@
 
 class Search_Manticore_OrderDecorator extends Search_Manticore_Decorator
 {
-    public function build(Search_Query_Order $order)
+    public function decorate(Search_Query_Order $order)
     {
         $component = '_score';
         $field = $order->getField();

@@ -30,8 +30,8 @@ abstract class Search_Manticore_Decorator
 
         $fields = preg_split('/\s*,\s*/', $field);
         foreach ($fields as $field) {
-            $mapping = $this->index ? $this->index->getFieldMapping($field) : new stdClass();
-            if ((empty($mapping) || empty((array)$mapping)) && $prefs['search_error_missing_field'] === 'y') {
+            $mapping = $this->index ? $this->index->getFieldMapping($field) : [];
+            if (empty($mapping) && $prefs['search_error_missing_field'] === 'y') {
                 if (preg_match('/^tracker_field_/', $field)) {
                     $msg = tr('Field %0 does not exist in the current index. Please check field permanent name and if you have any items in that tracker.', $field);
                     if ($prefs['unified_exclude_nonsearchable_fields'] === 'y') {
