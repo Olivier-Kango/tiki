@@ -2232,7 +2232,6 @@ function wikiplugin_tracker($data, $params)
                         }
                     }
                 }
-                $back .= '</div>'; // We close the form-group row
 
                 if ($f['type'] != 'S' && empty($tpl) && empty($wiki)) {
                     if ($showfieldsdesc == 'y' && $f['description']) {
