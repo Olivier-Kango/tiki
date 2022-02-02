@@ -510,7 +510,7 @@ class VCSUpdateCommand extends Command
         }
 
         $update = $isGit ? 'GIT' : 'SVN';
-        $progress->setMessage('Updating ' . $update . PHP_EOL);
+        $progress->setMessage('Updating ' . $update);
         $progress->advance();
 
         if ($isGit) {
