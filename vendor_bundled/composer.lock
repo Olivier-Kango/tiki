@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6e31bb62f485cbeb5d626f8b92f21f4a",
+    "content-hash": "7ee1dec76fa90f907b51f83659b1b573",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -2460,19 +2460,20 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jasonmunro/cypht.git",
-                "reference": "72784de8fd097d37e8eead1786e0ac48ef2aadb8"
+                "reference": "cf01e6b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-72784de8fd097d37e8eead1786e0ac48ef2aadb8-zip-3370ae.zip",
-                "reference": "72784de8fd097d37e8eead1786e0ac48ef2aadb8",
-                "shasum": "f1a39d47dd1aa28dbba48e21e4dfb1d0be6c81c4"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-cf01e6bc9b95998911cd5bb8017433c8b2b45464-zip-750705.zip",
+                "reference": "cf01e6b",
+                "shasum": "e5c686cd8fbd2ac3e99de955ef9b67fca4ebe5f2"
             },
             "require": {
                 "christian-riesen/base32": "^1.3.2",
                 "codeitnowin/barcode": "^3.0.3",
                 "erusev/parsedown": "^1.8.0-beta-5",
                 "ext-curl": "*",
+                "ext-fileinfo": "*",
                 "ext-json": "*",
                 "ext-mbstring": "*",
                 "ext-openssl": "*",
@@ -2515,7 +2516,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2021-11-25T02:03:57+00:00"
+            "time": "2022-02-02T02:07:47+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -13754,5 +13755,5 @@
         "ext-soap": "0",
         "php": "7.4"
     },
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.1.0"
 }
