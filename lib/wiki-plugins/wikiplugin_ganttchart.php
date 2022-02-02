@@ -846,7 +846,7 @@ function transformDependenciesIndexToIds($depends, $tasks)
             if ($index && $itemDays) {
                 $index = $index . ':' . $itemDays;
             }
-            $dependsIds .= $index;
+            $dependsIds .= ($index == '') ? $index : ','.$index;
         }
     }
 
