@@ -7,7 +7,7 @@ html, body { max-width: 100%; min-height: 100%; background-color: #fff; }
 body { background: linear-gradient(180deg, #faf6f5, #faf6f5, #faf6f5, #faf6f5, #fff); font-size: 1em; height: 100%; color: #333; font-family: Arial; padding: 0px; margin: 0px; min-width: 700px; font-size: 100%; }
 table { width: 100%; border-spacing: 0px; }
 td { vertical-align: top; }
-.adv_controls .combined_sort, .message_list .combined_sort { font-size: 80%; margin-top: -2px; ; float: right; margin-right: 120px; }
+.adv_controls .combined_sort, .message_list .combined_sort { font-size: 80%; margin-top: -2px; ; float: right; margin-right: 225px; }
 .adv_controls .combined_sort { margin-right: 20px; }
 .search_content .combined_sort { display: none; }
 .offline { display: none; cursor: pointer; position: absolute; right: 0px; top: 0px; z-index: 101; color: white; background-color: red; padding: 18px; padding-right: 25px; padding-left: 25px; font-weight: bold; }
@@ -115,8 +115,8 @@ textarea, select, input { border: solid 1px #ddd; background-color: #fff; color:
 .msg_controls { position: relative; display: none; padding-left: 0px; margin-right: 20px; }
 .msg_controls_visible { display: inline; }
 .msg_controls a, .toggle_link { font-size: .6em; letter-spacing: 0px; color: #666; background-color: #fff; border: solid 1px #ede8e6; padding: 3px; width: auto; border-radius: 3px; vertical-align: 3px; display: inline-block !important; }
-.msg_controls a { margin-right: 3px; white-space: nowrap; }
-.toggle_link { padding-left: 4px !important; padding-right: 12px !important; padding-top: 4px !important;}
+.msg_controls a { margin-right: 3px; }
+.toggle_link { padding-left: 4px !important; padding-right: 4px !important; padding-top: 4px !important;}
 .refresh_list, .list_settings_link { opacity: .4; padding: 5px; padding-bottom: 0px; cursor: pointer; padding-right: 0px; vertical-align: -13px; }
 .list_settings_dialog { display: none; padding: 10px; position: absolute; top: 0px; right: 0px; width: 600px; background-color: #efefef; border: solid 1px #ede8e6; }
 .list_controls { position: absolute; right: 0px; padding-right: 10px; top: 0px; padding-top: 10px; background-color: #fff; }
@@ -230,14 +230,11 @@ div.unseen, .unseen .subject { font-weight: 700; }
 .mobile .refresh_list { margin-right: 5px; }
 .mobile .update_message_list { margin-right: 20px; }
 .mobile .msg_text { width: 100%; max-width: 480px !important; word-break: break-all; word-wrap: break-word; font-size: 100%; }
-.mobile .msg_controls { background: linear-gradient(180deg, #fff, #fff, #f7f2ef) !important; z-index: 100; position: fixed; right: -10px; height: 54px; font-size: 115%; padding-left: 5px !important; padding-top: 5px; left: 65px !important; width: 300px !important;}
-.mobile .mailbox_list_title { margin-left: -70px; }
-.mobile .move_to_location { margin-right: 30px !important; margin-top: 10px;}
+.mobile .msg_controls { background: linear-gradient(180deg, #fff, #fff, #f7f2ef) !important; z-index: 100; position: fixed; right: -10px; height: 54px; font-size: 115%; padding-left: 5px; padding-top: 5px; top: 1px; left: 65px !important; }
 @media (orientation: landscape) { 
-    .mobile .msg_controls { top: 12px; height: 26px; width: auto !important;}
-    .mobile .mailbox_list_title { margin-top: 43px; }
+    .mobile .msg_controls { top: 12px; height: 26px; }
+    .mobile .toggle_link { height: 17px !important; }
     .mobile .search_form { margin-left: -18px !important; }
-    .mobile .list_controls { display: none !important; }
 }
 /* .mobile .msg_controls::-webkit-scrollbar { display: none !important; } */
 .mobile .offline { height: 23px; padding-left: 38px; padding-right: 38px; }
@@ -265,6 +262,7 @@ div.unseen, .unseen .subject { font-weight: 700; }
 .mobile .account_icon { width: 20px; height: 20px; }
 .mobile .imap_filter { display: none; }
 .mobile .list_controls { color: #777; background: linear-gradient(180deg, #fff, #fff, #f7f2ef); border-bottom: solid 1px #ede8e6; height: 48px; padding-left: 5px; padding-right: 5px; }
+.mobile .list_controls img { margin-top: 10px }
 .mobile .page_links { font-size: 150%; }
 .mobile .page_links a img { width: 24px; height: 24px; }
 .mobile .toggle_link { padding: 4px 6px !important; line-height: normal !important; margin-left: -3px !important; margin-top: -4px; position: relative; }
@@ -303,6 +301,17 @@ div.unseen, .unseen .subject { font-weight: 700; }
 [data-title] {
     position: relative;
     z-index: 10 !important;
+}
+
+#list_controls_menu {
+    position: absolute;
+    width: 50px; 
+    right: 10px;
+    display: none;
+    padding-left: 14px;
+    padding-bottom: 5px;
+    background: linear-gradient(180deg, #fff, #fff, #f7f2ef);
+    border-radius: 0 0 4px 4px;
 }
 .add_contact_form input { margin: 5px; margin-left: 0px; }
 .add_contact_form { padding-top: 10px; display: block; }
