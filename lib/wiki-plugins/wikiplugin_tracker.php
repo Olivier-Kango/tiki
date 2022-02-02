@@ -2149,7 +2149,7 @@ function wikiplugin_tracker($data, $params)
                         $smarty->assign('f_' . $f['permName'], $prettyout);
                     }
                 } else {
-                    $back .= '<div class="form-group row tracker_input_label tracker_field' . $f['fieldId'] . '"'; // <tr><td class="tracker_input_label"
+                    $back .= '<div class="form-group row tracker_input_label tracker_field' . $f['fieldId'] . '"';
 
                     // If type is has a samerow param and samerow is "No", show text on one line and the input field on the next
                     $isTextOnSameRow = true;
@@ -2231,6 +2231,7 @@ function wikiplugin_tracker($data, $params)
                             $back .= '</div>';
                         }
                     }
+                    $back .= '</div>';
                 }
 
                 if ($f['type'] != 'S' && empty($tpl) && empty($wiki)) {
