@@ -22,6 +22,7 @@ class Services_Edit_Utilities
         global $user;
 
         $tikilib = TikiLib::lib('tiki');
+        $parserlib = TikiLib::lib('parser');
 
         $page = $input->page->pagename();
         $type = $input->type->word();
@@ -30,7 +31,8 @@ class Services_Edit_Utilities
         $index = $input->index->int();
         $params = $input->asArray('params');
         $appendParams = $input->appendParams->int();
-
+        // Checking permission from plugin
+        $is_allowed = $parserlib->check_permission_from_plugin_params($params);
         $referer = $_SERVER['HTTP_REFERER'];
 
         if (! $page || ! $type || ! $referer) {
@@ -49,7 +51,7 @@ class Services_Edit_Utilities
         }
 
         $perms = $tikilib->get_perm_object($page, 'wiki page', $info, false);
-        if ($perms['tiki_p_edit'] !== 'y') {
+        if ($perms['tiki_p_edit'] !== 'y' &&!empty($pluginArgs) && $is_allowed !== 'y') {
             throw new Services_Exception_Denied(tr('You do not have permission to edit "%0"', $page));
         }
 

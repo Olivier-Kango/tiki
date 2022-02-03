@@ -45,6 +45,13 @@ function wikiplugin_signature_info()
                     'Signature image align in document (default is left)'
                 ),
             ],
+            'editable_by_user' => [
+                'required'    => false,
+                'name'        => tra('Editable by user'),
+                'description' => tra(
+                    'Put some usernames that are allowed to edit this plugin'
+                ),
+            ],
         ],
     ];
 }

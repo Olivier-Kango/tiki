@@ -1140,13 +1140,29 @@ class ParserLib extends TikiDb_Bridge
     }
 
     //*
-    public function plugin_is_editable($name)
+    public function plugin_is_editable($name, $pluginArgs = null)
     {
         global $tiki_p_edit, $prefs, $section;
         $info = $this->plugin_info($name);
+        $is_allowed = $this->check_permission_from_plugin_params($pluginArgs);         
         // note that for 3.0 the plugin editor only works in wiki pages, but could be extended later
-        return $section == 'wiki page' && $info && $tiki_p_edit == 'y' && $prefs['wiki_edit_plugin'] == 'y'
+        return $section == 'wiki page' && $info && ($tiki_p_edit == 'y' || $is_allowed == 'y') && $prefs['wiki_edit_plugin'] == 'y'
             && ! $this->plugin_is_inline($name);
+    }
+
+    // Checking permission from plugin params
+    public function check_permission_from_plugin_params($pluginArgs) {
+        global $user;
+        $is_allowed = 'n';
+        if ($pluginArgs && $pluginArgs['editable_by_user']) {
+            foreach (explode(',', $pluginArgs['editable_by_user']) as $allowedUser) {
+                if (strtolower($user) == strtolower($allowedUser)) {
+                    $is_allowed = 'y';
+                    return $is_allowed;
+                }
+            }
+        }
+        return $is_allowed; 
     }
 
     /**

@@ -115,14 +115,15 @@ class Services_Edit_PluginController
         $bodyContent = $input->bodyContent->wikicontent();
         $edit_icon = $input->edit_icon->int();
         $selectedMod = $input->selectedMod->text();
-
+        // Checking permission from plugin
+        $is_allowed = $parserlib->check_permission_from_plugin_params($pluginArgs);
         $tikilib = TikiLib::lib('tiki');
         $pageInfo = $tikilib->get_page_info($page);
         if (! $pageInfo) {
             // in edit mode
         } else {
             $perms = $tikilib->get_perm_object($page, 'wiki page', $pageInfo, false);
-            if ($perms['tiki_p_edit'] !== 'y') {
+            if ($perms['tiki_p_edit'] !== 'y' && !empty($pluginArgs) && $is_allowed !== 'y') {
                 throw new Services_Exception_Denied(tr('You do not have permission to edit "%0"', $page));
             }
         }

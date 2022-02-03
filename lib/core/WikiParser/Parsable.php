@@ -142,11 +142,14 @@ class WikiParser_Parsable extends ParserLib
                 continue;
             }
 
-            if ($this->plugin_is_editable($plugin_name) && (empty($this->option['preview_mode']) || ! $this->option['preview_mode']) && empty($this->option['indexing']) && (empty($this->option['print']) || ! $this->option['print']) && ! $this->option['suppress_icons']) {
+            if ($this->plugin_is_editable($plugin_name, $arguments) && (empty($this->option['preview_mode']) || ! $this->option['preview_mode']) && empty($this->option['indexing']) && (empty($this->option['print']) || ! $this->option['print']) && ! $this->option['suppress_icons']) {
                 $headerlib = TikiLib::lib('header');
                 $smarty->loadPlugin('smarty_function_icon');
 
                 $id = 'plugin-edit-' . $plugin_name . $current_index;
+                if (strlen($plugin_data) > 2000) {
+                    $plugin_data = '~same~';
+                }
 
                 $headerlib->add_js(
                     "\$(document).ready( function() {
@@ -171,7 +174,7 @@ if ( \$('#$id') ) {
 "
                 );
 
-                $displayIcon = $prefs['wiki_edit_icons_toggle'] != 'y' || isset($_COOKIE['wiki_plugin_edit_view']);
+                $displayIcon = $prefs['wiki_edit_icons_toggle'] != 'y' || isset($_COOKIE['wiki_plugin_edit_view']) ? $_COOKIE['wiki_plugin_edit_view'] : true;
 
                 $ret .= '~np~' .
                         '<a id="' . $id . '" href="javascript:void(1)" class="editplugin"' . ($displayIcon ? '' : ' style="display:none;"') . '>' .
