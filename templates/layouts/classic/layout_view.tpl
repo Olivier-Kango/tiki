@@ -66,7 +66,7 @@
                     </div>
                 {/if}
                 <div class="d-flex flex-row flex-wrap w-100">
-                    <div class="col col1 col-md-12 col-lg-9 pb-4" id="col1">
+                    <div class="col col1 col-md-12 col-lg-9 col-xl-10 pb-4" id="col1">
                         {if $prefs.feature_layoutshadows eq 'y'}
                         <div id="tiki-center-shadow">{eval var=$prefs.center_shadow_start}{/if}
                             {if $prefs.module_zones_pagetop eq 'fixed' or ($prefs.module_zones_pagetop ne 'n' && ! zone_is_empty('pagetop'))}
@@ -82,7 +82,7 @@
                             {/if}
                             {if $prefs.feature_layoutshadows eq 'y'}{eval var=$prefs.center_shadow_end}</div>{/if}
                     </div>
-                    <div class="col col3 col-md-12 col-lg-3" id="col3">
+                    <div class="col col3 col-md-12 col-lg-3 col-xl-2" id="col3">
                         {modulelist zone=right}
                     </div>
                 </div>
@@ -94,7 +94,7 @@
                     </div>
                 {/if}
                 <div class="d-flex flex-row flex-wrap w-100">
-                    <div class="col col1 col-md-12 col-lg-9 order-md-1 order-lg-2 pb-4" id="col1">
+                    <div class="col col1 col-md-12 col-lg-9 col-xl-10 order-md-1 order-lg-2 pb-4" id="col1">
                         {if $prefs.feature_layoutshadows eq 'y'}
                         <div id="tiki-center-shadow">{eval var=$prefs.center_shadow_start}{/if}
                             {if $prefs.module_zones_pagetop eq 'fixed' or ($prefs.module_zones_pagetop ne 'n' && ! zone_is_empty('pagetop'))}
@@ -110,7 +110,7 @@
                             {/if}
                             {if $prefs.feature_layoutshadows eq 'y'}{eval var=$prefs.center_shadow_end}</div>{/if}
                     </div>
-                    <div class="col col2 col-md-12 col-lg-3 order-sm-2 order-md-2 order-lg-1" id="col2">
+                    <div class="col col2 col-md-12 col-lg-3 col-xl-2 order-sm-2 order-md-2 order-lg-1" id="col2">
                         {modulelist zone=left}
                     </div>
                 </div>
