@@ -9,7 +9,7 @@
 function wikiplugin_sign_info()
 {
     return [
-        'name' => tr('Signature'),
+        'name' => tr('Sign'),
         'documentation' => 'PluginSign',
         'description' => tr('Sign and date your contribution to a page'),
         'prefs' => ['wikiplugin_sign'],
