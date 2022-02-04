@@ -34,11 +34,7 @@
                 {if !empty($plugins[i])}
                     <tr>
                         <td>{* $plugins[i].help is generated using the tiki-plugin_help.tpl template *}
-                            {if $plugins[i].help eq ''}
-                                {tr}No description available{/tr}
-                            {else}
-                                {$plugins[i].help}
-                            {/if}
+                            {$plugins[i].help}
                         </td>
                     </tr>
                 {/if}
