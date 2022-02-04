@@ -503,7 +503,7 @@ sensiolabs-vendor-security-check:
     - composer require jerome-breton/casperjs-installer:dev-master --no-progress
     - composer require enygma/expose:^3.0 --no-progress
     - composer require fullcalendar/fullcalendar-scheduler ^1.9 --no-progress
-    - composer require fzaninotto/faker dev-master --no-progress
+    - composer require fakerphp/faker dev-master --no-progress
     - composer require google/apiclient ^2.2.2 --no-progress
     - composer require npm-asset/lozad ^1.6.0 --no-progress
     - composer require mpdf/mpdf ^8.0.0 --no-progress
