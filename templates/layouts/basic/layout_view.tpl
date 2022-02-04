@@ -47,7 +47,7 @@
                 </div>
             {/if}
         <div class="d-flex w-100 flex-row flex-wrap">
-            <div class="col col1 col-md-12 col-lg-9 pb-4" id="col1">
+            <div class="col col1 col-md-12 col-lg-9 col-xl-10 pb-4" id="col1">
                 {if $prefs.module_zones_pagetop eq 'fixed' or ($prefs.module_zones_pagetop ne 'n' && ! zone_is_empty('pagetop'))}
                     {modulelist zone=pagetop}
                 {/if}
@@ -60,7 +60,7 @@
                     {modulelist zone=pagebottom class='mt-3'}
                 {/if}
             </div>
-            <div class="col col3 col-md-12 col-lg-3" id="col3">
+            <div class="col col3 col-md-12 col-lg-3 col-xl-2" id="col3">
                 {modulelist zone=right}
             </div>
         </div>
@@ -71,7 +71,7 @@
                     {icon name=$icon_name class='toggle_zone left' href='#' title='{tr}Toggle left modules{/tr}'}
                 </div>
             {/if}
-            <div class="col col1 col-md-12 col-lg-9 order-md-1 order-lg-2 pb-4" id="col1">
+            <div class="col col1 col-md-12 col-lg-9 col-xl-10 order-md-1 order-lg-2 pb-4" id="col1">
                 {if $prefs.module_zones_pagetop eq 'fixed' or ($prefs.module_zones_pagetop ne 'n' && ! zone_is_empty('pagetop'))}
                     {modulelist zone=pagetop}
                 {/if}
@@ -84,7 +84,7 @@
                     {modulelist zone=pagebottom class='mt-3'}
                 {/if}
             </div>
-            <div class="col col2 col-md-12 col-lg-3 order-sm-2 order-md-2 order-lg-1" id="col2">
+            <div class="col col2 col-md-12 col-lg-3 col-xl-2 order-sm-2 order-md-2 order-lg-1" id="col2">
                 {modulelist zone=left}
             </div>
         {else}
