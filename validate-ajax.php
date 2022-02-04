@@ -17,7 +17,7 @@ if ($prefs['feature_jquery'] != 'y' || $prefs['feature_jquery_validation'] != 'y
     exit;
 }
 
-if (empty($_REQUEST['validator']) || empty($_REQUEST["input"]) && $_REQUEST["input"] != '0') {
+if (empty($_REQUEST['validator']) || empty($_REQUEST["input"]) && $_REQUEST["input"] != '0' && @$_REQUEST['validator'] != 'remotelock') {
     echo '{}';
     exit;
 }
