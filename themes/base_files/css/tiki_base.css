@@ -5346,5 +5346,8 @@ h2:hover .heading-link, h3:hover .heading-link, h4:hover .heading-link, h5:hover
   .no_display_on_print {
     display: none !important
   }
+  .display_on_print nav {
+    display: contents !important
+  }
 }
 /* End of file */

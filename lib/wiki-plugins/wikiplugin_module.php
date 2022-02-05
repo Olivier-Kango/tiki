@@ -206,7 +206,7 @@ function wikiplugin_module_info()
             ],
             'device' => [
                 'name' => tra('Display on device'),
-                'description' => tra('On which device the module must be displayed, by default it is displayed on all currencies.'),
+                'description' => tra('On which device the module must be displayed, by default it is displayed on all devices.'),
                 'since' => '24',
                 'section' => 'visibility',
                 'separator' => ';',
