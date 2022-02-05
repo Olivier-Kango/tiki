@@ -524,55 +524,51 @@ class PdfGenerator
 
         clearstatcache();
         
-        preg_match_all('#\"(.*?)\"#', $prefs['print_pdf_modules'], $match);
-        $modules_to_print = array_map(
-            function ($item) {
-                return str_replace('"','', $item);
-            },
-            $match[0]
-        );
+        $modules_to_print = $prefs['print_pdf_modules'];
         $modules_to_print_contents = [];
 
         $modules = $modlib->get_modules_for_user($user);
 
         $modnames = [];
 
-        foreach ($modules_to_print as $module_key) {
-            $content = '';
-            
-            if (isset($modules[$module_key]) && is_array($modules[$module_key])) {
-                foreach ($modules[$module_key] as & $mod_reference) {
-                    $ref = (array) $mod_reference;
-                    $mod_reference['data'] = new Tiki_Render_Lazy(
-                        function () use ($ref) {
-                            $modlib = TikiLib::lib('mod');
-                            return $modlib->execute_module($ref);
-                        }
+        if(is_array($modules_to_print)){
+            foreach ($modules_to_print as $module_key) {
+                $content = '';
+                
+                if (isset($modules[$module_key]) && is_array($modules[$module_key])) {
+                    foreach ($modules[$module_key] as & $mod_reference) {
+                        $ref = (array) $mod_reference;
+                        $mod_reference['data'] = new Tiki_Render_Lazy(
+                            function () use ($ref) {
+                                $modlib = TikiLib::lib('mod');
+                                return $modlib->execute_module($ref);
+                            }
+                        );
+                        $modnames[$ref['name']] = '';
+                    }
+
+                    $content = implode(
+                        '',
+                        array_map(
+                            function ($module) {
+                                return (isset($module['data']) ? $module['data'] : '');
+                            },
+                            $modules[$module_key]
+                        )
                     );
-                    $modnames[$ref['name']] = '';
                 }
 
-                $content = implode(
-                    '',
-                    array_map(
-                        function ($module) {
-                            return (isset($module['data']) ? $module['data'] : '');
-                        },
-                        $modules[$module_key]
-                    )
-                );
-            }
+                $dir = '';
+                if (Language::isRTL()) {
+                    $dir = ' dir="rtl"';
+                }
 
-            $dir = '';
-            if (Language::isRTL()) {
-                $dir = ' dir="rtl"';
+                $modules_to_print_contents[$module_key] = <<<OUT
+                <div class="modules" id="$module_key" $dir>
+                    $content
+                </div>
+                OUT;
             }
-
-            $modules_to_print_contents[$module_key] = <<<OUT
-            <div class="modules" id="$module_key" $dir>
-                $content
-            </div>
-            OUT;
         }
 
         $htmlLayout["staringPart"] = '';
