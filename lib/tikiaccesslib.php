@@ -1504,6 +1504,7 @@ class TikiAccessLib extends TikiLib
         $style_alert = '' . $error_login != '' ? 'alert alert-danger' : '';
         $style_alert_btn = '' . $error_login != '' ? '' : 'display:none';
 
+        require_once('lib/setup/cookies.php');
         $this->setTicket();
 
         $login = '<form class="form-detail" id="myform" action="tiki-login.php?page=tikiIndex" method="post">
