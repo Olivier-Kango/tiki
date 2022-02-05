@@ -218,11 +218,6 @@ class TikiCalendarLib extends CalendarLib
                                     ' where c.`object`=f.`forumId` and (c.`commentDate`>? and c.`commentDate`<?) and c.`objectType` = ?';
                 break;
 
-            case 'gal':
-                $query = 'select i.`imageId` as `id`, i.`created` as `start`, i.`user` as `user`, i.`name` as `name`, g.`name` as `parent`, g.`galleryId` as `id2`' .
-                                ' from `tiki_images` as i left join `tiki_galleries` as g on g.`galleryId`=i.`galleryId` where (i.`created`>? and i.`created`<?)';
-                break;
-
             case 'nl':
                 $query = "select count(s.`email`) as `head`, max(s.`subscribed`) as `start`, s.`nlId` as `id`, n.`name` as `name`" .
                                     " from `tiki_newsletter_subscriptions` as s " .

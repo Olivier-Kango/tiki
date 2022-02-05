@@ -1673,16 +1673,6 @@ class TikiLib extends TikiDb_Bridge
         return $this->table('tiki_wiki_attachments')->fetchFullRow(['attId' => (int) $attId]);
     }
 
-    /*shared*/
-    /**
-     * @param $id
-     * @return mixed
-     */
-    public function get_gallery($id)
-    {
-        return $this->table('tiki_galleries')->fetchFullRow(['galleryId' => (int) $id]);
-    }
-
     // Last visit module ////
     /*shared*/
     /**
@@ -1702,7 +1692,6 @@ class TikiLib extends TikiDb_Bridge
             $last = time();
         }
         $ret["lastVisit"] = $last;
-        $ret["images"] = $this->getOne("select count(*) from `tiki_images` where `created`>?", [(int)$last]);
         $ret["pages"] = $this->getOne("select count(*) from `tiki_pages` where `lastModif`>?", [(int)$last]);
         $ret["files"] = $this->getOne("select count(*) from `tiki_files` where `created`>?", [(int)$last]);
         $ret["comments"] = $this->getOne("select count(*) from `tiki_comments` where `commentDate`>?", [(int)$last]);
@@ -1739,8 +1728,6 @@ class TikiLib extends TikiDb_Bridge
 
         $data['xdata'][] = tra('wiki');
         $data['ydata'][] = $this->getOne('select sum(`hits`) from `tiki_pages`', []);
-        $data['xdata'][] = tra('img-g');
-        $data['ydata'][] = $this->getOne('select sum(`hits`) from `tiki_galleries`', []);
 
         $data['xdata'][] = tra('file-g');
         $data['ydata'][] = $this->getOne('select sum(`hits`) from `tiki_file_galleries`', []);
