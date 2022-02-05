@@ -2812,9 +2812,7 @@ class UsersLib extends TikiLib
             $this->query('update `tiki_live_support_operators` set `user`=? where `user`=?', [$to, $from]);
             $this->query('update `tiki_live_support_messages` set `user`=? where `user`=?', [$to, $from]);
             $this->query('update `tiki_live_support_messages` set `username`=? where `username`=?', [$to, $from]);
-            $this->query('update `tiki_images` set `user`=? where `user`=?', [$to, $from]);
             $this->query('update `tiki_history` set `user`=? where `user`=?', [$to, $from]);
-            $this->query('update `tiki_galleries` set `user`=? where `user`=?', [$to, $from]);
             $this->query('update `tiki_forums_reported` set `user`=? where `user`=?', [$to, $from]);
             $this->query('update `tiki_forums_queue` set `user`=? where `user`=?', [$to, $from]);
             $this->query('update `tiki_forums` set `moderator`=? where `moderator`=?', [$to, $from]);
