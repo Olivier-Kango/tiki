@@ -170,17 +170,19 @@ if ($prefs['feature_theme_control'] == 'y') {
     include('tiki-tc.php');
 }
 
-$smarty->assign('parsed_body', $parserlib->parse_data($body, ['is_html' => $artlib->is_html($article_data)]));
-$smarty->assign(
-    'parsed_heading',
-    $parserlib->parse_data(
-        $heading,
-        [
-            'min_one_paragraph' => true,
-            'is_html' => $artlib->is_html($article_data, true),
-        ]
-    )
+$parsed_body = $parserlib->parse_data($body, ['is_html' => $artlib->is_html($article_data)]);
+$parsed_heading = $parserlib->parse_data(
+    $heading,
+    [
+        'min_one_paragraph' => true,
+        'is_html' => $artlib->is_html($article_data, true),
+    ]
 );
+
+
+$smarty->assign('parsed_body', $parsed_body);
+$smarty->assign('parsed_heading', $parsed_heading);
+
 if ($prefs['article_related_articles'] == 'y') {
     $article_data['related_articles'] = $artlib->get_related_articles($article_data['articleId']);
     if (isset($article_data['related_articles']) && ! empty($article_data['related_articles'])) {
@@ -238,5 +240,42 @@ if ($prefs['feature_actionlog'] == 'y') {
 }
 // disallow robots to index page:
 $smarty->assign('metatag_robots', 'NOINDEX, NOFOLLOW');
-$smarty->assign('print_page', 'y');
-$smarty->display("tiki-print_article.tpl");
+
+
+// Allow PDF export by installing a Mod that define an appropriate function
+if (isset($_REQUEST['display']) && $_REQUEST['display'] == 'pdf') {
+    require_once 'lib/pdflib.php';
+    $page = $article_data["title"];
+    $smarty->assign('print_page', 'n');
+    $smarty->assign('preview', 'y');
+    ob_start();
+    $smarty->display("tiki-print_article.tpl");
+    $pdata = ob_get_clean();
+
+    $generator = new PdfGenerator();
+    if (! empty($generator->error)) {
+        Feedback::error($generator->error);
+        $access->redirect($page);
+    } else {
+        if (isset($_REQUEST['filename'])) {
+            $page = $_REQUEST['filename'];
+        }
+        $pdf = $generator->getPdf('tiki-print_article.php', ['articleId' => $_REQUEST["articleId"]], $pdata);
+        $length = strlen($pdf);
+        header('Cache-Control: private, must-revalidate');
+        header('Pragma: private');
+        header("Content-Description: File Transfer");
+        $page = preg_replace('/\W+/u', '_', $page); // Replace non words with underscores for valid file names
+        $page = \TikiLib::lib('tiki')->remove_non_word_characters_and_accents($page);
+        header('Content-disposition: attachment; filename="' . $page . '.pdf"');
+        header("Content-Type: application/pdf");
+        header("Content-Transfer-Encoding: binary");
+        header('Content-Length: ' . $length);
+        echo $pdf;
+    }
+} else {
+    $smarty->assign('print_page', 'y');
+    $smarty->display("tiki-print_article.tpl");
+}
+
+
