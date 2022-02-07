@@ -74,6 +74,11 @@ function module_login_box_info()
                 'description' => tra('Menu to use as the dropdown in "popup" mode. Defaults to a built in menu with only "My Account" and "Logout"'),
                 'filter' => 'int',
             ],
+            'start_session' => [
+                'name' => tra('Start Session'),
+                'description' => tra('If the preference "silent_session" is enabled start the session when the login form is shown to avoid CSRF errors.') . ' (y/n)',
+                'filter' => 'alpha',
+            ],
         ]
     ];
 }
@@ -89,6 +94,11 @@ function module_login_box($mod_reference, &$module_params)
     static $module_logo_instance = 0;
 
     $module_logo_instance++;
+
+    if ($prefs['session_silent'] === 'y' && empty($_COOKIE[session_name()]) && ! empty($module_params['start_session']) && $module_params['start_session'] === 'y') {
+        // start a basic session so the user can login without a CSRF ticket error, then tiki-setup_base.php will tidy it up on the next page load
+        Laminas\Session\Container::getDefaultManager()->start();
+    }
 
     $smarty->assign('module_logo_instance', $module_logo_instance);
     $smarty->assign('mode', isset($module_params['mode']) ? $module_params['mode'] : 'module');
