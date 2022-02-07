@@ -11,6 +11,7 @@
             decorations=""
             nobox=""
             notitle=""
+            start_session=$prefs.session_silent
         }
     </div>
 </div>
