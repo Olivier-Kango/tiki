@@ -54,7 +54,12 @@ function module_last_modif_pages_info()
                 'name' => tra('Maximum Length for comments'),
                 'description' => tra('Maximum number of characters in comments allowed before truncating.'),
                 'filter' => 'int'
-            ]
+            ],
+            'days' => [
+                'name' => tra('Number of days'),
+                'description' => tra('Number of day in past to look for modified pages. Defaults to "356"'),
+                'filter' => 'int'
+            ],
         ],
         'common_params' => ['nonums', 'rows']
     ];
@@ -69,7 +74,7 @@ function module_last_modif_pages($mod_reference, $module_params)
     $tikilib = TikiLib::lib('tiki');
     $smarty = TikiLib::lib('smarty');
     $histlib = TikiLib::lib('hist');
-    $ranking = $histlib->get_last_changes(0, 0, $mod_reference['rows'], 'lastModif_desc', '', true);
+    $ranking = $histlib->get_last_changes($module_params['days'] ?? 365, 0, $mod_reference['rows'], 'lastModif_desc', '', true);
 
     $smarty->assign('modLastModif', $ranking["data"]);
     $smarty->assign('maxlen', isset($module_params["maxlen"]) ? $module_params["maxlen"] : 0);
