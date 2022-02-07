@@ -70,10 +70,15 @@ function guess_new_page_attributes_from_parent_pages($page, $page_info)
             //
             $langLib = TikiLib::lib('language');
             $languages = $langLib->list_languages(false, true);
-            $smarty->assign('languages', $languages);
-            $smarty->assign('default_lang', $prefs['language']);
-            $need_lang = true;
-            $smarty->assign('_REQUEST', $_REQUEST);
+            if (count($languages) === 1) {
+                $_REQUEST['lang'] = $languages[0]['value'];
+                $need_lang = false;
+            } else {
+                $smarty->assign('languages', $languages);
+                $smarty->assign('default_lang', $prefs['language']);
+                $need_lang = true;
+                $smarty->assign('_REQUEST', $_REQUEST);
+            }
         }
     }
 }
