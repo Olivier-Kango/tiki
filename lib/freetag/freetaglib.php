@@ -1088,7 +1088,8 @@ class FreetagLib extends ObjectLib
         $query = 'SELECT t.* FROM `tiki_freetags` t, `tiki_freetagged_objects` o'
                         . ' WHERE t.`tagId` = o.`tagId`'
                         . ' AND (`lang` = ? or `lang` IS null)'
-                        . ' ORDER BY ' . $this->convertSortMode('random');
+                        . ' ORDER BY ' . $this->convertSortMode('random')
+                        . ' LIMIT ' . $max;
 
         $result = $this->query($query, [ $lang ]);
 
