@@ -148,6 +148,7 @@ class CategLib extends ObjectLib
         }
 
         $cachelib->empty_type_cache('allcategs');
+        $cachelib->empty_type_cache('cat_tree');
         $cachelib->empty_type_cache('fgals_perms');
 
         $values = ["categoryId" => $categId, "categoryName" => $categoryName, "categoryPath" => $categoryPath,
@@ -226,6 +227,7 @@ class CategLib extends ObjectLib
         }
 
         $cachelib->empty_type_cache('allcategs');
+        $cachelib->empty_type_cache('cat_tree');
         $cachelib->empty_type_cache('fgals_perms');
 
         $values = ["categoryId" => $categId, "categoryName" => $name, "categoryPath" => $this->get_category_path_string_with_root($categId),
@@ -284,6 +286,7 @@ class CategLib extends ObjectLib
         );
 
         $cachelib->empty_type_cache('allcategs');
+        $cachelib->empty_type_cache('cat_tree');
         $cachelib->empty_type_cache('fgals_perms');
         $values = ["categoryId" => $id, "categoryName" => $name, "categoryPath" => $this->get_category_path_string_with_root($id),
             "description" => $description, "parentId" => $parentId, "parentName" => $this->get_category_name($parentId),
@@ -2121,34 +2124,41 @@ class CategLib extends ObjectLib
     // generate category tree for use in various places (like categorize_list.php)
     public function generate_cat_tree($categories, $canchangeall = false, $forceincat = null)
     {
-        $smarty = TikiLib::lib('smarty');
-        include_once('lib/tree/BrowseTreeMaker.php');
-        $tree_nodes = [];
-        $roots = $this->findRoots($categories);
-        foreach ($categories as $c) {
-            if (isset($c['name']) || $c['parentId'] != 0) {
-                // if used for purposes such as find, should be able to "change" all cats
-                if ($canchangeall) {
-                    $c['canchange'] = true;
-                }
+        $cachelib = TikiLib::lib('cache');
+        $cacheKey = serialize([$categories, $canchangeall, $forceincat]);
 
-                // if used in find, should force incat to check those that have been selected
-                if (is_array($forceincat)) {
-                    $c['incat'] = in_array($c['categId'], $forceincat) ? 'y' : 'n';
-                }
+        if (! $res = $cachelib->getSerialized($cacheKey, 'cat_tree')) {
 
-                $smarty->assign('category_data', $c);
-                $tree_nodes[] = [
-                    'id' => $c['categId'],
-                    'parent' => $c['parentId'],
-                    'data' => $smarty->fetch('category_tree_entry.tpl'),
-                ];
+            $smarty = TikiLib::lib('smarty');
+            include_once('lib/tree/BrowseTreeMaker.php');
+            $tree_nodes = [];
+            $roots = $this->findRoots($categories);
+            foreach ($categories as $c) {
+                if (isset($c['name']) || $c['parentId'] != 0) {
+                    // if used for purposes such as find, should be able to "change" all cats
+                    if ($canchangeall) {
+                        $c['canchange'] = true;
+                    }
+
+                    // if used in find, should force incat to check those that have been selected
+                    if (is_array($forceincat)) {
+                        $c['incat'] = in_array($c['categId'], $forceincat) ? 'y' : 'n';
+                    }
+
+                    $smarty->assign('category_data', $c);
+                    $tree_nodes[] = [
+                        'id'     => $c['categId'],
+                        'parent' => $c['parentId'],
+                        'data'   => $smarty->fetch('category_tree_entry.tpl'),
+                    ];
+                }
             }
-        }
-        $tm = new BrowseTreeMaker("categorize");
-        $res = '';
-        foreach ($roots as $root) {
-            $res .= $tm->make_tree($root, $tree_nodes);
+            $tm = new BrowseTreeMaker("categorize");
+            $res = '';
+            foreach ($roots as $root) {
+                $res .= $tm->make_tree($root, $tree_nodes);
+            }
+            $cachelib->cacheItem($cacheKey, serialize($res), 'cat_tree');
         }
         return $res;
     }
