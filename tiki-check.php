@@ -1281,7 +1281,8 @@ if (is_file('.svn/wc.db')) {
 }
 
 $s = extension_loaded('sodium');
-$msg = tra('Enable safe, encrypted storage of data such as passwords. Since Tiki 22, Sodium lib (included in PHP 7.2 core) is used for the User Encryption feature and improves encryption in other features, when available.');
+$msg = tra('This extension is required to encrypt data such as CSRF ticket cookie and user data.') . PHP_EOL;
+$msg .= tra('Enable safe, encrypted storage of data such as passwords. Since Tiki 22, Sodium lib (included in PHP 7.2 core) is used for the User Encryption feature and improves encryption in other features, when available');
 if ($s) {
     $php_properties['sodium'] = array(
         'fitness' => tra('good'),

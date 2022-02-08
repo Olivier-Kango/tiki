@@ -170,6 +170,7 @@
         "ext-curl": "*",
         "ext-openssl": "*",
         "ext-iconv": "*",
+        "ext-sodium": "*",
         "ext-zip": "*",
         "npm-asset/select2": "^4.0",
         "npm-asset/ttskch--select2-bootstrap4-theme": "^1.5",
