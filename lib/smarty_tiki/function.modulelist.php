@@ -76,7 +76,10 @@ function smarty_function_modulelist($params, $smarty)
                         $dom = new DOMDocument;
                         $dom->loadHTML($moduleContent);
                         $divs = $dom->getElementsByTagName('div');
-                        $divs[0]->setAttribute('class', $divs[0]->getAttribute('class') . ' ' . $device_classes);
+                        $firstDiv = $divs[0];
+                        if ($firstDiv) {
+                            $firstDiv->setAttribute('class', $firstDiv->getAttribute('class') . ' ' . $device_classes);
+                        }
 
                         $moduleContent = $dom->saveHTML();
                     }
