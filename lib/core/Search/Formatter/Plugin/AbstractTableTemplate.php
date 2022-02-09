@@ -26,16 +26,24 @@ abstract class Search_Formatter_Plugin_AbstractTableTemplate implements Search_F
             if ($name === 'display') {
                 $arguments = $parser->parse($match->getArguments());
 
-                if (isset($arguments['name']) && ! isset($this->fields[$arguments['name']])) {
-                    $this->fields[$arguments['name']] = $arguments;
+                if (isset($arguments['name'])) {
+                    if (! isset($this->fields[$arguments['name']])) {
+                        $this->fields[$arguments['name']] = $arguments;
+                    } else {
+                        Feedback::warning(tr('Duplicate field name used in display blocks, only the first one defined will be used: %0', $arguments['name']));
+                    }
                 }
             }
 
             if ($name === 'column') {
                 $arguments = $parser->parse($match->getArguments());
 
-                if (isset($arguments['field']) && ! isset($this->fields[$arguments['field']])) {
-                    $this->fields[$arguments['field']] = $arguments;
+                if (isset($arguments['field'])) {
+                    if (! isset($this->fields[$arguments['field']])) {
+                        $this->fields[$arguments['field']] = $arguments;
+                    } else {
+                        Feedback::warning(tr('Duplicate field name used in column blocks, only the first one defined will be used: %0', $arguments['field']));
+                    }
                 }
             }
         }
