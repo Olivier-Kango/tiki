@@ -11,6 +11,7 @@ import draggable from 'vuedraggable/src/vuedraggable'
 import { useToast } from "vue-toastification"
 import kanban from '../api/kanban'
 import store from '../store'
+import defineAbilityFor from '../auth/defineAbility'
 
 const props = defineProps({
     cardIds: {
@@ -35,6 +36,7 @@ const toast = useToast()
 const dragging = ref(false)
 
 const getCards = computed(() => store.getters.getCards(props.cardIds))
+const ability = computed(() => defineAbilityFor(store.getters.getUser))
 
 const startDragging = () => dragging.value = true
 const endDragging = () => dragging.value = false
@@ -107,6 +109,7 @@ const setItem = (itemId, newIndex) => {
         chosenClass="chosen-card"
         ghostClass="ghost-card"
         dragClass="dragging-card"
+        :disabled="!ability.can('update', 'Card')"
         @change="handleChange"
         @start="startDragging"
         @end="endDragging"
@@ -116,13 +119,13 @@ const setItem = (itemId, newIndex) => {
         <template #item="{ element }">
             <KanbanCard>
                 <Card @click="emit('editCard', element)">
-                    <div>
+                    <div v-if="false">
                         <span class="badge badge-light">{{ element.sortOrder }}</span>
                     </div>
                     <div>
                         {{ element.title }}
                     </div>
-                    <div class="d-flex justify-content-end">
+                    <div v-if="false" class="d-flex justify-content-end">
                         <div class="kanban-avatar">
                             <span>NA</span>
                             <!-- <img src="..." class="rounded-circle" alt="..."> -->

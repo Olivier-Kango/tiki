@@ -62,6 +62,7 @@ const handleAddCard = () => {
             toast.success(`${res.status} ${res.statusText}! Item created.`)
         })
         .catch(err => {
+            loading.value = false
             const { code, errortitle, message } = err.response.data
             const msg = `Code: ${code} - ${message}`
             toast.error(msg)

@@ -91,7 +91,7 @@ const handleEditClick = event => {
                 />
                 <span class="rounded p-1" :class="{'bg-danger text-light': isLimitExceeded}">{{ total }}/{{ limit }}</span>
             </h6>
-            <Dropdown v-if="rowIndex === 0" class="d-inline-block ml-2" variant="default" sm>
+            <Dropdown v-if="false && rowIndex === 0" class="d-inline-block ml-2" variant="default" sm>
                 <template v-slot:dropdown-button>
                     <i class="fas fa-ellipsis-h"></i>
                 </template>

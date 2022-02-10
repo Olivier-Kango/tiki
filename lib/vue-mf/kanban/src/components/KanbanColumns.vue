@@ -103,14 +103,20 @@ const handleModalClosed = () => {
         v-model="showModal"
         classes="f-modal-container"
         content-class="f-modal-content"
+        :drag="false"
+        :resize="false"
+        :fit-parent="false"
         @click-outside="handleClickOutside"
         @closed="handleModalClosed"
     >
         <div v-if="showModal" class="d-flex">
-            <div class="w-75">
-                <FormEditCard :id="card.id" :title="card.title" :desc="card.description"></FormEditCard>
+            <Button class="f-modal-close" variant="default" @click="showModal = false">
+                <i class="fas fa-times"></i>
+            </Button>
+            <div class="w-100">
+                <FormEditCard :id="card.id" :title="card.title" :desc="card.description" :reference="`tiki-view_tracker_item.php?itemId=${card.id}`"></FormEditCard>
             </div>
-            <div class="w-25">
+            <div v-if="false" class="w-25">
                 <div>
                     <Dropdown class="d-block ml-2" variant="default" sm>
                         <template v-slot:dropdown-button>
@@ -155,23 +161,34 @@ const handleModalClosed = () => {
 }
 
 :deep(.f-modal-container) {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    .f-modal-close {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+    }
 }
 :deep(.f-modal-content) {
-  display: flex;
-  flex-direction: column;
-  max-width: 960px;
-  width: 100%;
-  margin: 0 1rem;
-  padding: 1rem;
-  border: 1px solid #e2e8f0;
-  border-radius: 0.25rem;
-  background: #fff;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    max-width: 960px;
+    width: 100%;
+    min-height: 75%;
+    margin: 48px auto 80px auto;
+    padding: 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.25rem;
+    background: #fff;
 }
 .modal__title {
-  font-size: 1.5rem;
-  font-weight: 700;
+    font-size: 1.5rem;
+    font-weight: 700;
 }
 </style>

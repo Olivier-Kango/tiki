@@ -4,9 +4,11 @@ export default {
 }
 </script>
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { Button } from '@vue-mf/styleguide'
 import FormAddCard from '../Forms/FormAddCard.vue'
+import defineAbilityFor from '../../auth/defineAbility'
+import store from '../../store'
 
 defineProps({
     cellId: {
@@ -18,6 +20,12 @@ defineProps({
 
 const showForm = ref(false)
 
+const ability = computed(() => defineAbilityFor(store.getters.getUser))
+
+const handleOpen = () => {
+    showForm.value = true
+}
+
 const handleClose = () => {
     showForm.value = false
 }
@@ -25,7 +33,7 @@ const handleClose = () => {
 </script>
 
 <template>
-    <Button v-if="!showForm" class="w-100" variant="default" sm @click="showForm = true">
+    <Button v-if="!showForm && ability.can('create', 'Card')" class="w-100" variant="default" sm @click="handleOpen">
         <i class="fas fa-plus"></i>
         <span class="ml-2">Add a card</span>
     </Button>
