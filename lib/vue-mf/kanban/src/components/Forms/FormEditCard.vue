@@ -10,6 +10,7 @@ import { useToast } from "vue-toastification"
 import { Button } from '@vue-mf/styleguide'
 import kanban from '../../api/kanban'
 import store from '../../store'
+import defineAbilityFor from '../../auth/defineAbility'
 
 const props = defineProps({
     id: [Number, String],
@@ -19,6 +20,10 @@ const props = defineProps({
     desc: {
         type: String,
         default: ''
+    },
+    reference: {
+        type: String,
+        default: ''
     }
 })
 
@@ -26,6 +31,7 @@ const trackerId = ref(store.getters.getTrackerId)
 const showEditField = ref(false)
 const toast = useToast()
 const editDesc = ref(false)
+const titleField = ref(props.title)
 const description = ref('')
 const textarea = ref(null)
 
@@ -33,10 +39,10 @@ watchEffect(() => {
     description.value = props.desc
 })
 
-const handleTitleBlur = event => {
+const handleSaveTitle = event => {
     showEditField.value = false
 
-    if (event.target.value.length < 1) {
+    if (titleField.value.length < 1) {
         toast.error(`This field must be at least 1 character`)
         return
     }
@@ -44,7 +50,7 @@ const handleTitleBlur = event => {
     kanban.setItem(
         { trackerId: trackerId.value, itemId: props.id },
         { fields: {
-                [store.getters.getTitleField]: event.target.value
+                [store.getters.getTitleField]: titleField.value
             }
         }
     )
@@ -61,19 +67,21 @@ const handleTitleBlur = event => {
     store.dispatch('editCardField', {
         id: props.id,
         field: 'title',
-        data: event.target.value
+        data: titleField.value
     })
 }
 
 const handleEditClick = event => {
-    showEditField.value = true
+    const ability = defineAbilityFor(store.getters.getUser)
+    if (ability.can('update', 'Card')) showEditField.value = true
 }
 
 const handleDescriptionInput = event => {
     description.value = event.target.value
 }
 const handleEditDesc = () => {
-    editDesc.value = true
+    const ability = defineAbilityFor(store.getters.getUser)
+    if (ability.can('update', 'Card')) editDesc.value = true
 }
 const handleSaveDesc = () => {
     kanban.setItem(
@@ -100,28 +108,50 @@ const handleSaveDesc = () => {
     editDesc.value = false
 }
 const handleCancel = () => {
+    description.value = props.desc
     editDesc.value = false
+}
+const handleCancelEditTitle = () => {
+    titleField.value = props.title
+    showEditField.value = false
 }
 </script>
 
 <template>
-    <h4>
-        <div v-if="!showEditField" @click="handleEditClick">{{ title }}</div>
-        <Field
-            class="w-100"
-            v-if="showEditField"
-            v-focus
-            v-autosize
-            as="textarea"
-            rows="1"
-            :value="title"
-            @blur="handleTitleBlur"
-            name="cardTitle"
-            type="text"
-            :rules="{ minLength: 1 }"
-        />
-    </h4>
-    <h6>Description</h6>
+    <div class="mb-3">
+        <h4 v-if="!showEditField" @click="handleEditClick">{{ titleField }}</h4>
+        <div v-if="showEditField" class="editable-container">
+            <Field
+                class="form-control mb-1"
+                v-focus
+                v-autosize
+                as="textarea"
+                rows="1"
+                v-model="titleField"
+                name="cardTitle"
+                type="text"
+                :rules="{ minLength: 1 }"
+            />
+            <div class="editable-controls">
+                <Button class="d-inline-block" variant="default" sm @click="handleSaveTitle">
+                    <i class="fas fa-check"></i>
+                </Button>
+                <Button class="d-inline-block ml-2" variant="default" sm @click="handleCancelEditTitle">
+                    <i class="fas fa-times"></i>
+                </Button>
+            </div>
+        </div>
+    </div>
+    <div class="mb-2" v-if="reference">
+        <small>
+            <span class="mr-2">
+                <i class="fas fa-link"></i>
+            </span>
+            <a :href="reference" target="_blank">item-{{ id }}</a>
+        </small>
+    </div>
+
+    <h6 class="d-inline-block mr-2"><i class="fas fa-align-left mr-2"></i> Description</h6>
     <p v-if="!editDesc" @click="handleEditDesc">
         <div v-if="description.length === 0" @click="handleEditDesc">Click to add description...</div>
         {{ description }}
@@ -143,5 +173,19 @@ const handleCancel = () => {
     &:hover {
         background-color: rgba(9, 30, 66, 0.08);
     }
+}
+
+.editable-container {
+    position: relative;
+
+    .form-control {
+        font-size: 1.5rem;
+        font-weight: 500;
+        line-height: 1.2;
+    }
+}
+.editable-controls {
+    position: absolute;
+    right: 0;
 }
 </style>

@@ -5,10 +5,11 @@ export default {
 </script>
 <script setup>
 import { ref, onBeforeMount } from 'vue'
-import { Sidebar } from '@vue-mf/styleguide'
+// import { Sidebar } from '@vue-mf/styleguide'
 import KanbanBoard from './components/KanbanBoard.vue'
-import Sidemenu from './components/Sidemenu/Sidemenu.vue'
+// import Sidemenu from './components/Sidemenu/Sidemenu.vue'
 import store from './store'
+import kanban from './api/kanban'
 
 const props = defineProps({
     customProps: {
@@ -24,6 +25,12 @@ onBeforeMount(() => {
         return props.customProps.kanbanData.cards.find(card => card.id === id)
     })
     store.dispatch('initBoard', props.customProps.kanbanData)
+    kanban.getUsers().then(data => {
+        if (Array.isArray(data.data.result)) {
+            let user = data.data.result.find(user => user.user === 'admin')
+            store.dispatch('setUser', user)
+        }
+    })
 })
 
 const boardId = ref(props.customProps.kanbanData.trackerId)
@@ -34,10 +41,11 @@ const setBoardId = (id) => {
 </script>
 
 <template>
-    <Sidebar>
+    <!-- <Sidebar>
         <template v-slot:sidebar-content>
             <Sidemenu @boardId="setBoardId"/>
         </template>
         <KanbanBoard :id="boardId" />
-    </Sidebar>
+    </Sidebar> -->
+    <KanbanBoard :id="boardId" />
 </template>
