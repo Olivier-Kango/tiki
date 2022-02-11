@@ -241,7 +241,8 @@ class VCSUpdateCommand extends Command
      */
     protected function gitUpdate(string $commitHash = '', string $conflict = 'abort', $commit = true)
     {
-
+        $this->gitFetch();
+        
         if ($commitHash == 'HEAD') {
             $commitHash = $this->getGitFollowUpBranch();
         }
@@ -251,6 +252,17 @@ class VCSUpdateCommand extends Command
         $command .= ($conflict !== 'abort') ? ' -X ' . $conflict : '';
         $command .= ! $commit ? ' --no-commit --no-ff' : '';
         $command .= $commitHash ? ' ' . $commitHash : '';
+        $command .= ' 2>&1';
+
+        return $this->execCommand($command);
+    }
+
+    /**
+     * @return null;
+     */
+    protected function gitFetch()
+    {
+        $command = 'git fetch';
         $command .= ' 2>&1';
 
         return $this->execCommand($command);
@@ -487,7 +499,7 @@ class VCSUpdateCommand extends Command
             // Git does not support dry-run
             $raw = $this->gitUpdate($rev, $conflict, false);
 
-            if (preg_match('/(Automatic merge failed|Aborting$)/', $raw)) {
+            if (preg_match('/(Automatic merge failed|Aborting$|error:|fatal:)/', $raw)) {
                 $progress->setMessage('Working copy currently conflicted. Update Aborted.');
                 if ($email) {
                     mail($email, 'Git update aborted', wordwrap('Working copy currency conflicted. Update Aborted. ' . __FILE__, 70, "\r\n"));
