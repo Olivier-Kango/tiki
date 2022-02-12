@@ -65,7 +65,7 @@
                         </div>
                     {/if}
                 <div class="d-flex flex-row flex-wrap w-100">
-                    <div class="col col1 col-md-12 col-lg-9 col-xl-10 pb-4" id="col1">
+                    <div class="col col1 col-md-12 col-lg-9 {if $prefs.feature_fixed_width neq 'y'}col-xl-10{/if} pb-4" id="col1">
                         {if $prefs.module_zones_pagetop eq 'fixed' or ($prefs.module_zones_pagetop ne 'n' && ! zone_is_empty('pagetop'))}
                             {modulelist zone=pagetop}
                         {/if}
@@ -78,7 +78,7 @@
                             {modulelist zone=pagebottom class='mt-3'}
                         {/if}
                     </div>
-                    <div class="col col3 col-md-12 col-lg-3 col-xl-2" id="col3">
+                    <div class="col col3 col-md-12 col-lg-3 {if $prefs.feature_fixed_width neq 'y'}col-xl-2{/if}" id="col3">
                         {modulelist zone=right}
                     </div>
                 </div>
@@ -90,7 +90,7 @@
                         </div>
                     {/if}
                 <div class="d-flex flex-row flex-wrap w-100">
-                    <div class="col col1 col-md-12 col-lg-9 col-xl-10 order-md-1 order-lg-2 pb-4" id="col1">
+                    <div class="col col1 col-md-12 col-lg-9 {if $prefs.feature_fixed_width neq 'y'}col-xl-10{/if} order-md-1 order-lg-2 pb-4" id="col1">
                         {if $prefs.module_zones_pagetop eq 'fixed' or ($prefs.module_zones_pagetop ne 'n' && ! zone_is_empty('pagetop'))}
                             {modulelist zone=pagetop}
                         {/if}
@@ -103,7 +103,7 @@
                             {modulelist zone=pagebottom class='mt-3'}
                         {/if}
                     </div>
-                    <div class="col col2 col-md-12 col-lg-3 col-xl-2 order-sm-2 order-md-2 order-lg-1" id="col2">
+                    <div class="col col2 col-md-12 col-lg-3 {if $prefs.feature_fixed_width neq 'y'}col-xl-2{/if} order-sm-2 order-md-2 order-lg-1" id="col2">
                         {modulelist zone=left}
                     </div>
                 </div>
