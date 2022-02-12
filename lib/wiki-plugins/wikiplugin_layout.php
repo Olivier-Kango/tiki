@@ -320,7 +320,9 @@ function wikiplugin_layout($data, $params)
     if ($params['leftcolumn'] == 'n') {
         $headerlib->add_css("#col2{display:none} .toggle_zone.left{display:none}");
         $headerlib->add_js(
-            'if ($( "#col1" ).hasClass( "col-lg-8" )) {$("#col1").removeClass("col-lg-8").addClass("col-lg-10");}if($( "#col1" ).hasClass( "col-lg-9" )) {$("#col1").removeClass("col-lg-9").addClass("col-lg-12");}'
+            'if ($( "#col1" ).hasClass( "col-lg-8" )) {$("#col1").removeClass("col-lg-8").addClass("col-lg-10");}
+            if($( "#col1" ).hasClass( "col-lg-9" )) {$("#col1").removeClass("col-lg-9").addClass("col-lg-12");}
+            if($( "#col1" ).hasClass( "col-xl-10" )) {$("#col1").removeClass("col-xl-10").addClass("col-xl-12");}'
         );
     }
     if ($params['rightcolumn'] == 'n') {
@@ -385,7 +387,7 @@ function wikiplugin_layout($data, $params)
     }
     if (isset($params['nosidemargins'])) {
         $headerlib->add_css(
-            ".container-std.container-fluid #page-data {margin-left: -15px; margin-right: -15px} .container-std.container-fluid #page-data > .row {margin-left: 0; margin-right: 0;} "
+            ".container-std.container-fluid #page-data {margin-left: 0; margin-right: 0} .container-std.container-fluid #page-data > .row {margin-left: 0; margin-right: 0;} .col1 {padding-left: 0; padding-right: 0;} "
         );
     }
     if (isset($params['fgalId']) || $params['fileIds']) {
