@@ -328,6 +328,15 @@ function wikiplugin_convene($data, $params): string
     $smarty->assign('params', $params);
     $smarty->assign('comments', $dataArrayComments);
 
+    if($params['locked'] === "y"){
+        $vote_infos=[
+            "autolock" => $params['autolock'],
+            "object" => $currentObject['object'],
+            "users" => array_keys($rows),
+            "votes" => $votes
+        ];
+        send_email_result_vote($vote_infos);
+    }
     $conveneData = json_encode($params);
 
     $headerlib->add_jsfile('lib/jquery_tiki/wikiplugin-convene.js')
@@ -339,4 +348,78 @@ function wikiplugin_convene($data, $params): string
 function default_voteoptions()
 {
     return '-1=Not OK,0=Unconfirmed,1=OK';
+}
+
+/**
+ * This module will help to send message to all member who participate on vote
+ * when lock time reached.
+ *
+ * @param $vote_infos
+ *
+ * @throws Exception
+ */
+function send_email_result_vote($vote_infos){
+    $date_start = TikiLib::date_format('%Y-%m-%d %H:%M',strtotime("now"));
+
+    if ($vote_infos["autolock"] === $date_start) {
+        $users=$vote_infos["users"];
+        $votes=$vote_infos["votes"];
+
+        include_once('lib/webmail/tikimaillib.php');
+
+        $userlib = TikiLib::lib('user');
+        $smarty = TikiLib::lib('smarty');
+        $tikilib = TikiLib::lib('tiki');
+
+        $mail = new TikiMail();
+
+        $machine = parse_url($_SERVER['REQUEST_URI']);
+        $machine = $tikilib->httpPrefix(true) . dirname($machine['path']);
+        $smarty->assign_by_ref('machine', $machine);
+        $machine = preg_replace("!/$!", "", $machine);
+        $smarty->assign('mail_machine', $machine);
+        $smarty->assign('mail_site', $_SERVER["SERVER_NAME"]);
+
+        $object_event = $vote_infos['object'];
+        $event_path = str_replace(" ","-",$object_event);
+
+        $max_vote = 0;
+        $vote_result = "";
+        arsort($votes);
+        $i = 0;
+        foreach($votes as $date => $vote) {
+            if ($i === 0) {
+                $max_vote = $vote;
+            }
+            if ($max_vote === $vote) {
+                $date_vote = TikiLib::date_format('%Y-%m-%d %H:%M', $date);
+
+                if ($i === 0) {
+                    $vote_result = $vote . tra("votes on date of ") . $date_vote." ";
+                } else {
+                    $vote_result.= tra("and"). " ".$date_vote;
+                }
+            }
+            $i++;
+        }
+
+        foreach ($users as $user) {
+
+            $userinfo = $userlib->get_user_email($user);
+
+            if ($userinfo) {
+                $smarty->assign('mail_user', $user);
+                $smarty->assign('event_link_path', $event_path);
+                $smarty->assign('vote_result', $vote_result);
+                $mail->setUser($userinfo);
+
+                $subject = sprintf($smarty->fetch('mail/convene_vote_result_subject.tpl'),$object_event,$_SERVER['SERVER_NAME']);
+
+                $mail->setSubject($subject);
+                $txt = $smarty->fetch('mail/convene_vote_result.tpl');
+                $mail->setText($txt);
+                $mail->send([$userinfo]);
+            }
+        }
+    }
 }
