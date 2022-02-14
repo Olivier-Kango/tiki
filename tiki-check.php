@@ -622,7 +622,9 @@ if (function_exists('apc_sma_info') && ini_get('apc.enabled')) {
 $memory_limit = ini_get('memory_limit');
 $s = trim($memory_limit);
 $last = strtolower(substr($s, -1));
-$s = substr($s, 0, -1);
+if (! is_numeric($last)) {
+    $s = substr($s, 0, -1);
+}
 switch ($last) {
     case 'g':
         $s *= 1024;
@@ -655,7 +657,7 @@ if ($s >= 160 * 1024 * 1024) {
     $php_properties['memory_limit'] = array(
         'fitness' => tra('bad'),
         'setting' => $memory_limit,
-        'message' => tra('Your memory_limit is at') . ' ' . $memory_limit . '. ' . tra('This is known to cause issues! Ther memory_limit should be increased to at least 128M, which is the PHP default.') . ' <a href="#php_conf_info">' . tra('How to change this value') . '</a>'
+        'message' => tra('Your memory_limit is at') . ' ' . $memory_limit . '. ' . tra('This is known to cause issues! The memory_limit should be increased to at least 128M, which is the PHP default.') . ' <a href="#php_conf_info">' . tra('How to change this value') . '</a>'
     );
 }
 
