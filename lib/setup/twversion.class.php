@@ -52,8 +52,8 @@ class TWVersion
         $this->branch   = 'unstable';
 
         // Set everything else, including defaults.
-        $this->version  = '24.0vcs';
-        $this->star     = 'TBA';
+        $this->version  = '24.0beta'; // needs to have no spaces for releases
+        $this->star     = 'Wolf 359';
         $this->releases = [];
 
         // Check for Subversion or not
@@ -124,7 +124,7 @@ class TWVersion
                 32 => 'UY Scuti',        // 21.x
                 33 => 'Corona Borealis', // 22.x
                 34 => 'Wasat',           // 23.x
-                35 => 'TBD',             // 24.x // Too Bad we still Don't have a star
+                35 => 'Wolf 359',        // 24.x
         ];
     }
 
@@ -326,6 +326,7 @@ class TWVersion
                 '18.5',
                 '18.6',
                 '18.7',
+                '18.8',
                 '19.0alpha',
                 '19.0beta1',
                 '19.0RC1',
@@ -347,16 +348,22 @@ class TWVersion
                 '21.0',
                 '21.1',
                 '21.2',
+                '21.3',
+                '21.4',
+                '21.5',
                 '22.0alpha',
                 '22.0beta',
                 '22.0RC1',
                 '22.0',
                 '22.1',
+                '22.2',
                 '23.0alpha',
                 '23.0beta',
                 '23.0RC1',
                 '23.0',
+                '23.1',
                 '24.0alpha',
+                '24.0beta',
             ];
     }
 
