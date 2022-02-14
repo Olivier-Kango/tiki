@@ -52,7 +52,7 @@ class TWVersion
         $this->branch   = 'unstable';
 
         // Set everything else, including defaults.
-        $this->version  = '24.0beta'; // needs to have no spaces for releases
+        $this->version  = '24.0vcs'; // needs to have no spaces for releases
         $this->star     = 'Wolf 359';
         $this->releases = [];
 
