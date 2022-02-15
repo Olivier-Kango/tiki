@@ -144,6 +144,20 @@ function wikiplugin_file_info()
                 ],
                 'advanced' => true,
             ],
+            'translatetitle' => [
+                'required' => false,
+                'name' => tra('Translate File Title'),
+                'description' => tra('Translate, if possible, the file title using Tiki multilingual feature (you can  add custom translation in Tiki)'),
+                'since' => '24.0',
+                'filter' => 'alpha',
+                'default' => 'n',
+                'advanced' => false,
+                'options' => [
+                    ['text' => '', 'value' => ''],
+                    ['text' => tra('Yes'), 'value' => 'y'],
+                    ['text' => tra('No'), 'value' => 'n']
+                ]
+            ],
         ]
     ];
     if ($prefs['feature_file_galleries'] == 'y') {
@@ -197,6 +211,11 @@ function wikiplugin_file($data, $params)
         if (empty($data)) { // to avoid problem with parsing
             $data = empty($file_info['name']) ? $file_info['filename'] : $file_info['name'];
         }
+
+        if (isset($params['translatetitle']) && $params['translatetitle'] == 'y') {
+            $data = tra($data);
+        }
+
         if (isset($params['browserdisplay']) && $params['browserdisplay'] == 'y') {
             if (isset($params['showicon']) && $params['showicon'] == "y") {
                 return "{img src=tiki-download_file.php?fileId=$fileId&amp;thumbnail=y link=tiki-download_file.php?fileId=$fileId&display=y styleimage=max-width:32px;max-height:36px thumb=y responsive='n'} " . "<a class='wiki' href='tiki-download_file.php?fileId=$fileId&display=y' target='_blank' >" . $data . "</a>";
