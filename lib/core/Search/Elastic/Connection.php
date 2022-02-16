@@ -579,10 +579,15 @@ class Search_Elastic_Connection
     private function getClient($path)
     {
         $full = "{$this->dsn}$path";
+        if (substr($path, -8) === '_refresh') {
+            $options = ['timeout' => 300];
+        } else {
+            $options = null;
+        }
 
         $tikilib = TikiLib::lib('tiki');
         try {
-            return $tikilib->get_http_client($full);
+            return $tikilib->get_http_client($full, $options);
         } catch (\Laminas\Http\Exception\ExceptionInterface $e) {
             throw new Search_Elastic_TransportException($e->getMessage());
         }
