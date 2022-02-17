@@ -3912,11 +3912,13 @@ class TrackerLib extends TikiLib
         }
 
         if (strlen($result) && $result[0] === '{') {
-            $result = json_decode($result, true);
-            if (isset($result[$prefs['language']])) {
-                return $result[$prefs['language']];
-            } elseif (is_array($result)) {
-                return reset($result);
+            $decoded = json_decode($result, true);
+            if ($decoded !== null) {     // might start with a "{" but may not be a json_encoded value
+                if (isset($decoded[$prefs['language']])) {
+                    return $decoded[$prefs['language']];
+                } elseif (is_array($decoded)) {
+                    return reset($decoded);
+                }
             }
         }
 
