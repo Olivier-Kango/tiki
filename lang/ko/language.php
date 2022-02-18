@@ -6400,6 +6400,7 @@ $lang_current = array(
 // "Refresh items list items when related items are created or modified" => "Refresh items list items when related items are created or modified",
 // "Use this to enable the ItemsList fields to refresh their content in the search index when related tracker items are created or modified" => "Use this to enable the ItemsList fields to refresh their content in the search index when related tracker items are created or modified",
 "Clone tracker items" => "트래커 항목들 복제",
+// "Duplicate tracker items" => "Duplicate tracker items",
 "Allow copying tracker item information to a new tracker item" => "트래커 항목 정보를 새 트래커 항목으로 복사 허용",
 "Trackers available for insertion from wiki pages" => "위키 페이지에서 삽입 용으로 사용가능한 트래커",
 "List of tracker IDs made available when attempting to insert" => "삽입을 시도할 때 사용할 수 있도록 된 트래커 ID들의 목록",

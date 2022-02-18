@@ -28,7 +28,7 @@ function prefs_tracker_list()
             'default' => 'n',
         ],
         'tracker_clone_item' => [
-            'name' => tr('Clone tracker items'),
+            'name' => tr('Duplicate tracker items'),
             'description' => tr('Allow copying tracker item information to a new tracker item.'),
             'type' => 'flag',
             'default' => 'n',

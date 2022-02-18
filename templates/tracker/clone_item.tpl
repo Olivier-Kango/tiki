@@ -10,7 +10,7 @@
     <div class="submit">
         <input type="hidden" name="itemId" value="{$itemId|escape}">
         <input type="hidden" name="trackerId" value="{$trackerId|escape}">
-        <input type="submit" class="btn btn-primary" value="{tr}Clone{/tr}">
+        <input type="submit" class="btn btn-primary" value="{tr}Duplicate{/tr}">
     </div>
 </form>
 {/block}

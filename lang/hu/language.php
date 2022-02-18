@@ -6399,6 +6399,7 @@ $lang_current = array(
 // "Refresh items list items when related items are created or modified" => "Refresh items list items when related items are created or modified",
 // "Use this to enable the ItemsList fields to refresh their content in the search index when related tracker items are created or modified" => "Use this to enable the ItemsList fields to refresh their content in the search index when related tracker items are created or modified",
 // "Clone tracker items" => "Clone tracker items",
+// "Duplicate tracker items" => "Duplicate tracker items",
 // "Allow copying tracker item information to a new tracker item" => "Allow copying tracker item information to a new tracker item",
 // "Trackers available for insertion from wiki pages" => "Trackers available for insertion from wiki pages",
 // "List of tracker IDs made available when attempting to insert" => "List of tracker IDs made available when attempting to insert",

@@ -1501,6 +1501,7 @@ $lang_current = array(
 // "No tracker items deleted" => "No tracker items deleted",
 // "Create Tracker" => "Create Tracker",
 // "Duplicate Tracker" => "Duplicate Tracker",
+// "Duplicate tracker items" => "Duplicate tracker items",
 // "Export Items" => "Export Items",
 // "Import Tracker Structure" => "Import Tracker Structure",
 // "File upload failed" => "File upload failed",

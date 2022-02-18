@@ -6397,6 +6397,7 @@ $lang_current = array(
 // "Refresh items list items when related items are created or modified" => "Refresh items list items when related items are created or modified",
 // "Use this to enable the ItemsList fields to refresh their content in the search index when related tracker items are created or modified" => "Use this to enable the ItemsList fields to refresh their content in the search index when related tracker items are created or modified",
 "Clone tracker items" => "Clonar ítems del formulario-bd",
+"Duplicate tracker items" => "Duplicar ítems del formulario-bd",
 "Allow copying tracker item information to a new tracker item" => "Permite copiar información del ítem del formulario-bd en un nuevo ítem del formulario-bd",
 "Trackers available for insertion from wiki pages" => "Formularios-bd (Trackers) disponibles para la inserción de ítems desde páginas wiki",
 "List of tracker IDs made available when attempting to insert" => "Lista de IDs de Formularios-bd disponibles cuando haya intentos de inserción",
