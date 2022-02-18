@@ -71,19 +71,7 @@ function smarty_function_modulelist($params, $smarty)
                     } else {
                         $device_classes .= ' display_on_print';
                     }
-
-                    if($moduleContent != "") {
-                        $dom = new DOMDocument;
-                        $dom->loadHTML($moduleContent);
-                        $divs = $dom->getElementsByTagName('div');
-                        $firstDiv = $divs[0];
-                        if ($firstDiv) {
-                            $firstDiv->setAttribute('class', $firstDiv->getAttribute('class') . ' ' . $device_classes);
-                        }
-
-                        $moduleContent = $dom->saveHTML();
-                    }
-
+                    $moduleContent = preg_replace('/ class=\"module ([^\"]+)/', ' class="module $1' . $device_classes, $moduleContent);
                     return $moduleContent;
                 },
                 $moduleZones[$key]
