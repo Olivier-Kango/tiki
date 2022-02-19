@@ -307,9 +307,29 @@ function updateSecdb($version)
         // notably on 18.0. Since this file is executed before any patch in installer/schema, the fix had to
         // be done here. It's a quick operation because table is empty, so no harm in leaving this here forever.
         fwrite($fp, "ALTER TABLE `tiki_secdb` DROP PRIMARY KEY, ADD PRIMARY KEY (`filename`(171),`tiki_version`(20));\n\n");
+
+        $insertString = 'INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES ';
+
+        $extendedInsertSize=0;
+        $extendedInsertMaxSize=1*1024*1024 - 100; // 1MB with 100 bytes safety limit, some old versions of Mysql had max_allowed_packet=1MB
+
         foreach ($queries as $q) {
-            fwrite($fp, "$q\n");
+            if (($extendedInsertSize + strlen($q) + 2) > $extendedInsertMaxSize ) {
+                fwrite($fp,";\n");
+                $extendedInsertSize=0;
+            }
+            if ($extendedInsertSize === 0) {
+                fwrite($fp, $insertString ."\n");
+                $extendedInsertSize = strlen($insertString) + 1;
+            } else {
+                fwrite($fp, ",\n");
+                $extendedInsertSize+=2;
+            }
+            fwrite($fp, $q);
+            $extendedInsertSize+=strlen($q);
         }
+        fwrite($fp, ";\n");
+
         fwrite($fp, "commit;\n");
     }
     fclose($fp);
@@ -374,7 +394,7 @@ function build_secdb_queries($dir, $version, &$queries, $excludes = [])
 
                 if (is_readable($entry)) {
                     $hash = md5_file($entry);
-                    $queries[] = "INSERT INTO `tiki_secdb` (`filename`, `md5_value`, `tiki_version`) VALUES('$file', '$hash', '$version');";
+                    $queries[] = "('$file', '$hash', '$version')";
                 }
             }
         }
