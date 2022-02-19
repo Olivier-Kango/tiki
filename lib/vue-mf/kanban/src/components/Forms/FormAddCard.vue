@@ -5,7 +5,7 @@ export default {
 </script>
 <script setup>
 import { ref, watchEffect } from 'vue'
-import { Button, Card } from '@vue-mf/styleguide'
+import { Button } from '@vue-mf/styleguide'
 import KanbanCard from '../KanbanCard.vue'
 import { useToast } from "vue-toastification"
 import autosize from 'autosize'
@@ -72,15 +72,13 @@ const handleAddCard = () => {
 
 <template>
     <KanbanCard>
-        <Card>
-            <textarea
-                ref="textarea"
-                v-model="title"
-                class="form-control"
-                rows="3"
-                placeholder="Enter a title for this card..."
-            >{{ title }}</textarea>
-        </Card>
+        <textarea
+            ref="textarea"
+            v-model="title"
+            class="form-control"
+            rows="3"
+            placeholder="Enter a title for this card..."
+        >{{ title }}</textarea>
     </KanbanCard>
     <Button sm @click="handleAddCard">
         Add card
