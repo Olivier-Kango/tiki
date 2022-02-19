@@ -1154,7 +1154,7 @@ class ParserLib extends TikiDb_Bridge
     public function check_permission_from_plugin_params($pluginArgs) {
         global $user;
         $is_allowed = 'n';
-        if ($pluginArgs && $pluginArgs['editable_by_user']) {
+        if (isset($pluginArgs['editable_by_user'])) {
             foreach (explode(',', $pluginArgs['editable_by_user']) as $allowedUser) {
                 if (strtolower($user) == strtolower($allowedUser)) {
                     $is_allowed = 'y';
