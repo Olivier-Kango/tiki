@@ -93,7 +93,7 @@ const handleModalClosed = () => {
     >
         <template #item="{ element, index }">
             <KanbanColumn :rowIndex="rowIndex" :colIndex="index" :cellId="element.id" :columnValue="getCols[index].value" :rowValue="rowValue" :colId="getCols[index].id" :title="getCols[index].title" :limit="getCols[index].wip" :total="store.getters.getCardsByCol(index).length">
-                <PerfectScrollbar class="d-flex h-100">
+                <PerfectScrollbar class="d-flex h-100" :options="{suppressScrollX: true}">
                     <KanbanCards :cellId="element.id" :rowId="rowId" :columnValue="getCols[index].value" :rowValue="rowValue" :cardIds="element.cards" @editCard="handleEditCard"></KanbanCards>
                 </PerfectScrollbar>
             </KanbanColumn>
@@ -140,7 +140,7 @@ const handleModalClosed = () => {
 .container-cells {
     display: flex;
     // align-items: start;
-    margin-bottom: 20px;
+    // margin-bottom: 20px;
 }
 .dragging-cell {
     cursor: pointer;
@@ -155,7 +155,7 @@ const handleModalClosed = () => {
         width: 100%;
         height: 100%;
         top: 0;
-        background-color: #e8e9f3;
+        background-color: rgba(233, 231, 255, 0.45);
         border-radius: 8px;
     }
 }

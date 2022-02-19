@@ -5,10 +5,11 @@ export default {
 </script>
 <script setup>
 import { ref, computed } from 'vue'
+import { Button } from '@vue-mf/styleguide'
 import KanbanCard from './KanbanCard.vue'
-import { Card } from '@vue-mf/styleguide'
+import FormEditField from './Forms/FormEditField.vue'
 import draggable from 'vuedraggable/src/vuedraggable'
-import { useToast } from "vue-toastification"
+import { useToast } from 'vue-toastification'
 import kanban from '../api/kanban'
 import store from '../store'
 import defineAbilityFor from '../auth/defineAbility'
@@ -37,9 +38,16 @@ const dragging = ref(false)
 
 const getCards = computed(() => store.getters.getCards(props.cardIds))
 const ability = computed(() => defineAbilityFor(store.getters.getUser))
+const getTrackerItemEditLink = computed(() => id => `tiki-tracker-update_item?trackerId=${store.getters.getTrackerId}&itemId=${id}`)
+const getTrackerItemLink = computed(() => id => `tiki-view_tracker_item.php?itemId=${id}`)
+
 
 const startDragging = () => dragging.value = true
-const endDragging = () => dragging.value = false
+const endDragging = () => setTimeout(() => dragging.value = false, 0)
+
+const handleEditCard = element => {
+    if (!dragging.value) emit('editCard', element)
+}
 
 const handleChange = (event) => {
     if (event.moved) {
@@ -109,29 +117,42 @@ const setItem = (itemId, newIndex) => {
         chosenClass="chosen-card"
         ghostClass="ghost-card"
         dragClass="dragging-card"
+        filter="textarea"
+        :preventOnFilter="false"
         :disabled="!ability.can('update', 'Card')"
         @change="handleChange"
         @start="startDragging"
         @end="endDragging"
+        :fallbackTolerance="3"
         :forceFallback="true"
         :animation="150"
     >
         <template #item="{ element }">
             <KanbanCard>
-                <Card @click="emit('editCard', element)">
-                    <div v-if="false">
-                        <span class="badge badge-light">{{ element.sortOrder }}</span>
+                <div v-if="false">
+                    <span class="badge badge-light">{{ element.sortOrder }}</span>
+                </div>
+                <template v-slot:menu>
+                    <div class="card-menu">
+                        <a class="p-1 mr-2" :href="getTrackerItemLink(element.id)" target="_blank"><i class="fas fa-link"></i></a>
+                        <a class="p-1 mr-2" :href="getTrackerItemEditLink(element.id)" target="_blank"><i class="fas fa-edit"></i></a>
+                        <!-- <Button class="d-inline-block" variant="default" sm @click="handleEditCard(element)"> -->
                     </div>
-                    <div>
-                        {{ element.title }}
+                </template>
+                <template v-slot:title>
+                    <FormEditField :title="element.title" :id="element.id"></FormEditField>
+                </template>
+                <template v-slot:text>
+                    <div v-if="element.description">
+                        {{ element.description.substring(0, 115) }}
                     </div>
-                    <div v-if="false" class="d-flex justify-content-end">
-                        <div class="kanban-avatar">
-                            <span>NA</span>
-                            <!-- <img src="..." class="rounded-circle" alt="..."> -->
-                        </div>
+                </template>
+                <div v-if="false" class="d-flex justify-content-end">
+                    <div class="kanban-avatar">
+                        <span>NA</span>
+                        <!-- <img src="..." class="rounded-circle" alt="..."> -->
                     </div>
-                </Card>
+                </div>
             </KanbanCard>
         </template>
     </draggable>
@@ -142,21 +163,36 @@ const setItem = (itemId, newIndex) => {
     flex-grow: 1;
     position: relative;
     max-height: 800px;
+    padding: 10px;
 }
 
 .dragging-card {
     opacity: 1 !important;
 
-    .card {
-        cursor: pointer;
+    &.kanban-card {
         transform: rotate(4deg);
     }
+}
+
+.card-menu {
+    a {
+        color: #383838;
+        font-size: 1.1rem;
+
+        &:hover {
+            color: #007bff;
+        }
+    }
+}
+
+:deep(.kanban-card) {
+    cursor: pointer;
 }
 
 .ghost-card {
     position: relative;
 
-    .card {
+    &.kanban-card {
         &::after {
             content: "";
             position: absolute;

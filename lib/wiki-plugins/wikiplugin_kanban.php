@@ -252,6 +252,7 @@ function wikiplugin_kanban(string $data, array $params): WikiParser_PluginOutput
             'columns' => $columns,
             'rows' => $swimlanes,
             'cards' => $items,
+            'user' => $user
         ]
     );
 

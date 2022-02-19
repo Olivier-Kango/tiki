@@ -98,7 +98,7 @@ const handleMoveUp = event => {
     // display: flex;
     // align-items: flex-start;
     // flex-wrap: wrap;
-    margin-bottom: 10px;
+    // margin-bottom: 10px;
 
     // &:nth-child(2) .kanban-column {
     //     color: red;
@@ -107,10 +107,17 @@ const handleMoveUp = event => {
     .kanban-row-title {
         display: flex;
         justify-content: center;
-        margin: 5px;
-        background-color: #dbe0ff;
-        border-radius: 6px;
+        // margin: 5px;
+        background-color: rgba(203, 216, 253, 0.5);
+        // border-radius: 6px;
+        border-top: 1px solid #fff;
+        border-bottom: 1px solid #fff;
         font-weight: 500;
+        text-transform: uppercase;
+
+        // &:first-child {
+        //     border-top: none;
+        // }
 
         &:hover {
             .kanban-row-controls {

@@ -17,23 +17,20 @@ const props = defineProps({
     }
 })
 
+const boardId = ref(props.customProps.kanbanData.trackerId)
+const loading = ref(false)
+
 onBeforeMount(() => {
     console.log(props.customProps.kanbanData)
+    loading.value = false
     // Removes duplicate ids
     const cardsAllIds = props.customProps.kanbanData.cards.map(card => card.id)
     props.customProps.kanbanData.cards = [...new Set(cardsAllIds)].map(id => {
         return props.customProps.kanbanData.cards.find(card => card.id === id)
     })
     store.dispatch('initBoard', props.customProps.kanbanData)
-    kanban.getUsers().then(data => {
-        if (Array.isArray(data.data.result)) {
-            let user = data.data.result.find(user => user.user === 'admin')
-            store.dispatch('setUser', user)
-        }
-    })
+    store.dispatch('setUser', props.customProps.kanbanData.user)
 })
-
-const boardId = ref(props.customProps.kanbanData.trackerId)
 
 const setBoardId = (id) => {
     boardId.value = id
@@ -47,5 +44,5 @@ const setBoardId = (id) => {
         </template>
         <KanbanBoard :id="boardId" />
     </Sidebar> -->
-    <KanbanBoard :id="boardId" />
+    <KanbanBoard :id="boardId" :loading="loading" />
 </template>

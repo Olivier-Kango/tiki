@@ -5,7 +5,7 @@ export default {
 </script>
 <script setup>
 import { ref } from 'vue'
-import { Button, Card } from '@vue-mf/styleguide'
+import { Button } from '@vue-mf/styleguide'
 import KanbanCard from '../KanbanCard.vue'
 import store from '../../store'
 
@@ -29,14 +29,12 @@ const handleAddColumn = () => {
 
 <template>
     <KanbanCard>
-        <Card>
-            <textarea
-                v-model="title"
-                class="form-control"
-                rows="3"
-                placeholder="Add another list..."
-            >{{ title }}</textarea>
-        </Card>
+        <textarea
+            v-model="title"
+            class="form-control"
+            rows="3"
+            placeholder="Add another list..."
+        >{{ title }}</textarea>
     </KanbanCard>
     <Button sm @click="handleAddColumn">Add list</Button>
     <Button class="ml-2" variant="default" sm @click="$emit('close')">

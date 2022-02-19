@@ -159,7 +159,7 @@ const handleCancelEditTitle = () => {
     <div v-if="editDesc">
         <textarea v-autosize v-focus @input="handleDescriptionInput" class="form-control mb-2" name="" id="">{{ description }}</textarea>
         <div>
-            <Button class="d-inline-block" sm @click="handleSaveDesc">Save</Button>
+            <Button class="d-inline-block" variant="default" sm @click="handleSaveDesc"><i class="fas fa-check"></i></Button>
             <Button class="d-inline-block ml-2" variant="default" sm @click="handleCancel">
                 <i class="fas fa-times"></i>
             </Button>

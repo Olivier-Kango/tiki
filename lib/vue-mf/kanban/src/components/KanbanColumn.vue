@@ -41,7 +41,13 @@ const props = defineProps({
 const showEditField = ref(false)
 const toast = useToast()
 
-const isLimitExceeded = computed(() => props.total > props.limit)
+const isLimitExceeded = computed(() => {
+    if (props.limit) {
+        return props.total > props.limit
+    } else {
+        return false
+    }
+})
 
 const handleTitleBlur = event => {
     showEditField.value = false
@@ -73,9 +79,10 @@ const handleEditClick = event => {
 
 <template>
     <div class="kanban-column" :class="{'border border-danger': isLimitExceeded}">
-        <div class="kanban-column-header mb-2" :style="{'background-color': store.getters.getColColor(props.colId)}">
-            <h6 class="d-flex flex-grow-1 align-items-center mb-0" :class="{'drag-handle-cell': false}">
-                <span v-if="!showEditField" class="mr-2 flex-grow-1">{{ title }}</span>
+        <!-- <div class="kanban-column-header mb-2" :style="{'background-color': store.getters.getColColor(props.colId)}"> -->
+        <div class="kanban-column-header">
+            <h6 class="d-flex justify-content-center align-items-center mb-0" :class="{'drag-handle-cell': false}">
+                <span v-if="!showEditField" class="mr-2">{{ title }}</span>
                 <Field
                     class="flex-grow-1 mr-1"
                     v-if="showEditField"
@@ -89,8 +96,8 @@ const handleEditClick = event => {
                     type="text"
                     :rules="{ minLength: 1 }"
                 />
-                <span class="rounded p-1" :class="{'bg-danger text-light': isLimitExceeded}">{{ total }}/{{ limit }}</span>
             </h6>
+            <span class="rounded p-1" :class="{'bg-danger text-light': isLimitExceeded}">{{ total }}{{ limit ? `/${limit}` : '' }}</span>
             <Dropdown v-if="false && rowIndex === 0" class="d-inline-block ml-2" variant="default" sm>
                 <template v-slot:dropdown-button>
                     <i class="fas fa-ellipsis-h"></i>
@@ -104,11 +111,13 @@ const handleEditClick = event => {
                 </template>
             </Dropdown>
         </div>
-        <div class="flex-grow-1">
-            <slot />
-        </div>
-        <div v-if="colIndex === 0">
-            <ButtonAddCard :cellId="cellId" :rowValue="rowValue" :columnValue="columnValue"></ButtonAddCard>
+        <div class="kanban-column-body d-flex flex-column flex-grow-1">
+            <div class="flex-grow-1">
+                <slot />
+            </div>
+            <div v-if="colIndex === 0">
+                <ButtonAddCard :cellId="cellId" :rowValue="rowValue" :columnValue="columnValue"></ButtonAddCard>
+            </div>
         </div>
     </div>
 </template>
@@ -120,22 +129,34 @@ const handleEditClick = event => {
     min-width: 18rem;
     width: 18rem;
     flex-grow: 1;
-    padding: 10px;
-    margin: 0 5px;
-    background-color: rgba(243, 244, 250, 1);
-    border-radius: 6px;
+    // padding: 10px;
+    margin: 0 1px;
+    // background-color: rgba(236, 239, 255, 0.5);
+    // border-radius: 6px;
+
+    &:first-child {
+        margin-left: 0;
+    }
+    &:last-child {
+        margin-right: 0;
+    }
 
     .kanban-column-header {
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
         padding: 5px 5px 5px 10px;
-        border-radius: 6px;
-        background: #dbe0ff;
+        border-bottom: 1px solid #fff;
+        // border-radius: 6px;
+        background: rgba(219, 218, 241, 0.65);
 
         h6 span {
             font-size: 1.05rem;
         }
+    }
+
+    .kanban-column-body {
+        background-color: rgba(246, 251, 255, 0.7);
     }
 }
 </style>
