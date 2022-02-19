@@ -111,6 +111,7 @@
         "openlayers/openlayers": "^6.9",
         "walkermatt/ol-layerswitcher": ">=3.3.0",
         "paragonie/random_compat": "^2.0",
+        "paragonie/sodium_compat": "^1.17",
         "pclzip/pclzip": "^2.8",
         "pear/db": "1.7.13",
         "pear/net_socket": "^1.2",
