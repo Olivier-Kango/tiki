@@ -264,7 +264,7 @@ class ActivityLib
 		);
 
 		if ($info) {
-			$info['arguments'] = json_decode($info['arguments'], true);
+			$info['arguments'] = json_decode($info['arguments'], true) ?: [];
 
 			return $info;
 		}
