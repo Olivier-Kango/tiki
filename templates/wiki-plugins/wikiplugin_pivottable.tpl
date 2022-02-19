@@ -80,15 +80,22 @@
         if( {{$pivottable.aggregateDetails|json_encode}} ) {
             var clickCB = function(e, value, filters, pivotData){
                 var details = [];
+                var formatted = "";
                 pivotData.forEachMatchingRecord(filters, function(record){
                     if (record.pivotLink) {
                         details.push(record.pivotLink);
                     }
                 });
-                feedback(details.join("<br>\n"), 'info', true);
+                if ({{$pivottable.aggregateDetailsCallback|json_encode}} && typeof {{$pivottable.aggregateDetailsCallback}} == "function") {
+                    formatted = {{$pivottable.aggregateDetailsCallback}}(e, value, filters, pivotData, details);
+                } else {
+                    formatted = details.join("<br>\n");
+                }
+                feedback(formatted, 'info', true);
             }
             opts.aggregateDetails = {{$pivottable.aggregateDetails|json_encode}};
             opts.aggregateDetailsFormat = {{$pivottable.aggregateDetailsFormat|json_encode}};
+            opts.aggregateDetailsCallback = {{$pivottable.aggregateDetailsCallback|json_encode}};
             opts.rendererOptions.table = {
                 clickCallback: clickCB,
                 eventHandlers: {
