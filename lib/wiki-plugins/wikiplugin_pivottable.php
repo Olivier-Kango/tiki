@@ -221,10 +221,10 @@ function wikiplugin_pivottable_info()
                     'field' => 'aggregateDetails'
                 ],
             ],
-            'aggregateDetailsTotalLink' => [
-                'name' => tr('Aggregate details link to an external report page'),
-                'description' => tr('Adds an additional row in the aggregate details popup that links to an external report with the field values specified as tracker_field_* in the link'),
-                'since' => '24.0',
+            'aggregateDetailsCallback' => [
+                'name' => tr('Aggregate details popup building function callback'),
+                'description' => tr('Use custom javascript function to build the aggregate details popup window.'),
+                'since' => '24.1',
                 'required' => false,
                 'filter' => 'text',
                 'depends' => [
@@ -859,33 +859,6 @@ function wikiplugin_pivottable($data, $params)
                 $aggregateDetails[] = trim($fieldName);
             }
         }
-        $aggretateTotal = [];
-        $aggregateTotalFields = [];
-        $aggretateTotalLinks = [];
-        if (! empty($params['aggregateDetailsTotalLink'])) {
-            $aggretateTotalLinks = preg_split('/\s*,\s*/', $params['aggregateDetailsTotalLink']);
-            foreach ($aggretateTotalLinks as $link) {
-                if (preg_match('/=tracker_field_(.*)$/', $link, $m)) {
-                    $aggregateTotalFields[] = $m[1];
-                }
-            }
-        }
-        foreach ($aggregateTotalFields as $key => $field) {
-            $values = [];
-            foreach ($entries as $entry) {
-                if (! empty($entry[$field])) {
-                    $values[] = $entry[$field];
-                }
-            }
-            if ($values) {
-                $aggregateTotal[$key] = str_replace('tracker_field_' . $field, implode(' or ', $values), $aggretateTotalLinks[$key]);
-            }
-            foreach ($entries as $i => $entry) {
-                if (! empty($entry[$field])) {
-                    $pivotData[$i]['pivotLink'] = $aggregateTotal[$key];
-                }
-            }
-        }
         foreach ($pivotData as &$row) {
             $arr = array_map(function ($field) use ($row) {
                 return $row[$field] ?? '';
@@ -907,11 +880,7 @@ function wikiplugin_pivottable($data, $params)
                     'title' => $row['type'],
                 ];
             }
-            if (empty($row['pivotLink'])) {
-                $row['pivotLink'] = smarty_function_object_link($pivotLinkParams, $smarty->getEmptyInternalTemplate());
-            } else {
-                $row['pivotLink'] = "<a href='" . $row['pivotLink'] . "'>" . $pivotLinkParams['title'] . "</a>";
-            }
+            $row['pivotLink'] = smarty_function_object_link($pivotLinkParams, $smarty->getEmptyInternalTemplate());
         }
     } else {
         $params['aggregateDetails'] = [];
@@ -1020,6 +989,7 @@ function wikiplugin_pivottable($data, $params)
         'menuLimit' => empty($params['menuLimit']) ? null : $params['menuLimit'],
         'aggregateDetails' => implode(':', $params['aggregateDetails']),
         'aggregateDetailsFormat' => $params['aggregateDetailsFormat'] ?? null,
+        'aggregateDetailsCallback' => $params['aggregateDetailsCallback'] ?? null,
         'attributesOrder' => $attributesOrder,
         'highlight' => $highlight,
         'highlightMine' => empty($params['highlightMine']) ? null : $params['highlightMine'],
