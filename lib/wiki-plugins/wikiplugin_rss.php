@@ -152,7 +152,7 @@ function wikiplugin_rss($data, $params)
     if (count($params['id']) == 1) {
         $module = $rsslib->get_rss_module(reset($params['id']));
 
-        if ($module['sitetitle']) {
+        if (isset($module['sitetitle'])) {
             $title = [
                 'title' => $module['sitetitle'],
                 'link' => $module['siteurl'],

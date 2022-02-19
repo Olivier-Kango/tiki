@@ -120,10 +120,10 @@ class WikiParser_OutputLink
             if (! empty($info['pageName'])) {
                 $page = $info['pageName'];
                 $pageId = substr($page, 0, 158);
-            }
 
-            if ($description == $info['pageName']) {
-                $description = $this->renderPageName($info);
+                if ($description == $info['pageName']) {
+                    $description = $this->renderPageName($info);
+                }
             }
 
             return $this->outputLink(
@@ -279,7 +279,7 @@ class WikiParser_OutputLink
         } elseif (! empty($info['prettyName'])) {
             return $info['prettyName'];
         } else {
-            return $info['pageName'];
+            return $info['pageName'] ?? '';
         }
     }
 }
