@@ -2070,6 +2070,7 @@
         "walkermatt/ol-layerswitcher": ">=3.3.0",
         "oyejorge/less.php": ">=1.7.0.10",
         "paragonie/random_compat": "~2.0.10",
+        "paragonie/sodium_compat": "^1.17",
         "pclzip/pclzip": ">=2.8",
         "pear/archive_tar": "1.4.3",
         "pear/console_getopt": "1.4.1",
