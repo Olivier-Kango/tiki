@@ -133,7 +133,7 @@ class MachineLearningLib extends TikiDb_Bridge
             $item = Tracker_Item::fromId($item['itemId']);
             switch ($model['labelField']) {
                 case "itemId":
-                    $label = $item->getId();
+                    $label = (string)$item->getId();
                     break;
                 case "itemTitle":
                     $label = $trklib->get_isMain_value($model['sourceTrackerId'], $item->getId());
