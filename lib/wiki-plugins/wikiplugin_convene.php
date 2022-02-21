@@ -13,7 +13,7 @@ function wikiplugin_convene_info(): array
     return [
         'name' => tra('Convene'),
         'documentation' => 'PluginConvene',
-        'description' => tra('Suggest meeting dates and times and vote to select one.'),
+        'description' => tra('Suggest meeting dates and times and vote to select one'),
         'introduced' => 9,
         'prefs' => ['wikiplugin_convene','feature_calendar'],
         'body' => tra('Convene data generated from user input'),

@@ -11,7 +11,7 @@ function wikiplugin_now_info()
     return [
         'name' => tra('Now'),
         'documentation' => 'PluginNow',
-        'description' => tra('Show the current date and time.'),
+        'description' => tra('Show the current date and time'),
         'prefs' => ['wikiplugin_now'],
         'iconname' => 'history',
         'introduced' => 9,

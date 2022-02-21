@@ -10,7 +10,7 @@ function wikiplugin_includetpl_info()
 {
     return [
         'name' => tra('Include Template File'),
-        'description' => tra('Include a Smarty template (.tpl) file in a page.'),
+        'description' => tra('Include a Smarty template (.tpl) file in a page'),
         'format' => 'html',
         'validate' => 'all',
         'filter' => 'wikicontent',

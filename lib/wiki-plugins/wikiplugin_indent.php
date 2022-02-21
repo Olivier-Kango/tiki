@@ -10,7 +10,7 @@ function wikiplugin_indent_info()
     return [
         'name' => tra('Indentation'),
         'documentation' => 'PluginIndent',
-        'description' => tra('Indent a block of wiki content by one level.'),
+        'description' => tra('Indent a block of wiki content by one level'),
         'format' => 'wiki',
         'prefs' => [ 'wikiplugin_indent' ],
         'body' => tra('Wiki content (text) that is to be indented.'),

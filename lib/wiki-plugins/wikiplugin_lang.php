@@ -11,7 +11,7 @@ function wikiplugin_lang_info()
     return [
         'name' => tra('Language'),
         'documentation' => 'PluginLang',
-        'description' => tra('Show alternative content based on the page language.'),
+        'description' => tra('Show alternative content based on the page language'),
         'prefs' => [ 'feature_multilingual', 'wikiplugin_lang' ],
         'body' => tra('Content to show'),
         'iconname' => 'language',

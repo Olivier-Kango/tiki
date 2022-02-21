@@ -11,9 +11,7 @@ function wikiplugin_signature_info()
     return [
         'name'          => tra('Signature'),
         'documentation' => 'PluginSignature',
-        'description'   => tra(
-            'Allows to draw signatures.'
-        ),
+        'description'   => tra('Allows to draw signatures'),
         'prefs'         => ['wikiplugin_signature'],
         'extraparams'   => true,
         'params'        => [
