@@ -17,7 +17,6 @@ const props = defineProps({
 onBeforeMount(() => {
     console.log(props.customProps.durationData)
     store.setInitialDuration(props.customProps.durationData);
-    store.setInputName('ins_1');
 })
 </script>
 
