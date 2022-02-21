@@ -108,10 +108,15 @@ class LogsLib extends TikiLib
         return $retval;
     }
 
+    /**
+     * Delete logs older than a specific date
+     * @param $date
+     * @return \TikiDb_Pdo_Result
+     */
     public function clean_logs($date)
     {
         $query = "delete from `tiki_actionlog` where `objectType`='system' and `lastModif`<=?";
-        $this->query($query, [(int)$date]);
+        return $this->query($query, [(int)$date]);
     }
 
     /**
