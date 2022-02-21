@@ -70,6 +70,9 @@ Allow: /vendor*.woff$
 Allow: /vendor*.woff2$
 Disallow: /get_strings.php
 Disallow: /tiki-admin
+Disallow: /tiki-print.php
+Disallow: /tiki-download_forum_attachment.php
+Disallow: /tiki-download_file.php
 
 #filer out multiple views
 Disallow: /*sort_mode=*
