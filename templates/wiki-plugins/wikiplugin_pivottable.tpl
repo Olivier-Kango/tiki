@@ -86,7 +86,7 @@
                         details.push(record.pivotLink);
                     }
                 });
-                if ({{$pivottable.aggregateDetailsCallback|json_encode}} && typeof {{$pivottable.aggregateDetailsCallback}} == "function") {
+                if ({{$pivottable.aggregateDetailsCallback|json_encode}} && window["{{$pivottable.aggregateDetailsCallback}}"]) {
                     formatted = {{$pivottable.aggregateDetailsCallback}}(e, value, filters, pivotData, details);
                 } else {
                     formatted = details.join("<br>\n");
