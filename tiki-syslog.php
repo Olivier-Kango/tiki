@@ -13,7 +13,6 @@
 require_once('tiki-setup.php');
 
 $access->check_permission('tiki_p_admin');
-$access->check_authenticity('', false);
 
 $auto_query_args = ['offset', 'numrows', 'maxRecords', 'find', 'sort_mode'];
 if (isset($_POST["actionId"]) && ! empty($_POST["page"])) {
@@ -21,6 +20,8 @@ if (isset($_POST["actionId"]) && ! empty($_POST["page"])) {
     $adminPage = $_POST["page"];
     $logResult = $logslib->get_info_action($_POST["actionId"]);
     if (! empty($logResult['log']) && ! empty($logResult['object'])) {
+        $access->checkCsrf();
+
         $logObject = $logResult['object'];
         $_POST['pp'] = $logObject;
         $revertInfo = unserialize($logResult['log']);
@@ -42,9 +43,13 @@ if (isset($_POST["actionId"]) && ! empty($_POST["page"])) {
 }
 
 if (isset($_REQUEST["clean"])) {
-    $access->check_authenticity();
+    $access->checkCsrf();
     $date = strtotime("-" . $_REQUEST["months"] . " months");
-    $logslib->clean_logs($date);
+    $clearedLogs = $logslib->clean_logs($date);
+
+    if ($clearedLogs->numrows > 0) {
+        Feedback::success(['mes' => tr('%0 logs have been cleared.', $clearedLogs->numrows)]);
+    }
 }
 
 if (! isset($_REQUEST["sort_mode"])) {
