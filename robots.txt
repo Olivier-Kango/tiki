@@ -16,7 +16,7 @@ User-agent: *
 # Sitemap: http://example.org/storage/public/sitemap-index.xml
 
 #  == Begin SEF URL Section ==
-#remove pages in favour of the SEF counterpart (Enable only after SEF URL’s are enabled in tiki will otherwise prevent indexing.)
+# Remove pages in favor of the SEF counterpart (Enable only after SEF URL’s are enabled in tiki will otherwise prevent indexing.)
 #Disallow: /tiki-forums.php
 #Disallow: /tiki-view_forum.php
 #Disallow: /tiki-index.php
@@ -25,11 +25,11 @@ User-agent: *
 #Disallow: /tiki-list_file_gallery.php
 #  == End SEF URL Section ==
 
-#Disallow: /tiki-view_forum_thread.php  #Do Not Enable until bug5204 is fixed. Will prevent indexing. Add to SEF URL Section when bug is fixed.
+#Disallow: /tiki-view_forum_thread.php  # Do Not Enable until bug5204 is fixed. Will prevent indexing. Add to SEF URL Section when bug is fixed.
 
-#This option will filer out multiple views of Structured Wiki Pages
-#only enable if "Open page as structure" is enabled under Admin-Wiki, so the structure is not passed via the url.
-#If existing links in your pages use the structure= in our pages, it may cause problem with Google Crawling the website.
+# This option will filter out multiple views of Structured Wiki Pages
+# only enable if "Open page as structure" is enabled under Admin-Wiki, so the structure is not passed via the url.
+# If existing links in your pages use the structure= in our pages, it may cause problem with Google Crawling the website.
 
 #Disallow: /*structure=*
 
@@ -37,7 +37,7 @@ User-agent: *
 # This is to slow down any crawling so as not to put pressure on your server
 Crawl-delay: 10
 
-#filter out crawling that applies in all situations
+# Filter out crawling that applies in all situations
 Disallow: /temp/
 Allow:    /temp/public/
 Disallow: /addons/
@@ -74,7 +74,7 @@ Disallow: /tiki-print.php
 Disallow: /tiki-download_forum_attachment.php
 Disallow: /tiki-download_file.php
 
-#filer out multiple views
+# Filter out multiple views
 Disallow: /*sort_mode=*
 Disallow: /*latest=1*
 Disallow: /*PHPSESSID=
