@@ -47,6 +47,11 @@ class GitLib extends TikiLib
                 $this->bin = $git;
                 return $git;
             }
+        } else {
+            $executableFinder = new \Symfony\Component\Process\ExecutableFinder();
+            $git = $executableFinder->find('git');
+            $this->bin = $git;
+            return $git;
         }
     }
 
