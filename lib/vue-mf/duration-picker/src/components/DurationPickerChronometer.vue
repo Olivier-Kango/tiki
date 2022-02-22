@@ -52,8 +52,7 @@
                 this.startTimer();
             }
         },
-        beforeDestroy: function () {
-            // cancelAnimationFrame(this.startId);
+        unmounted: function () {
             clearInterval(this.intervalId);
         },
         methods: {

@@ -16,7 +16,6 @@ const props = defineProps({
 const store = inject('store')
 
 onBeforeMount(() => {
-    console.log(props.customProps.durationData)
     store.setInitialDuration(props.customProps.durationData);
 })
 </script>

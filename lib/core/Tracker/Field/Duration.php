@@ -199,6 +199,9 @@ window.registerApplication({
         },
     },
 });
+onDOMElementRemoved("single-spa-application:@vue-mf/duration-picker-" + ' . json_encode($applicationId) . ', function () {
+    window.unregisterApplication("@vue-mf/duration-picker-" + ' . json_encode($applicationId) . ');
+});
 ');
         $appHtml = '<div id="single-spa-application:@vue-mf/duration-picker-' . $applicationId . '" class="wp-duration-picker"></div>';
 
