@@ -240,6 +240,13 @@ class ComposerCli
             }
         }
 
+        // on some systems the shell path isn't the same as the webserver one, so try Symfony's fn
+        if (! $this->phpCli) {
+            $phpFinder = new \Symfony\Component\Process\PhpExecutableFinder();
+            $this->phpCli = $phpFinder->find();
+            return $this->phpCli;
+         }
+
         return $this->phpCli;
     }
 
