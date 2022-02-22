@@ -16,11 +16,13 @@
 </template>
 
 <script>
+    import { inject } from 'vue';
+
     export default {
         name: "DurationPickerAmounts",
         data: function () {
             return {
-                store: this.$parent.store,
+                store: inject('store'),
             }
         },
         props: {

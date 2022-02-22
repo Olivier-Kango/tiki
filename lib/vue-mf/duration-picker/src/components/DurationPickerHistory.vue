@@ -19,8 +19,8 @@
                     <td>
                         <div style="font-weight: 500">{{ timestamp.title }}</div>
                         <p style="color: #495057;">{{ timestamp.description }}</p>
-                        <div v-if="timestamp.startTime">Last start time: <span class="font-italic">{{ formatTime(timestamp.startTime) }}<span></div>
-                        <div v-if="timestamp.stopTime">Last stop time: <span class="font-italic">{{ formatTime(timestamp.stopTime) }}<span></div>
+                        <div v-if="timestamp.startTime">Last start time: <span class="font-italic">{{ formatTime(timestamp.startTime) }}</span></div>
+                        <div v-if="timestamp.stopTime">Last stop time: <span class="font-italic">{{ formatTime(timestamp.stopTime) }}</span></div>
                     </td>
                     <td>
                         <span v-if="timestamp.spentTime">{{ formatDuration(timestamp.spentTime) }}</span>
@@ -37,13 +37,23 @@
 </template>
 
 <script>
+    import { inject } from 'vue';
+    import moment from 'moment';
+    import momentDurationFormatSetup from 'moment-duration-format';
+
+    momentDurationFormatSetup(moment);
+
     export default {
         name: "DurationPickerHistory",
         data: function () {
             return {
-                store: this.$parent.store,
-                timestamps: this.$parent.store.state.timestamps
+                store: inject('store'),
             };
+        },
+        computed: {
+            timestamps: function () {
+                return this.store.state.timestamps
+            }
         },
         methods: {
             formatTime: function (time) {

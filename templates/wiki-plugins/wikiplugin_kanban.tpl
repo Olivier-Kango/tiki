@@ -13,4 +13,8 @@
             kanbanData: {{$kanbanData|json_encode}},
         },
     });
+
+    onDOMElementRemoved("single-spa-application:@vue-mf/kanban-{{$kanbanData.id|escape}}", function () {
+        window.unregisterApplication("@vue-mf/kanban-{{$kanbanData.id|escape}}");
+    });
 {/jq}

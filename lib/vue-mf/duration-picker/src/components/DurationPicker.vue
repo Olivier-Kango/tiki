@@ -11,20 +11,21 @@
 </template>
 
 <script>
-    import DurationPickerAmounts from "./vue_DurationPickerAmounts.js";
-    import DurationPickerModal from "./vue_DurationPickerModal.js";
+    import { inject } from 'vue';
+    import DurationPickerAmounts from "./DurationPickerAmounts.vue";
+    import DurationPickerModal from "./DurationPickerModal.vue";
 
     export default {
         name: "DurationPicker",
         components: {
-            durationpickeramounts: DurationPickerAmounts,
-            durationpickermodal: DurationPickerModal
+            DurationPickerAmounts: DurationPickerAmounts,
+            DurationPickerModal: DurationPickerModal
         },
         data: function () {
             return {
                 show: false,
-                store: window[this.$parent.store],
-                amounts: {}
+                amounts: {},
+                store: inject('store')
             }
         },
         computed: {

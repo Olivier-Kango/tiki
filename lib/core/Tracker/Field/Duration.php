@@ -161,43 +161,49 @@ class Tracker_Field_Duration extends Tracker_Field_Abstract implements Tracker_F
         // vue.js integration
         $headerlib = TikiLib::lib('header');
 
-        if ($prefs['vuejs_always_load'] === 'n') {
-            $headerlib->add_jsfile_cdn("vendor_bundled/vendor/npm-asset/vue/dist/{$prefs['vuejs_build_mode']}");
-        }
+        // if ($prefs['vuejs_always_load'] === 'n') {
+        //     $headerlib->add_jsfile_cdn("vendor_bundled/vendor/npm-asset/vue/dist/{$prefs['vuejs_build_mode']}");
+        // }
 
-        $headerlib->add_jsfile('vendor_bundled/vendor/moment/moment/min/moment.min.js', true);
-        $headerlib->add_jsfile('vendor_bundled/vendor/npm-asset/moment-duration-format/lib/moment-duration-format.js');
-        $headerlib->add_jsfile('lib/vue/duration/store.js');
+        // $headerlib->add_jsfile('vendor_bundled/vendor/moment/moment/min/moment.min.js', true);
+        // $headerlib->add_jsfile('vendor_bundled/vendor/npm-asset/moment-duration-format/lib/moment-duration-format.js');
+        // $headerlib->add_jsfile('lib/vue/duration/store.js');
         $value = $this->getValue();
         if (! $value) {
             $value = 0;
         }
         $composedFieldId = $this->getComposedId($params);
 
+        if ($this->getComposedId($params)) {
+            $applicationId = $this->getComposedId($params);
+        } else {
+            $applicationId = 'new';
+        }
+   
         $headerlib->add_js('
-momentDurationFormatSetup(moment);
-var dpStore = DurationPickerStore();
-dpStore.setInitialDuration({
-    inputId: ' . json_encode($composedFieldId) . ',
-    draft: ' . json_encode($_SESSION['duration_drafts'][$composedFieldId]) . ',
-    value: ' . $value . ',
-    units: ' . json_encode($this->enabledUnits()) . ',
-    chronometer: ' . $this->getOption("chronometer") . '
+window.registerApplication({
+    name: "@vue-mf/duration-picker-" + ' . json_encode($applicationId) . ',
+    app: () => System.import("@vue-mf/duration-picker"),
+    activeWhen: (location) => {
+        let condition = true;
+        return condition;
+    },
+    customProps: {
+        durationData: {
+            inputId: ' . json_encode($composedFieldId) . ',
+            inputName: ' . json_encode($this->getInsertId()) . ',
+            draft: ' . json_encode($_SESSION['duration_drafts'][$composedFieldId]) . ',
+            value: ' . $value . ',
+            units: ' . json_encode($this->enabledUnits()) . ',
+            chronometer: ' . $this->getOption("chronometer") . '
+        },
+    },
 });
-dpStore.setInputName(' . json_encode($this->getInsertId()) . ');
+onDOMElementRemoved("single-spa-application:@vue-mf/duration-picker-" + ' . json_encode($applicationId) . ', function () {
+    window.unregisterApplication("@vue-mf/duration-picker-" + ' . json_encode($applicationId) . ');
+});
 ');
-
-        $vuejslib = TikiLib::lib('vuejs');
-
-        $params['store'] = 'dpStore';
-
-        $appHtml = $vuejslib->processVue('lib/vue/duration/DurationPicker.vue', 'DurationPicker', true, $params);
-        $appHtml .= $vuejslib->processVue('lib/vue/duration/DurationPickerModal.vue', 'DurationPickerModal');
-        $appHtml .= $vuejslib->processVue('lib/vue/duration/DurationPickerAmounts.vue', 'DurationPickerAmounts');
-        $appHtml .= $vuejslib->processVue('lib/vue/duration/DurationPickerEditor.vue', 'DurationPickerEditor');
-        $appHtml .= $vuejslib->processVue('lib/vue/duration/DurationPickerChronometer.vue', 'DurationPickerChronometer');
-        $appHtml .= $vuejslib->processVue('lib/vue/duration/DurationPickerHistory.vue', 'DurationPickerHistory');
-        $appHtml .= $vuejslib->processVue('lib/vue/duration/DurationPickerTitle.vue', 'DurationPickerTitle');
+        $appHtml = '<div id="single-spa-application:@vue-mf/duration-picker-' . $applicationId . '" class="wp-duration-picker"></div>';
 
         return $appHtml;
     }

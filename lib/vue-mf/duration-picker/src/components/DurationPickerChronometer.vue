@@ -27,12 +27,17 @@
 </template>
 
 <script>
+    import { inject } from 'vue';
+    import moment from 'moment';
+    import momentDurationFormatSetup from 'moment-duration-format';
+
+    momentDurationFormatSetup(moment);
+    
     export default {
         name: "DurationPickerChronometer",
         data: function () {
             return {
-                store: this.$parent.store,
-                inputId: this.$parent.store.state.inputId,
+                store: inject('store'),
                 startId: false,
                 intervalId: null,
                 startDuration: null,
@@ -47,8 +52,7 @@
                 this.startTimer();
             }
         },
-        beforeDestroy: function () {
-            // cancelAnimationFrame(this.startId);
+        unmounted: function () {
             clearInterval(this.intervalId);
         },
         methods: {
@@ -58,7 +62,7 @@
                 this.show = false;
                 if (!this.startTime) {
                     this.startTime = moment();
-                    this.inputId && this.store.saveDurationDraft(this.inputId, { startTime: this.startTime.toISOString() })
+                    this.store.state.inputId && this.store.saveDurationDraft(this.store.state.inputId, { startTime: this.startTime.toISOString() })
                         .then(data => {
                             this.store.state.draft = data;
                         });
@@ -82,7 +86,7 @@
                 this.updateActiveTimestamp({spentTime: currentSpentTime});
             },
             stopTimer: function () {
-                this.inputId && this.store.saveDurationDraft(this.inputId, { startTime: '', draftAmounts: this.getTotalAmounts() })
+                this.store.state.inputId && this.store.saveDurationDraft(this.store.state.inputId, { startTime: '', draftAmounts: this.getTotalAmounts() })
                     .then(data => {
                         this.store.state.draft = data;
                     });
@@ -108,7 +112,7 @@
                     this.show = true;
 
                     this.store.resetIntitialDuration();
-                    this.inputId && this.store.removeDurationDraft(this.inputId).then(data => {
+                    this.store.state.inputId && this.store.removeDurationDraft(this.store.state.inputId).then(data => {
                         this.store.state.draft = false;
                     });
                 }

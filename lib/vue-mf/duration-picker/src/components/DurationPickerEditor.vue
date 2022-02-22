@@ -45,22 +45,22 @@
 </template>
 
 <script>
-    import DurationPickerAmounts from "./vue_DurationPickerAmounts.js";
-    import DurationPickerTitle from "./vue_DurationPickerTitle.js";
+    import { inject } from 'vue';
+    import DurationPickerAmounts from "./DurationPickerAmounts.vue";
+    import DurationPickerTitle from "./DurationPickerTitle.vue";
 
     export default {
         name: "DurationPickerEditor",
         components: {
-            durationpickeramounts: DurationPickerAmounts,
-            durationpickertitle: DurationPickerTitle
+            DurationPickerAmounts: DurationPickerAmounts,
+            DurationPickerTitle: DurationPickerTitle
         },
         data: function () {
             return {
                 currentValue: 0,
                 interval: false,
                 timeoutId: null,
-                store: this.$parent.store,
-                inputId: this.$parent.store.state.inputId,
+                store: inject('store'),
                 ignore: false
             }
         },
@@ -112,7 +112,7 @@
                 if (!this.timeoutId) {
                     this.timeoutId = setTimeout(() => {
                         if (!this.store.state.playing) {
-                            this.inputId && this.store.saveDurationDraft(this.inputId,{ draftAmounts: this.getTotalAmounts() })
+                            this.store.state.inputId && this.store.saveDurationDraft(this.store.state.inputId,{ draftAmounts: this.getTotalAmounts() })
                                 .then(data => {
                                     if (this.ignore) return;
                                     this.store.state.draft = data;
@@ -148,7 +148,7 @@
                 if (this.store.state.playing) return;
                 this.store.setDurationValue(step, this.store.state.activeUnit);
                 if (!this.store.state.playing) {
-                    this.inputId && this.store.saveDurationDraft(this.inputId, { draftAmounts: this.getTotalAmounts() })
+                    this.store.state.inputId && this.store.saveDurationDraft(this.store.state.inputId, { draftAmounts: this.getTotalAmounts() })
                         .then(data => {
                             this.store.state.draft = data;
                         });

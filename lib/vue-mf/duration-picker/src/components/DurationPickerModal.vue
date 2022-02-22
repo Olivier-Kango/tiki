@@ -28,16 +28,17 @@
 </template>
 
 <script>
-    import DurationPickerEditor from "./vue_DurationPickerEditor.js";
-    import DurationPickerChronometer from "./vue_DurationPickerChronometer.js";
-    import DurationPickerHistory from "./vue_DurationPickerHistory.js";
+    import { inject } from 'vue';
+    import DurationPickerEditor from "./DurationPickerEditor.vue";
+    import DurationPickerChronometer from "./DurationPickerChronometer.vue";
+    import DurationPickerHistory from "./DurationPickerHistory.vue";
 
     export default {
         name: "DurationPickerModal",
         components: {
-            durationpickerchronometer: DurationPickerChronometer,
-            durationpickereditor: DurationPickerEditor,
-            durationpickerhistory: DurationPickerHistory
+            DurationPickerChronometer: DurationPickerChronometer,
+            DurationPickerEditor: DurationPickerEditor,
+            DurationPickerHistory: DurationPickerHistory
         },
         mounted: function () {
             if ($(this.$el).closest('.modal').length > 0) {
@@ -46,8 +47,7 @@
         },
         data: function () {
             return {
-                store: this.$parent.store,
-                inputId: this.$parent.store.state.inputId,
+                store: inject('store'),
                 saveButton: true
             }
         },
@@ -63,7 +63,7 @@
             },
             handleSave: function () {
                 // Saving is done in inline-edit.js
-                this.inputId && this.store.removeDurationDraft(this.inputId).then(data => {
+                this.store.state.inputId && this.store.removeDurationDraft(this.store.state.inputId).then(data => {
                     this.store.state.draft = false;
                 });
             }
