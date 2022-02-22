@@ -188,6 +188,7 @@
             {if $prefs.feature_trackers eq "y" and $tiki_p_admin eq "y"}
                 <a class="dropdown-item" href="tiki-pluginlist_experiment.php">{tr}Plugin List Test{/tr}</a>
             {/if}
+            <a role="link" class="dropdown-item" href="{bootstrap_modal controller=search action=rebuild}">{tr}Rebuild Index{/tr}</a>
             {if $prefs.feature_search_stats eq "y" and $tiki_p_admin eq "y"}
                 <a class="dropdown-item" href="tiki-search_stats.php">{tr}Search Statistics{/tr}</a>
             {/if}
