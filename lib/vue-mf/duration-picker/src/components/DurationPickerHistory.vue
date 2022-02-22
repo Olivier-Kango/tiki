@@ -37,9 +37,9 @@
 </template>
 
 <script>
+    import { inject } from 'vue';
     import moment from 'moment';
     import momentDurationFormatSetup from 'moment-duration-format';
-    import store from '../store';
 
     momentDurationFormatSetup(moment);
 
@@ -47,9 +47,13 @@
         name: "DurationPickerHistory",
         data: function () {
             return {
-                store: store,
-                timestamps: store.state.timestamps
+                store: inject('store'),
             };
+        },
+        computed: {
+            timestamps: function () {
+                return this.store.state.timestamps
+            }
         },
         methods: {
             formatTime: function (time) {
@@ -59,7 +63,7 @@
                 return moment.duration(duration).format('h [hrs], m [min], s [sec]');
             },
             selectTimestamp: function (index) {
-                store.setActiveTimestamp(index);
+                this.store.setActiveTimestamp(index);
             }
         }
     };

@@ -27,9 +27,9 @@
 </template>
 
 <script>
+    import { inject } from 'vue';
     import moment from 'moment';
     import momentDurationFormatSetup from 'moment-duration-format';
-    import store from '../store';
 
     momentDurationFormatSetup(moment);
     
@@ -37,8 +37,7 @@
         name: "DurationPickerChronometer",
         data: function () {
             return {
-                store: store,
-                inputId: store.state.inputId,
+                store: inject('store'),
                 startId: false,
                 intervalId: null,
                 startDuration: null,
@@ -48,8 +47,8 @@
             };
         },
         mounted: function () {
-            if (store.state.draft && store.state.draft.startTime) {
-                this.startTime = store.state.draft.startTime;
+            if (this.store.state.draft && this.store.state.draft.startTime) {
+                this.startTime = this.store.state.draft.startTime;
                 this.startTimer();
             }
         },
@@ -60,16 +59,16 @@
         methods: {
             startTimer: function () {
                 if (this.startId) return;
-                store.setPlaying(true);
+                this.store.setPlaying(true);
                 this.show = false;
                 if (!this.startTime) {
                     this.startTime = moment();
-                    this.inputId && store.saveDurationDraft(this.inputId, { startTime: this.startTime.toISOString() })
+                    this.store.state.inputId && this.store.saveDurationDraft(this.store.state.inputId, { startTime: this.startTime.toISOString() })
                         .then(data => {
-                            store.state.draft = data;
+                            this.store.state.draft = data;
                         });
                 }
-                this.timestamp = store.getTimestamp(store.state.activeTimestamp);
+                this.timestamp = this.store.getTimestamp(this.store.state.activeTimestamp);
                 this.updateActiveTimestamp({startTime: this.startTime});
 
                 // this.startId = requestAnimationFrame(this.startChronometer);
@@ -88,68 +87,68 @@
                 this.updateActiveTimestamp({spentTime: currentSpentTime});
             },
             stopTimer: function () {
-                this.inputId && store.saveDurationDraft(this.inputId, { startTime: '', draftAmounts: this.getTotalAmounts() })
+                this.store.state.inputId && this.store.saveDurationDraft(this.store.state.inputId, { startTime: '', draftAmounts: this.getTotalAmounts() })
                     .then(data => {
-                        store.state.draft = data;
+                        this.store.state.draft = data;
                     });
                 // cancelAnimationFrame(this.startId);
                 clearInterval(this.intervalId);
                 this.startTime = null;
                 this.startId = false;
                 this.show = true;
-                store.setPlaying(false);
+                this.store.setPlaying(false);
                 this.updateActiveTimestamp({stopTime: moment()});
             },
             getTotalAmounts: function() {
-                const totalDuration = store.getTotalDuration();
-                const amounts = store.__calcDuration(totalDuration);
+                const totalDuration = this.store.getTotalDuration();
+                const amounts = this.store.__calcDuration(totalDuration);
                 return amounts;
             },
             resetTimer: function () {
-                if (store.state.playing) return;
+                if (this.store.state.playing) return;
                 if (confirm("Reset to initial state ?")) {
                     // cancelAnimationFrame(this.startId);
                     clearInterval(this.intervalId);
                     this.startId = false;
                     this.show = true;
 
-                    store.resetIntitialDuration();
-                    this.inputId && store.removeDurationDraft(this.inputId).then(data => {
-                        store.state.draft = false;
+                    this.store.resetIntitialDuration();
+                    this.store.state.inputId && this.store.removeDurationDraft(this.store.state.inputId).then(data => {
+                        this.store.state.draft = false;
                     });
                 }
             },
             addTimer: function() {
-                if (store.state.playing) return;
-                store.setTimestamp('add', {
+                if (this.store.state.playing) return;
+                this.store.setTimestamp('add', {
                     spentTime: moment.duration(0)
                 });
             },
             deleteTimestamp: function () {
-                if (store.state.playing) {
+                if (this.store.state.playing) {
                     confirm(`Can't delete while playing...`)
                     return;
                 }
-                if (store.state.playing || store.state.activeTimestamp === 0) {
+                if (this.store.state.playing || this.store.state.activeTimestamp === 0) {
                     confirm(`Can't delete first timestamp...`)
                     return;
                 }
-                const timestamp = store.getTimestamp(store.state.activeTimestamp);
+                const timestamp = this.store.getTimestamp(this.store.state.activeTimestamp);
                 if (confirm(`Remove timestamp ${timestamp.spentTime.format('h [hrs], m [min], s [sec]')}?`)) {
-                    store.setTimestamp('delete', timestamp);
+                    this.store.setTimestamp('delete', timestamp);
                 }
             },
             updateActiveTimestamp: function (updatesObj) {
-                store.setTimestamp('update', {
-                    ...store.getTimestamp(store.state.activeTimestamp),
+                this.store.setTimestamp('update', {
+                    ...this.store.getTimestamp(this.store.state.activeTimestamp),
                     ...updatesObj
                 });
             },
             prevTimestamp: function () {
-                store.setActiveTimestamp(store.state.activeTimestamp - 1);
+                this.store.setActiveTimestamp(this.store.state.activeTimestamp - 1);
             },
             nextTimestamp: function () {
-                store.setActiveTimestamp(store.state.activeTimestamp + 1);
+                this.store.setActiveTimestamp(this.store.state.activeTimestamp + 1);
             }
         }
     };

@@ -174,9 +174,15 @@ class Tracker_Field_Duration extends Tracker_Field_Abstract implements Tracker_F
         }
         $composedFieldId = $this->getComposedId($params);
 
+        if ($this->getComposedId($params)) {
+            $applicationId = $this->getComposedId($params);
+        } else {
+            $applicationId = 'new';
+        }
+   
         $headerlib->add_js('
 window.registerApplication({
-    name: "@vue-mf/duration-picker-" + ' . json_encode($this->getInsertId()) . ',
+    name: "@vue-mf/duration-picker-" + ' . json_encode($applicationId) . ',
     app: () => System.import("@vue-mf/duration-picker"),
     activeWhen: (location) => {
         let condition = true;
@@ -194,7 +200,7 @@ window.registerApplication({
     },
 });
 ');
-        $appHtml = '<div id="single-spa-application:@vue-mf/duration-picker-' . $this->getInsertId() . '" class="wp-duration-picker"></div>';
+        $appHtml = '<div id="single-spa-application:@vue-mf/duration-picker-' . $applicationId . '" class="wp-duration-picker"></div>';
 
         return $appHtml;
     }

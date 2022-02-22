@@ -16,13 +16,13 @@
 </template>
 
 <script>
-    import store from '../store';
+    import { inject } from 'vue';
 
     export default {
         name: "DurationPickerAmounts",
         data: function () {
             return {
-                store: store,
+                store: inject('store'),
             }
         },
         props: {
@@ -31,7 +31,7 @@
         },
         methods: {
             setUnit: function (unit) {
-                store.setActiveUnit(unit);
+                this.store.setActiveUnit(unit);
             }
         }
     };

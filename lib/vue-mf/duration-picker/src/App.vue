@@ -4,15 +4,16 @@ export default {
 }
 </script>
 <script setup>
-import { onBeforeMount } from 'vue'
+import { onBeforeMount, inject } from 'vue'
 import DurationPicker from './components/DurationPicker.vue'
-import store from './store';
 
 const props = defineProps({
     customProps: {
         type: Object
     }
 })
+
+const store = inject('store')
 
 onBeforeMount(() => {
     console.log(props.customProps.durationData)

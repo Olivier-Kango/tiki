@@ -45,9 +45,9 @@
 </template>
 
 <script>
+    import { inject } from 'vue';
     import DurationPickerAmounts from "./DurationPickerAmounts.vue";
     import DurationPickerTitle from "./DurationPickerTitle.vue";
-    import store from '../store';
 
     export default {
         name: "DurationPickerEditor",
@@ -60,8 +60,7 @@
                 currentValue: 0,
                 interval: false,
                 timeoutId: null,
-                store: store,
-                inputId: store.state.inputId,
+                store: inject('store'),
                 ignore: false
             }
         },
@@ -85,20 +84,20 @@
         },
         computed: {
             convertValue: function() {
-                const amounts = store.__calcDuration(store.getTimestamp(store.state.activeTimestamp).spentTime);
-                this.currentValue = amounts[store.state.activeUnit];
-                return amounts[store.state.activeUnit];
+                const amounts = this.store.__calcDuration(this.store.getTimestamp(this.store.state.activeTimestamp).spentTime);
+                this.currentValue = amounts[this.store.state.activeUnit];
+                return amounts[this.store.state.activeUnit];
             },
             getAmounts: function() {
-                const index = store.state.activeTimestamp;
-                const duration = store.state.timestamps[index].spentTime;
-                const amounts = store.__calcDuration(duration);
+                const index = this.store.state.activeTimestamp;
+                const duration = this.store.state.timestamps[index].spentTime;
+                const amounts = this.store.__calcDuration(duration);
                 return amounts;
             }
         },
         methods: {
             handleKeydown: function (e) {
-                if (store.state.playing) {
+                if (this.store.state.playing) {
                     e.preventDefault();
                     return;
                 }
@@ -108,15 +107,15 @@
                 if (isNaN(value)) {
                     value = 0;
                 }
-                store.setDurationValue(value - this.currentValue, store.state.activeUnit);
+                this.store.setDurationValue(value - this.currentValue, this.store.state.activeUnit);
 
                 if (!this.timeoutId) {
                     this.timeoutId = setTimeout(() => {
-                        if (!store.state.playing) {
-                            this.inputId && store.saveDurationDraft(this.inputId,{ draftAmounts: this.getTotalAmounts() })
+                        if (!this.store.state.playing) {
+                            this.store.state.inputId && this.store.saveDurationDraft(this.store.state.inputId,{ draftAmounts: this.getTotalAmounts() })
                                 .then(data => {
                                     if (this.ignore) return;
-                                    store.state.draft = data;
+                                    this.store.state.draft = data;
                                 });
                         }
                         clearTimeout(this.timeoutId);
@@ -126,7 +125,7 @@
             },
             handleClickUnit: function(unit) {
                 this.$refs.input.focus();
-                store.setActiveUnit(unit);
+                this.store.setActiveUnit(unit);
             },
             handleTabKeys: function(e) {
                 if (e.shiftKey && e.which === 9) {
@@ -138,20 +137,20 @@
                 }
             },
             nextAmount: function() {
-                const unit = store.getAmountAfter(store.state.activeUnit);
-                store.setActiveUnit(unit);
+                const unit = this.store.getAmountAfter(this.store.state.activeUnit);
+                this.store.setActiveUnit(unit);
             },
             prevAmount: function() {
-                const unit = store.getAmountBefore(store.state.activeUnit);
-                store.setActiveUnit(unit);
+                const unit = this.store.getAmountBefore(this.store.state.activeUnit);
+                this.store.setActiveUnit(unit);
             },
             handleArithmetic: function (step) {
-                if (store.state.playing) return;
-                store.setDurationValue(step, store.state.activeUnit);
-                if (!store.state.playing) {
-                    this.inputId && store.saveDurationDraft(this.inputId, { draftAmounts: this.getTotalAmounts() })
+                if (this.store.state.playing) return;
+                this.store.setDurationValue(step, this.store.state.activeUnit);
+                if (!this.store.state.playing) {
+                    this.store.state.inputId && this.store.saveDurationDraft(this.store.state.inputId, { draftAmounts: this.getTotalAmounts() })
                         .then(data => {
-                            store.state.draft = data;
+                            this.store.state.draft = data;
                         });
                 }
             },
@@ -167,8 +166,8 @@
                 this.$refs.input.focus();
             },
             getTotalAmounts: function() {
-                const totalDuration = store.getTotalDuration();
-                const amounts = store.__calcDuration(totalDuration);
+                const totalDuration = this.store.getTotalDuration();
+                const amounts = this.store.__calcDuration(totalDuration);
                 return amounts;
             }
         }

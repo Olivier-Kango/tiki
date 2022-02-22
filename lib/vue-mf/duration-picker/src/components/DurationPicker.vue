@@ -11,9 +11,9 @@
 </template>
 
 <script>
+    import { inject } from 'vue';
     import DurationPickerAmounts from "./DurationPickerAmounts.vue";
     import DurationPickerModal from "./DurationPickerModal.vue";
-    import store from '../store';
 
     export default {
         name: "DurationPicker",
@@ -25,18 +25,18 @@
             return {
                 show: false,
                 amounts: {},
-                store: store
+                store: inject('store')
             }
         },
         computed: {
             getTotalAmounts: function() {
-                const totalDuration = store.getTotalDuration();
-                const amounts = store.__calcDuration(totalDuration);
+                const totalDuration = this.store.getTotalDuration();
+                const amounts = this.store.__calcDuration(totalDuration);
                 return amounts;
             },
             getAmountsTotalStringified: function() {
-                const totalDuration = store.getTotalDuration();
-                const amounts = store.__calcDuration(totalDuration);
+                const totalDuration = this.store.getTotalDuration();
+                const amounts = this.store.__calcDuration(totalDuration);
                 return JSON.stringify(amounts);
             }
         },
