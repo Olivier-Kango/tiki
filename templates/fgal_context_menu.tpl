@@ -203,8 +203,8 @@
                 {if $gal_info.lockable eq 'y' and $file.isgal neq 1}
                     {if $file.lockedby}
                         {* Notify user in confirm message when file is locked by another user *}
-                        {if $user && $user !== $file.user}
-                            {self_link _icon_name='unlock' _menu_text=$menu_text _menu_icon=$menu_icon lock='n' fileId=$file.fileId galleryId=$file.galleryId _onclick="confirmPopup('{tr _0="$file.user"}File already locked by %0{/tr}', '{ticket mode=get}')"}
+                        {if $user && $user !== $file.lockedby}
+                            {self_link _icon_name='unlock' _menu_text=$menu_text _menu_icon=$menu_icon lock='n' fileId=$file.fileId galleryId=$file.galleryId _onclick="confirmPopup('{tr _0=$file.lockedby|username}File previously locked by user %0, do you want to unlock it?{/tr}', '{ticket mode=get}')"}
                                 {tr}Unlock{/tr}
                             {/self_link}
                         {else}
@@ -223,7 +223,7 @@
                             or (!isset($file.p_download_files) and $file.perms.tiki_p_download_files eq 'y')}
                             {if $prefs.javascript_enabled eq 'y'}
                                 {* with javascript, the main page will be reloaded to lock the file and change its lockedby information *}
-                                {self_link _icon_name='download' _menu_text=$menu_text _menu_icon=$menu_icon lock='y' fileId=$file.fileId galleryId=$file.galleryId _onclick="window.open('{$file.fileId|sefurl:file:with_next}'); confirmPopup('{tr}Lock file?{/tr}', '{ticket mode=get}')"}
+                                {self_link _icon_name='download' _menu_text=$menu_text _menu_icon=$menu_icon lock='y' fileId=$file.fileId galleryId=$file.galleryId _onclick="confirmPopup('{tr}Download and lock file?{/tr}', '{ticket mode=get}');" _script=$file.fileId|sefurl:file:with_next}
                                     {tr}Download and lock{/tr}
                                 {/self_link}
                             {else}
