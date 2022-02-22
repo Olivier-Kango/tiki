@@ -30,10 +30,11 @@ class Reports_Send_EmailBuilder_ForumPostThread extends Reports_Send_EmailBuilde
         }
 
         $output = tr(
-            '%0 <a href="%1">replied</a> to the topic %2.',
+            '%0 <a href="%1">replied</a> to the topic %2 at forum %3.',
             "<u>{$change['data']['user']}</u>",
             "\"{$base_url}tiki-view_forum_thread.php?comments_parentId={$change['data']['topicId']}#threadId={$change['data']['threadId']}\"",
-            "<a href=\"{$base_url}tiki-view_forum_thread.php?comments_parentId={$change['data']['topicId']}&forumId={$change['data']['forumId']}\">{$topicTitle}</a>"
+            "<a href=\"{$base_url}tiki-view_forum_thread.php?comments_parentId={$change['data']['topicId']}&forumId={$change['data']['forumId']}\">{$topicTitle}</a>",
+            "<a href=\"{$base_url}tiki-view_forum.php?forumId={$change['data']['forumId']}\">{$change['data']['forumName']}</a>"
         );
 
         return $output;
