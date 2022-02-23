@@ -71,27 +71,32 @@ const handleAddCard = () => {
 </script>
 
 <template>
-    <KanbanCard>
-        <textarea
-            ref="textarea"
-            v-model="title"
-            class="form-control"
-            rows="3"
-            placeholder="Enter a title for this card..."
-        >{{ title }}</textarea>
-    </KanbanCard>
-    <Button sm @click="handleAddCard">
-        Add card
-        <i v-if="loading" class="fas fa-spinner fa-spin"></i>
-    </Button>
-    <Button class="ml-2" variant="default" sm @click="$emit('close')">
-        <i class="fas fa-times"></i>
-    </Button>
+    <div class="add-cart-container">
+        <KanbanCard>
+            <textarea
+                ref="textarea"
+                v-model="title"
+                class="form-control"
+                rows="3"
+                placeholder="Enter a title for this card..."
+            >{{ title }}</textarea>
+        </KanbanCard>
+        <Button sm @click="handleAddCard">
+            Add card
+            <i v-if="loading" class="fas fa-spinner fa-spin"></i>
+        </Button>
+        <Button class="ml-2" variant="default" sm @click="$emit('close')">
+            <i class="fas fa-times"></i>
+        </Button>
+    </div>
 </template>
 
 <style lang="scss" scoped>
 :deep(.card-body) {
     padding: 0;
+}
+.add-cart-container {
+    padding: 10px;
 }
 .btn-default {
     // background-color: rgba(228, 230, 240, 0.658);
