@@ -104,7 +104,7 @@ class TrackerItemPermissionTest extends TikiTestCase
 
     public static function tearDownAfterClass(): void
     {
-        global $prefs;
+        global $prefs, $tikilib;
         $prefs['feature_trackers'] = self::$old_pref;
 
         parent::tearDownAfterClass();
@@ -112,6 +112,7 @@ class TrackerItemPermissionTest extends TikiTestCase
 
         if (! empty($prefs['unified_mysql_index_current'])) {
             TikiDb::get()->query("DROP TABLE `{$prefs['unified_mysql_index_current']}`");
+            $tikilib->delete_preference('unified_mysql_index_current');
         }
 
         self::$unifiedlib->invalidateIndicesCache();

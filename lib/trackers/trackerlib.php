@@ -265,7 +265,7 @@ class TrackerLib extends TikiLib
             if ($prefs['t_use_db'] === 'n') {
                 $paths = $attachments->fetchColumn('path', ['attId' => (int) $attId]);
             }
-            $this->query('update `tiki_tracker_item_fields` ttif left join `tiki_tracker_fields` ttf using (`fieldId`) set `value`=? where ttif.`value`=? and ttf.`type`=?', ['', (int) $attId, 'A']);
+            $this->query('update `tiki_tracker_item_fields` ttif left join `tiki_tracker_fields` ttf using (`fieldId`) set `value`=? where ttif.`value`=? and ttf.`type`=?', ['', (string) $attId, 'A']);
             $attachments->delete(['attId' => (int) $attId]);
         }
         foreach (array_filter($paths) as $path) {
