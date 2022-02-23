@@ -21,12 +21,18 @@
             DurationPickerAmounts: DurationPickerAmounts,
             DurationPickerModal: DurationPickerModal
         },
+        props: {
+            durationData: Object
+        },
         data: function () {
             return {
                 show: false,
                 amounts: {},
                 store: inject('store')
             }
+        },
+        beforeMount: function () {
+            this.store.setInitialDuration(this.durationData);
         },
         computed: {
             getTotalAmounts: function() {

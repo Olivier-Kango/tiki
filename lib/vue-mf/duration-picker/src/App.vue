@@ -4,22 +4,33 @@ export default {
 }
 </script>
 <script setup>
-import { onBeforeMount, inject } from 'vue'
+import { provide } from 'vue'
 import DurationPicker from './components/DurationPicker.vue'
+import createStore from './store';
 
 const props = defineProps({
-    customProps: {
-        type: Object
+    durationData: {
+        type: Object,
+        default: () => {
+            return {
+                "inputId": null,
+                "inputName": "ins_",
+                "draft": null,
+                "value": 0,
+                "units": [
+                    "hours",
+                    "minutes",
+                    "seconds"
+                ],
+                "chronometer": 1
+            }
+        }
     }
 })
 
-const store = inject('store')
-
-onBeforeMount(() => {
-    store.setInitialDuration(props.customProps.durationData);
-})
+provide('store', createStore());
 </script>
 
 <template>
-    <DurationPicker />
+    <DurationPicker :durationData="durationData" />
 </template>
