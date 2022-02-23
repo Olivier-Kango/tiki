@@ -134,8 +134,8 @@ const setItem = (itemId, newIndex) => {
                 </div>
                 <template v-slot:menu>
                     <div class="card-menu">
-                        <a class="p-1 mr-2" :href="getTrackerItemLink(element.id)" target="_blank"><i class="fas fa-link"></i></a>
-                        <a class="p-1 mr-2" :href="getTrackerItemEditLink(element.id)" target="_blank"><i class="fas fa-edit"></i></a>
+                        <a class="p-1 mr-3" :href="getTrackerItemLink(element.id)" target="_blank"><i class="fas fa-link"></i></a>
+                        <a class="p-1 mr-1" :href="getTrackerItemEditLink(element.id)" target="_blank"><i class="fas fa-edit"></i></a>
                         <!-- <Button class="d-inline-block" variant="default" sm @click="handleEditCard(element)"> -->
                     </div>
                 </template>
@@ -143,7 +143,7 @@ const setItem = (itemId, newIndex) => {
                     <FormEditField :title="element.title" :id="element.id"></FormEditField>
                 </template>
                 <template v-slot:text>
-                    <div v-if="element.description">
+                    <div v-if="element.description" class="mt-1">
                         {{ element.description.substring(0, 115) }}
                     </div>
                 </template>
@@ -176,8 +176,9 @@ const setItem = (itemId, newIndex) => {
 
 .card-menu {
     a {
+        background-color: rgba(255, 255, 255, 0.75);
         color: #383838;
-        font-size: 1.1rem;
+        font-size: 1.5rem;
 
         &:hover {
             color: #007bff;

@@ -66,7 +66,7 @@ const handleEditClick = event => {
         <div v-if="!showEditField" @click="handleEditClick">{{ titleField }}</div>
         <div v-if="showEditField" class="editable-container">
             <Field
-                class="form-control mb-1"
+                class="form-control"
                 v-focus
                 v-autosize
                 as="textarea"

@@ -21,8 +21,7 @@ const handleMouseLeave = event => {
         <div class="kanban-card-body">
             <slot name="default"/>
             <Transition name="slide-fade">
-                <div v-show="isHovered" class="kanban-card-menu p-1">
-                <!-- <div v-show="true" class="kanban-card-menu p-1"> -->
+                <div v-show="isHovered" class="kanban-card-menu">
                     <slot name="menu"/>
                 </div>
             </Transition>
@@ -47,9 +46,9 @@ const handleMouseLeave = event => {
 
         .kanban-card-menu {
             position: absolute;
-            background-color: rgba(255, 255, 255, 0.55);
             top: 0;
             right: 0;
+            padding: 0.4rem;
         }
 
         .kanban-card-body {
@@ -58,10 +57,13 @@ const handleMouseLeave = event => {
 
         .kanban-card-title {
             font-weight: 500;
+            line-height: 1.4;
         }
 
         .kanban-card-text {
-            color: #5a5a5a;
+            color: #5c5c5c;
+            line-height: 1.4;
+            font-size: 0.95rem;
         }
     }
     .slide-fade-enter-active {
