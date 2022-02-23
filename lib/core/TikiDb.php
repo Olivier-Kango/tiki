@@ -377,7 +377,7 @@ abstract class TikiDb
     {
         static $engine = '';
         if (empty($engine)) {
-            $result = $this->query('SHOW TABLE STATUS LIKE ?', 'tiki_schema');
+            $result = $this->query('SHOW TABLE STATUS LIKE "tiki_schema"');
             if ($result) {
                 $res = $result->fetchRow();
                 $engine  = $res['Engine'];
