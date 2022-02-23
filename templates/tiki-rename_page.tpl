@@ -22,7 +22,7 @@
         {/if}
     {/if}
     <label for="newpage" class="col-form-label mr-2">{tr}New name{/tr}</label>
-        <input type='text' id='newpage' name='newpage' class="form-control mr-3" value='{$newname|escape}'>
+        <input type='text' id='newpage' name='newpage' class="form-control mr-3" maxlength="158" value='{$newname|escape}'>
             {if $prefs.feature_wiki_pagealias eq 'y'}
                 <input type='checkbox' id='semantic_alias' name='semantic_alias' value='y' class="mr-2"> {tr}Redirect original page{/tr}
                 <a tabindex="0" target="_blank" data-toggle="popover" data-trigger="hover" title="{tr}301 Redirect - 'moved permanently' HTTP response status code{/tr}" data-content="{tr}Create an SEO-friendly, automatic redirect from old page name to new page name (ex.: for search engines or users that may have bookmarked the page){/tr}">
@@ -33,3 +33,12 @@
         <input type="submit" class="btn btn-primary ml-3" name="rename" value="{tr}Rename{/tr}">
 
 </form>
+
+{jq}
+    $("input[name=newpage]").keyup(function () {
+        var length = $(this).val().length;
+        if(length > 158) {
+            alert(tr("You have exceeded the number of characters allowed (158 max) for the page name field"));
+        }
+    });
+{/jq}
