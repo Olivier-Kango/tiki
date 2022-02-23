@@ -149,5 +149,14 @@ function prefs_login_list()
             'default' => '',
             'tags' => ['advanced'],
         ],
+        'login_text_explanation' => [
+            'name' => tra('Descriptive sentence to ask a user to log in'),
+            'description' => tra('If the login module is called on the page and shown to users who are not logged in, this sentence may ask them to enter their credentials (supports wiki syntax)
+'),
+            'type' => 'text',
+            'size' => 100,
+            'perspective' => false,
+            'default' => '',
+        ],
     ];
 }

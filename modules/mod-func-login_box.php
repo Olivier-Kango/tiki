@@ -91,6 +91,7 @@ function module_login_box($mod_reference, &$module_params)
 {
     global $prefs, $base_url_https, $base_url;
     $smarty = TikiLib::lib('smarty');
+    $tikilib = \TikiLib::lib('tiki');
     static $module_logo_instance = 0;
 
     $module_logo_instance++;
@@ -102,6 +103,7 @@ function module_login_box($mod_reference, &$module_params)
 
     $smarty->assign('module_logo_instance', $module_logo_instance);
     $smarty->assign('mode', isset($module_params['mode']) ? $module_params['mode'] : 'module');
+    $smarty->assign('login_text_explanation', $tikilib->get_preference('login_text_explanation'));
 
     $urlPrefix = in_array($prefs['https_login'], ['encouraged', 'required', 'force_nocheck']) ? $base_url_https : $base_url;
     $smarty->assign('registration', 'n');   // stops the openid form appearing in the module, only on tiki-login_scr.php

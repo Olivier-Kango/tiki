@@ -127,6 +127,7 @@
                 {preference name=eponymousGroups}
                 {preference name=desactive_login_autocomplete}
                 {preference name=permission_denied_login_box}
+                {preference name=login_text_explanation}
                 {preference name=login_multiple_forbidden}
                 <div class="adminoptionboxchild" id="login_multiple_forbidden_childcontainer">
                     {preference name=login_grab_session}

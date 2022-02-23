@@ -212,6 +212,11 @@ $(".collapse-toggle", ".siteloginbar_popup .dropdown-menu").click(function () {
                 {else}{$error_login|escape}{/if}
             {/remarksbox}
         {/if}
+        {if !empty($prefs.login_text_explanation) && !($mode eq "popup")}
+        <div class="login-description form-group row mx-0 clearfix">
+            <label> {wiki} {$login_text_explanation} {/wiki}</label>
+        </div>
+        {/if}
         <div class="user form-group row mx-0 clearfix">
             {if !isset($module_logo_instance)}{assign var=module_logo_instance value=' '}{/if}
             <label for="login-user_{$module_logo_instance}">
