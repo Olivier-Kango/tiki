@@ -70,7 +70,7 @@ class Search_Manticore_PdoClient
 
     public function deleteIndex($index)
     {
-        $stmt = $this->pdo->prepare("DROP TABLE $index");
+        $stmt = $this->pdo->prepare("DROP TABLE IF EXISTS $index");
         $stmt->execute();
     }
 
@@ -96,9 +96,9 @@ class Search_Manticore_PdoClient
     public function alter($index, $operation, $field, $type)
     {
         if ($operation == 'drop') {
-            $sql = "ALTER TABLE $index DROP COLUMN $field";
+            $sql = "ALTER TABLE $index DROP COLUMN `$field`";
         } else {
-            $sql = "ALTER TABLE $index ADD COLUMN $field $type";
+            $sql = "ALTER TABLE $index ADD COLUMN `$field` $type";
         }
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([]);
@@ -123,7 +123,7 @@ class Search_Manticore_PdoClient
         return new ResultSet($stmt->fetch());
     }
 
-    public function optimize()
+    public function optimize($index)
     {
         $stmt = $this->pdo->prepare("OPTIMIZE INDEX $index");
         $stmt->execute();

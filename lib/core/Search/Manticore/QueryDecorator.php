@@ -54,7 +54,7 @@ class Search_Manticore_QueryDecorator extends Search_Manticore_Decorator
 
         if ($node instanceof Token) {
             $mapping = $this->index ? $this->index->getFieldMapping($node->getField()) : new stdClass();
-            if ($mapping && strstr($mapping['properties'], 'indexed')) {
+            if ($mapping && in_array('indexed', $mapping['options'])) {
                 if ($this->currentOp == \Manticoresearch\Search::FILTER_AND) {
                     $this->search->phrase($this->getTerm($node), $this->getNodeField($node));
                 } else {

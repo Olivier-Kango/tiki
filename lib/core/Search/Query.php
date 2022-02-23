@@ -413,7 +413,7 @@ class Search_Query implements Search_Query_Interface
                 yield $row;
             }
         } catch (Exception $e) {
-            Feedback::error(tra("Malformed search query"));
+            Feedback::error(tr('Malformed search query:') . ' ' . $e->getMessage());
             trigger_error($e->getMessage(), E_USER_WARNING);
         }
     }

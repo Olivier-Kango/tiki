@@ -280,7 +280,9 @@ class UnifiedSearchLib
                     $indexer->log->info("  $key: $val");
                 }
                 $indexer->log->info("  total tiki fields indexed: {$stats['default']['total tiki fields indexed']}");
-                $indexer->log->info("  total fields used in the mysql search index: : {$stats['default'][$totalFieldsUsedIn]}");
+                if (isset($stats['default'][$totalFieldsUsedIn])) {
+                    $indexer->log->info("  total fields used in the mysql search index: : {$stats['default'][$totalFieldsUsedIn]}");
+                }
 
                 unset($indexer);
             }

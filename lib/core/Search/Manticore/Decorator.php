@@ -19,7 +19,7 @@ abstract class Search_Manticore_Decorator
 
     protected function getNodeField($node)
     {
-        $field = $node->getField();
+        $field = strtolower($node->getField());
         $this->ensureHasField($field);
         return $field;
     }

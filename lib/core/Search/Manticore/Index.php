@@ -106,9 +106,9 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
             $this->providedMappings = $mapping;
         } else {
             foreach($mapping as $field => $type) {
+                $this->providedMappings[$field] = $type;
                 $this->pdo_client->alter($this->index,'add', $field, $type['type']);
             }
-            $this->providedMappings = array_merge($this->providedMappings, $mapping);
         }
     }
 
@@ -188,11 +188,13 @@ class Search_Manticore_Index implements Search_Index_Interface, Search_Index_Que
         $entries = [];
         foreach ($result as $entry) {
             $data = (array) $entry->getData();
-            $data['score'] = round($data['_score'], 2);
+            if (isset($data['_score'])) {
+                $data['score'] = round($data['_score'], 2);
+            }
             $entries[] = $data;
         }
 
-        $resultSet = new Search_ResultSet($entries, $result->getTotal(), $resultStart, $resultCount);
+        $resultSet = new Search_ResultSet($entries, $result->count(), $resultStart, $resultCount);
         // TODO: highlights
 
         // TODO: facet reader
