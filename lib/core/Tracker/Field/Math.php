@@ -58,10 +58,19 @@ class Tracker_Field_Math extends Tracker_Field_Abstract implements Tracker_Field
 
     public function getFieldData(array $requestData = [])
     {
+        global $tiki_p_admin, $tiki_p_admin_trackers;
+
         if (isset($requestData[$this->getInsertId()])) {
             $value = $requestData[$this->getInsertId()];
         } else {
             $value = $this->getValue();
+            if ($value == 'Expecting "(" near ""') {
+                if ($tiki_p_admin == 'y' || $tiki_p_admin_trackers == 'y') {
+                    $value = tr('"The parameter Calculation is empty, please edit the field and add a Calculation."');
+                } else {
+                    $value = '';
+                }
+            }
         }
 
         return [
