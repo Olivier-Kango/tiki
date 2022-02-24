@@ -120,7 +120,7 @@
                 {/literal}{if $ganttIdField}{literal}<button onclick="duplicateGantt();" class="btn btn-outline-primary" title="{tr}Duplicate{/tr}">{tr}Duplicate{/tr}</button>{/literal}{/if}{literal}
                 <button onclick="saveGanttOnServer();" id="ganttSaveProject" class="btn btn-primary requireWrite" title="{tr}Save{/tr}">{tr}Save{/tr}</button>
                 &nbsp;
-                <img id="ganttLoading" src="../../img/spinner.gif" title="{tr}Loading{/tr}" alt="{tr}Loading{/tr}"/>
+                <img id="ganttLoading" src="img/spinner.gif" title="{tr}Loading{/tr}" alt="{tr}Loading{/tr}"/>
             </div>
         </div>
         -->
