@@ -32,7 +32,8 @@ function wikiplugin_googledoc_info()
                     ['text' => tra('Document'), 'value' => 'document'],
                     ['text' => tra('Slides'), 'value' => 'slides'],
                     ['text' => tra('Spreadsheet'), 'value' => 'spreadsheet'],
-                    ['text' => tra('Forms'), 'value' => 'forms']
+                    ['text' => tra('Forms'), 'value' => 'forms'],
+                    ['text' => tra('Drive'), 'value' => 'drive']
                 ]
             ],
             'key' => [
@@ -51,6 +52,15 @@ function wikiplugin_googledoc_info()
                 'description' => tra('Name of iframe. Default is "Frame" + the key'),
                 'filter' => 'text',
                 'since' => '3.0',
+            ],
+            'url' => [
+                'safe' => true,
+                'required' => false,
+                'name' => tra('Drive Link'),
+                'description' => tra('The URL of the file on Google Drive'),
+                'default' => '',
+                'since' => '24.0',
+                'filter' => 'url',
             ],
             'size' => [
                 'safe' => true,
@@ -199,6 +209,19 @@ function wikiplugin_googledoc($data, $params)
         $srcUrl = "\"https://docs.google.com/forms/d/$key\"";
         $editSrcUrl = "\"https://docs.google.com/forms/d/$key/edit\"";
         $editHtml = " <p><a href=$editSrcUrl target=\"$frameName\">Edit this Google Document</a></p>";
+    }
+    if ($type == "drive") {
+        if(!isset($url)){
+            return tra('Required parameter "url" is missing');
+        }
+        $srcUrl = "https://drive.google.com/file/d/";
+        $checkUrl=stristr($url,$srcUrl);
+        if (strlen($checkUrl) < 1) {
+            return tra('You should provide a Google Drive link');
+        }
+        $cleanUrl = explode($srcUrl,$url)[1];
+        $fileId = explode("/",$cleanUrl)[0];
+        $srcUrl = $srcUrl.$fileId."/preview";
     }
 
     $ret = "";
