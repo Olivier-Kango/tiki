@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7753c9909eea49c11e1ee220eeeb2bb0",
+    "content-hash": "5400df26d02f75a4365df48985311051",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -2107,17 +2107,17 @@
         },
         {
             "name": "h5p/h5p-core",
-            "version": "dev-master",
+            "version": "1.24.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/h5p/h5p-php-library.git",
-                "reference": "c79f97a16fd8c6fc0232c10d5bed5b94502ee9e9"
+                "reference": "db3da7a1441ae6c9ffacbb8110f41758c85beaa0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/h5p/h5p-core/h5p-h5p-core-c79f97a16fd8c6fc0232c10d5bed5b94502ee9e9-zip-b9f24b.zip",
-                "reference": "c79f97a16fd8c6fc0232c10d5bed5b94502ee9e9",
-                "shasum": "f8e63bd2dafae715ad3ea0950de4ca747cd912b4"
+                "url": "https://composer.tiki.org/dist/h5p/h5p-core/h5p-h5p-core-db3da7a1441ae6c9ffacbb8110f41758c85beaa0-zip-06ffc3.zip",
+                "reference": "db3da7a1441ae6c9ffacbb8110f41758c85beaa0",
+                "shasum": "61817d8020bdd76c4c36a4b4bcac57dc1747ae74"
             },
             "require": {
                 "php": ">=5.3.0"
@@ -2160,21 +2160,21 @@
                 "interactive",
                 "quiz"
             ],
-            "time": "2022-01-05T08:24:39+00:00"
+            "time": "2021-04-22T09:30:45+00:00"
         },
         {
             "name": "h5p/h5p-editor",
-            "version": "dev-master",
+            "version": "1.24.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/h5p/h5p-editor-php-library.git",
-                "reference": "70dc2da2f0702ec4a2483bfb7cbdacf9e843389d"
+                "reference": "dd70892f9e28c99f13bee2881601329d5c6c4a8e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/h5p/h5p-editor/h5p-h5p-editor-70dc2da2f0702ec4a2483bfb7cbdacf9e843389d-zip-b1a67d.zip",
-                "reference": "70dc2da2f0702ec4a2483bfb7cbdacf9e843389d",
-                "shasum": "5e6234e7f5591277ff409bea318a2ae4eb573138"
+                "url": "https://composer.tiki.org/dist/h5p/h5p-editor/h5p-h5p-editor-dd70892f9e28c99f13bee2881601329d5c6c4a8e-zip-afe742.zip",
+                "reference": "dd70892f9e28c99f13bee2881601329d5c6c4a8e",
+                "shasum": "611cbd8692c31e69d991a4d9d32cd0ca1410fe3f"
             },
             "require": {
                 "php": ">=5.3.0"
@@ -2217,7 +2217,7 @@
                 "interactive",
                 "quiz"
             ],
-            "time": "2022-02-08T19:57:36+00:00"
+            "time": "2022-01-20T10:17:49+00:00"
         },
         {
             "name": "hesammousavi/bootstrap-v4-rtl",
@@ -7052,7 +7052,7 @@
         },
         {
             "name": "philippemarcmeyer/fieldslinker",
-            "version": "dev-master",
+            "version": "v1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PhilippeMarcMeyer/FieldsLinker.git",
@@ -13923,12 +13923,9 @@
         "candy-chat/xmpp-prebind-php": 20,
         "erusev/parsedown": 10,
         "hesammousavi/bootstrap-v4-rtl": 20,
-        "h5p/h5p-core": 20,
-        "h5p/h5p-editor": 20,
         "jason-munro/cypht": 20,
         "league/flysystem": 10,
         "npm-asset/html2canvas": 5,
-        "philippemarcmeyer/fieldslinker": 20,
         "rubix/extras": 10,
         "sorich87/bootstrap-tour": 20,
         "teqneers/shamir": 20,
