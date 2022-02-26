@@ -54,6 +54,7 @@ if (! empty($prefs['module_file'])) {
 $access->check_feature(['feature_jquery_ui']);
 
 // Values for the user_module edit/create form
+$smarty->assign('um_tgt_module', '');
 $smarty->assign('um_name', '');
 $smarty->assign('um_title', '');
 $smarty->assign('um_data', '');
@@ -198,16 +199,18 @@ if (isset($_REQUEST['um_update']) && $access->checkCsrf()) {
         Feedback::errorPage(tr('A module with that "name" already exists, please choose another'));
     }
     $_REQUEST['um_update'] = urldecode($_REQUEST['um_update']);
-    $smarty->assign_by_ref('um_name', $_REQUEST['um_name']);
     $smarty->assign_by_ref('um_title', $_REQUEST['um_title']);
     $smarty->assign_by_ref('um_data', $_REQUEST['um_data']);
     $smarty->assign_by_ref('um_parse', $_REQUEST['um_parse']);
 
-    $result = $modlib->replace_user_module($_REQUEST['um_name'], $_REQUEST['um_title'], $_REQUEST['um_data'], $_REQUEST['um_parse']);
+    $result = $modlib->replace_user_module($_REQUEST['um_name'], $_REQUEST['um_title'], $_REQUEST['um_data'], $_REQUEST['um_parse'], $_REQUEST['um_tgt_module']);
     if ($result && $result->numRows()) {
         $msg = $_REQUEST['um_update'] == tr('Create') ? tr('Custom module created') : tr('Custom module modified');
         Feedback::success($msg);
     } else {
+        $smarty->assign_by_ref('um_tgt_module', $_REQUEST['um_tgt_module']);
+        $smarty->assign_by_ref('um_name', $_REQUEST['um_name']);
+
         $msg = $_REQUEST['um_update'] == tr('Create') ? tr('Custom not module created') : tr('Custom module not modified');
         Feedback::error($msg);
     }
@@ -401,6 +404,7 @@ if (isset($_REQUEST['um_remove']) && $access->checkCsrf(true)) {
 if (isset($_REQUEST['um_edit'])) {
     $um_edit = urldecode($_REQUEST['um_edit']);
     $um_info = $modlib->get_user_module($um_edit);
+    $smarty->assign('um_tgt_module', $um_info['name']);
     $smarty->assign('um_name', $um_info['name']);
     $smarty->assign('um_title', $um_info['title']);
     $smarty->assign('um_data', $um_info['data']);

@@ -58,15 +58,26 @@ class ModLib extends TikiLib
      * @return TikiDb_Pdo_Result
      * @throws Exception
      */
-    public function replace_user_module($name, $title, $data, $parse = null)
+    public function replace_user_module($name, $title, $data, $parse = null, $tgt_mod = null)
     {
         global $prefs;
 
         if ((! empty($name)) && (! empty($data))) {
-            $query = "delete from `tiki_user_modules` where `name`=?";
-            $this->query($query, [$name], -1, -1, false);
-            $query = "insert into `tiki_user_modules`(`name`,`title`,`data`, `parse`) values(?,?,?,?)";
-            $result = $this->query($query, [$name,$title,$data,$parse]);
+            $query = 'INSERT INTO `tiki_user_modules` (`name`, `title`, `data`, `parse`) VALUES (?, ?, ?, ?)';
+
+            $params = [
+                $name,
+                $title,
+                $data,
+                $parse,
+            ];
+
+            if (!empty((string) $tgt_mod)) {
+                $query = 'UPDATE `tiki_user_modules` SET `name` = ?, `title` = ?, `data` = ?, `parse` = ? WHERE `name` = ?';
+                $params[] = $tgt_mod;
+            }
+
+            $result = $this->query($query, $params);
 
             $cachelib = TikiLib::lib('cache');
             $cachelib->invalidate("user_modules_$name");
