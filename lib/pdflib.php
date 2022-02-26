@@ -514,7 +514,8 @@ class PdfGenerator
         return $mpdf->Output('', 'S');                  // Return as a string
     }
 
-    public function getHtmlLayout($pageContent) {
+    public function getHtmlLayout($pageContent)
+    {
         require_once('tiki-setup.php');
 
         $modlib = TikiLib::lib('mod');
@@ -523,7 +524,7 @@ class PdfGenerator
         global $prefs, $user;
 
         clearstatcache();
-        
+
         $modules_to_print = $prefs['print_pdf_modules'];
         $modules_to_print_contents = [];
 
@@ -531,10 +532,10 @@ class PdfGenerator
 
         $modnames = [];
 
-        if(is_array($modules_to_print)){
+        if (is_array($modules_to_print)) {
             foreach ($modules_to_print as $module_key) {
                 $content = '';
-                
+
                 if (isset($modules[$module_key]) && is_array($modules[$module_key])) {
                     foreach ($modules[$module_key] as & $mod_reference) {
                         $ref = (array) $mod_reference;
@@ -574,52 +575,51 @@ class PdfGenerator
         $htmlLayout["staringPart"] = '';
         $htmlLayout["endingPart"] = '';
 
-        if($modules_to_print_contents['top_modules']){
-            $htmlLayout["staringPart"] = $htmlLayout["staringPart"]. '<div class="col-xs-12">' . $modules_to_print_contents['top_modules']. '</div>';
+        if ($modules_to_print_contents['top_modules']) {
+            $htmlLayout["staringPart"] = $htmlLayout["staringPart"] . '<div class="col-xs-12">' . $modules_to_print_contents['top_modules'] . '</div>';
         }
-        if($modules_to_print_contents['topbar_modules']){
-            $htmlLayout["staringPart"] = $htmlLayout["staringPart"]. '<div class="col-xs-12">' . $modules_to_print_contents['topbar_modules']. '</div>';
+        if ($modules_to_print_contents['topbar_modules']) {
+            $htmlLayout["staringPart"] = $htmlLayout["staringPart"] . '<div class="col-xs-12">' . $modules_to_print_contents['topbar_modules'] . '</div>';
         }
 
-        $htmlLayout["staringPart"] = $htmlLayout["staringPart"]. '<div class="row">';
+        $htmlLayout["staringPart"] = $htmlLayout["staringPart"] . '<div class="row">';
 
-        if($modules_to_print_contents['left_modules'] || $modules_to_print_contents['right_modules']){
+        if ($modules_to_print_contents['left_modules'] || $modules_to_print_contents['right_modules']) {
             $sideColumn = 'col-xs-4';
 
-            if ($modules_to_print_contents['left_modules'] && $modules_to_print_contents['right_modules']){
+            if ($modules_to_print_contents['left_modules'] && $modules_to_print_contents['right_modules']) {
                 $sideColumn = 'col-xs-2';
             }
 
-            if($modules_to_print_contents['left_modules']){
-                $htmlLayout["staringPart"] = $htmlLayout["staringPart"]. '<div class="'.$sideColumn.'">' . $modules_to_print_contents['left_modules']. '</div>';
+            if ($modules_to_print_contents['left_modules']) {
+                $htmlLayout["staringPart"] = $htmlLayout["staringPart"] . '<div class="' . $sideColumn . '">' . $modules_to_print_contents['left_modules'] . '</div>';
             }
 
-            $htmlLayout["staringPart"] = $htmlLayout["staringPart"]. '<div class="col-xs-8">';
+            $htmlLayout["staringPart"] = $htmlLayout["staringPart"] . '<div class="col-xs-8">';
 
-            if($modules_to_print_contents['pagetop_modules']){
-                $htmlLayout["staringPart"] = $htmlLayout["staringPart"]. '<div>' . $modules_to_print_contents['pagetop_modules']. '</div>';
+            if ($modules_to_print_contents['pagetop_modules']) {
+                $htmlLayout["staringPart"] = $htmlLayout["staringPart"] . '<div>' . $modules_to_print_contents['pagetop_modules'] . '</div>';
             }
 
-            if($modules_to_print_contents['pagebottom_modules']){
-                $htmlLayout["endingPart"] = $htmlLayout["endingPart"]. '<div>' . $modules_to_print_contents['pagebottom_modules']. '</div>';
+            if ($modules_to_print_contents['pagebottom_modules']) {
+                $htmlLayout["endingPart"] = $htmlLayout["endingPart"] . '<div>' . $modules_to_print_contents['pagebottom_modules'] . '</div>';
             }
 
-            $htmlLayout["endingPart"] = $htmlLayout["endingPart"]. '</div>';
+            $htmlLayout["endingPart"] = $htmlLayout["endingPart"] . '</div>';
 
-            if($modules_to_print_contents['right_modules']){
-                $htmlLayout["endingPart"] = $htmlLayout["endingPart"]. '<div class="'.$sideColumn.'">' . $modules_to_print_contents['right_modules']. '</div>';
+            if ($modules_to_print_contents['right_modules']) {
+                $htmlLayout["endingPart"] = $htmlLayout["endingPart"] . '<div class="' . $sideColumn . '">' . $modules_to_print_contents['right_modules'] . '</div>';
             }
-            
-        } else{
-            if($modules_to_print_contents['pagetop_modules']){
-                $htmlLayout["staringPart"] = $htmlLayout["staringPart"]. '<div class="col-xs-12">' . $modules_to_print_contents['pagetop_modules']. '</div>';
+        } else {
+            if ($modules_to_print_contents['pagetop_modules']) {
+                $htmlLayout["staringPart"] = $htmlLayout["staringPart"] . '<div class="col-xs-12">' . $modules_to_print_contents['pagetop_modules'] . '</div>';
             }
-            if($modules_to_print_contents['pagebottom_modules']){
-                $htmlLayout["endingPart"] = $htmlLayout["endingPart"]. '<div class="col-xs-12">' . $modules_to_print_contents['pagebottom_modules']. '</div>';
+            if ($modules_to_print_contents['pagebottom_modules']) {
+                $htmlLayout["endingPart"] = $htmlLayout["endingPart"] . '<div class="col-xs-12">' . $modules_to_print_contents['pagebottom_modules'] . '</div>';
             }
         }
 
-        $htmlLayout["endingPart"] = $htmlLayout["endingPart"]. '</div>';
+        $htmlLayout["endingPart"] = $htmlLayout["endingPart"] . '</div>';
 
 
         //check if Module contains navbar and force display (when printing nav is by default display none)
@@ -627,12 +627,12 @@ class PdfGenerator
             $pageContent = str_replace("<body>", "<style>.navbar {display: block;}</style><body>", $pageContent);
         }
 
-        if($modules_to_print_contents['bottom_modules']){
-            $htmlLayout["endingPart"] = $htmlLayout["endingPart"]. '<div class="col-xs-12">' . $modules_to_print_contents['bottom_modules']. '</div>';
+        if ($modules_to_print_contents['bottom_modules']) {
+            $htmlLayout["endingPart"] = $htmlLayout["endingPart"] . '<div class="col-xs-12">' . $modules_to_print_contents['bottom_modules'] . '</div>';
         }
 
-        $pageContent = str_replace("<body>", "<body style='margin:0px;padding:0px;'>".$htmlLayout["staringPart"], $pageContent);
-        $pageContent = str_replace("</body>", $htmlLayout["endingPart"]."</body>", $pageContent);
+        $pageContent = str_replace("<body>", "<body style='margin:0px;padding:0px;'>" . $htmlLayout["staringPart"], $pageContent);
+        $pageContent = str_replace("</body>", $htmlLayout["endingPart"] . "</body>", $pageContent);
 
         return $pageContent;
     }
@@ -660,7 +660,7 @@ class PdfGenerator
         $pdfSettings['orientation'] = $orientation != '' ? $orientation : 'P';
         $pdfSettings['pagesize'] = $prefs['print_pdf_mpdf_pagesize'] != '' ? $prefs['print_pdf_mpdf_pagesize'] : 'Letter';
 
-        if(in_array($pdfSettings['pagesize'], ['Tabloid/Ledger', 'Tabloid-Ledger'])){
+        if (in_array($pdfSettings['pagesize'], ['Tabloid/Ledger', 'Tabloid-Ledger'])) {
             $pdfSettings['pagesize'] = 'Tabloid';
         }
 
@@ -747,7 +747,7 @@ class PdfGenerator
                 }
             }
 
-            if(in_array($pages['pagesize'], ['Tabloid/Ledger', 'Tabloid-Ledger'])){
+            if (in_array($pages['pagesize'], ['Tabloid/Ledger', 'Tabloid-Ledger'])) {
                 $pages['pagesize'] = 'Tabloid';
             }
 
@@ -849,7 +849,7 @@ class PdfGenerator
 
     public function _parseHTML(&$html)
     {
-        //Replace all word separators as this is already fixed with CSS 
+        //Replace all word separators as this is already fixed with CSS
         $html = str_replace(["<wbr>", "<wbr/>"], "", $html);
 
         $doc = new DOMDocument();
@@ -992,7 +992,7 @@ class PdfGenerator
                 $fadiv = $fadivs->item($i);
                 $faClass = explode(" ", str_replace(["fa ","-"], "", $fadiv->getAttribute('class')));
                 foreach ($faClass as $class) {
-                    if (!empty($jfo[$class]['codeValue'])) {
+                    if (! empty($jfo[$class]['codeValue'])) {
                         $faCode = $doc->createElement('span', " " . $jfo[$class]['codeValue']);
                         $faCode->setAttribute("style", "font-family: FontAwesome;float:left;padding-left:5px" . $fadiv->getAttribute('style'));
                         //span with fontawesome code inserted before fa div
@@ -1052,11 +1052,12 @@ $(".convert-mailto").removeClass("convert-mailto").each(function () {
 
     public function processHyperlinks($content, $hyperlinkSetting, $pageCounter)
     {
+        global $base_url;
+
         $doc = new DOMDocument();
         $doc->loadHTML(mb_convert_encoding($content, 'HTML-ENTITIES', 'UTF-8'));
         $anchors = $doc->getElementsByTagName('a');
         $len = $anchors->length;
-        $href = '';
         $hrefDiv = $doc->createElement('div');
 
         for ($i = 0,$linkCnt = 1; $i < $len; $i++) {
@@ -1074,13 +1075,20 @@ $(".convert-mailto").removeClass("convert-mailto").each(function () {
                 if ($hyperlinkSetting != "off") {
                     // Check if there is a url in the text
                     $linkSup = $doc->createElement("sup");
+
+                    // If link as no host then it is an internal link
+                    $urlParts = parse_url($anchor->getAttribute('href'));
+                    if (empty($urlParts['host'])) {
+                        $anchor->setAttribute('href', $base_url . $anchor->getAttribute('href'));
+                    }
+
                     if (
                         preg_match(
                             "/(http|https)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/",
-                            $anchor->getAttribute('href'),
-                            $url
+                            $anchor->getAttribute('href')
                         )
                     ) {
+
                         $linkAn = $doc->createElement(
                             "hyperanchor",
                             "[" . $linkCnt . "]"
