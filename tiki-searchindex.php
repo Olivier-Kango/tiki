@@ -36,7 +36,7 @@ $smarty->assign('headtitle', tr('Search'));
 //error_reporting(E_ALL);
 
 foreach (['find', 'highlight', 'where'] as $possibleKey) {
-    if (empty($_REQUEST['filter']) && ! empty($_REQUEST[$possibleKey])) {
+    if (empty($_REQUEST['filter']['content']) && ! empty($_REQUEST[$possibleKey])) {
         $_REQUEST['filter']['content'] = $_REQUEST[$possibleKey];
     }
 }
@@ -114,6 +114,9 @@ if (count($filter) || count($postfilter)) {
     } else {
         $cachelib = TikiLib::lib('cache');
         $cacheType = 'search';
+        if (isset($_REQUEST['forumId'])) {
+            $filter['forum_id'] = $_REQUEST['forumId'];
+        }
         $cacheName = $user . '/' . $offset . '/' . $maxRecords . '/' . serialize($filter);
         $isCached = false;
         if (! empty($prefs['unified_user_cache']) && $cachelib->isCached($cacheName, $cacheType)) {

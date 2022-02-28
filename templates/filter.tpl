@@ -86,6 +86,9 @@
                 </div>
             </div>
         {/if}
+        {if isset($filter.forum_id)}
+            <input type="hidden" name="forumId" value="{$filter.forum_id|escape}">
+        {/if}
         {if $prefs.feature_multilingual eq 'y'}
             {if $prefs.search_default_interface_language neq 'y'}
                 <div class="mb-3 row">
