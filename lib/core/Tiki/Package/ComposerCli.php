@@ -292,6 +292,8 @@ class ComposerCli
      */
     protected function execComposer($args)
     {
+        global $prefs;
+
         if (! is_array($args)) {
             $args = [$args];
         }
@@ -309,6 +311,10 @@ class ComposerCli
 
             if (! getenv('COMPOSER_HOME')) {
                 $env['COMPOSER_HOME'] = $this->basePath . self::COMPOSER_HOME;
+            }
+
+            if ($prefs['use_proxy'] == 'y') {
+                $env['HTTP_PROXY'] = $this->buildProxyUrl();
             }
 
             $process = new Process($args, null, $env);
@@ -777,5 +783,28 @@ class ComposerCli
         $message = str_replace("\n", '<br>', trim($output));
 
         return [$result, $message];
+    }
+
+    /**
+     * Build and get proxy URL based on Tiki preferences.
+     * @return string
+     */
+    private function buildProxyUrl()
+    {
+        global $prefs;
+
+        $proxy = '';
+
+        if (! empty($prefs['proxy_user']) && ! empty($prefs['proxy_pass'])) {
+            $proxy .= $prefs['proxy_user'] . ':' . $prefs['proxy_pass'] . '@';
+        }
+
+        $proxy .= $prefs['proxy_host'];
+
+        if (isset($prefs['proxy_port'])) {
+            $proxy .= ':' . $prefs['proxy_port'];
+        }
+
+        return $proxy;
     }
 }
