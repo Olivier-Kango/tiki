@@ -46,7 +46,11 @@ lang = {
     "Loading..." : "טוען...",
     "Saving..." : "שמןר...",
     "Upload" : "Envoyer",
-    "Clear" : "Vider",
+    "The security ticket for this form has expired." : "פג תוקפו של כרטיס האבטחה עבור טופס זה.",
+    "To apply your changes, note or copy them, reload the page, re-enter them and retry submitting." : "על מנת להחיל את השינויים, העתק אותם, טען מחדש את הדף, הזן אותם מחדש ונסה לשלוח שוב.",
+    "Security ticket timed out" : "פג תוקפו של כרטיס האבטחה",
+    "Close this dialog" : "סגור את תיבת הדו-שיח הזו",
+    "Reload now (discards changes)" : "טען מחדש עכשיו (מבטל שינויים)",
     // remember the IE does not support ending comma on last item
     "Clear" : "Vider"
 };
