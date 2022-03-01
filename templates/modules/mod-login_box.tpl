@@ -250,7 +250,7 @@ $(".collapse-toggle", ".siteloginbar_popup .dropdown-menu").click(function () {
                 {icon name='error' istyle="vertical-align:middle"} {tr}CapsLock is on.{/tr}
             </div>
         </div>
-        {if $module_params.show_two_factor_auth eq 'y' and $prefs.twoFactorAuth eq 'y'}
+        {if isset($module_params.show_two_factor_auth) and $module_params.show_two_factor_auth eq 'y' and $prefs.twoFactorAuth eq 'y'}
         <div class="pass form-group row mx-0 clearfix">
             <label for="login-2fa_{$module_logo_instance}">{tr}Two-factor Authenticator Code:{/tr}</label>
             <input type="text" name="twoFactorAuthCode" autocomplete="off" class="form-control" id="login-2fa_{$module_logo_instance}">
@@ -297,7 +297,7 @@ $(".collapse-toggle", ".siteloginbar_popup .dropdown-menu").click(function () {
         <div class="form-group text-center">
             <button class="btn btn-primary button submit" type="submit" name="login">{tr}Log in{/tr} <!--i class="fa fa-arrow-circle-right"></i--></button>
         </div>
-        {if $module_params.show_register eq 'y' or $module_params.show_two_factor_auth}
+        {if $module_params.show_register eq 'y' or (isset($module_params.show_two_factor_auth) && $module_params.show_two_factor_auth)}
             <div {if $mode eq 'header'}class="text-right" style="display:inline;"{/if}>
                 {strip}
                     <div {if $mode eq 'header'}style="display: inline-block"{/if}><ul class="{if $mode neq 'header'}list-unstyled"{else}list-inline"{/if}>

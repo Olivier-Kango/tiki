@@ -44,7 +44,7 @@ function smarty_function_modulelist($params, $smarty)
             '',
             array_map(
                 function ($module) {
-                    $devices = $module["params"]["device"];
+                    $devices = $module["params"]["device"] ?? null;
                     $moduleContent = (isset($module['data']) ? $module['data'] : '');
                     $device_classes =  '';
 

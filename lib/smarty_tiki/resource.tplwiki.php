@@ -15,41 +15,35 @@
  * Purpose:  Fetches a template from a wiki page but parsing as little as with tpl's on disk
  * -------------------------------------------------------------
  */
-function smarty_resource_tplwiki_source(string $page, ?string &$tpl_source, Smarty_Tiki $smarty): bool
+class Smarty_Resource_Tplwiki extends Smarty_Resource_Custom
 {
+    protected function fetch($name, &$source, &$mtime)
+    {
+        /** @var \Smarty_Tiki $smarty */
+        $smarty = TikiLib::lib('smarty');
+        $info = $smarty->checkWikiPageTemplatePerms($name, $source);
 
-    $info = $smarty->checkWikiPageTemplatePerms($page, $tpl_source);
-
-    if ($info) {
-        $tpl_source = $info['data'];
-        return true;
-    } else {
-        return false;
+        if ($info) {
+            $source = $info['data'];
+        }
     }
-}
 
-function smarty_resource_tplwiki_timestamp($page, &$tpl_timestamp, $smarty)
-{
-    global $tikilib;
+    protected function fetchTimestamp($name)
+    {
+        global $tikilib;
 
-    $info = $tikilib->get_page_info($page);
-    if (empty($info)) {
-        return false;
+        $info = $tikilib->get_page_info($name);
+        if (empty($info)) {
+            return false;
+        }
+
+        if (
+            preg_match('/\{([A-z-Z0-9_]+) */', $info['data']) ||
+            preg_match('/\{\{.+\}\}/', $info['data'])
+        ) { // there are some plugins - so it can be risky to cache the page
+            return $tikilib->now;
+        }
+
+        return $info['lastModif'];
     }
-    if (preg_match('/\{([A-z-Z0-9_]+) */', $info['data']) || preg_match('/\{\{.+\}\}/', $info['data'])) { // there are some plugins - so it can be risky to cache the page
-        $tpl_timestamp = $tikilib->now;
-    } else {
-        $tpl_timestamp = $info['lastModif'];
-    }
-    return true;
-}
-
-function smarty_resource_tplwiki_secure($tpl_name, $smarty)
-{
-    return true;
-}
-
-function smarty_resource_tplwiki_trusted($tpl_name, $smarty)
-{
-    return true;
 }

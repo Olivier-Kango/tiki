@@ -73,10 +73,6 @@ class Search_Indexer
 
                 return true;
             }, E_ALL);
-
-            // set smarty error muting again after declaring our handler becasue smarty is set up in tiki-setup.php
-            // before we get here so smarty then doesn't know about us
-            Smarty_Tiki::muteExpectedErrors();
         }
 
         $logWriter->setFormatter(new Laminas\Log\Formatter\Simple());

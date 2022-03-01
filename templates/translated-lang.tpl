@@ -77,7 +77,7 @@
                 {/if}
             {/section}
             {* For wiki pages only: Show a link to view all translations on a single page *}
-            {if $object_type eq 'wiki page' and $prefs.feature_multilingual_one_page eq 'y' and $translationsCount gt 1}
+            {if $object_type eq 'wiki page' and $prefs.feature_multilingual_one_page eq 'y' and isset($translationsCount) and $translationsCount gt 1}
                 <div role="separator" class="dropdown-divider"></div>
                 <a href="tiki-all_languages.php?page={$trads[0].objName|escape:url}&no_bl=y" title=":{tr}Show all translations of this page on a single page{/tr}" class="dropdown-item tips">
                     {tr}All languages{/tr}

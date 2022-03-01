@@ -15,39 +15,33 @@
  * Purpose:  Fetches a template from a wiki page
  * -------------------------------------------------------------
  */
-function smarty_resource_wiki_source(string $page, ?string &$tpl_source, Smarty_Tiki $smarty)
+class Smarty_Resource_Wiki extends Smarty_Resource_Custom
 {
-    $info = $smarty->checkWikiPageTemplatePerms($page, $tpl_source);
+    protected function fetch($name, &$source, &$mtime)
+    {
+        /** @var \Smarty_Tiki $smarty */
+        $smarty = TikiLib::lib('smarty');
+        $info = $smarty->checkWikiPageTemplatePerms($name, $source);
 
-    if ($info) {
-        $tpl_source = TikiLib::lib('parser')->parse_data($info['data'], ['is_html' => $info['is_html'], 'print' => 'y', 'inside_pretty' => true]);
-        return true;
-    } else {
-        return false;
+        if ($info) {
+            $source = TikiLib::lib('parser')->parse_data($info['data'], ['is_html' => $info['is_html'], 'print' => 'y', 'inside_pretty' => true]);
+        }
     }
-}
 
-function smarty_resource_wiki_timestamp($page, &$tpl_timestamp, $smarty)
-{
-    global $tikilib, $user;
-    $info = $tikilib->get_page_info($page);
-    if (empty($info)) {
-        return false;
+    protected function fetchTimestamp($name)
+    {
+        global $tikilib;
+        $info = $tikilib->get_page_info($name);
+        if (empty($info)) {
+            return false;
+        }
+        if (
+            preg_match('/\{([A-z-Z0-9_]+) */', $info['data'])
+            || preg_match('/\{\{.+\}\}/', $info['data'])
+        ) { // there are some plugins - so it can be risky to cache the page
+            return $tikilib->now + 100; // future needed in case consecutive run of template;
+        }
+
+        return $info['lastModif'];
     }
-    if (preg_match('/\{([A-z-Z0-9_]+) */', $info['data']) || preg_match('/\{\{.+\}\}/', $info['data'])) { // there are some plugins - so it can be risky to cache the page
-        $tpl_timestamp = $tikilib->now + 100; // future needed in case consecutive run of template;
-    } else {
-        $tpl_timestamp = $info['lastModif'];
-    }
-    return true;
-}
-
-function smarty_resource_wiki_secure($tpl_name, $smarty)
-{
-    return true;
-}
-
-function smarty_resource_wiki_trusted($tpl_name, $smarty)
-{
-    return true;
 }

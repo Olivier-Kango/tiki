@@ -199,10 +199,10 @@ class Smarty_Tiki extends Smarty
         $this->loadFilter('pre', 'jq');
 
         include_once(__DIR__ . '/../smarty_tiki/resource.tplwiki.php');
-        $this->registerResource('tplwiki', ['smarty_resource_tplwiki_source', 'smarty_resource_tplwiki_timestamp', 'smarty_resource_tplwiki_secure', 'smarty_resource_tplwiki_trusted']);
+        $this->registerResource('tplwiki', new Smarty_Resource_Tplwiki());
 
         include_once(__DIR__ . '/../smarty_tiki/resource.wiki.php');
-        $this->registerResource('wiki', ['smarty_resource_wiki_source', 'smarty_resource_wiki_timestamp', 'smarty_resource_wiki_secure', 'smarty_resource_wiki_trusted']);
+        $this->registerResource('tplwiki', new Smarty_Resource_Wiki());
 
         global $prefs;
         // Assign the prefs array in smarty, by reference
@@ -273,7 +273,7 @@ class Smarty_Tiki extends Smarty
 
             $this->extends_recursion = false;
         }
-        $this->muteExpectedErrors();
+
         $this->refreshLanguage();
 
         $this->assign_layout_sections($_smarty_tpl_file, $_smarty_cache_id, $_smarty_compile_id, $parent);
@@ -352,7 +352,7 @@ class Smarty_Tiki extends Smarty
     {
 
         global $prefs;
-        $this->muteExpectedErrors();
+
         if (! empty($prefs['feature_htmlpurifier_output']) and $prefs['feature_htmlpurifier_output'] == 'y') {
             static $loaded = false;
             static $purifier = null;
