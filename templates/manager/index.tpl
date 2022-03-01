@@ -1,0 +1,70 @@
+{extends "layout_view.tpl"}
+
+{block name="title"}
+    {title}{$title}{/title}
+{/block}
+
+{block name="navigation"}
+    {include file='manager/nav.tpl'}
+{/block}
+
+{block name="content"}
+    <h2>Instances</h2>
+    <table class="table">
+        <tr>
+            <th>{tr}ID{/tr}</th>
+            <th>{tr}Name{/tr}</th>
+            <th>{tr}Version{/tr}</th>
+            <th>{tr}URL{/tr}</th>
+            <th>{tr}Contact{/tr}</th>
+            <th></th>
+        </tr>
+        {foreach $instances as $instance}
+            <tr>
+                <td>{$instance->id}</td>
+                <td>{$instance->name|escape}</td>
+                <td>{$instance->getLatestVersion.type}, {$instance->getLatestVersion.branch}</td>
+                <td><a href="{$instance->weburl}" title="Visit website" target="_blank">{$instance->weburl}</a></td>
+                <td>{$instance->contact|escape}</td>
+                <td class="action">
+                    {actions}{strip}
+                        <action>
+                            <a href="{service controller=manager action=watch instanceId=$instance->id}">
+                                {icon name=eye _menu_text='y' _menu_icon='y' alt="{tr}Watch{/tr}"}
+                            </a>
+                        </action>
+                        <action>
+                            <a href="{service controller=manager action=update instanceId=$instance->id}">
+                                {icon name=import _menu_text='y' _menu_icon='y' alt="{tr}Update{/tr}"}
+                            </a>
+                        </action>
+                        <action>
+                            <a href="{service controller=manager action=backup instanceId=$instance->id}">
+                                {icon name=download _menu_text='y' _menu_icon='y' alt="{tr}Backup{/tr}"}
+                            </a>
+                        </action>
+                        <action>
+                            <a href="{service controller=manager action=fix instanceId=$instance->id}">
+                                {icon name=wrench _menu_text='y' _menu_icon='y' alt="{tr}Fix{/tr}"}
+                            </a>
+                        </action>
+                        <action>
+                            <a href="{service controller=manager action=edit instanceId=$instance->id}">
+                                {icon name=edit _menu_text='y' _menu_icon='y' alt="{tr}Edit{/tr}"}
+                            </a>
+                        </action>
+                        <action>
+                            <a href="{service controller=manager action=delete instanceId=$instance-id}">
+                                {icon name=times _menu_text='y' _menu_icon='y' alt="{tr}Delete{/tr}"}
+                            </a>
+                        </action>
+                    {/strip}{/actions}
+                </td>
+            </tr>
+        {foreachelse}
+            <tr>
+                <td colspan="6">{tr}No instances defined.{/tr}</td>
+            </tr>
+        {/foreach}
+    </table>
+{/block}

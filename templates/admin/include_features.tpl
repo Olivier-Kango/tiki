@@ -49,6 +49,7 @@
                     {preference name=feature_minichat}
                     {preference name=feature_live_support}
                     {preference name=feature_machine_learning}
+                    {preference name=feature_tiki_manager}
                 </div>
             </fieldset>
 

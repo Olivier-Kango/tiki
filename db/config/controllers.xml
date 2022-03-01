@@ -44,6 +44,7 @@
         <service id="tiki.controller.h5p" class="Services_H5P_Controller"/>
         <service id="tiki.controller.kaltura" class="Services_Kaltura_Controller"/>
         <service id="tiki.controller.language" class="Services_Language_Controller"/>
+        <service id="tiki.controller.manager" class="Services_Manager_Controller"/>
         <service id="tiki.controller.ml" class="Services_ML_Controller"/>
         <service id="tiki.controller.mailin" class="Services_MailIn_Controller"/>
         <service id="tiki.controller.managestream" class="Services_ActivityStream_ManageController"/>
