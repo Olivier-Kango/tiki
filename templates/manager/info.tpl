@@ -9,5 +9,5 @@
 {/block}
 
 {block name="content"}
-    <p style="background: black">{$info|nl2br}</p>
+    <p style="background: #ccc">{$info|nl2br}</p>
 {/block}

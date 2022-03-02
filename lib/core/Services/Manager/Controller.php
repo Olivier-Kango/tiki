@@ -21,6 +21,8 @@ use Symfony\Component\Console\Output\BufferedOutput;
  */
 class Services_Manager_Controller
 {
+    protected $manager_output;
+
     public function setUp()
     {
         Services_Exception_Disabled::check('feature_tiki_manager');
@@ -45,11 +47,51 @@ class Services_Manager_Controller
 
     public function action_info()
     {
-        $info = $this->runCommand(new TikiManager\Command\ManagerInfoCommand());
+        $this->runCommand(new TikiManager\Command\ManagerInfoCommand());
         return [
             'title' => tr('Tiki Manager Info'),
-            'info' => $info,
+            'info' => $this->manager_output->fetch(),
         ];
+    }
+
+    public function action_update($input)
+    {
+        $instanceId = $input->instanceId->int();
+        if ($instance = TikiManager\Application\Instance::getInstance($instanceId)) {
+            $locked = (md5_file(TRIMPATH . '/scripts/maintenance.htaccess') == md5_file($instance->getWebPath('.htaccess')));
+
+            try {
+                if (! $locked) {
+                    $locked = $instance->lock();
+                }
+
+                $instance->detectPHP();
+                $app = $instance->getApplication();
+                $app->performUpdate($instance);
+
+                if ($locked) {
+                    $instance->unlock();
+                }
+            } catch (Exception $e) {
+                Feedback::error($e->getMessage());
+            }
+        } else {
+            Feedback::error(tr('Unknown instance'));
+        }
+        $content = $this->manager_output->fetch();
+        if ($content) {
+            return [
+                'override_action' => 'info',
+                'title' => tr('Tiki Manager Instance Update'),
+                'info' => $content,
+            ];
+        } else {
+            return [
+                'FORWARD' => [
+                    'action' => 'index',
+                ],
+            ];
+        }
     }
 
     protected function ensureInstalled()
@@ -64,6 +106,12 @@ class Services_Manager_Controller
         global $prefs, $user, $base_url, $tikipath;
 
         TikiManager\Config\Environment::getInstance()->load();
+
+        $this->manager_output = new BufferedOutput();
+        $formatter = TikiManager\Config\App::get('ConsoleHtmlFormatter');
+        $this->manager_output->setFormatter($formatter);
+
+        TikiManager\Config\Environment::getInstance()->setIo(null, $this->manager_output);
 
         if (! TikiManager\Application\Instance::getInstances(true)) {
             // import current instance
@@ -81,10 +129,10 @@ class Services_Manager_Controller
             $instance->contact = TikiLib::lib('user')->get_user_email($user);
             $instance->weburl = $base_url;
             $instance->webroot = rtrim($tikipath, '/');
-            $instance->tempdir = rtrim($tikipath, '/').'/temp';
+            $instance->tempdir = $_ENV['TEMP_FOLDER'];
             $instance->backup_user = $access->user;
             $instance->backup_group = @posix_getgrgid(posix_getegid())['name'];
-            $instance->backup_perm = octdec(0770);
+            $instance->backup_perm = 0770;
             $instance->save();
             $access->save();
 
@@ -100,15 +148,9 @@ class Services_Manager_Controller
                 'command' => $cmd->getName(),
             ]);
         }
-        $output = new BufferedOutput();
-        $formatter = TikiManager\Config\App::get('ConsoleHtmlFormatter');
-        $output->setFormatter($formatter);
-
         $app = new Application();
         $app->add($cmd);
         $app->setAutoExit(false);
-        $app->run($input, $output);
-
-        return $output->fetch();
+        $app->run($input, $this->manager_output);
     }
 }

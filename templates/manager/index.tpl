@@ -13,8 +13,10 @@
     <table class="table">
         <tr>
             <th>{tr}ID{/tr}</th>
+            <th>{tr}Type{/tr}</th>
             <th>{tr}Name{/tr}</th>
-            <th>{tr}Version{/tr}</th>
+            <th>{tr}Branch{/tr}</th>
+            <th>{tr}Revision{/tr}</th>
             <th>{tr}URL{/tr}</th>
             <th>{tr}Contact{/tr}</th>
             <th></th>
@@ -22,8 +24,10 @@
         {foreach $instances as $instance}
             <tr>
                 <td>{$instance->id}</td>
+                <td>{$instance->type|escape}</td>
                 <td>{$instance->name|escape}</td>
-                <td>{$instance->getLatestVersion.type}, {$instance->getLatestVersion.branch}</td>
+                <td>{$instance->branch}</td>
+                <td>{$instance->revision}</td>
                 <td><a href="{$instance->weburl}" title="Visit website" target="_blank">{$instance->weburl}</a></td>
                 <td>{$instance->contact|escape}</td>
                 <td class="action">

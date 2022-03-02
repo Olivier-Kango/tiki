@@ -498,6 +498,8 @@ class ConsoleApplicationBuilder
      */
     public function create(bool $returnLastInstance = false): Application
     {
+        global $tikipath;
+
         if ($returnLastInstance && self::$lastInstance instanceof self) {
             return self::$lastInstance;
         }
@@ -506,6 +508,7 @@ class ConsoleApplicationBuilder
         $console = new Application();
         $console->setAutoExit(false);
         $console->setName('Tiki Console Tool');
+        $console->setCatchExceptions(false);
 
         $commandCalled = $_SERVER['argv'][1] ?? false;
 
@@ -573,6 +576,22 @@ class ConsoleApplicationBuilder
                 // If the command exactly matches one that was requested, stop processing further commands as they will not be used anyhow.
                 if ($commandCalled === $command->getName()) {
                     break 2;
+                }
+            }
+        }
+
+        if (class_exists('TikiManager\Config\Environment')) {
+            \TikiManager\Config\Environment::getInstance()->load();
+            foreach (glob($tikipath.'/vendor/tikiwiki/tiki-manager/src/Command/*Command.php') as $command_path) {
+                try {
+                    $command_class = "TikiManager\\Command\\".str_replace(".php", "", basename($command_path));
+                    $ref = new \ReflectionClass($command_class);
+                    if (! $ref->isAbstract()) {
+                        $cmd = new $command_class;
+                        $cmd->setName('manager:'.$cmd->getName());
+                        $console->add($cmd);
+                    }
+                } catch(ReflectionException $e) {
                 }
             }
         }
