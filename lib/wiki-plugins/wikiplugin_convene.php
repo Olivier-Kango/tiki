@@ -184,9 +184,19 @@ function wikiplugin_convene($data, $params): string
     $params['index'] = $convenePluginIndex;
     $params['id'] = empty($params['id']) ? 'pluginConvene' . $convenePluginIndex : $params['id'];
 
-    $dataArrays = json_decode($data, true);
-    $dataArray = $dataArrays[0]; // Default data votes
-    $dataArrayComments = $dataArrays[1]; //Data comments
+    /** For new data structure */
+    if (substr($data, 0, 1) == "[") {
+        $dataArrays = json_decode($data, true);
+        $dataArray = $dataArrays[0]; // Default data votes
+        $dataArrayComments = $dataArrays[1]; //Data comments
+    } 
+    /** To support the old data structure */
+    else {
+        $dataArray = json_decode($data, true); // Default data votes
+        $dataArrayComments = null; //Data comments
+    }
+
+    
 
     if (! is_array($dataArray)) {
         //start flat static text to prepared array
