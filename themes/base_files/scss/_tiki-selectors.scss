@@ -225,6 +225,11 @@ a.fc-event:hover {
     color: $dropdown-title-color;
 }
 
+// To override The dropdown menu text-align: left that (wrongly) ensures proper alignment if parent has it changed (e.g., modal footer)
+.dropdown-menu {
+    text-align: start !important;
+}
+
 // tiki-file_galleries.less
 .thumbinfosothers {
     color: $gray-200; // #888
