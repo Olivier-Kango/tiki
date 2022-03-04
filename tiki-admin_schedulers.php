@@ -210,7 +210,7 @@ if ((isset($_POST['new_scheduler']) || (isset($_POST['editscheduler']) && isset(
     $_REQUEST['scheduler'] = 0;
 }
 
-$tasks = $schedLib->get_scheduler();
+$tasks = $schedLib->get_scheduler(null, null, ['run_only_once' => 0]);
 
 $logger = new Tiki_Log('Webcron', \Psr\Log\LogLevel::ERROR);
 foreach ($tasks as $key => $task) {
@@ -223,6 +223,9 @@ foreach ($tasks as $key => $task) {
 }
 
 $smarty->assign_by_ref('schedulers', $tasks);
+
+$jobs = $schedLib->get_jobs();
+$smarty->assign_by_ref('jobs', $jobs);
 
 if (isset($_REQUEST['add'])) {
     $cookietab = '2';

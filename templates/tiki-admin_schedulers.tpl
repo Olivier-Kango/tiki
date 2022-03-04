@@ -284,6 +284,120 @@
             {pagination_links cant=$cant step=$numrows offset=$offset}tiki-admin_schedulers.php?scheduler={$schedulerinfo.id}&cookietab=3{/pagination_links}
         {/tab}
     {/if}
+
+<a id="tab4"></a>
+{if $jobs|count > 0}
+    {tab name="{tr}Jobs{/tr}"}
+        <div id="admin_jobs-div">
+            <div class="{if $js}table-responsive {/if}ts-wrapperdiv">
+                {* Use css menus as fallback for item dropdown action menu if javascript is not being used *}
+                <table id="admin_jobs" class="table normal table-striped table-hover" data-count="{$jobs|count}">
+                    <thead>
+                    <tr>
+
+                        <th>
+                            {tr}Name{/tr}
+                        </th>
+                        <th>
+                            {tr}Task{/tr}
+                        </th>
+                        <th>
+                            {tr}Params{/tr}
+                        </th>
+                        <th>
+                            {tr}Run Time{/tr}
+                        </th>
+                        <th>
+                            {tr}Status{/tr}
+                        </th>
+                        <th>
+                            {tr}Run Status{/tr}
+                        </th>
+                        <th>
+                            {tr}Start Time{/tr}
+                        </th>
+                        <th>
+                            {tr}End Time{/tr}
+                        </th>
+                        <th>
+                            {tr}Output{/tr}
+                        </th>
+                        <th id="actions"></th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    {section name=job loop=$jobs}
+                        {$job = $jobs[job]}
+                        <tr>
+                            <td class="scheduler_name">
+                                <a class="link tips"
+                                    href="tiki-admin_schedulers.php?scheduler={$job.id}{if $prefs.feature_tabs ne 'y'}#2{/if}"
+                                    title="{$job.name|escape}:{tr}Edit scheduler settings{/tr}"
+                                >
+                                    {$job.name|escape}
+                                </a>
+                            </td>
+                            <td class="scheduler_task">
+                                {$job.task|escape}
+                            </td>
+                            <td class="scheduler_params">
+                                {$job.params|escape}
+                            </td>
+                            <td class="scheduler_run_time">
+                                {$job.creation_date|tiki_short_datetime}
+                            </td>
+                            <td class="scheduler_status">
+                                {$job.status|escape|ucfirst}
+                            </td>
+                            <td class="scheduler_run_status">
+                                {if $job.run_status eq 'running'}
+                                    <span class="badge badge-warning">{tr}Running{/tr}</span>
+                                {/if}
+                                {if $job.run_status eq 'failed'}
+                                    <span class="badge badge-danger">{tr}Failed{/tr}</span>
+
+                                {/if}
+                                {if $job.run_status eq 'done'}
+                                    <span class="badge badge-success">{tr}Done{/tr}</span>
+                                {/if}
+                            </td>
+                            <td>{if $job.start_time ne null}{$job.start_time|tiki_short_datetime}{/if}</td>
+                            <td>{if $job.end_time ne null}{$job.end_time|tiki_short_datetime}{/if}</td>
+                            <td>
+                                {$job.output|nl2br}
+                            </td>
+                            <td class="action">
+                                {actions}
+                                    {strip}
+                                        {if $job.status eq 'inactive'}
+                                            <action>
+                                                <a href="{service controller=scheduler action=activate schedulerId=$job.id}">
+                                                    {icon name="play" _menu_text='y' _menu_icon='y' alt="{tr}Run again{/tr}"}
+                                                </a>
+                                            </action>
+                                        {/if}
+                                        <action>
+                                            <a href="{query _type='relative' scheduler=$job.id logs='1'}">
+                                                {icon name="log" _menu_text='y' _menu_icon='y' alt="{tr}Logs{/tr}"}
+                                            </a>
+                                        </action>
+                                        <action>
+                                            <a href="{bootstrap_modal controller=scheduler action=remove schedulerId=$job.id}">
+                                                {icon name="remove" _menu_text='y' _menu_icon='y' alt="{tr}Delete{/tr}"}
+                                            </a>
+                                        </action>
+                                    {/strip}
+                                {/actions}
+                            </td>
+                        </tr>
+                    {/section}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {/tab}
+{/if}
 {/tabset}
 
 {jq}

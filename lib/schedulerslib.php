@@ -109,6 +109,22 @@ class SchedulersLib extends TikiLib
     }
 
     /**
+     * Get one-time scheduler items (bg jobs) with their run status
+     *
+     * @return array An array with bg jobs found and their last run status
+     */
+    public function get_jobs()
+    {
+        $query = "select s.*, sr.`start_time`, sr.`end_time`, sr.`status` as run_status, sr.`output`
+            from `tiki_scheduler` s
+            left join `tiki_scheduler_run` sr on s.`id`=sr.`scheduler_id`
+            left join `tiki_scheduler_run` sr2 on s.`id`=sr.`scheduler_id` AND sr.id < sr2.id
+            where s.`run_only_once` = 1 and sr2.`id` is null
+            order by s.`id` desc";
+        return $this->fetchAll($query);
+    }
+
+    /**
      * Count the number of runs in logs for a given scheduler id.
      *
      * @param $schedulerId
@@ -268,5 +284,15 @@ class SchedulersLib extends TikiLib
     {
         $schedulerTable = $this->table('tiki_scheduler');
         $schedulerTable->update(['status' => Scheduler_Item::STATUS_INACTIVE], ['id' => $scheduler_id]);
+    }
+
+    /**
+     * Enable a specific scheduler by setting its status as Enabled
+     * @param $scheduler_id
+     */
+    public function setActive($scheduler_id)
+    {
+        $schedulerTable = $this->table('tiki_scheduler');
+        $schedulerTable->update(['status' => Scheduler_Item::STATUS_ACTIVE], ['id' => $scheduler_id]);
     }
 }

@@ -57,6 +57,15 @@ class Services_Manager_Controller
     public function action_update($input)
     {
         $instanceId = $input->instanceId->int();
+        if ($input->mode->text() == 'bg') {
+            Scheduler_Manager::queueJob('Update instance '.$instanceId, 'ConsoleCommandTask', ['console_command' => 'manager:instance:update -i '.$instanceId]);
+            Feedback::success(tr("Instance %0 scheduled to update in the background. You can check command output via Scheduler logs.", $instanceId));
+            return [
+                'FORWARD' => [
+                    'action' => 'index',
+                ],
+            ];
+        }
         if ($instance = TikiManager\Application\Instance::getInstance($instanceId)) {
             $locked = (md5_file(TRIMPATH . '/scripts/maintenance.htaccess') == md5_file($instance->getWebPath('.htaccess')));
 
