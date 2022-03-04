@@ -103,6 +103,36 @@ class Services_Manager_Controller
         }
     }
 
+    public function action_fix($input)
+    {
+        $instanceId = $input->instanceId->int();
+        if ($instance = TikiManager\Application\Instance::getInstance($instanceId)) {
+            try {
+                $instance->getApplication()->fixPermissions();
+                Feedback::success(tr("Fixed permissions."));
+            } catch (\Exception $e) {
+                Feedback::error($e->getMessage());
+            }
+        } else {
+            Feedback::error(tr('Unknown instance'));
+        }
+        $content = $this->manager_output->fetch();
+        if ($content) {
+            return [
+                'override_action' => 'info',
+                'title' => tr('Tiki Manager Instance Fix'),
+                'info' => $content,
+            ];
+        } else {
+
+            return [
+                'FORWARD' => [
+                    'action' => 'index',
+                ],
+            ];
+        }
+    }
+
     protected function ensureInstalled()
     {
         if (! class_exists('TikiManager\Config\Environment')) {
