@@ -527,6 +527,13 @@ div.cvsup {
     }
 }
 
+// Cancelling the hardcoded direction of the padding in the navbar set at vendor_bundled/vendor/twbs/bootstrap/scss/_navbar.scss line:71
+// Padding (any) is not needed in LTR and padding-left is not wanted in RTL languages
+
+.navbar-nav {
+    padding: 0;
+}
+
 // tiki-mytiki.less
 // /***** Messages *****/
 .prio1,

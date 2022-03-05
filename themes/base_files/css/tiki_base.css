@@ -300,6 +300,9 @@ div.cvsup {
 .navbar-dark .dropdown-toggle, .navbar-dark a.nav-link.dropdown-toggle, .navbar-dark h1.sitetitle a, .navbar-dark h2.sitesubtitle, .navbar-dark .cssmenu_horiz .menuLevel0 > a {
   color: rgba(255, 255, 255, 0.5);
 }
+.navbar-nav {
+  padding: 0;
+}
 .prio5 {
   color: #212529;
 }
