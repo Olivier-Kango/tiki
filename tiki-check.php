@@ -89,15 +89,17 @@ if (file_exists('./db/local.php') && file_exists('./templates/tiki-check.tpl')) 
             $morestyle = "overflow-wrap: anywhere;";
         }
         if (is_array($var)) {
-            $render .= '<table class="table table-bordered" style="' . $morestyle . '"><thead>';
+            $render .= '<table class="table table-bordered" style="' . $morestyle . '">';
+            $render .= "<thead><tr></tr></thead>";
+            $render .= "<tbody>";
             foreach ($var as $key => $value) {
-                $render .= '<tr>';
-                $render .= '<th> <span class="visible-on-mobile">Property:&nbsp;</span>';
+                $render .= "<tr>";
+                $render .= '<th><span class="visible-on-mobile">Property:&nbsp;</span>';
                 $render .= $key;
-                $render .= "</th></thead>";
+                $render .= "</th>";
                 $iNbCol = 0;
                 foreach ($var[$key] as $key2 => $value2) {
-                    $render .= '<tbody><td data-th="'. $key2 .':&nbsp;" style="';
+                    $render .= '<td data-th="'. $key2 .':&nbsp;" style="';
                     if ($iNbCol != count(array_keys($var[$key])) - 1) {
                         $render .= 'text-align: center;white-space:nowrap;';
                     }
@@ -3475,6 +3477,8 @@ function createPage($title, $content)
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link type="text/css" rel="stylesheet" href="//dev.tiki.org/vendor_bundled/vendor/twbs/bootstrap/dist/css/bootstrap.css" />
         <title>$title</title>
         <style type="text/css">
