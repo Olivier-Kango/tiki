@@ -1,5 +1,5 @@
 /* The AdminUI "feature" theme for Tiki Wiki CMS Groupware */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap");
 .tiki-admin aside.admin-nav .navbar-dark, .tiki-admin .top_modules.navbar-dark-parent {
   background-color: #2C2C2C !important;
 }
@@ -7,7 +7,7 @@
   background-color: #F0F0F0 !important;
 }
 .tiki-admin aside.admin-nav .navbar-dark, .tiki-admin .top_modules.navbar-dark-parent, .tiki-admin aside.admin-nav .navbar-light, .tiki-admin .top_modules.navbar-light-parent {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   position: fixed;
   left: 0;
   top: 0;

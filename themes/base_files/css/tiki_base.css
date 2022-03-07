@@ -2472,6 +2472,7 @@ table.treetable tr.expanded span.indenter a {
   position: relative;
   clear: right;
   padding-right: 1.5em;
+  margin-bottom: 1em;
   font-size: 0.9em;
 }
 .tracker-item-files li img, .tracker-item-files li span {
