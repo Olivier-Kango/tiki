@@ -167,7 +167,7 @@ RecordRTC:
     - "Audio, Video, Screen Recording"
   requiredVersion: ^5.6.1
 TikiManager:
-  licence: GPL2
+  licence: LGPL2
   licenceUrl: "https://github.com/TikiWiki/tiki-manager/blob/master/LICENSE"
   name: tikiwiki/tiki-manager
   requiredBy:
