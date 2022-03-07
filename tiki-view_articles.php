@@ -120,6 +120,7 @@ if ($prefs['feature_multilingual'] == 'y') {
         $article['translations'] = $multilinguallib->getTranslations('article', $article['articleId'], $article["title"], $article['lang']);
     }
 }
+$smarty->assign('useLinktoURL', 'n');
 $topics = $artlib->list_topics();
 $smarty->assign_by_ref('topics', $topics);
 $temp_max = count($listpages["data"]);
