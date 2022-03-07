@@ -486,7 +486,7 @@ class Tracker_Field_Files extends Tracker_Field_Abstract implements Tracker_Fiel
                 $ret = '<ol class="tracker-item-files">';
 
                 foreach ($this->getConfiguration('files') as $fileId => $file) {
-                    $ret .= '<li class="m-1">';
+                    $ret .= '<li>';
                     if ($prefs['vimeo_upload'] == 'y' && $this->getOption('displayMode') == 'vimeo') {
                         $ret .= smarty_function_icon(['name' => 'vimeo'], $smarty->getEmptyInternalTemplate());
                     } else {
