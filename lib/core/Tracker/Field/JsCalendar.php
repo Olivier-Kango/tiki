@@ -85,10 +85,21 @@ class Tracker_Field_JsCalendar extends Tracker_Field_DateTime
             Feedback::error(tr('Date Picker Field: "%0" is not a valid internal date value', $value));
         }
 
-        // if local browser offset is submitted, convert timestamp to server-based timezone
-        if (isset($requestData['tzoffset']) && $value && isset($requestData[$ins_id])) {
-            $browser_offset = (int)$requestData['tzoffset'] * 60;
-            $value -= $browser_offset;
+        // if local browser offset or timezone identifier is submitted, convert timestamp to server-based timezone
+        if ($value && isset($requestData[$ins_id])) {
+            if (isset($requestData['tzname'])) {
+                try {
+                    $dtz = new DateTimeZone($requestData['tzname']);
+                    $dt = new DateTime('@'.$value);
+                    $dt->setTimeZone($dtz);
+                    $value += $dt->getOffset();
+                } catch (Exception $e) {
+                    Feedback::error(tr('Error using local timezone %0: %1', $requestData['tzname'], $e->getMessage()));
+                }
+            } elseif (isset($requestData['tzoffset'])) {
+                $browser_offset = (int)$requestData['tzoffset'] * 60;
+                $value -= $browser_offset;
+            }
         }
         if ($value && isset($requestData[$ins_id]) && $this->getOption('datetime') !== 'd') {
             $server_offset = TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $value);
