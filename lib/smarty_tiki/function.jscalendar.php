@@ -140,15 +140,20 @@ function smarty_function_jscalendar($params, $smarty)
     $datepicker_options .= $datepicker_options_common;
 
     $html = '<input type="hidden" id="' . $params['id'] . '"' . $name . ' value="' . $params['date'] . '" class="isDatepicker">';
-    $html .= '<input type="hidden" name="tzoffset" value="">';
-    $headerlib->add_jq_onready('$("input[name=tzoffset]").val((new Date()).getTimezoneOffset());');
+    $html .= '<input type="hidden" id="' . $params['id'] . '_tzoffset" name="tzoffset" value="">';
+    $html .= '<input type="hidden" id="' . $params['id'] . '_tzname" name="tzname" value="">';
+    $headerlib->add_jq_onready('$("input#' . $params['id'] . '_tzoffset").val((new Date('.(int)$params['date'].'*1000)).getTimezoneOffset());');
+    $headerlib->add_jq_onready('try { $("input#' . $params['id'] . '_tzname").val(Intl.DateTimeFormat().resolvedOptions().timeZone); } catch(e) {}');
     if (isset($params['isutc']) && $params['isutc'] && intval($params['date']) > 0) {
-        $headerlib->add_jq_onready('$("#' . $params['id'] . '").val(' . (int)$params['date'] . ' + (new Date()).getTimezoneOffset()*60);');
+        $headerlib->add_jq_onready('$("#' . $params['id'] . '").val(' . (int)$params['date'] . ' + parseInt($("input#' . $params['id'] . '_tzoffset").val())*60);');
     }
     $html .= '<input type="text" class="form-control isDatepicker" id="' . $params['id'] . '_dptxt" value="">'; // text version of datepicker date
     $headerlib->add_jq_onready('$("#' . $params['id'] . '_dptxt").change(function(e){' .
         'var inst = $.datepicker._getInst(this);' .
         '$.datepickerAdjustAltField("' . ( ! isset($params['showtime']) || $params['showtime'] === 'n' ? 'datepicker' : 'datetimepicker' ) . '", inst);' .
+        '})');
+    $headerlib->add_jq_onready('$("#' . $params['id'] . '").change(function(e){' .
+        '$("input#' . $params['id'] . '_tzoffset").val((new Date(parseInt($(this).val())*1000)).getTimezoneOffset());' .
         '})');
 
     $display_tz = $tikilib->get_display_timezone();
@@ -181,7 +186,7 @@ function smarty_function_jscalendar($params, $smarty)
         $command = 'datetimepicker';
 
         $js_val1 = empty($params['date']) ? '' : '
-var dt = new Date(' . $params['date'] . '* 1000 + ' . (isset($params['isutc']) && $params['isutc'] ? '(new Date()).getTimezoneOffset()*60*1000' : '0') . ');
+var dt = new Date(' . $params['date'] . '* 1000 + ' . (isset($params['isutc']) && $params['isutc'] ? 'parseInt($("input#' . $params['id'] . '_tzoffset").val())*60*1000' : '0') . ');
 var tm = { hour: dt.getHours(), minute: dt.getMinutes(), second: dt.getSeconds() };
 ';
         $js_val2 = empty($params['date']) ? '""' : '$.datepicker.formatDate( "' .
