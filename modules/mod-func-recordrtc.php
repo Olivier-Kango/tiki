@@ -27,6 +27,16 @@ function module_recordrtc_info()
     ];
 }
 
+function module_recordrtc_recording_types(): array
+{
+    return [
+        'screen'            => tr('Screen'),
+        'microphone'        => tr('Microphone'),
+        'screen,microphone' => tr('Screen and microphone'),
+        'camera,microphone' => tr('Camera and microphone'),
+    ];
+}
+
 /**
  * @param $mod_reference
  * @param $smod_params
@@ -66,6 +76,8 @@ function module_recordrtc($mod_reference, $smod_params)     // modifies $smod_pa
     $headerlib->add_jsfile('lib/jquery_tiki/recordrtc.js', true);
     $headerlib->add_jsfile('vendor_bundled/vendor/moment/moment/min/moment.min.js', true);
 
+    $recordingTypes = module_recordrtc_recording_types();
+    $smarty->assign('mod_recordrtc_recording_types', $recordingTypes);
     $smarty->assign('module_error', '');
     $smarty->assign_by_ref('smod_params', $smod_params);
 }

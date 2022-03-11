@@ -5,6 +5,13 @@
                 <input id="record-name" class="form-control" type="text" value="" placeholder="Record name">
             </div>
             <div class="form-group row">
+                <select id="mod_record_rtc_recording_type" class="form-control">
+                    {foreach from=$mod_recordrtc_recording_types item=type key=option}
+                        <option value="{$option}">{tr}{$type}{/tr}</option>
+                    {/foreach}
+                </select>
+            </div>
+            <div class="form-group row">
                 <button id="btn-start-recording" class="btn btn-primary">
                     <span class="icon fa fa-video"></span> {tr}Start Recording{/tr}
                 </button>
@@ -19,7 +26,7 @@
                 <input id="record-rtc-auto-upload" type="checkbox" name="auto-upload"> {tr}auto upload{/tr}
             </div>
             <div class="form-group row">
-                <span id="upload-feedback"></span>
+                <span id="upload-feedback" style="width: 100%"></span>
             </div>
             <div class="form-group row">
                 <button id="btn-upload-recording" class="btn btn-primary" style="display:none">

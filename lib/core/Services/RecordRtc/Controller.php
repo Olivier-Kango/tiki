@@ -27,9 +27,10 @@ class Services_RecordRtc_Controller
             throw new Services_Exception_NotFound('Empty file name.');
         }
 
-        if (! empty($_FILES['audio-blob'])) {
+        if (! empty($_FILES['audioblob'])) {
             $fileName = $audioFilename;
             $tempName = $_FILES['audioblob']['tmp_name'];
+            $_FILES['data'] = $_FILES['audioblob'];
         } else {
             $fileName = $videoFilename;
             $tempName = $_FILES['videoblob']['tmp_name'];
@@ -77,9 +78,12 @@ class Services_RecordRtc_Controller
             return $e->getMessage();
         }
 
+        TikiLib::lib('access')->setTicket();
+
         if (! empty($fileUpload['fileId'])) {
             return $result = [
-                'fileId' => $fileUpload['fileId']
+                'fileId'        => $fileUpload['fileId'],
+                'nextTicket'    => TikiLib::lib('access')->getTicket()
             ];
         }
     }
