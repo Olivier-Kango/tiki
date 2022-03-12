@@ -904,9 +904,20 @@
                         {elseif not isset($legacy_collation)}
                             <form class="form-inline" method="post" action="#" onsubmit="return confirm("{tr}Are you sure you want to attempt to fix the encoding of your entire database?{/tr}");" class="mt-5">
                             <fieldset>
-                                <legend>{tr}Upgrading and running into encoding issues?{/tr}</legend>
-                                <p>{tr}We can try to fix it, but <strong>make sure you have backups, and can restore them</strong>.{/tr}</p>
-                                {if $client_charset_in_file eq 'utf8'}
+                                {if $client_charset_in_file eq 'utf8'} 
+                                    <div class="alert alert-light lead p-3 mb-3">
+                                        <p class="text-success">
+                                        {icon name="check" size=1}{tr}Correct database encoding!{/tr}
+                                        {tr}Your database encoding is utf8 as required to complete the installation.{/tr}
+                                        </p>
+                                    </div>
+                                {else}
+                                    {remarksbox type="warning" title="{tr}Warning{/tr}" close="n"}
+                                        <strong>{tr}Running into encoding issues?{/tr}</strong>
+                                        <p>{tr}We can try to fix it. Select the previous encoding and click on {/tr}
+                                        <strong>{tr}Fix double encoding issues{/tr}</strong></p>
+                                    {/remarksbox}
+                                   
                                     <div class="form-row align-items-center">
                                         <div class="input-group col-auto">
                                             <label class="col-form-label" for="previous_encoding">{tr}Previous table encoding:{/tr}</label>
@@ -948,19 +959,16 @@
                                                 <option value="ucs2" title="Unicode (multilingual), Binary">ucs2</option>
                                                 <option value="ujis" title="Japanese, Binary">ujis</option>
                                             </select>
-                                            <input type="submit" class="btn btn-danger btn-sm ml-2" name="fix_double_encoding" value="{tr}Click to fix double encoding (dangerous){/tr}">
+                                            <input type="submit" class="btn btn-danger btn-sm ml-2" name="fix_double_encoding" value="{tr}Fix double encoding issues (Make sure to have a backup, and test thoroughly after this operation){/tr}">
                                         </div>
                                         <input type="hidden" name="install_step" value="8">
                                     </div>
-                                {else}
-                                    <p>{tr}Oops. You need to make sure client charset is forced to UTF-8. Reset the database connection to continue.{/tr}</p>
                                 {/if}
                             </fieldset>
                             </form>
                         {/if}
                     {/if}
                 </div><!-- End of install-step8 -->
-
                 {/if}{* end elseif $install_step... *}
 
                 <div class="content">
