@@ -485,7 +485,7 @@
                                             </div>
                                         </div>
                                         <div class=" col-sm-2">
-                                            <div class="form-check form-check-inline col-sm-2">
+                                            <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="checkbox" name="input[{$token|escape}][safe]" id="input[{$token|escape}][safe]" value="y"{if $detail.safe} checked="checked"{/if}>
                                                 <label class="col-form-label" for="input[{$token|escape}][safe]">
                                                     {tr}Safe{/tr}
