@@ -144,7 +144,7 @@ class Services_Manager_Controller
     {
         global $prefs, $user, $base_url, $tikipath;
 
-        TikiManager\Config\Environment::getInstance()->load();
+        Services_Manager_Utilities::loadManagerEnv();
 
         $this->manager_output = new BufferedOutput();
         $formatter = TikiManager\Config\App::get('ConsoleHtmlFormatter');

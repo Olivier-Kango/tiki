@@ -51,6 +51,7 @@ modules/cache/*
 /node_modules
 /phpmyadmin
 /project.index
+/storage/tiki-manager
 /storage/public/*
 !/storage/public/vue-mf
 /storage/fgal/*

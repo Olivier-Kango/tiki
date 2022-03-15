@@ -581,7 +581,15 @@ class ConsoleApplicationBuilder
         }
 
         if (class_exists('TikiManager\Config\Environment')) {
-            \TikiManager\Config\Environment::getInstance()->load();
+            $commandErrorCode = null;
+            try {
+                \Services_Manager_Utilities::loadManagerEnv();
+            } catch (\TikiManager\Config\Exception\ConfigurationErrorException $e) {
+                $commandErrorCode = function (InputInterface $input, OutputInterface $output) use ($e) {
+                    $output->writeln('Tiki Manager commands not available at this stage.');
+                    $output->writeln('<error>' . $e->getMessage() . '</error>');
+                };
+            }
             foreach (glob($tikipath.'/vendor/tikiwiki/tiki-manager/src/Command/*Command.php') as $command_path) {
                 try {
                     $command_class = "TikiManager\\Command\\".str_replace(".php", "", basename($command_path));
@@ -589,6 +597,9 @@ class ConsoleApplicationBuilder
                     if (! $ref->isAbstract()) {
                         $cmd = new $command_class;
                         $cmd->setName('manager:'.$cmd->getName());
+                        if ($commandErrorCode) {
+                            $cmd->setCode($commandErrorCode);
+                        }
                         $console->add($cmd);
                     }
                 } catch(ReflectionException $e) {
