@@ -25,6 +25,10 @@ class allTikiPhpFilesTest extends TestCase
     public function testOutputBeforePhpTags(): void
     {
         foreach ($this->phpFiles as $fileName) {
+            if (strpos($fileName, '_custom') !== false) {
+                // not a tiki file
+                continue;
+            }
             $handle = fopen($fileName, 'r');
             $fileContent = '';
             $count = 0;
