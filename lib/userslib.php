@@ -7267,7 +7267,7 @@ class UsersLib extends TikiLib
 
         // Validate password here
         if (( $prefs['auth_method'] != 'cas' || $user == 'admin' ) && strlen($pass) < $prefs['min_pass_length']) {
-            $errors[] = tr('Password should be at least %0 characters long', $prefs['min_pass_length']);
+            $errors[] = tr('Password should be at least %0 characters long.', $prefs['min_pass_length']);
         }
 
         if ($prefs['pass_chr_case'] == 'y') {
@@ -7281,7 +7281,7 @@ class UsersLib extends TikiLib
             $previous = '';
             foreach ($chars as $char) {
                 if ($char == $previous) {
-                    $errors[] = tra('Password must not contain a consecutive repetition of the same character such as "111" or "aab"');
+                    $errors[] = tra('Password must not contain a consecutive repetition of the same character such as "111" or "aab".');
                     break;
                 }
                 $previous = $char;
@@ -7293,7 +7293,7 @@ class UsersLib extends TikiLib
         // Check this code
         if ($prefs['pass_chr_num'] == 'y') {
             if (! preg_match_all('/[0-9]+/', $pass) || ! preg_match_all('/[a-z]+/', $pass)) {
-                $errors[] = tra('Password must contain both letters and numbers');
+                $errors[] = tra('Password must contain both letters and numbers.');
             }
         }
 
