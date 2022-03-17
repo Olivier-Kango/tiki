@@ -88,60 +88,42 @@ if (isset($_REQUEST["save"])) {
     $smarty->assign('contactId', 0);
 }
 
-if (! isset($_REQUEST["sort_mode"])) {
-    $sort_mode = 'email_asc';
-} else {
-    $sort_mode = $_REQUEST["sort_mode"];
-}
+$sort_mode = $_REQUEST["sort_mode"] ?? 'email_asc';
+$offset = $_REQUEST["offset"] ?? 0;
+$find = $_REQUEST["find"] ?? '';
+$initial = $_REQUEST["initial"] ?? '';
+
 $smarty->assign_by_ref('sort_mode', $sort_mode);
-
-if (! isset($_REQUEST["offset"])) {
-    $offset = 0;
-} else {
-    $offset = $_REQUEST["offset"];
-}
-
 $smarty->assign_by_ref('offset', $offset);
-
-if (isset($_REQUEST["find"])) {
-    $find = $_REQUEST["find"];
-} else {
-    $find = '';
-}
-
 $smarty->assign('find', $find);
-$maxRecords = 20;
+$maxRecords = $prefs['maxRecords'] ?? 20;
 
-$contacts = $contactlib->list_contacts($user, $offset, $maxRecords, $sort_mode, $find, true, $_REQUEST["initial"]);
+$contacts = $contactlib->list_contacts($user, $offset, $maxRecords, $sort_mode, $find, true, $initial);
+$cant = $contactlib->list_contacts($user, -1, -1, $sort_mode, $find, true, $initial);
+$cant = is_array($cant) ? count($cant) : 0;
 
-if (isset($_REQUEST['view'])) {
-    $_SESSION['UserContactsView'] = $_REQUEST['view'];
-} elseif (! isset($_SESSION['UserContactsView'])) {
-    $_SESSION['UserContactsView'] = $userlib->get_user_preference($user, 'user_contacts_default_view');
-}
+$_SESSION['UserContactsView'] = $_REQUEST['view'] ??
+($_SESSION['UserContactsView'] ?? $userlib->get_user_preference($user, 'user_contacts_default_view'));
+
 $smarty->assign('view', $_SESSION['UserContactsView']);
 
 if (is_array($contacts)) {
     if ($_SESSION['UserContactsView'] == 'list') {
         $smarty->assign('all', [$contacts]);
-        $cant = count($contacts);
     } else {
         // ordering contacts by groups
         $all = [];
         $all_personnal = [];
-        $cant = 0;
 
         foreach ($contacts as $c) {
             if (is_array($c['groups'])) {
                 foreach ($c['groups'] as $g) {
                     $all[$g][] = $c;
-                    $cant++;
                 }
             }
 
             if ($c['user'] == $user) {
                 $all_personnal[] = $c;
-                $cant++;
             }
         }
 
@@ -160,19 +142,12 @@ $smarty->assign('groups', $groups);
 
 $cant_pages = ceil($cant / $maxRecords);
 $smarty->assign_by_ref('cant_pages', $cant_pages);
-$smarty->assign('actual_page', 1 + ($offset / $maxRecords));
-if ($cant > ($offset + $maxRecords)) {
-    $smarty->assign('next_offset', $offset + $maxRecords);
-} else {
-    $smarty->assign('next_offset', -1);
-}
-
+$smarty->assign('actual_page', floor(1 + ($offset / $maxRecords)));
+$smarty->assign('prev_offset', ($offset > 0) ? ($offset - $maxRecords) : -1);
+$smarty->assign('next_offset', ($cant > ($offset + $maxRecords)) ? ($offset + $maxRecords) : -1);
 $smarty->assign('initial', range('a', 'z'));
-if ($offset > 0) {
-    $smarty->assign('prev_offset', $offset - $maxRecords);
-} else {
-    $smarty->assign('prev_offset', -1);
-}
+$smarty->assign('setInitial', $initial);
+$smarty->assign('maxRecords', $maxRecords);
 
 include_once('tiki-section_options.php');
 

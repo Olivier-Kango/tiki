@@ -139,12 +139,12 @@
             {section name=user loop=$channels}
                 <tr>
                     <td class="text">
-                        <a class="link" href="tiki-contacts.php?offset={$offset}&amp;sort_mode={$sort_mode}&amp;find={$find}&amp;contactId={$channels[user].contactId}">
+                        <a class="link" href="tiki-contacts.php?offset={$offset}&amp;sort_mode={$sort_mode}&amp;find={$find}&amp;initial={$setInitial}&amp;contactId={$channels[user].contactId}">
                             {$channels[user].firstName}
                         </a>
                     </td>
                     <td class="text">
-                        <a class="link" href="tiki-contacts.php?offset={$offset}&amp;sort_mode={$sort_mode}&amp;find={$find}&amp;contactId={$channels[user].contactId}">
+                        <a class="link" href="tiki-contacts.php?offset={$offset}&amp;sort_mode={$sort_mode}&amp;find={$find}&amp;initial={$setInitial}&amp;contactId={$channels[user].contactId}">
                             {$channels[user].lastName}
                         </a>
                     </td>
@@ -187,13 +187,13 @@
                                 {if $channels[user].user eq $user or $tiki_p_admin eq 'y'}
                                     {if $channels[user].user eq $user}
                                         <action>
-                                            <a href="tiki-contacts.php?offset={$offset}&amp;sort_mode={$sort_mode}&amp;find={$find}&amp;contactId={$channels[user].contactId}">
+                                            <a href="tiki-contacts.php?offset={$offset}&amp;sort_mode={$sort_mode}&amp;find={$find}&amp;initial={$setInitial}&amp;contactId={$channels[user].contactId}">
                                                 {icon name='edit' _menu_text='y' _menu_icon='y' alt="{tr}Edit{/tr}"}
                                             </a>
                                         </action>
                                     {/if}
                                     <action>
-                                        <a href="tiki-contacts.php?offset={$offset}&amp;sort_mode={$sort_mode}&amp;find={$find}&amp;remove={$channels[user].contactId}">
+                                        <a href="tiki-contacts.php?offset={$offset}&amp;sort_mode={$sort_mode}&amp;find={$find}&amp;initial={$setInitial}&amp;remove={$channels[user].contactId}">
                                             {icon name='remove' _menu_text='y' _menu_icon='y' alt="{tr}Remove{/tr}"}
                                         </a>
                                     </action>
@@ -213,19 +213,23 @@
 {if $cant_pages > 0}
 <div class="mx-auto">
     {if $prev_offset >= 0}
-        [<a class="prevnext" href="tiki-contacts.php?find={$find}&amp;offset={$prev_offset}&amp;sort_mode={$sort_mode}">{tr}Prev{/tr}</a>]
+        [<a class="prevnext" href="tiki-contacts.php?find={$find}&amp;offset={$prev_offset}&amp;sort_mode={$sort_mode}&amp;initial={$setInitial}">{tr}Prev{/tr}</a>]
         &nbsp;
     {/if}
     {tr}Page:{/tr} {$actual_page}/{$cant_pages}
     {if $next_offset >= 0}
         &nbsp;
-        [<a class="prevnext" href="tiki-contacts.php?find={$find}&amp;offset={$next_offset}&amp;sort_mode={$sort_mode}">{tr}Next{/tr}</a>]
+        [<a class="prevnext" href="tiki-contacts.php?find={$find}&amp;offset={$next_offset}&amp;sort_mode={$sort_mode}&amp;initial={$setInitial}">{tr}Next{/tr}</a>]
     {/if}
     {if $prefs.direct_pagination eq 'y'}
         <br>
         {section loop=$cant_pages name=foo}
-            {assign var=selector_offset value=$smarty.section.foo.index|times:$prefs.maxRecords}
-            <a class="prevnext" href="tiki-contacts.php?find={$find}&amp;offset={$selector_offset}&amp;sort_mode={$sort_mode}">{$smarty.section.foo.index_next}</a>
+            {assign var=selector_offset value=$smarty.section.foo.index|times:$maxRecords}
+            {if $smarty.section.foo.index_next == $actual_page}
+                <span class="prevnext">{$smarty.section.foo.index_next}</span>
+            {else}
+                <a class="prevnext" href="tiki-contacts.php?find={$find}&amp;offset={$selector_offset}&amp;sort_mode={$sort_mode}&amp;initial={$setInitial}">{$smarty.section.foo.index_next}</a>
+            {/if}
             &nbsp;
         {/section}
     {/if}
