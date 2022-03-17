@@ -517,12 +517,14 @@ class ObjectLib extends TikiLib
     }
 
     /**
-     * @param string $type
-     * @param $id
-     * @param string $format - trackeritem format coming from ItemLink field or null by default
+     * @param string      $type
+     * @param string      $id
+     * @param string|null $format - trackeritem format coming from ItemLink field or null by default
+     *
      * @return void|string
+     * @throws Exception
      */
-    public function get_title($type, $id, $format = null)
+    public function get_title($type, string $id, ?string $format = null)
     {
         $detail = '';
         switch ($type) {
@@ -536,37 +538,8 @@ class ObjectLib extends TikiLib
                 $extra = $info['name'];
                 // no return
             case 'trackeritem':
-                if ($format) {
-                    $lib = TikiLib::lib('unifiedsearch');
-                    $query = $lib->buildQuery([
-                        'object_type' => 'trackeritem',
-                        'object_id' => $id
-                    ]);
-                    $result = $query->search($lib->getIndex());
-                    $result->applyTransform(function ($item) use ($format) {
-                        return preg_replace_callback('/\{(\w+)\}/', function ($matches) use ($item, $format) {
-                            $key = $matches[1];
-                            if (isset($item[$key])) {
-                                return $item[$key];
-                            } elseif (! $format || $format == '{title}') {
-                                return tr('empty');
-                            } else {
-                                return '';
-                            }
-                        }, $format);
-                    });
-                    $titles = $result->getArrayCopy();
-                    $title = array_shift($titles);
-                } else {
-                    $title = TikiLib::lib('trk')->get_isMain_value(null, $id);
-                }
-                if (empty($title)) {
-                    $title = "$type:$id";
-                }
-                if (isset($extra) && $extra) {
-                    $title .= ' (' . $extra . ')';
-                }
-                return $title;
+                $defaultTitle = TikiLib::lib('trk')->get_isMain_value(null, $id);
+                return $this->getFormattedTitle($type, $id, $defaultTitle, $format, $extra);
             case 'category':
                 return TikiLib::lib('categ')->get_category_name($id);
             case 'file':
@@ -587,7 +560,7 @@ class ObjectLib extends TikiLib
             case 'calendar event':
             case 'calendaritem':
                 $info = TikiLib::lib('calendar')->get_item($id);
-                return $info['name'];
+                return $this->getFormattedTitle($type, $id, $info['name'], $format);
         }
 
         $title = $this->table('tiki_objects')->fetchOne(
@@ -611,6 +584,52 @@ class ObjectLib extends TikiLib
         if (isset($info['name'])) {
             return $info['name'];
         }
+    }
+
+    /**
+     * @param string $type
+     * @param string $id usually an int but strings for wiki pages
+     * @param string $defaultTitle
+     * @param string $format
+     *
+     * @param string $extra
+     *
+     * @return string
+     * @throws Exception
+     */
+    public function getFormattedTitle(string $type, string $id, string $defaultTitle, ?string $format = '', ?string $extra = ''): string
+    {
+        if ($format) {
+            $lib = TikiLib::lib('unifiedsearch');
+            $query = $lib->buildQuery([
+                'object_type' => $type,
+                'object_id'   => $id
+            ]);
+            $result = $query->search($lib->getIndex());
+            $result->applyTransform(function ($item) use ($format) {
+                return preg_replace_callback('/\{(\w+)\}/', function ($matches) use ($item, $format) {
+                    $key = $matches[1];
+                    if (isset($item[$key])) {
+                        return $item[$key];
+                    } elseif (! $format || $format == '{title}') {
+                        return tr('empty');
+                    } else {
+                        return '';
+                    }
+                }, $format);
+            });
+            $titles = $result->getArrayCopy();
+            $title = array_shift($titles);
+        } else {
+            $title = $defaultTitle;
+        }
+        if (empty($title)) {
+            $title = "$type:$id";
+        }
+        if (isset($extra) && $extra) {
+            $title .= ' (' . $extra . ')';
+        }
+        return $title;
     }
 
     /**
