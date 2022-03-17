@@ -189,12 +189,6 @@ function prefs_tiki_list()
             'default' => 'title',
             'filter' => 'text',
         ],
-        'tiki_object_selector_events' => [
-            'name' => tra('Object Selectors Events'),
-            'description' => tra('Trigger ready.object_selector events when Object Selectors have been loaded.'),
-            'type' => 'flag',
-            'default' => 'n',
-        ],
         'tiki_key' => [
             'name' => tr('Client key for this site'),
             'type' => 'text',
