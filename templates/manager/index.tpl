@@ -72,7 +72,7 @@
             </tr>
         {foreachelse}
             <tr>
-                <td colspan="6">{tr}No instances defined.{/tr}</td>
+                <td colspan="8">{tr}No instances defined.{/tr}</td>
             </tr>
         {/foreach}
     </table>

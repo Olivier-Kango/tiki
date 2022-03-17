@@ -14,7 +14,6 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
 
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
-use Symfony\Component\Console\Output\BufferedOutput;
 
 /**
  * Class Services_Manager_Controller
@@ -60,12 +59,17 @@ class Services_Manager_Controller
         if ($input->mode->text() == 'bg') {
             Scheduler_Manager::queueJob('Update instance '.$instanceId, 'ConsoleCommandTask', ['console_command' => 'manager:instance:update -i '.$instanceId]);
             Feedback::success(tr("Instance %0 scheduled to update in the background. You can check command output via Scheduler logs.", $instanceId));
-            return [
-                'FORWARD' => [
-                    'action' => 'index',
-                ],
-            ];
+            if ($input->modal->int()) {
+                return Services_Utilities::closeModal();
+            } else {
+                return [
+                    'FORWARD' => [
+                        'action' => 'index',
+                    ],
+                ];
+            }
         }
+        $error = null;
         if ($instance = TikiManager\Application\Instance::getInstance($instanceId)) {
             $locked = (md5_file(TRIMPATH . '/scripts/maintenance.htaccess') == md5_file($instance->getWebPath('.htaccess')));
 
@@ -82,24 +86,31 @@ class Services_Manager_Controller
                     $instance->unlock();
                 }
             } catch (Exception $e) {
-                Feedback::error($e->getMessage());
+                $error = $e->getMessage();
             }
         } else {
-            Feedback::error(tr('Unknown instance'));
+            $error = tr('Unknown instance');
         }
         $content = $this->manager_output->fetch();
         if ($content) {
+            if ($error) {
+                $content .= "\n" . tr("Error: %0", $error);
+            }
             return [
                 'override_action' => 'info',
                 'title' => tr('Tiki Manager Instance Update'),
                 'info' => $content,
             ];
         } else {
-            return [
-                'FORWARD' => [
-                    'action' => 'index',
-                ],
-            ];
+            if ($input->modal->int()) {
+                return Services_Utilities::closeModal();
+            } else {
+                return [
+                    'FORWARD' => [
+                        'action' => 'index',
+                    ],
+                ];
+            }
         }
     }
 
@@ -124,12 +135,15 @@ class Services_Manager_Controller
                 'info' => $content,
             ];
         } else {
-
-            return [
-                'FORWARD' => [
-                    'action' => 'index',
-                ],
-            ];
+            if ($input->modal->int()) {
+                return Services_Utilities::closeModal();
+            } else {
+                return [
+                    'FORWARD' => [
+                        'action' => 'index',
+                    ],
+                ];
+            }
         }
     }
 
@@ -146,11 +160,7 @@ class Services_Manager_Controller
 
         Services_Manager_Utilities::loadManagerEnv();
 
-        $this->manager_output = new BufferedOutput();
-        $formatter = TikiManager\Config\App::get('ConsoleHtmlFormatter');
-        $this->manager_output->setFormatter($formatter);
-
-        TikiManager\Config\Environment::getInstance()->setIo(null, $this->manager_output);
+        $this->manager_output = Services_Manager_Utilities::getManagerOutput();
 
         if (! TikiManager\Application\Instance::getInstances(true)) {
             // import current instance

@@ -6,6 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
+use Symfony\Component\Console\Output\BufferedOutput;
 use Tiki\Package\ComposerManager;
 
 class Services_Manager_Utilities
@@ -45,5 +46,19 @@ class Services_Manager_Utilities
         $tm_env->load();
 
         $_ENV['SSH_CONFIG'] = $_ENV['TRIM_ROOT'].'/data/ssh_config';
+    }
+
+    /**
+     * Sets up a new BufferedOutput to be used by Tiki Manager code instead of the default ConsoleOutput
+     */
+    public static function getManagerOutput()
+    {
+        $manager_output = new BufferedOutput();
+        $formatter = TikiManager\Config\App::get('ConsoleHtmlFormatter');
+        $manager_output->setFormatter($formatter);
+
+        TikiManager\Config\Environment::getInstance()->setIo(null, $manager_output);
+
+        return $manager_output;
     }
 }
