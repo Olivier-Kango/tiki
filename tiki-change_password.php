@@ -101,6 +101,7 @@ if (isset($_REQUEST["change"])) {
     $userlib->change_user_password($_REQUEST["user"], $_REQUEST["pass"]);
     // Login the user and display Home page
     $_SESSION["$user_cookie_site"] = $_REQUEST["user"];
+    $user = $_REQUEST["user"];
     $logslib->add_log('login', 'logged from change_password', $_REQUEST['user'], '', '', $tikilib->now);
 
     if ($prefs['feature_user_encryption'] === 'y') {
@@ -109,6 +110,8 @@ if (isset($_REQUEST["change"])) {
         $cryptlib->onChangeUserPassword($_REQUEST["oldpass"], $_REQUEST["pass"]);
     }
 
+    // re-evaluate homepage since we just login the user
+    include TIKI_PATH . '/lib/setup/default_homepage.php';
     $homePageUrl = $prefs['tikiIndex']; // set up in lib/setup/default_homepage.php
 
     // Check if a wizard should be run.
