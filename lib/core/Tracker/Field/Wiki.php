@@ -25,6 +25,17 @@ class Tracker_Field_Wiki extends Tracker_Field_Text implements Tracker_Field_Exp
                 'tags' => ['basic'],
                 'default' => 'y',
                 'params' => [
+                    'samerow' => [
+                        'name' => tr('Same Row'),
+                        'description' => tr('Display the field name and input on the same row.'),
+                        'deprecated' => false,
+                        'filter' => 'int',
+                        'default' => 1,
+                        'options' => [
+                            0 => tr('No'),
+                            1 => tr('Yes'),
+                        ],
+                    ],
                     'fieldIdForPagename' => [
                         'name' => tr('Field that is used for Wiki Page Name'),
                         'description' => tr('Field to get page name to create page name with.'),
@@ -119,17 +130,7 @@ class Tracker_Field_Wiki extends Tracker_Field_Text implements Tracker_Field_Exp
                             'y' => tr('Yes'),
                         ],
                     ],
-                    'samerow' => [
-                        'name' => tr('Same Row'),
-                        'description' => tr('Display the field name and input on the same row.'),
-                        'deprecated' => false,
-                        'filter' => 'int',
-                        'default' => 1,
-                        'options' => [
-                            0 => tr('No'),
-                            1 => tr('Yes'),
-                        ],
-                    ],
+                    
                     'removeBadChars' => [
                         'name' => tr('Remove Bad Chars'),
                         'description' => tr('Remove bad characters from the Wiki Page name.'),

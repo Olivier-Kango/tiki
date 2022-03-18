@@ -25,6 +25,18 @@ class Tracker_Field_TextArea extends Tracker_Field_Text
                 'tags' => ['basic'],
                 'default' => 'y',
                 'params' => [
+                    'samerow' => [
+                        'name' => tr('Same Row'),
+                        'description' => tr('Display the field name and input on the same row.'),
+                        'deprecated' => false,
+                        'filter' => 'int',
+                        'default' => 1,
+                        'options' => [
+                            0 => tr('No'),
+                            1 => tr('Yes'),
+                        ],
+                        'legacy_index' => 8,
+                    ],
                     'toolbars' => [
                         'name' => tr('Toolbars'),
                         'description' => tr('Enable the toolbars as syntax helpers.'),
@@ -87,18 +99,7 @@ class Tracker_Field_TextArea extends Tracker_Field_Text
                         ],
                         'legacy_index' => 7,
                     ],
-                    'samerow' => [
-                        'name' => tr('Same Row'),
-                        'description' => tr('Display the field name and input on the same row.'),
-                        'deprecated' => false,
-                        'filter' => 'int',
-                        'default' => 1,
-                        'options' => [
-                            0 => tr('No'),
-                            1 => tr('Yes'),
-                        ],
-                        'legacy_index' => 8,
-                    ],
+
                 ],
             ],
         ];
