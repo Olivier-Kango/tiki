@@ -248,7 +248,11 @@ $initializer->setInitializeCallback(
     }
 );
 
-$db = $initializer->getConnection($credentials['primary']);
+try {
+    $db = $initializer->getConnection($credentials['primary']);
+} catch (Error $e) {
+    $db = null;
+}
 
 if (! $db && ! defined('TIKI_IN_INSTALLER')) {
     if (http_response_code() === false) {  // if running in cli

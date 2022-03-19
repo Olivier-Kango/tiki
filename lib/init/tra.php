@@ -103,8 +103,12 @@ function init_language($lg)
             }
         }
 
-        $languageLib = TikiLib::lib('language');
-        $lang = array_merge($lang, $languageLib::loadExtensions($lg));
+        try {
+            $languageLib = TikiLib::lib('language');
+            $lang = array_merge($lang, $languageLib::loadExtensions($lg));
+        } catch (Exception $e) {
+            // ignore
+        }
 
         if (isset($prefs['lang_use_db']) && $prefs['lang_use_db'] == 'y') {
             $tikilib = TikiLib::lib('tiki');

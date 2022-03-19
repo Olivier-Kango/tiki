@@ -662,73 +662,78 @@ if ($prefs['feature_perspective'] === 'y') {
 
 require_once('lib/setup/perms.php');
 
-$serverFilter = new DeclFilter();
-if (( isset($prefs['tiki_allow_trust_input']) && $prefs['tiki_allow_trust_input'] ) !== 'y' || $tiki_p_trust_input != 'y') {
-    $serverFilter->addStaticKeyFilters(['QUERY_STRING' => 'xss', 'REQUEST_URI' => 'url', 'PHP_SELF' => 'url',]);
+try {
+    $serverFilter = new DeclFilter();
+    if ((isset($prefs['tiki_allow_trust_input']) && $prefs['tiki_allow_trust_input']) !== 'y' || $tiki_p_trust_input != 'y') {
+        $serverFilter->addStaticKeyFilters(['QUERY_STRING' => 'xss', 'REQUEST_URI' => 'url', 'PHP_SELF' => 'url',]);
+    }
+    $jitServer = new JitFilter($_SERVER);
+    $_SERVER = $serverFilter->filter($_SERVER);
+    // Rebuild request after gpc fix
+    // _REQUEST should only contain GET and POST in the app
+
+    $prepareInput = new TikiFilter_PrepareInput('~');
+    $_GET = $prepareInput->prepare($_GET);
+    $_POST = $prepareInput->prepare($_POST);
+
+    $_REQUEST = array_merge($_GET, $_POST);
+    // Preserve unfiltered values accessible through JIT filtering
+    $jitPost = new JitFilter($_POST);
+    $jitGet = new JitFilter($_GET);
+    $jitRequest = new JitFilter($_REQUEST);
+    $jitCookie = new JitFilter($_COOKIE);
+    $jitPost->setDefaultFilter('xss');
+    $jitGet->setDefaultFilter('xss');
+    $jitRequest->setDefaultFilter('xss');
+    $jitCookie->setDefaultFilter('xss');
+    // Apply configured filters to all other input
+    if (! isset($inputConfiguration)) {
+        $inputConfiguration = [];
+    }
+
+    array_unshift(
+        $inputConfiguration,
+        [
+            'staticKeyFilters'          => [
+                'menu'                        => 'striptags',
+                'cat_categorize'              => 'alpha',
+                'mobile_mode'                 => 'alpha',
+                'categ'                       => 'striptags',
+                'preview'                     => 'text',
+                'rbox'                        => 'text',
+                'ticket'                      => 'alnumdash',
+                'confirmForm'                 => 'alpha',
+                //cookie
+                $prefs['cookie_consent_name'] => 'alnum',
+                'javascript_enabled'          => 'alnum',
+                'local_tz'                    => 'text',
+                'local_tzoffset'              => 'int',
+                'PHPSESSID'                   => 'alnum',
+                'PHPSESSIDCV'                 => 'striptags',
+                'tabs'                        => 'striptags',
+                'XDEBUG_SESSION'              => 'digits'
+            ],
+            'staticKeyFiltersForArrays' => [
+                'cat_managed'    => 'digits',
+                'cat_categories' => 'digits',
+            ],
+        ]
+    );
+
+    $inputFilter = DeclFilter::fromConfiguration($inputConfiguration, ['catchAllFilter']);
+    if ((isset($prefs['tiki_allow_trust_input']) && $prefs['tiki_allow_trust_input'] !== 'y') || $tiki_p_trust_input != 'y') {
+        $inputFilter->addCatchAllFilter('xss');
+    }
+    $cookieFilter = DeclFilter::fromConfiguration($inputConfiguration, ['catchAllFilter']);
+    $cookieFilter->addCatchAllFilter('striptags');
+
+    $_GET = $inputFilter->filter($_GET);
+    $_POST = $inputFilter->filter($_POST);
+    $_COOKIE = $cookieFilter->filter($_COOKIE);
+} catch (Exception $e) {
+    // Ignore
 }
-$jitServer = new JitFilter($_SERVER);
-$_SERVER = $serverFilter->filter($_SERVER);
-// Rebuild request after gpc fix
-// _REQUEST should only contain GET and POST in the app
 
-$prepareInput = new TikiFilter_PrepareInput('~');
-$_GET = $prepareInput->prepare($_GET);
-$_POST = $prepareInput->prepare($_POST);
-
-$_REQUEST = array_merge($_GET, $_POST);
-// Preserve unfiltered values accessible through JIT filtering
-$jitPost = new JitFilter($_POST);
-$jitGet = new JitFilter($_GET);
-$jitRequest = new JitFilter($_REQUEST);
-$jitCookie = new JitFilter($_COOKIE);
-$jitPost->setDefaultFilter('xss');
-$jitGet->setDefaultFilter('xss');
-$jitRequest->setDefaultFilter('xss');
-$jitCookie->setDefaultFilter('xss');
-// Apply configured filters to all other input
-if (! isset($inputConfiguration)) {
-    $inputConfiguration = [];
-}
-
-array_unshift(
-    $inputConfiguration,
-    [
-        'staticKeyFilters' => [
-            'menu' => 'striptags',
-            'cat_categorize' => 'alpha',
-            'mobile_mode' => 'alpha',
-            'categ' => 'striptags',
-            'preview' => 'text',
-            'rbox' => 'text',
-            'ticket' => 'alnumdash',
-            'confirmForm' => 'alpha',
-            //cookie
-            $prefs['cookie_consent_name'] => 'alnum',
-            'javascript_enabled' => 'alnum',
-            'local_tz' => 'text',
-            'local_tzoffset' => 'int',
-            'PHPSESSID' => 'alnum',
-            'PHPSESSIDCV' => 'striptags',
-            'tabs' => 'striptags',
-            'XDEBUG_SESSION' => 'digits'
-        ],
-        'staticKeyFiltersForArrays' => [
-            'cat_managed' => 'digits',
-            'cat_categories' => 'digits',
-        ],
-    ]
-);
-
-$inputFilter = DeclFilter::fromConfiguration($inputConfiguration, ['catchAllFilter']);
-if (( isset($prefs['tiki_allow_trust_input']) && $prefs['tiki_allow_trust_input'] !== 'y' ) || $tiki_p_trust_input != 'y') {
-    $inputFilter->addCatchAllFilter('xss');
-}
-$cookieFilter = DeclFilter::fromConfiguration($inputConfiguration, ['catchAllFilter']);
-$cookieFilter->addCatchAllFilter('striptags');
-
-$_GET = $inputFilter->filter($_GET);
-$_POST = $inputFilter->filter($_POST);
-$_COOKIE = $cookieFilter->filter($_COOKIE);
 // Rebuild request with filtered values
 $_REQUEST = array_merge($_GET, $_POST);
 if (( isset($prefs['tiki_allow_trust_input']) && $prefs['tiki_allow_trust_input'] !== 'y' ) || $tiki_p_trust_input != 'y') {

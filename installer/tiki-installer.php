@@ -211,7 +211,16 @@ $_SESSION["install-logged-$multi"] = 'y';
 
 // Init smarty
 global $tikidomain;
-$smarty = TikiLib::lib('smarty');
+
+try {
+    $smarty = TikiLib::lib('smarty');
+} catch (Exception $e) {
+    $errors .= '<strong>' . $e->getMessage() . '</strong><br>
+Check <a href="tiki-check.php">tiki-check.php</a> to ensure your system is ready for Tiki or refer to <a href="https://doc.tiki.org/Requirements">https://doc.tiki.org/Requirements</a> for more information.
+    ';
+    error_and_exit();
+}
+
 $smarty->assign('mid', 'tiki-install.tpl');
 $smarty->assign('virt', isset($virt) ? $virt : null);
 $smarty->assign('multi', isset($multi) ? $multi : null);
