@@ -732,7 +732,10 @@ function wikiplugin_img($data, $params)
     //////////////////////Set src for html///////////////////////////////
     //Set variables for the base path for images in file galleries, image galleries and attachments
     global $base_url;
-    $absolute_links = (! empty(TikiLib::lib('parser')->option['absolute_links'])) ? TikiLib::lib('parser')->option['absolute_links'] : false;
+
+    // \WikiParser_Parsable::pluginExecute sends $this as the 4th param to all plugins
+    $parsable = func_get_arg(3);
+    $absolute_links = ! empty($parsable->option['absolute_links']);
     $imagegalpath = ($absolute_links ? $base_url : '') . 'show_image.php?id=';
     $filegalpath = ($absolute_links ? $base_url : '') . 'tiki-download_file.php?fileId=';
     $attachpath = ($absolute_links ? $base_url : '') . 'tiki-download_wiki_attachment.php?attId=';
