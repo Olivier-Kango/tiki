@@ -178,10 +178,21 @@
                     {elseif $install_step eq '2'}
                     <div class="install-step2">
                         <h1>{tr}Review the System Requirements{/tr}</h1>
-                        {remarksbox type=tip title="{tr}Tip{/tr}" close="n"}
-                        {tr}Before installing Tiki, <a href="https://doc.tiki.org/Requirements" target="_blank" class="alert-link">review the documentation</a> and confirm that your system meets the minimum requirements.{/tr}
-                        {/remarksbox}
-                        <p>{tr}This installer will perform some basic checks automatically.{/tr} {tr}Please see: {/tr}<a href="tiki-check.php" target="_blank">{tr}a detailed report about your server.{/tr}</a></p>
+                            {remarksbox type=tip title="{tr}Tip{/tr}" close="n"}
+                                {tr}Before installing Tiki, <a href="https://doc.tiki.org/Requirements" target="_blank" class="alert-link">review the documentation</a> and confirm that your system meets the minimum requirements.{/tr}
+                            {/remarksbox}
+                            <p>{tr}This installer will perform some basic checks automatically.{/tr} {tr}Please see: {/tr}<a href="tiki-check.php" target="_blank">{tr}a detailed report about your server.{/tr}</a></p>
+
+                        {if $php_properties_missing}
+                            {remarksbox type=warning title="{tr}Missing minimum requirements{/tr}" close="n"}
+                                <ul>
+                                {foreach from=$php_properties_missing item=missing}
+                                    <li>{$missing}</li>
+                                {/foreach}
+                                </ul>
+                            {/remarksbox}
+                        {/if}
+
                         <h2>{tr}Memory{/tr}</h2>
                         {if $php_memory_limit <= 0}
                             {remarksbox type=confirm title="{tr}Success{/tr}" close="n"}

@@ -227,8 +227,9 @@ if ($max_execution_time != 0) {
 
 // Tiki Database schema version
 $TWV = new TWVersion();
+$tikiVersionShort = preg_replace('/^(\d+)\..*$/', '\1', $TWV->version);
 $smarty->assign('tiki_version_name', preg_replace('/^(\d+\.\d+)([^\d])/', '\1 \2', $TWV->version));
-$smarty->assign('tiki_version_short', preg_replace('/^(\d+)\..*$/', '\1', $TWV->version));
+$smarty->assign('tiki_version_short', $tikiVersionShort);
 
 // Available DB Servers
 $dbservers = [];
@@ -705,6 +706,9 @@ if ($install_step == '2') {
     }
     $smarty->assign('php_memory_limit', (int)$memory_limit);
 
+    $phpPropertiesMissing = isMissingPHPRequirements($tikiVersionShort);
+    $smarty->assign('php_properties_missing', $phpPropertiesMissing);
+
     if ((extension_loaded('gd') && function_exists('gd_info'))) {
         $gd_test = 'y';
         $gd_info = gd_info();
@@ -883,3 +887,71 @@ $smarty->assign('mid_data', $mid_data);
 $smarty->assign('title', $title);
 $smarty->assign('phpErrors', $phpErrors);
 $smarty->display("tiki-install_screens.tpl");
+
+/**
+ * Check tiki php minimum requirements are missing
+ *
+ * @param int $tikiVersionShort
+ *
+ * @return array
+ */
+function isMissingPHPRequirements(int $tikiVersionShort): array
+{
+    $missing = [];
+
+    $phpCompat = [
+        // We use < to compare the PHP Compat
+        // Next unsupported version => tiki supported versions
+        '5.6' => [12],
+        '7.0' => [15, 18],
+        '7.1' => [18],
+        '7.2' => [18, 19, 20],
+        '7.3' => [19, 20, 21],
+        '7.4' => [21],
+    ];
+
+    foreach ($phpCompat as $maxPHPVersion => $tikiVersions) {
+        $phpVersion = preg_replace('/\.\d+$/', '', PHP_VERSION);
+        if (
+            version_compare($phpVersion, $maxPHPVersion, '<') &&
+            ! in_array($tikiVersionShort, $tikiVersions)
+        ) {
+            $missing[] = tr('PHP version %0 not compatible with Tiki %1', PHP_VERSION, $tikiVersionShort);
+            break;
+        }
+    }
+
+    if (! function_exists('ini_set')) {
+        $missing[] = tr('Function %s not found', 'init_set');
+    }
+    if (
+        ! extension_loaded('pdo_mysql') &&
+        ! extension_loaded('mysqli') &&
+        ! extension_loaded('mysql')
+    ) {
+        $missing[] = 'Module pdo_mysql, mysqli or mysql not loaded';
+    }
+
+    if (strtolower(ini_get('default_charset')) !== 'utf-8') {
+        $missing[] = tr('%0 is not %1', 'default_charset', 'UTF-8');
+    }
+
+    $modules = ['intl', 'mbstring', 'ctype', 'libxml', 'dom', 'curl', 'json', 'iconv'];
+
+    foreach ($modules as $module) {
+        if (! extension_loaded($module)) {
+            $missing[] = tr('Module %s is not loaded', $module);
+        }
+    }
+
+    if (ini_get('mbstring.func_overload') !== "0") {
+        $missing[] = tr('Function %0 not found', 'mbstring.func_overload');
+    }
+
+    $eval = eval('return 42;');
+    if ($eval !== 42) {
+        $missing[] = tr('Function %0 not found', 'eval');
+    }
+
+    return $missing;
+}
