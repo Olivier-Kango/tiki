@@ -69,6 +69,7 @@ if ($_REQUEST["nlId"]) {
 }
 if ($_REQUEST["editionId"]) {
     $info = $nllib->get_edition($_REQUEST["editionId"]);
+    $smarty->assign('nlId', $info['nlId']);
     if (! empty($_REQUEST['resend'])) {
         $info['editionId'] = 0;
     }
