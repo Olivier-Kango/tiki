@@ -110,7 +110,7 @@ if (isset($_REQUEST["save"]) && $access->checkCsrf()) {
     } else {
         $_REQUEST["emptyClipBlocksSend"] = 'n';
     }
-    if (isset($_REQUEST["articleClipRangeDays"]) && $_REQUEST["articleClipRangeDays"]) {
+    if (isset($_REQUEST["articleClipRangeDays"])) {
         $articleClipRange = 3600 * 24 * $_REQUEST["articleClipRangeDays"];
     } else {
         $articleClipRange = $defaultArticleClipRange; // default to 1 day
