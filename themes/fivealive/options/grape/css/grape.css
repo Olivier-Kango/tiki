@@ -9,7 +9,7 @@
   /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient(to right, #642759 0%, #732860 19%, #92286b 43%, #a32872 67%, #a52873 100%) !important;
   /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#642759', endColorstr='#a52873',GradientType=1);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#642759", endColorstr="#a52873",GradientType=1);
   /* IE6-9 */
 }
 body.layout_social.tiki.navbar-padding {

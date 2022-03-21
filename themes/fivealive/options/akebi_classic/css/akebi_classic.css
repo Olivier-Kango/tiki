@@ -9,7 +9,7 @@
   /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient(to right, #0a8794 0%, #169fb6 53%, #18a4bc 72%, #19a5bd 100%) !important;
   /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0a8794', endColorstr='#19a5bd',GradientType=1);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#0a8794", endColorstr="#19a5bd",GradientType=1);
   /* IE6-9 */
 }
 body.layout_social.tiki.navbar-padding {
@@ -270,7 +270,7 @@ footer#footer .footer_liner .card-header {
   box-shadow: inset 0 30px 0 0 #054d65;
 }
 .header_container {
-  background: url('../images/siteheader.png') calc(50% - 400px) 0 no-repeat;
+  background: url("../images/siteheader.png") calc(50% - 400px) 0 no-repeat;
 }
 .bg-primary {
   background-color: #1174a5 !important;

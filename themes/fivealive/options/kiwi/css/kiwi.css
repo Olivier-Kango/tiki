@@ -4,7 +4,7 @@
   background: -moz-linear-gradient(left, #797922 0%, #b1b129 100%) !important;
   background: -webkit-linear-gradient(left, #797922 0%, #b1b129 100%) !important;
   background: linear-gradient(to right, #797922 0%, #b1b129 100%) !important;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#797922', endColorstr='#b1b129',GradientType=1);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#797922", endColorstr="#b1b129",GradientType=1);
 }
 body.layout_social.tiki.navbar-padding {
   padding-top: 2.72rem;

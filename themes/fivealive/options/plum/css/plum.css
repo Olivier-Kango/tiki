@@ -9,7 +9,7 @@
   /* Chrome10-25,Safari5.1-6 */
   background: linear-gradient(to right, #5e028e 0%, #8f06c4 100%) !important;
   /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#5e028e', endColorstr='#8f06c4',GradientType=1);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#5e028e", endColorstr="#8f06c4",GradientType=1);
   /* IE6-9 */
 }
 .bg-dark {
