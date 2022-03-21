@@ -183,7 +183,7 @@ if (isset($_REQUEST["templateId"]) && $_REQUEST["templateId"] > 0 && (! isset($_
         $_REQUEST['wysiwyg'] = 'y';
     }
     if (isset($_SESSION['wysiwyg']) && $_SESSION['wysiwyg'] == 'y' || $_REQUEST['wysiwyg'] === 'y') {
-        $_REQUEST['data'] = $parserlib->parse_data($_REQUEST['data'], ['is_html' => $info['is_html'], 'absolute_links' => true, 'suppress_icons' => true]);
+        $_REQUEST['data'] = $parserlib->parse_data($_REQUEST['data'], ['is_html' => $info['is_html'] ? 1 : 0, 'absolute_links' => true, 'suppress_icons' => true]);
     }
     $_REQUEST["preview"] = 1;
     $smarty->assign("templateId", $_REQUEST["templateId"]);
@@ -284,7 +284,7 @@ if (isset($_REQUEST["preview"])) {
         $info['dataparsed'] = '<html><body>';
         if ($info['wikiparse'] === 'y') {
             $data = $info['data'];
-            $info['dataparsed'] .= $parserlib->parse_data($data, ['absolute_links' => true, 'suppress_icons' => true,'is_html' => $info['is_html']]);
+            $info['dataparsed'] .= $parserlib->parse_data($data, ['absolute_links' => true, 'suppress_icons' => true,'is_html' => $info['wysiwyg'] === 'y' ? 1 : 0]);
             if (empty($info['data'])) {
                 $info['data'] = $data;      // somehow on massive pages this gets reset somewhere inside parse_data
             }
@@ -340,7 +340,7 @@ if (isset($_REQUEST["save"])) {
         $smarty->assign('subject', $_REQUEST["subject"]);
         $parsed = $smarty->fetch("newsletters/" . $_REQUEST["usedTpl"]);
     } else {
-        $parsed = ($wikiparse == 'y') ? $parserlib->parse_data($_REQUEST["data"], ['is_html' => $info['is_html'], 'absolute_links' => true, 'suppress_icons' => true]) : $_REQUEST['data'];
+        $parsed = ($wikiparse == 'y') ? $parserlib->parse_data($_REQUEST["data"], ['is_html' => $info['is_html'] ? 1 : 0, 'absolute_links' => true, 'suppress_icons' => true]) : $_REQUEST['data'];
     }
     if (empty($parsed) && ! empty($_REQUEST['datatxt'])) {
         $parsed = $_REQUEST['datatxt'];
