@@ -172,6 +172,8 @@ $dropdown-link-disabled-color:      $gray-100;
 
   .select2-dropdown-tiki.select2-dropdown {
     border-color: $dropdown-border-color;
+      // default was 1051 becasue bs modal is at 1000, but jquery-ui .ui-front is set to 2000 in tiki becasue of this
+      z-index: 2051;
 
     .select2-results__option {
       padding-left: 1.55rem;

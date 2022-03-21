@@ -9778,6 +9778,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 }
 .select2-container .select2-dropdown-tiki.select2-dropdown {
   border-color: #c4cdd7;
+  z-index: 2051;
 }
 .select2-container .select2-dropdown-tiki.select2-dropdown .select2-results__option {
   padding-left: 1.55rem;
