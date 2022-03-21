@@ -524,6 +524,21 @@ function wikiplugin_img_info()
                 ],
                 'advanced' => true,
             ],
+            'absoluteLinks' => [
+                'required' => false,
+                'name' => tra('Absolute Links'),
+                'filter' => 'alpha',
+                'description' => tr('Use the full URL for src and link URLS.'),
+                'since' => '24.1',
+                'doctype' => 'link',
+                'default' => '',
+                'options' => [
+                    ['text' => tra('Default'), 'value' => ''],
+                    ['text' => tra('No'), 'value' => 'n'],
+                    ['text' => tra('Yes'), 'value' => 'y'],
+                ],
+                'advanced' => true,
+            ],
             'default' => [
                 'required' => false,
                 'name' => tra('Default Settings'),
@@ -733,9 +748,13 @@ function wikiplugin_img($data, $params)
     //Set variables for the base path for images in file galleries, image galleries and attachments
     global $base_url;
 
-    // \WikiParser_Parsable::pluginExecute sends $this as the 4th param to all plugins
-    $parsable = func_get_arg(3);
-    $absolute_links = ! empty($parsable->option['absolute_links']);
+    if (empty($params['absoluteLinks'])) {
+        // \WikiParser_Parsable::pluginExecute sends $this as the 4th param to all plugins
+        $parsable = func_get_arg(3);
+        $absolute_links = ! empty($parsable->option['absolute_links']);
+    } else {
+        $absolute_links = $params['absoluteLinks'] === 'y';
+    }
     $imagegalpath = ($absolute_links ? $base_url : '') . 'show_image.php?id=';
     $filegalpath = ($absolute_links ? $base_url : '') . 'tiki-download_file.php?fileId=';
     $attachpath = ($absolute_links ? $base_url : '') . 'tiki-download_wiki_attachment.php?attId=';
