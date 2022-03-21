@@ -12,7 +12,10 @@
 
 require_once('tiki-setup.php');
 
-if ((isset($prefs['email_due']) && $prefs['email_due'] < 0 ) && $prefs['validateUsers'] != 'y') {
+global $tiki_p_admin_users;
+
+// Admins can validate users even if preference is not active.
+if ($tiki_p_admin_users !== 'y' && (isset($prefs['email_due']) && $prefs['email_due'] < 0 ) && $prefs['validateUsers'] != 'y') {
     Feedback::errorPage(tr('This feature is disabled') . ': validateUsers');
 }
 
