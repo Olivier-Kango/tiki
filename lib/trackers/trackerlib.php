@@ -1289,6 +1289,12 @@ class TrackerLib extends TikiLib
                         case 'p':
                             $prefSort = true;
                             break;
+                        case 'e':
+                            $csort_mode = "sttif.name";
+                            $sort_tables = '
+                                LEFT JOIN `tiki_tracker_item_fields` scttif ON scttif.`itemId` = tti.`itemId` AND scttif.`fieldId` = ' . (int) $field['fieldId'] . '
+                                LEFT JOIN `tiki_categories` sttif ON substring_index(trim(both "," from scttif.value), ",", 1) = sttif.categId';
+                            break;
                     }
                 } else {
                     // don't sort of the field doesn't exist
