@@ -1553,6 +1553,10 @@ class TrackerLib extends TikiLib
                         }
                     }
                     $mid .= ')';
+                } elseif ($filter['type'] == 'r' && is_null($ev) && is_null($fv)) {
+                    $mid .= " AND ( ttif$i.`value`=? OR ttif$i.`value`=? OR ttif$i.`value` IS NULL )";
+                    $bindvars[] = '';
+                    $bindvars[] = '0';
                 } elseif (is_null($ev) && is_null($fv)) { // test null value
                     $mid .= " AND ( ttif$i.`value`=? OR ttif$i.`value` IS NULL )";
                     $bindvars[] = '';
