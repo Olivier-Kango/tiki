@@ -42,7 +42,7 @@
 $(document).on("ready.object_selector", function (event, container) {
     let done = [];
 
-    if ($(container).find("select").length) {
+    if ($(container).find(".btn.search").length === 0) {
         $(container).find("select option").each(function () {
             let $this = $(this),
             text = $this.text(),
