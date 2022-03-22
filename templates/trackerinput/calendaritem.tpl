@@ -28,7 +28,7 @@
     {/if}
 </div>
 {if not empty($item.itemId) and $field.options_map.showEventIdInput}
-    <div class="row">
+    <div class="row calendaritem-selector">
         {$id = 'calitemId_'|cat:$field.fieldId}
         <div class="col-sm-3">
             <label class="col-form-label" for="{$id}">
@@ -40,41 +40,44 @@
             {jq}
 // this strips out repeated instances of the same recurrence id so we attach only the first one to the trascker item
 $(document).on("ready.object_selector", function (event, container) {
-    let done = [];
 
-    if ($(container).find(".btn.search").length === 0) {
-        $(container).find("select option").each(function () {
-            let $this = $(this),
-            text = $this.text(),
-            recurrenceId = text.match(/recurrence# (\d+)/);
+    if ($(container).parents(".calendaritem-selector").length > 0) {
+        let done = [];
 
-            if (recurrenceId) {
-                if (done.indexOf(recurrenceId[1]) === -1) {
-                    done.push(recurrenceId[1]);
+        if ($(container).find(".btn.search").length === 0) {
+            $(container).find("select option").each(function () {
+                let $this = $(this),
+                text = $this.text(),
+                recurrenceId = text.match(/recurrence# (\d+)/);
+
+                if (recurrenceId) {
+                    if (done.indexOf(recurrenceId[1]) === -1) {
+                        done.push(recurrenceId[1]);
+                    } else {
+                        $this.remove();
+                    }
                 } else {
-                    $this.remove();
+                    $this.text(text.replace(" recurrence# ", ""));
                 }
-            } else {
-                $this.text(text.replace(" recurrence# ", ""));
-            }
-        });
+            });
 
-    } else {
-        $(container).find(".form-check").each(function () {
-            let $this = $(this),
-            text = $this.find("label").text(),
-            recurrenceId = text.match(/recurrence# (\d+)/);
+        } else {
+            $(container).find(".form-check").each(function () {
+                let $this = $(this),
+                text = $this.find("label").text(),
+                recurrenceId = text.match(/recurrence# (\d+)/);
 
-            if (recurrenceId) {
-                if (done.indexOf(recurrenceId[1]) === -1) {
-                    done.push(recurrenceId[1]);
+                if (recurrenceId) {
+                    if (done.indexOf(recurrenceId[1]) === -1) {
+                        done.push(recurrenceId[1]);
+                    } else {
+                        $this.remove();
+                    }
                 } else {
-                    $this.remove();
+                    $this.find("label").text(text.replace(" recurrence# ", ""));
                 }
-            } else {
-                $this.find("label").text(text.replace(" recurrence# ", ""));
-            }
-        });
+            });
+        }
     }
 });
 
