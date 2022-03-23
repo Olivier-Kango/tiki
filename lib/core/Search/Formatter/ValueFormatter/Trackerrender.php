@@ -69,7 +69,11 @@ class Search_Formatter_ValueFormatter_Trackerrender extends Search_Formatter_Val
         $field = $tracker->getField(substr($name, 14));
 
         if (! $field) {
-            return '~np~' . tr('Field rendering requested but field not found: %0', $name) . '~/np~';
+            if (Perms::get()->tracker_admin) {
+                return '~np~' . tr('Field rendering requested but field not found: %0', $name) . '~/np~';
+            } else {
+                return '';
+            }
         }
 
         // check translations of multilingual fields
