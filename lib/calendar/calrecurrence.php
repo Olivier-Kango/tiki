@@ -57,6 +57,7 @@ class CalRecurrence extends TikiLib
         if ($param > 0) {
             $this->setId($param);
         }
+        $this->setInitialItem([]);
         $this->load();
     }
 
@@ -358,6 +359,7 @@ class CalRecurrence extends TikiLib
     public function createEvents()
     {
         global $user;
+        $calendarlib = TikiLib::lib('calendar');
 
         $vcalendar = $this->constructVCalendar();
         $start = $vcalendar->VEVENT->DTSTART->getDateTime()->getTimeStamp();
@@ -389,7 +391,24 @@ class CalRecurrence extends TikiLib
                 'recurrenceId' => $this->getId(),
                 'changed'      => 0,
             ];
-            TikiLib::lib('calendar')->set_item($user, null, $data, [], true);
+
+            $initial = $this->getInitialItem();
+            $diff = array_diff($data, $initial);
+            unset($diff['recurrenceId']);
+            if (empty($initial['lang'])) {
+                // manually created items seem to have lang == ''
+                unset($diff['lang']);
+            }
+
+            if (! empty($diff)) {
+                // different event, add a new one
+                $calendarlib->set_item($user, null, $data, [], true);
+            } else {
+                // original event, update the recurrence id
+                $initial['recurrenceId'] = $this->getId();
+                $calendarlib->set_item($user, $initial['calitemId'], $initial);
+            }
+
         }
         $tx->commit();
     }
@@ -1119,6 +1138,24 @@ class CalRecurrence extends TikiLib
     public function setLastModif($value)
     {
         $this->lastModif = $value;
+    }
+
+    /**
+     * Calendar item to create recurrences from
+     *
+     * @return array
+     */
+    public function getInitialItem(): array
+    {
+        return $this->initialItem;
+    }
+
+    /**
+     * @param array $value
+     */
+    public function setInitialItem(array $value)
+    {
+        $this->initialItem = $value;
     }
 
     public function getUid()
