@@ -587,17 +587,17 @@ class ObjectLib extends TikiLib
     }
 
     /**
-     * @param string $type
-     * @param string $id usually an int but strings for wiki pages
-     * @param string $defaultTitle
-     * @param string $format
+     * @param string      $type
+     * @param string      $id usually an int but strings for wiki pages
+     * @param string|null $defaultTitle
+     * @param string|null $format
      *
-     * @param string $extra
+     * @param string|null $extra
      *
      * @return string
      * @throws Exception
      */
-    public function getFormattedTitle(string $type, string $id, string $defaultTitle, ?string $format = '', ?string $extra = ''): string
+    public function getFormattedTitle(string $type, string $id, ?string $defaultTitle, ?string $format = '', ?string $extra = ''): string
     {
         if ($format) {
             $lib = TikiLib::lib('unifiedsearch');
