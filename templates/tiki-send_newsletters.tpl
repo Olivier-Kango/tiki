@@ -166,8 +166,23 @@
         <h3>{tr}Subject{/tr}</h3>
         <div class="cbox wikitext">{$info.subject|escape}</div>
 
-        <h3>{tr}HTML version{/tr}</h3>
-        <div class="cbox wikitext">{$previewdata}</div>
+        <h3>
+            {tr}HTML version{/tr}
+            <span style="font-size: 50% !important;">{icon name='copy' title='|{tr}Copy the preview html{/tr}' class='tips copy-html'}</span>
+        </h3>
+        {jq}
+if (typeof navigator.clipboard !== "object" || typeof navigator.clipboard.writeText !== "function") {
+    $("#copy_html").remove();
+}
+$(".copy-html").click(function () {
+    navigator.clipboard.writeText($(".preview-html").html());
+    $(this).animate({opacity: .5}, 200, function () {
+        $(this).animate({opacity: 1}, 500);
+    });
+    return false;
+});
+        {/jq}
+        <div class="cbox wikitext preview-html">{$previewdata}</div>
 
         {if $allowTxt eq 'y'}
             <h3>{tr}Text version{/tr}</h3>
