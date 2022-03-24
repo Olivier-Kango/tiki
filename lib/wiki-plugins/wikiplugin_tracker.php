@@ -863,22 +863,6 @@ function wikiplugin_tracker($data, $params)
     if (! isset($trackerId)) {
         return $smarty->fetch("wiki-plugins/error_tracker.tpl");
     }
-    //test for validation errors for registration tracker calls
-    if (isset($_REQUEST['register']) && ($_REQUEST['register'] == 'Register' || $_REQUEST['register'] == 'register')) {
-        $regtracker = $userlib->get_usertrackerid('Registered');
-        if ($trackerId == $regtracker['usersTrackerId'] && $_REQUEST['valerror'] !== false) {
-            if (is_array($_REQUEST['valerror'])) {
-                foreach ($_REQUEST['valerror'] as $valerror) {
-                    if (is_a($valerror, 'RegistrationError')) {
-                        return false;
-                        break;
-                    }
-                }
-            } elseif (is_a($_REQUEST['valerror'], 'RegistrationError')) {
-                return false;
-            }
-        }
-    }
 
     if (! isset($action)) {
         $action = ['Save'];
@@ -1336,6 +1320,7 @@ function wikiplugin_tracker($data, $params)
                 count($field_errors['err_mandatory']) == 0  && count($field_errors['err_value']) == 0
                 && empty($field_errors['err_antibot']) && empty($field_errors['err_outputwiki'])
                 && ! isset($_REQUEST['tr_preview'])
+                && ($params['registration'] === 'n' || empty($_REQUEST['valerror']))
             ) {
                 if (isset($_REQUEST['status'])) {
                     $status = $_REQUEST['status'];
@@ -2054,7 +2039,7 @@ function wikiplugin_tracker($data, $params)
 
         if ($registration == "y") {
             $back .= '<input type="hidden" name="register" value="Register">';
-            $labelclass = 'col-sm-4';
+            $labelclass = 'col-sm-4';   // FIXME description offsets
             $inputclass = 'col-sm-8';
             $buttonclass = 'col-sm-8 offset-4';
         }
