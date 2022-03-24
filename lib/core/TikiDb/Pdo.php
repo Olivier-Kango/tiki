@@ -90,6 +90,19 @@ class TikiDb_Pdo extends TikiDb
             $query .= " LIMIT $numrows";
         }
 
+        // change regular expression boundaries from Henry Spencer's implementation to
+        // Internation Components for Unicode (ICU) used in mysql 8.0.4 and onwards
+        // thanks to https://stackoverflow.com/a/59230861/2459703 for the help
+        if (stripos($query, 'REGEXP') !== false) {
+            $tikiDbPdoResult = $this->query("SHOW VARIABLES LIKE 'version'");
+            $mysqlVersion = $tikiDbPdoResult->fetchRow();
+            if (version_compare($mysqlVersion['Value'], '8.0.4') >= 0) {
+                $values = str_replace(['[[:<:]]', '[[:>:]]'], '\\b', $values);
+                // TODO other exceptions as listed here maybe?
+                // https://dev.mysql.com/doc/refman/8.0/en/regexp.html#regexp-compatibility
+            }
+        }
+
         $starttime = $this->startTimer();
 
         $result = false;
