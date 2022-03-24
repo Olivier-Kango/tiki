@@ -1392,17 +1392,29 @@ class StructLib extends TikiLib
         $page_info = $this->s_get_page_info($page_ref_id);
         $query = "update `tiki_structures` set `pos`=`pos`-1 where `pos`>? and `parent_id`=?";
         $this->query($query, [(int) $page_info["pos"], (int) $page_info["parent_id"]]);
+        // don't forget the children!
+        $children = $this->fetchAll("SELECT `page_ref_id` FROM `tiki_structures` WHERE `parent_id`=?", $page_ref_id);
+
         if ($begin) {
-            $query = "update `tiki_structures` set `pos`=`pos`+1 where `parent_id`=?";
-            $this->query($query, [$structure_id]);
+            // move all the existing ones down
+            $query = "update `tiki_structures` set `pos`=`pos`+ ? where `parent_id`=?";
+            $this->query($query, [count($children) + 1, $structure_id]);
+            // put the target page at the top
             $pos = 1;
             $query = "update `tiki_structures` set `structure_id`=?, `parent_id`=?, `pos`=? where `page_ref_id`=?";
-            $this->query($query, [$structure_id, $structure_id, $pos + 1, $page_ref_id]);
+            $this->query($query, [$structure_id, $structure_id, $pos++, $page_ref_id]);
         } else {
+            // find the number of top level pages
             $query = "select max(`pos`) from `tiki_structures` where `parent_id`=?";
-            $pos = $this->getOne($query, [$structure_id]);
+            $pos = $this->getOne($query, [$structure_id]) + 1;
+            // put this one after
             $query = "update `tiki_structures` set `structure_id`=?, `parent_id`=?, `pos`=? where `page_ref_id`=?";
-            $this->query($query, [$structure_id, $structure_id, $pos + 1, $page_ref_id]);
+            $this->query($query, [$structure_id, $structure_id, $pos++, $page_ref_id]);
+        }
+        // move all the target page's child pages to the new structure too
+        foreach ($children as $child) {
+            $query = "UPDATE `tiki_structures` SET `structure_id`=?, `pos`=? WHERE `page_ref_id`=?";
+            $this->query($query, [$structure_id, $pos++, $child['page_ref_id']]);
         }
     }
 
