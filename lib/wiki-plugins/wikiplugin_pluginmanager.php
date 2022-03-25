@@ -220,6 +220,7 @@ class WikiPluginPluginManager extends PluginsLib
             //Replicates a documentation table for parameters for a single plugin or module
             //Not using plugin lib table to avoid making custom modifications
             global $sPlugin, $numparams;
+            $sourcecode = $sourceurl.$aPlugins[0];
             if ($mod) {
                 $infoPlugin = get_module_params($aPlugins[0]);
                 $namepath = $sPlugin;
@@ -344,16 +345,7 @@ class WikiPluginPluginManager extends PluginsLib
                             $header .= $headbegin . tra('Since') . '</th>';
                         }
                         $since = ! empty($paraminfo['since']) ? $paraminfo['since'] : '';
-                        //Since column
-                        if ($rowCounter == 1) {
-                            $header .= $headbegin . tra('Source Code') . '</th>';
-                        }
-                        $sourcecode = $sourceurl.$aPlugins[0];
                         $rows .= $cellbegin . $since . '</td>';
-                        if($count == 1) {
-                            $rows .= $cellbegin . '[' . $sourcecode . '|'.tra('Go to the source code').'] </td>';
-                            $count++;
-                        }
                         $rows .= "\n\t" . '</tr>';
                         $rowCounter++;
                     }
@@ -373,6 +365,7 @@ class WikiPluginPluginManager extends PluginsLib
                 . tra('Preferences required:') . '</em> ' . implode(', ', $infoPlugin['prefs']) . '<br/>' : '';
             $title .= isset($infoPlugin['introduced']) && $params['showtopinfo'] !== 'n' ? '<em>' .
                 tr('Introduced in %0', 'Tiki ' . $infoPlugin['introduced']) . '.</em>' : '';
+            $link .= '[' . $sourcecode . '|'.tra('Go to the source code').']';
             $required = ! empty($filteredparams) ? array_column($filteredparams, 'required') : false;
             $bold = in_array(true, $required) > 0 ? '<em> ' . tr(
                 'Required parameters are in%0 %1bold%2',
@@ -380,7 +373,7 @@ class WikiPluginPluginManager extends PluginsLib
                 '<strong><code>',
                 '</code></strong>.'
             ) : '';
-            $sOutput = $title . $bold . '<br>' . $pluginprefs . '<div class="table-responsive">' .
+            $sOutput = $title . $bold . '<br>' .  $link . '<br>' . $pluginprefs . '<br> <div class="table-responsive">' .
                 '<table class="table table-striped table-hover">' . $header . $rows . '</table></div>' . "\n";
             return $sOutput;
         }
