@@ -288,6 +288,7 @@ class PdfGenerator
         }
 
         $mpdf = new \Mpdf\Mpdf($mpdfConfig);
+        $mpdf->curlAllowUnsafeSslRequests = ($prefs['print_pdf_mpdf_allow_unsafe_ssl_requests'] ?? 'y') === 'y';
 
         //custom fonts add, currently fontawesome support is added, more fonts can be added in future
         $custom_fontdata = [
@@ -1088,7 +1089,6 @@ $(".convert-mailto").removeClass("convert-mailto").each(function () {
                             $anchor->getAttribute('href')
                         )
                     ) {
-
                         $linkAn = $doc->createElement(
                             "hyperanchor",
                             "[" . $linkCnt . "]"

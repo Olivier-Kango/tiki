@@ -290,13 +290,6 @@ function prefs_print_list()
             'type' => 'text',
             'default' => '',
         ],
-        'print_pdf_mpdf_watermark' => [
-            'name' => tra('Watermark text'),
-            'description' => tra('PDF watermark text, if any'),
-            'tags' => ['advanced'],
-            'type' => 'text',
-            'default' => '',
-        ],
         'print_pdf_mpdf_coverpage_text_settings' => [
             'name' => tra('CoverPage text settings'),
             'description' => tra('Heading|Subheading|Alignment|Background color|Text color|Page border|Border color. Enter settings separated by |. Leave blank to use default settings.'),
@@ -310,6 +303,13 @@ function prefs_print_list()
             'type' => 'text',
             'tags' => ['advanced'],
             'default' => '',
+        ],
+        'print_pdf_mpdf_allow_unsafe_ssl_requests' => [
+            'name' => tra('Allow Unsafe SSL Requests'),
+            'description' => tra('Allow curl unsafe ssl request'),
+            'type' => 'flag',
+            'tags' => ['advanced'],
+            'default' => 'y',
         ],
         'print_wiki_authors' => [
             'name' => tra('Print wiki authors'),
