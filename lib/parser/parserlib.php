@@ -1274,7 +1274,7 @@ class ParserLib extends TikiDb_Bridge
             $replacements = [];
 
             // protocol://suffix
-            $patterns[] = "#([\n ])([a-z0-9]+?)://([^<, \n\r]+)#i";
+            $patterns[] = "#([\n\( ])([a-z0-9]+?)://([^<,\) \n\r]+)#i";
             $replacements[] = "\\1<a $attrib href=\"\\2://\\3\">\\2://\\3$ext_icon</a>";
 
             // www.domain.ext/optionalpath
