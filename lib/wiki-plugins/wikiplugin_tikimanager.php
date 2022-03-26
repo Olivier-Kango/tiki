@@ -36,7 +36,7 @@ function wikiplugin_tikimanager_info()
             'hideactions' => [
                 'required' => false,
                 'name' => tra('Hide actions'),
-                'description' => tra('Comma-separted list of actions shown in the interface. If none are listed, all actions will be available by default.'),
+                'description' => tra('Comma-separted list of actions hidden from the interface. If none are listed, all actions will be available by default.'),
                 'since' => '25.0',
                 'default' => '',
                 'separator' => ',',
@@ -61,12 +61,13 @@ function wikiplugin_tikimanager($data, $params)
     }
 
     try {
-        Services_Manager_Utilities::loadManagerEnv();
+        $utilities = new Services_Manager_Utilities;
+        $utilities->loadEnv();
     } catch (Exception $e) {
         return WikiParser_PluginOutput::error($e->getMessage());
     }
 
-    $manager_output = Services_Manager_Utilities::getManagerOutput();
+    $manager_output = $utilities->getManagerOutput();
 
     extract($params, EXTR_SKIP);
 

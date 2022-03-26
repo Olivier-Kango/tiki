@@ -583,7 +583,8 @@ class ConsoleApplicationBuilder
         if (class_exists('TikiManager\Config\Environment')) {
             $commandErrorCode = null;
             try {
-                \Services_Manager_Utilities::loadManagerEnv();
+                $utilities = new \Services_Manager_Utilities();
+                $utilities->loadEnv();
             } catch (\TikiManager\Config\Exception\ConfigurationErrorException $e) {
                 $commandErrorCode = function (InputInterface $input, OutputInterface $output) use ($e) {
                     $output->writeln('Tiki Manager commands not available at this stage.');

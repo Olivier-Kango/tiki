@@ -12,7 +12,6 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
     exit;
 }
 
-use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
 
 /**
@@ -20,21 +19,7 @@ use Symfony\Component\Console\Input\ArrayInput;
  */
 class Services_Manager_Controller
 {
-    protected $manager_output;
-
-    public function setUp()
-    {
-        Services_Exception_Disabled::check('feature_tiki_manager');
-
-        // TODO: add own set of permissions
-        $perms = Perms::get();
-        if (! $perms->admin) {
-            throw new Services_Exception_Denied();
-        }
-
-        $this->ensureInstalled();
-        $this->loadEnv();
-    }
+    use Services_Manager_Trait;
 
     public function action_index()
     {
@@ -147,20 +132,28 @@ class Services_Manager_Controller
         }
     }
 
-    protected function ensureInstalled()
+    public function action_delete($input)
     {
-        if (! class_exists('TikiManager\Config\Environment')) {
-            throw new Services_Exception_NotAvailable(tr('Tiki Manager not found. Please check if it is installed from Admin->Packages.'));
-        }
+        $cmd = new TikiManager\Command\DeleteInstanceCommand();
+        $input = new ArrayInput([
+            'command' => $cmd->getName(),
+            '-i' => $input->instanceId->int(),
+        ]);
+        $this->runCommand($cmd, $input);
+        return [
+            'override_action' => 'info',
+            'title' => tr('Tiki Manager Delete Instance'),
+            'info' => $this->manager_output->fetch(),
+            'refresh' => true,
+        ];
     }
 
-    protected function loadEnv()
+    public function loadEnv()
     {
         global $prefs, $user, $base_url, $tikipath;
 
-        Services_Manager_Utilities::loadManagerEnv();
-
-        $this->manager_output = Services_Manager_Utilities::getManagerOutput();
+        $this->loadManagerEnv();
+        $this->setManagerOutput();
 
         if (! TikiManager\Application\Instance::getInstances(true)) {
             // import current instance
@@ -188,18 +181,5 @@ class Services_Manager_Controller
             $instance->detectPHP();
             $instance->findApplication();
         }
-    }
-
-    protected function runCommand($cmd, $input = null)
-    {
-        if (! $input) {
-            $input = new ArrayInput([
-                'command' => $cmd->getName(),
-            ]);
-        }
-        $app = new Application();
-        $app->add($cmd);
-        $app->setAutoExit(false);
-        $app->run($input, $this->manager_output);
     }
 }
