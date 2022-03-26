@@ -1387,13 +1387,16 @@ class StructLib extends TikiLib
         }
         return $pages;
     }
+
     public function move_to_structure($page_ref_id, $structure_id, $begin = true)
     {
         $page_info = $this->s_get_page_info($page_ref_id);
         $query = "update `tiki_structures` set `pos`=`pos`-1 where `pos`>? and `parent_id`=?";
         $this->query($query, [(int) $page_info["pos"], (int) $page_info["parent_id"]]);
-        // don't forget the children!
-        $children = $this->fetchAll("SELECT `page_ref_id` FROM `tiki_structures` WHERE `parent_id`=?", $page_ref_id);
+
+        // don't forget the children (and grandchildren etc)
+        $children = [];
+        $this->getAllChildren($children, (int) $page_ref_id);
 
         if ($begin) {
             // move all the existing ones down
@@ -1416,6 +1419,24 @@ class StructLib extends TikiLib
             $query = "UPDATE `tiki_structures` SET `structure_id`=?, `pos`=? WHERE `page_ref_id`=?";
             $this->query($query, [$structure_id, $pos++, $child['page_ref_id']]);
         }
+    }
+
+    /**
+     * Recursive function to gather page_ref_id from all descendent pages
+     * @param array  $children
+     * @param string $query
+     * @param        $parent
+     *
+     */
+    public function getAllChildren(array & $children, int $parent): void
+    {
+        $query = "SELECT `page_ref_id` FROM `tiki_structures` WHERE `parent_id`=?";
+        $newchildren = $this->fetchAll("SELECT `page_ref_id` FROM `tiki_structures` WHERE `parent_id`=?", $parent);
+        $grandchildren = [];
+        foreach ($newchildren as $child) {
+            $this->getAllChildren($children, (int) $child['page_ref_id']);
+        }
+        $children = array_merge($children, $newchildren, $grandchildren);
     }
 
     /* transform a structure into a menu */
