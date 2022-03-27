@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e31ae963ded19495627cf88b1d98e9a7",
+    "content-hash": "31cbc9b12bfd71d82c99ec3121296884",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -11256,16 +11256,6 @@
                 "type": "zip",
                 "url": "https://composer.tiki.org/dist/undojs/undojs/undojs-undojs-1.zip",
                 "shasum": "9e9593f6000809ce8ad9293a97ad5ab6abdbc55d"
-            },
-            "type": "library"
-        },
-        {
-            "name": "vimeo/froogaloop",
-            "version": "1.0",
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/vimeo/froogaloop/vimeo-froogaloop-1.0.zip",
-                "shasum": "4cf4e5ca02b2a79c58f02b08c50164ecb8164bef"
             },
             "type": "library"
         },
