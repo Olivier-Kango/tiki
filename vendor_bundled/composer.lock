@@ -8051,17 +8051,17 @@
         },
         {
             "name": "rubix/ml",
-            "version": "0.4.1",
+            "version": "0.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/RubixML/ML.git",
-                "reference": "d34f8aedce1228a8c9eccc52075a06430e2de92b"
+                "reference": "51f6f02f3d719b8f1c8641ff10accd9339fe691e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/rubix/ml/rubix-ml-d34f8aedce1228a8c9eccc52075a06430e2de92b-zip-e65ec6.zip",
-                "reference": "d34f8aedce1228a8c9eccc52075a06430e2de92b",
-                "shasum": "db55ee44ac1c3822dcac9773be512c32f11e4276"
+                "url": "https://composer.tiki.org/dist/rubix/ml/rubix-ml-51f6f02f3d719b8f1c8641ff10accd9339fe691e-zip-59afbc.zip",
+                "reference": "51f6f02f3d719b8f1c8641ff10accd9339fe691e",
+                "shasum": "0362f87835574f354c1419796f0f8c01e615cea1"
             },
             "require": {
                 "amphp/parallel": "^1.3",
