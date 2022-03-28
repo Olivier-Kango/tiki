@@ -600,6 +600,11 @@ class WikiLib extends TikiLib
 			$trklib->rename_page($oldName, $newName);
 		}
 
+		// Clear cache to update menus and structures
+		$cachelib = TikiLib::lib('cache');
+		$cachelib->empty_type_cache('menu');
+		$cachelib->empty_type_cache('structure');
+
 		return true;
 	}
 
