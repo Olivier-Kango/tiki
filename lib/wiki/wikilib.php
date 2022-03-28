@@ -608,6 +608,11 @@ class WikiLib extends TikiLib
             $trklib->rename_page($oldName, $newName);
         }
 
+        // Clear cache
+        $cachelib = TikiLib::lib('cache');
+        $cachelib->empty_type_cache('menu');
+        $cachelib->empty_type_cache('structure');
+
         return true;
     }
 
