@@ -10,8 +10,11 @@
     "format": "prettier .  --write"
   },
   "dependencies": {
+    "@popperjs/core": "^2.11.4",
     "autosize": "^5.0.1",
+    "click-outside-vue3": "^4.0.1",
     "floating-vue": "^2.0.0-beta.11",
+    "performant-array-to-tree": "^1.11.0",
     "single-spa-vue": "^2.5.1",
     "vue-final-modal": "^3.4.3",
     "vue-toastification": "^2.0.0-rc.5",

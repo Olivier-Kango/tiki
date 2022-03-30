@@ -4,8 +4,8 @@ export default {
 }
 </script>
 <script setup>
-import { ref, onBeforeMount } from 'vue'
-// import store from './store'
+import { onBeforeMount } from 'vue'
+import BlockEditor from './components/utils/BlockEditor.vue'
 
 const props = defineProps({
     customProps: {
@@ -14,10 +14,10 @@ const props = defineProps({
 })
 
 onBeforeMount(() => {
-    console.log(props.customProps.data)
+    console.log('pop-up-builder initial data', props.customProps.data)
 })
 </script>
 
 <template>
-    <h1>Hello pop-up-builder</h1>
+    <BlockEditor></BlockEditor>
 </template>
