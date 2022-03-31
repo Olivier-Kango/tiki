@@ -6,6 +6,7 @@ export default {
 <script setup>
 import { onBeforeMount } from 'vue'
 import BlockEditor from './components/utils/BlockEditor.vue'
+import store from './store'
 
 const props = defineProps({
     customProps: {
@@ -14,7 +15,22 @@ const props = defineProps({
 })
 
 onBeforeMount(() => {
-    console.log('pop-up-builder initial data', props.customProps.data)
+    let jsonBlocks = localStorage.getItem('tiki-pop-up-blocks')
+    let blocks = []
+    if (jsonBlocks) blocks = JSON.parse(jsonBlocks)
+    if (blocks.length === 0) blocks = [
+        {
+            id: 1,
+            parent_id: null,
+            name: 'Container',
+            classes: '',
+            styles: {
+                marginTop: '5rem',
+                marginBottom: '5rem'
+            }
+        }
+    ]
+    store.dispatch('setBlocks', blocks)
 })
 </script>
 

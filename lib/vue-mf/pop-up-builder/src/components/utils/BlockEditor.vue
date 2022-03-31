@@ -12,7 +12,7 @@ import store from '../../store'
 
 <template>
     <div class="block-editor">
-        <BlockBuilder :blocks="store.getters.getBlocksTree" edit />
+        <BlockBuilder :rootNode="store.getters.getBlocksTree" edit />
     </div>
 </template>
 

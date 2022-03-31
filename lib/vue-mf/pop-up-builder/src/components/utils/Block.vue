@@ -5,10 +5,9 @@ export default {
 </script>
 
 <script setup>
-import { Button } from '@vue-mf/styleguide'
-import CustomPopup from './CustomPopup.vue'
+import BlockControls from './BlockControls.vue'
 
-const props = defineProps({
+defineProps({
     id: String,
     block: Object,
     edit: Boolean
@@ -31,10 +30,7 @@ const props = defineProps({
             :key="'block-' + block.data.id"
             :edit="edit"
         />
-        <CustomPopup v-if="edit" :target="'block-' + block.data.id">
-            <Button variant="default" sm><i class="fas fa-plus"></i></Button>
-            <Button variant="default" sm><i class="fas fa-edit"></i></Button>
-        </CustomPopup>
+        <BlockControls v-if="edit" :block="block.data" :node="block"></BlockControls>
     </component>
 </template>
 

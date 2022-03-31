@@ -22,11 +22,13 @@ const props = defineProps({
 </script>
 
 <template>
-    <div :class="classes" :style="styles">
+    <div :class="classes" class="row" :style="styles">
         <slot/>
     </div>
 </template>
 
-<style lang="scss">
-
+<style lang="scss" scoped>
+.row {
+    min-height: 50px;
+}
 </style>

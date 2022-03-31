@@ -26,7 +26,7 @@ const props = defineProps({
 
 <template>
     <div :class="classes" :style="styles">
-        <img class="img-fluid" :src="text" alt="">
+        <img class="img-fluid" :src="'https://img.lovepik.com/free-png/20220106/lovepik-popcorn-png-image_401196579_wh860.png'" alt="">
     </div>
 </template>
 

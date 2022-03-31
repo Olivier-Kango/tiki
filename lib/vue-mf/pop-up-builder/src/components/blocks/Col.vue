@@ -22,11 +22,10 @@ const props = defineProps({
 </script>
 
 <template>
-    <div :class="classes" :style="styles">
+    <div :class="classes" class="col" :style="styles">
         <slot/>
     </div>
 </template>
 
 <style lang="scss">
-
 </style>

@@ -22,7 +22,7 @@ const props = defineProps({
 </script>
 
 <template>
-    <div :class="classes" :style="styles">
+    <div :class="classes" class="container shadow rounded-4 p-4" :style="styles">
         <slot />
     </div>
 </template>

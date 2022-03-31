@@ -64,6 +64,9 @@ export default {
             }
         }
     },
+    mounted() {
+        // this.initPopper()
+    },
     methods: {
         initPopper: function () {
             if (this.target) {
