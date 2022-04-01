@@ -25,8 +25,7 @@ onBeforeMount(() => {
             name: 'Container',
             classes: '',
             styles: {
-                marginTop: '5rem',
-                marginBottom: '5rem'
+
             }
         }
     ]

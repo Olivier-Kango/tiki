@@ -6,15 +6,10 @@ export default {
 
 <script setup>
 import { Button } from '@vue-mf/styleguide'
-import CustomPopup from './CustomPopup.vue'
 import BlockList from './BlockList.vue'
 import store from '../../store';
 
 const props = defineProps({
-    block: {
-        type: Object,
-        default: () => {}
-    },
     node: {
         type: Object,
         default: () => {}
@@ -28,15 +23,13 @@ const removeBlock = () => {
 </script>
 
 <template>
-    <CustomPopup :target="'block-' + block.id">
-        <div class="d-flex align-items-center">
-            <small class="mr-2"><b>{{block.name}}</b></small>
-            <BlockList :block="block"></BlockList>
-            <Button variant="default" sm><i class="fas fa-grip-vertical"></i></Button>
-            <Button variant="default" sm><i class="fas fa-edit"></i></Button>
-            <Button variant="default" sm @click="removeBlock"><i class="fas fa-trash"></i></Button>
-            <Button variant="default" sm><i class="fas fa-chevron-left"></i></Button>
-            <Button variant="default" sm><i class="fas fa-chevron-right"></i></Button>
-        </div>
-    </CustomPopup>
+    <div class="d-flex align-items-center">
+        <small class="mr-2"><b>{{node.data.name}}</b></small>
+        <BlockList :block="node.data"></BlockList>
+        <Button variant="default" sm><i class="fas fa-grip-vertical"></i></Button>
+        <Button variant="default" sm><i class="fas fa-edit"></i></Button>
+        <Button variant="default" sm @click="removeBlock"><i class="fas fa-trash"></i></Button>
+        <Button variant="default" sm><i class="fas fa-chevron-left"></i></Button>
+        <Button variant="default" sm><i class="fas fa-chevron-right"></i></Button>
+    </div>
 </template>

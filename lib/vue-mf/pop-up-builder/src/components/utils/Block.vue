@@ -6,6 +6,7 @@ export default {
 
 <script setup>
 import BlockControls from './BlockControls.vue'
+import CustomPopup from './CustomPopup.vue'
 
 defineProps({
     id: String,
@@ -30,7 +31,9 @@ defineProps({
             :key="'block-' + block.data.id"
             :edit="edit"
         />
-        <BlockControls v-if="edit" :block="block.data" :node="block"></BlockControls>
+        <CustomPopup v-if="edit" :target="'block-' + block.data.id">
+            <BlockControls :node="block"></BlockControls>
+        </CustomPopup>
     </component>
 </template>
 
