@@ -140,8 +140,6 @@ if (isset($_REQUEST['save']) && ! isset($_REQUEST['preview']) && ! isset($_REQUE
 }
 
 $displayTimezone = TikiLib::lib('tiki')->get_display_timezone();
-$browser_offset = 0 - (int)($_REQUEST['tzoffset'] ?? 0) * 60;
-$server_offset = ! isset($_REQUEST['changeCal']) ? TikiDate::tzServerOffset($displayTimezone) : 0;
 
 if (isset($_REQUEST['act']) || isset($_REQUEST['preview']) || isset($_REQUEST['changeCal'])) {
     $save = new JitFilter(array_merge($calitem ?? [], $_POST['save']));
@@ -166,16 +164,18 @@ if (isset($_REQUEST['act']) || isset($_REQUEST['preview']) || isset($_REQUEST['c
     // Take care of timestamps dates coming from jscalendar
     if (isset($save['date_start']) || isset($save['date_end'])) {
         if (isset($_REQUEST['tzoffset'])) {
-            $save['date_start'] = $save['date_start'] - $server_offset + $browser_offset;
-            $save['date_end'] = $save['date_end'] - $server_offset + $browser_offset;
+            $save['date_start'] = TikiDate::convertWithTimezone($_REQUEST, $save['date_start']) - TikiDate::tzServerOffset($displayTimezone, $save['date_start']);
+            $save['date_end'] = TikiDate::convertWithTimezone($_REQUEST, $save['date_end']) - TikiDate::tzServerOffset($displayTimezone, $save['date_end']);
             if (! empty($_POST['startPeriod'])) {
                 // get timezone date at 12:00am - reason: when this is later displayed, it could be the wrong date if stored at UTC
                 // real solution here is to save the start date as a date object, not a timestamp to avoid timezone conversion issues...
-                $_POST['startPeriod'] = TikiDate::getStartDay($_POST['startPeriod'] - $server_offset + $browser_offset, $displayTimezone);
+                $_POST['startPeriod'] = TikiDate::convertWithTimezone($_REQUEST, $_POST['startPeriod']) - TikiDate::tzServerOffset($displayTimezone, $_POST['startPeriod']);
+                $_POST['startPeriod'] = TikiDate::getStartDay($_POST['startPeriod'], $displayTimezone);
             }
             if (! empty($_POST['endPeriod'])) {
                 // get timezone date at 12:00am
-                $_POST['endPeriod'] = TikiDate::getStartDay($_POST['endPeriod'] - $server_offset + $browser_offset, $displayTimezone);
+                $_POST['endPeriod'] = TikiDate::convertWithTimezone($_REQUEST, $_POST['endPeriod']) - TikiDate::tzServerOffset($displayTimezone, $_POST['endPeriod']);
+                $_POST['endPeriod'] = TikiDate::getStartDay($_POST['endPeriod'], $displayTimezone);
             }
         }
     }
@@ -259,8 +259,11 @@ if (isset($_POST['act'])) {
             if (! $impossibleDates) {
                 $calRecurrence = new CalRecurrence(! empty($_POST['recurrenceId']) ? $_POST['recurrenceId'] : -1);
                 $calRecurrence->setCalendarId($save['calendarId']);
+                $tz = date_default_timezone_get();
+                date_default_timezone_set('UTC');
                 $calRecurrence->setStart(strftime('%H%M', $save['start']));
                 $calRecurrence->setEnd(strftime('%H%M', $save['end']));
+                date_default_timezone_set($tz);
                 $calRecurrence->setAllday($save['allday']);
                 $calRecurrence->setLocationId($save['locationId']);
                 $calRecurrence->setCategoryId($save['categoryId']);
@@ -478,9 +481,8 @@ if (isset($_REQUEST["delete"]) and ($_REQUEST["delete"]) and isset($_REQUEST["ca
 
     if ($prefs['feature_jscalendar'] === 'y' && $prefs['users_prefs_display_timezone'] === 'Site') {
         // using site timezone always so alter the stored utc date by the server offset for the datetimepicker
-        $tzServerOffset = TikiDate::tzServerOffset($displayTimezone);
-        $calitem['start'] += $tzServerOffset;
-        $calitem['end'] += $tzServerOffset;
+        $calitem['start'] += TikiDate::tzServerOffset($displayTimezone, $calitem['start']);
+        $calitem['end'] += TikiDate::tzServerOffset($displayTimezone, $calitem['end']);
     }
     $id = $_REQUEST['calitemId'];
     $calendar = $calendarlib->get_calendar($calitem['calendarId']);
@@ -492,13 +494,10 @@ if (isset($_REQUEST["delete"]) and ($_REQUEST["delete"]) and isset($_REQUEST["ca
     if (isset($_REQUEST['todate'])) {
         $now = $_REQUEST['todate'];
         if (isset($_REQUEST['tzoffset'])) {
-            $now = $now - $server_offset + $browser_offset;
+            $now = TikiDate::convertWithTimezone($_REQUEST, $now) - TikiDate::tzServerOffset($displayTimezone, $now);
         }
     } else {
         $now = $tikilib->now;
-    }
-    if (! empty($_REQUEST['tzoffset'])) {
-        $now = $now + $browser_offset;
     }
     //if current time of day is within the calendar day (between startday and endday), then use now as start, otherwise use beginning of calendar day
     $day_start = $tikilib->make_time(
@@ -541,8 +540,7 @@ if (isset($_REQUEST["delete"]) and ($_REQUEST["delete"]) and isset($_REQUEST["ca
         }
     }
     if ($prefs['users_prefs_display_timezone'] === 'Site') {
-        $server_offset = TikiDate::tzServerOffset($displayTimezone);
-        $start = $start + $server_offset;
+        $start += TikiDate::tzServerOffset($displayTimezone, $start);
     }
     $end = $start + (60 * 60);  // default to 1 hour long
 
@@ -672,6 +670,13 @@ if (isset($calitem['recurrenceId']) && $calitem['recurrenceId'] > 0) {
     $smarty->assign('recurranceNumChangedEvents', (int) $recurranceNumChangedEvents);
 }
 $headerlib->add_jsfile('lib/jquery_tiki/calendar_edit_item.js');
+
+if (! empty($calitem['start'])) {
+    $calitem['start'] += TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $calitem['start']);
+}
+if (! empty($calitem['end'])) {
+    $calitem['end'] += TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $calitem['end']);
+}
 
 $smarty->assign('calitem', $calitem);
 $smarty->assign('calendar', $calendar);
