@@ -7,28 +7,19 @@ export default {
 import { Button } from '@vue-mf/styleguide'
 
 const props = defineProps({
-    styles: {
+    block: {
         type: Object,
         default() {
             return {}
         }
-    },
-    classes: {
-        type: Array,
-        default() {
-            return []
-        }
-    },
-    text: {
-        type: String
     }
 });
 
 </script>
 
 <template>
-    <Button :class="classes" :style="styles">
-        {{text}}
+    <Button :class="block.classes" :style="block.styles">
+        {{block.textContent}}
         <slot/>
     </Button>
 </template>

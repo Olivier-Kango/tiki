@@ -10,33 +10,27 @@ import CustomPopup from './CustomPopup.vue'
 
 defineProps({
     id: String,
-    block: Object,
+    node: Object,
     edit: Boolean
 });
 </script>
 
 <template>
     <component
-        :id="'block-' + block.data.id"
-        :is="block.data.name"
-        :classes="block.data.classes"
+        :id="'block-' + node.data.id"
+        :is="node.data.name"
         class="block-item"
-        :styles="block.data.styles"
-        :text="block.data.text"
+        :block="node.data"
     >
         <Block
-            v-for="block in block.children"
-            :block="block"
-            :id="'block-' + block.data.id"
-            :key="'block-' + block.data.id"
+            v-for="node in node.children"
+            :node="node"
+            :id="'block-' + node.data.id"
+            :key="'block-' + node.data.id"
             :edit="edit"
         />
-        <CustomPopup v-if="edit" :target="'block-' + block.data.id">
-            <BlockControls :node="block"></BlockControls>
+        <CustomPopup v-if="edit" :target="'block-' + node.data.id">
+            <BlockControls :node="node"></BlockControls>
         </CustomPopup>
     </component>
 </template>
-
-<style lang="scss">
-
-</style>

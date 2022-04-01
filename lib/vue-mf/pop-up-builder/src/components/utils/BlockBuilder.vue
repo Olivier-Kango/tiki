@@ -19,7 +19,7 @@ defineProps({
 <template>
     <div class="block-builder">
         <Block
-            :block="rootNode"
+            :node="rootNode"
             :id="'block-' + rootNode.data.id"
             :key="'block-' + rootNode.data.id"
             :edit="edit"

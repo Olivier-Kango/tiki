@@ -29,7 +29,7 @@ const props = defineProps({
             </div>
         </template>
     </VDropdown>
-    <VDropdown>
+    <VDropdown v-if="block.parent_id">
         <Button variant="default" sm>
             <i class="fas fa-sign-out-alt"></i>
         </Button>

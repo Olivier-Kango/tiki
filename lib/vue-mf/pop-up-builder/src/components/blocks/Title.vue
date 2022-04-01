@@ -5,28 +5,19 @@ export default {
 </script>
 <script setup>
 const props = defineProps({
-    styles: {
+    block: {
         type: Object,
         default() {
             return {}
         }
-    },
-    classes: {
-        type: Array,
-        default() {
-            return []
-        }
-    },
-    text: {
-        type: String
     }
 });
 
 </script>
 
 <template>
-    <h1 :class="classes" :style="styles">
-        {{text}}
+    <h1 :class="block.classes" :style="block.styles">
+        {{block.textContent}}
         <slot/>
     </h1>
 </template>

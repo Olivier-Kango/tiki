@@ -5,16 +5,10 @@ export default {
 </script>
 <script setup>
 const props = defineProps({
-    styles: {
+    block: {
         type: Object,
         default() {
             return {}
-        }
-    },
-    classes: {
-        type: Array,
-        default() {
-            return []
         }
     }
 });
@@ -22,7 +16,7 @@ const props = defineProps({
 </script>
 
 <template>
-    <div :class="classes" class="col" :style="styles">
+    <div :class="block.classes" class="col" :style="block.styles">
         <slot/>
     </div>
 </template>
