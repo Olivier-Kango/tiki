@@ -429,7 +429,7 @@
                 {if $edit}
                     <div class="col-sm-{if $prefs.feature_jscalendar eq 'y' and $prefs.javascript_enabled eq 'y'}5{else}4{/if} start">
                         {if $prefs.feature_jscalendar eq 'y' and $prefs.javascript_enabled eq 'y'}
-                            {jscalendar id="start" date=$calitem.start fieldname="save[date_start]" showtime='y' isutc=($prefs.users_prefs_display_timezone eq 'Site') notAfter='.date .end .datetime'}
+                            {jscalendar id="start" date=$calitem.start fieldname="save[date_start]" showtime='y' isutc='y' notAfter='.date .end .datetime'}
                         {else}
                             {html_select_date prefix="start_date_" time=$calitem.start field_order=$prefs.display_field_order start_year=$prefs.calendar_start_year end_year=$prefs.calendar_end_year}
                         {/if}
@@ -469,7 +469,7 @@
                     <input type="hidden" name="save[end_or_duration]" value="end" id="end_or_duration">
                     <div class="col-sm-{if $prefs.feature_jscalendar eq 'y' and $prefs.javascript_enabled eq 'y'}5{else}4{/if} end ">
                             {if $prefs.feature_jscalendar eq 'y' and $prefs.javascript_enabled eq 'y'}
-                            {jscalendar id="end" date=$calitem.end fieldname="save[date_end]" showtime='y' isutc=($prefs.users_prefs_display_timezone eq 'Site') notBefore='.date .start .datetime'}
+                            {jscalendar id="end" date=$calitem.end fieldname="save[date_end]" showtime='y' isutc='y' notBefore='.date .start .datetime'}
                             {else}
                                 {html_select_date prefix="end_date_" time=$calitem.end field_order=$prefs.display_field_order start_year=$prefs.calendar_start_year end_year=$prefs.calendar_end_year}
                             {/if}
