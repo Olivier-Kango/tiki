@@ -2673,12 +2673,12 @@ if ($trimCapable) {
 
     $trimServerRequirements['Operating System Path'] = array(
         'fitness' => tra('info'),
-        'message' => $_SERVER['PATH']
+        'message' => $_SERVER['PATH'] ?? ''
     );
 
     $trimClientRequirements['Operating System Path'] = array(
         'fitness' => tra('info'),
-        'message' => $_SERVER['PATH']
+        'message' => $_SERVER['PATH'] ?? ''
     );
 
     $trimClientRequirements['SSH or FTP server'] = array(
