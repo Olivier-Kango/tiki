@@ -497,7 +497,7 @@
             <input type="hidden" name="galleryId" value="{$galleryId|escape}">
             <label class="col-md-4 col-form-label">{tr}URL:{/tr}</label>
             <div class="col-md-8">
-                <input type="url" name="url" placeholder="http://" class="form-control">
+                <input type="url" name="url" placeholder="https://" class="form-control">
             </div>
             {if $prefs.vimeo_upload eq 'y'}
                 <label class="col-md-8 offset-md-4">

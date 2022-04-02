@@ -313,7 +313,7 @@
             <div class="form-group {if $types.$type.show_linkto neq 'y'}hidden{/if}">
                 <label for="linkto" class="col-form-label col-md-4">{tr}Source{/tr}</label>
                 <div class="col-md-8">
-                    <input type="url" name="linkto" id="linkto" value="{$linkto|escape}" class="form-control" placeholder="{tr}http://...{/tr}">
+                    <input type="url" name="linkto" id="linkto" value="{$linkto|escape}" class="form-control" placeholder="https://...">
                     {if $linkto neq ''}
                         <div class="form-text">
                             {tr}Test your link: {/tr}

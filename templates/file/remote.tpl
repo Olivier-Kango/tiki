@@ -10,7 +10,7 @@
         <h3>{tr}Upload from URL{/tr}</h3>
         <p>
             <input type="hidden" name="galleryId" value="{$galleryId|escape}">
-            <label>{tr}URL:{/tr} <input type="url" name="url" placeholder="http://"></label>
+            <label>{tr}URL:{/tr} <input type="url" name="url" placeholder="https://"></label>
             <input type="submit" class="btn btn-primary btn-sm" value="{tr}Add{/tr}">
         </p>
     </form>
