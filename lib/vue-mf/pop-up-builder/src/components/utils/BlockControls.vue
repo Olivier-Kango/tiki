@@ -16,17 +16,8 @@ const props = defineProps({
     }
 });
 
-const handleEditBlock = () => {
-    // store.dispatch('updateBlock', {
-    //     block: props.node.data,
-    //     field: 'textContent',
-    //     value: 'new text content'
-    // })
-}
-
 const removeBlock = () => {
     store.dispatch('removeBlock', props.node)
-    localStorage.setItem('tiki-pop-up-blocks', JSON.stringify(store.getters.getBlocks))
 }
 </script>
 
@@ -35,7 +26,7 @@ const removeBlock = () => {
         <small class="mr-2"><b>{{node.data.name}}</b></small>
         <BlockList :block="node.data"></BlockList>
         <Button variant="default" sm><i class="fas fa-grip-vertical"></i></Button>
-        <Button variant="default" sm @click="handleEditBlock"><i class="fas fa-edit"></i></Button>
+        <Button variant="default" sm><i class="fas fa-edit"></i></Button>
         <Button variant="default" sm @click="removeBlock"><i class="fas fa-trash"></i></Button>
         <Button variant="default" sm><i class="fas fa-chevron-left"></i></Button>
         <Button variant="default" sm><i class="fas fa-chevron-right"></i></Button>

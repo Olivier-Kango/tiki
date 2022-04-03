@@ -5,8 +5,6 @@ export default {
 </script>
 
 <script setup>
-import BlockControls from './BlockControls.vue'
-
 defineProps({
     node: Object
 });
@@ -17,7 +15,7 @@ defineProps({
     <div>
         <div
             v-for="childNode in node.children"
-            class="pl-4"
+            class="ml-4"
             :id="'block-tree-' + childNode.id"
             :key="'block-tree-' + childNode.id"
         >
@@ -29,7 +27,3 @@ defineProps({
         </div>
     </div>
 </template>
-
-<style lang="scss">
-
-</style>

@@ -1,3 +1,11 @@
-.is-selected {
+body h1, body h2, body h3, body h4, body h5, body h6 {
+    font-family: "Noto Serif", serif;
+}
+
+.is-highlighted {
     outline: 2px solid #3a64fd73;
+}
+
+.is-selected {
+    outline: 2px solid #6e6e6e73;
 }

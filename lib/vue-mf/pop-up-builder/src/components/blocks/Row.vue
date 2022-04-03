@@ -24,5 +24,6 @@ const props = defineProps({
 <style lang="scss" scoped>
 .row {
     min-height: 50px;
+    margin-bottom: 10px;
 }
 </style>

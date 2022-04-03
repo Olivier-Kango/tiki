@@ -1,8 +1,6 @@
 <template>
     <Teleport to="body">
         <div
-            v-click-outside="onClickOutsideConfig"
-            v-if="show"
             ref="reference"
             class="popup-container shadow rounded p-1"
         >
@@ -56,20 +54,25 @@ export default {
         target: {
             immediate: true,
             handler(val, oldVal) {
+                // if (val) {
+                //     this.$nextTick(() => {
+                //         this.getTargetEl(val).addEventListener('click', this.handleShow, false)
+                //     })
+                // }
                 if (val) {
-                    this.$nextTick(() => {
-                        this.getTargetEl(val).addEventListener('click', this.handleShow, false)
-                    })
+                    this.initPopper()
                 }
             }
         }
     },
     mounted() {
-        // this.initPopper()
+        this.$nextTick(() => {
+            this.initPopper()
+        })
     },
     methods: {
         initPopper: function () {
-            if (this.target) {
+            if (this.target && this.$refs.reference) {
                 this.popper = createPopper(this.getTargetEl(this.target), this.$refs.reference, {
                     placement: 'top-start',
                     container: 'body',
@@ -89,11 +92,10 @@ export default {
             this.popper = null
         },
         unsubscribe: function () {
-            this.getTargetEl(this.target).removeEventListener('click', this.handleShow, false)
+            // this.getTargetEl(this.target).removeEventListener('click', this.handleShow, false)
         },
         handleShow: function (e) {
             e.stopPropagation()
-            console.log(this.target, this.getTargetEl(this.target))
             this.show = true
             if (!this.popper) {
                 this.$nextTick(() => {

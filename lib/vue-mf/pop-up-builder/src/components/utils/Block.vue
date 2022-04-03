@@ -5,14 +5,30 @@ export default {
 </script>
 
 <script setup>
-import BlockControls from './BlockControls.vue'
-import CustomPopup from './CustomPopup.vue'
+import { computed } from 'vue'
+import store from '../../store'
 
-defineProps({
+const props = defineProps({
     id: String,
     node: Object,
     edit: Boolean
 });
+
+const eventType = computed(() => props.edit ? 'click' : null)
+
+const isHighlighted = computed(() => (node) => {
+    if (!store.getters.getHighlighted) return false
+    if (node.data.id === store.getters.getHighlighted.data.id) return true
+})
+
+const isSelected = computed(() => (node) => {
+    if (!store.getters.getSelected) return false
+    if (node.data.id === store.getters.getSelected.data.id) return true
+})
+
+const handleEvent = (e, node) => {
+    store.dispatch('setSelected', node)
+}
 </script>
 
 <template>
@@ -21,16 +37,16 @@ defineProps({
         :is="node.data.name"
         class="block-item"
         :block="node.data"
+        :class="{'is-highlighted': isHighlighted(node)}"
     >
         <Block
             v-for="node in node.children"
+            :class="{'is-highlighted': isHighlighted(node)}"
             :node="node"
             :id="'block-' + node.data.id"
             :key="'block-' + node.data.id"
             :edit="edit"
+            @[eventType].stop="handleEvent($event, node)"
         />
-        <CustomPopup v-if="edit" :target="'block-' + node.data.id">
-            <BlockControls :node="node"></BlockControls>
-        </CustomPopup>
     </component>
 </template>

@@ -4,6 +4,7 @@ export default {
 }
 </script>
 <script setup>
+import { ref } from 'vue'
 import { Button } from '@vue-mf/styleguide'
 
 const props = defineProps({
@@ -15,11 +16,14 @@ const props = defineProps({
     }
 });
 
+const { classes, styles } = ref(props.block)
+const { textContent } = ref(props.block.attributes)
+
 </script>
 
 <template>
-    <Button :class="block.classes" :style="block.styles">
-        {{block.textContent}}
+    <Button :class="classes" :style="styles">
+        {{textContent}}
         <slot/>
     </Button>
 </template>

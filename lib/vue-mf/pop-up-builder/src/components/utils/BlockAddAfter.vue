@@ -26,7 +26,6 @@ const addBlock = () => {
         },
         afterBlock: props.block
     })
-    localStorage.setItem('tiki-pop-up-blocks', JSON.stringify(store.getters.getBlocks))
 }
 </script>
 

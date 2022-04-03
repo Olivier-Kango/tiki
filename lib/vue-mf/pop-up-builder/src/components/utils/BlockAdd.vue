@@ -21,16 +21,13 @@ const addBlock = () => {
     store.dispatch('addBlock', {
         id: uuidv4(),
         parent_id: props.block.id,
-        name: props.blockName,
-        classes: [],
-        styles: {}
+        name: props.blockName
     })
-    localStorage.setItem('tiki-pop-up-blocks', JSON.stringify(store.getters.getBlocks))
 }
 </script>
 
 <template>
-    <Button variant="default" sm @click="addBlock">
+    <Button variant="default" sm @click.stop="addBlock">
         {{blockName}}
     </Button>
 </template>

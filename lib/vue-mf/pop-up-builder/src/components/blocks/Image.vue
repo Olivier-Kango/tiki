@@ -17,7 +17,7 @@ const props = defineProps({
 
 <template>
     <div :class="block.classes" :style="block.styles">
-        <img class="img-fluid" :src="'https://img.lovepik.com/free-png/20220106/lovepik-popcorn-png-image_401196579_wh860.png'" alt="">
+        <img class="img-fluid" :src="'https://wordpress.org/gutenberg/files/2020/08/plugins-2.gif'" alt="">
     </div>
 </template>
 
