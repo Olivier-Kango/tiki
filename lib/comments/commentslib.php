@@ -2325,6 +2325,8 @@ class Comments extends TikiLib
         global $prefs;
         if ($prefs['comments_notitle'] === 'y') {
             TikiLib::lib('smarty')->loadPlugin('smarty_modifier_truncate');
+            //let's make data parsable
+            $comment['data'] = str_ireplace(['{QUOTE()}', '{QUOTE}', substr($comment['data'], strpos($comment['data'], "(:"),strpos($comment['data'], ":)")+2)], "", $comment['data']);
             return '"' .
                     smarty_modifier_truncate(
                         strip_tags(TikiLib::lib('parser')->parse_data($comment['data'])),
