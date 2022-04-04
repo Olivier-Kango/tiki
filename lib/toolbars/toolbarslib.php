@@ -1207,7 +1207,7 @@ class ToolbarDialog extends Toolbar
                 $label = tra('Object Link');
                 $iconname = 'link-external-alt';
                 $icon = tra('img/icons/page_link.png');
-                $wysiwyg = 'Object Link';
+                $wysiwyg = '';
 
                 $smarty = TikiLib::lib('smarty');
                 $smarty->loadPlugin('smarty_function_object_selector');
