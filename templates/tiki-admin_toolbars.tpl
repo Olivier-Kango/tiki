@@ -82,7 +82,7 @@
                     </ul>
                     <br>
                     <label for="row-{$total|escape}">{tr}Row{/tr}&nbsp;{$total}</label>
-                    <ul id="row-{$total|escape}" class="row card">
+                    <ul id="row-{$total|escape}" class="row navbar card d-flex flex-row justify-content-start">
                 {/if}
                 </ul>
                 <br>
@@ -108,48 +108,78 @@
             </ul>
         </div>
         <div class="lists col-sm-4">
-            <div id="toolbar_edit_div" style="display:none">
-                <form name="toolbar_edit_form" method="post" action="tiki-admin_toolbars.php">
-                    <h2>{tr}Edit tool{/tr}</h2>
-                    <fieldset>
-                        <label for="tool_name">{tr}Name:{/tr}<small class="dialog_tips error">&nbsp;</small></label>
-                        <input type="text" name="tool_name" id="tool_name" class="text ui-widget-content ui-corner-all">
-                        <label for="tool_label">{tr}Label:{/tr}<small class="dialog_tips error">&nbsp;</small></label><small class="dialog_tips error">&nbsp;</small>
-                        <input type="text" name="tool_label" id="tool_label" class="text ui-widget-content ui-corner-all">
-                        <label for="tool_icon">{tr}Icon:{/tr}</label>
-                        <input type="text" name="tool_icon" id="tool_icon" class="text ui-widget-content ui-corner-all">
-                        <label for="tool_token">{tr}Wysiwyg Token:{/tr}</label>
-                        <input type="text" name="tool_token" id="tool_token" class="text ui-widget-content ui-corner-all">
-                        <label for="tool_syntax">{tr}Syntax:{/tr}</label>
-                        <input type="text" name="tool_syntax" id="tool_syntax" class="text ui-widget-content ui-corner-all">
-                        <label for="tool_type">{tr}Type:{/tr}</label>
-                        <select name="tool_type" id="tool_type" class="select ui-widget-content ui-corner-all">
-                            <option value="Inline">Inline</option>
-                            <option value="Block">Block</option>
-                            <option value="LineBased">LineBased</option>
-                            <option value="Picker">Picker</option>
-                            <option value="Separator">Separator</option>
-                            <option value="FckOnly">FckOnly</option>
-                            <option value="Fullscreen">Fullscreen</option>
-                            <option value="TextareaResize">TextareaResize</option>
-                            <option value="Helptool">Helptool</option>
-                            <option value="FileGallery">FileGallery</option>
-                            <option value="Wikiplugin">Wikiplugin</option>
-                        </select>
-                        <label for="tool_plugin">{tr}Plugin name:{/tr}</label>
-                        <select name="tool_plugin" id="tool_plugin" class="select ui-widget-content ui-corner-all" style="margin-bottom:0.5em">
-                            <option value="">{tr}None{/tr}</option>
-                            {foreach from=$plugins key=plugin item=info}
-                                <option value="{$plugin|escape}">{$info.name|escape}</option>
-                            {/foreach}
-                        </select>
-                        <input type="hidden" value="" name="save_tool" id="save_tool">
-                        <input type="hidden" value="" name="delete_tool" id="delete_tool">
-                        <input type="hidden" name="section" value="{$loaded}">
-                        <input type="hidden" name="comments" value="{if $comments}on{/if}">
-                    </fieldset>
+            <div id="toolbar_edit_div" class="p-4" style="display:none">
+                <div class="modal-header">
+                    {tr}Edit tool{/tr}
+                </div>
+                <form name="toolbar_edit_form" method="post" action="tiki-admin_toolbars.php" class="p-2">
+                    <div class="modal-body">
+                        <fieldset>
+                            <div class="form-group">
+                                <label for="tool_name">{tr}Name:{/tr}</label>
+                                <input type="text" name="tool_name" id="tool_name" class="form-control" minlength="2" maxlength="16">
+                            </div>
+                            <div class="form-group">
+                                <label for="tool_label">{tr}Label:{/tr}</label>
+                                <input type="text" name="tool_label" id="tool_label" class="form-control" minlength="1" maxlength="80">
+                            </div>
+                            <div class="form-group">
+                                <label for="tool_icon">{tr}Icon:{/tr}</label>
+                                <input type="text" name="tool_icon" id="tool_icon" class="form-control" placeholder="{tr}Search...{/tr}">
+                            </div>
+                            <div class="form-group">
+                                <label for="tool_type">{tr}Type:{/tr}</label>
+                                <select name="tool_type" id="tool_type" class="form-control noselect2">
+                                    <option value="Inline">Inline</option>
+                                    <option value="Block">Block</option>
+                                    <option value="LineBased">LineBased</option>
+                                    <option value="Picker">Picker</option>
+                                    <option value="Separator">Separator</option>
+                                    {if $prefs.feature_wysiwyg eq 'y'}
+                                        <option value="FckOnly">FckOnly</option>
+                                    {/if}
+                                    <option value="Fullscreen">Fullscreen</option>
+                                    <option value="TextareaResize">TextareaResize</option>
+                                    <option value="Helptool">Helptool</option>
+                                    <option value="FileGallery">FileGallery</option>
+                                    <option value="Wikiplugin">Wikiplugin</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="tool_syntax">{tr}Syntax:{/tr}</label>
+                                <input type="text" name="tool_syntax" id="tool_syntax" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="tool_plugin">{tr}Plugin name:{/tr}</label>
+                                <select name="tool_plugin" id="tool_plugin" class="form-control mb-2 noselect2">
+                                    <option value="">{tr}None{/tr}</option>
+                                    {foreach from=$plugins key=plugin item=info}
+                                        <option value="{$plugin|escape}">{$info.name|escape}</option>
+                                    {/foreach}
+                                </select>
+                            </div>
+                            {if $prefs.feature_wysiwyg eq 'y'}
+                                <div class="form-group">
+                                    <label for="tool_token">{tr}Wysiwyg Token:{/tr}</label>
+                                    <input type="text" name="tool_token" id="tool_token" class="form-control" placeholder="{tr}Search...{/tr}">
+                                    <div class="d-none">
+                                        {* hidden ckeditor to laod the list of commands for the Token field options *}
+                                        {textarea id='cked' wysiwyg='y'}{/textarea}
+                                    </div>
+                                </div>
+                            {/if}
+                            <input type="hidden" value="" name="save_tool" id="save_tool">
+                            <input type="hidden" value="" name="delete_tool" id="delete_tool">
+                            <input type="hidden" name="section" value="{$loaded}">
+                            <input type="hidden" name="comments" value="{if $show_comments}on{/if}">
+                        </fieldset>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-danger delete">Delete</button>
+                        <button type="submit" class="btn btn-primary save">Save</button>
+                    </div>
                 </form>
-                {autocomplete element='#tool_icon' type='icon'}
             </div>
             <label for="full-list-c">{tr}Custom Tools{/tr}</label>
             <a href="#" id="toolbar_add_custom">{icon name="add" ititle=":{tr}Add a new custom tool{/tr}" iclass="tips"}</a>
