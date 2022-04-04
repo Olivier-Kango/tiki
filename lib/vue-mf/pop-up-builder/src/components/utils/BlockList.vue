@@ -25,11 +25,11 @@ const props = defineProps({
         </Button>
         <template #popper>
             <div v-for="name in store.getters.getBlockList">
-                <BlockAdd :blockName="name" :block="block"></BlockAdd>
+                <BlockAdd :blockName="name" :parentId="block.id"></BlockAdd>
             </div>
         </template>
     </VDropdown>
-    <VDropdown v-if="block.parent_id">
+    <VDropdown>
         <Button variant="default" sm>
             <i class="fas fa-sign-out-alt"></i>
         </Button>

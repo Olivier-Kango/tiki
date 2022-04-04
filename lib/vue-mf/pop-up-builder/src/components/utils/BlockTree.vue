@@ -29,41 +29,29 @@ const isSelected = computed(() => (node) => {
 })
 
 const handleMouseOver = (e, node) => {
-    // let classes = Array.from(node.data.classes)
-    // classes.push('is-highlighted')
-    // store.dispatch('updateBlock', {
-    //     block: node.data,
-    //     field: 'classes',
-    //     value: classes
-    // })
     store.dispatch('setHighlighted', node)
 }
 
 const handleMouseOut = (e, node) => {
-    // let classes = Array.from(node.data.classes)
-    // store.dispatch('updateBlock', {
-    //     block: node.data,
-    //     field: 'classes',
-    //     value: classes.filter(el => el !== 'is-highlighted')
-    // })
     store.dispatch('setHighlighted', null)
 }
 
 const handleClick = (e, node) => {
     store.dispatch('setSelected', node)
-    // store.dispatch('toggleSelected', node)
 }
 </script>
 
 <template>
-    <div :id="'block-tree-' + rootNode.id" class="block-tree">
-        <TreeView :node="rootNode">
-            <template #default="{ node }">
-                <div class="block-tree-item" :class="{'is-selected': isSelected(node), 'is-highlighted': isHighlighted(node)}">
-                    <BlockControls :node="node" @click="handleClick($event, node)" @mouseenter="handleMouseOver($event, node)" @mouseleave="handleMouseOut($event, node)"></BlockControls>
-                </div>
-            </template>
-        </TreeView>
+    <div>
+        <div v-for="node in rootNode.children" :id="'block-tree-' + rootNode.id" class="block-tree">
+            <TreeView :node="node">
+                <template #default="{ node }">
+                    <div class="block-tree-item" :class="{'is-selected': isSelected(node), 'is-highlighted': isHighlighted(node)}">
+                        <BlockControls :node="node" @click="handleClick($event, node)" @mouseenter="handleMouseOver($event, node)" @mouseleave="handleMouseOut($event, node)"></BlockControls>
+                    </div>
+                </template>
+            </TreeView>
+        </div>
     </div>
 </template>
 

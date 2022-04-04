@@ -11,16 +11,13 @@ import store from '../../store'
 
 const props = defineProps({
     blockName: String,
-    block: {
-        type: Object,
-        default: () => {}
-    }
+    parentId: String
 });
 
 const addBlock = () => {
     store.dispatch('addBlock', {
         id: uuidv4(),
-        parent_id: props.block.id,
+        parent_id: props.parentId,
         name: props.blockName
     })
 }

@@ -1,0 +1,187 @@
+[
+    {
+        "id": "22c776ba-151f-48d9-8b71-60de87430a38",
+        "parent_id": "c12fbcb1-fef9-4667-9f8e-49e379d2d4ce",
+        "name": "Image",
+        "classes": [],
+        "styles": {},
+        "attributes": {
+            "textContent": ""
+        }
+    },
+    {
+        "id": "a76a3b26-1c91-4210-b2d1-bd0fbdd288ce",
+        "parent_id": "ed812c79-c89f-4296-b7bc-84e57b4f4086",
+        "name": "Image",
+        "classes": [],
+        "styles": {},
+        "attributes": {
+            "textContent": ""
+        }
+    },
+    {
+        "id": "4c268229-5ce1-46ab-9c7f-cfcc4ae21a67",
+        "parent_id": "77ab06d9-1211-433a-acce-213e3af6edcb",
+        "name": "Image",
+        "classes": [],
+        "styles": {},
+        "attributes": {
+            "textContent": ""
+        }
+    },
+    {
+        "id": "f3797210-bb7a-418c-9d25-52a5f426b8ed",
+        "parent_id": "5270154b-4149-464a-9a86-335c7d75b206",
+        "name": "Image",
+        "classes": [],
+        "styles": {},
+        "attributes": {
+            "textContent": ""
+        }
+    },
+    {
+        "id": "5b6d9315-8c60-43f7-8a53-d4c9bd10b9a4",
+        "parent_id": "17364930-f70c-4aeb-a1f5-08fcb896683c",
+        "name": "Title",
+        "classes": [],
+        "styles": {},
+        "attributes": {
+            "textContent": "Say Hello to the New Editor"
+        }
+    },
+    {
+        "id": "7b43101d-9550-4a38-a977-cb20b980dff4",
+        "parent_id": "17364930-f70c-4aeb-a1f5-08fcb896683c",
+        "name": "Paragraph",
+        "classes": [],
+        "styles": {},
+        "attributes": {
+            "textContent": ""
+        }
+    },
+    {
+        "id": "7abec877-b6b6-4a54-a840-2cc18ed85957",
+        "parent_id": "17364930-f70c-4aeb-a1f5-08fcb896683c",
+        "name": "Paragraph",
+        "classes": [],
+        "styles": {},
+        "attributes": {
+            "textContent": "It’s a whole new way to use WordPress. Try it right here!"
+        }
+    },
+    {
+        "id": "c73c9c1b-5af4-47d2-9814-fe4e78f32ce0",
+        "parent_id": "17364930-f70c-4aeb-a1f5-08fcb896683c",
+        "name": "Paragraph",
+        "classes": [],
+        "styles": {},
+        "attributes": {
+            "textContent": "We call the new editor Gutenberg. The entire editing experience has been rebuilt for media rich pages and posts. Experience the flexibility that blocks will bring, whether you are building your first site, or write code for a living."
+        }
+    },
+    {
+        "id": "17364930-f70c-4aeb-a1f5-08fcb896683c",
+        "parent_id": "5e60c65a-6d38-4d0e-a5b3-f2a654ce284c",
+        "name": "Col",
+        "classes": [],
+        "styles": {},
+        "attributes": {
+            "textContent": ""
+        }
+    },
+    {
+        "id": "5e60c65a-6d38-4d0e-a5b3-f2a654ce284c",
+        "parent_id": "34553441-79bd-4921-8e43-c3edd04cb22f",
+        "name": "Row",
+        "classes": [],
+        "styles": {},
+        "attributes": {
+            "textContent": ""
+        }
+    },
+    {
+        "id": "e5a9c853-4e25-4adc-ab9e-84d1e13dcf2a",
+        "parent_id": "root-container-0cf51322-2201-4cee-a7ef-eb3fe0fb8a18",
+        "name": "Row",
+        "classes": [],
+        "styles": {},
+        "attributes": {
+            "textContent": ""
+        }
+    },
+    {
+        "id": "5270154b-4149-464a-9a86-335c7d75b206",
+        "parent_id": "9a5865ba-1fcb-4b9a-9f79-274c3c612eac",
+        "name": "Col",
+        "classes": [],
+        "styles": {},
+        "attributes": {
+            "textContent": ""
+        }
+    },
+    {
+        "id": "77ab06d9-1211-433a-acce-213e3af6edcb",
+        "parent_id": "9a5865ba-1fcb-4b9a-9f79-274c3c612eac",
+        "name": "Col",
+        "classes": [],
+        "styles": {},
+        "attributes": {
+            "textContent": ""
+        }
+    },
+    {
+        "id": "ed812c79-c89f-4296-b7bc-84e57b4f4086",
+        "parent_id": "9a5865ba-1fcb-4b9a-9f79-274c3c612eac",
+        "name": "Col",
+        "classes": [],
+        "styles": {},
+        "attributes": {
+            "textContent": ""
+        }
+    },
+    {
+        "id": "c12fbcb1-fef9-4667-9f8e-49e379d2d4ce",
+        "parent_id": "9a5865ba-1fcb-4b9a-9f79-274c3c612eac",
+        "name": "Col",
+        "classes": [],
+        "styles": {},
+        "attributes": {
+            "textContent": ""
+        }
+    },
+    {
+        "id": "9a5865ba-1fcb-4b9a-9f79-274c3c612eac",
+        "parent_id": "34553441-79bd-4921-8e43-c3edd04cb22f",
+        "name": "Row",
+        "classes": [],
+        "styles": {},
+        "attributes": {
+            "textContent": ""
+        }
+    },
+    {
+        "id": "34553441-79bd-4921-8e43-c3edd04cb22f",
+        "parent_id": "root-container-0cf51322-2201-4cee-a7ef-eb3fe0fb8a18",
+        "name": "Container",
+        "classes": [],
+        "styles": {},
+        "attributes": {
+            "textContent": ""
+        }
+    },
+    {
+        "id": "0fc3c858-89f7-44a4-8207-8940f70fc4eb",
+        "parent_id": "root-container-0cf51322-2201-4cee-a7ef-eb3fe0fb8a18",
+        "name": "Container",
+        "classes": [],
+        "styles": {},
+        "attributes": {
+            "textContent": ""
+        }
+    },
+    {
+        "id": "root-container-0cf51322-2201-4cee-a7ef-eb3fe0fb8a18",
+        "parent_id": null,
+        "name": "Root"
+    }
+]

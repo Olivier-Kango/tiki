@@ -5,7 +5,7 @@ export default {
 </script>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 import Block from './Block.vue'
 import BlockControls from './BlockControls.vue'
 import CustomPopup from './CustomPopup.vue'
@@ -20,14 +20,16 @@ defineProps({
 });
 
 const selected = computed(() => store.getters.getSelected)
+const rootBlock = computed(() => store.getters.getRootBlock)
 </script>
 
 <template>
-    <div class="block-builder">
+    <div class="block-builder" :id="rootBlock.id">
         <Block
-            :node="rootNode"
-            :id="'block-' + rootNode.data.id"
-            :key="'block-' + rootNode.data.id"
+            v-for="node in rootNode.children"
+            :node="node"
+            :id="'block-' + node.data.id"
+            :key="'block-' + node.data.id"
             :edit="edit"
         />
         <CustomPopup v-if="selected" :target="'block-' + (selected.data && selected.data.id)">
