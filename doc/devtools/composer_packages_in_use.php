@@ -26,12 +26,18 @@ class ComposerRepoPurge {
     }
 
     public function execute() {
+        echo 'Getting branches...';
         $branches = $this->getBranches();
+        echo ' done (' . count($branches) . " found)\n";
+        ob_flush();
 
         $packagesInUse = [];
 
+        echo 'Reading';
         foreach ($branches as $branch) {
             $json = $this->loadComposerLock($branch);
+            echo '.';
+            ob_flush();
 
             if ($json) {
                 $vendorData = $this->parseComposerLock($json);
@@ -56,6 +62,9 @@ class ComposerRepoPurge {
             }
 
         }
+        echo "\nDone\n\n";
+        ob_flush();
+
         foreach($packagesInUse as $packageName => $versions) {
             sort($versions);
             foreach ($versions as $version) {
