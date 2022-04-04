@@ -21,6 +21,7 @@ defineProps({
 
 const selected = computed(() => store.getters.getSelected)
 const rootBlock = computed(() => store.getters.getRootBlock)
+const handlePopupDestroy = () => store.dispatch('setSelected', null)
 </script>
 
 <template>
@@ -32,7 +33,7 @@ const rootBlock = computed(() => store.getters.getRootBlock)
             :key="'block-' + node.data.id"
             :edit="edit"
         />
-        <CustomPopup v-if="selected" :target="'block-' + (selected.data && selected.data.id)">
+        <CustomPopup v-if="selected" :target="'block-' + (selected && selected.data && selected.data.id)" @destroy="handlePopupDestroy">
             <BlockControls :node="selected"></BlockControls>
         </CustomPopup>
     </div>

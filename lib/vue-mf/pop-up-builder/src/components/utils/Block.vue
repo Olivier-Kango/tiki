@@ -26,9 +26,7 @@ const isSelected = computed(() => (node) => {
     if (node.data.id === store.getters.getSelected.data.id) return true
 })
 
-const handleEvent = (e, node) => {
-    store.dispatch('setSelected', node)
-}
+const handleEvent = (e, node) => store.dispatch('setSelected', node)
 </script>
 
 <template>
@@ -38,6 +36,7 @@ const handleEvent = (e, node) => {
         class="block-item"
         :block="node.data"
         :class="{'is-highlighted': isHighlighted(node)}"
+        @[eventType].stop="handleEvent($event, node)"
     >
         <Block
             v-for="node in node.children"
@@ -46,7 +45,6 @@ const handleEvent = (e, node) => {
             :id="'block-' + node.data.id"
             :key="'block-' + node.data.id"
             :edit="edit"
-            @[eventType].stop="handleEvent($event, node)"
         />
     </component>
 </template>

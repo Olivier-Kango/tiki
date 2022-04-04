@@ -2,6 +2,7 @@
     <Teleport to="body">
         <div
             ref="reference"
+            v-click-outside="onClickOutsideConfig"
             class="popup-container shadow rounded p-1"
         >
             <div class="popup-inner" ref="inner">
@@ -106,12 +107,16 @@ export default {
         handleHide: function () {
             this.show = false
             if (this.popper) this.destroyPopper()
+            this.$emit('destroy')
+        },
+        middlewareClickOutside: function (event) {
+            let isBlockItem = Array.from(event.target.classList).includes('block-item') || Boolean(event.target.closest(".block-item"))
+            let isBlockTreeItem = Array.from(event.target.classList).includes('block-tree-item') || Boolean(event.target.closest(".block-tree-item"))
+
+            return !isBlockItem && !isBlockTreeItem
         },
         onClickOutside: function (event) {
             this.handleHide()
-        },
-        middlewareClickOutside: function (event) {
-            return event.target.id !== this.getTargetEl(this.target).id
         },
         getTargetEl: function (target) {
             if (typeof target === 'object') {
