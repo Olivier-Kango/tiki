@@ -57,8 +57,10 @@ class DateHelper
                 if ($date) {
                     $timestamp = $date->getTimestamp();
                 } else {
-                    // TODO: use gmt when we merge timezone changes for tracker date fields
+                    $tz = date_default_timezone_get();
+                    date_default_timezone_set('UTC');
                     $timestamp = strtotime($value);
+                    date_default_timezone_set($tz);
                 }
                 if ($timestamp) {
                     $info['fields'][$permName] = $timestamp;
