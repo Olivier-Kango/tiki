@@ -479,11 +479,6 @@ if (isset($_REQUEST["delete"]) and ($_REQUEST["delete"]) and isset($_REQUEST["ca
 } elseif (isset($_REQUEST['calitemId']) and ($tiki_p_change_events == 'y' or $tiki_p_view_events == 'y')) {
     $calitem = $calendarlib->get_item($_REQUEST['calitemId']);
 
-    if ($prefs['feature_jscalendar'] === 'y' && $prefs['users_prefs_display_timezone'] === 'Site') {
-        // using site timezone always so alter the stored utc date by the server offset for the datetimepicker
-        $calitem['start'] += TikiDate::tzServerOffset($displayTimezone, $calitem['start']);
-        $calitem['end'] += TikiDate::tzServerOffset($displayTimezone, $calitem['end']);
-    }
     $id = $_REQUEST['calitemId'];
     $calendar = $calendarlib->get_calendar($calitem['calendarId']);
     $smarty->assign('edit', true);
