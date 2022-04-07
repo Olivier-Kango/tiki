@@ -174,7 +174,7 @@ class CalRecurrence extends TikiLib
         // should have valid start and end date
         if (
             ! ($this->isAllday())
-             && (! ($this->getStart() >= 0) || ! ($this->getEnd() >= 0) || ($this->getStart() > 2359) || ($this->getEnd() > 2359) || ($this->getStart() > $this->getEnd()))
+             && (! ($this->getStart() >= 0) || ! ($this->getEnd() >= 0) || ($this->getStart() > 2359) || ($this->getEnd() > 2359))
         ) {
             return false;
         }
