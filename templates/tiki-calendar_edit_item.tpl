@@ -796,17 +796,17 @@
                 {if $recurrence.id gt 0}
                     <div class="row">
                         <div class="col-sm-9 offset-sm-3">
-                            <input type="radio" id="id_affectEvt" name="affect" value="event" checked="checked">
+                            <input type="radio" id="id_affectEvt" name="affect" value="event">
                             <label for="id_affectEvt">
                                 {tr}Update this event only{/tr}
                             </label><br>
                             {if $recurranceNumChangedEvents}
-                                <input type="radio" id="id_affectMan" name="affect" value="manually">
+                                <input type="radio" id="id_affectMan" name="affect" value="manually" checked="checked">
                                 <label for="id_affectMan">
                                     {tr}Update every unchanged event in this recurrence series{/tr}
                                 </label><br>
                             {/if}
-                            <input type="radio" id="id_affectAll" name="affect" value="all">
+                            <input type="radio" id="id_affectAll" name="affect" value="all"{if $recurranceNumChangedEvents eq '0'} checked="checked"{/if}>
                             <label for="id_affectAll">
                                 {tr}Update every event in this recurrence series{/tr}
                             </label>
