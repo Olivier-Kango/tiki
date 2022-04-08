@@ -252,7 +252,41 @@ onDOMElementRemoved("single-spa-application:@vue-mf/duration-picker-" + ' . json
 
     public function getTabularSchema()
     {
-        // TODO
+        $schema = new Tracker\Tabular\Schema($this->getTrackerDefinition());
+        $permName = $this->getConfiguration('permName');
+
+        $parseInto = function (&$info, $value) use ($permName) {
+            $info['fields'][$permName] = json_encode($this->parseDurationFormat($value));
+        };
+
+        $schema->addNew($permName, 'default')
+            ->setLabel($this->getConfiguration('name'))
+            ->setRenderTransform(function ($value) {
+                $encoded = json_encode($this->parseDurationFormat($value));
+                return $this->humanize($encoded);
+            })
+            ->setParseIntoTransform($parseInto)
+            ;
+
+        $schema->addNew($permName, 'raw-json')
+            ->setLabel($this->getConfiguration('name'))
+            ->setRenderTransform(function ($value) {
+                $encoded = json_encode($this->parseDurationFormat($value));
+                return $encoded;
+            })
+            ->setParseIntoTransform($parseInto)
+            ;
+
+        $schema->addNew($permName, 'number-seconds')
+            ->setLabel($this->getConfiguration('name'))
+            ->setRenderTransform(function ($value) {
+                $encoded = json_encode($this->parseDurationFormat($value));
+                return $this->getValueInSeconds($encoded);
+            })
+            ->setParseIntoTransform($parseInto)
+            ;
+
+        return $schema;
     }
 
     public function getFilterCollection()
@@ -283,18 +317,37 @@ onDOMElementRemoved("single-spa-application:@vue-mf/duration-picker-" + ' . json
         ];
     }
 
-    private function denormalize()
+    public function getValueInSeconds($value = null)
     {
-        $value = json_decode($this->getValue(), true);
+        $factors = self::getFactors();
+
+        $result = 0;
+        foreach ($this->denormalize($value) as $unit => $amount) {
+            if (isset($factors[$unit])) {
+                $result += floatval($amount) * $factors[$unit];
+            } else {
+                $result += floatval($amount);
+            }
+        }
+
+        return $result;
+    }
+
+    private function denormalize($value = null)
+    {
+        if (is_null($value)) {
+            $value = $this->getValue();
+        }
+        $value = json_decode($value, true);
         if (! is_array($value)) {
             $value = [];
         }
         return $value;
     }
 
-    private function humanize()
+    private function humanize($value = null)
     {
-        $value = $this->denormalize();
+        $value = $this->denormalize($value);
 
         $output = '';
         foreach ($value as $unit => $amount) {
@@ -306,22 +359,6 @@ onDOMElementRemoved("single-spa-application:@vue-mf/duration-picker-" + ' . json
         }
 
         return $output;
-    }
-
-    private function getValueInSeconds()
-    {
-        $factors = self::getFactors();
-
-        $value = 0;
-        foreach ($this->denormalize() as $unit => $amount) {
-            if (isset($factors[$unit])) {
-                $value += floatval($amount) * $factors[$unit];
-            } else {
-                $value += floatval($amount);
-            }
-        }
-
-        return $value;
     }
 
     private function enabledUnits()
@@ -336,5 +373,44 @@ onDOMElementRemoved("single-spa-application:@vue-mf/duration-picker-" + ' . json
                 )
             )
         );
+    }
+
+    private function parseDurationFormat($data) {
+        $struct = [
+            'seconds' => 0,
+            'minutes' => 0,
+            'hours' => 0,
+            'days' => 0,
+            'weeks' => 0,
+            'months' => 0,
+            'years' => 0,
+        ];
+        $data = trim($data);
+        if (preg_match('/^[\d]+$/', $data)) {
+            $seconds = intval($data);
+            $factors = self::getFactors();
+            foreach (array_reverse($factors) as $unit => $factor) {
+                $struct[$unit] = floor($seconds / $factor);
+                $seconds = $seconds % $factor;
+            }
+        } elseif ($parsed = @json_decode($data, true)) {
+            $struct = $parsed;
+        } else {
+            $matches = [
+                'years' => 'y|years?',
+                'months' => 'mo|months?',
+                'weeks' => 'w|weeks?',
+                'days' => 'd|days?',
+                'hours' => 'h|hours?',
+                'minutes' => 'm|minutes?',
+                'seconds' => 's|seconds?'
+            ];
+            foreach ($matches as $unit => $pattern) {
+                if (preg_match('/^((\d+)\s*('.$pattern.'))?\s*$/', $data, $m)) {
+                    $struct[$unit] = $m[2];
+                }
+            }
+        }
+        return array_filter($struct);
     }
 }

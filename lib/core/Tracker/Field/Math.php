@@ -244,7 +244,8 @@ class Tracker_Field_Math extends Tracker_Field_Abstract implements Tracker_Field
 
     /**
      * Helper method to prepare field values for item fields that do not store their
-     * info in database - e.g. ItemsList.
+     * info in database - e.g. ItemsList or need additional data than the database
+     * raw values - e.g. Duration field.
      * @param array data to be modified
      */
     private function prepareFieldValues(&$data)
@@ -258,11 +259,14 @@ class Tracker_Field_Math extends Tracker_Field_Abstract implements Tracker_Field
         }
         foreach ($data as $permName => $value) {
             $field = $this->getTrackerDefinition()->getFieldFromPermName($permName);
-            if (! $field || ($field['type'] != 'l' && $field['type'] != 'REL')) {
-                continue;
+            if ($field && ($field['type'] == 'l' || $field['type'] == 'REL')) {
+                $handler = TikiLib::lib('trk')->get_field_handler($field, $fieldData);
+                $data[$permName] = $handler->getItemValues();
             }
-            $handler = TikiLib::lib('trk')->get_field_handler($field, $fieldData);
-            $data[$permName] = $handler->getItemValues();
+            if ($field && $field['type'] == 'DUR') {
+                $handler = TikiLib::lib('trk')->get_field_handler($field, $fieldData);
+                $data[$permName] = $handler->getValueInSeconds();
+            }
         }
     }
 
