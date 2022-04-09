@@ -102,7 +102,7 @@ class ComposerGetPackages {
         }
 
         if ($mode !== 'current') {
-            echo json_encode($outputData);
+            echo json_encode($outputData, JSON_PRETTY_PRINT|JSON_UNESCAPED_SLASHES);
         }
     }
 
