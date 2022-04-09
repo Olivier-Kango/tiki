@@ -8,54 +8,79 @@ if (PHP_SAPI !== 'cli') {
     die("Please run from a shell");
 }
 
-class ComposerRepoPurge {
+class ComposerGetPackages {
 
-    private array $versions;
 
     private string $repoUri;
 
+    private string $lockFile;
     private \GitLib $gitLib;
+    private int $minimumVersion;
 
     public function __construct()
     {
-        $this->tikiRoot = dirname(dirname(__DIR__));
-        $this->versions = [];
-        array_unshift($this->versions, 'master');
-        $this->repoUri = 'https://gitlab.com/tikiwiki/tiki/-/raw/%branch%/vendor_bundled/composer.lock';
+        $this->minimumVersion = 11;
+
+        $this->repoUri = 'https://gitlab.com/tikiwiki/tiki/-/raw/%branch%/';
+        $this->lockFile = 'vendor_bundled/composer.lock';
+        $this->jsonFile = 'vendor_bundled/composer.json';
+
         $this->gitLib = \TikiLib::lib('git');
     }
 
-    public function execute() {
+    public function execute(array $args) {
+        if (count($args) > 1) {
+            $mode = $args[1];
+        } else {
+            $mode = '';
+        }
+
+        if ($mode === 'current') {
+            $file = $this->lockFile;
+        } else if (! $mode || $mode === 'all') {
+            $file = $this->jsonFile;
+        }
+
         echo 'Getting branches...';
-        $branches = $this->getBranches();
+        $branches = $this->getBranches($this->minimumVersion);
         echo ' done (' . count($branches) . " found)\n";
         ob_flush();
 
         $packagesInUse = [];
+        $outputData = [];
 
         echo 'Reading';
         foreach ($branches as $branch) {
-            $json = $this->loadComposerLock($branch);
+            $json = $this->loadComposerFile($branch, $file);
             echo '.';
             ob_flush();
 
             if ($json) {
-                $vendorData = $this->parseComposerLock($json);
-                foreach ($vendorData->packages as $package) {
-                    if (! isset($packagesInUse[$package->name])) {
-                        $packagesInUse[$package->name] = [];
-                    }
-                    if (! in_array($package->version, $packagesInUse[$package->name])) {
-                        $packagesInUse[$package->name][] = $package->version;
-                    }
-                }
-                if ($vendorData->{'packages - dev'} ) {     // maybe this doesn't really exist?
-                    foreach ($vendorData->{'packages - dev'} as $package) {
+                $jsonData = $this->parseComposerLock($json);
+                if ($mode === 'curent') {
+                    foreach ($jsonData->packages as $package) {
                         if (! isset($packagesInUse[$package->name])) {
                             $packagesInUse[$package->name] = [];
                         }
                         if (! in_array($package->version, $packagesInUse[$package->name])) {
                             $packagesInUse[$package->name][] = $package->version;
+                        }
+                    }
+                } else {
+                    if (empty($outputData)) {
+                        $outputData = $jsonData;
+                        $outputData->require = new \stdClass();
+                        $outputData->{'require-dev'} = new \stdClass();
+                    }
+                    foreach( [$jsonData->require, $jsonData->{'require-dev'}] as $requires) {
+                        foreach ($requires as $package => $versionString) {
+                            //$versions = Composer\Semver\Semver::satisfiedBy([$versionString]);
+                            if (! isset($packagesInUse[$package])) {
+                                $packagesInUse[$package] = [];
+                            }
+                            if (! in_array($versionString, $packagesInUse[$package])) {
+                                $packagesInUse[$package][] = $versionString;
+                            }
                         }
                     }
                 }
@@ -67,25 +92,44 @@ class ComposerRepoPurge {
 
         foreach($packagesInUse as $packageName => $versions) {
             sort($versions);
-            foreach ($versions as $version) {
-                echo "$packageName/$version\n";
+            if ($mode === 'current') {
+                foreach ($versions as $version) {
+                    echo "$packageName/$version\n";
+                }
+            } else {
+                $outputData->require->{$packageName} = implode('|', array_unique($versions));
             }
+        }
+
+        if ($mode !== 'current') {
+            echo json_encode($outputData);
         }
     }
 
-    private function getBranches() {
+    private function getBranches(int $minimumVersion) {
 
         $output = $this->gitLib->run_git(['ls-remote']);
         $r = preg_match_all('/.*refs\/heads\/(.*)$/m', $output, $remotes);
+        $branches = ['master'];
         if ($r) {
-            $this->versions = $remotes[1];
+            foreach($remotes[1] as $branchName) {
+                preg_match('/\d+/', $branchName, $matches);
+                if ($matches) {
+                    if ($matches[0] >= $minimumVersion) {
+                        $branches[] = $branchName;
+                    }
+                } else {
+                    $branches[] = $branchName;
+                }
+            }
         }
-        return $this->versions;
+        return array_unique($branches);
     }
 
-    private function loadComposerLock(string $branch): string
+    private function loadComposerFile(string $branch, $file): string
     {
-        $uri = str_replace('%branch%', $branch, $this->repoUri);
+        $repoUri = $this->repoUri . $file;
+        $uri = str_replace('%branch%', $branch, $repoUri);
         $json = @file_get_contents($uri);
         return $json;
     }
@@ -102,6 +146,6 @@ class ComposerRepoPurge {
 
 require_once('tiki-setup.php');
 
-$purger = new ComposerRepoPurge();
-$purger->execute();
+$purger = new ComposerGetPackages();
+$purger->execute($argv);
 
