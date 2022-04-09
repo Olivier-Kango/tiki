@@ -35,15 +35,15 @@ const handleEvent = (e, node) => store.dispatch('setSelected', node)
         :is="node.data.name"
         class="block-item"
         :block="node.data"
-        :class="{'is-highlighted': isHighlighted(node)}"
         @[eventType].stop="handleEvent($event, node)"
+        :edit="edit"
+        :isSelected="isSelected(node)"
     >
         <Block
             v-for="node in node.children"
-            :class="{'is-highlighted': isHighlighted(node)}"
-            :node="node"
             :id="'block-' + node.data.id"
             :key="'block-' + node.data.id"
+            :node="node"
             :edit="edit"
         />
     </component>

@@ -3,11 +3,9 @@
         <div
             ref="reference"
             v-click-outside="onClickOutsideConfig"
-            class="popup-container shadow rounded p-1"
+            class="popup-container"
         >
-            <div class="popup-inner" ref="inner">
-                <slot />
-            </div>
+            <slot />
         </div>
     </Teleport>
 </template>
@@ -61,7 +59,9 @@ export default {
                 //     })
                 // }
                 if (val) {
-                    this.initPopper()
+                    this.$nextTick(() => {
+                        this.initPopper()
+                    })
                 }
             }
         }
@@ -131,7 +131,6 @@ export default {
 
 <style scoped>
 .popup-container {
-    background-color: white;
     z-index: 1;
 }
 </style>

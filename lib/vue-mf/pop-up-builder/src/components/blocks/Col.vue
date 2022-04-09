@@ -4,6 +4,9 @@ export default {
 }
 </script>
 <script setup>
+import { computed } from 'vue'
+import { useState } from '../hooks/useState'
+
 const props = defineProps({
     block: {
         type: Object,
@@ -13,10 +16,17 @@ const props = defineProps({
     }
 });
 
+const { isSelected, isHighlighted } = useState(props.block)
+
+const classes = computed(() => {
+    let newClasses = []
+    if (isHighlighted.value) newClasses.push('is-highlighted')
+    return newClasses.concat(props.block.classes)
+})
 </script>
 
 <template>
-    <div :class="block.classes" class="col" :style="block.styles">
+    <div :class="classes" class="col" :style="block.styles">
         <slot/>
     </div>
 </template>

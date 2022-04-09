@@ -18,6 +18,7 @@ defineProps({
     edit: Boolean
 });
 
+// const { isSelected, isHighlighted } = useState()
 const isHighlighted = computed(() => (node) => {
     if (!store.getters.getHighlighted) return false
     if (node.data.id === store.getters.getHighlighted.data.id) return true
