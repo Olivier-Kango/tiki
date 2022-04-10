@@ -6,19 +6,16 @@ export default {
 
 <script setup>
 import { computed } from 'vue'
-import TreeView from './TreeView.vue'
+import BlockTreeView from './BlockTreeView.vue'
 import BlockControls from './BlockControls.vue'
 import store from '../../store'
 
 defineProps({
-    rootNode: {
-        type: Object,
-        default: () => {}
-    },
     edit: Boolean
 });
 
-// const { isSelected, isHighlighted } = useState()
+const root = computed(() => store.getters.getTree)
+
 const isHighlighted = computed(() => (node) => {
     if (!store.getters.getHighlighted) return false
     if (node.data.id === store.getters.getHighlighted.data.id) return true
@@ -44,14 +41,21 @@ const handleClick = (e, node) => {
 
 <template>
     <div>
-        <div v-for="node in rootNode.children" :id="'block-tree-' + rootNode.id" class="block-tree">
-            <TreeView :node="node">
+        <div v-for="node in root.children" :id="'block-tree-' + root.id" class="block-tree">
+            <BlockTreeView :node="node">
                 <template #default="{ node }">
-                    <div class="block-tree-item" :class="{'is-selected': isSelected(node), 'is-highlighted': isHighlighted(node)}">
-                        <BlockControls :node="node" @click="handleClick($event, node)" @mouseenter="handleMouseOver($event, node)" @mouseleave="handleMouseOut($event, node)"></BlockControls>
+                    <div
+                        class="block-tree-item"
+                        :class="{'is-selected': isSelected(node), 'is-highlighted': isHighlighted(node)}"
+                        @click="handleClick($event, node)"
+                        @mouseenter="handleMouseOver($event, node)"
+                        @mouseleave="handleMouseOut($event, node)"
+                    >
+                        <small><b>{{node.data.name}}</b></small>
+                        <BlockControls class="d-inline-block" :block="node.data"></BlockControls>
                     </div>
                 </template>
-            </TreeView>
+            </BlockTreeView>
         </div>
     </div>
 </template>

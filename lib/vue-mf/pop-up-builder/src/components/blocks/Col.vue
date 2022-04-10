@@ -18,11 +18,11 @@ const props = defineProps({
 
 const { isSelected, isHighlighted } = useState(props.block)
 
-const classes = computed(() => {
-    let newClasses = []
-    if (isHighlighted.value) newClasses.push('is-highlighted')
-    return newClasses.concat(props.block.classes)
-})
+const classes = computed(() => 
+    props.block.classes.concat([
+        {'is-highlighted': isHighlighted.value}
+    ])
+)
 </script>
 
 <template>

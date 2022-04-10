@@ -7,25 +7,20 @@ export default {
 <script setup>
 import { computed } from 'vue'
 import Block from './Block.vue'
-import BlockControls from './BlockControls.vue'
 import store from '../../store'
 
 defineProps({
-    rootNode: {
-        type: Object,
-        default: () => {}
-    },
     edit: Boolean
 });
 
-const selected = computed(() => store.getters.getSelected)
+const root = computed(() => store.getters.getTree)
 const rootBlock = computed(() => store.getters.getRootBlock)
 </script>
 
 <template>
     <div class="block-builder" :id="rootBlock.id">
         <Block
-            v-for="node in rootNode.children"
+            v-for="node in root.children"
             :node="node"
             :id="'block-' + node.data.id"
             :key="'block-' + node.data.id"
@@ -33,7 +28,3 @@ const rootBlock = computed(() => store.getters.getRootBlock)
         />
     </div>
 </template>
-
-<style lang="scss">
-
-</style>

@@ -8,20 +8,18 @@ export default {
 import BlockNavbar from './BlocksNavbar.vue'
 import BlockBuilder from './BlockBuilder.vue'
 import BlockTree from './BlockTree.vue'
-import store from '../../store'
 
+defineProps({
+    edit: Boolean
+})
 </script>
 
 <template>
     <div class="block-editor">
-        <BlockNavbar></BlockNavbar>
+        <BlockNavbar v-if="edit"></BlockNavbar>
         <div class="d-flex">
-            <BlockTree :rootNode="store.getters.getBlocksTree" edit />
-            <BlockBuilder class="flex-grow-1" :rootNode="store.getters.getBlocksTree" edit />
+            <BlockTree class="p-2" v-if="edit"></BlockTree>
+            <BlockBuilder class="flex-grow-1" :edit="edit" />
         </div>
     </div>
 </template>
-
-<style lang="scss">
-
-</style>

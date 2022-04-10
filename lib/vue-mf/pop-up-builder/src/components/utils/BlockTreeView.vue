@@ -1,6 +1,6 @@
 <script>
 export default {
-    name: 'TreeView'
+    name: 'BlockTreeView'
 }
 </script>
 
@@ -19,11 +19,11 @@ defineProps({
             :id="'block-tree-' + childNode.id"
             :key="'block-tree-' + childNode.id"
         >
-            <TreeView :node="childNode">
+            <BlockTreeView :node="childNode">
                 <template #default="{ node }">
                     <slot name="default" :node="node"></slot>
                 </template>
-            </TreeView>
+            </BlockTreeView>
         </div>
     </div>
 </template>

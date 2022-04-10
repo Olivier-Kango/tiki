@@ -23,7 +23,7 @@ const props = defineProps({
     }
 });
 
-const emit = defineEmits(['onBlur'])
+const emit = defineEmits(['onInput', 'onBlur'])
 const { html, setInnerHTML, setAction } = useRichText(props.content)
 
 watch(() => props.action, (val, oldVal) => {
@@ -32,8 +32,11 @@ watch(() => props.action, (val, oldVal) => {
 
 const handleInput = (e) => {
     setInnerHTML(e.target.innerHTML)
+    emit('onInput', e.target.innerHTML)
 }
+
 const handleBlur = (e) => {
+    setInnerHTML(e.target.innerHTML)
     emit('onBlur', e.target.innerHTML)
 }
 </script>

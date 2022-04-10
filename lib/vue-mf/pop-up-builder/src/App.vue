@@ -27,15 +27,10 @@ onBeforeMount(() => {
         }
     }
 
-    if (blocks.length === 0) {
-        // store.dispatch('setInitialBlock')
-        store.dispatch('setTemplate', initialTemplate)
-    } else {
-        store.dispatch('setBlocks', blocks)
-    }
+    store.dispatch('setBlocks', blocks.length ? blocks : initialTemplate)
 })
 </script>
 
 <template>
-    <BlockEditor></BlockEditor>
+    <BlockEditor edit></BlockEditor>
 </template>
