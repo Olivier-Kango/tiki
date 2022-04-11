@@ -5,7 +5,7 @@ export default {
 </script>
 <script setup>
 import { ref, watch } from 'vue'
-import store from '../../store'
+import store from '../../../store'
 
 const props = defineProps({
     block: {

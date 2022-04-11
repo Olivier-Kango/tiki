@@ -27,12 +27,14 @@ const handleEvent = (e, node) => store.dispatch('setSelected', node)
         :block="node.data"
         @[eventType].stop="handleEvent($event, node)"
     >
-        <Block
-            v-for="node in node.children"
-            :id="'block-' + node.data.id"
-            :key="'block-' + node.data.id"
-            :node="node"
-            :edit="edit"
-        />
+        <TransitionGroup name="list">
+            <Block
+                v-for="node in node.children"
+                :id="'block-' + node.data.id"
+                :key="'block-' + node.data.id"
+                :node="node"
+                :edit="edit"
+            />
+        </TransitionGroup>
     </component>
 </template>

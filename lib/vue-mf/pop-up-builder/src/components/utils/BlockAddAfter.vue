@@ -6,7 +6,6 @@ export default {
 
 <script setup>
 import { Button } from '@vue-mf/styleguide'
-import { v4 as uuidv4 } from 'uuid';
 import store from '../../store'
 
 const props = defineProps({
@@ -19,12 +18,8 @@ const props = defineProps({
 
 const addBlock = () => {
     store.dispatch('addBlockAfter', {
-        block: {
-            id: uuidv4(),
-            parent_id: props.block.parent_id,
-            name: props.blockName
-        },
-        afterBlock: props.block
+        block: { name: props.blockName },
+        inBlock: props.block
     })
 }
 </script>

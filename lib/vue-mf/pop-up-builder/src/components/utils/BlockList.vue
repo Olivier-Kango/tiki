@@ -25,7 +25,7 @@ const props = defineProps({
         </Button>
         <template #popper>
             <div v-for="name in store.getters.getBlockList">
-                <BlockAdd :blockName="name" :parentId="block.id"></BlockAdd>
+                <BlockAdd :blockName="name" :block="block"></BlockAdd>
             </div>
         </template>
     </VDropdown>

@@ -41,26 +41,36 @@ const handleClick = (e, node) => {
 
 <template>
     <div>
-        <div v-for="node in root.children" :id="'block-tree-' + root.id" class="block-tree">
-            <BlockTreeView :node="node">
-                <template #default="{ node }">
-                    <div
-                        class="block-tree-item"
-                        :class="{'is-selected': isSelected(node), 'is-highlighted': isHighlighted(node)}"
-                        @click="handleClick($event, node)"
-                        @mouseenter="handleMouseOver($event, node)"
-                        @mouseleave="handleMouseOut($event, node)"
-                    >
-                        <small><b>{{node.data.name}}</b></small>
-                        <BlockControls class="d-inline-block" :block="node.data"></BlockControls>
-                    </div>
-                </template>
-            </BlockTreeView>
-        </div>
+        <TransitionGroup name="list">
+            <div
+                v-for="node in root.children"
+                :id="'block-tree-' + root.id"
+                class="block-tree"
+                :key="'block-tree-' + root.id"
+            >
+                <BlockTreeView :node="node">
+                    <template #default="{ node }">
+                        <div
+                            class="block-tree-item"
+                            :class="{'is-selected': isSelected(node), 'is-highlighted': isHighlighted(node)}"
+                            @click="handleClick($event, node)"
+                            @mouseenter="handleMouseOver($event, node)"
+                            @mouseleave="handleMouseOut($event, node)"
+                        >
+                            <small><b>{{node.data.title || node.data.name}}</b></small>
+                            <BlockControls class="d-inline-block" :block="node.data"></BlockControls>
+                        </div>
+                    </template>
+                </BlockTreeView>
+            </div>
+        </TransitionGroup>
     </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
+    .block-tree {
+        position: relative;
+    }
     .block-tree-item {
         cursor: pointer;
         display: inline-block;

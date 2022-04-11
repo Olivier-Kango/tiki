@@ -27,17 +27,17 @@ const props = defineProps({
 });
 
 const { isSelected, isHighlighted, setAttributes, setStyles } = useState(props.block)
-const textContent = ref(props.block.attributes.textContent)
+const textContent = ref(props.block.attributes && props.block.attributes.textContent)
 const textAction = ref()
 const showInspector = ref(false)
 
 const classes = computed(() => 
-    props.block.classes.concat([
+    props.block.classes && props.block.classes.concat([
         {'is-highlighted': isHighlighted.value}
     ])
 )
 
-watch([props.block.attributes.textContent], (val, oldVal) => {
+watch([props.block.attributes], (val, oldVal) => {
     textContent.value = val
 })
 

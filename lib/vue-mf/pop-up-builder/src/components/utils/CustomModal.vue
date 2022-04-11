@@ -75,6 +75,9 @@ watch(() => props.show, (val, oldVal) => {
         border-radius: 0.25rem;
         background: #fff;
     }
+    :deep(.vfm--outline-none[data-v-2836fdb5]:focus) {
+        pointer-events: all;
+    }
     .modal__title {
         font-size: 1.5rem;
         font-weight: 700;

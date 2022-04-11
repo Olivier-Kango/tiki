@@ -19,12 +19,14 @@ const rootBlock = computed(() => store.getters.getRootBlock)
 
 <template>
     <div class="block-builder" :id="rootBlock.id">
-        <Block
-            v-for="node in root.children"
-            :node="node"
-            :id="'block-' + node.data.id"
-            :key="'block-' + node.data.id"
-            :edit="edit"
-        />
+        <TransitionGroup name="list">
+            <Block
+                v-for="node in root.children"
+                :node="node"
+                :id="'block-' + node.data.id"
+                :key="'block-' + node.data.id"
+                :edit="edit"
+            />
+        </TransitionGroup>
     </div>
 </template>

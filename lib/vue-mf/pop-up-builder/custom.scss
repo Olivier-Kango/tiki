@@ -1,13 +1,41 @@
 .block-editor {
-    h1, h2, h3, h4, h5, h6 {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
         font-family: "Noto Serif", serif;
     }
 }
 
 .is-highlighted {
-    outline: 2px solid rgba(100, 148, 237, 0.37);
+    outline: 1px solid rgba(0, 124, 186, 1);
+    border-radius: 2px;
 }
 
 .is-selected {
-    outline: 2px solid rgba(100, 148, 237, 0.37);
+    outline: 2px solid rgba(0, 124, 186, 1);
+    border-radius: 2px;
+}
+
+/* apply transition to moving elements */
+.list-move,
+.list-enter-active,
+.list-leave-active {
+    transition: all 0.5s ease;
+}
+
+.list-enter-from,
+.list-leave-to {
+    opacity: 0;
+    // transform: translateX(30px);
+    // transform: translateX(0);
+    transform: translate(0);
+}
+
+/* ensure leaving items are taken out of layout flow so that moving
+   animations can be calculated correctly. */
+.list-leave-active {
+    position: absolute;
 }

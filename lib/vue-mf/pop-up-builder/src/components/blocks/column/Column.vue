@@ -1,11 +1,11 @@
 <script>
 export default {
-    name: 'Col'
+    name: 'Column'
 }
 </script>
 <script setup>
-import { computed } from 'vue'
-import { useState } from '../hooks/useState'
+import { ref, computed } from 'vue'
+import { useState } from '../../hooks/useState'
 
 const props = defineProps({
     block: {
@@ -16,10 +16,19 @@ const props = defineProps({
     }
 });
 
+const blockData = ref({
+    name: 'core/column',
+    title: 'Column',
+    description: 'A single column within a columns block.',
+    parent: ['core/columns'],
+    attributes: {
+        allowedBlocks: []
+    }
+})
 const { isSelected, isHighlighted } = useState(props.block)
 
 const classes = computed(() => 
-    props.block.classes.concat([
+    props.block.classes && props.block.classes.concat([
         {'is-highlighted': isHighlighted.value}
     ])
 )
@@ -30,6 +39,3 @@ const classes = computed(() =>
         <slot/>
     </div>
 </template>
-
-<style lang="scss">
-</style>

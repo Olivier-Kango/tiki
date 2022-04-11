@@ -17,10 +17,7 @@ const props = defineProps({
     }
 });
 
-const rootId = computed(() => {
-    let rootBlock = store.getters.getRootBlock
-    return rootBlock.id
-})
+const rootBlock = computed(() => store.getters.getRootBlock)
 
 const clearLocalStorage =  () => {
     let response = confirm('Clear builder data?')
@@ -42,7 +39,7 @@ const clearLocalStorage =  () => {
                 </Button>
                 <template #popper>
                     <div v-for="name in store.getters.getBlockList">
-                        <BlockAdd :blockName="name" :parentId="rootId"></BlockAdd>
+                        <BlockAdd :blockName="name" :block="rootBlock"></BlockAdd>
                     </div>
                 </template>
             </VDropdown>
