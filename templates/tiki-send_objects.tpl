@@ -17,20 +17,17 @@
 <br>
 
 <form method="post" action="tiki-send_objects.php">
-    <div class="card">
+    <div class="card mb-4">
         <div class="card-header">
             {tr}Filter{/tr}
         </div>
         <div class="card-body">
-            <div class="form-inline">
+            <div class="d-flex flex-row flex-wrap align-items-center">
             <label>{tr}Filter:{/tr}&nbsp;</label><input type="text" name="find" value="{$find|escape}" class="form-control">
             <input type="submit" class="btn btn-primary" name="filter" value="{tr}Filter{/tr}"><br>
             </div>
         </div>
     </div>
-
-    <br>
-    <br>
 
     {if $tiki_p_send_pages eq 'y'}
         <div class="card">
@@ -46,7 +43,7 @@
                         {/section}
                     </div>
                 </div>
-                <div class="form-inline">
+                <div class="d-flex flex-row flex-wrap align-items-center">
                     <select name="pageName" class="form-control">
                         {section name=ix loop=$pages}
                             <option value="{$pages[ix].pageName|escape}">{$pages[ix].pageName|escape}</option>
@@ -75,7 +72,7 @@
                             {/section}
                         </div>
                     </div>
-                    <div class="form-inline">
+                    <div class="d-flex flex-row flex-wrap align-items-center">
                         <select name="structure" class="form-control">
                             {foreach item=struct from=$structures}
                                 <option value="{$struct.page_ref_id|escape}">{$struct.pageName|escape}{if $struct.page_alias} (alias: {$struct.page_alias}){/if}</option>
@@ -106,7 +103,7 @@
                         {/section}
                     </div>
                 </div>
-                <div class="form-inline">
+                <div class="d-flex flex-row flex-wrap align-items-center">
                     <select name="articleId" class="form-control">
                         {section name=ix loop=$articles}
                             <option value="{$articles[ix].articleId|escape}">{$articles[ix].articleId}: {$articles[ix].title|escape}</option>
@@ -131,7 +128,7 @@
             <input type="hidden" name="sendstructures" value="{$form_sendstructures|escape}">
             <input type="hidden" name="sendarticles" value="{$form_sendarticles|escape}">
 
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-form-label col-sm-3">{tr}Site:{/tr}</label>
                     <div class="col-sm-7">
                         <input type="text" name="site" value="{$site|escape}" class="form-control">
@@ -140,7 +137,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-form-label col-sm-3">{tr}Path:{/tr}</label>
                     <div class="col-sm-7">
                         <input type="text" name="path" value="{$path|escape}" class="form-control">
@@ -149,19 +146,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-form-label col-sm-3">{tr}Username:{/tr}</label>
                     <div class="col-sm-7">
                         <input type="text" name="username" value="{$username|escape}" class="form-control">
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-form-label col-sm-3">{tr}Password:{/tr}</label>
                     <div class="col-sm-7">
                         <input type="password" name="password" value="{$password|escape}" class="form-control" autocomplete="new-password">
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-form-label col-sm-3">{tr}Debug:{/tr}</label>
                     <div class="col-sm-7">
                         <div class="form-check">
@@ -171,7 +168,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-form-label col-sm-3"></label>
                     <div class="col-sm-7">
                         <input type="submit" class="btn btn-primary" name="send" value="{tr}Send{/tr}">

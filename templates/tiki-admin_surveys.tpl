@@ -2,7 +2,7 @@
 
 {title url='tiki-admin_surveys.php' help="Surveys"}{tr}Admin surveys{/tr}{/title}
 
-<div class="t_navbar btn-group form-group row">
+<div class="t_navbar btn-group mb-3 row">
     {button href="tiki-list_surveys.php" class="btn btn-info" _icon_name="list" _text="{tr}List{/tr}"}
     {button href="tiki-survey_stats.php" class="btn btn-info" _icon_name="chart" _text="{tr}Stats{/tr}"}
     {button surveyId=0 _anchor='content_admin_surveys1-2' _auto_args="surveyId" class="btn btn-primary" _icon_name="create" _text="{tr}Create{/tr}"}
@@ -48,7 +48,7 @@
                                 {icon name='lock' class='tips' title=":{tr}Closed{/tr}"}
                             {/if}
                         </td>
-                        <td class="integer"><span class="badge badge-secondary">{$channels[user].questions}</span></td>
+                        <td class="integer"><span class="badge bg-secondary">{$channels[user].questions}</span></td>
                         <td class="action">
                             {actions}
                                 {strip}
@@ -101,15 +101,15 @@
             {permission_link mode=link type=survey permType=surveys id=$info.surveyId title=$info.name label="{tr}There are individual permissions set for this survey{/tr}"}
         {/if}
 
-        <form action="tiki-admin_surveys.php" method="post" class="form-horizontal" role="form">
-            <div class="form-group row">
+        <form action="tiki-admin_surveys.php" method="post" role="form">
+            <div class="mb-3 row">
                 <input type="hidden" name="surveyId" value="{$info.surveyId|escape}">
                 <label for="name" class="col-sm-2 col-form-label">{tr}Name{/tr}</label>
                 <div class="col-sm-10">
                     <input type="text" name="name" id="name" class="form-control" value="{$info.name|escape}">
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label for="description" class="col-sm-2 col-form-label">{tr}Description{/tr}</label>
                 <div class="col-sm-10">
                     {textarea name="description" rows="6" id="description" class="form-control" _toolbars='y' _simple='y' comments='y'}{$info.description}{/textarea}
@@ -118,16 +118,16 @@
             <div class="mb-4">
                 {include file='categorize.tpl' labelcol='2' inputcol='10'}
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label for="status" class="col-sm-2 col-form-label">{tr}Status{/tr}</label>
                 <div class="col-sm-10">
-                    <select name="status" class="form-control">
+                    <select name="status" class="form-select">
                         <option value="o" {if $info.status eq 'o'}selected='selected'{/if}>{tr}Open{/tr}</option>
                         <option value="c" {if $info.status eq 'c'}selected='selected'{/if}>{tr}Closed{/tr}</option>
                     </select>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <div class="col-sm-10 offset-sm-2">
                     <input type="submit" class="btn btn-primary" name="save" value="{tr}Save{/tr}">
                 </div>

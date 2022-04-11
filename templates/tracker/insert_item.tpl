@@ -14,7 +14,7 @@
     {if ! $itemId}
         {if $trackerLogo}
             <div class="page_header media">
-                <img src="{$trackerLogo|escape}" class="float-left img-fluid rounded" alt="{$trackerName|escape}" height="64px" width="64px">
+                <img src="{$trackerLogo|escape}" class="float-start img-fluid rounded" alt="{$trackerName|escape}" height="64px" width="64px">
             </div>
         {/if}
         <form method="post" action="{service controller=tracker action=insert_item format=$format editItemPretty=$editItemPretty suppressFeedback=$suppressFeedback}" id="insertItemForm{$trackerId|escape}" {if ! $trackerId}display="hidden"{/if}>

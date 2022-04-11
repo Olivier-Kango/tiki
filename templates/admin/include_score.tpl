@@ -22,33 +22,33 @@
             <table id="score-table" class="table">
                 <tr>
                     <td><b>{tr}Unique rule ID{/tr}</b>
-                        <a href="http://doc.tiki.org/Score" target="_blank" data-toggle="popover" data-trigger="hover" title="{tr}Rule{/tr}" data-content="{tr}A label or ID to help identify which event was triggered to get points.{/tr}">
+                        <a href="http://doc.tiki.org/Score" target="_blank" data-bs-toggle="popover" data-bs-trigger="hover" title="{tr}Rule{/tr}" data-bs-content="{tr}A label or ID to help identify which event was triggered to get points.{/tr}">
                             <span class="icon icon-help fas fa-question-circle fa-fw "></span>
                         </a>
                     </td>
                     <td><b>{tr}Pts recipient type{/tr}</b>
-                        <a href="http://doc.tiki.org/Score" target="_blank" data-toggle="popover" data-trigger="hover" title="{tr}Recipient Type{/tr}" data-content="{tr}The object type of the point recipient. Usually 'user' but can also be article, trackeritem, etc. Can also use '(eval type)' to get the type of the object being triggered by the event.{/tr}">
+                        <a href="http://doc.tiki.org/Score" target="_blank" data-bs-toggle="popover" data-bs-trigger="hover" title="{tr}Recipient Type{/tr}" data-bs-content="{tr}The object type of the point recipient. Usually 'user' but can also be article, trackeritem, etc. Can also use '(eval type)' to get the type of the object being triggered by the event.{/tr}">
                             <span class="icon icon-help fas fa-question-circle fa-fw "></span>
                         </a>
                     </td>
                     <td><b>{tr}Pts recipient{/tr}</b>
-                        <a href="http://doc.tiki.org/Score" target="_blank" data-toggle="popover" data-trigger="hover" title="{tr}The ID of the points recipient{/tr}" data-content="{tr}This is the value for the ID of the recipient. It is retrieved by evaluating the event parameters. Using 'user' for example, would retrieve the user triggering the event. 'object' would retrieve the ID of the object on which the event is being triggered.{/tr}">
+                        <a href="http://doc.tiki.org/Score" target="_blank" data-bs-toggle="popover" data-bs-trigger="hover" title="{tr}The ID of the points recipient{/tr}" data-bs-content="{tr}This is the value for the ID of the recipient. It is retrieved by evaluating the event parameters. Using 'user' for example, would retrieve the user triggering the event. 'object' would retrieve the ID of the object on which the event is being triggered.{/tr}">
                             <span class="icon icon-help fas fa-question-circle fa-fw "></span>
                         </a>
                     </td>
                     <td><b>{tr}Points{/tr}</b>
-                        <a href="http://doc.tiki.org/Score" target="_blank" data-toggle="popover" data-trigger="hover" title="{tr}Points Given{/tr}" data-content="{tr}This is the numerical value of the points being given.{/tr}">
+                        <a href="http://doc.tiki.org/Score" target="_blank" data-bs-toggle="popover" data-bs-trigger="hover" title="{tr}Points Given{/tr}" data-bs-content="{tr}This is the numerical value of the points being given.{/tr}">
                             <span class="icon icon-help fas fa-question-circle fa-fw "></span>
                         </a>
                     </td>
-                    <td class="text-right"><b>{tr}Actions{/tr}</b></td>
+                    <td class="text-end"><b>{tr}Actions{/tr}</b></td>
                 </tr>
 
                 {foreach $events as $event}
                     <tbody class="event-section" data-section="{$event['event']}">
                     <tr>
                         <td colspan="2"><b>{tr}Triggering event{/tr}</b>: {$event['event']}</td>
-                        <td colspan="3" class="text-right"><b>{tr}Reversal event{/tr}</b>:
+                        <td colspan="3" class="text-end"><b>{tr}Reversal event{/tr}</b>:
                             <select class="reverse-event-select" name="events[{$event['event']}][reversalEvent]" class="form-control">
                                 <option value="">{tr}None{/tr}</option>
                                 {foreach from=$eventTypes item=eventName}
@@ -78,22 +78,22 @@
                             <td>
                                 <input type="text" size="10" name="events[{$event['event']}][{$key}][score]" value="{$score->score}">
                             </td>
-                            <td class="text-right">
+                            <td class="text-end">
                                 {if $hide_advanced}<a class="advanced" href="#">{icon name='ellipsis-h'}</a>{/if}
                                 <a class="delete-row" href="#">{icon name='delete'}</a>
                             </td>
                         </tr>
                         <tr class="advanced-row {if $hide_advanced eq 1}hide{/if}">
-                            <td class="text-right">{tr}Valid Triggering Object IDs{/tr}
-                                <a href="http://doc.tiki.org/Score" target="_blank" data-toggle="popover" data-trigger="hover" title="{tr}Valid Object Ids{/tr}" data-content="{tr}This is a comma-separated list of object ids for which the event is valid{/tr}">
+                            <td class="text-end">{tr}Valid Triggering Object IDs{/tr}
+                                <a href="http://doc.tiki.org/Score" target="_blank" data-bs-toggle="popover" data-bs-trigger="hover" title="{tr}Valid Object Ids{/tr}" data-bs-content="{tr}This is a comma-separated list of object ids for which the event is valid{/tr}">
                                     <span class="icon icon-help fas fa-question-circle fa-fw "></span>
                                 </a>
                             </td>
                             <td>
                                 <input type="text" size="20" name="events[{$event['event']}][{$key}][validObjectIds]" value="{$score->validObjectIds}">
                             </td>
-                            <td class="text-right">{tr}Min. Time Between Scoring{/tr}
-                                <a href="http://doc.tiki.org/Score" target="_blank" data-toggle="popover" data-trigger="hover" title="{tr}Time between scoring{/tr}" data-content="{tr}This is the amount of time in seconds that a user must wait before again being able to get points for this event{/tr}">
+                            <td class="text-end">{tr}Min. Time Between Scoring{/tr}
+                                <a href="http://doc.tiki.org/Score" target="_blank" data-bs-toggle="popover" data-bs-trigger="hover" title="{tr}Time between scoring{/tr}" data-bs-content="{tr}This is the amount of time in seconds that a user must wait before again being able to get points for this event{/tr}">
                                     <span class="icon icon-help fas fa-question-circle fa-fw "></span>
                                 </a>
                             </td>
@@ -109,7 +109,7 @@
         </div>
 
         <hr>
-        <div class="form-group row clearfix">
+        <div class="mb-3 row clearfix">
             <div class="col-lg-4 col-sm-6">
                 <select id="eventSelect" name="event" class="form-control">
                     {foreach from=$eventTypes item=eventName}
@@ -127,7 +127,7 @@
 </form>
 
 {jq}
-$('[data-toggle="popover"]').popover();
+$('[data-bs-toggle="popover"]').popover();
 
 $('#addEventBtn').click(function(ev) {
     ev.preventDefault();

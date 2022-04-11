@@ -190,7 +190,7 @@
             </div>
 
             {if $tiki_p_admin eq 'y'}
-                <div class="form-group row mx-0">
+                <div class="mb-3 row mx-0">
                     <label for="batchaction" class="col-form-label">{tr}Perform action with selected{/tr}</label>
                     <div class="input-group col-sm-6">
                         <select name="batchaction" class="form-control">
@@ -198,9 +198,7 @@
                             <option value="delete">{tr}Delete{/tr}</option>
                             <option value="delete_with_page">{tr}Delete with the pages{/tr}</option>
                         </select>
-                        <div class="input-group-append">
-                            <input type="submit" class="btn btn-primary" name="act" value="{tr}Ok{/tr}">
-                        </div>
+                        <input type="submit" class="btn btn-primary" name="act" value="{tr}Ok{/tr}">
                     </div>
                 </div>
             </form>
@@ -212,20 +210,20 @@
     {if $tiki_p_edit_structures == 'y'}
         {tab name="{tr}Create Structure{/tr}"}
             <h2>{tr}Create Structure{/tr}</h2>
-            <form class="form-horizontal" action="tiki-admin_structures.php" method="post">
-                <div class="form-group row">
+            <form action="tiki-admin_structures.php" method="post">
+                <div class="mb-3 row">
                     <label class="col-form-label col-md-3" for="name">{tr}Structure{/tr}</label>
                     <div class="col-md-9">
                         <input type="text" name="name" id="name" class="form-control">
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-form-label col-md-3" for="alias">{tr}Alias{/tr}</label>
                     <div class="col-md-9">
                         <input type="text" name="alias" id="alias" class="form-control">
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-form-label col-md-3" for="tree">{tr}Tree{/tr}</label>
                     <div class="col-md-9">
                         <textarea rows="5" cols="60" id="tree" name="tree" class="form-control"></textarea>
@@ -233,7 +231,7 @@
                     </div>
                 </div>
                 {if $prefs.lock_wiki_structures eq 'y'}
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label class="col-sm-3 col-form-label">{tr}Lock{/tr}</label>
                         <div class="col-sm-9">
                             {lock type='wiki structure' object=0}
@@ -243,7 +241,7 @@
                 {if $prefs.feature_categories eq 'y'}
                     {include file='categorize.tpl'}
                 {/if}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <div class="submit col-md-9 offset-md-3">
                         <input type="submit" class="btn btn-secondary" value="{tr}Create New Structure{/tr}" name="create">
                     </div>

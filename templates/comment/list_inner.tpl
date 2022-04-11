@@ -1,7 +1,7 @@
 <ul class="list-unstyled">
     {foreach from=$comments item=comment}
         <li class="media comment mt-3 mb-4{if $comment.archived eq 'y'} archived{* well well-sm*}{/if} {if $allow_moderate}{if $comment.approved eq 'n'} pending bg-warning{elseif $comment.approved eq 'r'} rejected bg-danger{/if}{/if}{*{if ! $parentId && $prefs.feature_wiki_paragraph_formatting eq 'y'} inline{/if}*}" data-comment-thread-id="{$comment.threadId|escape}">
-            <div class="align-self-start mr-3">
+            <div class="align-self-start me-3">
                 <span class="avatar">{$comment.userName|avatarize:'':'img/noavatar.png'}</span>
             </div>
             <div class="media-body">
@@ -80,7 +80,7 @@
                         {/if}
                         {if $comment.diffInfo}
                             <div class="{*well*}"><pre style="display: none;">{$comment.diffInfo|var_dump}</pre>
-                                <h4 class="btn btn-link" type="button" data-toggle="collapse" data-target=".version{$comment.diffInfo[0].version}" aria-expanded="false" aria-controls="collapseExample">
+                                <h4 class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target=".version{$comment.diffInfo[0].version}" aria-expanded="false" aria-controls="collapseExample">
                                     Version {$comment.diffInfo[0].version}
                                     {icon name='history'}
                                 </h4>

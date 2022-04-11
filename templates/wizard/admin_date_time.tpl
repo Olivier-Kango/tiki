@@ -1,13 +1,13 @@
 {* $Id$ *}
 <div class="media">
-    <div class="mr-4">
+    <div class="me-4">
         <span class="fa-stack fa-lg" style="width: 100px;" title="Configuration Wizard">
             <i class="fas fa-cog fa-stack-2x"></i>
-            <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ml-4 mt-4"></i>
+            <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ms-4 mt-4"></i>
         </span>
     </div>
     <div class="media-body">
-        {icon name="clock-o" size=3 iclass="float-sm-right"}
+        {icon name="clock-o" size=3 iclass="float-sm-end"}
         <h4 class="mt-0 mb-4">{tr}Set the site time zone and format for displaying dates and times{/tr}.</h4>
         <fieldset>
             <legend>{tr}Date and Time options{/tr}</legend>

@@ -9,7 +9,7 @@
 {title help="Newsletters" url=$titleurl}{tr}Send Newsletters{/tr}{/title}
 
 {if $tiki_p_admin_newsletters eq "y"}
-    <div class="t_navbar form-group row mb-4">
+    <div class="t_navbar mb-3 row mb-4">
         <a role="link" href="tiki-newsletters.php" class="btn btn-link" title="{tr}List{/tr}">{icon name="list"} {tr}List Newsletters{/tr}</a>
         {if $nlId}
             <a role="link" href="tiki-admin_newsletters.php?nlId={$nlId}" class="btn btn-link" title="{tr}Admin Newsletters{/tr}">{icon name="cog"} {tr}Admin Newsletters{/tr}</a>
@@ -205,19 +205,19 @@ $(".copy-html").click(function () {
         {tab name="{tr}Edit{/tr}"}
         {* --- tab with editor --- *}
             <h2>{tr}Prepare a newsletter to be sent{/tr}</h2>
-            <form class="form-horizontal" action="tiki-send_newsletters.php" method="post" id='editpageform' enctype='multipart/form-data'>
+            <form action="tiki-send_newsletters.php" method="post" id='editpageform' enctype='multipart/form-data'>
                 {ticket}
                 <input type="hidden" name="editionId" value="{$info.editionId}">
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-form-label col-sm-2">{tr}Subject:{/tr}</label>
                     <div class="col-sm-10">
                         <input type="text" maxlength="250" id="subject" name="subject" value="{$info.subject|escape}" class="form-control">
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-form-label col-sm-2">{tr}Newsletter:{/tr}</label>
                     <div class="col-sm-10">
-                        <select name="nlId" id="nlId" onchange="checkNewsletterTxtArea(this.selectedIndex);" class="form-control">
+                        <select name="nlId" id="nlId" onchange="checkNewsletterTxtArea(this.selectedIndex);" class="form-select">
                             {section loop=$newsletters name=ix}
                                 <option value="{$newsletters[ix].nlId|escape}" {if $newsletters[ix].nlId eq $nlId}selected="selected"{/if}>
                                     {$newsletters[ix].name|escape}
@@ -227,7 +227,7 @@ $(".copy-html").click(function () {
                     </div>
                 </div>
                 {if $tiki_p_use_content_templates eq 'y'}
-                <div class="form-group form-inline">
+                <div class="mb-3 d-flex flex-row flex-wrap align-items-center">
                     <label class="col-form-label col-sm-2">{tr}Apply content template{/tr}</label>
                     <div class="col-sm-7">
                         <select name="templateId" onchange="javascript:needToConfirm=false;document.getElementById('editpageform').submit();" class="form-control">
@@ -245,7 +245,7 @@ $(".copy-html").click(function () {
                 </div>
                 {/if}
                 {if $tpls}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-form-label col-sm-2">{tr}Apply template{/tr}</label>
                     <div class="col-sm-10">
                         <select id="usedTpl"name="usedTpl" class="form-control">
@@ -257,15 +257,15 @@ $(".copy-html").click(function () {
                     </div>
                 </div>
                 {/if}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-form-label col-sm-2">{tr}Data HTML:{/tr}</label>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <div class="col-sm-12">
                         {textarea class="form-control" name='data' id='editwiki'}{$info.data}{/textarea}
                     </div>
                 </div>
-                <div class="form-group form-inline">
+                <div class="mb-3 d-flex flex-row flex-wrap align-items-center">
                     <label class="col-form-label col-sm-2">{tr}Must be wiki parsed:{/tr}</label>
                     <div class="col-sm-3">
                         <div class="form-check">
@@ -282,19 +282,19 @@ $(".copy-html").click(function () {
                         </div>
                     </div>
                 </div>
-                <div class="form-group row" id="txtcol1"{if $allowTxt eq 'n'} style="display:none;"{/if}>
+                <div class="mb-3 row" id="txtcol1"{if $allowTxt eq 'n'} style="display:none;"{/if}>
                     <label class="col-form-label col-sm-2">{tr}Data Txt:{/tr}</label>
                     <div class="col-sm-10">
                         <textarea id='editwikitxt' name="datatxt" rows="20" cols="80" class="form-control">{$info.datatxt|escape}</textarea>
                     </div>
                 </div>
-                <div class="form-group row" id="clipcol1"{if $allowArticleClip eq 'n'} style="display:none;"{/if}>
+                <div class="mb-3 row" id="clipcol1"{if $allowArticleClip eq 'n'} style="display:none;"{/if}>
                     <label class="col-form-label col-sm-2">{tr}Article Clip (read only):{/tr}</label>
                     <div class="col-sm-10">
                         <input type="submit" name="clipArticles" value="{tr}Clip Now{/tr}" class="wikiaction tips btn btn-primary" title="{tr}Clip Articles{/tr}" onclick="needToConfirm=false">
                     </div>
                 </div>
-                <div class="form-group row" id="clipcol2"{if $allowArticleClip eq 'n'} style="display:none;"{/if}>
+                <div class="mb-3 row" id="clipcol2"{if $allowArticleClip eq 'n'} style="display:none;"{/if}>
                     <label class="col-form-label col-sm-2"></label>
                     <div class="col-sm-10">
                         {tr}To include the article clipping into your newsletter, cut and paste it into the contents.{/tr}
@@ -307,7 +307,7 @@ $(".copy-html").click(function () {
                         <textarea id='articlecliptxt' class="form-control" name="articleClip" rows="20" cols="80" readonly="readonly">{$articleClip}</textarea>
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-form-label col-sm-2">{tr}Attached Files{/tr}:</label>
                     <div class="col-sm-10">
                         <div style='display: none' id='newsletterfileshack'></div>
@@ -323,7 +323,7 @@ $(".copy-html").click(function () {
                         <p><a class="btn btn-primary" href="javascript:add_newsletter_file();">{tr}To add a file, click here{/tr}</a></p>
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-form-label col-sm-2">{tr}Reply To Email{/tr}</label>
                     <div class="col-sm-10">
                         <input type="email" name="replyto" id="replyto" value="{$replyto|escape}" class="form-control">
@@ -332,7 +332,7 @@ $(".copy-html").click(function () {
                         </div>
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-form-label col-sm-2">{tr}Send From Email{/tr}</label>
                     <div class="col-sm-10">
                         <input type="email" name="sendfrom" id="sendfrom" value="{$sendfrom|escape}" class="form-control">
@@ -341,7 +341,7 @@ $(".copy-html").click(function () {
                         </div>
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-form-label col-sm-2"></label>
                     <div class="col-sm-10">
                         <input
@@ -426,7 +426,7 @@ $(".copy-html").click(function () {
 {jq notonready=true}
 var newsletterfileid={{$info.files|@count}};
 function add_newsletter_file() {
-    document.getElementById('newsletterfileshack').innerHTML='<div id="newsletterfileid_'+newsletterfileid+'" class="form-group form-inline"><input type="file" name="newsletterfile['+newsletterfileid+']"><a href="javascript:remove_newsletter_file('+newsletterfileid+');" class="btn btn-primary">{tr}remove{/tr}</a></div>';
+    document.getElementById('newsletterfileshack').innerHTML='<div id="newsletterfileid_'+newsletterfileid+'" class="mb-3 d-flex flex-row flex-wrap align-items-center"><input type="file" name="newsletterfile['+newsletterfileid+']"><a href="javascript:remove_newsletter_file('+newsletterfileid+');" class="btn btn-primary">{tr}remove{/tr}</a></div>';
     document.getElementById('newsletterfiles').appendChild(document.getElementById('newsletterfileid_'+newsletterfileid));
     newsletterfileid++;
 }

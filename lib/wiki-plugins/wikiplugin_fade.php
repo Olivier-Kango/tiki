@@ -160,7 +160,7 @@ function wikiplugin_fade($body, $params)
 
         return "<div id='" . $unique_outer . "' class='card" . ( isset($params['class']) ? ' ' . $params['class'] : '' ) . "'>"
                 . "<div class='card-header'>"
-                  . "<a data-toggle='collapse' href='#" . $unique_inner . "'>" . htmlspecialchars($params['label']) . "<span class='icon icon-menu-extra fas fa-chevron-down fa-fw' style='float:right'></span>" . "</a>"
+                  . "<a data-bs-toggle='collapse' href='#" . $unique_inner . "'>" . htmlspecialchars($params['label']) . "<span class='icon icon-menu-extra fas fa-chevron-down fa-fw' style='float:right'></span>" . "</a>"
                 . "</div>"
                 . "<div id='" . $unique_inner . "' class='panel-collapse collapse'>"
                   . "<div class='card-body'>" . $body . "</div>"

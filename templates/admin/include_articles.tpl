@@ -90,7 +90,7 @@
             </fieldset>
             <fieldset>
                 <legend>{tr}Import CSV file{/tr}</legend>
-                <div class="adminoptionbox form-group row">
+                <div class="adminoptionbox mb-3 row">
                     <label for="csvlist" class="col-form-label col-sm-4">{tr}Batch upload (CSV file){/tr}</label>
                     <div class="col-sm-8">
                         <input type="file" name="csvlist" id="csvlist" class="form-control">

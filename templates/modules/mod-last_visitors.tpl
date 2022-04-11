@@ -1,7 +1,7 @@
 {* $Id$ *}
 
 {tikimodule error="{if isset($module_params.error)}{$module_params.error}{/if}" title=$tpl_module_title name="last_visitors" flip=$module_params.flip decorations=$module_params.decorations nobox=$module_params.nobox notitle=$module_params.notitle}
-    {if ($nonums eq 'y') or ($showavatars eq 'y')}<ul style="padding-left:0; list-style:none;">{else}<ol>{/if}
+    {if ($nonums eq 'y') or ($showavatars eq 'y')}<ul class="ps-0 list-unstyled">{else}<ol>{/if}
         {if !$user}
             <li>
                 {if $showavatars eq 'y'}

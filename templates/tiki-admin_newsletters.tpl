@@ -1,7 +1,7 @@
 {* $Id$ *}
 {title help="Newsletters"}{tr}Admin newsletters{/tr}{/title}
 
-<div class="t_navbar form-group row mb-4">
+<div class="t_navbar mb-3 row mb-4">
     {button href="tiki-admin_newsletters.php?cookietab=2" _icon_name="create" _text="{tr}Create{/tr}"}
     <a role="link" href="tiki-newsletters.php" class="btn btn-link" title="{tr}List{/tr}">{icon name="list"} {tr}List Newsletters{/tr}</a>
     <a role="link" href="tiki-send_newsletters.php" class="btn btn-link" title="{tr}Send{/tr}">{icon name="envelope"} {tr}Send Newsletters{/tr}</a>
@@ -97,13 +97,13 @@
             {ticket}
             <input type="hidden" name="nlId" value="{$info.nlId|escape}">
             <input type="hidden" name="author" value="{$user|escape}">
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label"> {tr}Name:{/tr} </label>
                 <div class="col-sm-9">
                         <input class="form-control" type="text" name="name" value="{$info.name|escape}">
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label" for="description">{tr}Description:{/tr}</label>
                 <div class="col-sm-9">
                     <textarea class="form-control" name="description" id="description">{$info.description|escape}</textarea>
@@ -165,7 +165,7 @@
                     </label>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <div class="col-sm-12 offset-sm-3">
                     <div class="form-check">
                         <label>
@@ -175,13 +175,13 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label" for="articleClipRangeDays">{tr}Clip articles published in the past number of days{/tr}</label>
                 <div class="col-sm-9">
                     <input type="text" class="form-control" name="articleClipRangeDays" id="articleClipRangeDays" value="{$info.articleClipRangeDays|escape}">
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label" for="articleClipTypes">{tr}Article types to clip{/tr}</label>
                 <div class="col-sm-9">
                     <select id="articleClipTypes" name="articleClipTypes[]" class="form-control" multiple="multiple">

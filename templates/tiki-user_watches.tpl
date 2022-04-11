@@ -21,7 +21,7 @@
             {ticket}
             <input type="hidden" name="report_preferences" value="true">
 
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3" for="use_daily_reports">{tr}Use reports{/tr}</label>
                 <div class="col-sm-9">
                     <div class="form-check">
@@ -29,7 +29,7 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3" for="interval">{tr}Reporting interval{/tr}</label>
                 <div class="col-sm-9">
                     <select name="interval" class="form-control" >
@@ -46,7 +46,7 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3" for="view">{tr}Report length{/tr}</label>
                 <div class="col-sm-9">
                     <input type="radio" name="view" value="short"{if $report_preferences.view eq "short"} checked="checked"{/if}>
@@ -57,7 +57,7 @@
                     <br>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3" for="type">{tr}Report format{/tr}</label>
                 <div class="col-sm-9">
                     <input type="radio" name="type" value="html"{if $report_preferences.type eq "html" OR $report_preferences eq false} checked="checked"{/if}>
@@ -68,7 +68,7 @@
                     <br>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3" for="always_email">{tr}Send report even if no activity{/tr}</label>
                 <div class="col-sm-9">
                     <div class="form-check">
@@ -76,7 +76,7 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group text-center">
+            <div class="mb-3 text-center">
                 <input type="submit" name="submit" class="btn btn-primary" title="{tr}Apply Changes{/tr}" value="{tr}Apply{/tr}">
             </div>
         </form>
@@ -91,7 +91,7 @@
     <h3>{tr}Add Watch{/tr}</h3>
     <form action="tiki-user_watches.php" method="post">
         {ticket}
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-sm-3 col-form-label" for="type_selector">{tr}Event{/tr}</label>
 
             <div class="col-sm-9">
@@ -104,7 +104,7 @@
             </div>
         </div>
         {if $prefs.feature_categories eq 'y'}
-            <div class="form-group row" id="categ_list">
+            <div class="mb-3 row" id="categ_list">
                 <label class="col-sm-3 col-form-label" for="langwatch_categ">{tr}Category{/tr}</label>
 
                 <div class="col-sm-9">
@@ -117,7 +117,7 @@
             </div>
         {/if}
         {if $prefs.feature_multilingual eq 'y'}
-            <div class="form-group row" id="lang_list">
+            <div class="mb-3 row" id="lang_list">
                 <label class="col-sm-3 col-form-label">{tr}Language{/tr}</label>
 
                 <div class="col-sm-9">
@@ -129,7 +129,7 @@
                 </div>
             </div>
         {/if}
-        <div class="form-group text-center">
+        <div class="mb-3 text-center">
             <input type="submit" class="btn btn-primary" name="add" value="{tr}Add{/tr}">
         </div>
     </form>
@@ -153,11 +153,11 @@
 {/if}
     <h3>{tr}Watches{/tr}</h3>
     <form class="mb-4" action="tiki-user_watches.php" method="post" id='formi'>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-sm-3 col-form-label" for="event">{tr}Show{/tr}</label>
 
             <div class="col-sm-9">
-                <select class="form-control" name="event"
+                <select class="form-select" name="event"
                         onchange="javascript:document.getElementById('formi').submit();">
                     <option value=""{if $smarty.request.event eq ''} selected="selected"{/if}>{tr}All watched events{/tr}</option>
                     {foreach from=$events key=name item=description}
@@ -232,7 +232,7 @@
             </table>
         </div>
         {if $watches}
-            <div class="form-group text-center">
+            <div class="mb-3 text-center">
                 {tr}Perform action with checked:{/tr}
                 <input type="submit" class="btn btn-danger btn-sm" name="delete" value="{tr}Delete{/tr}" onclick="confirmPopup('{tr}Delete Watches?{/tr}', '{ticket mode=get}')">
             </div>
@@ -249,7 +249,7 @@
 
         <h4>{tr}Send notification when I am the editor{/tr}</h4>
         {if $prefs.feature_wiki eq 'y'}
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3" for="user_wiki_watch_editor">{tr}Wiki{/tr}</label>
                 <div class="col-sm-9">
                     <div class="form-check">
@@ -259,7 +259,7 @@
             </div>
         {/if}
         {if $prefs.feature_articles eq 'y'}
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3" for="user_article_watch_editor">{tr}Article{/tr}</label>
                 <div class="col-sm-9">
                   <div class="form-check">
@@ -269,7 +269,7 @@
             </div>
         {/if}
         {if $prefs.feature_blogs eq 'y'}
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3" for="user_blog_watch_editor">{tr}Blog{/tr}</label>
                 <div class="col-sm-9">
                     <div class="form-check">
@@ -279,7 +279,7 @@
             </div>
         {/if}
         {if $prefs.feature_trackers eq 'y'}
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3" for="user_tracker_watch_editor">{tr}Tracker{/tr}</label>
                 <div class="col-sm-9">
                     <div class="form-check">
@@ -289,7 +289,7 @@
             </div>
         {/if}
         {if $prefs.feature_calendar eq 'y'}
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3" for="user_calendar_watch_editor">{tr}Calendar{/tr}</label>
                 <div class="col-sm-9">
                     <div class="form-check">
@@ -298,7 +298,7 @@
                 </div>
             </div>
         {/if}
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-sm-3" for="user_comment_watch_editor">{tr}Comment{/tr}</label>
             <div class="col-sm-9">
                 <div class="form-check">
@@ -307,7 +307,7 @@
             </div>
         </div>
         {if $prefs.feature_categories eq 'y'}
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3" for="user_category_watch_editor">{tr}Category{/tr}</label>
                 <div class="col-sm-9">
                     <div class="form-check">
@@ -316,7 +316,7 @@
                 </div>
             </div>
         {/if}
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-sm-3" for="user_plugin_approval_watch_editor">{tr}Plugin approval{/tr}</label>
             <div class="col-sm-9">
                 <div class="form-check">
@@ -324,7 +324,7 @@
                 </div>
             </div>
         </div>
-        <div class="form-group text-center">
+        <div class="mb-3 text-center">
             <input type="submit" class="btn btn-primary" name="submit" title="{tr}Apply Changes{/tr}" value="{tr}Apply{/tr}">
         </div>
     </form>

@@ -1,6 +1,6 @@
 {if not empty($item.children)}
     <li class="mega-menu--item mega-menu--item-level-{$item.sectionLevel}">
-        <a href="{$item.sefurl|escape}" class="" data-toggle="dropdown">{tr}{$item.name}{/tr}</a>
+        <a href="{$item.sefurl|escape}" class="" data-bs-toggle="dropdown">{tr}{$item.name}{/tr}</a>
         <ul class="">
             {foreach from=$item.children item=sub}
                 {include file='bootstrap_smartmenu_megamenu_children.tpl' item=$sub sub=true}

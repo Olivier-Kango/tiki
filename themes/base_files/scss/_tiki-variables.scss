@@ -13,7 +13,8 @@ $topbar-row-sidemargins: 0 !default;
 $topbar-row-margin-bottom: 1.4rem !default;
 //$panel-heading-padding: .8rem 15px !default;
 $navbar-fixed-height: 3.25rem !default;
-$form-horizontal-sidemargins: 15px !default;
+// Update: .form-horizontal was dropped with Bootstrap 4, so this hasn't worked for a long time.
+//$form-horizontal-sidemargins: 15px !default;
 
 // Add Tiki legacy breadcrumb styles as variables.
 $breadcrumb-font-style: normal !default;

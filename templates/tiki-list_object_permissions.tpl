@@ -14,7 +14,7 @@
     <div class="clearfix">
         <legend>{tr}Group Filter{/tr}</legend>
         <fieldset>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <div class="col-lg-6">
                     <select class='form-control' multiple="multiple" id="filterGroup" name="filterGroup[]" size="{$size}">
                         <option value=""{if empty($filterGroup)}selected="selected"{/if}></option>
@@ -35,7 +35,7 @@
 <ul class="nav nav-tabs" id="allperms">
     {foreach $res as $type => $content}
         <li class="nav-item">
-            <a href="#{$type|strip:'_'}" data-toggle="tab" class="nav-link">{$type|ucwords}</a>
+            <a href="#{$type|strip:'_'}" data-bs-toggle="tab" class="nav-link">{$type|ucwords}</a>
         </li>
     {/foreach}
 </ul>
@@ -44,9 +44,9 @@
     {foreach $res as $type => $content}
         <div id="{$type|strip:'_'}" class="tab-pane">
             <ul class="nav nav-tabs" id="allperms">
-                <li class="nav-item"><a href="#{$type|strip:'_'}-global" data-toggle="tab" class="nav-link active">{tr}Global permissions{/tr} ({$content.default|@count})</a></li>
-                <li class="nav-item"><a href="#{$type|strip:'_'}-object" data-toggle="tab" class="nav-link">{tr}Object permissions{/tr} ({$content.objects|@count})</a></li>
-                <li class="nav-item"><a href="#{$type|strip:'_'}-category" data-toggle="tab" class="nav-link">{tr}Category permissions{/tr} ({$content.category|@count})</a></li>
+                <li class="nav-item"><a href="#{$type|strip:'_'}-global" data-bs-toggle="tab" class="nav-link active">{tr}Global permissions{/tr} ({$content.default|@count})</a></li>
+                <li class="nav-item"><a href="#{$type|strip:'_'}-object" data-bs-toggle="tab" class="nav-link">{tr}Object permissions{/tr} ({$content.objects|@count})</a></li>
+                <li class="nav-item"><a href="#{$type|strip:'_'}-category" data-bs-toggle="tab" class="nav-link">{tr}Category permissions{/tr} ({$content.category|@count})</a></li>
             </ul>
             {* global permissions *}
             <div class="tab-content">
@@ -74,7 +74,7 @@
                                     </table>
                                 </div>
                                 <legend>{tr}Perform action with selected permissions:{/tr}</legend>
-                                <div class="form-group row">
+                                <div class="mb-3 row">
                                     <label for="delete" class="col-lg-4 col-form-label">
                                         {tr}Delete{/tr}
                                     </label>
@@ -85,14 +85,14 @@
                                     </div>
                                     <div class="col-lg-6"></div><br>
                                 </div>
-                                <div class="form-group row">
+                                <div class="mb-3 row">
                                     <label for="duplicate" class="col-lg-4 col-form-label">
                                         {tr}Assign to this group{/tr}
                                     </label>
                                     <div class="col-lg-4">
                                         <div class="input-group">
                                             <input type="text" name="toGroup" class="form-control">
-                                        <span class="input-group-append">
+                                        <span class="input-group-text">
                                             <button class="btn btn-primary" name="duplicate" value="duplicate">
                                                 {tr}OK{/tr}
                                             </button>
@@ -143,7 +143,7 @@
                                 </table>
                             </div>
                             <legend>{tr}Perform action with selected permissions:{/tr}</legend>
-                            <div class="form-group row">
+                            <div class="mb-3 row">
                                 <label for="delete" class="col-lg-4 col-form-label">
                                     {tr}Delete{/tr}
                                 </label>
@@ -154,14 +154,14 @@
                                 </div>
                                 <div class="col-lg-6"></div><br>
                             </div>
-                            <div class="form-group row">
+                            <div class="mb-3 row">
                                 <label for="duplicate" class="col-lg-4 col-form-label">
                                     {tr}Assign to this group{/tr}
                                 </label>
                                 <div class="col-lg-4">
                                     <div class="input-group">
                                         <input type="text" name="toGroup" class="form-control">
-                                        <span class="input-group-append">
+                                        <span class="input-group-text">
                                             <button class="btn btn-primary" name="duplicate" value="duplicate">
                                                 {tr}OK{/tr}
                                             </button>

@@ -32,7 +32,7 @@
 {else}
     <form method="post" action="tiki-export_sheet.php?mode=export&sheetId={$sheetId}" enctype="multipart/form-data">
         <h2>{tr}Export to file{/tr}</h2>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-form-label col-sm-3">{tr}Version:{/tr}</label>
             <div class="col-sm-6">
                 <select name="readdate" class="form-control">
@@ -43,7 +43,7 @@
             </div>
         </div>
 
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-form-label col-sm-3">{tr}Format:{/tr}</label>
             <div class="col-sm-6">
                 <input type="hidden" value="{$sheetId}" name="sheetId">
@@ -55,7 +55,7 @@
             </div>
         </div>
 
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-form-label col-sm-3">{tr}Charset encoding:{/tr}</label>
             <div class="col-sm-6">
                 <select name="encoding" class="form-control">
@@ -66,7 +66,7 @@
                 </select>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <div class="col-sm-6 offset-sm-3">
                 <input type="submit" class="btn btn-primary" value="{tr}Export{/tr}">
             </div>

@@ -95,7 +95,7 @@ $("#picker_{{$name|escape}}").parent().click(function () {
                     {/if}
                 {/if}
             {else}
-                <select class="form-control{$groupClass}" type="text" name="params[{$name|escape}]" id="{$inputId}"{$dataAttribute}>
+                <select class="form-select{$groupClass}" type="text" name="params[{$name|escape}]" id="{$inputId}"{$dataAttribute}>
                     {foreach $param.options as $option}
                         <option value="{$option.value|escape}" {if isset($pluginArgs[$name]) and $pluginArgs[$name] eq $option.value} selected="selected"{/if}>
                             {$option.text|escape}
@@ -111,20 +111,20 @@ $("#picker_{{$name|escape}}").parent().click(function () {
             {ticket mode='confirm'}
             {if not empty($info.params)}
                 {foreach $info.params as $name => $param}
-                    <div class="form-group row {if $param.advanced} advanced{/if}" id="param_{$name|escape}">
+                    <div class="mb-3 row {if $param.advanced} advanced{/if}" id="param_{$name|escape}">
                         {plugin_edit_row param=$param name=$name info=$info pluginArgs=$pluginArgs}
                     </div>
                 {/foreach}
                 {if not empty($info.advancedParams)}
-                    {button _text='Advanced' _onclick="$('.form-group.advanced.default').toggle('fast'); return false;" _class='btn btn-sm mb-4'}
+                    {button _text='Advanced' _onclick="$('.mb-3.advanced.default').toggle('fast'); return false;" _class='btn btn-sm mb-4'}
                     {foreach $info.advancedParams as $name => $param}
-                        <div class="form-group advanced row default" style="display: none;">
+                        <div class="mb-3 advanced row default" style="display: none;">
                             {plugin_edit_row param=$param name=$name info=$info pluginArgs=$pluginArgs}
                         </div>
                     {/foreach}
                 {/if}
 
-                <div class="form-group row"{if empty($info.body)} style="display:none"{/if}>
+                <div class="mb-3 row"{if empty($info.body)} style="display:none"{/if}>
                     <label for="content" class="col-sm-3">{tr}Body{/tr}</label>
                     <div class="col-sm-9">
                         <textarea name="content" id="content" class="form-control" rows="12">{$bodyContent|escape}</textarea>

@@ -2,7 +2,7 @@
 <form action="tiki-admin.php?page=ads" onreset="return(confirm("{tr}Cancel Edit{/tr}"))" class="admin" method="post">
     {ticket}
     <div class="row">
-        <div class="form-group col-lg-12 clearfix">
+        <div class="mb-3 col-lg-12 clearfix">
             <a role="link" class="btn btn-link tips" href="tiki-list_banners.php" title=":{tr}Banners listing{/tr}">
                 {icon name="list"} {tr}Banners{/tr}
             </a>

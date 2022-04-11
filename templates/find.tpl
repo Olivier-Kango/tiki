@@ -33,14 +33,14 @@
 <div class="find mb-2">
     <form method="post" role="form" class="form">
         {if !isset($map_only) or $map_only ne 'y'}
-            <div class="form-group row mx-0">
+            <div class="mb-3 row mx-0">
             {if !empty($filegals_manager)}<input type="hidden" name="filegals_manager"
                                                  value="{$filegals_manager|escape}">{/if}
             {query _type='form_input' maxRecords='NULL' type='NULL' types='NULL' find='NULL' topic='NULL' lang='NULL' exact_match='NULL' categId='NULL' cat_categories='NULL' filegals_manager='NULL' save='NULL' offset=0 searchlist='NULL' searchmap='NULL'}
             <div class="input-group">
                 <input class="form-control" type="text" name="find" id="find" value="{$find|escape}"
                        placeholder="{if empty($whatlabel)}{tr}Find{/tr}...{else}{tr}{$whatlabel}{/tr}{/if}"
-                       title="{if ! empty($find_in)}{$find_in|escape}{/if}" data-html="true" data-toggle="focus">
+                       title="{if ! empty($find_in)}{$find_in|escape}{/if}" data-html="true" data-bs-toggle="focus">
                 {if isset($autocomplete)}
                     {jq}$("#find").tiki("autocomplete", "{{$autocomplete}}");{/jq}
                 {/if}
@@ -66,7 +66,7 @@
             {/if}
         </div>
         {if !empty($types) and ( !isset($types_tag) or $types_tag eq 'select' )}
-            <div class="form-group row mx-0">
+            <div class="mb-3 row mx-0">
                 <label class="col-form-label col-sm-5">
                     {tr}Article Type{/tr}
                 </label>
@@ -84,7 +84,7 @@
             </div>
         {/if}
         {if !empty($topics)}
-            <div class="form-group row mx-0">
+            <div class="mb-3 row mx-0">
                 <label class="col-form-label col-sm-5">
                     {tr}Article Topic{/tr}
                 </label>
@@ -102,7 +102,7 @@
             </div>
         {/if}
         {if (isset($find_show_languages) && $find_show_languages eq 'y') and $prefs.feature_multilingual eq 'y'}
-            <div class="form-group row mx-0">
+            <div class="mb-3 row mx-0">
                 <label class="col-form-label col-sm-5">
                     {tr}Language{/tr}
                 </label>
@@ -141,7 +141,7 @@
             </div>
         {/if}
         {if isset($find_show_date_range) && $find_show_date_range eq 'y'}
-            <div class="form-group row mx-0 findDateFrom">
+            <div class="mb-3 row mx-0 findDateFrom">
                 <label class="col-form-label col-sm-5">
                     {tr}Date From{/tr}
                 </label>
@@ -149,7 +149,7 @@
                     {html_select_date time=$find_date_from prefix="find_from_" month_format="%m"}
                 </div>
             </div>
-            <div class="form-group row mx-0 findDateTo">
+            <div class="mb-3 row mx-0 findDateTo">
                 <label class="col-form-label col-sm-5">
                     {tr}Date To{/tr}
                 </label>
@@ -159,7 +159,7 @@
             </div>
         {/if}
         {if ((isset($find_show_categories) && $find_show_categories eq 'y') or (isset($find_show_categories_multi) && $find_show_categories_multi eq 'y')) and $prefs.feature_categories eq 'y' and !empty($categories)}
-            <div class="form-group row mx-0 category_find">
+            <div class="mb-3 row mx-0 category_find">
                 {if $find_show_categories_multi eq 'n' || $findSelectedCategoriesNumber <= 1}
                     <label class="col-sm-5 col-form-label">
                         {tr}Category{/tr}
@@ -198,7 +198,7 @@
                             {* end .clear *}
                         {/if}
                         {if $tiki_p_admin_categories eq 'y'}
-                            <div class="{*float-sm-right*}">
+                            <div class="{*float-sm-end*}">
                                 <a href="tiki-admin_categories.php" class="link">
                                     {icon name='wrench'} {tr}Admin Categories{/tr}
                                 </a>
@@ -210,10 +210,10 @@
             </div>
         {/if}
         {if !empty($types) and isset($types_tag) and $types_tag eq 'checkbox'}
-            <div class="form-group findtypes text-center">
+            <div class="mb-3 findtypes text-center">
                 {foreach key=key item=value from=$types}
                     <div class="form-check form-check-inline">
-                        <label class="col-form-label mr-3">
+                        <label class="col-form-label me-3">
                             <input type="checkbox" class="form-check-inline" name="types[]" value="{$key|escape}"
                                    {if is_array($find_type) && in_array($key, $find_type)}checked="checked"{/if}> {tr}{$value}{/tr}
                         </label>
@@ -222,7 +222,7 @@
             </div>
         {/if}
         {if !empty($filters)}
-            <div class="form-group row mx-0 findfilter">
+            <div class="mb-3 row mx-0 findfilter">
                 {foreach key=key item=item from=$filters}
                     <label class="col-form-label col-sm-5">
                         {$filter_names.$key}
@@ -240,7 +240,7 @@
         {/if}
         {if !empty($find_durations)}
             {foreach key=key item=duration from=$find_durations}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="find_duration col-form-label col-sm-6">
                         {tr}{$duration.label}{/tr}
                     </label>
@@ -251,7 +251,7 @@
             {/foreach}
         {/if}
         {if !empty($show_find_orphans) and $show_find_orphans eq 'y'}
-            <div class="form-group find-orphans" style="margin-top: -15px;">
+            <div class="mb-3 find-orphans" style="margin-top: -15px;">
                 <div class="form-check offset-sm-3">
                     <label class="find_orphans col-form-label" style="padding-left: 0; font-weight: bold;" for="find_orphans">
                         {tr}Orphans{/tr}
@@ -262,7 +262,7 @@
             </div>
         {/if}
         {if !empty($find_other)}
-            <div class="form-group find-other">
+            <div class="mb-3 find-other">
                 <label class="find_other col-form-label col-sm-6" for="find_other">
                     {tr}{$find_other}{/tr}
                 </label>
@@ -274,7 +274,7 @@
             </div>
         {/if}
         {if isset($find_show_num_rows) && $find_show_num_rows eq 'y'}
-            <div class="form-group row mx-0">
+            <div class="mb-3 row mx-0">
                 <label class="col-sm-5 col-form-label" for="findnumrows">
                     {tr}Displayed rows{/tr}
                 </label>
@@ -286,7 +286,7 @@
         {/if}
         {/if}
         {if isset($gmapbuttons) && $gmapbuttons}
-            <div class="find-map form-group row">
+            <div class="find-map mb-3 row">
                 {if isset($mapview) && $mapview}
                     <input class="btn btn-primary btn-sm" type="submit" name="searchlist" value="{tr}Hide Map{/tr}">
                     <input type="hidden" name="mapview" value="y">

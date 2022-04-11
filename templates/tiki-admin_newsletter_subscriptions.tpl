@@ -2,7 +2,7 @@
 {assign var=nlId_urlencoded value=$nlId|urlencode}
 {title url="tiki-admin_newsletter_subscriptions.php?nlId=$nlId_urlencoded"}{tr}Admin newsletter subscriptions{/tr}{/title}
 
-<div class="t_navbar btn-group form-group row mb-4">
+<div class="t_navbar btn-group mb-3 row mb-4">
     {button href="tiki-newsletters.php" class="btn btn-info" _icon_name="list" _text="{tr}List{/tr}"}
     {assign var="nlid_encod" value=$nlId|urlencode}
     {button href="tiki-admin_newsletters.php?nlId=$nlid_encod" class="btn btn-primary" _icon_name="edit" _text="{tr}Edit{/tr}"}
@@ -209,7 +209,7 @@
 
         {if $channels}
             <div class="input-group col-sm-8">
-                <select class="form-control" name="action">
+                <select class="form-select" name="action">
                     <option value="no_action" selected="selected">
                         {tr}Select action to perform with checked{/tr}...
                     </option>
@@ -221,7 +221,7 @@
                         {tr}Remove subscription{/tr}
                     </option>
                 </select>
-                <span class="input-group-append">
+                <span class="input-group-text">
                     <button
                         type="submit"
                         class="btn btn-primary"
@@ -244,7 +244,7 @@
         <form action="tiki-admin_newsletter_subscriptions.php" method="post" class="mb-4">
             {ticket}
             <input type="hidden" name="nlId" value="{$nlId|escape}">
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">{tr}Email{/tr}</label>
                 <div class="col-sm-9">
                     <textarea cols="70" rows="6" wrap="soft" name="email" class="form-control"></textarea>
@@ -253,7 +253,7 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">{tr}User{/tr}</label>
                 <div class="col-sm-9">
                     <select name="subuser" class="form-control">
@@ -264,7 +264,7 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 form-check-label">{tr}Add email{/tr}</label>
                 <div class="col-sm-3">
                     <div class="form-check">
@@ -278,7 +278,7 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 form-check-label">{tr}All users{/tr}</label>
                 <div class="col-sm-9">
                     <div class="form-check">
@@ -286,7 +286,7 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">{tr}Users from group{/tr}</label>
                 <div class="col-sm-9">
                     <select name="group" class="form-control">
@@ -301,7 +301,7 @@
                 </div>
             </div>
             {if $nl_info.validateAddr eq "y"}
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 form-check-label">{tr}Don't send confirmation email{/tr}</label>
                 <div class="col-sm-9">
                     <div class="form-check">
@@ -313,7 +313,7 @@
                 </div>
             </div>
             {/if}
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label"></label>
                 <div class="col-sm-9">
                     <input type="submit" class="btn btn-primary" name="add" value="{tr}Add{/tr}">
@@ -326,7 +326,7 @@
             <form action="tiki-admin_newsletter_subscriptions.php" method="post" enctype="multipart/form-data" class="mb-4">
                 {ticket}
                 <input type="hidden" name="nlId" value="{$nlId|escape}">
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-sm-3 col-form-label">{tr}File:{/tr}</label>
                     <div class="col-sm-9">
                         <input type="file" name="batch_subscription" class="form-control">
@@ -336,7 +336,7 @@
                     </div>
                 </div>
                 {if $nl_info.validateAddr eq "y"}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-sm-3 form-check-label">{tr}Don't send confirmation emails{/tr}</label>
                     <div class="col-sm-9">
                         <div class="form-check">
@@ -345,7 +345,7 @@
                     </div>
                 </div>
                 {/if}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-sm-3 col-form-label"></label>
                     <div class="col-sm-9">
                         <input type="submit" class="btn btn-primary" name="addbatch" value="{tr}Add{/tr}">
@@ -356,7 +356,7 @@
             <form action="tiki-admin_newsletter_subscriptions.php" method="post" class="mb-4">
                 {ticket}
                 <input type="hidden" name="nlId" value="{$nlId|escape}">
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-sm-3 col-form-label">Wiki page</label>
                     <div class="col-sm-9">
                         <input type="text" name="wikiPageName" value="" size="60" class="form-control">
@@ -366,7 +366,7 @@
                     </div>
                 </div>
                 {if $nl_info.validateAddr eq "y"}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-sm-3 form-check-label">{tr}Don't send confirmation emails{/tr}</label>
                     <div class="col-sm-9">
                         <div class="form-check">
@@ -375,7 +375,7 @@
                     </div>
                 </div>
                 {/if}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-sm-3 col-form-label"></label>
                     <div class="col-sm-9">
                         <input type="submit" class="btn btn-primary" name="importPage" value="{tr}Add{/tr}">
@@ -386,7 +386,7 @@
             <form action="tiki-admin_newsletter_subscriptions.php" method="post" class="mb-4">
                 {ticket}
                 <input type="hidden" name="nlId" value="{$nlId|escape}">
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-sm-3 col-form-label">{tr}Tracker:{/tr}</label>
                     <div class="col-sm-9">
                         <select name="tracker" class="form-control">
@@ -397,7 +397,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-sm-3 form-check-label">{tr}Don't send confirmation emails{/tr}</label>
                     <div class="col-sm-9">
                         <div class="form-check">
@@ -405,7 +405,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-sm-3 col-form-label"></label>
                     <div class="col-sm-9">
                         <input type="submit" class="btn btn-primary" name="addTracker" value="{tr}Add{/tr}">
@@ -418,7 +418,7 @@
         <form action="tiki-admin_newsletter_subscriptions.php" method="post" class="mb-4">
             {ticket}
             <input type="hidden" name="nlId" value="{$nlId|escape}">
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">{tr}Group{/tr}</label>
                 <div class="col-sm-9">
                     <select name="group" class="form-control">
@@ -429,7 +429,7 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 form-check-label">{tr}Including group inheritance{/tr}</label>
                 <div class="col-sm-9">
                     <div class="form-check">
@@ -440,7 +440,7 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label"></label>
                 <div class="col-sm-9">
                     <input type="submit" class="btn btn-primary" name="addgroup" value="{tr}Add{/tr}">
@@ -452,7 +452,7 @@
         <form action="tiki-admin_newsletter_subscriptions.php" method="post" class="mb-4">
             {ticket}
             <input type="hidden" name="nlId" value="{$nlId|escape}">
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">{tr}Newsletter:{/tr}</label>
                 <div class="col-sm-9">
                     <select name="included" class="form-control">
@@ -465,7 +465,7 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label"></label>
                 <div class="col-sm-9">
                     <input type="submit" class="btn btn-primary" name="addincluded" value="{tr}Add{/tr}">
@@ -477,7 +477,7 @@
         <form action="tiki-admin_newsletter_subscriptions.php" method="post" class="mb-4">
             {ticket}
             <input type="hidden" name="nlId" value="{$nlId|escape}">
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">{tr}Wiki page{/tr}</label>
                 <div class="col-sm-9">
                     <input type="text" name="wikiPageName" value="" size="60" class="form-control">
@@ -487,7 +487,7 @@
                     {autocomplete element='input[name=wikiPageName]' type='pagename'}
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 form-check-label">{tr}Don't send confirmation emails{/tr}</label>
                 <div class="col-sm-9">
                     <div class="form-check">
@@ -495,7 +495,7 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 form-check-label">{tr}Don't subscribe emails{/tr}</label>
                 <div class="col-sm-9">
                     <div class="form-check">
@@ -503,7 +503,7 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label"></label>
                 <div class="col-sm-9">
                     <input type="submit" class="btn btn-primary" name="addPage" value="{tr}Add{/tr}">
@@ -518,7 +518,7 @@
         <br>
         <form action="tiki-admin_newsletter_subscriptions.php" method="post">
             <input type="hidden" name="nlId" value="{$nlId|escape}">
-            <div class="form-group row mx-0">
+            <div class="mb-3 row mx-0">
                 <div class="col-sm-12 mb-3">
                     <input type="submit" class="btn btn-primary" name="export" value="{tr}Export{/tr}">
                 </div>

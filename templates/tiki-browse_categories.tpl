@@ -4,7 +4,7 @@
 {if $parentId and $p_info.description}
     <div class="description form-text">{$p_info.description|escape|nl2br}</div>
 {/if}
-<div class="form-group row mx-0 categbar">
+<div class="mb-3 row mx-0 categbar">
     {button href="tiki-edit_categories.php" _type="link" _text="{tr}Organize Objects{/tr}" _icon_name="structure" _title="{tr}Organize Objects{/tr}"}
     {if $tiki_p_admin_categories eq 'y'}
         {button href="tiki-admin_categories.php?parentId=$parentId" _type="link" _icon_name="settings" _text="{tr}Admin Categories{/tr}" _title="{tr}Admin the Category System{/tr}"}
@@ -15,7 +15,7 @@
     {tr}Browse in:{/tr}
     <div class="btn-group">
         <a class="btn btn-info" {if $type eq ''} id="highlight"{/if} href="tiki-browse_categories.php?find={$find|escape:"url"}&amp;deep={$deep}&amp;parentId={$parentId|escape:"url"}&amp;sort_mode={$sort_mode|escape:"url"}">{tr}All{/tr}</a>
-        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+        <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown">
             {tr}or in{/tr}
             <span class="sr-only">Toggle Dropdown</span>
         </button>
@@ -90,23 +90,19 @@
     </div>
 </div>
 
-<form method="post" action="tiki-browse_categories.php" class="form-inline" role="form">
-    <div class="form-group row mx-0">
+<form method="post" action="tiki-browse_categories.php" class="d-flex flex-row flex-wrap align-items-center" role="form">
+    <div class="mb-3 row mx-0">
         <label class="col-form-label sr-only" for="find">{tr}Find{/tr}</label>
         <div class="input-group">
-            <div class="input-group-append">
-                <span class="input-group-text">
-                    {icon name="search"} {if $parentId ne 0}{$p_info.name|escape} {/if}
-                </span>
-            </div>
+            <span class="input-group-text">
+                {icon name="search"} {if $parentId ne 0}{$p_info.name|escape} {/if}
+            </span>
             <input class="form-control input-sm" type="text" name="find" id="find" value="{$find|escape}">
-            <div class="input-group-append">
-                <input type="submit" class="btn btn-info" value="{tr}Find{/tr}" name="search">
-            </div>
+            <input type="submit" class="btn btn-info" value="{tr}Find{/tr}" name="search">
         </div>
         <span class="form-text" style="display:inline-block; margin: 0;">{help url="#" desc="{tr}Find in:{/tr} <ul><li>{tr}Name{/tr}</li><li>{tr}Description{/tr}</li></ul>"}</span>
     </div>
-    <div class="form-group row mx-0">
+    <div class="mb-3 row mx-0">
         <div class="form-check">
             <label class="form-check-label"><input type="checkbox" class="form-check-input" name="deep" {if $deep eq 'on'}checked="checked"{/if}>{tr} in the current category and its subcategories{/tr}</label>
         </div>
@@ -141,7 +137,7 @@
     {tabset name='browse-categories'}
         {tab name="{tr}Categories{/tr}"}
             {if $parentId ne '0'}
-                <div class="pl-3">
+                <div class="ps-3">
                     <a class="catname tips" href="tiki-browse_categories.php?parentId={$father|escape:"url"}&amp;deep={$deep|escape:"url"}&amp;type={$type|escape:"url"}" title=":{tr}Up one level{/tr}">
                         {icon name='level-up'}
                     </a>

@@ -15,7 +15,7 @@
             {/if}
         {/remarksbox}
         {* hiding enconding as it does not seem to work - this template is therefore not being used currently *}
-        <div class="form-group hidden" >
+        <div class="mb-3 hidden" >
             <label for="encoding" class="col-form-label">
                 {tr}Encoding{/tr}
             </label>

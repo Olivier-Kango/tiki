@@ -22,26 +22,26 @@
     </div> {* thumbactions *}
     {/if}
 {/capture}
-<div class="media {*clearfix thumbnailcontener-heightauto*}">
-    <div class="mr-3{*thumbnail*}"{* style="float:left;"*}>
+<div class="d-flex">
+    <div class="flex-shrink-0">
         {include file='fgal_thumbnailframe.tpl'}
         {if $show_infos eq 'y'}
             <div class="thumbinfos">
                 {$smarty.capture.thumbactions}
             </div>
         {/if}
-    </div> {* thumbnail *}
-    <div class="media-body"{*style="float:left"*}>
+    </div>
+    <div class="flex-grow-1 ms-3">
         {*<div class='box-data'>*}
             {include file='file_properties_table.tpl'}
         {*</div>*}
     </div>
 </div> {* thumbnailcontener *}
-    {*<br clear="all">*}
+
     {include file='tiki-upload_file_progress.tpl' fileId=$file.id name=$file.filename}
     {if isset($metarray) and $metarray|count gt 0}
         <br>
-        <div class="text-left">
+        <div class="text-start">
             {remarksbox type="tip" title="{tr}Metadata{/tr}"}
                 {include file='metadata/meta_view_tabs.tpl'}
             {/remarksbox}

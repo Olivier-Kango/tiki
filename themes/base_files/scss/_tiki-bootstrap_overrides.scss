@@ -29,8 +29,8 @@ body:not(.fixed_width) .container {
 }
 
 //legend + p,
-//legend + .form-group,
-//legend + input[type="hidden"] + .form-group,
+//legend + .mb-3,
+//legend + input[type="hidden"] + .mb-3,
 legend + * {
     margin-top: 20px;
 }
@@ -226,18 +226,20 @@ body.fullscreen.tiki.navbar-padding {
 //    }
 //}
 
+// Update: .form-horizontal was dropped with Bootstrap 4, so this hasn't worked for a long time.
 // Needed to align checkbox with label, which has a top margin (admin forms with labels on left of input)
-.tiki .form-horizontal .form-group label + div > input[type="checkbox"] { margin-top: .8em; }
-.tiki .form-horizontal .checkbox input[type="checkbox"] {margin-top: .4em;}
+//.tiki .form-horizontal .mb-3 label + div > input[type="checkbox"] { margin-top: .8em; }
+//.tiki .form-horizontal .checkbox input[type="checkbox"] {margin-top: .4em;}
 
 
 .control-label.text-left {
     text-align: left;
 }
 
-.form-horizontal .control-label.text-left {
-    text-align: left;
-}
+// Update: .form-horizontal was dropped with Bootstrap 4, so this hasn't worked for a long time.
+// .form-horizontal .control-label.text-left {
+//    text-align: left;
+//}
 
 .affix-top {position: static; }
 .affix { position: fixed; top: 10px; max-height: calc(100vh - 20px); overflow-y: auto !important; }
@@ -248,7 +250,7 @@ body.fullscreen.tiki.navbar-padding {
 .col-md-2 .form-inline .form-control { width: 100%; }
 
 // Remove negative side margins on div.row in forms, etc. to keep left and right whitespace
-.form-group.row {
+.mb-3.row {
     margin-left: 0;
     margin-right: 0;
 }
@@ -393,7 +395,7 @@ body.fullscreen.tiki.navbar-padding {
 
 .bg-danger h4.card-title {
     margin-bottom: 0;
-    color: color-yiq(theme-color("danger"));
+    color: color-yiq($danger);
 }
 .bg-warning h5.card-title {
     margin-bottom: 0;

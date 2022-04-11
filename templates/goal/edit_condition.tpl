@@ -8,14 +8,14 @@
     {remarksbox title="{tr}Changes will not be saved{/tr}"}
         {tr}Your changes to conditions are not saved until you save the goal.{/tr}
     {/remarksbox}
-    <form class="form-horizontal condition-form" method="post" action="{service controller=goal action=edit_condition}">
-        <div class="form-group row">
+    <form class="condition-form" method="post" action="{service controller=goal action=edit_condition}">
+        <div class="mb-3 row">
             <label class="col-form-label col-md-3">{tr}Label{/tr}</label>
             <div class="col-md-9">
                 <input type="text" class="form-control" name="label" value="{$condition.label|escape}">
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-form-label col-md-3">{tr}Operator{/tr}</label>
             <div class="col-md-9">
                 <label>
@@ -28,13 +28,13 @@
                 </label>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-form-label col-md-3">{tr}Count{/tr}</label>
             <div class="col-md-9">
                 <input type="number" class="form-control" name="count" value="{$condition.count|escape}">
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-form-label col-md-3">{tr}Metric{/tr}</label>
             <div class="col-md-9">
                 <select name="metric" class="form-control">
@@ -44,14 +44,14 @@
                 </select>
             </div>
         </div>
-        <div class="form-group argument eventType">
+        <div class="mb-3 argument eventType">
             <label class="col-form-label col-md-3">{tr}Event Type{/tr}</label>
             <div class="col-md-9">
                 <input type="text" class="form-control" name="eventType" value="{$condition.eventType|escape}">
             </div>
         </div>
         {if $prefs.goal_badge_tracker}
-            <div class="form-group argument trackerItemBadge">
+            <div class="mb-3 argument trackerItemBadge">
                 <label class="col-form-label col-md-3">{tr}Badge{/tr}</label>
                 <div class="col-md-9">
                     {object_selector _name=trackerItemBadge _value="trackeritem:`$condition.trackerItemBadge`" tracker_id=$prefs.goal_badge_tracker _class="form-control"}
@@ -72,11 +72,11 @@
     </form>
     {jq}
         $('.condition-form select[name=metric]').change(function () {
-            $('.condition-form .form-group.argument').hide();
+            $('.condition-form .mb-3.argument').hide();
 
             $.each(this.selectedOptions, function (key, item) {
                 $.each($(item).data('arguments'), function (key, arg) {
-                    $('.condition-form .form-group.argument.' + arg).show();
+                    $('.condition-form .mb-3.argument.' + arg).show();
                 });
             })
         }).change();

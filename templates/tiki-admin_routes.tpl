@@ -108,7 +108,7 @@
             {tr}|^page(\d+)$| will redirect /page10 to the tracker item where the selected value is 10.{/tr}
         {/remarksbox}
 
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-sm-3 col-md-2 col-form-label" for="router_type">{tr}Router Type{/tr} *</label>
             <div class="col-sm-9 col-md-10">
                 <select id='router_type' class="form-control" name='router_type'>
@@ -120,7 +120,7 @@
 
 
 
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-sm-3 col-md-2 col-form-label" for="router_from">{tr}From{/tr} *</label>
             <div class="col-sm-9 col-md-10">
                 <input id='router_from' class="form-control" name='router_from' value="{$route.from}">
@@ -131,7 +131,7 @@
             {router_params name=$className params=$route.params}
         {/foreach}
 
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-sm-3 col-md-2 col-form-label" for="router_description">{tr}Description{/tr}</label>
             <div class="col-sm-9 col-md-10">
 
@@ -140,7 +140,7 @@
         </div>
 
 
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-sm-3 col-md-2 col-form-label" for="router_active">{tr}Active{/tr}</label>
             <div class="col-sm-9 col-md-10">
 
@@ -148,7 +148,7 @@
             </div>
         </div>
 
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-sm-3 col-md-2 col-form-label" for="router_short_url">{tr}Short URL{/tr}</label>
             <div class="col-sm-9 col-md-10">
                 <input type="checkbox" class="form-check-input" id='router_short_url' name='router_short_url' {if $route.short_url}checked{/if}>
@@ -156,7 +156,7 @@
             </div>
         </div>
 
-        <div class="form-group row">
+        <div class="mb-3 row">
             <div class="col-sm-7 col-md-6 offset-sm-3 offset-md-2">
                 <input type="hidden" name="load_options" value="0">
                 {if isset($route.id) && $route.id}

@@ -20,12 +20,12 @@
 {/block}
 {block name="content"}
     <form action="{service controller=language action=manage_custom_translations}" method="post" role="form" class="form">
-        <div class="form-group row clearfix">
+        <div class="mb-3 row clearfix">
             <div class="col-md-6">
                 <label class="col-form-label" for="custom_lang_select">
                     {tr}Language{/tr}
                 </label>
-                <select name="language" id="custom_lang_select" class="form-control" onchange="this.form.submit()">
+                <select name="language" id="custom_lang_select" class="form-select" onchange="this.form.submit()">
                     {section name=ix loop=$languages}
                         <option value="{$languages[ix].value|escape}"
                             {if (empty($language) && $languages[ix].value eq $prefs.site_language) || (!empty($language) && $languages[ix].value eq $language)} selected="selected"{/if}>
@@ -34,7 +34,7 @@
                     {/section}
                 </select>
             </div>
-            <div class="col-md-6 float-sm-right">
+            <div class="col-md-6 float-sm-end">
                 {if $custom_file}
                     {remarksbox type="info" title="{tr}Download{/tr}" close="n"}
                         <a class="btn btn-link tips alert-link" href="{service controller=language action=download language={$language} file_type="custom_php"}" title="{tr}custom.php{/tr}:{tr}Download custom.php file for the selected language.{/tr}">
@@ -54,14 +54,14 @@
     </form>
     <form action="{service controller=language action=manage_custom_translations}" method="post" role="form" class="form">
         <h2>
-            {tr}Translations{/tr} <span class="badge badge-secondary">{$custom_translation_item_count}</span>
+            {tr}Translations{/tr} <span class="badge bg-secondary">{$custom_translation_item_count}</span>
         </h2>
         {if $custom_file}
             <span class="form-text">
                 {icon name="file"} {$custom_file}
             </span>
         {/if}
-        <div class="form-group row">
+        <div class="mb-3 row">
             <div class="table-responsive">
                 <table class="table" id="custom_translations_table">
                     <thead>

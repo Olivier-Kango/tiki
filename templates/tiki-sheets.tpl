@@ -45,9 +45,9 @@
             {if $individual eq 'y'}
                 {permission_link mode=link type=sheet id=$sheetId title=$name label="{tr}There are individual permissions set for this sheet{/tr}"}
             {/if}
-            <form action="tiki-sheets.php" method="post" class="form-horizontal" role="form">
+            <form action="tiki-sheets.php" method="post" role="form">
                 <input type="hidden" name="sheetId" value="{$sheetId|escape}">
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label for="title" class="col-form-label col-sm-3">
                         {tr}Title{/tr}
                     </label>
@@ -55,7 +55,7 @@
                         <input class="form-control" type="text" name="title" value="{$title|escape}">
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label for="description" class="col-form-label col-sm-3">
                         {tr}Description{/tr}
                     </label>
@@ -66,7 +66,7 @@
                 <!--<tr><td>{tr}Class Name:{/tr}</td><td><input type="text" name="className" value="{$className|escape}"></td></tr>
                 <tr><td>{tr}Header Rows:{/tr}</td><td><input type="text" name="headerRow" value="{$headerRow|escape}"></td></tr>
                 <tr><td>{tr}Footer Rows:{/tr}</td><td><input type="text" name="footerRow" value="{$footerRow|escape}"></td></tr>-->
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <div class="form-check offset-sm-3">
                         <label for="parseValues" class="form-check-label">
                             <input type="checkbox" name="parseValues"{if $parseValues eq 'y'} checked="checked"{/if}>
@@ -75,7 +75,7 @@
                     </div>
                 </div>
                 {if $tiki_p_admin_sheet eq "y"}
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label for="creator" class="col-form-label col-sm-3">
                             {tr}Creator{/tr}
                         </label>
@@ -84,7 +84,7 @@
                         </div>
                     </div>
                 {/if}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label for="parentSheetId" class="col-form-label col-sm-3">
                         {tr}Parent Spreadsheet{/tr}
                     </label>
@@ -102,10 +102,10 @@
                         </span>
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     {include file='categorize.tpl'}
                 </div>
-                <div class="form-group text-center">
+                <div class="mb-3 text-center">
                     <input type="submit" class="btn btn-primary" value="{tr}Save{/tr}" name="edit">
                 </div>
             </form>

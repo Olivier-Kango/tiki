@@ -22,24 +22,24 @@
     {permission_link mode=link type=blog permType=blogs id=$blogId title=$title label="{tr}Individual permissions are set for this blog{/tr}"}
 {/if}
 
-<form method="post" action="tiki-edit_blog.php" id="blog-edit-form" class="form-horizontal" role="form">
+<form method="post" action="tiki-edit_blog.php" id="blog-edit-form" role="form">
     <input type="hidden" name="blogId" value="{$blogId|escape}">
     {tabset name='tabs_editblog'}
         {tab name="{tr}General Settings{/tr}"}
             <h2>{tr}General Settings{/tr}</h2>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label" for="blog-title">{tr}Title{/tr}</label>
                 <div class="col-sm-9">
                     <input type="text" maxlength="200" name="title" id="blog-title" class="form-control" value="{$title|escape}" required="required">
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label" for="blog-desc">{tr}Description{/tr}</label>
                 <div class="col-sm-9">
                     <textarea class="wikiedit form-control" name="description" id="blog-desc" rows="10">{$description|escape}</textarea>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label" for="creator">{tr}Creator{/tr}</label>
                 <div class="col-sm-9">
                     <select name="creator" class="form-control">
@@ -53,7 +53,7 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <div class="col-sm-9 offset-sm-3">
                     <div class="form-check">
                         <label for="blogs-allow_others" class="form-check-label">
@@ -92,14 +92,14 @@
         {/tab}
         {tab name="{tr}Display Options{/tr}"}
             <h2>{tr}Display Options{/tr}</h2>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label" for="blogs-number">{tr}Displayed posts{/tr}</label>
                 <div class="col-sm-2">
                     <input type="text" name="maxPosts" id="blogs-number" class="form-control" value="{$maxPosts|escape}">
                 </div>
                 <div class="form-text">{tr}Number of posts to show per page{/tr}</div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <div class="offset-sm-3 col-sm-9">
                     <div class="form-check">
                         <label for="blogs-title" class="form-check-label">
@@ -154,7 +154,7 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label" for="blogs-post-max-related">{tr}Related posts{/tr}</label>
                 <div class="col-sm-2">
                     <input type="text" name="related_max" id="blogs-post-max-related" class="form-control" value="{$related_max|escape}">
@@ -162,7 +162,7 @@
                 <div class="form-text">{tr}Maximum number of related posts to display{/tr}</div>
             </div>
             {if $prefs.feature_blog_heading eq 'y' and $tiki_p_edit_templates eq 'y'}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-sm-3 col-form-label" for="blogs-heading">{tr}Blog heading{/tr}</label>
                     <div class="col-sm-9">
                         <textarea name="heading" id="blogs-heading" rows='10' class="form-control">{$heading|escape}</textarea>
@@ -174,7 +174,7 @@
                         {eval var=$heading}
                     </div>
                 {/if}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-sm-3 col-form-label" for="blogs-post-heading">{tr}Blog post heading{/tr}</label>
                     <div class="col-sm-9">
                         <textarea name="post_heading" id="blogs-post_heading" rows='10' class="form-control">{$post_heading|escape}</textarea>
@@ -186,7 +186,7 @@
     {if $prefs.feature_blog_heading eq 'y' and $tiki_p_edit_templates eq 'y'}
         <input type="submit" class="wikiaction btn btn-primary" name="preview" value="{tr}Heading preview{/tr}">
     {/if}
-    <div class="form-group text-center">
+    <div class="mb-3 text-center">
         <input type="submit" class="wikiaction btn btn-primary" name="save" value="{tr}Save{/tr}">
     </div>
 </form>

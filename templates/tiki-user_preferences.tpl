@@ -8,7 +8,7 @@
     {include file='tiki-mytiki_bar.tpl'}
 {/if}
 {if $tiki_p_admin_users eq 'y'}
-    <div class="t_navbar btn-group form-group row">
+    <div class="t_navbar btn-group mb-3 row">
         {assign var=thisuser value=$userinfo.login}
         {button href="tiki-assignuser.php?assign_user=$thisuser" _type="link" _text="{tr}Assign Group{/tr}"}
         {button href="tiki-user_information.php?view_user=$thisuser" _type="link" _text="{tr}User Information{/tr}"}
@@ -18,10 +18,10 @@
     {if $prefs.feature_userPreferences eq 'y'}
         {tab name="{tr}Personal Information{/tr}"}
             <h2>{tr}Personal Information{/tr}</h2>
-            <form role="form" action="tiki-user_preferences.php" method="post" class="form-horizontal">
+            <form role="form" action="tiki-user_preferences.php" method="post">
                 {ticket}
                 <input type="hidden" name="view_user" value="{$userwatch|escape}">
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-form-label col-md-4" for="userIn">
                         {tr}User{/tr}
                     </label>
@@ -32,7 +32,7 @@
                         </span>
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-form-label col-md-4" for="realName">
                         {tr}Real Name{/tr}
                     </label>
@@ -41,7 +41,7 @@
                         {if $prefs.auth_ldap_nameattr eq '' || $prefs.auth_method ne 'ldap'}{else}disabled{/if}>
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-form-label col-md-4">
                         {tr}Profile picture{/tr}
                     </label>
@@ -55,7 +55,7 @@
                     </div>
                 </div>
                 {if $prefs.feature_community_gender eq 'y'}
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label class="col-form-label col-md-4" for="gender">
                             {tr}Gender{/tr}
                         </label>
@@ -72,7 +72,7 @@
                         </div>
                     </div>
                 {/if}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-form-label col-md-4" for="country">
                         {tr}Country{/tr}
                     </label>
@@ -94,7 +94,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-form-label col-md-4" for="location">
                         {tr}Location{/tr}
                     </label>
@@ -103,7 +103,7 @@
                     </div>
                     <input type="hidden" name="location" id="location" value="{$location|escape}">
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-form-label col-md-4" for="homePage">
                         {tr}Homepage URL{/tr}
                     </label>
@@ -112,7 +112,7 @@
                     </div>
                 </div>
                 {if $prefs.feature_wiki eq 'y' and $prefs.feature_wiki_userpage eq 'y'}
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label class="col-form-label col-md-4">
                             {tr}Your Personal Wiki Page{/tr}
                         </label>
@@ -134,7 +134,7 @@
                     </div>
                 {/if}
                 {if $prefs.userTracker eq 'y' && $usertrackerId}
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         {if $tiki_p_admin eq 'y' and !empty($userwatch) and $userwatch neq $user}
                             <label class="col-form-label col-md-4">{tr}User's personal tracker information{/tr}</label>
                             <div class="col-md-8">
@@ -160,12 +160,12 @@
                             value="{$customfields[ir].value}" size="{$customfields[ir].size}"></label>
                     {/if}
                 {/section}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-form-label col-md-4" for="user_information">
                         {tr}User Information{/tr}
                     </label>
                     <div class="col-md-8">
-                        <select class="form-control" id="user_information" name="user_information">
+                        <select class="form-select" id="user_information" name="user_information">
                             <option value='private' {if $user_prefs.user_information eq 'private'}selected="selected"{/if}>
                                 {tr}Private{/tr}
                             </option>
@@ -183,10 +183,10 @@
         {tab name="{tr}Preferences{/tr}"}
             <h2>{tr}Preferences{/tr}</h2>
             <legend>{tr}General settings{/tr}</legend>
-            <form role="form" action="tiki-user_preferences.php" method="post" class="form-horizontal">
+            <form role="form" action="tiki-user_preferences.php" method="post">
                 {ticket}
                 <input type="hidden" name="view_user" value="{$userwatch|escape}">
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-form-label col-md-4" for="email_isPublic">
                         {tr}Is email public?{/tr}
                     </label>
@@ -206,7 +206,7 @@
                     </div>
                 </div>
                 {if $prefs.feature_perspective eq 'y' and $perspectives|@count gt 0}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-form-label col-md-4" for="perspective_preferred">
                         {tr}Preferred perspective{/tr}
                     </label>
@@ -220,7 +220,7 @@
                     </div>
                 </div>
                 {/if}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-form-label col-md-4" for="mailCharset">
                         {tr}Email character set{/tr}
                     </label>
@@ -236,7 +236,7 @@
                     </div>
                 </div>
                 {if $prefs.change_theme eq 'y' && empty($group_theme)}
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label class="col-form-label col-md-4" for="mytheme">
                             {tr}Theme{/tr}
                         </label>
@@ -252,7 +252,7 @@
                     </div>
                 {/if}
                 {if $prefs.change_language eq 'y'}
-                    <div class="form-group row clearfix">
+                    <div class="mb-3 row clearfix">
                         <label class="col-form-label col-md-4" for="language">
                             {tr}Language{/tr}
                         </label>
@@ -271,7 +271,7 @@
                     </div>
                 {/if}
                 {if $tiki_p_admin eq 'y'}
-                    <div class="form-group row clearfix">
+                    <div class="mb-3 row clearfix">
                         <label class="col-form-label col-md-4" for="languageAdmin">
                             {tr}Admin Language{/tr}
                         </label>
@@ -291,20 +291,20 @@
                 {/if}
                 {if $prefs.feature_multilingual eq 'y'}
                     {if $user_prefs.read_language}
-                        <div id="read-lang-div" class="form-group row clearfix">
+                        <div id="read-lang-div" class="mb-3 row clearfix">
                     {else}
-                        <div class="form-group row clearfix">
+                        <div class="mb-3 row clearfix">
                             <div class="col-md-8 offset-md-4">
                                 <a href="javascript:void(0)" onclick="document.getElementById('read-lang-div').style.display='block';this.style.display='none';">
                                     {tr}Can you read more languages?{/tr}
                                 </a>
                             </div>
                         </div>
-                        <div id="read-lang-div" style="display: none" class="form-group row clearfix">
+                        <div id="read-lang-div" style="display: none" class="mb-3 row clearfix">
                     {/if}
                     <label class="col-form-label col-md-4" for="read-language">{tr}Other languages you can read{/tr}</label>
                     <div class="col-md-8">
-                        <select class="form-control" id="read-language" name="_blank" onchange="document.getElementById('read-language-input').value+=' '+this.options[this.selectedIndex].value+' '">
+                        <select class="form-select" id="read-language" name="_blank" onchange="document.getElementById('read-language-input').value+=' '+this.options[this.selectedIndex].value+' '">
                             <option value="">{tr}Select language...{/tr}</option>
                             {section name=ix loop=$languages}
                                 <option value="{$languages[ix].value|escape}">
@@ -319,7 +319,7 @@
                     </label>
                     </div>
                 {/if}
-                <div class="form-group row clearfix">
+                <div class="mb-3 row clearfix">
                     <label class="col-form-label col-md-4" for="userbreadCrumb">
                         {tr}Number of visited pages to remember{/tr}
                     </label>
@@ -334,7 +334,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-group row clearfix">
+                <div class="mb-3 row clearfix">
                     <label class="col-form-label col-md-4" for="display_timezone">
                         {tr}Displayed timezone{/tr}
                     </label>
@@ -376,7 +376,7 @@
 
                 {if $prefs.feature_messages eq 'y' and $tiki_p_messages eq 'y'}
                     <legend>{tr}User Messages{/tr}</legend>
-                    <div class="form-group row clearfix">
+                    <div class="mb-3 row clearfix">
                         <label class="col-form-label col-md-4" for="mess_maxRecords">
                             {tr}Messages per page{/tr}
                         </label>
@@ -408,12 +408,12 @@
                             </label>
                         </div>
                     </div>
-                    <div class="form-group row clearfix">
+                    <div class="mb-3 row clearfix">
                         <label class="col-form-label col-md-4" for="minPrio">
                             {tr}Message priority notification{/tr}
                         </label>
                         <div class="col-md-8">
-                            <select class="form-control" id="minPrio" name="minPrio">
+                            <select class="form-select" id="minPrio" name="minPrio">
                                 <option value="1" {if $user_prefs.minPrio eq 1}selected="selected"{/if}>1 -{tr}Lowest{/tr}-</option>
                                 <option value="2" {if $user_prefs.minPrio eq 2}selected="selected"{/if}>2 -{tr}Low{/tr}-</option>
                                 <option value="3" {if $user_prefs.minPrio eq 3}selected="selected"{/if}>3 -{tr}Normal{/tr}-</option>
@@ -424,7 +424,7 @@
                             <span class="form-text">{tr}Send me an email for messages with priority equal to or greater than{/tr}</span>
                         </div>
                     </div>
-                    <div class="form-group row clearfix">
+                    <div class="mb-3 row clearfix">
                         <label class="col-form-label col-md-4" for="mess_archiveAfter" >
                             {tr}Read message auto-archiving{/tr}
                         </label>
@@ -447,12 +447,12 @@
                 {/if}
                 {if $prefs.feature_tasks eq 'y' and $tiki_p_tasks eq 'y'}
                     <legend>{tr}User Tasks{/tr}</legend>
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label class="col-form-label col-md-4" for="tasks_maxRecords">
                             {tr}Tasks per page{/tr}
                         </label>
                         <div class="col-md-8">
-                            <select class="form-control" id="tasks_maxRecords" name="tasks_maxRecords">
+                            <select class="form-select" id="tasks_maxRecords" name="tasks_maxRecords">
                                 <option value="2" {if $user_prefs.tasks_maxRecords eq 2}selected="selected"{/if}>2</option>
                                 <option value="5" {if $user_prefs.tasks_maxRecords eq 5}selected="selected"{/if}>5</option>
                                 <option value="10" {if $user_prefs.tasks_maxRecords eq 10}selected="selected"{/if}>10</option>
@@ -466,7 +466,7 @@
                 {/if}
                 <legend>{tr}My Account{/tr}</legend>
                 {if $prefs.xmpp_feature eq 'y'}
-                    <div class="form-group row mb-2">
+                    <div class="mb-3 row mb-2">
                         <label class="col-form-label col-md-4" for="xmpp_username">
                             {tr}XMPP account JID{/tr}
                         </label>
@@ -475,7 +475,7 @@
                             <p><small>{tr}If empty, Tiki will provide default value{/tr}</small></p>
                         </div>
                     </div>
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label class="col-form-label col-md-4" for="xmpp_password">
                             {tr}XMPP account password{/tr}
                         </label>
@@ -484,7 +484,7 @@
                             <p><small>This password will be stored in database</small></p>
                         </div>
                     </div>
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label class="col-form-label col-md-4" for="xmpp_server_http_bind">
                             {tr}XMPP http-bind URL{/tr}
                         </label>
@@ -554,12 +554,12 @@
                 </div>
                 </div>
                 {if $prefs.feature_userlevels eq 'y'}
-                    <div class="form-group row clearfix">
+                    <div class="mb-3 row clearfix">
                         <label class="col-form-label col-md-4" for="mylevel">
                             {tr}My level{/tr}
                         </label>
                         <div class="col-md-8">
-                            <select class="form-control" name="mylevel" id="mylevel">
+                            <select class="form-select" name="mylevel" id="mylevel">
                                 {foreach key=levn item=lev from=$prefs.userlevels}
                                     <option value="{$levn}"{if $user_prefs.mylevel eq $levn} selected="selected"{/if}>{$lev}</option>
                                 {/foreach}
@@ -567,7 +567,7 @@
                         </div>
                     </div>
                 {/if}
-                <div class="form-group row">
+                <div class="mb-3 row">
                         <label class="col-form-label col-md-4" for="remember_closed_rboxes">
                             {tr}Keep closed remarksbox hidden{/tr}
                         </label>
@@ -587,7 +587,7 @@
 
                 {if $prefs.webmonetization_enabled eq 'y'}
                     <legend>{tr}Web Monetization{/tr}</legend>
-                    <div class="form-group row clearfix">
+                    <div class="mb-3 row clearfix">
                         <label class="col-form-label col-md-4" for="webmonetization_payment_pointer">
                             {tr}Payment pointer{/tr}
                         </label>
@@ -595,7 +595,7 @@
                             <input type="text" class="form-control" name="webmonetization_payment_pointer" id="webmonetization_payment_pointer" value="{$user_prefs.webmonetization_payment_pointer}">
                         </div>
                     </div>
-                    <div class="form-group row clearfix">
+                    <div class="mb-3 row clearfix">
                         <label class="col-form-label col-md-4" for="webmonetization_paywall_text">
                             {tr}Default paywall text{/tr}
                         </label>
@@ -614,7 +614,7 @@
     {if $prefs.change_password neq 'n' or ! ($prefs.login_is_email eq 'y' and $userinfo.login neq 'admin')}
         {tab name="{tr}Account Information{/tr}"}
             <h2>{tr}Account Information{/tr}</h2>
-            <form action="tiki-user_preferences.php" method="post" class="form-horizontal">
+            <form action="tiki-user_preferences.php" method="post">
                 {ticket}
                 <input type="hidden" name="view_user" value="{$userwatch|escape}">
                     {if $prefs.auth_method neq 'cas' || ($prefs.cas_skip_admin eq 'y' && $user eq 'admin')}
@@ -624,7 +624,7 @@
                             {/remarksbox}
                         {/if}
                     {/if}
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label class="col-md-4 col-form-label" for="username-autocomplete">
                             {tr}Username:{/tr}
                         </label>
@@ -635,7 +635,7 @@
                     {if $prefs.login_is_email eq 'y' and $userinfo.login neq 'admin'}
                         <input type="hidden" name="email" value="{$userinfo.email|escape}">
                     {else}
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-md-4 col-form-label" for="email">
                                 {tr}Email address:{/tr}
                             </label>
@@ -646,7 +646,7 @@
                     {/if}
                     {if $prefs.auth_method neq 'cas' || ($prefs.cas_skip_admin eq 'y' && $user eq 'admin')}
                         {if $prefs.change_password neq 'n'}
-                            <div class="form-group row">
+                            <div class="mb-3 row">
                                 <label class="col-md-4 col-form-label" for="pass1">
                                     {tr}New password:{/tr}
                                 </label>
@@ -654,7 +654,7 @@
                                     <input class="form-control" type="password" name="pass1" id="pass1" autocomplete="new-password">
                                 </div>
                             </div>
-                            <div class="form-group row">
+                            <div class="mb-3 row">
                                 <label class="col-md-4 col-form-label" for="pass2">
                                     {tr}Confirm new password:{/tr}
                                 </label>
@@ -664,7 +664,7 @@
                             </div>
                         {/if}
                         {if $tiki_p_admin ne 'y' or $userwatch eq $user}
-                            <div class="form-group row">
+                            <div class="mb-3 row">
                                 <label class="col-md-4 col-form-label" for="pass">
                                     {tr}Current password (required):{/tr}
                                 </label>
@@ -688,9 +688,9 @@
             Tiki will require a code from your mobile phone during login. This code is created by the Google Authenticator®.{/tr}
         {/remarksbox}
         {if $tfaSecret }
-            <form action="tiki-user_preferences.php" method="post" class="form-horizontal">
+            <form action="tiki-user_preferences.php" method="post">
                 {ticket}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <div class="col-md-5">
                         <img class="responsive" src="data:image/{$imageType};base64,{$tfaSecretQR}"/>
                     </div>
@@ -698,7 +698,7 @@
                         <div class="d-flex align-items-center" style="height: 100%">
                             <div class="well">
                                 {tr}Install a soft token authenticator like FreeOTP or Google Authenticator from your application repository and use that app to scan this QR code. More information is available in the documentation.{/tr}
-                                <div style="margin-top: 20px" class="form-group">
+                                <div style="margin-top: 20px" class="mb-3">
                                     <label for="exampleInputEmail1">Pin Code</label>
                                     <input type="text" class="form-control" name="tfaPin">
                                 </div>
@@ -712,7 +712,7 @@
                 </div>
             </form>
         {else}
-            <form action="tiki-user_preferences.php" method="post" class="form-horizontal">
+            <form action="tiki-user_preferences.php" method="post">
                 {ticket}
                 <div class="submit text-center">
                     <input type="submit" class="btn btn-danger btn-sm" name="removetwofactor" value="{tr}Disable Two-Factor Auth{/tr}">
@@ -726,7 +726,7 @@
         {tab name="{tr}Account Deletion{/tr}"}
             <div class="jumbotron text-center">
                 <h2>{tr}Account Deletion{/tr}</h2>
-                <form role="form" class="form-horizontal" action="tiki-user_preferences.php" method="post">
+                <form role="form" action="tiki-user_preferences.php" method="post">
                     {ticket}
                     {if !empty($userwatch)}<input type="hidden" name="view_user" value="{$userwatch|escape}">{/if}
                     <p>

@@ -461,7 +461,7 @@
 
                 {* add here e.g. <option value="categorize" >{tr}categorize{/tr}</option> *}
             </select>
-            <span class="input-group-append">
+            <span class="input-group-text">
                 <button
                     type="submit"
                     form="checkboxes_on"

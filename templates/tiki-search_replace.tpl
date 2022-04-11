@@ -35,7 +35,7 @@
             <div class="table-responsive">
                 <table class="table">
                     <tr>
-                        <td style="text-align: right">
+                        <td class="text-end">
                             {select_all checkbox_names='checked[]'}
                         </td>
                     </tr>

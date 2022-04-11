@@ -7,7 +7,7 @@
 {/if}
 <br>
 <div class="row">
-    <div class="form-group col-lg-12 clearfix">
+    <div class="mb-3 col-lg-12 clearfix">
         <div class="text-center">
             <input
                 type="submit"

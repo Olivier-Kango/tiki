@@ -8,7 +8,7 @@
     {if $status neq 'DONE'}
         <form method="post" action="{service controller=comment action=moderate}" class="form">
             <div class="card">
-                <div class="card-body form-group row">
+                <div class="card-body mb-3 row">
                     {if $do eq 'approve'}
                         {tr}Are you sure you want to approve this comment?{/tr}
                     {else}

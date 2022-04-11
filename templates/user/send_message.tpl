@@ -11,7 +11,7 @@
         {ticket mode='confirm'}
 
         <p>{tr}The following message will be sent to user{/tr} {$userwatch|username}:</p>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-form-label" for="priority">{tr}Priority{/tr}</label>
             <select name="priority" id="priority" class="form-control">
                 <option value="1" {if $priority eq 1}selected="selected"{/if}>1: {tr}Lowest{/tr}</option>
@@ -21,15 +21,15 @@
                 <option value="5" {if $priority eq 5}selected="selected"{/if}>5: {tr}Very High{/tr}</option>
             </select>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-form-label" for="subject">{tr}Subject{/tr}</label>
             <input type="text" name="subject" id="subject" value="" maxlength="255" class="form-control">
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-form-label" for="message">{tr}Message Body{/tr}</label>
             <textarea rows="12" class="form-control" name="body" id="message"></textarea>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <input type="checkbox" name="replytome" id="replytome">
             <label for="replytome">
                 {tr}Reply-to my email{/tr}

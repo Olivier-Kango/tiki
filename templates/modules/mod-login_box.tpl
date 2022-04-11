@@ -49,7 +49,7 @@ $("#switchbox-{{$module_logo_instance}} .submit").click( function () {
     {if $mode eq "header"}<div class="siteloginbar{if $user} logged-in{/if}">{/if}
     {if $user}
         {if empty($mode) or $mode eq "module"}
-            <div class="form-group row mx-0">{tr}Logged in as:{/tr} <span class="d-inline-block col-12 text-truncate">&nbsp;{$user|userlink}</span></div>
+            <div class="mb-3 row mx-0">{tr}Logged in as:{/tr} <span class="d-inline-block col-12 text-truncate">&nbsp;{$user|userlink}</span></div>
             <div class="text-center">
                 {button href="tiki-logout.php" _text="{tr}Log out{/tr}"}
             </div>
@@ -77,7 +77,7 @@ $("#switchbox-{{$module_logo_instance}} .submit").click( function () {
                     {ticket}
                     <fieldset>
                         <legend>{tr}Switch User{/tr}</legend>
-                        <div class="form-group row mx-0">
+                        <div class="mb-3 row mx-0">
                             <label class="col-form-label" for="login-switchuser_{$module_logo_instance}">
                                 {if $prefs.login_is_email eq 'y'}
                                     {if $prefs.login_is_email_obscure eq 'n'}
@@ -117,8 +117,8 @@ $("#switchbox-{{$module_logo_instance}} .submit").click( function () {
         {elseif $mode eq "header"}
             <span style="white-space: nowrap">{$user|userlink}</span> <a href="tiki-logout.php" title="{tr}Log out{/tr}">{tr}Log out{/tr}</a>
         {elseif $mode eq "popup"}
-            <div class="siteloginbar_popup dropdown float-sm-right mr-auto" role="group">
-                <button type="button" class="dropdown-toggle login_link btn btn-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div class="siteloginbar_popup dropdown float-sm-end me-auto" role="group">
+                <button type="button" class="dropdown-toggle login_link btn btn-link" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {if isset($module_params.show_user_avatar) && $module_params.show_user_avatar eq 'y'}{$user|avatarize:n:n:n:n}{/if}
                     {if isset($module_params.show_user_name) && $module_params.show_user_name eq 'y'}{$user|username:n:n:n}{/if}
                     {if (!isset($module_params.show_user_avatar) || $module_params.show_user_avatar neq 'y') and (!isset($module_params.show_user_name) || $module_params.show_user_name neq 'y')}{tr}Log out{/tr}{/if}
@@ -150,7 +150,7 @@ $(".collapse-toggle", ".siteloginbar_popup .dropdown-menu").click(function () {
             <form method="get" action="tiki-login_openid.php">
                 <fieldset>
                     <legend>{tr}Switch user{/tr}</legend>
-                    <select name="select">
+                    <select class="form-select" name="select">
                     {foreach item=username from=$openid_userlist}
                         <option{if $username eq $user} selected="selected"{/if}>{$username}</option>
                     {/foreach}
@@ -184,15 +184,15 @@ $(".collapse-toggle", ".siteloginbar_popup .dropdown-menu").click(function () {
     {else}
         {assign var='close_tags' value=''}
         {if $mode eq "popup"}
-            <div class="siteloginbar_popup dropdown btn-group float-sm-right drop-left">
-                <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+            <div class="siteloginbar_popup dropdown btn-group float-sm-end drop-left">
+                <button type="button" class="btn btn-link dropdown-toggle" data-bs-toggle="dropdown">
                     {tr}Log in{/tr}
                 </button>
-                <div class="siteloginbar_poppedup dropdown-menu dropdown-menu-right float-sm-right modal-sm"><div class="card-body">
+                <div class="siteloginbar_poppedup dropdown-menu dropdown-menu-right float-sm-end modal-sm"><div class="card-body">
                     {capture assign="close_tags"}</div></div></div>{$close_tags}{/capture}
         {/if}
 
-        <form name="loginbox" class="form{if $mode eq "header"} form-inline{/if}" id="loginbox-{$module_logo_instance}" action="{$login_module.login_url|escape}"
+        <form name="loginbox" class="form{if $mode eq "header"} d-flex flex-row flex-wrap align-items-center{/if}" id="loginbox-{$module_logo_instance}" action="{$login_module.login_url|escape}"
                 method="post"
                 {if $prefs.desactive_login_autocomplete eq 'y'} autocomplete="off"{/if}
         >
@@ -213,11 +213,11 @@ $(".collapse-toggle", ".siteloginbar_popup .dropdown-menu").click(function () {
             {/remarksbox}
         {/if}
         {if !empty($prefs.login_text_explanation) && !($mode eq "popup")}
-        <div class="login-description form-group row mx-0 clearfix">
+        <div class="login-description mb-3 row mx-0 clearfix">
             <label> {wiki} {$login_text_explanation} {/wiki}</label>
         </div>
         {/if}
-        <div class="user form-group row mx-0 clearfix">
+        <div class="user mb-3 row mx-0 clearfix">
             {if !isset($module_logo_instance)}{assign var=module_logo_instance value=' '}{/if}
             <label for="login-user_{$module_logo_instance}">
                 {if $prefs.login_is_email eq 'y'}
@@ -240,7 +240,7 @@ $(".collapse-toggle", ".siteloginbar_popup .dropdown-menu").click(function () {
                 <input class="form-control" type="hidden" name="user" id="login-user_{$module_logo_instance}" value="{$loginuser|escape}" /><b>{$loginuser|escape}</b>
             {/if}
         </div>
-        <div class="pass form-group row mx-0 clearfix">
+        <div class="pass mb-3 row mx-0 clearfix">
             <label for="login-pass_{$module_logo_instance}">{tr}Password:{/tr}</label>
             <input onkeypress="capLock(event, this)" type="password" name="pass" class="form-control" id="login-pass_{$module_logo_instance}" autocomplete="{if $prefs.desactive_login_autocomplete eq 'y'}new-password{else}current-password{/if}">
             {if $module_params.show_forgot eq 'y' && $prefs.forgotPass eq 'y'}
@@ -251,7 +251,7 @@ $(".collapse-toggle", ".siteloginbar_popup .dropdown-menu").click(function () {
             </div>
         </div>
         {if isset($module_params.show_two_factor_auth) and $module_params.show_two_factor_auth eq 'y' and $prefs.twoFactorAuth eq 'y'}
-        <div class="pass form-group row mx-0 clearfix">
+        <div class="pass mb-3 row mx-0 clearfix">
             <label for="login-2fa_{$module_logo_instance}">{tr}Two-factor Authenticator Code:{/tr}</label>
             <input type="text" name="twoFactorAuthCode" autocomplete="off" class="form-control" id="login-2fa_{$module_logo_instance}">
         </div>
@@ -294,11 +294,11 @@ $(".collapse-toggle", ".siteloginbar_popup .dropdown-menu").click(function () {
             {/if}
         {/if}
 
-        <div class="form-group text-center">
+        <div class="mb-3 text-center">
             <button class="btn btn-primary button submit" type="submit" name="login">{tr}Log in{/tr} <!--i class="fa fa-arrow-circle-right"></i--></button>
         </div>
         {if $module_params.show_register eq 'y' or (isset($module_params.show_two_factor_auth) && $module_params.show_two_factor_auth)}
-            <div {if $mode eq 'header'}class="text-right" style="display:inline;"{/if}>
+            <div {if $mode eq 'header'}class="text-end" style="display:inline;"{/if}>
                 {strip}
                     <div {if $mode eq 'header'}style="display: inline-block"{/if}><ul class="{if $mode neq 'header'}list-unstyled"{else}list-inline"{/if}>
                         {if $module_params.show_register eq 'y' && $prefs.allowRegister eq 'y'}
@@ -336,7 +336,7 @@ $(".collapse-toggle", ".siteloginbar_popup .dropdown-menu").click(function () {
 
 
         {if isset($use_intertiki_auth) and $use_intertiki_auth eq 'y'}
-            <select name='intertiki'>
+            <select class="form-select" name='intertiki'>
                 <option value="">{tr}local account{/tr}</option>
                 <option value="">-----------</option>
                 {foreach key=k item=i from=$intertiki}
@@ -345,7 +345,7 @@ $(".collapse-toggle", ".siteloginbar_popup .dropdown-menu").click(function () {
             </select>
         {/if}
         {if $prefs.auth_method eq 'openid_connect' && isset($openidconnect_redirect_url) && $showloginboxes neq 'y'}
-            <div class="form-group text-center" style="margin-top: 1rem">
+            <div class="mb-3 text-center" style="margin-top: 1rem">
                 <a href="{$openidconnect_redirect_url}" class="btn btn-primary">
                     {tr _0=$prefs.openidconnect_name}Log in via %0{/tr}
                 </a>
@@ -364,10 +364,10 @@ $(".collapse-toggle", ".siteloginbar_popup .dropdown-menu").click(function () {
             <form method="get" action="tiki-login_openid.php">
                 <fieldset>
                     <legend>{tr}OpenID Log in{/tr}</legend>
-                    <div class="form-group row mx-0">
+                    <div class="mb-3 row mx-0">
                         <div class="input-group input-group-sm">
                             <input class="form-control" type="text" name="openid_url"/>
-                            <span class="input-group-append"><button type="submit" class="btn btn-primary" title="{tr}Go{/tr}"><img alt="{tr}OpenID Login{/tr}" class="img-circle" src="img/icons/login-OpenID-bg.gif"></button></span>
+                            <button type="submit" class="btn btn-primary" title="{tr}Go{/tr}"><img alt="{tr}OpenID Login{/tr}" class="img-circle" src="img/icons/login-OpenID-bg.gif"></button>
                         </div>
                         <span class="form-text"><a class="linkmodule tikihelp" target="_blank" href="http://doc.tiki.org/OpenID">{tr}What is OpenID?{/tr}</a></span>
                     </div>

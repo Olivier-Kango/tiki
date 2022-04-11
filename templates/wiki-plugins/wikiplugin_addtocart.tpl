@@ -1,11 +1,11 @@
 {* $Id$ *}
 <form method="post" action="{query _type=relative _keepall=y}" style="display: inline;" class="wp_addtocart_form"{$form_data}>
-    <div class="form-row align-items-center">
+    <div class="d-flex flex-wrap mx-0 align-items-center">
         <input type="hidden" name="code" value="{$params.code|escape}">
         {if $onbehalf == 'y'}
             <div class="col-12">
                 {tr}Buy on behalf of:{/tr}
-                <select name="buyonbehalf">
+                <select name="buyonbehalf class="form-select">
                     <option value="">{tr}None{/tr}</option>
                     {foreach key=id item=one from=$cartuserlist}
                         <option value="{$one|escape}">{$one|escape}</option>

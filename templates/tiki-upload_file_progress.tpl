@@ -64,7 +64,7 @@
         </div>
         <div style="{if $prefs.javascript_enabled eq 'y'}display:none;{/if}" id="uploadinfos{$fileId}">
             <div class="row">
-                <div class="col-sm-6 text-right">
+                <div class="col-sm-6 text-end">
                     {tr}Link to file from a Wiki page:{/tr}
                 </div>
                 <div class="col-sm-6">
@@ -72,12 +72,12 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-6 text-right">
+                <div class="col-sm-6 text-end">
                     <strong><em>{tr}For image files:{/tr}</em></strong>
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-6 text-right">
+                <div class="col-sm-6 text-end">
                     {tr}Display full size:{/tr}
                 </div>
                 <div class="col-sm-6">
@@ -86,7 +86,7 @@
             </div>
             {if $prefs.feature_shadowbox eq 'y'}
                 <div class="row">
-                    <div class="col-sm-6 text-right">
+                    <div class="col-sm-6 text-end">
                         {tr}Display thumbnail that enlarges:{/tr}
                     </div>
                     <div class="col-sm-6">

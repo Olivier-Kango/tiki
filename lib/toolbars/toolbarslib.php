@@ -1467,7 +1467,7 @@ class ToolbarHelptool extends Toolbar
         $url = $servicelib->getUrl($params);
         $help = tra('Help');
 
-        return "<a title=\":$help\" class=\"toolbar btn btn-sm px-2 qt-help tips bottom\" href=\"$url\" data-toggle=\"modal\" data-target=\"#bootstrap-modal\">$icon</a>";
+        return "<a title=\":$help\" class=\"toolbar btn btn-sm px-2 qt-help tips bottom\" href=\"$url\" data-bs-toggle=\"modal\" data-bs-target=\"#bootstrap-modal\">$icon</a>";
     }
 
     public function getWysiwygToken($areaId)
@@ -2163,7 +2163,7 @@ class ToolbarsList
                         if (! empty($right)) {
                             $right = '<span class="toolbar-list">' . $right . '</span>';
                         }
-                        $lineHtml = "<div class='helptool-admin float-right'>$lineBit $right</div>" . $lineHtml;
+                        $lineHtml = "<div class='helptool-admin float-end'>$lineBit $right</div>" . $lineHtml;
                     } else {
                         $lineHtml = $lineBit;
                     }
@@ -2171,7 +2171,7 @@ class ToolbarsList
 
                 // adding admin icon if no right part - messy - TODO better
                 if ($c == 0 && empty($lineBit) && ! empty($right)) {
-                    $lineHtml .= "<div class='helptool-admin float-right'>$right</div>";
+                    $lineHtml .= "<div class='helptool-admin float-end'>$right</div>";
                 }
             }
             if (! empty($lineHtml)) {

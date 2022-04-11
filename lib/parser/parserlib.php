@@ -3460,7 +3460,7 @@ class ParserLib extends TikiDb_Bridge
                         $appendMaxSize = "&amp;x=" . $maxWidthPreview;
                     }
 
-                    $popup = 'data-type="file" data-object="' . $fileId . '" data-toggle="popover" data-trigger="hover focus" data-content="<img src=\'tiki-download_file.php?fileId=' . $fileId . '&amp;thumbnail' . $appendMaxSize . '\'>" data-html="1" data-width="' . $maxWidthPreview . '"';
+                    $popup = 'data-type="file" data-object="' . $fileId . '" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="<img src=\'tiki-download_file.php?fileId=' . $fileId . '&amp;thumbnail' . $appendMaxSize . '\'>" data-html="1" data-width="' . $maxWidthPreview . '"';
                     $content = str_replace($search, $popup, $content);
                 } else {
                     $filePath = $file->getWrapper()->getReadableFile();
@@ -3514,7 +3514,7 @@ class ParserLib extends TikiDb_Bridge
                     }
 
                     if ($cacheLib->isCached($cacheName, $cacheType)) {
-                        $popup = 'data-type="file" data-object="' . $fileId . '" data-toggle="popover" data-trigger="hover focus" data-content="<img src=\'tiki-download_file.php?fileId=' . $fileId . '&amp;preview\'>" data-html="1" data-width="' . $maxWidthPreview . '"';
+                        $popup = 'data-type="file" data-object="' . $fileId . '" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="<img src=\'tiki-download_file.php?fileId=' . $fileId . '&amp;preview\'>" data-html="1" data-width="' . $maxWidthPreview . '"';
                         $content = str_replace($search, $popup, $content);
                     }
                 }

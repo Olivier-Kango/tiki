@@ -4,46 +4,46 @@
         <div class="col-sm-8 col-md-9">
             <form class="tc-form" method="post" action="#">
                 <fieldset>
-                    <p class="form-group">
+                    <p class="mb-3">
                         <label for="tc-username-example">{tr}Username{/tr}</label>
                         <input id="tc-username-example" class="nocolor form-control" type="text" value="Username">
                     </p>
-                    <p class="has-error form-group">
+                    <p class="has-error mb-3">
                         <label for="tc-password-example">{tr}Password{/tr}</label>
                         <input id="tc-password-example" class="nocolor form-control" type="password">
                         <label class="label label-warning">{tr}This field is required{/tr}</label>
                     </p>
-                    <p class="form-group">
+                    <p class="mb-3">
                         <input id="tc-remember-example" type="checkbox"> {tr}Remember me{/tr}
                     </p>
-                    <p class="form-group">
+                    <p class="mb-3">
                         <button class="btn btn-primary">{tr}Login{/tr}</button>
                     </p>
                     <hr/>
 
-                    <p class="has-error form-group">
+                    <p class="has-error mb-3">
                         <label for="tc-text-example">{tr}Text field{/tr}</label>
                         <input id="tc-text-example" class="nocolor form-control" type="text">
                         <label class="label label-warning">{tr}This field is required{/tr}</label>
                     </p>
-                    <p class="form-group">
+                    <p class="mb-3">
                         <label for="tc-textarea-example">{tr}Textarea{/tr}</label>
                         <textarea id="tc-textarea-example" class="nocolor form-control" rows="3">{tr}This is a textarea field{/tr}</textarea>
                     </p>
-                    <p class="form-group">
-                        <label for="tc-select-example">{tr}Select{/tr}</label> <select id="tc-select-example" class="nocolor form-control">
+                    <p class="mb-3">
+                        <label for="tc-select-example">{tr}Select{/tr}</label> <select id="tc-select-example" class="nocolor form-select">
                             <option>{tr}Option 1{/tr}</option>
                             <option>{tr}Option 2{/tr}</option>
                             <option>{tr}Option 3{/tr}</option>
                             <option>{tr}Option 4{/tr}</option>
                         </select>
                     </p>
-                    <p class="form-group">
+                    <p class="mb-3">
                         <label for="tc-checkbox-example">{tr}Checkbox{/tr}</label>
                         <input id="tc-checkbox-example" type="checkbox">
                         {tr}This is a checkbox{/tr}
                     </p>
-                    <p class="form-group">
+                    <p class="mb-3">
                         <label for="tc-radio-example">{tr}Radio{/tr}</label>
                         <input id="tc-radio-example" name="radio" type="radio">
                         {tr}This is a radio button{/tr}

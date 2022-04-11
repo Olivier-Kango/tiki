@@ -7,15 +7,13 @@
 
 {block name=content}
 <div class="nohighlight">
-    <form id="search-form" class="form-inline" method="get" action="tiki-searchindex.php">
+    <form id="search-form" class="d-flex flex-row flex-wrap align-items-center" method="get" action="tiki-searchindex.php">
         <div class="d-flex align-items-start mb-3">
-            <div class="pr-1">
+            <div class="pe-1">
                 <label class="sr-only" for="filter~content">{tr}Search Query{/tr}</label>
                 <div class="input-group">
                     <input class="form-control" type="search" name="filter~content" value="{$filter.content|escape}"/>
-                    <div class="input-group-append">
-                        <input type="submit" class="btn btn-primary" value="{tr}Search{/tr}"/>
-                    </div>
+                    <input type="submit" class="btn btn-primary" value="{tr}Search{/tr}"/>
                 </div>
                 {foreach from=$facets item=facet}
                     <input type="hidden" name="filter~{$facet|escape}" value="{$postfilter[$facet]|default:$filter[$facet]|escape}"/>
@@ -56,7 +54,7 @@
                 </div>
             {/if}
             {if $prefs.storedsearch_enabled eq 'y' and $user}
-                <div class="pl-1">
+                <div class="ps-1">
                     <input type="hidden" name="storeAs" value=""/>
                     <a href="{service controller=search_stored action=select modal=true}" id="store-query" class="btn btn-secondary">{tr}Save Search{/tr}</a>
                     <a href="{service controller=search_stored action=list}" class="btn btn-link">{tr}View Saved Searches{/tr}</a>

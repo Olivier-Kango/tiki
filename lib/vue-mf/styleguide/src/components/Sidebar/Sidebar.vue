@@ -1,7 +1,7 @@
 <template>
     <div class="grid-container">
         <div class="sidebar" :class="{ 'sidebar-small': hideSidebar }">
-            <button class="btn btn-light btn-sm mt-2 float-right" @click="handleToggleSidebar">
+            <button class="btn btn-light btn-sm mt-2 float-end" @click="handleToggleSidebar">
                 <i v-if="!hideSidebar" class="fas fa-chevron-left"></i>
                 <i v-if="hideSidebar" class="fas fa-chevron-right"></i>
             </button>

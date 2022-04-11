@@ -189,7 +189,7 @@ class Hm_Output_start_advanced_settings extends Hm_Output_Module
      */
     protected function output()
     {
-        return '<tr><td data-target=".advanced_setting" colspan="2" class="settings_subtitle">' .
+        return '<tr><td data-bs-target=".advanced_setting" colspan="2" class="settings_subtitle">' .
             '<img alt="" src="' . Hm_Image_Sources::$code . '" width="16" height="16" />' .
             $this->trans('Advanced') . '</td></tr>';
     }

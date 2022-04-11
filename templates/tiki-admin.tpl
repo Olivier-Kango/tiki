@@ -83,7 +83,7 @@
 
                     {if !empty($lastLogItems)}
                         <div class="h6 mt-3">
-                            <a class="collapse-toggle" data-toggle="collapse" href="#last-error-search-log">
+                            <a class="collapse-toggle" data-bs-toggle="collapse" href="#last-error-search-log">
                                 {tr}Check last logs{/tr} <span class="icon icon-caret-down fas fa-caret-down"></span>
                             </a>
                         </div>

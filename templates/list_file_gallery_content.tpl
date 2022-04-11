@@ -222,7 +222,7 @@
 
                                 {if isset($gal_info.$propkey) and ( $gal_info.$propkey eq 'a' or $gal_info.$propkey eq 'o' )}
                                     <tr>
-                                        <th class="text-right">
+                                        <th class="text-end">
                                             {$fgal_listing_conf.$propname.name|escape}
                                         </th>
                                         <td>

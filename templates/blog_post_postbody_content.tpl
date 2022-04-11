@@ -2,7 +2,7 @@
 {if $blog_post_context eq 'view_blog' && $use_excerpt eq 'y' && !empty($post_info.excerpt)}
     <div class="postbody-content postbody-excerpt card-body">
         {$post_info.parsed_excerpt}
-        <div class="read-more-wrapper mt-1">{self_link _script=$post_info.postId|sefurl:blogpost _noauto='y' _class="btn btn-link pl-0"}{icon name="book-reader"} {tr}Read more{/tr}{/self_link}</div>
+        <div class="read-more-wrapper mt-1">{self_link _script=$post_info.postId|sefurl:blogpost _noauto='y' _class="btn btn-link ps-0"}{icon name="book-reader"} {tr}Read more{/tr}{/self_link}</div>
     </div>
 {else}
     <div class="postbody-content card-body">

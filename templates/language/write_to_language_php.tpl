@@ -16,9 +16,9 @@
             {/remarksbox}
         {else}
             {if $tiki_p_admin eq 'y' and $langIsWritable}
-                <div class="form-group row">
-                    <label>
-                        {tr}Translations in the database{/tr}: <span class="badge badge-secondary">{$db_translation_count}</span>
+                <div class="mb-3 row">
+                    <label class="form-label">
+                        {tr}Translations in the database{/tr}: <span class="badge bg-secondary">{$db_translation_count}</span>
                     </label>
                     {if $prefs.lang_control_contribution eq 'y'}
                         <div class="form-check">
@@ -27,8 +27,8 @@
                         </div>
                     {/if}
                 </div>
-                <div class="form-group row">
-                    <label>
+                <div class="mb-3 row">
+                    <label class="form-label">
                         {tr}File{/tr}: {$langFile}
                     </label>
                 </div>

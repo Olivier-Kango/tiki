@@ -6,22 +6,22 @@
         {button href="tiki-article_types.php" _type="link" _icon_name="structure" _text="{tr}Article Types{/tr}"}
     {/if}
 </div>
-<form enctype="multipart/form-data" action="tiki-admin_topics.php" method="post" class="form-horizontal" role="form">
+<form enctype="multipart/form-data" action="tiki-admin_topics.php" method="post" role="form">
     <h2>{tr}Add topic{/tr}</h2>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-sm-2 col-form-label" for="name">{tr}Name{/tr}</label>
         <div class="col-sm-10">
             <input type="text" name="name" id="name" class="form-control">
         </div>
     </div>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-sm-2 col-form-label" for="image">{tr}Image{/tr}</label>
         <div class="col-sm-10">
             <input type="hidden" name="MAX_FILE_SIZE" value="1000000">
             <input class="form-control" name="userfile1" type="file">
         </div>
     </div>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-sm-2 col-form-label" for="notificationemail">{tr}Notification Email{/tr}</label>
         <div class="col-sm-10">
             <div class="card bg-light">
@@ -61,8 +61,8 @@
                     {/if}
                 </td>
                 <td class="text">{if $topics[user].active eq 'y'}{icon name="toggle-on"}{else}{icon name="toggle-off"}{/if}</td>
-                <td><span class="badge badge-secondary">{$topics[user].arts}</span></td>
-                {if $prefs.feature_submissions eq 'y'}<td><span class="badge badge-secondary">{$topics[user].subs}</span></td>{/if}
+                <td><span class="badge bg-secondary">{$topics[user].arts}</span></td>
+                {if $prefs.feature_submissions eq 'y'}<td><span class="badge bg-secondary">{$topics[user].subs}</span></td>{/if}
                 <td class="action">
                     {actions}
                         {strip}

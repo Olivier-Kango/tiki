@@ -42,7 +42,7 @@
 
             <div class="row row-middle" id="row-middle">
                 {if (zone_is_empty('left') or $prefs.feature_left_column eq 'n') and (zone_is_empty('right') or $prefs.feature_right_column eq 'n')}
-                    <div class="d-flex flex-row flex-wrap w-100">
+                    <div class="d-flex flex-row row flex-wrap w-100 gx-4">
                     <div class="col col1 col-md-12 pb-4" id="col1">
                         {if $prefs.module_zones_pagetop eq 'fixed' or ($prefs.module_zones_pagetop ne 'n' && ! zone_is_empty('pagetop'))}
                             {modulelist zone=pagetop}
@@ -64,7 +64,7 @@
                             {icon name=$icon_name class='toggle_zone right' href='#' title='{tr}Toggle right modules{/tr}'}
                         </div>
                     {/if}
-                <div class="d-flex flex-row flex-wrap w-100">
+                <div class="d-flex flex-row row flex-wrap w-100 gx-4">
                     <div class="col col1 col-md-12 col-lg-9 {if $prefs.feature_fixed_width neq 'y'}col-xl-10{/if} pb-4" id="col1">
                         {if $prefs.module_zones_pagetop eq 'fixed' or ($prefs.module_zones_pagetop ne 'n' && ! zone_is_empty('pagetop'))}
                             {modulelist zone=pagetop}
@@ -89,7 +89,7 @@
                             {icon name=$icon_name class='toggle_zone left' href='#' title='{tr}Toggle left modules{/tr}'}
                         </div>
                     {/if}
-                <div class="d-flex flex-row flex-wrap w-100">
+                <div class="d-flex flex-row row flex-wrap w-100 gx-4">
                     <div class="col col1 col-md-12 col-lg-9 {if $prefs.feature_fixed_width neq 'y'}col-xl-10{/if} order-md-1 order-lg-2 pb-4" id="col1">
                         {if $prefs.module_zones_pagetop eq 'fixed' or ($prefs.module_zones_pagetop ne 'n' && ! zone_is_empty('pagetop'))}
                             {modulelist zone=pagetop}
@@ -110,19 +110,19 @@
                 {else}
                     <div class="col-sm-12 side-col-toggle-container d-flex">
                         {if $prefs.feature_left_column eq 'user'}
-                            <div class="text-left side-col-toggle flex-fill">
+                            <div class="text-start side-col-toggle flex-fill">
                                 {$icon_name = (not empty($smarty.cookies.hide_zone_left)) ? 'toggle-right' : 'toggle-left'}
                                 {icon name=$icon_name class='toggle_zone left' href='#' title='{tr}Toggle left modules{/tr}'}
                             </div>
                         {/if}
                         {if $prefs.feature_right_column eq 'user'}
-                            <div class="text-right side-col-toggle flex-fill">
+                            <div class="text-end side-col-toggle flex-fill">
                                 {$icon_name = (not empty($smarty.cookies.hide_zone_right)) ? 'toggle-left' : 'toggle-right'}
                                 {icon name=$icon_name class='toggle_zone right' href='#' title='{tr}Toggle right modules{/tr}'}
                             </div>
                         {/if}
                     </div>
-                <div class="d-flex flex-row flex-wrap w-100">
+                <div class="d-flex flex-row row flex-wrap w-100 gx-4">
                     <div class="col col1 col-sm-12 col-lg-8 order-xs-1 order-lg-2 pb-4" id="col1">
                         {if $prefs.module_zones_pagetop eq 'fixed' or ($prefs.module_zones_pagetop ne 'n' && ! zone_is_empty('pagetop'))}
                             {modulelist zone=pagetop}
@@ -165,7 +165,7 @@
                 {$prefs.sitetitle|escape}
                 <small>{$prefs.sitesubtitle|escape}</small>
             </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse"
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
                     aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>

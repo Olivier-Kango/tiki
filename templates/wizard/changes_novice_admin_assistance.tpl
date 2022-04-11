@@ -1,14 +1,14 @@
 {* $Id$ *}
 <div class="media">
-    <div class="mr-4">
-    <span class="float-left fa-stack fa-lg margin-right-18em" alt="{tr}Changes Wizard{/tr}" title="Changes Wizard">
+    <div class="me-4">
+    <span class="float-start fa-stack fa-lg margin-right-18em" alt="{tr}Changes Wizard{/tr}" title="Changes Wizard">
         <i class="fas fa-arrow-circle-up fa-stack-2x"></i>
-        <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ml-4 mt-4"></i>
+        <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ms-4 mt-4"></i>
     </span>
     </div>
     <br/><br/>
     <div class="media-body">
-        {icon name="user-plus" size=3 iclass="float-sm-right"}
+        {icon name="user-plus" size=3 iclass="float-sm-end"}
         {tr}Improvements that can help novice admins to set up their tiki sites more easily and improve their usability{/tr}.
         <fieldset>
             <legend>{tr}Basic Information about Wizards{/tr}</legend>
@@ -24,7 +24,7 @@
             </p>
         </fieldset>
         <fieldset class="mb-3 w-100 clearfix featurelist">
-            {icon name="magic" size=3 iclass="float-sm-right"}
+            {icon name="magic" size=3 iclass="float-sm-end"}
             <legend> {tr}Wizards settings{/tr} </legend>
             {preference name=feature_wizard_user}
             {preference name=userTracker}
@@ -37,7 +37,7 @@
             {preference name=wizard_admin_hide_on_login}
         </fieldset>
         <fieldset class="mb-3 w-100 clearfix featurelist">
-            {icon name="envelope-o" size=3 iclass="float-sm-right"}
+            {icon name="envelope-o" size=3 iclass="float-sm-end"}
             <legend> {tr}Email{/tr} </legend>
             {preference name=email_footer}
             {preference name=messu_truncate_internal_message}

@@ -34,7 +34,7 @@
                     </span>
                 </td>
                 <td class="text">{$channels[user].type}</td>
-                <td><span class="badge badge-secondary">{$channels[user].options}</span></td>
+                <td><span class="badge bg-secondary">{$channels[user].options}</span></td>
                 <td class="action">
                     {actions}
                         {strip}

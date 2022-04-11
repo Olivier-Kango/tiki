@@ -7,19 +7,19 @@
     <form enctype="multipart/form-data" action="tiki-admin_contribution.php" method="post" role="form">
         {ticket}
         <input type="hidden" name="contributionId" value="{$contribution.contributionId}">
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-sm-3 col-form-label" for="name">{tr}Name{/tr}</label>
             <div class="col-sm-9">
                     <input type="text" name="name" class="form-control" id="name" {if $contribution.name} value="{$contribution.name|escape}"{/if}>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-sm-3 col-form-label" for="description">{tr}Description{/tr}</label>
             <div class="col-sm-9">
                 <input type="text" name="description" id="description" class="form-control" maxlength="250"{if $contribution.description} value="{$contribution.description|escape}"{/if}>
             </div>
         </div>
-        <div class="form-group text-center">
+        <div class="mb-3 text-center">
             <input type="submit" class="btn btn-primary btn-sm" name="replace" value="{tr}Save{/tr}">
         </div>
     </form><br/>
@@ -28,7 +28,7 @@
 <h2>{tr}Settings{/tr}</h2>
 <form action="tiki-admin_contribution.php?page=features" method="post" role="form">
     {ticket}
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-sm-6 form-check-label" for=feature_contribution_mandatory">
             {tr}Contributions are mandatory in wiki pages{/tr}
         </label>
@@ -38,7 +38,7 @@
             </div>
         </div>
     </div>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-sm-6 form-check-label" for="feature_contribution_mandatory_forum">
             {tr}Contributions are mandatory in forums{/tr}
         </label>
@@ -48,7 +48,7 @@
             </div>
         </div>
     </div>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-sm-6 form-check-label" for="feature_contribution_mandatory_comment">
             {tr}Contributions are mandatory in comments{/tr}
         </label>
@@ -58,7 +58,7 @@
             </div>
         </div>
     </div>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-sm-6 form-check-label" for="feature_contribution_mandatory_blog">
             {tr}Contributions are mandatory in blogs{/tr}
         </label>
@@ -68,7 +68,7 @@
             </div>
         </div>
     </div>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-sm-6 form-check-label" for="feature_contribution_display_in_comment">
             {tr}Contributions are displayed in the comment/post{/tr}
         </label>
@@ -78,7 +78,7 @@
             </div>
         </div>
     </div>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-sm-6 form-check-label" for="feature_contributor_wiki">
             {tr}Contributors{/tr}
         </label>
@@ -88,7 +88,7 @@
             </div>
         </div>
     </div>
-    <div class="form-group text-center">
+    <div class="mb-3 text-center">
         <input type="submit" class="btn btn-primary" name="setting" value="{tr}Save{/tr}">
     </div>
 </form><br/>
@@ -98,19 +98,19 @@
 
 <form enctype="multipart/form-data" action="tiki-admin_contribution.php" method="post" role="form">
     {ticket}
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-sm-3 col-form-label" for="new_contribution_name">{tr}Name{/tr}</label>
         <div class="col-sm-9">
             <input type="text" name="new_contribution_name" id="new_contribution_name" class="form-control">
         </div>
     </div>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-sm-3 col-form-label" for="new_contribution_name">{tr}Description{/tr}</label>
         <div class="col-sm-9">
             <input type="text" name="description" class="form-control" maxlength="250">
         </div>
     </div>
-    <div class="form-group text-center">
+    <div class="mb-3 text-center">
         <input type="submit" class="btn btn-primary" name="add" value="{tr}Add{/tr}">
     </div>
 </form><br/>

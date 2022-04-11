@@ -2,7 +2,7 @@
 <form action="tiki-admin.php?page=category" method="post" class="admin">
     {ticket}
     <div class="row">
-        <div class="form-group col-lg-12 clearfix">
+        <div class="mb-3 col-lg-12 clearfix">
             <a role="link" class="btn btn-link tips" href="tiki-browse_categories.php" title=":{tr}Categories listing{/tr}">
                 {icon name="list"} {tr}Browse Categories{/tr}
             </a>
@@ -62,7 +62,7 @@
         {preference name=category_jail}
         {preference name=category_jail_root}
         {preference name=category_defaults}
-        <div class="form-group row">
+        <div class="mb-3 row">
             <div class="col-sm-8 offset-sm-4">
                 {if !empty($prefs.category_defaults)}
                     <button type="submit" class="btn btn-primary" name="assignWikiCategories" value="y">

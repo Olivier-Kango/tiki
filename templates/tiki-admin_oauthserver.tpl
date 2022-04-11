@@ -25,7 +25,7 @@
                 <h3>{$entityName}</h3>
             </div>
 
-            <div class="form-group col-md-6 col-sm-12 form-group-name">
+            <div class="mb-3 col-md-6 col-sm-12 form-group-name">
                 <label for="oauth-name">{tr}Name{/tr}</label>
                 <input type="text" class="form-control"
                     name="name"
@@ -66,7 +66,7 @@
                 {user_selector id="user_selector_oauth_server" realnames="n" user=$entityUser}
             </div>
             <div class="col-sm-12">
-                <div class="btn-group float-right">
+                <div class="btn-group float-end">
                     <button type="submit" class="btn btn-success" value="1">{$entityId|ternary:'Save':'Add'|tra}</button>
                     <button type="submit" class="btn btn-danger" name="delete" value="1">{tr}Delete{/tr}</button>
                 </div>

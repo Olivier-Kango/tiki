@@ -68,7 +68,7 @@
             {/if}
             <input
                 type="submit"
-                class="btn btn-primary btn-sm float-sm-right"
+                class="btn btn-primary btn-sm float-sm-end"
                 name="delete"
                 value="{tr}Delete{/tr}"
                 onclick="confirmPopup('{tr}Delete sent message?{/tr}')"

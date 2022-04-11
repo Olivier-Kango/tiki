@@ -5,14 +5,14 @@
                 ({$size} {tr}bytes{/tr})
             {/if}
         </span>
-        <div class="actions hidden-print float-right">
+        <div class="actions hidden-print float-end">
             <div class="btn-group">
                 {if $prefs.feature_multilingual eq 'y' and $lang and $prefs.show_available_translations eq 'y'}
                     {include file='translated-lang.tpl' object_type='article'}
                 {/if}
                 <div class="btn-group">
                     {if ! $js}<ul class="cssmenu_horiz"><li>{/if}
-                    <a class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" href="#"title="{tr}Article actions{/tr}">
+                    <a class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" data-hover="dropdown" href="#"title="{tr}Article actions{/tr}">
                         {icon name="menu-extra"}
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">

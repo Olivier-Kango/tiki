@@ -6,17 +6,17 @@
 
 {block name="content"}
     <form class="form" name="duplicate_tracker" action="{service controller=tracker action=duplicate}" method="post">
-        <div class="form-group row mx-0">
+        <div class="mb-3 row mx-0">
             <label class="col-form-label" for="name">
                 {tr}Name{/tr}
             </label>
             <input type="text" name="name" id="name" class="form-control" placeholder="Name of the new tracker" required="required">
         </div>
-        <div class="form-group row mx-0">
+        <div class="mb-3 row mx-0">
             <label class="col-form-label" for="trackerId">
                 {tr}Tracker{/tr}
             </label>
-            <select name="trackerId" id="trackerId" class="form-control" required="required">
+            <select name="trackerId" id="trackerId" class="form-select" required="required">
                 {foreach from=$trackers item=tr key=k}
                     <option value="{$tr.trackerId|escape}">{$tr.name|escape}</option>
                 {/foreach}

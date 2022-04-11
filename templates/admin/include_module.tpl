@@ -8,7 +8,7 @@
     <input type="hidden" name="modulesetup" />
 
     <div class="row">
-        <div class="form-group col-lg-12 clearfix">
+        <div class="mb-3 col-lg-12 clearfix">
             <a role="button" class="btn btn-link" href="tiki-admin_modules.php" title="{tr}List{/tr}">
                 {icon name="list"} {tr}Modules{/tr}
             </a>

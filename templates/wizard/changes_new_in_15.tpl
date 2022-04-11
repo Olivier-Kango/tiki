@@ -1,14 +1,14 @@
 {* $Id$ *}
 
-<div class="media">
-    <div class="mr-4">
-    <span class="float-left fa-stack fa-lg margin-right-18em" alt="{tr}Changes Wizard{/tr}" title="Changes Wizard">
+<div class="d-flex">
+    <div class="flex-shrink-0 mb-3">
+    <span class="float-start fa-stack fa-lg margin-right-18em" alt="{tr}Changes Wizard{/tr}" title="Changes Wizard">
         <i class="fas fa-arrow-circle-up fa-stack-2x"></i>
-        <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ml-4 mt-4"></i>
+        <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ms-4 mt-4"></i>
     </span>
     </div>
-    <br/><br/><br/>
-    <div class="media-body">
+
+    <div class="flex-grow-1 ms-3">
         {tr}Main new features and settings in Tiki 15{/tr}.
         <a href="http://doc.tiki.org/Tiki15" target="tikihelp" class="tikihelp" title="{tr}Tiki15:{/tr}
             {tr}Tiki15 is an LTS version{/tr}.
@@ -74,7 +74,7 @@
         <fieldset class="mb-3 w-100 clearfix featurelist">
             <legend>{tr}Temporary User Accounts{/tr}</legend>
                 <div class="adminoptionbox preference clearfix advanced pref-fake all modified">
-                    <div class="adminoption form-group row">
+                    <div class="adminoption mb-3 row">
                         <label class="col-sm-4 col-form-label">
                             {tr}Display more information here{/tr}
                         </label>
@@ -136,7 +136,7 @@
                 <div class="adminoptionboxchild" id="fgal_viewerjs_feature_childcontainer">
                     {preference name='fgal_viewerjs_uri'}
                     {if $viewerjs_err}
-                        <div class="col-sm-8 float-sm-right">
+                        <div class="col-sm-8 float-sm-end">
                             {remarksbox type='errors' title="{tr}Warning{/tr}"}{$viewerjs_err}{/remarksbox}
                         </div>
                     {/if}

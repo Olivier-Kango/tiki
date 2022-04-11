@@ -5,7 +5,7 @@
     {button href="tiki-index.php?page=$thispage" _icon_name="file" _class="btn btn-link navbar-btn" _text="{tr}View page{/tr}"}
 </div>
 
-<form action="tiki-rename_page.php" method="post" role="form" class="form-inline mt-3">
+<form action="tiki-rename_page.php" method="post" role="form" class="d-flex flex-row flex-wrap align-items-center mt-3">
     {ticket}
     <input type="hidden" name="page" value="{$page|escape}">
     {if isset($page_badchars_display)}
@@ -21,16 +21,16 @@
             <input type="submit" class="btn btn-primary btn-sm" name="confirm" value="{tr}Use this name anyway{/tr}">
         {/if}
     {/if}
-    <label for="newpage" class="col-form-label mr-2">{tr}New name{/tr}</label>
-        <input type='text' id='newpage' name='newpage' class="form-control mr-3" maxlength="158" value='{$newname|escape}'>
+    <label for="newpage" class="col-form-label me-2">{tr}New name{/tr}</label>
+        <input type='text' id='newpage' name='newpage' class="form-control me-3" maxlength="158" value='{$newname|escape}'>
             {if $prefs.feature_wiki_pagealias eq 'y'}
-                <input type='checkbox' id='semantic_alias' name='semantic_alias' value='y' class="mr-2"> {tr}Redirect original page{/tr}
-                <a tabindex="0" target="_blank" data-toggle="popover" data-trigger="hover" title="{tr}301 Redirect - 'moved permanently' HTTP response status code{/tr}" data-content="{tr}Create an SEO-friendly, automatic redirect from old page name to new page name (ex.: for search engines or users that may have bookmarked the page){/tr}">
+                <input type='checkbox' id='semantic_alias' name='semantic_alias' value='y' class="me-2"> {tr}Redirect original page{/tr}
+                <a tabindex="0" target="_blank" data-bs-toggle="popover" data-bs-trigger="hover" title="{tr}301 Redirect - 'moved permanently' HTTP response status code{/tr}" data-bs-content="{tr}Create an SEO-friendly, automatic redirect from old page name to new page name (ex.: for search engines or users that may have bookmarked the page){/tr}">
                     {icon name='information'}
                 </a>
             {/if}
 
-        <input type="submit" class="btn btn-primary ml-3" name="rename" value="{tr}Rename{/tr}">
+        <input type="submit" class="btn btn-primary ms-3" name="rename" value="{tr}Rename{/tr}">
 
 </form>
 

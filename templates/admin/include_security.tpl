@@ -1,6 +1,6 @@
 {* $Id$ *}
 
-<div class="t_navbar btn-group form-group row">
+<div class="t_navbar btn-group mb-3 row">
     <a role="link" class="btn btn-link" href="tiki-admingroups.php" title="{tr}Admin groups{/tr}">
         {icon name="group"} {tr}Admin Groups{/tr}
     </a>
@@ -19,7 +19,7 @@
 <form class="admin" id="security" name="security" action="tiki-admin.php?page=security" method="post">
     {ticket}
     <div class="row">
-        <div class="form-group col-lg-12 clearfix">
+        <div class="mb-3 col-lg-12 clearfix">
             {include file='admin/include_apply_top.tpl'}
         </div>
     </div>
@@ -233,7 +233,7 @@
 
             {preference name=ids_enabled}
             <div class="adminoptionboxchild" id="ids_enabled_childcontainer">
-                <div class="form-group adminoptionbox clearfix">
+                <div class="mb-3 adminoptionbox clearfix">
                     <div class="offset-sm-4 col-sm-8">
                         <a href="tiki-admin_ids.php">{tr}Admin IDS custom rules{/tr}</a>
                     </div>
@@ -394,7 +394,7 @@
                         <legend>
                             {tr}General information{/tr}
                         </legend>
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-form-label col-sm-4" for="name">
                                 {tr}Key name or domain{/tr}
                             </label>
@@ -402,7 +402,7 @@
                                 <input type="text" class="form-control" name="name" value="{$encryption_key.name|escape}">
                             </div>
                         </div><br>
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-form-label col-sm-4" for="description">
                                 {tr}Description{/tr}
                             </label>
@@ -411,7 +411,7 @@
                             </div>
                         </div><br>
                         {if $encryption_key.keyId}
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-form-label col-sm-4" for="regenerate">
                                 {tr}Regenerate shares{/tr}
                             </label>
@@ -423,7 +423,7 @@
                             </div>
                         </div><br>
                         {if $encryption_setup neq 'y'}
-                        <div class="form-group row" id="old_share_container" style="display:none">
+                        <div class="mb-3 row" id="old_share_container" style="display:none">
                             <label class="col-form-label col-sm-4" for="old_share">
                                 {tr}Old shared key{/tr}
                             </label>
@@ -440,7 +440,7 @@
                         </div>
                         {/if}
                         {/if}
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-form-label col-sm-4" for="user_selector_1">
                                 {tr}Users to share with{/tr}
                             </label>
@@ -453,12 +453,12 @@
                             </div>
                         </div><br>
                         {if $encryption_algos}
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-form-label col-sm-4" for="algo">
                                 {tr}Encryption algorithm{/tr}
                             </label>
                             <div class="col-sm-8">
-                                <select class="form-control" name="algo" id="algo" {if $encryption_key.keyId}disabled{/if}>
+                                <select class="form-select" name="algo" id="algo" {if $encryption_key.keyId}disabled{/if}>
                                     <option></option>
                                     {foreach $encryption_algos as $algo}
                                         <option value="{$algo|escape}" {if $encryption_key.algo eq $algo}selected="selected"{/if}>
@@ -470,7 +470,7 @@
                         </div><br>
                         {/if}
                         {if $prefs.feature_user_encryption neq 'y'}
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-form-label col-sm-4" for="shares">
                                 {tr}No. of people to share{/tr}
                             </label>

@@ -87,8 +87,8 @@
                     </tr>
                 {/section}
                 <tr>
-                    <td colspan="7"><div class="form-inline">
-                        <input type="submit" class="btn btn-primary btn-sm mr-2" name="merge" value="{tr}Merge selected notes into{/tr}">
+                    <td colspan="7"><div class="d-flex flex-row flex-wrap align-items-center">
+                        <input type="submit" class="btn btn-primary btn-sm me-2" name="merge" value="{tr}Merge selected notes into{/tr}">
                             <input type="text" class="form-control" name="merge_name" size="20"></div>
                     </td>
                 </tr>
@@ -101,14 +101,14 @@
 
 <h2>{tr}Upload file{/tr}</h2>
 <form enctype="multipart/form-data" action="tiki-notepad_list.php" method="post">
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-sm-3 col-form-label">{tr}Upload file:{/tr}</label>
         <div class="col-sm-7">
             <input type="hidden" name="MAX_FILE_SIZE" value="10000000000000">
             <input size="16" name="userfile1" type="file">
         </div>
     </div>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-sm-3 col-form-label"></label>
         <div class="col-sm-7">
             <input type="submit" class="btn btn-primary" name="upload" value="{tr}Upload{/tr}">

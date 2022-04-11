@@ -11,7 +11,7 @@
         <input type="hidden" name="preferences" value="{$info.preferences|escape}">
         <input type="hidden" id="checkPackage" value="{$checkPackage|escape}">
         <input type="hidden" name="trackerAcc" id="trackerAcc" value="{$info.trackerId|escape}">
-        <div class="form-group row">
+        <div class="mb-3 row">
             <div class="offset-md-3 col-md-9">
                 <div class="form-check">
                     <label>
@@ -21,14 +21,14 @@
                 </div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="account" class="col-form-label col-md-3">{tr}Account name{/tr}</label>
             <div class="col-md-9">
                 <input type="text" name="account" value="{$info.account|escape}" class="form-control">
                 <p class="form-text">Used as the sender email address for any errors</p>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="type" class="col-form-label col-md-3">{tr}Type{/tr}</label>
             <div class="col-md-9">
                 <select name="type" class="form-control">
@@ -42,7 +42,7 @@
                 </div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="host" class="col-form-label col-md-3">{tr}POP server{/tr} / {tr}Port{/tr}</label>
             <div class="col-md-3">
                 <select name="protocol" class="form-control">
@@ -57,20 +57,20 @@
                 <input type="text" name="port" value="{$info.port|escape}" class="form-control" placeholder="{tr}Port{/tr}">
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="username" class="col-form-label col-md-3">{tr}Username{/tr}</label>
             <div class="col-md-6">
                 <input type="text" name="username" value="{$info.username|escape}" class="form-control">
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="pass" class="col-form-label col-md-3">{tr}Password{/tr}</label>
             <div class="col-md-4">
                 <input type="password" name="pass" value="{$info.password|escape}" class="form-control" autocomplete="new-password">
             </div>
         </div>
         {if $prefs.feature_articles eq 'y'}
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label for="article_topicId" class="col-form-label col-md-3">{tr}Article Topic{/tr}</label>
                 <div class="col-md-9">
                     <select name="article_topicId" class="form-control">
@@ -86,7 +86,7 @@
                     {/if}
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label for="article_type" class="col-form-label col-md-3">{tr}Article Type{/tr}</label>
                 <div class="col-md-9">
                     <select name="article_type" class="form-control">
@@ -104,7 +104,7 @@
             </div>
         {/if}
         {if $prefs.feature_trackers eq 'y'}
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label for="galleryId" class="col-form-label col-md-3">{tr}Tracker{/tr}</label>
                 <div class="col-md-9">
                     <select name="trackerId" id="trackerId" class="form-control">
@@ -126,7 +126,7 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <div class="col-md-12" id="zone_fields">
                     <div>
                         <hr/>
@@ -141,7 +141,7 @@
             </div>
         {/if}
         {if $prefs.feature_file_galleries eq 'y'}
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label for="galleryId" class="col-form-label col-md-3">{tr}File Gallery{/tr}</label>
                 <div class="col-md-9">
                     <select name="galleryId" class="form-control">
@@ -157,7 +157,7 @@
                 </div>
             </div>
         {/if}
-        <div class="form-group row">
+        <div class="mb-3 row">
             <div class="offset-md-3 col-md-9">
                 <div class="form-check">
                     <label>
@@ -170,7 +170,7 @@
                 </div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <div class="offset-md-3 col-md-9">
                 <div class="form-check">
                     <label>
@@ -183,7 +183,7 @@
                 </div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <div class="offset-md-3 col-md-9">
                 {if $prefs.feature_wiki_attachments eq 'y'}
                     <div class="form-check">
@@ -197,7 +197,7 @@
                 {/if}
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <div class="offset-md-3 col-md-9">
                 {if $prefs.trackerfield_files eq 'y'}
                     <div class="form-check">
@@ -211,7 +211,7 @@
                 {/if}
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <div class="offset-md-3 col-md-9">
                 {if $prefs.feature_wiki eq 'y'}
                     <div class="form-check">
@@ -228,7 +228,7 @@
                 {/if}
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <div class="offset-md-3 col-md-9">
                 {if $prefs.feature_wiki_attachments eq 'y'}
                     <div class="form-check">
@@ -245,7 +245,7 @@
                 {/if}
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <div class="offset-md-3 col-md-9">
                 <div class="form-check">
                     <label>
@@ -258,13 +258,13 @@
                 </div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="discard_after" class="col-form-label col-md-3">{tr}Discard to the end from{/tr}</label>
             <div class="col-md-9">
                 <input type="text" name="discard_after" value="{$info.discard_after|escape}" class="form-control">
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="cartegoryId" class="col-form-label col-md-3">{tr}Auto-assign category{/tr}</label>
             <div class="col-md-6">
                 {if $prefs.feature_categories eq 'y'}
@@ -275,7 +275,7 @@
                 {/if}
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="namespace" class="col-form-label col-md-3">{tr}Auto-assign namespace{/tr}</label>
             <div class="col-md-6">
                 {if $prefs.namespace_enabled eq 'y'}
@@ -286,7 +286,7 @@
                 {/if}
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <div class="offset-md-3 col-md-9">
                 <div class="form-check">
                     <label>
@@ -296,7 +296,7 @@
                 </div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <div class="offset-md-3 col-md-9">
                 <div class="form-check">
                     <label>

@@ -1,10 +1,10 @@
 {* $Id$ *}
 
-<div class="media">
-    <div class="mr-3">
+<div class="d-flex">
+    <div class="flex-shrink-0">
         {icon name="check" size=2}
     </div>
-    <div class="media-body">
+    <div class="flex-grow-1 ms-3">
         <h4 class="mt-0 mb-4">{tr}Congratulations{/tr}. {tr}You are done with the Configuration Profiles Wizard{/tr}.</h4>
         <h3>{tr}Next?{/tr}</h3>
         <div class="row">

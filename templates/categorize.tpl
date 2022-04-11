@@ -11,7 +11,7 @@
         {/if}
     {/if}
     {if !isset($notable) || $notable neq 'y'}
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-sm-{$labelcol} text-nowrap col-form-label pb-3{if !empty($labelclass)} {$labelclass}{/if}">
                 {tr}Categorize{/tr}
             </label>
@@ -21,7 +21,7 @@
         </div>
     {/if}
     {if !isset($notable) || $notable neq 'y'}
-        <div class="form-group row">
+        <div class="mb-3 row">
     {/if}
     {if $mandatory_category >= 0 or $prefs.javascript_enabled neq 'y' or (isset($auto) and $auto eq 'y')}
         <div id="categorizator">&nbsp;<div>
@@ -37,7 +37,7 @@
             <input type="hidden" name="cat_categorize" value="on">
             <div class="clearfix">
                 {if $tiki_p_admin_categories eq 'y'}
-                    <div class="float-sm-right">
+                    <div class="float-sm-end">
                         <a class="btn btn-link btn-sm tips" href="tiki-admin_categories.php" title=":{tr}Admin Categories{/tr}">
                             {icon name="cog"} {tr}Categories{/tr}
                         </a>
@@ -48,7 +48,7 @@
         {else}
             <div class="clearfix">
                 {if $tiki_p_admin_categories eq 'y'}
-                    <div class="float-sm-right">
+                    <div class="float-sm-end">
                         <a class="btn btn-link" href="tiki-admin_categories.php" title=":{tr}Admin Categories{/tr}">
                             {icon name="cog"} {tr}Categories{/tr}
                         </a>
@@ -60,7 +60,7 @@
     </div> {* end #multiselect *}
     </div>{* end #categorizator *}
     {if !isset($notable) || $notable neq 'y'}
-        </div> {* end .form-group *}
+        </div> {* end .mb-3 *}
     {/if}
 {/if}
 {if $prefs.feature_theme_control_autocategorize eq 'y'}

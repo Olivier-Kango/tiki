@@ -26,7 +26,7 @@
                                 {if $element.bookClosed=='y'}
                                     {tr}closed{/tr}
                                 {elseif $canCreate}
-                                    <form method="post" class="form-inline" action="tiki-accounting_books.php">
+                                    <form method="post" class="d-flex flex-row flex-wrap align-items-center" action="tiki-accounting_books.php">
                                         {ticket}
                                         <input type="hidden" name="bookId" value="{$element.bookId|escape}">
                                         <input type="hidden" name="action" value="close">
@@ -51,26 +51,26 @@
     {if $canCreate}
         {tab name="{tr}Create a book{/tr}"}
             <div id="createbookform">
-                <form action="tiki-accounting_books.php" method="post" class="form-horizontal" data-toggle="validator">
+                <form action="tiki-accounting_books.php" method="post" data-bs-toggle="validator">
                     {ticket}
                     <input type="hidden" name="action" value="create">
                     <input type="hidden" name="bookClosed" id="bookClosed" value="n">
                     <fieldset>
                         <legend>{tr}Book properties{/tr}</legend>
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-form-label col-md-4">{tr}Name of the book{/tr} <span class="text-danger">*</span></label>
                             <div class="col-md-8">
                                 <input type="text" class=" form-control" name="bookName" id="bookName" {if $bookName}value="{$bookName}"{/if}>
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-form-label col-md-4">{tr}First date in journal{/tr} <span class="text-danger">*</span></label>
                             <div class="col-md-8">
                                 {*<input type="text" class=" form-control" name="bookStartDate" id="bookStartDate" value="{$bookStartDate}">*}
                                 {html_select_date prefix="book_start_" time=$bookStartDate start_year="-10" end_year="+10" field_order=$prefs.display_field_order}
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-form-label col-md-4">{tr}Last date in journal{/tr} <span class="text-danger">*</span></label>
                             <div class="col-md-8">
                                 {*<input type="text" class=" form-control" name="bookEndDate" id="bookEndDate" value="{$bookEndDate}">*}
@@ -80,13 +80,13 @@
                     </fieldset>
                     <fieldset>
                         <legend>{tr}Currency settings{/tr}</legend>
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-form-label col-md-4">{tr}Currency (up to 3 letters) {/tr}</label>
                             <div class="col-md-8">
                                 <input type="text" class=" form-control" name="bookCurrency" id="bookCurrency" value="{$bookCurrency}">
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-form-label col-md-4">{tr}Position of the currency {/tr}</label>
                             <div class="col-md-8">
                                 <select class=" form-control" name="bookCurrencyPos" id="bookCurrencyPos">
@@ -96,13 +96,13 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-form-label col-md-4">{tr}Decimals{/tr}</label>
                             <div class="col-md-8">
                                 <input type="text" class=" form-control" name="bookDecimals" id="bookDecimals" value="{$bookDecimals}">
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-form-label col-md-4">{tr}Decimal point{/tr}</label>
                             <div class="col-md-8">
                                 <select class=" form-control" name="bookDecPoint" id="bookDecPoint">
@@ -112,7 +112,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-form-label col-md-4">{tr}Thousands separator{/tr}</label>
                             <div class="col-md-8">
                                 <select class=" form-control" name="bookThousand" id="bookThousand" >
@@ -124,19 +124,19 @@
                     </fieldset>
                     <fieldset>
                         <legend>CSV export settings</legend>
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-form-label col-md-4">{tr}Separator{/tr}</label>
                             <div class="col-md-8">
                                 <input type="text" class=" form-control" name="exportSeparator" id="exportSeparator" value="{$exportSeparator}">
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-form-label col-md-4">{tr}Quote strings with{/tr}</label>
                             <div class="col-md-8">
                                 <input type="text" class=" form-control" name="exportQuote" id="exportQuote" value="{$exportQuote}">
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-form-label col-md-4">{tr}End of Line{/tr}</label>
                             <div class="col-md-8">
                                 <select class=" form-control" name="exportEOL" id="exportEOL">
@@ -149,7 +149,7 @@
                     </fieldset>
                     <fieldset>
                         <legend>{tr}Automatic Tax Calculation{/tr}</legend>
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <div class="col-md-4">
                                 <label class="col-form-label">{tr}Allow automatic tax calculation{/tr}</label>
                             </div>

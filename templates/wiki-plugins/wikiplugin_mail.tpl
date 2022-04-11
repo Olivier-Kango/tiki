@@ -33,20 +33,20 @@
         <div id="wikiplugin_mail" class="">
             <form method="post">
                 {if $params.showuserdd eq 'y' or $params.showrealnamedd eq 'y'}
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label class="col-sm-4 col-form-label" for="mail_user_dd{$ipluginmail}">{tr}Send to users:{/tr}</label>
                 {/if}
 
                 {if $params.showuserdd eq 'y'}
                         <div class="col-sm-8 mb-3">
-                            <select class="form-control" name="mail_user_dd[]" id="mail_user_dd{$ipluginmail}" multiple="multiple">
+                            <select class="form-select" name="mail_user_dd[]" id="mail_user_dd{$ipluginmail}" multiple="multiple">
                                 <option value="" />
                                 {foreach from=$users item=muser}
                                     <option value="{$muser.userId}"{if in_array($muser.userId, $mail_user_dd)} selected="selected"{/if}>{$muser.login|escape}</option>
                                 {/foreach}
                             </select>
                         </div>
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             {remarksbox type='tip' title="{tr}Tip{/tr}"}{tr}Use Ctrl+Click to select multiple options{/tr}{/remarksbox}
                         </div>
                     </div>
@@ -54,21 +54,21 @@
 
                 {if $params.showrealnamedd eq 'y'}
                         <div class="col-sm-8">
-                            <select name="mail_user_dd[]" id="mail_user_dd{$ipluginmail}" multiple="multiple" class="form-control">
+                            <select name="mail_user_dd[]" id="mail_user_dd{$ipluginmail}" multiple="multiple" class="form-select">
                                 <option value="" />
                                 {foreach from=$names item=muser}
                                     <option value="{$muser.userId}"{if in_array($muser.userId, $mail_user_dd)} selected="selected"{/if}>{$muser.login|username:true:false}</option>
                                 {/foreach}
                             </select>
                         </div>
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             {remarksbox type='tip' title="{tr}Tip{/tr}"}{tr}Use Ctrl+Click to select multiple options{/tr}{/remarksbox}
                         </div>
                     </div>
                 {/if}
 
                 {if $params.showuser eq 'y'}
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label class="col-sm-4 col-form-label" for="mail_user{$ipluginmail}">{tr}Send to:{/tr}</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control mb-3" id="mail_user" name="mail_user" value="{$mail_user}">
@@ -77,12 +77,12 @@
                     </div>
                 {/if}
                 {if $params.showgroupdd eq 'y'}
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label class="col-sm-4 col-form-label" for="mail_group_dd{$ipluginmail}">{tr}Send to groups:{/tr}</label>
                         {foreach from=$groups key=groupname item=gps name=mailgroups}
                             <div class="wpmailgroup col-sm-8 mb-3">
                                 {if !empty($groupname)}{$groupname|escape}{/if}
-                                <select name="mail_group_dd[][]" class="form-control" id="mail_group_dd{$ipluginmail}" multiple="multiple">
+                                <select name="mail_group_dd[][]" class="form-select" id="mail_group_dd{$ipluginmail}" multiple="multiple">
                                     <option value="" />
                                     {foreach from=$gps item=mgroup}
                                         {if $mgroup eq 'Anonymous'}
@@ -99,21 +99,21 @@
                     </div>
                 {/if}
 
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-sm-4 col-form-label" for="mail_subject{$ipluginmail}">{tr}Subject:{/tr}</label>
                     <div class="col-sm-8">
                         <input class="form-control" type="text" id="mail_subject{$ipluginmail}" name="mail_subject" value="{$mail_subject}">
                     </div>
                 </div>
 
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-sm-4 col-form-label" for="mail_mess{$ipluginmail}">{tr}Message:{/tr}</label>
                     <div class="col-sm-8">
                         <textarea class="form-control" id="mail_mess{$ipluginmail}" name="mail_mess" value="{$mail_mess}"></textarea>
                     </div>
                 </div>
 
-                <div class="form-group text-center mb-3">
+                <div class="text-center mb-3">
                     {if $bypass_preview != 'y'}
                         <input type="submit" class="btn btn-primary" name="mail_preview{$ipluginmail}" value="{tr}Preview Mail{/tr}">
                     {else}

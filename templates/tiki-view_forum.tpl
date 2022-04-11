@@ -27,9 +27,9 @@
             {button href="tiki-forums.php" _icon_name="list" _type="link" class="btn btn-link" _text="{tr}Forum List{/tr}"}
         {/if}
 
-        <div class="btn-group float-sm-right">
+        <div class="btn-group float-sm-end">
             {if ! $js}<ul class="cssmenu_horiz"><li>{/if}
-            <a class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" href="#" title="{tr}Forum actions{/tr}">
+            <a class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" data-hover="dropdown" href="#" title="{tr}Forum actions{/tr}">
                 {icon name="menu-extra"}
             </a>
             <div class="dropdown-menu dropdown-menu-right">
@@ -54,7 +54,7 @@
                                 {icon name="watch"} {tr}Monitor topics and threads{/tr}
                             </a>
                         {else}
-                            <a class="float-sm-right tips" href="tiki-view_forum.php?forumId={$forumId}&amp;watch_event=forum_post_topic_and_thread&amp;watch_object={$forumId}&amp;watch_action=remove">
+                            <a class="float-sm-end tips" href="tiki-view_forum.php?forumId={$forumId}&amp;watch_event=forum_post_topic_and_thread&amp;watch_object={$forumId}&amp;watch_action=remove">
                                 {icon name="stop-watching"} {tr}Stop monitoring topics and threads{/tr}
                             </a>
                         {/if}
@@ -155,14 +155,14 @@
                 <input type="hidden" name="thread_sort_mode" value="{$thread_sort_mode|escape}">
                 <input type="hidden" name="forumId" value="{$forumId|escape}">
 
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label" for="comments_title">{tr}Title{/tr}</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" name="comments_title" id="comments_title" value="{$comment_title|escape}">
                         </div>
                     </div>
                     {if $forum_info.forum_use_password ne 'n'}
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-sm-2 col-form-label" for="comment_password">{tr}Password{/tr}</label>
                             <div class="col-sm-10">
                                 <input type="password" name="comment_password" id="comment_password" class="form-control">
@@ -170,10 +170,10 @@
                         </div>
                     {/if}
                     {if $tiki_p_admin_forum eq 'y'}
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-sm-2 col-form-label" for="comments_topictype">{tr}Type{/tr}</label>
                             <div class="col-sm-10">
-                                <select name="comment_topictype" id="comment_topictype" class="form-control comment_topictype">
+                                <select name="comment_topictype" id="comment_topictype" class="form-select comment_topictype">
                                     <option value="n" {if $comment_topictype eq 'n'}selected="selected"{/if}>{tr}Normal{/tr}</option>
                                     <option value="a" {if $comment_topictype eq 'a'}selected="selected"{/if}>{tr}Announce{/tr}</option>
                                     <option value="h" {if $comment_topictype eq 'h'}selected="selected"{/if}>{tr}Hot{/tr}</option>
@@ -184,10 +184,10 @@
                         </div>
                     {/if}
                     {if $forum_info.topic_smileys eq 'y'}
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-sm-2 col-form-label" for="comments_topictype">{tr}Smiley{/tr}</label>
                             <div class="col-sm-10">
-                                <select name="comment_topicsmiley" class="form-control comment_topicsmiley">
+                                <select name="comment_topicsmiley" class="form-select comment_topicsmiley">
                                     <option value="" {if $comment_topicsmiley eq ''}selected="selected"{/if}>{tr}no feeling{/tr}</option>
                                     <option value="icon_frown.gif" {if $comment_topicsmiley eq 'icon_frown.gif'}selected="selected"{/if}>{tr}frown{/tr}</option>
                                     <option value="icon_exclaim.gif" {if $comment_topicsmiley eq 'icon_exclaim.gif'}selected="selected"{/if}>{tr}exclaim{/tr}</option>
@@ -203,21 +203,21 @@
                         </div>
                     {/if}
                     {if $forum_info.topic_summary eq 'y'}
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-sm-2 col-form-label">{tr}Summary{/tr}</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" name="comment_topicsummary" id="comment_topicsummary" value="{$comment_topicsummary|escape}" maxlength="240">
                             </div>
                         </div>
                     {/if}
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label" for="editpost">{tr}Message{/tr}</label>
                         <div class="col-sm-10">
                             {textarea id="editpost" class="form-control" name="comments_data" _simple="y" codemirror="y" syntax="tiki" _toolbars=$prefs.feature_forum_parse _preview=$prefs.ajax_edit_previews}{$comment_data}{/textarea}
                         </div>
                     </div>
                     {if ($forum_info.att eq 'att_all') or ($forum_info.att eq 'att_admin' and $tiki_p_admin_forum eq 'y') or ($forum_info.att eq 'att_perm' and $tiki_p_forum_attach eq 'y')}
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-sm-2 col-form-label" for="userfile1">{tr}Attach a file{/tr}</label>
                             <div class="col-sm-10">
                                 <input type="hidden" name="MAX_FILE_SIZE" value="{$forum_info.att_max_size|escape}">
@@ -311,7 +311,7 @@
                             return false;
                         });
                     {/jq}
-                    <div class="form-group forum_deliberation" style="display: none;">
+                    <div class="mb-3 forum_deliberation" style="display: none;">
                         <label class="col-sm-2 col-form-label">{tr}Deliberation{/tr}</label>
                         <div class="col-sm-10 forum_deliberation_items">
                             <div class="forum_deliberation_items_toolbar">
@@ -329,7 +329,7 @@
                     {/if}
 
                     {if $user and $prefs.feature_user_watches eq 'y' and (!isset($comments_threadId) or $comments_threadId eq 0)}
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-sm-2 col-form-label">{tr}Watch for replies{/tr}</label>
                             <div class="col-sm-10">
                                 <input type="radio" name="set_thread_watch" value="y" id="thread_watch_yes" checked="checked">
@@ -341,7 +341,7 @@
                         </div>
                     {/if}
                     {if empty($user) && $prefs.feature_user_watches eq 'y'}
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label for="anonymous_email" class="col-sm-2 col-form-label">{tr}If you would like to be notified when someone replies to this topic<br>please tell us your e-mail address:{/tr}</label></td>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="anonymous_email" name="anonymous_email">
@@ -349,7 +349,7 @@
                         </div>
                     {/if}
 
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label" for="anonymous_name">{tr}Post{/tr}</label>
                         <div class="col-sm-10">
                             {if empty($user)}
@@ -373,15 +373,13 @@
         <div class="row mb-4 mx-0">
         <div class="col-md-5 offset-md-7">
             <form id="search-form" class="form" role="form" method="get" action="tiki-search{if $prefs.feature_forum_local_tiki_search eq 'y'}index{else}results{/if}.php">
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <div class="input-group">
-                        <div class="input-group-prepend">
                         <span class="input-group-text">
                             {icon name="search"}
                         </span>
-                        </div>
                         <input name="highlight" id="findinforums" type="text" class="form-control" placeholder="{tr}Find{/tr}...">
-                        <div class="input-group-append">
+                        <div class="input-group-text">
                             <input type="hidden" name="where" value="forums">
                             <input type="hidden" name="forumId" value="{$forum_info.forumId}">
                             <input type="submit" class="wikiaction btn btn-primary" name="search" value="{tr}Find{/tr}">
@@ -409,12 +407,12 @@
 
                 {if $prefs.forum_list_topics eq 'y'}
                     {$numbercol = $numbercol + 1}
-                    <th id="threads" class="text-right">{self_link _sort_arg='sort_mode' _sort_field='threads'}{tr}Topics{/tr}{/self_link}</th>
+                    <th id="threads" class="text-end">{self_link _sort_arg='sort_mode' _sort_field='threads'}{tr}Topics{/tr}{/self_link}</th>
                 {/if}
 
                 {if $prefs.forum_list_posts eq 'y'}
                     {$numbercol = $numbercol + 1}
-                    <th id="comments" class="text-right">{self_link _sort_arg='sort_mode' _sort_field='comments'}{tr}Posts{/tr}{/self_link}</th>
+                    <th id="comments" class="text-end">{self_link _sort_arg='sort_mode' _sort_field='comments'}{tr}Posts{/tr}{/self_link}</th>
                 {/if}
 
                 {if $prefs.forum_list_ppd eq 'y'}
@@ -429,7 +427,7 @@
 
                 {if $prefs.forum_list_visits eq 'y'}
                     {$numbercol = $numbercol + 1}
-                    <th id="hits" class="text-right">{self_link _sort_arg='sort_mode' _sort_field='hits'}{tr}Visits{/tr}{/self_link}</th>
+                    <th id="hits" class="text-end">{self_link _sort_arg='sort_mode' _sort_field='hits'}{tr}Visits{/tr}{/self_link}</th>
                 {/if}
                 {$numbercol = $numbercol + 1}
                 <th id="actions"></th>
@@ -539,7 +537,7 @@
                 {tr}Moderator actions on selected topics{/tr}
             </div>
             <div class="card-body">
-                <div class="float-left">
+                <div class="float-start">
                     {if $comments_coms|@count > 1}
                         <button
                             type="submit"
@@ -592,12 +590,12 @@
                         </button>
                     {/if}
                 </div>
-                <div class="float-sm-right">
+                <div class="float-sm-end">
                     {if $reported > 0}
-                        <a class="btn btn-primary btn-sm tips" href="tiki-forums_reported.php?forumId={$forumId}" title=":{tr}Reported messages{/tr}">{tr}Reported{/tr} <span class="badge badge-secondary">{$reported}<span></a>
+                        <a class="btn btn-primary btn-sm tips" href="tiki-forums_reported.php?forumId={$forumId}" title=":{tr}Reported messages{/tr}">{tr}Reported{/tr} <span class="badge bg-secondary">{$reported}<span></a>
                     {/if}
                     {if $queued > 0}
-                        <a class="btn btn-primary btn-sm tips" href="tiki-forum_queue.php?forumId={$forumId}" title=":{tr}Queued messages{/tr}">{tr}Queued{/tr} <span class="badge badge-secondary">{$queued}</span></a>
+                        <a class="btn btn-primary btn-sm tips" href="tiki-forum_queue.php?forumId={$forumId}" title=":{tr}Queued messages{/tr}">{tr}Queued{/tr} <span class="badge bg-secondary">{$queued}</span></a>
                     {/if}
                 </div>
             </div>
@@ -744,10 +742,10 @@
                             {/if}
                         </td>
                         {if $forum_info.topics_list_replies eq 'y'}
-                            <td class="integer"><span class="badge badge-secondary">{$comments_coms[ix].replies}</span></td>
+                            <td class="integer"><span class="badge bg-secondary">{$comments_coms[ix].replies}</span></td>
                         {/if}
                         {if $forum_info.topics_list_reads eq 'y'}
-                            <td class="integer"><span class="badge badge-secondary">{$comments_coms[ix].hits}</span></td>
+                            <td class="integer"><span class="badge bg-secondary">{$comments_coms[ix].hits}</span></td>
                         {/if}
                         {if $forum_info.vote_threads eq 'y' and ($tiki_p_ratings_view_results eq 'y' or $tiki_p_admin eq 'y')}
                             <td class="integer">{rating_result_avg type=comment id=$comments_coms[ix].threadId }&nbsp;&nbsp;&nbsp;</td>
@@ -756,7 +754,7 @@
                             {/if}
                         {/if}
                         {if $forum_info.topics_list_pts eq 'y'}
-                            <td class="integer"><span class="badge badge-secondary">{$comments_coms[ix].average|string_format:"%.2f"}</span></td>
+                            <td class="integer"><span class="badge bg-secondary">{$comments_coms[ix].average|string_format:"%.2f"}</span></td>
                         {/if}
                         {if $forum_info.topics_list_lastpost eq 'y'}
                             <td class="text">
@@ -892,7 +890,7 @@
             <div class="card" id="filter-panel">
                 <div class="card-header filter-card-header">
                     <h4 class="card-title">
-                        <a data-toggle="collapse" href="#filterCollapse" class="collapsed">
+                        <a data-bs-toggle="collapse" href="#filterCollapse" class="collapsed">
                             {tr}Filter Posts{/tr} {icon name="angle-down"}
                         </a>
                     </h4>
@@ -911,7 +909,7 @@
                             {/if}
                             <input type="hidden" name="thread_sort_mode" value="{$thread_sort_mode|escape}">
                             <input type="hidden" name="forumId" value="{$forumId|escape}">
-                            <div class="form-group row mx-0">
+                            <div class="mb-3 row mx-0">
                                 <label class="col-md-4 col-form-label form-control-sm" for="filter_time">{tr}Last post date{/tr}</label>
                                 <div class="col-md-8">
                                     <select id="filter_time" name="time_control" class="form-control form-control-sm">
@@ -923,7 +921,7 @@
                                 </div>
                             </div>
                             {if $prefs.feature_forum_topics_archiving eq 'y'}
-                                <div class="form-group row mx-0">
+                                <div class="mb-3 row mx-0">
                                     <label class="col-md-4 col-form-label form-control-sm" for="show_archived">{tr}Show archived posts{/tr}</label>
                                     <div class="col-md-8">
                                         <input type="checkbox" class="form-check-input" id="show_archived" name="show_archived" {if $show_archived eq 'y'}checked="checked"{/if}>
@@ -931,7 +929,7 @@
                                 </div>
                             {/if}
                             {if $user}
-                                <div class="form-group row mx-0">
+                                <div class="mb-3 row mx-0">
                                     <label class="col-md-4 col-form-label form-control-sm" for="filter_poster">{tr}Containing posts by{/tr}</label>
                                     <div class="col-md-8">
                                         <select id="filter_poster" class="form-control form-control-sm" name="poster">
@@ -945,7 +943,7 @@
                                     </div>
                                 </div>
                             {/if}
-                            <div class="form-group row mx-0">
+                            <div class="mb-3 row mx-0">
                                 <label class="col-md-4 col-form-label form-control-sm" for="filter_type">{tr}Type{/tr}</label>
                                 <div class="col-md-8">
                                     <select id="filter_type" name="filter_type" class="form-control form-control-sm">
@@ -967,7 +965,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group row mx-0">
+                            <div class="mb-3 row mx-0">
                                 <label class="col-md-4 col-form-label form-control-sm" for="filter_replies">{tr}Replies{/tr}</label>
                                 <div class="col-md-8">
                                     <select id="filter_replies" name="reply_state" class="form-control form-control-sm">

@@ -7,7 +7,7 @@
     {ticket}
 
     <div class="row">
-        <div class="form-group col-lg-12 clearfix">
+        <div class="mb-3 col-lg-12 clearfix">
             {include file='admin/include_apply_top.tpl'}
         </div>
     </div>
@@ -305,7 +305,7 @@
                             {tr}General information{/tr}
                         </legend>
 
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-form-label col-sm-4" for="plugin_alias">
                                 {tr}Plugin name{/tr}
                             </label>
@@ -318,12 +318,12 @@
                                 {/if}
                             </div>
                         </div><br>
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-form-label col-sm-4" for="implementation">
                                 {tr}Base plugin{/tr}
                             </label>
                             <div class="col-sm-8">
-                                <select class="form-control" name="implementation" id="implementation">
+                                <select class="form-select" name="implementation" id="implementation">
                                     <option></option>
                                     {foreach $plugins_real as $base}
                                         <option value="{$base|escape}" {if isset($plugin_admin.implementation) and $plugin_admin.implementation eq $base}selected="selected"{/if}>
@@ -333,7 +333,7 @@
                                 </select>
                             </div>
                         </div><br>
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-form-label col-sm-4" for="plugin_name">
                                 {tr}Name{/tr}
                             </label>
@@ -341,7 +341,7 @@
                                 <input class="form-control" type="text" name="name" id="plugin_name" value="{$plugin_admin.description.name|default:''|escape}">
                             </div>
                         </div><br>
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-form-label col-sm-4" for="plugin_description">
                                 {tr}Description{/tr}
                             </label>
@@ -349,7 +349,7 @@
                                 <input class="form-control" type="text" name="description" id="plugin_description" value="{$plugin_admin.description.description|default:''|escape}">
                             </div>
                         </div><br>
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-form-label col-sm-4" for="plugin_body">
                                 {tr}Body label{/tr}
                             </label>
@@ -357,7 +357,7 @@
                                 <input class="form-control" type="text" name="body" id="plugin_body" value="{$plugin_admin.description.body|default:''|escape}">
                             </div>
                         </div><br>
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-form-label col-sm-4" for="plugin_deps">
                                 {tr}Dependencies{/tr}
                             </label>
@@ -365,7 +365,7 @@
                                 <input class="form-control" type="text" name="prefs" id="plugin_deps" value="{if !empty($plugin_admin.description.prefs)}{','|implode:$plugin_admin.description.prefs}{/if}">
                             </div>
                         </div><br>
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-form-label col-sm-4" for="filter">
                                 {tr}Filter{/tr}
                             </label>
@@ -373,12 +373,12 @@
                                 <input class="form-control" type="text" id="filter" name="filter" value="{$plugin_admin.description.filter|default:'xss'|escape}">
                             </div>
                         </div><br>
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-form-label col-sm-4" for="validate">
                                 {tr}Validation{/tr}
                             </label>
                             <div class="col-sm-8">
-                                <select class="form-control" name="validate" id="validate">
+                                <select class="form-select" name="validate" id="validate">
                                     {foreach ['none','all','body','arguments'] as $val}
                                         <option value="{$val|escape}" {if !empty($plugin_admin.description.validate) and $plugin_admin.description.validate eq $val}selected="selected"{/if}>
                                             {$val|escape}
@@ -387,7 +387,7 @@
                                 </select>
                             </div>
                         </div><br>
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-sm-4" for="inline">{tr}Inline (no plugin edit UI){/tr}</label>
                             <div class="col-sm-8">
                                 <div class="form-check">
@@ -401,7 +401,7 @@
                         <legend>
                             {tr}Simple plugin arguments{/tr} {icon name="add" class='add-param text-success tips' title='|{tr}Add parameter{/tr}'}
                         </legend>
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-form-label col-sm-6">
                                 {tr}Argument{/tr}
                             </label>
@@ -412,7 +412,7 @@
                         {if !empty($plugin_admin.params)}
                             {foreach $plugin_admin.params as $token => $value}
                                 {if not $value|is_array}
-                                    <div class="form-group row param">
+                                    <div class="mb-3 row param">
                                         <div class="col-sm-6">
                                             <input class="form-control sparam-name" type="text" name="sparams[{$token|escape}][token]" value="{$token|escape}">
                                         </div>
@@ -424,7 +424,7 @@
                                         </div>
                                     </div>
                                 {elseif $token eq '__NEW__'}
-                                    <div class="form-group row d-none param">
+                                    <div class="mb-3 row d-none param">
                                         <div class="col-sm-6">
                                             <input class="form-control sparam-name" type="text" name="sparams[__NEW__][token]" value="" placeholder="{tr}Name{/tr}">
                                         </div>
@@ -448,7 +448,7 @@
                         {if !empty($plugin_admin.description.params)}
                             {foreach $plugin_admin.description.params as $token => $detail}
                                 <div class="clearfix param{if $token eq '__NEW__'} d-none{/if}">
-                                    <div class="form-group row">
+                                    <div class="mb-3 row">
                                         <label class="col-form-label col-sm-4" for="input[{$token|escape}][token]">
                                             {tr}Parameter{/tr}
                                         </label>
@@ -459,7 +459,7 @@
                                             {icon name='delete' class='text-danger delete-param tips btn btn-link' title="|{tr}Delete this parameter's documentation{/tr}"}
                                         </div>
                                     </div>
-                                    <div class="form-group row">
+                                    <div class="mb-3 row">
                                         <label class="col-form-label col-sm-4" for="input[{$token|escape}][name]">
                                             {tr}Name{/tr}
                                         </label>
@@ -467,7 +467,7 @@
                                             <input class="form-control" type="text" name="input[{$token|escape}][name]" id="input[{$token|escape}][name]" value="{$detail.name|escape}">
                                         </div>
                                     </div>
-                                    <div class="form-group row">
+                                    <div class="mb-3 row">
                                         <label class="col-form-label col-sm-4" for="input[{$token|escape}][description]">
                                             {tr}Description{/tr}
                                         </label>
@@ -475,7 +475,7 @@
                                             <input class="form-control" type="text" name="input[{$token|escape}][description]" id="input[{$token|escape}][description]" value="{$detail.description|escape}">
                                         </div>
                                     </div>
-                                    <div class="form-group row">
+                                    <div class="mb-3 row">
                                         <div class=" col-sm-2 offset-sm-4">
                                             <div class="form-check form-check-inline">
                                                 <input class="form-check-input" type="checkbox" name="input[{$token|escape}][required]" id="input[{$token|escape}][required]" value="y"{if $detail.required} checked="checked"{/if}>
@@ -511,7 +511,7 @@
                                 {tr}Plugin body{/tr}
                             </legend>
 
-                            <div class="form-group row">
+                            <div class="mb-3 row">
                                 <label class="col-sm-4" for="ignorebody">
                                     {tr}Ignore user input{/tr}
                                 </label>
@@ -521,7 +521,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class=" form-group row">
+                            <div class=" mb-3 row">
                                 <label class="col-form-label col-sm-4" for="defaultbody">{tr}Default content{/tr}</label>
                                 <div class="col-sm-8">
                                     <textarea class="form-control" cols="60" rows="12" id="defaultbody" name="defaultbody">{$plugin_admin.body.default|default:''|escape}</textarea>
@@ -533,7 +533,7 @@
                                 </legend>
                                 {foreach $plugin_admin.body.params as $token => $detail}
                                     <div class="clearfix param{if $token eq '__NEW__'} d-none{/if}">
-                                        <div class="form-group row">
+                                        <div class="mb-3 row">
                                             <label class="col-form-label col-sm-6" for="bodyparam[{$token|escape}][token]">
                                                 {tr}Parameter{/tr}
                                             </label>
@@ -544,12 +544,12 @@
                                                 {icon name='delete' class='text-danger delete-param tips btn btn-link' title="|{tr}Delete this body parameter{/tr}"}
                                             </div>
                                         </div>
-                                        <div class="form-group row">
+                                        <div class="mb-3 row">
                                             <label class="col-form-label col-sm-6" for="bodyparam[{$token|escape}][encoding]">
                                                 {tr}Encoding{/tr}
                                             </label>
                                             <div class="col-sm-6">
-                                                <select class="form-control" name="bodyparam[{$token|escape}][encoding]" id="bodyparam[{$token|escape}][encoding]">
+                                                <select class="form-select" name="bodyparam[{$token|escape}][encoding]" id="bodyparam[{$token|escape}][encoding]">
                                                     {foreach ['none','html','url'] as $val}
                                                         <option value="{$val|escape}" {if $detail.encoding eq $val}selected="selected"{/if}>
                                                             {$val|escape}
@@ -558,7 +558,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="form-group row">
+                                        <div class="mb-3 row">
                                             <label class="col-form-label col-sm-6" for="bodyparam[{$token|escape}][input]">
                                                 {tr}Argument source (if different){/tr}
                                             </label>
@@ -566,7 +566,7 @@
                                                 <input class="form-control" type="text" name="bodyparam[{$token|escape}][input]" id="bodyparam[{$token|escape}][input]" value="{$detail.input|escape}">
                                             </div>
                                         </div>
-                                        <div class="form-group row">
+                                        <div class="mb-3 row">
                                             <label class="col-form-label col-sm-6" for="bodyparam[{$token|escape}][default]">
                                                 {tr}Default value{/tr}
                                             </label>
@@ -590,7 +590,7 @@
                             {if $detail|is_array}
                                 {if not isset($composed_args)}{$composed_args=true}{/if}
                                 <div class="clearfix param{if $token eq '__NEW__'} d-none{/if}">
-                                    <div class="form-group row">
+                                    <div class="mb-3 row">
                                         <label class="col-form-label col-sm-4" for="cparams[{$token|escape}][token]">
                                             {tr}Parameter{/tr}
                                         </label>
@@ -601,7 +601,7 @@
                                             {icon name='delete' class='text-danger delete-param tips btn btn-link' title="|{tr}Delete this composed argument{/tr}"}
                                         </div>
                                     </div>
-                                    <div class="form-group row">
+                                    <div class="mb-3 row">
                                         <label class="col-form-label col-sm-4" for="cparams[{$token|escape}][pattern]">
                                             {tr}Pattern{/tr}
                                         </label>
@@ -609,13 +609,13 @@
                                             <input class="form-control" type="text" name="cparams[{$token|escape}][pattern]" id="cparams[{$token|escape}][pattern]" value="{$detail.pattern|escape}">
                                         </div>
                                     </div>
-                                    <fieldset class="ml-5">
+                                    <fieldset class="ms-5">
                                         <legend class="h4">
                                             {tr}Composed parameters{/tr} {icon name="add" class='add-param text-success tips' title='|{tr}Add composed parameter{/tr}'}
                                         </legend>
                                         {foreach $detail.params as $t => $d}
                                             <div class="clearfix param{if $t eq '__NEW__'} d-none{/if}">
-                                                <div class="form-group row">
+                                                <div class="mb-3 row">
                                                     <label class="col-form-label col-sm-6" for="cparams[{$token|escape}][params][{$t|escape}][token]">
                                                         {tr}Parameter{/tr}
                                                     </label>
@@ -626,19 +626,19 @@
                                                         {icon name='delete' class='text-danger delete-param tips btn btn-link' title="|{tr}Delete this composed parameter{/tr}"}
                                                     </div>
                                                 </div>
-                                                <div class="form-group row">
+                                                <div class="mb-3 row">
                                                     <label class="col-form-label col-sm-6" for="cparams[{$token|escape}][pattern]">
                                                         {tr}Encoding{/tr}
                                                     </label>
                                                     <div class="col-sm-6">
-                                                        <select class="form-control" name="cparams[{$token|escape}][params][{$t|escape}][encoding]" id="cparams[{$token|escape}][pattern]">
+                                                        <select class="form-select" name="cparams[{$token|escape}][params][{$t|escape}][encoding]" id="cparams[{$token|escape}][pattern]">
                                                             {foreach ['none','html','url'] as $val}
                                                                 <option value="{$val|escape}" {if $d.encoding eq $val}selected="selected"{/if}>{$val|escape}</option>
                                                             {/foreach}
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div class="form-group row">
+                                                <div class="mb-3 row">
                                                     <label class="col-form-label col-sm-6" for="cparams[{$token|escape}][params][{$t|escape}][input]">
                                                         {tr}Argument source (if different):{/tr}
                                                     </label>
@@ -646,7 +646,7 @@
                                                         <input class="form-control" type="text" name="cparams[{$token|escape}][params][{$t|escape}][input]" id="cparams[{$token|escape}][params][{$t|escape}][input]" value="{$d.input|escape}"/>
                                                     </div>
                                                 </div>
-                                                <div class="form-group row">
+                                                <div class="mb-3 row">
                                                     <label class="col-form-label col-sm-6" for="cparams[{$token|escape}][params][{$t|escape}][input]">
                                                         {tr}Default value{/tr}
                                                     </label>

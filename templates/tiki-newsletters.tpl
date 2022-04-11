@@ -17,13 +17,13 @@
     <form method="post" action="tiki-newsletters.php">
         {ticket}
         <input type="hidden" name="nlId" value="{$nlId|escape}">
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-sm-3 col-form-label">{tr}Name{/tr}</label>
             <div class="col-sm-7">
                 <p class="form-control-plaintext">{$nl_info.name|escape}</p>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-sm-3 col-form-label">{tr}Description{/tr}</label>
             <div class="col-sm-7">
                 <p class="form-control-plaintext">{$nl_info.description|escape|nl2br}</p>
@@ -31,7 +31,7 @@
         </div>
         {if ($nl_info.allowUserSub eq 'y') or ($tiki_p_admin_newsletters eq 'y')}
             {if $tiki_p_subscribe_email eq 'y' and (($nl_info.allowAnySub eq 'y' and $user) || !$user)}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-sm-3 col-form-label" for="email">{tr}Email{/tr}</label>
                     <div class="col-sm-7">
                         <input type="email" name="email" id="email" value="{$email|escape}" class="form-control">
@@ -43,7 +43,7 @@
             {if !$user and $prefs.feature_antibot eq 'y'}
                 {include file='antibot.tpl' tr_style="formcolor"}
             {/if}
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label"></label>
                 <div class="col-sm-7">
                     <input

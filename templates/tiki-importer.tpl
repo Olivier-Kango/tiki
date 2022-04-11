@@ -16,9 +16,9 @@
     {/remarksbox}
 
     <br>
-    <form method="post" name="chooseSoftware" action="tiki-importer.php" class="form-inline">
-        <label for="importerClassName" class="mr-2">{tr}Select the software to import from:{/tr}</label>
-        <select name="importerClassName" id="importerClassName" class="form-control mr-2">
+    <form method="post" name="chooseSoftware" action="tiki-importer.php" class="d-flex flex-row flex-wrap align-items-center">
+        <label for="importerClassName" class="me-2">{tr}Select the software to import from:{/tr}</label>
+        <select name="importerClassName" id="importerClassName" class="form-control me-2">
             <option value="">{tr}Select...{/tr}</option>
             {foreach from=$availableSoftwares key=softwareClassName item=softwareName}
                 <option value="{$softwareClassName}">{$softwareName}</option>

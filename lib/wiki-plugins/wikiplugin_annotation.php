@@ -215,7 +215,7 @@ FORM;
                         <div class="col-sm-9 offset-sm-3">
                             $ticketHtml
                             <input type="submit" class="btn btn-primary btn-sm" value="$saveStr">
-                            <div class="float-right">
+                            <div class="float-end">
                                 <a class="btn btn-primary btn-sm minimize" href="#" title="$closeStr">$close</a>
                                 <a class="btn btn-primary btn-sm delete" href="#" title="$removeStr">$delete</a>
                             </div>

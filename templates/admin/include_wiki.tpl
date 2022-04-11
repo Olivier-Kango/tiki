@@ -5,7 +5,7 @@
 {/remarksbox}
 <form action="tiki-admin.php?page=wiki" method="post" class="admin">
     {ticket}
-    <div class="heading input_submit_container text-right">
+    <div class="heading input_submit_container text-end">
     </div>
     <div class="t_navbar mb-4 clearfix">
         {button _icon_name='admin_wiki' _text="{tr}Pages{/tr}" _type="link" _class='btn btn-link' _script='tiki-listpages.php' _title="{tr}List wiki pages{/tr}"}
@@ -387,7 +387,7 @@
                 <fieldset class="mb-3 w-100">
                     <legend>{tr}Database dumps and restores{/tr}</legend>
                     {tr}Create database archives of wiki pages for restoring at a later date.{/tr}
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label for="tagname" class="col-form-label col-sm-4">{tr}Name for dump{/tr}</label>
                         <div class="col-sm-4">
                             <input maxlength="20" size="20" type="text" name="newtagname" id="newtagname" class="form-control">
@@ -396,10 +396,10 @@
                             <input type="submit" class="btn btn-primary" name="createtag" value="{tr}Create Database Dump{/tr}">
                         </div>
                     </div>
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label for="databasetag" class="col-form-label col-sm-4">{tr}Wiki database{/tr}</label>
                         <div class="col-sm-4">
-                            <select name="tagname" class="form-control" {if $tags|@count eq '0'} disabled="disabled"{/if}>
+                            <select name="tagname" class="form-select" {if $tags|@count eq '0'} disabled="disabled"{/if}>
                                 {section name=sel loop=$tags}
                                     <option value="{$tags[sel]|escape}">{$tags[sel]}</option>
                                     {sectionelse}
@@ -424,7 +424,7 @@
                     {/remarksbox}
                     <input type="submit" class="btn btn-primary btn-sm" name="createdump" value="{tr}Create Dump File{/tr}">
                     <input type="submit" class="btn btn-primary btn-sm" name="downloaddump" value="{tr}Download Dump File{/tr}" {if !$isDump} disabled="disabled"{/if}>
-                    <input type="submit" class="btn btn-primary btn-sm" name="removedump" data-target="_blank" value="{tr}Remove Dump File{/tr}" {if !$isDump} disabled="disabled"{/if}>
+                    <input type="submit" class="btn btn-primary btn-sm" name="removedump" data-bs-target="_blank" value="{tr}Remove Dump File{/tr}" {if !$isDump} disabled="disabled"{/if}>
             </fieldset>
             </div>
             <div class="adminoptionbox clearfix">

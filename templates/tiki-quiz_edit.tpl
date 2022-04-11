@@ -16,8 +16,8 @@
 <form enctype="multipart/form-data" method="post" action="tiki-quiz_edit.php">
     <input type="hidden" name="quiz.id" value="{$quiz->id}">
 
-    <div class="form-group row">
-        <label class="col-form-label col-sm-2 text-left">{tr}Status{/tr}</label>
+    <div class="mb-3 row">
+        <label class="col-form-label col-sm-2 text-start">{tr}Status{/tr}</label>
         <div class="col-sm-7 form-control-plaintext">
             [ <a class="link" href="javascript:show('status');">{tr}Show{/tr}</a>
             | <a class="link" href="javascript:hide('status');">{tr}Hide{/tr}</a> ]
@@ -49,7 +49,7 @@
             </div>
         </div>
     </div>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-form-label col-sm-2">{tr}General Options{/tr}</label>
         <div class="col-sm-7 form-control-plaintext">
             [ <a class="link" href="javascript:show('general');">{tr}Show{/tr}</a>
@@ -85,8 +85,8 @@
             </div>
         </div>
     </div>
-    <div class="form-group row">
-        <label class="col-form-label col-sm-2 text-left">{tr}Test-time Options{/tr}</label>
+    <div class="mb-3 row">
+        <label class="col-form-label col-sm-2 text-start">{tr}Test-time Options{/tr}</label>
         <div class="col-sm-7 form-control-plaintext">
             [ <a class="link" href="javascript:show('test-time');">{tr}Show{/tr}</a>
             | <a class="link" href="javascript:hide('test-time');">{tr}Hide{/tr}</a> ]
@@ -107,7 +107,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <div class="form-inline form-check">
+                                <div class="d-flex flex-row flex-wrap align-items-center form-check">
                                     <label class="form-check-label">{tr}Limit questions displayed per page to {/tr}
                                         <input type="checkbox" class="form-check-input" name=quiz.limitDisplay id="quiz-display-limit" {if $quiz->limitDisplay eq 'y'}checked="checked"{/if}>
                                     </label>
@@ -119,7 +119,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <div class="form-inline">
+                                <div class="d-flex flex-row flex-wrap align-items-center">
                                     <input type="checkbox" name=quiz.timeLimited id="timelimit" {if $quiz->timeLimited eq 'y'}checked="checked"{/if}>
                                     <label for="timelimit">{tr}Impose a time limit of {/tr}</label>
                                     <select name=quiz.timeLimit id="quiz-maxtime" class="form-control">{html_options values=$tpl.mins selected=$quiz->timeLimit output=$tpl.mins}</select> {tr}minutes{/tr}
@@ -134,7 +134,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <div class="form-inline">
+                                <div class="d-flex flex-row flex-wrap align-items-center">
                                     <input type="checkbox" name="quiz.canRepeat" id="repeat"{if $quiz->canRepeat eq 'y'} checked="checked"{/if}>
                                     <label for="repeat">{tr}Allow students to retake this quiz {/tr}</label>
                                     <select name=quiz.repetitions id="quiz-repeat" class="form-control">
@@ -149,8 +149,8 @@
         </div>
     </div>
 
-    <div class="form-group row">
-        <label class="col-form-label col-sm-2 text-left">{tr}Grading and Feedback{/tr}</label>
+    <div class="mb-3 row">
+        <label class="col-form-label col-sm-2 text-start">{tr}Grading and Feedback{/tr}</label>
         <div class="col-sm-7 form-control-plaintext">
             [ <a class="link" href="javascript:show('feedback');">{tr}Show{/tr}</a>
             | <a class="link" href="javascript:hide('feedback');">{tr}Hide{/tr}</a> ]
@@ -159,7 +159,7 @@
                     <table class="table">
                         <tr>
                             <td colspan=2>
-                                <div class="form-inline">
+                                <div class="d-flex flex-row flex-wrap align-items-center">
                                     <label>{tr}Grading method {/tr}</label>
                                     <select name=quiz.gradingMethod id="grading-method" class="form-control">
                                         {html_options values=$tpl.optionsGrading selected=$quiz->gradingMethod output=$tpl.optionsGrading}
@@ -169,7 +169,7 @@
                         </tr>
                         <tr>
                             <td colspan=2>
-                                <div class="form-inline">
+                                <div class="d-flex flex-row flex-wrap align-items-center">
                                     <label>{tr}Show students their score {/tr}</label>
                                     <select name=quiz.showScore id="showScore" class="form-control">
                                         {html_options values=$tpl.optionsShowScore selected=$quiz->showScore output=$tpl.optionsShowScore}
@@ -179,7 +179,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <div class="form-inline">
+                                <div class="d-flex flex-row flex-wrap align-items-center">
                                     <label>{tr}Show students the correct answers{/tr}</label>
                                     <select name=quiz.showCorrectAnswers class="form-control">
                                         {html_options values=$tpl.optionsShowScore selected=$quiz->showCorrectAnswers output=$tpl.optionsShowScore}
@@ -189,7 +189,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <div class="form-inline">
+                                <div class="d-flex flex-row flex-wrap align-items-center">
                                     <label>{tr}Publish statistics {/tr}</label>
                                     <select name=quiz.publishStats class="form-control">
                                         {html_options values=$tpl.optionsShowScore selected=$quiz->publishStats output=$tpl.optionsShowScore}
@@ -203,8 +203,8 @@
         </div>
     </div>
 
-    <div class="form-group row">
-        <label class="col-form-label col-sm-2 text-left">{tr}Extra Options{/tr}</label>
+    <div class="mb-3 row">
+        <label class="col-form-label col-sm-2 text-start">{tr}Extra Options{/tr}</label>
         <div class="col-sm-7 form-control-plaintext">
             [ <a class="link" href="javascript:show('after-test');">{tr}Show{/tr}</a>
             | <a class="link" href="javascript:hide('after-test');">{tr}Hide{/tr}</a> ]
@@ -217,7 +217,7 @@
                 </div>
                 <label class="col-form-label col-sm-3">{tr}Link quiz to forum named: {/tr}</label>
                 <div class="col-sm-9">
-                    <div class="form-inline form-check">
+                    <div class="d-flex flex-row flex-wrap align-items-center form-check">
                         <label class="form-class-label">
                             <input type="checkbox" class="form-check-input" name="quiz.forum" id="forum" {if $quiz->forum eq 'y'}checked="checked"{/if}> {tr}Yes{/tr}
                         </label>

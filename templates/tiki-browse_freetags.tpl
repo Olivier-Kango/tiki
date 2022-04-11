@@ -5,17 +5,13 @@
 {jq}
     $('#tagBox').tiki('autocomplete', 'tag', {multiple: true, multipleSeparator: " "} );
 {/jq}
-<form action="tiki-browse_freetags.php" method="get" class="freetagsearch form-horizontal" role="form">
-    <div class="form-group row">
+<form action="tiki-browse_freetags.php" method="get" class="freetagsearch role="form">
+    <div class="mb-3 row">
         <div class="col-sm-10">
             <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1">{icon name="tags"}&nbsp;{tr}Tags{/tr}</span>
-                </div>
+                <span class="input-group-text" id="basic-addon1">{icon name="tags"}&nbsp;{tr}Tags{/tr}</span>
                 <input type="text" id="tagBox" class="form-control" name="tag" value="{$tagString|escape}">
-                <div class="input-group-append input-group-append">
-                    <input type="submit" class="btn btn-primary tips" value="{tr}Go{/tr}">
-                </div>
+                <input type="submit" class="btn btn-primary tips" value="{tr}Go{/tr}">
             </div>
         </div>
         <div class="col-sm-2">
@@ -123,21 +119,17 @@
                 {/foreach}
             {/foreach}
         </div>
-        <div class="form-inline mb-4 row">
+        <div class="d-flex flex-row flex-wrap align-items-center mb-4 row">
             <div class="input-group col-sm-6">
                 <input type="text" name="find" value="{$find|escape}" class="form-control form-control-sm" placeholder="{tr}Find{/tr}...">
-                <div class="input-group-append input-group-append">
-                    <input type="submit" class="btn btn-info btn-sm" value="{tr}Filter{/tr}">
-                </div>
+                <input type="submit" class="btn btn-info btn-sm" value="{tr}Filter{/tr}">
             </div>
             <input type="hidden" name="old_type" value="{$type|escape}">
             {if !empty($blogs)}
             <div class="col-sm-6">
                 <div class="input-group input-group-sm" id="blogs"{if $type ne 'blog post'} style="visibility:hidden"{/if}>
-                    <div class="input-group-prepend">
-                        <small class="input-group-text">{tr}Filter in{/tr}</small>
-                    </div>
-                    <select name="objectId" onchange="this.form.submit();" class="form-control">
+                    <small class="input-group-text">{tr}Filter in{/tr}</small>
+                    <select name="objectId" onchange="this.form.submit();" class="form-select">
                             <option value="">--{tr}All blogs{/tr}--</option>
                             {foreach item=blog from=$blogs}
                                 <option value="{$blog.blogId|escape}"{if $blog.blogId eq $objectId} selected="selected"{/if}>{$blog.title|escape}</option>
@@ -154,7 +146,7 @@
 </form>
 <div class="freetagresult">
     {if $tagString}
-        <h4>{tr}Results{/tr} <span class="badge badge-secondary">{$cantobjects}</span></h4>
+        <h4>{tr}Results{/tr} <span class="badge bg-secondary">{$cantobjects}</span></h4>
     {/if}
     {if $cantobjects > 0}
         <table class="table table-hover">

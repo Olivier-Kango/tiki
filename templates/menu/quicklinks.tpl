@@ -1,4 +1,4 @@
-<div style="text-align:right;position:relative;">
+<div class="text-end position-relative">
     <div id="weburlslink">
         <a href="#" onclick="flip('weburls');return false;">{tr}Show Quick URLs{/tr}</a>
     </div>
@@ -6,17 +6,16 @@
             class="card">
         <div class="card-header">
             <h3 class="card-title" id="urltop">{tr}Some useful URLs{/tr}</h3>
-            <div style="text-align: right;">
+            <div class="text-end">
                 <a href="#" class="hide_weburls" style="font-size: 85%" onclick="flip('weburls');return false;">{tr}Hide Quick URLs{/tr}</a>
             </div>
         </div>
         <div class="card-body" style="text-align:left;">
-            <div class="form-horizontal">
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-form-label col-sm-5" for="wikilinks1">{tr}Home:{/tr}</label>
 
                     <div class="col-sm-7">
-                        <select class="form-control" name="wikilinks" id="wikilinks1"
+                        <select class="form-select" name="wikilinks" id="wikilinks1"
                                 onchange="setMenuCon(options[selectedIndex].value);return true;">
                             <option value=",,,">{tr}Choose{/tr} ...</option>
                             <option value="{$prefs.tikiIndex},{tr}Home Page{/tr}">{tr}Home Page{/tr}</option>
@@ -30,11 +29,11 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-form-label col-sm-5" for="wikilinks2">{tr}General:{/tr} </label>
 
                     <div class="col-sm-7">
-                        <select class="form-control" name="wikilinks" id="wikilinks2"
+                        <select class="form-select" name="wikilinks" id="wikilinks2"
                                 onchange="setMenuCon(options[selectedIndex].value);return true;">
                             <option value=",,,">{tr}Choose{/tr} ...</option>
                             {if $prefs.feature_stats eq 'y'}
@@ -50,11 +49,11 @@
                     </div>
                 </div>
                 {if $prefs.feature_wiki eq 'y'}
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label class="col-form-label col-sm-5" for="wikilinks3">{tr}Wiki:{/tr} </label>
 
                         <div class="col-sm-7">
-                            <select class="form-control" name="wikilinks" id="wikilinks3"
+                            <select class="form-select" name="wikilinks" id="wikilinks3"
                                     onchange="setMenuCon(options[selectedIndex].value);return true;">
                                 <option value=",,,">{tr}Choose{/tr} ...</option>
                                 <option value="tiki-index.php,{tr}Wiki Home{/tr},feature_wiki,tiki_p_view">{tr}Wiki Home{/tr}</option>
@@ -68,7 +67,7 @@
                 {/if}
 
                 {if $prefs.feature_articles eq 'y'}
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label class="col-form-label col-sm-5" for="wikilinks5">{tr}Articles:{/tr} </label>
 
                         <div class="col-sm-7">
@@ -86,7 +85,7 @@
                 {/if}
 
                 {if $prefs.feature_blogs eq 'y'}
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label class="col-form-label col-sm-5" for="wikilinks6">{tr}Blogs:{/tr}</label>
 
                         <div class="col-sm-7">
@@ -103,7 +102,7 @@
                 {/if}
 
                 {if $prefs.feature_file_galleries eq 'y'}
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label class="col-form-label col-sm-5" for="wikilinks7">{tr}Files:{/tr} </label>
 
                         <div class="col-sm-7">
@@ -119,7 +118,7 @@
                 {/if}
 
                 {if $prefs.feature_forums eq 'y'}
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label class="col-form-label col-sm-5" for="wikilinks8">{tr}Forums:{/tr} </label>
 
                         <div class="col-sm-7">
@@ -136,7 +135,7 @@
                 {/if}
 
                 {if $prefs.feature_faqs eq 'y'}
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label class="col-form-label col-sm-5" for="wikilinks9">{tr}FAQs:{/tr} </label>
 
                         <div class="col-sm-7">
@@ -151,7 +150,7 @@
                 {/if}
 
                 {if $prefs.feature_quizzes eq 'y'}
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label class="col-form-label col-sm-5" for="wikilinks10">{tr}Quizzes:{/tr} </label>
 
                         <div class="col-sm-7">
@@ -166,8 +165,6 @@
                         </div>
                     </div>
                 {/if}
-
-            </div>
         </div>
     </div>
 </div>

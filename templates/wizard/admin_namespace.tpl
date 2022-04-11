@@ -1,13 +1,13 @@
 {* $Id$ *}
 <div class="media">
-    <div class="mr-4">
+    <div class="me-4">
         <span class="fa-stack fa-lg" style="width: 100px;" title="Configuration Wizard">
         <i class="fas fa-cog fa-stack-2x"></i>
-        <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ml-4 mt-4"></i>
+        <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ms-4 mt-4"></i>
     </span>
     </div>
     <div class="media-body">
-        {icon name="wrench" size=3 iclass="float-sm-right"}
+        {icon name="wrench" size=3 iclass="float-sm-end"}
         <div class="row">
             <div class="col-lg-9">
                 {tr}The namespace separator should not{/tr}
@@ -25,7 +25,7 @@
             {/if}
             <br/>
             <b>{tr}Settings that may be affected by the namespace separator{/tr}:</b><br/>
-            {icon name="file-text-o" size=2 iclass="float-sm-right"}
+            {icon name="file-text-o" size=2 iclass="float-sm-end"}
 
             {tr}To use :: as a separator, you should also use ::: as the wiki center tag syntax{/tr}.<br/>
             {tr}Note: a conversion of :: to ::: for existing pages must be done manually{/tr}

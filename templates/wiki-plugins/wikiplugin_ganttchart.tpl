@@ -131,7 +131,7 @@
             <table class="gdfTable" cellspacing="0" cellpadding="0">
                 <thead>
                 <tr style="height:40px">
-                    <th class="gdfColHeader" style="width:35px; border-right: none"></th>
+                    <th class="gdfColHeader" style="width:35px; border-end: none"></th>
                     <th class="gdfColHeader" style="width:25px;">{tr}Status{/tr}</th>
                     <th class="gdfColHeader gdfResizable" style="width:100px;">{tr}code/short name{/tr}</th>
                     <th class="gdfColHeader gdfResizable" style="width:300px;">{tr}name{/tr}</th>

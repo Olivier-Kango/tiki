@@ -1,16 +1,16 @@
 {* $Id$ *}
 
-<div class="media">
-    <div class="mr-4">
-    <span class="float-left fa-stack fa-lg margin-right-18em" alt="{tr}Changes Wizard{/tr}" title="Changes Wizard">
+<div class="d-flex">
+    <div class="flex-shrink-0 mb-3">
+    <span class="float-start fa-stack fa-lg margin-right-18em" alt="{tr}Changes Wizard{/tr}" title="Changes Wizard">
         <i class="fas fa-arrow-circle-up fa-stack-2x"></i>
-        <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ml-4 mt-4"></i>
+        <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ms-4 mt-4"></i>
     </span>
     </div>
-    <br/><br/><br/>
-    <div class="media-body">
+
+    <div class="flex-grow-1 ms-3">
         {tr}New permissions and action log settings{/tr}.
-        {icon name="key" size=3 iclass="float-sm-right"}
+        {icon name="key" size=3 iclass="float-sm-end"}
         <fieldset>
             <legend>{tr}Permissions{/tr}</legend>
             <b>{tr}Wiki{/tr}</b>:
@@ -63,7 +63,7 @@
             </ul>
         </fieldset>
         <br/>
-        {icon name="book" size=3 iclass="float-sm-right"}
+        {icon name="book" size=3 iclass="float-sm-end"}
         <fieldset>
             <legend>{tr}Action log settings{/tr}</legend>
             <b>{tr}BigBlueButton{/tr}</b>:

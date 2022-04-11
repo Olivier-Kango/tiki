@@ -4,7 +4,7 @@
 
     {if $qs_types}
         <label>{tr}Type{/tr}
-            <select name="filter~type">
+            <select class="form-select" name="filter~type">
                 <option value="">{tr}Any type{/tr}</option>
                 {foreach from=$qs_types item=label key=val}
                     <option value="{$val|escape}"{if $qs_prefill.type eq $val} selected="selected"{/if}>{$label|escape}</option>
@@ -20,7 +20,7 @@
             <input type="hidden" name="filter~categories" value="{$qs_prefill.categories|escape}"/>
         {elseif $qs_categories|@count > 1}
             <label>{tr}Categories{/tr}
-                <select name="filter~categories">
+                <select class="form-select" name="filter~categories">
                     <option value="{$qs_all_categories|escape}">{tr}Any{/tr}</option>
                     {foreach from=$qs_categories item=label key=categId}
                         <option value="{$categId|escape}"{if $qs_prefill.categories eq $categId} selected="selected"{/if}>{$label|escape}</option>

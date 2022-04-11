@@ -7,7 +7,7 @@
 
 {block name="navigation"}
     {if $tiki_p_admin_trackers eq 'y'}
-        <div class="form-group row">{* Class provides 15px bottom margin. *}
+        <div class="mb-3 row">{* Class provides 15px bottom margin. *}
             <a class="btn btn-link mr-2" href="{bootstrap_modal controller=tracker action=replace}">
                 {icon name="create"} {tr}Create{/tr}
             </a>
@@ -17,7 +17,7 @@
                 </a>
             {/if}
             <div class="btn-group">
-                <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+                <button type="button" class="btn btn-link dropdown-toggle" data-bs-toggle="dropdown">
                     {icon name="import"} {tr}Import{/tr}
                 </button>
                 <div class="dropdown-menu">
@@ -64,7 +64,7 @@
                 <th>{self_link _sort_arg='sort_mode' _sort_field='name'}{tr}Name{/tr}{/self_link}</th>
                 <th>{self_link _sort_arg='sort_mode' _sort_field='created'}{tr}Created{/tr}{/self_link}</th>
                 <th>{self_link _sort_arg='sort_mode' _sort_field='lastModif'}{tr}Last modified{/tr}{/self_link}</th>
-                <th class="text-right">{self_link _sort_arg='sort_mode' _sort_field='items'}{tr}Items{/tr}{/self_link}</th>
+                <th class="text-end">{self_link _sort_arg='sort_mode' _sort_field='items'}{tr}Items{/tr}{/self_link}</th>
                 <th></th>
             </tr>
 
@@ -119,10 +119,10 @@
                                     </action>
                                     <action>
                                         <a href="{service controller=tracker action=replace trackerId=$tracker.trackerId modal=true}"
-                                            data-toggle="modal"
+                                            data-bs-toggle="modal"
                                             data-backdrop="static"
-                                            data-target="#bootstrap-modal"
-                                            onclick="$('[data-toggle=popover]').popover('hide');"
+                                            data-bs-target="#bootstrap-modal"
+                                            onclick="$('[data-bs-toggle=popover]').popover('hide');"
                                         >
                                             {icon name='settings' _menu_text='y' _menu_icon='y' alt="{tr}Properties{/tr}"}
                                         </a>
@@ -130,10 +130,10 @@
                                 {/if}
                                 {if $tracker.permissions->export_tracker}
                                     <action>
-                                        <a onclick="$('[data-toggle=popover]').popover('hide');"
-                                            data-toggle="modal"
+                                        <a onclick="$('[data-bs-toggle=popover]').popover('hide');"
+                                            data-bs-toggle="modal"
                                             data-backdrop="static"
-                                            data-target="#bootstrap-modal"
+                                            data-bs-target="#bootstrap-modal"
                                             href="{service controller=tracker action=export trackerId=$tracker.trackerId modal=1}"
                                         >
                                             {icon name='export' _menu_text='y' _menu_icon='y' alt="{tr}Export{/tr}"}
@@ -142,20 +142,20 @@
                                 {/if}
                                 {if $tracker.permissions->admin_trackers}
                                     <action>
-                                        <a onclick="$('[data-toggle=popover]').popover('hide');"
-                                            data-toggle="modal"
+                                        <a onclick="$('[data-bs-toggle=popover]').popover('hide');"
+                                            data-bs-toggle="modal"
                                             data-backdrop="static"
-                                            data-target="#bootstrap-modal"
+                                            data-bs-target="#bootstrap-modal"
                                             href="{service controller=tracker action=import_items trackerId=$tracker.trackerId modal=1}"
                                         >
                                             {icon name='import' _menu_text='y' _menu_icon='y' alt="{tr}Import{/tr}"}
                                         </a>
                                     </action>
                                     <action>
-                                        <a onclick="$('[data-toggle=popover]').popover('hide');"
-                                            data-toggle="modal"
+                                        <a onclick="$('[data-bs-toggle=popover]').popover('hide');"
+                                            data-bs-toggle="modal"
                                             data-backdrop="static"
-                                            data-target="#bootstrap-modal"
+                                            data-bs-target="#bootstrap-modal"
                                             href="{service controller=tracker_todo action=view trackerId=$tracker.trackerId modal=1}"
                                         >
                                             {icon name='calendar' _menu_text='y' _menu_icon='y' alt="{tr}Events{/tr}"}
@@ -234,7 +234,7 @@
                                         </action>
                                     {/if}
                                     <action>
-                                        <a onclick="$('[data-toggle=popover]').popover('hide');" href="{service controller=tracker action=remove trackerId=$tracker.trackerId}"
+                                        <a onclick="$('[data-bs-toggle=popover]').popover('hide');" href="{service controller=tracker action=remove trackerId=$tracker.trackerId}"
                                             class="remove confirm-prompt"
                                         >
                                             {icon name='remove' _menu_text='y' _menu_icon='y' alt="{tr}Delete{/tr}"}

@@ -31,7 +31,7 @@
             <br>
             {preference name=feed_articles}
             <div class="adminoptionboxchild" id="feed_articles_childcontainer">
-                <div class="form-group row clearfix">
+                <div class="mb-3 row clearfix">
                     <div class="col-md-8 offset-md-4">
                         <a class="btn btn-primary btn-sm tips" href="tiki-articles_rss.php" title=":{tr}Feed for articles{/tr}">
                             {icon name="rss"} {tr}View{/tr}
@@ -46,7 +46,7 @@
             </div>
             {preference name=feed_blogs}
             <div class="adminoptionboxchild" id="feed_blogs_childcontainer">
-                <div class="form-group row clearfix">
+                <div class="mb-3 row clearfix">
                     <div class="col-md-8 offset-md-4">
                         <a class="btn btn-primary btn-sm tips" href="tiki-blogs_rss.php" title=":{tr}Feed for blogs{/tr}">
                             {icon name="rss"} {tr}View{/tr}
@@ -60,8 +60,8 @@
                 {preference name=feed_blogs_homepage}
             </div>
             {preference name=feed_blog}
-            <div class="adminoptionboxchild form-group row clearfix" id="feed_blog_childcontainer">
-                <div class="form-group row clearfix">
+            <div class="adminoptionboxchild mb-3 row clearfix" id="feed_blog_childcontainer">
+                <div class="mb-3 row clearfix">
                     <div class="col-md-8 offset-md-4">
                         <a class="btn btn-primary btn-sm tips" href="tiki-list_blogs.php" title=":{tr}Feed for individual blogs{/tr}">
                             {icon name="rss"} {tr}View{/tr}
@@ -76,7 +76,7 @@
             </div>
             {preference name=feed_file_galleries}
             <div class="adminoptionboxchild" id="feed_file_galleries_childcontainer">
-                <div class="form-group row clearfix">
+                <div class="mb-3 row clearfix">
                     <div class="col-md-8 offset-md-4">
                         <a class="btn btn-primary btn-sm tips" href="tiki-file_galleries_rss.php" title=":{tr}Feed for file galleries{/tr}">
                             {icon name="rss"} {tr}View{/tr}
@@ -91,7 +91,7 @@
             </div>
             {preference name=feed_file_gallery}
             <div class="adminoptionboxchild" id="feed_file_gallery_childcontainer">
-                <div class="form-group row clearfix">
+                <div class="mb-3 row clearfix">
                     <div class="col-md-8 offset-md-4">
                         <a class="btn btn-primary btn-sm tips" href="tiki-list_file_gallery.php" title="{tr}Feed for individual file galleries{/tr}">
                             {icon name="rss"} {tr}View{/tr}
@@ -106,7 +106,7 @@
             </div>
             {preference name=feed_wiki}
             <div class="adminoptionboxchild" id="feed_wiki_childcontainer">
-                <div class="form-group row clearfix">
+                <div class="mb-3 row clearfix">
                     <div class="col-md-8 offset-md-4">
                         <a class="btn btn-primary btn-sm tips" href="tiki-wiki_rss.php" title=":{tr}Feed for wiki pages (with diff){/tr}">
                             {icon name="rss"} {tr}View{/tr} ({tr}with diff{/tr})
@@ -124,7 +124,7 @@
             </div>
             {preference name=feed_forums}
             <div class="adminoptionboxchild" id="feed_forums_childcontainer">
-                <div class="form-group row clearfix">
+                <div class="mb-3 row clearfix">
                     <div class="col-md-8 offset-md-4">
                         <a class="btn btn-primary btn-sm tips" href="tiki-forums_rss.php" title=":{tr}Feed for forums{/tr}">
                             {icon name="rss"} {tr}View{/tr}
@@ -139,7 +139,7 @@
             </div>
             {preference name=feed_forum}
             <div class="adminoptionboxchild" id="feed_forum_childcontainer">
-                <div class="form-group row clearfix">
+                <div class="mb-3 row clearfix">
                     <div class="col-md-8 offset-md-4">
                         <a class="btn btn-primary btn-sm tips" href="tiki-forums.php" title=":{tr}Feed for individual forums{/tr}">
                             {icon name="rss"} {tr}View{/tr}
@@ -154,7 +154,7 @@
             </div>
             {preference name=feed_tracker}
             <div class="adminoptionboxchild" id="feed_tracker_childcontainer">
-                <div class="form-group row clearfix">
+                <div class="mb-3 row clearfix">
                     <div class="col-md-8 offset-md-4">
                         <a class="btn btn-primary btn-sm tips" href="tiki-list_trackers.php" title=":{tr}Feed for trackers{/tr}">
                             {icon name="rss"} {tr}View{/tr}
@@ -170,7 +170,7 @@
             </div>
             {preference name=feed_calendar}
             <div class="adminoptionboxchild" id="feed_calendar_childcontainer">
-                <div class="form-group row clearfix">
+                <div class="mb-3 row clearfix">
                     <div class="col-md-8 offset-md-4">
                         <a class="btn btn-primary btn-sm tips" href="tiki-calendars_rss.php" title=":{tr}Feed for calendars{/tr}">
                             {icon name="rss"} {tr}View{/tr}
@@ -185,7 +185,7 @@
             </div>
             {preference name=feed_directories}
             <div class="adminoptionboxchild" id="feed_directories_childcontainer">
-                <div class="form-group row clearfix">
+                <div class="mb-3 row clearfix">
                     <div class="col-md-8 offset-md-4">
                         <a class="btn btn-primary btn-sm tips" href="tiki-directories_rss.php" title=":{tr}Feed for directories{/tr}">
                             {icon name="rss"} {tr}View{/tr}
@@ -200,7 +200,7 @@
             </div>
             {preference name=feed_shoutbox}
             <div class="adminoptionboxchild" id="feed_shoutbox_childcontainer">
-                <div class="form-group row clearfix">
+                <div class="mb-3 row clearfix">
                     <div class="col-md-8 offset-md-4">
                         <a class="btn btn-primary btn-sm tips" href="tiki-shoutbox_rss.php" title=":{tr}Feed for shoutbox{/tr}">
                             {icon name="rss"} {tr}View{/tr}

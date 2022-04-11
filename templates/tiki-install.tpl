@@ -130,7 +130,7 @@
                             <li>{tr}For more information about Tiki, please visit{/tr} <a href="https://tiki.org" target="_blank">tiki.org</a>.</li>
                         </ul>
                         <form action="tiki-install.php" method="post" role="form">
-                            <div class="form-inline mb-3">
+                            <div class="d-flex flex-row flex-wrap align-items-center mb-3">
                                 <label class="col-form-label" for="general-lang">{tr}Select your language{/tr}</label>
                                 <select name="lang" id="general-lang" onchange="$('.install-steps').tikiModal(tr('Loading...')); $('input[name=lang]:hidden').val($(this).val()); this.form.submit();" title="{tr}Select your language{/tr}" class="form-control mx-2">
                                     {section name=ix loop=$languages}
@@ -146,7 +146,7 @@
                             {/if}
                         </form>
                         <form action="tiki-install.php" method="post" role="form">
-                            <div class="form-group text-center">
+                            <div class="mb-3 text-center">
                                 {if $multi}
                                     <input type="hidden" name="multi" value="{$multi}">
                                 {/if}
@@ -165,7 +165,7 @@
                             <iframe src="license.txt" class="embed-responsive-item"> </iframe>
                         </div>
                         <form action="tiki-install.php" method="post" role="form">
-                            <div class="form-group text-center">
+                            <div class="mb-3 text-center">
                                 {if $multi}<input type="hidden" name="multi" value="{$multi}">{/if}
                                 {if $lang}<input type="hidden" name="lang" value="{$lang}">{/if}
                                 <input type="hidden" name="install_step" value="2">
@@ -214,7 +214,7 @@
                         {if $mail_test_performed ne 'y'}
                             <p>{tr}To test your system configuration, Tiki will attempt to send a test message to you.{/tr}</p>
                             <form action="tiki-install.php#mail" method="post" role="form">
-                                <div class="form-group row mt-4">
+                                <div class="mb-3 row mt-4">
                                     <label class="col-form-label" class="col-sm-2" for="email_test_to">{tr}Test email:{/tr}</label>
                                     <div class="col-sm-6">
                                         <input type="text" class="form-control" name="email_test_to" id="email_test_to" value="{if isset($email_test_to)}{$email_test_to|escape}{/if}" placeholder="{tr}tiki@example.com{/tr}">
@@ -225,7 +225,7 @@
                                         <div class="col-sm-4 mt-2"><i>{tr}Email address to send test to.{/tr}</i></div>
                                     {/if}
                                 </div>
-                                <div class="form-group row mb-3">
+                                <div class="row mb-3">
                                     <div class="form-check">
                                         <input type="checkbox" class="form-check-input" name="email_test_cc" id="email_test_cc" value="1">
                                         <label class="form-check-label" for="email_test_cc">{tr}Copy test mail to {/tr} {$email_test_tw}</label>
@@ -270,7 +270,7 @@
                         {/if}
                         <p>{tr}Tiki uses the GD library to process images for the Image Gallery and CAPTCHA support.{/tr}</p>
                         <form action="tiki-install.php" method="post" role="form">
-                            <div class="form-group text-center">
+                            <div class="mb-3 text-center">
                                 <input type="hidden" name="install_step" value="3">
                                 <input type="submit" class="btn btn-primary" value=" {tr}Continue{/tr} ">
                                 {if $multi}<input type="hidden" name="multi" value="{$multi}">{/if}
@@ -321,10 +321,10 @@
                                 <fieldset>
                                     <legend>{tr}Database information{/tr}</legend>
                                     <p>{tr}Enter your database connection information.{/tr}</p>
-                                    <div class="form-group row">
+                                    <div class="mb-3 row">
                                         <label for="db" class="col-form-label">{tr}DBMS driver:{/tr}</label>
                                         <div class="mx-3">
-                                            <select class="form-control" name="db" id="db">
+                                            <select class="form-select" name="db" id="db">
                                                 {foreach key=dsn item=dbname from=$dbservers}
                                                     {if $dsn|stristr:"mysql" || $dsn|stristr:"pdo"}
                                                         <option value="{$dsn}"{if isset($smarty.request.db) and $smarty.request.db eq $dsn} selected="selected"{/if}>{$dbname}</option>
@@ -340,7 +340,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group row">
+                                    <div class="mb-3 row">
                                         <label class="col-form-label" for="host">{tr}Host name:{/tr}</label>
                                         <div class="mx-3">
                                             <input type="text" class="form-control" name="host" id="host" value="{if isset($smarty.request.host)}{$smarty.request.host|escape:"html"}{elseif isset($preconfighost)}{$preconfighost|escape:"html"}{else}localhost{/if}" size="40" />
@@ -354,7 +354,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="form-group row">
+                                    <div class="mb-3 row">
                                         <label class="col-form-label" for="name">{tr}Database name:{/tr}</label>
                                         <div class="mx-3">
                                             <input type="text" class="form-control" id="name" name="name" size="40" value="{if isset($smarty.request.name)}{$smarty.request.name|escape:"html"}{elseif isset($preconfigname)}{$preconfigname|escape:"html"}{/if}" placeholder="{tr}Database name{/tr}"/>
@@ -432,7 +432,7 @@
                                     <label class="col-form-label" for="force_utf8">{tr}Always force connection to use UTF-8{/tr}</label>
                                     <p><a href="https://doc.tiki.org/Understanding-Encoding" onclick="window.open(this.href); return false;">{tr}More information{/tr}</a></p>
                                 </fieldset>
-                                <div class="form-group row text-center">
+                                <div class="mb-3 row text-center">
                                     <input type="submit" class="btn btn-info" name="dbinfo" value="{tr}Continue{/tr}">
                                 </div>
                             </form>
@@ -642,7 +642,7 @@
                                 <legend>
                                     {tr}General{/tr} <a href="https://doc.tiki.org/general-admin" target="_blank" title="{tr}Help{/tr}">{icon name="help"}</a>
                                 </legend>
-                                <div class="form-group row mx-0">
+                                <div class="mb-3 row mx-0">
                                     <label class="col-form-label" for="browsertitle">
                                         {tr}Browser title:{/tr}
                                     </label>
@@ -651,7 +651,7 @@
                                         {tr}This will appear in the browser title bar.{/tr}
                                     </span>
                                 </div>
-                                <div class="form-group row mx-0">
+                                <div class="mb-3 row mx-0">
                                     <label class="col-form-label" for="sender_email">
                                         {tr}Sender email:{/tr}
                                     </label>
@@ -682,7 +682,7 @@
                                 {tr}It is recommended to choose the "Require secure (HTTPS) login" option for better security. A security certificate and dedicated IP address are required to implement a secure login.{/tr}
                                 {/remarksbox}
                                 <div style="padding:5px; clear:both"><label for="https_login">{tr}HTTPS login:{/tr}</label>
-                                    <select class="form-control" name="https_login" id="https_login" onchange="hidedisabled('httpsoptions',this.value);">
+                                    <select class="form-select" name="https_login" id="https_login" onchange="hidedisabled('httpsoptions',this.value);">
                                         <option value="disabled"{if $prefs.https_login eq 'disabled'} selected="selected"{/if}>{tr}Disabled{/tr}</option>
                                         <option value="allowed"{if $prefs.https_login eq 'allowed'} selected="selected"{/if}>{tr}Allow secure (HTTPS) login{/tr}</option>
                                         <option value="encouraged"{if $prefs.https_login eq 'encouraged' or ($prefs.https_login eq '' and $detected_https eq 'on' )} selected="selected"{/if}>{tr}Encourage secure (HTTPS) login{/tr}</option>
@@ -709,7 +709,7 @@
                                 <legend>{tr}Logging and Reporting{/tr}</legend>
                                 <div class="adminoptionbox">
                                     <label for="general-error">{tr}PHP error reporting level:{/tr}</label>
-                                    <select class="form-control" name="error_reporting_level" id="general-error">
+                                    <select class="form-select" name="error_reporting_level" id="general-error">
                                         <option value="0" {if $prefs.error_reporting_level eq 0}selected="selected"{/if}>{tr}No error reporting{/tr}</option>
                                         <option value="2047" {if $prefs.error_reporting_level eq 2047}selected="selected"{/if}>{tr}Report all PHP errors except strict{/tr}</option>
                                         <option value="-1" {if $prefs.error_reporting_level eq -1}selected="selected"{/if}>{tr}Report all PHP errors{/tr}</option>
@@ -740,7 +740,7 @@
                                 <legend>
                                     {tr}Administrator{/tr}
                                 </legend>
-                                <div class="form-group row mx-0">
+                                <div class="mb-3 row mx-0">
                                     <label class="col-form-label" for="admin_email">
                                         {tr}Admin email:{/tr}
                                     </label>
@@ -756,11 +756,11 @@
                                     <legend>
                                         {tr}Set up htaccess file{/tr}
                                     </legend>
-                                    <div class="form-group row mx-0">
+                                    <div class="mb-3 row mx-0">
                                         <label class="col-form-label" for="htaccess_process">
                                             {tr}Method:{/tr}
                                         </label>
-                                        <select class="form-control" name="htaccess_process" id="htaccess_process">
+                                        <select class="form-select" name="htaccess_process" id="htaccess_process">
                                             {foreach $htaccess_options as $k => $v}
                                                 <option value="{$k}">
                                                     {$v}
@@ -785,7 +785,7 @@
                                         <li>{tr}Add the administrator account to the group, if missing{/tr}</li>
                                     </ol>
                                     <p><strong>{tr}To do so enter the name of the main admin account in the field below{/tr}</strong></p>
-                                    <div class="form-group row"><label class="col-form-label col-sm-4" for="admin_account">{tr}Administrator account (optional):{/tr}</label><div class="col-sm-4"> <input type="text" name="admin_account" class="form-control"></div><div class="col-sm-4"><em>{tr}The default account is <strong>admin</strong>{/tr}</em></div></div>
+                                    <div class="mb-3 row"><label class="col-form-label col-sm-4" for="admin_account">{tr}Administrator account (optional):{/tr}</label><div class="col-sm-4"> <input type="text" name="admin_account" class="form-control"></div><div class="col-sm-4"><em>{tr}The default account is <strong>admin</strong>{/tr}</em></div></div>
                                     {if !empty($disableAccounts)}
                                         <hr>
                                         <label class="col-form-label" for="fix_disable_accounts">{tr}Check this box if you have a lot of disabled accounts after an upgrade to tiki4.{/tr}</label>
@@ -913,15 +913,15 @@
                         {if $double_encode_fix_attempted eq 'y'}
                             <p>{tr}You can now access the site normally. Report back any issues that you might find (if any) to the Tiki forums or bug tracker{/tr}</p>
                         {elseif not isset($legacy_collation)}
-                            <form class="form-inline" method="post" action="#" onsubmit="return confirm("{tr}Are you sure you want to attempt to fix the encoding of your entire database?{/tr}");" class="mt-5">
+                            <form class="d-flex flex-row flex-wrap align-items-center" method="post" action="#" onsubmit="return confirm("{tr}Are you sure you want to attempt to fix the encoding of your entire database?{/tr}");" class="mt-5">
                             <fieldset>
                                 <legend>{tr}Upgrading and running into encoding issues?{/tr}</legend>
                                 <p>{tr}We can try to fix it, but <strong>make sure you have backups, and can restore them</strong>.{/tr}</p>
                                 {if $client_charset_in_file eq 'utf8'}
-                                    <div class="form-row align-items-center">
+                                    <div class="d-flex flex-wrap mx-0 align-items-center">
                                         <div class="input-group col-auto">
                                             <label class="col-form-label" for="previous_encoding">{tr}Previous table encoding:{/tr}</label>
-                                            <select class="form-control ml-2" name="previous_encoding" id="previous_encoding">
+                                            <select class="form-select ms-2" name="previous_encoding" id="previous_encoding">
                                                 <option value="">{tr}Please select{/tr}</option>
                                                 <option value="armscii8" title="Armenian, Binary">armscii8</option>
                                                 <option value="ascii" title="West European (multilingual), Binary">ascii</option>

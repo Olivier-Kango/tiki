@@ -34,23 +34,23 @@ function smarty_function_popup($params, $smarty)
 {
     // Defaults
     $options = [
-        'data-toggle' => 'popover',
-        'data-container' => 'body',
-        'data-trigger' => 'hover focus',
-        'data-content' => '',
+        'data-bs-toggle' => 'popover',
+        'data-bs-container' => 'body',
+        'data-bs-trigger' => 'hover focus',
+        'data-bs-content' => '',
     ];
 
     foreach ($params as $key => $value) {
         switch ($key) {
             case 'text':
-                $options['data-content'] = $value;
+                $options['data-bs-content'] = $value;
                 break;
             case 'trigger':
                 switch ($value) {
                     // is this legacy? should not be used anywhere
                     case 'onclick':
                     case 'onClick':
-                        $options['data-trigger'] = 'click';
+                        $options['data-bs-trigger'] = 'click';
                         break;
                     // support native bootstrap params - could be moved to default but not sure whether it breaks something
                     case 'hover focus':
@@ -59,7 +59,7 @@ function smarty_function_popup($params, $smarty)
                     case 'hover':
                     case 'focus':
                     case 'manual':
-                        $options['data-trigger'] = $value;
+                        $options['data-bs-trigger'] = $value;
                         break;
                     default:
                         break;
@@ -73,32 +73,32 @@ function smarty_function_popup($params, $smarty)
                 $options[$key] = $value;
                 break;
             case 'sticky':
-                $options['data-trigger'] = 'click';
+                $options['data-bs-trigger'] = 'click';
                 break;
             case 'fullhtml':
-                $options['data-html'] = true;
+                $options['data-bs-html'] = true;
                 break;
             case 'background':
                 if (! empty($params['width'])) {
                     if (! isset($params["height"])) {
                         $params["height"] = 300;
                     }
-                    $options['data-content'] = "<div style='background-image:url(" . $value . ");background-repeat:no-repeat;width:" . $params["width"] . "px;height:" . $params["height"] . "px;'>" . $options['data-content'] . "</div>";
+                    $options['data-bs-content'] = "<div style='background-image:url(" . $value . ");background-repeat:no-repeat;width:" . $params["width"] . "px;height:" . $params["height"] . "px;'>" . $options['data-bs-content'] . "</div>";
                 } else {
-                    $options['data-content'] = "<div style='background-image:url(" . $value . ");width:100%;height:100%;'>" . $options['data-content'] . "</div>";
+                    $options['data-bs-content'] = "<div style='background-image:url(" . $value . ");width:100%;height:100%;'>" . $options['data-bs-content'] . "</div>";
                 }
-                $options['data-html'] = true;
+                $options['data-bs-html'] = true;
                 break;
         }
     }
 
-    if (empty($options['title']) && empty($options['data-content'])) {
+    if (empty($options['title']) && empty($options['data-bs-content'])) {
         trigger_error("popover: attribute 'text' or 'caption' required");
         return false;
     }
 
 
-    $options['data-content'] = preg_replace(['/\\\\r\n/','/\\\\n/','/\\\\r/', '/\\t/'], '', $options['data-content']);
+    $options['data-bs-content'] = preg_replace(['/\\\\r\n/','/\\\\n/','/\\\\r/', '/\\t/'], '', $options['data-bs-content']);
 
     $retval = '';
     foreach ($options as $k => $v) {
@@ -111,12 +111,12 @@ function smarty_function_popup($params, $smarty)
         if (count($explode) == 1) {
             $delay = (int) $explode[0];
         } else {
-            $delay = '{"show":"' . (int) $explode[0] . '", "hide":"' . (int) $explode[1] . '"}';
+            $delay = '{"show":' . (int) $explode[0] . ', "hide":' . (int) $explode[1] . '}';
         }
-        $retval .= ' data-delay=\'' . $delay . '\'';
+        $retval .= ' data-bs-delay=\'' . $delay . '\'';
     } else {
         // add a short default open and close delay so they don't appear by accident and you can hover over the popover
-        $retval .= ' data-delay=\'{"show":"500","hide":"250"}\'';
+        $retval .= ' data-bs-delay=\'{"show":500,"hide":250}\'';
     }
 
     return $retval;

@@ -20,21 +20,21 @@
 {/block}
 {block name="content"}
     <form action="{service controller=language action=upload}" method="post" role="form" class="form" enctype="multipart/form-data">
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="language" class="col-form-label">
                 {tr}Language{/tr}
             </label>
-            <select id="language" class="translation_action form-control" name="language">
+            <select id="language" class="translation_action form-select" name="language">
                 {section name=ix loop=$languages}
                     <option value="{$languages[ix].value|escape}" {if $language eq $languages[ix].value}selected="selected"{/if}>{$languages[ix].name}</option>
                 {/section}
             </select>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-form-label" for="file_type">
                 {tr}Process Type{/tr}
             </label>
-            <select name="process_type" class="translation_action form-control">
+            <select name="process_type" class="translation_action form-select">
                 {foreach from=$process_types key=type_key item=type_name}
                     <option value="{$type_key|escape}">
                         {$type_name}
@@ -45,7 +45,7 @@
                 {tr}Select how the uploaded translations should be processed{/tr}
             </span>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-form-label" for="language_file">
                 {tr}File{/tr}
             </label>

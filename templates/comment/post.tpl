@@ -24,16 +24,16 @@
                                 {tr}You are currently registered on this site. This section is optional. By filling it, you will not link this post to your account and preserve your anonymity.{/tr}
                             {/remarksbox}
                         {/if}
-                        <div class="form-inline">
-                            <div class="form-group row">
+                        <div class="d-flex flex-row flex-wrap align-items-center">
+                            <div class="mb-3 row">
                                 <label class="clearfix" for="comment-anonymous_name">{tr}Name{/tr}</label>
                                 <input type="text" name="anonymous_name" id="comment-anonymous_name" value="{$anonymous_name|escape}"/>
                             </div>
-                            <div class="form-group row">
+                            <div class="mb-3 row">
                                 <label class="clearfix" for="comment-anonymous_email">{tr}Email{/tr}</label>
                                 <input type="email" id="comment-anonymous_email" name="anonymous_email" value="{$anonymous_email|escape}"/>
                             </div>
-                            <div class="form-group row">
+                            <div class="mb-3 row">
                                 <label class="clearfix" for="comment-anonymous_website">{tr}Website{/tr}</label>
                                 <input type="url" id="comment-anonymous_website" name="anonymous_website" value="{$anonymous_website|escape}"/>
                             </div>
@@ -46,7 +46,7 @@
                     <input type="hidden" name="parentId" value="{$parentId|escape}"/>
                     <input type="hidden" name="post" value="1"/>
                     {if $prefs.comments_notitle neq 'y'}
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label for="comment-title" class="clearfix comment-title">{tr}Title{/tr}</label>
                             <input type="text" id="comment-title" name="title" value="{$title|escape}" class="form-control" placeholder="Comment title"/>
                         </div>
@@ -67,7 +67,7 @@
                     {/if}
                     <input type="hidden"  name="return_url" value="{$return_url|escape}">
                     {if empty($version)}
-                        <div class="form-group comment-post">
+                        <div class="mb-3 comment-post">
                             <input type="submit" {if $prefs.feature_antibot eq 'y' && $user eq '' && $prefs.recaptcha_enabled eq 'y' && $prefs.recaptcha_version eq '3'}onclick="genToken();"{/if} class="comment-post btn btn-primary" value="{tr}Post{/tr}"/>
                             <div class="btn btn-link">
                                 <a href="#" onclick="$(this).closest('.comment-container').reload(); $(this).closest('.ui-dialog').remove(); return false;">{tr}Cancel{/tr}</a>

@@ -8,10 +8,10 @@
                 <a type="button" class="btn btn-primary" href="{service controller=tabular action=export_full_csv tabularId=$tabularId}">
                     {icon name=export} {tr}Export{/tr}
                 </a>
-                <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <span class="sr-only">Toggle Dropdown</span>
                 </button>
-                <div class="dropdown-menu pl-3">
+                <div class="dropdown-menu ps-3">
                     <a class="dropdown-item" href="{bootstrap_modal controller=tabular action=filter tabularId=$tabularId target=export _params=$baseArguments}">
                         {icon name=export} {tr}Export Partial{/tr}
                     </a>

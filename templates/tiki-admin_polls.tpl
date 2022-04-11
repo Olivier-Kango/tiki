@@ -26,13 +26,13 @@
             {ticket}
             <input type="hidden" name="pollId" value="{$pollId|escape:'attr'}">
             <input type="hidden" name="save" value="1">
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label" for="title">{tr}Title{/tr}</label>
                 <div class="col-sm-7">
                     <input type="text" name="title" id="title" value="{$info.title|escape}" class="form-control">
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label" for="active">{tr}Status{/tr}</label>
                 <div class="col-sm-7">
                     <select name="active" id="active" class="form-control">
@@ -44,7 +44,7 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">{tr}Options{/tr}</label>
                 <div class="col-sm-7">
                     <a id="tikiPollsOptionsButton" href="javascript://toggle quick options" onclick="pollsToggleQuickOptions()" class="btn btn-primary btn-sm mb-2">{tr}Show Options{/tr}</a>
@@ -67,7 +67,7 @@
                     <span class="description form-text text-muted">{tr}Leave box empty to delete an option.{/tr}</span>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">{tr}Publish Date{/tr}</label>
                 <div class="col-sm-7">
                     {if ($prefs.feature_jscalendar) == 'y'}
@@ -80,7 +80,7 @@
                     {/if}
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">{tr}Votes older than x days are not considered{/tr}</label>
                 <div class="col-sm-7">
                     <input type="text" id="voteConsiderationSpan" name="voteConsiderationSpan" size="5" value="{$info.voteConsiderationSpan|escape}" class="form-control">
@@ -90,7 +90,7 @@
                 </div>
             </div>
             {include file='categorize.tpl' labelcol="3" inputcol="7"}
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label"></label>
                 <div class="col-sm-8 offset-sm-1">
                     <input type="submit" class="btn btn-primary btn-sm" name="add" value="{tr}Add{/tr}">
@@ -188,9 +188,9 @@
 
     {tab name="{tr}Add poll to pages{/tr}"}
         <h2>{tr}Add poll to pages{/tr}</h2>
-        <form action="tiki-admin_polls.php" method="post" class="form-horizontal">
+        <form action="tiki-admin_polls.php" method="post">
             {ticket}
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">{tr}Poll{/tr}</label>
                 <div class="col-sm-7 mb-2">
                     <select name="poll_template" class="form-control">
@@ -203,13 +203,13 @@
                     <span class="form-text text-muted description">{tr}Only polls with a status of "template" shown{/tr}</span>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">{tr}Title{/tr}</label>
                 <div class="col-sm-7">
                     <input type="text" name="poll_title" class="form-control">
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">{tr}Wiki pages{/tr}</label>
                 <div class="col-sm-7">
                     <select name="pages[]" multiple="multiple" class="form-control">
@@ -221,14 +221,14 @@
                 </div>
             </div>
             {if $prefs.feature_wiki_usrlock eq 'y'}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-sm-3 col-form-label">{tr}Lock the pages{/tr}</label>
                     <div class="col-sm-7">
                         <input type="checkbox" class="form-control" name="locked">
                     </div>
                 </div>
             {/if}
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label"></label>
                 <div class="col-sm-7">
                     <input type="submit" class="btn btn-primary" name="addPoll" value="{tr}Save{/tr}">

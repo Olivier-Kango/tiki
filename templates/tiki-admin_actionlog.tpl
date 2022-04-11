@@ -16,7 +16,7 @@
             {else}
                 <fieldset>
                     <legend>{tr}Date{/tr}</legend>
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label" for="">{tr}Start{/tr}</label>
 
                         <div class="col-sm-8">
@@ -25,7 +25,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label" for="">{tr}End{/tr}</label>
 
                         <div class="col-sm-8">
@@ -38,7 +38,7 @@
                 <fieldset>
                     <legend>{tr}Users and Groups{/tr}</legend>
                     {if $tiki_p_list_users eq 'y'}
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-sm-2 col-form-label" for="selectedUsers">{tr}User{/tr}</label>
 
                             <div class="col-sm-6">
@@ -59,7 +59,7 @@
                     {/if}
 
                     {if $groups|@count >= 1}
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-sm-2 col-form-label" for="selectedGroups">{tr}Group{/tr}</label>
 
                             <div class="col-sm-6">
@@ -78,7 +78,7 @@
                 </fieldset>
                 <fieldset>
                     <legend>{tr}Category{/tr}</legend>
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label" for="categId">{tr}Category{/tr}</label>
 
                         <div class="col-sm-6">
@@ -97,12 +97,12 @@
                 <fieldset>
                     <legend>{tr}Misc.{/tr}</legend>
 
-                    <div class="col-sm-11 offset-sm-1 form-inline">
-                        <div class="form-group col-sm-10">
+                    <div class="col-sm-11 offset-sm-1 d-flex flex-row flex-wrap align-items-center">
+                        <div class="mb-3 col-sm-10">
                             <div class="col-sm-4">
                                 <label>{tr}Units{/tr}</label>
                             </div>
-                            <div class="form-group col-sm-4 offset-sm-1">
+                            <div class="mb-3 col-sm-4 offset-sm-1">
                                 <label>{tr}bytes{/tr}</label>
                                 <input class="radio" type="radio" name="unit"
                                     value="bytes"{if $unit ne 'kb'} checked="checked"{/if}>
@@ -112,12 +112,12 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-11 offset-sm-1 form-inline">
-                        <div class="form-group col-sm-10">
+                    <div class="col-sm-11 offset-sm-1 d-flex flex-row flex-wrap align-items-center">
+                        <div class="mb-3 col-sm-10">
                             <div class="col-sm-4">
                                 <label>{tr}Contribution Time{/tr}</label>
                             </div>
-                            <div class="form-group col-sm-4 offset-sm-1">
+                            <div class="mb-3 col-sm-4 offset-sm-1">
                                 <label>{tr}Week{/tr}</label>
                                 <input type="radio" name="contribTime" value="w"{if $contribTime ne 'd'} checked="checked"{/if}>
                                 <label>{tr}Day{/tr}</label>
@@ -125,7 +125,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label" for="">{tr}Search{/tr}</label>
 
                         <div class="col-sm-4">
@@ -134,7 +134,7 @@
                     </div>
 
                     {if $prefs.feature_contribution eq 'y'}
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <input type="submit" class="btn btn-primary btn-sm" name="graph"
                                 value="{tr}Graph Contributions{/tr}">
                             {if $prefs.feature_jpgraph eq 'y'}
@@ -333,7 +333,7 @@
                 {pagination_links cant=$cant step=$maxRecords offset=$offset}{/pagination_links}
                 {if $prefs.feature_banning eq 'y'}
                     <div class="input-group col-sm-8">
-                        <select class="form-control" name="action">
+                        <select class="form-select" name="action">
                             <option value="no_action" selected="selected">
                                 {tr}Select action to perform with checked{/tr}...
                             </option>
@@ -348,7 +348,7 @@
                                 {tr}Remove{/tr}
                             </option>
                         </select>
-                        <span class="input-group-append">
+                        <span class="input-group-text">
                             <button
                                 type="submit"
                                 class="btn btn-primary"
@@ -760,7 +760,7 @@
             {if !empty($sort_mode)}<input type="hidden" name="sort_mode" value="{$sort_mode|escape}">{/if}
             <fieldset>
                 <legend>{tr}Filter{/tr}</legend>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <div class="col-sm-5">
                         <label for="action_log_type">{tr}Type{/tr}</label>
                         <select id="action_log_type" name="action_log_type" class="form-control">
@@ -793,12 +793,12 @@
             </fieldset>
             <br class="clearfix"/>
 
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <div class="col-sm-1 offset-sm-11">
                     <input type="submit" class="btn btn-primary btn-sm" name="save" value="{tr}Set{/tr}">
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 {*<div class="col-sm-12">*}
                 <div class="table-responsive">
                     <table class="table">
@@ -856,7 +856,7 @@
                 </div>
                 {*</div>*}
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <div class="col-sm-1 offset-sm-11">
                     <input type="submit" class="btn btn-primary btn-sm" name="save" value="{tr}Set{/tr}"\>
                 </div>

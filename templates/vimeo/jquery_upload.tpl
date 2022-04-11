@@ -1,9 +1,9 @@
 {* $Id$ *}
 {* Used by smarty_function_vimeo_uploader() *}
 
-<div class="form-group row">
+<div class="mb-3 row">
     <div class="col-md-12">
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label>
             {tr}Title{/tr}
             </label>
@@ -27,7 +27,7 @@
     </div>
     </div>
 </div>
-<div class="form-group row">
+<div class="mb-3 row">
     <div id="files" class="files text-center col-md-12"></div>
 </div>
 

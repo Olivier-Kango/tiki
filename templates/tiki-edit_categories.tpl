@@ -20,7 +20,7 @@
 <hr>
 <div class="object-list">
     <span class="h3">{tr}Object list result{/tr}</span>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-sm-2 col-form-label col-form-label-sm">Filters applied</label>
         <div class="col-sm-8">
             <input class="form-control form-control-sm" disabled="disabled" value="{$filterString}">
@@ -31,7 +31,7 @@
         <ol>
             {foreach from=$result item=object}
                 <li{permission type=$object.type object=$object.object_id name="modify_object_categories"} class="available"{/permission}>
-                    <input class="ml-20" type="checkbox" name="object[]" value="{$object.object_type|escape}:{$object.object_id|escape}">
+                    <input class="ms-20" type="checkbox" name="object[]" value="{$object.object_type|escape}:{$object.object_id|escape}">
                     {object_link type=$object.object_type id=$object.object_id}
                 </li>
             {/foreach}

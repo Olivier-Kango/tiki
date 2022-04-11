@@ -1,6 +1,6 @@
 {if !empty($extra['fields'])}
     {foreach from=$extra['fields'] item=field}
-        <div class="form-group row">
+        <div class="mb-3 row">
             {if isset($field['label'])}
                 <label class="col-form-label">{$field['label']}</label>
             {/if}

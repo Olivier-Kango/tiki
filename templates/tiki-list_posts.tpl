@@ -34,7 +34,7 @@
             <th>
                 <a href="tiki-list_posts.php?{if isset($blogId)}blogId={$blogId}&amp;{/if}offset={$offset}&amp;sort_mode={if $sort_mode eq 'created_desc'}created_asc{else}created_desc{/if}">{tr}Created{/tr}</a>
             </th>
-            <th class="text-right">{tr}Size{/tr} {tr}(bytes){/tr}</th>
+            <th class="text-end">{tr}Size{/tr} {tr}(bytes){/tr}</th>
             <th>
                 <a href="tiki-list_posts.php?{if isset($blogId)}blogId={$blogId}&amp;{/if}offset={$offset}&amp;sort_mode={if $sort_mode eq 'user_desc'}user_asc{else}user_desc{/if}">{tr}Author{/tr}</a>
             </th>
@@ -83,15 +83,13 @@
 </div>
 
 {if $posts and $tiki_p_blog_admin eq 'y'}
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="remove" class="col-form-label">{tr}Perform action with selected{/tr}</label>
             <div class="input-group col-sm-4">
                 <select name="remove" class="form-control text-danger">
                     <option value="y">{tr}Delete{/tr}</option>
                 </select>
-                <div class="input-group-append">
-                    <input type="submit" class="btn btn-primary" name="remove" value="{tr}Ok{/tr}">
-                </div>
+                <input type="submit" class="btn btn-primary" name="remove" value="{tr}Ok{/tr}">
             </div>
         </div>
     </form>

@@ -7,7 +7,7 @@
 <form class="admin" id="features" name="features" action="tiki-admin.php?page=features" method="post">
     {ticket}
     <div class="row">
-        <div class="form-group col-lg-12 clearfix">
+        <div class="mb-3 col-lg-12 clearfix">
             {include file='admin/include_apply_top.tpl'}
         </div>
     </div>
@@ -24,7 +24,7 @@
 
             <fieldset>
                 <legend><h4 class="showhide_heading" id="Main_features">  {tr}Main features{/tr}<a href="#Main_features" class="heading-link"><span class="icon icon-link fas fa-link "></span></a></h4> </legend>
-                <div class="admin clearfix form-group featurelist">
+                <div class="admin clearfix mb-3 featurelist">
                     {preference name=feature_wiki}
                     {preference name=feature_file_galleries}
                     {preference name=feature_blogs}
@@ -38,7 +38,7 @@
 
             <fieldset>
                 <legend><h4 class="showhide_heading" id="Secondary_features">{tr}Secondary features{/tr} <a href="#Secondary_features" class="heading-link"><span class="icon icon-link fas fa-link "></span></a></h4></legend>
-                <div class="admin clearfix form-group featurelist">
+                <div class="admin clearfix mb-3 featurelist">
                     {preference name=feature_categories}
                     {preference name=feature_freetags}
                     {preference name=feature_polls}
@@ -54,7 +54,7 @@
 
             <fieldset>
                 <legend><h4 class="showhide_heading" id="Administrative_features">{tr}Administrative features{/tr} <a href="#Administrative_features" class="heading-link"><span class="icon icon-link fas fa-link "></span></a></h4></legend>
-                <div class="admin clearfix form-group featurelist">
+                <div class="admin clearfix mb-3 featurelist">
                     {preference name=feature_stats}
                     {preference name=feature_actionlog}
                     {preference name=feature_scheduler}
@@ -98,7 +98,7 @@
 
             <fieldset>
                 <legend><h4 class="showhide_heading" id="Additional_features">{tr}Additional features{/tr} <a href="#Additional_features" class="heading-link"><span class="icon icon-link fas fa-link "></span></a></h4></legend>
-                <div class="admin clearfix form-group featurelist">
+                <div class="admin clearfix mb-3 featurelist">
                     {preference name=feature_sheet}
                     {preference name=feature_directory}
                     {preference name=feature_draw}

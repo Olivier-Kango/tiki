@@ -4,7 +4,7 @@
 
 {block name="content"}
     <form class="form simple import-fields" action="{service controller=tracker action=import_fields}" method="post" role="form">
-        <div class="form-group row mx-0">
+        <div class="mb-3 row mx-0">
             <label class="col-form-label">
                 {tr}Raw Fields{/tr}
             </label>
@@ -20,7 +20,7 @@
                 {tr}Imported fields at the bottom of the list{/tr}
             </label>
         </div>
-        <div class="form-group submit">
+        <div class="mb-3 submit">
             <input type="hidden" name="trackerId" value="{$trackerId|escape}">
             <input type="submit" class="btn btn-primary" value="{tr}Import{/tr}">
         </div>

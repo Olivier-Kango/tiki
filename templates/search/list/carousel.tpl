@@ -3,8 +3,8 @@
 {* if for controls and pagination *}
 {if $carousel and $carousel.id}{$containerId = $carousel.id}{else}{$containerId = 'wp_list_carousel'}{/if}
 {if $carousel and $carousel.mode}{$mode = $carousel.mode}{else}{$mode = ''}{/if}
-<div id="{$containerId}" class="carousel slide {$mode}" data-ride="carousel"
-        {if $carousel and $carousel.interval} data-interval="{$carousel.interval}"{/if}
+<div id="{$containerId}" class="carousel slide {$mode}" data-bs-ride="carousel"
+        {if $carousel and $carousel.interval} data-bs-interval="{$carousel.interval}"{/if}
         {if $carousel and isset($carousel.pause)} data-pause="{$carousel.pause}"{/if}
         {if $carousel and isset($carousel.wrap)} data-wrap="{$carousel.wrap}"{/if}
 >
@@ -12,7 +12,7 @@
         {* Indicators *}
         <ol class="carousel-indicators">
             {foreach from=$results item=row}
-                <li data-target="#{$containerId}" data-slide-to="{$row@index}"{if $row@index eq 0} class="active"{/if}></li>
+                <li data-bs-target="#{$containerId}" data-bs-slide-to="{$row@index}"{if $row@index eq 0} class="active"{/if}></li>
             {/foreach}
         </ol>
     {/if}
@@ -44,11 +44,11 @@
 
     {* Controls *}
     {if $carousel and $carousel.controls neq 'n'}
-        <a class="carousel-control-prev" href="#{$containerId}" role="button" data-slide="prev">
+        <a class="carousel-control-prev" href="#{$containerId}" role="button" data-bs-slide="prev">
             {icon name='chevron-left'}
             <span class="sr-only">Previous</span>
         </a>
-        <a class="carousel-control-next" href="#{$containerId}" role="button" data-slide="next">
+        <a class="carousel-control-next" href="#{$containerId}" role="button" data-bs-slide="next">
             {icon name='chevron-right'}
             <span class="sr-only">Next</span>
         </a>

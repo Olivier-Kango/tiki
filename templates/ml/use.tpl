@@ -18,7 +18,7 @@
     <p>{tr}Use this model by entering a sample information in the form below and execute a query against the trained model. This will produce results based on the chosen estimator and show you the most relevant matches or predict the result.{/tr}</p>
     <form class="use-ml" method="post" action="{service controller=ml action=use mlmId=$model.mlmId}">
         {trackerfields trackerId=$trackerId fields=$fields}
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-form-label col-sm-2">{tr}Type{/tr}</label>
             <div class="col-sm-10">
                 <input type="radio" name="type" value="proba" {if $type neq 'predict'}checked{/if}>

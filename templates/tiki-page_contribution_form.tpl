@@ -3,7 +3,7 @@
     <input type="hidden" name="page" id="page" value="{$page}">
     <fieldset>
         <legend>{tr}Process{/tr}</legend>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <div class="form-check">
                 <label class="form-check-label"><input class="form-check-input" type="radio" name="process" id="process0" value="0"{if $process==0} checked="checked"{/if} title="{tr}Original wiki text{/tr}" />{tr}Original wiki text{/tr}</label><br>
                 <label class="form-check-label"><input class="form-check-input" type="radio" name="process" id="process1" value="1"{if $process!=0 and $process!=2} checked="checked"{/if} title="{tr}Parsed Text (HTML){/tr}">{tr}Parsed Text (HTML){/tr}</label><br>
@@ -13,7 +13,7 @@
     </fieldset>
     <fieldset>
         <legend>{tr}Options{/tr}</legend>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <div class="form-check">
                 <label class="form-check-label"><input class="form-check-input" type="checkbox" name="showstatistics" value="1"{if $showstatistics==1} checked="checked"{/if} title="{tr}Show statistics{/tr}"> {tr}Show statistics{/tr}</label><br>
                 <label class="form-check-label"><input class="form-check-input" type="checkbox" name="showpage" value="1"{if $showpage==1} checked="checked"{/if} title="{tr}Visualize page changes{/tr}"> {tr}Visualize page changes{/tr}</label><br>

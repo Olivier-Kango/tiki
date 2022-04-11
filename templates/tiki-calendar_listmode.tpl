@@ -17,7 +17,7 @@
                         <div class="dtstart col-sm-7 text-nowrap" title="{$event.start|tiki_short_date:'n'}">
                             <a href="{$myurl}?todate={$event.start}" title="{tr}Change Focus{/tr}">{$event.start|tiki_short_date:'n'}</a>
                         </div>
-                        <div class="dtstart-time col-sm-5 text-right text-nowrap">
+                        <div class="dtstart-time col-sm-5 text-end text-nowrap">
                             {if $event.allday}{tr}All day{/tr}{else}{$event.start|tiki_short_time}{/if}
                         </div>
                     </div>
@@ -29,7 +29,7 @@
                                 <a href="{$myurl}?todate={$event.end}" title="{tr}Change Focus{/tr}">{$event.end|tiki_short_date:'n'}</a>
                             </div>
                         {/if}
-                        <div class="dtstart-time col-sm-5 text-right text-nowrap">
+                        <div class="dtstart-time col-sm-5 text-end text-nowrap">
                             {if $event.start ne $event.end and $event.allday ne 1}{$event.end|tiki_short_time}{/if}
                         </div>
                     </div>

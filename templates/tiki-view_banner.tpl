@@ -1,6 +1,6 @@
 {title help="Banners"}{tr}Banner stats{/tr}{/title}
 
-<div class="t_navbar btn-group form-group row">
+<div class="t_navbar btn-group mb-3 row">
     {button href="tiki-list_banners.php" class="btn btn-info" _text="{tr}List banners{/tr}"}
     {if $tiki_p_admin_banners eq 'y'}
         {button href="tiki-edit_banner.php?bannerId=$bannerId" class="btn btn-primary" _text="{tr}Edit{/tr}"}

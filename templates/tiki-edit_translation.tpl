@@ -41,7 +41,7 @@
                         {tr}Translate this page to a new language{/tr}
                     </div>
                     <div class="card-body">
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label for="lang" class="col-form-label col-sm-5">
                                 {tr}Select language to translate to:{/tr}
                             </label>
@@ -54,7 +54,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label for="page" class="col-form-label col-sm-5">
                                 {tr}Enter the page title:{/tr}
                             </label>
@@ -66,7 +66,7 @@
                             </div>
                         </div>
                         {if $prefs.feature_categories eq 'y'}
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label for="page" class="col-form-label col-sm-4">
                                 {tr}Categories{/tr}
                             </label>
@@ -92,7 +92,7 @@
                         {tr}Change language for this page{/tr}
                     </div>
                     <div class="card-body">
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label for="langpage" class="col-form-label col-sm-5">
                                 {tr}Language{/tr}
                             </label>
@@ -163,7 +163,7 @@
                     <option value="{$lang.value|escape}">{$lang.name}</option>
                 {/foreach}
             </select>
-            <div class="input-group-append">
+            <div class="input-group-text">
                 <input type="hidden" name="id" value="{$id}">
                 <input type="hidden" name="type" value="{$type|escape}">
                 <input type="submit" class="btn btn-primary" value="{tr}Set Page Language{/tr}">

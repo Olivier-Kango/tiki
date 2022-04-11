@@ -4,7 +4,7 @@
     <div class="list-table-heading">{wiki}{$tableparams.title|escape}{/wiki}</div>
 {/if}
 {if $actions}
-<form method="post" action="#{$id}" class="form-inline" id="listexecute-{$iListExecute}">
+<form method="post" action="#{$id}" class="d-flex flex-row flex-wrap align-items-center" id="listexecute-{$iListExecute}">
 {/if}
 {if not empty($column.field)}
     {$column = [$column]}{* if there is only one column then it will not be in an array *}
@@ -36,7 +36,7 @@
 {/if}
 {if isset($tableparams.shownbitems) && $tableparams.shownbitems eq 'y'}
     <div class="nbitems">
-        {tr}Items found:{/tr} <span class='badge badge-secondary'>{$count}</span>
+        {tr}Items found:{/tr} <span class='badge bg-secondary'>{$count}</span>
     </div>
 {/if}
 <div {if $id}id="{$id}-div" {/if}class="table-responsive ts-wrapperdiv" {if $tsOn}style="visibility:hidden;"{/if}>

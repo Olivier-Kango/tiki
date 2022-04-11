@@ -214,8 +214,8 @@ $input-height-large:             (ceil($font-size-large * $line-height-large) + 
 //** Small `.form-control` height
 $input-height-small:             (floor($font-size-small * $line-height-small) + ($padding-small-vertical * 2) + 2);
 
-//** `.form-group` margin
-$form-group-margin-bottom:       15px;
+//** `.mb-3` margin
+$mb-3-margin-bottom:       15px;
 
 $legend-color:                   $gray-900;
 $legend-border-color:            #e5e5e5;

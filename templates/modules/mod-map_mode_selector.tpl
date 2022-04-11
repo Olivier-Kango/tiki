@@ -1,6 +1,6 @@
 {tikimodule error=$module_params.error title=$tpl_module_title name="map_mode_selector" flip=$module_params.flip decorations=$module_params.decorations nobox=$module_params.nobox notitle=$module_params.notitle}
     <form class="map-mode-selector" method="post" action="">
-        <select name="modeControl">
+        <select class="form-select" name="modeControl">
         </select>
     </form>
     {jq}

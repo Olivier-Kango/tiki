@@ -60,14 +60,14 @@ function smarty_block_actions($params, $content, $smarty, $repeat = false)
     }
 
     if (! $js) {
-        $return .= '<ul class="cssmenu_horiz float-right"><li>';
+        $return .= '<ul class="cssmenu_horiz float-end"><li>';
     }
 
     $title = ! empty($params['title']) ? htmlspecialchars($params['title']) : tra('Actions');
     $icon = ! empty($params['icon']) ? $params['icon'] : 'settings';
 
     $return .= '<a
-            class="float-right p-0 m-0 border border-0"
+            class="float-end p-0 m-0 border border-0"
             title="' . $title . '"
             href="#"';
 
@@ -76,7 +76,7 @@ function smarty_block_actions($params, $content, $smarty, $repeat = false)
     }
 
     $return .= '>';
-    $return .= smarty_function_icon(['name' => $icon, 'iclass' => 'float-right'], $smarty);
+    $return .= smarty_function_icon(['name' => $icon, 'iclass' => 'float-end'], $smarty);
     $return .= '</a>';
 
     if (! $js) {

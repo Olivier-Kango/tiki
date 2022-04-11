@@ -124,7 +124,7 @@ function smarty_function_icon($params, $smarty)
             }
 
             if (isset($params['data-toggle'])) { //add data-toggle if set
-                $a_datatoggle = 'data-toggle="' . $params['data-toggle'] . '"';
+                $a_datatoggle = 'data-bs-toggle="' . $params['data-toggle'] . '"';
             } else {
                 $a_datatoggle = '';
             }

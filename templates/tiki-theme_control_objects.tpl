@@ -6,8 +6,8 @@
 </div>
 
 <h2>{tr}Assign themes to objects{/tr}</h2>
-<form id='objform' action="tiki-theme_control_objects.php" method="post" class="form-inline" role="form">
-        <label for="type" class="mr-2">{tr}Type{/tr}</label>
+<form id='objform' action="tiki-theme_control_objects.php" method="post" class="d-flex flex-row flex-wrap align-items-center" role="form">
+        <label for="type" class="me-2">{tr}Type{/tr}</label>
         <select name="type" onchange="javascript:document.getElementById('objform').submit();" class="form-control mr-2 mb-2">
             {section name=ix loop=$objectypes}
                 <option value="{$objectypes[ix]|escape}" {if $type eq $objectypes[ix]}selected="selected"{/if}>{$objectypes[ix]}</option>

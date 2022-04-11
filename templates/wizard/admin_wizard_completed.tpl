@@ -1,10 +1,10 @@
 {* $Id$ *}
 
-<div class="media">
-    <div class="mr-4">
+<div class="d-flex">
+    <div class="flex-shrink-0">
         {icon name="check" size=2} {tr}Congratulations{/tr}. {tr}You are done with the admin wizard{/tr}.<br>
     </div>
-    <div class="media-body">
+    <div class="flex-grow-1 ms-3">
         <fieldset>
             <legend>{tr}Next?{/tr}</legend>
             <ul>

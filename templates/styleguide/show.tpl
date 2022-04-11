@@ -39,7 +39,7 @@
             </div>
 
             <div class="btn-group dropup">
-                <a id="dLabel" data-target="#" href="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <a id="dLabel" data-bs-target="#" href="" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     Select a section:
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dLabel">

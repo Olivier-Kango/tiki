@@ -1,14 +1,14 @@
 {* $Id$ *}
 
-<div class="media">
-        <div class="mr-4">
-            <span class="float-left fa-stack fa-lg margin-right-18em" alt="{tr}Changes Wizard{/tr}" title="Changes Wizard">
+<div class="d-flex">
+        <div class="flex-shrink-0 mb-3">
+            <span class="float-start fa-stack fa-lg margin-right-18em" alt="{tr}Changes Wizard{/tr}" title="Changes Wizard">
             <i class="fas fa-arrow-circle-up fa-stack-2x"></i>
-            <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ml-4 mt-4"></i>
+            <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ms-4 mt-4"></i>
             </span>
         </div>
-    <br/><br/><br/>
-    <div class="media-body">
+
+    <div class="flex-grow-1 ms-3">
         {tr}Main new and improved features and settings in Tiki 21.{/tr}
         <a href="https://doc.tiki.org/Tiki21" target="tikihelp" class="tikihelp text-info" title="{tr}Tiki21 (LTS):{/tr}
             {tr}This is an LTS version.{/tr}
@@ -44,14 +44,14 @@
         </fieldset>
         <fieldset class="mb-3 w-100 clearfix featurelist">
             <legend>{tr}Other Extended Features{/tr}</legend>
-            <div class="adminoption form-group row">
+            <div class="adminoption mb-3 row">
                 <label class="col-sm-3 col-form-label"><b>{tr}Console{/tr}</b>:</label>
                 <div class="offset-sm-1 col-sm-11">
                     {tr}New actions can be performed.{/tr}
                     <a href="https://doc.tiki.org/Tiki21#Console">{tr}More Information{/tr}...</a><br/><br/>
                 </div>
             </div>
-            <div class="adminoption form-group row">
+            <div class="adminoption mb-3 row">
                 <label class="col-sm-3 col-form-label"><b>{tr}Contacts{/tr}</b>:</label>
                 <div class="offset-sm-1 col-sm-11">
                     {tr}CardDAV support has been added.{/tr}
@@ -63,7 +63,7 @@
                     <a href="https://doc.tiki.org/Tiki21#Calendar_-_CalDAV_support">{tr}More Information{/tr}...</a><br/><br/>
                 </div>
             </div>
-            <div class="adminoption form-group row">
+            <div class="adminoption mb-3 row">
                 <label class="col-sm-3 col-form-label"><b>{tr}Risky Preferences{/tr}</b>:</label>
                 <div class="offset-sm-1 col-sm-11">
                     {tr}Some of Tiki's preferences are quite powerful (and thus dangerous) and should be used only by experts.{/tr}
@@ -72,7 +72,7 @@
                     <a href="https://doc.tiki.org/Risky-Preferences">{tr}More Information{/tr}...</a><br/><br/>
                 </div>
             </div>
-            <div class="adminoption form-group row">
+            <div class="adminoption mb-3 row">
                 <label class="col-sm-3 col-form-label"><b>{tr}Roles{/tr}</b>:</label>
                 <div class="offset-sm-1 col-sm-11">
                     {tr}Roles make Groups Management and Permissions setting easier.{/tr}

@@ -6,7 +6,7 @@
             {if $only_shortcuts neq 'y'}
                 <div class="nav-item prefs-history-dropdown">
                     {if ! $js}<ul class="cssmenu_horiz"><li>{/if}
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-display="dynamic" data-flip="true" href="#" role="button">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-hover="dropdown" data-display="dynamic" data-flip="true" href="#" role="button">
                         {icon name="history"}
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" role="menu">
@@ -24,9 +24,9 @@
                 </div>
             {/if}
             {if $only_prefs_history neq 'y'}
-                <div class="nav-item quickadmin-dropdown">
+                <div class="nav-item dropdown">
                     {if ! $js}<ul class="cssmenu_horiz"><li>{/if}
-                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-display="dynamic" href="#" role="button">
+                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-hover="dropdown" data-display="dynamic" href="#" role="button">
                         {icon name='cogs'}
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" role="menu">
@@ -35,14 +35,12 @@
                         </h6>
                         <div class="dropdown-divider"></div>
                         <div class="dropdown-item mb-2 mt-2">
-                            <form method="post" action="tiki-admin.php" class="form-inline my-2 my-md-0 ml-auto" role="form">
+                            <form method="post" action="tiki-admin.php" class="d-flex flex-row flex-wrap align-items-center my-2 my-md-0 ms-auto" role="form">
                                 <div class="input-group">
                                     <input type="text" name="lm_criteria" value="{if ! empty($smarty.request.lm_criteria)}{$smarty.request.lm_criteria|escape}{/if}" class="form-control form-control-sm" placeholder="Search preferences...">
-                                    <div class="input-group-append">
-                                        <button type="submit" class="btn btn-primary btn-sm">
-                                            <span class="icon icon-search fas fa-search fa-fw "></span>
-                                        </button>
-                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-sm">
+                                        <span class="icon icon-search fas fa-search fa-fw "></span>
+                                    </button>
                                 </div>
                             </form>
                         </div>

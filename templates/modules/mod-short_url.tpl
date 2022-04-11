@@ -8,7 +8,7 @@
             </div>
 
             <div id="short-url-link"style="display:none">
-                <div class="form-group">
+                <div class="mb-3">
                     <input type="text" class="form-control" readonly="readonly">
                 </div>
                 <button id="short-url-copy" class="btn btn-primary btn-sm form-control">{icon name="clipboard"} {tr}Copy{/tr}</button>

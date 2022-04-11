@@ -1,7 +1,7 @@
 {tikimodule title=$tpl_module_title name="terminology" flip=$module_params.flip decorations=$module_params.decorations}
 
     <form class="form" method="post" action="tiki-listpages.php" role="form">
-        <div class="form-group row mx-0">
+        <div class="mb-3 row mx-0">
             <label class="col-sm-2 col-form-label">{tr}Find term:{/tr}</label>
             {if $term_root_category_id != ''}
                 <input type="hidden" name="categId" value="{$term_root_category_id}"/>
@@ -15,9 +15,9 @@
                 <input type="hidden" name="term_srch" value="y"/>
             </div>
         </div>
-        <div class="form-group row mx-0">
+        <div class="mb-3 row mx-0">
             <div class="col-sm-5">
-                <select name="lang" class="in form-control">
+                <select name="lang" class="in form-select">
                     <option value=''{if $search_terms_in_lang eq ''} selected="selected"{/if}>{tr}any language{/tr}</option>
                     {section name=ix loop=$user_languages}
                         <option value="{$user_languages[ix].value}"{if $user_languages[ix].value eq $search_terms_in_lang} selected="selected"{/if}>{tr}{$user_languages[ix].name}{/tr}</option>
@@ -25,7 +25,7 @@
                 </select>
             </div>
         </div>
-        <div class="form-group row mx-0">
+        <div class="mb-3 row mx-0">
             <div class="col-sm-2 offset-sm-2">
                 <input type="submit" class="wikiaction btn btn-info btn-sm" name="search" value="{tr}Go{/tr}"/>
             </div>

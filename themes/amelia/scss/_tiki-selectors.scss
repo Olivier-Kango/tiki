@@ -1,6 +1,6 @@
 //
 // Variables defined by functions, etc. or by Bootstrap defaults.
-$link-color: lighten(theme-color("warning"), 15%);
+$link-color: lighten($warning, 15%);
 $gray-500: lighten(#000000, 33.5%); //
 $link-hover-color: $link-color; // This has to be here because #link-color is defined by bs default, not be amelia.
 $body-bg: #108a93; // These work here, but not in amelia/scss/variables, for some reason.

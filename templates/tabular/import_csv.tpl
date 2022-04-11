@@ -24,13 +24,11 @@
             <p>{tr}Import from remote ODBC source.{/tr}</p>
             {else}
             <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroupText">{tr}CSV File{/tr}</span>
-                </div>
+                <span class="input-group-text" id="inputGroupText">{tr}CSV File{/tr}</span>
                 <div class="custom-file">
                     <input type="file" name="file" accept="text/csv" class="custom-file-input" id="inputFile" aria-describedby="inputGroupText"
                         onchange="$(this).next('.custom-file-label').text($(this).val().replace('C:\\fakepath\\', ''));">
-                    <label class="custom-file-label" for="inputFile">Choose file</label>
+                    <label class="form-label custom-file-label" for="inputFile">Choose file</label>
                 </div>
             </div>
             {/if}

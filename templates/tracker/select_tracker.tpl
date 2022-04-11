@@ -10,11 +10,11 @@
 
 {block name="content"}
     <form class="form" method="post" action="{service controller=tracker action=select_tracker}" id="selectTrackerForm" role="form">
-        <div class="form-group row mx-0">
+        <div class="mb-3 row mx-0">
             <label class="col-form-label" for="trackerId">
                 {tr}Tracker{/tr}
             </label>
-            <select name="trackerId" id="trackerId" class="form-control" required="required">
+            <select name="trackerId" id="trackerId" class="form-select" required="required">
                 {foreach from=$trackers item=tr key=k}
                     <option value="{$tr.trackerId|escape}">{$tr.name|escape}</option>
                 {/foreach}
@@ -22,7 +22,7 @@
         </div>
         <div class="submit text-center">
             <input type="hidden" name="confirm" value="1">
-            <input type="submit" class="btn btn-primary" data-dismiss="modal" value="{tr}Select{/tr}">
+            <input type="submit" class="btn btn-primary" data-bs-dismiss="modal" value="{tr}Select{/tr}">
         </div>
     </form>
 {/block}

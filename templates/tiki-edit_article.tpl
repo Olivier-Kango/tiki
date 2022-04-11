@@ -31,11 +31,11 @@
     {tabset}
         {tab name="{tr}Content{/tr}"}
             <h2>{tr}Content{/tr}</h2>
-            <div class="form-group mx-0">
+            <div class="mb-3 mx-0">
                 <label for="title">{tr}Title{/tr}</label>
                 <input type="text" name="title" id="title" value="{$arttitle|escape}" maxlength="255" class="form-control">
             </div>
-            <div class="form-group mx-0">
+            <div class="mb-3 mx-0">
                 <label for="subheading">{tr}Heading{/tr}</label>
                 {if $types.$type.heading_only eq 'y'}
                     {textarea name="heading" rows="5" class="form-control" id="subheading"}{$heading}{/textarea}
@@ -43,13 +43,13 @@
                     {textarea _simple="y" name="heading" class="form-control" rows="5" id="subheading" comments="y"}{$heading}{/textarea}
                 {/if}
             </div>
-            <div id='heading_only' class="form-group mx-0" {if $types.$type.heading_only eq 'y'}style="display: none;"{/if}>
+            <div id='heading_only' class="mb-3 mx-0" {if $types.$type.heading_only eq 'y'}style="display: none;"{/if}>
                 <label for="body">{tr}Body{/tr}</label>
                 {textarea name="body" id="body"}{$body}{/textarea}
             </div>
             {if $tiki_p_use_HTML eq 'y'}
                 {if $smarty.session.wysiwyg neq 'y'}
-                    <div class="form-group mx-0">
+                    <div class="mb-3 mx-0">
                         <div class="form-check">
                             <label class="form-check-label">
                                 <input class="form-check-input" type="checkbox" name="allowhtml" {if $allowhtml eq 'y'}checked="checked"{/if}>
@@ -63,7 +63,7 @@
                 {/if}
             {/if}
             {if $prefs.feature_multilingual eq 'y'}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-md-4 col-form-label" for="lang">{tr}Language{/tr}</label>
                     <div class="col-md-8">
                         <select name="lang" id="lang" class="form-control">
@@ -96,7 +96,7 @@
         {/tab}
         {tab name="{tr}Classification{/tr}"}
             <h2>{tr}Classification{/tr}</h2>
-            <div class="form-group row clearfix">
+            <div class="mb-3 row clearfix">
                 <label for="topicId" class="col-form-label col-md-4">{tr}Topic{/tr}</label>
                 <div class="col-md-6">
                     <select name="topicId" id="topicId" class="form-control">
@@ -114,7 +114,7 @@
                     </span>
                 {/if}
             </div>
-            <div class="form-group row clearfix">
+            <div class="mb-3 row clearfix">
                 <label for="articletype" class="col-form-label col-md-4">{tr}Type{/tr}</label>
                 <div class="col-md-6">
                     <select id='articletype' name="type" onchange='javascript:chgArtType();' class="form-control">
@@ -139,13 +139,13 @@
                 </div>
             </div>
             {include file='categorize.tpl'}
-            <div class="form-group row clearfix">
+            <div class="mb-3 row clearfix">
                 {include file='freetag.tpl'}
             </div>
         {/tab}
         {tab name="{tr}Publication{/tr}"}
             <h2>{tr}Publication{/tr}</h2>
-            <div class="form-group row clearfix">
+            <div class="mb-3 row clearfix">
                 <div class="col-md-4 offset-md-4">
                     <div class="form-check well well-sm">
                         <label class="form-check-label">
@@ -158,20 +158,20 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group row clearfix">
+            <div class="mb-3 row clearfix">
                 <label for="authorName" class="col-form-label col-md-4">{tr}Author name (as displayed){/tr}</label>
                 <div class="col-md-4">
                     <input type="text" name="authorName" id="authorName" value="{$authorName|escape}" class="form-control">
                 </div>
             </div>
-            <div class="form-group row {if $tiki_p_edit_article_user neq 'y'}hidden{/if} clearfix">
+            <div class="mb-3 row {if $tiki_p_edit_article_user neq 'y'}hidden{/if} clearfix">
                 <label for="author" class="col-form-label col-md-4">{tr}User (article owner){/tr}</label>
                 <div class="col-md-4">
                     <input id="author" type="text" name="author" value="{$author|escape}" class="form-control">
                     {autocomplete element='#author' type='username'}
                 </div>
             </div>
-            <div class="form-group row clearfix">
+            <div class="mb-3 row clearfix">
                 <label class="col-form-label col-md-4">{tr}Publish Date{/tr}</label>
                 <div class="col-md-8">
                     {html_select_date prefix="publish_" time=$publishDate start_year=$prefs.article_start_year end_year=$prefs.article_end_year field_order=$prefs.display_field_order}
@@ -181,7 +181,7 @@
                     <span dir="ltr">{$siteTimeZone}</span>
                 </div>
             </div>
-            <div class="form-group row clearfix">
+            <div class="mb-3 row clearfix">
                 <label class="col-form-label col-md-4">{tr}Expiration Date{/tr}</label>
                 <div class="col-md-8">
                     {html_select_date prefix="expire_" time=$expireDate start_year=$prefs.article_start_year end_year=$prefs.article_end_year field_order=$prefs.display_field_order}
@@ -195,7 +195,7 @@
         {/tab}
         {tab name="{tr}Image{/tr}"}
             <h2>{tr}Image{/tr}</h2>
-            <div class="form-group {if $types.$type.show_image neq 'y'}hidden{/if}">
+            <div class="mb-3 {if $types.$type.show_image neq 'y'}hidden{/if}">
                 <input type="hidden" name="MAX_FILE_SIZE" value="{$prefs.article_image_file_size_max}">
                 <label for="userfile1" class="col-form-label col-md-4">{tr}Own Image{/tr}</label>
                 <div class="col-md-8">
@@ -204,7 +204,7 @@
                 </div>
             </div>
             {if $hasImage eq 'y'}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-md-4 col-form-label">{tr}Current Image{/tr}</label>
                     <div class="thumbnail col-md-8">
                         {if $imageIsChanged eq 'y'}
@@ -215,7 +215,7 @@
                     </div>
                 </div>
             {/if}
-            <div class="form-group {if $types.$type.show_image_caption neq 'y'}hidden{/if}">
+            <div class="mb-3 {if $types.$type.show_image_caption neq 'y'}hidden{/if}">
                 <label class="col-md-4 col-form-label" for="image_caption">{tr}Image caption{/tr}</label>
                 <div class="col-md-8">
                     <input type="text" class="form-control" name="image_caption" id="image_caption" value="{$image_caption|escape}" >
@@ -237,44 +237,36 @@
             <fieldset class="{if $types.$type.show_image neq 'y'}hidden{/if}">
                 <legend>{tr}Read Article{/tr}</legend>
                 <span class="form-text">{tr}Maximum dimensions of custom image in view mode{/tr}</span>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label for="image_x" class="col-form-label col-md-4">{tr}Width{/tr}</label>
                     <div class="input-group col-sm-3">
                         <input type="text" class="form-control" name="image_x" id="image_x"{if $image_x > 0} value="{$image_x|escape}"{/if}>
-                        <div class="input-group-append">
-                            <span class="input-group-text">{tr}pixels{/tr}</span>
-                        </div>
+                        <span class="input-group-text">{tr}pixels{/tr}</span>
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label for="image_y" class="col-form-label col-md-4">{tr}Height{/tr}</label>
                     <div class="input-group col-sm-3">
                         <input type="text" class="form-control" name="image_y" id="image_y"{if $image_y > 0} value="{$image_y|escape}"{/if}>
-                        <div class="input-group-append">
-                            <span class="input-group-text">{tr}pixels{/tr}</span>
-                        </div>
+                        <span class="input-group-text">{tr}pixels{/tr}</span>
                     </div>
                 </div>
             </fieldset>
             <fieldset class="{if $types.$type.show_image neq 'y'}hidden{/if}">
                 <legend>{tr}View Articles{/tr}</legend>
                 <span class="form-text">{tr}Maximum dimensions of custom image in list mode{/tr}</span>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label for="list_image_x" class="col-form-label col-sm-4">{tr}Width{/tr}</label>
                     <div class="input-group col-sm-3">
                         <input type="text" class="form-control" name="list_image_x" id="list_image_x"{if $list_image_x > 0} value="{$list_image_x|escape}"{/if}>
-                        <div class="input-group-append">
-                            <span class="input-group-text">{tr}pixels{/tr}</span>
-                        </div>
+                        <span class="input-group-text">{tr}pixels{/tr}</span>
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label for="list_image_y" class="col-form-label col-sm-4">{tr}Height{/tr}</label>
                     <div class="input-group col-sm-3">
                         <input type="text" class="form-control" name="list_image_y" id="list_image_y"{if $list_image_y > 0} value="{$list_image_y|escape}"{/if}>
-                        <div class="input-group-append">
-                            <span class="input-group-text">{tr}pixels{/tr}</span>
-                        </div>
+                        <span class="input-group-text">{tr}pixels{/tr}</span>
                     </div>
                 </div>
             </fieldset>
@@ -282,7 +274,7 @@
         {tab name="{tr}Advanced{/tr}"}
             <h2>{tr}Advanced{/tr}</h2>
             {if $prefs.feature_multilingual eq 'y' and empty($translationOf)}
-                <div class="form-group row clearfix">
+                <div class="mb-3 row clearfix">
                     <label for="translationOf" class="col-form-label col-md-8">
                         {tr}Attach existing article ID as translation{/tr}
                     </label>
@@ -298,19 +290,19 @@
                     </div>
                 </div>
             {/if}
-            <div class="form-group {if $types.$type.show_topline neq 'y'}hidden{/if}">
+            <div class="mb-3 {if $types.$type.show_topline neq 'y'}hidden{/if}">
                 <label for="topline" class="col-form-label col-md-4">{tr}Topline{/tr}</label>
                 <div class="col-md-8">
                     <input type="text" name="topline" id="topline" value="{$topline|escape}" class="form-control">
                 </div>
             </div>
-            <div class="form-group {if $types.$type.show_subtitle neq 'y'}hidden{/if}">
+            <div class="mb-3 {if $types.$type.show_subtitle neq 'y'}hidden{/if}">
                 <label for="subtitle" class="col-form-label col-md-4">{tr}Subtitle{/tr}</label>
                 <div class="col-md-8">
                     <input type="text" name="subtitle" id="subtitle" value="{$subtitle|escape}" class="form-control">
                 </div>
             </div>
-            <div class="form-group {if $types.$type.show_linkto neq 'y'}hidden{/if}">
+            <div class="mb-3 {if $types.$type.show_linkto neq 'y'}hidden{/if}">
                 <label for="linkto" class="col-form-label col-md-4">{tr}Source{/tr}</label>
                 <div class="col-md-8">
                     <input type="url" name="linkto" id="linkto" value="{$linkto|escape}" class="form-control" placeholder="https://...">
@@ -322,7 +314,7 @@
                     {/if}
                 </div>
             </div>
-            <div class="form-group {if $types.$type.use_ratings neq 'y'}hidden{/if}">
+            <div class="mb-3 {if $types.$type.use_ratings neq 'y'}hidden{/if}">
                 <label for="rating" class="col-md-4 col-form-label">{tr}Author rating{/tr}</label>
                 <div class="col-md-4">
                     <select name='rating' id='rating' class="form-control">
@@ -351,7 +343,7 @@
                 </div>
             </div>
             {if $prefs.geo_locate_article eq 'y'}
-                <div class="form-group row clearfix">
+                <div class="mb-3 row clearfix">
                     <label class="col-form-label col-md-4">{tr}Location{/tr}</label>
                     <div class="col-md-8">
                         <div class="map-container" data-geo-center="{defaultmapcenter}" data-target-field="geolocation"></div>
@@ -361,10 +353,10 @@
                 </div>
             {/if}
             {if $prefs.feature_cms_templates eq 'y' and $tiki_p_use_content_templates eq 'y' and $templates|@count ne 0}
-                <div class="form-group row clearfix">
+                <div class="mb-3 row clearfix">
                     <label for="templateId" class="col-form-label col-md-4">{tr}Apply content template{/tr}</label>
                     <div class="col-md-8">
-                        <select class="form-control" name="templateId" id="templateId" onchange="javascript:document.getElementById('editpageform').submit();">
+                        <select class="form-select" name="templateId" id="templateId" onchange="javascript:document.getElementById('editpageform').submit();">
                             <option value="0">{tr}none{/tr}</option>
                             {foreach $templates as $template}
                                 <option value="{$template.templateId|escape}">{tr}{$template.name|escape}{/tr}</option>
@@ -374,7 +366,7 @@
                 </div>
             {/if}
             {if $prefs.feature_cms_emails eq 'y'}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label for="emails" class="col-md-4">{tr}Email{/tr}</label>
                     <div class="col-md-8">
                         <input type="text" name="emails" id="emails" value="{$emails|escape}" class="form-control">
@@ -399,7 +391,7 @@
                     {foreach from=$all_attributes item=att key=attname}
                         {assign var='attid' value=$att.itemId|replace:'.':'_'}
                         {assign var='attfullname' value=$att.itemId}
-                        <div class="form-group row" id={$attid} {if $types.$type.$attid eq 'y'}style="display:;"{else}style="display:none;"{/if}>
+                        <div class="mb-3 row" id={$attid} {if $types.$type.$attid eq 'y'}style="display:;"{else}style="display:none;"{/if}>
                             <label class="col-form-label col-md-4" for="{$attfullname|escape}">{$attname|escape}</label>
                             <div class="col-md-8">
                                 <input type="text" name="{$attfullname|escape}" value="{$article_attributes.$attfullname|escape}" maxlength="255" class="form-control">
@@ -410,7 +402,7 @@
             {/if}
         {/tab}
     {/tabset}
-    <div class="form-group clearfix text-center">
+    <div class="mb-3 clearfix text-center">
         <input type="submit" class="wikiaction btn btn-secondary" name="preview" value="{tr}Preview{/tr}" onclick="needToConfirm=false;">
         <input type="submit" class="wikiaction btn btn-primary" name="save" value="{tr}Save{/tr}" onclick="this.form.saving=true;needToConfirm=false;">
         {if $articleId}<input type="submit" class="wikiaction tips btn btn-link" title="{tr}Cancel{/tr}|{tr}Cancel the edit (changes will be lost).{/tr}" name="cancel_edit" value="{tr}Cancel Edit{/tr}" onclick="needToConfirm=false;">{/if}

@@ -31,7 +31,7 @@
 
     .toggle-controlbox {
         background-color: $primary;
-        span { color: color-yiq($primary); }
+        span { color: $primary; }
     }
 
     &.converse-overlayed #controlbox .controlbox-head .chatbox-btn {
@@ -45,12 +45,12 @@
     #minimized-chats {
         .chat-head-chatbox {
             background-color: $primary;
-            .restore-chat, .chatbox-btn { color: color-yiq($primary); }
+            .restore-chat, .chatbox-btn { color: $primary; }
         }
 
         .chat-head-chatroom {
             background-color: $secondary;
-            .restore-chat, .chatbox-btn { color: color-yiq($secondary); }
+            .restore-chat, .chatbox-btn { color: $secondary; }
         }
     }
 
@@ -102,16 +102,16 @@
                 ul, li .toolbar-menu { background-color: $primary; }
 
                 .fa-eye, .fa-paperclip, .toggle-smiley, .unencrypted, .toggle-occupants {
-                    color: color-yiq($primary);
-                    &:hover { color: darken(color-yiq($primary), 7.5%); }
+                    color: $primary;
+                    &:hover { color: darken($primary, 7.5%)/*, 7.5%*/; }
                 }
             }
         }
 
         .chat-head {
             &.chat-head-chatbox { background-color: $primary; }
-            .chat-title, a.chatbox-btn.fa { color: color-yiq($primary); }
-            a:hover.chatbox-btn.fa { color: darken(color-yiq($primary), 7.5%); }
+            .chat-title, a.chatbox-btn.fa { color: $primary; }
+            a:hover.chatbox-btn.fa { color: darken($primary, 7.5%)/*, 7.5%*/; }
         }
 
         .chat-body {
@@ -135,7 +135,7 @@
 
                 .close-chatbox-button, .toggle-chatbox-button, .configure-chatroom-button,
                 .toggle-bookmark, .chat-title, .chatroom-description {
-                    color: color-yiq($secondary);
+                    color: $secondary;
                 }
             }
 
@@ -163,7 +163,7 @@
 
                 .chat-area .new-msgs-indicator {
                     background-color: $info;
-                    color: color-yiq($info);
+                    color: $info;
                 }
 
                 .chat-info { color: $info; }
@@ -174,6 +174,6 @@
 
     &.converse-overlayed #minimized-chats #toggle-minimized-chats {
         background-color: $info;
-        color: color-yiq($info);
+        color: $info;
     }
 }

@@ -11,7 +11,7 @@
     {* ---------------------- tab with list -------------------- *}
 {if $ids_rules|count > 0}
     {tab name="{tr}IDS Rules{/tr}"}
-        <form class="form-horizontal" name="checkform" id="checkform" method="post">
+        <form {*class="form-horizontal"*} name="checkform" id="checkform" method="post">
             <div id="admin_ids-div">
                 <div class="{if $js}table-responsive {/if}ts-wrapperdiv">
                     {* Use css menus as fallback for item dropdown action menu if javascript is not being used *}
@@ -92,10 +92,10 @@
 
 {tab name="{$add_edit_rule_tablabel} {$rulename}"}
     <br><br>
-    <form class="form form-horizontal" action="tiki-admin_ids.php" method="post"
+    <form class="form{*}form-horizontal*}" action="tiki-admin_ids.php" method="post"
             enctype="multipart/form-data" name="RegForm" autocomplete="off">
         {ticket}
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-sm-3 col-md-2 col-form-label" for="rule_id">{tr}Rule Id{/tr}</label>
             <div class="col-sm-7 col-md-6">
                 <input type="text" id='rule_id' class="form-control" name='rule_id'
@@ -103,14 +103,14 @@
                 <span class="form-text">{tr}Rule Id must be numeric{/tr}</span>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-sm-3 col-md-2 col-form-label" for="rule_regex">{tr}Rule Regex{/tr}</label>
             <div class="col-sm-7 col-md-6">
                 <input type="text" id='rule_regex' class="form-control" name='rule_regex'
                        value="{$ruleinfo.regex|escape}">
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-sm-3 col-md-2 col-form-label" for="rule_description">{tr}Description{/tr}</label>
             <div class="col-sm-7 col-md-6">
                 <input type="text" id='rule_description' class="form-control" name='rule_description'
@@ -118,7 +118,7 @@
             </div>
         </div>
 
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-sm-3 col-md-2 col-form-label" for="rule_tags">{tr}Tags{/tr}</label>
             <div class="col-sm-7 col-md-6">
                 <input type="text" id='rule_tags' class="form-control" name='rule_tags'
@@ -126,7 +126,7 @@
             </div>
         </div>
 
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-sm-3 col-md-2 col-form-label" for="rule_impact">{tr}Impact{/tr}</label>
             <div class="col-sm-7 col-md-6">
                 <input type="text" id='rule_impact' class="form-control" name='rule_impact'
@@ -134,7 +134,7 @@
             </div>
         </div>
 
-        <div class="form-group row">
+        <div class="mb-3 row">
             <div class="col-sm-7 col-md-6 offset-sm-3 offset-md-2">
                 {if isset($ruleinfo.id) && $ruleinfo.id && !$ruleinfo.error}
                     <input type="hidden" name="rule" value="{$ruleinfo.id|escape}">

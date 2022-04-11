@@ -1,14 +1,14 @@
 {* $Id$ *}
 
-<div class="media">
-    <div class="mr-4">
-    <span class="float-left fa-stack fa-lg margin-right-18em" alt="{tr}Changes Wizard{/tr}" title="Changes Wizard">
+<div class="d-flex">
+    <div class="flex-shrink-0 mb-3">
+    <span class="float-start fa-stack fa-lg margin-right-18em" alt="{tr}Changes Wizard{/tr}" title="Changes Wizard">
         <i class="fas fa-arrow-circle-up fa-stack-2x"></i>
-        <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ml-4 mt-4"></i>
+        <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ms-4 mt-4"></i>
     </span>
     </div>
-    <br/><br/><br/>
-    <div class="media-body">
+
+    <div class="flex-grow-1 ms-3">
         {tr}Main new and improved features and settings in Tiki 16{/tr}.
         <a href="http://doc.tiki.org/Tiki16" target="tikihelp" class="tikihelp" title="{tr}Tiki16:{/tr}
             {tr}Tiki16 is a standard non-LTS version{/tr}.

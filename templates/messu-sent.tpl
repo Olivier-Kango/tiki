@@ -16,8 +16,8 @@
 
 
 
-<form class="form-inline mb-4" action="messu-sent.php" method="get">
-    <div class="form-group col-sm-3">
+<form class="d-flex flex-row flex-wrap align-items-center mb-4" action="messu-sent.php" method="get">
+    <div class="mb-3 col-sm-3">
         <label for="mess-mailmessages">{tr}Messages:{/tr}</label>
         <select name="flags" id="mess-mailmessages" class="form-control">
             <option value="isReplied_y" {if $flag eq 'isRead' and $flagval eq 'y'}selected="selected"{/if}>{tr}Replied{/tr}</option>
@@ -26,7 +26,7 @@
         </select>
     </div>
 
-    <div class="form-group col-sm-3">
+    <div class="mb-3 col-sm-3">
         <label for="mess-mailprio">{tr}Priority:{/tr}</label>
         <select name="priority" id="mess-mailprio" class="form-control">
             <option value="" {if $priority eq ''}selected="selected"{/if}>{tr}All{/tr}</option>
@@ -38,20 +38,18 @@
         </select>
     </div>
 
-    <div class="form-group col-sm-4">
+    <div class="mb-3 col-sm-4">
         <label for="mess-mailcont">{tr}Containing:{/tr}</label>
         <div class="input-group">
             <input type="text" name="find" id="mess-mailcont" value="{$find|escape}" class="form-control">
-            <div class="input-group-append">
-                <input type="submit" class="btn btn-info btn-sm" name="filter" value="{tr}Filter{/tr}">
-            </div>
+            <input type="submit" class="btn btn-info btn-sm" name="filter" value="{tr}Filter{/tr}">
         </div>
     </div>
 </form>
 
 <form action="messu-sent.php" method="post" id="form_messu_sent">
     {ticket}
-    <div class="form-group">
+    <div class="mb-3">
         <input type="hidden" name="offset" value="{$offset|escape}">
         <input type="hidden" name="find" value="{$find|escape}">
         <input type="hidden" name="sort_mode" value="{$sort_mode|escape}">

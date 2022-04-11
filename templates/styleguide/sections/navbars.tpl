@@ -4,7 +4,7 @@
         <div class="col-sm-8 col-md-9">
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <a class="navbar-brand" href="#">Menu</a>
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" aria-label="Toggle navigation">
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#bs-example-navbar-collapse-1" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -17,7 +17,7 @@
                             <a href="javascript:void(0);" class="nav-link">Link</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                 Dropdown
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -31,7 +31,7 @@
                             </div>
                         </li>
                     </ul>
-                    <form class="form-inline my-2 my-lg-0">
+                    <form class="d-flex flex-row flex-wrap align-items-center my-2 my-lg-0">
                         <input type="text" class="form-control mr-sm-2" placeholder="Search" aria-label="Search">
                         <button type="submit" class="btn btn-primary my-2 my-sm-0">Submit</button>
                     </form>
@@ -39,7 +39,7 @@
                     <ul class="navbar-nav navbar-right mr-auto">
                         <li><a href="javascript:void(0);">Link</a></li>
                         <li class="dropdown">
-                            <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                            <a href="javascript:void(0);" class="dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                 Dropdown
                             </a>
                             <ul class="dropdown-menu">

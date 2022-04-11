@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-sm-8 col-md-9">
             <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     {tr}Dropdown{/tr}
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenu1">

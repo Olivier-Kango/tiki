@@ -1,22 +1,20 @@
 {title help="Forums" admpage="forums"}{$forum_info.name}{/title}
 <h4>
     {tr}Reported messages{/tr}
-    <span class="badge badge-secondary">{$cant}</span>
+    <span class="badge bg-secondary">{$cant}</span>
     {icon name="refresh" href="tiki-forums_reported.php?forumId=$forumId" class="btn btn-link tips" title=":{tr}Refresh list{/tr}"}
 </h4>
 
 {* FILTERING FORM *}
 {if $items or ($find ne '')}
     <form action="tiki-forums_reported.php" method="post" class="form">
-        <div class="form-group row">
+        <div class="mb-3 row">
             <input type="hidden" name="forumId" value="{$forumId|escape}">
             <input type="hidden" name="offset" value="{$offset|escape}">
             <input type="hidden" name="sort_mode" value="{$sort_mode|escape}">
             <div class="input-group">
                 <input type="text" class="form-control" name="find" value="{$find|escape}" placeholder="{tr}Find{/tr}...">
-                <div class="input-group-append">
-                    <button type="submit" class="btn btn-primary" name="filter">{tr}Filter{/tr}</button>
-                </div>
+                <button type="submit" class="btn btn-primary" name="filter">{tr}Filter{/tr}</button>
             </div>
         </div>
     </form>

@@ -1,7 +1,7 @@
 {* $Id$ *}
 {if $prefs.feature_contribution eq 'y'}
     {if count($contributions) gt 0}
-        <div class="form-group row">
+        <div class="mb-3 row">
         {if $contribution_needed eq 'y'}
             <span class="mandatory_note highlight">
         {/if}
@@ -13,7 +13,7 @@
             </span>
         {/if}
             <div class="col-sm-6">
-                <select id="contributions" name="contributions[]" multiple="multiple" size="5" class="form-control">
+                <select id="contributions" name="contributions[]" multiple="multiple" size="5" class="form-select">
                     {section name=ix loop=$contributions}
                         <option value="{$contributions[ix].contributionId|escape}"{if $contributions[ix].selected eq 'y'} selected="selected"{/if} >{if $contributions[ix].contributionId > 0}{$contributions[ix].name|escape}{/if}</option>
                         {assign var="help" value=$help|cat:$contributions[ix].name|cat:": "|cat:$contributions[ix].description|cat:"<br>"}
@@ -23,10 +23,10 @@
             </div>
         </div>
         {if $prefs.feature_contributor_wiki eq 'y' and $section eq 'wiki page' and empty($in_comment)}
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label for='contributors' class="col-sm-3 col-form-label">{tr}Contributors{/tr}</label>
                 <div class="col-sm-6">
-                    <select id="contributors" name="contributors[]" multiple="multiple" size="5" class="form-control">
+                    <select id="contributors" name="contributors[]" multiple="multiple" size="5" class="form-select">
                         {foreach key=userId item=u from=$users}
                             {if $u ne $user}<option value="{$userId}"{if !empty($contributors) and in_array($userId, $contributors)} selected="selected"{/if}>{$u}</option>{/if}
                         {/foreach}

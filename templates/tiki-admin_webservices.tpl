@@ -14,21 +14,21 @@
 
     {if $storedName and not $edit}
         <h2>{$storedName|escape}:</h2>
-        <div class="form-group row clearfix">
+        <div class="mb-3 row clearfix">
             <label class="col-form-label col-sm-4">{tr}URL:{/tr}</label>
             <div class="col-sm-8">
                 <code>{$url|escape}</code>
             </div>
         </div>
         {if $postbody}
-            <div class="form-group row clearfix">
+            <div class="mb-3 row clearfix">
                 <label class="col-form-label col-sm-4">{tr}Body of POST request:{/tr}</label>
                 <div class="col-sm-8">
                     <pre style="max-height: 40em; overflow: auto; white-space: pre-wrap">{$postbody|escape}</pre>
                 </div>
             </div>
         {/if}
-        <div class="form-group row clearfix">
+        <div class="mb-3 row clearfix">
             <div class="col-sm-8 offset-sm-4">
                 <input type="hidden" name="name" value="{$storedName|escape}">
                 {button _icon_name='edit' _text="{tr}Edit{/tr}" _script="tiki-admin_webservices.php?name={$storedName|escape}&edit" _class='btn btn-primary btn-sm'}
@@ -39,13 +39,13 @@
         {remarksbox type="tip" title="{tr}Tip{/tr}"}
         {tr}Enter the URL of a web services returning either JSON or YAML. Parameters can be specified by enclosing a name between percentage signs. For example: %name%. %service% and %template% are reserved keywords and cannot be used.{/tr}
         {/remarksbox}
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-form-label col-sm-4">{tr}URL:{/tr}</label>
             <div class="col-sm-8">
                 <input type="text" name="url" size="75" value="{$url|escape}" class="form-control"/>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-form-label col-sm-4">{tr}Type:{/tr}</label>
             <div class="col-sm-8">
                 <select name="wstype" class="form-control">
@@ -55,7 +55,7 @@
                 </select>
             </div>
         </div>
-        <div id="ws_postbody" class="form-group row">
+        <div id="ws_postbody" class="mb-3 row">
             <label class="col-form-label col-sm-4"> {tr}Body of POST request{/tr}</label>
             <div class="col-sm-8">
                 <textarea name="postbody" class="form-control">{$postbody|escape}</textarea><br>
@@ -77,7 +77,7 @@
         <h3>{tr}Parameters{/tr}</h3>
         {if $params|@count}
             {foreach from=$params key=name item=value}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-sm-4 col-form-label" for="params[{$name|escape}]">{$name|escape}</label>
                     <div class="col-sm-8">
                         <input type="text" name="params[{$name|escape}]" id="params[{$name|escape}]" value="{$value|escape}" class="form-control">
@@ -88,7 +88,7 @@
             <div class="col-sm-8 offset-sm-4">{tr _0=$storedName|escape}%0 requires no parameter.{/tr}</div>
         {/if}
         <div class="col-sm-8 offset-sm-4">
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <input type="submit" class="btn btn-primary btn-sm col-sm-2" name="test" value="{tr}Test Input{/tr}">
                 <label class="col-sm-10"> <input type="checkbox" checked="checked" name="nocache">
                     {tr}Bypass cache{/tr}
@@ -97,7 +97,7 @@
         </div>
     {/if}
     {if $data}
-        <div class="form-group row">
+        <div class="mb-3 row">
             <div class="col-sm-12">
                 <h3>{tr}Response Information{/tr}</h3>
                 <div class="table-responsive">
@@ -188,7 +188,7 @@
                                         <input type="submit" class="btn btn-primary btn-sm" name="preview" value="{$template->name|escape}"/>
                                     </td>
                                     <td>
-                                        <a class="btn btn-link" role="button" data-toggle="collapse" href="#template_{$template->name|escape}"
+                                        <a class="btn btn-link" role="button" data-bs-toggle="collapse" href="#template_{$template->name|escape}"
                                                 aria-expanded="false" aria-controls="template_{$template->name|escape}" title="{tr}Toggle template source{/tr}">
                                             {icon name='caret-down'}
                                         </a>

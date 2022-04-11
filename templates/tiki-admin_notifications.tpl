@@ -8,13 +8,13 @@
 {/if}
 
 <h2>{tr}Add notification{/tr}</h2>
-<form action="tiki-admin_notifications.php" method="post" class="form-horizontal" role="form">
+<form action="tiki-admin_notifications.php" method="post" role="form">
     {ticket}
     <input type="hidden" name="find" value="{$find|escape}">
     <input type="hidden" name="sort_mode" value="{$sort_mode|escape}">
     {if $offset}<input type="hidden" name="offset" value="{$offset|escape}">{/if}
     {if $numrows ne $prefs.maxRecords and $numrows}<input type="hidden" name="numrows" value="{$numrows|escape}">{/if}
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label for="event" class="col-form-label col-sm-3">
             {tr}Event{/tr}
         </label>
@@ -26,7 +26,7 @@
             </select>
         </div>
     </div>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label for="destination" class="col-form-label col-sm-3">
             {tr}Destination{/tr}
         </label>
@@ -49,7 +49,7 @@
             {/jq}
         </div>
     </div>
-    <div id="loginrow" class="form-group row">
+    <div id="loginrow" class="mb-3 row">
         <label for="flogin" class="col-form-label col-sm-3">
             {tr}User{/tr}
         </label>
@@ -61,7 +61,7 @@
             <a href="#" onclick="document.getElementById('flogin').value='{$user}'; return false;" class="btn btn-link">{tr}Myself{/tr}</a>
         </div>
     </div>
-    <div class="form-group row" id="emailrow" style="display:none">
+    <div class="mb-3 row" id="emailrow" style="display:none">
         <label for="femail" class="col-form-label col-sm-3">
             {tr}Email{/tr}
         </label>
@@ -140,7 +140,7 @@
     {if $channels}
         <br>
         <div class="input-group col-sm-8">
-            <select class="form-control" name="action">
+            <select class="form-select" name="action">
                 <option value="" selected="selected">
                     {tr}Select action to perform with checked{/tr}...
                 </option>
@@ -152,11 +152,9 @@
                     {tr}Remove{/tr}
                 </option>
             </select>
-            <span class="input-group-append">
-                <button type="submit" class="btn btn-primary" onclick="confirmPopup()">
+            <button type="submit" class="btn btn-primary" onclick="confirmPopup()">
                     {tr}OK{/tr}
                 </button>
-            </span>
         </div>
     {/if}
 </form>

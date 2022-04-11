@@ -8,7 +8,7 @@
 {* Display the path adding manually the top category id=0 *}
 <form name="path" method="post" action="tiki-directory_admin_related.php">
     <br>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-sm-4 col-form-label">
             {tr}Parent directory category{/tr}
         </label>
@@ -28,7 +28,7 @@
 <form action="tiki-directory_admin_related.php" method="post">
     <br>
     <input type="hidden" name="parent" value="{$parent|escape}">
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-sm-4 col-form-label">{tr}Directory Category:{/tr}</label>
         <div class="col-sm-7">
             <select name="categId" class="form-control">
@@ -38,13 +38,13 @@
             </select>
         </div>
     </div>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-sm-4 col-form-label">{tr}Mutual:{/tr}</label>
         <div class="col-sm-7">
             <input type="checkbox" name="mutual">
         </div>
     </div>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <div class="col-sm-7 offset-sm-4">
             <input type="submit" class="btn btn-primary btn-sm" name="add" value="{tr}Save{/tr}">
         </div>

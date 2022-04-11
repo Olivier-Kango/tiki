@@ -129,7 +129,7 @@
                         <a class="btn btn-secondary mb-2" id="comment-toggle" href="{service controller=comment action=list type="wiki page" objectId=$page}#comment-container">
                             {tr}Comments{/tr}
                             {if $count_comments}
-                                &nbsp;<span class="count_comments badge badge-secondary">{$count_comments}</span>
+                                &nbsp;<span class="count_comments badge bg-secondary">{$count_comments}</span>
                             {/if}
                         </a>
                         {jq}
@@ -155,7 +155,7 @@
                                 {tr}Files{/tr}
                             {else}
                                 {tr}Files{/tr}
-                                &nbsp;<span class="atts_count badge badge-info">{$atts|@count}</span>
+                                &nbsp;<span class="atts_count badge bg-info">{$atts|@count}</span>
                             {/if}
                         {/strip}
                     {/capture}
@@ -168,7 +168,7 @@
             {/if}
             {if $more_section|trim neq ''}
                 <div class="btn-group dropup mb-2">
-                    <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">{tr}More{/tr}</button>
+                    <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown">{tr}More{/tr}</button>
                     <div class="dropdown-menu" role="menu">
                         {$more_section}
                     </div>
@@ -182,7 +182,7 @@
     {/if}
 
     {if $page_bar|trim neq ''}
-        <div class="form-group row mx-0 my-3" id="page-bar">
+        <div class="row mx-0 my-3" id="page-bar">
             <div class="btn-bar">
                 {$page_bar}
             </div>

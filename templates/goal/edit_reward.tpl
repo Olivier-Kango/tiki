@@ -9,7 +9,7 @@
         {tr}Your changes to rewards are not saved until you save the goal.{/tr}
     {/remarksbox}
     <form class="reward-form" method="post" action="{service controller=goal action=edit_reward}">
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-form-label col-md-3">{tr}Type{/tr}</label>
             <div class="col-md-9">
                 <select name="rewardType" class="form-control">
@@ -20,7 +20,7 @@
             </div>
         </div>
         {if $rewards.credit}
-            <div class="form-group argument creditType">
+            <div class="mb-3 argument creditType">
                 <label class="col-form-label col-md-3">{tr}Credit Type{/tr}</label>
                 <div class="col-md-9">
                     <select name="creditType" class="form-control">
@@ -30,7 +30,7 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group argument creditQuantity">
+            <div class="mb-3 argument creditQuantity">
                 <label class="col-form-label col-md-3">{tr}Credit Quantity{/tr}</label>
                 <div class="col-md-9">
                     <input type="text" class="form-control" name="creditQuantity" value="{$reward.creditQuantity|escape}">
@@ -38,7 +38,7 @@
             </div>
         {/if}
         {if $rewards.tracker_badge_add}
-            <div class="form-group argument trackerItemBadge">
+            <div class="mb-3 argument trackerItemBadge">
                 <label class="col-form-label col-md-3">{tr}Badge{/tr}</label>
                 <div class="col-md-9">
                     {object_selector _name=trackerItemBadge _value="trackeritem:`$reward.trackerItemBadge`" tracker_id=$rewards.tracker_badge_add.tracker _class="form-control"}
@@ -57,11 +57,11 @@
     </form>
     {jq}
         $('.reward-form select[name=rewardType]').change(function () {
-            $('.reward-form .form-group.argument').hide();
+            $('.reward-form .mb-3.argument').hide();
 
             $.each(this.selectedOptions, function (key, item) {
                 $.each($(item).data('arguments'), function (key, arg) {
-                    $('.reward-form .form-group.argument.' + arg).show();
+                    $('.reward-form .mb-3.argument.' + arg).show();
                 });
             })
         }).change();

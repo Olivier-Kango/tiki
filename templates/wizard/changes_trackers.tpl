@@ -1,10 +1,10 @@
 {* $Id$ *}
 
 <div class="media">
-    <div class="mr-4">
-    <span class="float-left fa-stack fa-lg margin-right-18em" alt="{tr}Changes Wizard{/tr}" title="Changes Wizard">
+    <div class="me-4">
+    <span class="float-start fa-stack fa-lg margin-right-18em" alt="{tr}Changes Wizard{/tr}" title="Changes Wizard">
         <i class="fas fa-arrow-circle-up fa-stack-2x"></i>
-        <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ml-4 mt-4"></i>
+        <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ms-4 mt-4"></i>
     </span>
     </div>
     </br>
@@ -13,7 +13,7 @@
             {tr}Here you can set up a few options and features related to Trackers which were added across several versions of Tiki{/tr}.
             {tr}You might have not specially noticed when they appeared but you should know about these enhancements since you might be interested in using some of them in your site{/tr}.
         </p>
-        {icon name="admin_trackers" size=3 iclass="float-sm-right"}
+        {icon name="admin_trackers" size=3 iclass="float-sm-end"}
         <fieldset>
             <legend>{tr}Tracker settings{/tr}</legend>
             <div class="admin clearfix featurelist">

@@ -1,9 +1,7 @@
 {if $field.isMultilingual ne 'y'}
     <div{if $field.options_map.prepend or $field.options_map.append or $field.options_map.labelasplaceholder} class="input-group"{/if}>
         {if $field.options_map.prepend}
-            <span class="input-group-append">
-                <span class="input-group-text">{$field.options_map.prepend}</span>
-            </span>
+            <span class="input-group-text">{$field.options_map.prepend}</span>
         {/if}
         <input type="text" class="form-control {if $field.options_map.labelasplaceholder}labelasplaceholder{/if}"
                 id="{$field.ins_id|replace:'[':'_'|replace:']':''}" name="{$field.ins_id}"
@@ -13,16 +11,12 @@
                 {if $field.options_map.max}maxlength="{$field.options_map.max}"{/if}
         >
         {if $field.options_map.labelasplaceholder and $field.isMandatory eq 'y'}
-            <span class="input-group-append">
-                <span class="input-group-text">
-                    <strong class='mandatory_star text-danger tips' title=":{tr}This field is mandatory{/tr}" style="font-size: 100%">{icon name='asterisk'}</strong>
-                </span>
+             <span class="input-group-text">
+                <strong class='mandatory_star text-danger tips' title=":{tr}This field is mandatory{/tr}" style="font-size: 100%">{icon name='asterisk'}</strong>
             </span>
         {/if}
         {if $field.options_map.append}
-            <span class="input-group-append">
-                <span class="input-group-text">{$field.options_map.append}</span>
-            </span>
+            <span class="input-group-text">{$field.options_map.append}</span>
         {/if}
         {if $field.options_map.autocomplete eq 'y' and $prefs.feature_jquery_autocomplete eq 'y'}
             {autocomplete element="#"|cat:$field.ins_id|replace:"[":"_"|replace:"]":"" type="trackervalue"
@@ -34,9 +28,7 @@
         {if !$field.options_map.labelasplaceholder}<label for="{$ling.id|escape}">{$ling.lang|langname}</label>{/if}
         <div{if $field.options_map.prepend or $field.options_map.append} class="input-group"{/if}>
             {if !empty($field.options_map.prepend)}
-                <span class="input-group-append">
-                    <span class="input-group-text">{$field.options_map.prepend}</span>
-                </span>
+                <span class="input-group-text">{$field.options_map.prepend}</span>
             {/if}
 
             <input type="text" id="{$ling.id|escape}" name="{$field.ins_id}[{$ling.lang}]" value="{$ling.value|escape}"
@@ -47,9 +39,7 @@
             >
 
             {if $field.options_map.append}
-                <span class="input-group-append">
-                    <span class="input-group-text">{$field.options_map.append}</span>
-                </span>
+                <span class="input-group-text">{$field.options_map.append}</span>
             {/if}
 
             {if $field.options_map.autocomplete eq 'y' and $prefs.feature_jquery_autocomplete eq 'y'}

@@ -22,12 +22,12 @@
             || $tiki_p_remove_submission == "y" || $tiki_p_edit_submission == "y")}
                 {button href="tiki-list_submissions.php" _type="link" class="btn btn-link" _icon_name="view" _text="{tr}View Submissions{/tr}"}
             {/if}
-            <div class="btn-group float-right">
+            <div class="btn-group float-end">
                 {if ! $js}<ul class="cssmenu_horiz"><li>{/if}
-                <a class="btn btn-link" data-toggle="dropdown" data-hover="dropdown" href="#">
+                <a class="btn btn-link" data-bs-toggle="dropdown" data-hover="dropdown" href="#">
                     {icon name='menu-extra'}
                 </a>
-                <div class="dropdown-menu dropdown-menu-right">
+                <div class="dropdown-menu dropdown-menu-end">
                     <h6 class="dropdown-header">
                         {tr}Monitoring{/tr}
                     </h6>
@@ -78,7 +78,7 @@
         {/if}
         <article class="clearfix article {if !empty($container_class)} {$container_class}{/if} article{$smarty.section.ix.index} mt-1 mb-5">
             {if ($listpages[ix].show_avatar eq 'y')}
-                <div class="avatar float-left mr-3">
+                <div class="avatar float-start mr-3">
                     {$listpages[ix].author|avatarize}
                 </div>
             {/if}
@@ -172,13 +172,13 @@
                 </div>
             {/if}
 
-            <div class="articleheading media">
-                <div {if $listpages[ix].isfloat eq 'n'}class="media-left"{/if}>
+            <div class="articleheading d-flex">
+                <div {if $listpages[ix].isfloat eq 'n'}class="flex-shrink-0"{/if}>
                     {if $listpages[ix].show_image eq 'y'}
                         {if $listpages[ix].useImage eq 'y'}
                             {if $listpages[ix].hasImage eq 'y'}
                                 <a
-                                    href="{$smarty.capture.href}" {if $listpages[ix].isfloat eq 'y'} style="margin-right:20px; float:left;"{/if}
+                                    href="{$smarty.capture.href}" {if $listpages[ix].isfloat eq 'y'} class="me-3 float-start"{/if}
                                     title="{if $listpages[ix].show_image_caption and $listpages[ix].image_caption}{$listpages[ix].image_caption|escape}{elseif $listpages[ix].topicName}{tr}{$listpages[ix].topicName}{/tr}{else}{tr}Read More{/tr}{/if}">
                                     {$style=''}
                                     <img class="img-thumbnail media-object article-image custom-image"
@@ -203,7 +203,7 @@
                             {/if}
                         {else}
                             {if isset($topics[$listpages[ix].topicId].image_size) and $topics[$listpages[ix].topicId].image_size > 0}
-                                <a href="{$smarty.capture.href}" class="thumbnail"{if $listpages[ix].isfloat eq 'y'} style="margin-right:20px; float:left;"{/if}
+                                <a href="{$smarty.capture.href}" class="thumbnail"{if $listpages[ix].isfloat eq 'y'} class="me-3 float-start"{/if}
                                         title="{if $listpages[ix].show_image_caption and $listpages[ix].image_caption}{$listpages[ix].image_caption|escape}{else}{tr}{$listpages[ix].topicName}{/tr}{/if}">
                                     <img class="media-object img-thumbnail article-image topic-image"
                                             alt="{if $listpages[ix].show_image_caption and $listpages[ix].image_caption}{$listpages[ix].image_caption|escape}{else}{tr}{$listpages[ix].topicName}{/tr}{/if}"
@@ -213,7 +213,7 @@
                         {/if}
                     {/if}
                 </div>
-                <div class="articleheadingtext{if $listpages[ix].isfloat eq 'n'} media-body{/if}">{$listpages[ix].parsed_heading}</div>
+                <div class="articleheadingtext{if $listpages[ix].isfloat eq 'n'} flex-grow-1 ms-3{/if}">{$listpages[ix].parsed_heading}</div>
             </div>
                     {if isset($fullbody) and $fullbody eq "y"}
             <div class="articlebody py-3">{$listpages[ix].parsed_body}</div>
@@ -221,7 +221,7 @@
 
             <div class="articletrailer clearfix">
                 {if ($listpages[ix].size > 0) or (($prefs.feature_article_comments eq 'y') and ($listpages[ix].perms.tiki_p_read_comments eq 'y'))}
-                <ul class="list-inline float-left">
+                <ul class="list-inline float-start">
                     {if ($listpages[ix].perms.tiki_p_read_article eq 'y' and $listpages[ix].heading_only ne 'y' and (!isset($fullbody) or $fullbody ne "y"))}
                         {if ($listpages[ix].size > 0 and !empty($listpages[ix].body))}
 
@@ -255,15 +255,15 @@
                     </ul>
                 {/if}
                 {if !isset($actions) or $actions eq "y"}
-                    <div class="btn-group actions float-right dropup">
+                    <div class="btn-group actions float-end dropup">
                         {if $prefs.feature_multilingual eq 'y' and $listpages[ix].perms.tiki_p_edit_article eq 'y'}
                             {include file='translated-lang.tpl' object_type='article' trads=$listpages[ix].translations articleId=$listpages[ix].articleId}
                         {/if}
                         <div class="btn-group">
-                            <a class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" href="#">
+                            <a class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" data-hover="dropdown" href="#">
                                 {icon name="wrench"}
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right">
+                            <div class="dropdown-menu dropdown-menu-end">
                                 <h6 class="dropdown-header">
                                     {tr _0="{$listpages[ix].title}"}Actions for %0{/tr}
                                 </h6>

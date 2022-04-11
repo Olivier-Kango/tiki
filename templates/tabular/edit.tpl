@@ -11,14 +11,14 @@
 {block name="content"}
     <div class="table-responsive">
         <form class="edit-tabular" method="post" action="{service controller=tabular action=edit tabularId=$tabularId}">
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-form-label col-sm-2">{tr}Name{/tr}</label>
                 <div class="col-sm-10">
                     <input class="form-control" type="text" name="name" value="{$name|escape}" required>
                 </div>
             </div>
             {if $has_odbc}
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="form-check-label col-sm-2">{tr}External ODBC source?{/tr}</label>
                 <div class="col-sm-10">
                     <div class="form-check">
@@ -27,31 +27,31 @@
                 </div>
             </div>
             <div class="odbc-container" {if !$odbc_config}style="display: none"{/if}>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-form-label col-sm-2 offset-sm-1">{tr}DSN{/tr}</label>
                     <div class="col-sm-9">
                         <input class="form-control" type="text" name="odbc[dsn]" value="{$odbc_config.dsn|escape}">
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-form-label col-sm-2 offset-sm-1">{tr}User{/tr}</label>
                     <div class="col-sm-9">
                         <input class="form-control" type="text" name="odbc[user]" value="{$odbc_config.user|escape}">
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-form-label col-sm-2 offset-sm-1">{tr}Password{/tr}</label>
                     <div class="col-sm-9">
                         <input class="form-control" type="password" name="odbc[password]" value="{$odbc_config.password|escape}" autocomplete="new-password">
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-form-label col-sm-2 offset-sm-1">{tr}Table/Schema{/tr}</label>
                     <div class="col-sm-9">
                         <input class="form-control" type="text" name="odbc[table]" value="{$odbc_config.table|escape}">
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-form-label col-sm-2 offset-sm-1">{tr}Sync deletes{/tr}</label>
                     <div class="col-sm-9">
                         <input class="form-check-input" type="checkbox" name="odbc[sync_deletes]" {if $odbc_config.sync_deletes}checked{/if} value="1">
@@ -62,7 +62,7 @@
                 </div>
             </div>
             {/if}
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-form-label col-sm-2">{tr}Fields{/tr}</label>
                 <div class="col-sm-10">
                     <table class="table fields">
@@ -84,12 +84,10 @@
                             <tr class="d-none">
                                 <td>
                                     <div class="input-group input-group-sm">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">{icon name=sort}</span>
-                                        </div>
+                                        <span class="input-group-text">{icon name=sort}</span>
                                         <input type="text" class="field-label form-control">
-                                        <div class="input-group-append">
-                                            <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                        <div class="input-group-text">
+                                            <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                                 <span class="align">{tr}Left{/tr}</span>
                                                 <input class="display-align" type="hidden" value="left">
                                             </button>
@@ -114,18 +112,16 @@
                                 <td><input class="unique-key" type="checkbox"></td>
                                 <td><input class="read-only" type="checkbox"></td>
                                 <td><input class="export-only" type="checkbox"></td>
-                                <td class="text-right"><button class="remove btn-sm btn-outline-warning">{icon name=remove}</button></td>
+                                <td class="text-end"><button class="remove btn-sm btn-outline-warning">{icon name=remove}</button></td>
                             </tr>
                             {foreach $schema->getColumns() as $column}
                                 <tr>
                                     <td>
                                         <div class="input-group input-group-sm">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">{icon name=sort}</span>
-                                            </div>
+                                            <span class="input-group-text">{icon name=sort}</span>
                                             <input type="text" class="field-label form-control" value="{$column->getLabel()|escape}">
-                                            <div class="input-group-append">
-                                                <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            <div class="input-group-text">
+                                                <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                                     <span class="align">{$column->getDisplayAlign()|ucfirst|tra}</span>
                                                     <input class="display-align" type="hidden" value="{$column->getDisplayAlign()|escape}">
                                                 </button>
@@ -158,14 +154,14 @@
                                     <td><input class="unique-key" type="checkbox" {if $column->isUniqueKey()} checked {/if}></td>
                                     <td><input class="read-only" type="checkbox" {if $column->isReadOnly()} checked {/if}></td>
                                     <td><input class="export-only" type="checkbox" {if $column->isExportOnly()} checked {/if}></td>
-                                    <td class="text-right"><button class="remove btn-sm btn-outline-warning">{icon name=remove}</button></td>
+                                    <td class="text-end"><button class="remove btn-sm btn-outline-warning">{icon name=remove}</button></td>
                                 </tr>
                             {/foreach}
                         </tbody>
                         <tfoot>
                             <tr>
                                 <td>
-                                    <select class="selection form-control">
+                                    <select class="selection form-select">
                                         <option disabled="disabled" selected="selected">{tr}Select a field...{/tr}</option>
                                         {foreach $schema->getAvailableFields() as $permName => $label}
                                             <option value="{$permName|escape}">{$label|escape}</option>
@@ -195,12 +191,12 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group row submit">
+            <div class="mb-3 row submit">
                 <div class="col-sm-10 offset-sm-2">
                     <input type="submit" class="btn btn-primary" value="{tr}Update{/tr}" onclick="$(window).off('beforeunload');return true;">
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-form-label col-sm-2">{tr}Filters{/tr}</label>
                 <div class="col-sm-10">
                     <table class="table filters">
@@ -215,12 +211,10 @@
                             <tr class="d-none">
                                 <td>
                                     <div class="input-group input-group-sm">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">{icon name=sort}</span>
-                                        </div>
+                                        <span class="input-group-text">{icon name=sort}</span>
                                         <input type="text" class="filter-label form-control" value="Label">
-                                        <div class="input-group-append">
-                                            <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                        <div class="input-group-text">
+                                            <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                                 <span class="position-label">{tr}Default{/tr}</span>
                                                 <input class="position" type="hidden" value="default">
                                             </button>
@@ -233,18 +227,16 @@
                                     </div>
                                 </td>
                                 <td><span class="field">Field Name</span>:<span class="mode">Mode</span></td>
-                                <td class="text-right"><button class="remove btn-sm btn-outline-warning">{icon name=remove}</button></td>
+                                <td class="text-end"><button class="remove btn-sm btn-outline-warning">{icon name=remove}</button></td>
                             </tr>
                             {foreach $filterCollection->getFilters() as $filter}
                                 <tr>
                                     <td>
                                         <div class="input-group input-group-sm">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">{icon name=sort}</span>
-                                            </div>
+                                            <span class="input-group-text">{icon name=sort}</span>
                                             <input type="text" class="field-label form-control" value="{$filter->getLabel()|escape}">
-                                            <div class="input-group-append">
-                                                <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            <div class="input-group-text">
+                                                <button type="button" class="btn btn-light dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                                     <span class="position-label">{$filter->getPosition()|ucfirst|tra}</span>
                                                     <input class="position" type="hidden" value="{$filter->getPosition()|escape}">
                                                 </button>
@@ -257,14 +249,14 @@
                                         </div>
                                     </td>
                                     <td><span class="field">{$filter->getField()|escape}</span>:<span class="mode">{$filter->getMode()|escape}</td>
-                                    <td class="text-right"><button class="remove btn-sm btn-outline-warning">{icon name=remove}</button></td>
+                                    <td class="text-end"><button class="remove btn-sm btn-outline-warning">{icon name=remove}</button></td>
                                 </tr>
                             {/foreach}
                         </tbody>
                         <tfoot>
                             <tr>
                                 <td>
-                                    <select class="selection form-control">
+                                    <select class="selection form-select">
                                         <option disabled="disabled" selected="selected">{tr}Select a field...{/tr}</option>
                                         {foreach $filterCollection->getAvailableFields() as $permName => $label}
                                             <option value="{$permName|escape}">{$label|escape}</option>
@@ -283,12 +275,12 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group row submit">
+            <div class="mb-3 row submit">
                 <div class="col-sm-10 offset-sm-2">
                     <input type="submit" class="btn btn-primary" value="{tr}Update{/tr}" onclick="$(window).off('beforeunload');return true;">
                 </div>
             </div>
-            <div class="form-group row mb-4">
+            <div class="row mb-4">
                 <label class="col-form-label col-sm-2">{tr}Options{/tr}</label>
                 <div class="col-sm-5">
                     <div class="form-check">
@@ -340,7 +332,7 @@
                     </a>
                 </label>
                 <div class="col-sm-3">
-                    <select class="form-control" name="config[encoding]">
+                    <select class="form-select" name="config[encoding]">
                         <option value=""{if empty($config['encoding']) or $config['encoding'] eq 'UTF-8'} selected="selected"{/if}>
                             {tr}Default (UTF-8){/tr}
                         </option>
@@ -352,7 +344,7 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group row submit">
+            <div class="mb-3 row submit">
                 <div class="col-sm-10 offset-sm-2">
                     <input type="submit" class="btn btn-primary" value="{tr}Update{/tr}" onclick="$(window).off('beforeunload');return true;">
                 </div>

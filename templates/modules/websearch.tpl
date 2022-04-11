@@ -13,7 +13,7 @@ $(document).ready(function(){
 {tikimodule error=$module_params.error title=$tpl_module_title name="websearch" flip=$module_params.flip decorations=$module_params.decorations nobox=$module_params.nobox notitle=$module_params.notitle style=$module_params.style}
 
     <form method="get"  id="search-form" action="#" target="Google" role="form" accept-charset="UTF-8">
-        <div class="form-group row mx-0">
+        <div class="mb-3 row mx-0">
             <!--<div class="col-sm-2">
                 <img src="img/googleg.gif" alt="Google" />
             </div>//-->
@@ -21,14 +21,14 @@ $(document).ready(function(){
                 <input type="text" name="q" id="text-search" class="form-control" maxlength="100" placeholder = "{tr}Search{/tr}"/>
             </div>
         </div>
-        <div class="form-group row mx-0">
+        <div class="mb-3 row mx-0">
             <div class="col-sm-12">
-                <select  id="selectsearch" class="form-control" id="sel1">
+                <select  id="selectsearch" class="form-select" id="sel1">
                     {foreach from=$engines key=k item=v}
                       <option value="{$v}">{$k}</option>
                     {/foreach}
                  </select>
-               <span> <a href="{$url_page_info_engines}" id="help" target="tikihelp" class="tikihelp" title="" data-original-title="Configuration Wizard">
+               <span> <a href="{$url_page_info_engines}" id="help" target="tikihelp" class="tikihelp" title="" data-bs-original-title="Configuration Wizard">
                         <span class="icon icon-help fas fa-question-circle fa-fw "></span>
                 </a></span>
             </div>

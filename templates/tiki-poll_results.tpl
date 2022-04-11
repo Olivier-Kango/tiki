@@ -16,7 +16,7 @@
     {if !empty($list)}<input type="hidden" name="list" value="{$list|escape}">{/if}
     {if !empty($offset)}<input type="hidden" name="list" value="{$offset|escape}">{/if}
     {if empty($pollId) and !isset($list_votes)}
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-form-label col-sm-4">
                 {if empty($what)}{tr}Find the poll{/tr}{else}{tr}{$what}{/tr}{/if}
             </label>
@@ -24,7 +24,7 @@
                 <input type="text" name="find" class="form-control" value="{$find|escape}">
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-form-label col-sm-4">
                 {tr}Number of top voted polls to show{/tr}
             </label>
@@ -34,17 +34,17 @@
         </div>
         <br>
     {/if}
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-sm-3 col-form-label">{tr}Votes to show{/tr}</label>
         <div class="col-sm-9">
             <input type="radio" name="which_date" value="between"{if $which_date eq 'between'} checked="checked"{/if} class="mr-2"><label class="col-form-label-sm">{tr}Within a date range{/tr}</label>
-            <div class="form-group row mt-2">
+            <div class="mb-3 row mt-2">
                 <label class="col-sm-2 col-form-label-sm">{tr}Start{/tr}</label>
                 <div class="col-sm-7">
                     {html_select_date prefix="from_" time="$vote_from_date" start_year="$start_year"}
                 </div>
             </div>
-            <div class="form-group row mt-2">
+            <div class="mb-3 row mt-2">
                 <label class="col-sm-2 col-form-label-sm">{tr}End{/tr}</label>
                 <div class="col-sm-7">
                     {html_select_date prefix="to_" time="$vote_to_date" start_year="$start_year"}

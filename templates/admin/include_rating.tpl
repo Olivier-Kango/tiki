@@ -3,7 +3,7 @@
 <form class="admin" id="performance" name="performance" action="tiki-admin.php?page=rating" method="post">
     {ticket}
     <div class="row">
-        <div class="form-group col-lg-12 clearfix">
+        <div class="mb-3 col-lg-12 clearfix">
             {include file='admin/include_apply_top.tpl'}
         </div>
     </div>
@@ -93,7 +93,7 @@
             <fieldset>
                 <legend>{$config.name|escape} <small>(ID: {$config.ratingConfigId|escape}, {tr}Search Field{/tr}: <em>adv_rating_{$config.ratingConfigId|escape}</em>)</small></legend>
                 <input type="hidden" name="config" value="{$config.ratingConfigId|escape}">
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-form-label col-sm-4" for="rating_name_{$config.ratingConfigId|escape}">
                         {tr}Name{/tr}
                     </label>
@@ -101,20 +101,18 @@
                         <input type="text" class="form-control" name="name" value="{$config.name|escape}" id="rating_name_{$config.ratingConfigId|escape}">
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-form-label col-sm-4" for="rating_expiry_{$config.ratingConfigId|escape}">
                         {tr}Cache duration{/tr}
                     </label>
                     <div class="col-sm-8">
                         <div class="input-group">
                             <input type="text" class="form-control" name="expiry" value="{$config.expiry|escape}" id="rating_expiry_{$config.ratingConfigId|escape}">
-                            <div class="input-group-append">
-                                <span class="input-group-text">{tr}seconds{/tr}</span>
-                            </div>
+                            <span class="input-group-text">{tr}seconds{/tr}</span>
                         </div>
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-form-label col-sm-4" for="formula">
                         {tr}Formula{/tr}
                     </label>
@@ -124,7 +122,7 @@
                         </textarea>
                     </div>
                 </div>
-                <div class="form-group text-center">
+                <div class="mb-3 text-center">
                     <div class="col-sm-12"><br>
                         <input type="submit" class="btn btn-primary btn-sm" name="edit" value="{tr}Save{/tr}">
                     </div>
@@ -142,9 +140,9 @@
             <div class="col-sm-8">
                 <div class="input-group">
                     <input type="text" class="form-control" name="name" id="rating_config_new">
-                    <span class="input-group-prepend">
-            <input type="submit" class="btn btn-primary" name="create" value="{tr}Create{/tr}">
-                </span>
+                    <span class="input-group-text">
+                        <input type="submit" class="btn btn-primary" name="create" value="{tr}Create{/tr}">
+                    </span>
                 </div>
             </div>
         </fieldset>

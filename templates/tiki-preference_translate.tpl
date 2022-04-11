@@ -36,7 +36,7 @@
             </tbody>
         </table>
     </div>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label for="additional_languages" class="control-lable">
             {tr}Displayed languages:{/tr}
         </label>
@@ -48,7 +48,7 @@
             </select>
         </div>
         <div class="input-group">
-            <span class="input-group-append" style="padding-top: 10px;">
+            <span class="input-group-text" style="padding-top: 10px;">
                 <input type="submit" class="btn btn-primary" value="{tr}Select{/tr}">
             </span>
         </div>

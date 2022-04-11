@@ -1,15 +1,15 @@
 {* $Id$ *}
 
 <div class="media">
-    <div class="mr-4">
-    <span class="float-left fa-stack fa-lg margin-right-18em" alt="{tr}Changes Wizard{/tr}" title="Changes Wizard">
+    <div class="me-4">
+    <span class="float-start fa-stack fa-lg margin-right-18em" alt="{tr}Changes Wizard{/tr}" title="Changes Wizard">
         <i class="fas fa-arrow-circle-up fa-stack-2x"></i>
-        <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ml-4 mt-4"></i>
+        <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ms-4 mt-4"></i>
     </span>
     </div>
     </br></br>
     <div class="media-body">
-        {icon name="desktop" size=3 iclass="float-sm-right"}
+        {icon name="desktop" size=3 iclass="float-sm-end"}
         {tr}Some User Interface (UI) improvements which usually come disabled in new Tiki installations{/tr}.
         <a href="http://doc.tiki.org/Interface" target="tikihelp" class="tikihelp" title="{tr}User Interface:{/tr}
                     {tr}They are proven to be useful enhancements in some production environments{/tr}.

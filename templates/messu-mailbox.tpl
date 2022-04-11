@@ -13,10 +13,10 @@
 [{$messu_mailbox_number} / {$prefs.messu_mailbox_size}] {tr}messages{/tr}. {if $messu_mailbox_number ge $prefs.messu_mailbox_size}{tr}Mailbox is full! Delete or archive some messages if you want to receive more messages.{/tr}{/if}
 {/if}
 
-<form class="form-inline mb-4" action="messu-mailbox.php" method="get">
-    <div class="form-group col-sm-3">
+<form class="d-flex flex-row flex-wrap align-items-center mb-4" action="messu-mailbox.php" method="get">
+    <div class="mb-3 col-sm-3">
         <label for="mess-mailmessages">{tr}Messages:{/tr}</label>
-        <select name="flags" id="mess-mailmessages" class="form-control">
+        <select name="flags" id="mess-mailmessages" class="form-select">
             <option value="isRead_y" {if $flag eq 'isRead' and $flagval eq 'y'}selected="selected"{/if}>{tr}Read{/tr}</option>
             <option value="isRead_n" {if $flag eq 'isRead' and $flagval eq 'n'}selected="selected"{/if}>{tr}Unread{/tr}</option>
             <option value="isFlagged_y" {if $flag eq 'isFlagged' and $flagval eq 'y'}selected="selected"{/if}>{tr}Flagged{/tr}</option>
@@ -25,9 +25,9 @@
         </select>
     </div>
 
-    <div class="form-group col-sm-3">
+    <div class="mb-3 col-sm-3">
         <label for="mess-mailprio">{tr}Priority:{/tr}</label>
-        <select name="priority" id="mess-mailprio" class="form-control">
+        <select name="priority" id="mess-mailprio" class="form-select">
             <option value="" {if $priority eq ''}selected="selected"{/if}>{tr}All{/tr}</option>
             <option value="1" {if $priority eq 1}selected="selected"{/if}>{tr}1{/tr}</option>
             <option value="2" {if $priority eq 2}selected="selected"{/if}>{tr}2{/tr}</option>
@@ -37,19 +37,17 @@
         </select>
     </div>
 
-    <div class="form-group col-sm-4">
+    <div class="mb-3 col-sm-4">
         <label for="mess-mailcont">{tr}Containing:{/tr}</label>
         <div class="input-group">
             <input type="text" name="find" id="mess-mailcont" value="{$find|escape}" class="form-control">
-            <div class="input-group-append">
-                <input type="submit" class="btn btn-info btn-sm" name="filter" value="{tr}Filter{/tr}">
-            </div>
+            <input type="submit" class="btn btn-info btn-sm" name="filter" value="{tr}Filter{/tr}">
         </div>
     </div>
 </form>
 
 
-<form class="form-inline" action="messu-mailbox.php" method="post" name="form_messu_mailbox" id="form_messu_mailbox">
+<form class="d-flex flex-row flex-wrap align-items-center" action="messu-mailbox.php" method="post" name="form_messu_mailbox" id="form_messu_mailbox">
     {ticket}
     <input type="hidden" name="offset" value="{$offset|escape}">
     <input type="hidden" name="find" value="{$find|escape}">
@@ -107,18 +105,18 @@
         </table>
     </div>
     {if $items}
-        <div class="form-group row">
+        <div class="mb-3 row">
             {tr}Perform action with checked:{/tr}
         <input
             type="submit"
-            class="btn btn-warning btn-sm ml-2"
+            class="btn btn-warning btn-sm ms-2"
             name="delete"
             value="{tr}Delete{/tr}"{if $js}
             onclick="confirmPopup('{tr}Delete selected messages?{/tr}')"{/if}
         >
         <input type="submit" class="btn btn-primary btn-sm" name="archive" value="{tr}Archive{/tr}">
         <input type="submit" class="btn btn-primary btn-sm no-timeout" name="download" value="{tr}Download{/tr}">
-        <select name="action" class="form-control ml-4 mr-2">
+        <select name="action" class="form-select ms-4 mr-2">
             <option value="isRead_y">{tr}Mark as read{/tr}</option>
             <option value="isRead_n">{tr}Mark as unread{/tr}</option>
             <option value="isFlagged_y">{tr}Mark as flagged{/tr}</option>

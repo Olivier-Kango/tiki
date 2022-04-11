@@ -2,7 +2,7 @@
     {ticket}
 
     <div class="row">
-        <div class="form-group col-lg-12 clearfix">
+        <div class="mb-3 col-lg-12 clearfix">
             <a role="button" class="btn btn-link" href="tiki-list_trackers.php" title="{tr}List{/tr}">
                 {icon name="list"} {tr}Trackers{/tr}
             </a>
@@ -134,7 +134,7 @@
     {/tabset}
 
     <div class="row">
-        <div class="form-group col-lg-12 clearfix">
+        <div class="mb-3 col-lg-12 clearfix">
             <div class="text-center">
                 <input
                     type="submit"

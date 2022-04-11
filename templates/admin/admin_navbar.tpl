@@ -10,20 +10,20 @@
             {/if}
         </a>
     {/if}
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#admin-navbar-collapse-1" aria-controls="admin-navbar-collapse-1" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#admin-navbar-collapse-1" aria-controls="admin-navbar-collapse-1" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="admin-navbar-collapse-1">
-        <form method="post" class="form form-inline my-2 my-md-0" role="form" style="min-height: 60px; width: 165px;">
-            <div class="form-check">
+        <form method="post" class="form row g-3 align-items-center" role="form">
+            <div class="col-auto form-check">
                 {ticket}
                 <input type="checkbox" id="preffilter-toggle-1" class="preffilter-toggle preffilter-toggle-round form-check-input {$pref_filters.advanced.type|escape}" value="advanced"{if $pref_filters.advanced.selected} checked="checked"{/if}>
                 <label for="preffilter-toggle-1"></label>
             </div>
 
-            <ul class="nav navbar-nav filter-menu"{if not $pref_filters.advanced.selected} style="display: none;"{/if}>
-                <li class="nav-item dropdown mr-0" style="padding-top: 6px;">
-                    <a href="#" class="nav-link dropdown-toggle pr-0" data-toggle="dropdown" title="{tr}Settings{/tr}" style="width: 48px;">
+            <ul class="col-auto nav navbar-nav filter-menu"{if not $pref_filters.advanced.selected} style="display: none;"{/if}>
+                <li class="nav-item dropdown me-0" style="padding-top: 6px;">
+                    <a href="#" class="nav-link dropdown-toggle pe-0" data-bs-toggle="dropdown" title="{tr}Settings{/tr}" style="width: 48px;">
                         {icon name="filter"}
                     </a>
                     <ul class="dropdown-menu" role="menu">
@@ -132,16 +132,14 @@
         </form>
         {include file="admin/admin_navbar_menu.tpl"}
         {if $prefs.theme_unified_admin_backend neq 'y'}
-            <ul class="navbar-nav flex-row d-md-flex mr-2">
+            <ul class="navbar-nav flex-row d-md-flex me-2">
                 <li class="nav-item">
-                    <form method="post" class="form-inline my-2 my-md-0 ml-auto" role="form">
-                        <div class="form-group row mx-0">
+                    <form method="post" class="d-flex flex-row flex-wrap align-items-center my-2 my-md-0 ms-auto" role="form">
+                        <div class="mb-3 row mx-0">
                             <input type="hidden" name="filters">
                             <div class="input-group">
                                 <input type="text" name="lm_criteria" value="{$lm_criteria|escape}" class="form-control form-control-sm" placeholder="{tr}Search preferences{/tr}...">
-                                <div class="input-group-append">
-                                    <button type="submit" class="btn btn-info btn-sm"{if $indexNeedsRebuilding} class="tips" title="{tr}Configuration search{/tr}|{tr}Note: The search index needs rebuilding, this will take a few minutes.{/tr}"{/if}>{icon name="search"}</button>
-                                </div>
+                                <button type="submit" class="btn btn-info btn-sm"{if $indexNeedsRebuilding} class="tips" title="{tr}Configuration search{/tr}|{tr}Note: The search index needs rebuilding, this will take a few minutes.{/tr}"{/if}>{icon name="search"}</button>
                             </div>
                         </div>
                     </form>
@@ -155,9 +153,10 @@
 </nav>
 
 {if $lm_searchresults}
-    <div class="card card-primary" id="pref_searchresults">
+    <div class="card card-primary alert alert-dismissible pe-0" id="pref_searchresults">
+        <button type="button" id="pref_searchresults-close" class="btn-close mt-3" aria-hidden="true"></button>
         <div class="card-header">
-            <h3 class="card-title">{tr}Preference Search Results{/tr}<button type="button" id="pref_searchresults-close" class="close" aria-hidden="true">&times;</button></h3>
+            <h3 class="card-title">{tr}Preference Search Results{/tr}</h3>
         </div>
         <form method="post" href="tiki-admin.php" class="table" role="form">
             <div class="pref_search_results card-body">

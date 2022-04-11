@@ -6,10 +6,10 @@
 </div>
 <h2>{tr}Assign themes to categories{/tr}</h2>
 <form action="tiki-theme_control.php" method="post" class="mb-2" role="form">
-    <div class="form-group row">
+    <div class="mb-3 row">
         <div class="col-sm-5">
-            <label for="categoryId" class="mr-2">{tr}Category{/tr}</label>
-            <select name="categoryId" class="form-control form-control-sm mr-2">
+            <label for="categoryId" class="me-2">{tr}Category{/tr}</label>
+            <select name="categoryId" class="form-control form-control-sm me-2">
                 {foreach from=$categories key=categoryId item=category}
                     <option value="{$categoryId|escape}">
                         {$category.name|escape} (Id:{$categoryId})
@@ -18,8 +18,8 @@
             </select>
         </div>
         <div class="col-sm-5">
-            <label for="theme" class="mr-2">{tr}Theme{/tr}</label>
-            <select name="theme" class="form-control form-control-sm mr-2">
+            <label for="theme" class="me-2">{tr}Theme{/tr}</label>
+            <select name="theme" class="form-control form-control-sm me-2">
                 {foreach from=$themes key=theme item=theme_name}
                     <option value="{$theme|escape}">{$theme_name}</option>
                 {/foreach}

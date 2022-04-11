@@ -21,7 +21,7 @@
         <input type="hidden" name="maxRecords" value="{$maxRecords}">
     {/if}
     <div class="adminoptionbox">
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="edit_language" class="col-md-3 col-form-label">{tr}Language{/tr}</label>
             <div class="col-md-6">
                 <select id="edit_language" class="translation_action form-control" name="edit_language">
@@ -44,7 +44,7 @@
         </div>
     </div>
     <div class="adminoptionbox">
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="add_tran_sw" class="col-md-4 col-form-label">{tr}Add a translation{/tr}</label>
             <div class="col-md-8">
                 <input id="add_tran_sw" class="translation_action" type="radio" name="action" value="add_tran_sw" {if $action eq 'add_tran_sw'}checked="checked"{/if}>
@@ -52,7 +52,7 @@
         </div>
     </div>
     <div class="adminoptionbox">
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="edit_rec_sw" class="col-md-4 col-form-label">{tr}Untranslated strings{/tr}</label>
             <div class="col-md-8">
                 <input id="edit_rec_sw" class="translation_action" type="radio" name="action" value="edit_rec_sw" {if $action eq 'edit_rec_sw'}checked="checked"{/if}>
@@ -65,7 +65,7 @@
         </div>
     </div>
     <div class="adminoptionbox">
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="edit_tran_sw" class="col-md-4 col-form-label">{tr}Edit translations{/tr}</label>
             <div class="col-md-8">
                 <input id="edit_tran_sw" class="translation_action" type="radio" name="action" value="edit_tran_sw" {if $action eq 'edit_tran_sw'}checked="checked"{/if}>
@@ -91,13 +91,13 @@
                 {tr}Add a translation{/tr}
             </div>
             <div class="card-body">
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-md-4 col-form-label">{tr}Original:{/tr}</label>
                     <div class="col-md-8">
                         <input name="add_tran_source" maxlength="255" class="form-control">
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-md-4 col-form-label">{tr}Translation:{/tr}</label>
                     <div class="col-md-8">
                         <input name="add_tran_tran" maxlength="255" class="form-control">
@@ -154,18 +154,18 @@
                                 </table>
                             {/if}
 
-                            <div class="mt-1 text-right">
+                            <div class="mt-1 text-end">
                                 {if isset($item.user) && isset($item.lastModif)}
                                 <div class="form-text">
                                     <small>{tr _0=$item.user|userlink _1=$item.lastModif|tiki_short_date}Last changed by %0 on %1{/tr}</small>
                                 </div>
                                 {/if}
 
-                                <div class="form-inline float-right">
+                                <div class="d-flex flex-row flex-wrap align-items-center float-end">
                                     {if $prefs.lang_control_contribution eq 'y'}
-                                        <div class="form-group mx-md-1" {if ! isset($item.id)}style="display: none"{/if}{* Only translations in the database have an id. *}>
+                                        <div class="mb-3 mx-md-1" {if ! isset($item.id)}style="display: none"{/if}{* Only translations in the database have an id. *}>
                                             <label class="my-1 mr-sm-2" for="scope_{$smarty.foreach.translations.index}" >{tr}Contribute:{/tr}</label>
-                                            <select class="custom-select my-1 mr-sm-2" name="scope_{$smarty.foreach.translations.index}" id="scope_{$smarty.foreach.translations.index}">
+                                            <select class="{*custom-select*}form-select my-1 mr-sm-2" name="scope_{$smarty.foreach.translations.index}" id="scope_{$smarty.foreach.translations.index}">
                                                 <option {if ! isset($item.general)}selected {/if}value="">{tr}Undecided{/tr}</option>
                                                 <option {if $item.general === true}selected {/if}value="general">{tr}Yes{/tr}</option>
                                                 <option {if $item.general === false}selected {/if}value="local">{tr}No{/tr}</option>
@@ -173,14 +173,14 @@
                                         </div>
                                     {/if}
 
-                                    <div class="form-group mx-sm-1">
+                                    <div class="mb-3 mx-sm-1">
                                         <button type="submit" class="btn btn-primary tips" name="edit_tran_{$smarty.foreach.translations.index}" title=":{tr}Save translation in the database{/tr}">
                                             {tr}Translate{/tr}
                                         </button>
                                     </div>
 
                                     {if $action eq 'edit_tran_sw' && isset($item.changed)}
-                                        <div class="form-group mx-sm-1">
+                                        <div class="mb-3 mx-sm-1">
                                             <button type="submit" class="btn btn-danger tips" name="del_tran_{$smarty.foreach.translations.index}" title=":{tr}Delete translation from the database{/tr}">
                                                 {tr}Delete{/tr}
                                             </button>
@@ -189,7 +189,7 @@
 
                                     {assign var=itemIndex value=$smarty.foreach.translations.index}
                                     {if isset($item.originalTranslation)}
-                                        <div class="form-group mx-sm-1">
+                                        <div class="mb-3 mx-sm-1">
                                             {button _flip_id="diff_$itemIndex" _flip_hide_text="n" _text="{tr}Compare{/tr}" _title=":{tr}Compare the original translation with the database translation{/tr}" _class="btn btn-primary btn-sm tips"}
                                         </div>
                                     {/if}

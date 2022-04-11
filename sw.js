@@ -7,7 +7,6 @@ const staticAssets = [
     'themes/default/css/default.css',
     'img/tiki/Tiki_WCG.png',
     'tiki-index.php',
-    'lib/jquery_tiki/tiki-bootstrapmodalfix.js',
     'lib/jquery_tiki/iconsets.js',
     'lib/tiki-js.js',
     'lib/jquery_tiki/tiki-jquery.js',

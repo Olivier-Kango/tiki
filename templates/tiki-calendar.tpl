@@ -9,12 +9,12 @@
 {/title}
 <div id="calscreen">
     <div class="t_navbar mb-4">
-        <div class="btn-group float-right">
+        <div class="btn-group float-end">
             {if ! $js}<ul class="cssmenu_horiz"><li>{/if}
-            <a class="btn btn-link" data-toggle="dropdown" data-hover="dropdown" href="#">
+            <a class="btn btn-link" data-bs-toggle="dropdown" data-hover="dropdown" href="#">
                 {icon name='menu-extra'}
             </a>
-            <ul class="dropdown-menu dropdown-menu-right">
+            <ul class="dropdown-menu dropdown-menu-end">
                 <li class="dropdown-title">
                     {tr}Monitoring{/tr}
                 </li>
@@ -68,7 +68,7 @@
                 <form class="card" id="filtercal" method="get" action="{$myurl}" name="f" style="display:none;">
                     <div class="card-header caltitle py-1 px-2">
                         <strong>{tr}Calendars{/tr}</strong>
-                        <button type="button" class="close"  onclick="toggle('filtercal')" aria-hidden="true">×</button>
+                        <button type="button" class="btn-close"  onclick="toggle('filtercal')" aria-hidden="true">×</button>
                     </div>
                     <ul class="list-group list-group-flush list-unstyled mt-2">
                         <li class="caltoggle">
@@ -125,7 +125,7 @@ $("#filtercal").submit(function () {
             {/if}
 
             {if count($thiscal)}
-                <div id="configlinks" class="form-group row text-right">
+                <div id="configlinks" class="mb-3 row text-end">
                     {assign var='maxCalsForButton' value=20}
                     {if count($checkedCals) > $maxCalsForButton}<select size="5">{/if}
                     {foreach item=k from=$listcals name=listc}
@@ -349,7 +349,7 @@ $("#filtercal").submit(function () {
         {/jq}
     {/if}
     {if $pdf_export eq 'y' and $pdf_warning eq 'n'}
-        <a id="calendar-pdf-btn"  href="#" style="text-align: right; display: none">{icon name='pdf'} {tr}Export as PDF{/tr}</a>
+        <a id="calendar-pdf-btn"  href="#" class="text-end d-none">{icon name='pdf'} {tr}Export as PDF{/tr}</a>
     {/if}
     <div id="test"></div>
     <style type='text/css'>

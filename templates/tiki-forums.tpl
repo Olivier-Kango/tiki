@@ -16,18 +16,14 @@
             {if $prefs.feature_forums_search eq 'y' or $prefs.feature_forums_name_search eq 'y'}
                 {if $prefs.feature_forums_name_search eq 'y'}
                     <form method="get" class="form" role="form" action="tiki-forums.php">
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">
-                                        {icon name="search"}
-                                    </span>
-                                </div>
+                                <span class="input-group-text">
+                                    {icon name="search"}
+                                </span>
                                 <input type="text" name="find" class="form-control" value="{$find|escape}" placeholder="{tr}Find{/tr}...">
-                                <div class="input-group-append">
-                                    <input type="hidden" name="sort_mode" value="{$sort_mode|escape}">
-                                    <input type="submit" class="btn btn-info" value="{tr}Search by name{/tr}" name="search">
-                                </div>
+                                <input type="hidden" name="sort_mode" value="{$sort_mode|escape}">
+                                <input type="submit" class="btn btn-info" value="{tr}Search by name{/tr}" name="search">
                             </div>
                         </div>
                     </form>
@@ -36,15 +32,13 @@
                     <div class="row mb-4 mx-0">
                         <div class="col-md-5 offset-md-7">
                         <form class="form" method="get" role="form" action="{if $prefs.feature_search_fulltext neq 'y'}tiki-searchindex.php{else}tiki-searchresults.php{/if}">
-                            <div class="form-group row">
+                            <div class="mb-3 row">
                                 <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text">
-                                            {icon name="search"}
-                                        </span>
-                                    </div>
+                                     <span class="input-group-text">
+                                         {icon name="search"}
+                                     </span>
                                     <input name="highlight" type="text" class="form-control" placeholder="{tr}Find{/tr}...">
-                                    <div class="input-group-append">
+                                    <div class="input-group-text">
                                         <input type="hidden" name="where" value="forums">
                                         <input type="hidden" name="filter~type" value="forum post">
                                         <input type="submit" class="wikiaction btn btn-info" name="search" value="{tr}Search in content{/tr}">
@@ -61,15 +55,13 @@
         <div class="row mb-4 mx-0">
             <div class="col-12">
                 <form class="form" method="get" role="form" action="{if $prefs.feature_search_fulltext neq 'y'}tiki-searchindex.php{else}tiki-searchresults.php{/if}">
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">
-                                    {icon name="search"}
-                                </span>
-                            </div>
+                            <span class="input-group-text">
+                                {icon name="search"}
+                            </span>
                             <input name="filter~content" type="text" class="form-control" placeholder="{tr}Find{/tr}...">
-                            <div class="input-group-append">
+                            <div class="input-group-text">
                                 <input type="hidden" name="where" value="forums">
                                 <input type="hidden" name="filter~type" value="forum post">
                                 <input type="submit" class="wikiaction btn btn-info" name="search" value="{tr}Search in content{/tr}">
@@ -91,12 +83,12 @@
 
                 {if $prefs.forum_list_topics eq 'y'}
                     {$numbercol = $numbercol + 1}
-                    <th id="threads" class="text-right">{self_link _sort_arg='sort_mode' _sort_field='threads'}{tr}Topics{/tr}{/self_link}</th>
+                    <th id="threads" class="text-end">{self_link _sort_arg='sort_mode' _sort_field='threads'}{tr}Topics{/tr}{/self_link}</th>
                 {/if}
 
                 {if $prefs.forum_list_posts eq 'y'}
                     {$numbercol = $numbercol + 1}
-                    <th id="comments" class="text-right">{self_link _sort_arg='sort_mode' _sort_field='comments'}{tr}Posts{/tr}{/self_link}</th>
+                    <th id="comments" class="text-end">{self_link _sort_arg='sort_mode' _sort_field='comments'}{tr}Posts{/tr}{/self_link}</th>
                 {/if}
 
                 {if $prefs.forum_list_ppd eq 'y'}
@@ -111,7 +103,7 @@
 
                 {if $prefs.forum_list_visits eq 'y'}
                     {$numbercol = $numbercol + 1}
-                    <th id="hits" class="text-right">{self_link _sort_arg='sort_mode' _sort_field='hits'}{tr}Visits{/tr}{/self_link}</th>
+                    <th id="hits" class="text-end">{self_link _sort_arg='sort_mode' _sort_field='hits'}{tr}Visits{/tr}{/self_link}</th>
                 {/if}
                 {$numbercol = $numbercol + 1}
                 <th id="actions"></th>

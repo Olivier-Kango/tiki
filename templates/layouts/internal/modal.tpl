@@ -2,7 +2,7 @@
 {if ! isset($noheader) || $noheader !== 'y'}
     <div class="modal-header">
         <h4 class="modal-title" id="myModalLabel">{$title|escape}{block name=subtitle}{/block}</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
     </div>
 {/if}
 <div class="modal-body">
@@ -18,6 +18,6 @@
 </div>
 <div class="modal-footer">
     {block name=buttons}
-        <button type="button" class="btn btn-link" data-dismiss="modal">{tr}Close{/tr}</button>
+        <button type="button" class="btn btn-link" data-bs-dismiss="modal">{tr}Close{/tr}</button>
     {/block}
 </div>

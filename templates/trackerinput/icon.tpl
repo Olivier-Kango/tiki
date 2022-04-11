@@ -3,7 +3,7 @@
     <img class="icon" src="{$field.value|escape}" alt="{tr}Select Icon{/tr}">
     <div class="selector" style="display: none;">
         <div class="sections" style="float: left; width: 25%;">
-            <ul class="list-group pr-3">
+            <ul class="list-group pe-3">
                 {foreach from=$data.galleries item=gal}
                     <li class="list-group-item">
                         <a href="{$gal.url|escape}">{tr}{$gal.label|escape}{/tr}</a>

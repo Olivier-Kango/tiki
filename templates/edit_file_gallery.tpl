@@ -13,7 +13,7 @@
         {tabset name="list_file_gallery"}
             {tab name="{tr}Properties{/tr}"}
                 <h2>{tr}Properties{/tr}</h2><br>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label for="name" class="col-sm-4 col-form-label">{tr}Name{/tr}</label>
                     <div class="col-sm-8">
                         {if $galleryId eq $treeRootId or $gal_info.type eq 'user'}
@@ -26,7 +26,7 @@
                     </div>
                 </div>
                 {if $prefs.feature_file_galleries_templates eq 'y'}
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label for="fgal_template" class="col-sm-4 col-form-label">{tr}Template{/tr}</label>
                         <div class="col-sm-8">
                             <select name="fgal_template" id="fgal_template" class="form-control">
@@ -37,7 +37,7 @@
                                 {jq}
 $('#fgal_template').change( function() {
 var otherTabs = $('ul.nav-tabs li:not(.active)');
-var otherParams = $('#description').parents('div.form-group').nextAll('div.form-group');
+var otherParams = $('#description').parents('div.mb-3').nextAll('div.mb-3');
 
 if ($(this).val() != '') {
     // Select template, hide parameters
@@ -54,7 +54,7 @@ if ($(this).val() != '') {
                         </div>
                     </div>
                 {/if}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label for="fgal_type" class="col-sm-4 col-form-label">{tr}Type{/tr}</label>
                     <div class="col-sm-8">
                         {if $galleryId eq $treeRootId or $gal_info.type eq 'user'}
@@ -75,14 +75,14 @@ if ($(this).val() != '') {
                         {/if}
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label for="description" class="col-sm-4 col-form-label">{tr}Description{/tr}</label>
                     <div class="col-sm-8">
                         <textarea rows="3" id="description" name="description" class="form-control">{$gal_info.description|escape}</textarea>
                         <span class="form-text">{tr}Required for podcasts{/tr}.</span>
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label for="visible" class="col-sm-4">{tr}Gallery is visible to non-admin users{/tr}</label>
                     <div class="col-sm-8">
                         <div class="form-check">
@@ -90,7 +90,7 @@ if ($(this).val() != '') {
                         </div>
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label for="public" class="col-sm-4">{tr}Gallery is unlocked{/tr}</label>
                     <div class="col-sm-8">
                         <div class="form-check">
@@ -100,7 +100,7 @@ if ($(this).val() != '') {
                     </div>
                 </div>
                 {if $tiki_p_admin_file_galleries eq 'y' or $gal_info.type neq 'user'}
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label for="backlinkPerms" class="col-sm-4">{tr}Respect permissions for backlinks to view a file{/tr}</label>
                         <div class="col-sm-8">
                             <div class="form-check">
@@ -108,7 +108,7 @@ if ($(this).val() != '') {
                             </div>
                         </div>
                     </div>
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label for="lockable" class="col-sm-4">{tr}Files can be locked at download{/tr}.</label>
                         <div class="col-sm-8">
                             <div class="form-check">
@@ -116,7 +116,7 @@ if ($(this).val() != '') {
                             </div>
                         </div>
                     </div>
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label for="archives" class="col-sm-4 col-form-label">{tr}Maximum number of archives for each file{/tr}</label>
                         <div class="col-sm-8">
                             <div class="form-control-plaintext">
@@ -127,7 +127,7 @@ if ($(this).val() != '') {
                         </div>
                     </div>
                     {if $galleryId neq $treeRootId}
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label for="parentId" class="col-sm-4 col-form-label">{tr}Parent gallery{/tr}</label>
                             <div class="col-sm-8">
                                 <select name="parentId" id="parentId" class="form-control">
@@ -145,7 +145,7 @@ if ($(this).val() != '') {
                     {/if}
                 {/if}
                 {if $tiki_p_admin eq 'y' or $tiki_p_admin_file_galleries eq 'y'}
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label for="user" class="col-sm-4 col-form-label">{tr}Owner of the gallery{/tr}</label>
                         <div class="col-sm-8">
                             {user_selector user=$creator id='user'}
@@ -153,12 +153,12 @@ if ($(this).val() != '') {
                     </div>
 
                     {if $prefs.fgal_quota_per_fgal eq 'y'}
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label for="quota" class="col-sm-4 col-form-label">{tr}Quota{/tr}</label>
                             <div class="col-sm-8">
                                 <div class="input-group col-sm-4">
                                     <input type="text" class="form-control" id="quota" name="quota" value="{$gal_info.quota}" size="5">
-                                    <span class="input-group-append"> {tr}Mb{/tr}</span>
+                                    <span class="input-group-text"> {tr}Mb{/tr}</span>
                                 </div>
                                 <span class="form-text">{tr}0 for unlimited{/tr}</span>
                                 {if $gal_info.usedSize}<br>{tr}Used:{/tr} {$gal_info.usedSize|kbsize}{/if}
@@ -175,7 +175,7 @@ if ($(this).val() != '') {
                     {/if}
 
                     {if $prefs.feature_groupalert eq 'y'}
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label for="groupforAlert" class="col-sm-4 col-form-label">{tr}Group of users alerted when file gallery is modified{/tr}</label>
                             <div class="col-sm-8">
                                 <select id="groupforAlert" name="groupforAlert" class="form-control">
@@ -186,7 +186,7 @@ if ($(this).val() != '') {
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label for="showeachuser" class="col-sm-4">{tr}Allows each user to be selected for small groups{/tr}</label>
                             <div class="col-sm-8">
                                 <div class="form-check">
@@ -196,31 +196,31 @@ if ($(this).val() != '') {
                         </div>
                     {/if}
                 {/if}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label for="image_max_size_x" class="col-sm-4 col-form-label">{tr}Maximum width of images in gallery{/tr}</label>
                     <div class="col-sm-8">
                         <div class="form-control-plaintext">
                             <div class="input-group col-sm-4">
-                                <input type="text" name="image_max_size_x" id="image_max_size_x" value="{$gal_info.image_max_size_x|escape}" class="form-control text-right">
+                                <input type="text" name="image_max_size_x" id="image_max_size_x" value="{$gal_info.image_max_size_x|escape}" class="form-control text-end">
                                 <span>&nbsp;px</span>
                             </div>
                             <span class="form-text">{tr}If an image is wider than this, it will be resized.{/tr} {tr}Attention: In this case, the original image will be lost.{/tr} (0={tr}unlimited{/tr})</span>
                         </div>
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label for="image_max_size_y" class="col-sm-4 col-form-label">{tr}Maximum height of images in gallery{/tr}</label>
                     <div class="col-sm-8">
                         <div class="form-control-plaintext">
                             <div class="input-group col-sm-4">
-                                <input type="text" name="image_max_size_y" id="image_max_size_y" value="{$gal_info.image_max_size_y|escape}" class="form-control text-right">
+                                <input type="text" name="image_max_size_y" id="image_max_size_y" value="{$gal_info.image_max_size_y|escape}" class="form-control text-end">
                                 <span>&nbsp;px</span>
                             </div>
                             <span class="form-text">{tr}If an image is higher than this, it will be resized.{/tr} {tr}Attention: In this case, the original image will be lost.{/tr} (0={tr}unlimited{/tr})</span>
                         </div>
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label for="wiki_syntax" class="col-sm-4 col-form-label">{tr}Wiki markup to enter when image selected from "file gallery manager"{/tr}</label>
                     <div class="col-sm-8">
                         <div class="form-control-plaintext">
@@ -233,7 +233,7 @@ if ($(this).val() != '') {
                 </div>
             {if $prefs.ocr_enable eq 'y'}
                 {if $selectedLanguages || $languages}
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label for="ocr_lang" class="col-md-4 col-form-label">{tr}Override Default OCR Languages{/tr}</label>
                         <div class="col-md-8">
                             <select multiple id="ocr_lang" class="form-control" name="ocr_lang[]">
@@ -257,7 +257,7 @@ if ($(this).val() != '') {
 <!-- display properties -->
             {tab name="{tr}Display Settings{/tr}"}
                 <h2>{tr}Display Settings{/tr}</h2><br>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-sm-4 col-form-label" for="fgal_default_view">
                         {tr}Default View{/tr}
                     </label>
@@ -280,7 +280,7 @@ if ($(this).val() != '') {
                         </select>
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label for="sortorder" class="col-sm-4 col-form-label">{tr}Default sort order{/tr}</label>
                     <div class="col-sm-8">
                         <select name="sortorder" id="sortorder" class="form-control">
@@ -306,13 +306,13 @@ if ($(this).val() != '') {
                     {include file='fgal_listing_conf.tpl'}
                 </div>
                 <hr>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label for="max_desc" class="col-sm-4 col-form-label">{tr}Max description display size{/tr}</label>
                     <div class="col-sm-8">
                         <input type="text" id="max_desc" name="max_desc" value="{$max_desc|escape}" class="form-control">
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label for="maxRows" class="col-sm-4 col-form-label">{tr}Max rows per page{/tr}</label>
                     <div class="col-sm-8">
                         <input type="text" id="maxRows" name="maxRows" value="{$maxRows|escape}" class="form-control">
@@ -320,7 +320,7 @@ if ($(this).val() != '') {
                 </div>
             {/tab}
         {/tabset}
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="viewitem" class="col-sm-4">
                 {tr}View inserted gallery after save{/tr}
             </label>
@@ -331,7 +331,7 @@ if ($(this).val() != '') {
             </div>
         </div>
 
-        <div class="form-group row">
+        <div class="mb-3 row">
             <div class="col-md-8 offset-md-4">
                 <input type="submit" class="btn btn-primary" value="{tr}Save{/tr}" name="edit">
             </div>

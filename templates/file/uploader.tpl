@@ -23,21 +23,19 @@
                     <span class="sr-only"><span class="count">0</span>% Complete</span>
                 </div>
             </div>
-            <div class="custom-file-title form-group" style="display: none;">
-                <label class="custom-file-title-label" for="inputFileTitle">Title</label> <span class="text-danger">*</span>
+            <div class="custom-file-title mb-3" style="display: none;">
+                <label class="form-label custom-file-title-label" for="inputFileTitle">Title</label> <span class="text-danger">*</span>
                 <input id="inputFileTitle" class="custom-file-title-input form-control" type="text" name="title" />
-                <label class="invalid-feedback feedback-required-title">{tr}This field is required before file can be uploaded.{/tr}</label>
-                <label class="invalid-feedback feedback-one-at-time">{tr}Only one file can be uploaded at a time{/tr}</label>
+                <label class="form-label invalid-feedback feedback-required-title">{tr}This field is required before file can be uploaded.{/tr}</label>
+                <label class="form-label invalid-feedback feedback-one-at-time">{tr}Only one file can be uploaded at a time{/tr}</label>
             </div>
             <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroupText">{if $limit !== 1}{tr}Upload Files{/tr}{else}{tr}Upload File{/tr}{/if}</span>
-                </div>
+                <span class="input-group-text" id="inputGroupText">{if $limit !== 1}{tr}Upload Files{/tr}{else}{tr}Upload File{/tr}{/if}</span>
                 <div class="custom-file">
                     <input type="file" name="file[]" {if $limit !== 1}multiple{/if} {if $typeFilter}accept="{$typeFilter|escape}"{/if}
                            class="custom-file-input" id="inputFile" aria-describedby="inputGroupText"
                             onchange="$(this).next('.custom-file-label').text($(this).val().replace('C:\\fakepath\\', ''));">
-                    <label class="custom-file-label" for="inputFile">{tr}Choose file{/tr}</label>
+                    <label class="form-label custom-file-label" for="inputFile">{tr}Choose file{/tr}</label>
                 </div>
             </div>
             <p class="drop-message text-center">
@@ -71,14 +69,12 @@
                 </div>
             </div>
             <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroupText">{if $limit !== 1}{tr}Upload Files{/tr}{else}{tr}Upload File{/tr}{/if}</span>
-                </div>
+                <span class="input-group-text" id="inputGroupText">{if $limit !== 1}{tr}Upload Files{/tr}{else}{tr}Upload File{/tr}{/if}</span>
                 <div class="custom-file">
                     <input type="file" name="file[]" {if $limit !== 1}multiple{/if} {if $typeFilter}accept="{$typeFilter|escape}"{/if}
                            class="custom-file-input" id="inputFile" aria-describedby="inputGroupText"
                             onchange="$(this).next('.custom-file-label').text($(this).val().replace('C:\\fakepath\\', ''));">
-                    <label class="custom-file-label" for="inputFile">{tr}Choose file{/tr}</label>
+                    <label class="form-label custom-file-label" for="inputFile">{tr}Choose file{/tr}</label>
                 </div>
             </div>
 

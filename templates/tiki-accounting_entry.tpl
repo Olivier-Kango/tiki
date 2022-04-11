@@ -56,26 +56,26 @@ var account='';
     </table>
 </div>
 <div id="mask" style="float:left;">
-    <form class="form-horizontal" method="post" action="{if $req_url}{$req_url}{else}tiki-accounting_entry.php{/if}">
+    <form method="post" action="{if $req_url}{$req_url}{else}tiki-accounting_entry.php{/if}">
         {ticket}
         {if $firstid}<input type="hidden" name="firstid" value="{$firstid}">{/if}
         {if $statementId}<input type="hidden" name="statementId" value="{$statementId}">{/if}
         <input type="hidden" name="bookId" value="{$bookId}">
         <fieldset>
             <legend>{tr}Post{/tr}</legend>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-form-label col-md-4">{tr}Booking Date{/tr} <span class="text-danger">*</span></label>
                 <div class="col-md-8">
                     {html_select_date prefix="journal_" time=$journalDate start_year="-10" end_year="+10" field_order=$prefs.display_field_order}
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-form-label col-md-4">{tr}Description{/tr}</label>
                 <div class="col-md-8">
                 <textarea class="form-control" name="journalDescription" id="journalDescription" cols="40" rows="3">{$journalDescription}</textarea>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-form-label col-md-4">{tr}Amount{/tr} <span class="text-danger">*</span></label>
                 <div class="col-md-8">
                 <input class="form-control" type="number" name="totalAmount" id="totalAmount" value="{$totalAmount}" onchange="javascript:setAmount()">
@@ -96,7 +96,7 @@ var account='';
                             <input class="form-control" type="text" name="debitText[]" value="{$debitText[$i]}">
                         </td>
                         <td>
-                            <select class="form-control" name="debitAccount[]" style="width:180px" onfocus="account=this">
+                            <select class="form-select" name="debitAccount[]" style="width:180px" onfocus="account=this">
                             {foreach from=$accounts item=a}
                                 <option value="{$a.accountId}"{if $a.accountId==$debitAccount[$i]} selected="selected"{/if}>{$a.accountId} {$a.accountName}</option>
                             {/foreach}
@@ -109,7 +109,7 @@ var account='';
                 {/section}
                 <tr id="Row_SplitDebit"{if count($creditAccount)>1} style="display:none;"{/if}>
                     <td colspan="3">
-                        <input class="btn btn-primary btn-sm float-sm-right" type="button" value="{tr}Add entry{/tr}" id="SplitDebit" onclick="javascript:splitDebit()">
+                        <input class="btn btn-primary btn-sm float-sm-end" type="button" value="{tr}Add entry{/tr}" id="SplitDebit" onclick="javascript:splitDebit()">
                     </td>
                 </tr>
             </table>
@@ -128,7 +128,7 @@ var account='';
                             <input class="form-control" type="text" name="creditText[]" value="{$creditText[$i]}">
                         </td>
                         <td>
-                            <select class="form-control" name="creditAccount[]" style="width:180px" onfocus="account=this">
+                            <select class="form-select" name="creditAccount[]" style="width:180px" onfocus="account=this">
                                 {foreach from=$accounts item=a}
                                     <option value="{$a.accountId}"{if $a.accountId==$creditAccount[$i]} selected="selected"{/if}>{$a.accountId} {$a.accountName}</option>
                                 {/foreach}

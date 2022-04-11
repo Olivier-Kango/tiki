@@ -35,7 +35,7 @@
 
 {if $showsubscribe ne 'n' && !empty($possibleGroups) && $subscribestyle eq 'dropdown'}
 <form method="post">
-<select name="assign" onchange="this.form.submit();">
+<select class="form-select" name="assign" onchange="this.form.submit();">
 <option value=""><i>{if !empty($subscribe)}{$subscribe|escape}{else}{tr}Subscribe to a group{/tr}{/if}</i></option>
 {foreach from=$possibleGroups item=gr}
     <option value="{$gr|escape}">

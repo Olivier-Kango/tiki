@@ -42,7 +42,7 @@
             <h2>{tr}Create a Wiki Page{/tr}</h2><br>
             <div>
                 <form method="get" action="tiki-editpage.php">
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label class="col-form-label col-sm-3">{tr}Insert name of the page you wish to create{/tr}</label>
                         <div class="col-sm-9">
                             <input class="form-control" id="pagename" type="text" name="page">
@@ -57,7 +57,7 @@
                         </div>
                     </div>
                     {if $prefs.namespace_enabled == 'y' && $prefs.namespace_default}
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label class="col-sm-3 form-check-label">{tr _0=$prefs.namespace_default}Create page within %0{/tr}</label>
                         <div class="col-sm-9">
                             <div class="form-check">
@@ -66,7 +66,7 @@
                         </div>
                     </div>
                     {/if}
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label class="col-form-label col-sm-3"></label>
                         <div class="col-sm-9">
                             <input class="btn btn-primary" type="submit" name="quickedit" value="{tr}Create Page{/tr}">

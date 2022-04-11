@@ -15,21 +15,21 @@
     </tr>
     {foreach from=$accounts item=a}{cycle values="odd,even" assign="style"}
         <tr class="{$style}">
-            <td style="text-align:right"><a href="tiki-accounting_account.php?bookId={$bookId}&accountId={$a.accountId}">{$a.accountId}</a></td>
+            <td class="text-end"><a href="tiki-accounting_account.php?bookId={$bookId}&accountId={$a.accountId}">{$a.accountId}</a></td>
             <td><a href="tiki-accounting_account.php?bookId={$bookId}&accountId={$a.accountId}">{$a.accountName|escape}</a></td>
             <td>{$a.accountNotes|escape}</td>
-            <td style="text-align:right">
+            <td class="text-end">
                 {if $book.bookCurrencyPos==-1}{$book.bookCurrency}{/if}
                 {$a.accountBudget|number_format:$book.bookDecimals:$book.bookDecPoint:$book.bookThousand}
                 {if $book.bookCurrencyPos==1}{$book.bookCurrency}{/if}
             </td>
             <td>{if $a.accountLocked==1}{tr}Yes{/tr}{else}{tr}No{/tr}{/if}</td>
-            <td style="text-align:right">
+            <td class="text-end">
                 {if $book.bookCurrencyPos==-1}{$book.bookCurrency}{/if}
                 {$a.debit|number_format:$book.bookDecimals:$book.bookDecPoint:$book.bookThousand}
                 {if $book.bookCurrencyPos==1}{$book.bookCurrency}{/if}
             </td>
-            <td style="text-align:right">
+            <td class="text-end">
                 {if $book.bookCurrencyPos==-1}{$book.bookCurrency}{/if}
                 {$a.credit|number_format:$book.bookDecimals:$book.bookDecPoint:$book.bookThousand}
                 {if $book.bookCurrencyPos==1}{$book.bookCurrency}{/if}

@@ -38,7 +38,7 @@
                         </div>
                     </td>
                     <td class="text">
-                        <span class="badge badge-secondary">{$channels[user].questions}</span>
+                        <span class="badge bg-secondary">{$channels[user].questions}</span>
                     </td>
                     <td class="action">
                         {actions}

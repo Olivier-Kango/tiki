@@ -3,7 +3,7 @@
 <form class="admin" id="performance" name="performance" action="tiki-admin.php?page=performance" method="post">
     {ticket}
     <div class="row">
-        <div class="form-group col-lg-12 clearfix">
+        <div class="mb-3 col-lg-12 clearfix">
             {include file='admin/include_apply_top.tpl'}
         </div>
     </div>
@@ -29,7 +29,7 @@
             {preference name=feature_obzip}
             <div class="adminoptionboxchild">
                 {if $gzip_handler ne 'none'}
-                    <div class="highlight" style="margin-left:30px;">
+                    <div class="highlight ms-3">
                         {tr}Output compression is active.{/tr}
                         <br>
                         {tr}Compression is handled by:{/tr} {$gzip_handler}.

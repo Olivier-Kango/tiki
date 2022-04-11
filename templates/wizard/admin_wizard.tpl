@@ -22,12 +22,12 @@
             </a>
         {/remarksbox}
 
-        <div class="media mb-5">
-            <span class="float-left fa-stack fa-lg mr-1" alt="{tr}Configuration Profiles Wizard{/tr}" title="{tr}Configuration Profiles Wizard{/tr}" >
+        <div class="d-flex mb-5">
+            <span class="flex-shrink-0 fa-stack fa-lg me-1" alt="{tr}Configuration Profiles Wizard{/tr}" title="{tr}Configuration Profiles Wizard{/tr}" >
                 <i class="fas fa-cubes fa-stack-2x text-warning"></i>
-                <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ml-4 mt-4"></i>
+                <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ms-4 mt-4"></i>
             </span>
-            <div class="media-body mx-4">
+            <div class="flex-grow-1 ms-3">
                 <legend>{tr}Configuration Profiles Wizard{/tr}</legend>
                 <p>{tr}You may start by applying some of our configuration templates through the <b>Configuration Profiles Wizard</b>.{/tr}
                     {tr}They are like the <b>Macros</b> from many computer languages.{/tr}
@@ -44,12 +44,12 @@
                 <input type="submit" class="btn btn-warning" name="use-default-prefs" value="{tr}Start Configuration Profiles Wizard (Macros){/tr}" />
             </div>
         </div>
-        <div class="media mb-5">
-            <span class="float-left fa-stack fa-lg mr-1" alt="{tr}Configuration Walkthrough{/tr}" title="Configuration Walkthrough">
+        <div class="d-flex mb-5">
+            <span class="flex-shrink-0 fa-stack fa-lg me-1" alt="{tr}Configuration Walkthrough{/tr}" title="Configuration Walkthrough">
                 <i class="fas fa-cog fa-stack-2x text-info"></i>
-                <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ml-4 mt-4"></i>
+                <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ms-4 mt-4"></i>
             </span>
-            <div class="media-body mx-4">
+            <div class="flex-grow ms-3">
                 <legend>{tr}Configuration Wizard{/tr}</legend>
                 <p>
                     {tr}Alternatively, you may use the <b>Configuration Wizard</b>.{/tr}
@@ -64,12 +64,12 @@
                 <input type="submit" class="btn btn-info" name="continue" value="{tr}Start Configuration Wizard{/tr}" />
             </div>
         </div>
-        <div class="media mb-5">
-            <span class="float-left fa-stack fa-lg mr-1" alt="{tr}Changes Wizard{/tr}" title="Changes Wizard">
+        <div class="d-flex mb-5">
+            <span class="flex-shrink-0 fa-stack fa-lg me-1" alt="{tr}Changes Wizard{/tr}" title="Changes Wizard">
                 <i class="fas fa-arrow-circle-up fa-stack-2x text-success"></i>
-                <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ml-4 mt-4"></i>
+                <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ms-4 mt-4"></i>
             </span>
-            <div class="media-body mx-4">
+            <div class="flex-grow-1 ms-3">
                 <legend>{tr}Changes Wizard{/tr}</legend>
                 <p>
                     {tr}Or you may use the <b>Changes Wizard</b>{/tr}.
@@ -88,12 +88,12 @@
             </div>
         </div>
         <hr>
-        <div class="media mb-5">
-            <span class="float-left fa-stack fa-lg mr-1" alt="{tr}Control Panels{/tr}" title="Control Panels">
+        <div class="d-flex mb-5">
+            <span class="flex-shrink-0 fa-stack fa-lg me-1" alt="{tr}Control Panels{/tr}" title="Control Panels">
                 <i class="fas fa-sliders-h fa-stack-2x text-primary"></i>
-                <i class="fas fa-cogs fa-stack-1x ml-4 mt-4" style="margin-left: 20px"></i>
+                <i class="fas fa-cogs fa-stack-1x ms-4 mt-4" style="margin-left: 20px"></i>
             </span>
-            <div class="media-body mx-4">
+            <div class="flex-grow-1 ms-3">
                 <legend>{tr}Control Panels{/tr}</legend>
                 <p>
                     {tr}Use the <b>Control Panels</b> to manually browse through the full list of preferences{/tr}.
@@ -105,12 +105,12 @@
                 {button href="tiki-admin.php" _class="btn-primary" _text="{tr}Go to the Control Panels{/tr}"}
             </div>
         </div>
-        <div class="media mb-5">
-            <span class="float-left fa-stack fa-lg mr-1" alt="{tr}Control Panels{/tr}" title="Control Panels">
+        <div class="d-flex mb-5">
+            <span class="flex-shrink-0 fa-stack fa-lg me-1" alt="{tr}Control Panels{/tr}" title="Control Panels">
                 <i class="fas fa-heartbeat fa-stack-2x text-danger"></i>
-                <i class="fas fa-server fa-stack-1x ml-4 mt-4"></i>
+                <i class="fas fa-server fa-stack-1x ms-4 mt-4"></i>
             </span>
-            <div class="media-body mx-4">
+            <div class="flex-grow-1 ms-3">
         <legend>{tr}Server Fitness{/tr}</legend>
                 <p>
                     {tr _0=$tiki_version}You can check if your server meets the requirements for running Tiki version %0{/tr}.

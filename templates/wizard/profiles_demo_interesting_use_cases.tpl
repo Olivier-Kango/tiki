@@ -1,13 +1,13 @@
 {* $Id$ *}
 
-<div class="media">
-    <div class="mr-4">
+<div class="d-flex">
+    <div class="flex-shrink-0">
         <span class="fa-stack fa-lg" style="width: 100px;" title="{tr}Configuration Profiles Wizard{/tr}" >
             <i class="fas fa-cubes fa-stack-2x"></i>
-            <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ml-4 mt-4"></i>
+            <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ms-4 mt-4"></i>
         </span>
     </div>
-    <div class="media-box">
+    <div class="flex-grow-1 ms-3">
         <h4 class="mt-0 mb-4">{tr}Each of these profiles create a working instance of some features, such as trackers and wiki pages customized for specific purposes, for example{/tr}.</h4>
         {remarksbox type="warning" title="{tr}Warning{/tr}"}
             <a target="tikihelp" class="alert-link tikihelp" style="float:right" title="{tr}Demo Profiles:{/tr}

@@ -38,7 +38,7 @@
                         {else}
                             {assign var='textcols' value=80}
                         {/if}
-                        <div class="form-inline">
+                        <div class="d-flex flex-row flex-wrap align-items-center">
                             <input type="text" size="{$textcols}" name="{$questionId}" value="{$answer}" class="form-control">
                         </div>
                     </div>
@@ -63,7 +63,7 @@
                         {$commentToolBar = 'n'}
                     {/if}
                     <div class="quizoptions">
-                        <div class="form-inline">
+                        <div class="d-flex flex-row flex-wrap align-items-center">
                             {if $showToolBars}{toolbars area_id="question_$area" comments=$commentToolBar}{/if}
                             <textarea id="{$questionId}" name="{$questionId}"
                             rows="{$textrows}" cols="{$textcols}" class="form-control">{$answer}

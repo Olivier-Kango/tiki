@@ -15,7 +15,7 @@ body.fullscreen {
 body {
   background: #108a93;
   color: #ffffff;
-  font-family: "Cabin", Arial, sans-serif;
+  font-family: var(--bs-font-sans-serif);
   padding: 15px;
 }
 a, a:visited {

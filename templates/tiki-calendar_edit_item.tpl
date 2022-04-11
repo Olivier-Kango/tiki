@@ -2,7 +2,7 @@
 
 {if isset($smarty.get.modal) && $smarty.get.modal}
     <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 class="modal-title"></h4>
     </div>
 {/if}
@@ -71,7 +71,7 @@
             {if $prefs.calendar_addtogooglecal == 'y'}
                 {wikiplugin _name="addtogooglecal" calitemid=$id}{/wikiplugin}
             {/if}
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label for="calid" class="col-form-label col-sm-3">{tr}Calendar{/tr}</label>
                 <div class="col-sm-9">
                     {if $edit}
@@ -122,7 +122,7 @@
                 </div>
             </div>
 
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-form-label col-sm-3">{tr}Title{/tr}</label>
                 <div class="col-sm-9">
                     {if $edit}
@@ -135,7 +135,7 @@
                 </div>
 
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-form-label col-sm-3">{tr}Created by{/tr}</label>
                 <div class="col-sm-9">
                     <div class="summary" style="margin-bottom: 0; padding-top: 7px;">
@@ -145,7 +145,7 @@
                 </div>
             </div>
             {if $edit or $recurrence.id gt 0}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-form-label col-sm-3">{tr}Recurrence{/tr}</label>
                     <div class="col-sm-9">
                         {if $edit}
@@ -182,7 +182,7 @@
                             </span>
                         {/if}
                     </div>
-                </div> <!-- / .form-group -->
+                </div> <!-- / .mb-3 -->
                 <div class="row">
                     <div class="col-sm-9 offset-sm-3">
                         {if $edit}
@@ -201,11 +201,9 @@
                                     </label>
                                 {/if}
                                 {if $recurrence.id eq 0 or $recurrence.weekly}
-                                    <div class="form-group px-5">
+                                    <div class="mb-3 px-5">
                                         <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">{tr}Each{/tr}</span>
-                                            </div>
+                                            <span class="input-group-text">{tr}Each{/tr}</span>
                                             <select name="weekdays[]" class="form-control" multiple>
                                                 <option value="SU"{if in_array('SU', $recurrence.weekdays)} selected="selected" {/if}>
                                                     {tr}Sunday{/tr}
@@ -229,9 +227,7 @@
                                                     {tr}Saturday{/tr}
                                                 </option>
                                             </select>
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">{tr}of the week{/tr}</span>
-                                            </div>
+                                            <span class="input-group-text">{tr}of the week{/tr}</span>
                                         </div>
                                         <hr/>
                                     </div>
@@ -247,9 +243,9 @@
                                     </label>
                                 {/if}
                                 {if $recurrence.id eq 0 or $recurrence.monthly}
-                                <div class="form-group px-5">
+                                <div class="mb-3 px-5">
                                     <div class="input-group">
-                                        <div class="input-group-prepend"><span class="input-group-text">{tr}Each{/tr}</span></div>
+                                        <span class="input-group-text">{tr}Each{/tr}</span>
                                         <select name="dayOfMonth" class="form-control">
                                             {section name=k start=1 loop=32}
                                                 <option value="{$smarty.section.k.index}" {if $recurrence.dayOfMonth eq $smarty.section.k.index} selected="selected" {/if} >
@@ -260,7 +256,7 @@
                                                 </option>
                                             {/section}
                                         </select>
-                                        <div class="input-group-append"><span class="input-group-text">{tr}of the month{/tr}</span></div>
+                                        <span class="input-group-text">{tr}of the month{/tr}</span>
                                     </div>
                                     <hr/>
                                 </div>
@@ -278,9 +274,9 @@
                                     <br>
                                 {/if}
                                 {if $recurrence.id eq 0 or $recurrence.yearly}
-                                    <div class="form-group px-5">
+                                    <div class="mb-3 px-5">
                                         <div class="input-group">
-                                            <div class="input-group-prepend"><span class="input-group-text">{tr}Each{/tr}</span></div>
+                                            <span class="input-group-text">{tr}Each{/tr}</span>
                                             <select name="dateOfYear_day" class="form-control" onChange="checkDateOfYear(this.options[this.selectedIndex].value,document.forms['f'].elements['dateOfYear_month'].options[document.forms['f'].elements['dateOfYear_month'].selectedIndex].value);">
                                                 {section name=k start=1 loop=32}
                                                     <option value="{$smarty.section.k.index}" {if $recurrence.dateOfYear_day eq $smarty.section.k.index} selected="selected" {/if} >
@@ -291,7 +287,7 @@
                                                     </option>
                                                 {/section}
                                             </select>
-                                            <div class="input-group-append"><span class="input-group-text">{tr}of{/tr}</span></div>
+                                            <span class="input-group-text">{tr}of{/tr}</span>
                                             <select name="dateOfYear_month" class="form-control" onChange="checkDateOfYear(document.forms['f'].elements['dateOfYear_day'].options[document.forms['f'].elements['dateOfYear_day'].selectedIndex].value,this.options[this.selectedIndex].value);">
                                                 <option value="1" {if $recurrence.dateOfYear_month eq '1'} selected="selected" {/if}>
                                                     {tr}January{/tr}
@@ -365,7 +361,7 @@
                                         <input type="number" min="1" name="nbRecurrences" size="3" class="form-control" style="z-index: 0"
                                                value="{if $recurrence.nbRecurrences gt 0}{$recurrence.nbRecurrences}{else}1{/if}">
 
-                                        <div class="input-group-append mr-4">
+                                        <div class="input-group-text mr-4">
                                             <span class="input-group-text">
                                                 {if $recurrence.nbRecurrences gt 1}{tr}occurrences{/tr}{else}{tr}occurrence{/tr}{/if}
                                             </span>
@@ -424,7 +420,7 @@
                     </div>
                 </div> <!-- / .row -->
             {/if}{* end recurrence *}
-            <div class="row mt-md-3 form-group date">
+            <div class="row mt-md-3 mb-3 date">
                 <label class="col-form-label col-sm-3">{tr}Start{/tr}</label>
                 {if $edit}
                     <div class="col-sm-{if $prefs.feature_jscalendar eq 'y' and $prefs.javascript_enabled eq 'y'}5{else}4{/if} start">
@@ -462,8 +458,8 @@
                         </div>
                     </div>
                 {/if}
-            </div> <!-- / .form-group -->
-            <div class="row mt-md-3 form-group date">
+            </div> <!-- / .mb-3 -->
+            <div class="row mt-md-3 mb-3 date">
                 <label class="col-form-label col-sm-3">{tr}End{/tr}</label>
                 {if $edit}
                     <input type="hidden" name="save[end_or_duration]" value="end" id="end_or_duration">
@@ -516,9 +512,9 @@
                         {tr}Events cannot end before they start{/tr}
                     </span>
                 {/if}
-            </div> <!-- / .form-group -->
+            </div> <!-- / .mb-3 -->
             {if $edit or !empty($calitem.parsed)}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-form-label col-sm-3">{tr}Description{/tr}</label>
                     <div class="col-sm-9">
                         {if $edit}
@@ -536,9 +532,9 @@
                 </div>
             {/if}
             {if $calendar.customstatus ne 'n'}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-form-label col-sm-3">{tr}Status{/tr}</label>
-                    <div class="col-sm-9 btn-group btn-group-toggle"  data-toggle="buttons">
+                    <div class="col-sm-9 btn-group btn-group-toggle"  data-bs-toggle="buttons">
                         <div class="statusbox">
                             {if $edit}
                                 <label class="btn btn-primary active">
@@ -575,10 +571,10 @@
                         </div>
                     </div>
 
-                </div> <!-- / .form-group -->
+                </div> <!-- / .mb-3 -->
             {/if}
             {if $calendar.custompriorities eq 'y'}
-                <div class="form-group row clearfix">
+                <div class="mb-3 row clearfix">
                     <label class="col-form-label col-sm-3">{tr}Priority{/tr}</label>
                     <div class="col-sm-2">
                         {if $edit}
@@ -595,13 +591,13 @@
                             </span>
                         {/if}
                     </div>
-                </div> <!-- / .form-group -->
+                </div> <!-- / .mb-3 -->
             {/if}
 
             <!-- Form group global categorization -->
             {include file='categorize.tpl'}
 
-            <div class="form-group row" style="display:{if $calendar.customcategories eq 'y'}block{else}none{/if};" id="calcat">
+            <div class="mb-3 row" style="display:{if $calendar.customcategories eq 'y'}block{else}none{/if};" id="calcat">
                 <label class="col-form-label col-sm-3">
                     {tr}Classification{/tr}
                 </label>
@@ -626,8 +622,8 @@
                         </span>
                     {/if}
                 </div>
-            </div> <!-- / .form-group -->
-            <div class="form-group row" style="display:{if $calendar.customlocations eq 'y'}block{else}none{/if};" id="calloc">
+            </div> <!-- / .mb-3 -->
+            <div class="mb-3 row" style="display:{if $calendar.customlocations eq 'y'}block{else}none{/if};" id="calloc">
                 <label class="col-form-label col-sm-3">{tr}Location{/tr}</label>
                 <div class="col-sm-9">
                     {if $edit}
@@ -650,9 +646,9 @@
                         </span>
                     {/if}
                 </div>
-            </div> <!-- / .form-group -->
+            </div> <!-- / .mb-3 -->
             {if $calendar.customurl ne 'n'}
-                <div class="form-group row" style="display:{if $calendar.customcategories eq 'y'}block{else}none{/if};">
+                <div class="mb-3 row" style="display:{if $calendar.customcategories eq 'y'}block{else}none{/if};">
                     <label class="col-form-label col-sm-3">{tr}URL{/tr}</label>
                     <div class="col-sm-9">
                         {if $edit}
@@ -663,9 +659,9 @@
                             </a>
                         {/if}
                     </div>
-                </div> <!-- / .form-group -->
+                </div> <!-- / .mb-3 -->
             {/if}
-            <div class="form-group row" style="display:{if $calendar.customlanguages eq 'y'}block{else}none{/if};" id="callang">
+            <div class="mb-3 row" style="display:{if $calendar.customlanguages eq 'y'}block{else}none{/if};" id="callang">
                 <label class="col-form-label col-sm-3">{tr}Language{/tr}</label>
                 <div class="col-sm-9">
                     {if $edit}
@@ -682,9 +678,9 @@
                         {$calitem.lang|langname}
                     {/if}
                 </div>
-            </div> <!-- / .form-group -->
+            </div> <!-- / .mb-3 -->
             {if !empty($groupforalert) && $showeachuser eq 'y'}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-form-label col-sm-3">{tr}Choose users to alert{/tr}</label>
                     <div class="col-sm-9">
                         {section name=idx loop=$listusertoalert}
@@ -695,9 +691,9 @@
                             {/if}
                         {/section}
                     </div>
-                </div> <!-- / .form-group -->
+                </div> <!-- / .mb-3 -->
             {/if}
-            <div class="form-group row" style="display:{if $calendar.customparticipants eq 'y'}block{else}none{/if};" id="calorg">
+            <div class="mb-3 row" style="display:{if $calendar.customparticipants eq 'y'}block{else}none{/if};" id="calorg">
                 <label class="col-form-label col-sm-3">{tr}Organized by{/tr}</label>
                 <div class="col-sm-9">
                     {if isset($calitem.organizers)}
@@ -710,8 +706,8 @@
                         {/if}
                     {/if}
                 </div>
-            </div> <!-- / .form-group -->
-            <div class="form-group row" style="display:{if $calendar.customparticipants eq 'y'}block{else}none{/if};" id="calpart">
+            </div> <!-- / .mb-3 -->
+            <div class="mb-3 row" style="display:{if $calendar.customparticipants eq 'y'}block{else}none{/if};" id="calpart">
                 <label class="col-form-label col-sm-3">{tr}Participants{/tr}</label>
                 <div class="col-sm-9">
                     {if isset($calitem.participants)}
@@ -791,7 +787,7 @@
                         {/if}
                     {/if}
                 </div>
-            </div> <!-- / .form-group -->
+            </div> <!-- / .mb-3 -->
             {if $edit}
                 {if $recurrence.id gt 0}
                     <div class="row">

@@ -276,7 +276,7 @@
                         <legend style="font-style: italic; padding-top: 20px; margin-bottom: 5px">{tr}Enter a Manual Payment{/tr}</legend>
 
                         <p>
-                            <input type="text" name="manual_amount" class="text-right">&nbsp;<span style="font-style: italic">{$payment_info.currency|escape}</span>
+                            <input type="text" name="manual_amount" class="text-end">&nbsp;<span style="font-style: italic">{$payment_info.currency|escape}</span>
                         </p>
                         <p>
                             <label for="payment-note" style="font-style: italic">{tr}Note{/tr}</label>

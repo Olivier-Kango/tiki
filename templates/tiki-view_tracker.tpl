@@ -20,10 +20,10 @@
         {/if}
     {/if}
     {include file="tracker_actions.tpl" showitems="n"}
-    <div class="btn-group float-sm-right">
+    <div class="btn-group float-sm-end">
         {if ! $js}<ul class="cssmenu_horiz"><li>{/if}
                 {if $prefs.feature_group_watches eq 'y' or $prefs.feature_user_watches eq 'y' or $prefs.feed_tracker eq 'y' or $tiki_p_admin_trackers eq 'y' or $tiki_p_export_tracker eq 'y' or $prefs.sefurl_short_url eq 'y'}
-                    <a class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" href="#" title="{tr}Tracker actions{/tr}">
+                    <a class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" data-hover="dropdown" href="#" title="{tr}Tracker actions{/tr}">
                         {icon name="menu-extra"}
                     </a>
                     <ul class="dropdown-menu dropdown-menu-right">
@@ -158,7 +158,7 @@
 
     {if $tiki_p_view_trackers eq 'y' or (($tracker_info.writerCanModify eq 'y' or $tracker_info.userCanSeeOwn eq 'y' or $tracker_info.groupCanSeeOwn eq 'y' or $tracker_info.writerGroupCanModify eq 'y') and $user)}
         {tab name="{tr}Tracker Items{/tr}"}
-            <h2>{tr}Items{/tr} <span class="badge badge-secondary" style="vertical-align: middle">{$item_count}</span></h2>
+            <h2>{tr}Items{/tr} <span class="badge bg-secondary" style="vertical-align: middle">{$item_count}</span></h2>
             {* -------------------------------------------------- tab with list --- *}
 
             {if (($tracker_info.showStatus eq 'y' and $tracker_info.showStatusAdminOnly ne 'y') or $tiki_p_admin_trackers eq 'y') or $show_filters eq 'y'}
@@ -277,7 +277,7 @@
                                                     {if $prefs.tracker_legacy_insert neq 'y'}
                                                         <action>
                                                             <a href="{bootstrap_modal controller=tracker action=update_item trackerId=$trackerId itemId=$items[user].itemId size='modal-lg'}"
-                                                                onclick="$('[data-toggle=popover]').popover('hide');"
+                                                                onclick="$('[data-bs-toggle=popover]').popover('hide');"
                                                             >
                                                                 {icon name="edit" _menu_text='y' _menu_icon='y' alt="{tr}Edit{/tr}"}
                                                             </a>
@@ -285,7 +285,7 @@
                                                     {else}
                                                         <action>
                                                             <a href="tiki-view_tracker_item.php?itemId={$items[user].itemId}&amp;show=mod"
-                                                                onclick="$('[data-toggle=popover]').popover('hide');"
+                                                                onclick="$('[data-bs-toggle=popover]').popover('hide');"
                                                             >
                                                                 {icon name="post" _menu_text='y' _menu_icon='y' alt="{tr}View/Edit{/tr}"}
                                                             </a>
@@ -294,7 +294,7 @@
                                                     {if $tiki_p_create_tracker_items eq 'y' and $prefs.tracker_clone_item eq 'y'}
                                                         <action>
                                                             <a href="{bootstrap_modal controller=tracker action=clone_item trackerId=$trackerId itemId=$items[user].itemId size='modal-lg'}"
-                                                                onclick="$('[data-toggle=popover]').popover('hide');"
+                                                                onclick="$('[data-bs-toggle=popover]').popover('hide');"
                                                             >
                                                                 {icon name="copy" _menu_text='y' _menu_icon='y' alt="{tr}Duplicate{/tr}"}
                                                             </a>
@@ -302,7 +302,7 @@
                                                     {/if}
                                                     <action>
                                                         <a href="{bootstrap_modal controller=tracker action=remove_item trackerId=$trackerId itemId=$items[user].itemId}"
-                                                            onclick="$('[data-toggle=popover]').popover('hide');"
+                                                            onclick="$('[data-bs-toggle=popover]').popover('hide');"
                                                         >
                                                             {icon name="delete" _menu_text='y' _menu_icon='y' alt="{tr}Delete{/tr}"}
                                                         </a>
@@ -313,7 +313,7 @@
                                                         </action>
                                                         <action>
                                                             <a href="tiki-tracker_view_history.php?itemId={$items[user].itemId}"
-                                                                onclick="$('[data-toggle=popover]').popover('hide');"
+                                                                onclick="$('[data-bs-toggle=popover]').popover('hide');"
                                                             >
                                                                 {icon name="history" _menu_text='y' _menu_icon='y' alt="{tr}History{/tr}"}
                                                             </a>
@@ -330,7 +330,7 @@
                     </div>
 
                     {if $tiki_p_admin_trackers eq 'y'}
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <div class="input-group min-width-customized">
                                 <option value="no_action" selected="selected">
                                     {tr}Select the action to be performed with checked{/tr}...
@@ -343,7 +343,7 @@
                                         <option value="p">{tr}Pending{/tr}</option>
                                     {/if}
                                 </select>
-                                <span class="input-group-append">
+                                <span class="input-group-text">
                                     {ticket}
                                     <input type="hidden" name="trackerId" value="{$trackerId}">
                                     <input type="submit" class="btn btn-primary" name="act" value="{tr}OK{/tr}">
@@ -377,7 +377,7 @@
                 <div>
 
                     {if $tracker_info.showStatus eq 'y' and ($tracker_info.showStatusAdminOnly ne 'y' or $tiki_p_admin_trackers eq 'y')}
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-sm-3 col-form-label">{tr}Status{/tr}</label>
                             <div class="col-sm-8">
                                 {include file='tracker_status_input.tpl' tracker=$tracker_info form_status=status}
@@ -389,7 +389,7 @@
                                 ($field_value.type ne 'A' or $tiki_p_attach_trackers eq 'y') and $field_value.type ne 'N' and $field_value.type ne '*' and
                                 !($field_value.type eq 's' and $field_value.name eq 'Rating')
                         }
-                            <div class="form-group row">
+                            <div class="mb-3 row">
                                 {if empty($field_value.options_map.labelasplaceholder)}
                                     <label class="col-sm-3 {if $field_value.type eq 'h'}h{$field_value.options_map.level}{else}col-form-label{/if}">
                                             {if $field_value.isMandatory eq 'y'}
@@ -412,7 +412,7 @@
                     {/if}
 
                     {if !isset($groupforalert) || $groupforalert ne ''}
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             {if $showeachuser eq 'y'}
 
                                 <label class="col-sm-3 col-form-label">{tr}Choose users to alert{/tr}</label>
@@ -431,9 +431,9 @@
                         </div>
                     {/if}
 
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <div class="col-sm-8 offset-sm-3">
-                            <div class="form-inline">
+                            <div class="d-flex flex-row flex-wrap align-items-center">
                                 <div class="col-sm-2"><input type="submit" class="btn btn-primary btn-sm" name="save" value="{tr}Save{/tr}" onclick="needToConfirm = false;"></div>
                                 <div class="col-sm-5"><input type="radio" name="viewitem" value="view" class="form-check-input" /> {tr}View inserted item{/tr}</div>
                                 {* --------------------------- to continue inserting items after saving --------- *}

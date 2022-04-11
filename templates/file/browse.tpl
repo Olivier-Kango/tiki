@@ -7,9 +7,9 @@
 {block name="content"}
     <div class="row file-browser">
         <div class="col-md-9">
-            <form class="form-inline no-ajax" method="get" action="{service controller=file action=$list_view plain=1}">
-                <div class="form-group row">
-                    <label class="sr-only" for="search-field">{tr}Search{/tr}</label>
+            <form class="d-flex flex-row flex-wrap align-items-center no-ajax" method="get" action="{service controller=file action=$list_view plain=1}">
+                <div class="mb-3 row">
+                    <label class="form-label sr-only" for="search-field">{tr}Search{/tr}</label>
                     <input class="form-control" name="search" type="search" id="search-field" placeholder="{tr}Search...{/tr}"/>
                     <input type="hidden" name="galleryId" value="{$galleryId|escape}"/>
                     <input type="hidden" name="type" value="{$typeFilter|escape}"/>

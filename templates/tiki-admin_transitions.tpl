@@ -7,7 +7,7 @@
 
             <fieldset>
                 <legend>{tr}Type{/tr}</legend>
-                <div class="form-group row mt-2 mb-4">
+                <div class="row mt-2 mb-4">
                     {if $prefs.feature_categories eq 'y'}
                         <div class="col-sm-3">
                             <label>
@@ -45,7 +45,7 @@
                         {/foreach}
                     {/if}
                 </ul>
-                <div class="form-row align-items-center mb-4">
+                <div class="d-flex flex-wrap mx-0 align-items-center mb-4">
                     <label class="col-auto col-form-label" for="transition-group-auto">{tr}Add Group{/tr}</label>
                     <div class="col-auto">
                         <input class="form-control" type="text" id="transition-group-auto">
@@ -172,7 +172,7 @@
                 {/if}
                 <fieldset>
                     <legend>{tr}General{/tr}</legend>
-                    <div class="form-group row mt-0">
+                    <div class="mb-3 row mt-0">
                         <label class="col-form-label" for="new-transition-name">{tr}Label{/tr}</label>
                         <input type="text" name="label" {if $selected_transition}value="{$selected_transition.name|escape}"{/if} class="form-control">
                     </div>
@@ -183,7 +183,7 @@
                         </label>
                     </div>
                 </fieldset>
-                <div class="form-group row mt-4">
+                <div class="mb-3 row mt-4">
                     <div class="col-sm-6">
                         <fieldset>
                             <legend>{tr}From{/tr}</legend>
@@ -260,7 +260,7 @@
                     <h2>{tr}New Guard{/tr}</h2>
                     <fieldset>
                         <legend>{tr}General{/tr}</legend>
-                        <div class="form-group row mt-0">
+                        <div class="mb-3 row mt-0">
                             <label class="col-form-label" for="guard-type">{tr}Type{/tr}</label>
                             <select id="guard-type" name="type" class="form-control">
                                 <option value="exactly">{tr}Exactly{/tr}</option>
@@ -268,12 +268,12 @@
                                 <option value="atMost">{tr}At Most{/tr}</option>
                             </select>
                         </div>
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label for="guard-count" class="col-form-label">{tr}Count{/tr}</label>
                             <input type="text" name="count" class="form-control">
                         </div>
                     </fieldset>
-                    <div class="form-group row mt-2">
+                    <div class="mb-3 row mt-2">
                         <div class="col-sm-6">
                             <fieldset>
                                 <legend>{tr}States{/tr}</legend>

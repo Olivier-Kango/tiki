@@ -7,7 +7,7 @@
             <form action="#" method="post" onsubmit="return verifyForm(this);" id="shout_form">
                 {if !empty($shout_error)}<div class="highlight">{$shout_error}</div>{/if}
                 <div class="text-center">
-                    <textarea rows="3" class="form-control form-group tshoutbox" id="shout_msg" name="shout_msg"></textarea>
+                    <textarea rows="3" class="form-control mb-3 tshoutbox" id="shout_msg" name="shout_msg"></textarea>
                     {if $prefs.feature_antibot eq 'y' && $user eq ''}
                         <table>{include file="antibot.tpl"}</table>
                     {/if}

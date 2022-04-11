@@ -485,7 +485,7 @@ foreach ($categories as $category) {
 
         if ($category['tplGroupContainerId'] > 0) {
             $catlink .= '
-             <sup class="tikihelp" data-ori data-original-title="' . tra('Managed by Templated Group') . '" data-content="' . tra('Child categories will automatically be generated and managed for children of the selected Templated Groups Container.') . '">
+             <sup class="tikihelp" data-ori data-bs-original-title="' . tra('Managed by Templated Group') . '" data-bs-content="' . tra('Child categories will automatically be generated and managed for children of the selected Templated Groups Container.') . '">
                                         T
                                     </sup>
             ';
@@ -493,7 +493,7 @@ foreach ($categories as $category) {
 
         if ($category['num_roles'] > 0) {
             $catlink .= '
-             <sup class="tikihelp" title="' . tra('Apply Role Permissions') . '" data-content="' . tra('Roles permissions will automatically be applied to child categories.') . '">
+             <sup class="tikihelp" title="' . tra('Apply Role Permissions') . '" data-bs-content="' . tra('Roles permissions will automatically be applied to child categories.') . '">
                                         R
                                     </sup>
             ';

@@ -77,13 +77,13 @@
 <form action="tiki-user_bookmarks.php" method="post" class="mb-4">
     <input type="hidden" name="editfolder" value="{$editfolder|escape}">
     <input type="hidden" name="parentId" value="{$parentId|escape}">
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-form-label col-sm-3">{tr}Name:{/tr}</label>
         <div class="col-sm-6">
             <input type="text" name="foldername" class="form-control" value="{$foldername|escape}">
         </div>
     </div>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <div class="col-sm-12">
             <input type="submit" class="btn btn-primary btn-sm" name="addfolder" value="{tr}Add{/tr}">
         </div>
@@ -98,19 +98,19 @@
 <form action="tiki-user_bookmarks.php" method="post" class="mb-4">
     <input type="hidden" name="editurl" value="{$editurl|escape}">
     <input type="hidden" name="parentId" value="{$parentId|escape}">
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-form-label col-sm-3">{tr}Name:{/tr}</label>
         <div class="col-sm-6">
             <input type="text" name="urlname" class="form-control" value="{$urlname|escape}">
         </div>
     </div>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-form-label col-sm-3">{tr}URL:{/tr}</label>
         <div class="col-sm-6">
             <input type="text" name="urlurl" class="form-control" value="{$urlurl|escape}">
         </div>
     </div>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <div class="col-sm-12">
             <input type="submit" class="btn btn-primary btn-sm" name="addurl" value="{tr}Add{/tr}">
         </div>

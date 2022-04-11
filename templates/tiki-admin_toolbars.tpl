@@ -2,7 +2,7 @@
 
 <div class="toolbars-admin clearfix">
     <form name="toolbars" method="post" class="pb-4" action="tiki-admin_toolbars.php" onsubmit="return saveRows()">
-        <div class="adminoptionbox form-group row">
+        <div class="adminoptionbox mb-3 row">
             <label for="section" class="col-form-label col-sm-4">
                 {tr}Section{/tr}
             </label>
@@ -14,7 +14,7 @@
                 </select>
             </div>
         </div>
-        <div class="adminoptionbox form-group row">
+        <div class="adminoptionbox mb-3 row">
             <label for="comments" class="col-form-label col-sm-4">
                 {tr}Comments{/tr}
             </label>
@@ -22,7 +22,7 @@
                 <input id="comments" name="comments" type="checkbox" onchange="$(this).form().tikiModal(tr('Loading...')).submit();" {if $comments eq 'on'}checked="checked" {/if}>
             </div>
         </div>
-        <div class="adminoptionbox form-group row">
+        <div class="adminoptionbox mb-3 row">
             <label for="view_mode" class="col-form-label col-sm-4">
                 {tr}View mode{/tr}
             </label>
@@ -54,7 +54,7 @@
                 </select>
             </div>
         </div>
-        <div class="adminoptionbox form-group row">
+        <div class="adminoptionbox mb-3 row">
             <div class="offset-sm-4 col-sm-8">
                 <input type="submit" class="btn btn-primary" name="save" value="{tr}Save{/tr}">
                 {if $loaded neq 'global' and $not_global}<input type="submit" class="btn btn-secondary" name="reset" value="{tr}Reset to Global{/tr}">{/if}
@@ -175,7 +175,7 @@
                         </fieldset>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-danger delete">Delete</button>
                         <button type="submit" class="btn btn-primary save">Save</button>
                     </div>

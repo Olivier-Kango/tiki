@@ -20,35 +20,35 @@
     <input type="hidden" name="locSection" value="contacts">
     <input type="hidden" name="contactId" value="{$contactId|escape}">
 
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-sm-3 col-form-label">{tr}First Name{/tr}</label>
         <div class="col-sm-7">
             <input type="text" maxlength="80" size="20" name="firstName" value="{$info.firstName|escape}" class="form-control">
         </div>
     </div>
 
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-sm-3 col-form-label">{tr}Last Name{/tr}</label>
         <div class="col-sm-7">
             <input type="text" maxlength="80" size="20" name="lastName" value="{$info.lastName|escape}" class="form-control">
         </div>
     </div>
 
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-sm-3 col-form-label">{tr}Email{/tr}</label>
         <div class="col-sm-7">
             <input type="text" maxlength="80" size="20" name="email" value="{$info.email|escape}" class="form-control">
         </div>
     </div>
 
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-sm-3 col-form-label">{tr}Nickname{/tr}</label>
         <div class="col-sm-7">
             <input type="text" maxlength="80" size="20" name="nickname" value="{$info.nickname|escape}" class="form-control">
         </div>
     </div>
 
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-sm-3 col-form-label">{tr}Publish this contact to groups{/tr}</label>
         <div class="col-sm-7">
             <select multiple="multiple" name="groups[]" size="6" class="form-control">
@@ -60,7 +60,7 @@
         </div>
     </div>
 
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-sm-3 col-form-label">{tr}Extra Fields{/tr}</label>
         <div class="col-sm-7">
             <select id='select_exts' onchange='ext_select();' class="form-control">
@@ -70,7 +70,7 @@
     </div>
 
     <div id="extra-fields-placeholder">
-        <div class="form-group d-none">
+        <div class="mb-3 d-none">
             <label class="offset-sm-1 col-sm-3 col-form-label"></label>
             <div class="col-sm-7">
                 <input value="" name="" size="20" maxlength="80" class="form-control">
@@ -81,7 +81,7 @@
         </div>
     </div>
 
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-sm-3 col-form-label"></label>
         <div class="col-sm-7">
             <input type="submit" class="btn btn-primary" name="save" value="{tr}Save{/tr}">
@@ -264,7 +264,7 @@
     }
 
     function ext_add(extid, text, defaultvalue, pub) {
-        var newElement = document.querySelector("#extra-fields-placeholder .form-group.d-none").cloneNode(true); //clones nodes too
+        var newElement = document.querySelector("#extra-fields-placeholder .mb-3.d-none").cloneNode(true); //clones nodes too
         newElement = createElementOrFill(newElement, { id : 'tr_ext_'+extid });
         var label = newElement.querySelector('.col-form-label').innerHTML = text;
         var input = createElementOrFill(newElement.querySelector('input'), { maxlength : 80, name : 'ext_'+extid, value : defaultvalue});

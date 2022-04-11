@@ -1,10 +1,10 @@
 {* $Id$ *}
 
 <div class="media">
-    <div class="mr-4">
-    <span class="float-left fa-stack fa-lg margin-right-18em" alt="{tr}Changes Wizard{/tr}" title="Changes Wizard">
+    <div class="me-4">
+    <span class="float-start fa-stack fa-lg margin-right-18em" alt="{tr}Changes Wizard{/tr}" title="Changes Wizard">
         <i class="fas fa-arrow-circle-up fa-stack-2x"></i>
-        <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ml-4 mt-4"></i>
+        <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ms-4 mt-4"></i>
     </span>
     </div>
     <br/><br/><br/>
@@ -52,7 +52,7 @@
         </fieldset>
         <fieldset class="mb-3 w-100 clearfix featurelist">
             <legend>{tr}Jitsi{/tr}</legend>
-            <div class="form-row">
+            <div class="d-flex flex-wrap mx-0">
                 <label for="jitsi-url">{tr}Provision URL{/tr}</label>
                 <input id="jitsi-url" readonly type="text" value="{$jitsi_url|escape}" class="form-control">
             </div>

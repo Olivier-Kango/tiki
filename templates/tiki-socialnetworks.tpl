@@ -15,7 +15,7 @@
                     {tr}To use Twitter integration, the site admin must register this site as an application at <a href="http://twitter.com/oauth_clients/" class="alert-link" target="_blank">http://twitter.com/oauth_clients/</a> and allow write access for the application.{/tr}
                 {/remarksbox}
             {else}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <div class="col-sm-12">
                     {if $twitter}
                         {button href="tiki-socialnetworks.php?remove_twitter=true" _text="{tr}Remove{/tr}"}
@@ -38,7 +38,7 @@
                     {tr}To use Facebook integration, the site admin must register this site as an application at <a href="http://developers.facebook.com/setup/" class="alert-link" target="_blank">http://developers.facebook.com/setup/</a> first.{/tr}
                 {/remarksbox}
             {else}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <div class="col-sm-12">
                     {if $facebook}
                         {button href="tiki-socialnetworks.php?remove_facebook=true" _text="{tr}Remove{/tr}"}
@@ -61,7 +61,7 @@
                     {tr}To use LinkedIn integration, the site admin must register this site as an application at <a href="https://www.linkedin.com/secure/developer" class="alert-link" target="_blank">https://www.linkedin.com/secure/developer</a> first.{/tr}
                 {/remarksbox}
             {else}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <div class="col-sm-12">
                     {if $linkedIn}
                         {button href="tiki-socialnetworks_linkedin.php?remove=true" _text="{tr}Remove{/tr}"}
@@ -79,20 +79,20 @@
                     {tr}The site admin has set up a global account which will be used for this site{/tr}.
                 {/remarksbox}
             {else}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-form-label col-sm-3">{tr}bit.ly Login{/tr}</label>
                     <div class="col-sm-7">
                         <input type="text" name="bitly_login" value="{$bitly_login}" class="form-control">
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-form-label col-sm-3">{tr}bit.ly Key{/tr}</label>
                     <div class="col-sm-7">
                         <input type="text" name="bitly_key" value="{$bitly_key}" class="form-control">
                     </div>
                 </div>
             {/if}
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <div class="col-sm-12">
                     <input type="submit" class="btn btn-primary" name="accounts" value="{tr}Save changes{/tr}">
                 </div>

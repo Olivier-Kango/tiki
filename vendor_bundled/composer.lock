@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9703b7ce1a7f94a680f836e93efebbd2",
+    "content-hash": "aa38c0384646b5b23b417a66fea91748",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -4751,17 +4751,17 @@
         },
         {
             "name": "league/mime-type-detection",
-            "version": "1.9.0",
+            "version": "1.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/mime-type-detection.git",
-                "reference": "aa70e813a6ad3d1558fc927863d47309b4c23e69"
+                "reference": "3e4a35d756eedc67096f30240a68a3149120dae7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/league/mime-type-detection/league-mime-type-detection-aa70e813a6ad3d1558fc927863d47309b4c23e69-zip-f9e74b.zip",
-                "reference": "aa70e813a6ad3d1558fc927863d47309b4c23e69",
-                "shasum": "e9ac3080d1f283479484a773da1da50429930449"
+                "url": "https://composer.tiki.org/dist/league/mime-type-detection/league-mime-type-detection-3e4a35d756eedc67096f30240a68a3149120dae7-zip-1c8f29.zip",
+                "reference": "3e4a35d756eedc67096f30240a68a3149120dae7",
+                "shasum": "279297741cacac34bd974b8696d8ecd921fff8d3"
             },
             "require": {
                 "ext-fileinfo": "*",
@@ -4789,7 +4789,7 @@
                 }
             ],
             "description": "Mime-type detection for Flysystem",
-            "time": "2021-11-21T11:48:40+00:00"
+            "time": "2022-04-11T12:49:04+00:00"
         },
         {
             "name": "league/oauth2-client",
@@ -11170,27 +11170,22 @@
         },
         {
             "name": "twbs/bootstrap",
-            "version": "v4.6.1",
+            "version": "v5.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/bootstrap.git",
-                "reference": "043a03c95a2ad6738f85b65e53b9dbdfb03b8d10"
+                "reference": "1a6fdfae6be09b09eaced8f0e442ca6f7680a61e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/twbs/bootstrap/twbs-bootstrap-043a03c95a2ad6738f85b65e53b9dbdfb03b8d10-zip-57173f.zip",
-                "reference": "043a03c95a2ad6738f85b65e53b9dbdfb03b8d10",
-                "shasum": "a4af9b2db4657c96e4f727b366b8dbd54399df35"
+                "url": "https://composer.tiki.org/dist/twbs/bootstrap/twbs-bootstrap-1a6fdfae6be09b09eaced8f0e442ca6f7680a61e-zip-a2cb1a.zip",
+                "reference": "1a6fdfae6be09b09eaced8f0e442ca6f7680a61e",
+                "shasum": "9ea0b803024e78861b807b2ba6e7ebeba994401d"
             },
             "replace": {
                 "twitter/bootstrap": "self.version"
             },
             "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.3.x-dev"
-                }
-            },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
@@ -11217,7 +11212,7 @@
                 "sass",
                 "web"
             ],
-            "time": "2021-10-28T14:45:21+00:00"
+            "time": "2021-10-09T06:43:19+00:00"
         },
         {
             "name": "undojs/undojs",
@@ -13882,5 +13877,5 @@
         "ext-soap": "0",
         "php": "7.4"
     },
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.3.0"
 }

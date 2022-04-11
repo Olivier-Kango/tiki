@@ -3,14 +3,12 @@
              d-flex align-items-start flex-column{if not empty($smarty.cookies.sidebar_collapsed)} narrow{/if}" role="navigation">
         <ul class="nav navbar-nav mb-auto" id="admin-menu">
             <li class="nav-item">
-                <form method="post" class="form-inline my-2 my-md-0 ml-auto" role="form">
-                    <div class="form-group row mx-0">
+                <form method="post" class="d-flex flex-row flex-wrap align-items-center my-2 my-md-0 ms-auto" role="form">
+                    <div class="mb-3 row mx-0">
                         <input type="hidden" name="filters">
                         <div class="input-group">
                             <input type="text" name="lm_criteria" value="{$lm_criteria|escape}" class="form-control form-control-sm" placeholder="{tr}Search preferences{/tr}...">
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-primary btn-sm"{if $indexNeedsRebuilding} class="tips" title="{tr}Configuration search{/tr}|{tr}Note: The search index needs rebuilding, this will take a few minutes.{/tr}"{/if}>{icon name="search"}</button>
-                            </div>
+                            <button type="submit" class="btn btn-primary btn-sm"{if $indexNeedsRebuilding} class="tips" title="{tr}Configuration search{/tr}|{tr}Note: The search index needs rebuilding, this will take a few minutes.{/tr}"{/if}>{icon name="search"}</button>
                         </div>
                     </div>
                 </form>
@@ -25,7 +23,7 @@
             {/if}
             {foreach $admin_icons as $section => $secInfo}
                 <li class="nav-item">
-                    <a href="#" class="tips right nav-link icon collapse-toggle" data-toggle="collapse" data-target="#collapse{$section}"
+                    <a href="#" class="tips right nav-link icon collapse-toggle" data-bs-toggle="collapse" data-bs-target="#collapse{$section}"
                             title="{$secInfo.title}|{$secInfo.description}">
                         {icon name=$secInfo.icon iclass='fa-fw'}
                         <span>{$secInfo.title}</span>

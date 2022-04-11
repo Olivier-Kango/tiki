@@ -148,24 +148,24 @@
             {/remarksbox}
         </div>
     </div>
-    <form class="form form-horizontal" action="tiki-admin_schedulers.php" method="post"
+    <form class="form" action="tiki-admin_schedulers.php" method="post"
             enctype="multipart/form-data" name="RegForm" autocomplete="off">
         {ticket}
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-sm-2 col-form-label" for="scheduler_name">{tr}Name{/tr} *</label>
             <div class="col-sm-10">
                 <input type="text" id='scheduler_name' class="form-control" name='scheduler_name'
                     value="{$schedulerinfo.name|escape}">
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-sm-2 col-form-label" for="scheduler_description">{tr}Description{/tr}</label>
             <div class="col-sm-10">
                 <input type="text" id='scheduler_description' class="form-control" name='scheduler_description'
                     value="{$schedulerinfo.description|escape}">
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-sm-2 col-form-label" for="scheduler_task">{tr}Task{/tr} *</label>
             <div class="col-sm-10">
                 <select id="scheduler_task" name="scheduler_task" class="form-control">
@@ -183,14 +183,14 @@
             {scheduler_params name=$commandName params=$schedulerinfo.params}
         {/foreach}
 
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-sm-2 col-form-label" for="scheduler_time">{tr}Run Time{/tr} *</label>
             <div class="col-sm-10">
                 <input type="text" id='scheduler_time' class="form-control" name='scheduler_time'
                     value="{$schedulerinfo.run_time|escape}">
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-sm-2 col-form-label" for="scheduler_status">{tr}Status{/tr}</label>
             <div class="col-sm-10">
                 <select id="scheduler_status" name="scheduler_status" class="form-control">
@@ -199,7 +199,7 @@
                 </select>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-sm-2 form-check-label" for="scheduler_catch">{tr}Run if missed{/tr}</label>
             <div class="col-sm-10">
                 <div class="form-check">
@@ -208,7 +208,7 @@
                 </div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-sm-2 form-check-label" for="scheduler_catch">{tr}Run only once{/tr}</label>
             <div class="col-sm-10">
                 <div class="form-check">
@@ -218,7 +218,7 @@
             </div>
         </div>
         
-        <div class="form-group row">
+        <div class="mb-3 row">
             <div class="col-sm-10 offset-sm-3">
                 {if isset($schedulerinfo.id) && $schedulerinfo.id}
                     <input type="hidden" name="scheduler" value="{$schedulerinfo.id|escape}">
@@ -258,14 +258,14 @@
                         <td>{if $schedulerruns[run].end_time ne null}{$schedulerruns[run].end_time|tiki_short_datetime}{/if}</td>
                         <td>
                             {if $schedulerruns[run].status eq 'running'}
-                                <span class="badge badge-warning">{tr}Running{/tr}</span>
+                                <span class="badge bg-warning">{tr}Running{/tr}</span>
                             {/if}
                             {if $schedulerruns[run].status eq 'failed'}
-                                <span class="badge badge-danger">{tr}Failed{/tr}</span>
+                                <span class="badge bg-danger">{tr}Failed{/tr}</span>
 
                             {/if}
                             {if $schedulerruns[run].status eq 'done'}
-                                <span class="badge badge-success">{tr}Done{/tr}</span>
+                                <span class="badge bg-success">{tr}Done{/tr}</span>
                             {/if}
                         </td>
                         <td>

@@ -1,7 +1,7 @@
 {* $Id$ *}
 
-<div class="media">
-    <div class="media-body">
+<div class="d-flex">
+    <div class="flex-grow-1 ms-3">
         <p class="wizardCongrat text-success">
             {icon name="check" size=1}{tr}Congratulations{/tr}. {tr}You are done with the Changes Wizard{/tr}.
         </P>

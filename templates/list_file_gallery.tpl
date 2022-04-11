@@ -6,7 +6,7 @@
     && $tiki_p_view_fgal_explorer eq 'y' )
     or ( !empty($gallery_path) && $fgal_options.show_path.value eq 'y' && $tiki_p_view_fgal_path eq 'y' )
 }
-    <div class="fgal_top_bar form-group row mx-0">
+    <div class="fgal_top_bar mb-3 row mx-0">
         {if ! empty($tree) && $tiki_p_list_file_galleries != 'n'
             && $fgal_options.show_explorer.value eq 'y' && $tiki_p_view_fgal_explorer eq 'y'}
             {if $prefs.javascript_enabled eq 'y'}
@@ -99,7 +99,7 @@
                         or $tiki_p_assign_perm_file_gallery eq 'y'
                     }
                         <div class="input-group col-sm-12">
-                            <select name="fgal_actions" class="form-control">
+                            <select name="fgal_actions" class="form-select">
                                 <option value="" selected="selected">
                                     {tr}Select action to perform with checked...{/tr}
                                 </option>
@@ -145,7 +145,7 @@
                                     {/if}
                                 {/if}
                             </select>
-                            <span class="input-group-append">
+                            <span class="input-group-text">
                                 <button
                                     class="btn btn-primary"
                                     form="fgalform"
@@ -163,12 +163,12 @@
                                 {tr}Move selected file or gallery{/tr}
                             </div>
                             <div class="card-body">
-                                <div class="form-group row">
+                                <div class="mb-3 row">
                                     <label for="moveto" class="col-sm-2">
                                         {tr}Move to:{/tr}
                                     </label>
                                     <div class="col-sm-8">
-                                        <select name="moveto" class="form-control">
+                                        <select name="moveto" class="form-select">
                                             {section name=ix loop=$all_galleries}
                                                 {if $all_galleries[ix].id ne $galleryId and $all_galleries[ix].perms.tiki_p_upload_files eq 'y' and
                                                         ($all_galleries[ix].public eq 'y' or $all_galleries[ix].user eq $user or $all_galleries[ix].perms.tiki_p_admin_file_galleries eq 'y')}
@@ -199,12 +199,12 @@
                             {tr}Assign file gallery permissions to groups{/tr}
                         </div>
                         <div class="card-body">
-                            <div class="form-group row">
+                            <div class="mb-3 row">
                                 <div class="col-sm-6">
                                     <span class="form-text">
                                         {tr}Permissions{/tr}
                                     </span>
-                                    <select name="perms[]" multiple="multiple" size="12" class="form-control">
+                                    <select name="perms[]" multiple="multiple" size="12" class="form-select">
                                         {foreach from=$perms item=perm}
                                             <option value="{$perm.permName|escape}">{$perm.permName|escape}</option>
                                         {/foreach}
@@ -214,7 +214,7 @@
                                     <span class="form-text">
                                         {tr}Groups{/tr}
                                     </span>
-                                    <select name="groups[]" multiple="multiple" size="12" class="form-control">
+                                    <select name="groups[]" multiple="multiple" size="12" class="form-select">
                                         {section name=grp loop=$groups}
                                             <option value="{$groups[grp].groupName|escape}" {if $groupName eq $groups[grp].groupName}selected="selected"{/if}>
                                                 {$groups[grp].groupName|escape}

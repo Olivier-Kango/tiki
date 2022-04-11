@@ -1,10 +1,10 @@
 {* $Id$ *}
 
 <div class="media">
-    <div class="mr-4">
-            <span class="float-left fa-stack fa-lg margin-right-18em" alt="{tr}Changes Wizard{/tr}" title="Changes Wizard">
+    <div class="me-4">
+            <span class="float-start fa-stack fa-lg margin-right-18em" alt="{tr}Changes Wizard{/tr}" title="Changes Wizard">
             <i class="fas fa-arrow-circle-up fa-stack-2x"></i>
-            <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ml-4 mt-4"></i>
+            <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ms-4 mt-4"></i>
             </span>
     </div>
     <br/><br/><br/>
@@ -56,7 +56,7 @@
             {preference name=ajax_edit_previews}
             {preference name=fgal_use_record_rtc_screen}
             {preference name=scheduler_delay}
-            <div class="adminoption form-group row">
+            <div class="adminoption mb-3 row">
                 <label class="col-sm-3 col-form-label"><b>{tr}Trackers{/tr}</b>:</label>
                 <div class="offset-sm-1 col-sm-11">
                     {tr}Email folders Tracker Field.{/tr}
@@ -71,7 +71,7 @@
                     <a href="https://doc.tiki.org/System-Trackers">{tr}More Information{/tr}...</a><br/><br/>
                 </div>
             </div>
-            <div class="adminoption form-group row">
+            <div class="adminoption mb-3 row">
                 <label class="col-sm-3 col-form-label"><b>{tr}Others{/tr}</b>:</label>
                 <div class="offset-sm-1 col-sm-11">
                     {tr}OpenID Connect has been added as an authentication layer on top of OAuth 2.0.{/tr}

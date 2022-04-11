@@ -15,16 +15,14 @@
             {/remarksbox}
         {/if}
 
-        <div class="form-inline row">
+        <div class="d-flex flex-row flex-wrap align-items-center row">
             <div class="input-group">
                 <input type="email" class="form-control fa" id="wpEmail" name="wpEmail" size="50" value="{$subscribeEmail|escape}" placeholder="&#xf0e0;">
-                <div class="input-group-append">
                     {if empty($subcribeMessage)}
                         <input type="submit" class="btn btn-primary" name="wpSubscribe" value="{tr}Subscribe to the newsletter:{/tr} {$subscribeInfo.name}">
                     {else}
                         <input type="submit" class="btn btn-primary" name="wpSubscribe" value="{$subcribeMessage|escape}">
                     {/if}
-                </div>
             </div>
         </div>
             

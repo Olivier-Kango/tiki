@@ -9,7 +9,7 @@
     {tab name="{tr}Options{/tr}"}
         <h2>{tr}Options{/tr}</h2>
         <form method='post' action='tiki-user_contacts_prefs.php'>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-4">{tr}Default View:{/tr}</label>
                 <div class="col-sm-8">
                     <input type='radio' name='user_contacts_default_view' value='list' {if $user_contacts_default_view eq 'list'}checked="checked"{/if}>
@@ -20,7 +20,7 @@
                     {tr}Group View{/tr}
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <input type='submit' class="btn btn-primary" name='prefs' value="{tr}Change preferences{/tr}">
             </div>
         </form>
@@ -80,13 +80,11 @@
                     {/foreach}
                 </table>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-form-label col-sm-1">{tr}Add:{/tr}</label>
                 <div class="input-group col-sm-7">
                     <input type='text' class="form-control" name='ext_add' />
-                    <div class="input-group-append">
-                        <input type='submit' class="btn btn-primary" name='add_fields' value="{tr}Add{/tr}">
-                    </div>
+                    <input type='submit' class="btn btn-primary" name='add_fields' value="{tr}Add{/tr}">
                 </div>
             </div>
         </form>

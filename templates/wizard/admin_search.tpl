@@ -1,14 +1,14 @@
 {* $Id$ *}
 
-<div class="media">
-    <div class="mr-4">
+<div class="d-flex">
+    <div class="flex-shrink-0">
         <span class="fa-stack fa-lg" style="width: 100px;" title="Configuration Wizard">
             <i class="fas fa-cog fa-stack-2x"></i>
-            <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ml-4 mt-4"></i>
+            <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ms-4 mt-4"></i>
         </span>
     </div>
-    <div class="media-body">
-        {icon name="admin_search" size=3 iclass="float-sm-right"}
+    <div class="flex-grow-1 ms-3">
+        {icon name="admin_search" size=3 iclass="float-sm-end"}
         {tr}There are two search systems in Tiki that use different search engines: <strong>Basic Search</strong> and <strong>Advanced Search</strong>{/tr}.
         {tr}The Advanced Search generally provides better results, but is more demanding on the server (it creates a search index, updated either incrementally or based on a cron job configured elsewhere){/tr}.
         <div class="row">

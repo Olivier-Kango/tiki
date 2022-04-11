@@ -59,7 +59,7 @@ a.fc-event:hover {
 // /* Fancy filter */
 .filter {
     .fancyfilter {
-        border: thin solid theme-color("primary"); /*black*/;
+        border: thin solid $primary; /*black*/;
         .token {
             background: $body-bg;
             border: 1px solid $gray-200;
@@ -77,11 +77,11 @@ a.fc-event:hover {
 
 // Comments moderation - comment.tpl, tiki-list_comments.tpl
 .post-approved-n {
-    border-left: 3px dotted theme-color("success"); // blue
+    border-left: 3px dotted $success; // blue
 }
 
 .post-approved-r {
-    border-left: 3px double theme-color("warning"); // red
+    border-left: 3px double $warning; // red
 }
 
 .post-approved-r .content * {
@@ -236,11 +236,11 @@ a.fc-event:hover {
 }
 
 table.treetable.objectperms td.added {
-    background-color: theme-color("success"); // #dfd
+    background-color: $success; // #dfd
 }
 
 table.treetable.objectperms td.removed {
-    background-color: theme-color("warning"); // #fdd
+    background-color: $warning; // #fdd
 }
 
 // tiki-js.js, browse_file_gallery.tpl
@@ -250,17 +250,17 @@ table.treetable.objectperms td.removed {
 
 // jquery-tiki/files.js
 .progressBarInProgress {
-    background-color: theme-color("info");
+    background-color: $info;
     color: $white;
 }
 
 .progressBarComplete {
-    background-color: theme-color("success");
+    background-color: $success;
     color: $white;
 }
 
 .progressBarError {
-    background-color: theme-color("warning");
+    background-color: $warning;
     color: $white;
 }
 
@@ -311,13 +311,13 @@ table.treetable.objectperms td.removed {
 .highlight,
 .btn-primary.highlight a,
 .btn-primary a.highlight {
-    background: theme-color("danger");
+    background: $danger;
     color: $white;
-    border-color: darken(theme-color("danger"), 10%);
+    border-color: darken($danger, 10%);
 }
 
 .btn-primary.highlight:hover {
-    background: darken(theme-color("danger"), 15%);
+    background: darken($danger, 15%);
 }
 
 .btn.active {
@@ -342,7 +342,7 @@ table.treetable.objectperms td.removed {
 }
 
 .btn-primary:focus {
-    color: color-yiq(theme-color("primary"));
+    color: color-yiq($primary);
 }
 
 // Ajax, jquery. etc.
@@ -359,14 +359,14 @@ table.treetable.objectperms td.removed {
 // cookie consent style
 //#cookie_consent_div {
 //    padding: $alert-padding-x $alert-padding-y;
-//    border: 1px solid darken(theme-color("info"), 10%);
+//    border: 1px solid darken($info, 10%);
 //    color: $white;
-//    background-color: theme-color("info");
+//    background-color: $info;
 //}
 
 //#cookie_consent_div.banner {
 //    padding: $alert-padding-x $alert-padding-y;
-//    border: 1px solid theme-color("info");
+//    border: 1px solid $info;
 //}
 
 #cookie_consent_div .description a {
@@ -386,7 +386,7 @@ body.fullscreen {
 }
 
 .attention {
-    color: theme-color("danger");
+    color: $danger;
 }
 
 #debugconsole {
@@ -441,11 +441,11 @@ input:-webkit-autofill {
 // tiki-modal_and_managestream.less
 form.simple label.error {
     background: url('#{$imagePathToImgDir}icons/error.png') no-repeat 0 4px;
-    color: theme-color("danger");
+    color: $danger;
 }
 
 form.simple label .warning {
-    color: theme-color("danger");
+    color: $danger;
 }
 
 .tiki-modal .mask {
@@ -478,15 +478,15 @@ form.simple label .warning {
 }
 
 .box-switch_lang .box-data img.highlight {
-    border: .1em solid theme-color("danger");
+    border: .1em solid $danger;
 }
 
 .box-switch_lang .box-data .highlight {
-    border: .1em solid theme-color("danger");
+    border: .1em solid $danger;
 }
 
 .box-switch_lang .flags .highlight {
-    border: solid 1px theme-color("info");
+    border: solid 1px $info;
 }
 
 div.cvsup {
@@ -551,39 +551,39 @@ div.cvsup {
 }
 
 .prio4 {
-//    background: theme-color("success");
-    color: theme-color("success");
-//    border: theme-color("success");
+//    background: $success;
+    color: $success;
+//    border: $success;
     a {
-        color: theme-color("success");
+        color: $success;
     }
 }
 
 .prio3 {
-//    background: theme-color("info");
-    color: theme-color("info");
-//    border: 1px solid theme-color("info");
+//    background: $info;
+    color: $info;
+//    border: 1px solid $info;
     a {
-        color: theme-color("info");
+        color: $info;
     }
 }
 
 .prio2 {
-//    background: theme-color("warning");
-    color: theme-color("warning");
-//    border: theme-color("warning");
+//    background: $warning;
+    color: $warning;
+//    border: $warning;
     a {
-        color: theme-color("warning");
+        color: $warning;
     }
 
 }
 
 .prio1 {
-//    background: theme-color("danger");
-    color: theme-color("danger");
-//    border: theme-color("danger");
+//    background: $danger;
+    color: $danger;
+//    border: $danger;
     a {
-        color: theme-color("danger");
+        color: $danger;
     }
 }
 
@@ -682,7 +682,7 @@ div.cvsup {
 }
 
 .toolbars-picker a:hover {
-    border: 1px solid theme-color("danger");
+    border: 1px solid $danger;
     background: $gray-300;
     color: $body-color;
 }
@@ -720,7 +720,7 @@ li.toolbar:active {
 // tiki-translation.less
 #intertrans-indicator {
     background-color: $intertrans_background;
-    color: theme-color("success");
+    color: $success;
 }
 
 #intertrans-form {
@@ -730,11 +730,11 @@ li.toolbar:active {
 }
 
 #edit_translations tr.last {
-    border-bottom: 2px solid theme-color("success");
+    border-bottom: 2px solid $success;
 }
 
 ul.all_languages > li {
-    border: 1px solid theme-color("success");
+    border: 1px solid $success;
 }
 
 // /* mouseover plugin */
@@ -745,12 +745,12 @@ ul.all_languages > li {
 
 // /* wikiplugin_tracker */
 .mandatory_note {
-    color: theme-color("danger");
+    color: $danger;
 }
 
 // /* page contribution by author / wikiplugin_author */
 .author0 {
-    color: theme-color("success");
+    color: $success;
 }
 
 .author1 {
@@ -758,43 +758,43 @@ ul.all_languages > li {
 }
 
 .author2 {
-    color: theme-color("info");
+    color: $info;
 }
 
 .author3 {
-    color: theme-color("danger");
+    color: $danger;
 }
 
 .author4 {
-    color: adjust-hue(theme-color("success"), 50);
+    color: adjust-hue($success, 50);
 }
 
 .author5 {
-    color: adjust-hue(theme-color("info"), 70);
+    color: adjust-hue($info, 70);
 }
 
 .author6 {
-    color: adjust-hue(theme-color("warning"), 50);
+    color: adjust-hue($warning, 50);
 }
 
 .author7 {
-    color: adjust-hue(theme-color("danger"), 50);
+    color: adjust-hue($danger, 50);
 }
 
 .author8 {
-    color: adjust-hue(theme-color("success"), 100);
+    color: adjust-hue($success, 100);
 }
 
 .author9 {
-    color: adjust-hue(theme-color("info"), 100);
+    color: adjust-hue($info, 100);
 }
 
 .author10 {
-    color: adjust-hue(theme-color("warning"), 100);
+    color: adjust-hue($warning, 100);
 }
 
 .author11 {
-    color: adjust-hue(theme-color("danger"), 100);
+    color: adjust-hue($danger, 100);
 }
 
 .author12 {
@@ -802,15 +802,15 @@ ul.all_languages > li {
 }
 
 .author13 {
-    color: adjust-hue(theme-color("info"), 140);
+    color: adjust-hue($info, 140);
 }
 
 .author14 {
-    color: adjust-hue(theme-color("warning"), 160);
+    color: adjust-hue($warning, 160);
 }
 
 .author15 {
-    color: adjust-hue(theme-color("danger"), 160);
+    color: adjust-hue($danger, 160);
 }
 
 .structuremenu .menuSection {
@@ -836,7 +836,7 @@ ul.all_languages > li {
 
 .unsavedChangesInEditor {
     border: 1px solid;
-    border-color: theme-color("warning");
+    border-color: $warning;
 }
 
 // /* Auto TOC */
@@ -891,12 +891,12 @@ body.wikitext {
 }
 
 .editable-inline.modified {
-    border: solid 2px theme-color("danger");
+    border: solid 2px $danger;
     padding: 2px;
 }
 
 .editable-inline.unsaved {
-    border: solid 2px theme-color("danger");
+    border: solid 2px $danger;
 }
 
 .structure_select .cssmenu_horiz ul li {
@@ -948,7 +948,7 @@ body.wikitext {
 
 // /* wikiplugin tracker */
 .mandatory_star {
-    color: theme-color("danger");
+    color: $danger;
     font-size: 120%;
 }
 
@@ -981,7 +981,7 @@ body.wikitext {
 //}
 
 .wp-cookie-consent-required {
-    color: theme-color("danger");
+    color: $danger;
 }
 
 .wp-sign {
@@ -1013,27 +1013,27 @@ body.wikitext {
 }
 
 .diffadded {
-    background: theme-color("success");
-    color: lighten(theme-color("success"),50%);
+    background: $success;
+    color: lighten($success,50%);
 }
 
 .diffdeleted {
-    background: theme-color("danger");
-    color: lighten(theme-color("danger"),50%);
+    background: $danger;
+    color: lighten($danger,50%);
 }
 
 .diffadded a,
 .diffadded a:hover {
-    color: lighten(theme-color("success"),100%);
+    color: lighten($success,100%);
 }
 
 .diffdeleted a,
 .diffdeleted a:hover {
-    color: lighten(theme-color("danger"),100%);
+    color: lighten($danger,100%);
 }
 
 .diffinldel {
-    background: theme-color("warning");
+    background: $warning;
 }
 
 .diffbody {
@@ -1042,18 +1042,18 @@ body.wikitext {
 }
 
 .diffchar {
-    color: lighten(theme-color("danger"), 50%);
+    color: lighten($danger, 50%);
 }
 
 .diffadded .diffchar {
-    color: lighten(theme-color("success"), 50%);
+    color: lighten($success, 50%);
 }
 
 //.searchresults blockquote em.hlt1,
 //.searchresults blockquote em.hlt6,
 //.highlight_word_0 {
-//    color: theme-color("success");
-//    background: theme-color("success");
+//    color: $success;
+//    background: $success;
 //}
 
 //.searchresults blockquote em.hlt2,
@@ -1067,21 +1067,21 @@ body.wikitext {
 //.searchresults blockquote em.hlt8,
 //.highlight_word_2 {
 //    color: $panel-warning-text;
-//    background: theme-color("warning");
+//    background: $warning;
 //}
 
 //.searchresults blockquote em.hlt4,
 //.searchresults blockquote em.hlt9,
 //.highlight_word_3 {
 //    color: $panel-danger-text;
-//    background: theme-color("danger");
+//    background: $danger;
 //}
 
 //.searchresults blockquote em.hlt5,
 //.searchresults blockquote em.hlt10,
 //.highlight_word_4 {
 //    color: adjust-hue($panel-danger-text, 20);
-//    background: adjust-hue(theme-color("danger"), 20);
+//    background: adjust-hue($danger, 20);
 //}
 
 /* Structures drill-down menu */
@@ -1411,7 +1411,7 @@ blockquote {
 }
 
 .to-translate{
-    color : theme-color("danger");
+    color : $danger;
 }
 
 // Smartmenus megamenu

@@ -8,7 +8,7 @@
     <form method="post" action="{service controller=ml action=model_args}">
         <input type="hidden" name="class" value="{$class|escape}">
         {foreach $args as $arg}
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-form-label col-sm-4">{$arg.name|escape} ({$arg.arg_type})</label>
             <div class="col-sm-8">
                 {if $arg.input_type eq 'text'}
@@ -36,14 +36,14 @@
                         {assign var="classes" value=[]}
                     {/if}
                     {if $classes.path}
-                        <select class="form-control ml-class" name="args[{$arg.name|escape}][class]" data-path="{$arg.name|escape}" data-href="{service controller=ml action=model_args}" {if $arg.required}required{/if}>
+                        <select class="form-select ml-class" name="args[{$arg.name|escape}][class]" data-path="{$arg.name|escape}" data-href="{service controller=ml action=model_args}" {if $arg.required}required{/if}>
                             <option value=''>Default</option>
                             {foreach $classes.classes as $tokenizer}
                                 <option value="{$classes.path}\{$tokenizer|escape}">{$tokenizer|escape}</option>
                             {/foreach}
                         </select>
                     {elseif $classes}
-                        <select class="form-control ml-class" name="args[{$arg.name|escape}][class]" data-path="{$arg.name|escape}" data-href="{service controller=ml action=model_args}" {if $arg.required}required{/if}>
+                        <select class="form-select ml-class" name="args[{$arg.name|escape}][class]" data-path="{$arg.name|escape}" data-href="{service controller=ml action=model_args}" {if $arg.required}required{/if}>
                             <option value=''>Default</option>
                             {foreach $classes as $label => $group}
                                 <optgroup label="{$label|escape}">
@@ -59,7 +59,7 @@
                     <textarea name="args[{$arg.name|escape}][args]" class="d-none">{$arg.args}</textarea>
                 {elseif $arg.input_type eq 'layers'}
                     <div class="ml-layers">
-                        <select class="form-control ml-class" name="args[{$arg.name|escape}][classes][]" data-path="{$arg.name|escape}" data-href="{service controller=ml action=model_args}" {if $arg.required}required{/if}>
+                        <select class="form-select ml-class" name="args[{$arg.name|escape}][classes][]" data-path="{$arg.name|escape}" data-href="{service controller=ml action=model_args}" {if $arg.required}required{/if}>
                             <option value=''>Skip</option>
                             {foreach $neuralnet_layers.classes as $layer}
                                 <option value="{$neuralnet_layers.path}\{$layer|escape}">{$layer|escape}</option>
@@ -76,7 +76,7 @@
         {foreachelse}
         <p>No arguments available.</p>
         {/foreach}
-        <div class="form-group submit">
+        <div class="mb-3 submit">
             <div class="col-sm-9 offset-sm-3">
                 <input type="submit" class="btn btn-primary" value="{tr}Submit{/tr}">
             </div>
