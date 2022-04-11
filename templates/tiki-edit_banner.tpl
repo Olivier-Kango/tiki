@@ -193,49 +193,6 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-sm-4 col-form-label"><label><input type="radio" name="use" value="useFlash" {if $use eq 'useFlash'}checked="checked"{/if}> {tr}Use Flash{/tr}</label></label>
-                {if $use eq 'useFlash'}
-                    <div class="col-sm-7">
-                        {banner id="$bannerId"}
-                    </div>
-                {/if}
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-4 col-form-label">{tr}Movie URL{/tr}</label>
-                <div class="col-sm-7 mb-3">
-                    <input type="text" name="movieUrl" value="{$movie.movie|escape}" class="form-control">
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-4 col-form-label">{tr}Movie Size{/tr}</label>
-                <div class="col-sm-3">
-                    <input type="text" name="movieWidth" value="{$movie.width|escape}" class="form-control" placeholder="{tr}width in pixels{/tr}">
-                    <div class="form-text">
-                        {tr}Pixels{/tr}
-                    </div>
-                </div>
-                <div class="col-sm-3 offset-sm-1">
-                    <input type="text" name="movieHeight" value="{$movie.height|escape}" class="form-control" placeholder="{tr}height in pixels{/tr}">
-                    <div class="form-text">
-                        {tr}Pixels{/tr}
-                    </div>
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-4 col-form-label">{tr}FlashPlugin min version{/tr}</label>
-                <div class="col-sm-7 mb-3">
-                    <input type="text" name="movieVersion" value="{$movie.version|escape}" class="form-control">
-                    <div class="form-text">
-                        ({tr}ex:{/tr}9.0.0)
-                    </div>
-                </div>
-                <div class="col-sm-7 offset-sm-4">
-                    <div class="form-text">
-                        {tr}Note: To be managed with Tiki, your Flash banner link should be:{/tr} <a class="link" href="banner_click.php?id={$bannerId}">banner_click.php?id={$bannerId}</a>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group row">
                 <label class="col-sm-4 col-form-label"><label><input type="radio" name="use" value="useText" {if $use eq 'useText'}checked="checked"{/if}> {tr}Use Text{/tr}</label></label>
                 <div class="col-sm-7">
                     <textarea class="form-control" rows="5" name="textData">{$textData|escape}</textarea>
