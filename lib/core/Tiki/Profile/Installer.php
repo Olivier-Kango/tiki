@@ -118,6 +118,7 @@ class Tiki_Profile_Installer
         'tracker_field' => 'Tiki_Profile_InstallHandler_TrackerField',
         'tracker_item' => 'Tiki_Profile_InstallHandler_TrackerItem',
         'tracker_option' => 'Tiki_Profile_InstallHandler_TrackerOption',
+        'tabular' => 'Tiki_Profile_InstallHandler_Tabular',
         'wiki_page' => 'Tiki_Profile_InstallHandler_WikiPage',
         'category' => 'Tiki_Profile_InstallHandler_Category',
         'categorize' => 'Tiki_Profile_InstallHandler_Categorize',

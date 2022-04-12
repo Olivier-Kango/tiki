@@ -236,6 +236,7 @@ class ConsoleApplicationBuilder
                 new ProfileExport\RatingConfigSet(),
                 new ProfileExport\RecentChanges(),
                 new ProfileExport\Rss(),
+                new ProfileExport\Tabular(),
                 new ProfileExport\Tracker(),
                 new ProfileExport\TrackerField(),
                 new ProfileExport\TrackerItem(),
