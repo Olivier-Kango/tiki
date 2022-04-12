@@ -8,7 +8,7 @@
         {include file="admin/admin_navbar.tpl"}
         {if $prefs.sender_email eq ''}
             {remarksbox type=warning title="{tr}Warning{/tr}" close="y"}
-                {tr _0="tiki-admin.php?page=general&highlight=sender_email"}Your sender email is not set. You can set it <a href="%0" class="alert-link">in the general admin panel.</a>{/tr}
+                {tr _0='<a href="tiki-admin.php?page=general&highlight=sender_email" class="alert-link">' _1="</a>"}Your sender email is not set. You can set it %0in the general admin panel%1.{/tr}
             {/remarksbox}
         {/if}
         <div class="page-header">
@@ -26,7 +26,7 @@
             *}
             {if $db_requires_update}
                 {remarksbox type="error" title="{tr}Database Version Problem{/tr}"}
-                    {tr}Your database requires an update to match the current Tiki version. Please proceed to <a class="alert-link" href="tiki-install.php">the installer</a>. Using Tiki with an incorrect database version usually provokes errors.{/tr}
+                    {tr _0='<a class="alert-link" href="tiki-install.php">' _1="</a>"}Your database requires an update to match the current Tiki version. Please proceed to %0the installer%1. Using Tiki with an incorrect database version usually provokes errors{/tr}
                     {tr}If you have shell (SSH) access, you can also use the following, on the command line, from the root of your Tiki installation:{/tr}
                     <kbd>php console.php{if not empty($tikidomain)} --site={$tikidomain|replace:'/':''}{/if} database:update</kbd>
                 {/remarksbox}

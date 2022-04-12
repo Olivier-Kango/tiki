@@ -24,7 +24,7 @@
                 {preference name=site_title_location}
                 {preference name=site_title_breadcrumb}
                 {remarksbox type="info" title="{tr}Themes{/tr}"}
-                    {tr}Go to the <a href="tiki-admin.php?page=look" class="alert-link">Look & Feel</a> section for additional site customization preferences{/tr}.
+                    {tr _0='<a href="tiki-admin.php?page=look" class="alert-link">' _1='</a>'}Go to the %0Look & Feel%1 section for additional site customization preferences{/tr}.
                 {/remarksbox}
             </fieldset>
             <fieldset>

@@ -7,7 +7,7 @@
         <div class="alert alert-light lead p-3 mb-3">
             <p class="text-success">
             {icon name="check" size=1} {tr _0=$tiki_version}Congratulations! You now have a working instance of Tiki %0.{/tr}
-            {tr}You may <a href="tiki-index.php">start using it right away</a>, or you may configure it to better meet your needs, using one of the configuration helpers below.{/tr}
+            {tr _0='<a href="tiki-index.php">' _1="</a>"}You may %0start using it right away%1, or you may configure it to better meet your needs, using one of the configuration helpers below.{/tr}
             </p>
         </div>
 
@@ -29,8 +29,9 @@
             </span>
             <div class="flex-grow-1 ms-3">
                 <legend>{tr}Configuration Profiles Wizard{/tr}</legend>
-                <p>{tr}You may start by applying some of our configuration templates through the <b>Configuration Profiles Wizard</b>.{/tr}
-                    {tr}They are like the <b>Macros</b> from many computer languages.{/tr}
+                <p>
+                    {tr _0="<b>" _1="</b>"}You may start by applying some of our configuration templates through the %0Configuration Profiles Wizard%1.{/tr}
+                    {tr _0="<b>Macros</b>"}They are like the %0 from many computer languages.{/tr}
                     {tr}It is best to apply them from the start and you can always preview and reverse the process.{/tr}
                     <a href="http://doc.tiki.org/Profiles+Wizard" target="tikihelp" class="tikihelp text-warning" title="{tr}Configuration Profiles{/tr}:
                         <p>{tr}Each of these provides a shrink-wrapped solution that meets most of the needs of a particular kind of community or site (Personal Blog space, Company Intranet, ...) or that extends basic setup with extra features configured for you.{/tr}</p>
@@ -52,7 +53,7 @@
             <div class="flex-grow ms-3">
                 <legend>{tr}Configuration Wizard{/tr}</legend>
                 <p>
-                    {tr}Alternatively, you may use the <b>Configuration Wizard</b>.{/tr}
+                    {tr _0="<b>" _1="</b>"}Alternatively, you may use the %0Configuration Wizard%1.{/tr}
                     {tr}This will guide you through the most common preference settings in order to customize your site.{/tr}
                     {tr}You will easily be able to configure options like: languages, date and time, user login, theme, website title and logo, etc.{/tr}
                     <a href="http://doc.tiki.org/Admin-Wizard" target="tikihelp" class="tikihelp text-info" title="{tr}Configuration Wizard{/tr}:
@@ -72,7 +73,7 @@
             <div class="flex-grow-1 ms-3">
                 <legend>{tr}Changes Wizard{/tr}</legend>
                 <p>
-                    {tr}Or you may use the <b>Changes Wizard</b>{/tr}.
+                    {tr _0="<b>" _1="</b>"}Or you may use the %0Changes Wizard%1{/tr}.
                     {tr}This will guide you through the most common new settings and informations in order to upgrade your site.{/tr}
                     <a href="http://doc.tiki.org/Upgrade+Wizard" target="tikihelp" class="tikihelp text-success" title="{tr}Changes Wizard{/tr}:
                         {tr}Use this wizard if you are upgrading from previous versions of Tiki, specially if you come from the previous Long-Term Support (LTS) version.{/tr}</p>
@@ -96,7 +97,7 @@
             <div class="flex-grow-1 ms-3">
                 <legend>{tr}Control Panels{/tr}</legend>
                 <p>
-                    {tr}Use the <b>Control Panels</b> to manually browse through the full list of preferences{/tr}.
+                    {tr _0="<b>" _1="</b>"}Use the %0Control Panels%1 to manually browse through the full list of preferences{/tr}.
                     {tr}From the main administration page you'll be able to configure your Tiki, to enable features not set on by default and to change settings{/tr}.
                     {tr}To Avoid Getting Overwhelmed by the impressive number of settings as a Startup Tiki Admin we set a preferences filters for Basic and Advanced features to start with.{/tr}
                     <a href="https://doc.tiki.org/Admin-Home" target="tikihelp" class="tikihelp text-primary" title="{tr}Control Panels{/tr}: {tr}Explore the control panels and configure your Tiki manually.{/tr}" >{icon name="help"}</a>

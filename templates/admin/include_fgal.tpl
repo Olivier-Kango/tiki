@@ -176,7 +176,7 @@
             <br>
             <span class="form-text">{tr}Configuration for gallery listings{/tr}</span>
             {remarksbox title="Note"}
-                {tr}Changing these settings will <em>not</em> affect existing file galleries. These changes will apply <em>only</em> to new file galleries{/tr}.
+                {tr _0='<em>' _1='</em>'}Changing these settings %0will not affect%1 existing file galleries. These changes %0will apply only%1 to new file galleries.{/tr}
             {/remarksbox}
 
             {preference name=fgal_default_view}
@@ -273,7 +273,7 @@
                                     {tr}Use <strong>%1</strong> as the internal file name. For example, use <strong>strings %1</strong> to convert the document to text, using the Unix <strong>strings</strong> command{/tr}.
                                 </li>
                                 <li>
-                                    {tr}To delete a handler, leave the <strong>System Command</strong> field blank{/tr}.
+                                    {tr _0="<strong>" _1="</strong>"}To delete a handler, leave the %0System Command%1 field blank{/tr}.
                                 </li>
                             </ul>
                         </div>

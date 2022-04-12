@@ -12,7 +12,7 @@
 </div>
 
 {remarksbox type="tip" title="{tr}Tip{/tr}"}
-    {tr}Please see the <a class='alert-link' target='tikihelp' href='http://dev.tiki.org/Security'>Security page</a> on Tiki's developer site.{/tr}
+    {tr _0="<a class='alert-link' target='tikihelp' href='http://dev.tiki.org/Security'>" _1="</a>"}Please see the %0Security page%1 on Tiki's developer site.{/tr}
     {tr}See <a class="alert-link" href="tiki-admin_security.php" title="Security"><strong>Security Admin</strong></a> for additional security settings{/tr}.
 {/remarksbox}
 
@@ -95,8 +95,7 @@
                         {tr}Requires the OpenSSL PHP extension for encryption.{/tr} {tr}You have OpenSSL installed.{/tr}<br>
                     {else}
                         {remarksbox type="warning" title="{tr}Sodium is not loaded{/tr}"}
-                        {tr}User Encryption requires the PHP extension Sodium for encryption.
-                            You should activate Sodium before activating User Encryption{/tr}.
+                        {tr}User Encryption requires the PHP extension Sodium for encryption.{/tr}<br>{tr}You should activate Sodium before activating User Encryption{/tr}.
                         {/remarksbox}
                     {/if}
                     {tr}You may also want to add the Domain Password module somewhere.{/tr}<br>
@@ -164,7 +163,7 @@
 
         {tab name="{tr}Spam Protection{/tr}"}
             {remarksbox type="tip" title="{tr}Tip{/tr}"}
-                {tr}You can additionally protect from spam enabling the "<a href="http://doc.tiki.org/Forum+Admin#Forum_moderation" target="_blank" class="alert-link">moderation queue on forums</a>", or through <strong>banning</strong> multiple ip's from the "<a href="tiki-admin_actionlog.php" target="_blank" class="alert-link">Action log</a>", from "<a href="tiki-adminusers.php" target="_blank" class="alert-link">Users registration</a>", or from the "<a href="tiki-list_comments.php" target="_blank" class="alert-link">Comments moderation queue</a>" itself{/tr}.
+                {tr _0='<a href="http://doc.tiki.org/Forum+Admin#Forum_moderation" target="_blank" class="alert-link">' _1="</a>" _2="<strong>" _3="</strong>" _4='<a href="tiki-admin_actionlog.php" target="_blank" class="alert-link">' _5="</a>" _6='<a href="tiki-adminusers.php" target="_blank" class="alert-link">' _7="</a>" _8='<a href="tiki-list_comments.php" target="_blank" class="alert-link">' _9="</a>"}You can additionally protect from spam enabling the '%0moderation queue on forums%1', or through %2banning%3 multiple ip's from the '%4Action log%5', from '%6Users registration{/tr}%7', or from the '%8Comments moderation queue%9' itself{/tr}.
             {/remarksbox}
             <fieldset>
                 <legend>{tr}CAPTCHA{/tr}</legend>
@@ -249,7 +248,7 @@
 
         {tab name="{tr}Tokens{/tr}"}
             {remarksbox type="tip" title="{tr}Tip{/tr}"}
-                {tr}To manage tokens go to <a href="tiki-admin_tokens.php" class="alert-link">Admin Tokens</a> page. Tokens are also used for the Temporary Users feature (see <a href="tiki-adminusers.php" class="alert-link">Admin Users</a>).{/tr}
+                {tr _0='<a href="tiki-admin_tokens.php" class="alert-link">' _1="</a>" _2='<a href="tiki-adminusers.php" class="alert-link">' _3='</a>'}To manage tokens go to %0Admin Tokens%1 page. Tokens are also used for the Temporary Users feature (see %2Admin Users%3).{/tr}
             {/remarksbox}
             {preference name=auth_token_access}
             {preference name=auth_token_access_maxtimeout}
@@ -279,7 +278,7 @@
                         <br><em>{tr}If you use file for the signer passphrase, clear the preferences option just for security{/tr}</em>
                     </div>
                     {remarksbox type="tip" title="{tr}Note{/tr}"}
-                        {tr}The email of preference <a href="tiki-admin.php?page=general&alt=General" class="alert-link">'sender_email'</a> is used as signer key ID, and it must have both private and public key in the gnupg keyring.{/tr}
+                        {tr _0='<a href="tiki-admin.php?page=general&alt=General" class="alert-link">' _1="</a>"}The email of preference %0'sender_email'%1 is used as signer key ID, and it must have both private and public key in the gnupg keyring.{/tr}
                     {/remarksbox}
                 </div>
             </fieldset>

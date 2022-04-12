@@ -4,7 +4,7 @@
     {remarksbox type="warning" title="{tr}Composer not found{/tr}"}
     {tr}Composer could not be executed, so the automated check on the packages cannot be performed.{/tr}
     <br/>
-    {tr}In <a href="javascript:void(0)" class="install-composer alert-link">Diagnose</a> tab you can install composer.{/tr}
+    {tr _0='<a href="javascript:void(0)" class="install-composer alert-link">{tr}Diagnose{/tr}</a>' _1='</a>'}In %0Diagnose%1 tab you can install composer.{/tr}
     {/remarksbox}
 {/if}
 
@@ -190,13 +190,13 @@
                         {/if}
                             <h4>{tr}Install packages manually{/tr}</h4>
                         {if ! $composer_available}
-                            <p><strong>{tr}Make sure <code>composer</code> is installed.{/tr}</strong></p>
+                            <p><strong>{tr _0="<code>composer</code>"}Make sure %0 is installed.{/tr}</strong></p>
                             <p>
                                 {tr}Composer can be installed manually, in the host machine, by following the instructions from the{/tr}
                                 <a href="https://doc.tiki.org/Composer">Composer</a> {tr}website.{/tr}
                             </p>
                             <p>
-                                {tr}The script <code>setup.sh</code> that is included in the Tiki distribution can be run to make sure composer is installed and the file permissions are correctly applied. In this case, composer will be installed as <code>temp/composer.phar</code>.{/tr}
+                                {tr _0="<code>setup.sh</code>" _1="<code>temp/composer.phar</code>"}The script %0 that is included in the Tiki distribution can be run to make sure composer is installed and the file permissions are correctly applied. In this case, composer will be installed as %1.{/tr}
                                 {tr}Below is an example of how to do this in a Linux-like operating system:{/tr}<br>
                                 <code>bash ./setup.sh composer</code>
                             </p>
@@ -256,20 +256,20 @@
 
                         <h4>{tr}Install packages manually{/tr}</h4>
                         {if ! $composer_available}
-                            <p><strong>{tr}Make sure <code>composer</code> is installed.{/tr}</strong></p>
+                            <p><strong>{tr _0="<code>composer</code>"}Make sure %0 is installed.{/tr}</strong></p>
                             <p>
                                 {tr}Composer can be installed manually, in the host machine, by following the instructions from the{/tr}
                                 <a href="https://doc.tiki.org/Composer">Composer</a> {tr}website.{/tr}
                             </p>
                             <p>
-                                {tr}The script <code>setup.sh</code> that is included in the Tiki distribution can be run to make sure composer is installed and the file permissions are correctly applied. In this case, composer will be installed as <code>temp/composer.phar</code>.{/tr}
+                                {tr _0="<code>setup.sh</code>" _1="<code>temp/composer.phar</code>"}The script %0 that is included in the Tiki distribution can be run to make sure composer is installed and the file permissions are correctly applied. In this case, composer will be installed as %1.{/tr}
                                 {tr}Below is an example of how to do this in a Linux-like operating system:{/tr}<br>
                                 <code>bash ./setup.sh composer</code>
                             </p>
                         {/if}
-                        <p><strong>{tr}Make sure there is a <code>composer.json</code> file in the root of the website.{/tr}</strong></p>
+                        <p><strong>{tr _0="<code>composer.json</code>"}Make sure there is a %0 file in the root of the website.{/tr}</strong></p>
                         <p>
-                            {tr}If there is not already a <code>composer.json</code> file, then create one.{/tr}
+                            {tr _0="<code>composer.json</code>"}If there is not already a %0 file, then create one.{/tr}
                             {tr}The sample <code>composer.json.dist</code> that comes with Tiki can be used as a starting point.{/tr}
                             {tr}Below is an example of how to do this in a Linux-like operating system:{/tr} <br>
                             <code>cp composer.json.dist composer.json</code>

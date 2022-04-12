@@ -59,11 +59,11 @@
                 {remarksbox type="info" title="{tr}New Feature{/tr}" icon="bricks"}
                     <p><em>{tr}Please note: Experimental - work in progress{/tr}</em></p>
                     <p>{tr}Tiki Connect is a way to let the Tiki project know how it is being used, and which parts people like or would like fixing (or explaining).{/tr}<br>
-                        {tr}Once enabled, when you click the '<strong>Send Info</strong>' button below you will be connected with <em>mother.tiki.org</em>, which is where the data will be collected.{/tr}
+                        {tr _0="<strong>" _1="</strong>" _2="<em>mother.tiki.org</em>"}Once enabled, when you click the '%0Send Info%1' button below you will be connected with %2, which is where the data will be collected.{/tr}
                     </p>
-                    <p>{tr}You can also send feedback about Tiki by checking the 'Feedback' checkbox(once Tiki Connect is enabled, next to the 'Preference Filters' bar above).{/tr}
-                        {tr}Icons will appear next to all the preferences where you can 'like', request a 'fix' or ask 'what is this for?'{/tr}<br>
-                        {tr}Your votes are sent when you connect with mother.tiki.org (currently only by clicking the '<strong>Send Info</strong>' button){/tr}
+                    <p>{tr}You can also send feedback about Tiki by checking the 'Provide Feedback' checkbox (once Tiki Connect is enabled), in the 'Preference Filters' dropdown above.{/tr}
+                        {tr}Icons will appear next to all the preferences where you can 'like', request a 'fix' or ask 'what is this for?' then.{/tr}<br>
+                        {tr _0="<strong>" _1="</strong>" _2="<em>mother.tiki.org</em>"}Your votes are sent when you connect with %2 (currently only by clicking the '%0Send Info%1' button).{/tr}
                 {/remarksbox}
                 {preference name="connect_feature"}
                 <div class="adminoptionboxchild" id="connect_feature_childcontainer">

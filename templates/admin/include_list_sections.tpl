@@ -3,12 +3,12 @@
 {remarksbox type="tip" title="{tr}Tip{/tr}"}
     {tr}Enable/disable Tiki features in {/tr}<a class="alert-link" href="tiki-admin.php?page=features">{tr}Control Panels{/tr}&nbsp;{$prefs.site_crumb_seper}&nbsp;{tr}Features{/tr}</a>{tr}, but configure them elsewhere{/tr}.
     <br/>
-    {tr}See <strong>more options</strong> after you enable more <a class='alert-link' target='tikihelp' href='https://doc.tiki.org/Preference+Filters'>Preference Filters</a> above ({icon name="filter"}){/tr}.
+    {tr _0="<strong>" _1="</strong>" _2='<a class='alert-link' target='tikihelp' href='https://doc.tiki.org/Preference+Filters'>' _3='</a>' _4='{icon name="filter"}'}See %0more options%1 after you enable more %2Preference Filters%3 above (%4){/tr}.
 {/remarksbox}
 
 {if $show_system_configuration_warning}
     {remarksbox type="warning" title="{tr}Warning{/tr}"}
-    {tr}Tiki detected system configuration files with <strong>.ini</strong> extension, under the root folder of Tiki. It is recommended to change it to <strong>.ini.php</strong>.<br/>Check <strong><a href="https://doc.tiki.org/System-Configuration">https://doc.tiki.org/System-Configuration</a></strong> for examples.{/tr}
+    {tr _0="<strong>.ini</strong>" _1="<strong>.ini.php</strong>" _2='<strong><a href="https://doc.tiki.org/System-Configuration">https://doc.tiki.org/System-Configuration</a></strong>'}Tiki detected system configuration files with %0 extension, under the root folder of Tiki. It is recommended to change it to %1.{/tr}{tr}Check %2 for examples.{/tr}
     {/remarksbox}
 {/if}
 

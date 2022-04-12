@@ -152,7 +152,7 @@
                                         {tr}Use <strong>%1</strong> as the internal file name. For example, use <strong>strings %1</strong> to convert the document to text, using the Unix <strong>strings</strong> command{/tr}.
                                     </li>
                                     <li>
-                                        {tr}To delete a handler, leave the <strong>System Command</strong> field blank{/tr}.
+                                        {tr _0="<strong>" _1="</strong>"}To delete a handler, leave the %0System Command%1 field blank{/tr}.
                                     </li>
                                 </ul>
                             </div>

@@ -503,11 +503,10 @@
                     <h3>{tr}Upload Word List for Processing{/tr}</h3>
                     <p>{tr}Words currently indexed{/tr}: {$num_indexed}</p>
 
-                    <p>{tr}You may create custom blacklists to better fit your needs. Start by uploading a word list.
-                        Then reduce that list to something that applies to your specific configuration and needs with the tools that appear below.{/tr}</p>
+                    <p>{tr}You may create custom blacklists to better fit your needs. Start by uploading a word list. Then reduce that list to something that applies to your specific configuration and needs with the tools that appear below.{/tr}</p>
 
-                    <p>{tr}Raw password files can be obtained from <a href="https://github.com/danielmiessler/SecLists/tree/master/Passwords" target="_blank">Daniel Miessler's Collection</a>.
-                        Tiki's defaut password blacklist files were generated from Missler's top 1 million password file.{/tr}</p>
+                    <p>
+                        {tr _0='<a href="https://github.com/danielmiessler/SecLists/tree/master/Passwords" target="_blank">' _1='</a>'}Raw password files can be obtained from %0Daniel Miessler's Collection%1.{/tr} {tr}Tiki's default password blacklist files were generated from Missler's top 1 million password file.{/tr}</p>
 
                         <input type="file" name="passwordlist" accept="text/plain" class="form-control mb-2" />
                         <div class="col-sm-4">
@@ -523,7 +522,7 @@
                                 class="btn btn-primary btn-sm"
                             >
                             {help desc="{tr}Text files with one word per line accepted.
-                            The word list will be converted to all lowe case. Duplicate entries will be removed.
+                            The word list will be converted to all lower case. Duplicate entries will be removed.
                             Typically passwords lists should be arranged with the most commonly used passwords first.{/tr}"}
                             <input
                                 type="submit"
@@ -532,7 +531,7 @@
                                 class="btn btn-danger btn-sm"
                                 onclick="confirmPopup('{tr}Delete temporary index?{/tr}')"
                             >
-                            {help desc="{tr}It is recommended that you delete indexed passwords from your database after your done generating your password lists.
+                            {help desc="{tr}It is recommended that you delete indexed passwords from your database after you're done generating your password lists.
                             They can take up quite a lot of space and serve no pourpose after processing is complete.{/tr}"}
                         </div>
 

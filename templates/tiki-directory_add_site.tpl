@@ -5,7 +5,7 @@
 {if $categs[0] eq ''}
     {icon name='error' style="vertical-align:middle" alt="{tr}Error{/tr}"} {tr}You cannot add sites until Directory Categories are setup.{/tr} <br>
     {if $tiki_p_admin_directory_cats ne 'y'}
-        {tr}Please contact the Site Administrator{/tr}{else}{tr}<a href="tiki-directory_admin_categories.php">Add a directory category now</a>.{/tr}
+        {tr}Please contact the Site Administrator{/tr}{else}{tr _0='<a href="tiki-directory_admin_categories.php">' _1="</a>"}%0Add a directory category now%1.{/tr}
     {/if}
 {else}
     {if $save eq 'y'}
