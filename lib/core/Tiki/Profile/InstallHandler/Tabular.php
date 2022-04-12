@@ -29,11 +29,6 @@ class Tiki_Profile_InstallHandler_Tabular extends Tiki_Profile_InstallHandler
             return false;
         }
 
-        $definition = Tracker_Definition::get($data['tracker'], false);
-        if (! $definition) {
-            return false;
-        }
-
         return true;
     }
 
@@ -45,9 +40,24 @@ class Tiki_Profile_InstallHandler_Tabular extends Tiki_Profile_InstallHandler
         $lib = TikiLib::lib('tabular');
         $tabularId = $lib->create($data['name'], $data['tracker']);
 
+        $reference_converter = function($field){
+            if (is_numeric($field['field'])) {
+                if ($trk_field = TikiLib::lib('trk')->get_field_info($field['field'])) {
+                    $field['field'] = $trk_field['permName'];
+                }
+            }
+            foreach (['isPrimary', 'isReadOnly', 'isExportOnly', 'isUniqueKey'] as $param) {
+                $field[$param] = $field[$param] === 'y';
+            }
+            return $field;
+        };
+
+        $data['fields'] = array_map($reference_converter, $data['fields']);
+        $data['filters'] = array_map($reference_converter, $data['filters']);
+
         $info = $lib->getInfo($tabularId);
-        $info['format_descriptor'] = json_decode($data['fields'], true);
-        $info['filter_descriptor'] = json_decode($data['filters'], true);
+        $info['format_descriptor'] = $data['fields'];
+        $info['filter_descriptor'] = $data['filters'];
 
         $definition = Tracker_Definition::get($data['tracker'], false);
         $schema = new \Tracker\Tabular\Schema($definition);
