@@ -192,7 +192,7 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-4 col-form-label"><label><input type="radio" name="use" value="useText" {if $use eq 'useText'}checked="checked"{/if}> {tr}Use Text{/tr}</label></label>
                 <div class="col-sm-7">
                     <textarea class="form-control" rows="5" name="textData">{$textData|escape}</textarea>

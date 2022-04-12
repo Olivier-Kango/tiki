@@ -115,19 +115,19 @@
                 <form name="toolbar_edit_form" method="post" action="tiki-admin_toolbars.php" class="p-2">
                     <div class="modal-body">
                         <fieldset>
-                            <div class="form-group">
+                            <div class="mb-3">
                                 <label for="tool_name">{tr}Name:{/tr}</label>
                                 <input type="text" name="tool_name" id="tool_name" class="form-control" minlength="2" maxlength="16">
                             </div>
-                            <div class="form-group">
+                            <div class="mb-3">
                                 <label for="tool_label">{tr}Label:{/tr}</label>
                                 <input type="text" name="tool_label" id="tool_label" class="form-control" minlength="1" maxlength="80">
                             </div>
-                            <div class="form-group">
+                            <div class="mb-3">
                                 <label for="tool_icon">{tr}Icon:{/tr}</label>
                                 <input type="text" name="tool_icon" id="tool_icon" class="form-control" placeholder="{tr}Search...{/tr}">
                             </div>
-                            <div class="form-group">
+                            <div class="mb-3">
                                 <label for="tool_type">{tr}Type:{/tr}</label>
                                 <select name="tool_type" id="tool_type" class="form-control noselect2">
                                     <option value="Inline">Inline</option>
@@ -145,11 +145,11 @@
                                     <option value="Wikiplugin">Wikiplugin</option>
                                 </select>
                             </div>
-                            <div class="form-group">
+                            <div class="mb-3">
                                 <label for="tool_syntax">{tr}Syntax:{/tr}</label>
                                 <input type="text" name="tool_syntax" id="tool_syntax" class="form-control">
                             </div>
-                            <div class="form-group">
+                            <div class="mb-3">
                                 <label for="tool_plugin">{tr}Plugin name:{/tr}</label>
                                 <select name="tool_plugin" id="tool_plugin" class="form-control mb-2 noselect2">
                                     <option value="">{tr}None{/tr}</option>
@@ -159,7 +159,7 @@
                                 </select>
                             </div>
                             {if $prefs.feature_wysiwyg eq 'y'}
-                                <div class="form-group">
+                                <div class="mb-3">
                                     <label for="tool_token">{tr}Wysiwyg Token:{/tr}</label>
                                     <input type="text" name="tool_token" id="tool_token" class="form-control" placeholder="{tr}Search...{/tr}">
                                     <div class="d-none">
