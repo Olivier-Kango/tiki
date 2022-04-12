@@ -38,7 +38,7 @@ class CsvWriter
         $columns = $schema->getColumns();
         $headers = [];
         foreach ($columns as $column) {
-            $headers[] = $this->encode($column->getEncodedHeader());
+            $headers[] = $this->encode($column->getEncodedHeader($schema));
         }
         $this->file->fputcsv($headers);
 

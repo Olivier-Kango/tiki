@@ -173,28 +173,46 @@ class TrackerWriter
     private function getItemIdLookup($schema)
     {
         $pk = $schema->getPrimaryKey();
-        if (! $pk) {
-            throw new \Exception(tr('Primary Key not defined'));
+        if ($pk) {
+            $pkField = $pk->getField();
+        } else {
+            $pkField = null;
         }
-
-        $pkField = $pk->getField();
 
         if ($pkField == 'itemId') {
             return function ($info) {
                 return $info['itemId'];
             };
         } else {
-            $table = \TikiDb::get()->table('tiki_tracker_item_fields');
-            $definition = $schema->getDefinition();
-            $f = $definition->getFieldFromPermName($pkField);
-            $fieldId = $f['fieldId'];
-
-            return function ($info) use ($table, $pkField, $fieldId) {
-                return $table->fetchOne('itemId', [
-                    'fieldId' => $fieldId,
-                    'value' => $info['fields'][$pkField],
-                ]);
+            return function ($info) use ($schema, $pkField) {
+                $table = \TikiDb::get()->table('tiki_tracker_item_fields');
+                if ($pkField) {
+                    $fieldId = $this->getCachedFieldId($schema, $pkField);
+                    return $table->fetchOne('itemId', [
+                        'fieldId' => $fieldId,
+                        'value' => $info['fields'][$pkField],
+                    ]);
+                } else {
+                    $values = [];
+                    foreach ($info['fields'] as $permName => $value) {
+                        $values[$this->getCachedFieldId($schema, $permName)] = $value;
+                    }
+                    return \TikiLib::lib('trk')->get_item_by_field_values($values);
+                }
             };
         }
+    }
+
+    private function getCachedFieldId($schema, $permName)
+    {
+        static $fieldCache = [];
+
+        if (! isset($fieldCache[$permName])) {
+            $definition = $schema->getDefinition();
+            $f = $definition->getFieldFromPermName($permName);
+            $fieldCache[$permName] = $f['fieldId'];
+        }
+
+        return $fieldCache[$permName];
     }
 }

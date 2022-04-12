@@ -411,10 +411,6 @@ class Services_Tracker_TabularController
         $schema = $this->getSchema($info);
         $schema->validate();
 
-        if (! $schema->getPrimaryKey()) {
-            throw new Services_Exception_NotAvailable(tr('Primary Key required'));
-        }
-
         $done = false;
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && is_uploaded_file($_FILES['file']['tmp_name'])) {

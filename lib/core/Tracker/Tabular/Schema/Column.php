@@ -156,9 +156,9 @@ class Column
         return $this->mode;
     }
 
-    public function getEncodedHeader()
+    public function getEncodedHeader($schema)
     {
-        if ($this->isReadOnly) {
+        if ($this->isReadOnly || $schema->isSimpleHeaders()) {
             return $this->label;
         } else {
             $pk = $this->isPrimary ? '*' : '';
@@ -219,8 +219,8 @@ class Column
 
                     throw new \Exception(tr(
                         'Column "%0" cannot co-exist with "%1".',
-                        $column->getEncodedHeader(),
-                        $this->getEncodedHeader()
+                        $column->getEncodedHeader($schema),
+                        $this->getEncodedHeader($this)
                     ));
                 }
             }

@@ -101,6 +101,11 @@ class Schema
         $this->config = $config;
     }
 
+    public function isSimpleHeaders()
+    {
+        return $this->config['simple_headers'];
+    }
+
     public function canImportUpdate()
     {
         return $this->config['import_update'];
@@ -303,28 +308,27 @@ class Schema
 
     public function validateAgainstHeaders(array $headers)
     {
-        foreach ($this->columns as $column) {
-            $header = array_shift($headers);
+        $headerMapping = [];
 
-            if (! $header) {
-                throw new \Exception(tr('Not enough columns, expecting "%0".', $column->getEncodedHeader()));
-            }
-
-            if ($this->config['simple_headers'] && $column->getLabel() == $header) {
-                continue;
-            }
-
-            if (preg_match(Schema\Column::HEADER_PATTERN, $header, $parts)) {
-                list($full, $pk, $field, $mode) = $parts;
-                if (! $column->is($field, $mode)) {
-                    throw new \Exception(tr('Header "%0" found where "%1" was expected', $header, $column->getEncodedHeader()));
+        foreach ($this->columns as $columnIndex => $column) {
+            foreach ($headers as $headerIndex => $header) {
+                if ($this->config['simple_headers'] && $column->getLabel() == $header) {
+                    $headerMapping[$columnIndex] = $headerIndex;
+                    continue 2;
                 }
-            } else {
-                if (! $column->isReadOnly()) {
-                    throw new \Exception(tr('Header "%0" found where ignored column was expected.', $header, $column->getEncodedHeader()));
+
+                if (preg_match(Schema\Column::HEADER_PATTERN, $header, $parts)) {
+                    list($full, $pk, $field, $mode) = $parts;
+                    if ($column->is($field, $mode)) {
+                        $headerMapping[$columnIndex] = $headerIndex;
+                        continue 2;
+                    }
                 }
             }
+            throw new \Exception(tr('Expected header "%0" not found.', $column->getEncodedHeader($this)));
         }
+
+        return $headerMapping;
     }
 
     public function getAvailableFields()
@@ -430,3 +434,4 @@ class Schema
         }
     }
 }
+

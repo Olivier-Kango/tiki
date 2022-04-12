@@ -377,13 +377,13 @@ onDOMElementRemoved("single-spa-application:@vue-mf/duration-picker-" + ' . json
 
     private function parseDurationFormat($data) {
         $struct = [
-            'seconds' => 0,
-            'minutes' => 0,
-            'hours' => 0,
-            'days' => 0,
-            'weeks' => 0,
-            'months' => 0,
             'years' => 0,
+            'months' => 0,
+            'weeks' => 0,
+            'days' => 0,
+            'hours' => 0,
+            'minutes' => 0,
+            'seconds' => 0,
         ];
         $data = trim($data);
         if (preg_match('/^[\d]+$/', $data)) {
@@ -406,8 +406,8 @@ onDOMElementRemoved("single-spa-application:@vue-mf/duration-picker-" + ' . json
                 'seconds' => 's|seconds?'
             ];
             foreach ($matches as $unit => $pattern) {
-                if (preg_match('/^((\d+)\s*('.$pattern.'))?\s*$/', $data, $m)) {
-                    $struct[$unit] = $m[2];
+                if (preg_match('/(\d+)\s*('.$pattern.')/', $data, $m)) {
+                    $struct[$unit] = $m[1];
                 }
             }
         }

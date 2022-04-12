@@ -184,7 +184,8 @@
                         </tfoot>
                     </table>
                     <div class="form-text">
-                        <p><strong>{tr}Primary Key:{/tr}</strong> {tr}Required to import data. Can be any field as long as it is unique.{/tr}</p>
+                        <p><strong>{tr}Remote Field:{/tr}</strong> {tr}When connecting to an external ODBC schema, this should reference the remote schema field.{/tr}</p>
+                        <p><strong>{tr}Primary Key:{/tr}</strong> {tr}Can be any field as long as it is unique. If none is specified full record matching will be executed upon import to prevent duplicates which can be slow.{/tr}</p>
                         <p><strong>{tr}Unique Key:{/tr}</strong> {tr}Impose unique value requirement for the target column. This only works with Transactional Import feature.{/tr}</p>
                         <p><strong>{tr}Read-only:{/tr}</strong> {tr}When importing a file, read-only fields will be skipped, preventing them from being modified, but also speeding-up the process.{/tr}</p>
                         <p>{tr}When two fields affecting the same value are included in the format, such as the ID and the text value for an Item Link field, one of the two fields must be marked as read-only to prevent a conflict.{/tr}</p>
@@ -293,7 +294,7 @@
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input" name="config[import_update]" value="1" {if $config['import_update']} checked {/if}>
                         <label class="form-check-label">{tr}Import updates{/tr}</label>
-                        <a class="tikihelp text-info" title="{tr}Import update{/tr}: {tr}Allow updating existing entries matched by PK when importing. If this is disabled, only new items will be imported.{/tr}">
+                        <a class="tikihelp text-info" title="{tr}Import update{/tr}: {tr}Allow updating existing entries matched by either PK or full record when importing. If this is disabled, only new items will be imported.{/tr}">
                             {icon name=information}
                         </a>
                     </div>
