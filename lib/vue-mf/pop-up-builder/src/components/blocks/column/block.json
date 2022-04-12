@@ -1,6 +1,6 @@
 {
     "_comment": "Sample schema",
-	"$schema": "https://tiki.sample.org/trunk/block.json",
+	"//$schema": "https://tiki.sample.org/trunk/block.json",
 	"apiVersion": 1,
 	"name": "core/column",
 	"title": "Column",

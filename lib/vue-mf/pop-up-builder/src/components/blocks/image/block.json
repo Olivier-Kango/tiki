@@ -1,0 +1,21 @@
+{
+    "_comment": "Sample schema",
+	"//$schema": "https://tiki.sample.org/trunk/block.json",
+	"apiVersion": 1,
+	"name": "core/image",
+	"title": "Image",
+	"category": "text",
+	"description": "A single Image.",
+    "parent": ["core/columns"],
+	"attributes": {
+		"verticalAlignment": {
+			"type": "string"
+		},
+		"width": {
+			"type": "string"
+		},
+		"allowedBlocks": {
+			"type": "array"
+		}
+	}
+}
