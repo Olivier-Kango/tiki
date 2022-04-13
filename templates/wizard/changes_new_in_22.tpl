@@ -8,7 +8,7 @@
             </span>
     </div>
     <br/><br/><br/>
-    <div class="media-body">
+    <div class="flex-grow-1 ms-3">
         {tr}Main new and improved features and settings in Tiki 22.{/tr}
         <a href="https://doc.tiki.org/Tiki22" target="tikihelp" class="tikihelp text-info" title="{tr}Tiki22:{/tr}
             {tr}It is a Standard Term Support (STS) version.{/tr}

@@ -6,7 +6,7 @@
         <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ms-4 mt-4"></i>
     </span>
     </div>
-    <div class="media-body">
+    <div class="flex-grow-1 ms-3">
         {icon name="wrench" size=3 iclass="float-sm-end"}
         <div class="row">
             <div class="col-lg-9">

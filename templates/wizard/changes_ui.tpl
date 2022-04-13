@@ -8,7 +8,7 @@
     </span>
     </div>
     </br></br>
-    <div class="media-body">
+    <div class="flex-grow-1 ms-3">
         {icon name="desktop" size=3 iclass="float-sm-end"}
         {tr}Some User Interface (UI) improvements which usually come disabled in new Tiki installations{/tr}.
         <a href="http://doc.tiki.org/Interface" target="tikihelp" class="tikihelp" title="{tr}User Interface:{/tr}

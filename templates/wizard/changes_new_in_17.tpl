@@ -8,7 +8,7 @@
     </span>
     </div>
     <br/><br/><br/>
-    <div class="media-body">
+    <div class="flex-grow-1 ms-3">
         {tr}Main new and improved features and settings in Tiki 17{/tr}.
         <a href="http://doc.tiki.org/Tiki17" target="tikihelp" class="tikihelp" title="{tr}Tiki17:{/tr}
             {tr}Tiki17 is a standard non-LTS version{/tr}.

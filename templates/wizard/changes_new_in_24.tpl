@@ -8,7 +8,7 @@
             </span>
     </div>
     <br/><br/><br/>
-    <div class="media-body">
+    <div class="flex-grow-1 ms-3">
         {tr}Main new and improved features and settings in Tiki 24.{/tr}
         <a href="https://doc.tiki.org/Tiki24" target="tikihelp" class="tikihelp text-info" title="{tr}Tiki24:{/tr}
             {tr}It is a Long Term Support (LTS) version.{/tr}

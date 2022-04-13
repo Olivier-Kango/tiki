@@ -12,7 +12,7 @@
             <div class="media-left">
                 <img class="athumb media-object" src="{$item->thumbnailUrl}" alt="{$item->description}" height="80" width="120">
             </div>
-            <div class="media-body">
+            <div class="flex-grow-1 ms-3">
                 <h4 class="media-heading">{$item->name}</h4>
             </div>
         </div>

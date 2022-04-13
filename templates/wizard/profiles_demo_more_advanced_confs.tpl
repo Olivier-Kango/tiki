@@ -7,7 +7,7 @@
             <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ms-4 mt-4"></i>
         </span>
     </div>
-    <div class="media-body">
+    <div class="flex-grow-1 ms-3">
         <h4 class="mt-0 mb-4">{tr}Check out these more advanced configurations that demonstrate some other Tiki Features that you might be interested in for your site{/tr}.</h4>
         {remarksbox type="warning" title="{tr}Warning{/tr}"}
             <a target="tikihelp" class="alert-link tikihelp" style="float:right" title="{tr}Demo Profiles:{/tr}

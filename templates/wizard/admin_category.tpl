@@ -6,7 +6,7 @@
             <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ms-4 mt-4"></i>
         </span>
     </div>
-    <div class="media-body">
+    <div class="flex-grow-1 ms-3">
         {icon name="admin_category" size=3 iclass="float-sm-end"}
         <h4 class="mt-0 mb-4">{tr}Global content category system</h4>
         Items of different types (wiki pages, articles, tracker items, etc) can be added to one or more categories. Permissions set for a category will apply to all items in that category, allowing access to be restricted to certain groups, users, etc{/tr}.

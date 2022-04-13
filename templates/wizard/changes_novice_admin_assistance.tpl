@@ -7,7 +7,7 @@
     </span>
     </div>
     <br/><br/>
-    <div class="media-body">
+    <div class="flex-grow-1 ms-3">
         {icon name="user-plus" size=3 iclass="float-sm-end"}
         {tr}Improvements that can help novice admins to set up their tiki sites more easily and improve their usability{/tr}.
         <fieldset>

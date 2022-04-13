@@ -34,7 +34,7 @@
             {$name|iconify:$type:null:3}
         {/if}
     </div>
-    <div class="media-body">
+    <div class="flex-grow-1 ms-3">
         {if !empty($filegals_manager)}
             <a {$alink}>{$name|escape} ({$size|kbsize})</a>
         {else}

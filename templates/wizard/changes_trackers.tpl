@@ -8,7 +8,7 @@
     </span>
     </div>
     </br>
-    <div class="media-body">
+    <div class="flex-grow-1 ms-3">
         <p>
             {tr}Here you can set up a few options and features related to Trackers which were added across several versions of Tiki{/tr}.
             {tr}You might have not specially noticed when they appeared but you should know about these enhancements since you might be interested in using some of them in your site{/tr}.

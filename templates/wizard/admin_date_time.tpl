@@ -6,7 +6,7 @@
             <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ms-4 mt-4"></i>
         </span>
     </div>
-    <div class="media-body">
+    <div class="flex-grow-1 ms-3">
         {icon name="clock-o" size=3 iclass="float-sm-end"}
         <h4 class="mt-0 mb-4">{tr}Set the site time zone and format for displaying dates and times{/tr}.</h4>
         <fieldset>

@@ -1,10 +1,10 @@
 <ul class="list-unstyled">
     {foreach from=$comments item=comment}
-        <li class="media comment mt-3 mb-4{if $comment.archived eq 'y'} archived{* well well-sm*}{/if} {if $allow_moderate}{if $comment.approved eq 'n'} pending bg-warning{elseif $comment.approved eq 'r'} rejected bg-danger{/if}{/if}{*{if ! $parentId && $prefs.feature_wiki_paragraph_formatting eq 'y'} inline{/if}*}" data-comment-thread-id="{$comment.threadId|escape}">
+        <li class="d-flex comment mt-3 mb-4{if $comment.archived eq 'y'} archived{* well well-sm*}{/if} {if $allow_moderate}{if $comment.approved eq 'n'} pending bg-warning{elseif $comment.approved eq 'r'} rejected bg-danger{/if}{/if}{*{if ! $parentId && $prefs.feature_wiki_paragraph_formatting eq 'y'} inline{/if}*}" data-comment-thread-id="{$comment.threadId|escape}">
             <div class="align-self-start me-3">
                 <span class="avatar">{$comment.userName|avatarize:'':'img/noavatar.png'}</span>
             </div>
-            <div class="media-body">
+            <div class="flex-grow-1 ms-3">
                 <div class="comment-item">
                     <h4 class="mt-0">
                         {if $prefs.comments_notitle neq 'y'}
@@ -100,7 +100,7 @@
                 {if $comment.replies_info.numReplies gt 0}
                     {include file='comment/list_inner.tpl' comments=$comment.replies_info.replies cant=$comment.replies_info.numReplies parentId=$comment.threadId}
                 {/if}
-            </div><!-- End of media-body -->
+            </div><!-- End of flex-grow-1 ms-3 -->
         </li>
     {/foreach}
 </ul>

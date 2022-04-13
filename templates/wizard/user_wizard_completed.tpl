@@ -1,7 +1,7 @@
 {* $Id$ *}
 
 <div class="d-flex">
-    <div class="media-body">
+    <div class="flex-grow-1 ms-3">
         {icon name="check" size=2} {tr}Congratulations{/tr}. {tr}You are done with the user wizard{/tr}.<br>
         <fieldset>
             <legend>{tr}Next?{/tr}</legend>

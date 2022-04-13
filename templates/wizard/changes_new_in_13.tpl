@@ -8,7 +8,7 @@
     </span>
     </div>
     <br/><br/><br/>
-    <div class="media-body">
+    <div class="flex-grow-1 ms-3">
         {tr}Main new features and settings in Tiki 13{/tr}.
         <a href="http://doc.tiki.org/Tiki13" target="tikihelp" class="tikihelp" title="{tr}Tiki13:{/tr}
             {tr}Tiki13 is a post-LTS version{/tr}.

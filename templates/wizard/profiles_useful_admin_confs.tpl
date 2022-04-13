@@ -7,7 +7,7 @@
             <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ms-4 mt-4"></i>
         </span>
     </div>
-    <div class="media-body">
+    <div class="flex-grow-1 ms-3">
         <h4 class="mt-0 mb-4">{tr}Check out some useful changes in the configuration for site administrators{/tr}.</h4>
         <h3>{tr}Profiles:{/tr}</h3>
         <div class="row">

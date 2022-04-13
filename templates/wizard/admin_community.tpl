@@ -7,7 +7,7 @@
             <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ms-4 mt-4"></i>
         </span>
     </div>
-        <div class="media-body">
+        <div class="flex-grow-1 ms-3">
             {icon name="user" size=3 iclass="float-sm-end"}
             <h4 class="mt-0 mb-4">{tr}Configure general user & community features and settings related to sharing and social networks{/tr}.</h4>
             <fieldset>
