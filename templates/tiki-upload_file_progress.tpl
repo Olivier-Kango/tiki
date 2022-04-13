@@ -9,7 +9,7 @@
 {else}
     {assign var=alink value=''}
 {/if}
-<div class="media">
+<div class="d-flex">
     {if $view neq 'page'}
     {$type = $name|iconify:null:null:null:'filetype'}
     {if $type eq 'image/png' or $type eq 'image/jpeg' or $type eq 'image/jpg'

@@ -51,7 +51,7 @@
 
 {*    {if $prefs.art_trailer_pos ne 'between'}{include file='article_trailer.tpl'}{/if} *}
 
-    <div class="articleheading media clearfix">
+    <div class="articleheading d-flex clearfix">
 
         <div class="float-start">
             {capture name=imgTitle}{if $show_image_caption eq 'y' and $image_caption}{$image_caption|escape}{elseif isset($topicName)}{tr}{$topicName}{/tr}{/if}{/capture}

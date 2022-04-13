@@ -1,6 +1,6 @@
 {* $Id$ *}
 
-<div class="media">
+<div class="d-flex">
     <div class="me-4">
         <span class="fa-stack fa-lg" style="width: 100px;" title="{tr}Configuration Profiles Wizard{/tr}" >
             <i class="fas fa-cubes fa-stack-2x"></i>
