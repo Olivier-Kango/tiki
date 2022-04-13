@@ -13027,6 +13027,9 @@ body:not(.fixed_width) .container {
     flex-basis: 100%;
   }
 }
+form.admin legend {
+  float: none;
+}
 legend + * {
   margin-top: 20px;
 }

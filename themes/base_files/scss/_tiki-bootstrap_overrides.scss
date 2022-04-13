@@ -28,6 +28,10 @@ body:not(.fixed_width) .container {
     }
 }
 
+form.admin legend {
+    float: none;
+}
+
 //legend + p,
 //legend + .mb-3,
 //legend + input[type="hidden"] + .mb-3,
