@@ -8572,7 +8572,7 @@ textarea.form-control-lg {
   color: #ffc107;
 }
 .module h3.card-title, .module .card-title.h3 {
-  font-size: 1.125rem;
+  font-size: 1.35rem;
 }
 .calhighlight {
   color: #fff;
@@ -9251,21 +9251,21 @@ div.drillshow {
 }
 .codecaption {
   display: inline-block;
-  color: #222;
-  background: #eee;
-  border: 1px solid #bbb;
+  color: #212529;
+  background: #f8f9fa;
+  border: 1px solid #b7bec5;
   border-bottom: none;
   padding: 2px 9.5px;
   font-size: 0.8em;
   font-weight: bold;
 }
 code, pre.codelisting {
-  background: #eee;
+  background: #f8f9fa;
   border: 1px solid transparent;
   padding: 0.4rem 0.6rem;
 }
 code {
-  color: #222;
+  color: #212529;
 }
 pre.codelisting {
   color: #495057;

@@ -9275,7 +9275,7 @@ textarea.form-control-lg {
   color: #cb4b16;
 }
 .module h3.card-title, .module .card-title.h3 {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
 }
 .calhighlight {
   color: #fff;
@@ -9954,9 +9954,9 @@ div.drillshow {
 }
 .codecaption {
   display: inline-block;
-  color: #e83e8c;
+  color: #002b36;
   background: #fdf6e3;
-  border: 1px solid white;
+  border: 1px solid #69e0ff;
   border-bottom: none;
   padding: 2px 9.5px;
   font-size: 0.8em;
@@ -9968,7 +9968,7 @@ code, pre.codelisting {
   padding: 0.4rem 0.6rem;
 }
 code {
-  color: #e83e8c;
+  color: #002b36;
 }
 pre.codelisting {
   color: #495057;

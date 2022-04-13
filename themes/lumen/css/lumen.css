@@ -9444,7 +9444,7 @@ a.list-group-item-danger.active:hover, a.list-group-item-danger.active:focus {
   color: #ff851b;
 }
 .module h3.card-title, .module .card-title.h3 {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
 }
 .calhighlight {
   color: #fff;
@@ -10123,9 +10123,9 @@ div.drillshow {
 }
 .codecaption {
   display: inline-block;
-  color: #e83e8c;
+  color: #222;
   background: #f6f6f6;
-  border: 1px solid white;
+  border: 1px solid #bbb;
   border-bottom: none;
   padding: 2px 9.5px;
   font-size: 0.8em;
@@ -10137,7 +10137,7 @@ code, pre.codelisting {
   padding: 0.4rem 0.6rem;
 }
 code {
-  color: #e83e8c;
+  color: #222;
 }
 pre.codelisting {
   color: #555;

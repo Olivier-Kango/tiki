@@ -8736,7 +8736,7 @@ textarea.form-control-lg {
   color: #ffc107;
 }
 .module h3.card-title, .module .card-title.h3 {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
 }
 .calhighlight {
   color: #fff;
@@ -9415,9 +9415,9 @@ div.drillshow {
 }
 .codecaption {
   display: inline-block;
-  color: #d63384;
+  color: #212529;
   background: #f8f9fa;
-  border: 1px solid white;
+  border: 1px solid #b7bec5;
   border-bottom: none;
   padding: 2px 9.5px;
   font-size: 0.8em;
@@ -9429,7 +9429,7 @@ code, pre.codelisting {
   padding: 0.4rem 0.6rem;
 }
 code {
-  color: #d63384;
+  color: #212529;
 }
 pre.codelisting {
   color: #495057;
@@ -9658,7 +9658,7 @@ a.dropdown-item {
   min-height: 24px;
 }
 body.tiki.navbar-padding, .layout_social_modules {
-  padding-top: 46px;
+  padding-top: 3.25rem;
 }
 body.tiki.navbar-padding h1.sitetitle, body.tiki.navbar-padding .sitetitle.h1, .layout_social_modules h1.sitetitle, .layout_social_modules .sitetitle.h1 {
   line-height: normal;
@@ -9669,10 +9669,10 @@ body.fullscreen.tiki.navbar-padding {
 .layout_social .topbar_modules h1.sitetitle, .layout_social .topbar_modules .sitetitle.h1, .layout_social_modules .topbar_modules h1.sitetitle, .layout_social_modules .topbar_modules .sitetitle.h1 {
   float: left;
   font-size: 1.8rem;
-  line-height: 46px;
+  line-height: 3.25rem;
 }
 .layout_fixed_top_modules .top_modules, .navbar-fixed-top {
-  height: 46px;
+  height: 3.25rem;
 }
 .layout_fixed_top_modules .top_modules .sitelogo img, .navbar-fixed-top .sitelogo img {
   width: auto !important;
@@ -9693,8 +9693,8 @@ body.fullscreen.tiki.navbar-padding {
   float: left;
   font-size: 1.5em;
   margin: 0 0 0 1.5em;
-  line-height: 46px;
-  height: 46px;
+  line-height: 3.25rem;
+  height: 3.25rem;
   color: #ffffff;
 }
 .topbar_container, .layout_basic .page-header > .topbar {
