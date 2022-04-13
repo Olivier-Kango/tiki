@@ -8647,7 +8647,7 @@ textarea.form-control-lg {
   color: #ffc107;
 }
 .module h3.card-title, .module .card-title.h3 {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
 }
 .calhighlight {
   color: #fff;
@@ -9110,7 +9110,7 @@ ul.all_languages > li {
   outline: #adb5bd dotted 1px;
 }
 .tiki .cke_wysiwyg_frame, .tiki .cke_wysiwyg_div {
-  background: #214d68;
+  background: #fff;
   color: #343a40;
 }
 .tiki_plugin {

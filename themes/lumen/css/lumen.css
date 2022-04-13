@@ -9444,7 +9444,7 @@ a.list-group-item-danger.active:hover, a.list-group-item-danger.active:focus {
   color: #ff851b;
 }
 .module h3.card-title, .module .card-title.h3 {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
 }
 .calhighlight {
   color: #fff;

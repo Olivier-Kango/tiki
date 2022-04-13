@@ -9152,7 +9152,7 @@ textarea.form-control-lg {
   }
 }
 .topbar {
-  margin-bottom: 1.4rem;
+  margin-bottom: 0;
 }
 .navbar-dark > a, .navbar-dark .cssmenu_horiz > li > a {
   color: rgba(255, 255, 255, 0.75);
@@ -9172,7 +9172,7 @@ textarea.form-control-lg {
   color: #ffc107;
 }
 .module h3.card-title, .module .card-title.h3 {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
 }
 .calhighlight {
   color: #fff;
