@@ -21,21 +21,21 @@ class Tracker_Field_TikiManager extends Tracker_Field_Abstract
                 'params'      => [
                     'instanceIds' => [
                         'name' => tra('Instance IDs'),
-                        'description' => tra('Comma-separted list of instance IDs available to manage. For a full list, use Tiki Manager admin page.'),
+                        'description' => tra('Comma-separated list of instance IDs available to manage. For a full list, use Tiki Manager admin page.'),
                         'default' => '',
                         'filter' => 'text',
                         'separator' => ',',
                     ],
                     'showactions' => [
                         'name' => tra('Show actions'),
-                        'description' => tra('Comma-separted list of actions shown in the interface. If none are listed, all actions will be available by default.'),
+                        'description' => tra('Comma-separated list of actions shown in the interface. If none are listed, all actions will be available by default.'),
                         'default' => '',
                         'filter' => 'text',
                         'separator' => ',',
                     ],
                     'hideactions' => [
                         'name' => tra('Hide actions'),
-                        'description' => tra('Comma-separted list of actions hidden from the interface. If none are listed, all actions will be available by default.'),
+                        'description' => tra('Comma-separated list of actions hidden from the interface. If none are listed, all actions will be available by default.'),
                         'default' => '',
                         'filter' => 'text',
                         'separator' => ',',
