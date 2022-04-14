@@ -1,100 +1,105 @@
-// Lux 4.0.0
+// Lux 5.1.3
 // Bootswatch
 
 // - - - - - - - Bootstrap variables (override values in vendor_bundled/vendor/twbs/bootstrap/scss/_variables.scss - - - - - - //
 //
+$theme: "lux";
+
+//
 // Color system
 //
 
-$white:    #fff !default;
-$gray-100: #f8f9fa !default;
-$gray-200: #f7f7f9 !default;
-$gray-300: #eceeef !default;
-$gray-400: #ced4da !default;
-$gray-500: #adb5bd !default;
-$gray-600: #919aa1 !default;
-$gray-700: #55595c !default;
-$gray-800: #343a40 !default;
-$gray-900: #1a1a1a !default;
-$black:    #000 !default;
+$white:    #fff;
+$gray-100: #f8f9fa;
+$gray-200: #f7f7f9;
+$gray-300: #eceeef;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #919aa1;
+$gray-700: #55595c;
+$gray-800: #343a40;
+$gray-900: #1a1a1a;
+$black:    #000;
 
-$blue:    #007bff !default;
-$indigo:  #6610f2 !default;
-$purple:  #6f42c1 !default;
-$pink:    #e83e8c !default;
-$red:     #d9534f !default;
-$orange:  #fd7e14 !default;
-$yellow:  #f0ad4e !default;
-$green:   #4bbf73 !default;
-$teal:    #20c997 !default;
-$cyan:    #1f9bcf !default;
+$blue:    #007bff;
+$indigo:  #6610f2;
+$purple:  #6f42c1;
+$pink:    #e83e8c;
+$red:     #d9534f;
+$orange:  #fd7e14;
+$yellow:  #f0ad4e;
+$green:   #4bbf73;
+$teal:    #20c997;
+$cyan:    #1f9bcf;
 
-$primary:       $gray-900 !default;
-$secondary:     $white !default;
-$success:       $green !default;
-$info:          $cyan !default;
-$warning:       $yellow !default;
-$danger:        $red !default;
-$light:         $white !default;
-$dark:          $gray-800 !default;
+$primary:       $gray-900;
+$secondary:     $white;
+$success:       $green;
+$info:          $cyan;
+$warning:       $yellow;
+$danger:        $red;
+$light:         $white;
+$dark:          $gray-800;
+
+$min-contrast-ratio:   2.3;
 
 // Options
 
-$enable-rounded:            false !default;
+$enable-rounded:            false;
 
 // Body
 
-$body-color:                $gray-700 !default;
+$body-color:                $gray-700;
 
 // Fonts
 
 // stylelint-disable-next-line value-keyword-case
-$font-family-sans-serif:      "Nunito Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
-$h1-font-size:                2rem !default;
-$h2-font-size:                1.75rem !default;
-$h3-font-size:                1.5rem !default;
-$h4-font-size:                1.25rem !default;
-$h5-font-size:                1rem !default;
-$h6-font-size:                .75rem !default;
-$headings-font-weight:        600 !default;
-$headings-color:              $gray-900 !default;
+$font-family-sans-serif:      "Nunito Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+$h1-font-size:                2rem;
+$h2-font-size:                1.75rem;
+$h3-font-size:                1.5rem;
+$h4-font-size:                1.25rem;
+$h5-font-size:                1rem;
+$h6-font-size:                .75rem;
+$headings-font-weight:        600;
+$headings-color:              $gray-900;
 
 // Tables
 
-$table-border-color:          rgba(0, 0, 0, .05) !default;
+$table-border-color:          rgba(0, 0, 0, .05);
 
 // Buttons + Forms
 
-$input-btn-border-width:      0 !default;
+$input-btn-border-width:      0;
 
 // Buttons
 
-$btn-line-height:             1.5rem !default;
-$input-btn-padding-y:         .75rem !default;
-$input-btn-padding-x:         1.5rem !default;
-$input-btn-padding-y-sm:      .5rem !default;
-$input-btn-padding-x-sm:      1rem !default;
-$input-btn-padding-y-lg:      2rem !default;
-$input-btn-padding-x-lg:      2rem !default;
-$btn-font-weight:             600 !default;
+$btn-line-height:             1.5rem;
+$input-btn-padding-y:         .75rem;
+$input-btn-padding-x:         1.5rem;
+$input-btn-padding-y-sm:      .5rem;
+$input-btn-padding-x-sm:      1rem;
+$input-btn-padding-y-lg:      2rem;
+$input-btn-padding-x-lg:      2rem;
+$btn-font-weight:             600;
 
 // Forms
 
-$input-line-height:                     1.5 !default;
-$input-bg:                              $gray-200 !default;
-$input-disabled-bg:                     $gray-300 !default;
-$input-group-addon-bg:                  $gray-300 !default;
+$input-line-height:                     1.5;
+$input-bg:                              $gray-200;
+$input-disabled-bg:                     $gray-300;
+$input-group-addon-bg:                  $gray-300;
 
 // Navbar
 
-$navbar-padding-y:                  1.5rem !default;
-$navbar-dark-hover-color:           $white !default;
-$navbar-light-color:                rgba($black, .3) !default;
-$navbar-light-hover-color:          $gray-900 !default;
-$navbar-light-active-color:         $gray-900 !default;
+$navbar-padding-y:                  1.5rem;
+$navbar-dark-hover-color:           $white;
+$navbar-light-color:                rgba($black, .3);
+$navbar-light-hover-color:          $gray-900;
+$navbar-light-active-color:         $gray-900;
 
 // Pagination
 
-$pagination-border-color:           transparent !default;
-$pagination-hover-border-color:     $pagination-border-color !default;
-$pagination-disabled-border-color:  $pagination-border-color !default;
+$pagination-border-color:           transparent;
+$pagination-hover-border-color:     $pagination-border-color;
+$pagination-disabled-border-color:  $pagination-border-color;

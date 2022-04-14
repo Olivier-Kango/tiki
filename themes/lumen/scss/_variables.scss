@@ -1,7 +1,11 @@
-// Lumen 4.0.0
+// Lumen 5.1.3
 // Bootswatch
 
 // - - - - - - - Bootstrap variables (override values in vendor_bundled/vendor/twbs/bootstrap/scss/_variables.scss - - - - - - //
+//
+
+$theme: "lumen" !default;
+
 //
 // Color system
 //
@@ -38,6 +42,8 @@ $danger:        $red !default;
 $light:         $gray-100 !default;
 $dark:          $gray-700 !default;
 
+$min-contrast-ratio:   1.75 !default;
+
 // Fonts
 
 // stylelint-disable-next-line value-keyword-case
@@ -62,14 +68,6 @@ $nav-tabs-link-hover-border-color:  $nav-tabs-border-color !default;
 $nav-tabs-link-active-color:        $gray-900 !default;
 $nav-tabs-link-active-border-color: $nav-tabs-border-color !default;
 
-// These will no longer in version 5.0
-$navbar-dark-color:                 rgba($black, .5) !default;
-$navbar-dark-hover-color:           rgba($black, .75) !default;
-$navbar-dark-active-color:          $black !default;
-$navbar-dark-disabled-color:        rgba($black, .25) !default;
-$navbar-dark-toggler-icon-bg:       str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#{$navbar-dark-color}' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E"), "#", "%23") !default;
-$navbar-dark-toggler-border-color:  rgba($black, .1) !default;
-
 // Pagination
 
 $pagination-color:                  $gray-700 !default;
@@ -87,12 +85,14 @@ $breadcrumb-padding-x:              .75rem !default;
 $breadcrumb-bg:                     $pagination-bg !default;
 $breadcrumb-border-radius:          .25rem !default;
 
-// Jumbotron
-
-$jumbotron-bg:                      #fafafa !default;
-
 // Modals
 
 $modal-content-border-color:        rgba($black, .1) !default;
+
+// Close
+
+$btn-close-color:            $white !default;
+$btn-close-opacity:          .4 !default;
+$btn-close-hover-opacity:    1 !default;
 
 // - - - - - - - - - -  - - - - - - Other variables, if any - - - - - - - - - - - - - - - - - //
