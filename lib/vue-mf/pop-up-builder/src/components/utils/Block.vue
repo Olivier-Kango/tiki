@@ -9,30 +9,33 @@ import { computed } from 'vue'
 import store from '../../store'
 
 const props = defineProps({
-    id: String,
-    node: Object,
+    block: {
+        type: Object,
+        default: () => {}
+    },
     edit: Boolean
 });
 
+const getBlock = computed(() => (id) => store.getters.getBlock(id))
 const eventType = computed(() => props.edit ? 'click' : null)
 
-const handleEvent = (e, node) => store.dispatch('setSelected', node)
+const handleEvent = (e, id) => store.dispatch('setSelected', id)
 </script>
 
 <template>
     <component
-        :id="'block-' + node.data.id"
-        :is="node.data.name"
+        :is="block.name"
         class="block-item"
-        :block="node.data"
-        @[eventType].stop="handleEvent($event, node)"
+        :id="block.id"
+        :data-id="block.id"
+        :block="block"
+        @[eventType].stop="handleEvent($event, block.id)"
     >
         <TransitionGroup name="list">
             <Block
-                v-for="node in node.children"
-                :id="'block-' + node.data.id"
-                :key="'block-' + node.data.id"
-                :node="node"
+                v-for="_id in block.innerBlocks"
+                :key="'block-' + _id"
+                :block="getBlock(_id)"
                 :edit="edit"
             />
         </TransitionGroup>

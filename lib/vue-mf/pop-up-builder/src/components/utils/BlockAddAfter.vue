@@ -18,7 +18,7 @@ const props = defineProps({
 
 const addBlock = () => {
     store.dispatch('addBlockAfter', {
-        block: { name: props.blockName },
+        block: store.getters.getBlockType(props.blockName),
         inBlock: props.block
     })
 }

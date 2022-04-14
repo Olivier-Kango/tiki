@@ -13,18 +13,18 @@ defineProps({
     edit: Boolean
 });
 
-const root = computed(() => store.getters.getTree)
-const rootBlock = computed(() => store.getters.getRootBlock)
+// const root = computed(() => store.getters.getTree)
+const getRootBlock = computed(() => store.getters.getRootBlock)
+const getBlock = computed(() => (id) => store.getters.getBlock(id))
 </script>
 
 <template>
-    <div class="block-builder" :id="rootBlock.id">
+    <div class="block-builder" :id="'block-' + getRootBlock.id">
         <TransitionGroup name="list">
             <Block
-                v-for="node in root.children"
-                :node="node"
-                :id="'block-' + node.data.id"
-                :key="'block-' + node.data.id"
+                v-for="id in getRootBlock.innerBlocks"
+                :key="'block-' + id"
+                :block="getBlock(id)"
                 :edit="edit"
             />
         </TransitionGroup>

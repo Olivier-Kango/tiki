@@ -17,9 +17,9 @@ const props = defineProps({
 });
 
 const addBlock = () => {
-    store.dispatch('addBlock', {
-        block: { name: props.blockName },
-        inBlock: props.block
+    store.dispatch('insertBlock', {
+        name: props.blockName,
+        parentId: props.block.id
     })
 }
 </script>

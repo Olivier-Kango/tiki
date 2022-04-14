@@ -6,7 +6,7 @@
 	"title": "Paragraph",
 	"category": "text",
 	"description": "A single Paragraph.",
-    "parent": ["core/columns"],
+    "parent": [],
 	"attributes": {
 		"verticalAlignment": {
 			"type": "string"
@@ -16,6 +16,10 @@
 		},
 		"allowedBlocks": {
 			"type": "array"
+		},
+		"content": {
+			"type": "string",
+			"default": "Some text..."
 		}
 	}
 }

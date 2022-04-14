@@ -15,7 +15,8 @@
 			"type": "string"
 		},
 		"allowedBlocks": {
-			"type": "array"
+			"type": "array",
+			"default": ["core/column"]
 		}
 	}
 }

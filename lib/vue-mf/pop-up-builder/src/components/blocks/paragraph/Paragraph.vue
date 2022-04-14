@@ -18,6 +18,7 @@ import { useState } from '../../hooks/useState'
 import store from '../../../store'
 
 const props = defineProps({
+    id: String,
     block: {
         type: Object,
         default() {
@@ -26,8 +27,8 @@ const props = defineProps({
     }
 });
 
-const { isSelected, isHighlighted, setAttributes, setStyles } = useState(props.block)
-const textContent = ref(props.block.attributes && props.block.attributes.textContent)
+const { isSelected, isHighlighted, setAttributes, setStyles } = useState(props.id)
+const content = ref(props.block.attributes && props.block.attributes.content)
 const textAction = ref()
 const showInspector = ref(false)
 
@@ -38,20 +39,20 @@ const classes = computed(() =>
 )
 
 watch([props.block.attributes], (val, oldVal) => {
-    textContent.value = val
+    content.value = val
 })
 
 const handlePopupDestroy = () => store.dispatch('setSelected', null)
 const handleAction = (action) => textAction.value = action
 
-const handleInput = (content) => {
-    textContent.value = content
-    setAttributes({ textContent: content })
+const handleInput = (data) => {
+    content.value = data
+    setAttributes({ content: data })
 }
 
-const handleBlur = (content) => {
-    textContent.value = content
-    setAttributes({ textContent: content })
+const handleBlur = (data) => {
+    content.value = data
+    setAttributes({ content: data })
 }
 
 const handleAlignText = (styles) => setStyles(styles)
@@ -60,11 +61,11 @@ const handleEdit = (e) => showInspector.value = true
 </script>
 
 <template>
-    <div :class="classes" :style="block.styles">
+    <div :id="'block-' + id" :class="classes" :style="block.styles">
         <VueRichText
             v-if="isSelected"
             tag="p"
-            :content="textContent"
+            :content="content"
             :action="textAction"
             @onInput="handleInput"
             @onBlur="handleBlur"
@@ -84,6 +85,6 @@ const handleEdit = (e) => showInspector.value = true
             </BlockInspector>
         </CustomModal>
 
-        <p v-if="!isSelected" v-html="textContent"></p>
+        <p v-if="!isSelected" v-html="content"></p>
     </div>
 </template>
