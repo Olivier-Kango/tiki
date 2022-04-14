@@ -11188,14 +11188,6 @@ td.url {
 .articletrailer .wikitopline {
   float: left;
 }
-.article-image {
-  margin-right: 1rem;
-  max-width: 100%;
-}
-[dir="rtl"] .article-image {
-  margin-right: 0;
-  margin-left: 1rem;
-}
 .articleheading .thumbnail {
   margin-right: 1rem;
   display: block;
