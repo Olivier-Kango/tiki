@@ -45,7 +45,7 @@ class DirectivesTest extends TestCase
     public function testInclude($yamlFile, $yamlResultFile)
     {
         $yamlString = file_get_contents($this->fixtures . $yamlFile);
-        $yaml = Yaml::parse($yamlString);
+        $yaml = Yaml::parse($yamlString, Yaml::PARSE_CUSTOM_TAGS);
 
         $yamlResultString = file_get_contents($this->fixtures . $yamlResultFile);
         $yamlResult = Yaml::parse($yamlResultString);

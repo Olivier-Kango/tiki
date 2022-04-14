@@ -9,6 +9,7 @@
 namespace Tiki\Yaml;
 
 use Tiki\Yaml\Filter\FilterInterface;
+use Symfony\Component\Yaml\Tag\TaggedValue;
 
 class Directives
 {
@@ -51,6 +52,9 @@ class Directives
         if (is_array($value)) {
             $value = array_values($value)[0];
         }
+        if ($value instanceOf TaggedValue) {
+            return $value->getTag();
+        }
         $directive = substr($value, 1, strpos($value, " ") - 1);
         return $directive;
     }
@@ -74,6 +78,14 @@ class Directives
                 return false;
             }
 
+            return true;
+        }
+
+        if ($testValue instanceOf TaggedValue) {
+            $class = "\\Tiki\\Yaml\\Directive\\Directive" . ucfirst($this->directiveFromValue($testValue));
+            if (! class_exists($class)) {
+                return false;
+            }
             return true;
         }
 
