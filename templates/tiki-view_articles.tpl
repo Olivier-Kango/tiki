@@ -172,8 +172,8 @@
                 </div>
             {/if}
 
-            <div class="articleheading d-flex">
-                <div {if $listpages[ix].isfloat eq 'n'}class="flex-shrink-0"{/if}>
+            <div class="articleheading {if $isfloat eq 'n'}d-md-flex{/if} clearfix"> {* No flex in sm screen, to prevent skinny text column *}
+                <div class="{if $listpages[ix].isfloat eq 'y'}float-start{else}flex-shrink-0{/if} me-3">
                     {if $listpages[ix].show_image eq 'y'}
                         {if $listpages[ix].useImage eq 'y'}
                             {if $listpages[ix].hasImage eq 'y'}
