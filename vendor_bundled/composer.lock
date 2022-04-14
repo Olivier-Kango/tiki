@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "69e318ccd19be0e9cbdae5805f137f94",
+    "content-hash": "991a07c0c98015bf7167a06358f8253c",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -649,7 +649,7 @@
             "version": "5.15.4",
             "source": {
                 "type": "git",
-                "url": "https://github.com/FortAwesome/Font-Awesome.git",
+                "url": "git@github.com:FortAwesome/Font-Awesome.git",
                 "reference": "7d3d774145ac38663f6d1effc6def0334b68ab7e"
             },
             "dist": {
@@ -1220,17 +1220,17 @@
         },
         {
             "name": "composer/installers",
-            "version": "v2.1.0",
+            "version": "v2.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/installers.git",
-                "reference": "75e5ef05436c90ac565a48176cc7465991908352"
+                "reference": "af93ba6e52236418f07a278033eba6959ee5b983"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/composer/installers/composer-installers-75e5ef05436c90ac565a48176cc7465991908352-zip-91b23c.zip",
-                "reference": "75e5ef05436c90ac565a48176cc7465991908352",
-                "shasum": "45dcffb576d14baa6a2880f74f1cc7182ea6d3cf"
+                "url": "https://composer.tiki.org/dist/composer/installers/composer-installers-af93ba6e52236418f07a278033eba6959ee5b983-zip-0f5b17.zip",
+                "reference": "af93ba6e52236418f07a278033eba6959ee5b983",
+                "shasum": "802e418f591ec10c1e4b921503cf1d7ad85566da"
             },
             "require": {
                 "composer-plugin-api": "^1.0 || ^2.0",
@@ -1342,7 +1342,7 @@
                 "zend",
                 "zikula"
             ],
-            "time": "2022-03-18T12:27:54+00:00"
+            "time": "2022-04-13T09:13:00+00:00"
         },
         {
             "name": "composer/semver",
@@ -2358,6 +2358,7 @@
                 }
             ],
             "description": "Fancy and customizable colorpicker plugin for Twitter Bootstrap",
+            "abandoned": true,
             "time": "2018-07-21T17:06:22+00:00"
         },
         {
@@ -2996,31 +2997,32 @@
         },
         {
             "name": "laminas/laminas-crypt",
-            "version": "3.6.0",
+            "version": "3.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-crypt.git",
-                "reference": "ad2c29c289a4bc837b37a7650f5178edda0fc548"
+                "reference": "0972bb907fd555c16e2a65309b66720acf2b8699"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-crypt/laminas-laminas-crypt-ad2c29c289a4bc837b37a7650f5178edda0fc548-zip-c36fa9.zip",
-                "reference": "ad2c29c289a4bc837b37a7650f5178edda0fc548",
-                "shasum": "3794e9bce85301bef1bbdc2779aee3f16ead0563"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-crypt/laminas-laminas-crypt-0972bb907fd555c16e2a65309b66720acf2b8699-zip-f9d8f1.zip",
+                "reference": "0972bb907fd555c16e2a65309b66720acf2b8699",
+                "shasum": "505f03b68ee52ced40716116a74cd7a45f887902"
             },
             "require": {
-                "container-interop/container-interop": "^1.2",
                 "ext-mbstring": "*",
                 "laminas/laminas-math": "^3.4",
+                "laminas/laminas-servicemanager": "^3.11.2",
                 "laminas/laminas-stdlib": "^3.6",
-                "php": "^7.3 || ~8.0.0 || ~8.1.0"
+                "php": "^7.4 || ~8.0.0 || ~8.1.0",
+                "psr/container": "^1.1"
             },
             "conflict": {
                 "zendframework/zend-crypt": "*"
             },
             "require-dev": {
-                "laminas/laminas-coding-standard": "~1.0.0",
-                "phpunit/phpunit": "^9.3"
+                "laminas/laminas-coding-standard": "~2.3.0",
+                "phpunit/phpunit": "^9.5.11"
             },
             "suggest": {
                 "ext-openssl": "Required for most features of Laminas\\Crypt"
@@ -3041,7 +3043,7 @@
                 "crypt",
                 "laminas"
             ],
-            "time": "2021-12-06T01:25:27+00:00"
+            "time": "2022-04-12T14:28:29+00:00"
         },
         {
             "name": "laminas/laminas-escaper",
@@ -3940,17 +3942,17 @@
         },
         {
             "name": "laminas/laminas-servicemanager",
-            "version": "3.11.1",
+            "version": "3.11.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-servicemanager.git",
-                "reference": "86b950f517814a2e6f19a6290e7d97aab18c886f"
+                "reference": "8a1f4d53ec93b2e18174f6f186922ef44d11a75a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-servicemanager/laminas-laminas-servicemanager-86b950f517814a2e6f19a6290e7d97aab18c886f-zip-880ed7.zip",
-                "reference": "86b950f517814a2e6f19a6290e7d97aab18c886f",
-                "shasum": "a60d2bfc2a38fe1e7bb5896e49d950d9cc200d69"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-servicemanager/laminas-laminas-servicemanager-8a1f4d53ec93b2e18174f6f186922ef44d11a75a-zip-70ebef.zip",
+                "reference": "8a1f4d53ec93b2e18174f6f186922ef44d11a75a",
+                "shasum": "50e1cfff5770d732a5de29d204a5c55086d5bdf4"
             },
             "require": {
                 "laminas/laminas-stdlib": "^3.2.1",
@@ -4013,7 +4015,7 @@
                 "service-manager",
                 "servicemanager"
             ],
-            "time": "2022-04-04T21:47:49+00:00"
+            "time": "2022-04-07T17:21:25+00:00"
         },
         {
             "name": "laminas/laminas-session",
@@ -4934,17 +4936,17 @@
         },
         {
             "name": "matthiasmullie/minify",
-            "version": "1.3.66",
+            "version": "1.3.67",
             "source": {
                 "type": "git",
                 "url": "https://github.com/matthiasmullie/minify.git",
-                "reference": "45fd3b0f1dfa2c965857c6d4a470bea52adc31a6"
+                "reference": "acaee1b7ca3cd67a39d7f98673cacd7e4739a8d9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/matthiasmullie/minify/matthiasmullie-minify-45fd3b0f1dfa2c965857c6d4a470bea52adc31a6-zip-973b5e.zip",
-                "reference": "45fd3b0f1dfa2c965857c6d4a470bea52adc31a6",
-                "shasum": "0b2a1eca6fc5a5e98f555e10168724fa16f82966"
+                "url": "https://composer.tiki.org/dist/matthiasmullie/minify/matthiasmullie-minify-acaee1b7ca3cd67a39d7f98673cacd7e4739a8d9-zip-e205b8.zip",
+                "reference": "acaee1b7ca3cd67a39d7f98673cacd7e4739a8d9",
+                "shasum": "09949633018e1089da420a59497a0eb5381a2524"
             },
             "require": {
                 "ext-pcre": "*",
@@ -4990,7 +4992,7 @@
                 "minifier",
                 "minify"
             ],
-            "time": "2021-01-06T15:18:10+00:00"
+            "time": "2022-03-24T08:54:59+00:00"
         },
         {
             "name": "matthiasmullie/path-converter",
@@ -9892,61 +9894,6 @@
                 "standards"
             ],
             "time": "2022-03-13T20:07:29+00:00"
-        },
-        {
-            "name": "symfony/inflector",
-            "version": "v4.4.37",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/inflector.git",
-                "reference": "e5e4c618a40e562d51757b54305bd113df59c29f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://composer.tiki.org/dist/symfony/inflector/symfony-inflector-e5e4c618a40e562d51757b54305bd113df59c29f-zip-9b1d26.zip",
-                "reference": "e5e4c618a40e562d51757b54305bd113df59c29f",
-                "shasum": "78ed1926d5c17915db906ad19529daebe33013c7"
-            },
-            "require": {
-                "php": ">=7.1.3",
-                "symfony/polyfill-ctype": "~1.8",
-                "symfony/polyfill-php80": "^1.16"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\Inflector\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Bernhard Schussek",
-                    "email": "bschussek@gmail.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Converts words between their singular and plural forms (English only)",
-            "homepage": "https://symfony.com",
-            "keywords": [
-                "inflection",
-                "pluralize",
-                "singularize",
-                "string",
-                "symfony",
-                "words"
-            ],
-            "abandoned": "EnglishInflector from the String component",
-            "time": "2022-01-02T09:41:36+00:00"
         },
         {
             "name": "symfony/options-resolver",
