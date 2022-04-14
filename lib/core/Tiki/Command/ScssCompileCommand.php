@@ -57,6 +57,12 @@ class ScssCompileCommand extends Command
                 null,
                 InputOption::VALUE_NONE,
                 'Continue SCSS compiling even if it fails to compile some theme'
+            )
+            ->addOption(
+                'sourcemap',
+                's',
+                InputOption::VALUE_NONE,
+                'Generate a sourcemap from the SCSS to aid debugging'
             );
     }
 
@@ -83,6 +89,8 @@ class ScssCompileCommand extends Command
 
         $continueOnError = $input->getOption('continue-on-error');
         $checkTimestamps = $input->getOption('check-timestamps');
+
+        $sourcemap = $input->getOption('sourcemap');
 
         require_once('lib/tikilib.php');
         $cachelib = \TikiLib::lib('cache');
@@ -152,7 +160,7 @@ class ScssCompileCommand extends Command
             foreach ($files as $file) {
                 try {
                     $logger->debug(sprintf('Compiling "%s" to "%s"', $file['scss'], $file['css']));
-                    $this->compile($file['scss'], $file['css'], $output);
+                    $this->compile($file['scss'], $file['css'], $output, $sourcemap);
                 } catch (ParserException $e) {
                     $output->writeln('<error>' . tr('SCSS Parse Error') . ' compiling: ' . $file['scss'] . '</error>');
                     $output->writeln('<info>' . $e->getMessage() . '</info>');
@@ -186,17 +194,33 @@ class ScssCompileCommand extends Command
      *
      * @throws \ScssPhp\ScssPhp\Exception\SassException
      */
-    private function compile(string $inputFile, string $outputFile = '', OutputInterface $output = null): void
+    private function compile(string $inputFile, string $outputFile = '', OutputInterface $output = null, bool $sourcemap = false): void
     {
         $inputData = file_get_contents($inputFile);
         $inputDir = dirname(realpath($inputFile));
 
         $scss = new Compiler();
+        if ($sourcemap) {
+            $scss->setSourceMap(Compiler::SOURCE_MAP_FILE);
+            $scss->setSourceMapOptions([
+                // absolute path to write .map file
+                'sourceMapWriteTo' => $outputFile . '.map',
+                // relative or full url to the above .map file
+                'sourceMapURL'      => basename($outputFile) . '.map',
+                // (optional) relative or full url to the .css file
+                'sourceMapFilename' => $outputFile,
+                // partial path (server root) removed (normalized) to create a relative url
+                'sourceMapBasepath' => $inputDir,
+            ]);
+        }
         $scss->setImportPaths($inputDir);
-        $result = $scss->compileString($inputData);
+        $result = $scss->compileString($inputData, $inputFile);
 
         if ($outputFile) {
             file_put_contents($outputFile, $result->getCss());
+            if ($sourcemap) {
+                file_put_contents($outputFile . '.map', $result->getSourceMap());
+            }
         }
     }
 }
