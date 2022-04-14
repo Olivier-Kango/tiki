@@ -9,6 +9,7 @@
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\BufferedOutput;
+use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Tiki\Package\ComposerManager;
 
@@ -71,6 +72,9 @@ trait Services_Manager_Trait
         if (file_exists($composerPath)) {
             $tm_env->setComposerPath($composerPath);
         }
+        // suppress default io output while loading Tiki Manager env (errors are thrown as exceptions anyway)
+        // we switch to manager_output buffered output after initialization to be able to get command output
+        $tm_env->setIO(null, new NullOutput());
         $tm_env->load();
 
         $_ENV['SSH_CONFIG'] = $_ENV['TRIM_ROOT'].'/data/ssh_config';
