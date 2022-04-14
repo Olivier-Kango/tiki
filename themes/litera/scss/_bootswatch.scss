@@ -1,244 +1,112 @@
-// Litera 4.0.0
+// Litera 5.1.3
 // Bootswatch
 
+// Navbar
 
-// Variables ===================================================================
+.navbar {
+    font-size: $font-size-sm;
 
-$web-font-path: "https://fonts.googleapis.com/css?family=Raleway:400,700" !default;
-@import url($web-font-path);
-
-$font-family-serif:      Georgia, Cambria, "Times New Roman", Times, serif !default;
-
-// Navbar ======================================================================
-
-// Commented out by Gary because IMO this is too small.
-//.navbar {
-//  font-size: 0.875em;
-//}
-
-.bg-dark {
-  background-color: $success !important;
-  &.navbar-dark .navbar-nav {
-    .nav-link:focus,
-    .nav-link:hover,
-    .active > .nav-link,
-    & a:not(.dropdown-item),
-    .dropdown-item .tips {
-      color: $light !important;
+    &.bg-dark {
+        background-color: $success !important;
     }
-  }
-}
 
-// Updated for Smartmenus
-.bg-dark.navbar-dark .navbar-nav .mega-menu a { color: $link-color !important;
-    &:hover { color: $link-hover-color !important; }
-}
+    &.bg-light {
+        background-color: $white !important;
+        border: 1px solid rgba(0, 0, 0, .1);
 
-.bg-light {
-  background-color: #fff !important;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+        &.navbar-fixed-top {
+            border-width: 0 0 1px;
+        }
 
-  &.navbar-fixed-top {
-    border-width: 0 0 1px 0;
-  }
-
-  &.navbar-fixed-bottom {
-    border-width: 1px 0 0 0;
-  }
-  &.navbar-light .navbar-nav {
-    .nav-link:focus,
-    .nav-link:hover,
-    .active > .nav-link,
-    & a:not(.dropdown-item),
-    .dropdown-item .tips {
-      color: $primary !important;
+        &.navbar-fixed-bottom {
+            border-width: 1px 0 0;
+        }
     }
-  }
 }
 
-// Buttons =====================================================================
-
-.btn {
-  border-radius: 1.078em;
-  font-family: $font-family-sans-serif;
-  font-size: 0.875em;
-
-  &-lg {
-    border-radius: 2.688em;
-  }
-
-  &-sm {
-    border-radius: 0.844em;
-    font-size: 0.688em;
-  }
-
-  &-secondary,
-  &-secondary:hover,
-  &-warning,
-  &-warning:hover {
-    color: $white;
-  }
-}
-
-// Typography ==================================================================
+// Typography
 
 p {
-  font-family: $font-family-serif;
+    font-family: $font-family-serif;
 }
 
 blockquote {
-  font-style: italic;
+    font-style: italic;
 }
 
 footer {
-  font-size: 0.875em;
+    font-size: $font-size-sm;
 }
 
 .lead {
-  color: $gray-600;
-  font-family: $font-family-sans-serif;
+    color: $gray-600;
+    font-family: $font-family-sans-serif;
 }
 
-// Tables ======================================================================
+// Tables
 
 table,
 .table {
-  font-size: 0.875em;
-
-  &-success,
-  &-info,
-  &-warning,
-  &-danger {
-    color: #fff;
-  }
+    font-size: $font-size-sm;
 }
 
-.table {
-
-  &-success {
-    &, > th, > td {
-      background-color: $success;
-    }
-  }
-
-  &-info {
-    &, > th, > td {
-      background-color: $info;
-    }
-  }
-
-  &-danger {
-    &, > th, > td {
-      background-color: $danger;
-    }
-  }
-
-  &-warning {
-    &, > th, > td {
-      background-color: $warning;
-    }
-  }
-
-  &-hover {
-
-    .table-success:hover {
-      &, > th, > td {
-        background-color: darken($success, 5%);
-      }
-    }
-
-    .table-info:hover {
-      &, > th, > td {
-        background-color: darken($info, 5%);
-      }
-    }
-
-    .table-danger:hover {
-      &, > th, > td {
-        background-color: darken($danger, 5%);
-      }
-    }
-
-    .table-warning:hover {
-      &, > th, > td {
-        background-color: darken($warning, 5%);
-      }
-    }
-
-  }
-}
-
-// Forms =======================================================================
-
-// Navs ========================================================================
+// Navs
 
 .nav,
 .breadcrumb,
 .pagination {
-  font-size: .95rem; // 0.875em; Changed by Gary
+    font-size: $font-size-sm;
 }
 
-//.dropdown-menu { Commented out by Gary -- seems too small to me.
-//  font-size: 0.875em;
-//}
+.dropdown-menu {
+    font-size: $font-size-sm;
+}
 
-// Indicators ==================================================================
+// Indicators
 
 .alert {
-  border: none;
-  color: $white;
-  font-size: 0.875em;
+    color: $white;
+    font-size: $font-size-sm;
 
-  &, p {
-    font-family: $font-family-sans-serif;
-  }
-
-  a, .alert-link {
-    color: #fff;
-    font-weight: normal;
-    text-decoration: underline;
-  }
-
-  @each $color, $value in $theme-colors {
-    &-#{$color} {
-      background-color: $value;
+    &,
+    p {
+        font-family: $font-family-sans-serif;
     }
-  }
+
+    a,
+    .alert-link {
+        color: $white;
+        font-weight: 400;
+        text-decoration: underline;
+    }
+
+    @each $color, $value in $theme-colors {
+        &-#{$color} {
+            @if $enable-gradients {
+                background: $value linear-gradient($value, mix($body-bg, $value, 15%)) repeat-x;
+            } @else {
+                background-color: $value;
+            }
+        }
+    }
+
+    &-light {
+        &,
+        a,
+        .alert-link {
+            color: $body-color;
+        }
+    }
 }
 
 .badge {
-  vertical-align: bottom;
-
-  &-secondary,
-  &-warning {
-    color: $white;
-  }
+    &.bg-light {
+        color: $dark;
+    }
 }
 
-.tooltip {
-  font-size: 11px;
-}
-
-// Progress bars ===============================================================
-
-// Containers ==================================================================
+// Containers
 
 .list-group {
-  font-size: 0.875em;
-}
-
-// So form submit buttons with icons and text used in popover actions can look just like links
-.dropdown-item button.btn-link.link-list,
-.dropdown-item button.btn-link.link-list .icon {
-    font-size: $popover-font-size * .875;
-}
-
-.popover button.btn-link.link-list,
-.popover button.btn-link.link-list .icon {
-    font-size: $popover-font-size;
-}
-
-.cssmenu_horiz ul.dropdown-menu li:not(.dropdown-item) button.btn-link.link-list,
-.cssmenu_vert ul.dropdown-menu li:not(.dropdown-item) button.btn-link.link-list {
-    font-size: $popover-font-size * .875 * .875;
+    font-size: $font-size-sm;
 }

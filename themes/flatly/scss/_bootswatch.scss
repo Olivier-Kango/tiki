@@ -1,191 +1,86 @@
-// Flatly 4.0.0
+// Flatly 5.1.3
 // Bootswatch
 
 
-// Variables ===================================================================
+// Variables
 
-$web-font-path: "https://fonts.googleapis.com/css?family=Lato:400,700,400italic" !default;
-@import url($web-font-path);
-
-// Navbar =======================================================================
-
-.bg-dark {
-  background-color: $dark;
-  &.navbar-dark .navbar-nav {
-    .nav-link:focus,
-    .nav-link:hover,
-    .active > .nav-link,
-    & a:not(.dropdown-item),
-    .dropdown-item .tips {
-      color: darken($primary, 20%);
-    }
-  }
+$web-font-path: "https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400&display=swap";
+@if $web-font-path {
+    @import url($web-font-path);
 }
 
-.navbar {
+// Navbar
 
-  &-brand {
-    margin-right: 2rem;
-  }
-
-//  &-nav .nav-item + .nav-item {
-//    margin-left: 2rem;
-//  }
-
-  &-nav .nav-link {
-    padding-top: 0.5rem;
-  }
+.bg-primary {
+    .navbar-nav .show > .nav-link,
+    .navbar-nav .nav-link.active,
+    .navbar-nav .nav-link:hover,
+    .navbar-nav .nav-link:focus {
+        color: $success !important;
+    }
 }
 
-// Buttons =====================================================================
-
-.btn {
-  &-secondary,
-  &-secondary:hover,
-  &-warning,
-  &-warning:hover {
-    color: #fff;
-  }
-}
-
-// Typography ==================================================================
-
-// Tables ======================================================================
-
-.table {
-
-  .thead-dark th {
-    background-color: $primary;
-  }
-
-  &-success,
-  &-info,
-  &-warning,
-  &-danger {
-    color: #fff;
-  }
-
-  &-success {
-    &, > th, > td {
-      background-color: $success;
-    }
-  }
-
-  &-info {
-    &, > th, > td {
-      background-color: $info;
-    }
-  }
-
-  &-danger {
-    &, > th, > td {
-      background-color: $danger;
-    }
-  }
-
-  &-warning {
-    &, > th, > td {
-      background-color: $warning;
-    }
-  }
-
-  &-hover {
-
-    .table-success:hover {
-      &, > th, > td {
-        background-color: darken($success, 5%);
-      }
-    }
-
-    .table-info:hover {
-      &, > th, > td {
-        background-color: darken($info, 5%);
-      }
-    }
-
-    .table-danger:hover {
-      &, > th, > td {
-        background-color: darken($danger, 5%);
-      }
-    }
-
-    .table-warning:hover {
-      &, > th, > td {
-        background-color: darken($warning, 5%);
-      }
-    }
-
-  }
-}
-
-// Forms =======================================================================
-
-// Navs ========================================================================
+// Navs
 
 .nav-tabs {
-  .nav-link.active,
-  .nav-link.active:focus,
-  .nav-link.active:hover,
-  .nav-item.open .nav-link,
-  .nav-item.open .nav-link:focus,
-  .nav-item.open .nav-link:hover {
-    color: $primary;
-  }
+    .nav-link.active,
+    .nav-link.active:focus,
+    .nav-link.active:hover,
+    .nav-item.open .nav-link,
+    .nav-item.open .nav-link:focus,
+    .nav-item.open .nav-link:hover {
+        color: $primary;
+    }
 }
 
 .pagination {
-  a:hover {
-    text-decoration: none;
-  }
+    a:hover {
+        text-decoration: none;
+    }
 }
 
-// Indicators ==================================================================
-
-.close {
-  text-decoration: none;
-  opacity: 0.4;
-
-  &:hover,
-  &:focus {
-    opacity: 1;
-  }
-}
+// Indicators
 
 .badge {
-  &-secondary,
-  &-warning {
-    color: #fff;
-  }
+    &.bg-light {
+        color: $dark;
+    }
 }
-
 
 .alert {
-  border: none;
-  color: $white;
+    border: none;
+    color: $white;
 
-  a,
-  .alert-link {
-    color: #fff;
-    text-decoration: underline;
-  }
-
-  @each $color, $value in $theme-colors {
-    &-#{$color} {
-      background-color: $value;
+    a,
+    .alert-link {
+        color: $white;
+        text-decoration: underline;
     }
-  }
+
+    @each $color, $value in $theme-colors {
+        &-#{$color} {
+            @if $enable-gradients {
+                background: $value linear-gradient(180deg, mix($body-bg, $value, 15%), $value) repeat-x;
+            } @else {
+                background-color: $value;
+            }
+        }
+    }
+
+    &-light {
+        &,
+        a,
+        .alert-link {
+            color: $body-color;
+        }
+    }
 }
 
-// Progress bars ===============================================================
+// Containers
 
-// Containers ==================================================================
-.modal .close{
-  color: $black;
-}
-
-// So form submit buttons with icons and text used in popover actions can look just like links
-.popover button.btn-link.link-list,
-.popover button.btn-link.link-list .icon
-{
-    font-size: $popover-font-size;
+.modal,
+.toast {
+    .btn-close {
+        background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23000'><path d='M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z'/></svg>");
+    }
 }
