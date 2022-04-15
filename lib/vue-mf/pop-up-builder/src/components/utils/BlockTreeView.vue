@@ -5,24 +5,29 @@ export default {
 </script>
 
 <script setup>
+import { computed } from 'vue'
+import store from '../../store'
+
 defineProps({
-    node: Object
+    block: Object
 });
+
+const getBlock = computed(() => (id) => store.getters.getBlock(id))
 </script>
 
 <template>
-    <slot name="default" :node="node"></slot>
+    <slot name="default" :block="block"></slot>
     <div>
         <TransitionGroup name="list">
             <div
-                v-for="childNode in node.children"
+                v-for="blockId in block.innerBlocks"
                 class="ml-4 block-tree"
-                :id="'block-tree-' + childNode.id"
-                :key="'block-tree-' + childNode.id"
+                :id="'block-tree-' + blockId"
+                :key="'block-tree-' + blockId"
             >
-                <BlockTreeView :node="childNode">
-                    <template #default="{ node }">
-                        <slot name="default" :node="node"></slot>
+                <BlockTreeView :block="getBlock(blockId)">
+                    <template #default="{ block }">
+                        <slot name="default" :block="block"></slot>
                     </template>
                 </BlockTreeView>
             </div>

@@ -10,32 +10,31 @@ import BlockTreeView from './BlockTreeView.vue'
 import BlockControls from './BlockControls.vue'
 import store from '../../store'
 
-defineProps({
-    edit: Boolean
-});
+const root = computed(() => store.getters.getRootBlock)
 
-const root = computed(() => store.getters.getTree)
-
-const isHighlighted = computed(() => (node) => {
+const isHighlighted = computed(() => (block) => {
     if (!store.getters.getHighlighted) return false
-    if (node.data.id === store.getters.getHighlighted.data.id) return true
+    if (block.id === store.getters.getHighlighted.id) return true
 })
 
-const isSelected = computed(() => (node) => {
+const isSelected = computed(() => (block) => {
     if (!store.getters.getSelected) return false
-    if (node.data.id === store.getters.getSelected.data.id) return true
+    if (block.id === store.getters.getSelected.id) return true
 })
 
-const handleMouseOver = (e, node) => {
-    store.dispatch('setHighlighted', node)
+const getBlockType = computed(() => (name) => store.getters.getBlockType(name))
+const getBlock = computed(() => (id) => store.getters.getBlock(id))
+
+const handleMouseOver = (e, id) => {
+    store.dispatch('setHighlighted', id)
 }
 
-const handleMouseOut = (e, node) => {
+const handleMouseOut = (e, id) => {
     store.dispatch('setHighlighted', null)
 }
 
-const handleClick = (e, node) => {
-    store.dispatch('setSelected', node)
+const handleClick = (e, id) => {
+    store.dispatch('setSelected', id)
 }
 </script>
 
@@ -43,22 +42,22 @@ const handleClick = (e, node) => {
     <div>
         <TransitionGroup name="list">
             <div
-                v-for="node in root.children"
+                v-for="blockId in root.innerBlocks"
                 :id="'block-tree-' + root.id"
                 class="block-tree"
                 :key="'block-tree-' + root.id"
             >
-                <BlockTreeView :node="node">
-                    <template #default="{ node }">
+                <BlockTreeView :block="getBlock(blockId)">
+                    <template #default="{ block }">
                         <div
                             class="block-tree-item"
-                            :class="{'is-selected': isSelected(node), 'is-highlighted': isHighlighted(node)}"
-                            @click="handleClick($event, node)"
-                            @mouseenter="handleMouseOver($event, node)"
-                            @mouseleave="handleMouseOut($event, node)"
+                            :class="{'is-selected': isSelected(block), 'is-highlighted': isHighlighted(block)}"
+                            @click="handleClick($event, block.id)"
+                            @mouseenter="handleMouseOver($event, block.id)"
+                            @mouseleave="handleMouseOut($event, block.id)"
                         >
-                            <small><b>{{node.data.title || node.data.name}}</b></small>
-                            <BlockControls class="d-inline-block" :block="node.data"></BlockControls>
+                            <small><b>{{ getBlockType(block.name).title }}</b></small>
+                            <BlockControls class="d-inline-block" :block="block"></BlockControls>
                         </div>
                     </template>
                 </BlockTreeView>
@@ -75,6 +74,7 @@ const handleClick = (e, node) => {
         cursor: pointer;
         display: inline-block;
         padding: 0 10px;
+        margin-bottom: 4px;
         border-radius: 2px;
     }
 </style>

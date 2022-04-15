@@ -16,16 +16,16 @@ const props = defineProps({
     }
 });
 
-const addBlock = () => {
-    store.dispatch('addBlockAfter', {
-        block: store.getters.getBlockType(props.blockName),
-        inBlock: props.block
+const insertBlockAfter = () => {
+    store.dispatch('insertBlockAfter', {
+        name: props.blockName,
+        targetId: props.block.id
     })
 }
 </script>
 
 <template>
-    <Button variant="default" sm @click="addBlock">
+    <Button variant="default" sm @click="insertBlockAfter">
         {{blockName}}
     </Button>
 </template>

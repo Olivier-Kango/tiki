@@ -18,8 +18,16 @@ const props = defineProps({
 
 const emit = defineEmits(['edit'])
 
+const moveBackward = (e) => {
+    store.dispatch('moveBlockBackward', props.block.id)
+}
+
+const moveForward = (e) => {
+    store.dispatch('moveBlockForward', props.block.id)
+}
+
 const removeBlock = (e) => {
-    store.dispatch('removeBlock', props.block)
+    store.dispatch('removeBlock', props.block.id)
 }
 
 const showBlockSettings = (e) => {
@@ -34,8 +42,8 @@ const showBlockSettings = (e) => {
             <Button variant="default" sm><i class="fas fa-grip-vertical"></i></Button>
             <Button variant="default" sm @click="showBlockSettings"><i class="fas fa-edit"></i></Button>
             <Button variant="default" sm @click="removeBlock"><i class="fas fa-trash"></i></Button>
-            <Button variant="default" sm @click="moveBack"><i class="fas fa-chevron-left"></i></Button>
-            <Button variant="default" sm @click="moveForth"><i class="fas fa-chevron-right"></i></Button>
+            <Button variant="default" sm @click="moveBackward"><i class="fas fa-chevron-left"></i></Button>
+            <Button variant="default" sm @click="moveForward"><i class="fas fa-chevron-right"></i></Button>
         </ButtonGroup>
     </ButtonToolbar>
 </template>
