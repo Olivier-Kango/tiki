@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "991a07c0c98015bf7167a06358f8253c",
+    "content-hash": "d9f7b1a9caeb5efbb54fec6247bf005b",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -11193,6 +11193,47 @@
             ],
             "description": "This is Shamir's Shared Secret implementation in PHP. It allows you to create shared secrets using the PHP classes or the CLI interface.",
             "time": "2021-02-05T23:57:03+00:00"
+        },
+        {
+            "name": "thomaspark/bootswatch",
+            "version": "v5.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thomaspark/bootswatch.git",
+                "reference": "c143eda36a068054ebad9b4c80314c40f13c9c10"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/thomaspark/bootswatch/thomaspark-bootswatch-c143eda36a068054ebad9b4c80314c40f13c9c10-zip-6bcdf7.zip",
+                "reference": "c143eda36a068054ebad9b4c80314c40f13c9c10",
+                "shasum": "630ea92bd03f043b8058026d3d092b01c7d0a164"
+            },
+            "suggest": {
+                "robloach/component-installer": "Allows installation of Components via Composer"
+            },
+            "type": "component",
+            "extra": {
+                "component": {
+                    "name": "bootswatch",
+                    "files": [
+                        "README.md",
+                        "LICENSE",
+                        "dist/**/*"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "thomaspark",
+                    "email": "thomas@bootswatch.com"
+                }
+            ],
+            "description": "Themes for Bootstrap",
+            "time": "2021-10-14T14:05:48+00:00"
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
