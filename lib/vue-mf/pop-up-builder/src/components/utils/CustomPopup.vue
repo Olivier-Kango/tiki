@@ -105,9 +105,9 @@ export default {
             }
         },
         handleHide: function () {
-            this.show = false
-            if (this.popper) this.destroyPopper()
-            this.$emit('destroy')
+            // this.show = false
+            // if (this.popper) this.destroyPopper()
+            // this.$emit('destroy')
         },
         middlewareClickOutside: function (event) {
             let isBlockItem = Array.from(event.target.classList).includes('block-item') || Boolean(event.target.closest(".block-item"))

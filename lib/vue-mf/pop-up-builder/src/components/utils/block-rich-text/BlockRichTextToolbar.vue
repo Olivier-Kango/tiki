@@ -1,6 +1,6 @@
 <script>
 export default {
-    name: 'VueRichTextToolbar'
+    name: 'BlockRichTextToolbar'
 }
 </script>
 

@@ -6,7 +6,7 @@ export default {
 
 <script setup>
 import { computed } from 'vue' 
-import { Button } from '@vue-mf/styleguide'
+import { Button, ToggleButton } from '@vue-mf/styleguide'
 import BlockAdd from './BlockAdd.vue'
 import store from '../../store';
 
@@ -19,9 +19,13 @@ const props = defineProps({
 
 const rootBlock = computed(() => store.getters.getRootBlock)
 
-const clearLocalStorage =  () => {
+const clearLocalStorage = () => {
     let response = confirm('Clear builder data?')
     if (response) localStorage.removeItem('tiki-pop-up-blocks')
+}
+
+const handleSwitchMode = (checked) => {
+    checked ? store.dispatch('setMode', 'prod') : store.dispatch('setMode', 'edit')
 }
 </script>
 
@@ -43,9 +47,12 @@ const clearLocalStorage =  () => {
                     </div>
                 </template>
             </VDropdown>
-            <Button class="ml-auto" variant="default" sm @click="clearLocalStorage">
-                Clear localStorage builder data?
-            </Button>
+            <div class="d-flex align-items-center ml-auto">
+                <div style="width: 50px"><ToggleButton label="Preview" @update:checked="handleSwitchMode" /></div>
+                <Button variant="default" sm @click="clearLocalStorage">
+                    Clear localStorage builder data?
+                </Button>
+            </div>
         </div>
     </nav>
 </template>

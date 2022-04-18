@@ -4,7 +4,7 @@ export default {
 }
 </script>
 <script setup>
-import { onBeforeMount } from 'vue'
+import { onBeforeMount, computed } from 'vue'
 import BlockEditor from './components/utils/BlockEditor.vue'
 import store from './store'
 import defaultTemplate from './components/templates/default.json'
@@ -28,6 +28,7 @@ onBeforeMount(() => {
     }
 
     if (blocks) store.dispatch('setBlocks', blocks)
+    store.dispatch('setMode', 'edit')
 
     // let mockBlocks = {
     //     'root': {
@@ -85,8 +86,10 @@ onBeforeMount(() => {
 
     // store.dispatch('setBlocks', mockBlocks)
 })
+
+const edit = computed(() => store.getters.getMode === 'edit')
 </script>
 
 <template>
-    <BlockEditor edit></BlockEditor>
+    <BlockEditor :edit="edit"></BlockEditor>
 </template>

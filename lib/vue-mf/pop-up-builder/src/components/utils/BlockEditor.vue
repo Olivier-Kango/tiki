@@ -16,7 +16,7 @@ defineProps({
 
 <template>
     <div class="block-editor">
-        <BlockNavbar v-if="edit"></BlockNavbar>
+        <BlockNavbar></BlockNavbar>
         <div class="d-flex">
             <BlockTree v-if="edit" class="p-2"></BlockTree>
             <BlockBuilder class="flex-grow-1" :edit="edit" />
