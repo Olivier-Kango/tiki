@@ -66,7 +66,7 @@ class AuthTokensTest extends TikiDatabaseTestCase
 	{
 		$token = $this->obj->createToken('tiki-index.php', ['page' => 'HomePage'], ['Registered']);
 
-		$row = $this->db->query('SELECT tokenId, creation, timeout, entry, parameters, groups FROM tiki_auth_tokens ORDER BY creation desc')->fetchRow();
+		$row = $this->db->query('SELECT `tokenId`, `creation`, `timeout`, `entry`, `parameters`, `groups` FROM `tiki_auth_tokens` ORDER BY `creation` desc')->fetchRow();
 
 		$this->assertEquals(md5(implode('', $row)), $token);
 	}
@@ -86,7 +86,7 @@ class AuthTokensTest extends TikiDatabaseTestCase
 	function testAlteredDataCancels()
 	{
 		$token = $this->obj->createToken('tiki-index.php', ['page' => 'HomePage'], ['Registered']);
-		$this->db->query('UPDATE tiki_auth_tokens SET groups = \'["Admins"]\'');
+		$this->db->query('UPDATE `tiki_auth_tokens` SET `groups` = \'["Admins"]\'');
 		$this->assertNull($this->obj->getGroups($token, 'tiki-index.php', ['page' => 'HomePage']));
 	}
 
