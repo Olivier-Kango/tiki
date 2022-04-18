@@ -649,7 +649,7 @@
             "version": "5.15.4",
             "source": {
                 "type": "git",
-                "url": "git@github.com:FortAwesome/Font-Awesome.git",
+                "url": "https://github.com/FortAwesome/Font-Awesome.git",
                 "reference": "7d3d774145ac38663f6d1effc6def0334b68ab7e"
             },
             "dist": {
@@ -4751,17 +4751,17 @@
         },
         {
             "name": "league/mime-type-detection",
-            "version": "1.10.0",
+            "version": "1.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/mime-type-detection.git",
-                "reference": "3e4a35d756eedc67096f30240a68a3149120dae7"
+                "reference": "ff6248ea87a9f116e78edd6002e39e5128a0d4dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/league/mime-type-detection/league-mime-type-detection-3e4a35d756eedc67096f30240a68a3149120dae7-zip-1c8f29.zip",
-                "reference": "3e4a35d756eedc67096f30240a68a3149120dae7",
-                "shasum": "279297741cacac34bd974b8696d8ecd921fff8d3"
+                "url": "https://composer.tiki.org/dist/league/mime-type-detection/league-mime-type-detection-ff6248ea87a9f116e78edd6002e39e5128a0d4dd-zip-a99288.zip",
+                "reference": "ff6248ea87a9f116e78edd6002e39e5128a0d4dd",
+                "shasum": "1c0272237088f51aa829ca924c06c921a4bb6069"
             },
             "require": {
                 "ext-fileinfo": "*",
@@ -4789,7 +4789,7 @@
                 }
             ],
             "description": "Mime-type detection for Flysystem",
-            "time": "2022-04-11T12:49:04+00:00"
+            "time": "2022-04-17T13:12:02+00:00"
         },
         {
             "name": "league/oauth2-client",
@@ -5190,17 +5190,17 @@
         },
         {
             "name": "moment/moment",
-            "version": "2.29.1",
+            "version": "2.29.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/moment/moment.git",
-                "reference": "b7ec8e2ec068e03de4f832f28362675bb9e02261"
+                "reference": "75e2ac573e8cd62086a6bc6dc1b8d271e2804391"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/moment/moment/moment-moment-b7ec8e2ec068e03de4f832f28362675bb9e02261-zip-0389b6.zip",
-                "reference": "b7ec8e2ec068e03de4f832f28362675bb9e02261",
-                "shasum": "dc95d772558f0f196ae6ba32c301b93482ff8304"
+                "url": "https://composer.tiki.org/dist/moment/moment/moment-moment-75e2ac573e8cd62086a6bc6dc1b8d271e2804391-zip-360722.zip",
+                "reference": "75e2ac573e8cd62086a6bc6dc1b8d271e2804391",
+                "shasum": "d5703b43fe626673ce98b125f1b5f9446fa82215"
             },
             "require": {
                 "oomphinc/composer-installers-extender": "*"
@@ -5240,7 +5240,7 @@
                 "time",
                 "validate"
             ],
-            "time": "2020-10-06T11:13:21+00:00"
+            "time": "2022-04-03T13:12:09+00:00"
         },
         {
             "name": "montefuscolo/xmpp",
@@ -5759,11 +5759,11 @@
         },
         {
             "name": "npm-asset/fullcalendar",
-            "version": "5.10.2",
+            "version": "5.11.0",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/fullcalendar/npm-asset-fullcalendar-5.10.2.zip",
-                "shasum": "f7e491afe5cbc973a8183747f2ae5fa3363ce9b6"
+                "url": "https://composer.tiki.org/dist/npm-asset/fullcalendar/npm-asset-fullcalendar-5.11.0.zip",
+                "shasum": "8eb4a43a81a8d5882748be86c2a7ed2f047fb020"
             },
             "type": "npm-asset",
             "license": [
@@ -5835,11 +5835,11 @@
         },
         {
             "name": "npm-asset/moment",
-            "version": "2.29.2",
+            "version": "2.29.3",
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/npm-asset/moment/npm-asset-moment-2.29.2.zip",
-                "shasum": "9befc944014fe035aaa9e9932407be956770d098"
+                "url": "https://composer.tiki.org/dist/npm-asset/moment/npm-asset-moment-2.29.3.zip",
+                "shasum": "35755a8d68df45ea6ff4ebb4120ce9e23facc6ae"
             },
             "type": "npm-asset",
             "license": [
