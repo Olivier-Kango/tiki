@@ -19,6 +19,10 @@
 function smarty_modifier_d($var, $modifier = '')  {
 
     if (is_callable('Kint::dump')) {
+
+        // add this function as an alias of Kint::dump
+        Kint::$aliases[] = 'smarty_modifier_d';
+
         switch ($modifier) {
             case '!':                   // Expand all data in this dump automatically
                 !Kint::dump($var);
