@@ -7,16 +7,12 @@ body {
 }
 a, a:visited {
   color: #0d6efd;
-  text-decoration: underline;
 }
 a:hover {
   color: #0a58ca;
-  text-decoration: underline;
 }
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-  font-family: inherit;
   font-weight: 500;
-  color: inherit;
 }
 .card {
   margin-bottom: 1.5;
@@ -36,3 +32,4 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 .card-title > a, .card-title > small, .card-title > .small, .card-title > small > a, .card-title > .small > a {
   color: inherit;
 }
+/*# sourceMappingURL=newsletter.css.map */

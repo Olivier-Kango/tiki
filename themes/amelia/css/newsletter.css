@@ -29,7 +29,6 @@ a:hover {
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   font-family: "Lobster", cursive;
   font-weight: 500;
-  color: inherit;
 }
 .card {
   margin-bottom: 1.5;
@@ -53,3 +52,4 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   font-family: "Lobster", sans-serif;
   font-weight: 500;
 }
+/*# sourceMappingURL=newsletter.css.map */

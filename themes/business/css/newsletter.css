@@ -7,16 +7,12 @@ body {
 }
 a, a:visited {
   color: #0d6efd;
-  text-decoration: underline;
 }
 a:hover {
   color: #0a58ca;
-  text-decoration: underline;
 }
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-  font-family: inherit;
   font-weight: 500;
-  color: inherit;
 }
 .card {
   margin-bottom: 1.5;
@@ -47,7 +43,6 @@ a, a:visited {
 }
 a:hover {
   color: #0a58ca;
-  text-decoration: underline;
 }
 h3.panel-title {
   font-size: 90%;
@@ -58,3 +53,4 @@ h3.panel-title {
   background-size: 100% 100%;
   color: #404040;
 }
+/*# sourceMappingURL=newsletter.css.map */

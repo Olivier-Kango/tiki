@@ -7,14 +7,11 @@ body {
 }
 a, a:visited {
   color: #600000;
-  text-decoration: underline;
 }
 a:hover {
   color: #140000;
-  text-decoration: underline;
 }
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-  font-family: inherit;
   font-weight: 500;
   color: #8a0700;
 }
@@ -39,3 +36,4 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 body {
   background: #f3f3f3;
 }
+/*# sourceMappingURL=newsletter.css.map */
