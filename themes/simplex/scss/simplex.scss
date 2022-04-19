@@ -18,11 +18,6 @@
 
 
 
-// button colors were black on purple
-.btn-secondary {
-    &, &:hover { color: #fff; }
-}
-
 // Increase navbar height and side margins to reinstate Bootswatch style
 .topbar_modules > * {
     margin-top: .5rem;
