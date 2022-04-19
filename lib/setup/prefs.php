@@ -43,6 +43,8 @@ function get_default_prefs()
         return $prefs;
     }
 
+    global $tikipath;
+
     $cachelib = TikiLib::lib('cache');
     if ($prefs = $cachelib->getSerialized('tiki_default_preferences_cache')) {
         return $prefs;
@@ -217,13 +219,16 @@ function get_default_prefs()
             // Error Tracking
             'error_tracking_enabled_php' => 'n', //empty string needed to keep preference from setting unexpectedly
             'error_tracking_enabled_js' => 'n', //empty string needed to keep preference from setting unexpectedly
-            'error_tracking_dsn' => ''
+            'error_tracking_dsn' => '',
+
+            // Use Tiki-based temp dir by default
+            'tmpDir' => $tikipath.'/temp'
         ]
     );
 
     // Special default values
 
-    $_SESSION['tmpDir'] = sys_get_temp_dir();
+    $_SESSION['tmpDir'] = $prefs['tmpDir'];
 
     $prefs['feature_lastup'] = 'y';
 
