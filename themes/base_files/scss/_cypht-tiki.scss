@@ -68,8 +68,9 @@
     }
 
     .flipmodtitle.close, .close {
-        font-size: $close-font-size;
-        &, &:hover, &:focus { color: $close-color !important; }
+        height: $btn-close-height; // Bootstrap 5 changed from font to svg button bg.
+        width: $btn-close-width;
+        &, &:hover, &:focus { color: $btn-close-color !important; }
     }
 
     .navbar-light .navbar-nav .nav-link {

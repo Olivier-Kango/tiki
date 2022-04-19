@@ -1183,13 +1183,13 @@ code,
 pre.codelisting {
     background: $code-bg;
     border: $border-width solid transparent;
-    padding: $code-padding-y $code-padding-x;
+    padding: $kbd-padding-y $kbd-padding-x;
 }
 code {
     color: $code-color;
 }
 pre.codelisting {
-    color: $code-block-color;
+    color: $kbd-bg;
     border-color: $border-color;
     border-radius: $border-radius;
 }
@@ -1216,7 +1216,7 @@ pre.codelisting code {
 
 // Make hierarchical arrangement of admin options more clear
 .adminoptionboxchild {
-    border-bottom: 1px solid $hr-border-color;
+    border-bottom: 1px solid $hr-color;
     legend {
         font-size: $secondary-legend-font-size;
     }
@@ -1224,7 +1224,7 @@ pre.codelisting code {
 
 // Make links in highlighted adminoptions visible with nice contrast
 div.highlight.adminoptionbox a {
-    color: color-yiq($danger) !important; // returns color contrast to danger color
+    color: color-contrast($danger) !important; // returns color contrast to danger color
 }
 
 // Admin navbar switch
