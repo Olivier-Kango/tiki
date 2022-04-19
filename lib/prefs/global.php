@@ -81,7 +81,7 @@ function prefs_global_list($partial = false)
             'keywords' => 'tmp temp path',
             'type' => 'text',
             'size' => 30,
-            'default' => sys_get_temp_dir(),
+            'default' => sys_get_temp_dir(),  // note: this gets overridden in lib/setup/prefs.php
             'perspective' => false,
         ],
         'helpurl' => [
