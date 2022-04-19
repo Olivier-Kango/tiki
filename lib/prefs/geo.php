@@ -70,7 +70,7 @@ function prefs_geo_list()
                 )
             ),
             'type' => 'text',
-            'filter' => 'word',
+            'filter' => 'text',
             'separator' => ',',
             'default' => ['openstreetmap'],
             'tags' => ['advanced'],
