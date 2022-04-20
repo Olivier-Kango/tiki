@@ -41,61 +41,20 @@ class Services_Manager_Controller
     public function action_update($input)
     {
         $instanceId = $input->instanceId->int();
-        if ($input->mode->text() == 'bg') {
-            Scheduler_Manager::queueJob('Update instance '.$instanceId, 'ConsoleCommandTask', ['console_command' => 'manager:instance:update -i '.$instanceId]);
-            Feedback::success(tr("Instance %0 scheduled to update in the background. You can check command output via Scheduler logs.", $instanceId));
-            if ($input->modal->int()) {
-                return Services_Utilities::closeModal();
-            } else {
-                return [
-                    'FORWARD' => [
-                        'action' => 'index',
-                    ],
-                ];
-            }
-        }
-        $error = null;
         if ($instance = TikiManager\Application\Instance::getInstance($instanceId)) {
-            $locked = (md5_file(TRIMPATH . '/scripts/maintenance.htaccess') == md5_file($instance->getWebPath('.htaccess')));
-
-            try {
-                if (! $locked) {
-                    $locked = $instance->lock();
-                }
-
-                $instance->detectPHP();
-                $app = $instance->getApplication();
-                $app->performUpdate($instance);
-
-                if ($locked) {
-                    $instance->unlock();
-                }
-            } catch (Exception $e) {
-                $error = $e->getMessage();
-            }
+            Scheduler_Manager::queueJob('Update instance '.$instanceId, 'ConsoleCommandTask', ['console_command' => 'manager:instance:update -i '.$instanceId]);
+            Feedback::success(tr("Instance %0 scheduled to update in the background. You can check command output via <a href='tiki-admin_schedulers.php#contenttabs_admin_schedulers-3'>Scheduler logs</a>.", $instanceId));
         } else {
-            $error = tr('Unknown instance');
+            Feedback::error(tr('Unknown instance'));
         }
-        $content = $this->manager_output->fetch();
-        if ($content) {
-            if ($error) {
-                $content .= "\n" . tr("Error: %0", $error);
-            }
-            return [
-                'override_action' => 'info',
-                'title' => tr('Tiki Manager Instance Update'),
-                'info' => $content,
-            ];
+        if ($input->modal->int()) {
+            return Services_Utilities::closeModal();
         } else {
-            if ($input->modal->int()) {
-                return Services_Utilities::closeModal();
-            } else {
-                return [
-                    'FORWARD' => [
-                        'action' => 'index',
-                    ],
-                ];
-            }
+            return [
+                'FORWARD' => [
+                    'action' => 'index',
+                ],
+            ];
         }
     }
 

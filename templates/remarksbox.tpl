@@ -20,7 +20,7 @@
 
 {if $remarksbox_cookie}
 {jq}
-$("button.close", "#{{$remarksbox_id|escape}}").click(function() {
+$("button.btn-close", "#{{$remarksbox_id|escape}}").click(function() {
     setCookie("{{$remarksbox_cookiehash}}", "1", "rbox");
 });
 {/jq}

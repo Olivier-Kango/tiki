@@ -289,6 +289,9 @@
 {if $jobs|count > 0}
     {tab name="{tr}Jobs{/tr}"}
         <div id="admin_jobs-div">
+            {remarksbox type="note" title="{tr}Information{/tr}"}
+            {tr}This page lists all scheduled background jobs along with their processing status. You can re-run a job or see a log of the job executions. Note that Tiki Scheduler must be executed periodically by a cron job in order to execute the background jobs. If you see a job in Active status below for too long interval, then your cron job is most probably not running. {/tr}
+            {/remarksbox}
             <div class="{if $js}table-responsive {/if}ts-wrapperdiv">
                 {* Use css menus as fallback for item dropdown action menu if javascript is not being used *}
                 <table id="admin_jobs" class="table normal table-striped table-hover" data-count="{$jobs|count}">

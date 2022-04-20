@@ -43,11 +43,6 @@
                             </a>
                         </action>
                         <action>
-                            <a href="{service controller=manager action=update instanceId=$instance->id mode=bg}">
-                                {icon name=import _menu_text='y' _menu_icon='y' alt="{tr}Update (background){/tr}"}
-                            </a>
-                        </action>
-                        <action>
                             <a href="{service controller=manager action=backup instanceId=$instance->id}">
                                 {icon name=download _menu_text='y' _menu_icon='y' alt="{tr}Backup{/tr}"}
                             </a>
