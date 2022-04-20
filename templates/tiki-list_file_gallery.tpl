@@ -242,35 +242,38 @@
 {else}
     {if $view neq 'page'}
         {if $prefs.fgal_elfinder_feature neq 'y' or $view neq 'finder'}
-            <div class="row">
-            {if $prefs.fgal_search eq 'y'}
-                <div class="col-sm-6">
-                    {include file='find.tpl' find_show_num_rows = 'y' find_show_categories_multi='y' find_durations=$find_durations find_show_sub='y' find_in="<ul><li>{tr}Name{/tr}</li><li>{tr}Filename{/tr}</li><li>{tr}Description{/tr}</li></ul>"}
+            <button class="btn btn-secondary btn-sm mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#searchListFgal" aria-expanded="false" aria-controls="searchListFgal">{tr}Search Tools{/tr}</button>
+            <div class="collapse" id="searchListFgal">
+                <div class="row">
+                {if $prefs.fgal_search eq 'y'}
+                    <div class="col-sm-6">
+                        {include file='find.tpl' find_show_num_rows = 'y' find_show_categories_multi='y' find_durations=$find_durations find_show_sub='y' find_in="<ul><li>{tr}Name{/tr}</li><li>{tr}Filename{/tr}</li><li>{tr}Description{/tr}</li></ul>"}
+                    </div>
+                {/if}
+                {if ($prefs.fgal_search_in_content eq 'y' or $prefs.fgal_search eq 'y') and $galleryId > 0}
+                    <div class="col-sm-6">
+                        {if $prefs.fgal_search_in_content eq 'y'}
+                            <form id="search-form" class="form" role="form" method="get" action="tiki-search{if $prefs.feature_forum_local_tiki_search eq 'y'}index{else}results{/if}.php">
+                                <input type="hidden" name="where" value="files">
+                                <input type="hidden" name="galleryId" value="{$galleryId}">
+                                <label for="highlight" class="find_content sr-only">{tr}Search in content{/tr}</label>
+                                <div class="input-group">
+                                    <input name="highlight" size="30" type="text" placeholder="{tr}Search in content{/tr}..." class="form-control tips bottom" title="|{tr}Search for text within files in all galleries{/tr}">
+                                    <input type="submit" class="wikiaction btn btn-info" name="search" value="{tr}Go{/tr}">
+                                </div>
+                            </form>
+                        {/if}
+                        {if $prefs.fgal_search eq 'y'}
+                            <form id="search-by-id" class="form" role="form" method="get" action="tiki-list_file_gallery.php">
+                                <div class="input-group">
+                                    <input class="form-control tips bottom" type="text" name="fileId" id="fileId" {if isset($fileId)} value="{$fileId}"{/if} placeholder="{tr}Search by identifier{/tr}..." title="|{tr}Search for the file with this number, in all galleries{/tr}">
+                                    <button type="submit" class="btn btn-info">{tr}Go{/tr}</button>
+                                </div>
+                            </form>
+                        {/if}
+                    </div>
+                {/if}
                 </div>
-            {/if}
-            {if ($prefs.fgal_search_in_content eq 'y' or $prefs.fgal_search eq 'y') and $galleryId > 0}
-                <div class="col-sm-6">
-                    {if $prefs.fgal_search_in_content eq 'y'}
-                        <form id="search-form" class="form" role="form" method="get" action="tiki-search{if $prefs.feature_forum_local_tiki_search eq 'y'}index{else}results{/if}.php">
-                            <input type="hidden" name="where" value="files">
-                            <input type="hidden" name="galleryId" value="{$galleryId}">
-                            <label for="highlight" class="find_content sr-only">{tr}Search in content{/tr}</label>
-                            <div class="input-group">
-                                <input name="highlight" size="30" type="text" placeholder="{tr}Search in content{/tr}..." class="form-control tips bottom" title="|{tr}Search for text within files in all galleries{/tr}">
-                                <input type="submit" class="wikiaction btn btn-info" name="search" value="{tr}Go{/tr}">
-                            </div>
-                        </form>
-                    {/if}
-                    {if $prefs.fgal_search eq 'y'}
-                        <form id="search-by-id" class="form" role="form" method="get" action="tiki-list_file_gallery.php">
-                            <div class="input-group">
-                                <input class="form-control tips bottom" type="text" name="fileId" id="fileId" {if isset($fileId)} value="{$fileId}"{/if} placeholder="{tr}Search by identifier{/tr}..." title="|{tr}Search for the file with this number, in all galleries{/tr}">
-                                <button type="submit" class="btn btn-info">{tr}Go{/tr}</button>
-                            </div>
-                        </form>
-                    {/if}
-                </div>
-            {/if}
             </div>
         {/if}
     {else}
