@@ -220,11 +220,13 @@ function get_default_prefs()
             'error_tracking_enabled_php' => 'n', //empty string needed to keep preference from setting unexpectedly
             'error_tracking_enabled_js' => 'n', //empty string needed to keep preference from setting unexpectedly
             'error_tracking_dsn' => '',
-
-            // Use Tiki-based temp dir by default
-            'tmpDir' => $tikipath.'/temp'
         ]
     );
+
+    if (! empty($prefs['tmpDir']) && $prefs['tmpDir'] == sys_get_temp_dir() && is_dir($tikipath.'temp')) {
+        // Use Tiki-based temp dir by default instead of system temp dir
+        $prefs['tmpDir'] = $tikipath.'temp';
+    }
 
     // Special default values
 
