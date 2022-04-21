@@ -206,7 +206,17 @@ class Services_Manager_Controller
                 ],
             ];
         }
+        
+    }
 
+    public function action_requirements($input)
+    {
+        $this->runCommand(new TikiManager\Command\CheckRequirementsCommand());
+        return [
+            'override_action' => 'info',
+            'title' => tr('Tiki Manager Check Requirements'),
+            'info' => $this->manager_output->fetch()
+        ];
     }
 
     public function loadEnv()

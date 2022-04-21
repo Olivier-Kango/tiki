@@ -5,6 +5,9 @@
     {if in_array('info', $available_actions)}
     <a class="btn btn-link" href="{bootstrap_modal controller=manager action=info}">{icon name=info} {tr}Info{/tr}</a>
     {/if}
+    {if in_array('check', $available_actions)}
+    <a class="btn btn-link" href="{bootstrap_modal controller=manager action=requirements}">{icon name=check} {tr}Check Requirements{/tr}</a>
+    {/if}
     <h2>Instances</h2>
     <table class="table">
     <tr>
