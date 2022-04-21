@@ -34,11 +34,6 @@
                         {icon name=import _menu_text='y' _menu_icon='y' alt="{tr}Update{/tr}"}
                     </a>
                 </action>
-                <action>
-                    <a href="{bootstrap_modal controller=manager action=update instanceId=$instance->id mode=bg}" onclick="$('[data-toggle=popover]').popover('hide');">
-                        {icon name=import _menu_text='y' _menu_icon='y' alt="{tr}Update (background){/tr}"}
-                    </a>
-                </action>
                 {/if}
                 {if in_array('backup', $available_actions)}
                 <action>
