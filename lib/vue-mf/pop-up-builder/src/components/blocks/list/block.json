@@ -1,0 +1,21 @@
+{
+    "_comment": "Sample schema",
+	"//$schema": "https://tiki.sample.org/trunk/block.json",
+	"apiVersion": 1,
+	"name": "core/list",
+	"title": "List items",
+	"category": "text",
+	"description": "Dynamic block for rendering list of items",
+    "parent": [],
+	"attributes": {
+		"items": {
+			"type": "array"
+		},
+		"fields": {
+			"type": "array"
+		},
+		"url": {
+			"type": "String"
+		}
+	}
+}

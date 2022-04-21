@@ -4,7 +4,8 @@ export default {
 }
 </script>
 <script setup>
-const props = defineProps({
+defineProps({
+    id: String,
     block: {
         type: Object,
         default() {

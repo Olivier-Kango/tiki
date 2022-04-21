@@ -13,10 +13,14 @@ const props = defineProps({
         type: Object,
         default: () => {}
     },
+    blocks: {
+        type: Array,
+        default: () => []
+    },
     edit: Boolean
 });
 
-const getBlock = computed(() => (id) => store.getters.getBlock(id))
+const getBlock = computed(() => (id) => props.blocks[id])
 const eventType = computed(() => props.edit ? 'click' : null)
 
 const handleEvent = (e, id) => store.dispatch('setSelected', id)
@@ -29,6 +33,7 @@ const handleEvent = (e, id) => store.dispatch('setSelected', id)
         :id="block.id"
         :data-id="block.id"
         :block="block"
+        :edit="edit"
         @[eventType].stop="handleEvent($event, block.id)"
     >
         <TransitionGroup name="list">
@@ -37,6 +42,7 @@ const handleEvent = (e, id) => store.dispatch('setSelected', id)
                 :key="'block-' + _id"
                 :block="getBlock(_id)"
                 :edit="edit"
+                :blocks="blocks"
             />
         </TransitionGroup>
     </component>

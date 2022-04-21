@@ -11,11 +11,8 @@
 		"verticalAlignment": {
 			"type": "string"
 		},
-		"width": {
+		"url": {
 			"type": "string"
-		},
-		"allowedBlocks": {
-			"type": "array"
 		}
 	}
 }

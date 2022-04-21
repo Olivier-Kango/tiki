@@ -5,13 +5,18 @@ export default {
 </script>
 
 <script setup>
+import { computed } from 'vue'
 import BlockNavbar from './BlocksNavbar.vue'
 import BlockBuilder from './BlockBuilder.vue'
 import BlockTree from './BlockTree.vue'
+import store from '../../store'
 
 defineProps({
     edit: Boolean
 })
+
+const blocks = computed(() => store.getters.getBlocks)
+const getRootBlock = computed(() => store.getters.getRootBlock)
 </script>
 
 <template>
@@ -19,7 +24,9 @@ defineProps({
         <BlockNavbar></BlockNavbar>
         <div class="d-flex">
             <BlockTree v-if="edit" class="p-2"></BlockTree>
-            <BlockBuilder class="flex-grow-1" :edit="edit" />
+            <div class="block-builder flex-grow-1" :id="'block-' + getRootBlock.id">
+                <BlockBuilder :blocks="blocks" :blockIds="getRootBlock.innerBlocks" :edit="edit" />
+            </div>
         </div>
     </div>
 </template>

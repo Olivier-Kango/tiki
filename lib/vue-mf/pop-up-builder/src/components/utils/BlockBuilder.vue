@@ -7,26 +7,30 @@ export default {
 <script setup>
 import { computed } from 'vue'
 import Block from './Block.vue'
-import store from '../../store'
 
-defineProps({
-    edit: Boolean
+const props = defineProps({
+    edit: Boolean,
+    blocks: {
+        type: Array,
+        default: () => []
+    },
+    blockIds: {
+        type: Array,
+        default: () => []
+    }
 });
 
-// const root = computed(() => store.getters.getTree)
-const getRootBlock = computed(() => store.getters.getRootBlock)
-const getBlock = computed(() => (id) => store.getters.getBlock(id))
+const getBlock = computed(() => (id) => props.blocks[id])
 </script>
 
 <template>
-    <div class="block-builder" :id="'block-' + getRootBlock.id">
-        <TransitionGroup name="list">
-            <Block
-                v-for="id in getRootBlock.innerBlocks"
-                :key="'block-' + id"
-                :block="getBlock(id)"
-                :edit="edit"
-            />
-        </TransitionGroup>
-    </div>
+    <TransitionGroup name="list">
+        <Block
+            v-for="id in blockIds"
+            :key="'block-' + id"
+            :block="getBlock(id)"
+            :edit="edit"
+            :blocks="blocks"
+        />
+    </TransitionGroup>
 </template>
