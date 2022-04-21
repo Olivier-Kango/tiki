@@ -8,7 +8,7 @@
 
 namespace Tracker\Tabular\Schema;
 
-class Column
+class Column implements \JsonSerializable
 {
     const HEADER_PATTERN = '/\[(\*?)(\w+):([^\]]+)\]$/';
 
@@ -252,5 +252,19 @@ class Column
         };
 
         return $column;
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            'label' => $this->label,
+            'field' => $this->permName,
+            'mode' => $this->mode,
+            'displayAlign' => $this->displayAlign,
+            'isPrimary' => $this->isPrimary,
+            'isReadOnly' => $this->isReadOnly,
+            'isExportOnly' => $this->isExportOnly,
+            'isUniqueKey' => $this->isUniqueKey,
+        ];
     }
 }

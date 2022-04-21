@@ -129,10 +129,13 @@ class Services_Tracker_TabularController
             'name' => $info['name'],
             'config' => $info['config'],
             'odbc_config' => $info['odbc_config'],
+            'columns' => $schema->getColumns(),
+            'filters' => $schema->getFilterCollection()->getFilters(),
             'schema' => $schema,
             'filterCollection' => $schema->getFilterCollection(),
             'has_odbc' => function_exists('odbc_connect'),
             'encodings' => $encodings,
+
         ];
     }
 

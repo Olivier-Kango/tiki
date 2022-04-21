@@ -8,7 +8,7 @@
 
 namespace Tracker\Filter;
 
-class Filter
+class Filter implements \JsonSerializable
 {
     private $permName;
     private $mode;
@@ -114,5 +114,15 @@ class Filter
         $this->position = $other->position;
         $this->control = clone $other->control;
         $this->applyCondition = $other->applyCondition;
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            'label' => $this->label,
+            'field' => $this->permName,
+            'mode' => $this->mode,
+            'position' => $this->position,
+        ];
     }
 }

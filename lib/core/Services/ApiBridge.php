@@ -129,6 +129,9 @@ class Services_ApiBridge
         $routes->add('search-lookup', (new Route('search/lookup', ['controller' => 'search', 'action' => 'lookup']))->setMethods(['GET']));
         $routes->add('search-process-queue', (new Route('search/process-queue', ['controller' => 'search', 'action' => 'process_queue']))->setMethods(['POST']));
         $routes->add('search-rebuild', (new Route('search/rebuild', ['controller' => 'search', 'action' => 'rebuild']))->setMethods(['POST']));
+        $routes->add('tabulars', (new Route('tabulars', ['controller' => 'tabular', 'action' => 'manage']))->setMethods(['GET']));
+        $routes->add('tabulars-view', (new Route('tabulars/{tabularId}', ['controller' => 'tabular', 'action' => 'edit']))->setMethods(['GET']));
+        $routes->add('tabulars-export', (new Route('tabulars/{tabularId}/export', ['controller' => 'tabular', 'action' => 'export_full_csv']))->setMethods(['GET']));
         $routes->add('trackers', (new Route('trackers', ['controller' => 'tracker', 'action' => 'list_trackers']))->setMethods(['GET']));
         $routes->add('trackers-create', (new Route('trackers', ['controller' => 'tracker', 'action' => 'replace', 'confirm' => 1]))->setMethods(['POST']));
         $routes->add('trackers-view', (new Route('trackers/{trackerId}', ['controller' => 'tracker', 'action' => 'list_items', 'offset' => -1, 'maxRecords' => -1]))->setMethods(['GET']));

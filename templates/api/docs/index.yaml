@@ -68,6 +68,12 @@ paths:
     $ref: paths-search-process_queue.yaml
   /search/rebuild:
     $ref: paths-search-rebuild.yaml
+  /tabulars:
+    $ref: paths-tabulars-index.yaml
+  /tabulars/{tabularId}:
+    $ref: paths-tabulars-entity.yaml
+  /tabulars/{tabularId}/export:
+    $ref: paths-tabulars-export.yaml
   /trackers:
     $ref: paths-trackers-index.yaml
   /trackers/{trackerId}:
