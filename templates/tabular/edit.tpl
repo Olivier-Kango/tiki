@@ -281,7 +281,7 @@
                     <input type="submit" class="btn btn-primary" value="{tr}Update{/tr}" onclick="$(window).off('beforeunload');return true;">
                 </div>
             </div>
-            <div class="row mb-4">
+            <div class="row mb-3">
                 <label class="col-form-label col-sm-2">{tr}Options{/tr}</label>
                 <div class="col-sm-5">
                     <div class="form-check">
@@ -326,8 +326,10 @@
                         <label class="form-check-label">{tr}Skip Unmodified{/tr}</label>
                     </div>
                 </div>
-                <label class="col-sm-2 offset-sm-2 mt-2">
-                    {tr}CSV Encoding{/tr}
+            </div>
+            <div class="row mb-3">
+                <label class="col-form-label col-sm-2">
+                    {tr}CSV/JSON Encoding{/tr}
                     <a class="tikihelp text-info" title="{tr}Encoding{/tr}: {tr}Excel will often expect 'Windows-1252' encoding{/tr}">
                         {icon name=information}
                     </a>
@@ -342,6 +344,24 @@
                                 {$encoding}
                             </option>
                         {/foreach}
+                    </select>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label class="col-form-label col-sm-2">
+                    {tr}Data Format{/tr}
+                    <a class="tikihelp text-info" title="{tr}Data Format{/tr}: {tr}Data type generated/expected from export/import functions.{/tr}">
+                        {icon name=information}
+                    </a>
+                </label>
+                <div class="col-sm-3">
+                    <select class="form-select" name="config[format]">
+                        <option value=""{if empty($config['format']) or $config['format'] eq 'csv'} selected="selected"{/if}>
+                            {tr}Default (CSV){/tr}
+                        </option>
+                        <option value="json"{if $config['format'] eq 'json'} selected="selected"{/if}>
+                            JSON
+                        </option>
                     </select>
                 </div>
             </div>

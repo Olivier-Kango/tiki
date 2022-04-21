@@ -96,6 +96,7 @@ class Schema
             'bulk_import' => 0,
             'skip_unmodified' => 0,
             'encoding' => '',
+            'format' => '',
         ], $config);
 
         $this->config = $config;
@@ -134,6 +135,12 @@ class Schema
     public function getEncoding()
     {
         return $this->config['encoding'];
+    }
+
+    public function getFormat()
+    {
+        $format = $this->config['format'] ?? 'json';
+        return $format ? $format : 'json';
     }
 
     public function loadFormatDescriptor($descriptor)

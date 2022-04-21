@@ -280,8 +280,14 @@ class Services_Tracker_TabularController
             ];
         } else {
             $name = TikiLib::lib('tiki')->remove_non_word_characters_and_accents($info['name']);
-            $writer = new \Tracker\Tabular\Writer\CsvWriter('php://output', $schema->getEncoding());
-            $writer->sendHeaders($name . '_export_full.csv');
+            if ($schema->getFormat() == 'json') {
+                $writer = new \Tracker\Tabular\Writer\JsonWriter('php://output', $schema->getEncoding());
+                $name .= '_export_full.json';
+            } else {
+                $writer = new \Tracker\Tabular\Writer\CsvWriter('php://output', $schema->getEncoding());
+                $name .= 'export_full.csv';
+            }
+            $writer->sendHeaders($name);
 
             TikiLib::lib('tiki')->allocate_extra(
                 'tracker_export_items',
@@ -318,10 +324,16 @@ class Services_Tracker_TabularController
             $collection->applyConditions($query);
 
             $source = new \Tracker\Tabular\Source\QuerySource($schema, $query);
-            $writer = new \Tracker\Tabular\Writer\CsvWriter('php://output');
-
             $name = TikiLib::lib('tiki')->remove_non_word_characters_and_accents($info['name']);
-            $writer->sendHeaders($name . '_export_partial.csv');
+
+            if ($schema->getFormat() == 'json') {
+                $writer = new \Tracker\Tabular\Writer\JsonWriter('php://output', $schema->getEncoding());
+                $name .= '_export_partial.json';
+            } else {
+                $writer = new \Tracker\Tabular\Writer\CsvWriter('php://output', $schema->getEncoding());
+                $name .= '_export_partial.csv';
+            }
+            $writer->sendHeaders($name);
 
             TikiLib::lib('tiki')->allocate_extra(
                 'tracker_export_items',
@@ -371,10 +383,16 @@ class Services_Tracker_TabularController
             $query->filterContent($trackerId, 'tracker_id');
 
             $source = new \Tracker\Tabular\Source\QuerySource($schema, $query);
-            $writer = new \Tracker\Tabular\Writer\CsvWriter('php://output');
-
             $name = TikiLib::lib('tiki')->remove_non_word_characters_and_accents($info['name']);
-            $writer->sendHeaders($name . '_export_search.csv');
+
+            if ($schema->getFormat() == 'json') {
+                $writer = new \Tracker\Tabular\Writer\JsonWriter('php://output', $schema->getEncoding());
+                $name .= '_export_search.json';
+            } else {
+                $writer = new \Tracker\Tabular\Writer\CsvWriter('php://output', $schema->getEncoding());
+                $name .= '_export_search.csv';
+            }
+            $writer->sendHeaders($name);
 
             TikiLib::lib('tiki')->allocate_extra(
                 'tracker_export_items',
@@ -414,7 +432,11 @@ class Services_Tracker_TabularController
         $done = false;
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && is_uploaded_file($_FILES['file']['tmp_name'])) {
-            $source = new \Tracker\Tabular\Source\CsvSource($schema, $_FILES['file']['tmp_name'], ',', $schema->getEncoding());
+            if ($schema->getFormat() == 'json') {
+                $source = new \Tracker\Tabular\Source\JsonSource($schema, $_FILES['file']['tmp_name'], $schema->getEncoding());
+            } else {
+                $source = new \Tracker\Tabular\Source\CsvSource($schema, $_FILES['file']['tmp_name'], ',', $schema->getEncoding());
+            }
             $writer = new \Tracker\Tabular\Writer\TrackerWriter();
             $done = $writer->write($source);
 
@@ -450,6 +472,7 @@ class Services_Tracker_TabularController
             'tabularId' => $info['tabularId'],
             'completed' => $done,
             'odbc' => ! empty($info['odbc_config']),
+            'format' => $schema->getFormat(),
         ];
     }
 

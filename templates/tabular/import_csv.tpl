@@ -22,6 +22,15 @@
         <form class="no-ajax" method="post" action="{service controller=tabular action=import_csv tabularId=$tabularId}" enctype="multipart/form-data">
             {if $odbc}
             <p>{tr}Import from remote ODBC source.{/tr}</p>
+            {elseif $format eq 'json'}
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="inputGroupText">{tr}JSON File{/tr}</span>
+                <div class="custom-file">
+                    <input type="file" name="file" accept="application/json" class="custom-file-input" id="inputFile" aria-describedby="inputGroupText"
+                        onchange="$(this).next('.custom-file-label').text($(this).val().replace('C:\\fakepath\\', ''));">
+                    <label class="form-label custom-file-label" for="inputFile">Choose file</label>
+                </div>
+            </div>
             {else}
             <div class="input-group mb-3">
                 <span class="input-group-text" id="inputGroupText">{tr}CSV File{/tr}</span>
