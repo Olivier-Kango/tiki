@@ -69,8 +69,8 @@ class SchedulersLib extends TikiLib
             'params' => $params,
             'run_time' => $run_time,
             'status' => $status,
-            're_run' => $re_run,
-            'run_only_once' => $run_only_once,
+            're_run' => $re_run ? 1 : 0,
+            'run_only_once' => $run_only_once ? 1 : 0,
             'user_run_now' => $user_run_now,
         ];
 
