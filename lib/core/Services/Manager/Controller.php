@@ -168,6 +168,47 @@ class Services_Manager_Controller
         ];
     }
 
+    public function action_console($input)
+    {
+        $instanceId = $input->instanceId->int();
+        if (TikiManager\Application\Instance::getInstance($instanceId)) {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+                $cmd = new TikiManager\Command\ConsoleInstanceCommand();
+                $inputCmd = new ArrayInput([
+                    'command' => $cmd->getName(),
+                    '-i' => $instanceId,
+                    '-c' => $input->command->text(),
+                ]);
+                try {
+                    $this->runCommand($cmd, $inputCmd);
+                } catch (\Exception $e) {
+                    Feedback::error($e->getMessage());
+                }
+                return [
+                    'override_action' => 'info',
+                    'title' => tr('Tiki Manager Console Command'),
+                    'info' => $this->manager_output->fetch(),
+                    'refresh' => true,
+                ];
+        
+            } else {    
+                return [
+                    'title' => tr('Tiki Manager Console Command'),
+                    'info' => '',
+                    'instanceId' => $input->instanceId->int()
+                ];
+            }
+        } else {
+            Feedback::error(tr('Unknown instance'));
+            return [
+                'FORWARD' => [
+                    'action' => 'index',
+                ],
+            ];
+        }
+
+    }
+
     public function loadEnv()
     {
         global $prefs, $user, $base_url, $tikipath;

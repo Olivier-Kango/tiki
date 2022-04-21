@@ -47,6 +47,11 @@
                                 {icon name=times _menu_text='y' _menu_icon='y' alt="{tr}Delete{/tr}"}
                             </a>
                         {/if}
+                        {if in_array('console', $field.available_actions)}
+                            <a class="dropdown-item" href="{bootstrap_modal controller=manager action=console instanceId=$instance->id}">
+                                {icon name=pen _menu_text='y' _menu_icon='y' alt="{tr}Console Command{/tr}"}
+                            </a>
+                        {/if}
                     </div>
                 </div>
             </div>

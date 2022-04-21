@@ -63,6 +63,13 @@
                     </a>
                 </action>
                 {/if}
+                {if in_array('console', $available_actions)}
+                <action>
+                    <a href="{bootstrap_modal controller=manager action=console instanceId=$instance->id}" onclick="$('[data-toggle=popover]').popover('hide');">
+                        {icon name=pen _menu_text='y' _menu_icon='y' alt="{tr}Console Command{/tr}"}
+                    </a>
+                </action>
+                {/if}
             {/strip}{/actions}
         </td>
     </tr>
