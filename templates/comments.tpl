@@ -48,7 +48,7 @@
                                 form="comment-form"
                                 class="btn btn-primary btn-sm mx-2 tips"
                                 onclick="confirmPopup()"
-                                aria-label="Merge"
+                                aria-label="{tr}Merge{/tr}"
                             >
                                 {icon name="merge"}
                             </button>
@@ -60,7 +60,7 @@
                             form="comment-form"
                             class="btn btn-danger btn-sm mx-2 tips"
                             onclick="confirmPopup()"
-                            aria-label="Remove"
+                            aria-label="{tr}Remove{/tr}"
                         >
                             {icon name="remove"}
                         </button>
