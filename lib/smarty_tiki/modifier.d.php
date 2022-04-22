@@ -22,6 +22,8 @@ function smarty_modifier_d($var, $modifier = '')  {
 
         // add this function as an alias of Kint::dump
         Kint::$aliases[] = 'smarty_modifier_d';
+        // So far SmartyKin just replaces the ugly
+        Kint::$plugins[] = new SmartyKint();
 
         switch ($modifier) {
             case '!':                   // Expand all data in this dump automatically
@@ -44,3 +46,34 @@ function smarty_modifier_d($var, $modifier = '')  {
         }
     }
 }
+
+use Kint\Zval\Value;
+use Kint\Parser\Parser;
+use Kint\Parser\Plugin;
+
+class SmartyKint extends Plugin
+{
+    public function getTypes()
+    {
+        return ['integer', 'string', 'array', 'object'];
+    }
+
+    public function getTriggers()
+    {
+        return Parser::TRIGGER_BEGIN;
+    }
+
+    public function parse(&$var, Value &$o, $trigger)
+    {
+        if ($trigger === Parser::TRIGGER_BEGIN) {
+            // we begin the Kint dump
+            $replace = preg_replace('/.*\[\'(.*)\']->value/', '$$1', $o->access_path);
+            // if the path of the var is $_smarty_tpl->tpl_vars[...]->value then just use the smarty var name for the title
+            if ($o->access_path !== $replace) {
+                $o->name = $replace;
+            }
+        }
+    }
+}
+
+
