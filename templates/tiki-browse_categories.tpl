@@ -17,7 +17,7 @@
         <a class="btn btn-info" {if $type eq ''} id="highlight"{/if} href="tiki-browse_categories.php?find={$find|escape:"url"}&amp;deep={$deep}&amp;parentId={$parentId|escape:"url"}&amp;sort_mode={$sort_mode|escape:"url"}">{tr}All{/tr}</a>
         <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown">
             {tr}or in{/tr}
-            <span class="sr-only">Toggle Dropdown</span>
+            <span class="sr-only">Toggle dropdown</span>
         </button>
         <div class="dropdown-menu" role="menu">
             {if $prefs.feature_wiki eq 'y'}

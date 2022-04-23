@@ -54,7 +54,7 @@
                             {/if}
 
                             {if $smod_params.compact eq "y"}
-                                <button type="submit" class="btn btn-info my-1 search_mod_magnifier">
+                                <button type="submit" class="btn btn-info my-1 search_mod_magnifier" aria-label="{tr}Search{/tr}">
                                     {icon name="search"}
                                 </button>
                             </div>

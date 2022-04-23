@@ -76,11 +76,11 @@
                     <td class="prio{$items[user].priority}">
                         {if $items[user].isFlagged eq 'y'}
                             <button type="submit" name="flagmsg" value="n_{$items[user].msgId}" class="btn btn-link pt-0">
-                                <i class="fa fa-flag tips" aria-hidden="true" title="{tr}Flagged:Click to unflag{/tr}"></i>
+                                <i class="fa fa-flag tips" aria-hidden="true" title="{tr}Flagged: Click to unflag{/tr}"></i>
                             </button>
                         {else}
                             <button type="submit" name="flagmsg" value="y_{$items[user].msgId}" class="btn btn-link pt-0">
-                                <i class="far fa-flag tips" aria-hidden="true" title="{tr}Not Flagged:Click to Flag{/tr}"></i>
+                                <i class="far fa-flag tips" aria-hidden="true" title="{tr}Not Flagged: Click to flag{/tr}"></i>
                             </button>
                         {/if}
                     </td>

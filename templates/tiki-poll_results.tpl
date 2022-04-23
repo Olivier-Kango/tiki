@@ -145,6 +145,7 @@
                                     value="1"
                                     class="btn btn-link p-0 tips"
                                     title=":{tr}Remove{/tr}"
+                                    aria-label="{tr}Remove{/tr}"
                                     onclick="confirmPopup('{tr}Delete vote?{/tr}')"
                                 >
                                     {icon name="remove"}

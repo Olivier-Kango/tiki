@@ -33,7 +33,7 @@
                     </ul>
                     <form class="d-flex flex-row flex-wrap align-items-center my-2 my-lg-0">
                         <input type="text" class="form-control mr-sm-2" placeholder="Search" aria-label="{tr}Search{/tr}">
-                        <button type="submit" class="btn btn-primary my-2 my-sm-0">Submit</button>
+                        <button type="submit" class="btn btn-primary my-2 my-sm-0">{tr}Submit{/tr}</button>
                     </form>
 <!--
                     <ul class="navbar-nav navbar-right mr-auto">

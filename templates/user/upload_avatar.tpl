@@ -9,8 +9,8 @@
             <input id="userfile" name="userfile" type="file">
             {ticket mode='confirm'}
             <div class="submit">
-                <button href="{service controller=user action=upload_avatar user={$userwatch|escape} reset=y}" class="float-start btn btn-primary">Remove Avatar</button>
-                <button type="submit" class="btn btn-primary btn-upload-avatar disabled">Upload Avatar</button>
+                <button href="{service controller=user action=upload_avatar user={$userwatch|escape} reset=y}" class="float-start btn btn-primary">{tr}Remove avatar{/tr}</button>
+                <button type="submit" class="btn btn-primary btn-upload-avatar disabled">{tr}Upload avatar{/tr}</button>
             </div>
         </form>
     </div>

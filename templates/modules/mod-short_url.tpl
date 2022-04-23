@@ -4,7 +4,7 @@
         <div id="short-url-module">
             <div>
                 <div id="short-url-error" class="alert alert-danger" style="display:none"></div>
-                <button id="short-url-get" class="btn btn-primary btn-sm form-control">{icon name="link"} {tr}Get short url{/tr}</button>
+                <button id="short-url-get" class="btn btn-primary btn-sm form-control">{icon name="link"} {tr}Get short URL{/tr}</button>
             </div>
 
             <div id="short-url-link"style="display:none">

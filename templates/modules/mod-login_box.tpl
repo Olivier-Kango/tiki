@@ -122,7 +122,7 @@ $("#switchbox-{{$module_logo_instance}} .submit").click( function () {
                     {if isset($module_params.show_user_avatar) && $module_params.show_user_avatar eq 'y'}{$user|avatarize:n:n:n:n}{/if}
                     {if isset($module_params.show_user_name) && $module_params.show_user_name eq 'y'}{$user|username:n:n:n}{/if}
                     {if (!isset($module_params.show_user_avatar) || $module_params.show_user_avatar neq 'y') and (!isset($module_params.show_user_name) || $module_params.show_user_name neq 'y')}{tr}Log out{/tr}{/if}
-                    <span class="sr-only">{tr}Toggle Dropdown{/tr}</span>
+                    <span class="sr-only">{tr}Toggle dropdown{/tr}</span>
                 </button>
                 {if empty($module_params.menu_id)}
                     <div class="dropdown-menu dropdown-menu-right">

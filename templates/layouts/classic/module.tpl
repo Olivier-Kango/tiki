@@ -103,6 +103,7 @@
                                         value="{$moduleId}"
                                         class="tips btn btn-link"
                                         title=":{tr}Move up{/tr}"
+                                        aria-label="{tr}Move up{/tr}"
                                     >
                                         {icon name="up"}
                                     </button>
@@ -112,6 +113,7 @@
                                         value="{$moduleId}"
                                         class="tips btn btn-link"
                                         title=":{tr}Move down{/tr}"
+                                        aria-label="{tr}Move down{/tr}"
                                     >
                                         {icon name="down"}
                                     </button>
@@ -121,6 +123,7 @@
                                         value="{$moduleId}"
                                         class="tips btn btn-link"
                                         title=":{tr}Move to opposite side{/tr}"
+                                        aria-label="{tr}Move to opposite side{/tr}"
                                     >
                                         {icon name="move"}
                                     </button>
@@ -130,6 +133,7 @@
                                         value="{$moduleId}"
                                         class="tips btn btn-link"
                                         title=":{tr}Unassign{/tr}"
+                                        aria-label="{tr}Unassign{/tr}"
                                     >
                                         {icon name="remove"}
                                     </button>
@@ -151,6 +155,7 @@
                                     value="{$moduleId}"
                                     class="tips btn btn-link"
                                     title=":{tr}Move up{/tr}"
+                                    aria-label="{tr}Move up{/tr}"
                                 >
                                     {icon name="up"}
                                 </button>
@@ -160,6 +165,7 @@
                                     value="{$moduleId}"
                                     class="tips btn btn-link"
                                     title=":{tr}Move down{/tr}"
+                                    aria-label="{tr}Move down{/tr}"
                                 >
                                     {icon name="down"}
                                 </button>
@@ -169,6 +175,7 @@
                                     value="{$moduleId}"
                                     class="tips btn btn-link"
                                     title=":{tr}Move to opposite side{/tr}"
+                                    aria-label="{tr}Move to opposite side{/tr}"
                                 >
                                     {icon name="move"}
                                 </button>
@@ -178,6 +185,7 @@
                                     value="{$moduleId}"
                                     class="tips btn btn-link"
                                     title=":{tr}Unassign{/tr}"
+                                    aria-label="{tr}Unassign{/tr}"
                                 >
                                     {icon name="remove"}
                                 </button>
