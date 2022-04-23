@@ -4,7 +4,7 @@
         <div class="col-sm-8 col-md-9">
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <a class="navbar-brand" href="#">Menu</a>
-                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#bs-example-navbar-collapse-1" aria-expanded="false" aria-label="Toggle navigation">
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#bs-example-navbar-collapse-1" aria-expanded="false" aria-label="{tr}Toggle navigation{/tr}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -32,7 +32,7 @@
                         </li>
                     </ul>
                     <form class="d-flex flex-row flex-wrap align-items-center my-2 my-lg-0">
-                        <input type="text" class="form-control mr-sm-2" placeholder="Search" aria-label="Search">
+                        <input type="text" class="form-control mr-sm-2" placeholder="Search" aria-label="{tr}Search{/tr}">
                         <button type="submit" class="btn btn-primary my-2 my-sm-0">Submit</button>
                     </form>
 <!--

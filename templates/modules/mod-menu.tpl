@@ -16,7 +16,7 @@
                 {/if}
             {/if}
             {if $module_params.navbar_toggle eq 'y'}
-                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#mod-menu{$module_position}{$module_ord} .navbar-collapse" aria-controls="mod-menu{$module_position}{$module_ord}" aria-expanded="false" aria-label="Toggle navigation">
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#mod-menu{$module_position}{$module_ord} .navbar-collapse" aria-controls="mod-menu{$module_position}{$module_ord}" aria-expanded="false" aria-label="{tr}Toggle navigation{/tr}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
             {/if}
