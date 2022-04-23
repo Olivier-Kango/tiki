@@ -5,9 +5,11 @@ export default {
 </script>
 
 <script setup>
-import { computed } from 'vue' 
+import { ref, computed } from 'vue' 
 import { Button, ToggleButton } from '@vue-mf/styleguide'
 import BlockAdd from './BlockAdd.vue'
+import CustomModal from './CustomModal.vue'
+import BlocksStoreSettings from './BlocksStoreSettings.vue'
 import store from '../../store';
 
 const props = defineProps({
@@ -16,6 +18,8 @@ const props = defineProps({
         default: () => {}
     }
 });
+
+const showModal = ref()
 
 const rootBlock = computed(() => store.getters.getRootBlock)
 
@@ -26,6 +30,14 @@ const clearLocalStorage = () => {
 
 const handleSwitchMode = (checked) => {
     checked ? store.dispatch('setMode', 'prod') : store.dispatch('setMode', 'edit')
+}
+
+const handleOpenModal = () => {
+    showModal.value = true
+}
+
+const handleCloseModal = () => {
+    showModal.value = false
 }
 </script>
 
@@ -47,6 +59,9 @@ const handleSwitchMode = (checked) => {
                     </div>
                 </template>
             </VDropdown>
+            <Button variant="default" sm @click="handleOpenModal">
+                <i class="fas fa-database"></i>
+            </Button>
             <div class="d-flex align-items-center ml-auto">
                 <div style="width: 50px"><ToggleButton label="Preview" @update:checked="handleSwitchMode" /></div>
                 <Button variant="default" sm @click="clearLocalStorage">
@@ -54,5 +69,9 @@ const handleSwitchMode = (checked) => {
                 </Button>
             </div>
         </div>
+
+        <CustomModal :show="showModal" @close="handleCloseModal">
+            <BlocksStoreSettings></BlocksStoreSettings>
+        </CustomModal>
     </nav>
 </template>

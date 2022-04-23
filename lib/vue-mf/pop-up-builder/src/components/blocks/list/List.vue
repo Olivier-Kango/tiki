@@ -5,7 +5,7 @@ export default {
 </script>
 
 <script setup>
-import { ref, watch, computed, onMounted } from 'vue'
+import { ref, watch, computed } from 'vue'
 import BlockAlignTextToolbar from '../../utils/BlockAlignTextToolbar.vue'
 import BlockControls from '../../utils/BlockControls.vue'
 import BlockInspector from '../../utils/BlockInspector.vue'
@@ -29,11 +29,8 @@ const props = defineProps({
 });
 
 const { isSelected, isHighlighted, cloneBlock, setAttributes, setStyles } = useState(props.id)
-const items = ref(props.block.attributes.items)
 const showPopup = ref(false)
 const showInspector = ref(false)
-const blockTemplates = ref()
-const loading = ref()
 
 const classes = computed(() => 
     props.block.classes && props.block.classes.concat([
@@ -41,23 +38,16 @@ const classes = computed(() =>
     ])
 )
 
-watch(() => props.edit, (val, oldVal) => {
-    if (!val) {
-        loading.value = true
-        fetch('https://fakestoreapi.com/products')
-            .then(res => res.json())
-            .then(json => {
-                loading.value = false
-                items.value = json
-                blockTemplates.value = json.map(item => {
-                    return cloneBlock(props.block.innerBlocks[0])
-                })
-                
-                console.log(json)
-                console.log(blockTemplates.value)
-            })
-    }
+const getOwnPropertyNames = computed(() => {
+    let data = store.getters['store-module/get_' + props.block.attributes.field]
+    return data && Object.getOwnPropertyNames(data[0])
 })
+
+const getBlockTemplates = computed(() => 
+    store.getters['store-module/get_' + props.block.attributes.field]?.map(item => {
+        return { ...cloneBlock(props.block.innerBlocks[0]), context: item }
+    })
+)
 
 watch(() => isSelected.value, (val, oldVal) => showPopup.value = val)
 
@@ -71,16 +61,26 @@ const handleEdit = (e) => showInspector.value = true
 
 <template>
     <div :id="'block-' + id" :class="classes" :style="block.styles">
-        <slot v-if="edit"/>
+        <!-- <slot v-if="edit"/> -->
+        <div v-if="edit">
+            <BlockBuilder
+                :blockIds="block.innerBlocks"
+                :edit="edit"
+                :contextFields="getOwnPropertyNames"
+            />
+        </div>
         <div v-if="!edit">
-            <div v-if="loading" class="d-flex justify-content-center align-items-center" :style="{'height': '200px', 'font-size': '2rem'}">
+            <div v-if="!getBlockTemplates && !edit" class="d-flex justify-content-center align-items-center" :style="{'height': '200px', 'font-size': '2rem'}">
                 <i class="fas fa-spinner fa-spin"></i>
             </div>
-            <BlockBuilder
-                v-for="blockTemplate in blockTemplates"
-                :blocks="blockTemplate.blocks"
-                :blockIds="[blockTemplate.rootId]"
-            />
+            <div v-if="getBlockTemplates">
+                <BlockBuilder
+                    v-for="blockTemplate in getBlockTemplates"
+                    :blocks="blockTemplate.blocks"
+                    :blockIds="[blockTemplate.rootId]"
+                    :context="blockTemplate.context"
+                />
+            </div>
         </div>
         
         <CustomPopup v-if="showPopup" :target="'block-' + block.id" @destroy="handlePopupDestroy">
@@ -90,9 +90,8 @@ const handleEdit = (e) => showInspector.value = true
             </div>
         </CustomPopup>
         <CustomModal v-if="showInspector" :show="showInspector" @close="showInspector = false">
-            <BlockInspector>
-                <BlockInspectorControls />
-            </BlockInspector>
+            <h3>Select list</h3>
+            <BlockInspector :block="block" :fields="store.getters['store-module/get_fields']"/>
         </CustomModal>
     </div>
 </template>

@@ -25,7 +25,7 @@ const getRootBlock = computed(() => store.getters.getRootBlock)
         <div class="d-flex">
             <BlockTree v-if="edit" class="p-2"></BlockTree>
             <div class="block-builder flex-grow-1" :id="'block-' + getRootBlock.id">
-                <BlockBuilder :blocks="blocks" :blockIds="getRootBlock.innerBlocks" :edit="edit" />
+                <BlockBuilder :blockIds="getRootBlock.innerBlocks" :edit="edit" />
             </div>
         </div>
     </div>
