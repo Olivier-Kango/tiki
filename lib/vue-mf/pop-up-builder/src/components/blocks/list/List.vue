@@ -38,11 +38,10 @@ const classes = computed(() =>
     ])
 )
 
-const getOwnPropertyNames = computed(() => {
+const getFirstItem = computed(() => {
     let data = store.getters['store-module/get_' + props.block.attributes.field]
-    return data && Object.getOwnPropertyNames(data[0])
+    return data && data[0]
 })
-
 const getBlockTemplates = computed(() => 
     store.getters['store-module/get_' + props.block.attributes.field]?.map(item => {
         return { ...cloneBlock(props.block.innerBlocks[0]), context: item }
@@ -66,7 +65,7 @@ const handleEdit = (e) => showInspector.value = true
             <BlockBuilder
                 :blockIds="block.innerBlocks"
                 :edit="edit"
-                :contextFields="getOwnPropertyNames"
+                :context="getFirstItem"
             />
         </div>
         <div v-if="!edit">

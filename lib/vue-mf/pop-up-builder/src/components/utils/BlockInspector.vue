@@ -5,8 +5,10 @@ export default {
 </script>
 
 <script setup>
-import { computed, watch } from 'vue'
+import { ref, computed, watch } from 'vue'
 import store from '../../store'
+import _get from 'lodash/get'
+import _isObject from 'lodash/isObject'
 
 const props = defineProps({
     block: {
@@ -15,30 +17,85 @@ const props = defineProps({
             return {}
         }
     },
-    fields: {
-        type: Array,
+    context: {
+        type: Object,
         default() {
-            return []
+            return {}
         }
     }
 })
 
-// const getFields = computed(() => 
-//     store.getters['store-module/get_fields']
-// )
+const propsPath = ref(getInitialPathArr())
 
-const handleSelected = (selected) => {
+const handleSelected = (selected, index = 0) => {
+    propsPath.value = propsPath.value.slice(0, index + 1)
+    propsPath.value.splice(index, 1, selected)
+
+    let path = propsPath.value.join('.')
+    let value = _get(props.context, path)
+    let hasObjectInside = _isObject(value) && !Array.isArray(value)
+
+    if (hasObjectInside) propsPath.value.push('')
+    if (!hasObjectInside) {
+        saveAttributeField()
+        console.log('Saved!')
+    }
+    console.log(propsPath.value.filter(el => el).join('.'))
+}
+
+const handleRemoved = (removed, index = 0) => {
+    propsPath.value = propsPath.value.slice(0, index)
+    propsPath.value.push('')
+    saveAttributeField()
+}
+
+const getOptions = index => {
+    let path = propsPath.value.slice(0, index)
+    let value = _get(props.context, path.join('.'))
+    if (index === 0 && !value) {
+        return props.context && Object.getOwnPropertyNames(props.context)
+    } else if (_isObject(value) && !Array.isArray(value)) {
+        return Object.getOwnPropertyNames(value)
+    } else {
+        return Object.getOwnPropertyNames(props.context)
+    }
+}
+
+function saveAttributeField() {
     store.dispatch('updateBlock', {
         block: props.block,
         field: 'attributes',
-        value: {...props.block.attributes, field: selected }
+        value: {...props.block.attributes, field: propsPath.value.filter(el => el).join('.') }
     })
+}
+
+function getInitialPathArr() {
+    let value = _get(props.context, props.block.attributes.field)
+    let path = []
+    if (value && _isObject(value) && !Array.isArray(value)) {
+        path = props.block.attributes.field?.split('.')
+        path.push('')
+        return path
+    } else if (value) {
+        return props.block.attributes.field?.split('.').filter(el => el)
+    } else {
+        return ['']
+    }
 }
 </script>
 
 <template>
     <div class="block-inspector">
         <slot/>
-        <VueSelect :options="fields" @selected="handleSelected"></VueSelect>
+        <div class="d-flex">
+            <VueSelect
+                class="mr-2"
+                v-for="(prop, index) in propsPath"
+                v-model="propsPath[index]"
+                :options="getOptions(index) || []"
+                @selected="selected => handleSelected(selected, index)"
+                @removed="selected => handleRemoved(selected, index)"
+            />
+        </div>
     </div>
 </template>

@@ -17,6 +17,7 @@ import CustomModal from '../../utils/CustomModal.vue'
 import { useState } from '../../hooks/useState'
 import store from '../../../store'
 import BlockBuilder from '../../utils/BlockBuilder.vue'
+import _get from 'lodash/get'
 
 const props = defineProps({
     id: String,
@@ -42,7 +43,7 @@ const classes = computed(() =>
         {'is-highlighted': isHighlighted.value}
     ])
 )
-const getContextField = computed(() => props.context && props.context[props.block.attributes.field])
+const getContextField = computed(() => _get(props.context, props.block.attributes.field))
 
 watch(() => props.block.attributes, (val, oldVal) => {
     content.value = val
@@ -95,8 +96,7 @@ const handleEdit = (e) => showInspector.value = true
             </div>
         </CustomPopup>
         <CustomModal v-if="showInspector" :show="showInspector" @close="showInspector = false">
-            <BlockInspector :block="block" :fields="contextFields">
-            </BlockInspector>
+            <BlockInspector :block="block" :context="context"/>
         </CustomModal>
     </div>
 </template>
