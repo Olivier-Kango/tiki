@@ -1,4 +1,4 @@
-// $Id$
+// Business theme for Tiki Bootstrap 5
 // This file is for additional SCSS rules beyond what are in variables.scss.
 // Image path example:
 $imagePath: "../images/";
@@ -123,13 +123,11 @@ h2.sitesubtitle {
   font-size: 12px;
 }
 
-
-
 #col1, #col2, #col3 {
   padding-top: 1em;
 }
 
-#col1 {
+#middle.container-std.middle {  // Moved from #col1 for Bootstrap 5
   background: #fbfbfb url('#{$imagePath}image2.jpg') 100% 0 no-repeat;
 }
 
@@ -235,6 +233,36 @@ h3.card-title {
 // Update for Smartmenus
 .navbar .navbar-nav.sm-vertical {
     .dropdown { border: none;
-     a { color: #0082e0; }
+     a { color: #005999; }
     }
+}
+
+// overriding some cypht stuff
+.tiki-webmail, .tiki-cypht, .mobile.tiki-cypht, .inline-cypht {
+    .moduletitle { color: $card-text !important; }
+}
+
+// Buttons
+.btn-outline-warning {
+    color: #975D0C;
+}
+
+.btn-outline-danger {
+    color: #B82D28;
+}
+
+.btn-outline-info,
+.spinner-border.text-info {
+    color: #1F7C98;
+}
+
+// Badges
+.badge.bg-warning.text-dark, // Need to be specified because Bootstrap isn't sorting it out
+.progress-bar.bg-warning.text-dark {
+    color: #fff !important;
+}
+
+// Spinners
+.spinner-border.text-light {
+    color: $text-muted;
 }

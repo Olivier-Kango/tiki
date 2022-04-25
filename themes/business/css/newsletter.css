@@ -38,7 +38,7 @@ body {
   font-family: var(--bs-font-sans-serif);
 }
 a, a:visited {
-  color: #0d6efd;
+  color: #005999;
   text-decoration: none;
 }
 a:hover {
@@ -53,4 +53,3 @@ h3.panel-title {
   background-size: 100% 100%;
   color: #404040;
 }
-/*# sourceMappingURL=newsletter.css.map */
