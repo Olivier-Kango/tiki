@@ -27,7 +27,7 @@ const props = defineProps({
             return {}
         }
     },
-    context: Object,
+    context: [Object, Array],
     contextFields: Array,
     edit: Boolean
 });
@@ -79,14 +79,14 @@ const handleEdit = (e) => showInspector.value = true
 <template>
     <div :id="'block-' + id" :class="classes" :style="block.styles">
         <BlockRichText
-            v-if="edit"
-            tag="p"
+            v-if="!getContextField && edit"
+            tag="div"
             :content="content"
             :action="textAction"
             @onInput="handleInput"
             @onBlur="handleBlur"
         />
-        <p v-if="!edit" v-html="getContextField || content"></p>
+        <div v-if="getContextField || !edit" v-html="getContextField || content"></div>
 
         <CustomPopup v-if="showPopup" :target="'block-' + block.id" @destroy="handlePopupDestroy">
             <div class="d-flex shadow bg-white">
@@ -95,7 +95,15 @@ const handleEdit = (e) => showInspector.value = true
                 <!-- <BlockRichTextToolbar @action="handleAction"></BlockRichTextToolbar> -->
             </div>
         </CustomPopup>
-        <CustomModal v-if="showInspector" :show="showInspector" @close="showInspector = false">
+        <CustomModal
+            v-if="showInspector"
+            :show="showInspector"
+            @close="showInspector = false"
+            :drag="true"
+            :resize="true"
+            :drag-selector="'.modal-drag'"
+            title="Settings"
+        >
             <BlockInspector :block="block" :context="context"/>
         </CustomModal>
     </div>

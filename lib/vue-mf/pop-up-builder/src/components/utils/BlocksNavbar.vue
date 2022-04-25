@@ -70,7 +70,15 @@ const handleCloseModal = () => {
             </div>
         </div>
 
-        <CustomModal :show="showModal" @close="handleCloseModal">
+        <CustomModal
+            :show="showModal"
+            @close="handleCloseModal"
+            :drag="true"
+            :resize="true"
+            :drag-selector="'.modal-drag'"
+            title="APIs"
+            :clickToClose="false"
+        >
             <BlocksStoreSettings></BlocksStoreSettings>
         </CustomModal>
     </nav>

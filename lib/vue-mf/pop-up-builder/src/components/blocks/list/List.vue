@@ -15,7 +15,6 @@ import CustomModal from '../../utils/CustomModal.vue'
 import { useState } from '../../hooks/useState'
 import store from '../../../store'
 import BlockBuilder from '../../utils/BlockBuilder.vue'
-import cloneDeep from 'lodash/cloneDeep'
 
 const props = defineProps({
     id: String,
@@ -28,7 +27,7 @@ const props = defineProps({
     edit: Boolean
 });
 
-const { isSelected, isHighlighted, cloneBlock, setAttributes, setStyles } = useState(props.id)
+const { isSelected, isHighlighted, cloneBlockBulk, setAttributes, setStyles } = useState(props.id)
 const showPopup = ref(false)
 const showInspector = ref(false)
 
@@ -39,14 +38,17 @@ const classes = computed(() =>
 )
 
 const getFirstItem = computed(() => {
-    let data = store.getters['store-module/get_' + props.block.attributes.field]
+    let field = props.block.attributes.field
+    let data = store.getters[`module_${field}/get_${field}`]
     return data && data[0]
 })
-const getBlockTemplates = computed(() => 
-    store.getters['store-module/get_' + props.block.attributes.field]?.map(item => {
-        return { ...cloneBlock(props.block.innerBlocks[0]), context: item }
+
+const getBlockTemplates = computed(() => {
+    let field = props.block.attributes.field
+    return store.getters[`module_${field}/get_${field}`]?.map(item => {
+        return { ...cloneBlockBulk(props.block.innerBlocks), context: item }
     })
-)
+})
 
 watch(() => isSelected.value, (val, oldVal) => showPopup.value = val)
 
@@ -76,7 +78,7 @@ const handleEdit = (e) => showInspector.value = true
                 <BlockBuilder
                     v-for="blockTemplate in getBlockTemplates"
                     :blocks="blockTemplate.blocks"
-                    :blockIds="[blockTemplate.rootId]"
+                    :blockIds="blockTemplate.innerBlocks"
                     :context="blockTemplate.context"
                 />
             </div>
@@ -88,9 +90,16 @@ const handleEdit = (e) => showInspector.value = true
                 <BlockAlignTextToolbar @action="handleAlignText"></BlockAlignTextToolbar>
             </div>
         </CustomPopup>
-        <CustomModal v-if="showInspector" :show="showInspector" @close="showInspector = false">
-            <h3>Select list</h3>
-            <BlockInspector :block="block" :fields="store.getters['store-module/get_fields']"/>
+        <CustomModal
+            v-if="showInspector"
+            :show="showInspector"
+            @close="showInspector = false"
+            :drag="true"
+            :resize="true"
+            :drag-selector="'.modal-drag'"
+            title="Settings"
+        >
+            <BlockInspector :block="block" :context="store.getters.getAPIfields"/>
         </CustomModal>
     </div>
 </template>

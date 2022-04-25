@@ -22,7 +22,12 @@ const props = defineProps({
         type: Boolean,
         default: false
     },
-    title: String
+    clickToClose: {
+        type: Boolean,
+        default: false
+    },
+    title: String,
+    dragSelector: String,
 })
 const emit = defineEmits(['close'])
 
@@ -39,15 +44,17 @@ watch(() => props.show, (val, oldVal) => {
         classes="f-modal-container"
         content-class="f-modal-content"
         :drag="drag"
+        :drag-selector="dragSelector"
         :resize="resize"
         :fit-parent="false"
         :prevent-click="true"
+        :click-to-close="clickToClose"
         attach="body"
-        @click-outside="() => emit('close')"
+        @click-outside="() => {if (clickToClose) emit('close')}"
     >
         <div v-if="showModal">
-            <div style="min-height: 25px;">
-                <h2>{{ title }}</h2>
+            <div class="f-modal-title" style="min-height: 25px;">
+                <h2 class="modal-drag">{{ title }}</h2>
                 <Button class="f-modal-close" variant="default" @click="() => emit('close')">
                     <i class="fas fa-times"></i>
                 </Button>
@@ -61,7 +68,7 @@ watch(() => props.show, (val, oldVal) => {
 
 <style lang="scss" scoped>
     :deep(.f-modal-container) {
-        display: flex;
+        // display: flex;
         justify-content: center;
         align-items: center;
         width: 100%;

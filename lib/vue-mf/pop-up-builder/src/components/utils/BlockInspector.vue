@@ -38,9 +38,7 @@ const handleSelected = (selected, index = 0) => {
     if (hasObjectInside) propsPath.value.push('')
     if (!hasObjectInside) {
         saveAttributeField()
-        console.log('Saved!')
     }
-    console.log(propsPath.value.filter(el => el).join('.'))
 }
 
 const handleRemoved = (removed, index = 0) => {
@@ -52,6 +50,8 @@ const handleRemoved = (removed, index = 0) => {
 const getOptions = index => {
     let path = propsPath.value.slice(0, index)
     let value = _get(props.context, path.join('.'))
+
+    if (Array.isArray(props.context)) return props.context
     if (index === 0 && !value) {
         return props.context && Object.getOwnPropertyNames(props.context)
     } else if (_isObject(value) && !Array.isArray(value)) {
@@ -76,10 +76,8 @@ function getInitialPathArr() {
         path = props.block.attributes.field?.split('.')
         path.push('')
         return path
-    } else if (value) {
-        return props.block.attributes.field?.split('.').filter(el => el)
     } else {
-        return ['']
+        return props.block.attributes.field?.split('.').filter(el => el) || ['']
     }
 }
 </script>
@@ -87,7 +85,8 @@ function getInitialPathArr() {
 <template>
     <div class="block-inspector">
         <slot/>
-        <div class="d-flex">
+        <h5><b>{{ props.block.attributes.field }}</b></h5>
+        <div class="d-flex mb-4">
             <VueSelect
                 class="mr-2"
                 v-for="(prop, index) in propsPath"
@@ -96,6 +95,10 @@ function getInitialPathArr() {
                 @selected="selected => handleSelected(selected, index)"
                 @removed="selected => handleRemoved(selected, index)"
             />
+        </div>
+        <h5>Context:</h5>
+        <div>
+            <pre>{{ JSON.stringify(context, undefined, 4) }}</pre>
         </div>
     </div>
 </template>
