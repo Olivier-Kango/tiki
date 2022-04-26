@@ -1,4 +1,4 @@
-// $Id$ Darkroom theme custom-other.less file.
+// Darkroom theme selectors for additional styling.
 
 $imagePath: "../images/";
 //body {
@@ -13,8 +13,13 @@ body.fullscreen {
 
 #middle { padding-top: 10px; }
 
-.btn-success,
-.btn-danger,
+.btn-primary { color: $white; }
+.btn-secondary { color: $secondary; }
+.btn-info { color: $info; }
+.btn-success { color: $success; }
+.btn-warning { color: $warning; }
+.btn-danger { color: $danger; }
+
 .btn-success.disabled, .btn-success:disabled,
 .btn-danger.disabled, .btn-danger:disabled {
   color: #f8f9fa;
@@ -41,6 +46,16 @@ body.layout_social > .container {
     color: $body-color !important;
 }
 
+// Typography
+.text-danger { color: #E89492 !important; }
+.text-success { color: #6ABE6A !important; }
+
+.blockquote,
+blockquote {
+    color: #BABABA;
+}
+
+
 h3.card-title {
     color: #9d9d9d;
     font-size: 24px;
@@ -50,22 +65,21 @@ h3.card-title {
     border: solid #292929;
     border-width: 0 8px .5rem 8px;
 }
-//.card.postbody,
-//.card.postbody .card-header,
-//.card.postbody .card-footer {
-//  background-color: transparent;
-//  border: none;
-//}
+
 
 .module.card { border: none; }
 
 .card-header,
 .card.postbody .card-header{ background: #292929; } // Was .card-primary - still ok?
 
+.card-link,
+.linkmodule { color: #BDBDBD; }
+
 .navbar-fixed-top .container,
 //.bg-light,
 .topbar,
 .btn,
+.accordion-button,
 .nav-tabs > li > a,
 .input-group-addon,
 
@@ -84,26 +98,21 @@ h3.card-title {
 .tiki .ui-button:active,
 .tiki .ui-button.ui-state-active:hover {
     background: #818181; /* Old browsers */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #818181), color-stop(100%, #393939)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, #818181 0%, #393939 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, #818181 0%, #393939 100%); /* Opera 11.10+ */
-    background: linear-gradient(to bottom, #818181 0%, #393939 100%) !important; /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#818181', endColorstr='#393939', GradientType=0);
-    border-color: transparent !important;
+    background: linear-gradient(to bottom, #818181 0%, #393939 100%);
+
+}
+
+.btn:hover {
+    background: linear-gradient(to top, #818181 0%, #393939 100%);
 }
 
 .bg-dark,
 .bg-light {
-    background: #818181 !important;
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #818181), color-stop(100%, #393939)) !important;
-    background: -webkit-linear-gradient(top, #818181 0%, #393939 100%) !important;
-    background: -o-linear-gradient(top, #818181 0%, #393939 100%) !important;
-    background: linear-gradient(to bottom, #818181 0%, #393939 100%) !important;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#818181', endColorstr='#393939', GradientType=0);
-    border-color: transparent !important;
+//    background: #818181 !important;
+    background: linear-gradient(to bottom, #818181 0%, #393939 100%);
 }
 
-.tiki .nav-link.active { border-color: #dee2e6  !important; }
+.tiki .nav-link.active { border-color: #dee2e6; }
 
 .nav-tabs > li.active.show > a,
 .nav-tabs > li.active > a:hover,
@@ -143,11 +152,7 @@ h3.card-title {
 .tiki .ui-button:focus {
     border: 1px solid #cccccc;
     background: #818181; /* Old browsers */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #818181), color-stop(100%, #393939)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, #818181 0%, #393939 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, #818181 0%, #393939 100%); /* Opera 11.10+ */
     background: linear-gradient(to bottom, #818181 0%, #393939 100%) !important; /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#818181', endColorstr='#393939', GradientType=0);
     font-weight: normal;
     color: #f2f2f2;
 }
@@ -160,7 +165,15 @@ h3.card-title {
     }
 }
 
-.btn.btn-link {background: none !important;}
+.btn-link,
+.btn-outline-primary,
+.btn-outline-secondary,
+.btn-outline-info,
+.btn-outline-success,
+.btn-outline-warning,
+.btn-outline-danger,
+.btn-outline-light,
+.btn-outline-dark {background: none !important;}
 
 .topbar {
     margin-bottom: 1.3rem;
@@ -217,10 +230,16 @@ input.reportBuilderInput,
     background: #292929;
 }
 
-textarea,
-input {
-    background: $input-bg;
-    color: $input-color;
+//textarea,  OLD?
+//input {
+//    background: $input-bg;
+//    color: $input-color;
+//}
+
+// Forums
+.form-control {
+    background: rgb(71,71,71);
+    background: linear-gradient(180deg, rgba(71,71,71,1) 1%, rgba(99,99,99,1) 18%);
 }
 
 .jtrack-form {
@@ -270,4 +289,30 @@ a.toolbar,
         color: $dropdown-link-hover-color;
         background-color: $dropdown-link-hover-bg;
     }
+}
+
+// override for some cypht background colors
+body.tiki.tiki-webmail {
+    background-image: url('#{$imagePath}474747_5e5e5e_40.png');
+}
+
+.tiki_trackers {
+    .icon-status-open, .icon-status-pending, .icon-status-closed {
+        filter: drop-shadow(0 0 1px black);
+    }
+}
+
+// Badges
+.badge {
+    &.bg-primary,
+    &.bg-danger,
+    &.bg-secondary,
+    &.bg-success,
+    &.bg-info,
+    &.bg-warning { color: #000 !important; }
+}
+
+// Breadcrumbs
+.breadcrumb {
+    display: inline-block;
 }
