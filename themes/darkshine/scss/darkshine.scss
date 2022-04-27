@@ -1,4 +1,3 @@
-// $Id$
 /* The Darkshine theme for Tiki Wiki CMS Groupware */
 
 //@import "../../../vendor_bundled/vendor/twbs/bootstrap/scss/_functions.scss";
@@ -10,21 +9,3 @@
 @import "_tiki-selectors.scss";
 @import "../../base_files/scss/_external-scripts.scss";
 
-
-// override for converseJS chatbox background colors
-.tiki #conversejs, .tiki #conversejs.converse-embedded {
-    #controlbox {
-        .box-flyout { background-color: #f3f3f3; }
-    }
-
-    .chatbox {
-        .box-flyout {
-            background-color: #f3f3f3;
-        }
-    }
-}
-
-// override for some cypht background colors
-body.tiki.tiki-webmail {
-    background: #90140c url('#{$imagePath}stripes.png') repeat-x 50% 0;
-}
