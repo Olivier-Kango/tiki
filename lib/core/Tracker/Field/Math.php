@@ -176,6 +176,9 @@ class Tracker_Field_Math extends Tracker_Field_Abstract implements Tracker_Field
             ->setRenderTransform(function ($value) {
                 return $value;
             })
+            ->setParseIntoTransform(function (&$info, $value) use ($permName) {
+                $info['fields'][$permName] = $value;
+            })
             ;
 
         return $schema;

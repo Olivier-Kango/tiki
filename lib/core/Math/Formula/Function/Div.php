@@ -35,7 +35,7 @@ class Math_Formula_Function_Div extends Math_Formula_Function
             } else {
                 // suppress error with division by zero only when inspecting formula as it will always have 'zero' data
                 if (! $this->suppress_error) {
-                    $this->error(tr('Divide by zero on "%0"', implode(',', $elements)));
+                    $this->error(tr('Trying to divide non-numeric arguments "%0"', implode(',', array_merge([$out], $elements))));
                 }
                 return false;
             }

@@ -66,7 +66,7 @@ class Math_Formula_Runner
             $out = $op->evaluateTemplate($data, [ $this, 'evaluateData' ]);
         } elseif (is_numeric($data)) {
             $out = (double) $data;
-        } elseif (isset($this->variables[$data])) {
+        } elseif (array_key_exists($data, $this->variables)) {
             $out = $this->variables[$data];
             $field = TikiLib::lib('trk')->get_field_by_perm_name($data);
             if ($field && ($field['type'] === 'b' || $field['type'] === 'math')) {
