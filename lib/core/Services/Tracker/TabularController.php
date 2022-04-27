@@ -445,7 +445,13 @@ class Services_Tracker_TabularController
 
             unlink($_FILES['file']['tmp_name']);
 
-            Feedback::success(tr('Your import was completed successfully.'));
+            $message = tr('Your import was completed successfully.');
+
+            if (TIKI_API) {
+                return ['feedback' => $message];
+            }
+
+            Feedback::success($message);
             return [
                 'FORWARD' => [
                     'controller' => 'tabular',
@@ -460,7 +466,13 @@ class Services_Tracker_TabularController
             $writer = new \Tracker\Tabular\Writer\TrackerWriter();
             $done = $writer->write($source);
 
-            Feedback::success(tr('Your import was completed successfully.'));
+            $message = tr('Your import was completed successfully.');
+
+            if (TIKI_API) {
+                return ['feedback' => $message];
+            }
+
+            Feedback::success($message);
             return [
                 'FORWARD' => [
                     'controller' => 'tabular',

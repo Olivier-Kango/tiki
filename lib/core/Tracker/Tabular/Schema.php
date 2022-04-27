@@ -139,8 +139,8 @@ class Schema
 
     public function getFormat()
     {
-        $format = $this->config['format'] ?? 'json';
-        return $format ? $format : 'json';
+        $format = $this->config['format'] ?? 'csv';
+        return $format ? $format : 'csv';
     }
 
     public function loadFormatDescriptor($descriptor)

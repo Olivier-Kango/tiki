@@ -74,6 +74,8 @@ paths:
     $ref: paths-tabulars-entity.yaml
   /tabulars/{tabularId}/export:
     $ref: paths-tabulars-export.yaml
+  /tabulars/{tabularId}/import:
+    $ref: paths-tabulars-import.yaml
   /trackers:
     $ref: paths-trackers-index.yaml
   /trackers/{trackerId}:
