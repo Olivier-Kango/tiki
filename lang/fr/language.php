@@ -11808,6 +11808,7 @@ $lang_current = array(
 // "Smarty right delimiter for Latex generation Example" => "Smarty right delimiter for Latex generation Example",
 "List Mode" => "Mode en liste",
 // "Set output format. Yes (y) displays tracker list view with truncated values\n                    (default); No (n) displays in tracker item view; Comma Separated Values (csv) outputs without any\n                    HTML formatting" => "Set output format. Yes (y) displays tracker list view with truncated values\n                    (default); No (n) displays in tracker item view; Comma Separated Values (csv) outputs without any\n                    HTML formatting",
+// "Set output format. Yes (y) displays tracker item field with truncated values\n                    (default); No (n) displays in tracker item field view; Comma Separated Values (csv) outputs without any\n                   HTML formatting." => "Set output format. Yes (y) displays tracker item field with truncated values\n                    (default); No (n) displays in tracker item field view; Comma Separated Values (csv) outputs without any\n                   HTML formatting.",
 "Comma Separated Values" => "Valeurs séparées par des virgules",
 "Export Button" => "Bouton d'export",
 "Show an export button (not shown by default)" => "Afficher un bouton d'exportation (non affiché par défaut)",
