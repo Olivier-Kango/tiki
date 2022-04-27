@@ -156,15 +156,7 @@ class Tracker_Field_Math extends Tracker_Field_Abstract implements Tracker_Field
     {
         try {
             $this->prepareFieldValues($data);
-            if (! isset($data['itemId'])) {
-                $data['itemId'] = $this->getItemId();
-            }
-            if (! isset($data['creation_date'])) {
-                $data['creation_date'] = $this->getData('created');
-                $data['created_by'] = $this->getData('createdBy');
-                $data['modification_date'] = $this->getData('lastModif');
-                $data['last_modified_by'] = $this->getData('lastModifBy');
-            }
+            $data = array_merge($data, $this->calcMetadata());
             $runner = $this->getFormulaRunner();
             $runner->setVariables($data);
 
@@ -331,13 +323,7 @@ class Tracker_Field_Math extends Tracker_Field_Abstract implements Tracker_Field
     {
         try {
             $runner = $this->getFormulaRunner();
-            $data = [
-                'itemId' => $this->getItemId(),
-                'creation_date' => $this->getData('created'),
-                'created_by' => $this->getData('createdBy'),
-                'modification_date' => $this->getData('lastModif'),
-                'last_modified_by' => $this->getData('lastModifBy'),
-            ];
+            $data = $this->calcMetadata();
 
             foreach ($runner->inspect() as $fieldName) {
                 if (is_string($fieldName) || is_numeric($fieldName)) {
@@ -365,5 +351,20 @@ class Tracker_Field_Math extends Tracker_Field_Abstract implements Tracker_Field
         }
 
         return $value;
+    }
+
+    private function calcMetadata() {
+        global $url_host, $base_url;
+
+        return [
+            'itemId' => $this->getItemId(),
+            'trackerId' => $this->getTrackerDefinition()->getConfiguration('trackerId'),
+            'creation_date' => $this->getData('created'),
+            'created_by' => $this->getData('createdBy'),
+            'modification_date' => $this->getData('lastModif'),
+            'last_modified_by' => $this->getData('lastModifBy'),
+            'domain' => $url_host,
+            'base_url' => $base_url . (substr($base_url, -1) == '/' ? '' : '/'),
+        ];
     }
 }
