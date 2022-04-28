@@ -323,6 +323,14 @@
                     {tr}The tracker will use the text field named Subject if any as subject and will use the user email or for anonymous the email field if any as sender{/tr}
                 </div>
             </div>
+            <div class="mb-3 row mx-0">
+                <label for="notifyOn">{tr}Copy activity to email only on{/tr}</label>
+                <select name="notifyOn" id="notifyOn" class="form-select">
+            <option value="both" {if $info.notifyOn eq 'both'}selected="selected"{/if}>{tr}Creation and Update (default){/tr}</option>
+                    <option value="creation" {if $info.notifyOn eq 'creation'}selected="selected"{/if}>{tr}Item creation{/tr}</option>
+                    <option value="update" {if $info.notifyOn eq 'update'}selected="selected"{/if}>{tr}Item update{/tr}</option>
+                </select>
+            </div>
             <div class="form-check">
                 <label>
                     <input type="checkbox" class="form-check-input" name="publishRSS" value="1"

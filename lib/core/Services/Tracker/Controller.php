@@ -2110,6 +2110,7 @@ class Services_Tracker_Controller
                 'tabularSync' => $input->tabularSync->int(),
                 'tabularSyncModifiedField' => $input->tabularSyncModifiedField->int(),
                 'tabularSyncLastImport' => $input->tabularSyncLastImport->int(),
+                'notifyOn' => $input->notifyOn->word(),
             ];
 
             $trackerId = $this->utilities->updateTracker($trackerId, $data);

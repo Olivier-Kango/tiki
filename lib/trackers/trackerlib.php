@@ -5434,6 +5434,15 @@ class TrackerLib extends TikiLib
         $tracker_info = $tracker_definition->getInformation();
 
         $watchers = $this->get_notification_emails($trackerId, $itemId, $tracker_info, $new_values['status'], $old_values['status']);
+        
+        // not a great test for a new item but we don't get the event type here
+        $created = empty($old_values) || $old_values === ['status' => ''];
+        $notifyOn = isset($tracker_info['notifyOn']) ? $tracker_info['notifyOn'] : 'both';
+        if ($created && ($notifyOn != 'both' && $notifyOn != 'creation')) {
+            return;
+        } else if (! $created && ($notifyOn != 'both' && $notifyOn != 'update')) {
+            return;
+        }
 
         if (count($watchers) > 0) {
             $simpleEmail = isset($tracker_info['simpleEmail']) ? $tracker_info['simpleEmail'] : "n";
@@ -5470,8 +5479,6 @@ class TrackerLib extends TikiLib
                     unset($parts[count($parts) - 1]);
                 }
                 $smarty->assign('mail_machine_raw', $this->httpPrefix(true) . implode('/', $parts));
-                // not a great test for a new item but we don't get the event type here
-                $created = empty($old_values) || $old_values === ['status' => ''];
                 foreach ($watchers as $watcher) {
                     // assign these variables inside the loop as this->tracker_render_values overrides them in case trackeroutput or similar is used
                     $smarty->assign_by_ref('status', $new_values['status']);
