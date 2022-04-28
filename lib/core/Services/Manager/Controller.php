@@ -107,6 +107,67 @@ class Services_Manager_Controller
         ];
     }
 
+    public function action_watch($input)
+    {
+        $cmd = new TikiManager\Command\WatchInstanceCommand();
+        $instances = TikiManager\Application\Instance::getInstances(true);
+        $instance = TikiManager\Application\Instance::getInstance($input->instanceId->int());
+
+        $IDs = [];
+
+        foreach ($instances as $inst) {
+            if ($inst->id != $input->instanceId->int()) {
+               $IDs [] = $inst->id;
+            }
+        }
+
+        $instanceIds = implode(',', $IDs);
+
+        $input = new ArrayInput([
+            'command' => $cmd->getName(),
+                "--email" => $instance->contact,
+                "--exclude" => $instanceIds,
+        ]);
+
+        if (empty($this->manager_output->fetch())) {
+            try {
+                $this->runCommand($cmd, $input);
+                Feedback::success(tr("Successful Tiki Manager Watch Instance"));
+            } catch (\Exception $e) {
+                Feedback::error($e->getMessage());
+            }
+            return [
+                'FORWARD' => [
+                    'action' => 'index',
+                ],
+            ];
+        }else{
+            return [
+                'override_action' => 'info',
+                'title' => tr('Tiki Manager Watch Instance'),
+                'info' => $this->manager_output->fetch(),
+                'refresh' => true,
+            ];
+        }
+    }
+
+    public function action_access($input)
+    {
+        $cmd = new TikiManager\Command\AccessInstanceCommand();
+        $input = new ArrayInput([
+            'command' => $cmd->getName(),
+            '-i' => $input->instanceId->int(),
+        ]);
+        $this->runCommand($cmd, $input);
+
+        return [
+            'override_action' => 'access',
+            'title' => tr('Tiki Manager Access Command'),
+            'info' => $this->manager_output->fetch(),
+            'refresh' => true,
+        ];
+    }
+
     public function loadEnv()
     {
         global $prefs, $user, $base_url, $tikipath;

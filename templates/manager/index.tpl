@@ -53,6 +53,11 @@
                             </a>
                         </action>
                         <action>
+                            <a href="{service controller=manager action=access instanceId=$instance-id}">
+                                {icon name=tags _menu_text='y' _menu_icon='y' alt="{tr}Access{/tr}"}
+                            </a>
+                        </action>
+                        <action>
                             <a href="{service controller=manager action=edit instanceId=$instance->id}">
                                 {icon name=edit _menu_text='y' _menu_icon='y' alt="{tr}Edit{/tr}"}
                             </a>
