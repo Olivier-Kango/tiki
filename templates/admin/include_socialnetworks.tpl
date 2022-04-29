@@ -191,7 +191,7 @@
                 {remarksbox type="note" title="{tr}Note{/tr}"}
                     <p>
                         {tr}To use Facebook integration, you must register this site as an application at{/tr}
-                        <a class="alert-link" href="http://developers.facebook.com/setup/" target="_blank">http://developers.facebook.com/setup/</a>
+                        <a class="alert-link" href="https://developers.facebook.com/" target="_blank">https://developers.facebook.com/</a>
                         {tr}and allow extended access for the application{/tr}.<br>
                         {tr}Enter &lt;your site URL&gt;tiki-socialnetworks.php?request_facebook as Site URL and &lt;your site&gt; as Site Domain{/tr}.
                     </p>

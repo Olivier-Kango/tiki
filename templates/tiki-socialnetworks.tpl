@@ -35,7 +35,7 @@
             <h2><img src="img/icons/facebook-logo_32.png" alt="Facebook" width="32" height="32"> Facebook</h2>
             {if $facebookRegistered==0}
                 {remarksbox type="note" title="{tr}Note{/tr}"}
-                    {tr}To use Facebook integration, the site admin must register this site as an application at <a href="http://developers.facebook.com/setup/" class="alert-link" target="_blank">http://developers.facebook.com/setup/</a> first.{/tr}
+                    {tr}To use Facebook integration, the site admin must register this site as an application at <a href="https://developers.facebook.com/" class="alert-link" target="_blank">https://developers.facebook.com/</a> first.{/tr}
                 {/remarksbox}
             {else}
                 <div class="mb-3 row">

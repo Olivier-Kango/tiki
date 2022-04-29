@@ -18874,7 +18874,7 @@ $lang_current = array(
 "Twitter authorisation" => "autorisation Twitter",
 "to manage your authorisations at Twitter" => "pour gérer vos autorisations à Twitter",
 "this site with twitter.com to use Twitter integration of this site" => "ce site avec twitter.com pour utiliser l'intégration Twitter de ce site",
-"To use Facebook integration, the site admin must register this site as an application at <a href=\"http://developers.facebook.com/setup/\" class=\"alert-link\" target=\"_blank\">http://developers.facebook.com/setup/</a> first" => "Pour utiliser l'intégration avec Facebook, l'administrateur du site doit d'abord enregistrer le site comme une application à <a href=\"http://developers.facebook.com/setup/\" class=\"alert-link\" target=\"_blank\">http://developers.facebook.com/setup/</a>",
+"To use Facebook integration, the site admin must register this site as an application at <a href=\"https://developers.facebook.com/\" class=\"alert-link\" target=\"_blank\">https://developers.facebook.com/</a> first" => "Pour utiliser l'intégration avec Facebook, l'administrateur du site doit d'abord enregistrer le site comme une application à <a href=\"https://developers.facebook.com/\" class=\"alert-link\" target=\"_blank\">https://developers.facebook.com/</a>",
 "Facebook authorisation" => "autorisation Facebook",
 // "to manage your authorizations at Facebook" => "to manage your authorizations at Facebook",
 // "this site within facebook.com to use Facebook integration with this site" => "this site within facebook.com to use Facebook integration with this site",
