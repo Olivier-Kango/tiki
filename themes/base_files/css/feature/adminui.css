@@ -254,9 +254,6 @@
   .tiki-admin #show-errors-button {
     margin-left: 283px;
   }
-  .tiki-admin .admin-content nav.admin-navbar {
-    margin-top: -0.35rem;
-  }
   .tiki-admin .filter-menu .nav-item.dropdown {
     padding-top: 0.4rem !important;
   }
@@ -531,4 +528,3 @@
   width: min-content;
   margin: 0.5rem;
 }
-/*# sourceMappingURL=adminui.css.map */
