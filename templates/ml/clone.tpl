@@ -5,7 +5,7 @@
 {/block}
 
 {block name="navigation"}
-    <div class="mb-3 row">
+    <div class="mb-3">
         {permission name=admin_machine_learning}
             <a class="btn btn-link" href="{service controller=ml action=create}">{icon name=create} {tr}New{/tr}</a>
         {/permission}

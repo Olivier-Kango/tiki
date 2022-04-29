@@ -213,15 +213,15 @@ $(".collapse-toggle", ".siteloginbar_popup .dropdown-menu").click(function () {
             {/remarksbox}
         {/if}
         {if !empty($prefs.login_text_explanation) && !($mode eq "popup")}
-        <div class="login-description mb-3 row mx-0 clearfix">
+        <div class="login-description mb-3">
             <label> {wiki} {$login_text_explanation} {/wiki}</label>
         </div>
         {/if}
         <div class="user mb-3 row mx-0 clearfix">
             {if !isset($module_logo_instance)}{assign var=module_logo_instance value=' '}{/if}
-            <label for="login-user_{$module_logo_instance}">
+            <label class="form-label" for="login-user_{$module_logo_instance}">
                 {if $prefs.login_is_email eq 'y'}
-                    {tr}Email:{/tr}
+                    {tr}Email{/tr}
                 {else}
                     {if $prefs.login_allow_email eq 'y'}
                         {tr}Email address or {/tr}
@@ -229,7 +229,7 @@ $(".collapse-toggle", ".siteloginbar_popup .dropdown-menu").click(function () {
                     {if $prefs.login_autogenerate eq 'y'}
                         {tr}User account ID:{/tr}
                     {else}
-                        {tr}Username:{/tr}
+                        {tr}Username{/tr}
                     {/if}
                 {/if}
             </label>
@@ -241,7 +241,7 @@ $(".collapse-toggle", ".siteloginbar_popup .dropdown-menu").click(function () {
             {/if}
         </div>
         <div class="pass mb-3 row mx-0 clearfix">
-            <label for="login-pass_{$module_logo_instance}">{tr}Password:{/tr}</label>
+            <label class="form-label" for="login-pass_{$module_logo_instance}">{tr}Password{/tr}</label>
             <input onkeypress="capLock(event, this)" type="password" name="pass" class="form-control" id="login-pass_{$module_logo_instance}" autocomplete="{if $prefs.desactive_login_autocomplete eq 'y'}new-password{else}current-password{/if}">
             {if $module_params.show_forgot eq 'y' && $prefs.forgotPass eq 'y'}
                 <br><a class="mt-1" href="tiki-remind_password.php" title="{tr}Click here if you've forgotten your password{/tr}">{tr}I forgot my password{/tr}</a>

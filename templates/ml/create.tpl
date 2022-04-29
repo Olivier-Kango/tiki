@@ -5,7 +5,7 @@
 {/block}
 
 {block name="navigation"}
-    <div class="mb-3 row">
+    <div class="mb-3">
         <a class="btn btn-link" href="{service controller=ml action=list}">{icon name=list} {tr}Manage{/tr}</a>
     </div>
 {/block}

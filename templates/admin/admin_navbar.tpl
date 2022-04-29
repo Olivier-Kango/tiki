@@ -132,10 +132,10 @@
         </form>
         {include file="admin/admin_navbar_menu.tpl"}
         {if $prefs.theme_unified_admin_backend neq 'y'}
-            <ul class="navbar-nav flex-row d-md-flex me-2">
+            <ul class="navbar-nav flex-row d-md-flex me-4">
                 <li class="nav-item">
                     <form method="post" class="d-flex flex-row flex-wrap align-items-center my-2 my-md-0 ms-auto" role="form">
-                        <div class="mb-3 row mx-0">
+                        <div class="mx-0">
                             <input type="hidden" name="filters">
                             <div class="input-group">
                                 <input type="text" name="lm_criteria" value="{$lm_criteria|escape}" class="form-control form-control-sm" placeholder="{tr}Search preferences{/tr}...">

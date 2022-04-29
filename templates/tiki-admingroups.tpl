@@ -521,7 +521,7 @@
                     {else}
                         <button
                             type="submit"
-                            class="btn btn-secondary"
+                            class="btn btn-primary"
                             form="groupEdit"
                             formaction="{bootstrap_modal controller=group action=new_group}"
                             onclick="confirmPopup()"

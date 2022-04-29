@@ -113,11 +113,11 @@
                     </div>
                 </div>
                 <div class="mb-3 row">
-                    <label class="col-form-label col-sm-4" for="formula">
+                    <label class="col-form-label col-sm-4" for="formula-textarea">
                         {tr}Formula{/tr}
                     </label>
                     <div class="col-sm-8">
-                        <textarea name="formula" class="form-control" rows="5" style="width: 100%;">
+                        <textarea name="formula" id="formula-textarea" class="form-control w-100" rows="5">
                             {$config.formula|escape}
                         </textarea>
                     </div>

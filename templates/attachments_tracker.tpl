@@ -19,15 +19,15 @@
                     {tr}Comment{/tr}
                 </label>
                 <div class="col-md-8">
-                    <input type="text" name="attach_comment" maxlength="250" value="{$attach_comment|escape|default:null}" class="form-control">
+                    <input type="text" name="attach_comment" id="attach_comment" maxlength="250" value="{$attach_comment|escape|default:null}" class="form-control">
                 </div>
             </div>
-            <div class="mb-3 row clearfix">
+            <div class="mb-3 row">
                 <label for="attach_version" class="col-md-4 col-form-label">
                     {tr}Version{/tr}
                 </label>
                 <div class="col-md-1">
-                    <input type="text" name="attach_version" size="5" maxlength="10" value="{$attach_version|escape|default:null}" class="form-control">
+                    <input type="text" name="attach_version" id="attach_version" size="5" maxlength="10" value="{$attach_version|escape|default:null}" class="form-control">
                 </div>
             </div>
             <div class="mb-3 row">
@@ -35,10 +35,10 @@
                     {tr}Description{/tr}
                 </label>
                 <div class="col-md-8">
-                    <textarea name="attach_longdesc" rows="3" class="form-control">{$attach_longdesc|escape|default:null}</textarea>
+                    <textarea name="attach_longdesc" id="attach_longdesc" rows="3" class="form-control">{$attach_longdesc|escape|default:null}</textarea>
                 </div>
             </div>
-            <div class="mb-3 row clearfix">
+            <div class="mb-3 clearfix">
                 <div class="text-center">
                     <input type="submit" class="btn btn-primary btn-sm" name="attach" value={if $attach_file|default:null}"{tr}Edit{/tr}"{else}"{tr}Attach{/tr}"{/if}>
                 </div>

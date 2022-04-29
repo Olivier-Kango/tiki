@@ -55,19 +55,19 @@
         <div class="row mb-4 mx-0">
             <div class="col-12">
                 <form class="form" method="get" role="form" action="{if $prefs.feature_search_fulltext neq 'y'}tiki-searchindex.php{else}tiki-searchresults.php{/if}">
-                    <div class="mb-3 row">
+
                         <div class="input-group">
                             <span class="input-group-text">
                                 {icon name="search"}
                             </span>
-                            <input name="filter~content" type="text" class="form-control" placeholder="{tr}Find{/tr}...">
-                            <div class="input-group-text">
+                            <input name="filter~content" type="text" class="form-control" placeholder="{tr}Find{/tr}">
+                         {*   <div class="input-group-text"> *}
                                 <input type="hidden" name="where" value="forums">
                                 <input type="hidden" name="filter~type" value="forum post">
-                                <input type="submit" class="wikiaction btn btn-info" name="search" value="{tr}Search in content{/tr}">
-                            </div>
+                                <button type="button" class="wikiaction btn-info" name="search" value="{tr}Search in content{/tr}">
+                         {*   </div> *}
                         </div>
-                    </div>
+
                 </form>
             </div>
         </div>

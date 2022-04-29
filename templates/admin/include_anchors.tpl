@@ -3,8 +3,8 @@
              d-flex align-items-start flex-column{if not empty($smarty.cookies.sidebar_collapsed)} narrow{/if}" role="navigation">
         <ul class="nav navbar-nav mb-auto" id="admin-menu">
             <li class="nav-item">
-                <form method="post" class="d-flex flex-row flex-wrap align-items-center my-2 my-md-0 ms-auto" role="form">
-                    <div class="mb-3 row mx-0">
+                <form method="post" class="d-flex justify-content-center my-md-0 ms-auto" role="form">
+                    <div class="my-1">
                         <input type="hidden" name="filters">
                         <div class="input-group">
                             <input type="text" name="lm_criteria" value="{$lm_criteria|escape}" class="form-control form-control-sm" placeholder="{tr}Search preferences{/tr}...">

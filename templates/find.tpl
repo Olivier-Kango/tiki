@@ -33,7 +33,7 @@
 <div class="find mb-2">
     <form method="post" role="form" class="form">
         {if !isset($map_only) or $map_only ne 'y'}
-            <div class="mb-3 row mx-0">
+            <div class="mb-3 mx-0">
             {if !empty($filegals_manager)}<input type="hidden" name="filegals_manager"
                                                  value="{$filegals_manager|escape}">{/if}
             {query _type='form_input' maxRecords='NULL' type='NULL' types='NULL' find='NULL' topic='NULL' lang='NULL' exact_match='NULL' categId='NULL' cat_categories='NULL' filegals_manager='NULL' save='NULL' offset=0 searchlist='NULL' searchmap='NULL'}
@@ -286,7 +286,7 @@
         {/if}
         {/if}
         {if isset($gmapbuttons) && $gmapbuttons}
-            <div class="find-map mb-3 row">
+            <div class="find-map mb-3">
                 {if isset($mapview) && $mapview}
                     <input class="btn btn-primary btn-sm" type="submit" name="searchlist" value="{tr}Hide Map{/tr}">
                     <input type="hidden" name="mapview" value="y">
@@ -297,7 +297,7 @@
             </div>
         {/if}
         {if (!isset($map_only) or $map_only ne 'y') or (isset($gmapbuttons) && $gmapbuttons)}
-        <div class="row mx-0">
+        <div class="mx-3">
             <button type="submit" class="btn btn-info" name="search">{tr}Find{/tr}</button>
         </div>
         {/if}
