@@ -18,10 +18,6 @@ const props = defineProps({
     content: {
         type: String,
         default: ''
-    },
-    action: {
-        type: String,
-        default: ''
     }
 });
 

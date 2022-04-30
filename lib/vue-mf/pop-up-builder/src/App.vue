@@ -30,8 +30,6 @@ onBeforeMount(() => {
     store.dispatch('setMode', 'edit')
 })
 
-const edit = computed(() => store.getters.getMode === 'edit')
-
 function getBlocksFromLocalStorage() {
     let blocks = null
     let jsonBlocks = localStorage.getItem('tiki-pop-up-blocks')
@@ -62,5 +60,5 @@ function getStoreOptionsFromLocalStorage() {
 </script>
 
 <template>
-    <BlockEditor :edit="edit"></BlockEditor>
+    <BlockEditor></BlockEditor>
 </template>

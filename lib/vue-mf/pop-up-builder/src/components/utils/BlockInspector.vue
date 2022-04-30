@@ -71,13 +71,15 @@ function saveAttributeField() {
 
 function getInitialPathArr() {
     let value = _get(props.context, props.block.attributes.field)
-    let path = []
+    
     if (value && _isObject(value) && !Array.isArray(value)) {
+        let path = []
         path = props.block.attributes.field?.split('.')
         path.push('')
         return path
     } else {
-        return props.block.attributes.field?.split('.').filter(el => el) || ['']
+        let path = props.block.attributes.field?.split('.').filter(el => el)
+        return path && path.length !== 0 ? path : ['']
     }
 }
 </script>

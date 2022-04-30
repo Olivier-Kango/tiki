@@ -26,8 +26,8 @@ const moveForward = (e) => {
     store.dispatch('moveBlockForward', props.block.id)
 }
 
-const removeBlock = (e) => {
-    store.dispatch('removeBlock', props.block.id)
+const deleteBlock = (e) => {
+    store.dispatch('deleteBlock', props.block.id)
 }
 
 const showBlockSettings = (e) => {
@@ -39,9 +39,9 @@ const showBlockSettings = (e) => {
     <ButtonToolbar>
         <BlockList :block="block"></BlockList>
         <ButtonGroup>
-            <Button variant="default" sm><i class="fas fa-grip-vertical"></i></Button>
+            <Button class="drag-handle-block" variant="default" sm><i class="fas fa-grip-vertical"></i></Button>
             <Button variant="default" sm @click="showBlockSettings"><i class="fas fa-edit"></i></Button>
-            <Button variant="default" sm @click="removeBlock"><i class="fas fa-trash"></i></Button>
+            <Button variant="default" sm @click="deleteBlock"><i class="fas fa-trash"></i></Button>
             <Button variant="default" sm @click="moveBackward"><i class="fas fa-chevron-left"></i></Button>
             <Button variant="default" sm @click="moveForward"><i class="fas fa-chevron-right"></i></Button>
         </ButtonGroup>

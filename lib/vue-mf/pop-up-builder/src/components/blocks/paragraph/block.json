@@ -8,14 +8,11 @@
 	"description": "A single Paragraph.",
     "parent": [],
 	"attributes": {
-		"verticalAlignment": {
-			"type": "string"
-		},
-		"width": {
-			"type": "string"
-		},
 		"allowedBlocks": {
 			"type": "array"
+		},
+		"field": {
+			"type": "string"
 		},
 		"content": {
 			"type": "string",

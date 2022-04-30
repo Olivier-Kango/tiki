@@ -1,6 +1,6 @@
 <script>
 export default {
-    name: 'Container'
+    name: 'Title'
 }
 </script>
 <script setup>
@@ -11,16 +11,9 @@ const props = defineProps({
             return {}
         }
     }
-});
-
+})
 </script>
 
 <template>
-    <div :class="block.classes" class="container" :style="block.styles">
-        <slot />
-    </div>
+    <h1 :class="block.classes" :style="block.styles" v-html="block.attributes.textContent"></h1>
 </template>
-
-<style lang="scss">
-
-</style>

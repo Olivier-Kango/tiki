@@ -28,7 +28,7 @@ const blockData = ref({
 const { isSelected, isHighlighted } = useState(props.block)
 
 const classes = computed(() => 
-    props.block.classes && props.block.classes.concat([
+    props.block.classes && [props.block.classes].concat([
         {'is-highlighted': isHighlighted.value}
     ])
 )
@@ -36,6 +36,6 @@ const classes = computed(() =>
 
 <template>
     <div :class="classes" class="col" :style="block.styles">
-        <slot/>
+        <slot />
     </div>
 </template>

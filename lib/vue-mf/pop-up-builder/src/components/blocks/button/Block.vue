@@ -15,19 +15,10 @@ const props = defineProps({
         }
     }
 });
-
-const { classes, styles } = ref(props.block)
-const { textContent } = ref(props.block.attributes)
-
 </script>
 
 <template>
-    <Button :class="classes" :style="styles">
-        {{textContent}}
-        <slot/>
-    </Button>
+    <div :class="props.block.classes" class="core-button-container" :style="props.block.styles">
+        <Button v-html="block.attributes.content"></Button>
+    </div>
 </template>
-
-<style lang="scss">
-
-</style>

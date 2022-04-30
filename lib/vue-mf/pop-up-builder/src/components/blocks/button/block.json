@@ -16,6 +16,10 @@
 		},
 		"allowedBlocks": {
 			"type": "array"
+		},
+		"content": {
+			"type": "string",
+			"default": "Name"
 		}
 	}
 }

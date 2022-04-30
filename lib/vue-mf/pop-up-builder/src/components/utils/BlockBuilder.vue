@@ -6,42 +6,29 @@ export default {
 
 <script setup>
 import { computed } from 'vue'
-import Block from './Block.vue'
+import _isEmpty from 'lodash/isEmpty'
+import BlockInnerBlocks from './BlockInnerBlocks.vue'
+import BlockInnerBlocksEdit from './BlockInnerBlocksEdit.vue'
 import store from '../../store'
 
 const props = defineProps({
-    edit: Boolean,
-    blocks: {
-        type: Array,
-        default: () => store.getters.getBlocks || []
-    },
-    blockIds: {
-        type: Array,
-        default: () => []
-    },
+    id: String,
     context: {
         type: Object,
         default: () => null
-    },
-    contextFields: {
-        type: Array,
-        default: () => []
     }
-});
+})
 
-const getBlock = computed(() => (id) => props.blocks[id])
+const getBlocks = computed(() => {
+    return store.getters.getBlocks
+})
+const getInnerBlocks = computed(() => {
+    return store.getters.getBlocks[props.id].innerBlocks
+})
+const isEditMode = computed(() => store.getters.getMode === 'edit')
 </script>
 
 <template>
-    <TransitionGroup name="list" :css="edit">
-        <Block
-            v-for="id in blockIds"
-            :key="'block-' + id"
-            :block="getBlock(id)"
-            :edit="edit"
-            :blocks="blocks"
-            :context="context"
-            :contextFields="contextFields"
-        />
-    </TransitionGroup>
+    <BlockInnerBlocksEdit v-if="isEditMode" :ids="getInnerBlocks" :blocks="getBlocks" :context="context" />
+    <BlockInnerBlocks v-if="!isEditMode" :ids="getInnerBlocks" :blocks="getBlocks" :context="context" />
 </template>

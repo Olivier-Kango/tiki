@@ -8,14 +8,8 @@
 	"description": "Dynamic block for rendering list of items",
     "parent": [],
 	"attributes": {
-		"items": {
-			"type": "array"
-		},
-		"fields": {
-			"type": "array"
-		},
-		"url": {
-			"type": "String"
+		"field": {
+			"type": "string"
 		}
 	}
 }

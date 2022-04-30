@@ -4,8 +4,9 @@ export default {
 }
 </script>
 <script setup>
+import BlockBuilder from '../../utils/BlockBuilder.vue'
+
 defineProps({
-    id: String,
     block: {
         type: Object,
         default() {
@@ -18,7 +19,7 @@ defineProps({
 
 <template>
     <div :class="block.classes" class="row" :style="block.styles">
-        <slot/>
+        <slot />
     </div>
 </template>
 

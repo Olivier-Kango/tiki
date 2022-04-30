@@ -8,24 +8,24 @@ export default {
 import { computed } from 'vue'
 import BlockNavbar from './BlocksNavbar.vue'
 import BlockBuilder from './BlockBuilder.vue'
-import BlockTree from './BlockTree.vue'
+import BlockInspectorTree from './BlockInspectorTree.vue'
 import store from '../../store'
 
-defineProps({
-    edit: Boolean
-})
-
-const blocks = computed(() => store.getters.getBlocks)
 const getRootBlock = computed(() => store.getters.getRootBlock)
+const isEditMode = computed(() => store.getters.getMode === 'edit')
+
+const handleClick = (e) => {
+    store.dispatch('setSelected', null)
+}
 </script>
 
 <template>
     <div class="block-editor">
         <BlockNavbar></BlockNavbar>
         <div class="d-flex">
-            <BlockTree v-if="edit" class="p-2"></BlockTree>
-            <div class="block-builder flex-grow-1" :id="'block-' + getRootBlock.id">
-                <BlockBuilder :blockIds="getRootBlock.innerBlocks" :edit="edit" />
+            <BlockInspectorTree v-if="isEditMode" class="p-2"></BlockInspectorTree>
+            <div class="block-builder flex-grow-1" @click="handleClick">
+                <BlockBuilder :id="getRootBlock.id" />
             </div>
         </div>
     </div>

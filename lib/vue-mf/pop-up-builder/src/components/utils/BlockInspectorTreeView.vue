@@ -1,6 +1,6 @@
 <script>
 export default {
-    name: 'BlockTreeView'
+    name: 'BlockInspectorTreeView'
 }
 </script>
 
@@ -25,11 +25,11 @@ const getBlock = computed(() => (id) => store.getters.getBlock(id))
                 :id="'block-tree-' + blockId"
                 :key="'block-tree-' + blockId"
             >
-                <BlockTreeView :block="getBlock(blockId)">
+                <BlockInspectorTreeView :block="getBlock(blockId)">
                     <template #default="{ block }">
                         <slot name="default" :block="block"></slot>
                     </template>
-                </BlockTreeView>
+                </BlockInspectorTreeView>
             </div>
         </TransitionGroup>
     </div>

@@ -1,12 +1,12 @@
 <script>
 export default {
-    name: 'BlockTree'
+    name: 'BlockInspectorTree'
 }
 </script>
 
 <script setup>
 import { computed } from 'vue'
-import BlockTreeView from './BlockTreeView.vue'
+import BlockInspectorTreeView from './BlockInspectorTreeView.vue'
 import BlockControls from './BlockControls.vue'
 import store from '../../store'
 
@@ -47,7 +47,7 @@ const handleClick = (e, id) => {
                 class="block-tree"
                 :key="'block-tree-' + root.id"
             >
-                <BlockTreeView :block="getBlock(blockId)">
+                <BlockInspectorTreeView :block="getBlock(blockId)">
                     <template #default="{ block }">
                         <div
                             class="block-tree-item"
@@ -60,7 +60,7 @@ const handleClick = (e, id) => {
                             <BlockControls class="d-inline-block" :block="block"></BlockControls>
                         </div>
                     </template>
-                </BlockTreeView>
+                </BlockInspectorTreeView>
             </div>
         </TransitionGroup>
     </div>
