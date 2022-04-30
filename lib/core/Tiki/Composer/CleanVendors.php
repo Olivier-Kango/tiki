@@ -452,14 +452,6 @@ class CleanVendors
 			]
 		);
 		self::remove(
-			$vendors . 'vimeo/froogaloop',
-			[
-				'actionscript',
-				'javascript/froogaloop.js',
-				'javascript/playground.html',
-			]
-		);
-		self::remove(
 			$vendors . 'haubek/bootstrap4c-chosen',
 			[
 				'dist',
