@@ -19,7 +19,7 @@
     {if !isset($smarty.session.fullscreen) || $smarty.session.fullscreen ne 'y'}
     {if $prefs.feature_layoutshadows eq 'y'}
     <div id="header-shadow">{eval var=$prefs.header_shadow_start}{/if}
-        <div class="header_outer" id="header_outer">
+        <div class="header_outer bg-{$navbar_color_variant}-parent" id="header_outer">
             <div class="header_container">
                 <div class="container{if $smarty.session.fullscreen eq 'y'}-fluid{/if} container-std">
                     <header class="header page-header row" id="page-header">
@@ -164,7 +164,7 @@
         <footer class="footer main-footer" id="footer">
             <div class="footer_liner">
                 <div class="container{if $smarty.session.fullscreen eq 'y'}-fluid{/if} container-std">
-                    {modulelist zone=bottom class='bottom_modules p-3 mx--15px'}
+                    {modulelist zone=bottom class='bottom_modules p-3 mx-n2point5'}
                 </div>
             </div>
         </footer>

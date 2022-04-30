@@ -16,12 +16,11 @@
 // .button a.highlight:hover {
 //     background: darken($state-danger-bg, 15%);
 // }
-
-.tiki .mx--15px {
-    margin-left: -15px;
-    margin-right: -15px;
+// Negative margin to offset 0.75rem padding in row so, ex, backgrounds go full width (replaces .mx--15px)
+.tiki .mx-n2point5 {
+    margin-left: ($spacer * -0.75);
+    margin-right: ($spacer * -0.75);
 }
-
 // Avoid long URLs overflow and wrap them into several lines instead
 a {
     word-wrap: break-word;

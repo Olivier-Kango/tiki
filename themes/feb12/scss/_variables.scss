@@ -11,20 +11,23 @@ $gray-700: #495057;
 $gray-900: #212529;
 
 $primary: #3071a9;
+$secondary: #ddd;
 $success: #5cb85c;
 $info: #5bc0de;
 $warning: #f0ad4e;
 $danger: #d9534f;
+$light: #fff;
+$dark: #000;
 
 $theme-colors: (
-     "primary": #2623a9,
-//     "secondary":         #dddddd,
-     "success":             #5cb85c,
-     "info":               #5bc0de,
-     "warning":             #f0ad4e,
-     "danger":              #d9534f,
-    "light":            #ffffff,
-     "dark":                #000000
+     "primary":     #2623a9,
+     "secondary":   #dddddd,
+     "success":     #5cb85c,
+     "info":        #5bc0de,
+     "warning":     #f0ad4e,
+     "danger":      #d9534f,
+     "light":       #ffffff,
+     "dark":        #000000
 );
 
 // Options
@@ -44,20 +47,24 @@ $component-active-bg: #5bacd7;
 $font-family-sans-serif: "Trebuchet MS", "Tahoma", sans-serif;
 $headings-font-weight: 700;
 $headings-color: #93554a;
+$blockquote-footer-color: #4D4D4D;
 
 // Tables
-
 // Buttons
 $btn-primary: $primary;
 
 // Forms
+// Form validation
+$form-feedback-valid-color: #388038;
+$form-feedback-invalid-color: #D1332E;
 
 // Dropdowns
+$dropdown-header-color: #d0cece;
+$dropdown-link-color: #fff;
 $dropdown-bg: #4d90bd;
 $dropdown-link-hover-bg: darken($dropdown-bg,10%);
 
 // Navs
-
 // Navbar
 $navbar-dark-color: #ffffff;
 $navbar-dark-bg: #426d95;
@@ -71,10 +78,6 @@ $navbar-light-color:                rgba($black, .5);
 $navbar-light-hover-color:          rgba($black, .7);
 $navbar-light-active-color:         rgba($black, .9);
 $navbar-light-disabled-color:       rgba($black, .3);
-//$navbar-dark-color: #ffffff;
-//#777777;
-//$navbar-dark-hover-color: darken(#fff, 10%);
-// #333333;
 $navbar-dark-hover-bg: transparent;
 $navbar-dark-active-color: $navbar-dark-hover-color;
 $navbar-dark-active-bg: transparent;
@@ -96,6 +99,8 @@ $navbar-link-color: #f5f5f5;
 // Alerts
 // Progress bars
 // List group
+$list-group-active-bg: #205886;
+
 // Image thumbnails
 // Figures
 // Breadcrumbs
@@ -103,7 +108,11 @@ $navbar-link-color: #f5f5f5;
 // Close
 // Code
 $enable-gradients:          true;
+$enable-negative-margins:     true;
+
 
 // - - - - - - - - - -  - - - - - - Other variables, if any - - - - - - - - - - - - - - - - - //
 
 $topbar-row-margin-bottom: 0;
+
+$blockquote-left-border-color: #4D4D4D;

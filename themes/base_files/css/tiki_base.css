@@ -10089,9 +10089,9 @@ blockquote {
 a.dropdown-item {
   color: #212529;
 }
-.tiki .mx--15px {
-  margin-left: -15px;
-  margin-right: -15px;
+.tiki .mx-n2point5 {
+  margin-left: -0.75rem;
+  margin-right: -0.75rem;
 }
 a {
   word-wrap: break-word;

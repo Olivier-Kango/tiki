@@ -1,4 +1,4 @@
-// $Id$
+// Feb12 theme for Tiki
 // This file is for additional SCSS rules beyond what are in variables.scss.
 // Image path example:
 $imagePath: "../images/";
@@ -6,10 +6,79 @@ $imagePath: "../images/";
 //    background-image: url('#{$imagePath}bg.jpg');
 // }
 
+.btn-outline-success,
+.text-success {
+    color: #388038 !important;
+}
+
+.btn-outline-danger,
+.text-danger {
+    color: #D23732 !important;
+}
+
+.btn-outline-warning,
+.text-warning {
+    color: #A4660E !important;
+}
+
+.btn-outline-info,
+.text-info {
+    color: #1F7C98 !important;
+}
+
+.btn-outline-secondary {
+    color: #595959;
+    border-color: #595959;
+}
+
+.col2 .linkmodule {
+    color: #23527B;
+}
 
 .container:not(.in-navbar) {
     border: 1px solid #006669;
 }
+
+
+// Layout basic (single container) page header
+.layout_basic nav.top_modules {
+    margin-right: -0.75rem;  // Compensate for padding on row
+    margin-left: -0.75rem;
+    background: #3e7ca1; /* Old browsers */
+    background: linear-gradient(to bottom,  #3e7ca1 0%,#609ec3 3%,#163866 5%,#0b2d5b 8%,#0f2658 11%,#002552 16%,#002d57 24%,#052b58 27%,#0c3867 43%,#11406e 57%,#1b507c 76%,#235685 86%,#1c5b87 100%) !important; /* W3C */
+    .navbar-dark,
+    .navbar-light {
+        background: transparent !important;
+    }
+    a,
+    .nav-link,
+    .btn-link {
+        color: $navbar-dark-color !important;
+    }
+}
+
+// Classic layout (3 containers - header, middle, and foooter)
+.header_outer.bg-light-parent {
+    background: #dbdbdb; /* Old browsers */
+    background: linear-gradient(to bottom,  #dbdbdb 0%,#b6b6b6 2%,#acacac 3%,#ababab 5%,#c8c8c8 10%,#d4d4d4 17%,#e6e6e6 48%,#eaeaea 60%,#f3f3f3 77%,#fdfdfd 90%,#ffffff 100%); /* W3C */
+}
+
+.header_outer.bg-dark-parent {
+    background: #3e7ca1; /* Old browsers */
+    background: linear-gradient(to bottom,  #3e7ca1 0%,#609ec3 3%,#163866 5%,#0b2d5b 8%,#0f2658 11%,#002552 16%,#002d57 24%,#052b58 27%,#0c3867 43%,#11406e 57%,#1b507c 76%,#235685 86%,#1c5b87 100%) !important; /* W3C */
+    a,
+    .btn-link {
+        color: $navbar-dark-color;
+    }
+}
+
+.header_container {
+    .container:not(.in-navbar) {
+        border: none;
+    }
+}
+
+// end Classic layout
 
 header.container {
     margin-top: 30px;
@@ -18,8 +87,6 @@ header.container {
 
 .bg-dark .top_modules {
     background: url('#{$imagePath}header.jpg') repeat-x bottom;
-//    margin-left: 0;
-//    margin-right: 0;
     a,
     .btn-link {
         color: #f5f5f5;
@@ -30,16 +97,42 @@ header.container {
 }
 
 .side-col-toggle-container {
-    margin-top: -1.4rem;
+    margin-top: -1.8rem;
+    .toggle_zone {
+        padding: 3px;
+        border-radius: 2px;
+    }
 }
+
+// Toggle - Dark background
+.bg-dark .toggle_zone {
+    color: $navbar-dark-color;
+    &:hover {
+        color: $navbar-dark-hover-color;
+    }
+}
+
+// Toggle - Light background
+.bg-light .toggle_zone {
+    color: $navbar-light-color;
+    &:hover {
+        color: $navbar-light-hover-color;
+    }
+}
+// end Toggle
 
 .navbar-fixed-top .container {
     border: none;
 }
 
-.layout_social .navbar-light a,
-.layout_social_modules .navbar-light a {
-    color: #f5f5f5;
+.topbar_modules {
+    padding-left: 2.8rem; // to leave space for column toggle icons
+    padding-right: 2.8rem;
+}
+
+.layout_social .topbar.mx-0 {
+    margin-left: -0.75rem !important;
+    margin-right: -0.75rem !important;
 }
 
 .navbar-dark a,
@@ -61,14 +154,12 @@ header.container {
 .navbar-dark a:hover,
 .navbar-dark a:focus {
     color: $navbar-dark-hover-color;
-    //    background-color: $bg-dark-link-hover-bg;
 }
 
 .navbar-dark .active a,
 .navbar-dark .active a:hover,
 .navbar-dark .active a:focus {
     color: $navbar-dark-active-color;
-    //  background-color: #063065;
 }
 
 .navbar-dark .disabled a,
@@ -80,20 +171,13 @@ header.container {
 
 .bg-dark,
 .navbar:not(.bg-dark) .bg-dark,
-.container:not(.in-navbar) .bg-dark .navbar-collapse,
 .bg-dark .navbar-form,
 #topbar_modules.bg-dark,
 .admin-navbar.bg-dark .bg-dark {
-//    background: #426d95 url('#{$imagePath}header.jpg') repeat-x;
-//    background-size:
     color: #f5f5f5 !important;
     border: none;
     background: #3e7ca1; /* Old browsers */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#3e7ca1), color-stop(3%,#609ec3), color-stop(5%,#163866), color-stop(8%,#0b2d5b), color-stop(11%,#0f2658), color-stop(16%,#002552), color-stop(24%,#002d57), color-stop(27%,#052b58), color-stop(43%,#0c3867), color-stop(57%,#11406e), color-stop(76%,#1b507c), color-stop(86%,#235685), color-stop(100%,#1c5b87)) !important; /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top,  #3e7ca1 0%,#609ec3 3%,#163866 5%,#0b2d5b 8%,#0f2658 11%,#002552 16%,#002d57 24%,#052b58 27%,#0c3867 43%,#11406e 57%,#1b507c 76%,#235685 86%,#1c5b87 100%) !important; /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top,  #3e7ca1 0%,#609ec3 3%,#163866 5%,#0b2d5b 8%,#0f2658 11%,#002552 16%,#002d57 24%,#052b58 27%,#0c3867 43%,#11406e 57%,#1b507c 76%,#235685 86%,#1c5b87 100%) !important; /* Opera 11.10+ */
     background: linear-gradient(to bottom,  #3e7ca1 0%,#609ec3 3%,#163866 5%,#0b2d5b 8%,#0f2658 11%,#002552 16%,#002d57 24%,#052b58 27%,#0c3867 43%,#11406e 57%,#1b507c 76%,#235685 86%,#1c5b87 100%) !important; /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3e7ca1', endColorstr='#1c5b87',GradientType=0 ) !important; /* IE6-9 */
 }
 
 .bg-dark {
@@ -101,7 +185,7 @@ header.container {
   .nav-link,
   button.dropdown-toggle,
   .cssmenu_horiz > li > a {
-    color: #f5f5f5 !important
+    color: #f5f5f5;
   }
 }
 
@@ -115,13 +199,6 @@ header.container {
     margin-bottom: 0;
 }
 
-//#topbar_modules .box-search .mb-3 input[type="text"] {
-//    margin-top: 5px;
-//    height: 28px;
-//}
-
-//.layout_social_modules .navbar-light a:hover,
-
 .layout_social .navbar-light .cssmenu_horiz > li > a:hover,
 .layout_social_modules .navbar-light > a:hover,
 .bg-light,
@@ -131,13 +208,8 @@ header.container {
 #topbar_modules.navbar-light .navbar-nav > .active > a:hover,
 #topbar_modules.navbar-light .navbar-nav > .active > a:focus {
     color: #3e7ca1 !important;
-//    background: url('#{$imagePath}page.jpg') repeat-x;
     background: #dbdbdb; /* Old browsers */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#dbdbdb), color-stop(2%,#b6b6b6), color-stop(3%,#acacac), color-stop(5%,#ababab), color-stop(10%,#c8c8c8), color-stop(17%,#d4d4d4), color-stop(48%,#e6e6e6), color-stop(60%,#eaeaea), color-stop(77%,#f3f3f3), color-stop(90%,#fdfdfd), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top,  #dbdbdb 0%,#b6b6b6 2%,#acacac 3%,#ababab 5%,#c8c8c8 10%,#d4d4d4 17%,#e6e6e6 48%,#eaeaea 60%,#f3f3f3 77%,#fdfdfd 90%,#ffffff 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top,  #dbdbdb 0%,#b6b6b6 2%,#acacac 3%,#ababab 5%,#c8c8c8 10%,#d4d4d4 17%,#e6e6e6 48%,#eaeaea 60%,#f3f3f3 77%,#fdfdfd 90%,#ffffff 100%); /* Opera 11.10+ */
     background: linear-gradient(to bottom,  #dbdbdb 0%,#b6b6b6 2%,#acacac 3%,#ababab 5%,#c8c8c8 10%,#d4d4d4 17%,#e6e6e6 48%,#eaeaea 60%,#f3f3f3 77%,#fdfdfd 90%,#ffffff 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#dbdbdb', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
 }
 
 .bg-light {
@@ -145,7 +217,7 @@ header.container {
   .nav-link,
   button.dropdown-toggle,
   .cssmenu_horiz > li > a {
-    color: #3e7ca1 !important
+    color: #3e7ca1;
   }
 }
 
@@ -177,6 +249,19 @@ body.fullscreen {
 
 .col2 {
     background: #a8cce2 url('#{$imagePath}columnbg.jpg') repeat-x;
+    .navbar {
+        background: transparent;
+        .nav-link {
+            color: #214D73;
+        }
+    }
+}
+
+.bottom_modules nav.navbar.navbar-light.bg-light.navbar-dark.bg-dark {
+    background: transparent !important;
+    .nav-link {
+        color: #214D73;
+    }
 }
 
 .side-col-toggle + .col + .col2 { background-position: 0 -30px; }
@@ -248,5 +333,19 @@ body.fullscreen {
     &:hover {
         color: #fff !important;
         background-color: #d9534f;
+    }
+}
+
+blockquote,
+.blockquote {
+    color: #4D4D4D
+}
+
+.progress-bar {
+    &.bg-success,
+    &.bg-info,
+    &.bg-warning,
+    &.bg-danger {
+        color: #000;
     }
 }
