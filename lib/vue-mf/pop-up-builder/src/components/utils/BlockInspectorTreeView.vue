@@ -21,7 +21,7 @@ const getBlock = computed(() => (id) => store.getters.getBlock(id))
         <TransitionGroup name="list">
             <div
                 v-for="blockId in block.innerBlocks"
-                class="ml-4 block-tree"
+                class="ms-4 block-tree"
                 :id="'block-tree-' + blockId"
                 :key="'block-tree-' + blockId"
             >

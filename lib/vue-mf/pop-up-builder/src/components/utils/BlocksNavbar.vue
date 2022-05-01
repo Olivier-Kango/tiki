@@ -43,30 +43,32 @@ const handleCloseModal = () => {
 
 <template>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Tiki Builder</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Tiki Builder</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <VDropdown>
-                <Button variant="default" sm>
-                    <i class="fas fa-sign-out-alt"></i>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <VDropdown>
+                    <Button variant="default" sm>
+                        <i class="fas fa-sign-out-alt"></i>
+                    </Button>
+                    <template #popper>
+                        <div v-for="name in store.getters.getBlockList">
+                            <BlockAdd :blockName="name" :block="rootBlock"></BlockAdd>
+                        </div>
+                    </template>
+                </VDropdown>
+                <Button variant="default" sm @click="handleOpenModal">
+                    <i class="fas fa-database"></i>
                 </Button>
-                <template #popper>
-                    <div v-for="name in store.getters.getBlockList">
-                        <BlockAdd :blockName="name" :block="rootBlock"></BlockAdd>
-                    </div>
-                </template>
-            </VDropdown>
-            <Button variant="default" sm @click="handleOpenModal">
-                <i class="fas fa-database"></i>
-            </Button>
-            <div class="d-flex align-items-center ml-auto">
-                <div style="width: 50px"><ToggleButton label="Preview" @update:checked="handleSwitchMode" /></div>
-                <Button variant="default" sm @click="clearLocalStorage">
-                    Clear localStorage builder data?
-                </Button>
+                <div class="d-flex align-items-center ms-auto">
+                    <div style="width: 50px"><ToggleButton label="Preview" @update:checked="handleSwitchMode" /></div>
+                    <Button variant="default" sm @click="clearLocalStorage">
+                        Clear localStorage builder data?
+                    </Button>
+                </div>
             </div>
         </div>
 
