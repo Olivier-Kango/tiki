@@ -12,11 +12,6 @@ import store from '../../store'
 
 const root = computed(() => store.getters.getRootBlock)
 
-const isHighlighted = computed(() => (block) => {
-    if (!store.getters.getHighlighted) return false
-    if (block.id === store.getters.getHighlighted.id) return true
-})
-
 const isSelected = computed(() => (block) => {
     if (!store.getters.getSelected) return false
     if (block.id === store.getters.getSelected.id) return true
@@ -51,7 +46,7 @@ const handleClick = (e, id) => {
                     <template #default="{ block }">
                         <div
                             class="block-tree-item"
-                            :class="{'is-selected': isSelected(block), 'is-highlighted': isHighlighted(block)}"
+                            :class="{'is-selected': isSelected(block)}"
                             @click="handleClick($event, block.id)"
                             @mouseenter="handleMouseOver($event, block.id)"
                             @mouseleave="handleMouseOut($event, block.id)"

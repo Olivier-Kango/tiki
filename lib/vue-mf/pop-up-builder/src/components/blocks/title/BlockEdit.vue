@@ -46,10 +46,7 @@ watch(props.block.attributes.textContent, (val, oldVal) => {
 })
 
 const handleEdit = (e) => showInspector.value = true
-
-const handleAlignText = (styles) => {
-    setStyles(styles)
-}
+const handleAlignText = (styles) => setStyles(styles)
 
 const handleBlur = (e) => {
     store.dispatch('updateBlock', {
@@ -61,28 +58,26 @@ const handleBlur = (e) => {
 </script>
 
 <template>
-    <h1 ref="popupTarget" :class="classes" :style="block.styles" contenteditable="true" @blur="handleBlur" v-html="textContent"></h1>
+    <div>
+        <h1 ref="popupTarget" :class="classes" :style="block.styles" contenteditable="true" @blur="handleBlur" v-html="textContent"></h1>
 
-    <CustomPopup v-if="showPopup" :target="popupTarget">
-        <div class="d-flex shadow bg-white">
-            <BlockControls :block="block" @edit="handleEdit"></BlockControls>
-            <BlockAlignTextToolbar @action="handleAlignText"></BlockAlignTextToolbar>
-            <!-- <BlockRichTextToolbar @action="handleAction"></BlockRichTextToolbar> -->
-        </div>
-    </CustomPopup>
-    <CustomModal
-        v-if="showInspector"
-        :show="showInspector"
-        @close="showInspector = false"
-        :drag="true"
-        :resize="true"
-        :drag-selector="'.modal-drag'"
-        title="Settings"
-    >
-        <BlockInspector :block="block" :context="context"/>
-    </CustomModal>
+        <CustomPopup v-if="showPopup" :target="popupTarget">
+            <div class="d-flex shadow bg-white">
+                <BlockControls :block="block" @edit="handleEdit"></BlockControls>
+                <BlockAlignTextToolbar @action="handleAlignText"></BlockAlignTextToolbar>
+                <!-- <BlockRichTextToolbar @action="handleAction"></BlockRichTextToolbar> -->
+            </div>
+        </CustomPopup>
+        <CustomModal
+            v-if="showInspector"
+            :show="showInspector"
+            @close="showInspector = false"
+            :drag="true"
+            :resize="true"
+            :drag-selector="'.modal-drag'"
+            title="Settings"
+        >
+            <BlockInspector :block="block" :context="context"/>
+        </CustomModal>
+    </div>
 </template>
-
-<style lang="scss">
-
-</style>

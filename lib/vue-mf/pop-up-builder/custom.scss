@@ -24,12 +24,12 @@
 .list-enter-active,
 .list-leave-active {
     // position: relative;
-    transition: all s ease;
+    transition: all 0.3s ease;
 }
 
 .list-enter-from,
 .list-leave-to {
-    // opacity: 0;
+    opacity: 0;
     // transform: translateX(30px);
     // transform: translateX(0);
     transform: translate(0);

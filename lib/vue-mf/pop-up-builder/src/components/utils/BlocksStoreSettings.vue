@@ -20,6 +20,7 @@ const props = defineProps({
 });
 
 const storeOptions = computed(() => store.getters.getAPIoptions)
+const getAPIdata = computed(() => (field) => store.getters[`module_${field}/get_${field}`])
 
 const handleSaveOptions = (index) => {
     let field = storeOptions.value[index].field
@@ -71,7 +72,7 @@ const handleInput = (event, { field, index }) => {
         </Button>
         <div v-for="field in store.getters.getAPIfields">
             <b><u>{{ field }}</u></b>
-            <pre>{{ JSON.stringify(store.getters[`module_${field}/get_${field}`][0], undefined, 4) }}</pre>
+            <pre>{{ JSON.stringify(getAPIdata(field) && getAPIdata(field)[0], undefined, 4) }}</pre>
         </div>
     </div>
 </template>
