@@ -54,9 +54,11 @@
     {/strip}{/if}
     {if $data.addItemText}
         {$forcedParam[$data.otherFieldPermName]=$data.parentItemId}
-        <a class="float-left itemslist-btn" href="{service controller=tracker action=insert_item trackerId=$field.options_map.trackerId forced=$forcedParam}">
-            {icon name='create' _menu_text='y' _menu_icon='y' ititle="{$data.addItemText}" alt="{$data.addItemText}"}
-        </a>
+        <div class="mt-2">
+            <a class="btn btn-secondary btn-sm itemslist-btn" href="{service controller=tracker action=insert_item trackerId=$field.options_map.trackerId forced=$forcedParam}">
+                {icon name='create' _menu_text='y' _menu_icon='y' ititle="{$data.addItemText}" alt="{$data.addItemText}"}
+            </a>
+        </div>
         {jq}
             // a custom handler to reload the data in this field on success
             $(document).on("click", "a.itemslist-btn", $.clickModal({

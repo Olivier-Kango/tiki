@@ -7,9 +7,9 @@
 {block name="content"}
     <form method="post" action="{service controller=tabular action=select trackerId=$trackerId permName=$permName}">
         {if $columnIndex}<input type="hidden" name="columnIndex" value="{$columnIndex}">{/if}
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-form-label">{tr}Modes{/tr}</label>
-            <select name="mode" class="form-control">
+            <select name="mode" class="form-select">
                 {foreach $schema->getColumns() as $column}
                     <option value="{$column->getMode()|escape}" {if $mode eq $column->getMode()} selected="selected"{/if}>
                         {$column->getLabel()|escape} ({$column->getMode()|escape}{if $column->isReadOnly()}, {tr}Read-Only{/tr}{/if})

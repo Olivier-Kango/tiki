@@ -16,22 +16,5 @@
 @import "_tiki-selectors.scss";
 @import "../../base_files/scss/_external-scripts.scss";
 
-// Hack to give .btn-secondary color to the "Files" button in tiki-page_bar.tpl.
-// Why does this work only here and not in variables or tiki-selectors?
-.btn-primary.btn-files {
-  color: #fff;
-  background-color: #82241b;
-  border-color: #82241b;
-  &:hover {
-    background-color: #621b14;
-    border-color: #581812;
-  }
-}
 
-.tiki_trackers {
-    .icon-status-open, .icon-status-pending, .icon-status-closed {
-        filter: drop-shadow(0px 0px 1px black);
-    }
-}
 
-.textarea-toolbar a.toolbar { color: #222; }

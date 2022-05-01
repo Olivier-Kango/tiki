@@ -7,15 +7,15 @@
 {block name="content"}
     <ul class="media-list">
         {foreach from=$results item=row}
-            <li class="media">
-                <div class="media-object media-left">
+            <li class="d-flex">
+                <div class="flex-shrink-0">
                     {if $row.filetype|truncate:6:'' eq 'image/'}
                         <img src="{$row.object_id|sefurl:'thumbnail'}"/>
                     {else}
                         {$row.filename|iconify:$row.filetype}
                     {/if}
                 </div>
-                <div class="media-body">
+                <div class="flex-grow-1 ms-3">
                     <h4 class="media-heading">{object_link type=$row.object_type id=$row.object_id}</h4>
                     <div>
                         {$row.filename|escape}

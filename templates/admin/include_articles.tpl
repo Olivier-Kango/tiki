@@ -90,11 +90,11 @@
             </fieldset>
             <fieldset>
                 <legend>{tr}Import CSV file{/tr}</legend>
-                <div class="adminoptionbox form-group row">
+                <div class="adminoptionbox mb-3 row">
                     <label for="csvlist" class="col-form-label col-sm-4">{tr}Batch upload (CSV file){/tr}</label>
                     <div class="col-sm-8">
                         <input type="file" name="csvlist" id="csvlist" class="form-control">
-                        <span class="form-text">{tr}File format: title,authorName,heading,body,lang,user{/tr}....</span>
+                        <div class="form-text mb-2">{tr}File format: title,authorName,heading,body,lang,user{/tr}....</div>
                         <input type="submit" class="btn btn-primary btn-sm" name="import" value="{tr}Import{/tr}">
                     </div>
                 </div>

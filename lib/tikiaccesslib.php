@@ -1518,7 +1518,7 @@ class TikiAccessLib extends TikiLib
                        <input type="password" name="pass" id="password" class="input-text" required>
                    </div>
                    <div class="' . $style_alert . '" role="alert">' . $error_login . '
-                       <button type="button" class="close" style="' . $style_alert_btn . '" data-dismiss="alert" aria-label="Close">
+                       <button type="button" class="close" style="' . $style_alert_btn . '" data-bs-dismiss="alert" aria-label="Close">
                            <span aria-hidden="true">&times;</span>
                        </button>
                    </div>

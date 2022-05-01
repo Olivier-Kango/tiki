@@ -16,7 +16,7 @@
     {tab name="{tr}Basic Data{/tr}"}
         {if $infoPublic eq 'y'}
             <h2>{$userinfo.login}
-                <span class="float-right">
+                <span class="float-end">
                 {if $tiki_p_admin eq 'y' or $userinfo.login eq $user}
                     {if $tiki_p_admin eq 'y'}
                         <a class="link tips small" href="tiki-assignuser.php?assign_user={$userinfo.login|escape:"url"}" title=":{tr}Assign group{/tr}">
@@ -365,7 +365,7 @@
 
 
 
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-sm-2 col-form-label" for="priority">{tr}Priority{/tr}</label>
                             <div class="col-sm-10">
                                 <select name="priority" id="priority" class="form-control">
@@ -377,33 +377,33 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-sm-2 col-form-label" for="subject">{tr}Subject{/tr}</label>
                             <div class="col-sm-10">
                                 <input type="text" name="subject" id="subject" value="" maxlength="255" class="form-control">
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-sm-2 col-form-label" for="message">{tr}Message Body{/tr}</label>
                             <div class="col-sm-10">
                                 <textarea rows="20" class="form-control" name="body" id="message"></textarea>
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <div class="col-sm-10 offset-sm-2">
-                                <label for="replytome" class="ml-2">
+                                <label for="replytome" class="ms-2">
                                     <input type="checkbox" name="replytome" id="replytome">
                                     {tr}Reply-to my email{/tr}
                                     {help url="User-Information" desc="{tr}Reply-to my email:{/tr}{tr}The user will be able to reply to you directly via email.{/tr}"}
                                 </label>
-                                <label for="bccme" class="ml-2">
+                                <label for="bccme" class="ms-2">
                                     <input type="checkbox" name="bccme" id="bccme">
                                     {tr}Send me a copy{/tr}
                                     {help url="User-Information" desc="{tr}Send me a copy:{/tr}{tr}You will be sent a copy of this email.{/tr}"}
                                 </label>
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <div class="col-sm-10 offset-sm-2">
                                 <input type="submit" class="btn btn-secondary" name="send" value="{tr}Send{/tr}">
                             </div>

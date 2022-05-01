@@ -34,12 +34,9 @@
             </label>
             {if $toc_type eq 'admin'}
                 <div class="actions input-group input-group-sm mb-2">
-                    <div class="input-group-append">
-                        <span class="input-group-text">{icon name='sort'}</span>
-                    </div>
+                    <span class="input-group-text">{icon name='sort'}</span>
                     <input type="text" class="page-alias-input form-control" value="{$structure_tree.page_alias|escape}" placeholder="{tr}Page alias...{/tr}">
-                    <div class="input-group-append">
-                        {self_link _script='tiki-index.php' page=$structure_tree.pageName structure=$structure_name _class="tips input-group-text" _title=":{tr}View{/tr}" _noauto="y"}
+                    {self_link _script='tiki-index.php' page=$structure_tree.pageName structure=$structure_name _class="tips input-group-text" _title=":{tr}View{/tr}" _noauto="y"}
                             {icon name="view"}
                         {/self_link}
 
@@ -78,7 +75,6 @@
                                 {/self_link}
                             {/if}
                         {/if}
-                    </div>
                 </div>
             {/if}
             {if (!$showdesc and $toc_type eq 'fancy') or ($showdesc and $toc_type eq 'admin' and !empty($structure_tree.description))} : <span class="description">{$structure_tree.description|escape}</span>{/if}

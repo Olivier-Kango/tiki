@@ -3027,5 +3027,15 @@ function prefs_feature_list($partial = false)
                 'textFilter' => 'machine learning',
             ],
         ],
+        'feature_tiki_manager' => [
+            'name' => tra('Tiki manager'),
+            'description' => tra('Use local Tiki Manager to install, upgrade, clone and manage local or remote Tikies.'),
+            'help' => 'Manager',
+            'type' => 'flag',
+            'default' => 'n',
+            'view' => 'tiki-ajax_services.php?controller=manager&action=index',
+            'packages_required' => ['tikiwiki/tiki-manager' => 'TikiManager\Config\Environment'],
+            'tags' => ['advanced'],
+        ],
     ];
 }

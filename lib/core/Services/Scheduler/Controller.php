@@ -189,4 +189,30 @@ class Services_Scheduler_Controller
             'schedulerId' => $schedulerId,
         ];
     }
+
+    /**
+     * Activates the status of a scheduler item (background job), so it can be re-run on next scheduler execution.
+     *
+     * @param $input
+     * @return array
+     * @throws Services_Exception_Denied
+     * @throws Services_Exception_NotFound
+     */
+    public function action_activate($input)
+    {
+        Services_Exception_Denied::checkGlobal('admin_users');
+
+        $schedulerId = $input->schedulerId->int();
+
+        $scheduler = $this->lib->get_scheduler($schedulerId);
+        if (! $scheduler) {
+            throw new Services_Exception_NotFound();
+        }
+
+        $this->lib->setActive($schedulerId);
+
+        Feedback::success(tr("Background job re-queued and will run on next scheduler run."));
+        $access = TikiLib::lib('access');
+        $access->redirect('tiki-admin_schedulers.php#contenttabs_admin_schedulers-3');
+    }
 }

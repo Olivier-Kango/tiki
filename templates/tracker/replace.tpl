@@ -9,11 +9,11 @@
 <form method="post" action="{service controller=tracker action=replace}">
     {accordion}
         {accordion_group title="{tr}General{/tr}"}
-            <div class="form-group row mx-0">
+            <div class="mb-3 row mx-0">
                 <label for="name">{tr}Name{/tr}</label>
                 <input class="form-control" type="text" name="name" id="name" value="{$info.name|escape}" required="required">
             </div>
-            <div class="form-group row mx-0">
+            <div class="mb-3 row mx-0">
                 <label for="description">{tr}Description{/tr}</label>
                 <textarea class="form-control" name="description" id="description" cols="40">{$info.description|escape}</textarea>
             </div>
@@ -23,12 +23,12 @@
                     {tr}Description is wiki-parsed{/tr}
                 </label>
             </div>
-            <div class="form-group row mx-0">
+            <div class="mb-3 row mx-0">
                 <label for="fieldPrefix">{tr}Field Prefix{/tr}</label>
                 <input class="form-control" type="text" name="fieldPrefix" id="fieldPrefix" value="{$info.fieldPrefix|escape}">
                 {tr}Short string prepended by default to all fields in this tracker.{/tr}
             </div>
-            <div class="form-group row mx-0">
+            <div class="mb-3 row mx-0">
                 <label for="permName">{tr}Permanent Name{/tr}</label>
                 <input class="form-control" type="text" name="permName" id="permName" value="{$info.permName|escape}">
                 {tr}Required for Advanced Shopping Cart and some other tracker features, do not change this unless you are sure.{/tr}
@@ -52,7 +52,7 @@
                     {tr}Allow ratings (deprecated, use rating field){/tr}
                 </label>
             </div>
-            <div class="form-group row mx-0 depends" data-on="useRatings">
+            <div class="mb-3 row mx-0 depends" data-on="useRatings">
                 <label for="ratingOptions">{tr}Rating options{/tr}</label>
                 <input class="form-controls" type="text" name="ratingOptions" id="ratingOptions" value="{$info.ratingOptions|default:'-2,-1,0,1,2'|escape}">
             </div>
@@ -118,7 +118,7 @@
             </fieldset>
         {/accordion_group}
         {accordion_group title="{tr}Display{/tr}"}
-            <div class="form-group row mx-0">
+            <div class="mb-3 row mx-0">
                 <label class="col-form-label" for="logo">{tr}Logo{/tr}</label>
                 <input class="form-control" type="text" name="logo" id="logo" value="{$info.logo|escape}">
                 <div class="form-text">
@@ -146,7 +146,7 @@
                     {tr}Show creation date when listing items{/tr}
                 </label>
             </div>
-            <div class="form-group row mx-0 depends" data-on="showCreated">
+            <div class="mb-3 row mx-0 depends" data-on="showCreated">
                 <label for="showCreatedFormat">{tr}Creation date format{/tr}</label>
                 <input type="text" name="showCreatedFormat" id="showCreatedFormat" value="{$info.showCreatedFormat|escape}">
                 <div class="form-text">
@@ -181,7 +181,7 @@
                     {tr}Show item last modifier{/tr}
                 </label>
             </div>
-            <div class="form-group row mx-0 depends" data-on="showLastModif">
+            <div class="mb-3 row mx-0 depends" data-on="showLastModif">
                 <label for="showLastModifFormat">{tr}Modification date format{/tr}</label>
                 <input class="form-control" type="text" name="showLastModifFormat" id="showLastModifFormat" value="{$info.showLastModifFormat|escape}">
                 <div class="form-text">
@@ -195,17 +195,17 @@
                     {tr}Show last modification date when viewing items{/tr}
                 </label>
             </div>
-            <div class="form-group row mx-0">
+            <div class="mb-3 row mx-0">
                 <label for="defaultOrderKey">{tr}Default sort order{/tr}</label>
-                <select name="defaultOrderKey" id="defaultOrderKey" class="form-control">
+                <select name="defaultOrderKey" id="defaultOrderKey" class="form-select">
                     {foreach from=$sortFields key=k item=label}
                         <option value="{$k|escape}" {if $k eq $info.defaultOrderKey} selected="selected"{/if}>{$label|truncate:42:'...'|escape}</option>
                     {/foreach}
                 </select>
             </div>
-            <div class="form-group row mx-0">
+            <div class="mb-3 row mx-0">
                 <label for="defaultOrderDir">{tr}Default sort direction{/tr}</label>
-                <select name="defaultOrderDir" id="defaultOrderDir" class="form-control">
+                <select name="defaultOrderDir" id="defaultOrderDir" class="form-select">
                     <option value="asc" {if $info.defaultOrderDir eq 'asc'}selected="selected"{/if}>{tr}ascending{/tr}</option>
                     <option value="desc" {if $info.defaultOrderDir eq 'desc'}selected="selected"{/if}>{tr}descending{/tr}</option>
                 </select>
@@ -217,7 +217,7 @@
                     {tr}Hide empty fields from item view{/tr}
                 </label>
             </div>
-            <div class="form-group row mx-0">
+            <div class="mb-3 row mx-0">
                 <label for="showPopup">{tr}List detail popup{/tr}</label>
                 {object_selector_multi type=trackerfield tracker_id=$info.trackerId _simplevalue=$info.showPopup _separator="," _simplename="showPopup"}
             </div>
@@ -225,9 +225,9 @@
     {accordion_group title="{tr}Section Format{/tr}"}
         <div class="card">
             <div class="card-body">
-                <div class="form-group row mx-0">
+                <div class="mb-3 row mx-0">
                     <label for="sectionFormat">{tr}Section format{/tr}</label>
-                    <select name="sectionFormat" id="sectionFormat" class="form-control">
+                    <select name="sectionFormat" id="sectionFormat" class="form-select">
                         {foreach $sectionFormats as $format => $label}
                             <option value="{$format|escape}"{if $info.sectionFormat eq $format} selected="selected"{/if}>{$label|escape}</option>
                         {/foreach}
@@ -243,21 +243,21 @@
                         {tr}Use Form Classes{/tr}
                     </label>
                 </div>
-                <div class="form-group row mx-0">
+                <div class="mb-3 row mx-0">
                     <label for="formClasses">{tr}Input Form Classes{/tr}</label>
                     <input class="form-control" type="text" name="formClasses" id="formClasses" value="{$info.formClasses|escape}">
                     <div class="form-text">
-                        <p>{tr}Sets classes for form to be used in Tracker Plugin (e.g. form-horizontal or col-md-9).{/tr}</p>
+                        <p>{tr}Sets classes for form to be used in Tracker Plugin (e.g., col-md-9).{/tr}</p>
                     </div>
                 </div>
-                <div class="form-group row mx-0">
+                <div class="mb-3 row mx-0">
                     <label for="viewItemPretty">{tr}Template to display an item{/tr}</label>
                     <input class="form-control" type="text" name="viewItemPretty" id="viewItemPretty" value="{$info.viewItemPretty|escape}">
                     <div class="form-text">
                         {tr}wiki:pageName for a wiki page or tpl:tplName for a template{/tr}
                     </div>
                 </div>
-                <div class="form-group row mx-0">
+                <div class="mb-3 row mx-0">
                     <label for="editItemPretty">{tr}Template to edit an item{/tr}</label>
                     <input class="form-control" type="text" name="editItemPretty" id="editItemPretty" value="{$info.editItemPretty|escape}">
                     <div class="form-text">
@@ -268,9 +268,9 @@
         </div>
     {/accordion_group}
         {accordion_group title="{tr}Status{/tr}"}
-            <div class="form-group row mx-0">
+            <div class="mb-3 row mx-0">
                 <label for="newItemStatus">{tr}New item status{/tr}</label>
-                <select name="newItemStatus" id="newItemStatus" class="form-control">
+                <select name="newItemStatus" id="newItemStatus" class="form-select">
                     {foreach key=st item=stdata from=$statusTypes}
                         <option value="{$st|escape}"
                             {if $st eq $info.newItemStatus} selected="selected"{/if}>
@@ -279,7 +279,7 @@
                     {/foreach}
                 </select>
             </div>
-            <div class="form-group row mx-0">
+            <div class="mb-3 row mx-0">
                 <label for="modItemStatus">{tr}Modified item status{/tr}</label>
                 <select name="modItemStatus" id="modItemStatus" class="form-control">
                     <option value="">{tr}No change{/tr}</option>
@@ -291,7 +291,7 @@
                     {/foreach}
                 </select>
             </div>
-            <div class="form-group row mx-0">
+            <div class="mb-3 row mx-0">
                 <label>{tr}Default status displayed in list mode{/tr}</label>
                 <div class="form-check form-check-inline">
                     {foreach key=st item=stdata from=$statusTypes}
@@ -304,7 +304,7 @@
             </div>
         {/accordion_group}
         {accordion_group title="{tr}Notifications{/tr}"}
-            <div class="form-group row mx-0">
+            <div class="mb-3 row mx-0">
                 <label for="outboundEmail">{tr}Copy activity to email{/tr}</label>
                 <input name="outboundEmail" id="outboundEmail" value="{$info.outboundEmail|escape}" class="email_multi form-control" size="60">
                 <div class="form-text">
@@ -339,7 +339,7 @@
             </div>
 
             {if $prefs.feature_groupalert eq 'y'}
-                <div class="form-group row mx-0">
+                <div class="mb-3 row mx-0">
                     <label class="col-form-label" for="groupforAlert">{tr}Group alerted on item modification{/tr}</label>
                     <select name="groupforAlert" id="groupforAlert" class="form-control">
                         <option value=""></option>
@@ -450,11 +450,11 @@
                 <div class="description form-text mb-4">
                     {tr}The tracker will be <strong>open</strong> for non-admin users through wiki pages with PluginTracker <strong>only</strong> during the period 'After' the start date and/or 'Before' the end date set below{/tr}.
                 </div>
-                <div class="form-group row mx-0 depends" data-on="start">
+                <div class="mb-3 row mx-0 depends" data-on="start">
                     <label for="startDate">{tr}Date{/tr}</label>
                     <input type="date" name="startDate" id="startDate" value="{$startDate|escape}" class="form-control">
                 </div>
-                <div class="form-group row mx-0 depends" data-on="start">
+                <div class="mb-3 row mx-0 depends" data-on="start">
                     <label for="startTime">{tr}Time{/tr}</label>
                     <input type="time" name="startTime" id="startTime" value="{$startTime|default:'00:00'|escape}" class="form-control">
                 </div>
@@ -465,11 +465,11 @@
                         {tr}Before{/tr}
                     </label>
                 </div>
-                <div class="form-group row mx-0 depends" data-on="end">
+                <div class="mb-3 row mx-0 depends" data-on="end">
                     <label for="endDate">{tr}Date{/tr}</label>
                     <input type="date" name="endDate" id="endDate" value="{$endDate|escape}" class="form-control">
                 </div>
-                <div class="form-group row mx-0 depends" data-on="end">
+                <div class="mb-3 row mx-0 depends" data-on="end">
                     <label for="endTime">{tr}Time{/tr}</label>
                     <input type="time" name="endTime" id="endTime" value="{$endTime|default:'00:00'|escape}" class="form-control">
                 </div>
@@ -477,7 +477,7 @@
         {/accordion_group}
         {if $prefs.feature_categories eq 'y'}
             {accordion_group title="{tr}Categories{/tr}"}
-                <div class="form-group row mx-0">
+                <div class="mb-3 row mx-0">
                     {include file='categorize.tpl' notable=y auto=y}
                 </div>
                 <div class="form-check">
@@ -498,7 +498,7 @@
                         {tr}Create a group for each item{/tr}
                     </label>
                 </div>
-                <div class="form-group row mx-0 depends" data-on="autoCreateGroup">
+                <div class="mb-3 row mx-0 depends" data-on="autoCreateGroup">
                     <label for="autoCreateGroupInc">{tr}Groups will include{/tr}</label>
                     <select name="autoCreateGroupInc" id="autoCreateGroupInc" class="form-control">
                         <option value=""></option>
@@ -539,7 +539,7 @@
         {/if}
         {if $prefs.tracker_tabular_enabled eq 'y' and $remoteTabulars}
             {accordion_group title="{tr}Remote synchronization{/tr}"}
-                <div class="form-group row mx-0">
+                <div class="mb-3 row mx-0">
                     <label for="tabularSync">{tr}Choose tabular format{/tr}</label>
                     <select name="tabularSync" id="tabularSync" class="form-control">
                         <option value="">{tr}None{/tr}</option>
@@ -551,7 +551,7 @@
                         {/foreach}
                     </select>
                 </div>
-                <div class="form-group row depends" data-on="tabularSync">
+                <div class="mb-3 row depends" data-on="tabularSync">
                     <label for="tabularSyncModifiedField">
                         {tr}Last revision/modification field{/tr}
                         <a class="tikihelp text-info" title="{tr}Field selection{/tr}: {tr}Choose one of the tracker fields if remote items update its value every time a change happens. This will ensure only updated items get synchronized when importing from remote source.{/tr}">
@@ -562,7 +562,7 @@
                         {object_selector type=trackerfield tracker_id=$info.trackerId _simplevalue=$info.tabularSyncModifiedField _simplename="tabularSyncModifiedField"}
                     </div>
                 </div>
-                <div class="form-group row depends" data-on="tabularSyncModifiedField">
+                <div class="mb-3 row depends" data-on="tabularSyncModifiedField">
                     <label for="tabularSyncLastImport">
                         {tr}Last import time{/tr}
                         <a class="tikihelp text-info" title="{tr}Time entry{/tr}: {tr}This tracks the last date/time when this tracker was synchronized with remote source. Subsequent tabular imports will only fetch content newer than this date. Reset to something in the past if you want to re-import.{/tr}">
@@ -577,7 +577,7 @@
             {/accordion_group}
         {/if}
     {/accordion}
-    <div class="form-group row mx-0 submit">
+    <div class="mb-3 row mx-0 submit">
         <input type="hidden" name="confirm" value="1">
         <input type="hidden" name="trackerId" value="{$trackerId|escape}">
         <input type="submit" class="btn btn-primary" value="{tr}Save{/tr}">

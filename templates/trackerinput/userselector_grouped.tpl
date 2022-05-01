@@ -2,7 +2,7 @@
 <div class="row">
     <div class="col-sm-6">
         {tr}Filter by group:{/tr}
-        <select id="user_group_selector_{$field.fieldId}" multiple="multiple" class="form-control">
+        <select id="user_group_selector_{$field.fieldId}" multiple="multiple" class="form-select">
             {section name=ix loop=$data.groups}
                 <option value="{$data.groups[ix]|escape}" {if (in_array($data.groups[ix], $data.selected_groups))}selected{/if}>{$data.groups[ix]}</option>
             {/section}
@@ -11,7 +11,7 @@
     <div class="col-sm-6">
         {tr}Select user(s):{/tr}
         <input type="hidden" name="{$field.ins_id}[]" value="">
-        <select name="{$field.ins_id}[]" id="user_selector_{$field.fieldId}" multiple="multiple" class="form-control">
+        <select name="{$field.ins_id}[]" id="user_selector_{$field.fieldId}" multiple="multiple" class="form-select">
             {section name=ix loop=$data.selected_users}
                 <option value="{$data.selected_users[ix]}" selected>{if ($field.showRealname == 'y')}{$data.selected_users[ix]|username}{else}{$data.selected_users[ix]}{/if}</option>
             {/section}

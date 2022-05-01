@@ -6,9 +6,9 @@
 {* Navigation bar to admin, admin related, etc *}
 <h2>{tr}Parent directory category:{/tr}</h2>
 {* Display the path adding manually the top category id=0 *}
-<form name="path" method="post" action="tiki-directory_admin_categories.php" class="form-horizontal">
+<form name="path" method="post" action="tiki-directory_admin_categories.php">
     <br>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-sm-4 col-form-label">
             {tr}Parent directory category{/tr}
         </label>
@@ -33,23 +33,23 @@
     <h2>{tr}Edit this directory category:{/tr} {$info.name}</h2>
     <a href="tiki-directory_admin_categories.php">{tr}Add a Directory Category{/tr}</a>
 {/if}
-<form action="tiki-directory_admin_categories.php" method="post" class="form-horizontal">
+<form action="tiki-directory_admin_categories.php" method="post">
     <input type="hidden" name="parent" value="{$parent|escape}">
     <input type="hidden" name="categId" value="{$categId|escape}">
 
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-sm-4 col-form-label">{tr}Name{/tr}</label>
         <div class="col-sm-7">
             <input type="text" name="name" value="{$info.name|escape}" class="form-control">
         </div>
     </div>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-sm-4 col-form-label">{tr}Description{/tr}</label>
         <div class="col-sm-7">
             <textarea rows="5" cols="60" name="description" class="form-control">{$info.description|escape}</textarea>
         </div>
     </div>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-sm-4 col-form-label">{tr}Child type{/tr}</label>
         <div class="col-sm-7">
             <select name="childrenType" class="form-control">
@@ -59,7 +59,7 @@
             </select>
         </div>
     </div>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-sm-4 col-form-label">{tr}Maximum number of child directory categories to show{/tr}</label>
         <div class="col-sm-7">
             <select name="viewableChildren" class="form-control">
@@ -72,19 +72,19 @@
             </select>
         </div>
     </div>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-sm-4 col-form-label">{tr}Allow sites in this directory category{/tr}</label>
         <div class="col-sm-7">
             <input name="allowSites" type="checkbox" {if $info.allowSites eq 'y'}checked="checked"{/if} >
         </div>
     </div>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-sm-4 col-form-label">{tr}Show number of sites in this directory category{/tr}</label>
         <div class="col-sm-7">
             <input name="showCount" type="checkbox" {if $info.showCount eq 'y'}checked="checked"{/if}>
         </div>
     </div>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-sm-4 col-form-label">{tr}Editor group{/tr}</label>
         <div class="col-sm-7">
             <select name="editorGroup" class="form-control">
@@ -95,7 +95,7 @@
             </select>
         </div>
     </div>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <div class="col-sm-7 offset-sm-4">
             <input class="btn btn-primary" type="submit" name="save" value="{tr}Save{/tr}">
         </div>

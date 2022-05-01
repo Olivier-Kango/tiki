@@ -14,13 +14,13 @@
 
 {block name="content"}
     <form method="post" action="{service controller=tabular action=duplicate tabularId=$tabularId}">
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-form-label col-sm-3">{tr}Name{/tr}</label>
             <div class="col-sm-9">
                 <input class="form-control" type="text" name="name" value="{$name}" required>
             </div>
         </div>
-        <div class="form-group submit">
+        <div class="mb-3 submit">
             <div class="col-sm-9 offset-sm-3">
                 <input type="submit" class="btn btn-primary" value="{tr}Create{/tr}">
             </div>

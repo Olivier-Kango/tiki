@@ -74,7 +74,7 @@
     {if $tiki_p_perspective_create eq 'y'}
         {tab name="{tr}Create{/tr}"}
             <h2>{tr}Create{/tr}</h2>
-            <form method="post" action="tiki-edit_perspective.php" class="form-inline">
+            <form method="post" action="tiki-edit_perspective.php" class="d-flex flex-row flex-wrap align-items-center">
                     <label for="name" class="col-form-label mr-2">{tr}Name:{/tr} </label>
                     <input type="text" name="name" class="form-control mr-2">
                 <input type="submit" class="btn btn-primary mr-2" name="create" value="{tr}Create{/tr}">
@@ -85,8 +85,8 @@
     {if $perspective_info && $perspective_info.can_edit}
         {tab name="{tr}Edit{/tr}"}
             <h2>{tr}Edit{/tr}</h2>
-            <form method="post" action="tiki-edit_perspective.php" class="form-horizontal">
-                <div class="form-group row clearfix">
+            <form method="post" action="tiki-edit_perspective.php">
+                <div class="mb-3 row clearfix">
                     <label for="name" class="col-sm-2 col-form-label">{tr}Name{/tr}</label>
                     <div class="col-sm-10">
                         <input type="text" name="name" id="name" value="{$perspective_info.name|escape}" class="form-control">
@@ -114,15 +114,11 @@
                     <input type="hidden" name="id" value="{$perspective_info.perspectiveId|escape}">
                     <div class="card-body">
                         <div class="input-group">
-                            <div class="input-group-append">
-                                <span class="input-group-text">
-                                    {icon name="search"}
-                                </span>
-                            </div>
+                            <span class="input-group-text">
+                                {icon name="search"}
+                            </span>
                             <input id="criteria" type="text" name="criteria" class="form-control" placeholder="{tr}Search preferences{/tr}...">
-                            <div class="input-group-append">
-                                <input type="submit" class="btn btn-info" value="{tr}Search{/tr}">
-                            </div>
+                            <input type="submit" class="btn btn-info" value="{tr}Search{/tr}">
                         </div>
                     </div>
                     <div class="card-footer">

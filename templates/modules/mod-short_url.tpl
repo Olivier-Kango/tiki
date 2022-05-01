@@ -4,11 +4,11 @@
         <div id="short-url-module">
             <div>
                 <div id="short-url-error" class="alert alert-danger" style="display:none"></div>
-                <button id="short-url-get" class="btn btn-primary btn-sm form-control">{icon name="link"} {tr}Get short url{/tr}</button>
+                <button id="short-url-get" class="btn btn-primary btn-sm form-control">{icon name="link"} {tr}Get short URL{/tr}</button>
             </div>
 
             <div id="short-url-link"style="display:none">
-                <div class="form-group">
+                <div class="mb-3">
                     <input type="text" class="form-control" readonly="readonly">
                 </div>
                 <button id="short-url-copy" class="btn btn-primary btn-sm form-control">{icon name="clipboard"} {tr}Copy{/tr}</button>

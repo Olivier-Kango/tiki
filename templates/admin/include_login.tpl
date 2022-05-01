@@ -67,7 +67,7 @@
                             </div>
                     </fieldset>
                     <legend>{tr}Group and tracker login settings{/tr}</legend>
-                    <div class="adminoptionbox form-group row">
+                    <div class="adminoptionbox mb-3 row">
                         <label for="registration_choices" class="col-sm-4 col-form-label">{tr}Users can select a group to join at registration:{/tr}</label>
                         <div class="col-sm-8 adminoptionlabel">
                             <select id="registration_choices" name="registration_choices[]" multiple="multiple" size="5" class="form-control">
@@ -105,7 +105,7 @@
                     {preference name=user_trackersync_geo}
                     {preference name=user_trackersync_lang}
                     {preference name=user_tracker_auto_assign_item_field}
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <div class="col-sm-8 offset-sm-4">
                             {button href="?page=login&amp;resync_tracker=y" _onclick="confirmPopup('{tr}Resynchronize all user preferences based on above settings?{/tr}', '{ticket mode=get}')" _text="{tr}Synchronize all users{/tr}"}
                             <div class="form-text">{tr}This will re-save all user tracker items to resynchronize prefs like real name, user groups, location.{/tr}</div>
@@ -199,7 +199,7 @@
                 {preference name=pass_due}
             </fieldset>
             <fieldset>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <div class="col-sm-8 offset-sm-4">
                         {button href="?page=login&amp;refresh_email_group=y" _onclick="confirmPopup('{tr}Assign users to groups based on email patterns?{/tr}', '{ticket mode=get}')" _text="{tr}Assign users to groups by matching email patterns{/tr}"}
                         <div class="form-text">{tr}An email pattern must be defined in the settings for at least one group for this to produce any results.{/tr}</div>
@@ -499,15 +499,14 @@
 
                 <legend>{tr}Password blacklist tools{/tr}</legend>
 
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <h3>{tr}Upload Word List for Processing{/tr}</h3>
                     <p>{tr}Words currently indexed{/tr}: {$num_indexed}</p>
 
-                    <p>{tr}You may create custom blacklists to better fit your needs. Start by uploading a word list.
-                        Then reduce that list to something that applies to your specific configuration and needs with the tools that appear below.{/tr}</p>
+                    <p>{tr}You may create custom blacklists to better fit your needs. Start by uploading a word list. Then reduce that list to something that applies to your specific configuration and needs with the tools that appear below.{/tr}</p>
 
-                    <p>{tr}Raw password files can be obtained from <a href="https://github.com/danielmiessler/SecLists/tree/master/Passwords" target="_blank">Daniel Miessler's Collection</a>.
-                        Tiki's defaut password blacklist files were generated from Missler's top 1 million password file.{/tr}</p>
+                    <p>
+                        {tr _0='<a href="https://github.com/danielmiessler/SecLists/tree/master/Passwords" target="_blank">' _1='</a>'}Raw password files can be obtained from %0Daniel Miessler's Collection%1.{/tr} {tr}Tiki's default password blacklist files were generated from Missler's top 1 million password file.{/tr}</p>
 
                         <input type="file" name="passwordlist" accept="text/plain" class="form-control mb-2" />
                         <div class="col-sm-4">
@@ -523,7 +522,7 @@
                                 class="btn btn-primary btn-sm"
                             >
                             {help desc="{tr}Text files with one word per line accepted.
-                            The word list will be converted to all lowe case. Duplicate entries will be removed.
+                            The word list will be converted to all lower case. Duplicate entries will be removed.
                             Typically passwords lists should be arranged with the most commonly used passwords first.{/tr}"}
                             <input
                                 type="submit"
@@ -532,7 +531,7 @@
                                 class="btn btn-danger btn-sm"
                                 onclick="confirmPopup('{tr}Delete temporary index?{/tr}')"
                             >
-                            {help desc="{tr}It is recommended that you delete indexed passwords from your database after your done generating your password lists.
+                            {help desc="{tr}It is recommended that you delete indexed passwords from your database after you're done generating your password lists.
                             They can take up quite a lot of space and serve no pourpose after processing is complete.{/tr}"}
                         </div>
 

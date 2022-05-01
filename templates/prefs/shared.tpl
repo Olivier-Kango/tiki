@@ -5,7 +5,7 @@
 {/if}
 {if isset($icon)}
     <a {if $p.helpurl} href="{$p.helpurl|escape}" target="tikihelp"{/if}
-         class="tikihelp text-info" title="{$p.name|escape}: {$p.description|escape} <p>{tr _0=$p.preference}Preference name: %0{/tr}</p>{if $p.separator && $p.type neq 'multiselector'}<br>{tr _0=$p.separator}Use &quot;%0&quot; to separate values.{/tr}{/if}">
+         class="tikihelp text-info tikihelp-prefs" title="{$p.name|escape}" data-bs-original-title="{$p.name|escape}" data-bs-content="{$p.description|escape} <p class='text-muted pt-2 small'>{tr _0="<code>`$p.preference`</code>"}Preference name: %0{/tr}</p>{if $p.separator && $p.type neq 'multiselector'}<br>{tr _0=$p.separator}Use &quot;%0&quot; to separate values.{/tr}{/if}">
         {icon name=$icon}
     </a>
 {/if}
@@ -36,14 +36,14 @@
 {$p.pages}
 
 {if isset($pref_filters) and not $pref_filters.advanced.selected and in_array('advanced', $p.tags)}
-    <label class="label label-warning tips" title=":{tr}Change your preference filter settings in order to view advanced preferences by default{/tr}">
+    <span class="badge bg-warning tips" title=":{tr}Change your preference filter settings in order to view advanced preferences by default{/tr}">
         {tr}advanced{/tr}
-    </label>
+    </span>
 {/if}
 {if isset($pref_filters) and not $pref_filters.experimental.selected and in_array('experimental', $p.tags)}
-    <label class="label label-danger tips" title=":{tr}Change your preference filter settings in order to view experimental preferences by default{/tr}">
+    <span class="badge bg-danger tips" title=":{tr}Change your preference filter settings in order to view experimental preferences by default{/tr}">
         {tr}experimental{/tr}
-    </label>
+    </span>
 {/if}
 {if $p.dependencies}
     {foreach from=$p.dependencies item=dep}

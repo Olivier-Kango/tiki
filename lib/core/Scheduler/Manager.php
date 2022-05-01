@@ -19,6 +19,30 @@ class Scheduler_Manager
         $this->logger = $logger;
     }
 
+    public static function queueJob(string $name, string $task, array $params)
+    {
+        $className = 'Scheduler_Task_' . $task;
+        if (! class_exists($className)) {
+            throw new Scheduler\Exception\TaskParamException(tr("Scheduler task class not defined: %0", $task));
+        }
+
+        $logger = new Tiki_Log('Schedulers', \Psr\Log\LogLevel::ERROR);
+        $class = new $className($logger);
+
+        foreach ($class->getParams() as $key => $param) {
+            if (empty($param['required'])) {
+                continue;
+            }
+
+            if (empty($params[$key])) {
+                throw new Scheduler\Exception\TaskParamException(tr("Parameter missing for scheduler class %0: %1", $task, $param['name']));
+            }
+        }
+
+        $schedLib = TikiLib::lib('scheduler');
+        $schedLib->set_scheduler($name, "", $task, json_encode($params), "* * * * *", 'active', false, true);
+    }
+
     public function run()
     {
         global $tikilib;

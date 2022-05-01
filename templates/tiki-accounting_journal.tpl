@@ -50,6 +50,7 @@
                                             onclick="confirmPopup('{tr _0="{$j.journalId|escape:'attr'}" _1="{$book.bookName|escape:'attr'}"}Cancel transaction ID %0 in book %1?{/tr}')"
                                             style="float:left;padding:0;border:none"
                                             title=":{tr}Cancel transaction{/tr}"
+                                            aria-label="{tr}Cancel transaction{/tr}"
                                         >
                                             {icon name="remove" alt="{tr}Cancel transaction{/tr}"}
                                         </button>

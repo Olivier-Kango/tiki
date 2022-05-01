@@ -59,16 +59,16 @@
 {/if}
 
 <h2>{tr}Add or edit rules{/tr}</h2>
-<form action="tiki-admin_banning.php" name="banningform" method="post" class="form-horizontal" role="form">
+<form action="tiki-admin_banning.php" name="banningform" method="post" role="form">
     {ticket}
     <input type="hidden" name="banId" value="{$banId|escape}">
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-sm-4 col-form-label" for="banning-title">{tr}Rule title{/tr}</label>
         <div class="col-sm-8">
             <input type="text" name="title" id="banning-title" value="{$info.title|escape}" maxlength="200">
         </div>
     </div>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-sm-4 col-form-label" for="banning-userregex">{tr}Username regex matching{/tr}</label>
         <div class="col-sm-8">
             <input type="radio" name="mode" value="user" {if $info.mode eq 'user'}checked="checked"{/if}>
@@ -76,7 +76,7 @@
         </div>
     </div>
     {if isset($mass_ban_ip)}
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-sm-4 col-form-label" for="banning-ipregex">{tr}Multiple IP regex matching{/tr}</label>
             <div class="col-sm-8 alert-warning">
                 <input type="radio" name="mode" value="mass_ban_ip" {if $info.mode eq 'mass_ban_ip'}checked="checked"{/if}>
@@ -93,7 +93,7 @@
             </div>
         </div>
     {else}
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-sm-4 col-form-label" for="banning-ipregex">{tr}IP regex matching{/tr}</label></label>
             <div class="col-sm-8">
                 <input type="radio" name="mode" value="ip" {if $info.mode eq 'ip'}checked="checked"{/if}>
@@ -104,7 +104,7 @@
             </div>
         </div>
     {/if}
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-sm-4 col-form-label" for="banning-section">{tr}Banned from sections{/tr}</label>
         <div class="col-sm-8">
             <input type="checkbox" name="checkall" {if (!$banId)}checked="checked"{/if} onclick="CheckAll();">
@@ -120,31 +120,31 @@
         <div class="col-sm-8">
         </div>
     </div>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-sm-4 col-form-label" for="banning-actdates">{tr}Rule activated by dates{/tr}</label>
         <div class="col-sm-8">
             <input type="checkbox" name="use_dates" id="banning-actdates" {if $info.use_dates eq 'y'}checked="checked"{/if} onclick="CheckUseDates();">
         </div>
     </div>
-    <div class="form-group row" id="usedates_date" style="display: {if $info.use_dates eq 'y'}block{else}none{/if};" >
+    <div class="mb-3 row" id="usedates_date" style="display: {if $info.use_dates eq 'y'}block{else}none{/if};" >
         <label class="col-sm-4 col-form-label" for="">{tr}Rule active from{/tr}</label>
         <div class="col-sm-8">
             {html_select_date prefix="date_from" time=$info.date_from field_order=$prefs.display_field_order}
         </div>
     </div>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-sm-4 col-form-label" for="">{tr}Rule active until{/tr}</label>
         <div class="col-sm-8">
             {html_select_date prefix="date_to" time=$info.date_to end_year="+10" field_order=$prefs.display_field_order}
         </div>
     </div>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-sm-4 col-form-label" for="banning-mess">{tr}Custom message to the user{/tr}</label>
         <div class="col-sm-8">
                 <textarea rows="4" class="form-control" name="message">{$info.message|escape}</textarea>
         </div>
     </div>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <div class="col-sm-8 offset-sm-4">
             <input type="submit" class="btn btn-primary" name="save" value="{tr}Save{/tr}">
         </div>
@@ -153,9 +153,9 @@
 
 <h2 id="Import_rules_as_CSV">{tr}Import rules as CSV{/tr}</h2>
 
-<form method="post" action="tiki-admin_banning.php" enctype="multipart/form-data" class="form-horizontal" role="form">
+<form method="post" action="tiki-admin_banning.php" enctype="multipart/form-data" role="form">
     {ticket}
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-sm-4 col-form-label" for="csv">{tr}CSV File{/tr}
             {capture name=help}{tr}Column names on the first line:{/tr}<br>banId,mode,title,ip1,ip2,ip3,ip4,user,date_from,date_to,use_dates,created,created_readable,message,sections<br>{tr}Sections format:{/tr} {tr}section names are splitted by pipes (vertical bars). To see an example and use it as template, add one rule by hand, and export it as csv{/tr}<br>{tr}Date format:{/tr} {tr}See:{/tr} http://php.net/strtotime{/capture}
             <a title="{tr}Help{/tr}" {popup text=$smarty.capture.help|escape}>{icon name='help'}</a>
@@ -168,7 +168,7 @@
             </label>
         </div>
     </div>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <div class="col-sm-8 offset-sm-4">
             <input type="submit" class="btn btn-primary btn-sm" name="import" value="{tr}Import{/tr}">
         </div>

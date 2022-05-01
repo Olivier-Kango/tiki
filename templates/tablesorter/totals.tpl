@@ -34,7 +34,7 @@
                             {$ignore = 0}
                             {$format = 0}
                         {/if}
-                        <th {if !empty($info.formula) && !$ignore}data-tsmath="col-{$info.formula|escape}" class="text-right"{if !empty($info.filter)} data-tsmath-filter="{$info.filter}"{/if}{if $format}{$format}{/if}{/if} data-index="{$index}">
+                        <th {if !empty($info.formula) && !$ignore}data-tsmath="col-{$info.formula|escape}" class="text-end"{if !empty($info.filter)} data-tsmath-filter="{$info.filter}"{/if}{if $format}{$format}{/if}{/if} data-index="{$index}">
                             {if $i === 1 && $ignore && empty($precols)}
                                 {$info.label|escape}
                             {/if}
@@ -66,7 +66,7 @@
                         {else}
                             {$format = 0}
                         {/if}
-                        <th {if $i == $allcols && !empty($tableinfo.formula)}data-tsmath="all-{$tableinfo.formula}" class="text-right"{if !empty($tableinfo.filter)} data-tsmath-filter="{$tableinfo.filter}"{/if}{if $format}{$format}{/if}{/if}>
+                        <th {if $i == $allcols && !empty($tableinfo.formula)}data-tsmath="all-{$tableinfo.formula}" class="text-end"{if !empty($tableinfo.filter)} data-tsmath-filter="{$tableinfo.filter}"{/if}{if $format}{$format}{/if}{/if}>
                             {if $i === 1}
                                 {$tableinfo.label|escape}
                             {/if}

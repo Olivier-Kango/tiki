@@ -65,7 +65,7 @@
                         <td class="even">{tr}Editor{/tr}</td>
                         <td class="even">
                             {if $kmode eq 'edit'}
-                                <select name="editor">
+                                <select name="editor" class="form-select">
                                     <option value="kse"{if $videoInfo->editorType eq 1}selected="selected"{/if}>{tr}Simple{/tr}</option>
                                     <option value="kae"{if $videoInfo->editorType eq 2}selected="selected"{/if}>{tr}Advanced{/tr}</option>
                                 </select>

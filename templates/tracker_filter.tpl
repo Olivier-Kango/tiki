@@ -1,4 +1,4 @@
-<form action="#" method="get" class="form-inline">
+<form action="#" method="get" class="d-flex flex-row flex-wrap align-items-center">
     <input type="hidden" name="trackerId" value="{$trackerId|escape}">
     {if $status}<input type="hidden" name="status" value="{$status}">{/if}
     {if $sort_mode}<input type="hidden" name="sort_mode" value="{$sort_mode}">{/if}
@@ -41,7 +41,7 @@
                 </select>
             {/if}
         </div>
-        <div style="display:inline-block" class="form-group row">
+        <div style="display:inline-block" class="mb-3 row">
             {assign var=cnt value=0}
             {foreach key=fid item=field from=$listfields}
                 {if $field.isSearchable eq 'y' and $field.type ne 'f' and $field.type ne 'j' and $field.type ne 'i'}
@@ -118,7 +118,7 @@
             {/foreach}
         </div>
         {if isset($filter_button) && $filter_button eq 'y'}
-            <div style="display:inline-block" class="form-group row">
+            <div style="display:inline-block" class="mb-3 row">
                 <input id="filterbutton" type="submit" class="btn btn-primary" name="filter" value="{tr}Filter{/tr}" style="display:{if $filterfield}inline{else}none{/if}">
             </div>
         {/if}

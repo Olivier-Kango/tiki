@@ -138,6 +138,10 @@ class Services_Broker
             TikiLib::lib('access')->redirect($url);
         }
 
+        if (! empty($output['override_action'])) {
+            $action = $output['override_action'];
+        }
+
         $smarty = TikiLib::lib('smarty');
 
         $template = "$controller/$action.tpl";

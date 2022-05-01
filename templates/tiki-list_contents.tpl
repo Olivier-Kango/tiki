@@ -82,19 +82,19 @@
             {query _type='form_input'}
             <input type="hidden" name="contentId" value="{$contentId|escape}">
 
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">{tr}Label{/tr}</label>
                 <div class="col-sm-7">
                     <input type="text" name="contentLabel" value="{$contentLabel|escape}" class="form-control">
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">{tr}Description{/tr}</label>
                 <div class="col-sm-7">
                     <textarea rows="5" cols="40" name="description" class="form-control">{$description|escape}</textarea>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label"></label>
                 <div class="col-sm-7">
                     <input type="submit" class="btn btn-primary" name="save" value="{tr}Save{/tr}">

@@ -5,9 +5,9 @@
         <div class="table-responsive">
             <table class="table">
                 <tr>
-                    <td style="width:100%">
+                    <td class="w-100">
                         <form class="forms" method="post" action="{$ownurl}">
-                            <select name="user_group">
+                            <select class="form-select" name="user_group">
                                 <option value="">{tr}select{/tr}</option>
                                 {section name=ix loop=$user_groups}
                                     <option value="{$user_groups[ix].groupName|escape}" {if $user_groups[ix].groupName eq $user_group}

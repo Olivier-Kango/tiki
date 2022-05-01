@@ -44,7 +44,7 @@
     <form method="get" action="tiki-emulate_groups_switch.php" target="_self">
         <fieldset>
             <div><strong>{tr}Switch to Groups{/tr}</strong></div>
-            <select name="switchgroups[]" size="{$module_rows}" multiple="multiple" class="form-control table">
+            <select name="switchgroups[]" size="{$module_rows}" multiple="multiple" class="form-select table">
                 {foreach from=$chooseGroups key=groupname item=inclusion name=ix}
                     <option value="{$groupname|escape}" >{$groupname|escape}</option>
                 {/foreach}

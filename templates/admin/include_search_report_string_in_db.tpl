@@ -1,6 +1,6 @@
 {* $Id$ *}
 <h2 class="card-title">{tr}Occurrences of string in database{/tr}</h2>
-<div class="adminoptionbox clearfix form-group row">
+<div class="adminoptionbox clearfix mb-3 row">
     <label for="string_in_db_search_table" class="col-form-label col-sm-4">
         {tr}Set default table:{/tr}
     </label>
@@ -20,7 +20,7 @@
         </div>
     </div>
 </div>
-<div class="adminoptionbox clearfix form-group row">
+<div class="adminoptionbox clearfix mb-3 row">
     <label for="string_in_db_search" class="col-form-label col-sm-4">
         {tr}Text to search:{/tr}
     </label>
@@ -101,7 +101,7 @@
                 {$value = $val|truncate:30|escape}
                 {if $tableName=='tiki_pages' && ($column=='pageName' || $column=='pageSlug' || $column=='data' || $column=='description') && $val}
                     {if $column=='data'}
-                        <td><a tabindex='0' target='_blank' data-trigger='hover' title='{tr}Page preview{/tr}' class="ajaxtips" data-ajaxtips="{service controller='wiki' action='get_page' page=$row['pageName']}">
+                        <td><a tabindex='0' target='_blank' data-bs-trigger='hover' title='{tr}Page preview{/tr}' class="ajaxtips" data-ajaxtips="{service controller='wiki' action='get_page' page=$row['pageName']}">
                                  {$row['snippet']}
                             </a>
                         </td>

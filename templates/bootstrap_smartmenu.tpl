@@ -1,6 +1,6 @@
 {if not empty($item.children)}
     <li class="nav-item dropdown{if $item.selected|default:null} active{/if} {$item.class|escape}">
-        <a href="{$item.sefurl|escape}" class="{if $sub|default:false}dropdown-item{else}nav-link{/if} dropdown-toggle" data-toggle="dropdown">{tr}{$item.name}{/tr}</a>
+        <a href="{$item.sefurl|escape}" class="{if $sub|default:false}dropdown-item{else}nav-link{/if} dropdown-toggle" data-bs-toggle="dropdown">{tr}{$item.name}{/tr}</a>
         {if $item.sectionLevel eq 0 and $module_params.megamenu eq 'y'}
             <ul class="dropdown-menu mega-menu">
                 <li class="mega-menu--inner-container row mx-0">
@@ -10,7 +10,7 @@
                         {/foreach}
                     </ul>
                     {if $module_params.megamenu_images eq 'y' and $item.image}*}
-                        <div class="mega-menu-image col-sm-3 pr-0">
+                        <div class="mega-menu-image col-sm-3 pe-0">
                             {* Test image link - https://picsum.photos/300/300 *}
                             <img src="{$item.image}" alt="Megamenu image" />
                         </div>

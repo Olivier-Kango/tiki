@@ -113,20 +113,6 @@ function wikiplugin_vimeo_info()
                 'filter' => 'int',
                 'advanced' => true
             ],
-            'useFroogaloopApi' => [
-                'required' => false,
-                'name' => tra('Froogaloop API'),
-                'description' => tra('Use Vimeo Froogaloop API'),
-                'since' => '14.0',
-                'filter' => 'alpha',
-                'options' => [
-                    ['text' => '', 'value' => ''],
-                    ['text' => tra('Yes'), 'value' => 'true'],
-                    ['text' => tra('No'), 'value' => 'false'],
-                ],
-                'default' => '',
-                'advanced' => true,
-            ],
             'showTitle' => [
                 'required' => false,
                 'name' => tra('Show Title'),
@@ -221,19 +207,12 @@ function wikiplugin_vimeo($data, $params)
     static $instance = 0;
     $instance++;
 
-    if ($params['useFroogaloopApi']) {
-        TikiLib::lib('header')->add_jsfile('vendor_bundled/vendor/vimeo/froogaloop/javascript/froogaloop.min.js', true);
-        TikiLib::lib('header')->add_jsfile('lib/jquery_tiki/tiki-vimeo.js');
-    }
-
     if (isset($params['url'])) {
         $params['vimeo'] = $params['url'];
         $params['player_id'] = "pid_" . uniqid();
         $params['vimeo_fileId'] = 0;
         unset($params['url']);
-        if ($params['useFroogaloopApi']) {
-            $params['vimeo'] .= "?api=1&player_id=" . $params['player_id'];
-        }
+
         return vimeo_iframe($data, $params);
     } elseif (isset($params['fileId'])) {
         $fileIds = preg_split('/\D+/', $params['fileId'], -1, PREG_SPLIT_NO_EMPTY);
@@ -247,9 +226,6 @@ function wikiplugin_vimeo($data, $params)
                 $params['vimeo'] = $attributes['tiki.content.url'];
                 $params['player_id'] = "pid_" . uniqid();
                 $params['vimeo_fileId'] = $fileId;
-                if ($params['useFroogaloopApi']) {
-                    $params['vimeo'] .= "?api=1&player_id=" . $params['player_id'];
-                }
                 $out .= vimeo_iframe($data, $params);
             } else {
                 Feedback::error(tr('Vimeo video not found for file #%0', $fileId));

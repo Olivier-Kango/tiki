@@ -83,11 +83,11 @@ function wikiplugin_sign($data, $params, $offset)
 
     TikiLib::lib('header')-> add_jq_onready(
         '$(function () {
-            $("[data-toggle=tooltip]").tooltip({
+            $("[data-bs-toggle=tooltip]").tooltip({
                 delay: { "show": 0, "hide": 1000 }
             })
         });'
     );
 
-    return "<span class='sign' data-animation='true' data-toggle='tooltip' data-html='true' data-placement='auto' title='$tip'>$icon</span>";
+    return "<span class='sign' data-animation='true' data-bs-toggle='tooltip' data-html='true' data-bs-placement='auto' title='$tip'>$icon</span>";
 }

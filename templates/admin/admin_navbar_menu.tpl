@@ -1,7 +1,7 @@
 {* navbar menu for admin_navbar.tpl *}
 <ul class="nav navbar-nav mr-auto">
     <li class="nav-item dropdown  mr-1">
-        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{tr}Access{/tr}</a>
+        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">{tr}Access{/tr}</a>
         <ul class="dropdown-menu">
             {if $tiki_p_admin eq "y" and $tiki_p_admin_users eq "y"}
                 <a class="dropdown-item" href="tiki-adminusers.php">{tr}Users{/tr}</a>
@@ -19,7 +19,7 @@
         </ul>
     </li>
     <li class="nav-item dropdown mr-1">
-        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{tr}Content{/tr}</a>
+        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">{tr}Content{/tr}</a>
         <ul class="dropdown-menu">
             {if $prefs.feature_articles eq "y"}
                 <a class="dropdown-item" href="tiki-list_articles.php">{tr}Articles{/tr}</a>
@@ -87,7 +87,7 @@
         </ul>
     </li>
     <li class="nav-item dropdown mr-1">
-        <a href="#" class="nav-link dropdown-toggle mr-2" data-toggle="dropdown">{tr}System{/tr}</a>
+        <a href="#" class="nav-link dropdown-toggle mr-2" data-bs-toggle="dropdown">{tr}System{/tr}</a>
         <ul class="dropdown-menu">
             {if $tiki_p_admin eq "y"}
                 <a class="dropdown-item" href="{service controller=managestream action=list}">{tr}Activity Rules{/tr}</a>
@@ -150,7 +150,7 @@
         </ul>
     </li>
     <li class="nav-item dropdown mr-1">
-        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">{tr}Tools{/tr}</a>
+        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">{tr}Tools{/tr}</a>
         <ul class="dropdown-menu">
             {if $prefs.feature_actionlog eq "y" and $tiki_p_view_actionlog}
                 <a class="dropdown-item" href="tiki-admin_actionlog.php">{tr}Action Log{/tr}</a>

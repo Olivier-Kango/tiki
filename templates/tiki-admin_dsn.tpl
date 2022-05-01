@@ -5,22 +5,22 @@
 {/remarksbox}
 
 <h2>{tr}Create/edit DSN{/tr}</h2>
-<form action="tiki-admin_dsn.php" method="post" class="form-horizontal" role="form">
+<form action="tiki-admin_dsn.php" method="post" role="form">
     {ticket}
     <input type="hidden" name="dsnId" value="{$dsnId|escape}">
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-sm-3 col-form-label" for="name">{tr}Name{/tr}</label>
         <div class="col-sm-9">
             <input type="text" maxlength="255" name="name" id="name" class="form-control" value="{$info.name|escape}">
         </div>
     </div>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-sm-3 col-form-label" for="dsn">{tr}DSN{/tr}</label>
         <div class="col-sm-9">
             <input type="text" maxlength="255" class="form-control" name="dsn" id="dsn" value="{$info.dsn|escape}">
         </div>
     </div>
-    <div class="form-group text-center">
+    <div class="mb-3 text-center">
         <input type="submit" class="btn btn-primary" name="save" value="{tr}Save{/tr}">
     </div>
 </form>
@@ -75,14 +75,14 @@
 {pagination_links cant=$cant_pages step=$prefs.maxRecords offset=$offset}{/pagination_links}
 
 <h2>{tr}Content Authentication{/tr}</h2>
-<form id="source-form" method="post" action="{service controller=auth_source}" class="form-horizontal" role="form">
+<form id="source-form" method="post" action="{service controller=auth_source}" role="form">
     {ticket}
     <fieldset>
         <legend>{tr}Identification{/tr}</legend>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-sm-3 col-form-label">{tr}Identifier{/tr}</label>
             <div class="col-sm-4">
-                <select name="existing" class="form-control">
+                <select name="existing" class="form-select">
                     <option value="">{tr}New{/tr}</option>
                 </select>
             </div>
@@ -90,16 +90,16 @@
                 <input type="text" name="identifier" class="form-control">
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-sm-3 col-form-label" for="url">{tr}URL{/tr}</label>
             <div class="col-sm-4">
                 <input type="url" name="url" id="url" class="form-control" />
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-sm-3 col-form-label" for="method">{tr}Type{/tr}</label>
             <div class="col-sm-4">
-                <select name="method" id="method" class="form-control">
+                <select name="method" id="method" class="form-select">
                     <option value="basic">{tr}HTTP Basic{/tr}</option>
                     <option value="post">{tr}HTTP Session / Login{/tr}</option>
                     <option value="get">{tr}HTTP Session / Visit{/tr}</option>
@@ -110,13 +110,13 @@
     </fieldset>
     <fieldset class="method basic">
         <legend>{tr}HTTP Basic{/tr}</legend>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-sm-3 col-form-label" for="basic_username">{tr}Username{/tr}</label>
             <div class="col-sm-9">
                 <input type="text" name="basic_username" id="basic_username" class="form-control" autocomplete="off">
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-sm-3 col-form-label" for="basic_password">{tr}Password{/tr}</label>
             <div class="col-sm-9">
                 <input type="password" name="basic_password" id="basic_password" class="form-control" autocomplete="new-password">
@@ -125,14 +125,14 @@
     </fieldset>
     <fieldset class="method post">
         <legend>{tr}HTTP Session / Login{/tr}</legend>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-sm-3 col-form-label" for="post_url">{tr}URL{/tr}</label>
             <div class="col-sm-9">
                 <input type="url" name="post_url" id="post_url" class="form-control">
             </div>
             <h5>{tr}Arguments{/tr}</h5>
         </div>
-        <div class="form-group row post-arg-form">
+        <div class="mb-3 row post-arg-form">
             <div class="col-sm-3">
                 <input type="text" name="post_new_field" class="form-control" placeholder="{tr}Name{/tr}">
             </div>
@@ -146,7 +146,7 @@
     </fieldset>
     <fieldset class="method get">
         <legend>{tr}HTTP Session / Visit{/tr}</legend>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-sm-3 col-form-label" for="get_url">{tr}URL{/tr}</label>
             <div class="col-sm-9">
                 <input type="url" name="get_url" id="get_url" class="form-control">
@@ -155,7 +155,7 @@
     </fieldset>
     <fieldset class="method header">
         <legend>{tr}Authorization Header{/tr}</legend>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-sm-3 col-form-label" for="header">{tr}Authorization Header Value{/tr}</label>
             <div class="col-sm-9">
                 <input type="text" name="header" id="header" class="form-control">
@@ -163,7 +163,7 @@
         </div>
     </fieldset>
     <fieldset>
-        <div class="form-group text-center">
+        <div class="mb-3 text-center">
             <input type="submit" class="btn btn-primary" name="save" value="{tr}Save{/tr}">
             <input type="submit" class="btn btn-danger" name="delete" value="{tr}Delete{/tr}">
         </div>
@@ -183,7 +183,7 @@ $('#source-form').each(function () {
             });
         },
         addPostRow = function (name, value) {
-            var row = $('<div class="form-group row post-arg">');
+            var row = $('<div class="mb-3 row post-arg">');
             row.append($('<label class="col-sm-3 col-form-label" for="' + name + '">').text(name));
             row.append($('<div class="col-sm-8 pt-2 overflow-hidden text-truncate" id="' + name + '">').text(value));
             row.append($('<div class="col-sm-1">{{icon name='remove' iclass='text-danger'}}</div>').css('cursor', 'pointer').click(function () {

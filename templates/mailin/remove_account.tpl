@@ -13,8 +13,8 @@
     {else}
         <form method="post" action="{service controller=mailin action=remove_account}">
             {ticket mode=confirm}
-            <div class="form-group row">{tr _0=$info.account}Do you really want to remove the %0 account?{/tr}</div>
-            <div class="form-group submit">
+            <div class="mb-3 row">{tr _0=$info.account}Do you really want to remove the %0 account?{/tr}</div>
+            <div class="mb-3 submit">
                 <input type="hidden" name="accountId" value="{$info.accountId|escape}"/>
                 <input class="btn btn-danger" type="submit" value="{tr}Delete Account{/tr}"/>
             </div>

@@ -110,7 +110,7 @@ abstract class TikiDb
             $res = $result->fetchRow();
 
             if (empty($res)) {
-                return $res;
+                return false;
             }
 
             return reset($res);

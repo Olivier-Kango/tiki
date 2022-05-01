@@ -47,7 +47,7 @@
                     If this hack is required in more places, we can add an opton to "preference" plugin
             *}
             <div class="adminoptionbox preference clearfix basic feature_fixed_width all" style="">
-                <div class="adminoption form-group row">
+                <div class="adminoption mb-3 row">
                     <label class="col-sm-4">
                         Fixed width
                     </label>
@@ -333,13 +333,7 @@
             <fieldset>
                 <legend>{tr}Separators{/tr}</legend>
                 {preference name=site_crumb_seper}
-                <div class="adminoptionboxchild clearfix">
-                    <span class="col-md-8 offset-md-4 form-text">{tr}Examples:{/tr} &nbsp; » &nbsp; / &nbsp; &gt; &nbsp; : &nbsp; -> &nbsp; →</span>
-                </div>
                 {preference name=site_nav_seper}
-                <div class="adminoptionboxchild clearfix">
-                    <span class="col-md-8 offset-md-4 form-text">{tr}Examples:{/tr} &nbsp; | &nbsp; / &nbsp; ¦ &nbsp; :</span>
-                </div>
             </fieldset>
             <hr>
 

@@ -13,17 +13,17 @@
     <form method="get" class="form">
         <input type="hidden" name="itemId" value="{$item_info.itemId}">
         <div class="row align-items-end">
-            <div class="form-group col-sm">
+            <div class="mb-3 col-sm">
                 <label class="col-form-label">{tr}Version{/tr}
                     <input type="text" name="version" value="{if !empty($filter.version)}{$filter.version|escape}{/if}" class="form-control">
                 </label>
             </div>
-            <div class="form-group col-sm">
+            <div class="mb-3 col-sm">
                 <label class="col-form-label">{tr}Field ID{/tr}
                     <input type="text" name="fieldId" value="{if !empty($fieldId)}{$fieldId|escape}{/if}" class="form-control">
                 </label>
             </div>
-            <div class="form-group col-sm">
+            <div class="mb-3 col-sm">
                 <label class="col-form-label">
                     {tr}Diff Style{/tr}
                     <select name="diff_style" id="tracker_diff_style" class="form-control">
@@ -40,7 +40,7 @@
                     </select>
                 </label>
             </div>
-            <div class="form-group col-sm mb-4">
+            <div class="col-sm mb-4">
                 <input type="submit" class="btn btn-primary" value="{tr}Filter{/tr}">
             </div>
         </div>

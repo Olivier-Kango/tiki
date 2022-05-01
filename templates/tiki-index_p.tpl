@@ -31,7 +31,7 @@
                                                 <small>(cached)</small>
                                             {/if}
                                         </td>
-                                        <td style="text-align:right;">
+                                        <td class="text-end">
 
                                             {if $cached_page eq 'y'}
                                                 <a title="{tr}Refresh{/tr}" href="tiki-index_p.php?page={$page|escape:"url"}&amp;refresh=1">{icon name='refresh'}</a>

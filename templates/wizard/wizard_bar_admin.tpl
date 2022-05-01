@@ -1,6 +1,6 @@
 {* $Id$ *}
 {if $prefs.connect_feature eq "y"}
-<div class="form-row provide-feedback">
+<div class="d-flex flex-wrap mx-0 provide-feedback">
     <div class="col">
         {if !isset($provideFeedback) or $provideFeedback neq 'y'}
         <div class="form-check">
@@ -31,7 +31,7 @@
     </div>
 </div>
 {/if}
-<div class="form-group form-row{if $prefs.feature_bidi eq 'y'} text-left{else} text-right{/if}">
+<div class="d-flex flex-wrap mx-0 mb-3{if $prefs.feature_bidi eq 'y'} text-start{else} text-end{/if}">
     <div class="col">
         <input type="hidden" name="url" value="{$homepageUrl}">
         <input type="hidden" name="wizard_step" value="{$wizard_step}">

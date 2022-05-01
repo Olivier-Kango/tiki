@@ -15,7 +15,7 @@
     {/if}
 
     <div class="btn-group">
-        <button type="button" class="btn btn-link dropdown-toggle" data-toggle="dropdown">
+        <button type="button" class="btn btn-link dropdown-toggle" data-bs-toggle="dropdown">
                 {tr}More{/tr}
         </button>
         <div class="dropdown-menu" role="menu">

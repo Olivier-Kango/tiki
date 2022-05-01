@@ -51,9 +51,9 @@
 
 {*    {if $prefs.art_trailer_pos ne 'between'}{include file='article_trailer.tpl'}{/if} *}
 
-    <div class="articleheading media clearfix">
+    <div class="articleheading {if $isfloat neq 'y'}d-md-flex{/if} clearfix"> {* No flex in sm screen, to prevent skinny text column *}
 
-        <div class="float-left">
+        <div class="{if $isfloat eq 'y'}float-start{else}flex-shrink-0 me-3{/if}">
             {capture name=imgTitle}{if $show_image_caption eq 'y' and $image_caption}{$image_caption|escape}{elseif isset($topicName)}{tr}{$topicName}{/tr}{/if}{/capture}
             {assign var="big_image" value=$prefs.art_header_text_pos eq 'below' && $list_image_x > 0}
         {*    {if $big_image}
@@ -105,11 +105,11 @@
             {if $prefs.art_header_text_pos eq 'below' && $list_image_x > 0}
         <div style="width: 100%; float: left;">
             {elseif $isfloat eq 'n' and $topics[$topicId].image_size > 0}
-        <div class="media-body">
+        <div class="flex-grow-1 ms-3">
             {else}
-        <div class="articleheadingtext media-body" {if $isfloat eq 'y'}style="display: inline;"{/if}>
+        <div class="articleheadingtext {if $isfloat eq 'n'}flex-grow-1 ms-3{/if}"{*{if $isfloat eq 'y'}style="display: inline;"{/if}*}>
             {/if}
-            {* <div class="articleheadingtext media-body" {if $isfloat eq 'y'}style="display: inline;"{/if}> *}
+            {* <div class="articleheadingtext flex-grow-1 ms-3" {if $isfloat eq 'y'}style="display: inline;"{/if}> *}
                 {if $article_attributes}
                     <div class="articleattributes">
                         {foreach from=$article_attributes key=attname item=attvalue}

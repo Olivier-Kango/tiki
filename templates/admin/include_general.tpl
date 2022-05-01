@@ -24,7 +24,7 @@
                 {preference name=site_title_location}
                 {preference name=site_title_breadcrumb}
                 {remarksbox type="info" title="{tr}Themes{/tr}"}
-                    {tr}Go to the <a href="tiki-admin.php?page=look" class="alert-link">Look & Feel</a> section for additional site customization preferences{/tr}.
+                    {tr _0='<a href="tiki-admin.php?page=look" class="alert-link">' _1='</a>'}Go to the %0Look & Feel%1 section for additional site customization preferences{/tr}.
                 {/remarksbox}
             </fieldset>
             <fieldset>
@@ -81,7 +81,7 @@
                     {preference name=zend_mail_queue}
                     {preference name=zend_mail_redirect}
                 </div>
-                <div class="adminoptionbox form-group row clearfix">
+                <div class="adminoptionbox mb-3 row clearfix">
                     <label for="testMail" class="col-md-4 col-form-label">{tr}Email to send a test mail{/tr}</label>
                     <div class="col-md-8">
                         <input type="text" name="testMail" id="testMail" class="form-control">

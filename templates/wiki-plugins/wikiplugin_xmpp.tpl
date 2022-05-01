@@ -11,7 +11,7 @@
                 <div class="row">{{ items }}</div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btn-dismiss" data-dismiss="modal">{tr}Close{/tr}</button>
+                <button type="button" class="btn btn-secondary btn-dismiss" data-bs-dismiss="modal">{tr}Close{/tr}</button>
                 <input type="submit" class="btn btn-primary" value="{tr}Add{/tr}"/>
             </div>
         </form>

@@ -27,15 +27,11 @@
     <div class="card d-none">
         <div class="card-header">
             <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">
-                        {icon name=search}
-                    </span>
+                <div class="input-group-text">
+                    {icon name=search}
                 </div>
                 <input type="text" placeholder="{$object_selector_multi.placeholder|escape}..." value="" class="filter form-control" autocomplete="off">
-                <div class="input-group-append">
-                    <input type="button" class="btn btn-info search" value="{tr}Find{/tr}">
-                </div>
+                <input type="button" class="btn btn-info search" value="{tr}Find{/tr}">
             </div>
         </div>
         <div class="card-body">

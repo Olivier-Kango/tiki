@@ -6,7 +6,7 @@
 </div>
 <form method="post" action="tiki-edit_css.php" class="form">
     {if $action eq "edit"}
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="theme" class="col-form-label">
                 {tr}Theme{/tr}
             </label>
@@ -26,7 +26,7 @@
                 {/remarksbox}
             {/if}
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <textarea data-syntax="css" data-codemirror="true" data-line-numbers="true" name="data" wrap="virtual" class="form-control" rows="24">{$data|escape}</textarea>
         </div>
     {else}
@@ -35,11 +35,11 @@
                 <input type="submit" class="btn btn-link btn-sm" name="cancel_try" value="{tr}Cancel{/tr}">
             {/remarksbox}
         {/if}
-        <div class="form-group row clearfix">
+        <div class="mb-3 row clearfix">
             <label for="theme" class="col-form-label">
                 {tr}Theme{/tr}
             </label>
-            <select name="theme" class="form-control form-control-sm" required>
+            <select name="theme" class="form-select form-select-sm" required>
                 <option value="">{tr}Select{/tr}...</option>
                 {foreach from=$themes key=theme_key item=theme_name}
                     <option value="{$theme_key|escape}" {if $theme eq $theme_key}selected="selected"{/if}>{$theme_name}</option>

@@ -35,7 +35,7 @@ $theme-colors: map-merge(
 
 // The following are default values from vendor/twbs/bootstrap/scss/variables.scss - change as needed for theme child option (or to match values in parent theme).
 // Comment-out any that are already defined in the parent theme variables.scss file and shouldn't be redefined.
-$yiq-contrasted-threshold: 150;
+//$min-contrast-ratio:  7;
 $gray-600: #6c757d !default;
 $gray-900: #212529;
 $white: #fff;

@@ -46,52 +46,48 @@
         {permission name=payment_request}
             {tab name="{tr}Request{/tr}"}
                 <form method="post" action=""><br>
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label text-right" for="description">
+                    <div class="mb-3 row">
+                        <label class="col-sm-3 col-form-label text-end" for="description">
                             {tr}Description{/tr}
                         </label>
                         <div class="col-sm-8 input-group">
                             <input class="form-control" type="text" id="description" name="description">
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label text-right" for="detail">
+                    <div class="mb-3 row">
+                        <label class="col-sm-3 col-form-label text-end" for="detail">
                             {tr}Detail{/tr}
                         </label>
                         <div class="col-sm-8 input-group">
                             <textarea class="form-control" id="detail" name="detail" style="width: 100%;" rows="6"></textarea>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label text-right" for="amount">
+                    <div class="mb-3 row">
+                        <label class="col-sm-3 col-form-label text-end" for="amount">
                             {tr}Amount{/tr}
                         </label>
                         <div class="col-sm-8 input-group">
-                            <input type="text" id="amount" name="amount" class="form-control text-right">
-                            <div class="input-group-append">
-                                <span class="input-group-text">
-                                    {$prefs.payment_currency|escape}
-                                </span>
-                            </div>
+                            <input type="text" id="amount" name="amount" class="form-control text-end">
+                            <span class="input-group-text">
+                                {$prefs.payment_currency|escape}
+                            </span>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-sm-3 col-form-label text-right" for="payable">
+                    <div class="mb-3 row">
+                        <label class="col-sm-3 col-form-label text-end" for="payable">
                             {tr}Payable within{/tr}
                         </label>
                     </div>
-                    <div class="col-sm-8 input-group">
-                        <input type="text" id="payable" class="text-right form-control" name="payable" value="{$prefs.payment_default_delay|escape}">
-                        <div class="input-group-append">
-                            <span class="input-group-text">
-                                {tr}days{/tr}
-                            </span>
-                        </div>
-                    </div><br>
+                    <div class="col-sm-8 mb-3 input-group">
+                        <input type="text" id="payable" class="text-end form-control" name="payable" value="{$prefs.payment_default_delay|escape}">
+                        <span class="input-group-text">
+                            {tr}days{/tr}
+                        </span>
+                    </div>
                     {if $prefs.feature_categories eq 'y'}
-                        {include file="categorize.tpl" labelcol=3 labelclass='text-right' inputcol=8 inputgroup=y}
+                        {include file="categorize.tpl" labelcol=3 labelclass='text-end' inputcol=8 inputgroup=y}
                     {/if}
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <div class="col-sm-8 offset-sm-3 input-group">
                             <input type="submit" class="btn btn-secondary" name="request" value="{tr}Request{/tr}">
                         </div>

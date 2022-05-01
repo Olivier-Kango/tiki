@@ -2687,11 +2687,13 @@ class ParserLib extends TikiDb_Bridge
 
                         $style = $do_center ? ' style="text-align: center;"' : '';
 
-                        if ($prefs['wiki_heading_links'] === 'y') {
-                            $smarty = TikiLib::lib('smarty');
-                            $smarty->loadPlugin('smarty_function_icon');
-                            $headingLink = '<a href="#' . $thisid . '" class="heading-link">' . smarty_function_icon(['name' => 'link'], $smarty->getEmptyInternalTemplate()) . '</a>';
-                        } else {
+						//var_dump($prefs['wiki_heading_links']); die;
+
+                        if ($prefs['wiki_heading_links'] !== 'n' && ($prefs['wiki_heading_links'] >= $hdrlevel || $prefs['wiki_heading_links'] === 'y' )) {
+							$smarty = TikiLib::lib('smarty');
+							$smarty->loadPlugin('smarty_function_icon');
+							$headingLink = '<a href="#' . $thisid . '" class="heading-link">' . smarty_function_icon(['name' => 'link'], $smarty->getEmptyInternalTemplate()) . '</a>';
+						} else {
                             $headingLink = '';
                         }
 
@@ -3458,7 +3460,7 @@ class ParserLib extends TikiDb_Bridge
                         $appendMaxSize = "&amp;x=" . $maxWidthPreview;
                     }
 
-                    $popup = 'data-type="file" data-object="' . $fileId . '" data-toggle="popover" data-trigger="hover focus" data-content="<img src=\'tiki-download_file.php?fileId=' . $fileId . '&amp;thumbnail' . $appendMaxSize . '\'>" data-html="1" data-width="' . $maxWidthPreview . '"';
+                    $popup = 'data-type="file" data-object="' . $fileId . '" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="<img src=\'tiki-download_file.php?fileId=' . $fileId . '&amp;thumbnail' . $appendMaxSize . '\'>" data-html="1" data-width="' . $maxWidthPreview . '"';
                     $content = str_replace($search, $popup, $content);
                 } else {
                     $filePath = $file->getWrapper()->getReadableFile();
@@ -3512,7 +3514,7 @@ class ParserLib extends TikiDb_Bridge
                     }
 
                     if ($cacheLib->isCached($cacheName, $cacheType)) {
-                        $popup = 'data-type="file" data-object="' . $fileId . '" data-toggle="popover" data-trigger="hover focus" data-content="<img src=\'tiki-download_file.php?fileId=' . $fileId . '&amp;preview\'>" data-html="1" data-width="' . $maxWidthPreview . '"';
+                        $popup = 'data-type="file" data-object="' . $fileId . '" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="<img src=\'tiki-download_file.php?fileId=' . $fileId . '&amp;preview\'>" data-html="1" data-width="' . $maxWidthPreview . '"';
                         $content = str_replace($search, $popup, $content);
                     }
                 }

@@ -8,12 +8,10 @@
 </div>
 <form enctype="multipart/form-data" action="tiki-article_types.php" method="post" role="form" class="form">
     <h2>{tr}Add Type{/tr}</h2>
-        <div class="form-group row mx-0">
+        <div class="mb-3 row mx-0">
             <div class="input-group">
                 <input type="text" name="new_type" class="form-control" placeholder="{tr}Add article type{/tr}...">
-                <div class="input-group-append">
-                    <button type="submit" class="btn btn-secondary" name="add_type">{tr}Add{/tr}</button>
-                </div>
+                <button type="submit" class="btn btn-secondary" name="add_type">{tr}Add{/tr}</button>
             </div>
         </div>
     <h2>{tr}Types{/tr}</h2>

@@ -6,7 +6,7 @@
 
 {block name="content"}
     <form action="{service controller=menu action=clone}" method="post" role="form">
-        <div class="form-group row mx-2">
+        <div class="mb-3 row mx-2">
             <label for="name" class="col-form-label">
                 {tr}Name{/tr}
             </label>
@@ -22,7 +22,7 @@
                 {/if}
             </div>
         </div>
-        <div class="form-group row mx-2">
+        <div class="mb-3 row mx-2">
             <label for="description" class="col-form-label">
                 {tr}Description{/tr}
             </label>

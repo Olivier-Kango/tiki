@@ -3,13 +3,14 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <link rel="StyleSheet" href="styles/{$prefs.style}" type="text/css">
+        {* <link rel="StyleSheet" href="styles/{$prefs.style}" type="text/css"> *}
         <title>Live support:{$role} window</title>
-        {literal}
-            <script type="text/javascript" src="lib/live_support/live-support.js">
-            </script>
-        {/literal}
         {$headerlib->output_headers()}
+        {$headerlib->add_jsfile("vendor_bundled/vendor/components/jquery/jquery.js", true)}
+        {literal}
+            <link rel="stylesheet" href="lib/live_support/live-support.css" type="text/css">
+            <script type="text/javascript" src="vendor_bundled/vendor/components/jquery/jquery.js"></script>
+        {/literal}
     </head>
     <body onUnload="javascript:chat_close(document.getElementById('role').value,document.getElementById('username').value);" style="background-color: white">
         <input type="hidden" id="reqId" value="{$reqId|escape}">
@@ -83,17 +84,30 @@
                 </tr>
             </table>
         {/if}
-        <iframe name='chat_data' src='tiki-live_support_chat_frame.php' width="290" height="300" scrolling="yes">
-        </iframe>
+        
+        
+        {* <iframe name='chat_data' src='tiki-live_support_chat_frame.php' width="500" height="500" scrolling="yes">
+        </iframe> *}
+        <div id="chat_data" class="card card-body">
+            
+        </div>
+        <br/>
         {literal}
-            <input type="text" id="data" size="30" width="290" style="width:290px;" onKeyPress="javascript:if(event.keyCode == 13) {write_msg(document.getElementById('data').value,document.getElementById('role').value,document.getElementById('username').value);}">
-            <br>
-            <input type="button" value="{tr}send{/tr}" onClick="javascript:write_msg(document.getElementById('data').value,document.getElementById('role').value,document.getElementById('username').value);">
+            <div class="form-group row" style="width:500px">
+                <input placeholder="{tr}write a new message...{/tr}" type="text" id="data" size="30" class="form-control col-sm-9" onKeyPress="javascript:if(event.keyCode == 13) {write_msg(document.getElementById('data').value,document.getElementById('role').value,document.getElementById('username').value);}">
+                <button type="button" class="btn btn-primary col-sm-3" onClick="javascript:write_msg(document.getElementById('data').value,document.getElementById('role').value,document.getElementById('username').value);"><span class="fa fa-paper-plane"></span> {tr}send{/tr}</button>
+            </div>
         {/literal}
         <script type='text/javascript'>
             /* Activate polling of requests */
-            var last_support_event=0;
-            event_poll();
+            $('document').ready(function () {
+                event_poll();
+            });
+            
         </script>
+        {literal}
+            <script type="text/javascript" src="lib/live_support/live-support.js">
+            </script>
+        {/literal}
     </body>
 </html>

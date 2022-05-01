@@ -1,4 +1,4 @@
-<div class="form-row align-items-center">
+<div class="d-flex flex-wrap mx-0 align-items-center">
     {*prepend*}
     {if $field.options_map.prepend}
     <div class="col-auto">

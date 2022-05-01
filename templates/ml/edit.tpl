@@ -15,28 +15,28 @@
     <div class="table-responsive">
         <form class="edit-ml" method="post" action="{service controller=ml action=edit mlmId=$model.mlmId}">
             <input type="hidden" name="trackerId" value="{$model.sourceTrackerId}">
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-form-label col-sm-2">{tr}Name{/tr}</label>
                 <div class="col-sm-10">
                     <input class="form-control" type="text" name="name" value="{$model.name|escape}" required>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-form-label col-sm-2">{tr}Description{/tr}</label>
                 <div class="col-sm-10">
                     <textarea class="form-control" name="description">{$model.description|escape}</textarea>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-form-label col-sm-2">{tr}Source tracker{/tr}</label>
                 <div class="col-sm-10">
                     {object_link type=tracker id=$model.sourceTrackerId}
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-form-label col-sm-2">{tr}Dimension fields{/tr}</label>
                 <div class="col-sm-10">
-                    <select class="form-control" name="fields[]" multiple size="10">
+                    <select class="form-select" name="fields[]" multiple size="10">
                         <option value="">{tr}Item title{/tr}</option>
                         {foreach $fields as $field}
                             <option value="{$field.fieldId|escape}" {if in_array($field.fieldId, $model.trackerFields)}selected{/if}>{$field.name|escape}</option>
@@ -44,10 +44,10 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-form-label col-sm-2">{tr}Label field{/tr}</label>
                 <div class="col-sm-10">
-                    <select class="form-control" name="labelField">
+                    <select class="form-select" name="labelField">
                         <option value="">No label</option>
                         <option value="itemId">{tr}Item ID{/tr}</option>
                         <option value="itemTitle">{tr}Item title{/tr}</option>
@@ -57,13 +57,13 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-form-label col-sm-2">{tr}Ignore items with empty values{/tr}</label>
                 <div class="col-sm-10">
                     <input type="checkbox" name="ignoreEmpty" value="1" {if $model.ignoreEmpty} checked {/if}>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-form-label col-sm-2">{tr}ML Model{/tr}</label>
                 <div class="col-sm-10">
                     <table class="table model">
@@ -83,9 +83,7 @@
                             <tr class="d-none">
                                 <td>
                                     <div class="input-group input-group-sm">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">{icon name=sort}</span>
-                                        </div>
+                                        <span class="input-group-text">{icon name=sort}</span>
                                         <input class="learner form-control" disabled>
                                     </div>
                                 </td>
@@ -93,15 +91,13 @@
                                     <a href="{service controller=ml action=model_args mlmId=$model.mlmId}" class="arguments"></a>
                                     <textarea class="serialized-args d-none"></textarea>
                                 </td>
-                                <td class="text-right"><button class="remove btn-sm btn-outline-warning">{icon name=remove}</button></td>
+                                <td class="text-end"><button class="remove btn-sm btn-outline-warning">{icon name=remove}</button></td>
                             </tr>
                             {foreach $model.instances as $instance}
                                 <tr>
                                     <td>
                                         <div class="input-group input-group-sm">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text">{icon name=sort}</span>
-                                            </div>
+                                            <span class="input-group-text">{icon name=sort}</span>
                                             <input class="learner form-control" disabled value="{$instance.learner|escape}">
                                         </div>
                                     </td>
@@ -109,7 +105,7 @@
                                         <a href="{service controller=ml action=model_args mlmId=$model.mlmId class=$instance.class}" class="arguments">{$instance.instance|escape}</a>
                                         <textarea class="serialized-args d-none">{$instance.serialized_args}</textarea>
                                     </td>
-                                    <td class="text-right"><button class="remove btn-sm btn-outline-warning">{icon name=remove}</button></td>
+                                    <td class="text-end"><button class="remove btn-sm btn-outline-warning">{icon name=remove}</button></td>
                                 </tr>
                             {/foreach}
                         </tbody>
@@ -136,7 +132,7 @@
                     </table>
                 </div>
             </div>
-            <div class="form-group row submit">
+            <div class="mb-3 row submit">
                 <div class="col-sm-10 offset-sm-2">
                     <input type="submit" class="btn btn-primary" value="{tr}Update{/tr}">
                 </div>

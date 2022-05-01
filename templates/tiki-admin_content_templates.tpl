@@ -110,10 +110,10 @@
             {if $templateId > 0 and $tiki_p_admin_content_templates eq 'y'}
                 {button href="tiki-admin_content_templates.php" cookietab="2" _icon_name="create" _text="{tr}Create{/tr}"}
             {/if}
-            <form action="tiki-admin_content_templates.php" method="post" class="form-horizontal" role="form">
+            <form action="tiki-admin_content_templates.php" method="post" role="form">
                 {ticket}
                 <input type="hidden" name="templateId" value="{$templateId|escape}">
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-sm-3 col-form-label" for="name">{tr}Name{/tr} *</label>
                     <div class="col-sm-9">
                         <input type="text" maxlength="255" class="form-control" id="name" name="name" value="{$info.name|escape}">
@@ -122,7 +122,7 @@
                         {/if}
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-sm-3 col-form-label" for="section_css">{tr}Sections{/tr}</label>
                     <div class="col-sm-9">
                         {$toolbar_section='admin'}
@@ -185,7 +185,7 @@
                         {/if}
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-sm-3 col-form-label" for="type-selector">{tr}Template Type{/tr}</label>
                     <div class="col-sm-9">
                         <select name="template_type" id="type-selector" class="form-control">
@@ -194,21 +194,21 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-sm-3 col-form-label" for="is_html">{tr}HTML{/tr}</label>
                     <div class="col-sm-9">
                         <input type="checkbox" name="section_wiki_html" id="is_html" class="form=control" {if $info.section_wiki_html eq 'y'}checked="checked"{/if}>
                     </div>
                 </div>
                 {if $prefs.lock_content_templates eq 'y'}
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label class="col-sm-3 col-form-label">{tr}Lock{/tr}</label>
                         <div class="col-sm-9">
                             {lock type='template' object=$templateId}
                         </div>
                     </div>
                 {/if}
-                <div class="form-group row type-cond for-page">
+                <div class="mb-3 row type-cond for-page">
                     <label class="col-sm-3 col-form-label" for="page_name">{tr}Page Name{/tr}</label>
                     <div class="col-sm-9">
                         <input class="form-control" type="text" name="page_name" id="page_name" value="{$info.page_name}" placeholder="{tr}Find{/tr}...">
@@ -218,7 +218,7 @@
 
                 {include file='categorize.tpl'}
 
-                <div class="form-group type-cond for-static">
+                <div class="mb-3 type-cond for-static">
                     <label class="col-sm-12" for="editwiki">{tr}Template{/tr}</label>
                     <div class="col-sm-12">
                         {if $prefs.feature_wysiwyg eq 'y' and $info.section_wiki_html eq 'y'}
@@ -232,7 +232,7 @@
                         {textarea id="editwiki" name="content" switcheditor="y" _class="form-control" _wysiwyg=$use_wysiwyg _is_html=$is_html section=$toolbar_section}{$info.content}{/textarea}
                     </div>
                 </div>
-                <div class="form-group text-center">
+                <div class="mb-3 text-center">
                     <input type="submit" name="preview" class="btn btn-secondary" value="{tr}Preview{/tr}" onclick="needToConfirm=false;">
                     <input type="submit" name="save" class="btn btn-primary" value="{tr}Save{/tr}">
                 </div>

@@ -1,5 +1,5 @@
 {if $status}
-    <div class="form-group">
+    <div class="mb-3">
         <label for="trackerinput_status">{tr}Status{/tr}</label>
         <div id="trackerinput_status">
             {include 'trackerinput/status.tpl' status_types=$status_types status=$status}
@@ -8,7 +8,7 @@
 {/if}
 {$jscal = 0}
 {foreach from=$fields item=field}
-    <div class="form-group">
+    <div class="mb-3">
         {if empty($field.options_map.labelasplaceholder)}
             <label for="trackerinput_{$field.fieldId|escape}" {if $field.type eq 'h'}class="h{$field.options_map.level}"{/if}>
                 {$field.name|tra|escape}

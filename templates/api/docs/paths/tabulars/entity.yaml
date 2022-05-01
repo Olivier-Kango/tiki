@@ -1,0 +1,34 @@
+---
+get:
+  description: Retrieve full tracker tabular information.
+  parameters:
+    - name: tabularId
+      in: path
+      description: Tabular ID
+      required: true
+      schema:
+        type: integer
+  responses:
+    '200':
+      description: tracker tabular
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              tabularId:
+                type: integer
+              trackerId:
+                type: integer
+              name:
+                type: string
+              config:
+                type: object
+              odbc_config:
+                type: object
+    '403':
+      description: forbidden
+      content:
+        application/json:
+          schema:
+            $ref: schemas-Error.yaml

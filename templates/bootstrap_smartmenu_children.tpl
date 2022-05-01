@@ -1,6 +1,6 @@
 {if not empty($item.children)}
     <li class="nav-item dropdown{if $item.selected|default:null} active{/if} {$item.class|escape}">
-        <a href="{$item.sefurl|escape}" class="{if $sub|default:false}dropdown-item{else}nav-link{/if} dropdown-toggle" data-toggle="dropdown">{tr}{$item.name}{/tr}</a>
+        <a href="{$item.sefurl|escape}" class="{if $sub|default:false}dropdown-item{else}nav-link{/if} dropdown-toggle" data-bs-toggle="dropdown">{tr}{$item.name}{/tr}</a>
         <ul class="dropdown-menu">
             {* {if $sub}
                 <li class="dropdown-header">{tr}{$item.name}{/tr}</li>

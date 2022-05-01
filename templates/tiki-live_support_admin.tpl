@@ -119,7 +119,7 @@
     <h2>{tr}Add an operator to the system{/tr}</h2>
     <br>
     <form method="post" action="tiki-live_support_admin.php">
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-sm-3 col-form-label">{tr}User{/tr}</label>
             <div class="col-sm-7">
                 <select name="user" class="form-control">
@@ -132,7 +132,7 @@
                 </div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-sm-3 col-form-label"></label>
             <div class="col-sm-7">
                 <input type="submit" class="btn btn-primary btn-sm" name="adduser" value="{tr}Set as Operator{/tr}">

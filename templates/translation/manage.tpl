@@ -30,7 +30,7 @@
     {if $canAttach}
         {if $filters.language}
             <form class="{*simple*}" method="post" action="{service controller=translation action=attach}">
-                <div class="form-group row mt-2">
+                <div class="mb-3 row mt-2">
                     <label class="col-form-label col-sm-12">
                         {tr}Add a new object to the set{/tr}
                     </label>

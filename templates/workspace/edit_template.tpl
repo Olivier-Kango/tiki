@@ -18,7 +18,7 @@
             <p>{tr}This is the simple edition interface offering a subset of the available features. You can switch to the advanced mode and get more power.{/tr}</p>
             <a class="ajax alert-link" href="{service controller=workspace action=advanced_edit id=$id}">{tr}Advanced Mode{/tr}</a>
         {/remarksbox}
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="name" class="col-sm-2 col-form-label">
                     {tr}Name{/tr}
             </label>
@@ -27,7 +27,7 @@
             </div>
         </div>
         {if $area}
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <div class="col-sm-12">
                     <div class="form-check">
                         <input class="form-check-input" type="checkbox" name="area" value="1" {if $area eq 'y'}checked="checked"{/if} />

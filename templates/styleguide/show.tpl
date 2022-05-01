@@ -28,18 +28,18 @@
 
             <div class="footer-ui">
                 <button id="generate-custom-css" class="btn btn-primary generate-custom-css">
-                    Generate Custom CSS
+                    {tr}Generate custom CSS{/tr}
                 </button>
 
 {*                <button id="generate-custom-less" class="btn btn-primary generate-custom-less">*}
 {*                    Generate Custom LESS*}
 {*                </button>*}
 
-                <label><input class="keep-changes" type="checkbox"><span>Keep changes after refresh</span></label>
+                <label><input class="keep-changes" type="checkbox"><span>{tr}Keep changes after refresh{/tr}</span></label>
             </div>
 
             <div class="btn-group dropup">
-                <a id="dLabel" data-target="#" href="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <a id="dLabel" data-bs-target="#" href="" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     Select a section:
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dLabel">

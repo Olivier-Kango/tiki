@@ -1,6 +1,6 @@
 {* $Id$ *}
 
-<div class="t_navbar btn-group form-group row">
+<div class="t_navbar btn-group mb-3">
     <a role="link" class="btn btn-link" href="tiki-admingroups.php" title="{tr}Admin groups{/tr}">
         {icon name="group"} {tr}Admin Groups{/tr}
     </a>
@@ -12,14 +12,14 @@
 </div>
 
 {remarksbox type="tip" title="{tr}Tip{/tr}"}
-    {tr}Please see the <a class='alert-link' target='tikihelp' href='http://dev.tiki.org/Security'>Security page</a> on Tiki's developer site.{/tr}
+    {tr _0="<a class='alert-link' target='tikihelp' href='http://dev.tiki.org/Security'>" _1="</a>"}Please see the %0Security page%1 on Tiki's developer site.{/tr}
     {tr}See <a class="alert-link" href="tiki-admin_security.php" title="Security"><strong>Security Admin</strong></a> for additional security settings{/tr}.
 {/remarksbox}
 
 <form class="admin" id="security" name="security" action="tiki-admin.php?page=security" method="post">
     {ticket}
     <div class="row">
-        <div class="form-group col-lg-12 clearfix">
+        <div class="mb-3 col-lg-12 clearfix">
             {include file='admin/include_apply_top.tpl'}
         </div>
     </div>
@@ -95,8 +95,7 @@
                         {tr}Requires the OpenSSL PHP extension for encryption.{/tr} {tr}You have OpenSSL installed.{/tr}<br>
                     {else}
                         {remarksbox type="warning" title="{tr}Sodium is not loaded{/tr}"}
-                        {tr}User Encryption requires the PHP extension Sodium for encryption.
-                            You should activate Sodium before activating User Encryption{/tr}.
+                        {tr}User Encryption requires the PHP extension Sodium for encryption.{/tr}<br>{tr}You should activate Sodium before activating User Encryption{/tr}.
                         {/remarksbox}
                     {/if}
                     {tr}You may also want to add the Domain Password module somewhere.{/tr}<br>
@@ -164,7 +163,7 @@
 
         {tab name="{tr}Spam Protection{/tr}"}
             {remarksbox type="tip" title="{tr}Tip{/tr}"}
-                {tr}You can additionally protect from spam enabling the "<a href="http://doc.tiki.org/Forum+Admin#Forum_moderation" target="_blank" class="alert-link">moderation queue on forums</a>", or through <strong>banning</strong> multiple ip's from the "<a href="tiki-admin_actionlog.php" target="_blank" class="alert-link">Action log</a>", from "<a href="tiki-adminusers.php" target="_blank" class="alert-link">Users registration</a>", or from the "<a href="tiki-list_comments.php" target="_blank" class="alert-link">Comments moderation queue</a>" itself{/tr}.
+                {tr _0='<a href="http://doc.tiki.org/Forum+Admin#Forum_moderation" target="_blank" class="alert-link">' _1="</a>" _2="<strong>" _3="</strong>" _4='<a href="tiki-admin_actionlog.php" target="_blank" class="alert-link">' _5="</a>" _6='<a href="tiki-adminusers.php" target="_blank" class="alert-link">' _7="</a>" _8='<a href="tiki-list_comments.php" target="_blank" class="alert-link">' _9="</a>"}You can additionally protect from spam enabling the '%0moderation queue on forums%1', or through %2banning%3 multiple ip's from the '%4Action log%5', from '%6Users registration%7', or from the '%8Comments moderation queue%9' itself{/tr}.
             {/remarksbox}
             <fieldset>
                 <legend>{tr}CAPTCHA{/tr}</legend>
@@ -233,7 +232,7 @@
 
             {preference name=ids_enabled}
             <div class="adminoptionboxchild" id="ids_enabled_childcontainer">
-                <div class="form-group adminoptionbox clearfix">
+                <div class="mb-3 adminoptionbox clearfix">
                     <div class="offset-sm-4 col-sm-8">
                         <a href="tiki-admin_ids.php">{tr}Admin IDS custom rules{/tr}</a>
                     </div>
@@ -249,7 +248,7 @@
 
         {tab name="{tr}Tokens{/tr}"}
             {remarksbox type="tip" title="{tr}Tip{/tr}"}
-                {tr}To manage tokens go to <a href="tiki-admin_tokens.php" class="alert-link">Admin Tokens</a> page. Tokens are also used for the Temporary Users feature (see <a href="tiki-adminusers.php" class="alert-link">Admin Users</a>).{/tr}
+                {tr _0='<a href="tiki-admin_tokens.php" class="alert-link">' _1="</a>" _2='<a href="tiki-adminusers.php" class="alert-link">' _3='</a>'}To manage tokens go to %0Admin Tokens%1 page. Tokens are also used for the Temporary Users feature (see %2Admin Users%3).{/tr}
             {/remarksbox}
             {preference name=auth_token_access}
             {preference name=auth_token_access_maxtimeout}
@@ -279,7 +278,7 @@
                         <br><em>{tr}If you use file for the signer passphrase, clear the preferences option just for security{/tr}</em>
                     </div>
                     {remarksbox type="tip" title="{tr}Note{/tr}"}
-                        {tr}The email of preference <a href="tiki-admin.php?page=general&alt=General" class="alert-link">'sender_email'</a> is used as signer key ID, and it must have both private and public key in the gnupg keyring.{/tr}
+                        {tr _0='<a href="tiki-admin.php?page=general&alt=General" class="alert-link">' _1="</a>"}The email of preference %0'sender_email'%1 is used as signer key ID, and it must have both private and public key in the gnupg keyring.{/tr}
                     {/remarksbox}
                 </div>
             </fieldset>
@@ -394,7 +393,7 @@
                         <legend>
                             {tr}General information{/tr}
                         </legend>
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-form-label col-sm-4" for="name">
                                 {tr}Key name or domain{/tr}
                             </label>
@@ -402,7 +401,7 @@
                                 <input type="text" class="form-control" name="name" value="{$encryption_key.name|escape}">
                             </div>
                         </div><br>
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-form-label col-sm-4" for="description">
                                 {tr}Description{/tr}
                             </label>
@@ -411,7 +410,7 @@
                             </div>
                         </div><br>
                         {if $encryption_key.keyId}
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-form-label col-sm-4" for="regenerate">
                                 {tr}Regenerate shares{/tr}
                             </label>
@@ -423,7 +422,7 @@
                             </div>
                         </div><br>
                         {if $encryption_setup neq 'y'}
-                        <div class="form-group row" id="old_share_container" style="display:none">
+                        <div class="mb-3 row" id="old_share_container" style="display:none">
                             <label class="col-form-label col-sm-4" for="old_share">
                                 {tr}Old shared key{/tr}
                             </label>
@@ -440,7 +439,7 @@
                         </div>
                         {/if}
                         {/if}
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-form-label col-sm-4" for="user_selector_1">
                                 {tr}Users to share with{/tr}
                             </label>
@@ -453,12 +452,12 @@
                             </div>
                         </div><br>
                         {if $encryption_algos}
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-form-label col-sm-4" for="algo">
                                 {tr}Encryption algorithm{/tr}
                             </label>
                             <div class="col-sm-8">
-                                <select class="form-control" name="algo" id="algo" {if $encryption_key.keyId}disabled{/if}>
+                                <select class="form-select" name="algo" id="algo" {if $encryption_key.keyId}disabled{/if}>
                                     <option></option>
                                     {foreach $encryption_algos as $algo}
                                         <option value="{$algo|escape}" {if $encryption_key.algo eq $algo}selected="selected"{/if}>
@@ -470,7 +469,7 @@
                         </div><br>
                         {/if}
                         {if $prefs.feature_user_encryption neq 'y'}
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-form-label col-sm-4" for="shares">
                                 {tr}No. of people to share{/tr}
                             </label>

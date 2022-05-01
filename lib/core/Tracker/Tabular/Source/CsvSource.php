@@ -48,7 +48,7 @@ class CsvSource implements SourceInterface
         foreach ($headers as & $header) {
             $header = $this->decode($header);
         }
-        $this->schema->validateAgainstHeaders($headers);
+        $mapping = $this->schema->validateAgainstHeaders($headers);
 
         while (! $this->file->eof()) {
             $row = $this->file->fgetcsv();
@@ -59,7 +59,11 @@ class CsvSource implements SourceInterface
 
             $data = [];
             foreach ($this->schema->getColumns() as $i => $column) {
-                $data[spl_object_hash($column)] = $this->decode($row[$i]);
+                if (! isset($mapping[$i])) {
+                    continue;
+                }
+                $rowIndex = $mapping[$i];
+                $data[spl_object_hash($column)] = $this->decode($row[$rowIndex]);
             }
 
             yield new CsvSourceEntry($data);

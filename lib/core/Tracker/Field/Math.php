@@ -156,15 +156,7 @@ class Tracker_Field_Math extends Tracker_Field_Abstract implements Tracker_Field
     {
         try {
             $this->prepareFieldValues($data);
-            if (! isset($data['itemId'])) {
-                $data['itemId'] = $this->getItemId();
-            }
-            if (! isset($data['creation_date'])) {
-                $data['creation_date'] = $this->getData('created');
-                $data['created_by'] = $this->getData('createdBy');
-                $data['modification_date'] = $this->getData('lastModif');
-                $data['last_modified_by'] = $this->getData('lastModifBy');
-            }
+            $data = array_merge($data, $this->calcMetadata());
             $runner = $this->getFormulaRunner();
             $runner->setVariables($data);
 
@@ -183,6 +175,9 @@ class Tracker_Field_Math extends Tracker_Field_Abstract implements Tracker_Field
             ->setLabel($this->getConfiguration('name'))
             ->setRenderTransform(function ($value) {
                 return $value;
+            })
+            ->setParseIntoTransform(function (&$info, $value) use ($permName) {
+                $info['fields'][$permName] = $value;
             })
             ;
 
@@ -244,7 +239,8 @@ class Tracker_Field_Math extends Tracker_Field_Abstract implements Tracker_Field
 
     /**
      * Helper method to prepare field values for item fields that do not store their
-     * info in database - e.g. ItemsList.
+     * info in database - e.g. ItemsList or need additional data than the database
+     * raw values - e.g. Duration field.
      * @param array data to be modified
      */
     private function prepareFieldValues(&$data)
@@ -258,11 +254,14 @@ class Tracker_Field_Math extends Tracker_Field_Abstract implements Tracker_Field
         }
         foreach ($data as $permName => $value) {
             $field = $this->getTrackerDefinition()->getFieldFromPermName($permName);
-            if (! $field || ($field['type'] != 'l' && $field['type'] != 'REL')) {
-                continue;
+            if ($field && ($field['type'] == 'l' || $field['type'] == 'REL')) {
+                $handler = TikiLib::lib('trk')->get_field_handler($field, $fieldData);
+                $data[$permName] = $handler->getItemValues();
             }
-            $handler = TikiLib::lib('trk')->get_field_handler($field, $fieldData);
-            $data[$permName] = $handler->getItemValues();
+            if ($field && $field['type'] == 'DUR') {
+                $handler = TikiLib::lib('trk')->get_field_handler($field, $fieldData);
+                $data[$permName] = $handler->getValueInSeconds();
+            }
         }
     }
 
@@ -327,13 +326,7 @@ class Tracker_Field_Math extends Tracker_Field_Abstract implements Tracker_Field
     {
         try {
             $runner = $this->getFormulaRunner();
-            $data = [
-                'itemId' => $this->getItemId(),
-                'creation_date' => $this->getData('created'),
-                'created_by' => $this->getData('createdBy'),
-                'modification_date' => $this->getData('lastModif'),
-                'last_modified_by' => $this->getData('lastModifBy'),
-            ];
+            $data = $this->calcMetadata();
 
             foreach ($runner->inspect() as $fieldName) {
                 if (is_string($fieldName) || is_numeric($fieldName)) {
@@ -361,5 +354,20 @@ class Tracker_Field_Math extends Tracker_Field_Abstract implements Tracker_Field
         }
 
         return $value;
+    }
+
+    private function calcMetadata() {
+        global $url_host, $base_url;
+
+        return [
+            'itemId' => $this->getItemId(),
+            'trackerId' => $this->getTrackerDefinition()->getConfiguration('trackerId'),
+            'creation_date' => $this->getData('created'),
+            'created_by' => $this->getData('createdBy'),
+            'modification_date' => $this->getData('lastModif'),
+            'last_modified_by' => $this->getData('lastModifBy'),
+            'domain' => $url_host,
+            'base_url' => $base_url . (substr($base_url, -1) == '/' ? '' : '/'),
+        ];
     }
 }

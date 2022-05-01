@@ -1,14 +1,14 @@
 {* $Id$ *}
 
-<div class="media">
-    <div class="mr-4">
-    <span class="float-left fa-stack fa-lg margin-right-18em" alt="{tr}Changes Wizard{/tr}" title="Changes Wizard">
+<div class="d-flex">
+    <div class="me-4">
+    <span class="float-start fa-stack fa-lg margin-right-18em" alt="{tr}Changes Wizard{/tr}" title="Changes Wizard">
         <i class="fas fa-arrow-circle-up fa-stack-2x"></i>
-        <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ml-4 mt-4"></i>
+        <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ms-4 mt-4"></i>
     </span>
     </div>
     <br/><br/><br/>
-    <div class="media-body">
+    <div class="flex-grow-1 ms-3">
         {tr}Main new and improved features and settings in Tiki 17{/tr}.
         <a href="http://doc.tiki.org/Tiki17" target="tikihelp" class="tikihelp" title="{tr}Tiki17:{/tr}
             {tr}Tiki17 is a standard non-LTS version{/tr}.
@@ -86,7 +86,7 @@
             <legend>{tr}Intrusion Detection System (IDS) with Expose{/tr}</legend>
             {preference name=ids_enabled}
             <div class="adminoptionboxchild" id="ids_enabled_childcontainer">
-                <div class="form-group adminoptionbox clearfix">
+                <div class="mb-3 adminoptionbox clearfix">
                     <div class="offset-sm-4 col-sm-8">
                         <a href="tiki-admin_ids.php">{tr}Admin IDS custom rules{/tr}</a>
                     </div>

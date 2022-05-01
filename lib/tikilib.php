@@ -6186,8 +6186,11 @@ class TikiLib extends TikiDb_Bridge
     {
         global $prefs;
         $tmp_dest = $prefs['tmpDir'] . "/" . $file_name . ".tmp";
+        if (! is_writable(dirname($tmp_dest))) {
+            return ["ok" => false, "error" => tra('Temporary directory destination not writable: '.dirname($tmp_dest))];
+        }
         if (! move_uploaded_file($file_tmp_name, $tmp_dest)) {
-            return ["ok" => false, "error" => tra('Errors detected')];
+            return ["ok" => false, "error" => tra('Unable to move uploaded file to temporary destination.')];
         }
         try {
             $filegallib = TikiLib::lib('filegal');

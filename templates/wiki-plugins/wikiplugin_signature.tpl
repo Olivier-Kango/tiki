@@ -12,10 +12,10 @@
         <canvas class="signature-pad"></canvas>
     </div>
     <div class="buttons row">
-        <div class="text-left col-sm">
+        <div class="text-start col-sm">
             <button class="cancel-signature btn btn-link">Cancel</button>
         </div>
-        <div class="text-right col-sm">
+        <div class="text-end col-sm">
             <button class="clear btn btn-link">Clear</button>
             <button class="save btn btn-primary">Save</button>
         </div>

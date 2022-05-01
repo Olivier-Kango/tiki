@@ -63,17 +63,17 @@
 'help' => 'Packages'
 ]
 ]}
-    <a class="js-admin-bar link-admin-bar float-sm-right mr-auto btn btn-link">{icon name='cog'}</a>
+    <a class="js-admin-bar link-admin-bar float-sm-end me-auto btn btn-link">{icon name='cog'}</a>
     <div class="sliding-panel-admin-bar js-sliding-panel-admin-bar card-header  invisible">
         <div class="card-header left"></div>
         <div class="container-fluid container-sliding-panel d-flex flex-column h-100 justify-content-center">
 
             <div class="row">
-                <div class="col-md-4 align-self-center col-left-sliding-panel mb-2 mb-md-0 pl-md-0">
+                <div class="col-md-4 align-self-center col-left-sliding-panel mb-2 mb-md-0 ps-md-0">
                     <div class="col-md-12 col-search mb-2 px-0">
-                        <form method="post" action="tiki-admin.php" class="form-inline my-2 my-md-0 ml-auto" role="form" target="_blank">
-                            <label class="col-form-control mr-md-3 text-left">Admin Features</label>
-                            <input type="text" name="lm_criteria" value="{$smarty.request.lm_criteria|escape}" class="form-control form-control-sm mr-2 col-10 col-md-auto" placeholder="Search preferences...">
+                        <form method="post" action="tiki-admin.php" class="d-flex flex-row flex-wrap align-items-center my-2 my-md-0 ms-auto" role="form" target="_blank">
+                            <label class="col-form-control me-md-3 text-start">Admin Features</label>
+                            <input type="text" name="lm_criteria" value="{$smarty.request.lm_criteria|escape}" class="form-control form-control-sm me-2 col-10 col-md-auto" placeholder="Search preferences...">
                             <button type="submit" class="btn btn-primary btn-sm">
                                 <span class="icon icon-search fas fa-search fa-fw "></span>
                             </button>
@@ -86,7 +86,7 @@
                                     {if ! $js}
                                     <ul class="cssmenu_horiz">
                                         <li>{/if}
-                                            <a class="btn btn-link" data-toggle="dropdown" data-hover="dropdown" href="#">
+                                            <a class="btn btn-link" data-bs-toggle="dropdown" data-hover="dropdown" href="#">
                                                 {icon name="history"} Recent Actions </a>
                                             <div class="dropdown-menu" role="menu">
                                                 {foreach $recent_prefs as $p}
@@ -102,7 +102,7 @@
                                     {if ! $js}
                                     <ul class="cssmenu_horiz">
                                         <li>{/if}
-                                            <a class="btn btn-link" data-toggle="dropdown" data-hover="dropdown" href="#">
+                                            <a class="btn btn-link" data-bs-toggle="dropdown" data-hover="dropdown" href="#">
                                                 {icon name='menu-extra'} Quick Links </a>
                                             <div class="dropdown-menu">
                                                 <a class="dropdown-item" href="tiki-wizard_admin.php?stepNr=0&amp;url=index.php">
@@ -172,7 +172,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-8 mb-2 mb-md-0 pr-md-0">
+            <div class="col-md-8 mb-2 mb-md-0 pe-md-0">
                 <div class="swiper-container js-admin-bar-slider admin-bar-slider">
                     <div class="swiper-wrapper">
                         {foreach from=$main_admin_icons key=page item=info}

@@ -60,6 +60,22 @@ function wikiplugin_trackeritemfield_info()
                 'parent' => 'input[name="params[trackerId]"]',
                 'parentkey' => 'tracker_id',
             ],
+            'list_mode' => [
+                'required' => false,
+                'name' => tra('List Mode'),
+                'description' => tra('Set output format. Yes (y) displays tracker item field with truncated values
+                    (default); No (n) displays in tracker item field view; Comma Separated Values (csv) outputs without any
+                   HTML formatting.'),
+                'since' => '25.0',
+                'filter' => 'alpha',
+                'default' => 'y',
+                'options' => [
+                    ['text' => '', 'value' => ''],
+                    ['text' => tra('Yes'), 'value' => 'y'],
+                    ['text' => tra('No'), 'value' => 'n'],
+                    ['text' => tra('Comma Separated Values'), 'value' => 'csv']
+                ]
+            ],
             'status' => [
                 'required' => false,
                 'name' => tra('Status'),
@@ -285,8 +301,13 @@ function wikiplugin_trackeritemfield($data, $params)
                 $handler = $trklib->get_field_handler($field, $info);
                 $field = array_merge($field, $handler->getFieldData());     // some fields (such as DropDown and Category need this)
                 $handler = $trklib->get_field_handler($field, $info);
-                $out = $handler->renderOutput(['list_mode' => 'csv']);
-
+                if (isset($params['list_mode']) && !empty($params['list_mode'])) {
+                    $list_mode = $params['list_mode'];
+                    $out = $handler->renderOutput(['list_mode' => $list_mode]);
+                }
+                else {
+                    $out = $handler->renderOutput(['list_mode' => 'y']);
+                }
                 return $out;
             }
         } elseif ($test) { // testing the value of a field that does not exist yet

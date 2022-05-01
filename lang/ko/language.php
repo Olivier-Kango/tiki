@@ -11807,6 +11807,7 @@ $lang_current = array(
 // "Smarty right delimiter for Latex generation Example" => "Smarty right delimiter for Latex generation Example",
 "List Mode" => "모드 나열",
 // "Set output format. Yes (y) displays tracker list view with truncated values\n                    (default); No (n) displays in tracker item view; Comma Separated Values (csv) outputs without any\n                    HTML formatting" => "Set output format. Yes (y) displays tracker list view with truncated values\n                    (default); No (n) displays in tracker item view; Comma Separated Values (csv) outputs without any\n                    HTML formatting",
+// "Set output format. Yes (y) displays tracker item field with truncated values\n                    (default); No (n) displays in tracker item field view; Comma Separated Values (csv) outputs without any\n                   HTML formatting." => "Set output format. Yes (y) displays tracker item field with truncated values\n                    (default); No (n) displays in tracker item field view; Comma Separated Values (csv) outputs without any\n                   HTML formatting.",
 "Comma Separated Values" => "쉼표로 구분된 값들",
 "Export Button" => "내보내기 버튼",
 "Show an export button (not shown by default)" => "내보내기 버튼 표시 (기본으로 표시되지 않음)",

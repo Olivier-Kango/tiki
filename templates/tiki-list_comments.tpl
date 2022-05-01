@@ -169,7 +169,7 @@
 
 {if $comments}
     <div class="input-group col-sm-8">
-        <select class="form-control" name="action">
+        <select class="form-select" name="action">
             <option value="no_action" selected="selected">
                 {tr}Select action to perform with checked{/tr}...
             </option>
@@ -205,7 +205,7 @@
                 </option>
             {/if}
         </select>
-        <span class="input-group-append">
+        <span class="input-group-text">
             <button type="submit" class="btn btn-primary" onclick="confirmPopup()">
                 {tr}OK{/tr}
             </button>

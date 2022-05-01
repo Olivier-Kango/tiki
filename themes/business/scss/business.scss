@@ -1,4 +1,3 @@
-//  $Id$
 /* The Business theme for Tiki Wiki CMS Groupware */
 
 @import url('https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700');
@@ -10,9 +9,3 @@
 @import "_tiki-selectors.scss";
 @import "../../base_files/scss/_external-scripts.scss";
 
-
-
-// overriding some cypht stuff
-.tiki-webmail, .tiki-cypht, .mobile.tiki-cypht, .inline-cypht {
-    .moduletitle { color: $card-text !important; }
-}

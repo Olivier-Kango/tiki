@@ -378,6 +378,10 @@ class Services_Wiki_Controller
                     Feedback::error($feedback);
                 }
             }
+            // Clear cache in order to update menus and structures
+            $cachelib = TikiLib::lib('cache');
+            $cachelib->empty_type_cache('menu');
+            $cachelib->empty_type_cache('structure');
             //prepare feedback
             if (! $error) {
                 if ($all || $util->extra['one']) {

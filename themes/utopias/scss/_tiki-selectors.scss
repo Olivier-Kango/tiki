@@ -153,6 +153,6 @@ h1 {
 }
 
 .card-body a.btn-primary:hover {
-  color: color-yiq(theme-color("primary"));
+  color: color-yiq($primary);
 }
 

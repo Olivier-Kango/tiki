@@ -24,7 +24,7 @@
 <div class="description form-text">{$parent_info.description|escape}</div>
 {if count($items) > 0}
     <div class="text-center">
-        <form action="tiki-directory_search.php" method="post" class="form-inline">
+        <form action="tiki-directory_search.php" method="post" class="d-flex flex-row flex-wrap align-items-center">
             <input type="hidden" name="parent" value="{$parent|escape}">
             {tr}Find:{/tr}
             <select name="how">

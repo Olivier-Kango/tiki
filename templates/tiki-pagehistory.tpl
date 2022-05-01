@@ -134,17 +134,15 @@
                     {if $prefs.feature_multilingual eq 'y' and $tiki_p_edit eq 'y'}
 
                     <div class="input-group">
-                        <div class="input-group-prepend bg-info">
-                            <div class="input-group-text bg-info">
-                                {icon name='admin_i18n' class='tips' title=":{tr}Translation{/tr}"}
-                            </div>
+                        <div class="input-group-text bg-info">
+                            {icon name='admin_i18n' class='tips' title=":{tr}Translation{/tr}"}
                         </div>
                         <select name="tra_lang" class="form-control">
                             {section name=ix loop=$languages}
                                 <option value="{$languages[ix].value|escape}"{if $lang eq $languages[ix].value} selected="selected"{/if}>{$languages[ix].name}</option>
                             {/section}
                         </select>
-                        <div class="input-group-append ml-4">
+                        <div class="input-group-text ms-4">
                             <input type="submit" class="btn btn-primary" name="update_translation" value="{tr}Update Translation{/tr}"/>
                             {if $show_translation_history}
                                 <input type="hidden" name="show_translation_history" value="1">
@@ -170,7 +168,7 @@
             <div class="col-sm-6">
             {if ($prefs.default_wiki_diff_style ne "old") and $history}
                 <div class="input-group">
-                    <select class="form-control" name="diff_style" id="diff_style_all"{if $prefs.javascript_enabled eq "y"} style="display: none"{/if}>
+                    <select class="form-select" name="diff_style" id="diff_style_all"{if $prefs.javascript_enabled eq "y"} style="display: none"{/if}>
                         <option value="htmldiff" {if $diff_style == "htmldiff"}selected="selected"{/if}>
                             {tr}HTML diff{/tr}
                         </option>
@@ -206,7 +204,7 @@
                         </option>
                     </select>
                     {if $prefs.javascript_enabled eq "y"}
-                        <select class="form-control" name="diff_style" id="diff_style_simple">
+                        <select class="form-select" name="diff_style" id="diff_style_simple">
                             <option value="htmldiff" {if $diff_style == "htmldiff"}selected="selected"{/if}>
                                 {tr}HTML diff{/tr}
                             </option>
@@ -216,7 +214,7 @@
                         </select>
                     {/if}
                     {if $prefs.javascript_enabled eq "y"}
-                        <span class="input-group-append">
+                        <span class="input-group-text">
                             {button _text="{tr}Advanced{/tr}" _id="toggle_diffs" _ajax="n" _class="btn btn-secondary"}
                         </span>
                         {jq}
@@ -326,7 +324,7 @@
                             {if $tiki_p_remove eq 'y'}
                                 <td>&nbsp;</td>
                             {/if}
-                            <td class="text-left">
+                            <td class="text-start">
                                 {$info.lastModif|tiki_short_datetime}
                                 {icon name="user"} {$info.user|userlink}
                                 {if $prefs.feature_wiki_history_ip ne 'n'}{tr _0=$info.ip}from %0{/tr}{/if}
@@ -408,7 +406,7 @@
                                     <input type="checkbox" name="checked[]" value="{$element.version}">
                                 </td>
                             {/if}
-                            <td class="text-left">
+                            <td class="text-start">
                                 {$element.lastModif|tiki_short_datetime}
                                 {icon name="user"} {$element.user|userlink}
                                 {if $prefs.feature_wiki_history_ip ne 'n'}{tr _0=$element.ip}from %0{/tr}{/if}
@@ -519,7 +517,7 @@
                 </table>
             </div>
             <div class="input-group col-sm-8 mb-4">
-                <select class="form-control" name="action">
+                <select class="form-select" name="action">
                     <option value="no_action" selected="selected">
                         {tr}Select action to perform with checked{/tr}...
                     </option>
@@ -527,7 +525,7 @@
                         {tr}Remove{/tr}
                     </option>
                 </select>
-                <span class="input-group-append">
+                <span class="input-group-text">
                     <button
                         type="submit"
                         form="pagehistory"

@@ -1,24 +1,23 @@
-// $Id$
 // Custom styles for the Business theme.
 
 // - - - - - - - Bootstrap variables (override values in vendor_bundled/vendor/twbs/bootstrap/scss/_variables.scss - - - - - - //
 
-// Colors
+// Color system
 
-$primary:       #0082e0;
+$primary:       #0074C7;
 $secondary:     #7400c3; // $gray-600 !default;
-$success:       #5cb85c;
+$success:       #214A21; // #5cb85c;
 $info:          #5bc0de;
 $warning:       #f0ad4e;
-$danger:        #d9534f;
+$danger:        #B82D28; // #d9534f;
 
 $theme-colors: (
-    "primary": #0082e0,
+    "primary": #0074C7,
     "secondary": #7400c3,
-    "success": #5cb85c,
+    "success": #214A21, //#5cb85c,
     "info": #5bc0de,
-    "warning": #f0ad4e,
-    "danger": #d9534f
+    "warning": #975D0C, // #f0ad4e,
+    "danger": #B82D28 // #d9534f
 );
 
 $gray-500: #737373; //lighten(@gray-base, 33.5%);
@@ -28,23 +27,36 @@ $gray-600: darken($gray-500, 10%);
 $gray-300: lighten($gray-500, 10%);
 $gray-200: lighten($gray-500, 20%);
 
-//Options
-//Spacing
-
-//Body
+// Options
+// Spacing
+// Position
+// Body
 $body-color: $gray-800;
 
+// Utility maps
 //Links
+$link-color: #005999; //#0074C7;
+
+// Grid breakpoints
+// Grid containers
+// Grid columns
+// Container padding
 //Components
 $border-radius-lg: 8px;
 
-//Fonts
+// Typography
+// Fonts
 $font-family-sans-serif: 'Merriweather Sans', sans-serif;
 $headings-font-weight:        400;
+
+$text-muted:                  $gray-700;
+
+$blockquote-color: #4D4D4D;
 
 // Tables
 $table-border-color:               #dddddd;
 
+// Buttons + Forms
 // Buttons (Primary and info need to be explicitly defined for converse.js.)
 $btn-primary-color: #ffffff;
 $btn-primary-bg: #3676c4;
@@ -56,9 +68,13 @@ $btn-secondary-bg: #3676c4;
 $btn-info-bg: #fff;
 $btn-info-color: #17a2b8;
 $btn-info-border: #17a2b8;
+
 // Forms
 $input-border: #dddddd;
-// Dropdowns
+$input-group-addon-bg: #DBDBDB;
+
+// Form validation
+// Z-index master list
 // Navs
 //Navbar
 $navbar-dark-color:             #ffffff;
@@ -78,25 +94,33 @@ $navbar-light-hover-color:          $navbar-dark-hover-color;
 $navbar-light-active-color:         $navbar-dark-active-color;
 $navbar-light-disabled-color:       $navbar-dark-disabled-color;
 
-
+// Dropdowns
 // Pagination
-// Jumbotron
-//Cards
+// Placeholders
+// Cards
 $card-border-radius: $border-radius-lg;
 $card-text: #fff; // @gray-lighter;
 $card-header-bg: #386dbb;
 
-//$card-border-radius: $border-radius-lg;
-//$card-text: #fff;//@gray-lighter;
-//$card-header-bg: #386dbb;
-
+// Accordion
 // Tooltips
-
 // Popovers
-
+// Toasts
 // Badges
 // Modals
 $modal-header-border-color:   #386dbb;
+
+// Alerts
+// Progress bars
+// List group
+// Image thumbnails
+// Figures
+// Breadcrumbs
+// Carousel
+// Spinners
+// Close
+// Offcanvas
+// Code
 
 // - - - - - - - - - -  - - - - - - Other variables, if any - - - - - - - - - - - - - - - - - //
 

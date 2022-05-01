@@ -27,7 +27,7 @@
     data-searchfield="{$object_selector.searchfield|escape}"
 >
     <div class="basic-selector d-none mb-3">
-        <select class="form-control">
+        <select class="form-select">
             <option value="" class="protected">&mdash;</option>
             {if $object_selector.current_selection}
                 <option value="{$object_selector.current_selection|escape}" selected="selected">{$object_selector.current_selection.title|escape}</option>
@@ -38,15 +38,11 @@
     <div class="card d-none">
         <div class="card-header">
             <div class="input-group">
-                <div class="input-group-prepend">
-                    <div class="input-group-text">
-                        {icon name="search"}
-                    </div>
+                <div class="input-group-text">
+                    {icon name="search"}
                 </div>
                 <input type="text" placeholder="{$object_selector.placeholder|escape}..." value="" class="filter form-control" autocomplete="off">
-                <div class="input-group-append">
-                    <input type="button" class="btn btn-info search" value="{tr}Find{/tr}">
-                </div>
+                <input type="button" class="btn btn-info search" value="{tr}Find{/tr}">
             </div>
         </div>
         <div class="card-body">

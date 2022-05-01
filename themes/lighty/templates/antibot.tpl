@@ -19,14 +19,14 @@
     {/if}
     <div class="antibot row">
         {if $captchalib->type eq 'recaptcha' || $captchalib->type eq 'recaptcha20'}
-            <div class="form-group row clearfix">
+            <div class="mb-3 row clearfix">
                 <div class="{$captchaclass}">
                     {$captchalib->render()}
                 </div>
             </div>
         {elseif $captchalib->type eq 'questions'}
             <input type="hidden" name="captcha[id]" id="captchaId" value="{$captchalib->generate()}">
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-md-4 col-sm-3 col-form-label">
                     {$captchalib->render()}
                 </label>
@@ -47,7 +47,7 @@
             {* Default captcha *}
             <input type="hidden" name="captcha[id]" id="captchaId" value="{$captchalib->generate()}">
             <center>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <div class="{$captchaclass}">
                     {if $captchalib->type eq 'default'}
                         <img id="captchaImg" src="{$captchalib->getPath()}" alt="{tr}Anti-Bot verification code image{/tr}" height="34">

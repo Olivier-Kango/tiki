@@ -1,5 +1,5 @@
 {if $prefs.feature_freetags eq 'y' && $tiki_p_freetags_tag eq 'y'}
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="{if empty($labelColClass)}col-md-4{else}{$labelColClass}{/if} col-form-label" for="tagBox">{tr}Tags{/tr}</label>
         <div class="{if empty($inputColClass)}col-md-8{else}{$inputColClass}{/if}">
 {jq notonready=true}
@@ -22,7 +22,7 @@
         </div>
     </div>
     {if $prefs.feature_multilingual eq 'y' && $prefs.freetags_multilingual eq 'y' && $blog eq 'y'}
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="" class="{if empty($labelColClass)}col-md-4{else}{$labelColClass}{/if} col-form-label">{tr}Language{/tr}</label>
             <div class="{if empty($inputColClass)}col-md-8{else}{$inputColClass}{/if}">
                 <select name="lang" class="form-control">

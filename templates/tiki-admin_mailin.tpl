@@ -52,14 +52,14 @@
                         {strip}
                             <action>
                                 <a href="{bootstrap_modal controller=mailin action=replace_account accountId=$account.accountId}"
-                                    onclick="$('[data-toggle=popover]').popover('hide');"
+                                    onclick="$('[data-bs-toggle=popover]').popover('hide');"
                                 >
                                     {icon name='edit' _menu_text='y' _menu_icon='y' alt="{tr}Edit{/tr}"}
                                 </a>
                             </action>
                             <action>
                                 <a href="{bootstrap_modal controller=mailin action=remove_account accountId=$account.accountId}"
-                                    onclick="$('[data-toggle=popover]').popover('hide');"
+                                    onclick="$('[data-bs-toggle=popover]').popover('hide');"
                                 >
                                     {icon name='remove' _menu_text='y' _menu_icon='y' alt="{tr}Remove{/tr}"}
                                 </a>
@@ -75,7 +75,7 @@
 
     <h2>{tr}Check Mail-in accounts{/tr}</h2>
     <form action="tiki-admin_mailin.php" method="post">
-        <div class="form-group row">
+        <div class="mb-3 row">
             <div class="offset-md-3 col-md-9">
                 <div class="form-check">
                     <label class="form-check-label">
@@ -85,7 +85,7 @@
                 </div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="mailin_autocheckFreq" class="col-form-label col-md-3">{tr}Frequency{/tr}</label>
             <div class="col-md-3">
                 <input type="text" name="mailin_autocheckFreq" value="{$prefs.mailin_autocheckFreq|escape}" class="form-control">

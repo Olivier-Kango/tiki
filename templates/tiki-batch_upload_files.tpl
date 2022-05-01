@@ -1,6 +1,6 @@
 {title url=''}{tr}Directory batch upload{/tr}{/title}
 
-<div class="t_navbar btn-group form-group row">
+<div class="t_navbar btn-group mb-3 row">
     {if $galleryId}
         {button href="tiki-list_file_gallery.php?galleryId=$galleryId" class="btn btn-primary" _text="{tr}Browse File Gallery{/tr}"}
         {button href="tiki-upload_file.php?galleryId=$galleryId" class="btn btn-primary" _text="{tr}Upload From Disk{/tr}"}
@@ -44,10 +44,10 @@
         </tr>
     </table>
     <hr>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-sm-4 col-form-label" for="galleryId">{tr}Select a File Gallery{/tr}</label>
         <div class="col-sm-4">
-            <select name="galleryId" id="galleryId" class="form-control">
+            <select name="galleryId" id="galleryId" class="form-select">
                 <option value="{$treeRootId}" {if $treeRootId eq $galleryId}selected="selected"{/if} style="font-style:italic; border-bottom:1px dashed #666;">{tr}Root{/tr}</option>
                 {section name=idx loop=$galleries}
 
@@ -58,7 +58,7 @@
             </select>
         </div>
     </div>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-sm-4 col-form-label" for="subdirToSubgal">{tr}Upload into galleries according to sub-directories{/tr}</label>
         <div class="col-sm-8">
             <input type="checkbox" name="subdirToSubgal" value="true" id="subdirToSubgal">
@@ -67,7 +67,7 @@
             </div>
         </div>
     </div>
-    <div class="form-group create-subgals" style="display:none;">
+    <div class="mb-3 create-subgals" style="display:none;">
         <label class="col-sm-4 col-form-label" for="createSubgals">{tr}Create sub-galleries?{/tr}</label>
         <div class="col-sm-8">
             <input type="checkbox" name="createSubgals" value="true" id="createSubgals">
@@ -75,7 +75,7 @@
                 {tr}Sub-galleries will be automatically created if they don't exist and the user has permission. Note that these galleries will have the global file gallery permissions set.{/tr}
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-sm-4 col-form-label" for="subdirIntegerToSubgalId">{tr}Upload into galleries according sub-directory as galleryId{/tr}</label>
 
             <div class="col-sm-8">
@@ -109,7 +109,7 @@ $("#batchUploadForm").submit(function () {
 
         {/jq}
     </div>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-sm-4 col-form-label" for="subToDesc">{tr}Use the last sub directory name as description{/tr}</label>
         <div class="col-sm-8">
             <input type="checkbox" name="subToDesc" value="true" id="subToDesc">
@@ -118,7 +118,7 @@ $("#batchUploadForm").submit(function () {
             </div>
         </div>
     </div>
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-sm-4 col-form-label"></label>
         <div class="col-sm-8">
             <input type="submit" class="btn btn-primary btn-sm" name="batch_upload" value="{tr}Process files{/tr}">

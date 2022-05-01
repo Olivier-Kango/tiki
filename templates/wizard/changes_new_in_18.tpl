@@ -1,14 +1,14 @@
 {* $Id$ *}
 
-<div class="media">
-    <div class="mr-4">
-    <span class="float-left fa-stack fa-lg margin-right-18em" alt="{tr}Changes Wizard{/tr}" title="Changes Wizard">
+<div class="d-flex">
+    <div class="flex-shrink-0 mb-3">
+    <span class="float-start fa-stack fa-lg margin-right-18em" alt="{tr}Changes Wizard{/tr}" title="Changes Wizard">
         <i class="fas fa-arrow-circle-up fa-stack-2x"></i>
-        <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ml-4 mt-4"></i>
+        <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ms-4 mt-4"></i>
     </span>
     </div>
-    <br/><br/><br/>
-    <div class="media-body">
+
+    <div class="flex-grow-1 ms-3">
         {tr}Main new and improved features and settings in Tiki 18.{/tr}
         <a href="https://doc.tiki.org/Tiki18" target="tikihelp" class="tikihelp text-info" title="{tr}Tiki18:{/tr}
             {tr}This is an LTS version.{/tr}
@@ -21,21 +21,21 @@
         </a>
         <fieldset class="mb-3 w-100 clearfix featurelist">
             <legend>{tr}New Features{/tr}</legend>
-            <div class="adminoption form-group row">
+            <div class="adminoption mb-3 row">
                 <label class="col-sm-3 col-form-label"><b>{tr}Control Panels{/tr}</b>:</label>
                 <div class="offset-sm-1 col-sm-11">
-                    {icon name="admin_packages" size=2 iclass="float-left"}
+                    {icon name="admin_packages" size=2 iclass="float-start"}
                     {tr}Composer Web Install (<b>Packages</b>).{/tr}
                     <a href="https://doc.tiki.org/Packages">{tr}More Information{/tr}...</a><br/><br/>
                 </div>
                 <label class="col-sm-3 col-form-label"><b>{tr}Style guide tool{/tr}</b>:</label>
                 <div class="offset-sm-1 col-sm-9">
-                    {icon name="admin_look" size=2 iclass="float-left"}
+                    {icon name="admin_look" size=2 iclass="float-start"}
                     {tr}Look and feel colors can be customized with a style guide tool.{/tr}
                     <a href="https://doc.tiki.org/Style-Guide">{tr}More Information{/tr}...</a><br/><br/>
                 </div>
             </div>
-            <div class="adminoption form-group row">
+            <div class="adminoption mb-3 row">
             </div>
             {preference name='sitemap_enable'}
             {preference name='feature_sefurl_routes'}
@@ -74,34 +74,34 @@
         </fieldset>
         <fieldset class="mb-3 w-100 clearfix featurelist">
             <legend>{tr}Other Extended Features{/tr}</legend>
-            <div class="adminoption form-group row">
+            <div class="adminoption mb-3 row">
                 <label class="col-sm-3 col-form-label"><b>{tr}Control Panels{/tr}</b>:</label>
                 <div class="offset-sm-1 col-sm-11">
-                    {icon name="admin_rtc" size=2 iclass="float-left"}
+                    {icon name="admin_rtc" size=2 iclass="float-start"}
                     {tr}Real-time collaboration tools (<b>RTC</b>).{/tr}
                     <a href="https://doc.tiki.org/RTC">{tr}More Information{/tr}...</a><br/><br/>
                 </div>
                 <label class="col-sm-3 col-form-label"><b>{tr}Console{/tr}</b>:</label>
                 <div class="offset-sm-1 col-sm-11">
-                    {icon name="terminal" size=2 iclass="float-left"}
+                    {icon name="terminal" size=2 iclass="float-start"}
                     {tr}New actions can be performed.{/tr}
                     <a href="https://doc.tiki.org/Console">{tr}More Information{/tr}...</a><br/><br/>
                 </div>
                 <label class="col-sm-3 col-form-label"><b>{tr}Menus{/tr}</b>:</label>
                 <div class="offset-sm-1 col-sm-11">
-                    {icon name="navicon" size=2 iclass="float-left"}
+                    {icon name="navicon" size=2 iclass="float-start"}
                     {tr}Drag and drop added to menu management.{/tr}
                     <a href="https://doc.tiki.org/Menu#Drag_and_drop">{tr}More Information{/tr}...</a><br/><br/>
                 </div>
                 <label class="col-sm-3 col-form-label"><b>{tr}Profiles{/tr}</b>:</label>
                 <div class="offset-sm-1 col-sm-9">
-                    {icon name="admin_profiles" size=2 iclass="float-left"}
+                    {icon name="admin_profiles" size=2 iclass="float-start"}
                     {tr}Dry-run/Preview and Selective Rollback were added, as well as new options to allow exporting files and tracker items.{/tr}
                     <a href="https://doc.tiki.org/Tiki18#Profiles">{tr}More Information{/tr}...</a><br/><br/>
                 </div>
                 <label class="col-sm-3 col-form-label"><b>{tr}Search{/tr}</b>:</label>
                 <div class="offset-sm-1 col-sm-9">
-                    {icon name="admin_search" size=2 iclass="float-left"}
+                    {icon name="admin_search" size=2 iclass="float-start"}
                     {tr}Calendars and Calendar Items will now appear in search results of the unified search index.{/tr}
                     <a href="https://doc.tiki.org/Tiki18#Search">{tr}More Information{/tr}...</a><br/><br/>
                 </div>
@@ -121,7 +121,7 @@
             </div>
             {preference name=ids_enabled}
             <div class="adminoptionboxchild" id="ids_enabled_childcontainer">
-                <div class="form-group adminoptionbox clearfix">
+                <div class="mb-3 adminoptionbox clearfix">
                     <div class="offset-sm-4 col-sm-8">
                         <a href="tiki-admin_ids.php">{tr}Admin IDS custom rules{/tr}</a>
                     </div>
@@ -153,7 +153,7 @@
             </div>
         </fieldset>
         <fieldset class="mb-3 w-100 clearfix featurelist">
-            <legend>{icon name="admin_profiles" size=2 iclass="float-left"}{tr}New Profiles{/tr}</legend>
+            <legend>{icon name="admin_profiles" size=2 iclass="float-start"}{tr}New Profiles{/tr}</legend>
             <ul>
                 <li>{tr}Activity_Stream{/tr}
                     <a href="https://profiles.tiki.org/Activity_Stream" target="tikihelp" class="tikihelp" title="{tr}Activity_Stream:{/tr}

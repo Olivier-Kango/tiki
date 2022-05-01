@@ -1,14 +1,14 @@
 {* $Id$ *}
 
-<div class="media">
-    <div class="mr-4">
-    <span class="float-left fa-stack fa-lg margin-right-18em" alt="{tr}Changes Wizard{/tr}" title="Changes Wizard">
+<div class="d-flex">
+    <div class="flex-shrink-0 mb-3">
+    <span class="float-start fa-stack fa-lg margin-right-18em" alt="{tr}Changes Wizard{/tr}" title="Changes Wizard">
         <i class="fas fa-arrow-circle-up fa-stack-2x"></i>
-        <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ml-4 mt-4"></i>
+        <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ms-4 mt-4"></i>
     </span>
     </div>
-    <br/><br/>
-    <div class="media-body">
+
+    <div class="flex-grow-1 ms-3">
         {tr}You are reaching the end of the <em>Changes Wizard</em>{/tr}.
         {tr}Since you are upgrading, you probably had a previous installation of Tiki for a while, and you may already have some experience using a few Tiki features, at least{/tr}.
         <br/><br/>
@@ -28,10 +28,10 @@
         </a>
         <fieldset>
             <legend>{tr}Connect{/tr}</legend>
-            {icon name="admin_connect" size=3 iclass="float-sm-right"}
+            {icon name="admin_connect" size=3 iclass="float-sm-end"}
             {preference name="connect_feature"}
             <div class="adminoptionboxchild" id="connect_feature_childcontainer">
-                <div class="t_navbar btn-group form-group row">
+                <div class="t_navbar btn-group mb-3 row">
                     {button _script="#" class="btn btn-primary" _text="{tr}Send Info{/tr}" _title="{tr}Send the data{/tr}" _id="connect_send_btn"}
                     {button _script="#" class="btn btn-primary" _text="{tr}Preview info{/tr}" _title="{tr}See what is going to be sent{/tr}" _id="connect_list_btn"}
                     {if empty($prefs.connect_site_title)}
@@ -50,7 +50,7 @@
                     {preference name="connect_site_url"}
                     {preference name="connect_site_keywords"}
                     {preference name="connect_site_location"}
-                    <div class="adminoptionboxchild" style="padding-left:5em;">
+                    <div class="adminoptionboxchild ps-5">
                         {$headerlib->add_map()}
                         <div class="adminoptionboxchild map-container" style="height:250px;width:400px;" data-geo-center="{defaultmapcenter}" data-target-field="connect_site_location"{if $prefs.connect_server_mode eq "y"}
                             data-icon-name="tiki" data-icon-src="img/tiki/tikiicon.png"

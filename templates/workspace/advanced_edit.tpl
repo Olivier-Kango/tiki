@@ -20,7 +20,7 @@
                 <a href="{service controller=workspace action=edit_template id=$id}" class="alert-link">{tr}Return to simple interface{/tr}</a>
             {/remarksbox}
         {/if}
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="name" class="col-sm-2 col-form-label">
                 {tr}Name{/tr}
             </label>
@@ -28,7 +28,7 @@
                 <input type="text" name="name" value="{$name|escape}" class="form-control">
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <div class="col-sm-12">
                 {textarea syntax='tiki' codemirror='true'}{$definition}{/textarea}
             </div>

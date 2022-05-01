@@ -60,16 +60,14 @@
 <div class="admintoclevel" id="topnode_{$page_ref_id}">
     <h2>{tr}Structure Layout{/tr}</h2>
     {if $editable eq 'y'}
-        <form action="tiki-edit_structure.php?page_ref_id={$page_ref_id}" method="post" class="form-inline" role="form" style="display: inline-block">
-            <div class="form-group row">
+        <form action="tiki-edit_structure.php?page_ref_id={$page_ref_id}" method="post" class="d-flex flex-row flex-wrap align-items-center" role="form" style="display: inline-block">
+            <div class="mb-3 row">
                 <label for="pageAlias" class="col-sm-4 col-form-label">{tr}Alias{/tr}:</label>
                 <div class="col-sm-8">
                     <input type="hidden" name="page_ref_id" value="{$structure_id}">
                     <div class="input-group">
                         <input type="text" class="form-control form-control-sm" name="pageAlias" id="pageAlias" value="{$topPageAlias|escape}">
-                        <div class="input-group-append">
-                            <input type="submit" class="btn btn-primary btn-sm" name="create" value="{tr}Update{/tr}">
-                        </div>
+                        <input type="submit" class="btn btn-primary btn-sm" name="create" value="{tr}Update{/tr}">
                     </div>
                 </div>
             </div>
@@ -134,19 +132,17 @@
             <div class="card-body">
                 <div>
                     <input type="hidden" name="page_ref_id" value="{$page_ref_id}">
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label class="sr-only" for="find_objects">{tr}Find{/tr}</label>
                         <div class="input-group">
                             <input type="text" name="find_objects" id="find_objects" value="{$find_objects|escape}" class="form-control form-control-sm" placeholder="{tr}Find{/tr}...">
-                            <div class="input-group-append">
-                                <input type="submit" class="btn btn-primary btn-sm" value="{tr}Filter{/tr}" name="search_objects">
-                            </div>
+                            <input type="submit" class="btn btn-primary btn-sm" value="{tr}Filter{/tr}" name="search_objects">
                             {autocomplete element='#find_objects' type='pagename'}
                         </div>
                     </div>
                     {if $prefs.feature_categories eq 'y'}
-                        <div class="form-group row">
-                            <select name="categId" class="form-control form-control-sm">
+                        <div class="mb-3 row">
+                            <select name="categId" class="form-control form-select-sm">
                                 <option value='' {if $find_categId eq ''}selected="selected"{/if}>{tr}any category{/tr}</option>
                                 {foreach $categories as $catix}
                                     <option value="{$catix.categId|escape}" {if !empty($find_categId) and $find_categId eq $catix.categId}selected="selected"{/if}>{tr}{$catix.categpath}{/tr}</option>
@@ -188,7 +184,7 @@
             <input type="hidden" name="page_ref_id" value="{$page_ref_id}">
             <div class="clearfix" style="margin-bottom: 1em;">
                 <label for="structure_id">{tr}Move to another structure:{/tr}</label>
-                <select name="structure_id" id="structure_id"{if $structures|@count eq '1'} disabled="disabled"{/if}>
+                <select class="form-select" name="structure_id" id="structure_id"{if $structures|@count eq '1'} disabled="disabled"{/if}>
                     {section name=ix loop=$structures}
                         {if $structures[ix].page_ref_id ne $structure_id}
                             <option value="{$structures[ix].page_ref_id}">{$structures[ix].pageName}</option>
@@ -199,12 +195,12 @@
                     {/section}
                 </select>
             </div>
-            <label class="float-left" for="begin1">{tr}at the beginning{/tr}</label>
-            <div class="float-left"><input type="radio" id="begin1" name="begin" value="1" checked="checked" {if $structures|@count eq '1'} disabled="disabled"{/if}></div>
-            <label class="float-left" for="begin2">{tr}at the end{/tr}</label>
-            <div class="float-left"><input type="radio" id="begin2" name="begin" value="0" {if $structures|@count eq '1'}disabled="disabled"{/if}></div>
+            <label class="float-start" for="begin1">{tr}at the beginning{/tr}</label>
+            <div class="float-start"><input type="radio" id="begin1" name="begin" value="1" checked="checked" {if $structures|@count eq '1'} disabled="disabled"{/if}></div>
+            <label class="float-start" for="begin2">{tr}at the end{/tr}</label>
+            <div class="float-start"><input type="radio" id="begin2" name="begin" value="0" {if $structures|@count eq '1'}disabled="disabled"{/if}></div>
             <hr>
-            <div class="float-left input_submit_container">
+            <div class="float-start input_submit_container">
                 <input type="submit" class="btn btn-primary" name="move_to" value="{tr}Move{/tr}" {if $structures|@count eq '1'} disabled="disabled"{/if}>
             </div>
         </form>
@@ -212,14 +208,14 @@
     <div id="newpage_dialog" style="display: none;">
         <form action="tiki-edit_structure.php" method="post">
             <input type="hidden" name="page_ref_id" value="{$page_ref_id}">
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">{tr}Create Page{/tr}</label>
                 <div class="col-sm-7">
                     <input type="text" name="name" id="name" class="form-control">
                     {autocomplete element='#name' type='pagename'}
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label"></label>
                 <div class="col-sm-7">
                     <input type="submit" class="btn btn-primary" name="create" value="{tr}Update{/tr}">

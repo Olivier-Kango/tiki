@@ -51,12 +51,12 @@
         {/if}
     </div>
     </div>
-    <div class="text-right">
+    <div class="text-end">
 {block name=thread_actions}
 &nbsp;
         <div class="btn-group">
             {if ! $js}<ul class="cssmenu_horiz"><li>{/if}
-            <a class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" href="#" title="{tr}Forum actions{/tr}">
+            <a class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" data-hover="dropdown" href="#" title="{tr}Forum actions{/tr}">
                 {icon name="menu-extra"}
             </a>
             <div class="dropdown-menu dropdown-menu-right">
@@ -124,7 +124,7 @@
     {if $prefs.feature_freetags eq 'y' and $tiki_p_view_freetags eq 'y' and $prefs.freetags_show_middle eq 'y'
         and !$thread_info.topic.threadId}
         {include file='freetag_list.tpl'}
-        <div class="text-right mb-4">
+        <div class="text-end mb-4">
             {wikiplugin _name="addfreetag" object="forum post:$comments_parentId"}{/wikiplugin}
         </div>
     {/if}
@@ -135,7 +135,7 @@
 {include file='comments.tpl'}
 
     <form role="form" id='time_control' method="get" action="tiki-view_forum_thread.php">
-        <div class="form-group row mx-0">
+        <div class="mb-3 row mx-0">
             <input type="hidden" name="comments_offset" value="0"><!--Reset offset to 0 when applying a new filter -->
             <input type="hidden" name="comments_threadId" value="{$comments_threadId|escape}">
             <input type="hidden" name="comments_parentId" value="{$comments_parentId|escape}">
@@ -149,7 +149,7 @@
 
             <label class="col-form-label" for="userfile1">{tr}Show posts:{/tr}</label>
             <div class="col-sm-3">
-                <select class="form-control" name="time_control" onchange="javascript:document.getElementById('time_control').submit();">
+                <select class="form-select" name="time_control" onchange="javascript:document.getElementById('time_control').submit();">
                     <option value="" {if empty($smarty.request.time_control)}selected="selected"{/if}>
                         {tr}All posts{/tr}
                     </option>
@@ -168,9 +168,9 @@
     </form>
 
 
-<div class="form-group float-sm-right">
+<div class="mb-3 float-sm-end">
     {if $prefs.feature_forum_quickjump eq 'y' && $all_forums|@count > 1}
-        <form class="form-horizontal" role="form" id='quick' method="get" action="tiki-view_forum.php">
+        <form role="form" id='quick' method="get" action="tiki-view_forum.php">
             <label class="col-sm-6 col-form-label" for="forumId">{tr}Jump to forum:{/tr}</label>
             <div class="col-sm-6">
                 <select id="forumId" class="form-control" name="forumId" onchange="javascript:document.getElementById('quick').submit();">

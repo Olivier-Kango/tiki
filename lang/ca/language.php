@@ -6908,6 +6908,7 @@ $lang_current = array(
 // "Offset for table of contents. Useful when there is a fixed navigation bar. If used with inline TOC, will behave as a top margin" => "Offset for table of contents. Useful when there is a fixed navigation bar. If used with inline TOC, will behave as a top margin",
 // "Table of contents default" => "Table of contents default",
 // "Set the default for the table of contents (default \"on\" and can be toggled per page)" => "Set the default for the table of contents (default \"on\" and can be toggled per page)",
+// "Set output format. Yes (y) displays tracker item field with truncated values\n                    (default); No (n) displays in tracker item field view; Comma Separated Values (csv) outputs without any\n                   HTML formatting." => "Set output format. Yes (y) displays tracker item field with truncated values\n                    (default); No (n) displays in tracker item field view; Comma Separated Values (csv) outputs without any\n                   HTML formatting.",
 "On_C(on-off)" => "Actiu",
 "Off_C(on-off)" => "Inactiu",
 // "Add an option to hide the page title per wiki page" => "Add an option to hide the page title per wiki page",

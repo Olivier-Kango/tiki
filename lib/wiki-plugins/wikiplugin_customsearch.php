@@ -561,8 +561,8 @@ customsearch$id._load = function (receive) {
         dataType: 'html',
         success: function(data) {
             receive(data);
-            $('[data-toggle=\'popover\']').attr('data-html', true);
-            $('[data-toggle=\'popover\']').popover();
+            $('[data-bs-toggle=\'popover\']').attr('data-html', true);
+            $('[data-bs-toggle=\'popover\']').popover();
             $callbackScript;
         },
         error: function ( jqXHR, textStatus, errorThrown ) {

@@ -264,19 +264,19 @@
         <form name='editusr' method="post" action="tiki-admin_modules.php">
             {ticket}
             <input type="hidden" name="um_tgt_module" value="{$um_tgt_module|escape}" hidden="hidden" />
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-4 col-form-label">{tr}Name{/tr}</label>
                 <div class="col-sm-6">
                     <input type="text" id="um_name" name="um_name" value="{$um_name|escape}" class="form-control">
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-4 col-form-label">{tr}Title{/tr}</label>
                 <div class="col-sm-6">
                     <input type="text" id="um_title" name="um_title" value="{$um_title|escape}" class="form-control">
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-4 col-form-label">{tr}Parse using{/tr}</label>
                 <div class="col-sm-6">
                     <select name="um_parse" id="um_parse" class="form-control mb-3">
@@ -288,7 +288,7 @@
             <h3>{tr}Objects that can be included{/tr}</h3>
             {pagination_links cant=$maximum step=$maxRecords offset=$offset}{/pagination_links}
             {if $prefs.feature_polls eq "y"}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-sm-4 col-form-label">{tr}Available polls{/tr}</label>
                     <div class="col-sm-6">
                         <select name="polls" id='list_polls' class="form-control">
@@ -304,7 +304,7 @@
                 </div>
             {/if}
             {if $contents}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-sm-4 col-form-label">{tr}Dynamic content blocks{/tr}</label>
                     <div class="col-sm-6">
                         <select name="contents" id='list_contents' class="form-control">
@@ -320,7 +320,7 @@
                 </div>
             {/if}
             {if $rsss}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-sm-4 col-form-label">{tr}External feeds{/tr}</label>
                     <div class="col-sm-6">
                         <select name="rsss" id='list_rsss' class="form-control">
@@ -336,7 +336,7 @@
                 </div>
             {/if}
             {if $banners}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-sm-4 col-form-label">{tr}Banner zones{/tr}</label>
                     <div class="col-sm-6">
                         <select name="banners" id='list_banners' class="form-control">
@@ -352,7 +352,7 @@
                 </div>
             {/if}
             {if $wikistructures}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-sm-4 col-form-label">{tr}Wiki{/tr} {tr}Structures{/tr}</label>
                     <div class="col-sm-6">
                         <select name="structures" id='list_wikistructures' class="form-control">
@@ -383,14 +383,14 @@
                     </ul>
                 {/remarksbox}
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label">{tr}Data{/tr}</label>
                 <div class="col-sm-9">
                     <a id="editcreate"></a>
                     {textarea name='um_data' id='um_data' _class='form-control' _toolbars='y' _previewConfirmExit='n' _wysiwyg="n"}{$um_data}{/textarea}
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-2 col-form-label"></label>
                 <div class="col-sm-9">
                     <input type="submit" class="btn btn-primary" name="um_update" value="{if empty($um_name)}{tr}Create{/tr}{else}{tr}Save{/tr}{/if}" onclick="$(window).off('beforeunload');return true;">

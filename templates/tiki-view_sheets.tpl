@@ -23,14 +23,14 @@
 
 <div id="feedback" style="height: 1.5em; margin-left: .2em"><span></span></div>
 
-<div class="t_navbar btn-group form-group row">
+<div class="t_navbar btn-group mb-3 row">
     <div>
         {if $page}
-            {button href="tiki-index.php" page="$page" _class="btn btn-primary mr-1" _text="{tr}Back to Page{/tr}"}
+            {button href="tiki-index.php" page="$page" _class="btn btn-primary me-1" _text="{tr}Back to Page{/tr}"}
         {/if}
 
         {if $tiki_p_view_sheet eq 'y' || $tiki_p_admin eq 'y'}
-            {button href="tiki-sheets.php" _class="btn btn-info mr-1" _text="{tr}List Spreadsheets{/tr}"}
+            {button href="tiki-sheets.php" _class="btn btn-info me-1" _text="{tr}List Spreadsheets{/tr}"}
         {/if}
     </div>
 

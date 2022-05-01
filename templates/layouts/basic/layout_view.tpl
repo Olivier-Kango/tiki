@@ -46,7 +46,7 @@
                     {icon name=$icon_name class='toggle_zone right' href='#' title='{tr}Toggle right modules{/tr}'}
                 </div>
             {/if}
-        <div class="d-flex w-100 flex-row flex-wrap">
+        <div class="d-flex w-100 flex-row row flex-wrap gx-4">
             <div class="col col1 col-md-12 col-lg-9 {if $prefs.feature_fixed_width neq 'y'}col-xl-10{/if} pb-4" id="col1">
                 {if $prefs.module_zones_pagetop eq 'fixed' or ($prefs.module_zones_pagetop ne 'n' && ! zone_is_empty('pagetop'))}
                     {modulelist zone=pagetop}
@@ -90,13 +90,13 @@
         {else}
             <div class="col-sm-12 side-col-toggle-container d-flex">
             {if $prefs.feature_left_column eq 'user'}
-                <div class="text-left side-col-toggle flex-fill">
+                <div class="text-start side-col-toggle flex-fill">
                     {$icon_name = (not empty($smarty.cookies.hide_zone_left)) ? 'toggle-right' : 'toggle-left'}
                     {icon name=$icon_name class='toggle_zone left' href='#' title='{tr}Toggle left modules{/tr}'}
                 </div>
             {/if}
             {if $prefs.feature_right_column eq 'user'}
-                <div class="text-right side-col-toggle flex-fill">
+                <div class="text-end side-col-toggle flex-fill">
                     {$icon_name = (not empty($smarty.cookies.hide_zone_right)) ? 'toggle-left' : 'toggle-right'}
                     {icon name=$icon_name class='toggle_zone right' href='#' title='{tr}Toggle right modules{/tr}'}
                 </div>

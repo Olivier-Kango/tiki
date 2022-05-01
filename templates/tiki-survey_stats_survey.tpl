@@ -1,7 +1,7 @@
 {title}{tr}Stats for survey:{/tr} {$survey_info.name}{/title}
 
 <div class="t_navbar mb-4">
-    {self_link print='y' _icon_name='print' hspace='1' _class='tips float-right' _title=":{tr}Print{/tr}"}
+    {self_link print='y' _icon_name='print' hspace='1' _class='tips float-end' _title=":{tr}Print{/tr}"}
     {/self_link}
     {button href="tiki-list_surveys.php" class="btn btn-info" _icon_name='list' _text="{tr}List Surveys{/tr}"}
     {button href="tiki-survey_stats.php" class="btn btn-info" _icon_name='chart' _text="{tr}Survey Stats{/tr}"}
@@ -15,7 +15,7 @@
 
 <div>
 <form method="post" action="tiki-survey_stats_survey.php">
-    <div class="form-group row">
+    <div class="mb-3 row">
         <label class="col-form-label col-sm-12">{tr}Select a user to preview its answer (marked as{/tr} {icon name="user" alt="{tr}User voted{/tr}"})</label>
         <div class="col-sm-5">
             <select name="uservoted" class="form-control mb-2">

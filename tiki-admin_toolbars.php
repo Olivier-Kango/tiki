@@ -74,15 +74,15 @@ if (isset($_REQUEST['section']) && in_array($_REQUEST['section'], array_keys($se
     $section = reset($keys);
 }
 if (isset($_REQUEST['comments']) && $_REQUEST['comments'] == 'on') {
-    $comments = true;
+    $show_comments = true;
 } else {
-    $comments = false;
+    $show_comments = false;
 }
 
 foreach ($sections as $skey => $sval) {
     if (
-        isset($prefs['toolbar_' . $skey . ($comments ? '_comments' : '') . 'modified'])
-        && $prefs['toolbar_' . $skey . ($comments ? '_comments' : '') . 'modified'] == 'y'
+        isset($prefs['toolbar_' . $skey . ($show_comments ? '_comments' : '') . 'modified'])
+        && $prefs['toolbar_' . $skey . ($show_comments ? '_comments' : '') . 'modified'] == 'y'
     ) {
         $sections[$skey] = $sval . ' *';
     }
@@ -102,13 +102,13 @@ if (! empty($_REQUEST['reset_all_custom_tools'])) {
 }
 
 if (isset($_REQUEST['save'], $_REQUEST['pref'])) {
-    $prefName = 'toolbar_' . $section . ($comments ? '_comments' : '');
+    $prefName = 'toolbar_' . $section . ($show_comments ? '_comments' : '');
     $tikilib->set_preference($prefName, $_REQUEST['pref']);
     $tikilib->set_preference($prefName . 'modified', 'y');
 }
 
 if ((isset($_REQUEST['reset']) && $section != 'global') || (isset($_REQUEST['reset_global']) && $section == 'global')) {
-    $prefName = 'toolbar_' . $section . ($comments ? '_comments' : '');
+    $prefName = 'toolbar_' . $section . ($show_comments ? '_comments' : '');
     $tikilib->delete_preference($prefName);
     $tikilib->set_preference($prefName . 'modified', 'n');
     $smarty->loadPlugin('smarty_function_query');
@@ -130,9 +130,9 @@ if (! empty($_REQUEST['save_tool']) && ! empty($_REQUEST['tool_name'])) {   // i
     header('location: ?' . smarty_function_query(['_urlencode' => 'n'], $smarty->getEmptyInternalTemplate()));
 }
 
-$current = $tikilib->get_preference('toolbar_' . $section . ($comments ? '_comments' : ''));
+$current = $tikilib->get_preference('toolbar_' . $section . ($show_comments ? '_comments' : ''));
 if (empty($current)) {
-    $current = $tikilib->get_preference('toolbar_global' . ($comments ? '_comments' : ''));
+    $current = $tikilib->get_preference('toolbar_global' . ($show_comments ? '_comments' : ''));
     $smarty->assign('not_global', false);
 } else {
     $smarty->assign('not_global', true);
@@ -141,7 +141,7 @@ $smarty->assign('not_default', false);
 if ($section == 'global') {
     $cachelib = TikiLib::lib('cache');
     if ($defprefs = $cachelib->getSerialized("tiki_default_preferences_cache")) {
-        if ($defprefs['toolbar_global' . ($comments ? '_comments' : '')] != $current) {
+        if ($defprefs['toolbar_global' . ($show_comments ? '_comments' : '')] != $current) {
             $smarty->assign('not_default', true);
         }
     }
@@ -152,7 +152,7 @@ if (! empty($_REQUEST['delete_tool']) && ! empty($_REQUEST['tool_name'])) { // i
     if (strpos($_REQUEST['tool_name'], $current) !== false) {
         $current = str_replace($_REQUEST['tool_name'], '', $current);
         $current = str_replace(',,', ',', $current);
-        $prefName = 'toolbar_' . $section . ($comments ? '_comments' : '');
+        $prefName = 'toolbar_' . $section . ($show_comments ? '_comments' : '');
         $tikilib->set_preference($prefName, $current);
     }
 }
@@ -226,6 +226,7 @@ foreach ($qtlist as $name) {
     $label .= '<input type="hidden" name="token" value="' . $tag->getWysiwygToken('dummy', false) . '" />';
     $label .= '<input type="hidden" name="syntax" value="' . htmlspecialchars($tag->getSyntax('dummy')) . '" />';
     $label .= '<input type="hidden" name="type" value="' . $tag->getType() . '" />';
+    $label .= '<input type="hidden" name="label" value="' . $tag->getLabel() . '" />';
 
     if ($tag->getType() == 'Wikiplugin') {
         $label .= '<input type="hidden" name="plugin" value="' . $tag->getPluginName() . '" />';
@@ -245,16 +246,12 @@ foreach ($qtlist as $name) {
     }
 
     $qtelement[$name] = [
-                    'name' => $name,
-                    'class' => "toolbar qt-$name $wys $wiki $wyswik $plug $cust $avail $margins",
-                    'html' => "$icon<span>$label</span>",
-                    'visible' => $visible,
+        'name' => $name,
+        'class' => "toolbar qt-$name $wys $wiki $wyswik $plug $cust $avail $margins",
+        'html' => "$icon<span>$label</span>",
+        'visible' => $visible,
     ];
 }
-
-$headerlib->add_js(
-    "var toolbarsadmin_rowStr = '" . substr(implode(",#row-", range(0, $rowCount)), 2) . "';" . "var toolbarsadmin_fullStr = '#full-list-w,#full-list-p,#full-list-c';" . "var toolbarsadmin_delete_text = '" . tra('Are you sure you want to delete this custom tool?') . "'\n"
-);
 
 $headerlib->add_jsfile('lib/toolbars/tiki-admin_toolbars.js');
 
@@ -286,7 +283,7 @@ foreach ($parserlib->plugin_get_list() as $name) {
 
 $smarty->assign('plugins', $plugins);
 
-$smarty->assign('comments', $comments);
+$smarty->assign('show_comments', $show_comments);
 $smarty->assign('loaded', $section);
 $smarty->assign('rows', range(0, $rowCount - 1));
 $smarty->assign('rowCount', $rowCount);

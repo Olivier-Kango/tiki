@@ -93,7 +93,7 @@
     {/if}
         <form action="tiki-edit_quiz.php" method="post">
             <input type="hidden" name="quizId" value="{$quizId|escape}">
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label" for="quiz-name">
                     {tr}Name{/tr}
                 </label>
@@ -101,7 +101,7 @@
                     <input type="text" class="form-control" name="name" id="quiz-name" value="{$name|escape}">
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label" for="quiz-desc">
                     {tr}Description{/tr}
                 </label>
@@ -110,7 +110,7 @@
                 </div>
             </div>
             {include file='categorize.tpl'}
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label">
                     {tr}Publish Date{/tr}
                 </label>
@@ -125,7 +125,7 @@
                     {$siteTimeZone}
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-form-label col-sm-3">
                     {tr}Expiration Date{/tr}
                 </label>
@@ -184,12 +184,12 @@
                     {tr}Quiz is time-limited{/tr}
                 </label>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-form-label col-sm-3" for="quiz-maxtime">
                     {tr}Maximum time{/tr}
                 </label>
                 <div class="col-sm-2">
-                    <select class="form-control" name="timeLimit" id="quiz-maxtime">
+                    <select class="form-select" name="timeLimit" id="quiz-maxtime">
                         {html_options values=$mins selected=$timeLimit output=$mins}
                     </select>
                     <div class="form-text">
@@ -197,7 +197,7 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label" for="quiz-passingperct">
                     {tr}Passing Percentage{/tr}
                 </label>

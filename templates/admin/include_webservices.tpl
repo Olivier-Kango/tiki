@@ -3,7 +3,7 @@
     {ticket}
 
     <div class="row">
-        <div class="form-group col-lg-12 clearfix">
+        <div class="mb-3 col-lg-12 clearfix">
             <a role="link" class="btn btn-link" href="tiki-admin_webservices.php" title="{tr}List{/tr}">
                 {icon name="admin"} {tr}Webservices{/tr}
             </a>

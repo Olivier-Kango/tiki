@@ -1,5 +1,5 @@
 <a name="listexecute_{$iListExecute}"></a>
-<form method="post" action="#listexecute_{$iListExecute}" class="form-inline" id="listexecute-{$iListExecute}">
+<form method="post" action="#listexecute_{$iListExecute}" class="d-flex flex-row flex-wrap align-items-center" id="listexecute-{$iListExecute}">
     <button class="listexecute-select-all btn btn-primary btn-sm">{tr}Select All{/tr}</button>
     <ol>
         {foreach from=$results item=entry}
@@ -14,7 +14,7 @@
             </li>
         {/foreach}
     </ol>
-    <select name="list_action">
+    <select name="list_action" class="form-select">
         <option></option>
         {foreach from=$actions item=action}
             <option value="{$action->getName()|escape}" data-input="{$action->requiresInput()}">{$action->getName()|escape}</option>
@@ -23,7 +23,7 @@
     <input type="text" name="list_input" value="" class="form-control" style="display:none">
     <input type="submit" class="btn btn-primary btn-sm" title="{tr}Apply Changes{/tr}" value="{tr}Apply{/tr}">
     {if isset($smarty.get.page) && isset($schedulers_amount)}
-        <div class="ml-3">
+        <div class="ms-3">
             {if $schedulers_amount eq 0}
                 {assign var="console_command" value="list:execute {$smarty.get.page} <action>"|urlencode}
                 <a href="tiki-admin_schedulers.php?task=ConsoleCommandTask&console_command={$console_command}&add=1">{tr}Create scheduler{/tr}</a>

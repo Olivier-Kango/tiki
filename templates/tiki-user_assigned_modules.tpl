@@ -167,9 +167,9 @@
 
 {if $canassign eq 'y'}
     <h2>{tr}Assign module{/tr}</h2>
-    <form action="tiki-user_assigned_modules.php" method="post" class="form-horizontal">
+    <form action="tiki-user_assigned_modules.php" method="post">
         {ticket}
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="module">{tr}Module{/tr}</label>
             <div class="col-sm-8">
                 <select name="module" class="form-control form-control-sm">
@@ -179,7 +179,7 @@
                 </select>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="position">{tr}Column{/tr}</label>
             <div class="col-sm-8">
                 <select name="position" class="form-control form-control-sm">
@@ -188,7 +188,7 @@
                 </select>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="order">{tr}Order{/tr}</label>
             <div class="col-sm-8">
                 <select name="order" class="form-control form-control-sm">
@@ -198,7 +198,7 @@
                 </select>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <div class="offset-sm-4 col-sm-8">
                 <input type="submit" class="btn btn-primary" name="assign" value="{tr}Assign{/tr}">
             </div>

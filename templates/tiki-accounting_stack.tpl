@@ -37,7 +37,7 @@ var account='';
 
 <div class="row">
     <div id="mask" class="col-md-12" style="{if $hideform==1} display: none;{/if}">
-        <form method="post" action="{if $req_url}{$req_url}{else}tiki-accounting_stack.php{/if}" class="form-horizontal">
+        <form method="post" action="{if $req_url}{$req_url}{else}tiki-accounting_stack.php{/if}">
             {ticket}
             {if $firstid}<input type="hidden" name="firstid" value="{$firstid}">{/if}
             {if $statementId}<input type="hidden" name="statementId" value="{$statementId}">{/if}
@@ -46,19 +46,19 @@ var account='';
             <input type="hidden" name="action" value="book">
             <fieldset>
                 <legend>{tr}Post{/tr}</legend>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-form-label col-md-4">{tr}Booking Date{/tr} <span class="text-danger">*</span></label>
                     <div class="col-md-8">
                         {html_select_date prefix="stack_" time=$stackDate start_year="-10" end_year="+10" field_order=$prefs.display_field_order}
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-form-label col-md-4">{tr}Description{/tr}</label>
                     <div class="col-md-8">
                         <textarea class="form-control" name="stackDescription" id="stackDescription" rows="3">{$stackDescription}</textarea>
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-form-label col-md-4">{tr}Amount{/tr} <span class="text-danger">*</span></label>
                     <div class="col-md-8">
                         <input name="totalAmount" id="totalAmount" type="number" class="form-control" value="{$totalAmount}" onchange="javascript:setAmount()">
@@ -79,7 +79,7 @@ var account='';
                                 <input type="text" class="form-control" name="debitText[]" value="{$debitText[$i]}">
                             </td>
                             <td>
-                                <select name="debitAccount[]" class="form-control" style="width:180px" onfocus="account=this">
+                                <select name="debitAccount[]" class="form-select" style="width:180px" onfocus="account=this">
                                     {foreach from=$accounts item=a}
                                         <option value="{$a.accountId}"{if $a.accountId==$debitAccount[$i]} selected="selected"{/if}>{$a.accountId} {$a.accountName}</option>
                                     {/foreach}
@@ -92,7 +92,7 @@ var account='';
                     {/section}
                     <tr id="Row_SplitDebit"{if count($creditAccount)>1} style="display:none;"{/if}>
                         <td colspan="3">
-                            <input type="button" class="btn btn-primary btn-sm float-sm-right" value="{tr}Add entry{/tr}" id="SplitDebit" onclick="javascript:splitDebit()">
+                            <input type="button" class="btn btn-primary btn-sm float-sm-end" value="{tr}Add entry{/tr}" id="SplitDebit" onclick="javascript:splitDebit()">
                         </td>
                     </tr>
                 </table>
@@ -111,7 +111,7 @@ var account='';
                                 <input class="form-control" type="text" name="creditText[]" value="{$creditText[$i]}">
                             </td>
                             <td>
-                                <select class="form-control" name="creditAccount[]" style="width:180px" onfocus="account=this">
+                                <select class="form-select" name="creditAccount[]" style="width:180px" onfocus="account=this">
                                     {foreach from=$accounts item=a}
                                         <option value="{$a.accountId}"{if $a.accountId==$creditAccount[$i]} selected="selected"{/if}>{$a.accountId} {$a.accountName}</option>
                                     {/foreach}
@@ -124,7 +124,7 @@ var account='';
                     {/section}
                     <tr id="Row_SplitCredit"{if count($creditAccount)>1} style="display:none;"{/if}>
                         <td colspan="3">
-                            <input type="button" class="btn btn-primary btn-sm float-sm-right" value="{tr}Add entry{/tr}" id="SplitCredit" onclick="javascript:splitCredit()">
+                            <input type="button" class="btn btn-primary btn-sm float-sm-end" value="{tr}Add entry{/tr}" id="SplitCredit" onclick="javascript:splitCredit()">
                         </td>
                     </tr>
                 </table>

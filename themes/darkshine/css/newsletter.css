@@ -1,20 +1,17 @@
 /* Dark Shine theme newsletter stylesheet  */
 body {
-  background: #90140c;
+  background: #f3f3f3;
   color: #212529;
   font-family: Arial, sans-serif;
   padding: 15px;
 }
 a, a:visited {
   color: #600000;
-  text-decoration: underline;
 }
 a:hover {
   color: #140000;
-  text-decoration: underline;
 }
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-  font-family: inherit;
   font-weight: 500;
   color: #8a0700;
 }

@@ -3,70 +3,93 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <link rel="StyleSheet" href="styles/{$prefs.style}" type="text/css">
+        {* <link rel="StyleSheet" href="styles/{$prefs.style}" type="text/css"> *}
         <title>{tr}Live support:User window{/tr}</title>
         {literal}
             <script type="text/javascript" src="lib/live_support/live-support.js">
             </script>
         {/literal}
         {$headerlib->output_headers()}
+        <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
-    <body onUnload="client_close();" style="background-color: white">
-        <div id='request_chat' align="center">
-            <input type="hidden" id="reqId">
-            <input type="hidden" id="tiki_user" value="{$user|escape}">
+    <body onUnload="client_close();">
 
-            <h2>{tr}Request live support{/tr}</h2>
 
-            <div class="col-sm-6 offset-sm-3 col-xs-12">
-                <div class="table-responsive">
-                    <table class="table">
-                        {if $user}
-                            <input type="hidden" id="username" value="{$user|escape}">
-                            <input type="hidden" id="emailaddress" value="{$user_email|escape}">
-                            <tr>
-                                <td><strong>{tr}User{/tr}</strong></td>
-                                <td>
-                                    {$user}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>{tr}Email{/tr}</strong></td>
-                                <td>
-                                    {$user_email}
-                                </td>
-                            </tr>
-                        {else}
-                            <tr>
-                                <td><strong>{tr}User{/tr}</strong></td>
-                                <td>
-                                    <input type="text" id="username">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>{tr}Email{/tr}</strong></td>
-                                <td>
-                                    <input type="text" id="emailaddress">
-                                </td>
-                            </tr>
-                        {/if}
-                        <tr>
-                            <td><strong>{tr}Reason{/tr}</strong></td>
-                            <td>
-                                <textarea id='reason' rows='3' class="form-control"></textarea>
-                            </td>
-                        </tr>
-                    </table>
+        <div class="w-100 vh-100 d-flex justify-content-center align-items-center">
+
+            <div class="container w-100">
+                <div class="row justify-content-md-center">
+                    <div class="col-12 col-lg-5 col-md-6">
+                        
+                        <div id='request_chat' class="card">
+                            <div class="card-body">
+                                <input type="hidden" id="reqId">
+                                <input type="hidden" id="tiki_user" value="{$user|escape}">
+
+                                <h2 class="card-title p-3">{tr}Request live support{/tr}</h2>
+                                
+                                {if $user}
+                                    <div class="form-group row">
+                                        <label for="username" class="col-sm-3 col-form-label"><strong>{tr}User{/tr}</strong></label>
+                                        <div class="col-sm-9">
+                                            <input type="text" readonly class="form-control-plaintext" id="username" value="{$user|escape}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="emailaddress" class="col-sm-3 col-form-label"><strong>{tr}Email{/tr}</strong></label>
+                                        <div class="col-sm-9">
+                                            <input type="text" readonly class="form-control-plaintext" id="emailaddress" value="{$user_email|escape}">
+                                        </div>
+                                    </div>
+                                {else}
+                                    <div class="form-group row">
+                                        <label for="username" class="col-sm-3 col-form-label"><strong>{tr}User{/tr}</strong></label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="username" placeholder="">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="emailaddress" class="col-sm-3 col-form-label"><strong>{tr}Email{/tr}</strong></label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="emailaddress" placeholder="">
+                                        </div>
+                                    </div>
+                                {/if}
+
+                                <div class="form-group row">
+                                    <label for="reason" class="col-sm-3 col-form-label"><strong>{tr}Reason{/tr}</strong></label>
+                                    <div class="col-sm-9">
+                                        <textarea class="form-control" id="reason"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <span class="col-sm-3 col-form-label"></span>
+                                    <div class="col-sm-9">
+                                        <input class="btn btn-primary" onClick="request_chat(document.getElementById('username').value,document.getElementById('tiki_user').value,document.getElementById('emailaddress').value,document.getElementById('reason').value);" type="button" value="{tr}Request support{/tr}">
+                                    </div>
+                                </div>
+                                
+            
+
+                            </div>
+                        </div>
+
+                        <div class="card" id='requesting_chat' style='display: none'>
+                            <div class="card-body">
+                                <div class="d-flex flex-column align-items-center">
+                                    <b>{tr}Your request is being processed{/tr}....</b>
+                                    <br>
+                                    <a class="btn btn-outline-danger" href="javascript:client_close();window.close();" class="link">{tr}cancel request and exit{/tr}</a><br>
+                                    <!--<a href="tiki-live_support_message.php" class="link">{tr}cancel request and leave a message{/tr}</a><br>-->
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
-            <input onClick="request_chat(document.getElementById('username').value,document.getElementById('tiki_user').value,document.getElementById('emailaddress').value,document.getElementById('reason').value);" type="button" value="{tr}Request support{/tr}">
             </div>
-        </div>
 
-        <div id='requesting_chat' style='display:none;'>
-            <b>{tr}Your request is being processed{/tr}....</b>
-            <br><br>
-            <a href="javascript:client_close();window.close();" class="link">{tr}cancel request and exit{/tr}</a><br>
-            <!--<a href="tiki-live_support_message.php" class="link">{tr}cancel request and leave a message{/tr}</a><br>-->
         </div>
 
     </body>

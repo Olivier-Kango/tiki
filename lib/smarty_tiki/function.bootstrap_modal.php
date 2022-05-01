@@ -28,5 +28,5 @@ function smarty_function_bootstrap_modal($params, $smarty)
     }
     $params['modal'] = 1;
     $href = smarty_function_service($params, $smarty);
-    return "$href\" data-toggle=\"modal\" data-backdrop=\"static\" data-target=\".modal.fade:not(.show)$size";
+    return "$href\" data-bs-toggle=\"modal\" data-backdrop=\"static\" data-bs-target=\".modal.fade:not(.show)$size";
 }

@@ -17,7 +17,7 @@
         {/if}
         <h5>{tr}Queue size:{/tr} {$queue_count|escape}</h5>
 
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label for="batch" class="col-form-label">{tr}Batch Size{/tr}</label>
             <select name="batch" id="batch" class="form-control">
                 {foreach [10, 20, 50, 100, 250, 500, 1000] as $count}
@@ -25,7 +25,7 @@
                 {/foreach}
             </select>
         </div>
-        <div class="form-group submit">
+        <div class="mb-3 submit">
             <input type="submit" class="btn btn-primary" value="{tr}Process Batch{/tr}">
         </div>
     </form>

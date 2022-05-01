@@ -2,7 +2,7 @@
 {extends file="file_displays/diagram.tpl"}
 {block name="diagram_extra"}
     {if $allow_edit}
-        <div class="text-right">
+        <div class="text-end">
             {if $file_id and $template ne $file_id }
                 {if $slide_page ne 'tiki-slideshow.php'}
                     <a class="btn btn-link" target="_blank" href="tiki-editdiagram.php?fileId={$file_id}">{icon name="pencil"} Edit diagram</a>

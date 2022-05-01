@@ -8,7 +8,7 @@
     <h2>{tr}Select Graphic Type{/tr}</h2>
     <form method="get" action="tiki-graph_sheet.php">
         <input type="hidden" name="sheetId" value="{$sheetId}">
-        <div class="form-group row mt-4">
+        <div class="mb-3 row mt-4">
             <div class="col-sm-3 mb-3">
                 <div class="form-check">
                     <label for='g_pie' class="form-check-label">
@@ -51,9 +51,9 @@
         </div>
 
         {if $haspdflib or $hasps}
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <div class="col-sm-4">
-                    <select name="format" class="form-control">
+                    <select name="format" class="form-select">
                         <option>Letter</option>
                         <option>Legal</option>
                         <option>A4</option>
@@ -61,7 +61,7 @@
                     </select>
                 </div>
                 <div class="col-sm-4">
-                    <select name="orientation" class="form-control">
+                    <select name="orientation" class="form-select">
                         <option value="landscape">{tr}Landscape{/tr}</option>
                         <option value="portrait">{tr}Portrait{/tr}</option>
                     </select>
@@ -77,7 +77,7 @@
             </div>
         {/if}
         {if $hasgd}
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <div class="col-sm-2 mb-2">
                     <input type="text" name="width" value="500" size="4" class="form-control">
                 </div>
@@ -152,7 +152,7 @@
         <input type="hidden" name="width" value="{$im_width}">
         <input type="hidden" name="height" value="{$im_height}">
 
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-form-label col-sm-4">{tr}Title:{/tr}</label>
             <div class="col-sm-4">
                 <input type="text" name="title" value="{$title}" class="form-control" onchange="renderWikiPlugin()">
@@ -160,7 +160,7 @@
         </div>
 
         {if $showgridparam}
-            <div class="form-group row mb-0">
+            <div class="row mb-0">
                 <label class="col-form-label col-sm-4">{tr}Independant Scale:{/tr}</label>
                 <div class="col-sm-2">
                     <div class="form-check">
@@ -179,7 +179,7 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group row mb-0">
+            <div class="row mb-0">
                 <label class="col-form-label col-sm-4">{tr}Horizontal Scale:{/tr}</label>
                 <div class="col-sm-2">
                     <div class="form-check">
@@ -198,7 +198,7 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-form-label col-sm-4">{tr}Vertical Scale:{/tr}</label>
                 <div class="col-sm-2">
                     <div class="form-check">
@@ -219,11 +219,11 @@
             </div>
         {/if}
 
-        <div class="form-group row">
+        <div class="mb-3 row">
             {tr}Series:{/tr}
         </div>
         {section name=i loop=$series}
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-form-label col-sm-4">{$series[i]}</label>
                 <div class="col-sm-4">
                     <input type="text" name="series[{$series[i]}]" class="form-control" onchange="renderWikiPlugin()">
@@ -231,7 +231,7 @@
             </div>
         {/section}
 
-        <div class="form-group row">
+        <div class="mb-3 row">
             <input type="submit" class="btn btn-primary btn-sm" value="{tr}Show{/tr}">
         </div>
 

@@ -36,12 +36,12 @@
                     {if $msg.isFlagged eq 'y'}
                         <input type="hidden" name="actionval" value="n">
                         <button type="submit" class="btn btn-link">
-                            <i class="fas fa-flag tips" aria-hidden="true" title="{tr}Flagged:Click to unflag{/tr}"></i>
+                            <i class="fas fa-flag tips" aria-hidden="true" title="{tr}Flagged: Click to unflag{/tr}"></i>
                         </button>
                     {else}
                         <input type="hidden" name="actionval" value="y">
                         <button type="submit" class="btn btn-link">
-                            <i class="far fa-flag tips" aria-hidden="true" title="{tr}Not flagged:Click to flag{/tr}"></i>
+                            <i class="far fa-flag tips" aria-hidden="true" title="{tr}Not flagged: Click to flag{/tr}"></i>
                         </button>
                     {/if}
                 </form>
@@ -62,7 +62,7 @@
                     <input type="hidden" name="subject" value="{tr}Re:{/tr} {$msg.subject|escape}">
                     <input type="hidden" name="body" value="{$msg.body|quoted:$quote_format:$msg.user_from|escape}">
                     <input type="hidden" name="replyto_hash" value="{$msg.hash}">
-                    <input type="submit" class="btn btn-primary btn-sm float-sm-right" name="reply" value="{tr}Reply{/tr}">
+                    <input type="submit" class="btn btn-primary btn-sm float-sm-end" name="reply" value="{tr}Reply{/tr}">
                 </form>
         </div>
         <div class="col-xs-4 col-sm-3 col-lg-2">
@@ -83,7 +83,7 @@
                     <input type="hidden" name="subject" value="{tr}Re:{/tr} {$msg.subject|escape}">
                     <input type="hidden" name="body" value="{$msg.body|quoted:$quote_format:$msg.user_from|escape}">
                     <input type="hidden" name="replyto_hash" value="{$msg.hash}">
-                    <button type="submit" class="btn btn-primary btn-sm float-sm-right" name="replyall" value="{tr}replyall{/tr}">{tr}Reply All{/tr}</button>
+                    <button type="submit" class="btn btn-primary btn-sm float-sm-end" name="replyall" value="{tr}replyall{/tr}">{tr}Reply All{/tr}</button>
                 </form>
         </div>
         <div class="col-xs-4 col-sm-3 col-lg-2">
@@ -105,7 +105,7 @@
                 {/if}
                 <input
                     type="submit"
-                    class="btn btn-danger btn-sm float-sm-right"
+                    class="btn btn-danger btn-sm float-sm-end"
                     name="delete"
                     value="{tr}Delete{/tr}"
                     onclick="confirmPopup('{tr}Delete message?{/tr}')"

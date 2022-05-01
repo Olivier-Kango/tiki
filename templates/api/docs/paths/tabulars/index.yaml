@@ -1,0 +1,22 @@
+---
+get:
+  description: Get all tracker tabular formats that target user can see.
+  responses:
+    '200':
+      description: tabular response
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              list:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    tabularId:
+                      type: integer
+                    trackerId:
+                      type: integer
+                    name:
+                      type: string

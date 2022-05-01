@@ -33,8 +33,8 @@
 }
 
 .calhighlight {
-    color: theme-color("info");
-    background: lighten(theme-color("info"), 70%);
+    color: $info;
+    background: lighten($info, 70%);
 }
 
 a.fc-event:hover {
@@ -124,15 +124,15 @@ a.fc-event:hover {
 }
 
 .status0 {
-    background: theme-color("info");
+    background: $info;
 }
 
 .status1 {
-    background: theme-color("success");
+    background: $success;
 }
 
 .status2 {
-    background: theme-color("danger");
+    background: $danger;
 }
 
 @media (min-width: breakpoint-min(lg)) {

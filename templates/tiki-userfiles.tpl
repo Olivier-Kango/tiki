@@ -18,10 +18,10 @@
     <div class="table-responsive">
         <table class="table">
             <tr>
-                <th style="text-align:center;">&nbsp;</th>
+                <th class="text-center">&nbsp;</th>
                 <th><a href="tiki-userfiles.php?offset={$offset}&amp;sort_mode={if $sort_mode eq 'filename_desc'}filename_asc{else}filename_desc{/if}">{tr}Name{/tr}</a></th>
                 <th><a href="tiki-userfiles.php?offset={$offset}&amp;sort_mode={if $sort_mode eq 'created_desc'}created_asc{else}created_desc{/if}">{tr}Created{/tr}</a></th>
-                <th style="text-align:right;">
+                <th class="text-end">
                     <a href="tiki-userfiles.php?offset={$offset}&amp;sort_mode={if $sort_mode eq 'filesize_desc'}filesize_asc{else}filesize_desc{/if}">
                         {tr}Size{/tr}
                     </a>
@@ -57,7 +57,7 @@
 
 <h2>{tr}Upload file{/tr}</h2>
 <form enctype="multipart/form-data" action="tiki-userfiles.php" method="post">
-    <div class="form-group row">
+    <div class="mb-3 row">
         <div class="col-sm-4">
             {tr}Upload file:{/tr}
         </div>

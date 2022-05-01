@@ -33,7 +33,7 @@
                         type="submit"
                         name="refresh_all"
                         value="y"
-                        class="btn btn-secondary float-sm-right tips"
+                        class="btn btn-secondary float-sm-end tips"
                         title=":{tr}Please be patient, this may take a while{/tr}"
                 >
                     {icon name="refresh" _menu_text='y' _menu_icon='y' alt="{tr}Refresh all feeds{/tr}"}
@@ -158,55 +158,55 @@
         <form action="tiki-admin_rssmodules.php" method="post">
             {ticket}
             <input type="hidden" name="rssId" value="{$rssId|escape}">
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label for="name" class="col-form-label col-sm-3">{tr}Name{/tr}</label>
                 <div class="col-sm-9">
                     <input type="text" name="name" value="{$name|escape}" class="form-control">
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label for="url" class="col-form-label col-sm-3">{tr}URL{/tr}</label>
                 <div class="col-sm-9">
                     <input type="url" name="url" value="{$url|escape}" class="form-control">
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label for="description" class="col-form-label col-sm-3">{tr}Description{/tr}</label>
                 <div class="col-sm-9">
                     <textarea name="description" rows="4" class="form-control">{$description|escape}</textarea>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label for="refreshMinutes" class="col-form-label col-sm-3">{tr}Refresh rate{/tr}</label>
                 <div class="col-sm-9">
-                    <select class="form-control" name="refreshMinutes">
+                    <select class="form-select" name="refreshMinutes">
                         {foreach [1, 5, 10, 15, 20, 30, 45, 60, 90, 120, 360, 720, 1440] as $min}
                             <option value="{$min|escape}" {if $refreshSeconds eq ($min*60)}selected="selected"{/if}>{($min*60)|duration}</option>
                         {/foreach}
                     </select>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <div class="col-sm-9 offset-sm-3">
                     <div class="form-check">
-                        <label class="form-check-label">
+                        <label class="form-label form-check-label">
                             <input type="checkbox" class="form-check-input" name="showTitle" {if $showTitle eq 'y'}checked="checked"{/if}>
                             {tr}Show feed title{/tr}
                         </label>
                     </div>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <div class="col-sm-9 offset-sm-3">
                     <div class="form-check">
-                        <label class="form-check-label">
+                        <label class="form-label form-check-label">
                             <input type="checkbox" class="form-check-input" name="showPubDate" {if $showPubDate eq 'y'}checked="checked"{/if}>
                             {tr}Show publish date{/tr}
                         </label>
                     </div>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <div class="col-sm-9 offset-sm-3">
                     <input type="submit" class="btn btn-primary" name="save" value="{tr}Save{/tr}">
                 </div>
@@ -229,7 +229,7 @@
 
             <form method="post" action="">
                 {ticket}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label for="article_active" class="col-form-label col-sm-3">{tr}Enable{/tr}</label>
                     <div class="col-sm-9">
                         <div class="form-check">
@@ -245,7 +245,7 @@
                     </div>
                 </div>
                 {if $prefs.feature_submissions eq 'y'}
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label for="article_submission" class="col-form-label col-sm-3">{tr}Use article submission system{/tr}</label>
                         <div class="col-sm-9">
                             <div class="form-check">
@@ -261,7 +261,7 @@
                         </div>
                     </div>
                 {/if}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label for="article_expiry" class="col-form-label col-sm-3">{tr}Expiration{/tr}</label>
                     <div class="col-sm-9">
                         <div class="input-group">
@@ -272,13 +272,11 @@
                                 class="form-control"
                                 value="{$articleConfig.expiry|escape}"
                             >
-                            <div class="input-group-append">
-                                <span class="input-group-text">{tr}days{/tr}</span>
-                            </div>
+                            <span class="input-group-text">{tr}days{/tr}</span>
                         </div>
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label for="article_future_publish" class="col-form-label col-sm-3">{tr}Publish in the future{/tr}</label>
                     <div class="col-sm-9">
                         <div class="input-group">
@@ -289,9 +287,7 @@
                                 class="form-control"
                                 value="{$articleConfig.future_publish|escape}"
                             >
-                            <div class="input-group-append">
-                                <span class="input-group-text">{tr}minutes{/tr}</span>
-                            </div>
+                            <span class="input-group-text">{tr}minutes{/tr}</span>
                         </div>
                         <div class="form-text">
                             {tr}Enter -1 to use original publishing date from the feed{/tr}
@@ -300,7 +296,7 @@
                 </div>
                 <fieldset>
                     <legend>{tr}Default Settings{/tr}</legend>
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label for="article_type" class="col-form-label col-sm-3">{tr}Type{/tr}</label>
                         <div class="col-sm-9">
                             <select id="article_type" name="type" class="form-control">
@@ -310,7 +306,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label for="article_topic" class="col-form-label col-sm-3">{tr}Topic{/tr}</label>
                         <div class="col-sm-9">
                             <select id="article_topic" name="topic" class="form-control">
@@ -321,7 +317,7 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label for="article_rating" class="col-form-label col-sm-3">{tr}Rating{/tr}</label>
                         <div class="col-sm-9">
                             <select id="article_rating" name="rating" class="form-control">
@@ -332,7 +328,7 @@
                         </div>
                     </div>
                     {if $prefs.feature_multilingual eq 'y'}
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label for="article_language" class="col-form-label col-sm-3">{tr}Language{/tr}</label>
                             <div class="col-sm-9">
                                 <select id="article_language" name="a_lang" class="form-control">
@@ -404,14 +400,14 @@
                 </fieldset>
                 <fieldset>
                     <legend>{tr}Categorize Created Articles{/tr}</legend>
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <div class="col-sm-9 offset-sm-3">
                             {include file='categorize.tpl'}
                         </div>
                     </div>
                 </fieldset>
                 <fieldset>
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <input type="submit" class="btn btn-primary" value="{tr}Save{/tr}">
                     </div>
                 </fieldset>

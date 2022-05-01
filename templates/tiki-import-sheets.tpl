@@ -37,7 +37,7 @@
 {else}
     <form method="post" action="tiki-import_sheet.php?mode=import&sheetId={$sheetId}" enctype="multipart/form-data" class="mb-4">
         <h2>{tr}Import From File{/tr}</h2>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-form-label col-sm-3">{tr}Format:{/tr}</label>
             <div class="col-sm-6">
                 <select name="handler" class="form-control">
@@ -48,7 +48,7 @@
             </div>
         </div>
 
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-form-label col-sm-3">{tr}Charset encoding:{/tr}</label>
             <div class="col-sm-6">
                 <select name="encoding" class="form-control">
@@ -60,13 +60,13 @@
             </div>
         </div>
 
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-form-label col-sm-3">{tr}File to import:{/tr}</label>
             <div class="col-sm-6">
                 <input type="file" name="file" class="form-control">
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <div class="col-sm-6 offset-sm-3">
                 <input type="submit" class="btn btn-primary" value="{tr}Import{/tr}">
             </div>
@@ -75,7 +75,7 @@
 
     <form method="post" action="tiki-import_sheet.php?mode=import&sheetId={$sheetId}">
         <h2>{tr}Grab Wiki Tables{/tr}</h2>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <div class="col-sm-6">
                 <input id="querypage" type="text" name="page" class="form-control">
                 <input type="hidden" name="handler" value="TikiSheetWikiTableHandler">

@@ -16,8 +16,8 @@
         {tr}To add new options to the menu set the optionId field to 0. To remove an option set the remove field to 'y'.{/tr}
         {tr}Duplicate options will be ignored.{/tr}
     {/remarksbox}
-    <form action="{service controller=menu action=import_menu_options menuId=$menuId}" method="post" enctype="multipart/form-data" role="form" class="no-ajax form-inline">
-        <div class="form-group">
+    <form action="{service controller=menu action=import_menu_options menuId=$menuId}" method="post" enctype="multipart/form-data" role="form" class="no-ajax d-flex flex-row flex-wrap align-items-center">
+        <div class="mb-3">
             <label for="csvfile" class="mr-2">
                 {tr}File{/tr}
             </label>

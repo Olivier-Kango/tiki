@@ -1,14 +1,14 @@
 {* $Id$ *}
 
-<div class="media">
-    <div class="mr-4">
-    <span class="float-left fa-stack fa-lg margin-right-18em" alt="{tr}Changes Wizard{/tr}" title="Changes Wizard">
+<div class="d-flex">
+    <div class="me-4">
+    <span class="float-start fa-stack fa-lg margin-right-18em" alt="{tr}Changes Wizard{/tr}" title="Changes Wizard">
         <i class="fas fa-arrow-circle-up fa-stack-2x"></i>
-        <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ml-4 mt-4"></i>
+        <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ms-4 mt-4"></i>
     </span>
     </div>
     <br/><br/><br/>
-    <div class="media-body">
+    <div class="flex-grow-1 ms-3">
         {tr}Main new features and settings in Tiki 13{/tr}.
         <a href="http://doc.tiki.org/Tiki13" target="tikihelp" class="tikihelp" title="{tr}Tiki13:{/tr}
             {tr}Tiki13 is a post-LTS version{/tr}.
@@ -52,7 +52,7 @@
         </fieldset>
         <fieldset class="mb-3 w-100 clearfix featurelist">
             <legend>{tr}Jitsi{/tr}</legend>
-            <div class="form-row">
+            <div class="d-flex flex-wrap mx-0">
                 <label for="jitsi-url">{tr}Provision URL{/tr}</label>
                 <input id="jitsi-url" readonly type="text" value="{$jitsi_url|escape}" class="form-control">
             </div>

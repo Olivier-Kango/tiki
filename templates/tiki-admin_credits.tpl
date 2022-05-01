@@ -3,10 +3,10 @@
 
 {title help="Credits"}{tr}Manage Credits{/tr}{/title}
 
-<form method="get" action="tiki-admin_credits.php" class="form-inline">
-    <label class="my-1 mr-2" for="userfilter">{tr}Username:{/tr}</label>
-    <input class="form-control" type="text" name="userfilter" id="userfilter" value="{$userfilter|escape}">
-    <input  class="btn btn-info" type="submit" value="{tr}Search{/tr}">
+<form method="get" action="tiki-admin_credits.php" class="row g-3 mb-4 align-items-center">
+    <div class="col-auto"><label class="form-label" for="userfilter">{tr}Username:{/tr}</label></div>
+    <div class="col-auto"><input class="form-control" type="text" name="userfilter" id="userfilter" value="{$userfilter|escape}"></div>
+    <div class="col-auto"><input  class="btn btn-info" type="submit" value="{tr}Search{/tr}"></div>
 </form>
 
 {if $new_month}{$new_month}{/if}
@@ -82,7 +82,7 @@
 <h2>{tr}Use User Credits{/tr}</h2>
 <form method="post" action="tiki-admin_credits.php">
     {tr}Use:{/tr}
-    <select class="form-control" name="use_credit_type">
+    <select class="form-select" name="use_credit_type">
         {foreach key=id item=data from=$credit_types}
             <option value="{$id}">{$id|escape}</option>
         {/foreach}
@@ -96,7 +96,7 @@
 <h2>{tr}Restore User Level Credits{/tr}</h2>
 <form method="post" action="tiki-admin_credits.php">
     {tr}Restore:{/tr}
-    <select class="form-control" name="restore_credit_type">
+    <select class="form-select" name="restore_credit_type">
         {foreach key=id item=data from=$static_credit_types}
             <option value="{$id}">{$id|escape}</option>
         {/foreach}
@@ -168,7 +168,7 @@
                 <td><input class="form-control" type="text" name="credit_types[{$id|escape}][credit_type]" value="{$data.credit_type|escape}" size="8" readonly="readonly"></td>
                 <td><input class="form-control" type="text" name="credit_types[{$id|escape}][display_text]" value="{$data.display_text|escape}" size="8"></td>
                 <td><input class="form-control" type="text" name="credit_types[{$id|escape}][unit_text]" value="{$data.unit_text|escape}" size="8"></td>
-                <td><select class="form-control" name="credit_types[{$id|escape}][is_static_level]">
+                <td><select class="form-select" name="credit_types[{$id|escape}][is_static_level]">
                 <option value='n'>{tr}No{/tr}</option>
                 <option value='y' {if $data.is_static_level == 'y'}selected="selected"{/if}>{tr}Yes{/tr}</option>
                 </select>
@@ -181,7 +181,7 @@
                 <td><input class="form-control" type="text" name="display_text" value="" size="8"></td>
                 <td><input class="form-control" type="text" name="unit_text" value="" size="8"></td>
                 <td>
-                    <select class="form-control" name="is_static_level">
+                    <select class="form-select" name="is_static_level">
                     <option value='n'>{tr}No{/tr}</option>
                     <option value='y'>{tr}Yes{/tr}</option>
                     </select>

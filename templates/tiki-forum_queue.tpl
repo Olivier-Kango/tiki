@@ -1,18 +1,18 @@
 {title help="forums" admpage="forums"}{$forum_info.name}{/title}
 <h4>
     {tr}Queued messages{/tr}
-    <span class="badge badge-secondary">{$cant}</span>
+    <span class="badge bg-secondary">{$cant}</span>
     {icon name="refresh" href="tiki-forum_queue.php?forumId=$forumId" class="btn btn-link tips" title=":{tr}Refresh list{/tr}"}
 </h4>
 
 {if $smarty.request.qId and $form eq 'y'}
-    <form method="post" action="tiki-forum_queue.php" role="form" class="form-horizontal">
+    <form method="post" action="tiki-forum_queue.php" role="form">
         <div class="card">
             <div class="card-header">
                 {tr}Edit queued message{/tr}
             </div>
             <div class="card-body">
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label for="title" class="col-form-label col-sm-2">
                         {tr}Title{/tr}
                     </label>
@@ -21,12 +21,12 @@
                     </div>
                 </div>
                 {if $msg_info.parentId > 0}
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label for="parentId" class="col-form-label col-sm-2">
                             {tr}Topic{/tr}
                         </label>
                         <div class="col-sm-10">
-                            <select name="parentId" class="form-control">
+                            <select name="parentId" class="form-select">
                                 {section name=ix loop=$topics}
                                     <option value="{$topics[ix].threadId|escape}" {if $topics[ix].threadId eq $msg_info.parentId}selected="selected"{/if}>{$topics[ix].title|escape}</option>
                                 {/section}
@@ -34,12 +34,12 @@
                         </div>
                     </div>
                 {else}
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label for="parentId" class="col-form-label col-sm-2">
                             {tr}Make this a thread of{/tr}
                         </label>
                         <div class="col-sm-10">
-                            <select name="parentId" class="form-control">
+                            <select name="parentId" class="form-select">
                                 <option value="0" {if $topics[ix].threadId eq $msg_info.parentId}selected="selected"{/if}>{tr}None, this is a thread message{/tr}</option>
                                 {section name=ix loop=$topics}
                                     <option value="{$topics[ix].threadId|escape}" {if $topics[ix].threadId eq $msg_info.parentId}selected="selected"{/if}>{$topics[ix].title|escape}</option>
@@ -49,7 +49,7 @@
                     </div>
                 {/if}
                 {if $msg_info.parentId eq 0 and $forum_info.topic_summary eq 'y'}
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label for="summary" class="col-form-label col-sm-2">
                             {tr}summary{/tr}
                         </label>
@@ -59,12 +59,12 @@
                     </div>
                 {/if}
                 {if $msg_info.parentId eq 0}
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label for="type" class="col-form-label col-sm-2">
                             {tr}Type{/tr}
                         </label>
                         <div class="col-sm-10">
-                            <select name="type" class="form-control">
+                            <select name="type" class="form-select">
                                 <option value="n" {if $msg_info.type eq 'n'}selected="selected"{/if}>{tr}Normal{/tr}</option>
                                 <option value="a" {if $msg_info.type eq 'a'}selected="selected"{/if}>{tr}Announce{/tr}</option>
                                 <option value="h" {if $msg_info.type eq 'h'}selected="selected"{/if}>{tr}Hot{/tr}</option>
@@ -72,7 +72,7 @@
                                 <option value="l" {if $msg_info.type eq 'l'}selected="selected"{/if}>{tr}Locked{/tr}</option>
                             </select>
                             {if $forum_info.topic_smileys eq 'y'}
-                                <select name="topic_smiley" class="form-control">
+                                <select name="topic_smiley" class="form-select">
                                     <option value="" {if $msg_info.topic_smiley eq ''}selected="selected"{/if}>{tr}no feeling{/tr}</option>
                                     <option value="icon_frown.gif" {if $msg_info.topic_smiley eq 'icon_frown.gif'}selected="selected"{/if}>{tr}frown{/tr}</option>
                                     <option value="icon_exclaim.gif" {if $msg_info.topic_smiley eq 'icon_exclaim.gif'}selected="selected"{/if}>{tr}exclaim{/tr}</option>
@@ -88,7 +88,7 @@
                         </div>
                     </div>
                 {/if}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label for="data" class="col-form-label col-sm-2">
                         {tr}Body{/tr}
                     </label>
@@ -113,15 +113,13 @@
 {* FILTERING FORM *}
 {if $items or ($find ne '')}
     <form action="tiki-forum_queue.php" method="post" class="form">
-        <div class="form-group row">
+        <div class="mb-3 row">
             <input type="hidden" name="forumId" value="{$forumId|escape}">
             <input type="hidden" name="offset" value="{$offset|escape}">
             <input type="hidden" name="sort_mode" value="{$sort_mode|escape}">
             <div class="input-group">
                 <input type="text" name="find" value="{$find|escape}" class="form-control" placeholder="{tr}Find{/tr}...">
-                <div class="input-group-append">
-                    <input type="submit" class="btn btn-primary" name="filter" value="{tr}Filter{/tr}">
-                </div>
+                <input type="submit" class="btn btn-primary" name="filter" value="{tr}Filter{/tr}">
             </div>
         </div>
     </form>

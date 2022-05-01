@@ -4,6 +4,7 @@
 @import "bs3-bs4-transition.scss";
 @import "../../default/scss/variables";
 @import "../../../vendor_bundled/vendor/twbs/bootstrap/scss/mixins/buttons";
+$enable-negative-margins: true;
 $padding-y: .5rem !default; // Not sure where this is used besides buttons and pagination; not sure where it's defined in BS4
 $padding-x: .75rem !default;
 $module-h3-card-title-font-size: $h4-font-size !default;
@@ -13,7 +14,8 @@ $topbar-row-sidemargins: 0 !default;
 $topbar-row-margin-bottom: 1.4rem !default;
 //$panel-heading-padding: .8rem 15px !default;
 $navbar-fixed-height: 3.25rem !default;
-$form-horizontal-sidemargins: 15px !default;
+// Update: .form-horizontal was dropped with Bootstrap 4, so this hasn't worked for a long time.
+//$form-horizontal-sidemargins: 15px !default;
 
 // Add Tiki legacy breadcrumb styles as variables.
 $breadcrumb-font-style: normal !default;
@@ -69,8 +71,8 @@ $table-column-bg-odd: darken($table-accent-bg, 5%) !default;
 $bootstrap-path: "../../../twbs/bootstrap/scss/" !default;
 
 // inline code
-$code-color: #444444 !default !default;
-$code-bg: #f8f8f8 !default !default;
+$code-color: $gray-900; // not using !default as these are bootstrap vars
+$code-bg:    $gray-100;
 
 // Tracker
 $modal-link-color: $link-color !default;
@@ -84,8 +86,8 @@ $pvt-color: $body-color !default;
 $pvt-bg: $table-bg !default;
 $pvt-font-size: $font-size-base !default;
 $pvt-table-bg: $table-bg !default;
-$pvt-table-th-bg: $table-head-bg !default;
-$pvt-table-th-color: $table-head-color !default;
+$pvt-table-th-bg: $table-striped-bg !default;
+$pvt-table-th-color: $table-color !default;
 $pvt-table-border-color: $table-border-color !default;
 $pvt-modal-content-bg: $modal-content-bg !default;
 $pvtAttr-color: $btn-primary-color !default;
@@ -105,8 +107,8 @@ $tiki-sheet-font-size: $font-size-base !default;
 $tiki-sheet-border-color: $table-border-color !default;
 
 // CKEditor colors
-$editor-bg: $body-bg !default !default;
-$editor-text-color: $body-color !default !default;
+$editor-bg: $body-bg !default;
+$editor-text-color: $body-color !default;
 
 //jQuery-UI
 $ui-default-border: $nav-tabs-border-color !default;

@@ -1,14 +1,14 @@
 {* $Id$ *}
 
-<div class="media">
-        <div class="mr-4">
-            <span class="float-left fa-stack fa-lg margin-right-18em" alt="{tr}Changes Wizard{/tr}" title="Changes Wizard">
+<div class="d-flex">
+        <div class="flex-shrink-0 mb-3">
+            <span class="float-start fa-stack fa-lg margin-right-18em" alt="{tr}Changes Wizard{/tr}" title="Changes Wizard">
             <i class="fas fa-arrow-circle-up fa-stack-2x"></i>
-            <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ml-4 mt-4"></i>
+            <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ms-4 mt-4"></i>
             </span>
         </div>
-    <br/><br/><br/>
-    <div class="media-body">
+
+    <div class="flex-grow-1 ms-3">
         {tr}Main new and improved features and settings in Tiki 19.{/tr}
         <a href="https://doc.tiki.org/Tiki19" target="tikihelp" class="tikihelp text-info" title="{tr}Tiki19:{/tr}
             {tr}It is a Standard Term Support (STS) version.{/tr}
@@ -21,7 +21,7 @@
         </a>
         <fieldset class="mb-3 w-100 clearfix featurelist">
             <legend>{tr}New Features{/tr}</legend>
-            <div class="adminoption form-group row">
+            <div class="adminoption mb-3 row">
                 <ul><li>{tr}Federation{/tr}: <a class="adminoption" href="tiki-admin_sync.php">{tr}Synchronize Dev{/tr}</a>
                     <a href="https://doc.tiki.org/Sync%20Dev-Prod%20Servers" target="tikihelp" class="tikihelp text-info" title="{tr}Tiki19:{/tr}
                         {tr}Use this tool if you have at least two different Tiki instances serving as development, staging or production instances. You can compare differences between Tiki configuration, wiki pages and their contents as well as tracker and field configurations. Especially useful when changes from a development server needs to be applied to production one. This tool will only show differences between instances, you will still have to manually apply the changes to the production one.{/tr}
@@ -31,7 +31,7 @@
                     {icon name="help" size=1}
                 </a></li></ul>
             </div>
-            <div class="adminoption form-group row">
+            <div class="adminoption mb-3 row">
             </div>
         </fieldset>
         <fieldset>
@@ -70,7 +70,7 @@
         </fieldset>
         <fieldset class="mb-3 w-100 clearfix featurelist">
             <legend>{tr}Other Extended Features{/tr}</legend>
-            <div class="adminoption form-group row">
+            <div class="adminoption mb-3 row">
                 <label class="col-sm-3 col-form-label"><b>{tr}Scheduler{/tr}</b>:</label>
                 <div class="offset-sm-1 col-sm-11">
                     {tr}New actions can be performed.{/tr}
@@ -78,7 +78,7 @@
                 </div>
             </div>
             {* {preference name=foo} *}
-            <div class="adminoption form-group row">
+            <div class="adminoption mb-3 row">
                 <label class="col-sm-3 col-form-label"><b>{tr}Trackers{/tr}</b>:</label>
                 <ul>
                     <li>{tr}Added a preview button in tracker field files to enable pdf view in new window without download document{/tr}</li>
@@ -118,7 +118,7 @@
             </div>
         </fieldset>
         <fieldset class="mb-3 w-100 clearfix featurelist">
-            <legend>{icon name="admin_profiles" size=2 iclass="float-left"}{tr}New Profiles{/tr}</legend>
+            <legend>{icon name="admin_profiles" size=2 iclass="float-start"}{tr}New Profiles{/tr}</legend>
             <ul>
                 <li>{tr}GanttChart{/tr}
                     <a href="https://profiles.tiki.org/GanttChart" target="tikihelp" class="tikihelp" title="{tr}GanttChart:{/tr}

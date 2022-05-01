@@ -156,6 +156,12 @@ if (strlen($_REQUEST["page"]) > $max_pagename_length) {
     die;
 }
 
+if (strtolower($_REQUEST["page"]) == 'sandbox' && $prefs['feature_sandbox'] !== 'y') {
+    $smarty->assign('msg', tra("You can’t name a page 'Sandbox' because it is reserved for the Sandbox feature"));
+    $smarty->display("error.tpl");
+    die;
+}
+
 $page = $_REQUEST["page"];
 
 $max_pagedescription_length = 200;

@@ -9,6 +9,7 @@
 namespace Tiki\Yaml\Directive;
 
 use Symfony\Component\Yaml\Yaml;
+use Symfony\Component\Yaml\Tag\TaggedValue;
 
 class DirectiveInclude
 {
@@ -64,7 +65,11 @@ class DirectiveInclude
 
     protected function parse($str)
     {
-        $str = trim(substr($str, strlen('!include')));
+        if ($str instanceOf TaggedValue) {
+            $str = $str->getValue();
+        } else {
+            $str = trim(substr($str, strlen('!include')));
+        }
         $parts = explode(" ", $str);
         return $parts;
     }

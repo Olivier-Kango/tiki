@@ -56,7 +56,7 @@
                     <b>{$fgal_listing_conf.$propname.name}</b>
                 </td>
                 <td>
-                    <span class="float-left">{$propval}</span>
+                    <span class="float-start">{$propval}</span>
                 </td>
             </tr>
         {/if}

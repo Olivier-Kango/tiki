@@ -15,29 +15,29 @@
 {block name="content"}
 
     <form class="edit-tabular" method="post" action="{service controller=tabular action=create_tracker}" enctype="multipart/form-data">
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-form-label col-sm-3">{tr}Name{/tr}</label>
             <div class="col-sm-9">
                 <input class="form-control" type="text" name="name" maxlength="255" required>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-form-label col-sm-3">{tr}Tracker Name{/tr}</label>
             <div class="col-sm-9">
                 <input class="form-control" type="text" name="tracker_name" maxlength="255" required>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-form-label col-sm-3">{tr}File Delimiter{/tr}</label>
             <div class="col-sm-9">
-                <select class="form-control file-delimiter">
+                <select class="form-select file-delimiter">
                     <option value="comma" selected>{tr}Comma (,){/tr}</option>
                     <option value="semicolon">{tr}Semicolon (;){/tr}</option>
                 </select>
                 <input type="hidden" id="delimiter" name="delimiter" value="comma">
             </div>
         </div>
-        <div class="form-group row file-container">
+        <div class="mb-3 row file-container">
             <label class="col-form-label col-sm-3">{tr}File{/tr}</label>
             <div class="col-sm-9">
                 <input type="file" name="file" accept="text/csv" class="form-control" required>
@@ -46,7 +46,7 @@
                 </div>
             </div>
         </div>
-        <div id="tracker-columns" class="form-group row" style="display:none">
+        <div id="tracker-columns" class="mb-3 row" style="display:none">
             <div class="col-sm-12">
                 <table class="table fields">
                     <thead>
@@ -65,8 +65,8 @@
                         <td>
                             <div class="input-group input-group-sm">
                                 <input type="text" class="field-label form-control" readonly/>
-                                <div class="input-group-append">
-                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <div class="input-group-text">
+                                    <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                         <span class="align">{tr}Left{/tr}</span>
                                         <input class="display-align" type="hidden" value="left">
                                     </button>
@@ -79,8 +79,8 @@
                                 </div>
                             </div>
                         </td>
-                        <td class="form-group">
-                            <select class="form-control type">
+                        <td class="mb-3">
+                            <select class="form-select type">
                                 {foreach from=$types key=k item=info}
                                     <option value="{$k}" {if $k eq 't'}selected{/if}>{$info.name|escape} {if $info.deprecated}- Deprecated{/if}</option>
                                 {/foreach}
@@ -94,7 +94,7 @@
                         <td><input class="unique-key" type="checkbox" /></td>
                         <td><input class="read-only" type="checkbox" /></td>
                         <td><input class="export-only" type="checkbox" /></td>
-                        <td class="text-right"><button class="remove">{icon name=remove}</button></td>
+                        <td class="text-end"><button class="remove">{icon name=remove}</button></td>
                     </tr>
                     </tbody>
                     <tfoot>
@@ -113,7 +113,7 @@
                 </div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="form-check-label col-sm-3">{tr}Simple headers{/tr}</label>
             <div class="col-sm-9">
                 <div class="form-check">
@@ -125,7 +125,7 @@
                 </div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="form-check-label col-sm-3">{tr}Import updates{/tr}</label>
             <div class="col-sm-9">
                 <div class="form-check">
@@ -136,7 +136,7 @@
                 </div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="form-check-label col-sm-3">{tr}Ignore blanks{/tr}</label>
             <div class="col-sm-9">
                 <div class="form-check">
@@ -147,7 +147,7 @@
                 </div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="form-check-label col-sm-3">{tr}Transactional import{/tr}</label>
             <div class="col-sm-9">
                 <div class="form-check">
@@ -158,7 +158,7 @@
                 </div>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="form-check-label col-sm-3">{tr}Bulk import{/tr}</label>
             <div class="col-sm-9">
                 <div class="form-check">
@@ -169,7 +169,7 @@
                 </div>
             </div>
         </div>
-        <div class="form-group submit">
+        <div class="mb-3 submit">
             <div class="col-sm-9 offset-sm-3">
                 <input type="submit" class="btn btn-primary" value="{tr}Import{/tr}">
             </div>

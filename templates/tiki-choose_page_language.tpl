@@ -12,7 +12,7 @@
     <form method="post" action="tiki-editpage.php?page={$page|escape:'url'}" id='editpageform' name='editpageform'>
         {* Repeat all arguments from the page creation request *}
         {query _type='form_input' _keepall='y' need_lang='n'}
-        <div class="form-group row">
+        <div class="mb-3 row">
             <div class="col-sm-6 input-group">
                 <select name="lang" class="form-control">
                     <option value="">{tr}Unknown{/tr}</option>
@@ -22,9 +22,7 @@
                         </option>
                     {/section}
                 </select>
-                <span class="input-group-append">
-                    <input type="submit" class="btn btn-primary" name="select_language" value="{tr}Choose language{/tr}" onclick="needToConfirm=false;">
-                </span>
+                <input type="submit" class="btn btn-primary" name="select_language" value="{tr}Choose language{/tr}" onclick="needToConfirm=false;">
             </div>
         </div>
     </form>

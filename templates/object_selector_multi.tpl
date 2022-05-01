@@ -26,7 +26,7 @@
     data-searchfield="{$object_selector_multi.searchfield|escape}"
 >{"\n"|implode:$object_selector_multi.current_selection}</textarea>
     <div class="basic-selector d-none">
-        <select class="form-control" multiple>
+        <select class="form-select" multiple>
             {foreach $object_selector_multi.current_selection as $object}
                 <option value="{$object|escape}" selected="selected">{$object.title|escape}</option>
             {/foreach}
@@ -36,15 +36,11 @@
     <div class="card d-none">
         <div class="card-header">
             <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text">
-                        {icon name=search}
-                    </span>
-                </div>
+                <span class="input-group-text">
+                    {icon name=search}
+                </span>
                 <input type="text" placeholder="{$object_selector_multi.placeholder|escape}..." value="" class="filter form-control" autocomplete="off">
-                <div class="input-group-append">
-                    <input type="button" class="btn btn-info search" value="{tr}Find{/tr}">
-                </div>
+                <input type="button" class="btn btn-info search" value="{tr}Find{/tr}">
             </div>
         </div>
         <div class="card-body">

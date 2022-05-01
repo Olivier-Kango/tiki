@@ -8,7 +8,7 @@
 
 namespace Tracker\Tabular\Schema;
 
-class Column
+class Column implements \JsonSerializable
 {
     const HEADER_PATTERN = '/\[(\*?)(\w+):([^\]]+)\]$/';
 
@@ -156,9 +156,9 @@ class Column
         return $this->mode;
     }
 
-    public function getEncodedHeader()
+    public function getEncodedHeader($schema)
     {
-        if ($this->isReadOnly) {
+        if ($this->isReadOnly || $schema->isSimpleHeaders()) {
             return $this->label;
         } else {
             $pk = $this->isPrimary ? '*' : '';
@@ -219,8 +219,8 @@ class Column
 
                     throw new \Exception(tr(
                         'Column "%0" cannot co-exist with "%1".',
-                        $column->getEncodedHeader(),
-                        $this->getEncodedHeader()
+                        $column->getEncodedHeader($schema),
+                        $this->getEncodedHeader($this)
                     ));
                 }
             }
@@ -252,5 +252,19 @@ class Column
         };
 
         return $column;
+    }
+
+    public function jsonSerialize()
+    {
+        return [
+            'label' => $this->label,
+            'field' => $this->permName,
+            'mode' => $this->mode,
+            'displayAlign' => $this->displayAlign,
+            'isPrimary' => $this->isPrimary,
+            'isReadOnly' => $this->isReadOnly,
+            'isExportOnly' => $this->isExportOnly,
+            'isUniqueKey' => $this->isUniqueKey,
+        ];
     }
 }

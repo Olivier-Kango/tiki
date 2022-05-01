@@ -9,7 +9,7 @@
 {else}
     {assign var=alink value=''}
 {/if}
-<div class="media">
+<div class="d-flex">
     {if $view neq 'page'}
     {$type = $name|iconify:null:null:null:'filetype'}
     {if $type eq 'image/png' or $type eq 'image/jpeg' or $type eq 'image/jpg'
@@ -34,7 +34,7 @@
             {$name|iconify:$type:null:3}
         {/if}
     </div>
-    <div class="media-body">
+    <div class="flex-grow-1 ms-3">
         {if !empty($filegals_manager)}
             <a {$alink}>{$name|escape} ({$size|kbsize})</a>
         {else}
@@ -64,7 +64,7 @@
         </div>
         <div style="{if $prefs.javascript_enabled eq 'y'}display:none;{/if}" id="uploadinfos{$fileId}">
             <div class="row">
-                <div class="col-sm-6 text-right">
+                <div class="col-sm-6 text-end">
                     {tr}Link to file from a Wiki page:{/tr}
                 </div>
                 <div class="col-sm-6">
@@ -72,12 +72,12 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-6 text-right">
+                <div class="col-sm-6 text-end">
                     <strong><em>{tr}For image files:{/tr}</em></strong>
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-6 text-right">
+                <div class="col-sm-6 text-end">
                     {tr}Display full size:{/tr}
                 </div>
                 <div class="col-sm-6">
@@ -86,7 +86,7 @@
             </div>
             {if $prefs.feature_shadowbox eq 'y'}
                 <div class="row">
-                    <div class="col-sm-6 text-right">
+                    <div class="col-sm-6 text-end">
                         {tr}Display thumbnail that enlarges:{/tr}
                     </div>
                     <div class="col-sm-6">

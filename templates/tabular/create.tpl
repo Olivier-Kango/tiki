@@ -5,7 +5,7 @@
 {/block}
 
 {block name="navigation"}
-    <div class="form-group row">
+    <div class="mb-3 row">
         {permission name=admin_trackers}
             <a class="btn btn-link" href="{service controller=tabular action=manage}">{icon name=list} {tr}Manage{/tr}</a>
         {/permission}
@@ -14,19 +14,19 @@
 
 {block name="content"}
     <form method="post" action="{service controller=tabular action=create}">
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-form-label col-sm-3">{tr}Name{/tr}</label>
             <div class="col-sm-9">
                 <input class="form-control" type="text" name="name" required>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-form-label col-sm-3">{tr}Tracker{/tr}</label>
             <div class="col-sm-9">
                 {object_selector _class="form-control" type="tracker" _simplename="trackerId"}
             </div>
         </div>
-        <div class="form-group row mb-4">
+        <div class="row mb-4">
             <label class="form-check-label col-sm-3">{tr}Initialize this format with the current tracker fields{/tr}</label>
             <div class="col-sm-9">
                 <div class="form-check">
@@ -35,7 +35,7 @@
             </div>
         </div>
         {if $has_odbc}
-        <div class="form-group row mb-4">
+        <div class="row mb-4">
             <label class="form-check-label col-sm-3">{tr}External ODBC source?{/tr}</label>
             <div class="col-sm-9">
                 <div class="form-check">
@@ -44,31 +44,31 @@
             </div>
         </div>
         <div class="odbc-container" style="display: none">
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-form-label col-sm-2 offset-sm-1">{tr}DSN{/tr}</label>
                 <div class="col-sm-9">
                     <input class="form-control" type="text" name="odbc[dsn]">
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-form-label col-sm-2 offset-sm-1">{tr}User{/tr}</label>
                 <div class="col-sm-9">
                     <input class="form-control" type="text" name="odbc[user]">
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-form-label col-sm-2 offset-sm-1">{tr}Password{/tr}</label>
                 <div class="col-sm-9">
                     <input class="form-control" type="password" name="odbc[password]" autocomplete="new-password">
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-form-label col-sm-2 offset-sm-1">{tr}Table/Schema{/tr}</label>
                 <div class="col-sm-9">
                     <input class="form-control" type="text" name="odbc[table]">
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-form-label col-sm-2 offset-sm-1">{tr}Sync deletes{/tr}</label>
                 <div class="col-sm-9">
                     <input class="form-check-input" type="checkbox" name="odbc[sync_deletes]" value="1">
@@ -77,7 +77,7 @@
                     </a>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="form-check-label col-sm-2 offset-sm-1">{tr}Initialize with remote schema fields{/tr}</label>
                 <div class="col-sm-9">
                     <div class="form-check">
@@ -90,7 +90,7 @@
             </div>
         </div>
         {/if}
-        <div class="form-group submit">
+        <div class="mb-3 submit">
             <div class="col-sm-9 offset-sm-3">
                 <input type="submit" class="btn btn-primary" value="{tr}Create{/tr}">
             </div>

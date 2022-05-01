@@ -87,7 +87,7 @@ function smarty_block_tabset($params, $content, $smarty, &$repeat)
                 $button_params['_onclick'] = "setCookie('$smarty_tabset_name','" . ($cookietab == 'n' ? 1 : 'n' ) . "', 'tabs') ;";
                 $button_params['_class'] = 'btn-sm btn-secondary';
                 $notabs = smarty_function_button($button_params, $smarty);
-                $notabs = "<div class='float-right'>$notabs</div>";
+                $notabs = "<div class='float-end'>$notabs</div>";
                 $content_class = '';
             } else {
                 $content_class = ' full_width'; // no no-tabs button
@@ -106,7 +106,7 @@ function smarty_block_tabset($params, $content, $smarty, &$repeat)
 
         $ret .= '<ul class="nav nav-tabs">';
         foreach ($smarty_tabset[$tabset_index]['tabs'] as $value) {
-            $ret .= '<li class="nav-item"><a class="nav-link ' . $value['active'] . '" href="#' . $value['id'] . '" data-toggle="tab">' . $value['label'] . '</a></li>';
+            $ret .= '<li class="nav-item"><a class="nav-link ' . $value['active'] . '" href="#' . $value['id'] . '" data-bs-toggle="tab">' . $value['label'] . '</a></li>';
             ++$count;
         }
         $ret .= '</ul>';

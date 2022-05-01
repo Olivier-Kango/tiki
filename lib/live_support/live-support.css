@@ -1,0 +1,33 @@
+/*
+Input message
+*/
+#data{
+    /* font-size: 13px; */
+}
+#chat_data{
+    width : 500px; height: 500px;
+    overflow: scroll;
+    
+}
+
+span.user, span.operator{
+    margin-bottom: 10px;
+    max-width: 80%;
+    display: flex !important;
+    padding: 10px;
+    color: rgb(39, 39, 39) !important;
+    font-size: 14px;
+}
+
+span.user{
+    background-color: rgb(240, 240, 240);
+    align-self: flex-start;
+    border-radius: 0px 10px 10px 10px;
+}
+
+span.operator{
+    background-color: rgb(38, 137, 191);
+    align-self: flex-end;
+    border-radius: 10px 0px 10px 10px;
+    color: #fff !important;
+}

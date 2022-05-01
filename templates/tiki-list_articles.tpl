@@ -22,7 +22,7 @@
 </div>
 
 {if $listpages or ($find ne '') or ($types ne '') or ($topics ne '') or ($lang ne '') or ($categId ne '')}
-    <button class="btn btn-secondary btn-sm mb-2" type="button" data-toggle="collapse" data-target="#searchListArticles" aria-expanded="false" aria-controls="searchListArticles">
+    <button class="btn btn-secondary btn-sm mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#searchListArticles" aria-expanded="false" aria-controls="searchListArticles">
         {tr}Search Tools{/tr}
     </button>
     <div class="collapse" id="searchListArticles">
@@ -89,25 +89,25 @@
                 {/if}
                 {if $prefs.art_list_rating eq 'y'}
                     {assign var=numbercol value=$numbercol+1}
-                    <th class="text-right">
+                    <th class="text-end">
                         {self_link _sort_arg='sort_mode' _sort_field='rating'}{tr}Rating{/tr}{/self_link}
                     </th>
                 {/if}
                 {if $prefs.art_list_usersRating eq 'y'}
                     {assign var=numbercol value=$numbercol+1}
-                    <th class="text-right">
+                    <th class="text-end">
                         {self_link _sort_arg='sort_mode' _sort_field='usersRating'}{tr}Users rating{/tr}{/self_link}
                     </th>
                 {/if}
                 {if $prefs.art_list_reads eq 'y'}
                     {assign var=numbercol value=$numbercol+1}
-                    <th class="text-right">
+                    <th class="text-end">
                         {self_link _sort_arg='sort_mode' _sort_field='nbreads'}{tr}Reads{/tr}{/self_link}
                     </th>
                 {/if}
                 {if $prefs.art_list_size eq 'y'}
                     {assign var=numbercol value=$numbercol+1}
-                    <th class="text-right">{self_link _sort_arg='sort_mode' _sort_field='size'}{tr}Size{/tr}{/self_link}</th>
+                    <th class="text-end">{self_link _sort_arg='sort_mode' _sort_field='size'}{tr}Size{/tr}{/self_link}</th>
                 {/if}
                 {if $prefs.art_list_img eq 'y'}
                     {assign var=numbercol value=$numbercol+1}
@@ -237,7 +237,7 @@
                     <option value="">{tr}Select action to perform with checked...{/tr}</option>
                     <option value="remove_articles">{tr}Remove{/tr}</option>
                 </select>
-                <span class="input-group-append">
+                <span class="input-group-text">
                     <input type="submit" class="btn btn-warning" value="{tr}OK{/tr}">
                 </span>
             </div>

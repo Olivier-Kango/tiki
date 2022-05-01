@@ -2578,7 +2578,7 @@ body > .ui-front {
 h4.ui-accordion-header {
   padding-left: 2.2em;
 }
-div.form-group label.error {
+div.mb-3 label.error {
   font-weight: normal !important;
 }
 .page-header {

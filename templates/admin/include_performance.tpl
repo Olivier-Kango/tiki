@@ -3,7 +3,7 @@
 <form class="admin" id="performance" name="performance" action="tiki-admin.php?page=performance" method="post">
     {ticket}
     <div class="row">
-        <div class="form-group col-lg-12 clearfix">
+        <div class="mb-3 col-lg-12 clearfix">
             {include file='admin/include_apply_top.tpl'}
         </div>
     </div>
@@ -29,7 +29,7 @@
             {preference name=feature_obzip}
             <div class="adminoptionboxchild">
                 {if $gzip_handler ne 'none'}
-                    <div class="highlight" style="margin-left:30px;">
+                    <div class="highlight ms-3">
                         {tr}Output compression is active.{/tr}
                         <br>
                         {tr}Compression is handled by:{/tr} {$gzip_handler}.
@@ -64,15 +64,14 @@
 
                 {if !$opcode_compatible}
                     {remarksbox type="warning" title="{tr}Warning{/tr}"}
-                    {tr}Some PHP versions may exhibit randomly issues with the OpCache leading to the server starting to fail to serve all PHP requests, your PHP version seems to
-                        be affected, despite the performance penalty, we would recommend disabling the OpCache if you experience random crashes.{/tr}
+                    {tr}Some PHP versions may exhibit randomly issues with the OpCache leading to the server starting to fail to serve all PHP requests, your PHP version seems to be affected, despite the performance penalty, we would recommend disabling the OpCache if you experience random crashes.{/tr}
                     {/remarksbox}
                 {/if}
 
                 <p>{tr _0=$opcode_cache}Using <strong>%0</strong>. These stats affect all PHP applications running on the server.{/tr}</p>
 
                 {if $opcode_stats.warning_xcache_blocked}
-                    <p>{tr}Configuration setting <em>xcache.admin.enable_auth</em> prevents from accessing statistics. This will also prevent the cache from being cleared when clearing template cache.{/tr}</p>
+                    <p>{tr _0="xcache.admin.enable_auth"}Configuration setting %0 prevents from accessing statistics. This will also prevent the cache from being cleared when clearing template cache.{/tr}</p>
                 {/if}
 
                 <div class="table-responsive">
@@ -193,7 +192,7 @@
             {preference name=error_reporting_level}
             {preference name=feature_typo_enable}
             {remarksbox type="tip" title="{tr}Tip{/tr}"}
-                {tr}Many search options impact performance. Please see <a href="tiki-admin.php?page=search" class="alert-link">Search admin panel</a>.{/tr}
+                {tr _0='<a href="tiki-admin.php?page=search" class="alert-link">' _1=''}Many search options impact performance. Please see %0Search admin panel%1.{/tr}
             {/remarksbox}
         {/tab}
 

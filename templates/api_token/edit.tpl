@@ -8,15 +8,15 @@
     <form method="post" action="{service controller=api_token action=update}">
         {ticket}
         <input type="hidden" name="tokenId" value="{$token.tokenId}">
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-form-label col-sm-2">
                 {tr}Token{/tr}
             </label>
-            <div class="col-sm-10 js-allow-copy" data-content="{$token.token|escape}">
+            <div class="col-sm-10 js-allow-copy" data-bs-content="{$token.token|escape}">
                 {$token.token|truncate:20} {icon name='clipboard' title="Copy"}
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-form-label col-sm-2">
                 {tr}User{/tr}
                 <a class="tikihelp text-info" title="{tr}User account:{/tr} {tr}All API requests with this token will authenticate against the selected user account.{/tr}">
@@ -27,7 +27,7 @@
                 {user_selector id="user_selector_api_token" realnames="n" user=$token.user}
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-form-label col-sm-2">
                 {tr}Valid until{/tr}
                 <a class="tikihelp text-info" title="{tr}Valid until:{/tr} {tr}Optionally specify the time when this token will expire.{/tr}">

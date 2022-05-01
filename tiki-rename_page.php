@@ -53,6 +53,12 @@ if ((isset($_REQUEST["rename"]) || isset($_REQUEST["confirm"])) && $access->chec
         die;
     }
 
+    if (strtolower($newName) == "sandbox") {
+        $smarty->assign('msg', tra("You can’t name a page 'Sandbox' because it is reserved for the Sandbox feature"));
+        $smarty->display("error.tpl");
+        die;
+    }
+
     $smarty->assign('newname', $newName);
     $result = false;
     if (! isset($_REQUEST["confirm"]) && $wikilib->contains_badchars($newName)) {

@@ -8,11 +8,11 @@
 <form method="post" action="{service controller=tracker action=edit_field}">
     {accordion}
         {accordion_group title="{tr}General{/tr}"}
-        <div class="form-group row mx-0">
+        <div class="mb-3 row mx-0">
             <label for="name" class="col-form-label">{tr}Name{/tr}</label>
             <input type="text" name="name" value="{$field.name|escape}" required="required" class="form-control">
         </div>
-        <div class="form-group row mx-0">
+        <div class="mb-3 row mx-0">
             <label name="description" class="col-form-label">{tr}Description{/tr}</label>
             <textarea name="description" class="form-control">{$field.description|escape}</textarea>
         </div>
@@ -43,10 +43,10 @@
             {/if}
 
             {foreach from=$info.params key=param item=def}
-                <div class="form-group row mx-0">
+                <div class="mb-3 row mx-0">
                     <label for="option~{$param|escape}" class="col-form-label">{$def.name|escape}</label>
                     {if $def.options}
-                        <select name="option~{$param|escape}" class="form-control">
+                        <select name="option~{$param|escape}" class="form-select">
                             {foreach from=$def.options key=val item=label}
                                 <option value="{$val|escape}"
                                     {if $options[$param] eq $val} selected="selected"{/if}>
@@ -86,7 +86,7 @@
                         $("input[name='option~{{$def.depends.field|escape}}'],textarea[name='option~{{$def.depends.field|escape}}'],select[name='option~{{$def.depends.field|escape}}']")
                         .change(function(){
                             var val = $(this).val();
-                            var fg = $("input[name='option~{{$param|escape}}'],textarea[name='option~{{$param|escape}}'],select[name='option~{{$param|escape}}']").closest('.form-group');
+                            var fg = $("input[name='option~{{$param|escape}}'],textarea[name='option~{{$param|escape}}'],select[name='option~{{$param|escape}}']").closest('.mb-3');
                             if( val {{if $def.depends.op}}{{$def.depends.op}}{{else}}==={{/if}} {{$def.depends.value|json_encode}} || ( !{{$def.depends.value|json_encode}} && val ) ) {
                                 fg.show();
                             } else {
@@ -101,9 +101,9 @@
         {/accordion_group}
 
         {accordion_group title="{tr}Validation{/tr}"}
-            <div class="form-group row mx-0">
+            <div class="mb-3 row mx-0">
                 <label for="validation_type" class="col-form-label">{tr}Type{/tr}</label>
-                <select name="validation_type" class="form-control">
+                <select name="validation_type" class="form-select">
                     {foreach from=$validation_types key=type item=label}
                         <option value="{$type|escape}"
                             {if $type eq $field.validation} selected="selected"{/if}>
@@ -113,12 +113,12 @@
                 </select>
             </div>
 
-            <div class="form-group row mx-0">
+            <div class="mb-3 row mx-0">
                 <label for="validation_parameter" class="col-form-label">{tr}Parameters{/tr}</label>
                 <input type="text" name="validation_parameter" value="{$field.validationParam|escape}" class="form-control">
             </div>
 
-            <div class="form-group row mx-0">
+            <div class="mb-3 row mx-0">
                 <label for="validation_message" class="col-form-label">{tr}Error Message{/tr}</label>
                 <input type="text" name="validation_message" value="{$field.validationMessage|escape}" class="form-control">
             </div>
@@ -131,9 +131,9 @@
         {/if}
 
         {accordion_group title="{tr}Permissions{/tr}"}
-            <div class="form-group  mx-0">
+            <div class="mb-3  mx-0">
                 <label for="visibility" class="col-form-label">{tr}Visibility{/tr}</label>
-                <select name="visibility" class="form-control">
+                <select name="visibility" class="form-select">
                     <option value="n"{if $field.isHidden eq 'n'} selected="selected"{/if}>{tr}Visible by all{/tr}</option>
                     <option value="r"{if $field.isHidden eq 'r'} selected="selected"{/if}>{tr}Visible by all but not in RSS feeds{/tr}</option>
                     <option value="y"{if $field.isHidden eq 'y'} selected="selected"{/if}>{tr}Visible after creation by administrators only{/tr}</option>
@@ -147,7 +147,7 @@
                 </div>
             </div>
 
-            <div class="form-group row mx-0">
+            <div class="mb-3 row mx-0">
                 <label for="visible_by" class="groupselector col-form-label">{tr}Visible by{/tr}</label>
                 <input type="text" name="visible_by" id="visible_by" value="{foreach from=$field.visibleBy item=group}{$group|escape}, {/foreach}" class="form-control">
                 {autocomplete element='#visible_by' type='groupname' options="multiple:true,multipleSeparator:','"}{* note, multiple doesn't work in jquery-ui 1.8 *}
@@ -156,7 +156,7 @@
                 </div>
             </div>
 
-            <div class="form-group row mx-0">
+            <div class="mb-3 row mx-0">
                 <label for="editable_by" class="groupselector col-form-label">{tr}Editable by{/tr}</label>
                 <input type="text" name="editable_by" id="editable_by" value="{foreach from=$field.editableBy item=group}{$group|escape}, {/foreach}" class="form-control">
                 {autocomplete element='#editable_by' type='groupname' options="multiple:true,multipleSeparator:','"}{* note, multiple doesn't work in jquery-ui 1.8 *}
@@ -165,14 +165,14 @@
                 </div>
             </div>
 
-            <div class="form-group row mx-0">
+            <div class="mb-3 row mx-0">
                 <label for="error_message" class="col-form-label">{tr}Error Message{/tr}</label>
                 <input type="text" name="error_message" value="{$field.errorMsg|escape}" class="form-control">
             </div>
         {/accordion_group}
 
         {accordion_group title="{tr}Advanced{/tr}"}
-            <div class="form-group row mx-0">
+            <div class="mb-3 row mx-0">
                 <label for="permName" class="col-form-label">{tr}Permanent name{/tr}</label>
                 <input type="text" name="permName" value="{$field.permName|escape}" pattern="[a-zA-Z0-9_]+" maxlength="{$permNameMaxAllowedSize}" class="form-control">
                 <div class="form-text">
@@ -180,9 +180,9 @@
                 </div>
             </div>
             {if $types}
-                <div class="form-group row mx-0">
+                <div class="mb-3 row mx-0">
                     <label for="type" class="col-form-label">{tr}Field Type{/tr}</label>
-                    <select name="type" data-original="{$field.type}" class="confirm-prompt form-control">
+                    <select name="type" data-original="{$field.type}" class="confirm-prompt form-select">
                         {foreach from=$types key=k item=info}
                             <option value="{$k|escape}"
                                 {if $field.type eq $k}selected="selected"{/if}>
@@ -203,7 +203,7 @@
                     {/foreach}
 {jq}
 $('select[name=type]').change(function () {
-    var descriptions = $(this).closest('.form-group').
+    var descriptions = $(this).closest('.mb-3').
             find('.form-text.field').
             hide();
 
@@ -225,10 +225,10 @@ $('select[name=type]').change(function () {
                 </div>
             {/if}
             {if $prefs.feature_user_encryption eq 'y'}
-                <div class="form-group row mx-0">
+                <div class="mb-3 row mx-0">
                     <label for="encryption_key_id" class="col-form-label">{tr}Encryption key{/tr}</label>
                     {help url="Encryption"}
-                    <select name="encryption_key_id" data-original="{$field.encryptionKeyId}" class="confirm-prompt form-control">
+                    <select name="encryption_key_id" data-original="{$field.encryptionKeyId}" class="confirm-prompt form-select">
                         <option value=""></option>
                         {foreach from=$encryption_keys item=key}
                             <option value="{$key.keyId|escape}"

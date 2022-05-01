@@ -21,7 +21,7 @@ Example wiki page "chart tpl" contents for the form is using plugin customsearch
 
 {literal}<div  class="row"><div class="col-sm-4 col-sm-offset-4"><div class="input-group">
       {input _filter="content" type="text" class="form-control" placeholder="Search..."}
-      <div class="input-group-append">
+      <div class="input-group-text">
         {input type="submit" value="Go" class="btn btn-primary"}
         {input _filter="content" type="hidden" _field="tracker_status" id="tracker_status"}
         {input _filter="content" type="hidden" _field="tracker_field_eventCategory" id="deep_categories_under_2"}

@@ -84,7 +84,7 @@ class Tracker_Field_Header extends Tracker_Field_Abstract implements Tracker_Fie
         $data_toggle = '';
         if ($prefs['javascript_enabled'] === 'y' && ($toggle === 'o' || $toggle === 'c')) {
             $class = ' ' . ($toggle === 'c' ? 'trackerHeaderClose' : 'trackerHeaderOpen');
-            $data_toggle = 'data-toggle="' . $toggle . '"';
+            $data_toggle = 'data-bs-toggle="' . $toggle . '"';
         }
         if ($inTable) {
             $js = '

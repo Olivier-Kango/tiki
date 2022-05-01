@@ -1,14 +1,14 @@
 {* $Id$ *}
 
-<div class="media">
-    <div class="mr-4">
-            <span class="float-left fa-stack fa-lg margin-right-18em" alt="{tr}Changes Wizard{/tr}" title="Changes Wizard">
+<div class="d-flex">
+    <div class="me-4">
+            <span class="float-start fa-stack fa-lg margin-right-18em" alt="{tr}Changes Wizard{/tr}" title="Changes Wizard">
             <i class="fas fa-arrow-circle-up fa-stack-2x"></i>
-            <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ml-4 mt-4"></i>
+            <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ms-4 mt-4"></i>
             </span>
     </div>
     <br/><br/><br/>
-    <div class="media-body">
+    <div class="flex-grow-1 ms-3">
         {tr}Main new and improved features and settings in Tiki 24.{/tr}
         <a href="https://doc.tiki.org/Tiki24" target="tikihelp" class="tikihelp text-info" title="{tr}Tiki24:{/tr}
             {tr}It is a Long Term Support (LTS) version.{/tr}
@@ -39,7 +39,7 @@
         </fieldset>
         <fieldset class="mb-3 w-100 clearfix featurelist">
             <legend>{tr}Other Extended Features{/tr}</legend>
-            <div class="adminoption form-group row">
+            <div class="adminoption mb-3 row">
                 <div class="offset-sm-0 col-sm-12">
                     {tr}H5P{/tr}
                     <a href="https://doc.tiki.org/H5P">{tr}More Information{/tr}...</a><br/><br/>

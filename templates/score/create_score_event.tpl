@@ -3,7 +3,7 @@
     <tbody class="event-section" data-section="{$eventType}">
         <tr>
             <td colspan="2"><b>{$eventType}</b></td>
-            <td class="text-right" colspan="3"><b>{tr}Reversal Event{/tr}</b>:
+            <td class="text-end" colspan="3"><b>{tr}Reversal Event{/tr}</b>:
                 <select class="reverse-event-select" name="events[{$eventType}][reversalEvent]" class="form-control">
                     <option value="">{tr}None{/tr}</option>
                     {foreach from=$eventTypes item=eventName}
@@ -28,16 +28,16 @@
         <td>
             <input type="text" placeholder="{tr}Pt. value{/tr}" size="10" name="events[{$eventType}][{$rowCount}][score]" value="" />
         </td>
-        <td class="text-right">
+        <td class="text-end">
             <a class="delete-row" href="#">{icon name=delete title="Delete"}</a>
         </td>
     </tr>
     <tr class="advanced-row">
-        <td class="text-right">{tr}Valid Triggering Object IDs{/tr}</td>
+        <td class="text-end">{tr}Valid Triggering Object IDs{/tr}</td>
         <td>
             <input placeholder="Object Ids" type="text" size="20" name="events[{$eventType}][{$rowCount}][expiration]" value="" />
         </td>
-        <td class="text-right">{tr}Min. Time Between Scoring{/tr}</td>
+        <td class="text-end">{tr}Min. Time Between Scoring{/tr}</td>
         <td>
             <input placeholder="In seconds" type="text" size="10" name="events[{$eventType}][{$rowCount}][validObjectIds]" value="" />
         </td>

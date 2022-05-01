@@ -14,7 +14,7 @@
                 <input type="hidden" name="edit" value="1"/>
                 <div class="card-body">
                 {if $prefs.comments_notitle neq 'y'}
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label for="comment-title" class="clearfix comment-title">{tr}Title{/tr}</label>
                         <input type="text" id="comment-title" name="title" value="{$comment.title|escape}" class="form-control" placeholder="Comment title"/>
                     </div>
@@ -24,7 +24,7 @@
                 </div>
                 <div class="card-footer">
                     {if empty($comment.version)}
-                        <div class="form-group comment-post">
+                        <div class="mb-3 comment-post">
                             <input type="submit" class="clearfix comment-editclass btn btn-primary" value="{tr}Save{/tr}"/>
                             <div class="btn btn-link">
                                 <a href="#" onclick="$(this).closest('.comment-container').reload(); $(this).closest('.ui-dialog').remove(); return false;">{tr}Cancel{/tr}</a>

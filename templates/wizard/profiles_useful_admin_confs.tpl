@@ -1,20 +1,20 @@
 {* $Id$ *}
 
-<div class="media">
-    <div class="mr-4">
+<div class="d-flex">
+    <div class="me-4">
         <span class="fa-stack fa-lg" style="width: 100px;" title="{tr}Configuration Profiles Wizard{/tr}" >
             <i class="fas fa-cubes fa-stack-2x"></i>
-            <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ml-4 mt-4"></i>
+            <i class="fas fa-flip-horizontal fa-magic fa-stack-1x ms-4 mt-4"></i>
         </span>
     </div>
-    <div class="media-body">
+    <div class="flex-grow-1 ms-3">
         <h4 class="mt-0 mb-4">{tr}Check out some useful changes in the configuration for site administrators{/tr}.</h4>
         <h3>{tr}Profiles:{/tr}</h3>
         <div class="row">
             <div class="col-md-{*6 commented out until second column, below, is used. *}12">
                 <div class="row">
                     <div class="col-md-6">
-                        <img class="float-left" src="img/icons/large/profile_debug_mode48x48.png" alt="{tr}Debug Mode Enabled{/tr}" />
+                        <img class="float-start" src="img/icons/large/profile_debug_mode48x48.png" alt="{tr}Debug Mode Enabled{/tr}" />
                         <h4>{tr}Debug Mode Enabled{/tr}</h4>
                         (<a href="tiki-admin.php?ticket={ticket mode=get}&profile=Debug_Mode_Enabled&show_details_for=Debug_Mode_Enabled&categories%5B%5D={$tikiMajorVersion}.x&repository=http%3a%2f%2fprofiles.tiki.org%2fprofiles&page=profiles&preloadlist=y&list=List#step2" target="_blank">{tr}apply profile now{/tr}</a>)<br/>
                     </div>

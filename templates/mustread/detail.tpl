@@ -32,11 +32,11 @@
                         {if $resultset}
                             <h3>{tr}People{/tr}</h3>
                             {foreach $resultset as $row}
-                                <div class="media">
-                                    <div class="float-left">
+                                <div class="d-flex">
+                                    <div class="flex-shrink-0">
                                         {$row.object_id|avatarize:'':'img/noavatar.png'}
                                     </div>
-                                    <div class="media-body">
+                                    <div class="flex-grow-1 ms-3">
                                         <h4 class="media-heading">{$row.title|escape}</h4>
                                         <p>...</p>
                                     </div>

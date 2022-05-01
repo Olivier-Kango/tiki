@@ -2159,6 +2159,9 @@ class TrackerLib extends TikiLib
             }
 
             foreach ($final as $job) {
+                if (isset($job['field']['value'])) {
+                    $data[$job['field']['permName']] = $job['field']['value'];
+                }
                 $value = $job['handler']->handleFinalSave($data);
                 $data[$job['field']['permName']] = $value;
                 $this->modify_field($currentItemId, $job['field']['fieldId'], $value);
@@ -4523,6 +4526,26 @@ class TrackerLib extends TikiLib
             $sql .= " LEFT JOIN (`tiki_tracker_item_fields` $sttif) ON (t$j.`itemId`= $sttif.`itemId` and $sttif.`fieldId`=" . $fieldIds[$k] . ")";
         }
         return $sql;
+    }
+
+    public function get_item_by_field_values($values)
+    {
+        if (empty($values)) {
+            return 0;
+        }
+        $query = "select tti.itemId from `tiki_tracker_items` tti";
+        $bindVars = [];
+        foreach ($values as $fieldId => $value) {
+            $query .= " INNER JOIN `tiki_tracker_item_fields` ttif$fieldId ON ttif$fieldId.itemId = tti.itemId AND ttif$fieldId.fieldId = ? AND ttif$fieldId.value = ?";
+            $bindVars[] = $fieldId;
+            $bindVars[] = $value;
+        }
+        $result = $this->query($query, $bindVars);
+        if ($res = $result->fetchRow()) {
+            return $res['itemId'];
+        } else {
+            return 0;
+        }
     }
 
     public function get_item_info($itemId)

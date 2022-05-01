@@ -48,6 +48,7 @@ class Manager
                 'bulk_import' => 0,
                 'skip_unmodified' => 0,
                 'encoding' => '',
+                'format' => '',
             ]),
             'odbc_config' => json_encode($odbc_config),
         ]);
@@ -67,6 +68,7 @@ class Manager
                 'bulk_import' => (int)! empty($config['bulk_import']),
                 'skip_unmodified' => (int)! empty($config['skip_unmodified']),
                 'encoding' => $config['encoding'],
+                'format' => $config['format'],
             ]),
             'odbc_config' => json_encode($odbc_config)
         ], ['tabularId' => $tabularId]);

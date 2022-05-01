@@ -78,9 +78,10 @@ function prefs_global_list($partial = false)
         'tmpDir' => [
             'name' => tra('Temporary directory'),
             'description' => tra('Directory on your server, relative to your Tiki installation, for storing temporary files. Tiki must have full read and write access to this directory.'),
+            'keywords' => 'tmp temp path',
             'type' => 'text',
             'size' => 30,
-            'default' => sys_get_temp_dir(),
+            'default' => sys_get_temp_dir(),  // note: this gets overridden in lib/setup/prefs.php
             'perspective' => false,
         ],
         'helpurl' => [

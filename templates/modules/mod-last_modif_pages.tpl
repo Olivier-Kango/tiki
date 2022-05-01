@@ -85,7 +85,7 @@
 
             </table>
         </div>
-        <a class="linkmodule" style="margin-left: 20px" href="{$url}">...{tr}more{/tr}</a>
+        <a class="linkmodule ms-3" href="{$url}">...{tr}more{/tr}</a>
     {else}
         {modules_list list=$modLastModif nonums=$nonums}
             {foreach $modLastModif as $page}
@@ -136,6 +136,6 @@
                 </li>
             {/foreach}
         {/modules_list}
-        <a class="linkmodule" style="margin-left: 20px" href="{$url}">...{tr}more{/tr}</a>
+        <a class="linkmodule ms-3" href="{$url}">...{tr}more{/tr}</a>
     {/if}
 {/tikimodule}

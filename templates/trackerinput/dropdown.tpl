@@ -20,7 +20,7 @@
                 {/foreach}
         {elseif $field.options_map.inputtype eq 'm'}
             {if $prefs.jquery_select2 neq 'y'}<small>{tr}Hold "Ctrl" in order to select multiple values{/tr}</small><br>{/if}
-            <select name="{$field.ins_id}[]" multiple="multiple" class="form-control">
+            <select name="{$field.ins_id}[]" multiple="multiple" class="form-select">
                 {foreach $field.possibilities as $value => $label}
                     <option value="{$value|escape}" {if in_array("$value", $field.selected)}selected="selected"{/if}>{$label|escape}</option>
                 {/foreach}
@@ -28,7 +28,7 @@
         {/if}
         <input type="hidden" name="{$field.ins_id}_old" value="{$field.value|escape}">
     {else}
-        <select name="{$field.ins_id|escape}" class="form-control{if $field.type eq 'D'} group_{$field.ins_id|escape}{/if}">
+        <select name="{$field.ins_id|escape}" class="form-select{if $field.type eq 'D'} group_{$field.ins_id|escape}{/if}">
             {if $field.isMandatory ne 'y' || $field.value eq ''}
                 <option value=""></option>
             {/if}

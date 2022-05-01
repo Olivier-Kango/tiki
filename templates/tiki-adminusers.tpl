@@ -32,19 +32,19 @@
             <h2>{tr}Users{/tr}</h2>
             {if !$ts.enabled}
                 <form method="get" action="tiki-adminusers.php">
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label class="col-form-label col-sm-5" for="find">{tr}Find{/tr}</label>
                         <div class="col-sm-7">
                             <input type="text" class="form-control form-control-sm" id="find" name="find" value="{$find|escape}">
                         </div>
                     </div>
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label class="col-form-label col-sm-5" for="numrows">{tr}Number of displayed rows{/tr}</label>
                         <div class="col-sm-7">
                             <input class="form-control form-control-sm" type="number" id="numrows" name="numrows" value="{$numrows|escape}">
                         </div>
                     </div>
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <div class="col-sm-7 offset-sm-5">
                             <a href="javascript:toggleBlock('search')" class="link">
                                 {icon name='add' alt="{tr}more{/tr}"}&nbsp;{tr}More Criteria{/tr}
@@ -53,10 +53,10 @@
                     </div>
                     {autocomplete element='#find' type='username'}
                     <div class="col-sm-12" id="search" {if $filterGroup or $filterEmail}style="display:block;"{else}style="display:none;"{/if}>
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-form-label col-sm-5" for="filterGroup">{tr}Group (direct){/tr}</label>
                             <div class="col-sm-7">
-                                <select class="form-control form-control-sm" name="filterGroup" id="filterGroup">
+                                <select class="form-select form-control-sm" name="filterGroup" id="filterGroup">
                                     <option value=""></option>
                                     {section name=ix loop=$all_groups}
                                         {if $all_groups[ix] != 'Registered' && $all_groups[ix] != 'Anonymous'}
@@ -66,7 +66,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <div class="offset-sm-5 col-sm-7">
                                 <div class="form-check">
                                     <label class="form-check-label">
@@ -75,7 +75,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <div class="offset-sm-5 col-sm-7">
                                 <div class="form-check">
                                     <label class="form-check-label">
@@ -84,7 +84,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <div class="offset-sm-5 col-sm-7">
                                 <div class="form-check">
                                     <label class="form-check-label">
@@ -94,7 +94,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <div class="col-sm-7 offset-sm-5">
                             <input type="hidden" name="sort_mode" value="{$sort_mode|escape}">
                             <input type="submit" class="btn btn-primary btn-sm" value="{tr}Find{/tr}" name="search">
@@ -330,7 +330,7 @@
                     </div>
                     {if $users}
                         <div class="input-group col-sm-8">
-                            <select class="form-control" name="action">
+                            <select class="form-select" name="action">
                                 <option value="no_action" selected="selected">
                                     {tr}Select action to perform with checked{/tr}...
                                 </option>
@@ -354,7 +354,7 @@
                                     </option>
                                 {/if}
                             </select>
-                            <span class="input-group-append">
+                            <span class="input-group-text">
                                 <button
                                     type="submit"
                                     formaction="{bootstrap_modal controller=user}"
@@ -423,7 +423,7 @@
             {elseif $userinfo.editable}
                 <form action="tiki-adminusers.php" method="post" enctype="multipart/form-data" name="RegForm" autocomplete="off">
                     {ticket}
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label class="col-sm-3 col-md-2 col-form-label" for="login">{if $prefs.login_is_email eq 'y'}{tr}Email{/tr}{else}{tr}User{/tr}{/if}</label>
                         <div class="col-sm-7 col-md-6">
                             {if $userinfo.login neq 'admin'}
@@ -459,7 +459,7 @@
                         --> AND Tiki won't create the user in the ldap
                     *}
                     {if $prefs.auth_method eq 'ldap' and ( $prefs.ldap_create_user_tiki eq 'n' or $prefs.ldap_skip_admin eq 'y' ) and $prefs.ldap_create_user_ldap eq 'n' and $userinfo.login neq 'admin' and $auth_ldap_permit_tiki_users eq 'n'}
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <div class="offset-sm-2">
                                 <b>{tr}No password is required{/tr}</b>
                                 <br>
@@ -468,7 +468,7 @@
                         </div>
                     {else}
                         {include file='password_jq.tpl' ignorejq='y'}
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-sm-3 col-md-2 col-form-label" for="pass1">{if isset($userinfo.userId)}{tr}New password{/tr}{else}{tr}Password{/tr}{/if}</label>
                             <div class="col-sm-7 col-md-6">
                                 <input type="password" class="form-control" placeholder="{tr}Password{/tr}" name="pass" id="pass1" autocomplete="new-password">
@@ -481,7 +481,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-sm-3 col-md-2 col-form-label" for="pass2">{if isset($userinfo.userId)}{tr}Confirm new password{/tr}{else}{tr}Confirm password{/tr}{/if}</label>
                             <div class="col-sm-7 col-md-6">
                                 <input type="password" class="form-control" name="passAgain" id="pass2" placeholder="{tr}Password{/tr}" autocomplete="new-password">
@@ -496,7 +496,7 @@
                             </div>
                         </div>
                         {if $prefs.generate_password eq 'y' and not ( $prefs.auth_method eq 'ldap' and ( $prefs.ldap_create_user_tiki eq 'n' or $prefs.ldap_skip_admin eq 'y' ) and $prefs.ldap_create_user_ldap eq 'n')}
-                            <div class="form-group row">
+                            <div class="mb-3 row">
                                 <div class="col-sm-3 offset-sm-3 col-md-3 offset-md-2">
                                     <span id="genPass">{button href="#" _text="{tr}Generate a password{/tr}"}</span>
                                 </div>
@@ -506,7 +506,7 @@
                             </div>
                         {/if}
                         {if $userinfo.login neq 'admin' && $prefs.change_password neq 'n'}
-                            <div class="form-group row">
+                            <div class="mb-3 row">
                                 <div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2">
                                     <div class="form-check">
                                         <label class="form-check-label">
@@ -519,7 +519,7 @@
                         {/if}
                     {/if}
                     {if $prefs.login_is_email neq 'y'}
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-sm-3 col-md-2 col-form-label" for="pass1">{tr}Email{/tr}</label>
                             <div class="col-sm-7 col-md-6">
                                 <input type="text" class="form-control" id="email" name="email" size="30" value="{$userinfo.email|escape}">
@@ -527,7 +527,7 @@
                         </div>
                     {/if}
                     {if $userinfo.login neq 'admin' and ($prefs.validateUsers eq 'y' or $prefs.validateRegistration eq 'y')}
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2">
                                 <div class="form-check">
                                     <label class="form-check-label">
@@ -542,7 +542,7 @@
                         </div>
                     {/if}
                     {if $prefs.userTracker eq 'y' and $userinfo.login eq ''}
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2">
                                 <div class="form-check">
                                     <label class="form-check-label">
@@ -555,21 +555,21 @@
                     {/if}
 
                     {if $prefs.userTracker eq 'y' and $userstrackerid}
-                        <div class="form-group row">
+                        <div class="mb-3 row">
                             <label class="col-md-2 col-form-label">
                                 {tr}User tracker{/tr}
                             </label>
 
                             <div class="col-md-10">
                                 {if $usersitemid}
-                                    <a href="{bootstrap_modal controller=tracker action=update_item trackerId=$userstrackerid itemId=$usersitemid}" onclick="$('[data-toggle=popover]').popover('hide');" class="btn btn-primary edit-usertracker">
+                                    <a href="{bootstrap_modal controller=tracker action=update_item trackerId=$userstrackerid itemId=$usersitemid}" onclick="$('[data-bs-toggle=popover]').popover('hide');" class="btn btn-primary edit-usertracker">
                                         {tr}Edit Item{/tr}
                                     </a>
                                     <a href="{bootstrap_modal controller=tracker action=view id=$usersitemid}" class="btn btn-info">
                                         {tr}View item{/tr}
                                     </a>
                                 {else}
-                                    <a href="{bootstrap_modal controller=tracker action=insert_item trackerId=$userstrackerid forced=$usersTrackerForced}" onclick="$('[data-toggle=popover]').popover('hide');" class="btn btn-primary insert-usertracker">
+                                    <a href="{bootstrap_modal controller=tracker action=insert_item trackerId=$userstrackerid forced=$usersTrackerForced}" onclick="$('[data-bs-toggle=popover]').popover('hide');" class="btn btn-primary insert-usertracker">
                                         {tr}Create Item{/tr}
                                     </a>
                                 {/if}
@@ -577,7 +577,7 @@
                         </div>
                     {/if}
 
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <div class="col-sm-9 offset-sm-3 col-md-10 offset-md-2">
                             {if isset($userinfo.userId) && $userinfo.userId}
                                 <input type="hidden" name="user" value="{$userinfo.userId|escape}">
@@ -650,7 +650,7 @@
 
             <form action="tiki-adminusers.php" method="post" enctype="multipart/form-data">
                 {ticket}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label for="csvlist" class="col-form-label col-md-3">{tr}CSV File{/tr}</label>
                     <div class="col-md-9">
                         <input type="file" id="csvlist" name="csvlist" class="form-control">
@@ -667,7 +667,7 @@
                         </small>
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-md-3 col-form-label">{tr}Existing Users{/tr}</label>
                     <div class="col-md-9">
                         <label>
@@ -680,7 +680,7 @@
                         </label>
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <div class="col-md-9 offset-md-3">
                         <div class="form-check">
                             <label class="form-check-label">
@@ -690,7 +690,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <div class="col-md-9 offset-md-3">
                         <div class="form-check">
                             <label class="form-check-label">
@@ -701,7 +701,7 @@
                     </div>
                 </div>
                 {if $prefs.change_password neq 'n'}
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <div class="col-md-9 offset-md-3">
                             <div class="form-check">
                                 <label class="form-check-label">
@@ -712,7 +712,7 @@
                         </div>
                     </div>
                 {/if}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <div class="col-md-9 offset-md-3">
                         <div class="form-check">
                             <label class="form-check-label">
@@ -722,7 +722,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <div class="col-md-9 offset-md-3">
                         <input type="submit" class="btn btn-secondary" name="batch" value="{tr}Add{/tr}">
                     </div>
@@ -767,38 +767,38 @@
                     {tr}To revoke access before validity expires or to review who has access, please see:{/tr} <a href="tiki-admin_tokens.php" class="alert-link">{tr}Admin Tokens{/tr}</a>
                 {/remarksbox}
                 <form name="tempuser" id="tempuser" method="post" action="{service controller=user action=invite_tempuser}">
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label class="col-sm-4 col-md-4 col-form-label" for="tempuser_emails">{tr}Email addresses (comma-separated){/tr}</label>
                         <div class="col-sm-8 col-md-8">
                             <input type="text" class="form-control" name="tempuser_emails" id="tempuser_emails" />
                         </div>
                     </div>
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label class="col-sm-4 col-md-4 col-form-label" for="tempuser_groups">{tr}Groups (comma-separated){/tr}</label>
                         <div class="col-sm-8 col-md-8">
                             <input type="text" class="form-control" name="tempuser_groups" id="tempuser_groups" />
                             {autocomplete element='#tempuser_groups' type='groupname'}
                         </div>
                     </div>
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label class="col-sm-4 col-md-4 col-form-label" for="tempuser_expiry">{tr}Valid for days (use -1 for forever){/tr}</label>
                         <div class="col-sm-8 col-md-8">
                             <input type="text" class="form-control" name="tempuser_expiry" id="tempuser_expiry" />
                         </div>
                     </div>
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label class="col-sm-4 col-md-4 col-form-label" for="tempuser_prefix">{tr}Username prefix{/tr}</label>
                         <div class="col-sm-8 col-md-8">
                             <input type="text" class="form-control" name="tempuser_prefix" id="tempuser_prefix" placeholder="guest"/>
                         </div>
                     </div>
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label class="col-sm-4 col-md-4 col-form-label" for="tempuser_path">{tr}Autologin (non-SEFURL) path{/tr}</label>
                         <div class="col-sm-8 col-md-8">
                             <input type="text" class="form-control" name="tempuser_path" id="tempuser_path" placeholder="index.php"/>
                         </div>
                     </div>
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <div class="col-sm-10 offset-sm-4 col-md-10 offset-md-4">
                             <input
                                 type="submit"

@@ -2,7 +2,7 @@
 <div class="wikitopline clearfix" style="clear: both;">
     <div class="content">
         {if !isset($hide_page_header) or !$hide_page_header}
-            <div class="wikiinfo float-left">
+            <div class="wikiinfo float-start">
                 {if $prefs.wiki_page_name_above eq 'y' and $print_page ne 'y'}
                     <a href="tiki-index.php?page={$page|escape:"url"}" class="titletop" title="{tr}refresh{/tr}">{$page|escape}</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{* The hard-coded spaces help selecting the page name for inclusion in a wiki link *}
                 {/if}
@@ -20,7 +20,7 @@
             </div>
         {/if} {*hide_page_header*}
         {if $pdf_export eq 'y'}
-            <div class="wikiinfo float-left" id="pdfinfo" style="display:none">
+            <div class="wikiinfo float-start" id="pdfinfo" style="display:none">
                 <div class="alert alert-info" style="width:500px"><h4><span class="icon icon-information fas fa-info-circle fa-fw "></span>&nbsp;<span class="rboxtitle">{tr}Please wait{/tr}</span></h4><div class="rboxcontent" style="display: inline"><span class="fas fa-circle-notch fa-spin" style="font-size:24px"></span>{tr} The PDF is being prepared, please wait...{/tr}</div></div>
             </div>
         {/if}
@@ -31,7 +31,7 @@
     <div class="wikiactions_wrapper clearfix">
     {strip}
         <div class="wikiactions d-flex justify-content-end mb-2">
-            <div class="btn-group ml-2">
+            <div class="btn-group ms-2">
                 {* Show language dropdown only if there is more than 1 language or user has right to edit *}
                 {if ($tiki_p_admin eq 'y' or $tiki_p_admin_wiki eq 'y' or $tiki_p_edit eq 'y' or $tiki_p_edit eq 'y' or $tiki_p_edit_inline eq 'y') or (isset($translationsCount) and $translationsCount gt 1)}
                     {if $prefs.feature_multilingual eq 'y' && $prefs.show_available_translations eq 'y' && $machine_translate_to_lang eq '' }
@@ -62,7 +62,7 @@
                 {if $prefs.feature_backlinks eq 'y' and $backlinks|default:null and $tiki_p_view_backlink eq 'y'}
                     <div class="btn-group backlinks">
                         {if ! $js}<ul class="cssmenu_horiz"><li>{/if}
-                        <a href="#" role="button" data-toggle="dropdown" data-hover="dropdown" class="btn btn-info btn-sm dropdown-toggle" title="{tr}Backlinks{/tr}">
+                        <a href="#" role="button" data-bs-toggle="dropdown" data-hover="dropdown" class="btn btn-info btn-sm dropdown-toggle" title="{tr}Backlinks{/tr}">
                             {icon name="backlink"}
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" role="menu">
@@ -85,7 +85,7 @@
                 {if $structure eq 'y' or ( $structure eq 'n' and count($showstructs) neq 0 )}
                     <div class="btn-group structures">
                         {if ! $js}<ul class="cssmenu_horiz"><li>{/if}
-                        <a href="#" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" title="{tr}Structures{/tr}">
+                        <a href="#" class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" data-hover="dropdown" title="{tr}Structures{/tr}">
                             {icon name="structure"}
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" role="menu">
@@ -121,7 +121,7 @@
                 {assign var="hasPageAction" value="0"}
                 {capture name="pageActions"}
                     {if ! $js}<ul class="cssmenu_horiz"><li>{/if}
-                    <a class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" href="#"  title="{tr}Page actions{/tr}">
+                    <a class="btn btn-info btn-sm dropdown-toggle" data-bs-toggle="dropdown" data-hover="dropdown" href="#"  title="{tr}Page actions{/tr}">
                         {icon name="menu-extra"}
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">

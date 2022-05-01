@@ -168,14 +168,14 @@
     {tab name=$edtab}
         <h2>{$edtab}</h2>
 
-        <form action="tiki-admin_calendars.php" method="post" class="form-horizontal" role="form">
+        <form action="tiki-admin_calendars.php" method="post" role="form">
             {ticket}
             <fieldset>
             <input type="hidden" name="calendarId" value="{$calendarId|escape}">
             {if $tiki_p_modify_object_categories eq 'y'}
                 {include file='categorize.tpl'}
             {/if}
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-4 col-form-label" for="calendarName">
                     {tr}Name{/tr}
                 </label>
@@ -189,7 +189,7 @@
                     </label>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-4 col-form-label" for="calendarDescription">
                     {tr}Description{/tr}
                 </label>
@@ -203,12 +203,12 @@
                     </label>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-4 col-form-label" for="customlocations">
                     {tr}Custom location{/tr}
                 </label>
                 <div class="col-sm-2">
-                    <select name="customlocations" id="customlocations" class="form-control">
+                    <select name="customlocations" id="customlocations" class="form-select">
                         <option value='y' {if $customlocations eq 'y'}selected="selected"{/if}>{tr}Yes{/tr}</option>
                         <option value='n' {if $customlocations eq 'n'}selected="selected"{/if}>{tr}No{/tr}</option>
                     </select>
@@ -220,12 +220,12 @@
                     </label>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-4 col-form-label" for="customparticipants">
                     {tr}Custom participants{/tr}
                 </label>
                 <div class="col-sm-2">
-                    <select name="customparticipants" id="customparticipants" class="form-control">
+                    <select name="customparticipants" id="customparticipants" class="form-select">
                         <option value='y' {if $customparticipants eq 'y'}selected="selected"{/if}>{tr}Yes{/tr}</option>
                         <option value='n' {if $customparticipants eq 'n'}selected="selected"{/if}>{tr}No{/tr}</option>
                     </select>
@@ -237,12 +237,12 @@
                     </label>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-4 col-form-label" for="customcategories">
                     {tr}Custom classification{/tr}
                 </label>
                 <div class="col-sm-2">
-                    <select name="customcategories" id="customcategories" class="form-control">
+                    <select name="customcategories" id="customcategories" class="form-select">
                         <option value='y' {if $customcategories eq 'y'}selected="selected"{/if}>{tr}Yes{/tr}</option>
                         <option value='n' {if $customcategories eq 'n'}selected="selected"{/if}>{tr}No{/tr}</option>
                     </select>
@@ -254,12 +254,12 @@
                     </label>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-4 col-form-label" for="customlanguages">
                     {tr}Custom language{/tr}
                 </label>
                 <div class="col-sm-2">
-                    <select name="customlanguages" id="customlanguages" class="form-control">
+                    <select name="customlanguages" id="customlanguages" class="form-select">
                         <option value='y' {if $customlanguages eq 'y'}selected="selected"{/if}>{tr}Yes{/tr}</option>
                         <option value='n' {if $customlanguages eq 'n'}selected="selected"{/if}>{tr}No{/tr}</option>
                     </select>
@@ -271,12 +271,12 @@
                     </label>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-4 col-form-label" for="customurl">
                     {tr}Custom URL{/tr}
                 </label>
                 <div class="col-sm-2">
-                    <select name="options[customurl]" id="customurl" class="form-control">
+                    <select name="options[customurl]" id="customurl" class="form-select">
                         <option value='y' {if $customurl eq 'y'}selected="selected"{/if}>{tr}Yes{/tr}</option>
                         <option value='n' {if $customurl eq 'n'}selected="selected"{/if}>{tr}No{/tr}</option>
                     </select>
@@ -289,41 +289,41 @@
                 </div>
             </div>
             {if $prefs.feature_newsletters eq 'y'}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-sm-4 col-form-label" for="customsubscription">
                         {tr}Custom subscription list{/tr}
                     </label>
                     <div class="col-sm-2">
-                        <select name="customsubscription" id="customsubscription" class="form-control">
+                        <select name="customsubscription" id="customsubscription" class="form-select">
                             <option value='y' {if $customsubscription eq 'y'}selected="selected"{/if}>{tr}Yes{/tr}</option>
                             <option value='n' {if $customsubscription eq 'n'}selected="selected"{/if}>{tr}No{/tr}</option>
                         </select>
                     </div>
                 </div>
             {/if}
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-4 col-form-label" for="custompriorities">
                     {tr}Custom priority{/tr}
                 </label>
                 <div class="col-sm-2">
-                    <select name="custompriorities" id="custompriorities" class="form-control">
+                    <select name="custompriorities" id="custompriorities" class="form-select">
                         <option value='y' {if $custompriorities eq 'y'}selected="selected"{/if}>{tr}Yes{/tr}</option>
                         <option value='n' {if $custompriorities eq 'n'}selected="selected"{/if}>{tr}No{/tr}</option>
                     </select>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-4 col-form-label" for="personal">
                     {tr}Personal Calendar{/tr}
                 </label>
                 <div class="col-sm-2">
-                    <select name="personal" id="personal" class="form-control">
+                    <select name="personal" id="personal" class="form-select">
                         <option value='y' {if $personal eq 'y'}selected="selected"{/if}>{tr}Yes{/tr}</option>
                         <option value='n' {if $personal eq 'n'}selected="selected"{/if}>{tr}No{/tr}</option>
                     </select>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-4 col-form-label" for="customcategories">
                     {tr}Start of day{/tr}
                 </label>
@@ -331,7 +331,7 @@
                     {html_select_time prefix="startday_" time=$info.startday display_minutes=false display_seconds=false use_24_hours=$use_24hr_clock}
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-4 col-form-label" for="customcategories">
                     {tr}End of day{/tr}
                 </label>
@@ -339,7 +339,7 @@
                     {html_select_time prefix="endday_" time=$info.endday display_minutes=false display_seconds=false use_24_hours=$use_24hr_clock}
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-4 col-form-label" for="customcategories">
                     {tr}Days to display{/tr}
                 </label>
@@ -353,12 +353,12 @@
                     {/section}
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-4 col-form-label" for="customcategories">
                     {tr}Standard color{/tr}
                 </label>
                 <div class="col-sm-3">
-                    <select class="form-control" id="customcategories" name="options[customcolors]" onChange="javascript:document.getElementById('fgColorField').disabled=(this.options[this.selectedIndex].value != 0);document.getElementById('bgColorField').disabled=(this.options[this.selectedIndex].value != 0);">
+                    <select class="form-select" id="customcategories" name="options[customcolors]" onChange="javascript:document.getElementById('fgColorField').disabled=(this.options[this.selectedIndex].value != 0);document.getElementById('bgColorField').disabled=(this.options[this.selectedIndex].value != 0);">
                         <option value="" />
                         <option value="008400-99fa99" style="background-color:#99fa99;color:#008400" {if ($customColors) eq '008400-99fa99'}selected{/if}>{tr}Green{/tr}</option>
                         <option value="3333ff-aaccff" style="background-color:#aaccff;color:#3333ff" {if ($customColors) eq '3333ff-aaccff'}selected{/if}>{tr}Blue{/tr}</option>
@@ -369,7 +369,7 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-4 col-form-label" for="fgColorField">
                     {tr}Custom foreground color{/tr}
                 </label>
@@ -377,7 +377,7 @@
                     <input id="fgColorField" class="form-control" type="text" name="options[customfgcolor]" value="{$customfgcolor}" size="6"> <i>{tr}Example:{/tr} FFFFFF</i>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-4 col-form-label" for="bgColorField">
                     {tr}Custom background color{/tr}
                 </label>
@@ -385,18 +385,18 @@
                     <input id="bgColorField" class="form-control" type="text" name="options[custombgcolor]" value="{$custombgcolor}" size="6"> <i>{tr}Example:{/tr} 000000</i>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-4 col-form-label" for="customstatus">
                     {tr}Status{/tr}
                 </label>
                 <div class="col-sm-2">
-                    <select name="customstatus" id="customstatus" class="form-control">
+                    <select name="customstatus" id="customstatus" class="form-select">
                         <option value='y' {if $info.customstatus ne 'n'}selected="selected"{/if}>{tr}Yes{/tr}</option>
                         <option value='n' {if $info.customstatus eq 'n'}selected="selected"{/if}>{tr}No{/tr}</option>
                     </select>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-4 col-form-label">
                     {tr}Default event status:{/tr}
                 </label>
@@ -404,7 +404,7 @@
                     {html_options class="form-control" name='options[defaulteventstatus]' options=$eventstatus selected=$defaulteventstatus}
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <div class="checkbox col-sm-4 offset-sm-4">
                     <label class="col-form-label">
                         <input type="checkbox" name="show[status]" value="on"{if $info.show_status eq 'y'} checked="checked"{/if}>
@@ -412,7 +412,7 @@
                     </label>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <div class="checkbox col-sm-4 offset-sm-4">
                     <label class="col-form-label">
                         <input type="checkbox" name="show[status_calview]" value="on"{if $info.show_status_calview ne 'n'} checked="checked"{/if}>
@@ -421,12 +421,12 @@
                 </div>
             </div>
             {if $prefs.feature_groupalert eq 'y'}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-sm-4 col-form-label" for="groupforAlert">
                         {tr}Group of users alerted when calendar event is modified{/tr}
                     </label>
                     <div class="col-sm-2">
-                        <select id="groupforAlert" name="groupforAlert" class="form-control">
+                        <select id="groupforAlert" name="groupforAlert" class="form-select">
                             <option value=""></option>
                             {foreach key=k item=i from=$groupforAlertList}
                                 <option value="{$k|escape}" {$i}>{$k|escape}</option>
@@ -434,7 +434,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-sm-4 col-form-label" for="showeachuser">
                         {tr}Allows each user to be selected for small groups{/tr}
                     </label>
@@ -443,7 +443,7 @@
                     </div>
                 </div>
             {/if}
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-4 col-form-label" for="allday">
                     {tr}Default length of events is all day{/tr}
                 </label>
@@ -451,7 +451,7 @@
                     <input type="checkbox" id="allday" name="allday"{if $info.allday eq 'y'} checked="checked"{/if}>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-4 col-form-label" for="nameoneachday">
                     {tr}Event name on each day in calendar view{/tr}
                 </label>
@@ -459,26 +459,24 @@
                     <input type="checkbox" name="nameoneachday"{if $info.nameoneachday eq 'y'} checked="checked"{/if}>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <input type="submit" class="btn btn-primary offset-sm-4" name="save" value="{tr}Save{/tr}">
             </div>
             </fieldset>
             <fieldset>
                 <legend>{tr}Delete old events{/tr}</legend>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-sm-4 col-form-label" for="days">
                         {tr}Delete events older than:{/tr}
                     </label>
                     <div class="col-sm-3 input-group">
                         <input type="text" name="days" id="days" value="0" class="form-control">
-                        <div class="input-group-append">
-                            <span class="input-group-text">
-                                {tr}days{/tr}
-                            </span>
-                        </div>
+                        <span class="input-group-text">
+                            {tr}days{/tr}
+                        </span>
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <input
                         type="submit"
                         class="btn btn-warning offset-sm-4"

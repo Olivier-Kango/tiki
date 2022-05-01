@@ -34,10 +34,10 @@
         <form action="tiki-admin_categories.php" method="post" role="form">
             {ticket}
             <input type="hidden" name="categId" value="{$categId|escape}">
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label" for="parentId">{tr}Parent{/tr}</label>
                 <div class="col-sm-9">
-                    <select name="parentId" id="parentId" class="form-control">
+                    <select name="parentId" id="parentId" class="form-select">
                         {if $tiki_p_admin_categories eq 'y'}<option value="0">{tr}Top{/tr}</option>{/if}
                         {foreach $categories as $category}
                             <option value="{$category.categId}" {if $category.categId eq $parentId}selected="selected"{/if}>{$category.categpath|escape}</option>
@@ -45,26 +45,26 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label" for="name">{tr}Name{/tr}</label>
                 <div class="col-sm-9">
                     <input type="text" class="form-control" name="name" id="name" value="{$categoryName|escape}">
                 </div>
             </div>
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label" for="description">{tr}Description{/tr}</label>
                 <div class="col-sm-9">
                     <textarea rows="2" class="form-control" name="description" id="description" maxlength=500>{$description|escape}</textarea>
                 </div>
             </div>
             {if isset($role_groups) && count($role_groups) }
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <label class="col-sm-3 col-form-label" for="description">{tr}Group Roles{/tr}</label>
                 <div class="col-sm-9">
                     {foreach $role_groups as $role}
                     <div>
                         {$role.groupRoleName}:
-                        <select name="categoryRole[{$role.iteration}][{$role.categId}][{$role.categRoleId}][{$role.groupRoleId}]" class="form-control">
+                        <select name="categoryRole[{$role.iteration}][{$role.categId}][{$role.categRoleId}][{$role.groupRoleId}]" class="form-select">
                             <option value="" >{tr}None{/tr}</option>
                             {foreach $group_list as $group}
                                 <option value="{$group.id}" {if $group.id eq $selected_groups[$role.groupRoleId]}selected="selected"{/if}>{$group.groupName|escape}</option>
@@ -76,7 +76,7 @@
             </div>
             {/if}
             {if $tiki_p_admin_categories == 'y'}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <div class="col-sm-9 offset-sm-3">
                         <div class="form-check">
                             <label class="form-check-label">
@@ -104,7 +104,7 @@
                         }
                     });
                 {/jq}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <div class="col-sm-9 offset-sm-3">
                         <div class="form-check">
                             <label class="form-check-label">
@@ -113,7 +113,7 @@
                             </label>
                         </div>
                         <div>
-                            <select name="rolesToApply[]" id="rolesToApply" class="form-control" multiple="multiple" size="5">
+                            <select name="rolesToApply[]" id="rolesToApply" class="form-select" multiple="multiple" size="5">
                                 {foreach $roles as $role}
                                     <option value="{$role['id']}"
                                             {if isset($availableIds) && in_array($role['id'], $availableIds)}selected{/if} >
@@ -143,12 +143,12 @@
                             }
                         });
                     {/jq}
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <div class="col-sm-9 offset-sm-3">
                             <label>
                                 {tr}Automatically manage sub-categories for Templated Groups Container{/tr}
                             </label>
-                            <select {if $tplGroupContainerId > 0}disabled {/if} name="tplGroupContainer" id="tplGroupContainer" class="form-control">
+                            <select {if $tplGroupContainerId > 0}disabled {/if} name="tplGroupContainer" id="tplGroupContainer" class="form-select">
                                 <option>{tr}None{/tr}</option>
                                 {foreach $templatedGroups as $group}
                                     <option value="{$group['id']}"
@@ -167,7 +167,7 @@
                     </div>
                 {/if}
             {/if}
-            <div class="form-group row">
+            <div class="mb-3 row">
                 <div class="col-sm-9 offset-sm-3">
                     <input type="submit" class="btn btn-primary" name="save" value="{tr}Save{/tr}">
                 </div>
@@ -267,7 +267,7 @@ $("#remove_object_form").unbind("submit").submit(function (e) {
                 <fieldset>
                     <legend>{tr}Perform an action on all objects in the current category:{/tr}</legend>
                     <input type="hidden" name="parentId" value="{$parentId|escape}">
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label class="col-sm-4 col-form-label" for="unassign">
                             {tr}Unassign{/tr}
                         </label>
@@ -281,12 +281,12 @@ $("#remove_object_form").unbind("submit").submit(function (e) {
                             >
                         </div>
                     </div>
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label class="col-sm-4 col-form-label" for="toId">
                             {tr}Move to selected category{/tr}
                         </label>
                         <div class="col-sm-6 input-group">
-                            <select name="toId" id="toId" class="form-control">
+                            <select name="toId" id="toId" class="form-select">
                                 <option>{tr}Choose destination category{/tr}</option>
                                 {foreach $categories as $category}
                                     {if $category.categId neq $parentId}
@@ -296,17 +296,15 @@ $("#remove_object_form").unbind("submit").submit(function (e) {
                                     {/if}
                                 {/foreach}
                             </select>
-                            <span class="input-group-append">
-                                <input type="submit" class="btn btn-primary" name="move_to" value="{tr}OK{/tr}">
-                            </span>
+                            <input type="submit" class="btn btn-primary" name="move_to" value="{tr}OK{/tr}">
                         </div>
                     </div>
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label class="col-sm-4 col-form-label" for="to">
                             {tr}Copy to selected category{/tr}
                         </label>
                         <div class="col-sm-6 input-group">
-                            <select name="to" class="form-control">
+                            <select name="to" class="form-select">
                                 <option>{tr}Choose destination category{/tr}</option>
                                 {foreach $categories as $category}
                                     {if $category.categId neq $parentId}
@@ -316,9 +314,7 @@ $("#remove_object_form").unbind("submit").submit(function (e) {
                                     {/if}
                                 {/foreach}
                             </select>
-                            <span class="input-group-append">
-                                <input type="submit" class="btn btn-primary" name="copy_from" value="{tr}OK{/tr}">
-                            </span>
+                            <input type="submit" class="btn btn-primary" name="copy_from" value="{tr}OK{/tr}">
                         </div>
                     </div>
                 </fieldset>
@@ -331,7 +327,7 @@ $("#remove_object_form").unbind("submit").submit(function (e) {
                 <form id="add_object_form" method="post" action="{service controller=category action=categorize}" role="form">
                     <div class="row">
                         <label class="col-sm-4">Types of object
-                            <select id="add_object_type">
+                            <select class="form-select" id="add_object_type">
                                 <option value="">{tr}All{/tr}</option>
                                 {foreach $types as $type => $title}
                                     <option value="{$type|escape}">
@@ -388,15 +384,13 @@ $("#add_object_type").change(function () {
             {else}{* feature_search=n (not unified search) *}
 
                 <form method="get" action="tiki-admin_categories.php" role="form">
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label class="col-sm-3 col-form-label" for="find_objects">
                             {tr}Find{/tr}
                         </label>
                         <div class="col-sm-6 input-group">
                             <input type="text" name="find_objects" id="find_objects" class="form-control">
-                            <span class="input-group-append">
-                                <input type="submit" class="btn btn-primary" value="{tr}Filter{/tr}" name="search_objects">
-                            </span>
+                            <input type="submit" class="btn btn-primary" value="{tr}Filter{/tr}" name="search_objects">
                         </div>
                     </div>
                     <input type="hidden" name="parentId" value="{$parentId|escape}">
@@ -410,12 +404,12 @@ $("#add_object_type").change(function () {
                     <input type="hidden" name="parentId" value="{$parentId|escape}">
                     <fieldset>
                         {if $prefs.feature_wiki eq 'y' and $pages}
-                            <div class="form-group row">
+                            <div class="mb-3 row">
                                 <label class="col-sm-3 col-form-label" for="pageName">
                                     {tr}Page{/tr}
                                 </label>
                                 <div class="col-sm-6 input-group">
-                                    <select name="pageName[]" id="pageName" class="form-control" multiple="multiple" size="5">
+                                    <select name="pageName[]" id="pageName" class="form-select" multiple="multiple" size="5">
                                         {section name=ix loop=$pages}
                                             <option value="{$pages[ix].pageName|escape}">
                                                 {$pages[ix].pageName|truncate:80:"(...)":true|escape}
@@ -435,226 +429,203 @@ $("#add_object_type").change(function () {
                         {/if}
 
                         {if $prefs.feature_articles eq 'y' and $articles}
-                            <div class="form-group row">
+                            <div class="mb-3 row">
                                 <label class="col-sm-3 col-form-label" for="articleId">
                                     {tr}Article{/tr}
                                 </label>
                                 <div class="col-lg-6 input-group">
-                                    <select name="articleId" id="articleId" class="form-control">
+                                    <select name="articleId" id="articleId" class="form-select">
                                         {section name=ix loop=$articles}
                                             <option value="{$articles[ix].articleId|escape}">
                                                 {$articles[ix].title|truncate:80:"(...)":true|escape}
                                             </option>
                                         {/section}
                                     </select>
-                                    <span class="input-group-append">
-                                        <input
-                                            type="submit"
-                                            class="btn btn-primary"
-                                            name="addarticle"
-                                            value="{tr}Add{/tr}"
-                                        >
-                                    </span>
+                                    <input type="submit" class="btn btn-primary" name="addarticle" value="{tr}Add{/tr}">
                                 </div>
                             </div>
                         {/if}
 
                         {if $prefs.feature_blogs eq 'y' and $blogs}
-                            <div class="form-group row">
+                            <div class="mb-3 row">
                                 <label class="col-sm-3 col-form-label" for="blogId">
                                     {tr}Blog{/tr}
                                 </label>
                                 <div class="col-sm-6 input-group">
-                                    <select name="blogId" id="blogId" class="form-control">
+                                    <select name="blogId" id="blogId" class="form-select">
                                         {section name=ix loop=$blogs}
                                             <option value="{$blogs[ix].blogId|escape}">
                                                 {$blogs[ix].title|truncate:80:"(...)":true|escape}
                                             </option>
                                         {/section}
                                     </select>
-                                    <span class="input-group-append">
-                                        <input
+                                    <input
                                             type="submit"
                                             class="btn btn-primary"
                                             name="addblog"
                                             value="{tr}Add{/tr}"
                                         >
-                                    </span>
                                 </div>
                             </div>
                         {/if}
 
                         {if $prefs.feature_directory === 'y'&& $directories}
-                            <div class="form-group row">
+                            <div class="mb-3 row">
                                 <label class="col-sm-3 col-form-label" for="directoryId">
                                     {tr}Directory{/tr}
                                 </label>
                                 <div class="col-sm-6 input-group">
-                                    <select name="directoryId" id="directoryId" class="form-control">
+                                    <select name="directoryId" id="directoryId" class="form-select">
                                         {section name=ix loop=$directories}
                                             <option value="{$directories[ix].categId|escape}">
                                                 {$directories[ix].name|truncate:40:"(...)":true|escape}
                                             </option>
                                         {/section}
                                     </select>
-                                    <span class="input-group-append">
-                                        <input
+                                    <input
                                             type="submit"
                                             class="btn btn-primary"
                                             name="adddirectory"
                                             value="{tr}Add{/tr}"
                                         >
-                                    </span>
                                 </div>
                             </div>
                         {/if}
 
                         {if $prefs.feature_file_galleries eq 'y' and $file_galleries}
-                            <div class="form-group row">
+                            <div class="mb-3 row">
                                 <label class="col-sm-3 col-form-label" for="file_galleryId">
                                     {tr}File gallery{/tr}
                                 </label>
                                 <div class="col-sm-6 input-group">
-                                    <select name="file_galleryId" id="file_galleryId" class="form-control">
+                                    <select name="file_galleryId" id="file_galleryId" class="form-select">
                                         {section name=ix loop=$file_galleries}
                                             <option value="{$file_galleries[ix].id|escape}">
                                                 {$file_galleries[ix].name|truncate:80:"(...)":true|escape}
                                             </option>
                                         {/section}
                                     </select>
-                                    <span class="input-group-append">
-                                        <input
+                                    <input
                                             type="submit"
                                             class="btn btn-primary"
                                             name="addfilegallery"
                                             value="{tr}Add{/tr}"
                                         >
-                                    </span>
                                 </div>
                             </div>
                         {/if}
 
                         {if $prefs.feature_forums eq 'y' and $forums}
-                            <div class="form-group row">
+                            <div class="mb-3 row">
                                 <label class="col-sm-3 col-form-label" for="forumId">
                                     {tr}Forum{/tr}
                                 </label>
                                 <div class="col-sm-6 input-group">
-                                    <select name="forumId" id="forumId" class="form-control">
+                                    <select name="forumId" id="forumId" class="form-select">
                                         {section name=ix loop=$forums}
                                             <option value="{$forums[ix].forumId|escape}">
                                                 {$forums[ix].name|truncate:80:"(...)":true|escape}
                                             </option>
                                         {/section}
                                     </select>
-                                    <span class="input-group-append">
-                                        <input
+                                    <input
                                             type="submit"
                                             class="btn btn-primary"
                                             name="addforum"
                                             value="{tr}Add{/tr}"
                                         >
-                                    </span>
                                 </div>
                             </div>
                         {/if}
 
                         {if $prefs.feature_polls eq 'y' and $polls}
-                            <div class="form-group row">
+                            <div class="mb-3 row">
                                 <label class="col-sm-3 col-form-label" for="pollId">
                                     {tr}Poll{/tr}
                                 </label>
                                 <div class="col-sm-6 input-group">
-                                    <select name="pollId" id="pollId" class="form-control">
+                                    <select name="pollId" id="pollId" class="form-select">
                                         {section name=ix loop=$polls}
                                             <option value="{$polls[ix].pollId|escape}">
                                                 {$polls[ix].title|truncate:80:"(...)":true|escape}
                                             </option>
                                         {/section}
                                     </select>
-                                    <span class="input-group-append">
-                                        <input
+                                    <input
                                             type="submit"
                                             class="btn btn-primary"
                                             name="addpoll"
                                             value="{tr}Add{/tr}"
                                         >
-                                    </span>
                                 </div>
                             </div>
                         {/if}
 
                         {if $prefs.feature_faqs eq 'y' and $faqs}
-                            <div class="form-group row">
+                            <div class="mb-3 row">
                                 <label class="col-sm-3 col-form-label" for="faqId">
                                     {tr}FAQ{/tr}
                                 </label>
                                 <div class="col-sm-6 input-group">
-                                    <select name="faqId" id="faqId" class="form-control">
+                                    <select name="faqId" id="faqId" class="form-select">
                                         {section name=ix loop=$faqs}
                                             <option value="{$faqs[ix].faqId|escape}">
                                                 {$faqs[ix].title|truncate:80:"(...)":true|escape}
                                             </option>
                                         {/section}
                                     </select>
-                                    <span class="input-group-append">
-                                        <input
+                                    <input
                                             type="submit"
                                             class="btn btn-primary"
                                             name="addfaq"
                                             value="{tr}Add{/tr}"
                                         >
-                                    </span>
                                 </div>
                             </div>
                         {/if}
 
                         {if $prefs.feature_trackers eq 'y' and $trackers}
-                            <div class="form-group row">
+                            <div class="mb-3 row">
                                 <label class="col-sm-3 col-form-label" for="trackerId">
                                     {tr}Tracker{/tr}
                                 </label>
                                 <div class="col-sm-6 input-group">
-                                    <select name="trackerId" id="trackerId" class="form-control">
+                                    <select name="trackerId" id="trackerId" class="form-select">
                                         {section name=ix loop=$trackers}
                                             <option value="{$trackers[ix].trackerId|escape}">
                                                 {$trackers[ix].name|truncate:80:"(...)":true|escape}
                                             </option>
                                         {/section}
                                     </select>
-                                    <span class="input-group-append">
-                                        <input
+                                    <input
                                             type="submit"
                                             class="btn btn-primary"
                                             name="addtracker"
                                             value="{tr}Add{/tr}"
                                         >
-                                    </span>
                                 </div>
                             </div>
                         {/if}
 
                         {if $prefs.feature_quizzes eq 'y' and $quizzes}
-                            <div class="form-group row">
+                            <div class="mb-3 row">
                                 <label class="col-sm-3 col-form-label" for="quizId">
                                     {tr}Quiz{/tr}
                                 </label>
                                 <div class="col-sm-6 input-group">
-                                    <select name="quizId" id="quizId" class="form-control">
+                                    <select name="quizId" id="quizId" class="form-select">
                                         {section name=ix loop=$quizzes}
                                             <option value="{$quizzes[ix].quizId|escape}">
                                                 {$quizzes[ix].name|truncate:80:"(...)":true|escape}
                                             </option>
                                         {/section}
                                     </select>
-                                    <span class="input-group-append">
-                                        <input
+                                    <input
                                             type="submit"
                                             class="btn btn-primary"
                                             name="addquiz"
                                             value="{tr}Add{/tr}"
                                         >
-                                    </span>
                                 </div>
                             </div>
                         {/if}
@@ -671,7 +642,7 @@ $("#add_object_type").change(function () {
             <h2>{tr}Batch upload{/tr}</h2>
             <form action="tiki-admin_categories.php" method="post" enctype="multipart/form-data" role="form">
                 {ticket}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <label class="col-form-label col-sm-3">{tr}CSV File{/tr}</label>
                     <div class="col-sm-9">
                         <input type="file" class="form-control" name="csvlist">
@@ -688,7 +659,7 @@ spinach,Spinach is a leafy green flowering plant,vegetable
                         </div>
                     </div>
                 </div>
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <div class="col-sm-3 offset-sm-3">
                         <input type="submit" class="btn btn-secondary" name="import" value="{tr}Upload{/tr}">
                     </div>

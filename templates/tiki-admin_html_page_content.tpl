@@ -15,13 +15,13 @@
         {ticket}
         <input type="hidden" name="pageName" value="{$pageName|escape}">
         <input type="hidden" name="zone" value="{$zone|escape}">
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-sm-3 col-form-label">{tr}Zone{/tr}</label>
             <div class="col-sm-7 offset-sm-1">
                 <p>{$zone} Teste</p>
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <label class="col-sm-3 col-form-label">{tr}Content:{/tr}</label>
             <div class="col-sm-7 offset-sm-1">
                 {if $type eq 'ta'}
@@ -31,7 +31,7 @@
                 {/if}
             </div>
         </div>
-        <div class="form-group row">
+        <div class="mb-3 row">
             <div class="col-sm-3"></div>
             <div class="col-sm-7 offset-sm-1 mb-3">
                 <input type="submit" class="btn btn-primary" name="save" value="{tr}Save{/tr}">
@@ -78,7 +78,7 @@
         {/section}
     </table>
 
-    <div class="form-group row">
+    <div class="mb-3 row">
         <div class="col-sm-3"></div>
         <div class="col-sm-7 offset-sm-2">
             <input type="submit" class="btn btn-primary btn-sm" name="editmany" value="{tr}Mass update{/tr}">

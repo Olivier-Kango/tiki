@@ -1,7 +1,7 @@
 {* $Id$ *}
 {* Used by smarty_function_filegal_uploader() when $prefs.file_galleries_use_jquery_upload is enabled *}
 {* The fileinput-button span is used to style the file input field as button *}
-<div class="form-group row">
+<div class="mb-3 row">
     <div class="col-md-12">
         <div class="card bg-light fileupload mb-0">
             <div class="card-body">
@@ -16,7 +16,7 @@
         </div>
     </div>
 </div>
-<div class="form-group row">
+<div class="mb-3 row">
     <div id="files" class="files text-center col-md-12"></div>
 </div>
 <div class="col-sm-12">

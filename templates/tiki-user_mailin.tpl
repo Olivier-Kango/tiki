@@ -46,7 +46,7 @@
                             <td><input type="text" name="mailinSubjPatt{$smarty.foreach.mstruct.iteration}" size="25" value="{$ustruct.subj_pattern}" onchange="structSelChanged({$smarty.foreach.mstruct.iteration});"/></td>
                             <td><input type="text" name="mailinBodyPatt{$smarty.foreach.mstruct.iteration}" size="25" value="{$ustruct.body_pattern}" onchange="structSelChanged({$smarty.foreach.mstruct.iteration});"/></td>
                             <td>
-                                <select name="mailinStruct{$smarty.foreach.mstruct.iteration}" onchange="structSelChanged({$smarty.foreach.mstruct.iteration});">
+                                <select class="form-select" name="mailinStruct{$smarty.foreach.mstruct.iteration}" onchange="structSelChanged({$smarty.foreach.mstruct.iteration});">
                                     {foreach from=$structs item=struct}
                                         <option value="{$struct.structure_id}" {if $struct.structure_id eq $ustruct.structure_id}selected='selected'"{/if}">{$struct.pageName}</option>
                                     {/foreach}
@@ -70,7 +70,7 @@
                             <td><input type="text" name="mailinSubjPattNew" size="25" /></td>
                             <td><input type="text" name="mailinBodyPattNew" size="25" /></td>
                             <td>
-                                <select name="mailinNewStruct">
+                                <select name="mailinNewStruct" class="form-select">
                                     <option value="0" selected></option>
                                     {foreach from=$structs item=struct2}
                                         <option value="{$struct2.structure_id}">{$struct2.pageName}</option>

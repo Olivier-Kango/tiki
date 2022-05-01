@@ -1,13 +1,13 @@
 <div class="activity" data-id="{$activityframe.object.id|escape}">
     {if $activity_format eq 'summary' and $activityframe.summary neq 'content'}
-        <div class="media" data-href="{service controller=object action=infobox type=$activityframe.object.type object=$activityframe.object.id format=extended}">
-            <div class="float-left">
+        <div class="d-flex" data-href="{service controller=object action=infobox type=$activityframe.object.type object=$activityframe.object.id format=extended}">
+            <div class="flex-shrink-0">
                 {$activityframe.activity.user|avatarize:'':'img/noavatar.png'}
             </div>
-            <div class="media-body">
+            <div class="flex-grow-1 ms-3">
                 <h4 class="media-heading">{$activityframe.heading}</h4>
                 {if $activityframe.activity.type && $activityframe.activity.object}
-                    <span class="float-sm-right">
+                    <span class="float-sm-end">
                         {$activityframe.activity.modification_date|tiki_short_datetime}
                     </span>
                     <div>
@@ -18,20 +18,20 @@
             </div>
         </div>
     {elseif $activity_format eq 'summary'}
-        <div class="media" data-href="{service controller=object action=infobox type=$activityframe.object.type object=$activityframe.object.id format=extended}">
-            <div class="float-left">
+        <div class="d-flex" data-href="{service controller=object action=infobox type=$activityframe.object.type object=$activityframe.object.id format=extended}">
+            <div class="flex-shrink-0">
                 {$activityframe.activity.user|avatarize:'':'img/noavatar.png'}
             </div>
-            <div class="media-body">
+            <div class="flex-grow-1 ms-3">
                 <h4 class="media-heading">{$activityframe.heading}</h4>
-                <span class="float-sm-right">
+                <span class="float-sm-end">
                     {$activityframe.activity.modification_date|tiki_short_datetime}
                 </span>
                 <div class="content">{$activityframe.content}</div>
             </div>
         </div>
     {else}
-        <span class="float-sm-right">
+        <span class="float-sm-end">
             {$activityframe.activity.modification_date|tiki_short_datetime}
         </span>
         <strong style="vertical-align: middle;">{$activityframe.activity.user|avatarize:'':'img/noavatar.png'} {$activityframe.heading}</strong>

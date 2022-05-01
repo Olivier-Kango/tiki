@@ -105,7 +105,7 @@
                 </div>
                 <div class="modal-body">
                     <input type="hidden" name="id">
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label for="groups_group" class="col-form-label col-md-3">{tr}Group{/tr}</label>
                         <div class="col-md-9">
                             {if $groupname neq 'Anonymous' and $groupname neq 'Registered' and $groupname neq 'Admins'}
@@ -116,7 +116,7 @@
                             {/if}
                         </div>
                     </div>
-                    <div class="form-group row">
+                    <div class="mb-3 row">
                         <label for="groups_desc" class="col-form-label col-md-3">{tr}Description{/tr}</label>
                         <div class="col-md-9">
                             <textarea rows="5" name="desc" id="groups_desc" class="form-control">{$groupdesc|escape}</textarea>
@@ -124,7 +124,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-link" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-link" data-bs-dismiss="modal">Close</button>
                     <button
                             type="submit"
                             class="btn btn-primary"

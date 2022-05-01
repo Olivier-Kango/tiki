@@ -37,12 +37,12 @@
                     {if $msg.isFlagged eq 'y'}
                         <input type="hidden" name="actionval" value="n">
                         <button type="submit" class="btn btn-link">
-                            <i class="fas fa-flag tips" aria-hidden="true" title="{tr}Flagged:Click to unflag{/tr}"></i>
+                            <i class="fas fa-flag tips" aria-hidden="true" title="{tr}Flagged: Click to unflag{/tr}"></i>
                         </button>
                     {else}
                         <input type="hidden" name="actionval" value="y">
                         <button type="submit" class="btn btn-link">
-                            <i class="far fa-flag tips" aria-hidden="true" title="{tr}Not flagged:Click to flag{/tr}"></i>
+                            <i class="far fa-flag tips" aria-hidden="true" title="{tr}Not flagged: Click to flag{/tr}"></i>
                         </button>
                     {/if}
                 </form>
@@ -68,7 +68,7 @@
             {/if}
             <input
                 type="submit"
-                class="btn btn-primary btn-sm float-sm-right"
+                class="btn btn-primary btn-sm float-sm-end"
                 name="delete"
                 value="{tr}Delete{/tr}"
                 onclick="confirmPopup('{tr}Delete sent message?{/tr}')"

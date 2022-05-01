@@ -8,9 +8,9 @@
 
     {* --------- navigation ------ *}
     <div class="t_navbar mb-4">
-        <div class="float-sm-right btn-group">
+        <div class="float-sm-end btn-group">
             {if ! $js}<ul class="cssmenu_horiz"><li>{/if}
-            <a class="btn btn-link" data-toggle="dropdown" data-hover="dropdown" href="#">
+            <a class="btn btn-link" data-bs-toggle="dropdown" data-hover="dropdown" href="#">
                 {icon name='menu-extra'}
             </a>
             <ul class="dropdown-menu dropdown-menu-right">
@@ -176,7 +176,7 @@
         {* -------------------------------------------------- section with comments --- *}
         {if $tracker_info.useComments eq 'y' and ($tiki_p_tracker_view_comments ne 'n' or $tiki_p_comment_tracker_items ne 'n' or $canViewCommentsAsItemOwner) and $prefs.tracker_show_comments_below eq 'y'}
             <a id="Comments"></a>
-            <div id="comment-container-below" class="well well-sm" data-target="{service controller=comment action=list type=trackeritem objectId=$itemId}"></div>
+            <div id="comment-container-below" class="well well-sm" data-bs-target="{service controller=comment action=list type=trackeritem objectId=$itemId}"></div>
             {jq}
                 var id = '#comment-container-below';
                 $(id).comment_load($(id).data('target'));
@@ -194,7 +194,7 @@
     {if $tracker_info.useComments eq 'y' and ($tiki_p_tracker_view_comments ne 'n' or $tiki_p_comment_tracker_items ne 'n' or $canViewCommentsAsItemOwner) and $prefs.tracker_show_comments_below ne 'y'}
 
         {tab name="{tr}Comments{/tr} (`$comCount`)" print=n}
-            <div id="comment-container" data-target="{service controller=comment action=list type=trackeritem objectId=$itemId}"></div>
+            <div id="comment-container" data-bs-target="{service controller=comment action=list type=trackeritem objectId=$itemId}"></div>
             {jq}
                 var id = '#comment-container';
                 $(id).comment_load($(id).data('target'));
@@ -252,7 +252,7 @@
 
                     {remarksbox type="warning" title="{tr}Warning{/tr}"}<em class='mandatory_note'>{tr}Fields marked with an * are mandatory.{/tr}</em>{/remarksbox}
 
-                    <div class="form-group mx-0">
+                    <div class="mb-3 mx-0">
                                 {if count($fields) >= 5}
                                     <input type="submit" class="btn btn-primary btn-sm" name="save" value="{tr}Save{/tr}" onclick="needToConfirm=false">
                                     {* --------------------------- to return to tracker list after saving --------- *}
@@ -271,7 +271,7 @@
                     </div>
                                                                     {* ------------------- *}
                         {if $tracker_info.showStatus eq 'y' or ($tracker_info.showStatusAdminOnly eq 'y' and $tiki_p_admin_trackers eq 'y')}
-                            <div class="form-group row">
+                            <div class="mb-3 row">
                                 <label class="col-form-label col-sm-3">{tr}Status{/tr}</label>
                                 <div class="col-sm-9">
                                     {include file='tracker_status_input.tpl' item=$item_info form_status=edstatus}
@@ -283,7 +283,7 @@
                         {if empty($editItemPretty.value)}
 
                             {foreach from=$ins_fields key=ix item=cur_field}
-                                <div class="form-group row">
+                                <div class="mb-3 row">
                                     {if empty($cur_field.options_map.labelasplaceholder)}
                                         <label class="col-sm-3 {if $cur_field.type eq 'h'}h{$cur_field.options_map.level}{else}col-form-label{/if}">
                                             {$cur_field.name|tra|escape}
@@ -301,7 +301,7 @@
                         {else}
                         {* we have a preset template: it could be a wiki:myPage or a tpl:MyTpl.tpl *}
                         {* Note: tracker plugin usally consumes a pagename or a tpl filename without a prefix of tpl: or wiki: as the tracker definition does *}
-                            <div class="form-group row">
+                            <div class="mb-3 row">
 
                                 {if $editItemPretty.type eq 'wiki'}
                                     {wikiplugin _name=tracker trackerId=$trackerId itemId=$itemId view=page wiki=$editItemPretty.value formtag='n'}{/wikiplugin}
@@ -314,7 +314,7 @@
 
                         {if $groupforalert ne ''}
 
-                            <div class="form-group row">
+                            <div class="mb-3 row">
                                 <div class="col-sm-3">{tr}Choose users to alert{/tr}</div>
                                 <div class="col-sm-9">
                                     {section name=idx loop=$listusertoalert}
@@ -334,7 +334,7 @@
                         {if $prefs.feature_antibot eq 'y' && $user eq ''}
                             {include file='antibot.tpl'}
                         {/if}
-                        <div class="form-group mx-0">
+                        <div class="mb-3 mx-0">
                                 <input type="submit" class="btn btn-primary btn-sm" name="save" value="{tr}Save{/tr}" onclick="needToConfirm=false">
                                 {* --------------------------- to return to tracker list after saving --------- *}
                                 {if $canView}
@@ -379,7 +379,7 @@
                                         <input type="hidden" name="{$cur_field.options_array[tl]|regex_replace:"/:.*$/":""|escape}" value="{$info.$valvar|escape}">
                                     {/if}
                                 {/section}
-                                <div class="form-group row">
+                                <div class="mb-3 row">
                                         <div class="col-sm-6">
                                             {$cur_field.name|tra}
                                         </div>

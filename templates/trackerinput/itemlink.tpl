@@ -7,17 +7,15 @@
         {wikiplugin _name=trackerlist _compactArguments_=$data.trackerListOptions}{/wikiplugin}
         {if $field.options_map.addItems and $data.createTrackerItems}
             {if $data.predefined}
-                <div class="form-group row">
+                <div class="mb-3 row">
                     <div class="input-group col-sm-6">
-                        <select name="addaction" class="form-control">
+                        <select name="addaction" class="form-select">
                             <option value="">{$field.options_map.addItems|escape}</option>
                             {foreach key=itemId item=label from=$data.predefined}
                                 <option value="{$itemId}">{$label|escape}</option>
                             {/foreach}
                         </select>
-                        <span class="input-group-append">
-                            <a class="btn btn-primary insert-tracker-item" href="{service controller=tracker action=insert_item trackerId=$field.options_map.trackerId next=$data.next|escape}">{tr}OK{/tr}</a>
-                        </span>
+                        <a class="btn btn-primary insert-tracker-item" href="{service controller=tracker action=insert_item trackerId=$field.options_map.trackerId next=$data.next|escape}">{tr}OK{/tr}</a>
                     </div>
                 </div>
             {else}
@@ -83,7 +81,7 @@
             {/jq}
         {/if}
     {else}
-        <select name="{$field.ins_id}{if $data.selectMultipleValues}[]{/if}" {if $data.preselection and $data.crossSelect neq 'y'}disabled="disabled"{/if} {if $data.selectMultipleValues}multiple="multiple"{/if} class="form-control">
+        <select name="{$field.ins_id}{if $data.selectMultipleValues}[]{/if}" {if $data.preselection and $data.crossSelect neq 'y'}disabled="disabled"{/if} {if $data.selectMultipleValues}multiple="multiple"{/if} class="form-select">
             {if $field.isMandatory ne 'y' || empty($field.value)}
                 <option value=""></option>
             {/if}
