@@ -573,7 +573,11 @@ if (typeof $.fn.button.noConflict === "function") {
 if ($prefs['jquery_select2'] == 'y') {
     $headerlib->add_jsfile('vendor_bundled/vendor/npm-asset/select2/dist/js/select2.full.min.js');
     $headerlib->add_cssfile('vendor_bundled/vendor/npm-asset/select2/dist/css/select2.min.css');
-    $headerlib->add_cssfile('vendor_bundled/vendor/npm-asset/ttskch--select2-bootstrap4-theme/dist/select2-bootstrap4.min.css');
+    if (Language::isRTL()) {
+        $headerlib->add_cssfile('vendor_bundled/vendor/npm-asset/select2-bootstrap-5-theme/dist/select2-bootstrap-5-theme.rtl.css');
+    } else {
+        $headerlib->add_cssfile('vendor_bundled/vendor/npm-asset/select2-bootstrap-5-theme/dist/select2-bootstrap-5-theme.css');
+    }
 }
 if ($prefs['jquery_fitvidjs'] == 'y') {
     $customSelectors = \Tiki\Lib\FitVidJs\FitVidJs::getCustomSelector();
