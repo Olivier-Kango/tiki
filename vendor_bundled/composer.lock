@@ -932,6 +932,7 @@
                 "qrcode",
                 "symfony"
             ],
+            "abandoned": "barcode-bakery/barcode-1d",
             "time": "2021-08-20T15:46:10+00:00"
         },
         {
@@ -2429,13 +2430,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jasonmunro/cypht.git",
-                "reference": "78dab12b106879e68b6785d1b8feb4eee0711c32"
+                "reference": "2dd15ee36d60b62d3a5ccd51459b1c18e1840050"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-78dab12b106879e68b6785d1b8feb4eee0711c32-zip-35a760.zip",
-                "reference": "78dab12b106879e68b6785d1b8feb4eee0711c32",
-                "shasum": "1f0ae58a4f8b40093f5990e8daf1fd1fd00fd0a6"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-2dd15ee36d60b62d3a5ccd51459b1c18e1840050-zip-ab8f5f.zip",
+                "reference": "2dd15ee36d60b62d3a5ccd51459b1c18e1840050",
+                "shasum": "3113d9fe7615077e7ff6c85988a78aec1adfb3b9"
             },
             "require": {
                 "christian-riesen/base32": "^1.3.2",
@@ -2485,7 +2486,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2022-03-11T19:36:50+00:00"
+            "time": "2022-04-24T02:41:28+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -3555,17 +3556,17 @@
         },
         {
             "name": "laminas/laminas-log",
-            "version": "2.15.0",
+            "version": "2.15.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-log.git",
-                "reference": "91964dd3afec183c09cca5bc2b21a930a56d5237"
+                "reference": "c46d9eb2ad226f9ed27ea3f5de4bbafa9b98368f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-log/laminas-laminas-log-91964dd3afec183c09cca5bc2b21a930a56d5237-zip-d2213b.zip",
-                "reference": "91964dd3afec183c09cca5bc2b21a930a56d5237",
-                "shasum": "b731744a16d30e7b7abad8621e8036c68db51a8a"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-log/laminas-laminas-log-c46d9eb2ad226f9ed27ea3f5de4bbafa9b98368f-zip-6ac5c8.zip",
+                "reference": "c46d9eb2ad226f9ed27ea3f5de4bbafa9b98368f",
+                "shasum": "1d0c1ba2b124c19b25e23918322c4fbc80fd87db"
             },
             "require": {
                 "laminas/laminas-servicemanager": "^3.3.0",
@@ -3625,7 +3626,7 @@
                 "log",
                 "logging"
             ],
-            "time": "2021-12-04T19:23:31+00:00"
+            "time": "2022-04-29T05:55:10+00:00"
         },
         {
             "name": "laminas/laminas-mail",
@@ -4936,17 +4937,17 @@
         },
         {
             "name": "matthiasmullie/minify",
-            "version": "1.3.67",
+            "version": "1.3.68",
             "source": {
                 "type": "git",
                 "url": "https://github.com/matthiasmullie/minify.git",
-                "reference": "acaee1b7ca3cd67a39d7f98673cacd7e4739a8d9"
+                "reference": "c00fb02f71b2ef0a5f53fe18c5a8b9aa30f48297"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/matthiasmullie/minify/matthiasmullie-minify-acaee1b7ca3cd67a39d7f98673cacd7e4739a8d9-zip-e205b8.zip",
-                "reference": "acaee1b7ca3cd67a39d7f98673cacd7e4739a8d9",
-                "shasum": "09949633018e1089da420a59497a0eb5381a2524"
+                "url": "https://composer.tiki.org/dist/matthiasmullie/minify/matthiasmullie-minify-c00fb02f71b2ef0a5f53fe18c5a8b9aa30f48297-zip-0532d1.zip",
+                "reference": "c00fb02f71b2ef0a5f53fe18c5a8b9aa30f48297",
+                "shasum": "625583c743ea885cdb8fd0f43b200cae3c8bf5e5"
             },
             "require": {
                 "ext-pcre": "*",
@@ -4992,7 +4993,7 @@
                 "minifier",
                 "minify"
             ],
-            "time": "2022-03-24T08:54:59+00:00"
+            "time": "2022-04-19T08:28:56+00:00"
         },
         {
             "name": "matthiasmullie/path-converter",
@@ -5190,17 +5191,17 @@
         },
         {
             "name": "moment/moment",
-            "version": "2.29.2",
+            "version": "2.29.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/moment/moment.git",
-                "reference": "75e2ac573e8cd62086a6bc6dc1b8d271e2804391"
+                "reference": "57c90622e402c929504cc6d6f3de4ebe2a9ffc73"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/moment/moment/moment-moment-75e2ac573e8cd62086a6bc6dc1b8d271e2804391-zip-360722.zip",
-                "reference": "75e2ac573e8cd62086a6bc6dc1b8d271e2804391",
-                "shasum": "d5703b43fe626673ce98b125f1b5f9446fa82215"
+                "url": "https://composer.tiki.org/dist/moment/moment/moment-moment-57c90622e402c929504cc6d6f3de4ebe2a9ffc73-zip-58e907.zip",
+                "reference": "57c90622e402c929504cc6d6f3de4ebe2a9ffc73",
+                "shasum": "2588190dd8a1e57e2ea1a4cf1425bcb41001ecec"
             },
             "require": {
                 "oomphinc/composer-installers-extender": "*"
@@ -5240,7 +5241,7 @@
                 "time",
                 "validate"
             ],
-            "time": "2022-04-03T13:12:09+00:00"
+            "time": "2022-04-17T18:25:24+00:00"
         },
         {
             "name": "montefuscolo/xmpp",
@@ -9372,17 +9373,17 @@
         },
         {
             "name": "symfony/config",
-            "version": "v4.4.37",
+            "version": "v4.4.41",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/config.git",
-                "reference": "e8c2d2c951ddedecb6d28954d336cb7d2e852d0e"
+                "reference": "9d031eb2d4292aed117b0f7fafd5c436dcf3dfd7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/symfony/config/symfony-config-e8c2d2c951ddedecb6d28954d336cb7d2e852d0e-zip-9e5fa0.zip",
-                "reference": "e8c2d2c951ddedecb6d28954d336cb7d2e852d0e",
-                "shasum": "13929f69b2f0907a411c332fdb7eda5af806dc58"
+                "url": "https://composer.tiki.org/dist/symfony/config/symfony-config-9d031eb2d4292aed117b0f7fafd5c436dcf3dfd7-zip-b32902.zip",
+                "reference": "9d031eb2d4292aed117b0f7fafd5c436dcf3dfd7",
+                "shasum": "3092efdbd16e4dc384b87e16ef46175cebea794b"
             },
             "require": {
                 "php": ">=7.1.3",
@@ -9429,21 +9430,21 @@
             ],
             "description": "Helps you find, load, combine, autofill and validate configuration values of any kind",
             "homepage": "https://symfony.com",
-            "time": "2022-01-03T09:46:22+00:00"
+            "time": "2022-04-12T15:19:55+00:00"
         },
         {
             "name": "symfony/console",
-            "version": "v4.4.40",
+            "version": "v4.4.41",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "bdcc66f3140421038f495e5b50e3ca6ffa14c773"
+                "reference": "0e1e62083b20ccb39c2431293de060f756af905c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/symfony/console/symfony-console-bdcc66f3140421038f495e5b50e3ca6ffa14c773-zip-c22e74.zip",
-                "reference": "bdcc66f3140421038f495e5b50e3ca6ffa14c773",
-                "shasum": "517c102ba62522bd4326366971d18b1013e84e20"
+                "url": "https://composer.tiki.org/dist/symfony/console/symfony-console-0e1e62083b20ccb39c2431293de060f756af905c-zip-14298f.zip",
+                "reference": "0e1e62083b20ccb39c2431293de060f756af905c",
+                "shasum": "f2d107d4143477be83119c2a9821932a3d098c9c"
             },
             "require": {
                 "php": ">=7.1.3",
@@ -9502,7 +9503,7 @@
             ],
             "description": "Eases the creation of beautiful and testable command line interfaces",
             "homepage": "https://symfony.com",
-            "time": "2022-03-26T22:12:04+00:00"
+            "time": "2022-04-12T15:19:55+00:00"
         },
         {
             "name": "symfony/css-selector",
@@ -9555,17 +9556,17 @@
         },
         {
             "name": "symfony/dependency-injection",
-            "version": "v4.4.40",
+            "version": "v4.4.41",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/dependency-injection.git",
-                "reference": "336671c3245b4c6957e47e27a818009f2d63ff76"
+                "reference": "74c7f55de0eced4d3c9654809b1871870386a577"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/symfony/dependency-injection/symfony-dependency-injection-336671c3245b4c6957e47e27a818009f2d63ff76-zip-b1ada4.zip",
-                "reference": "336671c3245b4c6957e47e27a818009f2d63ff76",
-                "shasum": "56b41c572f74a1e2dc7681428a040ba44c7994f6"
+                "url": "https://composer.tiki.org/dist/symfony/dependency-injection/symfony-dependency-injection-74c7f55de0eced4d3c9654809b1871870386a577-zip-fd2ce6.zip",
+                "reference": "74c7f55de0eced4d3c9654809b1871870386a577",
+                "shasum": "eb90562b7e5fbc3507166deec81c74706495ecdd"
             },
             "require": {
                 "php": ">=7.1.3",
@@ -9620,7 +9621,7 @@
             ],
             "description": "Allows you to standardize and centralize the way objects are constructed in your application",
             "homepage": "https://symfony.com",
-            "time": "2022-03-05T15:39:30+00:00"
+            "time": "2022-04-12T15:19:55+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -9721,17 +9722,17 @@
         },
         {
             "name": "symfony/finder",
-            "version": "v4.4.37",
+            "version": "v4.4.41",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "b17d76d7ed179f017aad646e858c90a2771af15d"
+                "reference": "40790bdf293b462798882ef6da72bb49a4a6633a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/symfony/finder/symfony-finder-b17d76d7ed179f017aad646e858c90a2771af15d-zip-fccad8.zip",
-                "reference": "b17d76d7ed179f017aad646e858c90a2771af15d",
-                "shasum": "b8818f8b7b069c41eae1ea0461e69b4a29449c01"
+                "url": "https://composer.tiki.org/dist/symfony/finder/symfony-finder-40790bdf293b462798882ef6da72bb49a4a6633a-zip-332e3c.zip",
+                "reference": "40790bdf293b462798882ef6da72bb49a4a6633a",
+                "shasum": "5b04abb9101dbbeaeb12e4e2ad1961165d87b447"
             },
             "require": {
                 "php": ">=7.1.3",
@@ -9762,21 +9763,21 @@
             ],
             "description": "Finds files and directories via an intuitive fluent interface",
             "homepage": "https://symfony.com",
-            "time": "2022-01-02T09:41:36+00:00"
+            "time": "2022-04-14T15:36:10+00:00"
         },
         {
             "name": "symfony/http-client",
-            "version": "v5.4.7",
+            "version": "v5.4.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-client.git",
-                "reference": "88b6909f74fd1f2147e068411f71870a3b27ac56"
+                "reference": "0dabec4e3898d3e00451dd47b5ef839168f9bbf5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/symfony/http-client/symfony-http-client-88b6909f74fd1f2147e068411f71870a3b27ac56-zip-d8ca42.zip",
-                "reference": "88b6909f74fd1f2147e068411f71870a3b27ac56",
-                "shasum": "175ea3f002ad5c52a791720817636e4ecbebe971"
+                "url": "https://composer.tiki.org/dist/symfony/http-client/symfony-http-client-0dabec4e3898d3e00451dd47b5ef839168f9bbf5-zip-3d80c1.zip",
+                "reference": "0dabec4e3898d3e00451dd47b5ef839168f9bbf5",
+                "shasum": "c8f818f85c609b8d7300b0b2b6576bb1606154d1"
             },
             "require": {
                 "php": ">=7.2.5",
@@ -9832,7 +9833,7 @@
             ],
             "description": "Provides powerful methods to fetch HTTP resources synchronously or asynchronously",
             "homepage": "https://symfony.com",
-            "time": "2022-04-01T12:27:37+00:00"
+            "time": "2022-04-12T16:02:29+00:00"
         },
         {
             "name": "symfony/http-client-contracts",
@@ -10701,17 +10702,17 @@
         },
         {
             "name": "symfony/process",
-            "version": "v4.4.40",
+            "version": "v4.4.41",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "54e9d763759268e07eb13b921d8631fc2816206f"
+                "reference": "9eedd60225506d56e42210a70c21bb80ca8456ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/symfony/process/symfony-process-54e9d763759268e07eb13b921d8631fc2816206f-zip-907fe5.zip",
-                "reference": "54e9d763759268e07eb13b921d8631fc2816206f",
-                "shasum": "d4e2c403f2ffa7da100255ff35ed1b68f99a67e9"
+                "url": "https://composer.tiki.org/dist/symfony/process/symfony-process-9eedd60225506d56e42210a70c21bb80ca8456ce-zip-c2956c.zip",
+                "reference": "9eedd60225506d56e42210a70c21bb80ca8456ce",
+                "shasum": "cafb66e60084aaecc03000712911d03a3371f355"
             },
             "require": {
                 "php": ">=7.1.3",
@@ -10742,21 +10743,21 @@
             ],
             "description": "Executes commands in sub-processes",
             "homepage": "https://symfony.com",
-            "time": "2022-03-18T16:18:39+00:00"
+            "time": "2022-04-04T10:19:07+00:00"
         },
         {
             "name": "symfony/property-access",
-            "version": "v5.4.7",
+            "version": "v5.4.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/property-access.git",
-                "reference": "57196a19211baa36087e6fc06254d3b39ff0f369"
+                "reference": "fe501d498d6ec7e9efe928c90fabedf629116495"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/symfony/property-access/symfony-property-access-57196a19211baa36087e6fc06254d3b39ff0f369-zip-633ef9.zip",
-                "reference": "57196a19211baa36087e6fc06254d3b39ff0f369",
-                "shasum": "f15d757ffa096d90d5aca48811edf154e24e5612"
+                "url": "https://composer.tiki.org/dist/symfony/property-access/symfony-property-access-fe501d498d6ec7e9efe928c90fabedf629116495-zip-1a01ce.zip",
+                "reference": "fe501d498d6ec7e9efe928c90fabedf629116495",
+                "shasum": "fdf3c2c3ad4f613b10c3f75ae5b49ed04c2d8e5d"
             },
             "require": {
                 "php": ">=7.2.5",
@@ -10806,7 +10807,7 @@
                 "property path",
                 "reflection"
             ],
-            "time": "2022-03-31T17:09:19+00:00"
+            "time": "2022-04-12T15:48:08+00:00"
         },
         {
             "name": "symfony/property-info",
@@ -10884,17 +10885,17 @@
         },
         {
             "name": "symfony/routing",
-            "version": "v4.4.37",
+            "version": "v4.4.41",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/routing.git",
-                "reference": "324f7f73b89cd30012575119430ccfb1dfbc24be"
+                "reference": "c25e38d403c00d5ddcfc514f016f1b534abdf052"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/symfony/routing/symfony-routing-324f7f73b89cd30012575119430ccfb1dfbc24be-zip-cb61d3.zip",
-                "reference": "324f7f73b89cd30012575119430ccfb1dfbc24be",
-                "shasum": "79f731b88c7edc4324775752ef4eef58b0da6812"
+                "url": "https://composer.tiki.org/dist/symfony/routing/symfony-routing-c25e38d403c00d5ddcfc514f016f1b534abdf052-zip-b751b9.zip",
+                "reference": "c25e38d403c00d5ddcfc514f016f1b534abdf052",
+                "shasum": "a0d50fac0113694b7ff2e7774ea2b9d798f3b40c"
             },
             "require": {
                 "php": ">=7.1.3",
@@ -10952,7 +10953,7 @@
                 "uri",
                 "url"
             ],
-            "time": "2022-01-02T09:41:36+00:00"
+            "time": "2022-04-12T15:19:55+00:00"
         },
         {
             "name": "symfony/service-contracts",
@@ -11022,17 +11023,17 @@
         },
         {
             "name": "symfony/string",
-            "version": "v5.4.3",
+            "version": "v5.4.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/string.git",
-                "reference": "92043b7d8383e48104e411bc9434b260dbeb5a10"
+                "reference": "3c061a76bff6d6ea427d85e12ad1bb8ed8cd43e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/symfony/string/symfony-string-92043b7d8383e48104e411bc9434b260dbeb5a10-zip-795322.zip",
-                "reference": "92043b7d8383e48104e411bc9434b260dbeb5a10",
-                "shasum": "08ab2893d33555cf7fc4674d728adf5a4f97f718"
+                "url": "https://composer.tiki.org/dist/symfony/string/symfony-string-3c061a76bff6d6ea427d85e12ad1bb8ed8cd43e8-zip-a31d9a.zip",
+                "reference": "3c061a76bff6d6ea427d85e12ad1bb8ed8cd43e8",
+                "shasum": "84bf2c92d7fa0f77d7b665adbc03b9a5ba07f149"
             },
             "require": {
                 "php": ">=7.2.5",
@@ -11087,7 +11088,7 @@
                 "utf-8",
                 "utf8"
             ],
-            "time": "2022-01-02T09:53:40+00:00"
+            "time": "2022-04-19T10:40:37+00:00"
         },
         {
             "name": "symfony/yaml",
