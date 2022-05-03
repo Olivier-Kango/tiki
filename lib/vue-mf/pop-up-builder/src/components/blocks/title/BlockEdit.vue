@@ -58,8 +58,8 @@ const handleBlur = (e) => {
 </script>
 
 <template>
-    <div>
-        <h1 ref="popupTarget" :class="classes" :style="block.styles" contenteditable="true" @blur="handleBlur" v-html="textContent"></h1>
+    <div :class="classes" :style="block.styles">
+        <h1 ref="popupTarget" contenteditable="true" @blur="handleBlur" v-html="textContent"></h1>
 
         <CustomPopup v-if="showPopup" :target="popupTarget">
             <div class="d-flex shadow bg-white">

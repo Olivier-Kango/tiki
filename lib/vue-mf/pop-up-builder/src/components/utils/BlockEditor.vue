@@ -22,7 +22,7 @@ const handleClick = (e) => {
 <template>
     <div class="block-editor">
         <BlockNavbar></BlockNavbar>
-        <div class="d-flex">
+        <div class="d-flex mt-1">
             <BlockInspectorTree v-if="isEditMode" class="p-2"></BlockInspectorTree>
             <div class="block-builder flex-grow-1" @click="handleClick">
                 <BlockBuilder :id="getRootBlock.id" />

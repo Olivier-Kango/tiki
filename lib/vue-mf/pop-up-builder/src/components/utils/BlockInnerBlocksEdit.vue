@@ -5,9 +5,7 @@ export default {
 </script>
 
 <script setup>
-import { computed } from 'vue'
 import BlockEdit from './BlockEdit.vue'
-import store from '../../store'
 
 const props = defineProps({
     ids: {

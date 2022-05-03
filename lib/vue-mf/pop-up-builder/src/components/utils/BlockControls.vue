@@ -6,6 +6,7 @@ export default {
 
 <script setup>
 import { Button, ButtonGroup, ButtonToolbar } from '@vue-mf/styleguide'
+import BlockDraggable from './BlockDraggable.vue'
 import BlockList from './BlockList.vue'
 import store from '../../store';
 
@@ -14,7 +15,7 @@ const props = defineProps({
         type: Object,
         default: () => {}
     }
-});
+})
 
 const emit = defineEmits(['edit'])
 
@@ -39,7 +40,17 @@ const showBlockSettings = (e) => {
     <ButtonToolbar>
         <BlockList :block="block"></BlockList>
         <ButtonGroup>
-            <Button class="drag-handle-block" variant="default" sm><i class="fas fa-grip-vertical"></i></Button>
+            <BlockDraggable :block="block">
+                <Button class="drag-handle-block" variant="default" sm><i class="fas fa-grip-vertical"></i></Button>
+                <template #draggable>
+                    <div class="draggable-template">
+                        <span class="me-2">
+                            <i class="fas fa-grip-vertical"></i>
+                        </span>
+                        <span>{{ block.name }}</span>
+                    </div>
+                </template>
+            </BlockDraggable>
             <Button variant="default" sm @click="showBlockSettings"><i class="fas fa-edit"></i></Button>
             <Button variant="default" sm @click="deleteBlock"><i class="fas fa-trash"></i></Button>
             <Button variant="default" sm @click="moveBackward"><i class="fas fa-chevron-left"></i></Button>
@@ -47,3 +58,13 @@ const showBlockSettings = (e) => {
         </ButtonGroup>
     </ButtonToolbar>
 </template>
+
+<style lang="scss" scoped>
+    .draggable-template {
+        display: flex;
+        align-items: center;
+        padding: 5px 10px;
+        background-color: lightgrey;
+        border-radius: 4px;
+    }
+</style>
