@@ -63,6 +63,76 @@
             </div>
             {/if}
             <div class="mb-3 row">
+                <label class="form-check-label col-sm-2">
+                    {tr}External API source?{/tr}
+                    <a class="tikihelp text-info" title="{tr}Hook External API{/tr}: {tr}Configure authentication through Admin Data Sources (DSN).{/tr}">
+                        {icon name=information}
+                    </a>
+                </label>
+                <div class="col-sm-10">
+                    <div class="form-check">
+                        <input class="form-check-input use-api" type="checkbox" name="use_api" {if $api_config}checked{/if} value="1">
+                    </div>
+                </div>
+            </div>
+            <div class="api-container" {if !$api_config}style="display: none"{/if}>
+                <div class="mb-3 row">
+                    <label class="col-form-label col-sm-2 offset-sm-1">
+                        {tr}List endpoint URL{/tr}
+                        <a class="tikihelp text-info" title="{tr}List URL{/tr}: {tr}URL of the endpoint to read data from.{/tr}">
+                            {icon name=information}
+                        </a>
+                    </label>
+                    <div class="col-sm-9">
+                        <input class="form-control" type="text" name="api[list_url]" value="{$api_config.list_url|escape}">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label class="col-form-label col-sm-2 offset-sm-1">
+                        {tr}List endpoint data path{/tr}
+                        <a class="tikihelp text-info" title="{tr}List Data Path{/tr}: {tr}Reading response data might require traversing a data structure. Define the data path here with parent/child relations separated by a dot. E.g. use 'response.data' if response JSON is wrapped in 'response' => { 'data' => ... } structure OR .time_entry if response JSON is of type [ { 'time_entry' => ... }, { 'time_entry' => ... } ].{/tr}">
+                            {icon name=information}
+                        </a>
+                    </label>
+                    <div class="col-sm-9">
+                        <input class="form-control" type="text" name="api[list_data_path]" value="{$api_config.list_data_path|escape}">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label class="col-form-label col-sm-2 offset-sm-1">
+                        {tr}Create endpoint URL{/tr}
+                        <a class="tikihelp text-info" title="{tr}Create URL{/tr}: {tr}URL of the endpoint to create new entries when exporting.{/tr}">
+                            {icon name=information}
+                        </a>
+                    </label>
+                    <div class="col-sm-9">
+                        <input class="form-control" type="text" name="api[create_url]" value="{$api_config.create_url|escape}">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label class="col-form-label col-sm-2 offset-sm-1">
+                        {tr}Update endpoint URL{/tr}
+                        <a class="tikihelp text-info" title="{tr}Update URL{/tr}: {tr}URL of the endpoint to update entries when exporting. Placeholder #id will be replaced with the remote item id if previously imported from remote source.{/tr}">
+                            {icon name=information}
+                        </a>
+                    </label>
+                    <div class="col-sm-9">
+                        <input class="form-control" type="text" name="api[update_url]" value="{$api_config.update_url|escape}">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label class="col-form-label col-sm-2 offset-sm-1">
+                        {tr}Modify data path{/tr}
+                        <a class="tikihelp text-info" title="{tr}Modify Data Path{/tr}: {tr}Wrap request parameters in a (possibly nested) data structure. E.g. to send the request parameters as 'request' => { 'data' => ... }, specify 'request.data' here.{/tr}">
+                            {icon name=information}
+                        </a>
+                    </label>
+                    <div class="col-sm-9">
+                        <input class="form-control" type="text" name="api[modify_data_path]" value="{$api_config.modify_data_path|escape}">
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3 row">
                 <label class="col-form-label col-sm-2">{tr}Fields{/tr}</label>
                 <div class="col-sm-10">
                     <table class="table fields">

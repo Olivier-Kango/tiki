@@ -103,7 +103,8 @@ class Services_Tracker_TabularController
 
             $config = ! empty($input->config->none()) ? $input->config->none() : [];
             $odbc_config = $input->use_odbc->int() ? $input->odbc->array() : [];
-            $result = $lib->update($info['tabularId'], $input->name->text(), $schema->getFormatDescriptor(), $schema->getFilterDescriptor(), $config, $odbc_config);
+            $api_config = $input->use_api->int() ? $input->api->array() : [];
+            $result = $lib->update($info['tabularId'], $input->name->text(), $schema->getFormatDescriptor(), $schema->getFilterDescriptor(), $config, $odbc_config, $api_config);
 
             if ($result->numRows() > 0) {
                 Feedback::success('Tabular tracker was updated successfully.');
@@ -129,6 +130,7 @@ class Services_Tracker_TabularController
             'name' => $info['name'],
             'config' => $info['config'],
             'odbc_config' => $info['odbc_config'],
+            'api_config' => $info['api_config'],
             'columns' => $schema->getColumns(),
             'filters' => $schema->getFilterCollection()->getFilters(),
             'schema' => $schema,
@@ -272,6 +274,17 @@ class Services_Tracker_TabularController
 
         if ($info['odbc_config']) {
             $writer = new \Tracker\Tabular\Writer\ODBCWriter($info['odbc_config']);
+            $writer->write($source);
+
+            Feedback::success(tr('Your export was completed successfully.'));
+            return [
+                'FORWARD' => [
+                    'controller' => 'tabular',
+                    'action' => 'manage',
+                ],
+            ];
+        } elseif ($info['api_config']) {
+            $writer = new \Tracker\Tabular\Writer\APIWriter($info['api_config']);
             $writer->write($source);
 
             Feedback::success(tr('Your export was completed successfully.'));
@@ -480,6 +493,25 @@ class Services_Tracker_TabularController
                     'tabularId' => $info['tabularId'],
                 ]
             ];
+        } elseif ($_SERVER['REQUEST_METHOD'] == 'POST' && $info['api_config']) {
+            $source = new \Tracker\Tabular\Source\APISource($schema, $info['api_config']);
+            $writer = new \Tracker\Tabular\Writer\TrackerWriter();
+            $done = $writer->write($source);
+
+            $message = tr('Your import was completed successfully.');
+
+            if (TIKI_API) {
+                return ['feedback' => $message];
+            }
+
+            Feedback::success($message);
+            return [
+                'FORWARD' => [
+                    'controller' => 'tabular',
+                    'action' => 'list',
+                    'tabularId' => $info['tabularId'],
+                ]
+            ];
         }
 
         return [
@@ -487,6 +519,7 @@ class Services_Tracker_TabularController
             'tabularId' => $info['tabularId'],
             'completed' => $done,
             'odbc' => ! empty($info['odbc_config']),
+            'api' => ! empty($info['api_config']),
             'format' => $schema->getFormat(),
         ];
     }

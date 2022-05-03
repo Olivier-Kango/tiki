@@ -2233,7 +2233,7 @@ class TrackerLib extends TikiLib
 
         $conditions = [
             'itemId' => (int) $itemId,
-            'fieldId' => (int) $fieldId,
+            'fieldId' => (int) $field['fieldId'],
         ];
 
         $this->itemFields()->insertOrUpdate(['value' => $value], $conditions);

@@ -339,9 +339,27 @@ class TikiLib extends TikiDb_Bridge
         $client->setMethod(Laminas\Http\Request::METHOD_GET);
 
         $headers = $client->getRequest()->getHeaders();
-        $headers->addHeader(new Laminas\Http\Header\Authorization($arguments['header']));
+        if (empty($arguments['header_name'])) {
+            $headers->addHeader(new Laminas\Http\Header\Authorization($arguments['header']));
+        } else {
+            $headers->addHeaderLine($arguments['header_name'], $arguments['header']);
+        }
         $client->setHeaders($headers);
 
+        return $client;
+    }
+
+    /**
+     * Request body parameters method
+     *
+     * @param $client     \Laminas\Http\Client
+     * @param $arguments  array
+     * @return \Laminas\Http\Client
+     */
+    private function prepare_http_auth_body($client, $arguments)
+    {
+        $client->setParameterGet($arguments);
+        $client->setParameterPost($arguments);
         return $client;
     }
 

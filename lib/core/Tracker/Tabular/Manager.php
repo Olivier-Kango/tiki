@@ -30,6 +30,7 @@ class Manager
         $info['filter_descriptor'] = json_decode($info['filter_descriptor'], true) ?: [];
         $info['config'] = json_decode($info['config'], true) ?: [];
         $info['odbc_config'] = json_decode($info['odbc_config'], true) ?: [];
+        $info['api_config'] = json_decode($info['api_config'], true) ?: [];
         return $info;
     }
 
@@ -54,7 +55,7 @@ class Manager
         ]);
     }
 
-    public function update($tabularId, $name, array $fields, array $filters, array $config, array $odbc_config = [])
+    public function update($tabularId, $name, array $fields, array $filters, array $config, array $odbc_config = [], array $api_config = [])
     {
         return $this->table->update([
             'name' => $name,
@@ -70,7 +71,8 @@ class Manager
                 'encoding' => $config['encoding'],
                 'format' => $config['format'],
             ]),
-            'odbc_config' => json_encode($odbc_config)
+            'odbc_config' => json_encode($odbc_config),
+            'api_config' => json_encode($api_config)
         ], ['tabularId' => $tabularId]);
     }
 

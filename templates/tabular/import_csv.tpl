@@ -22,6 +22,8 @@
         <form class="no-ajax" method="post" action="{service controller=tabular action=import_csv tabularId=$tabularId}" enctype="multipart/form-data">
             {if $odbc}
             <p>{tr}Import from remote ODBC source.{/tr}</p>
+            {elseif $api}
+            <p>{tr}Import from remote API source.{/tr}</p>
             {elseif $format eq 'json'}
             <div class="input-group mb-3">
                 <span class="input-group-text" id="inputGroupText">{tr}JSON File{/tr}</span>

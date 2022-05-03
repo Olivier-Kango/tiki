@@ -34,4 +34,8 @@ class TrackerSourceEntry implements SourceEntryInterface
         }
         return $column->render($value, array_merge($this->extra, ['allow_multiple' => $allow_multiple]));
     }
+
+    public function backfillPK($pk, $value) {
+        \TikiLib::lib('trk')->modify_field($this->data['itemId'], $pk, $value);
+    }
 }

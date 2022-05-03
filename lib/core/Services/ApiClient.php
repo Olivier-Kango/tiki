@@ -9,11 +9,13 @@
 class Services_ApiClient
 {
     protected $url;
+    protected $isTiki;
     protected $apiBridge;
 
-    public function __construct($url)
+    public function __construct($url, $isTiki = true)
     {
         $this->url = $url;
+        $this->isTiki = $isTiki;
         $this->apiBridge = new Services_ApiBridge();
     }
 
@@ -30,7 +32,13 @@ class Services_ApiClient
         $response = $client->send();
         if (! $response->isSuccess()) {
             $body = json_decode($response->getBody());
-            throw new Services_Exception(tr('Remote service inaccessible (%0), error: "%1"', $response->getStatusCode(), $body->message), 400);
+            if ($body->message) {
+                $error = $body->message;
+            } else {
+                $key = key($body);
+                $error = $body->$key;
+            }
+            throw new Services_Exception(tr('Remote service inaccessible (%0), error: "%1"', $response->getStatusCode(), $error), 400);
         }
 
         return json_decode($response->getBody(), true);
@@ -53,15 +61,36 @@ class Services_ApiClient
     private function getClient($method, $endpoint, $arguments)
     {
         $tikilib = TikiLib::lib('tiki');
-        $client = $tikilib->get_http_client($this->url . '/tiki-api.php?route=' . $endpoint);
+        if ($this->isTiki) {
+            $url = $this->url . '/tiki-api.php?route=' . $endpoint;
+        } else {
+            $url = $this->url;
+            if ($endpoint) {
+                $url .= '/' . $endpoint;
+            }
+        }
+        $client = $tikilib->get_http_client($url);
         switch ($method) {
             case 'get':
                 $client->setMethod(Laminas\Http\Request::METHOD_GET);
-                $client->setParameterGet($arguments);
+                $client->setParameterGet(array_merge(
+                    $client->getRequest()->getQuery()->getArrayCopy(),
+                    $arguments
+                ));
                 break;
             case 'post':
                 $client->setMethod(Laminas\Http\Request::METHOD_POST);
-                $client->setParameterPost($arguments);
+                $client->setParameterPost(array_merge(
+                    $client->getRequest()->getPost()->getArrayCopy(),
+                    $arguments
+                ));
+                break;
+            case 'patch':
+                $client->setMethod(Laminas\Http\Request::METHOD_PATCH);
+                $client->setParameterPost(array_merge(
+                    $client->getRequest()->getPost()->getArrayCopy(),
+                    $arguments
+                ));
                 break;
             case 'delete':
                 $client->setMethod(Laminas\Http\Request::METHOD_DELETE);

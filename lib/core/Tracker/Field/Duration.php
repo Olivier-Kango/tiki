@@ -286,6 +286,28 @@ onDOMElementRemoved("single-spa-application:@vue-mf/duration-picker-" + ' . json
             ->setParseIntoTransform($parseInto)
             ;
 
+        $schema->addNew($permName, 'number-minutes')
+            ->setLabel($this->getConfiguration('name'))
+            ->setRenderTransform(function ($value) {
+                $encoded = json_encode($this->parseDurationFormat($value, 'minutes'));
+                return intval($this->getValueInSeconds($encoded) / 60);
+            })
+            ->setParseIntoTransform(function (&$info, $value) use ($permName) {
+                $info['fields'][$permName] = json_encode($this->parseDurationFormat($value, 'minutes'));
+            })
+            ;
+
+        $schema->addNew($permName, 'hh:mm:ss')
+            ->setLabel($this->getConfiguration('name'))
+            ->setRenderTransform(function ($value) {
+                $struct = $this->parseDurationFormat($value);
+                return str_pad($struct['days'] * 24 + $struct['hours'], 2, '0', STR_PAD_LEFT) . ':' .
+                    str_pad($struct['minutes'], 2, '0', STR_PAD_LEFT) . ':' .
+                    str_pad($struct['seconds'], 2, '0', STR_PAD_LEFT);
+            })
+            ->setParseIntoTransform($parseInto)
+            ;
+
         return $schema;
     }
 
@@ -375,7 +397,7 @@ onDOMElementRemoved("single-spa-application:@vue-mf/duration-picker-" + ' . json
         );
     }
 
-    private function parseDurationFormat($data) {
+    private function parseDurationFormat($data, $lowest = 'seconds') {
         $struct = [
             'years' => 0,
             'months' => 0,
@@ -389,6 +411,12 @@ onDOMElementRemoved("single-spa-application:@vue-mf/duration-picker-" + ' . json
         if (preg_match('/^[\d]+$/', $data)) {
             $seconds = intval($data);
             $factors = self::getFactors();
+            foreach ($factors as $unit => $factor) {
+                $seconds *= $factor;
+                if ($unit == $lowest) {
+                    break;
+                }
+            }
             foreach (array_reverse($factors) as $unit => $factor) {
                 $struct[$unit] = floor($seconds / $factor);
                 $seconds = $seconds % $factor;

@@ -103,7 +103,8 @@
                     <option value="basic">{tr}HTTP Basic{/tr}</option>
                     <option value="post">{tr}HTTP Session / Login{/tr}</option>
                     <option value="get">{tr}HTTP Session / Visit{/tr}</option>
-                    <option value="header">{tr}Authorization Header{/tr}</option>
+                    <option value="header">{tr}HTTP Header{/tr}</option>
+                    <option value="body">{tr}Request body{/tr}</option>
                 </select>
             </div>
         </div>
@@ -154,11 +155,34 @@
         </div>
     </fieldset>
     <fieldset class="method header">
-        <legend>{tr}Authorization Header{/tr}</legend>
+        <legend>{tr}HTTP Header{/tr}</legend>
         <div class="mb-3 row">
-            <label class="col-sm-3 col-form-label" for="header">{tr}Authorization Header Value{/tr}</label>
+            <label class="col-sm-3 col-form-label" for="header_name">{tr}Header Name{/tr}</label>
             <div class="col-sm-9">
-                <input type="text" name="header" id="header" class="form-control">
+                <input type="text" name="header_name" id="header_name" class="form-control" placeholder="e.g. Authorization">
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label class="col-sm-3 col-form-label" for="header">{tr}Header Value{/tr}</label>
+            <div class="col-sm-9">
+                <input type="text" name="header" id="header" class="form-control" placeholder="e.g. Bearer TOKEN-HERE">
+            </div>
+        </div>
+    </fieldset>
+    <fieldset class="method body">
+        <legend>{tr}Request body{/tr}</legend>
+        <div class="mb-3 row">
+            <h5>{tr}Arguments appended with each request{/tr}</h5>
+        </div>
+        <div class="mb-3 row body-arg-form">
+            <div class="col-sm-3">
+                <input type="text" name="body_new_field" class="form-control" placeholder="{tr}Name{/tr}">
+            </div>
+            <div class="col-sm-8">
+                <input type="text" name="body_new_value" class="form-control" placeholder="{tr}Value{/tr}">
+            </div>
+            <div class="col-sm-1 pt-1">
+                <input type="submit" class="btn btn-primary btn-sm" name="body_new_add" value="{tr}Add{/tr}">
             </div>
         </div>
     </fieldset>
@@ -182,15 +206,15 @@ $('#source-form').each(function () {
                 $(form.existing).trigger("change.select2");
             });
         },
-        addPostRow = function (name, value) {
-            var row = $('<div class="mb-3 row post-arg">');
+        addPostRow = function (name, value, cl) {
+            var row = $('<div class="mb-3 row ' + cl + '-arg">');
             row.append($('<label class="col-sm-3 col-form-label" for="' + name + '">').text(name));
             row.append($('<div class="col-sm-8 pt-2 overflow-hidden text-truncate" id="' + name + '">').text(value));
             row.append($('<div class="col-sm-1">{{icon name='remove' iclass='text-danger'}}</div>').css('cursor', 'pointer').click(function () {
                 $(this).closest('div.row').remove();
                 return false;
             }));
-            $('fieldset.method.post .row.post-arg-form', form).before(row);
+            $('fieldset.method.' + cl + ' .row.' + cl + '-arg-form', form).before(row);
         },
         fetchAuthentication = function(identifier) {
             $(form.identifier).hide();
@@ -217,13 +241,20 @@ $('#source-form').each(function () {
                     $('fieldset.method.post .row.post-arg', form).remove();
                     $.each(data.arguments, function (key, value) {
                         if (key !== 'post_url') {
-                            addPostRow(key, value);
+                            addPostRow(key, value, 'post');
                         }
                     });
                     break;
-                    case 'header':
-                        $(form.header).val(data.arguments.header);
-                        break;
+                case 'header':
+                    $(form.header_name).val(data.arguments.header_name);
+                    $(form.header).val(data.arguments.header);
+                    break;
+                case 'body':
+                    $('fieldset.method.body .row.body-arg', form).remove();
+                    $.each(data.arguments, function (key, value) {
+                        addPostRow(key, value, 'body');
+                    });
+                    break;
                 }
             });
         };
@@ -240,7 +271,8 @@ $('#source-form').each(function () {
         } else {
             $(form.identifier).show().val('').focus();
             $('input:not(:submit):not([name=ticket])', form).val('');
-            $('fieldset.method.post tbody').empty();
+            $('fieldset.method.post .row.post-arg').remove();
+            $('fieldset.method.body .row.body-arg').remove();
         }
     });
 
@@ -276,7 +308,13 @@ $('#source-form').each(function () {
             });
             break;
         case 'header':
+            data['arguments~header_name'] = $(form.header_name).val();
             data['arguments~header'] = $(form.header).val();
+            break;
+        case 'body':
+            $('fieldset.method.body .body-arg').each(function () {
+                data['arguments~' + $("label", this).text()] = $("div:first", this).text();
+            });
             break;
         }
 
@@ -312,9 +350,16 @@ $('#source-form').each(function () {
     });
 
     $(form.post_new_add).click(function () {
-        addPostRow($(form.post_new_field).val(), $(form.post_new_value).val());
+        addPostRow($(form.post_new_field).val(), $(form.post_new_value).val(), 'post');
         $(form.post_new_field).val('').focus();
         $(form.post_new_value).val('');
+        return false;
+    });
+
+    $(form.body_new_add).click(function () {
+        addPostRow($(form.body_new_field).val(), $(form.body_new_value).val(), 'body');
+        $(form.body_new_field).val('').focus();
+        $(form.body_new_value).val('');
         return false;
     });
 

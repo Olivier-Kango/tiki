@@ -67,8 +67,9 @@ class Tiki_Profile_InstallHandler_Tabular extends Tiki_Profile_InstallHandler
 
         $config = ! empty($data['config']) ? $data['config'] : [];
         $odbc_config = ! empty($data['odbc_config']) ? $data['odbc_config'] : [];
+        $api_config = ! empty($data['api_config']) ? $data['api_config'] : [];
 
-        $lib->update($tabularId, $info['name'], $schema->getFormatDescriptor(), $schema->getFilterDescriptor(), $config, $odbc_config);
+        $lib->update($tabularId, $info['name'], $schema->getFormatDescriptor(), $schema->getFilterDescriptor(), $config, $odbc_config, $api_config);
 
         return $tabularId;
     }
@@ -124,6 +125,7 @@ class Tiki_Profile_InstallHandler_Tabular extends Tiki_Profile_InstallHandler
                 'filters' => $filters,
                 'config' => $info['config'],
                 'odbc_config' => $info['odbc_config'],
+                'api_config' => $info['api_config'],
             ];
 
             $writer->addObject('tabular', $tabularId, $data);
