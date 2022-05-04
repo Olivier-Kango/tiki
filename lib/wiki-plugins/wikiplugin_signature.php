@@ -21,6 +21,7 @@ function wikiplugin_signature_info()
                 'description' => tra(
                     'Name of component.'
                 ),
+                'filter' => 'text',
             ],
             'width'  => [
                 'required'    => false,
@@ -28,6 +29,7 @@ function wikiplugin_signature_info()
                 'description' => tra(
                     'Signature image width (default is 400px)'
                 ),
+                'filter' => 'digits',
             ],
             'height' => [
                 'required'    => false,
@@ -35,6 +37,7 @@ function wikiplugin_signature_info()
                 'description' => tra(
                     'Signature image height (default is 200px)'
                 ),
+                'filter' => 'digits',
             ],
             'align' => [
                 'required'    => false,
@@ -42,6 +45,7 @@ function wikiplugin_signature_info()
                 'description' => tra(
                     'Signature image align in document (default is left)'
                 ),
+                'filter' => 'text',
             ],
             'editable_by_user' => [
                 'required'    => false,
@@ -49,6 +53,15 @@ function wikiplugin_signature_info()
                 'description' => tra(
                     'Put some usernames that are allowed to edit this plugin'
                 ),
+                'filter' => 'text',
+            ],
+            'editable_by_groups' => [
+                'required'    => false,
+                'name'        => tra('Editable by groups'),
+                'description' => tra(
+                    'Put some groups that are allowed to edit this plugin'
+                ),
+                'filter' => 'text',
             ],
         ],
     ];
@@ -57,6 +70,8 @@ function wikiplugin_signature_info()
 function wikiplugin_signature($data, $params)
 {
     global $user, $page;
+
+    $parserlib = TikiLib::lib('parser');
 
     static $signatureIndex = 0;
     ++$signatureIndex;
@@ -67,6 +82,11 @@ function wikiplugin_signature($data, $params)
         'wiki page',
         'tiki_p_edit'
     );
+
+    if (! $editPerm) {
+        // Checking permission from plugin
+        $editPerm = $parserlib->check_permission_from_plugin_params($params) == 'y' ? true : false;
+    }
 
     $headerlib = TikiLib::lib('header');
     $headerlib->add_jsfile(

@@ -1153,12 +1153,26 @@ class ParserLib extends TikiDb_Bridge
     // Checking permission from plugin params
     public function check_permission_from_plugin_params($pluginArgs) {
         global $user;
+        $userlib = TikiLib::lib('user');
         $is_allowed = 'n';
-        if (isset($pluginArgs['editable_by_user'])) {
-            foreach (explode(',', $pluginArgs['editable_by_user']) as $allowedUser) {
-                if (strtolower($user) == strtolower($allowedUser)) {
-                    $is_allowed = 'y';
-                    return $is_allowed;
+        if (isset($pluginArgs)) {
+            if (isset($pluginArgs['editable_by_user'])) {
+                $usersAllowed = array_map('trim', explode(',', $pluginArgs['editable_by_user']));
+                foreach ($usersAllowed as $allowedUser) {
+                    if (strtolower($user) == strtolower($allowedUser)) {
+                        $is_allowed = 'y';
+                        return $is_allowed;
+                    }
+                }
+            }
+            if (isset($pluginArgs['editable_by_groups'])) {
+                $userGroups = array_map('strtolower',$userlib->get_user_info($user)['groups']);
+                $groupsAllowed = array_map('strtolower', explode(',',$pluginArgs['editable_by_groups']));
+                foreach ($groupsAllowed as $group) {
+                    if (in_array($group, $userGroups)) {
+                        $is_allowed = 'y';
+                        return $is_allowed;
+                    }
                 }
             }
         }
