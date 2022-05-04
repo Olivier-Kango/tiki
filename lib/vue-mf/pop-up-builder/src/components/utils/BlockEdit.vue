@@ -26,7 +26,8 @@ const props = defineProps({
 const getBlockClasses = computed(() => (id) => {
     let classes = {
         'block-editor-block': true,
-        'is-dropzone-active': store.getters.getDropzonedBlock?.id === id
+        'is-dropzone-active': store.getters.getDropzonedBlock?.id === id,
+        'is-dragged': store.getters.getDraggedBlock?.id === id,
     }
     return classes
 })
@@ -57,6 +58,10 @@ const handleEvent = (e, id) => store.dispatch('setSelected', id)
 
 <style lang="scss" scoped>
     .block-editor-block {
+        &.is-dragged {
+            position: relative;
+        }
+
         min-height: 10px;
     }
 </style>

@@ -47,7 +47,7 @@ const showBlockSettings = (e) => {
             <BlockDraggable :block="block">
                 <Button class="drag-handle-block" variant="default" sm><i class="fas fa-grip-vertical"></i></Button>
                 <template #draggable>
-                    <div class="draggable-template">
+                    <div class="draggable-template shadow-sm">
                         <span class="me-2">{{ block.name }}</span>
                         <span>
                             <i class="fas fa-grip-vertical"></i>
@@ -68,7 +68,7 @@ const showBlockSettings = (e) => {
         display: flex;
         align-items: center;
         padding: 5px 10px;
-        background-color: lightgrey;
+        background-color: #f8f9fa;
         border-radius: 4px;
     }
 </style>

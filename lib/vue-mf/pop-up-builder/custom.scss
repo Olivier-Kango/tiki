@@ -19,6 +19,22 @@
     border-radius: 2px;
 }
 
+.is-dragged {
+    &::after {
+        display: inline-block;
+        position: absolute;
+        pointer-events: auto !important;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #f8f9fa;
+        border-radius: 2px;
+        z-index: 1;
+        content: '';
+    }
+}
+
 .is-dropzone-active {
     outline: 2px solid rgb(0, 124, 186, 1);
     border-radius: 2px;
