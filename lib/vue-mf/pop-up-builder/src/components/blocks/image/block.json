@@ -6,7 +6,7 @@
 	"title": "Image",
 	"category": "text",
 	"description": "A single Image.",
-    "parent": ["core/columns"],
+    "parent": ["core/container", "core/columns", "core/column"],
 	"attributes": {
 		"verticalAlignment": {
 			"type": "string"
@@ -14,6 +14,10 @@
 		"url": {
 			"type": "string",
 			"default": "https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg"
+		},
+		"allowedBlocks": {
+			"type": "array",
+			"default": []
 		}
 	}
 }

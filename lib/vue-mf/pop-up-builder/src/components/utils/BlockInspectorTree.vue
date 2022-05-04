@@ -46,6 +46,7 @@ const handleClick = (e, id) => {
                     <template #default="{ block }">
                         <div
                             class="block-tree-item"
+                            :data-id="block.id"
                             :class="{'is-selected': isSelected(block)}"
                             @click="handleClick($event, block.id)"
                             @mouseenter="handleMouseOver($event, block.id)"

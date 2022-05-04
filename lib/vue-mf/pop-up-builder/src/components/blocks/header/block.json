@@ -2,11 +2,11 @@
     "_comment": "Sample schema",
 	"//$schema": "https://tiki.sample.org/trunk/block.json",
 	"apiVersion": 1,
-	"name": "core/title",
-	"title": "Title",
+	"name": "core/header",
+	"title": "Header",
 	"category": "text",
-	"description": "A single Title.",
-    "parent": ["core/columns"],
+	"description": "New sections title",
+    "parent": ["core/container", "core/columns", "core/column"],
 	"attributes": {
 		"verticalAlignment": {
 			"type": "string"
@@ -15,7 +15,8 @@
 			"type": "string"
 		},
 		"allowedBlocks": {
-			"type": "array"
+			"type": "array",
+			"default": []
 		}
 	}
 }

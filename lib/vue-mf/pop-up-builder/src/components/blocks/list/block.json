@@ -6,10 +6,13 @@
 	"title": "List items",
 	"category": "text",
 	"description": "Dynamic block for rendering list of items",
-    "parent": [],
+    "parent": ["core/container", "core/columns", "core/column"],
 	"attributes": {
 		"field": {
 			"type": "string"
+		},
+		"allowedBlocks": {
+			"type": "array"
 		}
 	}
 }

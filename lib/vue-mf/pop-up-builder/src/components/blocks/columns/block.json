@@ -6,7 +6,7 @@
 	"title": "Columns",
 	"category": "text",
 	"description": "Columns description",
-    "parent": ["core/columns"],
+    "parent": ["core/container", "core/column"],
 	"attributes": {
 		"verticalAlignment": {
 			"type": "string"
@@ -15,8 +15,7 @@
 			"type": "string"
 		},
 		"allowedBlocks": {
-			"type": "array",
-			"default": ["core/column"]
+			"type": "array"
 		}
 	}
 }

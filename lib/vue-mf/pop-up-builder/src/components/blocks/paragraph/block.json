@@ -6,17 +6,18 @@
 	"title": "Paragraph",
 	"category": "text",
 	"description": "A single Paragraph.",
-    "parent": [],
+    "parent": ["core/container", "core/columns", "core/column"],
 	"attributes": {
-		"allowedBlocks": {
-			"type": "array"
-		},
 		"field": {
 			"type": "string"
 		},
 		"content": {
 			"type": "string",
 			"default": "Some text..."
+		},
+		"allowedBlocks": {
+			"type": "array",
+			"default": []
 		}
 	}
 }

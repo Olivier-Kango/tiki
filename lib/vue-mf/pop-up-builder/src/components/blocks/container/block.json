@@ -5,7 +5,7 @@
 	"title": "Container",
 	"category": "text",
 	"description": "A container",
-    "parent": ["core/columns"],
+    "parent": ["core/container", "core/columns", "core/column"],
 	"attributes": {
 		"verticalAlignment": {
 			"type": "string"

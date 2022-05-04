@@ -1,6 +1,6 @@
 <script>
 export default {
-    name: 'Title'
+    name: 'Block'
 }
 </script>
 <script setup>
@@ -15,7 +15,7 @@ const props = defineProps({
 </script>
 
 <template>
-    <div>
-        <h1 :class="block.classes" :style="block.styles" v-html="block.attributes.textContent"></h1>
+    <div :class="block.classes" :style="block.styles">
+        <h1 v-html="block.attributes.textContent"></h1>
     </div>
 </template>

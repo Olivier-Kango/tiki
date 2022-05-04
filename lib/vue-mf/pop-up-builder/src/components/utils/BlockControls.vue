@@ -55,10 +55,10 @@ const showBlockSettings = (e) => {
                     </div>
                 </template>
             </BlockDraggable>
-            <Button variant="default" sm @click="showBlockSettings"><i class="fas fa-edit"></i></Button>
-            <Button variant="default" sm @click="deleteBlock"><i class="fas fa-trash"></i></Button>
             <Button variant="default" sm @click="moveBackward"><i class="fas fa-chevron-left"></i></Button>
             <Button variant="default" sm @click="moveForward"><i class="fas fa-chevron-right"></i></Button>
+            <Button variant="default" sm @click="showBlockSettings"><i class="fas fa-edit"></i></Button>
+            <Button variant="default" sm @click="deleteBlock"><i class="fas fa-trash"></i></Button>
         </ButtonGroup>
     </ButtonToolbar>
 </template>

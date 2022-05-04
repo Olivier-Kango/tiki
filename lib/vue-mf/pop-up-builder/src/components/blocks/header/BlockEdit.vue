@@ -1,6 +1,6 @@
 <script>
 export default {
-    name: 'Title'
+    name: 'BlockEdit'
 }
 </script>
 <script setup>

@@ -6,7 +6,7 @@
 	"title": "Button",
 	"category": "text",
 	"description": "A single button.",
-    "parent": ["core/columns"],
+    "parent": ["core/container", "core/columns", "core/column"],
 	"attributes": {
 		"verticalAlignment": {
 			"type": "string"
@@ -14,12 +14,13 @@
 		"width": {
 			"type": "string"
 		},
-		"allowedBlocks": {
-			"type": "array"
-		},
 		"content": {
 			"type": "string",
 			"default": "Name"
+		},
+		"allowedBlocks": {
+			"type": "array",
+			"default": []
 		}
 	}
 }
