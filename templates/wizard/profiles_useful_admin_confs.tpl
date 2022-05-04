@@ -78,7 +78,7 @@
                 <br/>
                 {tr}This configuration profile showcases the activity stream feature in Tiki.{/tr}
                 <br/>
-                <a href="https://doc.tiki.org/Activity_stream" target="tikihelp" class="tikihelp" title="{tr}Activity stream{/tr}:
+                <a href="https://doc.tiki.org/Activity_stream" target="tikihelp" class="tikihelp" title="{tr}Activity Stream{/tr}:
                         {tr}More details{/tr}:
                         <ul>
                             <li>{tr}Activity Stream data can also be reviewed through PluginPivotTable{/tr}</li>

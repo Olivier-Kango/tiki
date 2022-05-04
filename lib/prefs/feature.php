@@ -741,7 +741,7 @@ function prefs_feature_list($partial = false)
             'view' => 'tiki-list_kaltura_entries.php?list=media',
         ],
         'feature_friends' => [
-            'name' => tra('Friendship network'),
+            'name' => tra('Friendship Network'),
             'description' => tra('Users can identify other users as their friends'),
             'dependencies' => [
                 'feature_search',

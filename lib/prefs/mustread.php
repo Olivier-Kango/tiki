@@ -10,7 +10,7 @@ function prefs_mustread_list()
 {
     return [
         'mustread_enabled' => [
-            'name' => tr('Must read'),
+            'name' => tr('Must Read'),
             'description' => tr('Allow assignment of mandatory readings and track progress.'),
             'help' => 'Must-Reads',
             'type' => 'flag',

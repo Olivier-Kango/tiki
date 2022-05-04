@@ -62,7 +62,7 @@
                 </div>
             </fieldset>
             <fieldset class="mb-3 w-100">
-                <legend>{tr}Activity stream{/tr}</legend>
+                <legend>{tr}Activity Stream{/tr}</legend>
                 {preference name=activity_basic_events}
                 <div class="adminoptionboxchild" id="activity_basic_events_childcontainer">
                     {preference name=activity_basic_tracker_create}
