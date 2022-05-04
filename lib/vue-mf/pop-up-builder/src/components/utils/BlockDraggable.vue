@@ -7,6 +7,7 @@ export default {
 <script setup>
 import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 import interact from 'interactjs';
+import store from '../../store';
 
 const props = defineProps({
     targetId: String,
@@ -49,11 +50,11 @@ function initInteract(el) {
             // overlap: 0.1,
             overlap: 'pointer',
             // listen for drop related events:
-            ondropactivate: handleDropActivate,
+            // ondropactivate: handleDropActivate,
             ondragenter: handleDragEnter,
             ondragleave: handleDragLeave,
             ondrop: handleDrop,
-            ondropdeactivate: handleDropDeactivate
+            // ondropdeactivate: handleDropDeactivate
         })
     // }
 }
@@ -78,21 +79,27 @@ function handleDragEnd(event) {
     // })
 }
 
-function handleDropActivate(event) {
-
-}
+// function handleDropActivate(event) {
+//     // console.log('dropActive', props.block)
+// }
 function handleDragEnter(event) {
-    console.log('dragEnter', event)
+    // console.log('dragEnter', props.block)
+    console.log('setDropzoned', props.block.id)
+    store.dispatch('setDropzoned', props.block.id)
 }
 function handleDragLeave(event) {
-    console.log('dragLeave', event)
+    // console.log('dragLeave', props.block)
+    store.dispatch('setDropzoned', null)
 }
 function handleDrop(event) {
-
+    console.log('drop', props.block)
+    
+    store.dispatch('setDropped')
+    store.dispatch('setDropzoned', null)
 }
-function handleDropDeactivate(event) {
-
-}
+// function handleDropDeactivate(event) {
+//     // console.log('dropDeactive', props.block)
+// }
 </script>
 
 <template>
@@ -111,5 +118,6 @@ function handleDropDeactivate(event) {
         position: absolute;
         top: 0;
         left: 0;
+        z-index: 1;
     }
 </style>

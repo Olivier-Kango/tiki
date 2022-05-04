@@ -5,6 +5,7 @@ export default {
 </script>
 
 <script setup>
+import { computed } from 'vue'
 import store from '../../store'
 
 const props = defineProps({
@@ -22,6 +23,13 @@ const props = defineProps({
     }
 })
 
+const getBlockClasses = computed(() => (id) => {
+    let classes = {
+        'block-editor-block': true,
+        'is-dropzone-active': store.getters.getDropzonedBlock?.id === id
+    }
+    return classes
+})
 const handleEvent = (e, id) => store.dispatch('setSelected', id)
 </script>
 
@@ -29,7 +37,7 @@ const handleEvent = (e, id) => store.dispatch('setSelected', id)
     <component
         :is="block.name + '-edit'"
         :id="block.id"
-        class="block-editor-block"
+        :class="getBlockClasses(block.id)"
         :data-id="block.id"
         :block="block"
         :context="context"
@@ -46,3 +54,9 @@ const handleEvent = (e, id) => store.dispatch('setSelected', id)
         </TransitionGroup>
     </component>
 </template>
+
+<style lang="scss" scoped>
+    .block-editor-block {
+        min-height: 10px;
+    }
+</style>

@@ -19,6 +19,11 @@
     border-radius: 2px;
 }
 
+.is-dropzone-active {
+    outline: 2px solid rgb(0, 124, 186, 1);
+    border-radius: 2px;
+}
+
 /* apply transition to moving elements */
 .list-move,
 .list-enter-active,
