@@ -77,11 +77,14 @@ function module_reading_time_info()
  * @param $mod_reference
  * @param $module_params
  */
+
 function module_reading_time($mod_reference, &$module_params)
 {
-    global $prefs;
+    global $prefs, $page;
     $smarty = TikiLib::lib('smarty');
+    $tikilib = TikiLib::lib('tiki');
 
+    // Converting 0 to 'none' to avoid a null value to be retuned
     if ($module_params['minTimeThreshold'] == '0') {
         $module_params['minTimeThreshold'] = 'none';
     }
@@ -90,12 +93,32 @@ function module_reading_time($mod_reference, &$module_params)
         $module_params['maxTimeThreshold'] = 'none';
     }
 
+    // Grabbing the default values
     $info = module_reading_time_info();
     $defaults = [];
     foreach ($info['params'] as $key => $param) {
         $defaults[$key] = $param['default'];
     }
 
+    // Merging the module values and the default values (if module value is empty)
     $module_params = array_merge($defaults, array_filter($module_params));
-    // Template does most of the work
+
+    // Wiki page (only case for now) todo : add blogs, articles, forums and tracker textarea
+    // Grabbing the data to get the content, we need the words
+    $pagedata = $tikilib->get_page_info($page);
+    $words = $pagedata['data'];
+
+    // Cleaning and assuring the counting work with accents and languages - non latin
+    $wordCleaned = preg_split( "/[\n\r\t ]+/", $words, 0, PREG_SPLIT_NO_EMPTY );
+    $wordsCount = (count($wordCleaned));
+    $readingTime = bcdiv(($wordsCount/$module_params['wordsPerMinutes']), 1, 2);
+
+    // Converting the time integer value to a human-readable time format
+    $readingTimeMin = preg_replace('/[.,][0-9]+/', '', $readingTime);
+    $readingTimeSec = $readingTime - $readingTimeMin ;
+    $readingTimeSec = bcmul($readingTimeSec,60, 0);
+
+    $smarty->assign('readingTimeMin', $readingTimeMin);
+    $smarty->assign('readingTimeSec', $readingTimeSec);
+
 }
