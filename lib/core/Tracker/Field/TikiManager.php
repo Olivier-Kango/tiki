@@ -189,9 +189,7 @@ class Tracker_Field_TikiManager extends Tracker_Field_Abstract
             });
         }
 
-        // TODO: once we figure out how to get the available versions based on field instance config without creating an instance
-        // (e.g. use $instance->getCompatibleVersions without saving the instance), we can replace these hard-coded versions
-        $versions = ['22.x', '23.x', '24.x', 'master'];
+        $versions = Services_Manager_Utilities::getAvailableTikiVersions();
 
         $ret = [
             'id' => $this->getItemId(),

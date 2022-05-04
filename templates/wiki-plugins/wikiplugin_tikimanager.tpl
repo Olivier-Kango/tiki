@@ -30,42 +30,42 @@
             {actions}{strip}
                 {if in_array('update', $available_actions)}
                 <action>
-                    <a href="{bootstrap_modal controller=manager action=update instanceId=$instance->id}" onclick="$('[data-toggle=popover]').popover('hide');">
+                    <a href="{bootstrap_modal controller=manager action=update instanceId=$instance->id}" onclick="$('[data-bs-toggle=popover]').popover('hide');">
                         {icon name=import _menu_text='y' _menu_icon='y' alt="{tr}Update{/tr}"}
                     </a>
                 </action>
                 {/if}
                 {if in_array('backup', $available_actions)}
                 <action>
-                    <a href="{bootstrap_modal controller=manager action=backup instanceId=$instance->id}" onclick="$('[data-toggle=popover]').popover('hide');">
+                    <a href="{bootstrap_modal controller=manager action=backup instanceId=$instance->id}" onclick="$('[data-bs-toggle=popover]').popover('hide');">
                         {icon name=download _menu_text='y' _menu_icon='y' alt="{tr}Backup{/tr}"}
                     </a>
                 </action>
                 {/if}
                 {if in_array('fixpermissions', $available_actions)}
                 <action>
-                    <a href="{bootstrap_modal controller=manager action=fix instanceId=$instance->id modal=1}" onclick="$('[data-toggle=popover]').popover('hide');">
+                    <a href="{bootstrap_modal controller=manager action=fix instanceId=$instance->id modal=1}" onclick="$('[data-bs-toggle=popover]').popover('hide');">
                         {icon name=wrench _menu_text='y' _menu_icon='y' alt="{tr}Fix{/tr}"}
                     </a>
                 </action>
                 {/if}
                 {if in_array('edit', $available_actions)}
                 <action>
-                    <a href="{bootstrap_modal controller=manager action=edit instanceId=$instance->id}" onclick="$('[data-toggle=popover]').popover('hide');">
+                    <a href="{bootstrap_modal controller=manager action=edit instanceId=$instance->id}" onclick="$('[data-bs-toggle=popover]').popover('hide');">
                         {icon name=edit _menu_text='y' _menu_icon='y' alt="{tr}Edit{/tr}"}
                     </a>
                 </action>
                 {/if}
                 {if in_array('delete', $available_actions)}
                 <action>
-                    <a href="{bootstrap_modal controller=manager action=delete instanceId=$instance-id}" onclick="$('[data-toggle=popover]').popover('hide');">
+                    <a href="{bootstrap_modal controller=manager action=delete instanceId=$instance-id}" onclick="$('[data-bs-toggle=popover]').popover('hide');">
                         {icon name=times _menu_text='y' _menu_icon='y' alt="{tr}Delete{/tr}"}
                     </a>
                 </action>
                 {/if}
                 {if in_array('console', $available_actions)}
                 <action>
-                    <a href="{bootstrap_modal controller=manager action=console instanceId=$instance->id}" onclick="$('[data-toggle=popover]').popover('hide');">
+                    <a href="{bootstrap_modal controller=manager action=console instanceId=$instance->id}" onclick="$('[data-bs-toggle=popover]').popover('hide');">
                         {icon name=pen _menu_text='y' _menu_icon='y' alt="{tr}Console Command{/tr}"}
                     </a>
                 </action>
