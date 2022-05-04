@@ -4,12 +4,12 @@
     {if $field.options_map.addItems and $data.createTrackerItems}
         <a class="btn btn-primary insert-tracker-item" href="{service controller=tracker action=insert_item trackerId=$field.options_map.trackerId}">{tr}{$field.options_map.addItems|escape}{/tr}</a>
         {jq}
-        $('#{{$field.ins_id|escape}}')
+        $('#item{{$item.itemId}}{{$field.ins_id|escape}}')
             .closest('.item-link')
             .find('.insert-tracker-item')
             .clickModal({
                 success: function (data) {
-                    $('#{{$field.ins_id|escape}}')
+                    $('#item{{$item.itemId}}{{$field.ins_id|escape}}')
                         .object_selector('set', "trackeritem:" + data.itemId, data.itemTitle);
                     $.closeModal();
                 }
