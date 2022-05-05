@@ -7,6 +7,8 @@ export default {
 import { ref, computed, watch } from 'vue'
 import BlockAlignTextToolbar from '../../utils/BlockAlignTextToolbar.vue'
 import BlockControls from '../../utils/BlockControls.vue'
+import BlockControlsSpacing from '../../utils/BlockControls/BlockControlsSpacing.vue'
+import BlockControlsSizes from '../../utils/BlockControls/BlockControlsSizes.vue'
 import BlockInspector from '../../utils/BlockInspector.vue'
 import CustomPopup from '../../utils/CustomPopup.vue'
 import CustomModal from '../../utils/CustomModal.vue'
@@ -67,7 +69,10 @@ const handleAlignText = (styles) => {
             :drag-selector="'.modal-drag'"
             title="Settings"
         >
-            <BlockInspector :block="block" :context="context"/>
+            <BlockInspector :block="block" :context="context">
+                <BlockControlsSpacing :block="block" />
+                <BlockControlsSizes :block="block" />
+            </BlockInspector>
         </CustomModal>
     </div>
 </template>

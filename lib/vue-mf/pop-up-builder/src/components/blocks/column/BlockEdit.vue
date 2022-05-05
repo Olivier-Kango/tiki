@@ -5,8 +5,10 @@ export default {
 </script>
 <script setup>
 import { ref, computed, watch } from 'vue'
-import BlockAlignTextToolbar from '../../utils/BlockAlignTextToolbar.vue'
+import BlockAlignToolbar from '../../utils/BlockAlignToolbar.vue'
 import BlockControls from '../../utils/BlockControls.vue'
+import BlockControlsSpacing from '../../utils/BlockControls/BlockControlsSpacing.vue'
+import BlockControlsSizes from '../../utils/BlockControls/BlockControlsSizes.vue'
 import BlockInspector from '../../utils/BlockInspector.vue'
 import CustomPopup from '../../utils/CustomPopup.vue'
 import CustomModal from '../../utils/CustomModal.vue'
@@ -47,14 +49,13 @@ const handleAlignText = (styles) => {
 </script>
 
 <template>
-    <div ref="popupTarget" class="col" :class="classes" :style="block.styles">
+    <div ref="popupTarget" class="col d-flex" :class="classes" :style="block.styles">
         <slot />
 
         <CustomPopup v-if="showPopup" :target="popupTarget">
             <div class="d-flex shadow bg-white">
                 <BlockControls :block="block" @edit="handleEdit"></BlockControls>
-                <BlockAlignTextToolbar @action="handleAlignText"></BlockAlignTextToolbar>
-                <!-- <BlockRichTextToolbar @action="handleAction"></BlockRichTextToolbar> -->
+                <BlockAlignToolbar :block="block"></BlockAlignToolbar>
             </div>
         </CustomPopup>
         <CustomModal
@@ -66,7 +67,10 @@ const handleAlignText = (styles) => {
             :drag-selector="'.modal-drag'"
             title="Settings"
         >
-            <BlockInspector :block="block" :context="context"/>
+            <BlockInspector :block="block" :context="context">
+                <BlockControlsSpacing :block="block" />
+                <BlockControlsSizes :block="block" />
+            </BlockInspector>
         </CustomModal>
     </div>
 </template>

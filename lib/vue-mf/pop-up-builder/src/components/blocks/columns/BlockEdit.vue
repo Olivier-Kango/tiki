@@ -5,7 +5,6 @@ export default {
 </script>
 <script setup>
 import { ref, computed, watch } from 'vue'
-import BlockAlignTextToolbar from '../../utils/BlockAlignTextToolbar.vue'
 import BlockControls from '../../utils/BlockControls.vue'
 import BlockInspector from '../../utils/BlockInspector.vue'
 import CustomPopup from '../../utils/CustomPopup.vue'
@@ -40,10 +39,6 @@ const classes = computed(() => {
 watch(() => isSelected.value, (val, oldVal) => showPopup.value = val)
 
 const handleEdit = (e) => showInspector.value = true
-
-const handleAlignText = (styles) => {
-    setStyles(styles)
-}
 </script>
 
 <template>
@@ -53,8 +48,6 @@ const handleAlignText = (styles) => {
         <CustomPopup v-if="showPopup" :target="popupTarget">
             <div class="d-flex shadow bg-white">
                 <BlockControls :block="block" @edit="handleEdit"></BlockControls>
-                <BlockAlignTextToolbar @action="handleAlignText"></BlockAlignTextToolbar>
-                <!-- <BlockRichTextToolbar @action="handleAction"></BlockRichTextToolbar> -->
             </div>
         </CustomPopup>
         <CustomModal

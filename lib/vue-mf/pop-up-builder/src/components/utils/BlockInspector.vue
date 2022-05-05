@@ -87,20 +87,23 @@ function getInitialPathArr() {
 <template>
     <div class="block-inspector">
         <slot/>
-        <h5><b>{{ props.block.attributes.field }}</b></h5>
-        <div class="d-flex mb-4">
-            <VueSelect
-                class="mr-2"
-                v-for="(prop, index) in propsPath"
-                v-model="propsPath[index]"
-                :options="getOptions(index) || []"
-                @selected="selected => handleSelected(selected, index)"
-                @removed="selected => handleRemoved(selected, index)"
-            />
-        </div>
-        <h5>Context:</h5>
-        <div>
-            <pre>{{ JSON.stringify(context, undefined, 4) }}</pre>
+
+        <div v-if="context && Object.getOwnPropertyNames(context)?.length">
+            <h5><b>{{ props.block.attributes.field }}</b></h5>
+            <div class="d-flex mb-4">
+                <VueSelect
+                    class="mr-2"
+                    v-for="(prop, index) in propsPath"
+                    v-model="propsPath[index]"
+                    :options="getOptions(index) || []"
+                    @selected="selected => handleSelected(selected, index)"
+                    @removed="selected => handleRemoved(selected, index)"
+                />
+            </div>
+            <h5>Context:</h5>
+            <div>
+                <pre>{{ JSON.stringify(context, undefined, 4) }}</pre>
+            </div>
         </div>
     </div>
 </template>

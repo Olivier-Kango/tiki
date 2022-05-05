@@ -35,7 +35,7 @@ const classes = computed(() =>
 </script>
 
 <template>
-    <div :class="classes" class="col" :style="block.styles">
+    <div :class="classes" class="col d-flex" :style="block.styles">
         <slot />
     </div>
 </template>

@@ -7,16 +7,19 @@ export default {
 <script setup>
 import { ref, watch, computed, nextTick } from 'vue'
 import BlockRichText from '../../utils/block-rich-text/BlockRichText.vue'
-import BlockRichTextToolbar from '../../utils/block-rich-text/BlockRichTextToolbar.vue'
+// import BlockRichTextToolbar from '../../utils/block-rich-text/BlockRichTextToolbar.vue'
 import BlockAlignTextToolbar from '../../utils/BlockAlignTextToolbar.vue'
 import BlockControls from '../../utils/BlockControls.vue'
+import BlockControlsSpacing from '../../utils/BlockControls/BlockControlsSpacing.vue'
+import BlockControlsSizes from '../../utils/BlockControls/BlockControlsSizes.vue'
+
 import BlockInspector from '../../utils/BlockInspector.vue'
-import BlockInspectorControls from '../../utils/BlockInspectorControls.vue'
+// import BlockInspectorControls from '../../utils/BlockInspectorControls.vue'
 import CustomPopup from '../../utils/CustomPopup.vue'
 import CustomModal from '../../utils/CustomModal.vue'
 import { useState } from '../../hooks/useState'
-import store from '../../../store'
-import BlockBuilder from '../../utils/BlockBuilder.vue'
+// import store from '../../../store'
+// import BlockBuilder from '../../utils/BlockBuilder.vue'
 import _get from 'lodash/get'
 
 const props = defineProps({
@@ -89,7 +92,10 @@ const handleEdit = (e) => showInspector.value = true
             :drag-selector="'.modal-drag'"
             title="Settings"
         >
-            <BlockInspector :block="block" :context="context"/>
+            <BlockInspector :block="block" :context="context">
+                <BlockControlsSpacing :block="block" />
+                <BlockControlsSizes :block="block" />
+            </BlockInspector>
         </CustomModal>
     </div>
 </template>
