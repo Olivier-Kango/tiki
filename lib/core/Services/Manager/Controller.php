@@ -161,11 +161,156 @@ class Services_Manager_Controller
         $this->runCommand($cmd, $input);
 
         return [
-            'override_action' => 'access',
             'title' => tr('Tiki Manager Access Command'),
             'info' => $this->manager_output->fetch(),
             'refresh' => true,
         ];
+    }
+
+
+    public function action_detect($input)
+    {
+        $cmd = new TikiManager\Command\DetectInstanceCommand();
+        $input = new ArrayInput([
+            'command' => $cmd->getName(),
+            '-i' => $input->instanceId->int(),
+        ]);
+        $this->runCommand($cmd, $input);
+        return [
+            'override_action' => 'info',
+            'title' => tr('Tiki Manager Detect Instance'),
+            'info' => $this->manager_output->fetch(),
+            'refresh' => true,
+        ];
+    }
+
+    public function action_create($input)
+    {
+        if ($input->create->text()){
+            
+            $cmd = new TikiManager\Command\CreateInstanceCommand();
+            $inputCommand = new ArrayInput([
+                'command' => $cmd->getName(),
+                "--type" => $input->instance_type->text(),
+                "--url" => $input->instance_url->text(),
+                "--name" => $input->instance_name->text(),
+                "--email" => $input->email->text(),
+                "--webroot" => $input->webroot->text(),
+                "--tempdir" => $input->tempdir->text(),
+                "--branch" => $input->branch->text(),
+                "--backup-user" => $input->backup_user->text(),
+                "--backup-group" => $input->backup_group->text(),
+                "--backup-permission" => $input->backup_permission->text(),
+                "--db-host" => $input->db_host->text(),
+                "--db-user" => $input->db_user->text(),
+                "--db-pass" => $input->db_pass->text(),
+                "--db-prefix" => $input->db_prefix->text(),
+            ]);
+            
+            $this->runCommand($cmd, $inputCommand);
+
+            return [
+                'title' => tr('Create New Instance Result'),
+                'info' => $this->manager_output->fetch(),
+                'refresh' => true,
+            ];
+        } else {
+
+            /** For form initialization */
+            $inputValues = [
+                'types' => ['local', 'ftp', 'ssh'],
+                'selected_type' => 'local',
+                'url' => '',
+                'instance_name' => "",
+                'email' => '',
+                'webroot' => '',
+                'branches' => $this->getTikiBranches(),
+                'selected_branch' => "21.x",
+                'temp_dir' => '/tmp/trim_temp',
+                'backup_user' => 'www-data',
+                'backup_group' => 'www-data',
+                'backup_permission' => '',
+                'db_host' => '',
+                'db_user' => '',
+                'db_pass' => '',
+                'db_prefix' => ''
+            ];
+
+            return [
+                'title' => tr('Create New Instance'),
+                'info' => '',
+                'refresh' => true,
+                'inputValues' => $inputValues,
+            ];
+        }
+        
+    }
+
+
+    public function action_clone($input)
+    {
+        if ($input->clone->text()){
+            
+            $cmd = new TikiManager\Command\CloneInstanceCommand();
+            $inputCommand = new ArrayInput([
+                'command' => $cmd->getName(),
+                "--source" => $input->source->text(),
+                "--target" => $input->target->text(),
+                "--branch" => $input->branch->text(),
+                "--skip-reindex" => $input->skipreindex->text(),
+                "--skip-cache-warmup" => $input->skipcachewarmup->text(),
+                "--live-reindex" => $input->livereindex->text(),
+                "--keep-backup" => $input->keepbackup->text(),
+                "--use-last-backup" => $input->uselastbackup->text(),
+                "--db-host" => $input->db_host->text(),
+                "--db-user" => $input->db_user->text(),
+                "--db-pass" => $input->db_pass->text(),
+                "--db-prefix" => $input->db_prefix->text(),
+                "--db-name" => $input->db_prefix->text(),
+                "--stash" => $input->stash->text(),
+                "--timeout" => $input->timeout->text(),
+            ]);
+
+            $this->runCommand($cmd, $inputCommand);
+
+            return [
+                'title' => tr('Clone Tiki Instance Result'),
+                'info' => $this->manager_output->fetch(),
+                'refresh' => true,
+            ];
+        } else {
+
+            $instances = TikiManager\Application\Instance::getInstances(true);
+
+            /** For form initialization */
+            $inputValues = [
+                'source' => $input->instanceId->int() ? $input->instanceId->int() : '',
+                'target' => "",
+                'branches' => $this->getTikiBranches(),
+                'selected_branch' => "21.x",
+                'skip-reindex' => '',
+                'skip-cache-warmup' => '',
+                'live-reindex' => '',
+                'direct' => '',
+                'keep-backup' => '',
+                'use-last-backup' => '',
+                'db_host' => '',
+                'db_user' => '',
+                'db_pass' => '',
+                'db_prefix' => '',
+                'db_name' => '',
+                "stash" => '',
+                "timeout" => '',
+                "instances" => $instances
+            ];
+
+            return [
+                'title' => tr('Clone Tiki Instance'),
+                'info' => '',
+                'refresh' => true,
+                'inputValues' => $inputValues,
+            ];
+        }
     }
 
     public function action_console($input)
@@ -209,6 +354,24 @@ class Services_Manager_Controller
         
     }
 
+
+    public function action_check($input)
+    {
+        $cmd = new TikiManager\Command\CheckInstanceCommand();
+        $input = new ArrayInput([
+            'command' => $cmd->getName(),
+            '-i' => $input->instanceId->int()
+        ]);
+        $this->runCommand($cmd, $input);
+        return [
+            'override_action' => 'info',
+            'title' => tr('Tiki Manager Check Instance'),
+            'info' => $this->manager_output->fetch(),
+            'refresh' => true,
+        ];
+    }
+    
+    
     public function action_requirements($input)
     {
         $this->runCommand(new TikiManager\Command\CheckRequirementsCommand());
@@ -252,5 +415,10 @@ class Services_Manager_Controller
             $instance->detectPHP();
             $instance->findApplication();
         }
+    }
+
+    public function getTikiBranches()
+    {
+        return Services_Manager_Utilities::getAvailableTikiVersions();
     }
 }

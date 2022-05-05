@@ -9,5 +9,5 @@
 {/block}
 
 {block name="content"}
-    <p class="p-3" style="background: #ccc;">{$info|nl2br}</p>
+    <div class="rounded bg-dark p-3">{$info|nl2br}</div>
 {/block}

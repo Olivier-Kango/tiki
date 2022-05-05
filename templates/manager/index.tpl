@@ -38,6 +38,21 @@
                             </a>
                         </action>
                         <action>
+                            <a href="{service controller=manager action=detect instanceId=$instance->id}">
+                                {icon name=info _menu_text='y' _menu_icon='y' alt="{tr}Detect{/tr}"}
+                            </a>
+                        </action>
+                        <action>
+                            <a href="{service controller=manager action=clone instanceId=$instance->id}">
+                                {icon name=copy _menu_text='y' _menu_icon='y' alt="{tr}Clone{/tr}"}
+                            </a>
+                        </action>
+                        <action>
+                            <a href="{service controller=manager action=check instanceId=$instance->id}">
+                                {icon name=check _menu_text='y' _menu_icon='y' alt="{tr}Check{/tr}"}
+                            </a>
+                        </action>
+                        <action>
                             <a href="{service controller=manager action=update instanceId=$instance->id}">
                                 {icon name=import _menu_text='y' _menu_icon='y' alt="{tr}Update{/tr}"}
                             </a>

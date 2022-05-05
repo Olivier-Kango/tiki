@@ -52,6 +52,26 @@
                                 {icon name=pen _menu_text='y' _menu_icon='y' alt="{tr}Console Command{/tr}"}
                             </a>
                         {/if}
+                        {if in_array('detect', $field.available_actions)}
+                            <a class="dropdown-item" href="{bootstrap_modal controller=manager action=detect instanceId=$instance->id}">
+                                {icon name=wrench _menu_text='y' _menu_icon='y' alt="{tr}Detect{/tr}"}
+                            </a>
+                        {/if}
+                        {if in_array('clone', $field.available_actions)}
+                            <a class="dropdown-item" href="{bootstrap_modal controller=manager action=clone instanceId=$instance->id}">
+                                {icon name=edit _menu_text='y' _menu_icon='y' alt="{tr}Clone{/tr}"}
+                            </a>
+                        {/if}
+                        {if in_array('check', $field.available_actions)}
+                            <a class="dropdown-item" href="{bootstrap_modal controller=manager action=check instanceId=$instance->id}">
+                                {icon name=times _menu_text='y' _menu_icon='y' alt="{tr}Check{/tr}"}
+                            </a>
+                        {/if}
+                        {if in_array('watch', $field.available_actions)}
+                            <a class="dropdown-item" href="{bootstrap_modal controller=manager action=watch instanceId=$instance->id}">
+                                {icon name=pen _menu_text='y' _menu_icon='y' alt="{tr}Watch{/tr}"}
+                            </a>
+                        {/if}
                     </div>
                 </div>
             </div>

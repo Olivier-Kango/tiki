@@ -32,46 +32,74 @@
         <td class="action">
             {actions}{strip}
                 {if in_array('update', $available_actions)}
-                <action>
-                    <a href="{bootstrap_modal controller=manager action=update instanceId=$instance->id}" onclick="$('[data-bs-toggle=popover]').popover('hide');">
-                        {icon name=import _menu_text='y' _menu_icon='y' alt="{tr}Update{/tr}"}
-                    </a>
-                </action>
+                    <action>
+                        <a href="{bootstrap_modal controller=manager action=update instanceId=$instance->id}" onclick="$('[data-bs-toggle=popover]').popover('hide');">
+                            {icon name=import _menu_text='y' _menu_icon='y' alt="{tr}Update{/tr}"}
+                        </a>
+                    </action>
                 {/if}
                 {if in_array('backup', $available_actions)}
-                <action>
-                    <a href="{bootstrap_modal controller=manager action=backup instanceId=$instance->id}" onclick="$('[data-bs-toggle=popover]').popover('hide');">
-                        {icon name=download _menu_text='y' _menu_icon='y' alt="{tr}Backup{/tr}"}
-                    </a>
-                </action>
+                    <action>
+                        <a href="{bootstrap_modal controller=manager action=backup instanceId=$instance->id}" onclick="$('[data-bs-toggle=popover]').popover('hide');">
+                            {icon name=download _menu_text='y' _menu_icon='y' alt="{tr}Backup{/tr}"}
+                        </a>
+                    </action>
                 {/if}
                 {if in_array('fixpermissions', $available_actions)}
-                <action>
-                    <a href="{bootstrap_modal controller=manager action=fix instanceId=$instance->id modal=1}" onclick="$('[data-bs-toggle=popover]').popover('hide');">
-                        {icon name=wrench _menu_text='y' _menu_icon='y' alt="{tr}Fix{/tr}"}
-                    </a>
-                </action>
+                    <action>
+                        <a href="{bootstrap_modal controller=manager action=fix instanceId=$instance->id modal=1}" onclick="$('[data-bs-toggle=popover]').popover('hide');">
+                            {icon name=wrench _menu_text='y' _menu_icon='y' alt="{tr}Fix{/tr}"}
+                        </a>
+                    </action>
                 {/if}
                 {if in_array('edit', $available_actions)}
-                <action>
-                    <a href="{bootstrap_modal controller=manager action=edit instanceId=$instance->id}" onclick="$('[data-bs-toggle=popover]').popover('hide');">
-                        {icon name=edit _menu_text='y' _menu_icon='y' alt="{tr}Edit{/tr}"}
-                    </a>
-                </action>
+                    <action>
+                        <a href="{bootstrap_modal controller=manager action=edit instanceId=$instance->id}" onclick="$('[data-bs-toggle=popover]').popover('hide');">
+                            {icon name=edit _menu_text='y' _menu_icon='y' alt="{tr}Edit{/tr}"}
+                        </a>
+                    </action>
                 {/if}
                 {if in_array('delete', $available_actions)}
-                <action>
-                    <a href="{bootstrap_modal controller=manager action=delete instanceId=$instance-id}" onclick="$('[data-bs-toggle=popover]').popover('hide');">
-                        {icon name=times _menu_text='y' _menu_icon='y' alt="{tr}Delete{/tr}"}
-                    </a>
-                </action>
+                    <action>
+                        <a href="{bootstrap_modal controller=manager action=delete instanceId=$instance-id}" onclick="$('[data-bs-toggle=popover]').popover('hide');">
+                            {icon name=times _menu_text='y' _menu_icon='y' alt="{tr}Delete{/tr}"}
+                        </a>
+                    </action>
                 {/if}
                 {if in_array('console', $available_actions)}
-                <action>
-                    <a href="{bootstrap_modal controller=manager action=console instanceId=$instance->id}" onclick="$('[data-bs-toggle=popover]').popover('hide');">
-                        {icon name=pen _menu_text='y' _menu_icon='y' alt="{tr}Console Command{/tr}"}
-                    </a>
-                </action>
+                    <action>
+                        <a href="{bootstrap_modal controller=manager action=console instanceId=$instance->id}" onclick="$('[data-bs-toggle=popover]').popover('hide');">
+                            {icon name=pen _menu_text='y' _menu_icon='y' alt="{tr}Console Command{/tr}"}
+                        </a>
+                    </action>
+                {/if}
+                {if in_array('detect', $available_actions)}
+                    <action>
+                        <a href="{service controller=manager action=detect instanceId=$instance->id}">
+                            {icon name=info _menu_text='y' _menu_icon='y' alt="{tr}Detect{/tr}"}
+                        </a>
+                    </action>
+                {/if}
+                {if in_array('clone', $available_actions)}
+                    <action>
+                        <a href="{service controller=manager action=clone instanceId=$instance->id}">
+                            {icon name=copy _menu_text='y' _menu_icon='y' alt="{tr}Clone{/tr}"}
+                        </a>
+                    </action>
+                {/if}
+                {if in_array('check', $available_actions)}
+                    <action>
+                        <a href="{service controller=manager action=check instanceId=$instance->id}">
+                            {icon name=check _menu_text='y' _menu_icon='y' alt="{tr}Check{/tr}"}
+                        </a>
+                    </action>
+                {/if}
+                {if in_array('watch', $available_actions)}
+                    <action>
+                        <a href="{service controller=manager action=watch instanceId=$instance->id}">
+                            {icon name=eye _menu_text='y' _menu_icon='y' alt="{tr}Watch{/tr}"}
+                        </a>
+                    </action>
                 {/if}
             {/strip}{/actions}
         </td>
