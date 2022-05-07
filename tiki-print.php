@@ -32,8 +32,12 @@ if (! isset($_REQUEST["page"])) {
 }
 $cat_type = 'wiki page';
 $cat_objid = $page;
-// If the page doesn't exist then display an error
+// If the page doesn't exist
 if (! ($info = $tikilib->get_page_info($page))) {
+    // First, try cleaning the url to see if it matches an existing page.
+    $wikilib->clean_url_suffix_and_redirect($page, $type = '', $path = '', $prefix = '');
+
+    // If after cleaning the url, the page does not exist then display an error
     $smarty->assign('msg', tra('Page cannot be found'));
     $smarty->display('error.tpl');
     die;

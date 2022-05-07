@@ -38,8 +38,12 @@ $excluded = [];
 $page = $_REQUEST['page'];
 $smarty->assign_by_ref('page', $page);
 
-// If the page doesn't exist then display an error
+// If the page doesn't exist
 if (empty($requested)) {
+    // First, try cleaning the url to see if it matches an existing page.
+    $wikilib->clean_url_suffix_and_redirect($page, $type = '', $path = '', $prefix = '');
+
+    // If after cleaning the url, the page does not exist then display an error
     $likepages = $wikilib->get_like_pages($page);
     // if we have exactly one match, redirect to it
     if ($prefs['feature_wiki_1like_redirection'] == 'y' && count($likepages) == 1  && ! $isUserPage) {

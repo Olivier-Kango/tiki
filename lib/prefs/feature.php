@@ -3044,5 +3044,11 @@ function prefs_feature_list($partial = false)
             'packages_required' => ['tikiwiki/tiki-manager' => 'TikiManager\Config\Environment'],
             'tags' => ['advanced'],
         ],
+        'feature_url_suffix_cleaner' => [
+            'name' => tra('Clean URLs'),
+            'description' => tra('When the requested page does not exist, tests removing 1 or 2 of the last characters from the URL to see if it gets an existing page.'),
+            'type' => 'flag',
+            'default' => 'n',
+        ],
     ];
 }

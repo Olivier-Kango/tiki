@@ -35,7 +35,12 @@ include_once("lang/langmapping.php");
 
 if ((! isset($_REQUEST['type']) || $_REQUEST['type'] == 'wiki page' || $_REQUEST['type'] == 'wiki') && isset($_REQUEST['page']) && $_REQUEST['page']) {
     $info = $tikilib->get_page_info($_REQUEST['page']);
+    $page = $_REQUEST['page'];
     if (empty($info)) {
+        // First, try cleaning the url to see if it matches an existing page.
+        TikiLib::lib('wiki')->clean_url_suffix_and_redirect($page, $type = '', $path = '', $prefix = '');
+
+        // If after cleaning the url, the page does not exist then display an error
         $smarty->assign('msg', tra("Page cannot be found"));
         $smarty->display("error.tpl");
         die;

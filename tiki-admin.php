@@ -341,6 +341,9 @@ if (isset($_REQUEST['page'])) {
             $smarty->assign('include', 'extension_package_inactive');
         }
     } elseif (! file_exists("templates/admin/include_$adminPage.tpl")) {
+        // First, try cleaning the url to see if it matches an existing page.
+        TikiLib::lib('wiki')->clean_url_suffix_and_redirect($adminPage, 'tpl', getcwd() . '/templates/admin/', 'include_');
+
         // Graceful error management when URL is wrong for admin panel
         $smarty->assign('template_not_found', 'y');
     } else {

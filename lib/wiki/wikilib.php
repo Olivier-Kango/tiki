@@ -1223,6 +1223,67 @@ class WikiLib extends TikiLib
             return [];
         }
     }
+    
+    /**
+     * Tests removing 1 or 2 of the last characters from the URL to see 
+     * if it gets an existing page
+     * 
+     * @param array $page           the page name
+     * @param string $type          'wikiPage'|'tpl'
+     * @param string $path          the path where to look for the template in the case $type = 'tpl'
+     * @param string $prefix
+     * 
+     * @return '' | redirect to the new url if page name retrieves an existing page
+     */
+    public function clean_url_suffix_and_redirect($page, $type = '', $path = '', $prefix = '')
+    {
+        if (! $page && $prefs['feature_url_suffix_cleaner'] != 'y') {
+            return;
+        }
+
+        global $prefs, $url_scheme, $url_host, $base_uri;
+        $tikilib = TikiLib::lib('tiki');
+        $access = TikiLib::lib('access');
+
+        $request_uri = ($prefs['feature_sefurl'] == 'y' && ! $_SERVER['QUERY_STRING']) ? ($request_uri = basename(debug_backtrace()[0]['file']).'?page='.$page) : $base_uri;
+
+        $pathInfo = parse_url($request_uri);
+        $queryString = $pathInfo['query'];
+        parse_str($queryString, $queryArray);
+
+        // search for a matching page
+        $possiblePages = array($page, substr($page,0,-1) , substr($page,0,-2));
+        $newPage = '';
+        foreach ( $possiblePages as $p ) {
+            if ($type == '' || $type == 'wikiPage') {
+                if ($tikilib->page_exists($p)) {
+                    $newPage = $p;
+                    break;
+                }
+            } elseif ($type == "tpl" && $path) {
+                if (file_exists($path . $prefix . $p . ".tpl")) {
+                    $newPage = $p;
+                    break;
+                }
+            }
+        }
+        // construct new url
+        if ($newPage) {
+            $queryArray['page'] = $newPage;
+            $newQueryStr = http_build_query($queryArray, '', '&');
+
+            $new_url = $url_scheme . "://" . $url_host . $pathInfo['path'] . "?" .$newQueryStr;
+
+            // if feature_sefurl is enabled, create a sefurl
+            if ($prefs['feature_sefurl'] == 'y' && ! $_SERVER['QUERY_STRING']) {
+                TikiLib::lib('smarty')->loadPlugin('smarty_modifier_sefurl');
+                $new_url = smarty_modifier_sefurl($newPage, '', $newQueryStr);
+            }
+            // redirect to the new url
+            $access->redirect($new_url);
+        }
+        return '';
+    }
 
     public function is_locked($page, $info = null)
     {

@@ -39,6 +39,10 @@ if (! isset($_REQUEST["source"])) {
 }
 $info = $tikilib->get_page_info($page);
 if (empty($info)) {
+    // First, try cleaning the url to see if it matches an existing page.
+    TikiLib::lib('wiki')->clean_url_suffix_and_redirect($page, $type = '', $path = '', $prefix = '');
+
+    // If after cleaning the url, the page does not exist then display an error
     $smarty->assign('msg', tra('No page indicated'));
     $smarty->display('error.tpl');
     die;

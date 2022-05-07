@@ -274,8 +274,12 @@ if (empty($info)) {
     }
 }
 
-// If the page doesn't exist then display an error
+// If the page doesn't exist
 if (empty($info) && ! ($user && $prefs['feature_wiki_userpage'] == 'y' && strcasecmp($prefs['feature_wiki_userpage_prefix'] . $user, $page) == 0)) {
+    // First, try cleaning the url to see if it matches an existing page.
+    $wikilib->clean_url_suffix_and_redirect($page, $type = '', $path = '', $prefix = '');
+
+    // If after cleaning the url, the page does not exist then display an error
     $isprefixed = false;
     $prefixes = explode(',', $prefs['wiki_prefixalias_tokens']);
     foreach ($prefixes as $p) {

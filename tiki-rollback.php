@@ -30,6 +30,10 @@ if (! isset($_REQUEST["version"])) {
     $smarty->assign_by_ref('version', $_REQUEST["version"]);
 }
 if (! ($info = $tikilib->get_page_info($page))) {
+    // First, try cleaning the url to see if it matches an existing page.
+    $wikilib->clean_url_suffix_and_redirect($page, $type = '', $path = '', $prefix = '');
+
+    // If after cleaning the url, the page does not exist then display an error
     $smarty->assign('msg', tra('Page cannot be found'));
     $smarty->display('error.tpl');
     die;

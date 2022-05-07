@@ -208,6 +208,7 @@
                         </div>
                         {preference name=feature_wiki_pagealias}
                         {preference name=wiki_pagealias_tokens}
+                        {preference name=feature_url_suffix_cleaner}
                 </fieldset>
             </div>
             <div class="adminoptionbox clearfix">
