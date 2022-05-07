@@ -9,6 +9,7 @@ import { ref, watch, computed, nextTick } from 'vue'
 import BlockRichText from '../../utils/block-rich-text/BlockRichText.vue'
 // import BlockRichTextToolbar from '../../utils/block-rich-text/BlockRichTextToolbar.vue'
 import BlockAlignTextToolbar from '../../utils/BlockAlignTextToolbar.vue'
+import BlockToolbarColors from '../../utils/BlockToolbarColors.vue'
 import BlockControls from '../../utils/BlockControls.vue'
 import BlockControlsSpacing from '../../utils/BlockControls/BlockControlsSpacing.vue'
 import BlockControlsSizes from '../../utils/BlockControls/BlockControlsSizes.vue'
@@ -80,6 +81,7 @@ const handleEdit = (e) => showInspector.value = true
             <div class="d-flex shadow bg-white">
                 <BlockControls :block="block" @edit="handleEdit"></BlockControls>
                 <BlockAlignTextToolbar @action="handleAlignText"></BlockAlignTextToolbar>
+                <BlockToolbarColors :block="block"></BlockToolbarColors>
                 <!-- <BlockRichTextToolbar @action="handleAction"></BlockRichTextToolbar> -->
             </div>
         </CustomPopup>

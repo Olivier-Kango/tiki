@@ -6,6 +6,7 @@ export default {
 <script setup>
 import { ref, computed, watch } from 'vue'
 import BlockAlignToolbar from '../../utils/BlockAlignToolbar.vue'
+import BlockToolbarColors from '../../utils/BlockToolbarColors.vue'
 import BlockControls from '../../utils/BlockControls.vue'
 import BlockControlsSpacing from '../../utils/BlockControls/BlockControlsSpacing.vue'
 import BlockControlsSizes from '../../utils/BlockControls/BlockControlsSizes.vue'
@@ -56,6 +57,7 @@ const handleAlignText = (styles) => {
             <div class="d-flex shadow bg-white">
                 <BlockControls :block="block" @edit="handleEdit"></BlockControls>
                 <BlockAlignToolbar :block="block"></BlockAlignToolbar>
+                <BlockToolbarColors :block="block"></BlockToolbarColors>
             </div>
         </CustomPopup>
         <CustomModal

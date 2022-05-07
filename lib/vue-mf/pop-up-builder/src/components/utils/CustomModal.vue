@@ -82,13 +82,15 @@ watch(() => props.show, (val, oldVal) => {
         }
     }
     :deep(.f-modal-content) {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        max-width: 960px;
-        width: 100%;
-        min-height: 75%;
-        margin: 48px auto 80px auto;
+        position: absolute;
+        // display: flex;
+        // flex-direction: column;
+        width: 500px;
+        // width: 100%;
+        // min-height: 100%;
+        top: 10%;
+        right: 40%;
+        // margin: 48px auto 80px auto;
         padding: 1rem;
         border: 1px solid #e2e8f0;
         border-radius: 0.25rem;

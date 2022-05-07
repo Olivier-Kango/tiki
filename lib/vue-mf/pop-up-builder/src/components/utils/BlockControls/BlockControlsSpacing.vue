@@ -5,7 +5,8 @@ export default {
 </script>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, watch } from 'vue'
+import { Button } from '@vue-mf/styleguide'
 import VueSlider from '../vue-slider/VueSlider.vue'
 import { useState } from '../../hooks/useState.js'
 
@@ -16,10 +17,7 @@ const props = defineProps({
     }
 })
 
-const { setStyles } = useState(props.block.id)
-
-// const getValue = computed(() => (value) => splitUnit(value).value)
-// const getUnit = computed(() => (value) => splitUnit(value).unit)
+const { setStyles, removeStyles } = useState(props.block.id)
 
 const styles = ref({
     paddingLeft: props.block.styles?.paddingLeft,
@@ -28,10 +26,21 @@ const styles = ref({
     paddingBottom: props.block.styles?.paddingBottom,
 })
 
+watch(() => props.block.styles, (val, oldVal) => {
+    let { paddingLeft, paddingRight, paddingTop, paddingBottom } = val
+    styles.value = { paddingLeft, paddingRight, paddingTop, paddingBottom }
+})
+
 const handleUpdate = (field, value) => {
     styles.value[field] = value + 'px'
-    setStyles(styles.value)
+    let newStyles = { ...styles.value }
+    Object.getOwnPropertyNames(newStyles).forEach(key => {
+        if (!newStyles[key]) delete newStyles[key]
+    })
+    setStyles(newStyles)
 }
+
+const handleRemoveStyles = ($event, styles) => removeStyles(styles)
 
 function splitUnit(v) {
     if (typeof v === 'string' && v !== '') {
@@ -46,22 +55,13 @@ function splitUnit(v) {
 
 <template>
     <div class="block-editor-controls-spacing">
-        <div>
-            <div class="mb-3 w-25">
-                <h6>paddingLeft</h6>
-                <VueSlider :value="splitUnit(styles.paddingLeft).value" @dragging="(value) => handleUpdate('paddingLeft', value)"/>
-            </div>
-            <div class="mb-3 w-25">
-                <h6>paddingRight</h6>
-                <VueSlider :value="splitUnit(styles.paddingRight).value" @dragging="(value) => handleUpdate('paddingRight', value)"/>
-            </div>
-            <div class="mb-3 w-25">
-                <h6>paddingTop</h6>
-                <VueSlider :value="splitUnit(styles.paddingTop).value" @dragging="(value) => handleUpdate('paddingTop', value)"/>
-            </div>
-            <div class="mb-3 w-25">
-                <h6>paddingBottom</h6>
-                <VueSlider :value="splitUnit(styles.paddingBottom).value" @dragging="(value) => handleUpdate('paddingBottom', value)"/>
+        <div v-for="(style, key) in styles" :key="key" class="mb-3">
+            <h6>{{ key }}</h6>
+            <div class="d-flex">
+                <VueSlider class="flex-grow-1" :value="splitUnit(style).value" @dragging="(value) => handleUpdate(key, value)"/>
+                <Button variant="default" sm @click="handleRemoveStyles($event, [key])">
+                    <i class="fas fa-eraser"></i>
+                </Button>
             </div>
         </div>
     </div>

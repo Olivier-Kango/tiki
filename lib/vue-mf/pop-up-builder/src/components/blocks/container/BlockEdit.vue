@@ -6,6 +6,7 @@ export default {
 <script setup>
 import { ref, computed, watch } from 'vue'
 import BlockAlignTextToolbar from '../../utils/BlockAlignTextToolbar.vue'
+import BlockToolbarImage from '../../utils/BlockToolbarImage.vue'
 import BlockControls from '../../utils/BlockControls.vue'
 import BlockControlsSpacing from '../../utils/BlockControls/BlockControlsSpacing.vue'
 import BlockControlsSizes from '../../utils/BlockControls/BlockControlsSizes.vue'
@@ -49,13 +50,14 @@ const handleAlignText = (styles) => {
 </script>
 
 <template>
-    <div ref="popupTarget" :class="classes" class="container" :style="block.styles">
+    <div ref="popupTarget" :class="classes" :style="block.styles">
         <slot />
 
         <CustomPopup v-if="showPopup" :target="popupTarget">
             <div class="d-flex shadow bg-white">
                 <BlockControls :block="block" @edit="handleEdit"></BlockControls>
                 <BlockAlignTextToolbar @action="handleAlignText"></BlockAlignTextToolbar>
+                <BlockToolbarImage :block="block"></BlockToolbarImage>
                 <!-- <BlockRichTextToolbar @action="handleAction"></BlockRichTextToolbar> -->
             </div>
         </CustomPopup>

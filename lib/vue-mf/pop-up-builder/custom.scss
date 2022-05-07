@@ -23,7 +23,7 @@
     &::after {
         display: inline-block;
         position: absolute;
-        pointer-events: auto !important;
+        pointer-events: auto;
         top: 0;
         left: 0;
         right: 0;
