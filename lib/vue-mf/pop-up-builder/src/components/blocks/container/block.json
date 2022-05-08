@@ -16,5 +16,6 @@
 		"allowedBlocks": {
 			"type": "array"
 		}
-	}
+	},
+	"classes": ["block--core-container"]
 }

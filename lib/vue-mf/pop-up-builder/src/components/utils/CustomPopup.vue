@@ -129,6 +129,7 @@ export default {
 
 <style scoped>
 .popup-container {
+    width: max-content;
     z-index: 1;
 }
 </style>

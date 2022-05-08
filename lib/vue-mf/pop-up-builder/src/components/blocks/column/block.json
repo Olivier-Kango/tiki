@@ -17,5 +17,6 @@
 		"allowedBlocks": {
 			"type": "array"
 		}
-	}
+	},
+	"classes": ["block--core-column", "col"]
 }

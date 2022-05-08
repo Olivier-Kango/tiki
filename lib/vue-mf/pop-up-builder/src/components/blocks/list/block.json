@@ -14,5 +14,6 @@
 		"allowedBlocks": {
 			"type": "array"
 		}
-	}
+	},
+	"classes": ["block--core-list"]
 }

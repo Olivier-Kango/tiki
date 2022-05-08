@@ -18,5 +18,6 @@
 			"type": "array",
 			"default": []
 		}
-	}
+	},
+	"classes": ["block--core-header"]
 }

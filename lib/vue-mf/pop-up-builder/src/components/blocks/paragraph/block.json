@@ -19,5 +19,6 @@
 			"type": "array",
 			"default": []
 		}
-	}
+	},
+	"classes": ["block--core-paragraph"]
 }
