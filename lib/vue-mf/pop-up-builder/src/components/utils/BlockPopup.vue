@@ -26,6 +26,7 @@ const targetEl = ref(null)
         display: flex;
         background-color: white;
         border: 1px solid #000;
-        padding: 5px;
+        padding: 5px 10px;
+        margin-bottom: 3px;
     }
 </style>

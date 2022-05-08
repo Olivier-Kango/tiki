@@ -84,6 +84,7 @@ const handleClick = (e, id) => {
         padding: 0 10px;
         margin-bottom: 4px;
         border-radius: 2px;
+        user-select: none;
     }
     .draggable-template {
         display: flex;
