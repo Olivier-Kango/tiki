@@ -46,7 +46,7 @@ const handleClick = (e, id) => {
                 :block="getBlock(blockId)"
             >
                 <template #default="{ block }">
-                    <BlockDraggable :block="block" drag drop>
+                    <BlockDraggable :block="block" drag drop dropArea="block-inspector">
                         <div
                             class="block-tree-item"
                             :id="'block-tree-' + block.id"

@@ -7,13 +7,14 @@ export default {
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount, onUpdated } from 'vue'
 import interact from 'interactjs'
-import { getDescendantIds } from '../../store/helpers'
+import { getDescendantIds, getParentBlockId } from '../../store/helpers'
 import store from '../../store'
 
 const props = defineProps({
     targetId: String,
     drag: Boolean,
     drop: Boolean,
+    dropArea: String,
     block: {
         type: Object,
         default: () => {}
@@ -110,13 +111,7 @@ function handleDragEnd(event) {
 function handleDragEnter(event) {
     // console.log('dragEnter', props.block)
     // console.log('setDropzoned', props.block.id)
-    let selectedBlock = store.getters.getSelected
-    let allowedBlocks = props.block.attributes?.allowedBlocks
-    if (Array.isArray(allowedBlocks) && allowedBlocks.includes(selectedBlock.name)) {
-        store.dispatch('setDropzoned', props.block.id)
-    } else if (!allowedBlocks) {
-        store.dispatch('setDropzoned', props.block.id)
-    }
+    store.dispatch('setDropzoned', props.block.id)
 }
 
 function handleDragLeave(event) {
@@ -126,7 +121,16 @@ function handleDragLeave(event) {
 
 function handleDrop(event) {
     // console.log('drop', props.block)
-    if (!isChild(props.block.id, store.getters.getDraggedBlock.id)) store.dispatch('setDropped')
+    if (props.dropArea === 'block-builder') {
+        if (!isChild(props.block.id, store.getters.getDraggedBlock.id) && isAllowed(store.getters.getDraggedBlock)) {
+            store.dispatch('setDroppedIn')
+        }
+    } else if (props.dropArea === 'block-inspector') {
+        if (!isChild(props.block.id, store.getters.getDraggedBlock.id) && isAllowed(store.getters.getDraggedBlock, true)) {
+            store.dispatch('setDroppedUp')
+        }
+    }
+
     store.dispatch('setDropzoned', null)
 }
 
@@ -137,6 +141,15 @@ function handleDrop(event) {
 function isChild(blockId, parentId) {
     let ids = getDescendantIds(store.getters.getBlocks, parentId)
     return ids.find(id => id === blockId)
+}
+
+function isAllowed(draggedBlock, parent = false) {
+    let allowedBlocks = props.block.attributes?.allowedBlocks
+    if (parent) {
+        let parentId = getParentBlockId(store.getters.getBlocks, props.block.id)
+        allowedBlocks = store.getters.getBlock(parentId).attributes?.allowedBlocks
+    }
+    return (Array.isArray(allowedBlocks) && allowedBlocks.includes(draggedBlock.name)) || !allowedBlocks
 }
 </script>
 

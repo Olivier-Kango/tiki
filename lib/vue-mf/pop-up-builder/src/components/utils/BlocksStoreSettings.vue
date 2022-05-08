@@ -5,10 +5,8 @@ export default {
 </script>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue' 
-import { Button, ToggleButton } from '@vue-mf/styleguide'
-import BlockAdd from './BlockAdd.vue'
-import CustomModal from './CustomModal.vue'
+import { computed } from 'vue' 
+import { Button } from '@vue-mf/styleguide'
 import store from '../../store'
 import { registerStoreModule } from '../../store/helpers'
 
@@ -23,11 +21,18 @@ const storeOptions = computed(() => store.getters.getAPIoptions)
 const getAPIdata = computed(() => (field) => store.getters[`module_${field}/get_${field}`])
 
 const handleSaveOptions = (index) => {
-    let field = storeOptions.value[index].field
+    let { url, field } = storeOptions.value[index]
+    if (!field && !url) return
+    if (store.hasModule(`module_${field}`)) return
 
     registerStoreModule([storeOptions.value[index]], store)
-    store.dispatch(`module_${field}/add_${field}`)
-    localStorage.setItem('tiki-pop-up-blocks-store', JSON.stringify(storeOptions.value))
+
+    if (field) store.dispatch(`module_${field}/add_${field}`)
+    
+    if (Array.isArray(storeOptions.value)) {
+        let filteredStoreOptions = storeOptions.value.filter(option => option.url && option.field)
+        localStorage.setItem('tiki-pop-up-blocks-store', JSON.stringify(filteredStoreOptions))
+    }
 }
 
 const handleAddAPIoption = () => {

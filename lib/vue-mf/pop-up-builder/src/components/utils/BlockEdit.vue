@@ -45,6 +45,7 @@ const handleEvent = (e, id) => store.dispatch('setSelected', id)
         :data-block="block.id"
         :block="block"
         drop
+        dropArea="block-builder"
         @click.stop="handleEvent($event, block.id)"
     >
         <component
