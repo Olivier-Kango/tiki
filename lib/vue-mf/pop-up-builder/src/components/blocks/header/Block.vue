@@ -15,7 +15,5 @@ const props = defineProps({
 </script>
 
 <template>
-    <div :class="block.classes" :style="block.styles">
-        <h1 v-html="block.attributes.textContent"></h1>
-    </div>
+    <h1 v-html="block.attributes.textContent"></h1>
 </template>

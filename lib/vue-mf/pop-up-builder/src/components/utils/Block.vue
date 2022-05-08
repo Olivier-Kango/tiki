@@ -22,19 +22,24 @@ defineProps({
 </script>
 
 <template>
-    <component
-        :is="block.name"
-        :id="block.id"
-        :data-id="block.id"
-        :block="block"
-        :context="context"
+    <div
+        :id="'block-' + block.id"
+        :class="block.classes"
+        :style="block.styles"
+        :data-block="block.id"
     >
-        <Block
-            v-for="_id in block.innerBlocks"
-            :key="'block-' + _id"
-            :block="blocks[_id]"
-            :blocks="blocks"
+        <component
+            :is="block.name"
+            :block="block"
             :context="context"
-        />
-    </component>
+        >
+            <Block
+                v-for="_id in block.innerBlocks"
+                :key="'block-' + _id"
+                :block="blocks[_id]"
+                :blocks="blocks"
+                :context="context"
+            />
+        </component>
+    </div>
 </template>

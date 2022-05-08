@@ -18,7 +18,5 @@ const props = defineProps({
 </script>
 
 <template>
-    <div :class="props.block.classes" class="core-button-container" :style="props.block.styles">
-        <Button v-html="block.attributes.content"></Button>
-    </div>
+    <Button v-html="block.attributes.content"></Button>
 </template>

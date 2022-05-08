@@ -11,7 +11,7 @@ import BlockControls from '../../utils/BlockControls.vue'
 import BlockControlsSpacing from '../../utils/BlockControls/BlockControlsSpacing.vue'
 import BlockControlsSizes from '../../utils/BlockControls/BlockControlsSizes.vue'
 import BlockInspector from '../../utils/BlockInspector.vue'
-import CustomPopup from '../../utils/CustomPopup.vue'
+import BlockPopup from '../../utils/BlockPopup.vue'
 import CustomModal from '../../utils/CustomModal.vue'
 import { useState } from '../../hooks/useState'
 
@@ -26,19 +26,8 @@ const props = defineProps({
 
 const { isSelected, isHighlighted, setAttributes, setClasses, setStyles } = useState(props.block.id)
 
-const popupTarget = ref(null)
 const showPopup = ref(false)
 const showInspector = ref(false)
-
-const classes = computed(() => {
-    if (props.block.classes) {
-        return [props.block.classes].concat([
-            {'is-highlighted': isHighlighted.value}
-        ])
-    } else {
-        return [{'is-highlighted': isHighlighted.value}]
-    }
-})
 
 watch(() => isSelected.value, (val, oldVal) => showPopup.value = val)
 
@@ -50,30 +39,29 @@ const handleAlignText = (styles) => {
 </script>
 
 <template>
-    <div ref="popupTarget" :class="classes" :style="block.styles">
-        <slot />
+    <slot />
 
-        <CustomPopup v-if="showPopup" :target="popupTarget">
-            <div class="d-flex shadow bg-white">
-                <BlockControls :block="block" @edit="handleEdit"></BlockControls>
-                <BlockAlignTextToolbar @action="handleAlignText"></BlockAlignTextToolbar>
-                <BlockToolbarImage :block="block"></BlockToolbarImage>
-                <!-- <BlockRichTextToolbar @action="handleAction"></BlockRichTextToolbar> -->
-            </div>
-        </CustomPopup>
-        <CustomModal
-            v-if="showInspector"
-            :show="showInspector"
-            @close="showInspector = false"
-            :drag="true"
-            :resize="true"
-            :drag-selector="'.modal-drag'"
-            title="Settings"
-        >
-            <BlockInspector :block="block" :context="context">
-                <BlockControlsSpacing :block="block" />
-                <BlockControlsSizes :block="block" />
-            </BlockInspector>
-        </CustomModal>
-    </div>
+    <BlockPopup v-if="isSelected">
+        <div class="d-flex shadow bg-white">
+            <BlockControls :block="block" @edit="handleEdit"></BlockControls>
+            <BlockAlignTextToolbar @action="handleAlignText"></BlockAlignTextToolbar>
+            <BlockToolbarImage :block="block"></BlockToolbarImage>
+            <!-- <BlockRichTextToolbar @action="handleAction"></BlockRichTextToolbar> -->
+        </div>
+    </BlockPopup>
+
+    <CustomModal
+        v-if="showInspector"
+        :show="showInspector"
+        @close="showInspector = false"
+        :drag="true"
+        :resize="true"
+        :drag-selector="'.modal-drag'"
+        title="Settings"
+    >
+        <BlockInspector :block="block" :context="context">
+            <BlockControlsSpacing :block="block" />
+            <BlockControlsSizes :block="block" />
+        </BlockInspector>
+    </CustomModal>
 </template>

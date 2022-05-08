@@ -18,7 +18,5 @@ const props = defineProps({
 </script>
 
 <template>
-    <div :class="block.classes" :style="block.styles">
-        <slot />
-    </div>
+    <slot />
 </template>

@@ -5,14 +5,15 @@ export default {
 </script>
 
 <script setup>
-import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
-import interact from 'interactjs';
+import { ref, computed, onMounted, onBeforeUnmount, onUpdated } from 'vue'
+import interact from 'interactjs'
 import { getDescendantIds } from '../../store/helpers'
-import store from '../../store';
+import store from '../../store'
 
 const props = defineProps({
     targetId: String,
-    dropzone: Boolean,
+    drag: Boolean,
+    drop: Boolean,
     block: {
         type: Object,
         default: () => {}
@@ -20,7 +21,7 @@ const props = defineProps({
 })
 
 const targetEl = ref(null)
-const drag = ref(false)
+const toggleDrag = ref(false)
 const x = ref(0)
 const y = ref(0)
 
@@ -28,15 +29,23 @@ const transform = computed(() => `translate(${x.value}px, ${y.value}px)`)
 // const getSelectedBlock = computed(() => store.getters.getSelected)
 
 onMounted(() => {
-    if (props.targetId) targetEl.value = document.getElementById(props.targetId)
-    if (targetEl.value) initInteract(targetEl.value)
+    // console.log('mounted draggable', targetEl.value, props.block)
+    // if (props.targetId) targetEl.value = document.getElementById(props.targetId)
+    if (props.drag && targetEl.value) initDraggable(targetEl.value)
+    if (props.drop && targetEl.value) initDropzone(targetEl.value)
 })
 
 onBeforeUnmount(() => {
-    interact(targetEl.value).unset()
+    if (targetEl.value) interact(targetEl.value).unset()
 })
 
-function initInteract(el) {
+// onUpdated(() => {
+//     if (props.targetId) targetEl.value = document.getElementById(props.targetId)
+//     if (props.drag && targetEl.value) initDraggable(targetEl.value)
+//     if (props.drop && targetEl.value) initDropzone(targetEl.value)
+// })
+
+function initDraggable(el) {
     interact(el).draggable({
         listeners: {
             start: handleDragStart,
@@ -44,29 +53,31 @@ function initInteract(el) {
             end: handleDragEnd
         },
     }).styleCursor(false)
-    // if (props.dropzone) {
-        interact(`[data-id="${props.block.id}"]`).dropzone({
-            // only accept elements matching this CSS selector
-            // accept: '.block-editor-block',
-            // Require a 75% element overlap for a drop to be possible
-            // overlap: 0.1,
-            overlap: 'pointer',
-            // listen for drop related events:
-            // ondropactivate: handleDropActivate,
-            ondragenter: handleDragEnter,
-            ondragleave: handleDragLeave,
-            ondrop: handleDrop,
-            // ondropdeactivate: handleDropDeactivate
-        })
-    // }
+}
+
+function initDropzone(el) {
+    interact(el).dropzone({
+        // only accept elements matching this CSS selector
+        // accept: '.block-editor-block',
+        // Require a 75% element overlap for a drop to be possible
+        // overlap: 0.1,
+        overlap: 'pointer',
+        // listen for drop related events:
+        // ondropactivate: handleDropActivate,
+        ondragenter: handleDragEnter,
+        ondragleave: handleDragLeave,
+        ondrop: handleDrop,
+        // ondropdeactivate: handleDropDeactivate
+    })
 }
 
 function handleDragStart(event) {
     // $emit('ondragstart', event)
-    toggleDropzone(false, props.block.id)
+    // toggleDropzone(false, props.block.id)
+    // if (props.drop) interact(targetEl.value).dropzone(false)
     store.dispatch('setSelected', props.block.id)
     store.dispatch('setDragged', props.block.id)
-    drag.value = true
+    toggleDrag.value = true
     x.value = event.page.x
     y.value = event.page.y
 }
@@ -79,13 +90,14 @@ function handleDragMove(event) {
 
 function handleDragEnd(event) {
     // $emit('ondragend', event)
-    drag.value = false
+    // if (props.drop) interact(targetEl.value).dropzone(true)
+    toggleDrag.value = false
     store.dispatch('setDragged', null)
     // $nextTick(function () {
     //     initInteract($refs.targetEl)
     // })
     // Enable dropzone
-    toggleDropzone(true, props.block.id)
+    // toggleDropzone(true, props.block.id)
 }
 
 // function handleDropActivate(event) {
@@ -116,26 +128,27 @@ function handleDrop(event) {
     store.dispatch('setDropzoned', null)
 }
 
-function toggleDropzone(toggle, parentId) {
-    let ids = getDescendantIds(store.getters.getBlocks, parentId)
-    ids.forEach(id => {
-        interact(`[data-id="${id}"]`).dropzone(toggle)
-    })
-}
 // function handleDropDeactivate(event) {
 //     // console.log('dropDeactive', props.block)
 // }
+
+function toggleDropzone(toggle, parentId) {
+    let ids = getDescendantIds(store.getters.getBlocks, parentId)
+    ids.forEach(id => {
+        interact(`[data-dropzone-id="${id}"]`).dropzone(toggle)
+    })
+}
 </script>
 
 <template>
     <div ref="targetEl">
         <slot name="default"/>
+        <Teleport to="body">
+            <div v-if="toggleDrag" class="draggable-container" :style="{ transform: transform }">
+                <slot name="draggable"/>
+            </div>
+        </Teleport>
     </div>
-    <Teleport to="body">
-        <div v-if="drag" class="draggable-container" :style="{ transform: transform }">
-            <slot name="draggable"/>
-        </div>
-    </Teleport>
 </template>
 
 <style lang="scss" scoped>

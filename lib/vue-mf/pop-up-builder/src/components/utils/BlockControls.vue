@@ -44,8 +44,9 @@ const showBlockSettings = (e) => {
         <!-- <span class="me-2">{{ getBlockType(block.name).title }}</span> -->
         <BlockList :block="block"></BlockList>
         <ButtonGroup>
-            <BlockDraggable :block="block">
-                <Button class="drag-handle-block" variant="default" sm><i class="fas fa-grip-vertical"></i></Button>
+            <BlockDraggable :block="block" drag>
+                <Button :id="'block-drag-button-' + block.id" class="drag-handle-block" variant="default" sm><i class="fas fa-grip-vertical"></i></Button>
+
                 <template #draggable>
                     <div class="draggable-template shadow-sm">
                         <span class="me-2">{{ block.name }}</span>

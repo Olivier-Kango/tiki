@@ -18,14 +18,5 @@ defineProps({
 </script>
 
 <template>
-    <div :class="block.classes" class="row" :style="block.styles">
-        <slot />
-    </div>
+    <slot />
 </template>
-
-<style lang="scss" scoped>
-.row {
-    min-height: 50px;
-    margin-bottom: 10px;
-}
-</style>

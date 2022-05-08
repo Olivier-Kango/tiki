@@ -6,6 +6,7 @@ export default {
 
 <script setup>
 import { computed } from 'vue'
+import BlockDraggable from './BlockDraggable.vue'
 import store from '../../store'
 
 const props = defineProps({
@@ -24,41 +25,49 @@ const props = defineProps({
 })
 
 const getBlockClasses = computed(() => (id) => {
-    let classes = {
+    let classes = [{
         'block-editor-block': true,
         'is-dropzone-active': store.getters.getDropzonedBlock?.id === id,
         'is-dragged': store.getters.getDraggedBlock?.id === id,
-    }
-    return classes
+        'is-selected': store.getters.getSelected?.id === id,
+        'is-highlighted': store.getters.getHighlighted?.id === id,
+    }]
+    return Array.isArray(props.block.classes) ? props.block.classes.concat(classes) : classes
 })
 const handleEvent = (e, id) => store.dispatch('setSelected', id)
 </script>
 
 <template>
-    <component
-        :is="block.name + '-edit'"
-        :id="block.id"
+    <BlockDraggable
+        :id="'block-' + block.id"
         :class="getBlockClasses(block.id)"
-        :data-id="block.id"
+        :style="block.styles"
+        :data-block="block.id"
         :block="block"
-        :context="context"
+        drop
         @click.stop="handleEvent($event, block.id)"
     >
-        <TransitionGroup name="list">
-            <BlockEdit
-                v-for="_id in block.innerBlocks"
-                :key="'block-' + _id"
-                :block="blocks[_id]"
-                :blocks="blocks"
-                :context="context"
-            />
-        </TransitionGroup>
-    </component>
+        <component
+            :is="block.name + '-edit'"
+            :block="block"
+            :context="context"
+        >
+            <TransitionGroup name="list">
+                <BlockEdit
+                    v-for="_id in block.innerBlocks"
+                    :key="'block-' + _id"
+                    :block="blocks[_id]"
+                    :blocks="blocks"
+                    :context="context"
+                />
+            </TransitionGroup>
+        </component>
+    </BlockDraggable>
 </template>
 
 <style lang="scss" scoped>
     .block-editor-block {
-        &.is-dragged {
+        &.is-dragged,  &.is-selected {
             position: relative;
         }
 

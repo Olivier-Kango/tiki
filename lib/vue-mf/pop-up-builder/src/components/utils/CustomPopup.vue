@@ -1,13 +1,11 @@
 <template>
-    <Teleport to="body">
-        <div
-            ref="reference"
-            v-click-outside="onClickOutsideConfig"
-            class="popup-container"
-        >
-            <slot />
-        </div>
-    </Teleport>
+    <div
+        ref="reference"
+        v-click-outside="onClickOutsideConfig"
+        class="popup-container"
+    >
+        <slot />
+    </div>
 </template>
 
 <script>
@@ -122,7 +120,7 @@ export default {
             if (typeof target === 'object') {
                 return target
             } else if (typeof target === 'string') {
-                return document.getElementById(target)
+                return document.querySelector(target)
             }
         }
     },

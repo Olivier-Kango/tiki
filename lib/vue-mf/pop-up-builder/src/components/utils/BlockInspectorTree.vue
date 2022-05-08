@@ -6,6 +6,8 @@ export default {
 
 <script setup>
 import { computed } from 'vue'
+import { Button, ButtonGroup, ButtonToolbar } from '@vue-mf/styleguide'
+import BlockDraggable from './BlockDraggable.vue'
 import BlockInspectorTreeView from './BlockInspectorTreeView.vue'
 import BlockControls from './BlockControls.vue'
 import store from '../../store'
@@ -36,28 +38,38 @@ const handleClick = (e, id) => {
 <template>
     <div>
         <TransitionGroup name="list">
-            <div
+            <BlockInspectorTreeView
                 v-for="blockId in root.innerBlocks"
+                :key="'block-tree-' + root.id"
                 :id="'block-tree-' + root.id"
                 class="block-tree"
-                :key="'block-tree-' + root.id"
+                :block="getBlock(blockId)"
             >
-                <BlockInspectorTreeView :block="getBlock(blockId)">
-                    <template #default="{ block }">
+                <template #default="{ block }">
+                    <BlockDraggable :block="block" drag drop>
                         <div
                             class="block-tree-item"
-                            :data-id="block.id"
+                            :id="'block-tree-' + block.id"
+                            :data-block-tree="block.id"
                             :class="{'is-selected': isSelected(block)}"
                             @click="handleClick($event, block.id)"
                             @mouseenter="handleMouseOver($event, block.id)"
                             @mouseleave="handleMouseOut($event, block.id)"
                         >
                             <small><b>{{ getBlockType(block.name).title }}</b></small>
-                            <BlockControls class="d-inline-block" :block="block"></BlockControls>
+                            <!-- <BlockControls class="d-inline-block" :block="block"></BlockControls> -->
                         </div>
-                    </template>
-                </BlockInspectorTreeView>
-            </div>
+                        <template #draggable>
+                            <div class="draggable-template shadow-sm">
+                                <span class="me-2">{{ block.name }}</span>
+                                <span>
+                                    <i class="fas fa-grip-vertical"></i>
+                                </span>
+                            </div>
+                        </template>
+                    </BlockDraggable>
+                </template>
+            </BlockInspectorTreeView>
         </TransitionGroup>
     </div>
 </template>
