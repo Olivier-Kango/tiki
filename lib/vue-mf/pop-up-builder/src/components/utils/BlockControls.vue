@@ -51,7 +51,7 @@ const showBlockSettings = (e) => {
                     <div class="draggable-template shadow-sm">
                         <span class="me-2">{{ block.name }}</span>
                         <span>
-                            <i class="fas fa-grip-vertical"></i>
+                            <i class="fas fa-cubes"></i>
                         </span>
                     </div>
                 </template>
@@ -68,8 +68,9 @@ const showBlockSettings = (e) => {
     .draggable-template {
         display: flex;
         align-items: center;
-        padding: 5px 10px;
-        background-color: #f8f9fa;
-        border-radius: 4px;
+        padding: 10px 15px;
+        background-color: #000000;
+        color: white;
+        border-radius: 2px;
     }
 </style>

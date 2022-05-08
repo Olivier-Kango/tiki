@@ -15,6 +15,17 @@ const targetEl = ref(null)
 <template>
     <div ref="targetEl" :class="'popper-target-' + store.getters.getSelected?.id" style="position: absolute;top: 0;left: 0;"></div>
     <CustomPopup v-if="targetEl" :target="targetEl">
-        <slot/>
+        <div class="block-popup-controls">
+            <slot/>
+        </div>
     </CustomPopup>
 </template>
+
+<style lang="scss" scoped>
+    .block-popup-controls {
+        display: flex;
+        background-color: white;
+        border: 1px solid #000;
+        padding: 5px;
+    }
+</style>

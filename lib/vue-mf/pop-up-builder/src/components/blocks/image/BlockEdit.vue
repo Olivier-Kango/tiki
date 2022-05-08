@@ -42,11 +42,9 @@ const handleAlignText = (styles) => {
     <img class="img-fluid" :src="props.context?.image || block.attributes.url || 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg'" alt="">
 
     <BlockPopup v-if="isSelected">
-        <div class="d-flex shadow bg-white">
-            <BlockControls :block="block" @edit="handleEdit"></BlockControls>
-            <BlockAlignTextToolbar @action="handleAlignText"></BlockAlignTextToolbar>
-            <!-- <BlockRichTextToolbar @action="handleAction"></BlockRichTextToolbar> -->
-        </div>
+        <BlockControls :block="block" @edit="handleEdit"></BlockControls>
+        <BlockAlignTextToolbar @action="handleAlignText"></BlockAlignTextToolbar>
+        <!-- <BlockRichTextToolbar @action="handleAction"></BlockRichTextToolbar> -->
     </BlockPopup>
 
     <CustomModal

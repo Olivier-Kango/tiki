@@ -42,12 +42,10 @@ const handleAlignText = (styles) => {
     <slot />
 
     <BlockPopup v-if="isSelected">
-        <div class="d-flex shadow bg-white">
-            <BlockControls :block="block" @edit="handleEdit"></BlockControls>
-            <BlockAlignTextToolbar @action="handleAlignText"></BlockAlignTextToolbar>
-            <BlockToolbarImage :block="block"></BlockToolbarImage>
-            <!-- <BlockRichTextToolbar @action="handleAction"></BlockRichTextToolbar> -->
-        </div>
+        <BlockControls :block="block" @edit="handleEdit"></BlockControls>
+        <BlockAlignTextToolbar @action="handleAlignText"></BlockAlignTextToolbar>
+        <BlockToolbarImage :block="block"></BlockToolbarImage>
+        <!-- <BlockRichTextToolbar @action="handleAction"></BlockRichTextToolbar> -->
     </BlockPopup>
 
     <CustomModal

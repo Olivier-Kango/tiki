@@ -48,11 +48,10 @@ const handleEdit = (e) => showInspector.value = true
     />
 
     <BlockPopup v-if="isSelected">
-        <div class="d-flex shadow bg-white">
             <BlockControls :block="block" @edit="handleEdit"></BlockControls>
             <BlockAlignTextToolbar @action="handleAlignText"></BlockAlignTextToolbar>
-        </div>
     </BlockPopup>
+
     <CustomModal
         v-if="showInspector"
         :show="showInspector"

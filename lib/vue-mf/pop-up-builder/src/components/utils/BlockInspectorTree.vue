@@ -63,7 +63,7 @@ const handleClick = (e, id) => {
                             <div class="draggable-template shadow-sm">
                                 <span class="me-2">{{ block.name }}</span>
                                 <span>
-                                    <i class="fas fa-grip-vertical"></i>
+                                    <i class="fas fa-cubes"></i>
                                 </span>
                             </div>
                         </template>
@@ -83,6 +83,14 @@ const handleClick = (e, id) => {
         display: inline-block;
         padding: 0 10px;
         margin-bottom: 4px;
+        border-radius: 2px;
+    }
+    .draggable-template {
+        display: flex;
+        align-items: center;
+        padding: 10px 15px;
+        background-color: #000000;
+        color: white;
         border-radius: 2px;
     }
 </style>

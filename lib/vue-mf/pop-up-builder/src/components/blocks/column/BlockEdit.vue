@@ -38,11 +38,9 @@ const handleEdit = (e) => showInspector.value = true
     <slot />
 
     <BlockPopup v-if="isSelected">
-        <div class="d-flex shadow bg-white">
-            <BlockControls :block="block" @edit="handleEdit"></BlockControls>
-            <BlockAlignToolbar :block="block"></BlockAlignToolbar>
-            <BlockToolbarColors :block="block"></BlockToolbarColors>
-        </div>
+        <BlockControls :block="block" @edit="handleEdit"></BlockControls>
+        <BlockAlignToolbar :block="block"></BlockAlignToolbar>
+        <BlockToolbarColors :block="block"></BlockToolbarColors>
     </BlockPopup>
 
     <CustomModal
