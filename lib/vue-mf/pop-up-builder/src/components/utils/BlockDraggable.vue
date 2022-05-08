@@ -71,9 +71,11 @@ function initDropzone(el) {
     })
 }
 
+// Drag callbacks
+// ==================
+
 function handleDragStart(event) {
     // $emit('ondragstart', event)
-    // toggleDropzone(false, props.block.id)
     // if (props.drop) interact(targetEl.value).dropzone(false)
     store.dispatch('setSelected', props.block.id)
     store.dispatch('setDragged', props.block.id)
@@ -96,9 +98,10 @@ function handleDragEnd(event) {
     // $nextTick(function () {
     //     initInteract($refs.targetEl)
     // })
-    // Enable dropzone
-    // toggleDropzone(true, props.block.id)
 }
+
+// Dropzone callbacks
+// ==================
 
 // function handleDropActivate(event) {
 //     // console.log('dropActive', props.block)
@@ -123,8 +126,7 @@ function handleDragLeave(event) {
 
 function handleDrop(event) {
     // console.log('drop', props.block)
-    
-    store.dispatch('setDropped')
+    if (!isChild(props.block.id, store.getters.getDraggedBlock.id)) store.dispatch('setDropped')
     store.dispatch('setDropzoned', null)
 }
 
@@ -132,11 +134,9 @@ function handleDrop(event) {
 //     // console.log('dropDeactive', props.block)
 // }
 
-function toggleDropzone(toggle, parentId) {
+function isChild(blockId, parentId) {
     let ids = getDescendantIds(store.getters.getBlocks, parentId)
-    ids.forEach(id => {
-        interact(`[data-dropzone-id="${id}"]`).dropzone(toggle)
-    })
+    return ids.find(id => id === blockId)
 }
 </script>
 
