@@ -1,11 +1,11 @@
 {
 	"//$schema": "https://tiki.sample.org/trunk/block.json",
 	"apiVersion": 1,
-	"name": "core/container",
-	"title": "Container",
+	"name": "core/box",
+	"title": "Box",
 	"category": "text",
-	"description": "A container",
-    "parent": ["core/container", "core/columns", "core/column"],
+	"description": "A box",
+    "parent": ["core/box", "core/columns", "core/column"],
 	"attributes": {
 		"verticalAlignment": {
 			"type": "string"
@@ -17,5 +17,5 @@
 			"type": "array"
 		}
 	},
-	"classes": ["block--core-container"]
+	"classes": ["block--core-box"]
 }

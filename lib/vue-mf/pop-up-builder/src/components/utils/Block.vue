@@ -25,6 +25,7 @@ defineProps({
     <div
         :id="'block-' + block.id"
         :class="block.classes"
+        class="block-editor-block"
         :style="block.styles"
         :data-block="block.id"
     >

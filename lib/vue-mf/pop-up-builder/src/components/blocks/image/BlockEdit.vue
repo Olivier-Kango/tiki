@@ -5,9 +5,9 @@ export default {
 </script>
 <script setup>
 import { ref, computed, watch } from 'vue'
-import BlockAlignTextToolbar from '../../utils/BlockAlignTextToolbar.vue'
+// import BlockAlignTextToolbar from '../../utils/BlockAlignTextToolbar.vue'
 import BlockControls from '../../utils/BlockControls.vue'
-import BlockControlsSpacing from '../../utils/BlockControls/BlockControlsSpacing.vue'
+// import BlockControlsSpacing from '../../utils/BlockControls/BlockControlsSpacing.vue'
 import BlockControlsSizes from '../../utils/BlockControls/BlockControlsSizes.vue'
 import BlockInspector from '../../utils/BlockInspector.vue'
 import BlockPopup from '../../utils/BlockPopup.vue'
@@ -43,7 +43,7 @@ const handleAlignText = (styles) => {
 
     <BlockPopup v-if="isSelected">
         <BlockControls :block="block" @edit="handleEdit"></BlockControls>
-        <BlockAlignTextToolbar @action="handleAlignText"></BlockAlignTextToolbar>
+        <!-- <BlockAlignTextToolbar @action="handleAlignText"></BlockAlignTextToolbar> -->
         <!-- <BlockRichTextToolbar @action="handleAction"></BlockRichTextToolbar> -->
     </BlockPopup>
 
@@ -57,7 +57,7 @@ const handleAlignText = (styles) => {
         title="Settings"
     >
         <BlockInspector :block="block" :context="context">
-            <BlockControlsSpacing :block="block" />
+            <!-- <BlockControlsSpacing :block="block" /> -->
             <BlockControlsSizes :block="block" />
         </BlockInspector>
     </CustomModal>

@@ -6,7 +6,7 @@
 	"title": "Header",
 	"category": "text",
 	"description": "New sections title",
-    "parent": ["core/container", "core/columns", "core/column"],
+    "parent": ["core/box", "core/columns", "core/column"],
 	"attributes": {
 		"verticalAlignment": {
 			"type": "string"

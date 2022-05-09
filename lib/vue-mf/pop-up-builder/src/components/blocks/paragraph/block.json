@@ -6,7 +6,7 @@
 	"title": "Paragraph",
 	"category": "text",
 	"description": "A single Paragraph.",
-    "parent": ["core/container", "core/columns", "core/column"],
+    "parent": ["core/box", "core/columns", "core/column"],
 	"attributes": {
 		"field": {
 			"type": "string"

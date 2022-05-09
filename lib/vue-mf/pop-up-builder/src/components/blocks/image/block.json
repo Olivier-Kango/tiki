@@ -6,7 +6,7 @@
 	"title": "Image",
 	"category": "text",
 	"description": "A single Image.",
-    "parent": ["core/container", "core/columns", "core/column"],
+    "parent": ["core/box", "core/columns", "core/column"],
 	"attributes": {
 		"verticalAlignment": {
 			"type": "string"

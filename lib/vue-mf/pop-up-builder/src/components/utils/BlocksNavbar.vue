@@ -19,17 +19,27 @@ const props = defineProps({
     }
 });
 
-const showModal = ref()
+const emit = defineEmits(['showInspector'])
+const showModal = ref(null)
+const isPreview = ref(null)
 
 const rootBlock = computed(() => store.getters.getRootBlock)
 
 const clearLocalStorage = () => {
     let response = confirm('Clear builder data?')
-    if (response) localStorage.removeItem('tiki-pop-up-blocks')
+    if (response) {
+        localStorage.removeItem('tiki-pop-up-blocks')
+        localStorage.removeItem('tiki-pop-up-blocks-store')
+    }
 }
 
 const handleSwitchMode = (checked) => {
+    isPreview.value = checked
     checked ? store.dispatch('setMode', 'prod') : store.dispatch('setMode', 'edit')
+}
+
+const handleSwitchInspector = (checked) => {
+    emit('showInspector', checked)
 }
 
 const handleOpenModal = () => {
@@ -38,6 +48,14 @@ const handleOpenModal = () => {
 
 const handleCloseModal = () => {
     showModal.value = false
+}
+
+const handlePrev = () => {
+    
+}
+
+const handleNext = () => {
+    
 }
 </script>
 
@@ -63,7 +81,18 @@ const handleCloseModal = () => {
                 <Button variant="default" sm @click="handleOpenModal">
                     <i class="fas fa-database"></i>
                 </Button>
+                <Button variant="default" sm @click="handlePrev">
+                    <i class="fas fa-arrow-left"></i>
+                </Button>
+                <Button variant="default" sm @click="handleNext">
+                    <i class="fas fa-arrow-right"></i>
+                </Button>
+                <span class="me-2">Inspector</span>
+                <div style="width: 50px"><ToggleButton checked label="Preview" @update:checked="handleSwitchInspector" /></div>
+
+
                 <div class="d-flex align-items-center ms-auto">
+                    <span class="me-2" :class="{'is-preview': isPreview}">Preview</span>
                     <div style="width: 50px"><ToggleButton label="Preview" @update:checked="handleSwitchMode" /></div>
                     <Button variant="default" sm @click="clearLocalStorage">
                         Clear localStorage builder data?
@@ -85,3 +114,10 @@ const handleCloseModal = () => {
         </CustomModal>
     </nav>
 </template>
+
+<style lang="scss" scoped>
+    .is-preview {
+        font-weight: bold;
+        color: #4fd1c5;
+    }
+</style>

@@ -4,11 +4,10 @@ export default {
 }
 </script>
 <script setup>
-import { ref, computed, watch } from 'vue'
+import { ref, watch } from 'vue'
 import BlockAlignToolbar from '../../utils/BlockAlignToolbar.vue'
-import BlockToolbarColors from '../../utils/BlockToolbarColors.vue'
+// import BlockToolbarColors from '../../utils/BlockToolbarColors.vue'
 import BlockControls from '../../utils/BlockControls.vue'
-import BlockControlsSpacing from '../../utils/BlockControls/BlockControlsSpacing.vue'
 import BlockControlsSizes from '../../utils/BlockControls/BlockControlsSizes.vue'
 import BlockInspector from '../../utils/BlockInspector.vue'
 import BlockPopup from '../../utils/BlockPopup.vue'
@@ -39,8 +38,8 @@ const handleEdit = (e) => showInspector.value = true
 
     <BlockPopup v-if="isSelected">
         <BlockControls :block="block" @edit="handleEdit"></BlockControls>
-        <BlockAlignToolbar :block="block"></BlockAlignToolbar>
-        <BlockToolbarColors :block="block"></BlockToolbarColors>
+        <BlockAlignToolbar :block="block" cssAlignSelf></BlockAlignToolbar>
+        <!-- <BlockToolbarColors :block="block"></BlockToolbarColors> -->
     </BlockPopup>
 
     <CustomModal
@@ -53,7 +52,6 @@ const handleEdit = (e) => showInspector.value = true
         title="Settings"
     >
         <BlockInspector :block="block" :context="context">
-            <BlockControlsSpacing :block="block" />
             <BlockControlsSizes :block="block" />
         </BlockInspector>
     </CustomModal>

@@ -11,8 +11,8 @@ import BlockRichText from '../../utils/block-rich-text/BlockRichText.vue'
 import BlockAlignTextToolbar from '../../utils/BlockAlignTextToolbar.vue'
 import BlockToolbarColors from '../../utils/BlockToolbarColors.vue'
 import BlockControls from '../../utils/BlockControls.vue'
-import BlockControlsSpacing from '../../utils/BlockControls/BlockControlsSpacing.vue'
-import BlockControlsSizes from '../../utils/BlockControls/BlockControlsSizes.vue'
+// import BlockControlsSpacing from '../../utils/BlockControls/BlockControlsSpacing.vue'
+// import BlockControlsSizes from '../../utils/BlockControls/BlockControlsSizes.vue'
 
 import BlockInspector from '../../utils/BlockInspector.vue'
 // import BlockInspectorControls from '../../utils/BlockInspectorControls.vue'
@@ -68,7 +68,7 @@ const handleEdit = (e) => showInspector.value = true
     <BlockPopup v-if="isSelected">
         <BlockControls :block="block" @edit="handleEdit"></BlockControls>
         <BlockAlignTextToolbar @action="handleAlignText"></BlockAlignTextToolbar>
-        <BlockToolbarColors :block="block"></BlockToolbarColors>
+        <!-- <BlockToolbarColors :block="block"></BlockToolbarColors> -->
         <!-- <BlockRichTextToolbar @action="handleAction"></BlockRichTextToolbar> -->
     </BlockPopup>
 
@@ -82,8 +82,8 @@ const handleEdit = (e) => showInspector.value = true
         title="Settings"
     >
         <BlockInspector :block="block" :context="context">
-            <BlockControlsSpacing :block="block" />
-            <BlockControlsSizes :block="block" />
+            <!-- <BlockControlsSpacing :block="block" />
+            <BlockControlsSizes :block="block" /> -->
         </BlockInspector>
     </CustomModal>
 </template>

@@ -21,7 +21,8 @@ const props = defineProps({
 const getAllowedBlockList = computed(() => {
     let allowedBlocks = props.block.attributes?.allowedBlocks
     if (Array.isArray(allowedBlocks)) {
-        return allowedBlocks
+        // temporarily disabled core/image block
+        return allowedBlocks.filter(name => name !== 'core/image')
     } else {
         return store.getters.getBlockList
     }

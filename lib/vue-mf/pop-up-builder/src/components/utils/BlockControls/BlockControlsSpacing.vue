@@ -14,21 +14,32 @@ const props = defineProps({
     block: {
         type: Object,
         default: () => {}
-    }
+    },
+    type: String
 })
 
 const { setStyles, removeStyles } = useState(props.block.id)
 
 const styles = ref({
-    paddingLeft: props.block.styles?.paddingLeft,
-    paddingRight: props.block.styles?.paddingRight,
-    paddingTop: props.block.styles?.paddingTop,
-    paddingBottom: props.block.styles?.paddingBottom,
+    [`${props.type}Left`]: props.block.styles && props.block.styles[`${props.type}Left`],
+    [`${props.type}Right`]: props.block.styles && props.block.styles[`${props.type}Right`],
+    [`${props.type}Top`]: props.block.styles && props.block.styles[`${props.type}Top`],
+    [`${props.type}Bottom`]: props.block.styles && props.block.styles[`${props.type}Bottom`],
 })
 
 watch(() => props.block.styles, (val, oldVal) => {
-    let { paddingLeft, paddingRight, paddingTop, paddingBottom } = val
-    styles.value = { paddingLeft, paddingRight, paddingTop, paddingBottom }
+    let newStyles = { 
+        [`${props.type}Left`]: null,
+        [`${props.type}Right`]: null,
+        [`${props.type}Top`]: null,
+        [`${props.type}Bottom`]: null,
+    }
+    Object.getOwnPropertyNames(val).forEach(name => {
+        if (name === `${props.type}Left` || name === `${props.type}Right` || name === `${props.type}Top` || name === `${props.type}Bottom`) {
+            newStyles[name] = val[name]
+        }
+    })
+    styles.value = newStyles
 })
 
 const handleUpdate = (field, value) => {

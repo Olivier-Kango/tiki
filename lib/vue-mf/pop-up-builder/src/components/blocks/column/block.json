@@ -18,5 +18,5 @@
 			"type": "array"
 		}
 	},
-	"classes": ["block--core-column", "col"]
+	"classes": ["block--core-column", "col-md"]
 }

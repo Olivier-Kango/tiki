@@ -13,7 +13,11 @@ const props = defineProps({
     block: {
         type: Object,
         default: () => {}
-    }
+    },
+    cssFlexDirection: Boolean,
+    cssJustifyContent: Boolean,
+    cssAlignItems: Boolean,
+    cssAlignSelf: Boolean
 })
 
 const { setStyles } = useState(props.block.id)
@@ -40,10 +44,20 @@ const alignItems = ref([
     { name: 'end', value: 'flex-end' }
 ])
 
+const alignSelf = ref([
+    { name: 'auto', value: 'auto' },
+    { name: 'center', value: 'center' },
+    { name: 'stretch', value: 'stretch' },
+    { name: 'baseline', value: 'baseline' },
+    { name: 'start', value: 'flex-start' },
+    { name: 'end', value: 'flex-end' }
+])
+
 const styles = ref({
     flexDirection: props.block.styles?.flexDirection,
     justifyContent: props.block.styles?.justifyContent,
-    alignItems: props.block.styles?.alignItems
+    alignItems: props.block.styles?.alignItems,
+    alignSelf: props.block.styles?.alignItems
 })
 
 const handleUpdate = (field, value) => {
@@ -55,7 +69,7 @@ const handleUpdate = (field, value) => {
 <template>
     <ButtonToolbar>
         <ButtonGroup class="mr-1" sm>
-            <VDropdown>
+            <VDropdown v-if="cssFlexDirection">
                 <Button variant="default" sm>
                     Direction
                 </Button>
@@ -75,7 +89,7 @@ const handleUpdate = (field, value) => {
                 </template>
             </VDropdown>
 
-            <VDropdown>
+            <VDropdown v-if="cssJustifyContent">
                 <Button variant="default" sm>
                     <i class="fas fa-arrows-alt-h"></i>
                 </Button>
@@ -95,7 +109,7 @@ const handleUpdate = (field, value) => {
                 </template>
             </VDropdown>
 
-            <VDropdown>
+            <VDropdown v-if="cssAlignItems">
                 <Button variant="default" sm>
                     <i class="fas fa-arrows-alt-v"></i>
                 </Button>
@@ -108,6 +122,26 @@ const handleUpdate = (field, value) => {
                             :class="styles.alignItems === item.value && 'bg-dark text-light'"
                             variant="default"
                             @click="handleUpdate('alignItems', item.value)"
+                        >
+                            {{ item.name }}
+                        </Button>
+                    </div>
+                </template>
+            </VDropdown>
+
+            <VDropdown v-if="cssAlignSelf">
+                <Button variant="default" sm>
+                    <i class="fas fa-arrows-alt-v"></i>
+                </Button>
+                <template #popper>
+                    <div class="p-1" style="width: 120px">
+                        <Button
+                            v-for="item in alignSelf"
+                            :key="'item-' + item.value"
+                            class="w-100"
+                            :class="styles.alignItems === item.value && 'bg-dark text-light'"
+                            variant="default"
+                            @click="handleUpdate('alignSelf', item.value)"
                         >
                             {{ item.name }}
                         </Button>

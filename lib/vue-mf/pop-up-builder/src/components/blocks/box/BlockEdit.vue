@@ -5,8 +5,9 @@ export default {
 </script>
 <script setup>
 import { ref, computed, watch } from 'vue'
-import BlockAlignTextToolbar from '../../utils/BlockAlignTextToolbar.vue'
+import BlockAlignToolbar from '../../utils/BlockAlignToolbar.vue'
 import BlockToolbarImage from '../../utils/BlockToolbarImage.vue'
+import BlockToolbarColors from '../../utils/BlockToolbarColors.vue'
 import BlockControls from '../../utils/BlockControls.vue'
 import BlockControlsSpacing from '../../utils/BlockControls/BlockControlsSpacing.vue'
 import BlockControlsSizes from '../../utils/BlockControls/BlockControlsSizes.vue'
@@ -43,8 +44,9 @@ const handleAlignText = (styles) => {
 
     <BlockPopup v-if="isSelected">
         <BlockControls :block="block" @edit="handleEdit"></BlockControls>
-        <BlockAlignTextToolbar @action="handleAlignText"></BlockAlignTextToolbar>
+        <BlockAlignToolbar :block="block" cssFlexDirection cssJustifyContent cssAlignItems></BlockAlignToolbar>
         <BlockToolbarImage :block="block"></BlockToolbarImage>
+        <BlockToolbarColors :block="block"></BlockToolbarColors>
         <!-- <BlockRichTextToolbar @action="handleAction"></BlockRichTextToolbar> -->
     </BlockPopup>
 
@@ -58,8 +60,9 @@ const handleAlignText = (styles) => {
         title="Settings"
     >
         <BlockInspector :block="block" :context="context">
-            <BlockControlsSpacing :block="block" />
             <BlockControlsSizes :block="block" />
+            <BlockControlsSpacing :block="block" type="padding" />
+            <BlockControlsSpacing :block="block" type="margin" />
         </BlockInspector>
     </CustomModal>
 </template>

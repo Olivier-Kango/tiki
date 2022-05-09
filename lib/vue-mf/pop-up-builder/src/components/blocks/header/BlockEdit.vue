@@ -7,8 +7,8 @@ export default {
 import { ref, computed, watch } from 'vue'
 import BlockAlignTextToolbar from '../../utils/BlockAlignTextToolbar.vue'
 import BlockControls from '../../utils/BlockControls.vue'
-import BlockControlsSpacing from '../../utils/BlockControls/BlockControlsSpacing.vue'
-import BlockControlsSizes from '../../utils/BlockControls/BlockControlsSizes.vue'
+// import BlockControlsSpacing from '../../utils/BlockControls/BlockControlsSpacing.vue'
+// import BlockControlsSizes from '../../utils/BlockControls/BlockControlsSizes.vue'
 import BlockInspector from '../../utils/BlockInspector.vue'
 import BlockPopup from '../../utils/BlockPopup.vue'
 import CustomModal from '../../utils/CustomModal.vue'
@@ -67,8 +67,8 @@ const handleBlur = (e) => {
         title="Settings"
     >
         <BlockInspector :block="block" :context="context">
-            <BlockControlsSpacing :block="block" />
-            <BlockControlsSizes :block="block" />
+            <!-- <BlockControlsSpacing :block="block" />
+            <BlockControlsSizes :block="block" /> -->
         </BlockInspector>
     </CustomModal>
 </template>
