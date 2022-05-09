@@ -72,6 +72,11 @@
                                 {icon name=pen _menu_text='y' _menu_icon='y' alt="{tr}Watch{/tr}"}
                             </a>
                         {/if}
+                        {if in_array('profile_apply', $field.available_actions)}
+                            <a class="dropdown-item" href="{bootstrap_modal controller=manager action=apply instanceId=$instance->id}">
+                                {icon name=user _menu_text='y' _menu_icon='y' alt="{tr}Apply profile{/tr}"}
+                            </a>
+                        {/if}
                     </div>
                 </div>
             </div>

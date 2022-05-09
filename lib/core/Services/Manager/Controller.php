@@ -421,4 +421,47 @@ class Services_Manager_Controller
     {
         return Services_Manager_Utilities::getAvailableTikiVersions();
     }
+    
+    public function action_apply($input)
+    {
+        $instanceId = $input->instanceId->int();
+        if (TikiManager\Application\Instance::getInstance($instanceId)) {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+                $cmd = new TikiManager\Command\ApplyProfileCommand();
+                $inputCmd = new ArrayInput([
+                    'command' => $cmd->getName(),
+                    '-i' => $instanceId,
+                    '-p' => $input->profile->text(),
+                    '-r' => $input->repository->text(),
+                ]);
+                try {
+                    $this->runCommand($cmd, $inputCmd);
+                } catch (\Exception $e) {
+                    Feedback::error($e->getMessage());
+                }
+                return [
+                    'title' => tr('Tiki Manager Apply Profile'),
+                    'info' => $this->manager_output->fetch(),
+                    'refresh' => true,
+                ];
+        
+            } else {    
+                return [
+                    'title' => tr('Apply a profile'),
+                    'info' => '',
+                    'instanceId' => $input->instanceId->int()
+                ];
+            }
+        } else {
+            Feedback::error(tr('Unknown instance'));
+            return [
+                'FORWARD' => [
+                    'action' => 'index',
+                ],
+            ];
+        }
+
+
+    }
+
 }

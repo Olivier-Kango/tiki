@@ -101,6 +101,13 @@
                         </a>
                     </action>
                 {/if}
+                {if in_array('profile_apply', $available_actions)}
+                <action>
+                    <a href="{bootstrap_modal controller=manager action=apply instanceId=$instance-id}" onclick="$('[data-toggle=popover]').popover('hide');">
+                        {icon name=user _menu_text='y' _menu_icon='y' alt="{tr}Apply profile{/tr}"}
+                    </a>
+                </action>
+                {/if}
             {/strip}{/actions}
         </td>
     </tr>

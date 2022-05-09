@@ -87,6 +87,11 @@
                                 {icon name=pen _menu_text='y' _menu_icon='y' alt="{tr}Console Command{/tr}"}
                             </a>
                         </action>
+                        <action>
+                            <a href="{service controller=manager action=apply instanceId=$instance->id}">
+                                {icon name=user _menu_text='y' _menu_icon='y' alt="{tr}Apply profile{/tr}"}
+                            </a>
+                        </action>
                     {/strip}{/actions}
                 </td>
             </tr>
