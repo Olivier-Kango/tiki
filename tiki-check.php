@@ -1,7 +1,9 @@
 <?php
+
 /**
  * @package tikiwiki
  */
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -99,7 +101,7 @@ if (file_exists('./db/local.php') && file_exists('./templates/tiki-check.tpl')) 
                 $render .= "</th>";
                 $iNbCol = 0;
                 foreach ($var[$key] as $key2 => $value2) {
-                    $render .= '<td data-th="'. $key2 .':&nbsp;" style="';
+                    $render .= '<td data-th="' . $key2 . ':&nbsp;" style="';
                     if ($iNbCol != count(array_keys($var[$key])) - 1) {
                         $render .= 'text-align: center;white-space:nowrap;';
                     }
@@ -1343,7 +1345,7 @@ if ($s) {
 
 if (! $standalone) {
     // check Zend captcha will work which depends on \Laminas\Math\Rand
-    $captcha = new Laminas\Captcha\Dumb;
+    $captcha = new Laminas\Captcha\Dumb();
     $math_random = array(
         'fitness' => tra('good'),
         'setting' => 'Available',
@@ -1741,7 +1743,7 @@ if (function_exists('apache_get_version')) {
             $sef_test_path_current = __DIR__;
             $sef_test_dir_name = 'tiki-check-' . $sef_test_ping_value;
             $sef_test_folder = $sef_test_path_current . DIRECTORY_SEPARATOR . $sef_test_dir_name;
-            if (is_writable($sef_test_path_current)&&! file_exists($sef_test_folder)) {
+            if (is_writable($sef_test_path_current) && ! file_exists($sef_test_folder)) {
                 if (mkdir($sef_test_folder)) {
                     $sef_test_folder_created = true;
                     copy(__FILE__, $sef_test_folder . DIRECTORY_SEPARATOR . 'tiki-check.php');
@@ -1885,7 +1887,7 @@ if (check_isIIS()) {
 
 // Check Tiki Packages
 if (! $standalone) {
-    global $tikipath;
+    global $tikipath, $base_host;
 
     $composerManager = new ComposerManager($tikipath);
     $installedLibs = $composerManager->getInstalled();
@@ -1895,6 +1897,12 @@ if (! $standalone) {
             'name' => 'jerome-breton/casperjs-installer',
             'commands' => array(
                 'python'
+            ),
+            'preferences' => array(
+                'casperjs_path' => array(
+                    'name' => tra('casperjs path'),
+                    'type' => 'path'
+                )
             ),
         ),
         array(
@@ -1944,6 +1952,18 @@ if (! $standalone) {
                     'type' => 'path'
                 )
             )
+        ),
+        array(
+            'name' => 'mpdf/mpdf',
+            'urls' => array(
+                $base_host . '/tiki-print.php'
+            )
+        ),
+        array(
+            'name' => 'tikiwiki/diagram',
+            'urls' => array(
+                $prefs['fgal_drawio_service_endpoint']
+            )
         )
     );
 
@@ -1956,9 +1976,16 @@ if (! $standalone) {
                 $warnings = array_merge($warnings, checkPreferences($packagesToCheck[$key]['preferences']));
             }
             if (isset($packagesToCheck[$key]['commands'])) {
-                foreach($packagesToCheck[$key]['commands'] as $command) {
+                foreach ($packagesToCheck[$key]['commands'] as $command) {
                     if (! commandIsAvailable($command)) {
                         $warnings[] = tr("Command '%0' not found, check if it is installed and available.", $command);
+                    }
+                }
+            }
+            if (isset($packagesToCheck[$key]['urls'])) {
+                foreach ($packagesToCheck[$key]['urls'] as $url) {
+                    if (! urlIsAvailable($url)) {
+                        $warnings[] = tr("URL '%0' is not reachable, check your firewall or proxy configurations.", $url);
                     }
                 }
             }
@@ -2091,7 +2118,8 @@ if (! $standalone) {
             );
         }
     } catch (Exception $e) {
-        if (empty($prefs['ocr_tesseract_path'])
+        if (
+            empty($prefs['ocr_tesseract_path'])
             || $prefs['ocr_tesseract_path'] === 'tesseract'
         ) {
             $ocrStatus = 'bad';
@@ -2468,8 +2496,10 @@ if (! $standalone) {
         foreach ($check_group as $key => $value) {
             if (! empty($last_state["$check_group_name"]["$key"])) {
                 $check_group["$key"]['ack'] = $last_state["$check_group_name"]["$key"]['ack'];
-                if (isset($check_group["$key"]['setting']) && isset($last_state["$check_group_name"]["$key"]['setting']) &&
-                            $check_group["$key"]['setting'] != $last_state["$check_group_name"]["$key"]['setting']) {
+                if (
+                    isset($check_group["$key"]['setting']) && isset($last_state["$check_group_name"]["$key"]['setting']) &&
+                            $check_group["$key"]['setting'] != $last_state["$check_group_name"]["$key"]['setting']
+                ) {
                     $check_group["$key"]['ack'] = false;
                 }
             }
@@ -2487,8 +2517,10 @@ if (! $standalone) {
     deack_on_state_change($security, 'PHP Security');
 
     $tikiWikiVersion = new TWVersion();
-    if (version_compare($tikiWikiVersion->getBaseVersion(), '18.0', '<') && ! class_exists('mPDF')
-        || version_compare($tikiWikiVersion->getBaseVersion(), '18.0', '>=') && ! class_exists('\\Mpdf\\Mpdf')) {
+    if (
+        version_compare($tikiWikiVersion->getBaseVersion(), '18.0', '<') && ! class_exists('mPDF')
+        || version_compare($tikiWikiVersion->getBaseVersion(), '18.0', '>=') && ! class_exists('\\Mpdf\\Mpdf')
+    ) {
         $smarty->assign('mPDFClassMissing', true);
     }
 
@@ -2543,6 +2575,19 @@ if (! $standalone) {
             'fitness' => tra('unsure'),
             'message' => tra('Command not found. As there is no \'unzip\' command installed zip files are being unpacked using the PHP zip extension.
             This may cause invalid reports of corrupted archives. Besides, any UNIX permissions (e.g. executable) defined in the archives will be lost.')
+        );
+    }
+
+    $packageRepos = array(
+        'composer.tiki.org' => 'https://composer.tiki.org',
+        'packagist.org' => 'https://packagist.org'
+    );
+
+    foreach ($packageRepos as $key => $url) {
+        $isAvailable = urlIsAvailable($url);
+        $composerChecks[$key] = array(
+            'fitness' => $isAvailable ? tra('good') : tra('unsure'),
+            'message' => $isAvailable ? tr("URL '%0' is reachable.", $url) : tr("URL '%0' is not reachable, check your firewall or proxy configurations.", $url)
         );
     }
 
@@ -2972,8 +3017,10 @@ if ($standalone && ! $nagios) {
             global $tiki_check_status;
             foreach ($check_group as $key => $value) {
                 $formkey = str_replace(array('.',' '), '_', $key);
-                if (isset($check_group["$key"]['fitness']) && ($check_group["$key"]['fitness'] === 'good' || $check_group["$key"]['fitness'] === 'safe') ||
-                    (isset($_REQUEST["$formkey"]) && $_REQUEST["$formkey"] === "on")) {
+                if (
+                    isset($check_group["$key"]['fitness']) && ($check_group["$key"]['fitness'] === 'good' || $check_group["$key"]['fitness'] === 'safe') ||
+                    (isset($_REQUEST["$formkey"]) && $_REQUEST["$formkey"] === "on")
+                ) {
                     $check_group["$key"]['ack'] = true;
                 } else {
                     $check_group["$key"]['ack'] = false;
@@ -3164,6 +3211,20 @@ function commandIsAvailable($command)
     }
 
     return $returnCode === 0 ? true : false;
+}
+
+/**
+ * Check if a given url can be reach from the system
+ *
+ * @param string $url
+ * @return bool true if available, false if not.
+ */
+function urlIsAvailable($url)
+{
+    $client = TikiLib::lib('tiki')->get_http_client($url);
+    $response = $client->getResponse();
+
+    return $response && $response->getStatusCode();
 }
 
 /**
