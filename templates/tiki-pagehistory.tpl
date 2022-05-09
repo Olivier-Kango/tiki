@@ -4,9 +4,9 @@
 
 <div class="t_navbar mb-4">
     {assign var=thispage value=$page|escape:url}
-    {button href="tiki-index.php?page=$thispage" _class="btn-info" _text="{tr}View page{/tr}" _icon_name="view"}
+    {button href="tiki-index.php?page=$thispage" _class="btn-info" _text="{tr}View last version{/tr}" _icon_name="view"}
     {if $editable}
-        {button href="tiki-editpage.php?page=$thispage" class="btn btn-primary" _text="{tr}Edit page{/tr}" _icon_name="edit"}
+        {button href="tiki-editpage.php?page=$thispage" class="btn btn-primary" _text="{tr}Edit last version{/tr}" _icon_name="edit"}
     {/if}
     {if !isset($noHistory)}
         {if $show_all_versions eq "y"}
@@ -25,7 +25,8 @@
         {self_link _script="tiki-pagehistory.php" page=$page preview=$curver.version|escape:'url' _title="{tr}Go to current version{/tr}"}{tr}Go to current version{/tr}{/self_link}
     {/if}
     {if $info.version ne $preview and $tiki_p_rollback eq 'y'}
-        <div class="navbar">
+        <div class="d-flex flex-column">
+            {self_link _script="tiki-pagehistory.php" page=$page source=$preview _title="{tr}View source of this version{/tr}"}{tr}View source of this version{/tr}{/self_link}
             {self_link _script="tiki-rollback.php" page=$page version=$preview _title="{tr}Roll back{/tr}"}{tr}Roll back to this version{/tr}{/self_link}
         </div>
     {/if}
@@ -85,7 +86,9 @@
         {if $info.version eq $source}<small><small>{tr}(current){/tr}</small></small>{/if}
     </h2>
     {if $info.version ne $source and $tiki_p_rollback eq 'y'}
-        <div class="navbar">{self_link _script="tiki-rollback.php" page=$page version=$source _title="{tr}Roll back{/tr}"}{tr}Roll back to this version{/tr}{/self_link}</div>
+        <div class="d-flex flex-column">
+            {self_link _script="tiki-rollback.php" page=$page version=$source _title="{tr}Roll back{/tr}"}{tr}Roll back to this version{/tr}{/self_link}
+        </div>
     {/if}
     <div>
         {if !isset($noHistory)}
