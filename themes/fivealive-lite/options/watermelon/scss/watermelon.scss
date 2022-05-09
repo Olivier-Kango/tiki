@@ -16,3 +16,4 @@
 @import "../../../../../vendor_bundled/vendor/twbs/bootstrap/scss/nav";
 @import "../../../scss/selectors-for-options";
 
+.navbar-light .dropdown-toggle, .navbar-light a.nav-link.dropdown-toggle { color: #fff !important; }

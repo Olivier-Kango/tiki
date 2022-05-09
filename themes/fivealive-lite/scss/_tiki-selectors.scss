@@ -10,7 +10,7 @@ $imagePath: "../images/";
 
 // Special links in "More" button of page-bar
 .dropdown-menu > .btn-link:not(.text-danger) {
-    color: #fff
+    color: #fff;
 }
 
 .dropdown-item.btn-link.text-danger {
@@ -25,12 +25,10 @@ $imagePath: "../images/";
 //}
 
 .middle_outer {
-    -webkit-box-shadow: inset 0 24px 0 0 #28a7de;
-    box-shadow: inset 0 24px 0 0 #28a7de;
+    box-shadow: inset 0 3px /*24px*/ 0 0 #28a7de;
     border-top: 2px solid #ffffff;
 }
 .fullscreen .middle_outer {
-    -webkit-box-shadow: inset 0 3px 0 0 #28a7de;
     box-shadow: inset 0 3px 0 0 #28a7de;
     border-top: none;
 }
@@ -49,6 +47,17 @@ body.tiki.navbar-padding,
 body.fullscreen.tiki.navbar-padding {
     padding-top: 0;
 }
+
+// Topbar and background appearance May 3
+//.layout_social.fixed_width .topbar {
+//    width: 100vw;
+//    position: absolute;
+//    left: 0;
+//    .topbar_modules {
+//        display: flex !important;
+//        justify-content: center !important;
+//    }
+//}
 
 .layout_social .topbar_modules h1.sitetitle,
 .layout_social_modules .topbar_modules h1.sitetitle {
@@ -75,9 +84,9 @@ body.fullscreen.tiki.navbar-padding {
         //    font-size: 24px;
         //    margin-top: 15px;
         float: left;
-        a {
-            color: #ffffff;
-        }
+        // a {
+        //    color: #ffffff;
+        //}
         a:hover {
             text-decoration: none;
         }
@@ -93,8 +102,8 @@ body.fullscreen.tiki.navbar-padding {
 }
 
 .topbar_container,
-.layout_basic .page-header > .topbar {
-    background: $topbar_container_background;
+.layout_basic .topbar {
+    background: $topbar_container-bg ;
 }
 
 header.header {
@@ -129,31 +138,30 @@ header.header {
     line-height: 1;
 }
 
-.topbar > a,
-.topbar .navbar-dark .navbar-nav > li > a,
-.topbar .nav > li > a {
-  color: #fff;
-}
+//.topbar > a,
+//.topbar .navbar-dark .navbar-nav > li > a,
+//.topbar .nav > li > a {
+//  color: #fff;
+//}
 .topbar {
     margin-bottom: 2rem;
 }
 
 // prevent gradient on gradient or on middle box-shadow
-.page-header,
-.layout_classic #topbar_modules {
+.topbar_modules {
   .navbar.bg-dark,
-  .navbar.bg-light { background: $topbar-bg !important; }
+  .navbar.bg-light { background: $topbar-bg; }
 }
 
-.layout_classic {
-  #top_modules.bg-dark,
-  #top_modules.bg-light,
-  #topbar_modules,
-  #topbar.bg-dark,
-  #topbar.bg-light { background: $topbar-bg !important; }
-}
+/*.layout_classic {*/
+  .top_modules.bg-dark,
+  .top_modules.bg-light,
+  .topbar_modules,
+  .topbar.bg-dark,
+  .topbar.bg-light { background: $topbar-bg; }
+/*}*/
 
-.layout_social {
+/*.layout_social {
     #top_modules.bg-dark,
     #top_modules.bg-light,
     #topbar_modules,
@@ -171,40 +179,40 @@ header.header {
     #topbar.bg-light,
     .topbar .bg-dark,
     .topbar .bg-light { background: $topbar-bg !important; }
-}
+}*/
 
-#col2 .card,
-#col3 .card {
+.col2 .card,
+.col3 .card {
     border: $side-column-border; // none;
 }
 
-#col2 .card-header,
-#col3 .card-header {
-    background: $side-column-card-header-background; // #e1d518 url('#{$imagePath}siteheader.png') no-repeat -1000px -200px;
+.col2 .card-header,
+.col3 .card-header {
+    background: $side-column-card-header-bg; // #e1d518 url('#{$imagePath}siteheader.png') no-repeat -1000px -200px;
     border-width: $side-column-card-header-border-width;
     border-style: solid;
     border-color: $side-column-card-header-border-color;
 }
 
-#col2 .card-header,
-#col3 .card-header {
+.col2 .card-header,
+.col3 .card-header {
     color: $side-column-card-header-color;
 }
 
 // Header graphics
 .header_outer,
-.layout_basic .page-header > .top_modules {
+.layout_basic header.page-header {
     // whole width div containing the header strip
-    background: $header_outer-background; // url('#{$imagePath}siteheadertile.png') 0 0 no-repeat;
+    background: $header_outer-bg; // url('#{$imagePath}siteheadertile.png') 0 0 no-repeat;
     border-bottom: 5px solid #000000;
-    color: #000000;
+//    color: #000000;
 }
 
-.header_outer a { color: #ffffff; }
+// .header_outer a { color: #ffffff; }
 
-.header_container > .header {
+.header_container .header {
     // inner <header> element that gets .fixedwidth class applied
-    background: none; // $header_container_header-background; // url('#{$imagePath}siteheader.png') -248px 0 no-repeat;
+    background: none; // $header_container_header-bg; // url('#{$imagePath}siteheader.png') -248px 0 no-repeat;
 }
 
 #fullscreenbutton a {
@@ -218,12 +226,12 @@ header.header {
 }
 
 // Little gap (line) between the topbar and top
-.layout_basic .page-header > .topbar {
+.layout_basic .topbar {
     margin-top: 1px;
 }
 
 // When it displays as inline-block for some reason there is some little padding on the bottom of the element which needs to be removed
-.layout_basic .page-header > .topbar > div {
+.layout_basic .topbar > div {
     margin-bottom: -3px !important;
 }
 
@@ -241,7 +249,7 @@ input[type="number"],
 input#login-pass,
 textarea,
 .adminoptionbox option {
-    background-color: $form-control-background; //#f8f9d4;
+    background-color: $form-control-bg; //#f8f9d4;
     border-color: $form-control-border-colors; // #F5FB86 #FBFBEE #FBFBEE #F5FB86;
 }
 
@@ -270,11 +278,11 @@ textarea,
     }
 }
 
-.navbar-nav .open .dropdown-menu,
-.navbar-nav .open .dropdown-menu li,
-.navbar-default .navbar-nav > li > a {
-    //  background: $navbar-default-navbar-nav-li-a-background; // #cdbe23;
-}
+//.navbar-nav .open .dropdown-menu,
+//.navbar-nav .open .dropdown-menu li,
+//.navbar-default .navbar-nav > li > a {
+//    //  background: $navbar-default-navbar-nav-li-a-bg; // #cdbe23;
+//}
 
 .dropdown-menu {
   background-color: $dropdown-bg; //#005064;
@@ -311,7 +319,7 @@ textarea,
 }
 
 .postbody-title {
-    background: $postbody-title-background; //url('#{$imagePath}siteheader.png') no-repeat -480px -200px;
+    background: $postbody-title-bg; //url('#{$imagePath}siteheader.png') no-repeat -480px -200px;
 }
 
 .siteloginbar_poppedup li > a,
@@ -325,8 +333,8 @@ header.header {
     .sitesubtitle,
     a,
     .btn-link {
-        color: #ffffff;
-        text-shadow: none;
+//        color: #ffffff;
+ //       text-shadow: none;
     }
 }
 
@@ -378,9 +386,10 @@ label a:hover { text-decoration: none; }
 label a:hover { text-decoration: none; }
 
 .bg-dark {
-  background-color: $bg-dark !important;
+  background-color: $bg-dark;
 }
 
 .nav-tabs .nav-item {
   margin-right: 1px;
 }
+

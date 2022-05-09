@@ -16,7 +16,7 @@
 <div class="container{if isset($smarty.session.fullscreen) && $smarty.session.fullscreen eq 'y'}-fluid{/if} container-std">
 {if !isset($smarty.session.fullscreen) || $smarty.session.fullscreen ne 'y'}
     <div class="row">
-    <header class="page-header w-100" id="page-header">
+    <header class="page-header w-100 navbar-{$navbar_color_variant}-parent bg-{$navbar_color_variant}-parent" id="page-header">
         {modulelist zone=top class="top_modules d-flex justify-content-between navbar-{$navbar_color_variant}-parent bg-{$navbar_color_variant}-parent"}
     </header>
     </div>

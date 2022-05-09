@@ -1,44 +1,98 @@
 // $Id$ Custom variables for the Lemon theme option of the FiveAlive and FiveAlive-lite themes
 
 // - - - - - - - Bootstrap variables (override values in vendor_bundled/vendor/twbs/bootstrap/scss/_variables.scss - - - - - - //
+$gray-600: #6c757d !default;
+$gray-900: #212529;
+
 $white:    #fff;
 $black:    #000;
 $light: #f9a013;
+$dark: #6D5509; // arbitrary
+
+$theme-colors: (
+    "primary":           #F0D800, // #ffc805,
+    "secondary":         #ffc805, //#ffe405, // #c85a28,
+    "success":             #5cb85c,
+    "info":               #f5821e,
+    "warning":             #f0ad4e,
+    "danger":           #D63D00, //   #ff5c1a,
+    "light":            #ffffff,
+    "dark":                #6D5509
+);
+
+$primary:       #F0D800; // #ffc805;
+$secondary:     #ffc805; // #ffe405; //#c85a28;
+$success:       #5cb85c;
+$info:          #f5821e;
+$warning:       #f0ad4e;
+$danger:        #D63D00; //#ff5c1a;
+$light:         #ffffff;
+$dark:          #cb9e10;
+
+$theme-colors: map-merge(
+        (
+            "primary":    $primary,
+            "secondary":  $secondary,
+            "success":    $success,
+            "info":       $info,
+            "warning":    $warning,
+            "danger":     $danger,
+            "light":      $light,
+            "dark":       $dark
+        ),
+        $theme-colors
+);
+
+// The following are default values from vendor/twbs/bootstrap/scss/variables.scss - change as needed for theme child option (or to match values in parent theme).
+// Comment-out any that are already defined in the parent theme variables.scss file and shouldn't be redefined.
+
+$color-contrast-dark:             $gray-900 !default;
+$color-contrast-light:            $white !default;
+$enable-gradients:          false;
+
 
 $bg-light: #f9a013 !important;
 
-$link-color: #c75a28;
-$link-hover-color: #f9a013;
+$link-color: #BB5525; //#c75a28;
+$link-hover-color:               darken($link-color, 15%);
 
-$navbar-dark-color:                 rgba($white, .75);
-$navbar-dark-hover-color:           rgba($white, .85);
-$navbar-dark-active-color:          $white;
-$navbar-dark-disabled-color:        rgba($white, .25);
-$navbar-light-color:                rgba($black, .5);
-$navbar-light-hover-color:          rgba($black, .7);
-$navbar-light-active-color:         rgba($black, .9);
-$navbar-light-disabled-color:       rgba($black, .3);
+// Navs
+$nav-tabs-link-color: #000;
+$nav-tabs-link-bg: #fdf1d0; // Same as input-bg
+$nav-tabs-link-active-color: #fff;
+$nav-tabs-link-active-bg: #b25025; // same as $dropdown-link-hover-bg;
+
+// Navbars
+$top-bg: #e4af00;
+$top-color: #000;
+$top-link-color: #000;
+$top-link-hover-color: #5c5c5c;
+
+$topbar-bg: #cb9e10;
+$bg-dark-info: #fff;
+$navbar-fixed-top-bg: #e4af00;
+$page-header-link-color: #000;
+$topbar-link-color: #000;
 
 // navbar link hover colors
 $bg-dark-link-hover-color: #f2f2f2;
 //$bg-dark-link-hover-bg: #638637;
 
+// Typography
 $hr-border-color: #ffc506;
+$text-muted:  #6B737B;
 
-$navbar-fixed-top-bg: #e4af00;
-
-$top-bg: #e4af00;
-$top-color: #000;
-$top-link-color: #000;
-$top-link-hover-color: #5c5c5c;
-$topbar-bg: #cb9e10;
-//$bg-dark: #cb9e10;
-//$bg-light: #cb9e10;
+// Cards
 $card-border-color: #e4af00;
+
+// Tables
 $table-border-color: #a99628;
 $table-accent-bg: #f9f9f9;
 $table-hover-bg: #f5f5f5;
 
+$component-active-bg: $card-border-color; // From Grape
+
+// Forms
 $input-color: #555555;
 $input-bg: #fdf1d0;
 $input-border-color: #fee194;
@@ -47,9 +101,11 @@ $input-border-right-color: #fff;
 $input-border-bottom-color: #fff;
 $input-border-left-color: #ceb688;
 
+// Form validation
+
+// Dropdowns
 $dropdown-bg: #c75a29;
 $dropdown-border-color: rgba(0, 0, 0, 0.15);
-
 $dropdown-link-color: #ffffff;
 $dropdown-link-hover-color: #f2f2f2;
 $dropdown-link-hover-bg: #b25025;
@@ -59,13 +115,8 @@ $dropdown-link-disabled-color: #f2f2f2;
 $dropdown-header-color: #ffffff;
 $dropdown-divider-bg: $dropdown-bg;
 
-$nav-tabs-link-color: #000;
-$nav-tabs-link-bg: $input-bg;
-$nav-tabs-link-active-color: #fff;
-$nav-tabs-link-active-bg: $dropdown-link-hover-bg;
-
-
-$nav-pills-link-active-bg: #c75a28;
+// Pagination
+$nav-pills-link-active-bg: #B35123;
 $pagination-color: #c75a28;
 $pagination-bg: #ffffff;
 $pagination-border-color: #dddddd;
@@ -74,7 +125,7 @@ $pagination-hover-bg: #eeeeee;
 $pagination-hover-border-color: #dddddd;
 $pagination-active-bg: #c75a28;
 $pagination-active-border-color: #c75a28;
-$pagination-disabled-color: #999999;
+$pagination-disabled-color: $text-muted; // #999999;
 $pagination-disabled-bg: #ffffff;
 $pagination-disabled-border-color: #dddddd;
 
@@ -82,7 +133,7 @@ $pagination-disabled-border-color: #dddddd;
 // - - - - - - - - - -  - - - - - - Other variables, if any - - - - - - - - - - - - - - - - - //
 $bg-light-alt: #ffc506 !important;
 
-$side-column-heading-color: #e4af00;
+$side-column-heading-color: #8F6D00;
 
 $middle_outer-inset-shadow-bg: #2c1c04;
 $footer_liner-card-inner-border: #ffc506;
@@ -93,13 +144,25 @@ $footer_liner-border-color: $footer-accent-color;
 
 $autotoc-nav-bg: #c75a29;
 $autotoc-color: #ffffff;
-$autotoc-nav-link-hover-color: #f2f2f2;
-$autotoc-nav-link-hover-bg: #b25025;
-
-// - - - - - - - - - -  - - - - - - Other CSS, if any - - - - - - - - - - - - - - - - - //
-
-$autotoc-nav-bg: #ffffff;
-$autotoc-nav-border: #ffc506;
-$autotoc-color: #c75a28;
 $autotoc-nav-li-link-hover-color: #f2f2f2;
 $autotoc-nav-li-link-hover-bg: #b25025;
+
+//$autotoc-nav-bg: #ffffff;
+$autotoc-nav-border: #ffc506;
+//$autotoc-color: #c75a28;
+//$autotoc-nav-li-link-hover-color: #f2f2f2;
+//$autotoc-nav-li-link-hover-bg: #b25025;
+
+// These variables need to be defined for the files to compile. The specific variables for the child theme's button colors are defined
+// at the bottom of the file but by default they use the child theme's theme-colors. There appears to be redundancy in defining colors but each line is necessary.
+// There are unique names for the child theme button colors to avoid any conflict with the general theme colors.
+
+$box-shadow-sm:               0 .125rem .25rem rgba($black, .075) !default;
+$box-shadow:                  0 .5rem 1rem rgba($black, .15) !default;
+$box-shadow-lg:               0 1rem 3rem rgba($black, .175) !default;
+$btn-box-shadow:              inset 0 1px 0 rgba($white, .15), 0 1px 1px rgba($black, .075) !default;
+$enable-gradients:               false;
+$enable-shadows:              false;
+$input-btn-focus-width:       .2rem !default;
+$btn-focus-width:             $input-btn-focus-width !default;
+$btn-link-disabled-color:     $gray-600 !default;

@@ -42,19 +42,34 @@ nav.fixed-top {
     padding: 0;
 }
 
-//.header_outer,
-//.header_outer .navbar-dark.bg-dark//,
-//.navbar.navbar-dark.bg-dark.fixed-top,
-//.navbar.navbar-dark.bg-dark.fixed-top .navbar-dark.bg-dark
-//{
-//    background: $top-bg; //$navbar-fixed-top-bg !important;
-//}
+header.page-header .navbar.bg-dark,
+header.page-header .navbar.bg-light,
+
+.header_outer,
+header.page-header, // .layout_basic
+header.page-header .navbar,
+.top_modules .navbar, // .layout_social
+.top_modules,
+.top_modules.navbar.bg-light,
+.top_modules.navbar.bg-dark,
+header.page-header .navbar.bg-light {
+    background-color: $top-bg !important;
+    color: $top-color !important;
+    a,
+    .btn,
+    .btn-link //,
+//    .dropdown-toggle
+    {
+        color: $top-link-color !important;
+    }
+}
+
 .navbar.bg-dark.fixed-top,
 .navbar.bg-dark.fixed-top .navbar,
 .navbar.bg-light.fixed-top,
 .navbar.bg-light.fixed-top .navbar,
-.layout_classic #top_modules.bg-dark,
-.layout_classic #top_modules.bg-light,
+.top_modules.bg-dark,                       // .layout_classic
+.top_modules.bg-light,     //.layout_classic
 .header_outer,
 .header_outer .navbar-dark.bg-dark,
 .postbody-title {
@@ -73,46 +88,57 @@ nav.fixed-top {
 //.layout_basic .page-header > .top_modules,
 .topbar .navbar-dark .navbar-nav > li,
 .topbar .nav > li,
-.layout_social #topbar_modules,
-.layout_social #topbar.bg-dark,
-.layout_social #topbar.bg-light,
-.layout_social .topbar .bg-dark,
+/*.layout_social*/ .topbar_modules,
+/*.layout_social*/ .topbar.bg-dark,
+/*.layout_social*/ .topbar.bg-light,
+/*.layout_social .topbar .bg-dark,
 .layout_social .topbar .bg-light,
-.layout_classic #topbar_modules,
-.layout_classic #topbar.bg-dark,
-.layout_classic #topbar.bg-light,
-.layout_classic #topbar_modules .navbar.bg-dark,
-.layout_classic #topbar_modules .navbar.bg-light {
+.layout_classic .topbar_modules,
+.layout_classic .topbar.bg-dark,
+.layout_classic .topbar.bg-light,*/
+/*.layout_classic*/ .topbar_modules .navbar.bg-dark,
+/*.layout_classic*/ .topbar_modules .navbar.bg-light {
     background: $topbar-bg !important;
+    & > a,
+    & > .nav-link,
+    & > .dropdown-toggle {
+        color: $topbar-link-color !important;
+    }
+}
+
+.topbar_modules.navbar-light .nav-link.dropdown-toggle,
+.topbar_modules.navbar-dark .nav-link.dropdown-toggle,
+.topbar_modules.navbar-light .dropdown-toggle {
+    color: $topbar-link-color;
 }
 
 .bg-dark {
     background-color: $topbar-bg !important;
     color: $navbar-dark-color;
+    .btn-outline-info {
+        color: $bg-dark-info;
+    }
+}
+
+.btn-outline-dark {
+    color: $dark;
+    outline-color: $dark;
 }
 
 .layout_basic {
 //    #top_modules.bg-dark,
 //    #top_modules.bg-light,
-    #topbar_modules,
-    #topbar.bg-dark,
-    #topbar.bg-light,
+    .topbar_modules,
+    .topbar.bg-dark,
+    .topbar.bg-light,
     .topbar .bg-light,
     .topbar .bg-dark { background: $topbar-bg !important; }
 }
 
-//.layout_basic {
-//    #top_modules.bg-dark,
-//    #top_modules.bg-light,
-//    #topbar_modules,
-//    #topbar.bg-dark,
-//    #topbar.bg-light,
-//    .topbar .bg-dark,
-//    .topbar .bg-light { background: transparent !important; }
-//}
 
 a,
-.btn-link {
+.btn-link,
+.page-link {
     color: $link-color;
 }
 
@@ -123,7 +149,7 @@ a:focus,
     color: $link-hover-color;
 }
 
-
+// Typography
 
 hr {
     border-top: 1px solid $hr-border-color;
@@ -174,8 +200,8 @@ hr {
 
 .navbar-dark a,
 .navbar-dark .navbar-brand,
-.dropdown-item,
-.dropdown-item a,
+//.dropdown-item,
+//.dropdown-item a,
 .dropdown-menu .tikihelp {
     color: $navbar-dark-color;
 }
@@ -187,14 +213,7 @@ hr {
     background-color: transparent;
 }
 
-//.bg-dark .navbar-nav .nav-link {
-//  color: #ffffff;
-//  &:hover,
-//  &:focus {
-//    color: $bg-dark-link-hover-color;
-//    background: $bg-dark-link-hover-bg;
-//  }
-//}
+
 .navbar-dark a:hover,
 .navbar-dark a:focus {
     color: $navbar-dark-hover-color;
@@ -230,36 +249,18 @@ hr {
 
 .navbar-dark .navbar-collapse,
 .navbar-dark .navbar-form {
-    border-color: transparent;
+   border-color: transparent;
 }
-
-.navbar-dark .open > a,
-.navbar-dark .open > a:hover,
-.navbar-dark .open > a:focus {
+nav:not(.topbar_modules,.top_modules) {
+    &.navbar-dark .open > a,
+    &.navbar-dark .open > a:hover,
+    &.navbar-dark .open > a:focus {
     //  background-color: #14899e;
     color: $navbar-dark-color;
+    }
 }
 
-//.navbar-dark .navbar-nav .open .dropdown-menu > li > a:hover,
-//.navbar-dark .navbar-nav .open .dropdown-menu > li > a:focus {
-//  color: #f9f9f9;
-//  background-color: #14899e;
-//}
-//.navbar-dark .navbar-nav .open .dropdown-menu > .active > a,
-//.navbar-dark .navbar-nav .open .dropdown-menu > .active > a:hover,
-//.navbar-dark .navbar-nav .open .dropdown-menu > .active > a:focus {
-//  color: #ffffff;
-//  background-color: #14899e;
-//}
-//.navbar-dark .navbar-nav .open .dropdown-menu > .disabled > a,
-//.navbar-dark .navbar-nav .open .dropdown-menu > .disabled > a:hover,
-//.navbar-dark .navbar-nav .open .dropdown-menu > .disabled > a:focus {
-//  color: #ffffff;
-//  background-color: transparent;
-//}
-//.navbar-dark .navbar-link {
-//  color: #ffffff;
-//}
+
 .navbar-dark .navbar-link:hover {
     color: #f9f9f9;
 }
@@ -319,13 +320,7 @@ hr {
     background-color: $nav-pills-link-active-bg; //#0b8a98;
 }
 
-.pagination > li > a,
-.pagination > li > span {
-    color: $pagination-color; //#0b8a98;
-    background-color: $pagination-bg; //#ffffff;
-    border: 1px solid $pagination-border-color; //#dddddd;
-}
-
+// Pagination
 .pagination > li > a:hover,
 .pagination > li > span:hover,
 .pagination > li > a:focus,
@@ -357,9 +352,7 @@ hr {
     border-color: $pagination-disabled-border-color; //#dddddd;
 }
 
-//.card {
-//  background-color: #ffffff;
-//}
+// Cards
 .col2,
 .col3 {
     .card-header {
@@ -367,17 +360,15 @@ hr {
     }
 }
 
-
-
 header.page-header {
     margin-top: 0;
     margin-bottom: 0;
     border-bottom: none;
 }
 
-header.page-header a,
+header.page-header a:not(.dropdown-item),
 header.page-header a.btn-link {
-    color: #ffffff !important;
+    color: $page-header-link-color !important; // This needs to be a variable because Kiwi uses black: $page-header-link-color.
 }
 
 .form-control, select,
@@ -515,14 +506,14 @@ header.header .sitesubtitle {
     background-color: $dropdown-link-hover-bg;
 }
 
-//.topbar .cssmenu_horiz li a:hover {
+//.topbar .cssmenu_horiz li a:hover {  -- May 7 2022
 //  background: #14899e;
 //}
-.topbar .navbar-nav > li > a,
-.topbar .navbar > li > a,
-.topbar .cssmenu_horiz > li > a {
-    color: #ffffff;
-}
+///.topbar .navbar-nav > li > a,
+///.topbar .navbar > li > a,
+///.topbar .cssmenu_horiz > li > a {
+///    color: #ffffff;
+///}
 
 //.sf-arrows .sf-with-ul:after {
 //  border: 5px solid transparent;
@@ -553,31 +544,39 @@ header.header .sitesubtitle {
 //}
 
 
-.autotoc > .nav {
-    background: $autotoc-nav-bg; //#005064;
-}
+//nav#autotoc ul.nav.navbar-nav.affix {
+//    background: $autotoc-nav-bg; //#005064;
+//    border: 1px solid $autotoc-nav-border;
+ //   a {
+//        color: $autotoc-color;
+//        &:hover {
+//            background: $autotoc-nav-li-link-hover-bg;
+//            color: $autotoc-nav-li-link-hover-color;
+//        }
+//    }
+//}
 
-.autotoc * {
+#autotoc * {
     color: $autotoc-color; //#ffffff;
 }
 
-.autotoc .nav > li > a:hover,
-.autotoc .nav .nav > li > a:hover,
-.autotoc .nav > li > a:focus {
-    color: $autotoc-nav-link-hover-color; //#f2f2f2;
-    background: $autotoc-nav-link-hover-bg; //#2e1f39;
+#autotoc .nav > li > a:hover,
+#autotoc .nav .nav > li > a:hover,
+#autotoc .nav > li > a:focus {
+    color: $autotoc-nav-li-link-hover-color; //#f2f2f2;
+    background: $autotoc-nav-li-link-hover-bg; //#2e1f39;
 }
 
-.autotoc .nav {
+#autotoc .nav {
     > li {
         .active, &.open > a {
-            color: $autotoc-nav-link-hover-color;
-            background: $autotoc-nav-link-hover-bg;
+            color: $autotoc-nav-li-link-hover-color;
+            background: $autotoc-nav-li-link-hover-bg;
         }
     }
 }
 
-.autotoc .nav .dropdown-item {
+#autotoc .nav .dropdown-item {
     color: $autotoc-color;}
 
 #col2 .card-title,
@@ -598,3 +597,13 @@ footer#footer {
     }
 }
 
+.btn-dark {
+    color: $light;
+    background: $dark;
+    border-color: $dark;
+}
+
+.page-item.disabled,
+.list-group-item.disabled {
+    color: $text-muted !important;
+}

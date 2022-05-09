@@ -431,8 +431,8 @@
 {/if}
 {if !$ts.ajax}
     {if $checkboxes_on eq 'y' && count($listpages) > 0} {* what happens to the checked items? *}
-        <div class="input-group col-sm-8">
-            <select name="action" class="form-control" id="submit_mult">
+        <div class="input-group col-sm-8 mb-3">
+            <select name="action" class="form-select" id="submit_mult">
                 <option value="no_action" selected="selected">
                     {tr}Select action to perform with checked{/tr}...
                 </option>
@@ -461,7 +461,6 @@
 
                 {* add here e.g. <option value="categorize" >{tr}categorize{/tr}</option> *}
             </select>
-            <span class="input-group-text">
                 <button
                     type="submit"
                     form="checkboxes_on"
@@ -471,7 +470,6 @@
                 >
                     {tr}OK{/tr}
                 </button>
-            </span>
         </div>
     {/if}
 

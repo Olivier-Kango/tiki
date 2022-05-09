@@ -1,42 +1,90 @@
 // $Id$ Custom variables for the Raspberry theme option of the FiveAlive and FiveAlive-lite themes
 
 // - - - - - - - Bootstrap variables (override values in vendor_bundled/vendor/twbs/bootstrap/scss/_variables.scss - - - - - - //
+// Variables needed for button color variants (start)
+$theme-colors: (
+    "primary":            #D70977, // #eb0a82,
+    "secondary":         #781437,
+    "success":             #5cb85c,
+    "info":               #8c1946,
+    "warning":             #f0ad4e,
+    "danger":              #85072e, //#ff5c1a,
+    "light":            #ffffff,
+    "dark":                #b50964
+);
+
+$primary:       #D70977; // #eb0a82;
+$secondary:     #781437;
+$success:       #5cb85c;
+$info:          #8c1946;
+$warning:       #f0ad4e;
+$danger: #85072e;
+$light:         #ffffff;
+$dark:          #b50964;
+
+$theme-colors: map-merge(
+        (
+            "primary":    $primary,
+            "secondary":  $secondary,
+            "success":    $success,
+            "info":       $info,
+            "warning":    $warning,
+            "danger":     $danger,
+            "light":      $light,
+            "dark":       $dark
+        ),
+        $theme-colors
+);
+
+// The following are default values from vendor/twbs/bootstrap/scss/variables.scss - change as needed for theme child option (or to match values in parent theme).
+// Comment-out any that are already defined in the parent theme variables.scss file and shouldn't be redefined.
+
+$gray-600: #6c757d !default;
+$gray-900: #212529;
+
 $white:    #fff;
 $black:    #000;
-$light: #e10c7c;
+$light: #D10A74; // #e10c7c;
 //$primary: #e10c7c;
 
-$bg-light: #e10c7c !important;
+$bg-light: #D10A74; // #e10c7c
 
-$link-color: #b51360;
-$link-hover-color: #e10c7c;
+$link-color:                   #b51360;
+$link-hover-color:               darken($link-color, 15%);
+$link-hover-decoration:       underline !default;
+$btn-link-disabled-color:     $gray-600 !default;
 
-$navbar-dark-color:                 rgba($white, .75);
-$navbar-dark-hover-color:           rgba($white, .85);
-$navbar-dark-active-color:          $white;
-$navbar-dark-disabled-color:        rgba($white, .25);
-$navbar-light-color:                rgba($black, .5);
-$navbar-light-hover-color:          rgba($black, .7);
-$navbar-light-active-color:         rgba($black, .9);
-$navbar-light-disabled-color:       rgba($black, .3);
+// Navs
+$nav-tabs-link-color: #000;
+$nav-tabs-link-bg: #f9dcec; // Same as $input-bg;
+$nav-tabs-link-active-color: #fff;
+$nav-tabs-link-active-bg: #61102d; // Same as $dropdown-link-hover-bg;
 
-// navbar link hover colors
+// Navbars
 $bg-dark-link-hover-color: #f2f2f2;
 $bg-dark-link-hover-bg: #003c4a;
-
-$hr-border-color: #e10c7c;
-
-$top-bg: #b50964;
+$top-bg: #cd0a53; // #E00B7C; //#b50964;
 $top-color: #fff;
 $top-link-color: #fff;
 $top-link-hover-color: #f9f9f9;
-$topbar-bg: #e60b7f;
+$topbar-bg: #e30b5d; // #e60b7f; Actual Raspberry hex color
+$topbar-link-color: #fff;
+$bg-dark-info: #f2f2f2;
+$page-header-link-color: #000;
 
+// Typography
+$hr-border-color: #e10c7c;
+$text-muted:  #6B737B;
+
+// Cards
 $card-border-color: #e60b7f;
+
+// Tables
 $table-border-color: #f459ab;
 $table-accent-bg: #f9f9f9;
 $table-hover-bg: #f5f5f5;
 
+// Forms
 $input-color: #555555;
 $input-bg: #f9dcec;
 $input-border-color: #fa9ccd;
@@ -45,9 +93,11 @@ $input-border-right-color: #fcf6f9;
 $input-border-bottom-color: #fcf6f9;
 $input-border-left-color: #fa9ccd;
 
+// Form validation
+
+// Dropdowns
 $dropdown-bg: #771437;
 $dropdown-border-color: rgba(0, 0, 0, 0.15);
-
 $dropdown-link-color: #ffffff;
 $dropdown-link-hover-color: #f2f2f2;
 $dropdown-link-hover-bg: #61102d;
@@ -57,11 +107,7 @@ $dropdown-link-disabled-color: #f2f2f2;
 $dropdown-header-color: #ffffff;
 $dropdown-divider-bg: $dropdown-bg;
 
-$nav-tabs-link-color: #000;
-$nav-tabs-link-bg: $input-bg;
-$nav-tabs-link-active-color: #fff;
-$nav-tabs-link-active-bg: $dropdown-link-hover-bg;
-
+// Pagination
 $nav-pills-link-active-bg: #b51360;
 $pagination-color: #b51360;
 $pagination-bg: #ffffff;
@@ -77,7 +123,6 @@ $pagination-disabled-border-color: #dddddd;
 
 
 // - - - - - - - - - -  - - - - - - Other variables, if any - - - - - - - - - - - - - - - - - //
-//$bg-light-alt: #117485 !important;
 
 $side-column-heading-color: #e60b7f;
 
@@ -93,10 +138,24 @@ $autotoc-color: #ffffff;
 $autotoc-nav-link-hover-color: #f2f2f2;
 $autotoc-nav-link-hover-bg: #61102d;
 
-// - - - - - - - - - -  - - - - - - Other CSS, if any - - - - - - - - - - - - - - - - - //
-
 $autotoc-nav-bg: #ffffff;
 $autotoc-nav-border: #e60b7f;
 $autotoc-color: #b51360;
 $autotoc-nav-li-link-hover-color: #f2f2f2;
 $autotoc-nav-li-link-hover-bg: #61102d;
+
+
+// These variables need to be defined for the files to compile. The specific variables for the child theme's button colors are defined
+// at the bottom of the file but by default they use the child theme's theme-colors. There appears to be redundancy in defining colors but each line is necessary.
+// There are unique names for the child theme button colors to avoid any conflict with the general theme colors.
+
+$box-shadow-sm:               0 .125rem .25rem rgba($black, .075) !default;
+$box-shadow:                  0 .5rem 1rem rgba($black, .15) !default;
+$box-shadow-lg:               0 1rem 3rem rgba($black, .175) !default;
+$btn-box-shadow:              inset 0 1px 0 rgba($white, .15), 0 1px 1px rgba($black, .075) !default;
+$enable-gradients:               false;
+$enable-shadows:              false;
+$input-btn-focus-width:       .2rem !default;
+$btn-focus-width:             $input-btn-focus-width !default;
+
+

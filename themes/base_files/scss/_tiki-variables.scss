@@ -4,7 +4,14 @@
 @import "bs3-bs4-transition.scss";
 @import "../../default/scss/variables";
 @import "../../../vendor_bundled/vendor/twbs/bootstrap/scss/mixins/buttons";
+<<<<<<< HEAD
 $enable-negative-margins: true;
+
+// Override Bootstrap variables
+$text-muted: #53595F !default;
+$form-text: $text-muted !default;
+$link-decoration: none;
+
 $padding-y: .5rem !default; // Not sure where this is used besides buttons and pagination; not sure where it's defined in BS4
 $padding-x: .75rem !default;
 $module-h3-card-title-font-size: $h4-font-size !default;
@@ -133,7 +140,8 @@ $color_zircon_approx: #f4f5ff !default;
 $intertrans_background:#03657d !default;
 
 // Blockquote
-$blockquote-color: #7a7a7a !default;
+$blockquote-color: #595959 !default; // was #7a7a7a, updated for WAI compliance
+$blockquote-footer-color: $blockquote-color !default; // Bootstrap 5
 $blockquote-left-border-color: #e5e5e5 !default;
 
 // Smartmenus

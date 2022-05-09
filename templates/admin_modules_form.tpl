@@ -138,9 +138,9 @@
                     {self_link um_edit=$assign_name cookietab="2" _anchor="editcreate"}{tr}Edit custom module{/tr} {icon name="next"}{/self_link}
                 </div>
             {/if}
-        <div class="mb-3 row mx-0 d-flex flex-row-reverse">
+        <div class="d-flex justify-content-center">
+            <input type="submit" class="btn btn-secondary me-2" name="preview" value="{tr}Preview{/tr}" onclick="needToConfirm=false;">
             <input type="submit" class="btn btn-primary" name="assign" value="{tr}Assign{/tr}" onclick="needToConfirm=false;">
-            <input type="submit" class="btn btn-secondary mr-2" name="preview" value="{tr}Preview{/tr}" onclick="needToConfirm=false;">
         </div>
     {/if}
 </div>
