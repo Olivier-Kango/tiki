@@ -41,6 +41,7 @@ function getBlocksFromLocalStorage() {
             console.log(err)
         }
     }
+    if (!blocks) blocks = defaultTemplate
     return blocks
 }
 
