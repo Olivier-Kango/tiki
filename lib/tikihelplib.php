@@ -58,7 +58,7 @@ function help_doclink($params)
         $smarty = TikiLib::lib('smarty');
         $smarty->loadPlugin('smarty_function_icon');
 
-        $ret = '<a title="' . $url . '|' . htmlentities($desc, ENT_COMPAT, 'UTF-8') . '" href="'
+        $ret = '<a title="' . htmlentities($desc, ENT_COMPAT, 'UTF-8') . '" href="'
             . $prefs['helpurl'] . $url . '" target="tikihelp" class="tikihelp btn btn-link">'
             . smarty_function_icon(['name' => 'help'], $smarty->getEmptyInternalTemplate())
             . '</a>';
