@@ -8,6 +8,7 @@ export default {
 import { ref, computed } from 'vue' 
 import { Button, ToggleButton } from '@vue-mf/styleguide'
 import BlockAdd from './BlockAdd.vue'
+import BlocksHistoryPagination from './BlocksHistoryPagination.vue'
 import CustomModal from './CustomModal.vue'
 import BlocksStoreSettings from './BlocksStoreSettings.vue'
 import store from '../../store';
@@ -49,14 +50,6 @@ const handleOpenModal = () => {
 const handleCloseModal = () => {
     showModal.value = false
 }
-
-const handlePrev = () => {
-    
-}
-
-const handleNext = () => {
-    
-}
 </script>
 
 <template>
@@ -81,12 +74,7 @@ const handleNext = () => {
                 <Button variant="default" sm @click="handleOpenModal">
                     <i class="fas fa-database"></i>
                 </Button>
-                <Button variant="default" sm @click="handlePrev">
-                    <i class="fas fa-arrow-left"></i>
-                </Button>
-                <Button variant="default" sm @click="handleNext">
-                    <i class="fas fa-arrow-right"></i>
-                </Button>
+                <BlocksHistoryPagination />
                 <span class="me-2">Inspector</span>
                 <div style="width: 50px"><ToggleButton checked label="Preview" @update:checked="handleSwitchInspector" /></div>
 

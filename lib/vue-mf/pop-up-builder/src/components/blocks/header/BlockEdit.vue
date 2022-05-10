@@ -4,7 +4,7 @@ export default {
 }
 </script>
 <script setup>
-import { ref, computed, watch } from 'vue'
+import { ref, watch } from 'vue'
 import BlockAlignTextToolbar from '../../utils/BlockAlignTextToolbar.vue'
 import BlockControls from '../../utils/BlockControls.vue'
 // import BlockControlsSpacing from '../../utils/BlockControls/BlockControlsSpacing.vue'
@@ -13,7 +13,6 @@ import BlockInspector from '../../utils/BlockInspector.vue'
 import BlockPopup from '../../utils/BlockPopup.vue'
 import CustomModal from '../../utils/CustomModal.vue'
 import { useState } from '../../hooks/useState'
-import store from '../../../store'
 
 const props = defineProps({
     block: {
@@ -24,7 +23,7 @@ const props = defineProps({
     }
 });
 
-const { isSelected, isHighlighted, setAttributes, setClasses, setStyles } = useState(props.block.id)
+const { isSelected, setAttributes, setStyles } = useState(props.block.id)
 
 const textContent = ref(props.block.attributes.textContent)
 const showPopup = ref(false)
@@ -32,24 +31,17 @@ const showInspector = ref(false)
 
 watch(() => isSelected.value, (val, oldVal) => showPopup.value = val)
 
-watch(props.block.attributes.textContent, (val, oldVal) => {
-    textContent.value = val
+watch(() => props.block.attributes.textContent, (val, oldVal) => {
+    if (val !== oldVal) textContent.value = val
 })
 
 const handleEdit = (e) => showInspector.value = true
 const handleAlignText = (styles) => setStyles(styles)
-
-const handleBlur = (e) => {
-    store.dispatch('updateBlock', {
-        block: props.block,
-        field: 'attributes',
-        value: {...props.block.attributes, textContent: e.target.textContent}
-    })
-}
+const handleBlur = (e) => setAttributes({ textContent: e.target.textContent })
 </script>
 
 <template>
-    <h1 contenteditable="true" @blur="handleBlur" v-html="textContent"></h1>
+    <h1 contenteditable="true" placeholder="Type your text" @blur="handleBlur" v-html="textContent"></h1>
 
     <BlockPopup v-if="isSelected">
         <BlockControls :block="block" @edit="handleEdit"></BlockControls>

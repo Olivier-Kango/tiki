@@ -18,7 +18,10 @@ const props = defineProps({
 
 onBeforeMount(() => {
     let blocks = getBlocksFromLocalStorage()
-    if (blocks) store.dispatch('setBlocks', blocks)
+    if (blocks) {
+        store.dispatch('setBlocks', blocks)
+        store.dispatch('setHistory', blocks)
+    }
 
     let storeOptions = getStoreOptionsFromLocalStorage()
     if (storeOptions) {

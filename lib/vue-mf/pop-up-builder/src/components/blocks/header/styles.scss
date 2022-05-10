@@ -1,0 +1,7 @@
+.block--core-header {
+    & [contenteditable][placeholder]:empty:before {
+        content: attr(placeholder);
+        color: var(--bs-gray-500);
+        background-color: transparent;
+    }
+}

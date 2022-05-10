@@ -9,7 +9,7 @@ import { ref, watch, computed, nextTick } from 'vue'
 import BlockRichText from '../../utils/block-rich-text/BlockRichText.vue'
 // import BlockRichTextToolbar from '../../utils/block-rich-text/BlockRichTextToolbar.vue'
 import BlockAlignTextToolbar from '../../utils/BlockAlignTextToolbar.vue'
-import BlockToolbarColors from '../../utils/BlockToolbarColors.vue'
+// import BlockToolbarColors from '../../utils/BlockToolbarColors.vue'
 import BlockControls from '../../utils/BlockControls.vue'
 // import BlockControlsSpacing from '../../utils/BlockControls/BlockControlsSpacing.vue'
 // import BlockControlsSizes from '../../utils/BlockControls/BlockControlsSizes.vue'
@@ -33,7 +33,7 @@ const props = defineProps({
     context: [Object, Array]
 });
 
-const { isSelected, isHighlighted, setAttributes, setStyles } = useState(props.block.id)
+const { isSelected, setAttributes, setStyles } = useState(props.block.id)
 const content = ref(props.block.attributes.content)
 const showPopup = ref(false)
 const textAction = ref()
@@ -45,11 +45,14 @@ watch(() => isSelected.value, (val, oldVal) => {
     showPopup.value = val
 })
 
+watch(() => props.block.attributes.content, (val, oldVal) => {
+    if (val !== oldVal) content.value = val
+})
+
 const handleAction = (action) => textAction.value = action
 
-const handleInput = (data) => {
-    content.value = data
-    setAttributes({ content: data })
+const handleBlur = (data) => {
+    if (content.value !== data) setAttributes({ content: data })
 }
 
 const handleAlignText = (styles) => setStyles(styles)
@@ -61,7 +64,7 @@ const handleEdit = (e) => showInspector.value = true
         v-if="!getContext"
         tag="p"
         :content="content"
-        @onInput="handleInput"
+        @onBlur="handleBlur"
     />
     <div v-if="getContext">{{ getContext }}</div>
 
