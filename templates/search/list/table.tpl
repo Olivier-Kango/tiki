@@ -251,6 +251,23 @@
                     .appendTo($form);
             }
         });
+        var m = "{{$id}}".match(/wpcs\-(\d+)$/);
+        var id = m ? m[1] : null;
+        var cs = window['customsearch_'+id];
+        if (cs) {
+            $form.attr('action', $.service('search_customsearch', 'customsearch'));
+            var datamap = {
+                definition: cs.definition,
+                adddata: $.toJSON(cs.searchdata),
+                searchid: cs.id,
+                offset: cs.offset,
+                maxRecords: cs.maxRecords,
+                store_query: cs.store_query
+            }
+            $.each(datamap, function(k, v) {
+                $('<input type="hidden">').attr('name', k).val(v).appendTo($form);
+            });
+        }
     });
 })();
 {/jq}
