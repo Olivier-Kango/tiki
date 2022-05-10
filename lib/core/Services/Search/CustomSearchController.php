@@ -186,6 +186,8 @@ class Services_Search_CustomSearchController
         $facetsBuilder->build($query, $unifiedsearchlib->getFacetProvider());
 
         $index = $unifiedsearchlib->getIndex();
+        require_once 'lib/wiki/pluginslib.php';
+        PluginsLibUtil::handleDownload($query, $index, $matches, $input->asArray());
         $resultSet = $query->search($index);
         if (! empty($_SESSION['tikifeedback']) && $_SESSION['tikifeedback'][0]['type'] === 'error') {
             Feedback::sendHeaders();

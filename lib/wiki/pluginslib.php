@@ -339,9 +339,12 @@ class PluginsLibUtil
         return $sOutput;
     }
 
-    public static function handleDownload($query, $index, $matches)
+    public static function handleDownload($query, $index, $matches, $request = null)
     {
-        if (empty($_REQUEST['download'])) {
+        if (empty($request)) {
+            $request = $_REQUEST;
+        }
+        if (empty($request['download'])) {
             return;
         }
 
