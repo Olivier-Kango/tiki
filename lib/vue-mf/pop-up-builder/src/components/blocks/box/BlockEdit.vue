@@ -4,7 +4,7 @@ export default {
 }
 </script>
 <script setup>
-import { ref, computed, watch } from 'vue'
+import { ref, watch } from 'vue'
 import BlockAlignToolbar from '../../utils/BlockAlignToolbar.vue'
 import BlockToolbarImage from '../../utils/BlockToolbarImage.vue'
 import BlockToolbarColors from '../../utils/BlockToolbarColors.vue'
@@ -25,7 +25,7 @@ const props = defineProps({
     }
 });
 
-const { isSelected, isHighlighted, setAttributes, setClasses, setStyles } = useState(props.block.id)
+const { isSelected, setStyles } = useState(props.block.id)
 
 const showPopup = ref(false)
 const showInspector = ref(false)

@@ -30,7 +30,7 @@ const cloneBlockTemplates = computed(() => {
 </script>
 
 <template>
-    <div v-if="!cloneBlockTemplates" class="d-flex justify-content-center align-items-center" :style="{'height': '200px', 'font-size': '2rem'}">
+    <div v-if="!cloneBlockTemplates" class="d-flex justify-content-center align-items-center" :style="{'font-size': '2rem'}">
         <i class="fas fa-spinner fa-spin"></i>
     </div>
     <div v-if="cloneBlockTemplates">

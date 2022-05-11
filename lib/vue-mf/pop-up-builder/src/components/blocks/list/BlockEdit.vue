@@ -6,7 +6,6 @@ export default {
 
 <script setup>
 import { ref, watch, computed } from 'vue'
-// import BlockAlignTextToolbar from '../../utils/BlockAlignTextToolbar.vue'
 import BlockControls from '../../utils/BlockControls.vue'
 import BlockInspector from '../../utils/BlockInspector.vue'
 import BlockPopup from '../../utils/BlockPopup.vue'
@@ -24,7 +23,7 @@ const props = defineProps({
     }
 });
 
-const { isSelected, isHighlighted, setAttributes, setStyles } = useState(props.block.id)
+const { isSelected } = useState(props.block.id)
 const showPopup = ref(false)
 const showInspector = ref(false)
 
@@ -36,7 +35,6 @@ const getFirstItem = computed(() => {
     return data && data[0]
 })
 
-const handleAlignText = (styles) => setStyles(styles)
 const handleEdit = (e) => showInspector.value = true
 </script>
 
@@ -49,7 +47,6 @@ const handleEdit = (e) => showInspector.value = true
 
     <BlockPopup v-if="isSelected">
             <BlockControls :block="block" @edit="handleEdit"></BlockControls>
-            <!-- <BlockAlignTextToolbar @action="handleAlignText"></BlockAlignTextToolbar> -->
     </BlockPopup>
 
     <CustomModal

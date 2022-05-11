@@ -6,6 +6,7 @@ export default {
 
 <script setup>
 import { ref, computed, watch } from 'vue'
+import BlocksStoreView from './BlocksStore/BlocksStoreView.vue'
 import store from '../../store'
 import _get from 'lodash/get'
 import _isObject from 'lodash/isObject'
@@ -105,5 +106,7 @@ function getInitialPathArr() {
                 <pre>{{ JSON.stringify(context, undefined, 4) }}</pre>
             </div>
         </div>
+
+        <BlocksStoreView :field="block.attributes.field"/>
     </div>
 </template>

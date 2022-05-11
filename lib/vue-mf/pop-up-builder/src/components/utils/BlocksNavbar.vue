@@ -10,7 +10,7 @@ import { Button, ToggleButton } from '@vue-mf/styleguide'
 import BlockAdd from './BlockAdd.vue'
 import BlocksHistoryPagination from './BlocksHistoryPagination.vue'
 import CustomModal from './CustomModal.vue'
-import BlocksStoreSettings from './BlocksStoreSettings.vue'
+import BlocksStoreSettings from './BlocksStore/BlocksStoreSettings.vue'
 import store from '../../store';
 
 const props = defineProps({

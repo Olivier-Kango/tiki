@@ -9,6 +9,7 @@ import BlockEditor from './components/utils/BlockEditor.vue'
 import store from './store'
 import { registerStoreModule } from './store/helpers'
 import defaultTemplate from './components/templates/default.json'
+import testStoreOptions from './components/templates/storeOptions.json'
 
 const props = defineProps({
     customProps: {
@@ -59,6 +60,7 @@ function getStoreOptionsFromLocalStorage() {
             console.log(err)
         }
     }
+    if (!storeOptions) storeOptions = testStoreOptions
     return storeOptions
 }
 </script>
