@@ -48,6 +48,9 @@
             }
             return false;
         });{/jq}
+    {else}
+    	<input type="hidden" value="{$alert_content}" name="alert_content">
+    	<div id="tiki_autosave_alert"></div>
     {/if}
     {if isset($data.draft)}
         {tr}Draft written on{/tr} {$data.draft.lastModif|tiki_long_time}<br/>
