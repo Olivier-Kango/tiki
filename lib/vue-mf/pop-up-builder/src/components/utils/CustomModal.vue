@@ -27,6 +27,7 @@ const props = defineProps({
         default: false
     },
     title: String,
+    description: String,
     dragSelector: String,
 })
 const emit = defineEmits(['close'])
@@ -56,7 +57,8 @@ watch(() => props.show, (val, oldVal) => {
     >
         <div v-if="showModal">
             <div class="f-modal-title p-3" style="min-height: 25px;">
-                <h2 class="modal-drag mb-0">{{ title }}</h2>
+                <h4 class="modal-drag mb-0">{{ title }}</h4>
+                <p class="mb-0" v-if="description">{{ description }}</p>
                 <Button class="f-modal-close" variant="default" @click="() => emit('close')">
                     <i class="fas fa-times"></i>
                 </Button>
@@ -105,8 +107,7 @@ watch(() => props.show, (val, oldVal) => {
         pointer-events: all;
     }
 
-    .modal__title {
-        font-size: 1.5rem;
-        font-weight: 700;
+    .f-modal-title {
+        border-bottom: 1px solid #000;
     }
 </style>

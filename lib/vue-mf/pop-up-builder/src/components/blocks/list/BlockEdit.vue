@@ -10,6 +10,7 @@ import BlockControls from '../../utils/BlockControls.vue'
 import BlockInspector from '../../utils/BlockInspector.vue'
 import BlockPopup from '../../utils/BlockPopup.vue'
 import CustomModal from '../../utils/CustomModal.vue'
+import CustomTabs from '../../utils/CustomTabs.vue'
 import { useState } from '../../hooks/useState'
 import store from '../../../store'
 import BlockBuilder from '../../utils/BlockBuilder.vue'
@@ -39,7 +40,6 @@ const handleEdit = (e) => showInspector.value = true
 </script>
 
 <template>
-    <!-- <slot :context="getFirstItem" /> -->
     <BlockBuilder
         :id="block.id"
         :context="getFirstItem"
@@ -56,8 +56,19 @@ const handleEdit = (e) => showInspector.value = true
         :drag="true"
         :resize="true"
         :drag-selector="'.modal-drag'"
-        title="Settings"
+        :title="block.title"
+        :description="block.description"
     >
-        <BlockInspector :block="block" :context="store.getters.getAPIfields"/>
+        <CustomTabs>
+            <template #styles>
+
+            </template>
+            <template #settings>
+            
+            </template>
+            <template #advanced>
+                <BlockInspector :block="block" :context="store.getters.getAPIfields"></BlockInspector>
+            </template>
+        </CustomTabs>
     </CustomModal>
 </template>

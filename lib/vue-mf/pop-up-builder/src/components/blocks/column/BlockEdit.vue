@@ -6,12 +6,12 @@ export default {
 <script setup>
 import { ref, watch } from 'vue'
 import BlockAlignToolbar from '../../utils/BlockAlignToolbar.vue'
-// import BlockToolbarColors from '../../utils/BlockToolbarColors.vue'
 import BlockControls from '../../utils/BlockControls.vue'
 import BlockControlsSizes from '../../utils/BlockControls/BlockControlsSizes.vue'
 import BlockInspector from '../../utils/BlockInspector.vue'
 import BlockPopup from '../../utils/BlockPopup.vue'
 import CustomModal from '../../utils/CustomModal.vue'
+import CustomTabs from '../../utils/CustomTabs.vue'
 import { useState } from '../../hooks/useState'
 
 const props = defineProps({
@@ -23,7 +23,7 @@ const props = defineProps({
     }
 });
 
-const { isSelected, isHighlighted, setAttributes, setClasses, setStyles } = useState(props.block.id)
+const { isSelected } = useState(props.block.id)
 
 const showPopup = ref(false)
 const showInspector = ref(false)
@@ -39,7 +39,6 @@ const handleEdit = (e) => showInspector.value = true
     <BlockPopup v-if="isSelected">
         <BlockControls :block="block" @edit="handleEdit"></BlockControls>
         <BlockAlignToolbar :block="block" cssAlignSelf></BlockAlignToolbar>
-        <!-- <BlockToolbarColors :block="block"></BlockToolbarColors> -->
     </BlockPopup>
 
     <CustomModal
@@ -49,10 +48,19 @@ const handleEdit = (e) => showInspector.value = true
         :drag="true"
         :resize="true"
         :drag-selector="'.modal-drag'"
-        title="Settings"
+        :title="block.title"
+        :description="block.description"
     >
-        <BlockInspector :block="block" :context="context">
-            <BlockControlsSizes :block="block" />
-        </BlockInspector>
+        <CustomTabs>
+            <template #styles>
+                <BlockControlsSizes :block="block" />
+            </template>
+            <template #settings>
+            
+            </template>
+            <template #advanced>
+
+            </template>
+        </CustomTabs>
     </CustomModal>
 </template>

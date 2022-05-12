@@ -7,20 +7,13 @@ export default {
 <script setup>
 import { ref, watch, computed, nextTick } from 'vue'
 import BlockRichText from '../../utils/block-rich-text/BlockRichText.vue'
-// import BlockRichTextToolbar from '../../utils/block-rich-text/BlockRichTextToolbar.vue'
 import BlockAlignTextToolbar from '../../utils/BlockAlignTextToolbar.vue'
-// import BlockToolbarColors from '../../utils/BlockToolbarColors.vue'
 import BlockControls from '../../utils/BlockControls.vue'
-// import BlockControlsSpacing from '../../utils/BlockControls/BlockControlsSpacing.vue'
-// import BlockControlsSizes from '../../utils/BlockControls/BlockControlsSizes.vue'
-
 import BlockInspector from '../../utils/BlockInspector.vue'
-// import BlockInspectorControls from '../../utils/BlockInspectorControls.vue'
 import BlockPopup from '../../utils/BlockPopup.vue'
 import CustomModal from '../../utils/CustomModal.vue'
+import CustomTabs from '../../utils/CustomTabs.vue'
 import { useState } from '../../hooks/useState'
-// import store from '../../../store'
-// import BlockBuilder from '../../utils/BlockBuilder.vue'
 import _get from 'lodash/get'
 
 const props = defineProps({
@@ -49,8 +42,6 @@ watch(() => props.block.attributes.content, (val, oldVal) => {
     if (val !== oldVal) content.value = val
 })
 
-const handleAction = (action) => textAction.value = action
-
 const handleBlur = (data) => {
     if (content.value !== data) setAttributes({ content: data })
 }
@@ -71,8 +62,6 @@ const handleEdit = (e) => showInspector.value = true
     <BlockPopup v-if="isSelected">
         <BlockControls :block="block" @edit="handleEdit"></BlockControls>
         <BlockAlignTextToolbar @action="handleAlignText"></BlockAlignTextToolbar>
-        <!-- <BlockToolbarColors :block="block"></BlockToolbarColors> -->
-        <!-- <BlockRichTextToolbar @action="handleAction"></BlockRichTextToolbar> -->
     </BlockPopup>
 
     <CustomModal
@@ -82,11 +71,19 @@ const handleEdit = (e) => showInspector.value = true
         :drag="true"
         :resize="true"
         :drag-selector="'.modal-drag'"
-        title="Settings"
+        :title="block.title"
+        :description="block.description"
     >
-        <BlockInspector :block="block" :context="context">
-            <!-- <BlockControlsSpacing :block="block" />
-            <BlockControlsSizes :block="block" /> -->
-        </BlockInspector>
+        <CustomTabs>
+            <template #styles>
+
+            </template>
+            <template #settings>
+            
+            </template>
+            <template #advanced>
+                <BlockInspector :block="block" :context="context"></BlockInspector>
+            </template>
+        </CustomTabs>
     </CustomModal>
 </template>

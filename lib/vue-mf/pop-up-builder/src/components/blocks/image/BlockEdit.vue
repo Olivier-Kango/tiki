@@ -4,14 +4,13 @@ export default {
 }
 </script>
 <script setup>
-import { ref, computed, watch } from 'vue'
-// import BlockAlignTextToolbar from '../../utils/BlockAlignTextToolbar.vue'
+import { ref, watch } from 'vue'
 import BlockControls from '../../utils/BlockControls.vue'
-// import BlockControlsSpacing from '../../utils/BlockControls/BlockControlsSpacing.vue'
 import BlockControlsSizes from '../../utils/BlockControls/BlockControlsSizes.vue'
 import BlockInspector from '../../utils/BlockInspector.vue'
 import BlockPopup from '../../utils/BlockPopup.vue'
 import CustomModal from '../../utils/CustomModal.vue'
+import CustomTabs from '../../utils/CustomTabs.vue'
 import { useState } from '../../hooks/useState'
 
 const props = defineProps({
@@ -57,11 +56,19 @@ const handleAlignText = (styles) => {
         :drag="true"
         :resize="true"
         :drag-selector="'.modal-drag'"
-        title="Settings"
+        :title="block.title"
+        :description="block.description"
     >
-        <BlockInspector :block="block" :context="context">
-            <!-- <BlockControlsSpacing :block="block" /> -->
-            <BlockControlsSizes :block="block" />
-        </BlockInspector>
+        <CustomTabs>
+            <template #styles>
+                <BlockControlsSizes :block="block" />
+            </template>
+            <template #settings>
+            
+            </template>
+            <template #advanced>
+                <BlockInspector :block="block" :context="context"></BlockInspector>
+            </template>
+        </CustomTabs>
     </CustomModal>
 </template>

@@ -12,6 +12,6 @@ defineProps({
 
 <template>
     <div class="block-inspector-controls">
-        <h2>Block settings</h2>
+
     </div>
 </template>

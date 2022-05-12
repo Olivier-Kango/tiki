@@ -4,13 +4,13 @@ export default {
 }
 </script>
 <script setup>
-import { ref, computed, watch } from 'vue'
+import { ref, watch } from 'vue'
 import BlockControls from '../../utils/BlockControls.vue'
 import BlockControlsSizes from '../../utils/BlockControls/BlockControlsSizes.vue'
-import BlockAlignToolbar from '../../utils/BlockAlignToolbar.vue'
 import BlockInspector from '../../utils/BlockInspector.vue'
 import BlockPopup from '../../utils/BlockPopup.vue'
 import CustomModal from '../../utils/CustomModal.vue'
+import CustomTabs from '../../utils/CustomTabs.vue'
 import { useState } from '../../hooks/useState'
 
 const props = defineProps({
@@ -22,7 +22,7 @@ const props = defineProps({
     }
 })
 
-const { isSelected, isHighlighted, setAttributes, setClasses, setStyles } = useState(props.block.id)
+const { isSelected } = useState(props.block.id)
 
 const showPopup = ref(false)
 const showInspector = ref(false)
@@ -37,7 +37,6 @@ const handleEdit = (e) => showInspector.value = true
 
     <BlockPopup v-if="isSelected">
         <BlockControls :block="block" @edit="handleEdit"></BlockControls>
-        <!-- <BlockAlignToolbar :block="block"></BlockAlignToolbar> -->
     </BlockPopup>
     <CustomModal
         v-if="showInspector"
@@ -46,10 +45,20 @@ const handleEdit = (e) => showInspector.value = true
         :drag="true"
         :resize="true"
         :drag-selector="'.modal-drag'"
-        title="Settings"
+        :title="block.title"
+        :description="block.description"
     >
-        <BlockControlsSizes :block="block"></BlockControlsSizes>
-        <BlockInspector :block="block" :context="context"/>
+        <CustomTabs>
+            <template #styles>
+                <BlockControlsSizes :block="block" />
+            </template>
+            <template #settings>
+            
+            </template>
+            <template #advanced>
+                <BlockInspector :block="block" :context="context"></BlockInspector>
+            </template>
+        </CustomTabs>
     </CustomModal>
 </template>
 
