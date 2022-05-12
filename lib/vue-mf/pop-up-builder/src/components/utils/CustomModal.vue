@@ -46,20 +46,22 @@ watch(() => props.show, (val, oldVal) => {
         :drag="drag"
         :drag-selector="dragSelector"
         :resize="resize"
-        :fit-parent="false"
+        :fit-parent="true"
         :prevent-click="true"
         :click-to-close="clickToClose"
+        :focus-retain="false"
+        :lock-scroll="false"
         attach="body"
         @click-outside="() => {if (clickToClose) emit('close')}"
     >
         <div v-if="showModal">
-            <div class="f-modal-title" style="min-height: 25px;">
-                <h2 class="modal-drag">{{ title }}</h2>
+            <div class="f-modal-title p-3" style="min-height: 25px;">
+                <h2 class="modal-drag mb-0">{{ title }}</h2>
                 <Button class="f-modal-close" variant="default" @click="() => emit('close')">
                     <i class="fas fa-times"></i>
                 </Button>
             </div>
-            <div>
+            <div class="p-3">
                 <slot/>
             </div>
         </div>
@@ -67,11 +69,15 @@ watch(() => props.show, (val, oldVal) => {
 </template>
 
 <style lang="scss" scoped>
+    .vfm.vfm--inset {
+        position: fixed;
+
+        :deep(.vfm--overlay) {
+            background-color: rgb(255, 255, 255, 0);
+        }
+    }
+
     :deep(.f-modal-container) {
-        // display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
         overflow-x: hidden;
         overflow-y: auto;
 
@@ -81,24 +87,24 @@ watch(() => props.show, (val, oldVal) => {
             right: 0.5rem;
         }
     }
+
     :deep(.f-modal-content) {
         position: absolute;
-        // display: flex;
-        // flex-direction: column;
-        width: 500px;
-        // width: 100%;
-        // min-height: 100%;
-        top: 10%;
-        right: 40%;
-        // margin: 48px auto 80px auto;
-        padding: 1rem;
+        top: 0;
+        right: 0;
+        min-width: 500px;
+        height: 100%;
+        overflow-y: scroll;
+        overflow-x: hidden;
         border: 1px solid #e2e8f0;
         border-radius: 0.25rem;
-        background: #fff;
+        background: #fffffff2;
     }
+
     :deep(.vfm--outline-none[data-v-2836fdb5]:focus) {
         pointer-events: all;
     }
+
     .modal__title {
         font-size: 1.5rem;
         font-weight: 700;
