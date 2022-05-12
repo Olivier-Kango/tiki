@@ -175,7 +175,13 @@ if (! isset($utid) and ! isset($gtid) and (! isset($itemId) or ! $itemId) and ! 
 
 if (isset($itemId)) {
     $item_info = $trklib->get_tracker_item($itemId);
-
+    
+    if (!$item_info) {
+        $smarty->assign('errortype', 404);
+        $smarty->assign('msg', tra('Item not found'));
+        $smarty->display('error.tpl');
+        die;
+    }
     TikiLib::events()->trigger(
         'tiki.trackeritem.view',
         [
@@ -188,6 +194,14 @@ if (isset($itemId)) {
 }
 
 $definition = Tracker_Definition::get($trackerId);
+
+if (!$definition) {
+    $smarty->assign('errortype', 404);
+    $smarty->assign('msg', tra("Tracker not found"));
+    $smarty->display("error.tpl");
+    die;
+}
+
 $fieldDefinitions = $definition->getFields();
 $smarty->assign('tracker_is_multilingual', $prefs['feature_multilingual'] == 'y' && $definition->getLanguageField());
 
