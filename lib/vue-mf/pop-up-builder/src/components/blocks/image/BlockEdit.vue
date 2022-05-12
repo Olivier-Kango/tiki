@@ -7,6 +7,7 @@ export default {
 import { ref, watch } from 'vue'
 import BlockControls from '../../utils/BlockControls.vue'
 import BlockControlsSizes from '../../utils/BlockControls/BlockControlsSizes.vue'
+import BlockAttributesField from '../../utils/BlockAttributesField.vue'
 import BlockInspector from '../../utils/BlockInspector.vue'
 import BlockPopup from '../../utils/BlockPopup.vue'
 import CustomModal from '../../utils/CustomModal.vue'
@@ -23,7 +24,7 @@ const props = defineProps({
     context: Object
 })
 
-const { isSelected, isHighlighted, setAttributes, setClasses, setStyles } = useState(props.block.id)
+const { isSelected } = useState(props.block.id)
 
 const showPopup = ref(false)
 const showInspector = ref(false)
@@ -31,22 +32,16 @@ const showInspector = ref(false)
 watch(() => isSelected.value, (val, oldVal) => showPopup.value = val)
 
 const handleEdit = (e) => showInspector.value = true
-
-const handleAlignText = (styles) => {
-    setStyles(styles)
-}
 </script>
 
 <template>
     <figure class="figure">
-        <img class="figure-img img-fluid" :src="props.context?.image || block.attributes.url || 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg'" alt="">
+        <img class="figure-img img-fluid" :src="props.context?.image || block.attributes.url" :alt="props.attributes?.name">
         <figcaption class="figure-caption">A caption for the above image.</figcaption>
     </figure>
 
     <BlockPopup v-if="isSelected">
         <BlockControls :block="block" @edit="handleEdit"></BlockControls>
-        <!-- <BlockAlignTextToolbar @action="handleAlignText"></BlockAlignTextToolbar> -->
-        <!-- <BlockRichTextToolbar @action="handleAction"></BlockRichTextToolbar> -->
     </BlockPopup>
 
     <CustomModal
@@ -64,7 +59,7 @@ const handleAlignText = (styles) => {
                 <BlockControlsSizes :block="block" />
             </template>
             <template #settings>
-            
+                <BlockAttributesField :block="block" field="url" title="Image url"/>
             </template>
             <template #advanced>
                 <BlockInspector :block="block" :context="context"></BlockInspector>

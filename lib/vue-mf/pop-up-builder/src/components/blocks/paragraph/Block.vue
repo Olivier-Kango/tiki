@@ -22,5 +22,5 @@ const getContext = computed(() => _get(props.context, props.block.attributes.fie
 </script>
 
 <template>
-    <div v-html="getContext || props.block.attributes?.content"></div>
+    <p v-html="getContext || props.block.attributes?.content"></p>
 </template>

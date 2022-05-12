@@ -110,4 +110,8 @@ watch(() => props.show, (val, oldVal) => {
     .f-modal-title {
         border-bottom: 1px solid #000;
     }
+
+    .modal-drag {
+        cursor: pointer;
+    }
 </style>

@@ -57,7 +57,7 @@ const handleEdit = (e) => showInspector.value = true
         :content="content"
         @onBlur="handleBlur"
     />
-    <div v-if="getContext">{{ getContext }}</div>
+    <p v-if="getContext">{{ getContext }}</p>
 
     <BlockPopup v-if="isSelected">
         <BlockControls :block="block" @edit="handleEdit"></BlockControls>
