@@ -250,24 +250,23 @@ class Services_Manager_Controller
     public function action_clone($input)
     {
         if ($input->clone->text()){
-            
             $cmd = new TikiManager\Command\CloneInstanceCommand();
             $inputCommand = new ArrayInput([
                 'command' => $cmd->getName(),
                 "--source" => $input->source->text(),
-                "--target" => $input->target->text(),
+                "--target" => [$input->target->text()],
                 "--branch" => $input->branch->text(),
-                "--skip-reindex" => $input->skipreindex->text(),
-                "--skip-cache-warmup" => $input->skipcachewarmup->text(),
-                "--live-reindex" => $input->livereindex->text(),
-                "--keep-backup" => $input->keepbackup->text(),
-                "--use-last-backup" => $input->uselastbackup->text(),
+                "--skip-reindex" => $input->skipreindex->text() ? true : false,
+                "--skip-cache-warmup" => $input->skipcachewarmup->text() ? true : false,
+                "--live-reindex" => $input->livereindex->text() ? true : false,
+                "--keep-backup" => $input->keepbackup->text() ? true : false,
+                "--use-last-backup" => $input->uselastbackup->text() ? true : false,
                 "--db-host" => $input->db_host->text(),
                 "--db-user" => $input->db_user->text(),
                 "--db-pass" => $input->db_pass->text(),
                 "--db-prefix" => $input->db_prefix->text(),
                 "--db-name" => $input->db_prefix->text(),
-                "--stash" => $input->stash->text(),
+                "--stash" => $input->stash->text() ? true : false,
                 "--timeout" => $input->timeout->text(),
             ]);
 
@@ -288,18 +287,18 @@ class Services_Manager_Controller
                 'target' => "",
                 'branches' => $this->getTikiBranches(),
                 'selected_branch' => "21.x",
-                'skip-reindex' => '',
-                'skip-cache-warmup' => '',
-                'live-reindex' => '',
-                'direct' => '',
-                'keep-backup' => '',
-                'use-last-backup' => '',
+                'skip-reindex' => false,
+                'skip-cache-warmup' => false,
+                'live-reindex' => false,
+                'direct' => false,
+                'keep-backup' => false,
+                'use-last-backup' => false,
                 'db_host' => '',
                 'db_user' => '',
                 'db_pass' => '',
                 'db_prefix' => '',
                 'db_name' => '',
-                "stash" => '',
+                "stash" => false,
                 "timeout" => '',
                 "instances" => $instances
             ];

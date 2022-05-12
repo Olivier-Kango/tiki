@@ -10,7 +10,7 @@
 
 {block name="content"}
     {if not empty($info)}
-        <div class="rounded bg-dark p-3">{$info|nl2br}</div>
+        <div class="rounded bg-dark text-light p-3">{$info|nl2br}</div>
     {else}
         <form method="post" action="{service controller=manager action=clone }">
             <div class="form-group row p-2">
@@ -46,82 +46,82 @@
             <div class="form-group row p-2">
                 <label class="col-form-label col-sm-3">{tr}Skip Reindex{/tr}</label>
                 <div class="col-sm-9">
-                    <input value="{$inputValues['skipre-index']}" class="form-check-input" id="skipreindex" type="checkbox" name="skipreindex" placeholder="">
+                    <input value="1" class="form-check-input" id="skipreindex" type="checkbox" name="skipreindex" placeholder="" {if $inputValues['skip-reindex']} checked="checked"{/if}>
                 </div>
             </div>
             <div class="form-group row p-2">
                 <label class="col-form-label col-sm-3">{tr}Skip cache warmup{/tr}</label>
                 <div class="col-sm-9">
-                    <input value="{$inputValues['skip-cache-warmup']}" class="form-check-input" id="skipcachewarmup" type="checkbox" name="skipcachewarmup">
+                    <input value="1" class="form-check-input" id="skipcachewarmup" type="checkbox" name="skipcachewarmup" {if $inputValues['skip-cache-warmup']} checked="checked"{/if}>
                 </div>
             </div>
             <div class="form-group row p-2">
                 <label class="col-form-label col-sm-3">{tr}Live reindex{/tr}</label>
                 <div class="col-sm-9">
-                    <input class="form-check-input" id="livereindex" type="checkbox" name="livereindex">
+                    <input value="1" class="form-check-input" id="livereindex" type="checkbox" name="livereindex" {if $inputValues['live-reindex']} checked="checked"{/if}>
                 </div>
             </div>
 
             <div class="form-group row p-2">
                 <label class="col-form-label col-sm-3">{tr}Keep backup{/tr}</label>
                 <div class="col-sm-9">
-                    <input value="{$inputValues['keep-backup']}" class="form-check-input" id="keepbackup" type="checkbox" name="keepbackup">
+                    <input value="1" class="form-check-input" id="keepbackup" type="checkbox" name="keepbackup" {if $inputValues['keep-backup']} checked="checked"{/if}>
                 </div>
             </div>
 
             <div class="form-group row p-2">
                 <label class="col-form-label col-sm-3">{tr}Use last backup{/tr}</label>
                 <div class="col-sm-9">
-                    <input required value="{$inputValues['use-last-backup']}" class="form-check-input" id="uselastbackup" type="checkbox" name="uselastbackup">
+                    <input value="1" class="form-check-input" id="uselastbackup" type="checkbox" name="uselastbackup" {if $inputValues['use-last-backup']} checked="checked"{/if}>
                 </div>
             </div>
 
             <div class="form-group row p-2">
                 <label class="col-form-label col-sm-3">{tr}DB Host{/tr}</label>
                 <div class="col-sm-9">
-                    <input required value="{$inputValues['db_host']}" placeholder="localhost" class="form-control" id="db_host" type="text" name="db_host">
+                    <input value="{$inputValues['db_host']}" placeholder="localhost" class="form-control" id="db_host" type="text" name="db_host">
                 </div>
             </div>
 
             <div class="form-group row p-2">
                 <label class="col-form-label col-sm-3">{tr}DB User{/tr}</label>
                 <div class="col-sm-9">
-                    <input required value="{$inputValues['db_user']}" placeholder="root" class="form-control" id="db_user" type="text" name="db_user">
+                    <input value="{$inputValues['db_user']}" placeholder="root" class="form-control" id="db_user" type="text" name="db_user">
                 </div>
             </div>
 
             <div class="form-group row p-2">
                 <label class="col-form-label col-sm-3">{tr}DB Password{/tr}</label>
                 <div class="col-sm-9">
-                    <input required value="{$inputValues['db_pass']}" placeholder="root" class="form-control" id="db_pass" type="text" name="db_pass">
+                    <input value="{$inputValues['db_pass']}" placeholder="root" class="form-control" id="db_pass" type="text" name="db_pass">
                 </div>
             </div>
 
             <div class="form-group row p-2">
                 <label class="col-form-label col-sm-3">{tr}DB Prefix{/tr}</label>
                 <div class="col-sm-9">
-                    <input required value="{$inputValues['db_prefix']}" placeholder="" class="form-control" id="db_prefix" type="text" name="db_prefix">
+                    <input value="{$inputValues['db_prefix']}" placeholder="" class="form-control" id="db_prefix" type="text" name="db_prefix">
                 </div>
             </div>
 
             <div class="form-group row p-2">
                 <label class="col-form-label col-sm-3">{tr}DB Name{/tr}</label>
                 <div class="col-sm-9">
-                    <input required value="{$inputValues['db_name']}" placeholder="" class="form-control" id="db_name" type="text" name="db_name">
+                    <input value="{$inputValues['db_name']}" placeholder="" class="form-control" id="db_name" type="text" name="db_name">
                 </div>
             </div>
 
             <div class="form-group row p-2">
                 <label class="col-form-label col-sm-3">{tr}Stash{/tr}</label>
                 <div class="col-sm-9">
-                    <input required value="{$inputValues['stash']}" placeholder="" class="form-control" id="stash" type="text" name="stash">
+                    <input value="1" placeholder="" class="form-check-input" id="stash" type="checkbox" name="stash" {if $inputValues['stash']} checked="checked"{/if}>
                 </div>
             </div>
 
             <div class="form-group row p-2">
                 <label class="col-form-label col-sm-3">{tr}Timeout{/tr}</label>
                 <div class="col-sm-9">
-                    <input required value="{$inputValues['timeout']}" placeholder="" class="form-control" id="timeout" type="text" name="timeout">
+                    <input value="{$inputValues['timeout']}" placeholder="" class="form-control" id="timeout" type="text" name="timeout">
                 </div>
             </div>
 

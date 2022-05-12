@@ -10,7 +10,7 @@
 
 {block name="content"}
     {if not empty($info)}
-        <div class="rounded bg-dark p-3">{$info|nl2br}</div>
+        <div class="rounded bg-dark text-light p-3">{$info|nl2br}</div>
     {else}
         <form method="post" action="{service controller=manager action=create }">
             <div class="form-group row">
