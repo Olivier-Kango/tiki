@@ -75,8 +75,8 @@
 //        -webkit-border-radius: 5px;
 //        -moz-border-radius: 5px;
 //        border-radius: 5px;
-        background: $btn-primary-bg;
-        border: 1px solid $btn-primary-border;
+        background: $dark; // $btn-primary-bg; Temporary comment out May 2022 Gary
+        border: 1px solid $border-color; // $btn-primary-border;
         border-radius: $btn-border-radius;
         color: $pvtAttr-color;
     }
@@ -135,7 +135,7 @@
     }
     .pvtFilterBox button {
         background: $pvtFilterBox-button-bg;
-        border: 1px solid $btn-primary-border;
+        border: 1px solid $border-color; //  $btn-primary-border;
         border-radius: $btn-border-radius;
         color: $pvtFilterBox-button-color;
         &:hover {

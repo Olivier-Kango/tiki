@@ -10084,7 +10084,7 @@ input[type="checkbox"].preffilter-toggle-round:checked + label:before {
   }
 }
 blockquote {
-  color: #7a7a7a;
+  color: #595959;
   border-left: 0.25rem solid #e5e5e5;
 }
 .to-translate {
@@ -10939,4 +10939,3 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   margin-left: 30px;
   margin-right: 30px;
 }
-/*# sourceMappingURL=united.css.map */

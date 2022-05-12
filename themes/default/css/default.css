@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/* The Bootstrap default theme for Tiki Wiki CMS Groupware */
+/* The Bootstrap default theme, for Tiki Wiki CMS Groupware */
 /*!
  * Bootstrap v5.1.3 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors
@@ -191,7 +191,7 @@ sup {
 }
 a {
   color: #0d6efd;
-  text-decoration: underline;
+  text-decoration: none;
 }
 a:hover {
   color: #0a58ca;
@@ -2351,7 +2351,6 @@ textarea.form-control-lg {
   line-height: 1.5;
   color: #212529;
   text-align: center;
-  text-decoration: none;
   vertical-align: middle;
   cursor: pointer;
   user-select: none;
@@ -2805,7 +2804,7 @@ textarea.form-control-lg {
 .btn-link {
   font-weight: 400;
   color: #0d6efd;
-  text-decoration: underline;
+  text-decoration: none;
 }
 .btn-link:hover {
   color: #0a58ca;
@@ -3078,7 +3077,6 @@ textarea.form-control-lg {
   font-weight: 400;
   color: #212529;
   text-align: inherit;
-  text-decoration: none;
   white-space: nowrap;
   background-color: transparent;
   border: 0;
@@ -3220,7 +3218,6 @@ textarea.form-control-lg {
   display: block;
   padding: 0.5rem 1rem;
   color: #0d6efd;
-  text-decoration: none;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
 @media (prefers-reduced-motion: reduce) {
@@ -3312,7 +3309,6 @@ textarea.form-control-lg {
   padding-bottom: 0.3125rem;
   margin-right: 1rem;
   font-size: 1.25rem;
-  text-decoration: none;
   white-space: nowrap;
 }
 .navbar-nav {
@@ -4010,7 +4006,6 @@ textarea.form-control-lg {
   position: relative;
   display: block;
   color: #0d6efd;
-  text-decoration: none;
   background-color: #fff;
   border: 1px solid #dee2e6;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -4265,7 +4260,6 @@ textarea.form-control-lg {
   display: block;
   padding: 0.5rem 1rem;
   color: #212529;
-  text-decoration: none;
   background-color: #fff;
   border: 1px solid rgba(0, 0, 0, 0.125);
 }
@@ -9185,7 +9179,7 @@ textarea.form-control-lg {
   text-decoration: none;
 }
 .navbar-dark .sitetitle a {
-  color: #ccc;
+  color: #fff;
 }
 .navbar-dark .sitetitle a:hover {
   color: rgba(255, 255, 255, 0.75);
@@ -9837,7 +9831,7 @@ div.drillshow {
   color: #212529;
 }
 .tiki .ui-widget button {
-  background: #fff;
+  background: #f8f9fa;
   color: #212529;
 }
 .tiki.tiki-listpages .ui-widget.ui-widget-content {
@@ -10075,7 +10069,7 @@ input[type="checkbox"].preffilter-toggle-round:checked + label:before {
   }
 }
 blockquote {
-  color: #7a7a7a;
+  color: #595959;
   border-left: 0.25rem solid #e5e5e5;
 }
 .to-translate {
@@ -10328,8 +10322,8 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   -webkit-text-size-adjust: 100%;
   padding: 2px 5px;
   white-space: nowrap;
-  background: #fff;
-  border: 1px solid #212529;
+  background: #212529;
+  border: 1px solid #dee2e6;
   border-radius: 0.25rem;
   color: #212529;
 }
@@ -10380,13 +10374,13 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   padding: 5px;
 }
 .tiki .pvtFilterBox button {
-  background: #fff;
-  border: 1px solid #212529;
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
   border-radius: 0.25rem;
   color: #212529;
 }
 .tiki .pvtFilterBox button:hover {
-  background: white;
+  background: #dae0e5;
 }
 .tiki .pvtFilterBox button + button {
   margin-left: 4px;
@@ -10425,17 +10419,17 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 }
 .tiki .ui-button, .tiki html .ui-button.ui-state-disabled:hover, .tiki html .ui-button.ui-state-disabled:active {
   border: 1px solid;
-  border-color: #212529;
-  background: #fff;
+  border-color: #dee2e6;
+  background: #f8f9fa;
   font-weight: normal;
   color: #212529;
   font-size: 1rem;
 }
 .tiki .ui-widget-content .ui-state-focus, .tiki .ui-widget-header .ui-state-focus, .tiki .ui-button:hover, .tiki .ui-button:focus {
-  border: 1px solid #212529;
-  background: #fff;
+  border: 1px solid #0d6efd;
+  background: #f8f9fa;
   font-weight: normal;
-  color: #212529;
+  color: #0d6efd;
 }
 .tiki .ui-widget-header a {
   color: #0d6efd;
@@ -10916,4 +10910,3 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   border-bottom: 1px solid #ced4da;
 }
 /* placeholder file for customisations needed for select2 in tiki with bootstrap 5 */
-/*# sourceMappingURL=default.css.map */

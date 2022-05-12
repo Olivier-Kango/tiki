@@ -199,7 +199,7 @@ sup {
 }
 a {
   color: #f2e8c0;
-  text-decoration: underline;
+  text-decoration: none;
 }
 a:hover {
   color: #f2e8c0;
@@ -229,7 +229,7 @@ pre code {
 }
 code {
   font-size: 0.875em;
-  color: #d63384;
+  color: #212529;
   word-wrap: break-word;
 }
 a > code {
@@ -2360,7 +2360,6 @@ textarea.form-control-lg {
   line-height: 1.5;
   color: #fff;
   text-align: center;
-  text-decoration: none;
   vertical-align: middle;
   cursor: pointer;
   user-select: none;
@@ -2815,7 +2814,7 @@ textarea.form-control-lg {
 .btn-link {
   font-weight: 400;
   color: #f2e8c0;
-  text-decoration: underline;
+  text-decoration: none;
 }
 .btn-link:hover {
   color: #f2e8c0;
@@ -3092,7 +3091,6 @@ textarea.form-control-lg {
   font-weight: 400;
   color: #444;
   text-align: inherit;
-  text-decoration: none;
   white-space: nowrap;
   background-color: transparent;
   border: 0;
@@ -3235,7 +3233,6 @@ textarea.form-control-lg {
   display: block;
   padding: 0.5rem 1rem;
   color: #f2e8c0;
-  text-decoration: none;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
 @media (prefers-reduced-motion: reduce) {
@@ -3328,7 +3325,6 @@ textarea.form-control-lg {
   padding-bottom: 0.3125rem;
   margin-right: 1rem;
   font-size: 1.25rem;
-  text-decoration: none;
   white-space: nowrap;
 }
 .navbar-brand:hover, .navbar-brand:focus {
@@ -4013,6 +4009,7 @@ textarea.form-control-lg {
   flex-wrap: wrap;
   padding: 0 0;
   margin-bottom: 1rem;
+  font-size: 90%;
   list-style: none;
   background-color: #0C5055;
 }
@@ -4037,7 +4034,6 @@ textarea.form-control-lg {
   position: relative;
   display: block;
   color: #f2e8c0;
-  text-decoration: none;
   background-color: #0c6369;
   border: 1px solid #dee2e6;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -4293,7 +4289,6 @@ textarea.form-control-lg {
   display: block;
   padding: 0.5rem 1rem;
   color: #ebebeb;
-  text-decoration: none;
   background-color: #0c6369;
   border: 1px solid rgba(0, 0, 0, 0.125);
 }
@@ -9214,7 +9209,7 @@ textarea.form-control-lg {
   text-decoration: none;
 }
 .navbar-dark .sitetitle a {
-  color: #ccc;
+  color: #f2e8c0;
 }
 .navbar-dark .sitetitle a:hover {
   color: white;
@@ -9872,8 +9867,8 @@ div.drillshow {
   color: #343a40;
 }
 .tiki .ui-widget button {
-  background: #0c6369;
-  color: #fff;
+  background: #f8f9fa;
+  color: #ad1d28;
 }
 .tiki.tiki-listpages .ui-widget.ui-widget-content {
   border: 1px solid #dee2e6;
@@ -10431,10 +10426,10 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   -webkit-text-size-adjust: 100%;
   padding: 2px 5px;
   white-space: nowrap;
-  background: #0c6369;
-  border: 1px solid #fff;
+  background: #ad1d28;
+  border: 1px solid #dee2e6;
   border-radius: 0.25rem;
-  color: #fff;
+  color: #ad1d28;
 }
 .tiki .pvtTriangle {
   cursor: pointer;
@@ -10483,13 +10478,13 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   padding: 5px;
 }
 .tiki .pvtFilterBox button {
-  background: #0c6369;
-  border: 1px solid #fff;
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
   border-radius: 0.25rem;
-  color: #fff;
+  color: #ad1d28;
 }
 .tiki .pvtFilterBox button:hover {
-  background: #0c5469;
+  background: #dae0e5;
 }
 .tiki .pvtFilterBox button + button {
   margin-left: 4px;
@@ -10528,17 +10523,17 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 }
 .tiki .ui-button, .tiki html .ui-button.ui-state-disabled:hover, .tiki html .ui-button.ui-state-disabled:active {
   border: 1px solid;
-  border-color: #fff;
-  background: #0c6369;
+  border-color: #dee2e6;
+  background: #f8f9fa;
   font-weight: normal;
-  color: #fff;
+  color: #ad1d28;
   font-size: 1rem;
 }
 .tiki .ui-widget-content .ui-state-focus, .tiki .ui-widget-header .ui-state-focus, .tiki .ui-button:hover, .tiki .ui-button:focus {
-  border: 1px solid #fff;
-  background: #0c6369;
+  border: 1px solid #F5CDC2;
+  background: #f8f9fa;
   font-weight: normal;
-  color: #fff;
+  color: #F5CDC2;
 }
 .tiki .ui-widget-header a {
   color: #f2e8c0;
@@ -11023,4 +11018,3 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   border-bottom: 1px solid #ced4da;
 }
 /* placeholder file for customisations needed for select2 in tiki with bootstrap 5 */
-/*# sourceMappingURL=amelia.css.map */

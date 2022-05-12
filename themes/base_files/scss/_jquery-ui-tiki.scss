@@ -45,10 +45,10 @@
     html .ui-button.ui-state-disabled:hover,
     html .ui-button.ui-state-disabled:active {
         border: 1px solid;
-        border-color: $btn-primary-border;
-        background: $btn-primary-bg;
+        border-color: $border-color; // $btn-primary-border; Temporary comment out (here and below) May 2022 Gary
+        background: $light; // $btn-primary-bg;
         font-weight: $jq-ui-btn-font-weight;
-        color: $btn-primary-color;
+        color: $dark; // $btn-primary-color;
         font-size: $font-size-base;
     }
 //    .ui-widget-content,
@@ -59,10 +59,10 @@
     .ui-widget-header .ui-state-focus,
     .ui-button:hover,
     .ui-button:focus {
-        border: 1px solid $btn-primary-border;
-        background: $btn-primary-bg;
+        border: 1px solid $primary; // $btn-primary-border;
+        background: $light; // $btn-primary-bg;
         font-weight: normal;
-        color: $btn-primary-color;
+        color: $primary; // $btn-primary-color;
     }
     .ui-widget-header a { color: $link-color; }
     .ui-tabs-nav.ui-widget-header {

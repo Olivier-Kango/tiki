@@ -193,7 +193,7 @@ sup {
 }
 a {
   color: #0d6efd;
-  text-decoration: underline;
+  text-decoration: none;
 }
 a:hover {
   color: #0a58ca;
@@ -2353,7 +2353,6 @@ textarea.form-control-lg {
   line-height: 1.5;
   color: #212529;
   text-align: center;
-  text-decoration: none;
   vertical-align: middle;
   cursor: pointer;
   user-select: none;
@@ -2807,7 +2806,7 @@ textarea.form-control-lg {
 .btn-link {
   font-weight: 400;
   color: #0d6efd;
-  text-decoration: underline;
+  text-decoration: none;
 }
 .btn-link:hover {
   color: #0a58ca;
@@ -3080,7 +3079,6 @@ textarea.form-control-lg {
   font-weight: 400;
   color: #212529;
   text-align: inherit;
-  text-decoration: none;
   white-space: nowrap;
   background-color: transparent;
   border: 0;
@@ -3222,7 +3220,6 @@ textarea.form-control-lg {
   display: block;
   padding: 0.5rem 1rem;
   color: #0d6efd;
-  text-decoration: none;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
 @media (prefers-reduced-motion: reduce) {
@@ -3314,7 +3311,6 @@ textarea.form-control-lg {
   padding-bottom: 0.3125rem;
   margin-right: 1rem;
   font-size: 1.25rem;
-  text-decoration: none;
   white-space: nowrap;
 }
 .navbar-nav {
@@ -4012,7 +4008,6 @@ textarea.form-control-lg {
   position: relative;
   display: block;
   color: #0d6efd;
-  text-decoration: none;
   background-color: #fff;
   border: 1px solid #dee2e6;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -4267,7 +4262,6 @@ textarea.form-control-lg {
   display: block;
   padding: 0.5rem 1rem;
   color: #212529;
-  text-decoration: none;
   background-color: #fff;
   border: 1px solid rgba(0, 0, 0, 0.125);
 }
@@ -9187,7 +9181,7 @@ textarea.form-control-lg {
   text-decoration: none;
 }
 .navbar-dark .sitetitle a {
-  color: #ccc;
+  color: #fff;
 }
 .navbar-dark .sitetitle a:hover {
   color: rgba(255, 255, 255, 0.75);
@@ -9839,7 +9833,7 @@ div.drillshow {
   color: #212529;
 }
 .tiki .ui-widget button {
-  background: #fff;
+  background: #f8f9fa;
   color: #212529;
 }
 .tiki.tiki-listpages .ui-widget.ui-widget-content {
@@ -13678,7 +13672,7 @@ div.tiki_plugin {
 }
 .autotoc .nav > li > a:focus, .autotoc .nav > li > a:hover {
   padding-left: 19px;
-  border-left: 1px solid #212529;
+  border-left: 1px solid #0d6efd;
 }
 .autotoc > .nav > li > .nav > li {
   padding-bottom: 5px;
@@ -13687,7 +13681,7 @@ div.tiki_plugin {
   padding-left: 18px;
   font-weight: 700;
   border: none;
-  border-left: 2px solid #212529;
+  border-left: 2px solid #0d6efd;
   background-color: transparent;
 }
 .autotoc .nav .nav {
@@ -13753,7 +13747,7 @@ div.tiki_plugin {
   padding-left: 19px;
   background-color: #f8f9fa;
   color: #0a58ca;
-  border-left: 1px solid #212529;
+  border-left: 1px solid #0d6efd;
 }
 .autotoc .nav .nav > li.open > a, .autotoc .nav .nav > li .active, .autotoc .nav .nav > li a:hover {
   padding-left: 29px;
@@ -14470,4 +14464,3 @@ h1:hover .heading-link, .h1:hover .heading-link, h2:hover .heading-link, .h2:hov
   -webkit-font-smoothing: antialiased;
 }
 /* End of file */
-/*# sourceMappingURL=tiki_base.css.map */

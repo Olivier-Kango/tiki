@@ -8,11 +8,15 @@
  * Based on Bootstrap
 */
 
-@import "../../../vendor_bundled/vendor/thomaspark/bootswatch/dist/cerulean/variables"; // Needs to come first, to override defaults.
-@import "../../../vendor_bundled/vendor/twbs/bootstrap/scss/bootstrap.scss"; // Needed for darken function.
+@import "../../../vendor_bundled/vendor/twbs/bootstrap/scss/functions";
+
+// Variables added for Bootswatch themes in Tiki
+$link-decoration: none;
+
 @import "../../base_files/scss/_tiki-variables.scss"; // Values/definitions for Tiki variables (outside of Bootstrap variables) such as _tiki-selectors.scss.
+@import "../../../vendor_bundled/vendor/thomaspark/bootswatch/dist/cerulean/variables"; // Needs to come first, to override defaults.
+// @import "../../../vendor_bundled/vendor/twbs/bootstrap/scss/bootstrap.scss"; // Needed for darken function.
 @import "../../base_files/scss/_tiki-selectors.scss";
-@import "../../base_files/scss/_bs3-bs4-transition.scss";
 @import "../../../vendor_bundled/vendor/thomaspark/bootswatch/dist/cerulean/bootswatch";
 @import "../../base_files/scss/_external-scripts.scss";
 

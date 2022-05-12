@@ -188,7 +188,7 @@ sup {
 }
 a {
   color: #1174a5;
-  text-decoration: underline;
+  text-decoration: none;
 }
 a:hover {
   color: #0e5d84;
@@ -218,7 +218,7 @@ pre code {
 }
 code {
   font-size: 0.875em;
-  color: #d63384;
+  color: #212529;
   word-wrap: break-word;
 }
 a > code {
@@ -2349,7 +2349,6 @@ textarea.form-control-lg {
   line-height: 1.5;
   color: #343a40;
   text-align: center;
-  text-decoration: none;
   vertical-align: middle;
   cursor: pointer;
   user-select: none;
@@ -2697,7 +2696,7 @@ textarea.form-control-lg {
 .btn-link {
   font-weight: 400;
   color: #1174a5;
-  text-decoration: underline;
+  text-decoration: none;
 }
 .btn-link:hover {
   color: #0e5d84;
@@ -2974,7 +2973,6 @@ textarea.form-control-lg {
   font-weight: 400;
   color: #e9ecef;
   text-align: inherit;
-  text-decoration: none;
   white-space: nowrap;
   background-color: transparent;
   border: 0;
@@ -3116,7 +3114,6 @@ textarea.form-control-lg {
   display: block;
   padding: 0.9rem 1rem;
   color: #1174a5;
-  text-decoration: none;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
 @media (prefers-reduced-motion: reduce) {
@@ -3208,7 +3205,6 @@ textarea.form-control-lg {
   padding-bottom: 0.7125rem;
   margin-right: 1rem;
   font-size: 1.25rem;
-  text-decoration: none;
   white-space: nowrap;
 }
 .navbar-nav {
@@ -3883,6 +3879,7 @@ textarea.form-control-lg {
   flex-wrap: wrap;
   padding: 0 0;
   margin-bottom: 1rem;
+  font-size: 90%;
   list-style: none;
 }
 .breadcrumb-item + .breadcrumb-item {
@@ -3906,7 +3903,6 @@ textarea.form-control-lg {
   position: relative;
   display: block;
   color: #1174a5;
-  text-decoration: none;
   background-color: #fff;
   border: 1px solid #dee2e6;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -4145,7 +4141,6 @@ textarea.form-control-lg {
   display: block;
   padding: 0.5rem 1rem;
   color: #212529;
-  text-decoration: none;
   background-color: #fff;
   border: 1px solid rgba(0, 0, 0, 0.125);
 }
@@ -9005,7 +9000,7 @@ textarea.form-control-lg {
   text-decoration: none;
 }
 .navbar-dark .sitetitle a {
-  color: #ccc;
+  color: #fff;
 }
 .navbar-dark .sitetitle a:hover {
   color: #fff;
@@ -9657,8 +9652,8 @@ div.drillshow {
   color: #343a40;
 }
 .tiki .ui-widget button {
-  background: #fff;
-  color: #343a40;
+  background: #dee2e6;
+  color: #212529;
 }
 .tiki.tiki-listpages .ui-widget.ui-widget-content {
   border: 1px solid #dee2e6;
@@ -9895,7 +9890,7 @@ input[type="checkbox"].preffilter-toggle-round:checked + label:before {
   }
 }
 blockquote {
-  color: #7a7a7a;
+  color: #595959;
   border-left: 0.25rem solid #e5e5e5;
 }
 .to-translate {
@@ -10311,10 +10306,10 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   -webkit-text-size-adjust: 100%;
   padding: 2px 5px;
   white-space: nowrap;
-  background: #fff;
-  border: 1px solid #343a40;
+  background: #212529;
+  border: 1px solid #dee2e6;
   border-radius: 0.25rem;
-  color: #343a40;
+  color: #212529;
 }
 .tiki .pvtTriangle {
   cursor: pointer;
@@ -10363,13 +10358,13 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   padding: 5px;
 }
 .tiki .pvtFilterBox button {
-  background: #fff;
-  border: 1px solid #343a40;
+  background: #dee2e6;
+  border: 1px solid #dee2e6;
   border-radius: 0.25rem;
-  color: #343a40;
+  color: #212529;
 }
 .tiki .pvtFilterBox button:hover {
-  background: white;
+  background: #c1c9d0;
 }
 .tiki .pvtFilterBox button + button {
   margin-left: 4px;
@@ -10408,17 +10403,17 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 }
 .tiki .ui-button, .tiki html .ui-button.ui-state-disabled:hover, .tiki html .ui-button.ui-state-disabled:active {
   border: 1px solid;
-  border-color: #343a40;
-  background: #fff;
+  border-color: #dee2e6;
+  background: #dee2e6;
   font-weight: normal;
-  color: #343a40;
+  color: #212529;
   font-size: 1rem;
 }
 .tiki .ui-widget-content .ui-state-focus, .tiki .ui-widget-header .ui-state-focus, .tiki .ui-button:hover, .tiki .ui-button:focus {
-  border: 1px solid #343a40;
-  background: #fff;
+  border: 1px solid #1174a5;
+  background: #dee2e6;
   font-weight: normal;
-  color: #343a40;
+  color: #1174a5;
 }
 .tiki .ui-widget-header a {
   color: #1174a5;
@@ -10900,10 +10895,3 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   border-bottom: 1px solid #ced4da;
 }
 /* placeholder file for customisations needed for select2 in tiki with bootstrap 5 */
-.tiki.tiki-webmail.layout_basic #top_modules .siteloginbar_popup > .btn-link, .tiki.tiki-cypht.layout_basic #top_modules .siteloginbar_popup > .btn-link, .tiki.mobile.tiki-cypht.layout_basic #top_modules .siteloginbar_popup > .btn-link, .tiki .inline-cypht.layout_basic #top_modules .siteloginbar_popup > .btn-link {
-  color: #f8f8f8 !important;
-}
-.tiki.tiki-webmail #page-header h1, .tiki.tiki-webmail #page-header .h1, .tiki.tiki-webmail #page-header h1 .icon, .tiki.tiki-webmail #page-header .h1 .icon, .tiki.tiki-webmail #page-header h2, .tiki.tiki-webmail #page-header .h2, .tiki.tiki-webmail #page-header h2 .icon, .tiki.tiki-webmail #page-header .h2 .icon, .tiki.tiki-webmail #page-header h3 a, .tiki.tiki-webmail #page-header .h3 a, .tiki.tiki-webmail #page-header h3 a .icon, .tiki.tiki-webmail #page-header .h3 a .icon, .tiki.tiki-webmail #page-header a, .tiki.tiki-webmail #page-header a .icon, .tiki.tiki-webmail #page-header a:hover, .tiki.tiki-webmail #page-header a:hover .icon, .tiki.tiki-cypht #page-header h1, .tiki.tiki-cypht #page-header .h1, .tiki.tiki-cypht #page-header h1 .icon, .tiki.tiki-cypht #page-header .h1 .icon, .tiki.tiki-cypht #page-header h2, .tiki.tiki-cypht #page-header .h2, .tiki.tiki-cypht #page-header h2 .icon, .tiki.tiki-cypht #page-header .h2 .icon, .tiki.tiki-cypht #page-header h3 a, .tiki.tiki-cypht #page-header .h3 a, .tiki.tiki-cypht #page-header h3 a .icon, .tiki.tiki-cypht #page-header .h3 a .icon, .tiki.tiki-cypht #page-header a, .tiki.tiki-cypht #page-header a .icon, .tiki.tiki-cypht #page-header a:hover, .tiki.tiki-cypht #page-header a:hover .icon, .tiki.mobile.tiki-cypht #page-header h1, .tiki.mobile.tiki-cypht #page-header .h1, .tiki.mobile.tiki-cypht #page-header h1 .icon, .tiki.mobile.tiki-cypht #page-header .h1 .icon, .tiki.mobile.tiki-cypht #page-header h2, .tiki.mobile.tiki-cypht #page-header .h2, .tiki.mobile.tiki-cypht #page-header h2 .icon, .tiki.mobile.tiki-cypht #page-header .h2 .icon, .tiki.mobile.tiki-cypht #page-header h3 a, .tiki.mobile.tiki-cypht #page-header .h3 a, .tiki.mobile.tiki-cypht #page-header h3 a .icon, .tiki.mobile.tiki-cypht #page-header .h3 a .icon, .tiki.mobile.tiki-cypht #page-header a, .tiki.mobile.tiki-cypht #page-header a .icon, .tiki.mobile.tiki-cypht #page-header a:hover, .tiki.mobile.tiki-cypht #page-header a:hover .icon, .tiki .inline-cypht #page-header h1, .tiki .inline-cypht #page-header .h1, .tiki .inline-cypht #page-header h1 .icon, .tiki .inline-cypht #page-header .h1 .icon, .tiki .inline-cypht #page-header h2, .tiki .inline-cypht #page-header .h2, .tiki .inline-cypht #page-header h2 .icon, .tiki .inline-cypht #page-header .h2 .icon, .tiki .inline-cypht #page-header h3 a, .tiki .inline-cypht #page-header .h3 a, .tiki .inline-cypht #page-header h3 a .icon, .tiki .inline-cypht #page-header .h3 a .icon, .tiki .inline-cypht #page-header a, .tiki .inline-cypht #page-header a .icon, .tiki .inline-cypht #page-header a:hover, .tiki .inline-cypht #page-header a:hover .icon {
-  color: #f8f8f8 !important;
-}
-/*# sourceMappingURL=fivealive.css.map */

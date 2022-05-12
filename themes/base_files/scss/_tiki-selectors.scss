@@ -1129,8 +1129,8 @@ span.plugin-mouseover {
 }
 
 .tiki .ui-widget button {
-    background: $btn-primary-bg;
-    color: $btn-primary-color;
+    background: $light; // $btn-primary-bg; Temporary comment out May 2022 - Gary
+    color: $dark; // $btn-primary-color;
 }
 
 .tiki.tiki-listpages {

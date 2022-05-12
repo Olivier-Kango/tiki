@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/*  The Darkroom theme style sheet for Tiki Wiki CMS Groupware. */
+/*  The Darkroom theme for Tiki Wiki CMS Groupware. */
 /*!
  * Bootstrap v5.1.3 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors
@@ -191,7 +191,7 @@ sup {
 }
 a {
   color: #ababab;
-  text-decoration: underline;
+  text-decoration: none;
 }
 a:hover {
   color: #858585;
@@ -222,7 +222,7 @@ pre code {
 }
 code {
   font-size: 0.875em;
-  color: #c7254e;
+  color: #f8f9fa;
   word-wrap: break-word;
 }
 a > code {
@@ -2353,7 +2353,6 @@ textarea.form-control-lg {
   line-height: 1.5;
   color: #d8d8d8;
   text-align: center;
-  text-decoration: none;
   vertical-align: middle;
   cursor: pointer;
   user-select: none;
@@ -2807,7 +2806,7 @@ textarea.form-control-lg {
 .btn-link {
   font-weight: 400;
   color: #ababab;
-  text-decoration: underline;
+  text-decoration: none;
 }
 .btn-link:hover {
   color: #858585;
@@ -3084,7 +3083,6 @@ textarea.form-control-lg {
   font-weight: 400;
   color: #ababab;
   text-align: inherit;
-  text-decoration: none;
   white-space: nowrap;
   background-color: transparent;
   border: 0;
@@ -3226,7 +3224,6 @@ textarea.form-control-lg {
   display: block;
   padding: 0.5rem 1rem;
   color: #BDBDBD;
-  text-decoration: none;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
 }
 @media (prefers-reduced-motion: reduce) {
@@ -3318,7 +3315,6 @@ textarea.form-control-lg {
   padding-bottom: 0.3125rem;
   margin-right: 1rem;
   font-size: 1.25rem;
-  text-decoration: none;
   white-space: nowrap;
 }
 .navbar-nav {
@@ -3993,6 +3989,7 @@ textarea.form-control-lg {
   flex-wrap: wrap;
   padding: 0.75rem 0.75rem;
   margin-bottom: 1rem;
+  font-size: 90%;
   list-style: none;
   background-color: #303030;
 }
@@ -4017,7 +4014,6 @@ textarea.form-control-lg {
   position: relative;
   display: block;
   color: #C9C9C9;
-  text-decoration: none;
   background-color: #495057;
   border: 1px solid #495057;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -4272,7 +4268,6 @@ textarea.form-control-lg {
   display: block;
   padding: 0.5rem 1rem;
   color: #f8f9fa;
-  text-decoration: none;
   background-color: #5b5b5b;
   border: 1px solid rgba(0, 0, 0, 0.125);
 }
@@ -9192,7 +9187,7 @@ textarea.form-control-lg {
   text-decoration: none;
 }
 .navbar-dark .sitetitle a {
-  color: #ccc;
+  color: #f4f4f4;
 }
 .navbar-dark .sitetitle a:hover {
   color: #f4f4f4;
@@ -9850,8 +9845,8 @@ div.drillshow {
   color: #cfcfcf;
 }
 .tiki .ui-widget button {
-  background: #474747;
-  color: #d8d8d8;
+  background: #212529;
+  color: #f8f9fa;
 }
 .tiki.tiki-listpages .ui-widget.ui-widget-content {
   border: 1px solid #495057;
@@ -10088,7 +10083,7 @@ input[type="checkbox"].preffilter-toggle-round:checked + label:before {
   }
 }
 blockquote {
-  color: #7a7a7a;
+  color: #595959;
   border-left: 0.25rem solid #e5e5e5;
 }
 .to-translate {
@@ -10540,10 +10535,10 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   -webkit-text-size-adjust: 100%;
   padding: 2px 5px;
   white-space: nowrap;
-  background: #474747;
-  border: 1px solid #d8d8d8;
+  background: #f8f9fa;
+  border: 1px solid #495057;
   border-radius: 0.25rem;
-  color: #d8d8d8;
+  color: #f8f9fa;
 }
 .tiki .pvtTriangle {
   cursor: pointer;
@@ -10592,13 +10587,13 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   padding: 5px;
 }
 .tiki .pvtFilterBox button {
-  background: #474747;
-  border: 1px solid #d8d8d8;
+  background: #212529;
+  border: 1px solid #495057;
   border-radius: 0.25rem;
-  color: #d8d8d8;
+  color: #f8f9fa;
 }
 .tiki .pvtFilterBox button:hover {
-  background: #474747;
+  background: #0a0c0d;
 }
 .tiki .pvtFilterBox button + button {
   margin-left: 4px;
@@ -10637,17 +10632,17 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 }
 .tiki .ui-button, .tiki html .ui-button.ui-state-disabled:hover, .tiki html .ui-button.ui-state-disabled:active {
   border: 1px solid;
-  border-color: #d8d8d8;
-  background: #474747;
+  border-color: #495057;
+  background: #212529;
   font-weight: normal;
-  color: #d8d8d8;
+  color: #f8f9fa;
   font-size: 1rem;
 }
 .tiki .ui-widget-content .ui-state-focus, .tiki .ui-widget-header .ui-state-focus, .tiki .ui-button:hover, .tiki .ui-button:focus {
-  border: 1px solid #d8d8d8;
-  background: #474747;
+  border: 1px solid #ababab;
+  background: #212529;
   font-weight: normal;
-  color: #d8d8d8;
+  color: #ababab;
 }
 .tiki .ui-widget-header a {
   color: #ababab;
@@ -11129,4 +11124,3 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   border-bottom: 1px solid #4c4c4c;
 }
 /* placeholder file for customisations needed for select2 in tiki with bootstrap 5 */
-/*# sourceMappingURL=darkroom.css.map */
