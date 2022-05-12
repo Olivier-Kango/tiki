@@ -107,5 +107,12 @@ trait Services_Manager_Trait
         $app->run($input, $this->manager_output);
         // some TM commands might change current working dir
         chdir($cwd);
+        $output = $this->manager_output->fetch();
+        if (preg_match('/git config.*?safe.directory\s*([^\s]+)/', $output, $m)) {
+            $this->manager_output->writeln(tr('Error encountered when trying to run git commands. You can fix by manually executing this command on the server with proper permissions:'));
+            $this->manager_output->writeln("git config --system --add safe.directory $m[1]");
+        } else {
+            $this->manager_output->write($output);
+        }
     }
 }
