@@ -251,24 +251,9 @@ class Services_Manager_Controller
     {
         if ($input->clone->text()){
             $cmd = new TikiManager\Command\CloneInstanceCommand();
-            $inputCommand = new ArrayInput([
+            $inputCommand = new ArrayInput(array_merge([
                 'command' => $cmd->getName(),
-                "--source" => $input->source->text(),
-                "--target" => [$input->target->text()],
-                "--branch" => $input->branch->text(),
-                "--skip-reindex" => $input->skipreindex->text() ? true : false,
-                "--skip-cache-warmup" => $input->skipcachewarmup->text() ? true : false,
-                "--live-reindex" => $input->livereindex->text() ? true : false,
-                "--keep-backup" => $input->keepbackup->text() ? true : false,
-                "--use-last-backup" => $input->uselastbackup->text() ? true : false,
-                "--db-host" => $input->db_host->text(),
-                "--db-user" => $input->db_user->text(),
-                "--db-pass" => $input->db_pass->text(),
-                "--db-prefix" => $input->db_prefix->text(),
-                "--db-name" => $input->db_prefix->text(),
-                "--stash" => $input->stash->text() ? true : false,
-                "--timeout" => $input->timeout->text(),
-            ]);
+            ], $input->options->asArray()));
 
             $this->runCommand($cmd, $inputCommand);
 
@@ -278,36 +263,52 @@ class Services_Manager_Controller
                 'refresh' => true,
             ];
         } else {
-
             $instances = TikiManager\Application\Instance::getInstances(true);
 
-            /** For form initialization */
-            $inputValues = [
-                'source' => $input->instanceId->int() ? $input->instanceId->int() : '',
-                'target' => "",
-                'branches' => $this->getTikiBranches(),
-                'selected_branch' => "21.x",
-                'skip-reindex' => false,
-                'skip-cache-warmup' => false,
-                'live-reindex' => false,
-                'direct' => false,
-                'keep-backup' => false,
-                'use-last-backup' => false,
-                'db_host' => '',
-                'db_user' => '',
-                'db_pass' => '',
-                'db_prefix' => '',
-                'db_name' => '',
-                "stash" => false,
-                "timeout" => '',
-                "instances" => $instances
-            ];
+            $cmd = new TikiManager\Command\CloneInstanceCommand();
+            $definition = $cmd->getDefinition();
+
+            $options = [];
+            foreach ($definition->getOptions() as $option) {
+                switch ($option->getName()) {
+                    case 'source':
+                    case 'target':
+                        $type = 'select';
+                        $values = [];
+                        foreach ($instances as $i) {
+                            $values[$i->id] = $i->name;
+                        }
+                        $selected = $input->instanceId->int() ? $input->instanceId->int() : '';
+                        break;
+                    case 'branch':
+                        $type = 'select';
+                        $values = array_combine($this->getTikiBranches(), $this->getTikiBranches());
+                        $selected = 'master';
+                        break;
+                    default:
+                        if ($option->acceptValue()) {
+                            $type = 'text';
+                        } else {
+                            $type = 'checkbox';
+                        }
+                        $values = [];
+                        $selected = $option->getDefault();
+                }
+
+                $options[] = [
+                    'name' => $option->getName(),
+                    'label' => ucwords(str_replace('-', ' ', $option->getName())),
+                    'type' => $type,
+                    'values' => $values,
+                    'selected' => $selected,
+                    'help' => $option->getDescription(),
+                    'is_array' => $option->isArray(),
+                ];
+            }
 
             return [
                 'title' => tr('Clone Tiki Instance'),
-                'info' => '',
-                'refresh' => true,
-                'inputValues' => $inputValues,
+                'options' => $options,
             ];
         }
     }
