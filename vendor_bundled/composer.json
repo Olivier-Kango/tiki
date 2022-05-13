@@ -158,7 +158,7 @@
         "undojs/undojs": "1",
         "zbateson/mail-mime-parser": "^1.3.1",
         "zendframework/zendservice-akismet": "~2.0",
-        "gidkom/php-openfire-restapi": "dev-master",
+        "gidkom/php-openfire-restapi": "^1.0",
         "montefuscolo/xmpp": "dev-master",
         "league/oauth2-server": "^7.3",
         "npm-asset/converse.js": "7.0.4",
