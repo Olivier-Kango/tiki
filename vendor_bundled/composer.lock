@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dca2858e2eac99f41050e8f48cdd3720",
+    "content-hash": "2cd74a1581dafc737d102bc9b8b2970f",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -5057,6 +5057,44 @@
                 "relative"
             ],
             "time": "2019-02-05T23:41:09+00:00"
+        },
+        {
+            "name": "mautic/api-library",
+            "version": "3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mautic/api-library.git",
+                "reference": "557ce71ca1603324a781270f73334852fce10d0e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/mautic/api-library/mautic-api-library-557ce71ca1603324a781270f73334852fce10d0e-zip-df2918.zip",
+                "reference": "557ce71ca1603324a781270f73334852fce10d0e",
+                "shasum": "1bc5672d3d77d1a3a0d608c98bdd41de93ce78d3"
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": ">=7.2.0",
+                "psr/log": "~1.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "~2.16.1",
+                "phpunit/phpunit": "~9.4.0",
+                "raveren/kint": "~0.9"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Mautic\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Mautic API Connector Library",
+            "time": "2020-10-17T14:04:17+00:00"
         },
         {
             "name": "mediumjs/mediumjs",
@@ -14058,5 +14096,5 @@
         "ext-soap": "0",
         "php": "7.4"
     },
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.1.0"
 }
