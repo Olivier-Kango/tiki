@@ -5137,25 +5137,26 @@
         },
         {
             "name": "melbahja/seo",
-            "version": "v1.0.2",
+            "version": "v2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/melbahja/seo.git",
-                "reference": "e113c60e65a51fd8d23661abb98d759c3637fd1a"
+                "reference": "0c7e82838e9a37660ec14499c2e2e9201080c11f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/melbahja/seo/melbahja-seo-e113c60e65a51fd8d23661abb98d759c3637fd1a-zip-a04fb8.zip",
-                "reference": "e113c60e65a51fd8d23661abb98d759c3637fd1a",
-                "shasum": "98059723fc052892d905404a85ecacb2aedcf5de"
+                "url": "https://composer.tiki.org/dist/melbahja/seo/melbahja-seo-0c7e82838e9a37660ec14499c2e2e9201080c11f-zip-bfe6ec.zip",
+                "reference": "0c7e82838e9a37660ec14499c2e2e9201080c11f",
+                "shasum": "7bc38570af6cc942771de44a2654aeb7bca2d94c"
             },
             "require": {
                 "ext-curl": "*",
+                "ext-json": "*",
                 "ext-xml": "*",
-                "php": ">=7.1"
+                "php": ">=7.2"
             },
             "require-dev": {
-                "phpunit/phpunit": "^7.5"
+                "phpunit/phpunit": "^8.5"
             },
             "type": "library",
             "autoload": {
@@ -5175,12 +5176,11 @@
                     "role": "Developer"
                 }
             ],
-            "description": "Simple PHP library to help developers ? do better on-page SEO optimization",
+            "description": "Simple PHP library to help developers 🍻 do better on-page SEO optimization",
             "keywords": [
                 "PHP7",
                 "meta tags",
                 "open graph",
-                "php7.1",
                 "schema.org",
                 "search engine optimization",
                 "seo",
@@ -5189,7 +5189,7 @@
                 "sitemaps",
                 "twitter tags"
             ],
-            "time": "2019-03-02T17:07:30+00:00"
+            "time": "2022-05-04T23:21:59+00:00"
         },
         {
             "name": "michelf/php-smartypants",

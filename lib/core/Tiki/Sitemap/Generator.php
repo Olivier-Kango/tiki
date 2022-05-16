@@ -9,7 +9,7 @@
 namespace Tiki\Sitemap;
 
 use Perms;
-use Melbahja\Seo\Factory;
+use Melbahja\Seo\Sitemap;
 
 /**
  * Generate XML files following the XML Protocol that can be submitted to search engines
@@ -66,7 +66,7 @@ class Generator
         $baseUrl = rtrim($baseUrl, '/');
         $relativePath = $this->getRelativePath();
 
-        $sitemap = Factory::sitemap($baseUrl);
+        $sitemap = new Sitemap($baseUrl);
         $sitemap->setSavePath($this->basePath . $relativePath);
         $sitemap->setSitemapsUrl($baseUrl . '/' . $relativePath);
         $sitemap->setIndexName($this->getSitemapFilename());

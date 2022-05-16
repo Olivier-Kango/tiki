@@ -27,7 +27,7 @@
         "cwspear/bootstrap-hover-dropdown": "^2.2.1",
         "dragonmantank/cron-expression": "^3.0",
         "drmonty/smartmenus": ">=1.1.0",
-        "melbahja/seo": "^1.0",
+        "melbahja/seo": "^2.0",
         "erusev/parsedown": ">=1.8.0-beta-5",
         "ezyang/htmlpurifier": "^4.8.0",
         "bower-asset/fontawesome": "^5.12.0",
