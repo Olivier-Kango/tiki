@@ -51,6 +51,16 @@ class Tracker_Field_Math extends Tracker_Field_Abstract implements Tracker_Field
                         'profile_reference' => 'tracker_field',
                         'sort_order' => 'title',
                     ],
+                    'sortField' => [
+                        'name' => tr('Type of sort'),
+                        'type' => 'list',
+                        'description' => tr('Allows you to choose between sorting based on numbers or on strings. If you sort numbers based on strings, 2 will be larger than 12'),
+                        'filter' => 'word',
+                        'options' => [
+                            'numeric_sort' => tr('Numeric'),
+                            'text_sort' => tr('Text'),
+                        ],
+                    ],
                 ],
             ],
         ];
