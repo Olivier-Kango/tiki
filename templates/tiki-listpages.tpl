@@ -6,7 +6,7 @@
         <h2>{tr}List Wiki Pages{/tr}</h2>
         {if !$ts.enabled}
             <div class="clearfix">
-                {include autocomplete='pagename' file='find.tpl' find_show_languages='y' find_show_languages_excluded='y' find_show_categories_multi='y' find_show_num_rows='y' find_in="<ul><li>{tr}Page name{/tr}</li></ul>" }
+                {include autocomplete='pagename' file='find.tpl' find_show_languages='y' find_show_languages_excluded='y' find_show_categories_multi='y' find_show_num_rows='y' find_in="{tr}Page name{/tr}" }
             </div>
         {else}
             {include file='find.tpl' map_only='y'}
