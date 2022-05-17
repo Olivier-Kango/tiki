@@ -19,12 +19,8 @@ const props = defineProps({
     }
 })
 
-const getBlocks = computed(() => {
-    return store.getters.getBlocks
-})
-const getInnerBlocks = computed(() => {
-    return store.getters.getBlocks[props.id].innerBlocks
-})
+const getBlocks = computed(() => store.getters.getBlocks)
+const getInnerBlocks = computed(() => store.getters.getBlocks[props.id].innerBlocks)
 const isEditMode = computed(() => store.getters.getMode === 'edit')
 </script>
 

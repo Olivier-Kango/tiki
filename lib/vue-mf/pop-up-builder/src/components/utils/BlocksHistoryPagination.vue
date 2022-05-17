@@ -23,7 +23,7 @@ watch(() => store.getters.getBlocks, _debounce((val, oldVal) => {
         return
     }
     store.dispatch('setHistory')
-    saveToLocalStorage(val)
+    saveToLocalStorage()
 }, 300), { deep: true })
 
 watch(() => getHistory.value.length, (length, oldVal) => {

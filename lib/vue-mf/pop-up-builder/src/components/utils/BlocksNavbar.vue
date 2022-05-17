@@ -12,6 +12,7 @@ import BlocksHistoryPagination from './BlocksHistoryPagination.vue'
 import CustomModal from './CustomModal.vue'
 import BlocksStoreSettings from './BlocksStore/BlocksStoreSettings.vue'
 import store from '../../store';
+import { clearLocalStorage } from '../../store/helpers';
 
 const props = defineProps({
     node: {
@@ -22,16 +23,15 @@ const props = defineProps({
 
 const emit = defineEmits(['showInspector'])
 const showModal = ref(null)
+const showModalPatterns = ref(null)
 const isPreview = ref(null)
 
 const rootBlock = computed(() => store.getters.getRootBlock)
+const getPatterns = computed(() => store.getters.getPatterns)
 
-const clearLocalStorage = () => {
+const clearDataFromLocalStorage = () => {
     let response = confirm('Clear builder data?')
-    if (response) {
-        localStorage.removeItem('tiki-pop-up-blocks')
-        localStorage.removeItem('tiki-pop-up-blocks-store')
-    }
+    if (response) clearLocalStorage()
 }
 
 const handleSwitchMode = (checked) => {
@@ -43,13 +43,11 @@ const handleSwitchInspector = (checked) => {
     emit('showInspector', checked)
 }
 
-const handleOpenModal = () => {
-    showModal.value = true
-}
+const handleOpenModal = () => showModal.value = true
+const handleCloseModal = () => showModal.value = false
 
-const handleCloseModal = () => {
-    showModal.value = false
-}
+const handleOpenModalPatterns = () => showModalPatterns.value = true
+const handleCloseModalPatterns = () => showModalPatterns.value = false
 </script>
 
 <template>
@@ -77,12 +75,15 @@ const handleCloseModal = () => {
                 <BlocksHistoryPagination />
                 <span class="me-2">Inspector</span>
                 <div style="width: 50px"><ToggleButton checked label="Preview" @update:checked="handleSwitchInspector" /></div>
+                <Button variant="default" sm @click="handleOpenModalPatterns">
+                    <i class="fas fa-shapes"></i>
+                </Button>
 
 
                 <div class="d-flex align-items-center ms-auto">
                     <span class="me-2" :class="{'is-preview': isPreview}">Preview</span>
                     <div style="width: 50px"><ToggleButton label="Preview" @update:checked="handleSwitchMode" /></div>
-                    <Button variant="default" sm @click="clearLocalStorage">
+                    <Button variant="default" sm @click="clearDataFromLocalStorage">
                         Clear localStorage builder data?
                     </Button>
                 </div>
@@ -99,6 +100,19 @@ const handleCloseModal = () => {
             :clickToClose="false"
         >
             <BlocksStoreSettings></BlocksStoreSettings>
+        </CustomModal>
+        <CustomModal
+            :show="showModalPatterns"
+            @close="handleCloseModalPatterns"
+            :drag="true"
+            :resize="true"
+            :drag-selector="'.modal-drag'"
+            title="Patterns"
+            :clickToClose="false"
+        >
+            <ul>
+                <li v-for="pattern in getPatterns" :key="pattern.id">{{ pattern.name }}</li>
+            </ul>
         </CustomModal>
     </nav>
 </template>

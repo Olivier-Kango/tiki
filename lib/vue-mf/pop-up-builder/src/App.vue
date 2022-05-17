@@ -4,12 +4,13 @@ export default {
 }
 </script>
 <script setup>
-import { onBeforeMount, computed } from 'vue'
+import { onBeforeMount } from 'vue'
 import BlockEditor from './components/utils/BlockEditor.vue'
 import store from './store'
 import { registerStoreModule } from './store/helpers'
-import defaultTemplate from './components/templates/default.json'
-import testStoreOptions from './components/templates/storeOptions.json'
+import defaultBlocks from './components/data/blocks.json'
+import defaultPatterns from './components/data/patterns.json'
+import defaultApis from './components/data/apis.json'
 
 const props = defineProps({
     customProps: {
@@ -24,6 +25,12 @@ onBeforeMount(() => {
         store.dispatch('setHistory', blocks)
     }
 
+    let patterns = getPatternsFromLocalStorage()
+    if (patterns) {
+        store.dispatch('setPatterns', patterns)
+        store.dispatch('setBlocksPattern', '/')
+    }
+
     let storeOptions = getStoreOptionsFromLocalStorage()
     if (storeOptions) {
         registerStoreModule(storeOptions, store)
@@ -35,33 +42,34 @@ onBeforeMount(() => {
 })
 
 function getBlocksFromLocalStorage() {
-    let blocks = null
-    let jsonBlocks = localStorage.getItem('tiki-pop-up-blocks')
-
-    if (jsonBlocks) {
-        try {
-            blocks = JSON.parse(jsonBlocks)
-        } catch (err) {
-            console.log(err)
-        }
-    }
-    if (!blocks) blocks = defaultTemplate
+    let blocks = getDataFromLocalStorage('tiki-pop-up-blocks')
+    if (!blocks) blocks = defaultBlocks
     return blocks
 }
 
 function getStoreOptionsFromLocalStorage() {
-    let storeOptions = null
-    let jsonBlocksStore = localStorage.getItem('tiki-pop-up-blocks-store')
+    let storeOptions = getDataFromLocalStorage('tiki-pop-up-blocks-store')
+    if (!storeOptions) storeOptions = defaultApis
+    return storeOptions
+}
 
-    if (jsonBlocksStore) {
+function getPatternsFromLocalStorage() {
+    let patterns = getDataFromLocalStorage('tiki-pop-up-patterns')
+    if (!patterns) patterns = defaultPatterns
+    return patterns
+}
+
+function getDataFromLocalStorage(name) {
+    let data = null
+    let jsonData = localStorage.getItem(name)
+    if (jsonData) {
         try {
-            storeOptions = JSON.parse(jsonBlocksStore)
+            data = JSON.parse(jsonData)
         } catch (err) {
             console.log(err)
         }
     }
-    if (!storeOptions) storeOptions = testStoreOptions
-    return storeOptions
+    return data
 }
 </script>
 

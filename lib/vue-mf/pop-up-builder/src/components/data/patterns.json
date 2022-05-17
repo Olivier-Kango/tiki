@@ -1,0 +1,16 @@
+{
+    "pattern-root": {
+        "id": "pattern-root",
+        "name": "/",
+        "title": "Home page",
+        "innerBlocks": [
+            "36861a5a-1f1b-4400-ab6f-a717857cc354",
+            "a2fc5479-dd1c-4806-ab8e-bc59f9dc8b12",
+            "6efbe00b-6e72-45ba-afa0-a44dcf3c5035",
+            "98d9c327-6055-438c-b4f8-0946200b67c4",
+            "dbf92988-1ff6-4ce8-b8bc-5974b43b1444",
+            "aa498ce4-ff34-4abb-8ba6-a387dca61cbf",
+            "a87a7595-fbd0-41de-8b91-122e4cc36a98"
+        ]
+    }
+}

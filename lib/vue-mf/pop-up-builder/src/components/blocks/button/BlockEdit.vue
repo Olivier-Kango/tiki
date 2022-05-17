@@ -24,7 +24,7 @@ const props = defineProps({
     }
 });
 
-const { isSelected, isHighlighted, setAttributes, setClasses, setStyles } = useState(props.block.id)
+const { isSelected, setAttributes, setStyles } = useState(props.block.id)
 
 const content = ref(props.block.attributes?.content)
 const showPopup = ref(false)
@@ -38,9 +38,8 @@ const handleAlignText = (styles) => {
     setStyles(styles)
 }
 
-const handleInput = (data) => {
-    content.value = data
-    setAttributes({ content: data })
+const handleBlur = (data) => {
+    if (content.value !== data) setAttributes({ content: data })
 }
 </script>
 
@@ -49,7 +48,7 @@ const handleInput = (data) => {
         <BlockRichText
             tag="p"
             :content="content"
-            @onInput="handleInput"
+            @onBlur="handleBlur"
         />
     </Button>
 

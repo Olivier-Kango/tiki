@@ -5,8 +5,8 @@ export default {
 </script>
 
 <script setup>
-import { computed } from 'vue'
-import { Button, ButtonGroup, ButtonToolbar } from '@vue-mf/styleguide'
+import { ref, computed } from 'vue'
+import { Button, ButtonGroup, ButtonToolbar, Modal } from '@vue-mf/styleguide'
 import BlockDraggable from './BlockDraggable.vue'
 import BlockList from './BlockList.vue'
 import store from '../../store';
@@ -22,6 +22,9 @@ const emit = defineEmits(['edit'])
 
 const getBlockType = computed(() => (name) => store.getters.getBlockType(name))
 
+const showModal = ref(false)
+const patternName = ref('')
+
 const moveBackward = (e) => {
     store.dispatch('moveBlockBackward', props.block.id)
 }
@@ -33,6 +36,14 @@ const moveForward = (e) => {
 const deleteBlock = (e) => {
     store.dispatch('deleteBlock', props.block.id)
 }
+
+const handleSave = (e) => {
+    showModal.value = false
+    store.dispatch('addPattern', { blockId: props.block.id, patternName: patternName.value })
+}
+
+const handleShowModal = (e) => showModal.value = true
+const handleHideModal = (e) => showModal.value = false
 
 const showBlockSettings = (e) => {
     emit('edit')
@@ -60,7 +71,18 @@ const showBlockSettings = (e) => {
             <Button variant="default" sm @click="moveForward"><i class="fas fa-chevron-right"></i></Button>
             <Button variant="default" sm @click="showBlockSettings"><i class="fas fa-cog"></i></Button>
             <Button variant="default" sm @click="deleteBlock"><i class="fas fa-trash"></i></Button>
+            <Button variant="default" sm @click="handleShowModal"><i class="fas fa-shapes"></i></Button>
         </ButtonGroup>
+
+        <Modal v-show="showModal" :show="showModal" title="Create Reusable block" @hidden="handleHideModal">
+            <template #body>
+                <input v-model="patternName" type="text" class="form-control" placeholder="Name" aria-label="Username" aria-describedby="basic-addon1">
+            </template>
+            <template #footer>
+                <Button variant="default" sm @click="handleHideModal">Cancel</Button>
+                <Button variant="primary" sm @click="handleSave">Save</Button>
+            </template>
+        </Modal>
     </ButtonToolbar>
 </template>
 
