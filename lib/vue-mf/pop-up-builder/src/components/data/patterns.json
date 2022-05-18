@@ -1,8 +1,8 @@
 {
-    "pattern-root": {
-        "id": "pattern-root",
-        "name": "/",
-        "title": "Home page",
+    "xx861a5a-1f1b-4ab0-ab6f-aa1bb57cc354": {
+        "id": "xx861a5a-1f1b-4ab0-ab6f-aa1bb57cc354",
+        "name": "Title with paragraph",
+        "title": "Title with paragraph",
         "innerBlocks": [
             "36861a5a-1f1b-4400-ab6f-a717857cc354",
             "a2fc5479-dd1c-4806-ab8e-bc59f9dc8b12",

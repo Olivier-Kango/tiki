@@ -16,8 +16,8 @@ const props = defineProps({
     }
 });
 
-const insertBlockAfter = () => {
-    store.dispatch('insertBlockAfter', {
+const insertNewBlockAfter = () => {
+    store.dispatch('insertNewBlockAfter', {
         name: props.blockName,
         targetId: props.block.id
     })
@@ -25,7 +25,7 @@ const insertBlockAfter = () => {
 </script>
 
 <template>
-    <Button variant="default" sm @click="insertBlockAfter">
+    <Button variant="default" sm @click="insertNewBlockAfter">
         {{blockName}}
     </Button>
 </template>

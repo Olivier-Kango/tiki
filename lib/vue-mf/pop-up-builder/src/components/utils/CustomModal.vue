@@ -94,7 +94,7 @@ watch(() => props.show, (val, oldVal) => {
         position: absolute;
         top: 0;
         right: 0;
-        min-width: 500px;
+        min-width: 350px;
         height: 100%;
         overflow-y: scroll;
         overflow-x: hidden;

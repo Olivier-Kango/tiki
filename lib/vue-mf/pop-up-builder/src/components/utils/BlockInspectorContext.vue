@@ -91,7 +91,7 @@ function getInitialPathArr() {
             <h5><b>{{ props.block.attributes.field }}</b></h5>
             <div class="d-flex mb-4">
                 <VueSelect
-                    class="mr-2"
+                    class="me-2"
                     v-for="(prop, index) in propsPath"
                     v-model="propsPath[index]"
                     :options="getOptions(index) || []"

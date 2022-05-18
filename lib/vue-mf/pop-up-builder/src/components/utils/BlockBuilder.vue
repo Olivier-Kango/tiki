@@ -16,15 +16,15 @@ const props = defineProps({
     context: {
         type: Object,
         default: () => null
-    }
+    },
+    edit: Boolean
 })
 
 const getBlocks = computed(() => store.getters.getBlocks)
 const getInnerBlocks = computed(() => store.getters.getBlocks[props.id].innerBlocks)
-const isEditMode = computed(() => store.getters.getMode === 'edit')
 </script>
 
 <template>
-    <BlockInnerBlocksEdit v-if="isEditMode" :ids="getInnerBlocks" :blocks="getBlocks" :context="context" />
-    <BlockInnerBlocks v-if="!isEditMode" :ids="getInnerBlocks" :blocks="getBlocks" :context="context" />
+    <BlockInnerBlocksEdit v-if="edit" :ids="getInnerBlocks" :blocks="getBlocks" :context="context" />
+    <BlockInnerBlocks v-if="!edit" :ids="getInnerBlocks" :blocks="getBlocks" :context="context" />
 </template>

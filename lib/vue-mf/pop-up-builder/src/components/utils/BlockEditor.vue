@@ -32,7 +32,7 @@ const handleShowInspector = (val) => {
             <BlockInspectorTree v-if="showInspector && isEditMode" class="p-2" style="min-width: 222px; border-right: 1px solid #404040;"></BlockInspectorTree>
             <div class="block-builder flex-grow-1" @click="handleClick">
                 <div class="block--container container-fluid">
-                    <BlockBuilder :id="getRootBlock.id" />
+                    <BlockBuilder :edit="isEditMode" :id="getRootBlock.id" />
                 </div>
             </div>
         </div>

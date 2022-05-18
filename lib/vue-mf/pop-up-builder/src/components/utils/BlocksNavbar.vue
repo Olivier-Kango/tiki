@@ -7,6 +7,7 @@ export default {
 <script setup>
 import { ref, computed } from 'vue' 
 import { Button, ToggleButton } from '@vue-mf/styleguide'
+import BlocksPatterns from './BlocksPatterns.vue'
 import BlockAdd from './BlockAdd.vue'
 import BlocksHistoryPagination from './BlocksHistoryPagination.vue'
 import CustomModal from './CustomModal.vue'
@@ -19,15 +20,16 @@ const props = defineProps({
         type: Object,
         default: () => {}
     }
-});
+})
 
 const emit = defineEmits(['showInspector'])
 const showModal = ref(null)
 const showModalPatterns = ref(null)
 const isPreview = ref(null)
+const selectedPattern = ref(store.getters.getRootBlock.name)
 
 const rootBlock = computed(() => store.getters.getRootBlock)
-const getPatterns = computed(() => store.getters.getPatterns)
+const getPatternsArray = computed(() => store.getters.getPatternsArray)
 
 const clearDataFromLocalStorage = () => {
     let response = confirm('Clear builder data?')
@@ -48,6 +50,14 @@ const handleCloseModal = () => showModal.value = false
 
 const handleOpenModalPatterns = () => showModalPatterns.value = true
 const handleCloseModalPatterns = () => showModalPatterns.value = false
+
+const handleSelected = (selected) => {
+    store.dispatch('setRootBlock', selected)
+    console.log('selected', selected)
+}
+const handleRemoved = (selected) => {
+    console.log('removed', selected)
+}
 </script>
 
 <template>
@@ -78,6 +88,15 @@ const handleCloseModalPatterns = () => showModalPatterns.value = false
                 <Button variant="default" sm @click="handleOpenModalPatterns">
                     <i class="fas fa-shapes"></i>
                 </Button>
+                <h3 class="ms-auto mb-0">{{ rootBlock.name }}</h3>
+                <VueSelect
+                    class="ms-2"
+                    v-model="selectedPattern"
+                    :options="getPatternsArray"
+                    label-by="name"
+                    @selected="handleSelected"
+                    @removed="handleRemoved"
+                />
 
 
                 <div class="d-flex align-items-center ms-auto">
@@ -110,9 +129,7 @@ const handleCloseModalPatterns = () => showModalPatterns.value = false
             title="Patterns"
             :clickToClose="false"
         >
-            <ul>
-                <li v-for="pattern in getPatterns" :key="pattern.id">{{ pattern.name }}</li>
-            </ul>
+            <BlocksPatterns />
         </CustomModal>
     </nav>
 </template>

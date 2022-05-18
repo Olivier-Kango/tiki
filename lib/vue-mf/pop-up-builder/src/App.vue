@@ -20,18 +20,21 @@ const props = defineProps({
 
 onBeforeMount(() => {
     let blocks = getBlocksFromLocalStorage()
+    // if (!blocks) blocks = defaultBlocks
     if (blocks) {
         store.dispatch('setBlocks', blocks)
         store.dispatch('setHistory', blocks)
     }
 
     let patterns = getPatternsFromLocalStorage()
+    // if (!patterns) patterns = defaultPatterns
     if (patterns) {
         store.dispatch('setPatterns', patterns)
-        store.dispatch('setBlocksPattern', '/')
+        // store.dispatch('setRootBlock', '/')
     }
 
     let storeOptions = getStoreOptionsFromLocalStorage()
+    if (!storeOptions) storeOptions = defaultApis
     if (storeOptions) {
         registerStoreModule(storeOptions, store)
         store.dispatch('setAPIoptions', storeOptions)
@@ -42,21 +45,15 @@ onBeforeMount(() => {
 })
 
 function getBlocksFromLocalStorage() {
-    let blocks = getDataFromLocalStorage('tiki-pop-up-blocks')
-    if (!blocks) blocks = defaultBlocks
-    return blocks
+    return getDataFromLocalStorage('tiki-pop-up-blocks')
 }
 
 function getStoreOptionsFromLocalStorage() {
-    let storeOptions = getDataFromLocalStorage('tiki-pop-up-blocks-store')
-    if (!storeOptions) storeOptions = defaultApis
-    return storeOptions
+    return getDataFromLocalStorage('tiki-pop-up-blocks-store')
 }
 
 function getPatternsFromLocalStorage() {
-    let patterns = getDataFromLocalStorage('tiki-pop-up-patterns')
-    if (!patterns) patterns = defaultPatterns
-    return patterns
+    return getDataFromLocalStorage('tiki-pop-up-patterns')
 }
 
 function getDataFromLocalStorage(name) {
