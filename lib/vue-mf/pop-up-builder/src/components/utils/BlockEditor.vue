@@ -13,7 +13,6 @@ import store from '../../store'
 
 const showInspector = ref(true)
 
-const getRootBlock = computed(() => store.getters.getRootBlock)
 const isEditMode = computed(() => store.getters.getMode === 'edit')
 
 const handleClick = (e) => {
@@ -32,7 +31,7 @@ const handleShowInspector = (val) => {
             <BlockInspectorTree v-if="showInspector && isEditMode" class="p-2" style="min-width: 222px; border-right: 1px solid #404040;"></BlockInspectorTree>
             <div class="block-builder flex-grow-1" @click="handleClick">
                 <div class="block--container container-fluid">
-                    <BlockBuilder :edit="isEditMode" :id="getRootBlock.id" />
+                    <BlockBuilder :edit="isEditMode" :id="'root'" />
                 </div>
             </div>
         </div>

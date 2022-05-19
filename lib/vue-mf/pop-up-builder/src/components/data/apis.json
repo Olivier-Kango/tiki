@@ -1,1 +1,14 @@
-[{"url":"https://fakestoreapi.com/products","field":"products"},{"url":"https://fakestoreapi.com/carts","field":"carts"},{"url":"https://fakestoreapi.com/users","field":"users"}]
+[
+    {
+        "url":"https://fakestoreapi.com/products",
+        "field":"products"
+    },
+    {
+        "url":"https://fakestoreapi.com/carts",
+        "field":"carts"
+    },
+    {
+        "url":"https://fakestoreapi.com/users",
+        "field":"users"
+    }
+]

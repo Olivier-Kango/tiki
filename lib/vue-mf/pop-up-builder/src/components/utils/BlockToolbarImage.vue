@@ -23,8 +23,10 @@ const styles = ref({
 })
 
 watch(() => props.block.styles, (val, oldVal) => {
-    let { backgroundImage } = val
-    styles.value = { backgroundImage }
+    if (val) {
+        let { backgroundImage } = val
+        styles.value = { backgroundImage }
+    }
 })
 
 const handleUpdate = (field, value) => {

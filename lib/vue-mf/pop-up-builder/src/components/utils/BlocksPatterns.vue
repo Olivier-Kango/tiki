@@ -29,7 +29,7 @@ const handleClick = (pattern) => {
             v-for="pattern in getPatterns"
             :key="pattern.id"
             :id="`block-pattern--${pattern.name}`"
-            class="mb-2 me-2"
+            class="block-pattern--item"
         >
             <ThumbnailContent v-if="pattern.type !== 'page'" :title="pattern.name" @click="handleClick(pattern)">
                 <BlockInnerBlocks v-if="!edit" :ids="pattern.innerBlocks" :blocks="getBlocks" />
@@ -39,8 +39,8 @@ const handleClick = (pattern) => {
 </template>
 
 <style lang="scss" scoped>
-    // .block-pattern--container {
-    //     display: flex;
-    //     flex-wrap: wrap;
-    // }
+    .block-pattern--item {
+        margin-bottom: 1rem;
+        margin-right: 0.5rem;
+    }
 </style>

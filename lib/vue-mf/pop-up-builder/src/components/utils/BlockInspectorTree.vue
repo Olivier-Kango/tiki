@@ -20,7 +20,10 @@ const isSelected = computed(() => (block) => {
 })
 
 const getBlockType = computed(() => (name) => store.getters.getBlockType(name))
-const getBlock = computed(() => (id) => store.getters.getBlock(id))
+const getBlock = computed(() => (id) => {
+    console.log('getBlock', id, store.getters.getBlock(id))
+    return store.getters.getBlock(id)
+})
 
 const handleMouseOver = (e, id) => {
     store.dispatch('setHighlighted', id)

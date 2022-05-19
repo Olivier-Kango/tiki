@@ -33,7 +33,10 @@ const getPatternsArray = computed(() => store.getters.getPatternsArray)
 
 const clearDataFromLocalStorage = () => {
     let response = confirm('Clear builder data?')
-    if (response) clearLocalStorage()
+    if (response) {
+        clearLocalStorage()
+        location.reload()
+    }
 }
 
 const handleSwitchMode = (checked) => {
@@ -52,7 +55,7 @@ const handleOpenModalPatterns = () => showModalPatterns.value = true
 const handleCloseModalPatterns = () => showModalPatterns.value = false
 
 const handleSelected = (selected) => {
-    store.dispatch('setRootBlock', selected)
+    store.dispatch('setRootBlock', selected.id)
     console.log('selected', selected)
 }
 const handleRemoved = (selected) => {
@@ -103,7 +106,7 @@ const handleRemoved = (selected) => {
                     <span class="me-2" :class="{'is-preview': isPreview}">Preview</span>
                     <div style="width: 50px"><ToggleButton label="Preview" @update:checked="handleSwitchMode" /></div>
                     <Button variant="default" sm @click="clearDataFromLocalStorage">
-                        Clear localStorage builder data?
+                        Clear data?
                     </Button>
                 </div>
             </div>

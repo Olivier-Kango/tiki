@@ -1,16 +1,42 @@
 {
-    "xx861a5a-1f1b-4ab0-ab6f-aa1bb57cc354": {
-        "id": "xx861a5a-1f1b-4ab0-ab6f-aa1bb57cc354",
-        "name": "Title with paragraph",
-        "title": "Title with paragraph",
-        "innerBlocks": [
-            "36861a5a-1f1b-4400-ab6f-a717857cc354",
-            "a2fc5479-dd1c-4806-ab8e-bc59f9dc8b12",
-            "6efbe00b-6e72-45ba-afa0-a44dcf3c5035",
-            "98d9c327-6055-438c-b4f8-0946200b67c4",
-            "dbf92988-1ff6-4ce8-b8bc-5974b43b1444",
-            "aa498ce4-ff34-4abb-8ba6-a387dca61cbf",
-            "a87a7595-fbd0-41de-8b91-122e4cc36a98"
+    "root":{
+        "id":"root",
+        "type":"page",
+        "name":"Home page",
+        "innerBlocks":[
+            "8daeb617-e4b1-4045-86ba-03d7fdbe98f9",
+            "b7fb416d-f436-4f50-aa50-970f9509831d",
+            "8d964c5e-19ed-4b47-b6bf-5b318d2c952a",
+            "c5db2a40-78a9-4301-8046-91c994d9963e"
+        ],
+        "patternId":"root"
+    },
+    "8a7bb7ae-5ccd-46ac-b8bb-869f304f6771":{
+        "id":"8a7bb7ae-5ccd-46ac-b8bb-869f304f6771",
+        "name":"Title with paragraph",
+        "innerBlocks":[
+            "fc1e8840-3373-4e70-8557-47ccd45231af"
+        ]
+    },
+    "4651026a-5857-48cb-a1be-a900b27c19c2":{
+        "id":"4651026a-5857-48cb-a1be-a900b27c19c2",
+        "name":"Gallery",
+        "innerBlocks":[
+            "531eb9da-a25d-4555-80fc-200113f864d5"
+        ]
+    },
+    "9e2e8c1e-60e2-4f7f-8d8a-fb94d83fae82":{
+        "id":"9e2e8c1e-60e2-4f7f-8d8a-fb94d83fae82",
+        "name":"3 columns of paragraphs",
+        "innerBlocks":[
+            "f99fb620-1e42-4787-bd7b-0261b5e975cf"
+        ]
+    },
+    "5ff67865-5995-4773-bf89-2c04fa493578":{
+        "id":"5ff67865-5995-4773-bf89-2c04fa493578",
+        "name":"2 columns - header with image",
+        "innerBlocks":[
+            "9e7fca2f-7d34-437d-a50f-6712ab3b08b0"
         ]
     }
 }

@@ -1,1 +1,1116 @@
-{"a2fc5479-dd1c-4806-ab8e-bc59f9dc8b12":{"id":"a2fc5479-dd1c-4806-ab8e-bc59f9dc8b12","parent":["core/box","core/columns","core/column"],"title":"Header","name":"core/header","innerBlocks":[],"classes":["block--core-header"],"attributes":{"allowedBlocks":[],"textContent":"Say Hello to the New Editor"},"styles":{"textAlign":"center"}},"a87a7595-fbd0-41de-8b91-122e4cc36a98":{"id":"a87a7595-fbd0-41de-8b91-122e4cc36a98","parent":["core/box","core/columns","core/column"],"title":"Box","name":"core/box","innerBlocks":["f7341f9c-ba6a-40d4-bbdb-89d5072a1c29"],"classes":["block--core-box"],"attributes":{},"styles":{"justifyContent":"center"}},"d92e8a7c-cb3e-4940-92af-4b9755c0e09e":{"id":"d92e8a7c-cb3e-4940-92af-4b9755c0e09e","parent":["core/columns"],"title":"Column","name":"core/column","innerBlocks":["cbeefb52-4dee-4b38-9d26-f349c676ba7e"],"classes":["block--core-column","col-md"],"attributes":{}},"5f7773e2-2315-4302-874c-5d4e24434937":{"id":"5f7773e2-2315-4302-874c-5d4e24434937","parent":["core/columns"],"title":"Column","name":"core/column","innerBlocks":["fa67422c-fd2f-437e-8647-4ad5af80306c"],"classes":["block--core-column","col-md"],"attributes":{},"styles":{}},"84cd321e-2081-46d7-86de-0313490de3a4":{"id":"84cd321e-2081-46d7-86de-0313490de3a4","parent":["core/columns"],"title":"Column","name":"core/column","innerBlocks":["c3e963e3-803b-4afb-8522-a855565a2270"],"classes":["block--core-column","col-md"],"attributes":{},"styles":{"alignSelf":"auto"}},"dd1f521e-9003-4c10-a505-04aebf0e4513":{"id":"dd1f521e-9003-4c10-a505-04aebf0e4513","parent":["core/columns"],"title":"Column","name":"core/column","innerBlocks":["bec02eb0-999d-4498-a11f-81a5d21fbaa5"],"classes":["block--core-column","col-md"],"attributes":{},"styles":{"alignSelf":"center"}},"f7341f9c-ba6a-40d4-bbdb-89d5072a1c29":{"id":"f7341f9c-ba6a-40d4-bbdb-89d5072a1c29","parent":["core/box","core/column"],"title":"Columns","name":"core/columns","innerBlocks":["dd1f521e-9003-4c10-a505-04aebf0e4513","84cd321e-2081-46d7-86de-0313490de3a4","5f7773e2-2315-4302-874c-5d4e24434937","d92e8a7c-cb3e-4940-92af-4b9755c0e09e"],"classes":["block--core-columns","row"],"attributes":{},"styles":{"justifyContent":"center"}},"c3e963e3-803b-4afb-8522-a855565a2270":{"id":"c3e963e3-803b-4afb-8522-a855565a2270","parent":["core/box","core/columns","core/column"],"title":"Box","name":"core/box","innerBlocks":[],"classes":["block--core-box"],"attributes":{},"styles":{"backgroundColor":"#ffffff","backgroundImage":"url(https://www.clementoni.com/media/prod/no/31811/the-horse-1500-pcs-high-quality-collection_ehZZ0tB.jpg)","height":"404px","width":"100%"}},"98d9c327-6055-438c-b4f8-0946200b67c4":{"id":"98d9c327-6055-438c-b4f8-0946200b67c4","parent":["core/box","core/columns","core/column"],"title":"Paragraph","name":"core/paragraph","innerBlocks":[],"classes":["block--core-paragraph"],"attributes":{"content":"We call the new editor Gutenberg. The entire editing experience has been rebuilt for media rich pages and posts. Experience the flexibility that blocks will bring, whether you are building your first site, or write code for a living.","allowedBlocks":[]}},"6efbe00b-6e72-45ba-afa0-a44dcf3c5035":{"id":"6efbe00b-6e72-45ba-afa0-a44dcf3c5035","parent":["core/box","core/columns","core/column"],"title":"Box","name":"core/box","innerBlocks":[],"classes":["block--core-box"],"attributes":{},"styles":{"height":"48px"}},"dbf92988-1ff6-4ce8-b8bc-5974b43b1444":{"id":"dbf92988-1ff6-4ce8-b8bc-5974b43b1444","parent":["core/box","core/columns","core/column"],"title":"Box","name":"core/box","innerBlocks":[],"classes":["block--core-box"],"attributes":{},"styles":{"height":"53px"}},"bec02eb0-999d-4498-a11f-81a5d21fbaa5":{"id":"bec02eb0-999d-4498-a11f-81a5d21fbaa5","parent":["core/box","core/columns","core/column"],"title":"Box","name":"core/box","innerBlocks":[],"classes":["block--core-box"],"attributes":{},"styles":{"backgroundImage":"url(https://images.fineartamerica.com/images/artworkimages/mediumlarge/2/yellow-flowers-on-the-field-ichiro.jpg)","width":"100%","height":"404px"}},"fa67422c-fd2f-437e-8647-4ad5af80306c":{"id":"fa67422c-fd2f-437e-8647-4ad5af80306c","parent":["core/box","core/columns","core/column"],"title":"Box","name":"core/box","innerBlocks":[],"classes":["block--core-box"],"attributes":{},"styles":{"backgroundImage":"url(https://images.unsplash.com/photo-1499002238440-d264edd596ec?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8bGF2ZW5kZXIlMjBmaWVsZHxlbnwwfHwwfHw%3D&w=1000&q=80)","height":"404px"}},"cbeefb52-4dee-4b38-9d26-f349c676ba7e":{"id":"cbeefb52-4dee-4b38-9d26-f349c676ba7e","parent":["core/box","core/columns","core/column"],"title":"Box","name":"core/box","innerBlocks":[],"classes":["block--core-box"],"attributes":{},"styles":{"backgroundImage":"url(https://www.planetware.com/wpimages/2020/04/iceland-best-waterfalls-seljalandsfoss.jpg)","height":"404px"}},"36861a5a-1f1b-4400-ab6f-a717857cc354":{"id":"36861a5a-1f1b-4400-ab6f-a717857cc354","parent":["core/box","core/columns","core/column"],"title":"Box","name":"core/box","innerBlocks":[],"classes":["block--core-box"],"attributes":{},"styles":{"height":"76px"}},"9f38af6d-ccf7-425a-b1ff-fd7263c11492":{"id":"9f38af6d-ccf7-425a-b1ff-fd7263c11492","parent":["core/box","core/columns","core/column"],"title":"List items","name":"core/list","description":"Dynamic block for rendering list of items","innerBlocks":["4ea444c0-ed1a-4c19-bad0-620787e675df"],"classes":["block--core-list"],"attributes":{"field":"products"}},"4ea444c0-ed1a-4c19-bad0-620787e675df":{"id":"4ea444c0-ed1a-4c19-bad0-620787e675df","parent":["core/box","core/column"],"title":"Columns","name":"core/columns","description":"Columns description","innerBlocks":["d04dff3f-a3d3-4d43-8edd-6ec6e0cd394f","8f8d0356-fd3f-4f07-bae5-bfc273ca3a38"],"classes":["block--core-columns","row"],"attributes":{},"styles":{}},"8f8d0356-fd3f-4f07-bae5-bfc273ca3a38":{"id":"8f8d0356-fd3f-4f07-bae5-bfc273ca3a38","parent":["core/columns"],"title":"Column","name":"core/column","description":"A single column within a columns block.","innerBlocks":["0a2bb673-e391-4970-9924-51b67010f1c9"],"classes":["block--core-column","col-md"],"attributes":{},"styles":{"alignSelf":"center"}},"d04dff3f-a3d3-4d43-8edd-6ec6e0cd394f":{"id":"d04dff3f-a3d3-4d43-8edd-6ec6e0cd394f","parent":["core/columns"],"title":"Column","name":"core/column","description":"A single column within a columns block.","innerBlocks":["89192161-c3c1-4e1f-bc72-57a1e159ae2d"],"classes":["block--core-column","col-md"],"attributes":{},"styles":{}},"89192161-c3c1-4e1f-bc72-57a1e159ae2d":{"id":"89192161-c3c1-4e1f-bc72-57a1e159ae2d","parent":["core/box","core/columns","core/column"],"title":"Image","name":"core/image","description":"A single Image.","innerBlocks":[],"classes":["block--core-image"],"attributes":{"url":"https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg","allowedBlocks":[],"field":"image"}},"9a63a081-5bc4-4cb7-a965-6390a1343217":{"id":"9a63a081-5bc4-4cb7-a965-6390a1343217","parent":["core/box","core/columns","core/column"],"title":"Paragraph","name":"core/paragraph","description":"A single Paragraph.","innerBlocks":[],"classes":["block--core-paragraph"],"attributes":{"content":"Some text...","allowedBlocks":[],"field":"description"}},"9129d583-f8f2-4787-afbb-7e5980249739":{"id":"9129d583-f8f2-4787-afbb-7e5980249739","parent":["core/box","core/columns","core/column"],"title":"Paragraph","name":"core/paragraph","description":"A single Paragraph.","innerBlocks":[],"classes":["block--core-paragraph"],"attributes":{"content":"Some text...","allowedBlocks":[],"field":"title"}},"7b463bc1-4e12-45fd-a6b0-642c71f75342":{"id":"7b463bc1-4e12-45fd-a6b0-642c71f75342","parent":["core/box","core/columns","core/column"],"title":"Paragraph","name":"core/paragraph","description":"A single Paragraph.","innerBlocks":[],"classes":["block--core-paragraph"],"attributes":{"content":"Some text...","allowedBlocks":[],"field":"category"}},"068b2526-4f06-4e3d-8393-cac29527f61c":{"id":"068b2526-4f06-4e3d-8393-cac29527f61c","parent":["core/box","core/columns","core/column"],"title":"Paragraph","name":"core/paragraph","description":"A single Paragraph.","innerBlocks":[],"classes":["block--core-paragraph"],"attributes":{"content":"Some text...","allowedBlocks":[],"field":"price"}},"0a2bb673-e391-4970-9924-51b67010f1c9":{"id":"0a2bb673-e391-4970-9924-51b67010f1c9","parent":["core/box","core/columns","core/column"],"title":"Box","name":"core/box","description":"A box","innerBlocks":["9129d583-f8f2-4787-afbb-7e5980249739","9a63a081-5bc4-4cb7-a965-6390a1343217","7b463bc1-4e12-45fd-a6b0-642c71f75342","068b2526-4f06-4e3d-8393-cac29527f61c"],"classes":["block--core-box"],"attributes":{},"styles":{"flexDirection":"column","backgroundColor":"#f5e8f7","paddingTop":"20px","paddingBottom":"20px","marginLeft":"50px","paddingRight":"20px","paddingLeft":"20px"}},"aa498ce4-ff34-4abb-8ba6-a387dca61cbf":{"id":"aa498ce4-ff34-4abb-8ba6-a387dca61cbf","parent":["core/box","core/columns","core/column"],"title":"Box","name":"core/box","description":"A box","innerBlocks":["9f38af6d-ccf7-425a-b1ff-fd7263c11492"],"classes":["block--core-box"],"attributes":{},"styles":{"width":"57%","marginBottom":"53px"}}}
+{
+    "c5db2a40-78a9-4301-8046-91c994d9963e":{
+        "id":"c5db2a40-78a9-4301-8046-91c994d9963e",
+        "parent":[
+            "core/box",
+            "core/columns",
+            "core/column"
+        ],
+        "title":"Box",
+        "name":"core/box",
+        "description":"A box",
+        "innerBlocks":[
+            
+        ],
+        "classes":[
+            "block--core-box"
+        ],
+        "attributes":{
+            
+        }
+    },
+    "8daeb617-e4b1-4045-86ba-03d7fdbe98f9":{
+        "id":"8daeb617-e4b1-4045-86ba-03d7fdbe98f9",
+        "parent":[
+            "core/box",
+            "core/columns",
+            "core/column"
+        ],
+        "title":"Box",
+        "name":"core/box",
+        "description":"A box",
+        "innerBlocks":[
+            
+        ],
+        "classes":[
+            "block--core-box"
+        ],
+        "attributes":{
+            
+        },
+        "styles":{
+            "backgroundImage":"url(https://sirpigglesworth.com/wp-content/uploads/2017/11/images-26820-27536-hd-wallpapers.jpg)",
+            "height":"534px"
+        }
+    },
+    "b7fb416d-f436-4f50-aa50-970f9509831d":{
+        "id":"b7fb416d-f436-4f50-aa50-970f9509831d",
+        "parent":[
+            "core/box",
+            "core/columns",
+            "core/column"
+        ],
+        "title":"Box",
+        "name":"core/box",
+        "description":"A box",
+        "innerBlocks":[
+            "39839304-a51f-4df1-8960-ce7c0e3f4ff9",
+            "ec5db48c-bd82-42c4-a272-19f7610d9161"
+        ],
+        "classes":[
+            "block--core-box"
+        ],
+        "attributes":{
+            
+        },
+        "styles":{
+            "flexDirection":"column",
+            "alignItems":"center",
+            "paddingTop":"58px",
+            "paddingBottom":"58px",
+            "paddingRight":"58px",
+            "paddingLeft":"57px",
+            "backgroundColor":"#ffffff"
+        }
+    },
+    "39839304-a51f-4df1-8960-ce7c0e3f4ff9":{
+        "id":"39839304-a51f-4df1-8960-ce7c0e3f4ff9",
+        "parent":[
+            "core/box",
+            "core/columns",
+            "core/column"
+        ],
+        "title":"Header",
+        "name":"core/header",
+        "description":"New sections title",
+        "innerBlocks":[
+            
+        ],
+        "classes":[
+            "block--core-header"
+        ],
+        "attributes":{
+            "allowedBlocks":[
+                
+            ],
+            "textContent":"Wellcome"
+        }
+    },
+    "8d964c5e-19ed-4b47-b6bf-5b318d2c952a":{
+        "id":"8d964c5e-19ed-4b47-b6bf-5b318d2c952a",
+        "parent":[
+            "core/box",
+            "core/column"
+        ],
+        "title":"Columns",
+        "name":"core/columns",
+        "description":"Columns description",
+        "innerBlocks":[
+            "72f2a352-124b-4627-8918-643cdc9cee41",
+            "2bbe55a3-4b38-4673-86f1-c4648b2fb733",
+            "8dba41e8-9d25-4462-bc68-55f8221c2b70",
+            "0cabd292-5d51-495d-a792-f670102414cd"
+        ],
+        "classes":[
+            "block--core-columns",
+            "row"
+        ],
+        "attributes":{
+            
+        }
+    },
+    "0cabd292-5d51-495d-a792-f670102414cd":{
+        "id":"0cabd292-5d51-495d-a792-f670102414cd",
+        "parent":[
+            "core/columns"
+        ],
+        "title":"Column",
+        "name":"core/column",
+        "description":"A single column within a columns block.",
+        "innerBlocks":[
+            "9066c920-1b27-47a9-b491-f907ada341d0"
+        ],
+        "classes":[
+            "block--core-column",
+            "col-md"
+        ],
+        "attributes":{
+            
+        }
+    },
+    "8dba41e8-9d25-4462-bc68-55f8221c2b70":{
+        "id":"8dba41e8-9d25-4462-bc68-55f8221c2b70",
+        "parent":[
+            "core/columns"
+        ],
+        "title":"Column",
+        "name":"core/column",
+        "description":"A single column within a columns block.",
+        "innerBlocks":[
+            "17b2a7d9-1614-49fe-97e9-135efbd2b5ef"
+        ],
+        "classes":[
+            "block--core-column",
+            "col-md"
+        ],
+        "attributes":{
+            
+        }
+    },
+    "2bbe55a3-4b38-4673-86f1-c4648b2fb733":{
+        "id":"2bbe55a3-4b38-4673-86f1-c4648b2fb733",
+        "parent":[
+            "core/columns"
+        ],
+        "title":"Column",
+        "name":"core/column",
+        "description":"A single column within a columns block.",
+        "innerBlocks":[
+            "38150534-2d5f-4f19-991c-9a1ad9cd4c24"
+        ],
+        "classes":[
+            "block--core-column",
+            "col-md"
+        ],
+        "attributes":{
+            
+        }
+    },
+    "72f2a352-124b-4627-8918-643cdc9cee41":{
+        "id":"72f2a352-124b-4627-8918-643cdc9cee41",
+        "parent":[
+            "core/columns"
+        ],
+        "title":"Column",
+        "name":"core/column",
+        "description":"A single column within a columns block.",
+        "innerBlocks":[
+            "f8b6f5dc-e96a-4a52-b30a-acd39a37eb73"
+        ],
+        "classes":[
+            "block--core-column",
+            "col-md"
+        ],
+        "attributes":{
+            
+        }
+    },
+    "f8b6f5dc-e96a-4a52-b30a-acd39a37eb73":{
+        "id":"f8b6f5dc-e96a-4a52-b30a-acd39a37eb73",
+        "parent":[
+            "core/box",
+            "core/columns",
+            "core/column"
+        ],
+        "title":"Image",
+        "name":"core/image",
+        "description":"A single Image.",
+        "innerBlocks":[
+            
+        ],
+        "classes":[
+            "block--core-image"
+        ],
+        "attributes":{
+            "url":"https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg",
+            "allowedBlocks":[
+                
+            ]
+        }
+    },
+    "38150534-2d5f-4f19-991c-9a1ad9cd4c24":{
+        "id":"38150534-2d5f-4f19-991c-9a1ad9cd4c24",
+        "parent":[
+            "core/box",
+            "core/columns",
+            "core/column"
+        ],
+        "title":"Image",
+        "name":"core/image",
+        "description":"A single Image.",
+        "innerBlocks":[
+            
+        ],
+        "classes":[
+            "block--core-image"
+        ],
+        "attributes":{
+            "url":"https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg",
+            "allowedBlocks":[
+                
+            ]
+        }
+    },
+    "17b2a7d9-1614-49fe-97e9-135efbd2b5ef":{
+        "id":"17b2a7d9-1614-49fe-97e9-135efbd2b5ef",
+        "parent":[
+            "core/box",
+            "core/columns",
+            "core/column"
+        ],
+        "title":"Image",
+        "name":"core/image",
+        "description":"A single Image.",
+        "innerBlocks":[
+            
+        ],
+        "classes":[
+            "block--core-image"
+        ],
+        "attributes":{
+            "url":"https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg",
+            "allowedBlocks":[
+                
+            ]
+        }
+    },
+    "9066c920-1b27-47a9-b491-f907ada341d0":{
+        "id":"9066c920-1b27-47a9-b491-f907ada341d0",
+        "parent":[
+            "core/box",
+            "core/columns",
+            "core/column"
+        ],
+        "title":"Image",
+        "name":"core/image",
+        "description":"A single Image.",
+        "innerBlocks":[
+            
+        ],
+        "classes":[
+            "block--core-image"
+        ],
+        "attributes":{
+            "url":"https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg",
+            "allowedBlocks":[
+                
+            ]
+        }
+    },
+    "ec5db48c-bd82-42c4-a272-19f7610d9161":{
+        "id":"ec5db48c-bd82-42c4-a272-19f7610d9161",
+        "parent":[
+            "core/box",
+            "core/columns",
+            "core/column"
+        ],
+        "title":"Paragraph",
+        "name":"core/paragraph",
+        "description":"A single Paragraph.",
+        "innerBlocks":[
+            
+        ],
+        "classes":[
+            "block--core-paragraph"
+        ],
+        "attributes":{
+            "content":"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+            "allowedBlocks":[
+                
+            ]
+        }
+    },
+    "fc1e8840-3373-4e70-8557-47ccd45231af":{
+        "id":"fc1e8840-3373-4e70-8557-47ccd45231af",
+        "parent":[
+            "core/box",
+            "core/columns",
+            "core/column"
+        ],
+        "title":"Box",
+        "name":"core/box",
+        "description":"A box",
+        "innerBlocks":[
+            "6199a96e-7162-44fe-a7f4-5edf90985bc8",
+            "61cfe474-0d66-45ca-a1be-d1bc839bb100"
+        ],
+        "classes":[
+            "block--core-box"
+        ],
+        "attributes":{
+            
+        },
+        "styles":{
+            "flexDirection":"column",
+            "alignItems":"center",
+            "paddingTop":"58px",
+            "paddingBottom":"58px",
+            "paddingRight":"58px",
+            "paddingLeft":"57px",
+            "backgroundColor":"#ffffff"
+        }
+    },
+    "6199a96e-7162-44fe-a7f4-5edf90985bc8":{
+        "id":"6199a96e-7162-44fe-a7f4-5edf90985bc8",
+        "parent":[
+            "core/box",
+            "core/columns",
+            "core/column"
+        ],
+        "title":"Header",
+        "name":"core/header",
+        "description":"New sections title",
+        "innerBlocks":[
+            
+        ],
+        "classes":[
+            "block--core-header"
+        ],
+        "attributes":{
+            "allowedBlocks":[
+                
+            ],
+            "textContent":"Wellcome"
+        }
+    },
+    "61cfe474-0d66-45ca-a1be-d1bc839bb100":{
+        "id":"61cfe474-0d66-45ca-a1be-d1bc839bb100",
+        "parent":[
+            "core/box",
+            "core/columns",
+            "core/column"
+        ],
+        "title":"Paragraph",
+        "name":"core/paragraph",
+        "description":"A single Paragraph.",
+        "innerBlocks":[
+            
+        ],
+        "classes":[
+            "block--core-paragraph"
+        ],
+        "attributes":{
+            "content":"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+            "allowedBlocks":[
+                
+            ]
+        }
+    },
+    "531eb9da-a25d-4555-80fc-200113f864d5":{
+        "id":"531eb9da-a25d-4555-80fc-200113f864d5",
+        "parent":[
+            "core/box",
+            "core/column"
+        ],
+        "title":"Columns",
+        "name":"core/columns",
+        "description":"Columns description",
+        "innerBlocks":[
+            "add01a50-c018-4c35-bf80-c330f8f7c5b0",
+            "7cb5a4d6-df4e-4a5d-aeec-b4393678b8ee",
+            "fa2f8d88-4855-42e7-9cd5-a25aacf9ce72",
+            "7c4cf719-f59d-4ba3-a363-f10f32ed4847",
+            "ca0e782d-1e9e-4a19-b725-373265a16fa9"
+        ],
+        "classes":[
+            "block--core-columns",
+            "row"
+        ],
+        "attributes":{
+            
+        }
+    },
+    "7cb5a4d6-df4e-4a5d-aeec-b4393678b8ee":{
+        "id":"7cb5a4d6-df4e-4a5d-aeec-b4393678b8ee",
+        "parent":[
+            "core/columns"
+        ],
+        "title":"Column",
+        "name":"core/column",
+        "description":"A single column within a columns block.",
+        "innerBlocks":[
+            "5925e8dd-0060-4cd2-9e65-9fde9033e163"
+        ],
+        "classes":[
+            "block--core-column",
+            "col-md"
+        ],
+        "attributes":{
+            
+        }
+    },
+    "fa2f8d88-4855-42e7-9cd5-a25aacf9ce72":{
+        "id":"fa2f8d88-4855-42e7-9cd5-a25aacf9ce72",
+        "parent":[
+            "core/columns"
+        ],
+        "title":"Column",
+        "name":"core/column",
+        "description":"A single column within a columns block.",
+        "innerBlocks":[
+            "2eb58881-4e2c-4d9b-968c-4e32b57be634"
+        ],
+        "classes":[
+            "block--core-column",
+            "col-md"
+        ],
+        "attributes":{
+            
+        }
+    },
+    "7c4cf719-f59d-4ba3-a363-f10f32ed4847":{
+        "id":"7c4cf719-f59d-4ba3-a363-f10f32ed4847",
+        "parent":[
+            "core/columns"
+        ],
+        "title":"Column",
+        "name":"core/column",
+        "description":"A single column within a columns block.",
+        "innerBlocks":[
+            "82cd2211-7760-4378-acad-75bb8d7d51f0"
+        ],
+        "classes":[
+            "block--core-column",
+            "col-md"
+        ],
+        "attributes":{
+            
+        }
+    },
+    "ca0e782d-1e9e-4a19-b725-373265a16fa9":{
+        "id":"ca0e782d-1e9e-4a19-b725-373265a16fa9",
+        "parent":[
+            "core/columns"
+        ],
+        "title":"Column",
+        "name":"core/column",
+        "description":"A single column within a columns block.",
+        "innerBlocks":[
+            "a8a6b92c-3e21-4c21-b3f0-48f9ad9fd49b"
+        ],
+        "classes":[
+            "block--core-column",
+            "col-md"
+        ],
+        "attributes":{
+            
+        }
+    },
+    "5925e8dd-0060-4cd2-9e65-9fde9033e163":{
+        "id":"5925e8dd-0060-4cd2-9e65-9fde9033e163",
+        "parent":[
+            "core/box",
+            "core/columns",
+            "core/column"
+        ],
+        "title":"Image",
+        "name":"core/image",
+        "description":"A single Image.",
+        "innerBlocks":[
+            
+        ],
+        "classes":[
+            "block--core-image"
+        ],
+        "attributes":{
+            "url":"https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg",
+            "allowedBlocks":[
+                
+            ]
+        }
+    },
+    "2eb58881-4e2c-4d9b-968c-4e32b57be634":{
+        "id":"2eb58881-4e2c-4d9b-968c-4e32b57be634",
+        "parent":[
+            "core/box",
+            "core/columns",
+            "core/column"
+        ],
+        "title":"Image",
+        "name":"core/image",
+        "description":"A single Image.",
+        "innerBlocks":[
+            
+        ],
+        "classes":[
+            "block--core-image"
+        ],
+        "attributes":{
+            "url":"https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg",
+            "allowedBlocks":[
+                
+            ]
+        }
+    },
+    "82cd2211-7760-4378-acad-75bb8d7d51f0":{
+        "id":"82cd2211-7760-4378-acad-75bb8d7d51f0",
+        "parent":[
+            "core/box",
+            "core/columns",
+            "core/column"
+        ],
+        "title":"Image",
+        "name":"core/image",
+        "description":"A single Image.",
+        "innerBlocks":[
+            
+        ],
+        "classes":[
+            "block--core-image"
+        ],
+        "attributes":{
+            "url":"https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg",
+            "allowedBlocks":[
+                
+            ]
+        }
+    },
+    "a8a6b92c-3e21-4c21-b3f0-48f9ad9fd49b":{
+        "id":"a8a6b92c-3e21-4c21-b3f0-48f9ad9fd49b",
+        "parent":[
+            "core/box",
+            "core/columns",
+            "core/column"
+        ],
+        "title":"Image",
+        "name":"core/image",
+        "description":"A single Image.",
+        "innerBlocks":[
+            
+        ],
+        "classes":[
+            "block--core-image"
+        ],
+        "attributes":{
+            "url":"https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg",
+            "allowedBlocks":[
+                
+            ]
+        }
+    },
+    "f99fb620-1e42-4787-bd7b-0261b5e975cf":{
+        "id":"f99fb620-1e42-4787-bd7b-0261b5e975cf",
+        "parent":[
+            "core/box",
+            "core/columns",
+            "core/column"
+        ],
+        "title":"Box",
+        "name":"core/box",
+        "description":"A box",
+        "innerBlocks":[
+            "f63d5b67-f39d-4b9a-8f42-c37083b23ae4"
+        ],
+        "classes":[
+            "block--core-box"
+        ],
+        "attributes":{
+            
+        }
+    },
+    "f63d5b67-f39d-4b9a-8f42-c37083b23ae4":{
+        "id":"f63d5b67-f39d-4b9a-8f42-c37083b23ae4",
+        "parent":[
+            "core/box",
+            "core/column"
+        ],
+        "title":"Columns",
+        "name":"core/columns",
+        "description":"Columns description",
+        "innerBlocks":[
+            "65c0bf74-843d-4797-94ca-8a6302e2645f",
+            "c497ebe0-fea0-4ac9-9c44-880af8440504",
+            "c08a59cf-c926-4aeb-9ed5-174be93cc0c0"
+        ],
+        "classes":[
+            "block--core-columns",
+            "row"
+        ],
+        "attributes":{
+            
+        }
+    },
+    "65c0bf74-843d-4797-94ca-8a6302e2645f":{
+        "id":"65c0bf74-843d-4797-94ca-8a6302e2645f",
+        "parent":[
+            "core/columns"
+        ],
+        "title":"Column",
+        "name":"core/column",
+        "description":"A single column within a columns block.",
+        "innerBlocks":[
+            "131df241-e14a-4a0c-b71b-b14bf4d2e65b"
+        ],
+        "classes":[
+            "block--core-column",
+            "col-md"
+        ],
+        "attributes":{
+            
+        }
+    },
+    "c497ebe0-fea0-4ac9-9c44-880af8440504":{
+        "id":"c497ebe0-fea0-4ac9-9c44-880af8440504",
+        "parent":[
+            "core/columns"
+        ],
+        "title":"Column",
+        "name":"core/column",
+        "description":"A single column within a columns block.",
+        "innerBlocks":[
+            "8ceb575d-efec-4a76-9044-de82604fb1ae"
+        ],
+        "classes":[
+            "block--core-column",
+            "col-md"
+        ],
+        "attributes":{
+            
+        }
+    },
+    "c08a59cf-c926-4aeb-9ed5-174be93cc0c0":{
+        "id":"c08a59cf-c926-4aeb-9ed5-174be93cc0c0",
+        "parent":[
+            "core/columns"
+        ],
+        "title":"Column",
+        "name":"core/column",
+        "description":"A single column within a columns block.",
+        "innerBlocks":[
+            "d17d4d0a-ff51-46c9-9e28-9a05d6cd237d"
+        ],
+        "classes":[
+            "block--core-column",
+            "col-md"
+        ],
+        "attributes":{
+            
+        }
+    },
+    "131df241-e14a-4a0c-b71b-b14bf4d2e65b":{
+        "id":"131df241-e14a-4a0c-b71b-b14bf4d2e65b",
+        "parent":[
+            "core/box",
+            "core/columns",
+            "core/column"
+        ],
+        "title":"Box",
+        "name":"core/box",
+        "description":"A box",
+        "innerBlocks":[
+            "8d5e25a4-3eca-4ec2-9556-5c0ee6ed61c0"
+        ],
+        "classes":[
+            "block--core-box"
+        ],
+        "attributes":{
+            
+        }
+    },
+    "8ceb575d-efec-4a76-9044-de82604fb1ae":{
+        "id":"8ceb575d-efec-4a76-9044-de82604fb1ae",
+        "parent":[
+            "core/box",
+            "core/columns",
+            "core/column"
+        ],
+        "title":"Box",
+        "name":"core/box",
+        "description":"A box",
+        "innerBlocks":[
+            "43bf587a-7fd6-495c-a430-c1fbf6827b79"
+        ],
+        "classes":[
+            "block--core-box"
+        ],
+        "attributes":{
+            
+        }
+    },
+    "d17d4d0a-ff51-46c9-9e28-9a05d6cd237d":{
+        "id":"d17d4d0a-ff51-46c9-9e28-9a05d6cd237d",
+        "parent":[
+            "core/box",
+            "core/columns",
+            "core/column"
+        ],
+        "title":"Box",
+        "name":"core/box",
+        "description":"A box",
+        "innerBlocks":[
+            "b530464e-e821-404c-914c-1e408b484d3d"
+        ],
+        "classes":[
+            "block--core-box"
+        ],
+        "attributes":{
+            
+        }
+    },
+    "8d5e25a4-3eca-4ec2-9556-5c0ee6ed61c0":{
+        "id":"8d5e25a4-3eca-4ec2-9556-5c0ee6ed61c0",
+        "parent":[
+            "core/box",
+            "core/columns",
+            "core/column"
+        ],
+        "title":"Paragraph",
+        "name":"core/paragraph",
+        "description":"A single Paragraph.",
+        "innerBlocks":[
+            
+        ],
+        "classes":[
+            "block--core-paragraph"
+        ],
+        "attributes":{
+            "content":"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+            "allowedBlocks":[
+                
+            ]
+        }
+    },
+    "43bf587a-7fd6-495c-a430-c1fbf6827b79":{
+        "id":"43bf587a-7fd6-495c-a430-c1fbf6827b79",
+        "parent":[
+            "core/box",
+            "core/columns",
+            "core/column"
+        ],
+        "title":"Paragraph",
+        "name":"core/paragraph",
+        "description":"A single Paragraph.",
+        "innerBlocks":[
+            
+        ],
+        "classes":[
+            "block--core-paragraph"
+        ],
+        "attributes":{
+            "content":"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting",
+            "allowedBlocks":[
+                
+            ]
+        }
+    },
+    "b530464e-e821-404c-914c-1e408b484d3d":{
+        "id":"b530464e-e821-404c-914c-1e408b484d3d",
+        "parent":[
+            "core/box",
+            "core/columns",
+            "core/column"
+        ],
+        "title":"Paragraph",
+        "name":"core/paragraph",
+        "description":"A single Paragraph.",
+        "innerBlocks":[
+            
+        ],
+        "classes":[
+            "block--core-paragraph"
+        ],
+        "attributes":{
+            "content":"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+            "allowedBlocks":[
+                
+            ]
+        }
+    },
+    "ee21fc62-ae95-41f3-aaa3-5e27ecb50c9d":{
+        "id":"ee21fc62-ae95-41f3-aaa3-5e27ecb50c9d",
+        "parent":[
+            "core/box",
+            "core/columns",
+            "core/column"
+        ],
+        "title":"Box",
+        "name":"core/box",
+        "description":"A box",
+        "innerBlocks":[
+            "f23ef9ca-2b00-4a18-b55f-8ed52700fc0f",
+            "1bb76aaf-b655-4f1c-8176-e14914b70d6e"
+        ],
+        "classes":[
+            "block--core-box"
+        ],
+        "attributes":{
+            
+        },
+        "styles":{
+            "flexDirection":"column",
+            "alignItems":"center",
+            "paddingTop":"58px",
+            "paddingBottom":"58px",
+            "paddingRight":"58px",
+            "paddingLeft":"57px",
+            "backgroundColor":"#ffffff"
+        }
+    },
+    "f23ef9ca-2b00-4a18-b55f-8ed52700fc0f":{
+        "id":"f23ef9ca-2b00-4a18-b55f-8ed52700fc0f",
+        "parent":[
+            "core/box",
+            "core/columns",
+            "core/column"
+        ],
+        "title":"Header",
+        "name":"core/header",
+        "description":"New sections title",
+        "innerBlocks":[
+            
+        ],
+        "classes":[
+            "block--core-header"
+        ],
+        "attributes":{
+            "allowedBlocks":[
+                
+            ],
+            "textContent":"Wellcome"
+        }
+    },
+    "1bb76aaf-b655-4f1c-8176-e14914b70d6e":{
+        "id":"1bb76aaf-b655-4f1c-8176-e14914b70d6e",
+        "parent":[
+            "core/box",
+            "core/columns",
+            "core/column"
+        ],
+        "title":"Paragraph",
+        "name":"core/paragraph",
+        "description":"A single Paragraph.",
+        "innerBlocks":[
+            
+        ],
+        "classes":[
+            "block--core-paragraph"
+        ],
+        "attributes":{
+            "content":"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+            "allowedBlocks":[
+                
+            ]
+        }
+    },
+    "290970d3-d5c6-4181-b70d-86ae51c18146":{
+        "id":"290970d3-d5c6-4181-b70d-86ae51c18146",
+        "parent":[
+            "core/box",
+            "core/columns",
+            "core/column"
+        ],
+        "title":"Box",
+        "name":"core/box",
+        "description":"A box",
+        "innerBlocks":[
+            "f10557aa-f654-4899-9089-82c839d80d52",
+            "4c0549d6-c8a5-4e6e-96c9-97b3582d67cd"
+        ],
+        "classes":[
+            "block--core-box"
+        ],
+        "attributes":{
+            
+        },
+        "styles":{
+            "flexDirection":"column",
+            "alignItems":"center",
+            "paddingTop":"58px",
+            "paddingBottom":"58px",
+            "paddingRight":"58px",
+            "paddingLeft":"57px",
+            "backgroundColor":"#ffffff"
+        }
+    },
+    "f10557aa-f654-4899-9089-82c839d80d52":{
+        "id":"f10557aa-f654-4899-9089-82c839d80d52",
+        "parent":[
+            "core/box",
+            "core/columns",
+            "core/column"
+        ],
+        "title":"Header",
+        "name":"core/header",
+        "description":"New sections title",
+        "innerBlocks":[
+            
+        ],
+        "classes":[
+            "block--core-header"
+        ],
+        "attributes":{
+            "allowedBlocks":[
+                
+            ],
+            "textContent":"Wellcome"
+        }
+    },
+    "4c0549d6-c8a5-4e6e-96c9-97b3582d67cd":{
+        "id":"4c0549d6-c8a5-4e6e-96c9-97b3582d67cd",
+        "parent":[
+            "core/box",
+            "core/columns",
+            "core/column"
+        ],
+        "title":"Paragraph",
+        "name":"core/paragraph",
+        "description":"A single Paragraph.",
+        "innerBlocks":[
+            
+        ],
+        "classes":[
+            "block--core-paragraph"
+        ],
+        "attributes":{
+            "content":"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+            "allowedBlocks":[
+                
+            ]
+        }
+    },
+    "9e7fca2f-7d34-437d-a50f-6712ab3b08b0":{
+        "id":"9e7fca2f-7d34-437d-a50f-6712ab3b08b0",
+        "parent":[
+            "core/box",
+            "core/column"
+        ],
+        "title":"Columns",
+        "name":"core/columns",
+        "description":"Columns description",
+        "innerBlocks":[
+            "1228291e-faf6-4916-ad90-c356e024104f",
+            "a9ae1796-e914-475f-8f82-c5cc9e794b91"
+        ],
+        "classes":[
+            "block--core-columns",
+            "row"
+        ],
+        "attributes":{
+            
+        }
+    },
+    "1228291e-faf6-4916-ad90-c356e024104f":{
+        "id":"1228291e-faf6-4916-ad90-c356e024104f",
+        "parent":[
+            "core/columns"
+        ],
+        "title":"Column",
+        "name":"core/column",
+        "description":"A single column within a columns block.",
+        "innerBlocks":[
+            "f465e826-0f3d-4a2a-9fe7-7a51ac38e23d"
+        ],
+        "classes":[
+            "block--core-column",
+            "col-md"
+        ],
+        "attributes":{
+            
+        }
+    },
+    "a9ae1796-e914-475f-8f82-c5cc9e794b91":{
+        "id":"a9ae1796-e914-475f-8f82-c5cc9e794b91",
+        "parent":[
+            "core/columns"
+        ],
+        "title":"Column",
+        "name":"core/column",
+        "description":"A single column within a columns block.",
+        "innerBlocks":[
+            "62a24d02-b267-4c86-9c04-f3789bece7f1"
+        ],
+        "classes":[
+            "block--core-column",
+            "col-md"
+        ],
+        "attributes":{
+            
+        }
+    },
+    "f465e826-0f3d-4a2a-9fe7-7a51ac38e23d":{
+        "id":"f465e826-0f3d-4a2a-9fe7-7a51ac38e23d",
+        "parent":[
+            "core/box",
+            "core/columns",
+            "core/column"
+        ],
+        "title":"Box",
+        "name":"core/box",
+        "description":"A box",
+        "innerBlocks":[
+            "939eff03-160b-493f-a4e3-0a1cba40e356"
+        ],
+        "classes":[
+            "block--core-box"
+        ],
+        "attributes":{
+            
+        },
+        "styles":{
+            "height":"355px",
+            "justifyContent":"center",
+            "alignItems":"center"
+        }
+    },
+    "62a24d02-b267-4c86-9c04-f3789bece7f1":{
+        "id":"62a24d02-b267-4c86-9c04-f3789bece7f1",
+        "parent":[
+            "core/box",
+            "core/columns",
+            "core/column"
+        ],
+        "title":"Box",
+        "name":"core/box",
+        "description":"A box",
+        "innerBlocks":[
+            
+        ],
+        "classes":[
+            "block--core-box"
+        ],
+        "attributes":{
+            
+        },
+        "styles":{
+            "height":"336px",
+            "backgroundImage":"url(https://img.freepik.com/free-photo/juicy-splashing-green-apple-isolated-white-background_470742-277.jpg?w=2000)",
+            "backgroundColor":"#000000"
+        }
+    },
+    "939eff03-160b-493f-a4e3-0a1cba40e356":{
+        "id":"939eff03-160b-493f-a4e3-0a1cba40e356",
+        "parent":[
+            "core/box",
+            "core/columns",
+            "core/column"
+        ],
+        "title":"Header",
+        "name":"core/header",
+        "description":"New sections title",
+        "innerBlocks":[
+            
+        ],
+        "classes":[
+            "block--core-header"
+        ],
+        "attributes":{
+            "allowedBlocks":[
+                
+            ],
+            "textContent":"Apple"
+        }
+    },
+    "add01a50-c018-4c35-bf80-c330f8f7c5b0":{
+        "id":"add01a50-c018-4c35-bf80-c330f8f7c5b0",
+        "parent":[
+            "core/box",
+            "core/columns",
+            "core/column"
+        ],
+        "title":"Header",
+        "name":"core/header",
+        "description":"New sections title",
+        "innerBlocks":[
+            
+        ],
+        "classes":[
+            "block--core-header"
+        ],
+        "attributes":{
+            "allowedBlocks":[
+                
+            ],
+            "textContent":"Gallery"
+        }
+    }
+}

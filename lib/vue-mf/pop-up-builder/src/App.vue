@@ -19,19 +19,17 @@ const props = defineProps({
 })
 
 onBeforeMount(() => {
-    let blocks = getBlocksFromLocalStorage()
-    // if (!blocks) blocks = defaultBlocks
-    if (blocks) {
-        store.dispatch('setBlocks', blocks)
-        store.dispatch('setHistory', blocks)
-    }
-
     let patterns = getPatternsFromLocalStorage()
-    // if (!patterns) patterns = defaultPatterns
+    if (!patterns) patterns = defaultPatterns
     if (patterns) {
         store.dispatch('setPatterns', patterns)
-        // store.dispatch('setRootBlock', '/')
     }
+
+    let blocks = getBlocksFromLocalStorage()
+    if (!blocks) blocks = defaultBlocks
+    store.dispatch('setBlocks', blocks)
+    // store.dispatch('setRootBlock', 'root')
+    store.dispatch('setHistory')
 
     let storeOptions = getStoreOptionsFromLocalStorage()
     if (!storeOptions) storeOptions = defaultApis

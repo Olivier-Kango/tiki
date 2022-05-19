@@ -52,6 +52,7 @@ watch(() => props.show, (val, oldVal) => {
         :click-to-close="clickToClose"
         :focus-retain="false"
         :lock-scroll="false"
+        :hide-overlay="true"
         attach="body"
         @click-outside="() => {if (clickToClose) emit('close')}"
     >
