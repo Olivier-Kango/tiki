@@ -16,6 +16,17 @@
                     <dt title="{$field.name|tra|escape}" class="col-sm-3">{$field.name|tra|escape}</dt>
                     <dd class="col-sm-9">{trackeroutput field=$field item=$item_info showlinks=n list_mode=n}</dd>
                 {/foreach}
+                {if $pos eq 0 and ($tracker_info.showCreatedView eq 'y' or $tracker_info.showLastModifView eq 'y')}
+                    <hr class="my-3">
+                    {if $tracker_info.showCreatedView eq 'y'}
+                        <dt title="{tr}Created{/tr}" class="col-sm-3">{tr}Created{/tr}</dt>
+                        <dd class="col-sm-9">{$info.created|tiki_long_datetime}{if $tracker_info.showCreatedBy eq 'y'}<br>{tr}by{/tr} {if $prefs.user_show_realnames eq 'y'}{if empty($info.createdBy)}Unknown{else}{$info.createdBy|username}{/if}{else}{if empty($info.createdBy)}Unknown{else}{$info.createdBy}{/if}{/if}{/if}</dd>
+                    {/if}
+                    {if $tracker_info.showLastModifView eq 'y'}
+                        <dt title="{tr}LastModif{/tr}" class="col-sm-3">{tr}LastModif{/tr}</dt>
+                        <dd class="col-sm-9">{$info.lastModif|tiki_long_datetime}{if $tracker_info.showLastModifBy eq 'y'}<br>{tr}by{/tr} {if $prefs.user_show_realnames eq 'y'}{if empty($info.lastModifBy)}Unknown{else}{$info.lastModifBy|username}{/if}{else}{if empty($info.lastModifBy)}Unknown{else}{$info.lastModifBy}{/if}{/if}{/if}</dd>
+                    {/if}
+                {/if}
             </dl>
         {/tab}
     {/foreach}
