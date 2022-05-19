@@ -932,3 +932,7 @@ if ($prefs['conditions_enabled'] == 'y' && ! TIKI_API) {
         exit;
     }
 }
+
+if ($prefs['feature_tiki_manager'] == 'y') {
+    $headerlib->add_jsfile('lib/jquery_tiki/tiki-manager.js');
+}

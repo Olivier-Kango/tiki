@@ -187,11 +187,14 @@ class Services_Manager_Controller
     public function action_create($input)
     {
         if ($input->create->text()){
-            
             $cmd = new TikiManager\Command\CreateInstanceCommand();
             $inputCommand = new ArrayInput([
                 'command' => $cmd->getName(),
                 "--type" => $input->instance_type->text(),
+                "--host" => $input->host->text(),
+                "--port" => $input->port->text(),
+                "--user" => $input->user->text(),
+                "--pass" => $input->pass->text(),
                 "--url" => $input->instance_url->text(),
                 "--name" => $input->instance_name->text(),
                 "--email" => $input->email->text(),
@@ -206,7 +209,7 @@ class Services_Manager_Controller
                 "--db-pass" => $input->db_pass->text(),
                 "--db-prefix" => $input->db_prefix->text(),
             ]);
-            
+
             $this->runCommand($cmd, $inputCommand);
 
             return [
@@ -220,6 +223,10 @@ class Services_Manager_Controller
             $inputValues = [
                 'types' => ['local', 'ftp', 'ssh'],
                 'selected_type' => 'local',
+                'host' => '',
+                'port' => '',
+                'user' => '',
+                'pass' => '',
                 'url' => '',
                 'instance_name' => "",
                 'email' => '',
@@ -241,9 +248,9 @@ class Services_Manager_Controller
                 'info' => '',
                 'refresh' => true,
                 'inputValues' => $inputValues,
+                'sshPublicKey' => $_ENV['SSH_PUBLIC_KEY'],
             ];
         }
-        
     }
 
 
