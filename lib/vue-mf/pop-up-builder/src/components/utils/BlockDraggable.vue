@@ -37,7 +37,6 @@ onMounted(() => {
 })
 
 onBeforeUnmount(() => {
-    console.log('onBeforeUnmount', targetEl.value)
     if (targetEl.value) interact(targetEl.value).unset()
 })
 

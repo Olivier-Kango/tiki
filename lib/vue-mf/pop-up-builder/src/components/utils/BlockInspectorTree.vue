@@ -6,10 +6,8 @@ export default {
 
 <script setup>
 import { computed } from 'vue'
-import { Button, ButtonGroup, ButtonToolbar } from '@vue-mf/styleguide'
 import BlockDraggable from './BlockDraggable.vue'
 import BlockInspectorTreeView from './BlockInspectorTreeView.vue'
-import BlockControls from './BlockControls.vue'
 import store from '../../store'
 
 const root = computed(() => store.getters.getRootBlock)
@@ -21,7 +19,6 @@ const isSelected = computed(() => (block) => {
 
 const getBlockType = computed(() => (name) => store.getters.getBlockType(name))
 const getBlock = computed(() => (id) => {
-    console.log('getBlock', id, store.getters.getBlock(id))
     return store.getters.getBlock(id)
 })
 
