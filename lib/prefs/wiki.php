@@ -747,6 +747,20 @@ function prefs_wiki_list($partial = false)
             ],
             'keywords' => 'autotoc auto-toc',
         ],
+        'wiki_toc_tabs' => [
+            'name' => tr('Tabs'),
+            'description' => tr('Determine if the table of contents includes the content of Tabs plugin or not.'),
+            'type' => 'list',
+            'default' => 'no',
+            'options' => [
+                'no' => tra('No'),
+                'yes' => tra('Yes'),
+            ],
+            'dependencies' => [
+                'wiki_auto_toc',
+            ],
+            'keywords' => 'autotoc auto-toc',
+        ],
         'wiki_page_hide_title' => [
             'name' => tr('Add an option to hide the page title per wiki page'),
             'description' => tr('Enable the page title to not be displayed, on a per-page basis.'),

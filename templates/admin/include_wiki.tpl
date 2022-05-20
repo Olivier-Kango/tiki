@@ -93,6 +93,7 @@
                         {preference name=wiki_inline_auto_toc}
                         {preference name=wiki_toc_pos}
                         {preference name=wiki_toc_offset}
+                        {preference name=wiki_toc_tabs}
                     </div>
                 </fieldset>
             </div>

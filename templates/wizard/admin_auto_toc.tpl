@@ -14,6 +14,7 @@
             {preference name=wiki_inline_auto_toc}
             {preference name=wiki_toc_pos}
             {preference name=wiki_toc_offset}
+            {preference name=wiki_toc_tabs}
             <br>
             <em>{tr}See also{/tr} <a href="http://doc.tiki.org/tiki-index.php?page=Auto+TOC" target="_blank">{tr}Auto TOC{/tr} @ doc.tiki.org</a></em>
         </fieldset>

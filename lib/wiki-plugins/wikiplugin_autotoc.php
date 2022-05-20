@@ -73,6 +73,36 @@ function wikiplugin_autotoc_info()
                 'since' => '23.0',
                 'default' => tra(''),
             ],
+            'tabs' => [
+                'required' => false,
+                'name' => tr('Tabs'),
+                'description' => tr('Determine if the table of contents includes the content of Tabs plugin or not.'),
+                'since' => '25.0',
+                'filter' => 'alpha',
+                'default' => 'no',
+                'options' => [
+                    ['text' => tra('No'), 'value' => 'no'],
+                    ['text' => tra('Yes'), 'value' => 'yes']
+                ]
+            ],
+            'tabset_names' => [
+                'required' => false,
+                'name' => tra('Tabset names'),
+                'description' => tr('If tabs = yes, determine the Tabset names that uses the plugin. Use comma separator. Example : <code>tabset_names="tab1,tab2,tab3"</code> to show only the headers included in the tab1, tab2 and tab3'),
+                'since' => '25.0',
+                'filter' => 'text',
+                'separator' => ',',
+                'default' => '',
+            ],
+            'tabset_panes' => [
+                'required' => false,
+                'name' => tra('Tabset panes'),
+                'description' => tra('If tabs = yes, determine the Tabset panes that uses the plugin. Tabset panes are integers (1 to x) separated with comma. Example : <code>tabset_panes="1,2,3"</code> to show only 1, 2 and 3 headers of selected tabs names'),
+                'since' => '25.0',
+                'filter' => 'text',
+                'separator' => ',',
+                'default' => '',
+            ],
         ]
     ];
 }
@@ -99,8 +129,17 @@ function wikiplugin_autotoc($data, $params)
         (strstr($_SERVER["SCRIPT_NAME"], 'tiki-pagehistory.php') === false)
     ) {
         if (! isset($params['activity'])) {
-            return ("<b>Missing activity parameter for plugin</b><br/>");
+            Feedback::error(tra('Missing activity parameter for AutoTOC plugin'));
+            return;
         }
+
+        if (!empty($params['tabs']) && $params['tabs']  == 'yes') {
+            if(! isset($params['tabset_names']) || ! isset($params['tabset_panes'])) {
+                Feedback::error(tra('Missing Tabs names (tabset_names) parameter: it must be filled in when the Tabs (tabs) parameter is set to yes'));
+                return;
+            }
+        }
+
         if ($params['activity'] == 'yes') {
             $jqueryAutoToc['plugin_autoToc_activity'] = true;
             $jqueryAutoToc['plugin_autoToc_mode'] = isset($params['mode']) ? $params['mode'] === 'inline' : 'off';
@@ -108,6 +147,9 @@ function wikiplugin_autotoc($data, $params)
             $jqueryAutoToc['plugin_autoToc_pos'] = $autotocPos;
             $jqueryAutoToc['plugin_autoToc_offset'] = ! empty($params['offset']) && $params['offset'] > 0 ? $params['offset'] : 15;
             $jqueryAutoToc['plugin_autoToc_title'] = ! empty($params['title']) ? $params['title'] : '';
+            $jqueryAutoToc['plugin_autoToc_tabs'] = ! empty($params['tabs']) ? $params['tabs'] : 'no';
+            $jqueryAutoToc['plugin_autoToc_tabset_names'] = ! empty($params['tabset_names']) ? $params['tabset_names'] : '';
+            $jqueryAutoToc['plugin_autoToc_tabset_panes'] = ! empty($params['tabset_panes']) ? $params['tabset_panes'] : '';
 
             if (! empty($params['levels'])) {
                 $autoTocLevels = $params['levels'];
