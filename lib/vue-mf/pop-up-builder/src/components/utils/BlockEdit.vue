@@ -24,30 +24,32 @@ const props = defineProps({
     }
 })
 
-const getBlockClasses = computed(() => (id) => {
-    let classes = [{
+const getBlockClasses = computed(() =>
+    ({
         'block-builder-block': true,
-        'is-dropzone-active': store.getters.getDropzonedBlock?.id === id,
-        'is-dragged': store.getters.getDraggedBlock?.id === id,
-        'is-selected': store.getters.getSelected?.id === id,
-        'is-highlighted': store.getters.getHighlighted?.id === id,
-    }]
-    return Array.isArray(props.block.classes) ? props.block.classes.concat(classes) : classes
-})
-const handleEvent = (e, id) => store.dispatch('setSelected', id)
+        'is-dropzone-active': store.getters.getDropzonedBlock?.id === props.block.id,
+        'is-dragged': store.getters.getDraggedBlock?.id === props.block.id,
+        'is-selected': store.getters.getSelected?.id === props.block.id,
+        'is-highlighted': store.getters.getHighlighted?.id === props.block.id,
+    })
+)
+const handleEvent = () => store.dispatch('setSelected', props.block.id)
+
+const handleMouseEnter = () => store.dispatch('setHighlighted', props.block.id)
+const handleMouseLeave = () => store.dispatch('setHighlighted', null)
 </script>
 
 <template>
     <BlockDraggable
         :id="'block-' + block.id"
-        :class="getBlockClasses(block.id)"
+        :class="[...block.classes, getBlockClasses]"
         class="block-editor-block"
         :style="block.styles"
         :data-block="block.id"
         :block="block"
         drop
         dropArea="block-builder"
-        @click.stop="handleEvent($event, block.id)"
+        @click.stop="handleEvent"
     >
         <component
             :is="block.name + '-edit'"
