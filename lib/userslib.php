@@ -7100,18 +7100,29 @@ class UsersLib extends TikiLib
         }
     }
 
-    public function create_user_cookie($user, $secret = false)
+    public function create_user_cookie($userId, $secret = '')
     {
         global $prefs;
+
+        // clear all expired cookies to prevent build up of dead data
+        if ($prefs['login_cookies_auto_clean'] === 'y') {
+            $this->deleteExpiredCookies();
+        }
+        if ($prefs['login_multiple_forbidden'] === 'y') {
+            $this->delete_user_cookie($userId);
+        }
+
         if (! $secret) {
             $secret = $this->get_cookie_check();
         }
-        if ($prefs['login_multiple_forbidden'] === 'y') {
-            $this->delete_user_cookie($user);
-        }
 
-        $query = 'insert into `tiki_user_login_cookies`(`userId`, `secret`, `expiration`) values(?, ?, FROM_UNIXTIME(?))';
-        $result = $this->query($query, [$user, $secret, $this->now + $prefs['remembertime']]);
+        $query = 'INSERT INTO `tiki_user_login_cookies` (`userId`, `secret`, `expiration`) VALUES (?, ?, FROM_UNIXTIME(?))
+                 ON DUPLICATE KEY UPDATE `userId` = ?, `secret` = ?, `expiration` = FROM_UNIXTIME(?)';
+
+        $this->query($query, [
+            $userId, $secret, $this->now + $prefs['remembertime'],
+            $userId, $secret, $this->now + $prefs['remembertime']
+        ]);
 
         return $secret;
     }

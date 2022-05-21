@@ -149,5 +149,12 @@ function prefs_login_list()
             'default' => '',
             'tags' => ['advanced'],
         ],
+        'login_cookies_auto_clean' => [
+            'name' => tr('Clean expired cookies'),
+            'description' => tr('Automatically clean expired cookies from the database when anyone logs in.'),
+            'type' => 'flag',
+            'default' => 'y',
+            'tags' => ['advanced'],
+        ],
     ];
 }
