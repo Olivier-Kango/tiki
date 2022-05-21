@@ -34,6 +34,11 @@
             </label>
             {if $toc_type eq 'admin'}
                 <div class="actions input-group input-group-sm mb-2">
+                    {if count($structure_tree.sub)}
+                        <div class="input-group-append">
+                            <span class="input-group-text flip-children">{icon name='caret-down'}</span>
+                        </div>
+                    {/if}
                     <div class="input-group-append">
                         <span class="input-group-text">{icon name='sort'}</span>
                     </div>
