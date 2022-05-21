@@ -34,6 +34,9 @@
             </label>
             {if $toc_type eq 'admin'}
                 <div class="actions input-group input-group-sm mb-2">
+                    {if count($structure_tree.sub)}
+                        <span class="input-group-text flip-children">{icon name='caret-down'}</span>
+                    {/if}
                     <span class="input-group-text">{icon name='sort'}</span>
                     <input type="text" class="page-alias-input form-control" value="{$structure_tree.page_alias|escape}" placeholder="{tr}Page alias...{/tr}">
                     {self_link _script='tiki-index.php' page=$structure_tree.pageName structure=$structure_name _class="tips input-group-text" _title=":{tr}View{/tr}" _noauto="y"}
