@@ -6,9 +6,8 @@ export default {
 
 <script setup>
 import { computed } from 'vue'
-import { useState } from '../../hooks/useState'
 import store from '../../../store'
-import BlockInnerBlocks from '../../utils/BlockInnerBlocks.vue'
+import BlockBuilder from '../../utils/BlockBuilder.vue'
 
 const props = defineProps({
     block: {
@@ -17,32 +16,20 @@ const props = defineProps({
             return {}
         }
     }
-});
+})
 
-const { cloneBlockBulk } = useState(props.id)
-
-const cloneBlockTemplates = computed(() => {
+const getListData = computed(() => {
     let field = props.block.attributes.field
-    return store.getters[`module_${field}/get_${field}`]?.map(item => {
-        return { ...cloneBlockBulk(props.block.innerBlocks), context: item }
-    })
+    return store.getters[`module_${field}/get_${field}`]
 })
 </script>
 
 <template>
-    <div v-if="!cloneBlockTemplates" class="d-flex justify-content-center align-items-center" :style="{'font-size': '2rem'}">
-        <i class="fas fa-spinner fa-spin"></i>
-    </div>
-    <div v-if="cloneBlockTemplates">
-        <div
-            v-for="({ innerBlocks, blocks, context }, index) in cloneBlockTemplates"
-            :key="'block-clone-' + index"
-        >
-            <BlockInnerBlocks
-                :ids="innerBlocks"
-                :blocks="blocks"
-                :context="context"
-            />
-        </div>
-    </div>
+    <BlockBuilder
+        v-for="(data, index) in getListData"
+        :key="'block-list-item-' + index"
+        :id="block.id"
+        :context="data"
+        :edit="false"
+    />
 </template>

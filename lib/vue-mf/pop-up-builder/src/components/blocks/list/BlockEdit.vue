@@ -24,7 +24,7 @@ const props = defineProps({
     }
 });
 
-const { isSelected, isEditMode } = useState(props.block.id)
+const { isSelected } = useState(props.block.id)
 const showPopup = ref(false)
 const showInspector = ref(false)
 
@@ -43,11 +43,11 @@ const handleEdit = (e) => showInspector.value = true
     <BlockBuilder
         :id="block.id"
         :context="getFirstItem"
-        :edit="isEditMode"
+        :edit="true"
     />
 
     <BlockPopup v-if="isSelected">
-            <BlockControls :block="block" @edit="handleEdit"></BlockControls>
+        <BlockControls :block="block" @edit="handleEdit"></BlockControls>
     </BlockPopup>
 
     <CustomModal

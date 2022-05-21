@@ -20,11 +20,10 @@ const props = defineProps({
     edit: Boolean
 })
 
-const getBlocks = computed(() => store.getters.getBlocks)
-const getInnerBlocks = computed(() => store.getters.getBlocks[props.id].innerBlocks)
+const getInnerBlocks = computed(() => store.getters.getBlock(props.id).innerBlocks)
 </script>
 
 <template>
-    <BlockInnerBlocksEdit v-if="edit" :ids="getInnerBlocks" :blocks="getBlocks" :context="context" />
-    <BlockInnerBlocks v-if="!edit" :ids="getInnerBlocks" :blocks="getBlocks" :context="context" />
+    <BlockInnerBlocksEdit v-if="edit" :ids="getInnerBlocks" :context="context" />
+    <BlockInnerBlocks v-if="!edit" :ids="getInnerBlocks" :context="context" />
 </template>

@@ -18,21 +18,11 @@ const isSelected = computed(() => (block) => {
 })
 
 const getBlockType = computed(() => (name) => store.getters.getBlockType(name))
-const getBlock = computed(() => (id) => {
-    return store.getters.getBlock(id)
-})
+const getBlock = computed(() => (id) => store.getters.getBlock(id))
 
-const handleMouseOver = (e, id) => {
-    store.dispatch('setHighlighted', id)
-}
-
-const handleMouseOut = (e, id) => {
-    store.dispatch('setHighlighted', null)
-}
-
-const handleClick = (e, id) => {
-    store.dispatch('setSelected', id)
-}
+const handleMouseEnter = (id) => store.dispatch('setHighlighted', id)
+const handleMouseLeave = () => store.dispatch('setHighlighted', null)
+const handleClick = (id) => store.dispatch('setSelected', id)
 </script>
 
 <template>
@@ -52,9 +42,9 @@ const handleClick = (e, id) => {
                             :id="'block-tree-' + block.id"
                             :data-block-tree="block.id"
                             :class="{'is-selected': isSelected(block)}"
-                            @click="handleClick($event, block.id)"
-                            @mouseenter="handleMouseOver($event, block.id)"
-                            @mouseleave="handleMouseOut($event, block.id)"
+                            @click="handleClick(block.id)"
+                            @mouseenter="handleMouseEnter(block.id)"
+                            @mouseleave="handleMouseLeave"
                         >
                             <small><b>{{ getBlockType(block.name).title }}</b></small>
                             <!-- <BlockControls class="d-inline-block" :block="block"></BlockControls> -->

@@ -14,23 +14,20 @@ const props = defineProps({
         type: Array,
         default: () => []
     },
-    blocks: {
-        type: Object,
-        default: () => {}
-    },
     context: {
         type: Object,
         default: () => null
     },
 })
+
+const getBlock = computed(() => (id) => store.getters.getBlock(id))
 </script>
 
 <template>
     <Block
         v-for="id in ids"
         :key="'block-' + id"
-        :block="blocks[id]"
-        :blocks="blocks"
+        :block="getBlock(id)"
         :context="context"
     />
 </template>

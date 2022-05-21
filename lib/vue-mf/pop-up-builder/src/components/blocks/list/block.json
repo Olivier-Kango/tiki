@@ -3,7 +3,7 @@
 	"//$schema": "https://tiki.sample.org/trunk/block.json",
 	"apiVersion": 1,
 	"name": "core/list",
-	"title": "List items",
+	"title": "List",
 	"category": "text",
 	"description": "Dynamic block for rendering list of items",
     "parent": ["core/box", "core/columns", "core/column"],

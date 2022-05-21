@@ -14,10 +14,6 @@ const props = defineProps({
         type: Object,
         default: () => {}
     },
-    blocks: {
-        type: Array,
-        default: () => []
-    },
     context: {
         type: Object,
         default: () => null
@@ -33,10 +29,9 @@ const getBlockClasses = computed(() =>
         'is-highlighted': store.getters.getHighlighted?.id === props.block.id,
     })
 )
-const handleEvent = () => store.dispatch('setSelected', props.block.id)
+const getBlock = computed(() => (id) => store.getters.getBlock(id))
 
-const handleMouseEnter = () => store.dispatch('setHighlighted', props.block.id)
-const handleMouseLeave = () => store.dispatch('setHighlighted', null)
+const handleEvent = () => store.dispatch('setSelected', props.block.id) 
 </script>
 
 <template>
@@ -60,8 +55,7 @@ const handleMouseLeave = () => store.dispatch('setHighlighted', null)
                 <BlockEdit
                     v-for="_id in block.innerBlocks"
                     :key="'block-' + _id"
-                    :block="blocks[_id]"
-                    :blocks="blocks"
+                    :block="getBlock(_id)"
                     :context="context"
                 />
             </TransitionGroup>
