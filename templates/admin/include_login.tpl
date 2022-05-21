@@ -129,6 +129,7 @@
                 {preference name=permission_denied_login_box}
                 {preference name=login_text_explanation}
                 {preference name=login_multiple_forbidden}
+                {preference name=login_cookies_auto_clean}
                 <div class="adminoptionboxchild" id="login_multiple_forbidden_childcontainer">
                     {preference name=login_grab_session}
                 </div>

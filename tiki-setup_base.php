@@ -511,30 +511,35 @@ if (TIKI_API) {
     // changed cookie and session variable name by a name made with browsertitle
     $cookie_site = preg_replace("/[^a-zA-Z0-9]/", "", $prefs['cookie_name']);
     $user_cookie_site = 'tiki-user-' . $cookie_site;
+    $login_cookie_value = $_COOKIE["$user_cookie_site"];
     // if remember me is enabled, check for cookie where auth hash is stored
     // user gets logged in as the first user in the db with a matching hash
-    if (($prefs['rememberme'] != 'disabled') and (isset($_COOKIE["$user_cookie_site"])) and (! isset($user) and ! isset($_SESSION["$user_cookie_site"]))) {
+    if ($prefs['rememberme'] !== 'disabled' &&
+        ! empty($login_cookie_value) &&
+        empty($user) &&
+        empty($_SESSION["$user_cookie_site"])
+    ) {
         if ($prefs['feature_intertiki'] == 'y' and ! empty($prefs['feature_intertiki_mymaster']) and $prefs['feature_intertiki_sharedcookie'] == 'y') {
-            $rpcauth = $userlib->get_remote_user_by_cookie($_COOKIE["$user_cookie_site"]);
+            $rpcauth = $userlib->get_remote_user_by_cookie($login_cookie_value);
             if (is_object($rpcauth)) {
                 $response_value = $rpcauth->value();
                 if (is_object($response_value)) {
                     $user = $response_value->scalarval();
                 }
             }
-        } else {
-            if ($userId = $userlib->get_user_by_cookie($_COOKIE["$user_cookie_site"])) {
-                $userInfo = $userlib->get_userid_info($userId);
-                $user = $userInfo['login'];
-            }
+        } else if ($userId = $userlib->get_user_by_cookie($login_cookie_value)) {
+            $userInfo = $userlib->get_userid_info($userId);
+            $user = $userInfo['login'];
         }
-        if (isset($user) && $user) {
+        if (! empty($user)) {
             $_SESSION["$user_cookie_site"] = $user;
             if ($prefs['cookie_refresh_rememberme'] === 'y') {
                 if (empty($userId)) {    // for intertiki
                     $userId = $userlib->get_user_id($user);
                 }
-                $secret = $userlib->create_user_cookie($userId);
+                $cookie_parts = explode('.', $login_cookie_value, 2);
+                $secret = array_shift($cookie_parts);
+                $secret = $userlib->create_user_cookie($userId, $secret);
                 setcookie($user_cookie_site, $secret . '.' . $userId, $tikilib->now + $prefs['remembertime'], $prefs['feature_intertiki_sharedcookie'] == 'y' ? '/' : $prefs['cookie_path'], $prefs['cookie_domain']);
                 $logslib->add_log('login', 'refreshed a cookie for ' . $prefs['remembertime'] . ' seconds');
             }
