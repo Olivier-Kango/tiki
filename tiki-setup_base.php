@@ -511,7 +511,7 @@ if (TIKI_API) {
     // changed cookie and session variable name by a name made with browsertitle
     $cookie_site = preg_replace("/[^a-zA-Z0-9]/", "", $prefs['cookie_name']);
     $user_cookie_site = 'tiki-user-' . $cookie_site;
-    $login_cookie_value = $_COOKIE["$user_cookie_site"];
+    $login_cookie_value = $_COOKIE["$user_cookie_site"] ?? '';
     // if remember me is enabled, check for cookie where auth hash is stored
     // user gets logged in as the first user in the db with a matching hash
     if ($prefs['rememberme'] !== 'disabled' &&
