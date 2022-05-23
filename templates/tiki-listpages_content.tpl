@@ -23,6 +23,18 @@
     <form name="checkboxes_on" id="checkboxes_on" method="post" action="tiki-listpages.php">
 {/if}
 
+{* Conditionally display this remark*}
+
+{if $prefs.feature_stats eq 'n' AND $tiki_p_admin eq 'y'}
+    <div class="container">
+        <div class="row">
+            <div class="col-12" style="padding:10px 0px; font-weight:bolder;"> <!--Leave the style declaration here first but it should be included in the scss files for better maintainance soon-->
+                {tr _0='<span class="icon icon-information fas fa-info-circle"></span>' _1='<a target="_blank" href="tiki-admin.php?page=stats&highlight=feature_stats">' _2='</a>' _3='<a target="_blank" href="https://doc.tiki.org/Stats"><span class="icon icon-help fas fa-question-circle"></span></a>'}%0 To see page hits, please %1 activate %2 the stats feature %3{/tr}
+            </div>
+        </div>
+    </div>
+{/if}
+
 {assign var='pagefound' value='n'}
 <div id="{$ts.tableid}-div" class="{if $js}table-responsive{/if} ts-wrapperdiv" {if $ts.enabled}style="visibility:hidden;"{/if}> {*the table-responsive class cuts off dropdown menus *}
     <table id="{$ts.tableid}" class="table normal table-striped table-hover" data-count="{$cant|escape}">
@@ -56,7 +68,7 @@
                         <th>{$ln|escape}</th>
                     {/foreach}
                 {/if}
-                {if $prefs.wiki_list_hits eq 'y'}
+                {if $prefs.wiki_list_hits eq 'y' AND $prefs.feature_stats eq 'y'}
                     {assign var='cntcol' value=$cntcol+1}
                     <th id="hits">{self_link _sort_arg='sort_mode' _sort_field='hits'}{tr}Hits{/tr}{/self_link}</th>
                 {/if}
@@ -234,7 +246,7 @@
                         {/foreach}
                     {/if}
 
-                    {if $prefs.wiki_list_hits eq 'y'}
+                    {if $prefs.wiki_list_hits eq 'y' AND $prefs.feature_stats eq 'y'}
                         <td class="integer">
                             {$listpages[changes].hits}
                         </td>

@@ -22044,6 +22044,8 @@ $lang_current = array(
 "Address book" => "Carnet d'adresses",
 "Top pages" => "Pages les plus populaires",
 "Last pages" => "Dernières pages",
+"%0 To see page hits, please %1 activate %2 the stats feature %3" => "%0 Pour voir les visites de pages, veuillez %1 activer %2  la fonctionnalité stats %3",
+
 // "Note, deprecated file tiki-wikiplugin_edit.php, code moved to service plugin->replace" => "Note, deprecated file tiki-wikiplugin_edit.php, code moved to service plugin->replace",
 );
 $lang = array_replace($lang, $lang_current);
