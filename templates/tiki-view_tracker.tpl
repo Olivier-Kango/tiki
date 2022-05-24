@@ -332,10 +332,10 @@
                     {if $tiki_p_admin_trackers eq 'y'}
                         <div class="mb-3 row">
                             <div class="input-group min-width-customized">
-                                <option value="no_action" selected="selected">
-                                    {tr}Select the action to be performed with checked{/tr}...
-                                </option>
-                                <select name="batchaction" class="form-control">
+                                <select name="batchaction" class="form-select">
+                                    <option value="" selected="selected">
+                                        {tr}Select the action to be performed with checked{/tr}...
+                                    </option>
                                     <option value="delete">{tr}Delete Selected{/tr}</option>
                                     {if $tracker_info.showStatus eq 'y' or ($tracker_info.showStatusAdminOnly eq 'y' and $tiki_p_admin_trackers eq 'y')}
                                         <option value="c">{tr}Close{/tr}</option>
@@ -343,11 +343,9 @@
                                         <option value="p">{tr}Pending{/tr}</option>
                                     {/if}
                                 </select>
-                                <span class="input-group-text">
-                                    {ticket}
-                                    <input type="hidden" name="trackerId" value="{$trackerId}">
-                                    <input type="submit" class="btn btn-primary" name="act" value="{tr}OK{/tr}">
-                                </span>
+                                {ticket}
+                                <input type="hidden" name="trackerId" value="{$trackerId}">
+                                <input type="submit" class="btn btn-primary" name="act" value="{tr}OK{/tr}">
                             </div>
                         </div>
                     {/if}

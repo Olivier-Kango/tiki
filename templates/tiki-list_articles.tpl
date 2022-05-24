@@ -233,13 +233,11 @@
             {button _text="{tr}Select Duplicates{/tr}" _onclick="checkDuplicateRows(this,'td:not(:eq(2))'); return false;"}
             <br><br>
             <div class="col-lg-9 input-group">
-                <select name="submit_mult" class="form-control">
+                <select name="submit_mult" class="form-select">
                     <option value="">{tr}Select action to perform with checked...{/tr}</option>
                     <option value="remove_articles">{tr}Remove{/tr}</option>
                 </select>
-                <span class="input-group-text">
-                    <input type="submit" class="btn btn-warning" value="{tr}OK{/tr}">
-                </span>
+                <input type="submit" class="btn btn-warning" value="{tr}OK{/tr}">
             </div>
         </div>
     {/if}

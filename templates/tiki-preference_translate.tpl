@@ -48,9 +48,7 @@
             </select>
         </div>
         <div class="input-group">
-            <span class="input-group-text" style="padding-top: 10px;">
-                <input type="submit" class="btn btn-primary" value="{tr}Select{/tr}">
-            </span>
+            <input type="submit" class="btn btn-primary mt-2" value="{tr}Select{/tr}">
         </div>
     </div>
 </form>

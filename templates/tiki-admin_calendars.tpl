@@ -459,8 +459,8 @@
                     <input type="checkbox" name="nameoneachday"{if $info.nameoneachday eq 'y'} checked="checked"{/if}>
                 </div>
             </div>
-            <div class="mb-3 row">
-                <input type="submit" class="btn btn-primary offset-sm-4" name="save" value="{tr}Save{/tr}">
+            <div class="mb-3 text-center">
+                <input type="submit" class="btn btn-primary" name="save" value="{tr}Save{/tr}">
             </div>
             </fieldset>
             <fieldset>
@@ -469,17 +469,19 @@
                     <label class="col-sm-4 col-form-label" for="days">
                         {tr}Delete events older than:{/tr}
                     </label>
-                    <div class="col-sm-3 input-group">
-                        <input type="text" name="days" id="days" value="0" class="form-control">
-                        <span class="input-group-text">
-                            {tr}days{/tr}
-                        </span>
+                    <div class="col-sm-3">
+                        <div class="input-group">
+                            <input type="text" name="days" id="days" value="0" class="form-control">
+                            <span class="input-group-text">
+                                {tr}days{/tr}
+                            </span>
+                        </div>
                     </div>
                 </div>
-                <div class="mb-3 row">
+                <div class="mb-3 text-center">
                     <input
                         type="submit"
-                        class="btn btn-warning offset-sm-4"
+                        class="btn btn-danger"
                         name="clean"
                         value="{tr}Delete{/tr}"
                         onclick="confirmPopup('{tr}Delete old events?{/tr}')"

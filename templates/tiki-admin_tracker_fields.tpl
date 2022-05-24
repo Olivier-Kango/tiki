@@ -46,11 +46,9 @@
                     <option value="remove_fields">{tr}Remove Selected{/tr}</option>
                     <option value="export_fields">{tr}Export Selected{/tr}</option>
                 </select>
-                <span class="input-group-text">
-                    <input type="hidden" name="trackerId" value="{$trackerId|escape}">
-                    <input type="hidden" name="confirm" value="0">
-                    <button type="submit" class="btn btn-primary" name="submit">{tr}Go{/tr}</button>
-                </span>
+                <input type="hidden" name="trackerId" value="{$trackerId|escape}">
+                <input type="hidden" name="confirm" value="0">
+                <button type="submit" class="btn btn-primary" name="submit">{tr}Go{/tr}</button>
             </div>
         </div>
     </form>

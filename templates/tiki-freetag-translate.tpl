@@ -128,14 +128,12 @@ $('#scblink').click(function(e){
             {tr}Displayed languages:{/tr}
         </label>
         <div class="input-group">
-            <select multiple="multiple" name="additional_languages[]" class="form-control">
+            <select multiple="multiple" name="additional_languages[]" class="form-select">
                 {foreach item=lang from=$fullLanguageList}
                     <option value="{$lang.value}"{if in_array($lang.value, $languageList)} selected="selected"{/if}>{$lang.name}</option>
                 {/foreach}
             </select>
-            <span class="input-group-text">
-                <input type="submit" class="btn btn-primary" value="{tr}Select{/tr}">
-            </span>
+            <input type="submit" class="btn btn-primary" value="{tr}Select{/tr}">
         </div>
     </div>
 </form>

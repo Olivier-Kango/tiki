@@ -145,16 +145,9 @@
                                     {/if}
                                 {/if}
                             </select>
-                            <span class="input-group-text">
-                                <button
-                                    class="btn btn-primary"
-                                    form="fgalform"
-                                    type="submit"
-                                    onclick="confirmPopup()"
-                                >
+                            <button class="btn btn-primary" form="fgalform" type="submit" onclick="confirmPopup()">
                                     {tr}OK{/tr}
-                                </button>
-                            </span>
+                            </button>
                         </div>
                     {/if}
                     {if !empty($movesel_x) and !isset($file_info)}

@@ -112,8 +112,7 @@
                                     {/if}
 
                                     <a title="{$slots[ix].events[jj].start|tiki_short_time}:{$slots[ix].events[jj].description}" class="link" href="tiki-minical.php?view={$view}&amp;eventId={$slots[ix].events[jj].eventId}#add">{$slots[ix].events[jj].title}</a>
-                                    [<a class="link" href="tiki-minical.php?view={$view}&amp;remove={$slots[ix].events[jj].eventId}">x</a>]
-                                    <br>
+                                    <button class="close mb-3" aria-label="Delete" href="tiki-minical.php?view={$view}&amp;remove={$slots[ix].events[jj].eventId}"></button>
                                 {/section}
                             </td>
                         </tr>

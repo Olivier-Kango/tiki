@@ -140,9 +140,7 @@
             <div class="col-sm-8">
                 <div class="input-group">
                     <input type="text" class="form-control" name="name" id="rating_config_new">
-                    <span class="input-group-text">
-                        <input type="submit" class="btn btn-primary" name="create" value="{tr}Create{/tr}">
-                    </span>
+                    <input type="submit" class="btn btn-primary" name="create" value="{tr}Create{/tr}">
                 </div>
             </div>
         </fieldset>

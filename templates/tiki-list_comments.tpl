@@ -205,11 +205,9 @@
                 </option>
             {/if}
         </select>
-        <span class="input-group-text">
-            <button type="submit" class="btn btn-primary" onclick="confirmPopup()">
-                {tr}OK{/tr}
-            </button>
-        </span>
+        <button type="submit" class="btn btn-primary" onclick="confirmPopup()">
+            {tr}OK{/tr}
+        </button>
     </div>
     </form>
 {/if}

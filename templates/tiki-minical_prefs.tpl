@@ -120,12 +120,12 @@
                 {section name=numloop loop=$topics}
                     <td>
                         {if $topics[numloop].isIcon eq 'y'}
-                            <img src="{$topics[numloop].path}" alt="{tr}topic image{/tr}">
+                            <img src="{$topics[numloop].path}" alt="{tr}topic image{/tr}" class="me-2">
                         {else}
-                            <img src="tiki-view_minical_topic.php?topicId={$topics[numloop].topicId}" alt="{tr}topic image{/tr}">
+                            <img src="tiki-view_minical_topic.php?topicId={$topics[numloop].topicId}" alt="{tr}topic image{/tr}" class="me-2">
                         {/if}
                         {$topics[numloop].name}
-                        [<a class="link" href="tiki-minical_prefs.php?removetopic={$topics[numloop].topicId}">x</a>]
+                        <a class="close btn-close ms-2" title="{tr}Delete{/tr}" aria-label="Delete" href="tiki-minical_prefs.php?removetopic={$topics[numloop].topicId}"></a>
                     </td>
                     {* see if we should go to the next row *}
                     {if not ($smarty.section.numloop.rownum mod $cols)}

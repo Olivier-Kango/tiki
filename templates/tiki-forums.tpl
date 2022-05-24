@@ -38,11 +38,9 @@
                                          {icon name="search"}
                                      </span>
                                     <input name="highlight" type="text" class="form-control" placeholder="{tr}Find{/tr}...">
-                                    <div class="input-group-text">
-                                        <input type="hidden" name="where" value="forums">
-                                        <input type="hidden" name="filter~type" value="forum post">
-                                        <input type="submit" class="wikiaction btn btn-info" name="search" value="{tr}Search in content{/tr}">
-                                    </div>
+                                    <input type="hidden" name="where" value="forums">
+                                    <input type="hidden" name="filter~type" value="forum post">
+                                    <input type="submit" class="wikiaction btn btn-info" name="search" value="{tr}Search in content{/tr}">
                                 </div>
                             </div>
                         </form>
@@ -60,12 +58,10 @@
                             <span class="input-group-text">
                                 {icon name="search"}
                             </span>
-                            <input name="filter~content" type="text" class="form-control" placeholder="{tr}Find{/tr}">
-                         {*   <div class="input-group-text"> *}
-                                <input type="hidden" name="where" value="forums">
-                                <input type="hidden" name="filter~type" value="forum post">
-                                <button type="button" class="wikiaction btn-info" name="search" value="{tr}Search in content{/tr}">
-                         {*   </div> *}
+                            <input name="filter~content" type="text" class="form-control" aria-label="{tr}Find{/tr}" placeholder="{tr}Find{/tr}">
+                            <input type="hidden" name="where" value="forums">
+                            <input type="hidden" name="filter~type" value="forum post">
+                            <button type="button" class="wikiaction btn-info" name="search" value="{tr}Search in content{/tr}">
                         </div>
 
                 </form>

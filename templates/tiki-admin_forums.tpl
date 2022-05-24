@@ -167,7 +167,6 @@
                                     <option value="order_forum">{tr}Reorder forums{/tr}</option>
                                 {/if}
                             </select>
-                            <span class="input-group-text">
                             <button
                                 type="submit"
                                 form='admin_forums'
@@ -177,7 +176,6 @@
                             >
                                 {tr}OK{/tr}
                             </button>
-                        </span>
                         </div>
                     </div>
                 {/if}

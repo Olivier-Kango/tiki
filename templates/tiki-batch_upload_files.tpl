@@ -1,12 +1,12 @@
 {title url=''}{tr}Directory batch upload{/tr}{/title}
 
-<div class="t_navbar btn-group mb-3 row">
+<div class="t_navbar btn-group mb-3">
     {if $galleryId}
-        {button href="tiki-list_file_gallery.php?galleryId=$galleryId" class="btn btn-primary" _text="{tr}Browse File Gallery{/tr}"}
+        {button href="tiki-list_file_gallery.php?galleryId=$galleryId" class="btn btn-primary" _class="me-3" _text="{tr}Browse File Gallery{/tr}"}
         {button href="tiki-upload_file.php?galleryId=$galleryId" class="btn btn-primary" _text="{tr}Upload From Disk{/tr}"}
     {else}
         {button href="tiki-list_file_gallery.php" class="btn btn-primary" _text="{tr}Browse File Gallery{/tr}"}
-        {button href="tiki-upload_file.php" class="btn btn-primary" _text="{tr}Upload From Disk{/tr}"}
+        {button href="tiki-upload_file.php" class="btn btn-primary" _class="me-3" _text="{tr}Upload From Disk{/tr}"}
     {/if}
 </div>
 

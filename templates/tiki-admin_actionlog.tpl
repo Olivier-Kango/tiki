@@ -348,15 +348,13 @@
                                 {tr}Remove{/tr}
                             </option>
                         </select>
-                        <span class="input-group-text">
-                            <button
+                        <button
                                 type="submit"
                                 class="btn btn-primary"
                                 onclick="confirmPopup()"
-                            >
+                        >
                                 {tr}OK{/tr}
-                            </button>
-                        </span>
+                        </button>
                     </div>
                 {/if}
             </form>

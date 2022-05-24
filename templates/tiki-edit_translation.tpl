@@ -158,16 +158,14 @@
     <strong>{tr}Please select a language before translating.{/tr}</strong>
     <form method="post" action="tiki-edit_translation.php" class="form">
         <div class="input-group">
-            <select name="langpage" class="form-control">
+            <select name="langpage" class="form-select">
                 {foreach item=lang from=$languages}
                     <option value="{$lang.value|escape}">{$lang.name}</option>
                 {/foreach}
             </select>
-            <div class="input-group-text">
-                <input type="hidden" name="id" value="{$id}">
-                <input type="hidden" name="type" value="{$type|escape}">
-                <input type="submit" class="btn btn-primary" value="{tr}Set Page Language{/tr}">
-            </div>
+            <input type="hidden" name="id" value="{$id}">
+            <input type="hidden" name="type" value="{$type|escape}">
+            <input type="submit" class="btn btn-primary" value="{tr}Set Page Language{/tr}">
         </div>
     </form>
 {/if}

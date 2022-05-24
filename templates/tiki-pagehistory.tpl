@@ -214,9 +214,7 @@
                         </select>
                     {/if}
                     {if $prefs.javascript_enabled eq "y"}
-                        <span class="input-group-text">
-                            {button _text="{tr}Advanced{/tr}" _id="toggle_diffs" _ajax="n" _class="btn btn-secondary"}
-                        </span>
+                        {button _text="{tr}Advanced{/tr}" _id="toggle_diffs" _ajax="n" _class="btn btn-secondary"}
                         {jq}
     $("form#pagehistory")
         .each(function store_original_values(i, form){
@@ -525,17 +523,15 @@
                         {tr}Remove{/tr}
                     </option>
                 </select>
-                <span class="input-group-text">
-                    <button
-                        type="submit"
-                        form="pagehistory"
-                        formaction="{bootstrap_modal controller=wiki}"
-                        class="btn btn-warning"
-                        onclick="confirmPopup()"
-                    >
-                        {tr}OK{/tr}
-                    </button>
-                </span>
+                <button
+                    type="submit"
+                    form="pagehistory"
+                    formaction="{bootstrap_modal controller=wiki}"
+                    class="btn btn-warning"
+                    onclick="confirmPopup()"
+                >
+                    {tr}OK{/tr}
+                </button>
             </div>
             {if $paginate}
                 {if isset($smarty.request.history_offset)}

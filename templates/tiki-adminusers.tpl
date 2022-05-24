@@ -354,16 +354,14 @@
                                     </option>
                                 {/if}
                             </select>
-                            <span class="input-group-text">
-                                <button
-                                    type="submit"
-                                    formaction="{bootstrap_modal controller=user}"
-                                    class="btn btn-primary"
-                                    onclick="confirmPopup()"
-                                >
-                                    {tr}OK{/tr}
-                                </button>
-                            </span>
+                            <button
+                                type="submit"
+                                formaction="{bootstrap_modal controller=user}"
+                                class="btn btn-primary"
+                                onclick="confirmPopup()"
+                            >
+                                {tr}OK{/tr}
+                            </button>
                         </div>
                     {/if}
                 </div>

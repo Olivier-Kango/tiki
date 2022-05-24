@@ -92,11 +92,9 @@
                                     <div class="col-lg-4">
                                         <div class="input-group">
                                             <input type="text" name="toGroup" class="form-control">
-                                        <span class="input-group-text">
                                             <button class="btn btn-primary" name="duplicate" value="duplicate">
                                                 {tr}OK{/tr}
                                             </button>
-                                        </span>
                                         </div>
                                     </div>
                                 </div>
