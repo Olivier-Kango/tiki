@@ -214,9 +214,9 @@ Creation date: `date -u +%Y-%m-%d_%H-%M-%S`
 Version: $([ ! -z $GITBRANCH ] && echo $GITBRANCH || echo $SVNTAG)
 Related to Wish: http://dev.tiki.org/item${ID}
 Wish was created by user ${FRIENDLYUSERNAME}http://dev.tiki.org/user${TUSERID}
-Created as http://${SUBDOMAIN}.show.tikiwiki.org/
-Installation log: http://${SUBDOMAIN}.show.tikiwiki.org/install_log.txt
-This information is also kept here: http://${SUBDOMAIN}.show.tikiwiki.org/info.txt
+Created as http://${SUBDOMAIN}.show.tiki.org/
+Installation log: http://${SUBDOMAIN}.show.tiki.org/install_log.txt
+This information is also kept here: http://${SUBDOMAIN}.show.tiki.org/info.txt
 
 EOT
 
@@ -239,7 +239,7 @@ EOT
 fi
 
     # Create info.txt file with data useful to developers
-    echo "Creating file http://${SUBDOMAIN}.show.tikiwiki.org/info.txt with extra info for developers"
+    echo "Creating file http://${SUBDOMAIN}.show.tiki.org/info.txt with extra info for developers"
     INFOFILE=$INSTANCE_DIR/info.txt
     echo "$infotext" > ${INFOFILE}
     echo "$infotextversion" >> ${INFOFILE}
@@ -247,7 +247,7 @@ fi
 
 }
 
-echo "CREATION START - watch ${SUBDOMAIN}.show.tikiwiki.org "
+echo "CREATION START - watch ${SUBDOMAIN}.show.tiki.org "
 create
-echo "CREATION END - results in http://${SUBDOMAIN}.show.tikiwiki.org/install_log.txt (available after a delay)"
+echo "CREATION END - results in http://${SUBDOMAIN}.show.tiki.org/install_log.txt (available after a delay)"
 exit 0

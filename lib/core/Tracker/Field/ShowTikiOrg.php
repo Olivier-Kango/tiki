@@ -24,7 +24,7 @@ class Tracker_Field_ShowTikiOrg extends Tracker_Field_Abstract
                 'params'      => [
                     'domain'          => [
                         'name'         => tr('Domain name of show server'),
-                        'description'  => tr('For example, show.tikiwiki.org'),
+                        'description'  => tr('For example, show.tiki.org'),
                         'filter'       => 'text',
                         'legacy_index' => 0,
                     ],

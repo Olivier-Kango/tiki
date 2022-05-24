@@ -15,7 +15,7 @@ Name: %{name}
 Version: %{version}
 Release: %{release}
 Copyright: LGPL
-URL: http://www.tikiwiki.org
+URL: http://www.tiki.org
 Packager: Damian Parker <damian@damosoft.co.uk>
 AutoReqProv: no
 Requires: php 

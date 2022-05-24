@@ -221,7 +221,7 @@ info()
                 then
                     echo "WARNING: The subdomain found ( ${SUBDOMAIN} ) does not match the subdomain queried ( $TUSER-$TUSERID-$ID )"
                 fi
-                echo "SITE: ${SUBDOMAIN}.show.tikiwiki.org "
+                echo "SITE: ${SUBDOMAIN}.show.tiki.org "
             elif [[ $(ls -d -1 *-${TUSERID}-${ID} 2>/dev/null | wc -l ) > 1 ]]
             then
                 SUBDOMAIN=$(ls -d -1 *-${TUSERID}-${ID})
@@ -240,7 +240,7 @@ info()
                         echo "STATUS: ACTIVE"
                     fi
                     echo "WARNING: There are more than one site matching *-${TUSERID}-${ID}."
-                    echo "SITE: ${TUSER}-${TUSERID}-${ID}.show.tikiwiki.org "
+                    echo "SITE: ${TUSER}-${TUSERID}-${ID}.show.tiki.org "
                 else
                     echo "FAIL: There are more than one site matching *-${TUSERID}-${ID}. Please provide the -u username parameter to select among the following."
                     echo "${SUBDOMAIN}"
@@ -264,8 +264,8 @@ case ${COMMAND} in
         fi
 
         echo "START: ${COMMAND}"
-        echo "SITE: ${SUBDOMAIN}.show.tikiwiki.org "
-        echo "LOG: http://${SUBDOMAIN}.show.tikiwiki.org/install_log.txt (available after a delay)"
+        echo "SITE: ${SUBDOMAIN}.show.tiki.org "
+        echo "LOG: http://${SUBDOMAIN}.show.tiki.org/install_log.txt (available after a delay)"
         if [[ -d $INSTANCE_DIR ]];
         then
             echo "FAIL: Instance exists"
@@ -288,7 +288,7 @@ case ${COMMAND} in
             exit 1
         fi
         echo "START: ${COMMAND}"
-        echo "SITE: ${SUBDOMAIN}.show.tikiwiki.org "
+        echo "SITE: ${SUBDOMAIN}.show.tiki.org "
         ${COMMAND}
         echo "END: ${COMMAND}"
         exit 0
@@ -331,7 +331,7 @@ case ${COMMAND} in
         fi
         if [[ ! -e "$INSTANCE_DIR" ]] ; then echo "FAIL: $INSTANCE_DIR not found. It is not possible to snapshot a non-existing website."; exit 0; fi
         echo "START: ${COMMAND}"
-        echo "LOG: http://${SUBDOMAIN}.show.tikiwiki.org/last_snapshot_log.txt (available after a delay)"
+        echo "LOG: http://${SUBDOMAIN}.show.tiki.org/last_snapshot_log.txt (available after a delay)"
         #${COMMAND}
         nohup $PREFIX/tim-snapshot -u $TUSER -U $TUSERID -i $ID 1>$INSTANCE_DIR/last_snapshot_log.txt 2>&1 &
         # TODO: Show links

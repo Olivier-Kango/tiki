@@ -340,7 +340,7 @@ class TikiInit
 
         ** Multi-tiki
         **************************************
-        see http://tikiwiki.org/MultiTiki19
+        see https://tiki.org/MultiTiki19
 
         Setup of virtual tikis is done using setup.sh script
         -----------------------------------------------------------

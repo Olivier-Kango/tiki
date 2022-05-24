@@ -35,5 +35,5 @@ Helper tools
 * csscheck.sh, stripbraces.pl, stripcomments.pl
   made by mdavey
   Provide a report on CSS classes used in a stylesheet
-  See http://tikiwiki.org/RecipeRestoreCss for details
+  See https://themes.tiki.org/RecipeRestoreCss for details
 
