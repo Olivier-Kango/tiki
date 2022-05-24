@@ -190,13 +190,13 @@ class Services_Manager_Controller
             $cmd = new TikiManager\Command\CreateInstanceCommand();
             $inputCommand = new ArrayInput([
                 'command' => $cmd->getName(),
-                "--type" => $input->instance_type->text(),
+                "--type" => $input->type->text(),
                 "--host" => $input->host->text(),
                 "--port" => $input->port->text(),
                 "--user" => $input->user->text(),
                 "--pass" => $input->pass->text(),
-                "--url" => $input->instance_url->text(),
-                "--name" => $input->instance_name->text(),
+                "--url" => $input->url->text(),
+                "--name" => $input->name->text(),
                 "--email" => $input->email->text(),
                 "--webroot" => $input->webroot->text(),
                 "--tempdir" => $input->tempdir->text(),
@@ -208,6 +208,7 @@ class Services_Manager_Controller
                 "--db-user" => $input->db_user->text(),
                 "--db-pass" => $input->db_pass->text(),
                 "--db-prefix" => $input->db_prefix->text(),
+                "--db-name" => $input->db_name->text(),
             ]);
 
             $this->runCommand($cmd, $inputCommand);
@@ -228,7 +229,7 @@ class Services_Manager_Controller
                 'user' => '',
                 'pass' => '',
                 'url' => '',
-                'instance_name' => "",
+                'name' => "",
                 'email' => '',
                 'webroot' => '',
                 'branches' => $this->getTikiBranches(),
@@ -240,14 +241,24 @@ class Services_Manager_Controller
                 'db_host' => '',
                 'db_user' => '',
                 'db_pass' => '',
-                'db_prefix' => ''
+                'db_prefix' => '',
+                'db_name' => ''
             ];
+
+            $cmd = new TikiManager\Command\CreateInstanceCommand();
+            $definition = $cmd->getDefinition();
+
+            $help = [];
+            foreach ($definition->getOptions() as $option) {
+                $help[$option->getName()] = $option->getDescription();
+            }
 
             return [
                 'title' => tr('Create New Instance'),
                 'info' => '',
                 'refresh' => true,
                 'inputValues' => $inputValues,
+                'help' => $help,
                 'sshPublicKey' => $_ENV['SSH_PUBLIC_KEY'],
             ];
         }
