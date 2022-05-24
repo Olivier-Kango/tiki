@@ -15,8 +15,8 @@ class Services_Manager_Utilities
 {
     use Services_Manager_Trait;
 
-    public function loadEnv() {
-        $this->loadManagerEnv();
+    public function loadEnv($isWeb = true) {
+        $this->loadManagerEnv($isWeb);
         $this->setManagerOutput();
     }
 

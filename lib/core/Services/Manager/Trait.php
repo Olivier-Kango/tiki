@@ -47,7 +47,7 @@ trait Services_Manager_Trait
      * - setup storage-based data paths, so updates and reinstalls don't loose data or backups
      * @throws \TikiManager\Config\Exception\ConfigurationErrorException
      */
-    protected function loadManagerEnv()
+    protected function loadManagerEnv($isWeb = true)
     {
         global $tikipath;
 
@@ -78,7 +78,10 @@ trait Services_Manager_Trait
         $tm_env->load();
 
         $_ENV['SSH_CONFIG'] = $_ENV['TRIM_ROOT'].'/data/ssh_config';
-        $_ENV['RUN_THROUGH_TIKI_WEB'] = true;
+
+        if ($isWeb) {
+            $_ENV['RUN_THROUGH_TIKI_WEB'] = $isWeb;
+        }
     }
 
     /**
