@@ -47,9 +47,9 @@
 
                         <div class="mb-3 row mx-0">
                             {if $multiple eq 'y'}
-                                <select name="modcatchange[]" multiple="multiple" class="form-control">
+                                <select name="modcatchange[]" multiple="multiple" class="form-select">
                             {else}
-                                <select name="modcatchange" size="1" onchange="this.form.submit();" class="form-control">
+                                <select name="modcatchange" size="1" onchange="this.form.submit();" class="form-select">
                             {/if}
                             {if $add eq 'y'}
                                 {if !isset($module_params.notop)}

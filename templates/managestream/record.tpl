@@ -9,7 +9,7 @@
                 {tr}Event{/tr}
             </label>
             <div class="col-md-9">
-                <select name="event" class="form-control">
+                <select name="event" class="form-select">
                     {foreach from=$eventTypes item=eventName}
                         <option value="{$eventName|escape}"{if $rule.eventType eq $eventName} selected{/if}>
                             {$eventName|escape}
@@ -31,7 +31,7 @@
             <div class="priority-div hidden clearfix">
                 <div class="mb-3 row offset-md-4 col-md-8">
                     <label for="priorityinput" class="col-form-label">{tr}Priority{/tr}</label>
-                    <select id="priorityinput" name="priority" class="form-control">
+                    <select id="priorityinput" name="priority" class="form-select">
                         <option value="low">Low</option>
                         <option value="high">High</option>
                         <option value="critical">Critical</option>

@@ -30,7 +30,7 @@
                 <label class="col-form-label col-md-3" for="type">{tr}Type{/tr}:</label>
 
                 <div class="col-md-9">
-                    <select name="type" class="form-control">
+                    <select name="type" class="form-select">
                         <option value="o" {if $info.type eq 'o'}selected="selected"{/if}>{tr}option{/tr}</option>
                         <option value="s" {if $info.type eq 's'}selected="selected"{/if}>{tr}section level 0{/tr}</option>
                         <option value='1' {if $info.type eq '1'}selected="selected"{/if}>{tr}section level 1{/tr}</option>
@@ -52,7 +52,7 @@
                 <label class="col-form-label col-md-3" for="menu_groupname">{tr}Group:{/tr}</label>
 
                 <div class="col-md-9">
-                    <select id="menu_groupname" name="groupname[]" class="form-control mb-4" multiple="multiple">
+                    <select id="menu_groupname" name="groupname[]" class="form-select mb-4" multiple="multiple">
                         <option value=""></option>
                         {foreach $option_groups as $groupname => $selected}
                             <option value="{$groupname|escape}" {$selected}>{$groupname|escape}</option>
@@ -98,7 +98,7 @@
                     <label class="col-form-label col-md-3" for="level">{tr}Level:{/tr}</label>
 
                     <div class="col-md-9">
-                        <select name="level" id="level" class="form-control">
+                        <select name="level" id="level" class="form-select">
                             <option value="0"{if $level eq 0} selected="selected"{/if}>{tr}All{/tr}</option>
                             {foreach key=levn item=lev from=$prefs.userlevels}
                                 <option value="{$levn}"{if $info.userlevel eq $levn} selected="selected"{/if}>{$lev}</option>
@@ -123,7 +123,7 @@
                         <label>
                             {tr}This is a dynamic menu option for a Templated Group in:{/tr}
                         </label>
-                        <select name="tplGroupContainer" id="tplGroupContainer" class="form-control">
+                        <select name="tplGroupContainer" id="tplGroupContainer" class="form-select">
                             <option>{tr}None{/tr}</option>
                             {foreach $templatedGroups as $group}
                                 <option value="{$group['id']}"

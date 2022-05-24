@@ -12,7 +12,7 @@
         <div class="mb-3 row">
             <label class="col-form-label col-md-3">{tr}Type{/tr}</label>
             <div class="col-md-9">
-                <select name="rewardType" class="form-control">
+                <select name="rewardType" class="form-select">
                     {foreach $rewards as $key => $info}
                         <option value="{$key|escape}" {if $reward.rewardType eq $key} selected {/if} data-arguments="{$info.arguments|json_encode|escape}">{$info.label|escape}</option>
                     {/foreach}
@@ -23,7 +23,7 @@
             <div class="mb-3 argument creditType">
                 <label class="col-form-label col-md-3">{tr}Credit Type{/tr}</label>
                 <div class="col-md-9">
-                    <select name="creditType" class="form-control">
+                    <select name="creditType" class="form-select">
                         {foreach $rewards.credit.options as $creditType => $creditLabel}
                             <option value="{$creditType|escape}" {if $creditType eq $reward.creditType} selected {/if}>{$creditLabel|escape}</option>
                         {/foreach}

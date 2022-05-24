@@ -111,7 +111,7 @@
         <div class="mb-3 row">
             <label class="col-sm-3 col-md-2 col-form-label" for="router_type">{tr}Router Type{/tr} *</label>
             <div class="col-sm-9 col-md-10">
-                <select id='router_type' class="form-control" name='router_type'>
+                <select id='router_type' class="form-select" name='router_type'>
                     <option value=''></option>
                     {html_options options=$routerTypes selected=$route.type}
                 </select>

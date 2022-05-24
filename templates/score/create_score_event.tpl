@@ -4,7 +4,7 @@
         <tr>
             <td colspan="2"><b>{$eventType}</b></td>
             <td class="text-end" colspan="3"><b>{tr}Reversal Event{/tr}</b>:
-                <select class="reverse-event-select" name="events[{$eventType}][reversalEvent]" class="form-control">
+                <select class="reverse-event-select" name="events[{$eventType}][reversalEvent]" class="form-select">
                     <option value="">{tr}None{/tr}</option>
                     {foreach from=$eventTypes item=eventName}
                         <option value="{$eventName|escape}">

@@ -29,7 +29,7 @@
                     {/foreach}}
                 {/jq}
                 {*FIX flip from tikijs.js this only a paleative<select name="filterfield" onchange="multitoggle(fields,this.options[selectedIndex].value);flip('filterbutton');">*}
-                <select name="filterfield" class="form-control" data-placeholder="{tr}Choose a filter{/tr}" onchange="multitoggle(fields,this.options[selectedIndex].value); {literal}showit = 'show_filterbutton'; if(this.selectedIndex == 0){document.getElementById('filterbutton').style.display = 'none';setSessionVar(showit,'n');}else{ document.getElementById('filterbutton').style.display = 'block'; setSessionVar(showit,'y');}{/literal}">
+                <select name="filterfield" class="form-select" data-placeholder="{tr}Choose a filter{/tr}" onchange="multitoggle(fields,this.options[selectedIndex].value); {literal}showit = 'show_filterbutton'; if(this.selectedIndex == 0){document.getElementById('filterbutton').style.display = 'none';setSessionVar(showit,'n');}else{ document.getElementById('filterbutton').style.display = 'block'; setSessionVar(showit,'y');}{/literal}">
                     {*FIX flip from tikijs.js this only a paleative<select name="filterfield" onchange="multitoggle(fields,this.options[selectedIndex].value);flip('filterbutton');">*}
                     <option value="">{tr}Choose a filter{/tr}</option>
                     {foreach key=fid item=field from=$listfields}
@@ -47,14 +47,14 @@
                 {if $field.isSearchable eq 'y' and $field.type ne 'f' and $field.type ne 'j' and $field.type ne 'i'}
                     {if $field.type eq 'c'}
                         <div style="display:{if $filterfield eq $fid}block{else}none{/if};" id="fid{$fid}">
-                            <select name="filtervalue[{$fid}]" class="form-control">
+                            <select name="filtervalue[{$fid}]" class="form-select">
                                 <option value="y"{if $filtervalue eq 'y'} selected="selected"{/if}>{tr}Yes{/tr}</option>
                                 <option value="n"{if $filtervalue eq 'n'} selected="selected"{/if}>{tr}No{/tr}</option>
                             </select>
                         </div>
                     {elseif $field.type eq 'd' or $field.type eq 'D'}
                         <div style="display:{if $filterfield eq $fid}block{else}none{/if};" id="fid{$fid}">
-                            <select name="filtervalue[{$fid}]" class="form-control">
+                            <select name="filtervalue[{$fid}]" class="form-select">
                                 {if $field.type eq 'D'}<option value="" />{/if}
                                 {foreach from=$field.possibilities key=dropdown_key item=dropdown_value}
                                     <option value="{$dropdown_key|escape}" {if $fid == $filterfield}{if $filtervalue eq $dropdown_key}{assign var=gotit value=y}selected="selected"{/if}{/if}>{$dropdown_value|tr_if}</option>
@@ -83,7 +83,7 @@
                                 {/foreach}
                             {elseif $field.options_map.inputtype eq 'm'}
                                 {if $prefs.jquery_select2 neq 'y'}<small>{tr}Hold "Ctrl" in order to select multiple values{/tr}</small><br>{/if}
-                                <select name="filtervalue[{$fid}][]" multiple="multiple" class="form-control">
+                                <select name="filtervalue[{$fid}][]" multiple="multiple" class="form-select">
                                     {foreach key=ku from=$field.possibilities key=value item=label}
                                         <option value="{$value|escape}" {if is_array($filtervalue) and in_array($value, $filtervalue)}selected="selected"{/if}>{$label|escape}</option>
                                     {/foreach}

@@ -14,7 +14,7 @@
                 {tr}Event{/tr}
             </label>
             <div class="col-md-9">
-                <select name="event" class="form-control">
+                <select name="event" class="form-select">
                     {foreach from=$eventTypes item=eventName}
                         <option value="{$eventName|escape}"{if $rule.eventType eq $eventName} selected{/if}>{$eventName|escape}</option>
                     {/foreach}

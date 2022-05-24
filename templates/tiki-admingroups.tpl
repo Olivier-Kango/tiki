@@ -131,7 +131,7 @@
             </div>
                 <div class="input-group col-sm-8">
                     <label for="submit_mult" class="col-form-label sr-only">{tr}Select action to perform with checked{/tr}</label>
-                        <select name="action" class="form-control">
+                        <select name="action" class="form-select">
                             <option value="no_action" selected="selected">{tr}Select action to perform with checked{/tr}...</option>
                             <option value="remove_groups">{tr}Remove{/tr}</option>
                         </select>
@@ -212,7 +212,7 @@
                             {/foreach}
                         </ul>
                     {/if}
-                    <select name="include_groups[]" id="groups_inc" multiple="multiple" size="8" class="form-control">
+                    <select name="include_groups[]" id="groups_inc" multiple="multiple" size="8" class="form-select">
                         {if !empty($groupname)}
                             <option value="">{tr}None{/tr}</option>{/if}
                         {foreach key=gr item=yn from=$inc}
@@ -251,7 +251,7 @@
                 <div class="mb-3 row">
                     <label for="groups_defcat" class="col-form-label col-md-3">{tr}Default Category{/tr}</label>
                     <div class="col-md-9">
-                        <select name="defcat" id="groups_defcat" class="form-control">
+                        <select name="defcat" id="groups_defcat" class="form-select">
                             <option value="" {if ($groupdefcat eq "") or ($groupdefcat eq 0)} selected="selected"{/if}>{tr}none{/tr}</option>
                             {foreach $categories as $id=>$category}
                                 <option value="{$id|escape}" {if $id eq $groupdefcat}selected="selected"{/if}>{$category.categpath|escape}</option>
@@ -267,7 +267,7 @@
                 <div class="mb-3 row">
                     <label for="groups_theme" class="col-form-label col-md-3">{tr}Group theme{/tr}</label>
                     <div class="col-md-9">
-                        <select name="theme" id="groups_theme" class="form-control">
+                        <select name="theme" id="groups_theme" class="form-select">
                             <option value="" {if $grouptheme eq ""} selected="selected"{/if}>{tr}none{/tr}
                                 ({tr}Use site default{/tr})
                             </option>
@@ -293,7 +293,7 @@
                 <div class="mb-3 row">
                     <label for="groupstracker" class="col-form-label col-md-3">{tr}Group Information Tracker{/tr}</label>
                     <div class="col-md-9">
-                        <select name="groupstracker" id="groupstracker" class="form-control">
+                        <select name="groupstracker" id="groupstracker" class="form-select">
                             <option value="0">{tr}choose a group tracker ...{/tr}</option>
                             {foreach key=tid item=tit from=$trackers}
                                 <option value="{$tid}"{if isset($grouptrackerid) && $tid eq $grouptrackerid} {assign var="ggr" value="$tit"}selected="selected"{/if}>{$tit|escape}</option>
@@ -304,7 +304,7 @@
                         </div>
                         {if isset($grouptrackerid) || $prefs.javascript_enabled eq 'y'}
                             <div id="groupfielddiv"{if empty($grouptrackerid) and $prefs.javascript_enabled eq 'y' and $prefs.jquery_select2 neq 'y'} style="display: none;"{/if}>
-                                <select name="groupfield" class="form-control">
+                                <select name="groupfield" class="form-select">
                                     <option value="0">{tr}choose a field ...{/tr}</option>
                                     {if isset($groupFields)}
                                         {section name=ix loop=$groupFields}
@@ -329,7 +329,7 @@
                 <div class="mb-3 row">
                     <label for="userstracker" class="col-form-label col-md-3">{tr}User Registration Tracker{/tr}</label>
                     <div class="col-md-9">
-                        <select name="userstracker" id="userstracker" class="form-control">
+                        <select name="userstracker" id="userstracker" class="form-select">
                             <option value="0">{tr}choose a user tracker ...{/tr}</option>
                             {foreach key=tid item=tit from=$trackers}
                                 <option value="{$tid}"{if isset($userstrackerid) && $tid eq $userstrackerid} {assign var="ugr" value="$tit"}selected="selected"{/if}>{$tit|escape}</option>
@@ -340,7 +340,7 @@
                         </div>
                         {if (isset($userstrackerid) or $prefs.javascript_enabled eq 'y')}
                             <div id="usersfielddiv"{if empty($userstrackerid) and $prefs.javascript_enabled eq 'y' and $prefs.jquery_select2 neq 'y'} style="display: none;"{/if}>
-                                <label>{tr}Select user field{/tr}</label> <select name="usersfield" class="form-control">
+                                <label>{tr}Select user field{/tr}</label> <select name="usersfield" class="form-select">
                                     {if !empty($usersFields)}
                                         <option value="0">{tr}Choose a field ...{/tr}</option>
                                         {section name=ix loop=$usersFields}
@@ -449,7 +449,7 @@
                 <div class="mb-3 row">
                     <label for="prorateInterval" class="col-form-label col-md-3">{tr}Pro-rata Membership{/tr}</label>
                     <div class="col-md-9">
-                        <select name="prorateInterval" class="form-control">
+                        <select name="prorateInterval" class="form-select">
                             <option value="day" {if $group_info.prorateInterval eq 'day'}selected="selected"{/if}>{tr}Day{/tr}</option>
                             <option value="month" {if $group_info.prorateInterval eq 'month'}selected="selected"{/if}>{tr}Month{/tr}</option>
                             <option value="year" {if $group_info.prorateInterval eq 'year'}selected="selected"{/if}>{tr}Year{/tr}</option>
@@ -649,7 +649,7 @@
                     <form id="addorban" method="post" action="tiki-admingroups.php">
                         <h2>{tr}Add or ban users{/tr}</h2>
                         <div>
-                            <select name="user[]" multiple="multiple" size="10" class="{*custom-select*}form-select">
+                            <select name="user[]" multiple="multiple" size="10" class="{*custom-select*} form-select">
                                 {foreach from=$userslist item=iuser}
                                     <option>{$iuser|escape}</option>
                                 {/foreach}
@@ -761,7 +761,7 @@
                 <div class="mb-3 row">
                     <label class="col-sm-3 col-form-label">{tr}Charset encoding{/tr}</label>
                     <div class="col-sm-7">
-                        <select name="encoding" class="form-control">
+                        <select name="encoding" class="form-select">
                             <option value="UTF-8" selected="selected">{tr}UTF-8{/tr}</option>
                             <option value="ISO-8859-1">{tr}ISO-8859-1{/tr}</option>
                         </select>

@@ -172,7 +172,7 @@
         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="module">{tr}Module{/tr}</label>
             <div class="col-sm-8">
-                <select name="module" class="form-control form-control-sm">
+                <select name="module" class="form-select form-select-sm">
                     {section name=ix loop=$assignables}
                         <option value="{$assignables[ix].moduleId|escape}">{$assignables[ix].name}</option>
                     {/section}
@@ -182,7 +182,7 @@
         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="position">{tr}Column{/tr}</label>
             <div class="col-sm-8">
-                <select name="position" class="form-control form-control-sm">
+                <select name="position" class="form-select form-select-sm">
                     {if $prefs.feature_left_column ne 'n'}<option value="left">{tr}Left{/tr}</option>{/if}
                     {if $prefs.feature_right_column ne 'n'}<option value="right">{tr}Right{/tr}</option>{/if}
                 </select>
@@ -191,7 +191,7 @@
         <div class="mb-3 row">
             <label class="col-form-label col-sm-4" for="order">{tr}Order{/tr}</label>
             <div class="col-sm-8">
-                <select name="order" class="form-control form-control-sm">
+                <select name="order" class="form-select form-select-sm">
                     {section name=ix loop=$orders}
                         <option value="{$orders[ix]|escape}">{$orders[ix]}</option>
                     {/section}

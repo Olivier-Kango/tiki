@@ -49,7 +49,7 @@
                     <tr>
                         <td colspan="2"><b>{tr}Triggering event{/tr}</b>: {$event['event']}</td>
                         <td colspan="3" class="text-end"><b>{tr}Reversal event{/tr}</b>:
-                            <select class="reverse-event-select" name="events[{$event['event']}][reversalEvent]" class="form-control">
+                            <select class="reverse-event-select" name="events[{$event['event']}][reversalEvent]" class="form-select">
                                 <option value="">{tr}None{/tr}</option>
                                 {foreach from=$eventTypes item=eventName}
                                     <option value="{$eventName|escape}"{if $event['reversalEvent'] eq $eventName} selected{/if}>
@@ -111,7 +111,7 @@
         <hr>
         <div class="mb-3 row clearfix">
             <div class="col-lg-4 col-sm-6">
-                <select id="eventSelect" name="event" class="form-control">
+                <select id="eventSelect" name="event" class="form-select">
                     {foreach from=$eventTypes item=eventName}
                         <option value="{$eventName|escape}"{if $rule.eventType eq $eventName} selected{/if}>
                             {$eventName|escape}

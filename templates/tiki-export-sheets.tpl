@@ -35,7 +35,7 @@
         <div class="mb-3 row">
             <label class="col-form-label col-sm-3">{tr}Version:{/tr}</label>
             <div class="col-sm-6">
-                <select name="readdate" class="form-control">
+                <select name="readdate" class="form-select">
                     {section name=key loop=$history}
                         <option value="{$history[key].stamp}">{$history[key].prettystamp}</option>
                     {/section}
@@ -47,7 +47,7 @@
             <label class="col-form-label col-sm-3">{tr}Format:{/tr}</label>
             <div class="col-sm-6">
                 <input type="hidden" value="{$sheetId}" name="sheetId">
-                <select name="handler" class="form-control">
+                <select name="handler" class="form-select">
                     {section name=key loop=$handlers}
                         <option value="{$handlers[key].class}">{$handlers[key].name} V. {$handlers[key].version}</option>
                     {/section}

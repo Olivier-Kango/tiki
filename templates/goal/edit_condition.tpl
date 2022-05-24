@@ -37,7 +37,7 @@
         <div class="mb-3 row">
             <label class="col-form-label col-md-3">{tr}Metric{/tr}</label>
             <div class="col-md-9">
-                <select name="metric" class="form-control">
+                <select name="metric" class="form-select">
                     {foreach $metrics as $key => $metric}
                         <option value="{$key|escape}" {if $condition.metric eq $key} selected {/if} data-arguments="{$metric.arguments|json_encode|escape}">{$metric.label|escape}</option>
                     {/foreach}

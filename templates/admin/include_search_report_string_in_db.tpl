@@ -6,7 +6,7 @@
     </label>
     <div class="col-sm-7">
         <div class="input-group">
-            <select name="string_in_db_search_table" class="form-control" id="string_in_db_search_table">
+            <select name="string_in_db_search_table" class="form-select" id="string_in_db_search_table">
             <option value="">{tr}All tables{/tr}</option>
             <option disabled="disabled">─────{tr}Popular tables{/tr}─────</option>
             {foreach $popularTables as $popularTable}

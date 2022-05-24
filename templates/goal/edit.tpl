@@ -55,7 +55,7 @@
                 <div class="mb-3 row">
                     <label for="eligible" class="col-form-label col-md-3">{tr}Groups{/tr}</label>
                     <div class="col-md-9">
-                        <select name="eligible[]" class="form-control" multiple>
+                        <select name="eligible[]" class="form-select" multiple>
                             {foreach $groups as $groupName}
                                 <option value="{$groupName|escape}" {if in_array($groupName, $goal.eligible)} selected {/if}>{$groupName|escape}</option>
                             {/foreach}

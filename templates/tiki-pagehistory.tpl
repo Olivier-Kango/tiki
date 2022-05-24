@@ -137,7 +137,7 @@
                         <div class="input-group-text bg-info">
                             {icon name='admin_i18n' class='tips' title=":{tr}Translation{/tr}"}
                         </div>
-                        <select name="tra_lang" class="form-control">
+                        <select name="tra_lang" class="form-select">
                             {section name=ix loop=$languages}
                                 <option value="{$languages[ix].value|escape}"{if $lang eq $languages[ix].value} selected="selected"{/if}>{$languages[ix].name}</option>
                             {/section}

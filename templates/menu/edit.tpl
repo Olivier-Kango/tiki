@@ -33,7 +33,7 @@
             <label for="menus_type" class="col-form-label">
                 {tr}Type{/tr}
             </label>
-            <select name="type" id="menus_type" class="form-control">
+            <select name="type" id="menus_type" class="form-select">
                 <option value="d" {if $info.type eq 'd'}selected="selected"{/if}>{tr}dynamic collapsed{/tr} (d)</option>
                 <option value="e" {if $info.type eq 'e'}selected="selected"{/if}>{tr}dynamic extended{/tr} (e)</option>
                 <option value="f" {if $info.type eq 'f'}selected="selected"{/if}>{tr}fixed{/tr} (f)</option>

@@ -112,7 +112,7 @@
                         <tfoot>
                             <tr>
                                 <td>
-                                    <select class="selection form-control">
+                                    <select class="selection form-select">
                                         <option disabled="disabled" selected="selected">{tr}Select...{/tr}</option>
                                         {foreach $learners as $label => $group}
                                             <optgroup label="{$label|escape}">

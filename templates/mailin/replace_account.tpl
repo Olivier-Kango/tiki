@@ -31,7 +31,7 @@
         <div class="mb-3 row">
             <label for="type" class="col-form-label col-md-3">{tr}Type{/tr}</label>
             <div class="col-md-9">
-                <select name="type" class="form-control">
+                <select name="type" class="form-select">
                     {foreach $mailinTypes as $intype => $detail}
                         <option value="{$intype|escape}" {if $intype eq $info.type}selected{/if} {if ! $detail.enabled}disabled{/if}>{$detail.name|escape}</option>
                     {/foreach}
@@ -45,7 +45,7 @@
         <div class="mb-3 row">
             <label for="host" class="col-form-label col-md-3">{tr}POP server{/tr} / {tr}Port{/tr}</label>
             <div class="col-md-3">
-                <select name="protocol" class="form-control">
+                <select name="protocol" class="form-select">
                     <option value="pop" {if $info.protocol eq 'pop'}selected{/if}>{tr}POP{/tr}</option>
                     <option value="imap" {if $info.protocol eq 'imap'}selected{/if}>{tr}IMAP{/tr}</option>
                 </select>
@@ -73,7 +73,7 @@
             <div class="mb-3 row">
                 <label for="article_topicId" class="col-form-label col-md-3">{tr}Article Topic{/tr}</label>
                 <div class="col-md-9">
-                    <select name="article_topicId" class="form-control">
+                    <select name="article_topicId" class="form-select">
                         {foreach $topics as $topicId=>$topic}
                             <option value="{$topicId|escape}" {if $info.article_topicId eq $topicId}selected="selected"{/if}>{$topic.name|escape}</option>
                         {/foreach}
@@ -89,7 +89,7 @@
             <div class="mb-3 row">
                 <label for="article_type" class="col-form-label col-md-3">{tr}Article Type{/tr}</label>
                 <div class="col-md-9">
-                    <select name="article_type" class="form-control">
+                    <select name="article_type" class="form-select">
                         <option value="">{tr}None{/tr}</option>
                         {foreach $types as $type}
                             <option value="{$type.type|escape}" {if $info.article_type eq $type.type}selected="selected"{/if}>{$type.type|escape}</option>
@@ -107,7 +107,7 @@
             <div class="mb-3 row">
                 <label for="galleryId" class="col-form-label col-md-3">{tr}Tracker{/tr}</label>
                 <div class="col-md-9">
-                    <select name="trackerId" id="trackerId" class="form-control">
+                    <select name="trackerId" id="trackerId" class="form-select">
                         <option value="">{tr}None{/tr}</option>
                         {if $checkPackage eq 'y'}
                             {foreach $trackers as $key => $tracker}
@@ -144,7 +144,7 @@
             <div class="mb-3 row">
                 <label for="galleryId" class="col-form-label col-md-3">{tr}File Gallery{/tr}</label>
                 <div class="col-md-9">
-                    <select name="galleryId" class="form-control">
+                    <select name="galleryId" class="form-select">
                         <option value="">{tr}None{/tr}</option>
                         <option value="{$prefs.fgal_root_id}" {if $info.galleryId eq $prefs.fgal_root_id}selected="selected"{/if}>{tr}Root{/tr}</option>
                         {foreach $galleries.data as $galInfo}

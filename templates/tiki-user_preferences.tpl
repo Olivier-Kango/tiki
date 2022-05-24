@@ -80,7 +80,7 @@
                         {*{$userinfo.login|countryflag}*}
                     {*{/if}*}
                     <div class="col-md-8">
-                        <select name="country" id="country" class="form-control">
+                        <select name="country" id="country" class="form-select">
                             <option value="Other" {if $user_prefs.country eq "Other"}selected="selected"{/if}>
                                 {tr}Other{/tr}
                             </option>
@@ -192,7 +192,7 @@
                     </label>
                     <div class="col-md-8">
                         {if $userinfo.email}
-                            <select id="email_isPublic" name="email_isPublic" class="form-control">
+                            <select id="email_isPublic" name="email_isPublic" class="form-select">
                                 {section name=ix loop=$scramblingMethods}
                                     <option value="{$scramblingMethods[ix]|escape}" {if $user_prefs.email_isPublic eq $scramblingMethods[ix]}selected="selected"{/if}>
                                         {$scramblingEmails[ix]}
@@ -211,7 +211,7 @@
                         {tr}Preferred perspective{/tr}
                     </label>
                     <div class="col-md-8">
-                        <select id="perspective_preferred" name="perspective_preferred" class="form-control">
+                        <select id="perspective_preferred" name="perspective_preferred" class="form-select">
                             <option value="">----</option>
                             {foreach from=$perspectives item=persp}
                                 <option value="{$persp.perspectiveId|escape}"{if $persp.perspectiveId eq $user_prefs.perspective_preferred} selected="selected"{/if}>{$persp.name|escape}</option>
@@ -225,7 +225,7 @@
                         {tr}Email character set{/tr}
                     </label>
                     <div class="col-md-8">
-                        <select id="mailCharset" name="mailCharset" class="form-control">
+                        <select id="mailCharset" name="mailCharset" class="form-select">
                             {section name=ix loop=$mailCharsets}
                                 <option value="{$mailCharsets[ix]|escape}" {if $user_prefs.mailCharset eq $mailCharsets[ix]}selected="selected"{/if}>
                                     {$mailCharsets[ix]}
@@ -241,7 +241,7 @@
                             {tr}Theme{/tr}
                         </label>
                         <div class="col-md-8">
-                            <select id="mytheme" name="mytheme" class="form-control">
+                            <select id="mytheme" name="mytheme" class="form-select">
                                 {assign var="userwatch_themeoption" value="{$userwatch_theme}{if $userwatch_themeOption}/{$userwatch_themeOption}{/if}"}
                                 <option value="" class="text-muted bg-info">{tr}Site theme{/tr} ({$prefs.theme}{if !empty($prefs.theme_option)}/{$prefs.theme_option}{/if})</option>
                                 {foreach from=$available_themesandoptions key=theme item=theme_name}
@@ -257,7 +257,7 @@
                             {tr}Language{/tr}
                         </label>
                         <div class="col-md-8">
-                            <select id="language" name="language" class="form-control">
+                            <select id="language" name="language" class="form-select">
                                 {section name=ix loop=$languages}
                                     <option value="{$languages[ix].value|escape}" {if $user_prefs.language eq $languages[ix].value}selected="selected"{/if}>
                                         {$languages[ix].name}
@@ -276,7 +276,7 @@
                             {tr}Admin Language{/tr}
                         </label>
                         <div class="col-md-8">
-                            <select id="languageAdmin" name="languageAdmin" class="form-control">
+                            <select id="languageAdmin" name="languageAdmin" class="form-select">
                                 {section name=ix loop=$languages}
                                     <option value="{$languages[ix].value|escape}" {if $user_prefs.language_admin eq $languages[ix].value}selected="selected"{/if}>
                                         {$languages[ix].name}
