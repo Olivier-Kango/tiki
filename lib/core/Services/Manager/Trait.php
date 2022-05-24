@@ -78,6 +78,7 @@ trait Services_Manager_Trait
         $tm_env->load();
 
         $_ENV['SSH_CONFIG'] = $_ENV['TRIM_ROOT'].'/data/ssh_config';
+        $_ENV['RUN_THROUGH_TIKI_WEB'] = true;
     }
 
     /**
