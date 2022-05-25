@@ -224,7 +224,7 @@ the section loop so that the vars are not replaced by nested pretty tracker exec
                                                         {elseif isset($texturl)}
                                                             {$url = "{$txturl}"}
                                                         {/if}
-                                                        {trackeroutput field=$computedField item="{if isset($items[user])}{$items[user]}{/if}" list_mode="{if isset($list_mode)}{$list_mode}{/if}" url="{$url}"}<br/>
+                                                        {trackeroutput field=$computedField item=$items[user] list_mode="{if isset($list_mode)}{$list_mode}{/if}" url="{$url}"}<br/>
                                                     {/foreach}
                                                 </td>
                                             {else}
