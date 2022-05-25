@@ -62,6 +62,252 @@ function wikiplugin_tabs_info()
                     ['value' => 'y' , 'text' => tra('Yes')],
                 ],
             ],
+            'direction' => [
+                'required' => false,
+                'name' => tra('Tabs direction'),
+                'description' => tra('Change direction of tabs (horizontal by default).'),
+                'since' => '25.0',
+                'default' => 'horizontal',
+                'filter' => 'word',
+                'options' => [
+                    ['text' => '', 'value' => ''],
+                    ['text' => tra('Horizontal'), 'value' => 'horizontal'],
+                    ['text' => tra('Vertical'), 'value' => 'vertical']
+                ],
+            ],
+            'tabbgcolor' => [
+                'required'    => false,
+                'name'        => tra('Tabs background color'),
+                'description' => tra(
+                    'Enter a valid CSS color hex code, or an RGBA value if setting opacity is desired; for example: #000 or rgba(00, 00, 00, 0.5).'
+                ),
+                'filter'      => 'text',
+                'default'     => '',
+                'since'       => '25.0',
+            ],
+            'tabactivebgcolor' => [
+                'required'    => false,
+                'name'        => tra('Tab active background color'),
+                'description' => tra(
+                    'Enter a valid CSS color hex code, or an RGBA value if setting opacity is desired; for example: #000 or rgba(00, 00, 00, 0.5).'
+                ),
+                'filter'      => 'text',
+                'default'     => '',
+                'since'       => '25.0',
+            ],
+            'tabborderstyle' => [
+                'required'    => false,
+                'name'        => tra('Tabs border style'),
+                'description' => tra(
+                    'Determine the kind of border to apply to the tabs'
+                ),
+                'default'     => 'none',
+                'filter'      => 'text',
+                'since'       => '25.0',
+                'options' => [
+                    ['text' => '', 'value' => ''],
+                    ['value' => 'none', 'text' => tra('None')],
+                    ['value' => 'hidden' , 'text' => tra('Hidden')],
+                    ['value' => 'dotted' , 'text' => tra('Dotted')],
+                    ['value' => 'dashed' , 'text' => tra('Dashed')],
+                    ['value' => 'solid' , 'text' => tra('Solid')],
+                    ['value' => 'double' , 'text' => tra('Double')],
+                    ['value' => 'groove' , 'text' => tra('Groove')],
+                    ['value' => 'ridge' , 'text' => tra('Ridge')],
+                    ['value' => 'inset' , 'text' => tra('Inset')],
+                    ['value' => 'outset' , 'text' => tra('Outset')],
+                ],
+            ],
+            'tabborderwidth' => [
+                'required'    => false,
+                'name'        => tra('Tabs border width'),
+                'description' => tra(
+                    'To change the width of tabs border in pixels (1 by default). For example: 3 for 3 pixels'
+                ),
+                'filter'      => 'text',
+                'default'     => '1',
+                'since'       => '25.0',
+            ],
+            'tabbordercolor' => [
+                'required'    => false,
+                'name'        => tra('Tabs border color'),
+                'description' => tra(
+                    'Enter a valid CSS color hex code, or an RGBA value if setting opacity is desired; for example: #000 or rgba(00, 00, 00, 0.5).'
+                ),
+                'filter'      => 'text',
+                'default'     => '',
+                'since'       => '25.0',
+            ],
+            'tabfontstyle' => [
+                'required'    => false,
+                'name'        => tra('Tabs font style'),
+                'description' => tra(
+                    'Use to specify the font style of the tabs text'
+                ),
+                'filter'      => 'text',
+                'default'     => 'normal',
+                'since'       => '25.0',
+                'options' => [
+                    ['text' => '', 'value' => ''],
+                    ['value' => 'normal', 'text' => tra('Normal')],
+                    ['value' => 'italic' , 'text' => tra('Italic')],
+                    ['value' => 'oblique' , 'text' => tra('Oblique')],
+                ],
+            ],
+            'tabfontweight' => [
+                'required'    => false,
+                'name'        => tra('Tabs font weight'),
+                'description' => tra(
+                    'Use to define the thickness of the text characters to be displayed in the tabs'
+                ),
+                'filter'      => 'text',
+                'default'     => 'normal',
+                'since'       => '25.0',
+                'options' => [
+                    ['text' => '', 'value' => ''],
+                    ['value' => 'normal', 'text' => tra('Normal')],
+                    ['value' => 'bold' , 'text' => tra('Bold')],
+                    ['value' => 'bolder' , 'text' => tra('Bolder')],
+                    ['value' => 'lighter' , 'text' => tra('Lighter')],
+                    ['value' => '900' , 'text' => tra('Boldest')],
+                ],            ],
+            'tabfontsize' => [
+                'required'    => false,
+                'name'        => tra('Tabs font size'),
+                'description' => tra(
+                    'To set the size of the tabs text in pixels. For example: 20 for 20 pixels'
+                ),
+                'filter'      => 'text',
+                'default'     => '16',
+                'since'       => '25.0',
+            ],
+            'tabtextcolor' => [
+                'required'    => false,
+                'name'        => tra('Tabs text color'),
+                'description' => tra(
+                    'Enter a valid CSS color hex code, or an RGBA value if setting opacity is desired; for example: #000 or rgba(00, 00, 00, 0.5).'
+                ),
+                'filter'      => 'text',
+                'default'     => '',
+                'since'       => '25.0',
+            ],
+            'tabactivetextcolor' => [
+                'required'    => false,
+                'name'        => tra('Tab active text color'),
+                'description' => tra(
+                    'Enter a valid CSS color hex code, or an RGBA value if setting opacity is desired; for example: #000 or rgba(00, 00, 00, 0.5).'
+                ),
+                'filter'      => 'text',
+                'default'     => '',
+                'since'       => '25.0',
+            ],
+            'panelbgcolor' => [
+                'required'    => false,
+                'name'        => tra('Panel background color'),
+                'description' => tra(
+                    'Enter a valid CSS color hex code, or an RGBA value if setting opacity is desired; for example: #000 or rgba(00, 00, 00, 0.5).'
+                ),
+                'filter'      => 'text',
+                'default'     => '',
+                'since'       => '25.0',
+            ],
+            'paneltextcolor' => [
+                'required'    => false,
+                'name'        => tra('Panel text color'),
+                'description' => tra(
+                    'Enter a valid CSS color hex code, or an RGBA value if setting opacity is desired; for example: #000 or rgba(00, 00, 00, 0.5).'
+                ),
+                'filter'      => 'text',
+                'default'     => '',
+                'since'       => '25.0',
+            ],
+            'paneltextstyle' => [
+                'required'    => false,
+                'name'        => tra('Panel text style'),
+                'description' => tra(
+                    'Use to change the panels text style'
+                ),
+                'filter'      => 'text',
+                'default'     => 'normal',
+                'since'       => '25.0',
+                'options' => [
+                    ['text' => '', 'value' => ''],
+                    ['value' => 'normal', 'text' => tra('Normal')],
+                    ['value' => 'italic' , 'text' => tra('Italic')],
+                    ['value' => 'oblique' , 'text' => tra('Oblique')],
+                ],
+            ],
+            'panelfontweight' => [
+                'required'    => false,
+                'name'        => tra('Panel font weight'),
+                'description' => tra(
+                    'Use to define the thickness of the text characters to be displayed in the panels'
+                ),
+                'filter'      => 'text',
+                'default'     => 'normal',
+                'since'       => '25.0',
+                'options' => [
+                    ['text' => '', 'value' => ''],
+                    ['value' => 'normal', 'text' => tra('Normal')],
+                    ['value' => 'bold' , 'text' => tra('Bold')],
+                    ['value' => 'bolder' , 'text' => tra('Bolder')],
+                    ['value' => 'lighter' , 'text' => tra('Lighter')],
+                    ['value' => '900' , 'text' => tra('Boldest')],
+                ],
+            ],
+            'panelfontsize' => [
+                'required'    => false,
+                'name'        => tra('Panel font size'),
+                'description' => tra(
+                    'To set the size of the text in pixels. For example: 20 for 20 pixels'
+                ),
+                'filter'      => 'text',
+                'default'     => '16',
+                'since'       => '25.0',
+            ],
+            'panelborderstyle' => [
+                'required'    => false,
+                'name'        => tra('Panel border style'),
+                'description' => tra(
+                    'Determine the kind of border to apply to the panels'
+                ),
+                'default'     => 'none',
+                'filter'      => 'text',
+                'since'       => '25.0',
+                'options' => [
+                    ['text' => '', 'value' => ''],
+                    ['value' => 'none', 'text' => tra('None')],
+                    ['value' => 'hidden' , 'text' => tra('Hidden')],
+                    ['value' => 'dotted' , 'text' => tra('Dotted')],
+                    ['value' => 'dashed' , 'text' => tra('Dashed')],
+                    ['value' => 'solid' , 'text' => tra('Solid')],
+                    ['value' => 'double' , 'text' => tra('Double')],
+                    ['value' => 'groove' , 'text' => tra('Groove')],
+                    ['value' => 'ridge' , 'text' => tra('Ridge')],
+                    ['value' => 'inset' , 'text' => tra('Inset')],
+                    ['value' => 'outset' , 'text' => tra('Outset')],
+                ],
+            ],
+            'panelborderwidth' => [
+                'required'    => false,
+                'name'        => tra('Panel border width'),
+                'description' => tra(
+                    'To change the width of panel border in pixels (1 by default). For example: 3 for 3 pixels'
+                ),
+                'filter'      => 'text',
+                'default'     => '1',
+                'since'       => '25.0',
+            ],
+            'panelbordercolor' => [
+                'required'    => false,
+                'name'        => tra('Panel border color'),
+                'description' => tra(
+                    'Enter a valid CSS color hex code, or an RGBA value if setting opacity is desired; for example: #000 or rgba(00, 00, 00, 0.5).'
+                ),
+                'filter'      => 'text',
+                'default'     => '',
+                'since'       => '25.0',
+            ],
         ],
     ];
 }
@@ -101,6 +347,7 @@ function wikiplugin_tabs($data, $params)
     $smarty->assign('tabsetname', $tabsetname);
     $smarty->assign_by_ref('tabs', $tabs);
     $smarty->assign('toggle', $toggle);
+    $smarty->assign('params', $params);
     $smarty->assign_by_ref('tabcontent', $tabData);
 
     $content = $smarty->fetch('wiki-plugins/wikiplugin_tabs.tpl');

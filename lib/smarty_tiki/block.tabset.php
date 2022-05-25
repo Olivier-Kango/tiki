@@ -28,7 +28,6 @@
 function smarty_block_tabset($params, $content, $smarty, &$repeat)
 {
     global $prefs, $smarty_tabset_name, $smarty_tabset, $smarty_tabset_i_tab, $cookietab, $tabset_index;
-    $headerlib = TikiLib::lib('header');
     if ($smarty->getTemplateVars('print_page') == 'y' || $prefs['layout_tabs_optional'] === 'n') {
         $params['toggle'] = 'n';
     }
@@ -100,21 +99,40 @@ function smarty_block_tabset($params, $content, $smarty, &$repeat)
         }
 
         $smarty_tabset_name = getTabsetName($params, $tabset_index);
-        $ret .= '<div class="clearfix tabs" data-name="' . $smarty_tabset_name . '">' . $notabs;
+        if (isset($params['params']['direction']) && $params['params']['direction'] == 'vertical') {
+            $count = 1;
+            $ret .= '<div class="d-flex align-items-start">
+                        <div class="nav flex-column nav-pills me-3" id="nav-' . $smarty_tabset_name . '" role="tablist" aria-orientation="vertical">' . $notabs . '<span style="height:5px;">&nbsp;</span>';
+                            foreach ($smarty_tabset[$tabset_index]['tabs'] as $value) {
+                                $ret .= '<a class="nav-link" id="v-pills-' . $value['id'] . '-tab" data-bs-toggle="tab" href="#v-pills-' . $value['id'] . '" role="tab" aria-controls="v-pills-' . $value['id'] . '" >' . $value['label'] . '</a>';
+                                ++$count;
+                            }
+                        $ret .= "</div>";
+                        $tabset_index--;
+                        $ret .= '<div class="tab-content" id="v-pills-' . $smarty_tabset_name . '">' . $content . '</div>
+                    </div>';
+            //add styles
+            applyStyles($params, $smarty_tabset_name);
+        } else {
+            $ret .= '<div class="clearfix tabs" data-name="' . $smarty_tabset_name . '">' . $notabs;
 
-        $count = 1;
+            $count = 1;
 
-        $ret .= '<ul class="nav nav-tabs">';
-        foreach ($smarty_tabset[$tabset_index]['tabs'] as $value) {
-            $ret .= '<li class="nav-item"><a class="nav-link ' . $value['active'] . '" href="#' . $value['id'] . '" data-bs-toggle="tab">' . $value['label'] . '</a></li>';
-            ++$count;
+            $ret .= '<ul class="nav nav-tabs" id="nav-' . $smarty_tabset_name . '">';
+            foreach ($smarty_tabset[$tabset_index]['tabs'] as $value) {
+                $ret .= '<li class="nav-item"><a class="nav-link ' . $value['active'] . '" href="#' . $value['id'] . '" data-bs-toggle="tab">' . $value['label'] . '</a></li>';
+                ++$count;
+            }
+            $ret .= '</ul>';
+
+            $ret .= "</div>";
+            $tabset_index--;
+
+            $ret .= '<div class="tab-content" id="v-pills-' . $smarty_tabset_name . '">' . $content . '</div>';
+            // add styles
+            applyStyles($params, $smarty_tabset_name);
         }
-        $ret .= '</ul>';
-
-        $ret .= "</div>";
-        $tabset_index--;
-
-        return $ret . '<div class="tab-content">' . $content . '</div>';
+        return $ret;
     }
 }
 
@@ -133,4 +151,32 @@ function getTabsetName($params, $tabset_index)
     }
     $smarty_tabset_name = TikiLib::remove_non_word_characters_and_accents($smarty_tabset_name);
     return $smarty_tabset_name;
+}
+
+function applyStyles($params, $smarty_tabset_name)
+{
+    $headerlib = TikiLib::lib('header');
+    $panels = '#v-pills-' . $smarty_tabset_name;
+    $tabs = '#nav-' . $smarty_tabset_name . ' .nav-link';
+    $style = '';
+    $style .= ! empty($params['params']['tabborderstyle']) ? $tabs . '{border-style:' . $params['params']['tabborderstyle'] . ';} ' : '';
+    $style .= ! empty($params['params']['tabborderwidth']) ? $tabs . '{border-width:' . $params['params']['tabborderwidth'] . 'px;} ' : '';
+    $style .= ! empty($params['params']['tabbordercolor']) ? $tabs . '{border-color:' . $params['params']['tabbordercolor'] . ';} ' : '';
+    $style .= ! empty($params['params']['tabfontstyle']) ? $tabs . '{font-style:' . $params['params']['tabfontstyle'] . ';} ' : '';
+    $style .= ! empty($params['params']['tabfontweight']) ? $tabs . '{font-weight:' . $params['params']['tabfontweight'] . ';} ' : '';
+    $style .= ! empty($params['params']['tabfontsize']) ? $tabs . '{font-size:' . $params['params']['tabfontsize'] . 'px;} ' : '';
+    $style .= ! empty($params['params']['tabtextcolor']) ? $tabs . '{color:' . $params['params']['tabtextcolor'] . ';} ' : '';
+    $style .= ! empty($params['params']['tabactivetextcolor']) ? $tabs . '.active {color:' . $params['params']['tabactivetextcolor'] . ';} ' : '';
+    $style .= ! empty($params['params']['tabbgcolor']) ? $tabs . '{background-color:' . $params['params']['tabbgcolor'] . ';} ' : '';
+    $style .= ! empty($params['params']['tabactivebgcolor']) ? $tabs . '.active {background:' . $params['params']['tabactivebgcolor'] . ';} ' : '';
+    $style .= ! empty($params['params']['panelbgcolor']) ? $panels . '{background-color:' . $params['params']['panelbgcolor'] . ';} ' : '';
+    $style .= ! empty($params['params']['paneltextcolor']) ? $panels . '{color:' . $params['params']['paneltextcolor'] . ';} ' : '';
+    $style .= ! empty($params['params']['paneltextstyle']) ? $panels . '{font-style:' . $params['params']['paneltextstyle'] . ';} ' : '';
+    $style .= ! empty($params['params']['panelfontweight']) ? $panels . '{font-weight:' . $params['params']['panelfontweight'] . ';} ' : '';
+    $style .= ! empty($params['params']['panelfontsize']) ? $panels . '{font-size:' . $params['params']['panelfontsize'] . 'px;} ' : '';
+    $style .= ! empty($params['params']['panelborderstyle']) ? $panels . '{border-style:' . $params['params']['panelborderstyle'] . ';} ' : '';
+    $style .= ! empty($params['params']['panelborderwidth']) ? $panels . '{border-width:' . $params['params']['panelborderwidth'] . 'px;} ' : '';
+    $style .= ! empty($params['params']['panelbordercolor']) ? $panels . '{border-color:' . $params['params']['panelbordercolor'] . ';} ' : '';
+
+    $headerlib->add_css($style);
 }
