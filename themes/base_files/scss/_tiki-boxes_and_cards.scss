@@ -21,7 +21,7 @@ h3.card-title {
     position: absolute;
     right: .2rem;
     top: .2rem;
-    width: 5rem;
+//    width: 5rem; This has to be an error - This width overlaps the icon and the module text.
 }
 
 .moduleflip > * {

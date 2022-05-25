@@ -10241,9 +10241,6 @@ body.fullscreen {
 a.icon, img.icon {
   border: none;
 }
-a .icon:not(.icon-help, .icon-reset) {
-  font-size: 1.2em;
-}
 .nav a .icon.icon-menuitem {
   font-size: 0.8em;
 }
@@ -10893,7 +10890,6 @@ h3.card-title, .card-title.h3 {
   position: absolute;
   right: 0.2rem;
   top: 0.2rem;
-  width: 5rem;
 }
 .moduleflip > * {
   padding: 0 0.2rem;
@@ -14213,7 +14209,6 @@ div.drillshow {
   transition: opacity 0.2s ease-in-out 0.1s;
   -webkit-transition: opacity 0.2s ease-in-out 0.1s;
   -moz-transition: opacity 0.2s ease-in-out 0.1s;
-  -ms-transition: opacity 0.2s ease-in-out 0.1s;
 }
 .heading-link .icon {
   font-size: smaller;
@@ -14238,6 +14233,11 @@ h1:hover .heading-link, .h1:hover .heading-link, h2:hover .heading-link, .h2:hov
 }
 .isParent .exp-controller {
   background-image: url("../../../vendor_bundled/vendor/robicch/jquery-gantt/res/toggle_collapse.png") !important;
+}
+.pagetitle a + .icon-lock {
+  margin-left: 0.7rem;
+  font-size: 70%;
+  opacity: 0.2;
 }
 .multilike .horizontal {
   display: inline-block;

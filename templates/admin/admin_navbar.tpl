@@ -14,16 +14,16 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="admin-navbar-collapse-1">
-        <form method="post" class="form row g-3 align-items-center" role="form">
+        <form method="post" class="form row g-3 align-items-center" role="form" style="width: 12.5rem;"> {* Specified width in rem so larger fonts wouldn't cause wrapping *}
             <div class="col-auto form-check">
                 {ticket}
                 <input type="checkbox" id="preffilter-toggle-1" class="preffilter-toggle preffilter-toggle-round form-check-input {$pref_filters.advanced.type|escape}" value="advanced"{if $pref_filters.advanced.selected} checked="checked"{/if}>
-                <label for="preffilter-toggle-1"></label>
+                <label for="preffilter-toggle-1" class="form-check-label"></label>
             </div>
 
             <ul class="col-auto nav navbar-nav filter-menu"{if not $pref_filters.advanced.selected} style="display: none;"{/if}>
                 <li class="nav-item dropdown me-0" style="padding-top: 6px;">
-                    <a href="#" class="nav-link dropdown-toggle pe-0" data-bs-toggle="dropdown" title="{tr}Settings{/tr}" style="width: 48px;">
+                    <a href="#" class="nav-link dropdown-toggle pe-0 me-2 py-0" data-bs-toggle="dropdown" title="{tr}Settings{/tr}"{* style="width: 48px;" Causes wrapping in large font sizes. *}>
                         {icon name="filter"}
                     </a>
                     <ul class="dropdown-menu" role="menu">

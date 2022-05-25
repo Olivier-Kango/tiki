@@ -1032,7 +1032,6 @@ div.drillshow {
     transition: opacity 0.2s ease-in-out 0.1s;
     -webkit-transition: opacity 0.2s ease-in-out 0.1s;
     -moz-transition: opacity 0.2s ease-in-out 0.1s;
-    -ms-transition: opacity 0.2s ease-in-out 0.1s;
 }
 
 .heading-link .icon {
@@ -1071,4 +1070,11 @@ h6:hover .heading-link {
 
 .isParent .exp-controller {
     background-image: url("../../../vendor_bundled/vendor/robicch/jquery-gantt/res/toggle_collapse.png") !important;
+}
+
+// Lock icon was too prominent -- gc-l
+.pagetitle a + .icon-lock {
+    margin-left: 0.7rem;
+    font-size: 70%;
+    opacity: 0.2;
 }
