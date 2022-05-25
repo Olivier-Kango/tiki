@@ -7,7 +7,7 @@
                 {tr}Section{/tr}
             </label>
             <div class="col-sm-8">
-                <select id="section" name="section" onchange="$(this).form().tikiModal(tr('Loading...')).submit();" class="form-control">
+                <select id="section" name="section" onchange="$(this).form().tikiModal(tr('Loading...')).submit();" class="form-select">
                     {foreach from=$sections item=name key=skey}
                         <option value="{$skey}"{if $skey eq $loaded} selected="selected"{/if}>{$name|escape}</option>
                     {/foreach}
@@ -15,11 +15,11 @@
             </div>
         </div>
         <div class="adminoptionbox mb-3 row">
-            <label for="comments" class="col-form-label col-sm-4">
+            <label for="comments" class="form-check-label col-sm-4">
                 {tr}Comments{/tr}
             </label>
             <div class="col-sm-8">
-                <input id="comments" name="comments" type="checkbox" onchange="$(this).form().tikiModal(tr('Loading...')).submit();" {if $comments eq 'on'}checked="checked" {/if}>
+                <input id="comments" name="comments" type="checkbox" class="form-check-input" onchange="$(this).form().tikiModal(tr('Loading...')).submit();" {if $comments eq 'on'}checked="checked" {/if}>
             </div>
         </div>
         <div class="adminoptionbox mb-3 row">
@@ -27,7 +27,7 @@
                 {tr}View mode{/tr}
             </label>
             <div class="col-sm-8">
-                <select id="view_mode" name="view_mode" class="form-control">
+                <select id="view_mode" name="view_mode" class="form-select">
                     {if $prefs.feature_wysiwyg eq 'y'}
                         <option value="both"{if $view_mode eq "both"} selected{/if}>
                         {tr}Wiki and WYSIWYG{/tr}
@@ -67,7 +67,7 @@
     <div class="row mx-0 pb-4">
         <div class="rows textarea-toolbar col-sm-12">
             {foreach from=$current item=line name=line}
-                <ul id="row-{$smarty.foreach.line.iteration|escape}" class="row navbar card d-flex flex-row justify-content-start">
+                <ul id="row-{$smarty.foreach.line.iteration|escape}" class="navbar card d-flex flex-row justify-content-start p-1 mb-3">
                 {foreach from=$line item=bit name=bit}
                     {foreach from=$bit item=tool name=tool}
                         {if !empty($qtelement[$tool].class)}
@@ -80,12 +80,10 @@
                 {if $smarty.foreach.line.last and $rowCount gt 1}
                     {assign var=total value=$smarty.foreach.line.total+1}
                     </ul>
-                    <br>
                     <label for="row-{$total|escape}">{tr}Row{/tr}&nbsp;{$total}</label>
-                    <ul id="row-{$total|escape}" class="row navbar card d-flex flex-row justify-content-start">
+                    <ul id="row-{$total|escape}" class="navbar card d-flex flex-row justify-content-start p-1 mb-3">
                 {/if}
                 </ul>
-                <br>
             {/foreach}
         </div>
     </div>

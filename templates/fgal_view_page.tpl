@@ -22,7 +22,7 @@
     </div> {* thumbactions *}
     {/if}
 {/capture}
-<div class="d-flex">
+<div class="d-flex flex-wrap">
     <div class="flex-shrink-0">
         {include file='fgal_thumbnailframe.tpl'}
         {if $show_infos eq 'y'}
