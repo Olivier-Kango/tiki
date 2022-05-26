@@ -108,6 +108,13 @@
                     </a>
                 </action>
                 {/if}
+                {if in_array('patch_list', $available_actions)}
+                <action>
+                    <a href="{bootstrap_modal controller=manager_patch action=index instanceId=$instance->id}" onclick="$('[data-toggle=popover]').popover('hide');">
+                        {icon name=tools _menu_text='y' _menu_icon='y' alt="{tr}Patches{/tr}"}
+                    </a>
+                </action>
+                {/if}
             {/strip}{/actions}
         </td>
     </tr>

@@ -12,7 +12,7 @@
     {if not empty($info)}
         <div class="rounded bg-dark text-light p-3">{$info|nl2br}</div>
     {else}
-        <form method="post" action="{service controller=manager action=create}">
+        <form method="post" action="{service controller=manager action=create}" id="tiki-manager-create-instance">
             <div class="form-group row mb-3 preference">
                 <label class="col-form-label col-sm-3">
                     {tr}Instance type{/tr}

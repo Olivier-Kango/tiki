@@ -92,6 +92,11 @@
                                 {icon name=user _menu_text='y' _menu_icon='y' alt="{tr}Apply profile{/tr}"}
                             </a>
                         </action>
+                        <action>
+                            <a href="{service controller=manager_patch action=index instanceId=$instance->id}">
+                                {icon name=tools _menu_text='y' _menu_icon='y' alt="{tr}Patches{/tr}"}
+                            </a>
+                        </action>
                     {/strip}{/actions}
                 </td>
             </tr>

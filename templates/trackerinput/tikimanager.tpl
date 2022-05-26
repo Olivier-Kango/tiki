@@ -77,6 +77,11 @@
                                 {icon name=user _menu_text='y' _menu_icon='y' alt="{tr}Apply profile{/tr}"}
                             </a>
                         {/if}
+                        {if in_array('patch_list', $field.available_actions)}
+                            <a class="dropdown-item" href="{bootstrap_modal controller=manager_patch action=index instanceId=$instance->id}">
+                                {icon name=tools _menu_text='y' _menu_icon='y' alt="{tr}Patches{/tr}"}
+                            </a>
+                        {/if}
                     </div>
                 </div>
             </div>
