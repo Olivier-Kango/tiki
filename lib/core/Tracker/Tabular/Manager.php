@@ -193,13 +193,15 @@ class Manager
             $writer = new Writer\ODBCWriter($tabular['odbc_config']);
             $diff = $writer->compareRemote($schema, $itemId, $item);
 
-            foreach ($diff as $field => $value) {
-                $field = $definition->getFieldFromPermName($field);
-                \TikiLib::lib('trk')->modify_field($itemId, $field['fieldId'], $value);
-            }
-
             if ($diff) {
-                return tr("Remote item has changed since your last page load. Overwriting remote data is disabled. You can copy your changes to a safe place, reload the entry and make the changes again. Here's the difference: %0", print_r($diff, 1));
+                $error = tr("Remote item has changed since your last page load. Overwriting remote data is disabled. You can copy your changes to a safe place, reload the entry and make the changes again. Here's the difference:");
+                $error .= "\n" . tr("Field | Local | Remote");
+                foreach ($diff as $permName => $value) {
+                    $field = $definition->getFieldFromPermName($permName);
+                    \TikiLib::lib('trk')->modify_field($itemId, $field['fieldId'], $value);
+                    $error .= "\n" . $field['name'] . ' | ' . $item[$permName] . ' | ' . $value;
+                }
+                return $error;
             } else {
                 return true;
             }
