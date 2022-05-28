@@ -440,10 +440,29 @@ unit-tests-74:
   <<: *template-unit-tests
   image: rjsmelo/ubuntu-php:7.4-qa
 
+unit-tests-74-mysql8:
+  <<: *template-unit-tests
+  image: rjsmelo/ubuntu-php:7.4-qa
+  services:
+    - elasticsearch:5
+    - name: mysql:8.0.4
+      command: [ "--default-authentication-plugin=mysql_native_password", "--explicit-defaults-for-timestamp=off" ]
+      alias: mysql
+  allow_failure: true
+
 unit-tests-80:
   <<: *template-unit-tests
   image: rjsmelo/ubuntu-php:8.0-qa
 
+unit-tests-80-mysql8:
+  <<: *template-unit-tests
+  image: rjsmelo/ubuntu-php:8.0-qa
+  services:
+    - elasticsearch:5
+    - name: mysql:8.0.4
+      command: [ "--default-authentication-plugin=mysql_native_password", "--explicit-defaults-for-timestamp=off" ]
+      alias: mysql
+  allow_failure: true
 
 #
 # Package this Tiki build
