@@ -4,7 +4,7 @@ export default {
 }
 </script>
 <script setup>
-import { ref } from 'vue'
+import { ref, inject } from 'vue'
 import { Button } from '@vue-mf/styleguide'
 
 const props = defineProps({
@@ -14,9 +14,18 @@ const props = defineProps({
             return {}
         }
     }
-});
+})
+
+const context = inject('context')
+
+const handleClick = () => {
+    const blockContextActions = props.block.attributes.context?.actions
+    if (blockContextActions) {
+        blockContextActions.forEach(action => context.actions[action.name]() )
+    }
+}
 </script>
 
 <template>
-    <Button v-html="block.attributes.content"></Button>
+    <Button v-html="block.attributes.content" @click="handleClick"></Button>
 </template>

@@ -67,3 +67,25 @@
 .list-leave-active {
     position: absolute;
 }
+
+.vue-dropdown-item.selected {
+    background-color: #000000;
+    color: white;
+}
+
+.vue-dropdown-item.highlighted {
+    background-color: #000000;
+    color: white;
+}
+
+.vue-dropdown-item.selected.highlighted {
+    background-color: #272727;
+}
+
+.vue-tag, .vue-tag.selected {
+    justify-content: center;
+    background-color: rgb(0, 0, 0);
+    padding: 1px 8px;
+    color: white;
+    font-size: .8rem;
+}

@@ -14,7 +14,7 @@
     "autosize": "^5.0.1",
     "axios": "^0.26.1",
     "click-outside-vue3": "^4.0.1",
-    "floating-vue": "^2.0.0-beta.11",
+    "floating-vue": "^2.0.0-beta.16",
     "interactjs": "^1.10.11",
     "lodash": "^4.17.21",
     "medium-editor": "^5.23.3",

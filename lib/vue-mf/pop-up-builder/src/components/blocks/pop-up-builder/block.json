@@ -1,0 +1,13 @@
+{
+	"//$schema": "https://tiki.sample.org/trunk/block.json",
+	"apiVersion": 1,
+	"name": "core/pop-up-builder",
+	"title": "Pop-up builder",
+	"category": "text",
+	"description": "Builds pop-up content and appear logic",
+    "parent": ["core/box", "core/columns", "core/column"],
+	"attributes": {
+
+	},
+	"classes": ["block--pop-up-builder"]
+}

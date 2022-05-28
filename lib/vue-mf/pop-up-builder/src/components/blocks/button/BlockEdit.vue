@@ -4,16 +4,18 @@ export default {
 }
 </script>
 <script setup>
-import { ref, computed, watch } from 'vue'
+import { ref, inject, watch } from 'vue'
 import { Button } from '@vue-mf/styleguide'
 import BlockRichText from '../../utils/block-rich-text/BlockRichText.vue'
 import BlockAlignTextToolbar from '../../utils/BlockAlignTextToolbar.vue'
+import BlockActions from '../../utils/BlockActions.vue'
 import BlockControls from '../../utils/BlockControls.vue'
 import BlockInspector from '../../utils/BlockInspector.vue'
 import BlockPopup from '../../utils/BlockPopup.vue'
 import CustomModal from '../../utils/CustomModal.vue'
 import CustomTabs from '../../utils/CustomTabs.vue'
 import { useState } from '../../hooks/useState'
+import { useBlockContext } from '../../hooks/useBlockContext'
 
 const props = defineProps({
     block: {
@@ -24,6 +26,7 @@ const props = defineProps({
     }
 });
 
+const { context } = useBlockContext(props.block)
 const { isSelected, setAttributes, setStyles } = useState(props.block.id)
 
 const content = ref(props.block.attributes?.content)
@@ -76,6 +79,7 @@ const handleBlur = (data) => {
             
             </template>
             <template #advanced>
+                <BlockActions :block="block" :context="context"></BlockActions>
                 <BlockInspector :block="block" :context="context"></BlockInspector>
             </template>
         </CustomTabs>

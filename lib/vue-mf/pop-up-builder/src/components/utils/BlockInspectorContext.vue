@@ -105,6 +105,6 @@ function getInitialPathArr() {
             </div>
         </div>
 
-        <BlocksStoreView :field="block.attributes.field"/>
+        <BlocksStoreView v-if="block.attributes.field" :field="block.attributes.field"/>
     </div>
 </template>
