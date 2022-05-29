@@ -10,6 +10,7 @@ $success:       #214A21; // #5cb85c;
 $info:          #5bc0de;
 $warning:       #f0ad4e;
 $danger:        #B82D28; // #d9534f;
+$dark:          #01366c;
 
 $theme-colors: (
     "primary": #0074C7,
@@ -124,4 +125,7 @@ $modal-header-border-color:   #386dbb;
 
 // - - - - - - - - - -  - - - - - - Other variables, if any - - - - - - - - - - - - - - - - - //
 
+// base_files/scss/tiki-variables.scss overrides start
 $module-h3-card-title-font-size: .95rem;
+
+// tiki-variables overrides end

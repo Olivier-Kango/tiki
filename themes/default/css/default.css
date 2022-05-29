@@ -220,7 +220,7 @@ pre code {
 }
 code {
   font-size: 0.875em;
-  color: #d63384;
+  color: #212529;
   word-wrap: break-word;
 }
 a > code {
@@ -3983,6 +3983,7 @@ textarea.form-control-lg {
   flex-wrap: wrap;
   padding: 0 0;
   margin-bottom: 1rem;
+  font-size: 90%;
   list-style: none;
 }
 .breadcrumb-item + .breadcrumb-item {
@@ -10080,6 +10081,12 @@ blockquote {
 }
 a.dropdown-item {
   color: #212529;
+}
+.bg-light-parent {
+  background: #f8f9fa;
+}
+.bg-dark-parent {
+  background: #212529;
 }
 table.tablesorter thead tr.tablesorter-headerRow {
   background-color: #fff;

@@ -1417,3 +1417,11 @@ blockquote {
 // Smartmenus megamenu
 .dropdown-menu.mega-menu a { color: $dropdown-link-color; }
 a.dropdown-item { color: $dropdown-link-color; }
+
+// Navbar background color consistency
+.bg-light-parent {
+    background: $light;
+}
+.bg-dark-parent {
+    background: $dark;
+}

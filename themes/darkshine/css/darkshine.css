@@ -9870,9 +9870,9 @@ div.drillshow {
 }
 .codecaption {
   display: inline-block;
-  color: #212529;
+  color: #c7254e;
   background: #f8f9fa;
-  border: 1px solid #b7bec5;
+  border: 1px solid white;
   border-bottom: none;
   padding: 2px 9.5px;
   font-size: 0.8em;
@@ -9884,7 +9884,7 @@ code, pre.codelisting {
   padding: 0.2rem 0.4rem;
 }
 code {
-  color: #212529;
+  color: #c7254e;
 }
 pre.codelisting {
   color: #333333;
@@ -10088,6 +10088,12 @@ blockquote {
 }
 a.dropdown-item {
   color: #212529;
+}
+.bg-light-parent {
+  background: #f8f9fa;
+}
+.bg-dark-parent {
+  background: #212529;
 }
 body, body.fullscreen {
   background: #90140c url("../images/stripes.png") repeat-x 50% 0;

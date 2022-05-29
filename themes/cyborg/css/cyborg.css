@@ -9317,7 +9317,7 @@ legend {
   text-decoration: none;
 }
 .navbar-dark .sitetitle a {
-  color: #ccc;
+  color: #fff;
 }
 .navbar-dark .sitetitle a:hover {
   color: #fff;
@@ -9975,7 +9975,7 @@ div.drillshow {
   color: #212529;
 }
 .tiki .ui-widget button {
-  background: #060606;
+  background: #222;
   color: #adafae;
 }
 .tiki.tiki-listpages .ui-widget.ui-widget-content {
@@ -10225,6 +10225,12 @@ blockquote {
 a.dropdown-item {
   color: #fff;
 }
+.bg-light-parent {
+  background: #222;
+}
+.bg-dark-parent {
+  background: #adafae;
+}
 table.tablesorter thead tr.tablesorter-headerRow {
   background-color: #060606;
 }
@@ -10466,8 +10472,8 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   -webkit-text-size-adjust: 100%;
   padding: 2px 5px;
   white-space: nowrap;
-  background: #060606;
-  border: 1px solid #adafae;
+  background: #adafae;
+  border: 1px solid #dee2e6;
   border-radius: 0.25rem;
   color: #adafae;
 }
@@ -10518,13 +10524,13 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   padding: 5px;
 }
 .tiki .pvtFilterBox button {
-  background: #060606;
-  border: 1px solid #adafae;
+  background: #222;
+  border: 1px solid #dee2e6;
   border-radius: 0.25rem;
   color: #adafae;
 }
 .tiki .pvtFilterBox button:hover {
-  background: #060606;
+  background: #090909;
 }
 .tiki .pvtFilterBox button + button {
   margin-left: 4px;
@@ -10563,17 +10569,17 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 }
 .tiki .ui-button, .tiki html .ui-button.ui-state-disabled:hover, .tiki html .ui-button.ui-state-disabled:active {
   border: 1px solid;
-  border-color: #adafae;
-  background: #060606;
+  border-color: #dee2e6;
+  background: #222;
   font-weight: normal;
   color: #adafae;
   font-size: 1rem;
 }
 .tiki .ui-widget-content .ui-state-focus, .tiki .ui-widget-header .ui-state-focus, .tiki .ui-button:hover, .tiki .ui-button:focus {
-  border: 1px solid #adafae;
-  background: #060606;
+  border: 1px solid #2a9fd6;
+  background: #222;
   font-weight: normal;
-  color: #adafae;
+  color: #2a9fd6;
 }
 .tiki .ui-widget-header a {
   color: #2a9fd6;

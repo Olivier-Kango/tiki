@@ -159,7 +159,8 @@
         </footer>
 
         <nav class="navbar navbar-expand-md navbar-{$navbar_color_variant} bg-{$navbar_color_variant} fixed-top">
-        <div class="container{if $smarty.session.fullscreen eq 'y'}-fluid{/if} container-std d-flex justify-content-between in-navbar">
+            <div class="container-fluid">
+            {* <div class="container{if $smarty.session.fullscreen eq 'y'}-fluid{/if} container-std d-flex justify-content-between in-navbar"> *}
             <a class="navbar-brand" href="./">
                 {if $prefs.sitelogo_icon}<img src="{$prefs.sitelogo_icon}" alt="{$prefs.sitetitle|escape}">{/if}
                 {$prefs.sitetitle|escape}

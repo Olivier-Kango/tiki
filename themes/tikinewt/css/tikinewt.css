@@ -9622,6 +9622,12 @@ blockquote {
 a.dropdown-item {
   color: #212529;
 }
+.bg-light-parent {
+  background: #f8f9fa;
+}
+.bg-dark-parent {
+  background: #c7d0d9;
+}
 .container {
   background: #fff;
 }

@@ -79,17 +79,17 @@
 <div class="row">
     <div class="col-xs-12">
         <div>
-            <table>
+            <table.table>
                 <tr><td style="font-weight:bold;float: right">{tr}From:{/tr}</td><td style="padding-left: 10px">{$msg.user_from|username}</td></tr>
                 <tr><td style="font-weight:bold;float: right">{tr}To:{/tr}</td><td style="padding-left: 10px">{$msg.user_to|escape}</td></tr>
                 <tr><td style="font-weight:bold;float: right">{tr}Cc:{/tr}</td><td style="padding-left: 10px">{$msg.user_cc|escape}</td></tr>
                 <tr><td style="font-weight:bold;float: right">{tr}Subject:{/tr}</td><td style="padding-left: 10px">{$msg.subject|escape}</td></tr>
                 <tr><td style="font-weight:bold;float: right">{tr}Date:{/tr}</td><td style="padding-left: 10px">{$msg.date|tiki_short_datetime}</td></tr><!--date_format:"%a %b %Y [%H:%I]"-->
-            </table>
+            </table.table>
         </div>
     </div>
     <div class="col-xs-12">
-        <div class="messureadbody">
+        <div class="messureadbody p-3">
             {$msg.parsed}
         </div>
     </div>

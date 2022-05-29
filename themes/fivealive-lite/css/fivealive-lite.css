@@ -10089,6 +10089,12 @@ blockquote {
 a.dropdown-item {
   color: #e9ecef;
 }
+.bg-light-parent {
+  background: #fff;
+}
+.bg-dark-parent {
+  background: #000;
+}
 .dropdown-menu > .btn-link:not(.text-danger) {
   color: #fff;
 }

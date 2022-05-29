@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/*  The Ohia theme style sheet for Tiki Wiki CMS Groupware. */
+/*  The Ohia theme stylesheet for Tiki Wiki CMS Groupware. */
 /*!
  * Bootstrap v5.1.3 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors
@@ -9694,21 +9694,21 @@ div.drillshow {
 }
 .codecaption {
   display: inline-block;
-  color: #212529;
-  background: #f8f9fa;
-  border: 1px solid #b7bec5;
+  color: #c7254e;
+  background: #f9f2f4;
+  border: 1px solid white;
   border-bottom: none;
   padding: 2px 9.5px;
   font-size: 0.8em;
   font-weight: bold;
 }
 code, pre.codelisting {
-  background: #f8f9fa;
+  background: #f9f2f4;
   border: 1px solid transparent;
   padding: 0.2rem 0.4rem;
 }
 code {
-  color: #212529;
+  color: #c7254e;
 }
 pre.codelisting {
   color: #333333;
@@ -9912,6 +9912,12 @@ blockquote {
 }
 a.dropdown-item {
   color: #fd0006;
+}
+.bg-light-parent {
+  background: #f8f9fa;
+}
+.bg-dark-parent {
+  background: #212529;
 }
 .topbar {
   margin-bottom: 20px;

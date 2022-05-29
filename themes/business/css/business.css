@@ -1617,15 +1617,15 @@ progress {
   border-color: #dfe0e1;
 }
 .table-dark {
-  --bs-table-bg: #212529;
-  --bs-table-striped-bg: #2c3034;
+  --bs-table-bg: #01366c;
+  --bs-table-striped-bg: #0e4073;
   --bs-table-striped-color: #fff;
-  --bs-table-active-bg: #373b3e;
+  --bs-table-active-bg: #1a4a7b;
   --bs-table-active-color: #fff;
-  --bs-table-hover-bg: #323539;
+  --bs-table-hover-bg: #144577;
   --bs-table-hover-color: #fff;
   color: #fff;
-  border-color: #373b3e;
+  border-color: #1a4a7b;
 }
 .table-responsive {
   overflow-x: auto;
@@ -9005,7 +9005,7 @@ textarea.form-control-lg {
   color: #ffc107;
 }
 .module h3.card-title, .module .card-title.h3 {
-  font-size: 1.25rem;
+  font-size: 0.95rem;
 }
 .calhighlight {
   color: #fff;
@@ -9648,7 +9648,7 @@ div.drillshow {
 }
 .tiki .ui-widget button {
   background: #f8f9fa;
-  color: #212529;
+  color: #01366c;
 }
 .tiki.tiki-listpages .ui-widget.ui-widget-content {
   border: 1px solid #8d8d8d;
@@ -9897,20 +9897,11 @@ blockquote {
 a.dropdown-item {
   color: #212529;
 }
-.page-header .top_modules {
-  background: #8ba8c8;
-  /* Old browsers */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #8ba8c8), color-stop(0%, #0b346c), color-stop(1%, #003376), color-stop(1%, #00366f), color-stop(2%, #01366c), color-stop(3%, #023175), color-stop(3%, #00356e), color-stop(60%, #003470), color-stop(64%, #023574), color-stop(64%, #03357a), color-stop(67%, #00387b), color-stop(68%, #00387f), color-stop(71%, #023b82), color-stop(71%, #003e85), color-stop(74%, #003e89), color-stop(75%, #013e8e), color-stop(77%, #004394), color-stop(81%, #024699), color-stop(82%, #00489d), color-stop(85%, #01499e), color-stop(85%, #0049a5), color-stop(88%, #014aa6), color-stop(89%, #014ca9), color-stop(92%, #034eab), color-stop(97%, #004daa), color-stop(98%, #004ba6), color-stop(99%, #003e8d), color-stop(100%, #003a80), color-stop(100%, #1e599f));
-  /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #8ba8c8 0%, #0b346c 0%, #003376 1%, #00366f 1%, #01366c 2%, #023175 3%, #00356e 3%, #003470 60%, #023574 64%, #03357a 64%, #00387b 67%, #00387f 68%, #023b82 71%, #003e85 71%, #003e89 74%, #013e8e 75%, #004394 77%, #024699 81%, #00489d 82%, #01499e 85%, #0049a5 85%, #014aa6 88%, #014ca9 89%, #034eab 92%, #004daa 97%, #004ba6 98%, #003e8d 99%, #003a80 100%, #1e599f 100%);
-  /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #8ba8c8 0%, #0b346c 0%, #003376 1%, #00366f 1%, #01366c 2%, #023175 3%, #00356e 3%, #003470 60%, #023574 64%, #03357a 64%, #00387b 67%, #00387f 68%, #023b82 71%, #003e85 71%, #003e89 74%, #013e8e 75%, #004394 77%, #024699 81%, #00489d 82%, #01499e 85%, #0049a5 85%, #014aa6 88%, #014ca9 89%, #034eab 92%, #004daa 97%, #004ba6 98%, #003e8d 99%, #003a80 100%, #1e599f 100%);
-  /* Opera 11.10+ */
-  background: linear-gradient(to bottom, #8ba8c8 0%, #0b346c 0%, #003376 1%, #00366f 1%, #01366c 2%, #023175 3%, #00356e 3%, #003470 60%, #023574 64%, #03357a 64%, #00387b 67%, #00387f 68%, #023b82 71%, #003e85 71%, #003e89 74%, #013e8e 75%, #004394 77%, #024699 81%, #00489d 82%, #01499e 85%, #0049a5 85%, #014aa6 88%, #014ca9 89%, #034eab 92%, #004daa 97%, #004ba6 98%, #003e8d 99%, #003a80 100%, #1e599f 100%);
-  /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#8ba8c8", endColorstr="#1e599f", GradientType=0);
-  /* IE6-9 */
-  color: #fff;
+.bg-light-parent {
+  background: #f8f9fa;
+}
+.bg-dark-parent {
+  background: #01366c;
 }
 .page-header .top_modules button {
   color: #fff;
@@ -9935,7 +9926,7 @@ h2.sitesubtitle, .sitesubtitle.h2 {
   color: #91bef5;
   font-style: italic;
 }
-.bg-dark, .bg-light, .topbar, .topbar.bg-dark > li, .topbar.bg-light > li, .topbar .nav > li {
+.page-header, .header_outer, .bg-dark, .bg-light, .topbar, .topbar.bg-dark > li, .topbar.bg-light > li, .topbar .nav > li {
   background: #1f5daa;
   /* Old browsers */
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #1f5daa), color-stop(2%, #3977c4), color-stop(3%, #3b7ac7), color-stop(5%, #3877c6), color-stop(7%, #3a7cca), color-stop(9%, #3778c8), color-stop(19%, #3674c7), color-stop(43%, #2c6abf), color-stop(69%, #1c5cb3), color-stop(93%, #1454ac), color-stop(97%, #1455a9), color-stop(98%, #1a57a8), color-stop(100%, #346dba));
@@ -9986,7 +9977,7 @@ h2.sitesubtitle, .sitesubtitle.h2 {
 #col1, #col2, #col3 {
   padding-top: 1em;
 }
-#middle.container-std.middle {
+.layout_classic .middle_outer, body:not(.layout_classic) #middle.container-std.middle, .layout_basic .row-middle {
   background: #fbfbfb url("../images/image2.jpg") 100% 0 no-repeat;
 }
 #footer .container, footer.main-footer .container {
@@ -9996,16 +9987,10 @@ h2.sitesubtitle, .sitesubtitle.h2 {
 .card-header, .modal-header {
   background: #386dbb;
   /* Old browsers */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #386dbb), color-stop(7%, #3a6fbb), color-stop(25%, #457bc3), color-stop(54%, #4c82ca), color-stop(57%, #2f6dc0), color-stop(82%, #3371c4), color-stop(86%, #3574c4), color-stop(100%, #3574c4));
-  /* Chrome,Safari4+ */
   background: -webkit-linear-gradient(top, #386dbb 0%, #3a6fbb 7%, #457bc3 25%, #4c82ca 54%, #2f6dc0 57%, #3371c4 82%, #3574c4 86%, #3574c4 100%);
   /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #386dbb 0%, #3a6fbb 7%, #457bc3 25%, #4c82ca 54%, #2f6dc0 57%, #3371c4 82%, #3574c4 86%, #3574c4 100%);
-  /* Opera 11.10+ */
   background: linear-gradient(to bottom, #386dbb 0%, #3a6fbb 7%, #457bc3 25%, #4c82ca 54%, #2f6dc0 57%, #3371c4 82%, #3574c4 86%, #3574c4 100%);
   /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#386dbb", endColorstr="#3574c4", GradientType=0);
-  /* IE6-9 */
   text-transform: uppercase;
   color: #fff;
 }
@@ -10019,6 +10004,7 @@ h2.sitesubtitle, .sitesubtitle.h2 {
   text-decoration: none;
 }
 h3.card-title, .card-title.h3 {
+  font-size: 90%;
   font-weight: 700;
 }
 .adminanchors.card {
@@ -10065,11 +10051,14 @@ h3.card-title, .card-title.h3 {
 .popover {
   color: #404040;
 }
-.bg-dark .bg-dark, .tiki .navbar.bg-dark .navbar.navbar-dark.bg-dark, .tiki.navbar.bg-light .navbar.bg-light, .page-header {
+.bg-dark .bg-dark, .tiki .navbar.bg-dark .navbar.navbar-dark.bg-dark, .tiki.navbar.bg-light .navbar.bg-light {
   background-image: none !important;
   background: transparent !important;
   border-left: none;
   border-right: none;
+}
+.layout_classic .navbar-dark-parent {
+  background: transparent !important;
 }
 .navbar .navbar-nav.sm-vertical .dropdown {
   border: none;
@@ -10336,10 +10325,10 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   -webkit-text-size-adjust: 100%;
   padding: 2px 5px;
   white-space: nowrap;
-  background: #212529;
+  background: #01366c;
   border: 1px solid #8d8d8d;
   border-radius: 0.25rem;
-  color: #212529;
+  color: #01366c;
 }
 .tiki .pvtTriangle {
   cursor: pointer;
@@ -10391,7 +10380,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   background: #f8f9fa;
   border: 1px solid #8d8d8d;
   border-radius: 0.25rem;
-  color: #212529;
+  color: #01366c;
 }
 .tiki .pvtFilterBox button:hover {
   background: #dae0e5;
@@ -10436,7 +10425,7 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   border-color: #8d8d8d;
   background: #f8f9fa;
   font-weight: normal;
-  color: #212529;
+  color: #01366c;
   font-size: 1rem;
 }
 .tiki .ui-widget-content .ui-state-focus, .tiki .ui-widget-header .ui-state-focus, .tiki .ui-button:hover, .tiki .ui-button:focus {

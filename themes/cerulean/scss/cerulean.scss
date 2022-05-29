@@ -3,21 +3,22 @@
 /*!
  * bootswatch v5.1.3
  * Homepage: http://bootswatch.com
- * Copyright 2012-2017 Thomas Park
+ * Copyright 2012-2022 Thomas Park
  * Licensed under MIT
  * Based on Bootstrap
+ *
+ * Adapted by the Tiki Community for Tiki Wiki CMS Groupware
 */
 
-@import "../../../vendor_bundled/vendor/twbs/bootstrap/scss/functions";
-
-// Variables added for Bootswatch themes in Tiki
-$link-decoration: none;
-
-@import "../../base_files/scss/_tiki-variables.scss"; // Values/definitions for Tiki variables (outside of Bootstrap variables) such as _tiki-selectors.scss.
+//@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700");
 @import "../../../vendor_bundled/vendor/thomaspark/bootswatch/dist/cerulean/variables"; // Needs to come first, to override defaults.
-// @import "../../../vendor_bundled/vendor/twbs/bootstrap/scss/bootstrap.scss"; // Needed for darken function.
-@import "../../base_files/scss/_tiki-selectors.scss";
+@import "../../../vendor_bundled/vendor/twbs/bootstrap/scss/bootstrap.scss";
+@import "../../base_files/scss/_tiki-variables.scss"; // Values/definitions for Tiki variables (outside of Bootstrap variables) such as _tiki-selectors.scss.
 @import "../../../vendor_bundled/vendor/thomaspark/bootswatch/dist/cerulean/bootswatch";
+
+//@import "variables"; // Imported again, to override base_files/tiki-variables defaults, if the theme overrides any
+
+@import "../../base_files/scss/_tiki-selectors.scss";
 @import "../../base_files/scss/_external-scripts.scss";
 
 .topbar {

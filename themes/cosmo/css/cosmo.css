@@ -8923,6 +8923,16 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+body {
+  -webkit-font-smoothing: antialiased;
+}
+.badge.bg-light {
+  color: #373a3c;
+}
+.progress .progress-bar {
+  font-size: 8px;
+  line-height: 8px;
+}
 .topbar {
   margin-bottom: 1.4rem;
 }
@@ -8934,7 +8944,7 @@ textarea.form-control-lg {
   text-decoration: none;
 }
 .navbar-dark .sitetitle a {
-  color: #ccc;
+  color: #fff;
 }
 .navbar-dark .sitetitle a:hover {
   color: white;
@@ -9586,7 +9596,7 @@ div.drillshow {
   color: #373a3c;
 }
 .tiki .ui-widget button {
-  background: #fff;
+  background: #f8f9fa;
   color: #373a3c;
 }
 .tiki.tiki-listpages .ui-widget.ui-widget-content {
@@ -9836,15 +9846,11 @@ blockquote {
 a.dropdown-item {
   color: #212529;
 }
-body {
-  -webkit-font-smoothing: antialiased;
+.bg-light-parent {
+  background: #f8f9fa;
 }
-.badge.bg-light {
-  color: #373a3c;
-}
-.progress .progress-bar {
-  font-size: 8px;
-  line-height: 8px;
+.bg-dark-parent {
+  background: #373a3c;
 }
 table.tablesorter thead tr.tablesorter-headerRow {
   background-color: #fff;
@@ -10087,8 +10093,8 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   -webkit-text-size-adjust: 100%;
   padding: 2px 5px;
   white-space: nowrap;
-  background: #fff;
-  border: 1px solid #373a3c;
+  background: #373a3c;
+  border: 1px solid #dee2e6;
   border-radius: 0.25rem;
   color: #373a3c;
 }
@@ -10139,13 +10145,13 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   padding: 5px;
 }
 .tiki .pvtFilterBox button {
-  background: #fff;
-  border: 1px solid #373a3c;
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
   border-radius: 0.25rem;
   color: #373a3c;
 }
 .tiki .pvtFilterBox button:hover {
-  background: white;
+  background: #dae0e5;
 }
 .tiki .pvtFilterBox button + button {
   margin-left: 4px;
@@ -10184,17 +10190,17 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 }
 .tiki .ui-button, .tiki html .ui-button.ui-state-disabled:hover, .tiki html .ui-button.ui-state-disabled:active {
   border: 1px solid;
-  border-color: #373a3c;
-  background: #fff;
+  border-color: #dee2e6;
+  background: #f8f9fa;
   font-weight: normal;
   color: #373a3c;
   font-size: 1rem;
 }
 .tiki .ui-widget-content .ui-state-focus, .tiki .ui-widget-header .ui-state-focus, .tiki .ui-button:hover, .tiki .ui-button:focus {
-  border: 1px solid #373a3c;
-  background: #fff;
+  border: 1px solid #2780e3;
+  background: #f8f9fa;
   font-weight: normal;
-  color: #373a3c;
+  color: #2780e3;
 }
 .tiki .ui-widget-header a {
   color: #2780e3;

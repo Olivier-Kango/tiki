@@ -10,13 +10,11 @@ $topmodules-row-sidemargins: 0;
 $topbar-row-sidemargins: -15px;
 
 .page-header .top_modules {
-  background: #8ba8c8; /* Old browsers */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #8ba8c8), color-stop(0%, #0b346c), color-stop(1%, #003376), color-stop(1%, #00366f), color-stop(2%, #01366c), color-stop(3%, #023175), color-stop(3%, #00356e), color-stop(60%, #003470), color-stop(64%, #023574), color-stop(64%, #03357a), color-stop(67%, #00387b), color-stop(68%, #00387f), color-stop(71%, #023b82), color-stop(71%, #003e85), color-stop(74%, #003e89), color-stop(75%, #013e8e), color-stop(77%, #004394), color-stop(81%, #024699), color-stop(82%, #00489d), color-stop(85%, #01499e), color-stop(85%, #0049a5), color-stop(88%, #014aa6), color-stop(89%, #014ca9), color-stop(92%, #034eab), color-stop(97%, #004daa), color-stop(98%, #004ba6), color-stop(99%, #003e8d), color-stop(100%, #003a80), color-stop(100%, #1e599f)); /* Chrome,Safari4+ */
-  background: -webkit-linear-gradient(top, #8ba8c8 0%, #0b346c 0%, #003376 1%, #00366f 1%, #01366c 2%, #023175 3%, #00356e 3%, #003470 60%, #023574 64%, #03357a 64%, #00387b 67%, #00387f 68%, #023b82 71%, #003e85 71%, #003e89 74%, #013e8e 75%, #004394 77%, #024699 81%, #00489d 82%, #01499e 85%, #0049a5 85%, #014aa6 88%, #014ca9 89%, #034eab 92%, #004daa 97%, #004ba6 98%, #003e8d 99%, #003a80 100%, #1e599f 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #8ba8c8 0%, #0b346c 0%, #003376 1%, #00366f 1%, #01366c 2%, #023175 3%, #00356e 3%, #003470 60%, #023574 64%, #03357a 64%, #00387b 67%, #00387f 68%, #023b82 71%, #003e85 71%, #003e89 74%, #013e8e 75%, #004394 77%, #024699 81%, #00489d 82%, #01499e 85%, #0049a5 85%, #014aa6 88%, #014ca9 89%, #034eab 92%, #004daa 97%, #004ba6 98%, #003e8d 99%, #003a80 100%, #1e599f 100%); /* Opera 11.10+ */
-  background: linear-gradient(to bottom, #8ba8c8 0%, #0b346c 0%, #003376 1%, #00366f 1%, #01366c 2%, #023175 3%, #00356e 3%, #003470 60%, #023574 64%, #03357a 64%, #00387b 67%, #00387f 68%, #023b82 71%, #003e85 71%, #003e89 74%, #013e8e 75%, #004394 77%, #024699 81%, #00489d 82%, #01499e 85%, #0049a5 85%, #014aa6 88%, #014ca9 89%, #034eab 92%, #004daa 97%, #004ba6 98%, #003e8d 99%, #003a80 100%, #1e599f 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#8ba8c8', endColorstr='#1e599f', GradientType=0); /* IE6-9 */
-  color: #fff;
+//  background: #8ba8c8; /* Old browsers */
+//  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #8ba8c8), color-stop(0%, #0b346c), color-stop(1%, #003376), color-stop(1%, #00366f), color-stop(2%, #01366c), color-stop(3%, #023175), color-stop(3%, #00356e), color-stop(60%, #003470), color-stop(64%, #023574), color-stop(64%, #03357a), color-stop(67%, #00387b), color-stop(68%, #00387f), color-stop(71%, #023b82), color-stop(71%, #003e85), color-stop(74%, #003e89), color-stop(75%, #013e8e), color-stop(77%, #004394), color-stop(81%, #024699), color-stop(82%, #00489d), color-stop(85%, #01499e), color-stop(85%, #0049a5), color-stop(88%, #014aa6), color-stop(89%, #014ca9), color-stop(92%, #034eab), color-stop(97%, #004daa), color-stop(98%, #004ba6), color-stop(99%, #003e8d), color-stop(100%, #003a80), color-stop(100%, #1e599f)); /* Chrome,Safari4+ */
+//  background: -webkit-linear-gradient(top, #8ba8c8 0%, #0b346c 0%, #003376 1%, #00366f 1%, #01366c 2%, #023175 3%, #00356e 3%, #003470 60%, #023574 64%, #03357a 64%, #00387b 67%, #00387f 68%, #023b82 71%, #003e85 71%, #003e89 74%, #013e8e 75%, #004394 77%, #024699 81%, #00489d 82%, #01499e 85%, #0049a5 85%, #014aa6 88%, #014ca9 89%, #034eab 92%, #004daa 97%, #004ba6 98%, #003e8d 99%, #003a80 100%, #1e599f 100%); /* Chrome10+,Safari5.1+ */
+//  background: linear-gradient(to bottom, #8ba8c8 0%, #0b346c 0%, #003376 1%, #00366f 1%, #01366c 2%, #023175 3%, #00356e 3%, #003470 60%, #023574 64%, #03357a 64%, #00387b 67%, #00387f 68%, #023b82 71%, #003e85 71%, #003e89 74%, #013e8e 75%, #004394 77%, #024699 81%, #00489d 82%, #01499e 85%, #0049a5 85%, #014aa6 88%, #014ca9 89%, #034eab 92%, #004daa 97%, #004ba6 98%, #003e8d 99%, #003a80 100%, #1e599f 100%); /* W3C */
+//  color: #fff;
 
   & button {
     color: #fff;
@@ -50,6 +48,8 @@ h2.sitesubtitle {
   font-style: italic;
 }
 
+.page-header,
+.header_outer,
 .bg-dark,
 .bg-light,
 .topbar,
@@ -127,9 +127,13 @@ h2.sitesubtitle {
   padding-top: 1em;
 }
 
-#middle.container-std.middle {  // Moved from #col1 for Bootstrap 5
+.layout_classic .middle_outer,
+body:not(.layout_classic) #middle.container-std.middle,
+.layout_basic .row-middle {  // Moved from #col1 for Bootstrap 5
   background: #fbfbfb url('#{$imagePath}image2.jpg') 100% 0 no-repeat;
 }
+
+
 
 #footer .container,
 footer.main-footer .container {
@@ -141,11 +145,8 @@ footer.main-footer .container {
 .modal-header {
   //  background: #3475c6 url('#{$imagePath}title_bg.png') no-repeat 0 0;
   background: #386dbb; /* Old browsers */
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #386dbb), color-stop(7%, #3a6fbb), color-stop(25%, #457bc3), color-stop(54%, #4c82ca), color-stop(57%, #2f6dc0), color-stop(82%, #3371c4), color-stop(86%, #3574c4), color-stop(100%, #3574c4)); /* Chrome,Safari4+ */
   background: -webkit-linear-gradient(top, #386dbb 0%, #3a6fbb 7%, #457bc3 25%, #4c82ca 54%, #2f6dc0 57%, #3371c4 82%, #3574c4 86%, #3574c4 100%); /* Chrome10+,Safari5.1+ */
-  background: -o-linear-gradient(top, #386dbb 0%, #3a6fbb 7%, #457bc3 25%, #4c82ca 54%, #2f6dc0 57%, #3371c4 82%, #3574c4 86%, #3574c4 100%); /* Opera 11.10+ */
   background: linear-gradient(to bottom, #386dbb 0%, #3a6fbb 7%, #457bc3 25%, #4c82ca 54%, #2f6dc0 57%, #3371c4 82%, #3574c4 86%, #3574c4 100%); /* W3C */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#386dbb', endColorstr='#3574c4', GradientType=0); /* IE6-9 */
   text-transform: uppercase;
   color: #fff;
 
@@ -163,7 +164,7 @@ footer.main-footer .container {
 }
 
 h3.card-title {
-  //    font-size: 90%;
+  font-size: 90%;
   font-weight: 700;
 }
 
@@ -222,12 +223,17 @@ h3.card-title {
 // prevent gradient on gradient or on middle box-shadow
 .bg-dark .bg-dark,
 .tiki .navbar.bg-dark .navbar.navbar-dark.bg-dark,
-.tiki.navbar.bg-light .navbar.bg-light,
-.page-header {
+.tiki.navbar.bg-light .navbar.bg-light
+//.page-header
+{
   background-image: none !important;
   background: transparent !important;
   border-left: none;
   border-right: none;
+}
+
+.layout_classic .navbar-dark-parent {
+    background: transparent !important;
 }
 
 // Update for Smartmenus

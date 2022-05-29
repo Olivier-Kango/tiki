@@ -1,11 +1,15 @@
-//  $Id$ tikinewt/scss/tikinewt.scss; compile to make
+//  tikinewt/scss/tikinewt.scss; compile to make
 /*  The TikiNewt theme style sheet for Tiki Wiki CMS Groupware. */
 
 @import url("//fonts.googleapis.com/css?family=Simonetta");
+
 @import "../../../vendor_bundled/vendor/twbs/bootstrap/scss/functions";
-@import "variables"; // Needs to come first, to override defaults.
+@import "variables"; // Needs to come first, to override Bootstrap defaults.
 @import "../../base_files/scss/_tiki-variables.scss"; // Values/definitions for Tiki variables (outside of Bootstrap variables) such as _tiki-selectors.scss.
 @import "../../../vendor_bundled/vendor/twbs/bootstrap/scss/bootstrap.scss";
+
+@import "variables"; // Imported again, to override base_files/tiki-variables defaults, if the theme overrides any
+
 @import "../../base_files/scss/_tiki-selectors.scss";
 @import "_tiki-selectors.scss";
 @import "../../base_files/scss/_external-scripts.scss";

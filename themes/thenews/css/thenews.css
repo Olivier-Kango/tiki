@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/*  The News theme style sheet for Tiki Wiki CMS Groupware. */
+/*  The News theme stylesheet for Tiki Wiki CMS Groupware. */
 @import url("https://fonts.googleapis.com/css?family=Mukta:800|Open+Sans|Source+Serif+Pro");
 /*!
  * Bootstrap v5.1.3 (https://getbootstrap.com/)
@@ -9808,6 +9808,12 @@ blockquote {
 }
 a.dropdown-item {
   color: #212529;
+}
+.bg-light-parent {
+  background: #f8f9fa;
+}
+.bg-dark-parent {
+  background: #212529;
 }
 .pagetitle a {
   color: #212529;

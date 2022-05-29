@@ -9807,6 +9807,12 @@ blockquote {
 a.dropdown-item {
   color: #222;
 }
+.bg-light-parent {
+  background: #f8f9fa;
+}
+.bg-dark-parent {
+  background: #222;
+}
 .header_outer {
   margin-top: 24px;
 }

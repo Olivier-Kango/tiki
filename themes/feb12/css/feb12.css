@@ -10853,6 +10853,12 @@ blockquote {
 a.dropdown-item {
   color: #fff;
 }
+.bg-light-parent {
+  background: #fff;
+}
+.bg-dark-parent {
+  background: #000;
+}
 .btn-outline-success, .text-success {
   color: #388038 !important;
 }

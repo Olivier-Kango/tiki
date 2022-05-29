@@ -4,7 +4,7 @@
  * Copyright 2012-2014 Thomas Park
  * Licensed under MIT
  * Based on Bootstrap
- * Orphaned theme Adapted for Tiki Wiki CMS Groupware
+ * Orphaned theme adapted for Tiki Wiki CMS Groupware
 */
 @import url("//fonts.googleapis.com/css?family=Lobster|Cabin:400,700");
 /*!
@@ -1618,15 +1618,15 @@ progress {
   border-color: #e3dcd7;
 }
 .table-light {
-  --bs-table-bg: #f8f9fa;
-  --bs-table-striped-bg: #ecedee;
+  --bs-table-bg: #5AE3ED;
+  --bs-table-striped-bg: #56d8e1;
   --bs-table-striped-color: #000;
-  --bs-table-active-bg: #dfe0e1;
+  --bs-table-active-bg: #51ccd5;
   --bs-table-active-color: #000;
-  --bs-table-hover-bg: #e5e6e7;
+  --bs-table-hover-bg: #53d2db;
   --bs-table-hover-color: #000;
   color: #000;
-  border-color: #dfe0e1;
+  border-color: #51ccd5;
 }
 .table-dark {
   --bs-table-bg: #ad1d28;
@@ -9867,7 +9867,7 @@ div.drillshow {
   color: #343a40;
 }
 .tiki .ui-widget button {
-  background: #f8f9fa;
+  background: #5AE3ED;
   color: #ad1d28;
 }
 .tiki.tiki-listpages .ui-widget.ui-widget-content {
@@ -10116,6 +10116,12 @@ blockquote {
 }
 a.dropdown-item {
   color: #444;
+}
+.bg-light-parent {
+  background: #5AE3ED;
+}
+.bg-dark-parent {
+  background: #ad1d28;
 }
 .bg-dark {
   background: #ad1d28 !important;
@@ -10478,13 +10484,13 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   padding: 5px;
 }
 .tiki .pvtFilterBox button {
-  background: #f8f9fa;
+  background: #5AE3ED;
   border: 1px solid #dee2e6;
   border-radius: 0.25rem;
   color: #ad1d28;
 }
 .tiki .pvtFilterBox button:hover {
-  background: #dae0e5;
+  background: #2cdbe8;
 }
 .tiki .pvtFilterBox button + button {
   margin-left: 4px;
@@ -10524,14 +10530,14 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 .tiki .ui-button, .tiki html .ui-button.ui-state-disabled:hover, .tiki html .ui-button.ui-state-disabled:active {
   border: 1px solid;
   border-color: #dee2e6;
-  background: #f8f9fa;
+  background: #5AE3ED;
   font-weight: normal;
   color: #ad1d28;
   font-size: 1rem;
 }
 .tiki .ui-widget-content .ui-state-focus, .tiki .ui-widget-header .ui-state-focus, .tiki .ui-button:hover, .tiki .ui-button:focus {
   border: 1px solid #F5CDC2;
-  background: #f8f9fa;
+  background: #5AE3ED;
   font-weight: normal;
   color: #F5CDC2;
 }

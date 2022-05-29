@@ -9534,6 +9534,12 @@ blockquote {
 a.dropdown-item {
   color: #212529;
 }
+.bg-light-parent {
+  background: #f8f9fa;
+}
+.bg-dark-parent {
+  background: #212529;
+}
 body {
   background: #214d68 url("../images/body-bg_fw.png") repeat-x;
 }

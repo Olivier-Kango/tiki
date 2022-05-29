@@ -1,5 +1,5 @@
 @charset "UTF-8";
-/*  The Tikicorp theme style sheet for Tiki Wiki CMS Groupware. */
+/*  The Tikicorp theme stylesheet for Tiki Wiki CMS Groupware. */
 @import url(https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700);
 @font-face {
   font-family: "InterstateMono";
@@ -10858,6 +10858,12 @@ blockquote {
 }
 a.dropdown-item {
   color: #212529;
+}
+.bg-light-parent {
+  background: #f8f9fa;
+}
+.bg-dark-parent {
+  background: #212529;
 }
 body {
   background-image: url("../images/bg-body.jpg");
