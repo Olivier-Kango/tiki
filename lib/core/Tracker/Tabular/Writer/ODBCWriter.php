@@ -97,6 +97,7 @@ class ODBCWriter
                 $id = $row[$pk];
                 if ($schema->isPrimaryKeyAutoIncrement()) {
                     unset($row[$pk]);
+                    unset($fullRow[$pk]);
                 }
             }
         }
