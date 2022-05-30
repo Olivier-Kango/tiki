@@ -65,11 +65,13 @@ class ODBCWriter
         // - fields that do not store value in Tiki db like ItemsList (they might have changed as well)
         // - schema primary key (needed for remote updates but usually does not change locally, e.g. AutoIncrement)
         $entry = [];
+        $fullEntry = [];
         $pk = $schema->getPrimaryKey();
         if ($pk) {
             $pk = $pk->getField();
         }
         foreach ($new_values as $permName => $value) {
+            $fullEntry[$permName] = $value;
             if (! isset($old_values[$permName]) || $value != $old_values[$permName] || $permName == $pk) {
                 $entry[$permName] = $value;
             } else {
@@ -81,9 +83,11 @@ class ODBCWriter
         }
 
         $row = [];
+        $fullRow = [];
         $pk = null;
         $id = null;
         foreach ($columns as $column) {
+            $this->renderMultiple($column, $fullEntry[$column->getField()], ['itemId' => $item_id], $fullRow);
             if (! isset($entry[$column->getField()]) && ! $column->isPrimaryKey()) {
                 continue;
             }
@@ -98,7 +102,7 @@ class ODBCWriter
         }
 
         if ($pk) {
-            $result = $this->odbc_manager->replace($pk, $id, $row);
+            $result = $this->odbc_manager->replace($pk, $id, $row, $fullRow);
         } else {
             $existing = [];
             foreach ($columns as $column) {
