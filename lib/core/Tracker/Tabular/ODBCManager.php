@@ -72,7 +72,7 @@ class ODBCManager
         $this->stopErrorHandler();
     }
 
-    public function replace($pk, $id, $row)
+    public function replace($pk, $id, $row, $fullRow = null)
     {
         $this->handleErrors();
         $conn = $this->getConnection();
@@ -105,6 +105,9 @@ class ODBCManager
             odbc_execute($rs, [$id]);
             $result = odbc_fetch_array($rs);
         } else {
+            if ($fullRow) {
+                $row = $fullRow;
+            }
             $row = array_filter($row, function($val) {
                 if (is_bool($val) || is_int($val) || is_float($val)) {
                     return true;
