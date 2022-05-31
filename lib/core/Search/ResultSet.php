@@ -141,7 +141,7 @@ class Search_ResultSet extends ArrayObject implements JsonSerializable
                     && ! empty($value) // Skip empty
                     && ! is_array($value) // Skip arrays, multivalues fields are not human readable
                     && ! preg_match('/token[a-z]{8,}/', $value) // tokens
-                    && ! preg_match('/\d{4}-\d{2}-\d{2} \d{2}\:\d{2}\:\d{2}/', $value)  // dates
+                    && ! preg_match('/^\s*\d{4}-\d{2}-\d{2} \d{2}\:\d{2}\:\d{2}\s*$/', $value)  // dates
                     && ! preg_match('/^[\w-]+$/', $value)
                 ) { // Skip anything that looks like a single token
                     $text .= "\n$value";
