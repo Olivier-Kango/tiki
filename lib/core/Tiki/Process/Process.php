@@ -8,16 +8,18 @@
 
 namespace Tiki\Process;
 
-class Process extends \Symfony\Component\Process\Process
+use Symfony\Component\Process\Process as SymfonyProcess;
+
+class Process extends SymfonyProcess
 {
 
     /**
      * @inheritdoc
      */
-    public function __construct($commandline, $cwd = null, array $env = null, $input = null, $timeout = 60, array $options = null)
+    public function __construct($commandline, $cwd = null, array $env = null, $input = null, $timeout = 60)
     {
         $env = $this->setEnvDefaults($env);
-        parent::__construct($commandline, $cwd, $env, $input, $timeout, $options);
+        parent::__construct($commandline, $cwd, $env, $input, $timeout);
     }
 
     protected function setEnvDefaults($env)

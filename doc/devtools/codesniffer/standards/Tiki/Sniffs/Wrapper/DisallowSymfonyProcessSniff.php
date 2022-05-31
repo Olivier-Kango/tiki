@@ -52,7 +52,7 @@ class DisallowSymfonyProcessSniff implements Sniff
         $name = $phpcsFile->getTokensAsString(($stackPtr + 1), ($end - $stackPtr - 1));
         $name = trim($name);
 
-        $regex = '/Symfony\\\\Component\\\\Process\\\\Process$/';
+        $regex = '/Symfony\\\\Component\\\\Process\\\\Process( .+)$/';
         if (preg_match($regex, $name)) {
             $error = 'Symfony\Component\Process\Process in use. Tiki\Process\Process should be used instead.';
             $phpcsFile->addError($error, $stackPtr, 'Found');
@@ -61,7 +61,7 @@ class DisallowSymfonyProcessSniff implements Sniff
 
     protected function shouldIgnore(File $phpcsFile)
     {
-        $fileName = strtolower($phpcsFile->getFilename());
+        $fileName = $phpcsFile->getFilename();
         return preg_match('/lib\/core\/Tiki\/Process\/Process.php$/', $fileName);
     }
 }
