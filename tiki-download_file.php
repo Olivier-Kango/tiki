@@ -66,6 +66,31 @@ if (! $skip) {
         $zip = true;
     } elseif (! empty($_REQUEST['randomGalleryId'])) {
         $info = $filegallib->get_file(0, $_REQUEST['randomGalleryId']);
+    } elseif (! empty($_GET['data'])) {
+        global $base_url;
+        $data = Tiki_Security::get()->decode($_GET['data']);
+
+        if (! $data || ! isset($data['url'])) {
+            $access->display_error('', tra('Invalid request'), 400);
+        }
+
+        $src = $data['url'];
+        $info = unserialize(TikiLib::lib('cache')->getCached($src, 'external_downloaded_files'));
+
+        if (! $info || (($info['expires'] ?? 0) < time() )) {
+            $info = $filegallib->get_info_from_url($src);
+
+            if (! $info) {
+                $access->display_error(null, tr('Could not access to %0', $src), 404);
+            }
+
+            // If there is no expire set or equals to current time, cache it for 1 day
+            if (($info['expires'] ?? 0) <= time()) {
+                $info['expires'] = strtotime('+1 day');
+            }
+
+            TikiLib::lib('cache')->cacheItem($src, serialize($info), 'external_downloaded_files');
+        }
     } else {
         $access->display_error('', tra('Incorrect param'), 400);
     }
