@@ -25,6 +25,9 @@
     },
     "npm-asset/converse.js": {
       "Remove native javascript for bootstrap": "../installer/composer-patches/jcbrand-conversejs_remove-native-javascript-for-bootstrap.patch"
-    }
+    },
+	"nicolaskruchten/pivottable": {
+	  "Sort rows and columns by key_z_to_a": "../installer/composer-patches/nicolaskruchten_pivottable__sort_by_key_z_to_a.patch"
+	}
   }
 }
