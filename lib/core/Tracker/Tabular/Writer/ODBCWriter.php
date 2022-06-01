@@ -102,6 +102,12 @@ class ODBCWriter
             }
         }
 
+        // let the odbc manager create the record remotely even if autoincrement value has been assigned locally
+        // we need this to prevent overwrites of remote data when it wasn't synced with local data
+        if (empty($old_values)) {
+            $id = null;
+        }
+
         if ($pk) {
             $result = $this->odbc_manager->replace($pk, $id, $row, $fullRow);
         } else {
