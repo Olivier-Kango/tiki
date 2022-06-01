@@ -149,7 +149,7 @@ if (empty($_REQUEST["page"])) {
 }
 
 $max_pagename_length = TikiLib::lib('wiki')->max_pagename_length();
-if (strlen($_REQUEST["page"]) > $max_pagename_length) {
+if (mb_strlen($_REQUEST["page"]) > $max_pagename_length) {
     //$_REQUEST["page"] = substr($_REQUEST["page"], 0, $max_pagename_length);
     $smarty->assign('msg', tra(tr("You have exceeded the number of characters allowed (158 max) for the page name field")));
     $smarty->display("error.tpl");
@@ -164,8 +164,8 @@ if (strtolower($_REQUEST["page"]) == 'sandbox' && $prefs['feature_sandbox'] !== 
 
 $page = $_REQUEST["page"];
 
-$max_pagedescription_length = 200;
-if (strlen($_REQUEST["description"]) > $max_pagedescription_length) {
+$max_pagedescription_length = 201;
+if (mb_strlen($_REQUEST["description"]) > $max_pagedescription_length) {
     $smarty->assign('msg', tra("The description of the page should not exceed 200 characters."));
     $smarty->display("error.tpl");
     die;
