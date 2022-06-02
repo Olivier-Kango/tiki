@@ -186,8 +186,9 @@ class Services_Manager_Controller
 
     public function action_create($input)
     {
+        $cmd = new TikiManager\Command\CreateInstanceCommand();
+
         if ($input->create->text()){
-            $cmd = new TikiManager\Command\CreateInstanceCommand();
             $inputCommand = new ArrayInput([
                 'command' => $cmd->getName(),
                 "--type" => $input->type->text(),
@@ -245,23 +246,113 @@ class Services_Manager_Controller
                 'db_name' => ''
             ];
 
-            $cmd = new TikiManager\Command\CreateInstanceCommand();
-            $definition = $cmd->getDefinition();
-
-            $help = [];
-            foreach ($definition->getOptions() as $option) {
-                $help[$option->getName()] = $option->getDescription();
-            }
-
             return [
                 'title' => tr('Create New Instance'),
                 'info' => '',
                 'refresh' => true,
                 'inputValues' => $inputValues,
-                'help' => $help,
+                'help' => $this->getCommandHelpTexts($cmd),
                 'sshPublicKey' => $_ENV['SSH_PUBLIC_KEY'],
             ];
         }
+    }
+
+    public function action_virtualmin_create($input)
+    {
+        $cmd = new TikiManager\Command\CreateInstanceCommand();
+        $sources_table = TikiDb::get()->table('tiki_source_auth', false);
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+            $source = $sources_table->fetchFullRow([
+                'identifier' => $input->source->text(),
+            ]);
+            $source_url = "{$source['scheme']}://{$source['domain']}:10000/virtual-server/remote.cgi?json=1&multiline&";
+
+            $domain = $input->domain->text();
+            if (preg_match('/^([^\.]*)\./', $domain, $m)) {
+                $user = $m[1];
+            } else {
+                $user = $domain;
+            }
+            $params = [
+                'program' => 'create-domain',
+                'domain' => $domain,
+                'user' => $user,
+                'group' => $user,
+                'pass' => TikiLib::genPass(),
+                'mysql-pass' => TikiLib::genPass(),
+                'default-features' => '',
+                'email' => $input->email->text(),
+            ];
+            $client = TikiLib::lib('tiki')->get_http_client($source_url.http_build_query($params, '', '&'), [
+                'timeout' => 300,
+            ]);
+            $response = $client->send();
+            $response = json_decode($response->getBody(), true);
+            if (! empty($response['error'])) {
+                Feedback::error($response['error']);
+            } elseif (! empty($response['output'])) {
+                $output = $response['output'];
+
+                $ftp = new TikiManager\Libs\Host\FTP($params['domain'], $params['user'], $params['pass'], 21);
+                $ftp->createDirectory('.ssh');
+                $ftp->sendFile($_ENV['SSH_PUBLIC_KEY'], '.ssh/authorized_keys');
+                $ftp->chmod(0600, '.ssh/authorized_keys');
+
+                $client = TikiLib::lib('tiki')->get_http_client($source_url."program=list-domains&domain=".urlencode($domain), [
+                    'timeout' => 300,
+                ]);
+                $response = $client->send();
+                $response = json_decode($response->getBody(), true);
+                $response = $response['data'][0]['values'];
+
+                $inputCommand = new ArrayInput([
+                    'command' => $cmd->getName(),
+                    "--type" => 'ssh',
+                    "--host" => $params['domain'],
+                    "--user" => $params['user'],
+                    "--url" => $response['url'][0],
+                    "--name" => $input->name->text(),
+                    "--email" => $params['email'],
+                    "--webroot" => $response['html_directory'][0],
+                    "--force" => '1',
+                    "--branch" => $input->branch->text(),
+                    "--backup-user" => $params['user'],
+                    "--backup-group" => $params['user'],
+                    "--backup-permission" => '755',
+                    "--db-host" => 'localhost',
+                    "--db-user" => $params['user'],
+                    "--db-pass" => $params['mysql-pass'],
+                    "--db-name" => $params['user'],
+                ]);
+                $this->runCommand($cmd, $inputCommand);
+
+                $output .= "\n\n" . $this->manager_output->fetch();
+
+                return [
+                    'title' => tr('Create Virtualmin Instance Result'),
+                    'override_action' => 'info',
+                    'info' => $output,
+                    'refresh' => true,
+                ];
+            } else {
+                Feedback::error(tr('Unrecognized response: %0', print_r($response, 1)));
+            }
+        }
+
+        $sources = [];
+        $records = $sources_table->fetchAll(['identifier', 'scheme', 'domain', 'path']);
+        foreach ($records as $record) {
+            $sources[$record['identifier']] = "{$record['identifier']}: {$record['scheme']}://{$record['domain']}{$record['path']}";
+        }
+
+        return [
+            'title' => tr('Create New Virtualmin Instance'),
+            'branches' => $this->getTikiBranches(),
+            'help' => $this->getCommandHelpTexts($cmd),
+            'input' => $input->asArray(),
+            'sources' => $sources,
+        ];
     }
 
 

@@ -88,13 +88,14 @@
         {/foreach}
     {/if}
     {if in_array('create', $field.available_actions) and !$field.has_created_one}
+        {if $field.source}{assign var=action value=create_source}{else}{assign var=action value=create}{/if}
         <div class="btn-group" role="group">
             <a class="btn btn-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown" data-bs-hover="dropdown" aria-expanded="false" href="#">
                 {icon name=create _menu_text='y' _menu_icon='y' alt="{tr}Create new instance{/tr}"}
             </a>
             <div class="dropdown-menu">
                 {foreach $field.versions as $version}
-                    <a class="dropdown-item" href="{bootstrap_modal controller=manager_field action=create itemId=$field.id fieldId=$field.fieldId version=$version}">
+                    <a class="dropdown-item" href="{bootstrap_modal controller=manager_field action=$action itemId=$field.id fieldId=$field.fieldId version=$version}">
                         {$version}
                     </a>
                 {/foreach}

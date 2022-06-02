@@ -119,4 +119,14 @@ trait Services_Manager_Trait
             $this->manager_output->write($output);
         }
     }
+
+    protected function getCommandHelpTexts($cmd)
+    {
+        $help = [];
+        $definition = $cmd->getDefinition();
+        foreach ($definition->getOptions() as $option) {
+            $help[$option->getName()] = $option->getDescription();
+        }
+        return $help;
+    }
 }

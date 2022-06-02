@@ -40,6 +40,12 @@ class Tracker_Field_TikiManager extends Tracker_Field_Abstract
                         'filter' => 'text',
                         'separator' => ',',
                     ],
+                    'source' => [
+                        'name' => tra('Virtualmin server'),
+                        'description' => tra('If you have a remotely managed virtualmin server defined in DSN/Content Authentication section, you can specify it here to allow automatic subdomain creation and specify just the template url parameter below. '),
+                        'default' => '',
+                        'filter' => 'text',
+                    ],
                     'newInstanceType' => [
                         'name' => tra('New Instance Type'),
                         'description' => tra('Type of instance when creating a new one.'),
@@ -198,6 +204,7 @@ class Tracker_Field_TikiManager extends Tracker_Field_Abstract
             'available_actions' => $available_actions,
             'manager_output' => $manager_output->fetch(),
             'versions' => $versions,
+            'source' => $this->getOption('source'),
             'has_created_one' => array_filter($instances, function($i) use ($privateName) { return $i->name == $privateName; }),
             'value' => 'none', // this is required to show the field, otherwise it gets hidden if tracker is set to doNotShowEmptyField
         ];
