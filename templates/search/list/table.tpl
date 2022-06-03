@@ -1,5 +1,47 @@
 {* $Id$ *}
 {if empty($iListExecute)}{assign var=iListExecute value=$id|replace:'wplistexecute-':''}{/if}
+{if ! empty($downloadable) && ! empty($downloadabletop) && $downloadabletop == 'y'}
+    <form method="post" id="listexecute-download-top-{$iListExecute}">
+        <input type="hidden" name="download" value="1">
+        <input type="hidden" name="listId" value="{$iListExecute}">
+        <input type="hidden" name="tsAjax" value="y">
+        <input type="submit" name="submit" value="{tr}Download{/tr}" class="btn btn-primary">
+    </form>
+{jq}
+(function(){
+    $('#listexecute-download-top-{{$iListExecute}}').submit(function(){
+        var $form = $(this);
+        $form.find('input[name^=filter]').remove();
+        $('.tablesorter-filter').each(function(i,el){
+            var column = $(el).data('column'),
+                    value = $(el).val();
+            if( value ) {
+                $('<input type="hidden" name="filter['+column+']">')
+                    .val(value)
+                    .appendTo($form);
+            }
+        });
+        var m = "{{$id}}".match(/wpcs\-(\d+)$/);
+        var id = m ? m[1] : null;
+        var cs = window['customsearch_'+id];
+        if (cs) {
+            $form.attr('action', $.service('search_customsearch', 'customsearch'));
+            var datamap = {
+                definition: cs.definition,
+                adddata: $.toJSON(cs.searchdata),
+                searchid: cs.id,
+                offset: cs.offset,
+                maxRecords: cs.maxRecords,
+                store_query: cs.store_query
+            }
+            $.each(datamap, function(k, v) {
+                $('<input type="hidden">').attr('name', k).val(v).appendTo($form);
+            });
+        }
+    });
+})();
+{/jq}
+{/if}
 {if isset($tableparams.title)}
     <div class="list-table-heading">{wiki}{$tableparams.title|escape}{/wiki}</div>
 {/if}
@@ -227,7 +269,7 @@
 })();
 {/jq}
 {/if}
-{if ! empty($downloadable)}
+{if ! empty($downloadable) && ! empty($downloadablebottom) && $downloadablebottom == 'y'}
     {if $actions}
     <br>
     {/if}

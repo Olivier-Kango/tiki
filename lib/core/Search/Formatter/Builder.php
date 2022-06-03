@@ -196,6 +196,18 @@ class Search_Formatter_Builder
                 if (isset($arguments['downloadable'])) {
                     $outputData['downloadable'] = true;
                     $this->downloadName = $arguments['downloadable'];
+                    if (isset($arguments['downloadable-position'])) {
+                        if ($arguments['downloadable-position'] == 'top') {
+                            $outputData['downloadabletop'] = 'y';
+                        } elseif ($arguments['downloadable-position'] == 'both') {
+                            $outputData['downloadabletop'] = 'y';
+                            $outputData['downloadablebottom'] = 'y';
+                        } else {    // Either value is "bottom" or value is not recognised
+                            $outputData['downloadablebottom'] = 'y';
+                        }
+                    } else {    // Default is link at the bottom for compatibility
+                        $outputData['downloadablebottom'] = 'y';
+                    }
                 }
                 if ($this->isDownload) {
                     $this->formatterPlugin = new Search_Formatter_Plugin_CsvTemplate($output->getBody());
