@@ -55,7 +55,7 @@ class ODBCWriter
     /**
      * Called after trackeritem save event, this method updates remote data source with local changes
      */
-    public function sync(\Tracker\Tabular\Schema $schema, int $item_id, array $old_values, array $new_values)
+    public function sync(\Tracker\Tabular\Schema $schema, int $item_id, array $old_values, array $new_values, &$is_new)
     {
         $schema->validate();
         $columns = $schema->getColumns();
@@ -119,9 +119,10 @@ class ODBCWriter
             }
             $result = $this->odbc_manager->replaceWithoutPK($existing, $row);
         }
+        $is_new = $result['is_new'];
 
         // map back the remote values to local field values
-        $entry = new ODBCSourceEntry($result);
+        $entry = new ODBCSourceEntry($result['entry']);
         $mapped = [];
         foreach ($columns as $column) {
             $permName = $column->getField();
