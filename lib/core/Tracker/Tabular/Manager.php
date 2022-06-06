@@ -105,7 +105,7 @@ class Manager
             $remote = $writer->sync($schema, $args['object'], $args['old_values_by_permname'], $args['values_by_permname']);
             foreach ($remote as $field => $value) {
                 if (isset($args['values_by_permname'][$field])) {
-                    if ($value != $args['values_by_permname'][$field]) {
+                    if ($value !== $args['values_by_permname'][$field]) {
                         $field = $definition->getFieldFromPermName($field);
                         $trklib->modify_field($args['object'], $field['fieldId'], $value);
                     }
