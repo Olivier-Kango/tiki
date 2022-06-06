@@ -104,6 +104,7 @@ class ODBCManager
             $rs = odbc_prepare($conn, $sql);
             odbc_execute($rs, [$id]);
             $result = odbc_fetch_array($rs);
+            $result = ['is_new' => false, 'entry' => $result];
         } else {
             if ($fullRow) {
                 $row = $fullRow;
@@ -127,6 +128,7 @@ class ODBCManager
             $rs = odbc_prepare($conn, $sql);
             odbc_execute($rs, []);
             $result = odbc_fetch_array($rs);
+            $result = ['is_new' => true, 'entry' => $result];
         }
         $this->stopErrorHandler();
         return $result;
@@ -165,6 +167,7 @@ class ODBCManager
         $params = array_filter(array_values($existing));
         odbc_execute($rs, $params);
         $result = odbc_fetch_array($rs);
+        $result = ['is_new' => false, 'entry' => $result];
         $this->stopErrorHandler();
         return $result;
     }

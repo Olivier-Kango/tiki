@@ -102,13 +102,18 @@ class Manager
 
         try {
             $writer = new Writer\ODBCWriter($tabular['odbc_config']);
-            $remote = $writer->sync($schema, $args['object'], $args['old_values_by_permname'], $args['values_by_permname']);
+            $remote = $writer->sync($schema, $args['object'], $args['old_values_by_permname'], $args['values_by_permname'], $is_new);
             foreach ($remote as $field => $value) {
                 if (isset($args['values_by_permname'][$field])) {
-                    if ($value !== $args['values_by_permname'][$field]) {
-                        $field = $definition->getFieldFromPermName($field);
-                        $trklib->modify_field($args['object'], $field['fieldId'], $value);
-                    }
+                    $differs = $value !== $args['values_by_permname'][$field];
+                } elseif ($is_new) {
+                    $differs = true;
+                } else {
+                    $differs = false;
+                }
+                if ($differs) {
+                    $field = $definition->getFieldFromPermName($field);
+                    $trklib->modify_field($args['object'], $field['fieldId'], $value);
                 }
             }
         } catch (\Exception $e) {
