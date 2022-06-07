@@ -103,6 +103,9 @@
         <service id="tiki.lib.faq" class="FaqLib">
             <file>%kernel.root_dir%/lib/faqs/faqlib.php</file>
         </service>
+        <service id="tiki.lib.error" class="ErrorManagerLib">
+            <file>%kernel.root_dir%/lib/error/errormanagerlib.php</file>
+        </service>
         <service id="tiki.lib.federatedsearch" class="FederatedSearchLib">
             <file>%kernel.root_dir%/lib/search/federatedsearchlib.php</file>
             <argument type="service" id="tiki.lib.unifiedsearch"/>

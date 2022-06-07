@@ -65,7 +65,7 @@ class Search_Elastic_Connection
             return (object) [
                 'ok' => false,
                 'status' => 0,
-                'error' => $e->getMessage(),
+                'error' => TikiLib::lib('error')->genericError($e->getMessage()),
             ];
         }
     }
