@@ -32,13 +32,16 @@
         {if $smarty.session.fullscreen ne 'y'}
             <div class="fixed-topbar"></div>
         {/if}
-        <div class="container{if $smarty.session.fullscreen eq 'y'}-fluid{/if} container-std middle" id="middle">
+        <div class="container{if $smarty.session.fullscreen eq 'y'}-fluid{/if} container-std topbar-wrapper" id="topbar-wrapper">
             {if $smarty.session.fullscreen ne 'y'}
             <div class="row topbar mx-0 navbar-{$navbar_color_variant} bg-{$navbar_color_variant}" id="topbar">
                 {modulelist zone=topbar class='topbar_modules d-flex justify-content-between w-100'}
             </div>
             {/if}
             {*<div class="container{if $smarty.session.fullscreen eq 'y'}-fluid{/if} container-std">*}
+        </div>
+        <div class="middle-wrapper">
+        <div class="container{if $smarty.session.fullscreen eq 'y'}-fluid{/if} container-std middle" id="middle">
 
             <div class="row row-middle" id="row-middle">
                 {if (zone_is_empty('left') or $prefs.feature_left_column eq 'n') and (zone_is_empty('right') or $prefs.feature_right_column eq 'n')}
@@ -148,6 +151,7 @@
             </div> {* row *}
         </div> {* container *}
     </div> {* middle_outer *}
+    </div>
     {if !isset($smarty.session.fullscreen) || $smarty.session.fullscreen ne 'y'}
         <footer class="footer main-footer" id="footer">
             <div class="footer_liner">
