@@ -2,92 +2,102 @@
 //Custom styles for the FiveAlive Lemon option theme.
 
 // - - - - - - - Bootstrap variables (override values in vendor_bundled/vendor/twbs/bootstrap/scss/_variables.scss - - - - - - //
+$gray-600: #6c757d !default;
+$gray-900: #212529;
+
 $white:    #fff;
 $black:    #000;
 $light: #f9a013;
+$dark: #6D5509; // arbitrary
+
+$theme-colors: (
+    "primary":           #F0D800, // #ffc805,
+    "secondary":         #ffc805, //#ffe405, // #c85a28,
+    "success":             #5cb85c,
+    "info":               #f5821e,
+    "warning":             #f0ad4e,
+    "danger":           #D63D00, //   #ff5c1a,
+    "light":            #ffffff,
+    "dark":                #6D5509
+);
+
+$primary:       #F0D800; // #ffc805;
+$secondary:     #ffc805; // #ffe405; //#c85a28;
+$success:       #5cb85c;
+$info:          #f5821e;
+$warning:       #f0ad4e;
+$danger:        #D63D00; //#ff5c1a;
+$light:         #ffffff;
+$dark:          #cb9e10;
+
+$theme-colors: map-merge(
+        (
+            "primary":    $primary,
+            "secondary":  $secondary,
+            "success":    $success,
+            "info":       $info,
+            "warning":    $warning,
+            "danger":     $danger,
+            "light":      $light,
+            "dark":       $dark
+        ),
+        $theme-colors
+);
+
+// The following are default values from vendor/twbs/bootstrap/scss/variables.scss - change as needed for theme child option (or to match values in parent theme).
+// Comment-out any that are already defined in the parent theme variables.scss file and shouldn't be redefined.
+
+$color-contrast-dark:             $gray-900 !default;
+$color-contrast-light:            $white !default;
+$enable-gradients:          false;
+
 
 $bg-light: #f9a013 !important;
 
-$link-color: #c75a28;
-$link-hover-color: #f9a013;
+$link-color: #BB5525; //#c75a28;
+$link-hover-color:               darken($link-color, 15%);
 
-//$btn-primary-color: #ffffff;
-//$btn-primary-bg: #f9a013;
-//$btn-primary-border: #f4bb06;
-//$btn-primary-focus-color: #ffffff;
-//$btn-primary-focus-bg: #d2a100;
-//$btn-primary-border: #ebba00;
-//$btn-primary-hover-color: #ffffff;
-//$btn-primary-hover-bg: #d2a100;
-//$btn-primary-hover-border: #c89900;
-//$btn-primary-active-color: #ffffff;
-//$btn-primary-active-bg: #d2a100;
-//$btn-primary-active-border: #c89900;
-//$btn-primary-active-hover-bg-color: #ae8600;
-//$btn-primary-active-hover-border: #856600;
-//$btn-primary-disabled-hover: #f9a013;
-//$btn-primary-disabled-border: #ffc506;
-//$btn-primary-badge-color: #f9a013;
-//$btn-primary-badge-bg: #ffffff;
+// Navs
+$nav-tabs-link-color: #000;
+$nav-tabs-link-bg: #fdf1d0; // Same as input-bg
+$nav-tabs-link-active-color: #fff;
+$nav-tabs-link-active-bg: #b25025; // same as $dropdown-link-hover-bg;
 
-// $btn-secondary-bg: #ffc506;
-// $btn-secondary-border: #ffc506;
-// $btn-secondary-focus-bg: #d2a100;
-// $btn-secondary-focus-border: #856600;
-// $btn-secondary-hover-bg: #d2a100;
-// $btn-secondary-border: #c89900;
-// $btn-secondary-active-bg: #d2a100;
-// $btn-secondary-border: #c89900;
-// $btn-secondary-active-hover-bg:#856600;
-// $btn-secondary-active-hover-border: #856600;
-// $btn-secondary-disabled-hover-bg: #ffc506;
-// $btn-secondary-disabled-hover-border: #ffc506;
-// $btn-secondary-badge-color: #ffc506;
-// $btn-secondary-bg-color: #ffffff;
+// Navbars
+$top-bg: #e4af00;
+$top-color: #000;
+$top-link-color: #000;
+$top-link-hover-color: #5c5c5c;
 
-//$btn-info-color: #fff;
-//$btn-info-bg: #e5d7dc;
-//$btn-info-border: #e5d0cf;
-// $btn-info-focus-color: ;
-// $btn-info-focus-bg: ;
-// $btn-info-focus-border: ;
-//$btn-info-hover-color: $btn-info-color;
-//$btn-info-hover-bg: lighten($btn-info-bg, 10%);
-//$btn-info-hover-border: lighten($btn-info-border, 10%);
-// $btn-info-active-color: ;
-//$btn-info-active-bg: $btn-info-bg;
-// $btn-info-active-border: ;
-// $btn-info-active-hover: ;
-// $btn-info-active-hover-border: ;
-// $btn-info-disabled-hover-color: ;
-// $btn-info-disabled-hover-border: ;
-// $btn-info-badge-color: ;
-// $btn-info-badge-bg: ;
-
-$navbar-dark-color:                 rgba($white, .75);
-$navbar-dark-hover-color:           rgba($white, .85);
-$navbar-dark-active-color:          $white;
-$navbar-dark-disabled-color:        rgba($white, .25);
-$navbar-light-color:                rgba($black, .5);
-$navbar-light-hover-color:          rgba($black, .7);
-$navbar-light-active-color:         rgba($black, .9);
-$navbar-light-disabled-color:       rgba($black, .3);
+$topbar-bg: #ad5b28;
+$bg-dark-info: #fff;
+$navbar-fixed-top-bg: #e4af00;
+$page-header-link-color: #000;
+$topbar-link-color: #000;
 
 // navbar link hover colors
 $bg-dark-link-hover-color: #f2f2f2;
 $bg-dark-link-hover-bg: #003c4a;
 
-
+// Typography
 $hr-border-color: #ffc506;
+$text-muted:  #6B737B;
 
 $navbar-fixed-top-bg: #e4af00;
-$bg-dark: #cb9e10;
-$bg-light: #cb9e10;
+$bg-dark: #ad5b28;
+$bg-light: #ad5b28;
+
+// Cards
 $card-border-color: #e4af00;
+
+// Tables
 $table-border-color: #a99628;
 $table-accent-bg: #f9f9f9;
 $table-hover-bg: #f5f5f5;
 
+$component-active-bg: $card-border-color; // From Grape
+
+// Forms
 $input-color: #555555;
 $input-bg: #fdf1d0;
 $input-border-color: #fee194;
@@ -96,9 +106,11 @@ $input-border-right-color: #fff;
 $input-border-bottom-color: #fff;
 $input-border-left-color: #ceb688;
 
+// Form validation
+
+// Dropdowns
 $dropdown-bg: #c75a29;
 $dropdown-border-color: rgba(0, 0, 0, 0.15);
-
 $dropdown-link-color: #ffffff;
 $dropdown-link-hover-color: #f2f2f2;
 $dropdown-link-hover-bg: #b25025;
@@ -108,13 +120,8 @@ $dropdown-link-disabled-color: #f2f2f2;
 $dropdown-header-color: #ffffff;
 $dropdown-divider-bg: $dropdown-bg;
 
-$nav-tabs-link-color: #000;
-$nav-tabs-link-bg: $input-bg;
-$nav-tabs-link-active-color: #fff;
-$nav-tabs-link-active-bg: $dropdown-link-hover-bg;
-
-
-$nav-pills-link-active-bg: #c75a28;
+// Pagination
+$nav-pills-link-active-bg: #B35123;
 $pagination-color: #c75a28;
 $pagination-bg: #ffffff;
 $pagination-border-color: #dddddd;
@@ -123,21 +130,17 @@ $pagination-hover-bg: #eeeeee;
 $pagination-hover-border-color: #dddddd;
 $pagination-active-bg: #c75a28;
 $pagination-active-border-color: #c75a28;
-$pagination-disabled-color: #999999;
+$pagination-disabled-color: $text-muted; // #999999;
 $pagination-disabled-bg: #ffffff;
 $pagination-disabled-border-color: #dddddd;
 
-$theme-colors: (
-        "light":            #ffffff,
-        "dark":                #2c1c04
-);
 
 $enable-gradients: true;
 $enable-shadows: true;
 // - - - - - - - - - -  - - - - - - Other variables, if any - - - - - - - - - - - - - - - - - //
 $bg-light-alt: #ffc506 !important;
 
-$side-column-heading-color: #e4af00;
+$side-column-heading-color: #8F6D00;
 
 $middle_outer-inset-shadow-bg: #2c1c04;
 $footer_liner-card-inner-border: #ffc506;

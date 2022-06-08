@@ -1,43 +1,99 @@
-// $Id$
 //Custom styles for the FiveAlive Grape option theme.
 
 // - - - - - - - Bootstrap variables (override values in vendor_bundled/vendor/twbs/bootstrap/scss/_variables.scss - - - - - - //
+$gray-600: #6c757d;
+$gray-900: #212529;
+
 $white:    #fff;
 $black:    #000;
 $light: #a02871;
+$dark: #551e3d;
 
+$theme-colors: (
+    "primary":            #a52873,
+    "secondary":         #3c2846,
+    "success":             #5cb85c,
+    "info":             #551e3c,
+    "warning":             #f0ad4e,
+    "danger":              #d00b0b,
+    "light":            #fff,
+    "dark":                #8e286a
+);
+
+$primary:       #a52873;
+$secondary:     #3c2846;
+$success:       #5cb85c;
+$info:          #551e3c;
+$warning:       #f0ad4e;
+$danger:        #d00b0b;
+$light:         #fff;
+$dark:          #8e286a;
+
+$theme-colors: map-merge(
+        (
+            "primary":    $primary,
+            "secondary":  $secondary,
+            "success":    $success,
+            "info":       $info,
+            "warning":    $warning,
+            "danger":     $danger,
+            "light":      $light,
+            "dark":       $dark
+        ),
+        $theme-colors
+);
+
+// The following are default values from vendor/twbs/bootstrap/scss/variables.scss - change as needed for theme child option (or to match values in parent theme).
+// Comment-out any that are already defined in the parent theme variables.scss file and shouldn't be redefined.
+//$color-c-threshold:  150;
+
+$color-contrast-dark:             $gray-900 !default;
+$color-contrast-light:            $white !default;
+//$bg-dark: #8e286a;
+//$bg-light: #f4dded;
 $bg-light: #a02871 !important;
 
+// Links
 $link-color: #a02871;
 $link-hover-color: #a02871;
 
-$navbar-dark-color:                 rgba($white, .75);
-$navbar-dark-hover-color:           rgba($white, .85);
-$navbar-dark-active-color:          $white;
-$navbar-dark-disabled-color:        rgba($white, .25);
-$navbar-light-color:                rgba($black, .5);
-$navbar-light-hover-color:          rgba($black, .7);
-$navbar-light-active-color:         rgba($black, .9);
-$navbar-light-disabled-color:       rgba($black, .3);
+// Navs
+$nav-tabs-link-color: #000;
+$nav-tabs-link-bg: #f4dded;;
+$nav-tabs-link-active-color: #fff;
+$nav-tabs-link-active-bg: #742157; // same as $dropdown-link-hover-bg;
+
+// Navbars
+$top-bg: #a52874;
+$top-color: #fff;
+$top-link-color: #fff;
+$top-link-hover-color: #f9f9f9;
+$topbar-bg: #551e3d;
+$bg-dark: #8e286a;
+$bg-light: #f4dded;
+$page-header-link-color: #000;
+$topbar-link-color: #fff;
 
 // navbar link hover colors
 $bg-dark-link-hover-color: #f2f2f2;
 $bg-dark-link-hover-bg: #003c4a;
 
+// Typography
+$text-muted:  #6B737B;
 $hr-border-color: #a02871;
 
 $navbar-fixed-top-bg: #8e286a;
-$bg-dark: #8e286a;
-$bg-light: #f4dded;
-
+// Cards
 $card-border-color: #bc2f84;
 
+// Tables
 $table-border-color: #a82a76;
 $table-accent-bg: #f9f9f9;
 $table-hover-bg: #f5f5f5;
 
 $component-active-bg: $card-border-color;
 
+// Forms
 $input-color: #555555;
 $input-bg: #f4dded;
 $input-border-color: #e4afd3;
@@ -47,9 +103,11 @@ $input-border-bottom-color: #fff;
 $input-border-left-color: #e4afd3;
 $input-focus-border-color: lighten($component-active-bg, 25%);
 
+// Form validation
+
+// Dropdowns
 $dropdown-bg: #8e286a; //#c82b8b;
 $dropdown-border-color: rgba(0, 0, 0, 0.15);
-
 $dropdown-link-color: #ffffff;
 $dropdown-link-hover-color: #f2f2f2;
 $dropdown-link-hover-bg: #742157;
@@ -59,12 +117,7 @@ $dropdown-link-disabled-color: #f2f2f2;
 $dropdown-header-color: #ffffff;
 $dropdown-divider-bg: $dropdown-bg;
 
-$nav-tabs-link-color: #000;
-$nav-tabs-link-bg: $input-bg;
-$nav-tabs-link-active-color: #fff;
-$nav-tabs-link-active-bg: $dropdown-link-hover-bg;
-
-
+// Pagination
 $nav-pills-link-active-bg: #a02871;
 $pagination-color: #a02871;
 $pagination-bg: #ffffff;
@@ -77,11 +130,6 @@ $pagination-active-border-color: #a02871;
 $pagination-disabled-color: #999999;
 $pagination-disabled-bg: #ffffff;
 $pagination-disabled-border-color: #dddddd;
-
-$theme-colors: (
-        "light":            #ffffff,
-        "dark":                #261122
-);
 
 $enable-gradients: true;
 $enable-shadows: true;
@@ -125,3 +173,5 @@ $autotoc-nav-li-link-hover-color: #f2f2f2;
 $autotoc-nav-li-link-hover-bg: #2e1f39;
 $middle_outer-inset-shadow-bg: #261122;
 $postbody-title-card-title-color: #fff;
+
+$bg-dark-info: #00DAE6;

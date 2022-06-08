@@ -4,52 +4,59 @@
 
 // Colors
 $white:    #fff !default;
-$gray-100: #f8f9fa !default;
-$gray-200: #e9ecef !default;
-$gray-300: #dee2e6 !default;
-$gray-400: #ced4da !default;
-$gray-500: #adb5bd !default;
-$gray-600: #868e96 !default;
-$gray-700: #495057 !default;
-$gray-800: #343a40 !default;
-$gray-900: #212529 !default;
-$black:    #000 !default;
-$light: $gray-300; // transparent;
+ $gray-100: #f8f9fa !default;
+ $gray-200: #e9ecef !default;
+ $gray-300: #dee2e6 !default;
+ $gray-400: #ced4da !default;
+ $gray-500: #adb5bd !default;
+ $gray-600: #868e96 !default;
+ $gray-700: #495057 !default;
+ $gray-800: #343a40 !default;
+ $gray-900: #212529 !default;
+ $black:    #000 !default;
 
-$primary: #1174a5;
-$secondary: #6400a5;
-$success: #3fa533;
-$info: #4d3a7d;
-$warning: #c3a124;
-$danger: #c3631f;
+$primary: #1174a5 !default;
+$success: #56ca75!default;
+$secondary: #8452af !default;
+$info: #4d3a7d !default;
+$warning: #debb27 !default;
+$danger: #df6e1e !default;
+$light: #fff !default;
+$dark: #000 !default;
 
 $theme-colors: (
-     "primary":            #1174a5,
-     "secondary":         #6400a5,
-     "success":             #3fa533,
-     "info":               #4d3a7d,
-     "warning":             #c3a124,
-     "danger":              #c3631f//,
-//    "light":            #ffffff,
-//     "dark":                #000000
-);
+            "primary":    $primary,
+            "secondary":  $secondary,
+            "success":    $success,
+            "info":       $info,
+            "warning":    $warning,
+            "danger":     $danger,
+            "light":      $light,
+            "dark":       $dark
+) !default;
+
 
 // Options
 // Spacing
 
 // Body
-$body-color: $gray-800;
-$body-bg: #fff;
+$body-color: $gray-800 !default;
+$body-bg: #fff !default;
 
 // Links
-$link-hover-decoration: none;
+$link-hover-decoration: none !default;
 // Components
 //$padding-base-vertical: .5rem;
 //$padding-large-vertical: .9rem;
 
-// Fonts
-$font-family-sans-serif: Lato, sans-serif;
-$headings-font-weight:    600;
+// Typography
+$font-family-sans-serif: Lato, sans-serif !default;
+$headings-font-family: $font-family-sans-serif !default;
+$headings-font-weight: 700 !default;
+
+$text-muted:                  #6F7780;
+$blockquote-footer-color: $text-muted !default;
+
 
 // Tables
 //$table-border-color: #dddddd;
@@ -62,14 +69,16 @@ $btn-link-disabled-color:         #777777;
 $input-color-placeholder:         #777777;
 
 // Dropdowns
-$dropdown-bg: #1376a8;
-$dropdown-link-color: $gray-200;
-$dropdown-link-hover-color: #ffffff;
-$dropdown-link-hover-bg: darken(#1376a8, 10%);
-$dropdown-link-active-bg: #0e567a;
-$dropdown-header-color: #fff;
+$dropdown-bg: #1376a8 !default;
+$dropdown-link-color: $gray-200 !default;
+$dropdown-link-hover-color: #ffffff !default;
+$dropdown-link-hover-bg: darken(#1376a8, 10%) !default;
+$dropdown-link-active-bg: #0e567a !default;
+$dropdown-header-color: #fff !default;
+
 // Navs
-$nav-tabs-border-color:             $gray-300;
+$nav-tabs-border-color:             $gray-300 !default;
+
 // Navbar
 $navbar-height:     54px;
 //$bg-dark: #043b5a;
@@ -90,19 +99,19 @@ $navbar-dark-toggle-border-color: #dddddd;
 // Pagination
 // Jumbotron
 // Cards
-$card-header-bg: transparent;
+$card-header-bg: transparent !default;
 //$card-border-radius: $border-radius-lg;
-$card-text: $body-color;
-$card-header-bg: transparent;
+$card-text: $body-color !default;
+$card-header-bg: transparent !default;
 //$card-bg: transparent;
 //$card-border-color: transparent;
 //$card-inner-border: transparent;
-$card-spacer-y: 0.5rem;
-$card-spacer-x: 1rem;
+$card-spacer-y: 0.5rem !default;
+$card-spacer-x: 1rem !default;
 
 // Tooltips
 // Popovers
-$popover-body-color: $body-color;
+$popover-body-color: $body-color !default;
 
 // Badges
 // Modals
@@ -113,6 +122,8 @@ $popover-body-color: $body-color;
 // List group
 // Image thumbnails
 // Figures
+$figure-caption-color: $body-color !default;
+
 // Breadcrumbs
 // Carousel
 // Close
@@ -126,13 +137,13 @@ $popover-body-color: $body-color;
 // - - - - - - - - - - Tiki selector variables ( for _tiki-selectors.scss ) - - - - - - - - - //
 $imagePath: "../images/";
 $side-column-border: none;
-$side-column-card-header-background: #ffffff;
+$side-column-card-header-bg: #ffffff !default;
 // #f5399c
-$side-column-card-header-color: #1174a5;
+$side-column-card-header-color: #1174a5 !default;
 // #3f1020;
-$side-column-card-header-border-color: #1174a5;
-$side-column-card-header-border-width: 0 0 1px 0;
-$header_outer-background: darken(#28aae1, 10%);
+$side-column-card-header-border-color: #1174a5 !default;
+$side-column-card-header-border-width: 0 0 1px 0 !default;
+$header_outer-bg: darken(#28aae1, 10%) !default;
 // url('#{$imagePath}siteheadertile.png') 0 0 no-repeat;
 $header_container_header-background: url('#{$imagePath}siteheader.png') -248px 0 no-repeat;
 $header-color: #ffffff;
@@ -143,7 +154,7 @@ $footer-color: #696969;
 $footer-border-color: #28aae1;
 $footer-link-color: #a9a9a9;
 $navbar-dark-navbar-nav-li-a-background: #28aae1;
-$postbody-title-background: $header_outer-background;
+$postbody-title-background: $header_outer-bg;
 $postbody-title-color: #000000;
 // url('#{$imagePath}siteheader.png') no-repeat -480px -200px;
 $brand-primary-of-option: $primary;
@@ -155,4 +166,4 @@ $navbar-fixed-height: 46px;
 $bg-dark: #1174a5;
 
 // Update for Smartmenus
-$dropdown-item: $dropdown-link-color;
+$dropdown-item: $dropdown-link-color !default;

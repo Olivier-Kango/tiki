@@ -1,0 +1,35 @@
+// This file contains CSS (SCSS) that Classic theme options have in common, mostly color variations.
+// The top SCSS file of each Classic theme provides values for these variables.
+
+// Image path example:
+$imagePath: "../images/";
+// body {
+//    background-image: url('#{$imagePath}bg.jpg');
+// }
+
+
+.layout_classic .header_container {
+    -webkit-box-shadow: inset 0 44px 0 0 $classic-header-container-shadow; /*#66112f;*/
+    -moz-box-shadow: inset 0 44px 0 0 $classic-header-container-shadow;
+    box-shadow: inset 0 44px 0 0 $classic-header-container-shadow;
+}
+
+.layout_classic .page-header .navbar {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.layout_classic .page-header .bg-dark {
+    background: $classic-header-bg-dark !important;
+}
+
+.layout_classic .top_modules > div:first-child {
+    background: url('#{$imagePath}siteheader2.png') no-repeat top right;
+    margin-left: -15px !important;
+}
+
+.layout_classic .sitetitle,
+.layout_classic .sitetitle a,
+.layout_classic .sitesubtitle {
+    color: #000 !important;
+}

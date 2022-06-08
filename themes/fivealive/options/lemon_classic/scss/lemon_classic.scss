@@ -1,0 +1,8 @@
+// Compile to make the Lemon Classic theme option of the FiveAlive theme for Tiki Wiki CMS Groupware
+
+@import "../../lemon/css/lemon.css";
+
+$classic-header-container-shadow: #ad5b28;
+$classic-header-bg-dark: #ad5b28;
+
+@import "../../../scss/selectors-for-classic-options";

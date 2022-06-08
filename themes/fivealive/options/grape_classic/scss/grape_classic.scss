@@ -1,0 +1,8 @@
+// Compile to make the Grape Classic theme option of the FiveAlive theme for Tiki Wiki CMS Groupware
+
+@import "../../grape/css/grape.css";
+
+$classic-header-container-shadow: #49243c;
+$classic-header-bg-dark: #49243c;
+
+@import "../../../scss/selectors-for-classic-options";

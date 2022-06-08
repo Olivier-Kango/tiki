@@ -1,0 +1,8 @@
+// Compile to make the Kiwi Classic theme option of the FiveAlive theme for Tiki Wiki CMS Groupware
+
+@import "../../kiwi/css/kiwi.css";
+
+$classic-header-container-shadow: #6f853a;
+$classic-header-bg-dark: #6f853a;
+
+@import "../../../scss/selectors-for-classic-options";

@@ -9,39 +9,44 @@ $imagePath: "../images/";
 .dropdown-item.btn-link.text-danger {
     background: lighten($danger, 40%) !important; //lighten($danger, 70%);
     border-radius: 0 !important;
+
     &:hover {
         background: lighten($danger, 30%) !important;
     }
 }
+
 //.dropdown-item.text-danger {
 //  color: #fec0bd !important;
 //}
 
-html {  background-color: #414141; }
+html {
+    background-color: #414141;
+}
 
 .middle_outer {
-  -webkit-box-shadow: inset 0 54px 0 0 #043b5a;
-  -moz-box-shadow: inset 0 54px 0 0 #043b5a;
-  box-shadow: inset 0 54px 0 0 #043b5a;
+    -webkit-box-shadow: inset 0 54px 0 0 #043b5a;
+    -moz-box-shadow: inset 0 54px 0 0 #043b5a;
+    box-shadow: inset 0 54px 0 0 #043b5a;
 }
 
 .header_outer,
 .layout_basic #top_modules {
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#136d9f+0,28a7de+100 */
-  background: #136d9f; /* Old browsers */
-  background: -moz-linear-gradient(left, #136d9f 0%, #28a7de 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(left, #136d9f 0%, #28a7de 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to right, #136d9f 0%, #28a7de 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#136d9f', endColorstr='#28a7de', GradientType=1); /* IE6-9 */
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#136d9f+0,28a7de+100 */
+    background: #136d9f; /* Old browsers */
+    background: -moz-linear-gradient(left, #136d9f 0%, #28a7de 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left, #136d9f 0%, #28a7de 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right, #136d9f 0%, #28a7de 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#136d9f', endColorstr='#28a7de', GradientType=1); /* IE6-9 */
 
-  color: #000000;
-  .siteloginbar_popup > .btn-link {
-    color: #f8f8f8;
-  }
+    color: #000000;
+
+    .siteloginbar_popup > .btn-link {
+        color: #f8f8f8;
+    }
 }
 
 #fullscreenbutton a {
-  color: #000000;
+    color: #000000;
 }
 
 //.sitelogo img {max-height: 34px; width: auto; margin-bottom: 1em;}
@@ -66,47 +71,58 @@ textarea,
     border: none;
 }
 
+.layout_classic .top_modules.bg-dark-parent {
+    background: transparent;
+}
+
 // prevent gradient on gradient or on middle box-shadow
-.page-header,
-.layout_classic #topbar_modules {
-  .navbar.bg-dark,
-  .navbar.bg-light { background: transparent !important; }
+//.page-header,
+.layout_classic #topbar_modules .module {
+    .navbar.bg-dark,
+    .navbar.bg-light {
+        background: transparent !important;
+    }
 }
 
 .layout_classic {
-  #top_modules.bg-dark,
-  #topbar_modules,
-  #topbar.bg-dark { background: transparent !important; }
+    #top_modules.bg-dark,
+    #topbar_modules,
+    #topbar.bg-dark {
+        background: transparent !important;
+    }
 }
 
 #topbar {
-  min-height: 54px;
-  margin-bottom: 20px;
-//  padding-top: 8px;
+    min-height: 54px;
+    margin-bottom: 20px;
+    //  padding-top: 8px;
 }
 
 .topbar form {
-  .form-control,
-  .btn {
-    margin-top: 0.5rem;
-  }
+    .form-control,
+    .btn {
+        margin-top: 0.5rem;
+    }
+}
+.layout_classic #topbar_modules .module .navbar.bg-dark, .layout_classic #topbar_modules .module .navbar.bg-light {
+    margin-top: 5px;
 }
 
 #topbar.affix {
-  width: 100%;
-  left: 0;
+    width: 100%;
+    left: 0;
 }
 
 #topbar.row.affix {
-  margin-left: 0;
-  margin-right: 0;
+    margin-left: 0;
+    margin-right: 0;
 }
 
 #topbar.affix {
-  position: fixed;
-  top: 0;
-  z-index: 10;
-  -webkit-transition: all 0.6s ease-in-out;
+    position: fixed;
+    top: 0;
+    z-index: 10;
+    -webkit-transition: all 0.6s ease-in-out;
 }
 
 //.navbar-static-top {
@@ -114,97 +130,97 @@ textarea,
 //}
 
 .topbar .navbar-nav > li > a {
-  text-transform: uppercase;
-  font-weight: bold;
+    text-transform: uppercase;
+    font-weight: bold;
 }
 
 .nav-justified .navbar-nav {
-  width: 100%;
+    width: 100%;
 }
 
-
-//h1, h2, h3, h4 {
-//  //    font-family: 'Kreon', serif;
-//  vertical-align: middle;
-//}
 
 #page-header {
-  h1,
-  h2,
-  h3 a,
-  a,
-  a:hover {
-    color: #f8f8f8; //#101010;
-    font-weight: 800;
-    text-decoration: none;
-  }
+    h1,
+    h2,
+    h3 a,
+    a,
+    a:hover {
+        color: #f8f8f8; //#101010;
+        font-weight: bold;
+        text-decoration: none;
+        text-transform: uppercase;
+    }
 
-  h3 {
-    border-radius: 3px;
-    font-size: 34px;
-    padding: 12px 10px 6px 10px;
-  }
+    h3 {
+        border-radius: 3px;
+        font-size: 34px;
+        padding: 12px 10px 6px 10px;
+    }
 }
 
 .dropdown-menu {
-  text-transform: none;
+    text-transform: none;
 }
 
 .dropdown-menu {
-  background-color: $dropdown-bg; //#005064;
-  border: 1px solid $dropdown-border-color; // rgba(0, 0, 0, 0.15);
+    background-color: $dropdown-bg; //#005064;
+    border: 1px solid $dropdown-border-color; // rgba(0, 0, 0, 0.15);
 }
 
 .dropdown-item a,
 .dropdown-item .btn.btn-link {
-  color: $dropdown-link-color;
-  &:hover,
-  &:focus {
-    color: $dropdown-link-hover-color;
-  }
-  &:active,
-  &.active {
-    color: $dropdown-link-active-color;
-  }
-  &.disabled,
-  &:disabled {
-    color: $dropdown-link-disabled-color;
-  }
-  .dropdown-header {
-    color: $dropdown-header-color;
-  }
-  .dropdown-divider {
-    background: $dropdown-divider-bg;
-  }
+    color: $dropdown-link-color;
+
+    &:hover,
+    &:focus {
+        color: $dropdown-link-hover-color;
+    }
+
+    &:active,
+    &.active {
+        color: $dropdown-link-active-color;
+    }
+
+    &.disabled,
+    &:disabled {
+        color: $dropdown-link-disabled-color;
+    }
+
+    .dropdown-header {
+        color: $dropdown-header-color;
+    }
+
+    .dropdown-divider {
+        background: $dropdown-divider-bg;
+    }
 }
 
 
 h1 {
-  font-size: 50px;
+    font-size: 50px;
 }
-
 
 
 .col2,
 .col3 {
-  .card,
-  .card-header,
-  .card-footer {
-  background: none;
-  background-color: transparent;
-  border: none;
+    .card,
+    .card-header,
+    .card-footer {
+        background: none;
+        background-color: transparent;
+        border: none;
     }
 }
 
 
 .blog-postbody-title .card-title {
-  font-size: 1.5rem;
+    font-size: 1.5rem;
 }
 
 @media (max-width: 768px) {
-  #page-header {
-    height: auto;
-  }
+    #page-header {
+        height: auto;
+    }
 }
 
 // Commented out because section rules are too specific for an non-qualified selector
@@ -218,51 +234,56 @@ h1 {
 
 // Page footer
 .main-footer {
-  min-height: 60px;
-  margin-top: 50px;
-  background: #414141;
-  color: #ffffff;
+    min-height: 60px;
+    margin-top: 50px;
+    background: #414141;
+    color: #ffffff;
 }
 
 #footer {
-  background: #000000;
-  color: $footer-color; // #696969;
-  padding: 1px 0 2px 0;
-  width: 100%;
+    background: #000000;
+    color: $footer-color; // #696969;
+    padding: 1px 0 2px 0;
+    width: 100%;
 }
 
 .footer {
-  border-top: 1px solid $footer-border-color; //#ebdc14;
-  border-bottom: 1px solid $footer-border-color; // #ebdc14;
+    border-top: 1px solid $footer-border-color; //#ebdc14;
+    border-bottom: 1px solid $footer-border-color; // #ebdc14;
 }
 
 .footer_liner {
-  .card,
-  .card-header,
-  .card-footer {
-    background: transparent;
-    border-color: transparent;
-  }
-  h3.card-header {
-    color: #ffffff;
-    border-bottom: 1px dotted $footer-border-color;
-  }
-  //#ebdc14;
-  legend,
-  a,
-  a:visited {
-    color: $footer-link-color;
-  }
-  // #a9a9a9;
+    .card,
+    .card-header,
+    .card-footer {
+        background: transparent;
+        border-color: transparent;
+    }
+
+    h3.card-header {
+        color: #ffffff;
+        border-bottom: 1px dotted $footer-border-color;
+    }
+
+    //#ebdc14;
+    legend,
+    a,
+    a:visited {
+        color: $footer-link-color;
+    }
+
+    // #a9a9a9;
 }
 
 
-label a:hover { text-decoration: none; }
+label a:hover {
+    text-decoration: none;
+}
 
 .bg-dark {
-  background-color: $bg-dark !important;
+    background-color: $bg-dark !important;
 }
 
 .nav-tabs .nav-item {
-  margin-right: 1px;
+    margin-right: 1px;
 }

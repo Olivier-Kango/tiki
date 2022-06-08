@@ -10083,6 +10083,12 @@ blockquote {
 a.dropdown-item {
   color: #212529;
 }
+.bg-light-parent {
+  background: #f8f9fa;
+}
+.bg-dark-parent {
+  background: #212529;
+}
 .tiki .mx-n2point5 {
   margin-left: -0.75rem;
   margin-right: -0.75rem;
@@ -10530,6 +10536,10 @@ blockquote {
 }
 header.container, .middle_outer > .container {
   margin-bottom: 0;
+}
+.layout_classic .header_container .container.container-std {
+  max-width: 100% !important;
+  width: 100% !important;
 }
 #top_modules, #topbar_modules, #pagetop_modules, #pagebottom_modules, .bottom_modules {
   display: flex;

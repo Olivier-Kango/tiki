@@ -3,40 +3,91 @@
 //Custom styles for the FiveAlive Akebi option theme.
 
 // - - - - - - - Bootstrap variables (override values in vendor_bundled/vendor/twbs/bootstrap/scss/_variables.scss - - - - - - //
+// Variables needed for button color variants (start)
 
-$white:    #fff;
-$black:    #000;
-//$light: #18a3bb;
+$gray-600: #6c757d;
+$gray-900: #212529;
 
-//$bg-light: #18a3bb !important;
+$theme-colors: (
+    "primary":            #177F92,
+    "secondary":         #005064,
+    "success":          #3A833A, //   #5cb85c,
+    "info":               #007378,
+    "warning":          #A4660E, //   #f0ad4e,
+    "danger":           #D63D00, //   #ff5c1a,
+    "light":            #fff,
+    "dark":                #18a3bb
+);
 
-$link-color: #0b8a98;
-$link-hover-color: #18a3bb;
+$primary:       #177F92; //#18a3bb;
+$secondary:     #005064;
+$success:       #3A833A; // #5cb85c;
+$info:          #007378;
+$warning:       #A4660E; // #f0ad4e;
+$danger:        #D63D00; // #ff5c1a;
 
-$navbar-dark-color:                 rgba($white, .75);
-$navbar-dark-hover-color:           rgba($white, .85);
-$navbar-dark-active-color:          $white;
-$navbar-dark-disabled-color:        rgba($white, .25);
-$navbar-light-color:                rgba($black, .5);
-$navbar-light-hover-color:          rgba($black, .7);
-$navbar-light-active-color:         rgba($black, .9);
-$navbar-light-disabled-color:       rgba($black, .3);
+$white: #fff;
+$black: #000;
+$light: #ddf8f9; // use input bg (was #18a3bb;)
+$dark: #063035; // Match bg of topbar zone
+
+$theme-colors: map-merge(
+        (
+            "primary":    $primary,
+            "secondary":  $secondary,
+            "success":    $success,
+            "info":       $info,
+            "warning":    $warning,
+            "danger":     $danger,
+            "light":      $light,
+            "dark":       $dark
+        ),
+        $theme-colors
+);
+
+// The following are default values from vendor/twbs/bootstrap/scss/variables.scss - change as needed for theme child option (or to match values in parent theme).
+// Comment-out any that are already defined in the parent theme variables.scss file and shouldn't be redefined.
+$min-contrast-ratio:  3;
+
+$color-contrast-dark:             $gray-900;
+$color-contrast-light:            $white;
+
+
+// $bg-light: #18a3bb !important; (Changing tactics for Bootstrap 5)
+$body-bg: #fff;
+
+$link-color: #11606E;
+$link-hover-color:            darken($link-color, 15%);
+$link-hover-decoration:       underline;
+
+// Navs
+$nav-tabs-link-color: #000;
+$nav-tabs-link-bg: #ddf8f9;
+$nav-tabs-link-active-color: #fff;
+$nav-tabs-link-active-bg: #087084;
+$nav-pills-link-active-bg: #087084;
+
+// Navbars
+$page-header-link-color: #fff;
+$topbar-link-color: #fff;
 
 // navbar link hover colors
 $bg-dark-link-hover-color: #f2f2f2;
 $bg-dark-link-hover-bg: #003c4a;
 
+// Typography
 $hr-border-color: #18a3bb;
+$text-success: #288040 !important;
+$text-danger: #d63d00 !important;
+$text-muted:  #6B737B;
 
-$bg-dark: #063035;
-//$bg-light: #0a8794;
-
-$card-border-color: #169FB6;
+// Tables
 $table-border-color: #1296a9;
 $table-accent-bg: #f9f9f9;
 $table-hover-bg: #f5f5f5;
 
-$input-color: #555555;
+// Forms
+$input-color: #3d3d3d;
 $input-bg: #ddf8f9;
 $input-border-color: #b4f3fb;
 $input-border-top-color: #83c5ce;
@@ -44,9 +95,11 @@ $input-border-right-color: #fff;
 $input-border-bottom-color: #fff;
 $input-border-left-color: #83c5ce;
 
+// Form validation
+
+// Dropdowns
 $dropdown-bg: #087f93;
 $dropdown-border-color: rgba(0, 0, 0, 0.15);
-
 $dropdown-link-color: #ffffff;
 $dropdown-link-hover-color: #f2f2f2;
 $dropdown-link-hover-bg: #087084;
@@ -56,13 +109,7 @@ $dropdown-link-disabled-color: #f2f2f2;
 $dropdown-header-color: #ffffff;
 $dropdown-divider-bg: $dropdown-bg;
 
-$nav-tabs-link-color: #000;
-$nav-tabs-link-bg: $input-bg;
-$nav-tabs-link-active-color: #fff;
-$nav-tabs-link-active-bg: $dropdown-link-hover-bg;
-
-
-$nav-pills-link-active-bg: #0b8a98;
+// Pagination
 $pagination-color: #0b8a98;
 $pagination-bg: #ffffff;
 $pagination-border-color: #dddddd;
@@ -75,9 +122,34 @@ $pagination-disabled-color: #999999;
 $pagination-disabled-bg: #ffffff;
 $pagination-disabled-border-color: #dddddd;
 
+$box-shadow-sm: 0 .125rem .25rem rgba($black, .075) !default;
+$box-shadow: 0 .5rem 1rem rgba($black, .15) !default;
+$box-shadow-lg: 0 1rem 3rem rgba($black, .175) !default;
+$btn-box-shadow: inset 0 1px 0 rgba($white, .15),
+0 1px 1px rgba($black, .075) !default;
+$enable-shadows: false;
+$input-btn-focus-width: .2rem !default;
+$btn-focus-width: $input-btn-focus-width !default;
+$link-color: $primary;
+$link-hover-color: darken($link-color, 15%);
+$link-hover-decoration: underline !default;
+$btn-link-disabled-color: $gray-600 !default;
+
+$enable-gradients: true;
+$enable-shadows: true;
 
 // - - - - - - - - - -  - - - - - - Other variables, if any - - - - - - - - - - - - - - - - - //
-$bg-light-alt: #117485 !important;
+
+$top-bg: #117485;
+$top-color: #fff;
+$top-link-color: #fff;
+$top-link-hover-color: #f9f9f9;
+$topbar-bg: #063035;
+$bg-dark: #18a3bb;
+//$bg-light: #18a3bb;
+$card-border-color: #169FB6;
+
+$bg-light-alt: #117485;
 
 $side-column-heading-color: #169FB6;
 
@@ -116,3 +188,5 @@ $autotoc-nav-li-link-hover-color: #f2f2f2;
 $autotoc-nav-li-link-hover-bg: #003c4a;
 $middle_outer-inset-shadow-bg: #063035;
 $postbody-title-card-title-color: #fff;
+
+$bg-dark-info: #00DAE6;
