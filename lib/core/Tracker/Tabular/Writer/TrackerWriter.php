@@ -40,6 +40,7 @@ class TrackerWriter
                     'itemId' => false,
                     'fields' => [],
                     'skip_sync' => $source instanceof \Tracker\Tabular\Source\ODBCSource,
+                    'validate' => $source instanceof \Tracker\Tabular\Source\ODBCSource ? false : true, // ODBC sync needs saving no matter of validation errors
                 ];
 
                 foreach ($columns as $column) {
