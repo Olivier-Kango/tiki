@@ -1,8 +1,22 @@
 // Compile to make the Kiwi Classic theme option of the FiveAlive theme for Tiki Wiki CMS Groupware
 
-@import "../../kiwi/css/kiwi.css";
-
 $classic-header-container-shadow: #6f853a;
 $classic-header-bg-dark: #6f853a;
+
+// Required
+@import "../../../../../vendor_bundled/vendor/twbs/bootstrap/scss/functions";
+
+@import "../../kiwi/scss/variables";
+@import "../../kiwi/scss/button_color_variables"; // For theme option custom button colors
+
+// Required
+@import "../../../../../vendor_bundled/vendor/twbs/bootstrap/scss/variables";
+@import "../../../../../vendor_bundled/vendor/twbs/bootstrap/scss/mixins";
+@import "../../../../../vendor_bundled/vendor/twbs/bootstrap/scss/root";
+
+// Other
+@import "../../../../../vendor_bundled/vendor/twbs/bootstrap/scss/buttons";
+@import "../../../../../vendor_bundled/vendor/twbs/bootstrap/scss/nav";
+@import "../../../scss/selectors-for-options";
 
 @import "../../../scss/selectors-for-classic-options";

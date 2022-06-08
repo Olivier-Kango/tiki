@@ -1,8 +1,22 @@
 // Compile to make the Grape Classic theme option of the FiveAlive theme for Tiki Wiki CMS Groupware
 
-@import "../../grape/css/grape.css";
-
 $classic-header-container-shadow: #49243c;
 $classic-header-bg-dark: #49243c;
+
+// Required
+@import "../../../../../vendor_bundled/vendor/twbs/bootstrap/scss/functions";
+
+@import "../../grape/scss/variables";
+@import "../../grape/scss/button_color_variables"; // For theme option custom button colors
+
+// Required
+@import "../../../../../vendor_bundled/vendor/twbs/bootstrap/scss/variables";
+@import "../../../../../vendor_bundled/vendor/twbs/bootstrap/scss/mixins";
+@import "../../../../../vendor_bundled/vendor/twbs/bootstrap/scss/root";
+
+// Other
+@import "../../../../../vendor_bundled/vendor/twbs/bootstrap/scss/buttons";
+@import "../../../../../vendor_bundled/vendor/twbs/bootstrap/scss/nav";
+@import "../../../scss/selectors-for-options";
 
 @import "../../../scss/selectors-for-classic-options";

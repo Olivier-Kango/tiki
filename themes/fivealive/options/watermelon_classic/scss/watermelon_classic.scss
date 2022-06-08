@@ -1,8 +1,22 @@
 // Compile to make the Watemelon Classic theme option of the FiveAlive theme for Tiki Wiki CMS Groupware
 
-@import "../../watermelon/css/watermelon.css";
-
 $classic-header-container-shadow: #641E39;
 $classic-header-bg-dark: #641E39;
+
+// Required
+@import "../../../../../vendor_bundled/vendor/twbs/bootstrap/scss/functions";
+
+@import "../../watermelon/scss/variables";
+@import "../../watermelon/scss/button_color_variables"; // For theme option custom button colors
+
+// Required
+@import "../../../../../vendor_bundled/vendor/twbs/bootstrap/scss/variables";
+@import "../../../../../vendor_bundled/vendor/twbs/bootstrap/scss/mixins";
+@import "../../../../../vendor_bundled/vendor/twbs/bootstrap/scss/root";
+
+// Other
+@import "../../../../../vendor_bundled/vendor/twbs/bootstrap/scss/buttons";
+@import "../../../../../vendor_bundled/vendor/twbs/bootstrap/scss/nav";
+@import "../../../scss/selectors-for-options";
 
 @import "../../../scss/selectors-for-classic-options";

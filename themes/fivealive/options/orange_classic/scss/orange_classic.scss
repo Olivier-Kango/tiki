@@ -1,8 +1,22 @@
 // Compile to make the Orange Classic theme option of the FiveAlive theme for Tiki Wiki CMS Groupware
 
-@import "../../orange/css/orange.css";
-
 $classic-header-container-shadow: #7e301e;
 $classic-header-bg-dark: #7e301e;
+
+// Required
+@import "../../../../../vendor_bundled/vendor/twbs/bootstrap/scss/functions";
+
+@import "../../orange/scss/variables";
+@import "../../orange/scss/button_color_variables"; // For theme option custom button colors
+
+// Required
+@import "../../../../../vendor_bundled/vendor/twbs/bootstrap/scss/variables";
+@import "../../../../../vendor_bundled/vendor/twbs/bootstrap/scss/mixins";
+@import "../../../../../vendor_bundled/vendor/twbs/bootstrap/scss/root";
+
+// Other
+@import "../../../../../vendor_bundled/vendor/twbs/bootstrap/scss/buttons";
+@import "../../../../../vendor_bundled/vendor/twbs/bootstrap/scss/nav";
+@import "../../../scss/selectors-for-options";
 
 @import "../../../scss/selectors-for-classic-options";
