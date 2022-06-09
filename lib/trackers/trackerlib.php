@@ -2175,6 +2175,7 @@ class TrackerLib extends TikiLib
                 $data[$job['field']['permName']] = $value;
                 $this->modify_field($currentItemId, $job['field']['fieldId'], $value);
                 $fil[$job['field']['fieldId']] = $value;
+                $permNames[$job['field']['fieldId']] = $job['field']['permName'];
             }
         }
 
