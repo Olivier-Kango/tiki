@@ -13882,7 +13882,8 @@ li .url-group {
   display: flex;
   flex-wrap: wrap;
 }
-.options-container .child-options > li {
+.options-container .child-options > li,
+.dragging-options li {
   margin-bottom: 5px;
 }
 .new-option .label-group {
