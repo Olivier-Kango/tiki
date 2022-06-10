@@ -71,108 +71,117 @@
             <div class="row">
                 <div class="col-md-4 align-self-center col-left-sliding-panel mb-2 mb-md-0 ps-md-0">
                     <div class="col-md-12 col-search mb-2 px-0">
-                        <form method="post" action="tiki-admin.php" class="d-flex flex-row flex-wrap align-items-center my-2 my-md-0 ms-auto" role="form" target="_blank">
-                            <label class="col-form-control me-md-3 text-start">Admin Features</label>
-                            <input type="text" name="lm_criteria" value="{$smarty.request.lm_criteria|escape}" class="form-control form-control-sm me-2 col-10 col-md-auto" placeholder="Search preferences...">
-                            <button type="submit" class="btn btn-primary btn-sm">
-                                <span class="icon icon-search fas fa-search fa-fw "></span>
-                            </button>
+                        <form method="post" action="tiki-admin.php" class="d-flex flex-row flex-wrap align-items-start w-100 justify-content-around my-2 my-md-0 ms-auto" role="form" target="_blank">
+                            <div><label class="col-form-control me-md-3 text-start">Admin Features </label> </div>
+                            <div class="d-flex">
+                                <input type="text" name="lm_criteria" value="{$smarty.request.lm_criteria|escape}" class="form-control form-control-sm me-2 col-md-auto" placeholder="Search preferences...">
+                                <button type="submit" class="btn btn-primary btn-sm">
+                                    <span class="icon icon-search fas fa-search fa-fw "></span>
+                                </button>
+                            </div>
                         </form>
                     </div>
                     <div class="col-md-12 px-0">
                         <div class="row">
-                            <div id="adminbar" class="btn-group">
-                                <div class="btn-group">
-                                    {if ! $js}
-                                    <ul class="cssmenu_horiz">
-                                        <li>{/if}
-                                            <a class="btn btn-link" data-bs-toggle="dropdown" data-hover="dropdown" href="#">
-                                                {icon name="history"} Recent Actions </a>
-                                            <div class="dropdown-menu" role="menu">
-                                                {foreach $recent_prefs as $p}
-                                                    <a class="dropdown-item" href="tiki-admin.php?lm_criteria={$p|escape}&amp;exact">{$p|stringfix}</a>
-                                                    {foreachelse}
-                                                    <div class="dropdown-item">{tr}None{/tr}</div>
-                                                {/foreach}
-                                            </div>
-                                            {if ! $js}</li>
-                                    </ul>{/if}
-                                </div>
-                                <div class="btn-group">
-                                    {if ! $js}
-                                    <ul class="cssmenu_horiz">
-                                        <li>{/if}
-                                            <a class="btn btn-link" data-bs-toggle="dropdown" data-hover="dropdown" href="#">
-                                                {icon name='menu-extra'} Quick Links </a>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="tiki-wizard_admin.php?stepNr=0&amp;url=index.php">
-                                                    {icon name="wizard"} {tr}Wizards{/tr}
-                                                </a> <a class="dropdown-item" href="tiki-admin.php">
-                                                    {icon name="cog"} {tr}Control panels{/tr}
-                                                </a> <a class="dropdown-item" href="tiki-admin.php?page=look">
-                                                    {icon name="image"} {tr}Themes{/tr}
-                                                </a> <a class="dropdown-item" href="tiki-adminusers.php">
-                                                    {icon name="user"} {tr}Users{/tr}
-                                                </a> <a class="dropdown-item" href="tiki-admingroups.php">
-                                                    {icon name="group"} {tr}Groups{/tr}
-                                                </a>
-                                        <li class="dropdown-item">
-                                            {permission_link mode=text}
-                                        </li>
-                                        <a class="dropdown-item" href="tiki-admin_menus.php">
-                                            {icon name="menu"} {tr}Menus{/tr}
-                                        </a>
-                                        {if $prefs.lang_use_db eq "y"}
-                                            {if isset($smarty.session.interactive_translation_mode) && $smarty.session.interactive_translation_mode eq "on"}
-                                                <a class="dropdown-item" href="tiki-interactive_trans.php?interactive_translation_mode=off">
-                                                    {icon name="translate"} {tr}Turn off interactive translation{/tr}
-                                                </a>
-                                            {else}
-                                                <a class="dropdown-item" href="tiki-interactive_trans.php?interactive_translation_mode=on">
-                                                    {icon name="translate"} {tr}Turn on interactive translation{/tr}
+                            <div class="col-md-12  d-flex justify-content-around text-center">
+                                <div id="adminbar" class="btn-group">
+                                    <div class="btn-group">
+                                        {if ! $js}
+                                        <ul class="cssmenu_horiz">
+                                            <li>{/if}
+                                                <a class="btn btn-link" data-bs-toggle="dropdown" data-hover="dropdown" href="#">
+                                                    {icon name="history"} Recent Actions </a>
+                                                <div class="dropdown-menu" role="menu">
+                                                    {foreach $recent_prefs as $p}
+                                                        <a class="dropdown-item" href="tiki-admin.php?lm_criteria={$p|escape}&amp;exact">{$p|stringfix}</a>
+                                                        {foreachelse}
+                                                        <div class="dropdown-item">{tr}None{/tr}</div>
+                                                    {/foreach}
+                                                </div>
+                                                {if ! $js}</li>
+                                        </ul>{/if}
+                                    </div>
+                                    <div class="btn-group">
+                                        {if ! $js}
+                                        <ul class="cssmenu_horiz">
+                                            <li>{/if}
+                                                <a class="btn btn-link" data-bs-toggle="dropdown" data-hover="dropdown" href="#">
+                                                    {icon name='menu-extra'} Quick Links </a>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="tiki-wizard_admin.php?stepNr=0&amp;url=index.php">
+                                                        {icon name="wizard"} {tr}Wizards{/tr}
+                                                    </a> <a class="dropdown-item" href="tiki-admin.php">
+                                                        {icon name="cog"} {tr}Control panels{/tr}
+                                                    </a> <a class="dropdown-item" href="tiki-admin.php?page=look">
+                                                        {icon name="image"} {tr}Themes{/tr}
+                                                    </a> <a class="dropdown-item" href="tiki-adminusers.php">
+                                                        {icon name="user"} {tr}Users{/tr}
+                                                    </a> <a class="dropdown-item" href="tiki-admingroups.php">
+                                                        {icon name="group"} {tr}Groups{/tr}
+                                                    </a>
+                                            <li class="dropdown-item">
+                                                {permission_link mode=text}
+                                            </li>
+                                            <a class="dropdown-item" href="tiki-admin_menus.php">
+                                                {icon name="menu"} {tr}Menus{/tr}
+                                            </a>
+                                            {if $prefs.lang_use_db eq "y"}
+                                                {if isset($smarty.session.interactive_translation_mode) && $smarty.session.interactive_translation_mode eq "on"}
+                                                    <a class="dropdown-item" href="tiki-interactive_trans.php?interactive_translation_mode=off">
+                                                        {icon name="translate"} {tr}Turn off interactive translation{/tr}
+                                                    </a>
+                                                {else}
+                                                    <a class="dropdown-item" href="tiki-interactive_trans.php?interactive_translation_mode=on">
+                                                        {icon name="translate"} {tr}Turn on interactive translation{/tr}
+                                                    </a>
+                                                {/if}
+                                            {/if}
+                                            {if $prefs.feature_comments_moderation eq "y"}
+                                                <a class="dropdown-item" href="tiki-list_comments.php">
+                                                    {icon name="comments"} {tr}Comment moderation{/tr}
                                                 </a>
                                             {/if}
-                                        {/if}
-                                        {if $prefs.feature_comments_moderation eq "y"}
-                                            <a class="dropdown-item" href="tiki-list_comments.php">
-                                                {icon name="comments"} {tr}Comment moderation{/tr}
+                                            <a class="dropdown-item" href="tiki-admin_system.php?do=all">
+                                                {icon name="trash"} {tr}Clear all caches{/tr}
                                             </a>
-                                        {/if}
-                                        <a class="dropdown-item" href="tiki-admin_system.php?do=all">
-                                            {icon name="trash"} {tr}Clear all caches{/tr}
-                                        </a>
-                                        <a class="dropdown-item" href="{bootstrap_modal controller=search action=rebuild}">
-                                            {icon name="index"} {tr}Rebuild search index{/tr}
-                                        </a> <a class="dropdown-item" href="tiki-plugins.php">
-                                            {icon name="plugin"} {tr}Plugin approval{/tr}
-                                        </a> <a class="dropdown-item" href="tiki-syslog.php">
-                                            {icon name="log"} {tr}Logs{/tr}
-                                        </a> <a class="dropdown-item" href="tiki-admin_modules.php">
-                                            {icon name="module"} {tr}Modules{/tr}
-                                        </a>
-                                        {if $prefs.feature_scheduler eq "y"}
-                                            <a class="dropdown-item" href="tiki-admin_schedulers.php">
-                                                {icon name="calendar"} {tr}Scheduler{/tr}
+                                            <a class="dropdown-item" href="{bootstrap_modal controller=search action=rebuild}">
+                                                {icon name="index"} {tr}Rebuild search index{/tr}
+                                            </a> <a class="dropdown-item" href="tiki-plugins.php">
+                                                {icon name="plugin"} {tr}Plugin approval{/tr}
+                                            </a> <a class="dropdown-item" href="tiki-syslog.php">
+                                                {icon name="log"} {tr}Logs{/tr}
+                                            </a> <a class="dropdown-item" href="tiki-admin_modules.php">
+                                                {icon name="module"} {tr}Modules{/tr}
                                             </a>
-                                        {/if}
-                                        {if $prefs.feature_sefurl_routes eq "y"}
-                                            <a class="dropdown-item" href="tiki-admin_routes.php">
-                                                {icon name="random"} {tr}Custom Routes{/tr}
-                                            </a>
-                                        {/if}
-                                        {if $prefs.feature_debug_console eq 'y'}
-                                            <a class="dropdown-item" href="{query _type='relative' show_smarty_debug=1}">
-                                                {icon name="bug"} {tr}Smarty debug window{/tr}
-                                            </a>
-                                        {/if}
+                                            {if $prefs.feature_scheduler eq "y"}
+                                                <a class="dropdown-item" href="tiki-admin_schedulers.php">
+                                                    {icon name="calendar"} {tr}Scheduler{/tr}
+                                                </a>
+                                            {/if}
+                                            {if $prefs.feature_sefurl_routes eq "y"}
+                                                <a class="dropdown-item" href="tiki-admin_routes.php">
+                                                    {icon name="random"} {tr}Custom Routes{/tr}
+                                                </a>
+                                            {/if}
+                                            {if $prefs.feature_debug_console eq 'y'}
+                                                <a class="dropdown-item" href="{query _type='relative' show_smarty_debug=1}">
+                                                    {icon name="bug"} {tr}Smarty debug window{/tr}
+                                                </a>
+                                            {/if}
+                                    </div>
+                                    {if ! $js}</li></ul>{/if}
                                 </div>
-                                {if ! $js}</li></ul>{/if}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-8 mb-2 mb-md-0 pe-md-0">
+            <div class="offset-md-1 col-md-7 mb-2 mb-md-0 pe-md-0 d-flex align-items-center">
+                <!-- Add prev arrow -->
+                <div class="swiper-button-prev">
+
+                </div>
+
                 <div class="swiper-container js-admin-bar-slider admin-bar-slider">
                     <div class="swiper-wrapper">
                         {foreach from=$main_admin_icons key=page item=info}
@@ -193,14 +202,11 @@
                         {/foreach}
                     </div>
                 </div>
-                <!-- Add Arrows -->
+                <!-- Add next Arrow -->
                 <div class="swiper-button-next">
 
                 </div>
 
-                <div class="swiper-button-prev">
-
-                </div>
             </div>
         </div>
     </div>
@@ -438,12 +444,24 @@
             text-decoration: none;
         }
 
+        /*Override the swipper.css definitions*/
+
+        .swiper-button-prev, .swiper-button-next {
+            position : relative !important;
+            width : 17px !important;
+            top :inherit !important;
+        }
+
         .swiper-button-prev, .swiper-container-rtl .swiper-button-next {
             background-image: url(img/arrow-inverse-left.svg) !important;
+            z-index:10000;
+            margin-top:0.1rem;
         }
 
         .swiper-button-next, .swiper-container-rtl .swiper-button-prev {
             background-image: url(img/arrow-inverse-right.svg) !important;
+            z-index:10000;
+            margin-top:0.1rem;
         }
 
         @media (min-width: 768px) {
@@ -454,6 +472,12 @@
 
         #swiper-container1 {
             z-index: 4;
+        }
+
+        @media (min-width:768px){
+            .swiper-wrapper{
+                margin-left:1em !important;
+            }
         }
     </style>
 {/literal}
