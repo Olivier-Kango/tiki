@@ -108,6 +108,21 @@ class ODBCWriter
             $id = null;
         }
 
+        if ($pk && !$id) {
+            foreach ($columns as $column) {
+                if ($column->isUniqueKey() && isset($fullRow[$column->getRemoteField()])) {
+                    // for single mapped remote fields marked as unique, check uniqeness remotely and if not, get next unique value
+                    // reason: local data might not be fully synced from remote data at the time new entries are inserted
+                    if ($this->odbc_manager->valueExists($column->getRemoteField(), $fullRow[$column->getRemoteField()])) {
+                        $fullRow[$column->getRemoteField()] = $this->odbc_manager->nextValue($column->getRemoteFIeld());
+                        if (isset($row[$column->getRemoteField()])) {
+                            $row[$column->getRemoteField()] = $fullRow[$column->getRemoteField()];
+                        }
+                    }
+                }
+            }
+        }
+
         if ($pk) {
             $result = $this->odbc_manager->replace($pk, $id, $row, $fullRow);
         } else {
