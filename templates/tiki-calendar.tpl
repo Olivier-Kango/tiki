@@ -125,7 +125,7 @@ $("#filtercal").submit(function () {
             {/if}
 
             {if count($thiscal)}
-                <div id="configlinks" class="mb-3 row text-end">
+                <div id="configlinks" class="mb-3 text-end">
                     {assign var='maxCalsForButton' value=20}
                     {if count($checkedCals) > $maxCalsForButton}<select size="5">{/if}
                     {foreach item=k from=$listcals name=listc}
