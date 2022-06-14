@@ -1,6 +1,6 @@
 {
-    "name": "Tiki <br/>",
-    "description": "<p>Please visit <a href='https://dev.tiki.org/composer-tiki-org'>https://dev.tiki.org/composer-tiki-org</a> for instructions on how to update this site.</p>",
+    "name": "Tiki",
+    "description": "Please visit https://dev.tiki.org/composer-tiki-org for instructions on how to update this site.",
     "homepage": "http://composer.tiki.org",
     "repositories": [
         {
