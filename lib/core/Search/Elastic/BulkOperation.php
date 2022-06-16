@@ -25,10 +25,21 @@ class Search_Elastic_BulkOperation
     {
         if ($this->count > 0) {
             $callback = $this->callback;
-            $callback($this->buffer);
+            $exception = false;
+            try {
+                $callback($this->buffer);
+            } catch (Exception $e) {
+                // delay throwing the exception, so buffer can be cleared
+                // solves the issue when one error prevents all subsequent items from being indexed
+                $exception = $e;
+            }
 
             $this->buffer = '';
             $this->count = 0;
+
+            if ($exception) {
+                throw $exception;
+            }
         }
     }
 
