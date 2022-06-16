@@ -539,6 +539,7 @@ class ObjectLib extends TikiLib
                 // no return
             case 'trackeritem':
                 $defaultTitle = TikiLib::lib('trk')->get_isMain_value(null, $id);
+                $extra = $extra ?? '';
                 return $this->getFormattedTitle($type, $id, $defaultTitle, $format, $extra);
             case 'category':
                 return TikiLib::lib('categ')->get_category_name($id);
