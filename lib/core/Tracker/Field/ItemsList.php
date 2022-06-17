@@ -775,17 +775,15 @@ $("input[name=ins_' . $this->getOption('fieldIdHere') . '], select[name=ins_' . 
 					if (empty($field)) {
 						continue;
 					}
-					if (isset($item[$fieldId])) {
-						if ($field['type'] == 'l') {
-							$factory = $definition->getFieldFactory();
-							$handler = $factory->getHandler($field, $item);
-							$itemValues[$field['permName']] = $handler->renderOutput(['list_mode' => 'csv']);
-						} else {
-							$itemValues[$field['permName']] = $item[$fieldId];
-						}
-					} else {
-						$itemValues[$field['permName']] = '';
-					}
+                    if ($field['type'] == 'l') {
+                        $factory = $definition->getFieldFactory();
+                        $handler = $factory->getHandler($field, $item);
+                        $itemValues[$field['permName']] = $handler->renderOutput(['list_mode' => 'csv']);
+                    } elseif (isset($item[$fieldId])) {
+                        $itemValues[$field['permName']] = $item[$fieldId];
+                    } else {
+                        $itemValues[$field['permName']] = '';
+                    }
 				}
 				$itemValues['itemId'] = $itemId;
 			}
