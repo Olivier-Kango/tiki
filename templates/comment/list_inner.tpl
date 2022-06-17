@@ -16,13 +16,14 @@
                             </div>
                         {/if}
                         <div class="comment-info">
-                            {tr _0=$comment.userName|userlink}%0{/tr} <small class="date">{tr _0=$comment.commentDate|tiki_short_datetime}%0{/tr}</small>
+                            {tr _0=$comment.userName|userlink}%0{/tr}{if $prefs.comments_threshold_indent neq '0' && $level && $level gte $prefs.comments_threshold_indent}>{tr _0=$repliedTo.userName|userlink}%0{/tr}{/if} <small class="date">{tr _0=$comment.commentDate|tiki_short_datetime}%0{/tr}</small>
                             {if $prefs.comments_heading_links eq 'y' and  $prefs.comments_notitle eq 'y'}
                                 <a class="heading-link" href="{if ($comment.threadId neq $comments_parentId)}#threadId{$comment.threadId}{/if}">{icon name="link"}</a>
                             {/if}
                         </div>
                     </h4>
                     <div class="comment-body">
+                        <span class="d-flex ps-2 border-start border-5 comment-replied-to">{if $prefs.comments_threshold_indent neq '0' && $level && $level gte $prefs.comments_threshold_indent}{tr _0=$repliedTo.data|truncate:15}Replied to %0{/tr}{/if} </span>
                         {$comment.parsed}
                     </div>
                     <div class="buttons comment-form comment-footer mt-2">
@@ -97,11 +98,18 @@
 
                     </div><!-- End of comment-footer -->
                 </div><!-- End of comment-item -->
-                {if $comment.replies_info.numReplies gt 0}
-                    {include file='comment/list_inner.tpl' comments=$comment.replies_info.replies cant=$comment.replies_info.numReplies parentId=$comment.threadId}
+                {if ! $level || $level lt 5}
+                    {if $comment.replies_info.numReplies gt 0}
+                        {include file='comment/list_inner.tpl' comments=$comment.replies_info.replies cant=$comment.replies_info.numReplies parentId=$comment.threadId level=(level) ? $level+1 : 0 repliedTo=$comment}
+                    {/if}
                 {/if}
             </div><!-- End of flex-grow-1 ms-3 -->
         </li>
+        {if $prefs.comments_threshold_indent neq '0' && $level && $level gte $prefs.comments_threshold_indent}
+            {if $comment.replies_info.numReplies gt 0}
+                {include file='comment/list_inner.tpl' comments=$comment.replies_info.replies cant=$comment.replies_info.numReplies parentId=$comment.threadId level=(level) ? $level+1 : 0 repliedTo=$comment}
+            {/if}
+        {/if}
     {/foreach}
 </ul>
 {pagination_links cant=$cant step=$maxRecords offset=$offset offset_jsvar='comment_offset' _onclick=$paginationOnClick}{/pagination_links}

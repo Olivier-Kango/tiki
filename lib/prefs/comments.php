@@ -108,5 +108,15 @@ function prefs_comments_list()
                 'commentDate_desc' => tra('Newest first'),
             ],
         ],
+        'comments_threshold_indent'     => [
+            'name'    => tr('Limit indentation on thread reply'),
+            'type'    => 'list',
+            'default' => '5',
+            'filter' => 'digits',
+            'options' => [
+                '5' => tra('Limit Indentation (to 5)'),
+                '0' => tra('All indented'),
+            ],
+        ],
     ];
 }
