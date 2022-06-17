@@ -782,6 +782,9 @@ class Services_Tracker_Controller
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $itemObject = $this->utilities->cloneItem($definition, $itemData, $itemId);
             $id = $itemObject->getId();
+            if ($id === false) {
+                throw new Services_Exception_Denied(tr("There were errors cloning the item, please check error messages"));
+            }
 
             $processedItem = $this->utilities->processValues($definition, $itemData);
             $processedFields = $processedItem['fields'];
@@ -1633,6 +1636,9 @@ class Services_Tracker_Controller
                 $itemData = $itemObject->getData();
                 $itemData['fields'][$field['permName']] = $linkValue;
                 $itemObject = $this->utilities->cloneItem($definition, $itemData);
+                if ($itemObject === false) {
+                    continue; // skip this item as there was an error, errors will show in Feedback as normal
+                }
                 $linkedItemIds[] = $itemObject->getId();
             } else {
                 $this->utilities->updateItem(
