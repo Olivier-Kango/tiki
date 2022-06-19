@@ -189,6 +189,9 @@ function iconset_default()
             'admin_sefurl' => [
                 'id' => 'search-plus',
             ],
+            'admin_mautic' => [
+                'id' => 'book',
+            ],
             'admin_share' => [
                 'id' => 'share-alt',
             ],
