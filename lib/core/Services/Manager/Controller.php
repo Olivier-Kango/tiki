@@ -498,8 +498,18 @@ class Services_Manager_Controller
         $this->loadManagerEnv();
         $this->setManagerOutput();
 
-        if (! TikiManager\Application\Instance::getInstances(true)) {
-            // import current instance
+        // check current instance exist
+        $existing = TikiManager\Application\Instance::getInstances(true);
+        $found = false;
+        foreach ($existing as $instance) {
+            if ($instance->weburl == $base_url && $instance->type == 'local') {
+                $found = true;
+                break;
+            }
+        }
+
+        // and import it if not
+        if (! $found) {
             $instance = new TikiManager\Application\Instance;
             $instance->type = 'local';
             $access = $instance->getBestAccess();
