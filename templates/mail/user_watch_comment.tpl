@@ -1,12 +1,12 @@
 {* $Id$ *}{if $objecttype eq 'wiki'}
-{tr}The {$prefs.mail_template_custom_text}Wiki page "{$mail_objectname}" was commented on by{/tr} {if $mail_user}{$mail_user|username}{else}{tr}an anonymous user{/tr}{/if}.
+{tr _0=$prefs.mail_template_custom_text _1=$mail_objectname}The %0Wiki page "%1" was commented on by{/tr} {if $mail_user}{$mail_user|username}{else}{tr}an anonymous user{/tr}{/if}.
 {* Blog comment mail *}
 {elseif $objecttype eq 'blog'}
-{tr}The {$prefs.mail_template_custom_text}Blog post "{$mail_objectname}" was commented on by{/tr} {if $mail_user}{$mail_user|username}{else}{tr}an anonymous user{/tr}{/if}.
+{tr _0=$prefs.mail_template_custom_text _1=$mail_objectname}The %0Blog post "%1" was commented on by{/tr} {if $mail_user}{$mail_user|username}{else}{tr}an anonymous user{/tr}{/if}.
 {elseif $objecttype eq 'article'}
-{tr}The {$prefs.mail_template_custom_text}article "{$mail_objectname}" was commented on by{/tr} {if $mail_user}{$mail_user|username}{else}{tr}an anonymous user{/tr}{/if}.
+{tr _0=$prefs.mail_template_custom_text _1=$mail_objectname}The %0article "%1" was commented on by{/tr} {if $mail_user}{$mail_user|username}{else}{tr}an anonymous user{/tr}{/if}.
 {elseif $objecttype eq 'trackeritem'}
-{tr}The {$prefs.mail_template_custom_text}tracker item "{$mail_item_title}" of tracker "{$mail_objectname}" was commented on by{/tr} {if $mail_user}{$mail_user|username}{else}{tr}an anonymous user{/tr}{/if}.
+{tr _0=$prefs.mail_template_custom_text _1=$mail_item_title _2=$mail_objectname}The %0tracker item "%1" of tracker "%2" was commented on by{/tr} {if $mail_user}{$mail_user|username}{else}{tr}an anonymous user{/tr}{/if}.
 {/if}
 
 {tr}You can view the comment by following this link:{/tr}

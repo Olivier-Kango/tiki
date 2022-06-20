@@ -1,8 +1,8 @@
 {* $Id$ *}
-{if $mail_action eq 'new'}{tr}The {$prefs.mail_template_custom_text}page "{$mail_page}" was created by {$mail_user|username} at {$mail_date|tiki_short_datetime:"":"n"}{/tr}
-{elseif $mail_action eq 'delete'}{tr}The {$prefs.mail_template_custom_text}page "{$mail_page}" was deleted by {$mail_user|username} at {$mail_date|tiki_short_datetime:"":"n"}{/tr}
-{elseif $mail_action eq 'attach'}{tr}A file was attached to {$prefs.mail_template_custom_text}"{$mail_page}"{/tr}
-{else}{tr}The {$prefs.mail_template_custom_text}page "{$mail_page}" was changed by {$mail_user|username} at {$mail_date|tiki_short_datetime:"":"n"}{/tr}
+{if $mail_action eq 'new'}{tr _0=$prefs.mail_template_custom_text _1=$mail_page _2=$mail_user|username _3=$mail_date|tiki_short_datetime:"":"n"}The %0page "%1" was created by %2 at %3{/tr}
+{elseif $mail_action eq 'delete'}{tr _0=$prefs.mail_template_custom_text _1=$mail_page _2=$mail_user|username _3=$mail_date|tiki_short_datetime:"":"n"}The %0page "%1" was deleted by %2 at %3{/tr}
+{elseif $mail_action eq 'attach'}{tr _0=$prefs.mail_template_custom_text _1=$mail_page}A file was attached to %0"%1"{/tr}
+{else}{tr _0=$prefs.mail_template_custom_text _1=$mail_page _2=$mail_user|username _3=$mail_date|tiki_short_datetime:"":"n"}The %0page "%1" was changed by %2 at %3{/tr}
 {/if}
 
 {if $mail_comment}{tr}Comment:{/tr} {$mail_comment}
@@ -38,7 +38,7 @@
 {assign var="newd" value=$mail_diffdata[ix].new}
 
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
-@@ {tr}-Lines: {$oldd} changed to +Lines: {$newd}{/tr} @@
+@@ {tr _0=$oldd _1=$newd}-Lines: %0 changed to +Lines: %1{/tr} @@
 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
 {elseif $mail_diffdata[ix].type == "diffdeleted"}
 {section name=iy loop=$mail_diffdata[ix].data}
