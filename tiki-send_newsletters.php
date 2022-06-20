@@ -175,19 +175,29 @@ if (isset($_REQUEST['is_html'])) {
 }
 
 $parserlib = TikiLib::lib('parser');
-if (isset($_REQUEST["templateId"]) && $_REQUEST["templateId"] > 0 && (! isset($_REQUEST['previousTemplateId']) || $_REQUEST['previousTemplateId'] != $_REQUEST['templateId'])) {
-    $template_data = TikiLib::lib('template')->get_template($_REQUEST["templateId"]);
-    $_REQUEST["data"] = $template_data["content"];
-    if (TikiLib::lib('template')->template_is_in_section($_REQUEST['templateId'], 'wiki_html')) {
+$templateslib = TikiLib::lib('template');
+
+if (! empty($_REQUEST['templateId']) &&
+    ! isset($_REQUEST['preview']) &&
+    ! isset($_REQUEST['save_only']) &&
+    ! isset($_REQUEST['send']) &&
+    ! isset($_REQUEST['editionid'])
+) {
+    $template_data = $templateslib->get_template($_REQUEST['templateId']);
+    $_REQUEST['data'] = $template_data['content'];
+    if ($templateslib->template_is_in_section($_REQUEST['templateId'], 'wiki_html')) {
         $_REQUEST['is_html'] = 'on';
         $_REQUEST['wysiwyg'] = 'y';
+        $info['is_html'] = true;
+        $info['wysiwyg'] = 'y';
     }
     if (isset($_SESSION['wysiwyg']) && $_SESSION['wysiwyg'] == 'y' || $_REQUEST['wysiwyg'] === 'y') {
         $_REQUEST['data'] = $parserlib->parse_data($_REQUEST['data'], ['is_html' => $info['is_html'] ? 1 : 0, 'absolute_links' => true, 'suppress_icons' => true]);
     }
-    $_REQUEST["preview"] = 1;
-    $smarty->assign("templateId", $_REQUEST["templateId"]);
+    $_REQUEST['preview'] = 1;
+    $smarty->assign('templateId', $_REQUEST["templateId"]);
 }
+
 $newsletterfiles = [];
 if (isset($_REQUEST['newsletterfile'])) {
     $newsletterfiles_post = isset($_REQUEST['newsletterfile']) && is_array($_REQUEST['newsletterfile']) ? $_REQUEST['newsletterfile'] : [];
@@ -596,7 +606,7 @@ $smarty->assign_by_ref('cant_editions', $editions["cant"]);
 $smarty->assign_by_ref('cant_drafts', $drafts["cant"]);
 $smarty->assign('url', "tiki-send_newsletters.php");
 
-$templates = TikiLib::lib('template')->list_templates('newsletters', 0, -1, 'name_asc', '');
+$templates = $templateslib->list_templates('newsletters', 0, -1, 'name_asc', '');
 
 $smarty->assign_by_ref('templates', $templates["data"]);
 $tpls = $nllib->list_tpls();
