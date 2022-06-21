@@ -51,12 +51,24 @@ trait Services_Manager_Trait
     {
         global $tikipath;
 
-        $storage_path = $tikipath.'/storage/tiki-manager';
+        $storage_path = $tikipath.'storage/tiki-manager';
         if (!is_dir($storage_path)) {
             if (!is_writable(dirname($storage_path))) {
                 throw new TikiManager\Config\Exception\ConfigurationErrorException(tr('Unable to create data storage directory for Tiki Manager. Check if storage directory is writable by running permission fix.'));
             }
             mkdir($storage_path, 0777, true);
+        }
+
+        if (isset($_SERVER['SYMFONY_DOTENV_VARS']) || isset($_ENV['SYMFONY_DOTENV_VARS'])) {
+            // in case loadEnv is called multiple times, we need to reset server/env .env variables
+            // (e.g. when calling manager commands from within console command of another manager command)
+            $loadedVars = explode(',', $_SERVER['SYMFONY_DOTENV_VARS'] ?? $_ENV['SYMFONY_DOTENV_VARS'] ?? '');
+            foreach ($loadedVars as $name) {
+                unset($_ENV[$name]);
+                unset($_SERVER[$name]);
+            }
+            unset($_ENV['SYMFONY_DOTENV_VARS']);
+            unset($_SERVER['SYMFONY_DOTENV_VARS']);
         }
 
         $_ENV['BACKUP_FOLDER'] = $storage_path.'/backup';
