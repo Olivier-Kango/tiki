@@ -317,8 +317,8 @@ class Services_Manager_Controller
                     "--webroot" => $response['html_directory'][0],
                     "--force" => '1',
                     "--branch" => $input->branch->text(),
-                    "--backup-user" => $params['user'],
-                    "--backup-group" => $params['user'],
+                    "--backup-user" => "", // leave empty to use local Tiki manager system user/group rather than the remote user which might not exist locally
+                    "--backup-group" => "",
                     "--backup-permission" => '755',
                     "--db-host" => 'localhost',
                     "--db-user" => $params['user'],
