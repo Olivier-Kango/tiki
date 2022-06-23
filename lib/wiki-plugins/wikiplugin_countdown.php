@@ -23,7 +23,7 @@ function wikiplugin_countdown_info()
                 'name' => tra('End Date'),
                 'description' => tra('Target date and time. Multiple formats accepted.'),
                 'since' => '1',
-                'filter' => 'date',
+                'filter' => 'datetime',
                 'default' => '',
             ],
             'show' => [
