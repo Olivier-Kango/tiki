@@ -307,6 +307,15 @@ class Services_Manager_Controller
                 $response = $response['data'][0]['values'];
                 $webroot = $response['html_directory'][0];
 
+                $temp_instance = new TikiManager\Application\Instance;
+                $temp_access = new TikiManager\Access\Local($temp_instance);
+                if (stristr(PHP_OS, 'WIN')) {
+                    $discovery = new TikiManager\Application\Discovery\WindowsDiscovery($temp_instance, $temp_access, ['os' => 'WINDOWS']);
+                } else {
+                    $discovery = new TikiManager\Application\Discovery\LinuxDiscovery($temp_instance, $temp_access, ['os' => 'LINUX']);
+                }
+                list($backup_user, $backup_group, $backup_perm) = $discovery->detectBackupPerm($_ENV['BACKUP_FOLDER']);
+
                 $inputCommand = new ArrayInput([
                     'command' => $cmd->getName(),
                     "--type" => 'ssh',
@@ -319,8 +328,8 @@ class Services_Manager_Controller
                     "--tempdir" => '/home/' . $params['user'] . '/tmp/trim_temp', // using default /tmp/trim_temp dir on virtualmin server is risky as they might already been created by another user and not writable by the current user
                     "--force" => '1',
                     "--branch" => $input->branch->text(),
-                    "--backup-user" => "", // leave empty to use local Tiki manager system user/group rather than the remote user which might not exist locally
-                    "--backup-group" => "",
+                    "--backup-user" => $backup_user,
+                    "--backup-group" => $backup_group,
                     "--backup-permission" => '755',
                     "--db-host" => 'localhost',
                     "--db-user" => $params['user'],
