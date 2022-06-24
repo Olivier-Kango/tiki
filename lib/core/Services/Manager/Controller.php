@@ -305,6 +305,7 @@ class Services_Manager_Controller
                 $response = $client->send();
                 $response = json_decode($response->getBody(), true);
                 $response = $response['data'][0]['values'];
+                $webroot = $response['html_directory'][0];
 
                 $inputCommand = new ArrayInput([
                     'command' => $cmd->getName(),
@@ -314,7 +315,8 @@ class Services_Manager_Controller
                     "--url" => $response['url'][0],
                     "--name" => $input->name->text(),
                     "--email" => $params['email'],
-                    "--webroot" => $response['html_directory'][0],
+                    "--webroot" => $webroot,
+                    "--tempdir" => rtrim($webroot, '/').'/temp/trim_temp', // using default /tmp/trim_temp dir on virtualmin server is risky as they might already been created by another user and not writable by the current user
                     "--force" => '1',
                     "--branch" => $input->branch->text(),
                     "--backup-user" => "", // leave empty to use local Tiki manager system user/group rather than the remote user which might not exist locally
