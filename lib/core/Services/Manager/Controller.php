@@ -316,7 +316,7 @@ class Services_Manager_Controller
                     "--name" => $input->name->text(),
                     "--email" => $params['email'],
                     "--webroot" => $webroot,
-                    "--tempdir" => '/home/' . $params['user'] . '/tmp', // using default /tmp/trim_temp dir on virtualmin server is risky as they might already been created by another user and not writable by the current user
+                    "--tempdir" => '/home/' . $params['user'] . '/tmp/trim_temp', // using default /tmp/trim_temp dir on virtualmin server is risky as they might already been created by another user and not writable by the current user
                     "--force" => '1',
                     "--branch" => $input->branch->text(),
                     "--backup-user" => "", // leave empty to use local Tiki manager system user/group rather than the remote user which might not exist locally
