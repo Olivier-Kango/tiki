@@ -2212,6 +2212,7 @@
     },
     "require-dependencies": true,
     "require-dev-dependencies": true,
+    "providers": true,
     "archive": {
         "directory": "dist",
         "format": "zip",
