@@ -25,31 +25,18 @@ class Services_Manager_FieldController
     {
         global $user;
 
-        $itemId = $input->itemId->int();
-        $fieldId = $input->fieldId->int();
+        list($item, $handler) = $this->getItemAndFieldHandler($input);
 
-        if (empty($itemId) || empty($fieldId)) {
-            throw new Services_Exception(tr("Missing itemId or fieldId."));
-        }
-
-        $field = TikiLib::lib('trk')->get_field_info($fieldId);
-
-        if (! $field) {
-            throw new Services_Exception(tr("Field not found: %0", $fieldId));
-        }
-
-        $handler = TikiLib::lib('trk')->get_field_handler($field);
         $type = $handler->getOption('newInstanceType');
         $conn_host = $handler->getOption('newInstanceHost');
         $conn_port = $handler->getOption('newInstancePort');
         $conn_user = $handler->getOption('newInstanceUser');
         $conn_pass = $handler->getOption('newInstancePass');
-        $name = 'Item ' . $itemId . ' Field ' . $fieldId . ' Instance';
         $contact = TikiLib::lib('user')->get_user_email($user);
-        $uniqid = uniqid();
-        $weburl = str_replace('{slug}', $uniqid, $handler->getOption('newInstanceTemplateUrl'));
-        $webroot = str_replace('{slug}', $uniqid, $handler->getOption('newInstanceWebroot'));
-        $tempdir = str_replace('{slug}', $uniqid, $handler->getOption('newInstanceTempdir'));
+        $name = uniqid();
+        $weburl = str_replace('{slug}', $name, $handler->getOption('newInstanceTemplateUrl'));
+        $webroot = str_replace('{slug}', $name, $handler->getOption('newInstanceWebroot'));
+        $tempdir = str_replace('{slug}', $name, $handler->getOption('newInstanceTempdir'));
         $backup_user = $handler->getOption('newInstanceBackupUser');
         $backup_group = $handler->getOption('newInstanceBackupGroup');
         $backup_perms = $handler->getOption('newInstanceBackupPerms');
@@ -93,6 +80,9 @@ class Services_Manager_FieldController
             '--db-prefix' => $db_prefix,
         ]);
         $this->runCommand($cmd, $input);
+
+        $this->addInstanceToFieldValue($name, $handler, $item);
+
         return [
             'title' => tr('Tiki Manager Create Instance'),
             'info' => $this->manager_output->fetch(),
@@ -103,6 +93,56 @@ class Services_Manager_FieldController
     {
         global $user;
 
+        list($item, $handler) = $this->getItemAndFieldHandler($input);
+
+        $source = $handler->getOption('source');
+        $remote_user = uniqid();
+        $domain = str_replace('{slug}', $remote_user, $handler->getOption('newInstanceTemplateUrl'));
+        $domain = str_replace('https://', '', $domain);
+        $email = TikiLib::lib('user')->get_user_email($user);
+        $name = $domain;
+        $branch = $input->version->text();
+
+        $output = $this->createVirtualminTikiInstance($source, $remote_user, $domain, $email, $domain, $branch);
+
+        $this->addInstanceToFieldValue($name, $handler, $item);
+
+        return [
+            'title' => tr('Create Virtualmin Instance Result'),
+            'override_action' => 'create',
+            'info' => $output,
+        ];
+    }
+
+    public function action_delete($input)
+    {
+        list($item, $handler) = $this->getItemAndFieldHandler($input);
+
+        $cmd = new TikiManager\Command\DeleteInstanceCommand();
+        $cmdInput = new ArrayInput([
+            'command' => $cmd->getName(),
+            '-i' => $input->instanceId->int(),
+        ]);
+        $this->runCommand($cmd, $cmdInput);
+
+        $this->removeInstanceFromFieldValue($input->instanceId->int(), $handler, $item);
+
+        return [
+            'override_action' => 'create',
+            'title' => tr('Tiki Manager Delete Instance'),
+            'info' => $this->manager_output->fetch(),
+        ];
+    }
+
+    public function loadEnv()
+    {
+        $this->loadManagerEnv();
+        $this->setManagerOutput();
+    }
+
+    protected function getItemAndFieldHandler($input)
+    {
+        $trklib = TikiLib::lib('trk');
         $itemId = $input->itemId->int();
         $fieldId = $input->fieldId->int();
 
@@ -110,104 +150,54 @@ class Services_Manager_FieldController
             throw new Services_Exception(tr("Missing itemId or fieldId."));
         }
 
-        $field = TikiLib::lib('trk')->get_field_info($fieldId);
+        $field = $trklib->get_field_info($fieldId);
 
         if (! $field) {
             throw new Services_Exception(tr("Field not found: %0", $fieldId));
         }
 
-        $handler = TikiLib::lib('trk')->get_field_handler($field);
+        $item = $trklib->get_tracker_item($itemId);
 
-        $source = $handler->getOption('source');
-        $sources_table = TikiDb::get()->table('tiki_source_auth', false);
-        $record = $sources_table->fetchFullRow([
-            'identifier' => $source,
-        ]);
-        if (! $record) {
-            $info = parse_url($source);
-            $record = $sources_table->fetchFullRow([
-                'scheme' => $info['scheme'],
-                'domain' => $info['host'],
-                'path' => $info['path'],
-            ]);
+        if (! $item) {
+            throw new Services_Exception(tr("Item not found: %0", $itemId));
         }
-        if (! $record) {
-            throw new Services_Exception(tr("Invalid or missing source specified for Tiki Manager field. Please contact administrator."));
-        }
-        $source_url = "{$record['scheme']}://{$record['domain']}:10000/virtual-server/remote.cgi?json=1&multiline&";
-        $remote_user = uniqid();
-        $domain = str_replace('{slug}', $remote_user, $handler->getOption('newInstanceTemplateUrl'));
-        $domain = str_replace('https://', '', $domain);
 
-        $params = [
-            'program' => 'create-domain',
-            'domain' => $domain,
-            'user' => $remote_user,
-            'group' => $remote_user,
-            'pass' => TikiLib::genPass(),
-            'mysql-pass' => TikiLib::genPass(),
-            'default-features' => '',
-            'email' => TikiLib::lib('user')->get_user_email($user),
-        ];
-        $client = TikiLib::lib('tiki')->get_http_client($source_url.http_build_query($params, '', '&'), [
-            'timeout' => 300,
-        ]);
-        $response = $client->send();
-        $response = json_decode($response->getBody(), true);
-        if (! empty($response['error'])) {
-            throw new Services_Exception($response['error']);
-        } elseif (! empty($response['output'])) {
-            $output = $response['output'];
+        return [$item, $trklib->get_field_handler($field, $item)];
+    }
 
-            $ftp = new TikiManager\Libs\Host\FTP($params['domain'], $params['user'], $params['pass'], 21);
-            $ftp->createDirectory('.ssh');
-            $ftp->sendFile($_ENV['SSH_PUBLIC_KEY'], '.ssh/authorized_keys');
-            $ftp->chmod(0600, '.ssh/authorized_keys');
-
-            $client = TikiLib::lib('tiki')->get_http_client($source_url."program=list-domains&domain=".urlencode($domain), [
-                'timeout' => 300,
-            ]);
-            $response = $client->send();
-            $response = json_decode($response->getBody(), true);
-            $response = $response['data'][0]['values'];
-
-            $cmd = new TikiManager\Command\CreateInstanceCommand();
-            $inputCommand = new ArrayInput([
-                'command' => $cmd->getName(),
-                "--type" => 'ssh',
-                "--host" => $params['domain'],
-                "--user" => $params['user'],
-                "--url" => $response['url'][0],
-                "--name" => $params['domain'],
-                "--email" => $params['email'],
-                "--webroot" => $response['html_directory'][0],
-                "--force" => '1',
-                "--branch" => $input->version->text(),
-                "--backup-user" => $params['user'],
-                "--backup-group" => $params['user'],
-                "--backup-permission" => '755',
-                "--db-host" => 'localhost',
-                "--db-user" => $params['user'],
-                "--db-pass" => $params['mysql-pass'],
-                "--db-name" => $params['user'],
-            ]);
-            $this->runCommand($cmd, $inputCommand);
-
-            $output .= "\n\n" . $this->manager_output->fetch();
-
-            return [
-                'title' => tr('Create Virtualmin Instance Result'),
-                'override_action' => 'create',
-                'info' => $output,
-            ];
-        } else {
-            throw new Services_Exception(tr('Unrecognized response: %0', print_r($response, 1)));
+    protected function addInstanceToFieldValue($instanceName, $handler, $item)
+    {
+        $instances = TikiManager\Application\Instance::getInstances(false);
+        $instances = array_filter($instances, function($i) use ($instanceName) {
+            return $i->name == $instanceName;
+        });
+        $instance = array_shift($instances);
+        if ($instance) {
+            $value = $handler->addValue($instance->getId());
+            $this->saveFieldValue($value, $handler, $item);
         }
     }
 
-    public function loadEnv()
+    protected function removeInstanceFromFieldValue($instanceId, $handler, $item)
     {
-        $this->loadManagerEnv();
-        $this->setManagerOutput();
+        $value = $handler->removeValue($instanceId);
+        $this->saveFieldValue($value, $handler, $item);
+    }
+
+    protected function saveFieldValue($value, $handler, $item)
+    {
+        $field = $handler->getFieldDefinition();
+        $utilities = new Services_Tracker_Utilities();
+        $utilities->updateItem(
+            Tracker_Definition::get($item['trackerId']),
+            [
+                'itemId' => $item['itemId'],
+                'status' => $item['status'],
+                'fields' => [
+                    $field['fieldId'] => $value,
+                ],
+                'validate' => false,
+            ]
+        );
     }
 }

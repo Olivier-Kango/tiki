@@ -19,13 +19,6 @@ class Tracker_Field_TikiManager extends Tracker_Field_Abstract
                 'help'        => 'Manager',
                 'default'     => 'n',
                 'params'      => [
-                    'instanceIds' => [
-                        'name' => tra('Instance IDs'),
-                        'description' => tra('Comma-separated list of instance IDs available to manage. For a full list, use Tiki Manager admin page.'),
-                        'default' => '',
-                        'filter' => 'text',
-                        'separator' => ',',
-                    ],
                     'showactions' => [
                         'name' => tra('Show actions'),
                         'description' => tra('Comma-separated list of actions shown in the interface. If none are listed, all actions will be available by default.'),
@@ -172,14 +165,13 @@ class Tracker_Field_TikiManager extends Tracker_Field_Abstract
 
         $manager_output = $utilities->getManagerOutput();
 
-        $instanceIds = array_filter($this->getOption('instanceIds', []));
+        $instanceIds = explode(',', $this->getValue());
         $showactions = array_filter($this->getOption('showactions', []));
         $hideactions = array_filter($this->getOption('hideactions', []));
-        $privateName = 'Item ' . $this->getItemId() . ' Field ' . $this->getFieldId() . ' Instance';
 
         $instances = TikiManager\Application\Instance::getInstances(false);
-        $instances = array_filter($instances, function($i) use ($instanceIds, $privateName) {
-            return empty($instanceIds) || in_array($i->getId(), $instanceIds) || $i->name == $privateName;
+        $instances = array_filter($instances, function($i) use ($instanceIds) {
+            return empty($instanceIds) || in_array($i->getId(), $instanceIds);
         });
 
         // taken from Tiki manager available commands, TODO: hook these up with the interface
@@ -205,8 +197,7 @@ class Tracker_Field_TikiManager extends Tracker_Field_Abstract
             'manager_output' => $manager_output->fetch(),
             'versions' => $versions,
             'source' => $this->getOption('source'),
-            'has_created_one' => array_filter($instances, function($i) use ($privateName) { return $i->name == $privateName; }),
-            'value' => 'none', // this is required to show the field, otherwise it gets hidden if tracker is set to doNotShowEmptyField
+            'value' => $this->getValue() ? $this->getValue() : 'none', // this is required to show the field, otherwise it gets hidden if tracker is set to doNotShowEmptyField
         ];
 
         return $ret;
@@ -222,5 +213,32 @@ class Tracker_Field_TikiManager extends Tracker_Field_Abstract
     {
         TikiLib::lib('header')->add_cssfile('themes/base_files/feature_css/tiki-manager.css');
         return $this->renderTemplate('trackerinput/tikimanager.tpl', $context);
+    }
+
+    public function addValue($instanceId)
+    {
+        $instances = explode(',', $this->getValue());
+        if (! in_array($instanceId, $instances)) {
+            $instances[] = $instanceId;
+        }
+        $result = implode(',', array_filter($instances, function($i) {
+            return is_numeric($i);
+        }));
+        return $result ? $result : 'none';
+    }
+
+    public function removeValue($instanceId)
+    {
+        $instances = explode(',', $this->getValue());
+        if (in_array($instanceId, $instances)) {
+            $instances[] = $instanceId;
+        }
+        $instances = array_filter($instances, function ($i) use ($instanceId) {
+            return $i != $instanceId;
+        });
+        $result = implode(',', array_filter($instances, function($i) {
+            return is_int($i);
+        }));
+        return $result ? $result : 'none';
     }
 }

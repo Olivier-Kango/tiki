@@ -43,7 +43,7 @@
                             </a>
                         {/if}
                         {if in_array('delete', $field.available_actions)}
-                            <a class="dropdown-item" href="{bootstrap_modal controller=manager action=delete instanceId=$instance->id}">
+                            <a class="dropdown-item" href="{bootstrap_modal controller=manager_field action=delete instanceId=$instance->id itemId=$field.id fieldId=$field.fieldId}">
                                 {icon name=times _menu_text='y' _menu_icon='y' alt="{tr}Delete{/tr}"}
                             </a>
                         {/if}
