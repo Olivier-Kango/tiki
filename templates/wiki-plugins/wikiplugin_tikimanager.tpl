@@ -1,12 +1,12 @@
 <div id="tikimanager_container_{$id}">
     {if in_array('create', $available_actions)}
-    <a class="btn btn-link" href="{bootstrap_modal controller=manager action=create}">{icon name=create} {tr}New Instance{/tr}</a>
+    <a class="btn btn-light m-1" href="{bootstrap_modal controller=manager action=create}">{icon name=create} {tr}New Instance{/tr}</a>
     {/if}
     {if in_array('info', $available_actions)}
-    <a class="btn btn-link" href="{bootstrap_modal controller=manager action=info}">{icon name=info} {tr}Info{/tr}</a>
+    <a class="btn btn-light m-1" href="{bootstrap_modal controller=manager action=info}">{icon name=info} {tr}Info{/tr}</a>
     {/if}
     {if in_array('check', $available_actions)}
-    <a class="btn btn-link" href="{bootstrap_modal controller=manager action=requirements}">{icon name=check} {tr}Check Requirements{/tr}</a>
+    <a class="btn btn-light m-1" href="{bootstrap_modal controller=manager action=requirements}">{icon name=check} {tr}Check Requirements{/tr}</a>
     {/if}
     <h2>Instances</h2>
     <table class="table">

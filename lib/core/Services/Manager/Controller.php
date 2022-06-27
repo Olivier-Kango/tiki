@@ -13,6 +13,7 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
 }
 
 use Symfony\Component\Console\Input\ArrayInput;
+use TikiManager\Application\Instance;
 
 /**
  * Class Services_Manager_Controller
@@ -254,6 +255,68 @@ class Services_Manager_Controller
                 'help' => $this->getCommandHelpTexts($cmd),
                 'sshPublicKey' => $_ENV['SSH_PUBLIC_KEY'],
             ];
+        }
+    }
+
+    public function action_edit($input)
+    {
+        $cmd = new TikiManager\Command\EditInstanceCommand();
+
+        if ($input->edit->text()){
+            $inputCommand = new ArrayInput([
+                'command' => $cmd->getName(),
+                '-i' => $input->instance->int(),
+                "--url" => $input->url->text(),
+                "--name" => $input->name->text(),
+                "--email" => $input->email->text(),
+                "--webroot" => $input->webroot->text(),
+                "--tempdir" => $input->tempdir->text(),
+                "--backup-user" => $input->backup_user->text(),
+                "--backup-group" => $input->backup_group->text(),
+                "--backup-permission" => $input->backup_permission->text(),
+            ]);
+
+            $this->runCommand($cmd, $inputCommand);
+
+            return [
+                'title' => tr('Edit Instance Result'),
+                'info' => $this->manager_output->fetch(),
+                'refresh' => true,
+            ];
+        } else {
+
+            $instaceId = $input->instanceId->int();
+            $instance = Instance::getInstance($instaceId);
+
+            if ($instance) {
+                /** For form initialization */
+                $inputValues = [
+                    'instance' => $instaceId,
+                    'url' => $instance->weburl,
+                    'name' => $instance->name,
+                    'email' => $instance->contact,
+                    'webroot' => $instance->webroot,
+                    'temp_dir' => $instance->tempdir,
+                    'backup_user' => $instance->getProp('backup_user'),
+                    'backup_group' => $instance->getProp('backup_group'),
+                    'backup_permission' => decoct($instance->getProp('backup_perm')),
+                ];
+
+                return [
+                    'title' => tr('Edit instance') . " " . $instance->backup_user,
+                    'info' => '',
+                    'refresh' => true,
+                    'inputValues' => $inputValues,
+                    'help' => $this->getCommandHelpTexts($cmd),
+                ];
+            } else {
+                return [
+                    'title' => tr('Edit instance (Instance not found)'),
+                    'info' => "No Tiki instances available to edit",
+                    'refresh' => true,
+                ];
+            }
+            
         }
     }
 
