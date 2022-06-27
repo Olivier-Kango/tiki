@@ -1709,14 +1709,6 @@ class NlLib extends TikiLib
                 $logStatus = 'Error';
             }
 
-            if (isset($_SESSION['tickets']['newsletter']['iterations'])) {
-                if ($_SESSION['tickets']['newsletter']['iterations'] > 1) {
-                    --$_SESSION['tickets']['newsletter']['iterations'];
-                } else {
-                    unset($_SESSION['tickets']['newsletter']);
-                }
-            }
-
             if ($logFileHandle) {
                 @fwrite($logFileHandle, "$email : $logStatus\n");
             }
@@ -1729,7 +1721,15 @@ class NlLib extends TikiLib
                 @ob_end_flush();
             }
 
-            if ($prefs['newsletter_throttle'] === 'y' && 0 >= --$throttleLimit) {
+            if ($prefs['newsletter_throttle'] === 'y' && 0 == --$throttleLimit) {
+                if (isset($_SESSION['tickets']['newsletter']['iterations'])) {
+                    if ($_SESSION['tickets']['newsletter']['iterations'] > 1) {
+                        --$_SESSION['tickets']['newsletter']['iterations'];
+                    } else {
+                        unset($_SESSION['tickets']['newsletter']);
+                    }
+                }
+
                 $rate = (int) $prefs['newsletter_pause_length'];
                 $replytoData = '';
                 if (! empty($info['replyto'])) {
