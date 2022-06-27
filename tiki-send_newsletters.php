@@ -445,7 +445,6 @@ if (isset($_REQUEST["send"]) && $_REQUEST["nlId"] && $prefs['newsletter_throttle
     $throttleLimit = (int) $prefs['newsletter_batch_size'];
     $subscribers = count($nllib->get_all_subscribers((int) $_REQUEST["nlId"], ""));
     if ($subscribers > $throttleLimit) {
-        $_SESSION['tickets']['newsletter']['ticket'] = $_POST['ticket'];
         $_SESSION['tickets']['newsletter']['iterations'] = ceil((int) $subscribers / (int) $throttleLimit);
         $unsetTicket = false;
     } else {
@@ -495,13 +494,11 @@ if (isset($_REQUEST['resume'])) {
     }
     $nl_info = $nllib->get_newsletter($edition_info['nlId']);
     // can't check csrf ticket the usual way since throttle iterations are repeat get requests via javascript
-    // so accept get requests, track remaining iterations and only unset ticket after iterations are complete
-    $unsetTicket = ! empty($_SESSION['tickets']['newsletter']['iterations'])
-        && $_SESSION['tickets']['newsletter']['iterations'] == 1;
+    // so accept get requests, track remaining iterations and  unset ticket after each iteration
 
     $csrfCheck = ! empty($_SESSION['tickets']['newsletter']['iterations'])
         && $_SESSION['tickets']['newsletter']['iterations'] > 0
-        && $access->checkCsrf(null, true, null, $unsetTicket, $_REQUEST['ticket']);
+        && $access->checkCsrf(null, true, null, true, $_REQUEST['ticket']);
 
     $nllib->send($nl_info, $edition_info, true, $sent, $errors, $logFileName, $csrfCheck);
     // use lib function to close the frame with the completion info
