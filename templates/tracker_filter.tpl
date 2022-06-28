@@ -93,15 +93,25 @@
 
                     {elseif $field.type eq 'e'}{* category *}
                         <div style="display:{if $filterfield eq $fid}block{else}none{/if};" id="fid{$fid}" class="card-body">
-                            <ul class="list-inline">
-                                {foreach key=ku item=iu from=$field.list name=eforeach}
-                                    <li>
-                                        <input type="checkbox" class="form-check-input" name="filtervalue[{$fid}][]" value="{$iu.categId}" id="cat{$iu.categId}"
-                                            {if $fid == $filterfield && is_array($filtervalue) && in_array($iu.categId,$filtervalue)} checked="checked"{/if}>
-                                        <label for="cat{$iu.categId}">{$iu.name|escape}</label>
-                                    </li>
-                                {/foreach}
-                            </ul>
+                            {if count($field.list) gt $prefs.maxRecords}
+                                <select name="filtervalue[{$fid}][]" class="form-control" multiple>
+                                    {foreach key=ku item=iu from=$field.list name=eforeach}
+                                        <option value="{$iu.categId}"{if $fid == $filterfield && is_array($filtervalue) && in_array($iu.categId,$filtervalue)} selected="selected"{/if}>
+                                            {$iu.categpath|escape}
+                                        </option>
+                                    {/foreach}
+                                </select>
+                            {else}
+                                <ul class="list-unstyled">
+                                    {foreach key=ku item=iu from=$field.list name=eforeach}
+                                        <li class="form-check justify-content-start">
+                                            <input type="checkbox" class="form-check-input" name="filtervalue[{$fid}][]" value="{$iu.categId}" id="cat{$iu.categId}"
+                                                {if $fid == $filterfield && is_array($filtervalue) && in_array($iu.categId,$filtervalue)} checked="checked"{/if}>
+                                            <label for="cat{$iu.categId}" class="form-check-label">{$iu.categpath|escape}</label>
+                                        </li>
+                                    {/foreach}
+                                </ul>
+                            {/if}
                         </div>
                     {elseif $field.type eq 'u'}{* user with autocomplete *}
                         <div style="display:{if $filterfield eq $fid}block{else}none{/if};" id="fid{$fid}">
