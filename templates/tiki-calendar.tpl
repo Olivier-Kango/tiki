@@ -68,7 +68,7 @@
                 <form class="card" id="filtercal" method="get" action="{$myurl}" name="f" style="display:none;">
                     <div class="card-header caltitle py-1 px-2">
                         <strong>{tr}Calendars{/tr}</strong>
-                        <button type="button" class="btn-close"  onclick="toggle('filtercal')" aria-hidden="true">×</button>
+                        <button type="button" class="btn-close"  onclick="toggle('filtercal')" aria-hidden="true"></button>
                     </div>
                     <ul class="list-group list-group-flush list-unstyled mt-2">
                         <li class="caltoggle">

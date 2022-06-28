@@ -3,7 +3,7 @@
     <div id="suggestionsPopup">
         <div class="sug-header">
             <div class="sug-button-close">
-                <button id="suggestionsClosePopup" type="button" class="btn-close">×</button>
+                <button id="suggestionsClosePopup" type="button" class="btn-close"></button>
             </div>
             <div class="sug-title">
                 <h3 >
