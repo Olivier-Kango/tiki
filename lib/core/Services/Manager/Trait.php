@@ -142,7 +142,82 @@ trait Services_Manager_Trait
         return $help;
     }
 
-    protected function createVirtualminTikiInstance($source, $remote_user, $domain, $email, $name, $branch)
+    protected function createVirtualminTikiInstance($source, $remote_user, $domain, $email, $name, $branch, $php_version = null)
+    {
+        $params = [
+            'program' => 'create-domain',
+            'domain' => $domain,
+            'user' => $remote_user,
+            'group' => $remote_user,
+            'pass' => TikiLib::genPass(),
+            'mysql-pass' => TikiLib::genPass(),
+            'default-features' => '',
+            'email' => $email,
+        ];
+        $response = $this->virtualminRemoteCommand($source, $params, 300);
+        $output = $response['output'];
+
+        $ftp = new TikiManager\Libs\Host\FTP($params['domain'], $params['user'], $params['pass'], 21);
+        $ftp->createDirectory('.ssh');
+        $ftp->sendFile($_ENV['SSH_PUBLIC_KEY'], '.ssh/authorized_keys');
+        $ftp->chmod(0600, '.ssh/authorized_keys');
+
+        $response = $this->virtualminRemoteCommand($source, [
+            'program' => 'list-domains',
+            'domain' => $domain,
+        ]);
+        $response = $response['data'][0]['values'];
+        $webroot = $response['html_directory'][0];
+        $url = $response['url'][0];
+
+        if ($php_version) {
+            $response = $this->virtualminRemoteCommand($source, [
+                'program' => 'set-php-directory',
+                'domain' => $domain,
+                'dir' => $webroot,
+                'version' => $php_version,
+            ]);
+            $output .= "\n\n" . $response['output'];
+        }
+
+        $temp_instance = new TikiManager\Application\Instance;
+        $temp_access = new TikiManager\Access\Local($temp_instance);
+        if (stristr(PHP_OS, 'WIN')) {
+            $discovery = new TikiManager\Application\Discovery\WindowsDiscovery($temp_instance, $temp_access, ['os' => 'WINDOWS']);
+        } else {
+            $discovery = new TikiManager\Application\Discovery\LinuxDiscovery($temp_instance, $temp_access, ['os' => 'LINUX']);
+        }
+        list($backup_user, $backup_group, $backup_perm) = $discovery->detectBackupPerm($_ENV['BACKUP_FOLDER']);
+
+        $cmd = new TikiManager\Command\CreateInstanceCommand();
+        $inputCommand = new ArrayInput([
+            'command' => $cmd->getName(),
+            "--type" => 'ssh',
+            "--host" => $params['domain'],
+            "--user" => $params['user'],
+            "--url" => $url,
+            "--name" => $name,
+            "--email" => $params['email'],
+            "--webroot" => $webroot,
+            "--tempdir" => '/home/' . $params['user'] . '/tmp/trim_temp', // using default /tmp/trim_temp dir on virtualmin server is risky as they might already been created by another user and not writable by the current user
+            "--force" => '1',
+            "--branch" => $branch,
+            "--backup-user" => $backup_user,
+            "--backup-group" => $backup_group,
+            "--backup-permission" => '755',
+            "--db-host" => 'localhost',
+            "--db-user" => $params['user'],
+            "--db-pass" => $params['mysql-pass'],
+            "--db-name" => $params['user'],
+        ]);
+        $this->runCommand($cmd, $inputCommand);
+
+        $output .= "\n\n" . $this->manager_output->fetch();
+
+        return $output;
+    }
+
+    protected function getVirtualminSourceUrl($source)
     {
         $sources_table = TikiDb::get()->table('tiki_source_auth', false);
         $record = $sources_table->fetchFullRow([
@@ -159,78 +234,23 @@ trait Services_Manager_Trait
         if (! $record) {
             throw new Services_Exception(tr("Invalid or missing source specified: %0", $source));
         }
-        $source_url = "{$record['scheme']}://{$record['domain']}:10000/virtual-server/remote.cgi?json=1&multiline&";
+        return "{$record['scheme']}://{$record['domain']}:10000/virtual-server/remote.cgi?json=1&multiline&";
+    }
 
-        $params = [
-            'program' => 'create-domain',
-            'domain' => $domain,
-            'user' => $remote_user,
-            'group' => $remote_user,
-            'pass' => TikiLib::genPass(),
-            'mysql-pass' => TikiLib::genPass(),
-            'default-features' => '',
-            'email' => $email,
-        ];
+    protected function virtualminRemoteCommand($source, $params, $timeout = 20)
+    {
+        $source_url = $this->getVirtualminSourceUrl($source);
         $client = TikiLib::lib('tiki')->get_http_client($source_url.http_build_query($params, '', '&'), [
-            'timeout' => 300,
+            'timeout' => $timeout,
         ]);
         $response = $client->send();
         $response = json_decode($response->getBody(), true);
         if (! empty($response['error'])) {
             throw new Services_Exception($response['error']);
-        } elseif (empty($response['output'])) {
+        } elseif (empty($response['output']) && empty($response['data']) && empty($response['status'])) {
             throw new Services_Exception(tr('Unrecognized response: %0', print_r($response, 1)));
         } else {
-            $output = $response['output'];
-
-            $ftp = new TikiManager\Libs\Host\FTP($params['domain'], $params['user'], $params['pass'], 21);
-            $ftp->createDirectory('.ssh');
-            $ftp->sendFile($_ENV['SSH_PUBLIC_KEY'], '.ssh/authorized_keys');
-            $ftp->chmod(0600, '.ssh/authorized_keys');
-
-            $client = TikiLib::lib('tiki')->get_http_client($source_url."program=list-domains&domain=".urlencode($domain), [
-                'timeout' => 300,
-            ]);
-            $response = $client->send();
-            $response = json_decode($response->getBody(), true);
-            $response = $response['data'][0]['values'];
-            $webroot = $response['html_directory'][0];
-
-            $temp_instance = new TikiManager\Application\Instance;
-            $temp_access = new TikiManager\Access\Local($temp_instance);
-            if (stristr(PHP_OS, 'WIN')) {
-                $discovery = new TikiManager\Application\Discovery\WindowsDiscovery($temp_instance, $temp_access, ['os' => 'WINDOWS']);
-            } else {
-                $discovery = new TikiManager\Application\Discovery\LinuxDiscovery($temp_instance, $temp_access, ['os' => 'LINUX']);
-            }
-            list($backup_user, $backup_group, $backup_perm) = $discovery->detectBackupPerm($_ENV['BACKUP_FOLDER']);
-
-            $cmd = new TikiManager\Command\CreateInstanceCommand();
-            $inputCommand = new ArrayInput([
-                'command' => $cmd->getName(),
-                "--type" => 'ssh',
-                "--host" => $params['domain'],
-                "--user" => $params['user'],
-                "--url" => $response['url'][0],
-                "--name" => $name,
-                "--email" => $params['email'],
-                "--webroot" => $webroot,
-                "--tempdir" => '/home/' . $params['user'] . '/tmp/trim_temp', // using default /tmp/trim_temp dir on virtualmin server is risky as they might already been created by another user and not writable by the current user
-                "--force" => '1',
-                "--branch" => $branch,
-                "--backup-user" => $backup_user,
-                "--backup-group" => $backup_group,
-                "--backup-permission" => '755',
-                "--db-host" => 'localhost',
-                "--db-user" => $params['user'],
-                "--db-pass" => $params['mysql-pass'],
-                "--db-name" => $params['user'],
-            ]);
-            $this->runCommand($cmd, $inputCommand);
-
-            $output .= "\n\n" . $this->manager_output->fetch();
-
-            return $output;
+            return $response;
         }
     }
 }

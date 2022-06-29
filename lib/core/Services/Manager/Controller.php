@@ -14,6 +14,8 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
 
 use Symfony\Component\Console\Input\ArrayInput;
 use TikiManager\Application\Instance;
+use TikiManager\Application\Tiki\Versions\Fetcher\YamlFetcher;
+use TikiManager\Application\Tiki\Versions\TikiRequirementsHelper;
 
 /**
  * Class Services_Manager_Controller
@@ -333,9 +335,10 @@ class Services_Manager_Controller
             $email = $input->email->text();
             $name = $input->name->text();
             $branch = $input->branch->text();
+            $php_version = $input->php_version->text();
 
             try {
-                $output = $this->createVirtualminTikiInstance($source, $remote_user, $domain, $email, $name, $branch);
+                $output = $this->createVirtualminTikiInstance($source, $remote_user, $domain, $email, $name, $branch, $php_version);
                 return [
                     'title' => tr('Create Virtualmin Instance Result'),
                     'override_action' => 'info',
@@ -365,6 +368,52 @@ class Services_Manager_Controller
         ];
     }
 
+    public function action_available_versions($input)
+    {
+        $result = [
+            'php_versions' => [],
+            'available_branches' => $this->getTikiBranches(),
+        ];
+
+        $source = $input->source->text();
+        $php_version = $input->php_version->text();
+        $selected_php_version = null;
+
+        $params = [
+            'program' => 'list-php-versions',
+            'name-only' => '',
+        ];
+        $response = $this->virtualminRemoteCommand($source, $params);
+        foreach ($response['data'] as $row) {
+            $result['php_versions'][] = $row['name'];
+            if ($row['name'] == $php_version) {
+                $selected_php_version = $php_version;
+            }
+        }
+
+        if ($selected_php_version) {
+            $available_versions = [];
+            $requirements = (new YamlFetcher())->getRequirements();
+            foreach ($requirements as $requirement) {
+                if ($requirement->getPhpVersion()->isValidVersion($selected_php_version)) {
+                    $available_versions[] = $requirement->getVersion();
+                }
+            }
+            $result['available_branches'] = array_values(array_filter($result['available_branches'], function($branch) use ($available_versions) {
+                if ($branch == 'master') {
+                    return true;
+                }
+                foreach ($available_versions as $version) {
+                    if (substr($branch, 0, strlen($version)) == $version || preg_match("/$version\.\d+/", $branch)) {
+                        return true;
+                    }
+                }
+                return false;
+            }));
+        }
+
+        return $result;
+    }
 
     public function action_clone($input)
     {

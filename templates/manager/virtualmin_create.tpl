@@ -9,7 +9,7 @@
 {/block}
 
 {block name="content"}
-    <form method="post" action="{service controller=manager action=virtualmin_create}">
+    <form method="post" action="{service controller=manager action=virtualmin_create}" id="virtualmin-create-form">
         <div class="form-group row mb-3 preference">
             <label class="col-form-label col-sm-3">
                 {tr}Virtualmin server{/tr}
@@ -57,6 +57,19 @@
             </label>
             <div class="col-sm-9">
                 <input type="email" name="email" value="{$input.email}" class="form-control" placeholder="johndoe@example.org" required>
+            </div>
+        </div>
+        <div class="form-group row mb-3">
+            <label class="col-form-label col-sm-3">
+                {tr}PHP Version{/tr}
+                <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}Choose one of the available PHP versions on the server.{/tr}">
+                    {icon name=information}
+                </a>
+            </label>
+            <div class="col-sm-9">
+                <select class="form-control" name="php_version" required>
+                    <option value=""></option>
+                </select>
             </div>
         </div>
         <div class="form-group row mb-3">
