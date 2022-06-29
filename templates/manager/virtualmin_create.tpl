@@ -28,39 +28,6 @@
         </div>
         <div class="form-group row mb-3">
             <label class="col-form-label col-sm-3">
-                {tr}Instance name{/tr}
-                <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}{$help.name}{/tr}">
-                    {icon name=information}
-                </a>
-            </label>
-            <div class="col-sm-9">
-                <input type="text" name="name" value="{$input.name}" class="form-control" required>
-            </div>
-        </div>
-        <div class="form-group row mb-3">
-            <label class="col-form-label col-sm-3">
-                {tr}Domain name{/tr}
-                <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}This domain will be created on the target virtualmin server under one of the existing domains managed there. You can specify either a top-level server or a sub-server here - e.g. subdomain.maindomain.com{/tr}">
-                    {icon name=information}
-                </a>
-            </label>
-            <div class="col-sm-9">
-                <input type="text" name="domain" value="{$input.domain}" class="form-control" required>
-            </div>
-        </div>
-        <div class="form-group row mb-3">
-            <label class="col-form-label col-sm-3">
-                {tr}Email{/tr}
-                <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}{$help.email}{/tr}">
-                    {icon name=information}
-                </a>
-            </label>
-            <div class="col-sm-9">
-                <input type="email" name="email" value="{$input.email}" class="form-control" placeholder="johndoe@example.org" required>
-            </div>
-        </div>
-        <div class="form-group row mb-3">
-            <label class="col-form-label col-sm-3">
                 {tr}PHP Version{/tr}
                 <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}Choose one of the available PHP versions on the server.{/tr}">
                     {icon name=information}
@@ -92,6 +59,39 @@
             <label class="col-form-label col-sm-3"></label>
             <div class="col-sm-9">
                 <input class="btn btn-primary" type="submit" name="create" value="{tr}Create a new instance{/tr}">
+            </div>
+        </div>        
+        <div class="form-group row mb-3">
+            <label class="col-form-label col-sm-3">
+                {tr}Instance name{/tr}
+                <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}{$help.name}{/tr}">
+                    {icon name=information}
+                </a>
+            </label>
+            <div class="col-sm-9">
+                <input type="text" name="name" value="{$input.name}" class="form-control" required>
+            </div>
+        </div>
+        <div class="form-group row mb-3">
+            <label class="col-form-label col-sm-3">
+                {tr}Domain name{/tr}
+                <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}This domain will be created on the target virtualmin server under one of the existing domains managed there. You can specify either a top-level server or a sub-server here - e.g. subdomain.maindomain.com{/tr}">
+                    {icon name=information}
+                </a>
+            </label>
+            <div class="col-sm-9">
+                <input type="text" name="domain" value="{$input.domain}" class="form-control" required>
+            </div>
+        </div>
+        <div class="form-group row mb-3">
+            <label class="col-form-label col-sm-3">
+                {tr}Email{/tr}
+                <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}{$help.email}{/tr}">
+                    {icon name=information}
+                </a>
+            </label>
+            <div class="col-sm-9">
+                <input type="email" name="email" value="{$input.email}" class="form-control" placeholder="johndoe@example.org" required>
             </div>
         </div>
     </form>
