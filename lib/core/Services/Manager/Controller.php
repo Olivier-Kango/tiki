@@ -135,7 +135,7 @@ class Services_Manager_Controller
         if (empty($this->manager_output->fetch())) {
             try {
                 $this->runCommand($cmd, $input);
-                Feedback::success(tr("Successful Tiki Manager Watch Instance"));
+                Feedback::success(tr('Successful Tiki Manager Watch Instance, Notifications will be sent to <b>%0</b>', htmlspecialchars($instance->contact)));
             } catch (\Exception $e) {
                 Feedback::error($e->getMessage());
             }
