@@ -10537,7 +10537,7 @@ blockquote {
 header.container, .middle_outer > .container {
   margin-bottom: 0;
 }
-.layout_classic .header_container .container.container-std {
+.tiki.layout_classic .header_container .container.container-std {
   max-width: 100% !important;
   width: 100% !important;
 }

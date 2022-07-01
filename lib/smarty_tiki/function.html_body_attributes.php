@@ -17,7 +17,7 @@ function smarty_function_html_body_attributes($params, $smarty)
     $smarty = TikiLib::lib('smarty');
     $back = '';
     $onload = '';
-    $class = (isset($params['class']) ? $params['class'] : '') . ' tiki ';
+    $class = 'tiki' . (isset($params['class']) ? ' ' . $params['class'] : '');
 
     //filename of script called (i.e. tiki-index, tiki-user_information, tiki-view_forum, etc), then sanitize chars
     $script_filename = pathinfo($_SERVER['SCRIPT_NAME'], PATHINFO_FILENAME);
@@ -28,7 +28,7 @@ function smarty_function_html_body_attributes($params, $smarty)
     }
 
     if ($prefs['feature_fixed_width'] == 'y') {
-        $class .= ' fixed_width ';
+        $class .= ' fixed_width';
     }
 
     if (strtolower($_REQUEST["page"]) === 'sandbox'){
@@ -40,7 +40,7 @@ function smarty_function_html_body_attributes($params, $smarty)
     }
 
     if (! empty($_REQUEST['filegals_manager'])) {
-        $class .= ' filegal_popup ';
+        $class .= ' filegal_popup';
     }
 
     if (isset($_SESSION['fullscreen']) && $_SESSION['fullscreen'] == 'y') {
@@ -77,9 +77,9 @@ function smarty_function_html_body_attributes($params, $smarty)
     }
 
     if (! empty($pageLang)) {
-        $class .= ' ' . $pageLang;
+        $class .= ' lang_' . $pageLang;
     } else {
-        $class .= ' ' . $prefs['language'];
+        $class .= ' lang_' . $prefs['language'];
     }
 
     if (getCookie('hide_zone_left')) {

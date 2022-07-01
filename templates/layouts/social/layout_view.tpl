@@ -30,6 +30,9 @@
     {/if}
     <div class="middle_outer" id="middle_outer">
         {if $smarty.session.fullscreen ne 'y'}
+                {if $prefs.theme_unified_admin_backend eq 'y' && $smarty.server.SCRIPT_NAME eq $url_path|cat:'tiki-admin.php'}
+                    {modulelist zone=top class="top_modules d-flex justify-content-between top navbar-{$navbar_color_variant}-parent bg-{$navbar_color_variant}-parent w-100 mb-sm"}
+                {/if}
             <div class="fixed-topbar"></div>
         {/if}
         <div class="container{if $smarty.session.fullscreen eq 'y'}-fluid{/if} container-std topbar-wrapper" id="topbar-wrapper">
@@ -161,7 +164,7 @@
                 </div>
             </div>
         </footer>
-
+        {if $prefs.theme_unified_admin_backend eq 'y' && $smarty.server.SCRIPT_NAME neq $url_path|cat:'tiki-admin.php'}
         <nav class="navbar navbar-expand-md navbar-{$navbar_color_variant} bg-{$navbar_color_variant} fixed-top">
             <div class="container-fluid">
             {* <div class="container{if $smarty.session.fullscreen eq 'y'}-fluid{/if} container-std d-flex justify-content-between in-navbar"> *}
@@ -180,6 +183,7 @@
         </div> {* container *}
 
         </nav>
+        {/if}
     {/if}
 
     {include file='footer.tpl'}

@@ -26,3 +26,23 @@
     margin-left: 30px;
     margin-right: 30px;
 }
+
+/* Search preferences > button */
+.tiki-admin aside.admin-nav li form .my-1 .input-group {
+    overflow: hidden;
+}
+
+.tiki-admin aside.admin-nav li form .my-1 .btn:hover {
+    margin-bottom: -1px;
+}
+
+.tiki-admin aside.admin-nav li form .my-1 .btn {
+    border: solid;
+    border-width: 0 1px 4px 1px;
+    border-color: #137ea7;
+    padding: .25rem .5rem;
+}
+
+.tiki-admin aside.admin-nav li form .my-1 .fas {
+    width: 1.25em;
+}

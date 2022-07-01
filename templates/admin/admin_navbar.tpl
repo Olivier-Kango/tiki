@@ -1,12 +1,10 @@
 <nav class="navbar-expand-md navbar-{$navbar_color_variant} bg-{$navbar_color_variant} admin-navbar mb-4" role="navigation">
     {if $prefs.theme_unified_admin_backend eq 'y'}
-        <a class="navbar-brand" href="./" title="{tr}Back to the home page{/tr}">
-            {if $prefs.sitelogo_icon}
-                <img src="{$prefs.sitelogo_icon}" alt="{if $prefs.sitetitle}{$prefs.sitetitle|escape}{else}{tr}Site logo{/tr}{/if}">
-            {elseif $navbar_color_variant eq 'light'}
-                <img src="img/tiki/tiki-icon-flat-black.png" alt="{tr}Tiki logo{/tr}" height="24">
+        <a class="navbar-brand" href="./" data-bs-toggle="tooltip" data-bs-placement="bottom" title="{tr}Back to the home page{/tr}">
+            {if $prefs.sitelogo_icon && $prefs.sitelogo_icon neq 'img/tiki/tikilogo_icon.png'}
+                <img src="{$prefs.sitelogo_icon}" alt="{if $prefs.sitelogo_alt}{$prefs.sitelogo_alt|escape}{else}{tr}Site logo{/tr}{/if}">
             {else}
-                <img src="img/tiki/tiki-icon-flat-white.png" alt="{tr}Tiki logo{/tr}" height="24">
+                <img src="img/tiki/tiki-icon-flat-{if $navbar_color_variant eq 'light'}black{else}white{/if}.png" alt="{if $prefs.sitelogo_alt}{$prefs.sitelogo_alt|escape}{else}{tr}Tiki icon{/tr}{/if}" height="24">
             {/if}
         </a>
     {/if}
