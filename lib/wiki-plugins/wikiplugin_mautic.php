@@ -77,7 +77,7 @@ function wikiplugin_mautic($data, $params)
         $form =  '<script type="text/javascript" src="' . $prefs['site_mautic_url'] . '/form/generate.js?id='.$form_id.'"></script>';
         $ret = <<<HTML
             $form
-        HTML;
+HTML;
     }
 
     if($params['type'] == 'inclusion') {
@@ -87,10 +87,9 @@ function wikiplugin_mautic($data, $params)
                     w[n]=w[n]||function(){(w[n].q=w[n].q||[]).push(arguments)},a=d.createElement(t),
                     m=d.getElementsByTagName(t)[0];a.async=1;a.src=u;m.parentNode.insertBefore(a,m)
                 })(window,document,'script','$url','mt');
-
                 mt('send', 'pageview');
             </script>
-        HTML;
+HTML;
     }
 
     if($params['type'] == 'contacts') {
