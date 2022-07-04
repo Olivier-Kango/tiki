@@ -593,6 +593,16 @@ class Services_Manager_Controller
         ];
     }
 
+    public function action_clear_cache($input)
+    {
+        $this->runCommand(new TikiManager\Command\ClearCacheCommand());
+        return [
+            'override_action' => 'info',
+            'title' => tr('Tiki Manager Clear Cache'),
+            'info' => $this->manager_output->fetch()
+        ];
+    }
+
     public function loadEnv()
     {
         global $prefs, $user, $base_url, $tikipath;

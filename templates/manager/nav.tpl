@@ -7,4 +7,7 @@
     <a class="btn btn-light m-1" href="{service controller=manager action=tiki_versions}">{icon name=list} {tr}Tiki Versions{/tr}</a>
     <a class="btn btn-light m-1" href="{service controller=manager action=test_send_email}">{icon name=envelope} {tr}Test Send Email{/tr}</a>
     <a class="btn btn-light m-1" href="{service controller=manager action=setup_watch}">{icon name="clock-o"} {tr}Setup Watch{/tr}</a>
+    <a class="btn btn-light m-1" href="{service controller=manager action=clear_cache}" title="{tr}Clear Tiki Manager cache. This can be useful for testing and debugging during development, or if your server is short on disk space and you need a temporary relief.{/tr}">
+        {icon name=trash} {tr}Clear Cache{/tr}
+    </a>
 </div>
