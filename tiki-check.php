@@ -428,36 +428,80 @@ if (function_exists('disk_free_space')) {
         );
 }
 
+if (! $standalone) {
+    $tikiWikiVersion = new TWVersion();
+    $tikiBaseVersion = $tikiWikiVersion->getBaseVersion();
+}
+
+/**
+ * @param string $tikiBaseVersion
+ * @param string $min The first minimum value in bounds, for example 15.0 if support 15.x or newer
+ * @param string $max The first value out of bounds, for example 16.0 if only support up to 15.x
+ *
+ * @return bool
+ */
+function isVersionInRange($version, $min, $max)
+{
+    return version_compare($version, $min, '>=')
+        && version_compare($version, $max, '<');
+}
+
 // PHP Version
 if (version_compare(PHP_VERSION, '5.6.0', '<')) {
     $php_properties['PHP version'] = array(
-        'fitness' => tra('unsure'),
+        'fitness' => $standalone ?
+            tra('unsure') :
+            (isVersionInRange($tikiWikiVersion, '12.0', '16.0') ? tra('good') : tra('unsure')),
         'setting' => PHP_VERSION,
-        'message' => 'This PHP version is somewhat old. Tiki 12.x LTS or 15.x LTS can be run, but not newer versions. Please see http://doc.tiki.org/Requirements for details.'
+        'message' => 'Tiki 12.x LTS - Tiki 15.x LTS will work fine on this version of PHP. Please see http://doc.tiki.org/Requirements for details.'
     );
 } elseif (version_compare(PHP_VERSION, '7.0.0', '<')) {
     $php_properties['PHP version'] = array(
-        'fitness' => tra('unsure'),
+        'fitness' => $standalone ?
+            tra('unsure') :
+            (isVersionInRange($tikiWikiVersion, '12.0', '19.0') ? tra('good') : tra('unsure')),
         'setting' => PHP_VERSION,
-        'message' => 'This version of PHP is good, and Tiki versions between 15.x LTS and 18.x LTS will work fine on this version of PHP. Please see http://doc.tiki.org/Requirements for details.'
+        'message' => 'Tiki 12.x LTS - TIki 18.x LTS will work fine on this version of PHP. Please see http://doc.tiki.org/Requirements for details.'
     );
 } elseif (version_compare(PHP_VERSION, '7.1.0', '<')) {
     $php_properties['PHP version'] = array(
-        'fitness' => tra('good'),
+        'fitness' => $standalone ?
+            tra('unsure') :
+            (isVersionInRange($tikiWikiVersion, '18.0', '19.0') ? tra('good') : tra('unsure')),
         'setting' => PHP_VERSION,
-        'message' => 'This version of PHP is good, Tiki 18.x - Tiki 20 will work fine on this version of PHP. Please see http://doc.tiki.org/Requirements for details.'
+        'message' => 'Tiki 18.x LTS will work fine on this version of PHP. Please see http://doc.tiki.org/Requirements for details.'
     );
 } elseif (version_compare(PHP_VERSION, '7.2.0', '<')) {
     $php_properties['PHP version'] = array(
-        'fitness' => tra('good'),
+        'fitness' => $standalone ?
+            tra('unsure') :
+            (isVersionInRange($tikiWikiVersion, '18.0', '21.0') ? tra('good') : tra('unsure')),
         'setting' => PHP_VERSION,
-        'message' => 'This version of PHP is good, Tiki 19.x - Tiki 21.x will work fine on this version of PHP. Please see http://doc.tiki.org/Requirements for details.'
+        'message' => 'Tiki 18.x - Tiki 20.x will work fine on this version of PHP. Please see http://doc.tiki.org/Requirements for details.'
+    );
+} elseif (version_compare(PHP_VERSION, '7.3.0', '<')) {
+    $php_properties['PHP version'] = array(
+        'fitness' => $standalone ?
+            tra('unsure') :
+            (isVersionInRange($tikiWikiVersion, '18.0', '22.0') ? tra('good') : tra('unsure')),
+        'setting' => PHP_VERSION,
+        'message' => 'Tiki 18.x - Tiki 21.x will work fine on this version of PHP. Please see http://doc.tiki.org/Requirements for details.'
+    );
+} elseif (version_compare(PHP_VERSION, '7.4.0', '<')) {
+    $php_properties['PHP version'] = array(
+        'fitness' => $standalone ?
+            tra('unsure') :
+            (isVersionInRange($tikiWikiVersion, '21.0', '22.0') ? tra('good') : tra('unsure')),
+        'setting' => PHP_VERSION,
+        'message' => 'Tiki 21.x LTS will work fine on this version of PHP. Please see http://doc.tiki.org/Requirements for details.'
     );
 } else {
     $php_properties['PHP version'] = array(
-        'fitness' => tra('good'),
+        'fitness' => $standalone ?
+            tra('unsure') :
+            (version_compare($tikiBaseVersion, '22.0', '>=') ? tra('good') : tra('unsure')),
         'setting' => PHP_VERSION,
-        'message' => 'This version of PHP is recent. Versions 19.x and newer will work fine on this version of PHP. Please see http://doc.tiki.org/Requirements for details.'
+        'message' => 'Tiki 22.x and newer will work fine on this version of PHP. Please see http://doc.tiki.org/Requirements for details.'
     );
 }
 
@@ -1451,20 +1495,14 @@ if ($connection || ! $standalone) {
     $query = 'SELECT VERSION();';
     $result = query($query, $connection);
     $mysql_version = $result[0]['VERSION()'];
-    $s = version_compare($mysql_version, '5.5.3', '>=');
-    if ($s == true) {
-        $mysql_properties['Version'] = array(
-            'fitness' => tra('good'),
-            'setting' => $mysql_version,
-            'message' => tra('Tiki requires MariaDB >= 5.5 or MySQL >= 5.5.3')
-        );
-    } else {
-        $mysql_properties['Version'] = array(
-            'fitness' => tra('bad'),
-            'setting' => $mysql_version,
-            'message' => tra('Tiki requires MariaDB >= 5.5 or MySQL >= 5.5.3')
-        );
-    }
+    $isMariaDB = preg_match('/mariadb/i', $mysql_version);
+    $minVersion = $isMariaDB ? '5.5' : '5.7';
+    $s = version_compare($mysql_version, $minVersion, '>=');
+    $mysql_properties['Version'] = array(
+        'fitness' => $s ? tra('good') : tra('bad'),
+        'setting' => $mysql_version,
+        'message' => tra('Tiki requires MariaDB >= 5.5 or MySQL >= 5.7')
+    );
 
     // max_allowed_packet
     $query = "SHOW VARIABLES LIKE 'max_allowed_packet'";
@@ -1890,7 +1928,7 @@ if (! $standalone) {
     global $tikipath, $base_host;
 
     $composerManager = new ComposerManager($tikipath);
-    $installedLibs = $composerManager->getInstalled();
+    $installedLibs = $composerManager->getInstalled() ?: [];
 
     $packagesToCheck = array(
         array(
@@ -2392,9 +2430,6 @@ if ($standalone || (! empty($prefs) && $prefs['fgal_enable_auto_indexing'] === '
     );
 
     $file_handlers = array();
-    if (! $standalone) {
-        $tikiWikiVersion = new TWVersion();
-    }
 
     foreach ($fh_possibilities as $type => $options) {
         $file_handler = array(
