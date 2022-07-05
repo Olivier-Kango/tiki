@@ -55,6 +55,11 @@
                             </a>
                         </action>
                         <action>
+                            <a href="{service controller=manager action=checkout instanceId=$instance->id}">
+                                {icon name=logout _menu_text='y' _menu_icon='y' alt="{tr}Checkout{/tr}"}
+                            </a>
+                        </action>
+                        <action>
                             <a href="{service controller=manager action=clone instanceId=$instance->id}">
                                 {icon name=copy _menu_text='y' _menu_icon='y' alt="{tr}Clone{/tr}"}
                             </a>
@@ -102,8 +107,18 @@
                             </a>
                         </action>
                         <action>
+                            <a href="{service controller=manager action=revert instanceId=$instance->id}">
+                                {icon name=refresh _menu_text='y' _menu_icon='y' alt="{tr}Revert{/tr}"}
+                            </a>
+                        </action>
+                        <action>
                             <a href="{service controller=manager action=update instanceId=$instance->id}">
                                 {icon name=import _menu_text='y' _menu_icon='y' alt="{tr}Update{/tr}"}
+                            </a>
+                        </action>
+                        <action>
+                            <a href="{service controller=manager action=upgrade instanceId=$instance->id}">
+                                {icon name=import _menu_text='y' _menu_icon='y' alt="{tr}Upgrade{/tr}"}
                             </a>
                         </action>
                          <action>
@@ -114,16 +129,6 @@
                         <action>
                             <a href="{service controller=manager action=watch instanceId=$instance->id}">
                                 {icon name=eye _menu_text='y' _menu_icon='y' alt="{tr}Watch{/tr}"}
-                            </a>
-                        </action>
-                        <action>
-                            <a href="{service controller=manager action=upgrade instanceId=$instance->id}">
-                                {icon name=import _menu_text='y' _menu_icon='y' alt="{tr}Upgrade{/tr}"}
-                            </a>
-                        </action>
-                        <action>
-                            <a href="{service controller=manager action=checkout instanceId=$instance->id}">
-                                {icon name=logout _menu_text='y' _menu_icon='y' alt="{tr}Checkout{/tr}"}
                             </a>
                         </action>
                     {/strip}{/actions}

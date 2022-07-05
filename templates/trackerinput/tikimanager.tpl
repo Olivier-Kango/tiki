@@ -39,6 +39,11 @@
                                 {icon name=check _menu_text='y' _menu_icon='y' alt="{tr}Check{/tr}"}
                             </a>
                         {/if}
+                        {if in_array('checkout', $field.available_actions)}
+                            <a class="dropdown-item" href="{bootstrap_modal controller=manager action=checkout instanceId=$instance->id}">
+                                {icon name=logout _menu_text='y' _menu_icon='y' alt="{tr}Checkout{/tr}"}
+                            </a>
+                        {/if}
                         {if in_array('clone', $field.available_actions)}
                             <a class="dropdown-item" href="{bootstrap_modal controller=manager action=clone instanceId=$instance->id}">
                                 {icon name=copy _menu_text='y' _menu_icon='y' alt="{tr}Clone{/tr}"}
@@ -82,12 +87,22 @@
                                 {icon name=tools _menu_text='y' _menu_icon='y' alt="{tr}Patches{/tr}"}
                             </a>
                         {/if}
+                        {if in_array('revert', $field.available_actions)}
+                            <a class="dropdown-item" href="{bootstrap_modal controller=revert action=index instanceId=$instance->id}">
+                                {icon name=refresh _menu_text='y' _menu_icon='y' alt="{tr}Revert{/tr}"}
+                            </a>
+                        {/if}
                         {if in_array('update', $field.available_actions)}
                             <a class="dropdown-item" href="{bootstrap_modal controller=manager action=update instanceId=$instance->id}">
                                 {icon name=import _menu_text='y' _menu_icon='y' alt="{tr}Update{/tr}"}
                             </a>
                             <a class="dropdown-item" href="{bootstrap_modal controller=manager action=update instanceId=$instance->id mode=bg}">
                                 {icon name=import _menu_text='y' _menu_icon='y' alt="{tr}Update (background){/tr}"}
+                            </a>
+                        {/if}
+                        {if in_array('upgrade', $field.available_actions)}
+                            <a class="dropdown-item" href="{bootstrap_modal controller=manager action=upgrade instanceId=$instance->id}">
+                                {icon name=import _menu_text='y' _menu_icon='y' alt="{tr}Upgrade{/tr}"}
                             </a>
                         {/if}
                         {if in_array('verify', $field.available_actions)}
@@ -98,16 +113,6 @@
                         {if in_array('watch', $field.available_actions)}
                             <a class="dropdown-item" href="{bootstrap_modal controller=manager action=watch instanceId=$instance->id}">
                                 {icon name=eye _menu_text='y' _menu_icon='y' alt="{tr}Watch{/tr}"}
-                            </a>
-                        {/if}
-                        {if in_array('upgrade', $field.available_actions)}
-                            <a class="dropdown-item" href="{bootstrap_modal controller=manager action=upgrade instanceId=$instance->id}">
-                                {icon name=import _menu_text='y' _menu_icon='y' alt="{tr}Upgrade{/tr}"}
-                            </a>
-                        {/if}
-                        {if in_array('checkout', $field.available_actions)}
-                            <a class="dropdown-item" href="{bootstrap_modal controller=manager action=checkout instanceId=$instance->id}">
-                                {icon name=logout _menu_text='y' _menu_icon='y' alt="{tr}Checkout{/tr}"}
                             </a>
                         {/if}
                     </div>

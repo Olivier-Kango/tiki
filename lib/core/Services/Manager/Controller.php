@@ -952,7 +952,7 @@ class Services_Manager_Controller
             }
         }                              
     }
-
+    
     private function manager_setup_error($event){
         return [
             'title' => tr(ucfirst($event)  . ' Cron Job (No Instance Found)'),
@@ -1054,5 +1054,21 @@ class Services_Manager_Controller
                 'help' => $this->getCommandHelpTexts($cmd)
             ];
         } 
+    }
+    
+    public function action_revert($input)
+    {
+        $cmd = new TikiManager\Command\RevertInstanceCommand();
+        $input = new ArrayInput([
+            'command' => $cmd->getName(),
+            '-i' => $input->instanceId->int()
+        ]);
+        $this->runCommand($cmd, $input);
+        return [
+            'override_action' => 'info',
+            'title' => tr('Tiki Manager - Revert Instance'),
+            'info' => $this->manager_output->fetch(),
+            'refresh' => true,
+        ];
     }
 }

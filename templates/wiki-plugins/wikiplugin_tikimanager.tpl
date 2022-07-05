@@ -68,13 +68,6 @@
                     </a>
                 </action>
                 {/if}
-                {if in_array('upgrade', $available_actions)}
-                    <action>
-                        <a href="{bootstrap_modal controller=manager action=upgrade instanceId=$instance->id}" onclick="$('[data-bs-toggle=popover]').popover('hide');">
-                            {icon name=import _menu_text='y' _menu_icon='y' alt="{tr}Upgrade{/tr}"}
-                        </a>
-                    </action>
-                {/if}
                 {if in_array('backup', $available_actions)}
                     <action>
                         <a href="{bootstrap_modal controller=manager action=backup instanceId=$instance->id}" onclick="$('[data-bs-toggle=popover]').popover('hide');">
@@ -86,6 +79,13 @@
                     <action>
                         <a href="{service controller=manager action=check instanceId=$instance->id}">
                             {icon name=check _menu_text='y' _menu_icon='y' alt="{tr}Check{/tr}"}
+                        </a>
+                    </action>
+                {/if}
+                {if in_array('checkout', $available_actions)}
+                    <action>
+                        <a href="{service controller=manager action=checkout instanceId=$instance->id}">
+                            {icon name=logout _menu_text='y' _menu_icon='y' alt="{tr}Checkout{/tr}"}
                         </a>
                     </action>
                 {/if}
@@ -150,10 +150,24 @@
                         </a>
                     </action>
                 {/if}
+                {if in_array('revert', $available_actions)}
+                    <action>
+                        <a href="{service controller=manager action=revert instanceId=$instance->id}">
+                            {icon name=refresh _menu_text='y' _menu_icon='y' alt="{tr}Revert{/tr}"}
+                        </a>
+                    </action>
+                {/if}
                 {if in_array('update', $available_actions)}
                     <action>
                         <a href="{bootstrap_modal controller=manager action=update instanceId=$instance->id}" onclick="$('[data-bs-toggle=popover]').popover('hide');">
                             {icon name=import _menu_text='y' _menu_icon='y' alt="{tr}Update{/tr}"}
+                        </a>
+                    </action>
+                {/if}
+                {if in_array('upgrade', $available_actions)}
+                    <action>
+                        <a href="{bootstrap_modal controller=manager action=upgrade instanceId=$instance->id}" onclick="$('[data-bs-toggle=popover]').popover('hide');">
+                            {icon name=import _menu_text='y' _menu_icon='y' alt="{tr}Upgrade{/tr}"}
                         </a>
                     </action>
                 {/if}
@@ -168,13 +182,6 @@
                     <action>
                         <a href="{service controller=manager action=watch instanceId=$instance->id}">
                             {icon name=eye _menu_text='y' _menu_icon='y' alt="{tr}Watch{/tr}"}
-                        </a>
-                    </action>
-                {/if}
-                {if in_array('checkout', $available_actions)}
-                    <action>
-                        <a href="{service controller=manager action=checkout instanceId=$instance->id}">
-                            {icon name=logout _menu_text='y' _menu_icon='y' alt="{tr}Checkout{/tr}"}
                         </a>
                     </action>
                 {/if}
