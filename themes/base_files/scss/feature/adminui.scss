@@ -75,6 +75,10 @@ $color-light:    rgba(0, 0, 0, 0.5);
     background-color: transparent !important;
 }
 
+.tiki-admin .box-quickadmin .dropdown-menu.show {
+    height: calc(100vh - 50px);
+}
+
 .tiki-admin .top_modules .nav .open > a:hover {
     background-color: transparent;
 }
@@ -245,10 +249,6 @@ $color-light:    rgba(0, 0, 0, 0.5);
 
 @media (max-width: 767.5px) {
 
-    .tiki-admin #show-errors-button {
-        margin-left: 75px;
-    }
-
     /* Dropdown when open */
 
     .tiki-admin .top_modules .dropdown-menu, .tiki-admin .navbar-collapse {
@@ -267,6 +267,10 @@ $color-light:    rgba(0, 0, 0, 0.5);
 
     .tiki-admin .top_modules.navbar-light-parent .dropdown-menu, .tiki-admin .bg-light .navbar-collapse {
         background-color: $lightgrey !important;
+    }
+
+    .tiki-admin .dropdown-item {
+        white-space: normal;
     }
 
     .tiki-admin .filter-menu .dropdown-menu {
@@ -431,6 +435,7 @@ $color-light:    rgba(0, 0, 0, 0.5);
     /* Font in Menu */
     .tiki-admin .top_modules.navbar-light-parent .dropdown-item, .tiki-admin .navbar-light.admin-navbar .navbar-nav .nav-link, .tiki-admin .top_modules.navbar-dark-parent .dropdown-item, .tiki-admin .navbar-dark.admin-navbar .navbar-nav .nav-link, .tiki-admin .top_modules.navbar-dark-parent .dropdown-menu a, .tiki-admin .top_modules.navbar-light-parent .dropdown-menu a {
         font-size: 1.3rem !important;
+        line-height: 1.2;
     }
 
     .tiki-admin .bg-light .navbar-collapse .dropdown-item, .tiki-admin .bg-dark .navbar-collapse .dropdown-item {
@@ -464,10 +469,6 @@ $color-light:    rgba(0, 0, 0, 0.5);
 }
 
 @media (min-width: 768px) {
-    .tiki-admin #show-errors-button {
-        margin-left: 283px;
-    }
-
     .tiki-admin .filter-menu .nav-item.dropdown {
         padding-top: .4rem !important;
     }
@@ -708,19 +709,33 @@ $color-light:    rgba(0, 0, 0, 0.5);
 
 /* main content */
 
-.tiki-admin:not(.sidebar_collapsed) .row.row-middle, .tiki-admin .intertrans.text-center {
+.tiki-admin:not(.sidebar_collapsed) .row.row-middle, .tiki-admin .intertrans.text-center, .tiki-admin:not(.sidebar_collapsed) .footer {
     margin-left: 268px !important;
 }
 
-.tiki-admin.sidebar_collapsed .row.row-middle, .tiki-admin.sidebar_collapsed .intertrans.text-center {
+.tiki-admin:not(.sidebar_collapsed) #show-errors-button, .tiki-admin:not(.sidebar_collapsed) #errors{
+    margin-left: 283px;
+}
+
+.tiki-admin.sidebar_collapsed #show-errors-button, .tiki-admin.sidebar_collapsed #errors {
+    margin-left: 75px;
+}
+
+.tiki-admin.sidebar_collapsed .row.row-middle, .tiki-admin.sidebar_collapsed .intertrans.text-center, .tiki-admin.sidebar_collapsed .footer {
     margin-left: 60px !important;
 }
 
 @media (max-width: 767.5px){
-    .tiki-admin:not(.sidebar_collapsed) .row.row-middle, .tiki-admin .intertrans.text-center {
+    .tiki-admin:not(.sidebar_collapsed) .row.row-middle, .tiki-admin .intertrans.text-center, .tiki-admin:not(.sidebar_collapsed) .footer {
         margin-left: 60px !important;
     }
+
+    .tiki-admin:not(.sidebar_collapsed) #show-errors-button, .tiki-admin:not(.sidebar_collapsed) #errors {
+        margin-left: 75px;
+    }    
 }
+
+
 
 /* Filter */
 
