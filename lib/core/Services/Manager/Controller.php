@@ -721,6 +721,7 @@ class Services_Manager_Controller
     {
         $instanceId = $input->instanceId->int();
         if (TikiManager\Application\Instance::getInstance($instanceId)) {
+            
             if ($_SERVER['REQUEST_METHOD'] === 'POST'){
                 $cmd = new TikiManager\Command\ApplyProfileCommand();
                 $inputCmd = new ArrayInput([
@@ -845,6 +846,7 @@ class Services_Manager_Controller
                 "--time" => $input->time->text(),
                 "--exclude" => !empty($exclude) ? $exclude : ''
             ]);
+
             $this->runCommand($cmd, $inputCommand);
 
             return [
@@ -865,12 +867,92 @@ class Services_Manager_Controller
         }
     }
 
+    public function action_setup_clone($input){
+        $cmd = new TikiManager\Command\SetupCloneManagerCommand();
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+            
+            $input_array = [
+                "command" => $cmd->getName(),
+                "--time" => $input->crontime->text(),
+                "--source" => $input->source->text(),
+                "--target" => $input->target->text()
+            ];
+
+            if($input->upgrade->text() == "yes"){
+                $input_array["--upgrade"] = true;
+            }
+            
+            if($input->branch->text() == "yes"){
+                $input_array["-b"] = $input->branch->text();
+            }
+
+            if($input->direct->text() == "yes"){
+                $input_array["-d"] = true;
+            }
+
+            if($input->use_last_backup->text() == "yes"){
+                $input_array["--use-last-backup"] = true;
+            }
+
+            if($input->keep_backup->text() == "yes"){
+                $input_array["--keep-backup"] = true;
+            }
+
+            if($input->live_reindex->text() == "yes"){
+                $input_array["--live-reindex"] = true;
+            }
+
+            if($input->skip_reindex->text() == "yes"){
+                $input_array["--skip-reindex"] = true;
+            }
+
+            if($input->skip_cache_warmup->text() == "yes"){
+                $input_array["--skip-cache-warmup"] = true;
+            }
+            
+            $inputCommand = new ArrayInput($input_array);
+
+            $this->runCommand($cmd, $inputCommand);
+
+            return [
+                'title' => tr('Manager Clone Instance Result'),
+                'info' => $this->manager_output->fetch(),
+                'refresh' => true,
+            ];
+        } else {
+            
+            $instances = TikiManager\Application\Instance::getInstances();
+
+            if (count($instances) > 0) {
+                /** For form initialization */
+                $inputValues = [
+                    'instances' => $instances,
+                    'branches' => $this->getTikiBranches()
+                ];
+
+                return [
+                    'title' => tr('Manager Clone Cron Job'),
+                    'info' => '',
+                    'refresh' => true,
+                    'inputValues' => $inputValues,
+                    'help' => $this->getCommandHelpTexts($cmd),
+                ];
+            } else {
+                return [
+                    'title' => tr('Clone Cron Job (No Instance Found)'),
+                    'info' => "No Tiki instances available For clone",
+                    'refresh' => true,
+                ];
+            }
+        }
+    }    
     function action_manager_backup($input)
     {
         $cmd = new TikiManager\Command\SetupBackupManagerCommand();
 
         return $this->manager_setup($input,$cmd,"backup");
-    }
+    } 
 
     function action_manager_update($input)
     {
@@ -960,7 +1042,7 @@ class Services_Manager_Controller
             'refresh' => true,
         ]; 
     }
-    
+
     public function action_backup($input)
     {
         $cmd = new TikiManager\Command\BackupInstanceCommand();

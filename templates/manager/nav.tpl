@@ -10,6 +10,7 @@
     <a class="btn btn-light m-1" href="{service controller=manager action=clear_cache}" title="{tr}Clear Tiki Manager cache. This can be useful for testing and debugging during development, or if your server is short on disk space and you need a temporary relief.{/tr}">
         {icon name=trash} {tr}Clear Cache{/tr}
     </a>
+    <a class="btn btn-light m-1" href="{service controller=manager action=setup_clone}">{icon name=copy} {tr}Setup Clone{/tr}</a>
     <a class="btn btn-light m-1" href="{service controller=manager action=manager_backup}">{icon name=download} {tr}Setup Backup{/tr}</a>
     <a class="btn btn-light m-1" href="{service controller=manager action=manager_update}">{icon name=import} {tr}Setup Update{/tr}</a>
 </div>
