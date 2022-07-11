@@ -42,7 +42,13 @@
                         <td class="integer">{$channels[user].users} ({$channels[user].confirmed})</td>
                         <td class="integer">{$channels[user].editions}</td>
                         <td class="integer">{$channels[user].drafts}</td>
-                        <td class="date">{$channels[user].lastSent|tiki_short_datetime}</td>
+                        <td class="date">
+                            {if empty($channels[user].lastSent)}
+                                {tr}Never{/tr}
+                            {else}
+                                {$channels[user].lastSent|tiki_short_datetime}
+                            {/if}
+                        </td>
                         <td class="action">
                             {actions}
                                 {strip}
