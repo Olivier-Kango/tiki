@@ -8,6 +8,9 @@
     {if in_array('check', $available_actions)}
     <a class="btn btn-light m-1" href="{bootstrap_modal controller=manager action=requirements}">{icon name=check} {tr}Check Requirements{/tr}</a>
     {/if}
+    {if in_array('tiki_versions', $available_actions)}
+    <a class="btn btn-light m-1" href="{bootstrap_modal controller=manager action=tiki_versions}">{icon name=list} {tr}Tiki Versions{/tr}</a>
+    {/if}
     <h2>Instances</h2>
     <table class="table">
     <tr>

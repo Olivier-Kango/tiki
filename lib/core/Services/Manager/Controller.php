@@ -642,4 +642,39 @@ class Services_Manager_Controller
 
     }
 
+    public function action_tiki_versions($input)
+    {
+        $cmd = new TikiManager\Command\TikiVersionCommand();
+
+        if ($input->filter->text()){
+            $inputCommand = new ArrayInput([
+                'command' => $cmd->getName(),
+                "--vcs" => $input->vcs->text(),
+            ]);
+
+            $this->runCommand($cmd, $inputCommand);
+
+            return [
+                'title' => tr('Tiki Versions'),
+                'info' => $this->manager_output->fetch(),
+                'refresh' => true,
+            ];
+        } else {
+            /** Form initialization */
+            $inputValues = [
+                'vcs' => ['git', 'svn', 'src'],
+                'selected_vcs' => 'git'
+            ];
+
+            return [
+                'title' => tr('Tiki Versions'),
+                'info' => '',
+                'refresh' => true,
+                'inputValues' => $inputValues,
+                'help' => $this->getCommandHelpTexts($cmd)
+            ];
+            
+        }
+    }
+
 }
