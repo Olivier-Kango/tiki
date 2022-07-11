@@ -55,7 +55,6 @@ $memory_limiter = new Tiki_MemoryLimit('128M'); // Keep in variable to hold scop
 require_once('lib/setup/tikisetup.class.php');
 require_once('lib/tikiticketlib.php');
 require_once('db/tiki-db.php');
-ErrorTracking::init();
 require_once('lib/tikilib.php');
 $tikilib = new TikiLib();
 // Get tiki-setup_base needed preferences in one query
@@ -72,6 +71,10 @@ $needed_prefs = [
     'lang_use_db' => 'n',
     'feature_fullscreen' => 'n',
     'error_reporting_level' => 0,
+    'error_tracking_dsn' => '',
+    'error_tracking_enabled_php' => 'n',
+    'error_tracking_enabled_js' => 'n',
+    'error_tracking_sample_rate' => '1',
     'memcache_enabled' => 'n',
     'memcache_expiration' => 3600,
     'memcache_prefix' => 'tiki_',
@@ -116,6 +119,9 @@ if (! $tikilib->getOne("SELECT COUNT(*) FROM `information_schema`.`character_set
 $tikilib->get_preferences($needed_prefs, true, true);
 global $systemConfiguration;
 $prefs = $systemConfiguration->preference->toArray() + $prefs;
+
+// Initialize ErrorTracking instance (Sentry/GlitchTip)
+TikiLib::lib('errortracking')->init();
 
 // Handle load balancers or reverse proxy (most reliable to do it early on as much code depends on these 2 server vars)
 
@@ -514,7 +520,8 @@ if (TIKI_API) {
     $login_cookie_value = $_COOKIE["$user_cookie_site"] ?? '';
     // if remember me is enabled, check for cookie where auth hash is stored
     // user gets logged in as the first user in the db with a matching hash
-    if ($prefs['rememberme'] !== 'disabled' &&
+    if (
+        $prefs['rememberme'] !== 'disabled' &&
         ! empty($login_cookie_value) &&
         empty($user) &&
         empty($_SESSION["$user_cookie_site"])
@@ -527,7 +534,7 @@ if (TIKI_API) {
                     $user = $response_value->scalarval();
                 }
             }
-        } else if ($userId = $userlib->get_user_by_cookie($login_cookie_value)) {
+        } elseif ($userId = $userlib->get_user_by_cookie($login_cookie_value)) {
             $userInfo = $userlib->get_userid_info($userId);
             $user = $userInfo['login'];
         }

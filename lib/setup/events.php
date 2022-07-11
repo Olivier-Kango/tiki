@@ -216,6 +216,10 @@ function tiki_setup_events()
         TikiLib::lib('score')->bindEvents($events);
     }
 
+    if ($prefs['error_tracking_enabled_php'] == 'y') {
+        TikiLib::lib('errortracking')->bindEvents($events);
+    }
+
     // If the parameter is supplied by the web server, Tiki will expose a Tiki identifier as a response header
     if (! empty($_SERVER['TIKI_HEADER_REPORT_ID'])) {
         header('X-Tiki-Id: ' . $_SERVER['TIKI_HEADER_REPORT_ID']);

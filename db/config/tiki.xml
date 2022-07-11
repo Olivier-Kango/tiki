@@ -421,6 +421,10 @@
 
         <service id="tiki.lib.ilpinvoicepayment" class="Tiki\Lib\Payment\ILPInvoicePaymentLib" />
 
+        <service id="tiki.lib.errortracking" class="ErrorTracking">
+            <file>%kernel.root_dir%/lib/setup/error_tracking.php</file>
+        </service>
+
         <!--
              Below are sample configurations you can include in a custom.xml file with the same structure as this one.
         -->

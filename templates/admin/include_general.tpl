@@ -123,6 +123,7 @@
                 <legend>{tr}Error Tracking{/tr}</legend>
                 <div class="adminoptionbox">
                     {preference name=error_tracking_dsn}
+                    {preference name=error_tracking_sample_rate}
                     <div class="adminoptionboxchild">
                         {preference name=error_tracking_enabled_php}
                         {preference name=error_tracking_enabled_js}
