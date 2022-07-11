@@ -638,10 +638,27 @@ class Services_Manager_Controller
                 ],
             ];
         }
-
-
     }
 
+    public function action_verify($input)
+    {
+        $cmd = new TikiManager\Command\CheckInstanceCommand();
+
+        $input = new ArrayInput([
+            'command' => $cmd->getName(),
+            '-i' => $input->instanceId->int()
+        ]);
+
+        $this->runCommand($cmd, $input);
+
+        return [
+            'override_action' => 'info',
+            'title' => tr('Tiki Manager Verify Instance'),
+            'info' => $this->manager_output->fetch(),
+            'refresh' => true,
+        ];
+    }
+    
     public function action_tiki_versions($input)
     {
         $cmd = new TikiManager\Command\TikiVersionCommand();
@@ -676,5 +693,4 @@ class Services_Manager_Controller
             
         }
     }
-
 }

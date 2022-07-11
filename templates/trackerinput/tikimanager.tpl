@@ -82,6 +82,11 @@
                                 {icon name=tools _menu_text='y' _menu_icon='y' alt="{tr}Patches{/tr}"}
                             </a>
                         {/if}
+                        {if in_array('verify', $field.available_actions)}
+                            <a class="dropdown-item" href="{bootstrap_modal controller=manager action=verify instanceId=$instance->id}">
+                                {icon name=check _menu_text='y' _menu_icon='y' alt="{tr}Verify{/tr}"}
+                            </a>
+                        {/if}
                     </div>
                 </div>
             </div>
