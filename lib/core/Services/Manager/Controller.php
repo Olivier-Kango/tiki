@@ -322,6 +322,40 @@ class Services_Manager_Controller
         }
     }
 
+
+    public function action_test_send_email($input)
+    {
+        $cmd = new TikiManager\Command\ManagerTestSendEmailCommand();
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+            $inputCommand = new ArrayInput([
+                'command' => $cmd->getName(),
+                "to" => $input->email->text(),
+            ]);
+
+            $this->runCommand($cmd, $inputCommand);
+
+            return [
+                'title' => tr('Test Send Email Result'),
+                'info' => $this->manager_output->fetch(),
+                'refresh' => true,
+            ];
+        } else {
+
+            $inputValues = [
+                'email' => ""
+            ];
+
+            return [
+                'title' => tr('Test send email'),
+                'info' => '',
+                'refresh' => true,
+                'inputValues' => $inputValues
+            ];
+            
+        }
+    }    
+
     public function action_virtualmin_create($input)
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST'){

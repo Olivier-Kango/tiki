@@ -5,4 +5,5 @@
     <a class="btn btn-light m-1" href="{service controller=manager action=info}">{icon name=info} {tr}Info{/tr}</a>
     <a class="btn btn-light m-1" href="{service controller=manager action=requirements}">{icon name=check} {tr}Requirements{/tr}</a>
     <a class="btn btn-light m-1" href="{service controller=manager action=tiki_versions}">{icon name=list} {tr}Tiki Versions{/tr}</a>
+    <a class="btn btn-light m-1" href="{service controller=manager action=test_send_email}">{icon name=envelope} {tr}Test Send Email{/tr}</a>
 </div>
