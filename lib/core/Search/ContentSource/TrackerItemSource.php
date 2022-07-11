@@ -74,7 +74,9 @@ class Search_ContentSource_TrackerItemSource implements Search_ContentSource_Int
             $data = array_merge($data, $documentPart);
 
             $field = $handler->getFieldDefinition();
-            if ($field['isHidden'] != 'n' || ! empty($field['visibleBy'])) {
+            // if isHidden is "y" (Visible after creation by administrators only) then fiueld perms apply
+            // all other settings of "visibility" control writing, not reading
+            if ($field['isHidden'] === 'y' || ! empty($field['visibleBy'])) {
                 $fieldPermissions[$field['permName']] = array_merge(
                     $itemObject->getAllowedUserGroupsForField($field),
                     ['perm_names' => array_keys($documentPart)]
