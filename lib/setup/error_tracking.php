@@ -209,7 +209,7 @@ class ErrorTracking
 
     public function handleError($errno, $errstr, $errfile, $errline): bool
     {
-        if ($this->errorHandler) {
+        if ($this->errorHandler ?? false) {
             return false !== ($this->errorHandler)($errno, $errstr, $errfile, $errline);
         }
 
