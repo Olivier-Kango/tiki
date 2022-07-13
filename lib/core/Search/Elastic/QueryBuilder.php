@@ -154,15 +154,42 @@ class Search_Elastic_QueryBuilder
                 ],
             ];
         } elseif ($node instanceof Range) {
-            return [
-                'range' => [
-                    $this->getNodeField($node) => [
-                        "gte" => $this->getTerm($node->getToken('from')),
-                        "lte" => $this->getTerm($node->getToken('to')),
-                        "boost" => $node->getWeight(),
+            $from = $this->getTerm($node->getToken('from'));
+            $to = $this->getTerm($node->getToken('to'));
+            $field = $this->getNodeField($node);
+            if ($from === "" || is_null($from)) {
+                return [
+                    'bool' => [
+                        'should' => [[
+                            'range' => [
+                                $field => [
+                                    "gte" => $from,
+                                    "lte" => $to,
+                                    "boost" => $node->getWeight(),
+                                ],
+                            ],
+                        ], [
+                            'bool' => [
+                                'must_not' => [
+                                    'exists' => [
+                                        'field' => $field
+                                    ]
+                                ],
+                            ],
+                        ]]
+                    ]
+                ];
+            } else {
+                return [
+                    'range' => [
+                        $field => [
+                            "gte" => $from,
+                            "lte" => $to,
+                            "boost" => $node->getWeight(),
+                        ],
                     ],
-                ],
-            ];
+                ];
+            }
         } elseif ($node instanceof MoreLikeThis) {
             $type = $node->getObjectType();
             $object = $node->getObjectId();

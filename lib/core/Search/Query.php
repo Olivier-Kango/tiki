@@ -149,7 +149,7 @@ class Search_Query implements Search_Query_Interface
      */
     public function filterRange($from, $to, $field = 'modification_date')
     {
-        if (! is_numeric($from)) {
+        if (! is_numeric($from) && $from !== "") {
             $from2 = strtotime($from);
             if ($from2) {
                 $from = $from2;
@@ -167,7 +167,7 @@ class Search_Query implements Search_Query_Interface
         }
 
         /* make the range filter work regardless of ordering - if from > to, swap */
-        if ($to < $from) {
+        if (is_numeric($from) && is_numeric($to) && $to < $from) {
             $temp = $to;
             $to = $from;
             $from = $temp;

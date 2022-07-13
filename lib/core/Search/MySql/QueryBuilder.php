@@ -103,10 +103,17 @@ class Search_MySql_QueryBuilder
             $this->requireIndex($node->getField(), 'index', $node->getWeight());
             return "`{$this->tfTranslator->shortenize($node->getField())}` LIKE $value";
         } elseif ($node instanceof Range) {
-            $from = $this->getQuoted($node->getToken('from'));
-            $to = $this->getQuoted($node->getToken('to'));
-            $this->requireIndex($node->getField(), 'index', $node->getWeight());
-            return "`{$this->tfTranslator->shortenize($node->getField())}` BETWEEN $from AND $to";
+            $raw = $this->getRaw($node->getToken('from'));
+            if ($raw === "" || is_null($raw)) {
+                $to = $this->getQuoted($node->getToken('to'));
+                $this->requireIndex($node->getField(), 'index', $node->getWeight());
+                return "(`{$this->tfTranslator->shortenize($node->getField())}` <= $to OR `{$this->tfTranslator->shortenize($node->getField())}` IS NULL)";
+            } else {
+                $from = $this->getQuoted($node->getToken('from'));
+                $to = $this->getQuoted($node->getToken('to'));
+                $this->requireIndex($node->getField(), 'index', $node->getWeight());
+                return "`{$this->tfTranslator->shortenize($node->getField())}` BETWEEN $from AND $to";
+            }
         } else {
             // Throw initial exception if fallback fails
             throw $exception ?: new Exception(tr('Feature not supported: %0', get_class($node)));
