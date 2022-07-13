@@ -450,6 +450,10 @@
   text-align: center;
   border: none;
 }
+.tiki-admin .admin-content nav.navbar-expand-md.mb-4 .navbar-brand img {
+  max-width: 32px;
+  max-height: 32px;
+}
 .tiki-admin .box-logo {
   display: none;
 }
