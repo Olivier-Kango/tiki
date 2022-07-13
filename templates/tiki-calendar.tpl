@@ -68,7 +68,7 @@
                 <form class="card" id="filtercal" method="get" action="{$myurl}" name="f" style="display:none;">
                     <div class="card-header caltitle py-1 px-2">
                         <strong>{tr}Calendars{/tr}</strong>
-                        <button type="button" class="btn-close"  onclick="toggle('filtercal')" aria-hidden="true">×</button>
+                        <button type="button" class="btn-close"  onclick="toggle('filtercal')" aria-hidden="true"></button>
                     </div>
                     <ul class="list-group list-group-flush list-unstyled mt-2">
                         <li class="caltoggle">
@@ -125,7 +125,7 @@ $("#filtercal").submit(function () {
             {/if}
 
             {if count($thiscal)}
-                <div id="configlinks" class="mb-3 row text-end">
+                <div id="configlinks" class="mb-3 text-end">
                     {assign var='maxCalsForButton' value=20}
                     {if count($checkedCals) > $maxCalsForButton}<select size="5">{/if}
                     {foreach item=k from=$listcals name=listc}

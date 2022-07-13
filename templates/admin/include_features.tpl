@@ -71,6 +71,7 @@
                     {preference name=feature_areas}
                     {preference name=feature_system_suggestions}
                     {preference name=feature_templated_groups}
+                    {preference name=site_mautic_enable}
                     <legend><h4 class="showhide_heading" id="Watches">{tr}Watches{/tr} <a href="#Watches" class="heading-link"><span class="icon icon-link fas fa-link "></span></a></h4></legend>
                     <div class="adminoptionboxchild">
                         <fieldset>

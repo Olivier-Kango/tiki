@@ -43,7 +43,7 @@
                             </a>
                         {/if}
                         {if in_array('delete', $field.available_actions)}
-                            <a class="dropdown-item" href="{bootstrap_modal controller=manager action=delete instanceId=$instance->id}">
+                            <a class="dropdown-item" href="{bootstrap_modal controller=manager_field action=delete instanceId=$instance->id itemId=$field.id fieldId=$field.fieldId}">
                                 {icon name=times _menu_text='y' _menu_icon='y' alt="{tr}Delete{/tr}"}
                             </a>
                         {/if}
@@ -82,19 +82,25 @@
                                 {icon name=tools _menu_text='y' _menu_icon='y' alt="{tr}Patches{/tr}"}
                             </a>
                         {/if}
+                        {if in_array('verify', $field.available_actions)}
+                            <a class="dropdown-item" href="{bootstrap_modal controller=manager action=verify instanceId=$instance->id}">
+                                {icon name=check _menu_text='y' _menu_icon='y' alt="{tr}Verify{/tr}"}
+                            </a>
+                        {/if}
                     </div>
                 </div>
             </div>
         {/foreach}
     {/if}
     {if in_array('create', $field.available_actions) and !$field.has_created_one}
-        <div class="btn-group" role="group">
-            <a class="btn btn-primary btn-sm dropdown-toggle" data-bs-toggle="dropdown" data-bs-hover="dropdown" aria-expanded="false" href="#">
+        {if $field.source}{assign var=action value=create_source}{else}{assign var=action value=create}{/if}
+        <div class="btn-group">
+            <a class="btn btn-primary btn-sm dropdown-toggle" id="createInstance" data-bs-toggle="dropdown" data-bs-hover="dropdown" aria-expanded="false" href="#">
                 {icon name=create _menu_text='y' _menu_icon='y' alt="{tr}Create new instance{/tr}"}
             </a>
-            <div class="dropdown-menu">
+            <div class="dropdown-menu" aria-labelledby="createInstance">
                 {foreach $field.versions as $version}
-                    <a class="dropdown-item" href="{bootstrap_modal controller=manager_field action=create itemId=$field.id fieldId=$field.fieldId version=$version}">
+                    <a class="dropdown-item" href="{bootstrap_modal controller=manager_field action=$action itemId=$field.id fieldId=$field.fieldId version=$version}">
                         {$version}
                     </a>
                 {/foreach}

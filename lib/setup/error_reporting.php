@@ -36,7 +36,9 @@ if (! empty($prefs['smarty_notice_reporting']) and $prefs['smarty_notice_reporti
 $smarty->error_reporting = $smartyErrorReportingLevel; // Ensure that Smarty respects the same level of report as Tiki (pref smarty_notice_reporting is already handled above)
 
 if (php_sapi_name() != 'cli') { // This handler collects errors to display at the bottom of the general template, so don't use it in CLI, otherwise errors would be lost.
-    set_error_handler('tiki_error_handling', $errorReportingLevel);
+    if ($previousErrorHandler = set_error_handler('tiki_error_handling', $errorReportingLevel)) {
+        TikiLib::lib('errortracking')->setErrorHandler($previousErrorHandler);
+    };
 }
 error_reporting($errorReportingLevel);
 

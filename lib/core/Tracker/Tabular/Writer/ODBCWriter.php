@@ -55,7 +55,7 @@ class ODBCWriter
     /**
      * Called after trackeritem save event, this method updates remote data source with local changes
      */
-    public function sync(\Tracker\Tabular\Schema $schema, int $item_id, array $old_values, array $new_values)
+    public function sync(\Tracker\Tabular\Schema $schema, int $item_id, array $old_values, array $new_values, &$is_new)
     {
         $schema->validate();
         $columns = $schema->getColumns();
@@ -102,6 +102,27 @@ class ODBCWriter
             }
         }
 
+        // let the odbc manager create the record remotely even if autoincrement value has been assigned locally
+        // we need this to prevent overwrites of remote data when it wasn't synced with local data
+        if (empty($old_values)) {
+            $id = null;
+        }
+
+        if ($pk && !$id) {
+            foreach ($columns as $column) {
+                if ($column->isUniqueKey() && isset($fullRow[$column->getRemoteField()])) {
+                    // for single mapped remote fields marked as unique, check uniqeness remotely and if not, get next unique value
+                    // reason: local data might not be fully synced from remote data at the time new entries are inserted
+                    if ($this->odbc_manager->valueExists($column->getRemoteField(), $fullRow[$column->getRemoteField()])) {
+                        $fullRow[$column->getRemoteField()] = $this->odbc_manager->nextValue($column->getRemoteFIeld());
+                        if (isset($row[$column->getRemoteField()])) {
+                            $row[$column->getRemoteField()] = $fullRow[$column->getRemoteField()];
+                        }
+                    }
+                }
+            }
+        }
+
         if ($pk) {
             $result = $this->odbc_manager->replace($pk, $id, $row, $fullRow);
         } else {
@@ -113,9 +134,10 @@ class ODBCWriter
             }
             $result = $this->odbc_manager->replaceWithoutPK($existing, $row);
         }
+        $is_new = $result['is_new'];
 
         // map back the remote values to local field values
-        $entry = new ODBCSourceEntry($result);
+        $entry = new ODBCSourceEntry($result['entry']);
         $mapped = [];
         foreach ($columns as $column) {
             $permName = $column->getField();

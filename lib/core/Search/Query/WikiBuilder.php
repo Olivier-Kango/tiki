@@ -246,7 +246,7 @@ class Search_Query_WikiBuilder
             return;
         }
 
-        if (isset($arguments['from']) && ! is_numeric($arguments['from'])) {
+        if (isset($arguments['from']) && ! is_numeric($arguments['from']) && $arguments['from'] !== "") {
             $time = strtotime($arguments['from']);
             if (! $time) {
                 Feedback::error(tr('Range filter "from" parameter not valid: "%0"', $arguments['from']));
@@ -273,7 +273,7 @@ class Search_Query_WikiBuilder
         if (! isset($arguments['from']) && isset($arguments['to'], $arguments['gap'])) {
             $arguments['from'] = $arguments['to'] - $arguments['gap'];
         }
-        if (! isset($arguments['to']) && isset($arguments['from'], $arguments['gap'])) {
+        if (! isset($arguments['to']) && isset($arguments['from'], $arguments['gap']) && $arguments['from'] !== "") {
             $arguments['to'] = $arguments['from'] + $arguments['gap'];
         }
         if (! isset($arguments['from'], $arguments['to'])) {

@@ -47,7 +47,7 @@ if ((isset($_REQUEST["rename"]) || isset($_REQUEST["confirm"])) && $access->chec
     }
 
     $max_pagename_length = $wikilib->max_pagename_length();
-    if (strlen($newName) > $max_pagename_length) {
+    if (mb_strlen($newName) > $max_pagename_length) {
         $smarty->assign('msg', tra("You have exceeded the number of characters allowed (158 max) for the page name field"));
         $smarty->display("error.tpl");
         die;

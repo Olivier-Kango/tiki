@@ -28,11 +28,35 @@ body.layout_social.tiki.navbar-padding {
 }
 
 .bg-dark {
-    background-color: $middle_outer-inset-shadow-bg !important;
+    background-color: $topbar-bg !important;
+    color: $navbar-dark-color;
+    .btn-outline-info {
+        color: $bg-dark-info;
+    }
+}
+
+.btn-outline-dark {
+    color: $dark;
+    outline-color: $dark;
+}
+
+.layout_basic {
+//    #top_modules.bg-dark,
+//    #top_modules.bg-light,
+    .topbar_modules,
+    .topbar.bg-dark,
+    .topbar.bg-light,
+    .topbar .bg-light,
+    .topbar .bg-dark { background: $topbar-bg !important; }
+}
+
+.sitelogo {
+    padding: 30px;
 }
 
 a,
-.btn-link {
+.btn-link,
+.page-link {
     color: $link-color;
 }
 
@@ -49,11 +73,6 @@ a:focus,
     border-color: $input-border-top-color $input-border-left-color #ffffff;
 }
 
-// .nav-tabs .nav-link.active,
-// .nav-tabs .nav-item.show .nav-link {
-//     color: $btn-info-color;
-//     background-color: $btn-info-active-bg;
-// }
 
 hr {
     border-top: 1px solid $hr-border-color;
@@ -154,12 +173,13 @@ hr {
 .navbar-dark .navbar-form {
     border-color: transparent;
 }
-
-.navbar-dark .open > a,
-.navbar-dark .open > a:hover,
-.navbar-dark .open > a:focus {
+nav:not(.topbar_modules,.top_modules) {
+    &.navbar-dark .open > a,
+    &.navbar-dark .open > a:hover,
+    &.navbar-dark .open > a:focus {
     //  background-color: #14899e;
     color: $navbar-dark-color;
+    }
 }
 
 .navbar-dark .navbar-link:hover {
@@ -168,6 +188,37 @@ hr {
 
 .navbar .navbar {
     background: transparent !important;
+}
+
+.dropdown-menu {
+    background-color: $dropdown-bg; //#005064;
+    border: 1px solid $dropdown-border-color; // rgba(0, 0, 0, 0.15);
+}
+
+.tiki .dropdown-item,
+.tiki .dropdown-item a,
+.tiki .dropdown-item .btn.btn-link {
+    color: $dropdown-link-color;
+    &:hover,
+    &:focus {
+        color: $dropdown-link-hover-color;
+        background: $dropdown-link-hover-bg;
+    }
+    &:active,
+    &.active {
+        color: $dropdown-link-hover-color;
+        background: $dropdown-link-active-bg;
+    }
+    &.disabled,
+    &:disabled {
+        color: $dropdown-link-disabled-color;
+    }
+    .dropdown-header {
+        color: $dropdown-header-color;
+    }
+    .dropdown-divider {
+        background: $dropdown-divider-bg;
+    }
 }
 
 // So form submit buttons with icons and text used in dropdown menus can look just like links
@@ -192,13 +243,7 @@ hr {
     background-color: $nav-pills-link-active-bg; //#0b8a98;
 }
 
-.pagination > li > a,
-.pagination > li > span {
-    color: $pagination-color; //#0b8a98;
-    background-color: $pagination-bg; //#ffffff;
-    border: 1px solid $pagination-border-color; //#dddddd;
-}
-
+// Pagination
 .pagination > li > a:hover,
 .pagination > li > span:hover,
 .pagination > li > a:focus,
@@ -230,6 +275,7 @@ hr {
     border-color: $pagination-disabled-border-color; //#dddddd;
 }
 
+// Cards
 .col2,
 .col3 {
     .card-header {
@@ -243,9 +289,9 @@ header.page-header {
     border-bottom: none;
 }
 
-header.page-header a,
+header.page-header a:not(.dropdown-item),
 header.page-header a.btn-link {
-    color: #ffffff !important;
+    color: $page-header-link-color; // This needs to be a variable because Kiwi uses black: $page-header-link-color.
 }
 
 .form-control, select,
@@ -386,23 +432,23 @@ header.header .sitesubtitle {
     color: $autotoc-color; //#ffffff;
 }
 
-.autotoc .nav > li > a:hover,
-.autotoc .nav .nav > li > a:hover,
-.autotoc .nav > li > a:focus {
-    color: $autotoc-nav-link-hover-color; //#f2f2f2;
-    background: $autotoc-nav-link-hover-bg; //#2e1f39;
+#autotoc .nav > li > a:hover,
+#autotoc .nav .nav > li > a:hover,
+#autotoc .nav > li > a:focus {
+    color: $autotoc-nav-li-link-hover-color; //#f2f2f2;
+    background: $autotoc-nav-li-link-hover-bg; //#2e1f39;
 }
 
-.autotoc .nav {
+#autotoc .nav {
     > li {
         .active, &.open > a {
-            color: $autotoc-nav-link-hover-color;
-            background: $autotoc-nav-link-hover-bg;
+            color: $autotoc-nav-li-link-hover-color;
+            background: $autotoc-nav-li-link-hover-bg;
         }
     }
 }
 
-.autotoc .nav .dropdown-item {
+#autotoc .nav .dropdown-item {
     color: $autotoc-color;}
 
 #col2 .card-title,
@@ -421,4 +467,15 @@ footer#footer {
             border-bottom: 1px dotted $footer_liner-card-inner-border;
         }
     }
+}
+
+.btn-dark {
+    color: $light;
+    background: $dark;
+    border-color: $dark;
+}
+
+.page-item.disabled,
+.list-group-item.disabled {
+    color: $text-muted !important;
 }

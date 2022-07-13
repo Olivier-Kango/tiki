@@ -275,6 +275,11 @@ class RSSLib extends TikiDb_Bridge
 
         foreach ($changes["data"] as $data) {
             $item = $feed->createEntry();
+            
+            if (empty($data[$titleId]) || ! is_string($data[$titleId])) {
+                $data[$titleId] = tra('No title specified');
+            }
+
             $item->setTitle($data[$titleId]);
 
             if (isset($data['sefurl'])) {
@@ -294,7 +299,10 @@ class RSSLib extends TikiDb_Bridge
 
             if ($authorId != '' && $prefs['feed_' . $section . '_showAuthor'] == 'y') {
                 $author = $this->process_item_author($data[$authorId]);
-                $item->addAuthor($author);
+                
+                if (array_key_exists('name', $author) && ! empty($author['name']) && is_string($author['name'])) {
+                    $item->addAuthor($author);
+                }
             }
 
             $feed->addEntry($item);

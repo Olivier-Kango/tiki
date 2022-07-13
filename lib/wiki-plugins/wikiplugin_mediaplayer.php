@@ -182,7 +182,7 @@ function wikiplugin_mediaplayer($data, $params)
     $access = TikiLib::lib('access');
     static $iMEDIAPLAYER = 0;
     $id = 'mediaplayer' . ++$iMEDIAPLAYER;
-    $params['type'] = strtolower(isset($params['type'])?$params['type']:'');
+    $params['type'] = strtolower(isset($params['type']) ? $params['type'] : '');
 
     if (empty($params['mp3']) && empty($params['flv']) && empty($params['src'])) {
         return '';
@@ -357,7 +357,16 @@ function wikiplugin_mediaplayer($data, $params)
                     $smarty->loadPlugin('smarty_modifier_sefurl');
                     $sourceLink = smarty_modifier_sefurl($fileId, 'display');
                 } else {
+                    global $base_url;
                     $sourceLink = TikiLib::lib('access')->absoluteUrl($params['src']);
+
+                    // Not an internal link, lets set a security token.
+                    if (strrpos($sourceLink, $base_url) === false) {
+                        $data = Tiki_Security::get()->encode(['url' => $params['src']]);
+                        $sourceLink = TikiLib::tikiUrl('tiki-download_file.php', [
+                            'data'   => $data,
+                        ]);
+                    }
                 }
 
                 if (! empty($sourceLink)) {

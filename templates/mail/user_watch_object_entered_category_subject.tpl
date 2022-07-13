@@ -1,1 +1,1 @@
-{* $Id$ *}{tr}An object was added to {$prefs.mail_template_custom_text}category{/tr} {$categoryName}
+{* $Id$ *}{tr _0=$prefs.mail_template_custom_text}An object was added to %0category{/tr} {$categoryName}

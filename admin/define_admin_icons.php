@@ -315,6 +315,12 @@ if ($prefs['theme_unified_admin_backend'] === 'y') {
                     'description' => tr('Search Engine Friendly URLs'),
                     'help'        => 'Search-Engine-Friendly-URL',
                 ],
+                'mautic'      => [
+                    'title'       => tr('Marketing Automation'),
+                    'disabled'    => $prefs['site_mautic_enable'] != 'y',
+                    'description' => tr('Add Mautic Marketing Automation To Your Website'),
+                    'help'        => 'Tiki-Mautic-Integration',
+                ],
                 'performance' => [
                     'title'       => tr('Performance'),
                     'description' => tr('Server performance settings'),

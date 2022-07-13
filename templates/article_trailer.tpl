@@ -1,5 +1,10 @@
 {if !isset($preview)}
     <div class="clearfix articletrailer">
+        {if $pdf_export eq 'y'}
+            <div class="wikiinfo float-left" id="pdfinfo" style="display:none">
+                <div class="alert alert-info" style="width:500px"><h4><span class="icon icon-information fas fa-info-circle fa-fw "></span>&nbsp;<span class="rboxtitle">{tr}Please wait{/tr}</span></h4><div class="rboxcontent" style="display: inline"><span class="fas fa-circle-notch fa-spin" style="font-size:24px"></span>{tr} The PDF is being prepared, please wait...{/tr}</div></div>
+            </div>
+        {/if}
         <span>
             {if $show_size eq 'y'}
                 ({$size} {tr}bytes{/tr})
@@ -28,6 +33,17 @@
                         {if $prefs.feature_cms_print eq 'y'}
                             <a class="dropdown-item" href="tiki-print_article.php?articleId={$articleId}">
                                 {icon name='print'} {tr}Print{/tr}
+                            </a>
+                        {/if}
+                        {if $pdf_export eq 'y' and $pdf_warning eq 'n'}
+                            <a class="dropdown-item" href="tiki-print_article.php?articleId={$articleId}&display=pdf">
+                                {icon name="pdf"} {tr} &nbsp;PDF{/tr}
+                                {assign var="hasPageAction" value="1"}
+                            </a>
+                        {elseif $tiki_p_admin eq "y" and $pdf_warning eq 'y'}
+                            <a href="tiki-admin.php?page=packages" target="_blank" class="dropdown-item text-danger" title="{tr}Warning:mPDF Package Missing{/tr}">
+                                {icon name="warning"} {tr} PDF{/tr}
+                                {assign var="hasPageAction" value="1"}
                             </a>
                         {/if}
                         {if $prefs.user_favorites eq 'y'}

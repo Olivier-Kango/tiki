@@ -25,31 +25,18 @@ class Services_Manager_FieldController
     {
         global $user;
 
-        $itemId = $input->itemId->int();
-        $fieldId = $input->fieldId->int();
+        list($item, $handler) = $this->getItemAndFieldHandler($input);
 
-        if (empty($itemId) || empty($fieldId)) {
-            throw new Services_Exception(tr("Missing itemId or fieldId."));
-        }
-
-        $field = TikiLib::lib('trk')->get_field_info($fieldId);
-
-        if (! $field) {
-            throw new Services_Exception(tr("Field not found: %0", $fieldId));
-        }
-
-        $handler = TikiLib::lib('trk')->get_field_handler($field);
         $type = $handler->getOption('newInstanceType');
         $conn_host = $handler->getOption('newInstanceHost');
         $conn_port = $handler->getOption('newInstancePort');
         $conn_user = $handler->getOption('newInstanceUser');
         $conn_pass = $handler->getOption('newInstancePass');
-        $name = 'Item ' . $itemId . ' Field ' . $fieldId . ' Instance';
         $contact = TikiLib::lib('user')->get_user_email($user);
-        $uniqid = uniqid();
-        $weburl = str_replace('{slug}', $uniqid, $handler->getOption('newInstanceTemplateUrl'));
-        $webroot = str_replace('{slug}', $uniqid, $handler->getOption('newInstanceWebroot'));
-        $tempdir = str_replace('{slug}', $uniqid, $handler->getOption('newInstanceTempdir'));
+        $name = uniqid();
+        $weburl = str_replace('{slug}', $name, $handler->getOption('newInstanceTemplateUrl'));
+        $webroot = str_replace('{slug}', $name, $handler->getOption('newInstanceWebroot'));
+        $tempdir = str_replace('{slug}', $name, $handler->getOption('newInstanceTempdir'));
         $backup_user = $handler->getOption('newInstanceBackupUser');
         $backup_group = $handler->getOption('newInstanceBackupGroup');
         $backup_perms = $handler->getOption('newInstanceBackupPerms');
@@ -93,8 +80,56 @@ class Services_Manager_FieldController
             '--db-prefix' => $db_prefix,
         ]);
         $this->runCommand($cmd, $input);
+
+        $this->addInstanceToFieldValue($name, $handler, $item);
+
         return [
             'title' => tr('Tiki Manager Create Instance'),
+            'info' => $this->manager_output->fetch(),
+        ];
+    }
+
+    public function action_create_source($input)
+    {
+        global $user;
+
+        list($item, $handler) = $this->getItemAndFieldHandler($input);
+
+        $source = $handler->getOption('source');
+        $remote_user = uniqid();
+        $domain = str_replace('{slug}', $remote_user, $handler->getOption('newInstanceTemplateUrl'));
+        $domain = str_replace('https://', '', $domain);
+        $email = TikiLib::lib('user')->get_user_email($user);
+        $name = $domain;
+        $branch = $input->version->text();
+
+        $output = $this->createVirtualminTikiInstance($source, $remote_user, $domain, $email, $domain, $branch);
+
+        $this->addInstanceToFieldValue($name, $handler, $item);
+
+        return [
+            'title' => tr('Create Virtualmin Instance Result'),
+            'override_action' => 'create',
+            'info' => $output,
+        ];
+    }
+
+    public function action_delete($input)
+    {
+        list($item, $handler) = $this->getItemAndFieldHandler($input);
+
+        $cmd = new TikiManager\Command\DeleteInstanceCommand();
+        $cmdInput = new ArrayInput([
+            'command' => $cmd->getName(),
+            '-i' => $input->instanceId->int(),
+        ]);
+        $this->runCommand($cmd, $cmdInput);
+
+        $this->removeInstanceFromFieldValue($input->instanceId->int(), $handler, $item);
+
+        return [
+            'override_action' => 'create',
+            'title' => tr('Tiki Manager Delete Instance'),
             'info' => $this->manager_output->fetch(),
         ];
     }
@@ -103,5 +138,66 @@ class Services_Manager_FieldController
     {
         $this->loadManagerEnv();
         $this->setManagerOutput();
+    }
+
+    protected function getItemAndFieldHandler($input)
+    {
+        $trklib = TikiLib::lib('trk');
+        $itemId = $input->itemId->int();
+        $fieldId = $input->fieldId->int();
+
+        if (empty($itemId) || empty($fieldId)) {
+            throw new Services_Exception(tr("Missing itemId or fieldId."));
+        }
+
+        $field = $trklib->get_field_info($fieldId);
+
+        if (! $field) {
+            throw new Services_Exception(tr("Field not found: %0", $fieldId));
+        }
+
+        $item = $trklib->get_tracker_item($itemId);
+
+        if (! $item) {
+            throw new Services_Exception(tr("Item not found: %0", $itemId));
+        }
+
+        return [$item, $trklib->get_field_handler($field, $item)];
+    }
+
+    protected function addInstanceToFieldValue($instanceName, $handler, $item)
+    {
+        $instances = TikiManager\Application\Instance::getInstances(false);
+        $instances = array_filter($instances, function($i) use ($instanceName) {
+            return $i->name == $instanceName;
+        });
+        $instance = array_shift($instances);
+        if ($instance) {
+            $value = $handler->addValue($instance->getId());
+            $this->saveFieldValue($value, $handler, $item);
+        }
+    }
+
+    protected function removeInstanceFromFieldValue($instanceId, $handler, $item)
+    {
+        $value = $handler->removeValue($instanceId);
+        $this->saveFieldValue($value, $handler, $item);
+    }
+
+    protected function saveFieldValue($value, $handler, $item)
+    {
+        $field = $handler->getFieldDefinition();
+        $utilities = new Services_Tracker_Utilities();
+        $utilities->updateItem(
+            Tracker_Definition::get($item['trackerId']),
+            [
+                'itemId' => $item['itemId'],
+                'status' => $item['status'],
+                'fields' => [
+                    $field['fieldId'] => $value,
+                ],
+                'validate' => false,
+            ]
+        );
     }
 }

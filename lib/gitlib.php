@@ -255,6 +255,7 @@ class GitLib extends TikiLib
                 $info['parent'][] = $line[ 1 ];
             }
         }
+        $info['mdate'] = filemtime('.git/FETCH_HEAD');
 
         return $info;
     }

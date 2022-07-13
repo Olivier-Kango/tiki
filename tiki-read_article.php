@@ -248,6 +248,18 @@ $statslib->stats_hit($article_data["title"], "article", $article_data['articleId
 if ($prefs['feature_actionlog'] == 'y') {
     $logslib->add_action('Viewed', $_REQUEST['articleId'], 'article');
 }
+
+// Detect if we have a PDF export mod installed
+$smarty->assign('pdf_export', ($prefs['print_pdf_from_url'] != 'none') ? 'y' : 'n');
+$smarty->assign('pdf_warning', 'n');
+
+//checking if mPDF package is available
+if ($prefs['print_pdf_from_url'] == "mpdf") {
+    if (! class_exists('\\Mpdf\\Mpdf')) {
+        $smarty->assign('pdf_warning', 'y');
+    }
+}
+
 // Display the Index Template
 $smarty->assign('mid', 'tiki-read_article.tpl');
 $smarty->display("tiki.tpl");

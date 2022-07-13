@@ -50,5 +50,25 @@ function prefs_error_list()
             'filter'      => 'url',
             'default'     => '',
         ],
+        'error_tracking_sample_rate' => [
+            'name'        => tra('Sample rate'),
+            'description' => tra('Sampling allows you to better manage the number of reported events, so you can tailor the volume of data needed. Use a value between 0 and 1. E.g.: 0.25 (will report 25% of the events)'),
+            'type'        => 'text',
+            'default'     => '1',
+            'tags'        => ['advanced'],
+        ],
+        'error_generic_non_admins'   => [
+            'name'        => tra('Show generic error message'),
+            'description' => tra('Show a generic error message for non admins users. The error is logged to the database.'),
+            'type'        => 'flag',
+            'default'     => 'n',
+        ],
+        'error_generic_message'      => [
+            'name'        => tra('Generic error message'),
+            'description' => tra('Message to display to non admin users when an error occurs.'),
+            'type'        => 'text',
+            'filter'      => 'text',
+            'default'     => 'There was an issue with your request, please try again later.',
+        ],
     ];
 }

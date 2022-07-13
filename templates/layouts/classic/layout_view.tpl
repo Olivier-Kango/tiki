@@ -21,7 +21,7 @@
     <div id="header-shadow">{eval var=$prefs.header_shadow_start}{/if}
         <div class="header_outer bg-{$navbar_color_variant}-parent" id="header_outer">
             <div class="header_container">
-                <div class="container{if $smarty.session.fullscreen eq 'y'}-fluid{/if} container-std">
+                <div class="container{* {if $smarty.session.fullscreen eq 'y'}*}-fluid{*{/if}*} container-std">
                     <header class="header page-header row" id="page-header">
                         {modulelist zone=top class="top_modules d-flex justify-content-between w-100 navbar-{$navbar_color_variant}-parent bg-{$navbar_color_variant}-parent"}
                     </header>

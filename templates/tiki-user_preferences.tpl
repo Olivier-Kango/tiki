@@ -615,6 +615,7 @@
         {tab name="{tr}Account Information{/tr}"}
             <h2>{tr}Account Information{/tr}</h2>
             <form action="tiki-user_preferences.php" method="post">
+                {include file='password_jq.tpl'}
                 {ticket}
                 <input type="hidden" name="view_user" value="{$userwatch|escape}">
                     {if $prefs.auth_method neq 'cas' || ($prefs.cas_skip_admin eq 'y' && $user eq 'admin')}
@@ -652,6 +653,13 @@
                                 </label>
                                 <div class="col-md-8">
                                     <input class="form-control" type="password" name="pass1" id="pass1" autocomplete="new-password">
+                                    <div style="ms-1">
+                                        <div id="mypassword_text">{icon name='ok' istyle='display:none'}{icon name='error' istyle='display:none' } <span id="mypassword_text_inner"></span></div>
+                                        <div id="mypassword_bar" style="font-size: 5px; height: 2px; width: 0px;"></div>
+                                    </div>
+                                    <div style="mt-1">
+                                        {include file='password_help.tpl'}
+                                    </div>
                                 </div>
                             </div>
                             <div class="mb-3 row">

@@ -11075,3 +11075,6 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   border-bottom: 1px solid #ced4da;
 }
 /* placeholder file for customisations needed for select2 in tiki with bootstrap 5 */
+body.tiki_admin {
+  background-color: #FFF !important;
+}

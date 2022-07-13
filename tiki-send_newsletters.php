@@ -175,19 +175,29 @@ if (isset($_REQUEST['is_html'])) {
 }
 
 $parserlib = TikiLib::lib('parser');
-if (isset($_REQUEST["templateId"]) && $_REQUEST["templateId"] > 0 && (! isset($_REQUEST['previousTemplateId']) || $_REQUEST['previousTemplateId'] != $_REQUEST['templateId'])) {
-    $template_data = TikiLib::lib('template')->get_template($_REQUEST["templateId"]);
-    $_REQUEST["data"] = $template_data["content"];
-    if (TikiLib::lib('template')->template_is_in_section($_REQUEST['templateId'], 'wiki_html')) {
+$templateslib = TikiLib::lib('template');
+
+if (! empty($_REQUEST['templateId']) &&
+    ! isset($_REQUEST['preview']) &&
+    ! isset($_REQUEST['save_only']) &&
+    ! isset($_REQUEST['send']) &&
+    ! isset($_REQUEST['editionid'])
+) {
+    $template_data = $templateslib->get_template($_REQUEST['templateId']);
+    $_REQUEST['data'] = $template_data['content'];
+    if ($templateslib->template_is_in_section($_REQUEST['templateId'], 'wiki_html')) {
         $_REQUEST['is_html'] = 'on';
         $_REQUEST['wysiwyg'] = 'y';
+        $info['is_html'] = true;
+        $info['wysiwyg'] = 'y';
     }
     if (isset($_SESSION['wysiwyg']) && $_SESSION['wysiwyg'] == 'y' || $_REQUEST['wysiwyg'] === 'y') {
         $_REQUEST['data'] = $parserlib->parse_data($_REQUEST['data'], ['is_html' => $info['is_html'] ? 1 : 0, 'absolute_links' => true, 'suppress_icons' => true]);
     }
-    $_REQUEST["preview"] = 1;
-    $smarty->assign("templateId", $_REQUEST["templateId"]);
+    $_REQUEST['preview'] = 1;
+    $smarty->assign('templateId', $_REQUEST["templateId"]);
 }
+
 $newsletterfiles = [];
 if (isset($_REQUEST['newsletterfile'])) {
     $newsletterfiles_post = isset($_REQUEST['newsletterfile']) && is_array($_REQUEST['newsletterfile']) ? $_REQUEST['newsletterfile'] : [];
@@ -435,7 +445,6 @@ if (isset($_REQUEST["send"]) && $_REQUEST["nlId"] && $prefs['newsletter_throttle
     $throttleLimit = (int) $prefs['newsletter_batch_size'];
     $subscribers = count($nllib->get_all_subscribers((int) $_REQUEST["nlId"], ""));
     if ($subscribers > $throttleLimit) {
-        $_SESSION['tickets']['newsletter']['ticket'] = $_POST['ticket'];
         $_SESSION['tickets']['newsletter']['iterations'] = ceil((int) $subscribers / (int) $throttleLimit);
         $unsetTicket = false;
     } else {
@@ -485,13 +494,11 @@ if (isset($_REQUEST['resume'])) {
     }
     $nl_info = $nllib->get_newsletter($edition_info['nlId']);
     // can't check csrf ticket the usual way since throttle iterations are repeat get requests via javascript
-    // so accept get requests, track remaining iterations and only unset ticket after iterations are complete
-    $unsetTicket = ! empty($_SESSION['tickets']['newsletter']['iterations'])
-        && $_SESSION['tickets']['newsletter']['iterations'] == 1;
+    // so accept get requests, track remaining iterations and  unset ticket after each iteration
 
     $csrfCheck = ! empty($_SESSION['tickets']['newsletter']['iterations'])
         && $_SESSION['tickets']['newsletter']['iterations'] > 0
-        && $access->checkCsrf(null, true, null, $unsetTicket, $_REQUEST['ticket']);
+        && $access->checkCsrf(null, true, null, true, $_REQUEST['ticket']);
 
     $nllib->send($nl_info, $edition_info, true, $sent, $errors, $logFileName, $csrfCheck);
     // use lib function to close the frame with the completion info
@@ -596,7 +603,7 @@ $smarty->assign_by_ref('cant_editions', $editions["cant"]);
 $smarty->assign_by_ref('cant_drafts', $drafts["cant"]);
 $smarty->assign('url', "tiki-send_newsletters.php");
 
-$templates = TikiLib::lib('template')->list_templates('newsletters', 0, -1, 'name_asc', '');
+$templates = $templateslib->list_templates('newsletters', 0, -1, 'name_asc', '');
 
 $smarty->assign_by_ref('templates', $templates["data"]);
 $tpls = $nllib->list_tpls();

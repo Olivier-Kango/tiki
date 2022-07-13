@@ -224,7 +224,22 @@
             </tr>
             {foreach item=entry from=$composer_packages_available}
                 <tr>
-                    <td>{$entry.name}</td>
+                    <td>
+                    {$entry.name}
+                    {if $entry.state == 'replaced'}
+                            <a class="tips text-warning"
+                               href="#"
+                               style="text-decoration: none;"
+                               data-toggle="popover"
+                               data-container="body"
+                               data-trigger="hover"
+                               data-content="<strong>{tr}Licence{/tr}</strong>: <a href='{$entry.licenceUrl}'>{$entry.licence}</a><br/><strong>{tr}Replaced by{/tr}</strong>:<br/>{'<br/>'|implode:$entry.replacedBy}"
+                               data-original-title="{tr}Replaced{/tr}"
+                            >
+                                {icon name='exclamation-triangle'}
+                            </a>
+                    {/if}
+                    </td>
                     <td>{$entry.requiredVersion}</td>
                     <td><a href="{$entry.licenceUrl}">{if empty($entry.licence)}{tr}Not Available{/tr}{else}{$entry.licence}{/if}</a></td>
                     <td>{', '|implode:$entry.requiredBy}</td>

@@ -809,11 +809,16 @@ class Services_Tracker_TabularController
                     if ($local) {
                         $columns = $local->getColumns();
                     } else {
-                        Feedback::warning(tr('Field %0 does not support export.'));
+                        Feedback::warning(tr('Field %0 does not support export.', $permName));
                         continue;
                     }
                 } catch (Exception $e) {
                     Feedback::warning($e->getMessage());
+                    continue;
+                }
+
+                if (empty($columns)) {
+                    Feedback::warning(tr('Configuration of field %0 does not support export.', $permName));
                     continue;
                 }
 

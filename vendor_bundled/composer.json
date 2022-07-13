@@ -213,7 +213,8 @@
         "allow-plugins": {
             "composer/installers": true,
             "oomphinc/composer-installers-extender": true,
-            "cweagans/composer-patches": true
+            "cweagans/composer-patches": true,
+            "robloach/component-installer": true
         }
     },
     "autoload": {

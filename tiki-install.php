@@ -122,17 +122,16 @@ if (isset($_SESSION['accessible'])) {
     // Installer knows db details but no login details were received for this script.
     // Thus, display a form.
     $title = tr('Tiki Installer Security Precaution');
-    $content = '
-                            <p class="text-info mt-lg-3 mx-3">'.tr('You are attempting to run the Tiki Installer. For your protection, this installer can be used only by a site administrator.To verify that you are a site administrator, enter your <strong><em>database</em></strong> credentials (database username and password) here.').'</p>
+    $content = '<p class="text-info mt-lg-3 mx-3">'.tr('You are attempting to run the Tiki Installer. For your protection, this installer can be used only by a site administrator.To verify that you are a site administrator, enter your <strong><em>database</em></strong> credentials (database username and password) here.').'</p>
+                <p class="text-info mx-3">'.tr('If you have forgotten your database credentials, find the directory where you have unpacked your Tiki and have a look inside the <strong class="text-yellow-inst">db</strong> folder into the <strong class="text-yellow-inst">local.php</strong> file.').'</p>
+                <form method="post" action="tiki-install.php" class="text-center">
+                    <input type="hidden" name="enterinstall" value="1">
+                    <p class="col-6 offset-3"><label for="dbuser" class="sr-only text-white">'.tr("Database username").'</label> <input type="text" id="dbuser" name="dbuser" class="form-control text-center" placeholder="'.tr('Database username').'"/></p>
+                    <p class="col-6 offset-3"><label for="dbpass" class="sr-only text-white">'.tr("Database password").'</label> <input type="password" id="dbpass" name="dbpass" class="form-control text-center" placeholder="'.tr('Database password').'"/></p>
+                    <p class="col-6 offset-3"><input type="submit" class="btn btn-primary" value=" '.tr("Validate and Continue ").'" /></p>
+                </form>
+                <p>&nbsp;</p>';
 
-                            <p class="text-info mx-3">'.tr('If you have forgotten your database credentials, find the directory where you have unpacked your Tiki and have a look inside the <strong class="text-yellow-inst">db</strong> folder into the <strong class="text-yellow-inst">local.php</strong> file.').'</p>
-                            <form method="post" action="tiki-install.php" class="text-center">
-                                <input type="hidden" name="enterinstall" value="1">
-                                <p><label for="dbuser" class="sr-only">'.tr("Database username").'</label> <input type="text" id="dbuser" name="dbuser" class="col-6 offset-3 form-control text-center" placeholder="'.tr('Database username').'"/></p>
-                                <p><label for="dbpass" class="sr-only">'.tr("Database password").'</label> <input type="password" id="dbpass" name="dbpass" class="col-6 offset-3 form-control text-center" placeholder="'.tr('Database password').'"/></p>
-                                <p><input type="submit" class="btn btn-primary" value=" '.tr("Validate and Continue ").'" /></p>
-                            </form>
-                            <p>&nbsp;</p>';
     createPage($title, $content);
 }
 
@@ -168,10 +167,13 @@ function createPage($title, $content)
                 <div class="heading-text">
                     <h2 class="main-text">$title</h2>
                 </div>
-            <div class="row mb-2">
-                <div class="col" id="col1">
-                    <div class="text-center">
-                    $content
+            <div class="container">
+                <div class="row mb-2">
+                    <div class="col" id="col1">
+                        <div class="mx-auto">
+                            $content
+                        </div>
+                    </div>
                 </div>
             </div>
             </div>

@@ -1,12 +1,18 @@
 <div id="tikimanager_container_{$id}">
     {if in_array('create', $available_actions)}
-    <a class="btn btn-link" href="{bootstrap_modal controller=manager action=create}">{icon name=create} {tr}New Instance{/tr}</a>
+    <a class="btn btn-light m-1" href="{bootstrap_modal controller=manager action=create}">{icon name=create} {tr}New Instance{/tr}</a>
     {/if}
     {if in_array('info', $available_actions)}
-    <a class="btn btn-link" href="{bootstrap_modal controller=manager action=info}">{icon name=info} {tr}Info{/tr}</a>
+    <a class="btn btn-light m-1" href="{bootstrap_modal controller=manager action=info}">{icon name=info} {tr}Info{/tr}</a>
     {/if}
     {if in_array('check', $available_actions)}
-    <a class="btn btn-link" href="{bootstrap_modal controller=manager action=requirements}">{icon name=check} {tr}Check Requirements{/tr}</a>
+    <a class="btn btn-light m-1" href="{bootstrap_modal controller=manager action=requirements}">{icon name=check} {tr}Check Requirements{/tr}</a>
+    {/if}
+    {if in_array('tiki_versions', $available_actions)}
+    <a class="btn btn-light m-1" href="{bootstrap_modal controller=manager action=tiki_versions}">{icon name=list} {tr}Tiki Versions{/tr}</a>
+    {/if}
+    {if in_array('test_send_email', $available_actions)}
+    <a class="btn btn-light m-1" href="{bootstrap_modal controller=manager action=test_send_email}">{icon name=envelope} {tr}Test Send Email{/tr}</a>
     {/if}
     <h2>Instances</h2>
     <table class="table">
@@ -114,6 +120,13 @@
                         {icon name=tools _menu_text='y' _menu_icon='y' alt="{tr}Patches{/tr}"}
                     </a>
                 </action>
+                {/if}
+                {if in_array('verify', $available_actions)}
+                    <action>
+                        <a href="{service controller=manager action=verify instanceId=$instance->id}">
+                            {icon name=check _menu_text='y' _menu_icon='y' alt="{tr}Verify{/tr}"}
+                        </a>
+                    </action>
                 {/if}
             {/strip}{/actions}
         </td>

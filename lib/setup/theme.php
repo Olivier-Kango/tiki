@@ -58,9 +58,12 @@ if (! empty($_SESSION['try_theme'])) {
 // dev version
 //$headerlib->add_jsfile('https://unpkg.com/@popperjs/core@2/dist/umd/popper.js');
 // production version
-$headerlib->add_jsfile('https://unpkg.com/@popperjs/core@2');
+// $headerlib->add_jsfile('https://unpkg.com/@popperjs/core@2');
+// $headerlib->add_jsfile('vendor_bundled/vendor/npm-asset/popper.js/dist/popper.js');
+// $headerlib->add_jsfile('vendor_bundled/vendor/twbs/bootstrap/dist/js/bootstrap.js');
 
-$headerlib->add_jsfile('vendor_bundled/vendor/twbs/bootstrap/dist/js/bootstrap.js');
+//This bundle Loads bootstrap JS and popper JS
+$headerlib->add_jsfile('vendor_bundled/vendor/twbs/bootstrap/dist/js/bootstrap.bundle.js');
 
 if ($prefs['feature_fixed_width'] === 'y') {
     $headerlib->add_css(

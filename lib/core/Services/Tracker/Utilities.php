@@ -611,7 +611,7 @@ EXPORT;
      * @param int $itemId
      * @param boolean $strict
      *
-     * @return Tracker_Item
+     * @return Tracker_Item|bool Return the new tracker item of false in case of failure
      * @throws Exception
      */
     public function cloneItem($definition, $itemData, $itemId, $strict = false)
@@ -627,6 +627,11 @@ EXPORT;
         }
 
         $id = $this->insertItem($definition, $itemData);
+        if ($id === false) {
+            $transaction->commit(); // there is no rollback
+            return false;
+        }
+        $insertIds = [$id];
 
         $itemObject = Tracker_Item::fromId($id);
 
@@ -651,6 +656,14 @@ EXPORT;
                 }
 
                 $new = $this->insertItem($childDefinition, $data);
+                if ($new === false) {
+                    foreach ($insertIds as $id) { // undo items already created
+                        $this->removeItem($id);
+                    }
+                    $transaction->commit(); // there is no rollback
+                    return false;
+                }
+                $insertIds[] = $new;
             }
         }
 

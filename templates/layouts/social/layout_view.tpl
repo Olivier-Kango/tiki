@@ -30,15 +30,21 @@
     {/if}
     <div class="middle_outer" id="middle_outer">
         {if $smarty.session.fullscreen ne 'y'}
+                {if $prefs.theme_unified_admin_backend eq 'y' && $smarty.server.SCRIPT_NAME eq $url_path|cat:'tiki-admin.php'}
+                    {modulelist zone=top class="top_modules d-flex justify-content-between top navbar-{$navbar_color_variant}-parent bg-{$navbar_color_variant}-parent w-100 mb-sm"}
+                {/if}
             <div class="fixed-topbar"></div>
         {/if}
-        <div class="container{if $smarty.session.fullscreen eq 'y'}-fluid{/if} container-std middle" id="middle">
+        <div class="container{if $smarty.session.fullscreen eq 'y'}-fluid{/if} container-std topbar-wrapper" id="topbar-wrapper">
             {if $smarty.session.fullscreen ne 'y'}
             <div class="row topbar mx-0 navbar-{$navbar_color_variant} bg-{$navbar_color_variant}" id="topbar">
                 {modulelist zone=topbar class='topbar_modules d-flex justify-content-between w-100'}
             </div>
             {/if}
             {*<div class="container{if $smarty.session.fullscreen eq 'y'}-fluid{/if} container-std">*}
+        </div>
+        <div class="middle-wrapper">
+        <div class="container{if $smarty.session.fullscreen eq 'y'}-fluid{/if} container-std middle" id="middle">
 
             <div class="row row-middle" id="row-middle">
                 {if (zone_is_empty('left') or $prefs.feature_left_column eq 'n') and (zone_is_empty('right') or $prefs.feature_right_column eq 'n')}
@@ -148,6 +154,7 @@
             </div> {* row *}
         </div> {* container *}
     </div> {* middle_outer *}
+    </div>
     {if !isset($smarty.session.fullscreen) || $smarty.session.fullscreen ne 'y'}
         <footer class="footer main-footer" id="footer">
             <div class="footer_liner">
@@ -157,7 +164,7 @@
                 </div>
             </div>
         </footer>
-
+        {if $prefs.theme_unified_admin_backend eq 'y' && $smarty.server.SCRIPT_NAME neq $url_path|cat:'tiki-admin.php'}
         <nav class="navbar navbar-expand-md navbar-{$navbar_color_variant} bg-{$navbar_color_variant} fixed-top">
             <div class="container-fluid">
             {* <div class="container{if $smarty.session.fullscreen eq 'y'}-fluid{/if} container-std d-flex justify-content-between in-navbar"> *}
@@ -176,6 +183,7 @@
         </div> {* container *}
 
         </nav>
+        {/if}
     {/if}
 
     {include file='footer.tpl'}

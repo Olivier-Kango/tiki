@@ -1,5 +1,4 @@
-// $Id$
-//Custom styles for the FiveAliveHS Plum option theme.
+//Custom styles for the FiveAlive Plum option theme.
 
 // - - - - - - - Bootstrap variables (override values in vendor_bundled/vendor/twbs/bootstrap/scss/_variables.scss - - - - - - //
 $white:    #fff;
@@ -8,88 +7,78 @@ $light: #7a04b5;
 
 $bg-light: #7a04b5 !important;
 
+
+$theme-colors: (
+    "primary":            #7a04b5,
+    "secondary":         #52269c,
+    "success":             #5cb85c,
+    "info":             #350251,
+    "warning":             #f0ad4e,
+    "danger":              #ff5c1a,
+    "light":            #ffffff,
+    "dark":                #15001f
+);
+
+$primary:       #7a04b5;
+$secondary:     #52269c;
+$success:       #5cb85c;
+$info:          #350251;
+$warning:       #f0ad4e;
+$danger:        #ff5c1a;
+$light:         #ffffff;
+$dark:          #15001f;
+
+$theme-colors: map-merge(
+        (
+            "primary":    $primary,
+            "secondary":  $secondary,
+            "success":    $success,
+            "info":       $info,
+            "warning":    $warning,
+            "danger":     $danger,
+            "light":      $light,
+            "dark":       $dark
+        ),
+        $theme-colors
+);
+
+// Links
 $link-color: #7a04b5;
 $link-hover-color: #7a04b5;
-$link-color: #7a04b5;
-$link-hover-color: #7a04b5;
-$btn-primary-color: #ffffff;
-$btn-primary-bg: #7a04b5;
-$btn-primary-border: #8e01d4;
-$btn-primary-focus-color: #ffffff;
-$btn-primary-focus-bg: #4e0174;
-$btn-primary-border: #390055;
-$btn-primary-hover-color: #ffffff;
-$btn-primary-hover-bg: #4e0174;
-$btn-primary-hover-border: #650197;
-$btn-primary-active-color: #ffffff;
-$btn-primary-active-bg: #4e0174;
-$btn-primary-active-border: #650197;
-$btn-primary-active-hover-bg-color: #360051;
-$btn-primary-active-hover-border: #390055;
-$btn-primary-disabled-hover: #7a04b5;
-$btn-primary-disabled-border: #8e01d4;
-$btn-primary-badge-color: #7a04b5;
-$btn-primary-badge-bg: #ffffff;
-
-// $btn-secondary-bg: #7a04b5;
-// $btn-secondary-border: #8e01d4;
-// $btn-secondary-focus-bg: #4e0174;
-// $btn-secondary-focus-border: #390055;
-// $btn-secondary-hover-bg: #4e0174;
-// $btn-secondary-border: #650197;
-// $btn-secondary-active-bg: #4e0174;
-// $btn-secondary-border: #650197;
-// $btn-secondary-active-hover-bg: #4e0174;
-// $btn-secondary-active-hover-border: #390055;
-// $btn-secondary-disabled-hover-color: #7a04b5;
-// $btn-secondary-disabled-hover-border: #8e01d4;
-// $btn-secondary-badge-color: #7a04b5;
-// $btn-secondary-bg-color: #ffffff;
-
-$btn-info-color: #ffffff;
-$btn-info-bg: #e5d7dc;
-$btn-info-border: #e5d0cf;
-// $btn-info-focus-color: ;
-// $btn-info-focus-bg: ;
-// $btn-info-focus-border: ;
-$btn-info-hover-color: $btn-info-color;
-$btn-info-hover-bg: lighten($btn-info-bg, 10%);
-$btn-info-hover-border: lighten($btn-info-border, 10%);
-// $btn-info-active-color: ;
-$btn-info-active-bg: $btn-info-bg;
-// $btn-info-active-border: ;
-// $btn-info-active-hover: ;
-// $btn-info-active-hover-border: ;
-// $btn-info-disabled-hover-color: ;
-// $btn-info-disabled-hover-border: ;
-// $btn-info-badge-color: ;
-// $btn-info-badge-bg: ;
-
-$navbar-dark-color:                 rgba($white, .75);
-$navbar-dark-hover-color:           rgba($white, .85);
-$navbar-dark-active-color:          $white;
-$navbar-dark-disabled-color:        rgba($white, .25);
-$navbar-light-color:                rgba($black, .5);
-$navbar-light-hover-color:          rgba($black, .7);
-$navbar-light-active-color:         rgba($black, .9);
-$navbar-light-disabled-color:       rgba($black, .3);
 
 // navbar link hover colors
 $bg-dark-link-hover-color: #f2f2f2;
-$bg-dark-link-hover-bg: #003c4a;
+//$bg-dark-link-hover-bg: #003c4a;
 
+// Navs
+$nav-tabs-link-color: #000;
+$nav-tabs-link-bg: #f4e1ff; // Same as $input-bg;
+$nav-tabs-link-active-color: #fff;
+$nav-tabs-link-active-bg: #15001f; // Same as $dropdown-link-hover-bg;
+
+// Navbars
+$top-bg: #49006c;
+$top-color: #fff;
+$top-link-color: #fff;
+$top-link-hover-color: #f9f9f9;
+$topbar-bg: #15001f;
+$topbar-link-color: #fff;
+$bg-dark-info: #f2f2f2;
+$page-header-link-color: #000;
+
+// Typography
+$text-muted:  #6B737B;
 $hr-border-color: #7a04b5;
 
-$navbar-fixed-top-bg: #49006c;
-$bg-dark: #15001f;
-$bg-light: #0a8794;
-
+// Cards
 $card-border-color: #49006c;
 
+// Tables
 $table-border-color: #c564f5;
 $table-accent-bg: #f9f9f9;
 $table-hover-bg: #f5f5f5;
 
+// Forms
 $input-color: #555555;
 $input-bg: #f4e1ff;
 $input-border-color: #f9f0ff;
@@ -98,9 +87,11 @@ $input-border-right-color: #f9f0ff;
 $input-border-bottom-color: #f9f0ff;
 $input-border-left-color: #db9fff;
 
+// Form validation
+
+// Dropdowns
 $dropdown-bg: #49006c;
 $dropdown-border-color: rgba(0, 0, 0, 0.15);
-
 $dropdown-link-color: #ffffff;
 $dropdown-link-hover-color: #f2f2f2;
 $dropdown-link-hover-bg: #15001f;
@@ -110,11 +101,7 @@ $dropdown-link-disabled-color: #f2f2f2;
 $dropdown-header-color: #ffffff;
 $dropdown-divider-bg: $dropdown-bg;
 
-$nav-tabs-link-color: #000;
-$nav-tabs-link-bg: $input-bg;
-$nav-tabs-link-active-color: #fff;
-$nav-tabs-link-active-bg: $dropdown-link-hover-bg;
-
+// Pagination
 $nav-pills-link-active-bg: #7a04b5;
 $pagination-color: #7a04b5;
 $pagination-bg: #ffffff;
@@ -128,15 +115,10 @@ $pagination-disabled-color: #999999;
 $pagination-disabled-bg: #ffffff;
 $pagination-disabled-border-color: #dddddd;
 
-$theme-colors: (
-        "light":            #ffffff,
-        "dark":                #180124
-);
 
-$enable-gradients: true;
-$enable-shadows: true;
 // - - - - - - - - - -  - - - - - - Other variables, if any - - - - - - - - - - - - - - - - - //
 $bg-light-alt: #117485 !important;
+$bg-dark: #15001f;
 
 $side-column-heading-color: #49006c;
 
@@ -164,7 +146,7 @@ $autotoc-nav-link-hover-bg: #2e1f39;
   background: #5e028e !important; /* Old browsers */
   background: -moz-linear-gradient(left,  #5e028e 0%, #8f06c4 100%) !important; /* FF3.6-15 */
   background: -webkit-linear-gradient(left,  #5e028e 0%,#8f06c4 100%) !important; /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to right,  #5e028e 0%,#8f06c4 100%) !important; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  background: linear-gradient(to right,  #300149/*#5e028e*/ 0%,#15001F/*#8f06c4*/ 100%) !important; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5e028e', endColorstr='#8f06c4',GradientType=1 ); /* IE6-9 */
 }
 

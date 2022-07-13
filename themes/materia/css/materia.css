@@ -9259,7 +9259,7 @@ textarea.form-control-lg {
   text-decoration: none;
 }
 .navbar-dark .sitetitle a {
-  color: #ccc;
+  color: #fff;
 }
 .navbar-dark .sitetitle a:hover {
   color: #fff;
@@ -9911,8 +9911,8 @@ div.drillshow {
   color: #666;
 }
 .tiki .ui-widget button {
-  background: #fff;
-  color: #444;
+  background: #f8f9fa;
+  color: #222;
 }
 .tiki.tiki-listpages .ui-widget.ui-widget-content {
   border: 1px solid #dee2e6;
@@ -10165,6 +10165,12 @@ blockquote {
 }
 a.dropdown-item {
   color: #212121;
+}
+.bg-light-parent {
+  background: #f8f9fa;
+}
+.bg-dark-parent {
+  background: #222;
 }
 .dropdown-toggle::after, .dropup .dropdown-toggle::after, .dropstart .dropdown-toggle::after, .dropend .dropdown-toggle::after {
   border-width: 4px;
@@ -11269,10 +11275,10 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   -webkit-text-size-adjust: 100%;
   padding: 2px 5px;
   white-space: nowrap;
-  background: #fff;
-  border: 1px solid #444;
+  background: #222;
+  border: 1px solid #dee2e6;
   border-radius: 0.25rem;
-  color: #444;
+  color: #222;
 }
 .tiki .pvtTriangle {
   cursor: pointer;
@@ -11321,13 +11327,13 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   padding: 5px;
 }
 .tiki .pvtFilterBox button {
-  background: #fff;
-  border: 1px solid #444;
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
   border-radius: 0.25rem;
-  color: #444;
+  color: #222;
 }
 .tiki .pvtFilterBox button:hover {
-  background: white;
+  background: #dae0e5;
 }
 .tiki .pvtFilterBox button + button {
   margin-left: 4px;
@@ -11366,17 +11372,17 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 }
 .tiki .ui-button, .tiki html .ui-button.ui-state-disabled:hover, .tiki html .ui-button.ui-state-disabled:active {
   border: 1px solid;
-  border-color: #444;
-  background: #fff;
+  border-color: #dee2e6;
+  background: #f8f9fa;
   font-weight: normal;
-  color: #444;
+  color: #222;
   font-size: 1rem;
 }
 .tiki .ui-widget-content .ui-state-focus, .tiki .ui-widget-header .ui-state-focus, .tiki .ui-button:hover, .tiki .ui-button:focus {
-  border: 1px solid #444;
-  background: #fff;
+  border: 1px solid #2196f3;
+  background: #f8f9fa;
   font-weight: normal;
-  color: #444;
+  color: #2196f3;
 }
 .tiki .ui-widget-header a {
   color: #2196f3;
@@ -11881,4 +11887,7 @@ input[type="checkbox"], .checkbox input[type="checkbox"], .checkbox-inline input
 .topbar_modules {
   margin-left: 30px;
   margin-right: 30px;
+}
+.navbar-dark-parent .form-control::placeholder, .navbar-dark-parent .form-control:focus, .navbar-dark-parent .form-control, .navbar-dark .form-control::placeholder, .navbar-dark .form-control:focus, .navbar-dark .form-control {
+  color: rgba(255, 255, 255, 0.75);
 }

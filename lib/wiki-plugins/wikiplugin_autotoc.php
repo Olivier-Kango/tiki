@@ -112,7 +112,7 @@ function wikiplugin_autotoc($data, $params)
     $defaults = [
         'align' => 'right',
         'levels' => '',
-        'offset' => 10,
+        'offset' => 15,
         'mode' => 'off',
         'title' => ''
     ];

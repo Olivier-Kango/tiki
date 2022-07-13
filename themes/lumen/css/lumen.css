@@ -9196,7 +9196,7 @@ textarea.form-control-lg {
   text-decoration: none;
 }
 .navbar-dark .sitetitle a {
-  color: #ccc;
+  color: #fff;
 }
 .navbar-dark .sitetitle a:hover {
   color: rgba(255, 255, 255, 0.75);
@@ -9854,8 +9854,8 @@ div.drillshow {
   color: #222;
 }
 .tiki .ui-widget button {
-  background: #fff;
-  color: #222;
+  background: #f6f6f6;
+  color: #555;
 }
 .tiki.tiki-listpages .ui-widget.ui-widget-content {
   border: 1px solid #dee2e6;
@@ -10103,6 +10103,12 @@ blockquote {
 }
 a.dropdown-item {
   color: rgba(0, 0, 0, 0.5);
+}
+.bg-light-parent {
+  background: #f6f6f6;
+}
+.bg-dark-parent {
+  background: #555;
 }
 .navbar {
   border-style: solid;
@@ -10592,10 +10598,10 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   -webkit-text-size-adjust: 100%;
   padding: 2px 5px;
   white-space: nowrap;
-  background: #fff;
-  border: 1px solid #222;
+  background: #555;
+  border: 1px solid #dee2e6;
   border-radius: 0.25rem;
-  color: #222;
+  color: #555;
 }
 .tiki .pvtTriangle {
   cursor: pointer;
@@ -10644,13 +10650,13 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   padding: 5px;
 }
 .tiki .pvtFilterBox button {
-  background: #fff;
-  border: 1px solid #222;
+  background: #f6f6f6;
+  border: 1px solid #dee2e6;
   border-radius: 0.25rem;
-  color: #222;
+  color: #555;
 }
 .tiki .pvtFilterBox button:hover {
-  background: white;
+  background: #ddd;
 }
 .tiki .pvtFilterBox button + button {
   margin-left: 4px;
@@ -10689,17 +10695,17 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 }
 .tiki .ui-button, .tiki html .ui-button.ui-state-disabled:hover, .tiki html .ui-button.ui-state-disabled:active {
   border: 1px solid;
-  border-color: #222;
-  background: #fff;
+  border-color: #dee2e6;
+  background: #f6f6f6;
   font-weight: normal;
-  color: #222;
+  color: #555;
   font-size: 1rem;
 }
 .tiki .ui-widget-content .ui-state-focus, .tiki .ui-widget-header .ui-state-focus, .tiki .ui-button:hover, .tiki .ui-button:focus {
-  border: 1px solid #222;
-  background: #fff;
+  border: 1px solid #158cba;
+  background: #f6f6f6;
   font-weight: normal;
-  color: #222;
+  color: #158cba;
 }
 .tiki .ui-widget-header a {
   color: #158cba;
@@ -11187,4 +11193,20 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 .topbar_modules {
   margin-left: 30px;
   margin-right: 30px;
+}
+/* Search preferences > button */
+.tiki-admin aside.admin-nav li form .my-1 .input-group {
+  overflow: hidden;
+}
+.tiki-admin aside.admin-nav li form .my-1 .btn:hover {
+  margin-bottom: -1px;
+}
+.tiki-admin aside.admin-nav li form .my-1 .btn {
+  border: solid;
+  border-width: 0 1px 4px 1px;
+  border-color: #137ea7;
+  padding: 0.25rem 0.5rem;
+}
+.tiki-admin aside.admin-nav li form .my-1 .fas {
+  width: 1.25em;
 }

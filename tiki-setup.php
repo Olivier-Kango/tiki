@@ -51,7 +51,6 @@ if (! empty($_SERVER['HTTP_PROXY'])) {
         putenv('PHP_PEAR_HTTP_PROXY=http://127.0.0.1'); // fake proxy setting to avoid PEAR to use HTTP_PROXY
     }
 }
-require_once('lib/setup/error_tracking.php');
 require_once 'lib/setup/third_party.php';
 // Enable Versioning
 include_once('lib/setup/twversion.class.php');
@@ -415,12 +414,14 @@ if ($prefs['rating_advanced'] == 'y' && $prefs['rating_recalculation'] == 'rando
     $ratinglib->attempt_refresh();
 }
 
-if (ErrorTracking::isJSEnabled()) {
-    $dsn = ErrorTracking::getDSN();
+$errorTrkLib = TikiLib::lib('errortracking');
+if ($errorTrkLib->isJSEnabled()) {
+    $dsn = $errorTrkLib->getDSN();
+    $sampleRate = $errorTrkLib->getSampleRate();
     $headerlib->add_jsfile('vendor_bundled/vendor/npm-asset/sentry--browser/build/bundle.min.js');
     $headerlib->add_js(
         <<<EOF
-        Sentry.init({ dsn: "$dsn" });
+        Sentry.init({ dsn: "$dsn", sampleRate: $sampleRate });
         EOF
     );
 }

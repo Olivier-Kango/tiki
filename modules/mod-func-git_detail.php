@@ -14,8 +14,8 @@
 function module_git_detail_info()
 {
     return [
-        'name' => tra('GIT detail'),
-        'description' => tra('GIT commit and last update information.'),
+        'name' => tra('Git detail'),
+        'description' => tra('Git commit and last update information.'),
         'params' => [],
     ];
 }
@@ -29,7 +29,9 @@ function module_git_detail_info()
  */
 function module_git_detail($mod_reference, $module_params)
 {
+    /** @var Smarty_Tiki $smarty */
     $smarty = TikiLib::lib('smarty');
+    /** @var GitLib $gitlib */
     $gitlib = TikiLib::lib('git');
     $error = '';
     $content = [];

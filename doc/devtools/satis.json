@@ -1,5 +1,6 @@
 {
     "name": "Tiki",
+    "description": "Please visit https://dev.tiki.org/composer-tiki-org for instructions on how to update this site.",
     "homepage": "http://composer.tiki.org",
     "repositories": [
         {
@@ -2211,6 +2212,7 @@
     },
     "require-dependencies": true,
     "require-dev-dependencies": true,
+    "providers": true,
     "archive": {
         "directory": "dist",
         "format": "zip",

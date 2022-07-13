@@ -1,92 +1,93 @@
-// $Id$
-//Custom styles for the FiveAlive Watermelon option theme.
+//Custom styles for the FiveAlive Watermelon theme option.
 
 // - - - - - - - Bootstrap variables (override values in vendor_bundled/vendor/twbs/bootstrap/scss/_variables.scss - - - - - - //
+
+// Variables needed for button color variants (start)
+$theme-colors: (
+    "primary":            #E61437, // #eb1e41,
+    "secondary":         #8c1932,
+    "success":             #5cb85c,
+    "info":               #a51e37,
+    "warning":             #f0ad4e,
+    "danger":              #ff5c1a,
+    "light":            #ffffff,
+    "dark":                #a51e37
+);
+
+$primary:       #E61437; //#eb1e41;
+$secondary:     #8c1932;
+$success:       #5cb85c;
+$info:          #a51e37;
+$warning:       #f0ad4e;
+$danger:        #ff5c1a;
+$light:         #ffffff;
+$dark:          #a51e37;
+
+$theme-colors: map-merge(
+        (
+            "primary":    $primary,
+            "secondary":  $secondary,
+            "success":    $success,
+            "info":       $info,
+            "warning":    $warning,
+            "danger":     $danger,
+            "light":      $light,
+            "dark":       $dark
+        ),
+        $theme-colors
+);
+
+// The following are default values from vendor/twbs/bootstrap/scss/variables.scss - change as needed for theme child option (or to match values in parent theme).
+// Comment-out any that are already defined in the parent theme variables.scss file and shouldn't be redefined.
+
+$gray-600: #6c757d;
+$gray-900: #212529;
+
 $white:    #fff;
 $black:    #000;
 $light: #b51360;
-
+$bg-light: $light;
 $bg-dark: #a51e37;
 
-$link-color: #c21e3b;
-$link-hover-color: #ee2e52;
-// $btn-primary-color: #ffffff;
-// $btn-primary-bg: #e1360d;
-// $btn-primary-border: #e78c77;
-// $btn-primary-focus-color: #ffffff;
-// $btn-primary-focus-bg: #97172e;
-// $btn-primary-border: #bc213d;
-// $btn-primary-hover-color: #ffffff;
-// $btn-primary-hover-bg: #97172e;
-// $btn-primary-hover-border: #de425e;
-// $btn-primary-active-color: #ffffff;
-// $btn-primary-active-bg: #97172e;
-// $btn-primary-active-border: #de425e;
-// $btn-primary-active-hover-bg-color: #781224;
-// $btn-primary-active-hover-border: #bc213d;
-// $btn-primary-disabled-hover: #e1640b;
-// $btn-primary-disabled-border: #e7768a;
-// $btn-primary-badge-color: #e1360d;
-// $btn-primary-badge-bg: #ffffff;
+// Links
+$link-color: #E11436;
+$link-hover-color:               darken($link-color, 15%);
+$link-hover-decoration:       underline !default;
+$btn-link-disabled-color:     $gray-600 !default;
 
-// $btn-secondary-bg: #b51360;
-// $btn-secondary-border: #8e01d4;
-// $btn-secondary-focus-bg: #4e0174;
-// $btn-secondary-focus-border: #390055;
-// $btn-secondary-hover-bg: #4e0174;
-// $btn-secondary-border: #650197;
-// $btn-secondary-active-bg: #4e0174;
-// $btn-secondary-border: #650197;
-// $btn-secondary-active-hover-bg: #4e0174;
-// $btn-secondary-active-hover-border: #390055;
-// $btn-secondary-disabled-hover-color: #b51360;
-// $btn-secondary-disabled-hover-border: #8e01d4;
-// $btn-secondary-badge-color: #b51360;
-// $btn-secondary-bg-color: #ffffff;
+// Navs
+$nav-tabs-link-color: #000;
+$nav-tabs-link-bg: #ffdace; // Same as $input-bg;
+$nav-tabs-link-active-color: #fff;
+$nav-tabs-link-active-bg: #a61a32; // Same as $dropdown-link-hover-bg;
 
-// $btn-info-color: #fff;
-// $btn-info-bg: #e5d7dc;
-// $btn-info-border: #e5d0cf;
-// $btn-info-focus-color: ;
-// $btn-info-focus-bg: ;
-// $btn-info-focus-border: ;
-// $btn-info-hover-color: $btn-info-color;
-// $btn-info-hover-bg: lighten($btn-info-bg, 10%);
-// $btn-info-hover-border: lighten($btn-info-border, 10%);
-// $btn-info-active-color: ;
-// $btn-info-active-bg: darken($btn-info-bg, 5%);
-// $btn-info-active-border: ;
-// $btn-info-active-hover: ;
-// $btn-info-active-hover-border: ;
-// $btn-info-disabled-hover-color: ;
-// $btn-info-disabled-hover-border: ;
-// $btn-info-badge-color: ;
-// $btn-info-badge-bg: ;
+// Navbar
 
-$navbar-dark-color:                 rgba($white, .75);
-$navbar-dark-hover-color:           rgba($white, .85);
-$navbar-dark-active-color:          $white;
-$navbar-dark-disabled-color:        rgba($white, .25);
-$navbar-light-color:                rgba($black, .5);
-$navbar-light-hover-color:          rgba($black, .7);
-$navbar-light-active-color:         rgba($black, .9);
-$navbar-light-disabled-color:       rgba($black, .3);
-
-// navbar link hover colors
 $bg-dark-link-hover-color: #f2f2f2;
 $bg-dark-link-hover-bg: #003c4a;
 
+$top-bg: #C63A4F; // #a51e37;
+$top-color: #fff;
+$top-link-color: #fff;
+$top-link-hover-color: #f9f9f9;
+$topbar-bg: #7a3030; // #527A30; // #13850b;
+$topbar-link-color: #fff;
+$bg-dark-info: #f2f2f2;
+$page-header-link-color: #000;
 
+// Typography
 $hr-border-color: #faada1;
+$text-muted:  #6B737B;
 
-$navbar-fixed-top-bg: #a51e37;
-$bg-dark: #a51e37;
-$bg-light: #e71e40;
+// Cards
 $card-border-color: #49006c;
+
+// Tables
 $table-border-color: #faada1;
 $table-accent-bg: #f9f9f9;
 $table-hover-bg: #f5f5f5;
 
+// Forms
 $input-color: #555555;
 $input-bg: #ffdace;
 $input-border-color: #faada1;
@@ -95,23 +96,21 @@ $input-border-right-color: #fcf6f9;
 $input-border-bottom-color: #fcf6f9;
 $input-border-left-color: #faada1;
 
-$dropdown-bg: #e71e40; // #771437
-$dropdown-border-color: rgba(0, 0, 0, 0.15);
+// Form validation
 
+// Dropdowns
+$dropdown-bg: #AD3245; //#e71e40; // #771437
+$dropdown-border-color: rgba(0, 0, 0, 0.15);
 $dropdown-link-color: #ffffff;
 $dropdown-link-hover-color: #f9f9f9;
 $dropdown-link-hover-bg: #a61a32; // #61102d
 $dropdown-link-active-color: #ffffff;
-$dropdown-link-active-bg: $dropdown-link-hover-bg; // #61102d
+$dropdown-link-active-bg: #a61a32; // Same as $dropdown-link-hover-bg; // #61102d
 $dropdown-link-disabled-color: #f2f2f2;
 $dropdown-header-color: #ffffff;
 $dropdown-divider-bg: $dropdown-bg;
 
-$nav-tabs-link-color: #000;
-$nav-tabs-link-bg: $input-bg;
-$nav-tabs-link-active-color: #fff;
-$nav-tabs-link-active-bg: $dropdown-link-hover-bg;
-
+// Pagination
 $nav-pills-link-active-bg: #b51360;
 $pagination-color: #b51360;
 $pagination-bg: #ffffff;
@@ -125,16 +124,9 @@ $pagination-disabled-color: #999999;
 $pagination-disabled-bg: #ffffff;
 $pagination-disabled-border-color: #dddddd;
 
-$theme-colors: (
-        "light":            #e71e40,
-        "dark":                #a51e37
-);
-
-$enable-gradients: true;
-$enable-shadows: true;
 
 // - - - - - - - - - -  - - - - - - Other variables, if any - - - - - - - - - - - - - - - - - //
-$bg-light-alt: #851e0e !important;
+//$bg-light-alt: #851e0e !important;
 
 $side-column-heading-color: #6c0c02;
 
@@ -150,20 +142,37 @@ $autotoc-color: #ffffff;
 $autotoc-nav-link-hover-color: #f2f2f2;
 $autotoc-nav-link-hover-bg: #61102d;
 
+$autotoc-nav-bg: #ffffff;
+$autotoc-nav-border: #e71e40;
+$autotoc-color: #c21e3b;
+$autotoc-nav-li-link-hover-color: #f2f2f2;
+$autotoc-nav-li-link-hover-bg: #76142a;
+
+// These variables need to be defined for the files to compile. The specific variables for the child theme's button colors are defined
+// at the bottom of the file but by default they use the child theme's theme-colors. There appears to be redundancy in defining colors but each line is necessary.
+// There are unique names for the child theme button colors to avoid any conflict with the general theme colors.
+
+$box-shadow-sm:               0 .125rem .25rem rgba($black, .075) !default;
+$box-shadow:                  0 .5rem 1rem rgba($black, .15) !default;
+$box-shadow-lg:               0 1rem 3rem rgba($black, .175) !default;
+$btn-box-shadow:              inset 0 1px 0 rgba($white, .15), 0 1px 1px rgba($black, .075) !default;
+$enable-gradients:               false;
+$enable-shadows:              false;
+$input-btn-focus-width:       .2rem !default;
+$btn-focus-width:             $input-btn-focus-width !default;
 // - - - - - - - - - -  - - - - - - Other CSS, if any - - - - - - - - - - - - - - - - - //
 
 .header_outer,
 .layout_basic #top_modules,
 .postbody-title,
 .tiki > .navbar.fixed-top.bg-dark,
-//.topbar, .navbar-dark, .topbar .navbar-dark .navbar-nav > li, .topbar .nav > li,
+    //.topbar, .navbar-dark, .topbar .navbar-dark .navbar-nav > li, .topbar .nav > li,
 .bg-dark {
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#b3135f+0,b61261+9,c21069+18,e70b80+69,ea0a81+100 */
-  background: #b3135f !important; /* Old browsers */
-  background: -moz-linear-gradient(left,  #b3135f 0%, #b61261 9%, #c21069 18%, #e70b80 69%, #ea0a81 100%) !important; /* FF3.6-15 */
-  background: -webkit-linear-gradient(left,  #b3135f 0%,#b61261 9%,#c21069 18%,#e70b80 69%,#ea0a81 100%) !important; /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to right,  #b3135f 0%,#b61261 9%,#c21069 18%,#e70b80 69%,#ea0a81 100%) !important; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b3135f', endColorstr='#ea0a81',GradientType=1 ); /* IE6-9 */
+    background: #c51e3c;
+    background: -moz-linear-gradient(top,  #c51e3c 0%, #e71e40 100%);
+    background: -webkit-linear-gradient(top,  #c51e3c 0%,#e71e40 100%);
+    background: linear-gradient(to bottom,  #c51e3c 0%,#e71e40 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c51e3c', endColorstr='#e71e40',GradientType=0 );
 }
 
 //.bg-dark {background: #35061d !important; }

@@ -13,6 +13,9 @@ if (strpos($_SERVER['SCRIPT_NAME'], basename(__FILE__)) !== false) {
 }
 
 use Symfony\Component\Console\Input\ArrayInput;
+use TikiManager\Application\Instance;
+use TikiManager\Application\Tiki\Versions\Fetcher\YamlFetcher;
+use TikiManager\Application\Tiki\Versions\TikiRequirementsHelper;
 
 /**
  * Class Services_Manager_Controller
@@ -132,7 +135,7 @@ class Services_Manager_Controller
         if (empty($this->manager_output->fetch())) {
             try {
                 $this->runCommand($cmd, $input);
-                Feedback::success(tr("Successful Tiki Manager Watch Instance"));
+                Feedback::success(tr('Successful Tiki Manager Watch Instance, Notifications will be sent to <b>%0</b>', htmlspecialchars($instance->contact)));
             } catch (\Exception $e) {
                 Feedback::error($e->getMessage());
             }
@@ -186,8 +189,9 @@ class Services_Manager_Controller
 
     public function action_create($input)
     {
+        $cmd = new TikiManager\Command\CreateInstanceCommand();
+
         if ($input->create->text()){
-            $cmd = new TikiManager\Command\CreateInstanceCommand();
             $inputCommand = new ArrayInput([
                 'command' => $cmd->getName(),
                 "--type" => $input->type->text(),
@@ -245,25 +249,205 @@ class Services_Manager_Controller
                 'db_name' => ''
             ];
 
-            $cmd = new TikiManager\Command\CreateInstanceCommand();
-            $definition = $cmd->getDefinition();
-
-            $help = [];
-            foreach ($definition->getOptions() as $option) {
-                $help[$option->getName()] = $option->getDescription();
-            }
-
             return [
                 'title' => tr('Create New Instance'),
                 'info' => '',
                 'refresh' => true,
                 'inputValues' => $inputValues,
-                'help' => $help,
+                'help' => $this->getCommandHelpTexts($cmd),
                 'sshPublicKey' => $_ENV['SSH_PUBLIC_KEY'],
             ];
         }
     }
 
+    public function action_edit($input)
+    {
+        $cmd = new TikiManager\Command\EditInstanceCommand();
+
+        if ($input->edit->text()){
+            $inputCommand = new ArrayInput([
+                'command' => $cmd->getName(),
+                '-i' => $input->instance->int(),
+                "--url" => $input->url->text(),
+                "--name" => $input->name->text(),
+                "--email" => $input->email->text(),
+                "--webroot" => $input->webroot->text(),
+                "--tempdir" => $input->tempdir->text(),
+                "--backup-user" => $input->backup_user->text(),
+                "--backup-group" => $input->backup_group->text(),
+                "--backup-permission" => $input->backup_permission->text(),
+            ]);
+
+            $this->runCommand($cmd, $inputCommand);
+
+            return [
+                'title' => tr('Edit Instance Result'),
+                'info' => $this->manager_output->fetch(),
+                'refresh' => true,
+            ];
+        } else {
+
+            $instaceId = $input->instanceId->int();
+            $instance = Instance::getInstance($instaceId);
+
+            if ($instance) {
+                /** For form initialization */
+                $inputValues = [
+                    'instance' => $instaceId,
+                    'url' => $instance->weburl,
+                    'name' => $instance->name,
+                    'email' => $instance->contact,
+                    'webroot' => $instance->webroot,
+                    'temp_dir' => $instance->tempdir,
+                    'backup_user' => $instance->getProp('backup_user'),
+                    'backup_group' => $instance->getProp('backup_group'),
+                    'backup_permission' => decoct($instance->getProp('backup_perm')),
+                ];
+
+                return [
+                    'title' => tr('Edit instance') . " " . $instance->backup_user,
+                    'info' => '',
+                    'refresh' => true,
+                    'inputValues' => $inputValues,
+                    'help' => $this->getCommandHelpTexts($cmd),
+                ];
+            } else {
+                return [
+                    'title' => tr('Edit instance (Instance not found)'),
+                    'info' => "No Tiki instances available to edit",
+                    'refresh' => true,
+                ];
+            }
+            
+        }
+    }
+
+
+    public function action_test_send_email($input)
+    {
+        $cmd = new TikiManager\Command\ManagerTestSendEmailCommand();
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+            $inputCommand = new ArrayInput([
+                'command' => $cmd->getName(),
+                "to" => $input->email->text(),
+            ]);
+
+            $this->runCommand($cmd, $inputCommand);
+
+            return [
+                'title' => tr('Test Send Email Result'),
+                'info' => $this->manager_output->fetch(),
+                'refresh' => true,
+            ];
+        } else {
+
+            $inputValues = [
+                'email' => ""
+            ];
+
+            return [
+                'title' => tr('Test send email'),
+                'info' => '',
+                'refresh' => true,
+                'inputValues' => $inputValues
+            ];
+            
+        }
+    }    
+
+    public function action_virtualmin_create($input)
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+            $source = $input->source->text();
+            $domain = $input->domain->text();
+            if (preg_match('/^([^\.]*)\./', $domain, $m)) {
+                $remote_user = $m[1];
+            } else {
+                $remote_user = $domain;
+            }
+            $email = $input->email->text();
+            $name = $input->name->text();
+            $branch = $input->branch->text();
+            $php_version = $input->php_version->text();
+
+            try {
+                $output = $this->createVirtualminTikiInstance($source, $remote_user, $domain, $email, $name, $branch, $php_version);
+                return [
+                    'title' => tr('Create Virtualmin Instance Result'),
+                    'override_action' => 'info',
+                    'info' => $output,
+                    'refresh' => true,
+                ];
+            } catch (Services_Exception $e) {
+                Feedback::error($e->getMessage());
+            }
+        }
+
+        $cmd = new TikiManager\Command\CreateInstanceCommand();
+        $sources_table = TikiDb::get()->table('tiki_source_auth', false);
+
+        $sources = [];
+        $records = $sources_table->fetchAll(['identifier', 'scheme', 'domain', 'path']);
+        foreach ($records as $record) {
+            $sources[$record['identifier']] = "{$record['identifier']}: {$record['scheme']}://{$record['domain']}{$record['path']}";
+        }
+
+        return [
+            'title' => tr('Create New Virtualmin Instance'),
+            'branches' => $this->getTikiBranches(),
+            'help' => $this->getCommandHelpTexts($cmd),
+            'input' => $input->asArray(),
+            'sources' => $sources,
+        ];
+    }
+
+    public function action_available_versions($input)
+    {
+        $result = [
+            'php_versions' => [],
+            'available_branches' => $this->getTikiBranches(),
+        ];
+
+        $source = $input->source->text();
+        $php_version = $input->php_version->text();
+        $selected_php_version = null;
+
+        $params = [
+            'program' => 'list-php-versions',
+            'name-only' => '',
+        ];
+        $response = $this->virtualminRemoteCommand($source, $params);
+        foreach ($response['data'] as $row) {
+            $result['php_versions'][] = $row['name'];
+            if ($row['name'] == $php_version) {
+                $selected_php_version = $php_version;
+            }
+        }
+
+        if ($selected_php_version) {
+            $available_versions = [];
+            $requirements = (new YamlFetcher())->getRequirements();
+            foreach ($requirements as $requirement) {
+                if ($requirement->getPhpVersion()->isValidVersion($selected_php_version)) {
+                    $available_versions[] = $requirement->getVersion();
+                }
+            }
+            $result['available_branches'] = array_values(array_filter($result['available_branches'], function($branch) use ($available_versions) {
+                if ($branch == 'master') {
+                    return true;
+                }
+                foreach ($available_versions as $version) {
+                    if (substr($branch, 0, strlen($version)) == $version || preg_match("/$version\.\d+/", $branch)) {
+                        return true;
+                    }
+                }
+                return false;
+            }));
+        }
+
+        return $result;
+    }
 
     public function action_clone($input)
     {
@@ -407,8 +591,18 @@ class Services_Manager_Controller
         $this->loadManagerEnv();
         $this->setManagerOutput();
 
-        if (! TikiManager\Application\Instance::getInstances(true)) {
-            // import current instance
+        // check current instance exist
+        $existing = TikiManager\Application\Instance::getInstances(true);
+        $found = false;
+        foreach ($existing as $instance) {
+            if ($instance->weburl == $base_url && $instance->type == 'local') {
+                $found = true;
+                break;
+            }
+        }
+
+        // and import it if not
+        if (! $found) {
             $instance = new TikiManager\Application\Instance;
             $instance->type = 'local';
             $access = $instance->getBestAccess();
@@ -478,8 +672,59 @@ class Services_Manager_Controller
                 ],
             ];
         }
-
-
     }
 
+    public function action_verify($input)
+    {
+        $cmd = new TikiManager\Command\CheckInstanceCommand();
+
+        $input = new ArrayInput([
+            'command' => $cmd->getName(),
+            '-i' => $input->instanceId->int()
+        ]);
+
+        $this->runCommand($cmd, $input);
+
+        return [
+            'override_action' => 'info',
+            'title' => tr('Tiki Manager Verify Instance'),
+            'info' => $this->manager_output->fetch(),
+            'refresh' => true,
+        ];
+    }
+    
+    public function action_tiki_versions($input)
+    {
+        $cmd = new TikiManager\Command\TikiVersionCommand();
+
+        if ($input->filter->text()){
+            $inputCommand = new ArrayInput([
+                'command' => $cmd->getName(),
+                "--vcs" => $input->vcs->text(),
+            ]);
+
+            $this->runCommand($cmd, $inputCommand);
+
+            return [
+                'title' => tr('Tiki Versions'),
+                'info' => $this->manager_output->fetch(),
+                'refresh' => true,
+            ];
+        } else {
+            /** Form initialization */
+            $inputValues = [
+                'vcs' => ['git', 'svn', 'src'],
+                'selected_vcs' => 'git'
+            ];
+
+            return [
+                'title' => tr('Tiki Versions'),
+                'info' => '',
+                'refresh' => true,
+                'inputValues' => $inputValues,
+                'help' => $this->getCommandHelpTexts($cmd)
+            ];
+            
+        }
+    }
 }

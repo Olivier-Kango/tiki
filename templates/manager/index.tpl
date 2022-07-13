@@ -97,6 +97,11 @@
                                 {icon name=tools _menu_text='y' _menu_icon='y' alt="{tr}Patches{/tr}"}
                             </a>
                         </action>
+                        <action>
+                            <a href="{service controller=manager action=verify instanceId=$instance->id}">
+                                {icon name=check _menu_text='y' _menu_icon='y' alt="{tr}Verify{/tr}"}
+                            </a>
+                        </action>
                     {/strip}{/actions}
                 </td>
             </tr>

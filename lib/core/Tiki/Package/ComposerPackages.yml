@@ -52,6 +52,16 @@ Faker:
   requiredBy:
     - "Trackers"
   requiredVersion: dev-master
+  state: replaced
+  replacedBy:
+    - fakerphp/faker
+FakerPHP:
+  licence: MIT
+  licenceUrl: "https://github.com/FakerPHP/Faker"
+  name: fakerphp/faker
+  requiredBy:
+    - "Trackers"
+  requiredVersion: ^1.9.2
 GoogleApiClient:
   licence: Apache-2.0
   licenceUrl: "https://github.com/google/google-api-php-client/blob/master/LICENSE"
