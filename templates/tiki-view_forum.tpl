@@ -214,7 +214,7 @@
                     <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label" for="editpost">{tr}Message{/tr}</label>
                         <div class="col-sm-10">
-                            {if $prefs.feature_wysiwyg eq 'y' and $prefs.wysiwyg_htmltowiki eq 'y' and $prefs.feature_forum_parse eq 'y' and ($prefs.wysiwyg_default eq 'y' or $smarty.request.mode_wysiwyg eq 'y')}
+                            {if $prefs.feature_wysiwyg eq 'y' and $prefs.wysiwyg_htmltowiki eq 'y' and $prefs.feature_forum_parse eq 'y' and ($prefs.wysiwyg_default eq 'y' and not isset($smarty.request.mode_wysiwyg) or $smarty.request.mode_wysiwyg eq 'y')}
                                 {$forum_wysiwyg = 'y'}
                             {else}
                                 {$forum_wysiwyg = 'n'}
