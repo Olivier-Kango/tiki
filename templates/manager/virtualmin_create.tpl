@@ -54,12 +54,6 @@
                     {/foreach}
                 </select>
             </div>
-        </div>
-        <div class="form-group row mb-3">
-            <label class="col-form-label col-sm-3"></label>
-            <div class="col-sm-9">
-                <input class="btn btn-primary" type="submit" name="create" value="{tr}Create a new instance{/tr}">
-            </div>
         </div>        
         <div class="form-group row mb-3">
             <label class="col-form-label col-sm-3">
@@ -92,6 +86,12 @@
             </label>
             <div class="col-sm-9">
                 <input type="email" name="email" value="{$input.email}" class="form-control" placeholder="johndoe@example.org" required>
+            </div>
+        </div>
+        <div class="form-group row mb-3">
+            <label class="col-form-label col-sm-3"></label>
+            <div class="col-sm-9">
+                <input class="btn btn-primary" type="submit" name="create" value="{tr}Create a new instance{/tr}">
             </div>
         </div>
     </form>
