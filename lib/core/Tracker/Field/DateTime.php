@@ -255,6 +255,7 @@ class Tracker_Field_DateTime extends Tracker_Field_Abstract implements Tracker_F
             $helper->setupFormat(str_replace($tikidate->search, $tikidate->replace, $prefs['long_date_format']), $schema->addNew($permName, 'long date format'));
         } else {
             $helper->setupFormat('Y-m-d H:i:s', $schema->addNew($permName, 'yyyy-mm-dd hh:mm:ss'));
+            $helper->setupFormat('Y-m-d H:i:s e', $schema->addNew($permName, 'yyyy-mm-dd hh:mm:ss TZ'));
             $helper->setupFormat(str_replace($tikidate->search, $tikidate->replace, $prefs['short_date_format'] . ' ' . $prefs['short_time_format']), $schema->addNew($permName, 'short datetime format'));
             $helper->setupFormat(str_replace($tikidate->search, $tikidate->replace, $prefs['long_date_format'] . ' ' . $prefs['long_time_format']), $schema->addNew($permName, 'long datetime format'));
         }
