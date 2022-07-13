@@ -238,12 +238,12 @@
                     <div class="mb-3 row">
                         <label class="col-sm-2 col-form-label" for="editpost2">{tr}Reply{/tr}</label>
                         <div class="col-sm-10">
-                            {if $prefs.feature_wysiwyg eq 'y' and $prefs.wysiwyg_htmltowiki eq 'y' and $prefs.feature_forum_parse eq 'y'}
+                            {if $prefs.feature_wysiwyg eq 'y' and $prefs.wysiwyg_htmltowiki eq 'y' and $prefs.feature_forum_parse eq 'y' and ($prefs.wysiwyg_default eq 'y' or $smarty.request.mode_normal neq 'y')}
                                 {$forum_wysiwyg = 'y'}
                             {else}
                                 {$forum_wysiwyg = 'n'}
                             {/if}
-                            {textarea rows="10" codemirror='true' syntax='tiki' id="editpost2" class="form-control" name="comments_data" _wysiwyg=n _preview=$prefs.ajax_edit_previews}{strip}
+                            {textarea rows="10" codemirror='true' syntax='tiki' id="editpost2" class="form-control" name="comments_data" _wysiwyg=$forum_wysiwyg _preview=$prefs.ajax_edit_previews}{strip}
                                 {*If set to reply not empty, if you are editing a post, or previewing, put the contents in the text area.*}
                                 {if ($prefs.feature_forum_replyempty ne 'y') || $edit_reply > 0 || $comment_preview eq 'y' || !empty($tikifeedback)}
                                     {$comment_data}
