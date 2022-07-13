@@ -6,7 +6,7 @@
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 // $Id$
 
-class Tracker_Field_Relation extends Tracker_Field_Abstract
+class Tracker_Field_Relation extends Tracker_Field_Abstract implements Tracker_Field_Exportable, Tracker_Field_Filterable
 {
     const OPT_RELATION = 'relation';
     const OPT_FILTER = 'filter';
@@ -629,5 +629,129 @@ class Tracker_Field_Relation extends Tracker_Field_Abstract
             }
         }
         return $itemsValues;
+    }
+
+    public function getTabularSchema()
+    {
+        $schema = new Tracker\Tabular\Schema($this->getTrackerDefinition());
+        $permName = $this->getConfiguration('permName');
+        $name = $this->getConfiguration('name');
+        $format = $this->getOption('format');
+
+        $schema->addNew($permName, 'raw')
+            ->setLabel($name)
+            ->setRenderTransform(function ($value) {
+                return $value;
+            })
+            ->setParseIntoTransform(function (&$info, $value) use ($permName) {
+                $info['fields'][$permName] = $value;
+            })
+            ;
+
+
+        $fullLookup = new Tracker\Tabular\Schema\CachedLookupHelper();
+        $fullLookup->setLookup(function ($value) use ($format) {
+            $relations = explode("\n", $value);
+            $labels = [];
+            foreach ($relations as $identifier) {
+                if (empty($identifier)) {
+                    continue;
+                }
+                list($type, $object) = explode(':', $identifier);
+                if (empty($type) || empty($object)) {
+                    continue;
+                }
+                $labels[] = TikiLib::lib('object')->get_title($type, $object, $format);
+            }
+            return implode(", ", $labels);
+        });
+        $schema->addNew($permName, 'lookup')
+            ->setLabel($name)
+            ->setReadOnly(true)
+            ->addQuerySource('text', "tracker_field_{$permName}_plain")
+            ->setRenderTransform(function ($value, $extra) use ($fullLookup) {
+                if (isset($extra['text'])) {
+                    return $extra['text'];
+                } else {
+                    return $fullLookup->get($value);
+                }
+            })
+            ;
+
+        $schema->addNew($permName, 'full')
+            ->setLabel($name)
+            ->setRenderTransform(function ($value) use ($format) {
+                $relations = explode("\n", $value);
+                $data = [];
+                foreach ($relations as $identifier) {
+                    if (empty($identifier)) {
+                        continue;
+                    }
+                    list($type, $object) = explode(':', $identifier);
+                    if (empty($type) || empty($object)) {
+                        continue;
+                    }
+                    $label = TikiLib::lib('object')->get_title($type, $object, $format);
+                    $data[$identifier] = $label;
+                }
+                return json_encode($data);
+            })
+            ->setParseIntoTransform(function (&$info, $value) use ($permName) {
+                $values = [];
+                $data = json_decode($value, true);
+                if (is_array($data)) {
+                    foreach ($data as $identifier => $label) {
+                        $values[] = $identifier;
+                    }
+                }
+                $info['fields'][$permName] = implode("\n", $values);
+            })
+            ;
+
+        return $schema;
+    }
+
+    public function getFilterCollection()
+    {
+        $collection = new Tracker\Filter\Collection($this->getTrackerDefinition());
+        $permName = $this->getConfiguration('permName');
+        $name = $this->getConfiguration('name');
+        $baseKey = $this->getBaseKey();
+
+        $osParams = [
+            '_filter' => $this->buildFilter(),
+            '_format' => $this->getOption('format'),
+        ];
+
+        $collection->addNew($permName, 'selector')
+            ->setLabel($name)
+            ->setControl(new Tracker\Filter\Control\ObjectSelector("tf_{$permName}_os", $osParams))
+            ->setApplyCondition(function ($control, Search_Query $query) use ($baseKey) {
+                $value = $control->getValue();
+
+                if ($value) {
+                    $query->filterMultivalue((string) $value, "{$baseKey}_multi");
+                }
+            })
+            ;
+
+        $collection->addNew($permName, 'multiselect')
+            ->setLabel($name)
+            ->setControl(new Tracker\Filter\Control\ObjectSelector("tf_{$permName}_ms", $osParams, true))
+            ->setApplyCondition(function ($control, Search_Query $query) use ($permName, $baseKey, $multivalue) {
+                $value = $control->getValue();
+
+                if ($value) {
+                    $sub = $query->getSubQuery("ms_$permName");
+                    foreach ($value as $v) {
+                        if ($v) {
+                            $sub->filterMultivalue((string) $v, "{$baseKey}_multi");
+                        }
+                    }
+                }
+            })
+        ;
+
+        return $collection;
     }
 }

@@ -47,7 +47,15 @@ class ObjectSelector implements Control
     public function getDescription()
     {
         if ($this->value) {
-            return \TikiLib::lib('object')->get_title($this->filters['type'], $this->value);
+            if ($this->multi && is_array($this->value)) {
+                $desc = '';
+                foreach ($this->value as $value) {
+                    $desc .= ' ' . \TikiLib::lib('object')->get_title($this->filters['type'], $value);
+                }
+                return $desc;
+            } else {
+                return \TikiLib::lib('object')->get_title($this->filters['type'], $this->value);
+            }
         }
     }
 
