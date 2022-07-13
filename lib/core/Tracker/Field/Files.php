@@ -924,6 +924,7 @@ class Tracker_Field_Files extends Tracker_Field_Abstract implements Tracker_Fiel
 
         $permName = $this->getConfiguration('permName');
         $name = $this->getConfiguration('name');
+        $galleryId = (int) $this->getOption('galleryId');
 
         $schema->addNew($permName, 'default')
             ->setLabel($name)
@@ -932,6 +933,50 @@ class Tracker_Field_Files extends Tracker_Field_Abstract implements Tracker_Fiel
             })
             ->setParseIntoTransform(function (&$info, $value) use ($permName) {
                 $info['fields'][$permName] = $value;
+            });
+
+        $schema->addNew($permName, 'url')
+            ->setLabel($name)
+            ->setRenderTransform(function ($value) {
+                global $base_url;
+
+                TikiLib::lib('smarty')->loadPlugin('smarty_modifier_sefurl');
+                $urls = [];
+                $fileIds = explode(',', $value);
+                foreach ($fileIds as $fileId) {
+                    if (is_numeric($fileId)) {
+                        $urls[] = $base_url . smarty_modifier_sefurl($fileId, 'display');
+                    }
+                }
+
+                return implode("\n", $urls);
+            })
+            ->setParseIntoTransform(function (&$info, $value) use ($permName, $galleryId) {
+                global $base_url;
+                $filegallib = TikiLib::lib('filegal');
+
+                $gal_info = $filegallib->get_file_gallery($galleryId ? $galleryId : 1);
+                if (! $gal_info) {
+                    throw new Exception(tr('No gallery to uploaded file to: %0', $galleryId));
+                }
+                $perms = Perms::get('file gallery', $galleryId);
+                if (! $perms->upload_files) {
+                    throw new Exception(tr('You don\'t have permission to upload a file to gallery "%0"', $gal_info['name']));
+                }
+
+                $fileIds = [];
+                $urls = explode("\n", $value);
+                foreach ($urls as $url) {
+                    if (substr($url, 0, strlen($base_url)) === $base_url && preg_match('/(\d+)$/', $url, $m)) {
+                        $fileIds[] = $m[1];
+                    } else {
+                        $file_info = $filegallib->get_info_from_url($url);
+                        if ($file_info) {
+                            $fileIds[] = $filegallib->upload_single_file($gal_info, $file_info['name'], $file_info['size'], $file_info['type'], $file_info['data']);
+                        }
+                    }
+                }
+                $info['fields'][$permName] = implode(',', $fileIds);
             });
 
         return $schema;
