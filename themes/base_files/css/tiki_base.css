@@ -13849,7 +13849,8 @@ div.tiki_plugin {
   margin: 0.2em;
   padding: 0.2em;
 }
-.options-container ol, .new-option {
+.options-container ol, .new-option,
+.dragging-options, .dragging-options li {
   list-style: none;
 }
 .options-container #options {
@@ -13857,34 +13858,36 @@ div.tiki_plugin {
   border: 4px #e9ecef dashed;
 }
 .options-container li {
-  padding: 0.5em;
-  margin: 0.2em;
   position: relative;
 }
 li .label-group {
-  width: 16em;
-  max-width: 35%;
-  margin-right: 2em;
+  max-width: 16em;
+  margin-right: 1em;
+}
+li .label-group .drag-handle,
+li .label-group .drag-handle .icon {
+  cursor: pointer;
 }
 li .url-group {
-  width: 25em;
-  max-width: 55%;
+  max-width: 25em;
 }
 .options-container > ol > li {
-  border: 1px solid #e9ecef;
+  outline: 1px solid #e9ecef;
+  margin-bottom: 5px;
 }
 .options-container .child-options {
   width: 100%;
-  float: left;
 }
-.options-container .child-options > li {
-  margin-bottom: 0;
+.options--group-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+.options-container .child-options > li,
+.dragging-options li {
+  margin-bottom: 5px;
 }
 .new-option .label-group {
   max-width: 100%;
-}
-.new-option * {
-  cursor: move;
 }
 @media (max-width: 575.98px) {
   li .label-group, li .url-group {
@@ -13892,6 +13895,9 @@ li .url-group {
   }
   .options-container #options {
     padding-left: 0;
+  }
+  .child-options {
+    padding-left: 7px;
   }
 }
 .TextArea-fullscreen {

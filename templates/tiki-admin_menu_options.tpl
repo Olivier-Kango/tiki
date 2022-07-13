@@ -1,4 +1,4 @@
-{* $Id$ *}
+{** Commented variable $Id$ .**}
 {title help="Menus" url="tiki-admin_menu_options.php?menuId=$menuId" admpage="general&amp;cookietab=3"}{tr}Menu:{/tr} {$editable_menu_info.name}{/title}
 
 <div class="t_navbar mb-4">
@@ -29,11 +29,11 @@
         <div class="navbar mb-4 clearfix">
             {button _text='{tr}Save Options{/tr}' _class='save_menu  btn btn-sm disabled float-start mb-2' _type='primary' _ajax='n' _auto_args='save_menu,page_ref_id'}
             <ol class="new-option">
-                <li id="node_new" class="clearfix new row">
-                    <div class="col-sm-12 px-0">
-                        <div class="float-start label-group">
+                <li id="node_new" class="new p-2">
+                    <div class="options--group-container">
+                        <div class="label-group">
                             <div class="input-group input-group-sm" style="max-width: 100%">
-                                <span class="input-group-text">{icon name='sort'}</span>
+                                <span class="input-group-text drag-handle">{icon name='sort'}</span>
                                 <input type="text" class="field-label form-control" value="" placeholder="{tr}New option{/tr}" readonly="readonly">
                                     <span class="tips input-group-text option-edit" title="|{tr}Check this if the option is an alternative to the previous one.{/tr}">
                                         <input type="checkbox" class="samepos">
@@ -44,9 +44,9 @@
                                     </a>
                             </div>
                         </div>
-                        <div class="float-start url-group hidden">
+                        <div class="flex-grow-1 d-inline-block url-group">
                             <div class="input-group input-group-sm">
-                                    <a href="javascript:void(0)" class="{*input-group-text*}" onclick='return false;'>
+                                    <a href="javascript:void(0)" class="input-group-text tips confirm" onclick='return false;'>
                                         {icon name='link'}
                                     </a>
                                 <input type="text" class="field-url form-control" value="" placeholder="{tr}URL or ((page name)){/tr}">
@@ -72,11 +72,11 @@
             <input type="hidden" name="offset" value="{$offset}">
 
             <div class="options-container">
-                <ol id="options">
+                <ol id="options" class="p-2">
                     {$prevpos = 0}
                     {foreach $options as $option}
-                        <li class="row clearfix" id="node_{$option.optionId}" data-id="{$option.optionId}" data-position="{$option.position}" data-parent="{$option.parent}" data-type="{$option.type}">
-                            <div class="col-sm-12 px-0">
+                        <li class="p-2" id="node_{$option.optionId}" data-id="{$option.optionId}" data-position="{$option.position}" data-parent="{$option.parent}" data-type="{$option.type}">
+                            <div class="options--group-container">
                                 {if $option.name}
                                     {capture assign='tooltip'}{strip}
                                         {if $editable_menu_info.parse eq 'y'}
@@ -130,9 +130,9 @@
                                     {$tooltip = "|{tr}separator{/tr}"}
                                 {/if}
 
-                                <div class="float-start label-group me-4">
+                                <div class="label-group">
                                     <div class="input-group input-group-sm">
-                                        <span class="input-group-text">{icon name='sort'}</span>
+                                        <span class="input-group-text drag-handle">{icon name='sort'}</span>
                                         <input type="text" class="field-label form-control" value="{$option.name|escape}" placeholder="{tr}Label{/tr}">
                                         <span class="tips input-group-text option-edit" title="|{tr}Check this if the option is an alternative to the previous one.{/tr}">
                                                 <input type="checkbox" class="samepos"{if $option.position eq $prevpos} checked="checked"{/if}>
@@ -143,7 +143,7 @@
                                             </a>
                                     </div>
                                 </div>
-                                <div class="float-start url-group">
+                                <div class="flex-grow-1 url-group">
                                     <div class="input-group input-group-sm">
                                         <a href="{$option.sefurl|escape}" class="input-group-text tips confirm" title="|{tr}Test URL{/tr}">
                                             {icon name='link'}
