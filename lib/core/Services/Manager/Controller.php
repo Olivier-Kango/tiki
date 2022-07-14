@@ -693,6 +693,28 @@ class Services_Manager_Controller
         ];
     }
     
+    public function action_maintenance($input)
+    {
+        $cmd = new TikiManager\Command\MaintenanceInstanceCommand();
+        $instanceId = $input->instanceId->int();
+        $mode = $input->mode->text();
+
+        $inputCommand = new ArrayInput([
+            'command' => $cmd->getName(),
+            '-i' => $instanceId,
+            'status' => $mode
+        ]);
+
+        $this->runCommand($cmd, $inputCommand);
+
+        return [
+            'override_action' => 'info',
+            'title' => tr('Tiki Manager Instance Maintenance'),
+            'info' => $this->manager_output->fetch(),
+            'refresh' => true,
+        ];
+    }
+    
     public function action_tiki_versions($input)
     {
         $cmd = new TikiManager\Command\TikiVersionCommand();
