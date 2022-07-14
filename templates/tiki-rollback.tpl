@@ -1,8 +1,9 @@
 {title}{tr _0=$page _1=$version}Roll back page %0 to version %1{/tr}{/title}
 
-<form action="tiki-rollback.php?page={$page|escape:url}&amp;version={$version|escape}&amp;rollback=y" method="post">
-    <input type="submit" class="btn btn-primary btn-sm" name="rollback" value="{tr}Roll back{/tr}">
-    <div class="wikitext">{$preview.data}</div>
+<input type="submit" form="rollbackform" class="btn btn-primary btn-sm" name="rollback" value="{tr}Roll back{/tr}">
+<div class="wikitext">{$preview.data}</div>
+
+<form action="tiki-rollback.php?page={$page|escape:url}&amp;version={$version|escape}&amp;rollback=y" method="post">    
     <div>
         {ticket}
         <input type="hidden" name="page" value="{$page|escape}">
@@ -16,4 +17,5 @@
 </form>
 
 {include file='tiki-page_bar.tpl'}
+
 
