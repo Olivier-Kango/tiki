@@ -548,7 +548,8 @@ class Tracker_Field_Relation extends Tracker_Field_Abstract implements Tracker_F
             }
         }
 
-        if (count($cache) > 1000) {
+        $available_memory = TikiLib::lib('tiki')->get_memory_avail();
+        if ($available_memory > 0 && $available_memory < 1048576 * 10) {
             $cache = [];
         }
 
