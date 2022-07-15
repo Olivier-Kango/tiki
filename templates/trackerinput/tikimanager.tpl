@@ -88,7 +88,8 @@
                             </a>
                             <a class="dropdown-item" href="{bootstrap_modal controller=manager action=maintenance mode=off instanceId=$instance->id}">
                                 {icon name=hammer _menu_text='y' _menu_icon='y' alt="{tr}Maintenance Off{/tr}"}
-                            </a>    
+                            </a>
+                        {/if}
                         {if in_array('verify', $field.available_actions)}
                             <a class="dropdown-item" href="{bootstrap_modal controller=manager action=verify instanceId=$instance->id}">
                                 {icon name=check _menu_text='y' _menu_icon='y' alt="{tr}Verify{/tr}"}
