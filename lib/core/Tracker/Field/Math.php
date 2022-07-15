@@ -123,11 +123,11 @@ class Tracker_Field_Math extends Tracker_Field_Abstract implements Tracker_Field
         return $info;
     }
 
-    public function getDocumentPart(Search_Type_Factory_Interface $typeFactory)
+    public function getDocumentPart(Search_Type_Factory_Interface $typeFactory, $mode = '')
     {
         $value = $this->getValue();
 
-        if ('index' == $this->getOption('recalculate')) {
+        if ('index' == $this->getOption('recalculate') && $mode !== 'formatting') {
             $value = $this->recalculate();
         }
 
