@@ -95,6 +95,11 @@
                                 {icon name=check _menu_text='y' _menu_icon='y' alt="{tr}Verify{/tr}"}
                             </a>
                         {/if}
+                        {if in_array('checkout', $field.available_actions)}
+                            <a class="dropdown-item" href="{bootstrap_modal controller=manager action=checkout instanceId=$instance->id}">
+                                {icon name=logout _menu_text='y' _menu_icon='y' alt="{tr}Checkout{/tr}"}
+                            </a>
+                        {/if}
                     </div>
                 </div>
             </div>
