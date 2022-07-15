@@ -103,4 +103,14 @@ class Tracker_Field_PageSelector extends Tracker_Field_Abstract
             }
         }
     }
+    
+    // Called by trackerlib with final value saved
+    public function postSaveHook($value)
+    {
+        $itemId = (int)$this->getItemId();
+        $fieldId = (int)$this->getFieldId();
+        $trackerlib = TikiLib::lib('trk');
+        $trackerlib->update_page_selector_relations($value, $itemId);
+        $trackerlib->add_page_selector_backlink($itemId, $fieldId, $value);
+    }
 }

@@ -6668,4 +6668,22 @@ class TrackerLib extends TikiLib
 
         return $permName;
     }
+
+    // Add backlinks from selected page by 'k' (see page selector trackerfield)
+    public function add_page_selector_backlink($itemId, $fieldId, $value)
+    {
+        $tikilib = TikiLib::lib('tiki');
+        $pageFrom = 'objectlink:trackeritemfield:' . $itemId. ':' . $fieldId;
+        $tikilib->clear_links($pageFrom);
+        $pageTo = $value;
+        $tikilib->replace_link($pageFrom, $pageTo);
+    }
+
+    // Update and stores relations with wiki page
+    public function update_page_selector_relations($value, $itemId)
+    {
+        $wikilib = TikiLib::lib('wiki');
+        $objectType = 'trackeritemfield';        
+        $wikilib->update_wikicontent_relations($value, $objectType, $itemId);
+    }
 }

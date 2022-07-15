@@ -140,7 +140,7 @@ class WikiPluginBackLinks extends PluginsLib
             $aBackRequest[] = $page;
         }
         if (! $aBackRequest) {
-            return tra("No pages link to") . " (($page))";
+            $sOutput.= tra("No pages link to") . " (($page))";
         } else {
             //Sorting backlinks by page list pref
             $sort_mode = $prefs['wiki_list_sortorder'];
@@ -156,15 +156,18 @@ class WikiPluginBackLinks extends PluginsLib
         if (! isset($noheader) || ! $noheader) {
             // Create header
             $count = $aPages["cant"];
-            if ($count == 1) {
-                $sOutput .= tra("One page links to") . " (($page))";
-            } else {
-                $sOutput = "$count ".tra("pages link to")." (($page))";
-            }
+            if (! $count == 0) {
+                if ($count == 1) {
+                    $sOutput .= tra("One page links to") . " (($page))";
+                } else {
+                    $sOutput = "$count ".tra("pages link to")." (($page))";
+                }
+            } 
             $sOutput .= "\n";
         }
         $sOutput.= PluginsLibUtil::createTable($aPages["data"], $info);
         //If any backlink in a tracker item field
+        $sOutput .= "\n";
         if ($counttbi > 0) {
             // Create header for tracker items
             if ($counttbi == 1) {
@@ -172,8 +175,8 @@ class WikiPluginBackLinks extends PluginsLib
             } else {
                 $sOutput.= "$counttbi " . tra("tracker items link to") . " (($page))";
             }
-            $sOutput .= "<br/>";
-        $sOutput .= $this->list_backlinks_from_tracker_items($tBackRequest);
+            $sOutput .= "\n";
+            $sOutput .= $this->list_backlinks_from_tracker_items($tBackRequest);
         }
         return $sOutput;
     }
