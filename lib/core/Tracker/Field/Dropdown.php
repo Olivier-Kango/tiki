@@ -380,7 +380,7 @@ class Tracker_Field_Dropdown extends Tracker_Field_Abstract implements Tracker_F
                         if ($v === '-Blank (no data)-') {
                             $sub->filterIdentifier('', $baseKey . '_text');
                         } elseif ($v) {
-                            $sub->filterContent((string) $v, $baseKey);
+                            $sub->filterIdentifier((string) $v, $baseKey);
                         }
                     }
                 }
