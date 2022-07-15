@@ -9245,7 +9245,7 @@ textarea.form-control-lg {
   text-decoration: none;
 }
 .navbar-dark .sitetitle a {
-  color: #ccc;
+  color: #fff;
 }
 .navbar-dark .sitetitle a:hover {
   color: #2c3e50;
@@ -9897,8 +9897,8 @@ div.drillshow {
   color: #212529;
 }
 .tiki .ui-widget button {
-  background: #fff;
-  color: #212529;
+  background: #ecf0f1;
+  color: #7b8a8b;
 }
 .tiki.tiki-listpages .ui-widget.ui-widget-content {
   border: 1px solid #dee2e6;
@@ -10146,6 +10146,12 @@ blockquote {
 }
 a.dropdown-item {
   color: #7b8a8b;
+}
+.bg-light-parent {
+  background: #ecf0f1;
+}
+.bg-dark-parent {
+  background: #7b8a8b;
 }
 .navbar-expand .navbar-nav {
   flex-wrap: wrap;
@@ -10396,10 +10402,10 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   -webkit-text-size-adjust: 100%;
   padding: 2px 5px;
   white-space: nowrap;
-  background: #fff;
-  border: 1px solid #212529;
+  background: #7b8a8b;
+  border: 1px solid #dee2e6;
   border-radius: 0.25rem;
-  color: #212529;
+  color: #7b8a8b;
 }
 .tiki .pvtTriangle {
   cursor: pointer;
@@ -10448,13 +10454,13 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   padding: 5px;
 }
 .tiki .pvtFilterBox button {
-  background: #fff;
-  border: 1px solid #212529;
+  background: #ecf0f1;
+  border: 1px solid #dee2e6;
   border-radius: 0.25rem;
-  color: #212529;
+  color: #7b8a8b;
 }
 .tiki .pvtFilterBox button:hover {
-  background: white;
+  background: #cfd9db;
 }
 .tiki .pvtFilterBox button + button {
   margin-left: 4px;
@@ -10493,17 +10499,17 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 }
 .tiki .ui-button, .tiki html .ui-button.ui-state-disabled:hover, .tiki html .ui-button.ui-state-disabled:active {
   border: 1px solid;
-  border-color: #212529;
-  background: #fff;
+  border-color: #dee2e6;
+  background: #ecf0f1;
   font-weight: normal;
-  color: #212529;
+  color: #7b8a8b;
   font-size: 1rem;
 }
 .tiki .ui-widget-content .ui-state-focus, .tiki .ui-widget-header .ui-state-focus, .tiki .ui-button:hover, .tiki .ui-button:focus {
-  border: 1px solid #212529;
-  background: #fff;
+  border: 1px solid #2c3e50;
+  background: #ecf0f1;
   font-weight: normal;
-  color: #212529;
+  color: #2c3e50;
 }
 .tiki .ui-widget-header a {
   color: #18bc9c;
@@ -10983,7 +10989,11 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 .mobile.tiki-cypht .nux_dev_news table td:last-child, .mobile.tiki-webmail .nux_dev_news table td:last-child {
   border-bottom: 1px solid #ced4da;
 }
-/* placeholder file for customisations needed for select2 in tiki with bootstrap 5 */
+.tiki .select2-container--bootstrap-5 .select2-selection--single .select2-selection__clear, .tiki .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__clear {
+  position: absolute;
+  top: 50%;
+  right: 3em;
+}
 .topbar_modules > * {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;

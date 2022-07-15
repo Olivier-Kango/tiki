@@ -9195,7 +9195,7 @@ textarea.form-control-lg {
   text-decoration: none;
 }
 .navbar-dark .sitetitle a {
-  color: #ccc;
+  color: #fff;
 }
 .navbar-dark .sitetitle a:hover {
   color: #fff;
@@ -9847,7 +9847,7 @@ div.drillshow {
   color: #222;
 }
 .tiki .ui-widget button {
-  background: #fff;
+  background: #eee;
   color: #222;
 }
 .tiki.tiki-listpages .ui-widget.ui-widget-content {
@@ -10096,6 +10096,12 @@ blockquote {
 }
 a.dropdown-item {
   color: #222;
+}
+.bg-light-parent {
+  background: #eee;
+}
+.bg-dark-parent {
+  background: #222;
 }
 .navbar {
   font-weight: 300;
@@ -10547,8 +10553,8 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   -webkit-text-size-adjust: 100%;
   padding: 2px 5px;
   white-space: nowrap;
-  background: #fff;
-  border: 1px solid #222;
+  background: #222;
+  border: 1px solid #dee2e6;
   border-radius: 0;
   color: #222;
 }
@@ -10599,13 +10605,13 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   padding: 5px;
 }
 .tiki .pvtFilterBox button {
-  background: #fff;
-  border: 1px solid #222;
+  background: #eee;
+  border: 1px solid #dee2e6;
   border-radius: 0;
   color: #222;
 }
 .tiki .pvtFilterBox button:hover {
-  background: white;
+  background: #d5d5d5;
 }
 .tiki .pvtFilterBox button + button {
   margin-left: 4px;
@@ -10644,17 +10650,17 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 }
 .tiki .ui-button, .tiki html .ui-button.ui-state-disabled:hover, .tiki html .ui-button.ui-state-disabled:active {
   border: 1px solid;
-  border-color: #222;
-  background: #fff;
+  border-color: #dee2e6;
+  background: #eee;
   font-weight: normal;
   color: #222;
   font-size: 1rem;
 }
 .tiki .ui-widget-content .ui-state-focus, .tiki .ui-widget-header .ui-state-focus, .tiki .ui-button:hover, .tiki .ui-button:focus {
-  border: 1px solid #222;
-  background: #fff;
+  border: 1px solid #008cba;
+  background: #eee;
   font-weight: normal;
-  color: #222;
+  color: #008cba;
 }
 .tiki .ui-widget-header a {
   color: #008cba;
@@ -11134,7 +11140,11 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 .mobile.tiki-cypht .nux_dev_news table td:last-child, .mobile.tiki-webmail .nux_dev_news table td:last-child {
   border-bottom: 1px solid #ccc;
 }
-/* placeholder file for customisations needed for select2 in tiki with bootstrap 5 */
+.tiki .select2-container--bootstrap-5 .select2-selection--single .select2-selection__clear, .tiki .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__clear {
+  position: absolute;
+  top: 50%;
+  right: 3em;
+}
 .dropdown-item.text-danger {
   background: #fff;
   border-radius: 0;

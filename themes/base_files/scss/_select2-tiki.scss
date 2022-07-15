@@ -1,1 +1,8 @@
-/* placeholder file for customisations needed for select2 in tiki with bootstrap 5 */
+// Customisations needed for select2 in tiki with bootstrap 5
+// This seems to be needed to separate the x and v icons better:
+.tiki .select2-container--bootstrap-5 .select2-selection--single .select2-selection__clear,
+.tiki .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__clear {
+    position: absolute;
+    top: 50%;
+    right: 3em; // increased from 2.25rem to increase space between "x" and "v" icons.
+}

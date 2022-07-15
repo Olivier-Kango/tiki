@@ -9238,7 +9238,7 @@ textarea.form-control-lg {
   text-decoration: none;
 }
 .navbar-dark .sitetitle a {
-  color: #ccc;
+  color: #fff;
 }
 .navbar-dark .sitetitle a:hover {
   color: #fff;
@@ -9890,8 +9890,8 @@ div.drillshow {
   color: #7b8ab8;
 }
 .tiki .ui-widget button {
-  background: #d9e3f1;
-  color: #7b8ab8;
+  background: #f0f5fa;
+  color: #212529;
 }
 .tiki.tiki-listpages .ui-widget.ui-widget-content {
   border: 1px solid rgba(55, 94, 148, 0.1);
@@ -10140,6 +10140,12 @@ blockquote {
 }
 a.dropdown-item {
   color: #7b8ab8;
+}
+.bg-light-parent {
+  background: #f0f5fa;
+}
+.bg-dark-parent {
+  background: #212529;
 }
 .btn {
   position: relative;
@@ -10902,10 +10908,10 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   -webkit-text-size-adjust: 100%;
   padding: 2px 5px;
   white-space: nowrap;
-  background: #d9e3f1;
-  border: 1px solid #7b8ab8;
+  background: #212529;
+  border: 1px solid rgba(55, 94, 148, 0.1);
   border-radius: 50rem;
-  color: #7b8ab8;
+  color: #212529;
 }
 .tiki .pvtTriangle {
   cursor: pointer;
@@ -10954,13 +10960,13 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
   padding: 5px;
 }
 .tiki .pvtFilterBox button {
-  background: #d9e3f1;
-  border: 1px solid #7b8ab8;
+  background: #f0f5fa;
+  border: 1px solid rgba(55, 94, 148, 0.1);
   border-radius: 50rem;
-  color: #7b8ab8;
+  color: #212529;
 }
 .tiki .pvtFilterBox button:hover {
-  background: #d9dff1;
+  background: #cadced;
 }
 .tiki .pvtFilterBox button + button {
   margin-left: 4px;
@@ -10999,17 +11005,17 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 }
 .tiki .ui-button, .tiki html .ui-button.ui-state-disabled:hover, .tiki html .ui-button.ui-state-disabled:active {
   border: 1px solid;
-  border-color: #7b8ab8;
-  background: #d9e3f1;
+  border-color: rgba(55, 94, 148, 0.1);
+  background: #f0f5fa;
   font-weight: normal;
-  color: #7b8ab8;
+  color: #212529;
   font-size: 1rem;
 }
 .tiki .ui-widget-content .ui-state-focus, .tiki .ui-widget-header .ui-state-focus, .tiki .ui-button:hover, .tiki .ui-button:focus {
-  border: 1px solid #7b8ab8;
-  background: #d9e3f1;
+  border: 1px solid #378dfc;
+  background: #f0f5fa;
   font-weight: normal;
-  color: #7b8ab8;
+  color: #378dfc;
 }
 .tiki .ui-widget-header a {
   color: #485785;
@@ -11495,7 +11501,51 @@ div.ts-wrapperdiv div.ts-pager .right-margin {
 .mobile.tiki-cypht .nux_dev_news table td:last-child, .mobile.tiki-webmail .nux_dev_news table td:last-child {
   border-bottom: 1px solid #bed1e6;
 }
-/* placeholder file for customisations needed for select2 in tiki with bootstrap 5 */
+.tiki .select2-container--bootstrap-5 .select2-selection--single .select2-selection__clear, .tiki .select2-container--bootstrap-5 .select2-selection--multiple .select2-selection__clear {
+  right: 3rem;
+}
+.tiki .select2-container--bootstrap-5 .select2-selection {
+  padding: 1rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #7b8ab8;
+  background-color: #f0f5fa;
+  border: 0 solid #bed1e6;
+  border-radius: 0.25rem;
+}
+.tiki .select2-container--bootstrap-5 .select2-selection--single .select2-selection__rendered, .tiki .select2-container--bootstrap-5 .select2-dropdown .select2-results__options .select2-results__option {
+  font-weight: 400;
+  line-height: 1.5;
+  color: #7b8ab8;
+}
+.tiki .select2-container--bootstrap-5 .select2-dropdown {
+  background-color: #f0f5fa;
+  border: 0 solid #bed1e6;
+  border-radius: 0.25rem;
+}
+.tiki .select2-results__options .select2-results__option {
+  color: #7b8ab8;
+  background: #f0f5fa;
+}
+.tiki .select2-container--bootstrap-5 .select2-dropdown .select2-search .select2-search__field {
+  display: block;
+  width: 100%;
+  padding: 1rem 1.5rem;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #7b8ab8;
+  background-color: #f0f5fa;
+  border: 1px solid #bed1e6;
+  border-radius: 0.25rem;
+  transition: #bed1e6 0.15s ease-in-out, inset 2px 2px 8px rgba(55, 94, 148, 0.3), inset -3px -2px 5px rgba(255, 255, 255, 0.8) 0.15s ease-in-out;
+}
+.tiki .select2-container--bootstrap-5 .select2-dropdown .select2-results__options .select2-results__option.select2-results__option--selected, .tiki .select2-container--bootstrap-5 .select2-dropdown .select2-results__options .select2-results__option[aria-selected="true"] {
+  color: #fff;
+  background-color: #378dfc;
+}
 .topbar_modules > * {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
