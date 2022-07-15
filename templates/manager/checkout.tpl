@@ -33,7 +33,7 @@
                     </a>
                     </label>
                 <div class="col-sm-9">
-                    <input class="form-control" id="url" type="url" name="url" placeholder="example.org">
+                    <input class="form-control" id="url" type="url" name="url" placeholder="e.g. git@gitlab.com:tikiwiki/tiki.git">
                 </div>
             </div>
             <div class="form-group row mb-3">
