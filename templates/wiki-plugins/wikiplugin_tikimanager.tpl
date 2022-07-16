@@ -61,6 +61,13 @@
                     </a>
                 </action>
                 {/if}
+                {if in_array('upgrade', $available_actions)}
+                    <action>
+                        <a href="{bootstrap_modal controller=manager action=upgrade instanceId=$instance->id}" onclick="$('[data-bs-toggle=popover]').popover('hide');">
+                            {icon name=import _menu_text='y' _menu_icon='y' alt="{tr}Upgrade{/tr}"}
+                        </a>
+                    </action>
+                {/if}
                 {if in_array('backup', $available_actions)}
                     <action>
                         <a href="{bootstrap_modal controller=manager action=backup instanceId=$instance->id}" onclick="$('[data-bs-toggle=popover]').popover('hide');">

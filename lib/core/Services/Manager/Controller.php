@@ -61,6 +61,70 @@ class Services_Manager_Controller
         }
     }
 
+    public function action_upgrade($input)
+    {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $availbleInstances = TikiManager\Application\Instance::getInstances(true);
+            $availbleInstancesIds = array_map(function ($element) {
+                return $element->id;
+            }, $availbleInstances);
+            $instancesToUpdate = $input->instances->array();
+
+            foreach ($instancesToUpdate as $instanceId) {
+                if (!in_array($instanceId, $availbleInstancesIds)) {
+                    Feedback::error(tr('Unknown instance ' . $instanceId));
+                    return [
+                        'FORWARD' => [
+                            'action' => 'index'
+                        ],
+                    ];
+                }
+            }
+
+            $instances = implode(',', $instancesToUpdate);
+            $branch =  $input->branch->text();
+            $check = $input->check->int();
+            $skipReindex = $input->skipReindex->int();
+            $skipCacheWarmup = $input->skipCacheWarmup->int();
+            $liveReindex = $input->skipReindex->int();
+            $lag = $input->lag->int();
+            $stash = $input->stash->int();
+            $ignoreRequirements = $input->ignoreRequirements->int();
+
+            $consoleCommand = 'manager:instance:upgrade -i ' . $instances . ' --branch=' . $branch . (($check) ? ' --check' : '') . (($skipReindex) ? ' --skip-reindex' : '') . (($skipCacheWarmup) ? ' --skip-cache-warmup' : '') . (($liveReindex) ? ' --live-reindex' : '') . ' --lag=' . $lag . (($stash) ? ' --stash' : '') . (($ignoreRequirements) ? ' --ignore-requirements' : '');
+
+            Scheduler_Manager::queueJob('Upgrade instance '.$instances, 'ConsoleCommandTask', ['console_command' => $consoleCommand]);
+            Feedback::success(tr("Instance %0 scheduled to upgrade in the background. You can check command output via <a href='tiki-admin_schedulers.php#contenttabs_admin_schedulers-3'>Scheduler logs</a>.", $instances));
+        } else {
+            $instanceId = $input->instanceId->int();
+            $instance = TikiManager\Application\Instance::getInstance($instanceId);
+
+            if ($instance) {
+                $cmd = new TikiManager\Command\UpgradeInstanceCommand();
+                $boolOptions = '<option value="" disabled selected hidden></option>'
+                               .'<option value="1">True</option>'
+                               .'<option value="0">False</option>';
+
+                return [
+                    'title' => tr('Instances Upgrade'),
+                    'info' => '',
+                    'instances' => TikiManager\Application\Instance::getInstances(true),
+                    'selectedInstanceId' => $instanceId,
+                    'branches' => $this->getTikiBranches(),
+                    'boolOptions' => $boolOptions,
+                    'help' => $this->getCommandHelpTexts($cmd)
+                ];
+            } else {
+                Feedback::error(tr('Unknown instance'));
+                return [
+                    'FORWARD' => [
+                        'action' => 'index'
+                    ],
+                ];
+            }
+        }
+    }
+
     public function action_fix($input)
     {
         $instanceId = $input->instanceId->int();

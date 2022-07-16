@@ -100,6 +100,11 @@
                                 {icon name=eye _menu_text='y' _menu_icon='y' alt="{tr}Watch{/tr}"}
                             </a>
                         {/if}
+                        {if in_array('upgrade', $field.available_actions)}
+                            <a class="dropdown-item" href="{bootstrap_modal controller=manager action=upgrade instanceId=$instance->id}">
+                                {icon name=import _menu_text='y' _menu_icon='y' alt="{tr}Upgrade{/tr}"}
+                            </a>
+                        {/if}
                     </div>
                 </div>
             </div>

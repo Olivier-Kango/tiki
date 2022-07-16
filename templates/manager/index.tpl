@@ -116,6 +116,11 @@
                                 {icon name=eye _menu_text='y' _menu_icon='y' alt="{tr}Watch{/tr}"}
                             </a>
                         </action>
+                        <action>
+                            <a href="{service controller=manager action=upgrade instanceId=$instance->id}">
+                                {icon name=import _menu_text='y' _menu_icon='y' alt="{tr}Upgrade{/tr}"}
+                            </a>
+                        </action>
                     {/strip}{/actions}
                 </td>
             </tr>
