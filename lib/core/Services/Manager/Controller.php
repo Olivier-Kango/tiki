@@ -749,4 +749,39 @@ class Services_Manager_Controller
             
         }
     }
+
+    public function action_setup_watch($input)
+    {
+        $cmd = new TikiManager\Command\SetupWatchManagerCommand();
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+            $exclude = implode(',', $input->exclude->array());
+
+            $inputCommand = new ArrayInput([
+                'command' => $cmd->getName(),
+                "--email" => $input->email->text(),
+                "--time" => $input->time->text(),
+                "--exclude" => !empty($exclude) ? $exclude : ''
+            ]);
+
+            $this->runCommand($cmd, $inputCommand);
+
+            return [
+                'title' => tr('Setup Watch Result'),
+                'info' => $this->manager_output->fetch(),
+                'refresh' => true,
+            ];
+        } else {
+            $instances = TikiManager\Application\Instance::getInstances(true);
+
+            return [
+                'title' => tr('Setup Watch'),
+                'info' => '',
+                'refresh' => true,
+                'instances' => $instances,
+                'help' => $this->getCommandHelpTexts($cmd)
+            ];
+            
+        }
+    }
 }

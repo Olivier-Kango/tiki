@@ -14,6 +14,9 @@
     {if in_array('test_send_email', $available_actions)}
     <a class="btn btn-light m-1" href="{bootstrap_modal controller=manager action=test_send_email}">{icon name=envelope} {tr}Test Send Email{/tr}</a>
     {/if}
+    {if in_array('setup_watch', $available_actions)}
+    <a class="btn btn-light m-1" href="{bootstrap_modal controller=manager action=setup_watch}">{icon name="clock-o"} {tr}Setup Watch{/tr}</a>
+    {/if}
     <h2>Instances</h2>
     <table class="table">
     <tr>

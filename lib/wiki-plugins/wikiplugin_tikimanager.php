@@ -81,7 +81,7 @@ function wikiplugin_tikimanager($data, $params)
     });
 
     // taken from Tiki manager available commands, TODO: hook these up with the interface
-    $available_actions = ['access', 'backup', 'blank', 'check', 'clone', 'cloneandupgrade', 'console', 'copysshkey', 'create', 'delete', 'detect', 'edit', 'fixpermissions', 'import', 'list', 'maintenance', 'patch_apply', 'patch_delete', 'patch_list', 'profile_apply', 'restore', 'revert', 'setup-scheduler-cron', 'stats', 'update', 'upgrade', 'watch', 'info', 'tiki_versions', 'test_send_email'];
+    $available_actions = ['access', 'backup', 'blank', 'check', 'clone', 'cloneandupgrade', 'console', 'copysshkey', 'create', 'delete', 'detect', 'edit', 'fixpermissions', 'import', 'list', 'maintenance', 'patch_apply', 'patch_delete', 'patch_list', 'profile_apply', 'restore', 'revert', 'setup-scheduler-cron', 'stats', 'update', 'upgrade', 'watch', 'info', 'tiki_versions', 'test_send_email', 'setup_watch'];
     if ($showactions) {
         $available_actions = array_filter($available_actions, function($action) use ($showactions) {
             return in_array($action, $showactions);
