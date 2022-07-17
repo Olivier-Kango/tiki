@@ -27,6 +27,7 @@
         <th>{tr}Revision{/tr}</th>
         <th>{tr}URL{/tr}</th>
         <th>{tr}Contact{/tr}</th>
+        <th>{tr}Blank{/tr}</th>
         <th></th>
     </tr>
     {foreach $instances as $instance}
@@ -38,6 +39,7 @@
         <td>{$instance->revision}</td>
         <td><a href="{$instance->weburl}" title="Visit website" target="_blank">{$instance->weburl}</a></td>
         <td>{$instance->contact|escape}</td>
+        <td>{if $instance->app != null }{tr}False{/tr}{else}{tr}True{/tr}{/if}</td>
         <td class="action">
             {actions}{strip}
                 {if in_array('update', $available_actions)}

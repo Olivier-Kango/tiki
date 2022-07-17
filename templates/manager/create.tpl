@@ -16,14 +16,32 @@
             <div class="form-group row mb-3 preference">
                 <label class="col-form-label col-sm-3">
                     {tr}Instance type{/tr}
+                    <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}This will allows you to create an instance form an existing tiki installation or a blank instance without actually add a Tiki{/tr}">
+                        {icon name=information}
+                    </a>
+                </label>
+                <div class="col-sm-9">   
+                    <div class="row">                 
+                    {foreach item=type from=$inputValues['instance_types']}
+                        <div class="col-sm-3">
+                            <input type="radio" class="form-check-input" id="instance_type" name="instance_type" value="{$type|escape}" {if $inputValues['selected_instance_type'] eq $type}checked{/if}>
+                            <label class="form-check-label" for="instance_type">{$type|upper}</label>
+                        </div>
+                    {/foreach}  
+                    </div>                  
+                </div>
+            </div>            
+            <div class="form-group row mb-3 preference">
+                <label class="col-form-label col-sm-3">
+                    {tr}Connection type{/tr}
                     <a class="tikihelp text-info" title="{tr}Description{/tr}: {tr}{$help.type}{/tr}">
                         {icon name=information}
                     </a>
                 </label>
                 <div class="col-sm-9">
-                    <select class="form-control" id="type" name="type" data-tiki-admin-child-block=".type_childcontainer">
-                        {foreach item=type from=$inputValues['types']}
-                            <option value="{$type|escape}" {if $inputValues['selected_type'] eq $type}selected="selected"{/if}>{$type|upper}</option>
+                    <select class="form-control" id="connection_type" name="connection_type" data-tiki-admin-child-block=".type_childcontainer">
+                        {foreach item=type from=$inputValues['connection_types']}
+                            <option value="{$type|escape}" {if $inputValues['selected_connection_type'] eq $type}selected="selected"{/if}>{$type|upper}</option>
                         {/foreach}
                     </select>
                 </div>

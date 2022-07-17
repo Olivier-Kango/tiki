@@ -28,7 +28,7 @@ class Services_Manager_Controller
     {
         return [
             'title' => tr('Tiki Manager'),
-            'instances' => TikiManager\Application\Instance::getInstances(true),
+            'instances' => TikiManager\Application\Instance::getInstances(false),
         ];
     }
 
@@ -191,10 +191,10 @@ class Services_Manager_Controller
     {
         $cmd = new TikiManager\Command\CreateInstanceCommand();
 
-        if ($input->create->text()){
-            $inputCommand = new ArrayInput([
+        if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+            $input_array=[
                 'command' => $cmd->getName(),
-                "--type" => $input->type->text(),
+                "--type" => $input->connection_type->text(),
                 "--host" => $input->host->text(),
                 "--port" => $input->port->text(),
                 "--user" => $input->user->text(),
@@ -213,8 +213,15 @@ class Services_Manager_Controller
                 "--db-pass" => $input->db_pass->text(),
                 "--db-prefix" => $input->db_prefix->text(),
                 "--db-name" => $input->db_name->text(),
-            ]);
+            ];
 
+            if ($input->instance_type->text() == 'blank'){                
+                $input_array["--blank"] = true;
+                unset($input_array["--branch"]);
+            }
+            
+            $inputCommand = new ArrayInput($input_array);
+            
             $this->runCommand($cmd, $inputCommand);
 
             return [
@@ -226,8 +233,10 @@ class Services_Manager_Controller
 
             /** For form initialization */
             $inputValues = [
-                'types' => ['local', 'ftp', 'ssh'],
-                'selected_type' => 'local',
+                'instance_types' => ['existing-tiki', 'blank'],
+                'selected_instance_type' => 'existing-tiki',
+                'connection_types' => ['local', 'ftp', 'ssh'],
+                'selected_connection_type' => 'local',
                 'host' => '',
                 'port' => '',
                 'user' => '',
@@ -257,7 +266,7 @@ class Services_Manager_Controller
                 'help' => $this->getCommandHelpTexts($cmd),
                 'sshPublicKey' => $_ENV['SSH_PUBLIC_KEY'],
             ];
-        }
+        }             
     }
 
     public function action_edit($input)
