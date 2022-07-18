@@ -394,6 +394,7 @@ class Search_Indexer
 
     private function log($message)
     {
-        $this->log->info($message, ['memoryUsage' => \Symfony\Component\Console\Helper\Helper::formatMemory(memory_get_usage())]);
+        $this->log->info($message, ['memoryUsage' => \Symfony\Component\Console\Helper\Helper::formatMemory(memory_get_usage()),
+                                    'memoryAvail' => \Symfony\Component\Console\Helper\Helper::formatMemory(TikiLib::lib('tiki')->get_memory_avail())]);
     }
 }
