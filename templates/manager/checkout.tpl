@@ -13,7 +13,7 @@
         <div class="rounded bg-dark text-light p-3">{$info|nl2br}</div>
     {else}
         <form method="post" action="{service controller=manager action=checkout}" id="tiki-manager-instance-checkout">
-            <input required value="{$inputValues['instanceId']}" class="form-control" id="instanceId" type="hidden" name="instanceId">
+            <input value="{$inputValues['instanceId']}" class="form-control" id="instanceId" type="hidden" name="instanceId">
             <div class="form-group row mb-3">
                 <label class="col-form-label col-sm-3">
                     {tr}Local folder containing a Git repository{/tr}
