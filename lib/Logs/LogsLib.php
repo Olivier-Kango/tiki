@@ -191,7 +191,7 @@ class LogsLib extends TikiLib
 
         if ($who == '') {
             global $tokenlib;
-            if ($prefs['auth_token_access'] == 'y' && empty($user) && ! empty($tokenlib) && $tokenlib->ok) {
+            if (isset($prefs['auth_token_access']) && $prefs['auth_token_access'] == 'y' && empty($user) && ! empty($tokenlib) && $tokenlib->ok) {
                 $user = '§TOKEN§';
             } else {
                 $who = $user;
