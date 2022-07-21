@@ -338,26 +338,38 @@ class Services_Tracker_TabularController
             ]);
 
             $collection->applyConditions($query);
-
             $source = new \Tracker\Tabular\Source\QuerySource($schema, $query);
-            $name = TikiLib::lib('tiki')->remove_non_word_characters_and_accents($info['name']);
 
-            if ($schema->getFormat() == 'json') {
-                $writer = new \Tracker\Tabular\Writer\JsonWriter('php://output', $schema->getEncoding());
-                $name .= '_export_partial.json';
+            if ($info['api_config']) {
+                $writer = new \Tracker\Tabular\Writer\APIWriter($info['api_config']);
+                $result = $writer->write($source);
+
+                Feedback::success(tr('Your export was completed. %0 item(s) succeeded, %1 item(s) failed and %2 items skipped.', $result['succeeded'], $result['failed'], $result['skipped']));
+                return [
+                    'FORWARD' => [
+                        'controller' => 'tabular',
+                        'action' => 'manage',
+                    ],
+                ];
             } else {
-                $writer = new \Tracker\Tabular\Writer\CsvWriter('php://output', $schema->getEncoding());
-                $name .= '_export_partial.csv';
-            }
-            $writer->sendHeaders($name);
-
-            TikiLib::lib('tiki')->allocate_extra(
-                'tracker_export_items',
-                function () use ($writer, $source) {
-                    $writer->write($source);
+                $name = TikiLib::lib('tiki')->remove_non_word_characters_and_accents($info['name']);
+                if ($schema->getFormat() == 'json') {
+                    $writer = new \Tracker\Tabular\Writer\JsonWriter('php://output', $schema->getEncoding());
+                    $name .= '_export_partial.json';
+                } else {
+                    $writer = new \Tracker\Tabular\Writer\CsvWriter('php://output', $schema->getEncoding());
+                    $name .= '_export_partial.csv';
                 }
-            );
-            exit;
+                $writer->sendHeaders($name);
+
+                TikiLib::lib('tiki')->allocate_extra(
+                    'tracker_export_items',
+                    function () use ($writer, $source) {
+                        $writer->write($source);
+                    }
+                );
+                exit;
+            }
         }
 
         return [

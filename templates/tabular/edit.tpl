@@ -89,6 +89,34 @@
                 </div>
                 <div class="mb-3 row">
                     <label class="col-form-label col-sm-2 offset-sm-1">
+                        {tr}List endpoint method{/tr}
+                        <a class="tikihelp text-info" title="{tr}List method{/tr}: {tr}HTTP method to access the endpoint. Usually GET.{/tr}">
+                            {icon name=information}
+                        </a>
+                    </label>
+                    <div class="col-sm-9">
+                        <select class="form-control" name="api[list_method]">
+                            <option value=""></option>
+                            <option value="GET" {if $api_config.list_method eq 'GET'}selected{/if}>GET</option>
+                            <option value="PUT" {if $api_config.list_method eq 'PUT'}selected{/if}>PUT</option>
+                            <option value="POST" {if $api_config.list_method eq 'POST'}selected{/if}>POST</option>
+                            <option value="PATCH" {if $api_config.list_method eq 'PATCH'}selected{/if}>PATCH</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label class="col-form-label col-sm-2 offset-sm-1">
+                        {tr}List endpoint parameters{/tr}
+                        <a class="tikihelp text-info" title="{tr}List parameters{/tr}: {tr}Parameters to submit with the list endpoint request (mainly for PUT and POST requests).{/tr}">
+                            {icon name=information}
+                        </a>
+                    </label>
+                    <div class="col-sm-9">
+                        <input class="form-control" type="text" name="api[list_parameters]" value="{$api_config.list_parameters|escape}">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label class="col-form-label col-sm-2 offset-sm-1">
                         {tr}List endpoint data path{/tr}
                         <a class="tikihelp text-info" title="{tr}List Data Path{/tr}: {tr}Reading response data might require traversing a data structure. Define the data path here with parent/child relations separated by a dot. E.g. use 'response.data' if response JSON is wrapped in 'response' => { 'data' => ... } structure OR .time_entry if response JSON is of type [ { 'time_entry' => ... }, { 'time_entry' => ... } ].{/tr}">
                             {icon name=information}
@@ -111,6 +139,23 @@
                 </div>
                 <div class="mb-3 row">
                     <label class="col-form-label col-sm-2 offset-sm-1">
+                        {tr}Create endpoint method{/tr}
+                        <a class="tikihelp text-info" title="{tr}Create method{/tr}: {tr}HTTP method to access the endpoint. Usually POST.{/tr}">
+                            {icon name=information}
+                        </a>
+                    </label>
+                    <div class="col-sm-9">
+                        <select class="form-control" name="api[create_method]">
+                            <option value=""></option>
+                            <option value="GET" {if $api_config.create_method eq 'GET'}selected{/if}>GET</option>
+                            <option value="PUT" {if $api_config.create_method eq 'PUT'}selected{/if}>PUT</option>
+                            <option value="POST" {if $api_config.create_method eq 'POST'}selected{/if}>POST</option>
+                            <option value="PATCH" {if $api_config.create_method eq 'PATCH'}selected{/if}>PATCH</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label class="col-form-label col-sm-2 offset-sm-1">
                         {tr}Update endpoint URL{/tr}
                         <a class="tikihelp text-info" title="{tr}Update URL{/tr}: {tr}URL of the endpoint to update entries when exporting. Placeholder #id will be replaced with the remote item id if previously imported from remote source.{/tr}">
                             {icon name=information}
@@ -118,6 +163,23 @@
                     </label>
                     <div class="col-sm-9">
                         <input class="form-control" type="text" name="api[update_url]" value="{$api_config.update_url|escape}">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label class="col-form-label col-sm-2 offset-sm-1">
+                        {tr}Update endpoint method{/tr}
+                        <a class="tikihelp text-info" title="{tr}Update method{/tr}: {tr}HTTP method to access the endpoint. Usually PATCH or PUT.{/tr}">
+                            {icon name=information}
+                        </a>
+                    </label>
+                    <div class="col-sm-9">
+                        <select class="form-control" name="api[update_method]">
+                            <option value=""></option>
+                            <option value="GET" {if $api_config.update_method eq 'GET'}selected{/if}>GET</option>
+                            <option value="PUT" {if $api_config.update_method eq 'PUT'}selected{/if}>PUT</option>
+                            <option value="POST" {if $api_config.update_method eq 'POST'}selected{/if}>POST</option>
+                            <option value="PATCH" {if $api_config.update_method eq 'PATCH'}selected{/if}>PATCH</option>
+                        </select>
                     </div>
                 </div>
                 <div class="mb-3 row">

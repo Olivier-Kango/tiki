@@ -22,7 +22,13 @@ class APISource implements SourceInterface
     public function getEntries()
     {
         $client = new \Services_ApiClient($this->config['list_url'], false);
-        $result = $client->get();
+        $method = strtolower($this->config['list_method'] ?? 'get');
+        $params = $this->config['list_parameters'] ?? null;
+        if ($params) {
+            $result = $client->$method('', $params);
+        } else {
+            $result = $client->$method();
+        }
 
         $data_path = explode('.', $this->config['list_data_path']);
         foreach ($data_path as $key => $field) {

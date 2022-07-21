@@ -80,23 +80,28 @@ class Services_ApiClient
                 break;
             case 'post':
                 $client->setMethod(Laminas\Http\Request::METHOD_POST);
-                $client->setParameterPost(array_merge(
-                    $client->getRequest()->getPost()->getArrayCopy(),
-                    $arguments
-                ));
+                break;
+            case 'put':
+                $client->setMethod(Laminas\Http\Request::METHOD_PUT);
                 break;
             case 'patch':
                 $client->setMethod(Laminas\Http\Request::METHOD_PATCH);
-                $client->setParameterPost(array_merge(
-                    $client->getRequest()->getPost()->getArrayCopy(),
-                    $arguments
-                ));
                 break;
             case 'delete':
                 $client->setMethod(Laminas\Http\Request::METHOD_DELETE);
                 break;
             default:
                 throw new Services_Exception(tr('Remove service invalid method used: %0, endpoint: %1', $method, $endpoint));
+        }
+        if (in_array($method, ['post', 'put', 'patch'])) {
+            if (is_array($arguments)) {
+                $client->setParameterPost(array_merge(
+                    $client->getRequest()->getPost()->getArrayCopy(),
+                    $arguments
+                ));
+            } else {
+                $client->setRawBody($arguments);
+            }
         }
         return $client;
     }

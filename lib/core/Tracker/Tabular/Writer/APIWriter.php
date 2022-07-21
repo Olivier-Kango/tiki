@@ -25,6 +25,8 @@ class APIWriter
 
         $columns = $schema->getColumns();
 
+        $succeeded = $failed = $skipped = 0;
+
         foreach ($source->getEntries() as $entry) {
             $row = [];
 
@@ -43,13 +45,25 @@ class APIWriter
             }
 
             if ($id) {
-                $url = str_replace('#id', $id, $this->config['update_url']);
-                $client = new \Services_ApiClient($url, false);
-                $result = $client->patch('', $row);
+                if (! empty($this->config['update_url'])) {
+                    $url = str_replace('#id', $id, $this->config['update_url']);
+                    $client = new \Services_ApiClient($url, false);
+                    $method = strtolower($this->config['update_method'] ?? 'patch');
+                    $result = $client->$method('', $row);
+                } else {
+                    $skipped++;
+                    continue;
+                }
             } else {
-                $url = $this->config['create_url'];
-                $client = new \Services_ApiClient($url, false);
-                $result = $client->post('', $row);
+                if (! empty($this->config['create_url'])) {
+                    $url = $this->config['create_url'];
+                    $client = new \Services_ApiClient($url, false);
+                    $method = strtolower($this->config['create_method'] ?? 'post');
+                    $result = $client->$method('', $row);
+                } else {
+                    $skipped++;
+                    continue;
+                }
             }
 
             if ($result && ! $id && method_exists($entry, 'backfillPK')) {
@@ -69,6 +83,13 @@ class APIWriter
                     $entry->backfillPK($pk, $id);
                 }
             }
+
+            if ($result) {
+                $succeeded++;
+            } else {
+                $failed++;
+            }
         }
+        return compact('succeeded', 'failed', 'skipped');
     }
 }
