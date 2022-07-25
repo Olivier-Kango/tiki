@@ -47,6 +47,7 @@ function wikiplugin_listexecute($data, $params)
             'wiki_approval' => 'Search_Action_WikiApprovalAction',
             'tracker_item_modify' => 'Search_Action_TrackerItemModify',
             'tracker_item_clone' => 'Search_Action_TrackerItemClone',
+            'tracker_item_insert' => 'Search_Action_TrackerItemInsert',
             'filegal_change_filename' => 'Search_Action_FileGalleryChangeFilename',
             'filegal_image_overlay' => 'Search_Action_FileGalleryImageOverlay',
             'snapshot' => 'Search_Action_Snapshot',
