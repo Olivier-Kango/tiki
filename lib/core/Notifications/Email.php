@@ -79,15 +79,30 @@ class Email
      */
     public static function sendSchedulerNotification($subjectTpl, $txtTpl, $scheduler, $usersToNotify = [])
     {
+        global $prefs, $tikipath;
+
         $tikilib = \TikiLib::lib('tiki');
         $smarty = \TikiLib::lib('smarty');
 
         $smarty->assign('schedulerName', $scheduler->name);
         $smarty->assign('siteName', $tikilib->get_preference('browsertitle'));
+        $smarty->assign('siteUrl', $_SERVER['SERVER_NAME'] ?? $_SERVER['HTTP_HOST']);
+        $smarty->assign('server', gethostname());
+        $smarty->assign('webroot', $tikipath);
         $smarty->assign('stalledTimeout', $tikilib->get_preference('scheduler_stalled_timeout'));
         $smarty->assign('healingTimeout', $tikilib->get_preference('scheduler_healing_timeout'));
 
-        return sendEmailNotification($usersToNotify, null, $subjectTpl, null, $txtTpl);
+        $defaultLang = $prefs['site_language'];
+        $watchList = array_map(function ($user) use ($defaultLang) {
+            return [
+                'watchId' => '',
+                'user' => $user['login'],
+                'email' => $user['email'],
+                'language' => \TikiLib::lib('user')->get_user_preference($user['login'], 'language', $defaultLang),
+            ];
+        }, $usersToNotify);
+
+        return sendEmailNotification($watchList, null, $subjectTpl, null, $txtTpl);
     }
 
     /**

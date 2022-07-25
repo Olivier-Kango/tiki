@@ -4,4 +4,9 @@
 
 
 {tr}Details{/tr}
-{tr}Site:{/tr} {$siteName}
+{tr}Site Name:{/tr} {$siteName}
+{if !empty($siteUrl)}
+    {tr}Site URL:{/tr} {$siteUrl}
+{/if}
+{tr}Server:{/tr} {$server}
+{tr}Webroot:{/tr} {$webroot}

@@ -50,18 +50,6 @@ if (! empty($_SESSION['try_theme'])) {
 }
 
 //START loading theme related items
-
-//1) Always add default bootstrap JS and make some preference settings (adding popper.js required for bootstrap 4)
-// TODO find dist version of popper.js v2
-//$headerlib->add_jsfile('vendor_bundled/vendor/npm-asset/popper.js/dist/umd/popper.js');
-// Meanwhile use the CDN
-// dev version
-//$headerlib->add_jsfile('https://unpkg.com/@popperjs/core@2/dist/umd/popper.js');
-// production version
-// $headerlib->add_jsfile('https://unpkg.com/@popperjs/core@2');
-// $headerlib->add_jsfile('vendor_bundled/vendor/npm-asset/popper.js/dist/popper.js');
-// $headerlib->add_jsfile('vendor_bundled/vendor/twbs/bootstrap/dist/js/bootstrap.js');
-
 //This bundle Loads bootstrap JS and popper JS
 $headerlib->add_jsfile('vendor_bundled/vendor/twbs/bootstrap/dist/js/bootstrap.bundle.js');
 
