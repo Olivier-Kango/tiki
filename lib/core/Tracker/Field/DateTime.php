@@ -130,7 +130,7 @@ class Tracker_Field_DateTime extends Tracker_Field_Abstract implements Tracker_F
         if ($value) {
             if ($this->getOption('datetime') === 'd') {
                 // offset the UTC-stored timestamp of the date by current display timezone, so we actually display the correct date entered by user
-                $value -= TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone());
+                $value -= TikiDate::tzServerOffset(TikiLib::lib('tiki')->get_display_timezone(), $value);
             }
             if (isset($context['list_mode']) && $context['list_mode'] == 'csv') {
                 if ($this->getOption('datetime') == 'd') {
