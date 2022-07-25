@@ -68,12 +68,21 @@ class Search_Query_WikiBuilder
 
     public function addQueryArgument($name, $arguments)
     {
+        $called = false;
         foreach ($arguments as $key => $value) {
             $function = "wpquery_{$name}_{$key}";
 
             if (method_exists($this, $function)) {
                 call_user_func([$this, $function], $this->query, $value, $arguments);
+                $called = true;
             }
+        }
+        if ($name == 'filter' && ! $called) {
+            $list = [];
+            foreach ($arguments as $name => $value) {
+                $list[] = $name . '=' . $value;
+            }
+            Feedback::error(tr("Invalid filter block specified: %0", implode(' ', $list)));
         }
     }
 
