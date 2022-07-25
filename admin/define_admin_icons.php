@@ -93,10 +93,10 @@ if ($prefs['theme_unified_admin_backend'] === 'y') {
                     'help'        => 'Text-area',
                 ],
                 'wysiwyg'   => [
-                    'title'       => tr('Wysiwyg'),
+                    'title'       => tr('WYSIWYG'),
                     'disabled'    => $prefs['feature_wysiwyg'] != 'y',
                     'description' => tr('Options for WYSIWYG editor'),
-                    'help'        => 'Wysiwyg',
+                    'help'        => 'WYSIWYG',
                 ],
                 'fgal'     => [
                     'title'       => tr('File Galleries'),
@@ -393,9 +393,9 @@ if ($prefs['theme_unified_admin_backend'] === 'y') {
             'help' => 'i18n',
         ],
         "metatags" => [
-            'title' => tr('Meta-Tags'),
+            'title' => tr('Meta Tags'),
             'description' => tr('Information to include in the header of each page'),
-            'help' => 'Meta-Tags',
+            'help' => 'Meta Tags',
         ],
         "maps" => [
             'title' => tr('Maps'),

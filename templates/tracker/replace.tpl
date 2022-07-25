@@ -293,14 +293,16 @@
             </div>
             <div class="mb-3 row mx-0">
                 <label>{tr}Default status displayed in list mode{/tr}</label>
-                <div class="form-check form-check-inline">
+
                     {foreach key=st item=stdata from=$statusTypes}
-                        <label class="form-check-label mr-3">
-                            <input type="checkbox" class="form-check-input" name="defaultStatus[]" value="{$st|escape}"{if in_array($st, $statusList)} checked="checked"{/if}>
+                <div class="form-check form-check-inline">
+                        <label class="form-check-label">
                             {$stdata.label|escape}
                         </label>
-                    {/foreach}
+                        <input type="checkbox" class="form-check-input" name="defaultStatus[]" value="{$st|escape}"{if in_array($st, $statusList)} checked="checked"{/if}>
                 </div>
+                    {/foreach}
+
             </div>
         {/accordion_group}
         {accordion_group title="{tr}Notifications{/tr}"}

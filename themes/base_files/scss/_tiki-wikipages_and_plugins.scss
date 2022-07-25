@@ -1043,7 +1043,7 @@ div.drillshow {
 }
 
 .heading-link .icon {
-    font-size: smaller;
+    font-size: 70%; // IMO icon size ("smaller") was a little too large. - g_c-l
 }
 
 // prevent font awesome icon to line break by itself
@@ -1080,9 +1080,9 @@ h6:hover .heading-link {
     background-image: url("../../../vendor_bundled/vendor/robicch/jquery-gantt/res/toggle_collapse.png") !important;
 }
 
-// Lock icon was too prominent -- gc-l
+// Lock icon was too prominent -- g_c-l
 .pagetitle a + .icon-lock {
     margin-left: 0.7rem;
-    font-size: 70%;
+    font-size: 60%;
     opacity: 0.2;
 }

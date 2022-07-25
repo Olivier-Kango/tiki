@@ -243,7 +243,7 @@
                 {/if}
                 <div class="mb-3 row">
                     <div class="submit col-md-9 offset-md-3">
-                        <input type="submit" class="btn btn-secondary" value="{tr}Create New Structure{/tr}" name="create">
+                        <input type="submit" class="btn btn-primary" value="{tr}Create New Structure{/tr}" name="create">
                     </div>
                 </div>
             </form>

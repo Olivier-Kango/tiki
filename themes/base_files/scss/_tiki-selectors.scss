@@ -489,9 +489,9 @@ form.simple label .warning {
     border: solid 1px $info;
 }
 
-div.cvsup {
-    color: $gray-300;
-}
+//div.cvsup { Why specify a color for this? a) It's just module content. b) The color context may not be clear so causes problems. -- g_c-l
+//    color: $gray-300;
+//}
 
 //.fixed-top,
 //.layout_social .topbar_modules,
@@ -1162,8 +1162,8 @@ span.plugin-mouseover {
 // To correct login dropdown color
 .dropdown-menu { color: $dropdown-link-color; }
 
-.tiki .col1 .table-responsive {
-    border: 1px solid $card-border-color;
+.tiki .col1 .table-responsive .table { // border should be on the table itself, not the containing div - g_c-l
+    border: 1px solid $table-border-color; // Changed from $card-border-color; why not use closest class?
 }
 
 //

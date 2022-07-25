@@ -40,9 +40,9 @@
                 {$shout_msgs[ix].message}
                 {if $tiki_p_admin_shoutbox eq 'y' || $user == $shout_msgs[ix].user}
                     {if 0 and $prefs.feature_ajax eq 'y'}
-                        [<a onclick="removeShout({$shout_msgs[ix].msgId});return false" href="#" class="linkmodule tips" title="|{tr}Delete this shout{/tr}">x</a>|<a href="tiki-shoutbox.php?msgId={$shout_msgs[ix].msgId}" class="linkmodule tips" title="|{tr}Edit this shout{/tr}">e</a>]
+                        <a class="text-danger" aria-label="{tr}Delete{/tr}"  onclick="removeShout({$shout_msgs[ix].msgId});return false" href="#" title="|{tr}Delete this shout{/tr}">[icon name="delete"}</a> <a class="mx-1 text-primary" href="tiki-shoutbox.php?msgId={$shout_msgs[ix].msgId}" title="|{tr}Edit this shout{/tr}">{icon name="edit"}</a>
                     {else}
-                        [<a href="tiki-shoutbox.php?remove={$shout_msgs[ix].msgId}" class="linkmodule">x</a>|<a href="tiki-shoutbox.php?msgId={$shout_msgs[ix].msgId}" class="linkmodule">e</a>]
+                        <a class="text-danger mx-1" aria-label="{tr}Delete{/tr}"  href="tiki-shoutbox.php?remove={$shout_msgs[ix].msgId}">{icon name="delete"}</a> <a href="tiki-shoutbox.php?msgId={$shout_msgs[ix].msgId}" class="mx-1 text-primary">{icon name="edit"}</a>
                     {/if}
                 {/if}
             </div>

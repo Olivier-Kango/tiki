@@ -43,7 +43,7 @@
             </fieldset>
         {/tab}
 
-        {tab name="{tr}Geo Metatags{/tr}"}
+        {tab name="{tr}Geo meta tags{/tr}"}
             <br>
 
             {preference name=metatag_geoposition}

@@ -74,10 +74,10 @@
         <b><a href="tiki-user_information.php?view_user={$channels[user].user}">{$channels[user].user}</a></b>, {$channels[user].timestamp|tiki_long_date}, {$channels[user].timestamp|tiki_long_time}
 
         {if $tiki_p_admin_shoutbox eq 'y' || $channels[user].user == $user}
-            <a href="tiki-shoutbox.php?find={$find}&amp;offset={$offset}&amp;sort_mode={$sort_mode}&amp;msgId={$channels[user].msgId}" class="tips" title=":{tr}Edit{/tr}">
+            <a href="tiki-shoutbox.php?find={$find}&amp;offset={$offset}&amp;sort_mode={$sort_mode}&amp;msgId={$channels[user].msgId}" class="tips text-primary" title=":{tr}Edit{/tr}">
                 {icon name='edit'}
             </a>
-            <a href="tiki-shoutbox.php?find={$find}&amp;offset={$offset}&amp;sort_mode={$sort_mode}&amp;remove={$channels[user].msgId}" class="tips" title=":{tr}Remove{/tr}">
+            <a href="tiki-shoutbox.php?find={$find}&amp;offset={$offset}&amp;sort_mode={$sort_mode}&amp;remove={$channels[user].msgId}" class="tips text-danger" title=":{tr}Remove{/tr}">
                 {icon name='remove'}
             </a>
         {/if}
