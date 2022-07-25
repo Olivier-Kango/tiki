@@ -16,6 +16,14 @@ class Tracker_Field_UserPreference extends Tracker_Field_Abstract
 {
     public static function getTypes()
     {
+        global $prefs;
+
+        $options = ['email' => 'email', 'password' => 'password'];
+        
+        foreach (array_keys($prefs) as $prefName) {
+            $options[$prefName] = $prefName;
+        }
+        
         return [
             'p' => [
                 'name' => tr('User Preference'),
@@ -29,6 +37,7 @@ class Tracker_Field_UserPreference extends Tracker_Field_Abstract
                         'name' => tr('Preference Name'),
                         'description' => tr('Name of the preference to manipulate. password and email are not preferences, but are also valid values that will modify the user\'s profile.'),
                         'filter' => 'word',
+                        'options' => $options,
                         'legacy_index' => 0,
                     ],
                 ],
