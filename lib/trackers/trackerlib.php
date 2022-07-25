@@ -919,9 +919,12 @@ class TrackerLib extends TikiLib
                 }
             }
             if ($format) {
+                if ($list_mode !== 'csv') {
+                    // preserve spaces in the format string
+                    $format = str_replace(' ', '&nbsp;', $format);
+                }
                 // use the underlying translation function to replace the %0 etc placeholders (and translate if necessary)
-                // and preserve spaces in the format string
-                $res = tra(str_replace(' ', '&nbsp;', $format), '', false, $values);
+                $res = tra($format, '', false, $values);
             }
             if ($strip_tags) {
                 $res = strip_tags($res);
