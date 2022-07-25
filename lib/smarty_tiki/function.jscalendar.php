@@ -172,7 +172,7 @@ function smarty_function_jscalendar($params, $smarty)
     if (! isset($params['showtime']) || $params['showtime'] === 'n') {
         $command = 'datepicker';
         $js_val = empty($params['date']) ? '""' : '$.datepicker.formatDate( "' .
-            $prefs['short_date_format_js'] . '", new Date(' . $params['date'] . '* 1000 + ' . (isset($params['isutc']) && $params['isutc'] && intval($params['date']) > 0 ? '(new Date()).getTimezoneOffset()*60*1000' : '0') . '))';
+            $prefs['short_date_format_js'] . '", new Date(' . $params['date'] . '* 1000 + ' . (isset($params['isutc']) && $params['isutc'] && intval($params['date']) > 0 ? 'parseInt($("input#' . $params['id'] . '_tzoffset").val())*60*1000' : '0') . '))';
         $headerlib->add_jq_onready(
             '$("#' . $params['id'] . '_dptxt").val(' . $js_val . ').tiki("' .
             $command . '", "jscalendar", ' . $datepicker_options . ');'
