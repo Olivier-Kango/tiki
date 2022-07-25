@@ -217,7 +217,7 @@
                     {tr}Hide empty fields from item view{/tr}
                 </label>
             </div>
-            <div class="mb-3 row mx-0">
+            <div class="mb-3 row mx-0" id="fieldsDetails">
                 <label for="showPopup">{tr}List detail popup{/tr}</label>
                 {object_selector_multi type=trackerfield tracker_id=$info.trackerId _simplevalue=$info.showPopup _separator="," _simplename="showPopup"}
             </div>

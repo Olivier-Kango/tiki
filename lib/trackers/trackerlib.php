@@ -3720,10 +3720,10 @@ class TrackerLib extends TikiLib
         return $options->fetchAll($options->all(), $conditions);
     }
 
-    public function get_tracker_field($fieldIdOrPermName)
+    public function get_tracker_field($fieldIdOrPermName, $useCache = true)
     {
         static $cache = [];
-        if (isset($cache[$fieldIdOrPermName])) {
+        if ($useCache && isset($cache[$fieldIdOrPermName])) {
             return $cache[$fieldIdOrPermName];
         }
         if ((int)$fieldIdOrPermName > 0) {

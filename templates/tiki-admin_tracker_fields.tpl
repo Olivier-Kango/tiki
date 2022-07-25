@@ -83,6 +83,9 @@
                     dataType: 'json',
                     success: function () {
                         $container.tracker_load_fields(trackerId);
+                        if ($(form.action).val() === 'remove_fields') {
+                            $.fn.resetFieldsCache();
+                        }
                     }
                 });
             }
@@ -111,6 +114,7 @@
             },
             success: function (data) {
                 $container.tracker_load_fields(trackerId);
+                $.fn.resetFieldsCache();
 
                 $.closeModal({
                     done: function () {
@@ -143,5 +147,47 @@
 
             return false;
         });
+
+        var trackerFieldsUrl;
+
+        $('.tracker-properties').clickModal({
+            open: function () {
+                var element = $("#fieldsDetails textarea");
+                if (element) {
+                    trackerFieldsUrl = lookupUrl(element);
+                }
+            },
+        });
+
+        function lookupUrl(selector) {
+            var input = selector
+                , filter = $(input).data('filters')
+                , threshold = $(input).data('threshold')
+                , format = $(input).data('format') || ''
+                , sort = $(input).data('sort') || 'score_desc';
+
+            var args = {
+                maxRecords: threshold, 
+                format: format, 
+                sort_order: sort
+            };
+
+            var url;
+
+            url = $.service('search', 'lookup', $.extend(args, {
+                filter: filter
+            }));
+
+            return url;
+        }
+
+        $.fn.resetFieldsCache = function () {
+            if (trackerFieldsUrl) {
+                if ($.object_selector_cache && $.object_selector_cache.hasOwnProperty(trackerFieldsUrl)) {
+                    delete $.object_selector_cache[trackerFieldsUrl];
+                    trackerFieldsUrl = '';
+                }
+            }
+        };
     {/jq}
 {/block}

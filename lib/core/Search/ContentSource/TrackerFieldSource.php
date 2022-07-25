@@ -28,7 +28,7 @@ class Search_ContentSource_TrackerFieldSource implements Search_ContentSource_In
 
         $lib = TikiLib::lib('trk');
 
-        $field = $lib->get_tracker_field($objectId);
+        $field = $lib->get_tracker_field($objectId, false);
 
         if (! $field || $field['type'] === 'h') {
             return false;
