@@ -113,4 +113,23 @@ class Tracker_Field_PageSelector extends Tracker_Field_Abstract
         $trackerlib->update_page_selector_relations($value, $itemId);
         $trackerlib->add_page_selector_backlink($itemId, $fieldId, $value);
     }
+
+    public function isValid($ins_fields_data)
+    {
+        global $page_regex;
+
+        $value = $this->getValue();
+        $validation = $this->getConfiguration('validation');
+        $bad_chars = TikiLib::lib('wiki')->get_badchars();
+
+        if (! $validation) {
+            if (! preg_match("/^($page_regex)$/", $value)) {
+                return tr(
+                'Page name contains unallowed characters. Please remove those %0',
+                 $bad_chars
+                );                
+            }
+        }
+        return true;
+    }
 }
