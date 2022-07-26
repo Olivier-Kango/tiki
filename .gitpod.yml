@@ -5,6 +5,8 @@ ports:
     onOpen: open-preview
   - port: 3306
     onOpen: ignore
+  - port: 9003
+    onOpen: ignore
 checkoutLocation: "tiki"
 tasks:
   - name: Tiki
@@ -25,8 +27,8 @@ tasks:
       apachectl start;
       cd $GITPOD_REPO_ROOT;
 
-
-#vscode:
-#  extensions:
-#    - felixfbecker.php-debug
-#    - bmewburn.vscode-intelephense-client
+vscode:
+ extensions:
+   - felixfbecker.php-debug
+   - bmewburn.vscode-intelephense-client
+   - bmewburn.vscode-intelephense-client

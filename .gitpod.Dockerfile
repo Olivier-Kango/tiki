@@ -15,9 +15,11 @@ RUN sudo apt-get update &&  \
     php-intl \
     php-bcmath \
     php-bz2 \
-    php-zip
+    php-zip \
+    php-xdebug
 
 COPY .gitpod/mysql/mysql.cnf /etc/mysql/mariadb.conf.d/60-server_custom.cnf
+COPY .gitpod/php/xdebug.ini /etc/php/7.4/apache2/conf.d/20-xdebug.ini
 COPY .gitpod/apache/apache.conf /etc/apache2/apache2.conf
 COPY .gitpod/apache/envvars /etc/apache2/envvars
 
