@@ -10091,9 +10091,6 @@ form.simple label .warning {
 .box-switch_lang .flags .highlight {
   border: solid 1px #033c73;
 }
-div.cvsup {
-  color: #dee2e6;
-}
 .navbar-light .dropdown-toggle, .navbar-light a.nav-link.dropdown-toggle, .navbar-light h1.sitetitle a, .navbar-light .sitetitle.h1 a, .navbar-light h2.sitesubtitle, .navbar-light .sitesubtitle.h2, .navbar-light .cssmenu_horiz .menuLevel0 > a {
   color: rgba(0, 0, 0, 0.55);
 }
@@ -10497,8 +10494,8 @@ div.drillshow {
 .dropdown-menu {
   color: #495057;
 }
-.tiki .col1 .table-responsive {
-  border: 1px solid var(--bs-border-color-translucent);
+.tiki .col1 .table-responsive .table {
+  border: 1px solid var(--bs-border-color);
 }
 .codecaption {
   display: inline-block;
