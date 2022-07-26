@@ -5,6 +5,23 @@
         genPass(passcodeId);
         return false
     });
+    var frm = $('form[name="LogForm"]'),
+        pretty_tracker_tpl = $('input[name="user_register_prettytracker_tpl"]'),
+        user_register_pt_checkbox = $('input[name="user_register_prettytracker"]'),
+        warning_ept = $('#empty_pretty_tracker_warning');
+    warning_ept.hide();
+    //prevent space, backslash and bad chars in template name, see lib/wiki/wikilib.php:188
+    pretty_tracker_tpl.keypress(function(e){
+    return /[^ //?#\[\]@$&+;=<>\\]/i.test(e.key);
+    });
+    frm.submit(function(){
+        if (user_register_pt_checkbox.is(':checked') 
+        && pretty_tracker_tpl.val() === "") {
+            warning_ept.show();
+            pretty_tracker_tpl.focus();
+            return false;    
+        }
+    });
 {/jq}
 <form action="tiki-admin.php?page=login" class="admin" method="post" name="LogForm" enctype="multipart/form-data">
     {ticket}
@@ -91,6 +108,12 @@
                     </div>
                     {preference name=user_register_prettytracker}
                     <div class="adminoptionboxchild" id="user_register_prettytracker_childcontainer">
+                    <div id="empty_pretty_tracker_warning" style="display:none;">
+                        {remarksbox type="warning" title="{tr}Registration pretty tracker template can't be empty{/tr}" close="n"}
+                        {tr}Please indicate a Registration pretty tracker template to collect more user information.{/tr}<br/>
+                        {tr}Use a wiki page name or a Smarty template with a .tpl extension.{/tr}
+                        {/remarksbox}
+                    </div>
                         {preference name=user_register_prettytracker_tpl}
                         {preference name=user_register_prettytracker_hide_mandatory}
                     </div>
