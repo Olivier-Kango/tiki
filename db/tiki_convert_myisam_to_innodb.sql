@@ -281,6 +281,7 @@ ALTER TABLE `tiki_userfiles` ENGINE=InnoDB;
 ALTER TABLE `tiki_userpoints` ENGINE=InnoDB;
 -- ALTER TABLE `tiki_users` ENGINE=InnoDB;
 -- ALTER TABLE `tiki_users_score` ENGINE=InnoDB;
+ALTER TABLE `tiki_webhooks` ENGINE=InnoDB;
 ALTER TABLE `tiki_webmail_contacts` ENGINE=InnoDB;
 ALTER TABLE `tiki_webmail_contacts_ext` ENGINE=InnoDB;
 ALTER TABLE `tiki_webmail_contacts_fields` ENGINE=InnoDB;

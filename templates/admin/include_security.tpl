@@ -493,6 +493,18 @@
                 {service_inline controller=api_token action=list}
             </div>
         {/tab}
+        {tab name="{tr}Webhooks{/tr}" key="webhooks"}
+            <br>
+            {remarksbox type="tip" title="{tr}Tip{/tr}"}
+                {tr}Configure Tiki to receive webhooks from 3rd party servers. Setup verification here and bind your event listener to tiki.webhook.received event.{/tr}<br>
+                {tr}URL to receive webhooks:{/tr} {$base_url}tiki-webhooks.php<br>
+                {tr}TODO: add a link to _custom/lib/setup/code explanation.{/tr}
+            {/remarksbox}
+            {preference name=auth_webhooks}
+            <div class="adminoptionboxchild" id="auth_webhooks_childcontainer">
+                {service_inline controller=webhook action=list}
+            </div>
+        {/tab}
     {/tabset}
     {include file='admin/include_apply_bottom.tpl'}
 </form>

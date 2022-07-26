@@ -2790,6 +2790,20 @@ CREATE TABLE `tiki_userpoints` (
   `voted` int(8) default NULL
 ) ENGINE=MyISAM;
 
+DROP TABLE IF EXISTS `tiki_webhooks`;
+CREATE TABLE `tiki_webhooks` (
+  `webhookId` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) NOT NULL,
+  `user` varchar(200) NOT NULL,
+  `verification` varchar(100) NOT NULL,
+  `algo` varchar(100) NOT NULL,
+  `signatureHeader` varchar(100) NOT NULL,
+  `secret` text NOT NULL,
+  `created` int NOT NULL,
+  `lastModif` int NOT NULL,
+  PRIMARY KEY (`webhookId`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 ;
+
 DROP TABLE IF EXISTS `tiki_webmail_contacts`;
 CREATE TABLE `tiki_webmail_contacts` (
   `contactId` int(12) NOT NULL auto_increment,

@@ -477,6 +477,14 @@ function prefs_auth_list()
             'type' => 'flag',
             'default' => 'n',
         ],
+        'auth_webhooks' => [
+            'name' => tra('Webhook access'),
+            'description' => tra('Enable Tiki to receive webhook requests from 3rd parties.'),
+            'help' => 'Webhooks',
+            'perspective' => false,
+            'type' => 'flag',
+            'default' => 'n',
+        ],
     ];
 
     global $prefs;
