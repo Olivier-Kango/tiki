@@ -5473,6 +5473,15 @@ class UsersLib extends TikiLib
                 'scope' => 'object',
             ],
             [
+                'name' => 'tiki_p_tracker_view_history',
+                'description' => tra('Can view tracker history'),
+                'level' => 'editors',
+                'type' => 'trackers',
+                'admin' => false,
+                'prefs' => ['feature_trackers'],
+                'scope' => 'object',
+            ],
+            [
                 'name' => 'tiki_p_view_trackers',
                 'description' => tra('Can view trackers'),
                 'level' => 'basic',

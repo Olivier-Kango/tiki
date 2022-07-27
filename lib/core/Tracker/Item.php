@@ -99,6 +99,13 @@ class Tracker_Item
         return $this->perms->$permName;
     }
 
+    public function canViewHistory()
+    {
+        $permName = 'tracker_view_history';;
+
+        return $this->perms->$permName;
+    }
+
     public function canModify()
     {
         if ($this->isNew()) {
