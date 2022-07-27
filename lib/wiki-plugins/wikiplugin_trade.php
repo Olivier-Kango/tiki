@@ -164,7 +164,7 @@ function wikiplugin_trade($data, $params, $offset)
     if (( ! empty($info) && $info['waiting'] == null )) {
         // user clicked "continue" (probably)
         if (isset($_POST['wp_trade_offset']) && $_POST['wp_trade_offset'] == $offset) {
-            $id = $paymentlib->requestPayment($desc, $params['price'], $prefs['payment_default_delay'], null, $params['currency']);
+            $id = $paymentlib->request_payment($desc, $params['price'], $prefs['payment_default_delay'], null, $params['currency']);
 
             if (empty($user)) {
                 return '{REMARKSBOX(type=warning, title=Plugin Trade Error)}' .

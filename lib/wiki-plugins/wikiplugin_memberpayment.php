@@ -406,7 +406,7 @@ function wikiplugin_memberpayment($data, $params, $offset)
                 $cost = round($cost, 2);
             }
 
-            $id = $paymentlib->requestPayment($desc, $cost, $prefs['payment_default_delay']);
+            $id = $paymentlib->request_payment($desc, $cost, $prefs['payment_default_delay']);
             $paymentlib->register_behavior($id, 'complete', 'extend_membership', [ $users, $params['group'], $periods, $info['id'] ]);
 
             foreach ($users as $u) {
