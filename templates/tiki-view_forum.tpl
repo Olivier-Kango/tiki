@@ -361,7 +361,13 @@
                             {if empty($user)}
                                 {tr}Enter your name:{/tr}&nbsp;<input type="text" maxlength="50" id="anonymous_name" name="anonymous_name">
                             {/if}
-                            <input type="submit" class="btn btn-primary btn-sm" name="comments_postComment" value="{tr}Post{/tr}" {if empty($user)}onclick="setCookie('anonymous_name',document.getElementById('anonymous_name').value);needToConfirm=false;"{/if}>
+                            <input type="submit" class="btn btn-primary btn-sm" name="comments_postComment" value="{tr}Post{/tr}"
+                                    {if empty($user)}
+                                        onclick="setCookie('anonymous_name',document.getElementById('anonymous_name').value);needToConfirm=false;"
+                                    {else}
+                                        onclick="needToConfirm=false;"
+                                    {/if}
+                            >
                             {if $prefs.ajax_edit_previews eq 'n'}
                                 <input type="submit" class="btn btn-secondary btn-sm" name="comments_previewComment" value="{tr}Preview{/tr}" {if empty($user)}onclick="setCookie('anonymous_name',document.getElementById('anonymous_name').value);needToConfirm=false;"{/if}>
                             {/if}
