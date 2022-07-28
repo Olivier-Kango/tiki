@@ -229,6 +229,7 @@ class Iconset
             $prepend = isset($icon['prepend']) ? $icon['prepend'] : (isset($this->styles[$style]['prepend']) ? $this->styles[$style]['prepend'] : $this->prepend);
             $append  = isset($icon['append']) ? $icon['append'] : (isset($this->styles[$style]['append']) ? $this->styles[$style]['append'] : $this->append);
             $icon_class = isset($icon['class']) ? $icon['class'] : '';
+            $icon_class .= $params->_menu_icon->alpha() ? ' fa-fw' : '';
             $custom_class = $params->offsetExists('iclass') ? $params->iclass->striptags() : '';
             $title = $params->offsetExists('ititle') ? 'title="' . $params->ititle->striptags() . '"' : '';
             $id = $params->offsetExists('id') ? 'id="' . $params->id->striptags() . '"' : '';

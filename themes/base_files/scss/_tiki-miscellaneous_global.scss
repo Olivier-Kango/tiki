@@ -333,15 +333,28 @@ span.btn-link {
 }
 
 // So form submit buttons with icons and text used in popover actions can look just like links
-.popover button.btn-link,
-.popover button.btn-link .icon {
+.dropdown-item,
+.popover button.btn-link {
     font-size: $popover-font-size;
+}
+
+// make "menu" icons fixed width
+.popover .iconmenu .icon,
+.popover a.link-list .icon,
+.popover button.btn-link.link-list .icon,
+.dropdown-item .icon,
+.dropdown-item .iconmenu .icon,
+.dropdown-item a.link-list .icon,
+.dropdown-item button.btn-link.link-list .icon {
+    font-size: $popover-font-size;
+    text-align: center;
+    width: 1.25em;
 }
 
 .popover button.btn-link.link-list,
 // .popover button.btn-link.link-list .icon, <- this broke the FontAwesome lock and unlock icons in templates/fgal_context_menu.tpl because of the font-weight: normal definition below
 .dropdown-item button.btn-link.link-list,
-.dropdown-item button.btn-link.link-list .icon{
+.dropdown-item button.btn-link.link-list .icon {
     text-transform: initial;
     text-align: start;
     font-weight: normal;

@@ -1,5 +1,5 @@
 {if $permission_link.mode eq 'text'}
-    <a class="tips {if $permission_link.active}tips bg-warning{/if}{if !empty($permission_link.addclass)} {$permission_link.addclass}{/if}" href="{$permission_link.url|escape}"{if $permission_link.active} title=":{tr}Individual permissions{/tr}"{/if}>
+    <a class="tips link-list {if $permission_link.active}tips bg-warning{/if}{if !empty($permission_link.addclass)} {$permission_link.addclass}{/if}" href="{$permission_link.url|escape}"{if $permission_link.active} title=":{tr}Individual permissions{/tr}"{/if}>
         {icon name="permission"} {$permission_link.label|escape}
         {if $permission_link.count}
             <span class="badge bg-secondary">{$permission_link.count|escape}</span>
