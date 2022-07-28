@@ -35,58 +35,8 @@
                 <td class="action">
                     {actions}{strip}
                         <action>
-                            <a href="{service controller=manager action=watch instanceId=$instance->id}">
-                                {icon name=eye _menu_text='y' _menu_icon='y' alt="{tr}Watch{/tr}"}
-                            </a>
-                        </action>
-                        <action>
-                            <a href="{service controller=manager action=detect instanceId=$instance->id}">
-                                {icon name=info _menu_text='y' _menu_icon='y' alt="{tr}Detect{/tr}"}
-                            </a>
-                        </action>
-                        <action>
-                            <a href="{service controller=manager action=clone instanceId=$instance->id}">
-                                {icon name=copy _menu_text='y' _menu_icon='y' alt="{tr}Clone{/tr}"}
-                            </a>
-                        </action>
-                        <action>
-                            <a href="{service controller=manager action=check instanceId=$instance->id}">
-                                {icon name=check _menu_text='y' _menu_icon='y' alt="{tr}Check{/tr}"}
-                            </a>
-                        </action>
-                        <action>
-                            <a href="{service controller=manager action=update instanceId=$instance->id}">
-                                {icon name=import _menu_text='y' _menu_icon='y' alt="{tr}Update{/tr}"}
-                            </a>
-                        </action>
-                        <action>
-                            <a href="{service controller=manager action=backup instanceId=$instance->id}">
-                                {icon name=download _menu_text='y' _menu_icon='y' alt="{tr}Backup{/tr}"}
-                            </a>
-                        </action>
-                        <action>
-                            <a href="{service controller=manager action=fix instanceId=$instance->id}">
-                                {icon name=wrench _menu_text='y' _menu_icon='y' alt="{tr}Fix{/tr}"}
-                            </a>
-                        </action>
-                        <action>
                             <a href="{service controller=manager action=access instanceId=$instance->id}">
                                 {icon name=tags _menu_text='y' _menu_icon='y' alt="{tr}Access{/tr}"}
-                            </a>
-                        </action>
-                        <action>
-                            <a href="{service controller=manager action=edit instanceId=$instance->id}">
-                                {icon name=edit _menu_text='y' _menu_icon='y' alt="{tr}Edit{/tr}"}
-                            </a>
-                        </action>
-                        <action>
-                            <a href="{service controller=manager action=delete instanceId=$instance->id}">
-                                {icon name=times _menu_text='y' _menu_icon='y' alt="{tr}Delete{/tr}"}
-                            </a>
-                        </action>
-                        <action>
-                            <a href="{service controller=manager action=console instanceId=$instance->id}">
-                                {icon name=pen _menu_text='y' _menu_icon='y' alt="{tr}Console Command{/tr}"}
                             </a>
                         </action>
                         <action>
@@ -95,21 +45,73 @@
                             </a>
                         </action>
                         <action>
-                            <a href="{service controller=manager_patch action=index instanceId=$instance->id}">
-                                {icon name=tools _menu_text='y' _menu_icon='y' alt="{tr}Patches{/tr}"}
+                            <a href="{service controller=manager action=backup instanceId=$instance->id}">
+                                {icon name=download _menu_text='y' _menu_icon='y' alt="{tr}Backup{/tr}"}
+                            </a>
+                        </action>
+                        <action>
+                            <a href="{service controller=manager action=check instanceId=$instance->id}">
+                                {icon name=check _menu_text='y' _menu_icon='y' alt="{tr}Check{/tr}"}
+                            </a>
+                        </action>
+                        <action>
+                            <a href="{service controller=manager action=clone instanceId=$instance->id}">
+                                {icon name=copy _menu_text='y' _menu_icon='y' alt="{tr}Clone{/tr}"}
+                            </a>
+                        </action>
+                        <action>
+                            <a href="{service controller=manager action=console instanceId=$instance->id}">
+                                {icon name=pen _menu_text='y' _menu_icon='y' alt="{tr}Console Command{/tr}"}
+                            </a>
+                        </action>
+                        <action>
+                            <a href="{service controller=manager action=delete instanceId=$instance->id}">
+                                {icon name=times _menu_text='y' _menu_icon='y' alt="{tr}Delete{/tr}"}
+                            </a>
+                        </action>
+                        <action>
+                            <a href="{service controller=manager action=detect instanceId=$instance->id}">
+                                {icon name=info _menu_text='y' _menu_icon='y' alt="{tr}Detect{/tr}"}
+                            </a>
+                        </action>
+                        <action>
+                            <a href="{service controller=manager action=edit instanceId=$instance->id}">
+                                {icon name=edit _menu_text='y' _menu_icon='y' alt="{tr}Edit{/tr}"}
+                            </a>
+                        </action>
+                        <action>
+                            <a href="{service controller=manager action=fix instanceId=$instance->id}">
+                                {icon name=wrench _menu_text='y' _menu_icon='y' alt="{tr}Fix{/tr}"}
+                            </a>
+                        </action>
+                        <action>
+                            <a href="{service controller=manager action=maintenance mode=off instanceId=$instance->id}">
+                                {icon name=hammer _menu_text='y' _menu_icon='y' alt="{tr}Maintenance Off{/tr}"}
                             </a>
                         </action>
                         <action>
                             <a href="{service controller=manager action=maintenance mode=on instanceId=$instance->id}">
                                 {icon name=hammer _menu_text='y' _menu_icon='y' alt="{tr}Maintenance On{/tr}"}
                             </a>
-                         </action>
-                         <action>
-                            <a href="{service controller=manager action=maintenance mode=off instanceId=$instance->id}">
-                                {icon name=hammer _menu_text='y' _menu_icon='y' alt="{tr}Maintenance Off{/tr}"}
-                            </a>    
+                        </action>
+                        <action>
+                            <a href="{service controller=manager_patch action=index instanceId=$instance->id}">
+                                {icon name=tools _menu_text='y' _menu_icon='y' alt="{tr}Patches{/tr}"}
+                            </a>
+                        </action>
+                        <action>
+                            <a href="{service controller=manager action=update instanceId=$instance->id}">
+                                {icon name=import _menu_text='y' _menu_icon='y' alt="{tr}Update{/tr}"}
+                            </a>
+                        </action>
+                        <action>  
                             <a href="{service controller=manager action=verify instanceId=$instance->id}">
                                 {icon name=check _menu_text='y' _menu_icon='y' alt="{tr}Verify{/tr}"}
+                            </a>
+                       </action>
+                        <action>
+                            <a href="{service controller=manager action=watch instanceId=$instance->id}">
+                                {icon name=eye _menu_text='y' _menu_icon='y' alt="{tr}Watch{/tr}"}
                             </a>
                         </action>
                     {/strip}{/actions}
