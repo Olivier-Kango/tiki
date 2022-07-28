@@ -59,7 +59,15 @@ class APIWriter
                     $url = $this->config['create_url'];
                     $client = new \Services_ApiClient($url, false);
                     $method = strtolower($this->config['create_method'] ?? 'post');
-                    $result = $client->$method('', $row);
+                    if (! empty($this->config['create_format'])) {
+                        $formatted_row = $this->config['create_format'];
+                        foreach ($columns as $column) {
+                            $formatted_row = str_replace('%' . $column->getLabel() . '%', $row[$column->getLabel()], $formatted_row);
+                        }
+                    } else {
+                        $formatted_row = $row;
+                    }
+                    $result = $client->$method('', $formatted_row);
                 } else {
                     $skipped++;
                     continue;

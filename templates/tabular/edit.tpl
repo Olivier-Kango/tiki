@@ -156,6 +156,17 @@
                 </div>
                 <div class="mb-3 row">
                     <label class="col-form-label col-sm-2 offset-sm-1">
+                        {tr}Create endpoint format{/tr}
+                        <a class="tikihelp text-info" title="{tr}Create format{/tr}: {tr}Use special formatting when sending data to create endpoint if tabular's data format is not sufficient. E.g. [&quot;%field1%&quot;, &quot;%field3%&quot;]{/tr}">
+                            {icon name=information}
+                        </a>
+                    </label>
+                    <div class="col-sm-9">
+                        <input class="form-control" type="text" name="api[create_format]" value="{$api_config.create_format|escape}">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label class="col-form-label col-sm-2 offset-sm-1">
                         {tr}Update endpoint URL{/tr}
                         <a class="tikihelp text-info" title="{tr}Update URL{/tr}: {tr}URL of the endpoint to update entries when exporting. Placeholder #id will be replaced with the remote item id if previously imported from remote source.{/tr}">
                             {icon name=information}
