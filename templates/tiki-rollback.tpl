@@ -3,7 +3,7 @@
 <input type="submit" form="rollbackform" class="btn btn-primary btn-sm" name="rollback" value="{tr}Roll back{/tr}">
 <div class="wikitext">{$preview.data}</div>
 
-<form action="tiki-rollback.php?page={$page|escape:url}&amp;version={$version|escape}&amp;rollback=y" method="post">    
+<form action="tiki-rollback.php?page={$page|escape:url}&amp;version={$version|escape}&amp;rollback=y" method="post" id="rollbackform">    
     <div>
         {ticket}
         <input type="hidden" name="page" value="{$page|escape}">
@@ -17,5 +17,3 @@
 </form>
 
 {include file='tiki-page_bar.tpl'}
-
-
