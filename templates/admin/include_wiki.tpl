@@ -72,6 +72,7 @@
                     {preference name=wiki_timeout_warning}
                     {preference name=feature_warn_on_edit}
                     {preference name=warn_on_edit_time}
+                    {preference name=wiki_default_language}
                     <div class="adminoptionboxchild" id="feature_wiki_allowhtml_childcontainer">
                         {preference name=wysiwyg_wiki_parsed}
                     </div>

@@ -11,6 +11,7 @@ function prefs_wiki_list($partial = false)
 
     global $prefs;
     $wiki_forums = [];
+    $map = [];
 
     if (! $partial && $prefs['feature_forums'] == 'y') {
         $all_forums = TikiDb::get()->fetchMap('SELECT `forumId`, `name` FROM `tiki_forums` ORDER BY `name` ASC');
@@ -20,6 +21,15 @@ function prefs_wiki_list($partial = false)
         } else {
             $wiki_forums[''] = tra('None');
         }
+    }
+    $map[''] = tr('None');
+    if (! $partial) {
+        $langLib = TikiLib::lib('language');
+        $languages = $langLib->list_languages(false, null, true);
+        foreach ($languages as $lang) {
+            $map[ $lang['value'] ] = $lang['name'];
+        }
+        
     }
 
     $prefslib = TikiLib::lib('prefs');
@@ -51,6 +61,15 @@ function prefs_wiki_list($partial = false)
     }
 
     return [
+        'wiki_default_language' => [
+            'name' => tra('Favorite language for new pages'),
+            'description' => tra('This favorite language will automatically be used for new wiki pages by default.'),
+            'filter' => 'lang',
+            'type' => 'list',
+            'options' => $map,
+            'default' => '',
+            'tags' => ['basic'],
+        ],
         'wiki_page_regex' => [
             'name' => tra('Wiki link format'),
             'description' => tra('Level of special characters acceptable in wiki links for page names. For example: ((Page &eacute;&agrave;&icirc;))'),

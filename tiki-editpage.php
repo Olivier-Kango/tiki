@@ -74,10 +74,15 @@ function guess_new_page_attributes_from_parent_pages($page, $page_info)
                 $_REQUEST['lang'] = $languages[0]['value'];
                 $need_lang = false;
             } else {
-                $smarty->assign('languages', $languages);
-                $smarty->assign('default_lang', $prefs['language']);
-                $need_lang = true;
-                $smarty->assign('_REQUEST', $_REQUEST);
+                if ($prefs['wiki_default_language'] !== '') {
+                    $_REQUEST['lang'] = $prefs['wiki_default_language'];
+                    $need_lang = false;
+                } else {
+                    $smarty->assign('languages', $languages);
+                    $smarty->assign('default_lang', $prefs['language']);
+                    $need_lang = true;
+                    $smarty->assign('_REQUEST', $_REQUEST);
+                }
             }
         }
     }
