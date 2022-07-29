@@ -142,8 +142,12 @@ if ($re === false) {
             }
             echo "\e[31m" . $error . "\e[0m";
         } elseif (! empty($dbfail_url)) {
+            header('HTTP/1.0 503 Service Unavailable', true, 503);
+            header('Retry-After: 300');
             header('location: ' . $dbfail_url);
         } else {
+            header('HTTP/1.0 503 Service Unavailable', true, 503);
+            header('Retry-After: 300');
             header('location: tiki-install.php');
         }
         exit(1);
@@ -262,6 +266,8 @@ if (! $db && ! defined('TIKI_IN_INSTALLER')) {
         }
             die("\e[31m" . $error . "\e[0m\n");
     }
+    header('HTTP/1.0 503 Service Unavailable', true, 503);
+    header('Retry-After: 300');
     if (! empty($dbfail_url)) {
         header('location: ' . $dbfail_url);
         exit(1);
