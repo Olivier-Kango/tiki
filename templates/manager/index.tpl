@@ -59,11 +59,13 @@
                                 {icon name=copy _menu_text='y' _menu_icon='y' alt="{tr}Clone{/tr}"}
                             </a>
                         </action>
+                        {if $instance->app != null}
                         <action>
                             <a href="{service controller=manager action=console instanceId=$instance->id}">
                                 {icon name=pen _menu_text='y' _menu_icon='y' alt="{tr}Console Command{/tr}"}
                             </a>
                         </action>
+                        {/if}
                         <action>
                             <a href="{service controller=manager action=delete instanceId=$instance->id}">
                                 {icon name=times _menu_text='y' _menu_icon='y' alt="{tr}Delete{/tr}"}

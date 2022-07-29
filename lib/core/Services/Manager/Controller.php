@@ -803,4 +803,59 @@ class Services_Manager_Controller
             
         }
     }
+
+    public function action_backup($input)
+    {
+        $cmd = new TikiManager\Command\BackupInstanceCommand();
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            
+            $arrayInput = [
+                    'command' => $cmd->getName(),
+                    '-i' => $input->instaceId->int(),
+                    '-e' => $input->email->text(),
+                    '-mb' => $input->number_backups_to_keep->int()
+                ];
+                
+            if($input->backup_process->text() == "partial"){
+                $arrayInput['--partial'] = $input->backup_process->text();
+            }
+
+            $inputCommand = new ArrayInput($arrayInput);
+
+            $this->runCommand($cmd, $inputCommand);
+
+            return [
+                'title' => tr('Backup Instance Result'),
+                'info' => $this->manager_output->fetch(),
+                'refresh' => true,
+            ];
+        } else {
+
+            $instaceId = $input->instanceId->int();
+            $instance = Instance::getInstance($instaceId);
+
+            if ($instance) {
+                /** For form initialization */
+                $inputValues = [
+                    'instaceId' => $instaceId,
+                    'email' => '',
+                    'backup_process' => ['full backup','partial']
+                ];
+
+                return [
+                    'title' => tr('Backup Instance') . ' ' . $instance->backup_user,
+                    'info' => '',
+                    'refresh' => true,
+                    'inputValues' => $inputValues,
+                    'help' => $this->getCommandHelpTexts($cmd)
+                ];
+            } else {
+                return [
+                    'title' => tr('Backup instance (Instance not found)'),
+                    'info' => 'No Tiki instances selected for backup',
+                    'refresh' => true,
+                ];
+            }
+        }
+    }
 }
