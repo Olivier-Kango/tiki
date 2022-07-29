@@ -272,7 +272,8 @@ if (! $db && ! defined('TIKI_IN_INSTALLER')) {
         header('location: ' . $dbfail_url);
         exit(1);
     }
-        echo file_get_contents('templates/database_connection_error.html');
+    echo file_get_contents('templates/database_connection_error.html');
+    die(1);
 }
 
 if ($db) {
