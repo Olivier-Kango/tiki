@@ -11871,6 +11871,19 @@ body.tiki_forums .normal {
 .filter-panel-heading a.collapsed:after {
   content: "+";
 }
+.comment-highlight{
+  animation: highlight 3000ms ease-out;
+}
+@keyframes highlight {
+50% {
+  background-color: #222;
+  color:#d7cece;
+}
+100% {
+  background-color: #d7cece;
+  color:#222;
+}
+}
 #comment-container {
   display: none;
   margin: 15px 0;
