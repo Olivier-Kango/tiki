@@ -317,9 +317,11 @@ $("#filtercal").submit(function () {
                     }
                 },
                 dateClick: function(info) {
+                console.log(new Date(('2022-03-10').replaceAll('-','/')).toUnix())
+                console.log((new Date()).getTimezoneOffset())
                     $.ajax({
                         dataType: 'html',
-                        url: 'tiki-calendar_edit_item.php?fullcalendar=y&todate=' + info.date.toUnix() + '&tzoffset=' + (new Date()).getTimezoneOffset() + '&modal=1',
+                        url: 'tiki-calendar_edit_item.php?fullcalendar=y&todate=' + (new Date((info.dateStr).replaceAll('-','/')).toUnix()) + '&tzoffset=' + (new Date()).getTimezoneOffset() + '&modal=1',
                         success: function(data) {
                             var $dialog = $('#calendar_dialog').remove();
                             $('#calendar_dialog_content', $dialog ).html(data);
