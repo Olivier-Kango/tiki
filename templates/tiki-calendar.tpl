@@ -322,11 +322,10 @@ $("#filtercal").submit(function () {
                     }
                 },
                 dateClick: function(info) {
-                    var timestamp=Math.floor(new Date(info.dateStr).getTime())/1000;
                     let $this = $(info.dayEl).tikiModal(" "); //the html reference of the clicked date is no longer info.el but info.dayEl
                     $.ajax({
                         dataType: 'html',
-                        url: 'tiki-calendar_edit_item.php?fullcalendar=y&todate=' + timestamp + '&tzoffset=' + (new Date()).getTimezoneOffset() + '&modal=1',
+                        url: 'tiki-calendar_edit_item.php?fullcalendar=y&todate=' + info.date.toUnix() + '&modal=1',
                         success: function(data) {
                             var $dialog = $('#calendar_dialog');
                             var $options = {

@@ -494,22 +494,25 @@ if (isset($_REQUEST["delete"]) and ($_REQUEST["delete"]) and isset($_REQUEST["ca
     } else {
         $now = $tikilib->now;
     }
+    $date_format_keeping_source_utc_timezone = function($format, $timestamp) {
+        return TikiLib::date_format($format, $timestamp, false, 5, true, false);
+    };
     //if current time of day is within the calendar day (between startday and endday), then use now as start, otherwise use beginning of calendar day
     $day_start = $tikilib->make_time(
         abs(ceil($calendar['startday'] / (60 * 60))),
         0,
         0,
-        TikiLib::date_format('%m', $now),
-        TikiLib::date_format('%d', $now),
-        TikiLib::date_format('%Y', $now)
+        $date_format_keeping_source_utc_timezone('%m', $now),
+        $date_format_keeping_source_utc_timezone('%d', $now),
+        $date_format_keeping_source_utc_timezone('%Y', $now)
     );
     $day_end = $tikilib->make_time(
         abs(ceil($calendar['endday'] / (60 * 60))),
         0,
         0,
-        TikiLib::date_format('%m', $now),
-        TikiLib::date_format('%d', $now),
-        TikiLib::date_format('%Y', $now)
+        $date_format_keeping_source_utc_timezone('%m', $now),
+        $date_format_keeping_source_utc_timezone('%d', $now),
+        $date_format_keeping_source_utc_timezone('%Y', $now)
     );
     if ($day_start < $now && ($now + (60 * 60)) < $day_end) {
         $start = $now;
@@ -520,9 +523,9 @@ if (isset($_REQUEST["delete"]) and ($_REQUEST["delete"]) and isset($_REQUEST["ca
             TikiLib::date_format('%H', $tikilib->now),
             0,
             0,
-            TikiLib::date_format('%m', $now),
-            TikiLib::date_format('%d', $now),
-            TikiLib::date_format('%Y', $now)
+            $date_format_keeping_source_utc_timezone('%m', $now),
+            $date_format_keeping_source_utc_timezone('%d', $now),
+            $date_format_keeping_source_utc_timezone('%Y', $now)
         );
     } else {
         $hour = TikiLib::date_format('%H');

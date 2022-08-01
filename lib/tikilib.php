@@ -5684,7 +5684,7 @@ class TikiLib extends TikiDb_Bridge
      * @param bool $is_strftime_format
      * @return string
      */
-    public static function date_format($format, $timestamp = false, $_user = false, $input_format = 5/*DATE_FORMAT_UNIXTIME*/, $is_strftime_format = true)
+    public static function date_format($format, $timestamp = false, $_user = false, $input_format = 5/*DATE_FORMAT_UNIXTIME*/, $is_strftime_format = true, $use_display_tz = true)
     {
         $tikilib = TikiLib::lib('tiki');
         static $currentUserDateByFormat = [];
@@ -5707,7 +5707,7 @@ class TikiLib extends TikiDb_Bridge
         $tz = $tikilib->get_display_timezone($_user);
 
         // If user timezone is not also in UTC, convert the date
-        if ($tz != 'UTC') {
+        if ($tz != 'UTC' && $use_display_tz) {
             $tikidate->setTZbyID($tz);
         }
 
