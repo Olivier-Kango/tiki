@@ -76,7 +76,12 @@ class Search_Formatter_ValueFormatter_Currency extends Search_Formatter_ValueFor
         } elseif (is_int($this->date)) {
             $this->date = date('Y-m-d', $this->date);
         } else {
-            $this->date = date('Y-m-d', strtotime($this->date));
+            // index times are UTC
+            $old_tz = date_default_timezone_get();
+            date_default_timezone_set('UTC');
+            $time = strtotime($this->date);
+            date_default_timezone_set($old_tz);
+            $this->date = date('Y-m-d', $time);
         }
 
         $field['value'] = $value;
