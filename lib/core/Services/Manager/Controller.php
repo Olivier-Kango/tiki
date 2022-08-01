@@ -296,13 +296,13 @@ class Services_Manager_Controller
             ];
         } else {
 
-            $instaceId = $input->instanceId->int();
-            $instance = Instance::getInstance($instaceId);
+            $instanceId = $input->instanceId->int();
+            $instance = Instance::getInstance($instanceId);
 
             if ($instance) {
                 /** For form initialization */
                 $inputValues = [
-                    'instance' => $instaceId,
+                    'instance' => $instanceId,
                     'url' => $instance->weburl,
                     'name' => $instance->name,
                     'email' => $instance->contact,
