@@ -195,6 +195,17 @@
                 </div>
                 <div class="mb-3 row">
                     <label class="col-form-label col-sm-2 offset-sm-1">
+                        {tr}Update endpoint format{/tr}
+                        <a class="tikihelp text-info" title="{tr}Update format{/tr}: {tr}Use special formatting when sending data to update endpoint if tabular's data format is not sufficient. E.g. [&quot;%field1%&quot;, &quot;%field3%&quot;]{/tr}">
+                            {icon name=information}
+                        </a>
+                    </label>
+                    <div class="col-sm-9">
+                        <input class="form-control" type="text" name="api[update_format]" value="{$api_config.update_format|escape}">
+                    </div>
+                </div>
+                <div class="mb-3 row">
+                    <label class="col-form-label col-sm-2 offset-sm-1">
                         {tr}Modify data path{/tr}
                         <a class="tikihelp text-info" title="{tr}Modify Data Path{/tr}: {tr}Wrap request parameters in a (possibly nested) data structure. E.g. to send the request parameters as 'request' => { 'data' => ... }, specify 'request.data' here.{/tr}">
                             {icon name=information}

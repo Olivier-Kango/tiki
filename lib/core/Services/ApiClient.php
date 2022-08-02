@@ -41,7 +41,13 @@ class Services_ApiClient
             throw new Services_Exception(tr('Remote service inaccessible (%0), error: "%1"', $response->getStatusCode(), $error), 400);
         }
 
-        return json_decode($response->getBody(), true);
+        $parsed = json_decode($response->getBody(), true);
+
+        if (json_last_error() != JSON_ERROR_NONE) {
+            throw new Services_Exception(tr('Remote service responded with invalid JSON: %0', $response->getBody()));
+        }
+
+        return $parsed;
     }
 
     public function getResultLoader($endpoint, $arguments = [], $offsetKey = 'offset', $maxRecordsKey = 'maxRecords', $resultKey = 'result', $perPage = 20)

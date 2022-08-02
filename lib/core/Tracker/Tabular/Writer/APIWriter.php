@@ -49,7 +49,8 @@ class APIWriter
                     $url = str_replace('#id', $id, $this->config['update_url']);
                     $client = new \Services_ApiClient($url, false);
                     $method = strtolower($this->config['update_method'] ?? 'patch');
-                    $result = $client->$method('', $row);
+                    $formatted_row = $this->formatRow(@$this->config['update_format'], $columns, $row);
+                    $result = $client->$method('', $formatted_row);
                 } else {
                     $skipped++;
                     continue;
@@ -59,14 +60,7 @@ class APIWriter
                     $url = $this->config['create_url'];
                     $client = new \Services_ApiClient($url, false);
                     $method = strtolower($this->config['create_method'] ?? 'post');
-                    if (! empty($this->config['create_format'])) {
-                        $formatted_row = $this->config['create_format'];
-                        foreach ($columns as $column) {
-                            $formatted_row = str_replace('%' . $column->getLabel() . '%', $row[$column->getLabel()], $formatted_row);
-                        }
-                    } else {
-                        $formatted_row = $row;
-                    }
+                    $formatted_row = $this->formatRow(@$this->config['create_format'], $columns, $row);
                     $result = $client->$method('', $formatted_row);
                 } else {
                     $skipped++;
@@ -99,5 +93,18 @@ class APIWriter
             }
         }
         return compact('succeeded', 'failed', 'skipped');
+    }
+
+    private function formatRow($format, $columns, $row)
+    {
+        if (! empty($format)) {
+            $formatted_row = $format;
+            foreach ($columns as $column) {
+                $formatted_row = str_replace('%' . $column->getLabel() . '%', $row[$column->getLabel()], $formatted_row);
+            }
+        } else {
+            $formatted_row = $row;
+        }
+        return $formatted_row;
     }
 }
