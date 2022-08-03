@@ -4,7 +4,7 @@
     <em>{tr}Read-only metadata extracted from the file.{/tr}</em>
     {if isset($metarray.basiconly) and $metarray.basiconly}
         <span>
-            {tr}<em>Only basic metadata processed for this file type.</em>{/tr}
+            <em>{tr}Only basic metadata processed for this file type.{/tr}</em>
         </span>
     {/if}
 </div>

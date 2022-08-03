@@ -10,10 +10,10 @@
         {tr}Select{/tr} <a class="link" href="tiki-admin.php" title="{tr}Control Panels{/tr}">{tr}Settings{/tr} &gt; {tr}Control Panels{/tr}</a> {tr}from the menu{/tr}.
     </p>
     <p>
-        {tr}Read the <a class="link" href="http://doc.tiki.org/Configuration" title="Tiki Documentation" target="_blank">configuration documentation</a>{/tr}.
+        {tr _0='<a class="link" href="http://doc.tiki.org/Configuration" title="Tiki Documentation" target="_blank">' _1='</a>'}Read the %0configuration documentation%1{/tr}.
     </p>
     <p>
-        {tr}Watch the <a class="link" href="http://tiki.org/TikiMovies" title="Demos" target="_blank">demo movies{/tr}</a>.
+        {tr _0='<a class="link" href="http://tiki.org/TikiMovies" title="Demos" target="_blank">' _1='</a>'}Watch the %0demo movies%1.{/tr}
     </p>
     <p>
         <img src="img/icons/arrow_right.png" style="border:0;margin-right:2px;vertical-align:middle" align="left">
@@ -32,9 +32,9 @@
     </p>
     {/if}
     <p>
-        <a href="http://tiki.org" title="{tr}The Tiki Community{/tr}" target="_blank"><img src="themes/base_files/favicons/favicon-16x16.png" alt="{tr}The Tiki Community{/tr}" style="border:0;margin-right:2px;vertical-align:middle" align="left"></a>{tr}To learn more, visit: <a href="http://tiki.org" title="The Tiki Community" target="_blank">http://tiki.org</a>{/tr}.
+        <a href="http://tiki.org" title="{tr}The Tiki Community{/tr}" target="_blank"><img src="themes/base_files/favicons/favicon-16x16.png" alt="{tr}The Tiki Community{/tr}" style="border:0;margin-right:2px;vertical-align:middle" align="left"></a>{tr _0='<a href="http://tiki.org" title="The Tiki Community" target="_blank">http://tiki.org</a>'}To learn more, visit: %0{/tr}.
     </p>
     <p>
-        <a href="http://doc.tiki.org" title="{tr}Tiki Documentation{/tr}" target="_blank"><img src="img/icons/help.png" alt="{tr}Tiki Documentation{/tr}" style="border:0px;margin-right:2px;vertical-align:middle" align="left"></a>{tr}For help, visit <a href="http://doc.tiki.org" title="Tiki Documentation" target="_blank">http://doc.tiki.org</a>{/tr}.
+        <a href="http://doc.tiki.org" title="{tr}Tiki Documentation{/tr}" target="_blank"><img src="img/icons/help.png" alt="{tr}Tiki Documentation{/tr}" style="border:0px;margin-right:2px;vertical-align:middle" align="left"></a>{tr _0='<a href="http://doc.tiki.org" title="Tiki Documentation" target="_blank">http://doc.tiki.org</a>'}For help, visit %0{/tr}.
     </p>
 {/tikimodule}

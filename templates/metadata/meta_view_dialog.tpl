@@ -3,7 +3,7 @@
     {if $type eq 'data'}
         {if isset($metarray.basiconly) and $metarray.basiconly}
             <span>
-                {tr}<em>Note: only basic metadata processed for this file type</em>{/tr}
+                <em>{tr}Note: only basic metadata processed for this file type{/tr}</em>
             </span>
         {/if}
         <ul>
