@@ -230,11 +230,11 @@
                             <a class="tips text-warning"
                                href="#"
                                style="text-decoration: none;"
-                               data-toggle="popover"
-                               data-container="body"
-                               data-trigger="hover"
-                               data-content="<strong>{tr}Licence{/tr}</strong>: <a href='{$entry.licenceUrl}'>{$entry.licence}</a><br/><strong>{tr}Replaced by{/tr}</strong>:<br/>{'<br/>'|implode:$entry.replacedBy}"
-                               data-original-title="{tr}Replaced{/tr}"
+                               data-bs-toggle="popover"
+                               data-bs-container="body"
+                               data-bs-trigger="hover"
+                               data-bs-content="<strong>{tr}Licence{/tr}</strong>: <a href='{$entry.licenceUrl}'>{$entry.licence}</a><br/><strong>{tr}Replaced by{/tr}</strong>:<br/>{'<br/>'|implode:$entry.replacedBy}"
+                               data-bs-original-title="{tr}Replaced{/tr}"
                             >
                                 {icon name='exclamation-triangle'}
                             </a>
