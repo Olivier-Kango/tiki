@@ -301,17 +301,14 @@ if (isset($_REQUEST["save"]) && isset($_REQUEST["name"]) && strlen($_REQUEST["na
             $rolesRepo->insertOrUpdateSelectedCategoryRole($categId, $categRoleId, $groupRoleId, $groupId);
         }
     }
-
-    if ($_REQUEST['applyRoles'] == "on") {
+    if ($_REQUEST['applyRoles'] == "on" && !empty($_REQUEST['rolesToApply'])) {
         $rolesRepo->applyRoles($_REQUEST["categId"], $_REQUEST['rolesToApply']);
     } else {
         $rolesRepo->applyRoles($_REQUEST["categId"], []);
     }
-
     $rolesRepo->deleteRolesWithoutParent($_REQUEST["categId"]);
 
-
-    if (isset($_REQUEST["tplGroupContainer"]) && ! empty($_REQUEST["tplGroupContainer"])) {
+    if (isset($_REQUEST["tplGroupContainer"]) && ! empty($_REQUEST["tplGroupContainer"]) && !empty($_REQUEST["categId"])) {
         $categlib->manage_sub_categories($_REQUEST["categId"]);
     }
     $cookietab = 1;
