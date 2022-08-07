@@ -72,6 +72,20 @@
                     {preference name=activity_basic_user_friend_add}
                 </div>
                 {preference name=activity_custom_events}
+                {if $activity_custom_events eq 'y'}
+                    <div class="adminoptionboxchild clearfix text-start" id="activity_custom_events_childcontainer">
+                        <div class="mb-3 row">
+                            <div class="col-4" for="total_activity_stream">{tr}Total activity rules{/tr}</div>
+                            <div class="col-2" id="total_activity_stream">{$total_activity_custom_events}</div>
+                        </div>
+                        <div class="mb-3 row">
+                            <div class="col">
+                                <a href="tiki-ajax_services.php?controller=managestream&action=list">{tr}List Activity Rules{/tr}
+                            </div>
+                        </div>
+                    </div>
+                {/if}
+
                 {preference name=activity_notifications}
             </fieldset>
             <fieldset>

@@ -360,6 +360,13 @@ if (isset($_REQUEST['page'])) {
     $smarty->assign('include', 'list_sections');
 }
 
+if($prefs['activity_custom_events'] === 'y'){
+    $activity = TikiLib::lib("activity");
+    $total = count($activity->getRules());
+    $smarty->assign('activity_custom_events', $prefs['activity_custom_events']);
+    $smarty->assign('total_activity_custom_events', $total);
+}
+
 if ($prefs['theme_unified_admin_backend'] === 'y') {
     $headerlib->add_cssfile('themes/base_files/css/feature/adminui.css');
 } else {
