@@ -4,22 +4,31 @@ $imagePath: "../images/";
 //     background-image: url('#{$imagePath}bg.jpg');
 // }
 
+body {
+    border-top: 6px solid $sky-light;
+    border-bottom: 8px solid $sea;
+}
+
 .topbar {
     margin-bottom: 20px;
 }
 
-button, input, optgroup, select, textarea {
-    background: #242424;
-    color: #cfcfcf;
+//button, input, optgroup, select, textarea {
+//    background: #242424;
+//    color: #cfcfcf;
+//}
+
+.navbar-dark.bg-dark,
+.bg-dark-parent {
+    background-color: #343a40 !important;
 }
 
-.bg-dark,
-.topbar_modules.navbar-dark.bg-dark { background: #343a40 !important; }
+.navbar-light.bg-light,
+.bg-light-parent {
+    background-color: $sky-light !important; //#7a0101 !important;
+}
 
-.bg-light,
-.topbar_modules.navbar-dark.bg-dark { background: #7a0101 !important; }
-
-
+// navbar-dark: #343a40
 
 //.top_modules { background: #030511; }
 
@@ -64,14 +73,9 @@ button, input, optgroup, select, textarea {
     margin-top: 8px;
 }
 
-.card-title,
-.card-header {
-    font-weight: bold;
-}
 
 .card-header {
-    background: $card-header-bg;
-    border: 1px solid $card-inner-border;
+    border-bottom: 5px solid $wood;
 }
 
 $nav-tabs-active-link-hover-color: #ffffff;
@@ -100,40 +104,6 @@ footer.footer .modules {
     border-bottom: 1px solid #ebebeb;
 }
 
-.cssmenu_horiz li ul,
-.cssmenu_vert li ul {
-    padding: 5px 0;
-    margin: 2px 0 0; // override default ul
-    //  font-size: $font-size-base;
-    background-color: $dropdown-bg;
-    border: 1px solid $dropdown-border-color;
-    border-radius: $border-radius;
-    @include box-shadow(0 6px 12px rgba(0, 0, 0, .175));
-    -webkit-background-clip: padding-box;
-    background-clip: padding-box;
-
-    // Links within the dropdown menu
-    > li > a {
-        padding: 3px 20px;
-        font-weight: normal;
-        line-height: $line-height-base;
-        color: $dropdown-link-color;
-    }
-}
-
-// Hover/Focus state
-.cssmenu_horiz > li > a,
-.cssmenu_vert > li > a,
-.cssmenu_horiz ul > li > a,
-.cssmenu_vert ul > li > a {
-    &:hover,
-    &:focus {
-        text-decoration: none;
-        color: $dropdown-link-hover-color;
-        background-color: $dropdown-link-hover-bg;
-    }
-}
-
 body.fullscreen {
     background: $body-bg;
     .container {
@@ -141,10 +111,60 @@ body.fullscreen {
     }
 }
 // Update for Smartmenus (override tiki_base.css value)
-.dropdown-menu.mega-menu a,
-.dropdown-item {
-    color: $link-color;
+.dropdown-menu.mega-menu a //,
+//.dropdown-item
+    {
+    color: $body-color;
     &:hover {
         color: $link-hover-color;
+    }
+}
+
+//.dropdown-item {
+//    color: $link-color !important;
+//}
+
+// Badges
+.badge {
+//    &.bg-primary,
+    &.bg-danger,
+    &.bg-secondary,
+    &.bg-success,
+    &.bg-info,
+    &.bg-warning { color: #000 !important; }
+}
+
+// Breadcrumbs
+.breadcrumb {
+    display: inline-block;
+}
+
+.btn.btn-outline-primary {
+    color: lighten($primary, 50%);
+    border-color: lighten($primary, 50%);
+}
+
+
+
+// override for some cypht background colors
+.tiki {
+    .inline-cypht {
+        .folder_list, .content_cell, .compose_page, .message_list, .msg_text, .selected_part,
+        .server_content, .profile_content, .user_settings,
+        .nux_add_account, .imap_server_setup, .pop3_server_setup {
+            background-color: $card-bg;
+        }
+        .src_name, .content_title, .list_controls {
+            background: $card-header-bg;
+        }
+    }
+    &.mobile.tiki-cypht {
+        .folder_list {
+            background-color: $card-bg;
+            .src_name { background: $card-header-bg; }
+        }
+        .content_title {
+            &, .list_controls { background: $card-header-bg; }
+        }
     }
 }

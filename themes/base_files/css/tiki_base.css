@@ -10798,7 +10798,7 @@ h1:hover a.tiki_anchor, .h1:hover a.tiki_anchor, h2:hover a.tiki_anchor, .h2:hov
 span.btn-link {
   cursor: pointer;
 }
-.dropdown-item, .popover button.btn-link {
+.popover button.btn-link {
   font-size: 0.875rem;
 }
 .popover .iconmenu .icon, .popover a.link-list .icon, .popover button.btn-link.link-list .icon, .dropdown-item .icon, .dropdown-item .iconmenu .icon, .dropdown-item a.link-list .icon, .dropdown-item button.btn-link.link-list .icon {
@@ -11870,19 +11870,6 @@ body.tiki_forums .normal {
 }
 .filter-panel-heading a.collapsed:after {
   content: "+";
-}
-.comment-highlight{
-  animation: highlight 3000ms ease-out;
-}
-@keyframes highlight {
-50% {
-  background-color: #222;
-  color:#d7cece;
-}
-100% {
-  background-color: #d7cece;
-  color:#222;
-}
 }
 #comment-container {
   display: none;
@@ -15003,4 +14990,3 @@ h1:hover .heading-link, .h1:hover .heading-link, h2:hover .heading-link, .h2:hov
   -webkit-font-smoothing: antialiased;
 }
 /* End of file */
-/*# sourceMappingURL=tiki_base.css.map */

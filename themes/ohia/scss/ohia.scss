@@ -1,40 +1,22 @@
 //  ohia/scss/ohia.scss: compile to make
 /*  The Ohia theme stylesheet for Tiki Wiki CMS Groupware. */
 
+@import url(https://fonts.bunny.net/css?family=alegreya-sans:400,400i|alegreya-sans-sc:400,400i,700);
+
 @import "../../../vendor_bundled/vendor/twbs/bootstrap/scss/functions";
 @import "variables"; // Needs to come first, to override Bootstrap defaults.
+
 @import "../../base_files/scss/_tiki-variables.scss"; // Values/definitions for Tiki variables (outside of Bootstrap variables) such as _tiki-selectors.scss.
 @import "../../../vendor_bundled/vendor/twbs/bootstrap/scss/bootstrap.scss";
 
 @import "variables"; // Imported again, to override base_files/tiki-variables defaults, if the theme overrides any
-
+@import "../../../vendor_bundled/vendor/twbs/bootstrap/scss/nav"; // Needed to be imported here directly to enable $nav-link to be implemented.
+@import "../../../vendor_bundled/vendor/twbs/bootstrap/scss/buttons"; // Needed to be imported here directly to enable $nav-link to be implemented.
 @import "../../base_files/scss/_tiki-selectors.scss";
+
 @import "_tiki-selectors.scss";
 @import "../../base_files/scss/_external-scripts.scss";
 @import "../../base_files/scss/_select2-tiki_colors.scss";
 
 
 .textarea-toolbar a.toolbar { color: #222; }
-
-// override for some cypht background colors
-.tiki {
-    .inline-cypht {
-        .folder_list, .content_cell, .compose_page, .message_list, .msg_text, .selected_part,
-        .server_content, .profile_content, .user_settings,
-        .nux_add_account, .imap_server_setup, .pop3_server_setup {
-            background-color: $card-bg;
-        }
-        .src_name, .content_title, .list_controls {
-            background: $card-header-bg;
-        }
-    }
-    &.mobile.tiki-cypht {
-        .folder_list {
-            background-color: $card-bg;
-            .src_name { background: $card-header-bg; }
-        }
-        .content_title {
-            &, .list_controls { background: $card-header-bg; }
-        }
-    }
-}

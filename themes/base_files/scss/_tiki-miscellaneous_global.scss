@@ -333,7 +333,7 @@ span.btn-link {
 }
 
 // So form submit buttons with icons and text used in popover actions can look just like links
-.dropdown-item,
+// .dropdown-item, Sorry but this is affecting *all* dropdown-items; scope should be narrowed. - G_C-L
 .popover button.btn-link {
     font-size: $popover-font-size;
 }
