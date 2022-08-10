@@ -601,3 +601,7 @@ letter-spacing: unset;
   color: #059;
   background-color: #BEF;
 }
+
+.move_to_trackers .object-selector .results .form-check-label {
+  white-space: normal !important;
+}
