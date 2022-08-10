@@ -615,3 +615,7 @@ letter-spacing: unset;
   .mobile .search_form { margin-left: -18px !important; }
   .mobile .list_controls { display: none !important; }
 }
+
+.move_to_trackers .object-selector .results .form-check-label {
+  white-space: normal !important;
+}
