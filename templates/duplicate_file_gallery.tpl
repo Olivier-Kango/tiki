@@ -6,7 +6,11 @@
         <div class="mb-3 row">
             <label for="name" class="col-sm-4 col-form-label">{tr}Name{/tr}</label>
             <div class="col-sm-8">
-                <input type="text" class="form-control" size="50" id="name" name="name" value="">
+                <input type="text" class="form-control" size="50" id="name" value="{$dupName|escape}" name="name" maxlength="80" value="">
+                <span class="form-text text-danger">{tr}{$incorrectInputValues.incorrect_name}.{/tr}</span>
+                {jq}
+					$("#name").attr("required", true);
+				{/jq}
             </div>
         </div>
         <div class="mb-3 row">
@@ -32,14 +36,14 @@
         <div class="mb-3 row">
             <div class="form-check offset-sm-4 col-sm-8">
                 <label for="dupCateg" class="form-check-label">
-                    <input type="checkbox" id="dupCateg" name="dupCateg" class="me-2">{tr}Duplicate categories{/tr}
+                    <input type="checkbox" id="dupCateg" name="dupCateg" class="me-2" {if isset($dupCateg)}{$dupCateg|escape}{/if}>{tr}Duplicate categories{/tr}
                 </label>
             </div>
         </div>
         <div class="mb-3 row">
             <div class="form-check offset-sm-4 col-sm-8">
                 <label for="dupPerms" class="form-check-label">
-                    <input type="checkbox" id="dupPerms" name="dupPerms" class="me-2">{tr}Duplicate permissions{/tr}
+                    <input type="checkbox" id="dupPerms" name="dupPerms" class="me-2" {if isset($dupPerms)}{$dupPerms|escape}{/if}>{tr}Duplicate permissions{/tr}
                 </label>
             </div>
         </div>

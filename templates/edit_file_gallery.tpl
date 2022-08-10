@@ -20,8 +20,11 @@
                             <b>{tr}{$gal_info.name}{/tr}</b>
                             <input type="hidden" name="name" value="{$gal_info.name|escape}" class="form-control">
                         {else}
-                            <input type="text" id="name" name="name" value="{$gal_info.name|escape}" class="form-control">
-                            <span class="form-text">{tr}Required for podcasts{/tr}.</span>
+                            <input type="text" id="name" name="name" maxlength="80" value="{$gal_info.name|escape}" class="form-control">
+                            <span class="form-text text-danger">{tr}{$incorrectInputValues.incorrect_name}.{/tr}</span>
+                            {jq}
+								$("#name").attr("required", true);
+							{/jq}
                         {/if}
                     </div>
                 </div>
