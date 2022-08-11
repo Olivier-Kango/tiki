@@ -4,6 +4,10 @@
     "homepage": "http://composer.tiki.org",
     "repositories": [
         {
+            "type": "vcs",
+            "url": "https://gitlab.com/tikiwiki/libraries/ZendService_Akismet"
+        },
+        {
             "type": "composer",
             "url": "https://packagist.org"
         },
@@ -2208,7 +2212,7 @@
         "zendframework/zendoauth": ">=2.0",
         "zendframework/zendopenid": ">=2.0",
         "zendframework/zendsearch": "~2.0||dev-tiki",
-        "zendframework/zendservice-akismet": ">=2.0",
+        "zendframework/zendservice-akismet": ">=2.0||dev-tiki",
         "zendframework/zendservice-recaptcha": ">=2.0",
         "zendframework/zendservice-twitter": ">=2.0",
         "zetacomponents/base": ">=1.8",
