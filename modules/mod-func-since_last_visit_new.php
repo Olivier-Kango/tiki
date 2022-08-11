@@ -144,7 +144,7 @@ function module_since_last_visit_new($mod_reference, $params = null)
 
     //TODO: should be a function on commentslib.php or use one of the existent functions
     $query = 'select `object`,`objectType`,`title`,`commentDate`,`userName`,`threadId`, `parentId`, `approved`, `archived`, `data`' .
-                    " from `tiki_comments` where `commentDate`>? and `objectType` != 'forum' order by `commentDate` desc";
+                    " from `tiki_comments` where `commentDate`>? and `objectType` != 'forum' and `data` != '' order by `commentDate` desc";
     $result = $tikilib->query($query, [(int) $last], $resultCount);
 
     $count = 0;

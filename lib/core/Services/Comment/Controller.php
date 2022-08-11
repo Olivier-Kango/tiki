@@ -322,6 +322,7 @@ return false;";
         }
 
         $diffInfo = []; // for saveAndComment
+        $errors = [];
 
         if ($input->edit->int()) {
             $title = trim($input->title->text());
@@ -329,14 +330,20 @@ return false;";
 
             $tikilib = TikiLib::lib('tiki');
             $data = $tikilib->convertAbsoluteLinksToRelative($data);
+            
+            if (empty($data)) {
+                $errors['data'] = tr('Content is empty');
+            }
 
-            $commentslib = TikiLib::lib('comments');
-            $commentslib->update_comment($threadId, $title, $comment['comment_rating'], $data);
+            if (count($errors) === 0) {
+                $commentslib = TikiLib::lib('comments');
+                $commentslib->update_comment($threadId, $title, $comment['comment_rating'], $data);
 
-            return [
-                'threadId' => $threadId,
-                'comment' => $comment,
-            ];
+                return [
+                    'threadId' => $threadId,
+                    'comment' => $comment,
+                ];
+            }
         } elseif ($comment['version']) {    // not the post
             $diffInfo = $this->setUpDiffInfo($comment['objectType'], $comment['object'], $comment['version']);
         }
@@ -344,6 +351,7 @@ return false;";
         return [
             'comment' => $comment,
             'diffInfo' => $diffInfo,
+            'errors' => $errors,
         ];
     }
 
