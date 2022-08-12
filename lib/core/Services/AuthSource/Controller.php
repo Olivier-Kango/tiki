@@ -34,6 +34,10 @@ class Services_AuthSource_Controller
         $identifier = $input->identifier->text();
         $method = $input->method->alpha();
         $arguments = $input->arguments->none();
+        $user = $input->user->none();
+        if (empty($user)) {
+            $user = null;
+        }
 
         if (! $info || ! $identifier || ! $method || ! $arguments) {
             throw new Services_Exception(tr('Invalid data'), 406);
@@ -50,6 +54,7 @@ class Services_AuthSource_Controller
                     'path'      => $info['path'],
                     'method'    => $method,
                     'arguments' => json_encode($arguments),
+                    'user'      => $user,
                 ],
                 ['identifier' => $identifier,]
             );

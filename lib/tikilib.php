@@ -169,7 +169,7 @@ class TikiLib extends TikiDb_Bridge
      * @param array $options
      * @return mixed|Laminas\Http\Client
      */
-    public function get_http_client($url = false, $options = null)
+    public function get_http_client($url = false, $options = null, $user = null)
     {
         global $prefs;
 
@@ -209,7 +209,7 @@ class TikiLib extends TikiDb_Bridge
         $client->setArgSeparator('&');
 
         if ($url) {
-            $client = $this->prepare_http_client($client, $url);
+            $client = $this->prepare_http_client($client, $url, $user);
 
             $client->setUri($this->urlencode_accent($url)); // Laminas\Http\Client seems to fail with accents in urls (jb june 2011)
         }
@@ -222,7 +222,7 @@ class TikiLib extends TikiDb_Bridge
      * @param $url
      * @return mixed
      */
-    private function prepare_http_client($client, $url)
+    private function prepare_http_client($client, $url, $user = null)
     {
         $info = parse_url($url);
 
@@ -230,8 +230,16 @@ class TikiLib extends TikiDb_Bridge
         $table = $this->table('tiki_source_auth');
         $authentications = $table->fetchAll(
             ['path', 'method', 'arguments'],
-            ['scheme' => $info['scheme'],'domain' => $info['host']]
+            ['scheme' => $info['scheme'], 'domain' => $info['host'], 'user' => $user]
         );
+
+        if (! $authentications && $user) {
+            // try system-wide authentications not constrainted to a specific user
+            $authentications = $table->fetchAll(
+                ['path', 'method', 'arguments'],
+                ['scheme' => $info['scheme'], 'domain' => $info['host'], 'user' => null]
+            );
+        }
 
         // Obtain the method with the longest path matching
         $max = -1;

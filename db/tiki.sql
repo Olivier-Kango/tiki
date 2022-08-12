@@ -3932,6 +3932,7 @@ CREATE TABLE `tiki_source_auth` (
     `path` VARCHAR(200) NOT NULL,
     `method` VARCHAR(20) NOT NULL,
     `arguments` TEXT NOT NULL,
+    `user` VARCHAR(200),
     KEY `tiki_source_auth_ix` (`scheme`, `domain`(171))
 ) ENGINE=MyISAM;
 

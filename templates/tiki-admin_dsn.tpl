@@ -108,6 +108,17 @@
                 </select>
             </div>
         </div>
+        <div class="mb-3 row">
+            <label class="col-sm-3 col-form-label" for="method">
+                {tr}User{/tr}
+                <a class="tikihelp text-info" title="{tr}User:{/tr} {tr}Limit usage of this content authentication to a specific user, e.g. when importing/exporting a tracker via tabular with remote API. Leave blank for usage regardless of user context.{/tr}">
+                    {icon name=information}
+                </a>
+            </label>
+            <div class="col-sm-4">
+                {user_selector id="user_selector_auth" realnames="n" user=""}
+            </div>
+        </div>
     </fieldset>
     <fieldset class="method basic">
         <legend>{tr}HTTP Basic{/tr}</legend>
@@ -227,6 +238,7 @@ $('#source-form').each(function () {
                 $(form.identifier).val(id);
                 $(form.method).val(data.method).change().trigger("change.select2");
                 $(form.url).val(data.url);
+                $(form.user).val(data.user);
 
                 switch (data.method) {
                 case 'basic':
@@ -289,6 +301,7 @@ $('#source-form').each(function () {
             identifier: $(form.identifier).val(),
             url: $(form.url).val(),
             method: $(form.method).val(),
+            user: $(form.user).val(),
             ticket: $(form.ticket).val()
         }, isNew = $(form.existing).val() === '';
 

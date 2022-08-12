@@ -126,6 +126,17 @@
                         <input class="form-control" type="text" name="api[list_data_path]" value="{$api_config.list_data_path|escape}">
                     </div>
                 </div>
+                <div class="row mb-3">
+                    <label class="col-form-label col-sm-2 offset-sm-1">
+                        {tr}List endpoint data mapping{/tr}
+                        <a class="tikihelp text-info" title="{tr}Data Mapping{/tr}: {tr}Instead of mapping fields to data keys directly (e.g. JSON or NDJSON) use special mapping here. Leave empty to map directly.{/tr}">
+                            {icon name=information}
+                        </a>
+                    </label>
+                    <div class="col-sm-9">
+                        <textarea class="form-control" name="api[list_mapping]" rows="5">{$api_config['list_mapping']|escape}</textarea>
+                    </div>
+                </div>
                 <div class="mb-3 row">
                     <label class="col-form-label col-sm-2 offset-sm-1">
                         {tr}Create endpoint URL{/tr}
@@ -162,7 +173,7 @@
                         </a>
                     </label>
                     <div class="col-sm-9">
-                        <input class="form-control" type="text" name="api[create_format]" value="{$api_config.create_format|escape}">
+                        <textarea class="form-control" name="api[create_format]" rows="5">{$api_config.create_format|escape}</textarea>
                     </div>
                 </div>
                 <div class="mb-3 row">
@@ -201,7 +212,7 @@
                         </a>
                     </label>
                     <div class="col-sm-9">
-                        <input class="form-control" type="text" name="api[update_format]" value="{$api_config.update_format|escape}">
+                        <textarea class="form-control" name="api[update_format]" rows="5">{$api_config.update_format|escape}</textarea>
                     </div>
                 </div>
                 <div class="mb-3 row">
@@ -509,12 +520,15 @@
                     </a>
                 </label>
                 <div class="col-sm-3">
-                    <select class="form-select" name="config[format]">
+                    <select class="form-select config-format" name="config[format]">
                         <option value=""{if empty($config['format']) or $config['format'] eq 'csv'} selected="selected"{/if}>
                             {tr}Default (CSV){/tr}
                         </option>
                         <option value="json"{if $config['format'] eq 'json'} selected="selected"{/if}>
                             JSON
+                        </option>
+                        <option value="ndjson"{if $config['format'] eq 'ndjson'} selected="selected"{/if}>
+                            NDJSON
                         </option>
                     </select>
                 </div>

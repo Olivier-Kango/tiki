@@ -24,6 +24,14 @@
             <p>{tr}Import from remote ODBC source.{/tr}</p>
             {elseif $api}
             <p>{tr}Import from remote API source.{/tr}</p>
+                {foreach $placeholders as $field}
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">{$field}</span>
+                        <div>
+                            <input type="text" name="placeholders[{$field}]" value="" class="form-control">
+                        </div>
+                    </div>
+                {/foreach}
             {elseif $format eq 'json'}
             <div class="input-group mb-3">
                 <span class="input-group-text" id="inputGroupText">{tr}JSON File{/tr}</span>

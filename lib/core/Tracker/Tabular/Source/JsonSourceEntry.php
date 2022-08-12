@@ -25,7 +25,7 @@ class JsonSourceEntry implements SourceEntryInterface
 
     public function parseInto(&$info, $column)
     {
-        $entry = $this->data[spl_object_hash($column)];
+        $entry = $this->data[spl_object_hash($column)] ?? '';
         $column->parseInto($info, $entry);
     }
 }

@@ -50,6 +50,7 @@ class Manager
                 'skip_unmodified' => 0,
                 'encoding' => '',
                 'format' => '',
+                'mapping' => '',
             ]),
             'odbc_config' => json_encode($odbc_config),
         ]);
@@ -70,6 +71,7 @@ class Manager
                 'skip_unmodified' => (int)! empty($config['skip_unmodified']),
                 'encoding' => $config['encoding'],
                 'format' => $config['format'],
+                'mapping' => $config['mapping'],
             ]),
             'odbc_config' => json_encode($odbc_config),
             'api_config' => json_encode($api_config)

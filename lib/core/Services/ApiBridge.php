@@ -87,7 +87,7 @@ class Services_ApiBridge
         if (false !== $pos = strpos($path_info, '?')) {
             $path_info = substr($path_info, 0, $pos);
         }
-        return new RequestContext($base_uri, $_SERVER['REQUEST_METHOD'], $url_host, $url_scheme, $prefs['http_port'] ? $prefs['http_port'] : 80, $prefs['https_port'] ? $prefs['https_port'] : 443, $path_info, http_build_query($_GET));
+        return new RequestContext($base_uri, $_SERVER['REQUEST_METHOD'] ?? '', $url_host, $url_scheme, $prefs['http_port'] ? $prefs['http_port'] : 80, $prefs['https_port'] ? $prefs['https_port'] : 443, $path_info, http_build_query($_GET));
     }
 
     protected function prepareRoutes()

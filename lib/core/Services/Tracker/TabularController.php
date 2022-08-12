@@ -166,7 +166,7 @@ class Services_Tracker_TabularController
 
             $tabularId = $lib->create($input->name->text(), $info['trackerId']);
 
-            $lib->update($tabularId, $input->name->text(), $schema->getFormatDescriptor(), $schema->getFilterDescriptor(), $info['config']);
+            $lib->update($tabularId, $input->name->text(), $schema->getFormatDescriptor(), $schema->getFilterDescriptor(), $info['config'], $info['odbc_config'], $info['api_config']);
 
             $referer = Services_Utilities::noJsPath();
             return Services_Utilities::refresh($referer);
@@ -285,9 +285,12 @@ class Services_Tracker_TabularController
             ];
         } elseif ($info['api_config']) {
             $writer = new \Tracker\Tabular\Writer\APIWriter($info['api_config']);
-            $writer->write($source);
+            $result = $writer->write($source);
 
-            Feedback::success(tr('Your export was completed successfully.'));
+            Feedback::success(tr('Your export was completed. %0 item(s) succeeded, %1 item(s) failed and %2 items skipped.', $result['succeeded'], $result['failed'], $result['skipped']));
+            foreach ($result['errors'] as $error) {
+                Feedback::error($error);
+            }
             return [
                 'FORWARD' => [
                     'controller' => 'tabular',
@@ -299,6 +302,9 @@ class Services_Tracker_TabularController
             if ($schema->getFormat() == 'json') {
                 $writer = new \Tracker\Tabular\Writer\JsonWriter('php://output', $schema->getEncoding());
                 $name .= '_export_full.json';
+            } elseif ($schema->getFormat() == 'ndjson') {
+                $writer = new \Tracker\Tabular\Writer\NDJsonWriter('php://output', $schema->getEncoding());
+                $name .= '_export_full.ndjson';
             } else {
                 $writer = new \Tracker\Tabular\Writer\CsvWriter('php://output', $schema->getEncoding());
                 $name .= 'export_full.csv';
@@ -345,6 +351,9 @@ class Services_Tracker_TabularController
                 $result = $writer->write($source);
 
                 Feedback::success(tr('Your export was completed. %0 item(s) succeeded, %1 item(s) failed and %2 items skipped.', $result['succeeded'], $result['failed'], $result['skipped']));
+                foreach ($result['errors'] as $error) {
+                    Feedback::error($error);
+                }
                 return [
                     'FORWARD' => [
                         'controller' => 'tabular',
@@ -356,6 +365,9 @@ class Services_Tracker_TabularController
                 if ($schema->getFormat() == 'json') {
                     $writer = new \Tracker\Tabular\Writer\JsonWriter('php://output', $schema->getEncoding());
                     $name .= '_export_partial.json';
+                } elseif ($schema->getFormat() == 'ndjson') {
+                    $writer = new \Tracker\Tabular\Writer\NDJsonWriter('php://output', $schema->getEncoding());
+                    $name .= '_export_partial.ndjson';
                 } else {
                     $writer = new \Tracker\Tabular\Writer\CsvWriter('php://output', $schema->getEncoding());
                     $name .= '_export_partial.csv';
@@ -416,6 +428,9 @@ class Services_Tracker_TabularController
             if ($schema->getFormat() == 'json') {
                 $writer = new \Tracker\Tabular\Writer\JsonWriter('php://output', $schema->getEncoding());
                 $name .= '_export_search.json';
+            } elseif ($schema->getFormat() == 'ndjson') {
+                $writer = new \Tracker\Tabular\Writer\NDJsonWriter('php://output', $schema->getEncoding());
+                $name .= '_export_search.ndjson';
             } else {
                 $writer = new \Tracker\Tabular\Writer\CsvWriter('php://output', $schema->getEncoding());
                 $name .= '_export_search.csv';
@@ -460,7 +475,7 @@ class Services_Tracker_TabularController
         $done = false;
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST' && is_uploaded_file($_FILES['file']['tmp_name'])) {
-            if ($schema->getFormat() == 'json') {
+            if ($schema->getFormat() == 'json' || $schema->getFormat() == 'ndjson') {
                 $source = new \Tracker\Tabular\Source\JsonSource($schema, $_FILES['file']['tmp_name'], $schema->getEncoding());
             } else {
                 $source = new \Tracker\Tabular\Source\CsvSource($schema, $_FILES['file']['tmp_name'], ',', $schema->getEncoding());
@@ -506,7 +521,7 @@ class Services_Tracker_TabularController
                 ]
             ];
         } elseif ($_SERVER['REQUEST_METHOD'] == 'POST' && $info['api_config']) {
-            $source = new \Tracker\Tabular\Source\APISource($schema, $info['api_config']);
+            $source = new \Tracker\Tabular\Source\APISource($schema, $info['api_config'], $input->placeholders->array() ?? []);
             $writer = new \Tracker\Tabular\Writer\TrackerWriter();
             $done = $writer->write($source);
 
@@ -526,12 +541,26 @@ class Services_Tracker_TabularController
             ];
         }
 
+        $placeholders = [];
+        if (! empty($info['api_config'])) {
+            if (preg_match_all('/%([^%]+)%/', $info['api_config']['list_url'], $matches)) {
+                foreach ($matches[1] as $field) {
+                    $placeholders[] = $field;
+                }
+            } elseif (preg_match_all('/%([^%]+)%/', $info['api_config']['list_parameters'], $matches)) {
+                foreach ($matches[1] as $field) {
+                    $placeholders[] = $field;
+                }
+            }
+        }
+
         return [
             'title' => tr('Import'),
             'tabularId' => $info['tabularId'],
             'completed' => $done,
             'odbc' => ! empty($info['odbc_config']),
             'api' => ! empty($info['api_config']),
+            'placeholders' => $placeholders,
             'format' => $schema->getFormat(),
         ];
     }

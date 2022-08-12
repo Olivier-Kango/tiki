@@ -196,6 +196,11 @@ class Tracker_Item
         return $users;
     }
 
+    public function getOwners()
+    {
+        return $this->owners;
+    }
+
     private function canFromSpecialPermissions($operation)
     {
         global $user;

@@ -26,6 +26,7 @@ class APIWriter
         $columns = $schema->getColumns();
 
         $succeeded = $failed = $skipped = 0;
+        $errors = [];
 
         foreach ($source->getEntries() as $entry) {
             $row = [];
@@ -44,28 +45,44 @@ class APIWriter
                 }
             }
 
-            if ($id) {
-                if (! empty($this->config['update_url'])) {
-                    $url = str_replace('#id', $id, $this->config['update_url']);
-                    $client = new \Services_ApiClient($url, false);
-                    $method = strtolower($this->config['update_method'] ?? 'patch');
-                    $formatted_row = $this->formatRow(@$this->config['update_format'], $columns, $row);
-                    $result = $client->$method('', $formatted_row);
+            $user = null;
+            if ($entry instanceOf \Tracker\Tabular\Source\UserDistributionInterface) {
+                $owners = $entry->getItemOwners();
+                // TODO: consider what to do with multiple owners of the item, for now use the first one
+                $user = array_shift($owners);
+            }
+
+            try {
+                if ($id) {
+                    if (! empty($this->config['update_url'])) {
+                        $url = str_replace('#id', $id, $this->config['update_url']);
+                        $client = new \Services_ApiClient($url, false);
+                        $client->setContextUser($user);
+                        $method = strtolower($this->config['update_method'] ?? 'patch');
+                        $formatted_row = $this->formatRow(@$this->config['update_format'], $columns, $row);
+                        $result = $client->$method('', $formatted_row);
+                    } else {
+                        $skipped++;
+                        continue;
+                    }
                 } else {
-                    $skipped++;
-                    continue;
+                    if (! empty($this->config['create_url'])) {
+                        $url = $this->config['create_url'];
+                        $client = new \Services_ApiClient($url, false);
+                        $client->setContextUser($user);
+                        $method = strtolower($this->config['create_method'] ?? 'post');
+                        $formatted_row = $this->formatRow(@$this->config['create_format'], $columns, $row);
+                        $result = $client->$method('', $formatted_row);
+                    } else {
+                        $skipped++;
+                        continue;
+                    }
                 }
-            } else {
-                if (! empty($this->config['create_url'])) {
-                    $url = $this->config['create_url'];
-                    $client = new \Services_ApiClient($url, false);
-                    $method = strtolower($this->config['create_method'] ?? 'post');
-                    $formatted_row = $this->formatRow(@$this->config['create_format'], $columns, $row);
-                    $result = $client->$method('', $formatted_row);
-                } else {
-                    $skipped++;
-                    continue;
+            } catch (\Services_Exception $e) {
+                if (! in_array($e->getMessage(), $errors)) {
+                    $errors[] = $e->getMessage();
                 }
+                $result = false;
             }
 
             if ($result && ! $id && method_exists($entry, 'backfillPK')) {
@@ -86,13 +103,13 @@ class APIWriter
                 }
             }
 
-            if ($result) {
+            if ($result || is_array($result)) {
                 $succeeded++;
             } else {
                 $failed++;
             }
         }
-        return compact('succeeded', 'failed', 'skipped');
+        return compact('succeeded', 'failed', 'skipped', 'errors');
     }
 
     private function formatRow($format, $columns, $row)

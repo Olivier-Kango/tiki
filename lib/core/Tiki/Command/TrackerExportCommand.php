@@ -71,13 +71,24 @@ class TrackerExportCommand extends Command
             $writer = new \Tracker\Tabular\Writer\CsvWriter($fileName);
         } elseif (! empty($info['odbc_config'])) {
             $writer = new \Tracker\Tabular\Writer\ODBCWriter($info['odbc_config']);
+        } elseif (! empty($info['api_config'])) {
+            $writer = new \Tracker\Tabular\Writer\APIWriter($info['api_config']);
         } else {
             throw new \Exception(tr('Tracker Export: No filename or remote tabular synchronization settings provided.'));
         }
 
-        $writer->write($source);
+        $result = $writer->write($source);
 
         \Feedback::printToConsole($output);
+
+        if ($result) {
+            $output->writeln(tr("Items succeeded: %0", $result['succeeded']));
+            $output->writeln(tr("Items failed: %0", $result['failed']));
+            $output->writeln(tr("Items skipped: %0", $result['skipped']));
+            foreach ($result['errors'] as $error) {
+                $output->writeln('<error>' . $error . '</error>');
+            }
+        }
 
         $output->writeln('Export done');
 

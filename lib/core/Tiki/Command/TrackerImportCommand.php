@@ -10,6 +10,7 @@ namespace Tiki\Command;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -29,7 +30,14 @@ class TrackerImportCommand extends Command
                 'filename',
                 InputArgument::OPTIONAL,
                 'Location of CSV file to import (not used if tabular is ODBC-configured)'
-            );
+            )
+            ->addOption(
+                'placeholders',
+                null,
+                InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
+                'Specify the placedholer values of an API tabular containing placeholders in the LIST endpoint URL (you can use multiple times, once for each placeholder)'
+            )
+            ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -65,6 +73,21 @@ class TrackerImportCommand extends Command
 
         if ($info['odbc_config']) {
             $source = new \Tracker\Tabular\Source\ODBCSource($schema, $info['odbc_config']);
+            $writer = new \Tracker\Tabular\Writer\TrackerWriter();
+            $writer->write($source);
+        } elseif ($info['api_config']) {
+            $placeholders = $input->getOption('placeholders');
+            $params = [];
+            if (preg_match_all('/%([^%]+)%/', $info['api_config']['list_url'], $matches)) {
+                foreach ($matches[1] as $key => $field) {
+                    $params[$field] = $placeholders[$key] ?? '';
+                }
+            } elseif (preg_match_all('/%([^%]+)%/', $info['api_config']['list_parameters'], $matches)) {
+                foreach ($matches[1] as $key => $field) {
+                    $params[$field] = $placeholders[$key] ?? '';
+                }
+            }
+            $source = new \Tracker\Tabular\Source\APISource($schema, $info['api_config'], $params);
             $writer = new \Tracker\Tabular\Writer\TrackerWriter();
             $writer->write($source);
         } else {

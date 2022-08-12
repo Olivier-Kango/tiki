@@ -15,6 +15,7 @@ class JsonSource implements SourceInterface
     private Schema $schema;
     private \SplFileObject $file;
     private string $encoding;
+    private string $format;
 
     public function __construct(Schema $schema, string $fileName, string $encoding = null)
     {
@@ -37,18 +38,28 @@ class JsonSource implements SourceInterface
             $encoding = mb_detect_encoding($content, $likelyEncodings, true);
         }
         $this->encoding = $encoding;
+        $this->format = $schema->getFormat();
     }
 
     public function getEntries()
     {
         $this->file->fseek(0);
-        $size = $this->file->getSize();
-        $contents = $this->file->fread($size);
 
-        $entries = json_decode($contents, true);
-
-        if (is_null($entries)) {
-            throw new \Exception(tr('Could not decode uploaded json file.'));
+        if ($this->format == 'ndjson') {
+            $entries = [];
+            while (! $this->file->eof()) {
+                $entry = json_decode($this->file->fgets(), true);
+                if (! is_null($entry)) {
+                    $entries[] = $entry;
+                }
+            }
+        } else {
+            $size = $this->file->getSize();
+            $contents = $this->file->fread($size);
+            $entries = json_decode($contents, true);
+            if (is_null($entries)) {
+               throw new \Exception(tr('Could not decode uploaded json file.'));
+            }
         }
 
         foreach ($entries as $num => $entry) {

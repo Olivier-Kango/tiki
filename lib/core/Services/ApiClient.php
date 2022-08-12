@@ -11,12 +11,26 @@ class Services_ApiClient
     protected $url;
     protected $isTiki;
     protected $apiBridge;
+    protected $user;
+    protected $format;
 
     public function __construct($url, $isTiki = true)
     {
         $this->url = $url;
         $this->isTiki = $isTiki;
         $this->apiBridge = new Services_ApiBridge();
+        $this->user = null;
+        $this->format = 'json';
+    }
+
+    public function setContextUser($user)
+    {
+        $this->user = $user;
+    }
+
+    public function setFormat($format)
+    {
+        $this->format = $format;
     }
 
     public function __call($method, $args)
@@ -27,7 +41,7 @@ class Services_ApiClient
         $client = $this->getClient($method, $endpoint, $arguments);
 
         $headers = $client->getRequest()->getHeaders();
-        $headers->addHeaders(['Accept' => 'application/json']);
+        $headers->addHeaders(['Accept' => $this->getAcceptHeader()]);
 
         $response = $client->send();
         if (! $response->isSuccess()) {
@@ -41,13 +55,7 @@ class Services_ApiClient
             throw new Services_Exception(tr('Remote service inaccessible (%0), error: "%1"', $response->getStatusCode(), $error), 400);
         }
 
-        $parsed = json_decode($response->getBody(), true);
-
-        if (json_last_error() != JSON_ERROR_NONE) {
-            throw new Services_Exception(tr('Remote service responded with invalid JSON: %0', $response->getBody()));
-        }
-
-        return $parsed;
+        return $this->parseResponse($response->getBody());
     }
 
     public function getResultLoader($endpoint, $arguments = [], $offsetKey = 'offset', $maxRecordsKey = 'maxRecords', $resultKey = 'result', $perPage = 20)
@@ -64,7 +72,7 @@ class Services_ApiClient
         return $this->apiBridge->generateRoute($name, $args);
     }
 
-    private function getClient($method, $endpoint, $arguments)
+    protected function getClient($method, $endpoint, $arguments)
     {
         $tikilib = TikiLib::lib('tiki');
         if ($this->isTiki) {
@@ -75,7 +83,7 @@ class Services_ApiClient
                 $url .= '/' . $endpoint;
             }
         }
-        $client = $tikilib->get_http_client($url);
+        $client = $tikilib->get_http_client($url, null, $this->user);
         switch ($method) {
             case 'get':
                 $client->setMethod(Laminas\Http\Request::METHOD_GET);
@@ -110,5 +118,47 @@ class Services_ApiClient
             }
         }
         return $client;
+    }
+
+    protected function getAcceptHeader()
+    {
+        switch ($this->format) {
+            case 'csv':
+                return 'text/csv';
+                break;
+            case 'ndjson':
+                return 'application/x-ndjson';
+                break;
+            default:
+                return 'application/json';
+        }
+    }
+
+    protected function parseResponse($data)
+    {
+        $result = null;
+
+        if (empty($data)) {
+            return [];
+        }
+
+        switch ($this->format) {
+            case 'csv':
+                $result = array_map('str_getcsv', preg_split("/\r?\n/", $data));
+                break;
+            case 'ndjson':
+                $result = array_map(function($row) {
+                    return json_decode($row, true);
+                }, preg_split("/\r?\n/", $data));
+                break;
+            default:
+                $result = json_decode($data, true);
+        }
+
+        if (json_last_error() != JSON_ERROR_NONE) {
+            throw new Services_Exception(tr('Remote service responded with invalid JSON: %0', $data));
+        }
+
+        return $result;
     }
 }
