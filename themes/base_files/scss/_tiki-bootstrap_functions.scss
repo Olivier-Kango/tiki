@@ -1,0 +1,8 @@
+// This is a copy of vendor_bundled/vendor/twbs/bootstrap/scss/_bootstrap.scss but without the default variables
+@import "../../../vendor_bundled/vendor/twbs/bootstrap/scss/mixins/banner";
+@include bsBanner("");
+
+
+// scss-docs-start import-stack
+// Configuration
+@import "../../../vendor_bundled/vendor/twbs/bootstrap/scss/functions";

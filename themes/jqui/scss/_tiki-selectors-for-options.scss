@@ -138,21 +138,21 @@ input[type="submit"]:hover,
 
 //.topbar .nav > li > a:hover,
 //.topbar .nav > li > a:focus {
-//    background: $cssmenu_horiz_li_hover_bg;
+//    background: $tiki-cssmenu_horiz_li_hover_bg;
 //}
 
 //.cssmenu_horiz ul li a,
 //.cssmenu_vert ul li a {
-//    background: $cssmenu_ul_li_a_bg; //   $dropdown-bg;
-//    color: $cssmenu_ul_li_a_color; //  $dropdown-link-color;
+//    background: $tiki-cssmenu_ul_li_a_bg; //   $dropdown-bg;
+//    color: $tiki-cssmenu_ul_li_a_color; //  $dropdown-link-color;
     //  padding-top: ; (tiki-cssmenus.less edited to conform to BS dropdown-link top and bottom padding - 3px.)
     //  padding-bottom: ;
 //}
 
 //.cssmenu_horiz > ul > li:hover > a,
 //.cssmenu_vert > ul > li:hover > a {
-//    color: $cssmenu_ul_li_hover_a_color; //  $dropdown-link-hover-color;
-//    background: $cssmenu_ul_li_hover_a_bg; //  $dropdown-link-hover-bg;
+//    color: $tiki-cssmenu_ul_li_hover_a_color; //  $dropdown-link-hover-color;
+//    background: $tiki-cssmenu_ul_li_hover_a_bg; //  $dropdown-link-hover-bg;
 //}
 
 // styling for both css and generated arrows

@@ -1,7 +1,4 @@
 /* Ohia theme newsletter stylesheet  */
-:root {
-  --bs-nav-link-color: $leaf;
-}
 body {
   background: #2d2d3a;
   color: #DEE1E6;

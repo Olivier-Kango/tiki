@@ -1,13 +1,15 @@
 // Files for the Tikipedia theme for Tiki Wiki CMS Groupware, Bootstrap 5.
 /*  The Tikipedia theme style sheet for Tiki Wiki CMS Groupware. */
 
-@import "../../../vendor_bundled/vendor/twbs/bootstrap/scss/functions";
-@import "variables"; // Needs to come first, to override Bootstrap defaults.
+@import "../../base_files/scss/_tiki-bootstrap_functions"; // Required Bootstrap
+
+@import "variables"; // Theme overrides of Bootstrap defaults plus any additional variables
 @import "../../base_files/scss/_tiki-variables.scss"; // Values/definitions for Tiki variables (outside of Bootstrap variables) such as _tiki-selectors.scss.
-@import "../../../vendor_bundled/vendor/twbs/bootstrap/scss/bootstrap.scss";
+@import "../../default/scss/variables"; // Bootstrap default variables, with a few Tiki overrides
 
-@import "variables"; // Imported again, to override base_files/tiki-variables defaults, if the theme overrides any
+@import "../../base_files/scss/_tiki-bootstrap_layout_and_components"; // Optional Bootstrap
 
-@import "../../base_files/scss/_tiki-selectors.scss";
-@import "_tiki-selectors.scss";
-@import "../../base_files/scss/_external-scripts.scss";
+@import "../../base_files/scss/_tiki-selectors.scss"; // Tiki CSS selectors used globally
+@import "_tiki-selectors.scss"; // Tiki CSS selectors used by the theme
+@import "../../base_files/scss/_external-scripts.scss"; // Why is this imported separately?
+@import "../../base_files/scss/_select2-tiki_colors.scss"; // Why isn't this imported by external scripts?

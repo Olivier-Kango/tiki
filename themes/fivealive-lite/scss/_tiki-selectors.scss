@@ -39,7 +39,7 @@ $imagePath: "../images/";
 
 body.tiki.navbar-padding,
 .layout_social_modules {
-    padding-top: $navbar-fixed-height;
+    padding-top: $tiki-navbar-fixed-height;
     h1.sitetitle {
         line-height: normal;
     }
@@ -63,13 +63,13 @@ body.fullscreen.tiki.navbar-padding {
 .layout_social_modules .topbar_modules h1.sitetitle {
     float: left;
     font-size: 1.8rem;
-    line-height: $navbar-fixed-height;
+    line-height: $tiki-navbar-fixed-height;
 }
 
 //#top_modules,
 .layout_fixed_top_modules .top_modules,
 .navbar-fixed-top {
-    height: $navbar-fixed-height;
+    height: $tiki-navbar-fixed-height;
     //  overflow: hidden;
     .sitelogo img {
         width: auto !important;
@@ -95,8 +95,8 @@ body.fullscreen.tiki.navbar-padding {
         float: left;
         font-size: 1.5em;
         margin: 0 0 0 1.5em;
-        line-height: $navbar-fixed-height;
-        height: $navbar-fixed-height;
+        line-height: $tiki-navbar-fixed-height;
+        height: $tiki-navbar-fixed-height;
         color: #ffffff;
     }
 }

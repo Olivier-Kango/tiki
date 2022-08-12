@@ -2,33 +2,22 @@
 /*  The Plum theme option file for the FiveAlive-lite theme of Tiki Wiki CMS Groupware. */
 
 // Required
-@import "../../../../../vendor_bundled/vendor/twbs/bootstrap/scss/functions";
+@import "../../../../base_files/scss/_tiki-bootstrap_functions";
 
 @import "variables";
-@import "button_color_variables"; // For theme option custom button colors
+//@import "../../../scss/variables";
+@import "../../../../default/scss/variables";
 
-// Required
-@import "../../../../../vendor_bundled/vendor/twbs/bootstrap/scss/variables";
+@import "../../../../../vendor_bundled/vendor/twbs/bootstrap/scss/maps";
 @import "../../../../../vendor_bundled/vendor/twbs/bootstrap/scss/mixins";
-@import "../../../../../vendor_bundled/vendor/twbs/bootstrap/scss/root";
+@import "../../../../../vendor_bundled/vendor/twbs/bootstrap/scss/utilities";
 
-// Other
+@import "../../../../../vendor_bundled/vendor/twbs/bootstrap/scss/root";
+@import "../../../../../vendor_bundled/vendor/twbs/bootstrap/scss/reboot";
 @import "../../../../../vendor_bundled/vendor/twbs/bootstrap/scss/buttons";
 @import "../../../../../vendor_bundled/vendor/twbs/bootstrap/scss/nav";
+
 @import "../../../scss/selectors-for-options";
 @import "../../../../base_files/scss/_select2-tiki_colors.scss";
 
-/*.page-header .navbar.bg-dark,
-.page-header .navbar.bg-light,
-#topbar_modules .navbar.bg-dark,
-#topbar_modules .navbar.bg-light,
-.header_outer,
-.page-header,
-.page-header .navbar,
-.top_modules .navbar,
-.top_modules,
-.top_modules.navbar-light,
-.top_modules.navbar-dark {
-    background: #49006c !important;
-    color: #fff !important;
-}*/
+@import "tiki-selectors";

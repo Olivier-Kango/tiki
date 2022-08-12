@@ -6,29 +6,29 @@ $imagePath: "../images/";
 //    background-image: url('#{$imagePath}bg.jpg');
 // }
 
-$topmodules-row-sidemargins: 0;
-$topbar-row-sidemargins: -15px;
+$tiki-topmodules-row-sidemargins: 0;
+$tiki-topbar-row-sidemargins: -15px;
 
-.page-header .top_modules {
+//.page-header .top_modules {
 //  background: #8ba8c8; /* Old browsers */
 //  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #8ba8c8), color-stop(0%, #0b346c), color-stop(1%, #003376), color-stop(1%, #00366f), color-stop(2%, #01366c), color-stop(3%, #023175), color-stop(3%, #00356e), color-stop(60%, #003470), color-stop(64%, #023574), color-stop(64%, #03357a), color-stop(67%, #00387b), color-stop(68%, #00387f), color-stop(71%, #023b82), color-stop(71%, #003e85), color-stop(74%, #003e89), color-stop(75%, #013e8e), color-stop(77%, #004394), color-stop(81%, #024699), color-stop(82%, #00489d), color-stop(85%, #01499e), color-stop(85%, #0049a5), color-stop(88%, #014aa6), color-stop(89%, #014ca9), color-stop(92%, #034eab), color-stop(97%, #004daa), color-stop(98%, #004ba6), color-stop(99%, #003e8d), color-stop(100%, #003a80), color-stop(100%, #1e599f)); /* Chrome,Safari4+ */
 //  background: -webkit-linear-gradient(top, #8ba8c8 0%, #0b346c 0%, #003376 1%, #00366f 1%, #01366c 2%, #023175 3%, #00356e 3%, #003470 60%, #023574 64%, #03357a 64%, #00387b 67%, #00387f 68%, #023b82 71%, #003e85 71%, #003e89 74%, #013e8e 75%, #004394 77%, #024699 81%, #00489d 82%, #01499e 85%, #0049a5 85%, #014aa6 88%, #014ca9 89%, #034eab 92%, #004daa 97%, #004ba6 98%, #003e8d 99%, #003a80 100%, #1e599f 100%); /* Chrome10+,Safari5.1+ */
 //  background: linear-gradient(to bottom, #8ba8c8 0%, #0b346c 0%, #003376 1%, #00366f 1%, #01366c 2%, #023175 3%, #00356e 3%, #003470 60%, #023574 64%, #03357a 64%, #00387b 67%, #00387f 68%, #023b82 71%, #003e85 71%, #003e89 74%, #013e8e 75%, #004394 77%, #024699 81%, #00489d 82%, #01499e 85%, #0049a5 85%, #014aa6 88%, #014ca9 89%, #034eab 92%, #004daa 97%, #004ba6 98%, #003e8d 99%, #003a80 100%, #1e599f 100%); /* W3C */
 //  color: #fff;
 
-  & button {
-    color: #fff;
-  }
+//  & button {
+//    color: #fff;
+//  }
 
-  & a {
-    color: #fff;
-  }
-}
+//  & a {
+//    color: #fff;
+//  }
+//}
 
-.page-header .top_modules .cssmenu_horiz li ul > li > a,
-.page-header .top_modules .dropdown-item {
-  color: #212529;
-}
+//.page-header .top_modules .cssmenu_horiz li ul > li > a,
+//.page-header .top_modules .dropdown-item {
+//  color: #212529;
+//}
 
 .sitetitles a {
   color: #ffffff;
@@ -51,11 +51,11 @@ h2.sitesubtitle {
 .page-header,
 .header_outer,
 .bg-dark,
-.bg-light,
+//.bg-light, Other elements may have these bgs, that aren't navbars
 .topbar,
   // .topbar .cssmenu_horiz ul,
 .topbar.bg-dark > li,
-.topbar.bg-light > li,
+//.topbar.bg-light > li,
 .topbar .nav > li {
   background: #1f5daa; /* Old browsers */
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #1f5daa), color-stop(2%, #3977c4), color-stop(3%, #3b7ac7), color-stop(5%, #3877c6), color-stop(7%, #3a7cca), color-stop(9%, #3778c8), color-stop(19%, #3674c7), color-stop(43%, #2c6abf), color-stop(69%, #1c5cb3), color-stop(93%, #1454ac), color-stop(97%, #1455a9), color-stop(98%, #1a57a8), color-stop(100%, #346dba)); /* Chrome,Safari4+ */
@@ -72,19 +72,32 @@ h2.sitesubtitle {
 .topbar .cssmenu_horiz > li > a,
 .layout_social .fixed-top .navbar-brand,
 .layout_social .fixed-top .nav-link,
-.layout_social .fixed-top button.dropdown-toggle,
-.layout_social .fixed-top .cssmenu_horiz > li > a {
+//.layout_social .fixed-top button.dropdown-toggle,
+.layout_social .fixed-top .cssmenu_horiz > li > a,
+.navbar.bg-dark > .nav-link,
+.navbar.bg-light > .nav-link {
   color: #fff;
 }
 
-.navbar li.dropdown {
-  border-left: 1px solid #3676c4;
-  border-right: 1px solid #1957aa;
-
-  & > a {
-    color: #fff;
-  }
+.navbar.bg-dark//,
+//.navbar.bg-light
+    {
+    .nav-link {
+        color: #fff;
+    }
+    .dropdown-item {
+        color: $dropdown-color;
+    }
 }
+
+//.navbar li.dropdown {
+//  border-left: 1px solid #3676c4;
+//  border-right: 1px solid #1957aa;
+//
+//  & > a {
+//    color: #fff;
+//  }
+//}
 
 // topbar hover
 .topbar .nav > li > a:hover,
@@ -95,10 +108,11 @@ h2.sitesubtitle {
 .topbar .cssmenu_horiz > li.selected > a,
 .bg-dark > li > a:hover,
 .bg-dark > li > a:focus,
-.bg-dark > .active > a,
-.bg-light > li > a:hover,
-.bg-light > li > a:focus,
-.bg-light > .active > a {
+.bg-dark > .active > a//,
+//.bg-light > li > a:hover,
+//.bg-light > li > a:focus,
+//.bg-light > .active > a
+     {
   text-decoration: none;
   background: #3270bd; /* Old browsers */
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #3270bd), color-stop(2%, #1855a5), color-stop(3%, #1553a8), color-stop(5%, #1855ae), color-stop(7%, #1353ad), color-stop(14%, #1858af), color-stop(26%, #1a5ab1), color-stop(29%, #1d5eb2), color-stop(53%, #2866bb), color-stop(55%, #2c6abf), color-stop(95%, #3a79c9), color-stop(97%, #3a7ac4), color-stop(98%, #3777c1), color-stop(100%, #205ea9)); /* Chrome,Safari4+ */
@@ -174,6 +188,7 @@ h3.card-title {
   color: $gray-300;
 }
 
+// Class no longer supported by Bootstrap
 .well {
   background: url('#{$imagePath}market.jpg') 0 100% no-repeat;
   background-size: 100% 100%;
@@ -216,14 +231,14 @@ h3.card-title {
   border-left-color: #ffffff;
 }
 
-.popover {
-  color: $body-color;
-}
+//.popover { Moved to variables
+//  color: $body-color;
+//}
 
 // prevent gradient on gradient or on middle box-shadow
 .bg-dark .bg-dark,
 .tiki .navbar.bg-dark .navbar.navbar-dark.bg-dark,
-.tiki.navbar.bg-light .navbar.bg-light
+//.tiki.navbar.bg-light .navbar.bg-light
 //.page-header
 {
   background-image: none !important;
@@ -260,6 +275,11 @@ h3.card-title {
 .btn-outline-info,
 .spinner-border.text-info {
     color: #1F7C98;
+}
+
+.btn-outline-light {
+    color: #fff;
+    border-color: #fff;
 }
 
 // Badges

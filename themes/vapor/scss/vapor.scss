@@ -12,7 +12,7 @@
 @import "../../../vendor_bundled/vendor/twbs/bootstrap/scss/bootstrap.scss"; // Needed for darken function.
 @import "../../base_files/scss/_tiki-variables.scss"; // Values/definitions for Tiki variables (outside of Bootstrap variables) such as _tiki-selectors.scss.
 @import "../../base_files/scss/_tiki-selectors.scss";
-@import "../../base_files/scss/_bs3-bs4-transition.scss";
+
 @import "../../../vendor_bundled/vendor/thomaspark/bootswatch/dist/vapor/bootswatch";
 @import "../../base_files/scss/_external-scripts.scss";
 @import "../../base_files/scss/_select2-tiki_colors.scss";

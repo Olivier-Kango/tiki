@@ -1,17 +1,17 @@
 .tiki {
     .pvtUi {
-        color: $pvt-color;
+        color: $tiki-pvt-color;
     }
 
     table.pvtTable {
-        font-size: $pvt-font-size;
+        font-size: $tiki-pvt-font-size;
     }
 
     table.pvtTable tr th {
-        background-color: $pvt-table-th-bg;
-        color: $pvt-table-th-color;
-        border: 1px solid $pvt-table-border-color;
-        font-size: $pvt-font-size;
+        background-color: $tiki-pvt-table-th-bg;
+        color: $tiki-pvt-table-th-color;
+        border: 1px solid $tiki-pvt-table-border-color;
+        font-size: $tiki-pvt-font-size;
         padding: 5px;
     }
 
@@ -19,11 +19,11 @@
     //table.pvtTable .pvtTotalLabel {text-align: right;}
 
     table.pvtTable tr td {
-        color: $pvt-color;
+        color: $tiki-pvt-color;
         cursor: pointer; // indicate that the cell is clickable
         //    padding: 5px;
-        background-color: $pvt-table-bg;
-        border-color: $pvt-table-border-color;
+        background-color: $tiki-pvt-table-bg;
+        border-color: $tiki-pvt-table-border-color;
         //    vertical-align: top;
         //    text-align: right;
     }
@@ -41,16 +41,16 @@
     .pvtSearch,
     .pvtAttrDropdown {
         margin-bottom: 5px;
-        background: $pvtAggregator-bg;
-        color: $pvtAggregator-color;
-        border: 1px solid $pvtAggregator-border;
-        border-radius: $pvtAggregator-border-radius;
+        background: $tiki-pvtAggregator-bg;
+        color: $tiki-pvtAggregator-color;
+        border: 1px solid $tiki-pvtAggregator-border;
+        border-radius: $tiki-pvtAggregator-border-radius;
     }
 
     .pvtAxisContainer,
     .pvtVals {
-        border-color: $pvt-table-border-color;
-        background: $pvt-bg;
+        border-color: $tiki-pvt-table-border-color;
+        background: $tiki-pvt-bg;
         padding: 5px;
         //    min-width: 20px;
         //    min-height: 20px;
@@ -63,13 +63,13 @@
     .pvtAxisContainer li.pvtPlaceholder {
         padding: 3px 15px;
         border-radius: 5px;
-        border: 1px dashed $pvt-table-border-color;
+        border: 1px dashed $tiki-pvt-table-border-color;
     }
 
     .pvtAxisContainer li span.pvtAttr {
         -webkit-text-size-adjust: 100%;
 //        background: $table-bg;
-//        border: 1px solid $pvt-table-border-color;
+//        border: 1px solid $tiki-pvt-table-border-color;
         padding: 2px 5px;
         white-space: nowrap;
 //        -webkit-border-radius: 5px;
@@ -78,7 +78,7 @@
         background: $dark; // $btn-primary-bg; Temporary comment out May 2022 Gary
         border: 1px solid $border-color; // $btn-primary-border;
         border-radius: $btn-border-radius;
-        color: $pvtAttr-color;
+        color: $tiki-pvtAttr-color;
     }
 
     .pvtTriangle {
@@ -100,8 +100,8 @@
     .pvtFilterBox {
         z-index: 100;
         width: 280px;
-        border: 1px solid $pvt-table-border-color;
-        background-color: $pvt-modal-content-bg;
+        border: 1px solid $tiki-pvt-table-border-color;
+        background-color: $tiki-pvt-modal-content-bg;
         position: absolute;
         padding: 20px;
         text-align: center;
@@ -134,12 +134,12 @@
         padding: 5px;
     }
     .pvtFilterBox button {
-        background: $pvtFilterBox-button-bg;
+        background: $tiki-pvtFilterBox-button-bg;
         border: 1px solid $border-color; //  $btn-primary-border;
         border-radius: $btn-border-radius;
-        color: $pvtFilterBox-button-color;
+        color: $tiki-pvtFilterBox-button-color;
         &:hover {
-            background: $pvtFilterBox-button-hover-bg;
+            background: $tiki-pvtFilterBox-button-hover-bg;
         }
         & + button {
             margin-left: 4px;
@@ -149,9 +149,9 @@
 
     .c3 line, .c3 path, .c3 svg {
         fill: none;
-        stroke: $c3-color;
+        stroke: $tiki-c3-color;
     }
     select {
-        font-size: $pvtSelect-font-size;
+        font-size: $tiki-pvtSelect-font-size;
     }
 }

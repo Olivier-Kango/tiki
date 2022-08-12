@@ -1,0 +1,20 @@
+// Formerly _button_color_variables.scss, this file evolved with variables moving to the variables file
+// and CSS selectors remaining.
+
+// - - - - - - - - - -  - - - - - - Other CSS, if any - - - - - - - - - - - - - - - - - //
+
+.header_outer,
+.layout_basic #top_modules,
+.postbody-title,
+.tiki > .navbar.fixed-top.bg-dark,
+    //.topbar, .navbar-dark, .topbar .navbar-dark .navbar-nav > li, .topbar .nav > li,
+.bg-dark {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#5e028e+0,8f06c4+100 */
+    background: #5e028e !important; /* Old browsers */
+    background: -moz-linear-gradient(left,  #5e028e 0%, #8f06c4 100%) !important; /* FF3.6-15 */
+    background: -webkit-linear-gradient(left,  #5e028e 0%,#8f06c4 100%) !important; /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right,  #300149/*#5e028e*/ 0%,#15001F/*#8f06c4*/ 100%) !important; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5e028e', endColorstr='#8f06c4',GradientType=1 ); /* IE6-9 */
+}
+
+.bg-dark { background-color: #15001f !important; }

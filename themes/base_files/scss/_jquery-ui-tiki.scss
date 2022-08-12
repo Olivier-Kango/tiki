@@ -3,16 +3,16 @@
 
 .tiki {
     .ui-widget-header {
-        background: $ui-default-bg;
+        background: $tiki-ui-default-bg;
 //        color: #fff;
-        border-color: $ui-default-border;
+        border-color: $tiki-ui-default-border;
     }
     .ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited, a.ui-button, a:link.ui-button, a:visited.ui-button, .ui-button {
-        color: $ui-default-link-color;
+        color: $tiki-ui-default-link-color;
     }
     .ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited {
-        color: $ui-default-link-active-color;
-    //    background: $ui-default-link-active-bg;
+        color: $tiki-ui-default-link-active-color;
+    //    background: $tiki-ui-default-link-active-bg;
     }
     .ui-state-default,
     .ui-widget-content .ui-state-default,
@@ -21,10 +21,10 @@
     html .ui-button.ui-state-disabled:hover,
     html .ui-button.ui-state-disabled:active {
         border: 1px solid;
-        border-color: $ui-default-border; //$btn-primary-border;
-        background: $ui-default-bg; //$btn-primary-bg;
-        font-weight: $ui-font-weight;
-        color: $ui-default-color; //$btn-primary-color;
+        border-color: $tiki-ui-default-border; //$btn-primary-border;
+        background: $tiki-ui-default-bg; //$btn-primary-bg;
+        font-weight: $tiki-ui-font-weight;
+        color: $tiki-ui-default-color; //$btn-primary-color;
     }
     .ui-state-active,
     .ui-widget-content .ui-state-active,
@@ -33,10 +33,10 @@
     .ui-button:active,
     .ui-button.ui-state-active:hover {
         border: 1px solid;
-        border-color: $ui-active-border-color;
-        background: $ui-active-bg;
-        font-weight: $ui-font-weight;
-        color: $ui-active-color;
+        border-color: $tiki-ui-active-border-color;
+        background: $tiki-ui-active-bg;
+        font-weight: $tiki-ui-font-weight;
+        color: $tiki-ui-active-color;
     }
 //    .ui-state-default,
 //    .ui-widget-content .ui-state-default,
@@ -47,7 +47,7 @@
         border: 1px solid;
         border-color: $border-color; // $btn-primary-border; Temporary comment out (here and below) May 2022 Gary
         background: $light; // $btn-primary-bg;
-        font-weight: $jq-ui-btn-font-weight;
+        font-weight: $tiki-jq-ui-btn-font-weight;
         color: $dark; // $btn-primary-color;
         font-size: $font-size-base;
     }

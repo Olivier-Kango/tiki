@@ -1,3 +1,5 @@
+// Formerly _button_color_variables.scss, this file evolved with variables moving to the variables file
+// and CSS selectors remaining.
 
 // - - - - - - - - - -  - - - - - - Other CSS, if any - - - - - - - - - - - - - - - - - //
 // CSS is used because Bootstrap partials aren't available for theme variables, etc.
@@ -46,11 +48,6 @@
     color: #6E7425;
     border-color: #6E7425;
 }
-.btn.btn-outline-danger {
-    color: #D13B00;
-    border-color: #D13B00;
-}
-
 
 .btn.btn-outline-dark {
     color: #6D5509;
@@ -66,7 +63,7 @@
 
 .was-validated .form-check-input:invalid ~ .form-check-label, .form-check-input.is-invalid ~ .form-check-label,
 .invalid-feedback,
-.invalid-tooltip { color: #B45918 !important; } // was $danger
+.invalid-tooltip { color: $danger !important; }
 
 .bg-danger,
 .bg-warning {
@@ -83,22 +80,10 @@
     background-color: #D4452B !important;
 }
 
-.badge.bg-success {
-    background-color: #3A833A !important;
-}
-
-.badge.bg-danger {
-    background-color: #D63D00 !important;
-}
-
-.badge.bg-warning {
-    background-color: #A4660E !important;
-}
-
-//.badge.bg-primary,
+.badge.bg-primary,
 .badge.bg-light,
-    //.badge.bg-warning,
-    //.badge.bg-success,
+.badge.bg-warning,
+.badge.bg-success,
 .badge.bg-info {
     color: #000;
 }
@@ -121,4 +106,12 @@
 
 .page-item.disabled, .list-group-item.disabled {
     color: $text-muted !important;
+}
+
+.bg-light {
+    background: #fdde9f !important;
+}
+
+.tiki .dropdown-item {
+    color: #fff !important;
 }

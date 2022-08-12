@@ -5,19 +5,17 @@
 // - - - - - - - Bootstrap variables (override values in vendor_bundled/vendor/twbs/bootstrap/scss/_variables.scss - - - - - - //
 // Variables needed for button color variants (start)
 
+$white:    #fff !default;
+$gray-100: #f8f9fa !default;
+$gray-200: #e9ecef !default;
+$gray-300: #dee2e6 !default;
+$gray-400: #ced4da !default;
+$gray-500: #adb5bd !default;
 $gray-600: #6c757d;
+$gray-700: #495057 !default;
+$gray-800: #343a40 !default;
 $gray-900: #212529;
-
-$theme-colors: (
-    "primary":            #177F92,
-    "secondary":         #005064,
-    "success":          #3A833A, //   #5cb85c,
-    "info":               #007378,
-    "warning":          #A4660E, //   #f0ad4e,
-    "danger":           #D63D00, //   #ff5c1a,
-    "light":            #fff,
-    "dark":                #18a3bb
-);
+$black:    #000 !default;
 
 $primary:       #177F92; //#18a3bb;
 $secondary:     #005064;
@@ -25,25 +23,21 @@ $success:       #3A833A; // #5cb85c;
 $info:          #007378;
 $warning:       #A4660E; // #f0ad4e;
 $danger:        #D63D00; // #ff5c1a;
-
-$white: #fff;
-$black: #000;
 $light: #ddf8f9; // use input bg (was #18a3bb;)
 $dark: #063035; // Match bg of topbar zone
 
-$theme-colors: map-merge(
-        (
-            "primary":    $primary,
-            "secondary":  $secondary,
-            "success":    $success,
-            "info":       $info,
-            "warning":    $warning,
-            "danger":     $danger,
-            "light":      $light,
-            "dark":       $dark
-        ),
-        $theme-colors
+
+$theme-colors: (
+    "primary":    $primary,
+    "secondary":  $secondary,
+    "success":    $success,
+    "info":       $info,
+    "warning":    $warning,
+    "danger":     $danger,
+    "light":      $light,
+    "dark":       $dark
 );
+
 
 // The following are default values from vendor/twbs/bootstrap/scss/variables.scss - change as needed for theme child option (or to match values in parent theme).
 // Comment-out any that are already defined in the parent theme variables.scss file and shouldn't be redefined.

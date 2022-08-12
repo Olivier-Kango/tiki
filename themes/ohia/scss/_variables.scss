@@ -12,6 +12,10 @@ $cooled-lava-dark: #2d2d3a; // #28293F ; // #0C0D13; // #28293F was too light fo
 $cooled-lava-light: #BEBDB8;
 $sea: #638A93;
 
+// The contrast ratio to reach against white, to determine if color changes from "light" to "dark". Acceptable values for WCAG 2.0 are 3, 4.5 and 7.
+// See https://www.w3.org/TR/WCAG20/#visual-audio-contrast-contrast
+$min-contrast-ratio:   7;
+
 // - - - - - - - Bootstrap variables (override values in vendor_bundled/vendor/twbs/bootstrap/scss/_variables.scss - - - - - - //
 
 //  Colors
@@ -89,6 +93,8 @@ $display-font-family: "Alegreya Sans SC", sans-serif;
 //$display-font-style:  null !default;
 //$display-font-weight: 300 !default;
 
+$text-muted:                  darken($body-color, 6%);
+
 //  Tables
 $table-bg: transparent;
 $table-bg-accent: #373737;
@@ -154,6 +160,15 @@ $custom-control-indicator-focus-box-shadow:     0 0 0 1px $body-bg, $input-btn-f
 $nav-link-color:                    $leaf; // $link-color;
 $nav-link-hover-color: $link-hover-color;
 
+$nav-tabs-border-color:             $wood;
+//$nav-tabs-border-width:             $border-width !default;
+//$nav-tabs-border-radius:            $border-radius !default;
+$nav-tabs-link-hover-border-color:  $wood $wood $nav-tabs-border-color;
+$nav-tabs-link-active-color:        $link-hover-color;
+$nav-tabs-link-active-bg:           $body-bg !default;
+$nav-tabs-link-active-border-color: $wood $wood $nav-tabs-link-active-bg;
+
+
     // Navbar
 // scss-docs-start navbar-theme-variables
 $navbar-dark-color:                 rgba($white, .55) !default;
@@ -190,20 +205,6 @@ $navbar-light-link-disabled-bg:transparent;
 $navbar-light-brand-color: $navbar-light-color;
 $navbar-light-brand-hover-color:darken($navbar-light-color,10%);
 $navbar-light-brand-hover-bg:transparent;
-
-// Navbar toggle
-$navbar-default-toggle-hover-bg:transparent;
-$navbar-default-toggle-icon-bar-bg: #888888;
-$navbar-default-toggle-border-color: #dddddd;
-
-// Tabs
-$nav-tabs-border-color: #dddddd;
-$nav-tabs-link-hover-border-color: $gray-700;
-$nav-tabs-active-link-hover-bg: $body-bg;
-$nav-tabs-active-link-hover-color: $gray-500;
-$nav-tabs-active-link-hover-border-color: #dddddd;
-$nav-tabs-justified-link-border-color: #dddddd;
-$nav-tabs-justified-active-link-border-color: $body-bg;
 
 
 // Dropdowns
@@ -292,6 +293,12 @@ $thumbnail-caption-color: $body-color;
 
 // Figures
 
+// scss-docs-start figure-variables
+//$figure-caption-font-size:          $small-font-size;
+$figure-caption-color:              darken($body-color, 5%);
+// scss-docs-end figure-variables
+
+
 // Breadcrumbs
 $breadcrumb-bg: $gray-900;
 $breadcrumb-color: $gray-300;
@@ -338,6 +345,3 @@ $card-header-bg: #5e0000;
 $card-text: #f4f4f4;
 $blockquote-color: #9E9E9E;
 
-:root {
-    --bs-nav-link-color: $leaf;
-}

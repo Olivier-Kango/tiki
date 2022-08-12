@@ -1,14 +1,17 @@
 /* The Business theme for Tiki Wiki CMS Groupware */
 
-@import url('https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700');
+@import url('https://fonts.bunny.net/css?family=merriweather-sans:400,700');
+//@import url('https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700');  Font repository switched for better privacy and GDPR compliance.
 
-@import "../../../vendor_bundled/vendor/twbs/bootstrap/scss/functions";
+@import "../../base_files/scss/_tiki-bootstrap_functions";
+
 @import "variables"; // Needs to come first, to override Bootstrap defaults.
 @import "../../base_files/scss/_tiki-variables.scss"; // Values/definitions for Tiki variables (outside of Bootstrap variables) such as _tiki-selectors.scss.
-@import "../../../vendor_bundled/vendor/twbs/bootstrap/scss/bootstrap.scss";
+@import "../../default/scss/variables";
 
-@import "variables"; // Imported again, to override base_files/tiki-variables defaults, if the theme overrides any
+@import "../../base_files/scss/_tiki-bootstrap_layout_and_components";
 
 @import "../../base_files/scss/_tiki-selectors.scss";
 @import "_tiki-selectors.scss";
 @import "../../base_files/scss/_external-scripts.scss";
+@import "../../base_files/scss/_select2-tiki_colors.scss";

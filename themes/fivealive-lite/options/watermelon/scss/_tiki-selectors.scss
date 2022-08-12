@@ -1,3 +1,6 @@
+// Formerly _button_color_variables.scss, this file evolved with variables moving to the variables file
+// and CSS selectors remaining.
+
 // - - - - - - - - - -  - - - - - - Other CSS, if any - - - - - - - - - - - - - - - - - //
 // CSS is used because Bootstrap partials aren't available for theme variables, etc.
 // (Everything below was copied from Grape and may need color adjusting.
@@ -56,11 +59,11 @@
 }
 
 .valid-feedback,
-.valid-tooltip { color: #288040 !important; }
+.valid-tooltip { color: #2A8442 !important; }
 
 .was-validated .form-check-input:invalid ~ .form-check-label, .form-check-input.is-invalid ~ .form-check-label,
 .invalid-feedback,
-.invalid-tooltip { color: #85072E !important; }
+.invalid-tooltip { color: #B45918 !important; }
 
 .bg-danger,
 .bg-warning {
@@ -77,16 +80,19 @@
     background-color: #D4452B !important;
 }
 
-//.badge.bg-primary,
+.badge.bg-primary,
 .badge.bg-light,
 .badge.bg-warning,
 .badge.bg-success,
 .badge.bg-info,
+.badge.bg-danger,
 .progress-bar.bg-success,
-.progress-bar.bg-warning {
+.progress-bar.bg-warning,
+.progress-bar.bg-danger {
     color: #000;
 }
 
 .page-item.disabled, .list-group-item.disabled {
     color: $text-muted !important;
 }
+

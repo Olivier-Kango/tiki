@@ -5,14 +5,13 @@
 
 @import "../../default/scss/_variables.scss";
 
-@import "../../../vendor_bundled/vendor/twbs/bootstrap/scss/bootstrap.scss";
 // @import "../../../vendor_bundled/vendor/twbs/bootstrap/scss/_variables.scss"; Already imported by vendor bootstrap.scss
 
 // Load bootstrap4c-chosen variables and svn to uri converter
 @import "../../../vendor_bundled/vendor/npm-asset/sass-svg-uri/_svg-uri.scss";
 
 
-@import "_bs3-bs4-transition.scss";
+//@import "_bs3-bs4-transition.scss"; obsolete
 @import "_tiki-variables.scss";
 @import "_tiki-selectors.scss";
 @import "_tiki-miscellaneous_global";

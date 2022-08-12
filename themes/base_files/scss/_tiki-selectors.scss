@@ -3,10 +3,11 @@
 //@import "_bs3-bs4-transition.scss";
 //@import "_tiki-variables.scss";
 $imagePathToImgDir: "../../../img/";
-@import "../../../vendor_bundled/vendor/twbs/bootstrap/scss/_mixins.scss";
-@import "../../../vendor_bundled/vendor/twbs/bootstrap/scss/_variables.scss";
+@import "../../../vendor_bundled/vendor/twbs/bootstrap/scss/_mixins.scss"; //
+//@import "../../../vendor_bundled/vendor/twbs/bootstrap/scss/_variables.scss";
+@import "../../default/scss/variables";
 
-.topbar { margin-bottom: $topbar-row-margin-bottom; }
+.topbar { margin-bottom: $tiki-topbar-row-margin-bottom; }
 
 // Background color for navbar collapse dropdowns (Tiki's aren't .dropdown li).
 //.navbar-collapse.collapse.in {
@@ -41,7 +42,7 @@ $imagePathToImgDir: "../../../img/";
 }
 
 // h3 heading in modules
-.module h3.card-title { font-size: $module-h3-card-title-font-size; }
+.module h3.card-title { font-size: $tiki-module-h3-card-title-font-size; }
 
 // tiki-calendar.less - tiki-calendar_calmode.tpl, mod-calendar_new.tpl
 .calhighlight {
@@ -119,20 +120,20 @@ a.fc-event:hover {
 //.cssmenu_horiz > li.sfHover,
 .topbar .nav > li > a:hover,
 .topbar .nav > li > a:focus {
-    background: $cssmenu_horiz_li_hover_bg;
+    background: $tiki-cssmenu_horiz_li_hover_bg;
 }
 
 .cssmenu_horiz ul,
 .cssmenu_vert ul {
-    border: $cssmenu_ul_border; //    $dropdown-border-color;
+    border: $tiki-cssmenu_ul_border; //    $dropdown-border-color;
 }
 
 .cssmenu_horiz ul li a,
 .cssmenu_vert ul li a,
 .cssmenu_horiz ul li button.btn-link.link-list,
 .cssmenu_vert ul li button.btn-link.link-list {
-    background: $cssmenu_ul_li_a_bg; //    $dropdown-bg;
-    color: $cssmenu_ul_li_a_color; //    $dropdown-link-color;
+    background: $tiki-cssmenu_ul_li_a_bg; //    $dropdown-bg;
+    color: $tiki-cssmenu_ul_li_a_color; //    $dropdown-link-color;
     //    padding-top: ; (tiki-cssmenus.less edited to conform to BS dropdown-link top and bottom padding - 3px.)
     //    padding-bottom: ;
 }
@@ -150,8 +151,8 @@ a.fc-event:hover {
 .cssmenu_vert > ul > li:hover > a,
 .cssmenu_horiz > ul > li:hover > form > button.btn-link.link-list,
 .cssmenu_vert > ul > li:hover > form > button.btn-link.link-list {
-    color: $cssmenu_ul_li_hover_a_color; //    $dropdown-link-hover-color;
-    background: $cssmenu_ul_li_hover_a_bg; //    $dropdown-link-hover-bg;
+    color: $tiki-cssmenu_ul_li_hover_a_color; //    $dropdown-link-hover-color;
+    background: $tiki-cssmenu_ul_li_hover_a_bg; //    $dropdown-link-hover-bg;
 }
 
 // styling for both css and generated arrows 
@@ -219,11 +220,11 @@ a.fc-event:hover {
     border-top-color: $navbar-dark-hover-color;
 }
 
-// Used for action icons dropdown
-.dropdown-menu .dropdown-title,
-.dropdown-menu li label {
-    color: $dropdown-title-color;
-}
+// Used for action icons dropdown - This seems to be .dropdown-header now, and is a Bootstrap variable (GC-L August 2022)
+//.dropdown-menu .dropdown-title,
+//.dropdown-menu li label {
+//    color: $dropdown-title-color;
+//}
 
 // To override The dropdown menu text-align: left that (wrongly) ensures proper alignment if parent has it changed (e.g., modal footer)
 .dropdown-menu {
@@ -657,7 +658,7 @@ form.simple label .warning {
 // odd checkbox columns
 .objectperms .checkBoxHeader:nth-of-type(odd) > div > label,
 .objectperms td.checkBoxCell:nth-of-type(odd),
-.objectperms .checkBoxHeader:nth-of-type(odd) > .checkBoxLabel { background: $table-column-bg-odd; }
+.objectperms .checkBoxHeader:nth-of-type(odd) > .checkBoxLabel { background: $tiki-table-column-bg-odd; }
 
 // tiki-toolbars.less
 .helptool-admin {
@@ -719,7 +720,7 @@ li.toolbar:active {
 
 // tiki-translation.less
 #intertrans-indicator {
-    background-color: $intertrans_background;
+    background-color: $tiki-intertrans_background;
     color: $success;
 }
 
@@ -825,8 +826,8 @@ ul.all_languages > li {
 // /* Background for CKEditor */
 .tiki .cke_wysiwyg_frame,
 .tiki .cke_wysiwyg_div {
-    background: $editor-bg; // $body-bg;
-    color: $editor-text-color; // $body-color;
+    background: $tiki-editor-bg; // $body-bg;
+    color: $tiki-editor-text-color; // $body-color;
 }
 
 .tiki_plugin {
@@ -1091,8 +1092,8 @@ div.drillshow {
 
 // Breadcrumb
 .breadcrumb {
-    font-style: $breadcrumb-font-style; // italic;
-    font-size: $breadcrumb-font-size; // 90%;
+    font-style: $tiki-breadcrumb-font-style; // italic;
+ //   font-size: $breadcrumb-font-size; // 90%; Defined by Bootstrap variable
 //    display: $breadcrumb-display; // block;
 }
 
@@ -1151,12 +1152,12 @@ span.plugin-mouseover {
 }
 
 // Example: tracker field type "icon". Bootstrap modal with jquery-ui contents
-.tiki .modal-content .ui-state-default { color: $modal-link-color; }
+.tiki .modal-content .ui-state-default { color: $tiki-modal-link-color; }
 .tiki .modal-content .ui-state-hover:hover
 //.tiki .modal-content .ui-state-focus,
 //.tiki .modal-content .ui-widget-content .ui-state-focus,
 //.tiki .modal-content .ui-widget-content .ui-state-focus:hover
- { color: $modal-link-hover-color; }
+ { color: $tiki-modal-link-hover-color; }
 
 
 // To correct login dropdown color
@@ -1218,7 +1219,7 @@ pre.codelisting code {
 .adminoptionboxchild {
     border-bottom: 1px solid $hr-color;
     legend {
-        font-size: $secondary-legend-font-size;
+        font-size: $tiki-secondary-legend-font-size;
     }
 }
 
@@ -1294,7 +1295,7 @@ input[type="checkbox"].preffilter-toggle-round:checked + label:before {
         //Instead of the line below you could use @include border-radius($radius, $vertical-radius)
         border-radius: 30px;
         //Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
-        box-shadow: 0 0 0 2px $color_pigeon_post_approx, 0 0 4px $color_bright_gray_approx;
+        box-shadow: 0 0 0 2px $tiki-color_pigeon_post_approx, 0 0 4px $tiki-color_bright_gray_approx;
         cursor: pointer;
         border: 4px solid transparent;
         overflow: hidden;
@@ -1305,7 +1306,7 @@ input[type="checkbox"].preffilter-toggle-round:checked + label:before {
             content: "";
             width: 100%;
             height: 100%;
-            background: $color_picton_blue_approx;
+            background: $tiki-color_picton_blue_approx;
             //Instead of the line below you could use @include border-radius($radius, $vertical-radius)
             border-radius: 30px;
             //Instead of the line below you could use @include transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
@@ -1316,11 +1317,11 @@ input[type="checkbox"].preffilter-toggle-round:checked + label:before {
     }
     input:checked + .slider {
         //Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
-        box-shadow: 0 0 0 2px $color_gray_suit_approx,0 0 2px $color_zircon_approx;
+        box-shadow: 0 0 0 2px $tiki-color_gray_suit_approx,0 0 2px $tiki-color_zircon_approx;
         &:before {
             //Instead of the line below you could use @include transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
             transform: translateX(0px);
-            background: $color_pizazz_approx;
+            background: $tiki-color_pizazz_approx;
         }
     }
 }

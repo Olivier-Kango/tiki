@@ -7,7 +7,7 @@
 $primary:       #0074C7;
 $secondary:     #7400c3; // $gray-600 !default;
 $success:       #214A21; // #5cb85c;
-$info:          #5bc0de;
+$info:          #20809D; //#5bc0de;
 $warning:       #f0ad4e;
 $danger:        #B82D28; // #d9534f;
 $dark:          #01366c;
@@ -16,7 +16,7 @@ $theme-colors: (
     "primary": #0074C7,
     "secondary": #7400c3,
     "success": #214A21, //#5cb85c,
-    "info": #5bc0de,
+    "info": #20809D, //#5bc0de,
     "warning": #975D0C, // #f0ad4e,
     "danger": #B82D28 // #d9534f
 );
@@ -76,11 +76,17 @@ $input-group-addon-bg: #DBDBDB;
 
 // Form validation
 // Z-index master list
+
 // Navs
+$nav-link-color:                    $link-color;
+//$nav-link-hover-color:             $link-hover-color;
+
 //Navbar
 $navbar-dark-color:             #ffffff;
 $navbar-dark-bg:                 #1f5daa;
 $navbar-dark-border:             darken($navbar-dark-bg, 6.5%);
+
+
 
 // Navbar links
 $navbar-dark-color:                  #ffffff;
@@ -90,12 +96,24 @@ $navbar-dark-active-color:          #ffffff;
 $navbar-dark-active-bg:              #3270bd;
 $navbar-dark-disabled-color:         #cccccc;
 
-$navbar-light-color:                $navbar-dark-color;
-$navbar-light-hover-color:          $navbar-dark-hover-color;
-$navbar-light-active-color:         $navbar-dark-active-color;
-$navbar-light-disabled-color:       $navbar-dark-disabled-color;
+//$navbar-light-color:                $navbar-dark-color;
+//$navbar-light-hover-color:          $navbar-dark-hover-color;
+//$navbar-light-active-color:         $navbar-dark-active-color;
+//$navbar-light-disabled-color:       $navbar-dark-disabled-color;
 
 // Dropdowns
+$dropdown-color:                    $body-color !default;
+$dropdown-bg:                       #fff; //$white !default;
+//$dropdown-border-color:             var(--#{$prefix}border-color-translucent) !default;
+$dropdown-link-color:               $link-color;
+$dropdown-link-hover-color:         shade-color($dropdown-link-color, 10%) !default;
+$dropdown-link-hover-bg:            $gray-200 !default;
+
+//$dropdown-link-active-color:        $component-active-color !default;
+//$dropdown-link-active-bg:           $component-active-bg !default;
+
+$dropdown-link-disabled-color:      $gray-500 !default;
+
 // Pagination
 // Placeholders
 // Cards
@@ -106,6 +124,8 @@ $card-header-bg: #386dbb;
 // Accordion
 // Tooltips
 // Popovers
+$popover-body-color: $body-color;
+
 // Toasts
 // Badges
 // Modals
@@ -126,6 +146,6 @@ $modal-header-border-color:   #386dbb;
 // - - - - - - - - - -  - - - - - - Other variables, if any - - - - - - - - - - - - - - - - - //
 
 // base_files/scss/tiki-variables.scss overrides start
-$module-h3-card-title-font-size: .95rem;
+$tiki-module-h3-card-title-font-size: .95rem;
 
 // tiki-variables overrides end

@@ -1,4 +1,5 @@
 // this is to override some cypht colors when using a child theme
+// -- This file isn't imported by any child themes in the package currently  (g_c-l aug 2022)
 .tiki {
     &.tiki-webmail, &.tiki-cypht, &.mobile.tiki-cypht, .inline-cypht {
         a:not(.btn), a:not(.dropdown-item) .icon, .btn-link {

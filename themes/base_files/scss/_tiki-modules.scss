@@ -359,9 +359,9 @@ footer.footer .modules > .module:not(.card) {
 .layout_social .topbar_modules {
     .sitelogo a img {
         display: inline;
-        margin-top: $navbar-fixed-height / 10;
-        margin-bottom: $navbar-fixed-height / 10;
-        max-height: $navbar-fixed-height / 1.25;
+        margin-top: $tiki-navbar-fixed-height / 10;
+        margin-bottom: $tiki-navbar-fixed-height / 10;
+        max-height: $tiki-navbar-fixed-height / 1.25;
         width: auto !important;
     }
     h1.sitetitle {
@@ -381,13 +381,13 @@ footer.footer .modules > .module:not(.card) {
         display: inline-block;
     }
     select.form-control {
-        margin-top: $navbar-fixed-height / 6;
+        margin-top: $tiki-navbar-fixed-height / 6;
         padding-top: 4px;
         padding-bottom: 4px;
     }
     .btn,
     .btn-link {
-        margin-top: $navbar-fixed-height / 7;
+        margin-top: $tiki-navbar-fixed-height / 7;
     }
     //    .navbar-inverse .navbar-collapse,
     //    .navbar-inverse .navbar-form,

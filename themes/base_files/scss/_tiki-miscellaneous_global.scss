@@ -507,11 +507,11 @@ textarea.wikiedit {
 }
 
 // Workaround for Firefox bug (https://bugzilla.mozilla.org/show_bug.cgi?id=504622) Todo remove when Firefox 53 is released
-@-moz-document url-prefix() {
-    fieldset {
-        display: table-cell;
-    }
-}
+//@-moz-document url-prefix() {
+//    fieldset {
+//        display: table-cell;
+//    }
+//}
 
 // Reduce visual size of external link icon to a little over the x height of text
 .tiki .wiki.external + .icon-link-external,
@@ -521,7 +521,7 @@ textarea.wikiedit {
 
 .side-col-toggle { z-index: 2; }
 .tiki .side-col-toggle + #col1 {
-    margin-top: $top-margin-compensation-for-side-col-toggle;
+    margin-top: $tiki-top-margin-compensation-for-side-col-toggle;
     padding-top: $line-height-base;
 }
 

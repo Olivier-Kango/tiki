@@ -1,13 +1,12 @@
-// Core variables and mixins
 /* The Bootstrap default theme, for Tiki Wiki CMS Groupware */
 
-@import "../../../vendor_bundled/vendor/twbs/bootstrap/scss/functions";
-@import "variables"; // Needs to come first, to override Bootstrap defaults.
+@import "../../base_files/scss/_tiki-bootstrap_functions"; // Required Bootstrap
+
+@import "variables"; // Theme overrides of Bootstrap defaults plus any additional variables
 @import "../../base_files/scss/_tiki-variables.scss"; // Values/definitions for Tiki variables (outside of Bootstrap variables) such as _tiki-selectors.scss.
-@import "../../../vendor_bundled/vendor/twbs/bootstrap/scss/bootstrap.scss";
 
-@import "variables"; // Imported again, to override base_files/tiki-variables defaults, if the theme overrides any
+@import "../../base_files/scss/_tiki-bootstrap_layout_and_components"; // Optional Bootstrap
 
-//@import "../../base_files/scss/_tiki-variables.scss"; // Values/definitions for Tiki variables (outside of Bootstrap variables) such as _tiki-selectors.scss.
 @import "../../base_files/scss/_tiki-selectors.scss";
 @import "../../base_files/scss/_external-scripts.scss";
+@import "../../base_files/scss/_select2-tiki_colors.scss"; // Why isn't this imported by external scripts?

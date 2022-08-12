@@ -68,12 +68,6 @@ legend {
     }
 }
 
-// Accordion
-.accordion-button { background: $dark; }
-.accordion-button:not(.collapsed) {
-    color: #ddb9af;
-    background-color: #6e0d0d; }
-
 // Badges
 .badge.bg-dark { color: #fff; }
 
@@ -85,3 +79,7 @@ legend {
 }
 
 .textarea-toolbar a.toolbar { color: #222; }
+
+.tiki .select2-selection__choice__value {
+    color: $input-placeholder-color;
+}

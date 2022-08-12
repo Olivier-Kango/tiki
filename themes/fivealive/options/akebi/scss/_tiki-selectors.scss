@@ -1,6 +1,5 @@
-// These variables need to be defined for the files to compile. The specific variables for the child theme's button colors are defined
-// at the bottom of the file. There appears to be redundancy in defining colors but each line is necessary.
-// There are unique names for the child theme button colors to avoid any conflict with the general theme colors.
+// Formerly _button_color_variables.scss, this file evolved with variables moving to the variables file
+// and CSS selectors remaining.
 
 // - - - - - - - - - -  - - - - - - Other CSS, if any - - - - - - - - - - - - - - - - - //
 // CSS is used because Bootstrap partials aren't available for theme variables, etc.

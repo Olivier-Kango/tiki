@@ -8,9 +8,9 @@
     img { opacity: 1 !important; }
     ul, li:not(.select2-results__option) { background-color: transparent !important; }
     main, div { border-radius: 0; }
-    .ui-widget-content { background-color: $ui-default-bg !important; }
+    .ui-widget-content { background-color: $tiki-ui-default-bg !important; }
     .ui-menu-item-wrapper { color: $body-color !important; }
-    .ui-state-active { color: $ui-default-link-active-color !important; }
+    .ui-state-active { color: $tiki-ui-default-link-active-color !important; }
     .popover-header { color: $popover-header-color !important; }
     .popover-body { color: $popover-body-color !important; }
     .btn-primary {

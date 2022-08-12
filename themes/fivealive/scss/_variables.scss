@@ -50,7 +50,7 @@ $link-hover-decoration: none !default;
 //$padding-large-vertical: .9rem;
 
 // Typography
-$font-family-sans-serif: Lato, sans-serif !default;
+$font-family-sans-serif: "Open Sans", sans-serif; // Was Lato
 $headings-font-family: $font-family-sans-serif !default;
 $headings-font-weight: 700 !default;
 
@@ -161,7 +161,7 @@ $brand-primary-of-option: $primary;
 $navbar-default-link-background: $navbar-dark-navbar-nav-li-a-background;
 $side-column-border: none;
 $topbar_container_background: $navbar-dark-navbar-nav-li-a-background;
-$navbar-fixed-height: 46px;
+$tiki-navbar-fixed-height: 46px;
 // .secondary_site_menu .navbar-nav li.dropdown { border-bottom: none;}
 $bg-dark: #1174a5;
 
