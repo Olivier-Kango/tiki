@@ -39,7 +39,7 @@ class APISource implements SourceInterface
             }
             foreach ($this->schema->getColumns() as $column) {
                 if ($column->getLabel() == $field) {
-                    $tracker_field = \TikiLib::lib('trk')->get_field_by_perm_name($field);
+                    $tracker_field = \TikiLib::lib('trk')->get_field_by_perm_name($column->getField());
                     if ($tracker_field && $tracker_field['type'] == 'u') {
                         $user_specific = $value;
                     }
