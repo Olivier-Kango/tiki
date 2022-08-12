@@ -116,7 +116,7 @@
                 </a>
             </label>
             <div class="col-sm-4">
-                {user_selector id="user_selector_auth" realnames="n" user=""}
+                {user_selector id="user_selector_auth" realnames="n" user="" allowNone="y"}
             </div>
         </div>
     </fieldset>
