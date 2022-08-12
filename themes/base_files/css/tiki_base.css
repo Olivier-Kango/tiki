@@ -1235,11 +1235,6 @@ textarea.wikiedit {
 .modal-dialog #alert-wrapper .alert {
   margin-bottom: 0;
 }
-@-moz-document url-prefix() {
-  fieldset {
-    display: table-cell;
-  }
-}
 .tiki .wiki.external + .icon-link-external, .tiki .wiki.external .icon-link-external {
   font-size: 70%;
   margin-left: 1px;

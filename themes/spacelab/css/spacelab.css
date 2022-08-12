@@ -9857,9 +9857,6 @@ a.fc-event:hover {
 .topbar .cssmenu_horiz.sf-arrows > .menuSection0:hover > .sf-with-ul:after, .topbar .cssmenu_horiz.sf-arrows > .menuSection0.sfhover > .sf-with-ul:after {
   border-top-color: #fff;
 }
-.dropdown-menu .dropdown-title, .dropdown-menu li label {
-  color: #2d2d2d;
-}
 .dropdown-menu {
   text-align: start !important;
 }
@@ -10373,7 +10370,6 @@ div.drillshow {
 }
 .breadcrumb {
   font-style: normal;
-  font-size: 90%;
 }
 .nav-breadcrumb {
   display: flex;
