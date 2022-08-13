@@ -343,6 +343,7 @@ $tikilib->get_perm_object($trackerId, 'tracker', $tracker_info);
 if (! $itemObject->canView()) {
     $smarty->assign('errortype', 403);
     $smarty->assign('msg', tra("Permission denied"));
+    header('HTTP/1.0 403 Forbidden');
     $smarty->display("error.tpl");
     die;
 }
@@ -367,6 +368,7 @@ if (! empty($_REQUEST['moveto'])) {
     } else {
         $smarty->assign('errortype', 403);
         $smarty->assign('msg', tra("Permission denied"));
+        header('HTTP/1.0 403 Forbidden');
         $smarty->display("error.tpl");
         die;
     }
@@ -574,6 +576,7 @@ if (! isset($info['trackerId'])) {
 if (! $itemObject->canView()) {
     $smarty->assign('errortype', 403);
     $smarty->assign('msg', tra('Permission denied'));
+    header('HTTP/1.0 403 Forbidden');
     $smarty->display('error.tpl');
     die;
 }
