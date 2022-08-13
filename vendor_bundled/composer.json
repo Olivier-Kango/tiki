@@ -178,7 +178,8 @@
         "npm-asset/select2-bootstrap-5-theme": "^1.2",
         "npm-asset/sortablejs": "^1.13",
         "npm-asset/systemjs": "^6.12",
-        "npm-asset/import-map-overrides": "^2.4"
+        "npm-asset/import-map-overrides": "^2.4",
+        "twbs/bootstrap-icons": "^1.8"
     },
     "require-dev": {
         "bafs/testify": "dev-master",

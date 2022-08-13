@@ -179,7 +179,7 @@ $("#filtercal").submit(function () {
             var year = {{$viewyear}};
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
-                themeSystem: 'bootstrap',
+                themeSystem: 'bootstrap5',
                 eventTimeFormat: {
                   hour: 'numeric',
                   minute: '2-digit',
@@ -194,6 +194,7 @@ $("#filtercal").submit(function () {
                     right: 'year,semester,quarter,dayGridMonth,timeGridWeek,timeGridDay'
                 },
                 editable: true,
+                selectable:true,
                 events: 'tiki-calendar_json.php',
                 slotMinTime: '{{$minHourOfDay}}',
                 slotMaxTime: '{{$maxHourOfDay}}',
@@ -298,35 +299,46 @@ $("#filtercal").submit(function () {
                 },
                 eventClick: function(info) {
                     info.jsEvent.preventDefault();
-                    var $this = $(info.el).tikiModal(" ");
+                    let $this = $(info.el).tikiModal(" ");
                     var event = info.event;
                     if (event.url) {
                         $.ajax({
                             dataType: 'html',
                             url: event.url + '&fullcalendar=y&modal=1',
                             success: function(data){
-                                var $dialog = $('#calendar_dialog').remove();
-                                $('#calendar_dialog_content', $dialog).html(data);
-                                $('#calendar_dialog h1, #calendar_dialog .navbar', $dialog ).remove();
-                                $('#calendar_dialog .modal-title', $dialog ).html();
+                                var $dialog = $('#calendar_dialog');
+                                var $options = {
+                                    backdrop:'static',
+                                    focus:true
+                                };
+                                $('#calendar_dialog_content', $dialog ).html(data);
                                 $dialog.find(".modal-dialog").addClass("modal-lg");
-                                $dialog.appendTo('body').modal({backdrop: "static"});
+                                $dialog.appendTo('body');
                                 $this.tikiModal();
+                                var tikiModalShow=new bootstrap.Modal($dialog,$options);
+                                tikiModalShow.show();
                             }
                         });
                     }
                 },
                 dateClick: function(info) {
+                    var timestamp=Math.floor(new Date(info.dateStr).getTime())/1000;
+                    let $this = $(info.dayEl).tikiModal(" "); //the html reference of the clicked date is no longer info.el but info.dayEl
                     $.ajax({
                         dataType: 'html',
-                        url: 'tiki-calendar_edit_item.php?fullcalendar=y&todate=' + info.date.toUnix() + '&tzoffset=' + (new Date()).getTimezoneOffset() + '&modal=1',
+                        url: 'tiki-calendar_edit_item.php?fullcalendar=y&todate=' + timestamp + '&tzoffset=' + (new Date()).getTimezoneOffset() + '&modal=1',
                         success: function(data) {
-                            var $dialog = $('#calendar_dialog').remove();
+                            var $dialog = $('#calendar_dialog');
+                            var $options = {
+                                backdrop:'static',
+                                focus:true
+                            };
                             $('#calendar_dialog_content', $dialog ).html(data);
-                            $('#calendar_dialog h1, #calendar_dialog .navbar', $dialog ).remove();
-                            $('#calendar_dialog .modal-title', $dialog ).html();
                             $dialog.find(".modal-dialog").addClass("modal-lg");
-                            $dialog.appendTo('body').modal({backdrop: "static"});
+                            $dialog.appendTo('body');
+                            $this.tikiModal();
+                            var tikiModalShow=new bootstrap.Modal($dialog,$options);
+                            tikiModalShow.show();
                         }
                     });
                 },

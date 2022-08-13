@@ -840,6 +840,7 @@ include_once('tiki-section_options.php');
 ask_ticket('calendar');
 
 $headerlib->add_cssfile('vendor_bundled/vendor/npm-asset/fullcalendar/main.css');
+$headerlib->add_cssfile('vendor_bundled/vendor/twbs/bootstrap-icons/font/bootstrap-icons.css');
 // Disable fullcalendar's force events to be one-line tall
 $headerlib->add_css('.fc-day-grid-event > .fc-content { white-space: normal; }');
 $headerlib->add_jsfile('vendor_bundled/vendor/moment/moment/min/moment.min.js', true);
