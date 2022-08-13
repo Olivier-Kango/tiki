@@ -110,6 +110,7 @@ function wikiplugin_events($data, $params)
     $tikilib = TikiLib::lib('tiki');
     $smarty = TikiLib::lib('smarty');
     $calendarlib = TikiLib::lib('calendar');
+    $invalideid = false;
 
     extract($params, EXTR_SKIP);
 
@@ -178,7 +179,7 @@ function wikiplugin_events($data, $params)
     if ($timespan == 'future') {
         $events = $calendarlib->upcoming_events(
             $max,
-            array_intersect($calIds, $viewable),
+            array_intersect($calIds, $viewable) ? array_intersect($calIds, $viewable) : array(),
             $maxdays,
             'start_asc',
             1,
@@ -213,13 +214,18 @@ function wikiplugin_events($data, $params)
 
 
     if (isset($calendarid)) {
-        $calIds = explode('|', $calendarid);
+        $calParamIds = explode('|', $calendarid);
+        if (array_diff($calParamIds, $calIds)) {
+            $invalideid = true;
+            $calParamIds = array();
+        }
     }
-    $events = $calendarlib->upcoming_events($max, array_intersect($calIds, $viewable), $maxdays);
+    $events = $calendarlib->upcoming_events($max, array_intersect($calParamIds, $viewable) ? array_intersect($calParamIds, $viewable) : array(), $maxdays);
 
     $smarty->assign_by_ref('datetime', $datetime);
     $smarty->assign_by_ref('desc', $desc);
     $smarty->assign_by_ref('events', $events);
+    $smarty->assign_by_ref('invalideid', $invalideid);
 
     // Pagination
     if ($usePagination == 'y') {
