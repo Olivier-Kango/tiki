@@ -74,13 +74,6 @@ class Tracker_Field_Math extends Tracker_Field_Abstract implements Tracker_Field
             $value = $requestData[$this->getInsertId()];
         } else {
             $value = $this->getValue();
-            if ($value == 'Expecting "(" near ""') {
-                if ($tiki_p_admin == 'y' || $tiki_p_admin_trackers == 'y') {
-                    $value = tr('"The parameter Calculation is empty, please edit the field and add a Calculation."');
-                } else {
-                    $value = '';
-                }
-            }
         }
 
         return [
@@ -277,10 +270,19 @@ class Tracker_Field_Math extends Tracker_Field_Abstract implements Tracker_Field
 
     private function getFormulaRunner()
     {
+        $globalperms = Perms::get();
         static $cache = [];
         $fieldId = $this->getConfiguration('fieldId');
         if (! isset($cache[$fieldId])) {
-            $cache[$fieldId] = $this->getOption('calculation');
+            if (! empty($this->getOption('calculation')) && ! ctype_space($this->getOption('calculation'))) {
+                $cache[$fieldId] = $this->getOption('calculation');
+            } else {
+                if ($globalperms->admin || $globalperms->admin_trackers) {
+                    throw new Math_Formula_Runner_Exception(tra('The field option, Calculation is empty or filled with whitespace.'));
+                } else {
+                    throw new Math_Formula_Runner_Exception(tra(''));
+                }
+            }
         }
 
         $runner = self::getRunner();
