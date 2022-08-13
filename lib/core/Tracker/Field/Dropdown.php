@@ -210,6 +210,23 @@ class Tracker_Field_Dropdown extends Tracker_Field_Abstract implements Tracker_F
         return $localCache[$string];
     }
 
+    
+    private function getValuesOfPossibilities()
+    {
+        $values = [];
+        $options = $this->getOption('options');
+
+        if (empty($options)) {
+            return [];
+        }
+
+        foreach ($options as $value) {
+            array_push($values, $this->getValuePortion($value));
+        }
+
+        return $values;
+    }
+
     private function getDefaultValue()
     {
         $options = $this->getOption('options');
@@ -375,7 +392,6 @@ class Tracker_Field_Dropdown extends Tracker_Field_Abstract implements Tracker_F
 
                 if (! empty($values)) {
                     $sub = $query->getSubQuery("ms_$permName");
-
                     foreach ($values as $v) {
                         if ($v === '-Blank (no data)-') {
                             $sub->filterIdentifier('', $baseKey . '_text');
@@ -387,5 +403,23 @@ class Tracker_Field_Dropdown extends Tracker_Field_Abstract implements Tracker_F
             });
 
         return $filters;
+    }
+
+    public function isValid()
+    {
+        if ($this->getConfiguration('type') !== 'D') {
+            $value = $this->getValue($this->getDefaultValue()); 
+            $allValues = $value === '' ? [] : explode(',', $value);
+
+            if (! empty($allValues)) {
+                foreach ($allValues as $val) {
+                    if (! in_array($val, $this->getValuesOfPossibilities())) {
+                        return tr('Value not available in options');
+                    }
+                }
+            }
+        }
+
+        return true;
     }
 }
