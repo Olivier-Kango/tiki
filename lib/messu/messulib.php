@@ -17,7 +17,6 @@ use SlmMail\Exception\ExceptionInterface as SlmMailException;
 
 class Messu extends TikiLib
 {
-
     /**
      * Put sent message to 'sent' box
      */
@@ -214,9 +213,9 @@ class Messu extends TikiLib
         $maxRecords,
         $sort_mode,
         $find,
-        $flag = '',
-        $flagval = '',
-        $prio = '',
+        $flag,
+        $flagval,
+        $prio,
         $dbsource,
         $replyto_hash = '',
         $orig_or_reply = 'r'

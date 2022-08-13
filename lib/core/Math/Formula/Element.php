@@ -22,11 +22,12 @@ class Math_Formula_Element implements ArrayAccess, Iterator, Countable
         $this->children[] = $child;
     }
 
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return is_int($offset) && isset($this->children[$offset]);
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         if (isset($this->children[$offset])) {
@@ -34,11 +35,12 @@ class Math_Formula_Element implements ArrayAccess, Iterator, Countable
         }
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
     }
 
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
     }
 
@@ -56,33 +58,36 @@ class Math_Formula_Element implements ArrayAccess, Iterator, Countable
         return $this->type;
     }
 
+    #[\ReturnTypeWillChange]
     public function current()
     {
         $key = key($this->children);
         return $this->children[$key];
     }
 
+    #[\ReturnTypeWillChange]
     public function next()
     {
         next($this->children);
     }
 
-    public function rewind()
+    public function rewind(): void
     {
         reset($this->children);
     }
 
+    #[\ReturnTypeWillChange]
     public function key()
     {
         return key($this->children);
     }
 
-    public function valid()
+    public function valid(): bool
     {
         return false !== current($this->children);
     }
 
-    public function count()
+    public function count(): int
     {
         return count($this->children);
     }

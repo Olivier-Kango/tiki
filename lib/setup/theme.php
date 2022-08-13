@@ -12,7 +12,7 @@ if (basename($_SERVER['SCRIPT_NAME']) === basename(__FILE__)) {
 
 //Initialize variables for the actual theme and theme option to be displayed
 $theme_active = $prefs['theme'];
-$theme_option_active = $prefs['theme_option'];
+$theme_option_active = $prefs['theme_option'] ?? '';
 
 // User theme previously set up in lib/setup/user_prefs.php
 

@@ -719,7 +719,7 @@ TikiLib::events()->trigger(
 
 if ($prefs['feature_forums'] && $prefs['feature_wiki_discuss'] == 'y' && $prefs['wiki_discuss_visibility'] == 'above') {
     include_once('lib/comments/commentslib.php');
-    $commentslib = new Comments($dbTiki);
+    $commentslib = new Comments(TikiDb::get());
     $comments_data = tra('Use this thread to discuss the page:') . " [tiki-index.php?page=" . rawurlencode($page) . "|$page]";
     $threadId = $commentslib->check_for_topic($page, $prefs['wiki_forum_id']);
     $comments_coms = $commentslib->get_forum_topics($prefs['wiki_forum_id'], 0, -1);

@@ -46,7 +46,6 @@ if (strpos($_SERVER["SCRIPT_NAME"], basename(__FILE__)) !== false) {
 
 class OpenPGPLib
 {
-
     //PGP/MIME HEADER CONSTANTS
     const MULTIPART_PGP_ENCRYPTED = 'multipart/encrypted';
     const TYPE_PGP_PROTOCOL = 'application/pgp-encrypted';
@@ -138,11 +137,11 @@ class OpenPGPLib
     public function setCrlf($crlf = "\n")
     {
         if (! defined('CRLF')) {
-            define('CRLF', $crlf, true);
+            define('CRLF', $crlf);
         }
 
         if (! defined('MAIL_MIMEPART_CRLF')) {
-            define('MAIL_MIMEPART_CRLF', $crlf, true);
+            define('MAIL_MIMEPART_CRLF', $crlf);
         }
     }
 
@@ -1139,7 +1138,7 @@ class OpenPGPLib
      *      0 => string $pgpmime_header
      *      1 => string $pgpmime_encrypted_message_body
      */
-    public function prepareEncryptWithZendMail($original_mail_header = '', $original_mail_body = null, $recipients)
+    public function prepareEncryptWithZendMail($original_mail_header, $original_mail_body, $recipients)
     {
 
             // Define gnupg/mime header variables; see constants above in this class

@@ -28,27 +28,29 @@ class Services_ResultLoader implements Iterator
         $this->callback = $callback;
     }
 
+    #[\ReturnTypeWillChange]
     public function current()
     {
         return $this->data[$this->position % $this->perPage];
     }
 
-    public function next()
+    public function next(): void
     {
         $this->position++;
     }
 
-    public function rewind()
+    public function rewind(): void
     {
         $this->position = 0;
     }
 
+    #[\ReturnTypeWillChange]
     public function key()
     {
         return $this->position;
     }
 
-    public function valid()
+    public function valid(): bool
     {
         if ($this->position >= $this->loaded && ! $this->isLast) {
             $this->data = call_user_func($this->callback, $this->position, $this->perPage);

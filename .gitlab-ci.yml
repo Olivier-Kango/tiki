@@ -129,6 +129,19 @@ phplint80:
     - composer
   allow_failure: false
 
+phplint81:
+  stage: lint
+  image: xorti/ubuntu-php:8.1-qa
+  script:
+    - RUN_COMMAND_FILTER='\.php$'
+    - RUN_COMMAND="php vendor_bundled/vendor/overtrue/phplint/bin/phplint -n"
+    - *run_command_on_files_changed
+  dependencies:
+    - composer
+  needs:
+    - composer
+  allow_failure: false
+
 smarty-lint:
   stage: lint
   image: ${BASE_QA_IMAGE}
@@ -457,6 +470,21 @@ unit-tests-80:
 unit-tests-80-mysql8:
   <<: *template-unit-tests
   image: rjsmelo/ubuntu-php:8.0-qa
+  services:
+    - elasticsearch:5
+    - name: mysql:8.0.4
+      command: [ "--default-authentication-plugin=mysql_native_password", "--explicit-defaults-for-timestamp=off" ]
+      alias: mysql
+  allow_failure: true
+
+unit-tests-81:
+  <<: *template-unit-tests
+  image: xorti/ubuntu-php:8.1-qa
+  allow_failure: true
+
+unit-tests-81-mysql8:
+  <<: *template-unit-tests
+  image: xorti/ubuntu-php:8.1-qa
   services:
     - elasticsearch:5
     - name: mysql:8.0.4

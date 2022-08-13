@@ -1266,7 +1266,7 @@ class CalendarLib extends TikiLib
         return $result;
     }
 
-    
+
 
     /**
      * @param $maxrows
@@ -1391,7 +1391,7 @@ class CalendarLib extends TikiLib
      * @param $start
      * @param $startNext
      */
-    public function focusStartEnd($focus, $view = 'month', $beginMonth = 'y', &$start, &$startNext)
+    public function focusStartEnd($focus, $view, $beginMonth, &$start, &$startNext)
     {
         $nbMonths = ['month' => 1, 'bimester' => 2, 'trimester' => 3, 'quarter' => 4, 'semester' => 6, 'year' => 12];
         // start of the period
@@ -1529,7 +1529,7 @@ class CalendarLib extends TikiLib
      * @param $daysnames
      * @param $daysnames_abr
      */
-    public function getDayNames($firstDayofWeek = 0, &$daysnames, &$daysnames_abr)
+    public function getDayNames($firstDayofWeek, &$daysnames, &$daysnames_abr)
     {
         $daysnames = [];
         $daysnames_abr = [];
@@ -1992,5 +1992,4 @@ class CalendarLib extends TikiLib
 
         $categlib->update_object_categories($categories, $itemId, 'calendaritem', $cat_desc, $cat_name, $cat_href, $managed_categories);
     }
-
 }

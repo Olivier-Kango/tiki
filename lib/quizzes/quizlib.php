@@ -835,7 +835,7 @@ class QuizLib extends TikiLib
      * @param $find
      * @return array
      */
-    public function list_all_questions($offset, $maxRecords, $sort_mode = "position_desc", $find)
+    public function list_all_questions($offset, $maxRecords, $sort_mode, $find)
     {
         if ($find) {
             $findesc = '%' . $find . '%';

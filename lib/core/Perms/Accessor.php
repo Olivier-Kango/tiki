@@ -123,20 +123,21 @@ class Perms_Accessor implements ArrayAccess
         }
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetGet($name)
     {
         return $this->__get($name);
     }
 
-    public function offsetSet($name, $value)
+    public function offsetSet($name, $value): void
     {
     }
 
-    public function offsetUnset($name)
+    public function offsetUnset($name): void
     {
     }
 
-    public function offsetExists($name)
+    public function offsetExists($name): bool
     {
         return true;
     }

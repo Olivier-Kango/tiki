@@ -11,7 +11,7 @@ class TikiFilter_AttributeType implements Laminas\Filter\FilterInterface
     public function filter($name)
     {
         // Force to have at least two dots to scope the attribute name
-        if (substr_count($name, '.') < 2) {
+        if (substr_count($name ?? '', '.') < 2) {
             return false;
         }
 

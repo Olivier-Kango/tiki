@@ -51,9 +51,9 @@
  * For usage see the example script
  */
 
-define('NET_POP3_STATE_DISCONNECTED', 1, true);
-define('NET_POP3_STATE_AUTHORISATION', 2, true);
-define('NET_POP3_STATE_TRANSACTION', 4, true);
+define('NET_POP3_STATE_DISCONNECTED', 1);
+define('NET_POP3_STATE_AUTHORISATION', 2);
+define('NET_POP3_STATE_TRANSACTION', 4);
 
 class Net_POP3
 {

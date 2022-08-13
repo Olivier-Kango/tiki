@@ -32,7 +32,6 @@
  */
 class TrackerLib extends TikiLib
 {
-
     public $trackerinfo_cache;
     private $sectionFormats = [];
 
@@ -1301,12 +1300,12 @@ class TrackerLib extends TikiLib
                         case 'math':
                             if (strpos($field['options'], 'numeric_sort') == true) {
                                 if ($corder == 'asc') {
-                                    $corder ='nasc';
+                                    $corder = 'nasc';
                                 } else {
-                                    $corder ='ndesc';
+                                    $corder = 'ndesc';
                                 }
                             }
-                        break;
+                            break;
                     }
                 } else {
                     // don't sort of the field doesn't exist
@@ -2786,7 +2785,6 @@ class TrackerLib extends TikiLib
         $mandatory_fields = [];
         $erroneous_values = [];
         if (isset($ins_fields) && isset($ins_fields['data'])) {
-
             $fields = [];   // make a copy of $ins_fields['data'] where the field id is the array key
             foreach ($ins_fields['data'] as $f) {
                 $fields[$f['fieldId']] = $f;
@@ -6588,8 +6586,8 @@ class TrackerLib extends TikiLib
     {
         return array_filter(
             array_map(function ($user) {
-                return trim($user);
-            }, is_array($value) ? $value : str_getcsv($value))
+                return trim($user ?? '');
+            }, is_array($value) ? $value : str_getcsv($value ?? ''))
         );
     }
 
@@ -6684,7 +6682,7 @@ class TrackerLib extends TikiLib
     public function add_page_selector_backlink($itemId, $fieldId, $value)
     {
         $tikilib = TikiLib::lib('tiki');
-        $pageFrom = 'objectlink:trackeritemfield:' . $itemId. ':' . $fieldId;
+        $pageFrom = 'objectlink:trackeritemfield:' . $itemId . ':' . $fieldId;
         $tikilib->clear_links($pageFrom);
         $pageTo = $value;
         $tikilib->replace_link($pageFrom, $pageTo);
@@ -6694,7 +6692,7 @@ class TrackerLib extends TikiLib
     public function update_page_selector_relations($value, $itemId)
     {
         $wikilib = TikiLib::lib('wiki');
-        $objectType = 'trackeritemfield';        
+        $objectType = 'trackeritemfield';
         $wikilib->update_wikicontent_relations($value, $objectType, $itemId);
     }
 }

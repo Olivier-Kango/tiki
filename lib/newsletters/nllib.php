@@ -1544,7 +1544,7 @@ class NlLib extends TikiLib
     // info: subject, data, datatxt, dataparsed, wysiwyg, sendingUniqId, files, errorEditionId, editionId
     // browser: true if on the browser
     // $csrfCheck: indicated whether modified csrf check passed
-    public function send($nl_info, $info, $browser = true, &$sent, &$errors, &$logFileName, $csrfCheck)
+    public function send($nl_info, $info, $browser, &$sent, &$errors, &$logFileName, $csrfCheck)
     {
         global $prefs, $section;
         $tikilib = TikiLib::lib('tiki');

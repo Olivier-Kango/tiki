@@ -18,18 +18,19 @@ class JitFilter implements ArrayAccess, Iterator, Countable
         $this->stored = $data;
     }
 
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->stored[$offset]);
     }
 
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         unset($this->stored[$offset]);
         unset($this->lastUsed[$offset]);
         unset($this->filters[$offset]);
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetGet($key)
     {
         // Composed objects go through
@@ -63,14 +64,14 @@ class JitFilter implements ArrayAccess, Iterator, Countable
         }
     }
 
-    public function offsetSet($key, $value)
+    public function offsetSet($key, $value): void
     {
         unset($this->lastUsed[$key]);
 
         if ($value instanceof self) {
-            return $this->stored[$key] = $value->stored;
+            $this->stored[$key] = $value->stored;
         } else {
-            return $this->stored[$key] = $value;
+            $this->stored[$key] = $value;
         }
     }
 
@@ -174,33 +175,35 @@ class JitFilter implements ArrayAccess, Iterator, Countable
         }
     }
 
+    #[\ReturnTypeWillChange]
     public function current()
     {
         $key = key($this->stored);
         return $this->offsetGet($key);
     }
 
-    public function next()
+    public function next(): void
     {
         next($this->stored);
     }
 
-    public function rewind()
+    public function rewind(): void
     {
         reset($this->stored);
     }
 
+    #[\ReturnTypeWillChange]
     public function key()
     {
         return key($this->stored);
     }
 
-    public function valid()
+    public function valid(): bool
     {
         return false !== current($this->stored);
     }
 
-    public function count()
+    public function count(): int
     {
         return count($this->stored);
     }

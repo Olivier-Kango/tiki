@@ -29,7 +29,7 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = 'UTF-8'
             if (is_array($string)) {
                 $string = implode(',', $string);
             }
-            $return = htmlspecialchars($string, ENT_QUOTES, $char_set, $double_encode);
+            $return = htmlspecialchars($string ?? '', ENT_QUOTES, $char_set, $double_encode);
 
             // Convert back sanitization tags into real tags to avoid them to be displayed
             $return = str_replace('&lt;x&gt;', '<x>', $return);
@@ -39,7 +39,7 @@ function smarty_modifier_escape($string, $esc_type = 'html', $char_set = 'UTF-8'
             return $return;
 
         case 'htmlall':
-            $return = htmlentities($string, ENT_QUOTES, $char_set);
+            $return = htmlentities($string ?? '', ENT_QUOTES, $char_set);
             if (! strlen($return) && strlen($string)) { // Bug php when there is non utf8 characters in the string(http://bugs.php.net/bug.php?id=43549, http://bugs.php.net/bug.php?id=43294)
                 $return = htmlentities($string, ENT_QUOTES);
             }

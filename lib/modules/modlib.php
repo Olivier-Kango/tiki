@@ -11,7 +11,6 @@
  */
 class ModLib extends TikiLib
 {
-
     public $pref_errors = [];
 
     // additional module zones added to this array will be exposed to tiki.tpl
@@ -72,7 +71,7 @@ class ModLib extends TikiLib
                 $parse,
             ];
 
-            if (!empty((string) $tgt_mod)) {
+            if (! empty((string) $tgt_mod)) {
                 $query = 'UPDATE `tiki_user_modules` SET `name` = ?, `title` = ?, `data` = ?, `parse` = ? WHERE `name` = ?';
                 $params[] = $tgt_mod;
             }
@@ -105,7 +104,7 @@ class ModLib extends TikiLib
      * @return bool
      * @throws Exception
      */
-    public function assign_module($moduleId = 0, $name, $title, $position, $order, $cache_time = 0, $rows = 10, $groups = null, $params = null, $type = null)
+    public function assign_module($moduleId, $name, $title, $position, $order, $cache_time, $rows, $groups = null, $params = null, $type = null)
     {
         //check for valid values
         $cache_time = is_numeric($cache_time) ? $cache_time : 0;
@@ -519,7 +518,7 @@ class ModLib extends TikiLib
         $tikilib = TikiLib::lib('tiki');
 
         $topLogin = $module['name'] === 'login_box' && $module['position'] === 'top';
-        $topQA= $module['name'] === 'quickadmin' && $module['position'] === 'top';
+        $topQA = $module['name'] === 'quickadmin' && $module['position'] === 'top';
         $footer = $module['position'] === 'bottom';
         $isControlPanel = $section === 'admin' && strpos($_SERVER['PHP_SELF'], 'tiki-admin.php') !== false;
 
@@ -1116,7 +1115,7 @@ class ModLib extends TikiLib
                             'type' => 'warning',
                             'title' => tr('Failed to execute "%0" module', $mod_reference['name']),
                         ],
-                        tr('Required features: '.$mod_reference['name'].'. If you do not have permission to activate these features, ask the site administrator.'),
+                        tr('Required features: ' . $mod_reference['name'] . '. If you do not have permission to activate these features, ask the site administrator.'),
                         $smarty,
                         $repeat
                     );
@@ -1352,9 +1351,9 @@ class ModLib extends TikiLib
         foreach ($params as $name => & $inner) {
             if (isset($module_params[$name])) {
                 if (isset($inner['separator'])) {
-                    if(isset($inner['set_value_as_array'])){
+                    if (isset($inner['set_value_as_array'])) {
                         $inner['value'] = (array) $module_params[$name];
-                    }else{
+                    } else {
                         $inner['value'] = implode($inner['separator'], (array) $module_params[$name]);
                     }
                 } else {
@@ -1393,7 +1392,7 @@ class ModLib extends TikiLib
             }
 
             if (isset($params[$name]) && $params[$name] !== '') {
-                if (isset($def['separator']) && !is_array($params[$name]) && strpos($params[$name], $def['separator']) !== false) {
+                if (isset($def['separator']) && ! is_array($params[$name]) && strpos($params[$name], $def['separator']) !== false) {
                     $parts = explode($def['separator'], $params[$name]);
 
                     if ($filter) {

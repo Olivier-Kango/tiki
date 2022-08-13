@@ -94,8 +94,8 @@ class ImageTransformer extends Manipulator
 
         $ratio = max($rx, $ry);
         if ($ratio > 1) { // Resizing will occur
-            $image_new_x = $image_x / $ratio;
-            $image_new_y = $image_y / $ratio;
+            $image_new_x = (int) ($image_x / $ratio);
+            $image_new_y = (int) ($image_y / $ratio);
             $image_resized_p = imagecreatetruecolor($image_new_x, $image_new_y);
 
             if ($image) {

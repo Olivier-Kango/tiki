@@ -17,28 +17,30 @@ class WikiParser_PluginDefinition implements ArrayAccess, Countable
         $this->data = $data;
     }
 
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return isset($this->data[$offset]);
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return $this->data[$offset];
     }
 
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         // Immutable
-        return $this->offsetGet($offset);
+        // TODO check this out
+        //return $this->offsetGet($offset);
     }
 
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         // Immutable
     }
 
-    public function count()
+    public function count(): int
     {
         return count($this->data);
     }

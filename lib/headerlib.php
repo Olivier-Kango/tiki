@@ -484,7 +484,7 @@ class HeaderLib
             }
             $back .= "\n";
         }
-        if (count($this->linktags)) {
+        if (! is_null($this->linktags) && count($this->linktags)) {
             foreach ($this->linktags as $link) {
                 $back .= '<link rel="' . $link['rel'] . '" href="' . $link['href'] . '"';
                 if (isset($link['sizes'])) {

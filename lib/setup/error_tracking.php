@@ -91,7 +91,7 @@ class ErrorTracking
 
         Sentry\init([
             'dsn'         => $this->getDSN(),
-            'http_proxy'  => $prefs['use_proxy'] === 'y' ? $this->getProxyURL() : null,
+            'http_proxy'  => ($prefs['use_proxy'] ?? 'n') === 'y' ? $this->getProxyURL() : null,
             'sample_rate' => $this->getSampleRate(),
             'before_send' => function (Event $event, ?EventHint $hint): ?Event {
 
@@ -216,8 +216,8 @@ class ErrorTracking
         return false;
     }
 
-    public function setErrorHandler(Closure $handler) {
+    public function setErrorHandler(Closure $handler)
+    {
         $this->errorHandler = $handler;
     }
-
 }

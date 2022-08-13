@@ -439,7 +439,7 @@ class ReconcileExifIptcXmp
      *
      * @return mixed
      */
-    public function reconcile($types, $omni, $samekey = false, $i)
+    public function reconcile($types, $omni, $samekey, $i)
     {
         $match = [];
         //identify the types and determine matches

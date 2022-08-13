@@ -1,4 +1,5 @@
 <?php
+
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
 //
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
@@ -51,31 +52,30 @@ class CartLib
 
         $this->utilities = new \Services_Tracker_Utilities();
 
-        $this->productTracker = $prefs['payment_cart_product_tracker'] ?? 0;
-        $this->productInventoryTypeField = $prefs['payment_cart_inventory_type_field'] ?? 0;
-        $this->productInventoryTotalField = $prefs['payment_cart_inventory_total_field'] ?? 0;
-        $this->productInventoryLessHoldField = $prefs['payment_cart_inventory_lesshold_field'] ?? 0;
+        $this->productTracker = (int)$prefs['payment_cart_product_tracker'] ?? 0;
+        $this->productInventoryTypeField = (int)$prefs['payment_cart_inventory_type_field'] ?? 0;
+        $this->productInventoryTotalField = (int)$prefs['payment_cart_inventory_total_field'] ?? 0;
+        $this->productInventoryLessHoldField = (int)$prefs['payment_cart_inventory_lesshold_field'] ?? 0;
 
-        $this->orderTracker = $prefs['payment_cart_order_tracker'] ?? 0;
-        $this->orderUserField = $prefs['payment_cart_order_user_field'] ?? 0;
-        $this->orderDateField = $prefs['payment_cart_order_date_field'] ?? 0;
-        $this->orderTotalField = $prefs['payment_cart_order_total_field'] ?? 0;
-        $this->orderInvoiceField = $prefs['payment_cart_order_invoice_field'] ?? 0;
-        $this->orderWeightField = $prefs['payment_cart_order_weight_field'] ?? 0;
+        $this->orderTracker = (int)$prefs['payment_cart_order_tracker'] ?? 0;
+        $this->orderUserField = (int)$prefs['payment_cart_order_user_field'] ?? 0;
+        $this->orderDateField = (int)$prefs['payment_cart_order_date_field'] ?? 0;
+        $this->orderTotalField = (int)$prefs['payment_cart_order_total_field'] ?? 0;
+        $this->orderInvoiceField = (int)$prefs['payment_cart_order_invoice_field'] ?? 0;
+        $this->orderWeightField = (int)$prefs['payment_cart_order_weight_field'] ?? 0;
 
-        $this->orderitemsTracker = $prefs['payment_cart_orderitems_tracker'] ?? 0;
+        $this->orderitemsTracker = (int)$prefs['payment_cart_orderitems_tracker'] ?? 0;
 
-        $this->orderitemsOrderField = $prefs['payment_cart_orderitems_order_field'] ?? 0;
-        $this->orderitemsProductField = $prefs['payment_cart_orderitems_product_field'] ?? 0;
-        $this->orderitemsPriceField = $prefs['payment_cart_orderitems_price_field'] ?? 0;
-        $this->orderitemsQuantityField = $prefs['payment_cart_orderitems_quantity_field'] ?? 0;
-        $this->orderitemsUserField = $prefs['payment_cart_orderitems_user_field'] ?? 0;
-        $this->orderitemsInputtedPriceField = $prefs['payment_cart_orderitems_inputedprice_field'] ?? 0;
-        $this->orderitemsParentCodeField = $prefs['payment_cart_orderitems_parentcode_field'] ?? 0;
+        $this->orderitemsOrderField = (int)$prefs['payment_cart_orderitems_order_field'] ?? 0;
+        $this->orderitemsProductField = (int)$prefs['payment_cart_orderitems_product_field'] ?? 0;
+        $this->orderitemsPriceField = (int)$prefs['payment_cart_orderitems_price_field'] ?? 0;
+        $this->orderitemsQuantityField = (int)$prefs['payment_cart_orderitems_quantity_field'] ?? 0;
+        $this->orderitemsUserField = (int)$prefs['payment_cart_orderitems_user_field'] ?? 0;
+        $this->orderitemsInputtedPriceField = (int)$prefs['payment_cart_orderitems_inputedprice_field'] ?? 0;
+        $this->orderitemsParentCodeField = (int)$prefs['payment_cart_orderitems_parentcode_field'] ?? 0;
 
         $this->inventoryEnabled = $prefs['payment_cart_inventory'] === 'y';
-        $this->bundlesEnabled   = $prefs['payment_cart_bundles']   === 'y';
-
+        $this->bundlesEnabled   = $prefs['payment_cart_bundles'] === 'y';
     }
 
 
@@ -501,7 +501,7 @@ class CartLib
         } else {
             $cartuser = $user;
         }
-        
+
         $orderId = 0;
 
         if ($user && $prefs['payment_cart_orders'] == 'y' || ! $user && $prefs['payment_cart_anonymous'] == 'y') {
@@ -591,8 +591,7 @@ class CartLib
         int $orderId = 0,
         int $parentQuantity = 0,
         int $parentCode = 0
-    ): array
-    {
+    ): array {
         global $user, $prefs, $record_profile_items_created;
 
         if ($bundledProducts = $this->get_bundled_products($info['code'])) {
@@ -618,7 +617,6 @@ class CartLib
             $orderId && $user && $prefs['payment_cart_orders'] == 'y' ||
             ($orderId && ! $user && $prefs['payment_cart_anonymous'] == 'y')
         ) {
-
             $definition = Tracker_Definition::get($this->orderitemsTracker);
             $this->utilities->insertItem($definition, [
                 'status' => 'p',

@@ -19,7 +19,7 @@ class TikiDb_Expr
 
     public function getQueryPart($currentField)
     {
-        return str_replace('$$', $currentField, $this->string);
+        return str_replace('$$', $currentField ?? '', $this->string);
     }
 
     public function getValues()

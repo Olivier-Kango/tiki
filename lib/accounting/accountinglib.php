@@ -59,7 +59,7 @@ class AccountingLib extends LogsLib
      * @param   string  $bookAutoTax
      * @return  int/string                  bookId on success, error message otherwise
      */
-    public function createBook($bookName, $bookClosed = 'n', $bookStartDate, $bookEndDate, $bookCurrency, $bookCurrencyPos = -1, $bookDecimals, $bookDecPoint, $bookThousand, $exportSeparator, $exportEOL, $exportQuote, $bookAutoTax = 'y')
+    public function createBook($bookName, $bookClosed, $bookStartDate, $bookEndDate, $bookCurrency, $bookCurrencyPos, $bookDecimals, $bookDecPoint, $bookThousand, $exportSeparator, $exportEOL, $exportQuote, $bookAutoTax = 'y')
     {
         global $user;
         $userlib = TikiLib::lib('user');

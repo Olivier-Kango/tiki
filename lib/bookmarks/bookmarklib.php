@@ -148,7 +148,7 @@ class BookmarkLib extends TikiLib
         return true;
     }
 
-    public function list_folder($folderId, $offset, $maxRecords, $sort_mode = 'name_asc', $find, $user)
+    public function list_folder($folderId, $offset, $maxRecords, $sort_mode, $find, $user)
     {
 
         if ($find) {

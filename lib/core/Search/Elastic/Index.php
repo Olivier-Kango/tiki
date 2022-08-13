@@ -518,7 +518,7 @@ class Search_Elastic_Index implements Search_Index_Interface, Search_Index_Query
                 } else {
                     $data['_highlight'] = '';
                 }
-                $data['score'] = round($entry->_score, 2);
+                $data['score'] = round($entry->_score ?? 0, 2);
 
                 $index = $entry->_index;
 
@@ -655,10 +655,12 @@ class Search_Elastic_Index implements Search_Index_Interface, Search_Index_Query
                 $mappings = false;
             }
             if (is_object($mappings)) {
+                $mappings = get_object_vars($mappings);
                 $mappings = reset($mappings);
-                $mappings = isset($mappings->mappings) ? $mappings->mappings : $mappings; // v2 vs v5
+                $mappings = $mappings->mappings ?? $mappings; // v2 vs v5
+                $mappings = is_object($mappings) ? get_object_vars($mappings) : $mappings;
                 $mappings = reset($mappings);
-                $mappings = isset($mappings->properties) ? $mappings->properties : $mappings; // v2 vs v5
+                $mappings = $mappings->properties ?? $mappings; // v2 vs v5
                 $this->fieldMappings = $mappings;
             }
         }

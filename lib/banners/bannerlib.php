@@ -8,7 +8,6 @@
 
 class BannerLib extends TikiLib
 {
-
     public function select_banner_id($zone)
     {
         $map = [0 => 'sun', 1 => 'mon', 2 => 'tue', 3 => 'wed', 4 => 'thu', 5 => 'fri', 6 => 'sat'];
@@ -143,7 +142,7 @@ class BannerLib extends TikiLib
         $result = $this->query($query, [(int)$bannerId]);
     }
 
-    public function list_banners($offset = 0, $maxRecords = -1, $sort_mode = 'created_desc', $find = '', $user)
+    public function list_banners($offset, $maxRecords, $sort_mode, $find, $user)
     {
         if ($user == 'admin') {
             $mid = '';

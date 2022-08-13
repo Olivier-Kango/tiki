@@ -123,7 +123,7 @@ class Services_Edit_PluginController
             // in edit mode
         } else {
             $perms = $tikilib->get_perm_object($page, 'wiki page', $pageInfo, false);
-            if ($perms['tiki_p_edit'] !== 'y' && !empty($pluginArgs) && $is_allowed !== 'y') {
+            if ($perms['tiki_p_edit'] !== 'y' && ! empty($pluginArgs) && $is_allowed !== 'y') {
                 throw new Services_Exception_Denied(tr('You do not have permission to edit "%0"', $page));
             }
         }
@@ -442,7 +442,7 @@ class Services_Edit_PluginController
      * @param array $parent
      * @param array $allowedPlugins names of plugins to include (sub plugins of {list}
      */
-    private function parsePlugins($body, &$plugins, &$done, $parent = null, $allowedPlugins)
+    private function parsePlugins($body, &$plugins, &$done, $parent = [], $allowedPlugins = [])
     {
         $matches = WikiParser_PluginMatcher::match($body);
         $argumentParser = new WikiParser_PluginArgumentParser();

@@ -200,11 +200,12 @@ class FixtureTable implements Iterator
         $this->title = $title;
     }
 
-    function rewind()
+    function rewind(): void
     {
         $this->position = 0;
     }
 
+    #[\ReturnTypeWillChange]
     function current()
     {
         return array_map(function ($value) {
@@ -212,17 +213,18 @@ class FixtureTable implements Iterator
         }, $this->data[$this->position]);
     }
 
+    #[\ReturnTypeWillChange]
     function key()
     {
         return $this->position;
     }
 
-    function next()
+    function next(): void
     {
         ++$this->position;
     }
 
-    function valid()
+    function valid(): bool
     {
         return isset($this->data[$this->position]);
     }

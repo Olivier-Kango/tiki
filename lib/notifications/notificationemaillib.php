@@ -23,8 +23,8 @@ function sendForumEmailNotification(
     $data,
     $author,
     $topicName,
-    $messageId = '',
-    $inReplyTo = '',
+    $messageId,
+    $inReplyTo,
     $threadId,
     $parentId,
     $contributions = '',
@@ -708,7 +708,6 @@ function sendCategoryEmailNotification($values)
                 $mail_subject = $smarty->fetchLang($not['language'], "mail/user_watch_category_removed_subject.tpl");
                 $mail_data = $smarty->fetchLang($not['language'], "mail/user_watch_category_removed.tpl");
             } elseif ($action == 'category updated') {
-
                 $smarty->assign('oldCategoryName', $oldCategoryName);
                 $smarty->assign('oldCategoryPath', $oldCategoryPath);
                 $smarty->assign('oldDescription', $oldDescription);
@@ -718,7 +717,6 @@ function sendCategoryEmailNotification($values)
                 $mail_subject = $smarty->fetchLang($not['language'], "mail/user_watch_category_updated_subject.tpl");
                 $mail_data = $smarty->fetchLang($not['language'], "mail/user_watch_category_updated.tpl");
             } elseif ($action == 'object entered category') {
-
                 $smarty->assign('objectName', $objectName);
                 $smarty->assign('objectType', $objectType);
                 $smarty->assign('objectUrl', $objectUrl);
@@ -726,7 +724,6 @@ function sendCategoryEmailNotification($values)
                 $mail_subject = $smarty->fetchLang($not['language'], "mail/user_watch_object_entered_category_subject.tpl");
                 $mail_data = $smarty->fetchLang($not['language'], "mail/user_watch_object_entered_category.tpl");
             } elseif ($action == 'object leaved category') {
-
                 $smarty->assign('objectName', $objectName);
                 $smarty->assign('objectType', $objectType);
                 $smarty->assign('objectUrl', $objectUrl);

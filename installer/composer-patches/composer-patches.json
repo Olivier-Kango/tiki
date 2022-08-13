@@ -4,7 +4,10 @@
       "Remove the check for ADOdb Extension": "../installer/composer-patches/adodb-php__remove-the-check-if-the-adodb-php_ext-is-enabled.patch"
     },
     "candy-chat/xmpp-prebind-php": {
-        "Removed string access with curly braces syntax in PHP8": "../installer/composer-patches/xmpp-prebind-php__php8fixes.patch"
+      "Removed string access with curly braces syntax in PHP8": "../installer/composer-patches/xmpp-prebind-php__php8fixes.patch"
+    },
+    "h5p/h5p-editor": {
+      "Fix PHP 8.0 warning (missed in v1.24.4)": "../installer/composer-patches/h5p-editor__php8fixes.patch"
     },
     "jquery/jquery-sheet": {
       "Fix visibility issues": "../installer/composer-patches/jquery-sheet_fix-visibility-issues.patch"
@@ -28,6 +31,9 @@
     },
 	"nicolaskruchten/pivottable": {
 	  "Sort rows and columns by key_z_to_a": "../installer/composer-patches/nicolaskruchten_pivottable__sort_by_key_z_to_a.patch"
+	},
+	"teqneers/shamir": {
+	  "Fix PHP 8.1 deprecated errors": "../installer/composer-patches/teqneers-shamir__php81_fix_deprecated_issues.patch"
 	}
   }
 }

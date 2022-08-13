@@ -187,7 +187,7 @@ class WikiParser_PluginMatcher implements Iterator, Countable
         return true;
     }
 
-    public function count()
+    public function count(): int
     {
         return count($this->starts);
     }
@@ -195,6 +195,7 @@ class WikiParser_PluginMatcher implements Iterator, Countable
     /**
      * @return WikiParser_PluginMatcher_Match
      */
+    #[\ReturnTypeWillChange]
     public function current()
     {
         return $this->starts[ $this->scanPosition ];
@@ -203,29 +204,30 @@ class WikiParser_PluginMatcher implements Iterator, Countable
     /**
      * @return WikiParser_PluginMatcher_Match
      */
-    public function next()
+    public function next(): void
     {
         foreach ($this->starts as $key => $m) {
             if ($key > $this->scanPosition) {
                 $this->scanPosition = $key;
-                return $m;
+                return;
             }
         }
 
         $this->scanPosition = -1;
     }
 
+    #[\ReturnTypeWillChange]
     public function key()
     {
         return $this->scanPosition;
     }
 
-    public function valid()
+    public function valid(): bool
     {
         return isset($this->starts[$this->scanPosition]);
     }
 
-    public function rewind()
+    public function rewind(): void
     {
         reset($this->starts);
         $this->scanPosition = key($this->starts);
@@ -249,7 +251,8 @@ class WikiParser_PluginMatcher implements Iterator, Countable
 
     private function getLastEnd()
     {
-        return end(array_keys($this->ends));
+        $ends = array_keys($this->ends);
+        return end($ends);
     }
 
     public function findText($string, $from, $to)

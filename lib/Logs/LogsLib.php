@@ -19,7 +19,6 @@ use function utf8_decode;
 
 class LogsLib extends TikiLib
 {
-
     public function add_log($type, $message, $who = '', $ip = '', $client = '', $time = '')
     {
         global $user;
@@ -1318,7 +1317,7 @@ class LogsLib extends TikiLib
         return $colors;
     }
 
-    public function draw_contribution_vol($contributionStat, $type = 'add', $contributions)
+    public function draw_contribution_vol($contributionStat, $type, $contributions)
     {
         $ret = [];
         $ret['totalVol'] = 0;
@@ -1343,7 +1342,7 @@ class LogsLib extends TikiLib
         return $ret;
     }
 
-    public function draw_week_contribution_vol($contributionStat, $type = 'add', $contributions)
+    public function draw_week_contribution_vol($contributionStat, $type, $contributions)
     {
         $ret = [];
         $ret['totalVol'] = 0;
@@ -1374,7 +1373,7 @@ class LogsLib extends TikiLib
         return $ret;
     }
 
-    public function draw_contribution_user($userStat, $type = 'add', $contributions)
+    public function draw_contribution_user($userStat, $type, $contributions)
     {
         $ret = [];
         $ret['totalVol'] = 0;
@@ -1402,7 +1401,7 @@ class LogsLib extends TikiLib
         return $ret;
     }
 
-    public function draw_contribution_group($groupContributions, $type = 'add', $contributions)
+    public function draw_contribution_group($groupContributions, $type, $contributions)
     {
         $ret = [];
         $ret['totalVol'] = 0;

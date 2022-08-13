@@ -131,7 +131,7 @@ class TikiSecure
         ];
     }
 
-    public static function openTimestamp($timestamp = [], $requester)
+    public static function openTimestamp($timestamp, $requester)
     {
         $me = new self($requester, 2048);
         $timestamp->timestamp = $me->decrypt($timestamp->timestamp);

@@ -18,7 +18,6 @@ use Symfony\Component\Yaml\Exception\ParseException;
  */
 class ComposerManager
 {
-
     public const STATUS_INSTALLED = 'installed';
     public const STATUS_MISSING = 'missing';
     public const CONFIG_PACKAGE_FILE = 'ComposerPackages.yml';
@@ -316,7 +315,7 @@ class ComposerManager
      */
     protected function sanitizePackageKey($packageKey)
     {
-        return preg_replace("/[^a-zA-Z0-9]+/", "", $packageKey);
+        return preg_replace("/[^a-zA-Z0-9]+/", "", $packageKey ?? '');
     }
 
     /**

@@ -34,19 +34,20 @@ class Tiki_Profile_SymbolLoader implements ArrayAccess
         ];
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetGet($name)
     {
         return $this->store->get($name, $this->filters);
     }
 
-    public function offsetExists($name)
+    public function offsetExists($name): bool
     {
         return true;
     }
-    public function offsetSet($name, $value)
+    public function offsetSet($name, $value): void
     {
     }
-    public function offsetUnset($name)
+    public function offsetUnset($name): void
     {
     }
 
