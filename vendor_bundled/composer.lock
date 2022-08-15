@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4f214b2b7737296fc153745e8af9b059",
+    "content-hash": "112ced8042390c4d1be392a1dd3166bf",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -649,7 +649,7 @@
             "version": "5.15.4",
             "source": {
                 "type": "git",
-                "url": "git@github.com:FortAwesome/Font-Awesome.git",
+                "url": "https://github.com/FortAwesome/Font-Awesome.git",
                 "reference": "7d3d774145ac38663f6d1effc6def0334b68ab7e"
             },
             "dist": {
@@ -2168,6 +2168,50 @@
             "time": "2022-01-20T10:17:49+00:00"
         },
         {
+            "name": "henrique-borba/php-sieve-manager",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/henrique-borba/php-sieve-manager.git",
+                "reference": "51a6a83067355f8f75b73e1ab6540040c854a121"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/henrique-borba/php-sieve-manager/henrique-borba-php-sieve-manager-51a6a83067355f8f75b73e1ab6540040c854a121-zip-6eadca.zip",
+                "reference": "51a6a83067355f8f75b73e1ab6540040c854a121",
+                "shasum": "100ca2d85abac0716c77432a1b52755cf645fe6d"
+            },
+            "require": {
+                "ext-sockets": "*",
+                "php": ">=5.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PhpSieveManager\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Henrique Borba",
+                    "email": "henrique.borba.dev@gmail.com"
+                }
+            ],
+            "description": "PHP library to create and manage Sieve filters through the ManageSieve protocol",
+            "keywords": [
+                "email",
+                "imap",
+                "managesieve",
+                "php",
+                "sieve"
+            ],
+            "time": "2022-07-29T14:09:26+00:00"
+        },
+        {
             "name": "hesammousavi/bootstrap-v4-rtl",
             "version": "dev-master",
             "source": {
@@ -2412,13 +2456,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jasonmunro/cypht.git",
-                "reference": "58c83d4defcc1e36bdd60fdedf0fc7dd2e266089"
+                "reference": "958066ff6126fee77ae1216e78eec43bd99c507f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-58c83d4defcc1e36bdd60fdedf0fc7dd2e266089-zip-00e338.zip",
-                "reference": "58c83d4defcc1e36bdd60fdedf0fc7dd2e266089",
-                "shasum": "8da89a674722f7f8d381ff9632bf07e122f90f8f"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-958066ff6126fee77ae1216e78eec43bd99c507f-zip-b35ac4.zip",
+                "reference": "958066ff6126fee77ae1216e78eec43bd99c507f",
+                "shasum": "0887fcb8dc6074f9c6f112050cb966568404ecbe"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2431,6 +2475,7 @@
                 "ext-openssl": "*",
                 "ext-session": "*",
                 "ezyang/htmlpurifier": "^4.13.0",
+                "henrique-borba/php-sieve-manager": "dev-master",
                 "paragonie/random_compat": "^2.0.18",
                 "php": ">=5.4"
             },
@@ -2469,7 +2514,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2022-07-31T18:25:41+00:00"
+            "time": "2022-08-12T18:13:03+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -3132,17 +3177,17 @@
         },
         {
             "name": "laminas/laminas-feed",
-            "version": "2.18.1",
+            "version": "2.18.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-feed.git",
-                "reference": "f2b852e88996fb9ffeaa862398505ce06afdbcc0"
+                "reference": "a57fdb9df42950d5b7f052509fbdab0d081c6b6d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-feed/laminas-laminas-feed-f2b852e88996fb9ffeaa862398505ce06afdbcc0-zip-40546b.zip",
-                "reference": "f2b852e88996fb9ffeaa862398505ce06afdbcc0",
-                "shasum": "62baeb3f1cc2c94d8d6b7f122e98a826f57c4297"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-feed/laminas-laminas-feed-a57fdb9df42950d5b7f052509fbdab0d081c6b6d-zip-0bdb07.zip",
+                "reference": "a57fdb9df42950d5b7f052509fbdab0d081c6b6d",
+                "shasum": "c533685dd936445cab898bf0f96611657962763c"
             },
             "require": {
                 "ext-dom": "*",
@@ -3194,7 +3239,7 @@
                 "laminas",
                 "rss"
             ],
-            "time": "2022-07-19T09:20:28+00:00"
+            "time": "2022-08-08T17:02:35+00:00"
         },
         {
             "name": "laminas/laminas-filter",
@@ -11456,16 +11501,16 @@
         },
         {
             "name": "twbs/bootstrap-icons",
-            "version": "v1.8.3",
+            "version": "v1.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twbs/icons.git",
-                "reference": "9bcba3efe7fae552f6425f6f4aaf70590d835482"
+                "reference": "f7f6f61194419dcf4447dbe05b78a72601646490"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twbs/icons/zipball/9bcba3efe7fae552f6425f6f4aaf70590d835482",
-                "reference": "9bcba3efe7fae552f6425f6f4aaf70590d835482",
+                "url": "https://api.github.com/repos/twbs/icons/zipball/f7f6f61194419dcf4447dbe05b78a72601646490",
+                "reference": "f7f6f61194419dcf4447dbe05b78a72601646490",
                 "shasum": ""
             },
             "type": "library",
@@ -11489,48 +11534,9 @@
             ],
             "support": {
                 "issues": "https://github.com/twbs/icons/issues",
-                "source": "https://github.com/twbs/icons/tree/v1.8.3"
+                "source": "https://github.com/twbs/icons/tree/v1.9.1"
             },
-            "time": "2022-05-25T17:57:16+00:00"
-        },
-        {
-            "name": "twbs/bootstrap-icons",
-            "version": "v1.8.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/twbs/icons.git",
-                "reference": "9bcba3efe7fae552f6425f6f4aaf70590d835482"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/twbs/icons/zipball/9bcba3efe7fae552f6425f6f4aaf70590d835482",
-                "reference": "9bcba3efe7fae552f6425f6f4aaf70590d835482",
-                "shasum": ""
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Mark Otto",
-                    "email": "markdotto@gmail.com"
-                }
-            ],
-            "description": "Official open source SVG icon library for Bootstrap",
-            "homepage": "https://icons.getbootstrap.com/",
-            "keywords": [
-                "bootstrap",
-                "icon font",
-                "icons",
-                "svg"
-            ],
-            "support": {
-                "issues": "https://github.com/twbs/icons/issues",
-                "source": "https://github.com/twbs/icons/tree/v1.8.3"
-            },
-            "time": "2022-05-25T17:57:16+00:00"
+            "time": "2022-07-16T23:30:40+00:00"
         },
         {
             "name": "undojs/undojs",
@@ -14160,6 +14166,7 @@
         "ahand/mobileesp": 20,
         "candy-chat/xmpp-prebind-php": 20,
         "erusev/parsedown": 10,
+        "henrique-borba/php-sieve-manager": 20,
         "hesammousavi/bootstrap-v4-rtl": 20,
         "jason-munro/cypht": 20,
         "league/flysystem": 10,
