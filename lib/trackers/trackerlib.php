@@ -5079,19 +5079,27 @@ class TrackerLib extends TikiLib
             $join = '?';
             $bindvars = array_merge(['trackeritem', $item_info['itemId']], $bindvars);
         }
-        $count = $this->getOne('SELECT COUNT(DISTINCT `version`) FROM `tiki_tracker_item_field_logs` WHERE `itemId`=?', [$item_info['itemId']]);
-        $page = $this->fetchAll(
-            'SELECT DISTINCT ttifl.`version` FROM `tiki_tracker_item_field_logs` ttifl WHERE ttifl.`itemId`=? ORDER BY `version` DESC',
-            [$item_info['itemId']],
+
+        $itemsBindvars = [$item_info['itemId']];
+        $itemsWhere = '`itemId`=?';
+        if (! empty($filter['version'])) {
+            $itemsWhere .= ' AND `version` = ?';
+            $itemsBindvars[] = $filter['version'];
+        }
+
+        $count = $this->getOne('SELECT COUNT(DISTINCT `version`) FROM `tiki_tracker_item_field_logs` WHERE ' . $itemsWhere, $itemsBindvars);
+        $itemVersions = $this->fetchAll(
+            'SELECT DISTINCT ttifl.`version` FROM `tiki_tracker_item_field_logs` ttifl WHERE ' . $itemsWhere . ' ORDER BY `version` DESC',
+            $itemsBindvars,
             $max,
             $offset
         );
 
-        if (! empty($page)) {
+        if (! empty($itemVersions)) {
             $mid[] = 'ttifl.`version`<=?';
-            $bindvars[] = $page[0]['version'];
+            $bindvars[] = $itemVersions[0]['version'];
             $mid[] = 'ttifl.`version`>=?';
-            $bindvars[] = $page[count($page) - 1]['version'];
+            $bindvars[] = $itemVersions[count($itemVersions) - 1]['version'];
         }
 
         $itemObject = Tracker_Item::fromId($item_info['itemId']);
