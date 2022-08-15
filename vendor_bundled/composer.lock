@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6699da2009c77bff475ec64b64f24bf4",
+    "content-hash": "7d364d6458039ef506b5c9e690174aff",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -649,7 +649,7 @@
             "version": "5.15.4",
             "source": {
                 "type": "git",
-                "url": "git@github.com:FortAwesome/Font-Awesome.git",
+                "url": "https://github.com/FortAwesome/Font-Awesome.git",
                 "reference": "7d3d774145ac38663f6d1effc6def0334b68ab7e"
             },
             "dist": {
@@ -2061,13 +2061,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/h5p/h5p-php-library.git",
-                "reference": "25ee55b6dde3e4956aa4fb17db88f41d15255d44"
+                "reference": "573d59c5bf7649a7e45bcfe9d0383ba09c072107"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/h5p/h5p-core/h5p-h5p-core-25ee55b6dde3e4956aa4fb17db88f41d15255d44-zip-56dcc6.zip",
-                "reference": "25ee55b6dde3e4956aa4fb17db88f41d15255d44",
-                "shasum": "4b2265c21ef027881c8aa0acbfd1f4e0204eddf0"
+                "url": "https://composer.tiki.org/dist/h5p/h5p-core/h5p-h5p-core-573d59c5bf7649a7e45bcfe9d0383ba09c072107-zip-76c8b0.zip",
+                "reference": "573d59c5bf7649a7e45bcfe9d0383ba09c072107",
+                "shasum": "1f500dd09a8387dab953d9dfe890aa36e3fe03a8"
             },
             "require": {
                 "php": ">=7.0.0"
@@ -2110,7 +2110,7 @@
                 "interactive",
                 "quiz"
             ],
-            "time": "2022-08-04T12:02:22+00:00"
+            "time": "2022-08-15T10:22:04+00:00"
         },
         {
             "name": "h5p/h5p-editor",
@@ -2118,13 +2118,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/h5p/h5p-editor-php-library.git",
-                "reference": "ca5cc43fdb34fe164588e746dfe52d63665a3354"
+                "reference": "d9eef44af5b5676afbc6233af549e00ee2cee101"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/h5p/h5p-editor/h5p-h5p-editor-ca5cc43fdb34fe164588e746dfe52d63665a3354-zip-b10356.zip",
-                "reference": "ca5cc43fdb34fe164588e746dfe52d63665a3354",
-                "shasum": "330a5ddb8fdb3dede9f84948e1ff73e985baf07d"
+                "url": "https://composer.tiki.org/dist/h5p/h5p-editor/h5p-h5p-editor-d9eef44af5b5676afbc6233af549e00ee2cee101-zip-62c9da.zip",
+                "reference": "d9eef44af5b5676afbc6233af549e00ee2cee101",
+                "shasum": "bc55dbaa44b3f1b6216f96cce8caab0853467dc7"
             },
             "require": {
                 "php": ">=7.0.0"
@@ -2167,7 +2167,51 @@
                 "interactive",
                 "quiz"
             ],
-            "time": "2022-06-02T06:11:10+00:00"
+            "time": "2022-08-09T08:59:31+00:00"
+        },
+        {
+            "name": "henrique-borba/php-sieve-manager",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/henrique-borba/php-sieve-manager.git",
+                "reference": "51a6a83067355f8f75b73e1ab6540040c854a121"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/henrique-borba/php-sieve-manager/henrique-borba-php-sieve-manager-51a6a83067355f8f75b73e1ab6540040c854a121-zip-6eadca.zip",
+                "reference": "51a6a83067355f8f75b73e1ab6540040c854a121",
+                "shasum": "100ca2d85abac0716c77432a1b52755cf645fe6d"
+            },
+            "require": {
+                "ext-sockets": "*",
+                "php": ">=5.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PhpSieveManager\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Henrique Borba",
+                    "email": "henrique.borba.dev@gmail.com"
+                }
+            ],
+            "description": "PHP library to create and manage Sieve filters through the ManageSieve protocol",
+            "keywords": [
+                "email",
+                "imap",
+                "managesieve",
+                "php",
+                "sieve"
+            ],
+            "time": "2022-07-29T14:09:26+00:00"
         },
         {
             "name": "hesammousavi/bootstrap-v4-rtl",
@@ -2418,9 +2462,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-58c83d4defcc1e36bdd60fdedf0fc7dd2e266089-zip-00e338.zip",
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-958066ff6126fee77ae1216e78eec43bd99c507f-zip-b35ac4.zip",
                 "reference": "03ed008",
-                "shasum": "8da89a674722f7f8d381ff9632bf07e122f90f8f"
+                "shasum": "0887fcb8dc6074f9c6f112050cb966568404ecbe"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2433,6 +2477,7 @@
                 "ext-openssl": "*",
                 "ext-session": "*",
                 "ezyang/htmlpurifier": "^4.13.0",
+                "henrique-borba/php-sieve-manager": "dev-master",
                 "paragonie/random_compat": "^2.0.18",
                 "php": ">=5.4"
             },
@@ -2471,7 +2516,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2022-07-31T18:25:41+00:00"
+            "time": "2022-08-12T18:13:03+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -3134,17 +3179,17 @@
         },
         {
             "name": "laminas/laminas-feed",
-            "version": "2.18.1",
+            "version": "2.18.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-feed.git",
-                "reference": "f2b852e88996fb9ffeaa862398505ce06afdbcc0"
+                "reference": "a57fdb9df42950d5b7f052509fbdab0d081c6b6d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-feed/laminas-laminas-feed-f2b852e88996fb9ffeaa862398505ce06afdbcc0-zip-40546b.zip",
-                "reference": "f2b852e88996fb9ffeaa862398505ce06afdbcc0",
-                "shasum": "62baeb3f1cc2c94d8d6b7f122e98a826f57c4297"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-feed/laminas-laminas-feed-a57fdb9df42950d5b7f052509fbdab0d081c6b6d-zip-0bdb07.zip",
+                "reference": "a57fdb9df42950d5b7f052509fbdab0d081c6b6d",
+                "shasum": "c533685dd936445cab898bf0f96611657962763c"
             },
             "require": {
                 "ext-dom": "*",
@@ -3196,7 +3241,7 @@
                 "laminas",
                 "rss"
             ],
-            "time": "2022-07-19T09:20:28+00:00"
+            "time": "2022-08-08T17:02:35+00:00"
         },
         {
             "name": "laminas/laminas-filter",
@@ -13721,6 +13766,7 @@
         "ahand/mobileesp": 20,
         "candy-chat/xmpp-prebind-php": 20,
         "erusev/parsedown": 10,
+        "henrique-borba/php-sieve-manager": 20,
         "hesammousavi/bootstrap-v4-rtl": 20,
         "h5p/h5p-core": 20,
         "h5p/h5p-editor": 20,
