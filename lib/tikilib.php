@@ -637,6 +637,8 @@ class TikiLib extends TikiDb_Bridge
      */
     public function check_rules($user, $section)
     {
+        global $prefs;
+
         // Admin is never banned
         if ($user == 'admin') {
             return false;
@@ -658,6 +660,13 @@ class TikiLib extends TikiDb_Bridge
 
                 if (preg_match($pattern, $user)) {
                     return $res['message'];
+                }
+
+                if ($prefs['feature_banning_email'] === 'y') {
+                    $info = TikiLib::lib('user')->get_user_info($user);
+                    if (preg_match($pattern, $info['email'])) {
+                       return $res['message'];
+                   }
                 }
             } else {
                 // check ip

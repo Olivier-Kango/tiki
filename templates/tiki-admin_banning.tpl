@@ -24,21 +24,6 @@
     }
 {/jq}
 
-{* this script hides date fields when they are irrelevant *}
-{jq notonready=true}
-    function CheckUseDates() {
-        var e = document.getElementById('usedates_date');
-        var e_from = document.getElementById('usedates_date_from');
-        var e_to = document.getElementById('usedates_date_to');
-        var check = document.getElementById('banning-actdates');
-        if ( check.checked == true ) {
-            e.style.display = 'block' ;
-        }else{
-            e.style.display = 'none' ;
-        }
-    }
-{/jq}
-
 {title help="Banning"}{tr}Banning system{/tr}{/title}
 
 <div class="t_navbar">
@@ -65,14 +50,22 @@
     <div class="mb-3 row">
         <label class="col-sm-4 col-form-label" for="banning-title">{tr}Rule title{/tr}</label>
         <div class="col-sm-8">
-            <input type="text" name="title" id="banning-title" value="{$info.title|escape}" maxlength="200">
+            <input type="text" name="title" id="banning-title" value="{$info.title|escape}" maxlength="200" class="form-control">
         </div>
     </div>
     <div class="mb-3 row">
-        <label class="col-sm-4 col-form-label" for="banning-userregex">{tr}Username regex matching{/tr}</label>
-        <div class="col-sm-8">
+        <label class="col-sm-4 col-form-label" for="banning-userregex">
+            {if $prefs.feature_banning_email eq 'y'}
+                {tr}Username or email regex matching{/tr}
+            {else}
+                {tr}Username regex matching{/tr}
+            {/if}
+        </label>
+        <div class="col-sm-1">
             <input type="radio" name="mode" value="user" {if $info.mode eq 'user'}checked="checked"{/if}>
-            <input type="text" name="userreg" id="banning-userregex" value="{$info.user|escape}" onfocus="$('input[name=mode]').val(['user']);">
+        </div>
+        <div class="col-sm-7">
+            <input type="text" name="userreg" id="banning-userregex" value="{$info.user|escape}" onfocus="$('input[name=mode]').val(['user']);" class="form-control">
         </div>
     </div>
     {if isset($mass_ban_ip)}
@@ -94,13 +87,28 @@
         </div>
     {else}
         <div class="mb-3 row">
-            <label class="col-sm-4 col-form-label" for="banning-ipregex">{tr}IP regex matching{/tr}</label></label>
-            <div class="col-sm-8">
+            <label class="col-sm-4 col-form-label" for="banning-ipregex">{tr}IP regex matching{/tr}</label>
+            <div class="col-sm-1">
                 <input type="radio" name="mode" value="ip" {if $info.mode eq 'ip'}checked="checked"{/if}>
-                <input type="text" name="ip1" id="banning-ipregex" value="{$info.ip1|escape}" size="3" onfocus="$('input[name=mode]').val(['ip']);">.
-                <input type="text" name="ip2" value="{$info.ip2|escape}" size="3">.
-                <input type="text" name="ip3" value="{$info.ip3|escape}" size="3">.
-                <input type="text" name="ip4" value="{$info.ip4|escape}" size="3">
+            </div>
+            <div class="col-sm-5">
+                <div class="d-flex flex-row">
+                    <div>
+                        <input type="text" name="ip1" id="banning-ipregex" value="{$info.ip1|escape}" onfocus="$('input[name=mode]').val(['ip']);" class="form-control">
+                    </div>
+                    <div class="px-1">.</div>
+                    <div>
+                        <input type="text" name="ip2" value="{$info.ip2|escape}" class="form-control">
+                    </div>
+                    <div class="px-1">.</div>
+                    <div>
+                        <input type="text" name="ip3" value="{$info.ip3|escape}" class="form-control">
+                    </div>
+                    <div class="px-1">.</div>
+                    <div>
+                        <input type="text" name="ip4" value="{$info.ip4|escape}" class="form-control">
+                    </div>
+                </div>
             </div>
         </div>
     {/if}
@@ -123,16 +131,17 @@
     <div class="mb-3 row">
         <label class="col-sm-4 col-form-label" for="banning-actdates">{tr}Rule activated by dates{/tr}</label>
         <div class="col-sm-8">
-            <input type="checkbox" name="use_dates" id="banning-actdates" {if $info.use_dates eq 'y'}checked="checked"{/if} onclick="CheckUseDates();">
+            <input type="checkbox" name="use_dates" id="banning-actdates" {if $info.use_dates eq 'y'}checked="checked"{/if}
+                   onclick="if ($(this).is(':checked')) { $('.usedates').show(); } else { $('.usedates').hide();}">
         </div>
     </div>
-    <div class="mb-3 row" id="usedates_date" style="display: {if $info.use_dates eq 'y'}block{else}none{/if};" >
+    <div class="mb-3 row usedates" style="display: {if $info.use_dates eq 'y'}block{else}none{/if};" >
         <label class="col-sm-4 col-form-label" for="">{tr}Rule active from{/tr}</label>
         <div class="col-sm-8">
             {html_select_date prefix="date_from" time=$info.date_from field_order=$prefs.display_field_order}
         </div>
     </div>
-    <div class="mb-3 row">
+    <div class="mb-3 row usedates" style="display: {if $info.use_dates eq 'y'}block{else}none{/if};">
         <label class="col-sm-4 col-form-label" for="">{tr}Rule active until{/tr}</label>
         <div class="col-sm-8">
             {html_select_date prefix="date_to" time=$info.date_to end_year="+10" field_order=$prefs.display_field_order}

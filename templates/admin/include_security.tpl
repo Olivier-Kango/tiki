@@ -188,6 +188,9 @@
             {preference name=feature_wiki_protect_email}
             {preference name=feature_wiki_ext_rel_nofollow}
             {preference name=feature_banning}
+            <div class="adminoptionboxchild" id="feature_banning_childcontainer">
+                {preference name=feature_banning_email}
+            </div>
 
             {preference name=feature_comments_moderation}
             {preference name=comments_akismet_filter}
