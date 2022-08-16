@@ -76,7 +76,7 @@ class Services_File_Controller
 
 	function action_upload($input)
 	{
-		if ($input->files->asArray()) {
+		if ($input->asArray('files')) {
 			return [];
 		}
 
