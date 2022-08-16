@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c2dfde686f11ae41d6c1f73b1e24e247",
+    "content-hash": "d06e279097ae8424f00944c66c4019a6",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -2456,13 +2456,13 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jasonmunro/cypht.git",
-                "reference": "958066ff6126fee77ae1216e78eec43bd99c507f"
+                "reference": "07399d3f6f58b5dec8c70bf1b63f976eb7c34095"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-958066ff6126fee77ae1216e78eec43bd99c507f-zip-b35ac4.zip",
-                "reference": "958066ff6126fee77ae1216e78eec43bd99c507f",
-                "shasum": "0887fcb8dc6074f9c6f112050cb966568404ecbe"
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-07399d3f6f58b5dec8c70bf1b63f976eb7c34095-zip-3d30e7.zip",
+                "reference": "07399d3f6f58b5dec8c70bf1b63f976eb7c34095",
+                "shasum": "87bd9cb24d26d18a925f153aac51f802d38e8a6f"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2514,7 +2514,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2022-08-12T18:13:03+00:00"
+            "time": "2022-08-16T19:57:21+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -3824,35 +3824,35 @@
         },
         {
             "name": "laminas/laminas-oauth",
-            "version": "2.2.0",
+            "version": "2.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-oauth.git",
-                "reference": "711f518f718a7e31e1942784d6f3f7a70009ce79"
+                "reference": "8075a5c6b17523cb262ed3a6a3764b3cbf84d781"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-oauth/laminas-laminas-oauth-711f518f718a7e31e1942784d6f3f7a70009ce79-zip-63c370.zip",
-                "reference": "711f518f718a7e31e1942784d6f3f7a70009ce79",
-                "shasum": "734ee5ad3973026b214e7285408a40583ed78c15"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-oauth/laminas-laminas-oauth-8075a5c6b17523cb262ed3a6a3764b3cbf84d781-zip-f9d785.zip",
+                "reference": "8075a5c6b17523cb262ed3a6a3764b3cbf84d781",
+                "shasum": "eac337e01dfd2f8dd479c7470b12916f1ea8edb5"
             },
             "require": {
-                "laminas/laminas-config": "^3.0",
-                "laminas/laminas-crypt": "^3.0",
-                "laminas/laminas-http": "^2.14",
-                "laminas/laminas-i18n": "^2.11",
-                "laminas/laminas-loader": "^2.7",
-                "laminas/laminas-math": "^3.3",
-                "laminas/laminas-stdlib": "^3.2",
-                "laminas/laminas-uri": "^2.8",
-                "php": "^7.3 || ~8.0.0"
+                "laminas/laminas-config": "^3.7",
+                "laminas/laminas-crypt": "^3.6.0",
+                "laminas/laminas-http": "^2.15",
+                "laminas/laminas-i18n": "^2.13.0",
+                "laminas/laminas-loader": "^2.8",
+                "laminas/laminas-math": "^3.5",
+                "laminas/laminas-stdlib": "^3.10",
+                "laminas/laminas-uri": "^2.9",
+                "php": "^7.3 || ~8.0.0 || ~8.1.0"
             },
             "conflict": {
                 "zendframework/zendoauth": "*"
             },
             "require-dev": {
                 "laminas/laminas-coding-standard": "~1.0.0",
-                "phpunit/phpunit": "^9.3"
+                "phpunit/phpunit": "^9.5.5"
             },
             "type": "library",
             "autoload": {
@@ -3869,7 +3869,7 @@
                 "laminas",
                 "oauth"
             ],
-            "time": "2021-12-06T04:29:18+00:00"
+            "time": "2022-07-22T12:18:05+00:00"
         },
         {
             "name": "laminas/laminas-recaptcha",
@@ -4117,36 +4117,36 @@
         },
         {
             "name": "laminas/laminas-soap",
-            "version": "2.9.0",
+            "version": "2.10.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laminas/laminas-soap.git",
-                "reference": "11672a79e9074fd8e4e7aedd75849902e7b45e23"
+                "reference": "b1245a09b523485060407f73a0058fb871d2c656"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/laminas/laminas-soap/laminas-laminas-soap-11672a79e9074fd8e4e7aedd75849902e7b45e23-zip-3b4fda.zip",
-                "reference": "11672a79e9074fd8e4e7aedd75849902e7b45e23",
-                "shasum": "3fed101902c39198a21a00938e323ebfbbf825d0"
+                "url": "https://composer.tiki.org/dist/laminas/laminas-soap/laminas-laminas-soap-b1245a09b523485060407f73a0058fb871d2c656-zip-4fa8d3.zip",
+                "reference": "b1245a09b523485060407f73a0058fb871d2c656",
+                "shasum": "bb344c362d0b9032069f06759004f58fa1d039f0"
             },
             "require": {
                 "ext-dom": "*",
                 "ext-soap": "*",
-                "laminas/laminas-server": "^2.9",
-                "laminas/laminas-stdlib": "^3.3",
-                "laminas/laminas-uri": "^2.8",
-                "laminas/laminas-zendframework-bridge": "^1.1.0",
-                "php": "^7.3 || ~8.0.0"
+                "laminas/laminas-server": "^2.11",
+                "laminas/laminas-stdlib": "^3.6",
+                "laminas/laminas-uri": "^2.9.1",
+                "php": "~7.4.0 || ~8.0.0 || ~8.1.0"
             },
-            "replace": {
-                "zendframework/zend-soap": "^2.8.0"
+            "conflict": {
+                "laminas/laminas-code": "<4.4",
+                "zendframework/zend-soap": "*"
             },
             "require-dev": {
-                "laminas/laminas-coding-standard": "~1.0.0",
-                "laminas/laminas-config": "^3.4",
-                "laminas/laminas-http": "^2.14",
+                "laminas/laminas-coding-standard": "~2.2.1",
+                "laminas/laminas-config": "^3.7",
+                "laminas/laminas-http": "^2.15",
                 "phpspec/prophecy-phpunit": "^2.0.1",
-                "phpunit/phpunit": "^9.4.3"
+                "phpunit/phpunit": "^9.5.5"
             },
             "suggest": {
                 "ext-curl": "Curl is required when .NET compatibility is required",
@@ -4167,7 +4167,7 @@
                 "laminas",
                 "soap"
             ],
-            "time": "2021-02-17T18:59:03+00:00"
+            "time": "2021-10-14T14:04:27+00:00"
         },
         {
             "name": "laminas/laminas-stdlib",
@@ -8478,17 +8478,17 @@
         },
         {
             "name": "sabre/dav",
-            "version": "4.1.5",
+            "version": "4.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sabre-io/dav.git",
-                "reference": "c1afdc77a95efea6ee40c03c45f57c3c0c80ec22"
+                "reference": "b65362abc926520eda2c57e219f022a6c288069d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/sabre/dav/sabre-dav-c1afdc77a95efea6ee40c03c45f57c3c0c80ec22-zip-0a11c5.zip",
-                "reference": "c1afdc77a95efea6ee40c03c45f57c3c0c80ec22",
-                "shasum": "47fae3d4894db727225b6b5ce0efc147b20efc57"
+                "url": "https://composer.tiki.org/dist/sabre/dav/sabre-dav-b65362abc926520eda2c57e219f022a6c288069d-zip-d10135.zip",
+                "reference": "b65362abc926520eda2c57e219f022a6c288069d",
+                "shasum": "e5a8653be428b484278b8481d67feba80a234936"
             },
             "require": {
                 "ext-ctype": "*",
@@ -8502,7 +8502,7 @@
                 "ext-spl": "*",
                 "lib-libxml": ">=2.7.0",
                 "php": "^7.1.0 || ^8.0",
-                "psr/log": "^1.0",
+                "psr/log": "^1.0 || ^2.0 || ^3.0",
                 "sabre/event": "^5.0",
                 "sabre/http": "^5.0.5",
                 "sabre/uri": "^2.0",
@@ -8555,7 +8555,7 @@
                 "framework",
                 "iCalendar"
             ],
-            "time": "2021-02-12T07:54:23+00:00"
+            "time": "2022-06-27T09:07:55+00:00"
         },
         {
             "name": "sabre/event",
