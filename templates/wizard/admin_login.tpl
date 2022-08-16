@@ -17,6 +17,9 @@
                     {preference name=validateUsers}
                     {preference name=validateRegistration}
                     {preference name=feature_banning}
+                    <div class="adminoptionboxchild" id="feature_banning_childcontainer">
+                        {preference name=feature_banning_email}
+                    </div>
                     {preference name=useRegisterPasscode}
                     <div class="adminoptionboxchild" id="useRegisterPasscode_childcontainer">
                         {preference name=registerPasscode}

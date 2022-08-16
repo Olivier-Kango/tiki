@@ -14,7 +14,7 @@ if ($prefs['feature_theme_control'] == 'y' && (! isset($banningOnly) || ! $banni
     include('tiki-tc.php');
 }
 if ($prefs['feature_banning'] == 'y') {
-    global $user;
+    global $user, $section;
     if ($msg = TikiLib::lib('tiki')->check_rules($user, $section)) {
         if (isset($ajaxRequest) && $ajaxRequest) {
             Services_Utilities::modalException(tr('You are banned from %0', $section));

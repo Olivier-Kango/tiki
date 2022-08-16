@@ -761,6 +761,13 @@ function prefs_feature_list($partial = false)
             'tags' => ['basic'],
             'view' => 'tiki-admin_banning.php',
         ],
+        'feature_banning_email' => [
+            'name' => tra('Ban usernames and emails'),
+            'description' => tra('Banning rules use both email and username to match rules.'),
+            'dependencies' => ['feature_banning'],
+            'type' => 'flag',
+            'default' => 'n',
+        ],
         'feature_stats' => [
             'name' => tra('Stats'),
             'description' => tra('Record basic statistics about major Tiki features (number of wiki pages, size of file galleries, etc.)'),
