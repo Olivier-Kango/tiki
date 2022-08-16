@@ -5318,4 +5318,22 @@ h2:hover .heading-link, h3:hover .heading-link, h4:hover .heading-link, h5:hover
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
 }
+.codelisting_container {
+  max-width: 990px;
+}
+.code {
+  margin-top: 20px;
+}
+.icon_copy_code {
+  color: #87898a;
+  position: relative;
+  float: right;
+  right: 20px;
+  top: 10px;
+  font-size: 80%;
+}
+.icon_copy_code:hover {
+  color: black;
+  cursor: pointer;
+}
 /* End of file */

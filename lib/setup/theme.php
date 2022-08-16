@@ -55,6 +55,7 @@ if (! empty($_SESSION['try_theme'])) {
 $headerlib->add_jsfile('vendor_bundled/vendor/npm-asset/popper.js/dist/umd/popper.js');
 $headerlib->add_jsfile('vendor_bundled/vendor/twbs/bootstrap/dist/js/bootstrap.js');
 $headerlib->add_jsfile('lib/jquery_tiki/tiki-bootstrapmodalfix.js');
+$headerlib->add_jsfile('vendor_bundled/vendor/twbs/bootstrap/site/assets/js/vendor/clipboard.min.js');
 
 if ($prefs['feature_fixed_width'] === 'y') {
     $headerlib->add_css(
