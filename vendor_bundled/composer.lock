@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7d364d6458039ef506b5c9e690174aff",
+    "content-hash": "1fb58a51de7b32263880a87df4585edc",
     "packages": [
         {
             "name": "Sam152/Javascript-Equal-Height-Responsive-Rows",
@@ -2462,9 +2462,9 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-958066ff6126fee77ae1216e78eec43bd99c507f-zip-b35ac4.zip",
+                "url": "https://composer.tiki.org/dist/jason-munro/cypht/jason-munro-cypht-07399d3f6f58b5dec8c70bf1b63f976eb7c34095-zip-3d30e7.zip",
                 "reference": "03ed008",
-                "shasum": "0887fcb8dc6074f9c6f112050cb966568404ecbe"
+                "shasum": "87bd9cb24d26d18a925f153aac51f802d38e8a6f"
             },
             "require": {
                 "bacon/bacon-qr-code": "^1.0.3 || ^2.0.0",
@@ -2516,7 +2516,7 @@
                 "webmail",
                 "webmail-client"
             ],
-            "time": "2022-08-12T18:13:03+00:00"
+            "time": "2022-08-16T19:57:21+00:00"
         },
         {
             "name": "jean85/pretty-package-versions",
@@ -4965,17 +4965,17 @@
         },
         {
             "name": "matthiasmullie/minify",
-            "version": "1.3.68",
+            "version": "1.3.69",
             "source": {
                 "type": "git",
                 "url": "https://github.com/matthiasmullie/minify.git",
-                "reference": "c00fb02f71b2ef0a5f53fe18c5a8b9aa30f48297"
+                "reference": "a61c949cccd086808063611ef9698eabe42ef22f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/matthiasmullie/minify/matthiasmullie-minify-c00fb02f71b2ef0a5f53fe18c5a8b9aa30f48297-zip-0532d1.zip",
-                "reference": "c00fb02f71b2ef0a5f53fe18c5a8b9aa30f48297",
-                "shasum": "625583c743ea885cdb8fd0f43b200cae3c8bf5e5"
+                "url": "https://composer.tiki.org/dist/matthiasmullie/minify/matthiasmullie-minify-a61c949cccd086808063611ef9698eabe42ef22f-zip-7cc1fe.zip",
+                "reference": "a61c949cccd086808063611ef9698eabe42ef22f",
+                "shasum": "fd733a36219ce1705e8dd6ac7b1be5dfeb5b9511"
             },
             "require": {
                 "ext-pcre": "*",
@@ -5021,7 +5021,7 @@
                 "minifier",
                 "minify"
             ],
-            "time": "2022-04-19T08:28:56+00:00"
+            "time": "2022-08-01T09:00:18+00:00"
         },
         {
             "name": "matthiasmullie/path-converter",
@@ -6472,6 +6472,88 @@
                 "random"
             ],
             "time": "2022-02-16T17:07:03+00:00"
+        },
+        {
+            "name": "paragonie/sodium_compat",
+            "version": "v1.17.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/paragonie/sodium_compat.git",
+                "reference": "ac994053faac18d386328c91c7900f930acadf1e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://composer.tiki.org/dist/paragonie/sodium_compat/paragonie-sodium_compat-ac994053faac18d386328c91c7900f930acadf1e-zip-7116c9.zip",
+                "reference": "ac994053faac18d386328c91c7900f930acadf1e",
+                "shasum": "503ada285003f1a4b5a7352006d22188131d2778"
+            },
+            "require": {
+                "paragonie/random_compat": ">=1",
+                "php": "^5.2.4|^5.3|^5.4|^5.5|^5.6|^7|^8"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^3|^4|^5|^6|^7|^8|^9"
+            },
+            "suggest": {
+                "ext-libsodium": "PHP < 7.0: Better performance, password hashing (Argon2i), secure memory management (memzero), and better security.",
+                "ext-sodium": "PHP >= 7.0: Better performance, password hashing (Argon2i), secure memory management (memzero), and better security."
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "autoload.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "ISC"
+            ],
+            "authors": [
+                {
+                    "name": "Paragon Initiative Enterprises",
+                    "email": "security@paragonie.com"
+                },
+                {
+                    "name": "Frank Denis",
+                    "email": "jedisct1@pureftpd.org"
+                }
+            ],
+            "description": "Pure PHP implementation of libsodium; uses the PHP extension if it exists",
+            "keywords": [
+                "Authentication",
+                "BLAKE2b",
+                "ChaCha20",
+                "ChaCha20-Poly1305",
+                "Chapoly",
+                "Curve25519",
+                "Ed25519",
+                "EdDSA",
+                "Edwards-curve Digital Signature Algorithm",
+                "Elliptic Curve Diffie-Hellman",
+                "Poly1305",
+                "Pure-PHP cryptography",
+                "RFC 7748",
+                "RFC 8032",
+                "Salpoly",
+                "Salsa20",
+                "X25519",
+                "XChaCha20-Poly1305",
+                "XSalsa20-Poly1305",
+                "Xchacha20",
+                "Xsalsa20",
+                "aead",
+                "cryptography",
+                "ecdh",
+                "elliptic curve",
+                "elliptic curve cryptography",
+                "encryption",
+                "libsodium",
+                "php",
+                "public-key cryptography",
+                "secret-key cryptography",
+                "side-channel resistant"
+            ],
+            "time": "2022-03-23T19:32:04+00:00"
         },
         {
             "name": "pclzip/pclzip",
@@ -8533,25 +8615,25 @@
         },
         {
             "name": "sabre/uri",
-            "version": "2.2.2",
+            "version": "2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sabre-io/uri.git",
-                "reference": "7cb0f489578afad5006e85cd60f18ff33f2d440d"
+                "reference": "4e84208b86d351e8a439613f318feda7a0152b48"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://composer.tiki.org/dist/sabre/uri/sabre-uri-7cb0f489578afad5006e85cd60f18ff33f2d440d-zip-85c4c1.zip",
-                "reference": "7cb0f489578afad5006e85cd60f18ff33f2d440d",
-                "shasum": "5d343c19c1695a427ea58b3fee6448b670099524"
+                "url": "https://composer.tiki.org/dist/sabre/uri/sabre-uri-4e84208b86d351e8a439613f318feda7a0152b48-zip-2b1ab0.zip",
+                "reference": "4e84208b86d351e8a439613f318feda7a0152b48",
+                "shasum": "c24e16380c3f65f8f9f56e187a8dc6cc026a62ce"
             },
             "require": {
-                "php": "^7.1 || ^8.0"
+                "php": "^7.4 || ^8.0"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "~2.17.1",
-                "phpstan/phpstan": "^0.12",
-                "phpunit/phpunit": "^7.5 || ^8.5 || ^9.0"
+                "friendsofphp/php-cs-fixer": "^3.9",
+                "phpstan/phpstan": "^1.8",
+                "phpunit/phpunit": "^9.0"
             },
             "type": "library",
             "autoload": {
@@ -8581,7 +8663,7 @@
                 "uri",
                 "url"
             ],
-            "time": "2021-11-04T09:29:58+00:00"
+            "time": "2022-08-17T09:51:38+00:00"
         },
         {
             "name": "sabre/vobject",
