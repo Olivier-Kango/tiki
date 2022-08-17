@@ -181,16 +181,14 @@ class TikiSheet
     /** getHandlerList
      * Returns an array containing the list of all valid
      * handlers for general file import/export.
-     * @return An array.
+     * @return array.
      * @static
      */
     public function getHandlerList()
     {
         return [
-            'TikiSheetSerializeHandler',
             'TikiSheetCSVHandler',
-            'TikiSheetCSVExcelHandler'//,
-            //'TikiSheetExcelHandler'
+            'TikiSheetCSVExcelHandler',
         ];
     }
 
@@ -833,92 +831,6 @@ class TikiSheetDataHandler
     }
 }
 
-/** TikiSheetSerializeHandler
- * Class that stores the sheet representation in a
- * standard text file as a serialized PHP object.
- */
-class TikiSheetSerializeHandler extends TikiSheetDataHandler
-{
-    public $file;
-
-    /** Constructor
-     * Initializes the the serializer on a file.
-     * @param $file The file path to save or load from.
-     */
-    public function __construct($file = "php://stdout", $inputEncoding = '', $outputEncoding = '')
-    {
-        $this->file = $file;
-        $this->encoding = new Encoding($inputEncoding, $outputEncoding);
-    }
-
-    // _load
-    public function _load(&$sheet)
-    {
-        if ($file = @fopen($this->file, "r")) {
-            $data = @fread($file, filesize($this->file));
-
-            @fclose($file);
-
-            $data = unserialize($data);
-
-            if ($data === false) {
-                return false;
-            }
-
-            $sheet->dataGrid = $data->dataGrid;
-            $sheet->calcGrid = $data->calcGrid;
-            $sheet->cellInfo = $data->cellInfo;
-
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    // _save
-    public function _save(&$sheet)
-    {
-        $data = serialize($sheet);
-
-        if ($this->file == "php://stdout") {
-            header("Content-type: application/octet-stream");
-            header("Content-Disposition: attachment; filename=export.tws");
-            header("Expires: 0");
-            header("Cache-Control: must-revalidate, post-check=0,pre-check=0");
-            header("Pragma: public");
-            $this->output = $data;
-            return true;
-        } else {
-            if ($file = @fopen($this->file, "w")) {
-                $return = @fwrite($file, $data);
-
-                @fclose($file);
-                return $return;
-            } else {
-                return false;
-            }
-        }
-    }
-
-    // name
-    public function name()
-    {
-        return tr("TikiSheet File");
-    }
-
-    // supports
-    public function supports($type)
-    {
-        return ( ( TIKISHEET_SAVE_DATA | TIKISHEET_SAVE_CALC | TIKISHEET_SAVE_CELL | TIKISHEET_SAVE_FORMAT | TIKISHEET_LOAD_DATA | TIKISHEET_LOAD_CALC | TIKISHEET_LOAD_CELL | TIKISHEET_LOAD_FORMAT ) & $type ) > 0;
-    }
-
-    // version
-    public function version()
-    {
-        return "1.0";
-    }
-}
-
 /** TikiSheetCSVHandler
  * Class that stores the sheet representation in a
  * standard text file as a serialized PHP object.
@@ -1557,133 +1469,6 @@ class TikiSheetDatabaseHandler extends TikiSheetDataHandler
     public function version()
     {
         return "1.0";
-    }
-}
-
-/** TikiSheetExcelHandler
- * Class that stores the sheet representation in a
- * standard text file as a serialized PHP object.
- */
-class TikiSheetExcelHandler extends TikiSheetDataHandler
-{
-    public $file;
-    public $disabled = true;
-    /** Constructor
-     * Initializes the the serializer on a file.
-     * @param $file The file path to save or load from.
-     */
-    public function __construct($file = "php://stdout", $inputEncoding = '', $outputEncoding = '')
-    {
-        $this->file = $file;
-        $this->encoding = new Encoding($inputEncoding, $outputEncoding);
-    }
-
-    // _load
-    public function _load(TikiSheet &$sheet)
-    {
-        $document = new Spreadsheet_Excel_Reader();
-
-        if (! $document->read($this->file)) {
-            return false;
-        }
-
-        $data = $document->sheets[0];
-
-        if (is_array($data['cells'])) {
-            foreach ($data['cells'] as $row => $cols) {
-                if (is_array($cols)) {
-                    foreach ($cols as $col => $value) {
-                        $sheet->initCell($row, $col);
-
-                        $info = $data['cellsInfo'][$row][$col];
-
-                        if (! isset($info['rowspan'])) {
-                            $height = 1;
-                        } else {
-                            $height = $info['rowspan'];
-                        }
-
-                        if (! isset($info['colspan'])) {
-                            $width = 1;
-                        } else {
-                            $width = $info['colspan'];
-                        }
-
-                        $cellValue = $this->encoding->convert_encoding($value);
-                        $sheet->setValue($cellValue);
-
-                        if (isset($cellValue)) {
-                            if (strlen($cellValue)) {
-                                if ($cellValue[0] == '=') {
-                                    $sheet->setCalculation(substr($cellValue, 1));
-                                } else {
-                                    $sheet->setCalculation($cellValue);
-                                }
-                            }
-                        }
-                        $sheet->setColSpan($width, $height);
-                    }
-                }
-            }
-        }
-
-        return true;
-    }
-
-    // _save
-    public function _save(&$sheet)
-    {
-        $book = new Spreadsheet_Excel_Writer();
-
-        header("Content-type: application/vnd.ms-excel");
-        header("Content-Disposition: attachment; filename=export.xls");
-        header("Expires: 0");
-        header("Cache-Control: must-revalidate, post-check=0,pre-check=0");
-        header("Pragma: public");
-
-        $out = &$book->addWorksheet("TikiSheet Export");
-
-        foreach ($sheet->dataGrid as $row => $cols) {
-            if (is_array($cols)) {
-                foreach ($cols as $col => $value) {
-                    if (isset($sheet->calcGrid[$row][$col])) {
-                        $formula = "=" . $sheet->calcGrid[$row][$col];
-                        $out->writeFormula($row, $col, utf8_decode($formula));
-                    } else {
-                        $out->write($row, $col, $this->encoding->convert_encoding($value['value']));
-                    }
-
-                    $width = $height = 1;
-                    if (is_array($sheet->cellInfo[$row][$col])) {
-                        extract($sheet->cellInfo[$row][$col]);
-                    }
-
-                    if ($width != 1 || $height != 1) {
-                        $out->mergeCells($row, $col, $row + $height - 1, $col + $width - 1);
-                    }
-                }
-            }
-        }
-
-        $book->close();
-    }
-
-    // name
-    public function name()
-    {
-        return tr("MS Excel File");
-    }
-
-    // supports
-    public function supports($type)
-    {
-        return ( ( TIKISHEET_LOAD_DATA | TIKISHEET_LOAD_CELL | TIKISHEET_SAVE_CALC | TIKISHEET_SAVE_DATA ) & $type ) > 0;
-    }
-
-    // version
-    public function version()
-    {
-        return "0.1-dev";
     }
 }
 
