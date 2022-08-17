@@ -18,6 +18,7 @@ class PreferencesLib
         'smarty_security_modifiers',
         'smarty_security_dirs',
         'tiki_allow_trust_input',
+        'feature_create_webhelp',
     ];
 
     private $data = [];
