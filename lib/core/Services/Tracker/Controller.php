@@ -1430,6 +1430,7 @@ class Services_Tracker_Controller
             'saveAndComment' => $saveAndComment,
             'suppressFeedback' => $suppressFeedback,
             'conflictoverride' => $input->conflictoverride->int(),
+            'save_return' => $input->save_return->alpha() ?? 'n',
         ];
     }
 
