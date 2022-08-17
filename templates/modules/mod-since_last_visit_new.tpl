@@ -15,7 +15,7 @@
         {else}
             {if $use_jquery_ui eq "y"}
                 {assign var=fragment value=1}
-                <div class="tabs">
+                <div class="tabs" data-name="since_last_visit_new_{$moduleId}">
                     <ul class="nav nav-tabs">
                         {foreach key=pos item=slvn_item from=$slvn_info.items}
                             {if $slvn_item.count > 0}
