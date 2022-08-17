@@ -90,7 +90,7 @@ if (isset($_REQUEST["change"])) {
     }
     if (isset($_REQUEST['email'])) {
         if (empty($_REQUEST['email']) || ! validate_email($_REQUEST['email'], $prefs['validateEmail'])) {
-            $smarty->assign('msg', tra('Your email could not be validated; make sure you email is correct'));
+            $smarty->assign('msg', tra('Your email could not be validated; make sure your email is correct'));
             $smarty->assign('errortype', 'no_redirect_login');
             $smarty->display("error.tpl");
             die;
