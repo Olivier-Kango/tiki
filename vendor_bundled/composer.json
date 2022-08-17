@@ -30,7 +30,7 @@
         "melbahja/seo": "^2.0",
         "erusev/parsedown": ">=1.8.0-beta-5",
         "ezyang/htmlpurifier": "^4.8.0",
-        "bower-asset/fontawesome": "^5.12.0",
+        "bower-asset/fontawesome": "^6.1.2",
         "henrique-borba/php-sieve-manager": "dev-master",
         "hesammousavi/bootstrap-v4-rtl": "dev-master",
         "h5p/h5p-core": "^1.24",
