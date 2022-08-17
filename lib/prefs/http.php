@@ -100,6 +100,11 @@ function prefs_http_list()
             'dependencies' => [
                 'http_header_content_security_policy',
             ],
+            'description' => tr(
+                'For example, to allow your Tiki to appear in an iframe on example.com set this value to %0',
+                '<code>frame-ancestors https://example.com/</code>'
+            ),
+            'help' => 'https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy',
         ],
         'http_header_strict_transport_security' => [
             'name' => tra('HTTP header strict-transport-security'),
