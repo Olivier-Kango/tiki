@@ -159,6 +159,22 @@ add_output('ajax_tiki_flag_message', 'forward_variables', true);
 setup_base_ajax_page('ajax_tiki_message_action', 'core');
 add_handler('ajax_tiki_message_action', 'tiki_message_action', true);
 
+ /* setup sources */
+ handler_source('developer');
+ output_source('developer');
+
+ /* info page */
+ setup_base_page('info', 'core');
+ add_handler('info', 'process_server_info', true, 'developer', 'load_user_data', 'after');
+ add_output('info', 'info_heading', true, 'developer', 'content_section_start', 'after');
+ add_output('info', 'server_information', true, 'developer', 'info_heading', 'after');
+ add_output('info', 'server_status_start', true, 'developer', 'server_information', 'after');
+ add_output('info', 'server_status_end', true, 'developer', 'server_status_start', 'after');
+ add_output('info', 'config_map', true, 'developer', 'server_status_end', 'after');
+
+ /* folder list */
+ add_output('ajax_hm_folders', 'info_page_link', true, 'developer', 'settings_menu_end', 'before');
+
 return array(
   'allowed_pages' => array(
     'groupmail',
@@ -176,6 +192,7 @@ return array(
     'ajax_tiki_move_copy_action',
     'ajax_tiki_flag_message',
     'ajax_tiki_message_action',
+    'info',
   ),
   'allowed_get' => array(
     'tiki_download_message' => FILTER_VALIDATE_BOOLEAN,
