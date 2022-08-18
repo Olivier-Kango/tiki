@@ -1,6 +1,6 @@
 <?php
 // (c) Copyright by authors of the Tiki Wiki CMS Groupware Project
-// 
+//
 // All Rights Reserved. See copyright.txt for details and a complete list of authors.
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See license.txt for details.
 
@@ -1182,12 +1182,12 @@ $lang_current = array(
 // "Key must be shared with minimum of one user" => "Key must be shared with minimum of one user",
 // "Key not found" => "Key not found",
 // "Authentication required" => "Authentication required",
-// "Feature disabled: %0" => "Feature disabled: %0",
-// "Edit conflict" => "Edit conflict",
-// "Edit conflict: %0 \"%1\" is being edited already by %2" => "Edit conflict: %0 \"%1\" is being edited already by %2",
+"Feature disabled: %0" => "התכונה מושבתת: %0",
+"Edit conflict" => "קונפליקט עריכה",
+"Edit conflict: %0 \"%1\" is being edited already by %2" => "קונפליקט עריכה: %0 \"%1\" נערך כבר על ידי %2",
 "Field Required" => "שדה חובה",
 "Not found" => "אין תוצאות",
-// "Admin access required" => "Admin access required",
+"Admin access required" => "נדרשת גישת מנהל",
 "File Upload" => "טעינת קובץ",
 "File could not be uploaded" => "הקובץ אינו יכול להיטען",
 // "No file arrived" => "No file arrived",
@@ -1295,7 +1295,7 @@ $lang_current = array(
 // "The following groups have been deleted" => "The following groups have been deleted",
 "Group already exists" => "הקבוצה כבר קיימת",
 // "Create the group %0" => "Create the group %0",
-// "Create" => "Create",
+"Create" => "צור",
 // "Group name cannot be empty" => "Group name cannot be empty",
 // "Template Group cannot inherit from other groups" => "Template Group cannot inherit from other groups",
 // "Group %0 (ID %1) successfully created" => "Group %0 (ID %1) successfully created",
@@ -5250,7 +5250,7 @@ $lang_current = array(
 // "The site language is used in admin section when no other language is specified by the user" => "The site language is used in admin section when no other language is specified by the user",
 // "Language inclusion threshold" => "Language inclusion threshold",
 // "When the number of languages is restricted on the site, and is below this number, all languages will be added to the preferred language list, even if unspecified by the user. However, priority will be given to the specified languages" => "When the number of languages is restricted on the site, and is below this number, all languages will be added to the preferred language list, even if unspecified by the user. However, priority will be given to the specified languages",
-// "languages" => "languages",
+"languages" => "שפות",
 // "Layout width" => "Layout width",
 // "The width of the content area of the site, centered in the browser window" => "The width of the content area of the site, centered in the browser window",
 // "for example, 960px" => "for example, 960px",
@@ -8680,7 +8680,7 @@ $lang_current = array(
 // "Voting ends: %0" => "Voting ends: %0",
 // "Only admins can edit or delete other users' votes and dates. N.B. This is a guide only as if a user can edit the page they can change this setting, it is intended to make the plugin easier to use for most users" => "Only admins can edit or delete other users' votes and dates. N.B. This is a guide only as if a user can edit the page they can change this setting, it is intended to make the plugin easier to use for most users",
 // "Show user's profile pictures next to their names" => "Show user's profile pictures next to their names",
-"Cookie" => "אמירה",
+"Cookie" => "קוקית",
 // "Display a random tagline or \"cookie\" (in the \"fortune cookie\" sense)" => "Display a random tagline or \"cookie\" (in the \"fortune cookie\" sense)",
 // "Display content based on whether cookie consent has been granted by the user" => "Display content based on whether cookie consent has been granted by the user",
 // "Wiki syntax containing the content that can be hidden or shown" => "Wiki syntax containing the content that can be hidden or shown",
@@ -16849,7 +16849,7 @@ $lang_current = array(
 "Tracker Fields" => "שדות עוקב",
 "Admin Tracker" => "נהל עוקב",
 "Import Fields" => "יבוא שדות",
-// "Rules" => "Rules",
+"Rules" => "כללים",
 "Mandatory" => "חובה",
 "Save All" => "שמור הכל",
 "Remove Selected" => "הסר את הפריטים שנבחרו",
